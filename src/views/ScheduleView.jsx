@@ -1,5 +1,6 @@
 import { EXAM_SCHEDULE, fmtThaiDate, getUpcomingExams } from '../data/schedule.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import { QB } from '../data/questions.js';
 
 export default function ScheduleView({ goHome, setSubject, setMode, setView, setPracticeMode }) {
   const exams = getUpcomingExams('y4');
@@ -10,6 +11,8 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
     setMode('quick');
     setView('config');
   };
+
+  const hasQuestions = (subjId) => QB.some((q) => q.subject === subjId);
 
   return (
     <>
@@ -76,10 +79,16 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                   )}
 
                   {!isPast && (
-                    <button className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ marginTop: 12 }}
-                      onClick={() => practiceSubject(exam.subject)}>
-                      📝 ฝึกข้อสอบวิชานี้ →
-                    </button>
+                    hasQuestions(exam.subject) ? (
+                      <button className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ marginTop: 12 }}
+                        onClick={() => practiceSubject(exam.subject)}>
+                        📝 ฝึกข้อสอบวิชานี้ →
+                      </button>
+                    ) : (
+                      <div style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-rose)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'inline-block' }}>
+                        🚧 ยังไม่มีข้อสอบในวิชานี้ — รอเพิ่ม
+                      </div>
+                    )
                   )}
                 </div>
               </div>

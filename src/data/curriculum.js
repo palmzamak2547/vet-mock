@@ -1,9 +1,7 @@
 // ============================================================
-// CURRICULUM: Years + Subjects (อนาคตรองรับทุกปี)
+// CURRICULUM: Years + Subjects
 // ============================================================
-// ตารางสอบ → schedule.js
-// คลิปวิดีโอ → videos.js
-// แหล่งที่มาข้อสอบ → sources.js
+// อิงตามตารางสอบ: ตารางสอบป_14_Final_Term2.pdf
 // ============================================================
 
 export const YEARS = [
@@ -15,17 +13,48 @@ export const YEARS = [
   { id: 6, label: 'ปี 6', active: false, note: 'Internship (จะเพิ่มทีหลัง)' },
 ];
 
-export const CURRENT_YEAR = 4;  // default ปีที่ active
+export const CURRENT_YEAR = 4;
 
-// Subjects grouped by year (supports all years)
+// ============================================================
+// SUBJECTS — ปี 4 Sem 2 (Vet 86) อิงตามตารางสอบ Final
+// ============================================================
 export const SUBJECTS_BY_YEAR = {
   4: [
-    { id: 'surg2',  name: 'Vet Surg Lab II',  name_en: 'Soft Tissue / Eye',  icon: '👁️', color: '#4a6b4a', semester: 2 },
-    { id: 'surg3',  name: 'Vet Surg Lab III', name_en: 'Orthopedic',         icon: '🦴', color: '#c26d6d', semester: 2 },
-    { id: 'repro',  name: 'Repro Lab',        name_en: 'Reproduction',       icon: '🐾', color: '#b88940', semester: 2 },
-    { id: 'com4',   name: 'COM IV',           name_en: 'Clinical Medicine',  icon: '🩺', color: '#3d6b82', semester: 2 },
-    { id: 'com3',   name: 'COM III / Rumen',  name_en: 'Large Animal',       icon: '🐄', color: '#7d4a44', semester: 2 },
-    { id: 'exotic', name: 'Exotic / PP',      name_en: 'Exotic & Post-Grad', icon: '🦜', color: '#7d4a7d', semester: 2 },
+    // ── Surg Lab (สอบนอกตาราง) ──
+    { id: 'surg2', code: '3106417', name: 'Vet Surg Lab II', name_en: 'Soft Tissue / Eye',
+      icon: '👁️', color: '#4a6b4a', semester: 2, has_questions: true },
+    { id: 'surg3', code: '3106418', name: 'Vet Surg Lab III', name_en: 'Orthopedic',
+      icon: '🦴', color: '#c26d6d', semester: 2, has_questions: true },
+
+    // ── COM Series ──
+    { id: 'com5', code: '3107417', name: 'COM V', name_en: 'C ANI CLI SCI V',
+      icon: '🐕', color: '#3d6b82', semester: 2, has_questions: false,
+      note: 'รอข้อสอบเพิ่ม' },
+    { id: 'com3', code: '3106416', name: 'COM III', name_en: 'C ANI CLI SCI III · Large Animal',
+      icon: '🐄', color: '#7d4a44', semester: 2, has_questions: true },
+    { id: 'com4', code: '3107416', name: 'COM IV', name_en: 'C ANI CLI SCI IV · Clinical Medicine',
+      icon: '🩺', color: '#3d6b82', semester: 2, has_questions: true },
+
+    // ── Reproduction ──
+    { id: 'repro', code: '3108409', name: 'Repro Lab', name_en: 'Companion Animal Reproduction',
+      icon: '🐾', color: '#b88940', semester: 2, has_questions: true },
+
+    // ── Wildlife & Exotic ──
+    { id: 'exotic', code: '3107414', name: 'Wildlife & Exotic', name_en: 'Wild Exo Hlth Mgt + PP',
+      icon: '🦜', color: '#7d4a7d', semester: 2, has_questions: true },
+
+    // ── Ruminant Series ──
+    { id: 'practrum', code: '3108412', name: 'Practice Ruminant', name_en: 'VET PRAC RUM',
+      icon: '🐂', color: '#5c7d4a', semester: 2, has_questions: false,
+      note: 'รอข้อสอบเพิ่ม' },
+    { id: 'cliapprum', code: '3108411', name: 'Clinical App Rumen', name_en: 'VET CLI APP RUM',
+      icon: '🐄', color: '#7d5a44', semester: 2, has_questions: true,
+      note: 'มีข้อสอบบางส่วนใน com3' },
+
+    // ── Poultry ──
+    { id: 'poultry', code: '3107409', name: 'Poultry Health', name_en: 'PLTRY HLTH MGT',
+      icon: '🐔', color: '#c2924a', semester: 2, has_questions: false,
+      note: 'รอข้อสอบเพิ่ม' },
   ],
   // ปีอื่นๆ เพิ่มที่นี่ในอนาคต
 };
