@@ -26,14 +26,15 @@ export const SUBJECTS_BY_YEAR = {
     { id: 'surg3', code: '3106418', name: 'Vet Surg Lab III', name_en: 'Orthopedic',
       icon: '🦴', color: '#c26d6d', semester: 2, has_questions: true },
 
-    // ── COM Series ──
-    { id: 'com5', code: '3107417', name: 'COM V', name_en: 'C ANI CLI SCI V',
+    // ── COM Series (Companion Animal Clinical Sciences) ──
+    { id: 'com5', code: '3107417', name: 'COM V', name_en: 'C ANI CLI SCI V · Companion Animal',
       icon: '🐕', color: '#3d6b82', semester: 2, has_questions: false,
       note: 'รอข้อสอบเพิ่ม' },
-    { id: 'com3', code: '3106416', name: 'COM III', name_en: 'C ANI CLI SCI III · Large Animal',
-      icon: '🐄', color: '#7d4a44', semester: 2, has_questions: true },
-    { id: 'com4', code: '3107416', name: 'COM IV', name_en: 'C ANI CLI SCI IV · Clinical Medicine',
-      icon: '🩺', color: '#3d6b82', semester: 2, has_questions: true },
+    { id: 'com3', code: '3106416', name: 'COM III', name_en: 'C ANI CLI SCI III · Companion Animal',
+      icon: '🩺', color: '#3d6b82', semester: 2, has_questions: false,
+      note: 'รอข้อสอบเพิ่ม' },
+    { id: 'com4', code: '3107416', name: 'COM IV', name_en: 'C ANI CLI SCI IV · Companion Animal',
+      icon: '🐈', color: '#3d6b82', semester: 2, has_questions: true },
 
     // ── Reproduction ──
     { id: 'repro', code: '3108409', name: 'Repro Lab', name_en: 'Companion Animal Reproduction',
@@ -48,8 +49,7 @@ export const SUBJECTS_BY_YEAR = {
       icon: '🐂', color: '#5c7d4a', semester: 2, has_questions: false,
       note: 'รอข้อสอบเพิ่ม' },
     { id: 'cliapprum', code: '3108411', name: 'Clinical App Rumen', name_en: 'VET CLI APP RUM',
-      icon: '🐄', color: '#7d5a44', semester: 2, has_questions: true,
-      note: 'มีข้อสอบบางส่วนใน com3' },
+      icon: '🐄', color: '#7d5a44', semester: 2, has_questions: true },
 
     // ── Poultry ──
     { id: 'poultry', code: '3107409', name: 'Poultry Health', name_en: 'PLTRY HLTH MGT',

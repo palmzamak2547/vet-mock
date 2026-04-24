@@ -48,20 +48,20 @@ export const EXAM_SCHEDULE = {
       color: '#c26d6d',
     },
 
-    // ─── อังคาร 27 เม.ย. 69 ───
+    // ─── จันทร์ 27 เม.ย. 69 ───
     {
       id: 'com5-final',
       code: '3107417',
       subject: 'com5',
       title: 'COM V — C ANI CLI SCI V',
-      date: '2026-04-28',
+      date: '2026-04-27',
       time: '08:30-10:30',
       duration_min: 120,
       location: 'VET6 202/203',
       type: 'Mixed',
       weight_pct: null,
       content: ['ตามเนื้อหาที่เรียนใน sem 2'],
-      notes: 'อ.กฤษฎา + น.ส.มาลินี + นางวันทนา',
+      notes: 'อ.กฤษฎา + น.ส.มาลินี + นางวันทนา · วิชาแรกของ exam week',
       icon: '🐕',
       color: '#3d6b82',
     },
@@ -83,8 +83,8 @@ export const EXAM_SCHEDULE = {
         'ต้องรู้หมดทุกข้อ ตัดช้อยยาก',
       ],
       notes: 'เรียน 8 คาบ · อ่านแบบสมองไหล',
-      icon: '🐄',
-      color: '#7d4a44',
+      icon: '🩺',
+      color: '#3d6b82',
     },
 
     // ─── พฤหัส 30 เม.ย. 69 ───

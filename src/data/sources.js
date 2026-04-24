@@ -33,10 +33,9 @@ export const QUESTION_SOURCES = {
   com3: {
     files: [
       'COM_III_Final_.pdf',
-      'รวมโพย_84_clin_App_Rum.pdf',
     ],
-    contributors: ['Kimchii 85', 'Vet 84'],
-    topics: 'Rumen, LDA, Foot rot, Laminitis, Hardware disease, BSP, Digital dermatitis',
+    contributors: ['Kimchii 85'],
+    topics: 'Companion Animal Clinical Sciences III — รอข้อสอบเพิ่ม',
     note: 'วิชาซัฟเฟอร์และยากที่สุด · สอบ พุธ 29 เม.ย. 2569',
   },
   com4: {
