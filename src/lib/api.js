@@ -1,6 +1,13 @@
 import { supabase } from './supabase.js';
 
 // ==========================================================
+// HELPER: Make sure user has a profile (call before ops that need it)
+// ==========================================================
+async function ensureProfile() {
+  try { await supabase.rpc('ensure_profile'); } catch (e) { /* ignore */ }
+}
+
+// ==========================================================
 // GROUPS
 // ==========================================================
 function randomCode(len = 6) {
@@ -9,6 +16,7 @@ function randomCode(len = 6) {
 }
 
 export async function createGroup(name, userId) {
+  await ensureProfile();  // ← ensure profile exists first
   const code = randomCode();
   const { data: group, error } = await supabase.from('groups')
     .insert({ name, code, created_by: userId })
@@ -20,6 +28,7 @@ export async function createGroup(name, userId) {
 }
 
 export async function joinGroupByCode(code, userId) {
+  await ensureProfile();  // ← ensure profile exists first
   // Find group by code
   const { data: group, error } = await supabase.from('groups')
     .select('*').eq('code', code.toUpperCase()).single();
