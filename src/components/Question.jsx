@@ -1,0 +1,79 @@
+import { useState } from 'react';
+import { SUBJECTS } from '../data/questions.js';
+
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote }) {
+  return (
+    <div className="vmx-question-card">
+      <button className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="Bookmark (B)">
+        {isBookmarked ? '★' : '☆'}
+      </button>
+      <button className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="Note (N)">
+        📝
+      </button>
+
+      <div className="vmx-qtype-badge">
+        {currentQ.type === 'mcq' && 'Multiple Choice'}
+        {currentQ.type === 'tf' && 'True / False'}
+        {currentQ.type === 'fill' && 'Fill in the Blank'}
+        {currentQ.type === 'match' && 'Matching'}
+        {' · '}{SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}
+      </div>
+
+      {currentQ.image && <img src={currentQ.image} alt="" className="vmx-qimage" />}
+      <div className="vmx-qtext">{currentQ.q}</div>
+
+      {showNote && (
+        <div className="vmx-note-panel">
+          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 6, fontFamily: 'JetBrains Mono, monospace' }}>NOTE</div>
+          <textarea className="vmx-note-textarea" value={note || ''} onChange={(e) => onNoteChange(e.target.value)} placeholder="จดโน้ตที่นี่..." />
+        </div>
+      )}
+
+      {currentQ.type === 'mcq' && (
+        <div className="vmx-options">
+          {currentQ.options.map((opt, i) => (
+            <button key={i} className={`vmx-option ${currentAnswer === i ? 'selected' : ''}`} onClick={() => answerCurrent(i)}>
+              <div className="vmx-option-letter">{String.fromCharCode(65 + i)}</div>
+              <div className="vmx-option-text">{opt}</div>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {currentQ.type === 'tf' && (
+        <div className="vmx-tf-row">
+          <button className={`vmx-tf-btn ${currentAnswer === true ? 'selected-true' : ''}`} onClick={() => answerCurrent(true)}>✓ True</button>
+          <button className={`vmx-tf-btn ${currentAnswer === false ? 'selected-false' : ''}`} onClick={() => answerCurrent(false)}>✗ False</button>
+        </div>
+      )}
+
+      {currentQ.type === 'fill' && (
+        <div className="vmx-fill-row">
+          {currentQ.blanks.map((_, i) => (
+            <div key={i}>
+              <div className="vmx-fill-label">BLANK-{i + 1}</div>
+              <input type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
+                onChange={(e) => { const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
+                placeholder="พิมพ์คำตอบ..." />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {currentQ.type === 'match' && (
+        <div className="vmx-match-row">
+          {currentQ.pairs.map((pair, i) => (
+            <div key={i} className="vmx-match-item">
+              <div className="vmx-match-left">{pair.left}</div>
+              <select className="vmx-match-select" value={(currentAnswer && currentAnswer[i]) || ''}
+                onChange={(e) => { const obj = currentAnswer ? { ...currentAnswer } : {}; obj[i] = e.target.value; answerCurrent(obj); }}>
+                <option value="">— เลือก —</option>
+                {currentQ.pairs.map((p, j) => <option key={j} value={p.right}>{p.right}</option>)}
+              </select>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
