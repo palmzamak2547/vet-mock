@@ -1,5 +1,6 @@
-import { SUBJECTS } from '../data/questions.js';
+import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
+import { QUESTION_SOURCES } from '../data/sources.js';
 
 export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }) {
   return (
@@ -59,6 +60,14 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             {q.tags && q.tags.length > 0 && (
               <div style={{ marginTop: 10 }}>
                 {q.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}
+              </div>
+            )}
+            {QUESTION_SOURCES[q.subject] && (
+              <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', fontFamily: 'JetBrains Mono, monospace' }}>
+                📚 ดึงจาก: {QUESTION_SOURCES[q.subject].files[0]}
+                {QUESTION_SOURCES[q.subject].contributors?.length > 0 && (
+                  <> · by {QUESTION_SOURCES[q.subject].contributors[0]}</>
+                )}
               </div>
             )}
           </div>

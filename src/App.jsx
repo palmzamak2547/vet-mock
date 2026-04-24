@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { QB, SUBJECTS } from './data/questions.js';
+import { QB } from './data/questions.js';
+import { SUBJECTS, CURRENT_YEAR } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
 import { shuffle, isCorrect, updateStreak } from './hooks/utils.js';
@@ -21,18 +22,22 @@ import AuthView from './views/AuthView.jsx';
 import GroupsView from './views/GroupsView.jsx';
 import GroupDetailView from './views/GroupDetailView.jsx';
 import LeaderboardView from './views/LeaderboardView.jsx';
+import ScheduleView from './views/ScheduleView.jsx';
+import VideoView from './views/VideoView.jsx';
+import AboutView from './views/AboutView.jsx';
+import FeedbackView from './views/FeedbackView.jsx';
+import YearSelectView from './views/YearSelectView.jsx';
 
 export default function App() {
-  const { user, profile, loading: authLoading, isSignedIn } = useAuth();
+  const { user, profile, loading: authLoading } = useAuth();
 
-  // View state
   const [view, setView] = useState('home');
   const [mode, setMode] = useState('quick');
   const [subject, setSubject] = useState('all');
   const [practiceMode, setPracticeMode] = useState('all');
   const [activeGroup, setActiveGroup] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(CURRENT_YEAR);
 
-  // Exam session state
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -42,7 +47,6 @@ export default function App() {
   const [timeLeft, setTimeLeft] = useState(0);
   const [examStartTime, setExamStartTime] = useState(null);
 
-  // Persistent state (localStorage)
   const [theme, setTheme] = useLocalStorage('vmx-theme', 'light');
   const [bookmarks, setBookmarks] = useLocalStorage('vmx-bookmarks', []);
   const [history, setHistory] = useLocalStorage('vmx-history', []);
@@ -51,7 +55,6 @@ export default function App() {
   const [customQuestions, setCustomQuestions] = useLocalStorage('vmx-custom-q', []);
   const [streakData, setStreakData] = useLocalStorage('vmx-streak', { streak: 0, lastDate: null });
 
-  // Load fonts
   useEffect(() => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -62,24 +65,19 @@ export default function App() {
 
   useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
 
-  // ==========================================================
-  // CLOUD SYNC: Pull on login
-  // ==========================================================
   useEffect(() => {
     if (!user) return;
     pullUserData(user.id).then((data) => {
       if (!data) return;
-      // Merge cloud data with local (cloud wins if updated more recently)
       if (data.bookmarks?.length) setBookmarks(data.bookmarks);
       if (data.history?.length) setHistory(data.history);
       if (data.notes && Object.keys(data.notes).length) setNotes(data.notes);
       if (data.sr_cards && Object.keys(data.sr_cards).length) setSrCards(data.sr_cards);
       if (data.custom_questions?.length) setCustomQuestions(data.custom_questions);
-      if (data.streak_data && data.streak_data.lastDate) setStreakData(data.streak_data);
-    }).catch((e) => console.error('Pull failed:', e));
+      if (data.streak_data?.lastDate) setStreakData(data.streak_data);
+    }).catch(() => {});
   }, [user]);
 
-  // Push changes to cloud (debounced)
   useEffect(() => {
     if (!user) return;
     pushUserDataDebounced(user.id, {
@@ -88,12 +86,8 @@ export default function App() {
     });
   }, [user, bookmarks, history, notes, srCards, customQuestions, streakData]);
 
-  // ==========================================================
-  // Combined questions
-  // ==========================================================
   const allQuestions = useMemo(() => [...QB, ...customQuestions], [customQuestions]);
 
-  // Timer
   useEffect(() => {
     if (view !== 'exam' || !useTimer) return;
     if (timeLeft <= 0) {
@@ -105,17 +99,14 @@ export default function App() {
     return () => clearTimeout(t);
   }, [timeLeft, view, useTimer]);
 
-  // Keyboard shortcuts
   useEffect(() => {
     const handleKey = (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (view !== 'exam') return;
       const q = questions[currentIdx];
       if (!q) return;
-
-      if (q.type === 'mcq' && ['1', '2', '3', '4'].includes(e.key)) {
-        answerCurrent(parseInt(e.key) - 1);
-      } else if (q.type === 'tf') {
+      if (q.type === 'mcq' && ['1', '2', '3', '4'].includes(e.key)) answerCurrent(parseInt(e.key) - 1);
+      else if (q.type === 'tf') {
         if (e.key === 't' || e.key === 'T') answerCurrent(true);
         if (e.key === 'f' || e.key === 'F') answerCurrent(false);
       }
@@ -157,14 +148,11 @@ export default function App() {
       if (h.correct) questionStats[h.questionId].correct++;
       else questionStats[h.questionId].wrong++;
     });
-    const weakTags = Object.entries(byTag)
-      .filter(([_, s]) => s.total >= 2)
+    const weakTags = Object.entries(byTag).filter(([_, s]) => s.total >= 2)
       .map(([tag, s]) => ({ tag, pct: Math.round((s.correct / s.total) * 100), total: s.total }))
       .sort((a, b) => a.pct - b.pct).slice(0, 8);
-    const weakQuestions = Object.entries(questionStats)
-      .filter(([_, s]) => s.wrong >= 1)
-      .sort((a, b) => b[1].wrong - a[1].wrong).slice(0, 25)
-      .map(([id]) => parseInt(id));
+    const weakQuestions = Object.entries(questionStats).filter(([_, s]) => s.wrong >= 1)
+      .sort((a, b) => b[1].wrong - a[1].wrong).slice(0, 25).map(([id]) => parseInt(id));
     const overallPct = history.length ? Math.round((totalCorrect / history.length) * 100) : 0;
     return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, overallPct };
   }, [history, allQuestions]);
@@ -174,7 +162,6 @@ export default function App() {
     if (practiceMode === 'bookmarks') pool = allQuestions.filter((q) => bookmarks.includes(q.id));
     else if (practiceMode === 'weak') pool = allQuestions.filter((q) => analytics?.weakQuestions.includes(q.id));
     else pool = subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === subject);
-
     if (!pool.length) { alert('ไม่มีข้อสอบในหมวดนี้'); return; }
 
     const isExam = mode === 'exam';
@@ -194,29 +181,19 @@ export default function App() {
   const finishExam = async () => {
     const correct = questions.filter((q) => isCorrect(q, answers[q.id])).length;
     const newEntries = questions.map((q) => ({
-      date: Date.now(), questionId: q.id,
-      correct: isCorrect(q, answers[q.id]), subject: q.subject,
+      date: Date.now(), questionId: q.id, correct: isCorrect(q, answers[q.id]), subject: q.subject,
     }));
     setHistory([...history, ...newEntries]);
 
-    // Save to cloud leaderboard if signed in
     if (user) {
       const pct = questions.length ? Math.round((correct / questions.length) * 100) : 0;
       const duration = examStartTime ? Math.round((Date.now() - examStartTime) / 1000) : 0;
-      saveExamResult({
-        user_id: user.id, mode, subject,
-        total: questions.length, correct, pct,
-        duration_sec: duration,
-      }).catch(() => {});
+      saveExamResult({ user_id: user.id, mode, subject, total: questions.length, correct, pct, duration_sec: duration }).catch(() => {});
     }
-
     setView('results');
   };
 
-  const toggleBookmark = (qId) => {
-    setBookmarks(bookmarks.includes(qId) ? bookmarks.filter((x) => x !== qId) : [...bookmarks, qId]);
-  };
-
+  const toggleBookmark = (qId) => setBookmarks(bookmarks.includes(qId) ? bookmarks.filter((x) => x !== qId) : [...bookmarks, qId]);
   const setNote = (qId, text) => {
     if (text.trim()) setNotes({ ...notes, [qId]: text });
     else { const { [qId]: _, ...rest } = notes; setNotes(rest); }
@@ -227,15 +204,10 @@ export default function App() {
     return { correct, total: questions.length, pct: questions.length ? Math.round((correct / questions.length) * 100) : 0 };
   }, [questions, answers]);
 
-  const answerCurrent = useCallback((val) => {
-    setAnswers((p) => ({ ...p, [questions[currentIdx].id]: val }));
-  }, [questions, currentIdx]);
-
+  const answerCurrent = useCallback((val) => setAnswers((p) => ({ ...p, [questions[currentIdx].id]: val })), [questions, currentIdx]);
   const nextQ = useCallback(() => {
-    if (currentIdx < questions.length - 1) { setCurrentIdx(currentIdx + 1); setTimeLeft(timePerQ); }
-    else finishExam();
+    if (currentIdx < questions.length - 1) { setCurrentIdx(currentIdx + 1); setTimeLeft(timePerQ); } else finishExam();
   }, [currentIdx, questions.length, timePerQ]);
-
   const prevQ = useCallback(() => {
     if (currentIdx > 0) { setCurrentIdx(currentIdx - 1); setTimeLeft(timePerQ); }
   }, [currentIdx, timePerQ]);
@@ -245,9 +217,7 @@ export default function App() {
     setPracticeMode('all'); setMode('quick'); setActiveGroup(null);
   };
 
-  const handleSignOut = async () => {
-    if (confirm('Logout ออกจากระบบ?')) { await signOut(); goHome(); }
-  };
+  const handleSignOut = async () => { if (confirm('Logout?')) { await signOut(); goHome(); } };
 
   const currentQ = questions[currentIdx];
   const currentAnswer = currentQ ? answers[currentQ.id] : null;
@@ -263,72 +233,49 @@ export default function App() {
             <div className="vmx-header-right">
               {streakData.streak > 0 && <div className="vmx-streak">🔥 {streakData.streak}</div>}
               {user && profile && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
                   <span>{profile.avatar_emoji || '🐾'}</span>
                   <span>{profile.username}</span>
-                  <button className="vmx-theme-btn" style={{ fontSize: 12 }} onClick={handleSignOut} title="Logout">
-                    ⎋
-                  </button>
+                  <button className="vmx-theme-btn" style={{ fontSize: 12 }} onClick={handleSignOut} title="Logout">⎋</button>
                 </div>
               )}
               {!user && hasSupabase && (
                 <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('auth')}>Login</button>
               )}
-              <div className="vmx-subtitle">v4.0</div>
+              <div className="vmx-subtitle">v5.0</div>
               <button className="vmx-theme-btn" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} title="Toggle theme">
                 {theme === 'light' ? '🌙' : '☀️'}
               </button>
             </div>
           </div>
 
-          {authLoading ? (
-            <div className="vmx-empty">กำลังโหลด...</div>
-          ) : (
+          {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <>
-              {view === 'home' && (
-                <HomeView {...{ setView, setMode, setSubject, setPracticeMode, cardStats, bookmarks, customQuestions, user, profile }} />
-              )}
-              {view === 'auth' && hasSupabase && (
-                <AuthView onBack={goHome} onSuccess={goHome} />
-              )}
-              {view === 'groups' && user && (
-                <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />
-              )}
-              {view === 'group-detail' && user && activeGroup && (
-                <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />
-              )}
-              {view === 'leaderboard-global' && user && (
-                <LeaderboardView {...{ user, goHome }} />
-              )}
-              {view === 'subject-select' && (
-                <SubjectSelectView {...{ setSubject, setView, setPracticeMode, goHome, mode, customQuestions }} />
-              )}
-              {view === 'config' && (
-                <ConfigView {...{ practiceMode, subject, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }} />
-              )}
-              {view === 'exam' && currentQ && (
-                <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote }} />
-              )}
-              {view === 'results' && (
-                <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />
-              )}
-              {view === 'review' && (
-                <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }} />
-              )}
-              {view === 'sr-session' && (
-                <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions }} />
-              )}
-              {view === 'dashboard' && (
-                <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions }} />
-              )}
-              {view === 'question-manager' && (
-                <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome }} />
-              )}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, cardStats, bookmarks, customQuestions, user, profile }} />}
+              {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} />}
+              {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
+              {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
+              {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome }} />}
+              {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setView, setPracticeMode, goHome, mode, customQuestions }} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />}
+              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }} />}
+              {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions }} />}
+              {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions }} />}
+              {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome }} />}
+              {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setMode, setView, setPracticeMode }} />}
+              {view === 'videos' && <VideoView {...{ goHome }} />}
+              {view === 'about' && <AboutView {...{ goHome, setView }} />}
+              {view === 'feedback' && <FeedbackView {...{ goHome, user, profile }} />}
+              {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView }} />}
             </>
           )}
 
           <div className="vmx-footer">
-            VetMock v4.0 · Full Web App {hasSupabase ? '· ☁️ Cloud Sync' : '· Local Only'} · made with ♡
+            VetMock v5.0 · made with ♡ by <strong>Vet 86</strong>
+            {' · '}<a onClick={() => setView('about')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>About</a>
+            {' · '}<a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
           </div>
         </div>
       </div>
