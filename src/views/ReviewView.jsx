@@ -1,6 +1,7 @@
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
+import { RichText, stripRichText } from '../lib/richtext.jsx';
 
 export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }) {
   return (
@@ -16,19 +17,20 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         const correct = isCorrect(q, userAns);
         const cls = !answered ? 'skipped' : (correct ? 'correct' : 'wrong');
 
+        // Build display strings (stripRichText so joined output doesn't show raw asterisks)
         let userDisplay = '—', correctDisplay = '';
         if (q.type === 'mcq') {
-          userDisplay = answered ? `${String.fromCharCode(65 + userAns)}. ${q.options[userAns]}` : 'ไม่ได้ตอบ';
-          correctDisplay = `${String.fromCharCode(65 + q.answer)}. ${q.options[q.answer]}`;
+          userDisplay = answered ? `${String.fromCharCode(65 + userAns)}. ${stripRichText(q.options[userAns])}` : 'ไม่ได้ตอบ';
+          correctDisplay = `${String.fromCharCode(65 + q.answer)}. ${stripRichText(q.options[q.answer])}`;
         } else if (q.type === 'tf') {
           userDisplay = answered ? (userAns ? 'True' : 'False') : 'ไม่ได้ตอบ';
           correctDisplay = q.answer ? 'True' : 'False';
         } else if (q.type === 'fill') {
-          userDisplay = answered && userAns.length ? userAns.join(' / ') : 'ไม่ได้ตอบ';
-          correctDisplay = q.blanks.join(' / ');
+          userDisplay = answered && userAns.length ? userAns.map(stripRichText).join(' / ') : 'ไม่ได้ตอบ';
+          correctDisplay = q.blanks.map(stripRichText).join(' / ');
         } else if (q.type === 'match') {
-          userDisplay = answered ? q.pairs.map((p, i) => `${p.left} → ${userAns[i] || '—'}`).join('; ') : 'ไม่ได้ตอบ';
-          correctDisplay = q.pairs.map((p) => `${p.left} → ${p.right}`).join('; ');
+          userDisplay = answered ? q.pairs.map((p, i) => `${stripRichText(p.left)} → ${stripRichText(userAns[i]) || '—'}`).join('; ') : 'ไม่ได้ตอบ';
+          correctDisplay = q.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('; ');
         }
 
         return (
@@ -47,10 +49,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </div>
             </div>
             {q.image && <img src={q.image} alt="" className="vmx-qimage" style={{ maxWidth: 300 }} />}
-            <div className="vmx-review-q">{q.q}</div>
+            <div className="vmx-review-q"><RichText text={q.q} /></div>
             <div className="vmx-review-ans"><span className="k">คำตอบของคุณ</span>{userDisplay}</div>
             {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย</span>{correctDisplay}</div>}
-            {q.explain && <div className="vmx-review-explain"><span className="k">Why</span>{q.explain}</div>}
+            {q.explain && <div className="vmx-review-explain"><span className="k">Why</span><RichText text={q.explain} /></div>}
             {notes && notes[q.id] && (
               <div className="vmx-note-panel" style={{ marginTop: 10 }}>
                 <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', marginBottom: 4, letterSpacing: '0.08em' }}>📝 โน้ตของคุณ</div>

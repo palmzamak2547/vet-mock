@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { QB, SUBJECTS } from '../data/questions.js';
 import { updateCard, initCard, getDueCards, getCardStats } from '../hooks/sm2.js';
 import { fmtDate, isCorrect } from '../hooks/utils.js';
+import { RichText, stripRichText } from '../lib/richtext.jsx';
 
 export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [] }) {
   const allQuestions = [...QB, ...customQuestions];
@@ -60,12 +61,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     );
   }
 
-  // Show question as flashcard
+  // Show question as flashcard (strip markdown for joined display)
   let answerText = '';
-  if (currentQ.type === 'mcq') answerText = `${String.fromCharCode(65 + currentQ.answer)}. ${currentQ.options[currentQ.answer]}`;
+  if (currentQ.type === 'mcq') answerText = `${String.fromCharCode(65 + currentQ.answer)}. ${stripRichText(currentQ.options[currentQ.answer])}`;
   else if (currentQ.type === 'tf') answerText = currentQ.answer ? 'True' : 'False';
-  else if (currentQ.type === 'fill') answerText = currentQ.blanks.join(' / ');
-  else if (currentQ.type === 'match') answerText = currentQ.pairs.map((p) => `${p.left} → ${p.right}`).join('\n');
+  else if (currentQ.type === 'fill') answerText = currentQ.blanks.map(stripRichText).join(' / ');
+  else if (currentQ.type === 'match') answerText = currentQ.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('\n');
 
   return (
     <>
@@ -83,12 +84,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="front">
           <div className="vmx-qtype-badge">{SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}</div>
           {currentQ.image && <img src={currentQ.image} alt="" className="vmx-qimage" style={{ margin: '0 auto 16px' }} />}
-          <div style={{ fontSize: 18 }}>{currentQ.q}</div>
+          <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
         </div>
         {showAnswer && (
           <div className="back">
             <div className="answer">{answerText}</div>
-            {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>{currentQ.explain}</div>}
+            {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichText text={currentQ.explain} /></div>}
           </div>
         )}
       </div>

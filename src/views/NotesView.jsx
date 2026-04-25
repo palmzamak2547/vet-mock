@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { NOTES_COM5 } from '../data/notes-com5.js';
 import { NOTES_COM3 } from '../data/notes-com3.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import { RichText } from '../lib/richtext.jsx';
 
 // ============================================================
 // NotesView — ทวนเนื้อหา (study notes per topic)
@@ -320,19 +321,4 @@ function BodyItem({ item }) {
   return null;
 }
 
-// ── Markdown-lite renderer (just bold + simple line breaks) ──
-function RichText({ text }) {
-  if (!text) return null;
-  // Replace **bold** with <strong>
-  const parts = String(text).split(/(\*\*[^*]+\*\*)/g);
-  return (
-    <>
-      {parts.map((p, i) => {
-        if (p.startsWith('**') && p.endsWith('**')) {
-          return <strong key={i} style={{ color: 'var(--clr-ink)', fontWeight: 700 }}>{p.slice(2, -2)}</strong>;
-        }
-        return <span key={i}>{p}</span>;
-      })}
-    </>
-  );
-}
+// RichText is now imported from src/lib/richtext.jsx and used everywhere

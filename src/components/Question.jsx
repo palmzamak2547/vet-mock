@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { SUBJECTS } from '../data/questions.js';
+import { RichText } from '../lib/richtext.jsx';
 
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote }) {
   return (
@@ -20,7 +21,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       </div>
 
       {currentQ.image && <img src={currentQ.image} alt="" className="vmx-qimage" />}
-      <div className="vmx-qtext">{currentQ.q}</div>
+      <div className="vmx-qtext"><RichText text={currentQ.q} /></div>
 
       {showNote && (
         <div className="vmx-note-panel">
@@ -34,7 +35,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           {currentQ.options.map((opt, i) => (
             <button key={i} className={`vmx-option ${currentAnswer === i ? 'selected' : ''}`} onClick={() => answerCurrent(i)}>
               <div className="vmx-option-letter">{String.fromCharCode(65 + i)}</div>
-              <div className="vmx-option-text">{opt}</div>
+              <div className="vmx-option-text"><RichText text={opt} /></div>
             </button>
           ))}
         </div>
@@ -64,11 +65,11 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         <div className="vmx-match-row">
           {currentQ.pairs.map((pair, i) => (
             <div key={i} className="vmx-match-item">
-              <div className="vmx-match-left">{pair.left}</div>
+              <div className="vmx-match-left"><RichText text={pair.left} /></div>
               <select className="vmx-match-select" value={(currentAnswer && currentAnswer[i]) || ''}
                 onChange={(e) => { const obj = currentAnswer ? { ...currentAnswer } : {}; obj[i] = e.target.value; answerCurrent(obj); }}>
                 <option value="">— เลือก —</option>
-                {currentQ.pairs.map((p, j) => <option key={j} value={p.right}>{p.right}</option>)}
+                {currentQ.pairs.map((p, j) => <option key={j} value={p.right}>{p.right.replace(/\*\*/g, '').replace(/\*/g, '')}</option>)}
               </select>
             </div>
           ))}
