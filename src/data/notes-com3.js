@@ -10,6 +10,94 @@
 
 export const NOTES_COM3 = {
   // ─────────────────────────────────────────────────────────────
+  'ai-vet': {
+    topic: 'ai-vet',
+    title: 'AI in Vet Learning',
+    lecturer: 'Aj. Nutthee Am-In',
+    icon: '🤖',
+    summary: 'NotebookLM (best for study notes, low hallucination) · ChatGPT/Gemini/Claude · Prompt engineering · Verify with primary source · Cite usage · ห้าม upload PHI',
+    sections: [
+      {
+        heading: 'AI Platforms — comparison',
+        source: 'COM III ตารางเรียน คาบ 19 + AI literature 2025',
+        body: [
+          { table: {
+            headers: ['Tool', 'Strengths', 'Best for'],
+            rows: [
+              ['**ChatGPT** (OpenAI)', 'General purpose · conversational · web browse', 'Brainstorming · drafting · Q&A'],
+              ['**Gemini** (Google)', 'Multimodal · Google Search integration', 'Image-text tasks · current info'],
+              ['**Claude** (Anthropic)', 'Long context · careful reasoning', 'Complex analysis · long documents'],
+              ['**NotebookLM** ⭐', 'Document-grounded · cite from uploaded sources only', 'Study notes · clinical research · low hallucination'],
+              ['Perplexity', 'Search-grounded answers + citation', 'Research with up-to-date info'],
+            ] } },
+        ],
+      },
+      {
+        heading: 'Prompt Engineering — best practice',
+        source: 'AI literature + clinical use',
+        body: [
+          { bullets: [
+            { label: '1. Context first', value: 'Patient signalment (species/age/sex/breed) + chief complaint + relevant history' },
+            { label: '2. Specific question', value: 'Avoid vague "what is wrong" → "differential dx for sudden HL plegia in 6 yo Dachshund"' },
+            { label: '3. Format request', value: 'Ask for tables, bullet, citations, evidence level' },
+            { label: '4. Iterate', value: 'Refine prompts based on initial output' },
+            { label: '5. Verify', value: 'Cross-check with primary source (textbook, paper, guideline)' },
+          ] },
+        ],
+      },
+      {
+        heading: 'Hallucination — risk + mitigation',
+        source: 'AI safety',
+        body: [
+          { bullets: [
+            'Hallucination = AI generates **plausible-sounding but inaccurate** content',
+            'Risk: drug doses, specific citations, statistics — can be made up',
+            'Mitigation: use document-grounded tools (NotebookLM) · verify all clinical facts',
+          ] },
+          { callout: '⚠️ ห้าม trust AI สำหรับ drug doses, drug interactions, treatment protocols โดยไม่ verify', kind: 'warn' },
+        ],
+      },
+      {
+        heading: 'Ethics & Citation',
+        source: 'ICMJE + Chula academic policy',
+        body: [
+          { bullets: [
+            'Transparency: ระบุการใช้ AI tool + version + how used',
+            'AI **ไม่ใช่ author** (per ICMJE) — credit แบบ acknowledgment',
+            'Format: "Generated/edited with assistance from ChatGPT-4 (OpenAI, accessed Mar 2026)"',
+            'Maintain own critical thinking + medical decision responsibility',
+          ] },
+        ],
+      },
+      {
+        heading: 'Privacy & PHI',
+        source: 'GDPR + PDPA Thailand',
+        body: [
+          { bullets: [
+            '**ห้าม upload PHI/PII** (ชื่อเจ้าของ, record number, contact info)',
+            'Free-tier AI อาจใช้ data ในการ train',
+            'De-identify ก่อน upload (เปลี่ยนชื่อ → "Patient A", remove DOB)',
+            'Enterprise version (ChatGPT Enterprise, Claude Pro Team) มี data privacy contract',
+          ] },
+        ],
+      },
+      {
+        heading: 'Limitations to know',
+        source: 'AI in healthcare best practice',
+        body: [
+          { bullets: [
+            'Knowledge cutoff date — ไม่ทัน guideline ใหม่',
+            'Training bias (English/Western data dominates)',
+            'Cannot examine real patient — vital signs, palpation, smell',
+            'Cannot replace clinical judgment + license',
+            'Use as **decision support** ไม่ใช่ decision maker',
+          ] },
+        ],
+      },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────
   triage: {
     topic: 'triage',
     title: 'Triage of Emergency Patients',

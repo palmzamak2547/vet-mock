@@ -24,7 +24,13 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   const subject = activeSubject;
   const notes = NOTES_BY_SUBJECT[subject] || {};
   const subjectMeta = SUBJECTS.find((s) => s.id === subject);
-  const topicIds = Object.keys(notes);
+  // Order topics by curriculum.js (canonical lecture-date order),
+  // not by note-file insertion order. Filter to topics that have notes.
+  const topicIds = (subjectMeta?.topics || [])
+    .map((t) => t.id)
+    .filter((id) => notes[id]);
+  // Append any orphan note topics (notes exist but not declared in curriculum)
+  Object.keys(notes).forEach((id) => { if (!topicIds.includes(id)) topicIds.push(id); });
   const [activeTopic, setActiveTopic] = useState(() => initialTopic && notes[initialTopic] ? initialTopic : topicIds[0]);
   const [search, setSearch] = useState('');
 
@@ -35,7 +41,10 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 
   const switchSubject = (next) => {
     setActiveSubjectLocal(next);
-    const nextTopics = Object.keys(NOTES_BY_SUBJECT[next] || {});
+    // Use curriculum order to pick first topic
+    const nextSubject = SUBJECTS.find((s) => s.id === next);
+    const nextNotes = NOTES_BY_SUBJECT[next] || {};
+    const nextTopics = (nextSubject?.topics || []).map((t) => t.id).filter((id) => nextNotes[id]);
     if (nextTopics.length > 0) setActiveTopic(nextTopics[0]);
     if (setSubjectProp) setSubjectProp(next);
   };
