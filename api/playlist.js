@@ -60,6 +60,7 @@ export default async function handler(req, res) {
 }
 
 // ─── Helper: YouTube Data API ───
+// Fetch playlistItems + videos (for duration) — costs 2 units per 50-clip page
 async function fromDataApi(playlistId, apiKey) {
   const items = [];
   let pageToken = '';
@@ -79,12 +80,59 @@ async function fromDataApi(playlistId, apiKey) {
     for (const it of data.items || []) {
       const vid = it.snippet?.resourceId?.videoId;
       if (!vid) continue;
-      items.push({ id: vid, title: it.snippet?.title || 'Untitled' });
+      const thumbs = it.snippet?.thumbnails || {};
+      // pick best available thumbnail (max → high → medium → default)
+      const thumbUrl = (thumbs.maxres || thumbs.high || thumbs.medium || thumbs.default)?.url || null;
+      items.push({
+        id: vid,
+        title: it.snippet?.title || 'Untitled',
+        channel: it.snippet?.videoOwnerChannelTitle || null,
+        thumb: thumbUrl,
+        position: it.snippet?.position ?? items.length,
+      });
     }
     if (!data.nextPageToken) break;
     pageToken = data.nextPageToken;
   }
+
+  // Fetch durations (videos.list) — batch up to 50 IDs per call
+  if (items.length > 0) {
+    try {
+      for (let i = 0; i < items.length; i += 50) {
+        const batch = items.slice(i, i + 50);
+        const u = new URL('https://www.googleapis.com/youtube/v3/videos');
+        u.searchParams.set('part', 'contentDetails');
+        u.searchParams.set('id', batch.map((b) => b.id).join(','));
+        u.searchParams.set('key', apiKey);
+        const r = await fetch(u);
+        if (!r.ok) break;
+        const data = await r.json();
+        const dmap = new Map();
+        for (const it of data.items || []) {
+          dmap.set(it.id, it.contentDetails?.duration || null);
+        }
+        for (const item of batch) {
+          item.duration = formatIso8601(dmap.get(item.id));
+        }
+      }
+    } catch (e) {
+      // duration is optional — don't fail the whole call
+      console.warn('duration fetch failed:', e.message);
+    }
+  }
   return items;
+}
+
+// PT5M30S → "5:30" · PT1H2M3S → "1:02:03"
+function formatIso8601(s) {
+  if (!s) return null;
+  const m = s.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+  if (!m) return null;
+  const h = parseInt(m[1] || '0', 10);
+  const mn = parseInt(m[2] || '0', 10);
+  const sc = parseInt(m[3] || '0', 10);
+  if (h > 0) return `${h}:${String(mn).padStart(2, '0')}:${String(sc).padStart(2, '0')}`;
+  return `${mn}:${String(sc).padStart(2, '0')}`;
 }
 
 // ─── Helper: YouTube RSS feed ───

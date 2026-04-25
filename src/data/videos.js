@@ -157,12 +157,20 @@ export function getPlaylistId(url) {
   return m ? m[1] : null;
 }
 
-// Build thumbnail URL (works for video or playlist)
-export function getThumbnail(url) {
+// Build thumbnail URL with quality preference
+//   Quality: 'max' | 'sd' | 'hq' | 'mq' | 'default'
+//   maxresdefault may 404 for older videos → caller should onError fallback
+export function getThumbnail(url, quality = 'hq') {
   const videoId = getVideoId(url);
-  if (videoId) return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
-  // For playlists, no built-in thumbnail — return null
-  return null;
+  if (!videoId) return null;
+  const map = {
+    max: 'maxresdefault',
+    sd: 'sddefault',
+    hq: 'hqdefault',
+    mq: 'mqdefault',
+    default: 'default',
+  };
+  return `https://img.youtube.com/vi/${videoId}/${map[quality] || 'hqdefault'}.jpg`;
 }
 
 // Filter videos by subject
