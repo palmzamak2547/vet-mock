@@ -4,7 +4,7 @@
 // Sources:
 //   - Slide Lecture 2026 (CVE, Sporo+Crypto, GI protozoa, Rabies,
 //     Vaccine, FURI) จาก คณาจารย์ภาคอายุรศาสตร์ จุฬา
-//   - "COM V FINAL 86 เส้นแดงคือรวมข้อสอบเก่า" — ข้อสอบเก่ารวม TJ86 (Vet 86)
+//   - "COM V FINAL 86" master compilation by TJ86 (Vet 86)
 //   - sunsun84 (Vet 84) lecture archive — fallback
 //
 // Topics (matches curriculum.js subject.topics):
@@ -40,7 +40,7 @@ export const QB_COM5 = [
 
   { id: 502, subject: 'com5', topic: 'cve', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['CPV', 'clinical'], type: 'mcq',
-    q: 'Clinical sign ที่พบใน CPV เนื่องจาก crypt damage คือ',
+    q: 'Clinical sign ที่พบใน CPV เนื่องจาก crypt damage คืออะไร',
     options: ['Constipation', 'Diarrhea: foul-smelling, bloody', 'Vomiting อย่างเดียว', 'Skin lesion'],
     answer: 1, explain: 'Crypt damage → villi atrophy/collapse → bloody, foul-smelling diarrhea + dehydrate + hypovolemic shock',
     verified: 'CVE.pdf p.6-7' },
@@ -53,7 +53,7 @@ export const QB_COM5 = [
 
   { id: 504, subject: 'com5', topic: 'cve', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['CPV', 'treatment'], type: 'mcq',
-    q: 'Treatment หลักสำหรับ CPV คือ',
+    q: 'Treatment หลักสำหรับ CPV คืออะไร',
     options: ['Antiviral specific drug', 'Restoration of fluid + electrolyte (Rehydration)', 'Antibiotic เท่านั้น', 'Vaccine therapy'],
     answer: 1, explain: 'NO specific Tx → Supportive: IV crystalloid (LRS/NSS) + glucose/K + nutrition (feeding tube) + broad-spectrum ABO + antiemetic',
     verified: 'CVE.pdf p.16-18' },
@@ -67,7 +67,7 @@ export const QB_COM5 = [
 
   { id: 506, subject: 'com5', topic: 'cve', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['CCV'], type: 'mcq',
-    q: 'CCV target cell คือ',
+    q: 'CCV target cell คืออะไร',
     options: ['Crypt cells (เหมือน CPV)', 'Mature enterocyte บริเวณ villi tips', 'Lymphocytes', 'Hepatocytes'],
     answer: 1, explain: 'CCV โจมตี mature enterocyte ที่ปลายยอดของ villi (ต่างจาก CPV ที่โจมตี crypt) → necrosis/hemorrhage rare',
     verified: 'CVE.pdf p.24' },
@@ -89,7 +89,7 @@ export const QB_COM5 = [
 
   { id: 536, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
     tags: ['CPV', 'pathogenesis'], type: 'mcq',
-    q: 'Target cells ของ CPV ที่ทำให้เกิด lymphopenia/panleukopenia คือ',
+    q: 'Target cells ของ CPV ที่ทำให้เกิด lymphopenia/panleukopenia คืออะไร',
     options: ['Hepatocytes', 'Lymphoid tissues + bone marrow precursors', 'Renal tubules', 'Pancreatic acini'],
     answer: 1, explain: 'CPV ชอบ rapidly dividing cells: lymph nodes/thymus + intestinal crypt + bone marrow precursor + (rare) myocardium',
     verified: 'CVE.pdf p.5-6' },
@@ -103,7 +103,7 @@ export const QB_COM5 = [
 
   { id: 538, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
     tags: ['CPV', 'incubation'], type: 'mcq',
-    q: 'Incubation period ของ CPV คือ',
+    q: 'Incubation period ของ CPV คืออะไร',
     options: ['1-3 วัน', '4-14 วัน', '14-28 วัน', '1-2 เดือน'],
     answer: 1, explain: 'CPV incubation 4-14 วัน · Ingestion → infection → viremia → replication → shedding (up to 10-12 วัน post-infection)',
     verified: 'CVE.pdf p.5' },
@@ -117,14 +117,14 @@ export const QB_COM5 = [
 
   { id: 540, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
     tags: ['CPV', 'lab'], type: 'mcq',
-    q: 'CBC + chemistry ที่พบบ่อยใน CPV ที่อาการรุนแรงคือ',
+    q: 'CBC + chemistry ที่พบบ่อยใน CPV ที่อาการรุนแรงคืออะไร',
     options: ['Leukocytosis + hyperalbuminemia + hyperglycemia', 'Leukopenia + hypoproteinemia + hypoglycemia + electrolyte imbalance', 'Polycythemia + hypernatremia', 'Eosinophilia + hyperphosphatemia'],
     answer: 1, explain: 'Leukopenia (lymphopenia ± neutropenia) + hypoproteinemia + prerenal azotemia + ↑CRP + ↑liver enzymes',
     verified: 'CVE.pdf p.12' },
 
   { id: 541, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
     tags: ['CPV', 'treatment', 'antibiotic'], type: 'mcq',
-    q: 'Antibiotic combination แนวทาง parenteral ที่ Aj. Punyamanee แนะนำใน CPV ที่อาการรุนแรงคือ',
+    q: 'Antibiotic combination แนวทาง parenteral ที่ Aj. Punyamanee แนะนำใน CPV ที่อาการรุนแรงคืออะไร',
     options: ['Amoxicillin PO เดี่ยว', 'Doxycycline + Metronidazole PO', 'Beta-lactam + Aminoglycoside / Enrofloxacin (IV/IM)', 'Sulfa-Trimethoprim PO เดี่ยว'],
     answer: 2, explain: 'Parenteral preferred (GI absorption ไม่ดี) · combo cover G+ G- · ระวัง: aminoglycoside ห้ามใน dehydrated (nephrotoxic), enrofloxacin ระวัง cartilage ในลูกสุนัข',
     verified: 'CVE.pdf p.17' },
@@ -172,7 +172,7 @@ export const QB_COM5 = [
 
   { id: 548, subject: 'com5', topic: 'cve', year: 4, source: 'COM V FINAL 86',
     tags: ['CPV', 'immunotherapy'], type: 'mcq',
-    q: 'Immunotherapy ที่อาจใช้เสริมในการรักษา CPV ในสุนัขที่อาการรุนแรง คือ',
+    q: 'Immunotherapy ที่อาจใช้เสริมในการรักษา CPV ในสุนัขที่อาการรุนแรง คืออะไร',
     options: ['Steroid pulse therapy', 'Recombinant feline interferon omega + oseltamivir', 'IV immunoglobulin มนุษย์', 'IL-2'],
     answer: 1, explain: 'rFeIFN-ω 2.5 MU/kg IV × 3 d, Oseltamivir 2 mg/kg PO q12 × 5 d · ongoing: nitazoxanide, mAb, FMT',
     verified: 'CVE.pdf p.18 + COM V FINAL 86 p.5' },
@@ -191,35 +191,35 @@ export const QB_COM5 = [
 
   { id: 509, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['sporotrichosis', 'zoonosis'], type: 'mcq',
-    q: 'การติดต่อของ Sporotrichosis จากแมวสู่คนคือ',
+    q: 'การติดต่อของ Sporotrichosis จากแมวสู่คนคืออะไร',
     options: ['สูดดมสปอร์', 'การสัมผัสกับแมวที่ติดเชื้อ (zoonotic)', 'กินอาหารปนเปื้อน', 'ผ่านพาหะแมลง'],
     answer: 1, explain: 'Direct contact with infected cat = major mode to humans (ต้องมีแผลจึงติดง่าย) · primary mode in env = traumatic inoculation',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.6' },
 
   { id: 510, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['sporotrichosis', 'treatment'], type: 'mcq',
-    q: 'Drug of choice สำหรับ Sporotrichosis ในแมวคือ',
+    q: 'Drug of choice สำหรับ Sporotrichosis ในแมวคืออะไร',
     options: ['Fluconazole', 'Itraconazole', 'Amphotericin B', 'Griseofulvin'],
     answer: 1, explain: 'Itraconazole 5-10 mg/kg q24h PO = TOC ในแมว · ต่อเนื่อง 1 เดือนหลังแผลหายสนิท · monthly liver enzyme monitoring',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.33-34 (ABCD/JFMS 2013)' },
 
   { id: 511, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['cryptococcosis'], type: 'mcq',
-    q: 'Test of choice สำหรับ Cryptococcosis คือ',
+    q: 'Test of choice สำหรับ Cryptococcosis คืออะไร',
     options: ['Skin biopsy', 'Antigen detection (LCAT)', 'Blood culture', 'PCR'],
     answer: 1, explain: 'LCAT = Latex Cryptococcal Antigen Test · ตรวจซีรั่ม, CSF, ปัสสาวะ · ใช้ติดตามผลรักษาด้วย',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.71-72' },
 
   { id: 512, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['cryptococcosis', 'treatment'], type: 'mcq',
-    q: 'Treatment of choice สำหรับ Cryptococcosis ที่ไม่มี CNS ในแมวคือ',
+    q: 'Treatment of choice สำหรับ Cryptococcosis ที่ไม่มี CNS ในแมวคืออะไร',
     options: ['Itraconazole', 'Fluconazole', 'Ketoconazole', 'Terbinafine'],
     answer: 1, explain: 'Fluconazole 50 mg/cat q12h PO · good absorption · ตรวจตับเป็นระยะ · กินจนกว่า antigen test negative (หลายเดือน–ปี) · CNS/systemic ใช้ Amphotericin B แทน',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.81-82' },
 
   { id: 513, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['cryptococcosis'], type: 'mcq',
-    q: 'รูปแบบที่พบบ่อยที่สุดของ Cryptococcosis ในแมวคือ',
+    q: 'รูปแบบที่พบบ่อยที่สุดของ Cryptococcosis ในแมวคืออะไร',
     options: ['Cutaneous form', 'Nasal form ("Roman nose")', 'CNS form', 'Disseminated'],
     answer: 1, explain: 'Nasal = Most common · chronic sinonasal disease + nasofacial swelling = "Roman nose" (มักข้างเดียว)',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.61' },
@@ -228,28 +228,28 @@ export const QB_COM5 = [
 
   { id: 549, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'forms'], type: 'mcq',
-    q: '3 clinical forms ของ Sporotrichosis คือ',
+    q: '3 clinical forms ของ Sporotrichosis คืออะไร',
     options: ['Nasal / Cutaneous / CNS', 'Cutaneous / Cutaneolymphatic / Disseminated (systemic)', 'Pulmonary / GI / CNS', 'Local / Regional / Metastatic'],
     answer: 1, explain: 'เรียงตาม timeline: Cutaneous → Cutaneolymphatic (เข้าต่อมน้ำเหลือง) → Disseminated (preferred sites: lung, liver) · disseminated มัก FIV+',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.13' },
 
   { id: 550, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'COM V FINAL 86',
     tags: ['sporotrichosis', 'species'], type: 'mcq',
-    q: 'Sporothrix species ที่พบบ่อยที่สุดในประเทศไทยคือ',
+    q: 'Sporothrix species ที่พบบ่อยที่สุดในประเทศไทยคืออะไร',
     options: ['S. brasiliensis', 'S. schenckii', 'S. globosa', 'S. luriei'],
     answer: 1, explain: 'S. schenckii = species ในไทย · S. brasiliensis พบในบราซิล · S. globosa พบที่อื่น',
     verified: 'COM V FINAL 86 p.7 (TJ86 + Vet 83)' },
 
   { id: 551, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'cytology'], type: 'mcq',
-    q: 'ลักษณะ yeast cell ของ Sporothrix ใน cytology (Romanowsky stain) คือ',
+    q: 'ลักษณะ yeast cell ของ Sporothrix ใน cytology (Romanowsky stain) คืออะไร',
     options: ['Round, narrow-neck budding, thick clear capsule (4-15 μm)', 'Oval-shaped to tear drop, single round pink nucleus, blue cytoplasm, non-staining cell wall (2-5 μm + 1 μm clear capsule), มักอยู่ใน macrophage', 'Hyphae long branching', 'Spherules with endospores'],
     answer: 1, explain: 'Sporo: oval/teardrop, 2-5 μm, มักอยู่ใน macrophage · Crypto: round budding กับ thick mucopolysaccharide capsule (clear halo), 4-15 μm',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.27' },
 
   { id: 552, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'culture'], type: 'mcq',
-    q: 'Confirmatory test สำหรับ Sporotrichosis คือ',
+    q: 'Confirmatory test สำหรับ Sporotrichosis คืออะไร',
     options: ['Cytology', 'Fungal culture บน Sabouraud Dextrose Agar (SDA) ที่ room temp — colony สีน้ำตาล/ดำ', 'PCR', 'Histology'],
     answer: 1, explain: 'Sample = deep area ของ ulcer (best) หรือ exudate · Disseminated form แนะนำให้ culture เลือดด้วย',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.28-30' },
@@ -262,14 +262,14 @@ export const QB_COM5 = [
 
   { id: 554, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'KI'], type: 'mcq',
-    q: 'Drug of choice สำหรับ Sporotrichosis ในสุนัขคือ',
+    q: 'Drug of choice สำหรับ Sporotrichosis ในสุนัขคืออะไร',
     options: ['Itraconazole', 'Potassium iodide (KI) supersaturated solution 2.5-20 mg/kg q24h PO', 'Amphotericin B', 'Griseofulvin'],
     answer: 1, explain: 'KI = TOC ในสุนัข · ในแมวใช้ได้แต่ระวัง mild ↑ liver enzyme + hepatotoxicity',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.39' },
 
   { id: 555, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'amphotericin'], type: 'mcq',
-    q: 'Dose ของ Amphotericin B IV ในการรักษา disseminated sporotrichosis คือ',
+    q: 'Dose ของ Amphotericin B IV ในการรักษา disseminated sporotrichosis คืออะไร',
     options: ['5 mg/kg q24h PO', '0.25-0.5 mg/kg in 5% dextrose IV q48h (diluted infusion 4-6 hr)', '2 mg/kg IM q12h', '10 mg/kg q1wk'],
     answer: 1, explain: 'IV ใน disseminated form · diluted infusion 4-6 hr ลด nephrotoxicity · IL: 1 mg/kg q1wk for localized lesion',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.37-38' },
@@ -283,7 +283,7 @@ export const QB_COM5 = [
 
   { id: 557, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['cryptococcosis', 'env'], type: 'mcq',
-    q: 'แหล่งของ Cryptococcus neoformans ที่สำคัญในสิ่งแวดล้อมคือ',
+    q: 'แหล่งของ Cryptococcus neoformans ที่สำคัญในสิ่งแวดล้อมคืออะไร',
     options: ['น้ำในคลอง', 'ดินที่ปนเปื้อนมูลนกพิราบ', 'พืชผักผลไม้', 'อากาศในอาคาร'],
     answer: 1, explain: 'C. neoformans พบในดินปนเปื้อน pigeon droppings · transmission = inhalation ของ basidiospores · nasal cavity = primary site',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.56-60' },
@@ -304,14 +304,14 @@ export const QB_COM5 = [
 
   { id: 560, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['cryptococcosis', 'histology'], type: 'mcq',
-    q: 'Histology stain ที่ specific สำหรับ Cryptococcus capsule คือ',
+    q: 'Histology stain ที่ specific สำหรับ Cryptococcus capsule คืออะไร',
     options: ['H&E only', "Mayer's mucicarmine method (ย้อม capsule โดยเฉพาะ)", 'Gram stain', 'Ziehl-Neelsen'],
     answer: 1, explain: "H&E เห็น eosinophilic body กับ clear halo, Mayer's mucicarmine = ย้อม mucopolysaccharide capsule เฉพาะ",
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.76' },
 
   { id: 561, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['cryptococcosis', 'amphotericin'], type: 'mcq',
-    q: 'Treatment of choice สำหรับ Cryptococcosis ที่มี CNS หรือ systemic disease คือ',
+    q: 'Treatment of choice สำหรับ Cryptococcosis ที่มี CNS หรือ systemic disease คืออะไร',
     options: ['Fluconazole เดี่ยว', 'Amphotericin B (significant nephrotoxicity)', 'Itraconazole oral', 'Surgical excision'],
     answer: 1, explain: 'Amphotericin B = TOC สำหรับ CNS/systemic · มักใช้ร่วมกับ Flucytosine (synergistic) · ไม่ใช้ flucytosine เดี่ยว',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.84-85' },
@@ -343,21 +343,21 @@ export const QB_COM5 = [
 
   { id: 516, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['protozoal', 'giardia', 'treatment'], type: 'mcq',
-    q: 'แมว 4 ปี เม็ดเลือดออก + พบเชื้อโปรโตซัวรูปร่างหยดน้ำเคลื่อนไหวแบบใบไม้ร่วง drug of choice คือ',
+    q: 'แมว 4 ปี เม็ดเลือดออก + พบเชื้อโปรโตซัวรูปร่างหยดน้ำเคลื่อนไหวแบบใบไม้ร่วง drug of choice คืออะไร',
     options: ['Pyrantel', 'Clindamycin', 'Doxycycline', 'Fenbendazole 50 mg/kg SID × 5 days (CAPC) หรือ Metronidazole 22 mg/kg PO BID × 5 days'],
     answer: 3, explain: 'Giardia trophozoite: tear-drop + falling-leaf motility · Fenbendazole = CAPC recommend (สุนัข), แมวก็ใช้ได้',
     verified: 'GI_protozoa.pdf p.33 (CAPC)' },
 
   { id: 517, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['protozoal', 'tritrichomonas'], type: 'mcq',
-    q: 'แมวอายุ 3 เดือนจากศูนย์สงเคราะห์ มี large bowel diarrhea เรื้อรัง + ไม่ตอบยาปฏิชีวนะ เทคนิคตรวจอุจจาระที่เหมาะสมที่สุดคือ',
+    q: 'แมวอายุ 3 เดือนจากศูนย์สงเคราะห์ มี large bowel diarrhea เรื้อรัง + ไม่ตอบยาปฏิชีวนะ เทคนิคตรวจอุจจาระที่เหมาะสมที่สุดคืออะไร',
     options: ['Simple sedimentation', 'Centrifugal flotation', 'Direct fecal smear (wet mount) — เห็น trophozoite เคลื่อนไหวแบบ erratic jerky', 'Formalin-ether sedimentation'],
     answer: 2, explain: 'T. foetus มีแค่ trophozoite (NO cyst) → flotation ตรวจไม่ได้ · Direct wet mount sensitivity ต่ำ <14% · gold standard = InPouch TF-Feline',
     verified: 'GI_protozoa.pdf p.20 + COM V FINAL 86 p.18' },
 
   { id: 518, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['protozoal', 'toxoplasma', 'treatment'], type: 'mcq',
-    q: 'Drug of choice สำหรับ Toxoplasmosis ในแมวคือ',
+    q: 'Drug of choice สำหรับ Toxoplasmosis ในแมวคืออะไร',
     options: ['Ronidazole + Febantel', 'Fenbendazole + Metronidazole', 'Metronidazole + Doxycycline', 'Clindamycin (1st line) ± Sulfonamide/Trimethoprim'],
     answer: 3, explain: 'Toxoplasma: Clindamycin 1st line · Coccidia (Cystoisospora): Sulfa-trimethoprim · ใช้ร่วมกันได้',
     verified: 'GI_protozoa.pdf p.42' },
@@ -394,7 +394,7 @@ export const QB_COM5 = [
 
   { id: 565, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['cryptosporidium', 'staining'], type: 'mcq',
-    q: 'การย้อมที่ใช้ดู Cryptosporidium oocyst ในอุจจาระคือ',
+    q: 'การย้อมที่ใช้ดู Cryptosporidium oocyst ในอุจจาระคืออะไร',
     options: ["Lugol's iodine", "Modified acid-fast stain (Ziehl-Neelsen's carbol-fuchsin) หรือ Immunofluorescent", 'Gram stain', "Wright's stain"],
     answer: 1, explain: 'Crypto oocyst เล็กมาก ใส → ย้อม modified acid fast หรือ IFA · flotation ใช้ Sheather sugar (SG 1.33)',
     verified: 'GI_protozoa.pdf p.46' },
@@ -415,7 +415,7 @@ export const QB_COM5 = [
 
   { id: 568, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['tritrichomonas', 'gold-standard'], type: 'mcq',
-    q: 'Gold standard ในการวินิจฉัย Tritrichomonas foetus ในแมวคือ',
+    q: 'Gold standard ในการวินิจฉัย Tritrichomonas foetus ในแมวคืออะไร',
     options: ['Direct fecal smear', 'Centrifugal flotation', 'InPouch TF-Feline (fecal culture) หรือ PCR', 'Serology'],
     answer: 2, explain: 'Direct wet mount sensitivity <14% · Fecal culture (InPouch TF) sensitivity ~55% · PCR sensitivity สูงสุด',
     verified: 'GI_protozoa.pdf p.20 + COM V FINAL 86 p.18',
@@ -423,7 +423,7 @@ export const QB_COM5 = [
 
   { id: 569, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['tritrichomonas', 'treatment'], type: 'mcq',
-    q: 'ยาที่ใช้รักษา Tritrichomonas foetus ในแมวคือ',
+    q: 'ยาที่ใช้รักษา Tritrichomonas foetus ในแมวคืออะไร',
     options: ['Metronidazole 22 mg/kg PO BID', 'Fenbendazole 50 mg/kg SID', 'Ronidazole 30 mg/kg PO q24h × 10 d (use with caution: neurologic AE)', 'ไม่มียาเฉพาะ — รอหายเอง'],
     answer: 2, explain: 'Ronidazole = effective แต่ไม่มี approval + neurologic AE · Most cats spontaneous resolution ใช้เวลานานถึง 2 ปี',
     verified: 'GI_protozoa.pdf p.21' },
@@ -444,7 +444,7 @@ export const QB_COM5 = [
 
   { id: 572, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['giardia', 'assemblage'], type: 'mcq',
-    q: 'Giardia assemblage ที่ติดต่อจากสัตว์สู่คน (zoonotic) คือ',
+    q: 'Giardia assemblage ที่ติดต่อจากสัตว์สู่คน (zoonotic) คืออะไร',
     options: ['Assemblage A และ B (zoonotic) — สุนัข: A,B,C,D · แมว: A,B,F', 'Assemblage C เท่านั้น', 'Assemblage F เท่านั้น', 'ไม่มี assemblage zoonotic'],
     answer: 0, explain: 'A, B = zoonotic genotypes · พบในทั้งคนและสัตว์ · classification ใช้ PCR (GDH, ef1-α, TPI, rDNA)',
     verified: 'GI_protozoa.pdf p.25' },
@@ -458,7 +458,7 @@ export const QB_COM5 = [
 
   { id: 574, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['toxoplasma', 'clinical'], type: 'mcq',
-    q: 'Clinical signs ที่พบบ่อยใน feline toxoplasmosis คือ',
+    q: 'Clinical signs ที่พบบ่อยใน feline toxoplasmosis คืออะไร',
     options: ['ท้องเสียอย่างเดียว', 'Pneumonitis, encephalitis, hepatitis, chorioretinitis, uveitis (multi-organ)', 'Skin nodules', 'Abortion (พบบ่อยในแมว)'],
     answer: 1, explain: 'Common: pneumonitis, encephalitis, hepatitis, pancreatitis, myocarditis, chorioretinitis · Lab: bilirubinemia, leukopenia, anemia · Abortion พบใน dog > cat',
     verified: 'GI_protozoa.pdf p.38' },
@@ -476,14 +476,14 @@ export const QB_COM5 = [
 
   { id: 576, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['cystoisospora', 'control'], type: 'mcq',
-    q: 'การควบคุม coccidiosis ใน kennel/cattery ที่สำคัญที่สุดคือ',
+    q: 'การควบคุม coccidiosis ใน kennel/cattery ที่สำคัญที่สุดคืออะไร',
     options: ['ฉีดวัคซีน', 'Daily fecal removal + disinfectants ที่มี high concentration ammonia (oocysts ทนต่อสารเคมีทั่วไปเมื่อ sporulated แล้ว)', 'ให้ steroid', 'แยกตัวที่ป่วยเท่านั้น'],
     answer: 1, explain: 'Sporulated oocyst ทน common disinfectants · Daily fecal removal ก่อน sporulate (อยู่ในสิ่งแวดล้อม < 24 hr) + steam/pressure wash + treat all in-contact',
     verified: 'GI_protozoa.pdf p.11' },
 
   { id: 577, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'COM V FINAL 86',
     tags: ['cystoisospora', 'treatment'], type: 'mcq',
-    q: 'ยาที่ใช้รักษา Cystoisospora (coccidiosis) ในสุนัขและแมวคือ',
+    q: 'ยาที่ใช้รักษา Cystoisospora (coccidiosis) ในสุนัขและแมวคืออะไร',
     options: ['Sulfa-trimethoprim หรือ Toltrazuril (สุนัข)', 'Fenbendazole', 'Pyrantel', 'Doxycycline'],
     answer: 0, explain: 'Sulfa-Trimethoprim = ทั้งสุนัขและแมว · Toltrazuril = สุนัข · ทั้งสองตัวไม่ได้ FDA approve อย่างเป็นทางการ',
     verified: 'COM V FINAL 86 p.17' },
@@ -547,7 +547,7 @@ export const QB_COM5 = [
 
   { id: 527, subject: 'com5', topic: 'rabies', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['rabies', '5y'], type: 'mcq',
-    q: 'หลัก "5 ย" ที่ใช้สอนเด็กในการป้องกันโรคพิษสุนัขบ้าคือ',
+    q: 'หลัก "5 ย" ที่ใช้สอนเด็กในการป้องกันโรคพิษสุนัขบ้าคืออะไร',
     options: ['ยา ยอง ยึด ยับยั้ง ยา', 'อย่าแหย่ อย่าแยก อย่าเหยียบ อย่ายุ่ง อย่าหยิบ', 'เยี่ยม ยุ่ง ยอม เยือก ยา', 'แยก ยึด ย่อย ยุติ ยึด'],
     answer: 1, explain: '5 ย: อย่าแหย่ / อย่าแยก / อย่าเหยียบ / อย่ายุ่ง / อย่าหยิบ + 3 ป (ป้องกันสัตว์เป็นโรค / ป้องกันการถูกกัด / ป้องกันหลังถูกกัด)',
     verified: 'Rabies.pdf p.27 + COM V FINAL 86 p.24' },
@@ -580,7 +580,7 @@ export const QB_COM5 = [
 
   { id: 582, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
     tags: ['rabies', 'histology'], type: 'mcq',
-    q: 'Negri bodies ที่พบในการตรวจ histopathology สมองสัตว์เป็น Rabies คือ',
+    q: 'Negri bodies ที่พบในการตรวจ histopathology สมองสัตว์เป็น Rabies คืออะไร',
     options: ['Intranuclear basophilic inclusion', 'Intracytoplasmic eosinophilic inclusion bodies (พบ = positive แต่ไม่เจอ ≠ negative)', 'Cytoplasmic vacuoles', 'Multinucleated giant cells'],
     answer: 1, explain: 'Negri bodies = pathognomonic แต่ sensitivity ต่ำ → ไม่เจอก็เป็น Rabies ได้ · DFA แม่นกว่า',
     verified: 'Rabies.pdf p.12' },
@@ -601,7 +601,7 @@ export const QB_COM5 = [
 
   { id: 585, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
     tags: ['rabies', 'thai-stats'], type: 'mcq',
-    q: 'สัตว์ที่พบ Rabies positive มากที่สุดในประเทศไทยคือ',
+    q: 'สัตว์ที่พบ Rabies positive มากที่สุดในประเทศไทยคืออะไร',
     options: ['แมว', 'สุนัข (~91%) > แมว (~2%) > อื่นๆ (~7%)', 'โค กระบือ', 'ค้างคาว'],
     answer: 1, explain: 'Thailand endemic · 2 จังหวัดอันดับแรก: อุบลราชธานี, ชลบุรี · Dogs 91%, Cats 2%, others (rabbit/bat/rat/cattle) 7%',
     verified: 'COM V FINAL 86 p.23 (Aj.Vachira)' },
@@ -702,14 +702,14 @@ export const QB_COM5 = [
 
   { id: 591, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'WSAVA-2024'], type: 'mcq',
-    q: 'จุดเด่นที่เปลี่ยนแปลงสำคัญใน WSAVA 2024 vs WSAVA 2016 คือ',
+    q: 'จุดเด่นที่เปลี่ยนแปลงสำคัญใน WSAVA 2024 vs WSAVA 2016 คืออะไร',
     options: ['ลด core vaccine', 'เพิ่ม Leptospirosis และ FeLV เป็น core (with conditions) + booster 6 เดือน (แทน 1 ปี) + sero-testing supported', 'ยกเลิก rabies vaccine', 'ฉีดทุก 5 ปี'],
     answer: 1, explain: 'Highlights 2024: Lepto+FeLV เพิ่มเป็น core มีเงื่อนไข · 6-mo booster แทน 1-yr · serological titer testing (≥20 wks)',
     verified: 'Vaccination_guideline.pdf p.3 (Squires et al. JSAP 2024;65:277-316)' },
 
   { id: 592, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'lepto', 'thailand'], type: 'mcq',
-    q: 'Top 5 Leptospira serogroups ในประเทศไทย (Altheimer 2020, BMC Vet Res) คือ',
+    q: 'Top 5 Leptospira serogroups ในประเทศไทย (Altheimer 2020, BMC Vet Res) คืออะไร',
     options: ['Pomona, Hardjo, Ballum, Tarassovi, Mini', 'Sejroe, Icterohaemorrhagiae, Bataviae, Canicola, Australis', 'Grippotyphosa, Australis, Cynopteri, Pomona, Sejroe', 'Hebdomadis, Mini, Javanica, Hardjo, Hyos'],
     answer: 1, explain: 'Sejroe, Icterohaemorrhagiae, Bataviae, Canicola, Australis · ⚠️ Commercial vaccines (2-/4-serovar) ใน TH ไม่ครอบคลุม top serogroups (Sejroe, Bataviae)',
     verified: 'Vaccination_guideline.pdf p.15 (Altheimer 2020)',
@@ -731,7 +731,7 @@ export const QB_COM5 = [
 
   { id: 595, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'AE'], type: 'mcq',
-    q: 'Vaccine adverse event (VAE) ในสุนัข — ปัจจัยเสี่ยงที่เพิ่มโอกาสเกิด AE คือ',
+    q: 'Vaccine adverse event (VAE) ในสุนัข — ปัจจัยเสี่ยงที่เพิ่มโอกาสเกิด AE คืออะไร',
     options: ['สุนัขใหญ่, อายุมาก, วัคซีนเข็มเดียว, สุนัขสายพันธุ์ใหญ่', 'น้ำหนัก ≤ 5 kg, อายุน้อย, multiple vaccines, certain breeds (French Bulldog, Dachshund, Boston Terrier)', 'อ้วน, สุนัขโต, vaccine ใหม่', 'ไม่มีปัจจัยเสี่ยง'],
     answer: 1, explain: 'Moore JAVMA 2023: AE rate 19.4/10,000 visits · 25% เพิ่มต่อวัคซีนเข็มที่เพิ่ม · Top 3 breed: Frenchie, Dachshund, Boston Terrier · Rabies + DA2PP มี VAE rate สูงสุด',
     verified: 'Vaccination_guideline.pdf p.17-18 (Moore JAVMA 2023;261:1653)' },
@@ -792,7 +792,7 @@ export const QB_COM5 = [
 
   { id: 604, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'post-exposure'], type: 'mcq',
-    q: 'สุนัขโดน rabid animal กัด เคยได้รับวัคซีน rabies ตามโปรแกรมแต่ขาดช่วง — การจัดการตามแนวทางใหม่ (Moore JAVMA 2015 / WSAVA 2024) คือ',
+    q: 'สุนัขโดน rabid animal กัด เคยได้รับวัคซีน rabies ตามโปรแกรมแต่ขาดช่วง — การจัดการตามแนวทางใหม่ (Moore JAVMA 2015 / WSAVA 2024) คืออะไร',
     options: ['Euthanize ทันที', 'Quarantine ที่บ้าน 6 เดือน', 'ฉีด booster ทันที + สังเกต 45 วัน', 'ฉีด booster แล้ว quarantine ไม่ต้องสังเกต'],
     answer: 2, explain: 'Anamnestic response เหมือน up-to-date → booster + observe 45 d (ไม่ต้อง euthanize / 6-mo quarantine) · Moore 2015 เปลี่ยนแนวทางเดิม',
     verified: 'Vaccination_guideline.pdf p.12 (Moore et al. JAVMA 2015;246:205-211)' },
@@ -804,7 +804,7 @@ export const QB_COM5 = [
 
   { id: 605, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'pathogens'], type: 'mcq',
-    q: 'จำนวน pathogens หลักที่ถือเป็นสาเหตุของ FRDC คือ',
+    q: 'จำนวน pathogens หลักที่ถือเป็นสาเหตุของ FRDC คืออะไร',
     options: ['2 ตัว (FCV + FHV-1)', '3 ตัว (FCV + FHV-1 + Mycoplasma)', '5 ตัว (2 ไวรัส + 3 แบคทีเรีย)', '7 ตัว รวม FeLV/FIV/Coronavirus'],
     answer: 2, explain: '5 pathogens: FCV + FHV-1 (viruses) · Chlamydia felis + Mycoplasma spp. + Bordetella bronchiseptica (bacteria) · มักติดร่วมกัน → severity เพิ่ม · 80-90% ไม่ต้อง identify เชื้อก่อนรักษา',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.4 + COM V FINAL 86 p.27' },
@@ -818,7 +818,7 @@ export const QB_COM5 = [
 
   { id: 607, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'fhv-1', 'cornea'], type: 'mcq',
-    q: 'Lesion ทาง ophthalmology ที่ pathognomonic สำหรับ FHV-1 คือ',
+    q: 'Lesion ทาง ophthalmology ที่ pathognomonic สำหรับ FHV-1 คืออะไร',
     options: ['Cherry eye', 'Dendritic corneal ulceration (และ stromal keratitis)', 'Cataract', 'Glaucoma'],
     answer: 1, explain: 'Dendritic corneal ulcer = FHV-1 specific · stromal keratitis ก็พบได้ · chronic corneal ulcer ในแมวที่เคยติดเชื้อ',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.20' },
@@ -839,14 +839,14 @@ export const QB_COM5 = [
 
   { id: 610, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'chlamydia'], type: 'mcq',
-    q: 'Clinical sign ที่ "เด่นที่สุด" ของ Chlamydia felis ในแมวคือ',
+    q: 'Clinical sign ที่ "เด่นที่สุด" ของ Chlamydia felis ในแมวคืออะไร',
     options: ['Cough เรื้อรัง', 'Conjunctivitis (โดยเฉพาะ chemosis)', 'Skin pustules', 'Hematochezia'],
     answer: 1, explain: 'Chlamydia = obligate intracellular G-negative · ocular signs เด่น (chemosis, blepharospasm, hyperemia) > respiratory · shed via ocular secretion 60 วัน · isolate จาก healthy cat ไม่ค่อยเจอ (ต่างจาก FHV/FCV)',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.10, 27' },
 
   { id: 611, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'bordetella'], type: 'mcq',
-    q: 'Clinical sign ที่ "เด่นที่สุด" ของ Bordetella bronchiseptica ในแมวคือ',
+    q: 'Clinical sign ที่ "เด่นที่สุด" ของ Bordetella bronchiseptica ในแมวคืออะไร',
     options: ['Vomiting', 'Cough', 'Skin pustules', 'Polyuria'],
     answer: 1, explain: 'Bordetella: cough เป็น prominent sign · colonize ciliated respiratory epithelium → cilia stasis · ติดจากสุนัขได้ + zoonotic ในเจ้าของ immunocompromised',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.11, 28' },
@@ -866,7 +866,7 @@ export const QB_COM5 = [
 
   { id: 614, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'antiviral', 'famciclovir'], type: 'mcq',
-    q: 'Systemic antiviral ที่ปลอดภัยที่สุด + ใช้บ่อยใน severe FHV-1 ของแมวคือ',
+    q: 'Systemic antiviral ที่ปลอดภัยที่สุด + ใช้บ่อยใน severe FHV-1 ของแมวคืออะไร',
     options: ['Acyclovir', 'Famciclovir', 'Ribavirin', 'Foscarnet'],
     answer: 1, explain: 'Famciclovir 90 mg/kg PO q8-12h × 7-21 d · ปลอดภัยในแมว (ทดลอง > 4 เดือน ไม่มี AE สำคัญ) · Acyclovir/Ribavirin = พิษกับแมว · Ophthalmic options: Cidofovir q12, Trifluridine q4, Idoxuridine q4',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.39 + COM V FINAL 86 p.28',
@@ -874,7 +874,7 @@ export const QB_COM5 = [
 
   { id: 615, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'disinfection'], type: 'mcq',
-    q: 'Disinfectant ที่ effective สำหรับ FCV (ทนต่อ disinfectant อื่นๆ) คือ',
+    q: 'Disinfectant ที่ effective สำหรับ FCV (ทนต่อ disinfectant อื่นๆ) คืออะไร',
     options: ['Chlorhexidine 2%', 'Quaternary ammonium', '1:32 dilution of 5.25% sodium hypochlorite (household bleach) หรือ accelerated H₂O₂', 'Alcohol 70%'],
     answer: 2, explain: 'FCV ทนต่อ chlorhex/QUAT/alcohol · ต้องใช้ 1:32 ของ 5.25% NaOCl หรือ accelerated H₂O₂',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.41 + COM V FINAL 86 p.28' },
@@ -944,7 +944,7 @@ export const QB_COM5 = [
 
   { id: 624, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'supportive', 'appetite'], type: 'mcq',
-    q: 'Appetite stimulants ที่นิยมใช้ใน FRDC supportive care คือ',
+    q: 'Appetite stimulants ที่นิยมใช้ใน FRDC supportive care คืออะไร',
     options: ['Mirtazapine หรือ Cyproheptadine', 'Acepromazine หรือ Diazepam', 'Furosemide หรือ Spironolactone', 'Prednisolone เดี่ยว'],
     answer: 0, explain: 'Mirtazapine / Cyproheptadine = appetite stimulants · supportive อื่น: aromatic warm food + fluid + nasal flush + saline nebulization · severe → esophagostomy tube',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.35-37, 40' },
