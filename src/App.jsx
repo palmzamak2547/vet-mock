@@ -28,6 +28,7 @@ import VideoView from './views/VideoView.jsx';
 import AboutView from './views/AboutView.jsx';
 import FeedbackView from './views/FeedbackView.jsx';
 import YearSelectView from './views/YearSelectView.jsx';
+import TopicSelectView from './views/TopicSelectView.jsx';
 
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
@@ -35,6 +36,7 @@ export default function App() {
   const [view, setView] = useState('home');
   const [mode, setMode] = useState('quick');
   const [subject, setSubject] = useState('all');
+  const [topic, setTopic] = useState(null);
   const [practiceMode, setPracticeMode] = useState('all');
   const [activeGroup, setActiveGroup] = useState(null);
   const [selectedYear, setSelectedYear] = useState(CURRENT_YEAR);
@@ -162,7 +164,10 @@ export default function App() {
     let pool;
     if (practiceMode === 'bookmarks') pool = allQuestions.filter((q) => bookmarks.includes(q.id));
     else if (practiceMode === 'weak') pool = allQuestions.filter((q) => analytics?.weakQuestions.includes(q.id));
-    else pool = subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === subject);
+    else {
+      pool = subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === subject);
+      if (topic) pool = pool.filter((q) => q.topic === topic);
+    }
     if (!pool.length) { alert('ไม่มีข้อสอบในหมวดนี้'); return; }
 
     const qCount = Math.max(1, numQuestions);
@@ -213,7 +218,7 @@ export default function App() {
 
   const goHome = () => {
     setView('home'); setQuestions([]); setAnswers({}); setCurrentIdx(0);
-    setPracticeMode('all'); setMode('quick'); setActiveGroup(null);
+    setPracticeMode('all'); setMode('quick'); setActiveGroup(null); setTopic(null);
   };
 
   const handleSignOut = async () => { if (confirm('Logout?')) { await signOut(); goHome(); } };
@@ -255,8 +260,9 @@ export default function App() {
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome }} />}
-              {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setView, setPracticeMode, goHome, mode, customQuestions }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }} />}
+              {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions }} />}
+              {view === 'topic-select' && <TopicSelectView {...{ subject, setTopic, setView, goHome, mode, customQuestions }} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }} />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }} />}

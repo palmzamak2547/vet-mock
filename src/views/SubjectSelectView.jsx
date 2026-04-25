@@ -1,7 +1,7 @@
 import { QB } from '../data/questions.js';
 import { SUBJECTS } from '../data/curriculum.js';
 
-export default function SubjectSelectView({ setSubject, setView, setPracticeMode, goHome, mode, customQuestions = [] }) {
+export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [] }) {
   const allQuestions = [...QB, ...customQuestions];
 
   return (
@@ -27,7 +27,10 @@ export default function SubjectSelectView({ setSubject, setView, setPracticeMode
                 if (isEmpty) return;
                 setSubject(s.id);
                 setPracticeMode('all');
-                setView('config');
+                if (setTopic) setTopic(null);
+                // ถ้าวิชามี topics → ไป TopicSelectView ก่อน
+                const hasTopics = Array.isArray(s.topics) && s.topics.length > 0;
+                setView(hasTopics ? 'topic-select' : 'config');
               }}
               style={{
                 opacity: isEmpty ? 0.5 : 1,

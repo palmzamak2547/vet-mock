@@ -1,9 +1,12 @@
 import { SUBJECTS } from '../data/questions.js';
 
-export default function ConfigView({ practiceMode, subject, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }) {
+export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }) {
+  const subjMeta = SUBJECTS.find((s) => s.id === subject);
+  const topicMeta = topic && subjMeta?.topics?.find((t) => t.id === topic);
   const msg = practiceMode === 'bookmarks' ? '🔖 โหมด Bookmark — ทำเฉพาะข้อที่ bookmark'
     : practiceMode === 'weak' ? '🎯 โหมด Weak Spots — ทำเฉพาะข้อที่ผิดบ่อย'
-    : `${SUBJECTS.find((s) => s.id === subject)?.name} — สุ่มข้อสอบ`;
+    : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
+    : `${subjMeta?.name} — สุ่มข้อสอบ`;
 
   const isExamMode = mode === 'exam';
 

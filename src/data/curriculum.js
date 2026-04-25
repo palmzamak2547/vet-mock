@@ -28,7 +28,15 @@ export const SUBJECTS_BY_YEAR = {
 
     // ── COM Series (Companion Animal Clinical Sciences) ──
     { id: 'com5', code: '3107417', name: 'COM V', name_en: 'C ANI CLI SCI V · Companion Animal',
-      icon: '🐕', color: '#3d6b82', semester: 2, has_questions: true },
+      icon: '🐕', color: '#3d6b82', semester: 2, has_questions: true,
+      topics: [
+        { id: 'cve',          label: 'CVE — CPV / CCV',                  icon: '🦠', lecturer: 'Punyamanee Yamkate' },
+        { id: 'sporo-crypto', label: 'Sporotrichosis & Cryptococcosis',  icon: '🍄', lecturer: 'Siwaporn Pengpis' },
+        { id: 'gi-protozoa',  label: 'GI protozoal enteritis',           icon: '🪱', lecturer: 'Woraporn Sukhumavasi' },
+        { id: 'rabies',       label: 'Rabies',                           icon: '🦇', lecturer: 'Vachira Hunprasit' },
+        { id: 'vaccine',      label: 'Vaccine guidelines (WSAVA/VPAT)',  icon: '💉', lecturer: 'Sanipa Suradhat' },
+        { id: 'feline-uri',   label: 'Feline URI',                       icon: '🐈', lecturer: 'Nattawan Tangmahakul' },
+      ] },
     { id: 'com3', code: '3106416', name: 'COM III', name_en: 'C ANI CLI SCI III · Companion Animal',
       icon: '🩺', color: '#3d6b82', semester: 2, has_questions: false,
       note: 'รอข้อสอบเพิ่ม' },

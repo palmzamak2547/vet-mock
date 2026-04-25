@@ -62,6 +62,21 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 {q.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}
               </div>
             )}
+            {q.verified && (
+              <div style={{ marginTop: 10, padding: '6px 10px', borderRadius: 8, background: 'rgba(74, 107, 74, 0.12)', border: '1px solid var(--clr-sage)', fontSize: 11, color: 'var(--clr-ink)', fontFamily: 'JetBrains Mono, monospace' }}>
+                ✅ <strong>Verified:</strong> {q.verified}
+              </div>
+            )}
+            {q.flag && (
+              <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: `1px solid ${q.flag.severity === 'major' ? 'var(--clr-rose)' : 'var(--clr-gold)'}`, fontSize: 12, color: 'var(--clr-ink)' }}>
+                ⚠️ <strong>{q.flag.severity === 'major' ? 'Major flag' : 'Note'}:</strong> {q.flag.note}
+                {q.flag.sources?.length > 0 && (
+                  <div style={{ marginTop: 4, fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+                    📖 {q.flag.sources.join(' · ')}
+                  </div>
+                )}
+              </div>
+            )}
             {QUESTION_SOURCES[q.subject]?.files?.length > 0 && (
               <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', fontFamily: 'JetBrains Mono, monospace' }}>
                 📚 ดึงจาก: {q.source || QUESTION_SOURCES[q.subject].files[0]}
