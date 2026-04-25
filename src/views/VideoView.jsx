@@ -174,49 +174,72 @@ function PlayerModal({ video, onClose }) {
   const [loadingList, setLoadingList] = useState(false);
   const [listError, setListError] = useState('');
 
-  // Race multiple CORS proxies in parallel — เอาตัวที่เร็วที่สุดที่สำเร็จ
-  // แต่ละ proxy มี timeout 6 วินาที ถ้าทุกตัวล่ม → fallback เปิด YouTube
+  // ดึงรายการคลิปใน playlist:
+  //   1) ผ่าน /api/playlist (Vercel serverless function — same-origin, ไม่มี CORS)
+  //   2) Fallback: race public CORS proxies (เผื่อ local dev หรือ /api ล่ม)
   useEffect(() => {
     if (!playlistId) return;
     const ctrl = new AbortController();
     setLoadingList(true);
     setListError('');
 
-    const rssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
-    const proxies = [
-      (u) => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-      (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-      (u) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(u)}`,
-      (u) => `https://thingproxy.freeboard.io/fetch/${u}`,
-    ];
+    const fromOwnApi = async () => {
+      const r = await fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`, {
+        signal: ctrl.signal,
+      });
+      if (!r.ok) throw new Error(`api ${r.status}`);
+      const data = await r.json();
+      if (!data?.items?.length) throw new Error('empty items');
+      return data.items;
+    };
 
-    const fetchOne = (makeProxy) => new Promise((resolve, reject) => {
-      const t = setTimeout(() => reject(new Error('timeout')), 6000);
-      fetch(makeProxy(rssUrl), { cache: 'no-store', signal: ctrl.signal })
-        .then((r) => r.ok ? r.text() : Promise.reject(new Error(`HTTP ${r.status}`)))
-        .then((xml) => {
-          if (!xml || !xml.includes('<entry')) throw new Error('empty xml');
-          const items = parseYouTubeRss(xml);
-          if (!items.length) throw new Error('no items');
-          clearTimeout(t);
-          resolve(items);
-        })
-        .catch((e) => { clearTimeout(t); reject(e); });
-    });
+    const fromProxies = () => {
+      const rssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
+      const proxies = [
+        (u) => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+        (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+        (u) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(u)}`,
+      ];
+      return Promise.any(proxies.map((makeProxy) => new Promise((resolve, reject) => {
+        const t = setTimeout(() => reject(new Error('timeout')), 5000);
+        fetch(makeProxy(rssUrl), { cache: 'no-store', signal: ctrl.signal })
+          .then((r) => r.ok ? r.text() : Promise.reject(new Error(`HTTP ${r.status}`)))
+          .then((xml) => {
+            if (!xml || !xml.includes('<entry')) throw new Error('empty');
+            const items = parseYouTubeRss(xml);
+            if (!items.length) throw new Error('no items');
+            clearTimeout(t);
+            resolve(items);
+          })
+          .catch((e) => { clearTimeout(t); reject(e); });
+      })));
+    };
 
-    Promise.any(proxies.map(fetchOne))
-      .then((items) => {
+    (async () => {
+      try {
+        const items = await fromOwnApi();
         if (ctrl.signal.aborted) return;
         setPlaylistItems(items);
         if (!currentVideoId) setCurrentVideoId(items[0].id);
         setLoadingList(false);
-      })
-      .catch((err) => {
+        return;
+      } catch (e1) {
         if (ctrl.signal.aborted) return;
-        console.warn('All playlist proxies failed:', err?.errors || err);
-        setListError('ดึงรายการคลิปไม่ได้ — เปิดใน YouTube เพื่อเลือกคลิป');
-        setLoadingList(false);
-      });
+        console.warn('own api failed, trying proxies:', e1?.message);
+        try {
+          const items = await fromProxies();
+          if (ctrl.signal.aborted) return;
+          setPlaylistItems(items);
+          if (!currentVideoId) setCurrentVideoId(items[0].id);
+          setLoadingList(false);
+        } catch (e2) {
+          if (ctrl.signal.aborted) return;
+          console.warn('proxies failed:', e2?.errors || e2);
+          setListError('ดึงรายการคลิปไม่ได้ — เปิดใน YouTube เพื่อเลือกคลิป');
+          setLoadingList(false);
+        }
+      }
+    })();
 
     return () => ctrl.abort();
   }, [playlistId]);
