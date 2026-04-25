@@ -27,7 +27,9 @@ export function RichText({ text }) {
         if (!p) return null;
         if (p === '\n') return <br key={i} />;
         if (p.length >= 4 && p.startsWith('**') && p.endsWith('**')) {
-          return <strong key={i} style={{ color: 'var(--clr-ink)', fontWeight: 700 }}>{p.slice(2, -2)}</strong>;
+          // Inherit color from parent so the bold stays readable on
+          // dark/selected backgrounds (e.g. selected MCQ option)
+          return <strong key={i} style={{ fontWeight: 700 }}>{p.slice(2, -2)}</strong>;
         }
         if (p.length >= 3 && p.startsWith('*') && p.endsWith('*')) {
           return <em key={i}>{p.slice(1, -1)}</em>;
