@@ -80,7 +80,7 @@ export const EXAM_SCHEDULE = {
       weight_pct: 30,
       content: ['English for Veterinary Profession II'],
       notes: 'Midterm 30 + Final 30 + งาน 25 + ฟรี 5 (รวม ~90, ที่เหลือยังไม่ระบุ)',
-      icon: '🇬🇧',
+      icon: '🗣️',
       color: '#5c6b7d',
     },
 

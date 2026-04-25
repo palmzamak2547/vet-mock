@@ -174,50 +174,51 @@ function PlayerModal({ video, onClose }) {
   const [loadingList, setLoadingList] = useState(false);
   const [listError, setListError] = useState('');
 
-  // Try to fetch playlist items via free RSS feed (works without API key)
-  // Iterate through multiple CORS proxies — ตัวใดตัวหนึ่งล่มไม่เสียหาย
+  // Race multiple CORS proxies in parallel — เอาตัวที่เร็วที่สุดที่สำเร็จ
+  // แต่ละ proxy มี timeout 6 วินาที ถ้าทุกตัวล่ม → fallback เปิด YouTube
   useEffect(() => {
     if (!playlistId) return;
-    let aborted = false;
+    const ctrl = new AbortController();
     setLoadingList(true);
     setListError('');
 
     const rssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
     const proxies = [
-      (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
       (u) => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+      (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
       (u) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(u)}`,
       (u) => `https://thingproxy.freeboard.io/fetch/${u}`,
     ];
 
-    (async () => {
-      let lastErr = null;
-      for (const makeProxy of proxies) {
-        if (aborted) return;
-        try {
-          const r = await fetch(makeProxy(rssUrl), { cache: 'no-store' });
-          if (!r.ok) { lastErr = new Error(`HTTP ${r.status}`); continue; }
-          const xml = await r.text();
-          if (!xml || !xml.includes('<entry')) { lastErr = new Error('empty xml'); continue; }
+    const fetchOne = (makeProxy) => new Promise((resolve, reject) => {
+      const t = setTimeout(() => reject(new Error('timeout')), 6000);
+      fetch(makeProxy(rssUrl), { cache: 'no-store', signal: ctrl.signal })
+        .then((r) => r.ok ? r.text() : Promise.reject(new Error(`HTTP ${r.status}`)))
+        .then((xml) => {
+          if (!xml || !xml.includes('<entry')) throw new Error('empty xml');
           const items = parseYouTubeRss(xml);
-          if (!items.length) { lastErr = new Error('no items parsed'); continue; }
-          if (aborted) return;
-          setPlaylistItems(items);
-          if (!currentVideoId) setCurrentVideoId(items[0].id);
-          setLoadingList(false);
-          return;
-        } catch (e) {
-          lastErr = e;
-        }
-      }
-      if (!aborted) {
-        console.warn('All playlist proxies failed:', lastErr);
-        setListError('ดึงรายการคลิปไม่ได้ — เปิดบน YouTube เพื่อเลือกคลิปได้');
-        setLoadingList(false);
-      }
-    })();
+          if (!items.length) throw new Error('no items');
+          clearTimeout(t);
+          resolve(items);
+        })
+        .catch((e) => { clearTimeout(t); reject(e); });
+    });
 
-    return () => { aborted = true; };
+    Promise.any(proxies.map(fetchOne))
+      .then((items) => {
+        if (ctrl.signal.aborted) return;
+        setPlaylistItems(items);
+        if (!currentVideoId) setCurrentVideoId(items[0].id);
+        setLoadingList(false);
+      })
+      .catch((err) => {
+        if (ctrl.signal.aborted) return;
+        console.warn('All playlist proxies failed:', err?.errors || err);
+        setListError('ดึงรายการคลิปไม่ได้ — เปิดใน YouTube เพื่อเลือกคลิป');
+        setLoadingList(false);
+      });
+
+    return () => ctrl.abort();
   }, [playlistId]);
 
   // Build embed URL
