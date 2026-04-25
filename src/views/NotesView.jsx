@@ -21,7 +21,6 @@ const NOTES_BY_SUBJECT = {
 
 export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, goHome }) {
   const [activeSubject, setActiveSubjectLocal] = useState(subjectProp);
-  const setActiveSubject = (s) => { setActiveSubjectLocal(s); if (setSubjectProp) setSubjectProp(s); };
   const subject = activeSubject;
   const notes = NOTES_BY_SUBJECT[subject] || {};
   const subjectMeta = SUBJECTS.find((s) => s.id === subject);
@@ -29,25 +28,29 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   const [activeTopic, setActiveTopic] = useState(() => initialTopic && notes[initialTopic] ? initialTopic : topicIds[0]);
   const [search, setSearch] = useState('');
 
-  // Reset active topic when subject changes
-  useEffect(() => {
-    const newTopicIds = Object.keys(NOTES_BY_SUBJECT[subject] || {});
-    if (newTopicIds.length > 0 && !newTopicIds.includes(activeTopic)) {
-      setActiveTopic(newTopicIds[0]);
-    }
-  }, [subject]);
+  // ✅ Derive a guaranteed-valid topic for the current subject. Using the
+  //    activeTopic state directly leaves a render cycle with the previous
+  //    subject's id (→ blank page) when the user switches subjects.
+  const validTopic = topicIds.includes(activeTopic) ? activeTopic : topicIds[0];
+
+  const switchSubject = (next) => {
+    setActiveSubjectLocal(next);
+    const nextTopics = Object.keys(NOTES_BY_SUBJECT[next] || {});
+    if (nextTopics.length > 0) setActiveTopic(nextTopics[0]);
+    if (setSubjectProp) setSubjectProp(next);
+  };
 
   const availableSubjects = Object.keys(NOTES_BY_SUBJECT);
 
-  const topic = notes[activeTopic];
+  const topic = notes[validTopic];
   const mainRef = useRef(null);
   const sectionRefs = useRef({});
 
-  // Reset scroll when topic changes
+  // Reset scroll + search when topic changes
   useEffect(() => {
     if (mainRef.current) mainRef.current.scrollTop = 0;
     setSearch('');
-  }, [activeTopic]);
+  }, [validTopic, subject]);
 
   if (!topic) {
     return (
@@ -96,7 +99,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                   return (
                     <button
                       key={sid}
-                      onClick={() => setActiveSubject(sid)}
+                      onClick={() => switchSubject(sid)}
                       style={{
                         all: 'unset',
                         cursor: 'pointer',
@@ -121,7 +124,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           </div>
           {topicIds.map((id) => {
             const t = notes[id];
-            const active = id === activeTopic;
+            const active = id === validTopic;
             return (
               <button
                 key={id}

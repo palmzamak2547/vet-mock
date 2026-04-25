@@ -1,28 +1,39 @@
 import { SUBJECTS } from '../data/questions.js';
 
+// ============================================================
+// ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
+// Show only what matters: # questions, timer (optional), time/q
+// ============================================================
+
+const QCOUNT_PRESETS = [10, 20, 50];      // เน้นใช้บ่อยที่สุด — custom ได้
+const SECONDS_PRESETS = [30, 60, 120];
+
 export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }) {
   const subjMeta = SUBJECTS.find((s) => s.id === subject);
   const topicMeta = topic && subjMeta?.topics?.find((t) => t.id === topic);
-  const msg = practiceMode === 'bookmarks' ? '🔖 โหมด Bookmark — ทำเฉพาะข้อที่ bookmark'
-    : practiceMode === 'weak' ? '🎯 โหมด Weak Spots — ทำเฉพาะข้อที่ผิดบ่อย'
-    : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
-    : `${subjMeta?.name} — สุ่มข้อสอบ`;
-
   const isExamMode = mode === 'exam';
+
+  const contextLine = practiceMode === 'bookmarks' ? '🔖 Bookmark — เฉพาะข้อที่บันทึก'
+    : practiceMode === 'weak' ? '🎯 Weak Spots — ข้อที่ผิดบ่อย'
+    : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
+    : `${subjMeta?.icon} ${subjMeta?.name}`;
 
   return (
     <>
       <div className="vmx-hero">
-        <h1>ตั้งค่า <em>{isExamMode ? 'การสอบ' : 'การฝึก'}</em></h1>
-        <p>{msg}</p>
+        <h1>{isExamMode ? 'เริ่ม' : 'ตั้งค่า'} <em>{isExamMode ? 'การสอบ' : 'การฝึก'}</em></h1>
+        <p>{contextLine}</p>
       </div>
 
       <div className="vmx-config-panel">
+        {/* Number of questions */}
         <div className="vmx-config-row">
           <label className="vmx-label">จำนวนข้อ</label>
           <div className="vmx-chip-row">
-            {[5, 10, 20, 30, 50, 100, 200].map((n) => (
-              <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} onClick={() => setNumQuestions(n)}>{n} ข้อ</button>
+            {QCOUNT_PRESETS.map((n) => (
+              <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} onClick={() => setNumQuestions(n)}>
+                {n}
+              </button>
             ))}
             <input
               type="number"
@@ -32,28 +43,32 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                 const v = parseInt(e.target.value, 10);
                 if (Number.isFinite(v) && v >= 1) setNumQuestions(v);
               }}
-              style={{ width: 88, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
-              title="กำหนดจำนวนข้อเอง"
+              aria-label="จำนวนข้อแบบกำหนดเอง"
+              style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
             />
           </div>
         </div>
 
+        {/* Timer toggle */}
         <div className="vmx-config-row">
           <label className="vmx-label">จับเวลา</label>
           <div className="vmx-toggle-row">
-            <div className={`vmx-toggle ${useTimer ? 'on' : ''}`} onClick={() => setUseTimer(!useTimer)}></div>
+            <div className={`vmx-toggle ${useTimer ? 'on' : ''}`} role="switch" aria-checked={useTimer} tabIndex={0} onClick={() => setUseTimer(!useTimer)} onKeyDown={(e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setUseTimer(!useTimer); } }}></div>
             <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
-              {useTimer ? `${timePerQ} วินาที / ข้อ` : 'ไม่จับเวลา (โหมดฝึก)'}
+              {useTimer ? `${timePerQ} วินาที / ข้อ` : 'ปิด — โหมดอ่านไม่จับเวลา'}
             </span>
           </div>
         </div>
 
+        {/* Time per question — only when timer on */}
         {useTimer && (
           <div className="vmx-config-row">
             <label className="vmx-label">เวลาต่อข้อ</label>
             <div className="vmx-chip-row">
-              {[15, 30, 60, 90, 120, 180, 300].map((t) => (
-                <button key={t} className={`vmx-chip ${timePerQ === t ? 'active' : ''}`} onClick={() => setTimePerQ(t)}>{t}s</button>
+              {SECONDS_PRESETS.map((t) => (
+                <button key={t} className={`vmx-chip ${timePerQ === t ? 'active' : ''}`} onClick={() => setTimePerQ(t)}>
+                  {t}s
+                </button>
               ))}
               <input
                 type="number"
@@ -63,17 +78,10 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                   const v = parseInt(e.target.value, 10);
                   if (Number.isFinite(v) && v >= 5) setTimePerQ(v);
                 }}
-                style={{ width: 88, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
-                title="กำหนดวินาที/ข้อเอง"
+                aria-label="เวลาต่อข้อแบบกำหนดเอง"
+                style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
               />
             </div>
-          </div>
-        )}
-
-        {isExamMode && (
-          <div style={{ padding: '12px 14px', marginTop: 8, fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7, background: 'var(--clr-surface-2)', borderRadius: 12 }}>
-            <strong style={{ color: 'var(--clr-ink)' }}>🎓 Exam Mode</strong> — สอบจริงจัง · คะแนน ≥ 60% ถือว่าผ่าน<br/>
-            ค่า default: 50 ข้อ × 60 วินาที = 50 นาที (เปลี่ยนได้ด้านบน)
           </div>
         )}
       </div>
@@ -81,7 +89,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
       <div className="vmx-btn-row">
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
         <button className="vmx-btn vmx-btn-primary" onClick={startExam}>
-          {isExamMode ? '🎓 เริ่มสอบ →' : 'เริ่มสอบ →'}
+          {isExamMode ? '🎓 เริ่มสอบ →' : '🚀 เริ่มฝึก →'}
         </button>
       </div>
     </>
