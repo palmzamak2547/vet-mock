@@ -36,7 +36,19 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         return (
           <div key={q.id} className={`vmx-review-item ${cls}`}>
             <div className="vmx-review-head">
-              <span>Q{idx + 1} · {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject}</span>
+              <span>
+                Q{idx + 1} · {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject}
+                {(() => {
+                  const subj = SUBJECTS.find((s) => s.id === q.subject);
+                  const t = q.topic && subj?.topics?.find((tp) => tp.id === q.topic);
+                  return t ? <> · <span style={{ color: subj?.color || 'var(--clr-ink-soft)', fontWeight: 600 }}>{t.icon} {t.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></> : null;
+                })()}
+                {q.examOrigin && (
+                  <span title="คำถามนี้อ้างอิงจากข้อสอบเก่า" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
+                    📜 ข้อสอบเก่า
+                  </span>
+                )}
+              </span>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                 <button className={`vmx-bookmark-btn ${bookmarks.includes(q.id) ? 'active' : ''}`}
                   style={{ position: 'static', width: 28, height: 28, fontSize: 14 }}

@@ -16,6 +16,11 @@
 //   metabolic-er, nutrition, er-anes
 //
 // IDs: 700–899 (room for ~200 questions)
+// Optional fields:
+//   image       — URL or data URI shown above the question
+//   examOrigin  — string like 'VET84 ER Q5' → renders 📜 ข้อสอบเก่า
+//   verified    — citation string parsed by verified.js
+//   flag        — { note, sources, severity } guideline conflict
 // ============================================================
 
 export const QB_COM3 = [
@@ -225,6 +230,7 @@ export const QB_COM3 = [
 
   { id: 731, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'Acute Abdomen 1 hr.pdf',
     tags: ['acute-abdomen', 'afast'], type: 'mcq',
+    examOrigin: 'VET84 ER Q2',
     q: '4-point AFAST scan ใช้ตรวจตำแหน่งใดบ้าง',
     options: ['DH (diaphragmaticohepatic), HR (hepatorenal), SR (splenorenal), CC (cystocolic)', 'Heart, Lung, Liver, Kidney', '4 quadrants ของ abdomen', 'CT scan 4 cuts'],
     answer: 0, explain: 'AFAST 4-point: นอน right lateral · DH (diaphragm + liver), SR (spleen + L kidney), CC (UB + colon), HR (liver + R kidney) · score แต่ละจุด มี fluid +1',
@@ -232,6 +238,7 @@ export const QB_COM3 = [
 
   { id: 732, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'Acute Abdomen 1 hr.pdf',
     tags: ['acute-abdomen', 'septic'], type: 'mcq',
+    examOrigin: 'VET84 ER Q3',
     q: 'การวินิจฉัย Septic peritonitis จาก fluid analysis ใช้ค่า glucose อย่างไร',
     options: ['Fluid glucose > blood glucose 20 mg/dL', 'Fluid glucose < 50 mg/dL หรือ < blood glucose 20 mg/dL', 'Fluid glucose = blood glucose', 'ไม่ใช้ glucose ในการ Dx'],
     answer: 1, explain: 'Septic peritonitis: fluid glucose < 50 mg/dL · หรือ blood-fluid glucose gap > 20 (bacteria กิน glucose) · + degenerate neutrophil ± bacteria',
@@ -406,6 +413,7 @@ export const QB_COM3 = [
 
   { id: 770, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['rer'], type: 'mcq',
+    examOrigin: 'VET84 ER Q13',
     q: 'สูตรคำนวณ Resting Energy Requirement (RER) ในสัตว์น้ำหนัก 3-25 kg คืออะไร',
     options: ['RER = 70 × BW^0.75', 'RER = 30 × BW + 70', 'RER = 100 × BW', 'RER = 50 + BW^0.5'],
     answer: 1, explain: 'RER (3-25 kg) = 30 × BW(kg) + 70 · นอกช่วง: 70 × BW^0.75 · ตัวอย่าง: แมว 6 kg → 30(6)+70 = 250 kcal/d',
@@ -420,6 +428,7 @@ export const QB_COM3 = [
 
   { id: 772, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['feeding-tube'], type: 'mcq',
+    examOrigin: 'VET84 ER Q14',
     q: 'แมว 6 kg มี caudal esophagus mass — feeding tube ที่เหมาะสมที่สุดคืออะไร',
     options: ['NE (nasoesophageal)', 'NG (nasogastric)', 'E-tube (esophagostomy)', 'G-tube (gastrostomy) — ผ่าน mass ไป'],
     answer: 3, explain: 'NE/NG/E-tube ทุกแบบต้องผ่าน esophagus → ถ้ามี mass → ใช้ G-tube (เข้ากระเพาะตรงผ่าน body wall) · J-tube ถ้ามี gastric problem ด้วย',
@@ -427,6 +436,7 @@ export const QB_COM3 = [
 
   { id: 773, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['feeding-protocol'], type: 'mcq',
+    examOrigin: 'VET84 ER Q15',
     q: 'หลังวางสาย feeding (E-tube/G-tube) — 24 ชั่วโมงแรกควรทำอย่างไร',
     options: ['ให้อาหาร RER เต็มที่เลย', 'ไม่ต้องให้อะไร 24 ชม. (ปล่อยรอยปิดสนิท) แล้วค่อยเริ่ม 1/3 RER วันแรก', '1/2 RER + เกลือแร่', 'Bolus 50 ml/kg'],
     answer: 1, explain: 'หลังวางสาย: 24 ชม. แรก rest · D1 = 1/3 RER · D2 = 2/3 RER · D3 = full RER · slow bolus ≤ 5 ml/min · ระวัง refeeding syndrome (hypoP)',
@@ -1107,5 +1117,131 @@ export const QB_COM3 = [
     q: 'การ upload ข้อมูลผู้ป่วยจริง (ชื่อเจ้าของ + record) เข้า AI tools (free tier) เป็นเรื่องที่ทำได้ปกติ ไม่มีปัญหา privacy',
     answer: false, explain: 'False! Free-tier AI อาจใช้ data ในการ train · ห้าม upload PHI/PII · de-identify ก่อนใช้ · ใช้ enterprise version ที่มี data privacy contract สำหรับ clinical data',
     verified: 'GDPR + PDPA Thailand + medical data privacy' },
+
+  // ═══════════════════════════════════════════════════════════
+  // CASE-BASED clinical reasoning (IDs 883-892)
+  //   เน้น decision-making จาก scenario · เหมาะกับ exam mode
+  // ═══════════════════════════════════════════════════════════
+
+  { id: 883, subject: 'com3', topic: 'triage', year: 4, source: 'COM III FINAL 86 + Aj. Chutirat lecture',
+    tags: ['triage', 'case', 'reasoning'], type: 'mcq',
+    q: 'สุนัข Golden Retriever 6 ปี 30 kg มาด้วย collapse · MM pale · CRT 3 sec · HR 180 · weak femoral pulse · BP 70/40 · mentation obtunded · เลือดอาเจียนเล็กน้อย — step ที่ "ต้องทำเป็นอันดับแรก" คือ',
+    options: [
+      'Complete history + signalment',
+      '**Primary survey ABCDE + immediate fluid resuscitation** (พบ shock + hypovolemia)',
+      'X-ray ช่องท้อง',
+      'CBC + chemistry รอผล',
+    ],
+    answer: 1, explain: 'Triage > Primary survey ABCDE → identified shock/hypovolemia → resuscitate ก่อน · history/secondary survey หลัง stabilize · sx/imaging มาทีหลัง',
+    verified: 'triage 1 hr.pdf + COM III FINAL 86 p.40-43' },
+
+  { id: 884, subject: 'com3', topic: 'shock', year: 4, source: 'COM III FINAL 86 + Aj. Chutirat',
+    tags: ['shock', 'case', 'reasoning'], type: 'mcq',
+    examOrigin: 'VET84 ER Q7-9',
+    q: 'แมว 4 ปี dehydration 10% · weak pulse · prolonged CRT · HR 100 (ต่ำกว่าปกติ) · Temp 36.5 · PCV 28 · Hb 10 · TS 6.0 — type ของ shock + stage ที่เป็นได้มากที่สุด',
+    options: [
+      'Hypovolemic shock · early decompensatory',
+      'Cardiogenic shock · compensatory',
+      'Distributive (septic) shock · early decompensatory',
+      'Obstructive shock · compensatory',
+    ],
+    answer: 0, explain: 'Severe dehydration + ↓ perfusion (CRT, weak pulse) + แมว shock มัก HR ↓ · BP ตกแล้ว = decompensatory · PCV/Hb ปกติ ไม่ใช่ anemic · ไม่มี cytokine sign → ไม่ใช่ septic',
+    verified: 'COM III FINAL 86 p.19 + SHOCK 1 hr.pdf' },
+
+  { id: 885, subject: 'com3', topic: 'cpcr', year: 4, source: 'COM III FINAL 86 + RECOVER',
+    tags: ['cpcr', 'case', 'reasoning'], type: 'mcq',
+    q: 'สุนัข ICU monitor ECG เห็น chaotic waveform ไม่มี QRS recognizable · ตรวจ femoral pulse ไม่เจอ · capnograph drop จาก 35 → 8 mmHg ใน 10 วินาที — action ที่ "ต้องทำทันที" คือ',
+    options: [
+      'รอดู rhythm 30 วินาที ก่อนตัดสินใจ',
+      'Atropine 0.04 mg/kg IV',
+      '**Start CPR ทันที + เตรียม defibrillator** (rhythm = VF, EtCO₂ drop = arrest)',
+      'IV fluid bolus',
+    ],
+    answer: 2, explain: 'VF + no pulse + EtCO₂ drop = cardiac arrest · Start CPR + prep defib (shockable) · 2-4 J/kg biphasic · ห้าม atropine ใน VF · ห้ามรอ',
+    verified: 'CPCR 1 hr.pdf + RECOVER 2024' },
+
+  { id: 886, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'COM III FINAL 86 + Aj. Chutirat',
+    tags: ['acute-abdomen', 'case', 'reasoning', 'gdv'], type: 'mcq',
+    q: 'Great Dane 8 ปี · เพิ่งกินข้าวเสร็จ 2 ชั่วโมง · มา ER ด้วย restless · unproductive vomit · abdomen distension · X-ray right lateral เห็น "double bubble" / reverse C — diagnosis + step ถัดไป',
+    options: [
+      'Foreign body · รอดู',
+      '**GDV** · stabilize hypovolemic shock + gastric decompression (orogastric tube/trocar) → emergency Sx',
+      'Pancreatitis · medical management',
+      'Intussusception · barium series',
+    ],
+    answer: 1, explain: 'Classic GDV: large breed deep chest + post-prandial + restless + non-productive vomit + double bubble · CRITICAL → fluid resuscitation + decompress + Sx ASAP · mortality ↑ ตามเวลา',
+    verified: 'Acute Abdomen 1 hr.pdf + COM III FINAL 86' },
+
+  { id: 887, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'Resp_CV emergency',
+    tags: ['resp-er', 'case', 'reasoning', 'feline-asthma'], type: 'mcq',
+    q: 'แมว 5 ปี · sudden onset open-mouth breathing · expiratory dyspnea + wheeze · oxygen mask ไม่ดีขึ้น · cyanotic mucosa — emergency Tx ที่เร็วที่สุด',
+    options: [
+      'Furosemide IV (สงสัย heart failure)',
+      'Bronchodilator inhaler ห้ามใช้ในแมว',
+      '**Terbutaline 0.01 mg/kg SC + dexamethasone IV + ลด stress (สงสัย feline asthma attack)**',
+      'Antibiotic IV',
+    ],
+    answer: 2, explain: 'Expiratory + wheeze = LRT (asthma) · cat acute asthma → terbutaline (β2) SC ออกเร็ว + steroid · long-term: inhaled fluticasone + albuterol PRN',
+    verified: 'Respiratory and Cardiovascular Emergency 1 hr.pdf' },
+
+  { id: 888, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'metabolic',
+    tags: ['dka', 'case', 'reasoning'], type: 'mcq',
+    q: 'แมว 10 ปี DM · มาด้วย anorexia 3 วัน · ซึม dehydration 8% · glucose 580 mg/dL · ketonuria 3+ · K+ 3.0 · pH 7.10 — initial treatment order ที่ถูกต้อง',
+    options: [
+      'Insulin SC 1 U/kg ทันที',
+      '**1) IV NSS bolus + 2) Replace K (KCl in fluid) + 3) Regular insulin CRI หลัง K ≥ 3.5 + 4) Monitor glucose q1-2h**',
+      'Dextrose 50% bolus',
+      'Steroid IV',
+    ],
+    answer: 1, explain: 'DKA order: rehydrate ก่อน → correct K (insulin shifts K → fatal hypoK ถ้าไม่แก้ก่อน) → Regular insulin CRI 1.1 U/kg/d cat (NOT SC) · monitor q1-2h · cerebral edema risk',
+    verified: 'metabolic and endocrine and UT 1 hr.pdf + master p.33' },
+
+  { id: 889, subject: 'com3', topic: 'er-anes', year: 4, source: 'ER anes',
+    tags: ['er-anes', 'case', 'reasoning', 'urethral-obstruction'], type: 'mcq',
+    q: 'แมวเพศผู้ 4 ปี urethral obstruction 36 ชม. · K+ 8.0 · ECG: absent P + wide QRS · ต้องสวน catheter ภายใต้ sedation — action ที่ "ต้องทำก่อน" sedation คือ',
+    options: [
+      'Propofol bolus ทันที',
+      '**Decompress UB ด้วย cystocentesis + IV fluid + Ca gluconate slow IV (stabilize myocardium) + dextrose+insulin shift K — รอ K < 6 ค่อย sedate**',
+      'Atropine + ketamine ทันที',
+      'NSAIDs IV ก่อน',
+    ],
+    answer: 1, explain: 'HyperK 8.0 + ECG change = severe risk asystole ถ้า sedate ทันที · stabilize: Ca gluconate (no shift K, แค่ stabilize membrane) + dextrose+insulin (shift K into cell) + IV fluid · เมื่อ K < 6 + ECG ดีขึ้น ค่อย sedate',
+    verified: 'Animal_Emerg_Anes 1 hr.pdf + master p.46' },
+
+  { id: 890, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam',
+    tags: ['neuro-exam', 'case', 'reasoning', 'localization'], type: 'mcq',
+    q: 'Lab 5 ปี · acute weakness 4 ขา · ขาหน้า patellar reflex hyperreflexive · withdrawal intact · ขาหลัง patellar normal · withdrawal intact · cranial nerves ปกติ · mentation alert — lesion location',
+    options: [
+      'C1-C5 (UMN ทั้ง 4 ขา)',
+      '**C6-T2 — LMN ขาหน้า + UMN ขาหลัง** (cervicothoracic intumescence)',
+      'T3-L3 (ขาหน้าปกติ + UMN ขาหลัง)',
+      'L4-S3 (LMN ขาหลังเท่านั้น)',
+    ],
+    answer: 0, explain: 'Hyperreflexive ขาหน้า + intact reflex หลัง = UMN 4 ขา = lesion above C6 → **C1-C5** · ถ้า LMN ขาหน้า (hyporeflexia) → C6-T2 · alert mentation → not forebrain',
+    verified: 'neuro_exam 1 hr.pdf + neuro_localised 1 hr.pdf' },
+
+  { id: 891, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder',
+    tags: ['spinal', 'case', 'reasoning', 'ivdd'], type: 'mcq',
+    q: 'Dachshund 6 ปี · acute onset paraplegia ขาหลัง 12 ชม. · DPP intact · UMN reflex ขาหลัง · ปวดเวลาคลำ T-L spine — Modified Frankel grade + management',
+    options: [
+      'Grade 1 · cage rest + analgesia พอ',
+      '**Grade 4 (plegia + DPP intact) · MRI + decompressive Sx (hemilaminectomy) ภายใน 24-48 hr**',
+      'Grade 5 · poor prognosis ไม่ผ่า',
+      'No need imaging — observe 1 wk',
+    ],
+    answer: 1, explain: 'Plegia + DPP intact = Grade 4 (Modified Frankel) · prognosis ดีถ้า Sx เร็ว (≤ 48 hr) · chondrodystrophoid + T12-L2 = classic IVDD type I · MRI confirm + hemilaminectomy',
+    verified: 'Spinal disorder 2 hr.pdf + master p.6' },
+
+  { id: 892, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure',
+    tags: ['seizure', 'case', 'reasoning', 'status'], type: 'mcq',
+    q: 'Lab 3 ปี · 3 generalized tonic-clonic seizures ใน 2 hr · ระหว่างนั้น mentation obtunded ไม่กลับมา baseline · ปัจจุบัน 8 นาทีของ seizure ไม่หยุด — diagnosis + first emergency action',
+    options: [
+      'Isolated seizure · monitor at home',
+      'Cluster seizure · phenobarb PO',
+      '**Status epilepticus · IV access + Diazepam 0.5 mg/kg IV bolus (or rectal 1-2 mg/kg if no IV)**',
+      'Narcolepsy · supportive only',
+    ],
+    answer: 2, explain: 'Status = single seizure > 5 min OR ≥ 2 seizures without recovery between · ตรงกับ case นี้ (no recovery + 8 min ongoing) · emergency: diazepam IV/rectal first · refractory → midazolam CRI / propofol / phenobarb loading',
+    verified: 'seizure 1 hr.pdf + IVETF 2015' },
 
 ];

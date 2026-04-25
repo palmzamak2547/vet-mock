@@ -17,7 +17,21 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         {currentQ.type === 'tf' && 'True / False'}
         {currentQ.type === 'fill' && 'Fill in the Blank'}
         {currentQ.type === 'match' && 'Matching'}
-        {' · '}{SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}
+        {(() => {
+          const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
+          const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
+          return (
+            <>
+              {' · '}{subj?.name || currentQ.subject}
+              {topic && <> · <span style={{ color: subj?.color || 'var(--clr-ink-soft)' }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></>}
+            </>
+          );
+        })()}
+        {currentQ.examOrigin && (
+          <span title="คำถามนี้อ้างอิงจากข้อสอบเก่า" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
+            📜 ข้อสอบเก่า
+          </span>
+        )}
       </div>
 
       {currentQ.image && <img src={currentQ.image} alt="" className="vmx-qimage" />}
