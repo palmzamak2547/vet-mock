@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { NOTES_COM5 } from '../data/notes-com5.js';
+import { NOTES_COM3 } from '../data/notes-com3.js';
 import { SUBJECTS } from '../data/curriculum.js';
 
 // ============================================================
@@ -7,21 +8,36 @@ import { SUBJECTS } from '../data/curriculum.js';
 // ============================================================
 //
 // Props:
-//   subject: string (e.g. 'com5') — currently only com5 supported
+//   subject: string (com3 | com5)
 //   initialTopic: string | null    — open this topic by default
+//   setSubject: function (optional, for in-view subject switching)
 //   goBack, goHome
 // ============================================================
 
 const NOTES_BY_SUBJECT = {
   com5: NOTES_COM5,
+  com3: NOTES_COM3,
 };
 
-export default function NotesView({ subject = 'com5', initialTopic = null, goBack, goHome }) {
+export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, goHome }) {
+  const [activeSubject, setActiveSubjectLocal] = useState(subjectProp);
+  const setActiveSubject = (s) => { setActiveSubjectLocal(s); if (setSubjectProp) setSubjectProp(s); };
+  const subject = activeSubject;
   const notes = NOTES_BY_SUBJECT[subject] || {};
   const subjectMeta = SUBJECTS.find((s) => s.id === subject);
   const topicIds = Object.keys(notes);
   const [activeTopic, setActiveTopic] = useState(() => initialTopic && notes[initialTopic] ? initialTopic : topicIds[0]);
   const [search, setSearch] = useState('');
+
+  // Reset active topic when subject changes
+  useEffect(() => {
+    const newTopicIds = Object.keys(NOTES_BY_SUBJECT[subject] || {});
+    if (newTopicIds.length > 0 && !newTopicIds.includes(activeTopic)) {
+      setActiveTopic(newTopicIds[0]);
+    }
+  }, [subject]);
+
+  const availableSubjects = Object.keys(NOTES_BY_SUBJECT);
 
   const topic = notes[activeTopic];
   const mainRef = useRef(null);
@@ -67,6 +83,39 @@ export default function NotesView({ subject = 'com5', initialTopic = null, goBac
       <div className="vmx-notes-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 280px) 1fr', gap: 16, alignItems: 'flex-start' }}>
         {/* Topic sidebar */}
         <div className="vmx-notes-sidebar" style={{ position: 'sticky', top: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {/* Subject switcher */}
+          {availableSubjects.length > 1 && (
+            <>
+              <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+                วิชา
+              </div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
+                {availableSubjects.map((sid) => {
+                  const meta = SUBJECTS.find((s) => s.id === sid);
+                  const active = sid === subject;
+                  return (
+                    <button
+                      key={sid}
+                      onClick={() => setActiveSubject(sid)}
+                      style={{
+                        all: 'unset',
+                        cursor: 'pointer',
+                        padding: '6px 12px',
+                        borderRadius: 999,
+                        background: active ? 'var(--clr-ink)' : 'var(--clr-surface)',
+                        color: active ? 'var(--clr-bg)' : 'var(--clr-ink)',
+                        border: '1px solid var(--clr-border)',
+                        fontSize: 12,
+                        fontWeight: active ? 600 : 500,
+                      }}
+                    >
+                      {meta?.icon} {meta?.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </>
+          )}
           <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
             หัวข้อ
           </div>
