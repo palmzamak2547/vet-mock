@@ -3,6 +3,54 @@ import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, isPlaylistUrl, 
 import { SUBJECTS } from '../data/curriculum.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 
+// ── Playlist preview cache (first video thumbnail + count) ──────────
+// Single in-memory map shared across cards so 6 cards in the grid don't
+// each fire their own request. Backed by localStorage with a 24h TTL.
+const PLAYLIST_PREVIEW_CACHE = new Map();
+const PLAYLIST_TTL = 24 * 60 * 60 * 1000;
+
+function usePlaylistPreview(playlistId) {
+  const [preview, setPreview] = useState(() => {
+    if (!playlistId) return null;
+    if (PLAYLIST_PREVIEW_CACHE.has(playlistId)) return PLAYLIST_PREVIEW_CACHE.get(playlistId);
+    try {
+      const raw = window.localStorage.getItem('vmx-pl-preview-' + playlistId);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (Date.now() - (parsed?.cachedAt || 0) < PLAYLIST_TTL) {
+        PLAYLIST_PREVIEW_CACHE.set(playlistId, parsed.data);
+        return parsed.data;
+      }
+    } catch {}
+    return null;
+  });
+
+  useEffect(() => {
+    if (!playlistId || preview) return;
+    let aborted = false;
+    fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((json) => {
+        if (aborted || !json?.items?.length) return;
+        const first = json.items[0];
+        const data = {
+          thumb: first.thumb || `https://img.youtube.com/vi/${first.id}/hqdefault.jpg`,
+          firstTitle: first.title,
+          count: json.count ?? json.items.length,
+        };
+        PLAYLIST_PREVIEW_CACHE.set(playlistId, data);
+        try {
+          window.localStorage.setItem('vmx-pl-preview-' + playlistId, JSON.stringify({ data, cachedAt: Date.now() }));
+        } catch {}
+        setPreview(data);
+      })
+      .catch(() => {});
+    return () => { aborted = true; };
+  }, [playlistId, preview]);
+
+  return preview;
+}
+
 // ============================================================
 // VideoView — main page (grid of subject cards / playlist tiles)
 // ============================================================
@@ -160,9 +208,13 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
 }
 
 function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
-  // For single videos: prefer hqdefault (always exists). For playlists: gradient placeholder.
-  const [thumbSrc, setThumbSrc] = useState(() => playlist || isChannel ? null : getThumbnail(video.url, 'hq'));
+  // Single videos use direct YouTube thumbnail; playlists use first-video preview from API
+  const playlistId = playlist ? getPlaylistId(video.url) : null;
+  const playlistPreview = usePlaylistPreview(playlistId);
+  const directThumb = !playlist && !isChannel ? getThumbnail(video.url, 'hq') : null;
   const [errored, setErrored] = useState(false);
+
+  const thumbSrc = directThumb || playlistPreview?.thumb;
 
   if (thumbSrc && !errored) {
     return (
@@ -175,19 +227,26 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
         />
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(to top, rgba(0,0,0,0.4), transparent 60%)' }}>
           <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(0,0,0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 22, paddingLeft: 4 }}>
-            ▶
+            {playlist ? '📋' : '▶'}
           </div>
         </div>
-        {video.duration && (
+        {/* Single video duration */}
+        {!playlist && video.duration && (
           <div style={{ position: 'absolute', bottom: 8, right: 8, padding: '2px 7px', background: 'rgba(0,0,0,0.85)', color: 'white', borderRadius: 4, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
             {video.duration}
+          </div>
+        )}
+        {/* Playlist count badge (top-left ribbon) */}
+        {playlist && playlistPreview && (
+          <div style={{ position: 'absolute', top: 8, left: 8, padding: '3px 9px', background: 'rgba(0,0,0,0.78)', color: 'white', borderRadius: 6, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', fontWeight: 600, letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: 5 }}>
+            📋 PLAYLIST · {playlistPreview.count}
           </div>
         )}
       </div>
     );
   }
 
-  // Fallback / playlist / channel — gradient placeholder
+  // Fallback / channel / loading playlist — gradient placeholder
   const bg = playlist
     ? 'linear-gradient(135deg, #c26d6d, #e8d4a8)'
     : isChannel
@@ -200,7 +259,7 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
         {playlist ? 'PLAYLIST' : isChannel ? 'CHANNEL' : 'VIDEO'}
       </div>
       {playlist && (
-        <div style={{ fontSize: 10, marginTop: 4, opacity: 0.85 }}>คลิกเพื่อเลือกคลิป</div>
+        <div style={{ fontSize: 10, marginTop: 4, opacity: 0.85 }}>กำลังโหลดหน้าปก…</div>
       )}
     </div>
   );
