@@ -79,7 +79,7 @@ export const EXAM_SCHEDULE = {
       type: 'Mixed',
       weight_pct: 30,
       content: ['English for Veterinary Profession II'],
-      notes: 'อ.ดร.เกรียงวิชญ์ + นางพรรณิภา + น.ส.เชาวลี · เก็บคะแนน 25, ทำงาน, Final 30',
+      notes: 'Midterm 30 + Final 30 + งาน 25 + ฟรี 5 (รวม ~90, ที่เหลือยังไม่ระบุ)',
       icon: '🇬🇧',
       color: '#5c6b7d',
     },

@@ -17,7 +17,7 @@ export default function LeaderboardView({ user, goHome }) {
     <>
       <div className="vmx-hero">
         <h1>🏆 Global <em>Leaderboard</em></h1>
-        <p>คะแนนสูงสุดจากผู้ใช้ VetMock ทั้งหมด — ติด Top 10 ได้ไหมนะ 👀</p>
+        <p>คะแนนสูงสุดจากผู้ใช้ VetMock ทั้งหมด — สู้ๆ นะ 💪</p>
       </div>
 
       {loading ? (

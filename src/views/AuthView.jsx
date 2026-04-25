@@ -17,8 +17,19 @@ export default function AuthView({ onBack, onSuccess }) {
       if (mode === 'signup') {
         if (!username.trim()) throw new Error('กรุณาใส่ชื่อ username');
         if (password.length < 6) throw new Error('รหัสผ่านต้องยาว 6 ตัวขึ้นไป');
-        await signUpWithEmail(email, password, username.trim());
-        setInfo('✓ สมัครสำเร็จ! เช็คอีเมลเพื่อ verify แล้ว login ได้เลย');
+        const result = await signUpWithEmail(email, password, username.trim());
+        // If session is returned (email confirmation disabled) — already logged in
+        if (result?.session) {
+          if (onSuccess) onSuccess();
+          return;
+        }
+        // Fallback: try to sign in immediately
+        try {
+          await signInWithEmail(email, password);
+          if (onSuccess) onSuccess();
+        } catch {
+          setInfo('✓ สมัครสำเร็จ! กรุณา login ด้วย email + password ของคุณ');
+        }
       } else {
         await signInWithEmail(email, password);
         if (onSuccess) onSuccess();
