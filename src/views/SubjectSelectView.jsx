@@ -9,7 +9,7 @@ export default function SubjectSelectView({ setSubject, setView, setPracticeMode
       <div className="vmx-hero">
         <h1>เลือก <em>วิชา</em></h1>
         <p>
-          {mode === 'exam' ? '🎓 Exam Mode — สอบจริงจัง 50 ข้อ 50 นาที' : '📝 Quick Practice — สุ่มข้อสอบตามจำนวนที่เลือก'}
+          {mode === 'exam' ? '🎓 Exam Mode — สอบจริงจัง · ตั้งค่าจำนวนข้อ/เวลาได้ในขั้นถัดไป' : '📝 Quick Practice — สุ่มข้อสอบตามจำนวนที่เลือก'}
         </p>
       </div>
 

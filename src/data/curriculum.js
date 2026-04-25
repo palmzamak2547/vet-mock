@@ -5,12 +5,12 @@
 // ============================================================
 
 export const YEARS = [
-  { id: 1, label: 'ปี 1', active: false, note: 'Pre-clinic (จะเพิ่มทีหลัง)' },
-  { id: 2, label: 'ปี 2', active: false, note: 'Pre-clinic (จะเพิ่มทีหลัง)' },
-  { id: 3, label: 'ปี 3', active: false, note: 'Paraclinic (จะเพิ่มทีหลัง)' },
-  { id: 4, label: 'ปี 4', active: true, note: 'ปีปัจจุบัน · Vet 86' },
-  { id: 5, label: 'ปี 5', active: false, note: 'Clinical rotation (จะเพิ่มทีหลัง)' },
-  { id: 6, label: 'ปี 6', active: false, note: 'Internship (จะเพิ่มทีหลัง)' },
+  { id: 1, label: 'ปี 1', available: false, current: false, desc: 'Pre-clinic — จะเพิ่มทีหลัง' },
+  { id: 2, label: 'ปี 2', available: false, current: false, desc: 'Pre-clinic — จะเพิ่มทีหลัง' },
+  { id: 3, label: 'ปี 3', available: false, current: false, desc: 'Paraclinic — จะเพิ่มทีหลัง' },
+  { id: 4, label: 'ปี 4', available: true,  current: true,  desc: 'ปีปัจจุบัน · Vet 86' },
+  { id: 5, label: 'ปี 5', available: false, current: false, desc: 'Clinical rotation — จะเพิ่มทีหลัง' },
+  { id: 6, label: 'ปี 6', available: false, current: false, desc: 'Internship — จะเพิ่มทีหลัง' },
 ];
 
 export const CURRENT_YEAR = 4;

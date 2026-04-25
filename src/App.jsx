@@ -165,10 +165,8 @@ export default function App() {
     else pool = subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === subject);
     if (!pool.length) { alert('ไม่มีข้อสอบในหมวดนี้'); return; }
 
-    const isExam = mode === 'exam';
-    const qCount = isExam ? 50 : numQuestions;
-    const qTime = isExam ? 60 : timePerQ;
-    if (isExam) { setTimePerQ(60); setUseTimer(true); }
+    const qCount = Math.max(1, numQuestions);
+    const qTime = useTimer ? Math.max(5, timePerQ) : 0;
 
     const picked = shuffle(pool).slice(0, Math.min(qCount, pool.length));
     setQuestions(picked); setAnswers({}); setCurrentIdx(0); setTimeLeft(qTime);
@@ -252,7 +250,7 @@ export default function App() {
 
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <>
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, cardStats, bookmarks, customQuestions, user, profile }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
@@ -263,10 +261,9 @@ export default function App() {
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions }} />}
-              {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions }} />}
+              {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setMode, setView, setPracticeMode }} />}
-              {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView {...{ goHome }} />}
               {view === 'about' && <AboutView {...{ goHome, setView }} />}

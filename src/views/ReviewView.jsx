@@ -62,9 +62,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 {q.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}
               </div>
             )}
-            {QUESTION_SOURCES[q.subject] && (
+            {QUESTION_SOURCES[q.subject]?.files?.length > 0 && (
               <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', fontFamily: 'JetBrains Mono, monospace' }}>
-                📚 ดึงจาก: {QUESTION_SOURCES[q.subject].files[0]}
+                📚 ดึงจาก: {q.source || QUESTION_SOURCES[q.subject].files[0]}
                 {QUESTION_SOURCES[q.subject].contributors?.length > 0 && (
                   <> · by {QUESTION_SOURCES[q.subject].contributors[0]}</>
                 )}

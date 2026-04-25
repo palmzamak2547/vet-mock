@@ -48,13 +48,14 @@ export function updateCard(card, quality) {
   return c;
 }
 
-// Get cards that are due for review (sorted by urgency)
-export function getDueCards(cards, limit = 20) {
+// Get cards that are due for review (sorted by urgency).
+// Pass limit=0 (or null) for no cap.
+export function getDueCards(cards, limit = 0) {
   const now = Date.now();
-  return Object.values(cards)
+  const due = Object.values(cards)
     .filter((c) => c.nextReview <= now)
-    .sort((a, b) => a.nextReview - b.nextReview)
-    .slice(0, limit);
+    .sort((a, b) => a.nextReview - b.nextReview);
+  return limit && limit > 0 ? due.slice(0, limit) : due;
 }
 
 // Get cards due count breakdown

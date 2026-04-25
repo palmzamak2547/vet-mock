@@ -93,24 +93,25 @@ export async function saveExamResult(result) {
   if (error) console.error('Save result error:', error);
 }
 
-export async function getLeaderboard(groupId = null, limit = 20) {
+export async function getLeaderboard(groupId = null, limit = 200) {
   // Get top scores - join with profiles to get username
   let query = supabase.from('exam_results')
     .select('id, user_id, mode, subject, total, correct, pct, created_at, profiles(username, avatar_emoji)')
-    .order('pct', { ascending: false }).order('correct', { ascending: false })
-    .limit(limit);
+    .order('pct', { ascending: false }).order('correct', { ascending: false });
+  if (limit && limit > 0) query = query.limit(limit);
   if (groupId) query = query.eq('group_id', groupId);
   const { data, error } = await query;
   if (error) throw error;
   return data;
 }
 
-export async function getUserStats(userId) {
-  const { data, error } = await supabase.from('exam_results')
+export async function getUserStats(userId, limit = 1000) {
+  let query = supabase.from('exam_results')
     .select('pct, correct, total, mode, created_at')
     .eq('user_id', userId)
-    .order('created_at', { ascending: false })
-    .limit(100);
+    .order('created_at', { ascending: false });
+  if (limit && limit > 0) query = query.limit(limit);
+  const { data, error } = await query;
   if (error) throw error;
   return data;
 }

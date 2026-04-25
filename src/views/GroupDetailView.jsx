@@ -15,7 +15,7 @@ export default function GroupDetailView({ group, user, goBack }) {
       const [m, q, lb] = await Promise.all([
         getGroupMembers(group.id),
         getSharedQuestions(group.id),
-        getLeaderboard(group.id, 20),
+        getLeaderboard(group.id),
       ]);
       setMembers(m); setQuestions(q); setLeaderboard(lb);
     } finally { setLoading(false); }

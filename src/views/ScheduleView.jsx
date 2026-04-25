@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { EXAM_SCHEDULE, fmtThaiDate, getUpcomingExams } from '../data/schedule.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { QB } from '../data/questions.js';
 
 export default function ScheduleView({ goHome, setSubject, setMode, setView, setPracticeMode }) {
-  const exams = getUpcomingExams('y4');
+  const [showPast, setShowPast] = useState(false);
+  const allExams = getUpcomingExams('y4');
+  const pastCount = allExams.filter((e) => e.daysLeft < 0).length;
+  const exams = showPast ? allExams : allExams.filter((e) => e.daysLeft >= 0);
 
   const practiceSubject = (subjId) => {
     setSubject(subjId);
@@ -21,7 +25,14 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
         <p>Vet 86 · Semester 2/2568 · อัพเดตล่าสุดจากโพยและประกาศ</p>
       </div>
 
-      <div className="vmx-section-label">ปี 4 · Final Exams</div>
+      <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+        <span>ปี 4 · Final Exams ({exams.length})</span>
+        {pastCount > 0 && (
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowPast(!showPast)}>
+            {showPast ? `🙈 ซ่อนสอบที่ผ่านแล้ว (${pastCount})` : `👁 แสดงสอบที่ผ่านแล้ว (${pastCount})`}
+          </button>
+        )}
+      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 30 }}>
         {exams.map((exam) => {

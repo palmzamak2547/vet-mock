@@ -2,7 +2,7 @@ import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate } from '../data/schedule.js';
 
-export default function HomeView({ setView, setMode, setSubject, setPracticeMode, cardStats, bookmarks, customQuestions, user, profile }) {
+export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile }) {
   const totalQ = QB.length + (customQuestions?.length || 0);
   const nextExam = getNextExam('y4');
 
@@ -56,10 +56,16 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           <div className="sub">สุ่มข้อสอบ 5-50 ข้อ พร้อมจับเวลา</div>
         </button>
 
-        <button className="vmx-mode-card" onClick={() => { setMode('exam'); setView('subject-select'); }}>
+        <button className="vmx-mode-card" onClick={() => {
+          setMode('exam');
+          if (setNumQuestions) setNumQuestions(50);
+          if (setUseTimer) setUseTimer(true);
+          if (setTimePerQ) setTimePerQ(60);
+          setView('subject-select');
+        }}>
           <div className="icon">🎓</div>
           <div className="title">Exam Mode</div>
-          <div className="sub">สอบจริงจัง 50 ข้อ 50 นาที</div>
+          <div className="sub">เริ่มต้น 50 ข้อ × 60 วิ (ปรับได้)</div>
         </button>
 
         <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>

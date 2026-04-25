@@ -13,7 +13,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     allQuestions.forEach((q) => {
       pool[q.id] = srCards[q.id] || initCard(q.id);
     });
-    return getDueCards(pool, 20);
+    return getDueCards(pool);
   });
   const [reviewedCount, setReviewedCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);

@@ -1,11 +1,11 @@
 import { SUBJECTS, QB } from '../data/questions.js';
 import { downloadJSON } from '../hooks/utils.js';
 
-export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setPracticeMode, setView, setMode, history, notes, srCards, streak, customQuestions }) {
+export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, customQuestions }) {
   const exportData = () => {
     const data = {
       exportDate: new Date().toISOString(),
-      version: '3.0',
+      version: '5.0',
       bookmarks,
       history,
       notes,
@@ -27,6 +27,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           if (data.bookmarks) setBookmarks(data.bookmarks);
           if (data.history) setHistory(data.history);
           if (data.srCards) setSrCards(data.srCards);
+          if (data.notes && setNotes) setNotes(data.notes);
+          if (data.customQuestions && setCustomQuestions) setCustomQuestions(data.customQuestions);
+          if (data.streak !== undefined && setStreakData) {
+            setStreakData({ streak: data.streak, lastDate: Date.now() });
+          }
           alert('Import สำเร็จ! Reload หน้าเพื่อเห็นการเปลี่ยนแปลง');
         }
       } catch { alert('ไฟล์ไม่ถูกต้อง'); }
@@ -134,8 +139,12 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
       <div className="vmx-btn-row" style={{ marginTop: 20 }}>
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => {
-          if (confirm('ต้องการล้างประวัติทั้งหมด? (ข้อมูล bookmarks, history, notes, SR cards จะหายหมด)')) {
-            setHistory([]); setBookmarks([]); setSrCards({});
+          if (confirm('ต้องการล้างประวัติทั้งหมด? (ข้อมูล bookmarks, history, notes, SR cards, streak จะหายหมด)')) {
+            setHistory([]);
+            setBookmarks([]);
+            setSrCards({});
+            if (setNotes) setNotes({});
+            if (setStreakData) setStreakData({ streak: 0, lastDate: null });
           }
         }}>🗑 ล้างข้อมูลทั้งหมด</button>
       </div>

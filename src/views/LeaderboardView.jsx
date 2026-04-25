@@ -7,7 +7,7 @@ export default function LeaderboardView({ user, goHome }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getLeaderboard(null, 50)
+    getLeaderboard()
       .then(setScores)
       .catch(() => setScores([]))
       .finally(() => setLoading(false));
