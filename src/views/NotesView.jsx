@@ -64,9 +64,9 @@ export default function NotesView({ subject = 'com5', initialTopic = null, goBac
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 280px) 1fr', gap: 16, alignItems: 'flex-start' }}>
+      <div className="vmx-notes-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 280px) 1fr', gap: 16, alignItems: 'flex-start' }}>
         {/* Topic sidebar */}
-        <div style={{ position: 'sticky', top: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div className="vmx-notes-sidebar" style={{ position: 'sticky', top: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
           <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
             หัวข้อ
           </div>
@@ -141,16 +141,6 @@ export default function NotesView({ subject = 'com5', initialTopic = null, goBac
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 720px) {
-          .vmx-app .vmx-container > div[style*="grid-template-columns"] {
-            grid-template-columns: 1fr !important;
-          }
-        }
-        @media print {
-          .vmx-header, .vmx-footer, button { display: none !important; }
-        }
-      `}</style>
     </>
   );
 }

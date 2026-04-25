@@ -367,7 +367,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
   return (
     <div className="vmx-modal-overlay" onClick={onClose}>
-      <div className="vmx-modal" style={{ maxWidth: showList && playlistItems.length > 0 ? 1200 : 800, width: '95vw', padding: 0, overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
+      <div className="vmx-modal" style={{ maxWidth: showList && playlistItems.length > 0 ? 1200 : 800, width: '100%', padding: 0, overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
 
         {/* Header bar */}
         <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
@@ -393,7 +393,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onClose} style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px' }} title="ปิด (Esc)">✕</button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: showList && playlistItems.length > 0 ? 'minmax(0, 2.2fr) minmax(280px, 1fr)' : '1fr', gap: 0 }}>
+        <div className="vmx-player-grid" style={{ display: 'grid', gridTemplateColumns: showList && playlistItems.length > 0 ? 'minmax(0, 2.2fr) minmax(280px, 1fr)' : '1fr', gap: 0 }}>
           {/* Player column */}
           <div style={{ padding: 18, paddingRight: showList && playlistItems.length > 0 ? 12 : 18 }}>
             {embedUrl ? (
@@ -465,7 +465,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
           {/* Sidebar */}
           {showList && playlistId && playlistItems.length > 0 && (
-            <div style={{ background: 'var(--clr-surface-2)', borderLeft: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', maxHeight: 'min(80vh, 700px)' }}>
+            <div className="vmx-player-sidebar" style={{ background: 'var(--clr-surface-2)', borderLeft: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', maxHeight: 'min(80vh, 700px)' }}>
               <div style={{ padding: '12px 14px', borderBottom: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'flex', justifyContent: 'space-between' }}>
                   <span>📋 Playlist</span>

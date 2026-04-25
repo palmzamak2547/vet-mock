@@ -37,14 +37,21 @@ export const STYLES = `
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body { overscroll-behavior-y: contain; }
+
+/* Better keyboard focus, but no outline on mouse click */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: 4px; }
 
 .vmx-app {
   font-family: 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
   color: var(--clr-ink);
   background: var(--clr-bg);
   min-height: 100vh;
-  padding: 24px 16px 48px;
+  min-height: 100dvh;  /* dynamic viewport (excludes URL bar on iOS) */
+  padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(48px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
   background-image:
     radial-gradient(at 12% 8%, rgba(168, 192, 168, 0.15) 0px, transparent 50%),
     radial-gradient(at 88% 92%, rgba(232, 184, 184, 0.12) 0px, transparent 50%);
@@ -52,6 +59,9 @@ export const STYLES = `
 }
 
 .vmx-container { max-width: 820px; margin: 0 auto; }
+
+/* Wide notes layout uses extra room */
+.vmx-container--wide { max-width: 1100px; }
 
 .vmx-header {
   display: flex; justify-content: space-between; align-items: center;
@@ -231,17 +241,44 @@ export const STYLES = `
 
 .vmx-form-group { margin-bottom: 16px; }
 .vmx-form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--clr-ink); }
-.vmx-form-group input, .vmx-form-group textarea, .vmx-form-group select { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--clr-border); background: var(--clr-bg); font-family: inherit; font-size: 14px; color: var(--clr-ink); }
+.vmx-form-group input, .vmx-form-group textarea, .vmx-form-group select { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--clr-border); background: var(--clr-bg); font-family: inherit; font-size: 16px; color: var(--clr-ink); }
+/* iOS auto-zooms inputs with font-size < 16px on focus — keep ≥ 16px everywhere */
+input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="url"], input[type="number"], textarea, select { font-size: max(16px, 1em); }
 .vmx-form-group input:focus, .vmx-form-group textarea:focus { outline: none; border-color: var(--clr-ink); background: var(--clr-surface); }
 .vmx-form-group textarea { min-height: 80px; resize: vertical; }
 
-.vmx-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
-.vmx-modal { background: var(--clr-surface); border-radius: 20px; padding: 28px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; }
+.vmx-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: max(12px, env(safe-area-inset-bottom)); overscroll-behavior: contain; }
+.vmx-modal { background: var(--clr-surface); border-radius: 20px; padding: 28px; max-width: 500px; width: 100%; max-height: min(90vh, calc(100dvh - 24px)); overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .vmx-modal h2 { font-family: 'Fraunces', serif; margin: 0 0 16px; font-size: 24px; color: var(--clr-ink); }
 
 .vmx-footer { margin-top: 48px; padding-top: 20px; border-top: 1px dashed var(--clr-border); text-align: center; font-size: 12px; color: var(--clr-ink-soft); font-style: italic; }
 
 .vmx-kbd { display: inline-block; padding: 2px 6px; border-radius: 4px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--clr-ink-soft); }
+
+/* Minimum touch targets — Apple HIG / Material 44px */
+.vmx-btn { min-height: 40px; }
+.vmx-btn-sm { min-height: 36px; }
+.vmx-chip { min-height: 36px; }
+.vmx-nav-btn { min-height: 36px; }
+.vmx-theme-btn { width: 40px; height: 40px; }
+.vmx-bookmark-btn, .vmx-note-btn { min-width: 36px; min-height: 36px; }
+
+/* Long Thai words don't blow the layout */
+.vmx-mode-card .title, .vmx-question-card .vmx-qtext, .vmx-review-q { word-break: break-word; overflow-wrap: anywhere; }
+
+/* Smooth scroll for long modal/sidebar */
+.vmx-modal, .vmx-app { -webkit-overflow-scrolling: touch; }
+
+/* ────────── Responsive layouts for inline-grid views ────────── */
+@media (max-width: 880px) {
+  /* NotesView stacks: sidebar above, content below */
+  .vmx-notes-grid { grid-template-columns: 1fr !important; }
+  .vmx-notes-sidebar { position: static !important; max-height: none !important; }
+
+  /* Player modal: sidebar below the player */
+  .vmx-player-grid { grid-template-columns: 1fr !important; }
+  .vmx-player-sidebar { max-height: 50vh !important; border-left: none !important; border-top: 1px solid var(--clr-border); }
+}
 
 @media (max-width: 640px) {
   .vmx-btn-row { flex-direction: column-reverse; gap: 10px; }
@@ -252,5 +289,36 @@ export const STYLES = `
   .vmx-bookmark-btn { top: 14px; right: 14px; }
   .vmx-note-btn { top: 14px; right: 58px; }
   .vmx-sr-grade { grid-template-columns: repeat(2, 1fr); }
+  .vmx-modal { padding: 20px; border-radius: 16px; }
+  .vmx-modal h2 { font-size: 20px; }
+  .vmx-hero { margin-bottom: 28px; }
+  .vmx-hero p { font-size: 14px; }
+  .vmx-results-hero h2.vmx-score-big { font-size: 64px; }
+  .vmx-config-panel { padding: 18px; }
+  .vmx-stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .vmx-dash-grid { grid-template-columns: 1fr; }
+  .vmx-progress-bar { height: 6px; }
+  .vmx-exam-top { gap: 8px; flex-wrap: wrap; }
+  .vmx-options { gap: 8px; }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print: hide chrome, ink-friendly */
+@media print {
+  body { background: white !important; }
+  .vmx-app { background: white !important; padding: 0; min-height: auto; }
+  .vmx-app::before, .vmx-app::after { display: none; }
+  .vmx-header, .vmx-footer, button, .vmx-modal-overlay, .vmx-btn-row { display: none !important; }
+  .vmx-mode-card, .vmx-dash-card, .vmx-question-card { box-shadow: none !important; border: 1px solid #ccc !important; break-inside: avoid; }
+  a { color: inherit; text-decoration: underline; }
 }
 `;
