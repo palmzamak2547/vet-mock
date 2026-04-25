@@ -15,7 +15,7 @@ export default function AboutView({ goHome, setView }) {
         <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
           เว็บนี้สร้างโดย <strong>Vet 86</strong> (คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย)<br/>
           เพื่อช่วยให้รุ่นน้อง รุ่นพี่ และเพื่อนร่วมห้อง ได้ฝึกทำข้อสอบแบบจำลอง<br/>
-          เนื้อหาทุกอย่างมาจากโพยที่เพื่อนๆ รุ่นพี่ช่วยกันรวบรวม
+          เนื้อหาทุกอย่างมาจากข้อสอบเก่าที่เพื่อนๆ รุ่นพี่ช่วยกันรวบรวม
         </div>
       </div>
 
@@ -36,7 +36,7 @@ export default function AboutView({ goHome, setView }) {
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
         <h3>📚 แหล่งที่มาของข้อสอบ</h3>
         <div style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
-          ข้อสอบในเว็บนี้ดึงมาจากโพยของรุ่นพี่ Vet 83–85 ที่ช่วยกันรวบรวมและแชร์กันในห้อง
+          ข้อสอบในเว็บนี้ดึงมาจากข้อสอบเก่าของรุ่นพี่ Vet 83–85 ที่ช่วยกันรวบรวมและแชร์กันในห้อง
         </div>
 
         {SUBJECTS.filter((s) => s.id !== 'all').map((s) => {
@@ -66,12 +66,12 @@ export default function AboutView({ goHome, setView }) {
         <h3>🙏 ขอบคุณ</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
-            <li><strong>พี่พล Vet 84</strong> — โพย Orthopedic, ESF, Approach</li>
-            <li><strong>Kimchii 85</strong> — โพย COM III, COM IV, Exotic</li>
-            <li><strong>TJ86</strong> — โพย COM V (รวบรวมโพยรุ่นพี่ + อัพเดต 2024)</li>
-            <li><strong>pployyyn Vet 83</strong> — โพย Repro Lab</li>
-            <li><strong>Vet 84</strong> (Ping, Sunsun, Saideang, Janny) — โพย Surg Lab 3</li>
-            <li><strong>Vet 85</strong> — โพย Surg Lab eye + aural</li>
+            <li><strong>พี่พล Vet 84</strong> — ข้อสอบเก่า Orthopedic, ESF, Approach</li>
+            <li><strong>Kimchii 85</strong> — ข้อสอบเก่า COM III, COM IV, Exotic</li>
+            <li><strong>TJ86</strong> — ข้อสอบเก่า COM V (รวบรวมข้อสอบเก่ารุ่นพี่ + อัพเดต 2024)</li>
+            <li><strong>pployyyn Vet 83</strong> — ข้อสอบเก่า Repro Lab</li>
+            <li><strong>Vet 84</strong> (Ping, Sunsun, Saideang, Janny) — ข้อสอบเก่า Surg Lab 3</li>
+            <li><strong>Vet 85</strong> — ข้อสอบเก่า Surg Lab eye + aural</li>
             <li><strong>เพื่อนๆ Vet 86</strong> — feedback และการใช้งานจริง</li>
           </ul>
         </div>

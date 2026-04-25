@@ -1,6 +1,6 @@
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
-import { QUESTION_SOURCES } from '../data/sources.js';
+import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 
 export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }) {
   return (
@@ -62,11 +62,33 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 {q.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}
               </div>
             )}
-            {q.verified && (
-              <div style={{ marginTop: 10, padding: '6px 10px', borderRadius: 8, background: 'rgba(74, 107, 74, 0.12)', border: '1px solid var(--clr-sage)', fontSize: 11, color: 'var(--clr-ink)', fontFamily: 'JetBrains Mono, monospace' }}>
-                ✅ <strong>Verified:</strong> {q.verified}
-              </div>
-            )}
+            {q.verified && (() => {
+              const items = parseVerified(q.verified);
+              if (!items.length) return null;
+              return (
+                <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {items.map((it, i) => {
+                    const st = VERIFIED_STYLE[it.type] || VERIFIED_STYLE.other;
+                    return (
+                      <div key={i} style={{ padding: '6px 10px', borderRadius: 8, background: st.bg, border: `1px solid ${st.border}`, fontSize: 11, color: st.ink }}>
+                        <span style={{ marginRight: 6 }}>{st.icon}</span>
+                        <strong>{it.label}</strong>
+                        {it.year && <span style={{ marginLeft: 6, fontFamily: 'JetBrains Mono, monospace' }}>· {it.year}</span>}
+                        {it.by && <span style={{ marginLeft: 6, fontStyle: 'italic' }}>· by {it.by}</span>}
+                        <div style={{ marginTop: 3, fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+                          {it.raw}
+                        </div>
+                        {it.note && (
+                          <div style={{ marginTop: 3, fontSize: 10, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
+                            ⚠️ {it.note}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
             {q.flag && (
               <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: `1px solid ${q.flag.severity === 'major' ? 'var(--clr-rose)' : 'var(--clr-gold)'}`, fontSize: 12, color: 'var(--clr-ink)' }}>
                 ⚠️ <strong>{q.flag.severity === 'major' ? 'Major flag' : 'Note'}:</strong> {q.flag.note}
@@ -77,12 +99,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 )}
               </div>
             )}
-            {QUESTION_SOURCES[q.subject]?.files?.length > 0 && (
+            {q.source && (
               <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', fontFamily: 'JetBrains Mono, monospace' }}>
-                📚 ดึงจาก: {q.source || QUESTION_SOURCES[q.subject].files[0]}
-                {QUESTION_SOURCES[q.subject].contributors?.length > 0 && (
-                  <> · by {QUESTION_SOURCES[q.subject].contributors[0]}</>
-                )}
+                📚 ไฟล์ต้นทาง: {q.source}
               </div>
             )}
           </div>

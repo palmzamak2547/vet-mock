@@ -1,10 +1,22 @@
+import { useEffect, useState } from 'react';
 import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
-import { getNextExam, fmtThaiDate } from '../data/schedule.js';
+import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
 
 export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile }) {
   const totalQ = QB.length + (customQuestions?.length || 0);
   const nextExam = getNextExam('y4');
+
+  // Re-render every minute when exam is imminent so countdown stays fresh
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    if (!nextExam) return;
+    const cd = shortCountdown(nextExam);
+    if (!cd) return;
+    const id = setInterval(() => setTick((n) => n + 1), 60_000);
+    return () => clearInterval(id);
+  }, [nextExam]);
+  const countdown = nextExam ? shortCountdown(nextExam) : null;
 
   return (
     <>
@@ -19,8 +31,8 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
       {nextExam && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 30 && (
         <div onClick={() => setView('schedule')} style={{
           padding: 16, borderRadius: 16, marginBottom: 24, cursor: 'pointer',
-          background: nextExam.daysLeft <= 7 ? 'var(--clr-rose-soft)' : 'var(--clr-surface)',
-          border: `2px solid ${nextExam.daysLeft <= 7 ? 'var(--clr-rose)' : 'var(--clr-border)'}`,
+          background: countdown ? 'var(--clr-rose-soft)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose-soft)' : 'var(--clr-surface)'),
+          border: `2px solid ${countdown ? 'var(--clr-rose)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose)' : 'var(--clr-border)')}`,
           display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap',
         }}>
           <div style={{ fontSize: 36 }}>{nextExam.icon}</div>
@@ -32,17 +44,23 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
               {nextExam.title}
             </div>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-              {fmtThaiDate(nextExam.date)}
+              {fmtThaiDate(nextExam.date)} · ⏰ {nextExam.time}
             </div>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, color: nextExam.daysLeft <= 7 ? 'var(--clr-rose)' : 'var(--clr-ink)' }}>
-              {nextExam.daysLeft === 0 ? 'วันนี้!' : nextExam.daysLeft}
-            </div>
-            {nextExam.daysLeft > 0 && (
-              <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'JetBrains Mono, monospace' }}>
-                days left
+            {countdown ? (
+              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: countdown.kind === 'imminent' ? 22 : 26, lineHeight: 1.15, color: 'var(--clr-rose)' }}>
+                {countdown.text}
               </div>
+            ) : (
+              <>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, color: nextExam.daysLeft <= 7 ? 'var(--clr-rose)' : 'var(--clr-ink)' }}>
+                  {nextExam.daysLeft}
+                </div>
+                <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'JetBrains Mono, monospace' }}>
+                  days left
+                </div>
+              </>
             )}
           </div>
         </div>

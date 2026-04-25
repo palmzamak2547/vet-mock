@@ -1,11 +1,11 @@
 // ============================================================
-// Source Mapping — บอกว่าข้อสอบแต่ละวิชาดึงมาจากโพยไหน
+// Source Mapping — บอกว่าข้อสอบแต่ละวิชาดึงมาจากข้อสอบเก่าไหน
 // ============================================================
 
 export const QUESTION_SOURCES = {
   surg2: {
     files: [
-      'ต้องอ่าน_โพย_Sur_lab_final_eye_85.pdf',
+      'ต้องอ่าน_ข้อสอบเก่า_Sur_lab_final_eye_85.pdf',
       'vet_surg_lab_II_ (notes)',
       'ตารางสอนปฏิบัติการ_Vet_Sur_Lab_2__3____2568.pdf',
     ],
@@ -16,7 +16,7 @@ export const QUESTION_SOURCES = {
   surg3: {
     files: [
       'surg_lab_3_final_VET_84__โน_ตเพ__ม.pdf',
-      'sos_รวมโพย_Lab_ortho_____.pdf',
+      'sos_รวมข้อสอบเก่า_Lab_ortho_____.pdf',
       'vet_surg_lab_III_ (notes)',
       'ตารางสอนปฏิบัติการ_Vet_Surg_Lab_3.pdf',
     ],
@@ -30,7 +30,7 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['TJ86 (vet 86)'],
     topics: 'Canine viral enteritis (CPV/CCV), Sporotrichosis & Cryptococcosis, GI protozoal enteritis, Rabies, Vaccine guidelines (WSAVA/VPAT), Feline URI',
-    note: 'รวบรวมโพยรุ่นพี่ + อัพเดต 2024 · สอบ จันทร์ 27 เม.ย. 2569 · 08:30-10:30 · VET6 202/203',
+    note: 'รวบรวมข้อสอบเก่ารุ่นพี่ + อัพเดต 2024 · สอบ จันทร์ 27 เม.ย. 2569 · 08:30-10:30 · VET6 202/203',
   },
   com3: {
     files: [
@@ -42,7 +42,7 @@ export const QUESTION_SOURCES = {
   },
   com4: {
     files: [
-      'COM_IV_final_โพยสร_ป_Kim.pdf',
+      'COM_IV_final_ข้อสอบเก่าสร_ป_Kim.pdf',
       'COM_IV_86_Final_.pdf',
       'รายละเอ_ยด_COMIV (notes)',
     ],
@@ -52,8 +52,8 @@ export const QUESTION_SOURCES = {
   },
   repro: {
     files: [
-      'animal_repro_โพย_compressed.pdf',
-      'โพย_Repro_Lab_Vet8385.pdf',
+      'animal_repro_ข้อสอบเก่า_compressed.pdf',
+      'ข้อสอบเก่า_Repro_Lab_Vet8385.pdf',
     ],
     contributors: ['pployyyn Vet 83', 'Kimchii 85'],
     topics: 'Vaginal cytology, Estrus cycle, Pyometra, Dystocia, Cryptorchid, Hormone',
@@ -61,7 +61,7 @@ export const QUESTION_SOURCES = {
   },
   exotic: {
     files: [
-      'โพย_pp_s_exotic__Kimchii.pdf',
+      'ข้อสอบเก่า_pp_s_exotic__Kimchii.pdf',
     ],
     contributors: ['Kimchii 85', 'Pannawat Supapannachart DVM, MSc'],
     topics: 'ECZM, Residency (USA/EU), Avian medicine, Reptile, Rabbit, Ferret',
@@ -87,7 +87,7 @@ export const QUESTION_SOURCES = {
   },
   cliapprum: {
     files: [
-      'รวมโพย_84_clin_App_Rum.pdf',
+      'รวมข้อสอบเก่า_84_clin_App_Rum.pdf',
     ],
     contributors: ['Vet 84'],
     topics: 'Foot rot, Laminitis, Sole ulcer, LDA, Hardware disease, BSP',

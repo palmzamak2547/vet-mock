@@ -56,11 +56,18 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
               <div className="icon">{t.icon || '📑'}</div>
               <div className="title">{t.label}</div>
               {t.lecturer && (
-                <div className="sub" style={{ fontStyle: 'italic' }}>by Aj. {t.lecturer}</div>
+                <div className="sub" style={{ fontStyle: 'italic' }}>
+                  by Aj. {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`}
+                </div>
               )}
               <div className="count" style={{ color: isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)' }}>
                 {isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} questions`}
               </div>
+              {t.lecturerNote && !isEmpty && (
+                <div style={{ marginTop: 8, padding: '6px 8px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'left', lineHeight: 1.4 }}>
+                  ⚠️ {t.lecturerNote}
+                </div>
+              )}
             </button>
           );
         })}

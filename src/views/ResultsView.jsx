@@ -7,7 +7,7 @@ export default function ResultsView({ score, questions, answers, goHome, setView
   const msg = score.pct === 100 ? '"เทพสุดๆ เก่งมากก 🏆"'
     : score.pct >= 80 ? '"โค้ดดดด ใกล้จะผ่านแล้ว อ่านอีกนิดนึง"'
     : score.pct >= 60 ? '"ผ่านครับ แต่ต้องอ่านซ้ำส่วนที่ผิด"'
-    : score.pct >= 40 ? '"สู้ๆ นะ เปิดโพยอ่านอีกรอบกันเถอะ"'
+    : score.pct >= 40 ? '"สู้ๆ นะ เปิดข้อสอบเก่าอ่านอีกรอบกันเถอะ"'
     : '"ไม่เป็นไร เริ่มใหม่ได้เสมอ 💪"';
 
   const isExam = mode === 'exam';

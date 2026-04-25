@@ -4,7 +4,7 @@
 // Sources:
 //   - Slide Lecture 2026 (CVE, Sporo+Crypto, GI protozoa, Rabies,
 //     Vaccine, FURI) จาก คณาจารย์ภาคอายุรศาสตร์ จุฬา
-//   - "COM V FINAL 86 เส้นแดงคือรวมโพย" — โพยรวม TJ86 (Vet 86)
+//   - "COM V FINAL 86 เส้นแดงคือรวมข้อสอบเก่า" — ข้อสอบเก่ารวม TJ86 (Vet 86)
 //   - sunsun84 (Vet 84) lecture archive — fallback
 //
 // Topics (matches curriculum.js subject.topics):
@@ -15,7 +15,7 @@
 //
 //   verified: short citation (lecture page or guideline)
 //   flag: { note, sources[], severity:'major'|'minor'|'unclear' }
-//     ใช้เมื่อข้อสอบจากโพยเก่ามีคำตอบไม่ตรงกับ guideline ล่าสุด
+//     ใช้เมื่อข้อสอบจากข้อสอบเก่ามีคำตอบไม่ตรงกับ guideline ล่าสุด
 // ============================================================
 
 export const QB_COM5 = [
@@ -419,7 +419,7 @@ export const QB_COM5 = [
     options: ['Direct fecal smear', 'Centrifugal flotation', 'InPouch TF-Feline (fecal culture) หรือ PCR', 'Serology'],
     answer: 2, explain: 'Direct wet mount sensitivity <14% · Fecal culture (InPouch TF) sensitivity ~55% · PCR sensitivity สูงสุด',
     verified: 'GI_protozoa.pdf p.20 + COM V FINAL 86 p.18',
-    flag: { note: 'ข้อสอบโพยเก่าบางฉบับเฉลย "direct fecal smear" — ตามสไลด์ปี 2026 ควรเป็น InPouch TF-Feline หรือ PCR (gold standard)', sources: ['GI_protozoa.pdf p.20', 'Gookins & Tolbert 2009'], severity: 'minor' } },
+    flag: { note: 'ข้อสอบข้อสอบเก่าบางฉบับเฉลย "direct fecal smear" — ตามสไลด์ปี 2026 ควรเป็น InPouch TF-Feline หรือ PCR (gold standard)', sources: ['GI_protozoa.pdf p.20', 'Gookins & Tolbert 2009'], severity: 'minor' } },
 
   { id: 569, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['tritrichomonas', 'treatment'], type: 'mcq',
@@ -682,7 +682,7 @@ export const QB_COM5 = [
     options: ['FPV, FIV, FeLV, Rabies', 'FPV, FHV, FCV (always) + Rabies* + FeLV*** (with conditions)', 'FPV, FIV, FIP, Rabies', 'FPV, FHV, FeLV, Rabies'],
     answer: 1, explain: 'VPAT 2024: FPV/FCV/FHV always core + Rabies* (endemic) + FeLV*** (endemic + อายุ < 2 ปี หรือเสี่ยง expose) · ตรวจ FeLV-ve ก่อนฉีด FeLV',
     verified: 'Vaccination_guideline.pdf p.26 (VPAT 2024)',
-    flag: { note: 'ข้อสอบโพยเก่าบางฉบับเฉลย "FPV/FHV/FCV/Rabies" — ตาม VPAT 2024 ใหม่ FeLV ก็เป็น core ด้วย (with conditions) · ระวังด้วย: WSAVA ใช้ <1ปี, VPAT ใช้ <2ปี', sources: ['VPAT 2024 (vpatthailand.org)', 'WSAVA 2024 §FeLV', 'Vaccination_guideline.pdf p.22, 26'], severity: 'major' } },
+    flag: { note: 'ข้อสอบข้อสอบเก่าบางฉบับเฉลย "FPV/FHV/FCV/Rabies" — ตาม VPAT 2024 ใหม่ FeLV ก็เป็น core ด้วย (with conditions) · ระวังด้วย: WSAVA ใช้ <1ปี, VPAT ใช้ <2ปี', sources: ['VPAT 2024 (vpatthailand.org)', 'WSAVA 2024 §FeLV', 'Vaccination_guideline.pdf p.22, 26'], severity: 'major' } },
 
   { id: 533, subject: 'com5', topic: 'vaccine', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['vaccine', 'rabies'], type: 'mcq',

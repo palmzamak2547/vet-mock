@@ -97,7 +97,7 @@ export const EXAM_SCHEDULE = {
       type: 'Mixed',
       weight_pct: null,
       content: [
-        'วิชาซัฟเฟอร์+ยากที่สุด (ตามโพย Kim 85)',
+        'วิชาซัฟเฟอร์+ยากที่สุด (ตามข้อสอบเก่า Kim 85)',
         'ต้องรู้หมดทุกข้อ ตัดช้อยยาก',
       ],
       notes: 'เรียน 8 คาบ · อ่านแบบสมองไหล',
@@ -235,6 +235,40 @@ export const EXAM_SCHEDULE = {
     },
   ],
 };
+
+// Helper: parse first time from "08:30-10:30" → { hour: 8, minute: 30 }
+export function parseExamStart(timeStr) {
+  if (!timeStr) return null;
+  const m = timeStr.match(/(\d{1,2})[:.](\d{2})/);
+  if (!m) return null;
+  return { hour: parseInt(m[1], 10), minute: parseInt(m[2], 10) };
+}
+
+// Helper: ms until exam start. Negative if already started/passed.
+export function msUntilExam(exam, now = new Date()) {
+  const start = parseExamStart(exam.time);
+  const dt = new Date(exam.date);
+  if (start) dt.setHours(start.hour, start.minute, 0, 0);
+  else dt.setHours(8, 0, 0, 0);
+  return dt - now;
+}
+
+// Helper: short countdown when exam is within ~36 hours
+// Returns null when not imminent (use daysLeft instead)
+export function shortCountdown(exam, now = new Date()) {
+  const ms = msUntilExam(exam, now);
+  if (ms < -3 * 60 * 60 * 1000) return null;
+  if (ms > 36 * 60 * 60 * 1000) return null;
+  const totalMin = Math.floor(ms / 60000);
+  if (totalMin < 0) {
+    return { kind: 'now', text: `🔥 กำลังสอบอยู่!` };
+  }
+  const hours = Math.floor(totalMin / 60);
+  const minutes = totalMin % 60;
+  if (hours < 1) return { kind: 'imminent', text: `⏰ อีก ${minutes} นาที!` };
+  if (hours < 12) return { kind: 'imminent', text: `⏰ อีก ${hours} ชม. ${minutes} นาที` };
+  return { kind: 'soon', text: `⏰ อีก ${hours} ชม.` };
+}
 
 // Helper: get upcoming exams sorted by date
 export function getUpcomingExams(year = 'y4') {

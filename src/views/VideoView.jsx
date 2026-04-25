@@ -175,34 +175,49 @@ function PlayerModal({ video, onClose }) {
   const [listError, setListError] = useState('');
 
   // Try to fetch playlist items via free RSS feed (works without API key)
+  // Iterate through multiple CORS proxies — ตัวใดตัวหนึ่งล่มไม่เสียหาย
   useEffect(() => {
     if (!playlistId) return;
+    let aborted = false;
     setLoadingList(true);
     setListError('');
 
-    // Use a free CORS proxy to fetch YouTube RSS for playlist
     const rssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`;
+    const proxies = [
+      (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+      (u) => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+      (u) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(u)}`,
+      (u) => `https://thingproxy.freeboard.io/fetch/${u}`,
+    ];
 
-    fetch(proxyUrl)
-      .then((r) => {
-        if (!r.ok) throw new Error('Failed to fetch playlist');
-        return r.text();
-      })
-      .then((xml) => {
-        const items = parseYouTubeRss(xml);
-        if (items.length === 0) throw new Error('Empty playlist');
-        setPlaylistItems(items);
-        // Auto-select first video if no specific video chosen
-        if (!currentVideoId && items.length > 0) {
-          setCurrentVideoId(items[0].id);
+    (async () => {
+      let lastErr = null;
+      for (const makeProxy of proxies) {
+        if (aborted) return;
+        try {
+          const r = await fetch(makeProxy(rssUrl), { cache: 'no-store' });
+          if (!r.ok) { lastErr = new Error(`HTTP ${r.status}`); continue; }
+          const xml = await r.text();
+          if (!xml || !xml.includes('<entry')) { lastErr = new Error('empty xml'); continue; }
+          const items = parseYouTubeRss(xml);
+          if (!items.length) { lastErr = new Error('no items parsed'); continue; }
+          if (aborted) return;
+          setPlaylistItems(items);
+          if (!currentVideoId) setCurrentVideoId(items[0].id);
+          setLoadingList(false);
+          return;
+        } catch (e) {
+          lastErr = e;
         }
-      })
-      .catch((err) => {
-        console.warn('Playlist fetch failed:', err);
-        setListError('ดึงรายการคลิปไม่ได้ — ใช้ playlist player แทน');
-      })
-      .finally(() => setLoadingList(false));
+      }
+      if (!aborted) {
+        console.warn('All playlist proxies failed:', lastErr);
+        setListError('ดึงรายการคลิปไม่ได้ — เปิดบน YouTube เพื่อเลือกคลิปได้');
+        setLoadingList(false);
+      }
+    })();
+
+    return () => { aborted = true; };
   }, [playlistId]);
 
   // Build embed URL

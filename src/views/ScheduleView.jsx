@@ -1,11 +1,18 @@
-import { useState } from 'react';
-import { EXAM_SCHEDULE, fmtThaiDate, getUpcomingExams } from '../data/schedule.js';
+import { useEffect, useState } from 'react';
+import { EXAM_SCHEDULE, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { QB } from '../data/questions.js';
 
 export default function ScheduleView({ goHome, setSubject, setMode, setView, setPracticeMode }) {
   const [showPast, setShowPast] = useState(false);
+  const [, setTick] = useState(0);
   const allExams = getUpcomingExams('y4');
+  const hasImminent = allExams.some((e) => e.daysLeft <= 1 && e.daysLeft >= 0 && shortCountdown(e));
+  useEffect(() => {
+    if (!hasImminent) return;
+    const id = setInterval(() => setTick((n) => n + 1), 60_000);
+    return () => clearInterval(id);
+  }, [hasImminent]);
   const pastCount = allExams.filter((e) => e.daysLeft < 0).length;
   const exams = showPast ? allExams : allExams.filter((e) => e.daysLeft >= 0);
 
@@ -22,7 +29,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
     <>
       <div className="vmx-hero">
         <h1>📅 ตาราง<em>สอบ Final</em></h1>
-        <p>Vet 86 · Semester 2/2568 · อัพเดตล่าสุดจากโพยและประกาศ</p>
+        <p>Vet 86 · Semester 2/2568 · อัพเดตล่าสุดจากข้อสอบเก่าและประกาศ</p>
       </div>
 
       <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
@@ -62,9 +69,13 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                     {new Date(exam.date).getDate()}
                   </div>
                   <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
-                    {isPast ? 'ผ่านแล้ว' :
-                     isToday ? '🔥 วันนี้!' :
-                     `อีก ${exam.daysLeft} วัน`}
+                    {(() => {
+                      if (isPast) return 'ผ่านแล้ว';
+                      const cd = shortCountdown(exam);
+                      if (cd) return cd.text;
+                      if (isToday) return '🔥 วันนี้!';
+                      return `อีก ${exam.daysLeft} วัน`;
+                    })()}
                   </div>
                 </div>
 
