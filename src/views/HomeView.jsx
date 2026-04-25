@@ -101,6 +101,12 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           <div className="sub">Final Exam Schedule · ปี 4</div>
         </button>
 
+        <button className="vmx-mode-card" onClick={() => { setSubject && setSubject('com5'); setView('notes'); }} style={{ borderColor: 'var(--clr-sage)' }}>
+          <div className="icon">📖</div>
+          <div className="title">ทวนเนื้อหา</div>
+          <div className="sub">Study notes ครบทุกหัวข้อ · COM V (เร็วๆ นี้: COM III, IV)</div>
+        </button>
+
         <button className="vmx-mode-card" onClick={() => setView('scores')}>
           <div className="icon">💰</div>
           <div className="title">สัดส่วนคะแนน</div>

@@ -75,6 +75,7 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
 
       <div className="vmx-btn-row">
         <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('subject-select')}>← ย้อนกลับ</button>
+        <button className="vmx-btn vmx-btn-primary" onClick={() => setView('notes')}>📖 ทวนเนื้อหา</button>
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>หน้าแรก</button>
       </div>
     </>

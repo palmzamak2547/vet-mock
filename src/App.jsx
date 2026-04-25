@@ -29,6 +29,7 @@ import AboutView from './views/AboutView.jsx';
 import FeedbackView from './views/FeedbackView.jsx';
 import YearSelectView from './views/YearSelectView.jsx';
 import TopicSelectView from './views/TopicSelectView.jsx';
+import NotesView from './views/NotesView.jsx';
 
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
@@ -262,6 +263,7 @@ export default function App() {
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions }} />}
               {view === 'topic-select' && <TopicSelectView {...{ subject, setTopic, setView, goHome, mode, customQuestions }} />}
+              {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }} />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />}
