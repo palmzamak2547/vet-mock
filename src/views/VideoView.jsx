@@ -169,75 +169,46 @@ function PlayerModal({ video, onClose }) {
   const videoId = getVideoId(video.url);
   const isChannel = isChannelUrl(video.url) && !videoId && !playlistId;
   const [currentVideoId, setCurrentVideoId] = useState(videoId);
-  const [showList, setShowList] = useState(!!playlistId);  // show list by default if playlist
+  const [showList, setShowList] = useState(false); // เปิดเมื่อมี items จริง
   const [playlistItems, setPlaylistItems] = useState([]);
   const [loadingList, setLoadingList] = useState(false);
   const [listError, setListError] = useState('');
+  const [listNote, setListNote] = useState('');
 
   // ดึงรายการคลิปใน playlist:
-  //   1) ผ่าน /api/playlist (Vercel serverless function — same-origin, ไม่มี CORS)
-  //   2) Fallback: race public CORS proxies (เผื่อ local dev หรือ /api ล่ม)
+  //   1) /api/playlist — รองรับทั้ง YouTube Data API (ถ้ามี YOUTUBE_API_KEY)
+  //      และ RSS fallback
+  //   2) ถ้า playlist รวมคลิปจากหลายช่อง RSS จะคืน items=[] พร้อม note —
+  //      ผู้ใช้ใช้ playlist player ของ YouTube ในตัวเครื่องเล่นแทน
   useEffect(() => {
     if (!playlistId) return;
     const ctrl = new AbortController();
     setLoadingList(true);
     setListError('');
-
-    const fromOwnApi = async () => {
-      const r = await fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`, {
-        signal: ctrl.signal,
-      });
-      if (!r.ok) throw new Error(`api ${r.status}`);
-      const data = await r.json();
-      if (!data?.items?.length) throw new Error('empty items');
-      return data.items;
-    };
-
-    const fromProxies = () => {
-      const rssUrl = `https://www.youtube.com/feeds/videos.xml?playlist_id=${playlistId}`;
-      const proxies = [
-        (u) => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-        (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-        (u) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(u)}`,
-      ];
-      return Promise.any(proxies.map((makeProxy) => new Promise((resolve, reject) => {
-        const t = setTimeout(() => reject(new Error('timeout')), 5000);
-        fetch(makeProxy(rssUrl), { cache: 'no-store', signal: ctrl.signal })
-          .then((r) => r.ok ? r.text() : Promise.reject(new Error(`HTTP ${r.status}`)))
-          .then((xml) => {
-            if (!xml || !xml.includes('<entry')) throw new Error('empty');
-            const items = parseYouTubeRss(xml);
-            if (!items.length) throw new Error('no items');
-            clearTimeout(t);
-            resolve(items);
-          })
-          .catch((e) => { clearTimeout(t); reject(e); });
-      })));
-    };
+    setListNote('');
 
     (async () => {
       try {
-        const items = await fromOwnApi();
+        const r = await fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`, {
+          signal: ctrl.signal,
+        });
+        if (!r.ok) throw new Error(`api ${r.status}`);
+        const data = await r.json();
         if (ctrl.signal.aborted) return;
+        const items = data?.items || [];
         setPlaylistItems(items);
-        if (!currentVideoId) setCurrentVideoId(items[0].id);
-        setLoadingList(false);
-        return;
-      } catch (e1) {
-        if (ctrl.signal.aborted) return;
-        console.warn('own api failed, trying proxies:', e1?.message);
-        try {
-          const items = await fromProxies();
-          if (ctrl.signal.aborted) return;
-          setPlaylistItems(items);
+        if (items.length > 0) {
+          setShowList(true);
           if (!currentVideoId) setCurrentVideoId(items[0].id);
-          setLoadingList(false);
-        } catch (e2) {
-          if (ctrl.signal.aborted) return;
-          console.warn('proxies failed:', e2?.errors || e2);
-          setListError('ดึงรายการคลิปไม่ได้ — เปิดใน YouTube เพื่อเลือกคลิป');
-          setLoadingList(false);
+        } else if (data?.note) {
+          setListNote(data.note);
         }
+        setLoadingList(false);
+      } catch (err) {
+        if (ctrl.signal.aborted) return;
+        console.warn('playlist fetch failed:', err?.message);
+        setListError('ดึงรายการคลิปไม่ได้ — ใช้ปุ่ม Playlist ในเครื่องเล่น (≡) หรือเปิดบน YouTube');
+        setLoadingList(false);
       }
     })();
 
@@ -305,6 +276,20 @@ function PlayerModal({ video, onClose }) {
                 </div>
               ) : null;
             })()}
+
+            {/* Informational note when sidebar can't be populated (e.g. multi-channel playlist) */}
+            {playlistId && !loadingList && playlistItems.length === 0 && (listNote || listError) && (
+              <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+                💡 <strong>Playlist รวมจากหลายช่อง</strong> — รายการใน sidebar ดึงจาก YouTube RSS ไม่ได้
+                <br/>
+                <span style={{ fontSize: 11 }}>
+                  คลิกปุ่ม <kbd style={{ padding: '1px 6px', background: 'var(--clr-bg)', borderRadius: 4, fontFamily: 'JetBrains Mono, monospace' }}>≡</kbd> ในเครื่องเล่นด้านบนเพื่อดูรายการคลิปจาก YouTube · หรือ
+                  <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage)', marginLeft: 4, textDecoration: 'underline' }}>
+                    เปิด playlist ใน YouTube →
+                  </a>
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Playlist sidebar */}
