@@ -23,6 +23,7 @@ import GroupsView from './views/GroupsView.jsx';
 import GroupDetailView from './views/GroupDetailView.jsx';
 import LeaderboardView from './views/LeaderboardView.jsx';
 import ScheduleView from './views/ScheduleView.jsx';
+import ScoresView from './views/ScoresView.jsx';
 import VideoView from './views/VideoView.jsx';
 import AboutView from './views/AboutView.jsx';
 import FeedbackView from './views/FeedbackView.jsx';
@@ -265,6 +266,8 @@ export default function App() {
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setMode, setView, setPracticeMode }} />}
+              {view === 'scores' && <ScoresView {...{ goHome }} />}
+              {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView {...{ goHome }} />}
               {view === 'about' && <AboutView {...{ goHome, setView }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile }} />}

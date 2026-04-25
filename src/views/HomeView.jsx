@@ -77,6 +77,12 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           <div className="sub">Final Exam Schedule · ปี 4</div>
         </button>
 
+        <button className="vmx-mode-card" onClick={() => setView('scores')}>
+          <div className="icon">💰</div>
+          <div className="title">สัดส่วนคะแนน</div>
+          <div className="sub">Mid · Final · ฟรี · ทำงาน — แต่ละวิชา</div>
+        </button>
+
         <button className="vmx-mode-card" onClick={() => setView('videos')}>
           <div className="icon">🎥</div>
           <div className="title">คลิปย้อนหลัง</div>

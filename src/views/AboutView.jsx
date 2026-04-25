@@ -68,6 +68,7 @@ export default function AboutView({ goHome, setView }) {
           <ul style={{ paddingLeft: 20, margin: 0 }}>
             <li><strong>พี่พล Vet 84</strong> — โพย Orthopedic, ESF, Approach</li>
             <li><strong>Kimchii 85</strong> — โพย COM III, COM IV, Exotic</li>
+            <li><strong>TJ86</strong> — โพย COM V (รวบรวมโพยรุ่นพี่ + อัพเดต 2024)</li>
             <li><strong>pployyyn Vet 83</strong> — โพย Repro Lab</li>
             <li><strong>Vet 84</strong> (Ping, Sunsun, Saideang, Janny) — โพย Surg Lab 3</li>
             <li><strong>Vet 85</strong> — โพย Surg Lab eye + aural</li>

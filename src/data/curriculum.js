@@ -28,8 +28,7 @@ export const SUBJECTS_BY_YEAR = {
 
     // ── COM Series (Companion Animal Clinical Sciences) ──
     { id: 'com5', code: '3107417', name: 'COM V', name_en: 'C ANI CLI SCI V · Companion Animal',
-      icon: '🐕', color: '#3d6b82', semester: 2, has_questions: false,
-      note: 'รอข้อสอบเพิ่ม' },
+      icon: '🐕', color: '#3d6b82', semester: 2, has_questions: true },
     { id: 'com3', code: '3106416', name: 'COM III', name_en: 'C ANI CLI SCI III · Companion Animal',
       icon: '🩺', color: '#3d6b82', semester: 2, has_questions: false,
       note: 'รอข้อสอบเพิ่ม' },
@@ -54,6 +53,11 @@ export const SUBJECTS_BY_YEAR = {
     // ── Poultry ──
     { id: 'poultry', code: '3107409', name: 'Poultry Health', name_en: 'PLTRY HLTH MGT',
       icon: '🐔', color: '#c2924a', semester: 2, has_questions: false,
+      note: 'รอข้อสอบเพิ่ม' },
+
+    // ── English / Professional skills ──
+    { id: 'engprof', code: '5500419', name: 'Eng Vet Prof II', name_en: 'English for Vet Profession II',
+      icon: '🇬🇧', color: '#5c6b7d', semester: 2, has_questions: false,
       note: 'รอข้อสอบเพิ่ม' },
   ],
   // ปีอื่นๆ เพิ่มที่นี่ในอนาคต

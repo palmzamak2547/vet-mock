@@ -25,10 +25,12 @@ export const QUESTION_SOURCES = {
     note: 'ข้อสอบ Final สอบพฤหัส 23 เม.ย. 2569 · ยกเว้น Lab 3,4,5 (approach)',
   },
   com5: {
-    files: [],
-    contributors: [],
-    topics: 'C ANI CLI SCI V — รอข้อสอบเพิ่ม',
-    note: 'สอบ อังคาร 28 เม.ย. 2569 · 08:30-10:30 · VET6 202/203',
+    files: [
+      'Com_5_final_TJ.pdf',
+    ],
+    contributors: ['TJ86 (vet 86)'],
+    topics: 'Canine viral enteritis (CPV/CCV), Sporotrichosis & Cryptococcosis, GI protozoal enteritis, Rabies, Vaccine guidelines (WSAVA/VPAT), Feline URI',
+    note: 'รวบรวมโพยรุ่นพี่ + อัพเดต 2024 · สอบ จันทร์ 27 เม.ย. 2569 · 08:30-10:30 · VET6 202/203',
   },
   com3: {
     files: [
@@ -76,6 +78,12 @@ export const QUESTION_SOURCES = {
     contributors: [],
     topics: 'Poultry Health Management — รอข้อสอบเพิ่ม',
     note: 'สอบ พฤหัส 7 พ.ค. 2569 · 13:00-15:00 · VET6 702',
+  },
+  engprof: {
+    files: [],
+    contributors: [],
+    topics: 'English for Veterinary Profession II — รอข้อสอบเพิ่ม',
+    note: 'สอบ อังคาร 28 เม.ย. 2569 · 13:00-15:00 · VET6 807',
   },
   cliapprum: {
     files: [

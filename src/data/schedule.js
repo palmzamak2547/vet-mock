@@ -59,11 +59,29 @@ export const EXAM_SCHEDULE = {
       duration_min: 120,
       location: 'VET6 202/203',
       type: 'Mixed',
-      weight_pct: null,
-      content: ['ตามเนื้อหาที่เรียนใน sem 2'],
+      weight_pct: 35,
+      content: ['CPV/CCV', 'Sporotrichosis & Cryptococcosis', 'GI protozoal enteritis', 'Rabies', 'Vaccine guidelines', 'Feline URI'],
       notes: 'อ.กฤษฎา + น.ส.มาลินี + นางวันทนา · วิชาแรกของ exam week',
       icon: '🐕',
       color: '#3d6b82',
+    },
+
+    // ─── อังคาร 28 เม.ย. 69 (บ่าย) ───
+    {
+      id: 'engprof-final',
+      code: '5500419',
+      subject: 'engprof',
+      title: 'Eng Vet Prof II — Final',
+      date: '2026-04-28',
+      time: '13:00-15:00',
+      duration_min: 120,
+      location: 'VET6 807',
+      type: 'Mixed',
+      weight_pct: 30,
+      content: ['English for Veterinary Profession II'],
+      notes: 'อ.ดร.เกรียงวิชญ์ + นางพรรณิภา + น.ส.เชาวลี · เก็บคะแนน 25, ทำงาน, Final 30',
+      icon: '🇬🇧',
+      color: '#5c6b7d',
     },
 
     // ─── พุธ 29 เม.ย. 69 ───
