@@ -160,7 +160,7 @@ export const QB_COM5 = [
   { id: 546, subject: 'com5', topic: 'cve', year: 4, source: 'COM V FINAL 86',
     tags: ['CCV', 'severity'], type: 'tf',
     q: 'CCV ส่วนใหญ่เป็น subclinical หรือ self-limiting ในสุนัขโต แต่ในลูกสุนัขสามารถมีอาการรุนแรงได้',
-    answer: true, explain: 'CCV mild and self-limiting ในสุนัขโต\nYoung puppy + co-infection (CPV/บัคทีเรีย) → severe\n\n❌ ทำไมข้ออื่นผิด\n— dsDNA enveloped severe = Herpesvirus\n— "เฉพาะ puppy < 4 wk" = ผิด context\n— ssRNA enveloped = Coronaviridae',
+    answer: true, explain: 'CCV mild and self-limiting ในสุนัขโต\nYoung puppy + co-infection (CPV/บัคทีเรีย) → severe\n\n❌ ทำไมข้ออื่นผิด\n— dsDNA enveloped severe = Herpesvirus\n— "เฉพาะ puppy < 4 wk" = ไม่เข้ากับโจทย์\n— ssRNA enveloped = Coronaviridae',
     verified: 'CVE.pdf p.25' },
 
   { id: 547, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
@@ -719,7 +719,7 @@ export const QB_COM5 = [
     tags: ['vaccine', 'WSAVA', 'felv'], type: 'mcq',
     q: 'ตาม WSAVA 2024 FeLV เป็น "core with conditions" สำหรับแมวในกลุ่มใด',
     options: ['ฉีดในแมวอายุ > 5 ปีเท่านั้น', 'แมวในประเทศ endemic + อายุ < 1 ปี หรือ older cats with risk of exposure (ต้องตรวจ FeLV-negative ก่อนฉีด)', 'แค่แมวบ้านที่อยู่ในห้องตลอด (low-risk)', 'ทุกตัวต้องฉีดเหมือน FPV/FHV/FCV'],
-    answer: 1, explain: 'WSAVA 2024: FeLV core with conditions\nendemic + <1yr or older with risk\nต้อง FeLV-ve test ก่อนทุกครั้ง\nVPAT 2024 ใช้ <2 yr\n\n❌ ทำไมข้ออื่นผิด\n— "> 5 ปีเท่านั้น" = ผิด direction (target < 1 yr)\n— "แมวบ้านในห้อง" = low-risk ไม่ฉีด\n— "ทุกตัวเหมือน FPV" = ผิด (conditional, ไม่ absolute)',
+    answer: 1, explain: 'WSAVA 2024: FeLV core with conditions\nendemic + <1yr or older with risk\nต้อง FeLV-ve test ก่อนทุกครั้ง\nVPAT 2024 ใช้ <2 yr\n\n❌ ทำไมข้ออื่นผิด\n— "> 5 ปีเท่านั้น" = ทิศตรงข้าม (target < 1 yr)\n— "แมวบ้านในห้อง" = low-risk ไม่ฉีด\n— "ทุกตัวเหมือน FPV" = ผิด (conditional, ไม่ absolute)',
     verified: 'Vaccination_guideline.pdf p.22, 26' },
 
   { id: 594, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
@@ -733,7 +733,7 @@ export const QB_COM5 = [
     tags: ['vaccine', 'AE'], type: 'mcq',
     q: 'Vaccine adverse event (VAE) ในสุนัข — ปัจจัยเสี่ยงที่เพิ่มโอกาสเกิด AE คืออะไร',
     options: ['น้ำหนัก ≤ 5 kg, อายุน้อย, multiple vaccines, certain breeds (French Bulldog, Dachshund, Boston Terrier)', 'อ้วน BCS 8/9, สุนัขโต > 7 ปี, vaccine ใหม่', 'ไม่มีปัจจัยเสี่ยงในสุนัข > 1 ปี', 'สุนัขใหญ่ > 30 kg, อายุ > 5 ปี, วัคซีนเข็มเดียว'],
-    answer: 0, explain: 'Moore JAVMA 2023: AE rate 19.4/10,000 visits\n25% เพิ่มต่อวัคซีนเข็มที่เพิ่ม\nTop 3 breed: Frenchie, Dachshund, Boston Terrier\nRabies + DA2PP มี VAE rate สูงสุด\n\n❌ ทำไมข้ออื่นผิด\n— อ้วน + > 7 yr = ผิด direction\n— "ไม่มี risk factor" = ผิด\n— ใหญ่ > 30 kg + > 5 yr = ผิด direction',
+    answer: 0, explain: 'Moore JAVMA 2023: AE rate 19.4/10,000 visits\n25% เพิ่มต่อวัคซีนเข็มที่เพิ่ม\nTop 3 breed: Frenchie, Dachshund, Boston Terrier\nRabies + DA2PP มี VAE rate สูงสุด\n\n❌ ทำไมข้ออื่นผิด\n— อ้วน + > 7 yr = ทิศทางตรงข้าม\n— "ไม่มี risk factor" = ผิด\n— ใหญ่ > 30 kg + > 5 yr = ทิศทางตรงข้าม',
     verified: 'Vaccination_guideline.pdf p.17-18 (Moore JAVMA 2023;261:1653)' },
 
   { id: 596, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
