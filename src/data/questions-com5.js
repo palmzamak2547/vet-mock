@@ -166,7 +166,7 @@ export const QB_COM5 = [
   { id: 547, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
     tags: ['CRV', 'rotavirus'], type: 'mcq',
     q: 'Canine Rotavirus (CRV) มีคุณสมบัติอย่างไร',
-    options: ['DNA virus, severe disease', 'ไม่มีอยู่ในสุนัข', 'Segmented double-stranded RNA, non-enveloped (Reoviridae) — mild self-limiting diarrhea ใน enterocytes', 'Single-stranded RNA, enveloped'],
+    options: ['DNA virus, severe disease (ผิด — RNA virus, mild)', 'ไม่มีอยู่ในสุนัข (ผิด — subclinical infection พบได้)', 'Segmented double-stranded RNA, non-enveloped (Reoviridae) — mild self-limiting diarrhea ใน enterocytes', 'Single-stranded RNA, enveloped (Coronaviridae)'],
     answer: 2, explain: 'CRV: Reoviridae · segmented dsRNA · infect mature enterocytes · mild self-limiting',
     verified: 'CVE.pdf p.2' },
 
@@ -243,14 +243,14 @@ export const QB_COM5 = [
   { id: 551, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'cytology'], type: 'mcq',
     q: 'ลักษณะ yeast cell ของ Sporothrix ใน cytology (Romanowsky stain) คืออะไร',
-    options: ['Spherules with endospores', 'Oval-shaped to tear drop, single round pink nucleus, blue cytoplasm, non-staining cell wall (2-5 μm + 1 μm clear capsule), มักอยู่ใน macrophage', 'Hyphae long branching', 'Round, narrow-neck budding, thick clear capsule (4-15 μm)'],
+    options: ['Spherules with endospores (Coccidioides characteristic)', 'Oval-shaped to tear drop, single round pink nucleus, blue cytoplasm, non-staining cell wall (2-5 μm + 1 μm clear capsule), มักอยู่ใน macrophage', 'Hyphae long branching (Aspergillus characteristic)', 'Round, narrow-neck budding, thick clear capsule 4-15 μm (Cryptococcus)'],
     answer: 1, explain: 'Sporo: oval/teardrop, 2-5 μm, มักอยู่ใน macrophage · Crypto: round budding กับ thick mucopolysaccharide capsule (clear halo), 4-15 μm',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.27' },
 
   { id: 552, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'culture'], type: 'mcq',
     q: 'Confirmatory test สำหรับ Sporotrichosis คืออะไร',
-    options: ['Fungal culture บน Sabouraud Dextrose Agar', 'Histology', 'PCR', 'Cytology'],
+    options: ['Fungal culture บน Sabouraud Dextrose Agar', 'Histology (PAS/GMS stain — เห็น cigar-shaped yeast)', 'PCR (in-house, ITS region — ไม่ specific)', 'Cytology (Romanowsky stain — sensitivity ต่ำ)'],
     answer: 0, explain: 'Sample = deep area ของ ulcer (best) หรือ exudate · Disseminated form แนะนำให้ culture เลือดด้วย',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.28-30' },
 
@@ -263,14 +263,14 @@ export const QB_COM5 = [
   { id: 554, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'KI'], type: 'mcq',
     q: 'Drug of choice สำหรับ Sporotrichosis ในสุนัขคืออะไร',
-    options: ['Potassium iodide (KI) supersaturated solution 2.5-20 mg/kg q24h PO', 'Penicillin G IM', 'Griseofulvin', 'Amphotericin B', 'Itraconazole'],
+    options: ['Potassium iodide (KI) supersaturated solution 2.5-20 mg/kg q24h PO', 'Penicillin G 22,000 IU/kg IM q12h', 'Griseofulvin 25 mg/kg PO q12h', 'Amphotericin B 0.25 mg/kg IV', 'Itraconazole 10 mg/kg PO q24h'],
     answer: 0, explain: 'KI = TOC ในสุนัข · ในแมวใช้ได้แต่ระวัง mild ↑ liver enzyme + hepatotoxicity',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.39' },
 
   { id: 555, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'amphotericin'], type: 'mcq',
     q: 'Dose ของ Amphotericin B IV ในการรักษา disseminated sporotrichosis คืออะไร',
-    options: ['0.25-0.5 mg/kg in 5% dextrose IV q48h (diluted infusion 4-6 hr)', '2 mg/kg IM q12h', '10 mg/kg q1wk', '5 mg/kg q24h PO'],
+    options: ['0.25-0.5 mg/kg in 5% dextrose IV q48h (diluted infusion 4-6 hr)', '2 mg/kg IM q12h (route ผิด — ห้าม IM)', '10 mg/kg q1wk (overdose — nephrotoxic)', '5 mg/kg q24h PO (ไม่ดูดซึม oral)'],
     answer: 0, explain: 'IV ใน disseminated form · diluted infusion 4-6 hr ลด nephrotoxicity · IL: 1 mg/kg q1wk for localized lesion',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.37-38' },
 
@@ -337,14 +337,14 @@ export const QB_COM5 = [
   { id: 515, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['protozoal', 'cystoisospora'], type: 'mcq',
     q: 'หาก simple flotation พบ oocyst ภายในมี 2 sporocyst แต่ละ sporocyst มี 4 sporozoite น่าจะเป็นเชื้อใด',
-    options: ['Giardia spp.', 'Tritrichomonas foetus', 'Cystoisospora canis, Neospora caninum, Toxoplasma, Sarcocystis (ratio 1:2:4)', 'Cryptosporidium spp.'],
+    options: ['Giardia spp. (cyst 8-12 µm)', 'Tritrichomonas foetus (trophozoite 8-15 µm, no cyst)', 'Cystoisospora canis, Neospora caninum, Toxoplasma, Sarcocystis (ratio 1:2:4)', 'Cryptosporidium spp. (oocyst 4-6 µm)'],
     answer: 2, explain: 'Apicomplexa enteric coccidia: 1 oocyst : 2 sporocyst : 4 sporozoite (ยกเว้น Cryptosporidium = 1:0:4)',
     verified: 'GI_protozoa.pdf p.7-8' },
 
   { id: 516, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['protozoal', 'giardia', 'treatment'], type: 'mcq',
     q: 'แมว 4 ปี เม็ดเลือดออก + พบเชื้อโปรโตซัวรูปร่างหยดน้ำเคลื่อนไหวแบบใบไม้ร่วง drug of choice คืออะไร',
-    options: ['Fenbendazole 50 mg/kg SID × 5 days (CAPC)', 'Clindamycin', 'Doxycycline', 'Pyrantel'],
+    options: ['Fenbendazole 50 mg/kg SID × 5 days (CAPC)', 'Clindamycin 11 mg/kg PO q12h', 'Doxycycline 5 mg/kg PO q12h', 'Pyrantel 20 mg/kg PO ครั้งเดียว'],
     answer: 0, explain: 'Giardia trophozoite: tear-drop + falling-leaf motility · Fenbendazole = CAPC recommend (สุนัข), แมวก็ใช้ได้',
     verified: 'GI_protozoa.pdf p.33 (CAPC)' },
 
@@ -358,7 +358,7 @@ export const QB_COM5 = [
   { id: 518, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['protozoal', 'toxoplasma', 'treatment'], type: 'mcq',
     q: 'Drug of choice สำหรับ Toxoplasmosis ในแมวคืออะไร',
-    options: ['Metronidazole + Doxycycline', 'Fenbendazole + Metronidazole', 'Clindamycin (1st line) ± Sulfonamide/Trimethoprim', 'Ronidazole + Febantel'],
+    options: ['Metronidazole 22 mg/kg + Doxycycline 5 mg/kg', 'Fenbendazole 50 mg/kg + Metronidazole 22 mg/kg', 'Clindamycin (1st line) ± Sulfonamide/Trimethoprim', 'Ronidazole 30 mg/kg + Febantel 30 mg/kg'],
     answer: 2, explain: 'Toxoplasma: Clindamycin 1st line · Coccidia (Cystoisospora): Sulfa-trimethoprim · ใช้ร่วมกันได้',
     verified: 'GI_protozoa.pdf p.42' },
 
@@ -409,7 +409,7 @@ export const QB_COM5 = [
   { id: 567, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['cryptosporidium', 'treatment'], type: 'mcq',
     q: 'การรักษา Cryptosporidiosis ในแมว แนะนำใช้ยาตัวใด',
-    options: ['Pyrantel', 'Paromomycin / Tylosin / Azithromycin (เลือกตามสภาพ)', 'Metronidazole', 'Fenbendazole'],
+    options: ['Pyrantel (anthelmintic — ไม่ครอบคลุม protozoa)', 'Paromomycin / Tylosin / Azithromycin (เลือกตามสภาพ)', 'Metronidazole (anaerobe + Giardia, ไม่ Crypto)', 'Fenbendazole (Giardia/nematode, ไม่ Crypto)'],
     answer: 1, explain: 'No specific Tx · Nitazoxanide FDA-approved ในคน · ในแมว: Tylosin/Azithromycin · Paromomycin ห้ามใช้ใน bloody stool (nephrotoxic)',
     verified: 'GI_protozoa.pdf p.46' },
 
@@ -452,14 +452,14 @@ export const QB_COM5 = [
   { id: 573, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['toxoplasma', 'shedding'], type: 'mcq',
     q: 'แมว (definitive host) shed Toxoplasma oocyst ในอุจจาระ',
-    options: ['ทุกครั้งที่กินเนื้อดิบ', 'ไม่ shed เลย', 'หลัง infection แรกครั้งเดียวในชีวิต ระยะเวลา 7-10 วัน (millions of oocysts)', 'ตลอดชีวิต ทุกวัน'],
+    options: ['ทุกครั้งที่กินเนื้อดิบ shed > 30 วัน', 'ไม่ shed เลย (< 1 วัน)', 'หลัง infection แรกครั้งเดียวในชีวิต ระยะเวลา 7-10 วัน (millions of oocysts)', 'ตลอดชีวิต ทุกวัน 365 d/y'],
     answer: 2, explain: 'Cat shed oocyst หลัง primary infection ครั้งเดียวในชีวิต × 7-10 วัน · sporulated 10×12 μm = infective',
     verified: 'GI_protozoa.pdf p.40' },
 
   { id: 574, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['toxoplasma', 'clinical'], type: 'mcq',
     q: 'Clinical signs ที่พบบ่อยใน feline toxoplasmosis คืออะไร',
-    options: ['Abortion (พบบ่อยในแมว)', 'Skin nodules', 'Pneumonitis, encephalitis, hepatitis, chorioretinitis, uveitis (multi-organ)', 'ท้องเสียอย่างเดียว'],
+    options: ['Abortion (พบบ่อยใน goat/sheep, rare ในแมว)', 'Skin nodules ทั่วตัว (rare manifestation)', 'Pneumonitis, encephalitis, hepatitis, chorioretinitis, uveitis (multi-organ)', 'ท้องเสียอย่างเดียว (mild self-limiting)'],
     answer: 2, explain: 'Common: pneumonitis, encephalitis, hepatitis, pancreatitis, myocarditis, chorioretinitis · Lab: bilirubinemia, leukopenia, anemia · Abortion พบใน dog > cat',
     verified: 'GI_protozoa.pdf p.38' },
 
@@ -484,7 +484,7 @@ export const QB_COM5 = [
   { id: 577, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'COM V FINAL 86',
     tags: ['cystoisospora', 'treatment'], type: 'mcq',
     q: 'ยาที่ใช้รักษา Cystoisospora (coccidiosis) ในสุนัขและแมวคืออะไร',
-    options: ['Doxycycline', 'Fenbendazole', 'Pyrantel', 'Sulfa-trimethoprim หรือ Toltrazuril (สุนัข)'],
+    options: ['Doxycycline (Coccidia ไม่ตอบสนอง)', 'Fenbendazole (helminth-specific, ไม่ Coccidia)', 'Pyrantel (helminth-specific, ไม่ protozoa)', 'Sulfa-trimethoprim หรือ Toltrazuril (สุนัข)'],
     answer: 3, explain: 'Sulfa-Trimethoprim = ทั้งสุนัขและแมว · Toltrazuril = สุนัข · ทั้งสองตัวไม่ได้ FDA approve อย่างเป็นทางการ',
     verified: 'COM V FINAL 86 p.17' },
 
@@ -527,7 +527,7 @@ export const QB_COM5 = [
   { id: 524, subject: 'com5', topic: 'rabies', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['rabies', 'diagnosis'], type: 'mcq',
     q: 'วิธีหลักที่ใช้ DX rabies ในปัจจุบัน (วันเดียวรู้ผล)',
-    options: ['ELISA', 'Histopathology (Negri bodies)', 'DFA (Direct Fluorescent Antibody Test) — brain impression smear', 'PCR'],
+    options: ['ELISA (antibody detection — slow, retrospective)', 'Histopathology (Negri bodies — sensitivity ต่ำ)', 'DFA (Direct Fluorescent Antibody Test) — brain impression smear', 'PCR (RT-PCR brain — confirmatory แต่นานกว่า)'],
     answer: 2, explain: 'DFA = วิธีหลัก (สถานเสาวภา) · ทำได้ภายในวันเดียว · Negri bodies = หลักฐานอ้อม, เจอ = positive แต่ไม่เจอ ≠ negative',
     verified: 'Rabies.pdf p.14' },
 
@@ -595,14 +595,14 @@ export const QB_COM5 = [
   { id: 584, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
     tags: ['rabies', 'wound-care'], type: 'mcq',
     q: 'การปฐมพยาบาลแผลถูกกัดในคน',
-    options: ['Wash + irrigate ด้วย soap solution หรือ QUAT, แล้ว apply ethanol/povidone iodine', 'พอกแผลด้วยสมุนไพร', 'ปิดแผลทันที ไม่ล้าง', 'เอารองเท้าตบแผล'],
+    options: ['Wash + irrigate ด้วย soap solution หรือ QUAT, แล้ว apply ethanol/povidone iodine', 'พอกแผลด้วยสมุนไพรไทย (ห้ามตาม WHO)', 'ปิดแผลทันที ไม่ล้าง (เสี่ยง infection)', 'เอารองเท้าตบแผลให้เลือดออกเพิ่ม'],
     answer: 0, explain: 'WHO/CDC: ล้างน้ำสะอาดด้วยสบู่อย่างน้อย 15 นาที · ใช้ ethanol/iodine · ห้ามรักษาตามความเชื่อโบราณ',
     verified: 'Rabies.pdf p.24' },
 
   { id: 585, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
     tags: ['rabies', 'thai-stats'], type: 'mcq',
     q: 'สัตว์ที่พบ Rabies positive มากที่สุดในประเทศไทยคืออะไร',
-    options: ['โค กระบือ', 'ค้างคาว', 'สุนัข ~91%', 'แมว'],
+    options: ['โค กระบือ ~5%', 'ค้างคาว ~3%', 'สุนัข ~91%', 'แมว ~6%'],
     answer: 2, explain: 'Thailand endemic · 2 จังหวัดอันดับแรก: อุบลราชธานี, ชลบุรี · Dogs 91%, Cats 2%, others (rabbit/bat/rat/cattle) 7%',
     verified: 'COM V FINAL 86 p.23 (Aj.Vachira)' },
 
@@ -651,14 +651,14 @@ export const QB_COM5 = [
   { id: 528, subject: 'com5', topic: 'vaccine', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['vaccine', 'WSAVA'], type: 'mcq',
     q: 'WSAVA 2024 non-core vaccine ในสุนัข ได้แก่',
-    options: ['CaPiV + Bordetella + Borrelia + Canine influenza + Leishmania + CHV-1', 'CDV, Rabies', 'Rabies', 'CDV, CPV, CAV'],
+    options: ['CaPiV + Bordetella + Borrelia + Canine influenza + Leishmania + CHV-1', 'CDV, Rabies (อายุ ≥ 16 wk)', 'Rabies เดี่ยว (อายุ < 12 wk)', 'CDV, CPV, CAV (core, อายุ ≥ 16 wk)'],
     answer: 0, explain: 'Non-core สุนัข: CaPiV, Bordetella, Borrelia, CIV, leishmania, CHV-1 · Killed CPV/CCoV/Giardia/Microsporum = Not Recommended',
     verified: 'Vaccination_guideline.pdf p.8' },
 
   { id: 529, subject: 'com5', topic: 'vaccine', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['vaccine', 'WSAVA'], type: 'mcq',
     q: 'WSAVA 2024 non-core vaccine ในแมว ได้แก่',
-    options: ['C. felis, B. bronchiseptica, FIV', 'FHV, FCV', 'FeLV, Rabies', 'FPV'],
+    options: ['C. felis, B. bronchiseptica, FIV', 'FHV, FCV (core ทั้งคู่ — ไม่ใช่ non-core)', 'FeLV, Rabies (core with conditions)', 'FPV (core absolute)'],
     answer: 0, explain: 'Non-core แมว (WSAVA 2024): C. felis, B. bronchiseptica, FIV · FIP/Giardia/Microsporum = Not Recommended',
     verified: 'Vaccination_guideline.pdf p.20' },
 
@@ -694,7 +694,7 @@ export const QB_COM5 = [
   { id: 534, subject: 'com5', topic: 'vaccine', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['vaccine', 'response'], type: 'mcq',
     q: 'การตอบสนองทางภูมิคุ้มกันเมื่อให้วัคซีนป้องกันพิษสุนัขบ้าของสุนัขอายุ 5 ปี ที่ขาดการกระตุ้นวัคซีนมาสามปี จะมีลักษณะเช่นไร',
-    options: ['ไม่ตอบสนอง', 'ตอบสนองมากกว่าปกติ', 'ตอบสนองได้บ้าง แต่ไม่ดีเท่า', 'ตอบสนองได้ดีไม่ต่างจากสุนัขที่ฉีดประจำ (memory response — anamnestic)'],
+    options: ['ไม่ตอบสนอง (ภูมิหายหมดแล้ว)', 'ตอบสนองมากกว่าปกติ (hyper-response)', 'ตอบสนองได้บ้าง แต่ไม่ดีเท่า primary series', 'ตอบสนองได้ดีไม่ต่างจากสุนัขที่ฉีดประจำ (memory response — anamnestic)'],
     answer: 3, explain: 'Moore et al. JAVMA 2015: anamnestic response ของสัตว์ที่ขาด rabies vaccine เหมือนสัตว์ที่ฉีดประจำ → post-exposure: booster + observe 45 d (NOT euthanize/quarantine 6 mo)',
     verified: 'Vaccination_guideline.pdf p.12 (Moore 2015 JAVMA 246:205-211)' },
 
@@ -703,7 +703,7 @@ export const QB_COM5 = [
   { id: 591, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'WSAVA-2024'], type: 'mcq',
     q: 'จุดเด่นที่เปลี่ยนแปลงสำคัญใน WSAVA 2024 vs WSAVA 2016 คืออะไร',
-    options: ['ฉีดทุก 5 ปี', 'Lepto + FeLV เพิ่มเป็น core (with conditions) + บูสต์ที่ 6 เดือน', 'ยกเลิก rabies vaccine', 'ลด core vaccine'],
+    options: ['ฉีดทุก 5 ปี แทน 3 ปี (ผิด — interval ไม่เปลี่ยน)', 'Lepto + FeLV เพิ่มเป็น core (with conditions) + บูสต์ที่ 6 เดือน', 'ยกเลิก rabies vaccine จาก core', 'ลด core vaccine เหลือเฉพาะ CDV'],
     answer: 1, explain: 'Highlights 2024: Lepto+FeLV เพิ่มเป็น core มีเงื่อนไข · 6-mo booster แทน 1-yr · serological titer testing (≥20 wks)',
     verified: 'Vaccination_guideline.pdf p.3 (Squires et al. JSAP 2024;65:277-316)' },
 
@@ -718,7 +718,7 @@ export const QB_COM5 = [
   { id: 593, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'WSAVA', 'felv'], type: 'mcq',
     q: 'ตาม WSAVA 2024 FeLV เป็น "core with conditions" สำหรับแมวในกลุ่มใด',
-    options: ['ฉีดในแมวอายุ > 5 ปีเท่านั้น', 'แมวในประเทศ endemic + อายุ < 1 ปี หรือ older cats with risk of exposure (ต้องตรวจ FeLV-negative ก่อนฉีด)', 'แค่แมวบ้านที่อยู่ในห้อง', 'ทุกตัวต้องฉีด'],
+    options: ['ฉีดในแมวอายุ > 5 ปีเท่านั้น (high-risk only)', 'แมวในประเทศ endemic + อายุ < 1 ปี หรือ older cats with risk of exposure (ต้องตรวจ FeLV-negative ก่อนฉีด)', 'แค่แมวบ้านที่อยู่ในห้องตลอด (low-risk)', 'ทุกตัวต้องฉีดเป็น core absolute'],
     answer: 1, explain: 'WSAVA 2024: FeLV core with conditions · endemic + <1yr or older with risk · ต้อง FeLV-ve test ก่อนทุกครั้ง · VPAT 2024 ใช้ <2 yr',
     verified: 'Vaccination_guideline.pdf p.22, 26' },
 
@@ -732,14 +732,14 @@ export const QB_COM5 = [
   { id: 595, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'AE'], type: 'mcq',
     q: 'Vaccine adverse event (VAE) ในสุนัข — ปัจจัยเสี่ยงที่เพิ่มโอกาสเกิด AE คืออะไร',
-    options: ['น้ำหนัก ≤ 5 kg, อายุน้อย, multiple vaccines, certain breeds (French Bulldog, Dachshund, Boston Terrier)', 'อ้วน, สุนัขโต, vaccine ใหม่', 'ไม่มีปัจจัยเสี่ยง', 'สุนัขใหญ่, อายุมาก, วัคซีนเข็มเดียว, สุนัขสายพันธุ์ใหญ่'],
+    options: ['น้ำหนัก ≤ 5 kg, อายุน้อย, multiple vaccines, certain breeds (French Bulldog, Dachshund, Boston Terrier)', 'อ้วน BCS 8/9, สุนัขโต > 7 ปี, vaccine ใหม่', 'ไม่มีปัจจัยเสี่ยงในสุนัข > 1 ปี', 'สุนัขใหญ่ > 30 kg, อายุ > 5 ปี, วัคซีนเข็มเดียว'],
     answer: 0, explain: 'Moore JAVMA 2023: AE rate 19.4/10,000 visits · 25% เพิ่มต่อวัคซีนเข็มที่เพิ่ม · Top 3 breed: Frenchie, Dachshund, Boston Terrier · Rabies + DA2PP มี VAE rate สูงสุด',
     verified: 'Vaccination_guideline.pdf p.17-18 (Moore JAVMA 2023;261:1653)' },
 
   { id: 596, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'kennel-cough'], type: 'mcq',
     q: 'B. bronchiseptica (kennel cough) vaccine — เปรียบเทียบ parenteral vs intranasal/oral',
-    options: ['ไม่ต่างกัน', 'Mucosal (IN/oral) ให้ IgA + onset เร็ว · parenteral onset ช้ากว่า', 'ห้ามใช้ในสุนัข', 'Parenteral ดีกว่าทุกกรณี'],
+    options: ['ไม่ต่างกัน (immunogenicity เท่ากัน)', 'Mucosal (IN/oral) ให้ IgA + onset เร็ว · parenteral onset ช้ากว่า', 'ห้ามใช้ในสุนัข < 8 สัปดาห์', 'Parenteral ดีกว่าทุกกรณี (รวม IgA mucosal)'],
     answer: 1, explain: 'IN/oral ให้ mucosal IgA · ระวัง zoonotic B. bronchiseptica (โดยเฉพาะ immunocompromised owners)',
     verified: 'Vaccination_guideline.pdf p.16, 31' },
 
@@ -753,7 +753,7 @@ export const QB_COM5 = [
   { id: 598, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'WSAVA', 'booster'], type: 'mcq',
     q: 'WSAVA 2024 แนะนำให้ booster vaccine เข็มแรกเมื่ออายุใด (เปลี่ยนจาก 2016)',
-    options: ['ไม่ต้อง booster', '18 เดือน', '24 เดือน', '6 เดือน (แทน 12-16 เดือน) → จากนั้น revaccinate ที่ 3 ปี + ทุก 3 ปี', '12 เดือน เหมือนเดิม'],
+    options: ['ไม่ต้อง booster หลัง puppy/kitten series', '18 เดือน หลัง initial vaccination', '24 เดือน หลัง puppy series', '6 เดือน (แทน 12-16 เดือน) → จากนั้น revaccinate ที่ 3 ปี + ทุก 3 ปี', '12 เดือน เหมือน WSAVA 2016'],
     answer: 3, explain: 'WSAVA 2024: 6-month booster (revised) · จากนั้น 3-yr intervals · VPAT ยังคง annual (อย่างน้อยจนถึงครึ่งปี-1ปี + ทุกปีหรือทุก 3 ปี)',
     verified: 'Vaccination_guideline.pdf p.9 + COM V FINAL 86 p.34' },
 
@@ -860,7 +860,7 @@ export const QB_COM5 = [
   { id: 613, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'antibiotic'], type: 'mcq',
     q: 'Antibiotic 1st choice สำหรับ FRDC (ครอบคลุมทุก bacteria ในกลุ่ม)',
-    options: ['Cefazolin', 'Ciprofloxacin', 'Doxycycline 10 mg/kg PO q24h × 7-10 วัน', 'Penicillin V'],
+    options: ['Cefazolin 22 mg/kg IV q8h', 'Ciprofloxacin 10 mg/kg PO q24h', 'Doxycycline 10 mg/kg PO q24h × 7-10 วัน', 'Penicillin V 25,000 IU/kg PO q8h'],
     answer: 2, explain: 'Doxy = 1st line · ครอบคลุม Mycoplasma + Bordetella + C. felis · Amoxi-clav effective สำหรับ 2° bacteria แต่ ineffective ต่อ Mycoplasma + C. felis',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.38' },
 
