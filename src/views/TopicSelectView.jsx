@@ -23,6 +23,10 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
         <p>{subjectMeta?.icon} {subjectMeta?.name} · เลือกเฉพาะหัวข้อที่จะสอบ หรือทั้งหมดก็ได้</p>
       </div>
 
+      {subjectMeta?.examFormat && (
+        <ExamFormatBanner format={subjectMeta.examFormat} accent={subjectMeta.color} />
+      )}
+
       <div className="vmx-subject-grid">
         {/* All-topics card */}
         <button
@@ -79,5 +83,61 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>หน้าแรก</button>
       </div>
     </>
+  );
+}
+
+// ─── Exam-format banner (shows up when subject has examFormat metadata) ───
+function ExamFormatBanner({ format, accent }) {
+  const items = [];
+  if (format.weight) items.push({ k: 'สัดส่วนวิชา', v: format.weight });
+  if (format.perSession) items.push({ k: 'จำนวนข้อ', v: format.perSession });
+  if (format.totalEstimate) items.push({ k: 'รวมประมาณ', v: format.totalEstimate });
+  if (format.choiceCount) items.push({ k: 'รูปแบบ', v: `MCQ ${format.choiceCount} ช้อยส์ (A-${String.fromCharCode(64 + format.choiceCount)})` });
+
+  return (
+    <div style={{
+      padding: '14px 18px',
+      borderRadius: 12,
+      borderLeft: `4px solid ${accent || 'var(--clr-ink)'}`,
+      background: 'var(--clr-surface)',
+      border: '1px solid var(--clr-border)',
+      marginBottom: 20,
+    }}>
+      <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
+        📝 โครงสร้างข้อสอบจริง
+      </div>
+
+      {items.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 18px', marginBottom: format.notes?.length || format.questionTypes?.length ? 10 : 0 }}>
+          {items.map((it) => (
+            <div key={it.k} style={{ fontSize: 13 }}>
+              <span style={{ color: 'var(--clr-ink-soft)' }}>{it.k}: </span>
+              <strong style={{ color: 'var(--clr-ink)' }}>{it.v}</strong>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {format.questionTypes?.length > 0 && (
+        <ul style={{ margin: '6px 0 0', paddingLeft: 20, fontSize: 12.5, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
+          {format.questionTypes.map((q, i) => (
+            <li key={i}>
+              {q.topic} — <code style={{ background: 'var(--clr-surface-2)', padding: '1px 6px', borderRadius: 4, fontSize: 11 }}>{q.type}</code>
+              {q.count && <span style={{ color: 'var(--clr-ink-soft)' }}> · {q.count}</span>}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {format.notes?.length > 0 && (
+        <div style={{ marginTop: 10, padding: '8px 12px', borderRadius: 8, background: 'var(--clr-surface-2)', fontSize: 12, lineHeight: 1.6 }}>
+          {format.notes.map((n, i) => <div key={i}>{n}</div>)}
+        </div>
+      )}
+
+      <div style={{ marginTop: 8, fontSize: 10, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
+        โปรดยืนยันกับอาจารย์/หัวปีอีกครั้งก่อนวันสอบจริง
+      </div>
+    </div>
   );
 }

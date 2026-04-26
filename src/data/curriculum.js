@@ -51,6 +51,15 @@ export const SUBJECTS_BY_YEAR = {
       ] },
     { id: 'com3', code: '3106416', name: 'COM III', name_en: 'C ANI CLI SCI III · Companion Animal',
       icon: '🚨', color: '#c26d6d', semester: 2, has_questions: true,
+      examFormat: {
+        weight: '40%',
+        perSession: '~5-7 ข้อ/คาบ',
+        totalEstimate: '~70-100 ข้อรวม (14 คาบ)',
+        choiceCount: 5,
+        notes: [
+          '⚠️ เรื่อง AI ยังไม่ confirm ว่าออก — อาจารย์ตั้งใจให้ไม่ออก · รอ confirm อีกที',
+        ],
+      },
       topics: [
         // เรียงตามตารางเรียน Sem 2/2568 คาบ 15-30 (Final exam scope)
         { id: 'neuro-exam',    label: 'คาบ 15-16 · Neuro Exam + Localization', icon: '🔍',
@@ -108,7 +117,15 @@ export const SUBJECTS_BY_YEAR = {
     // ── Poultry ──
     { id: 'poultry', code: '3107409', name: 'Poultry Health', name_en: 'PLTRY HLTH MGT',
       icon: '🐔', color: '#c2924a', semester: 2, has_questions: false,
-      note: 'รอข้อสอบเพิ่ม' },
+      note: 'รอข้อสอบเพิ่ม',
+      examFormat: {
+        weight: '7.5% ต่อสัปดาห์',
+        questionTypes: [
+          { topic: 'การประกันคุณภาพของฟาร์มสัตว์ปีก', type: 'True/False', count: '~10 ข้อ' },
+          { topic: 'การจัดการฟาร์มสัตว์ปีก + ปัญหาลูกไก่ตายในสัปดาห์แรก', type: 'MCQ' },
+          { topic: 'Avian zoonosis', type: 'Fill-in (เติมคำ)' },
+        ],
+      } },
 
     // ── English / Professional skills ──
     { id: 'engprof', code: '5500419', name: 'Eng Vet Prof II', name_en: 'English for Vet Profession II',

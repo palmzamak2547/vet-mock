@@ -50,6 +50,22 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   {s.code}
                 </div>
               )}
+              {s.examFormat && (
+                <div style={{
+                  marginTop: 6,
+                  padding: '3px 8px',
+                  borderRadius: 999,
+                  background: 'var(--clr-surface-2)',
+                  fontSize: 10,
+                  fontFamily: 'JetBrains Mono, monospace',
+                  color: 'var(--clr-ink-soft)',
+                  display: 'inline-block',
+                  letterSpacing: '0.05em',
+                }}>
+                  📝 {s.examFormat.weight}
+                  {s.examFormat.choiceCount && ` · ${s.examFormat.choiceCount} ช้อยส์`}
+                </div>
+              )}
             </button>
           );
         })}
