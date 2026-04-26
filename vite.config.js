@@ -15,6 +15,7 @@ export default defineConfig({
           }
           // Question banks are heavy + only needed once user starts a quiz
           if (id.includes('questions-com3')) return 'data-q-com3'
+          if (id.includes('questions-com4')) return 'data-q-com4'
           if (id.includes('questions-com5')) return 'data-q-com5'
           // Notes data is only loaded when NotesView is opened
           if (id.includes('notes-com3')) return 'data-notes-com3'

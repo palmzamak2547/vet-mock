@@ -13,12 +13,27 @@
 
 // Map slide PDF filenames → label + lecturer (current 2026 staff)
 const LECTURE_FILES_2026 = {
+  // ── COM V ────────────────────────────────────────────────
   'cve.pdf':                                 { label: 'CVE Lecture 2026',           lecturer: 'Aj. Punyamanee Yamkate' },
   'sporotrichosis and cryptococcosis.pdf':   { label: 'Sporo+Crypto Lecture 2026',  lecturer: 'Aj. Siwaporn Pengpis' },
   'gi_protozoa.pdf':                         { label: 'GI Protozoa Lecture 2026',   lecturer: 'Aj. Woraporn Sukhumavasi' },
   'rabies.pdf':                              { label: 'Rabies Lecture 2026',        lecturer: 'Aj. Vachira Hunprasit' },
   'vaccination_guideline.pdf':               { label: 'Vaccine Lecture 2026',       lecturer: 'Prof. Sanipa Suradhat' },
   'feline_upper_respiratory_infection.pdf':  { label: 'FURI Lecture 2026',          lecturer: 'Aj. Nattawan Tangmahakul' },
+  // ── COM IV ───────────────────────────────────────────────
+  'derm_1__2_dermatology_introduction':      { label: 'Derm Intro Lecture 2026',     lecturer: 'Dermatology team' },
+  'derm_3_parasitic_skin_diseases':          { label: 'Parasitic Skin Lecture 2026', lecturer: 'Dermatology team' },
+  'derm__4_bacterial_skin_diseases':         { label: 'Bacterial Skin Lecture 2026', lecturer: 'Dermatology team' },
+  'derm__5_fungal_skin_diseases':            { label: 'Fungal Skin Lecture 2026',    lecturer: 'Dermatology team' },
+  'derm_6_endocrine_skin_diseases':          { label: 'Endocrine Skin Lecture 2026', lecturer: 'Dermatology team' },
+  'derm_7_nutrition_skin_disease':           { label: 'Nutrition Skin Lecture 2026', lecturer: 'Dermatology team' },
+  'derm_8_allergic_dermatitis':              { label: 'Allergic Derm Lecture 2026',  lecturer: 'Dermatology team' },
+  'derm_9_autoimmune_skin_diseases':         { label: 'Autoimmune Skin Lecture 2026', lecturer: 'Dermatology team' },
+  'drug_used_for_immune_mediated_diseases':  { label: 'Immune-mediated Drugs Lecture 2026', lecturer: 'Aj. Chaiyot Tanrattana' },
+  'immune-mediated hemolytic anemia':        { label: 'IMHA Lecture 2026',           lecturer: 'Aj. Rosama Pusoonthornthum' },
+  'systemic_lupus_erythematosus':            { label: 'SLE Lecture 2026',            lecturer: 'Aj. Rosama Pusoonthornthum' },
+  'inflamatory_bowel_disease':               { label: 'IBD Lecture 2026',            lecturer: 'Aj. Rosama Pusoonthornthum' },
+  'pediatrics_and_geriatrics':               { label: 'Peds & Geri Lecture 2026',    lecturer: 'Companion Animal Med team' },
 };
 
 // regex สำหรับ guideline / reference สากล

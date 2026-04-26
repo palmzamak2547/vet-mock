@@ -96,8 +96,59 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'er-anes',       label: 'คาบ 30 · Emergency Anesthesia', icon: '😴',
           lecturer: 'Sumit Durongphongtorn (SD)', lecturer_year: 2026, schedule: '23 เม.ย. · คาบ 30' },
       ] },
-    { id: 'com4', code: '3107416', name: 'COM IV', name_en: 'C ANI CLI SCI IV · Companion Animal',
-      icon: '🐈', color: '#3d6b82', semester: 2, has_questions: true },
+    { id: 'com4', code: '3107416', name: 'COM IV', name_en: 'C ANI CLI SCI IV · Dermatology + Immune-mediated + GI/Peds',
+      icon: '🩺', color: '#6b5b8e', semester: 2, has_questions: true,
+      examFormat: {
+        weight: 'รอ confirm',
+        notes: ['📌 หัวข้อหลัก: Dermatology series (8) + Immune-mediated (drugs/IMHA/SLE) + IBD + Pediatrics/Geriatrics'],
+      },
+      topics: [
+        // ── Dermatology series (8 lectures) ─────────────────────────
+        { id: 'derm-intro',     label: 'Dermatology Introduction', icon: '🌟',
+          lecturer: 'Dermatology team', lecturer_year: 2026 },
+        { id: 'derm-parasitic', label: 'Parasitic Skin Diseases', icon: '🪲',
+          lecturer: 'Dermatology team', lecturer_year: 2026,
+          lecturerNote: 'Demodex, Sarcoptes, Cheyletiella, Notoedres, Otodectes' },
+        { id: 'derm-bacterial', label: 'Bacterial Skin Diseases', icon: '🦠',
+          lecturer: 'Dermatology team', lecturer_year: 2026,
+          lecturerNote: 'Pyoderma (superficial vs deep), MRSP/MRSA, Staphylococcus pseudintermedius' },
+        { id: 'derm-fungal',    label: 'Fungal Skin Diseases', icon: '🍄',
+          lecturer: 'Dermatology team', lecturer_year: 2026,
+          lecturerNote: 'Dermatophytosis (Microsporum, Trichophyton), Malassezia' },
+        { id: 'derm-endocrine', label: 'Endocrine Skin Diseases', icon: '⚖️',
+          lecturer: 'Dermatology team', lecturer_year: 2026,
+          lecturerNote: 'Cushing\'s, Hypothyroidism, Alopecia X, Sex hormone alopecia' },
+        { id: 'derm-nutrition', label: 'Nutritional Skin Diseases', icon: '🥗',
+          lecturer: 'Dermatology team', lecturer_year: 2026,
+          lecturerNote: 'Zinc-responsive, Vit A/E deficiency, EFA, Generic dog food disease' },
+        { id: 'derm-allergic',  label: 'Allergic Dermatitis', icon: '🤧',
+          lecturer: 'Dermatology team', lecturer_year: 2026,
+          lecturerNote: 'Atopic derm (CAD), FAD (Flea allergy), Food allergy' },
+        { id: 'derm-autoimmune', label: 'Autoimmune Skin Diseases', icon: '🛡',
+          lecturer: 'Dermatology team', lecturer_year: 2026,
+          lecturerNote: 'Pemphigus complex, Lupus erythematosus, Bullous pemphigoid' },
+
+        // ── Immune-mediated diseases ────────────────────────────────
+        { id: 'immune-drugs',   label: 'Drugs for Immune-mediated Diseases', icon: '💊',
+          lecturer: 'Aj. Chaiyot Tanrattana', lecturer_year: 2026,
+          lecturerNote: 'Glucocorticoid, Cyclosporine, Azathioprine, MMF, Chlorambucil, IVIG' },
+        { id: 'imha',           label: 'Immune-mediated Hemolytic Anemia (IMHA)', icon: '🩸',
+          lecturer: 'Aj. Rosama Pusoonthornthum', lecturer_year: 2026,
+          lecturerNote: 'Type I hypersensitivity · Spherocytes · Coombs test' },
+        { id: 'sle',            label: 'Systemic Lupus Erythematosus (SLE)', icon: '🦋',
+          lecturer: 'Aj. Rosama Pusoonthornthum', lecturer_year: 2026,
+          lecturerNote: 'Multi-organ · ANA test · Type II/III hypersensitivity' },
+
+        // ── GI ──────────────────────────────────────────────────────
+        { id: 'ibd',            label: 'Inflammatory Bowel Disease (IBD)', icon: '🌀',
+          lecturer: 'Aj. Rosama Pusoonthornthum', lecturer_year: 2026,
+          lecturerNote: 'Chronic enteropathy · LPE/EE/granulomatous · Histopath confirm' },
+
+        // ── Pediatrics & Geriatrics ────────────────────────────────
+        { id: 'peds-geri',      label: 'Pediatrics & Geriatrics', icon: '👶',
+          lecturer: 'Companion Animal Med team', lecturer_year: 2026,
+          lecturerNote: 'Neonatal care, growth, vaccination, geriatric screening' },
+      ] },
 
     // ── Reproduction ──
     { id: 'repro', code: '3108409', name: 'Repro Lab', name_en: 'Companion Animal Reproduction',
