@@ -58,7 +58,7 @@ export const QB_COM3 = [
       { left: 'Cyanotic / blue', right: 'Severe hypoxemia' },
       { left: 'Icteric / yellow', right: 'Hemolysis / hepatobiliary disease' },
     ],
-    explain: 'กดที่ inner lip นาน 4 วินาที (กัน gingivitis confound)\nแดงมากๆ = sepsis (cytokine vasodilation)\n\n❌ ทำไมข้ออื่นผิด\n— AV block / Arrhythmia = rhythm ไม่ใช่ rate\n— Normal HR = ไม่ใช่ shock\n— Tachycardia = สุนัข ไม่ใช่แมว',
+    explain: 'กดที่ inner lip นาน 4 วินาที (กัน gingivitis confound)\nแดงมากๆ = sepsis (cytokine vasodilation)',
     verified: 'triage 1 hr.pdf + master p.42' },
 
   { id: 704, subject: 'com3', topic: 'triage', year: 4, source: 'triage 1 hr.pdf',
@@ -157,7 +157,7 @@ export const QB_COM3 = [
   { id: 718, subject: 'com3', topic: 'shock', year: 4, source: 'master p.18',
     tags: ['shock', 'steroid'], type: 'tf',
     q: 'Glucocorticoids แนะนำให้ใช้รักษา shock ทุกประเภทเป็น routine',
-    answer: false, explain: 'False! steroid contraindicated ใน shock โดยทั่วไป\nใช้ได้เฉพาะ CIRCI (critical illness-related corticosteroid insufficiency)\nNSAIDs ห้ามด้วย\n\n❌ ทำไมข้ออื่นผิด\n— 80/60 = ช้าเกิน\n— 160 = เร็วเกิน → chest recoil ไม่ดี',
+    answer: false, explain: 'False! steroid contraindicated ใน shock โดยทั่วไป\nใช้ได้เฉพาะ CIRCI (critical illness-related corticosteroid insufficiency)\nNSAIDs ห้ามด้วย',
     verified: 'SHOCK 1 hr.pdf + master p.19' },
 
   // ═══════════════════════════════════════════════════════════
@@ -214,7 +214,7 @@ export const QB_COM3 = [
       { left: 'Flumazenil', right: 'Benzodiazepine (diazepam)' },
       { left: 'Atipamezole / Yohimbine', right: 'α2-agonist (xylazine, dexmedetomidine)' },
     ],
-    explain: 'ก่อน CPR ถ้ายา anesthesia/sedation ทำให้ arrest → ให้ reversal ก่อน\n\n❌ ทำไมข้ออื่นผิด\n— ท้องอืด/อาเจียน/ท้องเสีย = symptom ที่ associate ได้ แต่ไม่ใช่ definition',
+    explain: 'ก่อน CPR ถ้ายา anesthesia/sedation ทำให้ arrest → ให้ reversal ก่อน',
     verified: 'CPCR 1 hr.pdf + master p.30' },
 
   // ═══════════════════════════════════════════════════════════
@@ -313,7 +313,7 @@ export const QB_COM3 = [
       { left: 'Atrial fibrillation', right: 'Diltiazem (rate control)' },
       { left: 'Symptomatic bradycardia', right: 'Atropine 0.04 mg/kg' },
     ],
-    explain: 'จำ first-line สำหรับ arrhythmia common\nVT ในแมวต้องใช้ lidocaine ระวัง dose\n\n❌ ทำไมข้ออื่นผิด\n— NSAIDs = nephrotoxic ใน shock\n— รอ 24 hr = mortality ↑\n— ฉีดยาทันที = BP ตก รุนแรง',
+    explain: 'จำ first-line สำหรับ arrhythmia common\nVT ในแมวต้องใช้ lidocaine ระวัง dose',
     verified: 'Respiratory and Cardiovascular Emergency 1 hr.pdf' },
 
   // ═══════════════════════════════════════════════════════════
@@ -330,7 +330,7 @@ export const QB_COM3 = [
   { id: 751, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes 1 hr.pdf',
     tags: ['er-anes', 'urethral-obstruction'], type: 'tf',
     q: 'แมว urethral obstruction ที่มี K+ สูงมาก — สามารถวางยาสลบด้วย propofol ได้ทันทีโดยไม่ต้องแก้ K+ ก่อน',
-    answer: false, explain: 'False! HyperK → bradycardia + arrhythmia\nต้องแก้ K+ ก่อน (Ca gluconate, dextrose, fluid) จน stable แล้วค่อยวางยา\n\n❌ ทำไมข้ออื่นผิด\n— Fentanyl = opioid, safe\n— Ketamine low-dose = sympathomimetic ช่วย BP\n— Etomidate = cardiac-stable',
+    answer: false, explain: 'False! HyperK → bradycardia + arrhythmia\nต้องแก้ K+ ก่อน (Ca gluconate, dextrose, fluid) จน stable แล้วค่อยวางยา',
     verified: 'Animal_Emerg_Anes 1 hr.pdf + master p.46' },
 
   { id: 752, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes 1 hr.pdf',
@@ -457,7 +457,7 @@ export const QB_COM3 = [
       { left: 'Taurine — essential ในแมว', right: 'แมว — ขาด → DCM + retinal degeneration' },
       { left: 'Glutamine — conditionally essential', right: 'GI mucosa enterocyte fuel — สำคัญใน hypermetabolic' },
     ],
-    explain: 'แมวต้องการ arginine + taurine ในอาหาร\nenteral nutrition ปกป้อง GI mucosa มากกว่า parenteral\n\n❌ ทำไมข้ออื่นผิด\n— "Pathologic process" / "Localize lesion" / "Confirm neuro" = 4 goals จริง\n— Anesthesia plan = secondary, ไม่ใช่ goal',
+    explain: 'แมวต้องการ arginine + taurine ในอาหาร\nenteral nutrition ปกป้อง GI mucosa มากกว่า parenteral',
     verified: 'master p.36' },
 
   // ═══════════════════════════════════════════════════════════
@@ -486,7 +486,7 @@ export const QB_COM3 = [
       { left: 'Decerebellate rigidity (forelimb extension + hip flexion + LOC normal)', right: 'Cerebellum' },
       { left: 'Decerebrate rigidity (extension all 4 + LOC ↓)', right: 'Brainstem (rostral)' },
     ],
-    explain: 'Schiff-Sherrington: LOC ปกติ + forelimb extend แต่หลัง paralysis\nsevere T-L lesion\nprognosis ดีกว่า decerebrate\n\n❌ ทำไมข้ออื่นผิด\n— Random = ไม่ใช่ pathologic pattern\n— Areflexia = LMN total\n— Hyporeflexia = LMN partial',
+    explain: 'Schiff-Sherrington: LOC ปกติ + forelimb extend แต่หลัง paralysis\nsevere T-L lesion\nprognosis ดีกว่า decerebrate',
     verified: 'neuro_exam 1 hr.pdf p.7 + master p.2' },
 
   { id: 783, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
@@ -516,7 +516,7 @@ export const QB_COM3 = [
       { left: 'T3-L3', right: 'ขาหน้าปกติ + UMN ขาหลัง' },
       { left: 'L4-S3 (lumbosacral intumescence)', right: 'ขาหน้าปกติ + LMN ขาหลัง' },
     ],
-    explain: 'Localize ตาม intumescence: ขาหน้าใช้ C6-T2, ขาหลังใช้ L4-S3\nUMN ขาหลังจาก lesion เหนือ L4\n\n❌ ทำไมข้ออื่นผิด\n— No nystagmus = chronic compensation\n— Horizontal only / fixed-direction = peripheral pattern',
+    explain: 'Localize ตาม intumescence: ขาหน้าใช้ C6-T2, ขาหลังใช้ L4-S3\nUMN ขาหลังจาก lesion เหนือ L4',
     verified: 'neuro_localised 1 hr.pdf + master' },
 
   // ═══════════════════════════════════════════════════════════
@@ -547,7 +547,7 @@ export const QB_COM3 = [
   { id: 793, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['idiopathic-head-tremor'], type: 'tf',
     q: 'Idiopathic head tremor (Bobblehead) ใน French Bulldog / Doberman / Boxer — มัก self-resolve และไม่ต้องรักษา',
-    answer: true, explain: 'IHT: episodic head tremor (yes/no movement), conscious ปกติ, รับสมาธิ → หยุดได้\nbreed-related\nmost self-resolve\nno anti-epileptic needed\n\n❌ ทำไมข้ออื่นผิด\n— Focal = partial seizure (ไม่เกี่ยว duration)\n— Absence = brief LOC < 30 sec\n— Cluster = recover ระหว่างนั้น',
+    answer: true, explain: 'IHT: episodic head tremor (yes/no movement), conscious ปกติ, รับสมาธิ → หยุดได้\nbreed-related\nmost self-resolve\nno anti-epileptic needed',
     verified: 'neuro_ataxia_tremor 1 hr.pdf' },
 
   // ═══════════════════════════════════════════════════════════
@@ -570,7 +570,7 @@ export const QB_COM3 = [
       { left: 'Ictal', right: 'During seizure' },
       { left: 'Post-ictal', right: 'After — confusion, blindness, ataxia (ชั่วคราว)' },
     ],
-    explain: 'Owner education: บันทึก phase, duration, frequency\nDifferentiate จาก syncope, narcolepsy, REM behavior\n\n❌ ทำไมข้ออื่นผิด\n— Acetazolamide = glaucoma\n— Mannitol = ICP, ไม่ใช่ AED\n— Diazepam PO = short half-life ห้าม chronic',
+    explain: 'Owner education: บันทึก phase, duration, frequency\nDifferentiate จาก syncope, narcolepsy, REM behavior',
     verified: 'seizure 1 hr.pdf + master p.10' },
 
   { id: 802, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
@@ -590,7 +590,7 @@ export const QB_COM3 = [
   { id: 804, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
     tags: ['seizure', 'cat'], type: 'tf',
     q: 'Phenobarbital ในแมวต้องระวัง side effect "facial pruritus + lymphadenopathy" หลังใช้ยาไม่กี่สัปดาห์',
-    answer: true, explain: 'Cat: phenobarbital อาจเกิด facial pruritus + lymphadenopathy + bone marrow suppression\nถ้าเจอ → switch ยา\n\n❌ ทำไมข้ออื่นผิด\n— Persian/Siamese = แมว (ไม่ใช่ wobbler)\n— Chihuahua/Pomeranian = atlantoaxial\n— Dachshund/Corgi = IVDD type I (T-L)',
+    answer: true, explain: 'Cat: phenobarbital อาจเกิด facial pruritus + lymphadenopathy + bone marrow suppression\nถ้าเจอ → switch ยา',
     verified: 'seizure 1 hr.pdf' },
 
   // ═══════════════════════════════════════════════════════════
@@ -645,7 +645,7 @@ export const QB_COM3 = [
       { left: 'Tetraplegia', right: '4 ขา paralysis' },
       { left: 'Hemiplegia', right: 'ครึ่งซีก paralysis' },
     ],
-    explain: 'Mono = 1 limb\nHemi = 1 ซีก\nPara = 2 ขาหลัง\nTetra = 4 ขา\nParesis < Plegia\n\n❌ ทำไมข้ออื่นผิด\n— Diazepam = AED ไม่ใช่ ICP\n— Dexamethasone = ห้ามใน head trauma (worsen outcome)\n— Furosemide = adjunct ไม่ใช่ first-line',
+    explain: 'Mono = 1 limb\nHemi = 1 ซีก\nPara = 2 ขาหลัง\nTetra = 4 ขา\nParesis < Plegia',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 
   // ═══════════════════════════════════════════════════════════
@@ -676,7 +676,7 @@ export const QB_COM3 = [
   { id: 823, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
     tags: ['head-trauma', 'steroid'], type: 'tf',
     q: 'การให้ corticosteroid (เช่น dexamethasone) ใน head trauma เพื่อลด brain edema เป็นแนวทางที่แนะนำ',
-    answer: false, explain: 'False! Steroid ใน head trauma → worse outcome (CRASH trial)\nห้ามใช้\nใช้ mannitol/hypertonic saline แทน\n\n❌ ทำไมข้ออื่นผิด\n— > 80/min = severe distress (ไม่ใช่ baseline cutoff)\n— > 50 = exercise\n— > 20 = ปกติ rest',
+    answer: false, explain: 'False! Steroid ใน head trauma → worse outcome (CRASH trial)\nห้ามใช้\nใช้ mannitol/hypertonic saline แทน',
     verified: 'neuroER 1 hr.pdf + CRASH trial 2004' },
 
   // ═══════════════════════════════════════════════════════════
@@ -724,7 +724,7 @@ export const QB_COM3 = [
   { id: 829, subject: 'com3', topic: 'cpcr', year: 4, source: 'CPCR 1 hr.pdf',
     tags: ['cpcr', 'hi-low-epi'], type: 'tf',
     q: 'High-dose epinephrine (0.1 mg/kg) แนะนำให้ใช้แทน low-dose (0.01 mg/kg) ในการ CPR routine',
-    answer: false, explain: 'False! Low-dose 0.01 mg/kg เป็น standard\nHigh-dose ใช้เฉพาะ refractory (CPA > 10 min)\nhigh-dose เพิ่ม mortality ใน trial\n\n❌ ทำไมข้ออื่นผิด\n— CBC = non-specific\n— Glucose = ↓ ใน sepsis แต่ไม่ specific\n— Amylase/Lipase = sensitive แต่ไม่ specific (เพิ่มได้จาก renal/intestinal)',
+    answer: false, explain: 'False! Low-dose 0.01 mg/kg เป็น standard\nHigh-dose ใช้เฉพาะ refractory (CPA > 10 min)\nhigh-dose เพิ่ม mortality ใน trial',
     verified: 'CPCR 1 hr.pdf + RECOVER 2024' },
 
   // ─── Acute Abdomen (extra 3 → 10 total) ──────────────────────
@@ -803,7 +803,7 @@ export const QB_COM3 = [
   { id: 840, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes 1 hr.pdf',
     tags: ['er-anes', 'acepromazine'], type: 'tf',
     q: 'Acepromazine ปลอดภัยใช้ pre-medicate ในสัตว์ shock / hypotension / anemic',
-    answer: false, explain: 'False! Acepromazine block α1 → vasodilation → hypotension\n**contraindicated** ใน shock, hypotensive, anemic patient\n\n❌ ทำไมข้ออื่นผิด\n— 6-8 hr = bupivacaine duration\n— 3-5 วัน = unrealistic\n— 1-2 hr = lidocaine',
+    answer: false, explain: 'False! Acepromazine block α1 → vasodilation → hypotension\n**contraindicated** ใน shock, hypotensive, anemic patient',
     verified: 'Animal_Emerg_Anes 1 hr.pdf + master p.46' },
 
   { id: 841, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes 1 hr.pdf',
@@ -916,7 +916,7 @@ export const QB_COM3 = [
       { left: 'ANNPE (Acute Non-compressive NP Extrusion)', right: 'Sudden onset · normal MRI / no compression but bruising · active dog · medical Tx' },
       { left: 'IVDD type I', right: 'Sudden onset · NP extrusion + compression · chondrodystrophoid · Sx if grade ≥ 3' },
     ],
-    explain: 'FCE + ANNPE = acute non-compressive (no surgery)\nIVDD type I = compressive (consider Sx)\n\n❌ ทำไมข้ออื่นผิด\n— Trauma only = mechanical ไม่ใช่ infection\n— Viral = ไม่ทำ discospondylitis\n— Genetic only = ไม่ใช่ etiology',
+    explain: 'FCE + ANNPE = acute non-compressive (no surgery)\nIVDD type I = compressive (consider Sx)',
     verified: 'Spinal disorder 2 hr.pdf + master' },
 
   { id: 856, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder 2 hr.pdf',
@@ -985,7 +985,7 @@ export const QB_COM3 = [
       { left: 'Structural epilepsy', right: 'Brain pathology (tumor, encephalitis, stroke, malformation) · MRI + CSF abnormal' },
       { left: 'Reactive seizure', right: 'Extra-cranial cause (toxin, hypoglycemia, hyperK, electrolyte) · NOT epilepsy' },
     ],
-    explain: 'IVETF 2015 classification\nidiopathic epilepsy = exclude structural + reactive first\n\n❌ ทำไมข้ออื่นผิด\n— Tremor = movement disorder ไม่มี collapse\n— Vestibular = head tilt + nystagmus ไม่ collapse\n— LOC + post-ictal = seizure',
+    explain: 'IVETF 2015 classification\nidiopathic epilepsy = exclude structural + reactive first',
     verified: 'seizure 1 hr.pdf + IVETF 2015' },
 
   { id: 865, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
@@ -1012,7 +1012,7 @@ export const QB_COM3 = [
   { id: 868, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
     tags: ['seizure', 'kbr-cat'], type: 'tf',
     q: 'KBr (potassium bromide) ใช้เป็น 2nd line ที่ปลอดภัยในแมว',
-    answer: false, explain: 'False! **KBr ห้ามใช้ในแมว** — ทำให้เกิด **fatal asthma-like bronchitis**\nCat 2nd line: levetiracetam (Keppra), zonisamide\n\n❌ ทำไมข้ออื่นผิด\n— "Steroid ดีกว่า" = ผิด (no role ใน ICP)\n— "ห้ามทั้งคู่" = ผิด (first-line)\n— "Mannitol แย่เสมอ" = ผิด (situational)',
+    answer: false, explain: 'False! **KBr ห้ามใช้ในแมว** — ทำให้เกิด **fatal asthma-like bronchitis**\nCat 2nd line: levetiracetam (Keppra), zonisamide',
     verified: 'seizure 1 hr.pdf + ACVIM' },
 
   // ─── Neuro ER (extra 6 → 10 total) ─────────────────────────
@@ -1083,7 +1083,7 @@ export const QB_COM3 = [
   { id: 878, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'ethics-citation'], type: 'tf',
     q: 'การใช้ AI generate content สำหรับการเรียน/วิจัย — ต้องระบุการใช้ AI ในการอ้างอิงเสมอ (transparency)',
-    answer: true, explain: 'Academic integrity: ระบุ AI tool + version + how used\nตามนโยบายของจุฬาฯ + ICMJE recommendations\nห้ามอ้าง AI เป็น author แต่ระบุ "Generated with assistance from ChatGPT-4..."\n\n❌ ทำไมข้ออื่นผิด\n— "ทำงานเร็วเกิน" / "ราคาถูกเกิน" / "รู้ทุกอย่าง" = misconception, ไม่ใช่ limitation',
+    answer: true, explain: 'Academic integrity: ระบุ AI tool + version + how used\nตามนโยบายของจุฬาฯ + ICMJE recommendations\nห้ามอ้าง AI เป็น author แต่ระบุ "Generated with assistance from ChatGPT-4..."',
     verified: 'Academic integrity policy + ICMJE' },
 
   { id: 879, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
@@ -1115,7 +1115,7 @@ export const QB_COM3 = [
   { id: 882, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'privacy'], type: 'tf',
     q: 'การ upload ข้อมูลผู้ป่วยจริง (ชื่อเจ้าของ + record) เข้า AI tools (free tier) เป็นเรื่องที่ทำได้ปกติ ไม่มีปัญหา privacy',
-    answer: false, explain: 'False! Free-tier AI อาจใช้ data ในการ train\nห้าม upload PHI/PII\nde-identify ก่อนใช้\nใช้ enterprise version ที่มี data privacy contract สำหรับ clinical data\n\n❌ ทำไมข้ออื่นผิด\n— X-ray ช่องท้อง = secondary survey หลัง stabilize\n— CBC+chem รอผล = ช้าไป\n— Complete history = หลัง stabilize',
+    answer: false, explain: 'False! Free-tier AI อาจใช้ data ในการ train\nห้าม upload PHI/PII\nde-identify ก่อนใช้\nใช้ enterprise version ที่มี data privacy contract สำหรับ clinical data',
     verified: 'GDPR + PDPA Thailand + medical data privacy' },
 
   // ═══════════════════════════════════════════════════════════

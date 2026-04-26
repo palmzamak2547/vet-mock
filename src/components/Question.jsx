@@ -46,12 +46,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       {currentQ.type === 'mcq' && (
         <div className="vmx-options">
-          {currentQ.options.map((opt, i) => (
+          {currentQ.options?.length > 0 ? currentQ.options.map((opt, i) => (
             <button key={i} className={`vmx-option ${currentAnswer === i ? 'selected' : ''}`} onClick={() => answerCurrent(i)}>
               <div className="vmx-option-letter">{String.fromCharCode(65 + i)}</div>
               <div className="vmx-option-text"><RichText text={opt} /></div>
             </button>
-          ))}
+          )) : (
+            <div className="vmx-empty">⚠️ ข้อนี้ไม่มี options — ข้อมูลผิดรูปแบบ</div>
+          )}
         </div>
       )}
 
@@ -66,10 +68,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         <div className="vmx-fill-row">
           {currentQ.blanks.map((_, i) => (
             <div key={i}>
-              <div className="vmx-fill-label">BLANK-{i + 1}</div>
+              <div className="vmx-fill-label">
+                {currentQ.blanks.length > 1 ? `ช่องที่ ${i + 1}` : 'คำตอบ'}
+              </div>
               <input type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
                 onChange={(e) => { const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
-                placeholder="พิมพ์คำตอบ..." />
+                placeholder={`เติมในช่อง ____ ${currentQ.blanks.length > 1 ? '(' + (i + 1) + ')' : ''}`} />
             </div>
           ))}
         </div>

@@ -248,11 +248,44 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   }
 
   // Show question as flashcard
+  // (Match type is excluded by isFlashcardCompatible — branch kept for safety)
   let answerText = '';
-  if (currentQ.type === 'mcq') answerText = `${String.fromCharCode(65 + currentQ.answer)}. ${stripRichText(currentQ.options[currentQ.answer])}`;
-  else if (currentQ.type === 'tf') answerText = currentQ.answer ? 'True' : 'False';
-  else if (currentQ.type === 'fill') answerText = currentQ.blanks.map(stripRichText).join(' / ');
-  else if (currentQ.type === 'match') answerText = currentQ.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('\n');
+  let answerNode = null;
+  if (currentQ.type === 'mcq') {
+    const opt = currentQ.options?.[currentQ.answer];
+    answerText = opt
+      ? `${String.fromCharCode(65 + currentQ.answer)}. ${stripRichText(opt)}`
+      : '⚠️ คำตอบของข้อนี้ผิดรูปแบบ — แจ้งให้ทีมแก้';
+  } else if (currentQ.type === 'tf') {
+    // Visual T/F reveal — green ✓ for true, red ✗ for false
+    answerNode = (
+      <span style={{
+        display: 'inline-flex', alignItems: 'center', gap: 8,
+        padding: '6px 16px', borderRadius: 999,
+        background: currentQ.answer ? 'var(--clr-sage-soft)' : 'var(--clr-rose-soft)',
+        color: currentQ.answer ? 'var(--clr-sage)' : 'var(--clr-rose)',
+        fontWeight: 700,
+        fontSize: 18,
+      }}>
+        {currentQ.answer ? '✓ TRUE' : '✗ FALSE'}
+      </span>
+    );
+    answerText = currentQ.answer ? 'True' : 'False';
+  } else if (currentQ.type === 'fill') {
+    answerText = currentQ.blanks.length > 1
+      ? currentQ.blanks.map((b, i) => `(${i + 1}) ${stripRichText(b)}`).join('  ·  ')
+      : stripRichText(currentQ.blanks[0] || '');
+  } else if (currentQ.type === 'match') {
+    answerText = currentQ.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('\n');
+  }
+
+  // Friendly Thai label for the question type — shows up in the SR badge
+  const typeLabel = {
+    mcq: 'MCQ',
+    tf: 'True/False',
+    fill: 'เติมคำ',
+    match: 'จับคู่',
+  }[currentQ.type] || currentQ.type;
 
   return (
     <>
@@ -268,13 +301,18 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
       <div className="vmx-flashcard">
         <div className="front">
-          <div className="vmx-qtype-badge">{SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}</div>
+          <div className="vmx-qtype-badge">
+            {SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}
+            {' · '}{typeLabel}
+          </div>
           {currentQ.image && <img src={currentQ.image} alt="" className="vmx-qimage" style={{ margin: '0 auto 16px' }} />}
           <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
         </div>
         {showAnswer && (
           <div className="back">
-            <div className="answer">{answerText}</div>
+            <div className="answer">
+              {answerNode || answerText}
+            </div>
             {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichText text={currentQ.explain} /></div>}
           </div>
         )}

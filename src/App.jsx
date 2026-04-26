@@ -110,7 +110,8 @@ export default function App() {
     }
     const t = setTimeout(() => setTimeLeft((x) => x - 1), 1000);
     return () => clearTimeout(t);
-  }, [timeLeft, view, useTimer]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- finishExam intentionally not depended on
+  }, [timeLeft, view, useTimer, currentIdx, questions.length, timePerQ]);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -130,7 +131,7 @@ export default function App() {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [view, currentIdx, questions]);
+  }, [view, currentIdx, questions, answerCurrent, nextQ, prevQ, toggleBookmark]);
 
   const cardStats = useMemo(() => {
     // Only count SR-eligible questions so the Home dashboard "X due"
@@ -201,7 +202,9 @@ export default function App() {
     const newEntries = questions.map((q) => ({
       date: Date.now(), questionId: q.id, correct: isCorrect(q, answers[q.id]), subject: q.subject,
     }));
-    setHistory([...history, ...newEntries]);
+    // Functional setState so a stale closure (e.g., from timer firing
+    // mid-state-update) doesn't overwrite history with old data.
+    setHistory((h) => [...h, ...newEntries]);
 
     if (user) {
       const pct = questions.length ? Math.round((correct / questions.length) * 100) : 0;
@@ -211,7 +214,7 @@ export default function App() {
     setView('results');
   };
 
-  const toggleBookmark = (qId) => setBookmarks(bookmarks.includes(qId) ? bookmarks.filter((x) => x !== qId) : [...bookmarks, qId]);
+  const toggleBookmark = (qId) => setBookmarks((bk) => bk.includes(qId) ? bk.filter((x) => x !== qId) : [...bk, qId]);
   const setNote = (qId, text) => {
     if (text.trim()) setNotes({ ...notes, [qId]: text });
     else { const { [qId]: _, ...rest } = notes; setNotes(rest); }

@@ -48,7 +48,7 @@ export const QB_COM5 = [
   { id: 503, subject: 'com5', topic: 'cve', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['CPV', 'diagnosis'], type: 'tf',
     q: 'Viral antigen detection ด้วย ELISA สำหรับ CPV อาจให้ false negative ในช่วง shedding ที่เชื้อน้อย หรือมี neutralizing antibody ใน bloody diarrhea จับ antigen',
-    answer: true, explain: 'False neg: low viral load + Ab จับ Ag ใน bloody stool\nFalse pos: 3-10 วันหลัง MLV vaccine — แยกได้ด้วย PCR\n\n❌ ทำไมข้ออื่นผิด\n— "Antibiotic เท่านั้น" = แค่ secondary infection\n— Vaccine therapy = preventive ไม่ใช่ tx\n— Antiviral specific = ไม่มี FDA-approved',
+    answer: true, explain: 'False neg: low viral load + Ab จับ Ag ใน bloody stool\nFalse pos: 3-10 วันหลัง MLV vaccine — แยกได้ด้วย PCR',
     verified: 'CVE.pdf p.14' },
 
   { id: 504, subject: 'com5', topic: 'cve', year: 4, source: 'Com_5_final_TJ.pdf',
@@ -75,7 +75,7 @@ export const QB_COM5 = [
   { id: 507, subject: 'com5', topic: 'cve', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['CCV', 'vaccine'], type: 'tf',
     q: 'แม้จะมีวัคซีน CCoV ผลิตออกมา แต่ตามแนวทาง WSAVA 2024 และ VPAT 2024 ระบุว่า "ไม่แนะนำให้ใช้"',
-    answer: true, explain: 'CCV vaccine = Not Recommended\nevidence ว่า CCoV เป็น primary pathogen ใน adult dog ยังอ่อน + parenteral vaccine ไม่ induce mucosal immunity\n\n❌ ทำไมข้ออื่นผิด\n— "เท่ากัน" = ผิด\n— "CPV-2 เฉพาะแมว" = ผิด (CPV-2 = สุนัข; FPV = แมว)\n— "CPV-1 รุนแรง adult / CPV-2 subclinical" = สลับกัน',
+    answer: true, explain: 'CCV vaccine = Not Recommended\nevidence ว่า CCoV เป็น primary pathogen ใน adult dog ยังอ่อน + parenteral vaccine ไม่ induce mucosal immunity',
     verified: 'WSAVA 2024 (Squires et al. JSAP 2024) · Vaccination_guideline.pdf p.16' },
 
   // — เพิ่มจาก Master PDF + Slide 2026 —
@@ -160,7 +160,7 @@ export const QB_COM5 = [
   { id: 546, subject: 'com5', topic: 'cve', year: 4, source: 'COM V FINAL 86',
     tags: ['CCV', 'severity'], type: 'tf',
     q: 'CCV ส่วนใหญ่เป็น subclinical หรือ self-limiting ในสุนัขโต แต่ในลูกสุนัขสามารถมีอาการรุนแรงได้',
-    answer: true, explain: 'CCV mild and self-limiting ในสุนัขโต\nYoung puppy + co-infection (CPV/บัคทีเรีย) → severe\n\n❌ ทำไมข้ออื่นผิด\n— dsDNA enveloped severe = Herpesvirus\n— "เฉพาะ puppy < 4 wk" = ไม่เข้ากับโจทย์\n— ssRNA enveloped = Coronaviridae',
+    answer: true, explain: 'CCV mild and self-limiting ในสุนัขโต\nYoung puppy + co-infection (CPV/บัคทีเรีย) → severe',
     verified: 'CVE.pdf p.25' },
 
   { id: 547, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
@@ -257,7 +257,7 @@ export const QB_COM5 = [
   { id: 553, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'ketoconazole'], type: 'tf',
     q: 'Ketoconazole เป็น drug of choice ในการรักษา Sporotrichosis ในแมว',
-    answer: false, explain: 'False! Ketoconazole common ในสุนัข แต่ **ห้ามใช้ในแมว** เพราะ hepatotoxic มาก (cholangiohepatitis + ↑ liver enzyme)\n\n❌ ทำไมข้ออื่นผิด\n— Penicillin G = bacterial\n— Griseofulvin = dermatophyte\n— Amphotericin B = severe disseminated only\n— Itraconazole = TOC ใน cat ไม่ใช่ dog',
+    answer: false, explain: 'False! Ketoconazole common ในสุนัข แต่ **ห้ามใช้ในแมว** เพราะ hepatotoxic มาก (cholangiohepatitis + ↑ liver enzyme)',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.35' },
 
   { id: 554, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
@@ -319,7 +319,7 @@ export const QB_COM5 = [
   { id: 562, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'COM V FINAL 86',
     tags: ['cryptococcosis', 'zoonosis'], type: 'tf',
     q: 'Cryptococcosis ในแมวเป็น contagious disease ที่ติดต่อจากแมวสู่คนได้โดยตรงเหมือน Sporotrichosis',
-    answer: false, explain: 'False! Cryptococcosis = NON-contagious systemic fungal disease\nคนติดได้จากสิ่งแวดล้อม (มูลนกพิราบ) ไม่ใช่จากแมวโดยตรง\nต่างจาก Sporotrichosis ที่เป็น zoonosis\n\n❌ ทำไมข้ออื่นผิด\n— Tritrichomonas = trophozoite ไม่มี cyst\n— Toxoplasma oocyst = เล็กกว่า + sporulated structure\n— Cryptosporidium = oocyst เล็กมาก 4-6 μm',
+    answer: false, explain: 'False! Cryptococcosis = NON-contagious systemic fungal disease\nคนติดได้จากสิ่งแวดล้อม (มูลนกพิราบ) ไม่ใช่จากแมวโดยตรง\nต่างจาก Sporotrichosis ที่เป็น zoonosis',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.55 + COM V FINAL 86 p.8' },
 
   // ═══════════════════════════════════════════════════════════
@@ -471,7 +471,7 @@ export const QB_COM5 = [
       { left: 'Neospora caninum — Definitive host', right: 'Dog' },
       { left: 'Sarcocystis spp. — Definitive host', right: 'Carnivore (predator)' },
     ],
-    explain: 'Toxo: cat (def) + warm-blooded (int)\nNeospora: dog (def) + ruminant (int)\nSarcocystis: carnivore + prey\n\n❌ ทำไมข้ออื่นผิด\n— Steroid = no role + immunosuppress\n— "แยกป่วยเท่านั้น" = healthy carrier ก็ shed\n— Vaccine = ไม่มีสำหรับ coccidia',
+    explain: 'Toxo: cat (def) + warm-blooded (int)\nNeospora: dog (def) + ruminant (int)\nSarcocystis: carnivore + prey',
     verified: 'GI_protozoa.pdf p.16' },
 
   { id: 576, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
@@ -491,7 +491,7 @@ export const QB_COM5 = [
   { id: 578, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['giardia', 'pseudoparasite'], type: 'tf',
     q: 'การพบ structure คล้าย Giardia cyst ในอุจจาระเสมอหมายถึงการติดเชื้อ Giardia',
-    answer: false, explain: 'False! Pseudoparasites: yeast, plant remnants, debris สามารถดูคล้าย cyst ได้\nต้องใช้ Lugol\'s iodine staining + repeat fecal เพราะ cyst shed intermittent\n\n❌ ทำไมข้ออื่นผิด\n— 21 มีค / 15 ธค / 28 กพ = ไม่ใช่ World Rabies Day',
+    answer: false, explain: 'False! Pseudoparasites: yeast, plant remnants, debris สามารถดูคล้าย cyst ได้\nต้องใช้ Lugol\'s iodine staining + repeat fecal เพราะ cyst shed intermittent',
     verified: 'GI_protozoa.pdf p.32' },
 
   // ═══════════════════════════════════════════════════════════
@@ -521,7 +521,7 @@ export const QB_COM5 = [
       { left: 'Excitative', right: 'ดุร้าย/บ้าคลั่ง' },
       { left: 'Paralytic', right: 'อัมพาต/ตาย' },
     ],
-    explain: 'Prodromal → Excitative (furious) → Paralytic (หมาหางตก, น้ำลายฟูมปาก, ตาย)\n\n❌ ทำไมข้ออื่นผิด\n— ELISA antibody = retrospective\n— Histopath Sellers = supportive แต่ช้า\n— PCR = sensitive แต่ช้ากว่า DFA',
+    explain: 'Prodromal → Excitative (furious) → Paralytic (หมาหางตก, น้ำลายฟูมปาก, ตาย)',
     verified: 'Rabies.pdf p.10' },
 
   { id: 524, subject: 'com5', topic: 'rabies', year: 4, source: 'Com_5_final_TJ.pdf',
@@ -575,7 +575,7 @@ export const QB_COM5 = [
       { left: 'Centripetal (Retrograde)', right: 'จากกล้ามเนื้อ → spinal cord → brain' },
       { left: 'Centrifugal (Anterograde)', right: 'จากสมอง → salivary gland (shedding)' },
     ],
-    explain: 'Bite → muscle replication → centripetal up nerve → CNS → centrifugal down to salivary glands → shedding 1-7 วันก่อนแสดงอาการ\n\n❌ ทำไมข้ออื่นผิด\n— Vacuoles = nonspecific\n— Multinucleated giant cells = CDV\n— Intranuclear basophilic = adenovirus (CAV)',
+    explain: 'Bite → muscle replication → centripetal up nerve → CNS → centrifugal down to salivary glands → shedding 1-7 วันก่อนแสดงอาการ',
     verified: 'Rabies.pdf p.8' },
 
   { id: 582, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
@@ -616,7 +616,7 @@ export const QB_COM5 = [
   { id: 587, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
     tags: ['rabies', 'kit'], type: 'tf',
     q: 'Rabies test kit (lateral flow ตรวจน้ำลาย) มี sensitivity และ specificity สูงพอที่จะใช้ทดแทน DFA ได้',
-    answer: false, explain: 'False! Sens/Spec ของ test kit ไม่สูงมากนัก + การเก็บน้ำลายสัตว์ป่วยเสี่ยงสัมผัสเชื้อ\nDFA ยังเป็น gold standard\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ฉีดในลูก" = ผิด\n— "ทุก 6 เดือน" = unnecessary frequent\n— "1 เข็ม 3 เดือน" = ไม่พอ MDA',
+    answer: false, explain: 'False! Sens/Spec ของ test kit ไม่สูงมากนัก + การเก็บน้ำลายสัตว์ป่วยเสี่ยงสัมผัสเชื้อ\nDFA ยังเป็น gold standard',
     verified: 'Rabies.pdf p.18' },
 
   { id: 588, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
@@ -640,7 +640,7 @@ export const QB_COM5 = [
   { id: 590, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
     tags: ['rabies', 'human-h2h'], type: 'tf',
     q: 'การติดต่อ Rabies จากคนสู่คนสามารถเกิดได้ในกรณีพิเศษ เช่น การปลูกถ่ายอวัยวะ',
-    answer: true, explain: 'Human-to-human transmission พบได้ใน case report ผ่าน organ/cornea transplant — case rare แต่มีจริง\n\n❌ ทำไมข้ออื่นผิด\n— CDV/Rabies / CDV-CPV-CAV = core vaccine ทั้งหมด (ไม่ใช่ non-core)',
+    answer: true, explain: 'Human-to-human transmission พบได้ใน case report ผ่าน organ/cornea transplant — case rare แต่มีจริง',
     verified: 'Rabies.pdf p.9 (CDN/CDC reports)' },
 
   // ═══════════════════════════════════════════════════════════
@@ -767,7 +767,7 @@ export const QB_COM5 = [
   { id: 600, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'shelter'], type: 'tf',
     q: 'WSAVA 2024 มีโปรแกรมวัคซีนแยกสำหรับสัตว์ใน shelter และ sanctuaries',
-    answer: true, explain: 'Highlight WSAVA 2024: separate program สำหรับ shelter/sanctuary cats and dogs (high-density crowded environment)\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่มีความแตกต่าง" = ผิด\n— "WSAVA ทุก 6 เดือนตลอดชีวิต" = ผิด\n— "VPAT ลด core" = ผิด',
+    answer: true, explain: 'Highlight WSAVA 2024: separate program สำหรับ shelter/sanctuary cats and dogs (high-density crowded environment)',
     verified: 'Vaccination_guideline.pdf p.3' },
 
   { id: 601, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
@@ -787,7 +787,7 @@ export const QB_COM5 = [
   { id: 603, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
     tags: ['vaccine', 'monovalent'], type: 'tf',
     q: 'การฉีด rabies vaccine ในปีแรก แบบ monovalent (เดี่ยว) ให้ผลภูมิคุ้มกันสูงกว่าการฉีดแบบ polyvalent (รวม)',
-    answer: true, explain: 'Monovalent rabies > polyvalent ใน puppy <1 yr (Thai Rabies CPG)\nปีแรก visit ไหน rabies ก็ควรฉีดเข็มเดียว ไม่รวม\n\n❌ ทำไมข้ออื่นผิด\n— Quarantine 6 mo = guideline เก่า\n— "booster ไม่สังเกต" = miss observation\n— Euthanize ทันที = guideline เก่า (เปลี่ยนใน Moore 2015)',
+    answer: true, explain: 'Monovalent rabies > polyvalent ใน puppy <1 yr (Thai Rabies CPG)\nปีแรก visit ไหน rabies ก็ควรฉีดเข็มเดียว ไม่รวม',
     verified: 'Vaccination_guideline.pdf p.30 (Thai Rabies CPG)' },
 
   { id: 604, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
@@ -854,7 +854,7 @@ export const QB_COM5 = [
   { id: 612, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'mycoplasma'], type: 'tf',
     q: 'Mycoplasma felis เป็น organism ปกติของ upper respiratory tract แมว — การตรวจเจอเชื้อไม่จำเป็นว่าแมวกำลังป่วย',
-    answer: true, explain: 'True\nMycoplasma spp. เป็น normal flora upper resp tract\nพบเจอ healthy cat ก็ได้\nculture ยาก → นิยม empirical treat\n\n❌ ทำไมข้ออื่นผิด\n— Cefazolin = G+ ไม่ครอบคลุม Mycoplasma\n— Ciprofloxacin = retinopathy risk ในแมว\n— Penicillin V = narrow spectrum',
+    answer: true, explain: 'True\nMycoplasma spp. เป็น normal flora upper resp tract\nพบเจอ healthy cat ก็ได้\nculture ยาก → นิยม empirical treat',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.9, 26' },
 
   { id: 613, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
@@ -882,7 +882,7 @@ export const QB_COM5 = [
   { id: 616, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'limping-syndrome'], type: 'tf',
     q: 'Limping kitten syndrome เกิดจากบาง strains ของ FCV และมักเกิดในลูกแมวที่เพิ่งฉีดวัคซีน FCV — แมวมัก self-resolve ภายใน 4-5 วัน',
-    answer: true, explain: 'Limping syndrome: transient fever + alternating leg lameness (ไม่มี oral ulcer/respiratory)\nมักหลังฉีด FCV vaccine ที่อายุ 6-12 wk\nself-resolve\n\n❌ ทำไมข้ออื่นผิด\n— 4-6 wk / 30-45 d / 14-21 d = นานเกิน\n— 1-3 d = สั้นเกิน',
+    answer: true, explain: 'Limping syndrome: transient fever + alternating leg lameness (ไม่มี oral ulcer/respiratory)\nมักหลังฉีด FCV vaccine ที่อายุ 6-12 wk\nself-resolve',
     verified: 'COM V FINAL 86 p.27' },
 
   { id: 617, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
@@ -902,7 +902,7 @@ export const QB_COM5 = [
   { id: 619, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'sars-cov-2'], type: 'tf',
     q: 'SARS-CoV-2 สามารถติดจากคนสู่แมวได้ + มีรายงาน case แมวสู่คน (สัตวแพทย์ไทย) ในประเทศไทย',
-    answer: true, explain: 'Human-to-cat transmission พบบ่อย\nCat-to-human: case report สัตวแพทย์ไทยติดหลังสัมผัส nasal discharge ของแมวเจ้าของ COVID+\nvariant Alpha/Delta > Omicron\n\n❌ ทำไมข้ออื่นผิด\n— "100% ทุก strain" = unrealistic\n— "MLV ปลอดภัยใน FeLV/FIV/pregnant" = ห้าม\n— "เข็มเดียวตลอดชีวิต" = ผิด ต้อง booster',
+    answer: true, explain: 'Human-to-cat transmission พบบ่อย\nCat-to-human: case report สัตวแพทย์ไทยติดหลังสัมผัส nasal discharge ของแมวเจ้าของ COVID+\nvariant Alpha/Delta > Omicron',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.13-14' },
 
   { id: 620, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
@@ -915,7 +915,7 @@ export const QB_COM5 = [
   { id: 621, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'cefazolin', 'pitfall'], type: 'tf',
     q: 'Cefazolin / Cefadroxil / Cephalexin (cephalosporin กลุ่ม 1) เหมาะใช้รักษา FRDC ในลูกแมว',
-    answer: false, explain: 'False! ห้ามใช้ใน FRDC แม้จะป้อนง่าย เพราะ ineffective ต่อ B. bronchiseptica + Mycoplasma + C. felis\nใช้ Doxy + Amoxi-clav แทน\n\n❌ ทำไมข้ออื่นผิด\n— ≤ 10 / 20 mg/kg = retinopathy risk\n— ≤ 2 mg/kg = sub-therapeutic',
+    answer: false, explain: 'False! ห้ามใช้ใน FRDC แม้จะป้อนง่าย เพราะ ineffective ต่อ B. bronchiseptica + Mycoplasma + C. felis\nใช้ Doxy + Amoxi-clav แทน',
     verified: 'COM V FINAL 86 p.28' },
 
   { id: 622, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
@@ -934,7 +934,7 @@ export const QB_COM5 = [
       { left: 'Chemosis เด่น (ocular > respiratory)', right: 'Chlamydia felis' },
       { left: 'Cough เด่น + zoonotic', right: 'Bordetella bronchiseptica' },
     ],
-    explain: 'จำ key sign แต่ละ pathogen เพื่อ DDx\nรักษา empirical doxycycline ครอบคลุมส่วนใหญ่อยู่แล้ว\n\n❌ ทำไมข้ออื่นผิด\n— Prednisolone = anti-inflammatory ไม่ใช่ appetite stim\n— Furosemide/Spironolactone = diuretic\n— Acepromazine/Diazepam = sedative ไม่ใช่ appetite stim',
+    explain: 'จำ key sign แต่ละ pathogen เพื่อ DDx\nรักษา empirical doxycycline ครอบคลุมส่วนใหญ่อยู่แล้ว',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.29' },
 
   { id: 624, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',

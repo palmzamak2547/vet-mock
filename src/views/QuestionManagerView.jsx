@@ -154,10 +154,10 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
 
           {formData.type === 'fill' && (
             <div className="vmx-form-group">
-              <label>คำตอบแต่ละช่อง (BLANK)</label>
+              <label>คำตอบแต่ละช่อง (ใส่ ____ ในคำถามตรงตำแหน่งที่ต้องการให้เติม)</label>
               {formData.blanks.map((b, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
-                  <span style={{ minWidth: 70, fontSize: 12, alignSelf: 'center' }}>BLANK-{i + 1}</span>
+                  <span style={{ minWidth: 70, fontSize: 12, alignSelf: 'center' }}>ช่องที่ {i + 1}</span>
                   <input value={b} onChange={(e) => { const bs = [...formData.blanks]; bs[i] = e.target.value; setFormData({ ...formData, blanks: bs }); }} />
                 </div>
               ))}

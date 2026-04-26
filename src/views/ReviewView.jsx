@@ -18,10 +18,13 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         const cls = !answered ? 'skipped' : (correct ? 'correct' : 'wrong');
 
         // Build display strings (stripRichText so joined output doesn't show raw asterisks)
+        // Defensive bounds check — guards against malformed answer indices
         let userDisplay = '—', correctDisplay = '';
         if (q.type === 'mcq') {
-          userDisplay = answered ? `${String.fromCharCode(65 + userAns)}. ${stripRichText(q.options[userAns])}` : 'ไม่ได้ตอบ';
-          correctDisplay = `${String.fromCharCode(65 + q.answer)}. ${stripRichText(q.options[q.answer])}`;
+          const userOpt = answered && userAns >= 0 && userAns < (q.options?.length || 0) ? q.options[userAns] : null;
+          const corrOpt = q.options?.[q.answer];
+          userDisplay = userOpt ? `${String.fromCharCode(65 + userAns)}. ${stripRichText(userOpt)}` : 'ไม่ได้ตอบ';
+          correctDisplay = corrOpt ? `${String.fromCharCode(65 + q.answer)}. ${stripRichText(corrOpt)}` : '⚠️ คำตอบของข้อนี้ผิดรูปแบบ';
         } else if (q.type === 'tf') {
           userDisplay = answered ? (userAns ? 'True' : 'False') : 'ไม่ได้ตอบ';
           correctDisplay = q.answer ? 'True' : 'False';

@@ -20,7 +20,7 @@ export const QB_PART3 = [
     options: ['Hotz-Celsus procedure', 'Enucleation', 'Tarsorrhaphy เท่านั้น', 'Temporary suture'],
     answer: 0, explain: 'Hotz-Celsus = ตัดเฉพาะหนังตารูปพระจันทร์เสี้ยว แก้ entropion' },
   { id: 204, subject: 'surg2', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['ophthalmology'], type: 'fill',
-    q: 'การทดสอบการผลิตน้ำตาใช้ BLANK-1 ค่าปกติ > BLANK-2 mm/min',
+    q: 'การทดสอบการผลิตน้ำตาใช้ ____ ค่าปกติ > ____ mm/min',
     blanks: ['Schirmer tear test', '15'],
     explain: 'Schirmer tear test (STT); normal > 15 mm/min' },
   { id: 205, subject: 'surg2', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['dental'], type: 'mcq',
