@@ -75,9 +75,16 @@ export function allowedOrigin(req) {
   }
 
   // (2) Static allowlist (for legitimate cross-origin scenarios)
+  // Production hostname is vetmock.vercel.app (no hyphen). The hyphenated
+  // form was the original Vercel project name; kept here in case any
+  // bookmark / preview / branch URL still resolves to it. Same-origin
+  // auto-allow above (#1) means most legitimate visits never reach this
+  // list anyway.
   const allow = [
+    'https://vetmock.vercel.app',
     'https://vet-mock.vercel.app',
-    /^https:\/\/vet-mock-[\w-]+\.vercel\.app$/,  // Preview deployments
+    /^https:\/\/vetmock-[\w-]+\.vercel\.app$/,    // Preview deployments
+    /^https:\/\/vet-mock-[\w-]+\.vercel\.app$/,   // Legacy preview pattern
     'http://localhost:5173',
     'http://localhost:4173',
     'http://localhost:4174',

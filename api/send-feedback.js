@@ -8,7 +8,7 @@
 //
 // Security:
 //   • Rate-limited: 3 requests per 10 minutes per IP
-//   • CORS: only known origins (vet-mock.vercel.app + previews + localhost)
+//   • CORS: only known origins (vetmock.vercel.app + previews + localhost)
 //   • Input length capped (subject 200, message 5000 chars)
 //   • All HTML output escaped via escapeHtml()
 // ============================================================

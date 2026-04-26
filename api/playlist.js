@@ -159,7 +159,7 @@ function formatIso8601(s) {
 async function fromRss(playlistId) {
   const url = `${YT_RSS}?playlist_id=${playlistId}`;
   const r = await fetch(url, {
-    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; vet-mock/1.0)' },
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; vetmock/1.0)' },
   });
   if (!r.ok) throw new Error(`RSS ${r.status}`);
   const xml = await r.text();
