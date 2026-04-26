@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { QB, SUBJECTS } from '../data/questions.js';
 import { updateCard, initCard, getDueCards, getCardStats } from '../hooks/sm2.js';
+import { isFlashcardCompatible } from '../hooks/sr-filter.js';
 import { fmtDate } from '../hooks/utils.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
@@ -8,22 +9,16 @@ import { RichText, stripRichText } from '../lib/richtext.jsx';
 // ============================================================
 // SRSessionView — Spaced Repetition flashcard session
 //
-// Now starts with a planning step: pick session size + subject
-// filter so a backlog of 400+ cards isn't dumped on the user
-// in one sitting. Selections persist via localStorage so the
-// last preset comes back next time.
+// Starts with a planning step: pick session size + subject filter
+// so a backlog of 400+ cards isn't dumped on the user in one sitting.
+// Selections persist via localStorage so the last preset comes back
+// next time.
+//
+// Eligibility filter (isFlashcardCompatible) lives in hooks/sr-filter.js
+// so the Home dashboard badge and this view always agree.
 // ============================================================
 
 const SIZE_PRESETS = [25, 50, 100, 200];
-
-// Some MCQ stems require seeing the options to answer (e.g. "ข้อใดถูกต้อง..."),
-// which makes them useless as flashcards — there's nothing concrete to recall.
-// Skip them from SR pool. Free-text recall stems ("Drug of choice for X is...")
-// are fine because the user can recall an answer from the stem alone.
-function isFlashcardCompatible(q) {
-  if (q.type !== 'mcq') return true;
-  return !/ข้อใด|ข้อไหน|ข้อต่อไปนี้|ข้อใดต่อไปนี้/.test(q.q || '');
-}
 
 export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [] }) {
   const allQuestions = useMemo(() => [...QB, ...customQuestions], [customQuestions]);
@@ -39,19 +34,36 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   const [correctCount, setCorrectCount] = useState(0);
 
   // Build filtered pool of due cards (most overdue first — getDueCards already sorts)
-  const duePool = useMemo(() => {
-    const filtered = (subjectFilter === 'all'
+  // Also track how many questions were excluded for transparency.
+  const { duePool, excludedCount, eligibleCount } = useMemo(() => {
+    const inSubject = subjectFilter === 'all'
       ? allQuestions
-      : allQuestions.filter((q) => q.subject === subjectFilter)
-    ).filter(isFlashcardCompatible);
+      : allQuestions.filter((q) => q.subject === subjectFilter);
+    const eligible = inSubject.filter(isFlashcardCompatible);
     const pool = {};
-    filtered.forEach((q) => {
+    eligible.forEach((q) => {
       pool[q.id] = srCards[q.id] || initCard(q.id);
     });
-    return getDueCards(pool);  // sorted by oldest nextReview first
+    return {
+      duePool: getDueCards(pool),
+      excludedCount: inSubject.length - eligible.length,
+      eligibleCount: eligible.length,
+    };
   }, [allQuestions, srCards, subjectFilter]);
 
-  const stats = useMemo(() => getCardStats(srCards), [srCards]);
+  // Stats only for cards belonging to SR-eligible questions in the
+  // current subject filter — keeps Total/Mastered consistent with what
+  // the user can actually see in SR.
+  const stats = useMemo(() => {
+    const eligibleIds = new Set();
+    const inSubject = subjectFilter === 'all'
+      ? allQuestions
+      : allQuestions.filter((q) => q.subject === subjectFilter);
+    inSubject.filter(isFlashcardCompatible).forEach((q) => eligibleIds.add(q.id));
+    const filtered = {};
+    for (const id of eligibleIds) if (srCards[id]) filtered[id] = srCards[id];
+    return getCardStats(filtered);
+  }, [srCards, allQuestions, subjectFilter]);
 
   // Subjects that actually have at least one card in the bank
   const subjectsWithCards = useMemo(() => {
@@ -150,6 +162,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
                 Algorithm จะหยิบ "ใบที่ค้างนานสุด" มาก่อน · ทำ {sessionSize} วันนี้ + ทำต่อพรุ่งนี้ดีกว่ายัดทีเดียว · ทำต่อเนื่องสำคัญสุด
               </span>
+            </div>
+          )}
+
+          {excludedCount > 0 && (
+            <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
+              💡 SR pool ตอนนี้มี <strong>{eligibleCount}</strong> ข้อ · ตัด <strong>{excludedCount}</strong> ข้อออกเพราะตอบไม่ได้แบบ flashcard (ข้อ "ข้อใดถูก..." + ข้อจับคู่ ที่ต้องเห็น choice/lefts ก่อน)
             </div>
           )}
 

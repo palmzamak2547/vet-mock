@@ -5,6 +5,7 @@ import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
 import { shuffle, isCorrect, updateStreak } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
+import { isFlashcardCompatible } from './hooks/sr-filter.js';
 import { STYLES } from './styles.js';
 import { hasSupabase, signOut } from './lib/supabase.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
@@ -132,8 +133,12 @@ export default function App() {
   }, [view, currentIdx, questions]);
 
   const cardStats = useMemo(() => {
+    // Only count SR-eligible questions so the Home dashboard "X due"
+    // badge matches what SRSessionView will actually serve.
     const pool = {};
-    allQuestions.forEach((q) => { pool[q.id] = srCards[q.id] || { nextReview: Date.now(), totalReviews: 0, repetitions: 0, interval: 0 }; });
+    allQuestions.filter(isFlashcardCompatible).forEach((q) => {
+      pool[q.id] = srCards[q.id] || { nextReview: Date.now(), totalReviews: 0, repetitions: 0, interval: 0 };
+    });
     return getCardStats(pool);
   }, [srCards, allQuestions]);
 

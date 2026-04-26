@@ -50,7 +50,7 @@ export default function AboutView({ goHome, setView }) {
             items={[
               'SM-2 algorithm — ใบที่ผิดบ่อยจะกลับมาเร็วกว่า',
               'เลือกขนาด session: 25 / 50 / 100 / 200 / ทั้งหมด',
-              'กรองตามวิชาได้ + กรองข้อ "ข้อใดถูก..." ที่ flashcard ไม่ได้ออก',
+              'กรองตามวิชาได้ + ตัดข้อที่ flashcard ไม่ได้ (ข้อจับคู่, ข้อ "ข้อใดถูก...") ออกอัตโนมัติ',
             ]}
           />
           <FeatureGroup
