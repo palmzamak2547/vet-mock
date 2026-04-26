@@ -268,7 +268,152 @@ export const QB_COM4 = [
     verified: 'Derm__5_Fungal_skin_diseases.pdf p.6' },
 
   // ═══════════════════════════════════════════════════════════
-  // (More batches: endocrine, nutrition, allergic, autoimmune,
-  //  immune-drugs, IMHA, SLE, IBD, peds-geri)
+  // Endocrine Skin Diseases (Aj. Chaiyot Tanrattana)
+  // ═══════════════════════════════════════════════════════════
+  { id: 935, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['hypothyroid', 'epidemiology'], type: 'mcq',
+    q: 'Endocrinopathy ที่พบบ่อยที่สุดในสุนัขคือ',
+    options: ['Hyperadrenocorticism (Cushing\'s)', 'Hypothyroidism', 'Diabetes mellitus', 'Hypoadrenocorticism (Addison\'s)'],
+    answer: 1, explain: 'Hypothyroidism = most common endocrinopathy ในสุนัข · incidence ~1 in 200 (~0.5%) · middle-aged 3-8 ปี (mean 7) · spay/neutered ↑ risk · "over-diagnosed" บ่อยเพราะ NTI (non-thyroidal illness/euthyroid sick) ทำให้ T4 ต่ำได้\n\n❌ ทำไมข้ออื่นผิด\n— Cushing\'s = พบบ่อยรองลงมา\n— DM = น้อยกว่าใน dog (มากในแมว)\n— Addison\'s = rare',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.2' },
+
+  { id: 936, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['hypothyroid', 'breed'], type: 'mcq',
+    q: 'Hypothyroidism มี predisposed breeds สูงสุดในข้อใด',
+    options: ['Chihuahua, Pomeranian, Yorkshire', 'Beagle, Boxer, Cocker, Doberman, Lab, Golden, Dachshund', 'Greyhound เท่านั้น', 'ทุกสายพันธุ์เท่ากัน'],
+    answer: 1, explain: 'Predisposed: medium-large breeds — Beagle, Boxer, Cocker, Dachshund, Dalmatian, Doberman, Lab, Golden Retriever · age 3-8 ปี (mean 7) · neutered/spayed ↑ risk · ระวัง breed-specific low T4 (Sighthound, Greyhound, Husky, Scottish Deerhound — มี baseline ต่ำตามธรรมชาติ)\n\n❌ ทำไมข้ออื่นผิด\n— Toy breeds (Chihuahua/Pom) = atlantoaxial / hypoglycemia issues, ไม่ใช่ hypothyroid\n— Greyhound = baseline T4 ต่ำตามสายพันธุ์ (ไม่ใช่ disease)\n— "ทุกสายพันธุ์เท่ากัน" = ผิด',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.2' },
+
+  { id: 937, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['hypothyroid', 'pathology'], type: 'mcq',
+    q: 'Primary hypothyroidism ในสุนัข (95%) เกิดจากกลไกใดเป็นหลัก',
+    options: ['Pituitary tumor → ↓ TSH', 'Immune destruction (lymphocytic thyroiditis) + idiopathic atrophy', 'Iodine excess', 'Side effect ของ phenobarbital'],
+    answer: 1, explain: 'Primary hypothyroidism (95% of cases): immune-mediated lymphocytic thyroiditis + idiopathic atrophy of thyroid gland · 5% เป็น secondary (TSH deficiency จาก pituitary disease) · congenital + iodine deficiency = rare in companion animals\n\n❌ ทำไมข้ออื่นผิด\n— Pituitary tumor = secondary 5%\n— Iodine excess = ทำให้ hyper- ไม่ใช่ hypo-\n— Phenobarb = affect test result, ไม่ทำให้ true hypothyroid',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.2' },
+
+  { id: 938, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['hypothyroid', 'lab'], type: 'mcq',
+    q: 'Total T4 (TT4) reference range ในสุนัขปกติ',
+    options: ['0.1-0.5 μg/dL', '1.5-3 μg/dL (บางห้องแลบ 2-4)', '5-10 μg/dL', '10-50 μg/dL'],
+    answer: 1, explain: 'TT4 normal: 1.5-3 μg/dL (บางที่ 2-4) · TT4 < 0.5 = very likely hypothyroid · 0.5-1 = possible · > 2 = unlikely · TT4 sensitive ไม่ specific (NTI ทำให้ต่ำได้) · ใช้ร่วม cTSH (normal < 0.6 ng/mL) + Free T4\n\n❌ ทำไมข้ออื่นผิด\n— 0.1-0.5 = severely low (advanced disease)\n— 5-10 / 10-50 = สูงเกินจริง',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.6' },
+
+  { id: 939, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['hypothyroid', 'drug-interference'], type: 'mcq',
+    q: 'ยาตัวใดที่ลด TT4 + fT4 ในสุนัข แต่ไม่ทำให้เป็น clinical hypothyroidism',
+    options: ['Glucocorticoid + Phenobarbital + Sulfonamides + Aspirin', 'Vitamin D', 'Insulin', 'Carprofen, Meloxicam, Deracoxib'],
+    answer: 0, explain: 'Glucocorticoid (dose-dependent), Phenobarbital, Sulfonamides (long-term อาจทำ true hypothyroid), Aspirin = ลด T4 levels · KBr ไม่กระทบ · NSAIDs ใหม่ (Carprofen, Meloxicam, Deracoxib) ไม่กระทบมีนัยสำคัญ · ตีความ T4 ต้องระวัง drug history\n\n❌ ทำไมข้ออื่นผิด\n— Vit D = ไม่กระทบ thyroid testing\n— Insulin = ใช้ใน DM, ไม่กระทบ T4\n— Carpro/Meloxi/Deracoxib = ไม่กระทบ ตามผลวิจัย',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.8' },
+
+  { id: 940, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['hypothyroid', 'treatment'], type: 'mcq',
+    q: 'Levothyroxine (L-T4) initial dose สำหรับ canine hypothyroidism',
+    options: ['1 mcg/kg q24h', '20 mcg/kg q12h initial → 20 mcg/kg q24h maintenance', '500 mcg/kg q12h', 'Inject IV daily'],
+    answer: 1, explain: 'Levothyroxine 20 mcg/kg PO q12h initial (หรือ 0.5 mg/m² ใน large breed) · maintenance 20 mcg/kg q24h ถ้าตอบสนองดี · ไม่ให้กับอาหาร (ลด bioavailability) · ลด dose 25-50% ใน cardiac disease · monitor TT4 ที่ 4 wk หลังเริ่มยา (peak 4-6 hr post-pill) · clinical signs improve: energy 1-2 wk, weight/skin 1-2 mo, hair regrow several months\n\n❌ ทำไมข้ออื่นผิด\n— 1 mcg/kg = ต่ำเกิน\n— 500 mcg/kg = สูงเกินอันตราย\n— IV daily = oral มาตรฐาน',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.9' },
+
+  { id: 941, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['cushing', 'screening'], type: 'mcq',
+    q: 'Hyperadrenocorticism (Cushing\'s) screening test ที่ใช้บ่อยที่สุดคือ',
+    options: ['Resting cortisol เดี่ยว', 'ACTH stimulation test, LDDS (low-dose dex suppression), UCCR', 'Total T4', 'CBC + chemistry เท่านั้น'],
+    answer: 1, explain: 'Cushing\'s screening: ACTH stim (sensitive but expensive — ตรวจไม่ค่อยมีในไทย) + LDDS test (0.01 mg/kg dex IV, sample 0/4/8h — sensitive แต่ false-positive จาก stress/NTI) + UCCR (negative predictive value, screening, 3 consecutive AM samples) · resting cortisol เดี่ยวไม่พอ · differentiation PDH vs ADH ใช้ HDDS / endogenous ACTH / imaging\n\n❌ ทำไมข้ออื่นผิด\n— Resting cortisol = ผันผวนมาก, ไม่ใช่ screening\n— TT4 = thyroid test, ไม่ใช่ adrenal\n— CBC alone = supportive (stress leukogram) ไม่ definitive',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.16' },
+
+  { id: 942, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['cushing', 'uccr'], type: 'mcq',
+    q: 'Urine Cortisol:Creatinine Ratio (UCCR) มีจุดเด่นในการใช้คืออะไร',
+    options: ['ใช้เป็น confirmative test', 'ใช้เป็น screening (high negative predictive value) — ถ้า UCCR ปกติ มักไม่ใช่ Cushing\'s', 'ใช้แยก PDH vs ADH', 'ใช้ติดตามผลการรักษา'],
+    answer: 1, explain: 'UCCR = sensitive แต่ non-specific · เก็บปัสสาวะ AM 3 วัน consecutive · normal = unlikely Cushing\'s (high NPV) · elevated = ต้องยืนยันด้วย ACTH stim หรือ LDDS เพราะ stress, illness ก็ทำให้สูงได้ · เก็บที่บ้านลด stress hospital\n\n❌ ทำไมข้ออื่นผิด\n— Confirmative = ผิด (ต้อง follow-up test)\n— PDH vs ADH = ใช้ HDDS / endogenous ACTH / imaging\n— Monitor treatment = ใช้ ACTH stim หรือ pre-trilostane cortisol',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.15' },
+
+  { id: 943, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['cushing', 'lddst'], type: 'mcq',
+    q: 'Low-Dose Dexamethasone Suppression Test (LDDS) ใช้ dose เท่าใด และเก็บตอนไหน',
+    options: ['0.01 mg/kg IV → sample 0, 4, 8 ชม.', '0.1 mg/kg PO → sample 24 ชม.', '1 mg/kg IM → sample 30 นาที', 'ไม่ต้องวัดเวลา'],
+    answer: 0, explain: 'LDDS: dexamethasone 0.01 mg/kg IV → cortisol 0h (baseline), 4h, 8h · normal dog = suppress ทั้ง 4h + 8h (< 1.4 μg/dL) · Cushing\'s = no/partial suppression · 4h suppress + 8h not = PDH pattern · ทั้ง 4h+8h not suppress = PDH/ADH · ทดสอบ definitive · ต้อง quiet environment\n\n❌ ทำไมข้ออื่นผิด\n— 0.1 mg/kg = HDDS (high-dose) — ใช้ differentiate PDH vs ADH\n— 1 mg/kg = สูงเกินไป\n— "ไม่วัดเวลา" = ผิด เวลาสำคัญ',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.16' },
+
+  { id: 944, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
+    tags: ['cushing', 'skin-signs'], type: 'mcq',
+    q: 'Cushing\'s syndrome ในสุนัข มี skin findings ที่เด่นคือ',
+    options: ['Pruritus รุนแรง + papules', 'Bilateral symmetrical alopecia (truncal) + thin skin + comedones + calcinosis cutis + recurrent pyoderma', 'Bullae + crusts ที่ mucocutaneous junction', 'Black hyperpigmentation only'],
+    answer: 1, explain: 'Cushing\'s skin: bilateral symmetrical truncal alopecia (sparing head/limbs initially) · thin skin (translucent) · comedones · calcinosis cutis (dystrophic Ca deposit) · recurrent superficial pyoderma + Demodicosis (immunocompromise) · "rat tail" + "pot belly" + PU/PD + polyphagia\n\n❌ ทำไมข้ออื่นผิด\n— Pruritus + papules = atopic / FAD\n— Bullae @ MC junction = pemphigus vulgaris\n— Hyperpigmentation only = post-inflammatory, ไม่ classic Cushing\'s',
+    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.13' },
+
+  // ═══════════════════════════════════════════════════════════
+  // Nutrition Skin Diseases (Aj. Chaiyot Tanrattana)
+  // ═══════════════════════════════════════════════════════════
+  { id: 945, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['vitamin-a', 'breed'], type: 'mcq',
+    q: 'Vitamin A-responsive dermatosis ("Cocker syndrome") พบบ่อยใน breed ใด',
+    options: ['Siberian Husky', 'Cocker Spaniel', 'Bulldog', 'Poodle'],
+    answer: 1, explain: 'Vitamin A-responsive dermatosis = "Cocker\'s syndrome" · adult Cocker (2-5 ปี) · ไม่ใช่ true Vit A deficiency แต่ตอบสนองต่อ supraphysiologic dose · clinical: seborrhea + plugging of follicles + hyperkeratotic plaques + crusts/scale/alopecia + ceruminous otitis externa · ระวังต้อง rule out other seborrhea ก่อน supplement\n\n❌ ทำไมข้ออื่นผิด\n— Siberian Husky = Zinc-responsive\n— Bulldog = skin folds / pyoderma\n— Poodle = Sebaceous adenitis (different)',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.3' },
+
+  { id: 946, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['vitamin-a', 'dose'], type: 'mcq',
+    q: 'Treatment dose ของ Vitamin A สำหรับ Cocker\'s syndrome',
+    options: ['400 IU/kg/d (true deficiency dose)', '10,000 IU/d oral retinol (supraphysiologic)', '100,000 IU/kg IM ครั้งเดียว', 'ไม่ต้อง supplement'],
+    answer: 1, explain: 'Vit A-responsive: oral retinol 10,000 IU/day (supraphysiologic, Cocker spaniel weight ~10-12 kg) · clinical improvement 6-8 wk · lifelong therapy ปกติ · ระวัง toxicity (ถ้าเกิน normal req. ต้อง rule out other seborrhea ก่อน) · ใน true Vit A deficiency = ไม่เกิน 400 IU/kg/d\n\n❌ ทำไมข้ออื่นผิด\n— 400 IU/kg/d = true deficiency, ไม่ supraphysiologic\n— 100,000 IU IM = อันตราย hypervitaminosis A\n— "ไม่ supplement" = ผิด',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.4' },
+
+  { id: 947, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['zinc', 'breed'], type: 'mcq',
+    q: 'Zinc-responsive dermatosis พบบ่อยใน breed ใด',
+    options: ['Cocker Spaniel + Poodle', 'Siberian Husky + Alaskan Malamute (Northern breed)', 'Pug + Bulldog', 'Border Collie'],
+    answer: 1, explain: 'Zinc-responsive dermatosis: Northern breeds (Siberian Husky, Alaskan Malamute) · 2 syndromes — Type I (genetic Zn malabsorption, Husky/Mal) + Type II (Zn-deficient/high phytate diet, rapidly growing puppy) · Zn เป็น cofactor RNA/DNA polymerase + EFA biosynthesis + immune\n\n❌ ทำไมข้ออื่นผิด\n— Cocker/Poodle = Vit A / sebaceous adenitis\n— Pug/Bulldog = skin fold pyoderma\n— Border Collie = collie nose / DLE',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.5' },
+
+  { id: 948, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['zinc', 'distribution'], type: 'mcq',
+    q: 'Zinc-responsive dermatosis รอยโรคพบบ่อยที่ตำแหน่งใด',
+    options: ['ใบหน้า/รอบปาก-รอบตา + nasal planum + foot pads + pressure points', 'อกหน้าและขาหน้าเท่านั้น', 'หูทั้ง 2 ข้างเท่านั้น', 'หางเท่านั้น'],
+    answer: 0, explain: 'Zinc dermatosis: erythema + alopecia + crust + scale + parakeratotic hyperkeratosis ที่ — perioral / periocular / mucocutaneous junction · nasal planum (dry adherent hyperkeratosis + fissures) · footpads (thick yellow-grey crusted plaques) · pressure points (elbows, hocks)\n\n❌ ทำไมข้ออื่นผิด\n— อกหน้า/ขาหน้าเท่านั้น = ไม่ใช่ pattern\n— หู / หาง alone = ไม่ใช่ Zn pattern',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.5' },
+
+  { id: 949, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['zinc', 'histopath'], type: 'mcq',
+    q: 'Histopathology ที่ classic ของ Zinc-responsive dermatosis คือ',
+    options: ['Eosinophilic infiltrate', 'Parakeratotic hyperkeratosis (retained nuclei in stratum corneum)', 'Subepidermal vesicles', 'Granuloma'],
+    answer: 1, explain: 'Parakeratotic hyperkeratosis = nuclei retained in thickened stratum corneum (ปกติ orthokeratotic = no nuclei) · เป็น classic finding ของ Zn deficiency · supportive feature: superficial perivascular dermatitis + follicular keratosis · response to Zn supplement (Zinc methionine, Zinc gluconate, Zinc sulfate)\n\n❌ ทำไมข้ออื่นผิด\n— Eosinophilic = allergic/atopy/parasites\n— Subepidermal vesicles = bullous pemphigoid\n— Granuloma = mycobacterial/fungal infection',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.5' },
+
+  { id: 950, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['efa'], type: 'mcq',
+    q: 'Essential fatty acids (EFA) ที่จำเป็นต่อสุขภาพผิวคือ',
+    options: ['Saturated fatty acids only', 'Linoleic acid (ω-6) + α-Linolenic acid (ω-3)', 'Cholesterol', 'Trans fats'],
+    answer: 1, explain: 'EFA: Linoleic acid (LA, ω-6) + α-Linolenic acid (ALA, ω-3) ต้องได้จากอาหาร (ร่างกายสร้างไม่ได้) · maintain skin barrier + ลด TEWL (transepidermal water loss) + anti-inflammatory · supplement EPA/DHA (ω-3 จากปลา) ช่วย atopic + IBD\n\n❌ ทำไมข้ออื่นผิด\n— Saturated fatty acids = energy แต่ไม่ essential สำหรับ skin\n— Cholesterol = ไม่ใช่ EFA\n— Trans fats = pro-inflammatory',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.2' },
+
+  { id: 951, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['generic-diet'], type: 'mcq',
+    q: '"Generic dog food disease" หมายถึง',
+    options: ['Skin lesions จาก long-term feeding ของ poor-quality cheap diet (ขาด protein/Zn/EFA)', 'Skin reaction ต่อ generic medication', 'Allergy ต่อยี่ห้ออาหารใดยี่ห้อหนึ่ง', 'ไม่มีโรคนี้'],
+    answer: 0, explain: 'Generic dog food disease: feeding cheap "generic" pet food long-term → multiple deficiencies (protein, Zn, EFA, Vit A, Vit E) → poor coat, scaling, alopecia, recurrent infection · ตอบสนองต่อ premium balanced diet ภายในหลายเดือน\n\n❌ ทำไมข้ออื่นผิด\n— Reaction ต่อ generic med = drug reaction\n— Allergy ต่อ brand = food allergy (different mechanism)\n— "ไม่มีโรคนี้" = ผิด',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.6' },
+
+  { id: 952, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['protein', 'deficiency'], type: 'mcq',
+    q: 'Protein deficiency ใน skin อาการเด่นคือ',
+    options: ['Skin หนาขึ้น + เม็ดสี', 'Poor hair growth + dry/brittle coat + slow wound healing + secondary infection', 'Severe pruritus เท่านั้น', 'No skin changes'],
+    answer: 1, explain: 'Protein deficiency: poor hair growth (keratin = protein) + dull/dry/brittle coat + thin skin + delayed wound healing + immune compromise → recurrent infection · supplement high-quality animal protein = ฟื้นใน 4-6 wk\n\n❌ ทำไมข้ออื่นผิด\n— "Skin หนา + เม็ดสี" = endocrine alopecia (Cushing\'s) ตรงข้าม\n— Pruritus only = allergic\n— "No changes" = ผิด',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.2' },
+
+  { id: 953, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['vitamin-e'], type: 'mcq',
+    q: 'Vitamin E ในผิวมีบทบาทอะไร และ deficiency ทำให้เกิดอาการใด',
+    options: ['Antioxidant — protect cell membrane → deficiency: dry coat, scaling, ↑ susceptibility', 'Energy production', 'Bone formation', 'Hair pigmentation'],
+    answer: 0, explain: 'Vit E (α-tocopherol) = lipid-soluble antioxidant → protect cell membrane lipids · deficiency: dry coat, scaling, panniculitis, ↑ infection · synergistic กับ selenium · supplement ใน inflammatory dermatoses\n\n❌ ทำไมข้ออื่นผิด\n— Energy = carb/fat\n— Bone = Ca, P, Vit D\n— Hair pigment = Cu, Tyrosine',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.4' },
+
+  { id: 954, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
+    tags: ['food-allergy', 'diagnosis'], type: 'mcq',
+    q: 'Gold standard ในการวินิจฉัย Food Allergy ในสุนัข/แมวคือ',
+    options: ['Serum IgE testing (food panel)', 'Intradermal skin test', 'Strict food elimination diet trial 8 wk → rechallenge', 'Hair analysis'],
+    answer: 2, explain: 'Food elimination diet trial = gold standard · novel protein OR hydrolyzed diet × 8 wk strict (ไม่มี treats/chews/flavored med) · ถ้า lesion + pruritus หาย → rechallenge เดิม → recurrence ภายใน 14 วัน = confirm food allergy · serum/skin tests = unreliable for food (good for environmental atopy)\n\n❌ ทำไมข้ออื่นผิด\n— Serum IgE for food = poor sensitivity/specificity\n— Intradermal = ใช้สำหรับ atopy (environmental)\n— Hair analysis = pseudoscience',
+    verified: 'Derm_7_Nutrition_skin_disease.pdf p.2' },
+
+  // ═══════════════════════════════════════════════════════════
+  // (More: allergic, autoimmune, immune-drugs, IMHA, SLE, IBD, peds-geri)
   // ═══════════════════════════════════════════════════════════
 ];
