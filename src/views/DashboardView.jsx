@@ -148,6 +148,10 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           }
         }}>🗑 ล้างข้อมูลทั้งหมด</button>
       </div>
+
+      <div className="vmx-btn-row" style={{ marginTop: 24 }}>
+        <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('home')}>← หน้าแรก</button>
+      </div>
     </>
   );
 }

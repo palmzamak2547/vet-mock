@@ -280,7 +280,7 @@ export const QB_COM4 = [
   { id: 936, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
     tags: ['hypothyroid', 'breed'], type: 'mcq',
     q: 'Hypothyroidism มี predisposed breeds สูงสุดในข้อใด',
-    options: ['Chihuahua, Pomeranian, Yorkshire', 'Beagle, Boxer, Cocker, Doberman, Lab, Golden, Dachshund', 'Greyhound เท่านั้น', 'ทุกสายพันธุ์เท่ากัน'],
+    options: ['Chihuahua, Pomeranian, Yorkshire', 'Beagle, Boxer, Cocker, Doberman, Labrador, Golden, Dachshund', 'Greyhound เท่านั้น', 'ทุกสายพันธุ์เท่ากัน'],
     answer: 1, explain: 'Predisposed: medium-large breeds — Beagle, Boxer, Cocker, Dachshund, Dalmatian, Doberman, Lab, Golden Retriever · age 3-8 ปี (mean 7) · neutered/spayed ↑ risk · ระวัง breed-specific low T4 (Sighthound, Greyhound, Husky, Scottish Deerhound — มี baseline ต่ำตามธรรมชาติ)\n\n❌ ทำไมข้ออื่นผิด\n— Toy breeds (Chihuahua/Pom) = atlantoaxial / hypoglycemia issues, ไม่ใช่ hypothyroid\n— Greyhound = baseline T4 ต่ำตามสายพันธุ์ (ไม่ใช่ disease)\n— "ทุกสายพันธุ์เท่ากัน" = ผิด',
     verified: 'Derm_6_Endocrine_skin_diseases.pdf p.2' },
 

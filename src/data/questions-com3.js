@@ -1175,7 +1175,7 @@ export const QB_COM3 = [
 
   { id: 890, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam',
     tags: ['neuro-exam', 'case', 'reasoning', 'localization'], type: 'mcq',
-    q: 'Lab 5 ปี acute weakness 4 ขา\nNeuro exam: ขาหน้า patellar reflex hyperreflexive (withdrawal intact), ขาหลัง patellar normal (withdrawal intact), cranial nerves ปกติ, mentation alert\nLesion location อยู่ที่ไหน',
+    q: 'สุนัข Labrador Retriever 5 ปี มา ER ด้วย acute weakness 4 ขา\nNeuro exam: ขาหน้า patellar reflex hyperreflexive (withdrawal intact), ขาหลัง patellar normal (withdrawal intact), cranial nerves ปกติ, mentation alert\nLesion location อยู่ที่ไหน',
     options: ['C6-T2 (LMN ขาหน้า + UMN ขาหลัง)', 'T3-L3 (ขาหน้าปกติ + UMN ขาหลัง)', 'L4-S3 (LMN ขาหลังเท่านั้น)', 'C1-C5 (UMN ทั้ง 4 ขา)'],
     answer: 3, explain: 'Hyperreflexive ขาหน้า + intact reflex หลัง = UMN 4 ขา = lesion above C6 → **C1-C5**\nถ้า LMN ขาหน้า (hyporeflexia) → C6-T2\nalert mentation → not forebrain\n\n❌ ทำไมข้ออื่นผิด\n— C6-T2 = ต้องมี LMN ขาหน้า (hyporeflexia) ขัดกับ case\n— T3-L3 = ขาหน้าปกติทั้งหมดขัดกับ hyperreflexia\n— L4-S3 = ขาหน้าปกติ',
     verified: 'neuro_exam 1 hr.pdf + neuro_localised 1 hr.pdf' },
@@ -1189,7 +1189,7 @@ export const QB_COM3 = [
 
   { id: 892, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure',
     tags: ['seizure', 'case', 'reasoning', 'status'], type: 'mcq',
-    q: 'Lab 3 ปี มี 3 generalized tonic-clonic seizures ใน 2 hr, ระหว่างนั้น mentation obtunded ไม่กลับมา baseline, ปัจจุบันชักต่อเนื่อง 8 นาทีไม่หยุด\nDiagnosis และ first emergency action คืออะไร',
+    q: 'สุนัข Labrador Retriever 3 ปี ชัก generalized tonic-clonic 3 ครั้งภายใน 2 hr, ระหว่างชักไม่กลับมา baseline (mentation obtunded), ปัจจุบันชักต่อเนื่อง 8 นาทีไม่หยุด\nDiagnosis และ first emergency action คืออะไร',
     options: ['Cluster seizure → phenobarb PO', 'Status epilepticus → Diazepam 0.5 mg/kg IV (or rectal 1-2 mg/kg)', 'Narcolepsy → supportive only', 'Isolated seizure → monitor at home'],
     answer: 1, explain: 'Status = single seizure > 5 min OR ≥ 2 seizures without recovery between\nตรงกับ case นี้ (no recovery + 8 min ongoing)\nemergency: diazepam IV/rectal first\nrefractory → midazolam CRI / propofol / phenobarb loading\n\n❌ ทำไมข้ออื่นผิด\n— Cluster + phenobarb PO = ช้าเกิน emergency\n— Narcolepsy = ไม่มี LOC + tonic-clonic\n— Isolated + home monitor = miss status',
     verified: 'seizure 1 hr.pdf + IVETF 2015' },
