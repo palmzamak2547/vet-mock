@@ -943,4 +943,36 @@ export const QB_COM5 = [
     options: ['Prednisolone เดี่ยว', 'Furosemide หรือ Spironolactone', 'Acepromazine หรือ Diazepam', 'Mirtazapine หรือ Cyproheptadine'],
     answer: 3, explain: 'Mirtazapine / Cyproheptadine = appetite stimulants\nsupportive อื่น: aromatic warm food + fluid + nasal flush + saline nebulization\nsevere → esophagostomy tube',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.35-37, 40' },
+
+  // ═══════════════════════════════════════════════════════════
+  // FINAL 86 review batch — pulled from "เส้นแดง" compilation
+  // ═══════════════════════════════════════════════════════════
+
+  { id: 625, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis + FINAL 86',
+    tags: ['sporotrichosis', 'zoonosis', 'critical'], type: 'mcq',
+    q: 'ความสำคัญที่ทำให้ Sporotrichosis ในแมวเป็น "★★★ zoonosis level ที่ต้องให้คำแนะนำเจ้าของอย่างจริงจัง" คืออะไร',
+    options: ['ติดต่อจากแมวสู่คนได้ผ่านการสัมผัสน้ำเหลือง/หนองจากแผลโดยตรง (รวมข่วน, กัด)', 'ติดต่อทางอากาศเหมือนวัณโรค', 'ติดต่อจากการกินอาหารที่ปนเปื้อน', 'ไม่ติดต่อสู่คน'],
+    answer: 0, explain: 'Sporotrichosis เป็น **zoonotic fungal infection** ที่ติดต่อจากแมวสู่คนได้ทาง **direct contact with exudate/discharge from cutaneous lesions** (รวมการข่วน/กัด เพราะ yeast cell อยู่ในเล็บ/น้ำลาย) — ต่างจาก fungal อื่นที่มักได้จากสิ่งแวดล้อม\n\nคำแนะนำเจ้าของ:\n• ใส่ถุงมือทุกครั้งที่จับแมว/ทำแผล\n• เลี้ยงแบบ indoor + กักตัวจนหาย\n• คนภูมิคุ้มกันต่ำ (HIV, chemo, organ transplant) → ห้ามสัมผัส\n• ★ กินยาต่ออีก 1 เดือนหลังแผลหายสนิท ไม่งั้นกลับมาเป็นอีก\n\n❌ ทำไมข้ออื่นผิด\n— Airborne = ไม่ใช่ route หลัก (TB, COVID)\n— Foodborne = ไม่ใช่ Sporothrix\n— "ไม่ติดต่อ" = false, อันตรายต่อคน',
+    verified: 'Sporotrichosis and Cryptococcosis.pdf + FINAL 86 p.11 ★★★ "Zoonosis"' },
+
+  { id: 626, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis + FINAL 86',
+    tags: ['cryptococcosis', 'cns', 'fluconazole'], type: 'mcq',
+    q: 'ในกรณี Cryptococcosis ที่มี CNS involvement (CSF positive) ยา azole ใดเป็นตัวเลือกที่ดีที่สุดเพราะ CNS penetration สูง',
+    options: ['Itraconazole', 'Ketoconazole', 'Fluconazole', 'Posaconazole'],
+    answer: 2, explain: '**Fluconazole** = best CNS penetration ในกลุ่ม azole (small molecule, water-soluble, low protein binding) → reach CSF concentration > 60% ของ plasma · ใช้ในกรณี mild-moderate CNS Crypto · severe CNS / disseminated → **Amphotericin B + Flucytosine** (synergistic) ก่อน, แล้ว maintenance ด้วย Fluconazole\n\n❌ ทำไมข้ออื่นผิด\n— Itraconazole = lipophilic, large molecule → CNS penetration แย่\n— Ketoconazole = ไม่ผ่าน BBB + hepatotoxic\n— Posaconazole = active แต่ ราคาแพง + CNS penetration ยังไม่ดีเท่า Fluconazole',
+    verified: 'Sporotrichosis and Cryptococcosis.pdf + FINAL 86 p.12 (Crypto box: CSF infection: Fluconazole)' },
+
+  { id: 627, subject: 'com5', topic: 'vaccine', year: 4, source: 'WSAVA 2024 + FINAL 86',
+    tags: ['vaccine', 'wsava-2024', 'updates'], type: 'mcq',
+    q: 'WSAVA 2024 vaccination guidelines มีการเปลี่ยนแปลงสำคัญข้อใดจาก 2016',
+    options: ['ยกเลิก rabies vaccine', 'เพิ่ม Leptospirosis และ FeLV เป็น core ในบางกรณี + ปรับ booster หลัง 16 wk เป็น 6 เดือน (จากเดิม 1 ปี)', 'ลด core เหลือแค่ rabies', 'แนะนำให้ vaccine ทุกตัวเดือนละครั้ง'],
+    answer: 1, explain: 'Highlights of 2024 WSAVA guidelines:\n• เพิ่ม **Leptospirosis** ใน canine non-core (location-dependent → core ในไทย/พื้นที่เสี่ยง)\n• เพิ่ม **FeLV** ใน feline non-core (kitten + outdoor cat)\n• **6-month booster** หลัง initial puppy/kitten series 16 wk (เดิม 1 ปี) — close window of susceptibility from MDA\n• Form: subcutaneous preferred (cat: distal limb เพื่อ amputation if FISS)\n• ATR titer puppy 1:380-1:640 = วัด adequate response\n\n❌ ทำไมข้ออื่นผิด\n— ยกเลิก rabies = ผิด, ยังเป็น core ในประเทศที่มี endemic\n— Core เหลือแค่ rabies = ผิด, CDV/CPV/CAV ยัง core\n— ฉีดเดือนละครั้ง = ผิด, ไม่จำเป็นและ wasteful',
+    verified: 'WSAVA 2024 vaccination guidelines + FINAL 86 p.30-31 (MC 10 ข้อ on vaccination)' },
+
+  { id: 628, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination + FINAL 86',
+    tags: ['vaccine', 'failure', 'breed'], type: 'mcq',
+    q: 'สาเหตุของ vaccine failure ที่ "หมาฉีดครบแล้วยังป่วยจาก CPV/Rabies" ที่พบบ่อยใน 2 breed ใด',
+    options: ['Pomeranian, Chihuahua', 'German Shepherd, Rottweiler (poor responder breeds)', 'Golden Retriever, Labrador', 'Pug, Bulldog'],
+    answer: 1, explain: 'Genetic poor responder breeds → MHC haplotype ไม่ตอบสนองต่อ CPV-2 + rabies vaccine ดี:\n• **German Shepherd, Rottweiler** ★\n→ titer ต่ำหลัง vaccination → reinfection risk สูง\n→ ทำ titer test หลัง vaccine + booster ถ้า titer ต่ำ\n\nสาเหตุ vaccine failure อื่นๆ:\n1. **MDA neutralize** (window of susceptibility 6-16 wk in puppies)\n2. **Cold chain failure** (vaccine ตายแล้ว เก็บไม่ดี)\n3. Strain selection / production errors\n4. Storage / transportation / handling\n5. Immunosuppression (concurrent illness, steroid)\n6. Vaccine ไม่ตรงกับ field strain\n\n❌ ทำไมข้ออื่นผิด\n— Pom/Chi = atlantoaxial / hypoglycemia, ไม่ใช่ vaccine response\n— Golden/Lab = generally good responders\n— Pug/Bulldog = airway/skin issues',
+    verified: 'WSAVA 2024 + FINAL 86 p.31 (Vaccine failure: German shepherd, Rottweiler ไม่ตอบสนองต่อ vaccine CPV-2, rabies)' },
 ];

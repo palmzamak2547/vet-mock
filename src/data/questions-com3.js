@@ -1205,4 +1205,44 @@ export const QB_COM3 = [
     answer: 1, explain: 'Status = single seizure > 5 min OR ≥ 2 seizures without recovery between\nตรงกับ case นี้ (no recovery + 8 min ongoing)\nemergency: diazepam IV/rectal first\nrefractory → midazolam CRI / propofol / phenobarb loading\n\n❌ ทำไมข้ออื่นผิด\n— Cluster + phenobarb PO = ช้าเกิน emergency\n— Narcolepsy = ไม่มี LOC + tonic-clonic\n— Isolated + home monitor = miss status',
     verified: 'seizure 1 hr.pdf + IVETF 2015' },
 
+  // ═══════════════════════════════════════════════════════════
+  // FINAL 86 review batch — pulled from "เส้นแดง" compilation
+  // (Nicky 86) — confirmed exam questions with red-line answers
+  // ═══════════════════════════════════════════════════════════
+
+  { id: 893, subject: 'com3', topic: 'spinal', year: 4, source: 'KS Spinal disorder + FINAL 86',
+    tags: ['spinal', 'spondylosis', 'reasoning'], type: 'mcq',
+    q: 'โรคที่เกิดจากการสร้างกระดูกงอก (osteophyte) เชื่อมระหว่าง vertebral body บริเวณ ventral spine, มักไม่แสดงอาการทางคลินิก พบโดยบังเอิญจาก radiograph คือข้อใด',
+    options: ['Spondylosis deformans', 'Discospondylitis', 'Caudal Cervical Spondylopathy (Wobbler)', 'Fibrocartilaginous embolic myelopathy', 'Degenerative myelopathy'],
+    answer: 0, explain: 'Spondylosis deformans = bony bridging (osteophyte) on **ventral aspect** of vertebral bodies, age-related, usually **incidental finding** on radiograph (asymptomatic ~80%), no inflammation\n\n❌ ทำไมข้ออื่นผิด\n— Discospondylitis = infection ของ disc + endplate (lytic + sclerotic, painful)\n— Wobbler = cervical impingement → ataxia ขาหลัง\n— FCE = peracute non-progressive ischemic infarct\n— DM = upper motor neuron disease (GSD, slowly progressive paraparesis, no pain)',
+    verified: 'Spinal disorder 2 hr.pdf + KS Q33 (FINAL 86 compilation)' },
+
+  { id: 894, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes + FINAL 86',
+    tags: ['er-anes', 'triage', 'case', 'reasoning'], type: 'mcq',
+    q: 'แมวเพศผู้ 4 กก. ถูกของหนักทับท้องประมาณ 1 ชั่วโมงก่อนมาถึง รพ. ตรวจร่างกายพบ: HR 120 bpm (ปกติแมว 160-220), mucous membrane ซีด, CRT > 3 วินาที, pupillary light reflex ปกติ\nในเบื้องต้น สิ่งที่บ่งชี้ปัญหาเร่งด่วนที่สุดคือข้อใด',
+    options: ['Acute pain and shock', 'Neurological deficit and contaminated wound', 'Prolonged CRT and tachycardia', 'Fracture and urinary bladder rupture', 'Excited and dyspnea'],
+    answer: 2, explain: 'แมวที่ HR 120 bpm = **bradycardia** (relative — ปกติแมว 160-220) ซึ่งเป็น decompensated shock pattern (ต่างจากสุนัขที่ shock จะ tachycardia) · prolonged CRT > 2 sec + pale mm = poor perfusion · ต้อง resuscitate ก่อน workup อื่น\n\n❌ ทำไมข้ออื่นผิด\n— "Acute pain + shock" = ตอบกว้างเกิน, primary objective finding คือ perfusion\n— Neuro deficit = pupillary light reflex ปกติ\n— Fracture/UB rupture = ยังไม่ได้ image, เป็น differential\n— Excited/dyspnea = ไม่ได้ระบุใน vitals\n\n📌 หมายเหตุ: ปี 86 ตอบ "Prolonged CRT + tachycardia" (ในแมว HR 120 ถือว่าผิดปกติ ไม่จำเป็นต้องเร็ว) — ต่างจาก Vet 84 ที่ตอบ "Shock"',
+    verified: 'Animal_Emerg_Anes + FINAL 86 compilation p.48-49' },
+
+  { id: 895, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes + FINAL 86',
+    tags: ['er-anes', 'shock', 'fluid', 'reasoning'], type: 'mcq',
+    q: 'แมวเคส trauma ข้างต้น (mm ซีด, prolonged CRT, สงสัย hypovolemic shock จาก hemoabdomen) — สิ่งที่ควรเริ่มดำเนินการในเบื้องต้นคืออะไร',
+    options: ['Dexamethasone administration', 'Antibiotic administration', 'Hind limb radiography', 'Blood transfusion', 'Aggressive crystalloid therapy'],
+    answer: 4, explain: 'Hypovolemic shock first-line = **isotonic crystalloid bolus** (LRS / Normosol-R / Plasmalyte 10-20 ml/kg ในแมว, repeat ตาม response) · stabilize → ค่อย image / sx · imaging ก่อน resuscitate = patient ตายก่อนได้ Dx\n\n❌ ทำไมข้ออื่นผิด\n— Dex/steroid = เลิกใช้ใน shock แล้ว (ไม่มี benefit, ↑ GI ulcer)\n— Antibiotic = wait for culture / not first priority\n— Radiography = หลัง stabilize ก่อน\n— Blood transfusion = ใช้ถ้า PCV < 20% หรือ ongoing hemorrhage; crystalloid ก่อนเสมอ',
+    verified: 'Animal_Emerg_Anes + FINAL 86 compilation p.48' },
+
+  { id: 896, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes + FINAL 86',
+    tags: ['er-anes', 'fluid', 'tonicity'], type: 'mcq',
+    q: 'สารน้ำชนิดใดมีความสามารถในการ osmosis เข้าเซลล์ได้ดีที่สุด',
+    options: ['D5 1/2S (5% dextrose in 0.45% saline)', '20% mannitol', 'Acetate ringer solution', 'NSS (0.9% NaCl)', 'Voluven (HES)'],
+    answer: 0, explain: '**D5 1/2S** = hypotonic เมื่อ dextrose ถูกเผาผลาญ → free water → enter cells (เหมาะเมื่อต้อง replace intracellular water deficit เช่น hypernatremia)\n\n❌ ทำไมข้ออื่นผิด\n— 20% mannitol = hypertonic, ดึง water ออกจาก cell (ใช้ ↓ ICP)\n— Acetate ringer / NSS = isotonic, ขยาย ECF, ไม่เข้า cell\n— Voluven (HES) = colloid, stay in vessel ดึงน้ำเข้า vessel',
+    verified: 'Animal_Emerg_Anes + FINAL 86 compilation p.49-50' },
+
+  { id: 897, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes + FINAL 86',
+    tags: ['er-anes', 'sedation', 'avoid'], type: 'mcq',
+    q: 'ในผู้ป่วย ER ที่ shock / hypovolemic ยาในข้อใดควร **หลีกเลี่ยง** ในช่วงแรกของการรักษา',
+    options: ['Alpha-2 adrenergic agonist (xylazine, dexmedetomidine)', 'Kappa agonist (butorphanol)', 'NMDA antagonist (ketamine, low-dose)', 'Mu agonist (fentanyl, methadone)', 'Benzodiazepine (midazolam, diazepam)'],
+    answer: 0, explain: '**α-2 agonist** ใน shock = อันตรายมาก เพราะ:\n• Respiratory depression\n• Severe bradycardia + AV block\n• **Biphasic BP**: เริ่ม HTN จาก peripheral vasoconstriction → reflex bradycardia → drop BP รุนแรง\n• ↓ Cardiac output 30-50%\n→ ทำให้ shock แย่ลงทันที\n\n❌ ทำไมข้ออื่นไม่ห้าม\n— Butorphanol/fentanyl/methadone = analgesia, hemodynamically stable (mu opioids minor BP effect ในขนาดที่ใช้)\n— Ketamine low-dose = sympathomimetic, รักษา BP\n— Benzodiazepine = mild sedation, ไม่กดการไหลเวียน',
+    verified: 'Animal_Emerg_Anes + FINAL 86 compilation p.50' },
+
 ];

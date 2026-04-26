@@ -962,4 +962,29 @@ export const QB_COM4 = [
     options: ['Distemper, Parvovirus', 'CKD, Hyperthyroidism, DM, Neoplasia (lymphoma, MCT, mammary), Osteoarthritis, Cognitive dysfunction', 'Hip dysplasia ใน puppy', 'Atresia ani'],
     answer: 1, explain: 'Geriatric cat common: CKD (#1 in cat senior, > 30%), Hyperthyroidism (T4 ↑, weight loss + polyphagia), Diabetes mellitus (often type II, obese), Neoplasia (lymphoma most common, MCT, SCC, mammary, intestinal adenocarcinoma), Osteoarthritis (under-recognized, behavior change), Cognitive dysfunction syndrome, dental disease, cardiomyopathy (HCM)\n\n❌ ทำไมข้ออื่นผิด\n— Distemper/Parvo = puppy/young\n— Hip dysplasia in puppy = developmental young\n— Atresia ani = congenital newborn',
     verified: 'Pediatrics_and_Geriatrics.pdf p.66' },
+
+  // ═══════════════════════════════════════════════════════════
+  // FINAL 86 review batch — pulled from "เส้นแดง" compilation
+  // ═══════════════════════════════════════════════════════════
+
+  { id: 1030, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics + FINAL 86',
+    tags: ['geriatric', 'gi', 'physiology'], type: 'mcq',
+    q: 'การเปลี่ยนแปลงทาง GI physiology ในสัตว์สูงอายุ ที่ส่งผลให้เกิด constipation, malabsorption, และโรคทาง hepatobiliary คืออะไร',
+    options: ['↑ motility, ↑ HCl, ↑ bile production', '↓ motility, ↓ HCl, ↓ bile production → กระทบ liver/pancreas/digestion/absorption', 'ไม่มีการเปลี่ยนแปลง', 'เพิ่ม pancreatic enzyme เท่านั้น'],
+    answer: 1, explain: 'Geriatric GI changes (FINAL 86 emphasized ★):\n• ↓ motility → delayed gastric emptying + constipation\n• ↓ HCl secretion → malabsorption (esp. B12, Fe), bacterial overgrowth\n• ↓ bile production → fat malabsorption + cholestatic dz\n• กระทบ liver, pancreas, digestion, absorption ทั้งระบบ\n• Constipation มักเกิดจาก dehydration + CKD + DJD (เคลื่อนไหวลำบาก)\n• พบ chronic enteropathies, IBD, chronic hepatitis, pancreatitis (triaditis ในแมวรวม cholangitis)\n\n❌ ทำไมข้ออื่นผิด\n— ↑ทุกอย่าง = ตรงข้ามกับ aging\n— ไม่เปลี่ยน = false\n— ↑ pancreatic enzyme = ตรงข้าม',
+    verified: 'Pediatrics_and_Geriatrics.pdf + FINAL 86 p.42 ★ "ตอบข้อนี้ และ ผิด โจทย์บอกหลังเฟิม"' },
+
+  { id: 1031, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia + FINAL 86',
+    tags: ['imha', 'cat', 'azathioprine', 'critical'], type: 'mcq',
+    q: 'ในแมวที่เป็น IMHA และไม่ตอบสนอง prednisolone ยา 2nd-line ใดที่ **ห้ามใช้** เพราะเกิด bone marrow suppression รุนแรง + acute pancreatic necrosis',
+    options: ['Cyclosporine', 'Mycophenolate mofetil (MMF)', 'Azathioprine', 'Chlorambucil', 'Leflunomide'],
+    answer: 2, explain: '**Azathioprine ห้ามใช้ในแมว** ★★ (Aj. Rosama เน้น) เพราะแมวขาด thiopurine S-methyltransferase (TPMT) → metabolize ไม่ได้ → severe bone marrow suppression (pancytopenia) + acute pancreatic necrosis · ใน cat ใช้ Chlorambucil แทน (alkylating, steroid-sparing for feline IMHA/IBD/PF)\n\n❌ ทำไมข้ออื่นใช้ได้\n— Cyclosporine = ใช้ได้ทั้งสุนัขและแมว\n— MMF = ใช้ได้, GI side effect\n— Chlorambucil = TOC ในแมวสำหรับ steroid-sparing\n— Leflunomide = ใช้ได้',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf + FINAL 86 p.7 (Aj. Rosama IMHA box) ★★' },
+
+  { id: 1032, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia + FINAL 86',
+    tags: ['imha', 'thromboembolism', 'antiplatelet'], type: 'mcq',
+    q: 'ใน IMHA ที่มีความเสี่ยง thromboembolism (PTE) ยา antiplatelet ใดที่นิยมใช้เป็น first-line ★',
+    options: ['Heparin alone', 'Clopidogrel (Plavix) ± low-dose aspirin', 'Warfarin', 'Vitamin K', 'tPA'],
+    answer: 1, explain: '**Clopidogrel (Plavix) 1-3 mg/kg PO q24h** = first-line antiplatelet ใน IMHA · ± low-dose aspirin 0.5 mg/kg/day (Aj. Rosama เน้น ★) · ลด platelet aggregation ที่กระตุ้นจาก inflammatory state · LMWH สามารถใช้ adjunct ได้ในกรณี acute · monitoring: TEG, anti-Xa\n\n❌ ทำไมข้ออื่นผิด\n— Heparin alone = ไม่ block platelet aggregation, ใช้ adjunct\n— Warfarin = แคบ therapeutic window, ตรวจ INR ยาก, ไม่ first-line in vet\n— Vitamin K = antidote rodenticide, ตรงข้าม\n— tPA = thrombolytic, severe PTE acute, ไม่ใช่ prophylaxis',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf + FINAL 86 p.7 (Aj. Rosama: Aspirin 0.5 mg/kg/วัน แก้ไข thromboembolism ★) + Clopidogrel (Plavix)' },
 ];
