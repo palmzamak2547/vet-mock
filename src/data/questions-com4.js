@@ -560,6 +560,190 @@ export const QB_COM4 = [
     verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.7' },
 
   // ═══════════════════════════════════════════════════════════
-  // (More: immune-drugs, IMHA, SLE, IBD, peds-geri)
+  // Drugs for Immune-mediated diseases (Aj. Chaiyot Tanrattana)
+  // ═══════════════════════════════════════════════════════════
+  { id: 975, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
+    tags: ['gc', 'classification'], type: 'mcq',
+    q: 'Drugs ที่ใช้รักษา immune-mediated diseases ในสุนัข/แมว classify ได้กี่ class หลัก',
+    options: ['2 class', '5-6 classes: Glucocorticoids, Antimetabolites, Alkylating, Calcineurin inhibitors, Small-molecule (JAK inhibitor), Monoclonal antibodies', '1 class (steroid only)', 'ไม่มี classification'],
+    answer: 1, explain: '6 main classes: GC (prednisolone, dex) · Antimetabolites (azathioprine, leflunomide, MMF) · Alkylating (chlorambucil, cyclophosphamide) · Calcineurin inhibitors (cyclosporine, tacrolimus) · Small-molecule targeted (JAK inhibitor — oclacitinib) · Monoclonal antibodies (lokivetmab) · ใช้ร่วมกัน multimodal\n\n❌ ทำไมข้ออื่นผิด\n— "2 class" / "1 class" = ผิด, มีหลาย\n— "ไม่มี classification" = ผิด',
+    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.2' },
+
+  { id: 976, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
+    tags: ['gc', 'mechanism'], type: 'mcq',
+    q: 'Glucocorticoid (prednisolone) มี mechanism ของ anti-inflammatory + immunosuppressive อย่างไร',
+    options: ['↓ inflammatory mediators (IL-1, TNF-α, GM-CSF, prostaglandins) + ↓ leukocyte chemotaxis + ↓ T-cell function + induce lymphocyte apoptosis', 'ฆ่า bacteria โดยตรง', 'ทำให้ pH ในเลือดต่ำลง', 'เพิ่มการสร้าง RBC'],
+    answer: 0, explain: 'GC mechanism: ↓ pro-inflammatory cytokines (IL-1, TNF-α, GM-CSF, IL-3,4,5,8) + ↓ NOS → ↓ NO + ↓ Phospholipase A2 → ↓ prostaglandins/leukotrienes + ↑ Annexin-1 + ↓ adhesion molecules (ลด leukocyte emigration) + ↑ endonucleases → induce apoptosis ใน lymphocytes/eosinophils\n\n❌ ทำไมข้ออื่นผิด\n— ฆ่า bact = antibiotic\n— ↓ pH = ไม่ใช่กลไก\n— เพิ่ม RBC = erythropoietin',
+    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.4' },
+
+  { id: 977, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
+    tags: ['gc', 'side-effects'], type: 'mcq',
+    q: 'Side effects ของ long-term glucocorticoid ในสุนัข',
+    options: ['ไม่มี side effect', 'PU/PD/polyphagia, iatrogenic Cushing\'s, immune suppress + 2° infection, GI ulcer, hepatopathy, muscle atrophy, calcinosis cutis', 'Hyperthyroid', 'Hypoglycemia เท่านั้น'],
+    answer: 1, explain: 'GC side effects: PU/PD, polyphagia, weight gain, panting, iatrogenic Cushing\'s (exogenous), 2° infection (UTI, demodex, pyoderma), GI ulcer, hepatopathy (ALP/ALT ↑), muscle atrophy, calcinosis cutis, delayed wound healing, immunosuppression · therefore taper to lowest effective dose ASAP\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่มี" = ผิด\n— Hyperthyroid = ตรงข้าม (GC suppress thyroid axis)\n— Hypoglycemia only = ผิด, GC ทำให้ hyperglycemia',
+    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.5' },
+
+  { id: 978, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
+    tags: ['azathioprine'], type: 'mcq',
+    q: 'Azathioprine ใช้ในสัตว์ใด และข้อควรระวังคืออะไร',
+    options: ['ใช้ทั้งสุนัขและแมว ปลอดภัย', 'Dogs only — ห้ามใช้ในแมว (fatal myelosuppression) · monitor CBC + liver enzymes บ่อยในสุนัข', 'แมวเท่านั้น', 'ไม่ใช้ในสัตว์'],
+    answer: 1, explain: 'Azathioprine (purine analog antimetabolite): dogs 2 mg/kg/d × 2-3 wk → q48h taper · ใช้เป็น steroid-sparing ใน IMHA, IMT, SLE, pemphigus · ห้ามใช้แมว — TPMT (thiopurine methyltransferase) deficiency → fatal myelosuppression + hepatotoxicity · monitor CBC + ALT บ่อยใน dog · onset slow 4-6 wk\n\n❌ ทำไมข้ออื่นผิด\n— "ทั้ง dog/cat" = ผิด, ห้ามแมว\n— "แมวเท่านั้น" = ผิด อันตราย\n— "ไม่ใช้" = ผิด, ใช้ใน dog',
+    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.5' },
+
+  { id: 979, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
+    tags: ['cyclosporine', 'mechanism'], type: 'mcq',
+    q: 'Cyclosporine A (Atopica) ทำงานผ่านกลไกใด',
+    options: ['Calcineurin inhibitor → block T-cell activation + IL-2 production', 'Direct cytotoxic to all cells', 'COX-2 inhibitor', 'Antibiotic'],
+    answer: 0, explain: 'Cyclosporine binds cyclophilin → inhibits calcineurin → ↓ NFAT dephosphorylation → ↓ IL-2 transcription → ↓ T-cell activation/proliferation · ใช้ใน CAD, perianal fistulas, IMHA, pemphigus, SLE · 5 mg/kg PO q24h (CAD) หรือ q12h (severe immune disease) · slow onset 4-6 wk · side effects: GI (vomit, gum hyperplasia, papillomatosis, hirsutism)\n\n❌ ทำไมข้ออื่นผิด\n— Cytotoxic to all = chemotherapy\n— COX-2 = NSAIDs\n— Antibiotic = bacterial',
+    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.6' },
+
+  { id: 980, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
+    tags: ['mmf'], type: 'mcq',
+    q: 'Mycophenolate mofetil (MMF) ใช้ใน veterinary immunology อย่างไร',
+    options: ['Block COX-2', 'Selective lymphocyte inhibitor (block IMP dehydrogenase) — alternative steroid-sparing · side effect: GI (diarrhea), expensive', 'Antibiotic', 'Antifungal'],
+    answer: 1, explain: 'MMF: prodrug → mycophenolic acid → inhibit IMPDH (inosine monophosphate dehydrogenase) → ↓ guanine nucleotide synthesis selectively in lymphocytes (lack salvage pathway) → ↓ T/B cell proliferation · used in IMHA, MG, glomerulonephritis · ราคาแพง · main side effect: GI (diarrhea) · less hepatotoxic than azathioprine\n\n❌ ทำไมข้ออื่นผิด\n— COX-2 = NSAIDs\n— Antibiotic / Antifungal = wrong class',
+    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.6' },
+
+  { id: 981, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
+    tags: ['chlorambucil'], type: 'mcq',
+    q: 'Chlorambucil (alkylating agent) มักใช้ใน',
+    options: ['Bacterial infection', 'แมวที่ต้อง steroid-sparing (autoimmune skin, IBD, hepatobiliary lymphoma) · alternative azathioprine (ห้ามใน cat)', 'แทน insulin ใน DM', 'Anti-flea'],
+    answer: 1, explain: 'Chlorambucil = alkylating agent (cross-link DNA) · ใช้ในแมวเป็น steroid-sparing เพราะ azathioprine ห้ามแมว · indication: feline autoimmune skin (PF), IBD, lymphoma, IMHA · 0.1-0.2 mg/kg/d → taper · monitor CBC (myelosuppression) + GI side effect\n\n❌ ทำไมข้ออื่นผิด\n— Bact infection = antibiotic\n— DM = insulin\n— Anti-flea = parasiticide',
+    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.6' },
+
+  { id: 982, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
+    tags: ['ivig'], type: 'mcq',
+    q: 'IV Immunoglobulin (IVIG) ใช้ใน situation ใดเป็นพิเศษ',
+    options: ['Daily for any disease', 'Refractory IMHA หรือ severe case (PCV very low) — single infusion 0.5-1.0 g/kg, expensive', 'Replace steroid permanently', 'Routine vaccination'],
+    answer: 1, explain: 'Human IVIG 0.5-1.0 g/kg single IV infusion · ใช้ใน refractory IMHA / severe cases ที่ steroid + 2nd line ไม่ตอบสนอง + PCV < 10% · mechanism: block Fc receptors, neutralize autoantibodies · มากครั้งเดียว (rare repeat) · ราคาแพง · supply limited\n\n❌ ทำไมข้ออื่นผิด\n— Daily = ไม่ใช่, single dose\n— แทน steroid permanent = ผิด\n— Vaccination = different concept',
+    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.6' },
+
+  // ═══════════════════════════════════════════════════════════
+  // Immune-mediated Hemolytic Anemia (Aj. Rosama)
+  // ═══════════════════════════════════════════════════════════
+  { id: 983, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
+    tags: ['imha', 'classification'], type: 'mcq',
+    q: 'IMHA แบ่งออกเป็นกี่ types หลัก',
+    options: ['1 type only', '2 types: Primary (idiopathic, autoimmune) + Secondary (known cause: infection, drug, neoplasia)', '5 types', 'ไม่มี classification'],
+    answer: 1, explain: 'IMHA: Primary (idiopathic/autoimmune, ไม่ทราบสาเหตุ — predisposed Cocker, English Springer, Old English Sheepdog, all ages, F>M, vaccine-associated?) · Secondary (known cause: infectious — Babesia/Mycoplasma/Ehrlichia/Leptospira/FeLV/FIV, neoplasia, drugs, transfusion reaction) · พบใน cat บ่อยกว่าใน secondary\n\n❌ ทำไมข้ออื่นผิด\n— "1 type" = ผิด\n— 5 types = ไม่ใช่ standard\n— "ไม่มี classification" = ผิด',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.6' },
+
+  { id: 984, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
+    tags: ['imha', 'breed'], type: 'mcq',
+    q: 'Breed ใดที่ predispose ต่อ Primary IMHA',
+    options: ['Greyhound, Whippet', 'Cocker Spaniel, English Springer Spaniel, Old English Sheepdog, Standard Poodle, Irish Setter', 'Pug, Bulldog', 'Pomeranian, Chihuahua'],
+    answer: 1, explain: 'Primary IMHA predisposed: Cocker Spaniel (most common), English Springer Spaniel, Old English Sheepdog, Standard Poodle, Irish Setter · F > M · all ages · idiopathic/autoimmune · vaccine-associated suspected (some cases)\n\n❌ ทำไมข้ออื่นผิด\n— Greyhound/Whippet = sighthound, low baseline T4 ตามสายพันธุ์ ไม่ใช่ IMHA\n— Pug/Bulldog = airway/skin issues\n— Pom/Chi = atlantoaxial / hypoglycemia',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.7' },
+
+  { id: 985, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
+    tags: ['imha', 'cytology'], type: 'mcq',
+    q: 'Findings ที่ classic ใน blood smear ของ IMHA',
+    options: ['Spherocytes + autoagglutination + reticulocytosis (regenerative hemolysis)', 'Pancytopenia เท่านั้น', 'Polycythemia', 'Normal blood smear'],
+    answer: 0, explain: 'IMHA findings: spherocytes (small dense RBC, no central pallor — partial phagocytosis) · autoagglutination (positive saline test) · regenerative anemia (reticulocyte ↑, polychromasia, anisocytosis) ใน 70% of cases · 30% non-regenerative (peracute, ก่อน BM response, หรือ precursor-targeted) · Coombs\' test + (DAT)\n\n❌ ทำไมข้ออื่นผิด\n— Pancytopenia = bone marrow disease\n— Polycythemia = ตรงข้าม (RBC ↑)\n— Normal = ไม่ใช่ IMHA',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.22' },
+
+  { id: 986, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
+    tags: ['imha', 'diagnosis'], type: 'mcq',
+    q: 'Coombs\' test ใน IMHA หาอะไร',
+    options: ['DNA mutation', 'Antibody + complement บนผิว RBC (Direct antiglobulin test, DAT)', 'Bacterial culture', 'Hormone level'],
+    answer: 1, explain: 'Coombs\' test = DAT (Direct Antiglobulin Test) → detect IgG/IgM/C3 ที่ยึดติดกับ RBC surface · positive = supportive ของ IMHA · false-negative ~25% (low antibody titer หรือ pre-treatment with steroid) · ห้ามอ่านผลจาก Coombs\' alone — ต้องร่วม clinical, spherocytes, autoagglutination\n\n❌ ทำไมข้ออื่นผิด\n— DNA mutation = genetic test\n— Bact culture = bacterial\n— Hormone = endocrine',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.40' },
+
+  { id: 987, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
+    tags: ['imha', 'complications'], type: 'mcq',
+    q: 'Complication ที่อันตรายและทำให้สัตว์ตายใน IMHA คือ',
+    options: ['Hypoglycemia', 'Pulmonary thromboembolism (PTE) + DIC + thromboembolic disease', 'Diarrhea เรื้อรัง', 'Cataract'],
+    answer: 1, explain: 'PTE = main cause of death in canine IMHA · hypercoagulable state จาก hemolysis + pro-inflammatory + activation of platelets/coag cascade · prevention: clopidogrel 1.1-4 mg/kg/d (Plavix) + aspirin 1-2 mg/kg/d (อาจ combine) · monitor for sudden tachypnea, dyspnea, collapse\n\n❌ ทำไมข้ออื่นผิด\n— Hypoglycemia = ไม่ใช่ direct complication\n— Diarrhea เรื้อรัง = side effect ของ MMF (treatment)\n— Cataract = unrelated',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.18' },
+
+  { id: 988, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
+    tags: ['imha', 'treatment'], type: 'mcq',
+    q: 'Initial dose ของ prednisolone สำหรับ canine IMHA',
+    options: ['0.5 mg/kg/d', '2-3 mg/kg/d (หรือ 50-60 mg/m² for dogs > 25 kg) — initial response rate ~80%', '10 mg/kg/d', 'ไม่ต้องใช้ steroid'],
+    answer: 1, explain: 'Pred 2-3 mg/kg/d (or 50-60 mg/m² for large breeds > 25 kg) · ลดเป็น ≤ 2 mg/kg/d ภายใน 2 wk ถ้า PCV เพิ่มหรือ stable · IV dexamethasone 0.2-0.4 mg/kg/d ถ้ากินไม่ได้ · response rate ~80% · ถ้าไม่ตอบสนอง 7 วัน หรือ blood transfusion ต่อเนื่อง = start 2nd line\n\n❌ ทำไมข้ออื่นผิด\n— 0.5 mg/kg/d = ต่ำเกิน, ไม่ immunosuppressive\n— 10 mg/kg/d = สูงเกินอันตราย\n— "ไม่ใช้ steroid" = ผิด, mainstay treatment',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.48' },
+
+  { id: 989, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
+    tags: ['imha', 'second-line'], type: 'mcq',
+    q: '2nd-line drugs สำหรับ IMHA ที่ไม่ตอบสนอง prednisolone อย่างเดียว',
+    options: ['NSAIDs', 'Azathioprine (dog only) / Cyclosporine / Mycophenolate mofetil / Leflunomide / IVIG (refractory)', 'Antibiotic alone', 'รอเอง'],
+    answer: 1, explain: '2nd line: Azathioprine 2 mg/kg/d (dog only) · Cyclosporine 5 mg/kg q12h (small breeds + cats) · MMF (expensive, GI side effect) · Leflunomide (refractory) · IVIG 0.5-1 g/kg single infusion (severe refractory) · จำได้ว่า dog IMHA ใช้ azathioprine + cyclosporine, cat IMHA ใช้ chlorambucil + cyclosporine (ห้าม azathioprine ใน cat)\n\n❌ ทำไมข้ออื่นผิด\n— NSAIDs = ไม่ใช่ immunosuppressive\n— Antibiotic alone = ไม่ใช่ autoimmune cause\n— "รอเอง" = mortality สูง',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.51' },
+
+  { id: 990, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
+    tags: ['imha', 'monitoring'], type: 'mcq',
+    q: 'Long-term monitoring ของ IMHA ในสุนัข',
+    options: ['ไม่ต้อง monitor', 'PCV/Hct ทุก 3 wk + bilirubin + UA q8-12 wk + watch relapse 11-15%', 'ตรวจทุก 5 ปี', 'monitor CBC ทุก 1 ปี'],
+    answer: 1, explain: 'IMHA monitoring: PCV/Hct ทุก 3 wk · bilirubin (hemolysis marker) · UA ± culture q8-12 wk (steroid-induced UTI) · stress leukogram, ↑ ALP, polycythemia, thrombocytosis, hyperlipidemia, hyperglycemia (steroid effect) common · taper steroid 25% เมื่อ stable PCV > 30% × 2 wk · don\'t taper 2nd-line until steroid done · 3-6 months total · relapse 11-15%\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ monitor" = ผิด\n— "5 ปี" = นานเกินไป\n— "1 ปี" = นานเกิน, miss relapse',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.55' },
+
+  { id: 991, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
+    tags: ['imt'], type: 'mcq',
+    q: 'Immune-mediated Thrombocytopenia (IMT) ตำแหน่ง bleeding ที่เห็นได้บ่อยคือ',
+    options: ['Subarachnoid hemorrhage เท่านั้น', 'Petechiae + ecchymoses (mucous membranes, skin), epistaxis, hematuria, melena, hyphema', 'Hematoma in muscle เท่านั้น', 'No bleeding'],
+    answer: 1, explain: 'IMT signs: petechiae (small punctate hemorrhages on gums, sclera, ventral abdomen) + ecchymoses + epistaxis + hematuria + melena + hyphema (Cocker Spaniel classic) + GI bleed · platelets ต่ำกว่า 50,000/μL = clinical bleeding · < 30,000 = severe risk · PT/aPTT ปกติ (vs. coagulopathy) · differentiate spontaneous bleeding vs. trauma\n\n❌ ทำไมข้ออื่นผิด\n— SAH only = ผิด\n— Muscle hematoma = coagulopathy (factor deficiency)\n— "No bleeding" = ผิด',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.66' },
+
+  // ═══════════════════════════════════════════════════════════
+  // Systemic Lupus Erythematosus (Aj. Rosama)
+  // ═══════════════════════════════════════════════════════════
+  { id: 992, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
+    tags: ['sle', 'criteria'], type: 'mcq',
+    q: 'Criteria สำคัญในการวินิจฉัย Systemic Lupus Erythematosus (SLE) ในสัตว์',
+    options: ['1 organ involved + ANA positive', 'มี ≥ 2 organ system dysfunction + high titer of serum antinuclear antibody (ANA) + most have polyarthritis', 'CBC แค่อย่างเดียว', 'Skin biopsy alone'],
+    answer: 1, explain: 'SLE = multisystem autoimmune · criteria: ≥ 2 organ systems involved + high titer ANA · most common: polyarthritis (#1 sign) + skin disease + CVS + kidney (proteinuria → glomerulonephritis) + muscle (polymyositis) + pleural + cytopenias (anemia, thrombocytopenia) · rare in dogs/cats · lymphopenia + CD4:CD8 = 5.2 (normal 2.25 in dog)\n\n❌ ทำไมข้ออื่นผิด\n— "1 organ + ANA" = ไม่พอ (ต้อง multisystem)\n— CBC alone = supportive\n— Skin biopsy alone = สำหรับ DLE',
+    verified: 'Systemic_Lupus_Erythematosus.pdf p.2' },
+
+  { id: 993, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
+    tags: ['sle', 'breed'], type: 'mcq',
+    q: 'Breed ใดที่ predispose ต่อ SLE ในสุนัข',
+    options: ['Pug, Bulldog', 'German Shepherd, Shetland Sheepdog, Collie, Beagle, Poodle, Afghan Hound', 'Greyhound', 'Labrador เท่านั้น'],
+    answer: 1, explain: 'SLE predisposed: GSD, Shetland Sheepdog, Collie, Beagle, Poodle, Afghan Hound · age 2 mo - 13 yr (dogs) · 1-11 yr (cats) · UK + Australia = low prevalence · South France = higher · cats = extremely rare (must be FeLV-/FIV- · Siamese/Persian/Persian-mixed)\n\n❌ ทำไมข้ออื่นผิด\n— Pug/Bulldog = brachycephalic issues\n— Greyhound = sighthound\n— Lab only = ผิด',
+    verified: 'Systemic_Lupus_Erythematosus.pdf p.3' },
+
+  { id: 994, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
+    tags: ['sle', 'clinical'], type: 'mcq',
+    q: 'Clinical sign ที่พบบ่อยที่สุดใน SLE ของสุนัข',
+    options: ['Pruritus only', 'Polyarthritis (most common) + skin lesion ที่ MC junction + proteinuria → glomerulonephritis + cytopenias', 'Hyperthyroidism', 'Hypothyroidism only'],
+    answer: 1, explain: 'SLE ใน dog: polyarthritis = most common (synovial inflammation, joint effusion, lameness) + skin (mucocutaneous junction of facial/ear/mouth/limbs) + glomerulonephritis (proteinuria, nephrotic syndrome) + IMHA/IMT (anemia, thrombocytopenia) + polymyositis (rare) + pleural disease + myocardiopathy\n\n❌ ทำไมข้ออื่นผิด\n— Pruritus only = atopic\n— Hyperthyroid = endocrine\n— Hypothyroid only = endocrine',
+    verified: 'Systemic_Lupus_Erythematosus.pdf p.5' },
+
+  { id: 995, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
+    tags: ['sle', 'diagnosis'], type: 'mcq',
+    q: 'Diagnostic workup ของ SLE ประกอบด้วย',
+    options: ['CBC แค่อย่างเดียว', 'Coombs\' test + blood chem + UA + skin biopsy + radiography + synovial fluid analysis + ANA test', 'Skin scraping เท่านั้น', 'Fecal exam'],
+    answer: 1, explain: 'SLE workup: Coombs\' (IMHA) + Platelet count (IMT) + blood chem (BUN/Cr/albumin) + UA + UPC (proteinuria) + skin biopsy (interface dermatitis with apoptotic keratinocytes + lupus band on IFA) + radiograph (joint disease) + synovial fluid (non-septic suppurative inflammation) + ANA titer (60-90% +ve)\n\n❌ ทำไมข้ออื่นผิด\n— CBC alone = ไม่พอ\n— Skin scraping = parasitic\n— Fecal = GI parasite',
+    verified: 'Systemic_Lupus_Erythematosus.pdf p.15' },
+
+  { id: 996, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
+    tags: ['sle', 'treatment'], type: 'mcq',
+    q: 'Treatment regimen ของ SLE ในสุนัข',
+    options: ['Antibiotic เดี่ยว', 'Prednisolone 1-2 mg/kg q24h + levamisole 3-7 mg/kg q48h (immunomodulation) + supportive care + monitor ANA titer', 'Insulin', 'Surgery'],
+    answer: 1, explain: 'Canine SLE: prednisolone 1-2 mg/kg q24h immunosuppressive · ± levamisole 3-7 mg/kg q48h (immunomodulator แบบเก่า แต่ยังใช้ในไทย) · cat SLE: pred ± cyclophosphamide หรือ chlorambucil (ห้าม cyclophos ใน renal failure) · supportive: prescription diet, blood transfusion ถ้า severe anemia · monitor ANA titer + clinical signs · long-term (ชีวิต)\n\n❌ ทำไมข้ออื่นผิด\n— Antibiotic alone = ไม่ใช่ infection\n— Insulin = DM\n— Surgery = ผิด',
+    verified: 'Systemic_Lupus_Erythematosus.pdf p.16' },
+
+  { id: 997, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
+    tags: ['sle', 'cat'], type: 'mcq',
+    q: 'SLE ในแมวมีลักษณะพิเศษอย่างไร',
+    options: ['พบบ่อยกว่าสุนัข', 'Extremely rare · ต้อง FeLV-/FIV- · breeds: Siamese, Persian, Persian-mixed · paronychia + small crusts ventrum', 'พบเฉพาะแมวอ้วน', 'ไม่มีใน cat'],
+    answer: 1, explain: 'Feline SLE: extremely rare · diagnostic criteria เข้ม: ต้องตรวจ FeLV/FIV negative ก่อน (false-positive ANA จาก viral) · pure breed predisposed: Siamese, Persian, Persian-mixed · 3 yr neutered F DSH cat = case example · paronychia (nail bed inflammation) + cutaneous SLE + small crusty lesions ventral surface · polyarthritis ก็เกิด\n\n❌ ทำไมข้ออื่นผิด\n— "พบบ่อยกว่าสุนัข" = ผิด, rare than dog\n— "แมวอ้วน" = irrelevant\n— "ไม่มีใน cat" = ผิด, มีแต่ rare',
+    verified: 'Systemic_Lupus_Erythematosus.pdf p.4' },
+
+  { id: 998, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
+    tags: ['sle', 'ana'], type: 'mcq',
+    q: 'ANA (Anti-Nuclear Antibody) test ใน SLE',
+    options: ['Specific 100% — positive = SLE definite', 'Sensitive ~60-90% in dog SLE · titer สูงสำคัญ · false-positive ใน infectious/neoplasia/cat (FeLV/FIV) · ใช้ร่วม clinical criteria', 'ใช้ใน cat เท่านั้น', 'Replace clinical signs'],
+    answer: 1, explain: 'ANA (immunofluorescence): titer >= 1:160 considered significant in dogs · sensitivity 60-90% in canine SLE · false-positive ใน ehrlichiosis, leishmaniasis, FeLV/FIV (in cats), drug-induced lupus (procainamide, hydralazine), neoplasia · ต้องใช้ร่วม clinical (multisystem disease) เพื่อ definitive Dx\n\n❌ ทำไมข้ออื่นผิด\n— "Specific 100%" = ผิด\n— "ใน cat เท่านั้น" = ผิด, dog ใช้บ่อยกว่า\n— "Replace clinical" = ผิด, ใช้ร่วม',
+    verified: 'Systemic_Lupus_Erythematosus.pdf p.15' },
+
+  { id: 999, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
+    tags: ['sle', 'differential'], type: 'mcq',
+    q: 'Polyarthritis ใน SLE ต่างจาก polyarthritis แบบ erosive อย่างไร',
+    options: ['ไม่ต่างกัน', 'SLE polyarthritis = non-erosive (no joint destruction radiographically) · vs. rheumatoid-like erosive arthritis = bone erosion + joint deformity', 'SLE = erosive', 'SLE ไม่มี polyarthritis'],
+    answer: 1, explain: 'SLE polyarthritis = NON-erosive (synovial inflammation + effusion แต่ไม่มี cartilage/bone destruction) · radiograph ปกติ · synovial fluid = non-septic suppurative · vs. erosive polyarthritis (Greyhound polyarthritis, RA-like) = visible bone erosion, deformity · differentiation important for prognosis + treatment\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต่างกัน" = ผิด\n— "SLE = erosive" = ผิด สลับ\n— "SLE ไม่มี polyarthritis" = ผิด, มีและเป็น most common',
+    verified: 'Systemic_Lupus_Erythematosus.pdf p.6' },
+
+  // ═══════════════════════════════════════════════════════════
+  // (More: IBD + peds-geri)
   // ═══════════════════════════════════════════════════════════
 ];
