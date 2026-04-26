@@ -576,7 +576,7 @@ export const QB_COM3 = [
   { id: 802, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
     tags: ['seizure', 'first-line'], type: 'mcq',
     q: 'First-line maintenance anti-epileptic drug ในสุนัขคืออะไร',
-    options: ['Phenobarbital หรือ Imepitoin · Levetiracetam (KBr ในกรณี renal ปกติ)', 'Acetazolamide (carbonic anhydrase inhibitor, ใช้ glaucoma)', 'Mannitol (osmotic — ใช้ ↑ ICP, ไม่ใช่ AED)', 'Diazepam PO (short half-life — ห้ามใช้ chronic)'],
+    options: ['Phenobarbital หรือ Imepitoin · Levetiracetam (KBr ในกรณี renal ปกติ)', 'Acetazolamide 4-8 mg/kg PO q12h', 'Mannitol 0.5-1 g/kg IV bolus', 'Diazepam PO (short half-life — ห้ามใช้ chronic)'],
     answer: 0, explain: 'Dog 1st line: phenobarbital · imepitoin (Pexion — partial GABA-A) · levetiracetam · KBr add-on · monitor PB level + liver',
     verified: 'seizure 1 hr.pdf + ACVIM consensus' },
 
@@ -824,7 +824,7 @@ export const QB_COM3 = [
   { id: 843, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'metabolic and endocrine and UT 1 hr.pdf',
     tags: ['hypoglycemia'], type: 'mcq',
     q: 'Hypoglycemia rescue dose IV bolus คืออะไร',
-    options: ['Saline only (ไม่มี dextrose)', 'Mannitol 20% IV', 'Insulin (ทำให้แย่ลง — ลด glucose)', 'Dextrose 50% diluted 1:4 (becomes ~10%) — 0.5-1 ml/kg slow IV จากนั้น CRI 2.5-5%', 'Dextrose 5% 100 ml IV slow drip 1 hr'],
+    options: ['Saline only (ไม่มี dextrose)', 'Mannitol 20% IV', 'Regular insulin 0.5 U/kg SC', 'Dextrose 50% diluted 1:4 (becomes ~10%) — 0.5-1 ml/kg slow IV จากนั้น CRI 2.5-5%', 'Dextrose 5% 100 ml IV slow drip 1 hr'],
     answer: 3, explain: 'Hypoglycemia: 50% dextrose dilute 1:4 (kg) → 0.5-1 ml/kg slow IV (ป้องกัน vein irritation) · maintain CRI 2.5-5% · monitor q1-2h',
     verified: 'metabolic and endocrine and UT 1 hr.pdf + master' },
 
