@@ -19,18 +19,26 @@ CREATE TABLE IF NOT EXISTS profiles (
 );
 
 -- Auto-create profile when user signs up
--- v5.1.1 — handles username collisions automatically:
+-- v5.1.2 — handles username collisions + hardened against trigger
+-- failures that would otherwise abort signup:
+--   • SET search_path = public, pg_temp — required for SECURITY
+--     DEFINER funcs in newer Supabase, otherwise the bare table
+--     reference 'profiles' may not resolve and the trigger throws
+--   • Explicit public.profiles in SQL — defense in depth
+--   • EXCEPTION WHEN OTHERS at the end — if anything goes wrong,
+--     log a WARNING and let auth.users INSERT succeed anyway. The
+--     frontend's ensure_profile() RPC + retry-with-fallback in
+--     useAuth will paper over a missing profile row.
 --   • Reads username from metadata or derives from email local-part
 --   • Sanitizes to [A-Za-z0-9_], 1-25 chars, fallback 'user'
 --   • If taken, appends _2, _3, ... up to _99 to find a free slot
---   • Final fallback: substring(uuid) suffix → guaranteed unique
--- Without this, a duplicate username would raise on the UNIQUE
--- constraint, abort the trigger, and (because it's an AFTER INSERT
--- trigger on auth.users) roll back the user creation entirely —
--- leaving signup confusingly broken for the second person picking
--- a popular handle.
+--   • Final fallback: substring(uuid) suffix — guaranteed unique
 CREATE OR REPLACE FUNCTION handle_new_user()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
 DECLARE
   base_username TEXT;
   candidate TEXT;
@@ -40,12 +48,13 @@ BEGIN
   base_username := COALESCE(
     NEW.raw_user_meta_data->>'username',
     NEW.raw_user_meta_data->>'name',
-    split_part(NEW.email, '@', 1)
+    split_part(NEW.email, '@', 1),
+    'user'
   );
 
   -- 2) Sanitize: only alphanumeric + underscore, trim length
-  base_username := regexp_replace(COALESCE(base_username, ''), '[^a-zA-Z0-9_]', '', 'g');
-  IF length(base_username) = 0 THEN
+  base_username := regexp_replace(COALESCE(base_username, 'user'), '[^a-zA-Z0-9_]', '', 'g');
+  IF base_username IS NULL OR length(base_username) = 0 THEN
     base_username := 'user';
   END IF;
   IF length(base_username) > 25 THEN
@@ -54,23 +63,31 @@ BEGIN
 
   -- 3) Find a free username — try base, then base_2, base_3, …
   candidate := base_username;
-  WHILE counter < 99 AND EXISTS (SELECT 1 FROM profiles WHERE username = candidate) LOOP
+  WHILE counter < 99 AND EXISTS (SELECT 1 FROM public.profiles WHERE username = candidate) LOOP
     counter := counter + 1;
     candidate := base_username || '_' || counter;
   END LOOP;
 
   -- 4) Last-resort: append short uuid hash if 99 collisions
-  IF EXISTS (SELECT 1 FROM profiles WHERE username = candidate) THEN
+  IF EXISTS (SELECT 1 FROM public.profiles WHERE username = candidate) THEN
     candidate := base_username || '_' || substring(NEW.id::text FROM 1 FOR 6);
   END IF;
 
-  INSERT INTO profiles (id, username)
+  INSERT INTO public.profiles (id, username)
   VALUES (NEW.id, candidate)
   ON CONFLICT (id) DO NOTHING;
 
   RETURN NEW;
+EXCEPTION
+  WHEN OTHERS THEN
+    -- Never let profile creation fail signup. If something throws
+    -- (RLS, constraint quirk, etc.), log it and let auth.users
+    -- INSERT succeed. The app retries profile fetch + falls back
+    -- to a synthesized local profile if the row is still missing.
+    RAISE WARNING 'handle_new_user: % — sqlstate %', SQLERRM, SQLSTATE;
+    RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 CREATE TRIGGER on_auth_user_created
@@ -136,14 +153,24 @@ CREATE TABLE IF NOT EXISTS user_data (
   updated_at TIMESTAMPTZ DEFAULT now()
 );
 
--- Auto-create user_data row on signup
+-- Auto-create user_data row on signup — same hardening as handle_new_user:
+-- explicit search_path + EXCEPTION handler so a failure here can never
+-- abort the chained signup.
 CREATE OR REPLACE FUNCTION handle_new_user_data()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
 BEGIN
-  INSERT INTO user_data (user_id) VALUES (NEW.id) ON CONFLICT (user_id) DO NOTHING;
+  INSERT INTO public.user_data (user_id) VALUES (NEW.id) ON CONFLICT (user_id) DO NOTHING;
   RETURN NEW;
+EXCEPTION
+  WHEN OTHERS THEN
+    RAISE WARNING 'handle_new_user_data: % — sqlstate %', SQLERRM, SQLSTATE;
+    RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 DROP TRIGGER IF EXISTS on_profile_created ON profiles;
 CREATE TRIGGER on_profile_created
@@ -170,6 +197,13 @@ CREATE POLICY "profiles_select_all" ON profiles FOR SELECT USING (true);
 -- Users can only update their own profile
 DROP POLICY IF EXISTS "profiles_update_own" ON profiles;
 CREATE POLICY "profiles_update_own" ON profiles FOR UPDATE USING (auth.uid() = id);
+
+-- Users can insert their own profile row (used by ensure_profile RPC
+-- if the trigger ever fails and the app needs to retry creation).
+-- The trigger itself runs SECURITY DEFINER and bypasses RLS, but
+-- having this policy means an in-app fallback path is also possible.
+DROP POLICY IF EXISTS "profiles_insert_own" ON profiles;
+CREATE POLICY "profiles_insert_own" ON profiles FOR INSERT WITH CHECK (auth.uid() = id);
 
 -- ========= GROUPS POLICIES =========
 -- Anyone can view groups they are members of
