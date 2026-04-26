@@ -1,12 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   signUpWithEmail,
   signInWithEmail,
   signInWithGoogle,
   sendPasswordReset,
   updatePassword,
+  isUsernameAvailable,
 } from '../lib/supabase.js';
 import { thaiAuthError } from '../lib/auth-errors.js';
+import {
+  deriveUsernameFromEmail,
+  sanitizeUsername,
+  validateUsername,
+  passwordStrength,
+} from '../lib/auth-utils.js';
 
 // AuthView — sign in / sign up / forgot password
 //
@@ -58,10 +65,53 @@ export default function AuthView({ onBack, onSuccess, user }) {
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
 
+  // ── Smart UX state ──
+  const [usernameTouched, setUsernameTouched] = useState(false);
+  // 'idle' | 'invalid' | 'checking' | 'available' | 'taken' | 'unknown'
+  const [usernameStatus, setUsernameStatus] = useState('idle');
+  const usernameDebounceRef = useRef(null);
+
   // Reset banners when switching modes
   useEffect(() => {
     setError(''); setInfo(''); setEmailVerifyPending(null);
   }, [mode]);
+
+  // ── Smart: auto-suggest username from email (signup only) ──
+  // Only fires when the user hasn't manually edited the username yet.
+  // Once they touch it, we stop auto-overwriting their choice.
+  useEffect(() => {
+    if (mode !== 'signup') return;
+    if (usernameTouched) return;
+    const suggested = deriveUsernameFromEmail(email);
+    if (suggested && suggested !== username) setUsername(suggested);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally not depending on `username` to avoid feedback loop
+  }, [email, mode, usernameTouched]);
+
+  // ── Smart: real-time username availability (debounced 500ms) ──
+  useEffect(() => {
+    if (mode !== 'signup') return;
+
+    // Validate locally first — skip the network call for invalid input
+    const v = validateUsername(username);
+    if (!v.ok) {
+      setUsernameStatus(username.length === 0 ? 'idle' : 'invalid');
+      return;
+    }
+    setUsernameStatus('checking');
+
+    if (usernameDebounceRef.current) clearTimeout(usernameDebounceRef.current);
+    usernameDebounceRef.current = setTimeout(async () => {
+      const result = await isUsernameAvailable(username);
+      // Result: true (free) | false (taken) | null (unknown / no Supabase)
+      if (result === true) setUsernameStatus('available');
+      else if (result === false) setUsernameStatus('taken');
+      else setUsernameStatus('unknown');
+    }, 500);
+
+    return () => {
+      if (usernameDebounceRef.current) clearTimeout(usernameDebounceRef.current);
+    };
+  }, [username, mode]);
 
   const submit = async (e) => {
     e?.preventDefault();
@@ -172,15 +222,31 @@ export default function AuthView({ onBack, onSuccess, user }) {
         <form onSubmit={submit} noValidate>
           {mode === 'signup' && (
             <div className="vmx-form-group">
-              <label>ชื่อแสดง (Username)</label>
+              <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>ชื่อแสดง (Username)</span>
+                <UsernameStatusBadge status={usernameStatus} username={username} />
+              </label>
               <input
                 type="text"
                 value={username}
-                onChange={(e) => setUsername(e.target.value.slice(0, 30))}
+                onChange={(e) => {
+                  if (!usernameTouched) setUsernameTouched(true);
+                  setUsername(sanitizeUsername(e.target.value));
+                }}
                 placeholder="เช่น vet86_ping"
                 maxLength={30}
                 autoComplete="username"
               />
+              <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', minHeight: 16 }}>
+                {(() => {
+                  const v = validateUsername(username);
+                  if (username && !v.ok) return `⚠️ ${v.reason}`;
+                  if (usernameStatus === 'taken') return '❌ ชื่อนี้ถูกใช้ไปแล้ว — ลองชื่ออื่น';
+                  if (usernameStatus === 'available') return '✓ ชื่อนี้ใช้ได้';
+                  if (usernameStatus === 'checking') return '… ตรวจอยู่';
+                  return 'ใช้ได้: a-z, A-Z, 0-9, _ · ความยาว 3-30';
+                })()}
+              </div>
             </div>
           )}
 
@@ -243,6 +309,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                   {showPassword ? '🙈' : '👁'}
                 </button>
               </div>
+              {mode === 'signup' && password && <PasswordStrengthBar password={password} />}
             </div>
           ) : null}
 
@@ -257,6 +324,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                   placeholder="อย่างน้อย 6 ตัว"
                   autoComplete="new-password"
                 />
+                {newPassword && <PasswordStrengthBar password={newPassword} />}
               </div>
               <div className="vmx-form-group">
                 <label>ยืนยันรหัสผ่านใหม่</label>
@@ -292,7 +360,11 @@ export default function AuthView({ onBack, onSuccess, user }) {
             type="submit"
             className="vmx-btn vmx-btn-primary"
             style={{ width: '100%', justifyContent: 'center', padding: '14px' }}
-            disabled={loading}
+            disabled={
+              loading
+              // Block signup if username is known-bad (don't waste a round-trip)
+              || (mode === 'signup' && (usernameStatus === 'taken' || usernameStatus === 'invalid'))
+            }
           >
             {loading ? '⏳ ...' : heading.cta}
           </button>
@@ -322,3 +394,46 @@ export default function AuthView({ onBack, onSuccess, user }) {
 }
 
 const linkStyle = { cursor: 'pointer', color: 'var(--clr-sage)', textDecoration: 'underline' };
+
+// ── Username availability badge (shown next to the label) ───────
+function UsernameStatusBadge({ status, username }) {
+  if (!username) return null;
+  if (status === 'idle' || status === 'unknown') return null;
+
+  const styles = {
+    checking:  { color: 'var(--clr-ink-soft)', text: '… ตรวจ' },
+    available: { color: 'var(--clr-sage)',     text: '✓ ใช้ได้' },
+    taken:     { color: 'var(--clr-rose)',     text: '✗ ถูกใช้แล้ว' },
+    invalid:   { color: 'var(--clr-rose)',     text: '✗ รูปแบบไม่ถูก' },
+  };
+  const s = styles[status];
+  if (!s) return null;
+  return (
+    <span style={{ fontSize: 11, fontWeight: 500, color: s.color, fontFamily: 'JetBrains Mono, monospace' }}>
+      {s.text}
+    </span>
+  );
+}
+
+// ── Password strength bar + label ───────────────────────────────
+function PasswordStrengthBar({ password }) {
+  const s = passwordStrength(password);
+  return (
+    <div style={{ marginTop: 6 }}>
+      <div style={{ height: 4, background: 'var(--clr-surface-2)', borderRadius: 999, overflow: 'hidden' }}>
+        <div
+          style={{
+            height: '100%',
+            width: `${s.percent}%`,
+            background: s.color,
+            transition: 'width 0.2s ease, background 0.2s ease',
+          }}
+        />
+      </div>
+      <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', display: 'flex', justifyContent: 'space-between' }}>
+        <span>ความแข็งแรง: <strong style={{ color: s.color }}>{s.label}</strong></span>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{password.length} ตัว</span>
+      </div>
+    </div>
+  );
+}
