@@ -22,9 +22,17 @@ const MAX_EMAIL = 254; // RFC 5321
 
 export default async function handler(req, res) {
   // ── CORS handling ──
-  const origin = allowedOrigin(req);
-  if (origin) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
+  // Mirror /api/playlist's approach: only reject when Origin IS present
+  // but not in allowlist. Some browsers (notably iPad Safari) omit the
+  // Origin header on same-origin fetch POST — `if (!origin) → 403` was
+  // silently blocking legitimate iPad submits and pushing the form into
+  // mailto fallback. Cross-origin POSTs always include Origin, so an
+  // attacker page can't bypass — they'll still hit `if (reqOrigin &&
+  // !allowed) → 403`.
+  const reqOrigin = req.headers.origin;
+  const allowed = allowedOrigin(req);
+  if (allowed) {
+    res.setHeader('Access-Control-Allow-Origin', allowed);
     res.setHeader('Vary', 'Origin');
   }
 
@@ -34,7 +42,7 @@ export default async function handler(req, res) {
     return res.status(204).end();
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  if (!origin) return res.status(403).json({ error: 'Origin not allowed' });
+  if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
 
   // ── Rate limit: 3 / 10 minutes / IP ──
   const ip = clientIP(req);

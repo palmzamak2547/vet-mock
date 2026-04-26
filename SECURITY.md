@@ -9,7 +9,7 @@ VetMock is a study app, not a banking app. We're protecting against:
 
 | Threat | Severity | Mitigation status |
 |---|---|---|
-| Spam: anyone hitting `/api/send-feedback` to flood mailbox / drain Resend quota | High | ✅ Rate-limited 3/10min/IP + tightened CORS |
+| Spam: anyone hitting `/api/send-feedback` to flood mailbox / drain Resend quota | High | ✅ Rate-limited 3/10min/IP + Origin-aware CORS (allows same-origin POSTs that omit Origin — iPad Safari quirk; blocks unknown cross-origin) |
 | Spam: anyone hitting `/api/playlist` to drain YouTube quota | Medium | ✅ Rate-limited 30/min/IP + Origin-aware CORS (allows same-origin GETs that omit Origin, blocks unknown cross-origin) |
 | XSS through user input rendered via `dangerouslySetInnerHTML` | High if present | ✅ Audited — no `dangerouslySetInnerHTML` in code; React JSX auto-escapes; `RichText` whitelists 4 inline tags only |
 | Stolen Supabase anon key | Low | ✅ Anon key is designed to be public — Row-Level Security (RLS) gates everything |
