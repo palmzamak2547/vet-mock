@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
+import { useOnlineCount } from '../hooks/useOnlineCount.js';
 
 export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile }) {
   const totalQ = QB.length + (customQuestions?.length || 0);
   const nextExam = getNextExam('y4');
+  const { count: onlineCount, status: onlineStatus } = useOnlineCount();
 
   // Re-render every minute when exam is imminent so countdown stays fresh
   const [, setTick] = useState(0);
@@ -25,6 +27,36 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           {user ? <>สวัสดี <em>{profile?.username || 'เพื่อน'}</em></> : <>อ่านแล้ว ลอง <em>ทำข้อสอบ</em> กันเถอะ</>}
         </h1>
         <p>คลังข้อสอบ {totalQ} ข้อ · ปี 4 Vet 86 · By vet86 for vet86</p>
+        {onlineStatus === 'connected' && onlineCount > 0 && (
+          <div
+            title="จำนวนคนที่เปิดเว็บอยู่ตอนนี้ (อัพเดต realtime)"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              marginTop: 10,
+              padding: '4px 10px',
+              borderRadius: 999,
+              background: 'rgba(74, 107, 74, 0.12)',
+              border: '1px solid var(--clr-sage)',
+              fontSize: 12,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-ink)',
+            }}
+          >
+            <span
+              style={{
+                display: 'inline-block',
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: 'var(--clr-sage)',
+                animation: 'pulse 1.6s ease-in-out infinite',
+              }}
+            />
+            <strong>{onlineCount}</strong> คนกำลังเรียนอยู่
+          </div>
+        )}
       </div>
 
       {/* Next exam countdown banner */}
