@@ -36,7 +36,7 @@ export default function AboutView({ goHome, setView }) {
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
         <h3>📝 โครงสร้างข้อสอบจริง (อัปเดตล่าสุด)</h3>
         <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 14, fontStyle: 'italic' }}>
-          ข้อมูลที่อาจารย์/เพื่อนๆ บอกมาเรื่อยๆ — เก็บไว้ที่นี่ให้พร้อมเตรียม · โปรดยืนยันกับอาจารย์/หัวหน้าห้องอีกครั้งก่อนวันสอบจริง
+          ข้อมูลที่อาจารย์/เพื่อนๆ บอกมาเรื่อยๆ — เก็บไว้ที่นี่ให้พร้อมเตรียม · โปรดยืนยันกับอาจารย์/หัวปีอีกครั้งก่อนวันสอบจริง
         </div>
 
         {/* COM III */}
