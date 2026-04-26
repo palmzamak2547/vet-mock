@@ -3,11 +3,19 @@ import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
 import { useOnlineCount } from '../hooks/useOnlineCount.js';
+import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 
-export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile }) {
+export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {} }) {
   const totalQ = QB.length + (customQuestions?.length || 0);
   const nextExam = getNextExam('y4');
   const { count: onlineCount, status: onlineStatus } = useOnlineCount();
+
+  // Reading checklist progress (year 4 only — current year)
+  const checklistTopics = (SUBJECTS_BY_YEAR[4] || [])
+    .filter((s) => Array.isArray(s.topics) && s.topics.length > 0)
+    .flatMap((s) => s.topics.map((t) => t.id));
+  const readingDone = checklistTopics.filter((id) => readingChecklist[id]).length;
+  const readingTotal = checklistTopics.length;
 
   // Re-render every minute when exam is imminent so countdown stays fresh
   const [, setTick] = useState(0);
@@ -137,6 +145,17 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           <div className="icon">📖</div>
           <div className="title">ทวนเนื้อหา</div>
           <div className="sub">Study notes อ้างอิง slide จริง · COM III + COM IV + COM V</div>
+        </button>
+
+        <button className="vmx-mode-card" onClick={() => setView('reading-checklist')} style={{ borderColor: 'var(--clr-gold)' }}>
+          <div className="icon">📚</div>
+          <div className="title">รายการอ่าน</div>
+          <div className="sub">
+            {readingTotal > 0
+              ? `${readingDone}/${readingTotal} หัวข้อ · ติ๊กที่อ่านเสร็จแล้ว`
+              : 'ติ๊กหัวข้อที่อ่านเสร็จแล้ว — track progress'}
+          </div>
+          {readingDone > 0 && <div className="badge" style={{ background: 'var(--clr-gold)' }}>{readingDone}</div>}
         </button>
 
         <button className="vmx-mode-card" onClick={() => setView('scores')}>

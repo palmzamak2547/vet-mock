@@ -37,6 +37,7 @@ const FeedbackView = lazy(() => import('./views/FeedbackView.jsx'));
 const YearSelectView = lazy(() => import('./views/YearSelectView.jsx'));
 const TopicSelectView = lazy(() => import('./views/TopicSelectView.jsx'));
 const NotesView = lazy(() => import('./views/NotesView.jsx'));
+const ReadingChecklistView = lazy(() => import('./views/ReadingChecklistView.jsx'));
 
 const ViewFallback = () => <div className="vmx-empty">กำลังโหลด…</div>;
 
@@ -67,6 +68,7 @@ export default function App() {
   const [srCards, setSrCards] = useLocalStorage('vmx-sr-cards', {});
   const [customQuestions, setCustomQuestions] = useLocalStorage('vmx-custom-q', []);
   const [streakData, setStreakData] = useLocalStorage('vmx-streak', { streak: 0, lastDate: null });
+  const [readingChecklist, setReadingChecklist] = useLocalStorage('vmx-reading-checklist', {});
 
   useEffect(() => {
     const link = document.createElement('link');
@@ -88,14 +90,25 @@ export default function App() {
       if (data.sr_cards && Object.keys(data.sr_cards).length) setSrCards(data.sr_cards);
       if (data.custom_questions?.length) setCustomQuestions(data.custom_questions);
       if (data.streak_data?.lastDate) setStreakData(data.streak_data);
+      // reading_checklist: pulled if the Supabase column exists; harmless
+      // when it doesn't (data.reading_checklist is just undefined).
+      if (data.reading_checklist && Object.keys(data.reading_checklist).length) setReadingChecklist(data.reading_checklist);
     }).catch(() => {});
   }, [user]);
 
   useEffect(() => {
     if (!user) return;
+    // NOTE: reading_checklist intentionally excluded from cloud push for
+    // now — the user_data table in supabase-schema.sql doesn't include
+    // that column yet, and including it would make the entire upsert
+    // fail with "column not found", breaking ALL cloud sync for every
+    // logged-in user. Add the column + uncomment the line below once
+    // the migration runs:
+    //   ALTER TABLE user_data ADD COLUMN reading_checklist JSONB DEFAULT '{}'::JSONB;
     pushUserDataDebounced(user.id, {
       bookmarks, history, notes, sr_cards: srCards,
       custom_questions: customQuestions, streak_data: streakData,
+      // reading_checklist: readingChecklist,
     });
   }, [user, bookmarks, history, notes, srCards, customQuestions, streakData]);
 
@@ -281,13 +294,13 @@ export default function App() {
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions }} />}
-              {view === 'topic-select' && <TopicSelectView {...{ subject, setTopic, setView, goHome, mode, customQuestions }} />}
+              {view === 'topic-select' && <TopicSelectView {...{ subject, setTopic, setView, goHome, mode, customQuestions, readingChecklist }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }} />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks }} />}
@@ -302,6 +315,7 @@ export default function App() {
               {view === 'about' && <AboutView {...{ goHome, setView }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView }} />}
+              {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setView }} />}
             </Suspense>
             </ErrorBoundary>
           )}

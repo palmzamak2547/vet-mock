@@ -1,10 +1,13 @@
 import { QB } from '../data/questions.js';
 import { SUBJECTS } from '../data/curriculum.js';
 
-export default function TopicSelectView({ subject, setTopic, setView, goHome, mode, customQuestions = [] }) {
+export default function TopicSelectView({ subject, setTopic, setView, goHome, mode, customQuestions = [], readingChecklist = {} }) {
   const subjectMeta = SUBJECTS.find((s) => s.id === subject);
   const topics = subjectMeta?.topics || [];
   const allQuestions = [...QB, ...customQuestions];
+
+  // Reading-checklist summary for this subject
+  const subjReadDone = topics.filter((t) => readingChecklist[t.id]).length;
 
   const countFor = (topicId) => {
     if (topicId === 'all') return allQuestions.filter((q) => q.subject === subject).length;
@@ -21,6 +24,28 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
       <div className="vmx-hero">
         <h1>เลือก <em>หัวข้อ</em></h1>
         <p>{subjectMeta?.icon} {subjectMeta?.name} · เลือกเฉพาะหัวข้อที่จะสอบ หรือทั้งหมดก็ได้</p>
+        {topics.length > 0 && (
+          <div
+            onClick={() => setView('reading-checklist')}
+            title="เปิดรายการอ่าน"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              marginTop: 8,
+              padding: '4px 10px',
+              borderRadius: 999,
+              background: 'rgba(184, 137, 64, 0.12)',
+              border: '1px solid var(--clr-gold)',
+              fontSize: 12,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-ink)',
+              cursor: 'pointer',
+            }}
+          >
+            📚 อ่านแล้ว <strong>{subjReadDone}/{topics.length}</strong>
+          </div>
+        )}
       </div>
 
       {subjectMeta?.examFormat && (
@@ -44,6 +69,7 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
         {topics.map((t) => {
           const count = countFor(t.id);
           const isEmpty = count === 0;
+          const isRead = !!readingChecklist[t.id];
           return (
             <button
               key={t.id}
@@ -53,10 +79,35 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
               style={{
                 opacity: isEmpty ? 0.5 : 1,
                 cursor: isEmpty ? 'not-allowed' : 'pointer',
+                position: 'relative',
               }}
               title={isEmpty ? 'ยังไม่มีข้อสอบในหัวข้อนี้' : ''}
             >
               <div className="accent" style={{ background: subjectMeta?.color || 'var(--clr-ink)' }}></div>
+              {isRead && (
+                <div
+                  aria-label="อ่านแล้ว"
+                  title="อ่านแล้ว"
+                  style={{
+                    position: 'absolute',
+                    top: 8,
+                    right: 8,
+                    width: 22,
+                    height: 22,
+                    borderRadius: '50%',
+                    background: 'var(--clr-sage)',
+                    color: 'var(--clr-bg)',
+                    fontSize: 12,
+                    fontWeight: 800,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                  }}
+                >
+                  ✓
+                </div>
+              )}
               <div className="icon">{t.icon || '📑'}</div>
               <div className="title">{t.label}</div>
               {t.lecturer && (
