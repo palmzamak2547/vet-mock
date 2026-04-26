@@ -84,7 +84,7 @@ export default function FeedbackView({ goHome, user, profile }) {
           </div>
         )}
 
-        <form onSubmit={submit}>
+        <form onSubmit={submit} noValidate>
           <div className="vmx-form-group">
             <label>ประเภท</label>
             <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
@@ -103,7 +103,15 @@ export default function FeedbackView({ goHome, user, profile }) {
 
           <div className="vmx-form-group">
             <label>Email (optional, ใส่ถ้าอยากให้ตอบกลับ)</label>
-            <input type="email" value={formData.fromEmail} onChange={(e) => setFormData({ ...formData, fromEmail: e.target.value })} placeholder="you@example.com" maxLength={254} />
+            <input
+              type="text"
+              inputMode="email"
+              autoComplete="email"
+              value={formData.fromEmail}
+              onChange={(e) => setFormData({ ...formData, fromEmail: e.target.value })}
+              placeholder="you@example.com"
+              maxLength={254}
+            />
           </div>
 
           <div className="vmx-form-group">
@@ -119,7 +127,6 @@ export default function FeedbackView({ goHome, user, profile }) {
               placeholder="อธิบายปัญหา/ข้อเสนอแนะ..."
               style={{ minHeight: 140 }}
               maxLength={5000}
-              required
             />
           </div>
 
