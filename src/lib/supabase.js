@@ -53,6 +53,17 @@ export function hasSavedSession() {
   return false;
 }
 
+// Notify useAuth (and any other listener) that the SDK is now loaded
+// and an auth state change just happened. useAuth uses this signal to
+// (a) fetch the current session for the user that just signed in and
+// (b) attach an onAuthStateChange listener — neither of which it does
+// at boot when there's no saved session, to keep the SDK lazy.
+function notifyAuthChanged() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('vmx-auth-changed'));
+  }
+}
+
 // ─── Auth helpers — all lazy ────────────────────────────────
 export async function signUpWithEmail(email, password, username) {
   const supabase = await getSupabase();
@@ -63,6 +74,7 @@ export async function signUpWithEmail(email, password, username) {
     options: { data: { username } },
   });
   if (error) throw error;
+  notifyAuthChanged();
   return data;
 }
 
@@ -71,6 +83,7 @@ export async function signInWithEmail(email, password) {
   if (!supabase) throw new Error('Supabase not configured');
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) throw error;
+  notifyAuthChanged();
   return data;
 }
 
@@ -82,6 +95,8 @@ export async function signInWithGoogle() {
     options: { redirectTo: window.location.origin },
   });
   if (error) throw error;
+  // OAuth redirects away — the post-redirect bootstrap path picks
+  // up the session via hasSavedSession()
   return data;
 }
 
@@ -89,4 +104,36 @@ export async function signOut() {
   const supabase = await getSupabase();
   if (!supabase) return;
   await supabase.auth.signOut();
+  notifyAuthChanged();
+}
+
+// ─── Password reset ─────────────────────────────────────────────
+export async function sendPasswordReset(email) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${window.location.origin}/?auth=reset`,
+  });
+  if (error) throw error;
+}
+
+export async function updatePassword(newPassword) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { error } = await supabase.auth.updateUser({ password: newPassword });
+  if (error) throw error;
+}
+
+// ─── Username availability check (for real-time validation) ─────
+// Throttled by callers; does a single COUNT against profiles.
+// Returns: true (free) | false (taken) | null (unknown / error).
+export async function isUsernameAvailable(username) {
+  const supabase = await getSupabase();
+  if (!supabase) return null;
+  const { count, error } = await supabase
+    .from('profiles')
+    .select('id', { count: 'exact', head: true })
+    .eq('username', username);
+  if (error) return null;
+  return (count ?? 0) === 0;
 }

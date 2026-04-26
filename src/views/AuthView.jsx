@@ -1,7 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { signUpWithEmail, signInWithEmail, signInWithGoogle } from '../lib/supabase.js';
 
-export default function AuthView({ onBack, onSuccess }) {
+export default function AuthView({ onBack, onSuccess, user }) {
+  // BUG 7 fix — if already signed in (e.g. user clicked Login while
+  // already authenticated, or arrived here after the auth listener
+  // resolved), bounce back to wherever onSuccess goes (usually home).
+  useEffect(() => {
+    if (user && onSuccess) onSuccess();
+  }, [user, onSuccess]);
+
   const [mode, setMode] = useState('signin'); // 'signin' | 'signup'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
