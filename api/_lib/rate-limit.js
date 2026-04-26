@@ -1,0 +1,66 @@
+// ============================================================
+// Tiny in-memory rate limiter for Vercel serverless functions
+// ============================================================
+// Note: Vercel functions are stateless across instances — this map
+// only protects within ONE running instance. Cold starts reset it.
+// For stronger protection upgrade to Vercel KV / Upstash Redis.
+// Still useful: stops single-burst spam from one user.
+// ============================================================
+
+const buckets = new Map();
+
+// Sweep stale entries periodically
+function sweep(now) {
+  for (const [k, v] of buckets) {
+    if (now - v.last > 60_000) buckets.delete(k);
+  }
+}
+
+/**
+ * Simple sliding-window limiter.
+ * @param {string} key   — identifier (usually IP)
+ * @param {number} max   — max requests in window
+ * @param {number} winMs — window size (ms)
+ * @returns {{ ok: boolean, retryAfter: number }}
+ */
+export function rateLimit(key, max, winMs) {
+  const now = Date.now();
+  if (Math.random() < 0.01) sweep(now); // 1% sweep
+  let b = buckets.get(key);
+  if (!b || now - b.first > winMs) {
+    b = { first: now, last: now, count: 1 };
+    buckets.set(key, b);
+    return { ok: true, retryAfter: 0 };
+  }
+  b.last = now;
+  b.count++;
+  if (b.count > max) {
+    return { ok: false, retryAfter: Math.ceil((winMs - (now - b.first)) / 1000) };
+  }
+  return { ok: true, retryAfter: 0 };
+}
+
+/** Best-effort client IP extraction for rate-limit keys (not auth!). */
+export function clientIP(req) {
+  const fwd = req.headers['x-forwarded-for'];
+  if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
+  return req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
+}
+
+/** Allowed origins for CORS (returns the origin if allowed, else null). */
+export function allowedOrigin(req) {
+  const origin = req.headers.origin;
+  if (!origin) return null;
+  const allow = [
+    'https://vet-mock.vercel.app',
+    /^https:\/\/vet-mock-[\w-]+\.vercel\.app$/,  // Preview deployments
+    'http://localhost:5173',
+    'http://localhost:4173',
+    'http://localhost:4174',
+  ];
+  for (const a of allow) {
+    if (typeof a === 'string' && origin === a) return origin;
+    if (a instanceof RegExp && a.test(origin)) return origin;
+  }
+  return null;
+}

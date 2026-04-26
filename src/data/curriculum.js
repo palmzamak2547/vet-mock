@@ -101,9 +101,9 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'รอ confirm',
         notes: [
-          '📌 28 lectures: Oncology(6) + Endocrine(6) + Immune-mediated(6) + Dermatology(9) + Peds-Geri(2)',
-          '📅 ข้อสอบ Final · ศุกร์ 1 พ.ค. 2569 (per sources) — เนื้อหาเยอะ + ยาก > 2.5 ชม.',
-          'ℹ️ ตอนนี้คลังข้อสอบครอบคลุมเฉพาะ Immune+Dermatology+Peds-Geri (คาบ 15-28) · Oncology + systemic Endocrine กำลังเตรียม',
+          '📅 Final exam scope = คาบ 15-28 (Immune-mediated + Dermatology + Peds-Geri) · ศุกร์ 1 พ.ค. 2569 · ยาก > 2.5 ชม.',
+          '📚 Midterm scope = คาบ 1-14 (Oncology I-VI + systemic Endocrine I-VI + Immune intro) — สอบไปแล้ว',
+          '✅ คลังข้อสอบครอบคลุม Final scope ครบทั้ง 14 คาบ',
         ],
       },
       topics: [

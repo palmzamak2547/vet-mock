@@ -67,7 +67,7 @@ export default function AuthView({ onBack, onSuccess }) {
           {mode === 'signup' && (
             <div className="vmx-form-group">
               <label>ชื่อแสดง (Username)</label>
-              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="เช่น vet86_ping" required />
+              <input type="text" value={username} onChange={(e) => setUsername(e.target.value.slice(0, 30))} placeholder="เช่น vet86_ping" maxLength={30} required />
             </div>
           )}
           <div className="vmx-form-group">

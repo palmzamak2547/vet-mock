@@ -40,7 +40,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {showNote && (
         <div className="vmx-note-panel">
           <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 6, fontFamily: 'JetBrains Mono, monospace' }}>NOTE</div>
-          <textarea className="vmx-note-textarea" value={note || ''} onChange={(e) => onNoteChange(e.target.value)} placeholder="จดโน้ตที่นี่..." />
+          <textarea className="vmx-note-textarea" value={note || ''} onChange={(e) => onNoteChange(e.target.value.slice(0, 5000))} placeholder="จดโน้ตที่นี่..." maxLength={5000} />
         </div>
       )}
 

@@ -12,14 +12,30 @@
 // Returns: { items: [{id, title}], count, source: 'api'|'rss', note? }
 // ============================================================
 
+import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+
 const YT_API = 'https://www.googleapis.com/youtube/v3/playlistItems';
 const YT_RSS = 'https://www.youtube.com/feeds/videos.xml';
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  // ── CORS: only known origins ──
+  const origin = allowedOrigin(req);
+  if (origin) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+  if (!origin) return res.status(403).json({ error: 'Origin not allowed' });
+
+  // ── Rate limit: 30 / minute / IP ──
+  const ip = clientIP(req);
+  const rl = rateLimit(`playlist:${ip}`, 30, 60_000);
+  if (!rl.ok) {
+    res.setHeader('Retry-After', String(rl.retryAfter));
+    return res.status(429).json({ error: 'Too many requests', retryAfter: rl.retryAfter });
+  }
 
   const id = (req.query?.id || '').trim();
   if (!id || !/^[A-Za-z0-9_-]{10,40}$/.test(id)) {

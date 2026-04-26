@@ -98,26 +98,27 @@ export default function FeedbackView({ goHome, user, profile }) {
 
           <div className="vmx-form-group">
             <label>ชื่อ (optional)</label>
-            <input type="text" value={formData.fromName} onChange={(e) => setFormData({ ...formData, fromName: e.target.value })} placeholder="เช่น Vet86_PingP" />
+            <input type="text" value={formData.fromName} onChange={(e) => setFormData({ ...formData, fromName: e.target.value })} placeholder="เช่น Vet86_PingP" maxLength={100} />
           </div>
 
           <div className="vmx-form-group">
             <label>Email (optional, ใส่ถ้าอยากให้ตอบกลับ)</label>
-            <input type="email" value={formData.fromEmail} onChange={(e) => setFormData({ ...formData, fromEmail: e.target.value })} placeholder="you@example.com" />
+            <input type="email" value={formData.fromEmail} onChange={(e) => setFormData({ ...formData, fromEmail: e.target.value })} placeholder="you@example.com" maxLength={254} />
           </div>
 
           <div className="vmx-form-group">
             <label>หัวข้อ</label>
-            <input type="text" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} placeholder="เช่น ข้อสอบ COM IV ตอบไม่ถูก" />
+            <input type="text" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} placeholder="เช่น ข้อสอบ COM IV ตอบไม่ถูก" maxLength={200} />
           </div>
 
           <div className="vmx-form-group">
-            <label>ข้อความ *</label>
+            <label>ข้อความ * <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontWeight: 'normal' }}>({formData.message.length}/5000)</span></label>
             <textarea
               value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value.slice(0, 5000) })}
               placeholder="อธิบายปัญหา/ข้อเสนอแนะ..."
               style={{ minHeight: 140 }}
+              maxLength={5000}
               required
             />
           </div>

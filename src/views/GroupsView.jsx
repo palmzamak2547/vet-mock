@@ -65,7 +65,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
           <form onSubmit={handleCreate}>
             <div className="vmx-form-group">
               <label>ชื่อกลุ่ม</label>
-              <input value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="เช่น Vet 86 Final Exam" required autoFocus />
+              <input value={newName} onChange={(e) => setNewName(e.target.value.slice(0, 60))} placeholder="เช่น Vet 86 Final Exam" maxLength={60} required autoFocus />
             </div>
             <div className="vmx-btn-row">
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowCreate(false)}>ยกเลิก</button>
