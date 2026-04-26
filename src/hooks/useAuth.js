@@ -23,24 +23,34 @@ export function useAuth() {
   const [loading, setLoading] = useState(hasSupabase && hasSavedSession());
   const subscribed = useRef(false);
   const subscriptionRef = useRef(null);
+  // Guard against parallel setupSDK calls — multiple vmx-auth-changed
+  // events fired in quick succession (e.g. signup → fallback signin
+  // both notify) would otherwise each kick off a getSession() round-trip.
+  const setupRunning = useRef(false);
 
   // Load SDK + hydrate session + (idempotently) attach onAuthStateChange
   const setupSDK = useCallback(async (cancelledRef) => {
     if (!hasSupabase) return;
-    const supabase = await getSupabase();
-    if (cancelledRef.current || !supabase) return;
+    if (setupRunning.current) return;
+    setupRunning.current = true;
+    try {
+      const supabase = await getSupabase();
+      if (cancelledRef.current || !supabase) return;
 
-    const { data: { session } } = await supabase.auth.getSession();
-    if (cancelledRef.current) return;
-    setUser(session?.user ?? null);
-    setLoading(false);
+      const { data: { session } } = await supabase.auth.getSession();
+      if (cancelledRef.current) return;
+      setUser(session?.user ?? null);
+      setLoading(false);
 
-    if (!subscribed.current) {
-      const { data } = supabase.auth.onAuthStateChange((_event, s) => {
-        setUser(s?.user ?? null);
-      });
-      subscriptionRef.current = data.subscription;
-      subscribed.current = true;
+      if (!subscribed.current) {
+        const { data } = supabase.auth.onAuthStateChange((_event, s) => {
+          setUser(s?.user ?? null);
+        });
+        subscriptionRef.current = data.subscription;
+        subscribed.current = true;
+      }
+    } finally {
+      setupRunning.current = false;
     }
   }, []);
 
@@ -70,13 +80,16 @@ export function useAuth() {
   }, [setupSDK]);
 
   // Fetch profile when user changes — with retry to dodge the race vs
-  // the handle_new_user trigger right after signup.
+  // the handle_new_user trigger right after signup. Most profiles are
+  // ready inside 100-300ms in practice, so the retry schedule is
+  // front-loaded: 0 → 100 → 300 → 800ms, total ≤1.2s before falling
+  // back to a synthesized local profile (was 3.75s before).
   useEffect(() => {
     if (!user) { setProfile(null); return; }
     let cancelled = false;
     let attempt = 0;
-    const MAX_ATTEMPTS = 5;
-    const DELAYS_MS = [0, 250, 500, 1000, 2000]; // total ~3.75s worst case
+    const DELAYS_MS = [0, 100, 300, 800];
+    const MAX_ATTEMPTS = DELAYS_MS.length;
 
     (async () => {
       while (!cancelled && attempt < MAX_ATTEMPTS) {
@@ -85,7 +98,7 @@ export function useAuth() {
 
         const supabase = await getSupabase();
         if (cancelled || !supabase) return;
-        const { data, error } = await supabase
+        const { data } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', user.id)
@@ -93,17 +106,16 @@ export function useAuth() {
         if (cancelled) return;
 
         if (data) { setProfile(data); return; }
-        // No row yet (trigger pending) or transient error → retry
         attempt++;
-        if (attempt >= MAX_ATTEMPTS && !error) {
-          // Final fallback: synthesize a minimal local profile so the UI
-          // doesn't appear as "logged in but no name" forever.
-          setProfile({
-            id: user.id,
-            username: user.email?.split('@')[0] || 'user',
-            avatar_emoji: '🐾',
-          });
-        }
+      }
+      // Reached max attempts → synthesize local profile so the UI
+      // never gets stuck on "logged in but no name" forever.
+      if (!cancelled) {
+        setProfile({
+          id: user.id,
+          username: user.email?.split('@')[0] || 'user',
+          avatar_emoji: '🐾',
+        });
       }
     })();
 

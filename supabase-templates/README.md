@@ -10,6 +10,8 @@ iOS Mail, and Thunderbird.
 | File | Supabase template slot | When it fires |
 |---|---|---|
 | `reset-password.html` | **Reset Password** | User clicks "ลืมรหัสผ่าน" + submits email |
+| `confirm-signup.html` | **Confirm signup** | New signup, only when project has email confirmation ON |
+| `magic-link.html` | **Magic Link** | Passwordless login via signInWithOtp (UI not exposed yet) |
 
 ## How to apply
 
@@ -19,6 +21,8 @@ iOS Mail, and Thunderbird.
 4. Copy-paste the HTML from the matching file in this folder into the **Body (HTML)** field
 5. (Optional) Update **Subject** too — suggested:
    - Reset Password: `🔐 รีเซ็ตรหัสผ่าน VetMock`
+   - Confirm signup: `🐾 ยืนยันอีเมล — ยินดีต้อนรับสู่ VetMock`
+   - Magic Link: `✨ ลิงก์ Login VetMock ของคุณ`
 6. Click **Save changes**
 
 ## Supabase template variables used
@@ -51,7 +55,5 @@ iOS Mail, and Thunderbird.
 
 Open if you want me to write these in the same style:
 
-- `confirm-signup.html` — when email confirmation is enabled
-- `magic-link.html` — for passwordless OTP login
-- `email-change.html` — when user changes their email
+- `email-change.html` — when user changes their email (no UI yet)
 - `invite.html` — for team/org invites (not used in VetMock yet)

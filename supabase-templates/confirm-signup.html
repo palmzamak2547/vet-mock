@@ -1,0 +1,174 @@
+<!--
+  VetMock — Confirm Signup Email Template
+  ============================================================
+  Paste this entire file into:
+    Supabase Dashboard
+      → Authentication
+      → Email Templates
+      → "Confirm signup"
+      → Body (HTML) field
+    → Save changes
+
+  This email is only sent when the project has
+    Authentication → Email Auth → "Confirm email" toggled ON.
+
+  Supabase variables:
+    {{ .ConfirmationURL }}  → the magic verification link
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <title>ยืนยันอีเมล VetMock</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap');
+
+    @media (prefers-color-scheme: dark) {
+      .vm-bg { background: #1a1612 !important; }
+      .vm-card { background: #2b2419 !important; border-color: #3d3225 !important; }
+      .vm-ink { color: #f6efe4 !important; }
+      .vm-soft { color: #b8a98e !important; }
+      .vm-divider { border-color: #3d3225 !important; }
+      .vm-fallback-bg { background: #1a1612 !important; border-color: #3d3225 !important; }
+    }
+
+    @media only screen and (max-width: 600px) {
+      .vm-card { padding: 24px 18px !important; }
+      .vm-h1 { font-size: 22px !important; }
+      .vm-cta { padding: 14px 22px !important; font-size: 15px !important; }
+    }
+  </style>
+</head>
+<body class="vm-bg" style="margin: 0; padding: 0; background: #f6efe4; font-family: 'IBM Plex Sans Thai', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #2b2419; -webkit-text-size-adjust: 100%;">
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="vm-bg" style="background: #f6efe4;">
+    <tr>
+      <td align="center" style="padding: 32px 16px;">
+
+        <table role="presentation" class="vm-card" cellpadding="0" cellspacing="0" border="0" style="max-width: 540px; width: 100%; background: #fdf8ef; border: 1px solid #d8c9a8; border-radius: 18px; overflow: hidden;">
+
+          <!-- Header -->
+          <tr>
+            <td align="center" style="padding: 32px 32px 8px;">
+              <div style="display: inline-block; width: 64px; height: 64px; line-height: 64px; border-radius: 50%; background: rgba(74, 107, 74, 0.12); font-size: 32px; text-align: center;">
+                🐾
+              </div>
+              <div style="margin-top: 12px; font-family: 'Fraunces', Georgia, serif; font-size: 13px; font-weight: 500; color: #5c4f3d; letter-spacing: 0.16em; text-transform: uppercase;" class="vm-soft">
+                VetMock
+              </div>
+            </td>
+          </tr>
+
+          <!-- Heading -->
+          <tr>
+            <td class="vm-card vm-ink" style="padding: 8px 32px 16px;" align="center">
+              <h1 class="vm-h1 vm-ink" style="margin: 0; font-family: 'Fraunces', Georgia, serif; font-size: 26px; font-weight: 700; line-height: 1.25; color: #2b2419;">
+                ยินดีต้อนรับสู่ VetMock!
+              </h1>
+              <p class="vm-soft" style="margin: 10px 0 0; font-size: 14px; color: #5c4f3d; line-height: 1.6;">
+                เพื่อใช้งานบัญชีของคุณ กรุณายืนยันอีเมลของคุณก่อน
+              </p>
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding: 8px 32px 24px;" align="center">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin: 16px auto;">
+                <tr>
+                  <td align="center" style="border-radius: 999px; background: #4a6b4a;">
+                    <a href="{{ .ConfirmationURL }}"
+                       class="vm-cta"
+                       style="display: inline-block; padding: 16px 36px; font-family: 'IBM Plex Sans Thai', -apple-system, sans-serif; font-size: 16px; font-weight: 600; color: #fdf8ef; text-decoration: none; border-radius: 999px;">
+                      ✓ ยืนยันอีเมล
+                    </a>
+                  </td>
+                </tr>
+              </table>
+              <p class="vm-soft" style="margin: 14px 0 0; font-size: 12px; color: #5c4f3d; line-height: 1.6; font-style: italic;">
+                กดแล้วบัญชีพร้อมใช้งานทันที — ไม่ต้องตั้งค่าเพิ่ม
+              </p>
+            </td>
+          </tr>
+
+          <!-- What you get -->
+          <tr>
+            <td style="padding: 0 32px 16px;">
+              <div style="background: rgba(74, 107, 74, 0.08); border-radius: 10px; padding: 16px 18px;">
+                <p class="vm-ink" style="margin: 0 0 10px; font-size: 13px; color: #2b2419; font-weight: 600;">
+                  🎓 หลังยืนยันอีเมลแล้ว คุณจะใช้:
+                </p>
+                <ul class="vm-soft" style="margin: 0; padding-left: 18px; font-size: 13px; color: #5c4f3d; line-height: 1.8;">
+                  <li>☁️ Sync progress ข้ามเครื่อง (iPad / มือถือ / คอม)</li>
+                  <li>👥 Join Study Groups + แชร์ข้อสอบกับเพื่อน</li>
+                  <li>🏆 Leaderboard กลุ่ม + Global</li>
+                  <li>📚 Bookmark + Notes ส่วนตัว ไม่หายเมื่อล้าง browser</li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="padding: 0 32px;">
+              <div class="vm-divider" style="border-top: 1px dashed #d8c9a8; height: 0;"></div>
+            </td>
+          </tr>
+
+          <!-- Fallback URL -->
+          <tr>
+            <td style="padding: 20px 32px;">
+              <p class="vm-soft" style="margin: 0 0 8px; font-size: 12px; color: #5c4f3d; font-family: 'JetBrains Mono', 'Courier New', monospace; text-transform: uppercase; letter-spacing: 0.06em;">
+                ปุ่มไม่ทำงาน?
+              </p>
+              <p class="vm-ink" style="margin: 0 0 8px; font-size: 13px; color: #2b2419; line-height: 1.6;">
+                Copy ลิงก์นี้แล้ววางในเบราว์เซอร์ของคุณ:
+              </p>
+              <div class="vm-fallback-bg" style="background: #f6efe4; border: 1px solid #d8c9a8; border-radius: 8px; padding: 10px 12px; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; word-break: break-all; line-height: 1.5; color: #5c4f3d;">
+                <a href="{{ .ConfirmationURL }}" style="color: #4a6b4a; text-decoration: none; word-break: break-all;">{{ .ConfirmationURL }}</a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Security note -->
+          <tr>
+            <td style="padding: 0 32px 24px;">
+              <div style="background: rgba(184, 137, 64, 0.10); border-left: 3px solid #b88940; border-radius: 6px; padding: 12px 14px;">
+                <p class="vm-ink" style="margin: 0; font-size: 12px; color: #2b2419; line-height: 1.6;">
+                  <strong>⚠️ ไม่ได้สมัครบัญชี VetMock?</strong><br>
+                  <span class="vm-soft" style="color: #5c4f3d;">
+                    ละเลยอีเมลฉบับนี้ได้เลย — ไม่ต้องดำเนินการอะไร บัญชีจะไม่ถูกเปิดใช้งานหากไม่ได้กดยืนยัน
+                  </span>
+                </p>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td class="vm-card" align="center" style="padding: 20px 32px 32px; border-top: 1px solid #d8c9a8;">
+              <p class="vm-soft" style="margin: 0; font-size: 11px; color: #5c4f3d; line-height: 1.7; font-family: 'JetBrains Mono', 'Courier New', monospace;">
+                VetMock · made with ♡ by Vet 86
+              </p>
+              <p class="vm-soft" style="margin: 6px 0 0; font-size: 10px; color: #8a7960;">
+                อีเมลนี้ส่งจากระบบอัตโนมัติ · ไม่ต้องตอบกลับ
+              </p>
+            </td>
+          </tr>
+
+        </table>
+
+        <p class="vm-soft" style="max-width: 540px; margin: 18px auto 0; font-size: 10px; color: #8a7960; line-height: 1.6; text-align: center;">
+          ลิงก์ใช้ได้ 24 ชั่วโมง · ถ้าหมดอายุ สมัครใหม่อีกครั้งได้
+        </p>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

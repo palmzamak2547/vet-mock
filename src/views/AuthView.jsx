@@ -56,22 +56,21 @@ export default function AuthView({ onBack, onSuccess, user }) {
     if (user && mode !== 'update-password' && onSuccess) onSuccess();
   }, [user, mode, onSuccess]);
 
-  // Fix for "click email link → no update form" bug.
-  // When the user arrives via the password-reset link, the URL hash
-  // contains an `access_token` Supabase needs to swap into a recovery
-  // session. That swap happens inside createClient (via the
-  // detectSessionInUrl option), but createClient only runs the first
-  // time someone calls getSupabase(). useAuth's lazy boot path doesn't
-  // call it for users with no prior session — so the hash sat
-  // unconsumed, and submitting the new password failed with
-  // "Auth session missing".
-  // Calling getSupabase() here forces the SDK to load + the hash to
-  // be consumed before the user even fills the form.
+  // Preload Supabase SDK as soon as the auth screen is open. The SDK
+  // is a 190KB chunk, lazy by default; without preload, the user pays
+  // for the download AFTER they've typed their credentials and hit
+  // submit, which adds 200-500ms of perceived "submit lag" on top of
+  // the actual signin round-trip. Kicking off the import now means
+  // the chunk is usually ready before they finish typing.
+  //
+  // This also doubles as the fix for the password-reset deep link:
+  // recovery flow puts an access_token in the URL hash that needs
+  // createClient's detectSessionInUrl to swap into a session, and
+  // createClient only runs on the first getSupabase() call. Loading
+  // here ensures the hash is consumed in time for form submit.
   useEffect(() => {
-    if (mode === 'update-password') {
-      getSupabase().catch(() => {});
-    }
-  }, [mode]);
+    getSupabase().catch(() => {});
+  }, []);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -167,11 +166,11 @@ export default function AuthView({ onBack, onSuccess, user }) {
         if (newPassword.length < 6) throw new Error('รหัสผ่านใหม่ต้องยาว 6 ตัวขึ้นไป');
         if (newPassword !== newPasswordConfirm) throw new Error('รหัสผ่านยืนยันไม่ตรงกัน');
         await updatePassword(newPassword);
-        setInfo('✓ เปลี่ยนรหัสผ่านสำเร็จ — กลับสู่หน้าแรกใน 2 วินาที');
+        setInfo('✓ เปลี่ยนรหัสผ่านสำเร็จ');
         // Clean the ?auth=reset query param from URL so refreshing
         // doesn't re-trigger this mode forever.
         try { window.history.replaceState(null, '', window.location.pathname); } catch {}
-        setTimeout(() => { if (onSuccess) onSuccess(); }, 2000);
+        setTimeout(() => { if (onSuccess) onSuccess(); }, 1200);
       } else {
         // signin
         await signInWithEmail(email, password);
