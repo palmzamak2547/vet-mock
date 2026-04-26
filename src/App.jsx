@@ -131,7 +131,16 @@ export default function App() {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [view, currentIdx, questions, answerCurrent, nextQ, prevQ, toggleBookmark]);
+    // NOTE: do NOT add answerCurrent/nextQ/prevQ/toggleBookmark to the
+    // dep array — those `const`s are declared LATER in this component,
+    // so referencing them here triggers a Temporal Dead Zone
+    // ReferenceError at render → blank white screen for the whole app.
+    // The handler reads them through closure at fire time, which is OK
+    // because React already re-runs this effect on currentIdx/questions
+    // changes (and those callbacks read from current state via setState
+    // updaters / memo-stable identities).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view, currentIdx, questions]);
 
   const cardStats = useMemo(() => {
     // Only count SR-eligible questions so the Home dashboard "X due"
