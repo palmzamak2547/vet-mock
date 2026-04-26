@@ -19,7 +19,7 @@ export const NOTES_COM5 = {
   cve: {
     topic: 'cve',
     title: 'CVE — Canine Viral Enteritis',
-    lecturer: 'Aj. Punyamanee Yamkate',
+    lecturer: 'Punyamanee Yamkate',
     icon: '🦠',
     summary: 'CPV (โจมตี crypt → bloody diarrhea) + CCV (mature enterocyte ที่ villi tip → mild) + CRV. ไม่มี specific Tx → supportive care + early ABO + nutrition.',
     sections: [
@@ -205,7 +205,7 @@ export const NOTES_COM5 = {
   'sporo-crypto': {
     topic: 'sporo-crypto',
     title: 'Sporotrichosis & Cryptococcosis (in cats)',
-    lecturer: 'Aj. Siwaporn Pengpis (DTBVM)',
+    lecturer: 'Siwaporn Pengpis (DTBVM)',
     icon: '🍄',
     summary: 'Sporo = zoonosis, dimorphic, 3 forms (cut/cut-lymph/dissem), Itra TOC. Crypto = NON-zoonosis, 4 forms (nasal/cut/CNS/syst), LCAT antigen test, Fluconazole TOC.',
     sections: [
@@ -377,7 +377,7 @@ export const NOTES_COM5 = {
   'gi-protozoa': {
     topic: 'gi-protozoa',
     title: 'GI Protozoa in Companion Animals',
-    lecturer: 'Aj. Woraporn Sukhumavasi',
+    lecturer: 'Woraporn Sukhumavasi',
     icon: '🪱',
     summary: 'Mucosoflagellate (Giardia, T.foetus) vs Coccidia (Cystoisospora, Crypto, Toxo, Neospora, Sarcocystis). Oocyst ratio: 1:2:4 (ทั่วไป) / 1:0:4 (Crypto).',
     sections: [
@@ -616,7 +616,7 @@ export const NOTES_COM5 = {
   rabies: {
     topic: 'rabies',
     title: 'Rabies — โรคพิษสุนัขบ้า',
-    lecturer: 'Aj. Vachira Hunprasit',
+    lecturer: 'Vachira Hunprasit',
     icon: '🦇',
     summary: 'Lyssavirus (Rhabdoviridae), zoonotic, fatal · 3 phases (prodromal/excitative/paralytic) · DFA = main Dx · prevention only · 3 ป + 5 ย.',
     sections: [
@@ -940,7 +940,7 @@ export const NOTES_COM5 = {
   'feline-uri': {
     topic: 'feline-uri',
     title: 'Feline Upper Respiratory Infection (FURI / FRDC)',
-    lecturer: 'Aj. Nattawan Tangmahakul',
+    lecturer: 'Nattawan Tangmahakul',
     icon: '🐈',
     summary: '5 pathogens (FCV/FHV-1/Mycoplasma/B.bronch/C.felis). Doxy 1st line. Famciclovir 90 mg/kg q8-12h สำหรับ FHV-1. Vaccine ลด severity แต่ไม่ป้องกัน 100%.',
     sections: [

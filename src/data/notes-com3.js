@@ -13,7 +13,7 @@ export const NOTES_COM3 = {
   'ai-vet': {
     topic: 'ai-vet',
     title: 'AI in Vet Learning',
-    lecturer: 'Aj. Nutthee Am-In',
+    lecturer: 'Nutthee Am-In',
     icon: '🤖',
     summary: 'NotebookLM (best for study notes, low hallucination) · ChatGPT/Gemini/Claude · Prompt engineering · Verify with primary source · Cite usage · ห้าม upload PHI',
     sections: [
@@ -101,7 +101,7 @@ export const NOTES_COM3 = {
   triage: {
     topic: 'triage',
     title: 'Triage of Emergency Patients',
-    lecturer: 'Aj. Chutirat Torsahakul',
+    lecturer: 'Chutirat Torsahakul',
     icon: '🚦',
     summary: 'แบ่ง emergency: red/yellow/green · Primary survey ABCDE · 6 perfusion: mentation, MM, CRT, HR, pulse, extremity temp · Secondary survey เมื่อ stable',
     sections: [
@@ -178,7 +178,7 @@ export const NOTES_COM3 = {
   shock: {
     topic: 'shock',
     title: 'SHOCK',
-    lecturer: 'Aj. Chutirat Torsahakul',
+    lecturer: 'Chutirat Torsahakul',
     icon: '⚠️',
     summary: '5 types: hypovolemic / cardiogenic / obstructive / distributive / metabolic-hypoxic · Goal: detect early + restore O₂ delivery · Fluid ช่วยทุก type ยกเว้น cardiogenic',
     sections: [
@@ -307,7 +307,7 @@ export const NOTES_COM3 = {
   cpcr: {
     topic: 'cpcr',
     title: 'CPCR (Cardiopulmonary Cerebral Resuscitation)',
-    lecturer: 'Aj. Chutirat Torsahakul',
+    lecturer: 'Chutirat Torsahakul',
     icon: '❤️',
     summary: 'RECOVER guidelines: compression 100-120/min, depth 1/3-1/2 chest · 30:2 (no ETT) · Epi 0.01 mg/kg q3-5min · shockable = VF/pulseless VT',
     sections: [
@@ -415,7 +415,7 @@ export const NOTES_COM3 = {
   'acute-abdomen': {
     topic: 'acute-abdomen',
     title: 'Acute Abdomen',
-    lecturer: 'Aj. Chutirat Torsahakul',
+    lecturer: 'Chutirat Torsahakul',
     icon: '🩺',
     summary: 'ปวดท้องเฉียบพลัน · 8-step approach: recognize → triage → minimum DB → AFAST → primary tx → complete H&PE → secondary survey → categorize',
     sections: [
@@ -513,7 +513,7 @@ export const NOTES_COM3 = {
   'resp-cv-er': {
     topic: 'resp-cv-er',
     title: 'Respiratory & Cardiovascular Emergency',
-    lecturer: 'Aj. Chutirat Torsahakul',
+    lecturer: 'Chutirat Torsahakul',
     icon: '🫁',
     summary: 'Resp pattern → localize: URT (inspiratory + stridor), LRT (expiratory + wheeze), pleural (paradoxical), parenchymal (rapid shallow). CV: arrhythmia, edema, tamponade.',
     sections: [
@@ -708,7 +708,7 @@ export const NOTES_COM3 = {
   'metabolic-er': {
     topic: 'metabolic-er',
     title: 'Metabolic / Endocrine / UT Emergency',
-    lecturer: 'Aj. Chutirat Torsahakul',
+    lecturer: 'Chutirat Torsahakul',
     icon: '💊',
     summary: 'DKA: rehydrate + correct K → CRI insulin · Addisonian: hyperK + hypoNa · Urethral obstruct: stabilize K ก่อน sedate · AKI: avoid NSAIDs/aminoglycoside.',
     sections: [
@@ -859,7 +859,7 @@ export const NOTES_COM3 = {
   nutrition: {
     topic: 'nutrition',
     title: 'Nutrition in Critical Illness',
-    lecturer: 'Aj. Chutirat Torsahakul',
+    lecturer: 'Chutirat Torsahakul',
     icon: '🥣',
     summary: 'RER = 30(BW) + 70 (3-25 kg) · Stress starvation: hypermetabolic, protein catabolism · Enteral > parenteral · Tube selection ตามตำแหน่ง',
     sections: [
@@ -994,7 +994,7 @@ export const NOTES_COM3 = {
   'neuro-exam': {
     topic: 'neuro-exam',
     title: 'Neurological Examination + Localization',
-    lecturer: 'Aj. Krissda Boonaramrueng',
+    lecturer: 'Krissda Boonaramrueng',
     icon: '🔍',
     summary: 'Goals: confirm + localize + pathology + severity. Hand-off (mentation, posture, gait) → Hand-on (postural, CN, reflex, palpation, pain). UMN = hyper · LMN = hypo.',
     sections: [
@@ -1135,7 +1135,7 @@ export const NOTES_COM3 = {
   'ataxia-tremor': {
     topic: 'ataxia-tremor',
     title: 'Ataxia, Tremor & Vestibular',
-    lecturer: 'Aj. Krissda Boonaramrueng',
+    lecturer: 'Krissda Boonaramrueng',
     icon: '🌀',
     summary: 'Vestibular: peripheral (horizontal/rotary fixed, MS ปกติ) vs central (vertical or direction-changing, MS ↓). Cerebellar tremor = intention. Geriatric vestibular self-resolve.',
     sections: [
@@ -1224,7 +1224,7 @@ export const NOTES_COM3 = {
   seizure: {
     topic: 'seizure',
     title: 'Seizure & Narcolepsy',
-    lecturer: 'Aj. Krissda Boonaramrueng',
+    lecturer: 'Krissda Boonaramrueng',
     icon: '⚡',
     summary: 'Generalized vs focal · Status > 5 min OR ≥2 in 24h no recovery · 1st line dog: phenobarb + levetiracetam · Emergency: diazepam IV/rectal',
     sections: [
@@ -1366,7 +1366,7 @@ export const NOTES_COM3 = {
   spinal: {
     topic: 'spinal',
     title: 'Spinal Disorder & Injuries',
-    lecturer: 'Aj. Kumpanart Soontornvipart',
+    lecturer: 'Kumpanart Soontornvipart',
     icon: '🦴',
     summary: 'IVDD type I (acute, chondrodystrophoid) vs II (chronic, large breed) · Wobbler (large), AAI (toy) · DPP critical for prognosis · Hemilaminectomy T-L, SLOT cervical',
     sections: [
@@ -1474,7 +1474,7 @@ export const NOTES_COM3 = {
   'neuro-er': {
     topic: 'neuro-er',
     title: 'Neurological Emergency',
-    lecturer: 'Aj. Krissda Boonaramrueng',
+    lecturer: 'Krissda Boonaramrueng',
     icon: '🧠',
     summary: 'Acute SC injury · Head trauma · Status epilepticus · MGCS scoring · Mannitol (not steroid) for ICP · Cushing reflex = late warning',
     sections: [
