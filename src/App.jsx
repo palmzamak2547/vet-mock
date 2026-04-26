@@ -223,6 +223,9 @@ export default function App() {
   const prevQ = useCallback(() => {
     if (currentIdx > 0) { setCurrentIdx(currentIdx - 1); setTimeLeft(timePerQ); }
   }, [currentIdx, timePerQ]);
+  const jumpToQ = useCallback((idx) => {
+    if (idx >= 0 && idx < questions.length) { setCurrentIdx(idx); setTimeLeft(timePerQ); }
+  }, [questions.length, timePerQ]);
 
   const goHome = () => {
     setView('home'); setQuestions([]); setAnswers({}); setCurrentIdx(0);
@@ -268,7 +271,7 @@ export default function App() {
               {view === 'topic-select' && <TopicSelectView {...{ subject, setTopic, setView, goHome, mode, customQuestions }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }} />}
-              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions }} />}

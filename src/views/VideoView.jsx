@@ -6,49 +6,95 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 // ── Playlist preview cache (first video thumbnail + count) ──────────
 // Single in-memory map shared across cards so 6 cards in the grid don't
 // each fire their own request. Backed by localStorage with a 24h TTL.
+//
+// Dedupe in-flight requests via a separate Map<id, Promise> so two
+// cards mounting at the same moment with the same playlist id share
+// one fetch — fixes thundering-herd on first paint after subject switch.
 const PLAYLIST_PREVIEW_CACHE = new Map();
+const INFLIGHT = new Map();
 const PLAYLIST_TTL = 24 * 60 * 60 * 1000;
+const SUBSCRIBERS = new Map(); // playlistId -> Set<setter>
+
+function readCachedPreview(playlistId) {
+  if (!playlistId) return null;
+  if (PLAYLIST_PREVIEW_CACHE.has(playlistId)) return PLAYLIST_PREVIEW_CACHE.get(playlistId);
+  try {
+    const raw = window.localStorage.getItem('vmx-pl-preview-' + playlistId);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Date.now() - (parsed?.cachedAt || 0) < PLAYLIST_TTL) {
+      PLAYLIST_PREVIEW_CACHE.set(playlistId, parsed.data);
+      return parsed.data;
+    }
+  } catch {}
+  return null;
+}
+
+function fetchPreview(playlistId) {
+  if (!playlistId) return Promise.resolve(null);
+  if (PLAYLIST_PREVIEW_CACHE.has(playlistId)) return Promise.resolve(PLAYLIST_PREVIEW_CACHE.get(playlistId));
+  const cached = readCachedPreview(playlistId);
+  if (cached) return Promise.resolve(cached);
+  if (INFLIGHT.has(playlistId)) return INFLIGHT.get(playlistId);
+
+  const p = fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`)
+    .then((r) => (r.ok ? r.json() : null))
+    .then((json) => {
+      if (!json?.items?.length) return null;
+      const first = json.items[0];
+      const data = {
+        thumb: first.thumb || `https://img.youtube.com/vi/${first.id}/hqdefault.jpg`,
+        firstTitle: first.title,
+        count: json.count ?? json.items.length,
+      };
+      PLAYLIST_PREVIEW_CACHE.set(playlistId, data);
+      try {
+        window.localStorage.setItem('vmx-pl-preview-' + playlistId, JSON.stringify({ data, cachedAt: Date.now() }));
+      } catch {}
+      // Notify any subscribers (cards mounted before fetch finished)
+      const subs = SUBSCRIBERS.get(playlistId);
+      if (subs) subs.forEach((set) => set(data));
+      return data;
+    })
+    .catch(() => null)
+    .finally(() => { INFLIGHT.delete(playlistId); });
+
+  INFLIGHT.set(playlistId, p);
+  return p;
+}
 
 function usePlaylistPreview(playlistId) {
-  const [preview, setPreview] = useState(() => {
-    if (!playlistId) return null;
-    if (PLAYLIST_PREVIEW_CACHE.has(playlistId)) return PLAYLIST_PREVIEW_CACHE.get(playlistId);
-    try {
-      const raw = window.localStorage.getItem('vmx-pl-preview-' + playlistId);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      if (Date.now() - (parsed?.cachedAt || 0) < PLAYLIST_TTL) {
-        PLAYLIST_PREVIEW_CACHE.set(playlistId, parsed.data);
-        return parsed.data;
-      }
-    } catch {}
-    return null;
-  });
+  const [preview, setPreview] = useState(() => readCachedPreview(playlistId));
 
   useEffect(() => {
-    if (!playlistId || preview) return;
-    let aborted = false;
-    fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((json) => {
-        if (aborted || !json?.items?.length) return;
-        const first = json.items[0];
-        const data = {
-          thumb: first.thumb || `https://img.youtube.com/vi/${first.id}/hqdefault.jpg`,
-          firstTitle: first.title,
-          count: json.count ?? json.items.length,
-        };
-        PLAYLIST_PREVIEW_CACHE.set(playlistId, data);
-        try {
-          window.localStorage.setItem('vmx-pl-preview-' + playlistId, JSON.stringify({ data, cachedAt: Date.now() }));
-        } catch {}
-        setPreview(data);
-      })
-      .catch(() => {});
-    return () => { aborted = true; };
-  }, [playlistId, preview]);
+    if (!playlistId) return;
+    const cached = readCachedPreview(playlistId);
+    if (cached) { setPreview(cached); return; }
+    // Subscribe so that if another card kicks the fetch off, we get the result
+    if (!SUBSCRIBERS.has(playlistId)) SUBSCRIBERS.set(playlistId, new Set());
+    SUBSCRIBERS.get(playlistId).add(setPreview);
+    fetchPreview(playlistId);
+    return () => {
+      const s = SUBSCRIBERS.get(playlistId);
+      if (s) { s.delete(setPreview); if (!s.size) SUBSCRIBERS.delete(playlistId); }
+    };
+  }, [playlistId]);
 
   return preview;
+}
+
+// Prefetch every known playlist with a small concurrency cap so we
+// don't hammer the serverless function (and don't hit YouTube quota).
+async function prefetchAll(playlistIds, concurrency = 3) {
+  const todo = playlistIds.filter((id) => !PLAYLIST_PREVIEW_CACHE.has(id) && !readCachedPreview(id));
+  let i = 0;
+  const workers = Array.from({ length: Math.min(concurrency, todo.length) }, async () => {
+    while (i < todo.length) {
+      const id = todo[i++];
+      await fetchPreview(id);
+    }
+  });
+  await Promise.all(workers);
 }
 
 // ============================================================
@@ -67,6 +113,17 @@ export default function VideoView({ goHome }) {
 
   const allVideos = [...VIDEO_LIBRARY, ...customVideos];
   const filtered = filter === 'all' ? allVideos : allVideos.filter((v) => v.subject === filter);
+
+  // Prefetch every playlist preview as soon as VideoView mounts so subject
+  // filter switches feel instant (thumbnails are ready in the cache by then).
+  useEffect(() => {
+    const ids = allVideos
+      .map((v) => getPlaylistId(v.url))
+      .filter((id) => id);
+    if (ids.length) prefetchAll(ids).catch(() => {});
+    // Run once per mount — cache is module-level, customVideos changes don't matter much
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const startAdd = () => {
     setForm({ subject: filter !== 'all' ? filter : 'surg2', topic: '', url: '', author: '', duration: '' });

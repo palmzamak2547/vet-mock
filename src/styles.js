@@ -319,9 +319,12 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-btn-row .vmx-btn { width: 100%; justify-content: center; }
   .vmx-subject-grid, .vmx-mode-grid { grid-template-columns: 1fr; }
   .vmx-tf-row { grid-template-columns: 1fr; }
-  .vmx-question-card { padding: 24px 20px; }
-  .vmx-bookmark-btn { top: 14px; right: 14px; }
-  .vmx-note-btn { top: 14px; right: 58px; }
+  /* Reserve top padding so bookmark/note buttons don't overlap the badge/heading */
+  .vmx-question-card { padding: 60px 20px 24px; }
+  .vmx-bookmark-btn { top: 14px; right: 14px; width: 32px; height: 32px; font-size: 16px; }
+  .vmx-note-btn { top: 14px; right: 54px; width: 32px; height: 32px; font-size: 14px; }
+  /* Badge starts below the button strip — keeps long topic labels readable */
+  .vmx-qtype-badge { margin-bottom: 12px; }
   .vmx-sr-grade { grid-template-columns: repeat(2, 1fr); }
   .vmx-modal { padding: 20px; border-radius: 16px; }
   .vmx-modal h2 { font-size: 20px; }

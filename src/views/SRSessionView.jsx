@@ -16,6 +16,15 @@ import { RichText, stripRichText } from '../lib/richtext.jsx';
 
 const SIZE_PRESETS = [25, 50, 100, 200];
 
+// Some MCQ stems require seeing the options to answer (e.g. "ข้อใดถูกต้อง..."),
+// which makes them useless as flashcards — there's nothing concrete to recall.
+// Skip them from SR pool. Free-text recall stems ("Drug of choice for X is...")
+// are fine because the user can recall an answer from the stem alone.
+function isFlashcardCompatible(q) {
+  if (q.type !== 'mcq') return true;
+  return !/ข้อใด|ข้อไหน|ข้อต่อไปนี้|ข้อใดต่อไปนี้/.test(q.q || '');
+}
+
 export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [] }) {
   const allQuestions = useMemo(() => [...QB, ...customQuestions], [customQuestions]);
 
@@ -31,9 +40,10 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
   // Build filtered pool of due cards (most overdue first — getDueCards already sorts)
   const duePool = useMemo(() => {
-    const filtered = subjectFilter === 'all'
+    const filtered = (subjectFilter === 'all'
       ? allQuestions
-      : allQuestions.filter((q) => q.subject === subjectFilter);
+      : allQuestions.filter((q) => q.subject === subjectFilter)
+    ).filter(isFlashcardCompatible);
     const pool = {};
     filtered.forEach((q) => {
       pool[q.id] = srCards[q.id] || initCard(q.id);
