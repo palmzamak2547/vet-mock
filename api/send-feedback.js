@@ -112,9 +112,22 @@ Sent from VetMock · ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bang
     });
 
     if (!resp.ok) {
-      const err = await resp.text();
-      console.error('Resend error:', err);
-      return res.status(502).json({ error: 'Failed to send email' });
+      const errText = await resp.text();
+      console.error('Resend error:', resp.status, errText);
+      // Surface Resend's error so client can show diagnostic
+      let detail = '';
+      try {
+        const parsed = JSON.parse(errText);
+        detail = parsed.message || parsed.error?.message || parsed.name || errText.slice(0, 200);
+      } catch {
+        detail = errText.slice(0, 200);
+      }
+      return res.status(502).json({
+        error: `Resend ${resp.status}: ${detail}`,
+        hint: resp.status === 403
+          ? "onboarding@resend.dev only sends to your Resend account email. Verify a domain or check FEEDBACK_EMAIL matches signup email."
+          : undefined,
+      });
     }
     const data = await resp.json();
     return res.status(200).json({ ok: true, id: data.id });

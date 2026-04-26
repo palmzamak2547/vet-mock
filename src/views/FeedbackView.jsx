@@ -10,8 +10,10 @@ export default function FeedbackView({ goHome, user, profile }) {
     fromEmail: user?.email || '',
     fromName: profile?.username || '',
   });
-  const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error' | 'fallback'
+  // status: 'idle' | 'sending' | 'success' | 'api-error' | 'network-error'
+  const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
+  const [apiError, setApiError] = useState(null); // { code, message } from API failure
 
   const submit = async (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ export default function FeedbackView({ goHome, user, profile }) {
       return;
     }
     setError('');
+    setApiError(null);
     setStatus('sending');
 
     try {
@@ -38,16 +41,20 @@ export default function FeedbackView({ goHome, user, profile }) {
         return;
       }
 
-      // API fail or not configured → fallback to mailto
+      // API failure — surface error instead of silently opening mail app
       const errData = await resp.json().catch(() => ({}));
-      console.warn('API error, falling back to mailto:', errData);
-      setStatus('fallback');
-      openMailto();
+      console.warn('API error:', resp.status, errData);
+      setApiError({
+        code: resp.status,
+        message: errData.error || `HTTP ${resp.status}`,
+        hint: errData.hint || null,
+      });
+      setStatus('api-error');
 
     } catch (err) {
       console.error('Network error:', err);
-      setStatus('fallback');
-      openMailto();
+      setApiError({ code: 'network', message: err?.message || 'Network error' });
+      setStatus('network-error');
     }
   };
 
@@ -74,13 +81,41 @@ export default function FeedbackView({ goHome, user, profile }) {
           </div>
         )}
 
-        {status === 'fallback' && (
-          <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-gold)', marginBottom: 16 }}>
-            ⚠️ <strong>เปิดแอป Email ของพี่</strong><br/>
-            <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
-              API ส่งอีเมลยังไม่ได้ตั้งค่า — เปิดแอปอีเมลเพื่อส่งด้วยตัวเอง<br/>
-              <em>(เจ้าของเว็บต้อง setup RESEND_API_KEY ใน Vercel)</em>
-            </span>
+        {(status === 'api-error' || status === 'network-error') && apiError && (
+          <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', marginBottom: 16 }}>
+            ❌ <strong>ส่งไม่สำเร็จ</strong>
+            <div style={{ fontSize: 13, color: 'var(--clr-ink)', marginTop: 6, lineHeight: 1.6 }}>
+              <code style={{ background: 'var(--clr-surface-2)', padding: '2px 8px', borderRadius: 4, fontSize: 12 }}>
+                {apiError.code === 'network' ? 'NETWORK' : `HTTP ${apiError.code}`}
+              </code>
+              <span style={{ marginLeft: 8 }}>{apiError.message}</span>
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 10, lineHeight: 1.6 }}>
+              {apiError.code === 429 && '⏰ พักสักครู่ — ส่งได้ 3 ครั้ง/10 นาที'}
+              {apiError.code === 500 && '⚠️ Server ยังตั้งค่า RESEND_API_KEY ไม่ครบ'}
+              {apiError.code === 502 && '⚠️ Resend ตอบกลับ error — เช็ก "from" address หรือ verified domain ใน Resend dashboard'}
+              {apiError.code === 403 && '⚠️ Origin not allowed — เช็ก allowedOrigin ใน api/_lib/rate-limit.js'}
+              {apiError.code === 'network' && '⚠️ ตรวจสัญญาณอินเทอร์เน็ต'}
+              {apiError.hint && (
+                <div style={{ marginTop: 6, fontStyle: 'italic' }}>💡 {apiError.hint}</div>
+              )}
+            </div>
+            <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                onClick={() => { setStatus('idle'); setApiError(null); }}
+              >
+                ลองใหม่
+              </button>
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                onClick={openMailto}
+              >
+                💌 เปิดแอปอีเมลแทน
+              </button>
+            </div>
           </div>
         )}
 
