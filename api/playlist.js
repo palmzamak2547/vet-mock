@@ -18,16 +18,20 @@ const YT_API = 'https://www.googleapis.com/youtube/v3/playlistItems';
 const YT_RSS = 'https://www.youtube.com/feeds/videos.xml';
 
 export default async function handler(req, res) {
-  // ── CORS: only known origins ──
-  const origin = allowedOrigin(req);
-  if (origin) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
+  // ── CORS: allow same-origin (no Origin header) + known origins ──
+  // Browsers often omit Origin on same-origin GET fetches → only reject
+  // when Origin IS present but isn't in the allowlist. POST routes (which
+  // always carry Origin) can be stricter — see send-feedback.js.
+  const reqOrigin = req.headers.origin;
+  const allowed = allowedOrigin(req);
+  if (allowed) {
+    res.setHeader('Access-Control-Allow-Origin', allowed);
     res.setHeader('Vary', 'Origin');
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
-  if (!origin) return res.status(403).json({ error: 'Origin not allowed' });
+  if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
 
   // ── Rate limit: 30 / minute / IP ──
   const ip = clientIP(req);
