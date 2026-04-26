@@ -414,6 +414,152 @@ export const QB_COM4 = [
     verified: 'Derm_7_Nutrition_skin_disease.pdf p.2' },
 
   // ═══════════════════════════════════════════════════════════
-  // (More: allergic, autoimmune, immune-drugs, IMHA, SLE, IBD, peds-geri)
+  // Allergic Dermatitis (Aj. Chaiyot Tanrattana)
+  // ═══════════════════════════════════════════════════════════
+  { id: 955, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['allergic', 'classification'], type: 'mcq',
+    q: '4 ประเภทหลักของ allergic dermatitis ในสัตว์เลี้ยงคืออะไร',
+    options: ['Pemphigus + Lupus + Drug + Bullous', 'Atopic + Food + FAD + Contact', 'Bacterial + Fungal + Parasitic + Viral', 'Type I + II + III + IV hypersensitivity'],
+    answer: 1, explain: '4 types ของ allergic dermatitis ใน vet practice: Atopic dermatitis (CAD) · Food allergy (Cutaneous Adverse Food Reaction, CAFR) · Flea Allergic Dermatitis (FAD) · Contact dermatitis (rare, hairless areas) · ทั้ง 4 มี pruritus + 2° infection เป็นหลัก\n\n❌ ทำไมข้ออื่นผิด\n— Pemphigus/Lupus = autoimmune ไม่ใช่ allergic\n— Bact/Fungal/Parasitic = infections\n— Hypersensitivity types = pathogenesis classification, ไม่ใช่ disease',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.2' },
+
+  { id: 956, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['food-allergy', 'duration'], type: 'mcq',
+    q: 'Food elimination diet trial ต้องทำต่อเนื่องนานเท่าใดถึงจะ rule out food allergy ได้',
+    options: ['1-2 สัปดาห์', '8-12 สัปดาห์ (ดูผลที่ 4 wk แรก)', '6 เดือน', '1 ปี'],
+    answer: 1, explain: 'Food elimination diet: 8-12 wk strict (novel protein OR hydrolyzed) · clinical improvement อาจเริ่มเห็นที่ 4 wk · ไม่มี treats / chews / flavored med · ทำ pruritus score + lesion grading ก่อน-หลัง · No response = atopic dermatitis (diagnosis of exclusion) · ระหว่างทำสามารถใช้ antipruritic/ATB control ได้\n\n❌ ทำไมข้ออื่นผิด\n— "1-2 wk" = สั้นเกิน, false negative\n— "6 เดือน" / "1 ปี" = นานเกินจำเป็น (ถ้าจะเห็นผล จะเห็นใน 8-12 wk)',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.3' },
+
+  { id: 957, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['atopic', 'pathogenesis'], type: 'mcq',
+    q: 'Pathogenesis ของ Atopic Dermatitis (CAD) เกิดจากอะไรเป็นหลัก',
+    options: ['Bacterial infection ที่ deep skin', 'Skin barrier dysfunction (filaggrin/ceramide ↓) + aberrant Th2 immunological response + genetic predisposition', 'การติดเชื้อ Demodex', 'การกินอาหารผิด'],
+    answer: 1, explain: 'CAD = multifactorial: skin barrier defect (↓ filaggrin/loricrin/ceramide → ↑ TEWL → allergen penetration ง่าย) + aberrant Th2 response (IgE-mediated to environmental allergens) + genetic + cutaneous dysbiosis · environmental allergens (dust mites, mold, pollen) ทำให้ flare\n\n❌ ทำไมข้ออื่นผิด\n— Bacterial deep = pyoderma\n— Demodex = parasitic\n— อาหารผิด = food allergy (different mechanism)',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.4' },
+
+  { id: 958, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['atopic', 'favrot'], type: 'mcq',
+    q: 'Favrot\'s criteria สำหรับ canine atopic dermatitis ใช้ทำอะไร',
+    options: ['Confirmatory diagnosis (>= 5/8 = atopy)', 'Clinical screening — ช่วยสนับสนุน diagnosis (sensitivity 85% / specificity 79% ที่ 5/8 หรือ 6/8)', 'แทน intradermal skin test', 'ใช้ตัดสิน prognosis'],
+    answer: 1, explain: 'Favrot\'s criteria 8 ข้อ: (1) onset < 3 yr (2) indoor mostly (3) GC-responsive (4) IBL alesional pruritus (5) front feet affected (6) ear pinnae affected (7) ear margin not affected (8) dorsolumbar not affected · ≥ 5/8 = sensitivity ~85% / specificity ~79% · ≥ 6/8 = specificity ~89% · diagnosis ของ atopy ยังต้องอาศัย exclusion (rule out parasites, infection, food allergy)\n\n❌ ทำไมข้ออื่นผิด\n— Confirmatory = ผิด, ใช้ supportive\n— แทน IDST = ผิด (IDST ระบุ allergens)\n— Prognosis = Favrot ไม่ได้ทำนาย prognosis',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.7' },
+
+  { id: 959, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['atopic', 'distribution'], type: 'mcq',
+    q: 'Atopic dermatitis (CAD) ตำแหน่ง classic distribution',
+    options: ['Lumbosacral + ventral abdomen เท่านั้น', 'Periorbital, otitis externa, cheilitis, flexor elbow, paws (interdigital), ear pinnae (sparing margin)', 'Dorsal back เท่านั้น', 'Multifocal random'],
+    answer: 1, explain: 'CAD distribution: face (periorbital, cheilitis), ears (pinna affected, margin spared) + otitis externa, paws (interdigital, pedal furunculosis), flexor surface (elbow, hock), ventral abdomen + axillae · "sparing dorsolumbar" = differentiate FAD\n\n❌ ทำไมข้ออื่นผิด\n— Lumbosacral = FAD pattern\n— Dorsal back only = ไม่ใช่ atopy\n— Multifocal random = ไม่มี pattern',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.6' },
+
+  { id: 960, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['atopic', 'breed'], type: 'mcq',
+    q: 'Breed ที่ predispose ต่อ Atopic Dermatitis (CAD)',
+    options: ['Greyhound + Whippet', 'West Highland White Terrier, Lab/Golden, French Bulldog, Pug, Shih Tzu, Sharpei, Poodle', 'แมวเฉพาะ Persian', 'ไม่มี breed predisposition'],
+    answer: 1, explain: 'CAD predisposed breeds: WHWT, Lab, Golden, French Bulldog, Pug, Shih Tzu, Sharpei, Poodle, Boxer, Bulldog, GSD · onset < 3 ปี · seasonal (early disease) → year-round (chronic)\n\n❌ ทำไมข้ออื่นผิด\n— Greyhound/Whippet = ไม่ predisposed\n— Persian only = limited\n— "ไม่มี breed predisposition" = ผิด',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.5' },
+
+  { id: 961, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['atopic', 'treatment'], type: 'mcq',
+    q: 'Multimodal management ของ CAD ใช้หลัก "TRIP" คืออะไร',
+    options: ['Treat-Restore-Identify-Pruritus control', 'Topical-Rub-Inject-Pill', 'Time-Rest-Investigate-Plan', 'ไม่มีหลักนี้'],
+    answer: 0, explain: '"TRIP" mnemonic: T = Treat secondary infection/infestation (ATB, antifungal, parasiticide) · R = Restore skin barrier (ceramide/EFA topical or oral) · I = Identify causative allergens (IDST/ASIS for environmental, food trial for food) · P = Pruritus control (multiple options)\n\n❌ ทำไมข้ออื่นผิด\n— "Topical-Rub-Inject-Pill" = ไม่ใช่ standard mnemonic\n— "Time-Rest-Investigate-Plan" = ไม่ใช่\n— "ไม่มี" = ผิด',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.9' },
+
+  { id: 962, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['atopic', 'cyclosporine'], type: 'mcq',
+    q: 'Cyclosporine สำหรับ canine CAD — anti-pruritic + anti-inflammatory ในระยะใด',
+    options: ['Onset เร็วใน 1-2 ชั่วโมง', 'Onset ช้า 4-6 wk · steady-state 6-8 wk · ใช้ taper เป็น every-other-day หรือ q72h ได้', 'ใช้ inject เท่านั้น', 'ห้ามใช้กับสุนัขที่ติด Demodex'],
+    answer: 1, explain: 'Cyclosporine (Atopica) 5 mg/kg PO q24h · onset ช้า 4-6 wk · steady-state 6-8 wk · ใช้ taper q48h หรือ q72h ได้หลัง stable · safe profile แต่ side effect: GI (vomit, gingival hyperplasia, gum bleeding), papillomatosis, hirsutism · ไม่ทำ Demodex แย่ลง (drug ลด T-cell แต่ไม่ severe enough)\n\n❌ ทำไมข้ออื่นผิด\n— Onset 1-2 hr = ผิด (ช้า)\n— Inject only = ผิด, oral standard\n— ห้ามใน Demodex = misconception, ใช้ได้',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.10' },
+
+  { id: 963, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['atopic', 'oclacitinib'], type: 'mcq',
+    q: 'Oclacitinib (Apoquel) มี mechanism of action อย่างไร',
+    options: ['Antihistamine (H1 blocker)', 'JAK1 inhibitor — block IL-31 + other pruritogenic cytokines', 'Direct cytotoxic to T-cells', 'Steroid analog'],
+    answer: 1, explain: 'Oclacitinib = JAK1 inhibitor · blocks IL-31 signaling (key pruritogenic cytokine ใน CAD) + IL-2/4/6/13 signaling · onset เร็ว (4-24 hr) · 0.4-0.6 mg/kg PO BID × 14 d → SID maintenance · safe long-term · side effect: ↑ infection risk (UTI, pneumonia, demodex), Tumor (rare reports)\n\n❌ ทำไมข้ออื่นผิด\n— H1 blocker = AH (limited efficacy)\n— Cytotoxic to T-cells = chemotherapy\n— Steroid analog = glucocorticoid',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.10' },
+
+  { id: 964, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
+    tags: ['atopic', 'cytopoint'], type: 'mcq',
+    q: 'Cytopoint (lokivetmab) คืออะไร และใช้ยังไง',
+    options: ['Oral steroid', 'Caninized monoclonal antibody ต่อ IL-31 → SC injection q4-6 wk', 'Topical cream', 'Oral antihistamine'],
+    answer: 1, explain: 'Lokivetmab (Cytopoint) = caninized mAb ต่อ canine IL-31 · neutralize IL-31 (key itch cytokine) · SC injection ครั้งเดียว ออกฤทธิ์ 4-8 wk · onset 1 day · safe even ใน young/old/concurrent disease · expensive · ใช้ใน CAD (ไม่ใช่ food allergy)\n\n❌ ทำไมข้ออื่นผิด\n— Oral steroid = prednisolone (different)\n— Topical cream = local treatment\n— Oral AH = ineffective ใน CAD',
+    verified: 'Derm_8_Allergic_dermatitis.pdf p.10' },
+
+  // ═══════════════════════════════════════════════════════════
+  // Autoimmune Skin Diseases (Aj. Chaiyot Tanrattana)
+  // ═══════════════════════════════════════════════════════════
+  { id: 965, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['autoimmune', 'pemphigus'], type: 'mcq',
+    q: 'Autoimmune skin disease ที่พบบ่อยที่สุดในสุนัขและแมวคือ',
+    options: ['Bullous pemphigoid', 'Pemphigus foliaceus (PF)', 'Pemphigus vulgaris', 'Discoid lupus erythematosus'],
+    answer: 1, explain: 'Pemphigus foliaceus (PF) = most common autoimmune skin disease ใน dog/cat · "leaf-like" (ภาษากรีก) · superficial vesicles → ruptured → crusts + ulcers · ตำแหน่ง: nasal planum, periocular, ear pinnae, footpad · breed predispose: Akita, Chow Chow, Doberman, Newfoundland\n\n❌ ทำไมข้ออื่นผิด\n— Bullous pemphigoid = subepidermal, rare\n— Pemphigus vulgaris = severe oral lesions, rare\n— DLE = facial only (less severe than PF)',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.4' },
+
+  { id: 966, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['pemphigus', 'antigen'], type: 'mcq',
+    q: 'Pemphigus foliaceus มี autoantibody ต่อ target antigen ใด',
+    options: ['Desmoglein 3 (Dsg3)', 'Desmoglein 1 (Dsg1) — desmosomal protein ใน superficial epidermis', 'BPAG1, BPAG2 (basement membrane)', 'Type IV collagen'],
+    answer: 1, explain: 'PF: IgG ต่อ Dsg1 (desmoglein 1) — ใน superficial epidermis (granular layer) → loss of cell-cell adhesion → acantholysis → subcorneal pustules · Pemphigus vulgaris: Dsg3 (deeper, suprabasal) → severe oral lesions · Bullous pemphigoid: BPAG1/2 (basement membrane) → subepidermal blisters\n\n❌ ทำไมข้ออื่นผิด\n— Dsg3 = pemphigus vulgaris\n— BPAG1/2 = bullous pemphigoid\n— Type IV collagen = epidermolysis bullosa acquisita',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.3' },
+
+  { id: 967, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['pemphigus', 'classification'], type: 'mcq',
+    q: 'Pemphigus complex ประกอบด้วย 4 โรคใดบ้าง',
+    options: ['PF, PV, Pemphigus vegetans, Pemphigus erythematosus', 'PF + DLE + SLE + Bullous pemphigoid', 'PF + Atopic + Food allergy + FAD', 'PF + Demodicosis + Sarcoptes + Cheyletiellosis'],
+    answer: 0, explain: '4 forms ของ pemphigus complex: Pemphigus Foliaceus (PF, most common, Dsg1) · Pemphigus Vulgaris (PV, severe oral, Dsg3) · Pemphigus Vegetans (rare, vegetative lesions) · Pemphigus Erythematosus (PF + lupus features)\n\n❌ ทำไมข้ออื่นผิด\n— DLE/SLE/BP = different diseases (lupus group, BP separate)\n— Atopic/Food/FAD = allergic\n— Demodex/Sarcoptes = parasitic',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.3' },
+
+  { id: 968, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['pemphigus', 'distribution'], type: 'mcq',
+    q: 'Pemphigus foliaceus ตำแหน่งคลาสสิกของรอยโรคคือ',
+    options: ['Lumbosacral + tail base', 'Nasal planum, periocular, ear pinnae, footpads (sometimes generalized)', 'Mouth ulcers severe', 'Multifocal random'],
+    answer: 1, explain: 'PF distribution: bridge of nose, nasal planum, periocular, pinnae, footpads (hyperkeratotic + crust) · ± generalized · variable pruritus · 2° infection จาก ulceration\n\n❌ ทำไมข้ออื่นผิด\n— Lumbosacral/tail = FAD\n— Mouth ulcers severe = pemphigus VULGARIS (ไม่ใช่ foliaceus)\n— Multifocal random = ไม่ specific',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.4' },
+
+  { id: 969, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['pemphigus', 'cytology'], type: 'mcq',
+    q: 'Cytology ของ pemphigus foliaceus จะเห็นเซลล์ลักษณะใดเด่น',
+    options: ['Eosinophils จำนวนมาก', 'Acantholytic cells (round keratinocytes) + neutrophils', 'Mast cells', 'Bacteria จำนวนมาก'],
+    answer: 1, explain: 'PF cytology (impression smear of intact pustule): acantholytic cells = rounded keratinocytes ที่หลุดจากกันเพราะ Dsg1 ถูก destroy + non-degenerate neutrophils ± eosinophils · histopath = subcorneal/intragranular pustule with acantholysis = definitive Dx · IFA/IHC = IgG ที่ intercellular space\n\n❌ ทำไมข้ออื่นผิด\n— Eosinophils alone = parasitic/allergic\n— Mast cells = mast cell tumor\n— Bacteria มาก = bacterial pyoderma',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.5' },
+
+  { id: 970, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['bullous-pemphigoid'], type: 'mcq',
+    q: 'Bullous pemphigoid ต่างจาก pemphigus อย่างไร',
+    options: ['ไม่ต่างกัน', 'Bullous pemphigoid = autoantibody ต่อ basement membrane (BPAG1/2) → subepidermal blister (deeper than pemphigus)', 'BP = bacterial', 'BP = parasitic'],
+    answer: 1, explain: 'Bullous pemphigoid: IgG ต่อ hemidesmosome proteins (BP180/BPAG2, BP230/BPAG1) ที่ basement membrane → subepidermal split → tense bullae (ไม่แตกง่าย เพราะลึกกว่า pemphigus) · severity ≥ pemphigus · oral, mucocutaneous, skin · less common than PF\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต่างกัน" = ผิด, mechanism + level ต่าง\n— BP bacterial/parasitic = ผิด (autoimmune)',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.3' },
+
+  { id: 971, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['lupus'], type: 'mcq',
+    q: 'Discoid Lupus Erythematosus (DLE) ต่างจาก Systemic Lupus Erythematosus (SLE) อย่างไร',
+    options: ['ไม่ต่างกัน', 'DLE = cutaneous-only (face, nasal planum) · SLE = multi-organ (skin + joint + kidney + hematologic)', 'DLE มีหลายอวัยวะ, SLE เฉพาะผิว', 'DLE = bacterial cause'],
+    answer: 1, explain: 'DLE = "collie nose" — limited to face (nasal planum, periocular, ear pinnae) · loss of pigment + erythema + scaling + erosion · sun-aggravated · benign · breed: Collie, GSD, Husky · SLE = multisystem autoimmune (skin + arthritis + glomerulonephritis + cytopenias) · ANA + (60-90% positive)\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต่างกัน" = ผิด\n— "DLE หลายอวัยวะ" = สลับกัน\n— "DLE bacterial" = ผิด (autoimmune)',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.6' },
+
+  { id: 972, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['dle', 'distribution'], type: 'mcq',
+    q: 'Discoid Lupus Erythematosus (DLE) ตำแหน่ง classic คือ',
+    options: ['ทั่วตัว', 'Nasal planum (depigmentation, erythema, ulceration) + periocular + ear pinnae', 'Lumbosacral + tail', 'Limbs only'],
+    answer: 1, explain: 'DLE: face-limited "collie nose" pattern · loss of cobblestone of nasal planum + depigmentation + erythema + ulceration + scarring · UV-aggravated → worse in summer / outdoor · breeds: Collie, Shetland, GSD, Siberian Husky, Brittany\n\n❌ ทำไมข้ออื่นผิด\n— "ทั่วตัว" = generalized autoimmune\n— Lumbosacral/tail = FAD\n— Limbs only = ไม่ใช่ pattern',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.6' },
+
+  { id: 973, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['autoimmune', 'diagnosis'], type: 'mcq',
+    q: 'Definitive diagnosis ของ pemphigus complex / autoimmune skin diseases ใช้',
+    options: ['CBC + CRP เท่านั้น', 'Skin biopsy + histopathology (+ IFA/IHC ถ้าทำได้)', 'Bacterial culture', 'Serology IgE'],
+    answer: 1, explain: 'Definitive Dx: skin biopsy (intact vesicle/pustule + perilesional area) → histopath: PF = subcorneal pustule with acantholytic cells · BP = subepidermal blister · DLE = interface dermatitis with apoptotic keratinocytes + pigmentary incontinence · IFA/IHC = confirm IgG location (intercellular = pemphigus, basement membrane = BP, lupus band = DLE/SLE)\n\n❌ ทำไมข้ออื่นผิด\n— CBC/CRP = supportive only\n— Bact culture = bacterial pyoderma\n— Serology IgE = atopic test',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.5' },
+
+  { id: 974, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
+    tags: ['autoimmune', 'treatment'], type: 'mcq',
+    q: 'First-line treatment ของ pemphigus foliaceus ในสุนัข',
+    options: ['Antibiotic เดี่ยว', 'Immunosuppressive prednisolone 2-4 mg/kg/d → taper · ± adjunct (azathioprine, cyclosporine, MMF) ถ้า refractory', 'Topical steroid เท่านั้น', 'รอหายเอง'],
+    answer: 1, explain: 'PF treatment: induction prednisolone 2-4 mg/kg/d (immunosuppressive dose) × 4-6 wk → taper ทุก 4 wk หาก clinical remission · adjunct (steroid-sparing): Azathioprine 2 mg/kg/d (dog only — ห้ามแมว, fatal myelosuppression) · Cyclosporine · Mycophenolate mofetil (MMF) · Chlorambucil ในแมว · monitor liver, CBC, infection · long-term goal: lowest dose maintaining remission\n\n❌ ทำไมข้ออื่นผิด\n— Antibiotic alone = ไม่ใช่ autoimmune cause\n— Topical steroid only = local lesion เล็กๆ พอ, ไม่ enough generalized PF\n— "รอหายเอง" = autoimmune ไม่หายเอง',
+    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.7' },
+
+  // ═══════════════════════════════════════════════════════════
+  // (More: immune-drugs, IMHA, SLE, IBD, peds-geri)
   // ═══════════════════════════════════════════════════════════
 ];
