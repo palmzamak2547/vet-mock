@@ -47,10 +47,34 @@ export function clientIP(req) {
   return req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
 }
 
-/** Allowed origins for CORS (returns the origin if allowed, else null). */
+/**
+ * Allowed origins for CORS (returns the origin if allowed, else null).
+ *
+ * Two checks, in order:
+ *   1) **Same-origin auto-allow** — if the request's Origin host matches
+ *      the request's own Host header, it's coming from the same Vercel
+ *      deployment that's serving the API. Trustworthy by definition;
+ *      auto-allow without needing manual allowlist updates. This handles
+ *      custom domains, every Vercel preview URL, project rename, etc.
+ *   2) **Static allowlist fallback** — for cross-origin requests we
+ *      genuinely want to support (e.g. local dev hitting prod API).
+ */
 export function allowedOrigin(req) {
   const origin = req.headers.origin;
   if (!origin) return null;
+
+  // (1) Same-origin auto-allow
+  const host = req.headers.host;
+  if (host) {
+    try {
+      const u = new URL(origin);
+      if (u.host === host) return origin;
+    } catch {
+      // malformed Origin → fall through to allowlist
+    }
+  }
+
+  // (2) Static allowlist (for legitimate cross-origin scenarios)
   const allow = [
     'https://vet-mock.vercel.app',
     /^https:\/\/vet-mock-[\w-]+\.vercel\.app$/,  // Preview deployments
