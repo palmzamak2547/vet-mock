@@ -4,6 +4,8 @@ import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
 import { useOnlineCount } from '../hooks/useOnlineCount.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import { LATEST_CHANGELOG } from '../data/changelog.js';
+import { useLocalStorage } from '../hooks/useStorage.js';
 
 export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {} }) {
   const totalQ = QB.length + (customQuestions?.length || 0);
@@ -16,6 +18,11 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
     .flatMap((s) => s.topics.map((t) => t.id));
   const readingDone = checklistTopics.filter((id) => readingChecklist[id]).length;
   const readingTotal = checklistTopics.length;
+
+  // Changelog announcement banner — show until user dismisses this version
+  const [lastSeenChangelog, setLastSeenChangelog] = useLocalStorage('vmx-last-seen-changelog', null);
+  const [expanded, setExpanded] = useState(false);
+  const showAnnouncement = LATEST_CHANGELOG && lastSeenChangelog !== LATEST_CHANGELOG.version;
 
   // Re-render every minute when exam is imminent so countdown stays fresh
   const [, setTick] = useState(0);
@@ -103,6 +110,102 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
               </>
             )}
           </div>
+        </div>
+      )}
+
+      {/* What's-new announcement — auto-dismissed once seen */}
+      {showAnnouncement && (
+        <div
+          style={{
+            padding: 16,
+            borderRadius: 14,
+            marginBottom: 20,
+            background: 'rgba(184, 137, 64, 0.08)',
+            border: '1px solid var(--clr-gold)',
+            position: 'relative',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap' }}>
+            <div style={{ fontSize: 28, lineHeight: 1 }}>🎉</div>
+            <div style={{ flex: 1, minWidth: 200 }}>
+              <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                อัปเดตใหม่ · {LATEST_CHANGELOG.version} · {fmtThaiDate(LATEST_CHANGELOG.date)}
+              </div>
+              <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, marginTop: 2, lineHeight: 1.3 }}>
+                {LATEST_CHANGELOG.headline}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setLastSeenChangelog(LATEST_CHANGELOG.version)}
+              aria-label="ปิดประกาศ"
+              title="ปิดประกาศ"
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                width: 28,
+                height: 28,
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--clr-ink-soft)',
+                fontSize: 18,
+                lineHeight: 1,
+                background: 'var(--clr-bg)',
+                border: '1px solid var(--clr-border)',
+                flexShrink: 0,
+              }}
+            >
+              ×
+            </button>
+          </div>
+
+          <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {(expanded ? LATEST_CHANGELOG.changes : LATEST_CHANGELOG.changes.slice(0, 3)).map((c, i) => (
+              <li
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 10,
+                  padding: '8px 10px',
+                  borderRadius: 8,
+                  background: 'var(--clr-bg)',
+                  border: '1px solid var(--clr-border)',
+                  fontSize: 13,
+                  lineHeight: 1.5,
+                }}
+              >
+                <span style={{ fontSize: 16, flexShrink: 0 }}>{c.icon}</span>
+                <span>
+                  <strong style={{ color: 'var(--clr-ink)' }}>{c.title}</strong>
+                  <span style={{ color: 'var(--clr-ink-soft)' }}> — {c.desc}</span>
+                </span>
+                <KindPill kind={c.kind} />
+              </li>
+            ))}
+          </ul>
+
+          {LATEST_CHANGELOG.changes.length > 3 && (
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                marginTop: 10,
+                fontSize: 12,
+                color: 'var(--clr-ink-soft)',
+                fontFamily: 'JetBrains Mono, monospace',
+                textDecoration: 'underline',
+              }}
+            >
+              {expanded
+                ? '▴ แสดงน้อยลง'
+                : `▾ ดูทั้งหมด (อีก ${LATEST_CHANGELOG.changes.length - 3} รายการ)`}
+            </button>
+          )}
         </div>
       )}
 
@@ -245,6 +348,56 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         ⌨️ กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
         🌙 สลับโหมดมืด/สว่างที่ปุ่มขวาบน
       </div>
+
+      {/* If user dismissed announcement, give them a way to re-open it */}
+      {!showAnnouncement && LATEST_CHANGELOG && (
+        <div style={{ marginTop: 12, textAlign: 'right' }}>
+          <button
+            type="button"
+            onClick={() => setLastSeenChangelog(null)}
+            style={{
+              all: 'unset',
+              cursor: 'pointer',
+              fontSize: 11,
+              color: 'var(--clr-ink-soft)',
+              fontFamily: 'JetBrains Mono, monospace',
+              textDecoration: 'underline',
+            }}
+          >
+            🔔 ดูสิ่งที่อัปเดตล่าสุด ({LATEST_CHANGELOG.version})
+          </button>
+        </div>
+      )}
     </>
+  );
+}
+
+// ── Small kind pill (เขียว/ทอง/กลาง) ────────────────────────────
+function KindPill({ kind }) {
+  const styles = {
+    feature: { bg: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-sage)', label: 'ใหม่' },
+    fix: { bg: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold)', label: 'แก้บั๊ก' },
+    content: { bg: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)', label: 'เพิ่มเนื้อหา' },
+  };
+  const s = styles[kind] || styles.content;
+  return (
+    <span
+      style={{
+        marginLeft: 'auto',
+        padding: '2px 8px',
+        borderRadius: 999,
+        background: s.bg,
+        color: s.color,
+        fontSize: 10,
+        fontFamily: 'JetBrains Mono, monospace',
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+        flexShrink: 0,
+        alignSelf: 'flex-start',
+      }}
+    >
+      {s.label}
+    </span>
   );
 }
