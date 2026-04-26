@@ -416,14 +416,14 @@ export const QB_COM3 = [
     examOrigin: 'VET84 ER Q13',
     q: 'สูตรคำนวณ Resting Energy Requirement (RER) ในสัตว์น้ำหนัก 3-25 kg คืออะไร',
     options: ['RER = 50 + BW^0.5', 'RER = 30 × BW + 70', 'RER = 100 × BW', 'RER = 70 × BW^0.75'],
-    answer: 1, explain: 'RER (3-25 kg) = 30 × BW(kg) + 70 · นอกช่วง: 70 × BW^0.75 · ตัวอย่าง: แมว 6 kg → 30(6)+70 = 250 kcal/d',
+    answer: 1, explain: 'RER (3-25 kg) = 30 × BW(kg) + 70 · นอกช่วง: 70 × BW^0.75 · ตัวอย่าง: แมว 6 kg → 30(6)+70 = 250 kcal/d · ❌ ตัวเลือกอื่น: 50+BW^0.5 = formula ผิด · 100×BW = overestimate · 70×BW^0.75 = formula สำหรับ <3 หรือ >25 kg',
     verified: 'nutrition 1 hr.pdf + master p.36' },
 
   { id: 771, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['starvation'], type: 'mcq',
     q: 'Stress starvation (hypermetabolic) ต่างจาก simple starvation อย่างไร',
     options: ['Stress: catabolism เร็ว, ดึงโปรตีนมาใช้เป็นพลังงานมาก, mobilize fat, immune suppression · Simple: ใช้ fat เป็นหลัก, สงวนโปรตีน', 'Stress ไม่มี catabolism', 'ทั้งคู่เหมือนกัน', 'ใช้ glycogen เป็นหลักเหมือนกัน'],
-    answer: 0, explain: 'Stress (sepsis/trauma/burn): glucocorticoid + cytokines → protein catabolism เร่ง + insulin resistance · Simple (fast): สงวน protein, fat dominant',
+    answer: 0, explain: 'Stress (sepsis/trauma/burn): glucocorticoid + cytokines → protein catabolism เร่ง + insulin resistance · Simple (fast): สงวน protein, fat dominant · ❌ ตัวเลือกอื่น: "ไม่มี catabolism" = ผิด (stress = catabolism เร่ง) · "เหมือนกัน" = ผิด · "ใช้ glycogen เป็นหลัก" = แค่ 24 hr แรก',
     verified: 'nutrition 1 hr.pdf + master p.36' },
 
   { id: 772, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
@@ -431,7 +431,7 @@ export const QB_COM3 = [
     examOrigin: 'VET84 ER Q14',
     q: 'แมว 6 kg มี caudal esophagus mass — feeding tube ที่เหมาะสมที่สุดคืออะไร',
     options: ['NG (nasogastric)', 'G-tube (gastrostomy) — ผ่าน mass ไป', 'E-tube (esophagostomy)', 'NE (nasoesophageal)'],
-    answer: 1, explain: 'NE/NG/E-tube ทุกแบบต้องผ่าน esophagus → ถ้ามี mass → ใช้ G-tube (เข้ากระเพาะตรงผ่าน body wall) · J-tube ถ้ามี gastric problem ด้วย',
+    answer: 1, explain: 'NE/NG/E-tube ทุกแบบต้องผ่าน esophagus → ถ้ามี mass → ใช้ G-tube (เข้ากระเพาะตรงผ่าน body wall) · J-tube ถ้ามี gastric problem ด้วย · ❌ ตัวเลือกอื่น: NG/NE/E-tube = ต้องผ่าน esophagus ตำแหน่ง mass — bypass ไม่ได้',
     verified: 'nutrition 1 hr.pdf + master p.37' },
 
   { id: 773, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
@@ -439,14 +439,14 @@ export const QB_COM3 = [
     examOrigin: 'VET84 ER Q15',
     q: 'หลังวางสาย feeding (E-tube/G-tube) — 24 ชั่วโมงแรกควรทำอย่างไร',
     options: ['Bolus 50 ml/kg', 'ไม่ต้องให้อะไร 24 ชม. (ปล่อยรอยปิดสนิท) แล้วค่อยเริ่ม 1/3 RER วันแรก', '1/2 RER + เกลือแร่', 'ให้อาหาร RER เต็มที่เลย'],
-    answer: 1, explain: 'หลังวางสาย: 24 ชม. แรก rest · D1 = 1/3 RER · D2 = 2/3 RER · D3 = full RER · slow bolus ≤ 5 ml/min · ระวัง refeeding syndrome (hypoP)',
+    answer: 1, explain: 'หลังวางสาย: 24 ชม. แรก rest · D1 = 1/3 RER · D2 = 2/3 RER · D3 = full RER · slow bolus ≤ 5 ml/min · ระวัง refeeding syndrome (hypoP) · ❌ ตัวเลือกอื่น: Bolus 50 ml/kg = overload + vomit · 1/2 RER เร็วเกิน · Full RER = refeeding syndrome',
     verified: 'nutrition 1 hr.pdf + master p.37' },
 
   { id: 774, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['parenteral'], type: 'mcq',
     q: 'Total Parenteral Nutrition (TPN) ต้องให้ผ่าน vein ใด',
     options: ['Saphenous vein', 'Central vein (jugular) เพราะ hyperosmolar', 'Subcutaneous', 'Cephalic vein (peripheral)'],
-    answer: 1, explain: 'TPN hyperosmolar → ต้อง central vein (jugular) ป้องกัน thrombophlebitis · PPN diluted กว่า ใช้ peripheral ได้ · ระวัง refeeding syndrome (hypoP, hypoK)',
+    answer: 1, explain: 'TPN hyperosmolar → ต้อง central vein (jugular) ป้องกัน thrombophlebitis · PPN diluted กว่า ใช้ peripheral ได้ · ระวัง refeeding syndrome (hypoP, hypoK) · ❌ ตัวเลือกอื่น: Saphenous/Cephalic = peripheral (ดี PPN, ไม่ใช่ TPN) · Subcutaneous = ห้าม route',
     verified: 'nutrition 1 hr.pdf + master p.37' },
 
   { id: 775, subject: 'com3', topic: 'nutrition', year: 4, source: 'master p.36',
@@ -457,7 +457,7 @@ export const QB_COM3 = [
       { left: 'Taurine — essential ในแมว', right: 'แมว — ขาด → DCM + retinal degeneration' },
       { left: 'Glutamine — conditionally essential', right: 'GI mucosa enterocyte fuel — สำคัญใน hypermetabolic' },
     ],
-    explain: 'แมวต้องการ arginine + taurine ในอาหาร · enteral nutrition ปกป้อง GI mucosa มากกว่า parenteral',
+    explain: 'แมวต้องการ arginine + taurine ในอาหาร · enteral nutrition ปกป้อง GI mucosa มากกว่า parenteral · ❌ ตัวเลือกอื่น: "Pathologic process" / "Localize lesion" / "Confirm neuro" = 4 goals จริง · Anesthesia plan = secondary, ไม่ใช่ goal',
     verified: 'master p.36' },
 
   // ═══════════════════════════════════════════════════════════
@@ -475,7 +475,7 @@ export const QB_COM3 = [
     tags: ['neuro-exam', 'mentation'], type: 'mcq',
     q: 'Mental status เปลี่ยนจาก ARAS (ascending reticular activating system) — โครงสร้างที่เกี่ยวข้องคืออะไร',
     options: ['Peripheral nerve', 'Muscle', 'Cerebral cortex + brainstem (ARAS)', 'Cerebellum + spinal cord'],
-    answer: 2, explain: 'Consciousness ต้องการ ARAS (ใน brainstem) + cerebral cortex · lesion ที่ใดที่หนึ่ง → mental status change',
+    answer: 2, explain: 'Consciousness ต้องการ ARAS (ใน brainstem) + cerebral cortex · lesion ที่ใดที่หนึ่ง → mental status change · ❌ ตัวเลือกอื่น: Peripheral nerve / Muscle = ไม่เกี่ยว consciousness · Cerebellum + spinal cord = motor coordination',
     verified: 'neuro_exam 1 hr.pdf' },
 
   { id: 782, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
@@ -486,7 +486,7 @@ export const QB_COM3 = [
       { left: 'Decerebellate rigidity (forelimb extension + hip flexion + LOC normal)', right: 'Cerebellum' },
       { left: 'Decerebrate rigidity (extension all 4 + LOC ↓)', right: 'Brainstem (rostral)' },
     ],
-    explain: 'Schiff-Sherrington: LOC ปกติ + forelimb extend แต่หลัง paralysis · severe T-L lesion · prognosis ดีกว่า decerebrate',
+    explain: 'Schiff-Sherrington: LOC ปกติ + forelimb extend แต่หลัง paralysis · severe T-L lesion · prognosis ดีกว่า decerebrate · ❌ ตัวเลือกอื่น: Random = ไม่ใช่ pathologic pattern · Areflexia = LMN total · Hyporeflexia = LMN partial',
     verified: 'neuro_exam 1 hr.pdf p.7 + master p.2' },
 
   { id: 783, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
@@ -516,7 +516,7 @@ export const QB_COM3 = [
       { left: 'T3-L3', right: 'ขาหน้าปกติ + UMN ขาหลัง' },
       { left: 'L4-S3 (lumbosacral intumescence)', right: 'ขาหน้าปกติ + LMN ขาหลัง' },
     ],
-    explain: 'Localize ตาม intumescence: ขาหน้าใช้ C6-T2, ขาหลังใช้ L4-S3 · UMN ขาหลังจาก lesion เหนือ L4',
+    explain: 'Localize ตาม intumescence: ขาหน้าใช้ C6-T2, ขาหลังใช้ L4-S3 · UMN ขาหลังจาก lesion เหนือ L4 · ❌ ตัวเลือกอื่น: No nystagmus = chronic compensation · Horizontal only / fixed-direction = peripheral pattern',
     verified: 'neuro_localised 1 hr.pdf + master' },
 
   // ═══════════════════════════════════════════════════════════
@@ -534,20 +534,20 @@ export const QB_COM3 = [
     tags: ['idiopathic-vestibular'], type: 'mcq',
     q: 'Idiopathic (geriatric) vestibular syndrome — clinical clue',
     options: ['ลูกแมว 4 wk มี cluster seizure', 'แมวอ้วน BCS 8/9', 'สุนัขแก่, sudden onset head tilt + horizontal nystagmus + ataxia · mental status ปกติ · self-resolve 1-2 weeks', 'สุนัขเด็ก, head tilt + ataxia เป็นๆหายๆ'],
-    answer: 2, explain: 'Geriatric vestibular: dog แก่ · sudden severe peripheral vestibular signs · LOC ปกติ · มัก self-resolve 1-2 wk · supportive care',
+    answer: 2, explain: 'Geriatric vestibular: dog แก่ · sudden severe peripheral vestibular signs · LOC ปกติ · มัก self-resolve 1-2 wk · supportive care · ❌ ตัวเลือกอื่น: ลูกแมว seizure = ไม่ vestibular · แมวอ้วน BCS 8 = HCM/asthma · สุนัขเด็กเป็นๆหายๆ = inflammatory/congenital',
     verified: 'neuro_ataxia_tremor 1 hr.pdf + master p.8' },
 
   { id: 792, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['cerebellar-tremor'], type: 'mcq',
     q: 'Cerebellar disease — characteristic tremor / movement คืออะไร',
     options: ['No movement', 'Continuous shaking ทั้งตัว', 'Intention tremor (เห็นชัดตอนจะทำกิจ — เช่น ตอนกินน้ำ) + hypermetria + truncal ataxia', 'Resting tremor'],
-    answer: 2, explain: 'Cerebellar: intention tremor + hypermetria (overshoot) + truncal ataxia + menace deficit (with normal vision)',
+    answer: 2, explain: 'Cerebellar: intention tremor + hypermetria (overshoot) + truncal ataxia + menace deficit (with normal vision) · ❌ ตัวเลือกอื่น: No movement = paresis · Continuous shaking ทั้งตัว = toxin/generalized tremor · Resting tremor = basal ganglia (rare vet)',
     verified: 'neuro_ataxia_tremor 1 hr.pdf + master' },
 
   { id: 793, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['idiopathic-head-tremor'], type: 'tf',
     q: 'Idiopathic head tremor (Bobblehead) ใน French Bulldog / Doberman / Boxer — มัก self-resolve และไม่ต้องรักษา',
-    answer: true, explain: 'IHT: episodic head tremor (yes/no movement), conscious ปกติ, รับสมาธิ → หยุดได้ · breed-related · most self-resolve · no anti-epileptic needed',
+    answer: true, explain: 'IHT: episodic head tremor (yes/no movement), conscious ปกติ, รับสมาธิ → หยุดได้ · breed-related · most self-resolve · no anti-epileptic needed · ❌ ตัวเลือกอื่น: Focal = partial seizure (ไม่เกี่ยว duration) · Absence = brief LOC < 30 sec · Cluster = recover ระหว่างนั้น',
     verified: 'neuro_ataxia_tremor 1 hr.pdf' },
 
   // ═══════════════════════════════════════════════════════════
@@ -570,7 +570,7 @@ export const QB_COM3 = [
       { left: 'Ictal', right: 'During seizure' },
       { left: 'Post-ictal', right: 'After — confusion, blindness, ataxia (ชั่วคราว)' },
     ],
-    explain: 'Owner education: บันทึก phase, duration, frequency · Differentiate จาก syncope, narcolepsy, REM behavior',
+    explain: 'Owner education: บันทึก phase, duration, frequency · Differentiate จาก syncope, narcolepsy, REM behavior · ❌ ตัวเลือกอื่น: Acetazolamide = glaucoma · Mannitol = ICP, ไม่ใช่ AED · Diazepam PO = short half-life ห้าม chronic',
     verified: 'seizure 1 hr.pdf + master p.10' },
 
   { id: 802, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
@@ -584,13 +584,13 @@ export const QB_COM3 = [
     tags: ['seizure', 'status'], type: 'mcq',
     q: 'Status epilepticus — emergency management ขั้นแรกคืออะไร',
     options: ['รอให้หยุดเอง 30 นาที', 'IV access + Diazepam 0.5 mg/kg IV bolus (หรือ rectal 1-2 mg/kg) · per rectum ถ้าไม่มี IV', 'Mannitol 1 g/kg bolus', 'ให้ phenobarbital 5 mg/kg PO'],
-    answer: 1, explain: 'Diazepam IV 0.5 mg/kg (or rectal 1-2 mg/kg) → ถ้ายังไม่หยุด: midazolam CRI / propofol CRI / phenobarb loading · monitor: airway, glucose, temperature',
+    answer: 1, explain: 'Diazepam IV 0.5 mg/kg (or rectal 1-2 mg/kg) → ถ้ายังไม่หยุด: midazolam CRI / propofol CRI / phenobarb loading · monitor: airway, glucose, temperature · ❌ ตัวเลือกอื่น: รอเอง 30 min = neuronal damage · Mannitol = ใช้ ICP · phenobarb PO = ช้าเกิน emergency',
     verified: 'seizure 1 hr.pdf + master p.11' },
 
   { id: 804, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
     tags: ['seizure', 'cat'], type: 'tf',
     q: 'Phenobarbital ในแมวต้องระวัง side effect "facial pruritus + lymphadenopathy" หลังใช้ยาไม่กี่สัปดาห์',
-    answer: true, explain: 'Cat: phenobarbital อาจเกิด facial pruritus + lymphadenopathy + bone marrow suppression · ถ้าเจอ → switch ยา',
+    answer: true, explain: 'Cat: phenobarbital อาจเกิด facial pruritus + lymphadenopathy + bone marrow suppression · ถ้าเจอ → switch ยา · ❌ ตัวเลือกอื่น: Persian/Siamese = แมว (ไม่ใช่ wobbler) · Chihuahua/Pomeranian = atlantoaxial · Dachshund/Corgi = IVDD type I (T-L)',
     verified: 'seizure 1 hr.pdf' },
 
   // ═══════════════════════════════════════════════════════════
@@ -847,28 +847,28 @@ export const QB_COM3 = [
     tags: ['nutrition', 'hepatic-lipidosis'], type: 'mcq',
     q: 'Hepatic lipidosis ในแมว — ปัจจัยเสี่ยงและ management คืออะไร',
     options: ['รักษาด้วย NPO เพื่อพัก liver', 'เกิดเฉพาะ kitten < 3 เดือน', 'แมวอ้วน + ไม่กิน 24-48 ชม. → fat mobilization → liver overload · Tx: enteral feeding (E-tube/G-tube) + L-carnitine + B12', 'แมวผอม + อด < 12 ชม. → ไม่เสี่ยง hepatic lipidosis'],
-    answer: 2, explain: 'Cat hepatic lipidosis: obese + anorexia 1-2 d → severe · Tx: aggressive enteral nutrition (E-tube) + L-carnitine 250 mg/cat · กลับมาดูแลเอง 4-6 wk',
+    answer: 2, explain: 'Cat hepatic lipidosis: obese + anorexia 1-2 d → severe · Tx: aggressive enteral nutrition (E-tube) + L-carnitine 250 mg/cat · กลับมาดูแลเอง 4-6 wk · ❌ ตัวเลือกอื่น: NPO = ทำให้แย่ลง (ต้อง enteral feed) · เฉพาะ kitten = ผิด (โตเต็มวัยเป็นได้) · ผอม < 12 hr ไม่เสี่ยง = generalization ผิด',
     verified: 'nutrition 1 hr.pdf + master p.36' },
 
   { id: 847, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['nutrition', 'refeeding'], type: 'mcq',
     q: 'Refeeding syndrome — electrolyte abnormality หลักที่ทำให้อันตรายคืออะไร',
     options: ['Hyper Ca', 'HyperNa', 'HypoP (hypophosphatemia)', 'HyperK'],
-    answer: 2, explain: 'Refeeding: insulin spike → shift K, P, Mg into cell · severe hypoP → RBC ลด ATP → hemolysis · cardiac/respiratory muscle weakness · prevent: start at 1/3 RER, monitor q24h',
+    answer: 2, explain: 'Refeeding: insulin spike → shift K, P, Mg into cell · severe hypoP → RBC ลด ATP → hemolysis · cardiac/respiratory muscle weakness · prevent: start at 1/3 RER, monitor q24h · ❌ ตัวเลือกอื่น: HyperCa / HyperNa = ไม่ใช่ refeeding · HyperK = K shift INTO cell = hypoK ตรงข้าม',
     verified: 'nutrition 1 hr.pdf + master p.37' },
 
   { id: 848, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['nutrition', 'protein-requirement'], type: 'mcq',
     q: 'Protein requirement ในสัตว์ป่วยวิกฤต (อ้างอิง % ของ kcal)',
     options: ['< 5% ทั้งคู่', 'Dog ~25-35% (4-6 g/100 kcal) / Cat ~30-40% (6-8 g/100 kcal)', '50% ทั้งคู่', 'Dog 5-10% / Cat 10-15%'],
-    answer: 1, explain: 'Critical illness protein: dog 4-6 g/100 kcal · cat 6-8 g/100 kcal (cat = obligate carnivore) · ลด protein ในกรณี HE (hepatic encephalopathy)',
+    answer: 1, explain: 'Critical illness protein: dog 4-6 g/100 kcal · cat 6-8 g/100 kcal (cat = obligate carnivore) · ลด protein ในกรณี HE (hepatic encephalopathy) · ❌ ตัวเลือกอื่น: < 5% = under-supplement · 50% = excessive (BUN ↑) · Dog 5-10% / Cat 10-15% = under-supplement',
     verified: 'nutrition 1 hr.pdf + master p.36' },
 
   { id: 849, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['nutrition', 'mer'], type: 'mcq',
     q: 'MER (Maintenance Energy Requirement) สำหรับสุนัขโตปกติ activity ปานกลาง คืออะไร',
     options: ['1.2-1.6 × RER (สุนัขโต) / 1.2 × RER (cat)', '3 × RER', '0.5 × RER', '1.0 × RER'],
-    answer: 0, explain: 'MER = RER × factor: dog adult 1.6 · sedentary 1.2 · puppy 2-3 · gestation 3 · cat 1.2 · in ER patient: start RER, illness factor controversial (1.0-1.3)',
+    answer: 0, explain: 'MER = RER × factor: dog adult 1.6 · sedentary 1.2 · puppy 2-3 · gestation 3 · cat 1.2 · in ER patient: start RER, illness factor controversial (1.0-1.3) · ❌ ตัวเลือกอื่น: 3 × RER = puppy/gestation · 0.5 × RER = under-feeding · 1.0 × RER = resting only',
     verified: 'nutrition 1 hr.pdf + master p.36' },
 
   // ─── Neuro Exam (extra 4 → 10 total) ───────────────────────
@@ -876,28 +876,28 @@ export const QB_COM3 = [
     tags: ['neuro-exam', 'menace'], type: 'mcq',
     q: 'Menace response — anatomical pathway คืออะไร',
     options: ['II (afferent) → forebrain → cerebellum → VII (efferent blink)', 'V → VII → VIII', 'III → IV → VI', 'I → II → V'],
-    answer: 0, explain: 'Menace: vision (II) → cortex → cerebellum → motor cortex → VII facial (blink) · cerebellar disease → menace deficit แม้ vision ปกติ',
+    answer: 0, explain: 'Menace: vision (II) → cortex → cerebellum → motor cortex → VII facial (blink) · cerebellar disease → menace deficit แม้ vision ปกติ · ❌ ตัวเลือกอื่น: V→VII→VIII = corneal + vestibular · III→IV→VI = eye motor · I→II→V = ไม่มี logical pathway',
     verified: 'neuro_exam 1 hr.pdf' },
 
   { id: 851, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
     tags: ['neuro-exam', 'plr'], type: 'mcq',
     q: 'PLR (Pupillary Light Reflex) — pathway คืออะไร',
     options: ['V → VII', 'II → midbrain → III (bilateral consensual)', 'IV → VI', 'II → III only'],
-    answer: 1, explain: 'PLR: light → II → midbrain → III bilaterally → constrict (consensual) · ไม่ต้องผ่าน cortex → blind cortical animal ยังมี PLR · DDx vision vs PLR loss',
+    answer: 1, explain: 'PLR: light → II → midbrain → III bilaterally → constrict (consensual) · ไม่ต้องผ่าน cortex → blind cortical animal ยังมี PLR · DDx vision vs PLR loss · ❌ ตัวเลือกอื่น: V→VII = corneal blink · IV→VI = eye motor (no PLR) · II→III only = ไม่มี bilateral consensual',
     verified: 'neuro_exam 1 hr.pdf' },
 
   { id: 852, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
     tags: ['neuro-exam', 'crossed-extensor'], type: 'mcq',
     q: 'Crossed extensor reflex — significance คืออะไร',
     options: ['Abnormal — UMN lesion above lumbar · contralateral limb extends when ipsilateral withdrawal stimulated', 'Normal ในสุนัข geriatric > 8 ปี', 'Normal in puppy < 4 wk', 'Pain assessment', 'Normal in adult dog'],
-    answer: 0, explain: 'Crossed extensor = release of reciprocal inhibition · indicates UMN lesion (above L4) · normal ใน young puppy <3 wk (incomplete CNS development)',
+    answer: 0, explain: 'Crossed extensor = release of reciprocal inhibition · indicates UMN lesion (above L4) · normal ใน young puppy <3 wk (incomplete CNS development) · ❌ ตัวเลือกอื่น: Normal in geriatric > 8 = ผิด (always abnormal) · Normal in puppy < 4 wk = บริบทผิด · Pain assessment = ไม่ใช่ · Normal in adult = ผิด',
     verified: 'neuro_exam 1 hr.pdf + master' },
 
   { id: 853, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
     tags: ['neuro-exam', 'dpp'], type: 'mcq',
     q: 'Deep pain perception (DPP) — testing technique + significance',
     options: ['Touch fur', 'Pinch periosteum/digit + ดู conscious response (look, vocalize)', 'Smell test', 'ดึงผิวหนัง — บอก vision'],
-    answer: 1, explain: 'DPP test: hemostat pinch periosteum or digit · response must be **conscious** (look, vocalize, head turn) — not just reflex withdrawal · last to lose · ถ้าหายเกิน 24-48h = SC severance',
+    answer: 1, explain: 'DPP test: hemostat pinch periosteum or digit · response must be **conscious** (look, vocalize, head turn) — not just reflex withdrawal · last to lose · ถ้าหายเกิน 24-48h = SC severance · ❌ ตัวเลือกอื่น: Touch fur = superficial nociceptor, ไม่ test deep pain · Smell test = olfaction · ดึงผิวหนัง = panniculus, ไม่ DPP',
     verified: 'neuro_exam 1 hr.pdf + master p.5' },
 
   // ─── Spinal (extra 4 → 10 total) ───────────────────────────
@@ -938,42 +938,42 @@ export const QB_COM3 = [
     tags: ['vestibular', 'oculocephalic'], type: 'mcq',
     q: 'Oculocephalic reflex (doll\'s eye) — pathway + use',
     options: ['ทดสอบ corneal reflex (CN V → VII)', 'ทดสอบ pupillary reflex (CN II → III)', 'ทดสอบ vestibular system + brainstem — turn head, eye should track opposite direction · loss in central vestibular', 'ทดสอบ visual cortex (occipital lobe)'],
-    answer: 2, explain: 'Oculocephalic: VIII (vestibular) → brainstem → III/IV/VI (eye movement) · loss = central vestibular lesion (brainstem dysfunction)',
+    answer: 2, explain: 'Oculocephalic: VIII (vestibular) → brainstem → III/IV/VI (eye movement) · loss = central vestibular lesion (brainstem dysfunction) · ❌ ตัวเลือกอื่น: Corneal reflex (V→VII) = different test · Pupillary (II→III) = PLR · Visual cortex = different pathway',
     verified: 'neuro_ataxia_tremor 1 hr.pdf + neuro_exam' },
 
   { id: 859, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['vestibular', 'horner'], type: 'mcq',
     q: 'Horner\'s syndrome ที่พบร่วมกับ peripheral vestibular disease (otitis media/interna) ประกอบด้วย',
     options: ['Anisocoria with no other signs', 'Strabismus only', 'Miosis + ptosis + enophthalmos + 3rd eyelid prolapse (sympathetic chain disrupt — passes through middle ear)', 'Mydriasis + exophthalmos'],
-    answer: 2, explain: 'Horner\'s = sympathetic loss · 4 signs: miosis, ptosis, enophthalmos, 3rd eyelid · pathway through middle ear → otitis media/interna → can damage',
+    answer: 2, explain: 'Horner\'s = sympathetic loss · 4 signs: miosis, ptosis, enophthalmos, 3rd eyelid · pathway through middle ear → otitis media/interna → can damage · ❌ ตัวเลือกอื่น: Anisocoria no other signs = ไม่ specific Horner · Strabismus only = CN III/IV/VI · Mydriasis + exophthalmos = ตรงข้าม Horner',
     verified: 'neuro_ataxia_tremor 1 hr.pdf' },
 
   { id: 860, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['cerebellar-hypoplasia'], type: 'mcq',
     q: 'Feline cerebellar hypoplasia — common cause คืออะไร',
     options: ['Hereditary only', 'Vitamin B1 deficiency แม่แมว', 'Feline panleukopenia (FPV) infection in utero → cerebellum ไม่พัฒนา', 'Trauma', 'Bacterial'],
-    answer: 2, explain: 'In utero FPV → cerebellar hypoplasia · kitten born with cerebellar signs (intention tremor, ataxia, wide-based) · non-progressive · learn to compensate',
+    answer: 2, explain: 'In utero FPV → cerebellar hypoplasia · kitten born with cerebellar signs (intention tremor, ataxia, wide-based) · non-progressive · learn to compensate · ❌ ตัวเลือกอื่น: Hereditary only = rare breed-specific · Vit B1 = thiamine encephalopathy ในตัวโต · Trauma/Bacterial = acquired atrophy ไม่ใช่ hypoplasia',
     verified: 'neuro_ataxia_tremor 1 hr.pdf + parasitology overlap' },
 
   { id: 861, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['white-shaker'], type: 'mcq',
     q: '"White Shaker syndrome" (Generalized tremor syndrome) — clinical feature + treatment',
     options: ['Whole-body fine tremor in young small white dogs (Maltese, Westie, Poodle) · steroid-responsive (prednisolone)', 'Endocrine — give insulin', 'Heart failure', 'Vestibular signs · antibiotic'],
-    answer: 0, explain: 'WSTS: 1-3 yo small white dog · idiopathic cerebellitis · responds prednisolone 1-2 mg/kg/d · taper slowly · DDx organophosphate, pyrethrin toxicity',
+    answer: 0, explain: 'WSTS: 1-3 yo small white dog · idiopathic cerebellitis · responds prednisolone 1-2 mg/kg/d · taper slowly · DDx organophosphate, pyrethrin toxicity · ❌ ตัวเลือกอื่น: Insulin = endocrine ไม่เกี่ยว · Heart failure = ไม่ใช่ tremor cause · Antibiotic = no role',
     verified: 'neuro_ataxia_tremor 1 hr.pdf' },
 
   { id: 862, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['organophosphate'], type: 'mcq',
     q: 'Organophosphate / Carbamate toxicity — classic clinical sign + antidote',
     options: ['Hyperthermia > 41°C · cooling only', 'SLUDGE (Salivation, Lacrimation, Urination, Defecation, GI distress, Emesis) + miosis + tremor + seizure. Antidote: Atropine + 2-PAM (organophosphate)', 'Mydriasis 8 mm · naloxone 0.04 mg/kg', 'Bradycardia HR < 60 · atropine 0.04 mg/kg'],
-    answer: 1, explain: 'OP/carbamate: AChE inhibitor → muscarinic + nicotinic + CNS · Tx: Atropine 0.2-0.5 mg/kg (titrate to dry MM) + 2-PAM (organophosphate, not carbamate) + decontaminate',
+    answer: 1, explain: 'OP/carbamate: AChE inhibitor → muscarinic + nicotinic + CNS · Tx: Atropine 0.2-0.5 mg/kg (titrate to dry MM) + 2-PAM (organophosphate, not carbamate) + decontaminate · ❌ ตัวเลือกอื่น: Hyperthermia + cooling = heat stroke · Mydriasis + naloxone = opioid · Bradycardia + atropine = vagal (อาจ overlap แต่ไม่ classic OP)',
     verified: 'neuro_ataxia_tremor 1 hr.pdf' },
 
   { id: 863, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['head-tilt-side'], type: 'mcq',
     q: 'Peripheral vestibular disease — head tilt มักเอียงไปทางใด',
     options: ['ไม่มี head tilt', 'ด้านเดียวกับ lesion (ipsilateral)', 'ตามแนวกึ่งกลาง', 'ตรงข้ามด้านที่เกิด lesion'],
-    answer: 1, explain: 'Peripheral vestibular: head tilt **toward lesion** (ipsilateral) · paradoxical (toward ตรงข้าม) → central lesion (cerebellar peduncle)',
+    answer: 1, explain: 'Peripheral vestibular: head tilt **toward lesion** (ipsilateral) · paradoxical (toward ตรงข้าม) → central lesion (cerebellar peduncle) · ❌ ตัวเลือกอื่น: "ไม่มี head tilt" = ไม่ vestibular · "กึ่งกลาง" = no mechanism · "ตรงข้าม" = paradoxical = central',
     verified: 'neuro_ataxia_tremor 1 hr.pdf + master p.7' },
 
   // ─── Seizure (extra 5 → 10 total) ──────────────────────────
@@ -985,7 +985,7 @@ export const QB_COM3 = [
       { left: 'Structural epilepsy', right: 'Brain pathology (tumor, encephalitis, stroke, malformation) · MRI + CSF abnormal' },
       { left: 'Reactive seizure', right: 'Extra-cranial cause (toxin, hypoglycemia, hyperK, electrolyte) · NOT epilepsy' },
     ],
-    explain: 'IVETF 2015 classification · idiopathic epilepsy = exclude structural + reactive first',
+    explain: 'IVETF 2015 classification · idiopathic epilepsy = exclude structural + reactive first · ❌ ตัวเลือกอื่น: Tremor = movement disorder ไม่มี collapse · Vestibular = head tilt + nystagmus ไม่ collapse · LOC + post-ictal = seizure',
     verified: 'seizure 1 hr.pdf + IVETF 2015' },
 
   { id: 865, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
@@ -999,20 +999,20 @@ export const QB_COM3 = [
     tags: ['seizure', 'mri-indication'], type: 'mcq',
     q: 'Indications สำหรับ MRI / CSF analysis ใน seizure dog (rule out structural cause) คืออะไร',
     options: ['Onset < 1 yr OR > 6 yr · focal seizure · cluster/status · interictal neuro deficit · breed atypical', 'Idiopathic epilepsy ที่คุมยาได้ดีอยู่แล้ว > 6 เดือน', 'Idiopathic epilepsy ที่คุม PB ได้ที่ trough > 25 µg/mL', 'แมวเด็ก < 6 เดือน', 'ทุก case ที่มี seizure ครั้งแรกภายใน 24 ชม.'],
-    answer: 0, explain: 'Tier II IVETF: MRI indications: age outside 1-6 yr · interictal deficit · cluster/status · poor response · helps distinguish idiopathic from structural',
+    answer: 0, explain: 'Tier II IVETF: MRI indications: age outside 1-6 yr · interictal deficit · cluster/status · poor response · helps distinguish idiopathic from structural · ❌ ตัวเลือกอื่น: คุมได้ > 6 เดือน = ไม่ต้อง re-image · PB > 25 µg/ml = ปกติ therapeutic · แมวเด็ก = age criterion · ทุก case ครั้งแรก = over-imaging',
     verified: 'seizure 1 hr.pdf + IVETF 2015' },
 
   { id: 867, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
     tags: ['seizure', 'phenobarb-monitoring'], type: 'mcq',
     q: 'Phenobarbital therapeutic level + monitoring frequency',
     options: ['50-100 μg/ml weekly', '15-45 μg/ml (target 25-35) · check 14 d after start/dose change · then q6 mo · liver enzymes q3 mo', 'No monitoring needed', '10-20 ng/ml monthly'],
-    answer: 1, explain: 'PB target: 15-45 μg/ml · steady-state 14 d (dog) / 10 d (cat) · ALT/ALP elevation common (induction) but ALT > 4× normal = liver damage',
+    answer: 1, explain: 'PB target: 15-45 μg/ml · steady-state 14 d (dog) / 10 d (cat) · ALT/ALP elevation common (induction) but ALT > 4× normal = liver damage · ❌ ตัวเลือกอื่น: 50-100 weekly = toxic + over-frequent · No monitoring = miss toxicity · 10-20 ng/ml = wrong unit (ng vs μg)',
     verified: 'seizure 1 hr.pdf + ACVIM consensus' },
 
   { id: 868, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
     tags: ['seizure', 'kbr-cat'], type: 'tf',
     q: 'KBr (potassium bromide) ใช้เป็น 2nd line ที่ปลอดภัยในแมว',
-    answer: false, explain: 'False! **KBr ห้ามใช้ในแมว** — ทำให้เกิด **fatal asthma-like bronchitis** · Cat 2nd line: levetiracetam (Keppra), zonisamide',
+    answer: false, explain: 'False! **KBr ห้ามใช้ในแมว** — ทำให้เกิด **fatal asthma-like bronchitis** · Cat 2nd line: levetiracetam (Keppra), zonisamide · ❌ ตัวเลือกอื่น: "Steroid ดีกว่า" = ผิด (no role ใน ICP) · "ห้ามทั้งคู่" = ผิด (first-line) · "Mannitol แย่เสมอ" = ผิด (situational)',
     verified: 'seizure 1 hr.pdf + ACVIM' },
 
   // ─── Neuro ER (extra 6 → 10 total) ─────────────────────────
@@ -1177,7 +1177,7 @@ export const QB_COM3 = [
     tags: ['neuro-exam', 'case', 'reasoning', 'localization'], type: 'mcq',
     q: 'Lab 5 ปี acute weakness 4 ขา\nNeuro exam: ขาหน้า patellar reflex hyperreflexive (withdrawal intact), ขาหลัง patellar normal (withdrawal intact), cranial nerves ปกติ, mentation alert\nLesion location อยู่ที่ไหน',
     options: ['C6-T2 (LMN ขาหน้า + UMN ขาหลัง)', 'T3-L3 (ขาหน้าปกติ + UMN ขาหลัง)', 'L4-S3 (LMN ขาหลังเท่านั้น)', 'C1-C5 (UMN ทั้ง 4 ขา)'],
-    answer: 3, explain: 'Hyperreflexive ขาหน้า + intact reflex หลัง = UMN 4 ขา = lesion above C6 → **C1-C5** · ถ้า LMN ขาหน้า (hyporeflexia) → C6-T2 · alert mentation → not forebrain',
+    answer: 3, explain: 'Hyperreflexive ขาหน้า + intact reflex หลัง = UMN 4 ขา = lesion above C6 → **C1-C5** · ถ้า LMN ขาหน้า (hyporeflexia) → C6-T2 · alert mentation → not forebrain · ❌ ตัวเลือกอื่น: C6-T2 = ต้องมี LMN ขาหน้า (hyporeflexia) ขัดกับ case · T3-L3 = ขาหน้าปกติทั้งหมดขัดกับ hyperreflexia · L4-S3 = ขาหน้าปกติ',
     verified: 'neuro_exam 1 hr.pdf + neuro_localised 1 hr.pdf' },
 
   { id: 891, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder',
@@ -1191,7 +1191,7 @@ export const QB_COM3 = [
     tags: ['seizure', 'case', 'reasoning', 'status'], type: 'mcq',
     q: 'Lab 3 ปี มี 3 generalized tonic-clonic seizures ใน 2 hr, ระหว่างนั้น mentation obtunded ไม่กลับมา baseline, ปัจจุบันชักต่อเนื่อง 8 นาทีไม่หยุด\nDiagnosis และ first emergency action คืออะไร',
     options: ['Cluster seizure → phenobarb PO', 'Status epilepticus → Diazepam 0.5 mg/kg IV (or rectal 1-2 mg/kg)', 'Narcolepsy → supportive only', 'Isolated seizure → monitor at home'],
-    answer: 1, explain: 'Status = single seizure > 5 min OR ≥ 2 seizures without recovery between · ตรงกับ case นี้ (no recovery + 8 min ongoing) · emergency: diazepam IV/rectal first · refractory → midazolam CRI / propofol / phenobarb loading',
+    answer: 1, explain: 'Status = single seizure > 5 min OR ≥ 2 seizures without recovery between · ตรงกับ case นี้ (no recovery + 8 min ongoing) · emergency: diazepam IV/rectal first · refractory → midazolam CRI / propofol / phenobarb loading · ❌ ตัวเลือกอื่น: Cluster + phenobarb PO = ช้าเกิน emergency · Narcolepsy = ไม่มี LOC + tonic-clonic · Isolated + home monitor = miss status',
     verified: 'seizure 1 hr.pdf + IVETF 2015' },
 
 ];
