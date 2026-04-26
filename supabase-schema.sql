@@ -19,19 +19,55 @@ CREATE TABLE IF NOT EXISTS profiles (
 );
 
 -- Auto-create profile when user signs up
+-- v5.1.1 — handles username collisions automatically:
+--   • Reads username from metadata or derives from email local-part
+--   • Sanitizes to [A-Za-z0-9_], 1-25 chars, fallback 'user'
+--   • If taken, appends _2, _3, ... up to _99 to find a free slot
+--   • Final fallback: substring(uuid) suffix → guaranteed unique
+-- Without this, a duplicate username would raise on the UNIQUE
+-- constraint, abort the trigger, and (because it's an AFTER INSERT
+-- trigger on auth.users) roll back the user creation entirely —
+-- leaving signup confusingly broken for the second person picking
+-- a popular handle.
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
+DECLARE
+  base_username TEXT;
+  candidate TEXT;
+  counter INT := 0;
 BEGIN
+  -- 1) Source: user-provided > derived from email
+  base_username := COALESCE(
+    NEW.raw_user_meta_data->>'username',
+    NEW.raw_user_meta_data->>'name',
+    split_part(NEW.email, '@', 1)
+  );
+
+  -- 2) Sanitize: only alphanumeric + underscore, trim length
+  base_username := regexp_replace(COALESCE(base_username, ''), '[^a-zA-Z0-9_]', '', 'g');
+  IF length(base_username) = 0 THEN
+    base_username := 'user';
+  END IF;
+  IF length(base_username) > 25 THEN
+    base_username := substring(base_username FROM 1 FOR 25);
+  END IF;
+
+  -- 3) Find a free username — try base, then base_2, base_3, …
+  candidate := base_username;
+  WHILE counter < 99 AND EXISTS (SELECT 1 FROM profiles WHERE username = candidate) LOOP
+    counter := counter + 1;
+    candidate := base_username || '_' || counter;
+  END LOOP;
+
+  -- 4) Last-resort: append short uuid hash if 99 collisions
+  IF EXISTS (SELECT 1 FROM profiles WHERE username = candidate) THEN
+    candidate := base_username || '_' || substring(NEW.id::text FROM 1 FOR 6);
+  END IF;
+
   INSERT INTO profiles (id, username)
-  VALUES (
-    NEW.id,
-    COALESCE(
-      NEW.raw_user_meta_data->>'username',
-      NEW.raw_user_meta_data->>'name',
-      split_part(NEW.email, '@', 1)
-    )
-  )
+  VALUES (NEW.id, candidate)
   ON CONFLICT (id) DO NOTHING;
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
