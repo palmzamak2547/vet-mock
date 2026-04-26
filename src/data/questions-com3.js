@@ -618,21 +618,21 @@ export const QB_COM3 = [
     tags: ['atlantoaxial-instability'], type: 'mcq',
     q: 'Atlantoaxial instability — concern ที่อันตรายที่สุดคืออะไร',
     options: ['หัวคอแฉลบ', 'ตามองไม่เห็น', 'C1-C2 มี medulla oblongata → respiratory failure → death', 'ขาเป๋'],
-    answer: 2, explain: 'C1-C2 ใกล้ medulla oblongata → severe compression → respiratory arrest · พบใน toy breed (Chihuahua) · UMN 4 ขา · จัดเป็น emergency',
+    answer: 2, explain: 'C1-C2 ใกล้ medulla oblongata → severe compression → respiratory arrest · พบใน toy breed (Chihuahua) · UMN 4 ขา · จัดเป็น emergency · ❌ ตัวเลือกอื่น: หัวคอแฉลบ = symptom ทั่วไป · ตามองไม่เห็น = unrelated · ขาเป๋ = secondary ไม่ใช่ life-threat',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 
   { id: 813, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder 2 hr.pdf',
     tags: ['spinal', 'fracture'], type: 'mcq',
     q: 'Spinal fracture — สิ่งแรกที่ต้องประเมินก่อน decompression Sx คืออะไร',
     options: ['Heart rate', 'Deep pain perception (DPP) ของ digit', 'PCV', 'อายุของสัตว์'],
-    answer: 1, explain: 'DPP = pinch toe, animal recognize pain consciously · ถ้าไม่มีหลัง 24 ชม. = SC severance · poor prognosis surgery',
+    answer: 1, explain: 'DPP = pinch toe, animal recognize pain consciously · ถ้าไม่มีหลัง 24 ชม. = SC severance · poor prognosis surgery · ❌ ตัวเลือกอื่น: HR / PCV = vitals · อายุ = signalment — ไม่ใช่ neuro-prognostic indicator',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 
   { id: 814, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder 2 hr.pdf',
     tags: ['spinal', 'sx-technique'], type: 'mcq',
     q: 'Hemilaminectomy ใช้กับกรณีใด',
     options: ['Cervical wobbler — ventral slot C5-C7', 'Atlantoaxial instability — C1-C2 stabilization', 'Cauda equina syndrome — L7-S1 dorsal lamina', 'IVDD type I (T-L) — ตัดด้านข้าง 1/2 ของ lamina ทำได้ยาวสุด 3 vertebrae'],
-    answer: 3, explain: 'Hemilaminectomy: T-L IVDD type I · Ventral SLOT: cervical (Wobbler, C-IVDD) · เลือกตามตำแหน่ง',
+    answer: 3, explain: 'Hemilaminectomy: T-L IVDD type I · Ventral SLOT: cervical (Wobbler, C-IVDD) · เลือกตามตำแหน่ง · ❌ ตัวเลือกอื่น: Wobbler = ventral slot · Atlantoaxial = C1-C2 stabilization · Cauda equina = dorsal lamina (caudal)',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 
   { id: 815, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder 2 hr.pdf',
@@ -645,7 +645,7 @@ export const QB_COM3 = [
       { left: 'Tetraplegia', right: '4 ขา paralysis' },
       { left: 'Hemiplegia', right: 'ครึ่งซีก paralysis' },
     ],
-    explain: 'Mono = 1 limb · Hemi = 1 ซีก · Para = 2 ขาหลัง · Tetra = 4 ขา · Paresis < Plegia',
+    explain: 'Mono = 1 limb · Hemi = 1 ซีก · Para = 2 ขาหลัง · Tetra = 4 ขา · Paresis < Plegia · ❌ ตัวเลือกอื่น: Diazepam = AED ไม่ใช่ ICP · Dexamethasone = ห้ามใน head trauma (worsen outcome) · Furosemide = adjunct ไม่ใช่ first-line',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 
   // ═══════════════════════════════════════════════════════════
@@ -663,20 +663,20 @@ export const QB_COM3 = [
     tags: ['mgcs'], type: 'mcq',
     q: 'Modified Glasgow Coma Scale (MGCS) ในสัตว์ คะแนน 3-8 หมายถึง',
     options: ['Grave prognosis (severe coma)', 'Mild head trauma', 'Normal', 'Excellent prognosis'],
-    answer: 0, explain: 'MGCS 3-8 = grave · 9-14 = guarded · 15-18 = good · ใช้ประเมิน prognosis ใน head trauma',
+    answer: 0, explain: 'MGCS 3-8 = grave · 9-14 = guarded · 15-18 = good · ใช้ประเมิน prognosis ใน head trauma · ❌ ตัวเลือกอื่น: Mild head trauma / Normal / Excellent = score สูงกว่า (9-18)',
     verified: 'neuroER 1 hr.pdf + master' },
 
   { id: 822, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
     tags: ['cushing-reflex'], type: 'mcq',
     q: 'Cushing reflex (ในกรณี ICP สูง) ประกอบด้วย',
     options: ['Fever + cough', 'Bradycardia + hypertension + irregular respiration (terminal sign)', 'Normal vitals', 'Tachycardia + hypotension + tachypnea'],
-    answer: 1, explain: 'Cushing reflex (Cushing\'s triad) = bradycardia + ↑ BP + irregular RR · เป็น late sign ของ ↑ ICP → brain herniation imminent',
+    answer: 1, explain: 'Cushing reflex (Cushing\'s triad) = bradycardia + ↑ BP + irregular RR · เป็น late sign ของ ↑ ICP → brain herniation imminent · ❌ ตัวเลือกอื่น: Fever + cough = infection · Normal vitals = ผิด ICP สูง · Tachy + hypotension = shock (ตรงข้าม)',
     verified: 'neuroER 1 hr.pdf' },
 
   { id: 823, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
     tags: ['head-trauma', 'steroid'], type: 'tf',
     q: 'การให้ corticosteroid (เช่น dexamethasone) ใน head trauma เพื่อลด brain edema เป็นแนวทางที่แนะนำ',
-    answer: false, explain: 'False! Steroid ใน head trauma → worse outcome (CRASH trial) · ห้ามใช้ · ใช้ mannitol/hypertonic saline แทน',
+    answer: false, explain: 'False! Steroid ใน head trauma → worse outcome (CRASH trial) · ห้ามใช้ · ใช้ mannitol/hypertonic saline แทน · ❌ ตัวเลือกอื่น: > 80/min = severe distress (ไม่ใช่ baseline cutoff) · > 50 = exercise · > 20 = ปกติ rest',
     verified: 'neuroER 1 hr.pdf + CRASH trial 2004' },
 
   // ═══════════════════════════════════════════════════════════
@@ -905,7 +905,7 @@ export const QB_COM3 = [
     tags: ['ivdd', 'medical-tx'], type: 'mcq',
     q: 'Medical management ของ IVDD type I grade 1-2 (pain only, ambulatory) คืออะไร',
     options: ['Strict cage rest 4-6 weeks + analgesia (gabapentin, opioid) ± gabapentin · ห้าม activity + jumping', 'NSAIDs only (carprofen 4 mg/kg q12h)', 'Steroid high-dose (prednisolone 2 mg/kg)', 'Surgery ทันทีภายใน 6 ชม.'],
-    answer: 0, explain: 'Mild IVDD: cage rest 4-6 wk + multimodal analgesia (gabapentin 10-20 mg/kg PO TID + opioid + NSAIDs ถ้า function OK) · physical rehab gradual return',
+    answer: 0, explain: 'Mild IVDD: cage rest 4-6 wk + multimodal analgesia (gabapentin 10-20 mg/kg PO TID + opioid + NSAIDs ถ้า function OK) · physical rehab gradual return · ❌ ตัวเลือกอื่น: NSAIDs only = ไม่พอครอบคลุม pain · Steroid high-dose = ไม่ first-line + side effects · Sx ใน 6 hr = ไม่ใช่ indication grade 1-2',
     verified: 'Spinal disorder 2 hr.pdf' },
 
   { id: 855, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder 2 hr.pdf',
@@ -916,7 +916,7 @@ export const QB_COM3 = [
       { left: 'ANNPE (Acute Non-compressive NP Extrusion)', right: 'Sudden onset · normal MRI / no compression but bruising · active dog · medical Tx' },
       { left: 'IVDD type I', right: 'Sudden onset · NP extrusion + compression · chondrodystrophoid · Sx if grade ≥ 3' },
     ],
-    explain: 'FCE + ANNPE = acute non-compressive (no surgery) · IVDD type I = compressive (consider Sx)',
+    explain: 'FCE + ANNPE = acute non-compressive (no surgery) · IVDD type I = compressive (consider Sx) · ❌ ตัวเลือกอื่น: Trauma only = mechanical ไม่ใช่ infection · Viral = ไม่ทำ discospondylitis · Genetic only = ไม่ใช่ etiology',
     verified: 'Spinal disorder 2 hr.pdf + master' },
 
   { id: 856, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder 2 hr.pdf',
@@ -930,7 +930,7 @@ export const QB_COM3 = [
     tags: ['spinal-shock'], type: 'mcq',
     q: 'Spinal shock — definition และ duration ในสุนัข',
     options: ['Hypovolemic shock — duration < 1 hr', 'Septic shock จาก myelitis 48-72 hr', 'Transient loss of spinal reflex below lesion หลัง acute SC injury (~24 hr ในสุนัข) · ก่อนประเมิน DPP/prognosis ต้องรอ 24 hr', 'Permanent loss of all reflex > 7 วัน'],
-    answer: 2, explain: 'Spinal shock: temporary areflexia below severe acute SC lesion · 24 hr in dog (longer in human) · need to repeat exam at 24 hr · ถ้าหลัง 24h ยังไม่มี DPP = poor prognosis',
+    answer: 2, explain: 'Spinal shock: temporary areflexia below severe acute SC lesion · 24 hr in dog (longer in human) · need to repeat exam at 24 hr · ถ้าหลัง 24h ยังไม่มี DPP = poor prognosis · ❌ ตัวเลือกอื่น: Hypovolemic/Septic shock = circulation, ไม่ใช่ neuro · Permanent loss > 7 d = SC severance ไม่ใช่ spinal shock',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 
   // ─── Ataxia / Tremor (extra 6 → 10 total) ──────────────────
@@ -1027,35 +1027,35 @@ export const QB_COM3 = [
     tags: ['head-trauma', 'fluid-choice'], type: 'mcq',
     q: 'Fluid resuscitation ใน head trauma — เลือกใช้ fluid ใด',
     options: ['Free water IV', 'Dextrose 5%', 'Isotonic crystalloid (NSS/LRS) titrate ระวัง overload', 'Hypotonic saline (0.45%)'],
-    answer: 2, explain: 'Head trauma: NSS/LRS ที่ rate ระวัง — overload → worsen edema · target MAP ≥ 80 (CPP) · avoid hypotonic + hyponatremia (cerebral edema)',
+    answer: 2, explain: 'Head trauma: NSS/LRS ที่ rate ระวัง — overload → worsen edema · target MAP ≥ 80 (CPP) · avoid hypotonic + hyponatremia (cerebral edema) · ❌ ตัวเลือกอื่น: Free water IV = hyponatremia → cerebral edema · D5W = metabolize เป็น free water · 0.45% = hypotonic = edema',
     verified: 'neuroER 1 hr.pdf' },
 
   { id: 871, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
     tags: ['head-trauma', 'positioning'], type: 'mcq',
     q: 'Patient positioning ที่แนะนำใน head trauma + ↑ ICP คืออะไร',
     options: ['Trendelenburg position (head down −20°)', 'Supine flat (0° elevation)', 'Head elevated 30° + neck neutral (avoid jugular compression)', 'Lateral recumbency, head down 30°'],
-    answer: 2, explain: 'Head 30° elevation → improve venous drainage → ↓ ICP · neck neutral · avoid jugular vein occlusion · monitor MGCS q1h',
+    answer: 2, explain: 'Head 30° elevation → improve venous drainage → ↓ ICP · neck neutral · avoid jugular vein occlusion · monitor MGCS q1h · ❌ ตัวเลือกอื่น: Trendelenburg = ↑ ICP · Supine flat = no drainage · Head down = ↑ ICP รุนแรง',
     verified: 'neuroER 1 hr.pdf' },
 
   { id: 872, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
     tags: ['neuro-er', 'cluster-tx'], type: 'mcq',
     q: 'Cluster seizure (≥ 2 in 24 hr, recover between) — emergency treatment ที่บ้านก่อนถึงคลินิก',
     options: ['ให้กิน paracetamol 10 mg/kg', 'Dexamethasone IM 1 mg/kg', 'ให้กิน phenobarb 5 mg/kg', 'Per-rectal diazepam 1-2 mg/kg หรือ intranasal midazolam 0.2 mg/kg · มียาฉุกเฉินไว้ที่บ้าน', 'ห้ามทำอะไร > 30 นาทีระหว่างเดินทาง'],
-    answer: 3, explain: 'Owner-administered: rectal diazepam (preloaded syringe) · IN midazolam · ขั้นแรกใน cluster ก่อนพามา · ลด cluster severity',
+    answer: 3, explain: 'Owner-administered: rectal diazepam (preloaded syringe) · IN midazolam · ขั้นแรกใน cluster ก่อนพามา · ลด cluster severity · ❌ ตัวเลือกอื่น: Paracetamol = ไม่ใช่ AED · Dexa IM = ไม่ใช่ AED · Phenobarb PO = ช้าเกิน home rescue · "ห้ามทำ" = miss window',
     verified: 'neuroER 1 hr.pdf + ACVIM' },
 
   { id: 873, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
     tags: ['neuro-er', 'temperature'], type: 'mcq',
     q: 'Hyperthermia จาก seizure (temp > 41°C) — management',
     options: ['Active cooling จนอุณหภูมิ 39.5 °C แล้วหยุด', 'ห่อผ้าหนาให้อบอุ่นจนถึง 38°C', 'รอลดเอง > 1 ชม.', 'ไม่ต้องทำอะไรภายใน 4 ชม.'],
-    answer: 0, explain: 'Hyperthermia from prolonged seizure → DIC + multi-organ failure · cool aggressively to 39.5°C then STOP (overshoot risk) · monitor temp continuous',
+    answer: 0, explain: 'Hyperthermia from prolonged seizure → DIC + multi-organ failure · cool aggressively to 39.5°C then STOP (overshoot risk) · monitor temp continuous · ❌ ตัวเลือกอื่น: ห่อผ้าหนา = warming = แย่ลง · รอเอง > 1 hr = organ damage · ไม่ทำ 4 hr = lethal',
     verified: 'neuroER 1 hr.pdf' },
 
   { id: 874, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
     tags: ['neuro-er', 'gcs-categories'], type: 'mcq',
     q: 'Modified Glasgow Coma Scale (MGCS) ประเมินอะไร',
     options: ['Visual only (PLR 1-2 mm)', '3 categories: motor activity + brainstem reflex + level of consciousness · each scored 1-6, total 3-18', 'Pain only (NRS 0-10)', 'Heart rate (> 180) + blood pressure (< 60)'],
-    answer: 1, explain: 'MGCS: motor (tone, gait, posture) + brainstem (PLR, oculocephalic) + LOC · each 1-6 = total 3-18 · 3-8 grave · 9-14 guarded · 15-18 good',
+    answer: 1, explain: 'MGCS: motor (tone, gait, posture) + brainstem (PLR, oculocephalic) + LOC · each 1-6 = total 3-18 · 3-8 grave · 9-14 guarded · 15-18 good · ❌ ตัวเลือกอื่น: Visual only / Pain only / HR+BP = ไม่ใช่ MGCS components',
     verified: 'neuroER 1 hr.pdf' },
 
   // ─── AI in Vet Learning (NEW topic — 8 questions) ────────────
@@ -1063,27 +1063,27 @@ export const QB_COM3 = [
     tags: ['ai', 'platforms'], type: 'mcq',
     q: 'AI platform ที่ออกแบบมาเฉพาะสำหรับการ research / study notes (เน้นความ trustable + citation) คืออะไร',
     options: ['NotebookLM (Google)', 'Suno', 'Midjourney', 'ChatGPT'],
-    answer: 0, explain: 'NotebookLM = ออกแบบสำหรับ research/notes · ตอบจากเอกสารที่ user upload เท่านั้น · มี citation ทุกประโยค · ลด hallucination',
+    answer: 0, explain: 'NotebookLM = ออกแบบสำหรับ research/notes · ตอบจากเอกสารที่ user upload เท่านั้น · มี citation ทุกประโยค · ลด hallucination · ❌ ตัวเลือกอื่น: Suno = music gen · Midjourney = image gen · ChatGPT = general (hallucination มากกว่า, ไม่มี citation built-in)',
     verified: 'COM III ตารางเรียน คาบ 19 + additional.txt (Aj.NA)' },
 
   { id: 876, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'hallucination'], type: 'mcq',
     q: '"Hallucination" ใน AI หมายถึง',
     options: ['AI ปฏิเสธตอบ', 'AI หยุดทำงานกะทันหัน', 'AI สร้างคำตอบที่ดูสมเหตุสมผลแต่ไม่ตรงข้อเท็จจริง (อ้างอิงผิด, ตัวเลขมั่ว)', 'AI ทำงานช้า', 'AI เห็นภาพจริงจัง'],
-    answer: 2, explain: 'Hallucination = AI generate plausible-sounding but inaccurate content · risk สูงในข้อมูลทางการแพทย์ · ใช้ NotebookLM (RAG-based) ลด hallucination',
+    answer: 2, explain: 'Hallucination = AI generate plausible-sounding but inaccurate content · risk สูงในข้อมูลทางการแพทย์ · ใช้ NotebookLM (RAG-based) ลด hallucination · ❌ ตัวเลือกอื่น: "ปฏิเสธตอบ" = guardrail · "หยุดทำงาน" = downtime · "ทำงานช้า" = latency · "เห็นภาพจริงจัง" = anthropomorphism',
     verified: 'AI literacy 2024-2026 (NA lecture topic)' },
 
   { id: 877, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'prompt'], type: 'mcq',
     q: 'การ prompt AI สำหรับ clinical research — ที่แนะนำคืออะไร',
     options: ['ห้ามบอก context ใดๆ', 'ใช้ภาษากำกวมให้ AI ตีความเอง', 'ระบุ context (อายุ/เพศ/breed/clinical signs) + ask specific question + request citation/evidence', 'ใช้แค่คำคีย์เวิร์ดเดียว', 'ถามแบบเปิดสั้นๆ "ตอบหมาเป็นโรคอะไร"'],
-    answer: 2, explain: 'Good prompt: context + specific ask + request format/citation · เช่น "Dachshund 6 yr, sudden HL plegia, no DPP — DDx + initial workup with citation" · iterative refinement',
+    answer: 2, explain: 'Good prompt: context + specific ask + request format/citation · เช่น "Dachshund 6 yr, sudden HL plegia, no DPP — DDx + initial workup with citation" · iterative refinement · ❌ ตัวเลือกอื่น: "ห้ามบอก context" = ผิด · "กำกวมให้ตีความ" = hallucination เพิ่ม · keyword เดียว = vague · "เปิดสั้น" = generic answer',
     verified: 'AI prompt engineering best practice' },
 
   { id: 878, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'ethics-citation'], type: 'tf',
     q: 'การใช้ AI generate content สำหรับการเรียน/วิจัย — ต้องระบุการใช้ AI ในการอ้างอิงเสมอ (transparency)',
-    answer: true, explain: 'Academic integrity: ระบุ AI tool + version + how used · ตามนโยบายของจุฬาฯ + ICMJE recommendations · ห้ามอ้าง AI เป็น author แต่ระบุ "Generated with assistance from ChatGPT-4..."',
+    answer: true, explain: 'Academic integrity: ระบุ AI tool + version + how used · ตามนโยบายของจุฬาฯ + ICMJE recommendations · ห้ามอ้าง AI เป็น author แต่ระบุ "Generated with assistance from ChatGPT-4..." · ❌ ตัวเลือกอื่น: "ทำงานเร็วเกิน" / "ราคาถูกเกิน" / "รู้ทุกอย่าง" = misconception, ไม่ใช่ limitation',
     verified: 'Academic integrity policy + ICMJE' },
 
   { id: 879, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
@@ -1109,13 +1109,13 @@ export const QB_COM3 = [
     tags: ['ai', 'verification'], type: 'mcq',
     q: 'หลังได้คำตอบจาก AI แล้ว — ขั้นตอนที่สำคัญที่สุดสำหรับ medical use คืออะไร',
     options: ['ลบทิ้ง', 'ส่งให้คนอื่นต่อ', 'Verify ด้วย primary source ก่อนใช้กับ patient จริง', 'Copy-paste ใช้เลย'],
-    answer: 2, explain: 'AI = starting point · ต้อง verify โดย primary source สำหรับ clinical decisions · "trust but verify" · responsibility อยู่ที่ vet ไม่ใช่ AI',
+    answer: 2, explain: 'AI = starting point · ต้อง verify โดย primary source สำหรับ clinical decisions · "trust but verify" · responsibility อยู่ที่ vet ไม่ใช่ AI · ❌ ตัวเลือกอื่น: "ลบทิ้ง" = waste output · "ส่งคนอื่น" = ไม่ verify · "Copy-paste ใช้เลย" = unsafe ใน medical context',
     verified: 'Clinical AI use ethics' },
 
   { id: 882, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'privacy'], type: 'tf',
     q: 'การ upload ข้อมูลผู้ป่วยจริง (ชื่อเจ้าของ + record) เข้า AI tools (free tier) เป็นเรื่องที่ทำได้ปกติ ไม่มีปัญหา privacy',
-    answer: false, explain: 'False! Free-tier AI อาจใช้ data ในการ train · ห้าม upload PHI/PII · de-identify ก่อนใช้ · ใช้ enterprise version ที่มี data privacy contract สำหรับ clinical data',
+    answer: false, explain: 'False! Free-tier AI อาจใช้ data ในการ train · ห้าม upload PHI/PII · de-identify ก่อนใช้ · ใช้ enterprise version ที่มี data privacy contract สำหรับ clinical data · ❌ ตัวเลือกอื่น: X-ray ช่องท้อง = secondary survey หลัง stabilize · CBC+chem รอผล = ช้าไป · Complete history = หลัง stabilize',
     verified: 'GDPR + PDPA Thailand + medical data privacy' },
 
   // ═══════════════════════════════════════════════════════════
@@ -1184,7 +1184,7 @@ export const QB_COM3 = [
     tags: ['spinal', 'case', 'reasoning', 'ivdd'], type: 'mcq',
     q: 'Dachshund 6 ปี acute onset paraplegia ขาหลัง 12 ชม., DPP intact, UMN reflex ขาหลัง, ปวดเวลาคลำ T-L spine\nModified Frankel grade และ management ที่เหมาะสมคือข้อใด',
     options: ['Grade 5, poor prognosis, ไม่ผ่า', 'Grade 4 (plegia + DPP intact), MRI + Sx ภายใน 24-48 hr', 'No need imaging, observe 1 wk', 'Grade 1, cage rest + analgesia พอ'],
-    answer: 1, explain: 'Plegia + DPP intact = Grade 4 (Modified Frankel) · prognosis ดีถ้า Sx เร็ว (≤ 48 hr) · chondrodystrophoid + T12-L2 = classic IVDD type I · MRI confirm + hemilaminectomy',
+    answer: 1, explain: 'Plegia + DPP intact = Grade 4 (Modified Frankel) · prognosis ดีถ้า Sx เร็ว (≤ 48 hr) · chondrodystrophoid + T12-L2 = classic IVDD type I · MRI confirm + hemilaminectomy · ❌ ตัวเลือกอื่น: Grade 5 = no DPP (case นี้ DPP intact) · "No imaging observe 1 wk" = miss surgical window · Grade 1 = pain only ambulatory (case นี้ plegia)',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 
   { id: 892, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure',
