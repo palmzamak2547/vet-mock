@@ -29,6 +29,8 @@ const PATTERNS = [
   // Password reset
   { match: /token.*expired|otp.*expired/i, th: 'ลิงก์/รหัสยืนยันหมดอายุแล้ว — ขอใหม่' },
   { match: /token.*invalid|invalid.*token/i, th: 'ลิงก์/รหัสไม่ถูกต้อง' },
+  { match: /auth session missing|session.*not.*found|no.*session/i, th: 'ลิงก์รีเซ็ตหมดอายุหรือใช้ไปแล้ว — ขอลิงก์ใหม่จากหน้า "ลืมรหัสผ่าน"' },
+  { match: /same.*password|new password should be different/i, th: 'รหัสผ่านใหม่ต้องไม่ใช่รหัสเดิม' },
 ];
 
 export function thaiAuthError(err) {

@@ -6,6 +6,7 @@ import {
   sendPasswordReset,
   updatePassword,
   isUsernameAvailable,
+  getSupabase,
 } from '../lib/supabase.js';
 import { thaiAuthError } from '../lib/auth-errors.js';
 import {
@@ -54,6 +55,23 @@ export default function AuthView({ onBack, onSuccess, user }) {
   useEffect(() => {
     if (user && mode !== 'update-password' && onSuccess) onSuccess();
   }, [user, mode, onSuccess]);
+
+  // Fix for "click email link → no update form" bug.
+  // When the user arrives via the password-reset link, the URL hash
+  // contains an `access_token` Supabase needs to swap into a recovery
+  // session. That swap happens inside createClient (via the
+  // detectSessionInUrl option), but createClient only runs the first
+  // time someone calls getSupabase(). useAuth's lazy boot path doesn't
+  // call it for users with no prior session — so the hash sat
+  // unconsumed, and submitting the new password failed with
+  // "Auth session missing".
+  // Calling getSupabase() here forces the SDK to load + the hash to
+  // be consumed before the user even fills the form.
+  useEffect(() => {
+    if (mode === 'update-password') {
+      getSupabase().catch(() => {});
+    }
+  }, [mode]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);

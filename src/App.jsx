@@ -44,7 +44,20 @@ const ViewFallback = () => <div className="vmx-empty">กำลังโหล�
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
 
-  const [view, setView] = useState('home');
+  // Detect password-reset deep link on first render so the very first
+  // view is AuthView (which then enters mode='update-password' from the
+  // same query param). Without this, clicking the email link drops the
+  // user on the home page and the recovery form is never shown.
+  const initialView = (() => {
+    if (typeof window === 'undefined') return 'home';
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('auth') === 'reset') return 'auth';
+    } catch {}
+    return 'home';
+  })();
+
+  const [view, setView] = useState(initialView);
   const [mode, setMode] = useState('quick');
   const [subject, setSubject] = useState('all');
   const [topic, setTopic] = useState(null);
