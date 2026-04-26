@@ -57,7 +57,7 @@ export default function AboutView({ goHome, setView }) {
             title="📖 ทบทวนเนื้อหา (Notes)"
             items={[
               'สรุปเนื้อหาแยกหัวข้อ — table, callout, source citation',
-              'อิงจาก slide 2026 + เปรียบเทียบกับโพยรุ่นเก่า',
+              'อิงจาก slide 2026 + เปรียบเทียบกับข้อสอบเก่าของรุ่นพี่',
             ]}
           />
           <FeatureGroup
@@ -147,8 +147,7 @@ export default function AboutView({ goHome, setView }) {
           Backend: Supabase Postgres + Auth (lazy-loaded — โหลดเฉพาะตอน Login)<br/>
           Hosting: Vercel + 1 serverless function (YouTube playlist API)<br/>
           Version: v5.0<br/>
-          Cost: $0/month (free tier ทั้งหมด)<br/>
-          Source: <a href="https://github.com/palmzamak2547/vet-mock" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage)' }}>GitHub</a> (open source)
+          Cost: $0/month (free tier ทั้งหมด)
         </div>
       </div>
 

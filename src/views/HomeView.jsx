@@ -104,7 +104,7 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         <button className="vmx-mode-card" onClick={() => { setSubject && setSubject('com5'); setView('notes'); }} style={{ borderColor: 'var(--clr-sage)' }}>
           <div className="icon">📖</div>
           <div className="title">ทวนเนื้อหา</div>
-          <div className="sub">Study notes อ้างอิง slide จริง · COM V + COM III (เร็วๆ นี้: COM IV)</div>
+          <div className="sub">Study notes อ้างอิง slide จริง · COM III + COM IV + COM V</div>
         </button>
 
         <button className="vmx-mode-card" onClick={() => setView('scores')}>

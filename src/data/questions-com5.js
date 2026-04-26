@@ -945,7 +945,7 @@ export const QB_COM5 = [
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.35-37, 40' },
 
   // ═══════════════════════════════════════════════════════════
-  // FINAL 86 review batch — pulled from "เส้นแดง" compilation
+  // FINAL 86 review batch — pulled from "รวบรวมข้อสอบเก่า 86" compilation
   // ═══════════════════════════════════════════════════════════
 
   { id: 625, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis + FINAL 86',

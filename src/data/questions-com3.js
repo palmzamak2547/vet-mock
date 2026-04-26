@@ -6,7 +6,7 @@
 //     acute abdomen, resp/CV emergency, ER anes, metabolic/endo/UT,
 //     nutrition, neuro-ER, neuro_exam, neuro_localised,
 //     ataxia/tremor, seizure, spinal disorder)
-//   - "COM III FINAL 86 เส้นแดงคือรวมโพย" — TJ86 master compilation
+//   - "COM III FINAL 86 รวบรวมข้อสอบเก่ารุ่นพี่ + 86" — TJ86 master compilation
 //     (มีชุดข้อสอบ ER VET84 22 ข้อ + answer key)
 //   - sunsun84 (Vet 84) lecture archive
 //
@@ -1206,7 +1206,7 @@ export const QB_COM3 = [
     verified: 'seizure 1 hr.pdf + IVETF 2015' },
 
   // ═══════════════════════════════════════════════════════════
-  // FINAL 86 review batch — pulled from "เส้นแดง" compilation
+  // FINAL 86 review batch — pulled from "รวบรวมข้อสอบเก่า 86" compilation
   // (Nicky 86) — confirmed exam questions with red-line answers
   // ═══════════════════════════════════════════════════════════
 

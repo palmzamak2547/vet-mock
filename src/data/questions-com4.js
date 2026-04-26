@@ -964,7 +964,7 @@ export const QB_COM4 = [
     verified: 'Pediatrics_and_Geriatrics.pdf p.66' },
 
   // ═══════════════════════════════════════════════════════════
-  // FINAL 86 review batch — pulled from "เส้นแดง" compilation
+  // FINAL 86 review batch — pulled from "รวบรวมข้อสอบเก่า 86" compilation
   // ═══════════════════════════════════════════════════════════
 
   { id: 1030, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics + FINAL 86',

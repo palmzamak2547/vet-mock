@@ -33,11 +33,11 @@ npm run dev
 - แก้/เพิ่มคลิปได้ใน `src/data/videos.js`
 
 ### 📚 ระบุแหล่งที่มา
-- ทุกข้อสอบมี field `source` บอกว่าดึงมาจากโพยไหน
-- `src/data/sources.js` รวมข้อมูล contributors + โพย + topics แต่ละวิชา
+- ทุกข้อสอบมี field `source` บอกว่าดึงมาจากข้อสอบเก่าไหน
+- `src/data/sources.js` รวมข้อมูล contributors + ข้อสอบเก่า + topics แต่ละวิชา
 
 ### 🎓 รองรับทุกชั้นปี (schema พร้อม)
-- ตอนนี้มีข้อมูลปี 4 ครบ (148+ ข้อ)
+- ตอนนี้มีข้อมูลปี 4 ครบ (570+ ข้อ · 8 วิชา)
 - ปี 1-3, 5-6 จะเพิ่มได้ในอนาคต (schema รองรับแล้ว)
 
 ### 📮 Feedback Form
@@ -46,14 +46,14 @@ npm run dev
 
 ### 👥 By Vet 86 — หน้า About
 - แนะนำคนสร้าง
-- Credits สำหรับโพยรุ่นพี่ (Vet 83, 84, 85)
+- Credits สำหรับข้อสอบเก่าของรุ่นพี่ (Vet 83, 84, 85)
 
 ---
 
 ## 📝 ฟีเจอร์จาก v1-v4 (ยังมีครบ)
 
 ### 📝 การเรียน
-- **148+ ข้อสอบ** 6 วิชา (Surg II/III, Repro, COM III/IV, Exotic)
+- **570+ ข้อสอบ** 8 วิชา (Surg II/III, Repro, COM III/IV/V, Exotic, Cli App Rum)
 - **4 ประเภทคำถาม**: MCQ, True/False, Fill, Match
 - **Image-based questions**
 - **3 โหมด**: Quick Practice / Exam Mode / Spaced Repetition (SM-2)
@@ -197,7 +197,7 @@ git push
 
 ## 🙏 Credits
 
-**ข้อสอบ + โพย:**
+**ข้อสอบเก่า:**
 - Vet 83 (pployyyn — Repro Lab)
 - Vet 84 (พี่พล, Ping, Sunsun, Saideang, Janny — Surg Lab III)
 - Vet 85 (Kimchii — Repro, COM III, COM IV, Exotic; + Surg Lab II)

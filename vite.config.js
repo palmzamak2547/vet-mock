@@ -19,6 +19,7 @@ export default defineConfig({
           if (id.includes('questions-com5')) return 'data-q-com5'
           // Notes data is only loaded when NotesView is opened
           if (id.includes('notes-com3')) return 'data-notes-com3'
+          if (id.includes('notes-com4')) return 'data-notes-com4'
           if (id.includes('notes-com5')) return 'data-notes-com5'
         },
       },

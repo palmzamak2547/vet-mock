@@ -1,6 +1,8 @@
 import { YEARS } from '../data/curriculum.js';
+import { QB } from '../data/questions.js';
 
 export default function YearSelectView({ goHome, selectedYear, setSelectedYear, setView }) {
+  const y4Count = QB.filter((q) => q.year === 4).length;
   return (
     <>
       <div className="vmx-hero">
@@ -35,7 +37,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
 
       <div style={{ marginTop: 30, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
         💡 <strong>Roadmap:</strong><br/>
-        ✅ <strong>ปี 4</strong> (Vet 86) — เปิดใช้งานแล้ว · 148 ข้อ<br/>
+        ✅ <strong>ปี 4</strong> (Vet 86) — เปิดใช้งานแล้ว · {y4Count} ข้อ<br/>
         🔜 <strong>ปี 5</strong> — Clinical rotation · จะเปิดเมื่อมีข้อสอบเก่าพอ<br/>
         🔜 <strong>ปี 3, 2, 1</strong> — รอรุ่นน้องมาช่วยรวบรวม<br/>
         🙏 อยากช่วยเพิ่ม? ส่ง feedback บอกได้เลย

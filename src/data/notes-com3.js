@@ -3,7 +3,7 @@
 // ============================================================
 // Sources verified from extracted lecture text:
 //   - Slide Lecture 2026 (14 lectures)
-//   - "COM III FINAL 86 เส้นแดงคือรวมโพย" (TJ86 master compilation)
+//   - "COM III FINAL 86 รวบรวมข้อสอบเก่ารุ่นพี่ + 86" (TJ86 master compilation)
 //   - sunsun84 Vet 84 archive
 // Body item types same as notes-com5.js
 // ============================================================
