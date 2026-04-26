@@ -23,6 +23,13 @@
 //   flag        — { note, sources, severity } guideline conflict
 // ============================================================
 
+import {
+  IMG_SPINAL_LOCALIZATION,
+  IMG_FRANKEL,
+  IMG_MGCS,
+  IMG_CUSHING_REFLEX,
+} from './images-com.js';
+
 export const QB_COM3 = [
   // ═══════════════════════════════════════════════════════════
   // TRIAGE — Aj. Chutirat Torsahakul
@@ -664,6 +671,7 @@ export const QB_COM3 = [
     q: 'Modified Glasgow Coma Scale (MGCS) ในสัตว์ คะแนน 3-8 หมายถึง',
     options: ['Grave prognosis (severe coma)', 'Mild head trauma', 'Normal', 'Excellent prognosis'],
     answer: 0, explain: 'MGCS 3-8 = grave\n9-14 = guarded\n15-18 = good\nใช้ประเมิน prognosis ใน head trauma\n\n❌ ทำไมข้ออื่นผิด\n— Mild head trauma / Normal / Excellent = score สูงกว่า (9-18)',
+    image: IMG_MGCS,
     verified: 'neuroER 1 hr.pdf + master' },
 
   { id: 822, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
@@ -671,6 +679,7 @@ export const QB_COM3 = [
     q: 'Cushing reflex (ในกรณี ICP สูง) ประกอบด้วย',
     options: ['Fever + cough', 'Bradycardia + hypertension + irregular respiration (terminal sign)', 'Normal vitals', 'Tachycardia + hypotension + tachypnea'],
     answer: 1, explain: 'Cushing reflex (Cushing\'s triad) = bradycardia + ↑ BP + irregular RR\nเป็น late sign ของ ↑ ICP → brain herniation imminent\n\n❌ ทำไมข้ออื่นผิด\n— Fever + cough = infection\n— Normal vitals = ผิด ICP สูง\n— Tachy + hypotension = shock (ตรงข้าม)',
+    image: IMG_CUSHING_REFLEX,
     verified: 'neuroER 1 hr.pdf' },
 
   { id: 823, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
@@ -1056,6 +1065,7 @@ export const QB_COM3 = [
     q: 'Modified Glasgow Coma Scale (MGCS) ประเมินอะไร',
     options: ['Visual only (PLR 1-2 mm)', '3 categories: motor activity + brainstem reflex + level of consciousness · each scored 1-6, total 3-18', 'Pain only (NRS 0-10)', 'Heart rate (> 180) + blood pressure (< 60)'],
     answer: 1, explain: 'MGCS: motor (tone, gait, posture) + brainstem (PLR, oculocephalic) + LOC\neach 1-6 = total 3-18\n3-8 grave\n9-14 guarded\n15-18 good\n\n❌ ทำไมข้ออื่นผิด\n— Visual only / Pain only / HR+BP = ไม่ใช่ MGCS components',
+    image: IMG_MGCS,
     verified: 'neuroER 1 hr.pdf' },
 
   // ─── AI in Vet Learning (NEW topic — 8 questions) ────────────
@@ -1178,6 +1188,7 @@ export const QB_COM3 = [
     q: 'สุนัข Labrador Retriever 5 ปี มา ER ด้วย acute weakness 4 ขา\nNeuro exam: ขาหน้า patellar reflex hyperreflexive (withdrawal intact), ขาหลัง patellar normal (withdrawal intact), cranial nerves ปกติ, mentation alert\nLesion location อยู่ที่ไหน',
     options: ['C6-T2 (LMN ขาหน้า + UMN ขาหลัง)', 'T3-L3 (ขาหน้าปกติ + UMN ขาหลัง)', 'L4-S3 (LMN ขาหลังเท่านั้น)', 'C1-C5 (UMN ทั้ง 4 ขา)'],
     answer: 3, explain: 'Hyperreflexive ขาหน้า + intact reflex หลัง = UMN 4 ขา = lesion above C6 → **C1-C5**\nถ้า LMN ขาหน้า (hyporeflexia) → C6-T2\nalert mentation → not forebrain\n\n❌ ทำไมข้ออื่นผิด\n— C6-T2 = ต้องมี LMN ขาหน้า (hyporeflexia) ขัดกับ case\n— T3-L3 = ขาหน้าปกติทั้งหมดขัดกับ hyperreflexia\n— L4-S3 = ขาหน้าปกติ',
+    image: IMG_SPINAL_LOCALIZATION,
     verified: 'neuro_exam 1 hr.pdf + neuro_localised 1 hr.pdf' },
 
   { id: 891, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder',

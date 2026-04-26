@@ -9,6 +9,8 @@
 //   q, options/answer/blanks/pairs, explain, verified?, flag?
 // ==========================================================
 
+import { IMG_HAIR_CYCLE, IMG_SPHEROCYTE } from './images-com.js';
+
 export const QB_COM4 = [
   // ═══════════════════════════════════════════════════════════
   // Dermatology Introduction (Aj. Chaiyot Tanrattana)
@@ -32,6 +34,7 @@ export const QB_COM4 = [
     q: 'Hair cycle ระยะ "transitional phase" (ระยะเปลี่ยนผ่าน) คือระยะใด',
     options: ['Anagen — growth phase', 'Catagen — transitional phase', 'Telogen — resting phase', 'Exogen — shedding phase'],
     answer: 1, explain: 'Hair cycle 3 ระยะหลัก: Anagen (growth) → Catagen (transitional, สั้น) → Telogen (resting) · Exogen = sub-phase ของการหลุดร่วง (ไม่นับเป็นระยะหลัก)\n\n❌ ทำไมข้ออื่นผิด\n— Anagen = growth (ไม่ใช่ transitional)\n— Telogen = resting\n— Exogen = sub-phase shedding ไม่ใช่ transitional หลัก',
+    image: IMG_HAIR_CYCLE,
     verified: 'Derm_1__2_Dermatology_introduction.pdf p.5' },
 
   { id: 903, subject: 'com4', topic: 'derm-intro', year: 4, source: 'Derm_1__2_Dermatology_introduction.pdf',
@@ -640,6 +643,7 @@ export const QB_COM4 = [
     q: 'Findings ที่ classic ใน blood smear ของ IMHA',
     options: ['Spherocytes + autoagglutination + reticulocytosis (regenerative hemolysis)', 'Pancytopenia เท่านั้น', 'Polycythemia', 'Normal blood smear'],
     answer: 0, explain: 'IMHA findings: spherocytes (small dense RBC, no central pallor — partial phagocytosis) · autoagglutination (positive saline test) · regenerative anemia (reticulocyte ↑, polychromasia, anisocytosis) ใน 70% of cases · 30% non-regenerative (peracute, ก่อน BM response, หรือ precursor-targeted) · Coombs\' test + (DAT)\n\n❌ ทำไมข้ออื่นผิด\n— Pancytopenia = bone marrow disease\n— Polycythemia = ตรงข้าม (RBC ↑)\n— Normal = ไม่ใช่ IMHA',
+    image: IMG_SPHEROCYTE,
     verified: 'Immune-mediated_Hemolytic_anemia.pdf p.22' },
 
   { id: 986, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
