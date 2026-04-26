@@ -57,14 +57,20 @@ export default async function handler(req, res) {
     const type = String(body.type || 'Feedback').slice(0, 50);
     const subject = String(body.subject || '').slice(0, MAX_SUBJECT);
     const message = String(body.message || '').slice(0, MAX_MESSAGE);
-    const fromEmail = String(body.fromEmail || '').slice(0, MAX_EMAIL);
+    let fromEmail = String(body.fromEmail || '').slice(0, MAX_EMAIL).trim();
     const fromName = String(body.fromName || '').slice(0, MAX_NAME);
 
     if (!message.trim()) return res.status(400).json({ error: 'Message is required' });
 
-    // Basic email sanity if provided (loose; full RFC validation impractical)
+    // ── Sanitize fromEmail (iOS autofill quirks) ──
+    // iPad/iPhone Contacts autofill often produces "Name <email@host>" or
+    // adds stray whitespace. Extract the email and silently drop if it's
+    // still not a usable format — the field is optional, no need to fail
+    // the whole submission. We only use it for the Resend `reply_to`.
+    const angle = fromEmail.match(/<([^>]+)>/);
+    if (angle) fromEmail = angle[1].trim();
     if (fromEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fromEmail)) {
-      return res.status(400).json({ error: 'Invalid email format' });
+      fromEmail = '';
     }
 
     const apiKey = process.env.RESEND_API_KEY;
