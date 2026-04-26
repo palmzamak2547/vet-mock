@@ -11,6 +11,7 @@ import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.j
 
 // Eager — needed for first paint
 import HomeView from './views/HomeView.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 
 // Lazy — pulled in only when the user navigates to that view.
 // Big wins on cold load (esp. iPad / mobile Safari) since NotesView,
@@ -261,6 +262,7 @@ export default function App() {
           </div>
 
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
+            <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
               {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} />}
@@ -284,6 +286,7 @@ export default function App() {
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView }} />}
             </Suspense>
+            </ErrorBoundary>
           )}
 
           <div className="vmx-footer">
