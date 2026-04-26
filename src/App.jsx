@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef, Suspense, lazy } from 'react';
 import { QB } from './data/questions.js';
 import { SUBJECTS, CURRENT_YEAR } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
@@ -9,27 +9,34 @@ import { STYLES } from './styles.js';
 import { hasSupabase, signOut } from './lib/supabase.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
 
+// Eager — needed for first paint
 import HomeView from './views/HomeView.jsx';
-import SubjectSelectView from './views/SubjectSelectView.jsx';
-import ConfigView from './views/ConfigView.jsx';
-import ExamView from './views/ExamView.jsx';
-import ResultsView from './views/ResultsView.jsx';
-import ReviewView from './views/ReviewView.jsx';
-import SRSessionView from './views/SRSessionView.jsx';
-import DashboardView from './views/DashboardView.jsx';
-import QuestionManagerView from './views/QuestionManagerView.jsx';
-import AuthView from './views/AuthView.jsx';
-import GroupsView from './views/GroupsView.jsx';
-import GroupDetailView from './views/GroupDetailView.jsx';
-import LeaderboardView from './views/LeaderboardView.jsx';
-import ScheduleView from './views/ScheduleView.jsx';
-import ScoresView from './views/ScoresView.jsx';
-import VideoView from './views/VideoView.jsx';
-import AboutView from './views/AboutView.jsx';
-import FeedbackView from './views/FeedbackView.jsx';
-import YearSelectView from './views/YearSelectView.jsx';
-import TopicSelectView from './views/TopicSelectView.jsx';
-import NotesView from './views/NotesView.jsx';
+
+// Lazy — pulled in only when the user navigates to that view.
+// Big wins on cold load (esp. iPad / mobile Safari) since NotesView,
+// VideoView, GroupsView etc. ship their own chunks.
+const SubjectSelectView = lazy(() => import('./views/SubjectSelectView.jsx'));
+const ConfigView = lazy(() => import('./views/ConfigView.jsx'));
+const ExamView = lazy(() => import('./views/ExamView.jsx'));
+const ResultsView = lazy(() => import('./views/ResultsView.jsx'));
+const ReviewView = lazy(() => import('./views/ReviewView.jsx'));
+const SRSessionView = lazy(() => import('./views/SRSessionView.jsx'));
+const DashboardView = lazy(() => import('./views/DashboardView.jsx'));
+const QuestionManagerView = lazy(() => import('./views/QuestionManagerView.jsx'));
+const AuthView = lazy(() => import('./views/AuthView.jsx'));
+const GroupsView = lazy(() => import('./views/GroupsView.jsx'));
+const GroupDetailView = lazy(() => import('./views/GroupDetailView.jsx'));
+const LeaderboardView = lazy(() => import('./views/LeaderboardView.jsx'));
+const ScheduleView = lazy(() => import('./views/ScheduleView.jsx'));
+const ScoresView = lazy(() => import('./views/ScoresView.jsx'));
+const VideoView = lazy(() => import('./views/VideoView.jsx'));
+const AboutView = lazy(() => import('./views/AboutView.jsx'));
+const FeedbackView = lazy(() => import('./views/FeedbackView.jsx'));
+const YearSelectView = lazy(() => import('./views/YearSelectView.jsx'));
+const TopicSelectView = lazy(() => import('./views/TopicSelectView.jsx'));
+const NotesView = lazy(() => import('./views/NotesView.jsx'));
+
+const ViewFallback = () => <div className="vmx-empty">กำลังโหลด…</div>;
 
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
@@ -251,7 +258,7 @@ export default function App() {
           </div>
 
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
-            <>
+            <Suspense fallback={<ViewFallback />}>
               {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -273,7 +280,7 @@ export default function App() {
               {view === 'about' && <AboutView {...{ goHome, setView }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView }} />}
-            </>
+            </Suspense>
           )}
 
           <div className="vmx-footer">

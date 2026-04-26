@@ -280,6 +280,40 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-player-sidebar { max-height: 50vh !important; border-left: none !important; border-top: 1px solid var(--clr-border); }
 }
 
+/* ────────── Player modal — phone-first responsive ────────── */
+@media (max-width: 640px) {
+  /* Eat the whole viewport so the video gets max real estate */
+  .vmx-modal-overlay:has(.vmx-player-grid) { padding: 0; }
+  .vmx-modal:has(.vmx-player-grid) {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100dvh;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+  }
+  .vmx-player-grid { flex: 1; min-height: 0; overflow-y: auto; }
+  .vmx-player-grid > div:first-child { padding: 12px !important; }
+  .vmx-player-sidebar { max-height: 40vh !important; }
+}
+
+/* Phone landscape — give video the full height, hide sidebar by default */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  .vmx-modal:has(.vmx-player-grid) {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100dvh;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+  .vmx-player-grid > div:first-child { padding: 8px !important; padding-right: 8px !important; }
+  /* Stretch the iframe wrapper — 16:9 is fine but cap by height */
+  .vmx-player-grid iframe { max-height: calc(100dvh - 110px); }
+}
+
 @media (max-width: 640px) {
   .vmx-btn-row { flex-direction: column-reverse; gap: 10px; }
   .vmx-btn-row .vmx-btn { width: 100%; justify-content: center; }

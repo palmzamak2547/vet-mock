@@ -3,4 +3,24 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    chunkSizeWarningLimit: 700,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'vendor-react'
+            if (id.includes('@supabase')) return 'vendor-supabase'
+            return 'vendor'
+          }
+          // Question banks are heavy + only needed once user starts a quiz
+          if (id.includes('questions-com3')) return 'data-q-com3'
+          if (id.includes('questions-com5')) return 'data-q-com5'
+          // Notes data is only loaded when NotesView is opened
+          if (id.includes('notes-com3')) return 'data-notes-com3'
+          if (id.includes('notes-com5')) return 'data-notes-com5'
+        },
+      },
+    },
+  },
 })
