@@ -37,6 +37,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.3.0',
+    date: '2026-04-27',
+    headline: '✏️ Smart Passage (เขียน Apple Pencil ได้) + 🎯 Smart Self-Grader',
+    changes: [
+      { scope: 'engprof', kind: 'feature', icon: '✏️', title: 'Smart Passage — highlight + ปากกา + Apple Pencil',
+        desc: 'เปลี่ยน reading passage ให้จดได้: 🖍️ ไฮไลท์ 3 สี (ลากเลือก ถ้าจะลบให้คลิก) · ✏️ pen mode รองรับ Apple Pencil ปลายปากกามี pressure-sensitive · 🩹 ยางลบเฉพาะเส้นวาด · บันทึกอัตโนมัติต่อ passage (mock อื่นที่ใช้ passage เดียวกันก็ใช้ mark นั้นได้)' },
+      { scope: 'engprof', kind: 'feature', icon: '🎯', title: 'Smart Self-Grader — ตรวจข้อเขียนแบบไม่ง้อ AI',
+        desc: '4 panel ในกล่องเดียว: 📊 word count meter · 🔑 keyword coverage % พร้อมรายการที่ขาด · 📝 paraphrase detector (จับ chunk ที่ copy ตรงจาก passage ≥6 คำติด) · 📋 rubric checklist 15 pts (Content 7 + Org 5 + Paraphrase 3) ติ๊กแล้วคำนวณคะแนนเอง · 🔮 confidence calibration ให้ทายคะแนนก่อน track avg bias ระยะยาว' },
+      { scope: 'system', kind: 'feature', icon: '💾', title: 'บันทึก self-grade ต่อข้อ + history',
+        desc: 'คะแนนที่ติ๊ก + การทาย เก็บใน localStorage · กลับมาดูได้ · 50 essay ล่าสุดเก็บไว้คำนวณ "เราชอบประเมินสูง/ต่ำกว่าจริงเฉลี่ยกี่คะแนน"' },
+    ],
+  },
+  {
     version: '5.2.0',
     date: '2026-04-27',
     headline: '🎯 ปรับช้อยส์ COM IV ให้ท้าทายขึ้น + อัพเดทแนวข้อสอบหลายวิชา',

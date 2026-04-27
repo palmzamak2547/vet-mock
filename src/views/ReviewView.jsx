@@ -2,6 +2,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
+import SmartGrader from '../components/SmartGrader.jsx';
 
 // NOTE: Smart AI grading was temporarily removed from the UI per user
 // request — the model + rubric + self-assessment workflow alone is
@@ -113,7 +114,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                     </div>
                   </div>
                 )}
-                <SelfGradeHint />
+                <SmartGrader q={q} userAnswer={userAns} />
               </>
             ) : (
               <>
@@ -187,21 +188,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// SelfGradeHint — friendly nudge to use the model answer + rubric
-// shown above to grade themselves. Replaces the older AIGradePanel
-// (which offered a Self vs Smart-AI picker) per user request to
-// remove the AI option until ANTHROPIC_API_KEY setup is desired.
-// The supporting libs (src/lib/ai-grade.js + api/grade-summary.js)
-// are still in the repo for one-line re-enable later.
-// ─────────────────────────────────────────────────────────────
-function SelfGradeHint() {
-  return (
-    <div style={{ marginTop: 10, padding: '10px 14px', borderRadius: 10, background: 'var(--clr-bg)', border: '1px dashed var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-      📝 <strong style={{ color: 'var(--clr-ink)' }}>Self-assess:</strong> เปรียบเทียบคำตอบของคุณกับ <strong>model answer</strong> + <strong>rubric</strong> ด้านบน แล้วประเมินตัวเองว่าได้คะแนนเท่าไหร่
-      <span style={{ display: 'block', marginTop: 4, fontSize: 11 }}>
-        Essay full = 15 pts (Content 7 + Org/Grammar 5 + Paraphrase 3) · Short answer = 1-2 pts/ข้อ ตาม rubric
-      </span>
-    </div>
-  );
-}
+// SelfGradeHint was replaced by SmartGrader (src/components/SmartGrader.jsx)
+// which adds keyword coverage, paraphrase detection, an interactive
+// rubric checklist with auto-totalled score, and a confidence-calibration
+// panel that tracks how well the user predicts their own grades over time.

@@ -1,20 +1,15 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
+import SmartPassage from './SmartPassage.jsx';
 
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote }) {
-  // Passage panel (for reading-comprehension questions) — collapsible.
-  // Defaults open per question so students see the text; they can
-  // collapse it when they're ready to focus on answering.
-  const [passageOpen, setPassageOpen] = useState(true);
+  // Passage panel (for reading-comprehension questions) — handled by
+  // SmartPassage component (see ./SmartPassage.jsx). It owns its own
+  // open/closed state, highlight + pen overlays, and persistence.
+  // We just hold a ref so the mobile FAB can scroll the passage into
+  // view when the user taps "📄 Passage".
   const passageRef = useRef(null);
-
-  // Reset the open/closed state when navigating to a different question
-  // (parent doesn't unmount us — it only swaps currentQ — so without
-  // this, collapsing the passage in Q1 would carry over to Q2/3/...).
-  useEffect(() => {
-    setPassageOpen(true);
-  }, [currentQ?.id]);
 
   // Word count for essay-type writing questions
   const essayText = (currentQ.type === 'essay' && typeof currentAnswer === 'string') ? currentAnswer : '';
@@ -28,12 +23,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     essayWords > softMax ? 'var(--clr-gold)' :
     'var(--clr-sage)';
 
-  // FAB action — open passage if collapsed + smooth scroll into view.
-  // Used on narrow viewports where passage is above the writing area
-  // and scrolls out of sight while the user types.
+  // FAB action — smooth scroll passage into view. SmartPassage manages
+  // open/closed itself; we don't need to force it open from here.
   const focusPassage = () => {
-    if (!passageOpen) setPassageOpen(true);
-    // Defer to next frame so the expanded layout is in place
     requestAnimationFrame(() => {
       try {
         passageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -51,23 +43,11 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // appears for one-tap "back to passage" access.
   const passageBlock = currentQ.passage && (
     <div ref={passageRef} className="vmx-q-passage-pane">
-      <div style={{ border: '1px solid var(--clr-border)', borderRadius: 12, overflow: 'hidden', background: 'var(--clr-surface-2)' }}>
-        <button
-          type="button"
-          onClick={() => setPassageOpen((v) => !v)}
-          style={{ all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', width: '100%', boxSizing: 'border-box', background: 'var(--clr-surface)', borderBottom: passageOpen ? '1px solid var(--clr-border)' : 'none' }}
-        >
-          <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)' }}>
-            📄 {currentQ.passage_title || 'Reading Passage'}
-          </span>
-          <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--clr-ink-soft)' }}>{passageOpen ? '▾ ซ่อน' : '▸ ดู passage'}</span>
-        </button>
-        {passageOpen && (
-          <div style={{ padding: '14px 16px', fontSize: 14, lineHeight: 1.75, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap', maxHeight: 380, overflowY: 'auto' }}>
-            <RichText text={currentQ.passage} />
-          </div>
-        )}
-      </div>
+      <SmartPassage
+        text={currentQ.passage}
+        title={currentQ.passage_title}
+        defaultOpen={true}
+      />
     </div>
   );
 
