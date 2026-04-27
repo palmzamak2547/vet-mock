@@ -515,7 +515,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 <button
                   className="vmx-btn vmx-btn-primary vmx-btn-sm"
                   onClick={() => setOpenSummary(currentSummary)}
-                  title="อ่านสรุปคลิปจาก Claude (มี download .md ด้วย)"
+                  title="อ่านสรุปคลิป (มีปุ่ม download .md ด้วย)"
                   style={{ fontWeight: 600 }}
                 >
                   📝 อ่านสรุปคลิป

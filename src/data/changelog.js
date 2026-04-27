@@ -41,12 +41,10 @@ export const CHANGELOG = [
     date: '2026-04-27',
     headline: '📝 สรุปคลิปอาจารย์ — อ่านแทนนั่งดูเป็นชั่วโมง + download .md',
     changes: [
-      { scope: 'multi', kind: 'feature', icon: '📝', title: 'อ่านสรุปคลิปย้อนหลังในแอพ',
-        desc: 'เปิดคลิปใน playlist แล้วกด "📝 อ่านสรุปคลิป" → เปิด modal อ่าน markdown สรุปจาก Claude (อ่าน YouTube transcript ภาษาไทยแล้วถอดเป็นโครง headers / table / bullet) · มีปุ่ม 💾 download .md เพื่อเอาไปอ่านใน Notability / Obsidian · ใน sidebar ของ playlist คลิปที่มีสรุปจะติดสัญลักษณ์ 📝' },
-      { scope: 'system', kind: 'feature', icon: '🎬', title: 'YouTube transcript pipeline (no API key)',
-        desc: '`npm run fetch:videos` ดึง transcript จาก com3 + com4 playlists ของ Aj. Dai (31 คลิป Thai auto-caption) ผ่าน youtubei.js + youtube-transcript · cache ใน data-cache/ (gitignored, ไม่ขึ้น repo) · Claude อ่านในแชทแล้วเขียน summary ลง src/data/video-summaries.js' },
-      { scope: 'com4', kind: 'content', icon: '🩺', title: 'สรุปคลิป "IBD + SLE" คลิปแรก (proof of concept)',
-        desc: 'อ่าน transcript คลิป "2.IBD + SLE 12 Mar 69" (57 นาที, 1,026 segments) เขียนเป็น markdown ภาษาไทย พร้อม timestamps + key concepts + exam tips · ครอบคลุม 4 IBD criteria, modern Tx (probiotic + diet > antibiotic), SLE = "โรคพุ่มพวง", CD4/CD8 ratio, ANA test, breed-specific cases · ขอเพิ่มสรุปคลิปอื่นได้ตลอดในแชทถัดไป' },
+      { scope: 'multi', kind: 'feature', icon: '📝', title: 'อ่านสรุปคลิปย้อนหลังในแอป',
+        desc: 'เปิดคลิปใน playlist แล้วกด "📝 อ่านสรุปคลิป" → modal สรุปประเด็นสำคัญในรูปแบบ markdown · มีปุ่ม 💾 download .md เพื่อเอาไปอ่านใน Notability / Obsidian · ใน sidebar ของ playlist คลิปที่มีสรุปจะติดสัญลักษณ์ 📝 ให้เห็นชัดเจน' },
+      { scope: 'com4', kind: 'content', icon: '🩺', title: 'สรุปคลิป "IBD + SLE" พร้อมใช้แล้ว',
+        desc: 'ครอบคลุม 4 IBD criteria, modern treatment (probiotic + diet > antibiotic deprecated), large vs small bowel diarrhea, SLE = "โรคพุ่มพวง", CD4/CD8 ratio, ANA test, breed-specific cases (Sharpei → amyloidosis) + exam hot spots · จะทยอยเพิ่มสรุปคลิปอื่นๆ เข้ามาเรื่อยๆ' },
     ],
   },
   {
