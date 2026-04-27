@@ -587,6 +587,587 @@ export const VIDEO_SUMMARIES = {
   },
 
   // ─────────────────────────────────────────────────────────────
+  // COM III — Shock + Respiratory & Cardiovascular Emergency
+  // ─────────────────────────────────────────────────────────────
+  bQNeOLU2nD4: {
+    videoId: 'bQNeOLU2nD4',
+    title: '5. Shock + Respiratory and Cardiovascular Emergency',
+    subject: 'com3',
+    date: '2 Apr 69',
+    durationMin: 116,
+    instructor: 'อ.รัสมา (ER section)',
+    examFormat: 'Case-based MCQ — DO₂ formula, shock type, fluid choice, pressor selection, fail quadrant',
+    summary: `# Shock + Respiratory & Cardiovascular Emergency
+
+> 🎯 ภาพรวม ER section · Shock = O₂ supply ≠ demand → cardiovascular collapse
+> ⚠️ Shock ไม่ใช่ "หมดสติ" — ส่วนใหญ่ยังรู้สึกตัว · ดูจาก perfusion parameter
+
+---
+
+# 🔻 Part 1: Shock
+
+## DO₂ formula ⭐⭐⭐
+> **DO₂ = CaO₂ × CO**
+>
+> CaO₂ = (Hb × SaO₂ × 1.34) + (PaO₂ × 0.003)
+> CO = SV × HR
+
+**Factors that lower DO₂:**
+- ↓ Hb → anemia
+- ↓ SaO₂ → hypoxemia (lung problem)
+- ↓ SV → hypovolemia, weak contractility
+- ↓ HR → bradycardia
+
+## 6 Types of Shock ⭐⭐⭐
+
+| Type | Sub-class | Cause | Cool/Warm |
+|------|-----------|-------|-----------|
+| **Hypovolemic** | Circulatory | Blood loss, V/D, polyuria, 3rd space loss | Cold (vasoconstrict) |
+| **Cardiogenic** | Circulatory | Pump failure: DCM/HCM/MMVD, arrhythmia, tamponade | Cold |
+| **Obstructive** | Circulatory | GDV, tension PTX, pulmonary embolism | Cold |
+| **Distributive** ⭐ | Circulatory | **Sepsis**, SIRS, anaphylaxis (vasodilation) | **Warm** ⭐ |
+| **Metabolic** | Non-circulatory | Hypoglycemia, cyanide → mitochondrial dysfunction | varies |
+| **Hypoxic** | Non-circulatory | Severe anemia, primary lung disease | varies |
+
+> 💡 **Distributive shock = "warm shock"** — vasodilation, brick-red mm, bounding pulse · ตรงข้ามกับ hypovolemic = cold shock
+
+## SIRS / Sepsis Criteria
+
+**SIRS** (in dog) — 2 of 4:
+| Parameter | Threshold |
+|-----------|-----------|
+| Temperature | < 38 or > 39.5°C |
+| HR (dog) | > 120 |
+| HR (cat) | < 140 OR > 250 ⭐ (cat low rate also counts!) |
+| RR | > 20 |
+| WBC | > 16k or < 6k or > 3% bands |
+
+> Cat needs **3 of 4** (more strict)
+
+**Sepsis** (new definition, 2 yr ago in human, sỉp into vet):
+- Old: SIRS + infection
+- **New: organ dysfunction from infection** (no SIRS required)
+- **Septic shock** = sepsis + circulatory collapse (lactate ↑ or MAP < 65)
+- Most common bug: **E. coli** (gram-negative) from blood culture
+
+**MODS** = Multiple Organ Dysfunction Syndrome (≥ 2 organs dysfunctional)
+
+## Stages (hypovolemic dog ⭐ different in cat)
+| Stage | HR | CRT | BP | mm |
+|-------|-----|-----|-----|-----|
+| Compensate | ↑↑ tachy | < 1 sec (fast) | normal | injected |
+| Early decompensate | ↑ but less | 2-3 sec (prolonging) | starting to drop | pale |
+| Late decompensate | ↓ bradycardic | > 3 sec | drops sharply | gray/white |
+
+## ⚠️ Cat Shock Triad
+1. **Hypotension**
+2. **Hypothermia**
+3. **Bradycardia** ← cat doesn't tachy like dog!
+
+> 💡 Cat ≠ small dog · cat shock = **bradycardia + hypothermia** classic
+
+## Diagnosis Tools
+- **Lactate** > 2.5 mmol/L → suspect shock
+  - Type A = ↑ from anaerobic metabolism (true shock)
+  - Type B = ↓ excretion only
+- **ScvO₂** (central venous O₂ sat): normal 65-75%
+- **Shock Index** (dog only) = HR / SBP — > 1 = suspicious
+
+## Treatment
+
+**🎯 ทุก shock → start with O₂ supplementation** (ปลอดภัย, อาจจะช่วย)
+
+| Shock Type | Primary Tx |
+|------------|-----------|
+| **Hypovolemic** | **Fluids** ⭐ (see below) |
+| **Cardiogenic** | ⊘ NO fluids! → **inotrope** (dobutamine), diuretics |
+| **Obstructive** | Fluids at **proximal** to obstruction (e.g., GDV → forelimb IV); decompress |
+| **Distributive** | Fluids (supplemental) + **pressor** (norepinephrine) + antibiotics ASAP |
+| **Hypoxic** | O₂ ± transfusion |
+| **Metabolic** | Treat cause (glucose, antidote) |
+
+### Fluid resuscitation (modern approach)
+> ⚠️ **เก่า:** 90 mL/kg/hr dog, 60 mL/kg/hr cat — **เลิกใช้แล้ว!**
+>
+> **ใหม่: Small Volume Resuscitation**
+> - Dog: **10 mL/kg over 10 min** (crystalloid bolus)
+> - Cat: **5-10 mL/kg over 10-15 min**
+> - Reassess perfusion params → repeat ก้อนถัดไปถ้ายังไม่ดี
+> - Max **3 boluses** (ไม่งั้นจะบวม)
+
+| Fluid | Dose | Use |
+|-------|------|-----|
+| **Crystalloid** | 10 mL/kg dog, 5-10 cat / 10 min | first line |
+| **Colloid** | 10-20 mL/kg dog, 5-10 cat | switch to ถ้า crystalloid 2-3 boluses ไม่พอ |
+| **Hypertonic saline** | 4-5 mL/kg dog, 2-4 cat | ⚠️ contraindicated if dehydrated/hypernatremic |
+
+### Pressors (Distributive/Septic shock)
+| Drug | Action | Use |
+|------|--------|-----|
+| **Norepinephrine** ⭐ first line | α₁ +++ , β₁ + | best for septic shock (focus vessels, not heart) |
+| Phenylephrine | α₁ only | alt to NE |
+| Dopamine | β₁ +, α + | ↑ mortality, less preferred now |
+| **Dobutamine** ⭐ | β₁ ++ (heart) | **first line for cardiogenic shock** |
+| Epinephrine | α + β | anaphylaxis |
+
+### Other Adjuncts
+- **Bicarb** if pH < 7.2 or HCO₃ < 12
+- **Glucose** for metabolic shock with hypoglycemia
+- **Antibiotic** for septic shock — earlier = better survival
+- **Diuretic (furosemide)** for cardiogenic with fluid overload
+- ⚠️ **Steroid (Dex) — DEPRECATED** for routine shock (↑ mortality from GI ulcer)
+  - Reserve for **CIRCI** (Critical Illness-Related Corticosteroid Insufficiency) — physiological dose only
+- ⚠️ **NSAID — contraindicated** (kidney + GI risk in shock)
+
+### DIC ("Death Is Coming Soon" 💀)
+- Disseminated Intravascular Coagulation
+- = SIRS + MODS in coagulation system
+- **Early (hyper)** — microthrombi form, hard to detect (need TEG)
+- **Late (hypo)** — bleeding everywhere (PT/aPTT prolonged) — easy to detect, but mostly fatal
+
+---
+
+# 🔻 Part 2: Respiratory Emergency
+
+## Hypoxemia diagnostic parameters
+
+### Blood Gas
+- **PaO₂** (arterial!) — gold standard but hard to draw
+- Normal SaO₂ > 95% · < 75 = serious · < 55 = critical → **ventilator**
+- **PaCO₂** (CO₂ has 20× higher diffusion than O₂ → better marker for **ventilation**)
+  - **Hypo-vent** → ↑ CO₂ (> 50 = significant) → respiratory acidosis
+  - **Hyper-vent** → ↓ CO₂
+
+### A-a Gradient ⭐
+- A = alveolar O₂ (calculated)
+- a = arterial O₂ (measured)
+- Normal **< 15** · > 15 = **diffusion problem** = parenchymal lung disease
+
+### PF Ratio
+- = PaO₂ / FiO₂
+- Normal ~500 (room air FiO₂ 0.21, PaO₂ ~100)
+- < 300 = lung injury · **< 200 = ARDS** (acute respiratory distress syndrome)
+
+### SpO₂ (pulse ox)
+- Should be > 95% · < 90-92 = significant
+- Sites: tongue, ear, lip · noisy → measure repeatedly
+
+## Localization of Respiratory Distress
+
+| Location | Sign | Examples |
+|----------|------|----------|
+| **Large airway** (upper) | **Stridor** (high pitch larynx) / **Stertor** (low pitch nasopharynx) | BOAS, laryngeal paralysis, FB |
+| **Small airway** (lower) | **Wheeze** (expiratory) | Feline asthma, bronchitis |
+| **Parenchyma** | Crackles, dull lung | Pneumonia, ARDS, pulm contusion, edema |
+| **Pleural space** | Muffled lung, dull on percussion | Pneumothorax, effusion, hemothorax, diaphragmatic hernia |
+| **Pulmonary thromboembolism** | sudden tachypnea, normal lung sound | IMHA, pancreatitis, sepsis |
+| **Look-alike** | normal lung | Shock (compensatory tachypnea), brain injury, severe pain, neuro paralysis (cobra bite!) |
+
+## Treatment
+
+### O₂ supplementation methods
+| Method | FiO₂ achievable | Stress |
+|--------|-----------------|-------|
+| **Flow-by** (in front of nose) | low | minimal — use during procedure |
+| **Mask** | medium | moderate |
+| **Nasal cannula** | medium-high | low (long-term) |
+| **Oxygen cage** | high | low |
+| **High-flow nasal cannula (HFNC)** ⭐ | very high (controlled FiO₂, T°, humidity) | low |
+| **Ventilator** | 100% | sedated/intubated |
+
+> 💡 ถ้าไม่แน่ใจ → **flow-by ก่อน** ปลอดภัยที่สุด ไม่มี contraindication
+
+### Ventilator indications
+- **PaO₂ < 60 mmHg** (severe hypoxemia)
+- **PaCO₂ > 50 mmHg** (hypoventilation)
+- Snake bite (cobra) — anticipate diaphragm paralysis
+- Severe ARDS
+
+### Pressure vs Volume control
+- ICU patients with stiff/diseased lungs → **Pressure control** (safer, prevents barotrauma)
+- Don't push 20 mL/kg volume into damaged lungs → pneumothorax!
+
+### O₂ Toxicity ⚠️
+- FiO₂ > 60% for > 3-4 hr → free radical damage
+- Keep FiO₂ ≤ 50% (safe), or ≤ 60% (acceptable) when prolonged
+
+### Tracheostomy (last resort if airway block)
+- Temporary tube placement
+- Replaceable tube, smaller bore
+
+---
+
+# 🔻 Part 3: Cardiovascular Emergency
+
+## Heart's Priorities (when failing)
+1. **Cardiac filling pressure** ← lose first
+2. **Tissue perfusion** (coronary)
+3. **Arterial pressure** ← preserved last (until very late)
+
+## Backward vs Forward Fail
+- **Backward fail** ⭐ พบก่อนเสมอ
+  - LV fail → fluid backs up to **lungs** → pulmonary edema
+  - RV fail → fluid backs up to **systemic** → ascites, pleural effusion
+  - ⚠️ **Cat exception**: LV fail can cause **pleural effusion** too (different anatomy)
+- **Forward fail**
+  - = Cardiogenic shock
+  - Drop in BP, weak pulse, cold extremities
+
+## 4 Quadrants of Heart Failure ⭐⭐
+| | Dry (no edema) | Wet (edema) |
+|---|----------------|-------------|
+| **Warm** (forward OK) | Compensated | Backward fail (most common!) |
+| **Cold** (forward fail) | Pure forward fail (low-output) | Decompensated total fail |
+
+## Treatment by Quadrant
+
+### Warm-Wet (most common ER presentation)
+- **Furosemide IV 2 mg/kg** ⭐
+  - Repeat q1h until RR < 30
+  - ⚠️ Watch kidney function (renal-excreted)
+  - Then taper to maintenance (BID/TID)
+- **Pimobendan** ⭐ (positive inotrope + vasodilator) — kill 2 birds 1 stone
+- O₂ supplementation
+- Drain effusion if pleural/abdominal
+
+### Cold-Dry (rare, low-output)
+- **Dobutamine CRI** (β₁ inotrope) — kicks heart muscle
+- Avoid fluids
+
+### Cold-Wet (severe, both forward + backward)
+- **Pimobendan** + dobutamine
+- Less aggressive on furosemide (already cold)
+- Arterial dilator → dump load forward → indirectly clears edema
+
+### Diastolic dysfunction (e.g., HCM)
+- Problem = **can't relax** to receive blood
+- Inotrope **doesn't help** — already small chamber
+- **Diuretic** + **venodilator** (nitroglycerin) helps
+- ⚠️ Don't use arterial dilator — not the issue
+
+## Drug Reference
+| Drug | Action | Dose |
+|------|--------|------|
+| **Furosemide** | Loop diuretic | 2-4 mg/kg IV (acute), 1-2 PO BID (maintenance) |
+| **Pimobendan** ⭐ | Ca-sensitizer + Vasodilator | 0.25-0.5 mg/kg PO BID |
+| **Dobutamine** | β₁ inotrope | 5-15 μg/kg/min CRI |
+| **Sodium nitroprusside** | A+V dilator | CRI; ⚠️ contraindicated in hypotension |
+| **Hydralazine** | Arterial dilator | PO |
+| **Amlodipine** | Ca channel blocker | First-line for **feline hypertension** |
+| **Sedation** in CHF | opioid (butorphanol/methadone, fentanyl) | low dose — DON'T use ace if hypotensive |
+
+> 💡 **Furosemide IV preferred** ใน acute CHF — เร็วกว่า IM และไม่ต้องเสี่ยงเปิดเส้น 2 ครั้ง
+
+## Pericardial Effusion → Tamponade
+- ⭐ **Whole heart enlargement** on radiograph (not specific chamber)
+- → Echo to confirm
+- Signs: muffled heart sounds, weakness, syncope, ascites, tachycardia, weak pulse
+- Tx: **Pericardiocentesis** (drain) ± diuretic (don't help much, fluid not the issue)
+- Common in **dogs** (rare in cat) · usually atrial mass (hemangiosarcoma) in old large breed
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐⭐
+
+### Shock
+1. **DO₂ formula** = CaO₂ × CO
+2. **6 types** with classification (4 circulatory + 2 non-circulatory)
+3. **Cat shock triad**: hypotension + hypothermia + **bradycardia**
+4. **SIRS criteria** (2/4 dog, 3/4 cat — cat HR < 140 also counts)
+5. **Sepsis new definition** = infection + organ dysfunction
+6. **Septic shock = distributive** (warm shock)
+7. **Lactate > 2.5** → suspect shock
+8. **Small volume resuscitation** = 10 mL/kg/10 min × ≤ 3 boluses
+9. **Fluid in cardiogenic = NO!**
+10. **Norepinephrine** = first-line pressor in septic shock
+11. **Dobutamine** = first-line for cardiogenic
+12. **DIC** = SIRS+MODS in coag, hyper → hypo phase
+13. ⚠️ **Steroid for shock = deprecated** (CIRCI exception only, low dose)
+
+### Respiratory
+1. **PaCO₂** = ventilation marker (>50 sig) · **PaO₂** = oxygenation
+2. **A-a gradient > 15** = parenchymal disease
+3. **PF ratio < 300** = lung injury · **< 200 = ARDS**
+4. **Stridor** (high) = larynx · **Stertor** (low) = nasopharynx
+5. **Ventilator indication**: PaO₂ < 60 OR PaCO₂ > 50
+6. **O₂ toxicity** if FiO₂ > 60% for > 3-4 hr
+7. **Pressure control** for sick lungs (not volume)
+8. **Hyper-vent** → low CO₂ · **Hypo-vent** → high CO₂
+
+### Cardiovascular
+1. **Backward fail** comes first → forward fail later
+2. **Cat LA fail** can cause **pleural effusion** (≠ dog!)
+3. **4 quadrants**: warm/cold × dry/wet
+4. **Furosemide 2 mg/kg IV** acute CHF
+5. **Pimobendan** = inotrope + vasodilator
+6. **Dobutamine** = pure inotrope (β₁)
+7. **Whole heart enlargement** on Xray → think **pericardial effusion**
+8. **Pericardiocentesis** = treatment of tamponade
+9. ⚠️ Diastolic dysfunction (HCM) — **don't add inotrope**
+
+---
+
+> 💡 **อ.รัสมา closing tip:**
+> "ทุกอย่างให้ O₂ ก่อน ไม่ผิด"
+> "DIC = Death Is Coming Soon — ถ้าเจอแล้ว survival rate ต่ำมาก"
+> "แมวไม่ใช่หมาตัวเล็ก — รู้ไว้!"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Triage + Emergency anesthesia
+  // ─────────────────────────────────────────────────────────────
+  azotEvqwcZo: {
+    videoId: 'azotEvqwcZo',
+    title: '8. Triage + Emergency anesthesia',
+    subject: 'com3',
+    date: '23 Apr 69',
+    durationMin: 137,
+    instructor: 'อ.รัสมา (Triage) + อ. (Emergency anesthesia)',
+    examFormat: 'Case-based MCQ — A/B/C/D/E primary survey + drug choice ใน compromised patients ออกบ่อย',
+    summary: `# Triage + Emergency Anesthesia
+
+> 🚑 **Triage** = คำฝรั่งเศส แปล "to sort" — แบ่ง emergency vs stable
+> ER ≠ Med · ER ซักประวัติสั้น + primary survey ก่อน → resuscitate → secondary survey
+> Med ตรวจ full history + full physical exam ก่อน
+
+---
+
+# 🔻 Part 1: Triage (อ.รัสมา)
+
+## Color Coding
+| สี | Status | ความเร่งด่วน |
+|----|--------|-------------|
+| 🔴 **Red — Unstable** | ต้อง resuscitate ทันที (เสี้ยววินาที) | CPR, severe trauma, GDV, choked airway, active bleeding ไม่หยุด, ไส้ไหล |
+| 🟡 **Yellow — Potentially unstable** | ภายใน 1 ชม. | open fracture, burn, repeated V/D, urethral obstruction |
+| 🟢 **Green — Stable** | รอได้ / ส่งอายุรกรรม | เจ็บขา, คัน, เช็ดหู (เจ้าของชอบมา 2 AM!) |
+
+> ⚠️ **อย่าตัดสินจากภายนอกอย่างเดียว** — IVDD paralyzed 2 ปีแล้ว = ไม่ใช่ ER · นั่งหายใจ effort เยอะ = ER
+
+## ABCDE Primary Survey ⭐⭐⭐
+
+### 🅰️ Airway + 🅱️ Breathing
+
+**Look:**
+- Effort เพิ่ม? abdominal breathing? **orthopnea** (ยืดคอกางศอก)?
+- Nasal flaring? open-mouth breathing (cat = significant!)
+- Apnea? (ช่องอกไม่ขยับ)
+
+**Listen:**
+- **Stridor** = high-pitched (lower upper airway: larynx)
+- **Stertor** = low-pitched (nasopharynx)
+- Crackles, harsh sounds → lower airway disease
+
+**⚠️ Paradoxical breathing** = อกกับท้องไปคนละทิศ
+- หายใจเข้า → อกขยายแต่ **ท้องยุบ** (sliding diaphragm)
+- = diaphragm fatigue หรือ pleural space disease (effusion)
+
+> 💡 Brachycephalic cat (Persian, Exotic) อ้าปากหายใจตอนร้อนได้ — ไม่ critical เสมอไป
+
+### 🅲 Circulation — perfusion parameters (6 ตัว)
+| Parameter | Normal | Abnormal |
+|-----------|--------|----------|
+| **Mentation** | alert | **DOSCC**: Depressed → Obtund → Stupor → Coma |
+| **Mucous membrane** | pink | pale (anemia/perfusion), cyanosis (hypoxia), brick red (sepsis), yellow (icterus) |
+| **CRT** | 1-2 sec | < 1 (hyperdynamic), > 2 (poor perfusion) |
+| **Heart rate** | giant 60-100, med 70-160, small 100-180, cat/puppy 180-240 | tachycardia (compensate) → bradycardia (decompensate) |
+| **Pulse quality** | strong | **weak** (severe shock), **bounding** (compensate/sepsis) |
+| **Extremity temp** | warm | cold (peripheral vasoconstriction) |
+
+> ⚠️ **Pulse quality ≠ blood pressure** — ต้องวัด BP เสมอ! ความดัน 80/40 = strong pulse แต่ MAP ต่ำ
+
+> 📌 **CRT ที่ inner lip** ดีกว่ากด gum (gingivitis ทำให้ผิดได้)
+
+> 💡 mucous membrane:
+> - **Brick red** = sepsis/distributive shock (vasodilation รุนแรง)
+> - **Yellow** = icterus → bilirubin sources (pre/hepatic/post)
+> - **Cyanosis** = SpO₂ ต่ำ (CHF, airway, pleural disease)
+
+### 🅳 Disability (CNS)
+- Level of consciousness (DOSCC scale)
+- **Pupil**: anisocoria, PLR
+- Posture (head tilt, opisthotonus)
+- Tremor / seizure
+- Pain response: ⭐ **superficial pain → deep pain** — ไม่ต้องตรวจ deep ถ้ายังมี superficial
+- **Modified Glasgow Coma Score (MGCS)** < 8 = poor prognosis
+
+### 🅴 Exposure
+- โกนขนเปิดดู — โดยเฉพาะ long-haired
+- Crepitus (fracture), wound, abrasion, bruising
+- Abdominal palpation — pain, fluid wave, mass
+- ⚠️ ขออนุญาตเจ้าของก่อนโกน (drama ได้)
+
+### Telephone Triage Cues (ให้รีบมา)
+- Collapse / unconscious / not breathing
+- Severe cough
+- Seizure / abnormal tremor
+- Multiple vomiting
+- HR rapid change
+- Bleeding from orifice
+- Sudden weakness / pallor
+- Distended abdomen + can't urinate
+- Toxin ingestion (Postnan! เพราะกลิ่นหวาน)
+- Severe pain (won't let touch)
+
+---
+
+## Sample Case: น้องเจนนี่ (อ้วก 10 รอบ)
+- Mentation: depressed · CRT 2-3 (prolonged) · HR 160 · weak pulse
+- → **Hypovolemic shock, decompensating** → unstable, RED 🔴
+- **C is the dominant problem**
+- Resuscitate: **small volume fluid bolus** + เก็บเลือดส่งตรวจ
+- DDx framework: **VITAMIN D** หรือ **DAMNITV** (D-disability, A-anomaly, M-metabolic, N-neoplasia, I-infection/immune, T-trauma/toxin, V-vascular)
+- Final Dx: bacterial enteritis with shock → AB + supportive
+
+---
+
+# 🔻 Part 2: Emergency Anesthesia (อ.)
+
+> 🎯 หลักการ: **stabilize ก่อน วางยาทีหลัง** · ถ้าจำเป็นต้องวาง — ใช้ยาที่ minimal cardiovascular impact
+
+### Pre-anesthetic principles
+1. **Pre-oxygenate** — ตุน O₂ ก่อน induction (mask/flow-by/collar)
+2. **Choose drugs ที่:**
+   - Minimal CV depression
+   - Reversible ถ้า possible
+   - Titratable
+3. **Multi-modal + preemptive analgesia** — opioid เป็น first line
+4. **Skilled team** — ใส่ tube ไว, IV เก่ง, แก้ไขเฉพาะหน้าเร็ว
+
+### Sedative groups (3 หลัก)
+| Group | Examples | Potency | Use in compromised? |
+|-------|----------|---------|---------------------|
+| **Phenothiazine** | Acepromazine | Medium | ❌ Hypotension risk |
+| **Benzodiazepine** | Diazepam, Midazolam | Low (alone) | ✅ **Choice in ER** — minimal CV effect |
+| **Alpha-2 agonist** | Dexmedetomidine, Medetomidine | **High** | ❌❌ **Avoid in compromised!** — for HEALTHY only |
+
+> ⭐ **Compromise patient → use Benzo + Opioid combo** (synergy, low CV impact)
+> ⭐ **Healthy + heavy sedation → Alpha-2** (Dex alone or +opioid)
+
+### Opioids (3 ตัวในไทย)
+**All work on μ-receptor** — different potency + duration only
+
+| Drug | Equipotent dose | Duration |
+|------|-----------------|----------|
+| **Pethidine** | 5 mg/kg | ~1.5 hr |
+| **Morphine** | 0.5 mg/kg | 3-4 hr |
+| **Fentanyl** | 5 μg/kg | ~45 min |
+
+> 💡 เลือกตาม duration ที่ต้องการ · fentanyl สั้น → ใช้ CRI ใน OR
+
+### Induction agents (ในไทย)
+| Group | Drug | Use case |
+|-------|------|----------|
+| Barbiturate | Thiopental | rare now |
+| **Dissociative** | **Ketamine**, Tiletamine-zolazepam (Zoletil) | ⭐ **ER preferred** — sympathomimetic, modulation analgesia |
+| **Other** | **Propofol**, Alfaxalone (recently delisted), Etomidate | Propofol = fast but CV depressant |
+
+> ⭐ **Ketamine ดีใน ER** เพราะ:
+> 1. Sympathomimetic → ไม่กด CV เต็มๆ
+> 2. NMDA antagonist → analgesia (modulation level)
+> ⚠️ **Ketamine ในแมว** — ขับทางไต — ห้ามใน urethral obstruction!
+
+> ⚠️ **Propofol** = fast onset แต่ **กด CV รุนแรง** → ใช้เฉพาะตอนต้องสลบเร็ว (airway emergency)
+
+### Pain management = preemptive + multimodal
+- **Transduction** → NSAID (post-op only ถ้า BP ดี)
+- **Transmission** → local block, epidural (lidocaine + opioid)
+- **Modulation** → opioid, ketamine
+- **Perception** → general anesthetic (Iso, Sevoflurane)
+
+### MAC Reduction Technique
+- ใช้ Iso น้อยลง → ลด CV depression
+- เสริมด้วย **fentanyl CRI** + ketamine CRI ใน maintenance
+
+---
+
+## 🚨 Common ER Scenarios
+
+### 1. GDV (Gastric Dilation-Volvulus)
+- **Hypovolemic shock** → fluid bolus first
+- May need **gastric trocarization** (ลด pressure ก่อนผ่า)
+- **Pre-med**: Opioid + Benzo (avoid Acepromazine — vasodilator)
+- **Induction**: **Ketamine + Benzo** (preferred) or Fentanyl + Midazolam ± Ketamine
+- **Monitor for arrhythmia** — common from acidosis/electrolyte/shock — keep lidocaine ready
+
+### 2. Urethral Obstruction (Cat) ⭐⭐⭐
+- **Hyperkalemia = #1 killer** — toxic to heart!
+- Lower K+ < 7.5 mmol/L **before anesthesia**
+  - **Glucose ± insulin** → drive K+ into cells (temporary)
+  - **Ca gluconate** → cardioprotect
+  - IV fluid → dilute
+  - Bicarb if acidotic
+- ⚠️ **Avoid ketamine in cat** (renal excretion — kidney already compromised)
+- Pre-med: opioid + benzo · Induction: low-dose propofol
+- Decompress bladder → manage urethra
+
+### 3. Dystocia
+- Pregnant animals = ↑ progesterone → **inherent sedation** → ต้องการยาน้อยลง
+- **Big abdomen → ↓ FRC + reflux risk** → secure airway fast (RSI)
+- Stay in **lateral recumbency** as long as possible (don't lie supine until cut)
+- Prep + clip BEFORE induction — surgeon ready in scrubs
+- **Avoid alpha-2** (CV depression for fetus + mom)
+- **Alfaxalone** structurally similar to progesterone — natural choice
+
+### 4. Ocular trauma (Proptosis)
+- Brachycephalic eye-pop
+- ⚠️ **Oculocardiac reflex** = parasympathetic via CN V → CN X → bradycardia
+- ถ้า HR < expected (อายุ/พันธุ์) → **add atropine** ใน combo
+- ถ้า HR ปกติ → keep atropine in reserve
+- Brachycephalic = high vagal tone บ้านเดิม → tend to bradycardia
+- **Lower CO₂ (low-normal)** ถ้ากังวล head trauma — ลด ICP
+
+### 5. Hemoabdomen (เลือดตกในช่อง)
+- Most common: **splenic mass rupture** in old large breed (Golden, GSD)
+- Hypovolemic shock — wax/wane ก่อน rapid deterioration
+- Ix: PCV + TP + ultrasound + abdominocentesis
+- **Resuscitate first** — fluid bolus, prepare blood
+- **Crystalloid → colloid → blood** (best to last)
+- ⚠️ ⊘ ใช้ crystalloid เยอะใน old + heart disease (volume overload)
+- Cross-match ก่อน transfuse
+
+### 6. Pneumothorax / Pleural disease
+- **Open mouth breathing in cat** = critical sign
+- Tap chest BEFORE induction
+- **Pre-oxygenate** + control ventilation immediately
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐⭐
+
+### Triage
+1. **A B C D E** primary survey order
+2. **Stridor** (high) vs **Stertor** (low) — anatomic location
+3. **Paradoxical breathing** = diaphragm fatigue/pleural disease
+4. **6 perfusion parameters** for circulation (mentation, mm, CRT, HR, pulse, temp)
+5. **Brick red mm** = sepsis · **yellow** = icterus · **cyanotic** = hypoxia
+6. **Stress leukogram absent + ill** = think Addison
+7. **Pulse quality ≠ BP** — must measure BP
+8. **Triage colors**: red (immediate) / yellow (within 1 hr) / green (stable)
+9. **DAMNITV** for DDx framework
+10. **MGCS < 8** = poor prognosis
+
+### Emergency Anesthesia
+1. **Avoid alpha-2 in compromised** patients (Dex/Medetomidine)
+2. **Benzo + opioid** = ER preferred combo
+3. **Ketamine in ER** — sympathomimetic + analgesia · BUT avoid in cat with renal/urinary disease
+4. **Propofol** = fast but cardiovascular depressant
+5. **Pregnant** = ↓ MAC needed (progesterone effect)
+6. **Cat urethral obstruction** — must reduce **K+ < 7.5** before GA
+7. **HyperK ECG**: bradycardia, peaked T, lost P, wide QRS
+8. **Glucose + insulin** drives K into cells (temporary)
+9. **Proptosis** → oculocardiac reflex → atropine if HR low
+10. **GDV** = fluid resuscitate, decompression, watch for arrhythmia
+11. **Hemoabdomen** = splenic mass in old large dog · Resuscitate before surgery
+12. **Opioid equipotent**: Morphine 0.5 = Pethidine 5 = Fentanyl 0.005 mg/kg
+13. **Preemptive + multimodal** analgesia principles
+
+---
+
+> 💡 **อ.: "ไม่มียาที่ perfect — ทุกตัวมีจุดอ่อน · เลือก individual ตาม situation · ใช้ลด dose ลงให้ต่ำสุด"**
+> 💡 **อ.รัสมา: "Triage จะดีต้องประเมิน ABCDE ครบ — อย่าใช้สายตาอย่างเดียวตัดสิน"**`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
   // COM IV — Drug used for immune mediated diseases ➜ IBD + SLE
   // ─────────────────────────────────────────────────────────────
   pewBPGWFqoo: {
