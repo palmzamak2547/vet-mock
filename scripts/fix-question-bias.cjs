@@ -130,7 +130,7 @@ function walkQuestions(src) {
     const subjectMatch = blockText.match(/subject: '([^']+)'/);
     const topicMatch = blockText.match(/topic: '([^']+)'/);
     const typeMatch = blockText.match(/type: '([^']+)'/);
-    const optsMatch = blockText.match(/options: \[([^\n]+)\]/);
+    const optsMatch = blockText.match(/options: \[([\s\S]*?)\](?=,\s*\n)/);
     const answerMatch = blockText.match(/answer: (\d+)/);
     if (!typeMatch) continue;
 
@@ -151,12 +151,14 @@ function walkQuestions(src) {
 
 // ── Apply position swap inside a single block's source text ──
 function rewriteBlockForSwap(blockText, fromIdx, toIdx) {
-  const optsRe = /(options: )\[([^\n]+)\]/;
+  const optsRe = /(options: )\[([\s\S]*?)\](?=,\s*\n)/;
   const m = blockText.match(optsRe);
   if (!m) return blockText;
   const opts = splitJsStringArray(m[2]);
   if (!opts || opts.length < Math.max(fromIdx, toIdx) + 1) return blockText;
   [opts[fromIdx], opts[toIdx]] = [opts[toIdx], opts[fromIdx]];
+  // Re-emit single-line — keeps file diff small for trivial swaps. The
+  // surrounding code style won't reformat to multi-line on re-save.
   const newOpts = `${m[1]}[${opts.join(', ')}]`;
 
   let next = blockText.replace(optsRe, newOpts);

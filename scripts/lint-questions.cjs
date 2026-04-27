@@ -49,6 +49,7 @@ function splitJsStringArray(s) {
   const out = [];
   let i = 0;
   while (i < s.length) {
+    // Skip whitespace, commas, and newlines (multi-line arrays)
     while (i < s.length && /[\s,]/.test(s[i])) i++;
     if (i >= s.length) break;
     if (s[i] !== "'") return null;
@@ -75,7 +76,11 @@ function parseQuestions(src, file) {
     const subjectMatch = b.match(/subject: '([^']+)'/);
     const topicMatch = b.match(/topic: '([^']+)'/);
     const typeMatch = b.match(/type: '([^']+)'/);
-    const optsMatch = b.match(/options: \[([^\n]+)\]/);
+    // Single-line OR multi-line options array. Multi-line happens when
+    // a question has > ~80 chars worth of options and the author broke
+    // the array across lines for readability (Phase-2 COM III batch
+    // and most engprof writing prompts do this).
+    const optsMatch = b.match(/options: \[([\s\S]*?)\](?=,\s*\n)/);
     const answerMatch = b.match(/answer: (\d+)/);
     const qMatch = b.match(/q: '((?:[^'\\]|\\.)*)'/);
 

@@ -37,6 +37,17 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.6.0',
+    date: '2026-04-27',
+    headline: '📜 Phase 2 ข้อสอบเก่า COM III — รวม 60 ข้อ + linter ครอบคลุม multi-line',
+    changes: [
+      { scope: 'com3', kind: 'content', icon: '📜', title: '+30 ข้อสอบเก่า DC3final 86 (Phase 2)',
+        desc: 'ดึงมาจาก DC3final read.pdf Q22-Q85 ที่ตรงกับ slide lecture 2026 · ทุกข้อมี examOrigin + balanced answer position ตั้งแต่เขียน · ครอบคลุม vestibular paradox, paraplegia signs, restrictive vs obstructive breathing pattern, hyperkalemia mgmt, paradoxical respiration, white shaker syndrome, Wobbler tetraplegia, DMVD, DKA + analgesia ใน shock' },
+      { scope: 'system', kind: 'fix', icon: '🔧', title: 'Linter รองรับ multi-line options array',
+        desc: 'ก่อนหน้านี้ lint-questions.cjs ตรวจไม่ครบเพราะ regex รับเฉพาะ single-line — แก้ให้รองรับ multi-line array (Phase 2 batch + engprof writing prompts ใช้ format นี้) · ตอนนี้ตรวจ MCQ 445 ข้อ (เดิม 381)' },
+    ],
+  },
+  {
     version: '5.5.0',
     date: '2026-04-27',
     headline: '🎲 ปิด position bias ทุกหัวข้อ + ลบ ** ทั้งคลัง + linter ระยะยาว',
