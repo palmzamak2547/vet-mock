@@ -100,6 +100,18 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                     </div>
                   )}
 
+                  {/* External links — e.g. shared Google Doc with collected past papers */}
+                  {Array.isArray(exam.links) && exam.links.length > 0 && (
+                    <div style={{ marginTop: 8, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                      {exam.links.map((lnk, i) => (
+                        <a key={i} href={lnk.url} target="_blank" rel="noopener noreferrer"
+                          style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', color: 'var(--clr-ink)', textDecoration: 'none' }}>
+                          {lnk.label} ↗
+                        </a>
+                      ))}
+                    </div>
+                  )}
+
                   {!isPast && (
                     hasQuestions(exam.subject) ? (
                       <button className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ marginTop: 12 }}

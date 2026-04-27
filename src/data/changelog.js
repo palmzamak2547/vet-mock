@@ -37,6 +37,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.2.0',
+    date: '2026-04-27',
+    headline: '🎯 ปรับช้อยส์ COM IV ให้ท้าทายขึ้น + อัพเดทแนวข้อสอบหลายวิชา',
+    changes: [
+      { scope: 'com4', kind: 'fix', icon: '🎲', title: 'แก้ bias ช้อยส์ใน IMHA / IBD / SLE',
+        desc: 'เดิม distractor สั้นมาก (เช่น "Surgery", "ไม่ต้อง monitor") ทำให้เดาช้อยที่ยาว/ละเอียดที่สุดได้ — ตอนนี้ทุก option มี clinical detail ใกล้เคียงกัน เลือกตามความเข้าใจไม่ใช่ความยาว · แก้ทั้งหมด 28 ข้อ' },
+      { scope: 'multi', kind: 'content', icon: '📅', title: 'อัพเดทแนวข้อสอบ 6 วิชา',
+        desc: 'COM IV ย้ายไปศุกร์ 1 พ.ค. เช้า · COM III ออกคาบละ 5-7 ข้อ ช้อย 5 ตัว (AI ไม่ออก) · Vet Prac Rum 3 ภาควิชา (ศัลย์/สัตวบาล/สูติ — เตรียมดินสอวาดคลอดยาก) · Clin App Rum อ.ศวิตา 45 ข้อ · Ani Repro Lect 15-24 + Google Doc รวบข้อสอบ · Poultry T/F + ช้อย + เติมคำ' },
+      { scope: 'system', kind: 'feature', icon: '🔗', title: 'แสดง external link ในตารางสอบ',
+        desc: 'เพิ่ม chip ลิงก์เอกสารแชร์ใต้ exam card (เช่น Google Doc รวมข้อสอบเก่า)' },
+    ],
+  },
+  {
     version: '5.1.9',
     date: '2026-04-27',
     headline: '🎯 จัดหน้าตั้งค่าให้ตรงกับวิชา — ตัด UI ที่ไม่ใช้ออก',
