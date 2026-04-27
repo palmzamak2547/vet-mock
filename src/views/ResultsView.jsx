@@ -1,7 +1,28 @@
+import { useEffect, useRef } from 'react';
 import { isCorrect, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
 
 export default function ResultsView({ score, questions, answers, goHome, setView, mode }) {
+  // Fire confetti once on mount for a perfect auto-graded score.
+  // Lazy-imported so the canvas/animation code never hits the
+  // main bundle. Guarded by useRef so React StrictMode's double
+  // mount in dev doesn't trigger the burst twice.
+  const firedRef = useRef(false);
+  useEffect(() => {
+    if (firedRef.current) return;
+    // Use correct === total instead of pct === 100 — pct is rounded,
+    // so 199/200 = 99.5% would round to 100% and false-fire.
+    if (score.total > 0 && score.correct === score.total) {
+      firedRef.current = true;
+      import('../lib/confetti.js').then((m) => {
+        m.fireConfetti({ count: 140 });
+        // Second + third bursts from the corners for a fuller spread
+        setTimeout(() => m.fireConfetti({ count: 80, originXRatio: 0.2 }), 250);
+        setTimeout(() => m.fireConfetti({ count: 80, originXRatio: 0.8 }), 500);
+      }).catch(() => {});
+    }
+  }, [score.correct, score.total]);
+
   // Split writing from auto-graded for the result counts so writing
   // questions don't show up as "wrong" — they need Self/AI grading.
   const autoQs = questions.filter((q) => !isWritingType(q));

@@ -77,6 +77,27 @@ html, body { overscroll-behavior-y: contain; }
 .vmx-theme-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-theme-btn:hover { border-color: var(--clr-ink); }
 
+.vmx-cmdk-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 13px; color: var(--clr-ink-soft); transition: all 0.15s; font-family: inherit; }
+.vmx-cmdk-btn:hover { border-color: var(--clr-ink); color: var(--clr-ink); }
+.vmx-cmdk-kbd { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 6px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-bg); color: var(--clr-ink-soft); letter-spacing: 0.04em; }
+@media (max-width: 600px) { .vmx-cmdk-kbd { display: none; } .vmx-cmdk-btn { padding: 6px 10px; } }
+
+/* View Transitions API — smooth fade between views (Chrome/Edge/Safari TP).
+   Firefox falls back to no animation gracefully. */
+@supports (view-transition-name: none) {
+  ::view-transition-old(root), ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  ::view-transition-old(root) { animation-name: vmx-vt-fade-out; }
+  ::view-transition-new(root) { animation-name: vmx-vt-fade-in; }
+}
+@keyframes vmx-vt-fade-out { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-4px); } }
+@keyframes vmx-vt-fade-in  { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
 .vmx-nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
 .vmx-nav-btn { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--clr-border); background: transparent; font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--clr-ink-soft); cursor: pointer; transition: all 0.15s; }
 .vmx-nav-btn:hover { border-color: var(--clr-ink); color: var(--clr-ink); }

@@ -42,6 +42,15 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.12.0',
+    date: '2026-04-28',
+    headline: '⌘K — ค้นทุกอย่างจากที่เดียวกัน',
+    changes: [
+      { scope: 'system', kind: 'feature', icon: '⌘', title: '⌘K / Ctrl+K — Quick search ทุกหน้า',
+        desc: 'กด ⌘K (Mac) หรือ Ctrl+K (Windows) → modal ค้นหา → พิมพ์เพื่อหา เมนู / วิชา / สรุปคลิป → ↑↓ เลื่อน ↵ เลือก esc ปิด · มีปุ่ม 🔍 บน header ด้วยถ้าไม่อยาก keyboard · กระโดดข้ามหน้าได้เร็วมาก ไม่ต้องเดินผ่านเมนูยาวๆ' },
+    ],
+  },
+  {
     version: '5.10.0',
     date: '2026-04-27',
     headline: '📝 สรุปคลิปครบ 31 ตอน — COM IV + COM III + Endocrine + Onco + Derm',

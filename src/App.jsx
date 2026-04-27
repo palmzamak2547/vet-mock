@@ -1,8 +1,10 @@
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense, lazy } from 'react';
+import { flushSync } from 'react-dom';
 import { QB } from './data/questions.js';
 import { SUBJECTS, CURRENT_YEAR } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
+import { useWakeLock } from './hooks/useWakeLock.js';
 import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
 import { isFlashcardCompatible } from './hooks/sr-filter.js';
@@ -13,6 +15,39 @@ import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.j
 // Eager — needed for first paint
 import HomeView from './views/HomeView.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+
+// Lazy — pulls VIDEO_SUMMARIES (~200KB) into a separate chunk so it
+// only ships when the user actually presses ⌘K (or clicks the search
+// button). Keeps the first-paint bundle small.
+const CommandPalette = lazy(() => import('./components/CommandPalette.jsx'));
+
+// View Transitions API helper — wraps a state update so the browser
+// snapshots the DOM before/after and crossfades automatically. Falls
+// back to a plain call when the API isn't available (Firefox, older
+// Safari). Only animates if the user hasn't asked to reduce motion.
+//
+// Uses flushSync inside startViewTransition so React commits the
+// update synchronously before the browser captures the "new" frame.
+// Without flushSync, React 18 may batch the update past the
+// transition window and you'd see no animation.
+function withTransition(updateFn) {
+  if (typeof document === 'undefined' || typeof updateFn !== 'function') {
+    updateFn?.();
+    return;
+  }
+  const prefersReduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduce || !document.startViewTransition) {
+    updateFn();
+    return;
+  }
+  try {
+    document.startViewTransition(() => {
+      flushSync(() => { updateFn(); });
+    });
+  } catch {
+    updateFn();
+  }
+}
 
 // Lazy — pulled in only when the user navigates to that view.
 // Big wins on cold load (esp. iPad / mobile Safari) since NotesView,
@@ -57,13 +92,24 @@ export default function App() {
     return 'home';
   })();
 
-  const [view, setView] = useState(initialView);
+  const [view, setViewRaw] = useState(initialView);
   const [mode, setMode] = useState('quick');
   const [subject, setSubject] = useState('all');
   const [topic, setTopic] = useState(null);
   const [practiceMode, setPracticeMode] = useState('all');
   const [activeGroup, setActiveGroup] = useState(null);
   const [selectedYear, setSelectedYear] = useState(CURRENT_YEAR);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  // Wrap setView in a View Transitions snapshot so navigating between
+  // views fades smoothly (Chrome/Edge/Safari TP). No-op on Firefox.
+  const setView = useCallback((next) => {
+    withTransition(() => setViewRaw(next));
+  }, []);
+
+  // Keep the screen on while an exam is in progress (Web Wake Lock
+  // API). Auto-releases when leaving exam view or component unmount.
+  useWakeLock(view === 'exam');
 
   // In-flight exam state. Persisted to localStorage so an accidental
   // tab close, browser crash, or PWA force-quit during a long writing
@@ -222,10 +268,26 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- finishExam intentionally not depended on
   }, [timeLeft, view, useTimer, currentIdx, questions, timePerQ]);
 
+  // Global ⌘K / Ctrl+K — open Command Palette anywhere in the app.
+  // Mounted as its own effect so it stays active across all views
+  // (including 'exam') without conflicting with exam-only shortcuts.
+  useEffect(() => {
+    const handleKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        setPaletteOpen((open) => !open);
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
+
   useEffect(() => {
     const handleKey = (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (view !== 'exam') return;
+      // Don't fire exam shortcuts while command palette is open
+      if (paletteOpen) return;
       const q = questions[currentIdx];
       if (!q) return;
       if (q.type === 'mcq' && ['1', '2', '3', '4'].includes(e.key)) answerCurrent(parseInt(e.key) - 1);
@@ -249,7 +311,7 @@ export default function App() {
     // changes (and those callbacks read from current state via setState
     // updaters / memo-stable identities).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [view, currentIdx, questions]);
+  }, [view, currentIdx, questions, paletteOpen]);
 
   const cardStats = useMemo(() => {
     // Only count SR-eligible questions so the Home dashboard "X due"
@@ -448,6 +510,15 @@ export default function App() {
           <div className="vmx-header">
             <div className="vmx-logo" onClick={goHome}>Vet<span>Mock</span></div>
             <div className="vmx-header-right">
+              <button
+                className="vmx-cmdk-btn"
+                onClick={() => setPaletteOpen(true)}
+                title="Quick search (⌘K / Ctrl+K)"
+                aria-label="เปิด command palette"
+              >
+                <span style={{ fontSize: 13 }}>🔍</span>
+                <kbd className="vmx-cmdk-kbd">⌘K</kbd>
+              </button>
               {streakData.streak > 0 && <div className="vmx-streak">🔥 {streakData.streak}</div>}
               {user && profile && (
                 <UserMenu profile={profile} onLogout={handleSignOut} onGroups={() => setView('groups')} onLeaderboard={() => setView('leaderboard-global')} />
@@ -498,6 +569,23 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* CommandPalette is mounted only on first open — Suspense
+          boundary handles the dynamic import; once loaded, subsequent
+          opens are instant. We keep paletteOpen prop control so that
+          closing fully unmounts the modal too (cleaner than leaving
+          a hidden overlay in the tree). */}
+      {paletteOpen && (
+        <Suspense fallback={null}>
+          <CommandPalette
+            open={paletteOpen}
+            onClose={() => setPaletteOpen(false)}
+            goView={setView}
+            setSubject={setSubject}
+            setPracticeMode={setPracticeMode}
+          />
+        </Suspense>
+      )}
     </>
   );
 }
