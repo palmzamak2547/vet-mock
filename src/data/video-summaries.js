@@ -1168,6 +1168,1502 @@ export const VIDEO_SUMMARIES = {
   },
 
   // ─────────────────────────────────────────────────────────────
+  // COM III — Ocular examination
+  // ─────────────────────────────────────────────────────────────
+  '-9iGaiDgagI': {
+    videoId: '-9iGaiDgagI',
+    title: '1.1 Ocular examination',
+    subject: 'com3',
+    date: '8 Jan 69',
+    durationMin: 67,
+    instructor: 'อาจารย์ Ophtho (Med III)',
+    examFormat: 'MCQ — anatomy + test names ออก STT/IOP/PLR ทุกปี',
+    summary: `# Ocular Examination
+
+> 👁️ ชั่วโมงเปิด ophthalmology — anatomy + diagnostic tools
+> 🩺 จักษุแพทย์ใช้เวลา 11-12 ปีเรียน (6+5-6) — งานจริงไม่ง่ายแต่เข้าใจได้
+
+---
+
+## 🔍 Eye Anatomy ⭐⭐
+
+### Front view
+| ส่วน | คำศัพท์ |
+|------|---------|
+| ตาดำใส | **Cornea** (กระจกตา) |
+| ม่านตา (สี) | **Iris** |
+| ตาขาว | **Sclera** |
+| เปลือกตาบน/ล่าง | Upper/Lower lid |
+| **หนังตาที่ 3** ⭐ | **Third eyelid (nictitating membrane)** — ปกป้อง + เกลี่ยน้ำตา |
+| หัวตา (มี puncta) | Nasal canthus |
+| หางตา | Lateral canthus |
+
+> 💡 **Identify ตาขวา/ซ้ายจาก nasal canthus** — ด้านที่มี punctum lacrimale = nasal
+
+### Cross-section (deep anatomy)
+- **Anterior chamber** (ระหว่าง cornea + iris) — มี aqueous humor
+- **Iridocorneal angle** ⭐ — drainage of aqueous → ถ้าอุดตัน → **glaucoma**
+- **Lens** — แบ่ง front/back, รวมแสง, ยึดด้วย **zonules** กับ ciliary body
+- **Ciliary body** — สร้าง aqueous humor
+- **Vitreous chamber** (ใหญ่สุด ~90%) — **vitreous humor** (เนื้อวุ้น คล้าย "ปีโป้")
+- **Retina** → **Optic disc** → **Optic nerve (CN II)** → brain
+- **Choroid** — vascular layer (oxygen + nutrients)
+- **Tapetum** ⭐ — reflective layer (NIGHT VISION! — สาเหตุที่ตาแมวเรืองแสงตอนปิดไฟ)
+
+### Uvea (vascular layer)
+- Anterior uvea: iris + ciliary body
+- Posterior uvea: choroid
+
+### Ocular Adnexa (โครงสร้างนอกลูกตา)
+- 2 eyelids + 3rd eyelid + conjunctiva + nasolacrimal apparatus
+- 7 extraocular muscles (4 rectus + 2 oblique + 1 retractor)
+
+### Heterochromia
+- Iris สีต่างกัน 2 ข้าง = **normal anatomical variation** (ไม่ใช่โรค)
+- Albinotic fundus → เห็นสีแดงด้านหลัง (ในแมวขาว) — normal
+
+## 📋 Diagnostic Tools (10 ตัว) ⭐⭐⭐
+
+| # | Tool | Use |
+|---|------|-----|
+| 1 | **ห้องเปิด/ปิดไฟได้** | ตรวจทั้งสว่าง + มืด |
+| 2 | **Finoff Transilluminator** | high-intensity focal light |
+| 3 | **STT** (Schirmer Tear Test) | กระดาษวัดน้ำตา |
+| 4 | **Fluorescein stain** | ย้อมหา corneal ulcer |
+| 5 | **Tonometer** | วัด IOP |
+| 6 | Magnifying lens | ขยายดู detail |
+| 7 | **Tropicamide** | ขยายม่านตา (mydriatic) |
+| 8 | **Tetracaine** (ยาชาหยอด) | สำหรับ painful eye |
+| 9 | **Eye wash** | ล้างตา (ไม่ใช่ saline ปกติ — pH ใกล้น้ำตา) |
+| 10 | Sterile cotton swab + small forceps | culture/manipulate |
+
+## 🎯 Standard Tests ⭐⭐⭐
+
+### **Schirmer Tear Test (STT)**
+- กระดาษเสียบใต้เปลือกตาล่าง 1 นาที
+- Normal dog: **15-18 mm/min** · cat: also ~15
+- **< 15** = early dry eye (KCS)
+- **< 10** = moderate dry eye
+- **< 5** = severe dry eye
+
+### **IOP (Intraocular Pressure)**
+- TonoVet/TonoPen — ยิง probe กระทบ cornea
+- Normal **< 20 mmHg**
+- **> 25 = glaucoma** (ต้อหิน)
+- **< 10 = uveitis** (ช่องหน้าม่านตาอักเสบ)
+- ⚠️ Cat may transiently spike to 28-30 from stress — interpret with clinical signs
+
+### **Neuro-ophthalmic Exam** (CN II-VII)
+- ⭐ ทุก test = stimulus + response
+| Test | Stimulus | Afferent | Efferent |
+|------|----------|----------|----------|
+| **PLR** (Pupillary Light Reflex) | bright light | CN II | CN III (sphincter constrict) |
+| **Menace response** | hand motion → eye | CN II | CN VII (blink) |
+| **Dazzle reflex** | very bright focal light | CN II | CN VII |
+| **Palpebral reflex** | tap eyelid | CN V | CN VII (blink) |
+| **Doll's eye** | head turn | CN VIII | CN III, IV, VI |
+
+### **Fluorescein Staining** ⭐
+- หยดสีส้ม → ถ้ามี **corneal ulcer** → สีไปจับ epithelium ที่หายไป
+- ใช้ **cobalt blue light** ในห้องมืด → เห็นเป็น **สีเขียวเรืองแสง**
+- **Jones test** — ถ้าผ่าน nasolacrimal duct → เห็นสีออกที่จมูก
+- **Seidel test** — หยดสีหา corneal perforation (เห็นสีไหลฟุ้ง)
+
+### **Rose Bengal** (deprecated)
+- ย้อม dead epithelial cells (ตาแห้ง)
+- ⚠️ Toxic ถ้า dilute ผิด → แทนด้วยสีปลอดภัยกว่า
+
+### Additional Tests
+- **Bacterial culture** (refractory cases)
+- **Imaging**: Xray, CT, MRI, US
+- **Gonioscopy** — ส่องมุม iridocorneal angle
+- **ERG** (Electroretinogram) — เช็คการทำงาน retina (เหมือน ECG)
+- **OCT** (Optical Coherence Tomography) — Chula = เครื่องเดียวใน SE Asia!
+
+---
+
+## 📝 Exam Hot Spots
+1. **STT < 15** = dry eye threshold
+2. **IOP > 25** = glaucoma · **< 10** = uveitis
+3. **PLR**: afferent CN II, efferent CN III
+4. **Menace**: CN II → CN VII
+5. **Fluorescein** = need cobalt blue + dark room
+6. **Tapetum** = night vision reflective layer
+7. **Iridocorneal angle** = aqueous drainage site
+8. **Heterochromia** = normal variation (white cats often!)
+9. Identify R vs L by **nasal canthus** + punctum
+10. STT abbreviation = **Schirmer Tear Test** (เขียน full name ตอนสอบ)
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Ophthalmic medication
+  // ─────────────────────────────────────────────────────────────
+  QOfXfxJqyzU: {
+    videoId: 'QOfXfxJqyzU',
+    title: '1.2 Ophthalmic medication',
+    subject: 'com3',
+    date: '8 Jan 69',
+    durationMin: 43,
+    instructor: 'อาจารย์ Ophtho',
+    examFormat: 'MCQ — drug class + route + dose form choice',
+    summary: `# Ophthalmic Medication
+
+> 💊 หลังจากตรวจตาเสร็จ → เลือกยา · ผ่านได้ 2 ทาง: corneal absorption + non-corneal (conjunctival)
+
+---
+
+## 🚪 Drug Penetration Routes
+
+### Corneal absorption
+| Layer | Property needed |
+|-------|-----------------|
+| **Epithelium** (lipid bilayer) | **Lipid-soluble** drug |
+| **Stroma** (99% of cornea, collagen) | **Polar / water-soluble** |
+| Endothelium | mixed |
+
+> 💡 **Drug ที่ดี** = bi-philic (ทั้ง lipid + water soluble) → ผ่านทั้ง 3 ชั้น
+
+### Non-corneal (conjunctiva)
+- Lipid-soluble drugs ผ่าน conjunctival epithelium
+
+## 🛡️ Ocular Drug Barriers
+- **Dynamic barrier** = น้ำตาไหล + กระพริบตา + blood flow → ล้างยาออก
+  - แก้ไข: **เพิ่มความถี่หยอด**
+- **Static barrier** = anatomical (cornea, blood-aqueous barrier)
+  - Inflammation → barrier broken → ยาเข้าได้ดีขึ้น
+
+## 🔄 Drug Elimination
+- Anterior: aqueous humor flow → drains via iridocorneal angle
+- Posterior: vitreous → choroidal blood vessels (diffusion only, vitreous doesn't flow)
+
+---
+
+## 💉 4 Routes of Administration ⭐⭐⭐
+
+### 1. Topical (ยาหยอด/ป้าย)
+**Eye drops vs Ointment**
+| Form | Pros | Cons |
+|------|------|------|
+| **Drops (น้ำใส)** | ง่าย, ไม่บังตา | washed out fast (q4h-q1h) |
+| **Ointment (ครีม)** | longer contact (q12h), moisturizer | hard to apply, blurs vision, ⊘ severe dry eye, ⊘ corneal ulcer (delays healing), contamination risk |
+
+> ⚠️ **Tetracycline ointment** — แสบ ตาเบลอ → ห้ามขับรถหลังป้าย!
+
+### 2. Subconjunctival Injection
+- 0.1-0.2 mL ใต้ conjunctiva
+- Anti-inflammatory + antibiotic mainly
+- **Slow release** depot (Dex SC = 2 days vs drops BID)
+- ⚠️ Need: skill, sedation/topical anesthesia, sterile technique
+- ⚠️ Drug also enters systemic — count toward total dose
+
+### 3. Intracameral (anterior chamber) / Intravitreal
+- Direct injection — for severe disease
+- ⚠️ **Currently not done in clinic** (high complication: blindness from bleeding)
+
+### 4. Systemic (PO/IV)
+- ใช้สำหรับ posterior segment (vitreous, retina) — topical reaches poorly
+- ⚠️ slow onset (PK delay)
+
+## 🎯 Drug-Target Mapping
+| Target | Best route |
+|--------|-----------|
+| **Cornea, conjunctiva** | Topical |
+| **Anterior chamber** | Topical (ยาที่ผ่าน cornea ได้) + subconjunctival |
+| **Posterior chamber, retina** | **Systemic** (oral/IV) |
+| Eyelids | Systemic |
+
+---
+
+## 💊 Drug Classes ⭐⭐
+
+### Antibiotics
+- ⭐ **Most ocular surface infections = gram-positive cocci**
+- Use **lower-generation first** (avoid resistance from fluoroquinolones)
+- 1st-line: gentamicin, tobramycin, chloramphenicol
+- Refractory: 3-week trial → then **culture + sensitivity** + higher gen
+
+### Antivirals (cat — herpes virus 1)
+- Classic: facial ulcer + URI signs (sneeze, mucopurulent)
+- Dx: PCR swab
+- ⭐ **Famciclovir 90 mg/kg PO TID × 3 weeks** (oral works better than topical!)
+
+### Antifungals
+- Azoles (oral) — for severe keratitis
+- Topical antifungals less effective
+
+### Anti-inflammatory ⭐⭐
+**Steroid:**
+| Drug | Penetration | Note |
+|------|------------|------|
+| **Prednisolone acetate** ⭐ | passes cornea → anterior chamber | ⭐ Best for anterior uveitis |
+| **Dexamethasone (alcohol)** | NOT through cornea | surface only |
+| Dexamethasone phosphate | NOT through cornea | surface only |
+
+> 💡 **Acetate** salt = lipid-soluble = penetrates cornea
+> 💡 **Phosphate** salt = water-soluble = surface only
+
+**NSAID:**
+- **Ketorolac, Nepafenac, Diclofenac** — all penetrate cornea to anterior chamber
+- ⊘ Don't reach posterior segment → use systemic NSAID for retina/vitreous
+
+### Mydriatics (ขยายม่านตา)
+| Drug | Action | Onset | Duration |
+|------|--------|-------|----------|
+| **Tropicamide** ⭐ | tricyclic anticholinergic | minutes | 3-4 hr |
+| **Atropine** | anticholinergic, **cycloplegic** | 1 day | up to **96 hr** |
+
+> ⚠️ **Atropine ≠ for exam** — too long-lasting · use for **uveitis** (ลด ciliary spasm pain)
+
+### Glaucoma drugs (4 classes)
+
+**Decrease aqueous production:**
+- **Beta-blocker** (timolol)
+- **Carbonic Anhydrase Inhibitor** (dorzolamide)
+- 💡 **Fixed combination** (timolol + dorzolamide) → 4 drops/day instead of 8
+
+**Increase aqueous outflow:**
+- **Prostaglandin analog** (latanoprost) — mimics inflammation, opens drainage angle
+- **Alpha-2 adrenergic agonist** (brimonidine)
+
+### Tear Replacement (น้ำตาเทียม)
+- 3 layers in tear film: lipid + aqueous + mucin
+- Choose product matching deficient layer
+- For chronic dry eye
+
+### Immunosuppressive (eye drops!)
+- **Cyclosporine, Tacrolimus** topical
+- 70% canine KCS = T-cell mediated (autoimmune lacrimal gland) → these drugs reverse it
+- Surface only, no systemic effect
+- ⚠️ 10+ years continuous use → fungal infection risk
+
+### Topical anesthetic
+- **Tetracaine 0.5%** (yellow cap)
+- For exam comfort + minor procedures
+- SE: conjunctival redness/edema (transient, harmless)
+
+---
+
+## 📝 Exam Hot Spots
+1. **Cornea = bi-philic drug needed** (lipid + water soluble)
+2. **Pred acetate** crosses cornea, **Dex** does not
+3. **Phosphate vs Acetate** salt = surface vs penetration
+4. **Atropine vs Tropicamide**: 96 hr vs 3-4 hr
+5. **Atropine for uveitis** (ciliary spasm pain) — NOT for exam
+6. **Cat herpes**: Famciclovir 90 mg/kg PO TID × 3 wk (oral > topical)
+7. **Glaucoma 4 drug classes**: BB, CAI, PG analog, α2 agonist
+8. **Topical CSA/tacrolimus** for KCS — 70% T-cell mediated
+9. **Subconjunctival** injection — need skill, sterile, count systemic dose
+10. **Posterior segment** = systemic route
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Ophthalmic surgery
+  // ─────────────────────────────────────────────────────────────
+  yacB9zJJpTA: {
+    videoId: 'yacB9zJJpTA',
+    title: '2.1 Ophthalmic surgery',
+    subject: 'com3',
+    date: '15 Jan 69',
+    durationMin: 53,
+    instructor: 'อาจารย์ Ophtho',
+    examFormat: 'MCQ — surgery type + instrument selection',
+    summary: `# Ophthalmic Surgery
+
+> 🔪 ภาพรวมศัลยกรรมตา — ลูกตา = 3D, "what you see ≠ all there is"
+> ⭐ Pain management + คุมสัตว์ให้นิ่ง = critical (ตาขยับนิดเดียว = ทำงานไม่ได้)
+
+## 5 Considerations Before Surgery
+1. **Skill** — ต้องฝึก, ไม่ใช่ one-man job (need anesthesiologist + skilled nurses)
+2. **Patient prep** — systemic disease workup
+3. **Method choice** — 3 surgical zones
+4. **Aseptic technique** + magnification (loupe/microscope)
+5. **Owner cooperation** — POI Treatment compliance
+
+## 3 Surgical Zones ⭐⭐
+| Zone | What | Difficulty | Tools |
+|------|------|------------|-------|
+| **Extra-ocular** | eyelid, conjunctiva, 3rd eyelid, sclera | Easy | regular instruments OK |
+| **Intra-ocular** ⭐ | lens (cataract), iris, anterior chamber | **Hardest** | micro-instruments only — closed system → infection risk! |
+| **Retro-bulbar / Orbital** | mass behind eye, eye removal | Medium | imaging dx required (CT/MRI) |
+
+## Common Surgical Procedures
+
+### Extra-ocular
+- **Entropion repair** (eyelid roll-in) — Hotz-Celsus technique
+- **Dermoid removal** — abnormal skin/hair on eye
+- 3rd eyelid Cherry eye repositioning
+
+### Intra-ocular
+- **Cataract surgery** (phacoemulsification) — lens replacement
+- **Lens luxation repair**
+- ⚠️ Open system → high infection risk → strict sterile + ultra-fine instruments
+
+### Orbital
+- **Enucleation** (entire eye removal)
+- **Evisceration** (keep cornea/sclera, replace inside with prosthetic ball — looks like real eye)
+- ⚠️ Pulling too hard during one-eye removal → can blind the OTHER eye via optic nerve traction (chiasm)
+
+## Ophthalmic Instruments ⭐⭐ (different from general surgery!)
+
+### Forceps
+| Type | Use |
+|------|-----|
+| **Tissue forceps** (with teeth) | grip skin/sclera |
+| **Cornea forceps** (atraumatic) | DO NOT swap with eyelid forceps! ruins delicate cornea |
+| **Iris forceps** | grip iris specifically |
+| **Conjunctival forceps** | for conjunctiva |
+| **Fixation forceps** | hold eyelid open, prevent rotation under GA |
+
+> ⚠️ **Forceps for cornea ≠ forceps for eyelid!** Wrong choice = damaged cornea
+
+### Other tools
+- **Iris/conjunctival/cornea scissors** — different curves for L/R sides
+- **Needle holder ophthalmic** — uses **finger pinch** (no thumb-ring), no lock (prevents jerk damage)
+- **Eyelid speculum** (retractor) — keeps eye open during surgery
+- ⚠️ Drop = lost forever (always lands point-first!)
+
+### Suture sizes ⭐
+- Skin general surgery: 2-0 or 3-0
+- Eyelid: **5-0 or 6-0**
+- **Cornea: 8-0, 9-0, or 10-0** ⭐ (VERY tiny — ~size of human hair)
+- 11-0 exists but rarely used
+
+## Surgeon Personality (per อ.)
+1. **Detail-oriented** (ละเอียด)
+2. **Patient** (ใจเย็น)
+3. **Precise** (แม่นยำ)
+4. **Systematic preparation** lover
+- Ability to use **both hands** equally — 2-handed skills
+- Hand-eye **coordination** (look in microscope, work below)
+- **Communication skills** (delicate work, sensitive owners)
+- Physical stamina (long surgeries, no pee breaks!)
+
+## 📝 Exam Hot Spots
+1. **3 zones**: extra/intra/retro-bulbar
+2. **Intra-ocular = hardest** (closed system, infection risk)
+3. **Cornea suture 8-0 to 10-0** — tiny needle, special holder
+4. **Cornea forceps ≠ Eyelid forceps**
+5. ⚠️ Heavy traction during eye removal → can blind other eye
+6. Pre-op: pain control + nil per os + assess systemic
+7. Eyelid eversion repair = Hotz-Celsus
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Ocular adnexa
+  // ─────────────────────────────────────────────────────────────
+  z5Y7FLlthJY: {
+    videoId: 'z5Y7FLlthJY',
+    title: '2.2 Ocular adnexa',
+    subject: 'com3',
+    date: '15 Jan 69',
+    durationMin: 78,
+    instructor: 'อาจารย์ Ophtho',
+    examFormat: 'MCQ — diseases of eyelid/conjunctiva/3rd eyelid + treatment',
+    summary: `# Ocular Adnexa Diseases
+
+> 👁️‍🗨️ Adnexa = 4 parts: **Eyelids + Conjunctiva + 3rd eyelid + Lacrimal apparatus**
+
+---
+
+## 1️⃣ Eyelid Disorders
+
+### Structural (congenital)
+- **Eyelid agenesis (coloboma)** — missing portion of lid (often **lateral upper, in cats**, esp. Maine Coon)
+  - Tx: lip-to-lid graft, conjunctival flap, or **buccal mucosa graft**
+
+### Palpebral fissure size
+- **Microphthalmia** = small fissure → Shar-Pei, Chow-Chow, Bull Terrier — usually no Tx needed
+- **Macroblepharon** = large fissure → brachycephalics → exposure keratitis → may need wedge resection
+
+### Entropion (หนังตาม้วนเข้า) ⭐⭐
+3 types:
+| Type | Cause | Tx |
+|------|-------|-----|
+| **Anatomic** | congenital (Maine Coon, brachycephalic) | **Modified Hotz-Celsus** at >1 yr |
+| **Spastic** | secondary to corneal pain | treat underlying pain |
+| **Cicatricial** | scar tissue from prior trauma/surgery | difficult to fix |
+
+> 💡 Test: **topical anesthesia** → if entropion resolves, it's spastic (not anatomic)
+
+**Hotz-Celsus**: pre-anesthetic measure roll, crescent skin excision, suture skin → flattens lid
+
+### Ectropion (หนังตาม้วนออก) — large breeds (Bloodhound, Saint Bernard)
+- V-Y plasty technique → reduces palpebral fissure
+
+### Diamond Eye (Shar-Pei, Chow, Great Dane)
+- Combined entropion + ectropion → "diamond" shape
+- Combined repair: H-plasty for ectropion + Hotz-Celsus for entropion
+
+### Eyelash disorders ⭐⭐
+| Type | Origin | Direction | Tx |
+|------|--------|-----------|-----|
+| **Distichiasis** ⭐ | Meibomian gland | TOWARD cornea | epilation, cryoepilation |
+| **Districhiasis** | one follicle, multiple lashes | TOWARD cornea | same |
+| **Ectopic cilia** ⭐ | palpebral conjunctiva | piercing into cornea | wedge resection / cryosurgery |
+| **Trichiasis** ⭐ | normal eyelash | abnormal direction toward cornea | EPILATE only — DO NOT cut (creates sharp stub!) |
+
+### Eyelid inflammation
+- **Hordeolum** = stye, infected sebaceous/Meibomian gland → AB + warm compress
+- **Meibomianitis** = duct obstruction → "creamy plug" at orifice → AB + warm compress
+- **Chalazion** = chronic Meibomian → may need 18-G needle drainage
+- **Blepharitis** (eyelid skin) — often immune-mediated in cats; check skin disease
+
+### Eyelid trauma / laceration
+- Vertical: **figure-of-eight suture** at margin (aligns lid edges)
+- Horizontal: simple interrupted suture
+
+### Tumors
+- **Dog: usually benign** (Meibomian adenoma, sebaceous adenoma) — wedge resection if < 1/3 lid
+- If > 1/3 lid: H-plasty reconstruction
+- **Cat: more often malignant** (SCC) — wider margins needed (3 mm)
+
+---
+
+## 2️⃣ Conjunctival Disorders
+
+### Anatomy
+- **Palpebral conjunctiva** (inside eyelid)
+- **Bulbar conjunctiva** (covers white of eye)
+- **Fornix** (curved junction)
+- **Limbus** (corneal-conjunctival junction)
+
+### Disease signs (4 types)
+1. **Hyperemia** — red, dilated vessels
+2. **Chemosis** — edema, swelling
+3. **Hemorrhage** — vessel rupture, ecchymosis
+4. **Follicular conjunctivitis** — lymphoid inflammation (esp. 3rd eyelid)
+
+### Causes
+- Congenital: dermoid (esp. French Bulldog) — surgical removal
+- Bacterial (puppy/kitten neonatal — vaginal contamination)
+- **Cat conjunctivitis** ⭐ — usually viral:
+  - **FHV-1** (Herpes) — dendritic ulcer + URI signs
+  - **Calicivirus**
+  - **Chlamydia** — chemosis prominent
+- Tumors (rare): SCC, hemangiosarcoma
+
+---
+
+## 3️⃣ Third Eyelid (Nictitating Membrane)
+
+- T-shaped cartilage + nictitans gland (produces 30% of tear)
+
+### Disorders
+- **Protrusion** (prolapse 3rd eyelid)
+  - Bilateral → systemic illness, shock, dehydration
+  - Unilateral → **Horner's syndrome** (cats often from inner ear infection)
+  - Unilateral + retro-bulbar mass → workup needed
+
+- **Cherry Eye** ⭐ — gland of 3rd eyelid prolapse
+  - Beagle, English Bulldog, Boston Terrier, Cocker Spaniel
+  - Tx: **Pocket technique** (preferred) — anchor gland back, preserve tear production
+  - ⚠️ DO NOT excise — causes lifetime KCS (dry eye)
+
+- **Inverted/Everted T-cartilage** — surgical removal of bent portion only
+
+- **Follicular conjunctivitis** of 3rd eyelid → AB + scrap with scalpel back
+
+---
+
+## 4️⃣ Lacrimal Apparatus
+
+### Tear production glands
+- **Lacrimal gland** (dorsal-lateral) — main aqueous
+- **Nictitans gland** (3rd eyelid) — 30% aqueous
+- **Meibomian glands** — lipid layer
+
+### Tear film 3 layers ⭐
+1. **Lipid** (outer) — Meibomian, prevents evaporation
+2. **Aqueous** (middle) — lacrimal + nictitans
+3. **Mucin** (inner) — conjunctival goblet cells, adheres tear to cornea
+
+### Drainage
+- Puncta (upper + lower) → canaliculi → lacrimal sac → **nasolacrimal duct** → nose
+- Some flows to pharynx → "salty taste" when crying
+
+### Disorders
+- **Hyposecretion** = KCS (dry eye) — most often immune-mediated lacrimal gland
+- **Obstructed drainage** → epiphora (tear staining on face) → flush with cannula
+
+## 📝 Exam Hot Spots
+1. **Entropion 3 types**: anatomic / spastic / cicatricial — topical anesthesia distinguishes
+2. **Hotz-Celsus** = entropion repair
+3. **Distichiasis** = Meibomian, **Ectopic cilia** = palpebral conjunctiva
+4. ⚠️ **Trichiasis** = epilate, NEVER cut
+5. **Cherry Eye Tx**: pocket technique (preserve gland)
+6. **Cat conjunctivitis** mostly viral (Herpes, Cali, Chlamydia)
+7. **Follicular conjunctivitis 3rd eyelid** = lymphoid hyperplasia
+8. **3rd eyelid** = T-cartilage + gland (30% tears)
+9. **Tumor**: dog usually benign, **cat often malignant**
+10. **Tear film 3 layers**: lipid/aqueous/mucin
+11. **Bilateral 3rd eyelid protrusion** → systemic illness check
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Diseases of the cornea
+  // ─────────────────────────────────────────────────────────────
+  '74q8uuQdK14': {
+    videoId: '74q8uuQdK14',
+    title: '3. Diseases of the cornea',
+    subject: 'com3',
+    date: '22 Jan 69',
+    durationMin: 119,
+    instructor: 'อาจารย์ Ophtho',
+    examFormat: 'MCQ — cornea characteristics + ulcer depth + treatment choice',
+    summary: `# Diseases of the Cornea
+
+> 🔍 Cornea = 3 properties needed: **Clear + Curved + Smooth (CCS)**
+> Loss of any → poor vision/refraction
+
+---
+
+## Cornea Layers (4-5 layers)
+| Layer | Notes |
+|-------|-------|
+| **Epithelium** | regenerates fast, lipophilic barrier |
+| **Basement membrane** | thin, between epi and stroma |
+| **Stroma** | 90% thickness, collagen fibers (parallel = clear!) |
+| **Descemet's membrane** | rare layer, secreted by endothelium |
+| **Endothelium** | single cell layer, **Na/K pump** prevents corneal edema |
+
+> 💡 Cornea has **NO blood vessels** but does have **abundant nerves** (CN V trigeminal) — very painful!
+
+---
+
+## When Cornea Loses "Clear" — Color Changes
+
+### Red — Blood Vessels
+- **Long, branching** = SUPERFICIAL lesion (from limbus)
+- **Brush border, short** ⭐ = DEEP lesion (from sclera, deeper plexus)
+- 💡 Vessels start at ~3-5 days (not "yesterday"!)
+
+### Color/Opacity
+- **Cornea edema** ⭐ — light blue when epithelium fails (mild), dark blue when endothelium fails (severe)
+- **Corneal scar** = white (collagen disorder, post-trauma)
+- **Pigmentary keratitis** ⭐ — chronic irritation (Pug! brachycephalic) → pigment migrates from limbus
+- **Calcium/lipid deposit (degeneration)** — sparkly metallic white
+- **Corneal infiltrate** — endothelial deposit (KP keratic precipitates) → **uveitis sign!**
+
+## When Cornea Loses "Curved" — Shape
+
+- **Microcornea** — small (congenital or post-trauma)
+- **Megalocornea** — enlarged (acquired, often glaucoma)
+
+## When Cornea Loses "Smooth" — Surface
+
+### Excessive structures
+- **PPM** (Persistent Pupillary Membrane) — strands from iris attach to **endothelium**
+- **Dermoid** — skin/hair growing on cornea (always grows toward eye!) → keratectomy
+
+### Depth abnormality
+- **Erosion** — only epithelium lost (Fluorescein NEGATIVE if basement membrane intact)
+- **Ulcer** ⭐ — exposes stroma (Fluorescein POSITIVE)
+- **Descemetocele** — only Descemet's + endothelium left (1-2 cell layers!)
+- **Perforation** — full-thickness; if iris bulges through = **anterior staphyloma**
+
+---
+
+## Major Diseases
+
+### Keratitis without ulcer (non-ulcerative)
+- **Chronic Superficial Keratitis (CSK / Pannus)** — German Shepherd Dog, UV exposure
+  - Pink raised tissue + vessels — immune-mediated
+  - Tx: topical steroid, cyclosporine, UV protection (shading)
+  - Ensure no ulcer first (Fluorescein-negative) before steroid!
+
+- **KCS / Dry Eye** ⭐⭐ (Sicca conjunctivitis)
+  - STT < 15 mm/min → suspect; < 10 = moderate; < 5 = severe
+  - **70% canine = T-cell immune-mediated** lacrimal damage
+  - Brachycephalic predisposed (Bulldog, Pug, Pekingese)
+  - Tx: tear replacement + **topical cyclosporine** or tacrolimus (immunosuppressive)
+
+- **Pigmentary Keratitis** — chronic UV/inflammation/dry eye → migrating melanin
+  - Tx: address underlying + topical CSA + considered keratectomy (rare)
+
+- **Deep Keratitis (Blue Eye)** ⭐ — endotheliitis
+  - Cornea blue from severe edema
+  - Workup for systemic disease (Ehrlichia, blood parasites, immune)
+  - No ulcer, no eyelash issues — purely from inside
+
+- **Corneal Degeneration vs Dystrophy** ⭐
+  - **Degeneration**: secondary to inflammation/metabolic disorder, deposits Ca or cholesterol
+  - **Dystrophy**: hereditary (Husky → endothelial dystrophy → chronic edema), no inflammation, sparkly white
+
+### Ulcerative Keratitis (with ulcer)
+> ⚠️ Ulcer = always inflammation present; rule out: lid disease, lash disease, KCS, FB, lagophthalmos
+
+### Healing of cornea
+- **Epithelium** regenerates fast (24-48 hr if clean)
+- **Stroma** repair: chemotaxis → fibroblasts → fibrosis (= scar)
+
+### Specific ulcers
+
+**1. Refractory ulcer / SCCED / Indolent ulcer** ⭐⭐
+- Epithelium NOT adhering to basement membrane → won't heal > 7 days
+- Boxer classically
+- Tx: **debridement** (dry Q-tip + scalpel) → if fail → **diamond burr** or **grid keratotomy** (PUNCTATE keratotomy)
+- ⚠️ Don't drop in steroids!
+
+**2. Stromal ulcer (deep)**
+- High risk of progression, "melting cornea"
+- Risk: bacterial collagenase / proteinase digesting cornea
+- Tx: AB + **anti-collagenase** (EDTA, tetracycline, autologous serum, doxycycline)
+- + Mydriatic (atropine) for ciliary spasm pain
+- No steroid!
+
+**3. Descemetocele / Perforation**
+- Suture cornea (8-0 to 10-0, 80-90% depth, simple interrupted)
+- **Conjunctival pedicle graft** for medium ulcer (preserved blood supply)
+- **Biological grafts** (porcine SIS, amnion) for deep
+- 3rd eyelid flap or conjunctival flap as adjunct
+
+### Special — Cat
+- **Feline Herpes Virus (FHV-1)**
+  - **Dendritic ulcer** ⭐ (branched pattern with Rose Bengal stain) — pathognomonic!
+  - Tx: **Famciclovir 90 mg/kg PO TID × 3 wk**
+- **Eosinophilic Keratitis** — pink raised lesion, plaque-like
+  - 70% associated with FHV-1
+  - Tx: topical steroid (with caution due to virus) + AntiHHV
+- **Corneal Sequestrum** ⭐ — black/brown plaque, 55% FHV-related
+  - Cat brown tear film
+  - Tx: surgical keratectomy
+
+### Tumors of cornea (rare)
+- **SCC** — rule out + keratectomy
+- **Hemangioma/sarcoma** — surgical, watch for recurrence
+
+## 📝 Exam Hot Spots
+1. **Cornea** = clear + curved + smooth + sensitive (NO vessels)
+2. **Vessels**: long+branching = superficial; **brush border = deep**
+3. **Edema mild = light blue, severe = dark blue** (endothelium)
+4. **Endothelium = single layer + Na/K pump**
+5. **Pugs** = pigmentary keratitis classic
+6. **PPM** mostly affects **endothelium**
+7. **Erosion** (epithelium) vs **Ulcer** (into stroma) vs **Descemetocele** (1-2 layers left)
+8. **SCCED/Indolent**: epi-basement detachment → Boxer, debridement + grid keratotomy
+9. **Anti-collagenase** for melting cornea (EDTA, doxycycline)
+10. **Cornea suture**: 8-0 to 10-0, 80-90% depth, simple interrupted
+11. **FHV-1 dendritic ulcer** = pathognomonic; famciclovir PO
+12. **Cat sequestrum** = FHV-related (55%)
+13. **Degeneration** (secondary, with inflam) vs **Dystrophy** (genetic, no inflam)
+14. **Husky** = endothelial dystrophy
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Diseases of the Uvea & Lens
+  // ─────────────────────────────────────────────────────────────
+  kw5a1xIobXs: {
+    videoId: 'kw5a1xIobXs',
+    title: '4. Diseases of the Uvea & Lens',
+    subject: 'com3',
+    date: '29 Jan 69',
+    durationMin: 116,
+    instructor: 'อาจารย์ Ophtho',
+    examFormat: 'MCQ — uveitis signs + cataract stages',
+    summary: `# Diseases of the Uvea & Lens
+
+> 👁️‍🗨️ **Uvea** = vascular tract: **Iris + Ciliary body + Choroid**
+> Anything affecting uvea → high risk of blindness (mechanism not fully understood)
+
+---
+
+## Anterior Chamber
+
+### Aqueous Humor (AH)
+- Produced by **ciliary body**, drained at **iridocorneal angle**
+- Functions: maintain shape, nutrition (lens, cornea endothelium), waste removal
+- Continuously produced lifelong
+- Contains nutrients: glucose, amino acids, proteins, ascorbate
+
+### Anterior chamber abnormalities
+| Sign | Cause |
+|------|-------|
+| **Shallow** | corneal perforation, anterior lens luxation, iris bombé |
+| **Deep** | posterior lens luxation, microphakia |
+| **Aqueous flare** ⭐ | ↑ protein from broken **Blood-Aqueous Barrier (BAB)** — Tyndall phenomenon (slit lamp) |
+| **KP** (Keratic Precipitates) | cells/proteins on endothelium → **uveitis sign** |
+| **Hyphema** | blood — trauma OR systemic (clotting disorder, etc.) |
+| **Hypopyon** | pus (sepsis, severe ocular infection) |
+| **Lipid aqueous** | milky from hyperlipidemia |
+| **Iris cyst** | dog: brown ball; cat: dark ovals at iris margin (different shape!) |
+
+> ⚠️ Don't surgically drain aqueous abnormalities — opening eye worsens BAB breakdown!
+
+---
+
+## Iris
+
+### Anatomy
+- 1 ring (we have **1 iris per eye**, not 2!)
+- Pupillary zone (inner) + Ciliary zone (outer), **collarette** = boundary
+- Sphincter + dilator muscles
+- Pigmented (sex/age varies)
+
+### Disorders
+| Disorder | Description |
+|----------|-------------|
+| **Heterochromia iridis** | bicolor — normal variation (white cats often) |
+| **Polycoria** | multiple pupils |
+| **Dyscoria** | misshapen pupil (often from synechia/mass) |
+| **Iris hypoplasia** | underdeveloped iris (foal/horse breed defects) |
+| **Coloboma** | failed to develop sector — congenital |
+| **Iris atrophy** | age-related, increases with chronic uveitis |
+| **PPM** | residual fetal vessels — to lens, cornea, opposite side |
+| **Iris cyst** | round dark ball, usually benign |
+
+---
+
+## Uveitis ⭐⭐⭐
+
+> ⚠️ **Anterior uveitis = serious** — high risk vision loss
+
+### Classification
+- Anterior uveitis = iritis + iridocyclitis
+- Posterior uveitis = choroiditis + chorioretinitis
+- Panuveitis = entire uveal tract
+
+### Signs
+- ↓ IOP (< 10 mmHg)
+- Aqueous flare (Tyndall)
+- KP (keratic precipitates)
+- Miosis (pinpoint pupil)
+- Hypopyon, hyphema
+- Conjunctival hyperemia
+- Pain (blepharospasm, photophobia)
+- 360° **anterior synechia** = iris stuck to cornea
+- **Posterior synechia** = iris stuck to lens
+
+### Causes
+- Trauma (blunt, penetrating)
+- Lens-induced (cataract, lens luxation)
+- Infectious: **Ehrlichia, Rickettsia, Brucella, Lepto, FIP (cat!), FeLV, FIV, Toxoplasma**
+- Immune-mediated: Uveodermatologic syndrome (Akita, Husky, Samoyed) — VKH-like
+- Neoplasia (lymphoma, melanoma)
+
+### Treatment
+1. **Treat underlying cause**
+2. **Topical NSAID** (ketorolac/diclofenac/flurbiprofen) or **steroid** (Pred Acetate — penetrates cornea!) — ⚠️ rule out ulcer first
+3. **Mydriatic — Atropine** ⭐ — keep pupil dilated to prevent posterior synechia AND relieve ciliary spasm pain
+4. Systemic: NSAID, steroid, AB if needed
+
+> ⚠️ **Atropine** in uveitis: GOOD (cycloplegic relieves pain) — different from regular dx use
+
+### Complications
+- Cataract (lens-induced uveitis can cause cataract!)
+- Glaucoma (from synechia/inflammation)
+- Retinal detachment
+- Phthisis bulbi (shrunken eye)
+
+---
+
+## Lens
+
+### Anatomy
+- Biconvex, behind iris, suspended by zonules from ciliary body
+- Avascular — gets nutrition from aqueous & vitreous
+- Capsule (Cs anterior + posterior)
+- Cortex + Nucleus
+
+### Lens position abnormalities
+| Type | Cause |
+|------|-------|
+| **Lens luxation (anterior)** ⭐ | zonule breakage — Terriers (genetic!) — emergency, blocks aqueous → glaucoma |
+| **Lens luxation (posterior)** | falls into vitreous |
+| **Subluxation** | partial zonule breakage |
+
+> ⚠️ Anterior lens luxation = surgical emergency
+
+---
+
+## Cataract ⭐⭐
+
+### Definition
+- Opacity of lens, blocks light → vision loss
+- Different from **nuclear sclerosis** (age-related, NOT cataract — no vision loss)
+
+### Classification by maturity ⭐
+| Stage | Description | Vision |
+|-------|-------------|--------|
+| **Incipient** | < 15% lens, edge | preserved |
+| **Immature** | 15-99%, may obscure tapetal reflex | reduced |
+| **Mature** | 100% lens opaque, no tapetum visible | blind to dim, sees light only |
+| **Hypermature** | shrinking, wrinkled capsule, may cause uveitis ⭐ | partial may return! |
+| **Morgagnian** | nucleus sinks in liquefied cortex | varies |
+
+### Etiology
+- **Hereditary** ⭐ — Cocker, Poodle, Boston Terrier, Bichon
+- **Diabetes mellitus** ⭐⭐ — most common acquired in dog (sorbitol pathway, often **bilateral, rapid**)
+- Age-related, post-uveitis, traumatic, congenital
+
+### Pathophysiology of DM cataract
+- ↑ glucose → aldose reductase → sorbitol accumulates in lens → osmotic swelling → opacity
+
+### Diagnosis
+- Slit lamp / Direct ophthalmoscope through dilated pupil
+- **Ocular ultrasound** if mature/hypermature (lens sinks, cataract pattern)
+- ERG before surgery (retinal function check — must be intact!)
+
+### Treatment ⭐
+- **Surgery** = **Phacoemulsification + IOL** (intraocular lens) — only treatment!
+- Best done at **immature** stage (before hypermature complications)
+- Pre-op: rule out retinal detachment + uveitis
+- Post-op: anti-inflammatory + AB drops + Atropine
+
+### Hypermature complications
+- **Lens-Induced Uveitis (LIU)** — leaking lens proteins → severe uveitis → glaucoma
+- ⚠️ Even if no surgery, LIU treatment with steroid + atropine essential
+
+---
+
+## 📝 Exam Hot Spots
+1. **Uvea** = iris + ciliary body + choroid (vascular, all blood)
+2. **Aqueous flare** = broken **BAB** = uveitis sign (Tyndall)
+3. **Uveitis IOP**: **< 10 mmHg** (vs glaucoma > 25)
+4. **Atropine** = GOOD for uveitis (cycloplegia + miosis prevention)
+5. **PPM** affects mainly **endothelium**
+6. **Iris bombé** = synechia → fluid pushed iris forward
+7. **Lens luxation anterior** = emergency (blocks aqueous, → glaucoma)
+8. **Cataract stages**: incipient/immature/mature/hypermature
+9. **DM cataract** = bilateral rapid, sorbitol pathway
+10. **Phacoemulsification** = only treatment, do at immature
+11. **Hypermature** → **LIU** (Lens-Induced Uveitis)
+12. **Nuclear sclerosis** ≠ cataract (no vision loss, age-related)
+13. Akita/Husky/Samoyed → **VKH/uveodermatologic syndrome**
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Fundus + Glaucoma
+  // ─────────────────────────────────────────────────────────────
+  V3cpqbldxro: {
+    videoId: 'V3cpqbldxro',
+    title: '5. Fundus + Glaucoma',
+    subject: 'com3',
+    date: '5 Feb 69',
+    durationMin: 117,
+    instructor: 'อาจารย์ Ophtho',
+    examFormat: 'MCQ — fundus interpretation + glaucoma classification',
+    summary: `# Fundus + Glaucoma
+
+---
+
+# 🔻 Part 1: Fundus
+
+## Vitreous (Vitreous Humor)
+- Largest volume in eye (~90%)
+- Gel-like (single mass when removed)
+- Functions: maintain shape, support **retina** (prevent detachment), transmit light
+
+### Vitreous abnormalities
+- **Persistent Hyaloid Artery** (failed to regress) — visible vessel
+- **PHPV** (Persistent Hyperplastic Primary Vitreous) — mass of fibrovascular tissue
+- **Asteroid hyalosis** ("stars in the sky") — Ca soap deposits, doesn't impair vision
+- **Synchysis scintillans** — cholesterol crystals (post-trauma/inflammation), settle when still
+- **Vitreous hemorrhage** — from retina/ciliary body, may indicate systemic disorder
+
+---
+
+## Fundus Anatomy ⭐⭐
+> 4 components (inside → outside): **Retina → Choroid → Sclera → + Optic disc**
+
+### Retina (10 layers)
+- Photoreceptors: **Rods** (dim/B&W) + **Cones** (color/detail)
+- Bipolar cells, ganglion cells
+- **Phototransduction**: light → chemical → electrical impulse → optic nerve → LGN → visual cortex
+
+### Choroid
+- Vascular layer (oxygen + nutrients)
+- Contains **tapetum lucidum** ⭐ — reflective layer for night vision!
+
+### Tapetum vs Non-Tapetum zones
+| Zone | Color | Location |
+|------|-------|----------|
+| **Tapetal** ⭐ | yellow/green/blue/orange (varies) | dorsal half always |
+| **Non-tapetal** | dark (pigmented) | ventral |
+
+> 💡 **Dog**: tapetum 2/3 of fundus · **Cat**: 3/4 of fundus
+
+### Optic Disc ⭐
+- Origin of optic nerve (CN II)
+- **Dog**: triangular shape, has **myelin** → ivory/salmon pink color
+- **Cat**: round, **no myelin** → dark, blood vessels at edge only
+
+### Vessels
+- **Retinal arterioles** (smaller) — 12-20 strands in dog
+- **Retinal venules** (larger) — 3-4 strands, anastomose at optic disc
+- **Cat**: 3 main vessel pairs, run together
+
+### Fundus Examination
+- Direct ophthalmoscope (small field)
+- Indirect ophthalmoscope + 20D lens (wide field)
+- **Always dilate** (tropicamide) for full view!
+
+### Common Fundus Abnormalities
+- **Retinal detachment** ⭐ — billowing curtain on fundus
+- **Hemorrhage** — systemic disorders (hypertension, kidney, IMHA)
+- **Optic nerve swelling** (papilledema)
+- **Hyperreflectivity** — atrophy of retina (PRA, post-detachment scar)
+- **Hyporeflectivity** — covered by edema, hemorrhage, infiltrate
+
+### Loss of Vision (blindness)
+- ~50% from eye (retina, optic nerve, lens, cornea)
+- ~50% from brain (cortex)
+- Always **start with eye exam** before brain workup
+
+---
+
+# 🔻 Part 2: Glaucoma ⭐⭐⭐
+
+## Definition
+- ↑ IOP causing damage to **optic nerve + retina** → blindness
+- Painful (often)
+
+## Classification (3 ways)
+
+### By onset
+- **Acute** — sudden, severe pain, eye usually salvageable
+- **Chronic** — gradual, often blind by diagnosis
+
+### By cause
+- **Primary** ⭐ — Cocker Spaniel, Bouvier, Beagle, **Shiba** ⭐ (rising in TH)
+  - Genetic angle abnormality (goniodysgenesis)
+  - **Other eye at risk** — prophylactic Tx!
+- **Secondary** — from another disease:
+  - Lens luxation (anterior)
+  - Uveitis → synechia → block angle
+  - Hyphema, intraocular tumor
+  - Cataract (LIU)
+
+### By anatomic angle
+- **Open-angle** (Goniodysgenesis grade 1-2)
+- **Closed-angle** (grade 3-4)
+- **Narrow-angle**
+
+## Diagnosis
+- **IOP > 25 mmHg** ⭐ (TonoVet/TonoPen)
+- **Buphthalmos** (large eye - chronic)
+- Corneal edema (Descemet's stretch)
+- Mydriasis (fixed pupil)
+- **Haab's striae** (Descemet's tear)
+- **Optic disc cupping**
+- Vision loss
+
+## Treatment ⭐⭐ (4 drug classes — repeated from Eye 1.2)
+
+### Decrease aqueous production
+- **Timolol** (β-blocker) — q8-12h
+- **Dorzolamide** (CAI) — q8-12h
+- 💡 Often **fixed combination** (Timolol+Dorz) → 4 drops/day
+
+### Increase aqueous outflow
+- **Latanoprost (Prostaglandin analog)** — q12-24h, very potent
+- **Brimonidine (α2 agonist)** — q8-12h
+
+### Surgery (if medical fails)
+- **Cyclodialysis** — physically separate ciliary body from sclera
+- **Iridectomy** — remove iris portion (especially with iris bombé)
+- **Drainage device** (Ahmed valve, Baerveldt)
+- **End-stage**: Enucleation (entire eye) or Evisceration (replace inside with prosthetic)
+
+### Emergency reduction (acute)
+- **Mannitol IV** 1-2 g/kg over 30 min — osmotic diuretic
+- + Topical glaucoma drops
+
+## End-stage Eye Treatment
+- **Enucleation** — remove entire eye + suture lid (cosmetic OK with hair)
+- **Evisceration** — keep cornea/sclera, replace contents with **prosthetic ball** (looks normal)
+- Choose based on: pain control, owner preference, eye condition
+
+---
+
+## 📝 Exam Hot Spots
+
+### Fundus
+1. **Vitreous = 90% of eye**, gel-like
+2. **Asteroid hyalosis** — Ca, "stars in sky", no vision impact
+3. **Synchysis scintillans** — cholesterol, settles when still
+4. **Tapetum** = night vision reflective (varies color)
+5. **Dog optic disc** = triangular + ivory (myelin) · **Cat** = round dark
+6. **Retinal arterioles** 12-20 in dog · 3 main pairs in cat
+7. **Retinal detachment** = billowing curtain
+8. Hemorrhage on retina → think **systemic hypertension/kidney**
+9. **PHPV** — fibrovascular vitreous, congenital
+
+### Glaucoma
+1. **IOP > 25 mmHg** = glaucoma threshold
+2. **Primary glaucoma**: Cocker, Bouvier, Shiba (TH), Beagle — genetic
+3. **Other eye at risk** in primary → prophylactic Tx
+4. **Buphthalmos + Haab's striae + cupping** = chronic
+5. **4 drug classes**: Timolol, Dorzolamide, Latanoprost, Brimonidine
+6. **Mannitol IV** for acute crisis
+7. **Anterior lens luxation** = secondary glaucoma
+8. **End-stage**: Enucleation or Evisceration
+9. **Goniodysgenesis** classification 1-4 (1 = open, 4 = closed)
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Glaucoma (cont) + Orbit + Ear examination
+  // ─────────────────────────────────────────────────────────────
+  Gmk3Omj81vw: {
+    videoId: 'Gmk3Omj81vw',
+    title: '6. Glaucoma (ต่อ) + Diseases of orbit + Ear examination',
+    subject: 'com3',
+    date: '12 Feb 69',
+    durationMin: 103,
+    instructor: 'อาจารย์ Ophtho',
+    examFormat: 'MCQ — glaucoma surgery + orbit signs + ear basics',
+    summary: `# Glaucoma (cont) + Orbit + Ear Examination
+
+---
+
+# 🔻 Part 1: Glaucoma Surgery (continued)
+
+### Decrease production techniques (drugs covered in Eye 5)
+
+### Increase drainage techniques
+1. **Cyclodialysis** ⭐ — separate ciliary body from sclera at angle to open drainage path
+   - Use spatula to dissect, restore aqueous flow
+2. **Iridectomy** ⭐ — cut out portion of iris (esp. for iris bombé from synechia)
+   - Use electrocautery (prevents bleeding)
+3. **Glaucoma drainage implant** (gonio implant)
+   - Small tube + plate device under conjunctiva, tip in anterior chamber
+   - Aqueous flows through tube → pools at plate → reabsorbs
+   - Used heavily in human medicine; less in vet (cost)
+4. **Cyclophotocoagulation** — laser ciliary body to reduce production
+
+### End-stage Eye
+- **Enucleation** — entire eye + adnexa, suture lid
+  - Common, cosmetic OK with hair
+  - ⚠️ When removing one eye, don't pull too hard — can damage other side via optic chiasm!
+- **Evisceration** — keep cornea/sclera, replace inside with **prosthetic ball** (typically black silicone)
+  - Looks like real eye outside
+  - Cornea & sclera intact ⭐
+
+### Surgical technique (Enucleation)
+- **Transpalpebral approach** (most common in vet) — preserve cornea/conjunctiva integrity
+  - Suture lid closed first → grip lid → cut around → blunt dissection deep
+  - At base: identify + clamp (or not) optic nerve & vessels → remove en bloc
+  - **Reduce dead space** with extraocular muscles → suture nice cosmetic result
+- **Transconjunctival** (alternative)
+
+---
+
+# 🔻 Part 2: Diseases of the Orbit
+
+## Anatomy
+- **Semi-bony orbit** in dog/cat (NOT fully closed like in cat!)
+  - Lateral wall: **ligament** (incomplete bone)
+  - Floor: zygomatic gland present
+  - Periorbital fat = shock absorber
+  - 7 extraocular muscles (4 rectus + 2 oblique + 1 retractor bulbi)
+
+## Primary Orbital Signs ⭐⭐
+| Sign | Meaning |
+|------|---------|
+| **Exophthalmos** ⭐ | eye larger/protruding (mass behind eye) |
+| **Enophthalmos** | eye retracted into socket (Horner's, dehydration, atrophy) |
+| **Strabismus** | misaligned (neuro/muscle issue) |
+
+## Secondary signs
+- 3rd eyelid protrusion
+- Scleral redness
+- Inability to close eyelid → exposure keratitis
+
+## DDx of Exophthalmos (3 categories)
+| Category | Speed | Pain |
+|----------|-------|------|
+| **Inflammation** | fast | painful (++) |
+| **Neoplasia** | slow | not painful |
+| **Cyst** | medium | mildly |
+
+## Specific Conditions
+- **Masticatory muscle myositis (MMM)** ⭐ — Golden Retriever predisposed
+  - Muscles around eye + face inflamed → eye pushed forward, jaw pain
+  - Tx: steroid + anti-inflammatory + immunosuppressive
+- **Retrobulbar abscess** — usually from oral/sinus infection extension
+- **Retrobulbar tumor** — older animals
+- **Orbital cyst (zygomatic mucocele)** — non-painful slow growth
+
+## Horner's Syndrome ⭐⭐
+**4 classic signs:**
+1. **Enophthalmos** (eye retracted)
+2. **Ptosis** (upper eyelid droops)
+3. **Miosis** (constricted pupil)
+4. **Third eyelid protrusion**
+
+> ⚠️ NOT blind — looks bad but vision intact
+
+### Phenylephrine test ⭐ (localize lesion)
+- Topical phenylephrine drops → wait for pupil to dilate (re-equalize)
+| Time to dilate | Localize |
+|----------------|----------|
+| **15-20 min** | 3rd order (post-ganglionic, near eye) — often **ear infection!** ⭐ |
+| **20-40 min** | 2nd order (preganglionic, neck) |
+| **> 40 min / never** | 1st order (CNS, brain) — neuroimaging needed |
+
+> 💡 In TH: most common cause = **otitis media affecting facial/sympathetic nerve**
+
+## Proptosis ⭐ (Eye Out of Socket)
+- Brachycephalic predisposed (shallow socket)
+- Common: head trauma, neck-pull, cat fight
+- ⚠️ Always investigate **systemic** — proptosis = severe trauma; check for diaphragmatic hernia, etc.!
+
+### Treatment Decision
+**Push back IF:**
+- < 12 hours from event
+- Pupil still constricts (PLR positive)
+- ≤ 2 extraocular muscles damaged
+- Cornea intact
+- Vision likely intact
+
+**Enucleate IF:**
+- > 12 hours
+- Mydriasis (no PLR)
+- Multiple muscle tears
+- Cornea perforated
+- Other eye blind already
+
+### Push-back technique
+- Like putting on tight pants — gentle progressive pressure
+- Forceps + sterile gauze + warm saline
+- May need **lateral canthotomy** (extend palpebral fissure) if too tight
+- Place 3-0 or 4-0 stay sutures across cornea to bring lid edges together
+- Topical Fluo (clear ulcer) + AB + Atropine
+
+### Post-op
+- Lateral canthotomy closure 7-10 days
+- Stay sutures 10-14 days
+- Treat exposure keratitis throughout
+
+---
+
+# 🔻 Part 3: Ear Examination (intro)
+
+## Anatomy (3 parts)
+| Part | Components |
+|------|------------|
+| **External ear** | pinna + vertical ear canal + horizontal ear canal |
+| **Middle ear** | tympanic membrane + tympanic bulla + ossicles (malleus/incus/stapes) |
+| **Inner ear** | cochlea (hearing) + vestibular system (balance) |
+
+### Connection
+- **Eustachian (auditory) tube** — middle ear ↔ pharynx
+- Common pathway for infection from URI
+
+## Cranial Nerves Around Ear
+- **CN VII (Facial)** ⭐ — runs near ear, can be paralyzed by otitis interna/media
+- **CN VIII (Vestibulocochlear)** — hearing + balance
+- **Sympathetic chain** — through middle ear, lesion → Horner's
+
+## Diseases — Otitis (3 levels)
+- **Otitis externa** — pinna + canals (most common)
+- **Otitis media** — tympanic bulla
+- **Otitis interna** — cochlea + vestibular (rare, often associated with media)
+
+### Otitis Externa Causes
+- Predisposing: long ears, hairy ears, brachycephalic
+- Inflammation: allergy, parasites
+- Bacteria: Staphylococcus, Pseudomonas
+- Yeast: Malassezia
+
+### Clinical Signs
+- Head shaking, scratching → aural hematoma risk
+- Erythema, dark/yellow discharge
+- Foul smell
+- If into middle/inner: head tilt, **Horner's**, facial paralysis, vestibular signs
+
+## Diagnosis
+- Otoscope exam
+- Cytology (ear swab → smear → stain)
+- Bacterial culture + sensitivity (refractory)
+- **Imaging**: X-ray, **CT scan** ⭐ best for bulla disease
+
+## Medications (will detail in next session)
+1. Cleansers (loosen wax, anti-microbial)
+2. Antibacterial drops
+3. Antifungal (Malassezia)
+4. Anti-inflammatory (steroid)
+5. Pain control
+
+## 📝 Exam Hot Spots
+1. **Surgical glaucoma**: cyclodialysis, iridectomy, drainage implant
+2. **Enucleation** vs **Evisceration** — choose by goals
+3. **Exophthalmos vs Enophthalmos vs Strabismus**
+4. **Horner's 4 signs**: miosis + ptosis + enophthalmos + 3rd eyelid up
+5. **Phenylephrine test** localizes Horner's (15/20-40/>40 min)
+6. **MMM** = Golden Retriever, jaw pain + bilateral exophthalmos
+7. **Proptosis push-back criteria**: < 12 hr, PLR+, ≤ 2 muscles, intact cornea
+8. **Lateral canthotomy** for tight proptosis
+9. **CN VII** affected by otitis media → facial paralysis
+10. **Sympathetic chain** through middle ear → Horner's
+11. **CT** = imaging of choice for ear/bulla
+12. Otitis: externa → media → interna progression
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Surgery of the ear
+  // ─────────────────────────────────────────────────────────────
+  AVN3WDyArGk: {
+    videoId: 'AVN3WDyArGk',
+    title: '7.1 Surgery of the ear',
+    subject: 'com3',
+    date: '19 Feb 69',
+    durationMin: 62,
+    instructor: 'อาจารย์ (Ear surgery)',
+    examFormat: 'MCQ — surgical technique + indications',
+    summary: `# Surgery of the Ear
+
+> 🔪 4 main ear surgeries — choose based on extent of disease
+
+## Anatomy Review (3 parts — same as ear exam)
+- External: pinna + vertical canal + horizontal canal
+- Middle: tympanic membrane + bulla + ossicles
+- Inner: cochlea + vestibular apparatus + Eustachian tube
+
+## Otitis Externa
+- Causes (skin disease, Bacteria, Mycotic, etc.)
+- Breeds: Poodle, Spaniel, **floppy-eared, Scottish Fold**
+- Common organisms: Staph, Pseudomonas, **Malassezia**
+
+## Otitis Media
+- **Dog**: usually descending from otitis externa (TM rupture → bulla)
+- **Cat**: usually ascending or from inflammatory polyp (intrinsic to bulla)
+- Clinical: pain, head tilt, **CN VII deficit** (facial paralysis, ptosis, lip droop)
+
+## Diagnosis
+- Physical exam, otoscopy
+- X-ray (lateral + DV) — bulla opacity, canal thickness
+- **CT/MRI** — best for assessing extent, surgical planning
+
+---
+
+## 4 Surgical Procedures ⭐⭐⭐
+
+### 1. Lateral Wall Resection (LWR) — Zepp's procedure
+**Indication:** mild ear canal hyperplasia / lateral vertical lesion / small mass at canal opening
+
+**Technique:**
+- U-shaped skin incision over lateral vertical canal
+- Reflect skin flap (B-shape)
+- Remove muscle + lateral cartilage (down to half of canal)
+- Suture cartilage + skin → opens canal laterally
+- Result: vertical canal halved + horizontal still patent
+
+**Outcome:** improves ventilation + cleaning, preserves anatomy
+
+### 2. Vertical Canal Ablation (VCA)
+**Indication:** complete vertical canal disease (hyperplasia, mass) — but **horizontal preserved**
+
+**Technique:**
+- T-shaped incision (around opening + down vertical)
+- Dissect ALL vertical cartilage out
+- ⚠️ Watch for **facial nerve** at vertical-horizontal junction (D→V direction)
+- Cut at junction, evert horizontal canal, suture to skin
+
+**Result:** new opening at horizontal canal level
+
+### 3. Total Ear Canal Ablation (TECA) ⭐⭐
+**Indication:** chronic otitis externa with full canal disease, calcification of canals, refractory disease, neoplasia
+
+**Technique:**
+- T-incision
+- Dissect entire vertical AND horizontal canal out
+- ⚠️⚠️ **Critical**: dissect from **caudal to rostral** (back to front)
+  - Why? Facial nerve runs caudal → rostral → dissecting wrong direction = high risk of cutting CN VII!
+- Stay close to cartilage to avoid nerve
+
+**Question:** Does TECA cause deafness?
+**Answer:** ❌ No — only **conductive** mild loss
+- Why? Cochlea (hearing) + ossicles (Incus/Malleus/Stapes) intact
+- Like wearing earplug — quieter but can hear
+
+**Common with**: Bulla osteotomy
+
+### 4. Bulla Osteotomy (BO) — done with TECA
+**Indication:** otitis media + bulla involvement
+
+**Technique:**
+- Drill / pin / Lempert rongeur to open bulla
+- Curette out infectious material
+- Flush + culture
+- Place **Penrose drain** if heavy infection or fistulous tract
+
+**Two approaches:**
+- **Lateral BO** — done with TECA-LBO (most common in dog)
+- **Ventral BO** — better for cat (polyp removal), avoid CN VII
+
+---
+
+## Complications ⭐
+1. **Wound dehiscence** (infection, tension)
+2. **Facial nerve damage** (VII paralysis) — main concern with TECA
+3. **Horner's syndrome** — sympathetic chain damage during BO
+4. **Cochlear damage** → vestibular signs / hearing loss (rare)
+5. **Recurrence** if pathology not fully removed
+
+## 📝 Exam Hot Spots
+1. **4 surgeries**: LWR / VCA / TECA / Bulla osteotomy
+2. **TECA does NOT cause complete deafness** — cochlea intact
+3. **Facial nerve** at vertical-horizontal junction — watch during VCA
+4. **TECA dissection direction**: caudal → rostral (avoid VII)
+5. **Cat otitis media** = polyp common
+6. **Lateral BO** with TECA / **Ventral BO** for cat polyp
+7. **Pseudomonas** common refractory ear bug
+8. **Pre-op CT** for bulla disease
+9. **Post-op Penrose drain** if abscess
+10. Ossicles = malleus, incus, stapes (carry sound to inner ear)
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Diagnostic imaging for eye, ear, nervous tissue
+  // ─────────────────────────────────────────────────────────────
+  zy6soRaLmeg: {
+    videoId: 'zy6soRaLmeg',
+    title: '7.2 Diagnostic imaging for eye, ear and nervous tissue',
+    subject: 'com3',
+    date: '19 Feb 69',
+    durationMin: 45,
+    instructor: 'อาจารย์ Imaging',
+    examFormat: 'MCQ — modality choice for given clinical scenario (5 questions)',
+    summary: `# Diagnostic Imaging for Eye, Ear, Nervous System
+
+> 🎯 **Exam format**: 5 case-based questions, each asks "which modality?" — choose Xray/Ultrasound/CT/MRI based on clinical hints
+
+---
+
+## Modality Comparison ⭐⭐⭐
+
+| Modality | Best for | Pros | Cons |
+|----------|----------|------|------|
+| **Radiography (X-ray)** | bone fracture, screening | Cheap, fast, no GA | 2D superimposition, poor for soft tissue |
+| **Fluoroscopy** | real-time procedures | live image | high radiation; less used in vet |
+| **Ultrasound** | soft tissue (eye!), abdomen | No radiation, real-time, no GA | Can't penetrate bone/air |
+| **CT** ⭐ | bone + soft tissue + vascular (with contrast) | Fast (~2 min), volume data | Radiation, **needs GA**, less specific for soft tissue |
+| **MRI** ⭐⭐ | soft tissue (esp. CNS) | No radiation, best soft tissue contrast, multi-sequence | Long (~30 min), GA, expensive, NO metal implants |
+
+---
+
+## 1. Eye Imaging
+
+### Globe (eyeball itself)
+- **Ultrasound** ⭐ — modality of choice
+- Use **stand-off** or thick gel for better near-field visualization
+- Linear/sector probe at frequency > 7 MHz
+- Detects: cataract, vitreous changes, lens luxation, **retinal detachment**, hyphema, intraocular mass
+
+### Behind globe (retrobulbar)
+- US can but limited (gland, fat shadow)
+- ⭐ **CT or MRI** for definitive
+
+### Specific scenarios
+| Scenario | Choice |
+|----------|--------|
+| Unilateral exophthalmos (slow onset) | **CT with contrast** ⭐ — often nasal/sinus tumor invading orbit |
+| Acute trauma + eye protrude | CT first |
+| Retrobulbar abscess | CT + drain |
+| Orbital myositis (MMM) | **MRI preferred** (better soft tissue) |
+
+---
+
+## 2. Ear Imaging
+
+### Outer ear (pinna, vertical canal)
+- Direct otoscope (physical exam)
+- X-ray useful for canal patency / bulla density
+- **CT** if mass or refractory
+
+### Middle ear (bulla)
+- X-ray: bulla opacity, sclerosis (chronic otitis)
+- ⭐ **CT** = modality of choice
+- See: bulla wall thickness, **fluid in bulla**, polyp, neoplasia
+- 3D reconstruction excellent for surgical planning
+
+### Inner ear
+- **MRI** preferred — soft tissue (cochlea, vestibular)
+- CT for bony anatomy
+
+---
+
+## 3. CNS (Brain, Spinal Cord, Nerves)
+
+### Brain
+- ⭐ **MRI** = gold standard
+- Multi-sequence (T1, T2, FLAIR, STIR) helps differentiate edema vs hemorrhage vs tumor
+- Contrast: rule out neoplasia, abscess, granuloma
+- CT alternative if MRI unavailable, but less detail
+
+### Spinal cord
+- ⭐ **MRI** = gold standard for cord/disc
+- See: IVDD (Hansen I/II), neoplasia, syringomyelia, FCE, myelitis
+- CT-myelogram alternative — contrast in subarachnoid space
+
+### Peripheral nerves
+- MRI specific sequences (DTI)
+- Often fluoroscopy for nerve block guidance
+
+---
+
+## 4. Imaging-specific contraindications
+
+### MRI contraindications ⭐
+- **Pacemakers, ICD** — magnetic interference
+- Cochlear implants
+- Aneurysm clips (older ferromagnetic)
+- Metal foreign bodies in eye!
+- ⚠️ Microchips usually OK but cause local artifact
+
+### CT contraindications
+- High GA risk
+- Iodine contrast allergy / renal disease
+
+### Ultrasound contraindications
+- Almost none (very safe)
+- Needs lots of gel + good acoustic window
+
+---
+
+## Sample Cases (sim exam format)
+
+**Case 1:** 8 yo Pug with sudden bilateral cataract, sees light only.
+- Ix: **Ultrasound globe** (rule out retinal detachment before phaco surgery)
+
+**Case 2:** 3 yo Persian cat, head tilt + Horner's + facial paralysis 2 wk
+- Ix: **CT bulla** ⭐ (suspect otitis media + nerve compression)
+
+**Case 3:** 7 yo Cocker, sudden seizures
+- Ix: **MRI brain** ⭐ (rule out neoplasia, encephalitis)
+
+**Case 4:** 9 yo Dachshund, acute paraparesis
+- Ix: **MRI thoracolumbar** ⭐ (Hansen I IVDD likely)
+
+**Case 5:** 12 yo Golden, slow exophthalmos OD, normal contralateral
+- Ix: **CT with contrast** ⭐ (likely retrobulbar/nasal tumor)
+
+---
+
+## 📝 Exam Hot Spots
+1. **MRI = best CNS** (brain, spinal cord)
+2. **CT = best bone + bulla** (middle ear, sinus invasion)
+3. **Ultrasound = best globe** (intraocular)
+4. **X-ray** = screening, then advanced imaging
+5. MRI absolute contraindication: **pacemaker, metal in eye**
+6. Need GA for CT and MRI
+7. **Asymmetric exophthalmos** → CT to find nasal tumor invasion
+8. Acute trauma → CT first (fast)
+9. Suspected IVDD → MRI thoracolumbar
+10. Inner ear = MRI; Middle ear = CT
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
   // COM IV — Dermatology intro + Parasitic skin diseases
   // ─────────────────────────────────────────────────────────────
   ytpYnHmuRh0: {
