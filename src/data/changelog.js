@@ -15,6 +15,23 @@
 
 export const CHANGELOG = [
   {
+    version: '5.1.6',
+    date: '2026-04-27',
+    headline: '🎚 เลือก Self/AI ก่อนเริ่ม + auto-save กันลืม + bug fix',
+    changes: [
+      { kind: 'feature', icon: '🎚', title: 'เลือกผู้ตรวจข้อเขียนก่อนเริ่ม',
+        desc: 'ConfigView มี 3 chip เลือก: 🤔 ถามตอนตรวจ (default) · 📝 ประเมินเอง (skip picker) · 🤖 AI ตรวจอัตโนมัติ — เข้า Review ปุ๊บได้ผลทันที (เก็บ preference ใน localStorage)' },
+      { kind: 'feature', icon: '💾', title: 'Auto-save ตอนทำข้อสอบ',
+        desc: 'ทำๆ อยู่ tab ปิดเอง / browser ค้าง / มือถือไฟดับ → กลับมาเปิดเว็บ → เห็น "🔄 พบข้อสอบที่ค้างอยู่ · ทำต่อไหม?" — ไม่หายเลย' },
+      { kind: 'feature', icon: '✍️', title: 'Quick strategy banner ก่อนเริ่มเขียน',
+        desc: 'ConfigView โหมด Writing → เห็น checklist 7 ข้อ: อ่าน 2 รอบ · topic sentence · transitions · paraphrase 2 อย่าง · cite source · word count · ห้าม opinion' },
+      { kind: 'fix', icon: '🐛', title: 'Bug: ย้อนข้อแล้วเวลาหด',
+        desc: 'กด ← / jump-to-question ที่ข้อ essay → เวลาเหลือเป็น 60s แทน 25min · แก้แล้วใช้ timeForQuestion ตามประเภท' },
+      { kind: 'fix', icon: '🔀', title: 'Bug: shuffle ทำลาย mock passage flow',
+        desc: 'เลือก subject แล้วได้ Q4 ของ Mock 2 มาก่อน Q1 ของ Mock 1 → passage งง · แก้: ถ้ามี examOrigin ติด → sort by ID ภายในก่อน' },
+    ],
+  },
+  {
     version: '5.1.5',
     date: '2026-04-27',
     headline: '🎯 แยก MCQ vs Writing + Smart timer + Past Exam 2021',

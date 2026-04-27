@@ -65,14 +65,41 @@ export default function App() {
   const [activeGroup, setActiveGroup] = useState(null);
   const [selectedYear, setSelectedYear] = useState(CURRENT_YEAR);
 
-  const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState({});
-  const [currentIdx, setCurrentIdx] = useState(0);
+  // In-flight exam state. Persisted to localStorage so an accidental
+  // tab close, browser crash, or PWA force-quit during a long writing
+  // session doesn't lose answers — restored when the user opens the
+  // app again. Cleared on submit / goHome.
+  const [questions, setQuestions] = useState(() => {
+    try {
+      const raw = window.localStorage?.getItem('vmx-inflight-exam');
+      if (raw) return JSON.parse(raw).questions || [];
+    } catch {}
+    return [];
+  });
+  const [answers, setAnswers] = useState(() => {
+    try {
+      const raw = window.localStorage?.getItem('vmx-inflight-exam');
+      if (raw) return JSON.parse(raw).answers || {};
+    } catch {}
+    return {};
+  });
+  const [currentIdx, setCurrentIdx] = useState(() => {
+    try {
+      const raw = window.localStorage?.getItem('vmx-inflight-exam');
+      if (raw) return JSON.parse(raw).currentIdx || 0;
+    } catch {}
+    return 0;
+  });
   const [numQuestions, setNumQuestions] = useState(10);
   const [useTimer, setUseTimer] = useState(true);
   const [timePerQ, setTimePerQ] = useState(60);
   // 'all' (default) | 'mcq' (auto-graded only) | 'writing' (essay+short only)
   const [questionCategory, setQuestionCategory] = useState('all');
+  // Pre-flight choice for how to grade writing answers in Review.
+  // 'ask'  = show the Self/AI buttons per question (default — lets user decide later)
+  // 'self' = auto-go to self-grade view (skip the picker)
+  // 'ai'   = auto-call AI grading immediately when entering Review
+  const [writingGradeMode, setWritingGradeMode] = useLocalStorage('vmx-writing-grade-mode', 'ask');
   const [timeLeft, setTimeLeft] = useState(0);
   const [examStartTime, setExamStartTime] = useState(null);
 
@@ -128,6 +155,55 @@ export default function App() {
   }, [user, bookmarks, history, notes, srCards, customQuestions, streakData]);
 
   const allQuestions = useMemo(() => [...QB, ...customQuestions], [customQuestions]);
+
+  // Auto-save in-flight exam state to localStorage. Runs on every
+  // answer/navigation so accidental tab-close during a 25-minute
+  // essay doesn't lose work. Skipped when there's no active exam.
+  useEffect(() => {
+    if (view !== 'exam' || questions.length === 0) return;
+    try {
+      window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({
+        questions, answers, currentIdx,
+        savedAt: Date.now(),
+      }));
+    } catch {}
+  }, [view, questions, answers, currentIdx]);
+
+  // Detect a previous in-flight exam at boot and offer to resume.
+  // Only show the prompt once — after dismiss, the storage key is
+  // cleared so it doesn't re-pop on every refresh.
+  useEffect(() => {
+    if (view !== 'home' || questions.length > 0) return;
+    let raw;
+    try { raw = window.localStorage?.getItem('vmx-inflight-exam'); } catch {}
+    if (!raw) return;
+    let saved;
+    try { saved = JSON.parse(raw); } catch { return; }
+    if (!saved?.questions?.length) return;
+    // Only offer resume if save is < 6 hours old — older state likely stale
+    const ageMs = Date.now() - (saved.savedAt || 0);
+    if (ageMs > 6 * 60 * 60 * 1000) {
+      try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+      return;
+    }
+    const ageMin = Math.round(ageMs / 60000);
+    const answeredCount = Object.keys(saved.answers || {}).length;
+    const ok = window.confirm(
+      `🔄 พบข้อสอบที่ค้างอยู่ (${saved.questions.length} ข้อ · ตอบไป ${answeredCount} ข้อ · ${ageMin} นาทีที่แล้ว)\n\nกลับไปทำต่อไหม?`
+    );
+    if (ok) {
+      setQuestions(saved.questions);
+      setAnswers(saved.answers || {});
+      setCurrentIdx(saved.currentIdx || 0);
+      setView('exam');
+    } else {
+      try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+      setQuestions([]);
+      setAnswers({});
+      setCurrentIdx(0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only on first home render
+  }, []);
 
   useEffect(() => {
     if (view !== 'exam' || !useTimer) return;
@@ -238,7 +314,14 @@ export default function App() {
     const qCount = Math.max(1, numQuestions);
     const baseTime = useTimer ? Math.max(5, timePerQ) : 0;
 
-    const picked = shuffle(pool).slice(0, Math.min(qCount, pool.length));
+    let picked = shuffle(pool).slice(0, Math.min(qCount, pool.length));
+    // Mock-tagged questions (examOrigin set) belong to a structured
+    // exam — passage Q1 must come before Q2, etc. Re-sort by ID
+    // after the random pick so passage flow is preserved while still
+    // sampling randomly from the larger pool.
+    if (picked.some((q) => q.examOrigin)) {
+      picked = picked.sort((a, b) => a.id - b.id);
+    }
     // Per-question time uses timeForQuestion(): essays get 25 min minimum,
     // short answers 3 min minimum, MCQ/TF stay at the user's base setting
     const firstTime = picked[0] ? timeForQuestion(picked[0], baseTime) : baseTime;
@@ -267,6 +350,9 @@ export default function App() {
       const duration = examStartTime ? Math.round((Date.now() - examStartTime) / 1000) : 0;
       saveExamResult({ user_id: user.id, mode, subject, total: autoQs.length, correct, pct, duration_sec: duration }).catch(() => {});
     }
+    // Clear the auto-save now that the exam is submitted — Review/
+    // Results doesn't need the in-flight key anymore
+    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
     setView('results');
   };
 
@@ -324,15 +410,26 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- answers/finishExam read via closure
   }, [currentIdx, questions, timePerQ, answers]);
   const prevQ = useCallback(() => {
-    if (currentIdx > 0) { setCurrentIdx(currentIdx - 1); setTimeLeft(timePerQ); }
-  }, [currentIdx, timePerQ]);
+    // Use timeForQuestion so jumping back to an essay restores its
+    // 25-min budget instead of shrinking it to the MCQ default
+    if (currentIdx > 0) {
+      const prev = questions[currentIdx - 1];
+      setCurrentIdx(currentIdx - 1);
+      setTimeLeft(timeForQuestion(prev, timePerQ));
+    }
+  }, [currentIdx, questions, timePerQ]);
   const jumpToQ = useCallback((idx) => {
-    if (idx >= 0 && idx < questions.length) { setCurrentIdx(idx); setTimeLeft(timePerQ); }
-  }, [questions.length, timePerQ]);
+    if (idx >= 0 && idx < questions.length) {
+      setCurrentIdx(idx);
+      setTimeLeft(timeForQuestion(questions[idx], timePerQ));
+    }
+  }, [questions, timePerQ]);
 
   const goHome = () => {
     setView('home'); setQuestions([]); setAnswers({}); setCurrentIdx(0);
     setPracticeMode('all'); setMode('quick'); setActiveGroup(null); setTopic(null);
+    // Clear in-flight exam state — user explicitly chose to leave
+    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
   };
 
   const handleSignOut = async () => { if (confirm('Logout?')) { await signOut(); goHome(); } };
@@ -374,10 +471,10 @@ export default function App() {
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions }} />}
               {view === 'topic-select' && <TopicSelectView {...{ subject, setTopic, setView, goHome, mode, customQuestions, readingChecklist }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode }} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, writingGradeMode, setWritingGradeMode, startExam, goHome, mode }} />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />}
-              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }} />}
+              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, writingGradeMode }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome }} />}

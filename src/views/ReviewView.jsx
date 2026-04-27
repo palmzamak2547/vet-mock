@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import { gradeWithAI } from '../lib/ai-grade.js';
 
-export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }) {
+export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, writingGradeMode }) {
   return (
     <>
       <div className="vmx-hero">
@@ -108,7 +108,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                     </div>
                   </div>
                 )}
-                <AIGradePanel q={q} userAnswer={userAns} />
+                <AIGradePanel q={q} userAnswer={userAns} preferredMode={writingGradeMode} />
               </>
             ) : (
               <>
@@ -187,9 +187,15 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
 // short/essay questions. AI calls /api/grade-summary; result is
 // rendered as a per-criterion breakdown.
 // ─────────────────────────────────────────────────────────────
-function AIGradePanel({ q, userAnswer }) {
+function AIGradePanel({ q, userAnswer, preferredMode }) {
   // mode: 'choose' | 'self' | 'ai-loading' | 'ai-result' | 'ai-error'
-  const [mode, setMode] = useState('choose');
+  // preferredMode = pre-flight choice from ConfigView ('ask'|'self'|'ai')
+  // Maps:
+  //   'ask'  → 'choose'   (default — picker UI)
+  //   'self' → 'self'      (skip picker)
+  //   'ai'   → fires requestAI() on mount (skip picker)
+  const initialMode = preferredMode === 'self' ? 'self' : 'choose';
+  const [mode, setMode] = useState(initialMode);
   const [aiResult, setAiResult] = useState(null);
   const [aiError, setAiError] = useState(null);
   const hasAnswer = typeof userAnswer === 'string' && userAnswer.trim().length > 0;
@@ -221,6 +227,15 @@ function AIGradePanel({ q, userAnswer }) {
       setMode('ai-error');
     }
   };
+
+  // Auto-fire AI grading on mount if user pre-chose 'ai'.
+  // Guard with hasAnswer so we don't waste an API call for blank essays.
+  useEffect(() => {
+    if (preferredMode === 'ai' && hasAnswer && mode === 'choose') {
+      requestAI();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only fire once on mount
+  }, []);
 
   // ── Mode: choose grader ──
   if (mode === 'choose') {
