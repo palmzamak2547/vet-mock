@@ -39,14 +39,14 @@ export const CHANGELOG = [
   {
     version: '5.11.0',
     date: '2026-04-28',
-    headline: '🔍 SEO + meta tags — เพื่อนค้น "VetMock" ใน Google เจอแน่',
+    headline: '🔍 SEO + meta tags — เพื่อนค้น "คลังข้อสอบสัตวแพทย์ จุฬา" ใน Google เจอแน่',
     changes: [
       { scope: 'system', kind: 'feature', icon: '🔍', title: 'เพิ่ม robots.txt + sitemap.xml',
         desc: 'allow crawler หน้าแรก · block /api/ + บอท LLM (GPTBot, ClaudeBot, CCBot, Google-Extended, Perplexity) ไม่ให้เอาไปเทรน · sitemap point ที่ landing page (เพราะเนื้อหาทุกอย่างอยู่หลัง login = ไม่ควร crawl)' },
       { scope: 'system', kind: 'feature', icon: '🏷️', title: 'Meta tags + Open Graph + Twitter Card ครบชุด',
-        desc: 'title + description ใหม่ที่มี keyword ครบ (Vet 86, สัตวแพทย์ จุฬา, COM III/IV/V) · canonical URL · OG image 512×512 + alt text · Twitter summary_large_image · noscript fallback สำหรับบอท' },
+        desc: 'title ใหม่ "VetMock — คลังข้อสอบสัตวแพทย์ จุฬา" · description ครอบคลุมทุกชั้นปี (ปี 1-6) ที่จะทยอยทำเพิ่ม · canonical URL · OG image 512×512 + alt text · Twitter summary_large_image · noscript fallback สำหรับบอท' },
       { scope: 'system', kind: 'feature', icon: '📋', title: 'JSON-LD WebApplication schema',
-        desc: 'structured data ตาม schema.org · Google เข้าใจว่าเป็น EducationalApplication สำหรับนิสิตสัตวแพทย์ปี 4 จุฬา · feature list ครบ 9 อย่าง · เป็น free PWA ภาษาไทย' },
+        desc: 'structured data ตาม schema.org · Google เข้าใจว่าเป็น EducationalApplication ประเภท Veterinary Medicine Question Bank · audience = นิสิตสัตวแพทย์จุฬาทุกชั้นปี · feature list ครบ 9 อย่าง · free PWA ภาษาไทย' },
     ],
   },
   {

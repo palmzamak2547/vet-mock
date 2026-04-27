@@ -1,4 +1,4 @@
-# VetMock — Vet 86 Mock Exam Platform
+# VetMock — คลังข้อสอบสัตวแพทย์ จุฬา (Chulalongkorn Vet Question Bank)
 # Single-page app: only the landing page is publicly visible to crawlers.
 # All study content (questions, video summaries, schedules) is gated
 # behind Supabase auth and not crawlable.
