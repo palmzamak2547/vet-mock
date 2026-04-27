@@ -35,22 +35,12 @@ export const SCOPE_LABELS = {
   multi:    { icon: '⚡',  label: 'หลายส่วน',        color: 'var(--clr-gold)',          bg: 'rgba(184, 137, 64, 0.12)' },
 };
 
+// 📋 Convention: changelog แสดงเฉพาะการเปลี่ยนแปลงที่ผู้ใช้สังเกตได้
+// (content / feature ใหม่ / bug fix ที่กระทบการใช้งาน)
+// → SEO / build / infrastructure / refactor — ไม่ต้อง list ที่นี่
+//   (อยู่ในประวัติ git แล้ว · ผู้ใช้ไม่จำเป็นต้องรู้)
+
 export const CHANGELOG = [
-  {
-    version: '5.11.0',
-    date: '2026-04-28',
-    headline: '🔍 SEO + meta tags — เพื่อนค้น "คลังข้อสอบสัตวแพทย์ จุฬา" ใน Google เจอแน่',
-    changes: [
-      { scope: 'system', kind: 'feature', icon: '🔍', title: 'เพิ่ม robots.txt + sitemap.xml',
-        desc: 'allow crawler หน้าแรก · block /api/ + บอท LLM (GPTBot, ClaudeBot, CCBot, Google-Extended, Perplexity) ไม่ให้เอาไปเทรน · sitemap point ที่ landing page (เพราะเนื้อหาทุกอย่างอยู่หลัง login = ไม่ควร crawl)' },
-      { scope: 'system', kind: 'feature', icon: '🏷️', title: 'Meta tags + Open Graph + Twitter Card ครบชุด',
-        desc: 'title ใหม่ "VetMock — คลังข้อสอบสัตวแพทย์ จุฬา" · description ครอบคลุมทุกชั้นปี (ปี 1-6) ที่จะทยอยทำเพิ่ม · canonical URL · OG image 512×512 + alt text · Twitter summary_large_image · noscript fallback สำหรับบอท' },
-      { scope: 'system', kind: 'feature', icon: '📋', title: 'JSON-LD WebApplication schema',
-        desc: 'structured data ตาม schema.org · Google เข้าใจว่าเป็น EducationalApplication ประเภท Veterinary Medicine Question Bank · audience = นิสิตสัตวแพทย์จุฬาทุกชั้นปี · feature list ครบ 9 อย่าง · free PWA ภาษาไทย' },
-      { scope: 'system', kind: 'feature', icon: '🔔', title: 'IndexNow protocol — Bing/Yandex/Naver index ทันทีหลัง deploy',
-        desc: 'รัน `npm run ping:indexnow` หลัง deploy ใหม่ → search engine จะ index ทันที (ไม่ต้องรอ crawler มาเอง · Google ไม่ support แต่ Bing/DuckDuckGo support)' },
-    ],
-  },
   {
     version: '5.10.0',
     date: '2026-04-27',
