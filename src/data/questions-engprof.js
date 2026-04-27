@@ -263,8 +263,8 @@ export const QB_ENGPROF = [
   { id: 1101, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.100', tags: ['warmup', 'introduction'], type: 'mcq',
     q: 'In which section would you find the purpose / aim of the study?',
-    options: ['Introduction (often last paragraph)', 'Methodology', 'Results', 'References'],
-    answer: 0, explain: 'Purpose / aim / objective อยู่ใน Introduction มักประโยคสุดท้ายของ section',
+    options: ['Introduction', 'Methodology', 'Results', 'References'],
+    answer: 0, explain: 'Purpose / aim / objective อยู่ใน Introduction มักประโยคสุดท้ายของ section\n\n💡 often last paragraph',
     verified: 'Textbook p.100' },
 
   { id: 1102, subject: 'engprof', topic: 'research-paper-structure', year: 4,
@@ -309,7 +309,7 @@ export const QB_ENGPROF = [
   { id: 1107, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.105', tags: ['warmup', 'rct'], type: 'mcq',
     q: 'Which design is the gold standard for testing the effect of a new treatment?',
-    options: ['Case series', 'Cross-sectional', 'Cohort', 'Randomized Controlled Trial (RCT)'],
+    options: ['Case series', 'Cross-sectional', 'Cohort', 'Randomized Controlled Trial'],
     answer: 3, explain: 'RCT = Controlled Clinical Trial + random assignment → eliminates selection bias',
     verified: 'Textbook p.104-105' },
 
@@ -404,13 +404,8 @@ export const QB_ENGPROF = [
   { id: 1118, subject: 'engprof', topic: 'academic-writing', year: 4,
     source: 'Textbook p.132', tags: ['warmup', 'ama'], type: 'mcq',
     q: 'In AMA citation style, in-text citations are formatted as:',
-    options: [
-      '(Author, Year)',
-      'Author (Year)',
-      'Superscript Arabic numbers (¹ ² ³)',
-      '[Author] [Page]',
-    ],
-    answer: 2, explain: 'AMA = superscript Arabic numbers, ordered by appearance in paper',
+    options: ['(Author, Year)', 'Author (Year)', 'Superscript Arabic numbers', '[Author] [Page]'],
+    answer: 2, explain: 'AMA = superscript Arabic numbers, ordered by appearance in paper\n\n💡 ¹ ² ³',
     verified: 'Textbook p.132' },
 
   { id: 1119, subject: 'engprof', topic: 'academic-writing', year: 4,

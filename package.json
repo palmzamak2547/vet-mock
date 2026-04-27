@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "icons": "node scripts/generate-icons.mjs",
     "lint:questions": "node scripts/lint-questions.cjs",
-    "fix:questions": "node scripts/fix-question-bias.cjs"
+    "fix:questions": "node scripts/fix-question-bias.cjs",
+    "fix:length": "node scripts/fix-length-bias.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

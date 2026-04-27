@@ -37,6 +37,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.7.0',
+    date: '2026-04-27',
+    headline: '📏 ลด length bias ทั้งคลัง 38% + CI guard ระยะยาว',
+    changes: [
+      { scope: 'multi', kind: 'fix', icon: '📏', title: 'Auto-trim length bias 194 ข้อ', fromFeedback: true,
+        desc: 'เขียน scripts/fix-length-bias.cjs ตัด trailing parenthetical "(...)" / em-dash / mid-dot " · " / comma list จาก correct option แล้วย้ายไป explain · ลดอัตรา length bias 264 → 163 (38%) · errors 170 → 78 · กระทบ com3 36 ข้อ · com4 33 ข้อ · com5 36 ข้อ · engprof 3 ข้อ' },
+      { scope: 'system', kind: 'feature', icon: '🛡️', title: 'GitHub Actions CI guard',
+        desc: 'ทุก push/PR ที่แก้ questions-*.js → run lint อัตโนมัติ · บล็อก merge ถ้า error count เกิน baseline (78) · กัน regression ในอนาคต · กดดู Action tab ของ repo ได้' },
+      { scope: 'system', kind: 'feature', icon: '⚙️', title: 'npm script ครอบคลุม 3 ตัว',
+        desc: '`npm run lint:questions` ตรวจ · `npm run fix:questions` แก้ position + ** · `npm run fix:length` ตัด parenthetical · idempotent ทุกตัว run ซ้ำได้' },
+    ],
+  },
+  {
     version: '5.6.0',
     date: '2026-04-27',
     headline: '📜 Phase 2 ข้อสอบเก่า COM III — รวม 60 ข้อ + linter ครอบคลุม multi-line',

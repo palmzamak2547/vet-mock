@@ -1,0 +1,57 @@
+# ============================================================
+# CI guard against question-bank quality regressions.
+#
+# Triggered on every push/PR to main; runs the bias linter in
+# warn-only mode and fails the job only if NEW errors appear
+# (existing errors documented in the baseline below). Warnings
+# show up in the PR conversation but don't block merging.
+#
+# The baseline `MAX_ERRORS` is the count we ship with v5.7.0
+# after the auto-trim pass: 78 length-bias errors. Lower this
+# whenever you actually rewrite distractors so future regressions
+# are caught.
+# ============================================================
+name: Lint questions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/questions-*.js'
+      - 'scripts/lint-questions.cjs'
+      - '.github/workflows/lint-questions.yml'
+  pull_request:
+    paths:
+      - 'src/data/questions-*.js'
+      - 'scripts/lint-questions.cjs'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run question linter
+        id: lint
+        run: |
+          # warn-only so the script always exits 0; we extract counts
+          # ourselves and fail the job if errors exceed the baseline.
+          node scripts/lint-questions.cjs --warn-only --json > /tmp/lint.json
+          echo "errors=$(node -e 'console.log(JSON.parse(require(\"fs\").readFileSync(\"/tmp/lint.json\",\"utf8\")).errors)')" >> $GITHUB_OUTPUT
+          echo "warnings=$(node -e 'console.log(JSON.parse(require(\"fs\").readFileSync(\"/tmp/lint.json\",\"utf8\")).warnings)')" >> $GITHUB_OUTPUT
+          node scripts/lint-questions.cjs --warn-only
+
+      - name: Enforce baseline
+        env:
+          MAX_ERRORS: 78
+        run: |
+          ERRORS=${{ steps.lint.outputs.errors }}
+          echo "Errors: $ERRORS / baseline $MAX_ERRORS"
+          if [ "$ERRORS" -gt "$MAX_ERRORS" ]; then
+            echo "::error::Question lint introduced $((ERRORS - MAX_ERRORS)) new error(s) over the v5.7.0 baseline ($MAX_ERRORS)."
+            echo "::error::Run \`npm run fix:questions\` and \`npm run lint:questions\` locally before pushing."
+            exit 1
+          fi
