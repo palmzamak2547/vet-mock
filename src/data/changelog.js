@@ -15,6 +15,21 @@
 
 export const CHANGELOG = [
   {
+    version: '5.1.2',
+    date: '2026-04-27',
+    headline: '🆕 Eng Vet Prof II พร้อมแล้ว! สอบพรุ่งนี้บ่าย',
+    changes: [
+      { kind: 'content', icon: '🗣️', title: 'Eng Vet Prof II — เปิดใช้งาน',
+        desc: 'สอบ Final อังคาร 28 เม.ย. 13:00-15:00 · Units 4-5 · Reading Research Papers + Writing Summary' },
+      { kind: 'content', icon: '📖', title: 'Notes ครบ 5 หัวข้อ',
+        desc: 'Research paper structure (IMRD) · Research designs (8 แบบ) · Academic writing · Paraphrasing (5 techniques) · Summary writing rules + marking rubric' },
+      { kind: 'content', icon: '✏️', title: '~36 ข้อสอบจำลอง',
+        desc: 'MCQ + T/F ทุก topic · เลียนแบบ exam pattern (Part I reading, paraphrase acceptability, summary rules)' },
+      { kind: 'feature', icon: '🎯', title: 'Exam strategy + word count rules',
+        desc: 'Note หน้าสุดท้ายมี strategy เขียน summary 150 words · นับคำให้ดี (>180 = -1, >200 = -2)' },
+    ],
+  },
+  {
     version: '5.1.1',
     date: '2026-04-27',
     headline: 'แก้บั๊ก + อัพเดตหลังเปิดใช้งานจริง',

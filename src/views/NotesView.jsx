@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { NOTES_COM5 } from '../data/notes-com5.js';
 import { NOTES_COM3 } from '../data/notes-com3.js';
 import { NOTES_COM4 } from '../data/notes-com4.js';
+import { NOTES_ENGPROF } from '../data/notes-engprof.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 
@@ -20,6 +21,7 @@ const NOTES_BY_SUBJECT = {
   com5: NOTES_COM5,
   com4: NOTES_COM4,
   com3: NOTES_COM3,
+  engprof: NOTES_ENGPROF,
 };
 
 export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, goHome }) {

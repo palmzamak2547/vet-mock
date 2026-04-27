@@ -173,8 +173,33 @@ export const SUBJECTS_BY_YEAR = {
 
     // ── English / Professional skills ──
     { id: 'engprof', code: '5500419', name: 'Eng Vet Prof II', name_en: 'English for Vet Profession II',
-      icon: '🗣️', color: '#5c6b7d', semester: 2, has_questions: false,
-      note: 'รอข้อสอบเพิ่ม' },
+      icon: '🗣️', color: '#5c6b7d', semester: 2, has_questions: true,
+      examFormat: {
+        weight: 'Final 30% (Mid 30 + Final 30 + งาน 25 + ฟรี 5 + อื่นๆ ~10)',
+        notes: [
+          '📅 Final = Units 4-5 · 35 points (30%) · 28 เม.ย. 13:00-15:00 · VET6 807',
+          '📖 Part I — Reading Vet Research Papers (20 pts): short answers + T/F',
+          '✍️ Part II — Writing a 150-word Summary (15 pts): Content 7 + Org/Grammar 5 + Paraphrase 3',
+          '⚠️ Deduct 1 point ถ้า summary > 180 words · -2 points ถ้า > 200 words',
+        ],
+      },
+      topics: [
+        { id: 'research-paper-structure', label: 'Unit 4 · ส่วนต่างๆ ของ Research Paper', icon: '📑',
+          lecturer: 'CULI Eng Vet Prof II', lecturer_year: 2026,
+          lecturerNote: 'Introduction · Methodology · Results · Discussion/Conclusion · ส่วนละทำหน้าที่ต่างกัน — รู้ว่าข้อมูลอยู่ที่ไหน' },
+        { id: 'research-design',          label: 'Unit 4 · Research Designs', icon: '🔬',
+          lecturer: 'CULI Eng Vet Prof II', lecturer_year: 2026,
+          lecturerNote: 'Case report / Case-control / Cohort / Clinical Trial / RCT / Cross-sectional · ดูคำบรรยายแล้วบอกชนิดได้' },
+        { id: 'academic-writing',         label: 'Unit 5 · Writing Academic Papers', icon: '🖋️',
+          lecturer: 'CULI Eng Vet Prof II', lecturer_year: 2026,
+          lecturerNote: 'Review article structure · 5 ขั้นตอนเขียน · AMA citation' },
+        { id: 'paraphrasing',             label: 'Unit 5 · Paraphrasing Techniques', icon: '🔁',
+          lecturer: 'CULI Eng Vet Prof II', lecturer_year: 2026,
+          lecturerNote: 'Synonyms · active↔passive · parts of speech · sentence markers · structures · acceptable vs unacceptable' },
+        { id: 'summary-writing',          label: 'Unit 5 · Writing a Summary', icon: '📝',
+          lecturer: 'CULI Eng Vet Prof II', lecturer_year: 2026,
+          lecturerNote: '150-word target · main idea + key details · own words · ห้าม opinion/invented material' },
+      ] },
   ],
   // ปีอื่นๆ เพิ่มที่นี่ในอนาคต
 };

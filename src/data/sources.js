@@ -80,10 +80,16 @@ export const QUESTION_SOURCES = {
     note: 'สอบ พฤหัส 7 พ.ค. 2569 · 13:00-15:00 · VET6 702',
   },
   engprof: {
-    files: [],
-    contributors: [],
-    topics: 'English for Veterinary Profession II — รอข้อสอบเพิ่ม',
-    note: 'สอบ อังคาร 28 เม.ย. 2569 · 13:00-15:00 · VET6 807',
+    files: [
+      '5500419 Eng Vet Prof II — Final Exam Specification 2-2025.pdf',
+      '5500419_Eng_Vet_Prof_II_Textbook.pdf (Units 4-5 — pp. 99-167)',
+      'Exercise 1 - Writing Summary + KEY.pdf',
+      'Exercise 2 - Research article + KEY.pdf',
+      'Practice - Writing Summary.pdf',
+    ],
+    contributors: ['CULI (Chula Univ Language Institute)', 'Vet 86'],
+    topics: 'Reading Vet Research Papers (Intro/Methods/Results/Discussion) · Research Designs · Writing Academic Papers (Review Article) · Paraphrasing Techniques · Writing a Summary',
+    note: 'สอบ อังคาร 28 เม.ย. 2569 · 13:00-15:00 · VET6 807 · Units 4-5 · 35 pts (30%)',
   },
   cliapprum: {
     files: [
