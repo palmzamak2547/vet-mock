@@ -4,7 +4,7 @@ import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
 import { useOnlineCount } from '../hooks/useOnlineCount.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
-import { LATEST_CHANGELOG } from '../data/changelog.js';
+import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 
 export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {} }) {
@@ -187,7 +187,10 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
                 }}
               >
                 <span style={{ fontSize: 16, flexShrink: 0 }}>{c.icon}</span>
-                <span>
+                <span style={{ flex: 1, minWidth: 0 }}>
+                  {/* Scope chip — tells you "is this a system change or did */}
+                  {/* it touch a specific subject?" without reading the desc */}
+                  {c.scope && <ScopeChip scope={c.scope} />}
                   <strong style={{ color: 'var(--clr-ink)' }}>{c.title}</strong>
                   <span style={{ color: 'var(--clr-ink-soft)' }}> — {c.desc}</span>
                 </span>
@@ -378,6 +381,33 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         </div>
       )}
     </>
+  );
+}
+
+// ── Scope chip (วิชา / ระบบ) — inline, before the title ─────────
+function ScopeChip({ scope }) {
+  const meta = SCOPE_LABELS[scope];
+  if (!meta) return null;
+  return (
+    <span
+      title={`อัปเดตในส่วน: ${meta.label}`}
+      style={{
+        display: 'inline-block',
+        padding: '1px 7px',
+        marginRight: 6,
+        marginBottom: 2,
+        borderRadius: 999,
+        background: meta.bg,
+        color: meta.color,
+        fontSize: 10,
+        fontFamily: 'JetBrains Mono, monospace',
+        fontWeight: 600,
+        verticalAlign: 'middle',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      {meta.icon} {meta.label}
+    </span>
   );
 }
 
