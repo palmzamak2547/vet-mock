@@ -565,6 +565,7 @@ export default function App() {
           <div className="vmx-footer">
             VetMock v5.0 · made with ♡ by <strong>Vet 86</strong>
             {' · '}<a onClick={() => setView('about')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>About</a>
+            {' · '}<a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
             {' · '}<a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
           </div>
         </div>

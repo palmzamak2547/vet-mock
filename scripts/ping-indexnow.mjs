@@ -14,6 +14,10 @@ const API_KEY = 'e1e4e0feff0c42b1a0cb1118045ff82f';
 const HOST = 'vetmock.vercel.app';
 const URLS = [
   `https://${HOST}/`,
+  `https://${HOST}/blog/`,
+  `https://${HOST}/blog/about-vetmock.html`,
+  `https://${HOST}/blog/clip-summary.html`,
+  `https://${HOST}/blog/spaced-repetition.html`,
 ];
 
 async function ping() {

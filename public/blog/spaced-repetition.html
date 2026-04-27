@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Spaced Repetition (SM-2) สำหรับนิสิตแพทย์/สัตวแพทย์ — จำน้อยลง แต่นาน · VetMock</title>
+<meta name="description" content="SM-2 algorithm คืออะไร · ทำไม Anki + Quizlet ถึงดัง · วิธีใช้ spaced repetition กับข้อสอบสัตวแพทย์ + summary คลิปอาจารย์" />
+<link rel="canonical" href="https://vetmock.vercel.app/blog/spaced-repetition.html" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<meta name="keywords" content="spaced repetition, SM-2, Anki, Quizlet, ทบทวน, ติวสอบ, นักเรียนแพทย์, นิสิตสัตวแพทย์, active recall, flashcard" />
+<meta name="author" content="Palm (Vet 86)" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Spaced Repetition (SM-2) สำหรับนิสิตแพทย์/สัตวแพทย์ — จำน้อยลง แต่นาน" />
+<meta property="og:description" content="SM-2 algorithm คืออะไร · วิธีใช้กับข้อสอบสัตวแพทย์ + summary คลิปอาจารย์" />
+<meta property="og:image" content="https://vetmock.vercel.app/icon-512.png" />
+<meta property="og:url" content="https://vetmock.vercel.app/blog/spaced-repetition.html" />
+<meta property="og:locale" content="th_TH" />
+<meta property="article:published_time" content="2026-04-28" />
+<meta property="article:author" content="Palm (Vet 86)" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Spaced Repetition (SM-2) สำหรับนิสิตแพทย์/สัตวแพทย์ — จำน้อยลง แต่นาน",
+  "description": "SM-2 algorithm คืออะไร · ทำไม Anki ถึงดัง · วิธีใช้กับข้อสอบสัตวแพทย์",
+  "image": "https://vetmock.vercel.app/icon-512.png",
+  "datePublished": "2026-04-28",
+  "author": { "@type": "Person", "name": "Palm (Vet 86)" },
+  "publisher": { "@type": "Organization", "name": "VetMock", "logo": { "@type": "ImageObject", "url": "https://vetmock.vercel.app/icon-512.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://vetmock.vercel.app/blog/spaced-repetition.html" },
+  "inLanguage": "th"
+}
+</script>
+<style>
+  :root {
+    --bg: #f6efe4; --surface: #fdf8ef; --surface-2: #f0e6d2;
+    --ink: #2b2419; --ink-soft: #5c4f3d;
+    --sage: #4a6b4a; --rose: #c26d6d; --gold: #b88940;
+    --border: #d8c9a8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1a1612; --surface: #2b2419; --surface-2: #3a3126;
+            --ink: #f0e6d2; --ink-soft: #b8a890;
+            --sage: #7ba87b; --rose: #d89090; --gold: #d4a556;
+            --border: #4a3f30; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: 'IBM Plex Sans Thai', system-ui, sans-serif; font-size: 16px; line-height: 1.7; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 20px 64px; }
+  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+  .logo { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 800; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--rose); }
+  .back-blog { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-soft); text-decoration: none; padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; transition: all 0.15s; }
+  .back-blog:hover { border-color: var(--ink); color: var(--ink); }
+  .post-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  h1 { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 800; line-height: 1.15; margin: 0 0 16px; color: var(--ink); }
+  .lede { font-size: 18px; color: var(--ink-soft); margin: 0 0 40px; line-height: 1.6; }
+  h2 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; margin: 40px 0 16px; color: var(--ink); }
+  h3 { font-size: 18px; font-weight: 600; margin: 24px 0 8px; color: var(--ink); }
+  p { margin: 0 0 16px; }
+  ul, ol { padding-left: 22px; margin: 0 0 16px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); font-weight: 600; }
+  a { color: var(--rose); }
+  blockquote { border-left: 3px solid var(--gold); margin: 24px 0; padding: 8px 16px; color: var(--ink-soft); background: var(--surface); border-radius: 0 8px 8px 0; }
+  code { background: var(--surface-2); padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  pre { background: var(--surface); padding: 16px; border-radius: 8px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.5; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--surface); font-weight: 600; }
+  .cta { display: inline-block; padding: 12px 24px; background: var(--ink); color: var(--bg); text-decoration: none; border-radius: 999px; font-weight: 600; font-size: 14px; margin-top: 16px; transition: opacity 0.15s; }
+  .cta:hover { opacity: 0.9; }
+  .callout { background: var(--surface); border-left: 3px solid var(--sage); padding: 16px 20px; border-radius: 0 12px 12px 0; margin: 24px 0; }
+  .callout strong { color: var(--sage); }
+  footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--ink-soft); text-align: center; }
+  footer a { color: var(--rose); text-decoration: none; }
+  .read-next { background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-top: 48px; }
+  .read-next h3 { margin: 0 0 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); font-weight: 500; }
+  .read-next a { display: block; margin-bottom: 10px; text-decoration: none; color: var(--ink); font-weight: 500; }
+  .read-next a:hover { color: var(--rose); }
+  @media (max-width: 600px) { h1 { font-size: 28px; } .wrap { padding: 24px 16px 48px; } table { font-size: 13px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a href="/" class="logo">Vet<span>Mock</span></a>
+    <a href="/blog/" class="back-blog">← บทความทั้งหมด</a>
+  </header>
+
+  <article>
+    <div class="post-meta">วิธีติว · 2026-04-28 · 7 นาที</div>
+    <h1>Spaced Repetition (SM-2) สำหรับนิสิตแพทย์ / สัตวแพทย์ — จำน้อยลง แต่นาน</h1>
+    <p class="lede">
+      ทำไมเด็กแพทย์ทั่วโลกใช้ <strong>Anki</strong> · ทำไม USMLE prep ทุก resource มี SR built-in ·
+      ทำไม "อ่านวันละนิด" ดีกว่า "ติวคืนเดียว 8 ชั่วโมง" — บทความนี้คือคำอธิบายแบบไม่ต้องโม้
+    </p>
+
+    <h2>ปัญหา: Forgetting Curve</h2>
+    <p>
+      Hermann Ebbinghaus ค้นพบในปี 1885 (140 ปีที่แล้ว) ว่ามนุษย์เรา <strong>ลืม 50%</strong>
+      ของข้อมูลใหม่ภายใน 1 ชั่วโมง · <strong>70%</strong> ภายใน 24 ชั่วโมง ·
+      <strong>90%</strong> ภายใน 1 สัปดาห์ — ถ้าไม่ได้ทบทวนเลย
+    </p>
+
+    <p>
+      ลอง imagine: เรียน Cushing's syndrome วันอังคาร · สอบวันเสาร์ ·
+      ถ้าไม่ทบทวนเลย วันสอบจะเหลือ <strong>~10-20%</strong> ของที่อาจารย์สอน · ไม่พอจะตอบข้อสอบเลย
+    </p>
+
+    <div class="callout">
+      <strong>หลักการ Spaced Repetition:</strong> ทบทวน "ตอนกำลังจะลืม" — ไม่ใช่ตอนยังจำได้ดี
+      หรือลืมไปแล้ว · timing สำคัญ
+    </div>
+
+    <h2>SM-2 Algorithm — หลักคิดของ Anki</h2>
+    <p>
+      Piotr Wozniak พัฒนา <strong>SuperMemo-2 (SM-2)</strong> algorithm ปี 1987 ·
+      เป็น base ของ Anki, RemNote, Quizlet, และอีกหลายแอป · concept ง่ายมาก:
+    </p>
+
+    <pre>1. แสดง flashcard / question
+2. คุณตอบ → rate ความยาก: Again / Hard / Good / Easy
+3. SM-2 คำนวณ "อีกกี่วันค่อยเจอข้อนี้อีก"
+   - Again  → เจออีก 1 นาที (ลืมแล้ว)
+   - Hard   → เจออีก ~6 วัน (ขอเตือน)
+   - Good   → เจออีก ~10 วัน (ปกติ)
+   - Easy   → เจออีก ~16 วัน (ห่างได้)
+4. ถ้าตอบถูก น่ารัก ครั้งหน้าห่างขึ้นเรื่อยๆ
+   - Round 1: 1 วัน
+   - Round 2: 3 วัน
+   - Round 3: 1 สัปดาห์
+   - Round 4: 2 สัปดาห์
+   - Round 5: 1 เดือน
+   - ... จนข้อนี้ "stable" ใน long-term memory</pre>
+
+    <p>
+      ผลลัพธ์: ข้อที่ <strong>ง่าย/เคยจำได้แล้ว</strong> = เจอน้อย · ข้อที่ <strong>ยาก/ลืมง่าย</strong> = เจอบ่อย
+      · เวลาที่คุณใช้ทบทวน <strong>กระจายไปยังจุดอ่อน</strong> โดยอัตโนมัติ
+    </p>
+
+    <h2>ทำไม Cramming คืนสอบไม่ work</h2>
+    <p>
+      Massed practice (cramming คืนเดียว 8 ชั่วโมง) สร้าง <strong>short-term memory</strong>
+      ที่ใช้ได้แค่วันสอบ · พอจบสอบ 1 สัปดาห์ ลืมหมด · เจอข้อสอบใหม่ที่ใช้เนื้อหาเดิม = blank
+    </p>
+
+    <p>
+      Distributed practice (15-30 นาที / วัน × 14 วัน) ใช้เวลารวมเท่ากัน
+      แต่ <strong>encode เข้า long-term memory</strong> ได้ลึกกว่ามาก · กลับไปสอบ comprehensive
+      หรือ Comprehensive ในปีอื่น ก็ยังตอบได้
+    </p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Cramming</th><th>Spaced Repetition</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>เวลารวม</strong></td><td>8 ชม. ติด</td><td>15 นาที × 14 วัน = 3.5 ชม.</td></tr>
+        <tr><td><strong>1 สัปดาห์หลังสอบ</strong></td><td>~10% retention</td><td>~70% retention</td></tr>
+        <tr><td><strong>1 เดือนหลังสอบ</strong></td><td>~5% retention</td><td>~50-60% retention</td></tr>
+        <tr><td><strong>Stress ก่อนสอบ</strong></td><td>🔥🔥🔥</td><td>🔥</td></tr>
+      </tbody>
+    </table>
+
+    <h2>วิธีใช้กับข้อสอบสัตวแพทย์</h2>
+
+    <h3>1. ใช้กับ MCQ ที่ตอบผิด</h3>
+    <p>
+      ทุกครั้งที่ทำ mock exam → ข้อที่ผิด → mark เข้า SR system
+      · พรุ่งนี้ระบบจะดันข้อนั้นกลับมาให้ลองอีก · ตอบถูก = เลื่อนต่อ ·
+      ตอบผิดอีก = ลดเวลาลง (เจอเร็วขึ้น)
+    </p>
+
+    <h3>2. ใช้กับคอนเซปต์ใน summary คลิป</h3>
+    <p>
+      สรุปคลิป Cushing → มี Exam Hot Spots 10 ข้อ · เปลี่ยนเป็น flashcard ลงใน SR
+      · ภายใน 2-3 สัปดาห์ จะ "stick" โดยไม่ต้องตั้งใจท่อง
+    </p>
+
+    <h3>3. เริ่มเร็ว — ไม่ใช่ก่อนสอบ 3 วัน</h3>
+    <p>
+      <strong>Critical:</strong> SR ใช้ time-decay algorithm · ถ้าเริ่มก่อนสอบ 3 วัน =
+      ไม่ได้รอบ "round 3 / round 4" ที่จำเป็นสำหรับ long-term encoding · ผลคือเสมอ cramming
+    </p>
+
+    <p>
+      เริ่มเลย — <strong>วันแรกที่อาจารย์สอน</strong> · เพิ่ม flashcard 5-10 ข้อ
+      ทุกครั้งหลังเรียน · ใช้ 10-15 นาที / วันทบทวน · ก่อนสอบจะรู้สึก "ตื่นเช้ามาก็ครบแล้ว"
+    </p>
+
+    <h2>VetMock มี SR built-in</h2>
+    <p>
+      ใน VetMock ทุกข้อ MCQ ที่ทำผิดจะถูกเพิ่มเข้า <strong>SR queue</strong> อัตโนมัติ ·
+      ใน home dashboard จะเห็น <em>"X cards due"</em> · กดเปิด → ทำ session ทบทวน 5-10 นาที
+    </p>
+
+    <p>
+      Algorithm ใช้ <strong>SM-2 ดัดแปลง</strong> (ดู
+      <code>src/hooks/sm2.js</code> ใน open-source repo) ·
+      Bookmark + custom questions ก็เข้า SR ได้เช่นกัน
+    </p>
+
+    <a class="cta" href="/">→ เปิด VetMock เริ่ม SR session</a>
+
+    <h2>เปรียบเทียบกับ Anki</h2>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Anki</th><th>VetMock SR</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Algorithm</strong></td><td>SM-2 + FSRS</td><td>SM-2</td></tr>
+        <tr><td><strong>Content</strong></td><td>ต้องสร้างเอง / โหลด deck</td><td>auto จากข้อสอบที่ทำผิด</td></tr>
+        <tr><td><strong>Set up</strong></td><td>~2-3 ชม. learning curve</td><td>0 นาที — เปิดทำ MCQ ก็เริ่มเลย</td></tr>
+        <tr><td><strong>Sync</strong></td><td>AnkiWeb (free) / iOS $$</td><td>web + Supabase (ฟรี)</td></tr>
+        <tr><td><strong>เนื้อหาตรง syllabus จุฬา</strong></td><td>ไม่มี</td><td>✅ ทุกวิชา</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Anki ดีถ้าคุณยอมลงแรงสร้าง deck เอง · VetMock ดีถ้าอยาก start ทันทีโดยไม่ต้อง prep ·
+      ใช้ <strong>2 ตัวคู่กัน</strong> ก็ได้ — Anki สำหรับ deck ของคุณเอง · VetMock สำหรับ MCQ ตรง syllabus
+    </p>
+
+    <blockquote>
+      "Spaced repetition ไม่ใช่ magic — มันคือ <em>compounding interest</em> ของการเรียน
+      เริ่มเร็ว · เล็กๆ · สม่ำเสมอ · จะได้ผลมากกว่าที่คาด"
+    </blockquote>
+
+    <h2>เริ่มยังไง</h2>
+
+    <ol>
+      <li><strong>วันนี้</strong> — ลงทะเบียน VetMock (ฟรี) · เลือกวิชาที่กำลังเรียนอยู่</li>
+      <li><strong>ทำ quiz 10 ข้อ</strong> — ข้อที่ผิด จะเข้า SR queue อัตโนมัติ</li>
+      <li><strong>ทุกวัน 5-10 นาที</strong> — เปิดดู "cards due" · ทำ session ทบทวน</li>
+      <li><strong>1 สัปดาห์หลัง</strong> — สังเกต: ข้อที่เคย stuck เริ่ม "เห็นแว่บเดียวก็ตอบได้"</li>
+      <li><strong>ก่อนสอบ</strong> — Mock exam full simulation · จะเห็น improvement ชัดเจน</li>
+    </ol>
+
+    <p>
+      ใช้เทคนิคนี้กับ <strong>summary คลิป</strong> + <strong>ข้อสอบเก่า</strong> ของ VetMock
+      เป็น compound system ที่ตอบ <em>ทุกประเภทข้อสอบ</em> — MCQ, T/F, short answer, essay
+    </p>
+
+    <div class="read-next">
+      <h3>อ่านต่อ</h3>
+      <a href="/blog/clip-summary.html">→ อ่านสรุปคลิป 120 นาที ในเวลา 10 นาที — Skim Guide + Active Recall</a>
+      <a href="/blog/about-vetmock.html">→ VetMock — คลังข้อสอบสัตวแพทย์ ที่นิสิต Vet 86 จุฬา ทำเอง</a>
+    </div>
+  </article>
+
+  <footer>
+    VetMock · made with ♡ by <strong>Vet 86</strong> · <a href="/">เปิดแอป</a> · <a href="/blog/">บทความทั้งหมด</a>
+  </footer>
+</div>
+</body>
+</html>

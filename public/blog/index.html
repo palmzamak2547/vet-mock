@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>บทความ — VetMock · คลังข้อสอบสัตวแพทย์ จุฬา</title>
+<meta name="description" content="บทความเกี่ยวกับการเตรียมสอบสัตวแพทย์ · การใช้ spaced repetition + active recall + clip summary · เคล็ดลับสำหรับนิสิตแพทย์/สัตวแพทย์ จุฬา" />
+<link rel="canonical" href="https://vetmock.vercel.app/blog/" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="บทความ — VetMock" />
+<meta property="og:description" content="เคล็ดลับเตรียมสอบสำหรับนิสิตสัตวแพทย์ จุฬา" />
+<meta property="og:image" content="https://vetmock.vercel.app/icon-512.png" />
+<meta property="og:locale" content="th_TH" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" />
+<style>
+  :root {
+    --bg: #f6efe4; --surface: #fdf8ef; --surface-2: #f0e6d2;
+    --ink: #2b2419; --ink-soft: #5c4f3d;
+    --sage: #4a6b4a; --rose: #c26d6d; --gold: #b88940;
+    --border: #d8c9a8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1a1612; --surface: #2b2419; --surface-2: #3a3126;
+            --ink: #f0e6d2; --ink-soft: #b8a890;
+            --sage: #7ba87b; --rose: #d89090; --gold: #d4a556;
+            --border: #4a3f30; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'IBM Plex Sans Thai', system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px; }
+  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 48px; }
+  .logo { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 800; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--rose); }
+  .back-app { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-soft); text-decoration: none; padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; transition: all 0.15s; }
+  .back-app:hover { border-color: var(--ink); color: var(--ink); }
+  h1 { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 800; line-height: 1.15; margin: 0 0 12px; color: var(--ink); }
+  .subtitle { font-size: 16px; color: var(--ink-soft); margin: 0 0 40px; }
+  .post-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+  .post-card { display: block; padding: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; text-decoration: none; color: inherit; transition: all 0.15s; }
+  .post-card:hover { border-color: var(--ink-soft); transform: translateY(-2px); }
+  .post-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .post-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; line-height: 1.3; margin: 0 0 8px; color: var(--ink); }
+  .post-excerpt { font-size: 14px; color: var(--ink-soft); margin: 0; }
+  footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--ink-soft); text-align: center; }
+  footer a { color: var(--rose); text-decoration: none; }
+  @media (max-width: 600px) { h1 { font-size: 32px; } .wrap { padding: 24px 16px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a href="/" class="logo">Vet<span>Mock</span></a>
+    <a href="/" class="back-app">← เปิดแอป</a>
+  </header>
+
+  <h1>บทความ</h1>
+  <p class="subtitle">เคล็ดลับเตรียมสอบ · เทคนิคอ่าน · เรื่อง VetMock — สำหรับนิสิตสัตวแพทย์ จุฬา</p>
+
+  <ul class="post-list">
+    <li>
+      <a href="/blog/about-vetmock.html" class="post-card">
+        <div class="post-meta">เรื่อง VetMock · 2026-04-28</div>
+        <h2 class="post-title">VetMock — คลังข้อสอบสัตวแพทย์ ที่นิสิต Vet 86 จุฬา ทำเอง</h2>
+        <p class="post-excerpt">เริ่มจากปัญหา "ข้อสอบเก่ากระจัดกระจายตาม LINE group" → ระบบเดียวที่รวบรวม MCQ + ข้อสอบเก่า + คลิปย้อนหลัง + summary · เปิดให้ใช้ฟรี</p>
+      </a>
+    </li>
+    <li>
+      <a href="/blog/clip-summary.html" class="post-card">
+        <div class="post-meta">เทคนิคอ่าน · 2026-04-28</div>
+        <h2 class="post-title">อ่านสรุปคลิปเรียน 120 นาที ในเวลา 10 นาที — Skim Guide + Active Recall</h2>
+        <p class="post-excerpt">ทำไมการ "อ่านสรุปแล้วลองนึก" ดีกว่า "ฟังคลิป 1.5x ติดกัน 3 ชั่วโมง" — เทคนิคที่นักเรียนแพทย์ + สัตวแพทย์ทั่วโลกใช้ก่อนสอบใหญ่</p>
+      </a>
+    </li>
+    <li>
+      <a href="/blog/spaced-repetition.html" class="post-card">
+        <div class="post-meta">วิธีติว · 2026-04-28</div>
+        <h2 class="post-title">Spaced Repetition (SM-2) สำหรับนิสิตแพทย์ / สัตวแพทย์ — จำน้อยลง แต่นาน</h2>
+        <p class="post-excerpt">SM-2 algorithm คืออะไร · ทำไม Anki + Quizlet ถึงดัง · ใช้กับข้อสอบสัตวแพทย์ + summary ยังไง · มี built-in ใน VetMock แล้ว</p>
+      </a>
+    </li>
+  </ul>
+
+  <footer>
+    VetMock · made with ♡ by <strong>Vet 86</strong> · <a href="/">เปิดแอป</a>
+  </footer>
+</div>
+</body>
+</html>
