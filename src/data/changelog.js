@@ -15,6 +15,21 @@
 
 export const CHANGELOG = [
   {
+    version: '5.1.1',
+    date: '2026-04-27',
+    headline: 'แก้บั๊ก + อัพเดตหลังเปิดใช้งานจริง',
+    changes: [
+      { kind: 'fix', icon: '🧮', title: 'สัดส่วนคะแนน COM III ถูกแล้ว',
+        desc: 'งาน 20% (เดิมแสดง 10% ผิด) · Mid 40 + Final 40 + งาน 20 = 100 — ขอบคุณคนที่ส่ง feedback มาแจ้ง 🙏' },
+      { kind: 'fix', icon: '⏱', title: 'Countdown สอบไม่ค้างอีกแล้ว',
+        desc: 'สอบเสร็จปุ๊บ "สอบถัดไป" ขยับเป็นวิชาต่อไปทันที (เดิมรอข้ามเที่ยงคืน)' },
+      { kind: 'fix', icon: '🔐', title: 'Login/Register หาย bug',
+        desc: 'หลัง Login กลับหน้าแรกทันทีไม่ต้อง refresh · "ลืมรหัสผ่าน" ใช้งานได้ · username ซ้ำกันไม่ทำให้สมัครพัง' },
+      { kind: 'feature', icon: '📱', title: 'Add to Home Screen สวยขึ้น',
+        desc: 'iPad/iPhone กด Share → "เพิ่มสู่หน้าจอโฮม" → ได้ไอคอน 🐾 + standalone (ไม่มี Safari bar) ดูเหมือนแอปจริง' },
+    ],
+  },
+  {
     version: '5.1.0',
     date: '2026-04-26',
     headline: 'อัปเดตใหม่ก่อนสอบ Final',

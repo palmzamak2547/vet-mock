@@ -16,10 +16,10 @@ export const SCORE_BREAKDOWN = {
   com3: {
     subject_id: 'com3',
     name: 'COM III',
-    midterm: 42,
-    final: 48,
+    midterm: 40,
+    final: 40,
     free: null,
-    work: 10,
+    work: 20,
   },
   com4: {
     subject_id: 'com4',

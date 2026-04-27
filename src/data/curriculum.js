@@ -52,7 +52,7 @@ export const SUBJECTS_BY_YEAR = {
     { id: 'com3', code: '3106416', name: 'COM III', name_en: 'C ANI CLI SCI III · Companion Animal',
       icon: '🚨', color: '#c26d6d', semester: 2, has_questions: true,
       examFormat: {
-        weight: 'Final 48% (Mid 42 + Final 48 + งาน 10)',
+        weight: 'Final 40% (Mid 40 + Final 40 + งาน 20)',
         perSession: '~5-7 ข้อ/คาบ',
         totalEstimate: '~70-100 ข้อรวม (14 คาบ)',
         choiceCount: 5,
