@@ -11,8 +11,29 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
   return (
     <>
       <div className="vmx-exam-top">
-        <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {questions.length}</div>
-        {useTimer && <div className={`vmx-timer ${timeLeft <= 10 ? 'warn' : ''}`}>{fmtTime(timeLeft)}</div>}
+        <div className="vmx-progress">
+          <strong>{currentIdx + 1}</strong> / {questions.length}
+          {(currentQ?.type === 'essay' || currentQ?.type === 'short') && (
+            <span style={{
+              marginLeft: 8,
+              padding: '2px 8px',
+              borderRadius: 999,
+              background: 'rgba(184, 137, 64, 0.15)',
+              color: 'var(--clr-gold)',
+              fontSize: 10,
+              fontWeight: 700,
+              fontFamily: 'JetBrains Mono, monospace',
+              letterSpacing: '0.06em',
+            }}>
+              ✍️ {currentQ.type === 'essay' ? 'WRITING' : 'SHORT'}
+            </span>
+          )}
+        </div>
+        {useTimer && (
+          <div className={`vmx-timer ${timeLeft <= 10 ? 'warn' : (timeLeft <= 60 && (currentQ?.type === 'essay' || currentQ?.type === 'short')) ? 'warn' : ''}`}>
+            {fmtTime(timeLeft)}
+          </div>
+        )}
       </div>
       <div className="vmx-progress-bar">
         <div className="vmx-progress-fill" style={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }}></div>

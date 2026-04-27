@@ -15,6 +15,23 @@
 
 export const CHANGELOG = [
   {
+    version: '5.1.5',
+    date: '2026-04-27',
+    headline: '🎯 แยก MCQ vs Writing + Smart timer + Past Exam 2021',
+    changes: [
+      { kind: 'feature', icon: '📝', title: 'แยก MCQ และ Writing ชัดเจน',
+        desc: 'หน้า Config มีเลือก 3 โหมด: ทุกประเภท / MCQ + T/F (auto-graded) / Writing เท่านั้น (short + essay)' },
+      { kind: 'feature', icon: '⏱', title: 'Smart timer ต่อประเภท',
+        desc: 'ตั้งเวลา 60 วิ ครั้งเดียว — ระบบให้ MCQ 60 วิ · Short answer 3 นาที · Essay 25 นาที (ตามสัดส่วนสอบจริง 2 ชม. = 5 นาที/short + 25 นาที/essay)' },
+      { kind: 'fix', icon: '⚠️', title: 'Confirm ก่อนข้ามข้อเขียนที่ยังไม่ตอบ',
+        desc: 'กด "ข้อถัดไป" ที่ short/essay ที่ยังไม่ได้เขียน → ถามยืนยัน "ข้ามจริงๆ?" ก่อน — กันพลาดเพราะกดเร็ว' },
+      { kind: 'fix', icon: '📊', title: 'Score % ไม่นับข้อเขียนผิด',
+        desc: 'Auto-graded score แสดงเฉพาะ MCQ/T/F — Writing แสดงแยก "X/Y ข้อเขียนเสร็จ" + ตรวจใน Review (Self / 🤖 AI)' },
+      { kind: 'content', icon: '📜', title: 'Past Exam 2021 — Part III Paraphrase',
+        desc: '+1 mock ของจริงปี 2021 (Pets prevent allergies passage) พร้อม sample response จากนักเรียน 2021 + key ideas ที่ marker จะเช็ก' },
+    ],
+  },
+  {
     version: '5.1.4',
     date: '2026-04-27',
     headline: '🤖 Smart AI grading + 4 Mock Exams Eng Vet Prof II ครบ',

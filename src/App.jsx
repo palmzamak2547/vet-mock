@@ -3,7 +3,7 @@ import { QB } from './data/questions.js';
 import { SUBJECTS, CURRENT_YEAR } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
-import { shuffle, isCorrect, updateStreak } from './hooks/utils.js';
+import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
 import { isFlashcardCompatible } from './hooks/sr-filter.js';
 import { STYLES } from './styles.js';
@@ -71,6 +71,8 @@ export default function App() {
   const [numQuestions, setNumQuestions] = useState(10);
   const [useTimer, setUseTimer] = useState(true);
   const [timePerQ, setTimePerQ] = useState(60);
+  // 'all' (default) | 'mcq' (auto-graded only) | 'writing' (essay+short only)
+  const [questionCategory, setQuestionCategory] = useState('all');
   const [timeLeft, setTimeLeft] = useState(0);
   const [examStartTime, setExamStartTime] = useState(null);
 
@@ -130,14 +132,17 @@ export default function App() {
   useEffect(() => {
     if (view !== 'exam' || !useTimer) return;
     if (timeLeft <= 0) {
-      if (currentIdx < questions.length - 1) { setCurrentIdx((i) => i + 1); setTimeLeft(timePerQ); }
-      else finishExam();
+      if (currentIdx < questions.length - 1) {
+        const next = questions[currentIdx + 1];
+        setCurrentIdx((i) => i + 1);
+        setTimeLeft(timeForQuestion(next, timePerQ));
+      } else finishExam();
       return;
     }
     const t = setTimeout(() => setTimeLeft((x) => x - 1), 1000);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- finishExam intentionally not depended on
-  }, [timeLeft, view, useTimer, currentIdx, questions.length, timePerQ]);
+  }, [timeLeft, view, useTimer, currentIdx, questions, timePerQ]);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -218,13 +223,27 @@ export default function App() {
       pool = subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === subject);
       if (topic) pool = pool.filter((q) => q.topic === topic);
     }
-    if (!pool.length) { alert('ไม่มีข้อสอบในหมวดนี้'); return; }
+
+    // Apply question-category filter so users can split MCQ vs Writing
+    if (questionCategory === 'mcq') pool = pool.filter((q) => catOf(q) === 'mcq');
+    else if (questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
+
+    if (!pool.length) {
+      alert(questionCategory === 'writing'
+        ? 'ยังไม่มีข้อ Writing ในหมวดนี้ — ลองเปลี่ยนเป็น MCQ หรือ "ทุกประเภท"'
+        : 'ไม่มีข้อสอบในหมวดนี้');
+      return;
+    }
 
     const qCount = Math.max(1, numQuestions);
-    const qTime = useTimer ? Math.max(5, timePerQ) : 0;
+    const baseTime = useTimer ? Math.max(5, timePerQ) : 0;
 
     const picked = shuffle(pool).slice(0, Math.min(qCount, pool.length));
-    setQuestions(picked); setAnswers({}); setCurrentIdx(0); setTimeLeft(qTime);
+    // Per-question time uses timeForQuestion(): essays get 25 min minimum,
+    // short answers 3 min minimum, MCQ/TF stay at the user's base setting
+    const firstTime = picked[0] ? timeForQuestion(picked[0], baseTime) : baseTime;
+
+    setQuestions(picked); setAnswers({}); setCurrentIdx(0); setTimeLeft(firstTime);
     setExamStartTime(Date.now());
     setView('exam');
 
@@ -233,18 +252,20 @@ export default function App() {
   };
 
   const finishExam = async () => {
-    const correct = questions.filter((q) => isCorrect(q, answers[q.id])).length;
-    const newEntries = questions.map((q) => ({
+    // Only count auto-graded questions in history/percentage —
+    // writing Qs need self/AI grading and shouldn't penalize the
+    // correctness percentage by always being marked wrong.
+    const autoQs = questions.filter((q) => !isWritingType(q));
+    const correct = autoQs.filter((q) => isCorrect(q, answers[q.id])).length;
+    const newEntries = autoQs.map((q) => ({
       date: Date.now(), questionId: q.id, correct: isCorrect(q, answers[q.id]), subject: q.subject,
     }));
-    // Functional setState so a stale closure (e.g., from timer firing
-    // mid-state-update) doesn't overwrite history with old data.
     setHistory((h) => [...h, ...newEntries]);
 
     if (user) {
-      const pct = questions.length ? Math.round((correct / questions.length) * 100) : 0;
+      const pct = autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0;
       const duration = examStartTime ? Math.round((Date.now() - examStartTime) / 1000) : 0;
-      saveExamResult({ user_id: user.id, mode, subject, total: questions.length, correct, pct, duration_sec: duration }).catch(() => {});
+      saveExamResult({ user_id: user.id, mode, subject, total: autoQs.length, correct, pct, duration_sec: duration }).catch(() => {});
     }
     setView('results');
   };
@@ -256,14 +277,52 @@ export default function App() {
   };
 
   const score = useMemo(() => {
-    const correct = questions.filter((q) => isCorrect(q, answers[q.id])).length;
-    return { correct, total: questions.length, pct: questions.length ? Math.round((correct / questions.length) * 100) : 0 };
+    // Split auto-graded vs writing for honest score reporting.
+    // Writing questions are open-ended → counted separately so the
+    // percentage reflects only what the engine could grade. Writing
+    // gets graded in Review (Self assess or 🤖 Smart AI grade).
+    const autoQs = questions.filter((q) => !isWritingType(q));
+    const writingQs = questions.filter((q) => isWritingType(q));
+    const correct = autoQs.filter((q) => isCorrect(q, answers[q.id])).length;
+    const writingAttempted = writingQs.filter((q) => {
+      const ua = answers[q.id];
+      return typeof ua === 'string' && ua.trim().length > 0;
+    }).length;
+    const totalAuto = autoQs.length;
+    return {
+      correct,
+      total: totalAuto,
+      pct: totalAuto ? Math.round((correct / totalAuto) * 100) : 0,
+      writingTotal: writingQs.length,
+      writingAttempted,
+      // Combined total still used by some legacy callers
+      totalAll: questions.length,
+    };
   }, [questions, answers]);
 
   const answerCurrent = useCallback((val) => setAnswers((p) => ({ ...p, [questions[currentIdx].id]: val })), [questions, currentIdx]);
   const nextQ = useCallback(() => {
-    if (currentIdx < questions.length - 1) { setCurrentIdx(currentIdx + 1); setTimeLeft(timePerQ); } else finishExam();
-  }, [currentIdx, questions.length, timePerQ]);
+    const cur = questions[currentIdx];
+    // Confirm before skipping a blank short/essay — these take real
+    // effort so accidental "Next →" clicks shouldn't lose them
+    if (cur && isWritingType(cur)) {
+      const ua = answers[cur.id];
+      const isBlank = !ua || (typeof ua === 'string' && !ua.trim());
+      const isLast = currentIdx === questions.length - 1;
+      if (isBlank) {
+        const msg = isLast
+          ? 'ยังไม่ได้เขียนข้อนี้ — ส่งข้อสอบเลยจริงๆ?'
+          : 'ยังไม่ได้เขียนคำตอบ — ข้ามไปข้อถัดไปเลย?';
+        if (typeof window !== 'undefined' && !window.confirm(msg)) return;
+      }
+    }
+    if (currentIdx < questions.length - 1) {
+      const next = questions[currentIdx + 1];
+      setCurrentIdx(currentIdx + 1);
+      setTimeLeft(timeForQuestion(next, timePerQ));
+    } else finishExam();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- answers/finishExam read via closure
+  }, [currentIdx, questions, timePerQ, answers]);
   const prevQ = useCallback(() => {
     if (currentIdx > 0) { setCurrentIdx(currentIdx - 1); setTimeLeft(timePerQ); }
   }, [currentIdx, timePerQ]);
@@ -315,7 +374,7 @@ export default function App() {
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions }} />}
               {view === 'topic-select' && <TopicSelectView {...{ subject, setTopic, setView, goHome, mode, customQuestions, readingChecklist }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode }} />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }} />}

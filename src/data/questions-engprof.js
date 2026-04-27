@@ -168,6 +168,24 @@ A key limitation of this study is its restriction to teaching hospitals, which r
 In conclusion, MRSP is now a substantial and likely under-recognized contributor to canine pyoderma in Bangkok. Routine susceptibility testing, judicious antibiotic prescribing, and increased awareness among owners and clinicians are urgently needed to slow further resistance.`;
 
 // ──────────────────────────────────────────────────────────────
+// MOCK 5 — 2021 Final Past Exam (Part III paraphrase task)
+// Real past-exam item from Final Examination: Eng Vet Prof II 2021
+// ("Paraphase exam2021.pdf"). Source text + 2021 student's
+// handwritten response are reproduced as the model answer.
+// ──────────────────────────────────────────────────────────────
+const PASSAGE_2021_PETS_ALLERGIES = `**Source text** — Final Examination: Eng Vet Prof II 2021, Part III (15 points)
+
+Pets really do seem to prevent allergies: the more cats or dogs you live with as an infant, the lower your chance of developing asthma, hay fever or eczema.
+
+Some studies have found that having a pet early in life protects from allergies later in childhood. Bill Hesselmar at the University of Gothenburg, Sweden, and colleagues wondered if having more than one pet would increase the benefit.
+
+They looked at data from a previous study. The studied reviewed data taken from 1,029 children aged seven to eight. The incidence of allergies was 49 per cent in children who had spent their first 12 months of life in a home with no pets. This fell to 43 per cent in children who as babies had lived with one pet, and 24 per cent for children who had lived with three pets. Two of the children had lived with five pets — neither of them had allergies.
+
+This shows that there is a dose-dependent relationship: more exposure to pets means more protection. Previous studies also have found that children who grow up on a farm with livestock have a lower risk of allergies. Hesselmar thinks having multiple pets is like living on a "mini-farm," with lots of exposure to allergens.
+
+Allergies have been on the rise since the mid-20th century, but we still don't really know what causes them. Hesselmar thinks that pets carry microbes that stimulate the human immune system so that children don't become allergic. Spending time with other children and being outdoors in early life also seem to have a protective effect.`;
+
+// ──────────────────────────────────────────────────────────────
 // PRACTICE — Atopic Dermatitis (Exercise 1 Text 1)
 // Used for summary writing practice. Highlighted KEY ideas in
 // Exercise 1 KEY (yellow highlights).
@@ -981,11 +999,48 @@ A recent cross-sectional study from three Bangkok teaching hospitals investigate
     explain: 'This passage is technical (genetics + statistics + clinical) — paraphrase carefully. Avoid copying long technical phrases like "methicillin-resistant Staphylococcus pseudintermedius" — you can shorten to MRSP after introducing it once. Mention BOTH significant risk factors but don\'t restate every odds ratio. State the practical implication (empirical cephalexin is questionable) clearly.' },
 
   // ═══════════════════════════════════════════════════════════
-  // 📝 EXTRA SUMMARY PRACTICE — Atopic + Ear Abscess passages
-  // (these are ALSO used in Mock 2/3 Part II but kept here as
-  // standalone summary practice for repetition)
+  // 🎯 MOCK 5 — 2021 PAST EXAM (Part III paraphrase task)
+  // Reproduced from "Paraphase exam2021.pdf" (Final 2021)
   // ═══════════════════════════════════════════════════════════
-  // (The Atopic and Ear Abscess essays already appear above in Mocks
-  // 2 and 3 with full model answers + rubrics — so listing them again
-  // here would be redundant. Students can re-do them via Bookmarks.)
+  { id: 1195, subject: 'engprof', topic: 'paraphrasing', year: 4,
+    source: 'Final Examination: Eng Vet Prof II 2021 — Part III',
+    tags: ['mock-5', 'past-exam', '2021', 'paraphrase', 'essay'], type: 'essay',
+    examOrigin: 'Past Exam 2021 · Part III',
+    passage: PASSAGE_2021_PETS_ALLERGIES,
+    passage_title: '📜 Past Exam 2021 · Part III · Paraphrase task (15 points)',
+    target_words: 200, soft_max_words: 230, hard_max_words: 260,
+    q: '**Final Examination: Eng Vet Prof II 2021 — Part III (15 points)**\n\nParaphrase the following text using different paraphrasing techniques.\n\n*Note: this is a paraphrase task (full text), not a 150-word summary. The 2021 exam asked students to paraphrase the source while preserving all the information. Aim for around 200 words.*',
+    model_answer: `**Sample paraphrase from the 2021 student's response (handwritten):**
+
+It is said that living with your pet since you were an infant reduces the chance of developing allergies. The more pets you live with as an infant, the better benefits you get. To prove the words, Bill Hesselmar at the University of Gothenburg, Sweden, and colleagues were trying to gather and review the previous studies in which the data had been taken from 1,029 children aged between 7 and 8. The incidence of allergies in children who had spent the first year of their life with no pets, in children who had lived with one pet, in children who had lived with three pets, and in children who had lived with five pets were 49, 43, 24, and 0 percent, respectively. Obviously, the review has shown that the development of allergies was lower in children living with more pets. Moreover, it indicates that there is a dose-dependent relationship. Since the mid-20th century, some unknown causes have caused the rise of allergies. Hesselmar believes that human immune system can be sensitized by multiple stimulators, for example, pets who carrying microbes. Furthermore, being outdoors since a young age also seems to provide a protective effect.
+
+📌 **Key ideas to capture (highlighted in 2021 KEY):**
+1. Studies have found that having a pet early in life protects from allergies later in childhood
+2. They looked at data from a previous study (1,029 children aged 7-8)
+3. Incidence of allergies: 49% (no pets), 43% (one pet), 24% (three pets), 0% (five pets, n=2)
+4. Dose-dependent relationship: more exposure to pets = more protection
+5. Children who grow up on a farm with livestock have a lower risk of allergies
+6. Allergies have been on the rise since the mid-20th century
+7. Hesselmar's theory: pets carry microbes that stimulate the human immune system so children don't become allergic
+8. Spending time with other children and being outdoors in early life also seems to have a protective effect
+
+⚠️ **Note:** The 2021 sample student response above is presented as a real student-level reference, not as a perfect 15/15 answer. It demonstrates the expected length and style. Compare your paraphrase against the 8 key ideas — that's how the marker will check coverage.`,
+    rubric: `**Marking Criteria — 2021 Format (Total = 15 points)**
+
+**Content (7 pts)** — captured all key ideas (main idea + 5+ major details)
+**Organization & Grammar (5 pts)** — flow + transitions + few/no errors
+**Paraphrasing (3 pts)** — 3 = own words / 2 = mostly own / 1 = minimal / 0 = copy
+
+📌 **Note on 2021 vs 2025/26 format:**
+The 2021 exam asked students to **paraphrase the entire text** (not write a 150-word summary). The 2025/26 Final Spec changed this to a **150-word summary using paraphrasing techniques**. So you'll get more practice of paraphrase mechanics here, but expect to compress more aggressively in the actual Final.
+
+**Word-count Penalty (this mock uses 2021 length expectations):** > 230 → −1 / > 260 → −2`,
+    explain: 'This is a real past-exam item from 2021. The task here is **paraphrase**, not summary — so you keep all the information but rewrite in your own words. Use the 5 paraphrasing techniques: synonyms, active↔passive, parts of speech, sentence markers, sentence structures. The 2021 student response above shows the expected length and style. Note: the 2025/26 Final asks for a 150-word SUMMARY instead, which is harder because you also need to compress.' },
+
+  // ═══════════════════════════════════════════════════════════
+  // 📝 EXTRA SUMMARY PRACTICE — already covered in Mock 2/3
+  // ═══════════════════════════════════════════════════════════
+  // (Atopic Dermatitis + Ear Abscess essays already appear in Mocks
+  // 2 and 3 with full model answers + rubrics. Students can re-do
+  // them via Bookmarks.)
 ];

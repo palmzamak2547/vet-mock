@@ -68,6 +68,36 @@ export const isCorrect = (q, ua) => {
 // a "self-assess" UI instead of the rigid "✓ ถูก / ✗ ผิด" badge.
 export const isOpenEnded = (q) => q?.type === 'essay' || (q?.type === 'short' && (!q.keywords || q.keywords.length === 0));
 
+// True if the question is a writing-style question (short answer or
+// essay). Used to (a) allocate longer per-question time, (b) trigger
+// a confirm dialog when skipping blank answers, (c) exclude from the
+// auto-graded percentage in ResultsView.
+export const isWritingType = (q) => q?.type === 'essay' || q?.type === 'short';
+
+// Per-question time allocation. The Final exam is 2 hours for ~20
+// short answers + 1 essay (~5 min/short + ~25 min/essay), so when
+// the user sets a base time-per-question we scale it for writing
+// types so a 60-second-per-MCQ default doesn't cripple the essay.
+//   MCQ / T/F / fill / match → user's base value (e.g., 60s)
+//   short                    → max(base × 3, 180s = 3 min)
+//   essay                    → max(base × 25, 1500s = 25 min)
+// Returns 0 if the user disabled the timer entirely.
+export function timeForQuestion(q, baseSeconds) {
+  if (!baseSeconds || baseSeconds <= 0) return 0;
+  if (!q) return baseSeconds;
+  if (q.type === 'essay') return Math.max(baseSeconds * 25, 25 * 60);
+  if (q.type === 'short') return Math.max(baseSeconds * 3, 3 * 60);
+  return baseSeconds;
+}
+
+// Categorize a question for the ConfigView type-filter chip.
+//   'mcq'     = auto-graded (mcq, tf, fill, match)
+//   'writing' = open-ended (short, essay)
+export function questionCategory(q) {
+  if (!q?.type) return 'mcq';
+  return (q.type === 'short' || q.type === 'essay') ? 'writing' : 'mcq';
+}
+
 // Check if today is a new study day (for streak)
 export function updateStreak(lastStudyDate, currentStreak) {
   const today = new Date();

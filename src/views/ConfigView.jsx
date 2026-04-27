@@ -2,13 +2,28 @@ import { SUBJECTS } from '../data/questions.js';
 
 // ============================================================
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
-// Show only what matters: # questions, timer (optional), time/q
+// ============================================================
+// Settings exposed:
+//   • # of questions (presets + custom)
+//   • Question category filter (all / MCQ-only / writing-only)
+//   • Timer toggle + time-per-question
+//
+// The category filter solves "MCQ + writing all jumbled together"
+// by letting the user split their practice. Writing-only sessions
+// also get a smarter timer (essay = 25 min, short = 3 min) via
+// timeForQuestion() in App.jsx.
 // ============================================================
 
-const QCOUNT_PRESETS = [10, 20, 50];      // เน้นใช้บ่อยที่สุด — custom ได้
+const QCOUNT_PRESETS = [10, 20, 50];
 const SECONDS_PRESETS = [30, 60, 120];
 
-export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, startExam, goHome, mode }) {
+const CATEGORIES = [
+  { id: 'all',     label: 'ทุกประเภท',          icon: '🎯', desc: 'รวมทุกแบบ — เหมือนสอบจริง' },
+  { id: 'mcq',     label: 'MCQ + T/F + Fill',   icon: '📝', desc: 'ตรวจอัตโนมัติ — ฝึกความรู้เร็วๆ' },
+  { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน · จับเวลายาวขึ้นอัตโนมัติ' },
+];
+
+export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, startExam, goHome, mode }) {
   const subjMeta = SUBJECTS.find((s) => s.id === subject);
   const topicMeta = topic && subjMeta?.topics?.find((t) => t.id === topic);
   const isExamMode = mode === 'exam';
@@ -26,6 +41,37 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
       </div>
 
       <div className="vmx-config-panel">
+        {/* Question category — separate writing from MCQ */}
+        <div className="vmx-config-row">
+          <label className="vmx-label">ประเภทข้อสอบ</label>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setCat && setCat(c.id)}
+                style={{
+                  all: 'unset',
+                  cursor: 'pointer',
+                  padding: '10px 14px',
+                  borderRadius: 12,
+                  border: `1px solid ${(cat || 'all') === c.id ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
+                  background: (cat || 'all') === c.id ? 'rgba(74, 107, 74, 0.10)' : 'var(--clr-bg)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                }}
+              >
+                <span style={{ fontSize: 20 }}>{c.icon}</span>
+                <span style={{ flex: 1 }}>
+                  <span style={{ display: 'block', fontWeight: 600, fontSize: 13 }}>{c.label}</span>
+                  <span style={{ display: 'block', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{c.desc}</span>
+                </span>
+                {(cat || 'all') === c.id && <span style={{ fontSize: 14, color: 'var(--clr-sage)' }}>✓</span>}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Number of questions */}
         <div className="vmx-config-row">
           <label className="vmx-label">จำนวนข้อ</label>
@@ -81,6 +127,12 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                 aria-label="เวลาต่อข้อแบบกำหนดเอง"
                 style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
               />
+            </div>
+            <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
+              💡 เวลานี้ใช้กับข้อ MCQ/T/F · ข้อ Writing จะได้เวลามากขึ้นอัตโนมัติ:
+              <br/>
+              &nbsp;&nbsp;&nbsp;Short answer = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
+              · Essay = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
             </div>
           </div>
         )}
