@@ -37,6 +37,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.10.0',
+    date: '2026-04-27',
+    headline: '📝 สรุปคลิปครบ 31 ตอน — COM IV + COM III + Endocrine + Onco + Derm',
+    changes: [
+      { scope: 'com4', kind: 'content', icon: '🩺', title: '+9 สรุปคลิป COM IV ใหม่',
+        desc: 'Hypothyroid + Diabetes mellitus (ALIVE criteria + Somogyi) + Immune-mediated intro (vaccine adverse reaction = host factor) + Clinical oncology (paraneoplastic syndromes table) + Round cell tumor (CHOP protocol + MCT grading) + Chemo + Paraneoplastic (6 drug classes + side effects) + Bacterial/Fungal skin (pyoderma 3 depths) + Allergic dermatitis (food trial 8 wks) + Autoimmune + Endocrine skin (Pemphigus + Alopecia X)' },
+      { scope: 'com3', kind: 'content', icon: '🚨', title: '+6 สรุปคลิป COM III neuro/ER',
+        desc: 'Spinal disorders + AI tools workshop + Ataxia/tremor + Seizure & narcolepsy + CPR + Acute abdomen + Metabolic ER + 10 ophtho clips ครอบคลุม diagnostic imaging + ear/orbit surgery' },
+      { scope: 'system', kind: 'fix', icon: '🐛', title: 'แก้ template literal syntax error',
+        desc: 'ไฟล์ video-summaries.js เคย parse ไม่ผ่านเพราะ unescaped backticks ใน markdown code block · เปลี่ยนเป็น indented block แทน · build รอดทุกข้อ' },
+    ],
+  },
+  {
     version: '5.9.0',
     date: '2026-04-27',
     headline: '📝 สรุปคลิปอาจารย์ — อ่านแทนนั่งดูเป็นชั่วโมง + download .md',

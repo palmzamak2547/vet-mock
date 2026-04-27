@@ -3783,22 +3783,20 @@ export const VIDEO_SUMMARIES = {
 
 ## Pruritus DDx Workflow ⭐⭐⭐
 
-```
-Pruritic patient
-   ↓
-1️⃣ PARASITIC (ticks, fleas, mites, lice) — RULE OUT FIRST
-   ↓ negative
-2️⃣ BACTERIAL infection
-   ↓ negative
-3️⃣ FUNGAL (Dermatophyte/Malassezia)
-   ↓ negative
-4️⃣ ALLERGIC — sub-workflow:
-   - Flea allergy (handled in step 1)
-   - Contact dermatitis (rule out by history)
-   - **Food trial** → if response = food allergy
-   - If no response → **Atopy** (environmental)
-   - 15-20% have BOTH atopy + food (combination allergy)
-```
+    Pruritic patient
+       ↓
+    1️⃣ PARASITIC (ticks, fleas, mites, lice) — RULE OUT FIRST
+       ↓ negative
+    2️⃣ BACTERIAL infection
+       ↓ negative
+    3️⃣ FUNGAL (Dermatophyte/Malassezia)
+       ↓ negative
+    4️⃣ ALLERGIC — sub-workflow:
+       - Flea allergy (handled in step 1)
+       - Contact dermatitis (rule out by history)
+       - **Food trial** → if response = food allergy
+       - If no response → **Atopy** (environmental)
+       - 15-20% have BOTH atopy + food (combination allergy)
 
 > ⚠️ **เมื่อสงสัย — TREAT empirically** (ตัวอย่าง parasitic) · ไม่ต้องรอ confirmed
 
@@ -4132,6 +4130,1424 @@ GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria 
 
 > 💡 **Tip จากอาจารย์**: "วินิจฉัยเชิงลึก" — เจอเคสเรื้อรังให้คุยกับเจ้าของก่อนว่าต้อง workup ครบ ไม่ใช่แค่ symptomatic
 > เจ้าของจะเข้าใจถ้าเราอธิบายดี ส่วนใหญ่จะยอมจ่าย`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM IV — Immune-mediated disease I: Introduction + Vaccine reaction
+  // ─────────────────────────────────────────────────────────────
+  xh7DdpW3Ft8: {
+    videoId: 'xh7DdpW3Ft8',
+    title: '7. Immune-mediated disease I: Introduction',
+    subject: 'com4',
+    date: '19 Feb 69',
+    durationMin: 119,
+    instructor: 'อาจารย์ (ผู้สอนหลัก) + พี่หมอ specialist',
+    examFormat: 'Case-based MCQ — เน้น Type I-IV mediator + Vaccine adverse reaction',
+    summary: `# Immune-mediated Disease I — Introduction + Vaccine Reaction
+
+> 🎯 บทนี้สำคัญมาก โดยเฉพาะ **Vaccine adverse reaction** (พี่ specialist ย้ำ "วันนี้พูด adverse reaction เยอะ — เจอบ่อย ทำให้สัตว์ตายได้")
+> ครอบคลุม: Hypersensitivity recap (4 types), Pathophysiology approach, **Vaccine adverse reaction = host factor ไม่ใช่ vaccine**
+
+---
+
+## 🔹 Hypersensitivity Recap (อ.วุฒิสอนแล้ว — ออกข้อสอบ DCA)
+
+ยังคงมี **4 types เท่านั้น** (ไม่ใช่ 5/6) แม้ตำราใหม่:
+
+| Type | Mediator | ตัวอย่าง |
+|------|----------|---------|
+| **I** Immediate | IgE + mast cell | Atopy, asthma, food allergy, anaphylaxis, **vaccine reaction** |
+| **II** Cytotoxic | Antibody attack receptor | **IMHA** (เจอบ่อยมาก), Myasthenia gravis, transfusion reaction |
+| **III** Immune complex | Ag-Ab complex deposit | **SLE**, serum sickness, Blue eye (CAV-1), vaccine sterile abscess |
+| **IV** Cell-mediated | T cell + macrophage | Contact dermatitis, **drug hypersensitivity**, granuloma |
+
+### Type IV ตอนนี้แบ่ง 4 sub-types
+- **4A** = TH1 → macrophage/monocyte
+- **4B** = TH2 → eosinophil
+- **4C** = Cytotoxic T (รุนแรงสุด — รุนแรงทั้งผิวหนัง+organ)
+- **4D** = TH17 (ใหม่ล่าสุด)
+- 🆕 TH9 coming soon!
+
+---
+
+## 🔹 Approach to Immune-mediated Disease (สำคัญที่สุด)
+
+> ⚠️ พี่ specialist ย้ำ: **"ต้องเข้าใจ pathophysiology — ไม่ใช่แค่ท่องโรค → ยา 1 2 3 4"**
+> เพราะออกคลินิกจริงต้อง design treatment ให้เหมาะกับเคส
+
+### 5 ลำดับการดูแล Immune-mediated case
+1. **Correct critical/life-threatening** (anaphylactic shock, CV collapse) → CPR, ดึงให้กลับมาหายใจเองก่อน
+2. **Communicate with owner** (mortality data — เช่น IMHA โอกาสรอด ~30% — ต้องบอกเจ้าของก่อน)
+3. **Remove cost** ที่ทำให้เกิด secondary immune-mediated (heartworm, Babesia, Ehrlichia)
+4. **Immunomodulatory drug** — เลือก first-line ตาม guideline → second-line
+5. **Aggressive supportive therapy** ⭐⭐⭐ "สำคัญพอๆ กับยากดภูมิ"
+
+### ตัวอย่าง: IMHA + PTE (pulmonary thromboembolism)
+- IMHA mortality ~70-80% — ส่วนใหญ่ตายจาก **PTE ไม่ใช่ขาด O2**
+- ถ้าเข้าใจ pathophys → เพิ่ม **aspirin** เป็น antiplatelet → **โอกาสรอดสูงขึ้นเยอะ**
+- ✅ Lesson: pathophys → drug design
+
+---
+
+## 🔻 Vaccine Adverse Reaction ⭐⭐⭐ (Focus วันนี้)
+
+> 💬 "ฉีดวัคซีนทุกวัน — โอกาสเจอ reaction สูง · ต้องอธิบายและจัดการเป็น"
+
+### ความเข้าใจผิดยุคใหม่
+- **❌ "วัคซีนไม่ดี"** ← ห้ามพูดแล้ว!
+- **✅ "Host factor / Host genetic"** ← ทุก guideline ปัจจุบันยืนยัน
+- → ชี้นิ้วกลับมาที่ **สัตวแพทย์ — ประเมินสุขภาพ host พอหรือยัง?**
+
+### Risk Factors — ท่องไว้ตลอดชีวิต ⭐
+1. **พันธุ์เล็ก** (small breed, น้ำหนัก < 5 kg)
+2. **อายุน้อย**
+3. **Multiple vaccines** ในเข็มเดียว/ครั้งเดียว
+
+### อาการ — หมา vs แมว ไม่เหมือนกัน
+| Species | Acute presentation |
+|---------|-------------------|
+| 🐕 หมา | หน้าบวม → อ้วก → ช็อก/CV collapse (ดึงเข็มออกแล้วล้มทันที) |
+| 🐈 แมว | Anaphylactic น้อย — แต่เจอ **FISS** (Feline Injection Site Sarcoma) ในระยะยาว |
+
+### Incidence (จาก papers ล่าสุด)
+- อังกฤษ ~20/10K · อเมริกา ~20/10K · **ญี่ปุ่น ~63/10K** (สูงผิดปกติ — น่าสนใจวิจัย)
+- น้ำหนักยิ่งน้อย → reaction ยิ่งสูง
+- **ตอน vs ไม่ตอน** — ตัวที่ทำหมันแล้ว reaction น้อยกว่า
+
+### 🚨 Acute reaction handling
+1. **หยุดการกระตุ้น** ดึงเข็มออก
+2. **Epinephrine** SC/IM (1:1000, 0.01 mg/kg)
+3. **Diphenhydramine** 2 mg/kg IM
+4. **Dexamethasone** 0.5-1 mg/kg IV (กันรอบ 2)
+5. **IV fluid** + O2 supplement
+6. **Monitor 6-24 hr** — biphasic reaction มีจริง
+
+---
+
+## 📝 Exam Hot Spots
+
+1. **Hypersensitivity 4 types** — mediator + ตัวอย่างโรค (table)
+2. **TH17 = Type IV-D** (ใหม่)
+3. **IMHA mortality ~70%** — เจ้าของต้องรู้
+4. **Vaccine reaction = HOST factor** ห้ามโทษวัคซีน
+5. **Risk: small breed + young + multiple vax**
+6. **Acute anaphylaxis → epinephrine first**
+7. **PTE = leading cause of death in IMHA** (ไม่ใช่ขาด O2)
+8. **Aspirin** ลด mortality ใน IMHA อย่างมีนัยสำคัญ
+9. **Type II = Antibody attacks receptor** (IMHA, MG, transfusion)
+10. **Type III = Immune complex** (SLE, Blue eye CAV-1)
+
+---
+
+> 💡 **Closing message**: "การรักษาเป็นศิลปะ — pickup ได้ไม่เท่ากันทุกคน · อ่าน guideline (worldwide professional org) ก่อน magazine · ความเข้าใจ pathophys = ออกแบบ Tx ที่ดีกว่าได้"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM IV — Endocrinology: Hypothyroidism (canine)
+  // ─────────────────────────────────────────────────────────────
+  Z26xw6gCVrk: {
+    videoId: 'Z26xw6gCVrk',
+    title: '5. Hypothyroidism',
+    subject: 'com4',
+    date: '5 Feb 69',
+    durationMin: 65,
+    instructor: 'พี่หมอ Endocrine specialist',
+    examFormat: 'Case-based MCQ — Total T4 + Free T4 + TSH interpretation',
+    summary: `# Hypothyroidism — สรุปคลิป (สุนัข เป็นหลัก)
+
+> 🎯 พี่ specialist เล่าจาก practice: **Hypothyroidism = "Common ที่สุดในสุนัข + Over-diagnosed มากที่สุด"**
+> 95% ของเคสเป็น **สุนัข** · แมวแทบไม่เจอ (ยกเว้นหลังรักษา hyperthyroid)
+> Adult onset ~95% เกิดจาก **immune-mediated destruction** ของ thyroid gland
+
+---
+
+## 🔹 Pathophysiology
+- **Primary** (95%) — immune destruction ของ thyroid gland → ฮอร์โมนต่ำ
+- **Secondary** (rare) — pituitary ไม่สร้าง TSH
+- **Tertiary** (rare) — hypothalamus ไม่สร้าง TRH
+- **Congenital/Juvenile** — เกิดมาแล้ว gland ไม่พัฒนา (rare)
+- ⚠️ **Non-thyroidal illness syndrome (NTIS / Sick Euthyroid)** — โรคอื่นทำให้ T4 ดูต่ำลวง — pitfall ใหญ่!
+
+---
+
+## 🔹 Hormone Cascade
+TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) → peripheral **deiodination** → **T3** (active form)
+
+> 💡 T3 = active หลักจริง · แต่วัด T4 เพราะ stable + measure ได้ง่ายกว่า
+> T3 ใน serum dynamic มาก → ไม่ใช้ในคลินิก
+
+---
+
+## 🔹 Signalment
+- **Middle age – senior dog** (3-8 ปี · เฉลี่ย 7 ปี)
+- ทำหมันแล้ว → risk เพิ่มขึ้น (ทั้งตัวผู้/ตัวเมีย)
+- **Predisposed breeds**: Golden, Doberman, Cocker, Boxer, **Bangkaew** (ในไทยเจอ ~30% ของเคส)
+- **Sighthound/Husky/Greyhound** — มี T4 baseline ต่ำตามพันธุ์ → **อย่าตกใจ** อย่าวินิจฉัยพลาด
+
+---
+
+## 🔹 Clinical Signs (Multi-system — ขึ้นกับว่า organ ไหนเด่น)
+
+### 1. Dermatological (~60-80%)
+- **Easy epilated hair** — ดึงขนเบาๆ หลุดทั้งกระจุก ⭐ key feature
+- **Rat tail** — ขนหางหายไปก่อน (แต่ที่อื่นยังมี)
+- ขนหยาบแห้งไม่เป็นมัน · Hyperpigmentation
+- **Myxedema** ("puffy skin") — hyaluronic acid + น้ำใต้ผิวหนัง — แข็งเหมือน cellulite
+- **Tragic facial expression** — หน้าตก หนังตาห้อย "หน้าเศร้า"
+- Recurrent infection (immunosuppression)
+
+### 2. Metabolic (~84% — เจอเยอะที่สุด!)
+- **Weight gain** แม้กินน้อย ⭐
+- **Lethargy / exercise intolerance**
+- **Cold intolerance** (เห็นชัดในเมืองนอก · บ้านเรา = อาจสังเกตว่าหนาวสั่นแม้แอร์เย็นเล็กน้อย)
+
+### 3. Less Common
+- 🧠 **Neurologic**: facial nerve paralysis, vestibular, neuropathy, ataxia, **megaesophagus**
+- 👁️ KCS (dry eye), corneal **lipid deposition** (จาก hyperlipidemia)
+- ❤️ **Bradycardia**, low ECG voltage, weak contractility
+
+---
+
+## 🔹 Diagnosis ⭐⭐⭐ (Gray zone!)
+
+> ⚠️ "Hypothyroidism วินิจฉัยยากกว่า hyperthyroidism" — ไม่มี test เดียวฟันธงได้
+
+### Routine Labs (Non-specific แต่ help)
+- **Fasting hypercholesterolemia** ⭐ (อดอาหารแล้วยังสูง = แดง flag)
+- Mild non-regenerative anemia (normocytic, normochromic)
+- ALT/ALP ขึ้นเล็กน้อย (จาก hepatic lipidosis)
+
+### Endocrine Tests
+| Test | Normal | Hypo dog | Sensitivity/Specificity |
+|------|--------|----------|------------------------|
+| **Total T4** | 1.5-3 µg/dL | < 1.5 (ต่ำชัด < 0.5) | High sens, low spec — ลวง NTIS ได้ |
+| **Free T4** | 0.6-3 ng/dL | < 1 (ต่ำชัด < 0.5) | Spec สูงกว่า · แต่ไทยไม่มี ED method |
+| **TSH (cTSH)** | < 0.6 ng/mL | สูง > 0.6 | 33% ของเคสจริงไม่ขึ้น! → sens ต่ำ |
+
+> 🎯 **3 ค่ารวมกัน** = Total T4 ต่ำ + Free T4 ต่ำ + TSH สูง = น้ำหนักเยอะมากว่า hypothyroid
+
+### พี่หมอ Personal Scoring (4/8 = น่าจะเป็น)
+| Finding | Pts |
+|---------|-----|
+| T4 ต่ำ | 1 |
+| ไม่มี non-thyroid illness | 1 |
+| T4 < 0.5 (โคตรต่ำ) | 1 |
+| TSH > 0.6 | 1 |
+| TSH > 0.8 (โคตรสูง) | 2 |
+| Hypercholesterolemia | 1 |
+| Free T4 ต่ำ | 1 |
+
+### ⚠️ ยาที่ทำ T4 ต่ำลวง (drug-induced low T4 — ไม่ใช่โรค)
+- **Glucocorticoid** (prednisolone, dexamethasone)
+- **Phenobarbital** (ในเคสชัก)
+- **Sulfonamide**
+- **NSAID** (เล็กน้อย)
+- ✅ **Potassium bromide** = ไม่มีผล (ใช้แทน phenobarbital ได้ในเคสชักที่จะตรวจ T4)
+
+---
+
+## 🔹 Treatment
+
+- **Levothyroxine 20 µg/kg PO** BID (tablet) หรือ SID (Leventa solution — bioavailability ดีกว่า)
+- **ตอนท้องว่าง** — อาหารลดการดูดซึม
+- หมาตัวใหญ่ → **อย่าให้ตามน้ำหนักจริง** (ใช้ ideal weight) — ป้องกัน side effect
+- หมามีโรคหัวใจ → เริ่มที่ **25-50% ของ dose** ก่อน → ค่อยๆ titrate up
+
+### Monitoring (4 weeks หลัง start)
+- **Pre-medication**: ไม่ป้อนยามาก่อน → คาดหวังกลางๆ ของ reference (~2.5 ใน 1-4)
+- **Peak Total T4**: ป้อน 4-6 ชม. ก่อนมา → คาดหวัง high-normal/supranormal (3.5-5)
+
+### Response Timeline
+| System | เริ่มเห็น |
+|--------|---------|
+| Energy/activity | 1-2 สัปดาห์ |
+| Weight loss | 1-2 เดือน |
+| Skin/coat | 1-2 เดือน (ขนเต็มอาจหลายเดือน) |
+| Neurologic (vestibular, facial nerve) | 2-4 สัปดาห์ |
+
+### Non-response → คิดอะไรบ้าง?
+1. **วินิจฉัยผิด** (NTIS จริงๆ ไม่ใช่ hypo)
+2. ลำไส้หนา → absorbing ยาไม่ได้
+3. เจ้าของไม่ป้อน
+4. Concurrent disease
+
+---
+
+## 📝 Exam Hot Spots
+
+1. **95% ใน dog** + middle age + tested breeds
+2. **Easy epilated hair + rat tail** = pathognomonic-ish
+3. **Tragic facial expression + myxedema + weight gain** classic triad
+4. **Fasting hypercholesterolemia** — most consistent biochem
+5. **3 endocrine tests** — Total T4 + Free T4 + TSH (ต้องครบ)
+6. **NTIS** = T4 ต่ำลวงจากโรคอื่น — pitfall
+7. **Phenobarbital + glucocorticoid** ทำ T4 ต่ำลวง · K-Br ไม่มีผล
+8. **Levothyroxine 20 µg/kg PO BID** + ตอนท้องว่าง
+9. **Pre-medication T4 = mid-reference** · **Peak T4 = high-normal**
+10. **Sighthound/Husky baseline ต่ำ** ตามพันธุ์ — ระวังพลาด
+
+---
+
+> 💡 **อ. closing tip:** "อย่าตัด hypothyroid ออกแค่เพราะไม่มีอาการผิวหนัง — เป็น endocrine disease · มี/ไม่มี dermatologic sign ก็ได้"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM IV — Endocrinology: Diabetes mellitus
+  // ─────────────────────────────────────────────────────────────
+  Cpb5HfKStKs: {
+    videoId: 'Cpb5HfKStKs',
+    title: '6. Diabetes mellitus',
+    subject: 'com4',
+    date: '12 Feb 69',
+    durationMin: 68,
+    instructor: 'พี่หมอ Endocrine specialist',
+    examFormat: 'Case-based MCQ — ALIVE criteria + insulin curve interpretation + remission',
+    summary: `# Diabetes Mellitus (DM) — สุนัขและแมว
+
+> 🎯 บทใหญ่ — ครอบคลุม classification, ALIVE criteria, insulin types, monitoring, glucose curve, **Somogyi phenomenon**
+> ⭐ Goal of treatment: **คุณภาพชีวิตดี + ลด clinical sign + ไม่ hypoglycemia** (ไม่ได้บอกว่า "น้ำตาลต้องอยู่ในช่วงปกติ")
+
+---
+
+## 🔹 Classification
+
+### Old → New
+- ❌ IDDM / NIDDM (insulin-dependent / not)
+- ✅ **Type 1 / Type 2** (ตามคนที่จัด)
+
+| Type | Mechanism | Species typical |
+|------|-----------|-----------------|
+| **Type 1** | β-cell ขาด insulin จริง (absolute deficiency) | 🐕 **Dog** (95%) |
+| **Type 2** | Insulin resistance + β-cell exhaustion | 🐈 **Cat** (Type 2-like) |
+
+> ⚠️ แม้แมวเป็น Type 2 — แต่ **ทั้งคู่ต้องการ insulin** (ไม่เหมือนคน Type 2)
+
+### แมว — โรคแฝงสำคัญ ⭐
+- **Hypersomatotropism (Acromegaly)** — มี GH สูง — เจอใน **25% ของแมวเบาหวาน** — ต้องตรวจหา!
+- Concurrent: **Pancreatitis, obesity, hyperthyroidism**, dental disease, kidney disease
+
+---
+
+## 🔹 Pathophysiology — Classical Triad ⭐
+1. **Hyperglycemia** → osmotic diuresis → **PU/PD**
+2. **Glucose ไม่เข้า cell** → ร่างกายขาดพลังงาน → **Polyphagia (PP)**
+3. **Fat catabolism** → free fatty acid → ketone → ถ้าหนัก = **DKA**
+4. Muscle catabolism → muscle loss (BCS อาจอ้วน · MCS หาย!)
+
+> 💡 ต้องประเมินทั้ง **Body Condition Score (BCS) + Muscle Condition Score (MCS)**
+
+---
+
+## 🔹 Diagnosis — ALIVE Criteria ⭐⭐⭐
+
+> เป็นมาตรฐานใหม่ระดับ worldwide ที่ทุกคนต้อง follow
+
+### 🐕 สุนัข
+| Scenario | Required |
+|----------|---------|
+| Spot glucose **> 200 mg/dL** + classic signs ชัด | = DM ✅ |
+| Spot > 200 + ไม่แน่ใจ signs | + 1 ใน 3: **persistent hyperglycemia** / **fructosamine สูง** / **glucosuria** |
+| 130-200 (gray zone) | + 2 ใน 3 ที่กล่าวข้างต้น |
+
+### 🐈 แมว — ยากกว่า (มีปัจจัย stress hyperglycemia!)
+- **Spot > 270 mg/dL** + signs (ยังไม่ confirm — แมวตกใจขึ้นได้)
+- ต้องมี **persistent hyperglycemia** หรือ **glucosuria 2 days** เพิ่ม
+- Gray zone 126-270 → ต้อง 2 ใน 3 เกณฑ์เพิ่ม
+
+### Glycated Proteins
+- **Fructosamine** — สะท้อน glucose ย้อนหลัง 7-10 วัน · ลด stress factor
+- **HbA1c** — ใช้ในคนเป็นหลัก · สัตว์ไม่ค่อยใช้
+
+### Subclinical DM
+- เกณฑ์ครบ (น้ำตาล + fructosamine สูง) **แต่ไม่มีอาการ** = subclinical
+
+---
+
+## 🔹 Treatment Goals
+1. ⭐ **Quality of life** (สัตว์ + เจ้าของ)
+2. **ลด clinical signs** (PU/PD, PP)
+3. ⚠️ **ป้องกัน hypoglycemia** (ตายก่อน hyperglycemia!)
+4. **ป้องกัน DKA**
+5. **คงสภาพ BCS/MCS ปกติ**
+
+---
+
+## 🔹 Insulin — 5 ตัวหลัก
+
+| Insulin | Type | Species | Dose | Frequency |
+|---------|------|---------|------|-----------|
+| **Caninsulin (Vetsulin/Lenta porcine)** | Intermediate | 🐕 Dog (1st choice) | 0.25 U/kg | BID |
+| **Glargine (Lantus U100)** | Long → reclassified intermediate | 🐈 Cat (1st choice) | 1-2 U/cat | BID |
+| **PZI (Protamine Zinc)** | Intermediate | Both | — | BID |
+| **Detemir** | Long-acting analog | Both | — | BID |
+| **NPH (humulin N)** | Intermediate | 🐕 Dog (large) | — | BID |
+
+### Critical Rules ⭐
+- **DO NOT DILUTE** insulin — **ยกเว้น Regular insulin (DKA only)**
+- ใช้ **insulin syringe** ให้ตรงความเข้มข้น (40 U vs 100 U)
+- คำนวณตาม **ideal body weight** (ไม่ใช่ actual ถ้าอ้วน)
+- **ห้ามปรับโดสบ่อย** — รอ ≥ 1-2 สัปดาห์
+
+---
+
+## 🔹 Diet & Lifestyle
+
+### 🐕 Dog (~50% importance)
+- **High fiber** → ชะลอการดูดซึมน้ำตาล (เหมือนข้าวกล้อง)
+- กินมื้อเท่าๆ กัน BID พร้อม insulin
+
+### 🐈 Cat (~80% importance!) ⭐⭐⭐
+- **Carb < 10%** ของ ME (cat = obligate carnivore)
+- **Wet food** > dry food (low calorie density)
+- กินทั้งวันได้ (free feeding) หรือ 4 มื้อ
+- Goal: weight loss 0.5-2%/wk
+
+### Spaying important
+- Female dog → progesterone causes insulin resistance → ทำหมัน
+
+---
+
+## 🔹 Glucose Curve Monitoring ⭐⭐⭐
+
+> เจาะ **ทุก 2 ชม.** (สุนัข) หรือ **ทุก 4 ชม.** (แมว ใช้ glargine)
+> **ห้ามเจาะค่าเดียวแล้วปรับโดส!**
+
+### Parameters ที่ต้องดู
+| Parameter | Target | Action |
+|-----------|--------|--------|
+| **Nadir** (lowest pt) | 80-150 mg/dL | < 80 → ลด dose · > 150 → เพิ่ม dose |
+| **Direction of action** | drop > 50 mg/dL | < 50 = dose ไม่พอ |
+| **Duration of action** | covers 12 hr | สั้น/ยาวเกิน → ปรับ |
+| **Clinical sign** | PU/PD ลด | ใช้เป็น **gold standard** |
+
+---
+
+## 🔹 Somogyi Phenomenon ⭐ Key concept!
+
+> 💡 อย่ารีบเพิ่มโดสตอนน้ำตาลสูง — **อาจเกิด Somogyi**
+
+**Mechanism**: insulin **เกินขนาด** → glucose ลงเร็ว/ต่ำมาก → ร่างกายตกใจ → หลั่ง **cortisol + epinephrine + glucagon** → **rebound hyperglycemia ยาวๆ** → ไม่ตอบ insulin (resistance)
+
+**Pattern**: nadir ต่ำเร็ว → spike สูงยาว
+**Action**: **ลด dose** (ไม่ใช่เพิ่ม!)
+
+---
+
+## 🔹 Insulin Resistance
+- 🐕 Dog: > 1 U/kg/dose ยังไม่ response · หรือ > 1.5 U/kg ไม่ลง < 300
+- 🐈 Cat: > 5 U/dose
+- Causes: cortisol/GH excess, infection, obesity, ฮอร์โมนอื่น, ฉีดผิด
+
+---
+
+## 🔹 Continuous Glucose Monitor (CGM)
+- Validate ในสัตว์แล้ว
+- **Subcutaneous interstitial fluid** glucose — lag 5-12 min
+- ติดได้ ~2 wk
+- ลด stress hyperglycemia + ลด owner burden
+- ⭐ **พี่หมอใช้แทน glucose curve ส่วนใหญ่** — ราคาใกล้กัน · สัตว์ทรมานน้อยกว่า
+
+---
+
+## 🔹 Remission (แมวเด่น!)
+- ไม่ต้องฉีด insulin ≥ 4 เดือน = **remission**
+- โอกาสครั้งที่ 2 ต่ำมาก → control ครั้งแรกให้ดี
+- อาหาร + insulin tight control + แก้ resistance early = remission rate สูง
+- 🆕 **SGLT2 inhibitor (oral)** — สำหรับ "Happy DM cat" only (ไม่มี comorbid · β-cell ยังทำงาน)
+
+---
+
+## 📝 Exam Hot Spots
+
+1. **Type 1 = dog (absolute) · Type 2-like = cat (resistance + exhaustion)**
+2. **Hypersomatotropism เจอใน 25% แมว DM** — ตรวจ!
+3. **ALIVE: dog spot > 200 + sign** · **cat spot > 270 + 1/3 add'l**
+4. **Classical triad: PU/PD + PP** + weight loss + muscle wasting
+5. **Goal Tx ≠ น้ำตาลปกติ** — Quality of life + ไม่ hypo
+6. **Glargine = cat 1st** · **Caninsulin = dog 1st**
+7. **DO NOT dilute insulin** (except regular for DKA)
+8. **Cat carb < 10% ME** + wet food
+9. **Glucose curve q 2 hr (dog) / q 4 hr (cat)** · **อย่าปรับโดสจาก single point!**
+10. **Somogyi**: drop เร็ว → rebound — **ลด dose**
+11. **Remission แมว**: ≥ 4 เดือนไม่ต้อง insulin
+12. **Female dog DM** → ต้องทำหมัน (progesterone effect)
+13. **ทำ CGM 2 wk** ลด stress hyperglycemia
+
+---
+
+> 💡 **Closing**: "Quality of life ของเจ้าของสำคัญ — flexible insulin time ±2 hr ได้ · ถ้าทำให้เจ้าของหดหู่จากต้น = ไม่ไปต่อ = สัตว์ตายเร็ว"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM IV — Clinical Oncology (Introduction + Diagnostic Approach)
+  // ─────────────────────────────────────────────────────────────
+  BdHpzNra1rU: {
+    videoId: 'BdHpzNra1rU',
+    title: '8. Clinical oncology',
+    subject: 'com4',
+    date: '26 Feb 69',
+    durationMin: 110,
+    instructor: 'พี่หมอ Oncology specialist',
+    examFormat: 'Case-based MCQ — staging + cytology pattern + diagnostic approach',
+    summary: `# Clinical Oncology — Introduction + Diagnostic Approach
+
+> 🎯 บทแรกของ Oncology — ครอบคลุม cancer biology, **paraneoplastic syndromes**, diagnostic approach (cytology → biopsy → staging), และวิธีคุยกับเจ้าของ
+> Cancer ในสัตว์เลี้ยงเจอบ่อยขึ้นมาก เพราะอายุยืน + เจ้าของดูแลดี
+
+---
+
+## 🔹 Cancer Biology Recap
+
+### 6 Hallmarks of Cancer (Hanahan & Weinberg)
+1. **Sustained proliferation** — growth signal autonomous
+2. **Evade growth suppressor** (p53, Rb)
+3. **Resist apoptosis**
+4. **Replicative immortality** (telomerase)
+5. **Angiogenesis** (VEGF)
+6. **Invasion + metastasis**
+
+### Emerging Hallmarks
+- Genome instability + mutation
+- **Inflammation** ที่เอื้อต่อ tumor
+- Reprogramming energy metabolism (Warburg effect)
+- **Evade immune destruction** ⭐ (immunotherapy targets)
+
+---
+
+## 🔹 Tumor Classification
+
+### Benign vs Malignant
+| Feature | Benign | Malignant |
+|---------|--------|-----------|
+| Growth | ช้า | เร็ว |
+| Border | ชัด/มี capsule | invasive |
+| Mitotic rate | ต่ำ | สูง |
+| Metastasis | ❌ | ✅ |
+| Recurrence post-excision | ต่ำ | สูง |
+
+### By Cell Origin
+- **Epithelial** → carcinoma (squamous, adeno, transitional)
+- **Mesenchymal** → sarcoma (fibro, osteo, hemangio)
+- **Round cell** → lymphoma, MCT, plasmacytoma, histiocytoma, TVT
+- **Hematopoietic** → leukemia
+
+---
+
+## 🔹 Paraneoplastic Syndromes ⭐⭐⭐
+
+> 💡 **Paraneoplastic = อาการจาก tumor ที่ไม่ได้มาจาก mass effect/metastasis**
+> มาจาก hormone, cytokine, autoimmune ที่ tumor หลั่ง
+
+| Syndrome | Tumor Association |
+|----------|-------------------|
+| **Hypercalcemia of malignancy (HCM)** | Lymphoma (T-cell), AGASACA (anal sac), MM, parathyroid tumor |
+| **Hypoglycemia** | Insulinoma, large hepatic mass |
+| **Polycythemia** | Renal carcinoma |
+| **Cachexia** | Many advanced cancers |
+| **Hypertrophic osteopathy** | Lung tumor |
+| **DIC / coagulopathy** | Hemangiosarcoma |
+| **Cutaneous flushing/MCT** | MCT (histamine release) |
+| **Myasthenia gravis** | Thymoma |
+
+> ⭐ Hypercalcemia + lymphadenopathy = **think lymphoma** until proven otherwise
+
+---
+
+## 🔹 Diagnostic Approach — TNM staging
+
+### Step 1: Cytology (FNA)
+- ⭐ **First-line**, cheap, minimal invasive
+- ดี: round cell tumor, lipoma, abscess
+- จำกัด: sarcoma (cells ติดกัน), แยก benign vs malignant ของ epithelial
+
+### Step 2: Histopathology (biopsy)
+- **Gold standard** — แยก tumor type + grade
+- Incisional vs excisional
+- Margin assessment
+
+### Step 3: Staging
+- **T (Tumor)**: ขนาด + invasion local
+- **N (Node)**: regional LN involvement → FNA LN
+- **M (Metastasis)**:
+  - 🫁 Thoracic radiograph **3 views** (R lat, L lat, VD/DV)
+  - Abdominal ultrasound
+  - CT/MRI ถ้ามี
+
+---
+
+## 🔹 Communication with Owner
+
+> 💬 พี่ specialist: "Cancer talk ต้องช้าๆ + give realistic prognosis + options + cost"
+
+### Standard Options
+1. **Surgery** — primary if resectable
+2. **Chemotherapy** — systemic
+3. **Radiation** (จุฬามี linear accelerator)
+4. **Targeted therapy** (Toceranib for MCT)
+5. **Immunotherapy** (vaccine for melanoma)
+6. **Palliative** — pain control + quality of life
+
+### Decision Framework
+- Aggressive curative vs palliative
+- Owner finances + commitment
+- Pet's age + comorbidities
+- **Quality of life > quantity** ในส่วนใหญ่
+
+---
+
+## 📝 Exam Hot Spots
+
+1. **6 hallmarks of cancer** — ออกแน่
+2. **Paraneoplastic syndromes** — table โดยเฉพาะ HCM-lymphoma
+3. **Carcinoma vs Sarcoma vs Round cell** — by cell origin
+4. **Cytology = first line · biopsy = gold standard**
+5. **Thoracic rad 3 views** for metastasis screening
+6. **TNM staging** — must know
+7. **Insulinoma → hypoglycemia** · **Renal Ca → polycythemia** · **HSA → DIC**
+8. **MCT → histamine** → flushing, GI ulcer
+
+---
+
+> 💡 **Closing**: "อย่าพึ่งฟันธงว่าเป็นมะเร็ง — FNA ก่อน · ถ้าผ่าตัดได้และ benign อาจหายขาด · ถ้า malignant ต้อง stage แล้วค่อยตัดสินใจร่วมกับเจ้าของ"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM IV — Round Cell Tumors (Lymphoma, MCT, TVT, Plasmacytoma, Histiocytoma)
+  // ─────────────────────────────────────────────────────────────
+  'LRhlotxM-SI': {
+    videoId: 'LRhlotxM-SI',
+    title: '9. Round cell tumor',
+    subject: 'com4',
+    date: '5 Mar 69',
+    durationMin: 115,
+    instructor: 'พี่หมอ Oncology specialist',
+    examFormat: 'Case-based MCQ — cytology pattern + treatment protocol (CHOP, vinblastine)',
+    summary: `# Round Cell Tumors — สรุปคลิป
+
+> 🎯 5 round cell tumors ที่ต้องรู้: **Lymphoma, MCT, TVT, Plasmacytoma, Histiocytoma**
+> + **Cutaneous histiocytoma** = self-limiting (rare round cell ที่หายเองได้)
+> Cytology ดู round cell ได้ง่าย + diagnostic — **first line** ในทุกเคส
+
+---
+
+## 🔹 Cytology Pattern Recognition ⭐⭐⭐
+
+| Tumor | Cytology Hallmark |
+|-------|------------------|
+| **Lymphoma** | Lymphoblast — large nucleus, scant cytoplasm, prominent nucleolus |
+| **MCT** | **Purple/metachromatic granules** (Wright's stain) — eosinophil ปน + |
+| **TVT** | Round cell + **multiple cytoplasmic vacuoles** (clear) |
+| **Plasmacytoma** | Eccentric nucleus + **perinuclear clear zone (Hof)** |
+| **Histiocytoma** | Mixed inflammation + histiocytes |
+
+---
+
+## 🔹 Lymphoma ⭐⭐⭐ (Most common — focus หลัก)
+
+### Classification
+- **Multicentric** (~80% canine) — generalized lymphadenopathy
+- **Mediastinal** — common in cat (FeLV+)
+- **Alimentary** — GI signs
+- **Extranodal** — skin, eye, CNS, kidney
+
+### Diagnosis
+- **FNA peripheral LN** (NOT mandibular — drainage from tonsil) → choose popliteal/prescapular
+- **Cytology** confirm → **flow cytometry / IHC** → B vs T cell
+- **CBC** — atypical lymphocyte? cytopenia?
+- **Staging**: T (LN), N (further LN), M (BM, organ)
+- **WHO Stage I-V** + substage a (no clinical signs) / b (signs)
+- **Hypercalcemia** — common in T-cell
+
+### Treatment — CHOP Protocol ⭐ (Madison-Wisconsin)
+- **C** = Cyclophosphamide
+- **H** = Hydroxydaunorubicin (Doxorubicin)
+- **O** = Vincristine (Oncovin)
+- **P** = Prednisolone
+- 19-25 weeks · ~80% remission · MST 12 mo
+- **Doxorubicin alone** = simpler · MST ~ 6-9 mo
+- **Single agent prednisolone** = palliative · MST 1-3 mo · INDUCE chemoresistance ⚠️
+
+---
+
+## 🔹 Mast Cell Tumor (MCT)
+
+### Cytology
+- Round cell + **purple metachromatic granules** (Wright/Romanowsky)
+- Toluidine blue helps if Diff-Quik miss granules
+
+### Grading (Patnaik 1984 — 3 tier)
+- **Grade I** — well-differentiated, low metastasis
+- **Grade II** — intermediate (variable!)
+- **Grade III** — anaplastic, high metastasis
+
+### Kiupel 2-tier (more reproducible)
+- **Low grade** vs **High grade**
+
+### Staging
+- **Buffy coat** + bone marrow (looking for circulating mast cells)
+- **Splenic FNA** — even if normal-sized
+- Hepatic FNA
+- LN — **regional sentinel** node
+
+### Treatment
+- **Surgery** — wide margin (3 cm + 1 fascial plane) ⭐
+- Adjuvant if grade II/III, dirty margin, LN+:
+  - **Vinblastine + prednisolone**
+  - **Lomustine (CCNU)**
+  - **Toceranib (Palladia)** — c-KIT mutation tumor → ดี
+- **H1 + H2 blocker** before/around surgery (degranulation prophylaxis)
+
+### Darrier's sign
+- Rub MCT skin → wheel + flare → degranulation → diagnostic clue
+
+---
+
+## 🔹 Transmissible Venereal Tumor (TVT)
+
+- **Genital region** (penis, vagina) — transmitted by mating
+- Round cell + **vacuoles** in cytoplasm
+- ⭐ **Vincristine** — single agent, very responsive (4-6 weekly doses)
+- Excellent prognosis if IV vincristine
+
+---
+
+## 🔹 Plasmacytoma (Cutaneous)
+
+- Older dog · digit, ear, lip
+- Cytology: eccentric nucleus + **Hof zone**
+- **Surgery alone** ส่วนใหญ่หาย — benign behavior in skin
+- ⚠️ Multiple myeloma (systemic) ≠ cutaneous plasmacytoma — check serum protein electrophoresis
+
+---
+
+## 🔹 Cutaneous Histiocytoma
+
+- **Young dog (< 3 yr)** — solitary "button" tumor
+- Self-limiting — **regress in 1-3 months** spontaneously
+- **No treatment** ส่วนใหญ่ — แค่ confirm with cytology
+- ถ้า persist > 3 mo → biopsy (rule out histiocytic sarcoma)
+
+---
+
+## 🔹 Special: Histiocytic Sarcoma
+- Aggressive — Bernese Mountain Dog, Flat-coated Retriever predisposed
+- High metastasis · poor prognosis · **Lomustine** = response ~ 50%
+
+---
+
+## 📝 Exam Hot Spots
+
+1. **5 round cell tumors** + cytology hallmark (table)
+2. **Lymphoma WHO stage** + CHOP protocol (CCNU/Doxo/Vincristine/Pred)
+3. **MCT Patnaik grade I-II-III + Kiupel 2-tier**
+4. **MCT surgery margin = 3 cm + 1 fascial plane**
+5. **TVT → vincristine** (most responsive!)
+6. **Plasmacytoma cutaneous = benign · MM systemic = bad**
+7. **Histiocytoma young dog → regress spontaneously**
+8. **Hypercalcemia + lymphoma = T-cell**
+9. **Buffy coat + spleen FNA in MCT staging**
+10. **H1 + H2 blocker before MCT surgery**
+
+---
+
+> 💡 **Tip**: "Cytology round cell tumor ดูง่ายสุด — train ให้ recognize pattern ได้ใน 1 wk ก็พอ · เป็น differential ที่ทำได้เร็ว"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM IV — Chemotherapy + Paraneoplastic Syndromes
+  // ─────────────────────────────────────────────────────────────
+  tlRcao67Kjc: {
+    videoId: 'tlRcao67Kjc',
+    title: '10. Chemotherapy + Paraneoplastic syndromes',
+    subject: 'com4',
+    date: '12 Mar 69',
+    durationMin: 120,
+    instructor: 'พี่หมอ Oncology specialist',
+    examFormat: 'Case-based MCQ — drug class + side effects + paraneoplastic recognition',
+    summary: `# Chemotherapy + Paraneoplastic Syndromes
+
+> 🎯 บทนี้ภาคหลักของ oncology — ทุก class ของ chemo, side effects, dosing, **paraneoplastic syndromes** (deep dive)
+> ⚠️ Chemo ในสัตว์ ≠ ในคน — เป้าหมายคือ **quality of life** ไม่ใช่ aggressive cure (ขนาดยาต่ำกว่า — หาง side effect ลด)
+
+---
+
+## 🔹 Chemotherapy Classes ⭐
+
+### 1. Alkylating agents
+- **Cyclophosphamide** — DNA cross-link · BSA dose · **sterile hemorrhagic cystitis** (cat ระวัง — ให้ furosemide ช่วย flush)
+- **Lomustine (CCNU)** — oral · cross BBB · **hepatotoxicity** (monitor ALT) + delayed thrombocytopenia
+- **Chlorambucil** — oral · gentle · MM, IBD, lymphoma (cat indolent)
+- **Melphalan** — MM, MCT
+
+### 2. Anti-tumor antibiotics
+- **Doxorubicin (Adriamycin)** — anthracycline · **cardiotoxicity** (cumulative > 180 mg/m² dog) · vesicant (extravasation = necrosis!)
+- **Mitoxantrone** — alternative · less cardiotoxicity · TCC (bladder)
+
+### 3. Plant alkaloids
+- **Vincristine** — TVT first-line · CHOP · **vesicant**
+- **Vinblastine** — MCT first-line
+- ⚠️ Both = severe extravasation injury
+
+### 4. Antimetabolites
+- **Methotrexate** — folate antagonist
+- **Cytarabine (Ara-C)** — leukemia, CNS lymphoma · cross BBB
+- **Gemcitabine** — sarcoma, carcinoma
+
+### 5. Platinum
+- **Carboplatin** — osteosarcoma · **less nephrotoxic** than cisplatin
+- **Cisplatin** — ❌ FATAL in cats (pulmonary edema) · careful renal in dogs
+
+### 6. Targeted therapy ⭐ ใหม่
+- **Toceranib (Palladia)** — TKI · MCT (c-KIT+), STS
+- **Imatinib** — c-KIT
+- **Tigilanol tiglate (Stelfonta)** — intratumoral injection for MCT
+
+### 7. Hormonal
+- **Prednisolone** — lymphoma, MCT (single or adjunct)
+- ⚠️ ห้าม start prednisolone **ก่อน** lymphoma diagnosis — induce chemoresistance!
+
+---
+
+## 🔹 Chemo Side Effects ⭐⭐⭐
+
+### 1. Myelosuppression (most common)
+- Nadir 7-10 days post-Tx
+- Monitor **CBC** before each cycle
+- ANC < 1500 → delay 1 wk
+- Severe neutropenia + fever → **EMERGENCY** (sepsis risk) → IV broad-spectrum antibiotic
+
+### 2. GI toxicity
+- Nausea, vomiting, diarrhea
+- **Maropitant + ondansetron** → before/during Tx
+- Metronidazole + probiotics for diarrhea
+
+### 3. Cardiotoxicity (Doxorubicin)
+- Cumulative dose-dependent
+- Echo BEFORE start + every 2-3 cycles
+- **Dexrazoxane** for extravasation OR cardioprotective
+
+### 4. Nephrotoxicity (Cisplatin, doxo)
+- Hydration before/after
+- Cisplatin = saline diuresis 4hr pre + 4hr post
+
+### 5. Hypersensitivity (L-asparaginase, doxorubicin)
+- Pre-medicate diphenhydramine + dexamethasone
+- Slow IV infusion
+
+### 6. Extravasation injury (vesicants)
+- **Vincristine, vinblastine, doxorubicin** — necrosis if leak
+- Use **central line** if possible · clean butterfly · flush with saline before/after
+
+### 7. Sterile hemorrhagic cystitis (Cyclophosphamide)
+- Crystal damage urothelium
+- Give morning + furosemide + free water access
+- Severe = stop drug · switch to chlorambucil
+
+---
+
+## 🔹 Practical Chemo Administration
+
+### Pre-Tx Checklist
+1. **Owner consent** + counsel side effects
+2. **CBC + biochem** within 24 hr
+3. **PE** + body weight
+4. **BSA** (dog > 10 kg) or mg/kg (small/cat)
+5. **Re-stage** every 2-3 mo
+
+### Safety
+- Cytotoxic PPE (gloves, gown, eye protection)
+- Closed-system transfer device
+- Dispose: yellow biohazard sharp box
+- Owner: gloves cleaning urine/feces × 72 hr post-Tx
+- Pregnant/young child contact → caution
+
+---
+
+## 🔻 Paraneoplastic Syndromes ⭐⭐⭐ (Deep Dive)
+
+### Hypercalcemia of Malignancy (HCM)
+- ⭐ **Most common paraneoplastic in dog**
+- Mechanism: **PTHrP** secretion · IL-6, TNFα
+- **Tumors**: T-cell lymphoma, **AGASACA (anal sac adenocarcinoma)**, multiple myeloma
+- Dx: **Total Ca > 12.5** + ionized Ca high + **PTH suppressed** + **PTHrP elevated**
+- Tx: 0.9% NaCl IV · furosemide · prednisolone · bisphosphonate (pamidronate)
+
+### Hypoglycemia
+- **Insulinoma** (β-cell tumor of pancreas)
+- Whipple's triad: low BG + neuro signs + relief with glucose
+- **Insulin/glucose ratio**: high = insulinoma
+- Tx: surgery + diazoxide + frequent feeding
+
+### Polycythemia
+- **Renal carcinoma** (EPO-secreting)
+- PCV > 65% · low EPO suppression
+- Tx: phlebotomy · hydroxyurea
+
+### Cancer cachexia
+- Multifactorial: TNF, IL-1, IL-6
+- **Muscle wasting** despite calorie intake
+- Nutrition: **omega-3 fish oil** · high-calorie diet · appetite stimulant (mirtazapine, capromorelin)
+
+### Hypertrophic osteopathy
+- **Lung tumor** (or chronic pulmonary disease)
+- Periosteal new bone all 4 limbs · painful
+- Tx: treat primary tumor · NSAID
+
+### DIC
+- **Hemangiosarcoma** classical · also adenocarcinoma
+- **Schistocyte** + thrombocytopenia + prolonged PT/PTT + low fibrinogen + ↑ D-dimer
+- Tx: treat tumor · supportive (FFP, heparin)
+
+### Myasthenia gravis
+- **Thymoma**
+- Acetylcholine receptor antibody
+- Megaesophagus, weakness
+- Tx: pyridostigmine + thymectomy
+
+### MCT-related
+- **Histamine** release → GI ulcer, hypotension
+- Pre-Tx: **H1 + H2 blocker** (diphenhydramine + famotidine)
+
+---
+
+## 📝 Exam Hot Spots
+
+1. **6 chemo classes** + 1 example each
+2. **Cyclophosphamide → sterile hemorrhagic cystitis** + furosemide prophylaxis
+3. **Doxorubicin cardiotoxicity** — cumulative · echo monitor
+4. **Cisplatin = FATAL in cats** (pulmonary edema)
+5. **Vincristine, vinblastine, doxo = vesicants** — extravasation = necrosis
+6. **Toceranib (Palladia)** — TKI · MCT c-KIT
+7. **Don't start prednisolone before lymphoma Dx!**
+8. **Neutropenic fever = emergency** → IV antibiotic
+9. **PTHrP-secreting tumors** = T-cell lymphoma, AGASACA, MM
+10. **Insulinoma → hypoglycemia · Renal Ca → polycythemia · HSA → DIC**
+11. **Myasthenia gravis ↔ thymoma**
+12. **MCT histamine → H1 + H2 blocker pre-surgery/Tx**
+13. **CHOP protocol** = Cyclo + Doxo + Vincristine + Pred · 19-25 wk
+
+---
+
+> 💡 **Tip**: "Chemo ในสัตว์ — quality > quantity · ใช้ low dose intensity · เป้าหมายให้ remission แล้วใช้ชีวิตปกติ ไม่ใช่ aggressive cure แล้วทุกข์"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM IV — Bacterial + Fungal Skin Diseases
+  // ─────────────────────────────────────────────────────────────
+  cMPpvQcg0kY: {
+    videoId: 'cMPpvQcg0kY',
+    title: '4. Bacterial + Fungal skin diseases',
+    subject: 'com4',
+    date: '26 Mar 69',
+    durationMin: 121,
+    instructor: 'พี่หมอ Dermatology specialist',
+    examFormat: 'Case-based MCQ — pyoderma depth + dermatophyte Dx + Tx duration',
+    summary: `# Bacterial + Fungal Skin Diseases
+
+> 🎯 หัวใจของ approach ผิวหนังคัน: **ต้องเคลียร์ infection ก่อน** เสมอ (parasite/bacteria/fungus) ก่อนสงสัย allergy
+> Bacterial = **Staphylococcus pseudintermedius** (90-95%) · Fungal = **Microsporum canis** (cat 90-98%)
+
+---
+
+## 🔻 Part 1: Bacterial Skin Disease (Pyoderma)
+
+### 90% เป็น Secondary
+> ⚠️ "Bacterial pyoderma คอมมอนสุดในไทย — แต่มักไม่ใช่ primary cause · ต้องหา **underlying disease**"
+
+### Underlying Causes
+1. **Allergy** (atopy, food allergy) → skin barrier defect
+2. **Endocrine** (Cushing, hypothyroid) — immunosuppression
+3. **Parasitic** (demodex, scabies)
+4. **Trauma/poor hygiene**
+5. **Glucocorticoid use** (down-regulate immune)
+
+### Classification by Depth ⭐⭐⭐
+
+| Depth | Layer | ตัวอย่าง | Treatment |
+|-------|-------|---------|-----------|
+| **Surface** | Stratum corneum only | Pyotraumatic (hot spot), Skin fold pyoderma, Mucocutaneous | **Topical only** |
+| **Superficial** | Epidermis + hair follicle (intact) | Impetigo, Superficial bact folliculitis, Bullous impetigo | Topical ± systemic 4-6 wk |
+| **Deep** | Dermis + SC (follicle ruptured) | Deep folliculitis, Furunculosis, Cellulitis | **Systemic 6-12 wk** + culture |
+
+### Common Lesions
+- **Crust** (เซoidate แห้ง)
+- **Erythematous patch** (> 1 cm แดง)
+- **Folliculitis bumps** (papules/pustules)
+- **Epidermal collarette** = pus exit ring (oval scaly border)
+- **Hot spot** = pyotraumatic dermatitis (acute, fast lamination)
+
+### Skin Fold Pyoderma (Intertrigo)
+- Breed: Shar-Pei, Bulldog, Pug, Cocker
+- Location: facial / vulvar / tail / inguinal
+- **Surgery** if chronic + recurrent (correct fold)
+
+### Mucocutaneous Pyoderma
+- Lip margins, eyelid, prepuce
+- ⚠️ Cytology can show **gram-negative** (saliva contamination) — not always actual cause
+
+### Diagnosis
+1. **Cytology** ⭐ — first line · cocci pattern (Staph) → confirm bacterial
+2. **Culture + sensitivity** — for deep, recurrent, MRSP risk
+3. **Skin scrape + DTM** — rule out demodex/dermatophyte
+
+### Treatment
+
+#### Topical (Surface + Superficial)
+- **Chlorhexidine 2-4% shampoo** — 2x/wk
+- **Benzoyl peroxide** — follicular flushing
+- **Mupirocin/fusidic acid** — focal
+- ❌ Avoid antiseptic for mild — kills good flora
+
+#### Systemic (Superficial deep, Deep)
+- **First-line**: **Amoxicillin-clavulanate** (Augmentin) 12.5-25 mg/kg PO BID
+- **Cephalexin** 22-30 mg/kg PO BID
+- **Cefovecin (Convenia)** 8 mg/kg SC q14d
+- **Second-line** (after C&S): clindamycin, erythromycin
+- **❌ NOT first-line** without C&S: fluoroquinolones (resistance risk)
+- **❌ Avoid**: amoxicillin alone, ampicillin, penicillin (β-lactamase!)
+
+#### Duration
+- **Superficial**: 4-6 wk · continue 1-2 wk **after clinical cure**
+- **Deep**: **6-12 wk** + 3-4 wk after clinical cure
+- Re-culture if no improvement at 4 wk
+
+---
+
+## 🔻 Part 2: Fungal Skin Disease
+
+### Dermatophytosis (Ringworm)
+
+### Common Pathogens (3 main)
+| Species | Source | Note |
+|---------|--------|------|
+| **Microsporum canis** | Cat-to-cat, infected animal | **90-98% of feline cases** · zoonotic |
+| **Microsporum gypseum (Nannizzia gypsea)** | Soil | Outdoor dogs (Jack Russell, terrier) |
+| **Trichophyton mentagrophytes** | Rodent | Hunting dogs |
+
+### Spore Persistence
+- **18 months** in environment (carpet, brush, cage)
+- ⚠️ Reinfection risk if environment not decontaminated
+- Common from: grooming salon, boarding, multi-cat household
+
+### Lesions
+- Classic: **circular alopecia** (ringworm pattern)
+- Scale, crust, papule, hyperpigmentation
+- **Less itchy** than bacterial/parasitic
+- May involve **nail, nasal planum** (cat)
+
+### Diagnosis (4 modalities)
+1. **Wood's lamp** — UV light · only **50% of M. canis** fluoresce apple-green · false-positive common (sebum, soap, bacteria)
+2. **Trichogram** — pluck hair → KOH 10% (old) or **Diff-Quik B solution** (modern) → look spores around hair shaft
+3. **DTM (Dermatophyte Test Medium)** ⭐ — gold standard
+   - **Color change yellow → red** within 7-14 days
+   - **Colony**: white fluffy (not green/black/colored)
+   - **Macroconidia** ID under microscope (key — rule out non-pathogenic fungi)
+4. **PCR** — most sensitive · expensive
+5. **Tape strip + cytology** for combined Dx
+
+### M. canis Macroconidia
+- > 6 cells, **thick wall**, spindle-shaped
+- M. gypseum: **3-5 cells, thin wall**
+- T. mentagrophytes: rare macroconidia, mostly microconidia "cigar-shaped"
+
+### Treatment
+
+#### Topical
+- **Lime sulfur dip** 2x/wk (effective but smelly)
+- **Miconazole + chlorhexidine shampoo** 2x/wk (Malaseb)
+- **Enilconazole** rinse
+
+#### Systemic (severe, multifocal, deep)
+- **Itraconazole** 5-10 mg/kg PO SID (cat 5 mg/kg PO SID alternate week × 4 cycles)
+- **Terbinafine** 30-40 mg/kg PO SID
+- **Fluconazole** less effective for dermatophyte
+- **❌ Ketoconazole** — hepatotoxic, less preferred
+
+#### Duration
+- **Until 2 negative fungal cultures 2 wk apart**
+- Usually 6-12 wk minimum
+
+#### Environment Decon
+- **Bleach 1:10**, accelerated H₂O₂
+- Vacuum + discard bedding
+- Wash all combs/brushes
+
+### Pseudomycetoma (Granulomatous form)
+- Hair follicle ruptured → fungal hyphae in dermis
+- Forms **subcutaneous nodule**
+- Treat: **systemic antifungal + surgery**
+
+### Other Fungal
+- **Malassezia** (yeast) — common ที่หู, lip fold, intertrigo · greasy odor · treat with chlorhexidine + miconazole
+
+---
+
+## 📝 Exam Hot Spots
+
+1. **Pyoderma 3 depths**: Surface · Superficial · Deep — Tx duration table
+2. **Staph pseudintermedius** = 90-95% · gram-positive cocci
+3. **Amoxicillin-clavulanate** = first-line empirical
+4. **❌ Plain amoxicillin/ampicillin/penicillin** — β-lactamase
+5. **Superficial 4-6 wk · Deep 6-12 wk** + 1-2/3-4 wk post-cure
+6. **Hot spot** = pyotraumatic = surface · topical only
+7. **Mucocutaneous pyoderma** ผลตรวจ gram-negative อาจ contamination
+8. **M. canis 90-98% in cat** + 50% Wood's lamp +
+9. **DTM color change + colony + macroconidia** = 3-step Dx
+10. **Spore persists 18 months** — environment decon
+11. **Itraconazole** = systemic first-line for dermatophyte
+12. **Pseudomycetoma** = ruptured follicle + dermis fungus → granuloma
+
+---
+
+> 💡 **Tip**: "Cytology + DTM + skin scrape — 3 ตัวที่ทำง่ายในคลินิก ก่อน refer · ครบ 80% ของ skin Dx"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM IV — Allergic dermatitis + Nutrition skin disease
+  // ─────────────────────────────────────────────────────────────
+  SWIXruJ9XNs: {
+    videoId: 'SWIXruJ9XNs',
+    title: '5. Allergic dermatitis + Nutrition skin disease',
+    subject: 'com4',
+    date: '2 Apr 69',
+    durationMin: 120,
+    instructor: 'พี่หมอ Dermatology specialist',
+    examFormat: 'Case-based MCQ — Food trial protocol + Atopy Tx ladder',
+    summary: `# Allergic Dermatitis + Nutritional Skin Disease
+
+> 🎯 หลังเคลียร์ infection แล้ว → **กลุ่ม allergy** เป็น differential หลักของ pruritic dog/cat
+> 4 โรค: **Contact, Flea, Food, Atopy** — แต่ Food vs Atopy = identical twin (แยกได้แค่ Food trial!)
+
+---
+
+## 🔹 Decision Tree (Pruritic Skin Disease)
+
+\`\`\`
+Pruritic dog/cat
+  ↓ Step 1: Clear infection (parasitic/bacterial/fungal)
+  ↓ Still pruritic?
+  ↓ Step 2: Differentiate 4 allergies:
+    1. Contact allergic dermatitis (rare — has location pattern)
+    2. Flea allergy dermatitis (FAD) — control flea
+    3. Food allergy
+    4. Atopic dermatitis (environmental)
+\`\`\`
+
+---
+
+## 🔹 1. Contact Allergic Dermatitis (Type IV — least common)
+
+- Lesion **only at contact site** (sparse-haired skin: groin, axilla, plantar)
+- History: **new shampoo, ear drop, plastic bowl**, floor cleaner
+- Cytology: **eosinophil-rich**
+- Tx: avoid allergen + topical steroid
+
+> 💡 Common misconception: "แพ้น้ำยาถูพื้น" ที่ตา/หู — **ไม่จริง** เพราะไม่ได้สัมผัสจริง
+
+---
+
+## 🔹 2. Flea Allergy Dermatitis (FAD)
+
+- **Lumbosacral area** (dog) · neck/inguinal (cat)
+- Even **single bite** → severe reaction (saliva allergen)
+- Few visible fleas (animal scratches them off)
+- Tx: **strict flea control** all pets in house · environmental treatment
+
+---
+
+## 🔹 3. Food Allergy ⭐⭐⭐
+
+### Key Concepts
+- **Identical to atopy clinically** — distinguish only by **Food Trial**
+- Multiple food allergens common (rarely single ingredient)
+- **Cross-reactivity** between similar species:
+  - Beef ↔ cow's milk · Cow ↔ lamb/goat (hoofed) ❌
+  - Chicken ↔ duck/turkey ❌
+
+### Food Trial (Diet Elimination Trial)
+
+#### Choose New Diet
+| Type | Pros | Cons |
+|------|------|------|
+| **Novel protein (homemade)** ⭐ | Best — single source protein + carb | Time-consuming · need taurine/Ca add'l for cat |
+| **Novel protein (commercial)** | Convenient | Other ingredients may cross-react |
+| **Hydrolyzed protein** | Best for unknown food history | Expensive · commercial only |
+
+#### Protocol
+1. **8 weeks** strict trial — only the test diet + water
+2. **Stop other treats, supplements, flavored medications**
+3. ⚠️ Counsel grandparents/staff (often the weak link)
+4. Modern concept: **continue antibiotic/steroid during trial** — but assess after 4 wk drug-free period
+
+#### Interpretation
+- **Complete resolution** → Food allergy
+- **Partial response** (~15-20% cases) → combined Food + Atopy
+- **No change** → Atopic dermatitis
+
+### Allergy Testing
+- ❌ Serology (IgE) for food allergy = NOT reliable in animals
+- ✅ Only **Food Trial** confirms
+
+---
+
+## 🔹 4. Atopic Dermatitis (CAD/FAD)
+
+### Definition
+- Genetic predisposition + environmental allergen → IgE-mediated → **chronic pruritic + relapsing skin disease**
+- Distribution: **face, ear, paw, axilla, ventral abdomen** (ลูกหมาเริ่ม < 3 ปี)
+
+### Breed Predisposition
+- 🐕 Westie, French Bulldog, Bulldog, Lab/Golden, Shar-Pei
+- 🐈 Less defined breed pattern
+
+### Skin Barrier Defect
+- Decreased **intercellular lipid** (ceramide) → allergen penetrate easier
+- → bacterial/yeast secondary infection ตามมา
+
+### Diagnosis (Favrot's Criteria)
+- ≥ 5 of 8 criteria + clinical picture
+- **Allergy testing for ID specific allergen**:
+  - **Intradermal skin test (IDT)** ⭐ gold standard
+  - **Serum IgE** — convenient, less reliable
+- Used **only for immunotherapy planning** (not diagnosis!)
+
+### Treatment Ladder ⭐⭐⭐
+
+#### Tier 1 — Avoid + supportive (always)
+- Bathe 1-2x/wk (chlorhexidine + chlorhexidine + ceramide shampoo)
+- Omega-3 fatty acids
+- Treat secondary infection
+
+#### Tier 2 — Anti-pruritic (acute flare)
+- **Glucocorticoid** (prednisolone 0.5-1 mg/kg PO SID × 5-7 d → taper)
+- **Oclacitinib (Apoquel)** ⭐ — JAK inhibitor · 0.4-0.6 mg/kg BID × 14 d → SID
+- **Lokivetmab (Cytopoint)** ⭐ — anti-IL-31 mAb · SC monthly · super safe + effective
+- Antihistamine (CPM) — limited efficacy
+
+#### Tier 3 — Long-term
+- **Cyclosporine (Atopica)** 5 mg/kg PO SID — full effect at 4-6 wk
+- **Allergen-Specific Immunotherapy (ASIT)** — based on IDT — long-term remission ~ 60-70% response
+- Topical tacrolimus
+
+> 💡 พี่หมอ tip: "Apoquel + Cytopoint เปลี่ยน practice ในยุคนี้ — ลด steroid use มาก"
+
+---
+
+## 🔻 Nutritional Skin Disease
+
+### 1. Zinc-Responsive Dermatosis
+- **Husky, Malamute, Bull Terrier, Dane**
+- Lesion: **crust around eye/mouth/footpad** ("zinc face")
+- Tx: **zinc supplement** 2-3 mg/kg PO SID lifelong
+
+### 2. Vitamin A-Responsive Dermatosis
+- **Cocker Spaniel** (mostly)
+- Hyperkeratosis ventral + dorsal
+- Tx: vitamin A 10,000 IU PO SID
+
+### 3. Essential Fatty Acid Deficiency
+- Dry, dull coat · scaling
+- Tx: omega-3/6 supplement (fish oil)
+
+### 4. Hepatocutaneous Syndrome (Superficial Necrolytic Dermatitis)
+- Liver disease (vacuolar hepatopathy) → AA deficiency
+- Lesion: **erythema, crust, ulcer footpads + mucocutaneous junction**
+- Poor prognosis · IV amino acid infusion + dietary support
+
+### 5. Generic Dog Food Disease
+- Cheap food → multi-nutrient deficiency
+- Mostly resolves with quality complete-balanced diet
+
+---
+
+## 📝 Exam Hot Spots
+
+1. **4 allergies in approach order** — Contact, Flea, Food, Atopy
+2. **Contact = location-specific lesion**
+3. **FAD = lumbosacral · single bite enough**
+4. **Food trial 8 weeks** + strict + drug-free assess at 4 wk
+5. **Novel protein homemade > commercial > hydrolyzed**
+6. **Cross-reactivity**: beef-milk, chicken-duck, lamb-goat
+7. **❌ Serology unreliable for food allergy** — Food trial only
+8. **Atopy distribution**: face/ear/paw/axilla/ventral abdomen
+9. **Apoquel = JAK inhibitor 0.4-0.6 mg/kg BID**
+10. **Cytopoint = anti-IL-31 mAb · SC monthly**
+11. **Cyclosporine 5 mg/kg PO SID** · full effect 4-6 wk
+12. **Zinc-responsive = Husky/Malamute** — periocular crust
+13. **Hepatocutaneous syndrome** — footpad ulcer + liver disease
+
+---
+
+> 💡 **Tip**: "อย่าตัด food allergy ออกแค่ดูรอยโรค — ต้อง Food trial เท่านั้น · ถ้าทำได้ดี ~30% เคส 'atopy' จริงๆ คือ food allergy"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM IV — Autoimmune skin + Endocrine skin disease
+  // ─────────────────────────────────────────────────────────────
+  tOo5b1rqAgU: {
+    videoId: 'tOo5b1rqAgU',
+    title: '6. Autoimmune skin diseases + Endocrine skin diseases',
+    subject: 'com4',
+    date: '9 Apr 69',
+    durationMin: 121,
+    instructor: 'พี่หมอ Dermatology specialist',
+    examFormat: 'Case-based MCQ — Pemphigus dx + Endocrine skin pattern recognition',
+    summary: `# Autoimmune Skin + Endocrine Skin Diseases
+
+> 🎯 บทสุดท้ายของ derm — **Autoimmune** (rare แต่ออกข้อสอบ) + **Endocrine** (Hypothyroid, Cushing, Alopecia X — case-based)
+> หลักการ: อย่ารีบเป็น autoimmune ก่อน · 95% ที่เห็นเป็น **bacterial pyoderma** มากกว่า
+
+---
+
+## 🔻 Part 1: Autoimmune Skin Disease
+
+### Pathophysiology — **Acantholysis** ⭐
+- Autoantibody → ทำลาย **desmosome** (cell-cell junction) → cells แยกออก = "acantholytic cells"
+- เห็นใน cytology = **rounded keratinocyte** ลอยอิสระ
+
+### Desmosome Components (where antibody attacks)
+| Molecule | Location | Disease |
+|----------|----------|---------|
+| **Desmoglein 1** | Upper epidermis | **Pemphigus foliaceus** ⭐ |
+| **Desmoglein 3** | Lower epidermis (skin) + all (mucosa) | **Pemphigus vulgaris** |
+| **BP180/230** | Basement membrane | Bullous pemphigoid |
+| **Type VII collagen** | Sub-basement | EBA (Epidermolysis Bullosa Acquisita) |
+
+---
+
+### Pemphigus Foliaceus (PF) ⭐⭐⭐ Most common autoimmune skin
+- Targets: **Desmoglein 1** (upper layer)
+- Lesions: **pustule → rupture → crust + scale**
+- Distribution: **face (nasal planum, periocular), ear pinnae, footpad**
+- Cat: footpad + nail bed common
+- **Itching/pain variable**
+- Breed: **Akita** (~70%), Chow, Doberman, Collie, Bearded Collie
+- ⚠️ DDx = **bacterial folliculitis** — looks identical at first
+  - Bacterial pustule = **bulging, red** (active infection)
+  - PF pustule = **flat, soft** (clue but not definitive)
+
+### Pemphigus Vulgaris (rare, severe)
+- Targets: **Desmoglein 3** (deep layer + mucosa)
+- Lesions: **deep ulcer, vesicle, oral mucosa involvement**
+- Painful, systemic illness
+- **Mucocutaneous junction** = nasal, oral, vulva, prepuce
+
+### Diagnosis ⭐
+1. **Cytology** — pustule → impression smear → look **acantholytic cells**
+2. **Histopathology** ⭐⭐⭐ gold standard — multiple intact pustules
+3. **Immunofluorescence/IHC** — confirm autoantibody (research)
+4. **Rule out** infection first (culture)
+
+### Treatment (Immunosuppression Ladder)
+
+#### Induction (high dose)
+- **Prednisolone** 2-4 mg/kg PO SID (cat 4-6 mg/kg)
+- Until remission (usually 4-8 wk)
+
+#### Adjunctive (steroid-sparing)
+- **Azathioprine** 2 mg/kg PO SID (dog only — cat = TOXIC ❌)
+- **Cyclosporine** 5 mg/kg PO SID
+- **Chlorambucil** 0.1-0.2 mg/kg PO SID (cat preferred)
+- **Mycophenolate, oclacitinib** (off-label)
+
+#### Maintenance (taper)
+- Reduce 25% every 2-4 wk if stable
+- **Lifelong** therapy in most cases
+
+---
+
+### Other Autoimmune Skin Diseases (รู้ไว้)
+- **Discoid Lupus Erythematosus (DLE)** — face/nasal planum only · sun-induced · "facial lupoid dermatosis"
+- **Systemic Lupus Erythematosus (SLE)** — multi-organ + ANA+ (อ.รัสมาสอน)
+- **Vasculitis** — paw/ear/tail tip ulcer · drug-induced common
+- **Sebaceous adenitis** — Akita, Standard Poodle · inflammation of sebaceous gland → alopecia + scale
+
+---
+
+## 🔻 Part 2: Endocrine Skin Disease
+
+### Common Pattern
+> 💡 **Bilateral symmetrical alopecia + non-pruritic + non-inflammatory** = endocrine ⭐
+
+| Disease | Signalment | Skin Pattern | Other |
+|---------|-----------|-------------|-------|
+| **Hypothyroid** | Middle-age large breed | Easy epilation, rat tail, myxedema, tragic face | Weight gain, lethargy, ↑cholesterol |
+| **Cushing (HAC)** | Older small breed | Thin skin, comedones, calcinosis cutis, pendulous abdomen | PU/PD, PP, ALP↑ |
+| **Sex hormone derm** | Intact (not spayed) | Symmetric flank alopecia | Sertoli/ovarian tumor |
+| **Alopecia X** | **Pomeranian, Chow** young | "Coat funk" — body alopecia, head/legs spared | Normal hormones |
+
+---
+
+### Hypothyroid Skin (Recap)
+- **Easy epilated hair** ⭐ pluck → hair comes off in clumps
+- **Rat tail, hyperpigmentation, recurrent pyoderma**
+- **Myxedema** (puffy skin, tragic face)
+- Tx: levothyroxine 20-40 µg/kg PO BID
+- Dermatologic improvement: **8-12 wk** (slower than systemic 2-4 wk)
+
+### Cushing Skin
+- Thin skin → easy bruising, easy tearing
+- **Calcinosis cutis** ⭐ — chalky deposits + crust (esp. dorsum)
+- Comedones (blackheads)
+- **Bilateral symmetric truncal alopecia** + thin coat
+- Tx: trilostane (PDH most common)
+
+### Alopecia X ⭐
+- Synonyms: **growth hormone-responsive dermatosis, castration-responsive, post-clipping alopecia, follicular dysplasia, Adrenal hyperplasia-like syndrome**
+- Theory: **hair cycle arrest** at telogen
+- **Pomeranian** ~95% of cases · Chow, Samoyed, Husky, Keeshond
+- **Body alopecia + head + legs spared** classic distribution
+- Hormones (T4, cortisol) **NORMAL** — that's why "X"
+- Diagnosis = **rule out** other endocrine + biopsy (telogen hair only)
+- Tx ladder:
+  1. **Spay/castration** — first try (50% response in intact)
+  2. **Melatonin** 3-6 mg/dog PO BID-TID × 3 mo
+  3. **Trilostane** (low dose) — sometimes effective
+  4. **Microneedling** (newer option)
+
+---
+
+## 🔹 Diagnostic Approach to Endocrine Skin
+
+\`\`\`
+Bilateral non-pruritic non-inflammatory alopecia
+  ↓ Step 1: Rule out infection (cytology)
+  ↓ Step 2: PE for systemic signs (PU/PD, weight, body shape)
+  ↓ Step 3: CBC + biochem
+    • ↑ ALP + stress leukogram → think HAC
+    • ↑ cholesterol + non-regen anemia → think hypothyroid
+  ↓ Step 4: Endocrine test
+    • Total T4 + Free T4 + TSH
+    • LDDS / ACTH stim / UCCR
+  ↓ Step 5: If all normal → consider Alopecia X
+  ↓ Step 6: Biopsy if uncertain
+\`\`\`
+
+### Drug Effects on Hormone Tests ⚠️
+- **Glucocorticoid, phenobarbital, sulfonamide** → ↓ T4 (false low)
+- Long Tx with these → can't reliably interpret T4
+
+---
+
+## 📝 Exam Hot Spots
+
+1. **Pemphigus foliaceus = most common autoimmune skin** + Akita predisposed
+2. **Desmoglein 1 = PF · Desmoglein 3 = PV/mucosa**
+3. **Acantholytic cells in cytology** = autoimmune clue
+4. **PF distribution**: face, ear, footpad
+5. **Pred 2-4 mg/kg PO SID** = induction · adjunct: **azathioprine (dog) / chlorambucil (cat)**
+6. **❌ Azathioprine in cat** = bone marrow suppression FATAL
+7. **Bilateral symmetric alopecia + non-pruritic** = endocrine
+8. **Easy epilated hair + tragic face** = hypothyroid
+9. **Calcinosis cutis** = pathognomonic Cushing
+10. **Alopecia X = Pomeranian** + body alopecia + head/legs spared
+11. **Alopecia X Tx**: spay → melatonin → trilostane
+12. **Hypothyroid skin response = 8-12 wk** (slower than energy 2-4 wk)
+13. **Phenobarbital, glucocorticoid** → false low T4
+
+---
+
+> 💡 **Closing**: "Autoimmune skin disease = rare แต่ต้องนึกถึงเมื่อ recurrent infection + treat antibiotic ไม่หาย · biopsy หาคำตอบเสมอ"`,
   },
 };
 
