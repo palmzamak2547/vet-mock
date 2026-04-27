@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, isPlaylistUrl, isChannelUrl } from '../data/videos.js';
+import { VIDEO_SUMMARIES, getSummaryForVideo } from '../data/video-summaries.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import BackBar from '../components/BackBar.jsx';
+import SummaryModal from '../components/SummaryModal.jsx';
 
 // ── Playlist preview cache (first video thumbnail + count) ──────────
 // Single in-memory map shared across cards so 6 cards in the grid don't
@@ -338,6 +340,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   const [listError, setListError] = useState('');
   const [listNote, setListNote] = useState('');
   const [search, setSearch] = useState('');
+  const [openSummary, setOpenSummary] = useState(null); // VIDEO_SUMMARIES entry
   const sidebarRef = useRef(null);
   const activeItemRef = useRef(null);
   const searchInputRef = useRef(null);
@@ -423,9 +426,11 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   }
 
   const currentItem = playlistItems[currentIdx];
+  const currentSummary = currentVideoId ? VIDEO_SUMMARIES[currentVideoId] : null;
 
   return (
     <div className="vmx-modal-overlay" onClick={onClose}>
+      {openSummary && <SummaryModal summary={openSummary} onClose={() => setOpenSummary(null)} />}
       <div className="vmx-modal" style={{ maxWidth: showList && playlistItems.length > 0 ? 1200 : 800, width: '100%', padding: 0, overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
 
         {/* Header bar */}
@@ -506,6 +511,16 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
             {/* Footer actions */}
             <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+              {currentSummary && (
+                <button
+                  className="vmx-btn vmx-btn-primary vmx-btn-sm"
+                  onClick={() => setOpenSummary(currentSummary)}
+                  title="อ่านสรุปคลิปจาก Claude (มี download .md ด้วย)"
+                  style={{ fontWeight: 600 }}
+                >
+                  📝 อ่านสรุปคลิป
+                </button>
+              )}
               <a className="vmx-btn vmx-btn-ghost vmx-btn-sm" href={currentVideoId ? `https://www.youtube.com/watch?v=${currentVideoId}${playlistId ? `&list=${playlistId}` : ''}` : video.url} target="_blank" rel="noopener noreferrer">
                 เปิดใน YouTube ↗
               </a>
@@ -552,6 +567,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   const realIdx = playlistItems.findIndex((p) => p.id === item.id);
                   const active = item.id === currentVideoId;
                   const isWatched = watched && watched[item.id];
+                  const hasSummary = !!VIDEO_SUMMARIES[item.id];
                   return (
                     <button
                       key={item.id}
@@ -594,6 +610,12 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                           <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', marginBottom: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
                             <span>#{realIdx + 1}</span>
                             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>✓</span>}
+                            {hasSummary && (
+                              <span
+                                title="มีสรุปคลิปแล้ว — คลิกเปิดเล่นคลิปเพื่ออ่าน"
+                                style={{ color: 'var(--clr-rose)', fontWeight: 700 }}
+                              >📝</span>
+                            )}
                           </div>
                           <div style={{ fontSize: 12, lineHeight: 1.35, color: 'var(--clr-ink)', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', fontWeight: active ? 600 : 400 }}>
                             {item.title}

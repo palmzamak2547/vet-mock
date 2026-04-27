@@ -10,7 +10,9 @@
     "icons": "node scripts/generate-icons.mjs",
     "lint:questions": "node scripts/lint-questions.cjs",
     "fix:questions": "node scripts/fix-question-bias.cjs",
-    "fix:length": "node scripts/fix-length-bias.cjs"
+    "fix:length": "node scripts/fix-length-bias.cjs",
+    "fetch:videos": "node scripts/fetch-video-transcripts.mjs",
+    "flat:transcript": "node scripts/flatten-transcript.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
@@ -20,6 +22,8 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
     "sharp": "^0.34.5",
-    "vite": "^5.4.8"
+    "vite": "^5.4.8",
+    "youtube-transcript": "^1.3.1",
+    "youtubei.js": "^17.0.1"
   }
 }

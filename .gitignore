@@ -5,3 +5,10 @@ dist
 .env.local
 *.log
 .vercel
+
+# Cache for fetched YouTube transcripts (raw ASR captions).
+# Summaries derived from these go in src/data/video-summaries.js.
+data-cache/
+
+# One-shot debug scripts (not part of build).
+scripts/debug-*.mjs

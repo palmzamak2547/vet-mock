@@ -443,4 +443,81 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-mode-card, .vmx-dash-card, .vmx-question-card { box-shadow: none !important; border: 1px solid #ccc !important; break-inside: avoid; }
   a { color: inherit; text-decoration: underline; }
 }
+
+/* ============================================================
+   SummaryModal markdown rendering — styled for Thai reading
+   ============================================================ */
+.vmx-summary-body { font-family: 'Sarabun', 'Inter', sans-serif; }
+.vmx-summary-body .vmx-md-h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 4px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--clr-rose);
+  color: var(--clr-ink);
+}
+.vmx-summary-body .vmx-md-h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 22px 0 8px;
+  color: var(--clr-rose);
+  border-left: 3px solid var(--clr-rose);
+  padding-left: 10px;
+}
+.vmx-summary-body .vmx-md-h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 16px 0 6px;
+  color: var(--clr-ink);
+}
+.vmx-summary-body .vmx-md-p { margin: 8px 0; }
+.vmx-summary-body .vmx-md-ul, .vmx-summary-body .vmx-md-ol { margin: 8px 0 8px 4px; padding-left: 22px; }
+.vmx-summary-body .vmx-md-ul li, .vmx-summary-body .vmx-md-ol li { margin: 4px 0; line-height: 1.65; }
+.vmx-summary-body .vmx-md-ul { list-style-type: disc; }
+.vmx-summary-body .vmx-md-ol { list-style-type: decimal; }
+.vmx-summary-body .vmx-md-quote {
+  margin: 14px 0;
+  padding: 10px 14px;
+  border-left: 4px solid var(--clr-gold);
+  background: rgba(184, 137, 64, 0.08);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--clr-ink-soft);
+}
+.vmx-summary-body .vmx-md-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 13.5px;
+}
+.vmx-summary-body .vmx-md-table th,
+.vmx-summary-body .vmx-md-table td {
+  border: 1px solid var(--clr-border);
+  padding: 7px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.vmx-summary-body .vmx-md-table th {
+  background: var(--clr-surface-2);
+  font-weight: 600;
+}
+.vmx-summary-body .vmx-md-table tbody tr:nth-child(2n) { background: rgba(0,0,0,0.02); }
+.vmx-summary-body .vmx-md-code {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--clr-surface-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.92em;
+  border: 1px solid var(--clr-border);
+}
+.vmx-summary-body .vmx-md-hr {
+  border: 0;
+  border-top: 1px dashed var(--clr-border);
+  margin: 20px 0;
+}
+.vmx-summary-body strong { color: var(--clr-ink); font-weight: 600; }
+.vmx-summary-body em { color: var(--clr-ink-soft); }
+.vmx-summary-body a { color: var(--clr-sage); text-decoration: underline; }
 `;
