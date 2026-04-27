@@ -1168,6 +1168,335 @@ export const VIDEO_SUMMARIES = {
   },
 
   // ─────────────────────────────────────────────────────────────
+  // COM IV — Dermatology intro + Parasitic skin diseases
+  // ─────────────────────────────────────────────────────────────
+  ytpYnHmuRh0: {
+    videoId: 'ytpYnHmuRh0',
+    title: '3. Dermatology intro + Parasitic skin diseases',
+    subject: 'com4',
+    date: '19 Mar 69',
+    durationMin: 119,
+    instructor: 'อาจารย์ (Dermatology + Endocrinology)',
+    examFormat: 'MCQ — primary/secondary lesion identification + drug choice + species-specific treatment ออกเยอะ',
+    summary: `# Dermatology Intro + Parasitic Skin Disease
+
+> 🩺 บทเปิดของ derm section · combined ชั่วโมง 1 (intro) + ชั่วโมง 2 (diagnostic) · ตามด้วย parasitic
+> 🎯 หลัก: pruritus DDx order = **Parasitic → Bacterial → Fungal → Allergic**
+
+---
+
+# 🔻 Part 1: Skin Anatomy & Physiology
+
+## Skin layers (top → bottom)
+| Layer | Notes |
+|-------|-------|
+| **Stratum corneum** | dead keratinized cells, sheds (= invisible shedding) |
+| Stratum lucidum | **only at paw pad** (4 vs 5 layers) |
+| Stratum granulosum | granules accumulate |
+| Stratum spinosum | bigger cells |
+| Stratum basale (basal cell) | germinative — new cells form here |
+| ↓ basement membrane (lamina) ↓ | filters drug/blood |
+| **Dermis** | blood vessels, nerves, **sebaceous + apocrine glands**, fibroblasts, collagen |
+| **Hypodermis (subcutaneous)** | fat, deeper |
+
+> ⚠️ **Epidermis has NO blood vessels** → systemic drugs reach poorly → must use **topical** for shallow lesions
+> ⚠️ Deep lesions (dermis/SQ) → systemic drugs work better
+
+## Keratinization cycle ⭐
+- **Dog/cat: 3 weeks** · Human: 4 weeks
+- 📌 Implication: ประเมินผลรักษา derm = **wait at least 3 weeks** per cycle (not 1-2 wks like human)
+- Thicker lesion = more cycles to clear
+
+**Imbalance scenarios:**
+- Sebum/keratin produce ↑↑ + slow shed → **hyperkeratosis** (thick skin)
+- Produce normal but shed too fast → **scaling/dandruff**
+
+## Skin Barrier
+- **Stratum corneum + intercellular lipid (ceramide)** = "ซีเมนต์ระหว่างอิฐ"
+- Functions: prevent water loss + block allergens/microbes
+- Barrier broken → ↑ TEWL (transepidermal water loss) → dry skin → allergens penetrate easier
+
+## Skin Appendages
+| Gland | Where | Function | Disease links |
+|-------|-------|----------|---------------|
+| **Sebaceous** | follicle opening, dense at neck/interdigital/tail base | Sebum (FA + wax) → physical barrier | hypothyroid → ↓ sebum → dry coat |
+| **Apocrine** | follicle, all body | sweat-like, hormone-related | minor in derm |
+| **Eccrine** | **paw pad ONLY** in dog/cat | sweat; cooling | dry pad = poor skin health |
+
+> 💡 **No eccrine on body** in dog/cat — they don't sweat through skin like humans
+
+## Hair structure ⭐⭐
+- **Primary hair** = coarse, long, pigmented (color) — outer coat
+- **Secondary hair (undercoat)** = fine, soft, short — fluff layer
+
+**Single-coat** (primary only — short shed):
+- Doberman, Rottweiler, Boxer, Poodle, French Bulldog
+
+**Double-coat** ⭐ (heavy shedders, need daily-EOD brushing):
+- Pomeranian, Husky, Alaskan, Samoyed, Shiba, Bangkaew, Chow-Chow, Collie, German Shepherd, **Golden** (less shed)
+
+> 💡 Bulldog = short coat but **double** → cold tolerant
+> 💡 **Secondary hair shorter lifespan** → double-coat dogs shed more → daily brushing required!
+
+**Hair cycle**: anagen (growth) → catagen (transition) → telogen (rest/fall)
+
+**Cycle dominance:**
+- **Anagen-dominant** = keeps growing → **Poodle, Bichon** (need clipping, no natural shed)
+- **Telogen-dominant** = grows to length, sheds → **Pom, Husky, Alaskan**
+- **Hairless** = Chinese Crested, American Hairless Terrier (genetic, no follicles)
+
+> ⚠️ Hairless breeds harder to manage — no sebum → very dry, need moisturizer
+
+## Hair growth factors
+| Factor | Effect |
+|--------|--------|
+| **Thyroid hormone** | stimulate anagen → ↑ hair growth |
+| **Glucocorticoid** | inhibit growth (excess in Cushing → halt) |
+| Genetics, nutrition | varies |
+| Day length, T°, drugs | external |
+
+## Dog vs Human skin
+| Feature | Dog/Cat | Human |
+|---------|---------|-------|
+| pH | **7-7.5** (neutral) | 5.5 (acidic) |
+| Epidermis | 3-5 layers (thin!) | 5+ layers (thick) |
+| Cycle | 3 weeks | 4 weeks |
+| Hair growth | cyclical (length-limited) | continuous |
+
+> ⚠️ **Don't use human shampoo on pet** — wrong pH disrupts barrier
+
+## Lesion Types ⭐⭐⭐ (exam favorite)
+
+### Primary lesions (early, specific cause)
+| Lesion | Definition | Often = |
+|--------|-----------|---------|
+| **Macule** | flat color change < 1 cm | erythema, pigmentation |
+| **Patch** | flat color change > 1 cm | same, larger |
+| **Papule** | red firm bump (raised) | inflammation, neoplasia |
+| **Plaque** | papules merged, > 1 cm | chronic inflammation |
+| **Pustule** ⭐ | small pus-filled bump | **95% bacterial** (also pemphigus!) |
+| Vesicle | small clear fluid bump < 1 cm | rare in vet |
+| Bulla | clear fluid > 1 cm | early pemphigus, friction |
+| Nodule | deep, > 1 cm | tumor, granuloma |
+
+### Secondary lesions (late, non-specific)
+| Lesion | Definition | Implies |
+|--------|-----------|---------|
+| **Comedo** | "blackhead" — sebum plug | endocrine (Cushing, hypothyroid) |
+| **Epidermal collarette** ⭐ | ring of scale (broken pustule!) | post-bacterial pyoderma |
+| **Scale** | dandruff | scaling disease, parasitic |
+| **Crust** | dried exudate | yellow=pus, dark=blood |
+| **Excoriation** | scratch marks | pruritus (itch indicator!) |
+| Fissure | linear skin crack | dry, cracked footpad |
+| **Erosion** | shallow loss (epidermis only) | minor, not painful (no nerve) |
+| **Ulcer** ⭐ | deep loss → dermis | painful, bleeds |
+| **Lichenification** ⭐ | thickened "elephant skin" | chronic (months+) inflammation |
+| **Hyperpigmentation** | dark patch | chronic inflammation |
+| Atrophy (thin skin) | epidermal thinning | Cushing |
+| Scar | fibrotic | wound to dermis |
+
+> 💡 **เทคนิคโชว์อาจารย์**: ลง OPD ว่า "Hyper-pigmented patch at left trunk area" → ดูเป็นชนชั้นสูงในสายตาอาจารย์ทันที
+
+> 💡 **Reading lesion timing:**
+> - Primary only → recent onset, active cause
+> - Secondary only → past disease, healing
+> - **Primary + Secondary together** = chronic ongoing (perfect tense — "เป็นมาตั้งแต่อดีตยังต่อเนื่อง")
+
+## Diagnostic Tests
+
+### Simple (basic, every case)
+- Skin scraping (superficial + deep)
+- Tape strip cytology
+- Direct slide cytology
+- Wood's lamp (ringworm)
+- **Fungal culture** ⭐ (อ.ย้าย: ในไทย = simple test เพราะเจอบ่อย)
+- Trichogram (hair examination)
+- Flea comb
+
+### Additional/Complex
+- Biopsy → histopathology
+- Allergy testing (intradermal, serum IgE)
+- Bacterial culture + sensitivity
+- ANA, immunology panels
+
+---
+
+# 🔻 Part 2: Parasitic Skin Disease
+
+## Pruritus DDx Workflow ⭐⭐⭐
+
+```
+Pruritic patient
+   ↓
+1️⃣ PARASITIC (ticks, fleas, mites, lice) — RULE OUT FIRST
+   ↓ negative
+2️⃣ BACTERIAL infection
+   ↓ negative
+3️⃣ FUNGAL (Dermatophyte/Malassezia)
+   ↓ negative
+4️⃣ ALLERGIC — sub-workflow:
+   - Flea allergy (handled in step 1)
+   - Contact dermatitis (rule out by history)
+   - **Food trial** → if response = food allergy
+   - If no response → **Atopy** (environmental)
+   - 15-20% have BOTH atopy + food (combination allergy)
+```
+
+> ⚠️ **เมื่อสงสัย — TREAT empirically** (ตัวอย่าง parasitic) · ไม่ต้องรอ confirmed
+
+## 🦟 Tick (เห็บ)
+- Female lays **thousands** of eggs · adult lives 2-6 years
+- ⭐ เห็น 1 ตัว ≠ มี 1 ตัว · มี environment full of ticks
+- Direct damage: bite wound, local inflammation, secondary infection
+- **Indirect threat**: vector for **Ehrlichia** → can cause **IMT** → cyclosporine 200mg BID × 3 mo (~30K baht/mo!)
+
+> 📌 อ.: เคสไซบีเรียนเลี้ยงในห้องแอร์ 100% มา รพ.ฉีดวัคซีน → ได้เห็บกลับไป 2 เดือนถัดมา → IMT → 30K/mo
+
+## 🪰 Flea (หมัด)
+**Population breakdown (95% in environment!):**
+- Adult fleas on animal: **only 5%**
+- Eggs, larvae, **pupae** in environment: 95%
+- Pupae can dormant **3-6 months** in environment
+- → Treat env **at least 3-6 months** to clear
+
+**2 Forms:**
+| Type | Difference |
+|------|-----------|
+| **Flea Investation** | not allergic to saliva → flea bite = pain + anemia + disease vector only |
+| **FAD** (Flea Allergic Dermatitis) ⭐ | genetic allergy to flea saliva → severe itch, even 1-2 fleas = disaster |
+
+**FAD lesions (dog):**
+- ⭐ **Lumbosacral area** classic (back/tail base)
+- Hair loss, papules, excoriation, lichenification, hyperpigmentation
+- Secondary pyoderma + Malassezia common
+
+**FAD lesions (cat):**
+- ⭐ **Bilateral symmetrical alopecia** (over-grooming)
+- Miliary dermatitis · Eosinophilic plaque
+- Indolent ulcer at upper lip
+- ⚠️ **Cat = mysterious** — same lesion can be ANY allergy type! Can't dx by lesion alone
+
+> ⚠️ **Flea drug paradox**: ยาดีที่สุด → flea bites → dies, BUT **saliva already deposited** → still triggers FAD for 1-2 wk
+
+## 🕷️ Mites
+
+### Sarcoptes scabiei
+- Female burrows into epidermis → **intense pruritus**
+- Classic lesions: **ear margin crust** + hock + elbow
+- ⭐ **Pinnal-pedal scratch reflex** (rub ear → dog scratches with hindlimb) — supportive
+- Dx: **Superficial skin scraping** (epidermis only — no blood) — but yield < 20%
+- Cat: face/head only
+- **Treat empirically if suspect** — high index because hard to find
+
+### Otodectes cynotis (Ear mite)
+- Classic: **"coffee-ground" black discharge** in ear
+- Cat > dog · intensely pruritic, head shaking → **aural hematoma**
+- Dx: ear swab → see white moving dots OR otoscope direct view
+- Tx: **Isoxazoline** + ear flush (mechanical removal)
+
+### Demodex ⭐⭐
+**3 species:**
+| Species | Location | Contagious? |
+|---------|----------|-------------|
+| **D. canis** (dog), **D. cati** (cat) | **In hair follicle** | ⊘ Only dam → puppy < 72 hrs after birth |
+| **D. injai** (dog), **D. gatoi** (cat) | **On skin surface** ⭐ | ✅ **YES, contagious** |
+
+**Classification:**
+- By age: **juvenile-onset** (puppy/kitten) vs **adult-onset** (immunocompromised → look for Cushing, lymphoma, etc.)
+- By extent: **localized** (< 5 spots) vs **generalized** (≥ 5 spots)
+
+**Lesions:** comedones, follicular hyperpigmentation, alopecia
+- May have secondary pyoderma → "demodicosis with pyoderma"
+
+> ⚠️⚠️⚠️ **Demodex = absolute contraindication for steroid!** (immunosuppressive → bloom)
+
+**Tx:** **Isoxazoline** ⭐ (now first-line — old: amitraz dip, ivermectin)
+
+## 🦗 Lice (Pediculosis)
+- **Species-specific** (dog lice ≠ cat lice)
+- 2 types: sucking (anchored, sucks blood) vs biting (mobile, bites skin)
+- Egg = **nit** = stuck to hair
+- ⭐ Easy to see — light-colored, slow moving on dark coat
+- Common in rural / poor husbandry
+- Tx: Isoxazoline 1 dose = done
+
+---
+
+## 💊 Drug Reference
+
+### Current gold standard: **Isoxazoline** ⭐⭐⭐
+- Brands: **Bravecto, Simparica, NexGard, Credelio** (all = isoxazoline class)
+- Coverage: ticks, fleas, sarcoptes, demodex, otodectes, lice — **almost all parasites!**
+- ⚠️ Caution: **patients with seizure / epilepsy** — lowers seizure threshold
+- Alternative if seizure: **Moxidectin spot-on, Selamectin**
+
+### Deprecated / Avoid
+- **Ivomec injection** ⊘ (poor efficacy, outdated)
+- **Mitaban (amitraz dip)** ⊘ (replaced by isoxazoline)
+- **Frontline (fipronil)** — still works but less effective for ticks now (resistance)
+
+### Tick collar (Seresto, etc.)
+- Marketed 6-8 mo, but tick often grabs **under collar** → not reliable
+- Use as adjunct to oral isoxazoline, not primary
+
+## 🎯 Treatment Principles
+
+1. **Treat the animal** (oral isoxazoline first-line)
+2. **Treat the environment** (esp. flea — 95% there)
+3. **Treat ALL pets in household** (parasites pass between)
+4. **Lifelong prophylaxis** for at-risk pets (outdoor, multi-pet)
+5. **When in doubt → empirical treatment** (cheap, effective)
+6. Manage **secondary issues**: pyoderma, allergic itch (steroids OK after demodex/parasitic ruled out)
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐⭐
+
+### Anatomy/Physiology
+1. **Epidermis = no blood vessels** → topical for surface, systemic for deep
+2. Keratinization cycle: **3 wk dog/cat** vs 4 wk human → re-evaluate at 3 wk
+3. **Dog skin pH 7-7.5** vs human 5.5 → no human shampoo
+4. Single vs double coat (Doberman vs Pomeranian/Husky)
+5. Anagen-dominant (Poodle) vs telogen-dominant (Pom)
+6. Sebum production — sebaceous gland → hypothyroid lowers
+7. Sebaceous gland concentrated: **neck, interdigital, tail base**
+8. Eccrine sweat glands **only on paw pad**
+9. **Skin barrier** = stratum corneum + ceramide intercellular lipid
+
+### Lesions ⭐⭐⭐
+1. **Pustule** = mostly bacterial (95%) — but rule out pemphigus
+2. **Epidermal collarette** = ring scale = post-pustule
+3. **Macule < 1 cm**, **patch > 1 cm**
+4. **Excoriation** = scratch mark (itch indicator)
+5. **Lichenification** = thick chronic skin
+6. **Hyperpigmented patch** = chronic inflammation
+7. Erosion (epidermis) vs **Ulcer** (dermis, painful)
+8. Comedones = endocrine (Cushing/hypothyroid)
+9. Primary alone = recent · Primary+Secondary = chronic active
+
+### Parasitic
+1. **Pruritus workflow** = parasitic → bact → fungal → allergic
+2. **Flea: 5% on pet, 95% environment**
+3. **Pupae survive 3-6 mo** dormant
+4. **FAD: lumbosacral dog**, bilateral symmetrical cat
+5. **Sarcoptes**: ear margin + hock + elbow + pinnal-pedal reflex
+6. **Demodex** ⊘ NEVER STEROID + adult-onset = look for immunosuppression
+7. **D. injai/gatoi** = surface, contagious (vs canis/cati = follicle, not contagious adult-adult)
+8. **Otodectes**: coffee-ground discharge, head shake, aural hematoma
+9. **Isoxazoline** = current gold standard for almost all parasites
+10. ⚠️ **Avoid isoxazoline if seizure history**
+11. Treat **animal + environment + all in-contact pets**
+12. Empirical treatment when in doubt
+
+---
+
+> 💡 **อ. closing tip:**
+> "เห็บ/หมัดเล็กน้อย — แต่อาจนำเชื้อ Ehrlichia → IMT → ค่ารักษา 30K/เดือน 3-6 เดือน · อย่ามองข้าม"
+> "Cat lesions = mysterious — แมวมี 1 lesion type 1,000 cause · ต้องไล่ทุก step"
+> "Demodex อย่าให้ steroid เด็ดขาด — หากดอาการได้ก็จริง แต่ underlying disease กระจายแน่"`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
   // COM IV — Drug used for immune mediated diseases ➜ IBD + SLE
   // ─────────────────────────────────────────────────────────────
   pewBPGWFqoo: {
