@@ -4,14 +4,15 @@ import { SUBJECTS } from '../data/questions.js';
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
 // ============================================================
 // Settings exposed:
+//   • Question category (only for engprof — only subject with
+//     writing items; other subjects are pure MCQ so the picker
+//     would be UI noise)
 //   • # of questions (presets + custom)
-//   • Question category filter (all / MCQ-only / writing-only)
 //   • Timer toggle + time-per-question
 //
-// The category filter solves "MCQ + writing all jumbled together"
-// by letting the user split their practice. Writing-only sessions
-// also get a smarter timer (essay = 25 min, short = 3 min) via
-// timeForQuestion() in App.jsx.
+// Smart-AI grading was removed from the writing-review flow per
+// user request; ConfigView no longer carries a "writing grading
+// mode" picker. SelfGradeHint in ReviewView is the only output.
 // ============================================================
 
 const QCOUNT_PRESETS = [10, 20, 50];
@@ -23,13 +24,13 @@ const CATEGORIES = [
   { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน · จับเวลายาวขึ้นอัตโนมัติ' },
 ];
 
-const GRADING_MODES = [
-  { id: 'ask',  label: 'ถามตอนตรวจ',         icon: '🤔', desc: 'เลือก Self/AI ทีละข้อใน Review (ยืดหยุ่นที่สุด)' },
-  { id: 'self', label: 'ประเมินเอง',           icon: '📝', desc: 'ดู model + rubric → ให้คะแนนเอง · ไม่ใช้ AI' },
-  { id: 'ai',   label: 'AI ตรวจอัตโนมัติ',     icon: '🤖', desc: 'AI ตรวจให้ทุกข้อ + breakdown ต่อเกณฑ์ · ใช้ ANTHROPIC_API_KEY' },
-];
-
-export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, writingGradeMode, setWritingGradeMode, startExam, goHome, mode }) {
+export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, startExam, goHome, mode }) {
+  // The category picker only makes sense for engprof — the only
+  // subject with writing-style items. Showing it for COM III/IV/V
+  // (pure MCQ) just adds visual noise. For bookmarks/weak modes the
+  // pool is heterogeneous; we still hide it because the "all" default
+  // already does the right thing there.
+  const showCategoryPicker = subject === 'engprof' && practiceMode !== 'bookmarks' && practiceMode !== 'weak';
   const subjMeta = SUBJECTS.find((s) => s.id === subject);
   const topicMeta = topic && subjMeta?.topics?.find((t) => t.id === topic);
   const isExamMode = mode === 'exam';
@@ -74,36 +75,40 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
       )}
 
       <div className="vmx-config-panel">
-        {/* Question category — separate writing from MCQ */}
-        <div className="vmx-config-row">
-          <label className="vmx-label">ประเภทข้อสอบ</label>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {CATEGORIES.map((c) => (
-              <button
-                key={c.id}
-                onClick={() => setCat && setCat(c.id)}
-                style={{
-                  all: 'unset',
-                  cursor: 'pointer',
-                  padding: '10px 14px',
-                  borderRadius: 12,
-                  border: `1px solid ${(cat || 'all') === c.id ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
-                  background: (cat || 'all') === c.id ? 'rgba(74, 107, 74, 0.10)' : 'var(--clr-bg)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                }}
-              >
-                <span style={{ fontSize: 20 }}>{c.icon}</span>
-                <span style={{ flex: 1 }}>
-                  <span style={{ display: 'block', fontWeight: 600, fontSize: 13 }}>{c.label}</span>
-                  <span style={{ display: 'block', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{c.desc}</span>
-                </span>
-                {(cat || 'all') === c.id && <span style={{ fontSize: 14, color: 'var(--clr-sage)' }}>✓</span>}
-              </button>
-            ))}
+        {/* Question category — only shown for engprof (the one subject
+            that actually has writing items). For other subjects, the
+            picker would be inert noise. */}
+        {showCategoryPicker && (
+          <div className="vmx-config-row">
+            <label className="vmx-label">ประเภทข้อสอบ</label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {CATEGORIES.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => setCat && setCat(c.id)}
+                  style={{
+                    all: 'unset',
+                    cursor: 'pointer',
+                    padding: '10px 14px',
+                    borderRadius: 12,
+                    border: `1px solid ${(cat || 'all') === c.id ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
+                    background: (cat || 'all') === c.id ? 'rgba(74, 107, 74, 0.10)' : 'var(--clr-bg)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                  }}
+                >
+                  <span style={{ fontSize: 20 }}>{c.icon}</span>
+                  <span style={{ flex: 1 }}>
+                    <span style={{ display: 'block', fontWeight: 600, fontSize: 13 }}>{c.label}</span>
+                    <span style={{ display: 'block', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{c.desc}</span>
+                  </span>
+                  {(cat || 'all') === c.id && <span style={{ fontSize: 14, color: 'var(--clr-sage)' }}>✓</span>}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Number of questions */}
         <div className="vmx-config-row">
@@ -161,52 +166,15 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                 style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
               />
             </div>
-            <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
-              💡 เวลานี้ใช้กับข้อ MCQ/T/F · ข้อ Writing จะได้เวลามากขึ้นอัตโนมัติ:
-              <br/>
-              &nbsp;&nbsp;&nbsp;Short answer = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
-              · Essay = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
-            </div>
-          </div>
-        )}
-
-        {/* Writing assessment pre-flight choice — only matters when */}
-        {/* writing questions are likely (category = all/writing). For */}
-        {/* MCQ-only practice the grader is moot, so hide. */}
-        {(cat === 'all' || cat === 'writing') && setWritingGradeMode && (
-          <div className="vmx-config-row">
-            <label className="vmx-label">
-              ตรวจข้อเขียน
-              <span style={{ marginLeft: 6, fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', fontWeight: 400 }}>
-                (Writing assessment)
-              </span>
-            </label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              {GRADING_MODES.map((g) => (
-                <button
-                  key={g.id}
-                  onClick={() => setWritingGradeMode(g.id)}
-                  style={{
-                    all: 'unset',
-                    cursor: 'pointer',
-                    padding: '10px 14px',
-                    borderRadius: 12,
-                    border: `1px solid ${(writingGradeMode || 'ask') === g.id ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
-                    background: (writingGradeMode || 'ask') === g.id ? 'rgba(74, 107, 74, 0.10)' : 'var(--clr-bg)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 10,
-                  }}
-                >
-                  <span style={{ fontSize: 20 }}>{g.icon}</span>
-                  <span style={{ flex: 1 }}>
-                    <span style={{ display: 'block', fontWeight: 600, fontSize: 13 }}>{g.label}</span>
-                    <span style={{ display: 'block', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2, lineHeight: 1.4 }}>{g.desc}</span>
-                  </span>
-                  {(writingGradeMode || 'ask') === g.id && <span style={{ fontSize: 14, color: 'var(--clr-sage)' }}>✓</span>}
-                </button>
-              ))}
-            </div>
+            {/* Writing-time hint only relevant when subject = engprof */}
+            {showCategoryPicker && (
+              <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
+                💡 เวลานี้ใช้กับข้อ MCQ/T/F · ข้อ Writing จะได้เวลามากขึ้นอัตโนมัติ:
+                <br/>
+                &nbsp;&nbsp;&nbsp;Short answer = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
+                · Essay = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -37,6 +37,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.1.9',
+    date: '2026-04-27',
+    headline: '🧹 เก็บ Smart AI grading ออก + จัดให้ Writing UI โผล่เฉพาะ Eng Vet Prof II',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '🧹', title: 'Smart AI grading ซ่อนไว้ก่อน',
+        desc: 'หน้า Review ของข้อเขียนแสดงแค่ Self-assess + model + rubric · ไม่ต้องตั้ง ANTHROPIC_API_KEY แล้ว · code สำหรับ AI ยังเก็บไว้ในระบบเผื่ออนาคต' },
+      { scope: 'engprof', kind: 'fix', icon: '🎯', title: 'Category picker เฉพาะ Eng Vet Prof II',
+        desc: 'หน้า ConfigView "ทุกประเภท / MCQ / Writing เท่านั้น" โผล่เฉพาะตอนเลือกวิชา Eng Vet Prof II · วิชาอื่นซ่อน (เพราะมีแต่ MCQ อยู่แล้ว ไม่ต้องเลือก)' },
+      { scope: 'system', kind: 'fix', icon: '✂️', title: 'ลบ Writing grade mode picker',
+        desc: 'เดิม ConfigView มี chip "ตรวจข้อเขียน · ถามตอนตรวจ / ประเมินเอง / AI" — เอาออกแล้ว · default = self-assess view เลย' },
+    ],
+  },
+  {
     version: '5.1.8',
     date: '2026-04-27',
     headline: '🏷️ ประกาศบอกว่าแก้วิชาไหน vs แก้ระบบ — รู้ทันที',

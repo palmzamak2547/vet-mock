@@ -95,11 +95,6 @@ export default function App() {
   const [timePerQ, setTimePerQ] = useState(60);
   // 'all' (default) | 'mcq' (auto-graded only) | 'writing' (essay+short only)
   const [questionCategory, setQuestionCategory] = useState('all');
-  // Pre-flight choice for how to grade writing answers in Review.
-  // 'ask'  = show the Self/AI buttons per question (default — lets user decide later)
-  // 'self' = auto-go to self-grade view (skip the picker)
-  // 'ai'   = auto-call AI grading immediately when entering Review
-  const [writingGradeMode, setWritingGradeMode] = useLocalStorage('vmx-writing-grade-mode', 'ask');
   const [timeLeft, setTimeLeft] = useState(0);
   const [examStartTime, setExamStartTime] = useState(null);
 
@@ -478,10 +473,10 @@ export default function App() {
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions }} />}
               {view === 'topic-select' && <TopicSelectView {...{ subject, setTopic, setView, goHome, mode, customQuestions, readingChecklist }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, writingGradeMode, setWritingGradeMode, startExam, goHome, mode }} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode }} />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />}
-              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, writingGradeMode }} />}
+              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome }} />}
