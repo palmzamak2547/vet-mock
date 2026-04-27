@@ -20,6 +20,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         // Build display strings (stripRichText so joined output doesn't show raw asterisks)
         // Defensive bounds check — guards against malformed answer indices
         let userDisplay = '—', correctDisplay = '';
+        const isOpen = q.type === 'essay' || (q.type === 'short' && (!q.keywords || q.keywords.length === 0));
         if (q.type === 'mcq') {
           const userOpt = answered && userAns >= 0 && userAns < (q.options?.length || 0) ? q.options[userAns] : null;
           const corrOpt = q.options?.[q.answer];
@@ -34,6 +35,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         } else if (q.type === 'match') {
           userDisplay = answered ? q.pairs.map((p, i) => `${stripRichText(p.left)} → ${stripRichText(userAns[i]) || '—'}`).join('; ') : 'ไม่ได้ตอบ';
           correctDisplay = q.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('; ');
+        } else if (q.type === 'short' || q.type === 'essay') {
+          userDisplay = answered && typeof userAns === 'string' && userAns.trim() ? userAns : 'ไม่ได้เขียน';
+          correctDisplay = q.model_answer || '(no model answer)';
         }
 
         return (
@@ -58,15 +62,60 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   onClick={() => toggleBookmark(q.id)}>
                   {bookmarks.includes(q.id) ? '★' : '☆'}
                 </button>
-                <span className={`vmx-review-result ${correct ? 'ok' : 'no'}`}>
-                  {!answered ? 'SKIPPED' : correct ? '✓ ถูก' : '✗ ผิด'}
+                <span className={`vmx-review-result ${correct ? 'ok' : (isOpen ? '' : 'no')}`}
+                  style={isOpen ? { background: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold)' } : undefined}>
+                  {!answered ? 'SKIPPED' : isOpen ? '✍️ Self-assess' : (correct ? '✓ ถูก' : '✗ ผิด')}
                 </span>
               </div>
             </div>
             {q.image && <img src={q.image} alt="" className="vmx-qimage" style={{ maxWidth: 300 }} />}
+            {q.passage && (
+              <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, lineHeight: 1.65, whiteSpace: 'pre-wrap', maxHeight: 220, overflowY: 'auto' }}>
+                <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
+                  📄 {q.passage_title || 'Passage'}
+                </div>
+                <RichText text={q.passage} />
+              </div>
+            )}
             <div className="vmx-review-q"><RichText text={q.q} /></div>
-            <div className="vmx-review-ans"><span className="k">คำตอบของคุณ</span>{userDisplay}</div>
-            {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย</span>{correctDisplay}</div>}
+
+            {(q.type === 'short' || q.type === 'essay') ? (
+              <>
+                <div style={{ margin: '8px 0 6px', padding: 10, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
+                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>คำตอบของคุณ</div>
+                  <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>{userDisplay}</div>
+                  {q.type === 'essay' && answered && typeof userAns === 'string' && userAns.trim() && (
+                    <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+                      📊 {userAns.trim().split(/\s+/).length} words
+                    </div>
+                  )}
+                </div>
+                {q.model_answer && (
+                  <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-sage)' }}>
+                    <div style={{ fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4, fontWeight: 600 }}>✓ Model answer (จาก KEY)</div>
+                    <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
+                      <RichText text={q.model_answer} />
+                    </div>
+                  </div>
+                )}
+                {q.rubric && (
+                  <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.08)', border: '1px solid var(--clr-gold)' }}>
+                    <div style={{ fontSize: 11, color: 'var(--clr-gold)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4, fontWeight: 600 }}>📋 Marking criteria</div>
+                    <div style={{ fontSize: 12, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
+                      <RichText text={q.rubric} />
+                    </div>
+                  </div>
+                )}
+                <div style={{ marginTop: 6, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-bg)', border: '1px dashed var(--clr-border)', fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
+                  💡 ข้อเขียนตรวจอัตโนมัติไม่ได้ — เปรียบเทียบกับ model answer + rubric ข้างบน แล้วประเมินตัวเองว่าได้คะแนนเท่าไหร่
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="vmx-review-ans"><span className="k">คำตอบของคุณ</span>{userDisplay}</div>
+                {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย</span>{correctDisplay}</div>}
+              </>
+            )}
             {q.explain && <div className="vmx-review-explain"><span className="k">Why</span><RichText text={q.explain} /></div>}
             {notes && notes[q.id] && (
               <div className="vmx-note-panel" style={{ marginTop: 10 }}>

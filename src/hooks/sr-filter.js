@@ -16,6 +16,9 @@ const SR_INCOMPATIBLE_STEM = /ข้อใด|ข้อไหน|อันใด
 export function isFlashcardCompatible(q) {
   if (!q || !q.type) return false;
   if (q.type === 'match') return false;
+  // 'short' (free-form text) and 'essay' (writing) require self-assessment
+  // and don't have a single right answer that fits the flashcard model
+  if (q.type === 'short' || q.type === 'essay') return false;
   if (q.type !== 'mcq') return true; // tf, fill — recall works
   return !SR_INCOMPATIBLE_STEM.test(q.q || '');
 }

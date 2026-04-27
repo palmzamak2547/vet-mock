@@ -15,6 +15,23 @@
 
 export const CHANGELOG = [
   {
+    version: '5.1.3',
+    date: '2026-04-27',
+    headline: '✍️ Mock Exam Eng Vet Prof II พร้อมแล้ว — เขียน summary จริงๆ ได้เลย',
+    changes: [
+      { kind: 'feature', icon: '✍️', title: 'รองรับการเขียน Summary จริง',
+        desc: 'เพิ่ม 2 question types ใหม่: short answer (พิมพ์คำตอบสั้น) + essay (textarea + word counter + penalty zones สี: เขียว/ทอง/แดง)' },
+      { kind: 'feature', icon: '📄', title: 'Reading passage attached to questions',
+        desc: 'แสดง passage ยาวด้านบน + คำถามด้านล่าง (collapsible) เหมือน Final Part I จริงๆ' },
+      { kind: 'content', icon: '🎯', title: 'Mock Final 86 — Part I + Part II',
+        desc: 'Part I: บทความ MDORS/CORS (Pet-Human Relationships) + 8 short answers + 4 T/F · Part II: บทความ Bats + เขียน 150-word summary' },
+      { kind: 'content', icon: '📋', title: 'Model answer + rubric ใน Review',
+        desc: 'ตอบเสร็จ → กดดูเฉลย → เห็น sample summary จาก textbook + marking criteria ครบ 15 pts (Content 7 + Org/Grammar 5 + Paraphrase 3) → ประเมินตัวเองได้' },
+      { kind: 'fix', icon: '🧹', title: 'ลด MCQ meta-concept แปลกๆ ออก',
+        desc: 'เก็บ warm-up ที่จำเป็นไว้ 20 ข้อ · ตัดข้อที่ไม่ตรงกับรูปแบบสอบจริงออก → focus ที่ mock + writing' },
+    ],
+  },
+  {
     version: '5.1.2',
     date: '2026-04-27',
     headline: '🆕 Eng Vet Prof II พร้อมแล้ว! สอบพรุ่งนี้บ่าย',

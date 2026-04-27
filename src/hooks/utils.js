@@ -44,8 +44,29 @@ export const isCorrect = (q, ua) => {
     if (!ua || typeof ua !== 'object') return false;
     return q.pairs.every((p, i) => ua[i] === p.right);
   }
+  if (q.type === 'short') {
+    // Loose keyword match — q.keywords is an array of strings/phrases
+    // student needs to mention. ≥75% coverage = "correct" (heuristic).
+    // Stricter graders should self-assess in Review.
+    if (typeof ua !== 'string' || !ua.trim()) return false;
+    const text = ua.toLowerCase();
+    const keys = Array.isArray(q.keywords) ? q.keywords : [];
+    if (keys.length === 0) return false; // ungraded — Review will self-assess
+    const hit = keys.filter((k) => text.includes(String(k).toLowerCase())).length;
+    return hit / keys.length >= 0.75;
+  }
+  if (q.type === 'essay') {
+    // Open-ended writing — never auto-correct. ReviewView shows the
+    // model answer + rubric so the student self-assesses.
+    return false;
+  }
   return false;
 };
+
+// True if the question requires human / self-assessment for grading
+// (vs the deterministic types above). Used by ReviewView to render
+// a "self-assess" UI instead of the rigid "✓ ถูก / ✗ ผิด" badge.
+export const isOpenEnded = (q) => q?.type === 'essay' || (q?.type === 'short' && (!q.keywords || q.keywords.length === 0));
 
 // Check if today is a new study day (for streak)
 export function updateStreak(lastStudyDate, currentStreak) {
