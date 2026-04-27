@@ -1,12 +1,20 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote }) {
   // Passage panel (for reading-comprehension questions) — collapsible.
-  // Defaults open the first time so students see the text; they can
+  // Defaults open per question so students see the text; they can
   // collapse it when they're ready to focus on answering.
   const [passageOpen, setPassageOpen] = useState(true);
+  const passageRef = useRef(null);
+
+  // Reset the open/closed state when navigating to a different question
+  // (parent doesn't unmount us — it only swaps currentQ — so without
+  // this, collapsing the passage in Q1 would carry over to Q2/3/...).
+  useEffect(() => {
+    setPassageOpen(true);
+  }, [currentQ?.id]);
 
   // Word count for essay-type writing questions
   const essayText = (currentQ.type === 'essay' && typeof currentAnswer === 'string') ? currentAnswer : '';
@@ -20,62 +28,51 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     essayWords > softMax ? 'var(--clr-gold)' :
     'var(--clr-sage)';
 
-  return (
-    <div className="vmx-question-card">
-      <button className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="Bookmark (B)">
-        {isBookmarked ? '★' : '☆'}
-      </button>
-      <button className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="Note (N)">
-        📝
-      </button>
+  // FAB action — open passage if collapsed + smooth scroll into view.
+  // Used on narrow viewports where passage is above the writing area
+  // and scrolls out of sight while the user types.
+  const focusPassage = () => {
+    if (!passageOpen) setPassageOpen(true);
+    // Defer to next frame so the expanded layout is in place
+    requestAnimationFrame(() => {
+      try {
+        passageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch {
+        passageRef.current?.scrollIntoView();
+      }
+    });
+  };
 
-      <div className="vmx-qtype-badge">
-        {currentQ.type === 'mcq' && 'Multiple Choice'}
-        {currentQ.type === 'tf' && 'True / False'}
-        {currentQ.type === 'fill' && 'Fill in the Blank'}
-        {currentQ.type === 'match' && 'Matching'}
-        {currentQ.type === 'short' && 'Short Answer'}
-        {currentQ.type === 'essay' && '✍️ Writing (Summary)'}
-        {(() => {
-          const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
-          const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
-          return (
-            <>
-              {' · '}{subj?.name || currentQ.subject}
-              {topic && <> · <span style={{ color: subj?.color || 'var(--clr-ink-soft)' }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></>}
-            </>
-          );
-        })()}
-        {currentQ.examOrigin && (
-          <span title="คำถามนี้อ้างอิงจากข้อสอบเก่า" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
-            📜 ข้อสอบเก่า
+  // Header (bookmark + note + badge + image) renders at top regardless
+  // of layout. Below it, when a passage exists, the passage and the
+  // question content split into a 2-column grid on wide screens (CSS
+  // class `vmx-q-with-passage` does the responsive switch — see
+  // styles.js). On narrow screens they stack as before, plus a FAB
+  // appears for one-tap "back to passage" access.
+  const passageBlock = currentQ.passage && (
+    <div ref={passageRef} className="vmx-q-passage-pane">
+      <div style={{ border: '1px solid var(--clr-border)', borderRadius: 12, overflow: 'hidden', background: 'var(--clr-surface-2)' }}>
+        <button
+          type="button"
+          onClick={() => setPassageOpen((v) => !v)}
+          style={{ all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', width: '100%', boxSizing: 'border-box', background: 'var(--clr-surface)', borderBottom: passageOpen ? '1px solid var(--clr-border)' : 'none' }}
+        >
+          <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)' }}>
+            📄 {currentQ.passage_title || 'Reading Passage'}
           </span>
+          <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--clr-ink-soft)' }}>{passageOpen ? '▾ ซ่อน' : '▸ ดู passage'}</span>
+        </button>
+        {passageOpen && (
+          <div style={{ padding: '14px 16px', fontSize: 14, lineHeight: 1.75, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap', maxHeight: 380, overflowY: 'auto' }}>
+            <RichText text={currentQ.passage} />
+          </div>
         )}
       </div>
+    </div>
+  );
 
-      {currentQ.image && <img src={currentQ.image} alt="" className="vmx-qimage" />}
-
-      {/* Passage block (for reading-comprehension questions) */}
-      {currentQ.passage && (
-        <div style={{ marginBottom: 16, border: '1px solid var(--clr-border)', borderRadius: 12, overflow: 'hidden', background: 'var(--clr-surface-2)' }}>
-          <button
-            type="button"
-            onClick={() => setPassageOpen((v) => !v)}
-            style={{ all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', width: '100%', boxSizing: 'border-box', background: 'var(--clr-surface)', borderBottom: passageOpen ? '1px solid var(--clr-border)' : 'none' }}
-          >
-            <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)' }}>
-              📄 {currentQ.passage_title || 'Reading Passage'}
-            </span>
-            <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--clr-ink-soft)' }}>{passageOpen ? '▾ ซ่อน' : '▸ ดู passage'}</span>
-          </button>
-          {passageOpen && (
-            <div style={{ padding: '14px 16px', fontSize: 14, lineHeight: 1.75, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap', maxHeight: 380, overflowY: 'auto' }}>
-              <RichText text={currentQ.passage} />
-            </div>
-          )}
-        </div>
-      )}
-
+  const contentBlock = (
+    <div className="vmx-q-content-pane">
       <div className="vmx-qtext"><RichText text={currentQ.q} /></div>
 
       {showNote && (
@@ -135,10 +132,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         </div>
       )}
 
-      {/* Short answer — free-form 1-3 line text input.
-          Auto-grade does loose keyword matching against q.model_answer
-          (see hooks/utils.js → isCorrect). User can also self-grade in
-          ReviewView since open-text grading is inherently fuzzy. */}
+      {/* Short answer — free-form text input. Auto-grade does loose
+          keyword matching against q.keywords; user can also self-grade
+          or AI-grade in Review since open-text grading is fuzzy. */}
       {currentQ.type === 'short' && (
         <div className="vmx-fill-row">
           <div className="vmx-fill-label">Your answer (พิมพ์ตอบสั้นๆ)</div>
@@ -158,9 +154,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
 
       {/* Essay / Summary — full writing question with live word counter.
-          target_words / soft_max_words / hard_max_words on the question
-          drive the bar color (sage → gold → rose) so the user can self-
-          regulate length against the Final's penalty zones. */}
+          target_words / soft_max_words / hard_max_words drive the bar
+          color (sage → gold → rose) so the user self-regulates length
+          against the Final's penalty zones. */}
       {currentQ.type === 'essay' && (
         <div style={{ marginTop: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 6 }}>
@@ -202,6 +198,68 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             🎯 Target: <strong>{target}</strong> words · Soft cap: <strong>{softMax}</strong> (penalty −1) · Hard cap: <strong>{hardMax}</strong> (penalty −2)
           </div>
         </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="vmx-question-card">
+      <button className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="Bookmark (B)">
+        {isBookmarked ? '★' : '☆'}
+      </button>
+      <button className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="Note (N)">
+        📝
+      </button>
+
+      <div className="vmx-qtype-badge">
+        {currentQ.type === 'mcq' && 'Multiple Choice'}
+        {currentQ.type === 'tf' && 'True / False'}
+        {currentQ.type === 'fill' && 'Fill in the Blank'}
+        {currentQ.type === 'match' && 'Matching'}
+        {currentQ.type === 'short' && 'Short Answer'}
+        {currentQ.type === 'essay' && '✍️ Writing (Summary)'}
+        {(() => {
+          const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
+          const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
+          return (
+            <>
+              {' · '}{subj?.name || currentQ.subject}
+              {topic && <> · <span style={{ color: subj?.color || 'var(--clr-ink-soft)' }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></>}
+            </>
+          );
+        })()}
+        {currentQ.examOrigin && (
+          <span title="คำถามนี้อ้างอิงจากข้อสอบเก่า" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
+            📜 ข้อสอบเก่า
+          </span>
+        )}
+      </div>
+
+      {currentQ.image && <img src={currentQ.image} alt="" className="vmx-qimage" />}
+
+      {/* Layout switch: with-passage = grid on wide / stacked on narrow */}
+      {currentQ.passage ? (
+        <div className="vmx-q-with-passage">
+          {passageBlock}
+          {contentBlock}
+        </div>
+      ) : (
+        <>{contentBlock}</>
+      )}
+
+      {/* Mobile/tablet only — pinned bottom-right. CSS hides it on
+          desktop because the side-by-side grid already keeps the
+          passage in view. Tap → expand+scroll the passage block. */}
+      {currentQ.passage && (
+        <button
+          type="button"
+          className="vmx-passage-fab"
+          onClick={focusPassage}
+          aria-label="ดู passage"
+          title="ดู passage"
+        >
+          📄 Passage
+        </button>
       )}
     </div>
   );

@@ -12,20 +12,38 @@ export default function ResultsView({ score, questions, answers, goHome, setView
     return typeof ua === 'string' && ua.trim().length > 0;
   }).length;
 
-  const msg = score.pct === 100 ? '"เทพสุดๆ เก่งมากก 🏆"'
+  // Pick a message that matches what the user actually did:
+  // pure-writing sessions don't have a percentage, so a "low score"
+  // pep-talk is misleading. Show a writing-specific message instead.
+  const msg = autoQs.length === 0
+    ? (writingAttempted === writingQs.length && writingQs.length > 0
+        ? '"เขียนครบทุกข้อแล้ว ✍️ ไปดูเฉลย / AI grade ได้เลย"'
+        : writingAttempted > 0
+          ? '"เขียนได้ส่วนหนึ่งแล้ว ✍️ ลองดูเฉลย + AI feedback"'
+          : '"ยังไม่ได้เขียนข้อไหนเลย — กลับไปลองอีกที 💪"')
+    : score.pct === 100 ? '"เทพสุดๆ เก่งมากก 🏆"'
     : score.pct >= 80 ? '"โค้ดดดด ใกล้จะผ่านแล้ว อ่านอีกนิดนึง"'
     : score.pct >= 60 ? '"ผ่านครับ แต่ต้องอ่านซ้ำส่วนที่ผิด"'
     : score.pct >= 40 ? '"สู้ๆ นะ เปิดข้อสอบเก่าอ่านอีกรอบกันเถอะ"'
     : '"ไม่เป็นไร เริ่มใหม่ได้เสมอ 💪"';
 
   const isExam = mode === 'exam';
-  const passed = score.pct >= 60;
+  // pass/fail only meaningful for auto-graded sessions; pure-writing
+  // mocks (autoQs.length === 0) get neither banner since the engine
+  // can't actually compute pass/fail without manual/AI grading
+  const passed = autoQs.length > 0 && score.pct >= 60;
+  const showPassFail = isExam && autoQs.length > 0;
 
   return (
     <>
-      {isExam && (
+      {showPassFail && (
         <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
           {passed ? '✓ PASSED' : '✗ FAILED'} · EXAM MODE
+        </div>
+      )}
+      {isExam && autoQs.length === 0 && writingQs.length > 0 && (
+        <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-gold)' }}>
+          ✍️ WRITING SESSION · GRADE IN REVIEW
         </div>
       )}
 

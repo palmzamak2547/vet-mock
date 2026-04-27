@@ -152,6 +152,60 @@ html, body { overscroll-behavior-y: contain; }
 .vmx-qtext { font-size: 17px; line-height: 1.55; margin-bottom: 24px; color: var(--clr-ink); }
 .vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; }
 
+/* ── Reading-comprehension layout ───────────────────────────
+   On desktop ≥1024px, render passage as a sticky LEFT pane next
+   to the question content, so students can see the passage and
+   write at the same time without scrolling up & down.
+   On smaller screens fall back to the default stacked flow. */
+.vmx-q-with-passage { display: block; }
+.vmx-q-passage-pane { margin-bottom: 16px; }
+@media (min-width: 1024px) {
+  .vmx-q-with-passage {
+    display: grid;
+    grid-template-columns: minmax(300px, 42%) 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .vmx-q-passage-pane {
+    position: sticky;
+    top: 16px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    margin-bottom: 0;
+  }
+}
+
+/* ── Floating "back to passage" button (mobile/tablet) ──────
+   Pinned bottom-right; tap → smooth-scrolls passage block back
+   into view + opens it if the user had collapsed it. Hidden on
+   desktop where the side-by-side layout obviates the need. */
+.vmx-passage-fab {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 50;
+  border: none;
+  cursor: pointer;
+  background: var(--clr-ink);
+  color: var(--clr-surface);
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.vmx-passage-fab:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.22); }
+.vmx-passage-fab:active { transform: translateY(0); }
+@media (min-width: 1024px) { .vmx-passage-fab { display: none; } }
+@supports (padding: env(safe-area-inset-bottom)) {
+  .vmx-passage-fab { bottom: max(18px, env(safe-area-inset-bottom)); }
+}
+
 .vmx-options { display: flex; flex-direction: column; gap: 10px; }
 .vmx-option { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: var(--clr-bg); border: 1px solid var(--clr-border); border-radius: 12px; cursor: pointer; transition: all 0.15s; text-align: left; color: var(--clr-ink); font-family: inherit; }
 .vmx-option:hover { border-color: var(--clr-ink); background: var(--clr-surface-2); }

@@ -159,14 +159,21 @@ export default function App() {
   // Auto-save in-flight exam state to localStorage. Runs on every
   // answer/navigation so accidental tab-close during a 25-minute
   // essay doesn't lose work. Skipped when there's no active exam.
+  // Debounced 500ms so a fast-typing essay (with answers state
+  // updating per keystroke) doesn't cause a localStorage write
+  // every 30ms — that throttles down to ≤2/sec, which is plenty
+  // safe for crash recovery and far easier on slow phones.
   useEffect(() => {
     if (view !== 'exam' || questions.length === 0) return;
-    try {
-      window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({
-        questions, answers, currentIdx,
-        savedAt: Date.now(),
-      }));
-    } catch {}
+    const timer = setTimeout(() => {
+      try {
+        window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({
+          questions, answers, currentIdx,
+          savedAt: Date.now(),
+        }));
+      } catch {}
+    }, 500);
+    return () => clearTimeout(timer);
   }, [view, questions, answers, currentIdx]);
 
   // Detect a previous in-flight exam at boot and offer to resume.

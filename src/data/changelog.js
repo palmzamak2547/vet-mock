@@ -15,6 +15,23 @@
 
 export const CHANGELOG = [
   {
+    version: '5.1.7',
+    date: '2026-04-27',
+    headline: '📄 Passage + Writing area แสดงข้างกัน · ไม่ต้องเลื่อนกลับไปกลับมาแล้ว',
+    changes: [
+      { kind: 'feature', icon: '📄', title: 'Side-by-side passage + writing บนจอใหญ่',
+        desc: 'iPad/Desktop ≥1024px: passage อยู่ซ้าย (sticky) · เขียนคำตอบขวา · เห็นทั้งคู่พร้อมกันโดยไม่ต้องเลื่อน' },
+      { kind: 'feature', icon: '📱', title: 'ปุ่มลอย "📄 Passage" บนมือถือ',
+        desc: 'แตะปุ่มมุมขวาล่าง → passage เลื่อนกลับมาให้เห็น + ขยายอัตโนมัติถ้ายุบไว้ · ไม่ต้องเลื่อนนิ้วขึ้นลงเอง' },
+      { kind: 'fix', icon: '⚡', title: 'Auto-save debounce 500ms',
+        desc: 'พิมพ์เร็วๆ ไม่กระตุก แล้ว — เซฟลง localStorage 2 ครั้ง/วินาที (เดิม save ทุก keystroke ทำมือถือเก่าหน่วง)' },
+      { kind: 'fix', icon: '🐛', title: 'Passage open state ไม่หลงข้อ',
+        desc: 'ยุบ passage ใน Q1 → ไป Q2 → เดิม passage ยุบต่อเนื่อง · แก้แล้วเปิดใหม่ทุกข้อ' },
+      { kind: 'fix', icon: '✍️', title: 'Result message สำหรับ Writing-only',
+        desc: 'เขียน-only session ไม่แสดง "0% FAILED" แล้ว · แสดง "Writing Session · Grade in Review" + message ที่เหมาะ' },
+    ],
+  },
+  {
     version: '5.1.6',
     date: '2026-04-27',
     headline: '🎚 เลือก Self/AI ก่อนเริ่ม + auto-save กันลืม + bug fix',
