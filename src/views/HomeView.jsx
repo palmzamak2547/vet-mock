@@ -191,6 +191,10 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
                   {/* Scope chip — tells you "is this a system change or did */}
                   {/* it touch a specific subject?" without reading the desc */}
                   {c.scope && <ScopeChip scope={c.scope} />}
+                  {/* "จาก feedback" pill — keeps a visible record that the */}
+                  {/* fix came from a user submission, so other students see */}
+                  {/* their feedback actually moves the needle. */}
+                  {c.fromFeedback && <FeedbackChip />}
                   <strong style={{ color: 'var(--clr-ink)' }}>{c.title}</strong>
                   <span style={{ color: 'var(--clr-ink-soft)' }}> — {c.desc}</span>
                 </span>
@@ -407,6 +411,35 @@ function ScopeChip({ scope }) {
       }}
     >
       {meta.icon} {meta.label}
+    </span>
+  );
+}
+
+// ── "จาก feedback" chip ─────────────────────────────────────────
+// Marks changelog entries that came from a user's feedback form or
+// email so the rest of the cohort sees their submissions actually
+// shipped. Keep this entry-level (not version-level) — sometimes a
+// release contains both feedback fixes and unrelated changes.
+function FeedbackChip() {
+  return (
+    <span
+      title="แก้จาก feedback ที่ส่งมา"
+      style={{
+        display: 'inline-block',
+        padding: '1px 7px',
+        marginRight: 6,
+        marginBottom: 2,
+        borderRadius: 999,
+        background: 'rgba(184, 137, 64, 0.15)',
+        color: 'var(--clr-gold)',
+        fontSize: 10,
+        fontFamily: 'JetBrains Mono, monospace',
+        fontWeight: 600,
+        verticalAlign: 'middle',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      📨 จาก feedback
     </span>
   );
 }

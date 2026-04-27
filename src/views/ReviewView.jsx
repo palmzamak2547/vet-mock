@@ -3,6 +3,7 @@ import { isCorrect } from '../hooks/utils.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import SmartGrader from '../components/SmartGrader.jsx';
+import BackBar from '../components/BackBar.jsx';
 
 // NOTE: Smart AI grading was temporarily removed from the UI per user
 // request — the model + rubric + self-assessment workflow alone is
@@ -14,6 +15,7 @@ import SmartGrader from '../components/SmartGrader.jsx';
 export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }) {
   return (
     <>
+      <BackBar onBack={goHome} label="หน้าแรก" subtitle={`${questions.length} ข้อ`} />
       <div className="vmx-hero">
         <h1>เฉลย <em>ข้อสอบ</em></h1>
         <p>กด ★ เพื่อ bookmark ข้อที่อยากกลับมาทำซ้ำ</p>

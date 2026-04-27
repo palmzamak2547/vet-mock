@@ -1,4 +1,5 @@
 import { isCorrect, isWritingType } from '../hooks/utils.js';
+import BackBar from '../components/BackBar.jsx';
 
 export default function ResultsView({ score, questions, answers, goHome, setView, mode }) {
   // Split writing from auto-graded for the result counts so writing
@@ -36,6 +37,7 @@ export default function ResultsView({ score, questions, answers, goHome, setView
 
   return (
     <>
+      <BackBar onBack={goHome} label="หน้าแรก" />
       {showPassFail && (
         <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
           {passed ? '✓ PASSED' : '✗ FAILED'} · EXAM MODE

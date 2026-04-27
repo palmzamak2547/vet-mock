@@ -1,11 +1,13 @@
 import { QB } from '../data/questions.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import BackBar from '../components/BackBar.jsx';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [] }) {
   const allQuestions = [...QB, ...customQuestions];
 
   return (
     <>
+      <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>เลือก <em>วิชา</em></h1>
         <p>

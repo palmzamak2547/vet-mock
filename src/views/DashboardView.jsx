@@ -1,5 +1,6 @@
 import { SUBJECTS, QB } from '../data/questions.js';
 import { downloadJSON } from '../hooks/utils.js';
+import BackBar from '../components/BackBar.jsx';
 
 export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, customQuestions }) {
   const exportData = () => {
@@ -41,6 +42,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
   return (
     <>
+      <BackBar onBack={() => setView('home')} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>Analytics <em>Dashboard</em></h1>
         <p>สถิติการฝึกของคุณ · 🔥 Streak: {streak || 0} วัน</p>

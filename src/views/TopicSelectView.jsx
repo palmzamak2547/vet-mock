@@ -1,5 +1,6 @@
 import { QB } from '../data/questions.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import BackBar from '../components/BackBar.jsx';
 
 export default function TopicSelectView({ subject, setTopic, setView, goHome, mode, customQuestions = [], readingChecklist = {} }) {
   const subjectMeta = SUBJECTS.find((s) => s.id === subject);
@@ -21,6 +22,7 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
 
   return (
     <>
+      <BackBar onBack={() => setView('subject-select')} label="เลือกวิชาอื่น" subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
       <div className="vmx-hero">
         <h1>เลือก <em>หัวข้อ</em></h1>
         <p>{subjectMeta?.icon} {subjectMeta?.name} · เลือกเฉพาะหัวข้อที่จะสอบ หรือทั้งหมดก็ได้</p>

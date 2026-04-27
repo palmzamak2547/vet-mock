@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, isPlaylistUrl, isChannelUrl } from '../data/videos.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
+import BackBar from '../components/BackBar.jsx';
 
 // ── Playlist preview cache (first video thumbnail + count) ──────────
 // Single in-memory map shared across cards so 6 cards in the grid don't
@@ -164,6 +165,7 @@ export default function VideoView({ goHome }) {
 
   return (
     <>
+      <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>🎥 คลิป<em>ย้อนหลัง</em></h1>
         <p>

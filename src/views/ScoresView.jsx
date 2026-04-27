@@ -1,11 +1,13 @@
 import { getAllScores } from '../data/scores.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import BackBar from '../components/BackBar.jsx';
 
 export default function ScoresView({ goHome }) {
   const scores = getAllScores();
 
   return (
     <>
+      <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>สัดส่วน <em>คะแนน</em></h1>
         <p>ปี 4 เทอม 2 · Vet 86 · ข้อมูลจากภาพ "สัดส่วนคะแนน.jpg" (อาจไม่ครบ — ส่งข้อมูลเพิ่มทาง Feedback ได้)</p>

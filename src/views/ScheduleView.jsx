@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { EXAM_SCHEDULE, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { QB } from '../data/questions.js';
+import BackBar from '../components/BackBar.jsx';
 
 export default function ScheduleView({ goHome, setSubject, setMode, setView, setPracticeMode }) {
   const [showPast, setShowPast] = useState(false);
@@ -27,6 +28,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
 
   return (
     <>
+      <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>📅 ตาราง<em>สอบ Final</em></h1>
         <p>Vet 86 · Semester 2/2568 · อัพเดตล่าสุดจากข้อสอบเก่าและประกาศ</p>

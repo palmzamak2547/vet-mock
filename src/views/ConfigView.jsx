@@ -1,4 +1,5 @@
 import { SUBJECTS } from '../data/questions.js';
+import BackBar from '../components/BackBar.jsx';
 
 // ============================================================
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
@@ -42,6 +43,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
 
   return (
     <>
+      <BackBar onBack={goHome} label="ย้อนกลับ" subtitle={contextLine} />
       <div className="vmx-hero">
         <h1>{isExamMode ? 'เริ่ม' : 'ตั้งค่า'} <em>{isExamMode ? 'การสอบ' : 'การฝึก'}</em></h1>
         <p>{contextLine}</p>

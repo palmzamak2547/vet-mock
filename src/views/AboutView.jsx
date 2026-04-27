@@ -1,9 +1,11 @@
 import { SUBJECTS } from '../data/curriculum.js';
 import { QUESTION_SOURCES } from '../data/sources.js';
+import BackBar from '../components/BackBar.jsx';
 
 export default function AboutView({ goHome, setView }) {
   return (
     <>
+      <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>เกี่ยวกับ <em>VetMock</em></h1>
         <p>คลังข้อสอบและเครื่องมือเตรียมสอบสำหรับสัตวแพทย์ จุฬาฯ</p>

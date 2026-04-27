@@ -5,6 +5,7 @@ import { NOTES_COM4 } from '../data/notes-com4.js';
 import { NOTES_ENGPROF } from '../data/notes-engprof.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
+import BackBar from '../components/BackBar.jsx';
 
 // ============================================================
 // NotesView — ทวนเนื้อหา (study notes per topic)
@@ -69,6 +70,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   if (!topic) {
     return (
       <>
+        <BackBar onBack={goBack || goHome} label={goBack ? 'เลือก topic อื่น' : 'หน้าแรก'} />
         <div className="vmx-hero"><h1>ทวน <em>เนื้อหา</em></h1></div>
         <div className="vmx-empty">ยังไม่มีโน้ตสำหรับวิชานี้</div>
         <div className="vmx-btn-row">
@@ -90,6 +92,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 
   return (
     <>
+      <BackBar onBack={goBack || goHome} label={goBack ? 'เลือก topic อื่น' : 'หน้าแรก'} subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
       <div className="vmx-hero">
         <h1>📖 ทวน <em>เนื้อหา</em></h1>
         <p>

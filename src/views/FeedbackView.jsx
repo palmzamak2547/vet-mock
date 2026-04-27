@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import BackBar from '../components/BackBar.jsx';
 
 const CONTACT_EMAIL = 'palmzamak2547@gmail.com';
 
@@ -66,6 +67,7 @@ export default function FeedbackView({ goHome, user, profile }) {
 
   return (
     <>
+      <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>📮 <em>Feedback</em> & Bug Report</h1>
         <p>เจอ bug? มีข้อเสนอแนะ? หรืออยากแชร์ข้อสอบเพิ่ม? ส่งมาได้เลย — ส่งตรงไปที่อีเมล Vet 86</p>

@@ -126,10 +126,41 @@ html, body { overscroll-behavior-y: contain; }
 .vmx-btn-primary { background: var(--clr-ink); color: var(--clr-bg); }
 .vmx-btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
 .vmx-btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
-.vmx-btn-ghost { background: transparent; color: var(--clr-ink); border: 1px solid var(--clr-border); }
-.vmx-btn-ghost:hover { background: var(--clr-surface); border-color: var(--clr-ink); }
+/* Ghost (= back/secondary) button: pre-feedback this was transparent
+   with a thin grey border, which several students reported as
+   invisible — they couldn't find the back button at the bottom of
+   long views. Now it has a sage-soft tint, thicker border, and a
+   left-arrow that animates on hover so it's obviously a back affordance. */
+.vmx-btn-ghost { background: var(--clr-surface); color: var(--clr-ink); border: 1.5px solid var(--clr-border); font-weight: 600; }
+.vmx-btn-ghost:hover { background: rgba(74, 107, 74, 0.10); border-color: var(--clr-sage); color: var(--clr-sage); transform: translateX(-2px); }
+.vmx-btn-ghost:active { transform: translateX(0); }
 .vmx-btn-sm { padding: 8px 16px; font-size: 12px; }
 .vmx-btn-row { display: flex; gap: 10px; justify-content: space-between; align-items: center; margin-top: 20px; flex-wrap: wrap; }
+
+/* Top back-bar: sticky at top of sub-views so users always know
+   how to escape — especially helpful inside long pages (Notes,
+   Schedule) where the bottom button scrolls out of sight. The
+   chip-sized button mirrors the visual language of the bottom
+   ghost button but stays within thumb reach on mobile. */
+.vmx-back-bar { display: flex; align-items: center; gap: 8px; margin: -8px 0 18px; }
+.vmx-back-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px 8px 12px; border-radius: 999px;
+  background: var(--clr-surface); color: var(--clr-ink);
+  border: 1.5px solid var(--clr-border);
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+  text-decoration: none;
+}
+.vmx-back-chip:hover {
+  background: rgba(74, 107, 74, 0.10);
+  border-color: var(--clr-sage);
+  color: var(--clr-sage);
+  transform: translateX(-2px);
+}
+.vmx-back-chip .arrow { display: inline-block; transition: transform 0.15s; font-weight: 700; }
+.vmx-back-chip:hover .arrow { transform: translateX(-2px); }
 
 .vmx-exam-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .vmx-progress { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--clr-ink-soft); }
