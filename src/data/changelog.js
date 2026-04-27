@@ -37,6 +37,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.5.0',
+    date: '2026-04-27',
+    headline: '🎲 ปิด position bias ทุกหัวข้อ + ลบ ** ทั้งคลัง + linter ระยะยาว',
+    changes: [
+      { scope: 'multi', kind: 'fix', icon: '🎲', title: 'แก้ answer-position bias 13 หัวข้อ (66 ข้อ)', fromFeedback: true,
+        desc: 'Feedback: "ตอบ B ก็ถูกเกือบหมดเลย" — เป็นเพราะตอนรีไรท์ distractor ใน v5.2.0 เก็บ answer:1 ไว้ทุกข้อ · ตอนนี้ครอบคลุม IMHA/IBD/SLE + dermatology series ทั้งหมด (intro/bacterial/fungal/endocrine/nutrition/allergic/autoimmune) + immune-drugs + peds-geri + ai-vet · กระจายคำตอบทุก index 0-4 อย่างสมดุล' },
+      { scope: 'system', kind: 'feature', icon: '🛡️', title: 'Question linter + auto-fix script', fromFeedback: true,
+        desc: 'เพิ่ม `npm run lint:questions` ตรวจ position bias / length bias / ** markdown leak อัตโนมัติ — exit-1 ถ้าเจอ error · `npm run fix:questions` แก้ position bias + ลบ ** อัตโนมัติทั้งคลัง · idempotent run ซ้ำได้ไม่เสีย' },
+      { scope: 'multi', kind: 'fix', icon: '✨', title: 'ลบ ** markdown bold ทั่วทั้งคลังข้อสอบ (330 จุด)', fromFeedback: true,
+        desc: 'Feedback: "** ดูเป็น AI" — ลบสัญลักษณ์ ** ทั้ง engprof (170) · com3 (134) · com5 (20) · com4 (6) ออก · เปลี่ยนเป็นภาษาธรรมชาติ ไม่มี emphasis ขัดตา' },
+    ],
+  },
+  {
     version: '5.4.0',
     date: '2026-04-27',
     headline: '⬅️ ปุ่มย้อนกลับเด่นขึ้น + 📨 ป้าย "จาก feedback" + 30 ข้อสอบเก่า COM III',

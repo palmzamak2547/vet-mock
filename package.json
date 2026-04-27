@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "icons": "node scripts/generate-icons.mjs"
+    "icons": "node scripts/generate-icons.mjs",
+    "lint:questions": "node scripts/lint-questions.cjs",
+    "fix:questions": "node scripts/fix-question-bias.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

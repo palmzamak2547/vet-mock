@@ -376,7 +376,7 @@ export const QB_COM3 = [
     tags: ['dka', 'treatment-order'], type: 'mcq',
     q: 'Treatment order สำหรับ DKA — ก่อนให้ insulin ต้องทำอะไรก่อน',
     options: ['ให้ glucose ก่อน', 'แก้ electrolyte imbalance + dehydration ก่อน · จากนั้น CRI insulin', 'ให้ steroid ก่อน', 'ให้ insulin bolus ทันที'],
-    answer: 1, explain: 'DKA: rehydrate (NSS) + correct K + check phosphate ก่อน → จากนั้น **regular insulin CRI** (dog 2.2 U/kg/d, cat 1.1 U/kg/d)\nห้าม SC route\n\n❌ ทำไมข้ออื่นผิด\n— Glucose ก่อน = ไม่แก้ acidosis\n— Steroid ก่อน = no role\n— Insulin bolus = K ตก รุนแรง',
+    answer: 1, explain: 'DKA: rehydrate (NSS) + correct K + check phosphate ก่อน → จากนั้น regular insulin CRI (dog 2.2 U/kg/d, cat 1.1 U/kg/d)\nห้าม SC route\n\n❌ ทำไมข้ออื่นผิด\n— Glucose ก่อน = ไม่แก้ acidosis\n— Steroid ก่อน = no role\n— Insulin bolus = K ตก รุนแรง',
     verified: 'metabolic and endocrine and UT 1 hr.pdf + master p.33' },
 
   { id: 762, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'master p.33',
@@ -473,7 +473,7 @@ export const QB_COM3 = [
 
   { id: 780, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
     tags: ['neuro-exam', 'goals'], type: 'mcq',
-    q: 'Goals of neurological examination มี 4 ข้อ — ข้อใด **ไม่ใช่**',
+    q: 'Goals of neurological examination มี 4 ข้อ — ข้อใด ไม่ใช่',
     options: ['Determine the anesthetic protocol', 'Determine pathologic process', 'Localize lesion', 'Confirm ว่า lesion อยู่ใน nervous system'],
     answer: 0, explain: 'Goals: confirm neuro problem\nlocalize\npathologic process\nseverity → prognosis\nไม่เกี่ยวกับ anesthesia plan',
     verified: 'neuro_exam 1 hr.pdf' },
@@ -563,7 +563,7 @@ export const QB_COM3 = [
 
   { id: 800, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
     tags: ['seizure', 'classification'], type: 'mcq',
-    q: 'Seizure ที่เกิด **มากกว่า 5 นาที** หรือ ≥ 2 ครั้งใน 24 ชม. โดยไม่ recover ระหว่างนั้น เรียกว่า',
+    q: 'Seizure ที่เกิด มากกว่า 5 นาที หรือ ≥ 2 ครั้งใน 24 ชม. โดยไม่ recover ระหว่างนั้น เรียกว่า',
     options: ['Status epilepticus', 'Focal seizure', 'Absence seizure', 'Cluster seizure'],
     answer: 0, explain: 'Status epilepticus = > 5 min single OR ≥ 2 seizures with incomplete recovery\nCluster = ≥ 2 seizures in 24h, recover between',
     verified: 'seizure 1 hr.pdf + IVETF 2015' },
@@ -812,7 +812,7 @@ export const QB_COM3 = [
   { id: 840, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes 1 hr.pdf',
     tags: ['er-anes', 'acepromazine'], type: 'tf',
     q: 'Acepromazine ปลอดภัยใช้ pre-medicate ในสัตว์ shock / hypotension / anemic',
-    answer: false, explain: 'False! Acepromazine block α1 → vasodilation → hypotension\n**contraindicated** ใน shock, hypotensive, anemic patient',
+    answer: false, explain: 'False! Acepromazine block α1 → vasodilation → hypotension\ncontraindicated ใน shock, hypotensive, anemic patient',
     verified: 'Animal_Emerg_Anes 1 hr.pdf + master p.46' },
 
   { id: 841, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes 1 hr.pdf',
@@ -825,8 +825,8 @@ export const QB_COM3 = [
   { id: 842, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes 1 hr.pdf',
     tags: ['er-anes', 'preoxygenation'], type: 'mcq',
     q: 'Pre-oxygenation ก่อน induction ในสัตว์ ER — เป้าหมายคืออะไร',
-    options: ['เพิ่ม O₂ reserve ใน FRC (functional residual capacity) ลด risk hypoxia ระหว่าง intubation', 'ลดความเจ็บปวดระหว่าง intubation', 'ลดขนาด induction agent ที่ต้องใช้', 'ทำให้สัตว์ตื่นมากขึ้นก่อน induction'],
-    answer: 0, explain: 'Pre-O₂: 3-5 min mask → fill FRC + denitrogenate\nลด desaturation risk during intubation\nสำคัญใน hypovolemic, dyspneic, brachycephalic\n\n❌ ทำไมข้ออื่นผิด\n— ลดความเจ็บ = ใช้ local\n— ลดยาวาง = MAC reduction (ไม่ใช่ pre-O₂)\n— ทำให้ตื่น = ผิด goal',
+    options: ['ลดขนาด induction agent ที่ต้องใช้', 'ลดความเจ็บปวดระหว่าง intubation', 'เพิ่ม O₂ reserve ใน FRC (functional residual capacity) ลด risk hypoxia ระหว่าง intubation', 'ทำให้สัตว์ตื่นมากขึ้นก่อน induction'],
+    answer: 2, explain: 'Pre-O₂: 3-5 min mask → fill FRC + denitrogenate\nลด desaturation risk during intubation\nสำคัญใน hypovolemic, dyspneic, brachycephalic\n\n❌ ทำไมข้ออื่นผิด\n— ลดความเจ็บ = ใช้ local\n— ลดยาวาง = MAC reduction (ไม่ใช่ pre-O₂)\n— ทำให้ตื่น = ผิด goal',
     verified: 'Animal_Emerg_Anes 1 hr.pdf' },
 
   // ─── Metabolic / Endo / UT (extra 3 → 10 total) ────────────
@@ -906,7 +906,7 @@ export const QB_COM3 = [
     tags: ['neuro-exam', 'dpp'], type: 'mcq',
     q: 'Deep pain perception (DPP) — testing technique + significance',
     options: ['Touch fur', 'Pinch periosteum/digit + ดู conscious response (look, vocalize)', 'Smell test', 'ดึงผิวหนัง — บอก vision'],
-    answer: 1, explain: 'DPP test: hemostat pinch periosteum or digit\nresponse must be **conscious** (look, vocalize, head turn) — not just reflex withdrawal\nlast to lose\nถ้าหายเกิน 24-48h = SC severance\n\n❌ ทำไมข้ออื่นผิด\n— Touch fur = superficial nociceptor, ไม่ test deep pain\n— Smell test = olfaction\n— ดึงผิวหนัง = panniculus, ไม่ DPP',
+    answer: 1, explain: 'DPP test: hemostat pinch periosteum or digit\nresponse must be conscious (look, vocalize, head turn) — not just reflex withdrawal\nlast to lose\nถ้าหายเกิน 24-48h = SC severance\n\n❌ ทำไมข้ออื่นผิด\n— Touch fur = superficial nociceptor, ไม่ test deep pain\n— Smell test = olfaction\n— ดึงผิวหนัง = panniculus, ไม่ DPP',
     verified: 'neuro_exam 1 hr.pdf + master p.5' },
 
   // ─── Spinal (extra 4 → 10 total) ───────────────────────────
@@ -946,22 +946,22 @@ export const QB_COM3 = [
   { id: 858, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['vestibular', 'oculocephalic'], type: 'mcq',
     q: 'Oculocephalic reflex (doll\'s eye) — pathway + use',
-    options: ['ทดสอบ corneal reflex (CN V → VII)', 'ทดสอบ pupillary reflex (CN II → III)', 'ทดสอบ vestibular system + brainstem — turn head, eye should track opposite direction · loss in central vestibular', 'ทดสอบ visual cortex (occipital lobe)'],
-    answer: 2, explain: 'Oculocephalic: VIII (vestibular) → brainstem → III/IV/VI (eye movement)\nloss = central vestibular lesion (brainstem dysfunction)\n\n❌ ทำไมข้ออื่นผิด\n— Corneal reflex (V→VII) = different test\n— Pupillary (II→III) = PLR\n— Visual cortex = different pathway',
+    options: ['ทดสอบ corneal reflex (CN V → VII)', 'ทดสอบ pupillary reflex (CN II → III)', 'ทดสอบ visual cortex (occipital lobe)', 'ทดสอบ vestibular system + brainstem — turn head, eye should track opposite direction · loss in central vestibular'],
+    answer: 3, explain: 'Oculocephalic: VIII (vestibular) → brainstem → III/IV/VI (eye movement)\nloss = central vestibular lesion (brainstem dysfunction)\n\n❌ ทำไมข้ออื่นผิด\n— Corneal reflex (V→VII) = different test\n— Pupillary (II→III) = PLR\n— Visual cortex = different pathway',
     verified: 'neuro_ataxia_tremor 1 hr.pdf + neuro_exam' },
 
   { id: 859, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['vestibular', 'horner'], type: 'mcq',
     q: 'Horner\'s syndrome ที่พบร่วมกับ peripheral vestibular disease (otitis media/interna) ประกอบด้วย',
-    options: ['Anisocoria with no other signs', 'Strabismus only', 'Miosis + ptosis + enophthalmos + 3rd eyelid prolapse (sympathetic chain disrupt — passes through middle ear)', 'Mydriasis + exophthalmos'],
-    answer: 2, explain: 'Horner\'s = sympathetic loss\n4 signs: miosis, ptosis, enophthalmos, 3rd eyelid\npathway through middle ear → otitis media/interna → can damage\n\n❌ ทำไมข้ออื่นผิด\n— Anisocoria no other signs = ไม่ specific Horner\n— Strabismus only = CN III/IV/VI\n— Mydriasis + exophthalmos = ตรงข้าม Horner',
+    options: ['Miosis + ptosis + enophthalmos + 3rd eyelid prolapse (sympathetic chain disrupt — passes through middle ear)', 'Strabismus only', 'Anisocoria with no other signs', 'Mydriasis + exophthalmos'],
+    answer: 0, explain: 'Horner\'s = sympathetic loss\n4 signs: miosis, ptosis, enophthalmos, 3rd eyelid\npathway through middle ear → otitis media/interna → can damage\n\n❌ ทำไมข้ออื่นผิด\n— Anisocoria no other signs = ไม่ specific Horner\n— Strabismus only = CN III/IV/VI\n— Mydriasis + exophthalmos = ตรงข้าม Horner',
     verified: 'neuro_ataxia_tremor 1 hr.pdf' },
 
   { id: 860, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['cerebellar-hypoplasia'], type: 'mcq',
     q: 'Feline cerebellar hypoplasia — common cause คืออะไร',
-    options: ['Hereditary only', 'Vitamin B1 deficiency แม่แมว', 'Feline panleukopenia (FPV) infection in utero → cerebellum ไม่พัฒนา', 'Trauma', 'Bacterial'],
-    answer: 2, explain: 'In utero FPV → cerebellar hypoplasia\nkitten born with cerebellar signs (intention tremor, ataxia, wide-based)\nnon-progressive\nlearn to compensate\n\n❌ ทำไมข้ออื่นผิด\n— Hereditary only = rare breed-specific\n— Vit B1 = thiamine encephalopathy ในตัวโต\n— Trauma/Bacterial = acquired atrophy ไม่ใช่ hypoplasia',
+    options: ['Hereditary only', 'Feline panleukopenia (FPV) infection in utero → cerebellum ไม่พัฒนา', 'Vitamin B1 deficiency แม่แมว', 'Trauma', 'Bacterial'],
+    answer: 1, explain: 'In utero FPV → cerebellar hypoplasia\nkitten born with cerebellar signs (intention tremor, ataxia, wide-based)\nnon-progressive\nlearn to compensate\n\n❌ ทำไมข้ออื่นผิด\n— Hereditary only = rare breed-specific\n— Vit B1 = thiamine encephalopathy ในตัวโต\n— Trauma/Bacterial = acquired atrophy ไม่ใช่ hypoplasia',
     verified: 'neuro_ataxia_tremor 1 hr.pdf + parasitology overlap' },
 
   { id: 861, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
@@ -982,7 +982,7 @@ export const QB_COM3 = [
     tags: ['head-tilt-side'], type: 'mcq',
     q: 'Peripheral vestibular disease — head tilt มักเอียงไปทางใด',
     options: ['ไม่มี head tilt', 'ด้านเดียวกับ lesion (ipsilateral)', 'ตามแนวกึ่งกลาง', 'ตรงข้ามด้านที่เกิด lesion'],
-    answer: 1, explain: 'Peripheral vestibular: head tilt **toward lesion** (ipsilateral)\nparadoxical (toward ตรงข้าม) → central lesion (cerebellar peduncle)\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่มี head tilt" = ไม่ vestibular\n— "กึ่งกลาง" = no mechanism\n— "ตรงข้าม" = paradoxical = central',
+    answer: 1, explain: 'Peripheral vestibular: head tilt toward lesion (ipsilateral)\nparadoxical (toward ตรงข้าม) → central lesion (cerebellar peduncle)\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่มี head tilt" = ไม่ vestibular\n— "กึ่งกลาง" = no mechanism\n— "ตรงข้าม" = paradoxical = central',
     verified: 'neuro_ataxia_tremor 1 hr.pdf + master p.7' },
 
   // ─── Seizure (extra 5 → 10 total) ──────────────────────────
@@ -1014,14 +1014,14 @@ export const QB_COM3 = [
   { id: 867, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
     tags: ['seizure', 'phenobarb-monitoring'], type: 'mcq',
     q: 'Phenobarbital therapeutic level + monitoring frequency',
-    options: ['50-100 μg/ml weekly', '15-45 μg/ml (target 25-35) · check 14 d after start/dose change · then q6 mo · liver enzymes q3 mo', 'No monitoring needed', '10-20 ng/ml monthly'],
-    answer: 1, explain: 'PB target: 15-45 μg/ml\nsteady-state 14 d (dog) / 10 d (cat)\nALT/ALP elevation common (induction) but ALT > 4× normal = liver damage\n\n❌ ทำไมข้ออื่นผิด\n— 50-100 weekly = toxic + over-frequent\n— No monitoring = miss toxicity\n— 10-20 ng/ml = wrong unit (ng vs μg)',
+    options: ['50-100 μg/ml weekly', 'No monitoring needed', '15-45 μg/ml (target 25-35) · check 14 d after start/dose change · then q6 mo · liver enzymes q3 mo', '10-20 ng/ml monthly'],
+    answer: 2, explain: 'PB target: 15-45 μg/ml\nsteady-state 14 d (dog) / 10 d (cat)\nALT/ALP elevation common (induction) but ALT > 4× normal = liver damage\n\n❌ ทำไมข้ออื่นผิด\n— 50-100 weekly = toxic + over-frequent\n— No monitoring = miss toxicity\n— 10-20 ng/ml = wrong unit (ng vs μg)',
     verified: 'seizure 1 hr.pdf + ACVIM consensus' },
 
   { id: 868, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure 1 hr.pdf',
     tags: ['seizure', 'kbr-cat'], type: 'tf',
     q: 'KBr (potassium bromide) ใช้เป็น 2nd line ที่ปลอดภัยในแมว',
-    answer: false, explain: 'False! **KBr ห้ามใช้ในแมว** — ทำให้เกิด **fatal asthma-like bronchitis**\nCat 2nd line: levetiracetam (Keppra), zonisamide',
+    answer: false, explain: 'False! KBr ห้ามใช้ในแมว — ทำให้เกิด fatal asthma-like bronchitis\nCat 2nd line: levetiracetam (Keppra), zonisamide',
     verified: 'seizure 1 hr.pdf + ACVIM' },
 
   // ─── Neuro ER (extra 6 → 10 total) ─────────────────────────
@@ -1086,8 +1086,8 @@ export const QB_COM3 = [
   { id: 877, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'prompt'], type: 'mcq',
     q: 'การ prompt AI สำหรับ clinical research — ที่แนะนำคืออะไร',
-    options: ['ห้ามบอก context ใดๆ', 'ใช้ภาษากำกวมให้ AI ตีความเอง', 'ระบุ context (อายุ/เพศ/breed/clinical signs) + ask specific question + request citation/evidence', 'ใช้แค่คำคีย์เวิร์ดเดียว', 'ถามแบบเปิดสั้นๆ "ตอบหมาเป็นโรคอะไร"'],
-    answer: 2, explain: 'Good prompt: context + specific ask + request format/citation\nเช่น "Dachshund 6 yr, sudden HL plegia, no DPP — DDx + initial workup with citation"\niterative refinement\n\n❌ ทำไมข้ออื่นผิด\n— "ห้ามบอก context" = ผิด\n— "กำกวมให้ตีความ" = hallucination เพิ่ม\n— keyword เดียว = vague\n— "เปิดสั้น" = generic answer',
+    options: ['ห้ามบอก context ใดๆ', 'ระบุ context (อายุ/เพศ/breed/clinical signs) + ask specific question + request citation/evidence', 'ใช้ภาษากำกวมให้ AI ตีความเอง', 'ใช้แค่คำคีย์เวิร์ดเดียว', 'ถามแบบเปิดสั้นๆ "ตอบหมาเป็นโรคอะไร"'],
+    answer: 1, explain: 'Good prompt: context + specific ask + request format/citation\nเช่น "Dachshund 6 yr, sudden HL plegia, no DPP — DDx + initial workup with citation"\niterative refinement\n\n❌ ทำไมข้ออื่นผิด\n— "ห้ามบอก context" = ผิด\n— "กำกวมให้ตีความ" = hallucination เพิ่ม\n— keyword เดียว = vague\n— "เปิดสั้น" = generic answer',
     verified: 'AI prompt engineering best practice' },
 
   { id: 878, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
@@ -1112,14 +1112,14 @@ export const QB_COM3 = [
     tags: ['ai', 'limitations'], type: 'mcq',
     q: 'ข้อจำกัดของ AI ที่สำคัญในการใช้งานทางคลินิกคืออะไร',
     options: ['Knowledge cutoff + training bias + ไม่ทดแทน physical exam', 'AI ทำงานเร็วเกิน', 'AI ราคาถูกเกิน', 'AI รู้ทุกอย่าง'],
-    answer: 0, explain: 'AI limitations: cutoff date\nbias\ncan\'t examine real patient\nไม่ใช่ medical license\nใช้เป็น **decision support เสริม** ไม่ใช่ replacement',
+    answer: 0, explain: 'AI limitations: cutoff date\nbias\ncan\'t examine real patient\nไม่ใช่ medical license\nใช้เป็น decision support เสริม ไม่ใช่ replacement',
     verified: 'AI in healthcare best practice' },
 
   { id: 881, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'verification'], type: 'mcq',
     q: 'หลังได้คำตอบจาก AI แล้ว — ขั้นตอนที่สำคัญที่สุดสำหรับ medical use คืออะไร',
-    options: ['ลบทิ้ง', 'ส่งให้คนอื่นต่อ', 'Verify ด้วย primary source ก่อนใช้กับ patient จริง', 'Copy-paste ใช้เลย'],
-    answer: 2, explain: 'AI = starting point\nต้อง verify โดย primary source สำหรับ clinical decisions\n"trust but verify"\nresponsibility อยู่ที่ vet ไม่ใช่ AI\n\n❌ ทำไมข้ออื่นผิด\n— "ลบทิ้ง" = waste output\n— "ส่งคนอื่น" = ไม่ verify\n— "Copy-paste ใช้เลย" = unsafe ใน medical context',
+    options: ['ลบทิ้ง', 'Verify ด้วย primary source ก่อนใช้กับ patient จริง', 'ส่งให้คนอื่นต่อ', 'Copy-paste ใช้เลย'],
+    answer: 1, explain: 'AI = starting point\nต้อง verify โดย primary source สำหรับ clinical decisions\n"trust but verify"\nresponsibility อยู่ที่ vet ไม่ใช่ AI\n\n❌ ทำไมข้ออื่นผิด\n— "ลบทิ้ง" = waste output\n— "ส่งคนอื่น" = ไม่ verify\n— "Copy-paste ใช้เลย" = unsafe ใน medical context',
     verified: 'Clinical AI use ethics' },
 
   { id: 882, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
@@ -1179,15 +1179,15 @@ export const QB_COM3 = [
   { id: 889, subject: 'com3', topic: 'er-anes', year: 4, source: 'ER anes',
     tags: ['er-anes', 'case', 'reasoning', 'urethral-obstruction'], type: 'mcq',
     q: 'แมวเพศผู้ 4 ปี urethral obstruction 36 ชม., K+ 8.0, ECG พบ absent P + wide QRS\nต้องสวน catheter ภายใต้ sedation — action ที่ต้องทำก่อน sedation คืออะไร',
-    options: ['Decompress UB + correct hyperK ก่อน sedate', 'NSAIDs IV ก่อน (meloxicam 0.2 mg/kg)', 'Atropine 0.04 + ketamine 5 mg/kg ทันที', 'Propofol 6 mg/kg bolus ทันที'],
-    answer: 0, explain: 'HyperK 8.0 + ECG change = severe risk asystole ถ้า sedate ทันที\nstabilize: Ca gluconate (no shift K, แค่ stabilize membrane) + dextrose+insulin (shift K into cell) + IV fluid\nเมื่อ K < 6 + ECG ดีขึ้น ค่อย sedate\n\n❌ ทำไมข้ออื่นผิด\n— NSAIDs = nephrotoxic ใน AKI\n— Atropine+ketamine = K สูง → arrest\n— Propofol bolus = BP ตก รุนแรง',
+    options: ['Atropine 0.04 + ketamine 5 mg/kg ทันที', 'NSAIDs IV ก่อน (meloxicam 0.2 mg/kg)', 'Decompress UB + correct hyperK ก่อน sedate', 'Propofol 6 mg/kg bolus ทันที'],
+    answer: 2, explain: 'HyperK 8.0 + ECG change = severe risk asystole ถ้า sedate ทันที\nstabilize: Ca gluconate (no shift K, แค่ stabilize membrane) + dextrose+insulin (shift K into cell) + IV fluid\nเมื่อ K < 6 + ECG ดีขึ้น ค่อย sedate\n\n❌ ทำไมข้ออื่นผิด\n— NSAIDs = nephrotoxic ใน AKI\n— Atropine+ketamine = K สูง → arrest\n— Propofol bolus = BP ตก รุนแรง',
     verified: 'Animal_Emerg_Anes 1 hr.pdf + master p.46' },
 
   { id: 890, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam',
     tags: ['neuro-exam', 'case', 'reasoning', 'localization'], type: 'mcq',
     q: 'สุนัข Labrador Retriever 5 ปี มา ER ด้วย acute weakness 4 ขา\nNeuro exam: ขาหน้า patellar reflex hyperreflexive (withdrawal intact), ขาหลัง patellar normal (withdrawal intact), cranial nerves ปกติ, mentation alert\nLesion location อยู่ที่ไหน',
     options: ['C6-T2 (LMN ขาหน้า + UMN ขาหลัง)', 'T3-L3 (ขาหน้าปกติ + UMN ขาหลัง)', 'L4-S3 (LMN ขาหลังเท่านั้น)', 'C1-C5 (UMN ทั้ง 4 ขา)'],
-    answer: 3, explain: 'Hyperreflexive ขาหน้า + intact reflex หลัง = UMN 4 ขา = lesion above C6 → **C1-C5**\nถ้า LMN ขาหน้า (hyporeflexia) → C6-T2\nalert mentation → not forebrain\n\n❌ ทำไมข้ออื่นผิด\n— C6-T2 = ต้องมี LMN ขาหน้า (hyporeflexia) ขัดกับ case\n— T3-L3 = ขาหน้าปกติทั้งหมดขัดกับ hyperreflexia\n— L4-S3 = ขาหน้าปกติ',
+    answer: 3, explain: 'Hyperreflexive ขาหน้า + intact reflex หลัง = UMN 4 ขา = lesion above C6 → C1-C5\nถ้า LMN ขาหน้า (hyporeflexia) → C6-T2\nalert mentation → not forebrain\n\n❌ ทำไมข้ออื่นผิด\n— C6-T2 = ต้องมี LMN ขาหน้า (hyporeflexia) ขัดกับ case\n— T3-L3 = ขาหน้าปกติทั้งหมดขัดกับ hyperreflexia\n— L4-S3 = ขาหน้าปกติ',
     image: IMG_SPINAL_LOCALIZATION,
     verified: 'neuro_exam 1 hr.pdf + neuro_localised 1 hr.pdf' },
 
@@ -1201,8 +1201,8 @@ export const QB_COM3 = [
   { id: 892, subject: 'com3', topic: 'seizure', year: 4, source: 'seizure',
     tags: ['seizure', 'case', 'reasoning', 'status'], type: 'mcq',
     q: 'สุนัข Labrador Retriever 3 ปี ชัก generalized tonic-clonic 3 ครั้งภายใน 2 hr, ระหว่างชักไม่กลับมา baseline (mentation obtunded), ปัจจุบันชักต่อเนื่อง 8 นาทีไม่หยุด\nDiagnosis และ first emergency action คืออะไร',
-    options: ['Cluster seizure → phenobarb PO', 'Status epilepticus → Diazepam 0.5 mg/kg IV (or rectal 1-2 mg/kg)', 'Narcolepsy → supportive only', 'Isolated seizure → monitor at home'],
-    answer: 1, explain: 'Status = single seizure > 5 min OR ≥ 2 seizures without recovery between\nตรงกับ case นี้ (no recovery + 8 min ongoing)\nemergency: diazepam IV/rectal first\nrefractory → midazolam CRI / propofol / phenobarb loading\n\n❌ ทำไมข้ออื่นผิด\n— Cluster + phenobarb PO = ช้าเกิน emergency\n— Narcolepsy = ไม่มี LOC + tonic-clonic\n— Isolated + home monitor = miss status',
+    options: ['Cluster seizure → phenobarb PO', 'Narcolepsy → supportive only', 'Status epilepticus → Diazepam 0.5 mg/kg IV (or rectal 1-2 mg/kg)', 'Isolated seizure → monitor at home'],
+    answer: 2, explain: 'Status = single seizure > 5 min OR ≥ 2 seizures without recovery between\nตรงกับ case นี้ (no recovery + 8 min ongoing)\nemergency: diazepam IV/rectal first\nrefractory → midazolam CRI / propofol / phenobarb loading\n\n❌ ทำไมข้ออื่นผิด\n— Cluster + phenobarb PO = ช้าเกิน emergency\n— Narcolepsy = ไม่มี LOC + tonic-clonic\n— Isolated + home monitor = miss status',
     verified: 'seizure 1 hr.pdf + IVETF 2015' },
 
   // ═══════════════════════════════════════════════════════════
@@ -1214,35 +1214,35 @@ export const QB_COM3 = [
     tags: ['spinal', 'spondylosis', 'reasoning'], type: 'mcq',
     q: 'โรคที่เกิดจากการสร้างกระดูกงอก (osteophyte) เชื่อมระหว่าง vertebral body บริเวณ ventral spine, มักไม่แสดงอาการทางคลินิก พบโดยบังเอิญจาก radiograph คือข้อใด',
     options: ['Spondylosis deformans', 'Discospondylitis', 'Caudal Cervical Spondylopathy (Wobbler)', 'Fibrocartilaginous embolic myelopathy', 'Degenerative myelopathy'],
-    answer: 0, explain: 'Spondylosis deformans = bony bridging (osteophyte) on **ventral aspect** of vertebral bodies, age-related, usually **incidental finding** on radiograph (asymptomatic ~80%), no inflammation\n\n❌ ทำไมข้ออื่นผิด\n— Discospondylitis = infection ของ disc + endplate (lytic + sclerotic, painful)\n— Wobbler = cervical impingement → ataxia ขาหลัง\n— FCE = peracute non-progressive ischemic infarct\n— DM = upper motor neuron disease (GSD, slowly progressive paraparesis, no pain)',
+    answer: 0, explain: 'Spondylosis deformans = bony bridging (osteophyte) on ventral aspect of vertebral bodies, age-related, usually incidental finding on radiograph (asymptomatic ~80%), no inflammation\n\n❌ ทำไมข้ออื่นผิด\n— Discospondylitis = infection ของ disc + endplate (lytic + sclerotic, painful)\n— Wobbler = cervical impingement → ataxia ขาหลัง\n— FCE = peracute non-progressive ischemic infarct\n— DM = upper motor neuron disease (GSD, slowly progressive paraparesis, no pain)',
     verified: 'Spinal disorder 2 hr.pdf + KS Q33 (FINAL 86 compilation)' },
 
   { id: 894, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes + FINAL 86',
     tags: ['er-anes', 'triage', 'case', 'reasoning'], type: 'mcq',
     q: 'แมวเพศผู้ 4 กก. ถูกของหนักทับท้องประมาณ 1 ชั่วโมงก่อนมาถึง รพ. ตรวจร่างกายพบ: HR 120 bpm (ปกติแมว 160-220), mucous membrane ซีด, CRT > 3 วินาที, pupillary light reflex ปกติ\nในเบื้องต้น สิ่งที่บ่งชี้ปัญหาเร่งด่วนที่สุดคือข้อใด',
     options: ['Acute pain and shock', 'Neurological deficit and contaminated wound', 'Prolonged CRT and tachycardia', 'Fracture and urinary bladder rupture', 'Excited and dyspnea'],
-    answer: 2, explain: 'แมวที่ HR 120 bpm = **bradycardia** (relative — ปกติแมว 160-220) ซึ่งเป็น decompensated shock pattern (ต่างจากสุนัขที่ shock จะ tachycardia) · prolonged CRT > 2 sec + pale mm = poor perfusion · ต้อง resuscitate ก่อน workup อื่น\n\n❌ ทำไมข้ออื่นผิด\n— "Acute pain + shock" = ตอบกว้างเกิน, primary objective finding คือ perfusion\n— Neuro deficit = pupillary light reflex ปกติ\n— Fracture/UB rupture = ยังไม่ได้ image, เป็น differential\n— Excited/dyspnea = ไม่ได้ระบุใน vitals\n\n📌 หมายเหตุ: ปี 86 ตอบ "Prolonged CRT + tachycardia" (ในแมว HR 120 ถือว่าผิดปกติ ไม่จำเป็นต้องเร็ว) — ต่างจาก Vet 84 ที่ตอบ "Shock"',
+    answer: 2, explain: 'แมวที่ HR 120 bpm = bradycardia (relative — ปกติแมว 160-220) ซึ่งเป็น decompensated shock pattern (ต่างจากสุนัขที่ shock จะ tachycardia) · prolonged CRT > 2 sec + pale mm = poor perfusion · ต้อง resuscitate ก่อน workup อื่น\n\n❌ ทำไมข้ออื่นผิด\n— "Acute pain + shock" = ตอบกว้างเกิน, primary objective finding คือ perfusion\n— Neuro deficit = pupillary light reflex ปกติ\n— Fracture/UB rupture = ยังไม่ได้ image, เป็น differential\n— Excited/dyspnea = ไม่ได้ระบุใน vitals\n\n📌 หมายเหตุ: ปี 86 ตอบ "Prolonged CRT + tachycardia" (ในแมว HR 120 ถือว่าผิดปกติ ไม่จำเป็นต้องเร็ว) — ต่างจาก Vet 84 ที่ตอบ "Shock"',
     verified: 'Animal_Emerg_Anes + FINAL 86 compilation p.48-49' },
 
   { id: 895, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes + FINAL 86',
     tags: ['er-anes', 'shock', 'fluid', 'reasoning'], type: 'mcq',
     q: 'แมวเคส trauma ข้างต้น (mm ซีด, prolonged CRT, สงสัย hypovolemic shock จาก hemoabdomen) — สิ่งที่ควรเริ่มดำเนินการในเบื้องต้นคืออะไร',
     options: ['Dexamethasone administration', 'Antibiotic administration', 'Hind limb radiography', 'Blood transfusion', 'Aggressive crystalloid therapy'],
-    answer: 4, explain: 'Hypovolemic shock first-line = **isotonic crystalloid bolus** (LRS / Normosol-R / Plasmalyte 10-20 ml/kg ในแมว, repeat ตาม response) · stabilize → ค่อย image / sx · imaging ก่อน resuscitate = patient ตายก่อนได้ Dx\n\n❌ ทำไมข้ออื่นผิด\n— Dex/steroid = เลิกใช้ใน shock แล้ว (ไม่มี benefit, ↑ GI ulcer)\n— Antibiotic = wait for culture / not first priority\n— Radiography = หลัง stabilize ก่อน\n— Blood transfusion = ใช้ถ้า PCV < 20% หรือ ongoing hemorrhage; crystalloid ก่อนเสมอ',
+    answer: 4, explain: 'Hypovolemic shock first-line = isotonic crystalloid bolus (LRS / Normosol-R / Plasmalyte 10-20 ml/kg ในแมว, repeat ตาม response) · stabilize → ค่อย image / sx · imaging ก่อน resuscitate = patient ตายก่อนได้ Dx\n\n❌ ทำไมข้ออื่นผิด\n— Dex/steroid = เลิกใช้ใน shock แล้ว (ไม่มี benefit, ↑ GI ulcer)\n— Antibiotic = wait for culture / not first priority\n— Radiography = หลัง stabilize ก่อน\n— Blood transfusion = ใช้ถ้า PCV < 20% หรือ ongoing hemorrhage; crystalloid ก่อนเสมอ',
     verified: 'Animal_Emerg_Anes + FINAL 86 compilation p.48' },
 
   { id: 896, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes + FINAL 86',
     tags: ['er-anes', 'fluid', 'tonicity'], type: 'mcq',
     q: 'สารน้ำชนิดใดมีความสามารถในการ osmosis เข้าเซลล์ได้ดีที่สุด',
-    options: ['D5 1/2S (5% dextrose in 0.45% saline)', '20% mannitol', 'Acetate ringer solution', 'NSS (0.9% NaCl)', 'Voluven (HES)'],
-    answer: 0, explain: '**D5 1/2S** = hypotonic เมื่อ dextrose ถูกเผาผลาญ → free water → enter cells (เหมาะเมื่อต้อง replace intracellular water deficit เช่น hypernatremia)\n\n❌ ทำไมข้ออื่นผิด\n— 20% mannitol = hypertonic, ดึง water ออกจาก cell (ใช้ ↓ ICP)\n— Acetate ringer / NSS = isotonic, ขยาย ECF, ไม่เข้า cell\n— Voluven (HES) = colloid, stay in vessel ดึงน้ำเข้า vessel',
+    options: ['NSS (0.9% NaCl)', '20% mannitol', 'Acetate ringer solution', 'D5 1/2S (5% dextrose in 0.45% saline)', 'Voluven (HES)'],
+    answer: 3, explain: 'D5 1/2S = hypotonic เมื่อ dextrose ถูกเผาผลาญ → free water → enter cells (เหมาะเมื่อต้อง replace intracellular water deficit เช่น hypernatremia)\n\n❌ ทำไมข้ออื่นผิด\n— 20% mannitol = hypertonic, ดึง water ออกจาก cell (ใช้ ↓ ICP)\n— Acetate ringer / NSS = isotonic, ขยาย ECF, ไม่เข้า cell\n— Voluven (HES) = colloid, stay in vessel ดึงน้ำเข้า vessel',
     verified: 'Animal_Emerg_Anes + FINAL 86 compilation p.49-50' },
 
   { id: 897, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes + FINAL 86',
     tags: ['er-anes', 'sedation', 'avoid'], type: 'mcq',
-    q: 'ในผู้ป่วย ER ที่ shock / hypovolemic ยาในข้อใดควร **หลีกเลี่ยง** ในช่วงแรกของการรักษา',
-    options: ['Alpha-2 adrenergic agonist (xylazine, dexmedetomidine)', 'Kappa agonist (butorphanol)', 'NMDA antagonist (ketamine, low-dose)', 'Mu agonist (fentanyl, methadone)', 'Benzodiazepine (midazolam, diazepam)'],
-    answer: 0, explain: '**α-2 agonist** ใน shock = อันตรายมาก เพราะ:\n• Respiratory depression\n• Severe bradycardia + AV block\n• **Biphasic BP**: เริ่ม HTN จาก peripheral vasoconstriction → reflex bradycardia → drop BP รุนแรง\n• ↓ Cardiac output 30-50%\n→ ทำให้ shock แย่ลงทันที\n\n❌ ทำไมข้ออื่นไม่ห้าม\n— Butorphanol/fentanyl/methadone = analgesia, hemodynamically stable (mu opioids minor BP effect ในขนาดที่ใช้)\n— Ketamine low-dose = sympathomimetic, รักษา BP\n— Benzodiazepine = mild sedation, ไม่กดการไหลเวียน',
+    q: 'ในผู้ป่วย ER ที่ shock / hypovolemic ยาในข้อใดควร หลีกเลี่ยง ในช่วงแรกของการรักษา',
+    options: ['Mu agonist (fentanyl, methadone)', 'Kappa agonist (butorphanol)', 'NMDA antagonist (ketamine, low-dose)', 'Alpha-2 adrenergic agonist (xylazine, dexmedetomidine)', 'Benzodiazepine (midazolam, diazepam)'],
+    answer: 3, explain: 'α-2 agonist ใน shock = อันตรายมาก เพราะ:\n• Respiratory depression\n• Severe bradycardia + AV block\n• Biphasic BP: เริ่ม HTN จาก peripheral vasoconstriction → reflex bradycardia → drop BP รุนแรง\n• ↓ Cardiac output 30-50%\n→ ทำให้ shock แย่ลงทันที\n\n❌ ทำไมข้ออื่นไม่ห้าม\n— Butorphanol/fentanyl/methadone = analgesia, hemodynamically stable (mu opioids minor BP effect ในขนาดที่ใช้)\n— Ketamine low-dose = sympathomimetic, รักษา BP\n— Benzodiazepine = mild sedation, ไม่กดการไหลเวียน',
     verified: 'Animal_Emerg_Anes + FINAL 86 compilation p.50' },
 
   // ═══════════════════════════════════════════════════════════════════
@@ -1257,7 +1257,7 @@ export const QB_COM3 = [
   // ═══════════════════════════════════════════════════════════════════
   { id: 1300, subject: 'com3', topic: 'cpcr', year: 4, source: 'DC3final 86',
     tags: ['cpcr', 'als', 'recover'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด **ไม่ถูกต้อง** ในขั้นตอน Advanced Life Support (ALS) ตามหลักการ "RECOVER"',
+    q: 'ข้อใด ไม่ถูกต้อง ในขั้นตอน Advanced Life Support (ALS) ตามหลักการ "RECOVER"',
     options: [
       'พิจารณารักษา pulseless electrical activity (PEA) ด้วยการให้ antiarrhythmic drugs',
       'พิจารณารักษา pulseless ventricular tachycardia ด้วยการทำ defibrillation',
@@ -1265,12 +1265,12 @@ export const QB_COM3 = [
       'Monitoring ที่สำคัญในขั้นตอนนี้คือ การวัดคลื่นไฟฟ้าหัวใจ และ End tidal CO2',
       'Advanced life support เป็นขั้นตอนที่ทำตามหลัง Basic life support จนกระทั่งมี ROSC',
     ],
-    answer: 0, explain: 'PEA = electrical activity แต่ไม่มี mechanical contraction → รักษาด้วย **epinephrine + CPR ต่อเนื่อง + แก้ reversible cause (Hs/Ts: hypoxia, hypovolemia, H+, hypo/hyperK, hypothermia, tension pneumothorax, tamponade, toxin, thrombosis)** · ไม่ใช่ antiarrhythmic · antiarrhythmic (amiodarone/lidocaine) ใช้กับ shockable rhythm คือ VF/pulseless VT เท่านั้น\n\n✓ b/c/d/e ถูกต้องตาม RECOVER 2012 guideline · ROSC = Return of Spontaneous Circulation',
+    answer: 0, explain: 'PEA = electrical activity แต่ไม่มี mechanical contraction → รักษาด้วย epinephrine + CPR ต่อเนื่อง + แก้ reversible cause (Hs/Ts: hypoxia, hypovolemia, H+, hypo/hyperK, hypothermia, tension pneumothorax, tamponade, toxin, thrombosis) · ไม่ใช่ antiarrhythmic · antiarrhythmic (amiodarone/lidocaine) ใช้กับ shockable rhythm คือ VF/pulseless VT เท่านั้น\n\n✓ b/c/d/e ถูกต้องตาม RECOVER 2012 guideline · ROSC = Return of Spontaneous Circulation',
     verified: 'CPCR 1 hr.pdf · RECOVER 2012 guideline · DC3final 86' },
 
   { id: 1301, subject: 'com3', topic: 'triage', year: 4, source: 'DC3final 86',
     tags: ['triage', 'primary-survey'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ระบบอวัยวะใดต่อไปนี้ **ไม่ใช่** ระบบที่ควรได้รับการพิจารณาขณะทำ primary survey',
+    q: 'ระบบอวัยวะใดต่อไปนี้ ไม่ใช่ ระบบที่ควรได้รับการพิจารณาขณะทำ primary survey',
     options: [
       'Cardiovascular system (heart rate, pulse quality, mucous membrane)',
       'Nervous system (mentation, gait, cranial nerves เบื้องต้น)',
@@ -1278,12 +1278,12 @@ export const QB_COM3 = [
       'Hepatobiliary system (liver enzyme + bilirubin + bile acids)',
       'Respiratory system (rate, effort, lung sounds, oxygenation)',
     ],
-    answer: 3, explain: '**Primary survey** ใน emergency = ABCDE ของ 4 ระบบหลัก: **Cardio, Resp, Neuro, UT** · เช็คเร็ว 30 วินาที — ตัดสิน life-threatening ทันที (กราฟแรกๆ คือ life-threatening hemorrhage, airway obstruction, tension pneumothorax) · **Hepatobiliary** ต้องรอ secondary survey + lab → ไม่อยู่ใน primary\n\n✓ Primary 4 ระบบ: CVS / Respiratory / Nervous / Urinary',
+    answer: 3, explain: 'Primary survey ใน emergency = ABCDE ของ 4 ระบบหลัก: Cardio, Resp, Neuro, UT · เช็คเร็ว 30 วินาที — ตัดสิน life-threatening ทันที (กราฟแรกๆ คือ life-threatening hemorrhage, airway obstruction, tension pneumothorax) · Hepatobiliary ต้องรอ secondary survey + lab → ไม่อยู่ใน primary\n\n✓ Primary 4 ระบบ: CVS / Respiratory / Nervous / Urinary',
     verified: 'triage 1 hr.pdf · DC3final 86' },
 
   { id: 1302, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['seizure', 'pathophysiology'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'อาการชัก (seizures) เกิดจากความผิดปกติของสมอง ตำแหน่งใดต่อไปนี้ **ไม่ใช่** ตำแหน่งที่ทำให้เกิดอาการชัก',
+    q: 'อาการชัก (seizures) เกิดจากความผิดปกติของสมอง ตำแหน่งใดต่อไปนี้ ไม่ใช่ ตำแหน่งที่ทำให้เกิดอาการชัก',
     options: [
       'Basal nuclei (deep gray matter — extrapyramidal pathway)',
       'Hippocampus (limbic system — temporal lobe seizure focus)',
@@ -1291,12 +1291,12 @@ export const QB_COM3 = [
       'Thalamus (relay nucleus — generalized seizure synchronization)',
       'Cerebellum (coordination และ balance — ไม่ใช่ seizure focus)',
     ],
-    answer: 4, explain: '**Seizure = abnormal hypersynchronous discharge** ของ neurons ใน **forebrain** (cerebrum) เท่านั้น · Cerebellum = motor coordination · cerebellar lesion → ataxia, intention tremor, dysmetria — **ไม่เคยทำให้เกิด seizure**\n\n✓ Seizure foci ที่พบบ่อย: cortex (temporal/frontal lobe) > hippocampus > thalamus > basal ganglia',
+    answer: 4, explain: 'Seizure = abnormal hypersynchronous discharge ของ neurons ใน forebrain (cerebrum) เท่านั้น · Cerebellum = motor coordination · cerebellar lesion → ataxia, intention tremor, dysmetria — ไม่เคยทำให้เกิด seizure\n\n✓ Seizure foci ที่พบบ่อย: cortex (temporal/frontal lobe) > hippocampus > thalamus > basal ganglia',
     verified: 'seizure 1 hr.pdf · DC3final 86' },
 
   { id: 1303, subject: 'com3', topic: 'triage', year: 4, source: 'DC3final 86',
     tags: ['triage', 'definition'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้คือคำนิยามของคำว่า **triage**',
+    q: 'ข้อใดต่อไปนี้คือคำนิยามของคำว่า triage',
     options: [
       'การรีซีเอตช่วยชีวิตสัตว์ป่วยตามระดับความรุนแรงของโรคที่แสดง',
       'การจัดกลุ่มสัตว์ป่วยฉุกเฉินตามความรุนแรงของโรคและภาวะคุกคามชีวิต',
@@ -1304,12 +1304,12 @@ export const QB_COM3 = [
       'การจัดประเภทวิธีสัตว์ป่วยจากการมีลักษณะอยู่ในภาวะฉุกเฉินวิกฤต',
       'การประเมินปัญหาสัตว์ป่วยตามลำดับก่อนหลังตามความสำคัญทางคลินิก',
     ],
-    answer: 1, explain: '**Triage** (จากภาษาฝรั่งเศส "trier" = แยก/จัดกลุ่ม) = **การจัดลำดับความเร่งด่วนของผู้ป่วยฉุกเฉิน** ตามความรุนแรง + คุกคามชีวิต → ตัดสินว่าใครต้องรักษาก่อน-หลัง · เริ่มตั้งแต่รับเข้ารพ. ใช้ 30 วิ ก่อน primary survey · ระบบ 5 ระดับ: Immediate / Urgent / Less urgent / Non-urgent / Dead',
+    answer: 1, explain: 'Triage (จากภาษาฝรั่งเศส "trier" = แยก/จัดกลุ่ม) = การจัดลำดับความเร่งด่วนของผู้ป่วยฉุกเฉิน ตามความรุนแรง + คุกคามชีวิต → ตัดสินว่าใครต้องรักษาก่อน-หลัง · เริ่มตั้งแต่รับเข้ารพ. ใช้ 30 วิ ก่อน primary survey · ระบบ 5 ระดับ: Immediate / Urgent / Less urgent / Non-urgent / Dead',
     verified: 'triage 1 hr.pdf · DC3final 86' },
 
   { id: 1304, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'DC3final 86',
     tags: ['addisonian', 'electrolyte'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'Pattern ใดข้อต่อไปนี้ **ไม่ใช่** clinical pathology ของ classical Addison\'s disease',
+    q: 'Pattern ใดข้อต่อไปนี้ ไม่ใช่ clinical pathology ของ classical Addison\'s disease',
     options: [
       'Hyperkalemia (K > 5.5 mEq/L — ขาด aldosterone, ไม่ขับ K)',
       'Lymphocytosis (lymphocyte สูง — ขาด cortisol จึงไม่ stress leukogram)',
@@ -1317,12 +1317,12 @@ export const QB_COM3 = [
       'Hyperchloremia (Cl สูง — มักพบใน metabolic alkalosis ตรงข้าม)',
       'Hypoglycemia (BG < 70 — ขาด cortisol, gluconeogenesis ลด)',
     ],
-    answer: 3, explain: '**Classical Addison\'s** = **Na↓ K↑ Cl↓ HCO3↓** (Na/K ratio < 27) + lymphocytosis + eosinophilia + hypoglycemia + hypoalbuminemia + mild non-regenerative anemia · **Hyperchloremia ตรงข้ามกับโรคนี้** — Cl ลดเพราะขาด aldosterone จะตามไป + จาก vomit/diarrhea → Cl↓ + metabolic acidosis (HCO3↓)\n\n💡 จำว่า Addison = "lack of stress" → no stress leukogram (lymphocyte ปกติหรือสูง)',
+    answer: 3, explain: 'Classical Addison\'s = Na↓ K↑ Cl↓ HCO3↓ (Na/K ratio < 27) + lymphocytosis + eosinophilia + hypoglycemia + hypoalbuminemia + mild non-regenerative anemia · Hyperchloremia ตรงข้ามกับโรคนี้ — Cl ลดเพราะขาด aldosterone จะตามไป + จาก vomit/diarrhea → Cl↓ + metabolic acidosis (HCO3↓)\n\n💡 จำว่า Addison = "lack of stress" → no stress leukogram (lymphocyte ปกติหรือสูง)',
     verified: 'metabolic and endocrine and UT 1 hr.pdf · DC3final 86' },
 
   { id: 1305, subject: 'com3', topic: 'shock', year: 4, source: 'DC3final 86',
     tags: ['shock', 'resuscitation'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** ขั้นตอนการ resuscitation',
+    q: 'ข้อใดต่อไปนี้ ไม่ใช่ ขั้นตอนการ resuscitation',
     options: [
       'Cooling down body temperature in heat stroke (active cooling — wet towel + fan + IV cool fluid)',
       'Oxygen therapy in severe anemic case (mask / cage / nasal — เพิ่ม dissolved O2)',
@@ -1330,7 +1330,7 @@ export const QB_COM3 = [
       'Fluid therapy in hypovolemic shock (isotonic crystalloid bolus 10-20 ml/kg)',
       'Thoracocentesis in case of simple pneumothorax (ดูดอากาศออก, lung re-expand)',
     ],
-    answer: 2, explain: '**Resuscitation** = ขั้นตอนช่วยชีวิตด่วนเพื่อแก้ภาวะคุกคามชีวิต (ABC + perfusion) — ทำใน minutes แรก · **Febantel = anthelmintic (dewormer)** สำหรับ Trichuris ใช้รักษาตัวพยาธิ ไม่ใช่ resuscitation — แม้ trichuriasis รุนแรงทำให้เกิด Na/K abnormalities คล้าย Addison\'s ก็ต้อง stabilize patient ก่อน (fluid + electrolyte) แล้วถึง deworm\n\n✓ a/b/d/e = resuscitation จริงทั้งหมด',
+    answer: 2, explain: 'Resuscitation = ขั้นตอนช่วยชีวิตด่วนเพื่อแก้ภาวะคุกคามชีวิต (ABC + perfusion) — ทำใน minutes แรก · Febantel = anthelmintic (dewormer) สำหรับ Trichuris ใช้รักษาตัวพยาธิ ไม่ใช่ resuscitation — แม้ trichuriasis รุนแรงทำให้เกิด Na/K abnormalities คล้าย Addison\'s ก็ต้อง stabilize patient ก่อน (fluid + electrolyte) แล้วถึง deworm\n\n✓ a/b/d/e = resuscitation จริงทั้งหมด',
     verified: 'SHOCK 1 hr.pdf · DC3final 86' },
 
   { id: 1306, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'DC3final 86',
@@ -1343,12 +1343,12 @@ export const QB_COM3 = [
       'Vestibular nucleus ที่ medulla (central, แต่อาการ ipsilateral ปกติ)',
       'Tympanic membrane (outer/middle ear — ไม่เกี่ยว vestibular)',
     ],
-    answer: 0, explain: '**Paradoxical central vestibular syndrome** = lesion ที่ **caudal cerebellar peduncle / flocculonodular lobe** → head tilt + falling ไป**ฝั่งตรงข้าม** lesion (ตรงข้ามกับ peripheral/central vestibular ทั่วไปที่อาการ ipsilateral) · proprioceptive deficit อยู่ฝั่งเดียวกับ lesion (= ตรงข้ามกับ head tilt) → "paradoxical"\n\n💡 จำ: Postural reaction deficit + head tilt **คนละข้าง** = paradoxical = cerebellar',
+    answer: 0, explain: 'Paradoxical central vestibular syndrome = lesion ที่ caudal cerebellar peduncle / flocculonodular lobe → head tilt + falling ไปฝั่งตรงข้าม lesion (ตรงข้ามกับ peripheral/central vestibular ทั่วไปที่อาการ ipsilateral) · proprioceptive deficit อยู่ฝั่งเดียวกับ lesion (= ตรงข้ามกับ head tilt) → "paradoxical"\n\n💡 จำ: Postural reaction deficit + head tilt คนละข้าง = paradoxical = cerebellar',
     verified: 'neuro_ataxia_tremor 1 hr.pdf · DC3final 86' },
 
   { id: 1307, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['aed', 'maintenance'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ยาในข้อใดเป็น **antiepileptic drug first-line** สำหรับ maintenance phase ในสุนัข',
+    q: 'ยาในข้อใดเป็น antiepileptic drug first-line สำหรับ maintenance phase ในสุนัข',
     options: [
       'Pentobarbital (short-acting barbiturate — ใช้ status epilepticus ICU)',
       'Phenobarbital (long-acting barbiturate — t½ ~50 hr ในสุนัข)',
@@ -1356,12 +1356,12 @@ export const QB_COM3 = [
       'Gabapentin (neuropathic pain + adjunct, weak AED monotherapy)',
       'Diazepam (benzodiazepine — emergency status, ไม่เหมาะ maintenance)',
     ],
-    answer: 1, explain: '**Phenobarbital** = first-line maintenance ใน canine epilepsy (idiopathic) · dose 2-4 mg/kg PO BID · therapeutic level 20-35 µg/ml · monitor liver enzyme + serum level q3-6 mo · efficacy 60-80% control\n\n❌ ทำไมตัวอื่นไม่ใช่ first-line:\n— Pentobarbital = anesthesia / status emergency เท่านั้น\n— Levetiracetam = add-on ถ้า phenobarb คุมไม่ได้ (หรือ first-line ในแมว)\n— Gabapentin = adjunct, ไม่ค่อย effective alone\n— Diazepam = rectal/IV emergency, oral t½ สั้นเกินไป',
+    answer: 1, explain: 'Phenobarbital = first-line maintenance ใน canine epilepsy (idiopathic) · dose 2-4 mg/kg PO BID · therapeutic level 20-35 µg/ml · monitor liver enzyme + serum level q3-6 mo · efficacy 60-80% control\n\n❌ ทำไมตัวอื่นไม่ใช่ first-line:\n— Pentobarbital = anesthesia / status emergency เท่านั้น\n— Levetiracetam = add-on ถ้า phenobarb คุมไม่ได้ (หรือ first-line ในแมว)\n— Gabapentin = adjunct, ไม่ค่อย effective alone\n— Diazepam = rectal/IV emergency, oral t½ สั้นเกินไป',
     verified: 'seizure 1 hr.pdf · DC3final 86' },
 
   { id: 1308, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['imaging', 'mri'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'Shetland sheepdog F 15 ปี 15 kg มีอาการชักครั้งแรก · เทคนิคภาพวินิจฉัยใด **คลุม detail สูงสุด** ในการหาสาเหตุ',
+    q: 'Shetland sheepdog F 15 ปี 15 kg มีอาการชักครั้งแรก · เทคนิคภาพวินิจฉัยใด คลุม detail สูงสุด ในการหาสาเหตุ',
     options: [
       'Radiography (skull plain film — เห็นแค่ bone, ไม่เห็น parenchyma)',
       'Ultrasonography (จำกัดด้วย skull, ใช้ใน neonate ที่ fontanelle ยังเปิด)',
@@ -1369,12 +1369,12 @@ export const QB_COM3 = [
       'Magnetic resonance imaging (MRI — gold standard soft tissue + tumor)',
       'ถูกทุกข้อ (ใช้ร่วมกันแล้วแต่ภาวะ)',
     ],
-    answer: 3, explain: '**MRI = gold standard** ของการประเมิน brain parenchyma ในสัตว์อายุมากที่ชัก first time → suspect **structural cause** (neoplasia, GME/MUO, infarct) · MRI เห็น mass, edema, contrast enhancement, white/gray matter ได้ดีกว่า CT · CT เร็วกว่า + ดี bone/acute hemorrhage แต่ soft tissue contrast ต่ำกว่า · สำหรับ Shetland Sheepdog 15 ปี = senior + late-onset seizure → tumor likely\n\n💡 รุ่นอายุ + breed: late-onset (>5 ปี) seizure = structural until proven otherwise',
+    answer: 3, explain: 'MRI = gold standard ของการประเมิน brain parenchyma ในสัตว์อายุมากที่ชัก first time → suspect structural cause (neoplasia, GME/MUO, infarct) · MRI เห็น mass, edema, contrast enhancement, white/gray matter ได้ดีกว่า CT · CT เร็วกว่า + ดี bone/acute hemorrhage แต่ soft tissue contrast ต่ำกว่า · สำหรับ Shetland Sheepdog 15 ปี = senior + late-onset seizure → tumor likely\n\n💡 รุ่นอายุ + breed: late-onset (>5 ปี) seizure = structural until proven otherwise',
     verified: 'seizure 1 hr.pdf · DC3final 86' },
 
   { id: 1309, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['seizure', 'extracranial'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้จัดอยู่ในสาเหตุของการชักประเภท **extracranial causes**',
+    q: 'ข้อใดต่อไปนี้จัดอยู่ในสาเหตุของการชักประเภท extracranial causes',
     options: [
       'Lissencephaly (congenital cortical malformation — intracranial structural)',
       'Thiamine deficiency (vitamin B1 — สาเหตุ metabolic แต่ทำลาย CNS โดยตรง)',
@@ -1382,12 +1382,12 @@ export const QB_COM3 = [
       'Ischemic encephalopathy (CNS infarction — intracranial vascular)',
       'Eclampsia (hypocalcemic seizure ใน lactating bitch — extracranial metabolic)',
     ],
-    answer: 4, explain: '**Extracranial seizure** = สาเหตุนอกสมองที่กระทบ neurons (electrolyte, glucose, toxin, organ failure) · **Eclampsia / puerperal tetany** = hypocalcemia เนื่องจาก lactation → tetany + seizure → IV calcium gluconate fix · **rapid + reversible**\n\n❌ ทำไม a/c/d ผิด:\n— Lissencephaly / SRMA / ischemic = intracranial structural/inflammatory/vascular\n— Thiamine deficiency = บางตำราจัด extracranial (metabolic) แต่ทำลาย neurons ในสมองโดยตรง (Wernicke-like) → จัด structural ก็ได้',
+    answer: 4, explain: 'Extracranial seizure = สาเหตุนอกสมองที่กระทบ neurons (electrolyte, glucose, toxin, organ failure) · Eclampsia / puerperal tetany = hypocalcemia เนื่องจาก lactation → tetany + seizure → IV calcium gluconate fix · rapid + reversible\n\n❌ ทำไม a/c/d ผิด:\n— Lissencephaly / SRMA / ischemic = intracranial structural/inflammatory/vascular\n— Thiamine deficiency = บางตำราจัด extracranial (metabolic) แต่ทำลาย neurons ในสมองโดยตรง (Wernicke-like) → จัด structural ก็ได้',
     verified: 'seizure 1 hr.pdf · DC3final 86' },
 
   { id: 1310, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'DC3final 86',
     tags: ['uroabdomen', 'abdominocentesis'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'แมว 2 ปี oliguria 24 hr · ซึม นอนนิ่ง HR 140 CRT 3 sec · เมื่อสงสัย **uroabdomen** approach ที่เหมาะสมที่สุด',
+    q: 'แมว 2 ปี oliguria 24 hr · ซึม นอนนิ่ง HR 140 CRT 3 sec · เมื่อสงสัย uroabdomen approach ที่เหมาะสมที่สุด',
     options: [
       'พิจารณาให้ยาลดปวด opioid หลังทำ triage (analgesia ก่อน Dx)',
       'ทำ abdominocentesis แล้วตรวจ K และ creatinine ในเลือดเทียบกับน้ำเหลือง',
@@ -1395,7 +1395,7 @@ export const QB_COM3 = [
       'ทำ AFAST (focused abdominal sonography for trauma) ทันที',
       'ส่งผ่าตัดเพื่อทำ exploration ภายในช่องท้องและผ่าตัดแก้ไขปัญหา',
     ],
-    answer: 1, explain: '**Uroabdomen confirmation** = วัด **K_fluid > 1.4× K_serum** หรือ **Creatinine_fluid > 2× Creatinine_serum** = diagnostic (Aumann criteria) · ทำ abdominocentesis เก็บ free fluid → ตรวจ ratio · ไม่ต้อง CT/MRI · stabilize ด้วย fluid + lower K (regular insulin + dextrose, calcium gluconate ถ้า ECG เปลี่ยน) → ค่อยผ่าตัด repair ruptured bladder\n\n❌ Surgery ทันทีไม่ใช่ — ต้อง stabilize hyperkalemia + acidosis ก่อน',
+    answer: 1, explain: 'Uroabdomen confirmation = วัด K_fluid > 1.4× K_serum หรือ Creatinine_fluid > 2× Creatinine_serum = diagnostic (Aumann criteria) · ทำ abdominocentesis เก็บ free fluid → ตรวจ ratio · ไม่ต้อง CT/MRI · stabilize ด้วย fluid + lower K (regular insulin + dextrose, calcium gluconate ถ้า ECG เปลี่ยน) → ค่อยผ่าตัด repair ruptured bladder\n\n❌ Surgery ทันทีไม่ใช่ — ต้อง stabilize hyperkalemia + acidosis ก่อน',
     verified: 'Acute Abdomen 1 hr.pdf · DC3final 86' },
 
   { id: 1311, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'DC3final 86',
@@ -1408,21 +1408,21 @@ export const QB_COM3 = [
       'Organs of Corti (ใน cochlea — รับเสียง, ไม่ใช่สมดุล)',
       'Vomeronasal organs (Jacobson — รับฟีโรโมน, ไม่เกี่ยวสมดุล)',
     ],
-    answer: 2, explain: '**3 semicircular canals** (anterior/posterior/horizontal) = sense **angular acceleration** (rotation) · utricle + saccule (otolith organs) = sense linear acceleration + gravity · ทั้งหมดรวม **vestibular labyrinth** ที่ inner ear · CN VIII ส่ง signal ไป vestibular nuclei ที่ brainstem\n\n✓ Hearing = cochlea + organ of Corti · Balance = semicircular canals + otolith organs',
+    answer: 2, explain: '3 semicircular canals (anterior/posterior/horizontal) = sense angular acceleration (rotation) · utricle + saccule (otolith organs) = sense linear acceleration + gravity · ทั้งหมดรวม vestibular labyrinth ที่ inner ear · CN VIII ส่ง signal ไป vestibular nuclei ที่ brainstem\n\n✓ Hearing = cochlea + organ of Corti · Balance = semicircular canals + otolith organs',
     verified: 'neuro_ataxia_tremor 1 hr.pdf · DC3final 86' },
 
   { id: 1312, subject: 'com3', topic: 'nutrition', year: 4, source: 'DC3final 86',
     tags: ['rer', 'calc'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'RER (resting energy requirement, kcal/day) ของสุนัข **20 kg** ค่าใดใกล้ที่สุด',
+    q: 'RER (resting energy requirement, kcal/day) ของสุนัข 20 kg ค่าใดใกล้ที่สุด',
     options: ['360 kcal', '460 kcal', '560 kcal', '660 kcal', '760 kcal'],
-    answer: 3, explain: '**RER linear formula** (สำหรับ BW 2-30 kg): RER = (30 × BW) + 70\n→ (30 × 20) + 70 = **670 kcal/day** ≈ 660\n\nAlternative: RER = 70 × BW^0.75 (ใช้ทุก BW): 70 × 20^0.75 = 70 × 9.46 = 662 kcal\n\n💡 ใน practice: ใช้ RER เป็น baseline → คูณ illness factor (1.0-1.5) → MER สำหรับ critically ill — แต่ปัจจุบัน ICU แนะนำเริ่ม RER × 1.0 (ไม่คูณ illness) เพื่อกัน refeeding syndrome',
+    answer: 3, explain: 'RER linear formula (สำหรับ BW 2-30 kg): RER = (30 × BW) + 70\n→ (30 × 20) + 70 = 670 kcal/day ≈ 660\n\nAlternative: RER = 70 × BW^0.75 (ใช้ทุก BW): 70 × 20^0.75 = 70 × 9.46 = 662 kcal\n\n💡 ใน practice: ใช้ RER เป็น baseline → คูณ illness factor (1.0-1.5) → MER สำหรับ critically ill — แต่ปัจจุบัน ICU แนะนำเริ่ม RER × 1.0 (ไม่คูณ illness) เพื่อกัน refeeding syndrome',
     verified: 'nutrition 1 hr.pdf · DC3final 86' },
 
   { id: 1313, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['idiopathic-epilepsy', 'age'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ช่วงอายุที่ **มีความสำคัญ** ในการตั้งข้อสงสัย idiopathic epilepsy คือ',
-    options: ['0 - 6 เดือน', '6 เดือน - 6 ปี', '6 - 10 ปี', '10 - 16 ปี', 'มากกว่า 16 ปี'],
-    answer: 1, explain: '**Idiopathic epilepsy** (no structural lesion, genetic/familial in many breeds) → onset typically **6 เดือน - 6 ปี** · age-criterion ตาม IVETF (International Veterinary Epilepsy Task Force) Tier I confidence\n\n💡 Onset:\n— **< 1 ปี** = symptomatic (congenital, infectious, metabolic) มากกว่า idiopathic\n— **6 mo-6 yr** = idiopathic เป็นไปได้สูง\n— **> 5-6 ปี** = structural (tumor, infarct, GME) จนกว่าจะพิสูจน์เป็นอื่น → ต้อง MRI',
+    q: 'ช่วงอายุที่ มีความสำคัญ ในการตั้งข้อสงสัย idiopathic epilepsy คือ',
+    options: ['0 - 6 เดือน', '6 - 10 ปี', '6 เดือน - 6 ปี', '10 - 16 ปี', 'มากกว่า 16 ปี'],
+    answer: 2, explain: 'Idiopathic epilepsy (no structural lesion, genetic/familial in many breeds) → onset typically 6 เดือน - 6 ปี · age-criterion ตาม IVETF (International Veterinary Epilepsy Task Force) Tier I confidence\n\n💡 Onset:\n— < 1 ปี = symptomatic (congenital, infectious, metabolic) มากกว่า idiopathic\n— 6 mo-6 yr = idiopathic เป็นไปได้สูง\n— > 5-6 ปี = structural (tumor, infarct, GME) จนกว่าจะพิสูจน์เป็นอื่น → ต้อง MRI',
     verified: 'seizure 1 hr.pdf · IVETF 2015 · DC3final 86' },
 
   { id: 1314, subject: 'com3', topic: 'spinal', year: 4, source: 'DC3final 86',
@@ -1435,12 +1435,12 @@ export const QB_COM3 = [
       'Plain film radiography of cervical + lumbar (screen vertebrae)',
       'Electromyography (EMG) of hindlimb muscles เท่านั้น',
     ],
-    answer: 0, explain: '**LMN paraplegia + back pain + urinary incontinence + age 3 yr German Shepherd** → suspect **L4-L7 / lumbosacral lesion** (Knee jerk hyporeflex = L4-L6 femoral nerve) · best workup: **MRI** (gold standard for soft tissue, IVDD, neoplasia, FCE) · ถ้าไม่มี MRI → myelogram ที่ lumbosacral\n\n❌ ทำไมข้ออื่นผิด:\n— CT brain = ผิดตำแหน่ง (lesion อยู่ spine)\n— Histopath ทันที = invasive, ไม่ใช่ first-line imaging\n— Plain film = เห็น bone แต่ miss soft tissue (disc, cord)\n— EMG alone = ระบุไม่ได้ระดับ lesion',
+    answer: 0, explain: 'LMN paraplegia + back pain + urinary incontinence + age 3 yr German Shepherd → suspect L4-L7 / lumbosacral lesion (Knee jerk hyporeflex = L4-L6 femoral nerve) · best workup: MRI (gold standard for soft tissue, IVDD, neoplasia, FCE) · ถ้าไม่มี MRI → myelogram ที่ lumbosacral\n\n❌ ทำไมข้ออื่นผิด:\n— CT brain = ผิดตำแหน่ง (lesion อยู่ spine)\n— Histopath ทันที = invasive, ไม่ใช่ first-line imaging\n— Plain film = เห็น bone แต่ miss soft tissue (disc, cord)\n— EMG alone = ระบุไม่ได้ระดับ lesion',
     verified: 'Spinal disorder 2 hr.pdf · DC3final 86' },
 
   { id: 1315, subject: 'com3', topic: 'cpcr', year: 4, source: 'DC3final 86',
     tags: ['als', 'epinephrine'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด **ถูกต้อง** ในขั้น Advanced Life Support (ALS) ตามหลักการ "RECOVER"',
+    q: 'ข้อใด ถูกต้อง ในขั้น Advanced Life Support (ALS) ตามหลักการ "RECOVER"',
     options: [
       'ให้ low-dose epinephrine (0.01 mg/kg IV) เพื่อเพิ่ม peripheral vascular resistance',
       'พิจารณาให้ corticosteroids ใน CPR เพื่อช่วยเพิ่ม perfusion ไปสมองเพิ่มขึ้น',
@@ -1448,14 +1448,14 @@ export const QB_COM3 = [
       'สามารถให้ adrenaline หรือ atropine ซ้ำได้ทุกครั้งของ CPR cycle (ทุก 2 นาที)',
       'กรณีที่ไม่สามารถให้ทางหลอดเลือด ใช้ intratracheal route ขนาดเท่ากัน IV',
     ],
-    answer: 0, explain: '**Low-dose epinephrine (0.01 mg/kg IV q4 min)** = first-line vasopressor ใน CPR · α-agonist → vasoconstriction → ↑ peripheral vascular resistance → maintain coronary + cerebral perfusion · high-dose (0.1 mg/kg) **เลิกใช้แล้ว** เพราะ ↑ post-resuscitation arrhythmia\n\n❌ ทำไมข้ออื่นผิด:\n— Steroids = ไม่ benefit ใน CPR (RECOVER 2012 strong against)\n— Rapid fluid = ระวัง overload, ใช้เฉพาะ hypovolemic; CPR ปกติไม่ rapid bolus\n— Atropine ทุก 2 min = ผิด, atropine ให้ครั้งเดียวสำหรับ vagal-mediated bradycardia/asystole\n— Intratracheal = ต้องใช้ **2-10× ของ IV dose** + dilute, ไม่ใช่ขนาดเท่ากัน',
+    answer: 0, explain: 'Low-dose epinephrine (0.01 mg/kg IV q4 min) = first-line vasopressor ใน CPR · α-agonist → vasoconstriction → ↑ peripheral vascular resistance → maintain coronary + cerebral perfusion · high-dose (0.1 mg/kg) เลิกใช้แล้ว เพราะ ↑ post-resuscitation arrhythmia\n\n❌ ทำไมข้ออื่นผิด:\n— Steroids = ไม่ benefit ใน CPR (RECOVER 2012 strong against)\n— Rapid fluid = ระวัง overload, ใช้เฉพาะ hypovolemic; CPR ปกติไม่ rapid bolus\n— Atropine ทุก 2 min = ผิด, atropine ให้ครั้งเดียวสำหรับ vagal-mediated bradycardia/asystole\n— Intratracheal = ต้องใช้ 2-10× ของ IV dose + dilute, ไม่ใช่ขนาดเท่ากัน',
     verified: 'CPCR 1 hr.pdf · RECOVER 2012 · DC3final 86' },
 
   { id: 1316, subject: 'com3', topic: 'shock', year: 4, source: 'DC3final 86',
     tags: ['fluid-calc', 'dehydration'], type: 'mcq', examOrigin: 'COM III Final 86',
     q: 'แมว 5 ปี 4 kg dehydration 7% · ต้องการแก้ deficit ใน 4 hr · maintenance rate 8 ml/hr · rate รวมที่ infusion pump ตั้งเท่าไร',
     options: ['68 ml/hr', '78 ml/hr', '88 ml/hr', '98 ml/hr', '108 ml/hr'],
-    answer: 1, explain: '**Deficit calc**: 7% × 4 kg × 1000 ml/kg = **280 ml**\n**Replace ใน 4 hr** = 280/4 = **70 ml/hr**\n**+ Maintenance** 8 ml/hr\n→ **Total = 70 + 8 = 78 ml/hr**\n\n💡 ในแมว ระวัง overload (heart small, prone to CHF) → ปกติให้ deficit fluid ช้ากว่าสุนัข (replace 4-12 hr) + monitor RR/lung sound + body weight + UOP',
+    answer: 1, explain: 'Deficit calc: 7% × 4 kg × 1000 ml/kg = 280 ml\nReplace ใน 4 hr = 280/4 = 70 ml/hr\n+ Maintenance 8 ml/hr\n→ Total = 70 + 8 = 78 ml/hr\n\n💡 ในแมว ระวัง overload (heart small, prone to CHF) → ปกติให้ deficit fluid ช้ากว่าสุนัข (replace 4-12 hr) + monitor RR/lung sound + body weight + UOP',
     verified: 'SHOCK 1 hr.pdf · DC3final 86' },
 
   { id: 1317, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'DC3final 86',
@@ -1468,12 +1468,12 @@ export const QB_COM3 = [
       'Neuromuscular disorder (weakness + atrophy — ไม่ tremor แบบนี้)',
       'Cerebral disorder (seizure, behavior change, contralateral deficit)',
     ],
-    answer: 2, explain: '**Cerebellar lesion** = ปัญหา motor coordination → 3 hallmark signs: **(1) intention tremor** (สั่นช่วงปลาย movement เมื่อใกล้เป้า), **(2) dysmetria/hypermetria** (overshoot ระยะ), **(3) truncal ataxia** (wide-based, broad-based stance) · NO weakness, NO consciousness change\n\n💡 Tremor types:\n— Intention = cerebellar\n— Resting = basal ganglia\n— Postural = whole-body, drug/toxin\n— Action = essential, head bobbing',
+    answer: 2, explain: 'Cerebellar lesion = ปัญหา motor coordination → 3 hallmark signs: (1) intention tremor (สั่นช่วงปลาย movement เมื่อใกล้เป้า), (2) dysmetria/hypermetria (overshoot ระยะ), (3) truncal ataxia (wide-based, broad-based stance) · NO weakness, NO consciousness change\n\n💡 Tremor types:\n— Intention = cerebellar\n— Resting = basal ganglia\n— Postural = whole-body, drug/toxin\n— Action = essential, head bobbing',
     verified: 'neuro_ataxia_tremor 1 hr.pdf · DC3final 86' },
 
   { id: 1318, subject: 'com3', topic: 'spinal', year: 4, source: 'DC3final 86',
     tags: ['wobbler', 'synonym'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ชื่ออีกชื่อหนึ่งของโรค **Wobbler syndrome** คือ',
+    q: 'ชื่ออีกชื่อหนึ่งของโรค Wobbler syndrome คือ',
     options: [
       'Caudal Cervical Spondylopathy (CCSP) — C5-T1 area compression',
       'Osteochondritis dissecans of lumbosacral junction (cartilage flap, OCD)',
@@ -1481,12 +1481,12 @@ export const QB_COM3 = [
       'Degenerative lumbosacral stenosis (Cauda Equina syndrome — L7-S1)',
       'Caudal equine syndrome (LMN paraparesis + tail/perineal deficit)',
     ],
-    answer: 0, explain: '**Wobbler syndrome = Caudal Cervical Spondylomyelopathy (CCSM/CCSP)** = **C5-T1 compression** จาก disc + ligament + vertebral malformation · large breeds: Doberman, Great Dane (most), Mastiff · onset middle age (3-9 yr) · UMN tetraparesis with **wobbly gait** ที่ hindlimb เริ่มชัดกว่า + cervical pain\n\n❌ ทำไมข้ออื่นผิด:\n— Lumbosacral stenosis = Cauda Equina = different disease (L7-S1)\n— OCD = joint cartilage, ไม่ใช่ spinal\n— CCL = orthopedic, ไม่เกี่ยว spinal',
+    answer: 0, explain: 'Wobbler syndrome = Caudal Cervical Spondylomyelopathy (CCSM/CCSP) = C5-T1 compression จาก disc + ligament + vertebral malformation · large breeds: Doberman, Great Dane (most), Mastiff · onset middle age (3-9 yr) · UMN tetraparesis with wobbly gait ที่ hindlimb เริ่มชัดกว่า + cervical pain\n\n❌ ทำไมข้ออื่นผิด:\n— Lumbosacral stenosis = Cauda Equina = different disease (L7-S1)\n— OCD = joint cartilage, ไม่ใช่ spinal\n— CCL = orthopedic, ไม่เกี่ยว spinal',
     verified: 'Spinal disorder 2 hr.pdf · DC3final 86' },
 
   { id: 1319, subject: 'com3', topic: 'spinal', year: 4, source: 'DC3final 86',
     tags: ['schiff-sherrington', 'localization'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'สุนัข sudden paraplegia แสดงท่า **Schiff-Sherrington posture** · lesion อยู่ที่ spinal segment ใด',
+    q: 'สุนัข sudden paraplegia แสดงท่า Schiff-Sherrington posture · lesion อยู่ที่ spinal segment ใด',
     options: [
       'C1-C5 spinal segment (UMN ทั้ง 4 ขา — tetraparesis)',
       'T3-L3 spinal segment (thoracolumbar — UMN hindlimb + reflex inhibition forelimb)',
@@ -1494,12 +1494,12 @@ export const QB_COM3 = [
       'Cerebrum (cortical lesion — contralateral hemiparesis)',
       'C6-T2 spinal segment (cervicothoracic — UMN hindlimb + LMN forelimb)',
     ],
-    answer: 1, explain: '**Schiff-Sherrington posture** = severe **acute T3-L3 lesion** → loss of ascending inhibition จาก border cells (L1-L7) ที่ปกติ inhibit forelimb extensors → **forelimb extensor rigidity** + **hindlimb paraplegia + flaccid** · มักเกิดใน acute IVDD, FCE, vertebral fracture · prognosis ขึ้นกับ deep pain perception (lost = grave)\n\n⚠️ ระวังสับสนกับ Decerebrate (cerebrum lesion = ทั้ง 4 ขา rigid) — Schiff = forelimb rigid + hindlimb floppy ชัดเจน',
+    answer: 1, explain: 'Schiff-Sherrington posture = severe acute T3-L3 lesion → loss of ascending inhibition จาก border cells (L1-L7) ที่ปกติ inhibit forelimb extensors → forelimb extensor rigidity + hindlimb paraplegia + flaccid · มักเกิดใน acute IVDD, FCE, vertebral fracture · prognosis ขึ้นกับ deep pain perception (lost = grave)\n\n⚠️ ระวังสับสนกับ Decerebrate (cerebrum lesion = ทั้ง 4 ขา rigid) — Schiff = forelimb rigid + hindlimb floppy ชัดเจน',
     verified: 'Spinal disorder 2 hr.pdf · DC3final 86' },
 
   { id: 1320, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['distemper', 'myoclonus'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'อาการ involuntary movement ใดเป็น **characteristic ของ canine distemper viral infection (CDV)**',
+    q: 'อาการ involuntary movement ใดเป็น characteristic ของ canine distemper viral infection (CDV)',
     options: [
       'Dyskinesia (paroxysmal involuntary movement — ไม่จำเพาะ CDV)',
       'Myoclonus (rhythmic muscle jerk — CDV classic, persists ตลอดชีวิต)',
@@ -1507,12 +1507,12 @@ export const QB_COM3 = [
       'Status epilepticus (continuous seizure — emergency, ไม่ specific CDV)',
       'Myokymia (continuous wave-like fasciculation — Jack Russell breed)',
     ],
-    answer: 1, explain: '**Distemper-induced myoclonus** = rhythmic muscle jerks **(chewing-gum movement, leg twitching)** จาก viral damage ที่ lower motor neurons (medulla, ventral horn) · classic CDV sequela ที่ persistent **ตลอดชีวิต** แม้หายจาก acute viral phase · resistant to AED (phenobarb ไม่หาย) · พบร่วมกับ chorioretinitis + enamel hypoplasia\n\n💡 จำ "chewing gum fits" = distemper myoclonus',
+    answer: 1, explain: 'Distemper-induced myoclonus = rhythmic muscle jerks (chewing-gum movement, leg twitching) จาก viral damage ที่ lower motor neurons (medulla, ventral horn) · classic CDV sequela ที่ persistent ตลอดชีวิต แม้หายจาก acute viral phase · resistant to AED (phenobarb ไม่หาย) · พบร่วมกับ chorioretinitis + enamel hypoplasia\n\n💡 จำ "chewing gum fits" = distemper myoclonus',
     verified: 'seizure 1 hr.pdf · DC3final 86' },
 
   { id: 1321, subject: 'com3', topic: 'spinal', year: 4, source: 'DC3final 86',
     tags: ['cauda-equina', 'synonym'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ชื่ออีกชื่อหนึ่งของโรค **Cauda Equina Syndrome** คือ',
+    q: 'ชื่ออีกชื่อหนึ่งของโรค Cauda Equina Syndrome คือ',
     options: [
       'Caudal cervical spondylopathy (Wobbler, C5-T1 area)',
       'Degenerative lumbosacral stenosis (DLSS — L7-S1 compression)',
@@ -1520,12 +1520,12 @@ export const QB_COM3 = [
       'Osteochondritis dissecans of lumbosacral junction (OCD cartilage)',
       'Caudal equine syndrome (สะกดผิด, ไม่ใช่ medical term)',
     ],
-    answer: 1, explain: '**Cauda Equina Syndrome = Degenerative Lumbosacral Stenosis (DLSS)** · L7-S1 compression ของ cauda equina nerves (L7, S1-S3, Cd1-Cd5) · large breeds: GSD (most), Boxer · signs: lumbosacral pain + hindlimb weakness + perineal sensory deficit + tail flaccid + urinary/fecal incontinence · Tx: NSAID + rest → if refractory: dorsal laminectomy decompression\n\n💡 จำ DLSS = "L7-S1 = where cauda equina lives"',
+    answer: 1, explain: 'Cauda Equina Syndrome = Degenerative Lumbosacral Stenosis (DLSS) · L7-S1 compression ของ cauda equina nerves (L7, S1-S3, Cd1-Cd5) · large breeds: GSD (most), Boxer · signs: lumbosacral pain + hindlimb weakness + perineal sensory deficit + tail flaccid + urinary/fecal incontinence · Tx: NSAID + rest → if refractory: dorsal laminectomy decompression\n\n💡 จำ DLSS = "L7-S1 = where cauda equina lives"',
     verified: 'Spinal disorder 2 hr.pdf · DC3final 86' },
 
   { id: 1322, subject: 'com3', topic: 'nutrition', year: 4, source: 'DC3final 86',
     tags: ['stress-starvation', 'cytokines'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'Underlying mechanism ที่พบเฉพาะใน **stress starvation** แต่ **ไม่พบ** ใน simple starvation',
+    q: 'Underlying mechanism ที่พบเฉพาะใน stress starvation แต่ ไม่พบ ใน simple starvation',
     options: [
       'Glucagon (เพิ่มทั้งคู่ — gluconeogenesis + glycogenolysis)',
       'Thyroid hormone reduction (T3/T4 ↓ ทั้งคู่ — adaptive)',
@@ -1533,12 +1533,12 @@ export const QB_COM3 = [
       'Glucocorticoid (cortisol ↑ ทั้งคู่ — counter-regulatory)',
       'Insulin reduction (insulin ↓ ทั้งคู่ — เพราะ glucose intake น้อย)',
     ],
-    answer: 2, explain: '**Stress starvation** (sepsis, trauma, surgery, burn) ≠ simple starvation:\n• **Inflammatory cytokines (IL-1, IL-6, TNF-α)** ↑↑ → muscle proteolysis + insulin resistance + ↑ REE → catabolic state\n• Body **ไม่สามารถ adapt** เป็น ketosis → ใช้ protein/muscle ทำลายมาก\n• Hyperglycemia (insulin resistance) แม้กินไม่พอ\n\n→ Tx: **early enteral nutrition + control inflammation** ไม่ปล่อยให้ขาดสารอาหารนาน\n\n💡 Simple starvation = adaptive (ketosis, lower REE) · Stress = maladaptive catabolism',
+    answer: 2, explain: 'Stress starvation (sepsis, trauma, surgery, burn) ≠ simple starvation:\n• Inflammatory cytokines (IL-1, IL-6, TNF-α) ↑↑ → muscle proteolysis + insulin resistance + ↑ REE → catabolic state\n• Body ไม่สามารถ adapt เป็น ketosis → ใช้ protein/muscle ทำลายมาก\n• Hyperglycemia (insulin resistance) แม้กินไม่พอ\n\n→ Tx: early enteral nutrition + control inflammation ไม่ปล่อยให้ขาดสารอาหารนาน\n\n💡 Simple starvation = adaptive (ketosis, lower REE) · Stress = maladaptive catabolism',
     verified: 'nutrition 1 hr.pdf · DC3final 86' },
 
   { id: 1323, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'DC3final 86',
     tags: ['oxygen-supplementation', 'flow-rate'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'วิธีการให้ออกซิเจนกับสัตว์มีหลายวิธี · เลือกวิธีที่ใช้ flow rate **น้อยที่สุด** (L/min)',
+    q: 'วิธีการให้ออกซิเจนกับสัตว์มีหลายวิธี · เลือกวิธีที่ใช้ flow rate น้อยที่สุด (L/min)',
     options: [
       'Intranasal oxygen (cannula 1-5 mm — flow 50-100 ml/kg/min คือ ~0.5-2 L/min)',
       'Flow-by oxygen (mask ห่างๆ — flow 2-3 L/min ขั้นต่ำให้ FiO2 30-40%)',
@@ -1546,7 +1546,7 @@ export const QB_COM3 = [
       '(Fit) face mask (snug fit — flow 4-6 L/min ให้ FiO2 50-60%)',
       'E-collar oxygen canopy (Saran wrap + collar — flow 3-5 L/min)',
     ],
-    answer: 0, explain: '**Intranasal cannula** = method ที่ **ใช้ O2 flow ต่ำสุด** (0.5-2 L/min ในแมว/หมาเล็ก) เพราะส่งตรงเข้า nasopharynx → ไม่เสียไป room · ให้ FiO2 30-50% ขึ้นกับ flow + cooperative animal · ใส่ catheter pediatric 5-8F ผ่าน lidocaine\n\n💡 Flow ranking (น้อย→มาก): Intranasal < Flow-by < E-collar/Mask < Oxygen cage',
+    answer: 0, explain: 'Intranasal cannula = method ที่ ใช้ O2 flow ต่ำสุด (0.5-2 L/min ในแมว/หมาเล็ก) เพราะส่งตรงเข้า nasopharynx → ไม่เสียไป room · ให้ FiO2 30-50% ขึ้นกับ flow + cooperative animal · ใส่ catheter pediatric 5-8F ผ่าน lidocaine\n\n💡 Flow ranking (น้อย→มาก): Intranasal < Flow-by < E-collar/Mask < Oxygen cage',
     verified: 'Respiratory and Cardiovascular Emergency 1 hr.pdf · DC3final 86' },
 
   { id: 1324, subject: 'com3', topic: 'spinal', year: 4, source: 'DC3final 86',
@@ -1559,12 +1559,12 @@ export const QB_COM3 = [
       'Pomeranian, Chihuahua (toy non-chondro — atlantoaxial subluxation มากกว่า)',
       'Bull terrier, Bulldog (brachycephalic — congenital vertebral malformation)',
     ],
-    answer: 2, explain: '**Hansen Type I IVDD** = **chondrodystrophic breed** (CDDY gene mutation, FGF4 retrogene) → premature disc degeneration → mineralization → annulus rupture → **acute extrusion** ของ nucleus pulposus เข้า spinal canal · classic breeds: **Dachshund (#1, 19% lifetime risk), Basset Hound, Beagle, Pekingese, Shih Tzu, French Bulldog**\n\n❌ Hansen Type II = non-chondrodystrophic (German Shepherd, Doberman) — chronic protrusion, slow onset',
+    answer: 2, explain: 'Hansen Type I IVDD = chondrodystrophic breed (CDDY gene mutation, FGF4 retrogene) → premature disc degeneration → mineralization → annulus rupture → acute extrusion ของ nucleus pulposus เข้า spinal canal · classic breeds: Dachshund (#1, 19% lifetime risk), Basset Hound, Beagle, Pekingese, Shih Tzu, French Bulldog\n\n❌ Hansen Type II = non-chondrodystrophic (German Shepherd, Doberman) — chronic protrusion, slow onset',
     verified: 'Spinal disorder 2 hr.pdf · DC3final 86' },
 
   { id: 1325, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'DC3final 86',
     tags: ['ate', '5ps'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด **ไม่ใช่** หนึ่งใน 5Ps criteria ของการวินิจฉัย **aortic thromboembolism (ATE)** ในแมว',
+    q: 'ข้อใด ไม่ใช่ หนึ่งใน 5Ps criteria ของการวินิจฉัย aortic thromboembolism (ATE) ในแมว',
     options: [
       'Poikilocytosis (เม็ดเลือดแดงผิดรูป — เป็น CBC finding, ไม่ใช่ ATE clinical)',
       'Pulselessness (femoral pulse คลำไม่ได้ — distal embolus block flow)',
@@ -1572,12 +1572,12 @@ export const QB_COM3 = [
       'Pain (severe acute — ischemic muscle, vocalize, distress)',
       'Pallor / Polar (ขาเย็น + พื้นเท้าซีด — peripheral hypoperfusion)',
     ],
-    answer: 0, explain: '**5Ps of ATE**: **Pain · Pulselessness · Paralysis · Pallor (ซีด) · Poikilothermy / Polar (ขาเย็น)** · classic feline aortic thromboembolism (saddle thrombus จาก left atrial thrombus ใน HCM) · prognosis poor — survival 30-50%, motor recovery บางส่วน\n\n❌ Poikilocytosis = blood smear (RBC shape change), ไม่ใช่ ATE bedside criteria — เป็น confusing word similar to "Poikilothermy"',
+    answer: 0, explain: '5Ps of ATE: Pain · Pulselessness · Paralysis · Pallor (ซีด) · Poikilothermy / Polar (ขาเย็น) · classic feline aortic thromboembolism (saddle thrombus จาก left atrial thrombus ใน HCM) · prognosis poor — survival 30-50%, motor recovery บางส่วน\n\n❌ Poikilocytosis = blood smear (RBC shape change), ไม่ใช่ ATE bedside criteria — เป็น confusing word similar to "Poikilothermy"',
     verified: 'Respiratory and Cardiovascular Emergency 1 hr.pdf · DC3final 86' },
 
   { id: 1326, subject: 'com3', topic: 'nutrition', year: 4, source: 'DC3final 86',
     tags: ['refeeding-syndrome', 'prevention'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'การป้องกัน **refeeding syndrome** ในสัตว์ที่อดอาหารนาน (รับ enteral feeding ใหม่) ทำได้อย่างไร',
+    q: 'การป้องกัน refeeding syndrome ในสัตว์ที่อดอาหารนาน (รับ enteral feeding ใหม่) ทำได้อย่างไร',
     options: [
       'ให้ motility modifier (metoclopramide) ก่อนให้อาหารมื้อแรกอย่างน้อย 30 นาที',
       'เริ่มจากการใช้อาหารเหลว แล้วค่อยๆปรับเป็น semisolid และ solid ตามลำดับ',
@@ -1585,12 +1585,12 @@ export const QB_COM3 = [
       'ให้ antacid และยับยั้งกรดกระเพาะอาหารล่วงหน้า 30 นาทีก่อนเริ่มให้อาหาร',
       'ให้ prophylaxis antibiotics ล่วงหน้า 24 ชม. แล้วจึงเริ่มการให้อาหารได้',
     ],
-    answer: 2, explain: '**Refeeding syndrome** = sudden glucose load หลังอดอาหารนาน → insulin spike → cells take up K, Mg, PO4 → **severe hypokalemia + hypomagnesemia + hypophosphatemia** → cardiac arrhythmia, weakness, seizure, death\n\n**Prevention**: เริ่มที่ **25-33% RER (1/4-1/3)** วันแรก → ค่อยๆ titrate ขึ้น 25% ต่อวันใน 3-7 วัน · monitor electrolyte (PO4, K, Mg) ทุก 12-24 hr 3 วันแรก · supplement ก่อนถ้าต่ำ',
+    answer: 2, explain: 'Refeeding syndrome = sudden glucose load หลังอดอาหารนาน → insulin spike → cells take up K, Mg, PO4 → severe hypokalemia + hypomagnesemia + hypophosphatemia → cardiac arrhythmia, weakness, seizure, death\n\nPrevention: เริ่มที่ 25-33% RER (1/4-1/3) วันแรก → ค่อยๆ titrate ขึ้น 25% ต่อวันใน 3-7 วัน · monitor electrolyte (PO4, K, Mg) ทุก 12-24 hr 3 วันแรก · supplement ก่อนถ้าต่ำ',
     verified: 'nutrition 1 hr.pdf · DC3final 86' },
 
   { id: 1327, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'DC3final 86',
     tags: ['acute-abdomen', 'medical-mgmt'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'สาเหตุของ acute abdomen ในข้อใด **ไม่จำเป็น** ต้องได้รับการผ่าตัดด่วน (medical management พอ)',
+    q: 'สาเหตุของ acute abdomen ในข้อใด ไม่จำเป็น ต้องได้รับการผ่าตัดด่วน (medical management พอ)',
     options: [
       'Gastric dilatation-volvulus (GDV — surgical emergency, decompress + gastropexy)',
       'Septic peritonitis (free fluid + bacteria + neutrophil → ผ่าตัด exploratory)',
@@ -1598,7 +1598,7 @@ export const QB_COM3 = [
       'พบ neutrophil + intracellular bacteria จาก abdominocentesis (= septic peritonitis)',
       'Acute pancreatitis (medical Tx: fluid + analgesia + antiemetic — surgery rare)',
     ],
-    answer: 4, explain: '**Acute pancreatitis** = **medical Tx** เป็นหลัก: aggressive IV fluid (LRS) + opioid analgesia (fentanyl/methadone) + antiemetic (maropitant, ondansetron) + early enteral nutrition (jejunostomy ถ้า severe) + abx ถ้าสงสัย infected · **surgery rare** — เฉพาะ pancreatic abscess, pseudocyst, biliary obstruction, peritonitis\n\n✓ a/b/c/d ต้องผ่าตัด ทันที (GDV, septic perit, ongoing hemorrhage)',
+    answer: 4, explain: 'Acute pancreatitis = medical Tx เป็นหลัก: aggressive IV fluid (LRS) + opioid analgesia (fentanyl/methadone) + antiemetic (maropitant, ondansetron) + early enteral nutrition (jejunostomy ถ้า severe) + abx ถ้าสงสัย infected · surgery rare — เฉพาะ pancreatic abscess, pseudocyst, biliary obstruction, peritonitis\n\n✓ a/b/c/d ต้องผ่าตัด ทันที (GDV, septic perit, ongoing hemorrhage)',
     verified: 'Acute Abdomen 1 hr.pdf · DC3final 86' },
 
   { id: 1328, subject: 'com3', topic: 'shock', year: 4, source: 'DC3final 86',
@@ -1611,12 +1611,12 @@ export const QB_COM3 = [
       'Early หรือ late stage of heat stroke (T สูงและ stuporous + dilated pupils)',
       'Hypovolemic shock เพราะ poor perfusion จากเสียเลือดหรือสารน้ำมาก',
     ],
-    answer: 2, explain: '**Septic shock — hyperdynamic phase**: brick-red mm + CRT <1 sec + bounding pulse + tachycardia + fever + mentation change · เป็น **distributive shock** จาก cytokine vasodilation → blood "pooled" peripheral แต่ HR สูง compensate → จะเข้าสู่ **hypodynamic phase** (pale mm, weak pulse, hypotension) ถ้าไม่รักษา\n\n❌ ทำไมข้ออื่นผิด:\n— Cardiogenic = pale mm + weak pulse (CO ลด)\n— Brain edema = ไม่ใช่ "shock", มี Cushing reflex (HTN+brady)\n— Heat stroke = T มัก > 105°F (case นี้ 102.8 = ใกล้ปกติบน)\n— Hypovolemic = pale mm + prolonged CRT',
+    answer: 2, explain: 'Septic shock — hyperdynamic phase: brick-red mm + CRT <1 sec + bounding pulse + tachycardia + fever + mentation change · เป็น distributive shock จาก cytokine vasodilation → blood "pooled" peripheral แต่ HR สูง compensate → จะเข้าสู่ hypodynamic phase (pale mm, weak pulse, hypotension) ถ้าไม่รักษา\n\n❌ ทำไมข้ออื่นผิด:\n— Cardiogenic = pale mm + weak pulse (CO ลด)\n— Brain edema = ไม่ใช่ "shock", มี Cushing reflex (HTN+brady)\n— Heat stroke = T มัก > 105°F (case นี้ 102.8 = ใกล้ปกติบน)\n— Hypovolemic = pale mm + prolonged CRT',
     verified: 'SHOCK 1 hr.pdf · DC3final 86' },
 
   { id: 1329, subject: 'com3', topic: 'neuro-er', year: 4, source: 'DC3final 86',
     tags: ['cushing-response', 'tbi'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'Character ใด **ถูกต้องตาม** criteria ของ **Cushing response** ใน traumatic brain injury (TBI)',
+    q: 'Character ใด ถูกต้องตาม criteria ของ Cushing response ใน traumatic brain injury (TBI)',
     options: [
       'Hypertension + tachycardia + increased ICP (sympathetic surge ทั้งหมด)',
       'Hypotension + bradycardia + decreased ICP (decompensated stage)',
@@ -1624,6 +1624,6 @@ export const QB_COM3 = [
       'Hypertension + bradycardia + increased ICP (Cushing triad classical)',
       'Hypotension + tachycardia + increased ICP (hypovolemia mimic)',
     ],
-    answer: 3, explain: '**Cushing reflex (triad)** = brain stem reflex ตอบ critically high ICP:\n1. **Hypertension** ↑ — สมอง vasoconstrict ส่ง catecholamine surge เพื่อ maintain cerebral perfusion (CPP = MAP - ICP)\n2. **Bradycardia** ↓ HR — vagal-mediated reflex จาก HTN baroreceptor\n3. **Irregular respiration** (apneustic, Cheyne-Stokes)\n\n→ จะนำสู่ herniation ถ้าไม่ลด ICP (mannitol, hyperventilate, head elevation 30°)\n\n💡 จำ "HTN + brady = high ICP, ลดด่วน"',
+    answer: 3, explain: 'Cushing reflex (triad) = brain stem reflex ตอบ critically high ICP:\n1. Hypertension ↑ — สมอง vasoconstrict ส่ง catecholamine surge เพื่อ maintain cerebral perfusion (CPP = MAP - ICP)\n2. Bradycardia ↓ HR — vagal-mediated reflex จาก HTN baroreceptor\n3. Irregular respiration (apneustic, Cheyne-Stokes)\n\n→ จะนำสู่ herniation ถ้าไม่ลด ICP (mannitol, hyperventilate, head elevation 30°)\n\n💡 จำ "HTN + brady = high ICP, ลดด่วน"',
     verified: 'neuroER 1 hr.pdf · DC3final 86' },
 ];

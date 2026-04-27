@@ -33,7 +33,7 @@ export const QB_COM5 = [
 
   { id: 501, subject: 'com5', topic: 'cve', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['CPV', 'risk'], type: 'mcq',
-    q: 'ข้อใด **ไม่ใช่** risk factor ของ Canine Parvovirus',
+    q: 'ข้อใด ไม่ใช่ risk factor ของ Canine Parvovirus',
     options: ['สุนัขโตเต็มวัยที่ฉีดวัคซีนครบและอยู่ในบ้าน', 'สิ่งแวดล้อมแออัด ขาดสุขอนามัย', 'การติดพยาธิร่วม (endoparasitism)', 'อายุ 6 สัปดาห์ – 6 เดือน'],
     answer: 0, explain: 'Risk factors: young dog 6 wk-6 mo, unvaccinated, crowded/unsanitary, co-infection, certain breeds (Rottweiler/Doberman/Lab/GSD/Pit/Yorkie)\nadult ที่ฉีดวัคซีนครบ = low risk\n\n❌ ทำไมข้ออื่นผิด\n— แออัด/co-parasite/6wk-6mo = risk factor จริง\n— "vaccinated adult indoor" = low risk = คำตอบที่ถาม',
     verified: 'CVE.pdf p.4' },
@@ -110,9 +110,9 @@ export const QB_COM5 = [
 
   { id: 539, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
     tags: ['CPV', 'diagnosis', 'PCR'], type: 'mcq',
-    q: 'ข้อใด **ไม่ใช่** สาเหตุ false-positive ของ ELISA test kit สำหรับ CPV',
+    q: 'ข้อใด ไม่ใช่ สาเหตุ false-positive ของ ELISA test kit สำหรับ CPV',
     options: ['Low viral load (น้อยเกินไป)', 'Recent natural infection', 'Cross-reaction กับ feline parvovirus (FPV)', 'Vaccine MLV ภายใน 3-10 วัน'],
-    answer: 0, explain: 'Low viral load = false **negative** ไม่ใช่ false positive\nใช้ PCR แยก vaccine strain ออกจาก natural infection\n\n❌ ทำไมข้ออื่นผิด\n— Recent infection / Cross-react FPV / Vaccine MLV 3-10 d = false positive จริง\n— "Low viral load" = false **negative** ไม่ใช่ positive',
+    answer: 0, explain: 'Low viral load = false negative ไม่ใช่ false positive\nใช้ PCR แยก vaccine strain ออกจาก natural infection\n\n❌ ทำไมข้ออื่นผิด\n— Recent infection / Cross-react FPV / Vaccine MLV 3-10 d = false positive จริง\n— "Low viral load" = false negative ไม่ใช่ positive',
     verified: 'CVE.pdf p.14' },
 
   { id: 540, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
@@ -257,7 +257,7 @@ export const QB_COM5 = [
   { id: 553, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
     tags: ['sporotrichosis', 'ketoconazole'], type: 'tf',
     q: 'Ketoconazole เป็น drug of choice ในการรักษา Sporotrichosis ในแมว',
-    answer: false, explain: 'False! Ketoconazole common ในสุนัข แต่ **ห้ามใช้ในแมว** เพราะ hepatotoxic มาก (cholangiohepatitis + ↑ liver enzyme)',
+    answer: false, explain: 'False! Ketoconazole common ในสุนัข แต่ ห้ามใช้ในแมว เพราะ hepatotoxic มาก (cholangiohepatitis + ↑ liver enzyme)',
     verified: 'Sporotrichosis and Cryptococcosis.pdf p.35' },
 
   { id: 554, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis.pdf',
@@ -380,7 +380,7 @@ export const QB_COM5 = [
 
   { id: 563, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['protozoal', 'classification'], type: 'mcq',
-    q: 'ข้อใดเป็น **mucosoflagellate** (ไม่ใช่ coccidia)',
+    q: 'ข้อใดเป็น mucosoflagellate (ไม่ใช่ coccidia)',
     options: ['Sarcocystis + Hammondia', 'Giardia + Tritrichomonas foetus', 'Toxoplasma + Neospora', 'Cystoisospora + Cryptosporidium'],
     answer: 1, explain: 'Mucosoflagellate: Giardia + T. foetus + Entamoeba\nCoccidia (Apicomplexa): Cystoisospora, Crypto, Toxo, Neospora, Sarcocystis, Hammondia, Besnoitia\n\n❌ ทำไมข้ออื่นผิด\n— Sarcocystis+Hammondia / Toxo+Neospora / Cysto+Crypto = Apicomplexa coccidia ทั้งหมด',
     verified: 'GI_protozoa.pdf p.3' },
@@ -430,9 +430,9 @@ export const QB_COM5 = [
 
   { id: 570, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['tritrichomonas', 'morphology'], type: 'mcq',
-    q: 'ลักษณะ "ข้อใด" ที่ Tritrichomonas foetus trophozoite **ไม่มี** แต่ Giardia trophozoite "มี"',
+    q: 'ลักษณะ "ข้อใด" ที่ Tritrichomonas foetus trophozoite ไม่มี แต่ Giardia trophozoite "มี"',
     options: ['1-2 nuclei', 'Pear-shaped body', 'Anterior flagella', 'Cyst stage และ falling-leaf motility'],
-    answer: 3, explain: 'T. foetus: 1 nucleus, axostyle, 3 anterior flagella + undulating membrane, **NO cyst stage**, erratic/jerky motility\nGiardia: 2 nuclei, sucking disc, **มี cyst stage**, **falling-leaf motility**\n\n❌ ทำไมข้ออื่นผิด\n— 1-2 nuclei / Pear-shaped / Anterior flagella = ทั้งคู่มีลักษณะคล้ายกัน — cyst stage + falling-leaf motility = Giardia เท่านั้น',
+    answer: 3, explain: 'T. foetus: 1 nucleus, axostyle, 3 anterior flagella + undulating membrane, NO cyst stage, erratic/jerky motility\nGiardia: 2 nuclei, sucking disc, มี cyst stage, falling-leaf motility\n\n❌ ทำไมข้ออื่นผิด\n— 1-2 nuclei / Pear-shaped / Anterior flagella = ทั้งคู่มีลักษณะคล้ายกัน — cyst stage + falling-leaf motility = Giardia เท่านั้น',
     verified: 'GI_protozoa.pdf p.19' },
 
   { id: 571, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
@@ -952,27 +952,27 @@ export const QB_COM5 = [
     tags: ['sporotrichosis', 'zoonosis', 'critical'], type: 'mcq',
     q: 'ความสำคัญที่ทำให้ Sporotrichosis ในแมวเป็น "★★★ zoonosis level ที่ต้องให้คำแนะนำเจ้าของอย่างจริงจัง" คืออะไร',
     options: ['ติดต่อจากแมวสู่คนได้ผ่านการสัมผัสน้ำเหลือง/หนองจากแผลโดยตรง (รวมข่วน, กัด)', 'ติดต่อทางอากาศเหมือนวัณโรค', 'ติดต่อจากการกินอาหารที่ปนเปื้อน', 'ไม่ติดต่อสู่คน'],
-    answer: 0, explain: 'Sporotrichosis เป็น **zoonotic fungal infection** ที่ติดต่อจากแมวสู่คนได้ทาง **direct contact with exudate/discharge from cutaneous lesions** (รวมการข่วน/กัด เพราะ yeast cell อยู่ในเล็บ/น้ำลาย) — ต่างจาก fungal อื่นที่มักได้จากสิ่งแวดล้อม\n\nคำแนะนำเจ้าของ:\n• ใส่ถุงมือทุกครั้งที่จับแมว/ทำแผล\n• เลี้ยงแบบ indoor + กักตัวจนหาย\n• คนภูมิคุ้มกันต่ำ (HIV, chemo, organ transplant) → ห้ามสัมผัส\n• ★ กินยาต่ออีก 1 เดือนหลังแผลหายสนิท ไม่งั้นกลับมาเป็นอีก\n\n❌ ทำไมข้ออื่นผิด\n— Airborne = ไม่ใช่ route หลัก (TB, COVID)\n— Foodborne = ไม่ใช่ Sporothrix\n— "ไม่ติดต่อ" = false, อันตรายต่อคน',
+    answer: 0, explain: 'Sporotrichosis เป็น zoonotic fungal infection ที่ติดต่อจากแมวสู่คนได้ทาง direct contact with exudate/discharge from cutaneous lesions (รวมการข่วน/กัด เพราะ yeast cell อยู่ในเล็บ/น้ำลาย) — ต่างจาก fungal อื่นที่มักได้จากสิ่งแวดล้อม\n\nคำแนะนำเจ้าของ:\n• ใส่ถุงมือทุกครั้งที่จับแมว/ทำแผล\n• เลี้ยงแบบ indoor + กักตัวจนหาย\n• คนภูมิคุ้มกันต่ำ (HIV, chemo, organ transplant) → ห้ามสัมผัส\n• ★ กินยาต่ออีก 1 เดือนหลังแผลหายสนิท ไม่งั้นกลับมาเป็นอีก\n\n❌ ทำไมข้ออื่นผิด\n— Airborne = ไม่ใช่ route หลัก (TB, COVID)\n— Foodborne = ไม่ใช่ Sporothrix\n— "ไม่ติดต่อ" = false, อันตรายต่อคน',
     verified: 'Sporotrichosis and Cryptococcosis.pdf + FINAL 86 p.11 ★★★ "Zoonosis"' },
 
   { id: 626, subject: 'com5', topic: 'sporo-crypto', year: 4, source: 'Sporotrichosis and Cryptococcosis + FINAL 86',
     tags: ['cryptococcosis', 'cns', 'fluconazole'], type: 'mcq',
     q: 'ในกรณี Cryptococcosis ที่มี CNS involvement (CSF positive) ยา azole ใดเป็นตัวเลือกที่ดีที่สุดเพราะ CNS penetration สูง',
     options: ['Itraconazole', 'Ketoconazole', 'Fluconazole', 'Posaconazole'],
-    answer: 2, explain: '**Fluconazole** = best CNS penetration ในกลุ่ม azole (small molecule, water-soluble, low protein binding) → reach CSF concentration > 60% ของ plasma · ใช้ในกรณี mild-moderate CNS Crypto · severe CNS / disseminated → **Amphotericin B + Flucytosine** (synergistic) ก่อน, แล้ว maintenance ด้วย Fluconazole\n\n❌ ทำไมข้ออื่นผิด\n— Itraconazole = lipophilic, large molecule → CNS penetration แย่\n— Ketoconazole = ไม่ผ่าน BBB + hepatotoxic\n— Posaconazole = active แต่ ราคาแพง + CNS penetration ยังไม่ดีเท่า Fluconazole',
+    answer: 2, explain: 'Fluconazole = best CNS penetration ในกลุ่ม azole (small molecule, water-soluble, low protein binding) → reach CSF concentration > 60% ของ plasma · ใช้ในกรณี mild-moderate CNS Crypto · severe CNS / disseminated → Amphotericin B + Flucytosine (synergistic) ก่อน, แล้ว maintenance ด้วย Fluconazole\n\n❌ ทำไมข้ออื่นผิด\n— Itraconazole = lipophilic, large molecule → CNS penetration แย่\n— Ketoconazole = ไม่ผ่าน BBB + hepatotoxic\n— Posaconazole = active แต่ ราคาแพง + CNS penetration ยังไม่ดีเท่า Fluconazole',
     verified: 'Sporotrichosis and Cryptococcosis.pdf + FINAL 86 p.12 (Crypto box: CSF infection: Fluconazole)' },
 
   { id: 627, subject: 'com5', topic: 'vaccine', year: 4, source: 'WSAVA 2024 + FINAL 86',
     tags: ['vaccine', 'wsava-2024', 'updates'], type: 'mcq',
     q: 'WSAVA 2024 vaccination guidelines มีการเปลี่ยนแปลงสำคัญข้อใดจาก 2016',
     options: ['ยกเลิก rabies vaccine', 'เพิ่ม Leptospirosis และ FeLV เป็น core ในบางกรณี + ปรับ booster หลัง 16 wk เป็น 6 เดือน (จากเดิม 1 ปี)', 'ลด core เหลือแค่ rabies', 'แนะนำให้ vaccine ทุกตัวเดือนละครั้ง'],
-    answer: 1, explain: 'Highlights of 2024 WSAVA guidelines:\n• เพิ่ม **Leptospirosis** ใน canine non-core (location-dependent → core ในไทย/พื้นที่เสี่ยง)\n• เพิ่ม **FeLV** ใน feline non-core (kitten + outdoor cat)\n• **6-month booster** หลัง initial puppy/kitten series 16 wk (เดิม 1 ปี) — close window of susceptibility from MDA\n• Form: subcutaneous preferred (cat: distal limb เพื่อ amputation if FISS)\n• ATR titer puppy 1:380-1:640 = วัด adequate response\n\n❌ ทำไมข้ออื่นผิด\n— ยกเลิก rabies = ผิด, ยังเป็น core ในประเทศที่มี endemic\n— Core เหลือแค่ rabies = ผิด, CDV/CPV/CAV ยัง core\n— ฉีดเดือนละครั้ง = ผิด, ไม่จำเป็นและ wasteful',
+    answer: 1, explain: 'Highlights of 2024 WSAVA guidelines:\n• เพิ่ม Leptospirosis ใน canine non-core (location-dependent → core ในไทย/พื้นที่เสี่ยง)\n• เพิ่ม FeLV ใน feline non-core (kitten + outdoor cat)\n• 6-month booster หลัง initial puppy/kitten series 16 wk (เดิม 1 ปี) — close window of susceptibility from MDA\n• Form: subcutaneous preferred (cat: distal limb เพื่อ amputation if FISS)\n• ATR titer puppy 1:380-1:640 = วัด adequate response\n\n❌ ทำไมข้ออื่นผิด\n— ยกเลิก rabies = ผิด, ยังเป็น core ในประเทศที่มี endemic\n— Core เหลือแค่ rabies = ผิด, CDV/CPV/CAV ยัง core\n— ฉีดเดือนละครั้ง = ผิด, ไม่จำเป็นและ wasteful',
     verified: 'WSAVA 2024 vaccination guidelines + FINAL 86 p.30-31 (MC 10 ข้อ on vaccination)' },
 
   { id: 628, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination + FINAL 86',
     tags: ['vaccine', 'failure', 'breed'], type: 'mcq',
     q: 'สาเหตุของ vaccine failure ที่ "หมาฉีดครบแล้วยังป่วยจาก CPV/Rabies" ที่พบบ่อยใน 2 breed ใด',
     options: ['Pomeranian, Chihuahua', 'German Shepherd, Rottweiler (poor responder breeds)', 'Golden Retriever, Labrador', 'Pug, Bulldog'],
-    answer: 1, explain: 'Genetic poor responder breeds → MHC haplotype ไม่ตอบสนองต่อ CPV-2 + rabies vaccine ดี:\n• **German Shepherd, Rottweiler** ★\n→ titer ต่ำหลัง vaccination → reinfection risk สูง\n→ ทำ titer test หลัง vaccine + booster ถ้า titer ต่ำ\n\nสาเหตุ vaccine failure อื่นๆ:\n1. **MDA neutralize** (window of susceptibility 6-16 wk in puppies)\n2. **Cold chain failure** (vaccine ตายแล้ว เก็บไม่ดี)\n3. Strain selection / production errors\n4. Storage / transportation / handling\n5. Immunosuppression (concurrent illness, steroid)\n6. Vaccine ไม่ตรงกับ field strain\n\n❌ ทำไมข้ออื่นผิด\n— Pom/Chi = atlantoaxial / hypoglycemia, ไม่ใช่ vaccine response\n— Golden/Lab = generally good responders\n— Pug/Bulldog = airway/skin issues',
+    answer: 1, explain: 'Genetic poor responder breeds → MHC haplotype ไม่ตอบสนองต่อ CPV-2 + rabies vaccine ดี:\n• German Shepherd, Rottweiler ★\n→ titer ต่ำหลัง vaccination → reinfection risk สูง\n→ ทำ titer test หลัง vaccine + booster ถ้า titer ต่ำ\n\nสาเหตุ vaccine failure อื่นๆ:\n1. MDA neutralize (window of susceptibility 6-16 wk in puppies)\n2. Cold chain failure (vaccine ตายแล้ว เก็บไม่ดี)\n3. Strain selection / production errors\n4. Storage / transportation / handling\n5. Immunosuppression (concurrent illness, steroid)\n6. Vaccine ไม่ตรงกับ field strain\n\n❌ ทำไมข้ออื่นผิด\n— Pom/Chi = atlantoaxial / hypoglycemia, ไม่ใช่ vaccine response\n— Golden/Lab = generally good responders\n— Pug/Bulldog = airway/skin issues',
     verified: 'WSAVA 2024 + FINAL 86 p.31 (Vaccine failure: German shepherd, Rottweiler ไม่ตอบสนองต่อ vaccine CPV-2, rabies)' },
 ];
