@@ -15,6 +15,21 @@
 
 export const CHANGELOG = [
   {
+    version: '5.1.4',
+    date: '2026-04-27',
+    headline: '🤖 Smart AI grading + 4 Mock Exams Eng Vet Prof II ครบ',
+    changes: [
+      { kind: 'feature', icon: '🤖', title: 'Smart AI score assessment',
+        desc: 'หลังเขียน summary/short answer → กดปุ่ม "🤖 Smart AI grade" → AI ตรวจตาม rubric · score breakdown ต่อเกณฑ์ + จุดเด่น + จุดที่ควรปรับ · หรือเลือก "📝 Self assess" ก็ได้' },
+      { kind: 'content', icon: '📚', title: '4 Mock Exams ครบ Part I + Part II',
+        desc: 'Mock 1: MDORS/CORS · Mock 2: Bone density baboons · Mock 3: Newcastle Oman · Mock 4: ✏️ AMR/MRSP (เขียนใหม่ตาม Final spec) · ทุก mock เรียงคำถามตาม section flow (Intro→Methods→Results→Discussion→T/F→Essay)' },
+      { kind: 'content', icon: '✏️', title: '20 short-answer + 11 T/F + 4 essay จาก Exercise 2 KEY',
+        desc: 'คำตอบ + keywords ดึงตรงจาก Exercise 2 KEY ที่อาจารย์ให้ · ใช้ฝึกได้สมจริง' },
+      { kind: 'feature', icon: '📋', title: 'Reordered ID + question flow',
+        desc: 'Within each mock: passage แสดงก่อนคำถาม · คำถามเรียงตาม section · เลขข้อ run ต่อเนื่อง make sense' },
+    ],
+  },
+  {
     version: '5.1.3',
     date: '2026-04-27',
     headline: '✍️ Mock Exam Eng Vet Prof II พร้อมแล้ว — เขียน summary จริงๆ ได้เลย',

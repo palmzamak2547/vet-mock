@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
+import { gradeWithAI } from '../lib/ai-grade.js';
 
 export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }) {
   return (
@@ -106,9 +108,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                     </div>
                   </div>
                 )}
-                <div style={{ marginTop: 6, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-bg)', border: '1px dashed var(--clr-border)', fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
-                  💡 ข้อเขียนตรวจอัตโนมัติไม่ได้ — เปรียบเทียบกับ model answer + rubric ข้างบน แล้วประเมินตัวเองว่าได้คะแนนเท่าไหร่
-                </div>
+                <AIGradePanel q={q} userAnswer={userAns} />
               </>
             ) : (
               <>
@@ -180,4 +180,219 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
       </div>
     </>
   );
+}
+
+// ─────────────────────────────────────────────────────────────
+// AIGradePanel — choose between Self-grade and AI-grade for
+// short/essay questions. AI calls /api/grade-summary; result is
+// rendered as a per-criterion breakdown.
+// ─────────────────────────────────────────────────────────────
+function AIGradePanel({ q, userAnswer }) {
+  // mode: 'choose' | 'self' | 'ai-loading' | 'ai-result' | 'ai-error'
+  const [mode, setMode] = useState('choose');
+  const [aiResult, setAiResult] = useState(null);
+  const [aiError, setAiError] = useState(null);
+  const hasAnswer = typeof userAnswer === 'string' && userAnswer.trim().length > 0;
+
+  const requestAI = async () => {
+    if (!hasAnswer) {
+      setAiError({ error: 'ยังไม่ได้เขียนคำตอบ' });
+      setMode('ai-error');
+      return;
+    }
+    setMode('ai-loading');
+    setAiError(null);
+    const result = await gradeWithAI({
+      type: q.type,
+      passage: q.passage,
+      question: q.q,
+      userAnswer,
+      modelAnswer: q.model_answer,
+      rubric: q.rubric,
+      targetWords: q.target_words,
+      softMaxWords: q.soft_max_words,
+      hardMaxWords: q.hard_max_words,
+    });
+    if (result.ok) {
+      setAiResult(result.grading);
+      setMode('ai-result');
+    } else {
+      setAiError(result);
+      setMode('ai-error');
+    }
+  };
+
+  // ── Mode: choose grader ──
+  if (mode === 'choose') {
+    return (
+      <div style={{ marginTop: 10, padding: 12, borderRadius: 10, background: 'var(--clr-bg)', border: '1px dashed var(--clr-border)' }}>
+        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 8, lineHeight: 1.5 }}>
+          💡 ข้อเขียนตรวจอัตโนมัติด้วย exact match ไม่ได้ — เลือกวิธีประเมินที่อยากได้:
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            onClick={() => setMode('self')}
+            style={{ all: 'unset', cursor: 'pointer', padding: '8px 14px', borderRadius: 999, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', fontSize: 13, color: 'var(--clr-ink)' }}
+          >
+            📝 Self assess (ดู model + rubric แล้วประเมินเอง)
+          </button>
+          <button
+            type="button"
+            onClick={requestAI}
+            disabled={!hasAnswer}
+            style={{
+              all: 'unset',
+              cursor: hasAnswer ? 'pointer' : 'not-allowed',
+              padding: '8px 14px',
+              borderRadius: 999,
+              background: hasAnswer ? 'var(--clr-sage)' : 'var(--clr-surface-2)',
+              color: hasAnswer ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
+              fontSize: 13,
+              fontWeight: 600,
+              border: '1px solid transparent',
+            }}
+            title={hasAnswer ? 'ส่งให้ AI ตรวจตาม rubric' : 'ต้องมีคำตอบก่อน AI จะตรวจให้ได้'}
+          >
+            🤖 Smart AI grade
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Mode: self-grade hint ──
+  if (mode === 'self') {
+    return (
+      <div style={{ marginTop: 10, padding: 12, borderRadius: 10, background: 'var(--clr-bg)', border: '1px dashed var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+        ✓ <strong>Self-grade:</strong> เปรียบเทียบคำตอบของคุณกับ model answer + rubric ข้างบน แล้วประเมินตัวเองว่าได้คะแนนเท่าไหร่ (full 15 pts → Content 7 + Org/Grammar 5 + Paraphrase 3)
+        <button type="button" onClick={() => setMode('choose')} style={{ all: 'unset', cursor: 'pointer', marginLeft: 8, color: 'var(--clr-sage)', textDecoration: 'underline' }}>
+          ↺ เปลี่ยนเป็น AI grade
+        </button>
+      </div>
+    );
+  }
+
+  // ── Mode: AI loading ──
+  if (mode === 'ai-loading') {
+    return (
+      <div style={{ marginTop: 10, padding: 14, borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-sage)', fontSize: 13, color: 'var(--clr-ink)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div className="vmx-ai-spin" style={{ width: 18, height: 18, borderRadius: '50%', border: '2px solid var(--clr-border)', borderTopColor: 'var(--clr-sage)', animation: 'pulse 1s linear infinite' }} />
+          <div>
+            <strong>🤖 AI กำลังตรวจ...</strong>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              กำลังเปรียบเทียบกับ model answer + rubric · ใช้เวลาประมาณ 10-30 วินาที
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Mode: AI error ──
+  if (mode === 'ai-error') {
+    return (
+      <div style={{ marginTop: 10, padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', fontSize: 13, color: 'var(--clr-ink)' }}>
+        ❌ <strong>AI grading ไม่สำเร็จ</strong>
+        <div style={{ marginTop: 4, fontSize: 12, color: 'var(--clr-ink)' }}>{aiError?.error}</div>
+        {aiError?.hint && <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>💡 {aiError.hint}</div>}
+        <div style={{ marginTop: 8, display: 'flex', gap: 8 }}>
+          <button type="button" onClick={requestAI} style={{ all: 'unset', cursor: 'pointer', padding: '4px 10px', borderRadius: 999, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', fontSize: 12 }}>
+            ↻ ลองใหม่
+          </button>
+          <button type="button" onClick={() => setMode('self')} style={{ all: 'unset', cursor: 'pointer', padding: '4px 10px', borderRadius: 999, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', fontSize: 12 }}>
+            📝 ใช้ self-grade แทน
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Mode: AI result ──
+  if (mode === 'ai-result' && aiResult) {
+    const total = aiResult.totalScore ?? 0;
+    const max = q.type === 'essay' ? 15 : (aiResult.scores?.answer?.total || 2);
+    return (
+      <div style={{ marginTop: 10, padding: 14, borderRadius: 12, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-sage)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 10, flexWrap: 'wrap', gap: 8 }}>
+          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+            🤖 AI Grade · {aiResult._meta?.model?.replace('claude-', '').replace(/-\d+$/, '') || 'Claude'}
+          </div>
+          <div style={{ fontFamily: 'Fraunces, serif', fontSize: 24, fontWeight: 700, color: 'var(--clr-ink)' }}>
+            {total}<span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 400 }}> / {max}</span>
+          </div>
+        </div>
+
+        {/* Score breakdown */}
+        {aiResult.scores && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 10 }}>
+            {Object.entries(aiResult.scores).map(([k, v]) => (
+              <div key={k} style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
+                  <strong style={{ fontSize: 13, textTransform: 'capitalize' }}>{labelFor(k)}</strong>
+                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: 'var(--clr-sage)', fontWeight: 600 }}>{v.earned}/{v.total}</span>
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{v.justification}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Word count penalty */}
+        {aiResult.wordCountPenalty && aiResult.wordCountPenalty.applied !== 0 && (
+          <div style={{ padding: '6px 10px', borderRadius: 8, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', fontSize: 12, marginBottom: 10 }}>
+            ⏱ Word penalty: <strong>−{aiResult.wordCountPenalty.applied}</strong> · {aiResult.wordCountPenalty.reason}
+          </div>
+        )}
+
+        {/* Overall feedback */}
+        {aiResult.overallFeedback && (
+          <div style={{ padding: '8px 12px', borderRadius: 8, background: 'var(--clr-bg)', borderLeft: '3px solid var(--clr-sage)', fontSize: 13, lineHeight: 1.6, marginBottom: 8 }}>
+            <strong style={{ color: 'var(--clr-sage)' }}>📋 Overall:</strong> {aiResult.overallFeedback}
+          </div>
+        )}
+
+        {/* Strengths */}
+        {aiResult.strengthsSpotted?.length > 0 && (
+          <div style={{ marginBottom: 8 }}>
+            <div style={{ fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600, marginBottom: 4 }}>
+              ✓ จุดเด่น
+            </div>
+            <ul style={{ margin: 0, paddingLeft: 22, fontSize: 12.5, lineHeight: 1.6 }}>
+              {aiResult.strengthsSpotted.map((s, i) => <li key={i}>{s}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {/* Improvements */}
+        {aiResult.improvements?.length > 0 && (
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--clr-gold)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600, marginBottom: 4 }}>
+              ⚠️ ควรปรับ
+            </div>
+            <ul style={{ margin: 0, paddingLeft: 22, fontSize: 12.5, lineHeight: 1.6 }}>
+              {aiResult.improvements.map((s, i) => <li key={i}>{s}</li>)}
+            </ul>
+          </div>
+        )}
+
+        <div style={{ marginTop: 10, fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
+          ⚠️ AI grading เป็นแค่ ประเมินคร่าวๆ เพื่อช่วยฝึก — คะแนนจริงตัดสินโดยอาจารย์ในห้องสอบเท่านั้น
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+}
+
+function labelFor(key) {
+  const map = {
+    content: 'Content (เนื้อหา)',
+    grammar: 'Organization & Grammar (โครงสร้าง + ไวยากรณ์)',
+    paraphrase: 'Paraphrasing (การสรุปเป็นคำของตัวเอง)',
+    answer: 'Answer (ความถูกต้อง)',
+  };
+  return map[key] || key;
 }
