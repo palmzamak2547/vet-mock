@@ -328,6 +328,968 @@ export const VIDEO_SUMMARIES = {
   },
 
   // ─────────────────────────────────────────────────────────────
+  // COM III — Neurological exam + localization
+  // ─────────────────────────────────────────────────────────────
+  S6uo2I2gfXQ: {
+    videoId: 'S6uo2I2gfXQ',
+    title: '1. Neurological examination + localization',
+    subject: 'com3',
+    date: '5 Mar 69',
+    durationMin: 113,
+    instructor: 'อาจารย์ Neuro',
+    examFormat: 'MCQ — exam findings → localization · CN deficit interpretation',
+    summary: `# Neurological Examination + Localization
+
+## Purpose of Neuro Exam
+1. Confirm clinical signs are NEUROLOGICAL (not orthopedic)
+2. **Localize lesion** (which region of nervous system)
+3. Identify severity → guide DDx + Tx
+
+---
+
+## Tools Required
+- Light source (transilluminator > flashlight = better for PLR)
+- Reflex hammer or **artery forceps** (for small dogs)
+- Cotton swab (sensation, ray reflex)
+- Recording form ⭐ (mandatory for novices — can't remember everything!)
+
+---
+
+## Hand-Off Examination (Watch from afar)
+
+### Mentation (consciousness levels) ⭐⭐
+> **DOSCC scale** (or **AODSC**):
+> Alert → Depressed (slow response) → Obtund → Stupor (only painful) → Coma
+
+**Localization:**
+- **Forebrain (cerebral cortex)** — abnormal mentation, behavior changes, circling
+- **Brainstem** — severe consciousness changes
+- **Limbic system** — behavior abnormalities (aggression change, vocalization)
+
+### Posture
+- **Decerebrate rigidity** ⭐ — extension all 4 limbs + altered consciousness
+  - Lesion: **brainstem** or **deep cerebrum**
+- **Decerebellate rigidity** ⭐ — extension forelimbs + flexion hindlimbs + NORMAL consciousness
+  - Lesion: **cerebellum**
+- **Schiff-Sherrington** — extension forelimbs + flaccid paralysis hindlimbs (T3-L3 lesion)
+
+### Spinal alignment
+- **Scoliosis, kyphosis, lordosis** (lateral, dorsal, ventral curve)
+
+### Standing posture
+- **Plantigrade** = hindlimb hocks down (proprioceptive deficit)
+- **Palmigrade** = forelimb wrist down
+
+### Vestibular ataxia (videos)
+- Wide-based stance, head tilt, falling to one side, nystagmus
+
+### Gait abnormalities
+- **Circling** ⭐ → forebrain or vestibular
+- **Head tilt** → vestibular
+- **Head turn** → forebrain
+
+### 3 types of Ataxia ⭐
+| Type | Cause | Sign |
+|------|-------|------|
+| **Proprioceptive (sensory)** | spinal cord, nerve | knuckling, dragging foot |
+| **Vestibular** | inner ear, brainstem | wide stance, fall to side |
+| **Cerebellar** | cerebellum | hypermetria (over-stepping like a soldier!) |
+
+---
+
+## Hand-On Examination
+
+### Postural reactions ⭐⭐ (test conscious processing — passes through 9 segments)
+1. **Knuckling** — flip paw → must turn back upright (CN II hot pathway)
+2. **Hopping** — lift other limbs, hop on test limb sideways
+3. **Visual placing** — animal lifts paw to surface when seeing
+4. **Tactile placing** — pet's paw touches table edge → places foot
+5. **Wheelbarrow** — lift hind, animal walks on forelimbs
+6. **Extensor postural thrust** — drop, animal extends to brace
+
+> 💡 Postural reactions cross **forebrain/cortex** → can be normal in pure peripheral disease, abnormal in cortical disease
+
+### Cranial Nerves (12 pairs!) ⭐⭐⭐
+
+| CN | Name | Test | Localization |
+|----|------|------|--------------|
+| I | Olfactory | smell food | nasal/forebrain |
+| **II** | Optic | **PLR (afferent)**, menace, vision tracking | retina, optic n, forebrain |
+| **III** | Oculomotor | **PLR (efferent → constrict)**, eye position, lid opening | midbrain |
+| IV | Trochlear | eye dorsoventral | midbrain |
+| **V** | Trigeminal | facial sensation, **palpebral reflex (afferent)**, jaw tone, masseter mass | brainstem |
+| VI | Abducens | lateral eye movement, retract globe | brainstem |
+| **VII** | Facial | **palpebral & menace (efferent)**, lip droop, ear movement, tear production | brainstem |
+| **VIII** | Vestibulocochlear | head tilt, nystagmus, hearing | brainstem |
+| IX, X | Glossopharyngeal, Vagus | swallow, gag reflex | brainstem |
+| XI | Accessory | shoulder muscle | brainstem |
+| **XII** | Hypoglossal | tongue motion, deviation | brainstem |
+
+### Spinal Reflexes ⭐⭐
+**Hindlimb:**
+- **Patellar reflex** (knee jerk) — femoral nerve, **L4-L6** spinal cord
+- **Cranial tibial / Sciatic** — sciatic nerve, **L6-S2**
+- Withdrawal reflex — sciatic, L6-S2
+
+**Forelimb:**
+- **Biceps reflex** — musculocutaneous, **C6-C8**
+- **Triceps reflex** — radial, **C7-T2**
+- **Withdrawal forelimb** — multiple, C6-T2
+
+### Reflex interpretation
+| Pattern | Meaning |
+|---------|---------|
+| **Hyperreflexia** ⭐ | **Upper Motor Neuron (UMN)** lesion (above the segment) |
+| **Hyporeflexia / Areflexia** | **Lower Motor Neuron (LMN)** lesion (at the segment) |
+
+### Pain Sensation ⭐⭐
+- **Superficial pain** — pinch skin → withdrawal AND vocalization
+- **Deep pain** — pinch toe with hemostat → withdrawal AND CONSCIOUS RESPONSE
+- ⚠️ **Withdrawal alone ≠ pain** (can be reflex without pain)
+- ⚠️ **Test deep pain only if superficial absent**
+- **Loss of deep pain** → severe spinal cord damage, poor prognosis
+
+---
+
+## Localization Summary ⭐⭐
+| Lesion | Hindlimb | Forelimb | Mentation | CN |
+|--------|----------|----------|-----------|-----|
+| Forebrain | normal/proprioceptive | normal | abnormal | normal |
+| **C1-C5** | UMN | UMN | normal | normal |
+| **C6-T2** | UMN | **LMN** ⭐ | normal | normal |
+| **T3-L3** | UMN | normal | normal | normal |
+| **L4-S2** | **LMN** ⭐ | normal | normal | normal |
+| Brainstem | various | various | abnormal | multiple deficits |
+| Cerebellum | hypermetria, intention tremor | same | normal | usually normal |
+
+---
+
+## 📝 Exam Hot Spots
+1. **DOSCC** = consciousness scale
+2. **Decerebrate** (brainstem) vs **Decerebellate** (cerebellum) — consciousness intact in latter!
+3. **Hypermetria** = cerebellar
+4. **Knuckling** = proprioceptive deficit
+5. **Hyperreflex = UMN**, **Hyporeflex = LMN**
+6. **C6-T2 lesion** = UMN hindlimb + LMN forelimb (most concerning for surgery decision)
+7. **Withdrawal ≠ pain** (test deep pain consciously)
+8. **CN II afferent + CN III efferent** = PLR
+9. **CN V afferent + CN VII efferent** = palpebral reflex
+10. **Loss of deep pain** = poor prognosis
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Spinal disorder
+  // ─────────────────────────────────────────────────────────────
+  KiJyyUhIV6M: {
+    videoId: 'KiJyyUhIV6M',
+    title: '2. Spinal disorder',
+    subject: 'com3',
+    date: '12 Mar 69',
+    durationMin: 74,
+    instructor: 'อาจารย์ Surgeon (Spinal)',
+    examFormat: 'MCQ — fracture type + spinal pivot points + IVDD breeds',
+    summary: `# Spinal Disorders
+
+> 🎯 อ.: "ข้อสอบจะออก compression fracture, spot film, pivot points, breed predisposition" — เน้น 4 จุดนี้
+
+---
+
+## Terminology
+- **Plegia** vs **Paresis** ⭐
+  - **Plegia** = no ambulation, complete paralysis
+  - **Paresis** = weak but can walk
+- **Para-** = both hindlimbs
+- **Tetra-** = all 4 limbs
+- **Hemi-** = one side (L or R)
+
+> Examples: paraplegia, paraparesis, tetraplegia, hemiparesis
+
+---
+
+## Spinal Cord Injury Severity (1-5)
+| Grade | Sign |
+|-------|------|
+| 1 | pain only |
+| 2 | ambulatory paresis |
+| 3 | non-ambulatory paresis |
+| 4 | plegia, deep pain present |
+| 5 | plegia, **NO deep pain** ⭐ poor prognosis |
+
+---
+
+## Vertebral Fracture ⭐⭐
+
+### Types
+- ⭐ **Compression fracture** = most common (force tracks down vertebral column)
+- Luxation fracture
+- Pathological (osteoporosis, neoplasia)
+
+### X-ray ⭐⭐
+- **MUST do "spot film"** (centered on each vertebra) — central ray must be over the segment
+- Don't do whole-body Xray for spine — penumbra distorts
+- Look at **3 components**:
+  1. **Dorsal** (lamina, spinous process, facets)
+  2. **Vertebral canal** (alignment, gap)
+  3. **Ventral** (body) — strongest, fractures from compression
+
+### Important: spinal cord status > vertebrae status
+- Even if you fix the bone, if cord is severed → no functional recovery
+- ⭐ **MRI** before deciding to fix surgically — assess cord intact?
+
+### Acute Tx
+- **Methylprednisolone** (used to be standard, now controversial; still used in **first 24 hr** in some protocols)
+- **Hyperbaric oxygen** (where available — Chula doesn't have)
+- IV fluids, prevent secondary injury
+
+### Surgical fixation
+- **Plate fixation** (e.g., Vet Sand plate by Aj. Mar Sak)
+- **Pin + PMMA (bone cement)** — like internal external fixator
+- ⚠️ Don't fix if cord severed — implant will fail when animal can't walk
+
+## 5 Vertebral Pivot Points ⭐⭐⭐
+> Where most diseases happen (pivot = mobile junction = stress)
+
+| Pivot | Reason | Common diseases |
+|-------|--------|-----------------|
+| **C1-C2** ⭐ | only no IVD here | atlantoaxial subluxation |
+| **C5-T1** | C-T junction | Wobbler syndrome, IVDD |
+| **T1-T2** ⭐ | rib stops, mobility shifts | rare |
+| **T11-L1** ⭐⭐ | thoracolumbar junction | **Hansen Type I IVDD** (most common!) |
+| **L7-S1** | lumbosacral | cauda equina syndrome |
+
+---
+
+## Cervical Vertebral Instability (Wobbler Syndrome) ⭐⭐
+- Caudal Cervical Spondylomyelopathy
+- ⭐ **LARGE breeds**: Doberman, Mastiff, Boxer, **Great Dane**, Old English Sheepdog
+- Pathophysiology: instability → ligament hypertrophy/spondylosis → cord compression at C5-C7
+
+### Clinical signs ⭐
+- Hindlimb signs FIRST (UMN paraparesis/ataxia)
+- Then forelimb LMN (when lesion at C6-T2)
+- Neck pain, reluctant to move neck
+- Eats lying down (can't bend)
+
+### Dx
+- ⭐ **MRI** = gold standard
+- X-ray + myelography (older method)
+
+### Tx
+- Surgical decompression (ventral slot, dorsal laminectomy, distraction-stabilization)
+- Conservative: rest + steroid + neck brace
+
+---
+
+## IVDD (Intervertebral Disc Disease)
+
+### Hansen Type I ⭐ (acute extrusion)
+- ⭐ **Chondrodystrophic breeds**: Dachshund, Beagle, Pekinese, Shih Tzu, French Bulldog
+- Acute, often T11-L3
+- Treatment: **decompressive surgery** (hemilaminectomy)
+
+### Hansen Type II (chronic protrusion)
+- Larger non-chondrodystrophic breeds (Lab, GSD)
+- Slow progression
+
+### Hansen Type III (acute non-compressive — "high velocity, low volume")
+- Sudden lameness, similar to FCE
+
+---
+
+## Other Spinal Diseases
+
+### FCE (Fibrocartilaginous Embolism)
+- Sudden non-progressive paralysis after trauma/exercise
+- Larger breeds
+- Tx: supportive only
+
+### Atlantoaxial Subluxation
+- ⭐ **Toy breeds**: Yorkshire Terrier, Chihuahua, Pomeranian
+- Cervical pain, neck rigidity, paresis
+- C1-C2 instability → cord compression
+- Tx: surgical stabilization
+
+### Steroid Responsive Meningitis-Arteritis (SRMA)
+- Young large breed (Beagle, Boxer, Bernese)
+- Severe neck pain + fever + neutrophilia
+- CSF: marked neutrophilic pleocytosis
+- Tx: high-dose steroid, dramatic response
+
+### Lumbosacral disease (cauda equina syndrome)
+- L7-S1 stenosis
+- Tail droop, urinary incontinence, hindlimb weakness
+- GSD predisposed
+
+## 📝 Exam Hot Spots ⭐⭐⭐
+1. **Compression fracture** = most common spinal fracture
+2. **Spot film** for spine X-ray (center on each vertebra)
+3. **5 pivot points**: C1-C2, C5-T1, T1-T2, **T11-L1**, L7-S1
+4. **Hansen Type I IVDD** = chondrodystrophic, T11-L3, surgery
+5. **Wobbler** = large breed (Dane, Doberman, Mastiff)
+6. **C6-T2 lesion** = UMN hindlimb + LMN forelimb
+7. **AA subluxation** = toy breed, neck stabilization
+8. **Loss of deep pain Grade 5** = poor prognosis
+9. **MRI** before fixation surgery (cord intact?)
+10. **Methylprednisolone** within first 24 hr (controversial but used)
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — AI tools + Neuro ataxia/tremor
+  // ─────────────────────────────────────────────────────────────
+  'yP72i_yb-DM': {
+    videoId: 'yP72i_yb-DM',
+    title: '3. AI tools + Neuro ataxia tremor',
+    subject: 'com3',
+    date: '19 Mar 69',
+    durationMin: 117,
+    instructor: 'อ.นัทธี (AI workshop) + อ.Neuro',
+    examFormat: 'MCQ neuro section: cerebellar abiotrophy breeds + ataxia types',
+    summary: `# AI Tools (Workshop) + Neuro Ataxia/Tremor
+
+> 🎯 บทคู่ — ครึ่งแรกเป็น workshop การใช้ AI สำหรับงานวิจัย/การเรียน (อ.นัทธี) · ครึ่งหลัง = neuro ataxia (อ.Neuro)
+
+---
+
+# 🔻 Part 1: AI Tools for Vet Students
+
+## 3 AI Tools Recommended ⭐
+| Tool | Best for | Like a friend who... |
+|------|----------|---------------------|
+| **ChatGPT** | smart "born-to-be" friend | brilliant, less data |
+| **Gemini (Google)** | data-rich friend | well-prepared notes |
+| **NotebookLM** | "lecture taker" friend | precise note-taking |
+
+## AI Levels (3 layers)
+1. **Automation** — door opens, light on (simple sensor)
+2. **Machine Learning** — calculates from training data
+3. **Deep Learning** ⭐ — combines situations + scenarios (current vet/med use)
+
+## Smart Pet Care 4 Pillars
+1. Smart Pet Care (sensors at home — 5 senses analog)
+2. Veterinary Clinic (AI-assisted dx for slides, X-ray)
+3. Educational Research (data analytics)
+4. Drug delivery / monitoring
+
+## Use Cases
+- **Personalized diet** (Aj. Hooto's nutrition platform)
+- **Smart GPS** for cat tracking
+- **Health monitoring** (smart collar like WHOOP for pets)
+- Slide cytology / X-ray AI screening (5 conditions)
+
+## ⚠️ Cautions
+- **Hallucination** — AI makes up plausible-sounding info
+- Don't replace yourself with AI (academic integrity)
+- AI improves over use — learns your style → eventually addresses you as "อาจารย์"
+- ⭐ **Best time to use**: 7-8 AM (low global server load)
+
+## Workshop Demo
+- Use ChatGPT to brainstorm research ideas
+- Use Gemini for literature review
+- Use NotebookLM to summarize PDFs
+
+---
+
+# 🔻 Part 2: Ataxia & Tremor (Neuro)
+
+## 3 Types of Ataxia ⭐⭐⭐ (review from neuro exam)
+| Type | Cause | Lesion | Sign |
+|------|-------|--------|------|
+| **Proprioceptive** | sensory pathway | spinal cord, peripheral n | knuckling, dragging |
+| **Vestibular** | inner ear, brainstem | CN VIII, vestibular nucleus | head tilt, nystagmus, fall to side |
+| **Cerebellar** | cerebellum | cerebellum | **hypermetria** (over-stepping), intention tremor, wide stance |
+
+---
+
+## Cerebellar Diseases
+
+### Cerebellar Abiotrophy ⭐⭐
+- **Genetic** premature degeneration of Purkinje cells
+- ⭐ Breeds: **Old English Sheepdog**, Australian Kelpie, Border Collie, Coton de Tuléar, Bull Terrier, Beagle, Italian Hound, Italian Spinone
+- Onset: **young age** (3-12 months typically)
+- Progressive
+- No treatment, supportive only
+
+### Cerebellar Hypoplasia
+- ⭐ **Cats** — feline panleukopenia virus (parvovirus) infection IN UTERO
+- Born with non-progressive cerebellar signs
+- Static (doesn't worsen)
+- Cat can adapt and live well
+
+### Cerebellitis
+- Inflammatory (immune-mediated, infectious)
+- Acute onset
+- Tx: steroid trial
+
+---
+
+## Vestibular Disease
+
+### Peripheral Vestibular ⭐
+- **Inner/middle ear** lesion
+- Common: otitis media/interna
+- Other: tumor, hypothyroidism, **idiopathic geriatric vestibular syndrome** (sudden onset in old dog)
+- Signs: head tilt, **horizontal nystagmus** (toward affected side absent), normal mentation
+
+### Central Vestibular ⭐⭐
+- **Brainstem** lesion
+- More serious! ⚠️ Causes: tumor, infarct, encephalitis
+- Signs: head tilt + **vertical or rotary nystagmus** + altered mentation + other CN deficits
+- ⭐ **Paradoxical vestibular** = head tilt to OPPOSITE side of lesion (cerebellum lesion)
+
+### Distinguishing Peripheral vs Central
+| Feature | Peripheral | Central |
+|---------|------------|---------|
+| Mentation | normal | **altered** |
+| Other CN | usually normal | multiple deficits |
+| Nystagmus | horizontal | **vertical or rotary** |
+| Postural reactions | normal | abnormal |
+
+---
+
+## Tremors
+
+### Types
+- **Resting tremor** — present at rest (often Parkinson-like)
+- **Action tremor** — when moving (cerebellar)
+- **Intention tremor** ⭐ — worsens approaching target (cerebellar)
+
+### Causes
+- **Generalized Tremor Syndrome (GTS / Steroid-Responsive Tremor)** — small white dogs (Maltese, Westy)
+  - Tx: **steroid taper** — usually responds well
+- **Toxin-induced**: organophosphate, ivermectin, mycotoxin (compost food), pyrethroid (cat!)
+- **Hypoglycemia, hypocalcemia**
+- **Cerebellar disease**
+
+---
+
+## 📝 Exam Hot Spots
+1. **3 ataxia types** (proprioceptive/vestibular/cerebellar)
+2. **Hypermetria** = cerebellar
+3. **Cerebellar abiotrophy** = Old English Sheepdog (TH question favorite!)
+4. **Cerebellar hypoplasia in cats** = panleukopenia in utero
+5. **Vertical nystagmus** = CENTRAL vestibular
+6. **Paradoxical vestibular** = head tilt opposite side
+7. **GTS** (Generalized Tremor) — small white dogs, steroid responsive
+8. **Pyrethroid in cats** = serious tremor → death
+9. **Ivermectin toxicity** in MDR1 dogs (Collies)
+10. AI tools: hallucination caveat + best at 7-8 AM
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Seizure & Narcolepsy
+  // ─────────────────────────────────────────────────────────────
+  pIcgxusqLag: {
+    videoId: 'pIcgxusqLag',
+    title: '4. Seizure & Narcolepsy',
+    subject: 'com3',
+    date: '26 Mar 69',
+    durationMin: 113,
+    instructor: 'อาจารย์ Neuro',
+    examFormat: 'MCQ — seizure type + AED selection + age of onset + first-line drug',
+    summary: `# Seizure & Narcolepsy
+
+---
+
+# 🔻 Part 1: Seizure (โรคชัก) ⭐⭐⭐
+
+## Definition vs Other "Loss of Consciousness"
+- **Seizure (epileptic seizure)** = abnormal electrical activity in brain
+- **Syncope** = cardiac, recovers immediately
+- **Vestibular crisis** = balance issue, conscious
+
+## Pathophysiology
+- Imbalance between excitatory (**Glutamate**) and inhibitory (**GABA**) neurotransmitters
+- Excitatory > Inhibitory → seizure
+- Mediated through Na+, Ca2+, K+ channels
+
+## Seizure Types ⭐⭐
+| Type | Pattern |
+|------|---------|
+| **Generalized tonic-clonic** ⭐ | classic — tonic (rigid extension) + clonic (rhythmic jerks), LOC, salivation, urination, paddling |
+| **Focal (partial)** | one body part / face only, ± consciousness |
+| **Absence (Petit mal)** | "stares into space" 10-30 sec, no fall, retrograde amnesia ⭐ |
+| **Generalized after focal** (secondary) | starts focal → spreads to whole body |
+
+> 💡 อ. recounted a real case: 4-yr-old client had absence seizure during history-taking — went silent for ~1 min!
+
+## Classification by Cause ⭐⭐⭐
+| Type | Cause | Brain MRI |
+|------|-------|-----------|
+| **Reactive** | metabolic (hypoglycemia, hepatic encephalopathy, toxin) | Normal |
+| **Structural** | tumor, encephalitis, trauma, congenital | **Abnormal** |
+| **Idiopathic (genetic)** ⭐ | unknown / inherited | Normal |
+| **Cryptogenic / Unknown** | suspect lesion but undetectable | Normal |
+
+## Phases of Seizure (PIPP)
+1. **Prodrome** — hours-days before, restlessness
+2. **Aura** — minutes before, sensitivity changes (hard to detect in animals — combined with prodrome)
+3. **Ictal** — actual seizure
+4. **Post-ictal** ⭐ — confusion, blindness (can last days!), pacing, hunger
+
+> 💡 Post-ictal blindness can become permanent if seizures repeat at same focus
+
+## Idiopathic Epilepsy Criteria ⭐⭐
+1. ⭐ **First seizure between 6 months - 6 years** (key clue!)
+2. Normal interictal exam
+3. Generalized tonic-clonic usually
+4. Normal MRI + CSF
+5. Family history of seizures may exist
+
+**Predisposed breeds** ⭐: Beagle, Labrador, Golden, German Shepherd, Border Collie, Standard Poodle, Boxer, Australian Shepherd
+
+## Status Epilepticus & Cluster Seizures
+- **Status epilepticus** = >5 min seizure OR no recovery between seizures (EMERGENCY!)
+- **Cluster seizures** = ≥2 seizures in 24 hr
+- Treat IMMEDIATELY — high risk of death
+
+## When to Start Anti-Epileptic Drug (AED)? ⭐
+1. **Structural seizure** = always (even after 1 episode)
+2. **>2 seizures in 6 months**
+3. **Cluster or status** episode
+4. **Severe post-ictal complications** (blindness)
+5. **Single seizure with significant injury**
+
+## Goals
+- ⭐ Reduce frequency by **50%+** (not necessarily zero!)
+- Maintain quality of life — no zombification
+
+## AEDs ⭐⭐⭐
+
+### First Line
+**Phenobarbital** ⭐⭐
+- Mechanism: GABA-receptor enhancer
+- Dose: 2-2.5 mg/kg PO BID (start)
+- Steady state: 2 weeks → recheck level at 6 weeks
+- Therapeutic level: **15-35 μg/mL**
+- ⚠️ Side effects: sedation/ataxia (1-2 wk transient), polyphagia, polyuria, polydipsia, **hepatotoxicity**, BMS
+- Monitor: phenobarbital level + LFT every 6-12 mo
+
+**Levetiracetam (Keppra)** ⭐
+- Newer, safer profile
+- Dose: 20-30 mg/kg PO TID (frequent dosing!)
+- No hepatotoxicity
+- Need to source from human pharmacy, expensive
+
+**Imepitoin** (newer)
+- 10-30 mg/kg PO BID
+
+### Second Line
+- **Potassium bromide (KBr)** — reactive, slow loading
+- **Zonisamide** — 5-10 mg/kg BID
+- Lacosamide, Topiramate
+
+### Emergency (Status epilepticus)
+- ⭐ **Diazepam IV** 0.5-1 mg/kg
+- **Midazolam** IV/IM
+- **Phenobarbital loading** IV if not on it
+
+### Cat Specifics
+- Generally same drugs but CAREFUL doses
+- ⚠️ **Phenobarbital cat dose** lower
+- ⚠️ **NEVER give bromide to cat** — fatal pulmonary fibrosis!
+
+## Drug Choice Logic
+| Scenario | Drug |
+|----------|------|
+| First seizure, dog | Phenobarbital |
+| Cat | Phenobarbital lower dose, or Levetiracetam |
+| Severe liver disease | Levetiracetam (no hepatotoxicity) |
+| Cluster/status emergency | Diazepam IV first |
+| Refractory after pheno | Add Levetiracetam or KBr |
+
+---
+
+# 🔻 Part 2: Narcolepsy
+
+## Definition
+- Sudden loss of muscle tone with sleep attack triggered by **excitement or food**
+- Cataplexy = sudden muscle weakness without LOC
+
+## Breeds ⭐
+- Doberman, Labrador, Poodle (genetic in Doberman — hypocretin/orexin gene)
+
+## Differential
+- Vs syncope — narcolepsy has **trigger** (excitement, food)
+- Vs seizure — no LOC in cataplexy
+
+## Diagnosis
+- **Food challenge** — excited animal at feed → may collapse
+- Genetic test in Doberman
+- Hypocretin levels (research)
+
+## Treatment
+- Imipramine, fluoxetine (serotonergic)
+- Methylphenidate (stimulant)
+- Lifelong management
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐⭐
+1. **Idiopathic epilepsy** = age **6 mo - 6 yr** ⭐
+2. **Reactive seizure** = normal MRI, find cause (metabolic/toxin)
+3. **Phenobarbital** = first line, level 15-35 μg/mL, monitor LFT
+4. **Status epilepticus** = ≥5 min OR no recovery
+5. **Diazepam IV** = emergency stop
+6. **NEVER bromide to cats** (lung fibrosis)
+7. **Goal**: reduce frequency 50%+
+8. **Levetiracetam** = no liver toxicity, safer alt
+9. **Tonic** = rigid · **Clonic** = jerk · **Absence** = stare/blank
+10. **Predisposed**: Beagle, Lab, Golden, GSD, Border Collie
+11. **Narcolepsy** = food/excitement trigger, Doberman genetic
+12. **Post-ictal blindness** can last days; repeated → permanent
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Circulatory System + Acute abdomen + CPR
+  // ─────────────────────────────────────────────────────────────
+  agw6OuRWy5A: {
+    videoId: 'agw6OuRWy5A',
+    title: '6. The Circulatory System + Acute abdomen',
+    subject: 'com3',
+    date: '9 Apr 69',
+    durationMin: 114,
+    instructor: 'อ.รัสมา (CPR + Acute abdomen)',
+    examFormat: 'MCQ — CPR rate/depth + drug + RECOVER guidelines + acute abdomen DDx',
+    summary: `# Circulatory System + Acute Abdomen + CPR
+
+> 🚑 ตามชื่อจริงคลิปเป็น **CPR + Acute Abdomen**
+
+---
+
+# 🔻 Part 1: CPR (Cardio-Pulmonary-Cerebral Resuscitation) ⭐⭐⭐
+
+## Detect Response (10 sec rule!)
+1. **Call name + tactile stimulus** (poke) → conscious?
+2. **Look at chest** — breathing?
+3. ⚠️ **Don't waste time** auscultating heart or feeling pulse — uses 10+ sec
+
+> ⭐ When in doubt → **start CPR immediately**! "Begin first, ask questions later"
+
+### Breathing patterns to start CPR:
+- **Apnea** (no breathing)
+- **Agonal breathing / gasping** ⭐ — slow deep gasps with NO consciousness = dying
+  - But if returning during CPR = positive sign of ROSC!
+
+---
+
+## Team Setting (Optimal CPR ≥ 4-5 people)
+| Role | Job |
+|------|-----|
+| Compressor | chest compression — at **dorsal side** of patient |
+| Ventilator | bag/intubation — **head end** |
+| Advance Life Support | IV catheter, drugs, monitor |
+| Recorder | times, drugs given, response |
+| **Leader** ⭐ | directs commands, walks around |
+| Abdominal Interpose | press abdomen alternating with chest |
+
+### Communication ⭐
+- **Closed-loop**: leader gives order → operator REPEATS back → does action
+- Like military to prevent mistakes ("0.4 mL IV epi" → "0.4 mL IV epi giving now")
+
+### CPR Status Color Codes ⭐
+- 🔴 **Red** = DNR (Do Not Resuscitate)
+- 🟡 **Yellow** = closed-chest CPR only
+- 🟢 **Green** = open-chest CPR allowed (during open thoracic surgery)
+
+---
+
+## Basic Life Support (BLS)
+
+### Chest Compression ⭐⭐⭐
+- **Rate: 100-120/min** ⭐ (same for dog AND cat!)
+- **Depth: 1/3 to 1/2 chest** for lateral; 1/4 for brachycephalic supine
+- ⭐ **Allow full chest recoil** — NO leaning between compressions!
+- Position: stand on stool to **straddle** dog, **arms locked straight**, force from core/abs (like pushup)
+- Switch compressor every **2 min** (fatigue ↓ quality)
+
+### Compression Strategy by Patient
+| Body type | Theory | Hand position |
+|-----------|--------|---------------|
+| **Keel-chested** (Doberman, Greyhound, sighthound) | **Cardiac pump** | directly over heart (4th-6th IC space, 1/3 from ventral) |
+| **Round-chested** (large breeds, Lab, Golden) | **Thoracic pump** | apex of chest (most prominent point) |
+| **Cat / small (<7 kg)** | Cardiac pump | one-hand grip over heart |
+| **Brachycephalic** (Bulldog, Pug) | similar to human | dorsal recumbency, sternal compress 1/4 depth |
+
+### Ventilation
+- **10 breaths/min** while intubated (continuous compression + ventilation)
+- Mouth-to-snout if no tube
+- 1:2 - 1:5 ratio (older protocols)
+- Don't over-ventilate
+
+---
+
+## Advanced Life Support (ALS)
+
+### IV Access — establish ASAP
+
+### Drugs ⭐
+| Drug | Dose | When |
+|------|------|------|
+| **Epinephrine (Low dose)** ⭐ | 0.01 mg/kg IV (q3-5 min) | First-line, asystole/PEA |
+| **Atropine** ⭐ | 0.04 mg/kg IV | Bradycardia, vagal arrest |
+| **High-dose Epinephrine** | 0.1 mg/kg IV | After multiple low-dose failures |
+| **Vasopressin** | 0.8 U/kg IV | Alternate to epi |
+| **Lidocaine** | 2 mg/kg IV | V-fib, V-tach |
+| **Amiodarone** | 5 mg/kg IV | Refractory V-fib |
+| **Naloxone** | 0.04 mg/kg | Opioid OD reversal |
+| **Flumazenil** | 0.01 mg/kg | Benzo reversal |
+
+### Defibrillation
+- For V-fib or pulseless V-tach only (NOT asystole)
+- 4-6 J/kg monophasic, 2-4 J/kg biphasic
+
+### ROSC (Return Of Spontaneous Circulation) Care
+- Maintain BP, oxygenation
+- Treat post-cardiac arrest syndrome
+
+### CPR Outcome
+- Survival rate ~5-10% (low!) — that's why early detection matters
+
+---
+
+# 🔻 Part 2: Acute Abdomen
+
+## Definition
+- Sudden severe abdominal pain ± systemic illness
+- Often surgical or near-surgical decision
+
+## Common Causes (DDx) ⭐⭐
+| Category | Examples |
+|----------|----------|
+| **Inflammation** | Pancreatitis, peritonitis |
+| **Infection** | Bacterial/viral enteritis, sepsis |
+| **Obstruction** | GDV, foreign body, intussusception |
+| **Vascular** | Mesenteric torsion, splenic infarct |
+| **Hemorrhage** | Splenic mass rupture, trauma |
+| **Urogenital** | Pyometra, ureteral obstruction, ruptured bladder |
+| **Trauma** | HBC, fall |
+
+## Approach
+1. **Triage ABCDE** (ER section)
+2. **History** — recent food, eating, drinking, V/D, urination
+3. **Physical**: abdominal palpation (pain, mass, fluid, distension)
+4. **Bloods**: CBC, biochem, lactate, electrolytes
+5. **Imaging**: X-ray, US (abdominocentesis if fluid)
+6. **Specific tests**: SNAP cPL (pancreatitis), urine sediment
+
+## Red Flags Requiring Surgery
+- **GDV** ⭐ (gastric rotation visible on Xray = "double bubble")
+- **Septic peritonitis** (free abdominal fluid + low glucose vs. blood)
+- **Bowel obstruction** (foreign body or intussusception)
+- **Hemoabdomen** with hypotension
+- **Ruptured bladder** (uroperitoneum)
+
+## Pre-op Stabilization
+- Fluid resuscitation
+- Pain control (opioid)
+- Treat shock
+- Antibiotics if sepsis suspected
+- Correct electrolyte imbalance
+
+---
+
+## 📝 Exam Hot Spots
+1. **CPR rate 100-120/min** (dog & cat same)
+2. **Depth 1/3 to 1/2** chest
+3. **Full recoil** between compressions
+4. **Switch compressor q 2 min**
+5. **Cardiac pump** = keel-chest; **Thoracic pump** = round chest
+6. **Brachycephalic** = supine 1/4 depth
+7. **Epinephrine 0.01 mg/kg IV** = first-line CPR drug
+8. **Atropine 0.04 mg/kg** for bradycardia/vagal
+9. **Defib only for V-fib** (not asystole)
+10. **Closed-loop communication** in CPR
+11. **Acute abdomen DDx** by cause categories
+12. **GDV** double bubble Xray = surgical emergency
+13. **Septic peritonitis** = abdominocentesis fluid analysis (glucose, lactate)
+14. **Splenic mass rupture** = elderly large breed hemoabdomen
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM III — Metabolic + Endocrine + UT + Nutrition (Addison/DKA)
+  // ─────────────────────────────────────────────────────────────
+  U9w_pJNkulc: {
+    videoId: 'U9w_pJNkulc',
+    title: '7. Metabolic, Endocrine, UT + Nutrition',
+    subject: 'com3',
+    date: '16 Apr 69',
+    durationMin: 100,
+    instructor: 'อ.รัสมา (ER metabolic)',
+    examFormat: 'MCQ — Addison crisis + DKA management + RER calc + UT obstruction',
+    summary: `# Metabolic & Endocrine ER + Urinary Tract + Nutrition
+
+> 🚑 ER section continued — Addison + DKA review + UT obstruction + nutritional support
+
+---
+
+# 🔻 Part 1: Addison Crisis (Hypoadrenocorticism) ⭐
+> 📚 Already detailed in Cushing/Addison summary — this is the ER focus
+
+### Acute Tx ⭐⭐
+1. **IV fluids** — full shock dose (NaCl 0.9%)
+2. **Dexamethasone 0.5-1 mg/kg IV** ⭐ — dramatic 1-2 hr response
+3. **Hyperkalemia management:**
+   - Glucose ± insulin (drives K+ into cells)
+   - Ca gluconate (cardioprotect)
+   - NaHCO₃ if acidotic
+4. Monitor electrolytes q6h, ECG
+5. ⭐ **Dex doesn't interfere with ACTH stim** — give now, confirm later
+
+### Chronic Tx
+- **DOCP injection** q25 days (mineralocorticoid only) — not in TH
+- **Fludrocortisone (Florinef)** PO — both gluco + mineralo
+- 50-60% controlled with Florinef alone; 30-40% need pred too
+
+### Na/K ratio threshold
+- **< 27** = suspect Addison
+- **< 20** = Crisis
+- ⚠️ Don't rule out if Na low alone (early stage K may still normal)
+
+---
+
+# 🔻 Part 2: Diabetic Ketoacidosis (DKA) ⭐⭐⭐
+
+## Definition (3 criteria — all must present!)
+1. **Diabetes** (hyperglycemia)
+2. **Ketosis** (ketonuria, ketonemia)
+3. **Acidosis** (low pH, low HCO₃, ↑ anion gap)
+
+## Pathophysiology
+- Insulin deficiency → cells starve → switch to fat metabolism
+- **β-oxidation** → ketogenesis: **acetone, acetoacetate, β-hydroxybutyrate** ⭐ (most acidic, most abundant)
+- Ketones = strong acids → metabolic acidosis
+
+## Predisposing Factors
+- Untreated/under-treated DM
+- **Concurrent diseases**: pancreatitis, **UTI** ⭐, hyperadrenocorticism, hepatic lipidosis, neoplasia, viral/bacterial infection (insulin resistance)
+- Missed insulin doses
+
+## Clinical Signs ⭐
+- **"Sick & sad"** — opposite of regular DM ("happy & hungry")
+- Anorexia, vomiting, lethargy
+- Severe dehydration
+- ⭐ **Kussmaul breathing** — deep + rapid (compensating for metabolic acidosis)
+- Acetone breath (rare to detect — pet halitosis covers it)
+- Hepatomegaly (fatty liver from massive lipolysis)
+- BCS poor
+- Polyuria, polydipsia (severe)
+
+## Diagnosis
+- **Hyperglycemia** > 360 mg/dL typically (sometimes lower)
+- **Glucosuria + ketonuria** (urine dipstick)
+- **Blood ketone** test (more reliable than urine)
+- **Metabolic acidosis** (pH ↓, HCO₃ ↓, **anion gap > 24**)
+- ↑ osmolarity (risk of cerebral edema)
+- Azotemia (dehydration prerenal)
+- Electrolyte derangements: ↓ K+, ↓ Cl-, ↓ Mg, ↓ PO₄, often ↓ Na+ (dilutional)
+
+## Treatment ⭐⭐⭐ (in order!)
+**STEP 1: Address shock with fluids** (NOT insulin first!)
+- Crystalloid bolus 10 mL/kg
+- ⭐ **Lower osmolarity SLOWLY** (over ~6 hr) to avoid **cerebral edema**!
+
+**STEP 2: Correct electrolytes** (especially K+)
+- **K+ MUST be in normal range BEFORE insulin!**
+- Insulin drives K+ into cells → if low already → critical hypokalemia
+- Add KCl to fluids per Body protocol
+
+**STEP 3: Start insulin**
+- ⭐ **Regular (short-acting) insulin** = preferred
+- **IM** route: 0.2-0.25 U/kg q1h (good if can't tolerate IV fluid load)
+- **IV CRI**: 2.2 U/kg (dog) or 1.1 U/kg (cat) in 250 mL NaCl
+- Goal: lower glucose **slowly** (50 mg/dL/hr)
+- When glucose < 250-300 mg/dL → add **Dextrose** to fluid (5-10%) so insulin can keep working without hypoglycemia
+- Continue until ketones clear (1-3 days)
+
+**STEP 4: Bicarbonate** (only if pH < 7.0 or HCO₃ < 12, severe)
+
+**STEP 5: Treat underlying disease** (pancreatitis, UTI, etc.)
+
+---
+
+# 🔻 Part 3: Urinary Tract Obstruction
+
+## Cat Urethral Obstruction (covered in Triage clip too)
+- **Hyperkalemia** = killer (must reduce < 7.5 before GA!)
+- Glucose + insulin, Ca gluconate, IV fluid
+- Decompress bladder + urethral catheterization
+
+## Dog UT obstruction
+- Often males (urethra narrower)
+- Stones (struvite, calcium oxalate) common cause
+- Tx: catheter or surgery (urethrostomy if recurrent)
+
+## Acute Kidney Injury (AKI)
+- Causes: hypotension, toxins (NSAID, ethylene glycol, lily in cat), infection, post-renal
+- Tx: IV fluids, treat cause, ± dialysis if severe
+
+---
+
+# 🔻 Part 4: Nutritional Support in Critical Patient
+
+## RER (Resting Energy Requirement) ⭐⭐
+> **RER (kcal/day) = 70 × BW(kg)^0.75**
+>
+> Or simplified: **RER = 30 × BW + 70** (for 2-30 kg only)
+
+### For 20-kg dog:
+- 30 × 20 + 70 = **670 kcal/day** ⭐ (this exact number was tested in COM III past paper Q70!)
+
+## Feeding strategies
+- Ill animals NEED nutrition — don't starve!
+- **Re-feeding rule**: start at 1/3 RER day 1 → ramp up over 2-3 days (avoid refeeding syndrome)
+
+## Routes
+- **Voluntary oral** (best if eating)
+- **Esophagostomy tube** (preferred for prolonged anorexia in cat)
+- **Gastrostomy tube (PEG)** — long-term
+- **NG/NE tube** — short-term
+- **TPN/PPN** (parenteral) — only when GI not usable
+
+## Concurrent issue: Refeeding syndrome
+- Sudden carb load → insulin spike → K+, Mg, PO₄ shift into cells → severe deficiency
+- Especially in chronic anorexia
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐⭐
+
+### Addison Crisis
+1. **Dex 0.5-1 mg/kg IV** acute
+2. Dex doesn't interfere with ACTH stim test
+3. Glucose+insulin for hyperK
+4. Na/K ratio < 20 = crisis
+
+### DKA ⭐⭐
+1. **3 criteria**: Diabetes + Ketosis + Acidosis
+2. ⭐ **β-hydroxybutyrate** = main strong-acid ketone
+3. **Kussmaul breathing** = deep+rapid (acidosis compensation)
+4. ⭐ **Treatment order**: fluid → electrolyte (esp K+) → insulin
+5. ⭐ **Lower osmolarity SLOWLY** (cerebral edema risk!)
+6. **Regular insulin** = preferred (short-acting)
+7. K+ must be corrected BEFORE insulin
+8. Insulin IM 0.2 U/kg q1h or IV CRI 2.2/1.1 U/kg
+9. When glucose < 300 → add Dextrose to fluid
+10. Anion gap > 24 = significant DKA
+
+### UT
+1. Hyperkalemia is #1 killer in obstruction
+2. ⊘ Avoid Ketamine in cat with renal/UT issue
+
+### Nutrition
+1. ⭐ **RER 30 kg dog** (20 kg) = **30×20+70 = 670 kcal/day**
+2. Refeeding rule: start 1/3 RER, ramp up
+3. Esophagostomy tube preferred for cat anorexia
+4. Refeeding syndrome = hypoK/Mg/PO4 with sudden feed
+`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
   // COM IV — Cushing's & Addison's
   // ─────────────────────────────────────────────────────────────
   KZK4rKve1tQ: {
