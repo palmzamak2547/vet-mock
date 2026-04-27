@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Icons + PWA -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -14,21 +16,80 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="mobile-web-app-capable" content="yes" />
 
-    <title>VetMock — Vet 86 Mock Exam Platform</title>
-    <meta name="description" content="คลังข้อสอบ + ตารางสอบ + คลิปย้อนหลัง สำหรับสัตวแพทย์ จุฬา · Vet 86 (ปี 4)" />
+    <!-- Primary SEO -->
+    <title>VetMock — ติวสอบ Vet 86 จุฬา · ข้อสอบ COM III / IV / V + คลิปย้อนหลัง</title>
+    <meta name="description" content="VetMock = ระบบติวสอบสัตวแพทย์จุฬา รุ่น 86 (ปี 4) · คลังข้อสอบ MCQ COM III / IV / V + Eng Vet Prof II · ตารางสอบ + คลิปย้อนหลัง + spaced repetition · ออกแบบสำหรับนิสิตในรุ่นโดยเฉพาะ" />
+    <meta name="keywords" content="VetMock, Vet 86, สัตวแพทย์ จุฬา, ข้อสอบสัตวแพทย์, COM III, COM IV, COM V, mock exam, vet student, Chulalongkorn veterinary" />
+    <meta name="author" content="Palm (Vet 86)" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <link rel="canonical" href="https://vetmock.vercel.app/" />
 
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="VetMock — Vet 86 Mock Exam Platform" />
-    <meta property="og:description" content="คลังข้อสอบ + ตารางสอบ + คลิปย้อนหลัง สำหรับสัตวแพทย์ จุฬา · Vet 86 (ปี 4)" />
-    <meta property="og:image" content="/icon-512.png" />
+    <meta property="og:site_name" content="VetMock" />
+    <meta property="og:title" content="VetMock — ติวสอบ Vet 86 จุฬา · ข้อสอบ COM III / IV / V + คลิปย้อนหลัง" />
+    <meta property="og:description" content="คลังข้อสอบ MCQ + ตารางสอบ + คลิปย้อนหลัง + summary · ระบบติวสอบสำหรับนิสิตสัตวแพทย์จุฬา รุ่น 86" />
+    <meta property="og:url" content="https://vetmock.vercel.app/" />
+    <meta property="og:image" content="https://vetmock.vercel.app/icon-512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="VetMock logo — ระบบติวสอบสัตวแพทย์ Vet 86 จุฬา" />
     <meta property="og:locale" content="th_TH" />
 
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="VetMock — Vet 86 Mock Exam Platform" />
-    <meta name="twitter:description" content="คลังข้อสอบ + ตารางสอบ + คลิปย้อนหลัง สำหรับสัตวแพทย์ จุฬา" />
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VetMock — ติวสอบ Vet 86 จุฬา" />
+    <meta name="twitter:description" content="คลังข้อสอบ MCQ + ตารางสอบ + คลิปย้อนหลัง · สำหรับนิสิตสัตวแพทย์ จุฬา รุ่น 86" />
+    <meta name="twitter:image" content="https://vetmock.vercel.app/icon-512.png" />
+
+    <!-- JSON-LD: WebApplication schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "VetMock",
+      "alternateName": "Vet 86 Mock Exam Platform",
+      "url": "https://vetmock.vercel.app/",
+      "description": "ระบบติวสอบสัตวแพทย์จุฬา รุ่น 86 (ปี 4) · คลังข้อสอบ MCQ COM III / IV / V + Eng Vet Prof II · ตารางสอบ + คลิปย้อนหลัง + summary + spaced repetition",
+      "applicationCategory": "EducationalApplication",
+      "applicationSubCategory": "Veterinary Medicine Exam Preparation",
+      "operatingSystem": "Web (PWA)",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "th",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "THB"
+      },
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "audienceType": "Veterinary medicine students (4th year, Chulalongkorn University)"
+      },
+      "featureList": [
+        "MCQ question bank (COM III / IV / V / Eng Vet Prof II)",
+        "Past paper ข้อสอบเก่า",
+        "Bookmark + spaced repetition",
+        "Lecture clip summaries (markdown)",
+        "Exam schedule tracker",
+        "Study groups + leaderboard",
+        "Reading checklist",
+        "Custom question manager",
+        "Offline-capable PWA"
+      ]
+    }
+    </script>
   </head>
   <body style="margin: 0;">
     <div id="root"></div>
+    <noscript>
+      <div style="padding:2rem;font-family:system-ui,sans-serif;text-align:center;max-width:640px;margin:0 auto;">
+        <h1>VetMock — Vet 86 Mock Exam Platform</h1>
+        <p>ระบบติวสอบสัตวแพทย์จุฬา รุ่น 86 · ต้องเปิด JavaScript เพื่อใช้งาน</p>
+        <p>คลังข้อสอบ MCQ + ตารางสอบ + คลิปย้อนหลัง + summary สำหรับ COM III / COM IV / COM V / Eng Vet Prof II</p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
