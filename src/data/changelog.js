@@ -37,6 +37,17 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.8.0',
+    date: '2026-04-27',
+    headline: '📜 Phase 3 ข้อสอบเก่า COM III — รวม 93 ข้อ (+33 ข้อ จาก past paper 75 ข้อ)',
+    changes: [
+      { scope: 'com3', kind: 'content', icon: '📜', title: '+33 ข้อสอบเก่า COM III Final 86 (Phase 3)',
+        desc: 'ดึงมาจาก com ani III โพย.pdf (75-question past paper) ที่ตรงกับ syllabus 2026 · IDs 1360-1392 · ครอบคลุม Cushing response (TBI), CN VII tympanic bulla, paradoxical central vestibular, cerebellar abiotrophy vs hypoplasia, Hansen Type I IVDD breeds, Wobbler synonyms, white shaker syndrome, refeeding syndrome prevention, RER calculation, fluid math, fentanyl ใน shock, DKA volume-first priority' },
+      { scope: 'com3', kind: 'content', icon: '🎯', title: 'Position-balanced ตั้งแต่เขียน (cycle 0-4)',
+        desc: '33 ข้อใหม่ใช้ deterministic answer cycle 0,1,2,3,4 → distribution 7-7-7-6-6 · 0 swap ต้องแก้หลัง · 0 length bias error · baseline 78 errors เท่าเดิม' },
+    ],
+  },
+  {
     version: '5.7.0',
     date: '2026-04-27',
     headline: '📏 ลด length bias ทั้งคลัง 38% + CI guard ระยะยาว',
