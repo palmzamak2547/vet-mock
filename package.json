@@ -12,7 +12,8 @@
     "fix:questions": "node scripts/fix-question-bias.cjs",
     "fix:length": "node scripts/fix-length-bias.cjs",
     "fetch:videos": "node scripts/fetch-video-transcripts.mjs",
-    "flat:transcript": "node scripts/flatten-transcript.mjs"
+    "flat:transcript": "node scripts/flatten-transcript.mjs",
+    "ping:indexnow": "node scripts/ping-indexnow.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

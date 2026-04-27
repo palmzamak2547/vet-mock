@@ -47,6 +47,8 @@ export const CHANGELOG = [
         desc: 'title ใหม่ "VetMock — คลังข้อสอบสัตวแพทย์ จุฬา" · description ครอบคลุมทุกชั้นปี (ปี 1-6) ที่จะทยอยทำเพิ่ม · canonical URL · OG image 512×512 + alt text · Twitter summary_large_image · noscript fallback สำหรับบอท' },
       { scope: 'system', kind: 'feature', icon: '📋', title: 'JSON-LD WebApplication schema',
         desc: 'structured data ตาม schema.org · Google เข้าใจว่าเป็น EducationalApplication ประเภท Veterinary Medicine Question Bank · audience = นิสิตสัตวแพทย์จุฬาทุกชั้นปี · feature list ครบ 9 อย่าง · free PWA ภาษาไทย' },
+      { scope: 'system', kind: 'feature', icon: '🔔', title: 'IndexNow protocol — Bing/Yandex/Naver index ทันทีหลัง deploy',
+        desc: 'รัน `npm run ping:indexnow` หลัง deploy ใหม่ → search engine จะ index ทันที (ไม่ต้องรอ crawler มาเอง · Google ไม่ support แต่ Bing/DuckDuckGo support)' },
     ],
   },
   {
