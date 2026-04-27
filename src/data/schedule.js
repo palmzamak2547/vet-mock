@@ -251,6 +251,20 @@ export function msUntilExam(exam, now = new Date()) {
   return dt - now;
 }
 
+// Helper: epoch-ms timestamp of when the exam *ends*.
+// Used to filter exams that have already finished today (e.g. COM V
+// at 08:30-10:30 has finished by 11:00 — should NOT still show as
+// "next exam" for the rest of the day).
+function examEndMs(exam) {
+  const start = parseExamStart(exam.time);
+  const dt = new Date(exam.date);
+  if (start) dt.setHours(start.hour, start.minute, 0, 0);
+  else dt.setHours(8, 0, 0, 0);
+  // Use declared duration if available; fall back to 3 hr (longest in y4)
+  const durMin = exam.duration_min || 180;
+  return dt.getTime() + durMin * 60 * 1000;
+}
+
 // Helper: short countdown when exam is within ~36 hours
 // Returns null when not imminent (use daysLeft instead)
 export function shortCountdown(exam, now = new Date()) {
@@ -283,7 +297,11 @@ export function getUpcomingExams(year = 'y4') {
 }
 
 export function getNextExam(year = 'y4') {
-  const upcoming = getUpcomingExams(year).filter((e) => e.daysLeft >= 0);
+  // Filter by exam END time, not by date. Otherwise an exam that
+  // finished hours ago today would still count as "next" for the
+  // rest of the day and only roll over at midnight.
+  const nowMs = Date.now();
+  const upcoming = getUpcomingExams(year).filter((e) => examEndMs(e) > nowMs);
   return upcoming[0] || null;
 }
 

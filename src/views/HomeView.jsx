@@ -24,16 +24,25 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
   const [expanded, setExpanded] = useState(false);
   const showAnnouncement = LATEST_CHANGELOG && lastSeenChangelog !== LATEST_CHANGELOG.version;
 
-  // Re-render every minute when exam is imminent so countdown stays fresh
+  // Tick to keep the countdown banner fresh.
+  //
+  // Two cadences:
+  //   • 1 min when an imminent countdown is shown (banner reads
+  //     "อีก N นาที" / "อีก N ชม. M นาที" — needs minute granularity)
+  //   • 5 min otherwise — keeps "X days left" accurate across day
+  //     rollovers AND, more importantly, lets getNextExam roll forward
+  //     when an exam finishes during the day (filtered out by exam-end
+  //     time in schedule.js getNextExam, but only re-evaluated on
+  //     re-render — without this tick, the banner would show a finished
+  //     exam until the user did something else that re-rendered the
+  //     home page).
   const [, setTick] = useState(0);
-  useEffect(() => {
-    if (!nextExam) return;
-    const cd = shortCountdown(nextExam);
-    if (!cd) return;
-    const id = setInterval(() => setTick((n) => n + 1), 60_000);
-    return () => clearInterval(id);
-  }, [nextExam]);
   const countdown = nextExam ? shortCountdown(nextExam) : null;
+  useEffect(() => {
+    const intervalMs = countdown ? 60_000 : 5 * 60_000;
+    const id = setInterval(() => setTick((n) => n + 1), intervalMs);
+    return () => clearInterval(id);
+  }, [nextExam, countdown]);
 
   return (
     <>
