@@ -24,6 +24,7 @@ export default defineConfig({
           if (id.includes('notes-com4')) return 'data-notes-com4'
           if (id.includes('notes-com5')) return 'data-notes-com5'
           if (id.includes('notes-engprof')) return 'data-notes-engprof'
+          if (id.includes('notes-exotic')) return 'data-notes-exotic'
         },
       },
     },
