@@ -177,10 +177,6 @@ export const QB_PART3 = [
     q: 'Demodex canis dx ด้วย',
     options: ['Wood\'s lamp', 'Deep skin scraping', 'Cytology', 'Fungal culture'],
     answer: 1, explain: 'Deep scraping จน capillary bleed → เห็นตัวไร' },
-  { id: 274, subject: 'com4', year: 4, source: 'COM_IV_86_Final.pdf / COM_IV_final_ข้อสอบเก่าสรุป_Kim.pdf', tags: ['neuro'], type: 'mcq',
-    q: 'Schiff-Sherrington posture เกิดจาก lesion ที่',
-    options: ['C1-C5', 'C6-T2', 'T3-L3', 'L4-S3'],
-    answer: 2, explain: 'Schiff-Sherrington = acute thoracolumbar (T3-L3) lesion; forelimb extension + hindlimb paralysis' },
 
   // EXOTIC questions (Q290-297) extracted to questions-exotic.js (2026-04-28)
 ];

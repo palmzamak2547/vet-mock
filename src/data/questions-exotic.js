@@ -18,21 +18,6 @@
 
 export const QB_EXOTIC = [
   // ── Wildlife career (ECZM / residency / funding) ───────────────
-  { id: 160, subject: 'exotic', topic: 'wildlife-career', year: 4,
-    source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['ECZM'], type: 'mcq',
-    q: 'ECZM มีกี่สาขาเฉพาะทาง',
-    options: ['3', '4', '5', '6'],
-    answer: 2, explain: '5: Avian, Herp, WPH, Small Mammal, ZHM' },
-  { id: 161, subject: 'exotic', topic: 'wildlife-career', year: 4,
-    source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['USA'], type: 'mcq',
-    q: 'Residency USA ต้องมีผลงานตีพิมพ์',
-    options: ['2 papers', '3 papers', '5 papers', 'ไม่จำเป็น'],
-    answer: 1, explain: 'ACZM: 3 peer-reviewed papers' },
-  { id: 162, subject: 'exotic', topic: 'wildlife-career', year: 4,
-    source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['EU'], type: 'mcq',
-    q: 'EU ECZM papers + exam ภายใน',
-    options: ['2/6 ปี', '2/8 ปี', '3/6 ปี', '3/8 ปี'],
-    answer: 1, explain: '2 papers + exam ภายใน 8 ปี' },
   { id: 163, subject: 'exotic', topic: 'wildlife-career', year: 4,
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['funding'], type: 'mcq',
     q: 'ทุน USA คือ',
@@ -110,7 +95,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['vaccine'], type: 'mcq',
     q: 'วัคซีน rabies เป็น type ใด',
     options: ['Live attenuated', 'Killed', 'Recombinant', 'DNA'],
-    answer: 1, explain: 'Killed vaccine — ปลอดภัยกับ wildlife' },
+    answer: 1, explain: 'Parenteral rabies vaccine สำหรับ pet/livestock = killed (inactivated) · ปลอดภัยไม่ revert · wildlife oral bait ใช้ recombinant V-RG (สำหรับ fox/raccoon/skunk)' },
 
   // ── Rabbit ────────────────────────────────────────────────────
   { id: 290, subject: 'exotic', topic: 'rabbit', year: 4,
@@ -267,7 +252,7 @@ export const QB_EXOTIC = [
     source: 'Slide Lecture 2026 — โรคไม่ติดเชื้อ.pptx', tags: ['crop', 'metoclopramide'], type: 'mcq',
     q: 'Crop stasis ในนกรักษาด้วย',
     options: ['Surgery ทันที', 'NPO + IV fluid + Metoclopramide (motility)', 'Antibiotic only', 'Force feed ปริมาณมาก'],
-    answer: 1, explain: 'Metoclopramide ช่วย gastric/crop motility + supportive care' },
+    answer: 1, explain: 'Crop stasis: rule out underlying cause ก่อน (Candida / foreign body / sour crop) · supportive (warm fluid, NPO, motility agent) · metoclopramide ใช้ได้แต่ตอบสนองจำกัดในนก — cisapride อาจดีกว่าในบางเคส' },
   { id: 1533, subject: 'exotic', topic: 'bird-noninfect', year: 4,
     source: 'EXOTIC FINAL 86 master compilation', tags: ['ectoparasite', 'mite'], type: 'mcq',
     q: 'Knemidocoptes (scaly leg/face mite) ในนกรักษาด้วย',
@@ -299,7 +284,7 @@ export const QB_EXOTIC = [
     source: 'EXOTIC FINAL 86 master compilation', tags: ['Candida', 'antifungal'], type: 'mcq',
     q: 'Candidiasis (thrush) ในลูกนกรักษาด้วย antifungal ใด',
     options: ['Itraconazole', 'Acyclovir', 'Doxycycline', 'Metronidazole'],
-    answer: 0, explain: 'Itraconazole = systemic antifungal · ใช้ Nystatin local ก็ได้' },
+    answer: 0, explain: 'Nystatin PO = first-line สำหรับ crop/oropharyngeal candidiasis (acts locally ใน crop, ไม่ดูดซึม) · Itraconazole = systemic/refractory case (ระวัง toxicity ใน African grey parrot)' },
   { id: 1544, subject: 'exotic', topic: 'bird-infect', year: 4,
     source: 'EXOTIC FINAL 86 master compilation', tags: ['Trichomonas', 'protozoa'], type: 'mcq',
     q: 'Trichomonas gallinae ในนก (canker) รักษาด้วย',
@@ -339,5 +324,5 @@ export const QB_EXOTIC = [
     source: 'EXOTIC FINAL 86 master compilation', tags: ['inclusion-body'], type: 'mcq',
     q: 'โรคใดต่อไปนี้พบ intracytoplasmic inclusion bodies',
     options: ['PBFD (intracytoplasmic) · Polyoma (intranuclear)', 'Pacheco only', 'Avian pox only', 'Trichomonas'],
-    answer: 0, explain: "PBFD = intracytoplasmic · Polyoma + Pacheco's = intranuclear inclusion bodies" },
+    answer: 0, explain: "PBFD (Circovirus) = inclusions ทั้ง intranuclear และ intracytoplasmic (ขึ้นกับ tissue: feather follicle = both, bursa = intranuclear) · Polyoma + Pacheco's (Herpes) = predominantly intranuclear" },
 ];

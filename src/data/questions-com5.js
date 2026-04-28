@@ -565,7 +565,7 @@ export const QB_COM5 = [
     tags: ['rabies', 'transmission'], type: 'mcq',
     q: 'วิธีการแพร่เชื้อ Rabies ที่ "**ไม่ใช่** bite exposure" (non-bite) ได้แก่',
     options: ['Scratch + Lick to MM/wound + Trans-placenta', 'พาหะแมลง', 'การหายใจในห้องปกติ', 'การกินอาหารปกติ'],
-    answer: 0, explain: 'Non-bite: scratch (เลีบที่เลียมา), lick to mucus membrane/open wound, trans-placenta\nBite = หลัก\n\n❌ ทำไมข้ออื่นผิด\n— พาหะแมลง = arboviral (ไม่ใช่ rabies)\n— หายใจปกติ = ไม่ใช่ aerosol (เฉพาะถ้ำค้างคาว)\n— กินอาหารปกติ = enteric ไม่ใช่ route หลัก',
+    answer: 0, explain: 'Non-bite: scratch จากเล็บที่ปนเปื้อนน้ำลาย (สัตว์เลียเล็บตัวเอง) · lick ที่ mucous membrane / แผลเปิด · trans-placental (rare)\nBite = หลัก\n\n❌ ทำไมข้ออื่นผิด\n— พาหะแมลง = arboviral (ไม่ใช่ rabies)\n— หายใจปกติ = ไม่ใช่ aerosol (เฉพาะถ้ำค้างคาว)\n— กินอาหารปกติ = enteric ไม่ใช่ route หลัก',
     verified: 'Rabies.pdf p.7' },
 
   { id: 581, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
@@ -754,7 +754,7 @@ export const QB_COM5 = [
     tags: ['vaccine', 'WSAVA', 'booster'], type: 'mcq',
     q: 'WSAVA 2024 แนะนำให้ booster vaccine เข็มแรกเมื่ออายุใด (เปลี่ยนจาก 2016)',
     options: ['ไม่ต้อง booster หลัง puppy/kitten series', '18 เดือน หลัง initial vaccination', '24 เดือน หลัง puppy series', '6 เดือน (แทน 12-16 เดือน) → จากนั้น revaccinate ที่ 3 ปี + ทุก 3 ปี', '12 เดือน เหมือน WSAVA 2016'],
-    answer: 3, explain: 'WSAVA 2024: 6-month booster (revised)\nจากนั้น 3-yr intervals\nVPAT ยังคง annual (อย่างน้อยจนถึงครึ่งปี-1ปี + ทุกปีหรือทุก 3 ปี)\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต้อง booster" = ผิด\n— "18 / 24 mo" = ไม่ใช่ 2024\n— "12 mo เหมือน 2016" = guideline เก่า',
+    answer: 3, explain: 'WSAVA 2024: 6-mo booster (เปลี่ยนจาก 2016 ที่ใช้ 1 ปี) → revaccinate ทุก 3 ปี\nVPAT 2024: 6-mo booster → 1-yr booster → ทุก 1 หรือ 3 ปี (ถี่กว่า WSAVA เล็กน้อย)\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต้อง booster" = ผิด\n— "18 / 24 mo" = ไม่ใช่ 2024\n— "12 mo เหมือน 2016" = guideline เก่า',
     verified: 'Vaccination_guideline.pdf p.9 + COM V FINAL 86 p.34' },
 
   { id: 599, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
@@ -774,7 +774,7 @@ export const QB_COM5 = [
     tags: ['vaccine', 'WSAVA-vs-VPAT'], type: 'mcq',
     q: 'ความแตกต่างหลักระหว่าง WSAVA 2024 และ VPAT 2024 ในการให้วัคซีน core ปกติของสุนัข/แมว',
     options: ['ไม่มีความแตกต่าง', 'WSAVA ฉีดทุก 6 เดือนตลอดชีวิต', 'WSAVA: ทุก 3 ปี (low risk)', 'VPAT ลด core vaccine'],
-    answer: 2, explain: 'WSAVA: 6-mo booster → 3-yr intervals\nVPAT: 6-mo booster → 1-yr booster → 1 or 3 yr (เน้นความถี่กว่าเล็กน้อย)\n\n💡 VPAT: บูสต์ที่ 1.5 ปี แล้วทุก 1-3 ปี',
+    answer: 2, explain: 'WSAVA: 6-mo booster → ทุก 3 ปี (low risk)\nVPAT: 6-mo booster → 1-yr booster → ทุก 1 หรือ 3 ปี (ถี่กว่า WSAVA เล็กน้อย)',
     verified: 'COM V FINAL 86 p.34' },
 
   { id: 602, subject: 'com5', topic: 'vaccine', year: 4, source: 'Vaccination_guideline.pdf',
@@ -813,7 +813,7 @@ export const QB_COM5 = [
     tags: ['furi', 'fhv-1', 'latency'], type: 'mcq',
     q: 'FHV-1 หลังการติดเชื้อ latency อยู่ที่ใดเป็นหลัก',
     options: ['Trigeminal ganglia', 'Spleen', 'Bone marrow', 'Salivary gland'],
-    answer: 0, explain: 'FHV-1 = dsDNA enveloped\nlatent ใน trigeminal ganglia + cornea\nstress reactivation → intermittent shedding\neasily killed by disinfectants\n\n❌ ทำไมข้ออื่นผิด\n— Spleen / BM / Salivary gland = ไม่ใช่ neural latency site (FHV-1 latent ใน sensory ganglia)\n\n💡 ± cornea',
+    answer: 0, explain: 'FHV-1 = dsDNA enveloped\nLatency: trigeminal ganglia (sensory neurons) เป็นหลัก\nstress/glucocorticoid → reactivation → axonal transport → epithelial recurrence (cornea, oronasal) → intermittent shedding\neasily killed by disinfectants\n\n❌ ทำไมข้ออื่นผิด\n— Spleen / BM / Salivary gland = ไม่ใช่ neural latency site\n\n💡 cornea = recurrence site, ไม่ใช่ latency reservoir',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.6, 21' },
 
   { id: 607, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',

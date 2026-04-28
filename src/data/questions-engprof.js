@@ -310,7 +310,7 @@ export const QB_ENGPROF = [
     source: 'Textbook p.105', tags: ['warmup', 'rct'], type: 'mcq',
     q: 'Which design is the gold standard for testing the effect of a new treatment?',
     options: ['Case series', 'Cross-sectional', 'Cohort', 'Randomized Controlled Trial'],
-    answer: 3, explain: 'RCT = Controlled Clinical Trial + random assignment → eliminates selection bias',
+    answer: 3, explain: 'RCT = randomization + control group → minimizes selection & confounding bias · gold standard for causal inference of treatment effect',
     verified: 'Textbook p.104-105' },
 
   { id: 1108, subject: 'engprof', topic: 'research-design', year: 4,
