@@ -14,7 +14,7 @@ export const QB = [
   // VET SURG LAB II — Soft Tissue / Eye / Aural (12 ข้อ)
   // ═════════════════════════════════════════════════════
   { id: 1, subject: 'surg2', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['mammary'], type: 'mcq',
-    q: 'สุนัขมีเนื้องอกเต้านมที่ left cranial & caudal thoracic + left inguinal mammary gland วิธีผ่าตัดที่เหมาะสม',
+    q: 'สุนัข เพศเมีย อายุ 9 ปี (ไม่ทำหมัน) มีเนื้องอกเต้านมที่ left cranial & caudal thoracic + left inguinal mammary gland วิธีผ่าตัดที่เหมาะสม',
     options: ['Unilateral mastectomy', 'Lumpectomy', 'Local mastectomy', 'Regional mastectomy'],
     answer: 0, explain: 'เต้านมหลายตำแหน่งฝั่งเดียวกัน → Unilateral mastectomy' },
   { id: 2, subject: 'surg2', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['mammary', 'vascular'], type: 'mcq',

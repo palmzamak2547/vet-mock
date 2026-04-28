@@ -1150,7 +1150,7 @@ export const QB_COM3 = [
 
   { id: 885, subject: 'com3', topic: 'cpcr', year: 4, source: 'COM III FINAL 86 + RECOVER',
     tags: ['cpcr', 'case', 'reasoning'], type: 'mcq',
-    q: 'สุนัขใน ICU monitor ECG เห็น chaotic waveform ไม่มี QRS recognizable, femoral pulse คลำไม่ได้, capnograph drop จาก 35 → 8 mmHg ใน 10 วินาที\nAction ที่ต้องทำทันทีคืออะไร',
+    q: 'สุนัข Golden Retriever อายุ 9 ปี ใน ICU monitor ECG เห็น chaotic waveform ไม่มี QRS recognizable, femoral pulse คลำไม่ได้, capnograph drop จาก 35 → 8 mmHg ใน 10 วินาที\nAction ที่ต้องทำทันทีคืออะไร',
     options: ['Start CPR ทันที + เตรียม defibrillator', 'IV fluid bolus', 'Atropine 0.04 mg/kg IV', 'รอดู rhythm 30 วินาที ก่อนตัดสินใจ'],
     answer: 0, explain: 'VF + no pulse + EtCO₂ drop = cardiac arrest\nStart CPR + prep defib (shockable)\n2-4 J/kg biphasic\nห้าม atropine ใน VF\nห้ามรอ\n\n❌ ทำไมข้ออื่นผิด\n— IV fluid bolus = ไม่ relevant ใน arrest\n— Atropine = ห้ามใน VF\n— รอ 30 sec = miss window',
     verified: 'CPCR 1 hr.pdf + RECOVER 2024' },
