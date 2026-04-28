@@ -2453,4 +2453,93 @@ export const QB_COM3 = [
     ],
     answer: 2, explain: 'Fentanyl = mu-opioid receptor agonist, opioid analgesic ที่ใช้ดีที่สุดใน shock:\n\n✓ Fentanyl advantages:\n• Minimal cardiovascular effect ที่ analgesic dose\n• Fast onset (1-2 min IV)\n• Short duration (20-30 min) → titratable\n• ใช้เป็น CRI (3-10 µg/kg/hr) เพื่อ continuous analgesia\n• Reversible ด้วย naloxone\n\n✗ Avoid ใน shock:\n• NSAIDs (carprofen, tolfenamic) — ↓ renal blood flow, GI ulcer\n• Morphine — histamine release → hypotension\n• Alpha-2 agonist (medetomidine) — ↑ SVR but ↓ CO\n\n✓ OK adjunct:\n• Ketamine low-dose (0.25-0.5 mg/kg) — sympathomimetic\n• Lidocaine CRI (1-3 mg/kg/hr) — synergistic\n\n💡 "FLK" CRI = Fentanyl + Lidocaine + Ketamine — multimodal analgesia ใน shock',
     verified: 'Animal_Emerg_Anes 1 hr.pdf · COM III Final 86' },
+
+  // ═════════════════════════════════════════════════════════════
+  // Phase 4 — TJ86 study guide (12 new Qs · IDs 1393-1404)
+  // Source: COM 3 final TJ86.pdf · cross-checked with 2026 lecture
+  // Position cycle 0,1,2,3,4 — 12 = 2.4 cycles (3+3+2+2+2)
+  // ═════════════════════════════════════════════════════════════
+  { id: 1393, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['neuro-exam', 'localization', 'spinal-segments'], type: 'mcq',
+    q: 'สุนัข 4 ขา UMN reflex ทั้งหมด (hyperreflexive) · postural reactions ผิดปกติ 4 ขา · cranial nerves ปกติ · mentation alert\nLesion อยู่ที่ spinal segment ใด',
+    options: ['C1-C5', 'C6-T2', 'T3-L3', 'L4-S3'],
+    answer: 0, explain: 'C1-C5 lesion → UMN ทั้ง 4 ขา (เพราะ tract ลงต่ำกว่ายังไม่ถึง intumescence)\n\n✗ ทำไมข้ออื่นผิด:\n— C6-T2 = LMN ขาหน้า + UMN ขาหลัง (intumescence)\n— T3-L3 = ขาหน้าปกติ + UMN ขาหลัง\n— L4-S3 = ขาหน้าปกติ + LMN ขาหลัง',
+    verified: 'TJ86 p.2 § Spinal cord segments + neuro_localised 1 hr.pdf' },
+
+  { id: 1394, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['vestibular', 'differentiation'], type: 'mcq',
+    q: 'อาการใดที่บ่งบอก central vestibular disease (ไม่ใช่ peripheral)',
+    options: ['Horizontal nystagmus', 'Head tilt ipsilateral', 'Postural reactions deficit', 'Otitis media'],
+    answer: 2, explain: 'Postural reactions deficit + vertical/positional nystagmus + paradoxical head tilt + cerebellar signs = central\n\n✗ ทำไมข้ออื่น = peripheral:\n— Horizontal/rotatory nystagmus = peripheral\n— Head tilt ipsilateral = peripheral (central อาจ paradoxical)\n— Otitis media = peripheral cause',
+    verified: 'TJ86 p.3-4 § Central vs Peripheral Vestibular' },
+
+  { id: 1395, subject: 'com3', topic: 'seizure', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['epilepsy', 'idiopathic', 'criteria'], type: 'mcq',
+    q: 'อายุที่พบ Idiopathic Epilepsy first onset บ่อยที่สุด',
+    options: ['< 6 เดือน', '6 เดือน - 1 ปี', '1-5 ปี', '> 8 ปี'],
+    answer: 2, explain: 'Idiopathic Epilepsy: first onset อายุ 1-5 ปี (range 6 เดือน - 6 ปี)\nอายุ < 6 เดือน หรือ > 8 ปี → ต้องสงสัย structural cause + workup เพิ่ม',
+    verified: 'TJ86 p.5 § Idiopathic Epilepsy + seizure 1 hr.pdf' },
+
+  { id: 1396, subject: 'com3', topic: 'seizure', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['AED', 'criteria'], type: 'mcq',
+    q: 'ข้อใด **ไม่ใช่** เกณฑ์เริ่มยา AED (Anti-Epileptic Drugs)',
+    options: ['ชัก ≥ 3 ครั้งใน 24 ชม.', 'ชัก > 2 ครั้งใน 6 เดือน', 'พบ structural lesion', 'ชักครั้งแรก อายุ 4 ปี ไม่มี lesion'],
+    answer: 3, explain: 'เกณฑ์เริ่ม AED:\n1. มี structural lesion\n2. Status epilepticus ครั้งแรก\n3. Cluster (≥ 3 ครั้งใน 24 ชม.)\n4. ชัก > 2 ครั้งใน 6 เดือน\n5. Post-ictal นานหรือรุนแรง\n\n✗ ครั้งเดียว + ไม่มี lesion + พักได้ → wait & see',
+    verified: 'TJ86 p.5 § AED criteria + seizure 1 hr.pdf' },
+
+  { id: 1397, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['DKA', 'fluid', 'glucose'], type: 'mcq',
+    q: 'ผู้ป่วย DKA ที่มี blood glucose 230 mg/dL · ตาม CRI insulin algorithm ควรใช้ fluid ใด',
+    options: ['NSS (0.9% saline)', 'D2.5 in 1/2 saline', 'D5 in 1/2 saline', 'LRS อย่างเดียว'],
+    answer: 1, explain: 'DKA insulin CRI fluid ตาม BG:\n— BG > 250 → NSS\n— BG 200-250 → **D2.5 (½) saline**\n— BG 150-200 → D2.5 (½) saline\n— BG 100-150 → D5 (½) saline\n— BG < 100 → stop insulin + D5',
+    verified: 'TJ86 p.6 § DKA fluid algorithm + metabolic_endocrine 1 hr.pdf' },
+
+  { id: 1398, subject: 'com3', topic: 'shock', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['shock', 'classification', 'metabolic'], type: 'mcq',
+    q: 'Cyanide poisoning ทำให้เกิด shock ประเภทใด',
+    options: ['Hypovolemic', 'Cardiogenic', 'Distributive', 'Metabolic'],
+    answer: 3, explain: 'Cyanide ยับยั้ง cytochrome c oxidase → cell ไม่ใช้ O₂ ได้แม้ delivery O₂ ปกติ = **Metabolic shock** (cellular dysoxia)\n\n6 shock types: Hypovolemic, Cardiogenic, Distributive (septic/anaphylactic/neurogenic), Obstructive, Hypoxic (low O₂ content), Metabolic (cellular)',
+    verified: 'TJ86 p.5 § Shock + SHOCK 1 hr.pdf' },
+
+  { id: 1399, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['acute-abdomen', 'POCUS'], type: 'mcq',
+    q: 'การ scan ultrasound ในการประเมินผู้ป่วย acute abdomen เรียกว่าอะไร',
+    options: ['TFAST', 'AFAST', 'FAST scan', 'Echo'],
+    answer: 1, explain: 'AFAST = **A**bdominal **F**ocused **A**ssessment with **S**onography for **T**rauma · มี 4 view (DH, SR, CC, HR)\n\n✗ TFAST = Thoracic FAST (สำหรับ chest)\n✗ FAST scan = generic term\n✗ Echo = full echocardiography',
+    verified: 'TJ86 p.5 § Acute Abdomen + Acute Abdomen 1 hr.pdf' },
+
+  { id: 1400, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['hemoabdomen', 'fluid-analysis'], type: 'mcq',
+    q: 'Abdominal fluid: PCV 28%, blood PCV 35%, no clot — แปลผลว่าอย่างไร',
+    options: ['Septic peritonitis', 'Bile peritonitis', 'Hemoabdomen ที่ไม่ใหม่ (peripheral defibrination)', 'Uroabdomen'],
+    answer: 2, explain: 'Hemoabdomen criteria:\n• PCV ของ fluid ใกล้เคียง blood PCV (ไม่ต้องสูงกว่า)\n• **No clot** — เพราะ peritoneum defibrinate เลือดที่ขังในช่องท้อง\n\n💡 ถ้า fluid PCV > blood PCV = active hemorrhage ใหม่\n💡 ถ้า fluid clot = sample iatrogenic จาก vessel ปาก needle',
+    verified: 'TJ86 p.5 § Hemoabdomen' },
+
+  { id: 1401, subject: 'com3', topic: 'cpcr', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['cpcr', 'theory', 'breed'], type: 'mcq',
+    q: 'CPR สำหรับสุนัข Rottweiler หรือ Retriever (round/keel chest) ใช้ทฤษฎีใด',
+    options: ['Cardiac pump theory', 'Thoracic pump theory', 'Cough CPR', 'Open-chest CPR'],
+    answer: 1, explain: 'Thoracic pump theory: round/keel chest (large breed) — กดทรวงอกสร้าง pressure gradient → forward flow\n\n✗ Cardiac pump = small/cat (กดตรง heart โดยตรง)\n✗ Cough CPR = ในคน awake\n✗ Open-chest = แล้ว 5-10 นาที CPR ภายนอกไม่ work',
+    verified: 'TJ86 p.6 § CPR + CPCR 1 hr.pdf' },
+
+  { id: 1402, subject: 'com3', topic: 'cpcr', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['cpcr', 'monitoring', 'capnograph'], type: 'mcq',
+    q: 'EtCO₂ goal ใน CPR ที่บ่งบอกว่ากำลัง compressions effective',
+    options: ['> 8 mmHg', '> 18 mmHg', '> 35 mmHg', '> 45 mmHg'],
+    answer: 1, explain: 'EtCO₂ > 18 mmHg ใน CPR = compressions ส่งเลือดไป pulmonary perfusion พอ → forward flow มี\n\n💡 EtCO₂ < 8-10 = compressions ไม่ effective หรือ arrest จริง · EtCO₂ ปกติ resting = 35-45 mmHg',
+    verified: 'TJ86 p.6 § CPR monitoring + RECOVER 2024' },
+
+  { id: 1403, subject: 'com3', topic: 'nutrition', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['nutrition', 'tube', 'esophagus'], type: 'mcq',
+    q: 'ผู้ป่วยที่มี caudal esophagus mass ต้องการ tube feeding · ควรเลือก tube ใด',
+    options: ['NG (nasogastric)', 'NE (nasoesophageal)', 'E-tube (esophagostomy)', 'G-tube (gastrostomy)'],
+    answer: 3, explain: 'Tube feeding rule: ปลาย tube ต้อง **distal ต่อ lesion**\n\nMass ที่ caudal esophagus → NG/NE/E-tube ต้องผ่าน mass = ติด/หลุด/แตก\n→ **G-tube (PEG)** เลย mass ไปใส่ที่ stomach โดยตรง',
+    verified: 'TJ86 p.7 § Tube feeding + nutrition 1 hr.pdf' },
+
+  { id: 1404, subject: 'com3', topic: 'spinal', year: 4, source: 'COM 3 final TJ86.pdf',
+    tags: ['IVDD', 'breed', 'pathophys'], type: 'mcq',
+    q: 'Hansen Type I IVDD พบบ่อยใน breed ใด + onset แบบใด',
+    options: ['Non-chondrodystrophoid · slow gradual onset', 'Chondrodystrophoid (Dachshund, Basset) · sudden onset', 'Toy breed · congenital', 'Large breed · trauma-only'],
+    answer: 1, explain: 'Hansen Type I IVDD:\n• **Chondrodystrophoid breeds** (Dachshund, Basset, Corgi, French Bulldog, Lhasa Apso, Beagle)\n• Annulus fibrosus เสื่อม → ปริ → nucleus pulposus extrude เข้า spinal canal\n• **Sudden onset** + complete extrusion\n• Hot spots: T12-L2 (60-80%) + C2-C3\n\n✗ Type II = non-chondrodystrophoid (Lab, GSD) · slow protrusion · partial · large breed senior',
+    verified: 'TJ86 p.8 § IVDD + Spinal disorder 2 hr.pdf' },
 ];
