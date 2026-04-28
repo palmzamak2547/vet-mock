@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem *)",
+      "Bash(curl -s *)",
+      "Bash(curl -sI *)",
+      "Bash(node --check *)",
+      "Bash(where *)",
+      "Bash(awk *)",
+      "Bash(pdftotext *)"
+    ]
+  }
+}
