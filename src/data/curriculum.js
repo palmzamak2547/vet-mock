@@ -96,6 +96,16 @@ export const SUBJECTS_BY_YEAR = {
           lecturer: 'Chutirat Torsahakul (CT)', lecturer_year: 2026, schedule: '23 เม.ย. · คาบ 29' },
         { id: 'er-anes',       label: 'คาบ 30 · Emergency Anesthesia', icon: '😴',
           lecturer: 'Sumit Durongphongtorn (SD)', lecturer_year: 2026, schedule: '23 เม.ย. · คาบ 30' },
+
+        // ── ข้อสอบเก่าเฉพาะกิจ — separate section, not a real "คาบ" ──
+        // 72 unique MCQs (5-option) from COM III Final 2019 past exam,
+        // cross-verified against 2026 lecture slides. Mapped to all 14
+        // chapters via tags[] (spinal 11 · shock 7 · seizure 6 · neuro-
+        // er/vestibular/ataxia/nutrition/acute-ab/resp-cv 5 each · cpcr
+        // 5 · triage 4 · metabolic-er 4 · anesthesia 3 · flutd 1).
+        { id: 'special-prep',  label: '⭐ ข้อสอบเก่าเฉพาะกิจ · COM III Final 2019', icon: '📜',
+          lecturer: '2 ไฟล์ในโฟลเดอร์ "ยังไม่ได้เช็ค"', lecturer_year: 2019,
+          lecturerNote: '72 ข้อจาก past final — verified vs 2026 slides + student answer key. กระจายทุกบท: spinal 11 · shock 7 · seizure 6 · neuro-er/vestibular/ataxia/nutrition/acute-ab/resp-cv 5 · cpcr 5 · triage 4 · metabolic 4 · anesth 3 · flutd 1' },
       ] },
     { id: 'com4', code: '3107416', name: 'COM IV', name_en: 'C ANI CLI SCI IV · Companion Animal',
       icon: '🩺', color: '#6b5b8e', semester: 2, has_questions: true,
