@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import SmartPassage from './SmartPassage.jsx';
@@ -54,6 +54,11 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const contentBlock = (
     <div className="vmx-q-content-pane">
       <div className="vmx-qtext"><RichText text={currentQ.q} /></div>
+
+      {/* Data discrepancy flag — surfaces conflicts between past papers
+          and current lecture content. See vault discrepancies.md +
+          self-optimization rule 1d (hold to facts). */}
+      {currentQ.flag && <FlagChip flag={currentQ.flag} />}
 
       {showNote && (
         <div className="vmx-note-panel">
@@ -240,6 +245,73 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         >
           📄 Passage
         </button>
+      )}
+    </div>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────
+// FlagChip — visual warning that a question has a known data
+// conflict between past paper answer and current lecture content.
+// Severity color: major=rose, minor=gold, unclear=ink-soft.
+// Click expands to show note + sources.
+// ────────────────────────────────────────────────────────────────
+function FlagChip({ flag }) {
+  const [open, setOpen] = useState(false);
+  const sev = flag?.severity || 'unclear';
+  const palette = {
+    major: { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose)', icon: '⚠️' },
+    minor: { bg: 'rgba(184, 137, 64, 0.12)', border: 'var(--clr-gold)', text: 'var(--clr-gold)', icon: '⚡' },
+    unclear: { bg: 'var(--clr-surface-2)', border: 'var(--clr-border)', text: 'var(--clr-ink-soft)', icon: '❓' },
+  }[sev] || palette.unclear;
+
+  return (
+    <div style={{ marginTop: 12 }}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        style={{
+          all: 'unset',
+          cursor: 'pointer',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 6,
+          padding: '4px 10px',
+          background: palette.bg,
+          border: `1px solid ${palette.border}`,
+          borderRadius: 999,
+          fontSize: 11,
+          fontFamily: 'JetBrains Mono, monospace',
+          color: palette.text,
+        }}
+        title="ข้อมูลขัดแย้ง — กดดูรายละเอียด"
+      >
+        {palette.icon} ข้อมูลขัดแย้ง · {sev.toUpperCase()} {open ? '▾' : '▸'}
+      </button>
+
+      {open && (
+        <div style={{
+          marginTop: 8,
+          padding: '12px 14px',
+          background: palette.bg,
+          borderLeft: `3px solid ${palette.border}`,
+          borderRadius: '0 8px 8px 0',
+          fontSize: 13,
+          lineHeight: 1.6,
+          color: 'var(--clr-ink)',
+        }}>
+          <div>{flag.note}</div>
+          {flag.sources?.length > 0 && (
+            <div style={{
+              marginTop: 8,
+              fontSize: 11,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-ink-soft)',
+            }}>
+              📚 Sources: {flag.sources.join(' · ')}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

@@ -36,6 +36,7 @@ function buildIndex({ goView, setSubject, setPracticeMode, openInstructor }) {
     { label: 'คะแนนล่าสุด', hint: 'Scores', icon: '🏆', kw: 'score คะแนน history ประวัติ', run: () => goView('scores') },
     { label: 'About', hint: 'เกี่ยวกับ', icon: 'ℹ️', kw: 'about info เกี่ยวกับ', run: () => goView('about') },
     { label: 'แจ้งปัญหา / Feedback', hint: 'Feedback', icon: '🐛', kw: 'feedback bug แจ้ง ปัญหา ติชม', run: () => goView('feedback') },
+    { label: 'อาจารย์ผู้สอนทั้งหมด', hint: 'Faculty index', icon: '👨‍🏫', kw: 'faculty instructor อาจารย์ ผู้สอน lecturer professor', run: () => goView('faculty') },
   ];
   actions.forEach((a) => items.push({ ...a, type: 'action' }));
 
