@@ -473,7 +473,7 @@ export const QB_COM3 = [
 
   { id: 780, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
     tags: ['neuro-exam', 'goals'], type: 'mcq',
-    q: 'Goals of neurological examination มี 4 ข้อ — ข้อใด ไม่ใช่',
+    q: 'Goals of neurological examination มี 4 ข้อ — ข้อใด **ไม่ใช่**',
     options: ['Determine the anesthetic protocol', 'Determine pathologic process', 'Localize lesion', 'Confirm ว่า lesion อยู่ใน nervous system'],
     answer: 0, explain: 'Goals: confirm neuro problem\nlocalize\npathologic process\nseverity → prognosis\nไม่เกี่ยวกับ anesthesia plan',
     verified: 'neuro_exam 1 hr.pdf' },
@@ -1185,9 +1185,9 @@ export const QB_COM3 = [
 
   { id: 890, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam',
     tags: ['neuro-exam', 'case', 'reasoning', 'localization'], type: 'mcq',
-    q: 'สุนัข Labrador Retriever 5 ปี มา ER ด้วย acute weakness 4 ขา\nNeuro exam: ขาหน้า patellar reflex hyperreflexive (withdrawal intact), ขาหลัง patellar normal (withdrawal intact), cranial nerves ปกติ, mentation alert\nLesion location อยู่ที่ไหน',
+    q: 'สุนัข Labrador Retriever 5 ปี มา ER ด้วย acute weakness 4 ขา\nNeuro exam: ขาหน้า biceps + triceps reflex hyperreflexive (withdrawal intact), ขาหลัง patellar reflex hyperreflexive (withdrawal intact), cranial nerves ปกติ, mentation alert\nLesion location อยู่ที่ไหน',
     options: ['C6-T2 (LMN ขาหน้า + UMN ขาหลัง)', 'T3-L3 (ขาหน้าปกติ + UMN ขาหลัง)', 'L4-S3 (LMN ขาหลังเท่านั้น)', 'C1-C5 (UMN ทั้ง 4 ขา)'],
-    answer: 3, explain: 'Hyperreflexive ขาหน้า + intact reflex หลัง = UMN 4 ขา = lesion above C6 → C1-C5\nถ้า LMN ขาหน้า (hyporeflexia) → C6-T2\nalert mentation → not forebrain\n\n❌ ทำไมข้ออื่นผิด\n— C6-T2 = ต้องมี LMN ขาหน้า (hyporeflexia) ขัดกับ case\n— T3-L3 = ขาหน้าปกติทั้งหมดขัดกับ hyperreflexia\n— L4-S3 = ขาหน้าปกติ',
+    answer: 3, explain: 'Hyperreflexive ทั้งขาหน้า + ขาหลัง = UMN 4 ขา = lesion above C6 = C1-C5\n(ขาหน้าใช้ biceps/triceps reflex · ขาหลังใช้ patellar reflex — ตรวจคนละกลุ่มกล้ามเนื้อ)\nถ้า LMN ขาหน้า (hyporeflexia biceps/triceps) → C6-T2\nalert mentation = ไม่ใช่ forebrain\n\n❌ ทำไมข้ออื่นผิด\n— C6-T2 = ต้องมี LMN ขาหน้า (hyporeflexia biceps/triceps) ขัดกับ case\n— T3-L3 = ขาหน้าปกติทั้งหมดขัดกับ hyperreflexia\n— L4-S3 = ขาหลัง LMN เท่านั้น (ขาหน้าปกติ)',
     image: IMG_SPINAL_LOCALIZATION,
     verified: 'neuro_exam 1 hr.pdf + neuro_localised 1 hr.pdf' },
 
@@ -1270,7 +1270,7 @@ export const QB_COM3 = [
 
   { id: 1301, subject: 'com3', topic: 'triage', year: 4, source: 'DC3final 86',
     tags: ['triage', 'primary-survey'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ระบบอวัยวะใดต่อไปนี้ ไม่ใช่ ระบบที่ควรได้รับการพิจารณาขณะทำ primary survey',
+    q: 'ระบบอวัยวะใดต่อไปนี้ **ไม่ใช่** ระบบที่ควรได้รับการพิจารณาขณะทำ primary survey',
     options: [
       'Cardiovascular system (heart rate, pulse quality, mucous membrane)',
       'Nervous system (mentation, gait, cranial nerves เบื้องต้น)',
@@ -1283,7 +1283,7 @@ export const QB_COM3 = [
 
   { id: 1302, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['seizure', 'pathophysiology'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'อาการชัก (seizures) เกิดจากความผิดปกติของสมอง ตำแหน่งใดต่อไปนี้ ไม่ใช่ ตำแหน่งที่ทำให้เกิดอาการชัก',
+    q: 'อาการชัก (seizures) เกิดจากความผิดปกติของสมอง ตำแหน่งใดต่อไปนี้ **ไม่ใช่** ตำแหน่งที่ทำให้เกิดอาการชัก',
     options: [
       'Basal nuclei (deep gray matter — extrapyramidal pathway)',
       'Hippocampus (limbic system — temporal lobe seizure focus)',
@@ -1309,7 +1309,7 @@ export const QB_COM3 = [
 
   { id: 1304, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'DC3final 86',
     tags: ['addisonian', 'electrolyte'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'Pattern ใดข้อต่อไปนี้ ไม่ใช่ clinical pathology ของ classical Addison\'s disease',
+    q: 'Pattern ใดข้อต่อไปนี้ **ไม่ใช่** clinical pathology ของ classical Addison\'s disease',
     options: [
       'Hyperkalemia (K > 5.5 mEq/L — ขาด aldosterone, ไม่ขับ K)',
       'Lymphocytosis (lymphocyte สูง — ขาด cortisol จึงไม่ stress leukogram)',
@@ -1322,7 +1322,7 @@ export const QB_COM3 = [
 
   { id: 1305, subject: 'com3', topic: 'shock', year: 4, source: 'DC3final 86',
     tags: ['shock', 'resuscitation'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ ไม่ใช่ ขั้นตอนการ resuscitation',
+    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** ขั้นตอนการ resuscitation',
     options: [
       'Cooling down body temperature in heat stroke (active cooling — wet towel + fan + IV cool fluid)',
       'Oxygen therapy in severe anemic case (mask / cage / nasal — เพิ่ม dissolved O2)',
@@ -1564,7 +1564,7 @@ export const QB_COM3 = [
 
   { id: 1325, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'DC3final 86',
     tags: ['ate', '5ps'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด ไม่ใช่ หนึ่งใน 5Ps criteria ของการวินิจฉัย aortic thromboembolism (ATE) ในแมว',
+    q: 'ข้อใด **ไม่ใช่** หนึ่งใน 5Ps criteria ของการวินิจฉัย aortic thromboembolism (ATE) ในแมว',
     options: [
       'Poikilocytosis (เม็ดเลือดแดงผิดรูป — เป็น CBC finding, ไม่ใช่ ATE clinical)',
       'Pulselessness (femoral pulse คลำไม่ได้ — distal embolus block flow)',
@@ -1698,7 +1698,7 @@ export const QB_COM3 = [
 
   { id: 1335, subject: 'com3', topic: 'spinal', year: 4, source: 'DC3final 86',
     tags: ['posture', 'tetanus-ddx'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ ไม่ใช่ posture ที่สัตวแพทย์ประจำคลินิกพึงนิยมจัดอยู่ในการพิจารณา differential ของโรคบาดทะยัก (tetanus)',
+    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** posture ที่สัตวแพทย์ประจำคลินิกพึงนิยมจัดอยู่ในการพิจารณา differential ของโรคบาดทะยัก (tetanus)',
     options: [
       'Decerebellate rigidity (ทั้ง 4 ขา rigid extension — cerebellar lesion)',
       'Cross extensor posture (reflex แทนการเคลื่อนไหวปกติ — UMN sign)',
@@ -1802,7 +1802,7 @@ export const QB_COM3 = [
 
   { id: 1343, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['workup', 'extracranial'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ ไม่ใช่ diagnostic workup ที่ใช้ rule out extracranial causes ของ seizure',
+    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** diagnostic workup ที่ใช้ rule out extracranial causes ของ seizure',
     options: [
       'Ionized calcium (rule out hypocalcemic seizure — eclampsia, post-thyroidect)',
       'Blood glucose level (rule out hypoglycemia — insulinoma, neonatal, Addisonian)',
@@ -1880,7 +1880,7 @@ export const QB_COM3 = [
 
   { id: 1349, subject: 'com3', topic: 'cpcr', year: 4, source: 'DC3final 86',
     tags: ['cpr-prep', 'recover-prep'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด ไม่ใช่ คำแนะนำในการเตรียมความพร้อมเพื่อทำปฏิบัติการ CPR ในสัตว์ ตามหลักการ "RECOVER"',
+    q: 'ข้อใด **ไม่ใช่** คำแนะนำในการเตรียมความพร้อมเพื่อทำปฏิบัติการ CPR ในสัตว์ ตามหลักการ "RECOVER"',
     options: [
       'จัดฝึกซ้อม CPR ให้กับทีมในหน่วยฉุกเฉินอยู่เสมอ (training quarterly)',
       'ประเมิน CPA จากอุปกรณ์เครื่องตรวจ Doppler / ECG / capnograph ก่อน start CPR',
@@ -2027,7 +2027,7 @@ export const QB_COM3 = [
   // ============================================================
   { id: 1360, subject: 'com3', topic: 'cpcr', year: 4, source: 'COM III Final 86',
     tags: ['cpcr', 'recover', 'preparation'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด ไม่ใช่ ข้อแนะนำในการเตรียมความพร้อมและประเมิน CPA ตามหลักการ "RECOVER"',
+    q: 'ข้อใด **ไม่ใช่** ข้อแนะนำในการเตรียมความพร้อมและประเมิน CPA ตามหลักการ "RECOVER"',
     options: [
       'ประเมิน CPA โดยการคลำชีพจร (palpate pulse — กินเวลานานและไม่แม่น)',
       'ประเมิน CPA จากการหมดสติ (unconscious) หรือไม่ตอบสนอง (unresponsive)',
@@ -2040,7 +2040,7 @@ export const QB_COM3 = [
 
   { id: 1361, subject: 'com3', topic: 'cpcr', year: 4, source: 'COM III Final 86',
     tags: ['cpcr', 'bls', 'recover'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด ไม่ใช่ ข้อแนะนำในขั้นตอน Basic Life Support (BLS) ตามหลักการ "RECOVER"',
+    q: 'ข้อใด **ไม่ใช่** ข้อแนะนำในขั้นตอน Basic Life Support (BLS) ตามหลักการ "RECOVER"',
     options: [
       'อัตรา ventilation 10 ครั้ง/นาที และ inspiratory time 1 วินาที (ไม่ over-inflate)',
       'เมื่อต้องหยุดทำ chest compression ต้องตรวจสอบ ROSC ทุกครั้งทันที',
@@ -2053,7 +2053,7 @@ export const QB_COM3 = [
 
   { id: 1362, subject: 'com3', topic: 'triage', year: 4, source: 'COM III Final 86',
     tags: ['triage', 'resuscitation'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ ไม่ใช่ กระบวนการ resuscitation ในเวชศาสตร์ฉุกเฉิน',
+    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** กระบวนการ resuscitation ในเวชศาสตร์ฉุกเฉิน',
     options: [
       'Fluid therapy ในผู้ป่วย hypovolemic shock (volume restoration)',
       'Oxygen therapy ในผู้ป่วย severe anemia (oxygen delivery support)',
@@ -2105,7 +2105,7 @@ export const QB_COM3 = [
 
   { id: 1366, subject: 'com3', topic: 'shock', year: 4, source: 'COM III Final 86',
     tags: ['ate', 'thromboembolism', '5p-criteria'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ ไม่ใช่ หนึ่งใน 5Ps criteria ของอาการ aortic thromboembolism (ATE)',
+    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** หนึ่งใน 5Ps criteria ของอาการ aortic thromboembolism (ATE)',
     options: [
       'Pulselessness — ไม่พบ femoral pulse ที่ขาที่ blocked (cold limb)',
       'Poikilocytosis — RBC shape variation บน blood smear (อนุพันธ์ของอย่างอื่น)',
@@ -2183,7 +2183,7 @@ export const QB_COM3 = [
 
   { id: 1372, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'COM III Final 86',
     tags: ['uroabdomen', 'hyperkalemia', 'stabilization'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'แมวเพศผู้ 2 ปี รถชน 24 ชม. · BP ต่ำ HR 140 CRT 3 วิ ไม่ขับสาวะ · ในเคส uroabdomen ข้อใด ไม่ใช่ approach ที่เหมาะสม',
+    q: 'แมวเพศผู้ 2 ปี รถชน 24 ชม. · BP ต่ำ HR 140 CRT 3 วิ ไม่ขับสาวะ · ในเคส uroabdomen ข้อใด **ไม่ใช่** approach ที่เหมาะสม',
     options: [
       'พิจารณาให้ยาแก้ปวด opioid หลังทำ triage (analgesia ระหว่าง stabilize)',
       'ให้ fluid therapy ถ้าสัตว์อยู่ในภาวะ hypovolemia (volume restoration)',
@@ -2287,7 +2287,7 @@ export const QB_COM3 = [
 
   { id: 1380, subject: 'com3', topic: 'seizure', year: 4, source: 'COM III Final 86',
     tags: ['extracranial-cause', 'workup'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด ไม่ใช่ diagnostic workup เพื่อ rule out extracranial causes ของ seizure',
+    q: 'ข้อใด **ไม่ใช่** diagnostic workup เพื่อ rule out extracranial causes ของ seizure',
     options: [
       'Serum anti-epileptic drug level (compliance/toxicity check — ไม่ใช่ extracranial cause)',
       'ALT / ALP / bile acids (extracranial — hepatic encephalopathy)',
@@ -2326,7 +2326,7 @@ export const QB_COM3 = [
 
   { id: 1383, subject: 'com3', topic: 'neuro-er', year: 4, source: 'COM III Final 86',
     tags: ['tbi', 'primary-secondary-damage'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด ไม่ใช่ secondary damage of brain ใน traumatic brain injury (TBI)',
+    q: 'ข้อใด **ไม่ใช่** secondary damage of brain ใน traumatic brain injury (TBI)',
     options: [
       'Brain swelling / cytotoxic edema (secondary — develop ใน hours-days)',
       'Inflammatory cascade (cytokines, free radical, glutamate excitotoxicity)',
@@ -2339,7 +2339,7 @@ export const QB_COM3 = [
 
   { id: 1384, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'COM III Final 86',
     tags: ['vestibular', 'central-vs-peripheral'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดเป็น character เฉพาะ ของ central vestibular disorder (ไม่ใช่ peripheral)',
+    q: 'ข้อใดเป็น character เฉพาะ ของ central vestibular disorder (**ไม่ใช่** peripheral)',
     options: [
       'Head tilt (พบทั้ง central และ peripheral; peripheral มักเด่นกว่า)',
       'Horizontal nystagmus (peripheral เด่น; แต่ central ก็มีได้)',
@@ -2352,7 +2352,7 @@ export const QB_COM3 = [
 
   { id: 1385, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'COM III Final 86',
     tags: ['vestibular', 'lateralization', 'nystagmus'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ตัวเลือกใดต่อไปนี้ ไม่ใช่ sign ของ vestibular lesion ทางขวา (right-sided)',
+    q: 'ตัวเลือกใดต่อไปนี้ **ไม่ใช่** sign ของ vestibular lesion ทางขวา (right-sided)',
     options: [
       'Right horizontal nystagmus (fast phase ผิดข้าง — ปกติชี้ AWAY from lesion = LEFT)',
       'Right ventrolateral strabismus (positional — ipsilateral to lesion)',
