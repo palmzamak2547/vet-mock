@@ -149,7 +149,59 @@ export const SUBJECTS_BY_YEAR = {
 
     // ── Wildlife & Exotic ──
     { id: 'exotic', code: '3107414', name: 'Wildlife & Exotic', name_en: 'Wild Exo Hlth Mgt + PP',
-      icon: '🦜', color: '#7d4a7d', semester: 2, has_questions: true },
+      icon: '🦜', color: '#7d4a7d', semester: 2, has_questions: true,
+      examFormat: {
+        weight: 'Final exam · ตามตารางสอบปลายภาค 27 เม.ย.-12 พ.ค. 2569',
+        notes: [
+          '👨‍🏫 ผู้สอนหลัก: ผศ.น.สพ. ธวัช เล็กดำรงศักดิ์ (สัปดาห์ 1-11)',
+          '👥 ผู้สอนสัมมนา: เสาวภางค์ สนั่นหนู (สวนสัตว์) · ไพศิลป์ เล็กเจริญ (นอกสวนสัตว์) · ปัณณวัฒน์ สุภาพรรณชาติ (เรียนต่อ)',
+          '📅 Pre-midterm = สัปดาห์ 1-7 (เต่า/หนู/กระต่าย/Sugar glider/Hedgehog/ไก่ชน/นก noninf 1)',
+          '📅 Post-midterm = สัปดาห์ 8-14 (นก noninf 2 + นก infect 1-3 + zoo + field + edu)',
+          '📚 อาจารย์สอนสัตว์ละสัปดาห์ — exam likely cumulative ทุกสัตว์',
+        ],
+      },
+      topics: [
+        // ── Pre-midterm species (สัปดาห์ 1-6) ─────────────────────────
+        { id: 'intro-turtle',         label: 'สัปดาห์ 1 · Introduction + เต่า', icon: '🐢',
+          lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '7 ม.ค. · สัปดาห์ 1' },
+        { id: 'hamster-gerbil',       label: 'สัปดาห์ 2 · หนูแฮมสเตอร์ + หนูแกสบี้', icon: '🐹',
+          lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '14 ม.ค. · สัปดาห์ 2' },
+        { id: 'rabbit',               label: 'สัปดาห์ 3-4 · กระต่าย', icon: '🐰',
+          lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '21+28 ม.ค. · สัปดาห์ 3-4' },
+        { id: 'sugar-glider-hedgehog', label: 'สัปดาห์ 5 · Sugar Glider + Hedgehog', icon: '🦔',
+          lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '4 ก.พ. · สัปดาห์ 5' },
+        { id: 'chicken',              label: 'สัปดาห์ 6 · ไก่ชน', icon: '🐓',
+          lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '11 ก.พ. · สัปดาห์ 6' },
+
+        // ── Bird series — non-infectious (สัปดาห์ 7-8) ──────────────
+        { id: 'bird-noninfect',       label: 'สัปดาห์ 7-8 · นกสวยงาม + โรคไม่ติดเชื้อในนก', icon: '🦜',
+          lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '18 ก.พ. + 4 มี.ค. · สัปดาห์ 7-8',
+          lecturerNote: 'รวม handling, anesthesia, blood collection, cloacal papilloma' },
+
+        // ── Bird series — infectious (สัปดาห์ 9-11) — Final exam scope หลัก ──
+        { id: 'bird-infect',          label: 'สัปดาห์ 9-11 · โรคติดเชื้อในนก (1-3)', icon: '🦠',
+          lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '11+18+25 มี.ค. · สัปดาห์ 9-11',
+          lecturerNote: 'Pacheco, PDD, Polyoma, PBFD, Avian Bornavirus etc.' },
+
+        // ── Wildlife / Zoo / Career (สัปดาห์ 12-14) ─────────────────
+        { id: 'zoo-vet',              label: 'สัปดาห์ 12 · สัตวแพทย์กับงานสวนสัตว์', icon: '🦓',
+          lecturer: 'เสาวภางค์ สนั่นหนู', lecturer_year: 2026, schedule: '1 เม.ย. · สัปดาห์ 12',
+          lecturerNote: 'One Health, conservation, welfare (Five Domains), quarantine' },
+        { id: 'field-vet',            label: 'สัปดาห์ 13 · สัตวแพทย์กับงานนอกสวนสัตว์', icon: '🌳',
+          lecturer: 'ไพศิลป์ เล็กเจริญ', lecturer_year: 2026, schedule: '8 เม.ย. · สัปดาห์ 13',
+          lecturerNote: 'Field work, vaccine programs, wildlife health' },
+        { id: 'wildlife-career',      label: 'สัปดาห์ 14 · การศึกษาต่อด้าน Wildlife/Exotic', icon: '🎓',
+          lecturer: 'ปัณณวัฒน์ สุภาพรรณชาติ', lecturer_year: 2026, schedule: '22 เม.ย. · สัปดาห์ 14',
+          lecturerNote: 'ECZM, ACZM, residency USA/EU, Fulbright/Chevening/Erasmus' },
+
+        // ── Other species (covered in course but not in formal weekly schedule) ──
+        { id: 'reptile',              label: '➕ Reptile (general)', icon: '🦎',
+          lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026,
+          lecturerNote: 'MBD, thermoregulation, terrarium gradient' },
+        { id: 'ferret',               label: '➕ Ferret', icon: '🦦',
+          lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026,
+          lecturerNote: 'Insulinoma + adrenal disease' },
+      ] },
 
     // ── Ruminant Series ──
     { id: 'practrum', code: '3108412', name: 'Practice Ruminant', name_en: 'VET PRAC RUM',

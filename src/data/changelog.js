@@ -42,6 +42,15 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.13.0',
+    date: '2026-04-28',
+    headline: '🦜 วิชา Exotic เปิดแล้ว — Wildlife & Exotic Animal Health',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🦜', title: 'วิชา Exotic — มี topics + ข้อสอบเก่า 23 ข้อ',
+        desc: 'รหัส 3107414 (Wild Exo Hlth Mgt) · เปิดเลือกได้แล้วจากหน้าวิชา · 12 topics ตามตารางสอน อ.ธวัช + อ.เสาวภางค์/ไพศิลป์/ปัณณวัฒน์ (เต่า/หนู/กระต่าย/นก/zoo/wildlife career) · ข้อสอบเก่าจาก Kimchii 23 ข้อพร้อมใช้ · มีของเพิ่มเรื่อยๆเมื่อเรียนคืบ' },
+    ],
+  },
+  {
     version: '5.12.0',
     date: '2026-04-28',
     headline: '⌘K — ค้นทุกอย่างจากที่เดียวกัน',
