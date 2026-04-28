@@ -57,7 +57,8 @@ export const SUBJECTS_BY_YEAR = {
         totalEstimate: '~70-100 ข้อรวม (14 คาบ)',
         choiceCount: 5,
         notes: [
-          '⚠️ เรื่อง AI ยังไม่ confirm ว่าออก — อาจารย์ตั้งใจให้ไม่ออก · รอ confirm อีกที',
+          '✅ Confirmed: 5-7 ข้อต่อคาบ · MCQ 5 ตัวเลือก · สัดส่วน Final 40%',
+          'ℹ️ เรื่อง AI (คาบ 19) ไม่ออกข้อสอบ — เป็นแนวทางสำหรับทำโปสเตอร์เท่านั้น',
         ],
       },
       topics: [
@@ -151,13 +152,15 @@ export const SUBJECTS_BY_YEAR = {
     { id: 'exotic', code: '3107414', name: 'Wildlife & Exotic', name_en: 'Wild Exo Hlth Mgt + PP',
       icon: '🦜', color: '#7d4a7d', semester: 2, has_questions: true,
       examFormat: {
-        weight: 'Final exam · ตามตารางสอบปลายภาค 27 เม.ย.-12 พ.ค. 2569',
+        weight: 'Final 1 หน่วยกิต · Letter Grade (A-F)',
+        examDate: '27 เม.ย. – 12 พ.ค. 2569 (ตารางสอบปลายภาค ปีการศึกษา 2568)',
         notes: [
+          '📅 สอบปลายภาค: 27 เม.ย. – 12 พ.ค. 2569 · วันเวลาเฉพาะดูประกาศจากคณะ',
+          '✅ คลังข้อสอบครอบคลุม Final scope (สัปดาห์ 7-14): นก noninf + นก infect + zoo + field + career',
+          '⏳ Midterm scope (สัปดาห์ 1-6: เต่า/หนู/กระต่าย/Sugar glider/Hedgehog/ไก่ชน) — รอเก็บปิดเทอม',
           '👨‍🏫 ผู้สอนหลัก: ผศ.น.สพ. ธวัช เล็กดำรงศักดิ์ (สัปดาห์ 1-11)',
           '👥 ผู้สอนสัมมนา: เสาวภางค์ สนั่นหนู (สวนสัตว์) · ไพศิลป์ เล็กเจริญ (นอกสวนสัตว์) · ปัณณวัฒน์ สุภาพรรณชาติ (เรียนต่อ)',
-          '📅 Pre-midterm = สัปดาห์ 1-7 (เต่า/หนู/กระต่าย/Sugar glider/Hedgehog/ไก่ชน/นก noninf 1)',
-          '📅 Post-midterm = สัปดาห์ 8-14 (นก noninf 2 + นก infect 1-3 + zoo + field + edu)',
-          '📚 อาจารย์สอนสัตว์ละสัปดาห์ — exam likely cumulative ทุกสัตว์',
+          '📚 Cumulative — exam ออกได้ทุกสัตว์ที่เรียนตลอดเทอม',
         ],
       },
       topics: [
