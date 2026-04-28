@@ -44,10 +44,10 @@ export const CHANGELOG = [
   {
     version: '5.13.0',
     date: '2026-04-28',
-    headline: '🦜 วิชา Exotic เปิดแล้ว — Wildlife & Exotic Animal Health',
+    headline: '🦜 วิชา Exotic เปิดแล้ว · 55 ข้อ · Final scope ครบ',
     changes: [
-      { scope: 'multi', kind: 'content', icon: '🦜', title: 'วิชา Exotic — มี topics + ข้อสอบเก่า 23 ข้อ',
-        desc: 'รหัส 3107414 (Wild Exo Hlth Mgt) · เปิดเลือกได้แล้วจากหน้าวิชา · 12 topics ตามตารางสอน อ.ธวัช + อ.เสาวภางค์/ไพศิลป์/ปัณณวัฒน์ (เต่า/หนู/กระต่าย/นก/zoo/wildlife career) · ข้อสอบเก่าจาก Kimchii 23 ข้อพร้อมใช้ · มีของเพิ่มเรื่อยๆเมื่อเรียนคืบ' },
+      { scope: 'multi', kind: 'content', icon: '🦜', title: 'วิชา Exotic — Final exam scope พร้อมใช้ (55 ข้อ)',
+        desc: 'รหัส 3107414 (Wild Exo Hlth Mgt) · เลือกได้แล้วจากหน้าวิชา · 12 topics ตามตารางสอน อ.ธวัช + อ.เสาวภางค์/ไพศิลป์/ปัณณวัฒน์ · ครอบคลุม week 7-14: นกไม่ติดเชื้อ + นกติดเชื้อ (Pacheco, PDD, PBFD, Polyoma, Chlamydophila, Candida, Trichomonas, Giardia, Eimeria) + Zoo vet (IUCN, CITES, GRB, quarantine) + Field vet (One Health, conservation medicine) + Wildlife career (ECZM 5 specialties, ACZM, ทุน) · ข้อสอบเก่า Kimchii 23 ข้อ + Final 86 master compilation 32 ข้อใหม่ · midterm scope ค่อยมาเก็บปิดเทอม' },
     ],
   },
   {
