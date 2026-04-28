@@ -16,10 +16,11 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { VIDEO_SUMMARIES } from '../data/video-summaries.js';
+import { ALL_INSTRUCTORS } from '../data/instructors.js';
 
 // Build the searchable item index. Memoized below — items don't
 // change between renders so this only runs once per mount.
-function buildIndex({ goView, setSubject, setPracticeMode }) {
+function buildIndex({ goView, setSubject, setPracticeMode, openInstructor }) {
   const items = [];
 
   // Quick actions / views
@@ -64,6 +65,20 @@ function buildIndex({ goView, setSubject, setPracticeMode }) {
       run: () => goView('videos'),
     });
   });
+
+  // Instructors — search by Thai or English name; opens profile modal
+  if (openInstructor) {
+    (ALL_INSTRUCTORS || []).forEach((ins) => {
+      items.push({
+        type: 'instructor',
+        label: `Aj. ${ins.nameEn}`,
+        hint: `👨‍🏫 ${ins.nameTh || ''} · ${(ins.subjects || []).join('/').toUpperCase()}`,
+        icon: '👨‍🏫',
+        kw: `${ins.nameEn} ${ins.nameTh || ''} ${ins.position || ''} ${(ins.areas || []).join(' ')} instructor faculty อาจารย์`,
+        run: () => openInstructor(ins),
+      });
+    });
+  }
 
   return items;
 }

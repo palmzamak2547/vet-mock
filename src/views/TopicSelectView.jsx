@@ -1,8 +1,25 @@
+import { lazy, Suspense, useState } from 'react';
 import { QB } from '../data/questions.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 
+// Lazy — pulls instructors data (~30KB) only when user clicks an
+// instructor name to view their profile. Most users browse topics
+// without ever opening this, so we keep it out of the main bundle.
+const InstructorModal = lazy(() => import('../components/InstructorModal.jsx'));
+
 export default function TopicSelectView({ subject, setTopic, setView, goHome, mode, customQuestions = [], readingChecklist = {} }) {
+  const [openInstructor, setOpenInstructor] = useState(null);
+
+  // Open instructor profile by lecturer string. Looks up via the
+  // helper in instructors.js which handles "(KB)" tag stripping +
+  // partial match against Thai/English names.
+  const openInstructorFor = async (lecturerString) => {
+    const mod = await import('../data/instructors.js');
+    const found = mod.getInstructorByLecturerString(lecturerString);
+    if (found) setOpenInstructor(found);
+  };
+
   const subjectMeta = SUBJECTS.find((s) => s.id === subject);
   // Filter out topics flagged hidden:true — used to defer topics that
   // aren't yet in scope (e.g. exotic midterm weeks while everyone
@@ -118,8 +135,13 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
               <div className="icon">{t.icon || '📑'}</div>
               <div className="title">{t.label}</div>
               {t.lecturer && (
-                <div className="sub" style={{ fontStyle: 'italic' }}>
-                  by Aj. {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`}
+                <div
+                  className="sub"
+                  style={{ fontStyle: 'italic', cursor: 'pointer', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}
+                  onClick={(e) => { e.stopPropagation(); openInstructorFor(t.lecturer); }}
+                  title="ดูโปรไฟล์อาจารย์ + งานวิจัย"
+                >
+                  by Aj. {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`} 🔗
                 </div>
               )}
               <div className="count" style={{ color: isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)' }}>
@@ -140,6 +162,12 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('notes')}>📖 ทวนเนื้อหา</button>
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>หน้าแรก</button>
       </div>
+
+      {openInstructor && (
+        <Suspense fallback={null}>
+          <InstructorModal instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
+        </Suspense>
+      )}
     </>
   );
 }

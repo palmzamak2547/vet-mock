@@ -21,6 +21,10 @@ import ErrorBoundary from './components/ErrorBoundary.jsx';
 // button). Keeps the first-paint bundle small.
 const CommandPalette = lazy(() => import('./components/CommandPalette.jsx'));
 
+// InstructorModal — also lazy. Opens when an instructor is selected
+// from the palette or from a topic card.
+const InstructorModal = lazy(() => import('./components/InstructorModal.jsx'));
+
 // View Transitions API helper — wraps a state update so the browser
 // snapshots the DOM before/after and crossfades automatically. Falls
 // back to a plain call when the API isn't available (Firefox, older
@@ -100,6 +104,7 @@ export default function App() {
   const [activeGroup, setActiveGroup] = useState(null);
   const [selectedYear, setSelectedYear] = useState(CURRENT_YEAR);
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [openInstructor, setOpenInstructor] = useState(null);
 
   // Wrap setView in a View Transitions snapshot so navigating between
   // views fades smoothly (Chrome/Edge/Safari TP). No-op on Firefox.
@@ -584,7 +589,14 @@ export default function App() {
             goView={setView}
             setSubject={setSubject}
             setPracticeMode={setPracticeMode}
+            openInstructor={(ins) => setOpenInstructor(ins)}
           />
+        </Suspense>
+      )}
+
+      {openInstructor && (
+        <Suspense fallback={null}>
+          <InstructorModal instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
         </Suspense>
       )}
     </>
