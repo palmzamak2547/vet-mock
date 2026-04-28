@@ -37,6 +37,18 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
     return allQuestions.filter((q) => q.subject === subject && q.topic === topicId).length;
   };
 
+  // Past paper detection — `source` field starts with "ข้อสอบเก่า" or
+  // contains "FINAL 86" / "FRDC" master compilation keywords.
+  const isPastPaperQ = (q) => {
+    if (!q?.source) return false;
+    const s = String(q.source);
+    return /ข้อสอบเก่า|FINAL\s*86|past\s*paper/i.test(s);
+  };
+  const pastPaperCountFor = (topicId) => {
+    if (topicId === 'all') return allQuestions.filter((q) => q.subject === subject && isPastPaperQ(q)).length;
+    return allQuestions.filter((q) => q.subject === subject && q.topic === topicId && isPastPaperQ(q)).length;
+  };
+
   const choose = (topicId) => {
     setTopic(topicId === 'all' ? null : topicId);
     setView('config');
@@ -92,6 +104,8 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
 
         {topics.map((t) => {
           const count = countFor(t.id);
+          const ppCount = pastPaperCountFor(t.id);
+          const ppPct = count > 0 ? Math.round((ppCount / count) * 100) : 0;
           const isEmpty = count === 0;
           const isRead = !!readingChecklist[t.id];
           return (
@@ -147,6 +161,26 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
               <div className="count" style={{ color: isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)' }}>
                 {isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} questions`}
               </div>
+              {ppCount > 0 && !isEmpty && (
+                <div
+                  title={`มีข้อสอบเก่า ${ppCount}/${count} ข้อ (${ppPct}% ของหัวข้อนี้) — ส่วนใหญ่หัวข้อนี้น่าจะออกในข้อสอบจริง`}
+                  style={{
+                    marginTop: 6,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    padding: '2px 8px',
+                    borderRadius: 999,
+                    background: 'rgba(184, 137, 64, 0.12)',
+                    border: '1px solid var(--clr-gold)',
+                    fontSize: 11,
+                    fontFamily: 'JetBrains Mono, monospace',
+                    color: 'var(--clr-gold)',
+                  }}
+                >
+                  📜 ข้อสอบเก่า {ppCount}/{count} · {ppPct}%
+                </div>
+              )}
               {t.lecturerNote && !isEmpty && (
                 <div style={{ marginTop: 8, padding: '6px 8px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'left', lineHeight: 1.4 }}>
                   ⚠️ {t.lecturerNote}
