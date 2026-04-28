@@ -165,15 +165,17 @@ export const SUBJECTS_BY_YEAR = {
       },
       topics: [
         // ── Pre-midterm species (สัปดาห์ 1-6) ─────────────────────────
-        { id: 'intro-turtle',         label: 'สัปดาห์ 1 · Introduction + เต่า', icon: '🐢',
+        // Hidden until ปิดเทอม — เพื่อนกำลังเร่ง Final scope · จะ enable
+        // กลับมาตอนเริ่มเก็บ midterm content (เปลี่ยน hidden:false)
+        { id: 'intro-turtle',         label: 'สัปดาห์ 1 · Introduction + เต่า', icon: '🐢', hidden: true,
           lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '7 ม.ค. · สัปดาห์ 1' },
-        { id: 'hamster-gerbil',       label: 'สัปดาห์ 2 · หนูแฮมสเตอร์ + หนูแกสบี้', icon: '🐹',
+        { id: 'hamster-gerbil',       label: 'สัปดาห์ 2 · หนูแฮมสเตอร์ + หนูแกสบี้', icon: '🐹', hidden: true,
           lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '14 ม.ค. · สัปดาห์ 2' },
-        { id: 'rabbit',               label: 'สัปดาห์ 3-4 · กระต่าย', icon: '🐰',
+        { id: 'rabbit',               label: 'สัปดาห์ 3-4 · กระต่าย', icon: '🐰', hidden: true,
           lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '21+28 ม.ค. · สัปดาห์ 3-4' },
-        { id: 'sugar-glider-hedgehog', label: 'สัปดาห์ 5 · Sugar Glider + Hedgehog', icon: '🦔',
+        { id: 'sugar-glider-hedgehog', label: 'สัปดาห์ 5 · Sugar Glider + Hedgehog', icon: '🦔', hidden: true,
           lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '4 ก.พ. · สัปดาห์ 5' },
-        { id: 'chicken',              label: 'สัปดาห์ 6 · ไก่ชน', icon: '🐓',
+        { id: 'chicken',              label: 'สัปดาห์ 6 · ไก่ชน', icon: '🐓', hidden: true,
           lecturer: 'ธวัช เล็กดำรงศักดิ์', lecturer_year: 2026, schedule: '11 ก.พ. · สัปดาห์ 6' },
 
         // ── Bird series — non-infectious (สัปดาห์ 7-8) ──────────────

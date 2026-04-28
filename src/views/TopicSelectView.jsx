@@ -4,7 +4,12 @@ import BackBar from '../components/BackBar.jsx';
 
 export default function TopicSelectView({ subject, setTopic, setView, goHome, mode, customQuestions = [], readingChecklist = {} }) {
   const subjectMeta = SUBJECTS.find((s) => s.id === subject);
-  const topics = subjectMeta?.topics || [];
+  // Filter out topics flagged hidden:true — used to defer topics that
+  // aren't yet in scope (e.g. exotic midterm weeks while everyone
+  // focuses on Final). Questions assigned to those topics still exist
+  // in QB; they just don't appear as a selectable topic until the
+  // flag flips.
+  const topics = (subjectMeta?.topics || []).filter((t) => !t.hidden);
   const allQuestions = [...QB, ...customQuestions];
 
   // Reading-checklist summary for this subject
