@@ -122,7 +122,7 @@ export const QB_COM3 = [
   { id: 712, subject: 'com3', topic: 'shock', year: 4, source: 'SHOCK 1 hr.pdf',
     tags: ['shock', 'distributive'], type: 'mcq',
     q: 'Distributive shock เกิดจากกลไกใดเป็นหลัก',
-    options: ['หัวใจ pump เลือดไม่ได้', 'Inflammatory mediators (NO, cytokines) → vasodilation → VR ↓', 'Mitochondrial dysfunction', 'Volume เลือดน้อยลง'],
+    options: ['หัวใจ pump เลือดไม่ได้', 'Inflammatory mediators → vasodilation → VR ↓', 'Mitochondrial dysfunction', 'Volume เลือดน้อยลง'],
     answer: 1, explain: 'Distributive: sepsis, SIRS, anaphylaxis\nNO → vasodilate → VR ↓ → CO ↓\n"warm shock" — vasodilate\n\n❌ ทำไมข้ออื่นผิด\n— หัวใจ pump ไม่ได้ = cardiogenic\n— Mitochondrial dysfunction = metabolic/hypoxic\n— Volume ↓ = hypovolemic',
     verified: 'SHOCK 1 hr.pdf + master p.16' },
 
@@ -368,7 +368,7 @@ export const QB_COM3 = [
   { id: 760, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'metabolic and endocrine and UT 1 hr.pdf',
     tags: ['dka', 'definition'], type: 'mcq',
     q: 'Diabetic Ketoacidosis (DKA) คืออะไร',
-    options: ['Severe DM + ketosis (ketone bodies) + metabolic acidosis', 'Pancreatitis เฉียบพลัน', 'DM + hypoglycemia', 'DM ที่มี hyperglycemia เพียงอย่างเดียว'],
+    options: ['Severe DM + ketosis + metabolic acidosis', 'Pancreatitis เฉียบพลัน', 'DM + hypoglycemia', 'DM ที่มี hyperglycemia เพียงอย่างเดียว'],
     answer: 0, explain: 'DKA: severe DM → fat breakdown → ketones (acetoacetic, acetone, β-hydroxybutyrate) → acidosis + super-diuresis (polyuria จาก glucose)\n\n❌ ทำไมข้ออื่นผิด\n— Pancreatitis = อาจ trigger DKA แต่ไม่ใช่ DKA\n— DM + hypoglycemia = insulin overdose\n— DM + hyperglycemia เพียงอย่างเดียว = simple DM',
     verified: 'metabolic and endocrine and UT 1 hr.pdf + master p.33' },
 
@@ -389,7 +389,7 @@ export const QB_COM3 = [
   { id: 763, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'master p.33',
     tags: ['addison'], type: 'mcq',
     q: 'Addisonian crisis — lab finding ที่เป็น classic คืออะไร',
-    options: ['Glucose > 250 mg/dL', 'Na+ < 132 + K+ > 7 (Na+:K+ ratio < 25:1) + hypoglycemia', 'Calcium < 8 mg/dL', 'Na+ > 160 / K+ < 3.0'],
+    options: ['Glucose > 250 mg/dL', 'Na+ < 132 + K+ > 7 + hypoglycemia', 'Calcium < 8 mg/dL', 'Na+ > 160 / K+ < 3.0'],
     answer: 1, explain: 'Addison: hypoNa + hyperK + hypoglycemia + hypovolemia + acidosis\nNa:K < 25:1 (parsuspect) < 20 = strong\nConfirm: ACTH stim test\ncortisol ไม่เพิ่ม\n\n❌ ทำไมข้ออื่นผิด\n— Glucose > 250 = DM\n— Ca < 8 = hypoCa (ddx อื่น)\n— Na > 160/K < 3 = hyperaldosterone ตรงข้าม',
     verified: 'master p.33' },
 
@@ -445,14 +445,14 @@ export const QB_COM3 = [
     tags: ['feeding-protocol'], type: 'mcq',
     examOrigin: 'VET84 ER Q15',
     q: 'หลังวางสาย feeding (E-tube/G-tube) — 24 ชั่วโมงแรกควรทำอย่างไร',
-    options: ['Bolus 50 ml/kg', 'ไม่ต้องให้อะไร 24 ชม. (ปล่อยรอยปิดสนิท) แล้วค่อยเริ่ม 1/3 RER วันแรก', '1/2 RER + เกลือแร่', 'ให้อาหาร RER เต็มที่เลย'],
+    options: ['Bolus 50 ml/kg', 'ไม่ต้องให้อะไร 24 ชม. แล้วค่อยเริ่ม 1/3 RER วันแรก', '1/2 RER + เกลือแร่', 'ให้อาหาร RER เต็มที่เลย'],
     answer: 1, explain: 'หลังวางสาย: 24 ชม. แรก rest\nD1 = 1/3 RER\nD2 = 2/3 RER\nD3 = full RER\nslow bolus ≤ 5 ml/min\nระวัง refeeding syndrome (hypoP)\n\n❌ ทำไมข้ออื่นผิด\n— Bolus 50 ml/kg = overload + vomit\n— 1/2 RER เร็วเกิน\n— Full RER = refeeding syndrome',
     verified: 'nutrition 1 hr.pdf + master p.37' },
 
   { id: 774, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['parenteral'], type: 'mcq',
     q: 'Total Parenteral Nutrition (TPN) ต้องให้ผ่าน vein ใด',
-    options: ['Saphenous vein', 'Central vein (jugular) เพราะ hyperosmolar', 'Subcutaneous', 'Cephalic vein (peripheral)'],
+    options: ['Saphenous vein', 'Central vein (jugular)', 'Subcutaneous', 'Cephalic vein (peripheral)'],
     answer: 1, explain: 'TPN hyperosmolar → ต้อง central vein (jugular) ป้องกัน thrombophlebitis\nPPN diluted กว่า ใช้ peripheral ได้\nระวัง refeeding syndrome (hypoP, hypoK)\n\n❌ ทำไมข้ออื่นผิด\n— Saphenous/Cephalic = peripheral (ดี PPN, ไม่ใช่ TPN)\n— Subcutaneous = ห้าม route',
     verified: 'nutrition 1 hr.pdf + master p.37' },
 
@@ -719,7 +719,7 @@ export const QB_COM3 = [
   { id: 827, subject: 'com3', topic: 'cpcr', year: 4, source: 'CPCR 1 hr.pdf',
     tags: ['cpcr', 'recovery'], type: 'mcq',
     q: 'หลัง ROSC (Return of Spontaneous Circulation) — Post-cardiac arrest care ที่ต้องทำต่อคืออะไร',
-    options: ['รออีก 24 ชม. ค่อย monitor (passive observation)', 'Hemodynamic optimization (fluid + vasopressor) + maintain PaCO₂ 35-45 + SpO₂ ≥ 94 + treat underlying cause', 'หยุด O₂ ทันทีเพราะ ROSC แล้ว', 'Discharge ทันทีถ้า conscious + breathing'],
+    options: ['รออีก 24 ชม. ค่อย monitor (passive observation)', 'Optimize hemodynamics + ventilation + treat underlying cause', 'หยุด O₂ ทันทีเพราะ ROSC แล้ว', 'Discharge ทันทีถ้า conscious + breathing'],
     answer: 1, explain: 'Post-ROSC: optimize hemodynamics + ventilation + neuroprotection (head 30°) + treat cause\nmonitor lactate, BP, neuro\n\n❌ ทำไมข้ออื่นผิด\n— Passive observation 24 ชม. = miss recurrent arrest\n— หยุด O₂ = ขาด O₂ → re-arrest\n— discharge ทันที = unstable',
     verified: 'CPCR 1 hr.pdf + RECOVER post-resuscitation' },
 
@@ -769,14 +769,14 @@ export const QB_COM3 = [
   { id: 834, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'Respiratory and Cardiovascular Emergency 1 hr.pdf',
     tags: ['resp-er', 'thoracocentesis'], type: 'mcq',
     q: 'Thoracocentesis ในแมว — site ที่ใช้คืออะไร',
-    options: ['ใต้ xiphoid', 'Intercostal 4-5 ตรงกลาง chest wall', 'Intercostal 7-9, dorsal 1/3 (sit/stand position) สำหรับอากาศ', 'Intercostal 11-12, ventral', 'Intercostal 2-3, dorsal'],
+    options: ['ใต้ xiphoid', 'Intercostal 4-5 ตรงกลาง chest wall', 'Intercostal 7-9, dorsal 1/3', 'Intercostal 11-12, ventral', 'Intercostal 2-3, dorsal'],
     answer: 2, explain: 'Thoracocentesis air: 7-9 IC dorsal\nfluid: 7-9 IC ventral\ncranial border of rib (avoid neurovascular)\n\n❌ ทำไมข้ออื่นผิด\n— ใต้ xiphoid = abdominocentesis\n— ICS 4-5 ตรงกลาง = หัวใจ (ห้าม)\n— ICS 11-12 = liver\n— ICS 2-3 = thymus/heart',
     verified: 'Respiratory and Cardiovascular Emergency 1 hr.pdf' },
 
   { id: 835, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'Respiratory and Cardiovascular Emergency 1 hr.pdf',
     tags: ['cv-er', 'feline-asthma'], type: 'mcq',
     q: 'Feline asthma acute attack — emergency treatment คืออะไร',
-    options: ['O₂ supplement + Terbutaline 0.01 mg/kg SC (β2-agonist) + glucocorticoid', 'Bronchodilator inhaler ห้ามใช้แมว < 8 wk', 'Antibiotic only (amoxicillin 22 mg/kg PO)', 'Furosemide 2 mg/kg IV'],
+    options: ['O₂ supplement + Terbutaline 0.01 mg/kg SC + glucocorticoid', 'Bronchodilator inhaler ห้ามใช้แมว < 8 wk', 'Antibiotic only (amoxicillin 22 mg/kg PO)', 'Furosemide 2 mg/kg IV'],
     answer: 0, explain: 'Acute asthma: O₂ + terbutaline (bronchodilator) + dexamethasone IV\nlong-term: inhaled fluticasone + albuterol PRN\n\n❌ ทำไมข้ออื่นผิด\n— "Bronchodilator inhaler ห้าม" = ผิด (ใช้ albuterol/fluticasone ได้)\n— Antibiotic only = ไม่ใช่ first-line\n— Furosemide = ใช้ใน CHF',
     verified: 'Respiratory and Cardiovascular Emergency 1 hr.pdf' },
 
@@ -960,7 +960,7 @@ export const QB_COM3 = [
   { id: 860, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'neuro_ataxia_tremor 1 hr.pdf',
     tags: ['cerebellar-hypoplasia'], type: 'mcq',
     q: 'Feline cerebellar hypoplasia — common cause คืออะไร',
-    options: ['Hereditary only', 'Feline panleukopenia (FPV) infection in utero → cerebellum ไม่พัฒนา', 'Vitamin B1 deficiency แม่แมว', 'Trauma', 'Bacterial'],
+    options: ['Hereditary only', 'Feline panleukopenia (FPV) infection in utero', 'Vitamin B1 deficiency แม่แมว', 'Trauma', 'Bacterial'],
     answer: 1, explain: 'In utero FPV → cerebellar hypoplasia\nkitten born with cerebellar signs (intention tremor, ataxia, wide-based)\nnon-progressive\nlearn to compensate\n\n❌ ทำไมข้ออื่นผิด\n— Hereditary only = rare breed-specific\n— Vit B1 = thiamine encephalopathy ในตัวโต\n— Trauma/Bacterial = acquired atrophy ไม่ใช่ hypoplasia',
     verified: 'neuro_ataxia_tremor 1 hr.pdf + parasitology overlap' },
 
@@ -1035,7 +1035,7 @@ export const QB_COM3 = [
   { id: 870, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
     tags: ['head-trauma', 'fluid-choice'], type: 'mcq',
     q: 'Fluid resuscitation ใน head trauma — เลือกใช้ fluid ใด',
-    options: ['Free water IV', 'Dextrose 5%', 'Isotonic crystalloid (NSS/LRS) titrate ระวัง overload', 'Hypotonic saline (0.45%)'],
+    options: ['Free water IV', 'Dextrose 5%', 'Isotonic crystalloid (NSS/LRS)', 'Hypotonic saline (0.45%)'],
     answer: 2, explain: 'Head trauma: NSS/LRS ที่ rate ระวัง — overload → worsen edema\ntarget MAP ≥ 80 (CPP)\navoid hypotonic + hyponatremia (cerebral edema)\n\n❌ ทำไมข้ออื่นผิด\n— Free water IV = hyponatremia → cerebral edema\n— D5W = metabolize เป็น free water\n— 0.45% = hypotonic = edema',
     verified: 'neuroER 1 hr.pdf' },
 
@@ -1086,7 +1086,7 @@ export const QB_COM3 = [
   { id: 877, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'prompt'], type: 'mcq',
     q: 'การ prompt AI สำหรับ clinical research — ที่แนะนำคืออะไร',
-    options: ['ห้ามบอก context ใดๆ', 'ระบุ context (อายุ/เพศ/breed/clinical signs) + ask specific question + request citation/evidence', 'ใช้ภาษากำกวมให้ AI ตีความเอง', 'ใช้แค่คำคีย์เวิร์ดเดียว', 'ถามแบบเปิดสั้นๆ "ตอบหมาเป็นโรคอะไร"'],
+    options: ['ห้ามบอก context ใดๆ', 'ระบุ context + ask specific question + request citation', 'ใช้ภาษากำกวมให้ AI ตีความเอง', 'ใช้แค่คำคีย์เวิร์ดเดียว', 'ถามแบบเปิดสั้นๆ "ตอบหมาเป็นโรคอะไร"'],
     answer: 1, explain: 'Good prompt: context + specific ask + request format/citation\nเช่น "Dachshund 6 yr, sudden HL plegia, no DPP — DDx + initial workup with citation"\niterative refinement\n\n❌ ทำไมข้ออื่นผิด\n— "ห้ามบอก context" = ผิด\n— "กำกวมให้ตีความ" = hallucination เพิ่ม\n— keyword เดียว = vague\n— "เปิดสั้น" = generic answer',
     verified: 'AI prompt engineering best practice' },
 
@@ -1194,7 +1194,7 @@ export const QB_COM3 = [
   { id: 891, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder',
     tags: ['spinal', 'case', 'reasoning', 'ivdd'], type: 'mcq',
     q: 'Dachshund 6 ปี acute onset paraplegia ขาหลัง 12 ชม., DPP intact, UMN reflex ขาหลัง, ปวดเวลาคลำ T-L spine\nModified Frankel grade และ management ที่เหมาะสมคือข้อใด',
-    options: ['Grade 5, poor prognosis, ไม่ผ่า', 'Grade 4 (plegia + DPP intact), MRI + Sx ภายใน 24-48 hr', 'No need imaging, observe 1 wk', 'Grade 1, cage rest + analgesia พอ'],
+    options: ['Grade 5, poor prognosis, ไม่ผ่า', 'Grade 4, MRI + Sx ภายใน 24-48 hr', 'No need imaging, observe 1 wk', 'Grade 1, cage rest + analgesia พอ'],
     answer: 1, explain: 'Plegia + DPP intact = Grade 4 (Modified Frankel)\nprognosis ดีถ้า Sx เร็ว (≤ 48 hr)\nchondrodystrophoid + T12-L2 = classic IVDD type I\nMRI confirm + hemilaminectomy\n\n❌ ทำไมข้ออื่นผิด\n— Grade 5 = no DPP (case นี้ DPP intact)\n— "No imaging observe 1 wk" = miss surgical window\n— Grade 1 = pain only ambulatory (case นี้ plegia)',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 
@@ -2511,7 +2511,7 @@ export const QB_COM3 = [
   { id: 1400, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'COM 3 final TJ86.pdf',
     tags: ['hemoabdomen', 'fluid-analysis'], type: 'mcq',
     q: 'Abdominal fluid: PCV 28%, blood PCV 35%, no clot — แปลผลว่าอย่างไร',
-    options: ['Septic peritonitis', 'Bile peritonitis', 'Hemoabdomen ที่ไม่ใหม่ (peripheral defibrination)', 'Uroabdomen'],
+    options: ['Septic peritonitis', 'Bile peritonitis', 'Hemoabdomen ที่ไม่ใหม่', 'Uroabdomen'],
     answer: 2, explain: 'Hemoabdomen criteria:\n• PCV ของ fluid ใกล้เคียง blood PCV (ไม่ต้องสูงกว่า)\n• **No clot** — เพราะ peritoneum defibrinate เลือดที่ขังในช่องท้อง\n\n💡 ถ้า fluid PCV > blood PCV = active hemorrhage ใหม่\n💡 ถ้า fluid clot = sample iatrogenic จาก vessel ปาก needle',
     verified: 'TJ86 p.5 § Hemoabdomen' },
 
@@ -2539,7 +2539,7 @@ export const QB_COM3 = [
   { id: 1404, subject: 'com3', topic: 'spinal', year: 4, source: 'COM 3 final TJ86.pdf',
     tags: ['IVDD', 'breed', 'pathophys'], type: 'mcq',
     q: 'Hansen Type I IVDD พบบ่อยใน breed ใด + onset แบบใด',
-    options: ['Non-chondrodystrophoid · slow gradual onset', 'Chondrodystrophoid (Dachshund, Basset) · sudden onset', 'Toy breed · congenital', 'Large breed · trauma-only'],
+    options: ['Non-chondrodystrophoid · slow gradual onset', 'Chondrodystrophoid breed · sudden onset', 'Toy breed · congenital', 'Large breed · trauma-only'],
     answer: 1, explain: 'Hansen Type I IVDD:\n• **Chondrodystrophoid breeds** (Dachshund, Basset, Corgi, French Bulldog, Lhasa Apso, Beagle)\n• Annulus fibrosus เสื่อม → ปริ → nucleus pulposus extrude เข้า spinal canal\n• **Sudden onset** + complete extrusion\n• Hot spots: T12-L2 (60-80%) + C2-C3\n\n✗ Type II = non-chondrodystrophoid (Lab, GSD) · slow protrusion · partial · large breed senior',
     verified: 'TJ86 p.8 § IVDD + Spinal disorder 2 hr.pdf' },
 ];

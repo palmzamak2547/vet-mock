@@ -290,7 +290,7 @@ export const QB_COM4 = [
   { id: 937, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
     tags: ['hypothyroid', 'pathology'], type: 'mcq',
     q: 'Primary hypothyroidism ในสุนัข (95%) เกิดจากกลไกใดเป็นหลัก',
-    options: ['Pituitary tumor → ↓ TSH', 'Iodine excess', 'Immune destruction (lymphocytic thyroiditis) + idiopathic atrophy', 'Side effect ของ phenobarbital'],
+    options: ['Pituitary tumor → ↓ TSH', 'Iodine excess', 'Immune destruction + idiopathic atrophy', 'Side effect ของ phenobarbital'],
     answer: 2, explain: 'Primary hypothyroidism (95% of cases): immune-mediated lymphocytic thyroiditis + idiopathic atrophy of thyroid gland · 5% เป็น secondary (TSH deficiency จาก pituitary disease) · congenital + iodine deficiency = rare in companion animals\n\n❌ ทำไมข้ออื่นผิด\n— Pituitary tumor = secondary 5%\n— Iodine excess = ทำให้ hyper- ไม่ใช่ hypo-\n— Phenobarb = affect test result, ไม่ทำให้ true hypothyroid',
     verified: 'Derm_6_Endocrine_skin_diseases.pdf p.2' },
 
@@ -339,7 +339,7 @@ export const QB_COM4 = [
   { id: 944, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
     tags: ['cushing', 'skin-signs'], type: 'mcq',
     q: 'Cushing\'s syndrome ในสุนัข มี skin findings ที่เด่นคือ',
-    options: ['Pruritus รุนแรง + papules', 'Bullae + crusts ที่ mucocutaneous junction', 'Bilateral symmetrical alopecia (truncal) + thin skin + comedones + calcinosis cutis + recurrent pyoderma', 'Black hyperpigmentation only'],
+    options: ['Pruritus รุนแรง + papules', 'Bullae + crusts ที่ mucocutaneous junction', 'Bilateral symmetrical alopecia + thin skin + calcinosis cutis', 'Black hyperpigmentation only'],
     answer: 2, explain: 'Cushing\'s skin: bilateral symmetrical truncal alopecia (sparing head/limbs initially) · thin skin (translucent) · comedones · calcinosis cutis (dystrophic Ca deposit) · recurrent superficial pyoderma + Demodicosis (immunocompromise) · "rat tail" + "pot belly" + PU/PD + polyphagia\n\n❌ ทำไมข้ออื่นผิด\n— Pruritus + papules = atopic / FAD\n— Bullae @ MC junction = pemphigus vulgaris\n— Hyperpigmentation only = post-inflammatory, ไม่ classic Cushing\'s',
     verified: 'Derm_6_Endocrine_skin_diseases.pdf p.13' },
 
@@ -436,7 +436,7 @@ export const QB_COM4 = [
   { id: 957, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
     tags: ['atopic', 'pathogenesis'], type: 'mcq',
     q: 'Pathogenesis ของ Atopic Dermatitis (CAD) เกิดจากอะไรเป็นหลัก',
-    options: ['Bacterial infection ที่ deep skin', 'การติดเชื้อ Demodex', 'Skin barrier dysfunction (filaggrin/ceramide ↓) + aberrant Th2 immunological response + genetic predisposition', 'การกินอาหารผิด'],
+    options: ['Bacterial infection ที่ deep skin', 'การติดเชื้อ Demodex', 'Skin barrier dysfunction + aberrant Th2 response + genetic predisposition', 'การกินอาหารผิด'],
     answer: 2, explain: 'CAD = multifactorial: skin barrier defect (↓ filaggrin/loricrin/ceramide → ↑ TEWL → allergen penetration ง่าย) + aberrant Th2 response (IgE-mediated to environmental allergens) + genetic + cutaneous dysbiosis · environmental allergens (dust mites, mold, pollen) ทำให้ flare\n\n❌ ทำไมข้ออื่นผิด\n— Bacterial deep = pyoderma\n— Demodex = parasitic\n— อาหารผิด = food allergy (different mechanism)',
     verified: 'Derm_8_Allergic_dermatitis.pdf p.4' },
 
@@ -485,7 +485,7 @@ export const QB_COM4 = [
   { id: 964, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
     tags: ['atopic', 'cytopoint'], type: 'mcq',
     q: 'Cytopoint (lokivetmab) คืออะไร และใช้ยังไง',
-    options: ['Oral steroid', 'Topical cream', 'Caninized monoclonal antibody ต่อ IL-31 → SC injection q4-6 wk', 'Oral antihistamine'],
+    options: ['Oral steroid', 'Topical cream', 'Monoclonal antibody ต่อ IL-31', 'Oral antihistamine'],
     answer: 2, explain: 'Lokivetmab (Cytopoint) = caninized mAb ต่อ canine IL-31 · neutralize IL-31 (key itch cytokine) · SC injection ครั้งเดียว ออกฤทธิ์ 4-8 wk · onset 1 day · safe even ใน young/old/concurrent disease · expensive · ใช้ใน CAD (ไม่ใช่ food allergy)\n\n❌ ทำไมข้ออื่นผิด\n— Oral steroid = prednisolone (different)\n— Topical cream = local treatment\n— Oral AH = ineffective ใน CAD',
     verified: 'Derm_8_Allergic_dermatitis.pdf p.10' },
 
@@ -530,7 +530,7 @@ export const QB_COM4 = [
   { id: 970, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
     tags: ['bullous-pemphigoid'], type: 'mcq',
     q: 'Bullous pemphigoid ต่างจาก pemphigus อย่างไร',
-    options: ['Bullous pemphigoid = autoantibody ต่อ basement membrane (BPAG1/2) → subepidermal blister', 'ไม่ต่างกัน', 'BP = bacterial', 'BP = parasitic'],
+    options: ['Autoantibody ต่อ basement membrane → subepidermal blister', 'ไม่ต่างกัน', 'BP = bacterial', 'BP = parasitic'],
     answer: 0, explain: 'Bullous pemphigoid: IgG ต่อ hemidesmosome proteins (BP180/BPAG2, BP230/BPAG1) ที่ basement membrane → subepidermal split → tense bullae (ไม่แตกง่าย เพราะลึกกว่า pemphigus) · severity ≥ pemphigus · oral, mucocutaneous, skin · less common than PF\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต่างกัน" = ผิด, mechanism + level ต่าง\n— BP bacterial/parasitic = ผิด (autoimmune)\n\n💡 deeper than pemphigus',
     verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.3' },
 
@@ -544,7 +544,7 @@ export const QB_COM4 = [
   { id: 972, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
     tags: ['dle', 'distribution'], type: 'mcq',
     q: 'Discoid Lupus Erythematosus (DLE) ตำแหน่ง classic คือ',
-    options: ['ทั่วตัว', 'Limbs only', 'Lumbosacral + tail', 'Nasal planum (depigmentation, erythema, ulceration) + periocular + ear pinnae'],
+    options: ['ทั่วตัว', 'Limbs only', 'Lumbosacral + tail', 'Nasal planum + periocular + ear pinnae'],
     answer: 3, explain: 'DLE: face-limited "collie nose" pattern · loss of cobblestone of nasal planum + depigmentation + erythema + ulceration + scarring · UV-aggravated → worse in summer / outdoor · breeds: Collie, Shetland, GSD, Siberian Husky, Brittany\n\n❌ ทำไมข้ออื่นผิด\n— "ทั่วตัว" = generalized autoimmune\n— Lumbosacral/tail = FAD\n— Limbs only = ไม่ใช่ pattern',
     verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.6' },
 
@@ -575,7 +575,7 @@ export const QB_COM4 = [
   { id: 976, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
     tags: ['gc', 'mechanism'], type: 'mcq',
     q: 'Glucocorticoid (prednisolone) มี mechanism ของ anti-inflammatory + immunosuppressive อย่างไร',
-    options: ['↓ inflammatory mediators (IL-1, TNF-α', 'ฆ่า bacteria โดยตรง', 'ทำให้ pH ในเลือดต่ำลง', 'เพิ่มการสร้าง RBC'],
+    options: ['ลด inflammatory mediators', 'ฆ่า bacteria โดยตรง', 'ทำให้ pH ในเลือดต่ำลง', 'เพิ่มการสร้าง RBC'],
     answer: 0, explain: 'GC mechanism: ↓ pro-inflammatory cytokines (IL-1, TNF-α, GM-CSF, IL-3,4,5,8) + ↓ NOS → ↓ NO + ↓ Phospholipase A2 → ↓ prostaglandins/leukotrienes + ↑ Annexin-1 + ↓ adhesion molecules (ลด leukocyte emigration) + ↑ endonucleases → induce apoptosis ใน lymphocytes/eosinophils\n\n❌ ทำไมข้ออื่นผิด\n— ฆ่า bact = antibiotic\n— ↓ pH = ไม่ใช่กลไก\n— เพิ่ม RBC = erythropoietin\n\n💡 GM-CSF, prostaglandins) + ↓ leukocyte chemotaxis + ↓ T-cell function + induce lymphocyte apoptosis',
     verified: 'Drug_used_for_immune_mediated_diseases.pdf p.4' },
 
@@ -596,7 +596,7 @@ export const QB_COM4 = [
   { id: 979, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
     tags: ['cyclosporine', 'mechanism'], type: 'mcq',
     q: 'Cyclosporine A (Atopica) ทำงานผ่านกลไกใด',
-    options: ['Calcineurin inhibitor → block T-cell activation + IL-2 production', 'Direct cytotoxic to all cells', 'COX-2 inhibitor', 'Antibiotic'],
+    options: ['Calcineurin inhibitor → ↓ T-cell activation', 'Direct cytotoxic to all cells', 'COX-2 inhibitor', 'Antibiotic'],
     answer: 0, explain: 'Cyclosporine binds cyclophilin → inhibits calcineurin → ↓ NFAT dephosphorylation → ↓ IL-2 transcription → ↓ T-cell activation/proliferation · ใช้ใน CAD, perianal fistulas, IMHA, pemphigus, SLE · 5 mg/kg PO q24h (CAD) หรือ q12h (severe immune disease) · slow onset 4-6 wk · side effects: GI (vomit, gum hyperplasia, papillomatosis, hirsutism)\n\n❌ ทำไมข้ออื่นผิด\n— Cytotoxic to all = chemotherapy\n— COX-2 = NSAIDs\n— Antibiotic = bacterial',
     verified: 'Drug_used_for_immune_mediated_diseases.pdf p.6' },
 
@@ -708,7 +708,7 @@ export const QB_COM4 = [
   { id: 994, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
     tags: ['sle', 'clinical'], type: 'mcq',
     q: 'Clinical sign ที่พบบ่อยที่สุดใน SLE ของสุนัข',
-    options: ['Generalized pruritus + alopecia เป็นอาการหลัก (เหมือน atopic dermatitis)', 'Persistent vomiting + chronic diarrhea + weight loss (GI predominant)', 'PU/PD + truncal alopecia + pendulous abdomen (เหมือน hyperadrenocorticism)', 'Polyarthritis (most common) + skin lesion ที่ MC junction + proteinuria → glomerulonephritis + cytopenias'],
+    options: ['Generalized pruritus + alopecia เป็นอาการหลัก (เหมือน atopic dermatitis)', 'Persistent vomiting + chronic diarrhea + weight loss (GI predominant)', 'PU/PD + truncal alopecia + pendulous abdomen (เหมือน hyperadrenocorticism)', 'Polyarthritis + skin lesion ที่ MC junction + proteinuria + cytopenias'],
     answer: 3, explain: 'SLE ใน dog: polyarthritis = most common (synovial inflammation, joint effusion, lameness) + skin (mucocutaneous junction of facial/ear/mouth/limbs) + glomerulonephritis (proteinuria, nephrotic syndrome) + IMHA/IMT (anemia, thrombocytopenia) + polymyositis (rare) + pleural disease + myocardiopathy\n\n❌ ทำไมข้ออื่นผิด\n— Pruritus only = atopic\n— Hyperthyroid = endocrine\n— Hypothyroid only = endocrine',
     verified: 'Systemic_Lupus_Erythematosus.pdf p.5' },
 
@@ -882,14 +882,14 @@ export const QB_COM4 = [
   { id: 1018, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
     tags: ['neonatal', '4hs'], type: 'mcq',
     q: '"4 H\'s" critical concerns ใน neonatal dog/cat คือ',
-    options: ['Hypertension, Hypercalcemia, Hyperthyroid, Hyperkalemia', 'Hypothermia, Hypovolemia (Hydration), Hypoglycemia, Hypoxemia', 'Hyperthermia, Hypertonia, Hypertrophy, Hyperplasia', 'Hate, Heart, Hand, Head'],
+    options: ['Hypertension, Hypercalcemia, Hyperthyroid, Hyperkalemia', 'Hypothermia, Hypovolemia, Hypoglycemia, Hypoxemia', 'Hyperthermia, Hypertonia, Hypertrophy, Hyperplasia', 'Hate, Heart, Hand, Head'],
     answer: 1, explain: '"4 H\'s" of neonatal critical care: Hypothermia (most common, < 96°F = bradycardia/ileus) · Hypovolemia/dehydration (high fluid req. 120-180 ml/kg/d) · Hypoglycemia (limited gluconeogenesis + glycogen storage → seizures, brain damage) · Hypoxemia (HR < 150 bpm in 1st wk = hospitalize for O₂) · ทั้ง 4 ต้องประเมินทุก presentation\n\n❌ ทำไมข้ออื่นผิด\n— Other "H" combinations = ไม่ใช่ standard',
     verified: 'Pediatrics_and_Geriatrics.pdf p.20' },
 
   { id: 1019, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
     tags: ['neonatal', 'colostrum'], type: 'mcq',
     q: 'Colostrum ใน neonate ต้องได้ภายในเวลาเท่าใด',
-    options: ['ไม่จำเป็นต้องได้', '1 สัปดาห์', 'Within 24 hr (gut closure 48-72 hr) → IgG + IgA absorption', '1 เดือน'],
+    options: ['ไม่จำเป็นต้องได้', '1 สัปดาห์', 'Within 24 hr', '1 เดือน'],
     answer: 2, explain: 'Colostrum: critical within 24 hr of birth (gut permeability declines after 8 hr, closes 48-72 hr) · IgG + IgA passively absorbed (IgM too large) · maternal serum (from healthy adult dog) PO เป็น alternative ถ้า colostrum ไม่มี · check ALP/GGT — high ในช่วง 2 wk แรก (เป็น marker ของ colostrum intake) · failure of passive transfer = ↑ neonatal mortality\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่จำเป็น" = ผิด\n— "1 wk" / "1 mo" = สายเกิน, gut closed แล้ว\n\n💡 ถ้าไม่มี colostrum ใช้ maternal serum oral',
     verified: 'Pediatrics_and_Geriatrics.pdf p.13' },
 
@@ -903,7 +903,7 @@ export const QB_COM4 = [
   { id: 1021, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
     tags: ['neonatal', 'fluid'], type: 'mcq',
     q: 'Fluid maintenance rate สำหรับ neonate (0-2 wk)',
-    options: ['10-20 ml/kg/d', '300 ml/kg/d', '120-180 ml/kg/d (neonate); 80-120 ml/kg/d', 'No fluids needed'],
+    options: ['10-20 ml/kg/d', '300 ml/kg/d', '120-180 ml/kg/d', 'No fluids needed'],
     answer: 2, explain: 'Neonate maintenance: 120-180 ml/kg/d · Pediatric (older): 80-120 ml/kg/d · Higher than adult เพราะ: ↑ body surface area : weight ratio · ↑ extracellular fluid · less body fat · ↑ metabolic + respiratory rate · ↓ renal concentrating ability · severe dehydration shock dose: 30-45 ml/kg dog · 20-30 ml/kg cat · routes: oral-gastric (NOT in hypothermic), SC/IP (no dextrose, normothermic), IV/IO (jugular, tibial crest, humerus)\n\n❌ ทำไมข้ออื่นผิด\n— 10-20 = adult maintenance\n— 300 = สูงเกินไป\n— No fluids = ผิด\n\n💡 pediatric',
     verified: 'Pediatrics_and_Geriatrics.pdf p.22' },
 
@@ -984,7 +984,7 @@ export const QB_COM4 = [
   { id: 1032, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia + FINAL 86',
     tags: ['imha', 'thromboembolism', 'antiplatelet'], type: 'mcq',
     q: 'ใน IMHA ที่มีความเสี่ยง thromboembolism (PTE) ยา antiplatelet ใดที่นิยมใช้เป็น first-line ★',
-    options: ['Heparin alone (LMWH หรือ UFH) — direct anticoagulant primary therapy', 'Warfarin PO 0.1 mg/kg titrate ถึง INR 2-3 — long-term anticoagulant', 'tPA (tissue plasminogen activator) IV bolus thrombolytic เพื่อสลายลิ่ม PTE', 'Vitamin K1 5 mg/kg PO q24h — antidote ห้าม secondary clotting cascade', 'Clopidogrel (Plavix) ± low-dose aspirin (0.5-1 mg/kg/d) — antiplatelet first-line'],
+    options: ['Heparin alone (LMWH หรือ UFH) — direct anticoagulant primary therapy', 'Warfarin PO 0.1 mg/kg titrate ถึง INR 2-3 — long-term anticoagulant', 'tPA (tissue plasminogen activator) IV bolus thrombolytic เพื่อสลายลิ่ม PTE', 'Vitamin K1 5 mg/kg PO q24h — antidote ห้าม secondary clotting cascade', 'Clopidogrel (Plavix) ± low-dose aspirin (0.5-1 mg/kg/d)'],
     answer: 4, explain: 'Clopidogrel (Plavix) 1-3 mg/kg PO q24h = first-line antiplatelet ใน IMHA · ± low-dose aspirin 0.5 mg/kg/day (Aj. Rosama เน้น ★) · ลด platelet aggregation ที่กระตุ้นจาก inflammatory state · LMWH สามารถใช้ adjunct ได้ในกรณี acute · monitoring: TEG, anti-Xa\n\n❌ ทำไมข้ออื่นผิด\n— Heparin alone = ไม่ block platelet aggregation, ใช้ adjunct\n— Warfarin = แคบ therapeutic window, ตรวจ INR ยาก, ไม่ first-line in vet\n— Vitamin K = antidote rodenticide, ตรงข้าม\n— tPA = thrombolytic, severe PTE acute, ไม่ใช่ prophylaxis',
     verified: 'Immune-mediated_Hemolytic_anemia.pdf + FINAL 86 p.7 (Aj. Rosama: Aspirin 0.5 mg/kg/วัน แก้ไข thromboembolism ★) + Clopidogrel (Plavix)' },
 ];
