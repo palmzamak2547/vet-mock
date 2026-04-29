@@ -38,7 +38,7 @@ export const QB_COM3_SPECIAL = [
     q: 'ระบบอวัยวะใดต่อไปนี้**ไม่ใช่**ระบบที่ควรได้รับการพิจารณาขณะทำ primary survey',
     options: ['Cardiovascular system', 'Nervous system', 'Urinary system', 'Hepatobiliary system', 'Respiratory system'],
     answer: 3,
-    explain: 'Primary survey = ABCD(U): Airway / Breathing / Circulation / Disability (nervous) / Urinary · Hepatobiliary ไม่อยู่ใน primary survey — ตรวจใน secondary',
+    explain: 'Primary survey = **ABCDE**: Airway / Breathing / Circulation / Disability (neuro) / Exposure-examination · Hepatobiliary ไม่อยู่ใน primary survey — ต้องใช้ lab/imaging ใน secondary survey ถึงจะประเมินได้',
     verified: 'triage 1 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1502, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
@@ -114,7 +114,7 @@ export const QB_COM3_SPECIAL = [
     q: 'ข้อใดต่อไปนี้จัดอยู่ในสาเหตุของการชักจาก **Extracranial causes**',
     options: ['Lissencephaly', 'Thiamine deficiency', 'Steroid responsive myelitis arteritis (SRMA)', 'Ischemic encephalopathy', 'Eclampsia'],
     answer: 4,
-    explain: 'Eclampsia (hypocalcemia ใน lactating bitch) = extracranial (metabolic) · Lissencephaly + ischemic enceph + SRMA = intracranial structural · thiamine def = intracranial metabolic ก็ได้แต่ "extracranial" definition เน้นโรคนอกสมอง · เลือก eclampsia ตรงสุด',
+    explain: 'Eclampsia = hypocalcemia ใน lactating bitch = metabolic → extracranial cause ตรงสุด ตาม 2026 lecture (metabolic causes = hypoglycemia, hypoCa, hepatic enceph, electrolyte, toxins) · Lissencephaly + ischemic enceph + SRMA = intracranial structural/inflammatory · Thiamine deficiency → polioencephalomalacia = structural CNS lesion (ไม่ใช่ extracranial)',
     verified: 'seizure 1 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1510, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
@@ -196,7 +196,7 @@ export const QB_COM3_SPECIAL = [
       'Fentanyl CRI anesthesia',
     ],
     answer: 1,
-    explain: 'Iso + epidural = balanced anesthesia · epidural ลด systemic anesthetic dose ใน hemodynamically unstable · Thiopental = cardiovascular depressant · Halothane retired · Fentanyl alone ไม่พอ',
+    explain: 'หมายเหตุ: ต้อง stabilize ก่อน induction (HR < 150, SBP > 90 — fluid resuscitation มาก่อน) · Iso + epidural = balanced anesthesia · epidural ลด systemic Iso dose → ลด vasodilation · Thiopental = CV depressant · Halothane retired · Fentanyl alone ไม่พอ surgical depth',
     verified: 'Animal_Emerg_Anes 1 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1518, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
@@ -327,10 +327,9 @@ export const QB_COM3_SPECIAL = [
       'Regular insulin IV with dextrose 1g/U',
       'Furosemide 2 mg/kg IV bolus',
     ],
-    answer: 0,
-    explain: 'หมายเหตุ: ตามแนวทาง emergency hyperK rescue ทั่วไป Calcium gluconate เป็น first-line stabilize cardiac membrane · DC3final ตอบ Dextrose IV ก่อน — อ่านโจทย์ดีๆ ใน 2026 lecture จะอ้าง Calcium gluconate ก่อน · **Flag: verify vs Aj. Chutirat 2026 slide**',
-    verified: 'metabolic and endocrine and UT 1 hr.pdf 2026 (verify) + DC3final 2019',
-    flag: 'verify-2026' },
+    answer: 2,
+    explain: 'Severe hyperK + cardiac signs (weak pulse, HR 120 = relative bradycardia ในแมว hyperK) → **Calcium gluconate 0.5-1.5 ml/kg ของ 10% IV slow 5-10 min** = first-line · stabilize cardiac membrane ภายใน 1-3 min (ไม่ลด K แต่ป้องกัน arrhythmia/asystole) · ตามด้วย dextrose ± regular insulin (shift K เข้า cell, 15-30 min) · NaHCO3 ใช้เมื่อ severe acidosis ดื้อต่อ fluid · Furosemide ห้ามใช้ใน UO obstruction · 2026 lecture ของ Aj. Chutirat ไม่ระบุ first-line drug ชัดเจน — ใช้ standard ECC: Ca first',
+    verified: 'metabolic and endocrine and UT 1 hr.pdf 2026 + standard ACVECC teaching (DC3final 2019 ตอบ Dextrose ซึ่งเป็น 2019-era simplification — แก้ตามมาตรฐานปัจจุบัน)' },
 
   { id: 1530, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
     examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['ataxia-tremor', 'distemper'], type: 'mcq',
@@ -417,7 +416,7 @@ export const QB_COM3_SPECIAL = [
       'prophylaxis antibiotic 24 ชม. ก่อนเริ่มอาหาร',
     ],
     answer: 2,
-    explain: 'Refeeding mechanism: insulin spike → cellular K/Mg/PO₄ shift in → hypoK/hypoP/hypoMg → cardiac arrhythmia · ป้องกัน: เริ่ม 1/3-1/4 RER → ค่อยเพิ่มใน 3-5 วัน + supplement electrolyte',
+    explain: 'Refeeding mechanism: insulin spike → intracellular shift ของ PO₄/K/Mg → hypoP/hypoK/hypoMg → hemolysis/cardiac arrhythmia · ป้องกัน (per 2026 slide): เริ่ม **1/3 → 1/2 → full RER** ใน 3-5 วัน + supplement electrolyte',
     verified: 'nutrition 1 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1538, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
@@ -453,7 +452,7 @@ export const QB_COM3_SPECIAL = [
     q: 'สารน้ำชนิดใดมี **volume effect** สูงที่สุดเทียบกับ plasma',
     options: ['20% mannitol', 'Voluven', 'NSS', 'Acetate ringer solution', 'D5 1/2S'],
     answer: 0,
-    explain: '20% mannitol = hyperosmotic → ดึงน้ำจาก ICF/IS เข้า IV → volume effect ~ 4-5× · Voluven (HES colloid) ~ 1-1.4× · NSS/ARS = isotonic ~ 1× (25% เหลือใน IV) · D5 1/2S = hypotonic <1× IV (กลับไป ICF)',
+    explain: '20% mannitol (hyperosmotic) ดึงน้ำเข้า IV — volume effect ~2× (มากที่สุดในตัวเลือก) · Voluven (HES colloid) ~1-1.4× · NSS/ARS isotonic ~25% เหลือใน IV · D5 1/2S hypotonic กระจายเข้า ICF',
     verified: 'SHOCK 1 hr.pdf 2026 (fluid types) + DC3final 2019' },
 
   { id: 1541, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
@@ -486,7 +485,7 @@ export const QB_COM3_SPECIAL = [
 
   { id: 1543, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
     examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['shock', 'septic', 'case'], type: 'mcq',
-    q: 'Beagle 3 ปี · collapse · stupor + mydriasis OU · T 102.8°F · bounding pulse · HR 156 · brick-red mm · CRT < 1s · จัดอยู่ในภาวะใด',
+    q: 'Beagle 3 ปี · collapse · stupor + mydriasis OU · T 102.8°F · bounding pulse · HR 156 · RR 42 · brick-red mm · CRT < 1s · WBC 28,000 (left shift) · จัดอยู่ในภาวะใด',
     options: [
       'Cardiogenic shock จาก CHF',
       'Brain edema (stupor + mydriasis)',
@@ -509,8 +508,8 @@ export const QB_COM3_SPECIAL = [
       'Tetanic posture',
     ],
     answer: 1,
-    explain: 'Cross-extensor = abnormal reflex (สัตว์ขาตรงข้าม extend เมื่อ withdraw) — เห็นใน UMN spinal lesion ไม่ใช่ posture หรือ tetanus DDx · ที่เหลือเป็น decerebellate/decerebrate/Schiff-Sh/tetanic posture (DDx ของ extensor rigidity)',
-    verified: 'neuro_localised 1 hr.pdf 2026 + DC3final 2019' },
+    explain: 'Cross-extensor = abnormal **reflex** (สัตว์ขาตรงข้าม extend เมื่อ withdraw) — เห็นใน UMN spinal lesion ไม่ใช่ posture · ที่เหลือเป็น decerebellate/decerebrate/Schiff-Sh/tetanic = postural patterns ที่เป็น DDx ของ extensor rigidity ที่อาจสับสนกับ tetanus',
+    verified: 'general neuro knowledge + DC3final 2019 (tetanus posture DDx ไม่อยู่ใน neuro_localised slide ของ Aj. Krissda — เป็น overlap content จาก ataxia-tremor / ER lecture)' },
 
   { id: 1545, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
     examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['nutrition', 'protein'], type: 'mcq',
@@ -525,7 +524,7 @@ export const QB_COM3_SPECIAL = [
     q: 'ข้อใดเป็น **character เฉพาะของ central** vestibular disorder',
     options: ['Alert mentation', 'Rotatory nystagmus', 'Head tilt and rolling', 'Positional nystagmus', 'Horizontal nystagmus'],
     answer: 3,
-    explain: 'Central vestibular features: positional + vertical nystagmus, conscious proprioceptive deficit, altered mentation, multiple CN deficits, paradoxical sign · Peripheral: alert, horizontal/rotatory nystagmus, no CP deficit',
+    explain: 'Central distinguishers (per 2026 lecture): **positional nystagmus**, vertical nystagmus, postural reaction deficit, altered mentation, CN V/VII deficit, cerebellar signs · Peripheral: non-positional (not vertical) horizontal/rotatory ก็ได้, alert, normal CP, อาจมี CN VII palsy + Horner ฝั่งเดียว',
     verified: 'neuro_ataxia_tremor 1 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1547, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
@@ -539,7 +538,7 @@ export const QB_COM3_SPECIAL = [
       'Wobbler syndrome',
     ],
     answer: 4,
-    explain: 'Wobbler (CSM) = cervical compression → tetra/hemi paresis ใน Doberman/Great Dane · Hip dysplasia + CCL = ขาหลัง · L IVDD = paraplegia · Radial = ขาหน้าข้างเดียว',
+    explain: 'Wobbler (CSM) = cervical compression ใน Doberman/Great Dane · initial signs = ataxia ขาหลังเด่นกว่าหน้า · advanced/late stage → tetraparesis-tetraplegia · ในตัวเลือกนี้ Wobbler เป็นข้อเดียวที่ลามไป 4 ขาได้ · Hip dysplasia + CCL = ขาหลังเฉพาะ · L IVDD = paraplegia · Radial = ขาหน้าข้างเดียว',
     verified: 'Spinal disorder 2 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1548, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
@@ -597,7 +596,7 @@ export const QB_COM3_SPECIAL = [
       'Cauda Equina Syndrome',
     ],
     answer: 0,
-    explain: 'GSD non-chondrodystrophoid + sudden T-L paraplegia + UMN sign → IVDD type II (annular protrusion) ที่ thoracolumbar · Type I พบใน chondrodystrophoid · Cauda equina = LMN ไม่ใช่ UMN · brain tumor ไม่ทำให้แค่ขาหลัง',
+    explain: 'GSD non-chondrodystrophoid + T-L UMN paraplegia → IVDD type II (annular protrusion) · ⚠️ ในชีวิตจริง "sudden onset" ใน young GSD (3 ปี) ไม่มี trauma → DDx อันดับแรกคือ **FCE (fibrocartilaginous embolism)** — แต่ FCE ไม่อยู่ในตัวเลือก จึง Type II = best available · Type II ปกติ chronic/progressive · Type I พบใน chondrodystrophoid · Cauda equina = LMN ไม่ใช่ UMN · brain tumor ไม่ทำให้แค่ขาหลัง',
     verified: 'Spinal disorder 2 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1553, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
