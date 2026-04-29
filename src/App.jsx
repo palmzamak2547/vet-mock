@@ -25,6 +25,13 @@ const CommandPalette = lazy(() => import('./components/CommandPalette.jsx'));
 // from the palette or from a topic card.
 const InstructorModal = lazy(() => import('./components/InstructorModal.jsx'));
 
+// VetCalculator — floating widget for clinical math (RER · fluid ·
+// drug dose · transfusion · DKA insulin). Imported eagerly because
+// the FAB button needs to render on every page; modal contents only
+// run when the user opens it, so the runtime cost is just ~5KB
+// gzipped of inert UI code on first paint.
+import VetCalculator from './components/VetCalculator.jsx';
+
 // View Transitions API helper — wraps a state update so the browser
 // snapshots the DOM before/after and crossfades automatically. Falls
 // back to a plain call when the API isn't available (Firefox, older
@@ -575,6 +582,13 @@ export default function App() {
             {' · '}<a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
             {' · '}<a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
           </div>
+
+          {/* Floating clinical-math FAB — visible on every view except
+              auth (we want to nudge users to log in, not show them tools
+              first) and during an active exam (don't tempt them with the
+              calculator UI mid-question — exam already shows wake lock).
+              Rendered eagerly so the button is on first paint. */}
+          {view !== 'auth' && view !== 'exam' && <VetCalculator />}
         </div>
       </div>
 

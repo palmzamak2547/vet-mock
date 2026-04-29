@@ -477,6 +477,8 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-review-item, .vmx-dash-card, [class*="md-h2"] { break-inside: avoid; }
   /* Force inline links to print URL after the link text */
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
+  /* Don't print floating UI: vet calculator FAB + announcements */
+  .vmx-vetcalc-fab { display: none !important; }
   /* Tighten line height for ink economy */
   body, p, li, td { line-height: 1.4 !important; }
 }
