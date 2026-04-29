@@ -158,6 +158,48 @@ export const SUBJECTS_BY_YEAR = {
     { id: 'repro', code: '3108409', name: 'Repro Lab', name_en: 'Companion Animal Reproduction',
       icon: '🐾', color: '#b88940', semester: 2, has_questions: true },
 
+    // ── Poultry Health Management ──
+    { id: 'poultry', code: '3107409', name: 'Poultry', name_en: 'Poultry Health Management',
+      icon: '🐔', color: '#d97744', semester: 2, has_questions: true,
+      examFormat: {
+        weight: 'Mid 105/200 (52.5%) · Final 90/200 (45%) · Class 5/200 (2.5%) · Letter Grade A-F',
+        choiceCount: 5,
+        notes: [
+          '📅 Final scope = lectures 9-14 (90 pts · 45%) — biosecurity, drugs, QA, zoonosis, first-week mortality',
+          '📅 Midterm scope = lectures 1-7 (105 pts · 52.5%) — physiology, drugs intro, viral diseases, bacterial diseases, vaccine programs',
+          '✅ คลังข้อสอบ 67 ข้อ จาก: Poultry Final 2019 (52 verified) + POULTRY FINAL 86 รวมโพย (15 from study notes)',
+          '👨‍🏫 Course coordinator: Kriengwich Limpavithayakul · 2 หน่วยกิต',
+          '🎯 ~12 ข้อ flagged `verify-2026` — student answers borderline · ตรวจกับ slide 2026 อีกที',
+        ],
+      },
+      topics: [
+        // Lecture topics mapped from 2026 slide deck + course syllabus content
+        { id: 'avian-virus',         label: '🦠 โรคไวรัสในสัตว์ปีก', icon: '🦠',
+          lecturer: 'Course coordinator', lecturer_year: 2026,
+          lecturerNote: 'ND (15) · AE (10) · aMPV (5) · CAV/blue wing (1) · acute death DDx (1) — 32 ข้อ' },
+        { id: 'avian-bacterial',     label: '🧫 โรคแบคทีเรียในสัตว์ปีก', icon: '🧫',
+          lecturer: 'Course coordinator', lecturer_year: 2026,
+          lecturerNote: 'APEC/colibacillosis (10) · Mycoplasma (4) · Infectious coryza (2) · Fowl cholera + age susceptibility · NDS — ~19 ข้อ' },
+        { id: 'avian-zoonosis',      label: '🧬 Avian Zoonosis', icon: '🧬',
+          lecturer: 'Course coordinator', lecturer_year: 2026, schedule: 'Final scope',
+          lecturerNote: 'Salmonella food safety + zoonotic poultry diseases · 1 ข้อ ตอนนี้ + เพิ่มจาก slide ได้' },
+        { id: 'biosecurity',         label: '🛡 Biosecurity & Surveillance', icon: '🛡',
+          lecturer: 'อ.ณทยา', lecturer_year: 2026, schedule: 'Final scope',
+          lecturerNote: 'Sentinel birds · disinfection · sample size calc · sens/spec — 4 ข้อ' },
+        { id: 'avian-drugs',         label: '💊 Avian Drugs & Treatment', icon: '💊',
+          lecturer: 'Course coordinator', lecturer_year: 2026, schedule: 'Final scope',
+          lecturerNote: 'Antibiotics in poultry · Tylosin/streptomycin/gentamicin/enrofloxacin' },
+        { id: 'vaccine-program',     label: '💉 Vaccine Programs', icon: '💉',
+          lecturer: 'Course coordinator', lecturer_year: 2026,
+          lecturerNote: 'IC vaccine · ND broiler program · breeder schedule · ICPI threshold — 5 ข้อ' },
+        { id: 'physiology',          label: '🧠 Avian Physiology + Immunology', icon: '🧠',
+          lecturer: 'Kris Angkanaporn', lecturer_year: 2026,
+          lecturerNote: 'Lymphoid organs · B-cell (Bursa) · T-cell (Thymus) · cecal tonsils — 3 ข้อ' },
+        { id: 'quality-assurance',   label: '🏆 Quality Assurance', icon: '🏆',
+          lecturer: 'Course coordinator', lecturer_year: 2026, schedule: 'Final scope',
+          lecturerNote: 'QA components (control/audit/accreditation/assess/traceability) · PDCA · slow-growth trade-offs · FCR — 7 ข้อ' },
+      ] },
+
     // ── Wildlife & Exotic ──
     { id: 'exotic', code: '3107414', name: 'Wildlife & Exotic', name_en: 'Wild Exo Hlth Mgt + PP',
       icon: '🦜', color: '#7d4a7d', semester: 2, has_questions: true,
