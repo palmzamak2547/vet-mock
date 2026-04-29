@@ -78,7 +78,16 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 </span>
               </div>
             </div>
-            {q.image && <img src={q.image} alt="" className="vmx-qimage" style={{ maxWidth: 300 }} />}
+            {q.image && (
+              <img
+                src={q.image}
+                alt={`Question ${q.id} image · ${q.subject}/${q.topic || 'general'}`}
+                loading="lazy"
+                decoding="async"
+                className="vmx-qimage"
+                style={{ maxWidth: 300 }}
+              />
+            )}
             {q.passage && (
               <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, lineHeight: 1.65, whiteSpace: 'pre-wrap', maxHeight: 220, overflowY: 'auto' }}>
                 <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>

@@ -305,7 +305,16 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             {SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}
             {' · '}{typeLabel}
           </div>
-          {currentQ.image && <img src={currentQ.image} alt="" className="vmx-qimage" style={{ margin: '0 auto 16px' }} />}
+          {currentQ.image && (
+            <img
+              src={currentQ.image}
+              alt={`Question ${currentQ.id} image · ${currentQ.subject}/${currentQ.topic || 'general'}`}
+              loading="lazy"
+              decoding="async"
+              className="vmx-qimage"
+              style={{ margin: '0 auto 16px' }}
+            />
+          )}
           <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
         </div>
         {showAnswer && (

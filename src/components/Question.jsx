@@ -220,7 +220,15 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         )}
       </div>
 
-      {currentQ.image && <img src={currentQ.image} alt="" className="vmx-qimage" />}
+      {currentQ.image && (
+        <img
+          src={currentQ.image}
+          alt={`Question ${currentQ.id} image · ${currentQ.subject}/${currentQ.topic || 'general'}`}
+          loading="lazy"
+          decoding="async"
+          className="vmx-qimage"
+        />
+      )}
 
       {/* Layout switch: with-passage = grid on wide / stacked on narrow */}
       {currentQ.passage ? (
