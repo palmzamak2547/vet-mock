@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Safari pinned-tab mask icon. MUST be a single color (any
+       value — Safari re-tints with the user's accent). No gradients,
+       no rgba, no embedded raster. Pure paw silhouette so it reads
+       at 16-32px. -->
+  <g fill="black">
+    <ellipse cx="256" cy="338" rx="92" ry="74"/>
+    <ellipse cx="148" cy="232" rx="36" ry="48" transform="rotate(-18 148 232)"/>
+    <ellipse cx="212" cy="158" rx="34" ry="46" transform="rotate(-6 212 158)"/>
+    <ellipse cx="300" cy="158" rx="34" ry="46" transform="rotate(6 300 158)"/>
+    <ellipse cx="364" cy="232" rx="36" ry="48" transform="rotate(18 364 232)"/>
+  </g>
+</svg>

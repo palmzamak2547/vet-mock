@@ -7,10 +7,20 @@
     <!-- Search engine verification -->
     <meta name="google-site-verification" content="14yg3AaHe91BC8VgVxjhxTrJsHCgvDSUIKetsJozHX0" />
 
-    <!-- Icons + PWA -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Icons + PWA.
+         Order matters: Safari (esp. older versions on iOS/macOS) walks
+         the list and picks the first viable entry, falling back only
+         when the chosen one fails to load. Listing .ico FIRST gives
+         Safari something it always renders in tabs without quirks,
+         and the SVG below kicks in on browsers that prefer scalable.
+         apple-touch-icon stays for iOS home-screen install.
+         mask-icon is Safari macOS pinned-tab specific (monochrome). -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-32.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/mask-icon.svg" color="#4a6b4a" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#4a6b4a" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#2b2419" media="(prefers-color-scheme: dark)" />
