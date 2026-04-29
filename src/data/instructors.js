@@ -661,9 +661,39 @@ export const INSTRUCTORS = {
         url: 'https://pubmed.ncbi.nlm.nih.gov/27902903/',
         summary: 'vlhA gene-based MS strain typing — early Thai work.' },
     ],
-    notes: ['Course coordinator for PLTRY HLTH MGT (3107409) · teaches **3 lectures**: L9 (First Week Mortality / AHRA · 2026-03-10), L14 + L15 (Quality Assurance · 2026-04-21, 2026-04-28).', 'PhD funded by Thailand Research Fund Royal Golden Jubilee program — junior faculty.', 'Mentored by Sasipreeyajan & Pakpinyo (senior poultry faculty).'],
+    notes: ['Course coordinator for PLTRY HLTH MGT (3107409) · teaches L9 First Week Mortality (AHRA / ShineChick · 2026-03-10).', 'PhD funded by Thailand Research Fund Royal Golden Jubilee program — junior faculty.', 'Mentored by Sasipreeyajan & Pakpinyo (senior poultry faculty).'],
     subjects: ['poultry'],
-    topics: ['first-week-mortality', 'quality-assurance'],
+    topics: ['first-week-mortality'],
+  },
+
+  'ekasingh-sarueng': {
+    slug: 'ekasingh-sarueng',
+    nameEn: 'Ekasingh Sarueng',
+    nameTh: 'เอกสิงห์ สาเรือง',
+    position: 'Veterinarian · Poultry technical / QA team (industry)',
+    department: 'Poultry Business / Quality Management',
+    institution: 'Betagro Public Company Limited (เครือเบทาโกร), Bangkok',
+    profiles: {
+      researchgate: 'https://www.researchgate.net/profile/Ekasingh-Sarueng',
+    },
+    areas: ['Poultry quality assurance', 'BQM (Betagro Quality Management)', 'Infectious bronchitis virus (IBV) vaccinology', 'Broiler vaccine programs', 'Thai commercial broiler production'],
+    papers: [
+      { title: 'Efficacy of Live Infectious Bronchitis Vaccine Programs against Infection by QX-Like Strain of Infectious Bronchitis Virus',
+        year: 2014, journal: 'Thai Journal of Veterinary Medicine, Vol 44(2): 187–194',
+        authors: 'Sarueng E, Sasipreeyajan J, Chansiripornchai N',
+        url: 'https://digital.car.chula.ac.th/tjvm/vol44/iss2/3/',
+        summary: 'IBV vaccine field study against QX-like strain in Thai broilers — co-authored with Aj. Niwat Chansiripornchai (Chula).' },
+    ],
+    notes: [
+      'External / industry guest lecturer at Chula Vet · teaches PLTRY HLTH MGT (3107409) lectures 14-15 (2026-04-21 + 2026-04-28) — Quality Assurance.',
+      'Industry vet at Betagro (not Chula faculty) — explains why QA lecture references Betagro performance benchmarks + BQM framework.',
+      'Co-publishing history with Aj. Niwat Chansiripornchai (Chula) and Jiroj Sasipreeyajan — likely DVM from Chula then industry track.',
+      'Likely Q format: T/F ~10 ข้อ on QA in final exam (per Palm note).',
+      'Only 1 indexed peer-reviewed paper found (2014); other output likely internal Betagro technical reports.',
+      'Romanization "Ekasingh Sarueng" is the form he uses on ResearchGate / TJVM byline.',
+    ],
+    subjects: ['poultry'],
+    topics: ['quality-assurance'],
   },
 };
 

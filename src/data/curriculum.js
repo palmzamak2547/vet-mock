@@ -174,8 +174,9 @@ export const SUBJECTS_BY_YEAR = {
           '📅 Final scope (lectures 9-14): First Week Mortality / Avian Zoonosis / Biosecurity / Avian Drugs / Quality Assurance — 5 หัวข้อตรงกับ 5 slides ใน /Slide Lecture 2026/',
           '📅 Midterm scope (lectures 1-7) สอบไปแล้ว — viral/bacterial/vaccine/physiology · ซ่อนไว้ default',
           '⚠️ 52 ข้อจาก "Final Exotic ไม่ใช่คำตอบ.pdf" ยังไม่ชัวร์ scope — อาจเป็น midterm Year 4 หรือ Avian Med Year 5 · เก็บไว้ใน hidden topic "uncertain-scope"',
-          '👨‍🏫 Course coord: Kriengwich Limpavithayakul (L9 + L14-15 · 3 ลกท.) · Final scope instructors: Nataya Charoenvisal (L10) · Niwat Chansiripornchai (L11) · Kamonpan Charoenkul (L13)',
-          '🎯 14 ข้อใน final scope · 53 ข้อ uncertain-scope (hidden จนกว่าจะ verify)',
+          '👨‍🏫 Course coord: Kriengwich Limpavithayakul (L9 AHRA) · Final scope instructors: Nataya Charoenvisal (L10) · Niwat Chansiripornchai (L11) · Kamonpan Charoenkul (L13) · เอกสิงห์ สาเรือง (L14-15 QA)',
+          '📋 Q types per topic: QA = T/F ~10 ข้อ · First-week mortality + management = MCQ · Avian zoonosis = fill-in · 7.5% ต่อสัปดาห์',
+          '🎯 13 ข้อใน final scope · 56 ข้อ hidden (uncertain-scope/midterm จนกว่าจะ verify)',
         ],
       },
       topics: [
@@ -193,8 +194,8 @@ export const SUBJECTS_BY_YEAR = {
           lecturer: 'Kamonpan Charoenkul', lecturer_year: 2026, schedule: '2026-04-07 · L13 · Final scope',
           lecturerNote: 'Antibiotic selection in poultry · Tylosin/streptomycin/gentamicin/enrofloxacin (residue concerns) · 1 ข้อ' },
         { id: 'quality-assurance',    label: 'L14-15 · Quality Assurance', icon: '🏆',
-          lecturer: 'Kriengwich Limpavithayakul', lecturer_year: 2026, schedule: '2026-04-21 + 04-28 · L14-15 · Final scope · Course coord',
-          lecturerNote: 'QA components (control/audit/accreditation/assess/traceability) · PDCA · slow-growth trade-offs · FCR · Betagro performance — 7 ข้อ' },
+          lecturer: 'Eksing Sareung (เอกสิงห์ สาเรือง)', lecturer_year: 2026, schedule: '2026-04-21 + 04-28 · L14-15 · Final scope',
+          lecturerNote: 'น.สพ.เอกสิงห์ สาเรือง · QA components (control/audit/accreditation/assess/traceability) · PDCA · slow-growth trade-offs · FCR · Betagro performance · ออก T/F ~10 ข้อ — 7 ข้อใน DB' },
 
         // ── Uncertain scope (52 Qs) — might be midterm Y4 or Y5 Avian Med ──
         { id: 'uncertain-scope',      label: '❓ Uncertain Scope · ND/AE/aMPV/E.coli/Mycoplasma', icon: '❓',
@@ -283,19 +284,6 @@ export const SUBJECTS_BY_YEAR = {
       note: 'รอข้อสอบเพิ่ม' },
     { id: 'cliapprum', code: '3108411', name: 'Clinical App Rumen', name_en: 'VET CLI APP RUM',
       icon: '🐄', color: '#7d5a44', semester: 2, has_questions: true },
-
-    // ── Poultry ──
-    { id: 'poultry', code: '3107409', name: 'Poultry Health', name_en: 'PLTRY HLTH MGT',
-      icon: '🐔', color: '#c2924a', semester: 2, has_questions: false,
-      note: 'รอข้อสอบเพิ่ม',
-      examFormat: {
-        weight: '7.5% ต่อสัปดาห์',
-        questionTypes: [
-          { topic: 'การประกันคุณภาพของฟาร์มสัตว์ปีก', type: 'True/False', count: '~10 ข้อ' },
-          { topic: 'การจัดการฟาร์มสัตว์ปีก + ปัญหาลูกไก่ตายในสัปดาห์แรก', type: 'MCQ' },
-          { topic: 'Avian zoonosis', type: 'Fill-in (เติมคำ)' },
-        ],
-      } },
 
     // ── English / Professional skills ──
     { id: 'engprof', code: '5500419', name: 'Eng Vet Prof II', name_en: 'English for Vet Profession II',
