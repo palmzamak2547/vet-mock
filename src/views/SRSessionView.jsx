@@ -306,14 +306,24 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             {' · '}{typeLabel}
           </div>
           {currentQ.image && (
-            <img
-              src={currentQ.image}
-              alt={`Question ${currentQ.id} image · ${currentQ.subject}/${currentQ.topic || 'general'}`}
-              loading="lazy"
-              decoding="async"
-              className="vmx-qimage"
-              style={{ margin: '0 auto 16px' }}
-            />
+            <>
+              <img
+                src={currentQ.image}
+                alt={`Question ${currentQ.id} image · ${currentQ.subject}/${currentQ.topic || 'general'}`}
+                loading="lazy"
+                decoding="async"
+                className="vmx-qimage"
+                style={{ margin: '0 auto 16px' }}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const ph = e.currentTarget.nextElementSibling;
+                  if (ph && ph.dataset.imgFallback) ph.style.display = 'block';
+                }}
+              />
+              <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', margin: '0 auto 16px' }}>
+                ⚠️ ภาพประกอบโหลดไม่ได้
+              </div>
+            </>
           )}
           <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
         </div>

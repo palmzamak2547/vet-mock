@@ -5,13 +5,24 @@ import { SUBJECTS } from '../data/questions.js';
 export default function LeaderboardView({ user, goHome }) {
   const [scores, setScores] = useState([]);
   const [loading, setLoading] = useState(true);
+  // Distinguish "API failed" from "no scores yet" — silent fallback
+  // to [] gaslights the user about what's wrong. Track the failure
+  // explicitly and surface it with a retry button.
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const load = () => {
+    setLoading(true);
+    setError(null);
     getLeaderboard()
       .then(setScores)
-      .catch(() => setScores([]))
+      .catch((err) => {
+        setScores([]);
+        setError(err?.message || 'โหลดข้อมูลไม่สำเร็จ');
+      })
       .finally(() => setLoading(false));
-  }, []);
+  };
+
+  useEffect(() => { load(); }, []);
 
   return (
     <>
@@ -22,6 +33,13 @@ export default function LeaderboardView({ user, goHome }) {
 
       {loading ? (
         <div className="vmx-empty">กำลังโหลด...</div>
+      ) : error ? (
+        <div className="vmx-empty" style={{ background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', color: 'var(--clr-ink)' }}>
+          ⚠️ โหลด Leaderboard ไม่สำเร็จ — {error}
+          <div style={{ marginTop: 12 }}>
+            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={load}>🔄 ลองอีกครั้ง</button>
+          </div>
+        </div>
       ) : scores.length === 0 ? (
         <div className="vmx-empty">ยังไม่มีคะแนน — ลองเป็นคนแรกกันเถอะ 💪</div>
       ) : (

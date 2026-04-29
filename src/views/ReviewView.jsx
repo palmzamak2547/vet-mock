@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
@@ -13,6 +14,48 @@ import BackBar from '../components/BackBar.jsx';
 // so re-enabling the feature is a one-line UI change later.
 
 export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }) {
+  // Filter tabs let users zoom into the slice they care about — when
+  // reviewing a 200-Q exam, scrolling linearly to find the 30 wrong
+  // ones is brutal. 'all' is the default. Cached counts shown in tabs.
+  const [filter, setFilter] = useState('all');
+
+  const counts = useMemo(() => {
+    const c = { all: questions.length, correct: 0, wrong: 0, skipped: 0, bookmarked: 0, noted: 0 };
+    for (const q of questions) {
+      const ua = answers[q.id];
+      if (ua === undefined) c.skipped++;
+      else if (isCorrect(q, ua)) c.correct++;
+      else c.wrong++;
+      if (bookmarks?.includes(q.id)) c.bookmarked++;
+      if (notes && notes[q.id]) c.noted++;
+    }
+    return c;
+  }, [questions, answers, bookmarks, notes]);
+
+  const filtered = useMemo(() => {
+    if (filter === 'all') return questions;
+    return questions.filter((q) => {
+      const ua = answers[q.id];
+      switch (filter) {
+        case 'correct':    return ua !== undefined && isCorrect(q, ua);
+        case 'wrong':      return ua !== undefined && !isCorrect(q, ua);
+        case 'skipped':    return ua === undefined;
+        case 'bookmarked': return bookmarks?.includes(q.id);
+        case 'noted':      return notes && notes[q.id];
+        default:           return true;
+      }
+    });
+  }, [questions, answers, bookmarks, notes, filter]);
+
+  const tabs = [
+    { id: 'all',        label: 'ทั้งหมด',  icon: '📋', color: 'var(--clr-ink)' },
+    { id: 'wrong',      label: 'ผิด',      icon: '✗',  color: 'var(--clr-rose)' },
+    { id: 'correct',    label: 'ถูก',      icon: '✓',  color: 'var(--clr-sage)' },
+    { id: 'skipped',    label: 'ข้าม',     icon: '⏭', color: 'var(--clr-ink-soft)' },
+    { id: 'bookmarked', label: 'Bookmark', icon: '★',  color: 'var(--clr-gold)' },
+    { id: 'noted',      label: 'มีโน้ต',   icon: '📝', color: 'var(--clr-plum, #7d4a7d)' },
+  ];
+
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" subtitle={`${questions.length} ข้อ`} />
@@ -21,7 +64,55 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         <p>กด ★ เพื่อ bookmark ข้อที่อยากกลับมาทำซ้ำ</p>
       </div>
 
-      {questions.map((q, idx) => {
+      {/* Filter tabs — only render if there's variety to filter (>1 unique
+          state). For a 5-Q practice run with all correct, tabs add noise. */}
+      {questions.length >= 5 && (
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18, padding: '4px 0' }}>
+          {tabs.map((t) => {
+            const n = counts[t.id];
+            if (t.id !== 'all' && n === 0) return null; // hide empty buckets
+            const active = filter === t.id;
+            return (
+              <button
+                key={t.id}
+                onClick={() => setFilter(t.id)}
+                style={{
+                  all: 'unset',
+                  cursor: 'pointer',
+                  padding: '6px 14px',
+                  borderRadius: 999,
+                  fontSize: 12,
+                  fontWeight: active ? 700 : 500,
+                  fontFamily: 'inherit',
+                  background: active ? t.color : 'var(--clr-surface)',
+                  color: active ? 'var(--clr-bg)' : 'var(--clr-ink)',
+                  border: `1px solid ${active ? t.color : 'var(--clr-border)'}`,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                }}
+              >
+                <span>{t.icon}</span>
+                <span>{t.label}</span>
+                <span style={{
+                  fontSize: 10,
+                  fontFamily: 'JetBrains Mono, monospace',
+                  padding: '1px 6px',
+                  borderRadius: 999,
+                  background: active ? 'rgba(255,255,255,0.25)' : 'var(--clr-surface-2)',
+                  color: active ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
+                }}>{n}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {filtered.length === 0 && (
+        <div className="vmx-empty">ไม่มีข้อในหมวด "{tabs.find((t) => t.id === filter)?.label}" — ลองหมวดอื่น</div>
+      )}
+
+      {filtered.map((q, idx) => {
         const userAns = answers[q.id];
         const answered = userAns !== undefined;
         const correct = isCorrect(q, userAns);
@@ -67,6 +158,23 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 )}
               </span>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                {notes && notes[q.id] && (
+                  <span
+                    title="ข้อนี้มีโน้ตของคุณ — เลื่อนลงไปดู"
+                    style={{
+                      fontSize: 11,
+                      padding: '2px 7px',
+                      borderRadius: 999,
+                      background: 'rgba(125, 74, 125, 0.15)',
+                      color: 'var(--clr-plum, #7d4a7d)',
+                      border: '1px solid var(--clr-plum, #7d4a7d)',
+                      fontFamily: 'JetBrains Mono, monospace',
+                      fontWeight: 600,
+                    }}
+                  >
+                    📝 มีโน้ต
+                  </span>
+                )}
                 <button className={`vmx-bookmark-btn ${bookmarks.includes(q.id) ? 'active' : ''}`}
                   style={{ position: 'static', width: 28, height: 28, fontSize: 14 }}
                   onClick={() => toggleBookmark(q.id)}>
@@ -79,14 +187,24 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </div>
             </div>
             {q.image && (
-              <img
-                src={q.image}
-                alt={`Question ${q.id} image · ${q.subject}/${q.topic || 'general'}`}
-                loading="lazy"
-                decoding="async"
-                className="vmx-qimage"
-                style={{ maxWidth: 300 }}
-              />
+              <>
+                <img
+                  src={q.image}
+                  alt={`Question ${q.id} image · ${q.subject}/${q.topic || 'general'}`}
+                  loading="lazy"
+                  decoding="async"
+                  className="vmx-qimage"
+                  style={{ maxWidth: 300 }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const ph = e.currentTarget.nextElementSibling;
+                    if (ph && ph.dataset.imgFallback) ph.style.display = 'block';
+                  }}
+                />
+                <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', maxWidth: 300 }}>
+                  ⚠️ ภาพประกอบโหลดไม่ได้
+                </div>
+              </>
             )}
             {q.passage && (
               <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, lineHeight: 1.65, whiteSpace: 'pre-wrap', maxHeight: 220, overflowY: 'auto' }}>

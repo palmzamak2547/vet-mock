@@ -227,7 +227,20 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           loading="lazy"
           decoding="async"
           className="vmx-qimage"
+          // onError swaps the broken <img> for an inline placeholder
+          // so users see "image failed to load" rather than a blank
+          // gap. We hide the img element to avoid double-rendering.
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+            const ph = e.currentTarget.nextElementSibling;
+            if (ph && ph.dataset.imgFallback) ph.style.display = 'block';
+          }}
         />
+      )}
+      {currentQ.image && (
+        <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', margin: '8px 0' }}>
+          ⚠️ ภาพประกอบโหลดไม่ได้ — ลองรีเฟรชหรือเช็คเน็ต
+        </div>
       )}
 
       {/* Layout switch: with-passage = grid on wide / stacked on narrow */}

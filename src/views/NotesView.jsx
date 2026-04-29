@@ -207,7 +207,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           )}
 
           {filteredSections.map((section, idx) => (
-            <SectionBlock key={idx} section={section} idx={idx} />
+            <SectionBlock key={idx} section={section} idx={idx} highlight={search} />
           ))}
         </div>
       </div>
@@ -217,7 +217,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 }
 
 // ── Single section ─────────────────────────────────────────────
-function SectionBlock({ section, idx }) {
+function SectionBlock({ section, idx, highlight }) {
   const [open, setOpen] = useState(true);
 
   return (
@@ -231,7 +231,7 @@ function SectionBlock({ section, idx }) {
             §{idx + 1}
           </div>
           <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>
-            <RichText text={section.heading} />
+            <RichText text={section.heading} highlight={highlight} />
           </div>
         </div>
         <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 10 }}>{open ? '▾' : '▸'}</div>
@@ -239,7 +239,7 @@ function SectionBlock({ section, idx }) {
 
       {open && (
         <div style={{ padding: '16px 20px', fontSize: 14, lineHeight: 1.65 }}>
-          {section.body.map((item, i) => <BodyItem key={i} item={item} />)}
+          {section.body.map((item, i) => <BodyItem key={i} item={item} highlight={highlight} />)}
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
               📚 ดึงจาก: {section.source}
@@ -252,11 +252,11 @@ function SectionBlock({ section, idx }) {
 }
 
 // ── Polymorphic body item renderer ─────────────────────────────
-function BodyItem({ item }) {
+function BodyItem({ item, highlight }) {
   if (item == null) return null;
 
   if (typeof item === 'string') {
-    return <p style={{ margin: '0 0 10px' }}><RichText text={item} /></p>;
+    return <p style={{ margin: '0 0 10px' }}><RichText text={item} highlight={highlight} /></p>;
   }
 
   if (item.bullets) {
@@ -264,7 +264,7 @@ function BodyItem({ item }) {
       <ul style={{ margin: '0 0 12px', paddingLeft: 22, lineHeight: 1.7 }}>
         {item.bullets.map((b, i) => (
           <li key={i} style={{ marginBottom: 4 }}>
-            <RichText text={typeof b === 'string' ? b : `${b.label}: ${b.value}`} />
+            <RichText text={typeof b === 'string' ? b : `${b.label}: ${b.value}`} highlight={highlight} />
           </li>
         ))}
       </ul>
@@ -275,9 +275,9 @@ function BodyItem({ item }) {
     return (
       <div style={{ margin: '12px 0', paddingLeft: 14, borderLeft: '3px solid var(--clr-border)' }}>
         <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 14, marginBottom: 8, color: 'var(--clr-ink)' }}>
-          <RichText text={item.sub} />
+          <RichText text={item.sub} highlight={highlight} />
         </div>
-        {item.body?.map((b, i) => <BodyItem key={i} item={b} />)}
+        {item.body?.map((b, i) => <BodyItem key={i} item={b} highlight={highlight} />)}
       </div>
     );
   }
@@ -291,7 +291,7 @@ function BodyItem({ item }) {
             <tr style={{ background: 'var(--clr-surface-2)' }}>
               {headers.map((h, i) => (
                 <th key={i} style={{ padding: '8px 10px', borderBottom: '1px solid var(--clr-border)', textAlign: 'left', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--clr-ink-soft)' }}>
-                  <RichText text={h} />
+                  <RichText text={h} highlight={highlight} />
                 </th>
               ))}
             </tr>
@@ -301,7 +301,7 @@ function BodyItem({ item }) {
               <tr key={i} style={{ borderBottom: '1px solid var(--clr-border)' }}>
                 {row.map((cell, j) => (
                   <td key={j} style={{ padding: '8px 10px', verticalAlign: 'top' }}>
-                    <RichText text={cell} />
+                    <RichText text={cell} highlight={highlight} />
                   </td>
                 ))}
               </tr>
@@ -322,7 +322,7 @@ function BodyItem({ item }) {
     return (
       <div style={{ margin: '12px 0', padding: '10px 14px', borderRadius: 10, background: p.bg, borderLeft: `4px solid ${p.border}`, fontSize: 13, lineHeight: 1.6 }}>
         <span style={{ marginRight: 6 }}>{p.icon}</span>
-        <RichText text={item.callout} />
+        <RichText text={item.callout} highlight={highlight} />
       </div>
     );
   }

@@ -249,7 +249,11 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           <div className="icon">🧠</div>
           <div className="title">Spaced Repetition</div>
           <div className="sub">
-            {cardStats.due > 0 ? `${cardStats.due} ข้อที่ต้องทบทวนวันนี้` : 'ทบทวนแบบ Anki'}
+            {cardStats.due > 0
+              // Rough estimate: ~1 min/card (read stem + grade self-assess +
+              // pause on confusing ones). Round up to nearest 5 for honesty.
+              ? `${cardStats.due} ข้อที่ต้องทบทวนวันนี้ · ≈ ${Math.max(5, Math.ceil(cardStats.due / 5) * 5)} นาที`
+              : 'ทบทวนแบบ Anki'}
           </div>
           {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
         </button>
