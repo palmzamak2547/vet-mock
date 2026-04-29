@@ -557,7 +557,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 )}
               </div>
 
-              <div ref={sidebarRef} style={{ flex: 1, overflowY: 'auto', padding: 8 }}>
+              <div ref={sidebarRef} style={{ flex: 1, minHeight: 0, overflowY: 'auto', WebkitOverflowScrolling: 'touch', padding: 8 }}>
                 {filteredItems.length === 0 && search && (
                   <div style={{ padding: 16, textAlign: 'center', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
                     ไม่พบคลิปที่ตรงกับ "{search}"

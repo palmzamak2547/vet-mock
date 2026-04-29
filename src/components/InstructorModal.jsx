@@ -27,7 +27,16 @@ export default function InstructorModal({ instructor, onClose }) {
       <div
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: 720 }}
+        // Explicit max-height + overflow re-asserts the .vmx-modal
+        // class defaults — defensive against any inline override
+        // someone might add later, and guarantees scroll on desktop
+        // when the profile has many papers/notes.
+        style={{
+          maxWidth: 720,
+          maxHeight: 'min(90vh, calc(100dvh - 24px))',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+        }}
         role="dialog"
         aria-label={`Instructor profile: ${nameEn}`}
       >

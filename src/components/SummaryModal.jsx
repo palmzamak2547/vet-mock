@@ -201,12 +201,20 @@ export default function SummaryModal({ summary, onClose }) {
           </button>
         </div>
 
-        {/* Body — scrollable */}
+        {/* Body — scrollable.
+            `minHeight: 0` is critical: in a flex column the default
+            `min-height: auto` lets the child grow to its content
+            size, which suppresses overflow-y on desktop (iOS/Android
+            momentum-scroll papers over it, so the bug only shows on
+            PC). With min-height 0 the child can shrink to fit the
+            parent's max-height, which then triggers the scrollbar. */}
         <div
           className="vmx-summary-body"
           style={{
             flex: 1,
+            minHeight: 0,
             overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch',
             padding: '18px 26px 26px',
             lineHeight: 1.7,
             fontSize: 15,

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import BackBar from '../components/BackBar.jsx';
 
 const CONTACT_EMAIL = 'palmzamak2547@gmail.com';
@@ -15,6 +15,12 @@ export default function FeedbackView({ goHome, user, profile }) {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
   const [apiError, setApiError] = useState(null); // { code, message } from API failure
+
+  // Track the success-reset timer so we can cancel it if the user
+  // navigates away before it fires — otherwise setState ran on an
+  // unmounted component (React warns + can leak the closure).
+  const resetTimerRef = useRef(null);
+  useEffect(() => () => { if (resetTimerRef.current) clearTimeout(resetTimerRef.current); }, []);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -35,9 +41,11 @@ export default function FeedbackView({ goHome, user, profile }) {
 
       if (resp.ok) {
         setStatus('success');
-        setTimeout(() => {
-          setFormData({ ...formData, subject: '', message: '' });
+        if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+        resetTimerRef.current = setTimeout(() => {
+          setFormData((prev) => ({ ...prev, subject: '', message: '' }));
           setStatus('idle');
+          resetTimerRef.current = null;
         }, 4000);
         return;
       }
