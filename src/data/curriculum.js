@@ -174,15 +174,15 @@ export const SUBJECTS_BY_YEAR = {
           '📅 Final scope (lectures 9-14): First Week Mortality / Avian Zoonosis / Biosecurity / Avian Drugs / Quality Assurance — 5 หัวข้อตรงกับ 5 slides ใน /Slide Lecture 2026/',
           '📅 Midterm scope (lectures 1-7) สอบไปแล้ว — viral/bacterial/vaccine/physiology · ซ่อนไว้ default',
           '⚠️ 52 ข้อจาก "Final Exotic ไม่ใช่คำตอบ.pdf" ยังไม่ชัวร์ scope — อาจเป็น midterm Year 4 หรือ Avian Med Year 5 · เก็บไว้ใน hidden topic "uncertain-scope"',
-          '👨‍🏫 Course coord: Kriengwich Limpavithayakul (L14-15) · Final scope instructors: Hatairat Plaimast (L9) · Nataya Charoenvisal (L10) · Niwat Chansiripornchai (L11) · Kamonpan Charoenkul (L13)',
+          '👨‍🏫 Course coord: Kriengwich Limpavithayakul (L9 + L14-15 · 3 ลกท.) · Final scope instructors: Nataya Charoenvisal (L10) · Niwat Chansiripornchai (L11) · Kamonpan Charoenkul (L13)',
           '🎯 14 ข้อใน final scope · 53 ข้อ uncertain-scope (hidden จนกว่าจะ verify)',
         ],
       },
       topics: [
         // ── Final scope (lectures 9-14) — 5 topics matching 2026 slides ──
         { id: 'first-week-mortality', label: 'L9 · First Week Mortality (AHRA)', icon: '🐣',
-          lecturer: 'Hatairat Plaimast', lecturer_year: 2026, schedule: '2026-03-10 · L9 · Final scope',
-          lecturerNote: 'AHRA / ShineChick first-week mortality framework · 0 ข้อตอนนี้ — ต้อง extract MCQs จาก slide เพิ่ม' },
+          lecturer: 'Kriengwich Limpavithayakul', lecturer_year: 2026, schedule: '2026-03-10 · L9 · Final scope',
+          lecturerNote: 'AHRA / ShineChick first-week mortality framework — สอนโดย Aj. Kriengwich (course coord ของรายวิชานี้) · 0 ข้อตอนนี้ — ต้อง extract MCQs จาก slide เพิ่ม' },
         { id: 'avian-zoonosis',       label: 'L10 · Avian Zoonosis', icon: '🧬',
           lecturer: 'Nataya Charoenvisal', lecturer_year: 2026, schedule: '2026-03-17 · L10 · Final scope',
           lecturerNote: 'Salmonella food safety + zoonotic poultry diseases · 1 ข้อ' },

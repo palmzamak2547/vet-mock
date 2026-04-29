@@ -543,9 +543,9 @@ export const INSTRUCTORS = {
         url: 'https://digital.car.chula.ac.th/tjvm/vol40/iss3/6/',
         summary: 'Natural Sano-flower carotenoids deepen yolk color — alternative to synthetic pigment.' },
     ],
-    notes: ['Teaches PLTRY HLTH MGT (3107409) lecture 9 (2026-03-10) — likely AHRA / First Week Mortality through nutrition & chick-quality lens.', 'Limited public research profile (~3-5 papers, mostly Thai/regional journals).'],
+    notes: ['Background in poultry nutrition (Animal Husbandry dept). Earlier syllabus parse listed her for L9 AHRA — Palm corrected: Aj. Kriengwich actually teaches L9 in 2026. Hatairat\'s 2026 role on this course is TBD (syllabus may be stale or she may take a midterm-scope nutrition lecture).', 'Limited public research profile (~3-5 papers, mostly Thai/regional journals).'],
     subjects: ['poultry'],
-    topics: ['first-week-mortality'],
+    topics: [],
   },
 
   'nataya-charoenvisal': {
@@ -661,9 +661,9 @@ export const INSTRUCTORS = {
         url: 'https://pubmed.ncbi.nlm.nih.gov/27902903/',
         summary: 'vlhA gene-based MS strain typing — early Thai work.' },
     ],
-    notes: ['Course coordinator for PLTRY HLTH MGT (3107409) · teaches lectures 14-15 (2026-04-21, 2026-04-28) — Quality Assurance.', 'PhD funded by Thailand Research Fund Royal Golden Jubilee program — junior faculty.', 'Mentored by Sasipreeyajan & Pakpinyo (senior poultry faculty).'],
+    notes: ['Course coordinator for PLTRY HLTH MGT (3107409) · teaches **3 lectures**: L9 (First Week Mortality / AHRA · 2026-03-10), L14 + L15 (Quality Assurance · 2026-04-21, 2026-04-28).', 'PhD funded by Thailand Research Fund Royal Golden Jubilee program — junior faculty.', 'Mentored by Sasipreeyajan & Pakpinyo (senior poultry faculty).'],
     subjects: ['poultry'],
-    topics: ['quality-assurance'],
+    topics: ['first-week-mortality', 'quality-assurance'],
   },
 };
 
