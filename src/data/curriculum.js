@@ -159,45 +159,62 @@ export const SUBJECTS_BY_YEAR = {
       icon: '🐾', color: '#b88940', semester: 2, has_questions: true },
 
     // ── Poultry Health Management ──
+    // Topics restructured 2026-04-29 to match 2026 final-scope slides
+    // exactly (5 PDFs in /Slide Lecture 2026/ folder). Lectures 9-14
+    // form the final scope per syllabus. Midterm-scope topics (lectures
+    // 1-7: viral diseases, bacterial diseases) hidden by default — the
+    // 52 Qs from "Final Exotic ไม่ใช่คำตอบ" might be midterm content
+    // OR Year 5 Avian Med (Palm uncertain), so flagged accordingly.
     { id: 'poultry', code: '3107409', name: 'Poultry', name_en: 'Poultry Health Management',
       icon: '🐔', color: '#d97744', semester: 2, has_questions: true,
       examFormat: {
         weight: 'Mid 105/200 (52.5%) · Final 90/200 (45%) · Class 5/200 (2.5%) · Letter Grade A-F',
         choiceCount: 5,
         notes: [
-          '📅 Final scope = lectures 9-14 (90 pts · 45%) — biosecurity, drugs, QA, zoonosis, first-week mortality',
-          '📅 Midterm scope = lectures 1-7 (105 pts · 52.5%) — physiology, drugs intro, viral diseases, bacterial diseases, vaccine programs',
-          '✅ คลังข้อสอบ 67 ข้อ จาก: Poultry Final 2019 (52 verified) + POULTRY FINAL 86 รวมโพย (15 from study notes)',
-          '👨‍🏫 Course coordinator: Kriengwich Limpavithayakul · 2 หน่วยกิต',
-          '🎯 ~12 ข้อ flagged `verify-2026` — student answers borderline · ตรวจกับ slide 2026 อีกที',
+          '📅 Final scope (lectures 9-14): First Week Mortality / Avian Zoonosis / Biosecurity / Avian Drugs / Quality Assurance — 5 หัวข้อตรงกับ 5 slides ใน /Slide Lecture 2026/',
+          '📅 Midterm scope (lectures 1-7) สอบไปแล้ว — viral/bacterial/vaccine/physiology · ซ่อนไว้ default',
+          '⚠️ 52 ข้อจาก "Final Exotic ไม่ใช่คำตอบ.pdf" ยังไม่ชัวร์ scope — อาจเป็น midterm Year 4 หรือ Avian Med Year 5 · เก็บไว้ใน hidden topic "uncertain-scope"',
+          '👨‍🏫 Course coord: Kriengwich Limpavithayakul (L14-15) · Final scope instructors: Hatairat Plaimast (L9) · Nataya Charoenvisal (L10) · Niwat Chansiripornchai (L11) · Kamonpan Charoenkul (L13)',
+          '🎯 14 ข้อใน final scope · 53 ข้อ uncertain-scope (hidden จนกว่าจะ verify)',
         ],
       },
       topics: [
-        // Lecture topics mapped from 2026 slide deck + course syllabus content
-        { id: 'avian-virus',         label: '🦠 โรคไวรัสในสัตว์ปีก', icon: '🦠',
-          lecturer: 'Course coordinator', lecturer_year: 2026,
-          lecturerNote: 'ND (15) · AE (10) · aMPV (5) · CAV/blue wing (1) · acute death DDx (1) — 32 ข้อ' },
-        { id: 'avian-bacterial',     label: '🧫 โรคแบคทีเรียในสัตว์ปีก', icon: '🧫',
-          lecturer: 'Course coordinator', lecturer_year: 2026,
-          lecturerNote: 'APEC/colibacillosis (10) · Mycoplasma (4) · Infectious coryza (2) · Fowl cholera + age susceptibility · NDS — ~19 ข้อ' },
-        { id: 'avian-zoonosis',      label: '🧬 Avian Zoonosis', icon: '🧬',
-          lecturer: 'Course coordinator', lecturer_year: 2026, schedule: 'Final scope',
-          lecturerNote: 'Salmonella food safety + zoonotic poultry diseases · 1 ข้อ ตอนนี้ + เพิ่มจาก slide ได้' },
-        { id: 'biosecurity',         label: '🛡 Biosecurity & Surveillance', icon: '🛡',
-          lecturer: 'อ.ณทยา', lecturer_year: 2026, schedule: 'Final scope',
-          lecturerNote: 'Sentinel birds · disinfection · sample size calc · sens/spec — 4 ข้อ' },
-        { id: 'avian-drugs',         label: '💊 Avian Drugs & Treatment', icon: '💊',
-          lecturer: 'Course coordinator', lecturer_year: 2026, schedule: 'Final scope',
-          lecturerNote: 'Antibiotics in poultry · Tylosin/streptomycin/gentamicin/enrofloxacin' },
-        { id: 'vaccine-program',     label: '💉 Vaccine Programs', icon: '💉',
-          lecturer: 'Course coordinator', lecturer_year: 2026,
-          lecturerNote: 'IC vaccine · ND broiler program · breeder schedule · ICPI threshold — 5 ข้อ' },
-        { id: 'physiology',          label: '🧠 Avian Physiology + Immunology', icon: '🧠',
-          lecturer: 'Kris Angkanaporn', lecturer_year: 2026,
-          lecturerNote: 'Lymphoid organs · B-cell (Bursa) · T-cell (Thymus) · cecal tonsils — 3 ข้อ' },
-        { id: 'quality-assurance',   label: '🏆 Quality Assurance', icon: '🏆',
-          lecturer: 'Course coordinator', lecturer_year: 2026, schedule: 'Final scope',
-          lecturerNote: 'QA components (control/audit/accreditation/assess/traceability) · PDCA · slow-growth trade-offs · FCR — 7 ข้อ' },
+        // ── Final scope (lectures 9-14) — 5 topics matching 2026 slides ──
+        { id: 'first-week-mortality', label: 'L9 · First Week Mortality (AHRA)', icon: '🐣',
+          lecturer: 'Hatairat Plaimast', lecturer_year: 2026, schedule: '2026-03-10 · L9 · Final scope',
+          lecturerNote: 'AHRA / ShineChick first-week mortality framework · 0 ข้อตอนนี้ — ต้อง extract MCQs จาก slide เพิ่ม' },
+        { id: 'avian-zoonosis',       label: 'L10 · Avian Zoonosis', icon: '🧬',
+          lecturer: 'Nataya Charoenvisal', lecturer_year: 2026, schedule: '2026-03-17 · L10 · Final scope',
+          lecturerNote: 'Salmonella food safety + zoonotic poultry diseases · 1 ข้อ' },
+        { id: 'biosecurity',          label: 'L11 · Biosecurity & Disease Surveillance', icon: '🛡',
+          lecturer: 'Niwat Chansiripornchai', lecturer_year: 2026, schedule: '2026-03-24 · L11 · Final scope',
+          lecturerNote: 'Conceptual + structural biosecurity · sentinel birds · cleaning + disinfection · sample size · sens/spec — 4 ข้อ' },
+        { id: 'avian-drugs',          label: 'L13 · Avian Drugs', icon: '💊',
+          lecturer: 'Kamonpan Charoenkul', lecturer_year: 2026, schedule: '2026-04-07 · L13 · Final scope',
+          lecturerNote: 'Antibiotic selection in poultry · Tylosin/streptomycin/gentamicin/enrofloxacin (residue concerns) · 1 ข้อ' },
+        { id: 'quality-assurance',    label: 'L14-15 · Quality Assurance', icon: '🏆',
+          lecturer: 'Kriengwich Limpavithayakul', lecturer_year: 2026, schedule: '2026-04-21 + 04-28 · L14-15 · Final scope · Course coord',
+          lecturerNote: 'QA components (control/audit/accreditation/assess/traceability) · PDCA · slow-growth trade-offs · FCR · Betagro performance — 7 ข้อ' },
+
+        // ── Uncertain scope (52 Qs) — might be midterm Y4 or Y5 Avian Med ──
+        { id: 'uncertain-scope',      label: '❓ Uncertain Scope · ND/AE/aMPV/E.coli/Mycoplasma', icon: '❓',
+          hidden: true,
+          lecturer: 'TBD — verify against L1-7 slides or Y5 Avian Med syllabus',
+          lecturerNote: '52 ข้อจาก "Final Exotic ไม่ใช่คำตอบ.pdf" · cover ND (15) · AE (10) · aMPV (5) · APEC (10) · Mycoplasma (4) · Coryza/cholera/NDS (8). เนื้อหาเป็นโรคพื้นฐานของ poultry — ปกติสอนใน midterm Y4 แต่ Palm สงสัยว่าอาจเป็น Y5 Avian Med' },
+
+        // ── Midterm scope topics (lectures 1-7) — hidden, no Qs yet ──
+        { id: 'physiology',           label: 'L1-2 · Physiology + Immunology', icon: '🧠',
+          hidden: true,
+          lecturer: 'Kris Angkanaporn', lecturer_year: 2026, schedule: 'L1-2 · Midterm scope',
+          lecturerNote: 'Lymphoid organs · B-cell (Bursa) · T-cell (Thymus) · cecal tonsils — 3 ข้อ จาก pre-test note' },
+        { id: 'nutrition',            label: 'L4-5 · Feed Management', icon: '🌾',
+          hidden: true,
+          lecturer: 'Chackrit Nuengjamnong', lecturer_year: 2026, schedule: 'L4-5 · Midterm scope',
+          lecturerNote: 'Animal composition · ME/NE · limiting amino acids (Met/Lys/Thr) · Ca:P · raw materials · 0 ข้อ' },
+        { id: 'midterm-disease',      label: 'L6-7 · Midterm Diseases', icon: '🦠',
+          hidden: true,
+          lecturer: 'Somsak Pakpinyo', lecturer_year: 2026, schedule: 'L6-7 · Midterm scope',
+          lecturerNote: 'Acute death DDx · CAV/blue wing — 2 ข้อ' },
       ] },
 
     // ── Wildlife & Exotic ──

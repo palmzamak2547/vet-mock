@@ -32,7 +32,7 @@
 
 export const QB_POULTRY = [
   // ── aMPV (5 Qs) ───────────────────────────────────────────────
-  { id: 1700, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1700, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['aMPV', 'virus'], type: 'tf',
@@ -40,7 +40,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'aMPV: swollen head + URI signs (cough, sneeze, conjunctivitis) + drop in egg production · "ระบบประสาทชัก" (seizures) ไม่ใช่ลักษณะเฉพาะของ aMPV — เป็นของ ND/AE มากกว่า' },
 
-  { id: 1701, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1701, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['aMPV', 'turkey'], type: 'tf',
@@ -48,7 +48,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'ทั้ง 3 ชื่อเป็นรูปแบบของ aMPV: ART = ไก่ทั่วไป · TRT = turkey · SHS = chicken complications' },
 
-  { id: 1702, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1702, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['aMPV', 'classification'], type: 'tf',
@@ -57,7 +57,7 @@ export const QB_POULTRY = [
     explain: 'ICTV เก่า: aMPV = Paramyxoviridae · ICTV ใหม่ (2018+): แยกเป็น Pneumoviridae · ตำราไทย/Thai vet curriculum หลายแห่งยังใช้ classification เก่า ตอบ T ก็ถือว่าได้',
     flag: 'verify-2026' },
 
-  { id: 1703, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1703, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['aMPV', 'differential-diagnosis'], type: 'tf',
@@ -65,7 +65,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'URI viral DDx: ND, IB (coronavirus), AI, ILT, aMPV · fowl cholera (Pasteurella) ก็มี URI signs ในระยะ acute' },
 
-  { id: 1704, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1704, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['aMPV', 'vaccine'], type: 'tf',
@@ -74,7 +74,7 @@ export const QB_POULTRY = [
     explain: 'aMPV vaccine มี subtypes A, B, A+B · ใช้ในยุโรป/USA breeders + turkeys · ไทยใช้น้อยเพราะ disease prevalence ต่ำ + cost' },
 
   // ── AE (10 Qs) ────────────────────────────────────────────────
-  { id: 1705, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1705, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['AE', 'epidemic-tremor'], type: 'tf',
@@ -82,7 +82,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'ชื่อจริง: **Epidemic tremor** (ไม่ใช่ tetramors) — เพราะลูกไก่แสดง muscular tremor ของหัว/คอ' },
 
-  { id: 1706, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1706, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['AE', 'age'], type: 'tf',
@@ -90,7 +90,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'AE clinical: chick **<3 สัปดาห์** เด่นชัด — ataxia + tremor + paralysis · ตัวโต (>3 wk) infected แต่ไม่มี clinical signs (subclinical) · GI signs ไม่ใช่ classic' },
 
-  { id: 1707, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1707, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['AE', 'classification'], type: 'tf',
@@ -99,7 +99,7 @@ export const QB_POULTRY = [
     explain: 'AE virus เป็น Picornaviridae · genus เก่าจัดเป็น Enterovirus · ICTV ใหม่จัดเป็น genus **Tremovirus** · ตอบ T ตามตำราเก่ายังถือว่าได้',
     flag: 'verify-2026' },
 
-  { id: 1708, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1708, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['AE', 'vaccine'], type: 'tf',
@@ -107,7 +107,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'AE vaccine = **drinking water** route (live vaccine) · ฉีดไม่นิยม · drinking water ใน breeders ก่อนวางไข่' },
 
-  { id: 1709, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1709, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['AE', 'broiler'], type: 'tf',
@@ -115,7 +115,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'AE vaccine ใน **breeders** ก่อนวางไข่เพื่อให้ลูกไก่ได้ MDA · broilers ไม่ vaccinate (ไม่วางไข่ + ตายเร็ว)' },
 
-  { id: 1710, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1710, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['AE', 'pathology'], type: 'tf',
@@ -123,7 +123,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'AE gross lesions มัก subtle/none · histopath = **lymphocytic perivascular cuffing + central chromatolysis ของ neurons** · perivascular cuffing ไม่ใช่ pathognomonic (มีในโรค viral encephalitis อื่นด้วย)' },
 
-  { id: 1711, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1711, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['AE', 'transmission'], type: 'tf',
@@ -131,7 +131,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'AE: fecal-oral horizontal · vertical (egg) transmission ก็เป็น route สำคัญใน breeders ที่ติดเชื้อระหว่างวางไข่' },
 
-  { id: 1712, subject: 'poultry', topic: 'vaccine-program', year: 4,
+  { id: 1712, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['AE', 'breeder-vaccine'], type: 'tf',
@@ -139,7 +139,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'Breeder vaccination → maternal Ab → ลูกไก่ได้ passive immunity ถึงอายุ ~2-3 wk (เลยช่วงเสี่ยง)' },
 
-  { id: 1713, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1713, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['AE', 'histopath'], type: 'tf',
@@ -147,7 +147,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'AE target tissue หลัก = **CNS** (สมอง + spinal cord + cerebellum) · ตับ/ม้ามไม่ใช่ classic · pancreas ก็เป็น target' },
 
-  { id: 1714, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1714, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['differential-diagnosis', 'neuro'], type: 'tf',
@@ -157,7 +157,7 @@ export const QB_POULTRY = [
     flag: 'verify-2026' },
 
   // ── ND (15 Qs) ────────────────────────────────────────────────
-  { id: 1715, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1715, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'classification'], type: 'tf',
@@ -165,7 +165,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'ND = **Paramyxoviridae** (genus Avulavirus / orthoavulavirus 1) · AI = **Orthomyxoviridae** · คนละ family' },
 
-  { id: 1716, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1716, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'serotype'], type: 'tf',
@@ -173,7 +173,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'NDV = single serotype (APMV-1) · pathotype หลัก: lentogenic / mesogenic / velogenic · velogenic แยก viscerotropic vs neurotropic' },
 
-  { id: 1717, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1717, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'velogenic'], type: 'tf',
@@ -181,7 +181,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'OIE notifiable: Velogenic ND = Exotic ND · ICPI ≥0.7 · กลุ่มที่รุนแรงสุด' },
 
-  { id: 1718, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1718, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'lentogenic'], type: 'tf',
@@ -189,7 +189,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'Lentogenic = vaccine strains: B1 (Hitchner) · La Sota · F · V4 · Ulster · ICPI ≤0.4' },
 
-  { id: 1719, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1719, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'mesogenic'], type: 'tf',
@@ -198,7 +198,7 @@ export const QB_POULTRY = [
     explain: 'Mesogenic strains: Mukteswar (Indian) · Roakin · Komarov · Mukteswar Philippines เป็น regional naming · ICPI 0.7-1.5',
     flag: 'verify-2026' },
 
-  { id: 1720, subject: 'poultry', topic: 'vaccine-program', year: 4,
+  { id: 1720, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'vaccine', 'ICPI'], type: 'tf',
@@ -206,7 +206,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'OIE/USDA: vaccine candidate ICPI ≤ 0.4 (lentogenic) · La Sota ~0.3 · B1 ~0.0 ตรงตามเกณฑ์' },
 
-  { id: 1721, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1721, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'MDT'], type: 'tf',
@@ -214,7 +214,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: '**กลับกัน** — MDT = เวลาเฉลี่ยที่ embryo ตาย · velogenic ฆ่าเร็ว → MDT **ต่ำ** (<60 hr) · lentogenic ฆ่าช้า → MDT **สูง** (>90 hr)' },
 
-  { id: 1722, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1722, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'pathogenicity-test'], type: 'tf',
@@ -222,7 +222,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'OIE 3 standard tests: **MDT** (mean death time embryo) · **ICPI** (intracerebral pathogenicity index, 1-day chick) · **IVPI** (intravenous pathogenicity index, 6-week chicken)' },
 
-  { id: 1723, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1723, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'IVPI'], type: 'tf',
@@ -230,7 +230,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'IVPI = **6-week-old chickens** IV (ไม่ใช่ 1 วัน) · ICPI ที่ใช้ลูกไก่ 1 วัน intracerebral' },
 
-  { id: 1724, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1724, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'clinical'], type: 'tf',
@@ -238,7 +238,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'ND classic: URI/LRT signs + greenish diarrhea + neuro (torticollis, opisthotonus) · AI velogenic ก็คล้าย — ต้อง lab confirm' },
 
-  { id: 1725, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1725, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'sequela'], type: 'tf',
@@ -246,7 +246,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'ไก่ที่รอด velogenic neurotropic ND มัก residual neuro signs: opisthotonus · torticollis · paralysis · CNS damage permanent' },
 
-  { id: 1726, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1726, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'serology'], type: 'tf',
@@ -262,7 +262,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: '**Sentinel ต้องไม่ได้รับวัคซีน (susceptible)** — เพื่อให้ป่วย = ตรวจจับ virus circulation · ถ้าวัคซีนแล้วจะ mask infection' },
 
-  { id: 1728, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1728, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'pathology', 'VVND'], type: 'tf',
@@ -271,7 +271,7 @@ export const QB_POULTRY = [
     explain: '**These are classic VVND (velogenic viscerotropic ND) lesions**: button ulcers ที่ cecal tonsils · proventricular gland hemorrhages · proventriculus-gizzard junction hemorrhage · pathognomonic ของ vNDV form ในไก่ · (corrected from student answer F → T)',
     flag: 'corrected-from-student' },
 
-  { id: 1729, subject: 'poultry', topic: 'vaccine-program', year: 4,
+  { id: 1729, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['ND', 'vaccine-program', 'broiler'], type: 'tf',
@@ -281,7 +281,7 @@ export const QB_POULTRY = [
     flag: 'verify-2026' },
 
   // ── E. coli / APEC (10 Qs) ────────────────────────────────────
-  { id: 1730, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1730, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'terminology'], type: 'tf',
@@ -289,7 +289,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'ชื่อมาตรฐาน: **APEC** (Avian Pathogenic E. coli) — ไม่ใช่ "Poultry pathogenic" · APEC คือกลุ่ม virulent E. coli ที่ก่อโรคใน chicken' },
 
-  { id: 1731, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1731, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'serotype'], type: 'tf',
@@ -298,7 +298,7 @@ export const QB_POULTRY = [
     explain: 'APEC ทั่วโลกหลัก: **O1, O2, O78** · O35/O87 ไม่ใช่ classic · serotype regional variation มีอยู่',
     flag: 'verify-2026' },
 
-  { id: 1732, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1732, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'pathology'], type: 'tf',
@@ -306,7 +306,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'APEC main pathology: **airsacculitis + perihepatitis + pericarditis + peritonitis (CCPP triad)** + cellulitis + omphalitis · ไม่ใช่ URI/GI primary' },
 
-  { id: 1733, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1733, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'transmission'], type: 'tf',
@@ -314,7 +314,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'APEC routes: faecal-oral · aerogenous · vertical (eggshell penetration → omphalitis) · ทุก route นี้ documented' },
 
-  { id: 1734, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1734, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'clinical'], type: 'tf',
@@ -322,7 +322,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'APEC clinical presentations: omphalitis (chick) · cellulitis (broiler) · salpingitis/oophoritis (layer) · peritonitis · airsacculitis · synovitis' },
 
-  { id: 1735, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1735, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'cellulitis'], type: 'tf',
@@ -330,7 +330,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'Avian cellulitis = SC cellulitis จาก APEC · พบบริเวณ ventral abdomen ของ broiler · scratch wound + APEC เป็น cause หลัก' },
 
-  { id: 1736, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1736, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'pathology', 'timeline'], type: 'tf',
@@ -339,7 +339,7 @@ export const QB_POULTRY = [
     explain: 'APEC pathology classic ปรากฏ **5-7 วัน** หลังติดเชื้อ (เร็วกว่า 7-10) · acute septicemia อาจตายภายใน 24 hr',
     flag: 'verify-2026' },
 
-  { id: 1737, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1737, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'duck'], type: 'tf',
@@ -347,7 +347,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'ทั้งคู่ก่อ fibrinous pericarditis + perihepatitis + airsacculitis ในเป็ด · gross indistinguishable · ต้อง culture/PCR แยก' },
 
-  { id: 1738, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1738, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'coligranuloma'], type: 'tf',
@@ -355,7 +355,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'Coligranuloma = **granulomatous nodules ที่ liver + intestine + mesentery** · พบในไก่โต/เก่า · ผิวหนัง/follicle ไม่ใช่ classic site' },
 
-  { id: 1739, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1739, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['colibacillosis', 'treatment'], type: 'tf',
@@ -364,7 +364,7 @@ export const QB_POULTRY = [
     explain: 'APEC treatment: **antibiotic ตาม sensitivity** + supportive + biosecurity · isolation alone ไม่พอ' },
 
   // ── Mycoplasma (4 Qs) ─────────────────────────────────────────
-  { id: 1740, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1740, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['mycoplasma', 'characteristic'], type: 'tf',
@@ -372,7 +372,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'Mycoplasma = smallest free-living organism · **lacks peptidoglycan cell wall** → resistant ต่อ β-lactams (penicillin, cephalosporin) · sensitive ต่อ tetracycline, macrolide, fluoroquinolone' },
 
-  { id: 1741, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1741, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['mycoplasma', 'species'], type: 'tf',
@@ -381,7 +381,7 @@ export const QB_POULTRY = [
     explain: 'Big-3 ของ poultry Mycoplasma: **M. gallisepticum (MG), M. synoviae (MS), M. meleagridis (MM, turkey), M. iowae (MI, turkey)** · 3 ชื่อในข้อ correct แต่ขาด M. iowae · ระวัง M. meleagridis สำคัญใน turkey ไม่ใช่ chicken commercial',
     flag: 'verify-2026' },
 
-  { id: 1742, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1742, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['mycoplasma', 'CRD'], type: 'tf',
@@ -389,7 +389,7 @@ export const QB_POULTRY = [
     answer: true,
     explain: 'CRD primary = MG · MS เป็น co-infection ส่วนใหญ่ · complicated CRD = MG + APEC' },
 
-  { id: 1743, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1743, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['mycoplasma', 'colony'], type: 'tf',
@@ -398,7 +398,7 @@ export const QB_POULTRY = [
     explain: '"Fried egg" colony morphology = Mycoplasma genus (general feature) · MG/MS ทั้งคู่แสดงรูปนี้ · differential ใน species ใช้ growth pattern + biochemical + PCR ต่อ' },
 
   // ── Mixed: Coryza / Fowl cholera / NDS / vaccines (8 Qs) ──────
-  { id: 1744, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1744, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['age-susceptibility', 'infectious-coryza'], type: 'mcq',
@@ -413,7 +413,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Infectious coryza = older birds (mature/laying hens, 14+ wk) susceptible สูงกว่า · AE = young chicks (<3 wk) · Newcastle/Riemerella ไม่มี age preference เด่น' },
 
-  { id: 1745, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1745, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['respiratory', 'differential-diagnosis'], type: 'mcq',
@@ -443,7 +443,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Pasteurella multocida (fowl cholera): หนู/แมว/หมาเป็น reservoir + carrier · IC restricted to chickens · Riemerella waterfowl-restricted · E. coli ubiquitous (ไม่ specific carrier)' },
 
-  { id: 1747, subject: 'poultry', topic: 'vaccine-program', year: 4,
+  { id: 1747, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['bacterin', 'killed-vaccine'], type: 'mcq',
@@ -459,7 +459,7 @@ export const QB_POULTRY = [
     explain: '(a) ✓ killed bacterin ฉีดได้หลาย site (IM/SC) · (b) capsule = major antigen แต่อ้างเด่นกว่าวัคซีนทั่วไป · (c) -20°C → cold chain issue, ปกติ 2-8°C · (d) drinking water = live only · (e) cross-protection limited',
     flag: 'verify-2026' },
 
-  { id: 1748, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1748, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['infectious-coryza'], type: 'mcq',
@@ -474,7 +474,7 @@ export const QB_POULTRY = [
     answer: 4,
     explain: 'Avibacterium paragallinarum: 3 serovars (A/B/C) · URT lesion (sinusitis, conjunctivitis, facial swelling) · layer-affecting · NAD-dependent (V-factor) → satellite test กับ Staph aureus' },
 
-  { id: 1749, subject: 'poultry', topic: 'vaccine-program', year: 4,
+  { id: 1749, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['IC', 'vaccine'], type: 'mcq',
@@ -505,7 +505,7 @@ export const QB_POULTRY = [
     explain: 'Fowl cholera: gentamicin ใช้ได้ในน้ำดื่ม (ตำราไทยบางแห่ง) · IC: ใช้ sulfa, tylosin, oxytetra, erythromycin · Enrofloxacin ใน layers = banned (residue) ในหลายประเทศ',
     flag: 'verify-2026' },
 
-  { id: 1751, subject: 'poultry', topic: 'avian-bacterial', year: 4,
+  { id: 1751, subject: 'poultry', topic: 'uncertain-scope', year: 4,
     source: 'Final Exotic 2019 (poultry subset)',
     examOrigin: 'Poultry Final 2019',
     tags: ['new-duck-syndrome', 'Riemerella'], type: 'mcq',
@@ -645,7 +645,7 @@ export const QB_POULTRY = [
     explain: 'การวัดผล cleaning/disinfection = **bacterial swab + ATP bioluminescence + visual inspection** · prevent/control/eradicate เป็นเป้าหมาย ไม่ใช่ measurement method',
     flag: 'verify-2026' },
 
-  { id: 1764, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1764, subject: 'poultry', topic: 'midterm-disease', year: 4,
     source: 'POULTRY FINAL 86 รวมโพย (page 46)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['acute-death', 'differential-diagnosis'], type: 'mcq',
@@ -660,7 +660,7 @@ export const QB_POULTRY = [
     answer: 4,
     explain: 'Acute death DDx ทุกโรค viral ที่กล่าวมา + AE + Chicken anemia virus (CAV) · เน้น **AI + ND velogenic** = peracute mass mortality · ต้อง lab confirm' },
 
-  { id: 1765, subject: 'poultry', topic: 'avian-virus', year: 4,
+  { id: 1765, subject: 'poultry', topic: 'midterm-disease', year: 4,
     source: 'POULTRY FINAL 86 รวมโพย (page 46)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['CAV', 'blue-wing-disease'], type: 'mcq',
