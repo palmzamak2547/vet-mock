@@ -5549,6 +5549,1211 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 > 💡 **Closing**: "Autoimmune skin disease = rare แต่ต้องนึกถึงเมื่อ recurrent infection + treat antibiotic ไม่หาย · biopsy หาคำตอบเสมอ"`,
   },
+
+  // ═════════════════════════════════════════════════════════════
+  // 🆕 EXOTIC — Final scope (week 7-14) · ปลายภาค 2026
+  // 7 lectures by อ.ธวัช + อ.เสาวภางค์ (ZPOT) + อ.ไพศิลป์ + อ.ปัณณวัฒน์
+  // Added 2026-04-30 from YouTube transcripts (ช่อง Dai @dai.1387)
+  // ═════════════════════════════════════════════════════════════
+
+  // ─── V8 (อ.ธวัช) Bird Treatment Basics ───────────────────────
+  'Ml-PPOphv4E': {
+    videoId: 'Ml-PPOphv4E',
+    title: '1. การรักษาสัตว์ปีกเบื้องต้น',
+    subject: 'exotic',
+    date: '4 Mar 69',
+    durationMin: 75,
+    instructor: 'อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์',
+    examFormat: 'MCQ — clinical reasoning + technique steps · pitfall (เช่น "นกท้องเสีย" จริงหรือไม่ · NPO กี่ชม.)',
+    summary: `# การรักษาสัตว์ปีกเบื้องต้น (Basic Avian Medicine)
+
+> 🦜 "นกป่วยถูกเอาไปหาหมอทีไร ตายทุกที" — ทำไมถึงเป็นภาพจำของเจ้าของ และเราจะแก้อย่างไร
+
+## ⏱️ Timeline
+| Time | Topic |
+|---|---|
+| 10-14 | ทำไมรักษานกยาก · prey species behavior |
+| 14-18 | Signalment + history |
+| 18-23 | Hands-off exam: respiratory · feather · droppings ⭐ |
+| 23-27 | Physical exam: ฟังปอด (ไม่แม่น!) · keel/BCS |
+| 27-37 | Restraint + bite warnings (African Grey, Macaw) |
+| 37-44 | Blood collection · DNA sexing · CBC volume |
+| 44-50 | Anesthesia: isoflurane, NPO 2-3 hr |
+| 50-55 | Drug administration (PO/IM/SC pitfalls) |
+| 55-60 | Fluid therapy + dehydration |
+| 60-71 | Procedures: nare flush, beak/nail trim, wing clip ⭐ |
+
+---
+
+## 🐦 Why Bird Medicine is Hard
+
+### Prey species nature ⭐⭐
+- นก = prey species → "เก็บอาการจนถึงที่สุด" ก่อนแสดงอาการ
+- เจ้าของจะบอกเสมอ "เมื่อวานยังปกติอยู่เลย" — ไม่ปกติ! แค่ไม่สังเกต
+
+### Triage by visual assessment ⭐⭐⭐
+| สภาพ | Prognosis |
+|---|---|
+| ยืนเกาะคอน · มี activity · จิกอาหาร | ปกติ → ตรวจได้ |
+| **นอนพื้นกรง · ขนพอง · ตาปิด** | เสี่ยงตายระหว่างจับ → emergency tx (O₂ + heat + fluid) ก่อน + เตือนเจ้าของ |
+
+> 💡 **อ.ธวัช:** "ถ้าคุณไม่แจ้งเจ้าของแล้วนกตายคามือ คุณจะโดนเบลม — ทั้งที่นกมันก็เห็นอยู่แล้วว่านอนพื้นกรงมา"
+
+---
+
+## 👀 Hands-Off Exam (ก่อนจับ!)
+
+### Respiratory pattern ⭐⭐
+- นกปกติ = หายใจเบาๆ หางไม่ขยับ
+- ป่วย = **หางกระดกขึ้น-ลง (tail bob)** ตามจังหวะหายใจ
+- ⚠️ ห้ามจับก่อนสังเกต — จับแล้ว pattern เปลี่ยน
+
+### Droppings ⭐⭐⭐ (exam fav!)
+3 components: **Faeces** (อุจจาระ) + **Urate** (ขาว · ไม่ใช่ urea) + **Urine** (น้ำ)
+
+> ⚠️ **Pitfall**: เจ้าของบอก "นกท้องเสีย" — ไปดูเจอแค่ urate + น้ำ = **ไม่ใช่ diarrhea! นกไม่กิน** ต่างหาก
+> Hornbill กินผลไม้ → dropping เหลวปกติ · นกแก้วถ่ายเหลว = abnormal
+
+---
+
+## 🩺 Hands-On Physical Exam
+
+> 💡 **อ.ธวัช (เด็ด!):** "ถ้านกหนัก 100 g แล้วเอา stetth ไปแปะแล้วบอก normal lung sound — รับประกันว่ามั่ว!"
+> ปอดนกฝังใน rib groove → auscultate ไม่แม่น · สงสัย respiratory → **X-ray**
+
+### Keel/Pectoral muscle (BCS) ⭐⭐
+- กระดูก keel เด่น + กล้าม pectoral แฟบ = **chronic illness** (ไม่ใช่ acute)
+- ต้องหา predisposing cause ไม่ใช่แค่อาการปัจจุบัน
+
+### Temperature
+- Normal **104-106°F** (สูงกว่าหมาแมว)
+- อ.ไม่วัด routine — เสี่ยงโคลก้าบาดเจ็บ
+
+---
+
+## 🤲 Restraint
+- ผ้าขนหนูคลุมหัว + จับ **mandibular joint** (TMJ) — กัดไม่ได้
+- ⚠️ African Grey 400-500g กัดขาดเหมือนกัดเนย · Macaw หนังหน้า → จับแรง = ช้ำแดง
+- Recovery check: ปล่อยกรง → 5 นาทีต้องหายใจปกติ + ขนเรียบ · ถ้านานกว่า = สงสัย respiratory/anemia
+
+---
+
+## 🩸 Blood Collection ⭐⭐
+| ตำแหน่ง | ข้อดี | ข้อเสีย |
+|---|---|---|
+| **Jugular (คอ)** | ปริมาณเยอะ | hematoma มี (ขนคลุม เจ้าของไม่เห็น) |
+| **Basilic (ปีก)** | นิยม | hematoma ใต้ปีกขนน้อย → ช้ำ 4-5 วัน |
+| **Medial metatarsal (ขา)** | hematoma เห็นยาก | ตำแหน่งหายาก |
+
+### DNA Sexing ⭐⭐
+- นกแก้วส่วนใหญ่ sexual monomorphism
+- **1 หยดเลือดบนกระดาษกรอง** → ส่งไปรษณีย์ได้
+- เพราะ **RBC ของนกมี nucleus** → DNA เยอะมาก (ต่างจาก mammal)
+
+---
+
+## 💉 Anesthesia ⭐⭐
+
+### NPO time ⭐⭐⭐ (HOT EXAM!)
+> ⚠️ **อย่า**ใช้ใบสั่งหมาแมว NPO 8-12 hr! นก metabolic สูง → อดนาน = ตาย
+- **2-3 ชั่วโมงพอ** · นกเล็กอดสั้น · นกใหญ่อดนานหน่อย
+
+### Drug + Tube
+- **Isoflurane** = drug of choice · Sevoflurane แพง ไม่ใช้ routine
+- ETT **uncuffed** เท่านั้น (trachea complete ring → cuff = แตก)
+- นกเล็กใช้ feeding tube ตัดเอง
+
+---
+
+## 💊 Drug Administration
+
+### IM ⭐
+- Pectoral muscle **ส่วนบน** เท่านั้น
+- ⚠️ ลึกข้าง = **ปอดทะลุ** · ลึกล่าง = **ตับฉีก** → bleed ตาย
+
+### SC
+- Sites: **interscapular** > **inguinal** > axillary
+- ⚠️ หนังนกบาง → ต้องเห็น "ลูกโป่งน้ำ" ปูด · ไม่ปูด = ทะลุ
+- **Max 5-10 mL/site** (vs หมา 100-200 mL — หนังนกไม่ย้วย)
+- ใช้เข็มเล็กสุด G26
+
+### Oral (PO)
+- นกแก้ว = ยาน้ำเท่านั้น (กัด → หย่อนเม็ดยาก)
+- ยาเม็ด → สงวนสำหรับ **ไก่ เป็ด นกพิราบ raptor**
+- ถ้าสำลัก: **ปล่อยมัน!** อย่าจับเช็ด — นกสะบัดหัวออกเอง
+
+---
+
+## 💧 Fluid Therapy
+| % Dehydration | Sign |
+|---|---|
+| 5% | กินน้อย/anorexia |
+| 7% | **Basilic vein refill > 2 sec** → ต้องให้ fluid |
+
+> 💡 Glucose-fluid ในนก ≠ contraindicated เหมือนแมว (ไม่ค่อยเกิด abscess)
+
+---
+
+## 🔧 Common Procedures
+
+### Nare Flush ⭐⭐ (sinusitis/rhinitis)
+1. **จับนกกลับหัว** (ขาชี้ฟ้า) — MUST!
+2. แนบ syringe กับรูจมูก → ฉีด NSS
+3. น้ำออก: รูจมูกอีกข้าง + ร่องเพดานปาก
+> ⚠️ ไม่กลับหัว → น้ำเข้าหลอดลม → aspiration pneumonia ตาย
+
+### Pin/Blood Feathers ⭐
+- ขนยังไม่โต มี blood supply
+- หัก → เลือดไหลไม่หยุด (กดไม่ทำงาน, ยาห้ามเลือดไม่ทำงาน)
+- 💡 **ถอนทั้งเส้น** + กดที่รูขุมขน → หยุดเลือด
+
+### Wing Clip ⭐⭐
+| วิธี | ถูก/ผิด |
+|---|---|
+| ตัด primary feathers ทั้ง 2 ข้าง 8-10 เส้น จากนอกมาใน | ✅ |
+| ตัดเหลือขนปลายปีกนอก 2-3 เส้น (สวย) | ❌ ขนติดซอก → ปีกหัก |
+| ตัดข้างเดียว | ❌ บินเฉ → ตกหม้อมาม่าโดนลวก |
+
+จับ humerus (ต้นแขน) อย่าจับ radius/ulna → elbow joint หัก
+
+---
+
+## 📝 Exam Hot Spots
+1. ⭐⭐⭐ **Triage visual assessment** — นอนพื้น+ขนพอง = high mortality risk → แจ้งเจ้าของ
+2. ⭐⭐⭐ **"นกท้องเสีย" pitfall** — แค่ urate+น้ำ ≠ diarrhea แต่ **นกไม่กิน**
+3. ⭐⭐⭐ **NPO = 2-3 hr** (ไม่ใช่ 8-12 hr)
+4. ⭐⭐ **Lung auscultate ไม่แม่น** → confirm ด้วย X-ray
+5. ⭐⭐ **Keel wasting = chronic** ไม่ใช่ acute
+6. ⭐⭐ **ETT uncuffed** (trachea complete ring)
+7. ⭐⭐ **DNA sexing**: 1 drop บนกระดาษ · นก RBC มี nucleus
+8. ⭐⭐ **Nare flush ต้องจับกลับหัว**
+9. ⭐⭐ **IM pectoral upper** (ลึก = ทะลุปอด/ตับ)
+10. ⭐⭐ **Wing clip 2 ข้าง · primary feathers · 8-10 เส้น จากนอกมาใน**
+11. ⭐ **SC max 5-10 mL/site** + ลูกโป่งน้ำปูด
+12. ⭐ **Pin feather หัก → ถอนทั้งเส้น**
+13. ⭐ **Body temp 104-106°F**
+14. ⭐ **Isoflurane = DOC**
+
+> 💡 "เจาะตรงไหนก็มี hematoma — เพียงแต่เจ้าของเห็นหรือไม่เห็น" → communication > technique`,
+  },
+
+  // ─── V9 (อ.ธวัช) Non-infectious Bird Diseases ────────────────
+  'izL_CBa697Q': {
+    videoId: 'izL_CBa697Q',
+    title: '2. โรคไม่ติดเชื้อ',
+    subject: 'exotic',
+    date: '11 Mar 69',
+    durationMin: 86,
+    instructor: 'อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์',
+    examFormat: 'MCQ + case-based — sign → DDx · history → predisposing cause · Tx (Ca/Vit A/heavy metal/egg bind/crop stasis)',
+    summary: `# โรคไม่ติดเชื้อในนก (Non-infectious Diseases)
+
+> 🎯 โรคไม่ติดเชื้อในนก = ผลจาก husbandry/management ผิด · diet+cage+environment ดี → ปัญหาส่วนใหญ่ไม่เกิด
+
+## ⏱️ Timeline
+| Time | Topic |
+|---|---|
+| 27-32 | **Vitamin A deficiency** ⭐ |
+| 32-38 | **MBD / Ca deficiency** ⭐⭐ |
+| 38-47 | **Heavy metal toxicity** (Pb, Zn) ⭐ |
+| 47-59 | **Egg binding / Dystocia** ⭐⭐ |
+| 59-71 | **Feather plucking / Self-mutilation** |
+| 71-80 | **Crop stasis** + crop burn ⭐ |
+| 80-82 | Shock / collapse |
+| 82-86 | Abscess + Bumblefoot |
+
+---
+
+## 1. Vitamin A Deficiency ⭐
+**กลไก**: Vit A → maintain epithelial integrity (ทุก system ไม่ใช่แค่ตา)
+**พบบ่อย**: psittacine ที่กิน **seed-only diet** (ทานตะวัน, millet)
+
+| ระบบ | อาการ |
+|---|---|
+| Respiratory | **เป็นหวัดบ่อย** (อากาศเปลี่ยนนิดเดียวก็เป็น) |
+| Oropharynx | **ตุ่ม/ฝ้าสีขาวในปาก** ⭐ (squamous metaplasia) |
+| ผิวหนัง | hyperkeratosis → pododermatitis |
+
+**Tx**: ปรับอาหาร → ผัก/ผลไม้/pellet · เริ่ม Vit A ฉีด/กิน · ⚠️ ระวัง overdose (fat-soluble)
+
+---
+
+## 2. MBD / Ca Deficiency ⭐⭐
+
+### Predisposing diet
+| Species | อาหารที่ผิด |
+|---|---|
+| **Raptor** | **เนื้อหมู/ไก่ล้วน** — ได้ protein แต่ไม่มี Ca/Vit (ใน bone+organ) |
+| **Psittacine** | seed-only → **เปลือกไข่บาง + egg bound** |
+
+### Clinical
+- **เช้ามาเจอนกนอนแปะพื้น**
+- Wing droop (ปีกห้อยข้างเดียว)
+- กระดูกหักเอง โดยไม่มี trauma
+- **Spinal collapse** กดไขสันหลัง → paralysis
+- **"Rubber jaw"** (จงอยปากบิด) ⭐
+
+### Radiograph ⭐
+- **Bone cortex บาง** + ความหนาไม่สม่ำเสมอ
+
+### Tx
+1. **Ca injection/PO**
+2. **Vit D3** (สำคัญในการดูดซึม)
+3. **ปรับอาหาร** ⭐ — สำคัญที่สุด ไม่ปรับ → กลับมาเป็นใหม่
+
+---
+
+## 3. Heavy Metal Toxicity ⭐
+
+### 2 metals หลัก
+| Metal | แหล่ง |
+|---|---|
+| **Lead (Pb)** | **ผ้าม่านถ่วงน้ำหนัก, ปลั๊กไฟราคาถูก** (Shopee 20-30 บาท) |
+| **Zinc (Zn)** | **ลวดกาวไนซ์** ใน cage นก (galvanized — Zn coating กันสนิม) |
+
+### Clinical signs
+- **Urate สีชมพู/แดง** ⭐ (ปกติเขียว-เหลือง + urate ขาว)
+- Neurological: seizure, paralysis
+
+### Diagnosis
+- **Radiograph** → metallic foreign body ใน GI
+- Blood Pb/Zn level (gold std แต่หาแลบยาก ไทย)
+- อ. **ไม่แยก Pb vs Zn** — Tx เหมือนกัน
+
+### Tx
+- **CaEDTA** chelating (textbook) · หายากในไทย
+- **Activated charcoal** — อ.ใช้จริง
+- Endoscopic retrieval / surgery ถ้า particle ใหญ่
+
+### Cage prep (ป้องกัน Zn) ⭐
+- **ขัดกรงแปรงพลาสติก** (ห้ามลวด)
+- **ล้างน้ำส้มสายชู** (กรดอ่อน)
+- ก่อนใส่นกเข้ากรงใหม่
+
+---
+
+## 4. Egg Binding / Dystocia ⭐⭐
+
+### พบบ่อย
+- นก **< 100 g** (budgie, lovebird, cockatiel)
+- Predispose: seed-only, ไข่ติดต่อ 7-8 ฟอง, ฮอร์โมนสูง, แก่/อ้วน
+
+### Clinical
+- นั่งหอบ + ขาไม่มีแรง
+- รูก้นไม่สะอาด + tissue ตุง (egg/oviduct prolapse)
+- **คลำเจอไข่** (อ. dx 80% จากการคลำ)
+
+### Tx cascade ⭐
+1. **Stabilize ก่อน** — ตู้ออกซิเจน + warmth + fluid
+2. **Ca gluconate + Oxytocin** ⚠️ **Oxytocin ไม่ค่อยเวิร์คในนก** (~2-3 / 50 case)
+3. **Manual extraction** — lubricate + saline flush
+4. **Percutaneous needle aspiration** ถ้าไข่ลึก
+5. **Egg break ≠ disaster** — เปลือก peel ออก → pick out + flush
+
+### Anti-ovulation drug
+- ยาคุมเก่า (เลิกใช้ใน mammal เพราะ pyometra)
+- ใช้เฉพาะนกที่ไข่ 7-8 ฟองแล้วยังจะไข่ต่อ
+
+---
+
+## 5. Feather Plucking / Self-mutilation
+
+### กฎทอง: **Rule out medical ก่อน behavior** ⭐
+
+### Pattern
+| Pattern | สาเหตุ |
+|---|---|
+| **หัวยังสวย + คอ/อก/ปีกโกร๋น** | Self-pluck |
+| **มีรอยที่หัว/หน้า** | Cage-mate aggression |
+
+### Medical DDx ต้อง rule out
+1. **Cockatiel ⭐ → Giardia** (abdominal pain → จิกท้อง)
+2. **Mites** (ไรลงตัวกลางคืน)
+3. PBFD / Polyoma — **PCR**
+4. Nutritional (seed-only)
+5. **Breeding** — เหยี่ยวจิกขนหน้าอกตัวเองช่วงวางไข่ (ปกติ — ไม่ต้องแก้)
+
+### Tx
+- **Elizabethan collar** ถ้าจิกจนแผล
+- ขยายกรง + enrichment
+- ⚠️ ห้ามสเปรย์น้ำในฤดูฝน → pneumonia
+
+---
+
+## 6. Crop Stasis ⭐
+
+### Normal transit
+- Healthy chick: **< 2 hr** (max 3 hr) · ค้าง > 3 hr = pathologic
+
+### Causes
+- อาหารร้อน/เย็นเกิน (**ต้องวัดด้วย thermometer** ⭐)
+- อาหารข้นเกิน
+- Hypothermia (ตู้กกอุณหภูมิไม่พอ)
+- Foreign body
+
+### Tx
+1. Massage + saline → make liquid → drain
+2. Suction ออกด้วย feeding tube
+3. **Surgical ingluviotomy** ถ้าเป็นเม็ดแน่น
+
+### Crop Burn ⭐
+- จาก **ไมโครเวฟไม่คน** → hot pocket
+- เจ้าของบอก "นกมีแผลที่หน้าอก" + "ป้อนแล้วอาหารไหลออกหน้าอก"
+- **Pathology**: crop ทะลุไป skin
+- **Surgery**: ตัด necrotic + **เย็บแยกชั้น crop กับ skin** (ห้ามเย็บรวบ)
+
+---
+
+## 7. Shock + Abscess
+
+### Shock
+- Mucous membrane ซีด (ดู choana — ปกติชมพูเข้ม → กลายเป็นจางเกือบขาว)
+- **O₂ + warmth + fluid** · ⚠️ Dexamethasone ไม่แนะนำแล้ว
+
+### Avian Abscess ⭐
+- **หนองแข็ง (caseous)** — เจาะไม่ออก!
+- **Infraorbital abscess** (รอบตา) — secondary to chronic URI พบบ่อย
+- **Tx = surgical opening + culture** · ยาเปล่าไม่หาย
+
+### Bumblefoot
+- Cause: perch ขนาดเดียว/ผิดขนาด
+- Tx: เปลี่ยนคอนหลายขนาด + soft padding
+
+---
+
+## 📝 Exam Hot Spots
+1. **Vit A def** → seed-only psittacine + **white plaque ในปาก** + เป็นหวัดบ่อย
+2. **MBD** → raptor+meat-only OR psittacine+seed-only → bone fracture เอง / rubber jaw / wing droop
+3. ⭐⭐ **Pink/red urate** = heavy metal toxicity
+4. **Pb sources**: ผ้าม่านถ่วงน้ำหนัก, ปลั๊กไฟถูก
+5. **Zn sources**: ลวดกาวไนซ์
+6. **Heavy metal Tx**: chelating + activated charcoal
+7. **Egg bind in นก < 100 g** → คลำได้ + Ca + warmth + manual · **Oxytocin ไม่ค่อยเวิร์ค**
+8. **Self-pluck pattern**: หัวสวย+คอ/อกโกร๋น (vs aggression = หัวเป็นแผล)
+9. **Cockatiel + feather plucking** ⭐ → screen Giardia
+10. **Crop transit < 2 hr** (chick) — > 3 hr = pathologic
+11. **Crop burn** ไมโครเวฟไม่คน → surgery แยกชั้น crop+skin
+12. **Avian abscess = caseous (แข็ง)** — ต้อง surgical opening · infraorbital พบบ่อย
+13. **Cage prep**: galvanized wire ต้องขัด+น้ำส้มสายชู
+
+> 💡 อ.ธวัช: "โรคพวกนี้ส่วนใหญ่ป้องกันได้ถ้า diet+husbandry ถูก — ตอนซักประวัติต้องละเอียด"`,
+  },
+
+  // ─── V10 (อ.ธวัช) Bird Infectious Part 1 — Viral ─────────────
+  'AxpBGFGGdSg': {
+    videoId: 'AxpBGFGGdSg',
+    title: '3. โรคติดเชื้อ (ตอน 1) — Viral',
+    subject: 'exotic',
+    date: '18 Mar 69',
+    durationMin: 75,
+    instructor: 'อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์',
+    examFormat: 'MCQ — viral disease ID จาก clinical sign + lesion · inclusion body location · vaccine availability · PCR certificate validity',
+    summary: `# โรคติดเชื้อในนก ตอน 1 — Viral (PBFD/Polyoma/Pacheco/Pox/Papilloma/PDD)
+
+> 🎯 5 โรคไวรัสหลัก + Cloacal papilloma · เน้น **3 โรคที่มี PCR certificate** (PBFD · Polyoma · PDD)
+
+## ⏱️ Timeline
+| ช่วง | หัวข้อ |
+|---|---|
+| 13-18 | Intro · scope |
+| 18-37 | **PBFD** (Circovirus) ⭐⭐⭐ |
+| 37-46 | **Polyomavirus** ⭐⭐ |
+| 46-51 | **Avian Pox** |
+| 51-58 | **Pacheco's** (Psittacid Herpesvirus) ⭐ |
+| 58-64 | **Cloacal Papilloma** (จริงๆ คือ Herpes!) |
+| 64-72 | **PDD / Avian Bornavirus** ⭐ |
+
+---
+
+## 1️⃣ PBFD ⭐⭐⭐
+> อ.: "เป็นหมอนกแล้วดูรูป PBFD ไม่ออก เปลี่ยนอาชีพไปทำอย่างอื่นเถอะ"
+
+| Item | Detail |
+|---|---|
+| **เชื้อ** | **Circovirus** (BFDV) |
+| **ความทนทาน** | ทนมากที่สุด → คอนโทรลยาก |
+| **Transmission** | ฝุ่นขน · อุจจาระ · feed/water · **vertical via egg** |
+| **Incubation** | **≥ 3 สัปดาห์** |
+| **Inclusion body** | **Intracytoplasmic** ⭐ (vs Polyoma = intranuclear) |
+
+### 3 รูปแบบ
+1. Peracute — ลูกนกตายเลย
+2. Acute — feather dystrophy · บางตัวรอด
+3. **Chronic** ⭐ — ขนผิดรูป · จงอยปากผิดรูป/หัก/เป็นเงา · ขนหัวร่วงก่อน
+   - **ดึงขนเลือดมาดู: รากขนฝ่อ + จุดเลือดออกในก้านขน** → 99.999% PBFD
+
+### Tx ⛔
+- **ไม่มี specific treatment**
+- ⚠️ อ.เตือน: รพ.บางที่อ้าง "ยากระตุ้นภูมิเคลียร์เชื้อ" → **paper ยืนยันไม่ได้ผล**
+- ที่หาย = นกเคลียร์เองได้ (เกิดได้จริง แต่ไม่ใช่จากยา)
+
+### Farm control
+- Negative farm = เป็นไปไม่ได้ (อ.: "ทุกฟาร์มใหญ่ในโลกมี")
+- **PCR certificate ไว้ใจไม่ได้** ⚠️ — โปรโตคอลจริง: **negative 2 ครั้ง × ห่าง ≥ 90 วัน** · ไม่มีใครทำ
+
+---
+
+## 2️⃣ Polyomavirus ⭐⭐
+
+| Item | Detail |
+|---|---|
+| **ความทน** | **ไม่ทนเท่า PBFD** → manage ง่ายกว่า |
+| **Incubation** | **7–10 วัน** ⭐ (vs PBFD ≥ 3 wks) |
+| **Inclusion body** | **Intranuclear** ⭐ |
+| **Sensitive species** | Lovebird · นกหงส์หยก · ลูกนก |
+
+### Clinical
+- **Acute death + subcutaneous hemorrhage** ⭐⭐ (ปื้นวงๆ ที่เท้า/ลำตัว)
+- Nursery ตายเกลื่อน ถ้าใช้อุปกรณ์ร่วมกัน
+
+### Dx + Tx
+- **PCR** (รับตรวจคณะ)
+- Supportive only — ATB กัน secondary · vit K (ลด hemorrhage)
+- ✅ มีวัคซีน recombinant (ไม่มีในไทย commercial)
+
+---
+
+## 3️⃣ Avian Pox
+
+| Item | Detail |
+|---|---|
+| **Transmission** | **แมลง/ยุงกัด** หรือแผล/เยื่อเมือก |
+| **Forms** | Cutaneous + Diphtheritic (มักเป็นทั้งคู่) |
+| **Species** | ทุกกลุ่มของนก (ไม่ใช่แค่ไก่/พิราบ) |
+| **Inclusion** | **Bollinger bodies (cytoplasmic)** |
+
+### Tx
+- Supportive + ATB กัน secondary + antiseptic → หายเอง ~1 เดือน
+- ✅ **Fowl pox vaccine** ในไก่/พิราบ · **parrot ไม่มี commercial vaccine**
+
+---
+
+## 4️⃣ Pacheco's Disease (Psittacid Herpesvirus) ⭐
+
+> Herpes property: เคยติด → **latent** · shed ตอน immunosuppress
+
+### Clinical (ไม่ specific!)
+- Liver dysfunction → urate เขียว-เหลือง
+- ขย่อนอาหาร · อาเจียน · conjunctivitis · sinusitis
+- **Acute death**
+
+### Necropsy ⭐
+- **ตับโต ขอบมน + necrotic foci + เลือดออกตามอวัยวะ**
+- Inclusion = **intranuclear** (ตับ/ไต/ม้าม)
+
+### Tx ⭐⭐
+- คณะยังไม่มี PCR สำหรับ Pacheco → **empirical treatment ทันที**
+- 💊 **Acyclovir** — โรคไวรัสตัวเดียวในนกที่ **มียาเวิร์คจริง!**
+- เคสจริง อ.: flock 7-8 ตัวรอบเคสตาย → ตายเพิ่มแค่ตัวเดียว
+
+---
+
+## 5️⃣ Cloacal Papilloma (จริงๆ Herpes!) ⭐
+
+> ⚠️ **Trick exam**: ชื่อ "papilloma" แต่ **ไม่ได้เกิดจาก papillomavirus** — เป็น **Herpesvirus**!
+
+- รอยโรค: **คล้ายดอกกะหล่ำ** (cauliflower-like) ที่ cloaca
+- Species: **Macaw, Amazon** (psittacines)
+- **Risk**: นกกลุ่มนี้ incidence **มะเร็งตับ + ตับอ่อน** สูงกว่าปกติ ⭐
+
+### Dx
+- **Acetic acid test**: เนื้อปกติชมพู → ทาแล้ว **เปลี่ยนเป็นสีขาว**
+
+### Tx
+- ❌ Surgical excision — bleeding มาก
+- ✅ **Silver nitrate cauterization** สัปดาห์ละครั้ง × 2-6 wks
+- ⚠️ Counsel เจ้าของ: ก้อนยุบได้ แต่อาจกลับมา + เสี่ยงมะเร็งตับ/ตับอ่อนทีหลัง
+
+---
+
+## 6️⃣ PDD (Proventricular Dilatation Disease) ⭐⭐
+
+| Item | Detail |
+|---|---|
+| **เชื้อ** | **Avian Bornavirus (ABV)** ⭐ |
+| **Pathology** | Lymphoplasmacytic ganglioneuritis ใน autonomic NS |
+
+### Clinical ⭐⭐
+1. **กินอาหารได้ปกติแต่ผอม** → BCS 1.5/5
+2. **เม็ดธัญพืชออกมาในอุจจาระเป็นเม็ดๆ** ⭐ — ย่อยไม่ได้
+3. CNS signs: ตัวสั่น โยกเหมือนจะเป็นลม
+
+### Necropsy ⭐
+- **Proventriculus ใหญ่จนเต็มช่องท้อง** (ตามชื่อโรค!)
+
+### Dx + Tx
+- **PCR** (คณะรับ · accurate มาก — เคยมีเคสแลบอื่น negative 2 ครั้งแต่คณะ positive)
+- Diet ย่อยง่าย พลังงานสูง
+- มี protocol experimental ที่ดูดีขึ้น แต่ยังไม่ confirmed
+
+---
+
+## 📋 สรุป 3 โรคที่มี PCR cert (สำหรับซื้อ-ขาย)
+| โรค | เชื้อ | Inclusion | Tx | Vaccine TH |
+|---|---|---|---|---|
+| **PBFD** | Circovirus | **Cytoplasmic** ⭐ | ❌ Supportive | ❌ |
+| **Polyoma** | Polyomavirus | **Nuclear** | ❌ Supportive | ❌ |
+| **PDD** | Bornavirus | — | Diet + experimental | ❌ |
+| Pacheco | Herpes | Nuclear | ✅ **Acyclovir** | ❌ |
+| Avian Pox | Poxvirus | **Bollinger** (cytoplasmic) | Supportive | ✅ Fowl pox (ไก่/พิราบ) |
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐
+1. **PBFD = Circovirus = intracytoplasmic** (vs Polyoma = intranuclear)
+2. **Incubation**: PBFD ≥ 3 wks · Polyoma 7-10 d
+3. **Polyoma signature**: acute death + **subcut hemorrhage** (ลูกนก/หงส์หยก/lovebird)
+4. **PBFD classical**: ขน+จงอยปากผิดรูป + รากขนฝ่อ
+5. **Pacheco = Herpes** → **Acyclovir** (ไวรัสตัวเดียวที่ Tx ได้!)
+6. **Cloacal "Papilloma" = Herpes** → **Silver nitrate** + เสี่ยงมะเร็งตับ/ตับอ่อน
+7. **PDD = Avian Bornavirus** → กินได้แต่ผอม + เม็ดธัญพืชย่อยไม่ได้
+8. **PCR cert ไม่ reliable** (ต้อง 2 ครั้ง × 90 วัน)
+9. **PBFD negative farm = เป็นไปไม่ได้**
+10. **Avian Pox**: เจอในนกทุกกลุ่ม · ติดผ่านยุง
+
+> 💡 "ใบ certificate negative — เชื่อได้แค่วันนั้น · 90 วันต่อมาอาจป่วย"`,
+  },
+
+  // ─── V11 (อ.ธวัช) Bird Infectious Part 2 — Bact/Fungal/Proto ──
+  'YAVsi8g1VuY': {
+    videoId: 'YAVsi8g1VuY',
+    title: '4. โรคติดเชื้อ (ตอน 2) — Bacterial / Fungal / Protozoal',
+    subject: 'exotic',
+    date: '25 Mar 69',
+    durationMin: 61,
+    instructor: 'อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์',
+    examFormat: 'MCQ — drug of choice + duration + zoonosis flag · จับคู่ pathogen ↔ sign ↔ Tx',
+    summary: `# โรคติดเชื้อในนก ตอน 2 — Bacterial/Fungal/Protozoal/Parasitic
+
+> 🎯 หัวใจ Final scope — drug of choice + duration ออกข้อสอบทุกปี
+> ⚠️ **Chlamydophila = zoonosis** ตัวเดียวในเลคเชอร์นี้ที่คนติดได้!
+
+## ⏱️ Timeline
+| ช่วง | หัวข้อ |
+|---|---|
+| 0-10 | Recap viral + intro bacterial |
+| 10-22 | **Chlamydophila psittaci (Psittacosis)** ⭐⭐⭐ |
+| 22-30 | Mycoplasma + Avian TB |
+| 30-40 | **Candidiasis (fungal)** ⭐⭐ |
+| 40-52 | **Protozoa** (Trichomonas/Giardia/Eimeria) ⭐⭐⭐ |
+| 52-60 | **Knemidocoptes mites** + Q&A |
+
+---
+
+## 🦠 Bacterial — Chlamydophila psittaci (Psittacosis) ⭐⭐⭐
+
+> ⚠️ **ZOONOSIS!** เจ้าของติดได้ → "Psittacosis fever" / atypical pneumonia
+> นี่คือเหตุผลที่ต้องจำ drug+duration ให้แม่น — ป้องกันคนด้วย
+
+### Clinical signs
+| ระบบ | อาการ |
+|---|---|
+| ตา | **Conjunctivitis** + ocular discharge ⭐ |
+| Respiratory | Nasal discharge, dyspnea, sinusitis |
+| GI | **Green/yellow diarrhea** (biliverdinuria) |
+| ทั่วไป | Lethargy, weight loss, ขนฟู |
+
+### Dx
+- **PCR** (cloacal/conjunctival swab) — gold standard
+- Cytology: elementary bodies (Macchiavello stain)
+
+### Tx ⭐⭐⭐ (ออกข้อสอบทุกปี!)
+- 💊 **Doxycycline** = drug of choice
+- ⏱️ **Duration: 45 วัน** (4-6 wk) — สั้นกว่านี้ relapse
+- เหตุผล: intracellular pathogen
+- Alternative: Azithromycin
+- ⚠️ Notify owner re: zoonosis precaution
+
+> 💡 Memory hook: "Doxy 45 วัน"
+
+---
+
+## Mycoplasma + Avian TB
+- **Mycoplasma**: ไม่มี cell wall → **β-lactam ใช้ไม่ได้!** · Tx = Tylosin/Doxy/Enrofloxacin
+- **Avian TB** (M. avium): granuloma · zoonotic ในคน immunocompromise · ไม่นิยมรักษา → euthanasia
+
+---
+
+## 🍄 Fungal — Candidiasis ⭐⭐
+
+### Predisposing ⭐
+1. **Long-term broad-spectrum Abx** (kill normal flora)
+2. **Hypovitaminosis A** (epithelium ไม่แข็งแรง)
+3. **Young birds (parent-fed)**
+4. Immunosuppression (PBFD, polyoma)
+
+### Clinical
+- **White caseous plaque** ใน oropharynx + crop
+- Crop stasis, regurgitation, **"sour crop"** (กลิ่นเปรี้ยว)
+
+### Tx ⭐
+- 💊 **Itraconazole** = systemic DOC
+- 💊 **Nystatin** PO — topical (ไม่ดูดซึม → เฉพาะใน GI)
+- แก้ underlying: หยุด Abx + เสริม Vit A
+
+---
+
+## 🪱 Protozoa ⭐⭐⭐
+
+| โรค | Pathogen | Sign | DOC | Duration |
+|---|---|---|---|---|
+| **Canker** | Trichomonas | White plaque oropharynx | **Metronidazole** | 5-7d |
+| Giardia | Giardia | Diarrhea + feather plucking (cockatiel) | **Metronidazole** | 5-7d |
+| Coccidiosis | Eimeria | Bloody/mucoid diarrhea | **Sulfa-TMP** | 5-7d |
+
+### Trichomonas — "Canker / Frounce"
+- Host: **นกพิราบ · raptor (frounce) · finch** (frounce ในเหยี่ยวจากกินนกพิราบ)
+- **Yellow-white caseous plaque** oropharynx — คล้าย Candida แต่ใหญ่กว่า
+- Dx: **wet mount** → motile flagellate
+
+### Giardia
+- **Cockatiel** ⭐ = signature species
+- อาจมี **feather plucking** + chronic diarrhea
+- Dx: fecal direct + zinc sulfate flotation
+
+### Eimeria
+- Bloody/mucoid diarrhea
+- Dx: fecal flotation → oocyst
+- Tx: Sulfa-TMP
+
+> ⚠️ **DDx Canker vs Candida**: wet mount (Trich = motile) vs cytology (Candida = budding yeast)
+
+---
+
+## 🪲 Knemidocoptes mites ⭐
+
+- **Burrowing mite** · **Budgerigar** ⭐ = signature species
+- **Scaly face** — honeycomb crust รอบจมูก/ตา/cere
+- **Scaly leg / tassel foot** — hyperkeratotic crust ขา
+- Beak deformity ถ้านาน
+
+### Tx ⭐
+- 💊 **Ivermectin** topical/SC
+- ⏱️ **Repeat ทุก 2 สัปดาห์** (ครอบ life cycle)
+
+---
+
+## 💊 Drug Cheatsheet ⭐⭐⭐
+| Drug | Indication | Duration |
+|---|---|---|
+| **Doxycycline** | **Chlamydophila** | **45 วัน** ⭐ |
+| Tylosin/Doxy | Mycoplasma | 14-21d |
+| **Itraconazole** | Candida systemic | 14-21d |
+| Nystatin | Candida topical GI | 7-14d |
+| **Metronidazole** | **Trichomonas + Giardia** | 5-7d |
+| **Sulfa-TMP** | **Eimeria** | 5-7d |
+| **Ivermectin** | **Knemidocoptes** | repeat **q2wk** |
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐⭐
+1. **Chlamydophila → Doxycycline 45 วัน** (เลขนี้ออก!)
+2. **Chlamydophila = ZOONOSIS** (ตัวเดียวในตอนนี้)
+3. **Mycoplasma → ห้ามใช้ β-lactam** (ไม่มี cell wall)
+4. **Candida → Itraconazole** (systemic) / **Nystatin** (topical)
+5. **Predispose Candida** = long Abx + hypovitaminosis A + young bird
+6. **Trichomonas + Giardia → Metronidazole** (จำคู่กัน)
+7. **Eimeria → Sulfa-TMP**
+8. **Giardia signature = Cockatiel** ⭐
+9. **Knemidocoptes signature = Budgerigar** ⭐
+10. **Ivermectin q2wk** (life cycle)
+11. **Trichomonas dx**: wet mount → motile flagellate
+12. **Canker vs Candida** — แยกด้วย cytology
+
+> 💡 อ.: "Psittacine ที่มี conjunctivitis + diarrhea → empirical doxy ก่อนผล PCR · zoonosis รอไม่ได้"`,
+  },
+
+  // ─── V12 (อ.เสาวภางค์ ZPOT) Zoo Vet ───────────────────────────
+  '4KKnxqEESB0': {
+    videoId: '4KKnxqEESB0',
+    title: '5. Zoo Vet',
+    subject: 'exotic',
+    date: '1 Apr 69',
+    durationMin: 71,
+    instructor: 'อ.สพ.ญ. เสาวภางค์ สนั่นหนู (ZPOT)',
+    examFormat: 'MCQ — zoo vet roles · quarantine protocol · IUCN/CITES status · 5 Domains welfare · disease surveillance',
+    summary: `# Zoo Vet — สวนสัตว์ & การอนุรักษ์นอกถิ่นอาศัย
+
+> 🦒 อ.หมอใหญ่ จาก **ZPOT** (Zoological Park Organization of Thailand) — Animal Conservation and Research Institute
+> ไม่ใช่อาจารย์คณะจุฬาฯ
+
+## What is a Zoo? (พรบ.สงวนและคุ้มครองสัตว์ป่า 2562)
+> "Any area where wildlife is kept for **conservation, education, research, or recreation**"
+- รัฐ → conservation เป็นหลัก
+- เอกชน → education + recreation
+
+---
+
+## Conservation Framework ⭐⭐
+
+### In-situ vs Ex-situ
+| Type | Meaning | Who? |
+|---|---|---|
+| **In-situ** | ในถิ่นอาศัย | กรมอุทยาน (DNP) |
+| **Ex-situ** ⭐ | นอกถิ่นอาศัย | **Zoo · ZPOT** |
+
+> นิยาม "อนุรักษ์" ยุคใหม่ = **คงอยู่ + ใช้ประโยชน์ให้มากที่สุด** (ไม่ใช่แค่ห้ามแตะ)
+
+### IUCN Red List ⭐⭐
+| Status | Meaning |
+|---|---|
+| LC | Least Concern |
+| NT | Near Threatened |
+| **VU** | Vulnerable |
+| **EN** | Endangered |
+| **CR** | Critically Endangered |
+| **EW** | Extinct in the Wild (ยังมีในสวนสัตว์) |
+| **EX** | Extinct ⚠️ ไทย = **สมัน** (สูญพันธุ์จากโลก) |
+
+### CITES ⭐
+| App | Meaning |
+|---|---|
+| **App I** | ห้ามค้า (ยกเว้นการศึกษา/แลกเปลี่ยน) |
+| **App II** | ค้าได้ มีปริมาณมาก |
+| **App III** | ขึ้นกับประเทศเจ้าของ |
+
+> ⚠️ สถานะของชนิดเดียวกัน **ต่างประเทศต่างกัน** เช่น เสือไทย=App I แต่อินเดียอาจไม่ใช่
+
+---
+
+## 4 Roles of Zoo Vet ⭐⭐⭐
+
+### 1. Practitioner — comparative anatomy + species-specific
+- **Hippo** = hindgut fermenter (ไม่ใช่ ruminant!)
+- **หมี** = Carnivora → ใช้ protocol คล้ายสุนัข
+- **เลียงผา** = bovid + **browser** (ไม่ใช่ grazer)
+
+> Grazer (กินหญ้า) vs Browser (กินใบไม้ + fiber สูง)
+
+### 2. Curator — collection plan + welfare design
+### 3. Researcher — Reproduction · Genetics · Forensics
+- **GRB (Genome Resource Bank / Frozen Zoo)** ⭐ — sperm/oocyte/embryo/fibroblast
+### 4. Pathologist — Necropsy → feedback management
+
+---
+
+## Animal Health Management
+
+### Quarantine ⭐⭐ (สำคัญสุด!)
+- **30 วัน** · **All in - all out** (เหมือนฟาร์ม)
+- ตรวจ 2 จุด: **ก่อนย้าย + ปลายทาง**
+- ใบเคลื่อนย้ายขอจาก **กรมปศุสัตว์** (พรบ.โรคระบาดใหม่ครอบสัตว์ป่า)
+
+### Preventive Medicine
+- **Vaccine = เชื้อตายเป็นหลัก** ⭐ (ป้องกัน revert/cross-species)
+  - CDV → ติดข้ามชนิดในเสือ/สิงโต
+  - **Hep B vaccine** ใน great apes ⭐
+- Deworming, ป้องกันแมลงพาหะ
+
+### Medical Training (ลด GA stress) ⭐
+- Hippo อ้าปาก → ตรวจฟัน
+- เสือ → เก็บเลือดจาก **ventral tail vein** (โดยไม่วาง)
+- Positive reinforcement
+
+---
+
+## Disease Surveillance ⭐⭐ (Emerging diseases ในไทย)
+
+| โรค | กลุ่มเสี่ยง | หมายเหตุ |
+|---|---|---|
+| **AHS** ⭐ | ม้า (ม้าลาย=carrier ไม่ตาย, ม้าแข่งตาย) | ก่อนย้ายต้องตรวจ |
+| **LSD** | วัวแดง | เคยระบาดในไทย |
+| **COVID-19** | Primates · Felidae · Canidae | ตรวจช่วง pandemic |
+| **TB (Mycobacterium)** ⭐ | สมเสร็จ + apes + elephant | **ติดจากคนไปสัตว์มากกว่าสัตว์ไปคน** → จัดระยะ |
+| **Melioidosis** | อูฐ, จิงโจ้ (ไวมาก) | เชื้ออยู่ในดิน |
+| **Chytrid (Bd)** | กบ | ไทยยังไม่เจอ แต่เฝ้าระวัง |
+| **Avian Influenza** | นก | ตรวจก่อนเคลื่อนย้าย |
+
+---
+
+## Animal Welfare — 5 Domains ⭐⭐
+> เปลี่ยนจาก **5 Freedoms → 5 Domains** (ครอบคลุมขึ้น)
+
+**3C ของ welfare:** **C**omfort · **C**hoice · **C**ontrol
+
+> 💡 "ตู้โทรศัพท์ที่คนเดินรอบตลอดเวลา = สัตว์ใน 360° exhibit" → ต้องมีที่ให้ซ่อน!
+
+### Enclosure Design ⭐
+- **2 ส่วน**: front (display) + back (holding/treatment)
+- Barriers: wet moat (หมี — ลึก) · dry moat · cage · **electric fence/popsicle cup สำหรับช้าง**
+
+### Enrichment 🎯
+| Type | Pros | Cons |
+|---|---|---|
+| **Food-based** | ทำง่าย ตอบสนองเร็ว | ใช้เวลาสั้น |
+| **Non-food** | พฤติกรรมระยะยาว | ทำยากกว่า |
+
+---
+
+## Animal ID ⭐
+| สัตว์ | ตำแหน่ง microchip |
+|---|---|
+| สัตว์เล็ก | subQ ระหว่าง scapula |
+| **ช้าง** | **แทงลง** (ไม่ขึ้น เพราะรูใหญ่ chip ไหลออก) |
+| **เพนกวิน** | **subQ** (ไม่ใช่ pectoral muscle เหมือนนกอื่น) |
+| สัตว์ใหญ่ | หลังหู (ฝั่งซ้าย) |
+
+---
+
+## Reintroduction (ZPOT Success Stories) ⭐
+| Species | Status | Note |
+|---|---|---|
+| ม้าป่า Przewalski | International success | EW → ปล่อยมองโกเลีย |
+| **ละมั่งพันธุ์พม่า** | ✅ 30 ปี | ฝูงเพาะพันธุ์ในป่า |
+| นกกระเรียนพันธุ์ไทย | สงวน · ปล่อยไป ~186 ตัว | นับนก มี.ค. ทุกปี |
+| **พญาแร้ง** ⭐ | EW Thailand (สูญพันธุ์ปี 2535 — ยาเบื่อ 30 ตัวพร้อม) | เริ่มเพาะ → ปล่อยห้วยขาแข้ง · ต้อง ≥10 ตัว |
+| วัวแดง | ทำร่วมกรมอุทยาน | ย้ายจากสถานี→ป่า |
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐⭐
+1. **Quarantine = 30 วัน · all in - all out**
+2. **In-situ (DNP) vs Ex-situ (Zoo/ZPOT)**
+3. **IUCN**: LC→NT→VU→EN→CR→**EW**→EX · ไทยมี EX = **สมัน**
+4. **CITES App I/II/III** — ขึ้นกับประเทศ (เสือไทย ≠ เสืออินเดีย)
+5. **GRB** = frozen zoo (sperm/oocyte/embryo/fibroblast)
+6. **Vaccine = เชื้อตายเป็นหลัก** (กัน CDV ติดข้ามชนิด)
+7. **Hep B vaccine ใน great apes** ⭐
+8. **TB ในสมเสร็จ → คนติดสัตว์** (ไม่ใช่สัตว์ติดคน!)
+9. **AHS — ม้าลาย=carrier · ม้าแข่งตาย** → ก่อนย้ายต้องตรวจ
+10. **5 Domains** (ไม่ใช่ 5 Freedoms) + **3C** (Comfort/Choice/Control)
+11. **Hippo = hindgut fermenter**
+12. **Grazer** (หญ้า) vs **Browser** (ใบไม้+fiber)
+13. **Microchip ช้าง = แทงลง · เพนกวิน = subQ** (ไม่ใช่ pectoral)
+14. **พญาแร้ง EW ปี 2535** (ยาเบื่อ) · **สมัน EX**
+
+> 💡 อ.หมอใหญ่: "งานสวนสัตว์ใช้ DVM 6 ปีคุ้มมาก — รักษา + จัดการ + วิจัย + อนุรักษ์ ครบ loop"`,
+  },
+
+  // ─── V13 (อ.ไพศิลป์) Conservation Medicine ───────────────────
+  'KjBUKGa6-V4': {
+    videoId: 'KjBUKGa6-V4',
+    title: '6. Role of vet in conservation medicine',
+    subject: 'exotic',
+    date: '8 Apr 69',
+    durationMin: 70,
+    instructor: 'อ. ไพศิลป์ เล็กเจริญ',
+    examFormat: 'MCQ concept-based · ecosystem services 4 · 5 vet roles · interface examples · case studies (Gaur/LSD/Rabies/HPAI/Mange/Malaria/Tiger poisoning) · surveillance vs research',
+    summary: `# Role of Veterinarian in Conservation Medicine
+
+> **อ.ไพศิลป์ปิดท้าย:** "พี่ออกข้อสอบเอง · อยู่ในเลคเชอร์นี้หมดแหละ" → ฟังจบครบ คือ ครอบคลุมข้อสอบ ⭐
+
+## 🌍 Conservation Medicine คืออะไร?
+- **เวชศาสตร์เชิงอนุรักษ์** · interdisciplinary
+- ต้องทำงานร่วม นักชีววิทยาสัตว์ป่า / นิเวศวิทยา / public health
+- Core = **One Health** (คน+สัตว์+สิ่งแวดล้อม)
+- ต่างจาก zoo vet → เน้น **wildlife in nature** ไม่ใช่ captive
+
+---
+
+## 🔄 Body ↔ Ecosystem Analogy ⭐
+| Vet Medicine | Conservation Medicine |
+|---|---|
+| Cell | Species |
+| Organ system | Ecosystem |
+| Physiology | Ecological process |
+| Disease | **Ecosystem disruption / Extinction** |
+| Homeostasis | **Biodiversity balance** |
+
+---
+
+## 🤝 4 Interfaces ⭐⭐
+| Type | ตัวอย่าง |
+|---|---|
+| **Ecological** | Species overlap · habitat fragmentation |
+| **Epidemiological** | Pathogen transmission · spillover |
+| **Human-wildlife** | Conflict · bushmeat · encroachment |
+| **Governance** | Wildlife authority + health authority + community |
+
+> 💡 **กระทิง (wildlife) ออกมาใช้พื้นที่ทุ่งวัวเลี้ยง** → wildlife-livestock interface → **LSD spillover**
+
+---
+
+## 🌱 Ecosystem Services 4 ⭐⭐⭐ (อ.ย้ำ "ท่องตาราง")
+| Service | ความหมาย | ตัวอย่าง |
+|---|---|---|
+| **Provisioning** | ผลิตทรัพยากร | อาหาร · น้ำ · ไม้ |
+| **Regulating** | ควบคุมกระบวนการ | **Predator regulate host → regulate disease risk** ⭐ |
+| **Cultural** | คุณค่าวัฒนธรรม | นกเงือก = flagship |
+| **Supporting** | ค้ำจุนระบบ | Forest habitat · soil formation |
+
+> ⭐ **ออกข้อสอบบ่อย**: predator หาย → host เพิ่ม → disease ↑ = **Regulating** (ไม่ใช่ Supporting!)
+
+---
+
+## 💥 5 ภัยคุกคาม Ecosystem ⭐⭐
+1. **Land Use Change** — habitat loss + fragmentation
+2. **Pollution** — 1 ใน Triple Crisis
+3. **Over-exploitation** — ใช้เกิน carrying capacity
+4. **Climate Change**
+5. **Invasive Species + Disease**
+
+---
+
+## 👨‍⚕️ 5 บทบาทสัตวแพทย์ Conservation ⭐⭐
+1. **Wildlife Health & Disease Intelligence** — surveillance · diagnosis · forensic
+2. **Conservation Intervention & Mgmt** — population mgmt (translocation)
+3. **Human-Wildlife Interface Mgmt** — zoonosis · conflict mitigation
+4. **Welfare · Rescue · Rehab · Release** — 4R framework
+5. **Research · Policy · Innovation** — camera trap · GPS collar
+
+---
+
+## 🦬 Case Studies (อ.เน้นว่าออกข้อสอบ)
+
+### 1. กระทิงตายที่กุยบุรี (2015) ⭐⭐
+- เจอซากตัว 1-2-3 → ทำ **Epidemic Curve**
+- Sign: น้ำลายเป็นฟอง + กีบลอก → เหมือน **FMD**
+- Sample: FMD virus + **Clostridium novyi** (contamination, ไม่ใช่ primary cause!)
+- ⚠️ Lesson: Clostridium = environmental contamination ≠ disease cause
+- Intervention: **บ่อจุ่มล้อ** (foot dip)
+
+### 2. LSD ใน Wild Bovids (กระทิง · วัวแดง · เลียงผา)
+- เริ่มในวัวเลี้ยง → spread ไปห้วยขาแข้ง · กุยบุรี
+- **Reverse spillover** — domestic → wildlife (ไม่ใช่ wild → human)
+
+### 3. Rabies ใน Golden Jackals
+- เคสที่ **เลย** + **สระแก้ว** (กระโดดใส่เด็ก)
+- ก่อน 2018: focus แค่หมาบ้าน → underdetect wildlife reservoir
+- Intervention: GPS collar ตัวปกติ → home range overlap
+
+### 4. HPAI ใน Captive Threatened Carnivores
+- เสือขาว Tiger Kingdom กิน **ไก่ดิบ** → ตาย · ปอด red hepatization
+
+### 5. Canine Distemper ใน Civet Farm
+- Promote breeding → ลด wildlife exploitation
+- เจอ CDV outbreak → linked เสือเชียงใหม่
+
+### 6. Mange ใน Social Carnivores (หมาใน · dhole)
+- Empirical: sarcoptic vs demodex
+- Trap ตัวปกติได้ · ตัวป่วยจับยาก → diagnostic gap
+
+### 7. Zoonotic Malaria — *P. knowlesi* ⭐
+- ราชบุรี · vector = **Anopheles dirus** (ก้นป่อง) · oviposit ในหลุมรากต้นบอนกระดาษ
+- Reservoir: ลิง (macaques)
+
+### 8. Tiger Poisoning (Forensic) — เขาแผง · ห้วยขาแข้ง
+- เสือ 3 ตัวตายใกล้กัน → toxic intoxication
+- Toxin: **Furadan / Carbamate** ผสมในซากเหยื่อ → ล่าหนังโดยไม่เป็นรู
+
+---
+
+## 📡 Surveillance ≠ Research ⭐⭐
+| Aspect | **Surveillance** | **Research** |
+|---|---|---|
+| Goal | Early detection | Hypothesis testing |
+| Output | Action-oriented | Publication |
+| Duration | **Continuous** | **Time-limited** |
+| Use | Decision support | Knowledge generation |
+
+> 💡 **Roadkill = passive surveillance** สำหรับ rabies/AI ใน wildlife
+
+---
+
+## 🐾 Translocation Framework
+**Translocation ≠ ปล่อยปลาตามวัด!**
+1. Population decline assessment
+2. Genetic ID + planning
+3. **Health risk assessment**
+4. Quarantine + screening
+5. **Soft release** (กรงก่อน)
+6. **Post-release monitoring** (GPS)
+
+> ตัวอย่าง: **ละมั่ง · พญาแร้ง** กลับห้วยขาแข้ง (สูญพันธุ์ 2534 จาก **diclofenac** ในซากวัว)
+
+---
+
+## 🆘 4R Framework
+**Rescue · Rehabilitate · Release · Research**
+
+> ⚠️ **Individual welfare ≠ Population conservation benefit!**
+> นกพิราบบาดเจ็บ → ไม่ต้อง rehab (ประชากรอยู่สบาย)
+> ช้างสู้กันบาดเจ็บ → อาจไม่ต้องยุ่ง (natural process + ใช้ resource เยอะ)
+
+### เกณฑ์ rehab
+- adult mortality เพิ่ม? · small declining population? · **K-selected** (ฟื้นช้า)?
+- ห้ามเบียดบัง resource จาก conservation อื่น
+
+---
+
+## 🦠 Disease Spillover
+- Domestication → wildlife ↔ livestock ↔ human → **EID**
+- **Nipah**: ค้างคาวแม่ไก่ TH มี 20+ ปี · risk communication FAIL → คนพัทยาจะกำจัดค้างคาว
+
+### Diclofenac → Rabies Cascade (Food Web!)
+- อินเดีย/บังคลาเทศ: diclofenac → แร้งตาย → ซากเยอะ → หมาจร↑ → **rabies↑**
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐⭐
+1. **Ecosystem Services 4** — ท่องให้ได้!
+2. **5 บทบาท conservation vet**
+3. **Predator regulate disease = Regulating** (ไม่ใช่ Supporting)
+4. **5 ภัยคุกคาม** biodiversity
+5. **Surveillance vs Research** (continuous vs time-limited)
+6. **กระทิงกุยบุรี case** — Clostridium = contamination ไม่ใช่ cause
+7. **LSD = reverse spillover** (livestock → wildlife)
+8. **P. knowlesi** vector = Anopheles dirus, reservoir = macaque
+9. **K-selected species** ควรช่วย rehab > r-selected
+10. **Triple Crisis** = biodiversity loss + climate + pollution
+11. **Body↔Ecosystem analogy** (cell=species, organ=ecosystem)
+12. **4 Interfaces** (Ecological/Epidemiological/Human-wildlife/Governance)
+13. **Diclofenac → vulture die-off → rabies cascade**
+14. **4R Framework** (Rescue · Rehab · Release · Research)
+15. **Translocation ≠ ปล่อยเฉยๆ**
+
+> 💡 อ.ไพศิลป์: "อนาคตไปสายไหน — clinician, นักวิจัย, public health, ฟาร์ม — ก็เกี่ยวข้องกับ conservation medicine"`,
+  },
+
+  // ─── V14 (อ.ปัณณวัฒน์) Postgrad Wildlife Course ──────────────
+  '-g_IvpY1lTA': {
+    videoId: '-g_IvpY1lTA',
+    title: '7. Postgraduate Wildlife Course (ทุน/Residency)',
+    subject: 'exotic',
+    date: '22 Apr 69',
+    durationMin: 53,
+    instructor: 'อ. ปัณณวัฒน์ สุภาพรรณชาติ',
+    examFormat: 'MCQ 7 ข้อ × 5 choices · ออกจากสไลด์ ⭐ 5 สไลด์ · เน้นตารางเปรียบเทียบ + scope 4 + wildlife in nature vs captive + แหล่งทุน',
+    summary: `# Postgraduate Wildlife Course — เรียนต่อสายสัตว์ป่า
+
+> 💡 อ.ปัณณวัฒน์: "อ.บอกตรงๆเลยว่าออกอันที่มี ⭐ ในสไลด์ · ท่องตาราง 2 อัน + scope 4 อย่าง + ความต่าง wildlife in nature vs ในสวนสัตว์ + แหล่งทุน"
+
+---
+
+## 1. Career Scope หลังจบ DVM
+- **Clinical (รักษา)** → specialty (สูติช้าง, avian)
+- **Academic / Lab** → researcher, lab diagnostic (ไม่แตะตัวสัตว์เลย)
+- **Researcher** → biology + medicine + hypothesis testing
+
+---
+
+## 2. USA vs EU/AUS — ตารางหลัก ⭐⭐⭐
+
+### Master's Degree
+| ประเด็น | **USA** | **EU/AUS** |
+|---|---|---|
+| **Entrance test** | TOEFL + **GMAT/GRE** ⭐ | **IELTS อย่างเดียว** ⭐ |
+| **Duration** | **2 ปี** ⭐ | **1 ปี** ⭐ |
+| **Coursework** | Lecture + group/individual + **participation** | Lecture + assignment (ไม่ค่อยมาเรียน, ส่งงานพอ) |
+| **Course choice** | Elect ได้ (major/minor) | **Predefined mandatory** ⭐ |
+
+### PhD
+| ประเด็น | **USA** | **EU/AUS** |
+|---|---|---|
+| **Entry path** | จบ **B.S. → PhD ตรง** ⭐ | ต้อง **จบ Master's ก่อน** ⭐ |
+| **Duration** | 3.5 – 6-7 ปี | กำหนดชัด |
+| **Coursework** | มี basic course 2-3 ปีแรก | **ไม่มี coursework** ⭐ |
+| **Topic** | กว้างๆ → uni หา advisor | ต้องมี **topic ชัด** ตามตัว Prof ⭐ |
+| **Funding** | TA/RA → stipend ⭐ | UK/Italy = **จ่ายเอง** |
+| **Teaching** | ต้องเป็น TA | ไม่ต้อง |
+| **Campus** | Big campus (นอกเมือง) | Uni ในเมืองโบราณ |
+
+---
+
+## 3. Wildlife Medicine — 4 Scopes ⭐⭐⭐
+
+| Scope | เน้น |
+|---|---|
+| **1. Wildlife Medicine** | อายุรศาสตร์สัตว์ป่า · โรค + รักษา |
+| **2. One Health** ⭐ | คน-สัตว์-สิ่งแวดล้อม · zoonosis · บูมหลัง COVID |
+| **3. Conservation Medicine** ⭐ | อนุรักษ์ · ไม่จำเป็นต้องจบ vet |
+| **4. Wildlife Welfare** ⭐ | สวัสดิภาพ + husbandry · ฮิตในม้าแข่ง |
+
+### Conservation Medicine extras
+- ART (Assisted Reproductive Technologies): cloning, embryo transfer
+- **Conservation Genomics** ⭐ — ฮิตที่สุดตอนนี้
+- กฎหมาย National Park, human-wildlife conflict
+
+---
+
+## 4. Wildlife in Nature vs Captive ⭐⭐⭐
+
+| ประเด็น | **Wildlife in Nature** | **Captive (Zoo)** |
+|---|---|---|
+| **เป้าหมาย** | **ปล่อยคืนธรรมชาติ** ⭐ | อยู่ใน zoo ตลอดชีวิต / breeding |
+| **การรักษา** | Herd-based / **husbandry-focused** | จับวางยาสลบ · ฉีดยาเฉพาะตัว |
+| **Vaccine** | ไม่ทำ ยกเว้นใกล้สูญพันธุ์ | **ต้องทำเสมอ** |
+| **Inbreeding** | ไม่มี | **มี** → vaccine บ่อย |
+| **Diet** | ธรรมชาติ | balance + complete diet |
+| **Rehab module** ⭐ | **มี** | ไม่ค่อยใช้ |
+
+### Soft vs Hard Release ⭐
+- **Hard release** = ปล่อยเลย · ใช้กับสัตว์ที่อยู่ในธรรมชาติอยู่แล้ว (รถชน → รักษาเสร็จปล่อย)
+- **Soft release** = monitor 2-6 เดือน + กรงเปิด + ให้อาหาร
+  - ตัวอย่าง: ละมั่งพันธุ์พม่า รอบแรก hard release ตายหมด, รอบ 2 soft release รอด
+
+### ⚠ สวนสัตว์ไทย vs ตปท.
+- ไทย = พุทธ → เก็บไว้ตลอดชีวิต (หมีหมา, หมีควาย เต็มศูนย์)
+- ตปท. = ปล่อยคืนไม่ได้ → **euthanasia**
+
+### Population Control example
+- แมวน้ำ Canada/USA: polar bear ลด → seal เกิน → **Open Season ใช้กระบองเหล็ก** ⭐ (ตามกฎหมาย, วิธีอื่นผิด)
+
+---
+
+## 5. Residency Programs ⭐⭐⭐
+
+### USA — **ACZM**
+- ต้อง **สอบ license ใหม่** ที่ USA
+- 3 ปีขึ้นไป · **3 publications** (case report ก็ได้)
+- เว็บไซต์บอก salary, benefit, vacation, case/day
+
+### EU — **ECZM** ⭐⭐ (5 specialty boards)
+| Specialty | เน้น |
+|---|---|
+| **Avian** ⭐ | นก |
+| **Herpetological** ⭐ | reptile + amphibian |
+| **Wildlife Population Health (WPH)** ⭐ | ประชากร + ปล่อยคืน |
+| **Small Mammal** ⭐ | Exotic + small primates |
+| **Zoo Health Management (ZHM)** ⭐ | บริหารซู |
+
+- **3 ปี · MAX 6 ปี → terminate**
+- **2 papers ใน 2 ปี** + **exam ใน 8 ปี** ⭐
+- **Driver's license REQUIRED** ⭐ (ขับเข้าป่า)
+- Final = written + practical
+
+---
+
+## 6. Funding Sources ⭐⭐⭐ (ออกแน่!)
+
+### Domestic (ไทย)
+| ทุน | รายละเอียด |
+|---|---|
+| **กพ.** (OCSC) ⭐ | ทุกปี · สาขาขาดแคลน |
+| **อานันทมหิดล** (King's Scholarship) ⭐ | เกียรตินิยม 1 · 1 คน/ปี |
+| ทุนส่งเสริม ป.โท-เอก | ไม่ใช่ทุนเต็ม · ไป ตปท. 6 เดือน-1 ปี |
+
+### International ⭐⭐⭐ (ท่องคู่ประเทศ — ออกแน่!)
+| ทุน | ประเทศ |
+|---|---|
+| **Fulbright** ⭐ | **USA** |
+| **Chevening** ⭐ | **UK** |
+| **Erasmus** ⭐ | **EU** |
+| **Australia Awards** ⭐ | **Australia** |
+| **Monbukagakusho (MEXT)** ⭐ | **Japan** |
+
+---
+
+## 📝 Exam Hot Spots ⭐⭐⭐ (อ.บอกตรงๆ)
+> **7 ข้อ × 5 choices · ออกจากสไลด์ ⭐ 5 สไลด์เท่านั้น**
+
+1. **USA = TOEFL + GRE/GMAT, EU/AUS = IELTS เท่านั้น**
+2. **PhD: USA จาก B.S. ตรง vs EU ต้องจบ Master's ก่อน**
+3. **EU PhD ไม่มี coursework, USA มี basic course 2-3 ปี**
+4. **Master's: USA 2 ปี vs EU/AUS 1 ปี**
+5. **4 Scopes** = Wildlife Medicine, One Health, Conservation Medicine, Wildlife Welfare
+6. **ECZM 5 specialties** = Avian, Herpetological, WPH, Small Mammal, ZHM
+7. **ECZM** = 2 papers ใน 2 ปี + exam ใน 8 ปี · MAX 6 ปี · driving license required
+8. **ACZM** = สอบ license USA ใหม่ + 3 papers
+9. **Funding pairs** ⭐: Fulbright-USA, Chevening-UK, Erasmus-EU, Australia Awards-AUS, Monbukagakusho-Japan, OCSC/King's-Thai
+10. **Wildlife in nature** = release goal + husbandry-based · **Captive** = vaccine + treat individual
+11. **Soft vs Hard release** — hard=สัตว์ป่าเดิม, soft=monitor 2-6 mo
+12. **Salt gland atrophy** ใน penguin captive → release → kidney/gout
+13. **Open Season seal** = กระบองเหล็ก only (วิธีอื่นผิดกฎหมาย)
+14. **Welfare frameworks**: 5 Freedoms → **Five Domains** (update ใหม่)
+
+> 💡 อ.: "search Google · พิมพ์ scope ที่สนใจ + 'wildlife' จะมี course suggest"`,
+  },
 };
 
 // ─────────────────────────────────────────────────────────────
