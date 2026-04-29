@@ -69,6 +69,33 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
   };
 
   const exportCustom = () => downloadJSON(customQuestions, `custom-questions-${Date.now()}.json`);
+
+  // Validate one entry against required fields per type. Returns
+  // null if valid, or a short reason string if invalid. Used during
+  // import to avoid silently committing broken questions that crash
+  // the renderer later (e.g., MCQ with no options or no answer index).
+  const validateImportItem = (q) => {
+    if (!q || typeof q !== 'object') return 'not an object';
+    if (!q.q || typeof q.q !== 'string' || !q.q.trim()) return 'missing q (question text)';
+    if (!q.subject || typeof q.subject !== 'string') return 'missing subject';
+    if (!q.type || typeof q.type !== 'string') return 'missing type';
+    if (q.type === 'mcq') {
+      if (!Array.isArray(q.options) || q.options.length < 2) return 'mcq needs ≥2 options';
+      if (typeof q.answer !== 'number' || q.answer < 0 || q.answer >= q.options.length) return 'mcq answer index out of range';
+    } else if (q.type === 'tf') {
+      if (typeof q.answer !== 'boolean') return 'tf answer must be true/false';
+    } else if (q.type === 'fill') {
+      if (!Array.isArray(q.blanks) || q.blanks.length === 0) return 'fill needs blanks[]';
+    } else if (q.type === 'match') {
+      if (!Array.isArray(q.pairs) || q.pairs.length === 0) return 'match needs pairs[]';
+    } else if (q.type === 'short' || q.type === 'essay') {
+      // open-ended types are lenient — model_answer optional
+    } else {
+      return `unknown type "${q.type}"`;
+    }
+    return null;
+  };
+
   const importCustom = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -76,13 +103,45 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     reader.onload = (ev) => {
       try {
         const data = JSON.parse(ev.target.result);
-        if (!Array.isArray(data)) throw new Error();
-        if (confirm(`Import ${data.length} questions — จะเพิ่มเข้าข้อสอบที่มีอยู่`)) {
-          const maxId = Math.max(500, ...customQuestions.map((q) => q.id), ...QB.map((q) => q.id));
-          const withNewIds = data.map((q, i) => ({ ...q, id: maxId + i + 1 }));
+        if (!Array.isArray(data)) throw new Error('top-level is not an array');
+
+        // Pre-validate all items so we can give the user a real preview
+        // of how many will succeed. Reject entire import if all-invalid.
+        const valid = [];
+        const invalidReasons = {};
+        data.forEach((q, i) => {
+          const err = validateImportItem(q);
+          if (err) {
+            invalidReasons[err] = (invalidReasons[err] || 0) + 1;
+          } else {
+            valid.push(q);
+          }
+        });
+
+        if (valid.length === 0) {
+          alert(`Import ล้มเหลว — ทุก ${data.length} ข้อมีข้อมูลไม่ครบ:\n\n` +
+            Object.entries(invalidReasons).map(([r, n]) => `• ${n} ข้อ: ${r}`).join('\n'));
+          e.target.value = ''; // reset so same file can be re-tried
+          return;
+        }
+
+        const skipped = data.length - valid.length;
+        const summary = skipped === 0
+          ? `Import ${valid.length} ข้อ`
+          : `Import ${valid.length}/${data.length} ข้อ (ข้าม ${skipped} ข้อที่ไม่ครบ)\n\nสาเหตุที่ข้าม:\n` +
+            Object.entries(invalidReasons).map(([r, n]) => `• ${n} ข้อ: ${r}`).join('\n');
+
+        if (confirm(`${summary}\n\nยืนยัน?`)) {
+          const allIds = new Set([...customQuestions.map((q) => q.id), ...QB.map((q) => q.id)]);
+          let nextId = Math.max(500, ...allIds);
+          // Always reassign IDs so importing the same file twice doesn't
+          // duplicate IDs (was a silent bug — IDs collided with QB and the
+          // app would render whichever came first in the array).
+          const withNewIds = valid.map((q) => ({ ...q, id: ++nextId }));
           setCustomQuestions([...customQuestions, ...withNewIds]);
         }
-      } catch { alert('ไฟล์ไม่ถูกต้อง'); }
+        e.target.value = '';
+      } catch (err) { alert('ไฟล์ JSON ไม่ถูกต้อง — ' + (err?.message || 'parse error')); }
     };
     reader.readAsText(file);
   };

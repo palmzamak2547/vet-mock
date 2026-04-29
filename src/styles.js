@@ -463,6 +463,22 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-header, .vmx-footer, button, .vmx-modal-overlay, .vmx-btn-row { display: none !important; }
   .vmx-mode-card, .vmx-dash-card, .vmx-question-card { box-shadow: none !important; border: 1px solid #ccc !important; break-inside: avoid; }
   a { color: inherit; text-decoration: underline; }
+
+  /* NotesView print: collapse the sticky sidebar so the main column
+     gets the full page width. Force all sections open (the toggle
+     button is hidden by the global button rule above, so a printed
+     section that happened to be collapsed would lose its body). Also
+     unwrap tables onto multiple pages instead of horizontal-scroll. */
+  .vmx-notes-grid { display: block !important; grid-template-columns: none !important; }
+  .vmx-notes-sidebar { display: none !important; }
+  table { table-layout: auto !important; width: 100% !important; }
+  th, td { padding: 6px 8px !important; font-size: 11pt !important; }
+  /* Avoid breaking a section block across pages where possible */
+  .vmx-review-item, .vmx-dash-card, [class*="md-h2"] { break-inside: avoid; }
+  /* Force inline links to print URL after the link text */
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
+  /* Tighten line height for ink economy */
+  body, p, li, td { line-height: 1.4 !important; }
 }
 
 /* ============================================================

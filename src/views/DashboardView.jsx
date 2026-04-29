@@ -1,8 +1,97 @@
+import { useMemo } from 'react';
 import { SUBJECTS, QB } from '../data/questions.js';
 import { downloadJSON } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
 
+// Compute last-7-days bucket — returns one entry per day (oldest →
+// newest) with `total` attempts + `correct` count + `pct`. Returns
+// null if there's no history at all (caller hides the chart).
+function build7DayTrend(history) {
+  if (!history?.length) return null;
+  const MS_DAY = 24 * 60 * 60 * 1000;
+  const now = Date.now();
+  // Round to start of today in local time so day buckets align with
+  // the user's calendar (not UTC).
+  const todayStart = new Date(); todayStart.setHours(0, 0, 0, 0);
+  const t0 = todayStart.getTime();
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const start = t0 - i * MS_DAY;
+    const end = start + MS_DAY;
+    const slice = history.filter((h) => h.date >= start && h.date < end);
+    const correct = slice.filter((h) => h.correct).length;
+    const total = slice.length;
+    const dateLabel = new Date(start).toLocaleDateString('th-TH', { weekday: 'short' });
+    days.push({ start, total, correct, pct: total ? Math.round((correct / total) * 100) : null, label: dateLabel });
+  }
+  // If all 7 days are 0 attempts, no value in showing
+  if (days.every((d) => d.total === 0)) return null;
+  return days;
+}
+
+// Compact 7-day trend chart — renders as inline SVG, no chart lib.
+// Bars = attempts count (heights normalized to max), thin gold line
+// = accuracy % (skips days with no attempts so it doesn't dive to 0).
+function TrendChart({ days }) {
+  const W = 320, H = 80, PAD = 8;
+  const maxAttempts = Math.max(1, ...days.map((d) => d.total));
+  const barW = (W - PAD * 2) / days.length;
+  // Build the accuracy polyline only across days that have data
+  const linePoints = [];
+  days.forEach((d, i) => {
+    if (d.pct === null) return;
+    const x = PAD + barW * i + barW / 2;
+    const y = PAD + (H - PAD * 2) * (1 - d.pct / 100);
+    linePoints.push(`${x},${y}`);
+  });
+
+  return (
+    <div style={{ marginTop: 8 }}>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', maxHeight: 110, display: 'block' }} aria-label="7-day study trend">
+        {/* Bars — attempt count */}
+        {days.map((d, i) => {
+          const h = d.total ? Math.max(2, ((H - PAD * 2) * d.total / maxAttempts)) : 0;
+          const x = PAD + barW * i + 4;
+          const y = H - PAD - h;
+          return (
+            <rect
+              key={i}
+              x={x} y={y} width={barW - 8} height={h}
+              fill={d.pct !== null && d.pct >= 70 ? 'var(--clr-sage)' : d.pct !== null && d.pct >= 50 ? 'var(--clr-gold)' : d.pct !== null ? 'var(--clr-rose)' : 'var(--clr-border)'}
+              rx={2}
+              opacity={d.total === 0 ? 0.3 : 0.7}
+            >
+              <title>{d.label} · {d.total} ข้อ{d.total ? ` · ${d.pct}%` : ''}</title>
+            </rect>
+          );
+        })}
+        {/* Accuracy line on top */}
+        {linePoints.length >= 2 && (
+          <polyline
+            fill="none"
+            stroke="var(--clr-ink)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            points={linePoints.join(' ')}
+            opacity="0.55"
+          />
+        )}
+      </svg>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', marginTop: 4, padding: '0 2px' }}>
+        {days.map((d, i) => (
+          <span key={i} style={{ flex: 1, textAlign: 'center' }}>{d.label}</span>
+        ))}
+      </div>
+      <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+        แท่ง = จำนวนข้อ · สี = ความแม่น (เขียว ≥70% · ทอง 50-69% · ชมพู &lt;50%)
+      </div>
+    </div>
+  );
+}
+
 export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, customQuestions }) {
+  const trend = useMemo(() => build7DayTrend(history), [history]);
   const exportData = () => {
     const data = {
       exportDate: new Date().toISOString(),
@@ -70,6 +159,13 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <div className="vmx-stat-lbl">Weak Questions</div>
             </div>
           </div>
+
+          {trend && (
+            <div className="vmx-dash-card" style={{ marginTop: 16 }}>
+              <h3>📈 7 วันล่าสุด</h3>
+              <TrendChart days={trend} />
+            </div>
+          )}
 
           <div className="vmx-dash-grid">
             <div className="vmx-dash-card">

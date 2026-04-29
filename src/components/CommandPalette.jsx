@@ -234,7 +234,31 @@ export default function CommandPalette({ open, onClose, ...handlers }) {
           )}
           {filtered.map((item, i) => {
             const active = i === activeIdx;
+            // Section header — only when no query (so fuzzy ranking
+            // doesn't shuffle the type order). Renders before the first
+            // item of each type group.
+            const SECTION_LABELS = {
+              action: '⚡ Quick Actions',
+              subject: '📚 Subjects',
+              summary: '📝 Video Summaries',
+              instructor: '👨‍🏫 Faculty',
+            };
+            const showHeader = !query.trim() && (i === 0 || filtered[i - 1].type !== item.type);
             return (
+              <div key={`wrap-${item.type}-${item.label}-${i}`}>
+                {showHeader && SECTION_LABELS[item.type] && (
+                  <div style={{
+                    padding: '10px 16px 4px',
+                    fontSize: 10,
+                    fontFamily: 'JetBrains Mono, monospace',
+                    color: 'var(--clr-ink-soft)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    fontWeight: 600,
+                  }}>
+                    {SECTION_LABELS[item.type]}
+                  </div>
+                )}
               <button
                 key={`${item.type}-${item.label}-${i}`}
                 onClick={() => { item.run(); onClose(); }}
@@ -288,6 +312,7 @@ export default function CommandPalette({ open, onClose, ...handlers }) {
                   }}>↵</span>
                 )}
               </button>
+              </div>
             );
           })}
         </div>

@@ -1,9 +1,21 @@
+import { useMemo, useState } from 'react';
 import { getAllScores } from '../data/scores.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 
 export default function ScoresView({ goHome }) {
-  const scores = getAllScores();
+  const allScores = getAllScores();
+
+  // Subject filter — keeps the scrolling list manageable for users
+  // who have 10+ subjects and only want to check a specific class.
+  const [filter, setFilter] = useState('all');
+
+  const subjectsInList = useMemo(() => {
+    const ids = new Set(allScores.map((s) => s.subject_id));
+    return SUBJECTS.filter((s) => ids.has(s.id));
+  }, [allScores]);
+
+  const scores = filter === 'all' ? allScores : allScores.filter((s) => s.subject_id === filter);
 
   return (
     <>
@@ -12,6 +24,27 @@ export default function ScoresView({ goHome }) {
         <h1>สัดส่วน <em>คะแนน</em></h1>
         <p>ปี 4 เทอม 2 · Vet 86 · ข้อมูลจากภาพ "สัดส่วนคะแนน.jpg" (อาจไม่ครบ — ส่งข้อมูลเพิ่มทาง Feedback ได้)</p>
       </div>
+
+      {/* Subject filter — only show if there are >3 subjects */}
+      {subjectsInList.length > 3 && (
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
+          <button
+            onClick={() => setFilter('all')}
+            className={`vmx-chip ${filter === 'all' ? 'active' : ''}`}
+          >
+            ทุกวิชา ({allScores.length})
+          </button>
+          {subjectsInList.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => setFilter(s.id)}
+              className={`vmx-chip ${filter === s.id ? 'active' : ''}`}
+            >
+              {s.icon} {s.name}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="vmx-section-label">รายวิชา ({scores.length})</div>
 
