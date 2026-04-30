@@ -2,6 +2,16 @@
 // CURRICULUM: Years + Subjects
 // ============================================================
 // อิงตามตารางสอบ: ตารางสอบป_14_Final_Term2.pdf
+//
+// 🔗 VAULT BRIDGE — lecturer profiles + research clusters:
+//   Each `lecturer:` field uses display string (e.g., "Krissda Boonaramrueng (KB)").
+//   Map to vault profile: knowledge/instructors/{lowercase-hyphenated-name}.md
+//   Cross-cutting clusters: knowledge/synthesis/vet-research-clusters-and-exam-prediction.md
+//   Discrepancy log: knowledge/discrepancies.md (FRDC vs FURI · Lepto vaccines · etc)
+//
+// Future improvement (P2 from automation roadmap):
+//   Add `lecturer_slug:` field for deterministic lookup instead of fuzzy match
+//   in instructors.js#getInstructorByLecturerString().
 // ============================================================
 
 export const YEARS = [

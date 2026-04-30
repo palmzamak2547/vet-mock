@@ -1,11 +1,21 @@
 // ============================================================
 // INSTRUCTORS — faculty profile data
 // ============================================================
-// Compiled 2026-04-28 from research agents + WebSearch.
+// Compiled 2026-04-28+ from research agents + WebSearch.
 // Each entry keyed by slug (matches MycOS vault file name).
 //
+// 🔗 VAULT BRIDGE — full profiles + research clusters here:
+//   Local:  C:\Users\palmz\OneDrive\Desktop\MycOS\knowledge\instructors\{slug}.md
+//   Repo:   github.com/palmzamak2547/mycos-vault (private)
+//   MOC:    knowledge/instructors/_index.md (master directory)
+//   Synthesis: knowledge/synthesis/vet-research-clusters-and-exam-prediction.md
+//
+// Vault has 135 profiles · this app file has 63 (Tier 1 + Tier 2 sync).
+// Pre-clinical (Anatomy/Physiology/Biochem) faculty are in vault only —
+// they don't teach Vet 86 courses currently.
+//
 // Schema:
-//   slug            : kebab-case ID (used as key)
+//   slug            : kebab-case ID (used as key) — MATCHES vault filename
 //   nameEn, nameTh  : full names
 //   position        : academic rank
 //   department      : home department
