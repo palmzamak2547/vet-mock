@@ -37,6 +37,7 @@ function buildIndex({ goView, setSubject, setPracticeMode, openInstructor }) {
     { label: 'About', hint: 'เกี่ยวกับ', icon: 'ℹ️', kw: 'about info เกี่ยวกับ', run: () => goView('about') },
     { label: 'แจ้งปัญหา / Feedback', hint: 'Feedback', icon: '🐛', kw: 'feedback bug แจ้ง ปัญหา ติชม', run: () => goView('feedback') },
     { label: 'อาจารย์ผู้สอนทั้งหมด', hint: 'Faculty index', icon: '👨‍🏫', kw: 'faculty instructor อาจารย์ ผู้สอน lecturer professor', run: () => goView('faculty') },
+    { label: 'Account Settings', hint: 'จัดการ account', icon: '⚙️', kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ', run: () => goView('account-settings') },
   ];
   actions.forEach((a) => items.push({ ...a, type: 'action' }));
 

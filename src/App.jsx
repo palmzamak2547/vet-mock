@@ -85,6 +85,7 @@ const TopicSelectView = lazy(() => import('./views/TopicSelectView.jsx'));
 const NotesView = lazy(() => import('./views/NotesView.jsx'));
 const ReadingChecklistView = lazy(() => import('./views/ReadingChecklistView.jsx'));
 const FacultyView = lazy(() => import('./views/FacultyView.jsx'));
+const AccountSettingsView = lazy(() => import('./views/AccountSettingsView.jsx'));
 
 const ViewFallback = () => <div className="vmx-empty">กำลังโหลด…</div>;
 
@@ -572,6 +573,7 @@ export default function App() {
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
+              {view === 'account-settings' && user && <AccountSettingsView {...{ user, goHome, onSignedOut: goHome }} />}
             </Suspense>
             </ErrorBoundary>
           )}

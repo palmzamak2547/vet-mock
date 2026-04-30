@@ -48,7 +48,32 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
     <>
       <div className="vmx-hero">
         <h1>
-          {user ? <>สวัสดี <em>{profile?.username || 'เพื่อน'}</em></> : <>อ่านแล้ว ลอง <em>ทำข้อสอบ</em> กันเถอะ</>}
+          {user ? (
+            <>
+              สวัสดี <em>{profile?.username || 'เพื่อน'}</em>
+              <button
+                onClick={() => setView('account-settings')}
+                title="Account settings · เปลี่ยนรหัสผ่าน อีเมล หรือ logout"
+                aria-label="Account settings"
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: 18,
+                  marginLeft: 8,
+                  padding: '4px 8px',
+                  borderRadius: 999,
+                  color: 'var(--clr-ink-soft)',
+                  verticalAlign: 'middle',
+                  lineHeight: 1,
+                }}
+              >
+                ⚙️
+              </button>
+            </>
+          ) : (
+            <>อ่านแล้ว ลอง <em>ทำข้อสอบ</em> กันเถอะ</>
+          )}
         </h1>
         <p>คลังข้อสอบ {totalQ} ข้อ · ปี 4 Vet 86 · By vet86 for vet86</p>
         {onlineStatus === 'connected' && onlineCount > 0 && (

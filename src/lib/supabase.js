@@ -124,6 +124,87 @@ export async function updatePassword(newPassword) {
   if (error) throw error;
 }
 
+// ─── Magic Link (passwordless) sign-in ──────────────────────────
+// User enters email → Supabase sends a clickable link → clicking
+// the link auto-signs them in. No password to forget. Great for
+// users who came via Google before and never set a password.
+export async function signInWithMagicLink(email) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { data, error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: window.location.origin,
+      // Don't auto-create accounts via magic link — only existing users
+      // can use it. This forces signup to go through the normal flow
+      // where username is collected.
+      shouldCreateUser: false,
+    },
+  });
+  if (error) throw error;
+  return data;
+}
+
+// ─── Sign out from ALL devices (security action) ────────────────
+// Used when user suspects credential leak or wants fresh start.
+// Supabase scope='global' invalidates all refresh tokens for this user.
+export async function signOutAllDevices() {
+  const supabase = await getSupabase();
+  if (!supabase) return;
+  await supabase.auth.signOut({ scope: 'global' });
+  notifyAuthChanged();
+}
+
+// ─── Update email (with re-verification link) ───────────────────
+// Supabase sends a confirmation link to the NEW email. Until the
+// user clicks it, the old email remains primary.
+export async function updateEmail(newEmail) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { error } = await supabase.auth.updateUser({ email: newEmail });
+  if (error) throw error;
+}
+
+// ─── Delete account (best-effort, client-side) ──────────────────
+// Without a server-side service-role key, we can't fully delete from
+// auth.users via the public API. Closest we can do client-side:
+//   1) Delete the user's profile + progress rows (RLS allows self-delete)
+//   2) Sign out everywhere
+// The auth.users row remains as a "tombstone" until a future cron/edge
+// function reaps it. From the user's perspective: data is gone, login
+// no longer works on their email until support manually clears.
+//
+// If you want true deletion, deploy a Supabase Edge Function with
+// service_role and call it here instead.
+export async function deleteAccountData() {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { data: sess } = await supabase.auth.getSession();
+  const userId = sess?.session?.user?.id;
+  if (!userId) throw new Error('ไม่ได้ login อยู่');
+
+  // Delete known tables that store user-specific data. Each call is
+  // best-effort — failures are logged but don't block the others.
+  const tables = ['profiles', 'attempts', 'flashcards', 'group_members', 'feedback'];
+  const errors = [];
+  for (const t of tables) {
+    try {
+      const { error } = await supabase.from(t).delete().eq('user_id', userId);
+      if (error && !/no rows/i.test(error.message)) errors.push({ table: t, error });
+    } catch (e) {
+      errors.push({ table: t, error: e });
+    }
+  }
+  // Profile uses 'id' not 'user_id' on some schemas
+  try { await supabase.from('profiles').delete().eq('id', userId); } catch {}
+
+  // Sign out everywhere as the final step
+  await supabase.auth.signOut({ scope: 'global' });
+  notifyAuthChanged();
+
+  return { ok: errors.length === 0, errors };
+}
+
 // ─── Username availability check (for real-time validation) ─────
 // Throttled by callers; does a single COUNT against profiles.
 // Returns: true (free) | false (taken) | null (unknown / error).

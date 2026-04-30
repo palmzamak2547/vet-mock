@@ -3,6 +3,7 @@ import {
   signUpWithEmail,
   signInWithEmail,
   signInWithGoogle,
+  signInWithMagicLink,
   sendPasswordReset,
   updatePassword,
   isUsernameAvailable,
@@ -47,7 +48,23 @@ export default function AuthView({ onBack, onSuccess, user }) {
     } catch {}
     return 'signin';
   })();
-  const [mode, setMode] = useState(initialMode); // signin | signup | reset | update-password
+  const [mode, setMode] = useState(initialMode); // signin | signup | reset | update-password | magic-link
+
+  // Stay signed in (persist session). Default true (most users want).
+  // Stored in localStorage so the choice survives refresh / OAuth bounce.
+  const [staySignedIn, setStaySignedIn] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    try {
+      const saved = window.localStorage.getItem('vmx-stay-signed-in');
+      return saved === null ? true : saved === '1';
+    } catch { return true; }
+  });
+  useEffect(() => {
+    try { window.localStorage.setItem('vmx-stay-signed-in', staySignedIn ? '1' : '0'); } catch {}
+  }, [staySignedIn]);
+
+  // Track recent failed attempts (rate-limit hint UI)
+  const [attemptCount, setAttemptCount] = useState(0);
 
   // BUG 7 — already signed in → bounce to home immediately, EXCEPT
   // when we landed here via a password-reset link (in which case the
@@ -171,13 +188,27 @@ export default function AuthView({ onBack, onSuccess, user }) {
         // doesn't re-trigger this mode forever.
         try { window.history.replaceState(null, '', window.location.pathname); } catch {}
         setTimeout(() => { if (onSuccess) onSuccess(); }, 1200);
+      } else if (mode === 'magic-link') {
+        if (!email.trim()) throw new Error('กรุณาใส่อีเมล');
+        await signInWithMagicLink(email.trim());
+        setInfo(`✓ ส่งลิงก์ login ไปที่ ${email} แล้ว — กดลิงก์ในอีเมลเพื่อเข้าระบบ (ลิงก์ใช้ได้ 1 ครั้ง · 1 ชั่วโมง)`);
       } else {
         // signin
         await signInWithEmail(email, password);
+        setAttemptCount(0);
         if (onSuccess) onSuccess();
       }
     } catch (err) {
-      setError(thaiAuthError(err));
+      const isRateLimit = /rate|too many|429/i.test(err?.message || '');
+      const isInvalidCreds = /invalid|wrong|incorrect|password/i.test(err?.message || '');
+      if (mode === 'signin' && isInvalidCreds) {
+        setAttemptCount((n) => n + 1);
+      }
+      if (isRateLimit) {
+        setError('⏱️ ลองมากเกินไป — รอ 30-60 วินาทีแล้วลองใหม่ (Supabase rate limit)');
+      } else {
+        setError(thaiAuthError(err));
+      }
     } finally {
       setLoading(false);
     }
@@ -195,6 +226,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     signup:           { title: 'สมัครใช้งาน',     sub: 'สร้าง account ใหม่ — ฟรี ไม่มีค่าใช้จ่าย',           cta: 'สมัคร' },
     reset:            { title: 'ลืมรหัสผ่าน?',    sub: 'ใส่อีเมลของคุณ เราจะส่งลิงก์รีเซ็ตให้',                cta: 'ส่งลิงก์รีเซ็ต' },
     'update-password':{ title: 'ตั้งรหัสผ่านใหม่', sub: 'ใส่รหัสผ่านใหม่ที่อยากใช้',                          cta: 'บันทึกรหัสผ่าน' },
+    'magic-link':     { title: 'Login ผ่านอีเมล',  sub: 'ไม่ต้องจำรหัสผ่าน — เราจะส่งลิงก์ login ไปที่อีเมลคุณ',  cta: '✨ ส่งลิงก์ login' },
   }[mode];
 
   return (
@@ -215,10 +247,10 @@ export default function AuthView({ onBack, onSuccess, user }) {
           </div>
         )}
 
-        {/* Google OAuth — hide on reset / update-password mode */}
-        {mode !== 'reset' && mode !== 'update-password' && (
+        {/* Google OAuth + Magic Link — hide on reset / update / magic-link itself */}
+        {mode !== 'reset' && mode !== 'update-password' && mode !== 'magic-link' && (
           <>
-            <button className="vmx-btn vmx-btn-ghost" style={{ width: '100%', justifyContent: 'center', padding: '14px', marginBottom: 20 }} onClick={google} disabled={loading}>
+            <button className="vmx-btn vmx-btn-ghost" style={{ width: '100%', justifyContent: 'center', padding: '14px', marginBottom: 8 }} onClick={google} disabled={loading}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -230,8 +262,25 @@ export default function AuthView({ onBack, onSuccess, user }) {
               </span>
             </button>
 
+            {/* Magic Link button (only on signin mode) */}
+            {mode === 'signin' && (
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost"
+                style={{ width: '100%', justifyContent: 'center', padding: '14px', marginBottom: 20 }}
+                onClick={() => setMode('magic-link')}
+                disabled={loading}
+              >
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                  ✨ Login ผ่านลิงก์ในอีเมล (ไม่ต้องใช้รหัสผ่าน)
+                </span>
+              </button>
+            )}
+
+            {mode !== 'signin' && <div style={{ height: 12 }} />}
+
             <div style={{ textAlign: 'center', margin: '16px 0', fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
-              — หรือใช้อีเมล —
+              — หรือใช้อีเมล + รหัสผ่าน —
             </div>
           </>
         )}
@@ -362,6 +411,31 @@ export default function AuthView({ onBack, onSuccess, user }) {
             </>
           )}
 
+          {/* Stay signed in toggle — visible on signin/signup only */}
+          {(mode === 'signin' || mode === 'signup') && (
+            <div style={{ marginBottom: 12, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+              <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={staySignedIn}
+                  onChange={(e) => setStaySignedIn(e.target.checked)}
+                />
+                จดจำ session — login ค้างไว้ แม้ปิดเว็บ
+              </label>
+            </div>
+          )}
+
+          {/* Rate-limit / multiple-failure warning */}
+          {mode === 'signin' && attemptCount >= 3 && (
+            <div style={{ padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', color: 'var(--clr-ink)', fontSize: 12, marginBottom: 12, lineHeight: 1.5 }}>
+              ⚠️ ลองผิดมาแล้ว <strong>{attemptCount} ครั้ง</strong> — ถ้าลืมรหัส {' '}
+              <a onClick={() => setMode('reset')} style={{ ...linkStyle, fontSize: 12 }}>กดที่นี่</a>
+              {' '}เพื่อรีเซ็ต หรือใช้ {' '}
+              <a onClick={() => setMode('magic-link')} style={{ ...linkStyle, fontSize: 12 }}>magic link</a>
+              {' '}แทน
+            </div>
+          )}
+
           {error && (
             <div style={{ padding: 10, borderRadius: 8, background: 'var(--clr-rose-soft)', color: 'var(--clr-ink)', fontSize: 13, marginBottom: 12, lineHeight: 1.5 }}>
               ⚠️ {error}
@@ -397,6 +471,9 @@ export default function AuthView({ onBack, onSuccess, user }) {
           )}
           {mode === 'reset' && (
             <>จำได้แล้ว? <a onClick={() => setMode('signin')} style={linkStyle}>กลับไป Login</a></>
+          )}
+          {mode === 'magic-link' && (
+            <>อยากใช้รหัสผ่าน? <a onClick={() => setMode('signin')} style={linkStyle}>กลับไป Login ปกติ</a></>
           )}
         </div>
       </div>
