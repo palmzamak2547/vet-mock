@@ -87,7 +87,7 @@ const ReadingChecklistView = lazy(() => import('./views/ReadingChecklistView.jsx
 const FacultyView = lazy(() => import('./views/FacultyView.jsx'));
 const AccountSettingsView = lazy(() => import('./views/AccountSettingsView.jsx'));
 
-const ViewFallback = () => <div className="vmx-empty">กำลังโหลด…</div>;
+import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
@@ -119,6 +119,45 @@ export default function App() {
   // views fades smoothly (Chrome/Edge/Safari TP). No-op on Firefox.
   const setView = useCallback((next) => {
     withTransition(() => setViewRaw(next));
+  }, []);
+
+  // Scroll to top when view changes — without this, navigating to a
+  // long page (e.g. NotesView) keeps you scrolled at the previous
+  // view's offset, which feels broken. 'instant' avoids fighting the
+  // View Transitions fade animation.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    // Use rAF so the scroll happens after the new view's first paint —
+    // the browser positions the new content first, then jumps to top.
+    const id = requestAnimationFrame(() => {
+      try { window.scrollTo({ top: 0, behavior: 'instant' }); }
+      catch { window.scrollTo(0, 0); }
+    });
+    return () => cancelAnimationFrame(id);
+  }, [view]);
+
+  // Idle-time prefetch — once the page is settled, quietly download
+  // the chunks for views the user is most likely to visit next. By
+  // the time they click, the chunk is already in the browser cache
+  // and Suspense doesn't even need to show a fallback.
+  //
+  // We don't prefetch heavy/rare views (ExamView, NotesView with
+  // notes-com3 ~270KB) — those still load on demand to keep the
+  // initial idle bandwidth small. Sticking to small-medium views
+  // that are 1 click away from home.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const ric = window.requestIdleCallback || ((cb) => setTimeout(cb, 1500));
+    const cic = window.cancelIdleCallback || clearTimeout;
+    const id = ric(() => {
+      // Most-common next steps from home
+      import('./views/SubjectSelectView.jsx').catch(() => {});
+      import('./views/ConfigView.jsx').catch(() => {});
+      import('./views/ScheduleView.jsx').catch(() => {});
+      import('./views/FacultyView.jsx').catch(() => {});
+      import('./views/AuthView.jsx').catch(() => {});
+    }, { timeout: 5000 });
+    return () => cic(id);
   }, []);
 
   // Keep the screen on while an exam is in progress (Web Wake Lock
@@ -519,6 +558,7 @@ export default function App() {
   return (
     <>
       <style>{STYLES}</style>
+      <TopLoadingBar />
       <div className="vmx-app">
         <div className="vmx-container">
           <div className="vmx-header">
