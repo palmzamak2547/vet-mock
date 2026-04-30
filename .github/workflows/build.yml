@@ -1,0 +1,60 @@
+# ============================================================
+# Build CI — gates broken builds before they hit production
+# ============================================================
+# Runs on every push/PR to main. Fails fast if:
+#   • npm ci breaks (lockfile drift, missing dep)
+#   • Vite build errors (broken JS, missing import, syntax error,
+#     bad template literal in data files like questions/notes)
+#
+# Vercel auto-deploys on every push to main, so this workflow is
+# the LAST chance to catch regressions before users see the white
+# screen of death. Build time ~5-10s, total job ~1 min on cache.
+#
+# `npm audit --production` is a soft check — warns but doesn't fail
+# (would create unfixable CI noise from upstream advisories).
+# ============================================================
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-flight runs when new commits land on the same ref —
+# saves Action minutes on rapid-fire pushes.
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Report bundle sizes
+        run: |
+          echo "## Bundle sizes" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          du -sh dist/ >> $GITHUB_STEP_SUMMARY || true
+          ls -lh dist/assets/ | awk 'NR>1 {print $5, $9}' | sort -rh | head -20 >> $GITHUB_STEP_SUMMARY || true
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      # Soft audit — warns but doesn't block (upstream advisories
+      # often outpace upstream fixes; we don't want CI red on those)
+      - name: Security audit (warn-only)
+        continue-on-error: true
+        run: npm audit --production --audit-level=high

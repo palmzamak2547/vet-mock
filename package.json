@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "analyze": "npx --yes vite-bundle-visualizer",
     "icons": "node scripts/generate-icons.mjs",
     "lint:questions": "node scripts/lint-questions.cjs",
     "fix:questions": "node scripts/fix-question-bias.cjs",

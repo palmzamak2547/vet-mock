@@ -1,0 +1,58 @@
+# ============================================================
+# Dependabot — auto PRs for npm + GitHub Actions security patches
+# ============================================================
+# Strategy:
+#   • Production deps: only security updates (avoid noise from
+#     non-breaking minor bumps for stable libs like react/supabase)
+#   • Dev deps: weekly minor+patch updates (vite, sharp, etc.)
+#   • Github Actions: weekly minor+patch (cheap to keep current)
+#
+# Dependabot opens PRs that go through the build CI workflow
+# automatically — if build passes, safe to merge.
+# ============================================================
+version: 2
+updates:
+  # npm — production deps (security only)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Bangkok"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    labels:
+      - "dependencies"
+    # Allow only security updates for production deps
+    allow:
+      - dependency-type: "production"
+        update-type: "security"
+      - dependency-type: "development"
+    ignore:
+      # Pin React to 18.x (don't auto-upgrade to 19 yet)
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      # Vite 5.x → don't auto-jump to 6.x
+      - dependency-name: "vite"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@vitejs/plugin-react"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Bangkok"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "chore(ci)"
+    labels:
+      - "ci"
+      - "dependencies"
