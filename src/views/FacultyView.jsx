@@ -1,9 +1,14 @@
 // ============================================================
-// FacultyView — browse all 17 instructors at a glance
+// FacultyView — browse all instructors at a glance
 // ============================================================
 // Shows a sortable / searchable grid of every instructor whose
 // research profile is in the knowledge base. Click a card → opens
 // InstructorModal (lazy-loaded, same as TopicSelectView path).
+//
+// Filters:
+//   • Search box (name / position / dept / research areas)
+//   • Subject chip row (com3 / com4 / com5 / exotic / poultry)
+//   • Department chip row (Medicine / Surgery / Pathology / ...)
 //
 // Reachable from:
 //   • ⌘K palette → "👨‍🏫 Faculty" entry
@@ -20,10 +25,60 @@ const InstructorModal = lazy(() => import('../components/InstructorModal.jsx'));
 
 const SUBJECT_META = SUBJECTS.reduce((acc, s) => { acc[s.id] = s; return acc; }, {});
 
+// ─────────────────────────────────────────────────────────────
+// Department grouping — simplifies long dept names to chip labels
+// ─────────────────────────────────────────────────────────────
+const DEPT_RULES = [
+  { id: 'medicine',     label: 'Medicine',      icon: '🩺', match: (d) => /medicine/i.test(d) && !/aquatic|public health/i.test(d) },
+  { id: 'surgery',      label: 'Surgery',       icon: '🔪', match: (d) => /surgery/i.test(d) },
+  { id: 'pathology',    label: 'Pathology',     icon: '🔬', match: (d) => /pathology/i.test(d) },
+  { id: 'microbiology', label: 'Microbiology',  icon: '🦠', match: (d) => /microbiology/i.test(d) },
+  { id: 'parasitology', label: 'Parasitology',  icon: '🪲', match: (d) => /parasitology/i.test(d) },
+  { id: 'pharmacology', label: 'Pharmacology',  icon: '💊', match: (d) => /pharmacology/i.test(d) },
+  { id: 'physiology',   label: 'Physiology',    icon: '❤️', match: (d) => /physiology/i.test(d) },
+  { id: 'biochem',      label: 'Biochemistry',  icon: '🧪', match: (d) => /biochem/i.test(d) },
+  { id: 'anatomy',      label: 'Anatomy',       icon: '🦴', match: (d) => /anatomy/i.test(d) },
+  { id: 'vph',          label: 'VPH',           icon: '🧫', match: (d) => /public health|vph/i.test(d) },
+  { id: 'reproduction', label: 'Reproduction',  icon: '🐎', match: (d) => /obstetrics|reproduction|theriogenology/i.test(d) },
+  { id: 'husbandry',    label: 'Husbandry',     icon: '🌾', match: (d) => /husbandry/i.test(d) },
+  { id: 'external',     label: 'External',      icon: '🌍', match: (d) => /zpot|betagro|industry/i.test(d) },
+];
+
+function classifyDept(deptString) {
+  if (!deptString) return 'other';
+  for (const rule of DEPT_RULES) {
+    if (rule.match(deptString)) return rule.id;
+  }
+  return 'other';
+}
+
+const DEPT_META = DEPT_RULES.reduce((acc, r) => { acc[r.id] = r; return acc; }, {
+  other: { id: 'other', label: 'Other', icon: '📂' },
+});
+
 export default function FacultyView({ goHome }) {
   const [openInstructor, setOpenInstructor] = useState(null);
-  const [filter, setFilter] = useState(''); // text search
-  const [subjectFilter, setSubjectFilter] = useState('all'); // 'all' | 'com3' | 'com4' | 'com5' | 'exotic'
+  const [filter, setFilter] = useState('');
+  const [subjectFilter, setSubjectFilter] = useState('all');
+  const [deptFilter, setDeptFilter] = useState('all');
+
+  // Compute department counts (for chip labels)
+  const departmentCounts = useMemo(() => {
+    const counts = {};
+    for (const ins of ALL_INSTRUCTORS) {
+      const id = classifyDept(ins.department);
+      counts[id] = (counts[id] || 0) + 1;
+    }
+    return counts;
+  }, []);
+
+  // Department chips: sort by count desc
+  const departmentChips = useMemo(() => {
+    const ids = Object.keys(departmentCounts).filter((id) => departmentCounts[id] > 0);
+    return ids
+      .map((id) => ({ ...DEPT_META[id], count: departmentCounts[id] }))
+      .sort((a, b) => b.count - a.count);
+  }, [departmentCounts]);
 
   const filtered = useMemo(() => {
     const q = filter.trim().toLowerCase();
@@ -32,7 +87,11 @@ export default function FacultyView({ goHome }) {
       if (subjectFilter !== 'all') {
         if (!(ins.subjects || []).includes(subjectFilter)) return false;
       }
-      // Text filter (name, position, areas)
+      // Department filter
+      if (deptFilter !== 'all') {
+        if (classifyDept(ins.department) !== deptFilter) return false;
+      }
+      // Text filter
       if (q) {
         const hay = [
           ins.nameEn, ins.nameTh, ins.position, ins.department,
@@ -42,7 +101,7 @@ export default function FacultyView({ goHome }) {
       }
       return true;
     }).sort((a, b) => (a.nameEn || '').localeCompare(b.nameEn || ''));
-  }, [filter, subjectFilter]);
+  }, [filter, subjectFilter, deptFilter]);
 
   const subjectFilters = [
     { id: 'all', label: 'ทุกวิชา', icon: '👥' },
@@ -50,6 +109,7 @@ export default function FacultyView({ goHome }) {
     { id: 'com4', label: 'COM IV', icon: '🩺' },
     { id: 'com5', label: 'COM V', icon: '🐕' },
     { id: 'exotic', label: 'Exotic', icon: '🦜' },
+    { id: 'poultry', label: 'Poultry', icon: '🐔' },
   ];
 
   return (
@@ -58,25 +118,19 @@ export default function FacultyView({ goHome }) {
 
       <div className="vmx-hero">
         <h1>👨‍🏫 อาจารย์ <em>ผู้สอน</em></h1>
-        <p>{ALL_INSTRUCTORS.length} ท่านที่สอนวิชาในระบบ · กดที่การ์ดเพื่อดูประวัติ + งานวิจัย</p>
+        <p>{ALL_INSTRUCTORS.length} ท่านที่มีโปรไฟล์ในฐานข้อมูล · กดที่การ์ดเพื่อดูประวัติ + งานวิจัย</p>
       </div>
 
-      {/* Search + subject filter */}
-      <div style={{
-        display: 'flex',
-        gap: 12,
-        marginBottom: 20,
-        flexWrap: 'wrap',
-        alignItems: 'center',
-      }}>
+      {/* Search */}
+      <div style={{ marginBottom: 12 }}>
         <input
           type="text"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          placeholder="🔍 ค้นชื่อ / ตำแหน่ง / สาขาวิจัย"
+          placeholder="🔍 ค้นชื่อ / ตำแหน่ง / ภาควิชา / สาขาวิจัย"
           style={{
-            flex: '1 1 240px',
-            minWidth: 0,
+            width: '100%',
+            boxSizing: 'border-box',
             padding: '10px 14px',
             border: '1px solid var(--clr-border)',
             borderRadius: 999,
@@ -87,25 +141,75 @@ export default function FacultyView({ goHome }) {
           }}
           autoComplete="off"
         />
-        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          {subjectFilters.map((sf) => {
-            const active = subjectFilter === sf.id;
-            return (
-              <button
-                key={sf.id}
-                onClick={() => setSubjectFilter(sf.id)}
-                className="vmx-nav-btn"
-                style={{
-                  background: active ? 'var(--clr-ink)' : 'transparent',
-                  color: active ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
-                  borderColor: active ? 'var(--clr-ink)' : 'var(--clr-border)',
-                }}
-              >
-                {sf.icon} {sf.label}
-              </button>
-            );
-          })}
-        </div>
+      </div>
+
+      {/* Subject filter chip row */}
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8, alignItems: 'center' }}>
+        <span style={{
+          fontSize: 10, fontFamily: 'JetBrains Mono, monospace',
+          color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
+          letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
+        }}>by subject</span>
+        {subjectFilters.map((sf) => {
+          const active = subjectFilter === sf.id;
+          return (
+            <button
+              key={sf.id}
+              onClick={() => setSubjectFilter(sf.id)}
+              className="vmx-nav-btn"
+              style={{
+                padding: '4px 10px',
+                fontSize: 12,
+                background: active ? 'var(--clr-ink)' : 'transparent',
+                color: active ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
+                borderColor: active ? 'var(--clr-ink)' : 'var(--clr-border)',
+              }}
+            >
+              {sf.icon} {sf.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Department filter chip row */}
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
+        <span style={{
+          fontSize: 10, fontFamily: 'JetBrains Mono, monospace',
+          color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
+          letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
+        }}>by dept</span>
+        <button
+          onClick={() => setDeptFilter('all')}
+          className="vmx-nav-btn"
+          style={{
+            padding: '4px 10px',
+            fontSize: 12,
+            background: deptFilter === 'all' ? 'var(--clr-ink)' : 'transparent',
+            color: deptFilter === 'all' ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
+            borderColor: deptFilter === 'all' ? 'var(--clr-ink)' : 'var(--clr-border)',
+          }}
+        >
+          🏛️ ทุกภาค
+        </button>
+        {departmentChips.map((dc) => {
+          const active = deptFilter === dc.id;
+          return (
+            <button
+              key={dc.id}
+              onClick={() => setDeptFilter(dc.id)}
+              className="vmx-nav-btn"
+              style={{
+                padding: '4px 10px',
+                fontSize: 12,
+                background: active ? 'var(--clr-ink)' : 'transparent',
+                color: active ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
+                borderColor: active ? 'var(--clr-ink)' : 'var(--clr-border)',
+              }}
+            >
+              {dc.icon} {dc.label} <span style={{ opacity: 0.6 }}>·{dc.count}</span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Result count */}
@@ -153,7 +257,10 @@ export default function FacultyView({ goHome }) {
 }
 
 function FacultyCard({ instructor, onClick }) {
-  const { nameEn, nameTh, position, areas, papers, subjects } = instructor;
+  const { nameEn, nameTh, position, department, areas, papers, subjects } = instructor;
+  const deptId = classifyDept(department);
+  const deptMeta = DEPT_META[deptId];
+
   return (
     <button
       onClick={onClick}
@@ -180,8 +287,8 @@ function FacultyCard({ instructor, onClick }) {
         e.currentTarget.style.transform = '';
       }}
     >
-      {/* Subject pills (top-right) */}
-      <div style={{ position: 'absolute', top: 10, right: 12, display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+      {/* Top-right pills: subjects + dept */}
+      <div style={{ position: 'absolute', top: 10, right: 12, display: 'flex', gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end', maxWidth: 110 }}>
         {(subjects || []).map((sid) => {
           const meta = SUBJECT_META[sid];
           return (
@@ -202,10 +309,26 @@ function FacultyCard({ instructor, onClick }) {
             </span>
           );
         })}
+        {/* Dept pill — only show if no subjects (avoid clutter) */}
+        {(!subjects || subjects.length === 0) && deptMeta && (
+          <span
+            style={{
+              fontSize: 10,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-ink-soft)',
+              background: 'var(--clr-surface-2)',
+              padding: '2px 6px',
+              borderRadius: 999,
+              border: '1px solid var(--clr-border)',
+            }}
+          >
+            {deptMeta.icon} {deptMeta.label}
+          </span>
+        )}
       </div>
 
       {/* Name */}
-      <div style={{ marginRight: 70 /* room for pills */ }}>
+      <div style={{ marginRight: 110 /* room for pills */ }}>
         <div style={{ fontFamily: 'Fraunces, serif', fontSize: 18, fontWeight: 600, color: 'var(--clr-ink)', lineHeight: 1.2 }}>
           {nameEn}
         </div>

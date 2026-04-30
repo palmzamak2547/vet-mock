@@ -878,8 +878,8 @@ export const INSTRUCTORS = {
         url: '',
         summary: 'Mapped Salmonella serotypes and AMR profiles across Thai layer operations.' },
     ],
-    notes: ['Senior, well-published Thai poultry veterinary scientist with sustained track record from early 2000s onward. AHRU senior member alongside Niwat Chansiripornchai and Nataya Charoenvisal.', 'Likely lectures in PLTRY HLTH MGT (3107409) — IBV, AIV, or Salmonella topics. Has supervised many graduate students on broiler/layer respiratory and enteric diseases.'],
-    subjects: [],
+    notes: ['Senior, well-published Thai poultry veterinary scientist with sustained track record from early 2000s onward. AHRU senior member alongside Niwat Chansiripornchai and Nataya Charoenvisal.', 'Confirmed lecturer in PLTRY HLTH MGT (3107409) Midterm L6-7 (per curriculum.js).'],
+    subjects: ['poultry'],
     topics: [],
   },
 
