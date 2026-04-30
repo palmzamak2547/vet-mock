@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { hasSupabase, hasSavedSession, getSupabase } from '../lib/supabase.js';
+import { hasSupabase, hasSavedSession, hasAuthRedirectInUrl, getSupabase } from '../lib/supabase.js';
 
 // useAuth() — returns { user, profile, setProfile, loading, isSignedIn }.
 //
@@ -20,7 +20,10 @@ import { hasSupabase, hasSavedSession, getSupabase } from '../lib/supabase.js';
 export function useAuth() {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(hasSupabase && hasSavedSession());
+  // Treat a URL-borne auth redirect (magic link / OAuth / recovery) as
+  // "we're loading auth" so the UI doesn't briefly render the signed-out
+  // state before SDK parses the URL hash.
+  const [loading, setLoading] = useState(hasSupabase && (hasSavedSession() || hasAuthRedirectInUrl()));
   const subscribed = useRef(false);
   const subscriptionRef = useRef(null);
   // Guard against parallel setupSDK calls — multiple vmx-auth-changed
@@ -60,7 +63,12 @@ export function useAuth() {
     const cancelledRef = { current: false };
 
     // Path A: saved session at boot → eagerly hydrate
-    if (hasSavedSession()) {
+    // Path A2: URL contains auth redirect tokens (magic link / OAuth /
+    // recovery) — eagerly load SDK so detectSessionInUrl can parse the
+    // hash and create a session. Without this branch, users coming back
+    // from a magic-link email see "not signed in" until they manually
+    // refresh — and refresh doesn't help because the hash is gone.
+    if (hasSavedSession() || hasAuthRedirectInUrl()) {
       setupSDK(cancelledRef);
     }
 

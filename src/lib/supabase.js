@@ -53,6 +53,36 @@ export function hasSavedSession() {
   return false;
 }
 
+// Did we land here from an email/OAuth redirect that needs the SDK to
+// parse tokens out of the URL? Examples:
+//   • Magic link:    #access_token=...&refresh_token=...&type=magiclink
+//   • Recovery:      #access_token=...&type=recovery (or ?auth=reset)
+//   • OAuth return:  #access_token=... (Google/etc)
+//   • PKCE flow:     ?code=...
+//   • Email error:   #error_code=... or ?error=...
+//
+// These flows put the credentials in the URL but NOT in localStorage —
+// the SDK's `detectSessionInUrl: true` parses + persists on first load.
+// Without this check, hasSavedSession() would return false and useAuth
+// would skip eager SDK load → the page would appear "not signed in"
+// until the user manually refreshed (which still wouldn't help, since
+// hash is gone after refresh) or navigated to AuthView which preloads.
+export function hasAuthRedirectInUrl() {
+  if (typeof window === 'undefined') return false;
+  const hash = window.location.hash || '';
+  const search = window.location.search || '';
+  // Hash params (implicit flow): access_token, refresh_token, error_code
+  if (/[#&](access_token|refresh_token|provider_token|error_code|error_description)=/.test(hash)) return true;
+  // Query params (PKCE flow + custom flags)
+  if (/[?&](code|token_hash)=/.test(search)) return true;
+  // App's own auth-action flag (?auth=reset)
+  try {
+    const params = new URLSearchParams(search);
+    if (params.get('auth') === 'reset' || params.get('auth') === 'verify') return true;
+  } catch {}
+  return false;
+}
+
 // Notify useAuth (and any other listener) that the SDK is now loaded
 // and an auth state change just happened. useAuth uses this signal to
 // (a) fetch the current session for the user that just signed in and
