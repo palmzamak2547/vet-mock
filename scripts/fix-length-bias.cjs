@@ -35,6 +35,9 @@ const FILES = [
   'src/data/questions-com4.js',
   'src/data/questions-com5.js',
   'src/data/questions-engprof.js',
+  'src/data/questions-exotic.js',
+  'src/data/questions-poultry.js',
+  'src/data/questions-repro-lect.js',
 ];
 
 const args = process.argv.slice(2);
