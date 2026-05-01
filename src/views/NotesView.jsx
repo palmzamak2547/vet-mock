@@ -4,6 +4,7 @@ import { NOTES_COM3 } from '../data/notes-com3.js';
 import { NOTES_COM4 } from '../data/notes-com4.js';
 import { NOTES_ENGPROF } from '../data/notes-engprof.js';
 import { NOTES_EXOTIC } from '../data/notes-exotic.js';
+import { NOTES_REPRO_LECT } from '../data/notes-repro-lect.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
@@ -25,6 +26,7 @@ const NOTES_BY_SUBJECT = {
   com3: NOTES_COM3,
   engprof: NOTES_ENGPROF,
   exotic: NOTES_EXOTIC,
+  'repro-lect': NOTES_REPRO_LECT,
 };
 
 export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, goHome }) {

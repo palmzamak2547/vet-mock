@@ -18,6 +18,7 @@
 //   'com3'      🚨 COM III
 //   'com4'      🩺 COM IV
 //   'com5'      🐕 COM V
+//   'repro-lect' 🐾 Repro Lecture
 //   'auth'      🔐 Login / Register
 //   'multi'     ⚡ ส่งผลหลายส่วน (ใช้กับการแก้ที่เกี่ยวข้อง 2+ scope)
 // ============================================================
@@ -31,6 +32,7 @@ export const SCOPE_LABELS = {
   com3:     { icon: '🚨',  label: 'COM III',        color: '#c26d6d',                 bg: 'rgba(194, 109, 109, 0.12)' },
   com4:     { icon: '🩺',  label: 'COM IV',         color: '#6b5b8e',                 bg: 'rgba(107, 91, 142, 0.12)' },
   com5:     { icon: '🐕',  label: 'COM V',          color: '#3d6b82',                 bg: 'rgba(61, 107, 130, 0.12)' },
+  'repro-lect': { icon: '🐾', label: 'Repro Lecture', color: '#b88940',               bg: 'rgba(184, 137, 64, 0.12)' },
   auth:     { icon: '🔐',  label: 'Login/Register', color: 'var(--clr-sage)',          bg: 'rgba(74, 107, 74, 0.12)' },
   multi:    { icon: '⚡',  label: 'หลายส่วน',        color: 'var(--clr-gold)',          bg: 'rgba(184, 137, 64, 0.12)' },
 };
@@ -41,6 +43,15 @@ export const SCOPE_LABELS = {
 //   (อยู่ในประวัติ git แล้ว · ผู้ใช้ไม่จำเป็นต้องรู้)
 
 export const CHANGELOG = [
+  {
+    version: '5.14.0',
+    date: '2026-05-01',
+    headline: '🐾 Repro Lecture เปิดแล้ว · แยกจาก Lab · ครบ Lect 15-24',
+    changes: [
+      { scope: 'repro-lect', kind: 'content', icon: '🐾', title: 'Comp Ani Repro Lecture พร้อมใช้',
+        desc: 'เพิ่มวิชา Repro Lecture แยกจาก Repro Lab ตามรอบสอบจริง · อัปเดตตารางสอบเป็น subject ใหม่ · มีหัวข้อ Lect 15-24 ตาม syllabus 2026 · เพิ่มสรุปอ่านเร็วครบ 10 หัวข้อ + ชุดข้อสอบเริ่มต้น 50 ข้อจาก slide 2026 และโพย final ที่ match แล้ว' },
+    ],
+  },
   {
     version: '5.13.0',
     date: '2026-04-28',

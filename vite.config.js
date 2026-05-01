@@ -19,6 +19,7 @@ export default defineConfig({
           if (id.includes('questions-com5')) return 'data-q-com5'
           if (id.includes('questions-engprof')) return 'data-q-engprof'
           if (id.includes('questions-exotic')) return 'data-q-exotic'
+          if (id.includes('questions-repro-lect')) return 'data-q-repro-lect'
           if (id.includes('data/instructors')) return 'data-instructors'
           // Notes data is only loaded when NotesView is opened
           if (id.includes('notes-com3')) return 'data-notes-com3'
@@ -26,6 +27,7 @@ export default defineConfig({
           if (id.includes('notes-com5')) return 'data-notes-com5'
           if (id.includes('notes-engprof')) return 'data-notes-engprof'
           if (id.includes('notes-exotic')) return 'data-notes-exotic'
+          if (id.includes('notes-repro-lect')) return 'data-notes-repro-lect'
         },
       },
     },
