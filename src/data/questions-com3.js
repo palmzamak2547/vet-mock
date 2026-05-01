@@ -473,7 +473,7 @@ export const QB_COM3 = [
 
   { id: 780, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
     tags: ['neuro-exam', 'goals'], type: 'mcq',
-    q: 'Goals of neurological examination มี 4 ข้อ — ข้อใด **ไม่ใช่**',
+    q: 'Goals of neurological examination มี 4 ข้อ — ข้อใด ไม่ใช่',
     options: ['Determine the anesthetic protocol', 'Determine pathologic process', 'Localize lesion', 'Confirm ว่า lesion อยู่ใน nervous system'],
     answer: 0, explain: 'Goals: confirm neuro problem\nlocalize\npathologic process\nseverity → prognosis\nไม่เกี่ยวกับ anesthesia plan',
     verified: 'neuro_exam 1 hr.pdf' },
@@ -1035,7 +1035,7 @@ export const QB_COM3 = [
   { id: 870, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
     tags: ['head-trauma', 'fluid-choice'], type: 'mcq',
     q: 'Fluid resuscitation ใน head trauma — เลือกใช้ fluid ใด',
-    options: ['Free water IV', 'Dextrose 5%', 'Isotonic crystalloid (NSS/LRS)', 'Hypotonic saline (0.45%)'],
+    options: ['Free water IV', 'Dextrose 5%', 'Isotonic crystalloid', 'Hypotonic saline (0.45%)'],
     answer: 2, explain: 'Head trauma: NSS/LRS ที่ rate ระวัง — overload → worsen edema\ntarget MAP ≥ 80 (CPP)\navoid hypotonic + hyponatremia (cerebral edema)\n\n❌ ทำไมข้ออื่นผิด\n— Free water IV = hyponatremia → cerebral edema\n— D5W = metabolize เป็น free water\n— 0.45% = hypotonic = edema',
     verified: 'neuroER 1 hr.pdf' },
 
@@ -1270,7 +1270,7 @@ export const QB_COM3 = [
 
   { id: 1301, subject: 'com3', topic: 'triage', year: 4, source: 'DC3final 86',
     tags: ['triage', 'primary-survey'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ระบบอวัยวะใดต่อไปนี้ **ไม่ใช่** ระบบที่ควรได้รับการพิจารณาขณะทำ primary survey',
+    q: 'ระบบอวัยวะใดต่อไปนี้ ไม่ใช่ ระบบที่ควรได้รับการพิจารณาขณะทำ primary survey',
     options: [
       'Cardiovascular system (heart rate, pulse quality, mucous membrane)',
       'Nervous system (mentation, gait, cranial nerves เบื้องต้น)',
@@ -1283,7 +1283,7 @@ export const QB_COM3 = [
 
   { id: 1302, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['seizure', 'pathophysiology'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'อาการชัก (seizures) เกิดจากความผิดปกติของสมอง ตำแหน่งใดต่อไปนี้ **ไม่ใช่** ตำแหน่งที่ทำให้เกิดอาการชัก',
+    q: 'อาการชัก (seizures) เกิดจากความผิดปกติของสมอง ตำแหน่งใดต่อไปนี้ ไม่ใช่ ตำแหน่งที่ทำให้เกิดอาการชัก',
     options: [
       'Basal nuclei (deep gray matter — extrapyramidal pathway)',
       'Hippocampus (limbic system — temporal lobe seizure focus)',
@@ -1309,7 +1309,7 @@ export const QB_COM3 = [
 
   { id: 1304, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'DC3final 86',
     tags: ['addisonian', 'electrolyte'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'Pattern ใดข้อต่อไปนี้ **ไม่ใช่** clinical pathology ของ classical Addison\'s disease',
+    q: 'Pattern ใดข้อต่อไปนี้ ไม่ใช่ clinical pathology ของ classical Addison\'s disease',
     options: [
       'Hyperkalemia (K > 5.5 mEq/L — ขาด aldosterone, ไม่ขับ K)',
       'Lymphocytosis (lymphocyte สูง — ขาด cortisol จึงไม่ stress leukogram)',
@@ -1322,7 +1322,7 @@ export const QB_COM3 = [
 
   { id: 1305, subject: 'com3', topic: 'shock', year: 4, source: 'DC3final 86',
     tags: ['shock', 'resuscitation'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** ขั้นตอนการ resuscitation',
+    q: 'ข้อใดต่อไปนี้ ไม่ใช่ ขั้นตอนการ resuscitation',
     options: [
       'Cooling down body temperature in heat stroke (active cooling — wet towel + fan + IV cool fluid)',
       'Oxygen therapy in severe anemic case (mask / cage / nasal — เพิ่ม dissolved O2)',
@@ -1564,7 +1564,7 @@ export const QB_COM3 = [
 
   { id: 1325, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'DC3final 86',
     tags: ['ate', '5ps'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด **ไม่ใช่** หนึ่งใน 5Ps criteria ของการวินิจฉัย aortic thromboembolism (ATE) ในแมว',
+    q: 'ข้อใด ไม่ใช่ หนึ่งใน 5Ps criteria ของการวินิจฉัย aortic thromboembolism (ATE) ในแมว',
     options: [
       'Poikilocytosis (เม็ดเลือดแดงผิดรูป — เป็น CBC finding, ไม่ใช่ ATE clinical)',
       'Pulselessness (femoral pulse คลำไม่ได้ — distal embolus block flow)',
@@ -1698,7 +1698,7 @@ export const QB_COM3 = [
 
   { id: 1335, subject: 'com3', topic: 'spinal', year: 4, source: 'DC3final 86',
     tags: ['posture', 'tetanus-ddx'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** posture ที่สัตวแพทย์ประจำคลินิกพึงนิยมจัดอยู่ในการพิจารณา differential ของโรคบาดทะยัก (tetanus)',
+    q: 'ข้อใดต่อไปนี้ ไม่ใช่ posture ที่สัตวแพทย์ประจำคลินิกพึงนิยมจัดอยู่ในการพิจารณา differential ของโรคบาดทะยัก (tetanus)',
     options: [
       'Decerebellate rigidity (ทั้ง 4 ขา rigid extension — cerebellar lesion)',
       'Cross extensor posture (reflex แทนการเคลื่อนไหวปกติ — UMN sign)',
@@ -1802,7 +1802,7 @@ export const QB_COM3 = [
 
   { id: 1343, subject: 'com3', topic: 'seizure', year: 4, source: 'DC3final 86',
     tags: ['workup', 'extracranial'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** diagnostic workup ที่ใช้ rule out extracranial causes ของ seizure',
+    q: 'ข้อใดต่อไปนี้ ไม่ใช่ diagnostic workup ที่ใช้ rule out extracranial causes ของ seizure',
     options: [
       'Ionized calcium (rule out hypocalcemic seizure — eclampsia, post-thyroidect)',
       'Blood glucose level (rule out hypoglycemia — insulinoma, neonatal, Addisonian)',
@@ -1880,7 +1880,7 @@ export const QB_COM3 = [
 
   { id: 1349, subject: 'com3', topic: 'cpcr', year: 4, source: 'DC3final 86',
     tags: ['cpr-prep', 'recover-prep'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด **ไม่ใช่** คำแนะนำในการเตรียมความพร้อมเพื่อทำปฏิบัติการ CPR ในสัตว์ ตามหลักการ "RECOVER"',
+    q: 'ข้อใด ไม่ใช่ คำแนะนำในการเตรียมความพร้อมเพื่อทำปฏิบัติการ CPR ในสัตว์ ตามหลักการ "RECOVER"',
     options: [
       'จัดฝึกซ้อม CPR ให้กับทีมในหน่วยฉุกเฉินอยู่เสมอ (training quarterly)',
       'ประเมิน CPA จากอุปกรณ์เครื่องตรวจ Doppler / ECG / capnograph ก่อน start CPR',
@@ -2027,7 +2027,7 @@ export const QB_COM3 = [
   // ============================================================
   { id: 1360, subject: 'com3', topic: 'cpcr', year: 4, source: 'COM III Final 86',
     tags: ['cpcr', 'recover', 'preparation'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด **ไม่ใช่** ข้อแนะนำในการเตรียมความพร้อมและประเมิน CPA ตามหลักการ "RECOVER"',
+    q: 'ข้อใด ไม่ใช่ ข้อแนะนำในการเตรียมความพร้อมและประเมิน CPA ตามหลักการ "RECOVER"',
     options: [
       'ประเมิน CPA โดยการคลำชีพจร (palpate pulse — กินเวลานานและไม่แม่น)',
       'ประเมิน CPA จากการหมดสติ (unconscious) หรือไม่ตอบสนอง (unresponsive)',
@@ -2040,7 +2040,7 @@ export const QB_COM3 = [
 
   { id: 1361, subject: 'com3', topic: 'cpcr', year: 4, source: 'COM III Final 86',
     tags: ['cpcr', 'bls', 'recover'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด **ไม่ใช่** ข้อแนะนำในขั้นตอน Basic Life Support (BLS) ตามหลักการ "RECOVER"',
+    q: 'ข้อใด ไม่ใช่ ข้อแนะนำในขั้นตอน Basic Life Support (BLS) ตามหลักการ "RECOVER"',
     options: [
       'อัตรา ventilation 10 ครั้ง/นาที และ inspiratory time 1 วินาที (ไม่ over-inflate)',
       'เมื่อต้องหยุดทำ chest compression ต้องตรวจสอบ ROSC ทุกครั้งทันที',
@@ -2053,7 +2053,7 @@ export const QB_COM3 = [
 
   { id: 1362, subject: 'com3', topic: 'triage', year: 4, source: 'COM III Final 86',
     tags: ['triage', 'resuscitation'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** กระบวนการ resuscitation ในเวชศาสตร์ฉุกเฉิน',
+    q: 'ข้อใดต่อไปนี้ ไม่ใช่ กระบวนการ resuscitation ในเวชศาสตร์ฉุกเฉิน',
     options: [
       'Fluid therapy ในผู้ป่วย hypovolemic shock (volume restoration)',
       'Oxygen therapy ในผู้ป่วย severe anemia (oxygen delivery support)',
@@ -2105,7 +2105,7 @@ export const QB_COM3 = [
 
   { id: 1366, subject: 'com3', topic: 'shock', year: 4, source: 'COM III Final 86',
     tags: ['ate', 'thromboembolism', '5p-criteria'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ **ไม่ใช่** หนึ่งใน 5Ps criteria ของอาการ aortic thromboembolism (ATE)',
+    q: 'ข้อใดต่อไปนี้ ไม่ใช่ หนึ่งใน 5Ps criteria ของอาการ aortic thromboembolism (ATE)',
     options: [
       'Pulselessness — ไม่พบ femoral pulse ที่ขาที่ blocked (cold limb)',
       'Poikilocytosis — RBC shape variation บน blood smear (อนุพันธ์ของอย่างอื่น)',
@@ -2183,7 +2183,7 @@ export const QB_COM3 = [
 
   { id: 1372, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'COM III Final 86',
     tags: ['uroabdomen', 'hyperkalemia', 'stabilization'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'แมวเพศผู้ 2 ปี รถชน 24 ชม. · BP ต่ำ HR 140 CRT 3 วิ ไม่ขับสาวะ · ในเคส uroabdomen ข้อใด **ไม่ใช่** approach ที่เหมาะสม',
+    q: 'แมวเพศผู้ 2 ปี รถชน 24 ชม. · BP ต่ำ HR 140 CRT 3 วิ ไม่ขับสาวะ · ในเคส uroabdomen ข้อใด ไม่ใช่ approach ที่เหมาะสม',
     options: [
       'พิจารณาให้ยาแก้ปวด opioid หลังทำ triage (analgesia ระหว่าง stabilize)',
       'ให้ fluid therapy ถ้าสัตว์อยู่ในภาวะ hypovolemia (volume restoration)',
@@ -2287,7 +2287,7 @@ export const QB_COM3 = [
 
   { id: 1380, subject: 'com3', topic: 'seizure', year: 4, source: 'COM III Final 86',
     tags: ['extracranial-cause', 'workup'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด **ไม่ใช่** diagnostic workup เพื่อ rule out extracranial causes ของ seizure',
+    q: 'ข้อใด ไม่ใช่ diagnostic workup เพื่อ rule out extracranial causes ของ seizure',
     options: [
       'Serum anti-epileptic drug level (compliance/toxicity check — ไม่ใช่ extracranial cause)',
       'ALT / ALP / bile acids (extracranial — hepatic encephalopathy)',
@@ -2326,7 +2326,7 @@ export const QB_COM3 = [
 
   { id: 1383, subject: 'com3', topic: 'neuro-er', year: 4, source: 'COM III Final 86',
     tags: ['tbi', 'primary-secondary-damage'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใด **ไม่ใช่** secondary damage of brain ใน traumatic brain injury (TBI)',
+    q: 'ข้อใด ไม่ใช่ secondary damage of brain ใน traumatic brain injury (TBI)',
     options: [
       'Brain swelling / cytotoxic edema (secondary — develop ใน hours-days)',
       'Inflammatory cascade (cytokines, free radical, glutamate excitotoxicity)',
@@ -2339,7 +2339,7 @@ export const QB_COM3 = [
 
   { id: 1384, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'COM III Final 86',
     tags: ['vestibular', 'central-vs-peripheral'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดเป็น character เฉพาะ ของ central vestibular disorder (**ไม่ใช่** peripheral)',
+    q: 'ข้อใดเป็น character เฉพาะ ของ central vestibular disorder (ไม่ใช่ peripheral)',
     options: [
       'Head tilt (พบทั้ง central และ peripheral; peripheral มักเด่นกว่า)',
       'Horizontal nystagmus (peripheral เด่น; แต่ central ก็มีได้)',
@@ -2352,7 +2352,7 @@ export const QB_COM3 = [
 
   { id: 1385, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'COM III Final 86',
     tags: ['vestibular', 'lateralization', 'nystagmus'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ตัวเลือกใดต่อไปนี้ **ไม่ใช่** sign ของ vestibular lesion ทางขวา (right-sided)',
+    q: 'ตัวเลือกใดต่อไปนี้ ไม่ใช่ sign ของ vestibular lesion ทางขวา (right-sided)',
     options: [
       'Right horizontal nystagmus (fast phase ผิดข้าง — ปกติชี้ AWAY from lesion = LEFT)',
       'Right ventrolateral strabismus (positional — ipsilateral to lesion)',
@@ -2482,7 +2482,7 @@ export const QB_COM3 = [
 
   { id: 1396, subject: 'com3', topic: 'seizure', year: 4, source: 'COM 3 final TJ86.pdf',
     tags: ['AED', 'criteria'], type: 'mcq',
-    q: 'ข้อใด **ไม่ใช่** เกณฑ์เริ่มยา AED (Anti-Epileptic Drugs)',
+    q: 'ข้อใด ไม่ใช่ เกณฑ์เริ่มยา AED (Anti-Epileptic Drugs)',
     options: ['ชัก ≥ 3 ครั้งใน 24 ชม.', 'ชัก > 2 ครั้งใน 6 เดือน', 'พบ structural lesion', 'ชักครั้งแรก อายุ 4 ปี ไม่มี lesion'],
     answer: 3, explain: 'เกณฑ์เริ่ม AED:\n1. มี structural lesion\n2. Status epilepticus ครั้งแรก\n3. Cluster (≥ 3 ครั้งใน 24 ชม.)\n4. ชัก > 2 ครั้งใน 6 เดือน\n5. Post-ictal นานหรือรุนแรง\n\n✗ ครั้งเดียว + ไม่มี lesion + พักได้ → wait & see',
     verified: 'TJ86 p.5 § AED criteria + seizure 1 hr.pdf' },
@@ -2491,28 +2491,28 @@ export const QB_COM3 = [
     tags: ['DKA', 'fluid', 'glucose'], type: 'mcq',
     q: 'ผู้ป่วย DKA ที่มี blood glucose 230 mg/dL · ตาม CRI insulin algorithm ควรใช้ fluid ใด',
     options: ['NSS (0.9% saline)', 'D2.5 in 1/2 saline', 'D5 in 1/2 saline', 'LRS อย่างเดียว'],
-    answer: 1, explain: 'DKA insulin CRI fluid ตาม BG:\n— BG > 250 → NSS\n— BG 200-250 → **D2.5 (½) saline**\n— BG 150-200 → D2.5 (½) saline\n— BG 100-150 → D5 (½) saline\n— BG < 100 → stop insulin + D5',
+    answer: 1, explain: 'DKA insulin CRI fluid ตาม BG:\n— BG > 250 → NSS\n— BG 200-250 → D2.5 (½) saline\n— BG 150-200 → D2.5 (½) saline\n— BG 100-150 → D5 (½) saline\n— BG < 100 → stop insulin + D5',
     verified: 'TJ86 p.6 § DKA fluid algorithm + metabolic_endocrine 1 hr.pdf' },
 
   { id: 1398, subject: 'com3', topic: 'shock', year: 4, source: 'COM 3 final TJ86.pdf',
     tags: ['shock', 'classification', 'metabolic'], type: 'mcq',
     q: 'Cyanide poisoning ทำให้เกิด shock ประเภทใด',
     options: ['Hypovolemic', 'Cardiogenic', 'Distributive', 'Metabolic'],
-    answer: 3, explain: 'Cyanide ยับยั้ง cytochrome c oxidase → cell ไม่ใช้ O₂ ได้แม้ delivery O₂ ปกติ = **Metabolic shock** (cellular dysoxia)\n\n6 shock types: Hypovolemic, Cardiogenic, Distributive (septic/anaphylactic/neurogenic), Obstructive, Hypoxic (low O₂ content), Metabolic (cellular)',
+    answer: 3, explain: 'Cyanide ยับยั้ง cytochrome c oxidase → cell ไม่ใช้ O₂ ได้แม้ delivery O₂ ปกติ = Metabolic shock (cellular dysoxia)\n\n6 shock types: Hypovolemic, Cardiogenic, Distributive (septic/anaphylactic/neurogenic), Obstructive, Hypoxic (low O₂ content), Metabolic (cellular)',
     verified: 'TJ86 p.5 § Shock + SHOCK 1 hr.pdf' },
 
   { id: 1399, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'COM 3 final TJ86.pdf',
     tags: ['acute-abdomen', 'POCUS'], type: 'mcq',
     q: 'การ scan ultrasound ในการประเมินผู้ป่วย acute abdomen เรียกว่าอะไร',
     options: ['TFAST', 'AFAST', 'FAST scan', 'Echo'],
-    answer: 1, explain: 'AFAST = **A**bdominal **F**ocused **A**ssessment with **S**onography for **T**rauma · มี 4 view (DH, SR, CC, HR)\n\n✗ TFAST = Thoracic FAST (สำหรับ chest)\n✗ FAST scan = generic term\n✗ Echo = full echocardiography',
+    answer: 1, explain: 'AFAST = Abdominal Focused Assessment with Sonography for Trauma · มี 4 view (DH, SR, CC, HR)\n\n✗ TFAST = Thoracic FAST (สำหรับ chest)\n✗ FAST scan = generic term\n✗ Echo = full echocardiography',
     verified: 'TJ86 p.5 § Acute Abdomen + Acute Abdomen 1 hr.pdf' },
 
   { id: 1400, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'COM 3 final TJ86.pdf',
     tags: ['hemoabdomen', 'fluid-analysis'], type: 'mcq',
     q: 'Abdominal fluid: PCV 28%, blood PCV 35%, no clot — แปลผลว่าอย่างไร',
     options: ['Septic peritonitis', 'Bile peritonitis', 'Hemoabdomen ที่ไม่ใหม่', 'Uroabdomen'],
-    answer: 2, explain: 'Hemoabdomen criteria:\n• PCV ของ fluid ใกล้เคียง blood PCV (ไม่ต้องสูงกว่า)\n• **No clot** — เพราะ peritoneum defibrinate เลือดที่ขังในช่องท้อง\n\n💡 ถ้า fluid PCV > blood PCV = active hemorrhage ใหม่\n💡 ถ้า fluid clot = sample iatrogenic จาก vessel ปาก needle',
+    answer: 2, explain: 'Hemoabdomen criteria:\n• PCV ของ fluid ใกล้เคียง blood PCV (ไม่ต้องสูงกว่า)\n• No clot — เพราะ peritoneum defibrinate เลือดที่ขังในช่องท้อง\n\n💡 ถ้า fluid PCV > blood PCV = active hemorrhage ใหม่\n💡 ถ้า fluid clot = sample iatrogenic จาก vessel ปาก needle',
     verified: 'TJ86 p.5 § Hemoabdomen' },
 
   { id: 1401, subject: 'com3', topic: 'cpcr', year: 4, source: 'COM 3 final TJ86.pdf',
@@ -2533,13 +2533,13 @@ export const QB_COM3 = [
     tags: ['nutrition', 'tube', 'esophagus'], type: 'mcq',
     q: 'ผู้ป่วยที่มี caudal esophagus mass ต้องการ tube feeding · ควรเลือก tube ใด',
     options: ['NG (nasogastric)', 'NE (nasoesophageal)', 'E-tube (esophagostomy)', 'G-tube (gastrostomy)'],
-    answer: 3, explain: 'Tube feeding rule: ปลาย tube ต้อง **distal ต่อ lesion**\n\nMass ที่ caudal esophagus → NG/NE/E-tube ต้องผ่าน mass = ติด/หลุด/แตก\n→ **G-tube (PEG)** เลย mass ไปใส่ที่ stomach โดยตรง',
+    answer: 3, explain: 'Tube feeding rule: ปลาย tube ต้อง distal ต่อ lesion\n\nMass ที่ caudal esophagus → NG/NE/E-tube ต้องผ่าน mass = ติด/หลุด/แตก\n→ G-tube (PEG) เลย mass ไปใส่ที่ stomach โดยตรง',
     verified: 'TJ86 p.7 § Tube feeding + nutrition 1 hr.pdf' },
 
   { id: 1404, subject: 'com3', topic: 'spinal', year: 4, source: 'COM 3 final TJ86.pdf',
     tags: ['IVDD', 'breed', 'pathophys'], type: 'mcq',
     q: 'Hansen Type I IVDD พบบ่อยใน breed ใด + onset แบบใด',
     options: ['Non-chondrodystrophoid · slow gradual onset', 'Chondrodystrophoid breed · sudden onset', 'Toy breed · congenital', 'Large breed · trauma-only'],
-    answer: 1, explain: 'Hansen Type I IVDD:\n• **Chondrodystrophoid breeds** (Dachshund, Basset, Corgi, French Bulldog, Lhasa Apso, Beagle)\n• Annulus fibrosus เสื่อม → ปริ → nucleus pulposus extrude เข้า spinal canal\n• **Sudden onset** + complete extrusion\n• Hot spots: T12-L2 (60-80%) + C2-C3\n\n✗ Type II = non-chondrodystrophoid (Lab, GSD) · slow protrusion · partial · large breed senior',
+    answer: 1, explain: 'Hansen Type I IVDD:\n• Chondrodystrophoid breeds (Dachshund, Basset, Corgi, French Bulldog, Lhasa Apso, Beagle)\n• Annulus fibrosus เสื่อม → ปริ → nucleus pulposus extrude เข้า spinal canal\n• Sudden onset + complete extrusion\n• Hot spots: T12-L2 (60-80%) + C2-C3\n\n✗ Type II = non-chondrodystrophoid (Lab, GSD) · slow protrusion · partial · large breed senior',
     verified: 'TJ86 p.8 § IVDD + Spinal disorder 2 hr.pdf' },
 ];

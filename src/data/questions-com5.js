@@ -33,7 +33,7 @@ export const QB_COM5 = [
 
   { id: 501, subject: 'com5', topic: 'cve', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['CPV', 'risk'], type: 'mcq',
-    q: 'ข้อใด **ไม่ใช่** risk factor ของ Canine Parvovirus',
+    q: 'ข้อใด ไม่ใช่ risk factor ของ Canine Parvovirus',
     options: ['สุนัขโตเต็มวัยที่ฉีดวัคซีนครบและอยู่ในบ้าน', 'สิ่งแวดล้อมแออัด ขาดสุขอนามัย', 'การติดพยาธิร่วม (endoparasitism)', 'อายุ 6 สัปดาห์ – 6 เดือน'],
     answer: 0, explain: 'Risk factors: young dog 6 wk-6 mo, unvaccinated, crowded/unsanitary, co-infection, certain breeds (Rottweiler/Doberman/Lab/GSD/Pit/Yorkie)\nadult ที่ฉีดวัคซีนครบ = low risk\n\n❌ ทำไมข้ออื่นผิด\n— แออัด/co-parasite/6wk-6mo = risk factor จริง\n— "vaccinated adult indoor" = low risk = คำตอบที่ถาม',
     verified: 'CVE.pdf p.4' },
@@ -110,7 +110,7 @@ export const QB_COM5 = [
 
   { id: 539, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
     tags: ['CPV', 'diagnosis', 'PCR'], type: 'mcq',
-    q: 'ข้อใด **ไม่ใช่** สาเหตุ false-positive ของ ELISA test kit สำหรับ CPV',
+    q: 'ข้อใด ไม่ใช่ สาเหตุ false-positive ของ ELISA test kit สำหรับ CPV',
     options: ['Low viral load (น้อยเกินไป)', 'Recent natural infection', 'Cross-reaction กับ feline parvovirus (FPV)', 'Vaccine MLV ภายใน 3-10 วัน'],
     answer: 0, explain: 'Low viral load = false negative ไม่ใช่ false positive\nใช้ PCR แยก vaccine strain ออกจาก natural infection\n\n❌ ทำไมข้ออื่นผิด\n— Recent infection / Cross-react FPV / Vaccine MLV 3-10 d = false positive จริง\n— "Low viral load" = false negative ไม่ใช่ positive',
     verified: 'CVE.pdf p.14' },
@@ -380,7 +380,7 @@ export const QB_COM5 = [
 
   { id: 563, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['protozoal', 'classification'], type: 'mcq',
-    q: 'ข้อใดเป็น mucosoflagellate (**ไม่ใช่** coccidia)',
+    q: 'ข้อใดเป็น mucosoflagellate (ไม่ใช่ coccidia)',
     options: ['Sarcocystis + Hammondia', 'Giardia + Tritrichomonas foetus', 'Toxoplasma + Neospora', 'Cystoisospora + Cryptosporidium'],
     answer: 1, explain: 'Mucosoflagellate: Giardia + T. foetus + Entamoeba\nCoccidia (Apicomplexa): Cystoisospora, Crypto, Toxo, Neospora, Sarcocystis, Hammondia, Besnoitia\n\n❌ ทำไมข้ออื่นผิด\n— Sarcocystis+Hammondia / Toxo+Neospora / Cysto+Crypto = Apicomplexa coccidia ทั้งหมด',
     verified: 'GI_protozoa.pdf p.3' },
@@ -563,7 +563,7 @@ export const QB_COM5 = [
 
   { id: 580, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
     tags: ['rabies', 'transmission'], type: 'mcq',
-    q: 'วิธีการแพร่เชื้อ Rabies ที่ "**ไม่ใช่** bite exposure" (non-bite) ได้แก่',
+    q: 'วิธีการแพร่เชื้อ Rabies ที่ "ไม่ใช่ bite exposure" (non-bite) ได้แก่',
     options: ['Scratch + Lick to MM/wound + Trans-placenta', 'พาหะแมลง', 'การหายใจในห้องปกติ', 'การกินอาหารปกติ'],
     answer: 0, explain: 'Non-bite: scratch จากเล็บที่ปนเปื้อนน้ำลาย (สัตว์เลียเล็บตัวเอง) · lick ที่ mucous membrane / แผลเปิด · trans-placental (rare)\nBite = หลัก\n\n❌ ทำไมข้ออื่นผิด\n— พาหะแมลง = arboviral (ไม่ใช่ rabies)\n— หายใจปกติ = ไม่ใช่ aerosol (เฉพาะถ้ำค้างคาว)\n— กินอาหารปกติ = enteric ไม่ใช่ route หลัก',
     verified: 'Rabies.pdf p.7' },
@@ -894,7 +894,7 @@ export const QB_COM5 = [
 
   { id: 618, subject: 'com5', topic: 'feline-uri', year: 4, source: 'Feline_Upper_Respiratory_Infection.pdf',
     tags: ['furi', 'transmission'], type: 'mcq',
-    q: 'Transmission ที่ "**ไม่ใช่**" ทางหลักของ FRDC pathogens',
+    q: 'Transmission ที่ "ไม่ใช่" ทางหลักของ FRDC pathogens',
     options: ['Respiratory droplets / aerosol', 'Vector-borne ผ่านยุง / เห็บ', 'Fomites (ชาม / ผ้า / มือเจ้าของ)', 'Direct contact ระหว่างแมว'],
     answer: 1, explain: 'หลัก: direct contact + droplets + fomites + caregivers\nไม่มี vector-borne\nระวังโดยเฉพาะ multi-cat household + shelter\n\n❌ ทำไมข้ออื่นผิด\n— Respiratory droplet / Fomites / Direct contact = ทาง transmission จริง — vector-borne ไม่ใช่ route ของ FRDC',
     verified: 'Feline_Upper_Respiratory_Infection.pdf p.5' },

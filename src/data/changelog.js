@@ -44,12 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
-    version: '5.14.0',
-    date: '2026-05-01',
-    headline: '🐾 Repro Lecture เปิดแล้ว · แยกจาก Lab · ครบ Lect 15-24',
+    version: '5.15.0',
+    date: '2026-05-02',
+    headline: '🐾 Repro Lecture +41 ข้อจาก past-paper screenshot · COM IV +131 ข้อ · ลด length bias',
     changes: [
-      { scope: 'repro-lect', kind: 'content', icon: '🐾', title: 'Comp Ani Repro Lecture พร้อมใช้',
-        desc: 'เพิ่มวิชา Repro Lecture แยกจาก Repro Lab ตามรอบสอบจริง · อัปเดตตารางสอบเป็น subject ใหม่ · มีหัวข้อ Lect 15-24 ตาม syllabus 2026 · เพิ่มสรุปอ่านเร็วครบ 10 หัวข้อ + ชุดข้อสอบ 50 ข้อพร้อม source trace: โพยรุ่นพี่/compilation เป็นหลัก และ topic ใหม่ที่ยังไม่มี recall ชัดแยกเป็น lecture-verified draft' },
+      { scope: 'repro-lect', kind: 'content', icon: '📜', title: '+41 ข้อสอบเก่า Kimchii85 (Repro Lecture)',
+        desc: 'ดึงข้อจาก screenshot Blackboard exam ที่ "ตรงโพย ★=85" (รุ่นพี่ flag ออกซ้ำเดิม) · ครบทุก Lect 15-24 · รวม 91 ข้อแล้ว · มาด้วย sourceType "past-paper" 31 ข้อ + student-compilation 55 ข้อ + lecture-verified-draft 5 ข้อ' },
+      { scope: 'com4', kind: 'content', icon: '📜', title: '+131 ข้อ COM IV จาก เส้นแดงเพิ่มเติม + TJ86 + อ.รสมา/ชัยยศ original',
+        desc: 'รวม 261 ข้อแล้ว · ครอบคลุม hypersensitivity types I-IV · IMHA mechanisms (intra/extravascular) · IMT · Cushing dx (LDDS, Trilostane, iatrogenic crisis) · hypothy thresholds + ESS · Alopecia X · Pemphigus subtypes · SLO/TEN · GN · Neonatal/Geriatric · Aj. Chายอot Drugs III "ออกใหม่ 100%" (Cytopoint, Librela, Solensia, Leflunomide)' },
+      { scope: 'multi', kind: 'fix', icon: '📏', title: 'ทำความสะอาด question quality ทั่วคลัง', fromFeedback: true,
+        desc: 'ใช้ npm run fix:length + fix:questions ของ project · ลบ ★/** จาก option + Q stem (892 markers) · ปรับ length-bias ของ correct option ให้ใกล้เคียง wrong (52 ข้อ trimmed) · rebalance answer position bias (26 swaps) · ผู้ทำข้อสอบไม่สามารถเดาคำตอบจาก visual cue ได้แล้ว' },
     ],
   },
   {

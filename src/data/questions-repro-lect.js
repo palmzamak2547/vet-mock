@@ -429,7 +429,7 @@ export const QB_REPRO_LECT = [
       'Vaginoscopy เพื่อดู vaginal fold + erythema',
       'Vaginal cytology เพื่อดู cornified cells',
       'Progesterone assay เพื่อดู P4 trend',
-      'ทุกวิธีข้างต้น (Vaginoscopy + Vaginal cytology + Progesterone assay) — ใช้ร่วมกันเพื่อความแม่นยำ',
+      'ทุกวิธีร่วมกัน (Vaginoscopy + Cytology + P4 assay) — ความแม่นยำสูงสุด',
     ],
     answer: 3, explain: '**Multi-modal approach = ความแม่นยำสูงสุด** ★ (Aj. KC slide: "Tool for Assessing")\n\n💡 **4 Tools to assess ovulation timing in bitch**:\n\n**1. Clinical signs**:\n— Estrus behavior (acceptance of male)\n— Vulva changes (peak swelling, then softening)\n— Vaginal discharge (bloody → straw-colored → reduced)\n\n**2. Vulval/vaginal appearance**:\n— Vulva edema progressively ↑ in proestrus\n— Peak edema just before LH surge\n— Soft/wrinkled when ready to mate\n\n**3. Vaginal cytology** (easy, cheap):\n— **Proestrus**: parabasal + intermediate, RBC, neutrophils\n— **Estrus** (start of standing heat): **cornified superficial cells > 80%**, RBC may persist, **NO neutrophils** (estrogen peak)\n— **Diestrus** (D1-2 post-ovulation): **sudden ↓ cornified, ↑ intermediate + parabasal, neutrophils return** — "metestrum cells"\n— Day of LH surge = ~ peak cornification\n\n**4. Progesterone assay** ★ (most accurate, $$$):\n— Measure P4 every 2 days from start of proestrus\n— **LH surge = P4 1.5-2.5 ng/mL** (Day 0)\n— Ovulation = P4 4-10 (LH+2)\n— Fertilization period = P4 10-20 (LH+4 to +6)\n\n💡 **Note from Kimchii85 source** (Q5 highlighted ambiguously — annotation suggests confusion): The original Q has a self-referential option "B และ C ถูก" which makes wording awkward. Best practice teaching = combine multiple methods for accuracy.\n\n💡 **Vaginoscopy findings by cycle**:\n— **Anestrus**: flat, dry, red, thin mucosa\n— **Proestrus**: edematous, swollen, ± serosanguineous fluid\n— **Early estrus (LH surge)**: mucosal shrinking, pallor (E2 ↓)\n— **Mid-late estrus (3-4 d post-LH)**: angulated, dry, crenulated — **best for breeding**', verified: 'Kimchii85 Blackboard Breeding Mgmt Q5' },
 
@@ -550,7 +550,7 @@ export const QB_REPRO_LECT = [
 
   { id: 1876, subject: 'repro-lect', topic: 'surgical-neutering', year: 4,
     source: 'Kimchii85 final p.30 — Blackboard screenshot ORS Q3', sourceType: 'past-paper', tags: ['past-paper', 'ORS-pseudopregnancy', 'case'], type: 'mcq',
-    q: 'สุนัข อายุ 9 ปี ทำหมันมาแล้วไม่นานเรื่องส่วยใหญ่ 1-2 ปีที่ผ่านมา · สมเจ้าตอนตัดอย่างถวยจุดสมัด่ส มีอวัยวะเพศสุนัขโดยตรงต่ำเหมือนเหมือนเครื่อง 0.5 cm in diameter, no obvious sign of illness, no pain at palpation, **มีอาการ galactopoiesis** อันใต้ที่จะมีไม่ในใจในตัวสมัตรี',
+    q: 'สุนัข อายุ 9 ปี ทำหมันมาแล้วไม่นานเรื่องส่วยใหญ่ 1-2 ปีที่ผ่านมา · สมเจ้าตอนตัดอย่างถวยจุดสมัด่ส มีอวัยวะเพศสุนัขโดยตรงต่ำเหมือนเหมือนเครื่อง 0.5 cm in diameter, no obvious sign of illness, no pain at palpation, มีอาการ galactopoiesis อันใต้ที่จะมีไม่ในใจในตัวสมัตรี',
     options: ['Pseudopregnancy', 'Pyometra', 'Ovarian tumor', 'Mammary gland tumor', 'Cervical stump infection'],
     answer: 0, explain: '**Pseudopregnancy (false pregnancy) จาก Ovarian Remnant Syndrome** ★\n\n💡 **Clinical reasoning**:\nผู้ป่วย: 9 ปี, ทำหมัน 1-2 ปีที่แล้ว, มี **galactopoiesis (mammary gland producing milk)** + small mammary changes\n\n→ การที่ทำหมันแล้วยัง mammary develop + ทำงาน = **มี ovarian tissue residual (ORS)** ที่ผลิต P4\n→ P4 ↓ ตอนปลาย luteal phase → **prolactin ↑** → **pseudopregnancy** (false pregnancy)\n\n💡 **Pseudopregnancy / False pregnancy / Pseudocyesis**:\n— Hormonal mimicry of pregnancy\n— Common in **intact bitches** at end of diestrus (~ 6-8 weeks post-estrus)\n— Can occur in **OVH bitches with ORS** when residual ovary cycles\n\n**Signs**:\n— **Galactopoiesis** (milk production!) ★\n— Mammary enlargement\n— Behavioral changes:\n  - Nesting behavior\n  - "Adopting" toys/objects as puppies\n  - Mothering behavior\n  - Decreased appetite, lethargy\n  - Aggression / overprotectiveness\n- Vaginal discharge possible\n\n**Pathophysiology**:\n— After luteal phase: **P4 drops + Prolactin rises** (mirrors true pregnancy hormone shift)\n— Prolactin → mammary development + milk\n— Behavioral effects from prolactin + oxytocin\n\n**Treatment**:\n— **Cabergoline** 5 µg/kg PO q24h × 5-7 days ★ (dopamine agonist → ↓ prolactin)\n— Bromocriptine alternative\n— Avoid hand-stripping milk (stimulates more milk)\n— **Address underlying ORS**: OVE for residual ovary\n\n❌ **Why not other options**:\n— Pyometra: would have purulent vaginal discharge, fever, illness signs (this case: no illness)\n— Ovarian tumor: would have masses on palpation/imaging\n— Mammary tumor: would be discrete masses, not diffuse galactopoiesis\n— Cervical stump infection: would have brown/red discharge (not milk)', verified: 'Kimchii85 Blackboard ORS Q3' },
 
@@ -606,10 +606,10 @@ export const QB_REPRO_LECT = [
   { id: 1881, subject: 'repro-lect', topic: 'gonadectomy-risk', year: 4,
     source: 'Kimchii85 final p.25 — Health benefits dogs section',
     sourceType: 'student-compilation', tags: ['mammary-tumor', 'breed', 'high-yield', 'classic'], type: 'mcq',
-    q: 'Predisposing breeds สำหรับ "Mammary tumor" ในสุนัข (Aj. SC ★ "จำไปให้หมด") คือ',
+    q: 'Predisposing breeds สำหรับ "Mammary tumor" ในสุนัข (Aj. SC  "จำไปให้หมด") คือ',
     options: [
       'German Shepherd, Doberman, Rottweiler',
-      'Springer spaniel, Cocker spaniel, Boxer, Poodle, Dachshund',
+      'Springer + Cocker spaniel + Boxer + Poodle + Dachshund (large > small)',
       'Beagle, Cavalier King Charles Spaniel',
       'Husky, Malamute, Samoyed',
       'Bulldog, Pug, Shih Tzu',
@@ -621,7 +621,7 @@ export const QB_REPRO_LECT = [
     sourceType: 'student-compilation', tags: ['BPH', 'breed', 'high-yield'], type: 'mcq',
     q: 'Predisposing breeds สำหรับ "Benign Prostatic Hyperplasia (BPH)" ในสุนัขเพศผู้ intact คือ',
     options: [
-      'Doberman, Rottweiler, German Shepherd, Labrador (large breeds)',
+      'Doberman + Rottweiler + GSD + Labrador (large breeds, age >5 yr)',
       'Cocker, Beagle, Pug',
       'Chihuahua, Maltese, Yorkshire',
       'Husky, Malamute',
@@ -634,7 +634,7 @@ export const QB_REPRO_LECT = [
     sourceType: 'student-compilation', tags: ['mast-cell-tumor', 'breed', 'high-yield'], type: 'mcq',
     q: 'Predisposing breeds + ปัจจัยเสี่ยงสำหรับ "Mast Cell Tumor (MCT)" ในสุนัข คือ',
     options: [
-      'Female 2.6× ↑ risk · age >7 yr · BW 20-30 kg · breeds: GR, LR, Boxer, Pug, GSD',
+      'Female 2.6× · age >7 · BW 20-30 kg · breeds: GR',
       'Male only · all breeds equal',
       'Cats only',
       'Toy breeds <5 kg only',
@@ -648,7 +648,7 @@ export const QB_REPRO_LECT = [
     q: 'USMI (Urethral Sphincter Mechanism Incompetence) หลังทำหมันในสุนัข — ปัจจัยเสี่ยงคือ',
     options: [
       'เพศผู้, อายุ <3 mo, breed brachycephalic',
-      'เพศเมีย, BW >20 kg, อายุ <3-6 mo (early gonadectomy), urethra สั้น, breeds เฉพาะ',
+      'เพศเมีย + BW >20 kg + young gonadectomy (<3-6 mo) + short urethra + breed',
       'เกิดในแมวเท่านั้น',
       'ไม่เกี่ยวกับเพศ/อายุ',
       'แค่ในสุนัขที่ติดเชื้อ UTI',
@@ -661,7 +661,7 @@ export const QB_REPRO_LECT = [
     q: 'ภาวะ "post-gonadectomy aggression" ที่ Aj. SC เน้น — predisposed breed คือ',
     options: [
       'Beagle',
-      'Springer Spaniel ★ (especially male, may show aggression to owner after gonadectomy)',
+      'Springer Spaniel  (especially male',
       'Cocker Spaniel',
       'Pug',
       'Golden Retriever',
@@ -676,7 +676,7 @@ export const QB_REPRO_LECT = [
     options: [
       'ไม่มี adverse effect',
       'แค่ลด appetite',
-      'Increased appetite + weight gain · Mammary enlargement + nodules / MFH in cats · Hair coat changes · Acromegaly + DM (growth hormone effect) · CEH/Pyometra in females',
+      'Weight gain + mammary enlargement + acromegaly/DM + CEH/pyometra (multi-system)',
       'แค่ทำให้ขนตก',
       'แค่ทำให้คลื่นไส้',
     ],
@@ -688,7 +688,7 @@ export const QB_REPRO_LECT = [
     q: 'Aglepristone (Progesterone blocker) มี indications หลัก 3 อย่าง คือ',
     options: [
       'แค่ pyometra เท่านั้น',
-      '(1) Pyometra (medical) (2) Termination of pregnancy 3 wk หลังจากผสมติด (3) Mammary fibroadenomatous hyperplasia (FEH) ในแมว',
+      '(1) Medical Tx pyometra (2) Termination of pregnancy (3) FEH ในแมว',
       'แค่ contraception',
       'แค่ in male dogs',
       'แค่ post-partum metritis',
@@ -698,12 +698,12 @@ export const QB_REPRO_LECT = [
   { id: 1888, subject: 'repro-lect', topic: 'hormonal-applications', year: 4,
     source: 'Kimchii85 final p.33 — Oxytocin section',
     sourceType: 'student-compilation', tags: ['oxytocin', 'dystocia', 'critical'], type: 'mcq',
-    q: 'Oxytocin "ห้ามใช้" ในภาวะใด ★',
+    q: 'Oxytocin "ห้ามใช้" ในภาวะใด ',
     options: [
       'Non-obstructive (functional/inertia) dystocia',
       'Postpartum hemorrhage',
       'Retained placenta',
-      'Obstructive dystocia ★',
+      'Obstructive dystocia ',
       'SIPs (Subinvolution of Placental Sites)',
     ],
     answer: 3, explain: '**Oxytocin CONTRAINDICATED in obstructive dystocia** ★\n\n💡 **Obstructive dystocia = mechanical block** ที่ขัดขวาง normal birth:\n— Fetal malposition / malpresentation\n— Fetal-maternal size mismatch (large fetus, narrow pelvis)\n— Anatomic abnormalities (vaginal stricture, pelvic fracture)\n— Single oversized fetus (single pup syndrome)\n— Fetal monsters (anasarca, schistosomus reflexus)\n\n💡 **Why oxytocin DANGEROUS in obstructive dystocia**:\n1. **Strong uterine contractions against immovable fetus**\n2. **Uterine rupture risk** ★ (life-threatening)\n3. **Placental detachment** before fetus delivered → fetal hypoxia/death\n4. **Fetal distress** from prolonged hypoxia\n5. Maternal exhaustion + uterine inertia (paradoxically)\n\n💡 **When oxytocin IS appropriate**:\n— **Non-obstructive (functional) dystocia**:\n  - **Primary uterine inertia** (no contractions from start)\n  - **Secondary uterine inertia** (initial contractions weak/stopped)\n  - Confirmed: cervix open, fetus in correct position, no obstruction\n— **Postpartum**: aid uterine involution, control hemorrhage, retained placenta\n— **SIPs**: aid placental site healing\n\n💡 **Oxytocin protocol for non-obstructive dystocia**:\n— Dose: 0.5-2 IU IM\n— **Lower doses preferred** — start low, titrate\n— Always **confirm cervix open + no obstruction first**\n— **No more than 3 doses** in 30-min intervals\n— If no progress → C-section\n\n💡 **Adjuncts**:\n— **Calcium gluconate IV** (if hypocalcemia suspected — common in toy breeds)\n— Glucose if hypoglycemic\n— Warm fluids\n\n💡 **Other contraindications for oxytocin**:\n— Closed cervix (rare in dystocia, but possible)\n— Hyperexcitable uterus (would worsen)\n— Severe maternal stress / shock\n\n💡 **Decision tree for dystocia**:\n1. Confirm dystocia (criteria: prolonged labor, prolonged interval between pups, fetal distress, etc.)\n2. **Vaginal exam + ultrasound** → check obstruction\n3. **If non-obstructive + cervix open + good fetal HR**: oxytocin trial\n4. **If obstructive OR oxytocin fails**: **C-section** ★\n5. **Always have surgery ready** as backup', verified: 'Kimchii85 final p.33' },
@@ -712,7 +712,7 @@ export const QB_REPRO_LECT = [
     source: 'Kimchii85 final p.33 — Cabergoline section',
     sourceType: 'student-compilation', tags: ['cabergoline', 'pseudopregnancy', 'side-effect'], type: 'mcq',
     q: 'Cabergoline (dopamine agonist) ใช้รักษา pseudopregnancy — side effect ที่พบบ่อยที่สุดคือ',
-    options: ['ขนตก', 'ปวดศีรษะ', 'อาเจียน (vomit) ★', 'ไข้สูง', 'น้ำตาลในเลือดสูง'],
+    options: ['ขนตก', 'ปวดศีรษะ', 'อาเจียน (vomit) ', 'ไข้สูง', 'น้ำตาลในเลือดสูง'],
     answer: 2, explain: '**Cabergoline side effect = vomiting (อาเจียน)** ★\n\n💡 **Cabergoline (dopamine agonist)**:\n— **Mechanism**: D2 dopamine receptor agonist → ↓ prolactin\n— **Use**: Pseudopregnancy treatment + lactation suppression\n— Brand: Dostinex, Galastop (vet)\n— Dose: **5 µg/kg PO sid × 5-7 days** ★\n\n💡 **Why prolactin suppression treats pseudopregnancy**:\n— Pseudopregnancy = hormonal mimic of pregnancy at end of diestrus\n— P4 drops + **Prolactin rises** → mammary development + milk + mothering behavior\n— Cabergoline ↓ prolactin → CL regression + dries up milk + behavior normalizes\n\n💡 **Alternatives**:\n— **Bromocriptine** — older dopamine agonist, more side effects (vomiting more frequent)\n— Aglepristone (off-label) for refractory pseudopregnancy\n\n💡 **Cabergoline vs Bromocriptine**:\n| | Cabergoline | Bromocriptine |\n|---|---|---|\n| Receptor | D2 selective | D1+D2 |\n| Half-life | Long (q24h) | Short (q8-12h) |\n| Side effects | Mild | More common (vomit, ataxia) |\n| Dose freq | Once daily | 2-3× daily |\n\n💡 **Other side effects (less common)**:\n— Drowsiness\n— Mild lethargy\n— Loss of appetite\n— Nausea (without vomiting)\n— Rare: hypotension\n\n💡 **Tips to minimize vomiting**:\n— **Give with food** (reduces GI upset)\n— Start at lower dose if dog sensitive\n— Pre-medication with maropitant (Cerenia) can prevent vomiting in highly susceptible patients\n\n💡 **Other cabergoline uses**:\n— Lactation suppression (early weaning, mastitis, dead pups)\n— Hyperprolactinemia\n— Some psychogenic alopecia\n\n💡 **Avoid in**:\n— Pregnant bitch (will terminate pregnancy via P4 drop in late stage)\n— Severe hepatic disease\n— Ergot allergy', verified: 'Kimchii85 final p.33' },
 
   { id: 1890, subject: 'repro-lect', topic: 'repro-ultrasound', year: 4,
@@ -723,7 +723,7 @@ export const QB_REPRO_LECT = [
       'Day 21-25 (1st detectable)',
       'Day 30-35',
       'Day 40-45',
-      'Day 55-58 ★',
+      'Day 55-58 ',
       'Day 60+ (just before parturition)',
     ],
     answer: 3, explain: '**Day 55-58 = optimal for fetal sex determination** ★ (canine)\n\n💡 **Ultrasound timeline in canine pregnancy**:\n\n| Day post-LH surge | Finding | Use |\n|---|---|---|\n| 16-20 | Implantation begins | Too early |\n| **20-22** | **Gestational sac** detectable (1st U/S sign) | Earliest pregnancy dx |\n| 25-30 | **Fetal pole** + heartbeat (250 bpm) | Pregnancy confirmation |\n| 30-35 | Fetal body recognizable | Counting fetuses begins |\n| 35-45 | All organs forming | Anatomy survey |\n| 45-50 | Skeletal mineralization (radiograph dx OK from here) | Counting fetuses (rad) |\n| **55-58** | **Genitalia identifiable** ★ | **Fetal sex determination** |\n| 60+ | Fetal monitoring (HR, viability) | Pre-parturition assessment |\n| **63-65** | Parturition (mean: 63 d post-LH surge) | Whelping |\n\n💡 **In cat** (slightly different):\n— Sex determination day **38-43** (faster development)\n\n💡 **Sex determination on U/S**:\n— **Female**: vulva visible at perineum, prepuce **absent**\n— **Male**: prepuce visible (caudal to umbilicus), testes may be visible later\n— Best in lateral recumbency, sagittal scan along ventral abdomen\n\n💡 **Other ultrasound uses in repro**:\n\n**1. Pregnancy diagnosis** (1st indication of vet U/S in repro):\n— Earliest at **20-22 d post-LH surge**\n— Confirms viable pregnancy with heartbeat\n\n**2. Fetal viability**:\n— Heart rate: > 220 bpm normal, 180 bpm = distress, < 150 bpm = critical/imminent\n— Kimchii85 annotation: confusion between 180 vs 220 cutoff (different references — most agree < 180 bpm = needs C-section)\n\n**3. Fetal age estimation**:\n— Various measurements:\n  - **Inner Chorionic Cavity (ICC)** → days before parturition (DBP) accuracy 81-93%\n  - **Crown-Rump Length (CRL)**\n  - **Biparietal diameter (BPD)**\n  - **Abdominal diameter (AD)**\n\n**4. Sex determination**: Day 55-58 ★\n\n**5. Female reproductive disease**:\n— Pyometra/mucometra/hydrometra (echogenicity differs)\n— CEH, ovarian cyst, uterine tumor\n— Ovarian neoplasia\n\n**6. Male reproductive disease**:\n— **BPH/prostatitis/cyst/abscess/cancer**\n— **Mediastinum** (hyperechoic central line in testis = NORMAL ★)\n— Testicular tumor\n— Cryptorchidism (abdominal/inguinal — caudal to kidney)\n\n💡 **Landmark for prostate**:\n— **Full bladder** ★ helps locate prostate (prostate caudal to UB)\n— Cervix between body of bladder + neck of bladder', verified: 'Kimchii85 final p.34' },
