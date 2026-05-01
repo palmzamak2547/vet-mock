@@ -78,7 +78,7 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['อาจารย์ผู้สอน 2026', 'Kimchii 85', 'sunsun84'],
     topics: 'Hormonal applications, semen evaluation/AI, semen preservation, infertility, biotechnology, exotic repro, genetics, surgical neutering, gonadectomy risk-benefit, reproductive ultrasound',
-    note: 'Lecture final 3108-409 · สอบ อังคาร 5 พ.ค. 2569 13:00-16:00 · แยกจาก Repro Lab แล้ว',
+    note: 'Lecture final 3108-409 · สอบ อังคาร 5 พ.ค. 2569 13:00-16:00 · แยกจาก Repro Lab แล้ว · คลังข้อสอบยึดโพย/recall รุ่นพี่เป็น source หลัก แล้วใช้ slide 2026 verify/map topic',
   },
   exotic: {
     files: [

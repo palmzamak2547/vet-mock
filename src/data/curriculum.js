@@ -182,7 +182,7 @@ export const SUBJECTS_BY_YEAR = {
         notes: [
           'ยึด Lecture 15-24 ปี 2026 เป็นแกนหลักก่อน แล้ว map โพย/ข้อสอบเก่าตามหัวข้อเดียวกัน',
           'Lab อยู่ subject แยกชื่อ Repro Lab เพราะสอบคนละรอบ',
-          'ชุดแรกนี้เน้น high-yield facts จาก slide 2026 + โพย final Kimchii/sunsun84 เท่าที่ match ได้',
+          'ชุดข้อสอบยึดโพย/recall รุ่นพี่เป็น source หลัก แล้วใช้ slide 2026 verify + map topic; topic ใหม่ที่ยังไม่มี recall ชัดจะติด lecture-verified draft',
         ],
       },
       topics: [

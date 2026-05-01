@@ -49,7 +49,7 @@ export const CHANGELOG = [
     headline: '🐾 Repro Lecture เปิดแล้ว · แยกจาก Lab · ครบ Lect 15-24',
     changes: [
       { scope: 'repro-lect', kind: 'content', icon: '🐾', title: 'Comp Ani Repro Lecture พร้อมใช้',
-        desc: 'เพิ่มวิชา Repro Lecture แยกจาก Repro Lab ตามรอบสอบจริง · อัปเดตตารางสอบเป็น subject ใหม่ · มีหัวข้อ Lect 15-24 ตาม syllabus 2026 · เพิ่มสรุปอ่านเร็วครบ 10 หัวข้อ + ชุดข้อสอบเริ่มต้น 50 ข้อจาก slide 2026 และโพย final ที่ match แล้ว' },
+        desc: 'เพิ่มวิชา Repro Lecture แยกจาก Repro Lab ตามรอบสอบจริง · อัปเดตตารางสอบเป็น subject ใหม่ · มีหัวข้อ Lect 15-24 ตาม syllabus 2026 · เพิ่มสรุปอ่านเร็วครบ 10 หัวข้อ + ชุดข้อสอบ 50 ข้อพร้อม source trace: โพยรุ่นพี่/compilation เป็นหลัก และ topic ใหม่ที่ยังไม่มี recall ชัดแยกเป็น lecture-verified draft' },
     ],
   },
   {
