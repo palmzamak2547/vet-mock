@@ -6754,6 +6754,1517 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 > 💡 อ.: "search Google · พิมพ์ scope ที่สนใจ + 'wildlife' จะมี course suggest"`,
   },
+
+  // ─────────────────────────────────────────────────────────────
+  // REPRO LECT — Final scope (Lect 15-24) · 5 May 2026 exam
+  // ─────────────────────────────────────────────────────────────
+  '9piuvH_sdXc': {
+    videoId: '9piuvH_sdXc',
+    title: '15. Hormonal applications in dogs and cats',
+    subject: 'repro-lect',
+    date: '6 Mar 69',
+    durationMin: 128,
+    instructor: 'Aj. Suppawiwat Ponglowhapan (SP) — Theriogenology, Chula Vet',
+    examFormat: 'Case-based MCQ + drug class matching · "ออก 2 ล้านข้อ จำไป" Progestin AE',
+    summary: `# 15. Hormonal Applications in Dogs and Cats
+
+> 🎯 อ.SP: "ฮอร์โมนในหมาแมวมันไม่เหมือนยาคุมคน · ใช้ผิดช่วง ผิดโดส ผิดสปีชีส์ → AE มหาศาล" · เน้น progestin (นางเอกของบท), aglepristone, deslorelin, PGF2α, cabergoline, oxytocin
+> ⚠️ "ยาคุมไม่ใช่ไซยาไนด์ · ใช้ถูกต้องเหมาะสมก็ปลอดภัย · แต่ถ้าไม่ใช่หมอใครจะรู้ว่าเหมาะสม"
+
+---
+
+# 🗺️ Overview — กลุ่มการใช้งาน [3:36]
+
+| กลุ่ม | ตัวอย่าง |
+|---|---|
+| **A. Contraception** | prevent estrus, prevent pregnancy |
+| **B. Reproductive disease** | BPH, pyometra, pseudopregnancy, urinary incontinence, MFH |
+| **C. Fertility management** | induce estrus, hypoluteoidism, ovulation induction |
+| **D. Diagnostic** | ORS test, cryptorchid test |
+
+# 1️⃣ Progestins (นางเอกของบท) [10:53]
+
+★ **Compound names** (เติม -s = หลายตัว)
+
+| Drug | Form | Note |
+|---|---|---|
+| **MPA** (Medroxyprogesterone acetate) | IM injection · 50 mg/mL | ★ พระเอกในไทย · ราคาถูก |
+| **Megestrol acetate** | tablet | หาได้ยาก |
+| **Proligestone** (Covinan) | injection | จดทะเบียนใช้ในหมาแมว · AE น้อยกว่า · เลิกขายในไทย |
+
+## Clinical use #1: Prevention of estrus
+- ★★★ **ฉีดในระยะ anestrus เท่านั้น** — [21:18]
+- ⛔ ห้ามฉีดในระยะ estrus (estrogen สูง → CEH risk เพิ่ม)
+- Dose: **MPA 2.5 mg/kg IM** (สุนัข) · 2 mg/kg (แมว) · ทุก 4-6 เดือน
+- ★ ไม่ควรให้ติดต่อกัน > 2 ปี หรือ > 3 injections
+
+> ⛔ **Overdose ที่เจอบ่อย**: 1 ขวด = 1 mL = 50 mg → ถ้าฉีด "1 ขวด/1 ตัว" เหมือนวัคซีน → overdose มาก! · หมา 10 kg dose 2.5 → ใช้แค่ 0.5 mL [33:49]
+
+## ★★★ Progestin Adverse Effects (Q1886) [22:18]
+
+> 🎯 อ.SP: "ออก 2 ล้านข้อ จำไป" · AE จาก long-term/overdose progestin
+
+| AE | Detail |
+|---|---|
+| **CEH/Pyometra** ★ | progestin กระตุ้น endometrial gland → cystic endometrial hyperplasia |
+| **Mammary mass / nodules** ★ | benign mammary mass · long-term use |
+| **Diabetes Mellitus** ★ | acromegaly-like effect · GH ↑ → insulin resistance |
+| **Mammary Fibroadenomatous Hyperplasia (MFH)** ★★ | ★ ใน cat! · prepubertal female + male cat · ฉีดยาคุมแล้วเต้านมตู้มทั้ง 2 ข้าง [32:15] |
+| **Local hair loss + color change** | ฉีด SC → alopecia + เปลี่ยนสีขน → ★ ให้ฉีด IM only [52:06] |
+| **Polyphagia · weight gain** | ผลทั่วไป |
+
+> ⛔ **Contraindications** [22:50]:
+> 1. ⛔ สัตว์ที่ตั้งท้อง
+> 2. ⛔ Prepubertal female cat (→ MFH)
+> 3. ⛔ สัตว์อายุ > 5 ปี
+> 4. ⛔ Diabetes mellitus
+> 5. ⛔ Mammary/ovarian/uterine pathology
+> 6. ⛔ ระยะ estrus / proestrus / pseudopregnancy
+
+## ★★ Catastrophic case: ฉีดตอนท้องโดยไม่รู้ [24:24]
+1. ฉีด progestin หลังหมาผสม → maintain pregnancy
+2. ครบกำหนดคลอด → progesterone exogenous **ยังไม่หมดฤทธิ์** → cervix ไม่เปิด
+3. ลูกตาย → **emphysematous fetus** + sepsis → แม่ตาย
+
+> 💡 **ฉีดยาคุมก่อนต้อง pregnancy diagnosis** · U/S ที่ 21-28 วันหลังผสม
+
+# 2️⃣ Aglepristone (P4 Receptor Blocker) [57:19]
+
+★★★ **3 indications (จำให้ได้!)**
+
+| # | Indication | Mechanism |
+|---|---|---|
+| **1** | Pyometra medical Tx ★★ | block PR → CEH ลด, drainage cervix |
+| **2** | Termination of pregnancy ★★ | block PR → abortion |
+| **3** | Feline FEH (mammary fibroepithelial hyperplasia) ★ | block PR ที่ mammary → เต้านมยุบใน 10 วัน |
+
+# 3️⃣ Estrogens [59:59]
+
+> ⚠️ ★ "ปัจจุบัน estrogen แทบไม่ใช้แล้ว"
+
+## ⛔ Estrogen Adverse Effects [67:17]
+- ★★ **Bone marrow suppression → pancytopenia** (จำให้ได้!)
+- Skin: alopecia, hyperpigmentation
+- ★ **Squamous metaplasia ใน prostate** ของ male (≠ BPH ของ androgen)
+- **Pyometra** (เพิ่ม estrogen → up-regulate PR)
+
+# 5️⃣ Gonadotropins (LH/FSH analogs) [69:56]
+
+| Hormone | Equivalent | Use |
+|---|---|---|
+| **hCG** | LH-like | induce ovulation, **abdominal cryptorchid Dx** |
+| **eCG** | FSH-like | induce estrus |
+
+## ★★ Diagnostic uses
+### ORS (Ovarian Remnant Syndrome) [70:58]
+1. เจาะเลือด t=0 baseline estradiol → ฉีด gonadotropin → t=1 hr → ถ้า estradiol ↑ = มี ovarian tissue
+
+### Abdominal cryptorchid (dog) [73:06]
+1. เจาะเลือด t=0 baseline testosterone → ฉีด **hCG** → t=1 hr → ถ้า testosterone ↑ = testicular tissue
+
+### ★★★ Cat cryptorchid shortcut [73:37]
+- **Penile spines = testosterone-dependent**
+- 4 weeks หลัง castration → spines หายไป **90%**
+
+# 6️⃣ GnRH Agonists (Deslorelin) [78:20]
+
+★ Drug: **Deslorelin (Suprelorin)** — implant SC · long-term release
+
+## ★★★ Clinical applications
+
+| # | Indication | Mechanism |
+|---|---|---|
+| **1** | ORS diagnosis | กระตุ้น GnRH → LH/FSH → estradiol |
+| **2** | Induce estrus (anestrus) [80:55] | LH/FSH ↑ |
+| **3** | BPH | androgen ↓ → prostate ฝ่อ |
+| **4** | ★★ Post-spay urinary incontinence [81:58] | LH/FSH ↑ 7-14× post-spay → bladder/urethra LH/FSH receptor |
+| **5** | ★ Tom-cat behavior [85:36] | "temporary castration" |
+
+# 7️⃣ PGF2α [86:08]
+
+## Clinical uses
+- **Pyometra medical Tx** — สลาย CL → progesterone drop → cervix relaxes
+- **Termination of pregnancy** — luteolysis
+- **Postpartum metritis**
+
+## ★★★ Dose & Route
+- **Dinoprost (PGF2α): 0.025 mg/kg SC** ★★ [89:41]
+- ⛔ **ห้าม IM, ห้าม IV**
+- AE: Mydriasis, hypersalivation, vomit, panting (~30 นาที)
+
+# 9️⃣ Prolactin Antagonists [91:14]
+
+| Drug | Country | Note |
+|---|---|---|
+| **Cabergoline** (Galastop) | ตปท. | ★ มี license · ยาน้ำ |
+| **Bromocriptine** | ★ มีในไทย | ยาคน Parkinson · 2.5 mg tablet |
+
+## Clinical uses
+- **Pseudopregnancy + galactostasis** ★★
+- **Lactation suppression**
+
+## ⛔ Side effect
+- **★ Vomiting** — ภายใน 30 นาที · Bromocriptine vomit > Cabergoline
+
+# 🎯 ★★★ Exam Hot Spots
+
+1. ★★★ **Progestin AE** (Q1886) — CEH, MFH ในแมว, DM, mammary mass · "ออก 2 ล้านข้อ"
+2. ★★★ **Progestin contraindications** — pregnant, prepubertal cat, > 5 yr, DM, estrus
+3. ★★★ **Aglepristone 3 uses** — pyometra, abortion, FEH
+4. ★★ **MPA dose**: 2.5 mg/kg IM (dog) · 2 mg/kg (cat) · ทุก 4-6 เดือน
+5. ★★ **PGF2α**: 0.025 mg/kg **SC only** ⛔ ห้าม IM/IV · AE: mydriasis
+6. ★★ **Hypoluteoidism** [48:27]: P4 < 5 ng/mL → MPA 0.1 mg/kg PO sid · หยุด 2 วันก่อน due date
+7. ★ **Deslorelin**: post-spay UI, BPH, tom-cat behavior
+8. ★ **Cat cryptorchid**: ปลิ้น penis ดู spines · 4 wks หลัง cast spines หายไป 90%
+9. ★ **Cabergoline > Bromocriptine** = pseudopregnancy · ★ side effect = vomit
+10. ★ **Estrogen AE** = bone marrow suppression / pancytopenia
+11. ★★ **Oxytocin** ⛔ contraindicated in **obstructive dystocia**
+
+> 📚 Cross-ref: VetMock Q1886 (Progestin AE), Q1887 (Aglepristone), Q1888 (Oxytocin), Q1889 (Cabergoline)`,
+  },
+
+  'q44qQOIMTXk': {
+    videoId: 'q44qQOIMTXk',
+    title: '17. Preserved Semen & 18. Infertility Problems',
+    subject: 'repro-lect',
+    date: '13 Mar 69',
+    durationMin: 148,
+    instructor: 'Aj. Theerawat Tharasanit (TT) — Theriogenology, Chula Vet',
+    examFormat: 'Cryobiology concepts + infertility differential dx · cross-refs Q1851-Q1859',
+    summary: `# Lect 17 + 18 รวมสองชม. · เน้น concept
+
+อาจารย์ TT [0:35] ลุย 2 พาร์ท: preserve semen + infertility · บอกตรงๆว่า **infertility ยากและวุ่นวายมาก** [1:05] คนทำต้องรู้ basic + normality + abnormality เพราะ abnormality ทุกตัวใน repro = infertility
+
+> ⚠️ **จับ concept ให้ได้ ไม่ต้องจดทุกอย่าง**
+
+---
+
+## 🧊 Part 1 — Semen Preservation [2:07]
+
+### ทำไม sperm cryopreservation success ดีที่สุด?
+[3:39] sperm = reproductive cell **เล็กที่สุด** (หัว 3-4 µm) + cytoplasm น้อย · shed proximal droplet ทิ้งแล้ว
+- เซลล์ทั่วไปมี water 90% · sperm มีน้อยกว่า → **intracellular ice formation น้อย** → cell damage น้อย
+- **Chilled** ไม่เกิด ice (แช่เย็นเฉยๆ) · **Frozen** ถึงเกิด
+
+### Chilled (Short-term) [9:21]
+- Dog ~ 2-3 วัน (ใน reproductive tract อยู่ได้ 5-7 วัน)
+- Keyword: **ลด metabolism + ลด bacterial growth**
+
+### Frozen (Long-term) [10:21]
+- **−196°C (LN₂)** ★ Q1855 — ต่ำกว่า −130°C ถึง eliminate metabolic activity
+- ตู้ −20°C / −80°C ไม่พอ
+- ตู้เย็นบ้านมี defrost → ทำลายตัวอย่าง
+
+### Extender 1 และ 2 [13:26]
+**Uppsala extender** (สวีเดน)
+- **Extender 1 = glycerol 3%** · equilibrate **1 ชม. 4°C**
+- **Extender 2 = glycerol 7%** · final ~5%
+- **อัตราส่วน 1:1 ห้ามผิด** [28:04] — ถ้าใส่ extender 2 มาก → glycerol > 5% → toxic
+
+### CPA — Cryoprotective Agent [12:55]
+| ประเภท | ตัวอย่าง | บทบาท |
+|---|---|---|
+| **Penetrating** | Glycerol, ethylene glycol, DMSO | แทนที่น้ำใน cell → ลด ice |
+| **Non-penetrating** | sucrose, trehalose | maintain osmolarity |
+
+### Egg yolk LDL ★ Q1851
+- Stabilize sperm membrane จาก cold shock
+- โดยเฉพาะใน chilling phase
+- ไม่ใส่ glycerol ใน chilled (ไม่เกิด ice) [16:33]
+
+### Vitrification [27:32]
+- Ultra-rapid cooling + super-high CPA → skip ice crystal phase
+- นิยมใน oocyte/embryo มากกว่า sperm
+
+---
+
+## 🩺 Part 2 — Infertility [38:13]
+
+### Approach 3 factors [46:13]
+1. **Female factor** — cycle, hormone, anatomy
+2. **Male factor** — semen quality, behavior
+3. **Environment + owner** — nutrition, stress, photoperiod
+
+[46:44] Cat = **long-day seasonal breeder** → ห้องมืดสลัว → ovarian activity ลด
+
+### Bitch (Dog Female)
+- **Progesterone monitoring** — gold standard
+- Frozen semen → ใกล้ maturation (oocyte mature 2-3 วันหลัง ovulation)
+- ★ **กฎทอง: 2-3 timed breedings** [115:27]
+
+### Queen (Cat Female) — induced ovulator [195:57]
+- 1 mating → ovulation rate ต่ำ
+- 3+ matings → ovulation rate สูง
+- ~ 20-30% อาจ spontaneous ovulate [199:33]
+
+### Tom (Cat Male) — ALP threshold [137:23]
+> 🎯 **cut-off ออกข้อสอบแน่นอน** [139:25]
+
+| ALP level | Interpretation |
+|---|---|
+| **> 5,000 U/L** | epididymis function ปกติ → **azoospermia จาก testicular failure** |
+| **< 5,000 U/L** | blockage / obstruction (สร้างได้แต่ออกไม่ได้) |
+
+> ⚠️ ต้อง dilute ก่อน assay (level สูงมาก เครื่องตรวจไม่ได้)
+
+### Sperm Terminology
+| Term | Meaning |
+|---|---|
+| **Azoospermia** | ไม่มี sperm เลย |
+| **Oligozoospermia** | sperm count ต่ำ |
+| **Asthenozoospermia** | motility ต่ำ |
+| **Teratozoospermia** | morphology ผิดปกติเยอะ |
+| **OAT** | Oligo + Astheno + Terato (severe male infertility) |
+
+[133:41] **Motility cutoff = 70%**
+
+### Investigate Azoospermia
+1. **Testis นิ่ม/แฟบ** → testicular degeneration
+2. **Testis ปกติ** → blockage / retrograde ejaculation
+3. **Catheterize bladder** → เจอ sperm = retrograde
+4. **ALP test** → bypass test of blockage
+
+### Brucella canis [104:32]
+- **Male**: epididymitis, orchitis, abnormal sperm
+- **Female**: early embryonic loss, **abortion** (discharge เขียวปนน้ำตาล)
+- ★ **Zoonosis**
+- Diagnosis: **screening** (antibody, false-positive) → confirm **PCR**
+
+### Herpesvirus [111:48]
+- **Latent infection ตลอดชีพ** — eradicate ไม่ได้
+- Signs คล้าย Brucella · stress → reactivation
+
+### AMH [141:35]
+- **Female**: small antral follicles → indicator **ovarian reserve**
+- **Male**: **Sertoli cells** → indicator Sertoli function
+
+---
+
+## 🔗 Cross-ref VetMock Q-bank
+- **Q1851** — egg yolk extender (LDL cold-shock)
+- **Q1855** — −196°C LN₂
+- **Q1856** — oligospermia
+- **Q1857** — digital manipulation
+- **Q1858, Q1859** — AI dose calculation, hemocytometer math
+
+> 💡 **Take-home**:
+> 1. sperm quality perfect ≠ guaranteed pregnancy
+> 2. sperm quality poor ≠ no pregnancy (ใช้แค่ 1 ตัว fertilize)
+> 3. Unexplained infertility มีจริง`,
+  },
+
+  'WF_eMCY5Pqs': {
+    videoId: 'WF_eMCY5Pqs',
+    title: '19. Conservation and ART (Assisted Reproductive Technology)',
+    subject: 'repro-lect',
+    date: '20 Mar 69',
+    durationMin: 207,
+    instructor: 'Aj. Ampika Thongphakdee (AT) — ZPO Wildlife Repro Center',
+    examFormat: 'Wildlife conservation + ART pipeline · case-driven · cross-refs Q1820-Q1824, Q1870-Q1873',
+    summary: `# Conservation × ART — เทคโนโลยีสืบพันธุ์ในสัตว์ป่า
+
+อาจารย์อัม (รุ่น 61) จาก **องค์การสวนสัตว์แห่งประเทศไทย** (ZPO) — ดูแล 6 สวนสัตว์ + ศูนย์ช้างสุรินทร์
+
+> 🌍 IUCN: **48,000+ species ถูกคุกคาม** · เป้า 2050 ฟื้นฟูความหลากหลายทางชีวภาพ
+
+---
+
+## 🧬 What is ART? [11:00]
+
+> 🎯 **Q1872** ART = **Assisted Reproductive Technology** — เทคโนโลยีช่วยการเจริญพันธ์ ตั้งแต่ basic (preserved semen) → advanced (cloning, stem cells)
+
+---
+
+## 🎯 One Plan Approach [25:30]
+
+| | |
+|---|---|
+| **Ex-situ** | นอกพื้นที่อาศัย — สวนสัตว์, biobank, frozen zoo |
+| **In-situ** | ในพื้นที่ป่า — anti-poaching, habitat protection |
+
+ต้องทำควบคู่ — wildlife conservation + NGO + ภาครัฐ + มหาวิทยาลัย + ชุมชน
+
+### Five Domain Model — Animal Welfare [28:38]
+1. **Environment** — habitat ใกล้ธรรมชาติ
+2. **Nutrition** — diversity ของอาหาร
+3. **Health** — vet care + population management
+4. **Behavior** — natural behavior expression
+5. **Mental state** — overall wellbeing
+
+---
+
+## 🐯 Wild Felid Teratospermia [112:50]
+
+ใน **clouded leopard / fishing cat / flat-headed cat / marbled cat**:
+- **Teratozoospermia** — sperm morphology abnormal สูง
+- **Inbreeding depression** — captive population เล็ก
+- **Behavioral incompatibility** — ตัวผู้ใหญ่กว่า + ดุมาก → กัดตัวเมียตาย
+
+### Clouded Leopard Hand-rearing [81:25]
+- แยกลูกออกจากแม่ตั้งแต่เกิด → hand-raise ให้เชื่อง
+- จับคู่ตัวเมีย **อายุมากกว่า** ตัวผู้ → ลด aggression
+
+---
+
+## 🥚 Embryo Development Timeline [127:08]
+
+| Stage | Timing |
+|---|---|
+| 1-cell → 2-cell | 24 ชม. (cleavage) |
+| 4 → 8 → 16 cells | day 2-3 |
+| Morula (32+) | day 4-5 |
+| **Blastocyst (Q1873)** | **day 7** ★ (มี blastocoel + ICM + trophoblast) |
+| Hatching blastocyst | day 8-9 |
+
+> 🎯 **Q1871** Oviduct = **fertilization site + cleavage location**
+
+---
+
+## 🏦 Biobanking — Frozen Zoo [64:20]
+
+เก็บที่ −196°C ใน LN₂ ตั้งแต่ปี 1990
+- **Viable cell bank**: sperm, oocyte, embryo, fibroblast (somatic cell)
+- พี่อัมเก็บ 12 ปี ละลายมายังใช้ได้ปกติ [67:32]
+
+ประโยชน์:
+1. รักษา genetic diversity
+2. ลด inbreeding risk
+3. ลด disease transmission ระหว่าง mating
+4. ลด stress การเคลื่อนย้ายสัตว์
+5. แลกเปลี่ยน genetics นานาชาติ
+
+### Painted Terrapin Case [69:09]
+น้ำท่วมใต้ตาย → ถ้ามี genome bank ก็ rescue species ได้
+
+---
+
+## 🔬 ART Toolbox
+
+| Tech | Indication |
+|---|---|
+| **AI** | sperm ปกติ |
+| **Laparoscopic AI** | sperm คุณภาพต่ำ → ฉีดเข้าใกล้ oviduct (เสือลายเมฆ 8-10 ล้านตัว/ครั้ง) [91:32] |
+| **IVF** | เพิ่มจำนวนลูก/generation |
+| **★ ICSI (Q1870)** | sperm 1 ตัวก็พอ — fragile/sexed/biopsy/OAT rescue [154:04] |
+| **SCNT (Cloning)** | population เล็กมาก / สัตว์ตายแล้ว |
+| **iPSC / Stem cell** | future — ผลิต gametes จาก somatic cell |
+
+### Laparoscopic AI ใน Clouded Leopard [86:49]
+1. กระตุ้น eCG → ovulate ด้วย porcine LH (pLH)
+2. ส่อง laparoscope → เห็น **CH (corpus hemorrhagicum)** สด
+3. catheter ฉีด **8-10 million motile sperm × 10 µl** เข้า **oviduct opening (fimbria)**
+4. fecal P4 → 90+ วัน → ลูก 2 ตัว ✓
+
+### Eld's Deer (ละมั่ง) IVF [136:36]
+- กระตุ้น follicles → laparoscopic OPU
+- IVF in vitro → blastocyst day 7 (~80 cells)
+- transfer 11 ตัว → ตั้งท้อง 6 ตัว → ลูก "โรหิสสรัตน์"
+
+---
+
+## 🐺 SCNT Cloning [259:38]
+
+### Black-footed Ferret (อเมริกัน)
+- doner cell = somatic cell จาก Smithsonian frozen zoo
+- recipient = enucleated oocyte จาก domestic ferret
+- electrofusion → activate Ca²⁺ → blastocyst → transfer
+
+ประเภท SCNT:
+- **Intra-species** — same species
+- **Inter-species** — different species, same genus
+- **Inter-generic** — different genus
+
+### Stem Cells [286:38]
+- **Embryonic stem cell** จาก ICM blastocyst
+- **iPSC** — reprogram fibroblast กลับเป็น stem cell
+- Future: ผลิต gametes จาก somatic cell
+
+---
+
+## 🔗 Cross-ref VetMock Q-bank
+- **Q1820-Q1824** — ART concepts
+- **Q1870** — ICSI for OAT
+- **Q1871** — oviduct fertilization site
+- **Q1872** — ART definition
+- **Q1873** — Day 7 blastocyst (dog)
+
+> 💡 **Take-home**: เทคโนโลยีก้าวไกล แต่ **welfare 5 domains มาก่อน** เสมอ`,
+  },
+
+  '6E8Z7p0ufVI': {
+    videoId: '6E8Z7p0ufVI',
+    title: '20. Reproductive Diseases in Exotic Pets',
+    subject: 'repro-lect',
+    date: '20 Mar 69',
+    durationMin: 201,
+    instructor: 'Aj. Chaowaphan Yinharnmingmongkol (CY) — Animal Space Exotic Hospital',
+    examFormat: 'Species-by-species clinical · rabbit + guinea pig + ferret + reptile + bird · cross-refs Q1825-Q1829',
+    summary: `# Exotic Repro Disease — species by species
+
+พี่อ้อย (Animal Space Exotic Hospital, รุ่น 61) [5:25] เน้น **rabbit + guinea pig** เพราะเจอเยอะที่สุด
+
+> 🐰 **กระต่าย = สัตว์เลี้ยงอันดับ 3 ของไทย**
+
+---
+
+## 🐰 Rabbit — Star
+
+### Reproductive Physiology Quick Facts [13:12]
+
+| Parameter | Value |
+|---|---|
+| Type | **Induced ovulator** (เหมือน cat) |
+| **Gestation** | **~30 วัน** ★ Q1826 |
+| **Pseudopregnancy** | **16-18 วัน** ★ |
+| Build nest? | **Yes** (altricial young) |
+| Litter weaning | ~2 เดือน |
+
+### Pseudopregnancy [10:36]
+[16:50] behavior ที่ "ไม่พึงประสงค์":
+- **ดึงขนตัวเอง** → กระจายเต็มบ้าน
+- เต้านมขยาย + อาจมี milk → mastitis → pain → anorexia → **GI stasis** (admit!)
+- 16-18 วัน cycle จะกลับ
+
+### Uterine Adenocarcinoma — โรคเด่นที่สุด ★★★ [27:51]
+- **80% ของกระต่ายเพศเมียอายุ > 4 ปี เป็น uterine adenocarcinoma**
+- "ต้องทำหมัน" (ไม่ใช่แค่ "ควรทำ")
+- Metastasis สู่ **ปอด** เป็นหลัก → **CT > X-ray** sensitivity
+- vs. mammary tumor ในกระต่าย แค่ **2%** (ตรงข้ามกับ dog/cat!)
+
+### Hematuria DDx [19:32]
+1. **Endometrial venous aneurysm** — ฉี่ใส**ก่อน** แล้วเป็นเลือดสด **แยกกัน** ★
+2. **Cystitis / urolithiasis**
+3. **Pigmenturia** จาก porphyrin → ฉี่สีแดงเป็นเนื้อเดียว = Normal!
+4. ยา / drug-induced
+
+> 🔑 ถามเจ้าของ: "ฉี่กับเลือดเป็นน้ำเดียวกันมั้ย?" → **แยกกัน = aneurysm**
+
+### ASA Score ในกระต่าย [55:29]
+| ASA | Risk |
+|---|---|
+| 1 | 0.7% (vs dog 0.05%) |
+| 2 | ~1.5% |
+| 3 | 7.3% |
+| 4 | 50%+ |
+
+### Castration Approaches [122:21]
+| Approach | Pros | Cons |
+|---|---|---|
+| **Pre-scrotal** | sterile ดี · แผลไม่โดนพื้น | นานกว่า |
+| **Scrotal** | เร็วกว่า | แผล 2 จุด · sterile ยาก |
+| **Abdominal** | สำหรับ chinchilla | ลึกกว่า |
+
+### Spay (OVH) Precautions [73:46]
+- **caudal abdomen approach**
+- ⚠️ ระวัง **cecum** ใหญ่มาก
+- Ureter cross over เส้นเลือด → ดึง ovary ออกนอกช่องท้องก่อนผูก
+- ผูก uterus ใกล้ cervix → กัน **accessory bladder**
+
+---
+
+## 🐹 Guinea Pig
+
+### Ovarian Cyst — โรคเด่น ★ Q1827
+- **Female อายุมาก**
+- Functional cyst → estrogen excess → **bilateral symmetric alopecia** + behavioral change
+- Treatment: OVH หรือ hormonal
+
+### Dystocia [32:26]
+- Gestation ~60 วัน
+- **Pubic symphysis fuses ตอน 6-7 เดือน**
+- ถ้าผสมหลังจากนั้นเป็นครั้งแรก = symphysis ไม่เปิด → **dystocia**
+
+> ⚠️ Best practice: ผสมครั้งแรก **ก่อนอายุ 6 เดือน**
+
+---
+
+## 🦦 Ferret — Estrogen Toxicity ★★ Q1828
+
+ใน **female ferret ที่ไม่ได้ผสมพันธ์ + persistent estrus**:
+- estrogen **persistent high** (ไม่มี LH surge → ไม่ ovulate) →
+- **Bone marrow suppression** → pancytopenia ★
+- **Bilateral symmetric alopecia** ★
+- **Vulvar swelling**
+
+### Treatment
+- **Spay** (definitive)
+- หรือ hCG / GnRH inducer ovulation
+- หรือ **deslorelin implant** (suprelorin)
+- ถ้า BM suppress → support + transfusion ก่อน
+
+> ⛔ **ห้าม** ปล่อย persistent estrus > 1 เดือน — มี mortality
+
+---
+
+## 🦎 Reptile — Hemipenis Prolapse ★ Q1829
+
+### Acute case (< 24-48 ชม.)
+1. **Reduce** — hypertonic dextrose 50% หรือเกลือ → ลดบวม
+2. **Replace** — ดันกลับเข้า cloaca
+3. Suture cloacal opening (purse-string) ไว้ 5-7 วัน
+
+### Chronic / necrotic case
+- **Amputate** — ตัด hemipenis ที่ตายไป
+- snake/lizard มี 2 hemipenis แยกกัน → ตัวที่เหลือใช้ผสมพันธ์ได้
+- ligate base + transect
+
+### Common causes
+breeding stress · dehydration · low calcium · parasites · substrate trauma
+
+---
+
+## 🐦 Bird (สั้นๆ — case-based)
+
+- **Egg binding (dystocia)** — cockatiel, budgie, lovebird → calcium deficiency, oversized egg
+- **Cloacal prolapse** — persistent egg-laying behavior
+- **Salpingitis** — hormone-suppress (deslorelin) vs spay
+
+---
+
+## 🔗 Cross-ref VetMock Q-bank
+- **Q1825** — Rabbit induced ovulator
+- **Q1826** — Rabbit gestation 30 days
+- **Q1827** — Guinea pig ovarian cyst (older female)
+- **Q1828** — Ferret estrogen toxicity (BM suppression + alopecia)
+- **Q1829** — Reptile hemipenis prolapse (acute reduce, chronic amputate)
+
+> 💡 **Take-home**: exotic pets เจอบนคลินิก · basic biology + species-specific repro = "10-second answers" ที่เจ้าของคาดหวัง`,
+  },
+
+  'jibDxn3Ajsk': {
+    videoId: 'jibDxn3Ajsk',
+    title: '21. Genetic Considerations in Breeding',
+    subject: 'repro-lect',
+    date: '27 Mar 69',
+    durationMin: 175,
+    instructor: 'Aj. Nantapong Kamprasert (NK) — UNE Australia / Roslin Edinburgh',
+    examFormat: 'Quantitative genetics applied · concept-heavy · cross-refs Q1830-Q1834',
+    summary: `# Quantitative Genetics 101 → BLUP/GBLUP
+
+อาจารย์แบงค์ (นันทพงษ์ คำประเสริฐ) — Vet Sci สงขลาฯ → **MSc + PhD Quantitative Genetics @ University of New England (UNE) Australia** + Roslin Edinburgh, beef cattle breeding specialist
+
+> 💡 [13:30] **"Genetics foundation เหมือนกันหมด"** — ไวรัส, แบคทีเรีย, พืช, สัตว์ · ดีเทลต่าง · concept = ยีน → pass on → next generation
+
+---
+
+## 🧮 The Master Equation — \`P = G + E\` ★ Q1830
+
+[21:01] **สมการพื้นฐาน**
+
+| Symbol | ความหมาย |
+|---|---|
+| **P** | Phenotype — สิ่งที่ observe ได้ (น้ำนม, น้ำหนัก, สีตา) |
+| **G** | Genetic make-up — internal (ครึ่งจากพ่อ ครึ่งจากแม่) |
+| **E** | Environment — **ทุกอย่างที่อยู่นอกตัวสัตว์** (อาหาร, อากาศ, treatment, housing, stress) |
+
+> ⚠️ Geneticist mindset: "Environment" = ทุก external factor
+
+[23:06] **Selection = process ที่ improve G ในทิศทางที่ต้องการ** โดย ignore E
+
+---
+
+## 📊 Heritability \`h²\` ★ Q1831
+
+[57:02]
+
+\`\`\`
+h² = V_G / V_P
+range: 0 → 1
+\`\`\`
+
+### Range ใน livestock [60:11]
+
+| Trait | h² |
+|---|---|
+| Reproduction (conception rate) | **น้อยมาก** (~0.05-0.15) → focus E better |
+| Production (milk yield, body weight) | 0.2 - 0.7 |
+| Body conformation | 0.3 - 0.5 |
+| Human height | **~0.8** |
+
+### Decision rule
+- **h² ใกล้ 0** → focus management
+- **h² > 0.3** → selection ได้ดี
+- **h² > 0.5** → fast genetic gain
+
+---
+
+## 🎯 Types of Selection ★ Q1832 [25:42]
+
+### By effect on population
+
+| Type | Effect on mean | Effect on variance |
+|---|---|---|
+| **Stabilizing** | คงที่ | **ลด** |
+| **Directional** | shift ไปทางใด | คงที่ |
+| **Disruptive** | bimodal | **เพิ่ม** |
+
+### By cause
+- **Natural selection** — Darwin · pressure จากสิ่งแวดล้อม
+- **Artificial selection** = human-made = selective breeding
+
+[104:56] หลัง domestication → **dairy cow** vs **beef cow** แม้เริ่มจาก cattle ตัวเดียวกัน
+
+---
+
+## 🧬 EBV (Estimated Breeding Value) [232:10]
+
+**EBV** (อเมริกาเรียก EPD) = parameter ที่บอก G component
+
+> ใช้เป็น "Breeding catalog" ให้ farmer เลือกพ่อ/แม่พันธุ์
+
+### Process
+1. Record phenotype + pedigree
+2. Genetic evaluation algorithm (BLUP)
+3. EBV per trait per animal
+4. Sire/Dam summary catalog → mating decision
+
+---
+
+## 📐 BLUP vs GBLUP ★★ Q1833/Q1834 [241:33]
+
+### BLUP — Best Linear Unbiased Prediction
+- **Pedigree-based** (A-matrix)
+- Phenotype + pedigree
+- ใช้มาตั้งแต่ 1940s
+
+### GBLUP — Genomic BLUP ★
+- **Genomic relationship matrix (G-matrix)** จาก SNP markers ทั้ง genome
+- ใช้ **DNA markers** ทั้งสายโครโมโซม → relationship แม่นยำกว่า pedigree
+- เห็น **Mendelian sampling** — ลูกแฝด clone ก็มี EBV ต่าง
+- **Faster genetic gain** — ตรวจ genotype ตั้งแต่ลูกเกิด
+
+\`\`\`
+BLUP:    EBV = f(phenotype, pedigree A-matrix)
+GBLUP:   GEBV = f(phenotype, pedigree, SNP G-matrix)
+\`\`\`
+
+[235:58] genomic sequencing 2003 = $1M, ปัจจุบัน ~$750 → **affordable**
+
+---
+
+## 🔁 Inbreeding Coefficient \`F\` [218:28]
+
+| F value | ความหมาย |
+|---|---|
+| 0 | ไม่มี inbreeding |
+| 0.25 | full-sib mating |
+| 0.5 | parent-offspring backcross |
+| 1.0 | self-fertilization (พืช) |
+
+### Inbreeding Depression [220:11]
+- ทุก ↑0.1 ของ F → milk yield ↓ ~0.3 kg/day (cattle)
+- Quantifiable เป็นตัวเลข
+
+> 🛑 **Pure breeds เสี่ยง** — F สูง → recessive disease emerge:
+> - **HCM ใน Maine Coon** (MyBPC3 mutation) [16:23]
+> - **Hip dysplasia** ใน large breed
+> - **PKD** ใน Persian cat
+
+---
+
+## 🐶 Dog/Cat Breeding Application [248:43]
+
+### "Should you breed your pet?"
+1. **Companion only** → spay/neuter
+2. **Working/herding/guide dog** → functional traits + temperament
+3. **Show / private breeder** → breed standard + AKC certification
+
+### Conformation Scoring [259:18]
+Scottish Fold มี ideal characteristics checklist · breeder certified ต้อง follow + pedigree ครบ
+
+### โรคทางพันธุกรรมที่ต้องตรวจก่อนผสม
+- **Maine Coon HCM** — MyBPC3 mutation test
+- **Hip dysplasia** — Labrador, GSD
+- **PKD** — Persian cat
+
+---
+
+## 📊 Trait Classification [120:36]
+
+| Type | Characteristic | ตัวอย่าง |
+|---|---|---|
+| **Qualitative** | discrete, few genes | สีขน, blood type, มี/ไม่มีโรค |
+| **Quantitative** | continuous, polygenic | น้ำนม, น้ำหนัก, FCR |
+
+> ใน economic livestock — quantitative traits = profit driver
+> ทุก quantitative trait → **normal distribution**
+
+---
+
+## 🔗 Cross-ref VetMock Q-bank
+- **Q1830** — P = G + E
+- **Q1831** — h² = V_G / V_P
+- **Q1832** — Selection types
+- **Q1833** — EBV / Breeding value
+- **Q1834** — GBLUP (uses **genomic relationship matrix + SNP markers**)
+
+> 💡 **Take-home**:
+> 1. P = G + E
+> 2. Heritability บอก focus genetic หรือ environment
+> 3. **GBLUP > BLUP** เพราะ genomic info จริง
+> 4. **Inbreeding** = silent killer ของ pure breeds`,
+  },
+
+  'zq5assxVF74': {
+    videoId: 'zq5assxVF74',
+    title: '22. Surgical Neutering',
+    subject: 'repro-lect',
+    date: '27 Mar 69',
+    durationMin: 207,
+    instructor: 'Aj. Sroisuda Chotimanukul (SC) — Theriogenology, Chula Vet',
+    examFormat: 'OHE/orchiectomy technique · ligation rules · ORS prevention · cryptorchid',
+    summary: `# 22. Surgical Neutering — เทคนิคผ่าตัดทำหมัน
+
+> เลค 3.5 ชม. โดย Aj. SC — เน้น **technique + ข้อควรระวัง** ที่เอาไปใช้จริงในคลินิก/สอบ VCA
+
+---
+
+## 1. Definitions [07:14]
+
+| Term | ความหมาย | เพศ |
+|---|---|---|
+| **Neutering** | นำ gonad ออก | ทั้ง 2 |
+| **Spay** | ตัด ovary + uterus | ♀ |
+| **Gonadectomy** | ตัด gonad | ทั้ง 2 |
+| **Orchiectomy** | ตัด testis | ♂ |
+| **Castration** | ตัด gonad — บ้านเราใช้กับ ♂ | general |
+| **OVE** (Ovariectomy) | ตัดแค่รังไข่ — เก็บมดลูก | ♀ |
+| **OVH/OHE** | ตัดทั้ง ovary + uterus ★ standard ไทย | ♀ |
+| **Hysterectomy** (ovary-sparing) | เก็บรังไข่ ตัดมดลูก | ♀ — ใหม่ตาม WSAVA |
+| **Vasectomy** | ตัด vas deferens เก็บ testis | ♂ |
+
+★★ **Standard สัตวแพทยสภาไทย** = OVH (complete) [32:35]
+
+---
+
+## 2. Indications [13:21]
+
+### Therapeutic
+- **CEH/Pyometra** → OVH
+- **BPH** ตัวผู้
+- **Cryptorchid**
+- **Neoplasia** (testicular/ovarian/uterine tumor)
+- **Vaginal hyperplasia ซ้ำๆ**
+- **Diestrus DM** — progesterone-induced [25:13]
+- **Alopecia X**
+
+---
+
+## 3. ★★★ OVH Technique [32:35]
+
+### 3.1 Timing — เลือก heat ไหน [33:08]
+- ⛔ **proestrus/estrus** — uterus/ovary congestion + edema → bleeding เยอะ
+- ⛔ **diestrus** — ตัด progesterone ฉับพลัน → prolactin เด้ง → **pseudopregnancy + mammary** [35:14]
+- ✅ **anestrus** — no hormone dominance ปลอดภัยที่สุด
+
+### 3.2 Anatomy [36:20]
+- **Ovary** อยู่ caudal to kidney
+- ★ **Ovarian bursa**: หมา **คลุม ovary มิด** (complete) · แมวคลุมบางส่วน
+- → ในหมา **ต้องเปิด bursa เช็ค** ทุกครั้ง
+
+### 3.3 Position & Incision [47:15]
+
+| Component | Specification |
+|---|---|
+| Position | **Dorsal recumbency** |
+| Incision | **Ventral midline, just caudal to umbilicus** ★ |
+| Approach | Linea alba (ดี) / paramedian |
+
+★ VCA exam: ชั้นที่ต้องเย็บแน่นที่สุด = **rectus sheath** (ไม่ใช่ muscle) [52:24]
+
+### 3.4 Step-by-step OVH [54:29]
+
+1. เข้า abdomen → ดัน UB ลงท้าย, ลำไส้ขึ้น → เจอ **uterine body Y-shape ใต้ UB**
+2. ★ **ทำข้างขวาก่อน** [57:08] (surgeon ยืนขวา + รังไข่ขวาดึงยากกว่า)
+3. ★ **Ligate 2 จุด** (double ligation):
+   - **Ovarian pedicle** (ใต้ ovary, ติด kidney)
+   - **Proper ligament** (ปลาย uterine horn)
+4. **Suture**: monofilament absorbable ★
+5. **Knot**: Surgeon's 2-1 หรือ ★ **Modified Miller's knot**
+6. ★★ **ห้ามตัดชิดปม** — ตัด ~5 mm ห่างจาก knot
+7. ★★ **Double ligation gap ≤ 5 mm** — ห่างเป็นกระเปาะ → **stump pyometra**
+8. ★ **เปิด bursa เช็ค ovary** ทั้ง 2 ข้าง — ป้องกัน ORS [80:55]
+9. **Cervix**: ตัวเล็ก = double ligation · ตัวใหญ่ = ★ **Transfixation ที่ cervix** (ห้าม transfix ที่ ovarian pedicle!) [65:22]
+10. Check bleeding ทั้ง 3 stumps ก่อนปิดแผล
+
+### 3.5 Closure [73:36]
+- **Rectus sheath**: long-term absorbable, simple continuous/interrupt
+- **Subcutaneous**: ลด dead space
+- **Subcuticular**: continuous
+- **Skin**: non-absorbable, simple interrupt
+
+---
+
+## 4. OVE vs Sub-total vs Total OHE [40:59]
+
+| Technique | Ovary | Horn | Body | Cervix |
+|---|---|---|---|---|
+| **OVE** | Remove | Keep | Keep | Keep |
+| **Sub-total OVH** | Remove | Remove | Cut at body | Keep |
+| **Complete OVH** ★ | Remove | Remove | Remove | Cut at cervix |
+| **Hysterectomy** | **Keep** | Remove | Remove | Remove |
+
+---
+
+## 5. Cat OVH — ความต่างจากหมา [91:57]
+
+### 5.1 Position & Incision
+
+| | Dog | Cat |
+|---|---|---|
+| Position | Dorsal | Dorsal **OR** Lateral |
+| Incision | Ventral midline (caudal to umbilicus) | **Mid-point ระหว่าง umbilicus & pubis** ★ **OR** **Flank** |
+
+### 5.2 Flank approach — ★★ Layers ที่ออกสอบ [102:56]
+ตำแหน่ง: **mid-point ระหว่าง last rib & iliac crest**, เฉียง 45°
+
+★★★ **VCA exam favorite** — ชั้นกล้ามเนื้อ:
+1. **External abdominal oblique**
+2. **Internal abdominal oblique + transversus abdominis** ★ (ชั้น 2)
+3. Peritoneum
+
+⛔ **trap**: ชั้นใน **ไม่ใช่** rectus abdominis! → คือ **transversus abdominis** [112:11]
+
+### 5.3 Cat-specific cautions [109:08]
+- ⛔ **ห้าม clamp uterus/pedicle ก่อนผูกในแมว** — เปราะ ขาดได้
+- ⛔ **Right-side preference** — รังไข่ขวาสูงกว่า → **ORS ส่วนใหญ่เกิดข้างขวา** [94:33]
+
+---
+
+## 6. ★★★ ORS — Ovarian Remnant Syndrome [128:14]
+
+### Cross-ref VetMock Qs (Aj. SC's signature topic ★)
+
+| Q | Topic | Answer |
+|---|---|---|
+| **Q1874** | ORS definition + timing | 1-2 ปีหลังทำหมัน |
+| **Q1875** | Cause #1 | **Surgical error** |
+| **Q1876** | Galactopoiesis post-spay | **Pseudopregnancy** |
+| **Q1877** | Tx of choice | **Surgical removal** |
+| **Q1878** | Brown-red discharge OVH dog | **Cervical stump infection** |
+| **Q1879** | Hormone dx | **AMH** |
+| **Q1880** | Surgical approach | **Caudal midline laparotomy** |
+
+### Diagnosis Workflow
+
+| Method | Note |
+|---|---|
+| **History** | first — ทำหมันแล้วยังเป็น heat |
+| **Vaginal cytology** | ต้องอยู่ในระยะ heat |
+| **Ultrasound** | จำกัดที่ remnant ขนาด |
+| **★★ AMH** ★ Q1879 | **Most specific** — Sertoli/granulosa cells เท่านั้นที่ผลิต |
+| **Progesterone** | luteal phase >0.5 ng/ml |
+
+### Treatment Q1877+1880 [151:59]
+- **Surgical removal** via **★ caudal midline laparotomy**
+- ส่ง histopath ทุกเคส
+
+---
+
+## 7. ★★ Q1878 — Cervical Stump Infection [128:14]
+
+หมา OVH 2 เดือน → **brown-red discharge** → ★ **Stump pyometra**
+
+★★ **Predisposing factor = ORS** ★ — ★ **ต้อง rule out ORS ก่อนเสมอ**
+
+---
+
+## 8. Hydroureter — Cervix Ligation Complication [125:42]
+
+⛔ ผูก cervix ลึกเกิน → bite **ureter** → hydronephrosis · ค่าไตขึ้นหลังผ่า
+✅ Prevention: ยก UB เช็ค ureter ก่อนผูก cervix ทุกครั้ง
+
+---
+
+## 9. Male — Dog Castration [153:29]
+
+### 9.1 Closed vs Open [154:31]
+
+| | Closed | Open |
+|---|---|---|
+| Tunica vaginalis | ★ ไม่กรีด | กรีดเปิด |
+| Ligation | ผูก cord ทั้งก้อน | ★ ผูกแยก vessels vs vas |
+| Indication | ★ **Standard** | Giant breed / cord ใหญ่ |
+| Bleeding risk | สูงกว่าถ้า cord ใหญ่ | ต่ำกว่า |
+
+### 9.2 Step-by-step Closed dog castration [161:13]
+
+| Step | Detail |
+|---|---|
+| Position | **Dorsal recumbency** |
+| ★★ **Incision** | **Pre-scrotal** ★★ — ดัน testis ขึ้นเป็น "เขียงรอง" |
+| Pop testis | กรีดผ่าน skin → fascia → tunica vaginalis (ไม่เปิด!) |
+| Spermatic cord | Clamp → **double ligation** → ตัด |
+| Side 2 | ★ กรีดผ่านรู edge เดิม (ไม่กรีด skin ใหม่!) [171:41] |
+| Closure | ★ Bite **3 fascia layers** — ★ ระวังอย่าปัก urethra ตรงกลาง [177:20] |
+
+⛔ **Real complication**: bite urethra → urine leak จากแผล
+
+### 9.3 ★ ตำแหน่ง incision สรุป
+
+| Species | Incision |
+|---|---|
+| **Dog** ★ | **Pre-scrotal** ★★ |
+| **Cat** ★ | **Scrotal** ★★ |
+
+---
+
+## 10. Cat Castration [183:38]
+
+- Position: **Ventral recumbency** (ที่จุฬา)
+- Incision: **Scrotal**
+- ★★ **Closure**: ★ **ไม่เย็บ** — ปล่อยให้แผลปิดเอง [186:12]
+- **Epididymectomy** (gonad-sparing): สะกิดเปลือก → ดึงเฉพาะ epididymis [188:50]
+
+---
+
+## 11. Cryptorchid Management [189:21]
+
+### Timing
+- Inguinal canal ปิดที่ ~6 เดือน
+- ★ **Diagnose → รอ 1 ปี**
+
+### Approach
+
+| Location | Approach |
+|---|---|
+| **Inguinal cryptorchid** | กรีด skin ตรง inguinal → testis pop up → closed castration |
+| **Abdominal cryptorchid** | ★ **Laparotomy** — testis **ไม่มี tunica vaginalis** → ★ **open technique** |
+
+### Why castrate?
+1. **Testicular tumor risk** สูง (Sertoli cell tumor)
+2. **Testicular torsion**
+3. **Genetic transmission**
+
+---
+
+## 12. Complications
+
+### OVH/OHE [124:11]
+1. **Bleeding** — knot สลิป
+2. **Hydroureter / hydronephrosis**
+3. **Stump pyometra** ★ (predisposed by ORS)
+4. ★★ **ORS** — predominantly right side
+
+### Castration [193:29]
+1. **Bleeding** → scrotal hematoma
+2. **Funiculitis (champignon/scirrhous cord)**
+3. **Urethral injury**
+
+---
+
+## 13. Antibiotics [194:31]
+
+- ★ Healthy + sterile = clean surgery → **ไม่จำเป็น ABx**
+- Prophylaxis: **Cefazolin (1st-gen) IV ก่อนผ่า 1 dose**
+
+---
+
+## 14. Pediatric Neutering [196:33]
+
+### Definition
+**WSAVA**: 6-16 weeks (~6 wk - 4 mo)
+
+### Pros
+✅ Technique ง่ายกว่า · Recovery เร็ว · Surgery time สั้น
+
+### Cautions
+⛔ **NPO < 4 hrs** (hypoglycemia)
+⛔ Long-term: USMI, growth plate, neoplasia
+
+---
+
+## ★★★ TL;DR — Top 10
+
+1. **Standard ไทย = OVH** ตัดถึง cervix
+2. **Anestrus = best timing**
+3. **Dorsal recumbency + Ventral midline + just caudal to umbilicus** (dog adult)
+4. **Double ligation gap ≤ 5 mm** กันกระเปาะ
+5. **เปิด ovarian bursa เช็ค** ทุกครั้ง (หมา)
+6. **Transfix = at cervix only**
+7. **Cat flank layers**: ext oblique → int oblique + **transversus** (ไม่ใช่ rectus!)
+8. **★★★ ORS predominant on right side** · Tx = caudal midline + AMH dx
+9. **Dog = pre-scrotal**, **Cat = scrotal + no closure**
+10. **Cryptorchid abdominal = open technique** (ไม่มี tunica vaginalis)`,
+  },
+
+  'JSD9HlA4PRA': {
+    videoId: 'JSD9HlA4PRA',
+    title: '23. Risk Benefit Assessment of Gonadectomy',
+    subject: 'repro-lect',
+    date: '4 Apr 69',
+    durationMin: 172,
+    instructor: 'Aj. Sroisuda Chotimanukul (SC) — Theriogenology, Chula Vet',
+    examFormat: 'MCQ + clinical scenario · breed/sex/age recall heavy',
+    summary: `# Lect 23 — Risk-Benefit Assessment of Gonadectomy
+
+> "การทำหมันไม่ใช่ขาวกับดำ" — Aj. SC ★
+> ต้อง **ชั่งน้ำหนัก** health benefit vs negative effect เป็น individual case
+
+WSAVA 2024 guideline summarized — ข้อสอบเน้น **breed-specific risk** + **sex-specific risk** + **age at neuter**
+
+---
+
+## 1. Health Benefits [04:00-77:00]
+
+| ระบบ | โรคที่ป้องกัน | เพศ | หลักฐาน |
+|---|---|---|---|
+| Ovary | Ovarian cyst, tumor | ♀ | ชัด 100% |
+| Uterus | Pyometra, CEH | ♀ | OVH = best Tx pyometra |
+| Mammary | **Mammary tumor** ★ | ♀ | depend on timing |
+| Vagina | Vaginal hyperplasia/prolapse | ♀ | depend on estrogen |
+| Prostate | **BPH**, prostatitis, abscess | ♂ | ชัด |
+| Testis | Testicular tumor | ♂ | ชัด |
+| Anal | Perianal gland adenoma | ♂ intact | ลดได้ |
+| STD | TVT (Transmissible Venereal Tumor) | ♂♀ | 100% prevent |
+| Endocrine | Diestrus DM | ♀ | ตัด P4 source |
+
+### 1.1 Mammary Tumor — Predisposing breeds ★★ [10:44]
+
+> 🎯 **Q1881** — Aj. SC: "**จำไปให้หมด**"
+
+**Breeds**:
+- Springer Spaniel
+- Cocker Spaniel
+- Boxer
+- Poodle
+- Dachshund
+
+Timing:
+- ทำก่อน heat 1 → ลด ~99.5%
+- ทำหลัง heat 1 → ลดน้อยลง
+- หลัง heat 3 → ลดน้อยมาก
+
+### 1.2 BPH — Predisposing breeds [60:50]
+
+> 🎯 **Q1882**
+
+**Breeds**:
+- **Doberman**
+- **Rottweiler**
+- **German Shepherd**
+- **Labrador Retriever**
+
+> สุนัข intact ♂ อายุ >5 → BPH risk **55-60%**
+> แนะนำ: U/S prostate ตรวจประจำปีในตัวผู้ที่ไม่ทำหมัน
+
+### 1.3 Other male prostate notes
+- Prostatic carcinoma = **ไม่ depend on hormone** → ทำหมันไม่ลด adenocarcinoma (อาจเพิ่ม!) [16:01]
+- Perineal hernia → ผ่าตัด + **castrate ร่วมด้วย** ลด recurrence [68:08]
+
+---
+
+## 2. Negative Effects [78:00-141:00]
+
+### 2.1 MCT (Mast Cell Tumor) [113:16] ★ Q1883
+
+> **Female ทำหมัน → develop MCT มากกว่า male**
+
+| Factor | OR / detail |
+|---|---|
+| Female (gonadectomized) | **2.6×** vs ตัวเมียน้ำหนัก <10 kg |
+| Age | >7 ปี |
+| Body weight | มาก = เสี่ยงมาก |
+| Breeds | **GR, Lab, Boxer, Pug, GSD** |
+
+### 2.2 USMI ★★ Q1884 [121:30]
+
+> "หลีกเลี่ยงไม่ได้" — Aj. SC
+> **Focus เฉพาะตัวเมีย** (♂ แทบไม่เจอ)
+
+| Risk factor | Detail |
+|---|---|
+| เพศ | **ตัวเมียเท่านั้น** |
+| BW | **>20 kg (หรือ >25 kg)** |
+| Age at neuter | **<3-6 เดือน → risk สูงที่สุด** |
+| Breed | German Shepherd, Boxer, Doberman |
+| Tail | หางสั้น |
+
+Pathogenesis: post-neuter LH สูง → bind LH receptor ที่ urethral sphincter → control ปัสสาวะไม่ได้
+
+> Incidence: **3-20%** ของตัวเมียที่ทำหมัน
+
+### 2.3 Springer Spaniel post-neuter aggression ★★ Q1885 [138:14]
+
+> ★★ **CRITICAL FACT** — Aj. SC ชอบถามตรงนี้
+
+ทฤษฎีเดิม: castration → ลด aggression
+แต่ใน **Springer Spaniel** กลับ **เพิ่ม aggression** หลังทำหมัน — ★ **aggression ต่อเจ้าของ** (ไม่ใช่ต่อหมาด้วยกัน)
+
+### 2.4 Osteosarcoma [116:24]
+
+> **Male, large/giant breed, early gonadectomy** → risk ↑
+
+- **Focus เพศผู้** (incident male > female)
+- Predisposing: large/giant (Rott, GSD, GR, Lab)
+- ยิ่งทำหมันเร็ว → risk ยิ่งสูง
+
+### 2.5 Hemangiosarcoma [119:59]
+
+> **Female ทำหมัน อายุ >12 เดือน** → risk ↑
+
+ตรงข้ามกับ lymphoma · HSA = late-age neuter ในตัวเมีย เพิ่ม
+
+### 2.6 Lymphoma [117:55]
+
+- Breed: **Australian Shepherd, Golden Retriever**
+- Risk ↑ ในตัวเมียที่ทำหมัน **early (<puberty)**
+
+### 2.7 TCC [115:20]
+
+| Factor | Detail |
+|---|---|
+| เพศ | **Female** |
+| Age | **>5-6 ปี** |
+| Body | **อ้วน** |
+| Breed | **Scottish Terrier** ★ |
+
+### 2.8 Orthopedic disease [125:43]
+
+> **Large/giant breed + neuter <12 mo** → hip dysplasia, CCL rupture
+> **<6-7 mo** → risk เพิ่ม **2 เท่า**
+
+Key: ⛔ **ไม่ทำหมันสุนัขใหญ่/ยักษ์ก่อน 6 เดือน** [128:18]
+
+Special: **Dachshund** — เล็ก แต่ neuter เร็ว → IVDD ↑
+
+---
+
+## 3. Pediatric Gonadectomy ★ [141:53]
+
+### Definition
+**6-16 weeks**
+
+### Pros
+- Population control (shelters)
+
+### Cons
+- **Delayed growth plate closure** → epiphyseal fracture
+- **Vulva เล็ก** → recessed vulva → perivulvar dermatitis, recurrent UTI
+- **Vaginitis ค้างถาวร**
+- **USMI risk ↑↑**
+- **Penis เล็ก** (secondary characteristic ไม่พัฒนา)
+
+> **Conclusion**: ไม่ recommend ใน owned pet — ยกเว้น shelter
+
+---
+
+## 4. Cat Section (สั้น สบายใจ) [148:39]
+
+### ข้อดี (= dog)
+- Reproductive disease
+- Pyometra, CEH
+- **Mammary tumor** — ★ **ทำก่อน 8-24 mo** = protective; **>24 mo = ไม่ protective**
+  - Breed: Siamese, Oriental
+  - >80-90% เป็น **adenocarcinoma malignant**
+
+### ข้อเสีย (น้อยกว่าหมา)
+- Obesity (♂ เป็นหลัก)
+- LUTD: เถียงกันอยู่
+- ★ Urethral diameter ไม่เปลี่ยน
+
+**Pediatric ในแมว**: ★ **ทำได้ 3-4 เดือน** — recommend
+
+---
+
+## 5. Decision Framework — Aj. SC Final Rule ★
+
+> **"ไม่ depend on benefit เดี่ยวอันใดอันหนึ่ง"** [165:54]
+
+ต้องพิจารณา:
+1. Species
+2. Sex
+3. Breed
+4. Age + maturity
+5. Lifestyle
+6. Medical indication
+7. Owner concern
+
+### WSAVA 2024 Update
+- **Large/giant breed**: ไม่ทำก่อน **18 เดือน**
+- **Male dogs**: ทำเฉพาะ **medical indication** เท่านั้น
+- **Female large breed**: ไม่ก่อน 18 mo
+- **GnRH implant** (deslorelin) — reversible option
+
+---
+
+## 6. ★★★ Quick Recall (น่าจะออกข้อสอบ)
+
+| Disease | Sex focus | Predisposing breeds | Age effect |
+|---|---|---|---|
+| Mammary tumor | ♀ | Springer/Cocker/Boxer/Poodle/Dachshund | early protective |
+| BPH | ♂ intact | Doberman/Rott/GSD/Lab | age >5 |
+| MCT | ♀ neutered | GR/Lab/Boxer/Pug/GSD | >7 yr, BW high |
+| USMI | ♀ | GSD/Boxer/Doberman | <3-6 mo + BW>20 kg |
+| Springer aggression | ♂ neutered | **Springer Spaniel** | post-neuter |
+| Osteosarcoma | ♂ | large/giant | early ↑ |
+| Hemangiosarcoma | ♀ | — | **>12 mo** ↑ |
+| Lymphoma | ♀ early | Australian Shep/GR | early <puberty ↑ |
+| TCC | ♀ obese | Scottish Terrier | >6 yr |
+
+---
+
+## 7. Cross-ref VetMock Q-bank
+
+- **Q1881** — Mammary tumor breeds (Springer/Cocker/Boxer/Poodle/Dachshund)
+- **Q1882** — BPH breeds (Doberman/Rottweiler/GSD/Lab)
+- **Q1883** — MCT factors (♀ 2.6×, GR/Lab/Boxer/Pug/GSD)
+- **Q1884** — USMI predisposing
+- **Q1885** — Springer Spaniel post-neuter aggression ★
+
+---
+
+## 8. Aj. SC Killer Quotes
+
+> "Springer Spaniel ทำหมันแล้วก้าวร้าวกับเจ้าของมากขึ้น" [138:14]
+> "Mammary breeds จำให้หมด" [10:44]
+> "USMI โฟกัสตัวเมีย ตัวผู้ตัดทิ้งได้เลย" [121:30]
+> "ไม่แนะนำ large/giant ก่อน 6 เดือน" [128:18]
+> "Pediatric ในแมว 3-4 เดือน — recommend"`,
+  },
+
+  'zPgMJzPumXk': {
+    videoId: 'zPgMJzPumXk',
+    title: '24. Ultrasound Reproductive in the Dog and Cat',
+    subject: 'repro-lect',
+    date: '10 Apr 69',
+    durationMin: 116,
+    instructor: 'Aj. Suppawiwat Ponglowhapan (SP) — Theriogenology, Chula Vet',
+    examFormat: 'Image-based MCQ · day-by-day timeline · HR thresholds',
+    summary: `# Lect 24 — Ultrasound Reproductive in the Dog and Cat
+
+> "Imaging = ทำยังไงก็ได้ให้ตาเราเห็นข้างใน — สัตว์ยังไม่ตายตาเรามองไม่เห็น" — Aj. SP [03:04]
+
+U/S = **first-line tool** สำหรับระบบสืบพันธุ์ · safe (sound wave ≠ X-ray) · early detection (D14-18 หลังตกไข่)
+
+---
+
+## 1. Anatomy & Landmark Strategy [05:14]
+
+### Female reproductive tract
+รังไข่ → uterine horn → bifurcation → body of uterus → cervix → vagina → vestibule
+
+### หลักสำคัญ — หา **landmark ก่อน**
+
+| Target | Landmark | Why |
+|---|---|---|
+| Ovary | **Caudal pole of kidney** | ovary เล็ก หายาก |
+| Uterus | **Urinary bladder (UB)** | UB หาง่ายที่สุด |
+| Cervix | ระหว่าง body of uterus กับ neck of UB | ตำแหน่ง consistent |
+
+### Male
+- **Prostate**: ขอบหน้า pubic bone
+- **Cat prostate**: ใน intrapelvic 100% → trans-rectal เท่านั้น
+- ★ **Mediastinum testis**: เส้น **hyperechoic** ตรงกลาง = **NORMAL** (ไม่ใช่ pathology!)
+- **Full bladder ช่วย locate prostate** ★
+
+---
+
+## 2. Pregnancy Diagnosis ★★ [13:01]
+
+### 4 วิธีตรวจท้อง
+1. Abdominal palpation
+2. **X-ray** — นับลูก (เห็นกระดูก) + วัด pelvis
+3. **Ultrasound** — earliest detection + viability + development
+4. **Relaxin** ตรวจฮอร์โมน — ~21 วัน post-ovulation
+
+### ★★★ Timeline Day-by-day (MUST KNOW)
+
+| Day post-LH/ovulation | สิ่งที่เห็น |
+|---|---|
+| D14-16 (cat) / D16-18 (dog) | Gestational sac — ถุงกลม 3-5 mm |
+| **D20-22** | **First sign U/S — gestational sac ชัด** ★ |
+| D21+ | **Fetal heartbeat** เริ่มเห็น [54:00] |
+| D28 | เห็นเป็นตัวมีหัว |
+| D35 | Spine + ribs + limbs |
+| **D38-43** | **Fetal sex determination ใน CAT** ★ |
+| D45+ | กระดูก calcify เห็นชัดบน X-ray |
+| **D55-58** | **Fetal sex determination ใน DOG** ★★ Q1890 |
+| D58 | Dental + claw mineralization (last) |
+
+### Bone ossification order ★
+"Big bones first, small bones last"
+1. Skull, spine
+2. Ribs
+3. Tibia, scapula, humerus, femur
+4. Teeth, claws
+
+---
+
+## 3. ทำไมต้องตรวจท้อง? [38:00]
+
+7 คำถามเจ้าของอยากรู้:
+1. ท้อง / ไม่ท้อง
+2. **จำนวนลูก** — high-risk if เยอะ หรือ **single pup syndrome**
+3. **อายุครรภ์** → predict วันคลอด
+4. **Viability** — heart rate, movement
+5. **Normal development**
+6. **Sex**
+7. **Plan C-section** (French Bulldog, English Bulldog, Boston, Pekingese)
+
+---
+
+## 4. ★★★ Fetal Heart Rate Thresholds [66:22]
+
+> **CRITICAL — น่าจะออกข้อสอบ**
+
+| FHR (bpm) | Status | Action |
+|---|---|---|
+| **>220** | **Normal** ★ (ลูกเต้น 2× ของแม่ ~110) | Monitor |
+| 180-220 | Mildly low | Monitor closely |
+| **<180** (near term) | **Distress** ★ | Discuss C-section |
+| **<150** | **Critical** | Immediate intervention |
+
+> [67:26] "<180 ใน 6-7 wk → ไม่ผ่า ปล่อยให้ครบเทอม · <180 near term → ผ่าคลอด"
+
+---
+
+## 5. Female Disease — U/S findings [42:00]
+
+### 5.1 Pyometra (closed cervix)
+> "หลอดที่ขดมาเจอกันในพื้นที่จำกัดของช่องท้อง — เห็นเป็นรังผึ้ง"
+
+- Anechoic to hypoechoic fluid in uterine lumen
+- Dilated coiled tubular structure
+- Hyperechoic septae
+
+### 5.2 CEH [85:00]
+- **Cystic structures** within thickened endometrial wall
+- Round anechoic spaces ~4-5 mm
+
+### 5.3 Open-cervix pyometra [89:00]
+- Fluid + endometrial hyperplasia
+- ของเหลวข้างในไม่เยอะเท่า closed
+- Discharge from vulva
+
+### 5.4 Mucometra / Hydrometra
+- Fluid-filled uterus, no clinical sign
+- เขียน "fluid-filled tubular structure" ก่อน suggest
+
+### 5.5 Ovarian cyst vs follicle [92:00]
+
+| | Follicle (normal) | Cyst |
+|---|---|---|
+| Size | ≤5-6 mm (small) / ≤9 mm (large) | **>1 cm persistent** |
+| Cycle | proestrus | prolonged proestrus (>6 wks) |
+
+> Follicular cyst → estrogen เรื่อย → bone marrow suppression, pancytopenia
+
+### 5.6 Ovarian tumor
+- Mass lateral ของ kidney
+- ต้องแยกจาก adrenal mass
+
+### 5.7 Postpartum complications
+- **Subinvolution of placental sites**: bloody discharge >6 weeks postpartum
+- **Postpartum metritis**: thickened wall + intraluminal fluid
+
+---
+
+## 6. Male Disease — U/S findings
+
+### 6.1 BPH — **Prostate-to-aorta ratio** ★
+
+| Ratio | Interpretation |
+|---|---|
+| Normal | small ratio |
+| BPH | uniformly enlarged, symmetric, hyperechoic |
+| Prostatitis | mixed echogenicity, irregular |
+| Abscess | anechoic pocket |
+| Carcinoma | irregular, asymmetric, mineralization |
+
+### 6.2 Testicular tumor
+- Sertoli cell tumor: hypoechoic mass
+- ★ **Mediastinum testis = hyperechoic line ตรงกลาง = NORMAL** (ห้ามรายงานเป็น tumor!)
+
+---
+
+## 7. Fetal Biometry [149:00]
+
+### Inner Chorionic Cavity (ICC)
+- Early (D20-30) — ตอนถุงกลม
+
+### Biparietal Diameter (BPD)
+- Late (>D30) — วัด skull
+- **ซ้ายไปขวา** (left ear → right ear)
+
+### Formulas
+- Separate per **size** (small/medium/large/giant)
+- ใช้ **น้ำหนักแม่ก่อนตั้งท้อง** (ไม่ใช่หลังท้อง)
+- Accuracy: ±2 days = 93% (ICC early), 85% (BPD)
+
+### Differentiate dog vs cat placenta on U/S [136:00]
+- **Dog**: green pigment (uteroverdin) at edges
+- **Cat**: ไม่เขียว
+
+---
+
+## 8. Fetal Sex Determination ★★ Q1890 [70:36]
+
+| Feature | Male | Female |
+|---|---|---|
+| Genital tubercle | Just caudal to **umbilicus** (ventral) | Just ventral to **tail base** |
+| Shape | Linear/echogenic line | **Cone-shaped/triangular** |
+| Scrotal sac | Visible later | N/A |
+
+### Optimal window — DIFFERENT BY SPECIES ★
+- **Dog**: **D55-58 onwards** ★
+- **Cat**: **D38-43 (mid-gestation)** ★ (near-term น้ำคร่ำน้อย ดูยาก)
+
+### Accuracy
+- 100% if 2 pups + good window
+- ↓ accuracy with crowding (5+ pups)
+
+---
+
+## 9. Fetal Abnormality [165:00]
+
+### Hydrocephalus
+- เจอตั้งแต่ D7-8 weeks (~D45-55)
+- **Dome-shaped skull**
+- มักเจอใน Chihuahua, Pug
+- Anechoic fluid in ventricles
+- Prognosis: poor
+
+### Anasarca (generalized edema) [171:00]
+- เจอใน English Bulldog, Westie, Sheltie
+- Pleural effusion + ascites + SC fluid
+- มักไม่รอด
+
+> [175:00] "ถ้าเจอตั้งแต่ตั้งท้อง บอกเจ้าของก่อน — เจ้าของไม่โทษว่าเราให้น้ำเกลือเร็วไป"
+
+---
+
+## 10. Recording Convention ★ [42:00]
+
+> "เขียนแบบที่ตาเห็น — ห้ามด่วนสรุปเป็นโรค" — Aj. SP
+
+ขั้นตอน:
+1. **Describe**: shape, size (cm/mm), echogenicity, location
+2. **Quantify**: thickness, diameter, count
+3. **Suggest** at the end (not diagnose) — "suggestive of..."
+4. **Clinician** is the one who diagnoses
+
+---
+
+## 11. Cross-ref VetMock Q-bank
+- **Q1845-1849** — Pregnancy U/S findings
+- **Q1890** — Day 55-58 sex determination (dog)
+
+---
+
+## 12. ★★★ Aj. SP Pearls (Quick Recall)
+
+1. **First U/S sign of pregnancy = gestational sac at D20-22**
+2. **Fetal HR**: >220 normal · <180 distress · <150 critical
+3. **Sex determination**: dog D55-58 · cat D38-43
+4. **Mediastinum testis = hyperechoic line = NORMAL**
+5. **Cervix landmark** = ระหว่าง body of uterus กับ neck of UB
+6. **Full bladder helps locate prostate**
+7. **Dog placenta = green edge** (uteroverdin); cat = ไม่เขียว
+8. **Skull bones first to ossify, teeth/claws last**
+9. **>5 pups = high count error** บน U/S
+10. **เขียนตามที่ตาเห็น — ไม่ด่วนสรุปโรค**`,
+  },
 };
 
 // ─────────────────────────────────────────────────────────────
