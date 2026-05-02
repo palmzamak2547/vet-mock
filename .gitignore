@@ -12,3 +12,4 @@ data-cache/
 
 # One-shot debug scripts (not part of build).
 scripts/debug-*.mjs
+OVERNIGHT-SUMMARY.md
