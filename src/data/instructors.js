@@ -10,7 +10,7 @@
 //   MOC:    knowledge/instructors/_index.md (master directory)
 //   Synthesis: knowledge/synthesis/vet-research-clusters-and-exam-prediction.md
 //
-// Vault has 135 profiles · this app file has 63 (Tier 1 + Tier 2 sync).
+// Vault has 138 profiles · this app file has 67 (Tier 1 + Tier 2 + Repro Lect sync).
 // Pre-clinical (Anatomy/Physiology/Biochem) faculty are in vault only —
 // they don't teach Vet 86 courses currently.
 //

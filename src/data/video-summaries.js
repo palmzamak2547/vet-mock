@@ -7837,15 +7837,17 @@ Timing:
 - ทำหลัง heat 1 → ลดน้อยลง
 - หลัง heat 3 → ลดน้อยมาก
 
-### 1.2 BPH — Predisposing breeds [60:50]
+### 1.2 BPH — Predisposing breeds [61:51]
 
-> 🎯 **Q1882**
+> 🎯 **Q1882** (past paper canonical)
 
-**Breeds**:
+**Breeds (per past paper / Q1882)**:
 - **Doberman**
 - **Rottweiler**
 - **German Shepherd**
 - **Labrador Retriever**
+
+> ⚠️ **Lecture transcript variant** [61:51]: Aj. SC (4 Apr 2026) said "Doberman / Rottweiler / **Rhodesian Ridgeback** / Labrador" instead of GSD. May be year-specific update or auto-transcript mishearing of "Shepherd". **Stick with past paper for exam · know both for safety.**
 
 > สุนัข intact ♂ อายุ >5 → BPH risk **55-60%**
 > แนะนำ: U/S prostate ตรวจประจำปีในตัวผู้ที่ไม่ทำหมัน
@@ -7858,15 +7860,15 @@ Timing:
 
 ## 2. Negative Effects [78:00-141:00]
 
-### 2.1 MCT (Mast Cell Tumor) [113:16] ★ Q1883
+### 2.1 MCT (Mast Cell Tumor) [114:17] ★ Q1883
 
 > **Female ทำหมัน → develop MCT มากกว่า male**
 
 | Factor | OR / detail |
 |---|---|
-| Female (gonadectomized) | **2.6×** vs ตัวเมียน้ำหนัก <10 kg |
+| Female (gonadectomized) | **2.6×** ★ ตัวที่ **>10 kg** vs ตัวที่ **<10 kg** [114:17] |
 | Age | >7 ปี |
-| Body weight | มาก = เสี่ยงมาก |
+| Body weight | >10 kg → เสี่ยงเพิ่ม 2.6× |
 | Breeds | **GR, Lab, Boxer, Pug, GSD** |
 
 ### 2.2 USMI ★★ Q1884 [121:30]
@@ -8112,10 +8114,12 @@ U/S = **first-line tool** สำหรับระบบสืบพันธุ
 
 | FHR (bpm) | Status | Action |
 |---|---|---|
-| **>220** | **Normal** ★ (ลูกเต้น 2× ของแม่ ~110) | Monitor |
+| **>220** | **Normal** ★ [66:22] (ลูกเต้น 2× ของแม่ ~110) | Monitor |
 | 180-220 | Mildly low | Monitor closely |
-| **<180** (near term) | **Distress** ★ | Discuss C-section |
-| **<150** | **Critical** | Immediate intervention |
+| **<180** (near term) | **Distress** ★ [66:53] | Discuss C-section |
+| **<150** | **Critical** † | Immediate intervention |
+
+† **<150 threshold** = textbook reference (Davidson/Lopate) — not stated in this lecture's audio. Lecture-grounded answer: rely on >220 + <180.
 
 > [67:26] "<180 ใน 6-7 wk → ไม่ผ่า ปล่อยให้ครบเทอม · <180 near term → ผ่าคลอด"
 
