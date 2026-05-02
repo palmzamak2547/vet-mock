@@ -66,14 +66,15 @@ export const VIDEO_LIBRARY = [
     tags: ['lecture', 'review', 'dai'],
   },
 
-  // ─── Repro ───
+  // ─── Repro Lecture (3108-409) ───
+  // Note: playlist รวม Lect 1-24 (no Lab — Lab exam is hands-on only, no lecture recording)
   {
-    subject: 'repro',
-    topic: 'Repro — บทเรียนทบทวน',
+    subject: 'repro-lect',
+    topic: 'Comp Ani Repro Lecture — บทเรียนทบทวน Lect 1-24',
     url: 'https://www.youtube.com/playlist?list=PLHN1MlbLvVsvcmtkPB_AJLPaAjoW0RHRn',
     author: 'Dai (@dai.1387)',
     duration: 'Playlist',
-    tags: ['lecture', 'review', 'dai'],
+    tags: ['lecture', 'review', 'dai', 'repro-lect'],
   },
 
   // ─── Wildlife & Exotic ───
