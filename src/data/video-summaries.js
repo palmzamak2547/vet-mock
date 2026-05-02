@@ -7456,7 +7456,8 @@ GBLUP:   GEBV = f(phenotype, pedigree, SNP G-matrix)
 - Quantifiable เป็นตัวเลข
 
 > 🛑 **Pure breeds เสี่ยง** — F สูง → recessive disease emerge:
-> - **HCM ใน Maine Coon** (MyBPC3 mutation) [16:23]
+> - **HCM ใน Maine Coon** (MyBPC3 mutation) [7:53] — host professor intro example
+> - **Munchkin (MK) cat short-leg** [156:42] — ★ Aj. NK's lecture-specific example · single-allele · MKMK homozygous dominant = lethal in utero (25%)
 > - **Hip dysplasia** ใน large breed
 > - **PKD** ใน Persian cat
 
@@ -7473,7 +7474,8 @@ GBLUP:   GEBV = f(phenotype, pedigree, SNP G-matrix)
 Scottish Fold มี ideal characteristics checklist · breeder certified ต้อง follow + pedigree ครบ
 
 ### โรคทางพันธุกรรมที่ต้องตรวจก่อนผสม
-- **Maine Coon HCM** — MyBPC3 mutation test
+- **Maine Coon HCM** — MyBPC3 mutation test (intro example by host)
+- **★ Munchkin (MK) short-leg** — Aj. NK's lecture-specific [156:42] · single dominant allele · lethal homozygous
 - **Hip dysplasia** — Labrador, GSD
 - **PKD** — Persian cat
 
