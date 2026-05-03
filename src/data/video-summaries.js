@@ -8271,6 +8271,2234 @@ U/S = **first-line tool** สำหรับระบบสืบพันธุ
 9. **>5 pups = high count error** บน U/S
 10. **เขียนตามที่ตาเห็น — ไม่ด่วนสรุปโรค**`,
   },
+
+  // ═══ Poultry + Cliapprum Final scope (12 lectures · added 2026-05-03) ═══
+  'jd9eTltQy8g': {
+  videoId: 'jd9eTltQy8g',
+  title: 'Avian Zoonosis (L10)',
+  subject: 'poultry',
+  date: '7 Apr 69',
+  durationMin: 72,
+  instructor: 'Aj. Kamonpan Charoenkul (Vet Public Health, CU) — L10',
+  examFormat: 'fill-in / MCQ — table-based exam (Disease × Bird species × Bird signs × Human signs); ออกสอบทุกปี เติมคำง่ายๆ',
+  summary: `# L10 — Avian Zoonosis · Aj. Kamonpan Charoenkul
+
+## Intro & Scope [4:22-7:01]
+
+Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเติมคำง่ายๆ ที่สุดถือว่าเป็นคะแนนช่วยของวิชานี้**" [4:22] — แต่ตอนท้ายย้ำอีกรอบว่า **"หน้าสุดท้ายเป็นข้อสอบทุกปี เติมคำ อาการในคน/อาการในสัตว์/เป็นเชื้ออะไร/โฮสตหลักคืออะไร"** [69:43-70:15] ★
+
+**ช่องทางแพร่ zoonosis (3 ทาง)** [5:26]: direct contact (สัมผัสสัตว์เลี้ยง นกแก้ว) · indirect (สิ่งคัดหลั่ง/ปนเปื้อนของเล่น) · **vector-borne** (ยุง·เห็บ·หมัด·ไร).
+
+**Bird population 3 กลุ่ม** [5:57]: (1) **Pet birds** = นกแก้ว/หงส์หยก (2) **Backyard** = เป็ด·ไก่หลังบ้าน — Aj. แซวสว.นโยบายให้เลี้ยงไก่ 2 ตัวเอาไข่กิน [6:29] (3) **Wild bird** = นกอพยพ.
+
+โรคแบ่ง 3 กลุ่ม: **Bacteria · Fungi · Virus**. คาบนี้ครอบ ~11 โรค.
+
+---
+
+## 1. Chlamydiosis / Psittacosis (ไข้หวัดนกแก้ว) [7:01-20:32]
+
+- เชื้อ: ***Chlamydophila psittaci*** [7:31] · obligate **intracellular** bacteria [13:11]
+- โฮสตหลัก: **psittacine birds** (นกแก้ว · macaw · cockatiel) อาการรุนแรง / ในไก่อาการเบา [7:31]
+- แพร่ในนก: direct, **airborne** (ละอองขนฝุ่น) [8:33], oral, **vertical** (แม่→ลูก), vector
+- เชื้อทนสิ่งแวดล้อมได้นาน [9:34]
+- **2 strains**: low virulent (mortality 1-4% · ซึม·เบื่ออาหาร·อึเขียว) vs **virulent (~30% mortality)** [9:34-10:05]
+- อาการนก: respiratory + enteric · severe → systemic **pericarditis · airsacculitis** · ตาบวมเป็นถุงน้ำ · ตายใน 1-2 วัน · ★ **อึเขียวเหลือง** = typical sign [10:37]
+- ไทยเจอ ~7.8% ในนก (PCR) [11:07]
+- **อาการคน** [12:09]: asymptomatic ก็ได้ → mild flu (ไข้·ปวดเมื่อย·conjunctivitis·arthritis) → severe **systemic pneumonia · endocarditis · myocarditis · encephalitis** · เคยมีรายงานเสียชีวิต ★
+- IP ~2 weeks [13:11]
+- **Tx: tetracycline / doxycycline** [13:11] (intracellular)
+- **Human-to-human transmission ได้** ผ่านทางเดินหายใจ — เคยระบาดในรพ. (Scotland·Sweden) [14:46-15:46] · เคสจีนโรงเชือดเป็ด 8 คน + secondary/tertiary wave ในญาติ·บุคลากร [15:46-17:21] ★
+- **ไทย ก.พ. ปีที่แล้ว มีเคสคนติดจากหงส์หยก** — เลี้ยง 19 ตัว ตาย 11 → คนปวดเมื่อย ไข้ [17:51-18:53]
+- คำแนะนำกรมควบคุมโรค: กักนกใหม่ 30 วัน · ใส่ถุงมือ·หน้ากากตอนล้างกรง · อากาศถ่ายเท · สังเกตอึ·ไข้เจ้าของ [19:28-20:32]
+
+---
+
+## 2. Erysipelas [20:32-25:42]
+
+- เชื้อ: ***Erysipelothrix rhusiopathiae*** · **Gram-positive** [21:02]
+- ★ **อยู่ในดิน** เป็นหลัก
+- **มีวัคซีน** (ไม่กันติด แต่ลดความรุนแรง · unvaccinated mortality 40-50%) [21:35]
+- โฮสต susceptible: **ไก่งวง · เป็ด · ห่าน** ★ — โดยเฉพาะไก่งวงอายุเยอะ [21:35-22:08]
+- แพร่: direct contact ผ่านบาดแผล · **insemination** · oral · vector [22:08-22:39]
+- เชื้อ shed ทุก secretion (อึ·ปัสสาวะ·nasal) · ทนสิ่งแวดล้อม [22:39-23:11]
+- อาการ: **ไก่งวง = peracute death** หงอน·งวงแดงบวม [23:11] · ไก่ทั่วไป = ซึม·ท้องเสีย·ตาย/chronic · ผ่าซากเจอ pericarditis · ตับโต [23:41]
+- Dx: impression smear (Gram+) · PCR [24:11]
+- Tx: **penicillin · erythromycin** + วัคซีน
+- **อาการคน 3 แบบ** [24:11-25:12]: (1) **Localized cutaneous** = ติดที่บาดแผล รอยโรครูปวงตัว E ตรงกลางเข้ม ★ (2) **Diffuse cutaneous** กระจายผิวหนัง (3) **Septicemic / endocarditis** ในคนภูมิอ่อนแอ
+- กลุ่มเสี่ยง: สัตวแพทย์·คนงานโรงเชือด
+
+---
+
+## 3. Avian Tuberculosis [25:42-29:21]
+
+- เชื้อ: ***Mycobacterium avium complex (MAC)*** [25:42]
+- โฮสต: นกทุกชนิด · ติดได้ทุก mammal (W life ด้วย)
+- ★ **เจอในไก่หลังบ้าน·สัตว์อายุเยอะ** — **ไม่ค่อยเจอในฟาร์ม** เพราะฟาร์ม cycle เร็ว ไก่ไม่ได้อยู่นานพอที่ Mycobacterium ก่อโรค (chronic disease) [26:12-26:45]
+- อาการนก: chronic · น้ำหนักลด · ผอมแกร็น · ไข่รด · ตาย → ผ่าซากเจอ **granulomatous tubercles/ถุงหนอง** [27:16-27:48]
+- Dx: ผ่าซาก · **acid-fast stain อึ** · culture · PCR [27:48]
+- **คน = non-TB Mycobacterium** [27:48] · 3 อาการ: (1) internal organ infection (2) **chronic pulmonary** (3) **lymphadenitis** [28:20]
+- ★ **มัก dื้อยา TB ปกติ** [28:50]
+- **ไทยภาคอีสาน prevalence ~17%** [29:21]
+
+---
+
+## 4. Salmonellosis [29:21-35:06]
+
+- ***Salmonella*** spp. · Gram-negative [29:21]
+- โฮสต: หลาย species + **reptiles** (เน้นมาก)
+- ★ ก่อโรคในสัตว์ปีกอายุน้อย · adult เป็น **carrier** [29:53-30:25]
+- 2 serovar ก่อโรคในนกแต่ไม่ทำในคน: **S. Pullorum · S. Gallinarum** [30:25] (vertical transmission)
+- ★ **2 serovar ก่อ foodborne ในคน: S. Enteritidis & S. Typhimurium** [30:58]
+- คน: foodborne · จะเรียนละเอียดปี 5
+- Cycle: ไก่ → egg/ลูก → environment → vector (หนู·แมลงวัน) → คน [31:28]
+- ★ **ปัญหาในไข่ดิบ** (US/EU) [31:59]
+- **Farm-to-table outbreak control** ทุก step [32:30] — เนื้อหารายละเอียดปี 5
+- ★ Salmonella ที่ไม่ทำให้คนป่วย ก็ยังสำคัญเพราะ **ส่งผ่าน AMR genes** สู่คน [33:32]
+- CDC guideline: **ล้าง · แยก · ผ่านความร้อน · แช่เย็น** [33:32-34:03]
+- บทบาทสัตวแพทย์: ลำดับเข้าโรงเชือด — **ฟาร์ม Salmonella+ ต้องเข้าทีหลัง** เพื่อลด cross-contamination [34:33-35:06] ★
+
+---
+
+## 5. Campylobacteriosis [35:06-37:12]
+
+- ***Campylobacter jejuni*** · Gram-negative [35:38]
+- ★ **ในไก่/wild bird ไม่ก่อโรค** แต่ shed → คน
+- **คน: foodborne · ไข้·ท้องเสีย** [36:09]
+- Cycle: shed อึ → ลูก → environment
+- Control: feed additives · vaccine · slaughter (water wash · UV light) [36:39-37:12]
+- เนื้อหาเรียนเยอะปี 5
+
+---
+
+## 6. Yersiniosis [37:12-38:14]
+
+- เชื้อ ***Yersinia*** 2 ตัว [37:12]
+- ★ เจอใน **wild bird** > ฟาร์มไก่
+- สัตว์ปีกไม่แสดงอาการ
+- ★ **คน: ปวดท้องรุนแรง คล้ายไส้ติ่งอักเสบ (appendicitis-like)** [37:43] · faecal-oral
+
+---
+
+## 7. Q Fever [38:14-39:49]
+
+- ***Coxiella burnetii*** [38:14]
+- ★ **โฮสตหลัก = วัว** (น้ำนม·placenta) — สัตว์ปีก = secondary host (นกพิราบ·domestic birds) [38:47]
+- คน: asymptomatic / mild flu (ไข้·ไอ·จาม) → severe → **pneumonia · hepatitis** [39:19]
+- กลุ่มเสี่ยง: คนช่วยทำคลอดวัว/แมว/หมา (มือเปล่า) [39:49]
+
+---
+
+## 8. Cryptococcosis [39:49-42:28]
+
+- ***Cryptococcus neoformans*** [40:22]
+- ★ **ไม่ติดตรงจากนก** — ติดจาก **environmental contamination** (ดิน·เศษใบไม้ชื้น) [40:22]
+- ★ **กลุ่มนกพิราบเป็น carrier** อึออกมา → คนสูดสปอเข้าไป
+- ★ Aj. เน้นแยกกับ **Sporothrix** = ติดตรงจากแมว · Crypto **ไม่ติดตรงจากแมว** [40:52] (มัก confuse)
+- คน: ติดเข้าปอด · skin · CNS · ★ ติดเมื่อภูมิดรอป·เครียด
+- เจอ Southeast Asia · Africa
+- Tx: ยาฆ่าเชื้อรา 6 เดือน+ (criteria ไม่ออกสอบ) [42:28]
+
+---
+
+## 9. Newcastle Disease (NDV) [42:28-45:34]
+
+- ★ **เป็น zoonosis ได้!** [44:02] · **ข้อสอบ VCA หลอกบ่อย** — คนมักติ๊ก "ไม่ติดคน" แต่จริง = ติดได้ ★★
+- 2 strains: low virulent (respiratory · ไข่รด) vs **velogenic** (mortality สูง · CNS·GIT) [43:31]
+- คน: ★ **ส่วนใหญ่ทำให้เกิด conjunctivitis (เยื่อบุตาอักเสบ)** ไข้อ่อนๆ ~1 อาทิตย์ [44:32]
+- ★ **ติดตอนทำวัคซีน** = วัคซีนกระเด็นเข้าตา [44:32] · หรือ respiratory/contaminated food
+- ไม่มียาจำเพาะ · supportive
+- กลุ่มเสี่ยง: **คนทำวัคซีน** → ใส่ mask · ถุงมือ · eye protection [45:34]
+
+---
+
+## 10. West Nile Virus (WNV) [45:34-48:13]
+
+- กลุ่ม encephalitis virus · ★ **vector = ยุง** (Culex) [46:05]
+- **Susceptible host = อีกา (crow), terrestrial bird** [46:05]
+- อาการนก: อ่อนแรง · convulsion · ตัวสั่น · ★ **ตาบอด** [46:35]
+- Cycle: bird ↔ mosquito → **dead-end host = ม้า·คน** [47:11] (Aj. ถามนิยาม dead-end = ไม่แพร่ต่อ ไม่ได้แปลว่าตาย ★)
+- ★ ระบาด US·EU · ไม่มีวัคซีนคน
+- คน: 20% develop อาการ — ไข้·อาเจียน·ท้องเสีย · severe → **encephalitis/meningitis** [47:41]
+- ป้องกัน: surveillance ยุง · ป้องกันยุงกัด
+
+---
+
+## 11. Avian Influenza (AI) [48:13-67:35]
+
+★ ส่วนยาวที่สุด — Aj. เน้นเป็นพิเศษ
+
+**Subtypes**: Influenza A · RNA virus · **HA 16 subtypes · NA 9 subtypes** [49:15-49:45]
+- ★ **Zoonotic subtypes**: H5, H7, H9 (จากสัตว์ปีก) · H1, H3 (จากหมู·สุนัข) [49:45-50:18]
+- ★ **Aquatic birds = sentinel host** ติดได้ทุก subtype + แพร่ทั้งสัตว์เลี้ยงลูก/avian [52:25]
+
+**Genetic change** [52:56-53:28]:
+- 8 segments → **antigenic shift** (รวมกับไวรัสอีกตัว = virus ใหม่)
+- **Antigenic drift** (copy error)
+
+**LPAI vs HPAI** [54:29-55:32]:
+- LPAI = mild · low zoonotic risk
+- ★ **HPAI = H5, H7** = high mortality · zoonotic ★
+
+**H5N1 history** [55:32-58:36]:
+- ระบาด ปี 2540 (2003) — ไก่ไทยตาย ~60 ล้านตัว · คนติด 17 ตาย 12 (~70% mortality) — ทั่วโลก ~300 case [57:04-58:06]
+- น่ากลัวพอกับโควิด แต่ human-to-human ติดยาก [58:36]
+- ★ **2024-25 กลับมา** — กัมพูชาต้นปีนี้ติด ~9 คน · เพื่อนบ้านลาว·เวียดนามเจอแล้ว [56:03]
+- 2003-2022: Egypt 359 · Vietnam 127 · Indonesia top เคส [60:14]
+- ไทยเป็น white spot บนแผนที่ — ไม่ใช่ไม่มี แต่ไม่รายงาน [59:09]
+
+**Subtypes มากกว่า H5N1**: H5N6, H5N8, H7N9, H9N2 — ทุกตัวเคยติดคน [60:45-61:15]
+
+**Zoo cats indicator** [61:15-63:24] ★:
+- ★ **ฟูล่า (felidae) ที่กินไก่ดิบ** = sentinel · ฟาร์มคัดไก่ไม่สวย → ส่งสวนสัตว์เลี้ยงเสือ → เสือตาย = warning sign HPAI
+- ข่าวเสือตาย "Distemper" — เคยสงสัย AI [62:20] (ปกติ 2 ฟาร์มคนละที่ → กังวลเรื่องอาหาร)
+- ปรุงสุก = ปลอดภัย (RNA virus ตาย)
+
+**Live bird markets** [66:32-67:35] ★:
+- ตลาดคลองเตย / พม่าตลาดสด · มิกซ์ไก่หลายฟาร์ม → mixing vessel
+- พม่ามี H9N2 report ล่าสุด
+
+**Triangle of disease control** [67:35-69:43] ★:
+1. **Host** — early detection · screening
+2. **Agent** — antigenic change → ลดเชื้อ · disinfectant · biosecurity
+3. **Environment** — farm management · vector control · quarantine new birds
+
+---
+
+## ★ Exam Preparation [69:43-70:15]
+
+★★ **Aj. ย้ำชัด: หน้าสุดท้าย = ข้อสอบทุกปี เติมคำง่ายๆ — ปีนี้อาจเติมมากกว่านี้** เตรียมละเอียด:
+- อาการในคน
+- อาการในสัตว์
+- เป็นเชื้ออะไร (รา·แบคทีเรีย·ไวรัส)
+- โฮสต์หลัก
+
+★ จุดเสี่ยงพลาดที่ Aj. เน้น:
+- ★ **NDV ติดคนได้** (ข้อสอบ VCA หลอก)
+- ★ **Crypto ไม่ติดตรงจากแมว** (สับสนกับ Sporothrix)
+- ★ Salmonella **S. Enteritidis + S. Typhimurium** = foodborne คน · **S. Pullorum + Gallinarum** = ในนก
+- ★ Erysipelas **โฮสต = ไก่งวง·เป็ด·ห่าน** + รอยโรคคนรูปวงตัว E
+- ★ AI **HPAI = H5/H7** + dead-end host concept
+- ★ Q fever **โฮสตหลักวัว** (ไม่ใช่นก)
+- ★ Avian TB **non-TB · ดื้อยา TB ปกติ**
+- ★ Yersinia = ★ **appendicitis-like** ในคน
+- ★ WNV vector = **ยุง Culex** · sentinel = **อีกา**
+
+Cross-ref VetMock Q1785-1790, Q1825-1826`
+},
+'MuvMzjceQa8': {
+  videoId: 'MuvMzjceQa8',
+  title: 'Biosecurity & Disease Surveillance (L11)',
+  subject: 'poultry',
+  date: '17 Mar 69',
+  durationMin: 117,
+  instructor: 'Aj. Nataya/ณทยา เจริญวิศาล (ผศ.สพ.ญ.ดร.) — L11',
+  examFormat: 'MCQ + fill-in — mortality threshold / Se-Sp / sample collection / HenHoused vs HenDay',
+  summary: `# L11 — Biosecurity & Surveillance · Aj. Nataya
+
+วิชานี้รวบ 2 ครั้งเป็น 1 (เพราะวันอังคารตรงวันหยุด) → ครั้งแรก **Biosecurity + ป้องกัน/ควบคุม/กำจัดโรค** · ครั้งที่ 2 **การประเมิน + เฝ้าระวัง** [0:13–1:14]
+
+## 1. Epidemiology Triad — เน้น Environment [3:49–5:22]
+- Host · Agent · Environment — ปี 4 เน้น **Environment** (จัดสิ่งแวดล้อมยังไงให้เชื้อโรค-ไก่ไม่เจอกัน) ปี 5 (Avian Med) จะเน้น Agent
+- Environment factors: อุณหภูมิ · ความชื้น · อากาศ · วัสดุรองนอน · **ความหนาแน่น** · น้ำ/อาหาร · การจัดการ → ลด stress (cortisol↓ → immunity↑)
+
+## 2. ความรู้พื้นฐาน 5 ข้อก่อน Biosecurity [6:23–13:09]
+1. **Disease classification** — by organ / mode of transmission / shedding
+2. **Disease progression** — เชื้อสัมผัส≠ติดเชื้อ · ติด≠ป่วย · ป่วยช่วง clinical (สีฟ้า) อาจ shed มา 1 สัปดาห์แล้ว → diagnosis ขึ้นกับ timing
+3. **Disease transmission** — Horizontal Direct (contact/aerosol/droplet) · Horizontal Indirect (น้ำ-อาหาร-คน-รองเท้า-ยานพาหนะ-นกธรรมชาติ) · **Vertical** (พ่อแม่→ลูก)
+4. **Flock immunity** — ฝูงไม่มีภูมิ R0=2 → ระบาดทั้งฝูง · ฝูงมีภูมิ 50% → แพร่ 1/2 ตัวเท่านั้น · ขึ้นกับ contact rate (density · social structure · vector)
+5. **Prevalence vs Incidence** — Prevalence = เคสเก่า+ใหม่ในช่วงเวลา (ไม่นับตาย/หาย) · Incidence = **เคสใหม่เท่านั้น**
+6. **Prevention vs Eradication** — โรครุนแรง (HPAI · ND) ต้อง report กรมปศุสัตว์ → high morbidity · high mortality · production loss · public health · high communicability → depopulation · ↑biosecurity [13:39–14:41]
+
+## 3. Bioscurity 3 Levels [15:43–20:24]
+**Concept** — ไม่ตั้งในแหล่งชุมชน · ไม่ติดถนนสายหลัก · ไม่ตั้งในแหล่งสัตว์หนาแน่น · **All-in-all-out** (broiler ได้ · layer ทำไม่ได้)
+
+**Structural** — รั้วรอบขอบชิด · แยกบ้านพักคน-โรงเรือน · พื้นคอนกรีตรอบโรงเรือน (แสงส่อง · ทำความสะอาดง่าย · ไม่มีหญ้า/นกลง) · **ทาง one-way แยกสะอาด-สกปรก** · ลูกไก่เข้า-ซากออก คนละทาง · ป้อมน้ำยาฆ่าเชื้อ-อาบน้ำเข้าโรงเรือน
+
+**Procedural** — Down time **3-7 วัน** (ปัจจุบัน ~3 วัน) ก่อนสัมผัสไก่/นกธรรมชาติ · ล้อรถ spray · คนขับห้ามลง · อาบน้ำ-เปลี่ยนชุด-เปลี่ยนรองเท้า · มือถือ/สมุด-ปากกาผ่านตู้ **UV 10-20 นาที** (15 นาทีก็ได้) [26:33]
+
+## 4. Bath Procedure (เข้าฟาร์ม) [21:54–25:31]
+- ห้องแรก เก็บรองเท้าจากบ้าน
+- ถอดเสื้อผ้าทั้งหมด (เก็บเสื้อใน-กางเกงในไว้ในมือ)
+- เดินซิกแซกผ่านน้ำยาฆ่าเชื้อ (ระวังกางเกงในไม่ให้โดน)
+- อาบน้ำ-สบู่-สระผม-ล้างน้ำยาฆ่าเชื้อออก
+- ใส่ชุดของฟาร์ม → ใส่บูทเดินทาง → ถึงโรงเรือน เปลี่ยนบูทอีกคู่ + จุ่มเท้า + spray + ล้างมือ
+
+## 5. Cleaning + Disinfection [29:39–32:15]
+- ฟอร์มาลิน + ด่างทับทิม **2:1** (น้ำ:ผง) → แก๊สพิษ ต้องอยู่ใน container ปิด · รมควานไข่ก่อนเข้าฟัก
+- ลำดับ: เอา bedding/อาหารออก → ล้างน้ำยาทำความสะอาด → ล้างน้ำสะอาด → น้ำยาฆ่าเชื้อ → **ปล่อยให้แห้งเอง** (contact time) ไม่ต้องล้างน้ำตาม
+- Foam disinfectant > liquid (เกาะผนังนาน → contact time มากกว่า)
+- ✅ Bacterial check ก่อน-หลังทำความสะอาด (เพื่อดูประสิทธิภาพ — แต่จริงๆไม่ค่อยทำ)
+- Organic matter ลดประสิทธิภาพ disinfectant → ต้องล้างก่อน
+
+## 6. Mortality Thresholds (★สอบ) [34:19–35:21]
+- **Breeder/Layer (พ่อแม่พันธุ์):** ปกติ ≤ **0.3 ตัว/1,000 ตัว/วัน** → 10,000 ตัว = ตายไม่เกิน 3 ตัว/วัน
+- **Broiler (ไก่เนื้อ):** ปกติ ≤ **1 ตัว/1,000 ตัว/วัน** → 10,000 ตัว = ตายเกิน 10 ตัวถือผิดปกติ → ต้อง dx หาสาเหตุ
+
+## 7. Visit Order + Pest Control [27:34–34:19]
+- สัตวแพทย์เข้า: **โรงอายุน้อย → โรงอายุมาก → โรงเรือนป่วย** (ลำดับสุดท้าย)
+- กำจัดหนู (Salmonella!) · จิ้งจก · นก (ตาข่าย-ห้ามปลูกผลไม้-ไม่มีต้นไม้ใหญ่) · แมลงวัน (กระดาษเหลือง) · ไม่เลี้ยงสุนัข/แมว
+- เก็บไข่ ≥4 ครั้ง/วัน (บางที่ 6 ครั้ง) · ไข่พื้น = ไม่สะอาด
+
+## 8. Disease Control vs Eradication vs Elimination [41:33–43:43]
+- **Control** = ลดสัตว์ติดเชื้อ/ป่วย/ตาย (มีโรคแล้ว)
+- **Eradication** = กำจัดให้หมดทั่วโลก/ทั้งประเทศ (ต้องกำจัด reservoir — ในไก่ทำยาก เพราะนกธรรมชาติ/เป็ดเป็น reservoir)
+- **Elimination** = กำจัดในบริเวณใดบริเวณหนึ่ง (ฟาร์มเรา) — ใช้กับไก่ส่วนมาก
+
+## 9. Monitoring vs Surveillance [46:22–47:55]
+- **Monitoring** — เก็บสถิติ prevalence/incidence ตามเวลา · ดูความรุนแรง
+- **Surveillance** — เก็บข้อมูลกลุ่มประชากรเพื่อ analyze + แปรผล + กำหนด action · Active surv. (เฝ้าระวังก่อนเกิด) · Detect outbreak ใหม่ · Public health action
+- เปรียบเทียบ COVID: monitoring=นับเคสรายเดือน · surveillance=ตรวจ cluster ใหม่
+
+## 10. Sample Size + Sensitivity/Specificity [53:39–57:25]
+- โรค **transmission สูง + incubation สั้น** (HPAI · ND) → จำนวนน้อย (5-10 ตัว/โรงเรือนพอ)
+- โรค **transmission ต่ำ + incubation นาน** (Mycoplasma 5 wk) → ต้องเก็บเยอะ 30-40 ตัว
+- คำแนะนำกลาง: **20 ตัวอย่าง/โรงเรือน · 1 ไก่=1 sample** (ห้ามเก็บ 5 ml จากไก่ 5 ตัวมารวม!)
+- **Sensitivity** = True positive rate · ↑Se → ↑TP, ↓FN (หาผู้ป่วยจริง)
+- **Specificity** = True negative rate · ↑Sp → ↑TN, ↓FP
+- Test ที่ Sp ต่ำ → FP เยอะ → รักษาเกินจำเป็น
+
+## 11. Sample Collection Table (★สอบ) [62:38–94:04]
+| ตัวอย่าง | ใช้ตรวจ | จำนวน | ส่ง |
+|---|---|---|---|
+| **Blood (1ml)** | Hi/ELISA · serology | **20 ตัว/โรงเรือน** (1ไก่=1 sample) · heart/jugular/brachial | 24h |
+| **Boot/Drag swab** | Salmonella | 2 คู่/โรงเรือน · เดินรอบ | แลบ |
+| **Choanal cleft / Tracheal swab** | ND · AI · Mycoplasma · respiratory | 10-20/โรงเรือน · แช่เย็น | 24-48h |
+| **Cloacal swab** | ND · IBD | 10-20/โรงเรือน | 24-48h |
+| **Tissue (formalin)** | histopath | ส่วนปกติ+ไม่ปกติ · หนา ≤1 cm | dorm |
+| **Tissue (PCR)** | molecular | เฉพาะ lesion · แช่แข็งได้ | 24h |
+| **Water (50ml/sample)** | bact · fungal · pH · heavy metals | nipple ปลายสุด · เช็ดแอลกอฮอล์ก่อน | RT 24h |
+| **Feed (200-500g)** | mycotoxin · bact · ฟังไจ | สุ่มจากโรงงาน/ไก่กิน | RT |
+| **Litter/Fecal** | Salmonella · พยาธิ · coccidia | 20 จุด รวม 1 sample | แช่เย็น 24-72h |
+| **Eggshell/Chick down** | Salm. · Pullorum | ทุก 500 ตัว | แช่เย็น 24h |
+
+## 12. Serology — Antibody Window [60:29–70:59]
+- หลังวัคซีน/ติดเชื้อ ใช้ **7-14 วัน** สร้าง Ab ตรวจพบ
+- **Paired serum** = เจาะ 2 ครั้ง (วัน 0 + 14 วัน) → titer rise = ติดเชื้อจริง
+- ในไก่: IgG = **IgY** (โครงสร้างต่าง)
+- **HI (Hemagglutination Inhibition)** = gold standard สำหรับ HPAI + ND · เม็ดเลือดแดงตกก้นหลุม V-bottom = มี Ab จับไวรัสไว้แล้ว · titer 2² → 2³ → 2⁴...
+- **HA** = ตรวจ titer ไวรัส
+- **ELISA** = ใช้บ่อย · auto-read · เลือก IgG/IgM ตามวัตถุประสงค์
+- Geometric Mean Titer (GMT) > Average Mean (เพราะฝูงไม่ Normal distribution)
+- **%CV** = uniformity (ต่ำ = uniform = ดี)
+- ★ ตัวอย่าง IBD: titer ขึ้นถึง 6,000 หลังวัคซีน → **น่าจะติดเชื้อจริง** (วัคซีนกระตุ้นภูมิไม่ได้สูงขนาดนั้น)
+
+## 13. Building Serological Program [81:59–85:37]
+- **Baseline**: 10-20 ตัว/ครั้ง/ฝูง · เก็บหลายอายุ · **ส่งแลบเดียวกัน**
+- **Broiler (42 วัน)**: เจาะ 3 ครั้ง — day 1 (maternal Ab) → day 14 (ลดยัง?) → ก่อนจับ
+- **Layer/Breeder (1.5-2 ปี)**: maternal Ab (2-3 wk) → 10 wk (post-vacc response) → ก่อนไข่ (15-17 wk) → peak production
+- **Window of susceptibility** = ช่วง maternal Ab ลด + vaccine response ยังไม่ขึ้น → **biosecurity สำคัญสุด**
+- ไม่มี Universal guideline — ต้องปรับตามฟาร์ม + monitor ทุกครั้งที่เปลี่ยนยี่ห้อวัคซีน
+
+## 14. Risk Assessment 4 Domains (จบบทเรียน) [113:51–114:21]
+- ทำเลที่ตั้ง · ลักษณะฟาร์ม · การจัดการฟาร์ม · สุขภาพสัตว์
+- คะแนน **exponential** (ไม่ใช่ linear) → เห็น defect ชัด
+- มีการ audit จาก กรมปศุสัตว์ + ประเทศผู้ซื้อ (EU · ญี่ปุ่น)
+
+## 15. Hen Housed vs Hen Day Production [99:46–101:48]
+- 1,000 แม่ไก่ · 5 wk ตาย 50 → เหลือ 950
+- ★ **Hen Housed** = ÷ จำนวนเริ่มต้น (1,000) → 85% (เจ้าของฟาร์มใช้ — ดูคุ้มทุนหรือไม่)
+- ★ **Hen Day** = ÷ จำนวนวันนั้น (950) → 89% (คนงาน/หมอใช้ — ดูประสิทธิภาพแม่ไก่)
+- ไก่ไข่ออกไข่ทุก 23-25 ชม./ฟอง
+
+## 16. Day-1 Chick Health Check (★ออกข้อสอบ VCA ปีก่อน) [96:37–98:13]
+- ตรวจ **crop (ขอบ)** ภายใน 24h หลังลงไก่ — สุ่ม **100 ตัว/วงกบ**
+- จับเบาๆ: นิ่ม-ยืดหยุ่นกำลังดี = OK · แข็ง = น้ำไม่พอ → ตรวจคุณภาพน้ำ · บวมนิ่ม = น้ำเยอะ-อาหารน้อย → ตรวจอาหาร
+
+## 17. Egg Break-out Analysis [101:48–112:17]
+- แยก **Infertile** (ปัญหาฟาร์มพ่อแม่พันธุ์) vs **Early Death** (ปัญหาโรงฟัก)
+- Stages: Early death (1-7d · เห็นเส้นเลือด 3d, ตา 5d, mouse 5d) · Mid death · Late death (มีขน-ปีก-ขา 7-8d+)
+- ตู้ฟัก 1-18 วัน (candling แยกฟอง infertile) → ตู้เกิด 18-21 วัน
+- **Body Score 3-4 = ดี** (กระดูกอกไม่แหลม-ไม่ผอม) · Pelvic span ใหญ่ = ออกไข่สม่ำเสมอ
+- Piping: **internal pip** (เจาะ air cell → หายใจ-ปอดทำงาน) → **external pip** (เจาะเปลือกตามเข็มนาฬิกา) → ดันด้วยปีกขวา
+- Normal position: หัวใต้ปีกขวา + เท้าล่าง · ผิดตำแหน่ง (ใต้ปีกซ้าย/เท้าบน) → ฟักไม่ออก
+- Malformation: หัวไม่ปิด · สะดือไม่ปิด · แขนขา >1 คู่ → คัดทิ้ง
+- ลูกไก่ดี: ขนแห้ง · ยืน-เดินได้ · alert · สะดือปิด
+
+## 18. Misc
+- รม **ฟอร์มาลิน:ด่างทับทิม 2:1** = แก๊สพิษ · ใช้รมไข่ก่อนเข้าฟัก [29:39]
+- Vertical transmission ในไข่ → ต้อง trace กลับโรงเรือนพ่อแม่
+- Trade barrier: ส่งออก EU/ญี่ปุ่น ต้อง monitor HPAI รายเดือน · ND รายสัปดาห์ [53:09]
+
+## ★ ปิดท้าย
+"ปี 4 ไม่ยาก แต่ปี 5 (Avian Med) ยากเพราะโรคเยอะ — วันละ 4-5 โรค ต้องจับกลุ่มติวเพื่อน (สอน 90% / อ่านเอง 10%) เจอกันใหม่ปี 5 ขอให้โชคดี" [114:53–115:26]`
+},
+'nZuRemfTrzQ': {
+  videoId: 'nZuRemfTrzQ',
+  title: 'Avian Drug & Application Techniques (L13)',
+  subject: 'poultry',
+  date: '24 Mar 69',
+  durationMin: 118,
+  instructor: 'Prof. Niwat Chansiripornchai (DVM, MSc, PhD, DTBVM · CU Vet) — L13',
+  examFormat: 'MCQ + essay (3 ตัวยาห้ามใช้)',
+  summary: `# L13 — Avian Drug · Prof. Niwat
+
+## 0. Mood ของห้อง [0:09–4:20]
+อ.นิวัต เปิดด้วย CV: รุ่นพี่ 30 ปีก่อน · ทุนสวีเดน → เนเธอร์แลนด์ → expert OIE ที่ฝรั่งเศส · 8 ปียุโรปติดต่อกัน · ปัจจุบัน Prof. CU Vet · ประธาน Thai Vet Lab Diagnosticians · เปิด lecture ด้วย macro-economic context: **ส่งออกสัตว์ปีกไทย 120,000 ลบ./ปี อันดับ 4 ของโลก, อาหารส่งออก 1 ล้านลบ./ปี อันดับ 9–10** → "หมอต้องเข้าใจเซ้นของตัวเลข" [3:19] · บอกว่าจะเจอจน Vet 86 จบ "หินมา-หินกลับ" mode ตลอด lecture (ถามตอบเร็ว, ตบสวมหัว figurative)
+
+## 1. หลักการใช้ยาในไก่ [4:51–10:00] ⭐
+- ไก่ = สัตว์เพื่อการบริโภค → ใช้ยาต้องนึกถึง **คน** (consumer) + **สัตว์**
+- **Critical population = ไก่ไข่** (ไม่ใช่ไก่เนื้อ) เหตุผล: เรากินไข่ทุกวัน, ไก่เนื้อเลี้ยงแค่ 42 วัน → exposure คนสั้นกว่า [7:29]
+- ไก่เนื้อมาตรฐาน = **42 วัน, น้ำหนัก ~3 กก., FCR ~1.6** → กินอาหาร ~5 กก./ตัว [73:59–75:34]
+- ตลาดส่งออก: **ครึ่งญี่ปุ่น + ครึ่งยุโรป** ที่เหลือ HK/ME/SG/MY [8:29]
+- คอนเซิร์นหลักไม่ใช่ "สารเคมีตกค้าง" แต่คือ **AMR (antimicrobial resistance)** → ดื้อยา ทำให้คนป่วยตายจากเชื้อที่รักษาไม่ได้ [9:00]
+
+## 2. Withdrawal Time [10:00–11:33]
+- ระยะหยุดยา default = **ขึ้นกับชนิดยา** ไม่ใช่ตัวเลขตายตัว
+- **ยาที่ไม่มี withdrawal time = ยาที่ไม่ดูดซึมทางเดินอาหาร** [10:31] เช่น **Colistin, Neomycin, Streptomycin** — กินเข้าไป ขับถ่ายออกหมด → safe สำหรับ consumer
+- ในการรักษาทางเดินอาหาร นิยมใช้ยาไม่ดูดซึม → ยา concentrate ที่ **site of infection** [29:38]
+- **Gentamicin** อยู่กลุ่มเดียวกัน (aminoglycoside) แต่มาเฉพาะรูปฉีด → ใช้น้อยมากในไก่ commercial เพราะฉีดไม่ไหว [31:43]
+
+## 3. AMR & Bactericidal vs Bacteriostatic [12:37–28:35]
+- Pet medicine = รักษาเต็มที่; Livestock medicine = **economic scale** "รักษาไม่คุ้มเข้าโรงเชือด" [12:37]
+- ปัจจุบันการใช้ยาในไก่ **น้อยลงทุกขณะ** → ไก่ = สัตว์ **ปลอดภัยที่สุด** สำหรับผู้บริโภค (เทียบหมู, กุ้ง) [13:38]
+- **ยาเดียวที่อนุญาตให้ผสมในอาหารสัตว์ = ยากันบิด (Anticoccidial)** [15:11–16:00]
+- AGP (Antibiotic Growth Promoter) = sub-optimal dose ฆ่า pathogenic GI bacteria → ไก่โตดี · **ห้ามใช้ในไทยตั้งแต่ ค.ศ. 2006** [16:43]
+- **Bactericidal** = single dose kills (ต้องเพิ่ม dose) · **Bacteriostatic** = inhibit growth · ยาบางตัว dose-dependent (เช่น **Tetracycline ส่วนมาก = static, Aminoglycoside = cidal**) [26:35]
+- Combination: เลี่ยงในปัจจุบัน · classic case = **Sulfa + Trimethoprim** (synergism) แต่ปัจจุบัน sulfa ดื้อมาก = ยาโบราณ [27:05]
+- กลไกดื้อยาอยู่ที่ **plasmid** → หยุดใช้ยา ลดดื้อได้แต่ไม่หาย (gene ยังอยู่ ไม่ express) [28:05]
+- กลไก: ⭐ DNA gyrase (Quinolone), Folate inhibitor (Sulfa), Cell wall (β-lactam), Cytoplasmic membrane (Polymyxin/Colistin), Protein synthesis (Macrolide/Tetra/Amino), Drug ที่ไม่ค่อยใช้แล้ว = **Nitrofuran (Furazolidone)** [25:02]
+
+## 4. Drug of Choice ตามโรค [32:14–37:23] ⭐
+- **Mycoplasmosis** (Mycoplasma gallisepticum/synoviae): **Tylosin, Tilmicosin, Lincomycin, Spectinomycin, Gitasamycin** [33:19]
+- **Colibacillosis (E. coli)**: **Quinolone** (แต่ระวัง enrofloxacin ห้ามในไก่ไข่ที่จะเข้า food chain) · Gentamicin ใช้ได้แต่ฉีดไม่ไหว [33:49]
+- **Salmonellosis**: Sulfonamide กลุ่ม · **ในไก่บ้านเรา isolate เชื้อ host-specific (S. Gallinarum, S. Pullorum) แทบไม่เจอแล้ว** เพราะ management ดี [34:50]
+- **5 Salmonella serovars ห้ามเจอใน export chain**: ⭐ **Typhimurium, Enteritidis, Infantis, Virchow, Hadar** [37:23] — เจอเชื้อตัวใดตัวหนึ่งใน 5 ตัวนี้ = **ห้ามส่งออกทันที**
+- **Infectious Coryza (หวัดหน้าบวม)**: Avibacterium paragallinarum (โบราณเรียก Haemophilus) [37:56]
+- หลักการ: ทำ **Sensitivity test** ก่อน → drug of choice อาจรักษาไม่ได้เพราะดื้อ [38:28]
+
+## 5. Antiparasitic [41:32–51:30]
+### Endoparasite (Helminth)
+- ฟาร์มไก่เนื้อ commercial = "ศูนย์" พยาธิ (เลี้ยง 42 วัน + EVAP closed system 100%) [42:35–44:36]
+- เจอในไก่ไข่/ไก่พันธุ์ที่เลี้ยงนาน · ตัวเด่น: **Ascaridia, Capillaria, Cestode, Tetrameres** [45:06]
+- **Heterakis gallinarum** → vector ของ **Histomonas (Blackhead disease)** [45:37]
+- **Antinematodal**: Benzimidazole (Albendazole, Fenbendazole), **Levamisole** (broad-spectrum, นิยมในปัจจุบัน), **Piperazine** (narrow), Phenothiazine (โบราณ) [48:45–51:00]
+- **Anticestodal**: ⭐ **Praziquantel = drug of choice ตัวตืด** [50:19]
+- **Eye drop ใน สพ.อ. (CU Vet hospital)**: **Levamisole eye drop** สำหรับหยอดตาไก่ [49:47]
+
+### Antiprotozoan
+- **Coccidiosis** → genus **Eimeria** (E. tenella, E. necatrix, E. maxima, E. brunetti, E. acervulina) — 4 ตัวหลักไทย [46:09–63:43]
+- ยากันบิด: **Toltrazuril, Amprolium, Ionophore (Narasin, Salinomycin), Nicarbazin** [64:13]
+- Anti-resistance program: **Rotation Program** (เปลี่ยนยาระหว่างการเลี้ยงรอบเดียว 3-4 อาทิตย์) vs **Shuttle Program** (เปลี่ยนยาระหว่างรุ่น/หรือใช้วัคซีนช่วย) [64:45–66:17]
+- **Plasmodium gallinaceum** (yoong-borne), **Leucocytozoon** (ลิ้นไฟ-borne), **Haemoproteus** → เจอในฟาร์มเปิด/ใกล้แหล่งน้ำ (สุพรรณบุรี case study) [47:12–48:14]
+
+### Ectoparasite [58:01–63:12] ⭐
+- เจอบ่อยสุด: **เหา (chicken louse) สีขาว** ใต้ปีก
+- **Best method = จับจุ่ม (dipping)** เพราะขนไก่มีน้ำมันจาก uropygial gland (ก้น) → ฉีดไม่ค่อยเข้า [59:36]
+- Commercial: dip ไม่ไหว → **spray โซกทั้งตัว ทำให้ไก่ตื่น/กระพือปีก** [61:09]
+- ยา: **DDT ห้ามใช้แล้ว, Aldrin/Dieldrin ห้าม, ⭐ Pyrethroid = นิยมสุดในปัจจุบัน** เพราะ "สกัดจากดอกพายเรธรัม → consumer-friendly" (ส่งออกสำคัญ) [62:09–63:12] · Cypermethrin = synthetic pyrethroid
+
+### Knemidocoptes mutans (นกแก้ว/นกหงส์ exotic)
+- **Scaly leg/face mite** → รักษาด้วย **Ivermectin** (ป้อนปาก หรือ ฉีด) recover เร็ว [110:23]
+
+## 6. Antifungal & Mycotoxin [66:49–72:27]
+- เชื้อราในไก่: เจอใน **ไก่พันธุ์** บ่อยสุด (เลี้ยงนาน, stress, immune imbalance) ตามหงอน/เหนียง → ผลต่อ productivity (ไข่มีเชื้อต่ำ ไก่ไม่ผสม) [68:54]
+- ยา antifungal **แพง → รักษา topical ที่หงอน-เหนียง** ไม่ค่อยให้กิน [69:24]
+- **Mycotoxin (Aflatoxin)**: produced by **Aspergillus flavus** (เจอเยอะสุดในไทย humid+hot climate) → **carcinogen ในคน** + **ทนความร้อน** (ต่างจาก bacteria/virus) [70:54–71:57]
+- **Mycotoxin Binders** (อนุญาตผสมในอาหารสัตว์): ⭐ **HSCAS, Zeolite, Activated Charcoal, Bentonite Clay**
+- **Mold Inhibitors**: **Organic acid** (Propionic acid), **Probiotic**, **β-glucan, Mannan-oligosaccharide** [72:27]
+
+## 7. ⭐ ยาห้ามใช้ในสัตว์ (Banned Drugs) [72:57–80:47] — "ข้อเขียนออกแน่ 3 ตัว"
+- **กลุ่มต้องห้ามตาม พ.ร.บ. ยาสัตว์**:
+  - ⭐ **β-agonist (Clenbuterol, Salbutamol)** — ใช้ใน fattening แต่ไก่โตเร็วอยู่แล้ว 42d/3kg → **ไม่ใช้ในไก่** · แต่ห้ามเด็ดขาด [73:29]
+  - ⭐ **Diethylstilbestrol (DES)** — hormone, ใช้ในไก่ "3-สาย" (ไก่ไหว้เจ้าจีน, mix Rhode Island × Barred Plymouth Rock × ไก่ชนไทย 50%) → เนื้อตัวผู้กระด้าง/ดุ → **ลักลอบใช้ DES** ทำเนื้อนุ่ม **ผิดกฎหมาย** [76:05–80:15]
+  - **Chloramphenicol, Nitrofuran (Furazolidone), Metronidazole, Vancomycin** — ห้าม (impl. โดย Codex/EU) [25:33 + 72:57]
+- **Extra-label Use**: ห้าม! ยาคน → ไม่เอามาใช้สัตว์ · ถ้าหมอตัดสินใจใช้ → **รับผิดชอบทางวิชาชีพ (ใบประกอบ-โดน fines/ระงับ)** [80:47]
+
+## 8. ⭐ Drug Application Techniques [81:49–107:46]
+### Order of preference:
+1. **Water medication** ⭐ (1st choice, drug ของกรมปศุสัตว์ encourage) — ป่วยไก่กินอาหารน้อยแต่ยังกินน้ำ; absorb เร็ว · ระวังตกตะกอน + แคลเซียมในน้ำสูง (เช่น **สระบุรี = หินปูนเยอะ**) จับ tetracycline → ไม่ละลาย [88:55, 102:29]
+2. **Feed medication** (2nd) — กรมไม่ encourage (เหตุผลที่ อ.ไม่บอก แต่ implication: ขนาดต่ำกว่ากำหนด, กระจายไม่ทั่ว, batch ผสมขั้นต่ำ ~3 ตัน) [104:39] · **เฉพาะยากันบิดเท่านั้นที่ผสมอาหารถูกกฎหมาย** [105:10]
+3. **Injection** (3rd) — onset เร็วสุด, withdrawal ยาวสุด, ฉีดไก่ทั้ง flock ไม่ไหว → ใช้เฉพาะ flock เล็กหรือ aminoglycoside (เช่น gentamicin) [106:45]
+- ปริมาณกิน: **ไก่กินน้ำ ≈ 1.7-2× กินอาหาร** [85:54]
+
+### Pharmacokinetic curves [92:35]:
+- Injection → ขึ้นเร็ว, ลงเร็ว
+- Water → ขึ้นช้ากว่า, ลงเร็ว
+- Feed → ขึ้นช้าสุด, ค่อยๆลด
+- ทั้ง 3 ต้องอยู่เหนือ MIC level
+
+### Farm system [96:44–99:21]
+- Standard house: 10–12 m × 100–110 m
+- ความดันน้ำต้องได้ ~0.3 bar เพื่อให้น้ำไหลจากต้นเล้าถึงท้ายเล้า
+- **Down-stream proportional pump** (medicator) ดูดยาผสมท่อก่อนถึงรางน้ำ
+- ระวัง: ท่อเป็นสนิม/ตะกรัน → ไก่ไม่ได้ยา
+
+### Pause-period (Down-time)
+- หลังจับไก่ → **พักเล้า 14 วันตามกฎกรมปศุสัตว์** (นับจากปิดเล้าหลังทำความสะอาด, ไม่ใช่จากวันจับไก่) [99:52]
+
+## 9. 5 Rs (implicit) — ข้อตรวจซ้ำเวลายาไม่ work
+ถ้าให้ยา 2 วันแล้วไม่ดีขึ้น ตรวจ: **Right diagnosis, Right drug, Right dose, Right route, Right duration** + ดู water/feed intake (ไก่อาจไม่กินเพราะรสยา → หยุดน้ำให้กระหายแล้วค่อยให้) [88:55, 94:41]
+
+## 10. Key Exam Hooks (Niwat ย้ำชัด)
+- ⭐ **5 Salmonella serovar ห้ามส่งออก** (Typhimurium, Enteritidis, Infantis, Virchow, Hadar)
+- ⭐ **ยา 1 กลุ่มผสมอาหารถูกกฎหมาย = ยากันบิด**
+- ⭐ **Praziquantel = ตัวตืด · Pyrethroid = ectoparasite of choice · Levamisole = broad nematode**
+- ⭐ **Aminoglycoside (Colistin/Neomycin/Streptomycin) ไม่ดูดซึม → no withdrawal**
+- ⭐ **Aspergillus flavus → Aflatoxin → ทนความร้อน → carcinogen**
+- ⭐ **β-agonist & DES = ห้ามเด็ดขาด** (DES ลักลอบใช้ใน "ไก่ 3 สาย")
+- ⭐ **Chloramphenicol, Enrofloxacin (in layer/breeder), Nitrofuran = ห้าม**
+- ⭐ **Water > Feed > Injection** (order of preference)
+- ⭐ **พักเล้า 14 วัน หลังปิดเล้าทำความสะอาด** (กรมปศุสัตว์)
+- ⭐ **AGP ห้ามตั้งแต่ 2006**
+
+(Cross-ref VetMock Q1811-1818, Q1823-1824)`
+},
+'ZRvrSjTlEgc': {
+  videoId: 'ZRvrSjTlEgc',
+  title: 'Poultry Farm Quality Assurance (L14-15)',
+  subject: 'poultry',
+  date: '31 Mar 69',
+  durationMin: 110,
+  instructor: 'Aj. Ekasingh Sareung (เอกสิงห์ สาเรือง · Betagro) — L14-15',
+  examFormat: 'T/F ~10 ข้อ + MCQ',
+  summary: `# L14-15 — Poultry Farm QA · Aj. Ekasingh
+
+> Lecturer: Aj. Ekasingh Sareung — Betagro Vet '52, ตำแหน่งผู้ช่วยกรรมการผู้จัดการใหญ่ ดูงาน **สัตวแพทย์ + ประกันคุณภาพฟาร์มสัตว์ปีกทั้งเครือ Betagro** [28:51]
+> Style: ลุยเร็ว · ใช้ตัวอย่างจากเชนจริง (ฟาร์มปู่ย่า → พ่อแม่พันธุ์ → โรงฟัก → ไก่เนื้อ/ไก่ไข่ → โรงเชือด/Further) · เน้น regulator + customer requirement · Cross-ref VetMock Q1751-1758, Q1806-1810, Q1819-1822
+
+---
+
+## 1) ทำไมต้อง QA ตลอด chain [30:27]
+
+QA = "ใส่ใจ" ในการผลิตสินค้าให้ถึงมือผู้บริโภค — ต้องคุม **ทั้ง chain**: ฟาร์มปู่ย่าพันธุ์ → ฟาร์มพ่อแม่พันธุ์ → โรงฟัก → ฟาร์มไก่เนื้อ/ไก่ไข่ → โรงเชือด → Further → ผลิตภัณฑ์ขาย
+
+**5 องค์ประกอบของงาน QA** [32:35]:
+1. **Quality Control** — สินค้าตรงสเปค + ปลอดภัย
+2. **Audit (ตรวจสอบ)** — ทำตามที่กำหนดไว้มั้ย ตั้งแต่ฟาร์ม → ผู้บริโภค
+3. **Quality Certification** — internal + external (third party)
+4. **Quality Assessment** — ประเมินคุณภาพให้สม่ำเสมอ
+5. **Traceability** — ตรวจย้อนกลับจากซุปเปอร์มาร์เก็ต → ฟาร์มได้
+
+QA = วิธีบริหาร **systematic problem solving + continuous improvement** ใช้ **Plan-Do-Check-Act (PDCA)** [34:41]
+
+## 2) มาตรฐานที่ต้องศึกษา [36:47]
+
+**ในประเทศ**: กรมปศุสัตว์ · อบต. · มกอช.
+**ต่างประเทศ**: EU · ญี่ปุ่น · เกาหลี · จีน · ตะวันออกกลาง
+**องค์กรกลาง**: FAO · OIE · NGO อิสระ
+**Third Party**: LRQA · Genesis · Halal · NSF · **Sedex** (แรงงาน)
+
+**ลูกค้าเฉพาะกลุ่ม** [40:58]: ไก่โตช้า · ไก่เลี้ยงปล่อยอิสระ · Organic · **Better Chicken Commitment (BCC)** · **ESG**
+
+**Standards**: ISO · GMP/HACCP · GLP · Global GAP · Genesis · LRQA Farm First [43:05]
+- **มาตรฐานฟาร์ม กรมปศุสัตว์**: ฟาร์มไก่ >3,000 ตัว ต้องมี · ฟาร์มส่งออก ต้องมี [44:37]
+- **RWA = Raised Without Antibiotics** [45:09]
+
+## 3) Scope งาน QA — 6 หมวด [46:13]
+
+### 3.1 Food Safety [46:43]
+**4 ด้าน**: Biological (Salmonella + AI ห้าม) · Chemical (antimicrobial · ยากันบิด · ยาฆ่าแมลง · โลหะหนัก · เมลามีน) · Physical (เข็ม · พลาสติก) · Allergen
+- หลัก: **GMP + HACCP**
+- AMR reduction levels [47:46]:
+  - **RU = Reduce Use**
+  - **RWA = Raised Without Antibiotics**
+  - **NAE = No Antibiotic Ever** (รวม anticoccidial)
+
+### 3.2 Animal Welfare — **Five Freedoms** [49:19] ★
+1. ปราศจาก หิว/กระหาย — เข้าถึงน้ำตลอด
+2. ปราศจาก ความไม่สบาย — โรงเรือนเหมาะสม
+3. ปราศจาก โรค/บาดเจ็บ — dx + tx ทันท่วงที
+4. **แสดงพฤติกรรมธรรมชาติ** — มีคอน · ของเล่น (บอล/กระสอบ)
+5. ปราศจาก ความหวาดกลัว/Stress
+
+ตัวอย่าง: เดินตรวจ ≥ **2-3 ครั้ง/วัน** · **ห้ามตัดปาก** (ban) [52:30] · **เครื่องปั่นไฟ + น้ำมันสำรอง** [53:00]
+
+### 3.3 Disease Control [53:32]
+- Veterinary Health Plan: vaccine · vitamin · disinfectant · monitoring · welfare · vet visit
+- Biosecurity: คุมทั้งโซน · ถนนแยก · รั้ว · **อาบน้ำ 2 ครั้ง** (เข้า+ออก) · พักตัวก่อนเข้า · พนักงานพักในฟาร์ม · ใช้ **โฟม** ฆ่าเชื้อรถ (ดีกว่าน้ำ) [58:41] · ตู้ UV
+- ยูนิฟอร์ม **แยกสีตามตำแหน่ง**
+- Pest control: หนู · แมลงวัน · นกป่า [60:16]
+- **Prescription ต้องเขียนโดยสัตวแพทย์เท่านั้น** [62:22] ★
+
+### 3.4 Quality Control [63:27]
+**Documents**: Quality Manual · SOP · Work Instruction
+**Audit types** [63:57]: Internal Audit (รวม **Surprise Audit**) · Verification · Traceability · Training · 3rd Party Audit · Customer Audit
+**Traceability** [64:58]: scan QR → ฟาร์มไก่เนื้อ/โรงฟัก/พ่อแม่พันธุ์ + ชื่อสัตวแพทย์
+**Training 9 ข้อ** [65:59]: พฤติกรรมไก่ปกติ · ความหวาดกลัว · ลักษณะสุขภาพ · จับ/บังคับ · humane culling · วัสดุรองพื้น · อุปกรณ์/สุขาภิบาล · ความเครียดจากร้อน · ใช้ยา/เวชภัณฑ์
+
+### 3.5 Labour Standard [67:05]
+- **GLP** = Good Labour Practice (กรมปศุสัตว์)
+- **BLS** = Betagro Labour Standard
+- **Sedex** · **NGO**
+
+**4 หลักของ GLP** [68:09]:
+1. ไม่ใช้แรงงานเด็ก
+2. ไม่ใช้แรงงานบังคับ
+3. ไม่เลือกปฏิบัติ
+4. ไม่มีค้ามนุษย์
+
+> "QA ไม่ใช่แค่ประกันสินค้า ต้องประกันความเป็นอยู่ของคนด้วย" [67:38]
+
+### 3.6 Environment [69:11]
+- **ISO 14000** [69:43]
+- **ใบ อป.2** = ใบอนุญาตประกอบกิจการที่เป็นอันตรายต่อสุขภาพ → ทุกฟาร์มต้องมี + ต่ออายุตลอด [72:22] ★
+- **จัดการของเสีย**: ฝัง/เผา/ทำลาย · **Vcompost** ~4 อาทิตย์ → ผงป่น → ปุ๋ย · เปลือกไข่ บด+อบ → อาหารสัตว์ · Rendering
+
+## 4) BQM = Betagro Quality Management [100:27] ★★
+
+**สโลแกน 24/7** = 24 ชม. · 7 วัน
+
+**5 หัวใจของ BQM** [102:04]:
+- **Food Safety** ★ (ตัวสำคัญสุด)
+- คุณภาพอาหาร
+- สวัสดิภาพสัตว์
+- Corporate Responsibility
+- Service Excellence
+
+**Checklist scoring**: Food Safety + Food Quality + Service
+- **≥ 60 = ผ่าน** · **≥ 80 = ดี (สีฟ้า)**
+- ต่ำกว่า → **PDCA** ปรับปรุง [104:05]
+
+**6 หมวดที่ตรวจ BQM** [106:09]:
+1. เอกสาร — Quality Manual · SOP · Work Instruction
+2. เวชภัณฑ์ — รับ/สั่ง/จัดเก็บ/ใช้/ทำลาย package
+3. ผู้จัดการฟาร์ม + พนักงานเลี้ยง
+4. สวัสดิภาพสัตว์
+5. ตรวจฟาร์ม — biosecurity · pest control
+6. บันทึก
+
+หัวเรือใหญ่ = **ทีมสัตวแพทย์** (ดู animal health + ระบบ + สื่อสาร ตปท.) [105:07]
+
+**NCR = Non-Conformance Request** [107:41] — เจอข้อต้องแก้หลัง audit → ส่ง NCR เพื่อ request **CAPA** (Corrective and Preventive Action)
+
+## 5) Product Specs ตลอด chain
+
+### 5.1 ไข่ฟัก (Hatching Egg) [76:29]
+- น้ำหนัก: ไก่ไข่ 45 ก. · ไก่เนื้อ 50 ก. · ผิวสะอาด · ไม่บาง
+- ปลอด: Mycoplasma · Salmonella · **ALV-J** · AI [77:29]
+- มีภูมิ: CAV · AE
+
+### 5.2 ลูกไก่ (Day-Old Chick) [80:34]
+- ไม่มีสะดือดำ/อักเสบ · ไม่ท้องบวม · ภูมิ: ND · IBD · Reo · CAV · AE
+- ปลอด: ALV-J · MG · MS
+
+### 5.3 ★★ Salmonella 5 serovars (ไก่พ่อแม่พันธุ์) [84:47]
+1. **S. Enteritidis**
+2. **S. Typhimurium**
+3. **S. Choleraesuis**
+4. **S. Pullorum**
+5. **S. Gallinarum**
+
+**ไก่เนื้อ (เข้าโรงเชือด)** ห้ามมี [85:21]:
+- **S. Enteritidis**
+- **S. Typhimurium** + **monophasic Typhimurium** (1,4,[5],12:i:-)
+
+### 5.4 ไข่สด (Table Egg) [90:36] ★
+- **เบอร์ไข่**: เลขน้อย = ฟองใหญ่ (เบอร์ 0 > เบอร์ 1 > เบอร์ 2…)
+- **ค่า Haugh Unit (HU)** = วัดความสด · สเปคขั้นต่ำ **60-65** [91:38] ★
+- ความแข็งแรงเปลือก · สีไข่แดง
+- ปลอด: ยาปฏิชีวนะ · ฆ่าแมลง · โลหะหนัก · **Salmonella spp.**
+
+### 5.5 ไก่เนื้อเข้าโรงงาน [87:59]
+- น้ำหนัก · uniformity · ปลอดสารตกค้าง · ปลอด AI/Newcastle/Salmonella
+
+## 6) ยาที่ห้ามใช้ [98:22] ★★
+
+**ห้ามเด็ดขาด (กรมปศุสัตว์)**:
+- **Colistin** — banned ทันที
+- **Cephalosporin** — banned
+- **Nitrofuran** — banned นานแล้ว
+- **WHO CIA list** — สงวนสำหรับคน
+
+**Approve Vendor List**: Supplier ต้องผ่าน audit → ตรวจ **MRL** (Maximum Residue Limit)
+
+**Receiving control** [92:40]: ลูกไก่ · อาหาร · น้ำ (น้ำบาดาล + ผิวดิน → คลอรีน) · เวชภัณฑ์ · สารเคมี
+
+## 7) Aj. exam quirks (high-yield)
+- ★ **5 Salmonella serovars** ในไก่พันธุ์ vs **2 ตัว** ในไก่เนื้อ
+- ★ **Five Freedoms** — list ครบ 5
+- ★ **BQM 24/7** + 6 หมวดตรวจ + 5 หัวใจ
+- ★ **Haugh Unit 60-65** = สด
+- ★ **เบอร์ไข่: เลขน้อย = ใหญ่**
+- ★ **ใบ อป.2** + **ISO 14000**
+- ★ **GLP/BLS/Sedex**
+- ★ **Colistin + Cephalosporin** ห้าม
+- ★ **Prescription ต้องเขียนโดยสัตวแพทย์**
+- ★ **NCR + CAPA** + **PDCA** + **Surprise Audit**
+- ★ **debeaking ban**
+- ★ **RU vs RWA vs NAE**
+- ★ **ALV-J** (Avian Leukosis subgroup J)
+
+## ⚠️ Notes (IRON RULE 0 compliance)
+- "FCR" not explicitly mentioned in transcript
+- "Slow growth" mentioned only as customer requirement [40:58], not as detailed pros/cons framework
+- Lecturer pronounces "Five Freedoms" as "Fight Freedom" (mispronunciation, doesn't change content)
+
+(Cross-ref VetMock Q1751-1758, Q1806-1810, Q1819-1822)`
+},
+'M64_XJhnZ-Y': {
+  videoId: 'M64_XJhnZ-Y',
+  title: 'AHRA First Week Mortality (L9)',
+  subject: 'poultry',
+  date: '21 Apr 69',
+  durationMin: 126,
+  instructor: 'พี่อู๋ (course coordinator, Poultry Health Management — full name NOT_FOUND in transcript)',
+  examFormat: 'MCQ — Final L9 (~10+ ข้อ ถูก/ผิด · slides ที่มีดอกจัน ★ ออกสอบทั้งหมด · "ข้อสอบไม่ยาก แค่มีสติ" [124:34])',
+  summary: `# L9 — AHRA (ShineChick) First Week Mortality Concept · พี่อู๋
+
+> ⚠️ Note: AHRA / ShineChick appears ONLY in title — NOT_FOUND as spoken acronym in transcript. พี่อู๋ ไม่ขยายตัวย่อ AHRA/ShineChick ในคำพูดเลย เน้นสอน First Week Mortality concept ตรงๆ + Farm Management wrap-up
+
+## 1. Course logistics & exam format [3:03–9:52]
+- พี่อู๋ = course coordinator ของ Poultry Health Management
+- Mid-term 52.5% / Final 45% / เช็คชื่อ 2.5% (พี่อู๋ให้ทุกคนเต็ม 2.5)
+- ของพี่อู๋ = part สุดท้ายของ Final ~7.5% (10+ ข้อ ถูก/ผิด) [5:09]
+- "อาจารย์นิวัฒน์ที่บอกว่าไม่ออกสอบ — แต่ก็ออกสอบนะครับ" [5:40]
+- พี่อู๋จัดเป็น lecture สุดท้ายเพื่อ wrap up ของอาจารย์กิจ + จักรกิจ + สมศักดิ์ + เอิญ [9:52]
+
+## 2. Why 7 days matter [10:53–12:26] ★
+- 7 วันแรก = **ระบบ GI + Immune system กำลังพัฒนา**
+- ฟักออกมา → organs ทุกอย่างกำลังโต โดยเฉพาะ **GI tract + Immune system** [11:54]
+- ถ้า 7 วันแรกไก่ไม่กินอาหาร: น้ำหนักตามทันได้ใน week 2-6 แต่ **GI กับ immune จะเหลือแค่ ~60% ตลอดชีวิต** [14:33]
+- สิ่งที่ได้แทนคือ "โครงกระดูก" ซึ่งเราไม่ต้องการ [15:04]
+
+## 3. ★ สายพันธุ์ไก่ (likely exam · choice-based) [12:26–13:30, 78:42–82:17]
+- **ไก่เนื้อ broiler**: COBB **500** · Ross **308** · Arbor Acres · Hubbard [80:46]
+  - ⛔ "COBB 400 ผิด — ใช้ที่อินเดีย ทนร้อน 40°C แต่ไม่โต" [80:15]
+- **ไก่ไข่ layer**: Hyline · ISA (white/brown — เปลือกขาว/น้ำตาล) [13:30, 81:16]
+- ⛔ ตอบสายพันธุ์สลับกัน = ผิดทันที [81:46]
+- เมืองไทยเป็นแค่ joint 50% (CP × COBB) — **ไม่มี GGP เป็นของตัวเอง** [82:47, 83:18]
+
+## 4. Field Performance vs Standard [15:35–17:38]
+- หน้าที่ชาวฟาร์ม: ทำให้ Field Performance ใกล้ standard สายพันธุ์ที่สุด
+- Concept = **optimization** (ไม่ใช่ "the best") [70:59]
+- ย่ำอยู่กับที่ = ฉีกจาก standard เพราะสายพันธุ์พัฒนาเรื่อยๆ [17:07]
+
+## 5. ★★ Crop fill 24 ชม.แรก [18:08–19:41]
+- 24 ชม.แรก จับลูกไก่ 10 ตัว ต้องเจออาหารใน crop **100%** [19:10]
+- ไม่ 100% = error การจัดการน้ำ/อาหาร: อากาศร้อน · อาหารแข็ง · นิปเปิ้ลสูง/ต่ำเกิน
+- "ถ้าออกสอบจะให้ลองนึกตัวเรา ไปอยู่ฟาร์ม จะแนะนำคนฟาร์มยังไงเรื่องน้ำ/อาหาร 24 ชม.แรก" [19:41]
+
+## 6. Immune system anatomy [20:12–22:13]
+- **Primary lymphoid organs**: **Bursa of Fabricius** (B-cell) + **Thymus** (T-cell) [21:12]
+- ไก่ **ไม่มี lymph node** — มีแต่ lymphoid tissue กระจาย (เช่น cecal tonsil) [21:12]
+- bursa เสียหาย → B-cell หายตลอดกาล → vaccine ไม่กระตุ้น antibody [21:43]
+
+## 7. Disease challenge 3 ปัจจัย [22:44–24:49]
+1. virulence ของเชื้อ
+2. infectious dose
+3. **frequency of exposure** ← สำคัญสุด (= biosec/error)
+
+## 8. ★★ โรคไวรัสหลัก 7 วันแรก [28:56–43:25]
+| โรค | GI | Respi | Nervous | Bursa | Notes |
+|---|---|---|---|---|---|
+| **ND** | ✓ | ✓ | ✓ | — | ครบทุกระบบ; ไทย report ปลอด ND/AI [29:27] |
+| **IB** | — | ✓ | — | — | corona · ทรงเหมือน COVID; respiratory only [31:33] |
+| **AI** | ✓ | ✓ | ✓ | — | เหมือน ND; H9=LPAI; ไทยไม่มีวัคซีน [32:35] |
+| **IBD (Gumboro)** | ✓ | — | — | ✓ destroy | ★ โรค**เดียว**ที่ทำลาย bursa [34:10] |
+| **IBH** | — | — | — | ตับ | hepatitis · non-envelope · aldehyde/halogen [35:13–37:51] |
+| **AE** | ✓ | — | ✓ "หัวสั่นๆ" | — | ปีนี้ถามแค่ระบบประสาท [37:51] |
+| **CAV** | — | — | — | thymus destroy | ปีกม่วง "blue wing" + Staph [40:54] |
+
+## 9. Bacteria + ลูกไก่ตายไม่ทราบสาเหตุ [43:25–44:27]
+- Top causes paper-cited: (1) ตายไม่รู้สาเหตุ (2) yolk sac infection
+- Yolk sac ดูดซึม 7-14 วัน — contaminate → bacteria เพิ่ม → ตาย
+
+## 10. Hatchery factors [44:27–50:15]
+- ตู้ฟัก 300,000 ฟอง · เซตอุณหภูมิตาม %hatch
+- **Heat stress ในตู้ฟัก** = ไก่โตเร็วเกิน → ใช้ yolk หมด → สลายกล้ามเนื้อ
+- **Humidity ต่ำ** = ไข่แห้ง · เปลือกแข็ง · ลูกไก่จิกออก ขาเป็นแผลตามข้อ → S. aureus/E. coli infection [49:44]
+- **Pasgar score** mentioned at [50:15] BUT 5 components partial: navel · beak · legs dryness · leg lesion · flip reflex (ไม่ใช้คำว่า "Pasgar" หรือ 0-2 scoring system)
+
+## 11. New House Syndrome [54:55–55:27]
+- โรงเรือน slat ใหม่ + พลาสติกคม → ลูกไก่เหยียบขาเป็นแผล → Staph infection
+- พี่อู๋ใช้คำ "**New House Syndrome**" [55:14]
+
+## 12. Disinfection chemistry ★ [37:19–37:51]
+- IBH = **non-enveloped virus** → กรด/แอลกอฮอล์ทำอะไรไม่ได้
+- ต้องใช้: **aldehyde** (glutaraldehyde, formaldehyde) หรือ **halogen** [37:19]
+
+## 13. ตายเฉียบพลัน — Ascites/Hypoxia [56:58–57:30]
+- ระบายอากาศไม่พอ → hypoxia → metabolic problem → heart failure
+- เจอ pericardial effusion + ascites
+
+## 14. Pasty butt / stress diarrhea [63:41–64:13]
+- ขี้เหนียวติดตูด ~3-4 วันหลังเครียด (ร้อน/หนาว/ชื้น/อากาศไม่พอ)
+
+## 15. ★ Profit + Science framework [65:14–67:20]
+- การจัดการฟาร์ม = **Economy** (คุ้มค่า) + **Science** (มีหลักฐาน)
+- ไม่ทำวัคซีนถ้าฟาร์มไม่มีโรค — ทุกการให้ต้องมีหลักฐานวิทย์ ไม่ใช่ "ไสยศาสตร์" [66:48]
+
+## 16. Lab diagnosis 2 approaches [73:35–74:36]
+- (1) ตรวจหาเชื้อ (PCR/culture) = ผลวันที่เก็บตัวอย่าง
+- (2) ตรวจ antibody (serology) = ติดมาแล้ว ~10-21 วันก่อน
+- Seroconversion = confirmation การติดมาแล้ว [27:24]
+
+## 17. ★★ Cost: Prevention << Control << Eradication [77:41–78:12]
+- prevention < control (พอเสียหายแล้วค่อยรักษา) << eradication (กำจัดทิ้ง)
+- จึงนิยม prevention + biosec [78:12]
+
+## 18. FCR + Performance parameter [92:11–92:44]
+- FCR = Feed Conversion Ratio
+- ไก่เนื้อ commercial **FCR ~1.55** · ไก่พื้นเมือง **FCR ~2.4** [92:44]
+- Performance parameters: feed intake · ADG · mortality % · egg %
+
+## 19. Evaporative Cooling System [94:20–95:55]
+- Closed house: pad cooling + negative pressure suction fan
+- Analogy: หลอดดูดน้ำ — รั่ว = control อุณหภูมิเสีย
+
+## 20. Litter (แกลบ) — ⛔ ไม่ออกสอบ [97:59–107:25]
+- "อันนี้เป็นเรื่องแกลบ ไม่ออกสอบ" [107:25]
+
+## 21. ★★ Biosecurity errors (Canada CCTV study) [105:48–113:37]
+- คน = พาหะหลัก
+- **Boot dip error rates**:
+  - Open sticker line: **73% non-compliance** [110:01]
+  - Real door + sign: **20% non-compliance** [110:01]
+  - Vet/manager: **80% error**; staff: **60% error** [111:04]
+- Solution: **Universal design** — ทุกคนต้องผ่านระบบเดียวกัน [112:07]
+
+## 22. ★ UV cabinet [115:10–117:49]
+- **UVC** เท่านั้นที่ฆ่าเชื้อ (ไม่ใช่ UVA/UVB)
+- ⛔ "ไฟ FL + กระดาษแก้วม่วง" = หลอก auditor ได้ แต่**ฆ่าเชื้อไม่ได้** [120:46]
+- UV target = **99.99% reduction** (ไม่มี 100%) [117:19]
+- ระยะทางจากหลอด ↑ → ฤทธิ์ ↓ · ปกติ ~20 นาที
+
+## 23. Rodent control [119:23–121:26] — ⛔ ไม่ออกสอบ
+- **แมลง/หนู ไม่ออกสอบปีนี้** [121:57]
+
+## 24. Final exam emphasis recap [124:02–124:34]
+> "สไลด์ที่มันมีดอกจันต่างๆ ครับก็อยู่ในข้อสอบทั้งหมดนะครับ"
+> "ข้อสอบไม่ยากนะครับ แค่มีสติ"
+> "พี่ก็เป็นช้อยส์นะครับ ไม่ยากอะไร"
+
+## ⚠️ NOT_FOUND in transcript (do NOT cite as fact)
+- ⛔ "AHRA" acronym expansion
+- ⛔ "ShineChick" explanation
+- ⛔ Mortality thresholds (<1% day-old, <1% wk-1, <1.5% wk-2) — only example graph 3% spike at day 4 = abnormal
+- ⛔ "Rolling reaction" vaccine term
+- ⛔ Pasgar 5 components named as "Pasgar score" — only 5 evaluation points described
+- ⛔ Lecturer "Aj. Kriengwich Limpavithayakul" — speaker is **พี่อู๋** (course coord)
+- ⛔ Specific cross-link to biosec L11 by L-number
+
+(Cross-ref VetMock Q1781-1784, Q1797 — vault-side cross-ref)`
+},
+'91RNoNhi3gI': {
+  videoId: '91RNoNhi3gI',
+  title: 'Metabolic & Nutrition Disorders in Dairy Cattle',
+  subject: 'cliapprum',
+  date: '4 Mar 69',
+  durationMin: 143,
+  instructor: 'verify (ไม่ได้ระบุชื่อ — เรียกตัวเองว่า "พี่" · อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น เป็นผู้พัฒนา KCF)',
+  examFormat: 'MCQ — Final scope · 15 ข้อต่อคาบ',
+  summary: `# Metabolic & Nutrition Disorders in Dairy Cattle · Aj. (verify)
+
+> **Caveat สำคัญ**: lecture นี้เป็น **workshop-driven** (~143 นาที) เน้น **practical evaluation tools** สำหรับฟาร์มโคนม ไม่ใช่ disease deep-dive · NEB / BCS / R:C ratio / particle size / NRC requirement matching เป็นแกนหลัก
+
+## ★ Big-picture framework [04:46–14:08]
+**Master diagram** (ออกสอบ):
+- แกน X = day in milk (DIM)
+- แกน Y ซ้าย = milk yield · DMI · energy balance
+- แกน Y ขวา = body weight (กก.)
+
+**Pattern:**
+1. Day 0 = วันคลอด BW ~630 กก. · energy req. พุ่งสูง
+2. **Lactation curve**: peak ที่ **60–90 วัน** [06:23]
+3. **DMI**: หลังคลอดยังกินไม่เยอะ → physiology + hormone + เปลี่ยนคอก [07:26]
+4. ★ **NEB (Negative Energy Balance)** → ดึง fat reserve → BCS/BW loss ทุกตัว [07:57]
+5. ต้องเปลี่ยน negative → positive ก่อน 90 วัน
+6. Critical period [11:01]: 100 วันแรก · transition ก่อน-หลังคลอด 3 wk
+
+## ★ 2 Pillars ของการประเมินอาหาร [11:33]
+1. **Nutrient adequacy** — โคได้ requirement?
+2. **Rumen health** — เหมาะกับ rumen function?
+
+## ★ Inputs (Side 1: Nutrient adequacy) [12:36]
+- DMI · คุณค่าโภชนะ · Requirement (BW + milk yield → NRC table)
+- **Evidence on cow**: BCS · lactation curve · reproductive performance
+
+## ★ Inputs (Side 2: Rumen health)
+- R:C ratio · Particle size
+- **Evidence on cow**: Rumination % (≥50% ฝูง) · manure score · milk fat % · locomotion score (laminitis %)
+
+> **Take-home** [21:35]: ฟาร์มมีข้อมูลครบ → เข้าฟาร์มไม่เกิน 2 ชม. ตอบได้ว่าอาหารเหมาะมั้ย
+
+## ★ Workshop 1: DMI conversion [27:49]
+**สูตร**: DMI = น้ำหนักสด × DM%/100
+- ฟาร์ม 0 (ความชื้นสูง): DMI 9.51 (ต่ำสุด)
+- ฟาร์ม 9: DMI 14.49 (สูงสุด)
+> กินสด 30 กก.เท่ากัน แต่ DMI ต่างกัน 5 กก. [33:04]
+
+## ★ Workshop 2: CP intake [35:46]
+**สูตร**: CP intake = DMI × CP%
+- ฟาร์ม 9: CP 18.8% + DMI สูง → 2.7 กก./วัน
+- โคต้องการ ~1,000+ g/วัน (คน 70 kg ~140 g) [39:02]
+
+## ★ Workshop 3: Energy NEL [44:27]
+- ใช้ **ADF** คำนวณ NEL · หน่วย Mcal/kg DM
+- ★ **ADF↑ → energy↓** [54:52]
+- ฟาร์ม 9: 21.17 Mcal/วัน (สูงสุด)
+
+> **Take-home** [60:00]: เน้น DMI ก่อน · ค่อยปรับสูตร
+
+## ★ Workshop 4: NRC requirement matching [60:32]
+**KCF program** (อ.วิโรธ + อ.มนชัย ม.ขอนแก่น · ฟรีบนเว็บกรมปศุสัตว์ตั้งแต่ปี 2020) [62:36]
+
+**โจทย์**: BW 550 · นม 25 กก./วัน · milk fat 4%
+- DMI req = 15.4 กก./วัน
+- Energy req = 29.2 Mcal NEL/วัน
+- CP req = 2,660 g/วัน
+
+→ **ทุกฟาร์ม under requirement** [68:28]
+
+## ★ Workshop 5: ปรับ DMI [68:28]
+หลังเปลี่ยน 2 มื้อ → 5 มื้อ + พัดลม + อาบน้ำ:
+- ฟาร์ม 4: DMI 19 กก. → CP บวก · energy ยังลบ
+- ฟาร์ม 0: DMI 12.68 → ยังลบทั้ง 2 (ความชื้น 70%)
+
+## ★ DMI as % BW [82:26]
+- เฉลี่ยปี: **3–3.2% BW** [87:48]
+- หน้าหนาว fully managed: **4.5% BW** [87:18]
+
+## ★ Workshop 6: R:C ratio (DM basis!) [96:15]
+**ห้ามคิดบนน้ำหนักสด** — ต้องคิดบน DM
+- R DM = 700 × 0.30 = 210 กก.
+- C DM = 300 × 0.88 = 264 กก.
+- R% = 210/474 = **44.3%** · C% = 55.7%
+- → R:C = 44:56 ✅
+
+## ★ R:C interpretation [105:36]
+**Rule** [106:07]:
+- ★ **R ต้องไม่ต่ำกว่า 40%** (DM basis)
+- C สูงสุด ≤ 60%
+
+| R:C | Milk yield | Milk fat % |
+|---|---|---|
+| 80:20 | ต่ำ (req. ไม่พอ) | ปกติ |
+| 60:40 | เพิ่มขึ้น | ปกติ |
+| **40:60** ★ | peak | ปกติ-ลด |
+| 20:80 | spike แล้ว drop | drop ชัด → **acidosis** [110:22] |
+
+## ★ Particle size (Penn State Separator) [111:55]
+**4 ชั้น**:
+| ชั้น | รูพรุน | TMR target % |
+|---|---|---|
+| 1 (บน) | >19 mm | 2–8% |
+| 2 | 8 mm | (intermediate) |
+| 3 | 4 mm | 30–50% |
+| 4 (pan) | ไม่มีรู | ≤ 40% |
+
+วิธี: เขย่า ≥ 1.1 Hz (≥1 ครั้ง/60 sec)
+
+**Rumen mat anatomy** [114:33]: 3 ชั้น แก๊สบน · luminal mat กลาง · fluid ล่าง
+- 4 mm มาก = ไม่กระตุ้น rumination
+- 18 mm มาก = กระตุ้น rumination ดี · ย่อยยาก
+- ★ ต้องสมดุลทั้ง 3 size
+
+## ★ Lactation curve interpretation [118:15]
+**Normal benchmarks** [123:27]:
+- Milk peak: 60–90 วันหลังคลอด
+- BCS หยุด loss ภายใน 90 วัน
+- BW ไม่ควรลด >10% ใน 1 เดือนแรก
+- BCS loss ไม่เกิน 0.5–1 score/เดือน
+
+**Pathology**:
+- Early peak (<60 วัน) [122:53] = NEB รุนแรง · อาหารไม่พอ
+
+**Real cases**:
+- โค 7916: Early peak · BW 525 → 450 ใน 1 เดือน (ลด 14% เกิน threshold) [122:53]
+
+## ★ Manure score (5 levels) [128:06]
+| Score | ลักษณะ |
+|---|---|
+| 1 | เหลวมาก (ไม่ควรเจอ — โรค) |
+| 2 | กระจายมีขอบ — acidosis indicator |
+| 3 | ซ้อนเป็นกอง · กลางหลุม (ปกติ lactating) |
+| 4 | กองเป็นภูเขา |
+| 5 | ก้อนชัด (โครีด/แห้ง) |
+
+> mismatch กับ R:C = ผิดปกติ · acidosis = score 2 เยอะในฝูง
+
+## ★ Laminitis as evidence [131:42]
+- Locomotion score สูง = อาจมีปัญหาจากอาหาร
+- ยกกีบ → ปื้นเลือด/hemorrhage บน sole = **laminitis from acidosis** ★
+
+## ★ Final exam emphasis [132:44]
+1. Master diagram (DIM × milk × BW × DMI × NEB)
+2. Peak milk = 60–90 DIM · BW loss ≤10%
+3. DMI conversion (สด → DM)
+4. CP intake = DMI × CP%
+5. NEL · ADF↑ = energy↓
+6. DMI %BW: 3–3.2% เฉลี่ย · 4.5% หน้าหนาว
+7. **R:C 40:60 บน DM basis (ไม่ใช่สด!)**
+8. Particle size Penn State 4-tier
+9. R:C 20:80 → acidosis → milk drop
+10. Laminitis hemorrhage → acidosis indicator
+
+## ⚠️ NOT_FOUND in this lecture
+- Ketosis (Type I/II) · BHB cutoff
+- Fatty liver syndrome
+- Hypocalcemia · milk fever · Ca cutoffs
+- Hypomagnesemia · grass tetany
+- SARA pH cutoff (เฉพาะ "acidosis เป็นเหตุ" — ไม่ลง pH)
+- LDA · displaced abomasum
+- Retained placenta · endometritis
+- DCAD · anionic salts
+- Mycotoxicosis · aflatoxin
+
+→ Disease topics น่าจะอยู่ในคาบอื่น (อาจ Lect 3 GI Disorder)`
+},
+'HD0tbvDa-Cc': {
+  videoId: 'HD0tbvDa-Cc',
+  title: 'Ruminant Anesthesia',
+  subject: 'cliapprum',
+  date: '11 Mar 69',
+  durationMin: 95,
+  instructor: 'Aj. (ไม่ระบุชื่อใน transcript — instructor หญิง สอนปีละครั้ง · กล่าวถึงทีม อ.สมิต อ.พล อ.แนน อ.อร อ.มน พี่มด พี่ลี่)',
+  examFormat: 'MCQ — Final scope',
+  summary: `# Ruminant Anesthesia · Aj. (verify)
+
+> Lab focus: วันจันทร์ที่ 16 = Epidural + Proximal paravertebral [82:39][84:47]
+
+## ★ ทำไมนิยม "Standing + Local"
+- 3 species: **Bovine · Caprine · Ovine** [1:51]
+- กลัว GA complication ในสัตว์ใหญ่ [2:21]
+- Recovery สมูทกว่าม้า · ไม่ violent [4:24]
+- GA ต้อง intubate + ventilator (bag ใหญ่มาก) [4:57]
+
+## ★ NPO timing [10:40]
+- **ลูกเกิดใหม่**: ★ **ไม่ต้องงด** (กลัว hypoglycemia)
+- **ลูกวัว/Small ruminant**: น้ำ 8 ชม. · อาหาร 12 ชม.
+- **แม่วัวโต**: 12-24 ชม.
+- **พ่อวัวโต**: 24-36 ชม.
+- เหตุผล: ลด regurgitation + กดกระบังลม + กด vena cava
+
+## ★ Pre-op checks [6:01]
+- HR · hydration · เลือดดูตับไต
+- ★ dehydrate → เลี่ยง acepromazine (vasodilate ซ้ำ)
+
+## ★ Catheter [12:45]
+- **Cattle**: jugular vein (ขาไม่ได้ — วัวเตะ)
+- **Small ruminant**: cephalic / saphenous
+- Maintenance: 4-8 ml/kg/hr · hypotension bolus 10-25 ml/kg
+
+## ★ GA Complications
+- **Active regurgitation** = วางตื้นไป (กล้ามดัน) [14:50]
+- **Passive (silent)** = ลึกเกิน (หูรูดขยาย) [15:21]
+- **Bloat**: gas สะสม → กดกระบังลม → trocar [15:52]
+- **Hypoventilation** [16:55]
+
+## ★ Pre-medication
+
+### Anticholinergic (Atropine) [17:26]
+- ★ Controversial — ลด secretion มากไป → mucus เหนียวอุดตัน
+- ให้เมื่อ bradycardia (เหมือนสัตว์เล็ก)
+
+### Benzodiazepines [19:28]
+- Diazepam: ★ ไม่ละลายน้ำ → IV only
+- Midazolam: water soluble → IV/IM
+- ★ ไม่กด CV + ลดโดส induction
+
+### Acepromazine (Phenothiazines) [20:32]
+- Sedation moderate · ลด arrhythmia
+- ★ ข้อเสีย:
+  - vasodilate (block α1) → hypotension
+  - Relax esophagus → ★ เพิ่ม regurgitation [21:06]
+  - **Penile prolapse** ในม้าพ่อพันธุ์ → เลี่ยงในม้าตัวผู้ + วัวพ่อพันธุ์ [21:37]
+  - ลด thermoregulation
+- ★ ห้ามใช้: hypovolemic / ใกล้ตาย [23:11]
+- โดสวัว: 0.01-0.02 IV · 0.03-0.1 IM
+
+### α2-agonists (Xylazine) — ตัวหลักใน large animal [23:43]
+- Sedation + analgesia + muscle relaxation
+- Hypertension transient ช่วงแรก + reflex bradycardia
+- ลด ADH → ★ ฉี่เยอะมาก
+- ★★ **Sensitivity ranking** [24:44]:
+  - **Cattle/Buffalo > Goat > Sheep** (cattle เซน์สุด)
+  - **Brahman เซน์สุด > Hereford > Holstein** (Holstein resistance สุด)
+- ★ ระวัง: α2 → มดลูกบีบเพิ่มไตรมาสสุดท้าย → แท้ง/คลอดก่อน
+- ★ ในแกะ: hypoxia + pulmonary edema → บางคนเลี่ยง [26:20]
+- โดสวัว: 0.1-0.2 mg/kg IV/IM
+- **Reverse: Yohimbine** [43:18]
+
+### Standing sedation วัว [26:51]
+- Xylazine 0.1-0.2 mg/kg + opioid + Local
+- ★ เป้า: ไม่ให้วัวล้ม (ล้ม → bloat)
+
+## ★ Induction agents [27:22]
+
+### Thiopental
+- ★ ห้ามใน <3 เดือน (ตับ metabolize)
+- ไม่นิยมในวัวโต
+
+### Ketamine [28:27]
+- ★ ห้ามใช้เดี่ยว → muscle rigidity
+- ต้องคู่กับ muscle relaxant (Xylazine/Diazepam/Acepromazine)
+
+### Diazepam + Ketamine [29:29]
+- procedure 15-30 นาที (เย็บแผล)
+- ตปท. เติม butorphanol (ไทยไม่มี)
+
+### Xylazine + Telazol (~60 นาที)
+- Telazol = Tiletamine + Zolazepam
+
+### Propofol — ราคาสูง ไม่คุ้ม [30:33]
+
+### Maintenance Inhalation [30:33]
+- ★ เหลือใช้ Isoflurane (Halothane ไม่มี · Sevo แพง 3 เท่า)
+- Circuit สัตว์ใหญ่ (ถ้า <100-140 kg ใช้ circuit สัตว์เล็กได้)
+
+### Guaifenesin [31:37]
+- ★ ไม่ใช่ยาสลบ — เป็น muscle relaxant
+- 5% solution (เกิน → hemolysis)
+- ★ IV catheter เท่านั้น (leak → tissue necrosis)
+- Combo classic: **Guaifenesin + Ketamine + Xylazine** ("triple drip")
+- ★ หาซื้อยากในไทย ต้องคิ้วเข้ามา
+
+## ★ Intubation [34:12]
+- <300 kg: sternal + laryngoscope + stylet
+- วัวโต: ★ ยื่นมือเข้าไปกด epiglottis เป็น guide → สอด blind
+
+## ★ Monitoring [36:21]
+- ★ Eye position: ventro-medial = stage ที่ต้องการ · ดำกลาง = ตื้น/ลึกไป [36:51]
+- jaw tone · respiratory · MM color · BP · HR · CRT · temp
+- Fluid: balanced electrolyte · ลูกสัตว์เพิ่ม dextrose
+
+## ★ Recovery [41:43]
+- ★ Extubate เมื่อกลืนเองสมบูรณ์
+- ปล่อยตื่นเอง — ห้ามถีบ ห้ามเขย่า
+- ★ ท่า sternal + หมอนรองคอ → regurgitation ไหลตามแรงโน้มถ่วง [43:49]
+
+## ★★★ Local & Regional Anesthesia
+
+### Lidocaine 2% [44:19]
+- 20 mg/ml · duration 1.5-3 ชม.
+- ★ Max safe: **วัว 10 mg/kg · แพะ-แกะ 4 mg/kg**
+
+### 1. Cornual Nerve Block [44:53]
+- ★ Innervation: **trigeminal CN V** (ophthalmic division)
+- **Cattle**: SC กึ่งกลาง lateral canthus ↔ base of horn (lateral ridge)
+- โดส 5-10 ml · รอ 10-15 นาที · ออก ~1 ชม.
+- ★ **แพะ ต้อง 2 ตำแหน่ง**:
+  - Cornual nerve (เหมือนวัว)
+  - Infratrochlear nerve (กึ่งกลาง medial canthus-medial horn) [47:29]
+
+### 2. Eye blocks (3 อัน)
+**a) Auriculopalpebral** [48:34]:
+- Sensory + motor → orbicularis oculi (กระพริบตา)
+- 5-7 cm caudal lateral end ของ zygomatic arch · 10-15 ml
+
+**b) Retrobulbar / 4-point block** [50:10]:
+- ใช้: enucleation
+- ★ 4 ตำแหน่ง: 12, 3, 6, 9 นาฬิกา · 5-10 ml/ตำแหน่ง (~40 ml)
+- ★ Complications: globe penetration · hemorrhage · ★ optic nerve damage = ตาบอด [52:48]
+- ★ ถ้าจะเก็บตา → ใช้ Peterson แทน [52:15]
+
+**c) Peterson Eye Block** [53:48]:
+- Block CN II, III, IV, V (ophthalmic + maxillary), VI · ★ ยกเว้น CN VII [54:18]
+- ★ ปลอดภัยกว่า + effective + บวมน้อยกว่า retrobulbar [55:23]
+- 15-20 ml · aim foramen orbitorotundum
+- ★ Eyelid ไม่กระพริบหลายชม. → ป้ายตา + เย็บ lid
+
+### 3. Bier Block (IV Regional) [56:25]
+- ใช้: ตัดนิ้ว · กีบเน่า · laminitis
+- ★ Tourniquet → Lidocaine 2% IV ใต้ tourniquet · 10-30 ml
+- ★ Tourniquet ห้ามเกิน 1 ชม. → necrosis [57:56]
+- ★★ Onset 5-10 นาที
+- เส้น:
+  - **ขาหน้า**: Common dorsal metacarpal v. · Palmar metacarpal v. · Radial v.
+  - **ขาหลัง**: Lateral saphenous v. · Lateral plantar digital v.
+- Small ruminant Bier: 3-4 ml [60:06]
+
+### 4. Standing Laparotomy indications [60:40]
+- C-section · rumenotomy · abomasal impaction · displacement
+
+### 5. Line Block [62:15]
+- SC ตามแนวกรีด · max 250 ml · duration 60-80 นาที
+- ★ ข้อเสีย: ขอบ SC โป่ง → เย็บปิดไม่สวย
+
+### 6. Inverted L Block ★ [63:49]
+- รูป L กลับหัว · volume ~100 ml
+- ★ ข้อดี: ไม่มี bleb ขวางกรีด → หมอวัวชอบ
+- Duration ~60 นาที
+
+### 7. Paravertebral Block [65:51]
+**a) Proximal Paravertebral (Farquharson)** ★ — Lab Mon 16!
+- ★ Landmark: anterior ของ transverse process L1 (block T13)
+- ห่าง midline 5 cm · ลึก 1-2 cm เลย TP ปล่อยยา
+- ★ โดส 6-8 ml/จุด
+- L1 block: caudal ของ L1 TP
+- L2 block: caudal ของ L2 TP [69:27]
+- ★ Signs of success [69:58]:
+  - Skin flank อุณหภูมิสูงขึ้น
+  - เข็มจิ้มไม่เจ็บ
+  - ★ **Scoliosis** — วัวเบ้ตัวมาฝั่งที่ block
+- Duration ~90 นาที
+
+**b) Distal Paravertebral (Magda)** [66:22]
+- Landmark: TP ของ L1, L2, L4
+- Vertical fan-shape ใต้ + บน TP
+- ★ ข้อเสีย: เทคนิคยาก · วัวเตะ
+- ★ ข้อดี: ไม่เกิด scoliosis · หมอวัวมือโปรชอบ
+- เข็ม 18 G · 20 ml/ตำแหน่ง
+
+### 8. Epidural Anesthesia [76:50]
+**Small ruminant**: lumbosacral space · 2% Lidocaine
+- ผ่าช่องท้อง: 1 ml/5 kg
+- ผ่า perineum: 1 ml/7 kg
+
+**Cattle** [77:56]: 2 ตำแหน่ง
+- Sacrococcygeal (Sa-Co1) — โยกหางท่อนแรก
+- Intercoccygeal (Co1-Co2)
+- ★ ไม่บล็อกสูง — block แค่ perineum + tail (กลัวล้ม)
+
+### 9. Teat Blocks [79:31]
+- V-block: เย็บแผลหัวนม · 5 ml/ขอบ
+- Ring block: ตัดก้อน · วงกลมรอบ base
+- Teat cistern infusion: tourniquet base + lidocaine ใน cistern · ชา ~2 ชม.
+- ★ ส่วนใหญ่ใช้ Ring block (versatile)
+
+## ★ Approach to ruminants [39:36]
+- ห้ามกรี๊ด ถ้าวัวกระทืบ
+- ★ ขาหนึ่งพร้อมถอยหลังเสมอ · ห้ามยืน 2 ขาคู่
+- มีรุ่นพี่ยืนระหว่างวัว 2 ตัว วัวกระทืบ → กรี๊ด → วัวเตะ
+
+## ⚠️ NOT_FOUND in transcript
+- Procaine vs Lidocaine comparison
+- Withdrawal times in food animals
+- Specific bloat positioning (left lateral safer)
+- Triple drip ratio precise (mentioned แต่ไม่ให้ ratio)
+- Specific dose Telazol/Tiletamine
+
+## Lab focus วันจันทร์ 16 [82:39]
+- กลุ่มแรก: Epidural + Proximal paravertebral
+- ★ ก่อน lab: ทบทวน paravertebral · inverted L · approach
+- ★ คาถา อ.: "ทำต้องมั่นใจ · ปักไปเลย — จึ๊กๆจั๊กๆ วัวจะเตะ"`
+},
+'03mEa46Cg48': {
+  videoId: '03mEa46Cg48',
+  title: 'Ruminant GI Disorders (Med)',
+  subject: 'cliapprum',
+  date: '18 Mar 69',
+  durationMin: 125,
+  instructor: 'อ.ธนศักดิ์ (Aj. Thanasak — verified [3:41]–[4:13])',
+  examFormat: 'MCQ — Final scope · LDA/Hardware/bloat high-yield',
+  summary: `# Ruminant GI Disorders (Medical) · อ.ธนศักดิ์
+
+## บทนำ [1:30]
+field practitioner ที่นครปฐม/กำแพงแสน เคยรอ 2 wk วัวก็ตาย → อ.ธนศักดิ์ (เมดิซีน) สอน dx GI · อ.ศัลย์สอน sx [4:13]
+
+## Anatomy Refresh [5:47]
+- ★ **ซ้าย** = Rumen (paralumbar fossa)
+- ★ **ขวา** = Abomasum + Omasum
+- หลอดอาหาร → **Reticulum** (อยู่หน้าสุด ติด xiphoid + กระบังลม) → Rumen → Omasum → Abomasum
+- ★ Reticulum อยู่หน้าสุด → ของหนัก (หิน ตะปู น็อต) ตกที่นี่ [10:58]
+
+### Rumen content stratification [8:20]
+1. Top: gas
+2. Middle: fiber/roughage
+3. Bottom: heavy/digested
+4. ★ **Ruminal Mat** (สีเขียว): ขย้อนเคี้ยว → buffer pH · ป้องกัน acidosis [9:55]
+
+## ★ Iatrogenic vs Symptomatic [12:00]
+- **Iatrogenic**: คนทำให้เกิด (F:C ผิด · อาหารชื้นย่อยเร็ว → acidosis)
+- **Symptomatic**: ป่วยระบบอื่นแล้ว GI หยุด (mastitis · respi)
+
+### Feeding management ที่ต้องถาม [13:40]
+- **F:C ratio**: ปกติ 60:40 · high producer 40:60
+- กากมัน + กากถั่ว = **concentrate ทั้งคู่** [15:45]
+- ★ NaHCO₃ buffer ป้องกัน pH swing [17:19]
+
+### ลูกวัว [17:19]
+- เกิดใหม่ = monogastric · rumen ค่อย develop
+- ★ ลูกวัวต้องมีน้ำตลอด · เคสบ้าน: ปล่อยทั้งวันไม่ได้น้ำ → bladder แตก ฉี่เหมือน Babesia/Anaplasma [19:22]
+- ★ **Esophageal groove**: เงยกินจากเต้านม → groove ปิด → นมเข้า abomasum · ก้มกินจากถัง → groove ไม่ปิด → bloat [20:28]
+
+## ★ Clinical Signs สงสัย GI [21:02]
+1. ★ Anorexia / กินลำบาก [21:34]
+2. ไม่ regurgitate / ไม่เคี้ยวเอื้อง (ปกติ ≥8/10 นอนเคี้ยว) [22:08]
+3. Body contour ผิดปกติ
+4. ★ Paralumbar fossa ซ้าย: เรียบ=อิ่ม · บุ๋ม=ว่าง [23:17]
+5. ★ Rumen ballotment: นุ่ม=แป้งนวด · แข็ง=impaction · ลม=bloat · น้ำเยอะ=acidosis [23:48]
+6. Contraction: 3 นาทีไม่บีบ = atony · บีบถี่ = hypermotility [24:53]
+7. ★ Abdominal pain: หลังโก่ง · เตะท้อง · รอยขี้สองข้าง [26:29]
+
+## ★ Stepwise Workup [27:33]
+- ตักอาหารทดลองให้กิน
+- General PE → focus GI: ปาก → esophagus → rumen → reticulum → omasum → abomasum → intestine
+- ขี้ปกติ: 10-20 ครั้ง/วัน · 30-50 kg/ตัว/วัน
+
+## ★★★ Oral Exam — FMD [30:47]
+- น้ำลายยืด = สงสัย FMD ทันที
+- ไม่พร้อม disinfectant → กลับบ้าน
+- จำเป็นต้องเข้า → ★ **ตรวจฟาร์มสุดท้าย** + เก็บ vesicle ส่ง lab
+- ★ วัคซีน cross immunity ไม่กัน — ต้องฉีดให้ถูก type
+- ★ Lingual epithelium หลุดเป็นปอก = ลิ้นแดงเปลือกหลุด (เจ็บมาก)
+
+### Abscess ที่ปาก [33:23]
+- **Lumpy jaw** (Actinomyces) — invade เข้ากระดูก, palpate non-moveable
+- **Wooden tongue** (Actinobacillus) — soft tissue, moveable
+
+## ★★★ Rumen Fluid Tap [38:25]
+
+### Technique
+- ผู้ช่วยจับหางลอดใต้ขา ดึงไปข้างหน้า
+- ★ Landmark: last rib ⊥ × stifle ลากหน้า
+- ★ Spinal needle 18G ≥4 นิ้ว · แทงตั้งฉาก [41:05]
+
+### Tests on rumen fluid (★★★ exam-bait)
+| Parameter | Normal | Abnormal |
+|---|---|---|
+| Color | เขียว-น้ำตาล · concentrate สูง=เทา | — |
+| Smell | ขี้วัวคุ้นจมูก | ★ **เปรี้ยว = grain engorgement** |
+| ★ **pH** | **5.5–7.5** (cutoff 6.5–7) | <5.5 = **acidosis** [44:21] |
+| Protozoa | หลาย species เคลื่อนไหว | acidosis → ตาย |
+| ★ **MBRT (Methylene Blue)** | สีหายใน **3–6 นาที** | <3 min = bacterial overgrowth (acidosis) · >6 / ไม่หาย = atony [46:46] |
+| ★ **Gram stain** | gram-neg > gram-pos | acidosis → gram+ เพิ่ม [48:54] |
+| Sedimentation | ตะกอนแยกใน **4–8 นาที** | เร็ว/ไม่มี = ไม่กิน · ช้า = frothy bloat (เพคติน surface tension สูง) [49:24] |
+
+★ ก่อนเปิดหลอด **liquid paraffin ปิดหน้า** เพื่อคง anaerobic [45:05]
+
+## ★★★ Reticulum & Hardware Disease [51:01]
+
+### Auscultation [51:01]
+- ฟังที่ **left ventral, ICS 6-7**
+- วางมือ paralumbar ซ้าย → ได้ยิน reticulum บีบก่อน rumen ดัน
+
+### Traumatic Reticuloperitonitis [52:32]
+- กิน foreign body (ตะปู ลวดเชื่อม) → ตกใน reticulum → บีบทะลุ → peritonitis
+- ★ ถ้าเหล็กยาว → ทะลุ diaphragm → **pericarditis** → murmur + pericardial effusion
+
+### ★ Pain tests [55:40]
+1. **Withers pinch**: ดึงหนังหัวไหล่ → ฟัง grunting (ตัวโก่ง · กลั้นหายใจ)
+2. ★ **Bamboo/Pole test**: 2 คนสอดไม้ใต้ท้อง → กด pressure ที่ reticulum cartilage → ฟัง trachea
+3. ★ **Metal Detector**: sensitivity สูง — บอกแค่มีโลหะ
+4. ★ **Cattle Magnet**: ฟาร์มเสี่ยง กรอกแม่เหล็กป้องกัน → ★ **ต้องจดเลข**
+5. ★ **Compass test**: ถ้าไม่จด → เข็มทิศจริง (ไม่ใช่ iPhone) → ดูเข็มไม่หมุน N-S
+
+## ★ Omasum [69:53]
+- หน้าที่: ดูดน้ำกลับ → content แห้ง → impaction
+- Location: ขวา ICS 7-9 · ขนาด ~10 นิ้ว
+- ★ Dx: deep palp ICS 7-9 + omasum puncture (needle 15-18 cm)
+- ★ Pressure: ปกติ ≤2.6 kPa · obstruction = **8-12 kPa** [73:07]
+- เคสจริง: omasum โต 10 ซม. → 2 ฟุต · content ทรายแข็ง → ส่งโรงฆ่า
+
+## ★★★ Abomasum: LDA & RDA [78:32]
+
+### LDA (Left Displaced Abomasum)
+- จาก position ปกติ (ขวาล่าง) → **ลอยขึ้นซ้ายบน**
+- ★ **Dx**: Auscultation + Percussion → **ping sound** (กังวานเหมือนกลอง)
+- Area: ปลายข้อศอก → หัวกระดูกเชิงกรานซ้าย
+- ★ **Rolling** = หายได้บ้าง · ไม่บิด
+
+### RDA (Right Displaced Abomasum) ± Volvulus
+- ลอยขวา-บน · area ping ใหญ่ + ดังชัด
+- ★ **Volvulus = emergency** · area กังวาน
+- ★ ทั้ง 2 = **ผ่าตัด**
+- ★ ★ Caveat: เป็นนาน → tissue necrosis ขั้วบิด → ผ่าสำเร็จแต่อาจตาย [83:48]
+
+## ★ Intestinal Disorders [85:51]
+
+### Intussusception
+- ★ Rectal palp ขวา → คำเจอ **เปลือกหอยเชลล์ฮอกไกโด** (ไม่ใช่หอยแครง) วงแหวนหนา
+- Output: ขี้น้อย/ไม่มี
+
+### Intestinal Obstruction
+- คำเจอ **แท่งทรงกระบอก**
+- เคสจริง: ใยมะพร้าวจากกากมะพร้าวอุดลำไส้
+
+### Cecal Dilatation/Torsion
+- ขวา · ตึงเหมือน **ลูกโป่งดัดดอกไม้**
+
+## Peritonitis [92:46]
+- วัวสร้าง fibrinogen เร็ว → fibrin ล้อม → ★ rectal palp = peritoneum หนา + adhesion = confirm
+- ★ Cull recommendation ถ้า adhesion มาก
+
+## ★★★ Fecal Examination [94:54]
+| Finding | Cause |
+|---|---|
+| น้ำตาล-เขียว, ball, mucus บาง, ★ เตะกับบูทไม่ติด | Normal [95:55] |
+| เทา-milky, เปรี้ยว | Acidosis |
+| เหลว, กลิ่นเหม็น **หัวกุ้ง**, มีเลือด | Infectious diarrhea |
+| ★ แห้งดำ, **cookie roll** | Constipation · **Babesia/Anaplasma** [97:48] |
+| Whole undigested fiber | ★ **Hardware disease** [99:25] |
+| Mucus เน่าเหม็น | Obstruction late |
+| เลือดสด | GI ส่วนปลาย |
+| สีช็อกโกแลต (digested blood) | GI ส่วนต้น |
+| ★ Pattern: เข้ม น้อย ละเอียด มันเงา | LDA/RDA/stenosis/obstruction [101:32] |
+
+## Abdominocentesis [102:37]
+- Needle 18G+ ยาว 8-10 cm
+- ★ ตำแหน่ง:
+  - ทั่วไป: ขวาสะดือ 1 ฝ่ามือ ventral
+  - Hardware: หลัง xiphoid แกนกลาง
+  - Uterine rupture: ระหว่างเต้านมกับขาหลัง
+- Normal: ไม่มีสี/เหลืองจาง · <5 mL · protein <3 g/dL · WBC <10,000
+
+## ★ Exploratory Laparotomy [107:24]
+- ★ **เลือกผ่าซ้ายก่อน** — ถ้าไม่เจอ ยังเปิด rumen ตรวจต่อได้ (rumenotomy fallback)
+
+## ★ Decision Algorithm: Distension [109:25]
+- หลัง: symmetry · ซ้าย/ขวา · ventral/dorsal
+- กดดู: gas / fluid (splashing) / solid
+- Pain: เตะท้อง / รอย
+
+**ขวา**: LDA · cecal · intestinal torsion → rectal palp
+**ซ้าย ทั้ง 2 ข้าง ventral**: bloat
+**ทั้ง 2 ข้าง ventral**: twins / peritonitis with ascites
+
+## ★★★ Bloat Management [113:40]
+
+### Identify type — Stomach tube
+- วัด tube paralumbar → ปาก
+- Confirm rumen: ดมปลาย / เป่า + ฟัง stethoscope
+
+### Free gas bloat
+- ★ แก๊สพุ่งออก tube → ปลาย tube จุ่มน้ำเห็นฟอง
+- = diagnostic + therapeutic
+
+### Frothy bloat
+- ★ แก๊สไม่ออก · มี content เป็นฟอง
+- ดึง tube → fluid เหนียวฟอง
+
+### ★★★ Trocharization [118:26]
+1. Local anesthesia
+2. ★ **กรีดหนัง scalpel ก่อน** (หนังเหนียว)
+3. ★ **แทง trocar+cannula แรงเดียว** ("เหมือนแค้นกันมาเมื่อชาติปางก่อน")
+4. ดึง trocar ออก คา cannula → แก๊สออก
+5. ★ ★ **Removal**: ประกอบ trocar กลับ → กดฝ่ามือข้าง → ดึงเร็วๆ พร้อมกัน → ลด leak
+
+## ⚠️ NOT_FOUND in transcript
+- Vagal indigestion / Hoflund's syndrome
+- Abomasal ulcer Type 1-4
+- Calf diarrhea (E. coli/rota/crypto specifics)
+- Rumen acidosis treatment regimen detail
+- Formal DDx tables
+
+## ★★★ High-Yield Exam Predictions
+1. ★★★ LDA/RDA ping location & rolling vs surgery [80:37]
+2. ★★★ Hardware pain tests (5 อย่าง) [55:40]
+3. ★★★ Rumen fluid normals: pH 5.5-7.5 · MBRT 3-6 min · sed 4-8 min [44:21]
+4. ★★★ Free gas vs frothy bloat by stomach tube [113:40]
+5. ★★★ Trocharization technique [118:26]
+6. ★★ F:C 60:40 · กากมัน=concentrate
+7. ★★ Esophageal groove (เงย vs ก้ม) [20:28]
+8. ★★ Exploratory: ซ้ายก่อน [108:28]
+9. ★★ Abdominocentesis ตาม DDx [104:47]
+10. ★★ Fecal pattern: cookie roll · undigested fiber=hardware`
+},
+'szG9lXVvqNo': {
+  videoId: 'szG9lXVvqNo',
+  title: 'Ruminant GI Surgery I (Standing)',
+  subject: 'cliapprum',
+  date: '25 Mar 69',
+  durationMin: 125,
+  instructor: 'อ.แฮม (Surgery — สัตว์ใหญ่/ม้า · รับสอน ruminant year นี้) [10:05]',
+  examFormat: 'MCQ — Final scope · Standing field surgery · Rumenotomy/Rumenostomy/RDA omentopexy/Cecal typhlotomy high-yield',
+  summary: `# Ruminant GI Surgery I · อ.แฮม
+
+> Week 1/3 ของ Surgery series · focus เฉพาะ **standing procedure** ทั้งหมด · week หน้าจะล้มวัวลงนอน [15:47]
+> co-coordinator: "อาจารย์พีท" [13:42]
+
+## 1. Pre-op Assessment [16:52]
+- PE → blood (PCV · biochem) → ★ **Electrolytes + UA** สำคัญสุด (ดู ketosis · imbalance) [17:54]
+- ตัดสินใจ: medicine vs surgery (ปกติ push medicine ก่อน · invasive น้อย · ค่าใช้จ่ายน้อย)
+- ★ Key questions: จำเป็น sx? · medicine ก่อนได้? · คุ้ม? · วัว weak? · ทีมพร้อม? · ส่ง referral?
+
+## 2. Field vs Hospital-based [20:59]
+| | Field | Hospital |
+|---|---|---|
+| Anesthesia | Injectable only | Injectable + gas |
+| BP monitoring | indirect cuff (ไม่ accurate) | full |
+| Common drug (วัว) | ★ **Xylazine (α2)** | หลายตัวเลือก |
+
+## 3. SSI Classification [24:39]
+- **Superficial** (skin/SubQ) · **Deep** (muscle) · **Organ/Space** (internal)
+- ★ ASEPTIC สำคัญใน field แม้ compete 100% ไม่ได้ก็ทำ maximum
+
+## 4. Wound Classification [27:13]
+- **Clean** — vasectomy
+- **Clean-contaminated** — C-section
+- ★ **Contaminated/Dirty** — Rumenotomy (มีหญ้า ingesta → peritonitis)
+- งาน sx วัวส่วนมาก = contaminated → **antibiotic สำคัญใน field**
+
+## 5. Why Standing? [33:55]
+- ล้มลงนอน → ★ **GI rupture** · **muscle/nerve paralysis** จาก compression · **hypomotility** · วัวอาจไม่ลุก
+- Standing → monitor ได้ · ไม่ต้อง GA ลึก
+- GA ในวัว ต้อง stage 3 plane 2-3 → ไม่มี monitor → เสี่ยง
+
+## 6. Restraint + Approach [29:50]
+- ★ **ซอง (chute)** จำเป็น — ไม่งั้น Epidural/paravertebral block ทำไม่ได้
+- ★ **Standing**: flank approach (left or right paralumbar fossa)
+- **Recumbency** ถ้าจำเป็น (week หน้า)
+- C-section → standing left flank ส่วนมาก
+
+## 7. Drug Protocol [49:28]
+- **Xylazine** ให้เบาๆ ดู head drop · ataxia (วัว sensitive มาก)
+- **Regional anesthesia** สำคัญ — ไม่ต้อง spend dose กับ sedation อย่างเดียว
+
+### Local block 3 ทางเลือก [46:24]
+1. **Proximal Paravertebral (T13, L1, L2)** ★ — ปัก L1 โดน TP แล้ว walk-off หาช่องด้านหน้า
+2. **Inverted L block** — ครอบคลุม incision line
+3. **Incision line block** — ใส่หรือไม่ก็ได้ (ทำเยอะ tissue บวม → เย็บยาก)
+4. ± **Epidural** — block แค่ perineal · กันวัวสะบัดหางมาโดน field
+
+## 8. Skin Prep + Suture
+- ★ **Clean วัวก่อน** — อาบน้ำ ล้างขี้
+- ★ **โกนกว้าง** — เผื่อ paravertebral
+- Sterile scrub → drape (drape ปิดแค่ window ใน field — ค่าแพง)
+- ★ **Suture material**: เบอร์ 1 = minimum ในวัว (หมาใช้ 0-2)
+- Strong + ต้านเชื้อ ไม่อม ขี้/ฉี่ · ถ้าไม่พอ: เทป · สายน้ำเกลือ
+
+## 9. Common GI Surgery (Standing)
+
+### A. RUMENOTOMY [54:37]
+**Indications**: hardware disease · foreign body · impaction · chronic bloat
+**Foreign body พบบ่อย**: ตะปู · ★ **เสื้อในผู้หญิง (bra)** ★ — ตากผ้าใกล้คอก · ถุงพลาสติก · ใบไม้
+
+★ **Key step: Fix rumen ออกข้างนอกก่อนกรีดเปิด** กัน contamination [57:16]
+
+**Fixation methods**:
+1. Continuous suture rumen wall + skin/abdominal wall
+2. Fixation ring/Guard (ถ้ามีเงิน)
+3. Stay suture 4 จุด (วัวเล็ก/แพะ-แกะ)
+
+**Procedure** [67:10]:
+- Vertical incision rumen wall (มีดเบอร์ 21 · ค่อยๆ กรีด)
+- ใส่ถุงมือล้วงทับ · manual evacuation · suction ไม่ทัน
+- หา foreign body ลึกถึง reticulum
+- Reticulum impaction → ★ **siphon (กาลักน้ำ)** ใส่น้ำดูดออก
+
+**Closure (2 layers)** [63:03]:
+- Layer 1: Absorbable monofilament · **Continuous**
+- Layer 2: ★ **Inverting pattern** — Lembert หรือ **Cushing**
+
+### B. RUMENOSTOMY [78:46]
+**Indication**: chronic dysfunction · research (เก็บ content)
+ในไทยยังไม่ค่อยทำ · ฝรั่งทำเยอะ
+
+**Procedure** [80:52]:
+1. **Circular skin incision** ~4 cm
+2. External oblique — blunt dissect ถ้าได้
+3. ★ **Internal oblique + Transversus = ห้ามตัด · blunt dissect แหวกเป็น valve** (purse-string effect)
+4. Peritoneum → กรีด
+5. ดึง rumen เป็น cone · fix 4 corners (Horizontal mattress/Cushing)
+6. ★ **Quarter-by-quarter opening** — กรีด rumen ทีละ quarter → continuous suture
+7. ใส่ cannula (ถ้ามี)
+**Healing**: 7-14 days
+
+### C. RIGHT FLANK OMENTOPEXY (LDA/RDA) [95:38]
+**Pathophysiology** [97:09]:
+- Abomasum normally ventral right
+- กิน concentrate → fermentation → gas → ลอยเป็นลูกโป่ง → มุดผ่านใต้ rumen → LDA
+- หนัก → torsion (volvulus) = emergency · acute
+- เกิดบ่อย **dairy postpartum ~1 เดือน**
+
+**Diagnosis intra-op** [102:17]:
+- ★ Right flank → ดู greater omentum + descending duodenum
+- Normal: duodenum **horizontal** ใน greater omentum
+- **LDA**: duodenum **tilted vertical** (omentum ดึงไปซ้าย)
+
+**Procedure (Right flank)** [101:13]:
+1. Right flank incision (เหมือน rumenotomy)
+2. **Reposition**: ล้วงข้ามมาฝั่งซ้าย ดัน rumen → จับ abomasum → ดันกลับมาขวา
+3. **Decompression** ก่อนถ้าใหญ่:
+   - Gas: เข็ม 14/16 จิ้ม dorsal abomasum
+   - Content: เจาะ + suction
+4. Catch pyloric region → ดึงมา incision line
+5. **Omentopexy**: Mattress suture omentum cranial→caudal · absorbable เบอร์ 1 · ทะลุ omentum → peritoneum → transversus
+6. ★ **Fix ventral → dorsal** เพื่อกัน omentum slip down
+
+**Variants**:
+- Left flank abomasopexy (เปิดซ้าย fix abomasum + ventral wall)
+- Paramedian abomasopexy (week หน้า)
+- ★ **Roll-and-toggle (Utrecht/blind)** — Aj. **ไม่แนะนำ — อันตราย ต้องมุดใต้วัว** [110:05]
+
+### D. CECAL DILATION → TYPHLOTOMY [110:35]
+1. Right flank incision (~20 cm)
+2. ดึง cecum apex/tip ออกมา
+3. **Typhlotomy at apex**:
+   - ★ Incision **3 cm** (content น้อย) · **6 cm** (เยอะ)
+4. **Closure (2 layers)**:
+   - Layer 1: Absorbable · simple continuous
+   - Layer 2: **Inverting** (Cushing/Lembert)
+5. Examine intestine (peristalsis · color · tortion check)
+
+## 10. Closure Technique (Right Flank) [117:35]
+
+★ **เย็บจาก ventral → dorsal เสมอ** เพื่อป้องกัน content ปิ้น/ตก:
+
+| Layer | Tissues | Suture | Pattern |
+|---|---|---|---|
+| 1 | **Peritoneum + Transversus** | Synthetic absorbable | **Continuous** |
+| 2 | **Internal + External oblique** | Synthetic absorbable เบอร์ 1-2 | **Simple cont./Mattress** |
+| 3 | **Skin** | Polymerized caprolactam | ★ **Ford interlocking** หรือ **Horizontal mattress** |
+
+★ **Pro tip**: ปิด skin ทำ **simple interrupted 2-3 stitches สุดท้าย** เผื่อ SSI ต้องเปิด drain
+★ **เข็ม**: หนังวัว/ควายหนามาก → เคย break · ใช้เข็มเบอร์ 18 ร้อยเอง
+
+## ★★★ Key High-Yield (Final)
+
+1. ★ **Left flank** → rumen sx · **Right flank** → abomasum/cecum/intestine
+2. ★ Standing > GA ใน field
+3. ★ **Xylazine** = sedation หลักวัว
+4. ★ **Paravertebral (T13-L2) + Inverted L** standard ของ flank surgery
+5. ★ **Rumenotomy fixation ออกข้างนอกก่อนกรีดเปิด** = กัน contamination
+6. ★ **Rumenostomy** → blunt dissect internal oblique + transversus = valve
+7. ★ **LDA postpartum dairy** ~1 เดือน
+8. ★ **Right flank omentopexy** vs **Left flank abomasopexy**
+9. ★ **Suture**: absorbable monofilament inner · nylon/caprolactam outer
+10. ★ **Closure**: Continuous (muscle) → Inverting (GI) → **Ford interlocking** (skin)
+11. ★ Withdrawal time + antibiotic ใน contaminated wound
+12. ★ Healing **14 days** ในสัตว์ใหญ่
+13. ★ Cecal typhlotomy at apex 3-6 cm · 2-layer inverting
+14. ★ Foreign body: ตะปู (hardware) + bra/plastic
+15. ★ Roll-and-toggle = Aj. ไม่แนะนำ (มุดใต้วัว อันตราย)
+
+## ⚠️ NOT_FOUND
+- Withdrawal time specific numbers
+- Cesarean section detail (ไป week หน้า [33:24])`
+},
+'8n3oMcJXUiY': {
+  videoId: '8n3oMcJXUiY',
+  title: 'Ruminant GI Surgery II',
+  subject: 'cliapprum',
+  date: '1 Apr 69',
+  durationMin: 78,
+  instructor: 'NOT_FOUND (ผู้สอนเรียกตัวเองว่า "พี่" · กล่าวถึง พี่เซฟ [15:32, 34:59] และ อ.มด/พี่มด [36:30, 50:36] เป็นคนละคน — ชื่อผู้บรรยายไม่ระบุชัดในแทรนสคริปต์)',
+  examFormat: 'MCQ — Final scope',
+  summary: `# Ruminant GI Surgery II · Aj. (NOT_FOUND in transcript)
+
+## Overview · ขอบเขตของเลคเชอร์
+
+[0:16] อาจารย์เปิดด้วยการบอกว่าวันนี้เป็น **GI surgery ภาคต่อ** จากคราวที่แล้ว (Surgery I พูดเรื่อง standing surgery — เปิด left/right flank แก้ displacement) วันนี้จะ focus เฉพาะ **G** ก่อนเพราะเนื้อหาเยอะ ส่วนระบบอื่นจะไปรวบในคราวหน้า [0:46] หัวข้อหลักคือ **surgery ที่ทำแบบนอน** (recumbent) ที่เป็น common ใน field ต่อจาก standing flank approach
+
+ขอบเขตวันนี้:
+1. ★ **Percutaneous abomasopexy** (เข็มเย็บ + roll-and-toggle) สำหรับ LDA
+2. ★ **Right paramedian abomasopexy** (ล้มวัวลงนอน เปิดทางท้อง)
+3. ★ **Umbilical hernia** + herniorrhaphy
+4. ★ **Inguinal / scrotal hernia**
+5. ★ **Ventral abdominal hernia**
+6. ★ **Diaphragmatic hernia** (เน้น diaphragmatic-reticular hernia ในควาย)
+
+---
+
+## 1. Percutaneous Abomasopexy (Roll & Tack) [1:16]
+
+**Indication**: Left displaced abomasum (LDA) — แก้แบบ minimally invasive
+
+**Principle**: ★ **ห้ามมี volvulus / torsion** — ใช้แค่กรณี simple displacement
+
+### วิธี A · Roll-and-Tack (เข็มเย็บ) [2:24 – 4:59]
+1. ล้มวัวลง **นอนตะแคงขวา** (right lateral recumbency) → abomasum ลอยขึ้นด้านบน
+2. **Roll** วัวกลับไปกลับมาประมาณ 45°
+3. หลัง roll ฟัง **ping sound** บริเวณ xiphoid process / anterior to umbilicus
+4. ใช้ **เข็มยาวใหญ่** ปักผ่าน skin → ทุก barrier layer → ถึง abomasum → เกี่ยวขึ้นมา
+5. เย็บประมาณ **3–4 sutures** ด้วย **non-absorbable suture** [4:29]
+
+### วิธี B · Roll-and-Toggle [4:59 – 6:31]
+1. ล้ม + roll + ฟัง ping
+2. ใช้ **trocar/cannula** เจาะผ่าน skin → abomasum
+3. ใส่ **toggle** (มี bar กั้น + ไหม/เชือกยาว) เข้า trocar
+4. ถอด trocar → toggle bar lock อยู่ใน abomasum
+5. **เจาะรูที่ 2** ห่างไปด้านหลัง → ใส่ toggle ตัวที่ 2 → ผูกเชือก 2 เส้นเข้าด้วยกัน
+6. ★ **ทิ้งไหมไว้ 4–6 สัปดาห์** เพื่อให้เกิด fibrosis ติดกับ abdominal wall [6:31]
+
+### Demo clip [7:09 – 11:27]
+- ★ ฟัง ping แล้วเจาะเลย โดยไม่ roll back-and-forth ครบ
+- เข็มใหญ่มาก (เล็กไม่ penetrate ทุกชั้น)
+- หลัง surgery: **fluid + electrolyte** (วัวเสีย electrolyte จาก displacement) [9:50]
+
+### Caveat สำคัญ
+- ★ **มั่นใจว่าไม่มี volvulus** ก่อนทำ — ถ้าบิดหมุนแล้วทำ closed pexy ไม่ได้
+
+---
+
+## 2. Right Paramedian Abomasopexy [14:29]
+
+**Indication**: ใช้ได้ทั้ง left และ right displacement · ใช้เมื่อ closed pexy ไม่สำเร็จ
+
+### Patient selection ★★ [14:59]
+**ห้ามทำ** ถ้าวัวมีภาวะที่ทำให้ลุกลำบาก:
+- Muscle disorder
+- ★ **Ketosis**
+- ★ **Milk fever**
+- ภาวะอื่นที่ทำให้ recumbent animal ลุกขึ้นยาก
+
+### Technique [15:32]
+1. Roll วัวกลับให้ abomasum อยู่ตำแหน่งปกติ
+2. เปิด **paramedian approach** (คล้าย small animal laparotomy)
+3. กรีดยาว → เจอ abomasum
+4. เกี่ยว **peritoneum + internal sheath ของ rectus abdominis**
+5. ใช้ **suture เบอร์ใหญ่ที่สุด** (เบอร์ 0, 1, หรือ 2)
+6. เย็บ **horizontal mattress 3 ชั้น**
+7. ปิด skin เกี่ยว internal sheath เข้าไปอีกที
+
+---
+
+## 3. Umbilical Hernia [30:20 – 52:07]
+
+### Etiology [30:20]
+- ส่วนมาก **congenital** (incomplete development ของ umbilical ring)
+- ★ **Genetic predisposition** — พ่อแม่เคยเป็น ลูกมีโอกาส
+- เจอบ่อยใน **Holstein-Friesian** · ★ **เพศเมีย > เพศผู้**
+- มักเจอตอนวัว ★ **อายุ 1 เดือน** — แก้เล็กง่ายกว่ารอโต
+
+### Classification [31:51]
+- **Uncomplicated**: reducible, no infection
+- **Complicated**: + infection / urachal remnant / abscess / adhesion / rupture
+
+### Diagnosis [32:23]
+- ล้มลงนอน → deep palpation
+- **Ultrasound** เพื่อดู content
+- Differential: mass
+
+### Treatment by Size
+
+| Size | Approach |
+|------|----------|
+| **< 2 cm** | Conservative — ผ้ารัด + ดัน ring ทุกวันให้ irritate → heal |
+| **> 5 cm** | ★ **Herniorrhaphy** (surgical) |
+| **> 10–15 cm** | ★ **Mesh** (synthetic) |
+
+### Pre-op [34:59]
+- **GA**
+- Fasting:
+  - เด็ก (5–7 wk): **< 24 hr**
+  - โต: **24–48 hr**
+- Local: **box block รอบ hernia**
+
+### Surgical Technique [35:59]
+1. Stay suture ตึง prepuce (ตัวผู้)
+2. ★ **Elliptical incision** (เสี้ยวพระจันทร์) รอบ hernia
+3. Dissect จนเหลือ hernia sac
+4. ตัดสินใจ: **closed** หรือ **open** technique
+
+### Closed Technique [36:30]
+- ใช้กับ hernia เล็ก · no complication · reducible
+- ดัน content กลับ → เย็บปิด ring **โดยไม่เปิด sac**
+- ★ Aj. มด ถ่ายภาพให้ใน slide
+
+### Open Technique [37:03]
+- ใช้กับ: non-reducible · adhesion · remnant · infection
+- เปิด sac → แก้ไข complication (เช่น **resect bowel ถ้า strangulation**) → ดันกลับ → เย็บปิด
+
+### Suture Pattern [45:29, 50:05]
+- ★ **Mattress pattern** (horizontal mattress) — strength สูง
+- Ventral abdomen → content ตกลง → ต้องการ pattern ประคอง
+- ★ **Pre-place sutures ทั้งหมดก่อน แล้วดึงพร้อมกัน** → distribute pressure (hernia ใหญ่)
+- **Suture material**: absorbable แต่สลายช้า เช่น **polyglyconate / polydioxanone**
+- Hernia ใหญ่ high tension → **non-absorbable** หรือ **overlapping (Mayo) pattern**
+
+### Mesh Hernioplasty [51:36]
+- Synthetic mesh (พลาสติก / polypropylene)
+- ทำเป็น **open** → วาง mesh ปิด ring → เย็บ interrupted/mattress
+
+### Demo clip (วัว 4 เดือน อินเดีย) [38:12]
+- ใช้ **xylazine + ketamine** [43:03]
+- Elliptical skin incision → blunt dissect
+- Reduce content → เย็บ sac (close) → เย็บ skin
+- ★ Horizontal mattress for ventral hernia
+
+---
+
+## 4. Inguinal / Scrotal Hernia [52:39]
+
+### Epidemiology
+- เจอบ่อยใน **breeding bulls** (พ่อพันธุ์ราคาแพง)
+- ปกติฟาร์มไม่เลี้ยงเพศผู้ ยกเว้นใช้ผสม → ผ่าตัดเพื่อรักษามูลค่า
+
+### Inguinal vs Scrotal [53:10]
+- **Inguinal**: content ผ่านแค่ inguinal canal
+- **Scrotal**: content ผ่าน inguinal canal ลงมาถึง scrotal sac
+
+### Diagnosis ★ [53:41]
+- ★ Scrotal = **"hourglass shape"** — ไม่กลม แต่ shape ยาวลง
+- DDx: testicular edema · varicocele · orchitis (กลม) vs hernia (loop)
+- **Rectal palpation** — ดู internal inguinal ring เปิดหรือไม่
+- **Decreased borborygmus** ถ้า bowel ถูกบีบ
+- US ภายนอก → เห็น bowel loops
+
+### Surgical Approach [55:46]
+1. **Lateral recumbency** + sterile
+2. กรีด skin **15–20 cm**
+3. ★ **Castration testis ออก** (ปิด ring สนิท · ไม่ recur)
+4. Reduce content → เย็บปิด
+
+---
+
+## 5. Ventral Abdominal Hernia [57:18]
+
+### Etiology
+- ★ **Trauma** (ขวิด · วิ่งชน · เตะ) — บางครั้งผิวภายนอกไม่มีแผลแต่ภายในฉีก
+- Content ใหญ่: rumen · abomasum · omentum · intestine · cecum
+
+### Locations
+- ข้าง flank · pelvic · **prepubic rupture** (ในวัวท้อง)
+
+### Treatment [58:19]
+- ล้มนอน → close หรือ open
+- ★ เย็บ **muscle 3 ชั้น** ด้วย **mattress pattern**
+- ถ้า rumen ออกซ้าย → **ไม่ต้อง pexy** เพิ่ม
+
+---
+
+## 6. Diaphragmatic Hernia [59:22]
+
+### Epidemiology [59:22]
+- ★ **ในควาย > วัว**:
+  - วัว: อาวุธ = ขาเตะ → ไม่ rupture diaphragm
+  - **ควาย: เขาขวิด + กระทืบ** → impact แรง
+
+### Pathophysiology [60:25]
+- ★ Content ที่ทะลุเข้าช่องอก = **reticulum** (อยู่หน้าสุด)
+- เกิด **reticulo-peritonitis** ถ้า rupture
+- เรียก **diaphragmatic-reticular hernia** เมื่อ reticulum involve
+
+### Diagnosis [60:56]
+- **Respiratory distress** — ยืนเฉยๆแต่หอบ
+- Auscultation: ★ **absence of respiratory sound** ที่ thorax + **muffled** + **GI sound ใน thorax**
+- **Ultrasound** — bowel loops ในช่องอก
+
+### Surgical Approach
+
+#### กรณีทั่วไป [62:33]
+1. **GA** + ★ **mechanical ventilator**
+2. เหตุผล: thoracic = negative → เปิดเป็น positive → **lung collapse**
+3. Approach: **midline / cyphoid laparotomy**
+4. ดึง content ออก → เย็บปิด diaphragm
+5. ใหญ่มาก → **mesh**
+6. Watch: pneumothorax · pleural effusion · chest tube
+
+#### Diaphragmatic-Reticular (วัวโต) — 2-Stage Surgery ★ [64:05]
+1. **Stage 1**: Standing **left flank rumenotomy** → ดึง body ของ reticulum กลับช่องท้อง
+2. **Stage 2**: ★ รอ **2–3 วัน** → GA → midline → เย็บปิด defect
+3. (อาจารย์: "ไม่ซีเรียส" สอบ — รู้ concept พอ)
+
+### Complications [65:06]
+- Suture abscess · pneumothorax · peritonitis
+- ★ พันช่องอก/ท้อง support หลัง surgery (content ใหญ่ดัน suture แตก)
+
+### Demo clip (ควายอินเดีย 6 ขวบ) [66:07]
+- 2-stage approach
+- ★ **One-hand suturing** (defect ลึก เครื่องมือลงไม่ถึง)
+- เอเชียขาดไหม non-absorbable เส้นใหญ่ → ใช้ silk (risk peritonitis)
+
+---
+
+## ⭐ Key Exam Points
+
+1. ★ **Closed pexy** = simple displacement, no volvulus
+2. ★ **Right paramedian** = ห้ามใน ketosis / milk fever / muscle disorder
+3. ★ **Umbilical hernia** = แก้ตอน 1 เดือน · Holstein-Friesian + เพศเมีย
+4. ★ **< 2 cm conservative · > 5 cm herniorrhaphy · > 10-15 cm mesh**
+5. ★ **Closed vs Open** ขึ้นกับ reducibility + complication
+6. ★ **Mattress + pre-place sutures** สำหรับ ventral hernia
+7. ★ **Scrotal hernia** = hourglass · ★ ต้อง castrate
+8. ★ **Diaphragmatic-reticular ในควาย** → 2-stage (rumenotomy → 2-3 วัน → diaphragm)
+9. ★ Diaphragmatic = **mechanical ventilator** (negative → positive)
+10. ★ **Reticulum** = อวัยวะทะลุเข้าช่องอกบ่อยสุด
+
+## Out-of-Scope (อาจารย์ระบุ [72:43])
+- ไม่เน้น eye enucleation · จะลงในอนาคต urinary system + dehorning + ตัดนม`
+},
+'OQIW6zyubcs': {
+  videoId: 'OQIW6zyubcs',
+  title: 'Ruminant Surgery (Head/Neck/Udder/Urinary/Stifle/Digit)',
+  subject: 'cliapprum',
+  date: '8 Apr 69',
+  durationMin: 95,
+  instructor: 'NOT_FOUND (อาจารย์ผู้หญิง · กล่าวถึง "อ.ตั้ม" [27:46] + "อ.ผึ้ง" [34:28] เป็นคนละคน)',
+  examFormat: 'MCQ — Final scope · เน้น **หลักการ** ของแต่ละ procedure · Aj. confirm [90:09] "ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล"',
+  summary: `# Ruminant Surgery (General + Selected) · 8 Apr 69 · ~95 min
+
+> Aj. (NOT_FOUND ชื่อ) เปิดว่าเป็น "เก็บตก surgery จาก GI" — common ที่เจอใน field · ไล่จากหัว → ท้าย → ขา · ★ เน้น **หลักการ** ไม่ลงดีเทล [6:11]
+> ⚠️ **ใน scope schedule.js mention BSP + Tendon surgery — NOT_FOUND ในเทปนี้** · Aj. ไม่ได้พูดทั้งสองหัวข้อเลย · lecture นี้ครอบ Head/Neck/Udder/Urinary/Stifle-patella/Digit เท่านั้น
+
+---
+
+## 🐄 PART 1 · Dehorning [6:43]
+
+### Why dehorn
+- เขา = อาวุธ · cosmetic · prevent trauma · fence space
+- ควาย ★ ไม่ค่อย dehorn (เขาสวย = มีราคา)
+
+### Age windows [8:16]
+- **<2 mo**: bud ยังไม่ attach skull → ง่าย เลือดน้อย
+- **2-4 mo**: cornual process เริ่ม fuse กับ frontal bone
+- ★ **>4 mo**: alveolar sinus เชื่อมเขาแล้ว → ต้องอุปกรณ์
+
+### Anesthesia
+- **Cornual nerve block**: 2% lidocaine 3-10 ml ใต้เขา หลัง lateral canthus
+- bull aggressive → เพิ่ม **xylazine**
+- ลูกเล็ก/horn bud อาจไม่ต้อง block
+
+### Methods by age [11:21]
+| Age | Method |
+|---|---|
+| 0-3 mo | **Chemical** (KOH/NaOH/Ca(OH)₂ paste) — ป้าย bud · เทปพันกัน mom เลีย |
+| ~3 mo+ | **Thermal/cautery** |
+| Older | **Mechanical** — Tubing/Scoop/Electric saw/**Gigli wire** |
+| All | **Polled breeding** (genetic) |
+
+### Cosmetic dehorning [18:18]
+- Block cornual → กรีด skin → เลาะลงโคนเขา → ตัด → ★ **primary closure**
+- Pro: หาย primary · สวย
+- Con: cost · ★ risk **frontal sinus fracture** ถ้าตัดแรง
+
+---
+
+## 🦠 PART 2 · Sinusitis/Empyema [21:55]
+
+- **Etiology**: post-horn infection · respi · fungal
+- ★ ส่วนมาก **frontal sinus** (communicate กับ horn)
+- Maxillary rare · มาจาก oral problem
+- **Signs**: น้ำมูกเรื้อรัง · กลิ่น · หน้าบวม
+- **Dx**: PE · Xray (ปกติ air-filled · sinusitis = fluid/mass) · endoscopy
+
+### Trephination sites [25:02]
+1. Post-orbital diverticulum — 4 cm caudal lateral canthus
+2. Turbinate part — 2.5 cm lateral midline · caudal nasal bone
+3. Rostral frontal sinus
+4. Main frontal sinus — เจาะตรงไหนก็ได้
+5. Maxillary: บน facial tubercle [26:43]
+
+### Procedure [26:43]
+- ★ Standing
+- Local infiltration → กรีด skin ยาว → exposed bone (periosteal elevator) → trephine drill / อ.ตั้ม ใช้อุปกรณ์พิเศษ + ค้อนตอก
+- Flush 1-2 ครั้ง/วัน × 2 weeks · saline หรือ **povidone-iodine + saline**
+- ★ ขณะ flush: **กดหน้าวัวลง** ไม่ให้เงย → ไหลออกทางจมูก
+- + systemic antibiotic
+- ★ **secondary intention** — ห้าม primary closure (anaerobic → เชื้อไม่ตาย)
+
+---
+
+## 🌽 PART 3 · Esophageal Obstruction (Choke) [29:16]
+
+- **Cause**: ผลไม้/อาหารแข็ง
+- **Signs**: salivation · dehydration · ไอ · bloat (complete obstruction) · ★ ยืดคอ + retching reflex
+- **Dx**: คลำคอ · Xray
+- **Initial Tx (non-surgical)**:
+  1. Stomach tube ดันลง rumen
+  2. ล้วงด้วยมือ
+  3. เจาะระบายแก๊ส (trocar) ถ้า bloat
+  4. ★ Hand extraction ทางปาก (วัวไม่มีฟันหน้า)
+
+### Cervical esophagotomy [32:26]
+- Lateral recumbency · ★ **ด้านซ้าย** (esophagus อยู่ left of trachea)
+- กรีด → เอา foreign body
+- ★ **Primary closure** (ทางผ่านอาหาร · secondary = infection)
+- **Suture (2 layers)**:
+  - Layer 1 (mucosa+submucosa): continuous/interrupted · long-lasting absorbable หรือ non-absorbable
+  - Layer 2 (muscular): interrupted/mattress · absorbable ก็ได้
+
+---
+
+## 👁️ PART 4 · Enucleation [34:28]
+
+- **Indication**: trauma · perforated globe · severe ulcer
+- ★ **2 nerve blocks**:
+  1. **Auriculopalpebral** — ใต้หู · 5-10 ml lidocaine
+  2. **Retrobulbar** — 4 จุด: dorsal · ventral · medial · lateral
+- ★ ใหญ่ทำ **standing** ได้ → local แม่นสำคัญ
+- Procedure: clamp eyelid (Allis) → กรีด 0.5-1 cm รอบ skin margin → เลาะ extraocular muscles + nerves → ligate → ตัด → เย็บปิด
+
+---
+
+## 🥛 PART 5 · Teat/Udder Laceration Repair [38:08]
+
+### Anatomy [39:10]
+- Layers: mucosa → submucosa → muscular → skin
+- Gland sinus → annular ring → teat canal → orifice
+- Blood: pudendal + mammary artery (ด้านบน) · teat = capillary
+
+### Anesthesia [41:15]
+- Sedation: xylazine + butorphanol ถ้าปวดมาก
+- ★ **Tourniquet ที่ฐาน teat** (regional + hemostasis)
+- **Ring block** รอบ teat + **inverted L** บริเวณกรีด
+- Epidural optional
+
+### Repair [42:49]
+- Sterile prep · debride · hemostasis
+- ★ **Cannula technique**: สอด cannula ใน teat canal
+  - Locate canal · ป้องกันเย็บปิด canal · drain นมระหว่างหาย
+- Suture in layers: mucosa-submucosa interrupted/continuous (absorbable) · skin interrupted/vertical mattress
+- ★ **ห้าม "รีดด้วยมือ"** หลังผ่า → infection · ใช้ **เครื่องปั๊มนม**
+- ★ **Intramammary antibiotic** ผ่าน cannula · finger-trap suture เก็บ cannula
+
+---
+
+## 💧 PART 6 · Urolithiasis & Urethrostomy [49:10]
+
+### Anatomy [49:40]
+- ★ Male: **diverticulum at ischial arch** + **distal sigmoid flexure** (หลัง scrotum) — site แคบสุด
+- ★ **Stone ติด distal sigmoid flexure บ่อยสุด**
+- ★ **Steers (ทำหมันเร็ว)** เป็นบ่อย — urethra แคบ (คล้ายแมว)
+- Stones: silicate · phosphate
+
+### Approach [51:44]
+- Dorsal recumbency (ง่าย) · standing ถ้า bladder ใหญ่
+- **Site options**:
+  - Perineal (high) — ไม่นิยม · ลึก
+  - ★ **Low urethrostomy** ★ — เปิดเหนือ scrotum (above sigmoid flexure) — drain ดี · นิยมสุด
+
+### Procedure (uncomplicated) [53:48]
+1. Epidural
+2. กรีด skin เหนือ scrotum
+3. Blunt dissect → reach penis
+4. กรีด tunica → expose penis · disect retractor penis muscle
+5. คลำหา stone → clamp + tourniquet
+6. **Urethrotomy ทาง ventral surface** ของ penis · เอา stone ออก
+7. เย็บปิด layer-by-layer
+
+### Bladder rupture/uroperitoneum [58:08]
+- ผ่า + cystopexy
+- หรือ **penectomy + permanent urethrostomy** (sex reversal):
+  - ★ วัวไม่มี os penis → ตัดได้
+  - สอด feeding tube → กรีดเปิด urethra → แบะ (filet) → เย็บ mucosa-skin (เฉพาะ dorsal)
+  - ทิ้ง tube **10-14 วัน**
+
+---
+
+## 🍼 PART 7 · Persistent Urachus [64:28]
+
+### Pathology
+- Urachus fetus: ต่อ bladder → umbilical cord → drain urine
+- หลังเกิดควรปิด · ไม่ปิด = persistent → urine ไหลออกสะดือ
+
+### Signs
+- ★ **Urine dripping ที่สะดือ** (pathognomonic)
+- คลำ tubular structure จากสะดือไป bladder
+- US confirm
+- Sequela: omphalitis · uroperitoneum
+
+### Procedure [67:37]
+1. Dorsal recumbency
+2. Elliptical incision รอบ umbilicus
+3. Blunt dissect → tubular structure → reach bladder apex
+4. Ligate urachus ที่ bladder · monofilament absorbable
+5. ตัด urachus + สะดือ
+6. เย็บปิด bladder rim · continuous + Lembert (inverting) — กัน urine leak
+7. Close abdomen layer-by-layer
+- ★ Risk: **ventral hernia** ถ้า abdominal wall ปิดไม่ดี
+
+---
+
+## 🦵 PART 8 · Upward Fixation of Patella (UFP/"ขาทก") [75:24]
+
+### Pathology
+- **Medial patellar ligament** ค้างเหนือ medial trochlear ridge → patella ล็อก extension
+- Predisposition: medial trochlea ใหญ่กว่า lateral · poor nutrition · over-exercise
+- Aj. confirm "ไม่เคยทำเอง · เล่าให้ฟัง"
+
+### Tx — Medial Patellar Desmotomy [77:25]
+**3 methods**:
+
+1. **Standing (Indian-style)** — เคียว/มีดวงพระจันทร์ สอดเข้า medial · ตัดทันที · ไม่เย็บ · พ่นยา
+2. **Open desmotomy (textbook)**:
+   - Lateral recumbency · ขาที่เป็นด้านบน · ผูก 2 ขา
+   - Sedation: xylazine 0.1 mg/kg · local 8-10 ml
+   - กรีด skin → locate ligament → dissect ตัด → เย็บปิด skin
+   - ★ ปล่อยวัวลุก — ทำถูก = เดินปกติทันที
+3. **Wire/needle (advanced, hospital)** [83:23]:
+   - เข็มชมพู (large gauge) เป็น guide
+   - สอด wire/suture คล้องผ่าน ligament
+   - ดึงตัด (Gigli-style)
+   - ★ Aj. แนะนำ: "วิธีนี้เวิร์คมาก — แผลเล็ก · infection น้อย"
+
+---
+
+## 🐾 PART 9 · Digit/Claw Amputation [86:31]
+
+- ★ วัว **compensate ด้วยกลีบที่เหลือ** ได้
+- **Procedure**:
+  1. ★ **Tourniquet เหนือ joint** (hemostasis + regional)
+  2. Locate **interphalangeal joint**
+  3. Horizontal skin incision รอบ joint
+  4. Dissect ผ่าน skin → bone → joint capsule
+  5. หนาเกิน → ใช้ **embryotomy wire** ตัด joint capsule + bone
+  6. Disect collateral ligament + joint capsule → digit หลุด
+  7. ★ **Pressure bandage แน่น × 3 วัน** (ระงับเลือด · กัน edema)
+  8. ถอด → หาย **secondary intention**
+- **Risks**: pododermatitis · supporting limb laminitis · ascending infection · pathologic fracture
+
+---
+
+## ⚠️ NOT_FOUND ใน lecture นี้ (vs schedule.js scope)
+- ★ **BSP (Bovine Spastic Paresis)** — Aj. ไม่พูดเลย
+- ★ **Tendon surgery / Tenotomy** — ไม่พูดเลย
+- Fracture repair (long bone)
+- Castration (จะมี hands-on วันที่ 20 [16:45][91:09])
+- Hernia repair แยก (touch ผ่านๆ ใน urachus context)
+
+## 📝 Aj.'s exam emphasis [90:09]
+> "ข้อสอบง่าย เอาแค่หลักการ · ไม่ลงดีเทล"
+> สิ่งที่ต้องจำ:
+> - **Position** ของแต่ละ procedure
+> - **Suture pattern** ที่เหมาะกับ tissue
+> - **Site/landmark**
+> - **Local block** ของแต่ละ procedure`
+},
+'KAbtQmSMgQo': {
+  videoId: 'KAbtQmSMgQo',
+  title: 'Hoof Health Assessment & Herd Management',
+  subject: 'cliapprum',
+  date: '22 Apr 69',
+  durationMin: 51,
+  instructor: 'NOT_FOUND (อ.ใช้สรรพนาม "พี่" · likely อ.ศวิตา per syllabus)',
+  examFormat: 'MCQ — Final scope · ★★★ Locomotion scoring application · Foot rot/Laminitis/Sole ulcer/DD mentioned briefly',
+  summary: `# Hoof Health Assessment & Herd Management · อ. (likely อ.ศวิตา)
+
+> ⚠️ NOTE: lecture นี้ **ไม่ใช่** lecture สอน Foot rot/Laminitis/Sole ulcer/DD รายโรค — เป็น **applied locomotion scoring + management decision flow** ในฟาร์มจริง · โรคพวกนี้ถูก mention แค่สั้นๆ เป็น differential สาเหตุของวัวเลม
+
+## 🎯 Scope [0:02]
+อ.บอกตรงๆ "ไม่ได้มาคุยเรื่องการประเมิน locomotion score รายตัว" (assume เรียนแล้วเทอมก่อน) — แต่จะคุยว่า **เอา locomotion scoring ไปใช้จริงในฟาร์มยังไง** [0:35]
+
+> "ตอบคำถามถูกต้องหมด..แต่ถ้าตั้งโจทย์ว่าลองไปประเมิน locomotion score ในฟาร์มนี้ซิ...อันนี้จะเกิดปัญหา" [1:07]
+
+**Objective** [1:38]:
+1. หลักคิดเข้าฟาร์มประเมิน
+2. แปลผล % locomotion score
+3. บอกสาเหตุกว้างๆก่อน investigate
+4. วางแผนจัดการสุขภาพกีบ
+
+## 🧭 4 ประเด็นต้องคิดก่อนเข้าฟาร์ม [3:13]
+1. **Timing** — ตอนไหน?
+2. **Location** — ตำแหน่งไหน?
+3. **ID recording** — จดเบอร์ครบยังไง
+4. **Interpretation** — แปลผลก่อน investigate
+
+> "สัตวแพทย์ต้องเข้าไปในฟาร์มสักระยะ...เพื่อให้เห็น **workflow**" [4:46]
+
+## 🏠 Farm example [5:48]
+- 50 ตัว · pipeline 12 (6 ฝั่ง)
+- ขาไป (โรงเรือน → โรงรีด) = พื้นสโลปชัน
+- ขากลับ = พื้นเรียบ
+
+## ⏰ Timing [8:18]
+**3 หลักการ**:
+1. ไม่รบกวน workflow
+2. ใช้คนน้อย (2-3 คน)
+3. ★ โค **เดินอย่างอิสระ** (ไม่ถูกไล่)
+
+> ถ้าไล่ → ตัวเจ็บอาจวิ่งไปเลย → score ผิด [10:22]
+
+★ **Answer ฟาร์มตัวอย่าง: หลังรีดนมเสร็จ** [10:55]
+- ออกจากโรงรีด 6 ตัว → เดินกลับทางพื้นเรียบ
+- มีระยะ + เวลา (รออีกฝั่งรีดเสร็จ)
+- เดินอิสระ
+
+**ก่อนรีด theoretical ดี** (น้ำหนักนมโหลด → ↑sensitivity) แต่ practical ทำไม่ได้ (พื้นสโลป + ถูกไล่) [14:30]
+
+## 📍 Location [15:32]
+**4 หลักการ**:
+1. ไม่รบกวน + safety zone
+2. คนน้อย
+3. ★ พื้นเรียบ ราดเอียง
+4. ★ ระยะตรง **≥ 4 เมตร**
+
+> ใกล้เกิน → โคหยุด → "รถติด" [16:33]
+
+## 🔢 ID recording [18:09]
+
+★★★ **Practical shortcut**:
+- เดิน lame มาก = score 4-5 (ไม่สนใจหลัง)
+- เดินไม่ lame + หลังตรง = score 1
+- เดินไม่ lame แต่หลังโค้ง = score 2-3
+
+★ **ตัวอย่าง**: 6 ตัวออกมา ไม่เลม + หลังตรงหมด → score 1 → ★ **ไม่ต้องจดเบอร์**
+★ ออก 6 ตัว มี 3 ตัวเลม 4-5 → ★ **เข้าไปจดเบอร์ในคอกตอนกินอาหาร** (โคไปยืนกินที่รางหลังรีด — Udder Health management ปิดรูหัวนม) [23:22]
+
+## 📊 Interpretation [25:25]
+
+★★★ **Ideal targets** (ฟาร์มควบคุมดี):
+- **Score 1 (เขียว) = 70-80%**
+- **Score 2-3 (เหลือง) = 20-30%**
+- **Score 4-5 (แดง) = 0%** (อุดมคติ · จริงเจอได้)
+
+**3 เงื่อนไขที่ต้องมีพร้อมกัน** [29:38]:
+1. Routine trimming **≥ 2 ครั้ง/ปี**
+2. Feeding management monitoring (control acidosis)
+3. Hygiene โรงเรือน
+
+## 🦠 ทำไมยังเจอวัวแดง [27:33]
+
+> Routine trimming ป้องกัน **sole ulcer โดยตรง**
+
+วัวแดงเกิดจาก **2 สาเหตุ** [28:35]:
+
+**1. โรคติดเชื้อ** [29:08]
+- ★★★ **Foot rot**
+- ★★★ **ID (Interdigital dermatitis)**
+- ★★★ **DD (Digital dermatitis)**
+- **Heel (He)**
+
+> ปัจจัยโน้มนำหลัก = **สุขศาสตร์โรงเรือน**
+> มูลโคหมัก → physical damage + เชื้อโรคหมัก → irritate
+> + แอมโมเนีย → "พิษต่อกลีบ" → keratin cell bond อ่อนแอ [31:43]
+
+**2. Nutrition / Laminitis** [29:08]
+- ★★★ **Laminitis = เกิดจาก acidosis**
+- Monitor 2 อย่าง: **R/C ratio** + **particle size**
+- TMR → acidosis ยาก
+- Component feed → swing → acidosis เกิดได้
+- ★ Heat stress → หยุดเคี้ยวเอื้อง → โน้มนำ acidosis
+
+## 🩺 Decision tree
+
+### Case 1: ฟาร์มมี routine trimming + score 2-3 = 55%, score 4-5 = 3% [32:49]
+**ขึ้นกับ timing เทียบ trimming cycle**:
+- กลาง cycle → **ไม่น่ากังวล**
+- เพิ่งผ่าน trimming ~1 เดือน → **น่ากังวล · investigate**
+
+**Investigation order**:
+1. Hygiene โรงเรือน
+2. Feeding management
+3. Trimmer skill (ตัดผิด → sole ulcer มาก)
+
+> ★ **Cut-off ไม่ใช่กฎตายตัว** — อย่าตัดสินทันที [36:26]
+
+### Case 2: ฟาร์ม **ไม่มี routine trimming** + score เดียวกัน [38:02]
+**น่ากังวลมาก** — score 2-3 รอ turn เป็น 4-5 จาก sole ulcer
+
+**3 differential**:
+1. ★★★ Sole ulcer
+2. Claw horn disorder
+3. โรคติดเชื้อ + Laminitis
+
+## 🔧 Management plan
+
+### Step 1: เอา score 2-5 ทั้งหมดเข้า routine trimming [40:44]
+- Hoof Exam: ขา → กีบ (Coronary band + Interdigital + dimension) = 80% info
+- ★ **80% ที่เหลือ + final dx = ปาดกลีบบางๆ (routine trimming)**
+- ฟาร์ม 50 ตัว · score 2-5 รวม ~58% = **เกือบ 30 ตัว**
+
+### Step 2: Priority — ★ vet ต้อง educate
+- เกษตรกรอยากทำวัวแดงก่อน (เห็นชัด) [43:16]
+- ★ vet: **วัวเหลือง = impact สูงกว่า** (ทำแล้ว turn เขียวทันที)
+- ★ Compromise: 10 ตัว/ครั้ง = **3 แดง + 7 เหลือง** [44:51]
+
+### Step 3: Routine trimming = Final dx [45:22]
+ขณะ trim:
+- Interdigital + sole ปกติ → ไม่มีปัญหากีบ → focus **infectious cause**
+- Sole มีปื้น/จุดเลือดออก → ★★★ **Laminitis** → focus **อาหาร**
+- Sole ulcer + ไม่มี routine trimming → trim + **เริ่ม routine trimming ป้องกัน**
+
+## 🚐 Reality [46:55]
+ในไทย trimmer ไม่พอ → ทยอย ~10 ตัว/วัน · จดบันทึก track
+
+## ❓ Q&A [47:58]
+**Q**: รายย่อยประเมินไม่ได้ แต่มี routine trimming → ต้อง score มั้ย?
+**A**: **ไม่จำเป็น** — routine trimming ปีละ 2 ครั้ง **ดีกว่า** locomotion score (เห็นกีบโดยตรง)
+
+## 📝 Exam [49:02]
+> "ข้อสอบของพี่ = วันนี้ + เรื่องอาหาร · เป็นช้อยส์ · ไม่ยาก"
+
+★★★ **Series เรื่องกีบทั้งหมดเก็บไว้ทบทวนตอนฝึกงานปี 5**
+
+## ⚠️ NOT_FOUND ใน transcript (per syllabus checklist)
+- **Foot rot pathogens** (Fusobacterium · Bacteroides) — NOT_FOUND
+- **Foot rot Tx** specific drugs — NOT_FOUND
+- **Sole ulcer** = "Rusterholz ulcer" — NOT_FOUND (เรียก "ulcer" เฉยๆ)
+- **Sole ulcer typical location (zone 4)** — NOT_FOUND
+- **Digital dermatitis = Treponema** — NOT_FOUND (เรียก "DD")
+- **Strawberry lesion** — NOT_FOUND
+- **Footbath protocol** (copper/formalin/zinc sulfate) — NOT_FOUND
+- **Sprecher 1-5** detailed — NOT_FOUND
+- **Dutch 5-step** trimming — NOT_FOUND
+
+> รายละเอียดโรคให้ดูจาก lecture อื่นใน Hoof Health series (lecture 1-6) เทอมก่อน — lecture นี้คือ **applied herd assessment + management decision**`
+},
+
 };
 
 // ─────────────────────────────────────────────────────────────
