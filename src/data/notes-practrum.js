@@ -106,6 +106,41 @@ export const NOTES_PRACTRUM = {
           ] },
         ],
       },
+      {
+        heading: 'Past Exam Mapping (Vet 83 Lameness · 5 Q)',
+        source: 'Ploy83 รวมข้อสอบเก่า p.31-35 · ศิรินันท์ พรรณระวี (lecturer year-change · ปี 86 = PP)',
+        body: [
+          { bullets: [
+            'Q1 ดูแลกีบโค → "ถูกทุกข้อ" (footbath + trim + nutrition + housing hygiene · 4 pillars)',
+            'Q2 sole ulcer ตำแหน่ง → **เบอร์ 4** (sole-heel junction · Rusterholz)',
+            'Q3 digital amputation S2 ผิด → ตัวเลือก "เปิดผิวหนังเหนือไรกีบ 2 ซม" (จริง = 0.5 ซม)',
+            'Q4 NOT indication for digital amputation → **Interdigital fibroma** (ตัดแค่เนื้องอก)',
+            'Q5 digital dermatitis cause → **Treponema spp.** (ไม่ใช่ Fusobacterium · นั่นคือ foot rot)',
+          ] },
+          { callout: '⭐ Pattern: Ploy83 (Vet 83) lameness exam 5 Q นี้ ตรง content กับ slide PP 2026 ทุกข้อ → ใช้ผลที่จริงเป็น study guide ได้', kind: 'tip' },
+        ],
+      },
+      {
+        heading: 'Hoof Anatomy · Claw Zones',
+        source: 'Sunsun84 p.7 + Ploy83 zone diagram',
+        body: [
+          { table: {
+            headers: ['Zone', 'Location', 'Common pathology'],
+            rows: [
+              ['1', 'Toe (abaxial white line)', 'White line disease'],
+              ['2', 'Axial white line', 'White line abscess'],
+              ['3', 'Abaxial sole (lateral side)', 'Bruise / sole hemorrhage'],
+              ['4', '**Sole-heel junction (Rusterholz)** ⭐', '**Sole ulcer** ⭐ (most common · lateral claw hindlimb)'],
+              ['5', 'Mid sole', 'Foreign body penetration'],
+              ['6', 'Heel bulb', 'Heel horn erosion · DD'],
+            ],
+          } },
+          { bullets: [
+            '**Lateral claw of hindlimb** ⭐ = sole ulcer site (asymmetric weight distribution post-first-calving)',
+            'Medial claw of forelimb = bears more weight in front',
+          ] },
+        ],
+      },
     ],
   },
 
@@ -226,10 +261,10 @@ export const NOTES_PRACTRUM = {
 
   'bovine-anesthesia': {
     topic: 'bovine-anesthesia',
-    title: 'Bovine Local + Regional Anesthesia',
+    title: 'Bovine Local + Regional Anesthesia ⭐ (14 Q · highest yield)',
     lecturer: 'Surgery staff + อ.เอกพล (EA)',
     icon: '💉',
-    summary: 'Week 10-12 · Paravertebral · Caudal epidural sacrococcygeal · Inverted L block · Peterson · Auriculopalpebral · Lidocaine 2%',
+    summary: 'Week 10-12 · Paravertebral · Caudal epidural sacrococcygeal · Inverted L block · Peterson · Auriculopalpebral · Lidocaine 2% · highest-yield section per past-paper coverage',
     sections: [
       {
         heading: 'Sedation (alpha-2 agonist)',
@@ -275,6 +310,65 @@ export const NOTES_PRACTRUM = {
         ],
       },
       {
+        heading: 'Past Exam Mapping ⭐ (Vet 85 Final · 6/10 Q = anesthesia)',
+        source: 'pp\'s vet prac rum final85 p.2 (Vet 85 = 2025 Final · marked answers)',
+        body: [
+          { callout: 'Anesthesia ออกข้อสอบ 60% ของหน้านี้ใน Vet 85 Final · ทำซ้ำได้น่าจะดีกับ Vet 86', kind: 'tip' },
+          { table: {
+            headers: ['Q', 'Topic', 'Answer · Key fact'],
+            rows: [
+              ['Q4', 'Xylazine dose calc 500 kg vasectomy standing', '0.5 ml of 20mg/ml stock (= 0.02 mg/kg light std sedation)'],
+              ['Q5', 'Lidocaine duration', '180 นาที (3 ชม)'],
+              ['Q6', 'Paravertebral block at L1 nerve · landmark', 'TP of L2 (distal Magda)'],
+              ['Q7', 'Caudal epidural in cow · location', 'S5-Co1 (sacrococcygeal)'],
+              ['Q8', 'Best indicator of paravertebral block success', 'Loss of pain sensation (pin prick test)'],
+              ['Q9', 'Drug NOT used in rumenotomy', 'Cefazolin (no label/withdrawal in cattle)'],
+            ],
+          } },
+        ],
+      },
+      {
+        heading: 'Block Decision Tree (clinical scenario)',
+        source: 'AABP standards · Aj.PB',
+        body: [
+          { sub: 'Scenario: Standing flank rumenotomy',
+            body: [
+              { bullets: [
+                '1. Light sedation: Xylazine 0.02 mg/kg IM (low-end · standing tolerable)',
+                '2. **Paravertebral block T13/L1/L2**: Lidocaine 5-10 ml/site (proximal or distal Magda)',
+                '3. Optionally + Inverted L block (rescue) or Line block at incision',
+                '4. Verify: pin prick → no response = success',
+              ] },
+            ] },
+          { sub: 'Scenario: C-section / dystocia',
+            body: [
+              { bullets: [
+                'Xylazine pre-med (low dose · ระวัง premature labor)',
+                '**Caudal epidural sacrococcygeal**: 1 ml/100 kg of 2% lidocaine (max 6 ml)',
+                'Loss of resistance + hanging drop technique',
+                '+ Line block at flank if standing approach',
+              ] },
+            ] },
+          { sub: 'Scenario: Foot abscess drainage / digital amputation',
+            body: [
+              { bullets: [
+                '**IV regional (Bier block)** under tourniquet: Lidocaine 20-30 ml of 2% (NO epinephrine)',
+                'Tourniquet ≤90 min · release gradually',
+                'Alternative: **NBA 4-point** ring block at hindfoot',
+              ] },
+            ] },
+          { sub: 'Scenario: Eye surgery (enucleation)',
+            body: [
+              { bullets: [
+                'Sedation + restraint',
+                '**Peterson nerve block**: 10-15 ml retrobulbar at orbital fossa (block CN III/IV/VI/V)',
+                '+ Auriculopalpebral block: 5-10 ml at zygomatic arch (paralyze eyelid · cow ไม่กระพริบ)',
+                'Alternative: 4-point retrobulbar (single 10-15 ml deep behind globe)',
+              ] },
+            ] },
+        ],
+      },
+      {
         heading: 'GA Risks in Ruminants',
         source: 'Aj.ภัทร์มนฉัตร PB · Sunsun84 p.1',
         body: [
@@ -305,10 +399,10 @@ export const NOTES_PRACTRUM = {
 
   'rumenotomy': {
     topic: 'rumenotomy',
-    title: 'Rumenotomy · Aj.เอกพล (EA)',
+    title: 'Rumenotomy · Aj.เอกพล (EA · 11 Q · high yield)',
     lecturer: 'ผศ.น.สพ.ดร.เอกพล อัครพุทธิพร (EA)',
     icon: '🐂',
-    summary: 'Week 13 · Left flank standing rumenotomy · 2-layer closure · Hardware disease (TRP) main indication',
+    summary: 'Week 13 · Left flank standing rumenotomy · 2-layer closure · Hardware disease (TRP) main indication · Vet 85 Final coverage 4/10 Q',
     sections: [
       {
         heading: 'Indications (6 ข้อจากสไลด์)',
@@ -359,6 +453,52 @@ export const NOTES_PRACTRUM = {
             '  • Antibiotic: **Procaine penicillin 22,000-66,000 U/kg IM/SC** (NOT IV) ≥ 3 วัน',
             '⚠️ Cefazolin = NOT used in cattle (no label · withdrawal undefined)',
             'Complications: lack of improvement · peritonitis · incisional infection',
+          ] },
+        ],
+      },
+      {
+        heading: 'Past Exam Mapping ⭐ (Vet 85 Final Q1-3, Q9-10)',
+        source: 'pp\'s vet prac rum final85 p.2 + Sunsun84 p.2',
+        body: [
+          { table: {
+            headers: ['Q', 'Topic', 'Answer · Trap'],
+            rows: [
+              ['Q1', 'Rumen anatomy false statement', '"แม่เหล็กอยู่ส่วนนี้" — magnet อยู่ใน reticulum NOT rumen'],
+              ['Q2', 'NOT rumenotomy indication', '"Software disease" (joke distractor · trap)'],
+              ['Q3', 'Calf NPO duration before sx', 'NOT recommended (ไม่อด · hypoglycemia risk)'],
+              ['Q9', 'Drug NOT for rumenotomy', 'Cefazolin (avoid in food animals)'],
+              ['Q10', 'Rumen closure pattern', 'Simple continuous + Continuous Lembert (2-layer inverting)'],
+            ],
+          } },
+          { callout: '5/10 Q ของ Vet 85 Final = rumenotomy + rumen anatomy (50%) → must drill', kind: 'tip' },
+        ],
+      },
+      {
+        heading: 'Cow Magnet (Hardware Disease prevention)',
+        source: 'Sunsun84 p.3 + AABP',
+        body: [
+          { bullets: [
+            'Cylindrical magnet (Alnico/SmCo) ~7-10 cm long · 1-2 cm diameter',
+            'Administer PO via balling gun → swallow → travels through esophagus → reticulum (gravity + reticular groove reflex)',
+            '**Stays in reticulum permanently** (heaviest stomach compartment in adult cow · reticulum collects FB)',
+            'Iron FB attracts to magnet · prevents penetration of pericardium → prevents TRP',
+            'Both prevention (calves @ 6mo) + treatment (TRP early stage)',
+          ] },
+          { callout: '⚠️ Q1 trap: นักศึกษามักเลือก "magnet อยู่ใน rumen" — ผิด · อยู่ใน reticulum', kind: 'warn' },
+        ],
+      },
+      {
+        heading: 'Reticulum-specific procedures',
+        source: 'Aj.เอกพล + Sunsun84 p.3',
+        body: [
+          { bullets: [
+            '**Hardware disease (TRP)** = sharp metal FB pierces reticulum wall → migrates → diaphragm → pericardium',
+            'Pain test classics: **Wither test** (pinch wither · grunt = pain) · Pole/Bamboo test (bar lifted under xiphoid · grunt) · Xiphoid percussion',
+            'Auscultation: muffled heart sounds (pericardial effusion) · friction rub (pericarditis)',
+            'Lab: neutrophilia + left shift · ↑Fibrinogen >700 mg/dL · ↑AST · ↓albumin',
+            'Radiography lateral: confirm metallic FB in reticulum',
+            'Ultrasound: pericardial effusion · abscess',
+            'Treatment ladder: cow magnet (early) → rumenotomy + manual FB removal → pericardiocentesis (if effusion) + broad-spectrum AB + NSAID → cull if poor prognosis',
           ] },
         ],
       },
@@ -416,6 +556,50 @@ export const NOTES_PRACTRUM = {
             '  • Maxillary sinus: เส้นเชื่อม medial canthus → maxillary protuberance · เปิดที่กึ่งกลาง',
             '⚠️ AB ทาง IV อย่างเดียวไม่พอ — ต้อง drainage (pus ใน sinus ไม่ระบายเอง)',
           ] },
+        ],
+      },
+      {
+        heading: 'Decision Tree: When to dehorn vs not',
+        source: 'AABP + Sunsun84 p.6',
+        body: [
+          { sub: 'Indication (dehorn)',
+            body: [
+              { bullets: [
+                'Reduce injury risk to other cows + handlers',
+                'Increase carcass market value',
+                'Handling/transport easier',
+                'Reduce trauma during squeeze chute work',
+                'Treatment of horn injuries (chronic infection · fracture)',
+              ] },
+            ] },
+          { sub: 'Contraindication (do not dehorn)',
+            body: [
+              { bullets: [
+                'Adult bull with mature horn (frontal sinus heavily exposed → high sinusitis risk)',
+                'Heat stress / poor weather (incision exposed)',
+                'Pregnant late gestation',
+                'Active disease (immune compromise)',
+                'Show animal where horn is breed standard',
+              ] },
+            ] },
+        ],
+      },
+      {
+        heading: 'Disbudding Methods Comparison',
+        source: 'Sunsun84 p.6 + dairy industry standards',
+        body: [
+          { table: {
+            headers: ['Method', 'Age', 'Pros', 'Cons'],
+            rows: [
+              ['Hot iron (cautery)', '<6 wk', 'No bleeding · cheap · fast', 'Pain · heat damage · need restraint'],
+              ['Hoof knife / scoop', '<6 wk', 'Cheap · simple', 'Bleeding · regrowth if incomplete'],
+              ['Calf dehorner gauge (cup)', '2-6 wk', 'Quick · sharp removal', 'Bleeding'],
+              ['50% CaCl2 caustic paste', '<2 wk only', 'Painless if used early', 'Caustic spread risk · eye damage if rubs'],
+              ['Tube/Robert dehorner (adult)', 'Adult', 'Full removal', 'Frontal sinus exposed → sinusitis risk'],
+              ['Obstetric wire (Gigli)', 'Adult', 'Clean cut · controlled', 'Slow · need anesthesia + analgesia'],
+              ['Trephine + saw', 'Adult', 'Surgical control', 'Most invasive · longest recovery'],
+            ],
+          } },
         ],
       },
     ],
