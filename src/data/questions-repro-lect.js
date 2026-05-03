@@ -14,7 +14,7 @@
 //   - Slide 2026/Lect PDFs only as current-year verification and topic matching
 //
 // sourceType:
-//   student-compilation     = รุ่นพี่/โพย/recall evidence, verified against 2026 slides
+//   student-compilation     = รุ่นพี่/ข้อสอบเก่า/recall evidence, verified against 2026 slides
 //   past-paper              = direct old exam item or screenshot/online-exam capture
 //   lecture-verified-draft  = high-yield slide-derived draft kept for review, not old exam
 // ============================================================
@@ -160,27 +160,27 @@ export const QB_REPRO_LECT = [
     source: 'sunsun84 ? 5 exotic repro??.pdf + Exotic Repro 69.pdf', sourceType: 'student-compilation', tags: ['rabbit', 'ovulation'], type: 'mcq',
     q: 'Rabbit เป็น ovulator แบบใด',
     options: ['Induced ovulator', 'Spontaneous only', 'No ovulation', 'Seasonless male'],
-    answer: 0, explain: 'โพย exotic repro ระบุ rabbit เป็น induced ovulator ต้องมี stimulation/mating ก่อนตกไข่', verified: 'Slide/summary matched' },
+    answer: 0, explain: 'ข้อสอบเก่า exotic repro ระบุ rabbit เป็น induced ovulator ต้องมี stimulation/mating ก่อนตกไข่', verified: 'Slide/summary matched' },
   { id: 1826, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
     source: 'sunsun84 ? 5 exotic repro??.pdf + Exotic Repro 69.pdf', sourceType: 'student-compilation', tags: ['rabbit', 'gestation'], type: 'mcq',
     q: 'Gestation ของ rabbit โดยประมาณคือข้อใด',
     options: ['10 days', '30 days', '90 days', '150 days'],
-    answer: 1, explain: 'โพยระบุ rabbit gestation ประมาณ 30 วัน', verified: 'sunsun84 summary' },
+    answer: 1, explain: 'ข้อสอบเก่าระบุ rabbit gestation ประมาณ 30 วัน', verified: 'sunsun84 summary' },
   { id: 1827, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
-    source: 'Repro Final รวมโพย.pdf + sunsun84 — 5 exotic repro✔️.pdf', sourceType: 'student-compilation', tags: ['guinea-pig', 'ovarian-cyst'], type: 'mcq',
+    source: 'Repro Final รวมข้อสอบเก่า.pdf + sunsun84 — 5 exotic repro✔️.pdf', sourceType: 'student-compilation', tags: ['guinea-pig', 'ovarian-cyst'], type: 'mcq',
     q: 'Guinea pig เพศเมียที่แก่ขึ้นควรนึกถึง reproductive problem ใด',
     options: ['BPH', 'Cryptorchid', 'Ovarian cyst', 'Penile prolapse'],
-    answer: 2, explain: 'โพย exotic flag ovarian cyst ใน guinea pigs เป็นจุดจำ', verified: 'sunsun84 summary' },
+    answer: 2, explain: 'ข้อสอบเก่า exotic flag ovarian cyst ใน guinea pigs เป็นจุดจำ', verified: 'sunsun84 summary' },
   { id: 1828, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
-    source: 'Repro Final รวมโพย.pdf + sunsun84 — 5 exotic repro✔️.pdf', sourceType: 'student-compilation', tags: ['ferret', 'estrogen'], type: 'mcq',
+    source: 'Repro Final รวมข้อสอบเก่า.pdf + sunsun84 — 5 exotic repro✔️.pdf', sourceType: 'student-compilation', tags: ['ferret', 'estrogen'], type: 'mcq',
     q: 'Ferret prolonged estrus เสี่ยงภาวะใด',
     options: ['Thyroid hormone toxicity', 'Lens opacity syndrome', 'Prostate enlargement', 'Estrogen toxicity'],
-    answer: 3, explain: 'โพยระบุ estrogen toxicity ใน ferret ทำให้ alopecia และ bone marrow suppression ได้', verified: 'sunsun84 summary' },
+    answer: 3, explain: 'ข้อสอบเก่าระบุ estrogen toxicity ใน ferret ทำให้ alopecia และ bone marrow suppression ได้', verified: 'sunsun84 summary' },
   { id: 1829, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
     source: 'sunsun84 ? 5 exotic repro??.pdf + Exotic Repro 69.pdf', sourceType: 'student-compilation', tags: ['reptile', 'prolapse'], type: 'mcq',
     q: 'Reptile hemipenis/phallus prolapse ระยะ acute ควรเริ่มด้วยอะไร',
     options: ['Reduce swelling then replace', 'Immediate oral calcium only', 'Ignore until necrosis', 'Vaccinate first'],
-    answer: 0, explain: 'โพยระบุ acute prolapse ให้ลดบวมก่อนแล้วดันกลับ; chronic/necrotic อาจต้อง amputate', verified: 'sunsun84 summary' },
+    answer: 0, explain: 'ข้อสอบเก่าระบุ acute prolapse ให้ลดบวมก่อนแล้วดันกลับ; chronic/necrotic อาจต้อง amputate', verified: 'sunsun84 summary' },
 
   // ── Lect 21: Genetics ────────────────────────────────────
   { id: 1830, subject: 'repro-lect', topic: 'genetics', year: 4,
@@ -292,7 +292,7 @@ export const QB_REPRO_LECT = [
 
   // ═══════════════════════════════════════════════════════════
   // Kimchii85 past-paper batch — direct from Blackboard screenshots
-  // ★ = 85 ออกโพยคำเดิมเลย (per Kimchii85 cover page note)
+  // ★ = 85 ออกข้อสอบเก่าคำเดิมเลย (per Kimchii85 cover page note)
   // sourceType 'past-paper' = literal screenshot evidence from prior-year exam
   // ═══════════════════════════════════════════════════════════
 

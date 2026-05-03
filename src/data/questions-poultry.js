@@ -516,7 +516,7 @@ export const QB_POULTRY = [
 
   // ── Quality Assurance — "หมอเอกสิงห์" notes (8 T/F · pages 37-39) ─
   { id: 1752, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (study summary, page 39)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (study summary, page 39)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['quality-assurance', 'FCR', 'broiler'], type: 'tf',
     q: 'Slow growth ทำให้ไก่ น้ำหนักดี โตดี FCR สูง',
@@ -524,7 +524,7 @@ export const QB_POULTRY = [
     explain: 'Slow growth = FCR ต่ำ (low feed conversion ratio) — หมายถึงใช้อาหารน้อยลงต่อกิโลกรัมเนื้อ · FCR สูง = ไม่ดี (ใช้อาหารเยอะแต่โตน้อย)' },
 
   { id: 1753, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (study summary)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (study summary)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['quality-assurance', 'definition'], type: 'tf',
     q: 'การประกันคุณภาพ (Quality Assurance) ประกอบด้วย: quality control, audit, accreditation, assessment, traceability',
@@ -532,7 +532,7 @@ export const QB_POULTRY = [
     explain: 'QA 5 องค์ประกอบหลัก: control + audit + accreditation + assessment + traceability · ทั้งหมดทำงานร่วมกันให้ผลผลิตได้มาตรฐาน' },
 
   { id: 1754, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (study summary)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (study summary)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['quality-assurance', 'food-safety', 'ND', 'AI'], type: 'tf',
     q: 'ไก่สดที่ขายตลาดต้องไม่มี ND + H5N1 และสารตกค้าง (drug residue)',
@@ -540,7 +540,7 @@ export const QB_POULTRY = [
     explain: 'มาตรฐานเนื้อไก่ส่งออก: free of ND + AI (H5N1) + drug residue (antibiotic withdrawal period) · ตามมาตรฐาน OIE + Thai DLD' },
 
   { id: 1755, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (study summary)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (study summary)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['food-safety', 'Salmonella'], type: 'tf',
     q: 'Food safety ในการผลิตเนื้อไก่ ต้องไม่มี Salmonella enteritidis, S. typhimurium, S. virchow, S. infantis, S. hadar',
@@ -548,7 +548,7 @@ export const QB_POULTRY = [
     explain: '5 serovars Salmonella ที่ต้องเฝ้าระวังใน poultry food safety · zoonotic potential สูง · monitoring ในแม่พันธุ์ + ไก่เนื้อก่อนเชือด' },
 
   { id: 1756, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (study summary)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (study summary)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['quality-assurance', 'training'], type: 'tf',
     q: 'ระบบ QA ในฟาร์มสัตว์ปีกต้องมีการอบรมพนักงาน (Training) เป็นประจำ',
@@ -556,7 +556,7 @@ export const QB_POULTRY = [
     explain: 'Training = component สำคัญของ QA · พนักงานต้องเข้าใจ SOP, biosecurity, hygiene · audit เช็คได้' },
 
   { id: 1757, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (study summary)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (study summary)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['quality-assurance', 'slow-growth', 'welfare'], type: 'tf',
     q: 'Slow growth (broiler โตช้า) มีข้อดี: animal welfare ดีขึ้น + คุณภาพเนื้อดีขึ้น + genetic diversity เพิ่ม + communicate กับสังคมง่ายขึ้น (แต่กินอาหารเยอะ + ต้นทุนสูง)',
@@ -564,7 +564,7 @@ export const QB_POULTRY = [
     explain: 'Slow-growth broiler trend: trade-off ระหว่าง welfare/quality กับ economics · กินอาหารเยอะกว่า fast-growth (FCR ต่ำกว่า) แต่กล้ามเนื้อดี + ขาแข็งแรง + เห็นแสงเพียงพอ · social acceptance สูงในยุโรป' },
 
   { id: 1758, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (study summary)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (study summary)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['quality-assurance', 'PDCA'], type: 'tf',
     q: 'Systemic problem solving ในฟาร์ม ใช้หลัก Plan-Do-Check-Action (PDCA cycle)',
@@ -572,7 +572,7 @@ export const QB_POULTRY = [
     explain: 'PDCA (Deming cycle): Plan → Do → Check → Act · ใช้ continuous improvement ในระบบ QA · เป็น core ของ ISO 9001 + Thai farm standard' },
 
   { id: 1759, subject: 'poultry', topic: 'biosecurity', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (study summary, page 30)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (study summary, page 30)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['surveillance', 'sample-size', 'specificity'], type: 'tf',
     q: 'หากวิธีวินิจฉัยมี specificity สูง → false positive จะสูงด้วย',
@@ -582,7 +582,7 @@ export const QB_POULTRY = [
 
   // ── Pre-test: Lymphoid Organs (3 MCQ · page 46) ─────────────
   { id: 1760, subject: 'poultry', topic: 'physiology', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (pre-test page 46)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (pre-test page 46)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['immunology', 'lymphoid-organs', 'B-cell'], type: 'mcq',
     q: 'Primary lymphoid organ ในไก่ ที่เป็นแหล่งกำเนิดของ B-cell precursor คือ',
@@ -596,7 +596,7 @@ export const QB_POULTRY = [
     explain: 'Bursa of Fabricius = avian-specific organ (cloacal pouch) ที่ B-cell maturation · ตัด bursa = no B-cell → no antibody · "B" in B-cell มาจาก Bursa · ขาด in mammal' },
 
   { id: 1761, subject: 'poultry', topic: 'physiology', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (pre-test page 46)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (pre-test page 46)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['immunology', 'lymphoid-organs', 'secondary'], type: 'mcq',
     q: 'Secondary lymphoid organ ในไก่ ที่เป็นแหล่งของ effector lymphocytes ตอบสนองต่อ antigen คือ',
@@ -605,7 +605,7 @@ export const QB_POULTRY = [
     explain: 'Cecal tonsils = secondary lymphoid (gut-associated, GALT) · phagocytosis + antigen presentation + adaptive response · spleen + Harderian gland + cecal tonsils ทั้งหมดเป็น secondary' },
 
   { id: 1762, subject: 'poultry', topic: 'physiology', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (pre-test page 46)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (pre-test page 46)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['immunology', 'lymphoid-organs', 'T-cell'], type: 'mcq',
     q: 'Primary lymphoid organ ในไก่ ที่เป็นแหล่งกำเนิดของ T-cell precursor คือ',
@@ -620,7 +620,7 @@ export const QB_POULTRY = [
 
   // ── Misc review items (4 Qs · pages 45-46) ────────────────────
   { id: 1763, subject: 'poultry', topic: 'biosecurity', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (page 45)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (page 45)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['cleaning', 'disinfection', 'measurement'], type: 'mcq',
     q: 'จะรู้ได้ยังไงว่าการ cleaning/disinfectant โรงเรือนได้ผลดี',
@@ -635,7 +635,7 @@ export const QB_POULTRY = [
     flag: 'verify-2026' },
 
   { id: 1764, subject: 'poultry', topic: 'midterm-disease', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (page 46)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (page 46)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['acute-death', 'differential-diagnosis'], type: 'mcq',
     q: 'Acute death (ตายเฉียบพลัน) ในไก่ อาจเกิดจากโรคใดบ้าง',
@@ -650,7 +650,7 @@ export const QB_POULTRY = [
     explain: 'Acute death DDx ทุกโรค viral ที่กล่าวมา + AE + Chicken anemia virus (CAV) · เน้น AI + ND velogenic = peracute mass mortality · ต้อง lab confirm' },
 
   { id: 1765, subject: 'poultry', topic: 'midterm-disease', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (page 46)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (page 46)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['CAV', 'blue-wing-disease'], type: 'mcq',
     q: 'Blue wing disease ในไก่เกิดจากไวรัสอะไร',
@@ -664,7 +664,7 @@ export const QB_POULTRY = [
     explain: 'Blue wing disease = chicken infectious anemia (CIA) จาก CAV (Gyrovirus, Anelloviridae) · ลูกไก่ < 3 wk · anemia + immune suppression + hemorrhage ที่ wings (สีน้ำเงิน-ม่วง) + thymus atrophy' },
 
   { id: 1766, subject: 'poultry', topic: 'biosecurity', year: 4,
-    source: 'POULTRY FINAL 86 รวมโพย (page 30)',
+    source: 'POULTRY FINAL 86 รวมข้อสอบเก่า (page 30)',
     examOrigin: 'Poultry Final 86 study compilation',
     tags: ['surveillance', 'sample-size', 'sensitivity'], type: 'tf',
     q: 'หากวิธีวินิจฉัยมี sensitivity และ specificity ต่ำ ควรเพิ่มจำนวนตัวอย่างที่สุ่มมาตรวจ',

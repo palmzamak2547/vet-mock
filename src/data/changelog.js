@@ -44,6 +44,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.17.0',
+    date: '2026-05-03',
+    headline: '🐂 เปิดวิชา Vet Prac Rum (47 ข้อ · 6 พ.ค.) + ขยาย Clin App Rum (37 ข้อ · 8 พ.ค.) · พร้อมใช้',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🐂', title: 'วิชา Vet Prac Rum (3108412) เปิดแล้ว · Final scope ครบ',
+        desc: 'รหัส 3108412 · 47 ข้อ ครอบคลุม Final scope week 8-13 · Penile deviation surgery (อ.สุติศาสตร์ VI) · Hoof care + trimming · Animal nutrition (DMI) · Cow restraint · Bovine local anesthesia (Paravertebral · Caudal epidural · Peterson block) · Parturition + Fetotomy · Rumenotomy · Dehorning · มี past-paper จาก pp\'s vet prac rum final85 (Vet 85) + Ploy83 lameness · 36 ข้อจาก past papers จริง 11 ข้อจาก lecture/background · มี confidence tag (EXTRACTED/INFERRED) ทุกข้อ' },
+      { scope: 'multi', kind: 'content', icon: '🐄', title: 'วิชา Clin App Rum ขยาย — 37 ข้อ ครบ Final scope',
+        desc: 'รหัส 3108411 · เพิ่มจาก 0 → 37 ข้อ · Topics: Metabolism + Nutrition Dashboard (DMI · NDF/ADF/NE · R:C ratio · Particle size · Feces Score · Locomotion Score · BHBA cutoff) · Ruminant Anesthesia (อ.ภัทร์มนฉัตร PB · benzodiazepines · phenothiazines · IV regional Bier block · Peterson block) · GI Surgery (อ.ศวิตา 45 ข้อ scope) · Hoof Health Fleet · 25 ข้อจาก master compilation + 10 ข้อจาก past papers Vet 84' },
+      { scope: 'system', kind: 'fix', icon: '📚', title: 'แก้บั๊ก: หัวข้อที่ซ่อนแล้วยังโผล่ในรายการอ่าน', fromFeedback: true,
+        desc: 'ก่อนหน้านี้หัวข้อที่ marked hidden:true (เช่น Poultry midterm scope · Exotic week 1-6 · Repro uncertain) ยังแสดงใน "รายการอ่าน" · ตอนนี้ filter ให้แล้ว · เห็นเฉพาะ Final scope จริง · จำนวนหัวข้อใน progress bar ตรงกับวิชาที่จะสอบ' },
+    ],
+  },
+  {
     version: '5.16.0',
     date: '2026-05-03',
     headline: '📷 IG @vetmock.cu เปิดแล้ว · +12 สรุปคลิป Final (Poultry + Cliapprum) · +60 ข้อ Poultry past-paper',
@@ -62,7 +75,7 @@ export const CHANGELOG = [
     headline: '🐾 Repro Lecture +41 ข้อจาก past-paper screenshot · ลด length bias ทั่วคลัง',
     changes: [
       { scope: 'repro-lect', kind: 'content', icon: '📜', title: '+41 ข้อสอบเก่า Kimchii85 (Repro Lecture)',
-        desc: 'ดึงข้อจาก screenshot Blackboard exam ที่ "ตรงโพย ★=85" (รุ่นพี่ flag ออกซ้ำเดิม) · ครบทุก Lect 15-24 · รวม 91 ข้อแล้ว · มาด้วย sourceType "past-paper" 31 ข้อ + student-compilation 55 ข้อ + lecture-verified-draft 5 ข้อ' },
+        desc: 'ดึงข้อจาก screenshot Blackboard exam ที่ "ตรงข้อสอบเก่า ★=85" (รุ่นพี่ flag ออกซ้ำเดิม) · ครบทุก Lect 15-24 · รวม 91 ข้อแล้ว · มาด้วย sourceType "past-paper" 31 ข้อ + student-compilation 55 ข้อ + lecture-verified-draft 5 ข้อ' },
       { scope: 'multi', kind: 'fix', icon: '📏', title: 'ทำความสะอาด question quality ทั่วคลัง', fromFeedback: true,
         desc: 'ใช้ npm run fix:length + fix:questions ของ project · ลบ ★/** จาก option + Q stem (892 markers) · ปรับ length-bias ของ correct option ให้ใกล้เคียง wrong (52 ข้อ trimmed) · rebalance answer position bias (26 swaps) · ผู้ทำข้อสอบไม่สามารถเดาคำตอบจาก visual cue ได้แล้ว' },
     ],
@@ -115,7 +128,7 @@ export const CHANGELOG = [
     headline: '📜 Phase 3 ข้อสอบเก่า COM III — รวม 93 ข้อ (+33 ข้อ จาก past paper 75 ข้อ)',
     changes: [
       { scope: 'com3', kind: 'content', icon: '📜', title: '+33 ข้อสอบเก่า COM III Final 86 (Phase 3)',
-        desc: 'ดึงมาจาก com ani III โพย.pdf (75-question past paper) ที่ตรงกับ syllabus 2026 · IDs 1360-1392 · ครอบคลุม Cushing response (TBI), CN VII tympanic bulla, paradoxical central vestibular, cerebellar abiotrophy vs hypoplasia, Hansen Type I IVDD breeds, Wobbler synonyms, white shaker syndrome, refeeding syndrome prevention, RER calculation, fluid math, fentanyl ใน shock, DKA volume-first priority' },
+        desc: 'ดึงมาจาก com ani III ข้อสอบเก่า (75-question past paper) ที่ตรงกับ syllabus 2026 · IDs 1360-1392 · ครอบคลุม Cushing response (TBI), CN VII tympanic bulla, paradoxical central vestibular, cerebellar abiotrophy vs hypoplasia, Hansen Type I IVDD breeds, Wobbler synonyms, white shaker syndrome, refeeding syndrome prevention, RER calculation, fluid math, fentanyl ใน shock, DKA volume-first priority' },
       { scope: 'com3', kind: 'content', icon: '🎯', title: 'Position-balanced ตั้งแต่เขียน (cycle 0-4)',
         desc: '33 ข้อใหม่ใช้ deterministic answer cycle 0,1,2,3,4 → distribution 7-7-7-6-6 · 0 swap ต้องแก้หลัง · 0 length bias error · baseline 78 errors เท่าเดิม' },
     ],

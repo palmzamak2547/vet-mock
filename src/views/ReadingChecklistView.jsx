@@ -24,7 +24,13 @@ export default function ReadingChecklistView({
   setSubject,
   setView,
 }) {
-  const subjects = (SUBJECTS_BY_YEAR[selectedYear] || []).filter((s) => Array.isArray(s.topics) && s.topics.length > 0);
+  // Filter out hidden topics globally — the same `hidden: true` flag that
+  // hides topics in TopicSelectView (and excludes them from visibleQuestionCount)
+  // must also hide them from the reading checklist; otherwise non-Final topics
+  // (e.g. Poultry midterm scope, Exotic week 1-6) show up in รายการอ่าน.
+  const subjects = (SUBJECTS_BY_YEAR[selectedYear] || [])
+    .map((s) => ({ ...s, topics: Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden) : [] }))
+    .filter((s) => s.topics.length > 0);
 
   const toggle = (topicId) => {
     setReadingChecklist((prev) => {
@@ -38,6 +44,7 @@ export default function ReadingChecklistView({
   const setSubjectAll = (subj, value) => {
     setReadingChecklist((prev) => {
       const next = { ...prev };
+      // subj.topics is already filtered (no hidden topics) — safe to iterate
       subj.topics.forEach((t) => {
         if (value) next[t.id] = next[t.id] || Date.now();
         else delete next[t.id];
@@ -46,7 +53,7 @@ export default function ReadingChecklistView({
     });
   };
 
-  // Overall stats
+  // Overall stats (counts visible topics only — hidden already filtered above)
   const totalTopics = subjects.reduce((acc, s) => acc + s.topics.length, 0);
   const totalDone = subjects.reduce((acc, s) => acc + s.topics.filter((t) => readingChecklist[t.id]).length, 0);
   const overallPct = totalTopics > 0 ? Math.round((totalDone / totalTopics) * 100) : 0;

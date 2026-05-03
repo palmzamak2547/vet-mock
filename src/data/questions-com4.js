@@ -1512,7 +1512,7 @@ export const QB_COM4 = [
     verified: 'Pediatrics_and_Geriatrics.pdf + COM IV FINAL 86 เส้นแดงเพิ่มเติม p.61' },
 
   // ═══════════════════════════════════════════════════════════
-  // TJ86 batch — รวบรวมโพยรุ่นพี่ (TJ compilation, COM4 final TJ.pdf)
+  // TJ86 batch — รวบรวมข้อสอบเก่ารุ่นพี่ (TJ compilation, COM4 final TJ.pdf)
   // T/F items: IMHA·IMT·GN·IBD·SLE (Aj. Rosama format ★)
   // Aj. Punyamanee Peds/Geri (85 ≠ 84 — Vet 85 lecture differs from Vet 84)
   // Aj. Chayot Drugs + Derm (ไม่ตรงแน่นอน ออกใหม่ 100% — flagged predicted exam)
@@ -1524,28 +1524,28 @@ export const QB_COM4 = [
     q: '[T/F] การเกิดโรคมะเร็งก่อให้เกิดภาวะโลหิตจางเนื่องจากภูมิคุ้มกันไวเกิน "แบบปฐมภูมิ (primary IMHA)"',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 1, explain: '❌ ผิด · มะเร็ง (neoplasia) → IMHA → จัดเป็น Secondary IMHA (2°) เสมอ\n\n💡 IMHA classification:\n— 1° IMHA (idiopathic): ไม่หา cause ได้ · all ages · เมีย > ผู้ · breeds: Cocker Spaniel, Old English Sheepdog, Std. Poodle, English Springer Spaniel\n— 2° IMHA (secondary): หา trigger ได้ — Infection (Ehrlichia, Babesia, Mycoplasma haemofelis), Neoplasia (lymphoma, hemangiosarcoma), Drugs (Cyclosporine, Doxycycline, sulfa), Vaccine (4-6 wks post)\n\nโจทย์บอก "มะเร็ง" → 2° ไม่ใช่ 1°',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMHA #1 (F)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #1 (F)' },
 
   { id: 1087, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA T/F',
     tags: ['imha', 'tf', 'coombs', 'tj86'], type: 'mcq',
     q: '[T/F] Direct Coomb\'s test เป็น gold standard ในการตรวจวินิจฉัยโรค IMHA',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · Direct Antiglobulin Test (DAT/Coomb\'s) = gold standard\n\n💡 ใช้ Coomb\'s reagent (anti-IgG + anti-IgM + anti-C3) ลงบน RBC ผู้ป่วยที่ล้างแล้ว → ถ้า RBC มี Ab/complement เคลือบ → reagent cross-link → agglutination (+)\n💡 Sensitivity ~60-70% · Specificity > 90%\n💡 ก่อน Coomb\'s ทำ slide agglutination test ก่อน — positive autoagglutination = strong IMHA, ข้าม Coomb\'s ได้',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMHA #2 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #2 (T)' },
 
   { id: 1088, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA T/F',
     tags: ['imha', 'tf', 'breed', 'tj86'], type: 'mcq',
     q: '[T/F] สุนัขพันธุ์ Cocker Spaniel, Old English Sheepdog, English Springer Spaniel เป็นสุนัขที่พบภาวะ IMHA ได้บ่อย',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · Predisposed breeds for primary IMHA:\n• Cocker Spaniel (most common, ~30% ของ canine IMHA)\n• Old English Sheepdog\n• English Springer Spaniel\n• Standard Poodle\n• Miniature Pinscher, Maltese, Shih Tzu (small breeds)\n\n💡 Female predilection (เมีย > ผู้, ratio ~ 4:1)\n💡 Mean age onset 6 yr\n💡 Genetic susceptibility — DLA-DRB1 alleles in Cocker Spaniel ★',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMHA #3 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #3 (T)' },
 
   { id: 1089, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA T/F',
     tags: ['imha', 'tf', 'thromboembolism', 'tj86', 'critical'], type: 'mcq',
     q: '[T/F] การป้องกันภาวะลิ่มเลือดอุดตัน (thromboembolism) เป็นวิธีหนึ่งที่สำคัญในการป้องกันสัตว์เสียชีวิตจาก IMHA',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · สัตว์ IMHA มักตายจาก Thromboembolism (PTE) มากกว่าจาก anemia เอง ★★ (Aj. Rosama เน้น)\n\n💡 Pathogenesis:\n— Hemolysis → free heme → endothelial damage + complement activation\n— Hyperfibrinogenemia + ↑ vWF\n— Anti-erythrocyte Ab อาจ cross-react กับ platelet antigen\n— Glucocorticoid-induced hypercoagulability\n\n💡 Antithrombotic Tx (essential):\n— Clopidogrel (Plavix) 1-3 mg/kg PO q24h (1st-line)\n— Aspirin 0.5-1 mg/kg/d (low dose)\n— LMWH (acute severe)\n\n💡 Mortality ~ 30-50% in canine IMHA · majority from PTE',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMHA #4 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #4 (T)' },
 
   { id: 1090, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA notes',
     tags: ['imha', 'autoagglutination', 'screening', 'tj86'], type: 'mcq',
@@ -1558,14 +1558,14 @@ export const QB_COM4 = [
       '1:100',
     ],
     answer: 1, explain: 'Saline Slide Agglutination test (screening, in-clinic):\n• Blood : NSS = 1:4 (1 drop EDTA blood + 4 drops 0.9% NaCl)\n• Mix on slide → microscope LP\n• Persistent agglutination (clumps remain after dilution) = positive autoagglutination\n• Positive = strong evidence of IMHA → ไม่ต้องทำ Coomb\'s (ก็พอ confirm)\n• Negative ≠ rule out IMHA → ต้องทำ Coomb\'s ต่อ\n• Rouleaux ≠ true agglutination (rouleaux disperses with NSS, agglutination remains)',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMHA #5' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #5' },
 
   { id: 1091, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA notes',
     tags: ['imha', 'longterm', 'tapering', 'tj86', 'classic'], type: 'mcq',
     q: 'Long-term IMHA Tx — ถ้า PCV > 30% คงที่ 2 สัปดาห์หลัง initial Tx · ขั้นตอนการ taper down ที่ Aj. Rosama แนะนำ คือ',
     options: ['หยุด prednisolone ทันที', 'ลด prednisolone 25% ทุก 2 wk', 'เพิ่ม prednisolone', 'หยุด 2nd-line ก่อน prednisolone', 'ลดทั้งคู่พร้อมกัน 50%'],
     answer: 1, explain: 'Long-term IMHA Tx tapering protocol (Aj. Rosama ★):\n\nCriteria สำหรับเริ่ม taper:\n• PCV > 30% คงที่ ≥ 2 สัปดาห์\n• Resolution of clinical signs (no jaundice, normal energy)\n• No evidence of ongoing hemolysis (no spherocytes, normal bilirubin)\n\nTapering rules:\n1. ลด prednisolone 25% ทุก 2 สัปดาห์ ลงเรื่อยๆ\n2. 2nd-line drug (azathioprine, CsA, MMF) คง dose ไว้ จนกว่าจะ off prednisolone\n3. หลัง off prednisolone → ค่อย taper 2nd-line\n4. Total Tx duration: minimum 4-6 เดือน, often 8-12 เดือน\n5. Monitor PCV ทุก 2-4 wks · Coomb\'s test ก่อน off ทั้งหมด\n\n💡 ถ้า PCV drop ขณะ taper → กลับ dose ก่อนหน้า + เพิ่ม 2nd-line · พิจารณา 3rd-line (chlorambucil, leflunomide)\n\n💡 2nd-line drug คง dose ไว้ก่อน',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMHA #12' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #12' },
 
   { id: 1092, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA notes',
     tags: ['imha', 'signs', 'multi-system', 'tj86'], type: 'mcq',
@@ -1578,7 +1578,7 @@ export const QB_COM4 = [
       'แค่ ascites',
     ],
     answer: 1, explain: 'IMHA multi-system clinical signs:\n\nHematologic:\n• Pale MM (anemia)\n• Icterus/Jaundice (hyperbilirubinemia)\n• Hemoglobinuria (intravascular hemolysis — เข้ม brown/red urine)\n• Petechiae/Ecchymoses (if Evans syndrome with IMT)\n• Tachycardia + bounding pulse (compensation)\n• Heart murmur (anemia-related — high output)\n• Tachypnea/dyspnea (hypoxemia ± PTE)\n\nGI:\n• Anorexia, vomit, diarrhea\n• Pica (lick walls, eat dirt — relates to hypoxia)\n• Melena (GI ulceration from hypoxia or steroids)\n\nReticuloendothelial:\n• Hepatomegaly + Splenomegaly (extramedullary hematopoiesis + clearing damaged RBC)\n• Lymphadenopathy\n\nOther:\n• Lethargy, weakness, collapse\n• Fever (low grade)\n• Hyperbilirubinuria (orange/dark urine)',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMHA #9' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #9' },
 
   // ── IMT T/F (TJ86) ────────────────────────────────────────
   { id: 1093, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMT T/F',
@@ -1586,28 +1586,28 @@ export const QB_COM4 = [
     q: '[T/F] ในกรณีฉุกเฉินสัตว์ป่วยด้วยภาวะเกล็ดเลือดต่ำเนื่องจากภูมิคุ้มกันไวเกิน สามารถใช้ยา Vincristine ขนาด 0.02 mg/kg เข้าเส้นเลือดดำ ครั้งเดียว จะทำให้เกล็ดเลือดเพิ่มขึ้นใน 2-3 วันหลังฉีด',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · Vincristine 0.02 mg/kg IV (1 dose) ใน IMT severe — Aj. Rosama เน้น ★\n\n💡 Onset: platelet ขึ้น 2-7 วันหลังฉีด (TJ86 ระบุ 2-3 วัน — เร็วในเคสที่ตอบสนองดี)\n\nกลไก 2 ขั้น:\n1. Microtubule poison → ↓ phagocytosis ของ Ab-coated platelet โดย macrophage\n2. Stimulate megakaryocyte → release platelet (thrombocytopoiesis)\n\n💡 Indications:\n— PLT < 20,000/μL with active bleeding\n— Refractory IMT not responding to prednisolone\n— Used as bridge while prednisolone takes effect\n\n💡 Single dose · combine with PO prednisolone 2-4 mg/kg/d',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMT #1 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #1 (T)' },
 
   { id: 1094, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMT T/F',
     tags: ['imt', 'tf', 'diagnosis', 'tj86'], type: 'mcq',
     q: '[T/F] หลักการสำคัญในการวินิจฉัยโรคเกล็ดเลือดต่ำเนื่องจากภูมิคุ้มกันไวเกิน คือการวินิจฉัยแยกแยะตัดโรคอื่นๆ ออกไป (diagnosis of exclusion) เนื่องจากวิธีตรวจจำเพาะมีน้อยและยังไม่แพร่หลายในปัจจุบัน',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · IMT = diagnosis of exclusion\n\nต้อง rule out causes อื่นๆ ของ thrombocytopenia ก่อน:\n• Infection: Ehrlichia, Anaplasma, Babesia, RMSF, Leishmania, FeLV/FIV\n• DIC: prolonged PT/PTT, low fibrinogen, ↑ D-dimer\n• Drug-induced: NSAIDs, sulfa, estrogen, chemotherapy\n• Bone marrow disease: aplastic anemia, leukemia, myelodysplasia\n• Sequestration: splenomegaly, hepatic congestion\n• Consumption: vasculitis, neoplasia, hemorrhage\n\nTests for IMT:\n— CBC + blood smear (estimate platelet)\n— Megakaryocyte count in bone marrow (normal/↑ in IMT, ↓ in aplastic)\n— Anti-platelet antibody test (PAIgG, flow cytometry) — จำเพาะแต่ไม่ widely available\n— Coomb\'s + rule out blood parasites (4Dx SNAP, PCR)',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMT #2 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #2 (T)' },
 
   { id: 1095, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMT T/F',
     tags: ['imt', 'tf', 'splenomegaly', 'tj86'], type: 'mcq',
     q: '[T/F] สัตว์ป่วยด้วยภาวะเกล็ดเลือดต่ำเนื่องจากภูมิคุ้มกันไวเกิน (IMT) จะตรวจพบม้ามโตเหมือนสัตว์ป่วย IMHA ทำให้แยกโรคทั้ง 2 ออกจากกันได้ยาก',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 1, explain: '❌ ผิด · IMT มัก ไม่ พบม้ามโต (ต่างจาก IMHA)\n\n💡 ทำไม:\n— IMHA: Spleen + liver โต เพราะ extramedullary hematopoiesis (ตอบสนอง anemia) + clearing of damaged RBCs\n— IMT: ม้ามทำหน้าที่ destroy platelet แต่ size มัก normal — เพราะ platelet มี mass เล็ก, no compensatory hematopoiesis at scale\n\n💡 จุดแยกระหว่าง IMHA vs IMT:\n| Feature | IMHA | IMT |\n|---|---|---|\n| Anemia | Yes (regenerative) | Usually no |\n| Spherocytes | Yes (extravascular) | No |\n| Thrombocytopenia | Sometimes (Evans) | Always |\n| Bleeding/Petechiae | No (unless Evans) | Yes (mucosal) |\n| Hemoglobinuria | Yes (intravascular) | No |\n| Splenomegaly | Common | Uncommon |\n| Coomb\'s | Positive | Negative (unless Evans) |\n\n💡 Evans syndrome = IMHA + IMT → จะมี both features',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMT #3 (F)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #3 (F)' },
 
   { id: 1096, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMT T/F',
     tags: ['imt', 'tf', 'aspirin', 'tj86'], type: 'mcq',
     q: '[T/F] ยา Aspirin ขนาดยา 0.25–0.5 mg/kg ทุก 12-24 ชม. สามารถลดการจับตัวของเกล็ดเลือด (platelet aggregation) ในสุนัข แต่ยังต้องการการศึกษาเพิ่มเติม เนื่องจากการประยุกต์ใช้ในสุนัขจากผลการทดลองในคน',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก\n\n💡 Low-dose Aspirin ในสุนัข:\n— Dose: 0.25-0.5 mg/kg PO q12-24h (low-dose anti-platelet effect)\n— กลไก: Irreversible inhibition of COX-1 in platelet → ↓ thromboxane A2 → ↓ platelet aggregation\n— Used in: thromboprophylaxis ใน IMHA, glomerulonephritis (PLN), heartworm disease, cardiac dz\n— Onset: 1-2 days · effect lasts 7-10 days (platelet lifespan)\n\n💡 Caveat: dose-response data ส่วนใหญ่ extrapolated จาก human medicine — vet-specific PK/PD studies ยังจำกัด · individual variability สูง (some dogs are "aspirin-resistant")\n\n💡 Alternative: Clopidogrel (Plavix) 1-3 mg/kg PO q24h — ปัจจุบันนิยมมากกว่า aspirin (more consistent effect, P2Y12 inhibitor)\n\n💡 Aj. Rosama: ใช้ aspirin 0.5 mg/kg/วัน เพื่อแก้ thromboembolism risk ใน IMHA ★',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 IMT #4 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #4 (T)' },
 
   // ── Glomerular dz T/F (TJ86) ──────────────────────────────
   { id: 1097, subject: 'com4', topic: 'sle', year: 4, source: 'อ.รสมา original T/F #4 (corrected from TJ86)',
@@ -1622,21 +1622,21 @@ export const QB_COM4 = [
     q: '[T/F] การรักษาตามอาการเป็นสิ่งที่จำเป็นที่สุดในการรักษาสัตว์ป่วยด้วย Glomerulonephritis',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 1, explain: '❌ ผิด · การรักษา GN ต้อง Tx underlying cause + immunosuppression + supportive ร่วมกัน — ไม่ใช่แค่ symptomatic\n\n💡 GN management 4 pillars:\n\n1. Treat underlying cause (most important):\n— Infectious: Ehrlichia → doxycycline · pyometra → spay · heartworm → adulticide\n— Neoplasia: surgical/medical Tx\n— SLE: immunosuppression\n\n2. Immunosuppression (immune complex GN):\n— Mycophenolate (MMF) 10-20 mg/kg q12h · Cyclosporine 5 mg/kg q12h\n— Prednisolone 1-2 mg/kg/d (controversial — may worsen proteinuria)\n\n3. Reduce proteinuria:\n— ACE inhibitor (enalapril, benazepril) 0.5 mg/kg q12-24h ★\n— ARB (telmisartan) — newer, less hyperkalemia\n— Low-protein, low-Na diet (renal-prescription diet)\n— Omega-3 fatty acid\n\n4. Antithrombotic + supportive:\n— Aspirin 0.5-5 mg/kg q12h หรือ Clopidogrel\n— Furosemide (only if edema severe)\n— BP control (amlodipine if SBP > 160)\n\n💡 Symptomatic alone (รักษาตามอาการเฉยๆ) = inadequate → progressive CKD → death',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 GN #5 (F)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 GN #5 (F)' },
 
   { id: 1099, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 GN T/F',
     tags: ['gn', 'tf', 'acei', 'tj86'], type: 'mcq',
     q: '[T/F] การใช้ยาในกลุ่ม Angiotensin-Converting Enzyme Inhibitor (ACEI) เช่น Enalapril ทำให้ปริมาณของโปรตีนที่สูญเสียในปัสสาวะลดลง',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · ACEi = cornerstone Tx ของ GN-related proteinuria\n\n💡 Mechanism:\n— ACEi block conversion of angiotensin I → angiotensin II\n— ↓ angiotensin II → Efferent arteriolar vasodilation (more than afferent) → ↓ glomerular hydrostatic pressure → ↓ filtration of protein\n— Also: ↓ glomerular hypertension, ↓ podocyte injury, ↓ TGF-β fibrosis\n\nDose:\n• Enalapril 0.5 mg/kg PO q12-24h\n• Benazepril 0.25-0.5 mg/kg PO q24h (more renal-excreted, suitable for CKD)\n• Telmisartan (ARB) 1 mg/kg q24h — alternative, often preferred ในแมว CKD\n\nMonitoring:\n— UPC ratio (target ↓ 50% from baseline)\n— BUN/Cr (acceptable rise ≤ 30%)\n— K+ (watch for hyperkalemia)\n— BP (avoid hypotension)\n\nContraindications:\n— Pre-existing severe azotemia (Cr > 4)\n— Hyperkalemia (K > 6)\n— Hypotension (SBP < 100)\n— Acute kidney injury (avoid until stable)',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.1 GN #6 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 GN #6 (T)' },
 
   { id: 1100, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 GN T/F',
     tags: ['gn', 'tf', 'diet', 'protein', 'tj86', 'critical'], type: 'mcq',
     q: '[T/F] การให้อาหารที่มีระดับโปรตีนสูงเป็นสิ่งสำคัญที่ต้องให้แก่สัตว์ป่วยด้วยโรค Glomerulonephritis เพื่อชดเชยปริมาณของโปรตีนที่สูญเสียไปทางปัสสาวะ',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 1, explain: '❌ ผิด · GN ต้องให้ low-protein diet (ไม่ใช่ high-protein!)\n\n💡 Reasoning:\n— High protein → ↑ glomerular hyperfiltration → ↑ glomerular hypertension → ↑ proteinuria → progression of GN/CKD\n— High protein → ↑ BUN load → uremic signs (vomiting, anorexia)\n— High protein → ↑ phosphate load → secondary hyperparathyroidism\n— High protein doesn\'t replace albumin lost (liver synthesizes from any AA pool)\n\n💡 Recommended diet ใน GN:\n— Restricted protein (high-quality): 2-2.5 g/kg/day in dog (vs 4-5 g normal)\n— Cat: less restriction (cats are obligate carnivores) — moderate protein but high quality\n— Low Na (< 0.3% DM)\n— Low phosphorus\n— ↑ Omega-3 (anti-inflammatory, reduces proteinuria)\n— ↑ Soluble fiber (promotes urea excretion in colon)\n\n💡 Commercial diets:\n— Hill\'s k/d\n— Royal Canin Renal\n— Purina NF Kidney Function\n\n💡 Common misconception ที่นิสิตชอบเลือกผิด: "ต้องเสริมโปรตีนเพราะโปรตีนหาย" — wrong! ทำให้แย่ลง',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 GN #7 (F) ★ สลับพลาดง่าย' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 GN #7 (F) ★ สลับพลาดง่าย' },
 
   { id: 1101, subject: 'com4', topic: 'sle', year: 4, source: 'อ.รสมา original T/F #38 (corrected from TJ86)',
     tags: ['gn', 'tf', 'nephrotic-syndrome', 'tj86', 'rosama-corrected'], type: 'mcq',
@@ -1650,7 +1650,7 @@ export const QB_COM4 = [
     q: '[T/F] ความดันโลหิตสูงเป็นสาเหตุหนึ่งของการเกิด non-immune-mediated glomerulopathy ในสัตว์เลี้ยง',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · Systemic hypertension → glomerular damage (non-immune mediated)\n\n💡 Mechanism:\n— High systemic BP → transmitted to glomerulus → glomerular hyperfiltration + intraglomerular hypertension\n— Damages podocyte foot processes → proteinuria\n— Sclerotic changes in glomerulus → fibrosis → CKD progression\n— Vicious cycle: GN → renin-angiotensin activation → hypertension → worse GN\n\n💡 Other non-immune causes of glomerulopathy:\n— Hypertension (primary or secondary to CKD, Cushing\'s, hyperthyroid in cat)\n— Amyloidosis (Shar-Pei familial, Abyssinian cat)\n— Hereditary GN: Samoyed (X-linked Alport-like), Doberman, Bull Terrier, English Cocker Spaniel\n— Diabetic glomerulopathy (long-standing DM)\n— Drug-induced (NSAIDs, aminoglycosides — though more tubular)\n\n💡 BP target ใน GN: SBP < 160 mmHg · use amlodipine (1st-line), ACEi, telmisartan',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 GN #9 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 GN #9 (T)' },
 
   // ── IBD T/F (TJ86) ────────────────────────────────────────
   { id: 1103, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
@@ -1658,35 +1658,35 @@ export const QB_COM4 = [
     q: '[T/F] โรค IBD เป็นความผิดปกติของระบบทางอาหารอย่างเรื้อรังในสัตว์เลี้ยง ที่เกิดขึ้นนานกว่า "2 สัปดาห์" ขึ้นไป',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 1, explain: '❌ ผิด · IBD criteria: chronic GI signs > 3 สัปดาห์ (ไม่ใช่ 2 สัปดาห์)\n\n💡 IBD diagnostic criteria (Aj. Sariya / WSAVA):\n1. Chronic GI signs > 3 wks (vomit, diarrhea, weight loss)\n2. Histopath inflammation ใน intestinal biopsy (lymphocytic, plasmacytic, eosinophilic, neutrophilic)\n3. Failure to respond to: deworming, dietary trial, antibiotic trial\n4. Exclusion of other causes: parasites, infection, neoplasia, exocrine pancreatic insufficiency, hyperthyroidism (cat)\n\n💡 Step-wise approach (Aj. Sariya):\n1. Diet trial (novel/hydrolyzed) × 2-3 wks\n2. Antibiotic trial (Tylosin/Metronidazole) × 2 wks\n3. Immunosuppression (prednisolone) — diagnostic + therapeutic if responds\n4. Biopsy (endoscopic or surgical) ก่อน start immunosuppression in severe cases\n\n💡 Naming convention (newer 2010s):\n— Chronic Enteropathy (CE) = umbrella term\n— Food-Responsive Enteropathy (FRE)\n— Antibiotic-Responsive Enteropathy (ARE)\n— Steroid-Responsive Enteropathy (SRE) = traditional IBD',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 IBD #10 (F)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #10 (F)' },
 
   { id: 1104, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
     tags: ['ibd', 'tf', 'lymphoma', 'differential', 'tj86'], type: 'mcq',
     q: '[T/F] Alimentary Lymphosarcoma เป็นโรคที่อาจทำให้สัตวแพทย์ผู้ตรวจสับสนกับอาการของ IBD และอาจทำให้การวินิจฉัยผิดพลาดได้ จึงต้องวินิจฉัยให้ละเอียด',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · Alimentary (Intestinal) Lymphoma = #1 differential ที่สำคัญที่สุดของ IBD\n\n💡 Why important:\n— Both cause: chronic vomit, diarrhea, weight loss, anorexia\n— Both have: thickened intestinal wall, lymphadenopathy on US\n— Both have: hypoalbuminemia (PLE)\n— Key difference: prognosis (IBD = chronic but treatable; intestinal lymphoma = malignant)\n\n💡 Differentiation:\n| Feature | IBD | Intestinal Lymphoma |\n|---|---|---|\n| Age | Variable (any) | Older (cat > 8 yr) |\n| Cat breed | Various | DSH > Siamese |\n| Cobalamin | Often ↓ (chronic enteropathy) | ↓↓ (severe) |\n| Histopath | Lymphocytic/Plasmacytic | Lymphoblasts |\n| Immunohistochemistry | Polyclonal | Monoclonal (PARR/clonality) |\n| Wall thickness on US | < 5 mm uniform | > 5 mm, mass-like, lymph node enlargement |\n| Response to steroid alone | Yes | Partial (need chemotherapy) |\n\n💡 Especially in cat — small cell intestinal lymphoma can closely mimic IBD · gold standard = full-thickness biopsy + PARR clonality test\n\n💡 Aj. Chayot/Sariya เน้น: ในแมวสูงอายุที่ "ไม่ตอบสนอง diet trial + AB trial" → biopsy + PARR ก่อน start prednisolone',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 IBD #11 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #11 (T)' },
 
   { id: 1105, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
     tags: ['ibd', 'tf', 'azathioprine', 'cat-toxicity', 'tj86', 'critical'], type: 'mcq',
     q: '[T/F] ยา Azathioprine เป็นยากดภูมิคุ้มกันที่ห้ามใช้ในแมว เนื่องจากทำให้เกิด myelosuppression และ acute pancreatic necrosis',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · Azathioprine ห้ามใช้ในแมวเด็ดขาด ★ (Aj. Rosama, Aj. Chayot เน้น)\n\n💡 Mechanism of toxicity:\n— Cats lack TPMT (Thiopurine S-methyltransferase) — enzyme ที่ metabolize azathioprine ให้เป็น inactive form\n— Without TPMT → azathioprine → 6-mercaptopurine (6-MP) accumulates → severely toxic\n\n💡 Toxicity signs:\n1. Severe myelosuppression → pancytopenia (anemia + leukopenia + thrombocytopenia) → fatal\n2. Acute pancreatic necrosis (pathognomonic in cat!)\n3. Hepatotoxicity\n\n💡 Alternative immunosuppressants in cat:\n— Chlorambucil 0.1-0.2 mg/kg PO q24-48h (1st choice steroid-sparing in feline IBD/PF/IMHA)\n— Cyclosporine 5 mg/kg PO q12h\n— Mycophenolate (MMF) — limited cat data\n— Leflunomide\n\n💡 ในสุนัข Azathioprine ใช้ได้ปลอดภัย: 2 mg/kg q24h × 7-14 days → q48h maintenance · monitor CBC q2wks · onset 3-5 wks',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 IBD #12 (T) ★★ Aj. Rosama เน้น' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #12 (T) ★★ Aj. Rosama เน้น' },
 
   { id: 1106, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
     tags: ['ibd', 'tf', 'crp', 'monitoring', 'tj86'], type: 'mcq',
     q: '[T/F] ปัจจุบันการตรวจ C-Reactive Protein (CRP) ในเลือดเป็นการตรวจติดตามอาการและพยากรณ์โรค ในสัตว์ป่วยด้วย IBD',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก · CRP = useful biomarker สำหรับ monitor IBD activity และ prognosis (newer evidence ★)\n\n💡 CRP characteristics:\n— Acute phase protein produced by liver in response to IL-6\n— Major acute phase protein in dogs (> minor in cats — ใน cat ใช้ Serum Amyloid A แทน)\n— Rises within 4-24 hr of inflammation, peaks 24-48 hr\n— Normal: < 10 mg/L · IBD active: > 20-50 mg/L\n\n💡 Use in IBD:\n1. Severity assessment at diagnosis (correlates with CIBDAI/CCECAI score)\n2. Treatment monitoring — declining CRP = response\n3. Prognosis — persistently high CRP = worse outcome (PLE risk)\n4. Differentiate IBD from intestinal lymphoma — CRP often higher in IBD (inflammation > neoplasia)\n5. Detect relapse before clinical signs return\n\n💡 In cats: Serum Amyloid A (SAA) is the major acute-phase protein (CRP minor in cats) · also useful biomarker',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 IBD #14 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #14 (T)' },
 
   { id: 1107, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
     tags: ['ibd', 'tf', 'sulfasalazine', 'cat-ci', 'tj86'], type: 'mcq',
     q: '[T/F] ยา Sulfasalazine เป็นยาที่ยับยั้งการออกฤทธิ์ของ Prostaglandin synthase ซึ่งสามารถใช้ได้ทั้งในสุนัขและแมว',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 1, explain: '❌ ผิด · Sulfasalazine ห้ามใช้ในแมว (salicylate toxicity)\n\n💡 ผิด 2 จุด:\n\n1. กลไกออกฤทธิ์:\n— Sulfasalazine = prodrug, cleaved by colonic bacteria → 5-aminosalicylate (5-ASA, mesalamine) + sulfapyridine\n— 5-ASA ออกฤทธิ์ local in colon: inhibit PGs + leukotrienes + NF-κB + scavenge free radicals (ไม่ใช่ "prostaglandin synthase" alone)\n— Topical anti-inflammatory in colon mucosa (ไม่ดูดซึมดี → ดี)\n\n2. Species use:\n— ห้ามใช้ในแมว! เพราะ cat metabolize salicylate ช้า → toxicity (vomit, hyperthermia, hepatotoxicity, methemoglobinemia)\n— Dog ใช้ได้: 10-25 mg/kg PO TID-QID × 4-6 wks\n\n💡 Side effects in dog:\n— Keratoconjunctivitis Sicca (KCS) ★ — Schirmer tear test ↓ (monitor q4-6 wks)\n— Hepatotoxicity\n— BM suppression\n— Hypersensitivity (Doberman, sulfa-sensitive breeds)\n\n💡 Alternatives ในแมว: Tylosin, Metronidazole, prednisolone, chlorambucil',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 IBD #16 (F) ★' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #16 (F) ★' },
 
   // ── SLE T/F (TJ86) ────────────────────────────────────────
   { id: 1108, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 SLE T/F',
@@ -1694,14 +1694,14 @@ export const QB_COM4 = [
     q: '[T/F] สุนัขพันธุ์ German Shepherd และพันธุ์ Poodle เป็นพันธุ์ที่สามารถตรวจพบป่วยด้วยโรค SLE ได้โดยมีสาเหตุจากพันธุกรรม',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก\n\n💡 SLE genetic predisposition:\n— German Shepherd (most reported breed) — DLA class II haplotype association\n— Standard Poodle\n— Collie + Shetland Sheepdog\n— Beagle, Old English Sheepdog\n— Rough Collie has familial SLE-like disease\n\n💡 Pathogenesis:\n— Loss of self-tolerance → autoantibodies against nuclear antigens (DNA, histones, ribonucleoproteins)\n— Type III hypersensitivity (immune complex deposition) in multiple organs\n— Type II hypersensitivity (anti-RBC, anti-platelet) in cytopenias\n\n💡 Multi-system involvement:\n— Skin (DLE-like, mucocutaneous)\n— Joints (polyarthritis non-erosive — most common sign)\n— Kidney (immune-complex GN)\n— Hematologic (IMHA, IMT, lymphopenia)\n— Neurologic (rare)\n— Cardiac (pericarditis, endocarditis — rare)\n\n💡 Diagnostic criteria: ANA + 2 organ systems involved (modified ARA criteria for vet)',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 SLE #17 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #17 (T)' },
 
   { id: 1109, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 SLE T/F',
     tags: ['sle', 'tf', 'cat', 'felv', 'tj86'], type: 'mcq',
     q: '[T/F] ในแมว โรค SLE อาจสับสนกับการเกิดโรค FeLV จึงควรตรวจแมวป่วยด้วยชุดทดสอบ FeLV/FIV test ก่อนเสมอ',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก\n\n💡 FeLV / FIV mimic SLE in cats (must rule out first):\n\nFeLV-related conditions ที่เลียน SLE:\n— Immune-mediated polyarthritis\n— Glomerulonephritis (immune complex with FeLV antigen)\n— Cytopenias (IMHA, IMT, neutropenia)\n— Lymphoma (alimentary, mediastinal — also consider)\n\nFIV-related conditions:\n— Immune dysregulation (hyperglobulinemia, autoantibodies)\n— Polyarthritis\n— GN\n— Neurologic signs\n\n💡 Initial workup ใน feline SLE-suspect:\n1. SNAP FeLV/FIV (in-clinic 4Dx)\n2. CBC, chem, UA, UPC\n3. ANA test (lower sensitivity in cat than dog)\n4. Joint tap (if polyarthritis) — non-degenerate neutrophils, sterile\n5. Skin biopsy (if cutaneous lesions)\n6. Renal biopsy (if proteinuric GN)\n\n💡 Treatment differs:\n— True SLE → immunosuppression (prednisolone, chlorambucil)\n— FeLV-related → palliative + retroviral consideration (interferon, etc.)\n— Don\'t blast immunosuppressants ในแมว FeLV+ (ต้องระวัง opportunistic infection)',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 SLE #18 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #18 (T)' },
 
   { id: 1110, subject: 'com4', topic: 'sle', year: 4, source: 'อ.รสมา original T/F #47 (corrected interpretation)',
     tags: ['sle', 'tf', 'lymphopenia', 'cd4-cd8', 'tj86', 'rosama-corrected', 'critical'], type: 'mcq',
@@ -1715,14 +1715,14 @@ export const QB_COM4 = [
     q: '[T/F] การตรวจหาซีรั่ม ANA test เป็นวิธีการตรวจที่สำคัญของโรค SLE ร่วมกับค่าทางห้องอื่นๆ',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก\n\n💡 ANA (Anti-Nuclear Antibody) test in SLE:\n\nSensitivity: 60-100% (depends on substrate — Hep-2 cells > rat liver/kidney)\nSpecificity: moderate (false positive ใน chronic inflammation, neoplasia, infection)\n\nPositive ANA + ≥ 2 organ systems = supports SLE diagnosis\n\n💡 ANA patterns (helpful but not diagnostic):\n— Homogeneous (diffuse) — anti-dsDNA, anti-histone (most common in SLE)\n— Speckled — anti-Sm, anti-RNP\n— Nucleolar — anti-RNA polymerase (scleroderma-like)\n— Centromeric — limited scleroderma\n\n💡 ANA negative ≠ rule out SLE — 5-10% of SLE are ANA-negative\n\n💡 Other supportive lab:\n— Anti-dsDNA (highly specific, 90%)\n— Anti-Sm (Smith antigen, very specific)\n— Hypocomplementemia (C3, C4 ↓)\n— Coombs\' positive (if IMHA component)\n— Polyarthritis tap: non-degenerate neutrophils\n— GN: UPC > 0.5, proteinuria',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 SLE #21 (T)' },
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #21 (T)' },
 
   { id: 1112, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 SLE T/F',
     tags: ['sle', 'tf', 'levamisole', 'tj86', 'rare'], type: 'mcq',
     q: '[T/F] ในสุนัขที่เป็นโรค SLE มีรายงานการใช้ยา Levamisole ร่วมกับ Prednisolone ซึ่งได้ผลดีในประมาณ 50% ของสุนัขป่วย',
     options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก (โพยเก่า ★ — concept สำคัญแต่ relatively rare)\n\n💡 Levamisole in canine SLE:\n— Anthelmintic with immunomodulatory effects (T-cell function modulation, restoration of cellular immunity)\n— Combined with Prednisolone for SLE refractory cases\n— Reported response rate ~ 50% (older case series, Aj. Rosama old text)\n— Dose: Levamisole 2-5 mg/kg PO every other day\n— Plus: Prednisolone 1-2 mg/kg/d → taper\n\n💡 Caution:\n— Hepatotoxicity\n— Vomiting\n— Behavioral changes (rare)\n— Bone marrow suppression\n— Less commonly used today vs newer agents (cyclosporine, mycophenolate, chlorambucil)\n\n💡 Modern SLE management ladder (Aj. Rosama):\n1. Prednisolone 1-2 mg/kg/d → taper after remission\n2. + Cyclosporine 5 mg/kg q12h (steroid-sparing)\n3. + Cyclophosphamide หรือ Chlorambucil (severe / refractory)\n4. + MMF (mycophenolate) (newer)\n5. Azathioprine in dog (NOT cat)\n6. Levamisole (legacy option)\n\n💡 Adjunct: Hydroxychloroquine for cutaneous SLE (analog human Tx)',
-    verified: 'TJ86 รวบรวมโพยรุ่นพี่ p.2 SLE #22 (T)' },
+    answer: 0, explain: '✅ ถูก (ข้อสอบเก่า ★ — concept สำคัญแต่ relatively rare)\n\n💡 Levamisole in canine SLE:\n— Anthelmintic with immunomodulatory effects (T-cell function modulation, restoration of cellular immunity)\n— Combined with Prednisolone for SLE refractory cases\n— Reported response rate ~ 50% (older case series, Aj. Rosama old text)\n— Dose: Levamisole 2-5 mg/kg PO every other day\n— Plus: Prednisolone 1-2 mg/kg/d → taper\n\n💡 Caution:\n— Hepatotoxicity\n— Vomiting\n— Behavioral changes (rare)\n— Bone marrow suppression\n— Less commonly used today vs newer agents (cyclosporine, mycophenolate, chlorambucil)\n\n💡 Modern SLE management ladder (Aj. Rosama):\n1. Prednisolone 1-2 mg/kg/d → taper after remission\n2. + Cyclosporine 5 mg/kg q12h (steroid-sparing)\n3. + Cyclophosphamide หรือ Chlorambucil (severe / refractory)\n4. + MMF (mycophenolate) (newer)\n5. Azathioprine in dog (NOT cat)\n6. Levamisole (legacy option)\n\n💡 Adjunct: Hydroxychloroquine for cutaneous SLE (analog human Tx)',
+    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #22 (T)' },
 
   // ── Aj. Chayot Drugs III "ออกใหม่ 100%" (TJ86) ────────────
   { id: 1113, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'TJ86 Aj. Chayot Drugs III ออกใหม่ 100%',
@@ -1822,7 +1822,7 @@ export const QB_COM4 = [
   // ═══════════════════════════════════════════════════════════
   // อ.รสมา + อ.ชัยยศ original PDF batch (Fangfuay vet81 source)
   // - อ.รสมา 50 T/F items (3 colors: T/F/ไม่ออก)
-  // - อ.ชัยยศ 50 5-choice MCQs (ตรงโพยมาก)
+  // - อ.ชัยยศ 50 5-choice MCQs (ตรงข้อสอบเก่ามาก)
   // Net-new content + concept-corrections only (skip TJ86 dupes)
   // ═══════════════════════════════════════════════════════════
 

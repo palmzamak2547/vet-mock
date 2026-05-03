@@ -6,7 +6,7 @@
 //
 // Source priority (เรียงจาก primary → verify):
 //   1) Repro final ค่ดโพย by Kimchii85.pdf + sunsun84 mindmap/summaries
-//      → senior recall + ตรงโพย ★=85 (high yield exam-prediction)
+//      → senior recall + ตรงข้อสอบเก่า ★=85 (high yield exam-prediction)
 //   2) Slide 2026/Lect/*.pdf — current-year verification + topic mapping
 //   3) schedule course syllabus C Ani Repro.pdf — lecturer/lab structure
 //
@@ -498,7 +498,7 @@ export const NOTES_REPRO_LECT = {
       },
       {
         heading: 'Common Exotic Repro Flags ★',
-        source: 'Repro Final รวมโพย + sunsun84',
+        source: 'Repro Final ข้อสอบเก่ารวม + sunsun84',
         body: [
           { bullets: [
             { label: 'Guinea pig (older female) ★', value: '**Ovarian cyst** — recurring high-yield exam item' },

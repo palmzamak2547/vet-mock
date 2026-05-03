@@ -9,9 +9,11 @@ import { QB_ENGPROF } from './questions-engprof.js';
 import { QB_EXOTIC } from './questions-exotic.js';
 import { QB_POULTRY } from './questions-poultry.js';
 import { QB_REPRO_LECT } from './questions-repro-lect.js';
+import { QB_PRACTRUM } from './questions-practrum.js';
+import { QB_CLIAPPRUM } from './questions-cliapprum.js';
 
 // All questions combined
-export const QB = [...QB1, ...QB_PART2, ...QB_PART3, ...QB_COM5, ...QB_COM3, ...QB_COM3_SPECIAL, ...QB_COM4, ...QB_ENGPROF, ...QB_EXOTIC, ...QB_POULTRY, ...QB_REPRO_LECT];
+export const QB = [...QB1, ...QB_PART2, ...QB_PART3, ...QB_COM5, ...QB_COM3, ...QB_COM3_SPECIAL, ...QB_COM4, ...QB_ENGPROF, ...QB_EXOTIC, ...QB_POULTRY, ...QB_REPRO_LECT, ...QB_PRACTRUM, ...QB_CLIAPPRUM];
 
 // Re-export for convenience
 export { SUBJECTS } from './curriculum.js';

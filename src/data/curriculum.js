@@ -180,9 +180,9 @@ export const SUBJECTS_BY_YEAR = {
         examDate: '5 พ.ค. 2569 · 13:00-16:00 · VET6 B01-B03',
         choiceCount: 4,
         notes: [
-          'ยึด Lecture 15-24 ปี 2026 เป็นแกนหลักก่อน แล้ว map โพย/ข้อสอบเก่าตามหัวข้อเดียวกัน',
+          'ยึด Lecture 15-24 ปี 2026 เป็นแกนหลักก่อน แล้ว map ข้อสอบเก่าตามหัวข้อเดียวกัน',
           'Lab อยู่ subject แยกชื่อ Repro Lab เพราะสอบคนละรอบ',
-          'ชุดข้อสอบยึดโพย/recall รุ่นพี่เป็น source หลัก แล้วใช้ slide 2026 verify + map topic; topic ใหม่ที่ยังไม่มี recall ชัดจะติด lecture-verified draft',
+          'ชุดข้อสอบยึดข้อสอบเก่า/recall รุ่นพี่เป็น source หลัก แล้วใช้ slide 2026 verify + map topic; topic ใหม่ที่ยังไม่มี recall ชัดจะติด lecture-verified draft',
         ],
       },
       topics: [
@@ -205,7 +205,7 @@ export const SUBJECTS_BY_YEAR = {
           lecturer: 'Chaowaphan Yinharnmingmongkol', lecturer_year: 2026, schedule: '20 มี.ค. · Lect 20',
           lecturerNote: 'Exotic reproductive overview · slide 2026 is scan-heavy, so paired with sunsun84/Kimchii notes' },
         { id: 'genetics', label: 'Lect 21 · Genetic considerations', icon: '🧬',
-          lecturer: 'Nantapong Kamprasert', lecturer_year: 2026, schedule: '27 มี.ค. · Lect 21',
+          lecturer: 'Nantapong Kampprasert', lecturer_year: 2026, schedule: '27 มี.ค. · Lect 21',
           lecturerNote: 'P = G + E, heritability, selection, EBV/BLUP/GBLUP, inbreeding risk' },
         { id: 'surgical-neutering', label: 'Lect 22 · Surgical neutering', icon: '✂️',
           lecturer: 'Sroisuda Chotimanukul (SC)', lecturer_year: 2026, schedule: '27 มี.ค. · Lect 22',
@@ -270,8 +270,8 @@ export const SUBJECTS_BY_YEAR = {
           lecturerNote: 'Lymphoid organs · B-cell (Bursa) · T-cell (Thymus) · cecal tonsils — 3 ข้อ จาก pre-test note' },
         { id: 'nutrition',            label: 'L4-5 · Feed Management', icon: '🌾',
           hidden: true,
-          lecturer: 'Chackrit Nuengjamnong', lecturer_year: 2026, schedule: 'L4-5 · Midterm scope',
-          lecturerNote: 'Animal composition · ME/NE · limiting amino acids (Met/Lys/Thr) · Ca:P · raw materials · 0 ข้อ' },
+          lecturer: 'หทัยรัตน์ พลายมาศ (ผศ.ดร. · ปี 86)', lecturer_year: 2026, schedule: 'L4-5 · Midterm scope',
+          lecturerNote: '⚠️ ผู้สอนเปลี่ยน — ปี 84 (sunsun84) Aj. Chackrit Nuengjamnong สอน · ปี 86 Aj. หทัยรัตน์ พลายมาศ สอนแทน (พบจาก Nicky 86 master PDF) · Animal composition · ME (กิน feed ตาม ME level) · limiting AA: Met (ไก่ไข่ขาด) / Lys (ref =100) / Thr · Cysteine + Tyrosine = semi-essential · feed cost ~70% ของค่าใช้จ่ายเลี้ยง · 0 ข้อใน DB (Mid scope · ซ่อนไว้)' },
         { id: 'midterm-disease',      label: 'L6-7 · Midterm Diseases', icon: '🦠',
           hidden: true,
           lecturer: 'Somsak Pakpinyo', lecturer_year: 2026, schedule: 'L6-7 · Midterm scope',
@@ -339,11 +339,97 @@ export const SUBJECTS_BY_YEAR = {
       ] },
 
     // ── Ruminant Series ──
+    // Vet Prac Rum — restructured 2026-05-03 to match 2026 ตารางสอน Final scope
+    // (post-midterm Week 8-13). Coordinator: อ.รุจิกร (RJ).
+    // Sunsun84 (Vet 84 / 2024) covers extra topics (hernia / esophageal /
+    // eye / udder / tendon) flagged as `uncertain-scope` because 2026
+    // ตารางสอนไม่ระบุชัด — บางหัวข้อปีก่อนเรียงไม่เหมือนกัน per Palm.
     { id: 'practrum', code: '3108412', name: 'Practice Ruminant', name_en: 'VET PRAC RUM',
-      icon: '🐂', color: '#5c7d4a', semester: 2, has_questions: false,
-      note: 'รอข้อสอบเพิ่ม' },
+      icon: '🐂', color: '#5c7d4a', semester: 2, has_questions: true,
+      examFormat: {
+        weight: 'Mid + Final + ปฏิบัติการ',
+        examDate: '6 พ.ค. 2569 (week 27 เม.ย. – 12 พ.ค.)',
+        notes: [
+          '📅 Final scope = post-midterm (Week 8-13) · 8 หัวข้อหลัก',
+          '👨‍🏫 Course coordinator: อ.น.สพ.ดร.รุจิกร จงสุวรรณวัฒนา (RJ)',
+          '🎯 ปฏิบัติการศัลยกรรม + สูติศาสตร์ + ตรวจสุขภาพ — เน้น vivid procedural details',
+          '📦 Mined sources: Sunsun84 (Vet 84 mind map · 8 หน้า) + Lecture 2026 (Penile deviation · Rumenotomy slides)',
+          '⚠️ pp\'s vet prac rum final85.pdf (37MB) + Ploy83 (132MB) เกินขนาด — ยังไม่ได้ extract; topics ที่ Sunsun84 มีแต่ตารางสอน 2026 ไม่ระบุชัด ซ่อนเป็น uncertain-scope',
+        ],
+      },
+      topics: [
+        // ── Final scope (Week 8-13 post-midterm) ──
+        { id: 'penile-deviation', label: 'Week 8 · Penile Deviation + Caudal Epididymectomy', icon: '🩺',
+          lecturer: 'Surgery staff (ST/TS/RJ/JSi/ES)', lecturer_year: 2026, schedule: '2 มี.ค. · Week 8',
+          lecturerNote: 'Indications: heat detector bull / semen collecting bull · Sedation: Xylazine 0.05-0.1 mg/kg IM/IV · Local: Lidocaine 2% · ABO: Pendistrep L.A. 20,000 IU/kg IM · NSAID: Phenylbutazone 2-5 mg/kg IV · Topical: Banocin · Restraint: Hannover trolley' },
+        { id: 'hoof-trim', label: 'Week 8/10-12 · Hoof Care + Trimming', icon: '🐾',
+          lecturer: 'ผศ.น.สพ.ปิยะณัฐ ประสมศรี (PP)', lecturer_year: 2026, schedule: '2 มี.ค. + 16/23/30 มี.ค.',
+          lecturerNote: '⚠️ ผู้สอนเปลี่ยน — ปี 83 (2023) Aj. ศิรินันท์ พรรณระวี สอน lameness · ปี 86 Aj. ปิยะณัฐ ประสมศรี (PP) สอนแทน — เนื้อหา core เทียบกันได้ (Treponema, sole ulcer, digital amputation) แต่ emphasis อาจต่างกัน · Routine claw care: foot bath + claw trimming · Infectious: digital dermatitis (Treponema) / foot rot (Fusobacterium necrophorum + Dichelobacter nodosus) / interdigital fibropapilloma · Non-infectious: laminitis (carb overload) / sole ulcer (lateral claw hindlimb) / interdigital fibroma (corn) · Digital amputation S2 = distal 3rd middle phalanx' },
+        { id: 'animal-nutrition', label: 'Week 9 · Ruminant Nutrition · DMI', icon: '🌾',
+          lecturer: 'ผศ.น.สพ.ปิยะณัฐ ประสมศรี (PP)', lecturer_year: 2026, schedule: '9 มี.ค. · ห้อง 203 ตึก 60 ปี · กรุงเทพฯ',
+          lecturerNote: 'DMI calculation จากสูตรอาหาร · roughage:concentrate ratio · TMR vs partial mixed ration · เปรียบเทียบกับความต้องการโภชนะของโค' },
+        { id: 'cow-restraint', label: 'Week 10-12 · Cow Restraint', icon: '🪢',
+          lecturer: 'CN, CK, PD, AC, TA, SP + Husb Staff', lecturer_year: 2026, schedule: '16/23/30 มี.ค. · rotation',
+          lecturerNote: 'Halter · casting (Reuff/Burley method) · squeeze chute · tail jack · Hannover trolley · safety considerations · ใช้ Leg rope พาดข้อเท้า' },
+        { id: 'bovine-anesthesia', label: 'Week 10-12 · Bovine Local Anesthesia', icon: '💉',
+          lecturer: 'Surgery staff', lecturer_year: 2026, schedule: '16/23/30 มี.ค. · rotation',
+          lecturerNote: 'Auriculopalpebral block (motor fiber Orbicularis oculi) · Peterson n block (eyeball) · Paravertebral: Proximal (T13/L1/L2/L3 transverse process) vs Distal (T13/L1/L2/L4) · Epidural: @แพะแกะ lumbosacral · @วัว sacrococcygeal · Lidocaine 1 mg/5 kg = laparotomy · 7 kg = perineal · Cornual n block (dehorning)' },
+        { id: 'parturition-fetotomy', label: 'Week 7+10-12 · Parturition + Fetotomy', icon: '🐮',
+          hidden: true,
+          lecturer: 'ST, TS, RJ, JSi, ES', lecturer_year: 2026, schedule: '16 ก.พ. (Lect V demo · Mid scope) + 16/23/30 มี.ค. (rotation practice)',
+          lecturerNote: '⚠️ Hidden — theory was Week 7 (Mid scope demo · สาธิตการจัดท่า + Fetotomy) · re-encountered Week 10-12 practice rotation · scope cross-over uncertain → ซ่อนไว้จนกว่า Palm จะ confirm · 4 ข้อใน DB ภายใต้ topic นี้' },
+        { id: 'rumenotomy', label: 'Week 13 · Rumenotomy', icon: '🐂',
+          lecturer: 'Surgery staff', lecturer_year: 2026, schedule: '20 เม.ย. · 09.00-12.00 · ห้อง 144',
+          lecturerNote: 'Indications: hardware disease (Traumatic reticuloperitonitis) · frothy/foamy bloat · foreign body · vagal indigestion · Approach: Left flank (paralumbar fossa) standing · 2-layer closure · Complications: peritonitis, fistula, knot loosening, contamination' },
+        { id: 'dehorning', label: 'Week 13 · Dehorning', icon: '🐃',
+          lecturer: 'Surgery staff', lecturer_year: 2026, schedule: '20 เม.ย. · 13.00-16.00 · ห้อง 144',
+          lecturerNote: 'Cornual n block + Lidocaine ยาชา · อายุ <2m = Horn bud → Debudding/disbudding (hoof knife/tube/calf dehorner gauge/50% CaCl2) · adult = Tube/Robert dehorner · Obstetric wire (Gigli) · Risk: frontal sinus fracture → sinusitis/empyema · Tx open drainage = Trephination ~2.5cm' },
+
+        // ── Uncertain scope (Sunsun84 ครอบคลุม · 2026 ตารางไม่ระบุ) ──
+        { id: 'uncertain-scope', label: '❓ Uncertain Scope · Hernia/Esophageal/Eye/Udder/Tendon',
+          icon: '❓', hidden: true,
+          lecturer: 'TBD — Sunsun84 (Vet 84) ครอบคลุม 25 ข้อ',
+          lecturerNote: 'พี่มด (5 hernia) + พี่ลี (5 esophageal) + พี่พล (5 head/neck/eye) + พี่ดิติศักดิ์ (5 udder/teat T/F) + พี่แนน (5 foot/tendon) · ปีก่อนอาจ midterm · ปี 86 ตารางไม่เห็นชัด — ซ่อนไว้ก่อนรอ verify' },
+      ] },
+    // Clin App Rum — restructured 2026-05-03 from scratch
+    // Coordinator scope text confirms อ.ศวิตา (Sawita) 3 lectures × 15 ข้อ = 45 Q (main)
+    // Master compilation "Clin App Ruminant - Final.pdf" = 5 sections (Metabolism + Anes + GI + ...)
+    // PDF→PNG conversion used (avoid 7MB+ image render bug)
     { id: 'cliapprum', code: '3108411', name: 'Clinical App Rumen', name_en: 'VET CLI APP RUM',
-      icon: '🐄', color: '#7d5a44', semester: 2, has_questions: true },
+      icon: '🐄', color: '#7d5a44', semester: 2, has_questions: true,
+      examFormat: {
+        weight: 'คาบละ 15 คะแนน · จำนวนข้อขึ้นกับอาจารย์',
+        examDate: '8 พ.ค. 2569',
+        choiceCount: 4,
+        notes: [
+          '✴️ อ.ศวิตา (Sawita): 3 คาบ × 15 ข้อ = 45 ข้อ (main scope per scope text)',
+          '🎯 Topics: GI Surgery (Sawita) + Anesthesia (อ.ภัทร์มนฉัตร PB) + Metabolism/Nutrition + GI VDTT + Hoof Health',
+          '📦 Mined: Clin App Ruminant - Final.pdf master + Ruminant_Anesthesia.pdf + scope text',
+          '⚠️ การประเมินสุขภาพ holistic — Feces Score / Locomotion Score / DMI / NEFA / BHBA',
+        ],
+      },
+      topics: [
+        { id: 'metabolism-nutrition', label: 'Metabolism & Nutrition in Dairy Cows', icon: '🌾',
+          lecturer: 'TBD (Clin App Rum staff)', lecturer_year: 2026,
+          lecturerNote: 'Clinical Dashboard Framework · 5 sections: DMI / Nutritional values / Nutrient requirements / R:C ratio + milk fat / Particle size · Transition period · Subclinical Ketosis · NEB · Feces Score 1-5 · Locomotion Score 1-5 · BCS' },
+        { id: 'ruminant-anesthesia', label: 'Ruminant Anesthesia', icon: '💉',
+          lecturer: 'อ.ภัทร์มนฉัตร บุนนาค (PB) [จัดทำโดย รศ.สุมิตร ดุรงค์พงษ์ธร]', lecturer_year: 2026,
+          lecturerNote: 'Local + General anesthesia · ET intubation · Patient prep (PE/lab/fasting · Cow 24-48h food / 12-24h water) · Catheters jugular 14ga · Maintenance fluid 4-8 ml/kg/h · Hypotension correction 10-25 ml/kg/h · Potential GA problems: regurgitation (active vs passive) / bloat / respiratory complication / hypoventilation / nerve paralysis · Preanesthetics: Anticholinergics · Sedatives: Benzodiazepines + Phenothiazines · Local: Auriculopalpebral / Peterson / Retrobulbar / Paravertebral / IV regional (Bier block)' },
+        { id: 'gi-surgery-sawita', label: 'GI Surgery (Sawita 3 lectures · 45 ข้อ)', icon: '🔪',
+          lecturer: 'อ.ศวิตา สันติวิภารัตน์ (SS)', lecturer_year: 2026,
+          lecturerNote: '⭐ MAIN SCOPE 45 Q · 3 lectures: GI Surgery I/II/III · Topics: Rumenotomy / LDA + RDA correction (right omentopexy + left abomasopexy) / Abomasal volvulus / Cecal dilatation & dislocation (CDD) · Typhlotomy / Trocharization for bloat / TRP (Hardware disease) management' },
+        { id: 'gi-vdtt', label: 'GI Medicine (VDTT)', icon: '🩺',
+          lecturer: 'TBD (VDTT staff)', lecturer_year: 2026,
+          lecturerNote: 'Internal medicine approach to ruminant GI · GI atony / Hypermotility-Hypomotility / Acidosis (rumen pH <5.5) / Alkalosis (>7.0 inactivate rumen) / Methylene blue test / Sediment activity test / Gram stain rumen fluid' },
+        { id: 'hoof-health-fleet', label: 'Hoof Health Management ในฝูง', icon: '🐾',
+          lecturer: 'TBD', lecturer_year: 2026,
+          lecturerNote: 'Fleet-level (herd) hoof health · Locomotion Score scoring · Foot bath strategy · Trim schedule · Disease prevalence monitoring (digital dermatitis · sole ulcer · footrot)' },
+        // Hidden — legacy Vet 84 past-paper Qs (Q136 BSP, Q139 patella) ที่อยู่นอก 2026 scope
+        { id: 'uncertain-scope', label: '❓ Uncertain Scope · Tendon Sx (legacy Vet 84)', icon: '❓',
+          hidden: true,
+          lecturer: 'TBD — legacy ปี 84 past-paper Qs', lecturer_year: 2024,
+          lecturerNote: 'Q136 (Medial patella desmotomy) + Q139 (BSP type) จาก Vet 84 past paper · ไม่ตรงตาม Clin App Rum 2026 scope (Sawita = GI surgery) · ซ่อนไว้รอ verify' },
+      ] },
 
     // ── English / Professional skills ──
     { id: 'engprof', code: '5500419', name: 'Eng Vet Prof II', name_en: 'English for Vet Profession II',
