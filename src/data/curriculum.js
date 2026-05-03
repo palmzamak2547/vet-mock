@@ -422,8 +422,8 @@ export const SUBJECTS_BY_YEAR = {
           lecturer: 'ผศ.น.สพ. ธนศักดิ์ บุญเสริม (TB)', lecturer_year: 2026,
           lecturerNote: 'อ.ธนศักดิ์ (TB) จากปก slide 2026 GI_VDTT.pdf · "Ruminant Gastrointestinal Disorder" · Internal medicine approach: GI atony / Hyper-Hypomotility / Acidosis (pH <5.5) / Alkalosis (>7.0 inactivate rumen) / Methylene blue test (3-6 min normal) / Sediment activity 4-8 min / Gram stain rumen fluid (gram+ predominate normal · gram- shift = acidosis)' },
         { id: 'hoof-health-fleet', label: 'Hoof Health Management ในฝูง', icon: '🐾',
-          lecturer: 'TBD — สไลด์เป็น .pptx (ไม่ได้ extract)', lecturer_year: 2026,
-          lecturerNote: 'Fleet-level (herd) hoof health · Locomotion Score scoring · Foot bath strategy · Trim schedule · Disease prevalence monitoring (digital dermatitis · sole ulcer · footrot) · ⚠️ Slide 2026 เป็น .pptx — ยังไม่ได้ extract ปก เพื่อยืนยันชื่ออาจารย์' },
+          lecturer: 'ผศ.น.สพ. ปิยะณัฐ ประสมศรี (PP)', lecturer_year: 2026,
+          lecturerNote: 'อ.ปิยะณัฐ (PP · pptx slide 1 ระบุ) สอนทั้ง Vet Prac Rum hoof+nutrition และ Clin App Rum hoof fleet · Framework 4 elements (T-L-I-I): Timing (work flow น้อย คนน้อย โคเดินอิสระ เวลาประณีต) · Location (พื้นเรียบไม่ลาด · ระยะเดิน ≥4m) · Identification (ครบทุกตัว) · Interpretation (มี RT ปีละ 2 ครั้ง vs ไม่มี RT) · Routine trimming 6-12 เดือน · Sole ulcer / White line / Infectious / Laminitis (feeding mgt) / Iatrogenic' },
         // Hidden — legacy Vet 84 past-paper Qs (Q136 BSP, Q139 patella) ที่อยู่นอก 2026 scope
         { id: 'uncertain-scope', label: '❓ Uncertain Scope · Tendon Sx (legacy Vet 84)', icon: '❓',
           hidden: true,
