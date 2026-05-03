@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
-import { useOnlineCount } from '../hooks/useOnlineCount.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 
-export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {} }) {
+// onlineCount/onlineStatus are now passed as props (hook lives in App
+// so the WebSocket presence survives view changes — see App.jsx).
+export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled' }) {
   const totalQ = QB.length + (customQuestions?.length || 0);
   const nextExam = getNextExam('y4');
-  const { count: onlineCount, status: onlineStatus } = useOnlineCount();
 
   // Reading checklist progress (year 4 only — current year)
   const checklistTopics = (SUBJECTS_BY_YEAR[4] || [])

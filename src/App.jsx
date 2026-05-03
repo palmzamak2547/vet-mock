@@ -5,6 +5,7 @@ import { SUBJECTS, CURRENT_YEAR } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
+import { useOnlineCount } from './hooks/useOnlineCount.js';
 import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
 import { isFlashcardCompatible } from './hooks/sr-filter.js';
@@ -91,6 +92,12 @@ import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
+
+  // Realtime presence — mounted at App level so the WebSocket survives
+  // every view navigation. (Was in HomeView previously, which caused
+  // users to drop out of the count whenever they clicked into a topic /
+  // exam, and to lose the indicator since it only rendered on home.)
+  const { count: onlineCount, status: onlineStatus } = useOnlineCount();
 
   // Detect password-reset deep link on first render so the very first
   // view is AuthView (which then enters mode='update-password' from the
@@ -590,7 +597,7 @@ export default function App() {
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
