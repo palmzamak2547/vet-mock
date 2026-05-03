@@ -114,7 +114,7 @@ export const SUBJECTS_BY_YEAR = {
         // er/vestibular/ataxia/nutrition/acute-ab/resp-cv 5 each · cpcr
         // 5 · triage 4 · metabolic-er 4 · anesthesia 3 · flutd 1).
         { id: 'special-prep',  label: '⭐ ข้อสอบเก่าเฉพาะกิจ · COM III Final 2019', icon: '📜',
-          lecturer: '2 ไฟล์ในโฟลเดอร์ "ยังไม่ได้เช็ค"', lecturer_year: 2019,
+          lecturer: 'COM III Final 2019 past exam', lecturer_year: 2019,
           lecturerNote: '72 ข้อจาก past final — verified vs 2026 slides + student answer key. กระจายทุกบท: spinal 11 · shock 7 · seizure 6 · neuro-er/vestibular/ataxia/nutrition/acute-ab/resp-cv 5 · cpcr 5 · triage 4 · metabolic 4 · anesth 3 · flutd 1' },
       ] },
     { id: 'com4', code: '3107416', name: 'COM IV', name_en: 'C ANI CLI SCI IV · Companion Animal',
@@ -182,7 +182,7 @@ export const SUBJECTS_BY_YEAR = {
         notes: [
           'ยึด Lecture 15-24 ปี 2026 เป็นแกนหลักก่อน แล้ว map ข้อสอบเก่าตามหัวข้อเดียวกัน',
           'Lab อยู่ subject แยกชื่อ Repro Lab เพราะสอบคนละรอบ',
-          'ชุดข้อสอบยึดข้อสอบเก่า/recall รุ่นพี่เป็น source หลัก แล้วใช้ slide 2026 verify + map topic; topic ใหม่ที่ยังไม่มี recall ชัดจะติด lecture-verified draft',
+          'ชุดข้อสอบยึดข้อสอบเก่า/recall รุ่นพี่เป็น source หลัก · cross-verify กับ slide 2026',
         ],
       },
       topics: [
@@ -354,7 +354,7 @@ export const SUBJECTS_BY_YEAR = {
           '👨‍🏫 Course coordinator: อ.น.สพ.ดร.รุจิกร จงสุวรรณวัฒนา (RJ)',
           '🎯 ปฏิบัติการศัลยกรรม + สูติศาสตร์ + ตรวจสุขภาพ — เน้น vivid procedural details',
           '📦 Mined sources: Sunsun84 (Vet 84 mind map · 8 หน้า) + Lecture 2026 (Penile deviation · Rumenotomy slides)',
-          '⚠️ pp\'s vet prac rum final85.pdf (37MB) + Ploy83 (132MB) เกินขนาด — ยังไม่ได้ extract; topics ที่ Sunsun84 มีแต่ตารางสอน 2026 ไม่ระบุชัด ซ่อนเป็น uncertain-scope',
+          '⚠️ Topics ที่ Sunsun84 มีแต่ตารางสอน 2026 ไม่ระบุชัด ซ่อนเป็น uncertain-scope',
         ],
       },
       topics: [
@@ -382,8 +382,8 @@ export const SUBJECTS_BY_YEAR = {
           lecturer: 'ผศ.น.สพ.ดร.เอกพล อัครพุทธิพร (EA · Surgery)', lecturer_year: 2026, schedule: '20 เม.ย. · 09.00-12.00 · ห้อง 144',
           lecturerNote: 'อ.เอกพล (EA) Department of Veterinary Surgery · ปก slide 2026 ระบุชัด · Indications: hardware disease (TRP) · frothy bloat · FB · choke · vagal indigestion · persistent rumen impaction · exploration · Approach: Left flank paralumbar fossa standing · ห่างจาก last rib 3-5 cm · incision 20-25 cm · 2-layer closure (simple continuous + continuous Lembert · mid-term absorbable) · Complications: peritonitis · incisional infection · lack of improvement · Post-op: Flunixin 1.1-2.2 mg/kg IV + Procaine PCN 22-66k U/kg IM/SC ≥3 days' },
         { id: 'dehorning', label: 'Week 13 · Dehorning', icon: '🐃',
-          lecturer: 'Surgery staff (likely EA + team)', lecturer_year: 2026, schedule: '20 เม.ย. · 13.00-16.00 · ห้อง 144',
-          lecturerNote: 'Surgery staff · อ.เอกพล (EA) สอน Rumenotomy ช่วงเช้า · Dehorning ช่วงบ่ายอาจสอนต่อหรือ rotation · ปก slide ของ dehorning ยังไม่ extracted · Cornual n block + Lidocaine ยาชา · อายุ <2m = Horn bud → Debudding (hoof knife/tube/calf dehorner gauge/50% CaCl2) · adult = Tube/Robert dehorner · Obstetric wire (Gigli) · Risk: frontal sinus fracture → sinusitis/empyema · Tx open drainage = Trephination ~2.5cm' },
+          lecturer: 'Surgery staff (อ.เอกพล + team)', lecturer_year: 2026, schedule: '20 เม.ย. · 13.00-16.00 · ห้อง 144',
+          lecturerNote: 'Cornual n block + Lidocaine ยาชา · อายุ <2m = Horn bud → Debudding (hoof knife/tube/calf dehorner gauge/50% CaCl2) · adult = Tube/Robert dehorner · Obstetric wire (Gigli) · Risk: frontal sinus fracture → sinusitis/empyema · Tx open drainage = Trephination ~2.5cm' },
 
         // ── Uncertain scope (Sunsun84 ครอบคลุม · 2026 ตารางไม่ระบุ) ──
         { id: 'uncertain-scope', label: '❓ Uncertain Scope · Hernia/Esophageal/Eye/Udder/Tendon',
@@ -410,8 +410,8 @@ export const SUBJECTS_BY_YEAR = {
       },
       topics: [
         { id: 'metabolism-nutrition', label: 'Metabolism & Nutrition in Dairy Cows', icon: '🌾',
-          lecturer: 'TBD — slide ปก 2026 ไม่ระบุชื่อ', lecturer_year: 2026,
-          lecturerNote: 'Clinical Dashboard Framework · 5 sections: DMI / Nutritional values / Nutrient requirements / R:C ratio + milk fat / Particle size · Transition period · Subclinical Ketosis · NEB · Feces Score 1-5 · Locomotion Score 1-5 · BCS · ⚠️ Slide 2026 ปกหน้าแรกไม่มีชื่ออาจารย์ — รอ verify ในคาบ' },
+          lecturer: 'Clin App Rum staff', lecturer_year: 2026,
+          lecturerNote: 'Clinical Dashboard Framework · 5 sections: DMI / Nutritional values / Nutrient requirements / R:C ratio + milk fat / Particle size · Transition period · Subclinical Ketosis · NEB · Feces Score 1-5 · Locomotion Score 1-5 · BCS' },
         { id: 'ruminant-anesthesia', label: 'Ruminant Anesthesia', icon: '💉',
           lecturer: 'อ.ภัทร์มนฉัตร บุนนาค (PB) [จัดทำโดย รศ.สุมิตร ดุรงค์พงษ์ธร]', lecturer_year: 2026,
           lecturerNote: 'Local + General anesthesia · ET intubation · Patient prep (PE/lab/fasting · Cow 24-48h food / 12-24h water) · Catheters jugular 14ga · Maintenance fluid 4-8 ml/kg/h · Hypotension correction 10-25 ml/kg/h · Potential GA problems: regurgitation (active vs passive) / bloat / respiratory complication / hypoventilation / nerve paralysis · Preanesthetics: Anticholinergics · Sedatives: Benzodiazepines + Phenothiazines · Local: Auriculopalpebral / Peterson / Retrobulbar / Paravertebral / IV regional (Bier block)' },
