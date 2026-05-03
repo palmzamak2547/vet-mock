@@ -36,7 +36,7 @@ export default function AboutView({ goHome, setView }) {
             style={{ flexShrink: 0, display: 'block', lineHeight: 0, borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
             title="Scan หรือกดเพื่อเปิด @vetmock.cu"
           >
-            <img src="/ig-qr.png" alt="QR code → instagram.com/vetmock.cu" width="120" height="120" style={{ display: 'block' }} />
+            <img src="/ig-qr.png" alt="QR code → instagram.com/vetmock.cu" width="120" height="120" loading="lazy" decoding="async" style={{ display: 'block' }} />
           </a>
           <div style={{ flex: '1 1 220px', fontSize: 14, lineHeight: 1.7 }}>
             <div style={{ fontFamily: 'Fraunces, serif', fontSize: 18, fontWeight: 600, marginBottom: 4 }}>

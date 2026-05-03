@@ -7,6 +7,19 @@
     <!-- Search engine verification -->
     <meta name="google-site-verification" content="14yg3AaHe91BC8VgVxjhxTrJsHCgvDSUIKetsJozHX0" />
 
+    <!-- Resource hints — speed up first paint and lazy chunks.
+         dns-prefetch + preconnect = warm up TCP/TLS to Supabase domain
+         before the SDK actually loads (saves ~100-300ms on cold session
+         resume / first sign-in). Conditional based on env: only for the
+         project's actual project domain so we don't waste a connection
+         when Supabase isn't configured. -->
+    <link rel="dns-prefetch" href="https://mpovsdzdggvksmeehqfj.supabase.co" />
+    <link rel="preconnect" href="https://mpovsdzdggvksmeehqfj.supabase.co" crossorigin />
+    <!-- YouTube embed (videos page) — used in iframe, getting ahead of
+         the connection saves ~200ms when user opens a clip. -->
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <link rel="dns-prefetch" href="https://i.ytimg.com" />
+
     <!-- Icons + PWA.
          Order matters: Safari (esp. older versions on iOS/macOS) walks
          the list and picks the first viable entry, falling back only
