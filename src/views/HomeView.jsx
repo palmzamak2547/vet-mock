@@ -203,47 +203,46 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
             </button>
           </div>
 
-          <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {(expanded ? LATEST_CHANGELOG.changes : LATEST_CHANGELOG.changes.slice(0, 3)).map((c, i) => (
-              <li
-                key={i}
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: 10,
-                  padding: '8px 10px',
-                  borderRadius: 8,
-                  background: 'var(--clr-bg)',
-                  border: '1px solid var(--clr-border)',
-                  fontSize: 13,
-                  lineHeight: 1.5,
-                }}
-              >
-                <span style={{ fontSize: 16, flexShrink: 0 }}>{c.icon}</span>
-                <span style={{ flex: 1, minWidth: 0 }}>
-                  {/* Scope chip — tells you "is this a system change or did */}
-                  {/* it touch a specific subject?" without reading the desc */}
-                  {c.scope && <ScopeChip scope={c.scope} />}
-                  {/* "จาก feedback" pill — keeps a visible record that the */}
-                  {/* fix came from a user submission, so other students see */}
-                  {/* their feedback actually moves the needle. */}
-                  {c.fromFeedback && <FeedbackChip />}
-                  <strong style={{ color: 'var(--clr-ink)' }}>{c.title}</strong>
-                  <span style={{ color: 'var(--clr-ink-soft)' }}> — {c.desc}</span>
-                </span>
-                <KindPill kind={c.kind} />
-              </li>
-            ))}
-          </ul>
+          {/* Detail list collapsed by default — Palm flagged the
+              banner felt too long when items rendered eagerly. Show
+              only on click; show only titles (no desc) to keep the
+              expanded state compact. */}
+          {expanded && (
+            <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {LATEST_CHANGELOG.changes.map((c, i) => (
+                <li
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    padding: '6px 10px',
+                    borderRadius: 8,
+                    background: 'var(--clr-bg)',
+                    border: '1px solid var(--clr-border)',
+                    fontSize: 13,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <span style={{ fontSize: 14, flexShrink: 0 }}>{c.icon}</span>
+                  <span style={{ flex: 1, minWidth: 0 }}>
+                    {c.fromFeedback && <FeedbackChip />}
+                    <strong style={{ color: 'var(--clr-ink)' }}>{c.title}</strong>
+                  </span>
+                  <KindPill kind={c.kind} />
+                </li>
+              ))}
+            </ul>
+          )}
 
-          {LATEST_CHANGELOG.changes.length > 3 && (
+          {LATEST_CHANGELOG.changes.length > 0 && (
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
               style={{
                 all: 'unset',
                 cursor: 'pointer',
-                marginTop: 10,
+                marginTop: 8,
                 fontSize: 12,
                 color: 'var(--clr-ink-soft)',
                 fontFamily: 'JetBrains Mono, monospace',
@@ -251,8 +250,8 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
               }}
             >
               {expanded
-                ? '▴ แสดงน้อยลง'
-                : `▾ ดูทั้งหมด (อีก ${LATEST_CHANGELOG.changes.length - 3} รายการ)`}
+                ? '▴ ซ่อน'
+                : `▾ ดูรายละเอียด (${LATEST_CHANGELOG.changes.length} รายการ)`}
             </button>
           )}
         </div>
