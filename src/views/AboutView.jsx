@@ -21,6 +21,43 @@ export default function AboutView({ goHome, setView }) {
         </div>
       </div>
 
+      {/* Instagram — follow channel for daily Qs · clip recommendations · launch news */}
+      <div className="vmx-dash-card" style={{
+        marginBottom: 16,
+        background: 'linear-gradient(135deg, rgba(225, 48, 108, 0.08), rgba(245, 96, 64, 0.08), rgba(247, 119, 55, 0.08))',
+        border: '1px solid rgba(225, 48, 108, 0.3)',
+      }}>
+        <h3>📷 ติดตามบน Instagram</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center', marginTop: 8 }}>
+          <a
+            href="https://www.instagram.com/vetmock.cu/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ flexShrink: 0, display: 'block', lineHeight: 0, borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+            title="Scan หรือกดเพื่อเปิด @vetmock.cu"
+          >
+            <img src="/ig-qr.png" alt="QR code → instagram.com/vetmock.cu" width="120" height="120" style={{ display: 'block' }} />
+          </a>
+          <div style={{ flex: '1 1 220px', fontSize: 14, lineHeight: 1.7 }}>
+            <div style={{ fontFamily: 'Fraunces, serif', fontSize: 18, fontWeight: 600, marginBottom: 4 }}>
+              @vetmock.cu
+            </div>
+            <div style={{ color: 'var(--clr-ink-soft)', marginBottom: 10, fontSize: 13 }}>
+              Daily Q ของวัน · clip recommendations · changelog · study tips จากเพื่อนๆ ในรุ่น
+            </div>
+            <a
+              href="https://www.instagram.com/vetmock.cu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="vmx-btn vmx-btn-primary"
+              style={{ display: 'inline-block', textDecoration: 'none', padding: '8px 16px', fontSize: 14 }}
+            >
+              เปิด Instagram →
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Mission */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
         <h3>🎯 เป้าหมาย</h3>

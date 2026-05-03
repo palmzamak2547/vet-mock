@@ -44,6 +44,25 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.16.0',
+    date: '2026-05-03',
+    headline: '📷 IG @vetmock.cu เปิดแล้ว · +12 สรุปคลิป Final (Poultry + Cliapprum) · +60 ข้อ Poultry past-paper',
+    changes: [
+      { scope: 'system', kind: 'feature', icon: '📷', title: 'เปิด Instagram @vetmock.cu',
+        desc: 'Daily Q ของวัน · clip recommendations · changelog · study tips จากเพื่อนๆ ในรุ่น · QR code + ลิงก์ใน About + Footer ทุกหน้า' },
+      { scope: 'multi', kind: 'content', icon: '📺', title: '+12 สรุปคลิปอาจารย์ Final scope (Poultry 5 + Cliapprum 7)',
+        desc: 'Poultry Final L9-L15: First Week Mortality (พี่อู๋) · Avian Zoonosis (Aj. Kamonpan) · Biosecurity (Aj. Nataya) · Avian Drug (Prof. Niwat) · Quality Assurance (Aj. Ekasingh Betagro) — Cliapprum Final: Metabolism · Anesthesia · GI Med (อ.ธนศักดิ์) · GI Surgery I-II (อ.แฮม) · Ruminant Surgery · Hoof Health · ทุกสรุปมี [mm:ss] timestamp anchors + flagged NOT_FOUND ที่ transcript ไม่ได้พูด' },
+      { scope: 'system', kind: 'content', icon: '🐔', title: '+60 ข้อสอบเก่า Poultry Final (mining 3 sources)',
+        desc: 'Mine จาก: 🌻 Kim85 Poultry Final Vet 83 (39 ข้อ) · sunsun84 อ.เอกสิงห์ MCQ (5 ข้อ) · POULTRY FINAL 86🏅 (16 ข้อ · Aj. Niwat + BQM 4 มิติ) · Q range Q1900-1959 ใหม่ · รวม 70 ข้อ visible Final scope' },
+      { scope: 'system', kind: 'fix', icon: '🐛', title: 'แก้ subject card count: 127 → 70 (Poultry)',
+        desc: 'ก่อนแสดงรวม hidden topics → user คลิกเข้าไปเจอน้อยกว่า 57 ข้อ confused · เพิ่ม visibleQuestionCount() helper กรอง hidden topics ก่อนนับ' },
+      { scope: 'system', kind: 'fix', icon: '🐛', title: 'แก้ presence indicator drop เมื่อเปลี่ยนหน้า',
+        desc: 'ก่อน: hook อยู่ HomeView · เปลี่ยนหน้าเลย unmount → คนหลุดจาก count · หลัง: hook ขึ้น App.jsx top-level → presence ค้างทั้ง session' },
+      { scope: 'multi', kind: 'fix', icon: '🐛', title: 'แก้ Q ID collision (poultry vs repro-lect)',
+        desc: 'พบ 27 IDs ซ้ำใน Q1800-1826 → renumber poultry Q1900-1959 · กัน bookmarks resolve ผิด subject' },
+    ],
+  },
+  {
     version: '5.15.0',
     date: '2026-05-02',
     headline: '🐾 Repro Lecture +41 ข้อจาก past-paper screenshot · ลด length bias ทั่วคลัง',

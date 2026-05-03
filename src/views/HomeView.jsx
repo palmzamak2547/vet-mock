@@ -24,6 +24,12 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
   const [expanded, setExpanded] = useState(false);
   const showAnnouncement = LATEST_CHANGELOG && lastSeenChangelog !== LATEST_CHANGELOG.version;
 
+  // IG follow banner — one-time per user (dismiss persists in localStorage).
+  // Lives below the announcement so it doesn't fight with the changelog
+  // for the same screen real estate; dismissing either is independent.
+  const [igDismissed, setIgDismissed] = useLocalStorage('vmx-ig-dismissed', false);
+  const showIgBanner = !igDismissed;
+
   // Tick to keep the countdown banner fresh.
   //
   // Two cadences:
@@ -144,6 +150,57 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
               </>
             )}
           </div>
+        </div>
+      )}
+
+      {/* IG follow banner — one-time dismissible · soft pitch · won't
+          fight the changelog announcement for attention because it's
+          slightly smaller and uses a distinct color (instagram-pink) */}
+      {showIgBanner && (
+        <div
+          style={{
+            padding: '10px 14px',
+            borderRadius: 14,
+            marginBottom: 12,
+            background: 'linear-gradient(135deg, rgba(225, 48, 108, 0.10), rgba(247, 119, 55, 0.10))',
+            border: '1px solid rgba(225, 48, 108, 0.35)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            position: 'relative',
+          }}
+        >
+          <div style={{ fontSize: 22, lineHeight: 1 }}>📷</div>
+          <div style={{ flex: 1, minWidth: 0, fontSize: 13, lineHeight: 1.5 }}>
+            <strong>VetMock เปิด Instagram แล้ว!</strong> Daily Q · clip recommendations · study tips · กดติดตามที่{' '}
+            <a
+              href="https://www.instagram.com/vetmock.cu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIgDismissed(true)}
+              style={{ color: '#c2185b', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap' }}
+            >
+              @vetmock.cu →
+            </a>
+          </div>
+          <button
+            type="button"
+            onClick={() => setIgDismissed(true)}
+            aria-label="ปิดแบนเนอร์"
+            title="ปิดแบนเนอร์"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 18,
+              color: 'var(--clr-ink-soft)',
+              padding: '4px 8px',
+              lineHeight: 1,
+              flexShrink: 0,
+            }}
+          >
+            ✕
+          </button>
         </div>
       )}
 

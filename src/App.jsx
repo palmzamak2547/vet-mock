@@ -81,6 +81,7 @@ const ScoresView = lazy(() => import('./views/ScoresView.jsx'));
 const VideoView = lazy(() => import('./views/VideoView.jsx'));
 const AboutView = lazy(() => import('./views/AboutView.jsx'));
 const FeedbackView = lazy(() => import('./views/FeedbackView.jsx'));
+const IgCardStudioView = lazy(() => import('./views/IgCardStudioView.jsx'));
 const YearSelectView = lazy(() => import('./views/YearSelectView.jsx'));
 const TopicSelectView = lazy(() => import('./views/TopicSelectView.jsx'));
 const NotesView = lazy(() => import('./views/NotesView.jsx'));
@@ -617,6 +618,7 @@ export default function App() {
               {view === 'videos' && <VideoView {...{ goHome }} />}
               {view === 'about' && <AboutView {...{ goHome, setView }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile }} />}
+              {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
@@ -629,6 +631,7 @@ export default function App() {
             VetMock v5.0 · made with ♡ by <strong>Vet 86</strong>
             {' · '}<a onClick={() => setView('about')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>About</a>
             {' · '}<a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
+            {' · '}<a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
             {' · '}<a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
           </div>
 
