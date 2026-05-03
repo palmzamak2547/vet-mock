@@ -383,3 +383,33 @@ export const SUBJECTS = [
   { id: 'all', name: 'รวมทุกวิชา', name_en: 'All Subjects', icon: '📚', color: '#2b2419' },
   ...Object.values(SUBJECTS_BY_YEAR).flat(),
 ];
+
+// ──────────────────────────────────────────────────────────────────
+// Helpers: count only "visible" questions (skip hidden-topic Qs)
+// ──────────────────────────────────────────────────────────────────
+// Why: subject cards + topic-grid "all" used to show raw subject count
+// (incl. uncertain-scope/midterm Qs that are hidden in topic grid).
+// User clicks → sees fewer Qs than card promised → confusion.
+// Source of confusion was Poultry: card shows 127, but only 70 visible
+// in topic grid (52 uncertain-scope hidden + 5 midterm hidden).
+// ──────────────────────────────────────────────────────────────────
+
+/** Returns Set of topic IDs flagged hidden for the given subject. */
+export function hiddenTopicIdsFor(subjectId) {
+  const subj = SUBJECTS.find((s) => s.id === subjectId);
+  if (!subj || !Array.isArray(subj.topics)) return new Set();
+  return new Set(subj.topics.filter((t) => t.hidden).map((t) => t.id));
+}
+
+/** Counts only questions whose topic is NOT hidden. Use for card display. */
+export function visibleQuestionCount(subjectId, allQuestions) {
+  if (!Array.isArray(allQuestions)) return 0;
+  if (subjectId === 'all') {
+    // Sum visible counts across each non-"all" subject
+    return SUBJECTS
+      .filter((s) => s.id !== 'all')
+      .reduce((sum, s) => sum + visibleQuestionCount(s.id, allQuestions), 0);
+  }
+  const hidden = hiddenTopicIdsFor(subjectId);
+  return allQuestions.filter((q) => q.subject === subjectId && !hidden.has(q.topic)).length;
+}

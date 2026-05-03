@@ -1,5 +1,5 @@
 import { QB } from '../data/questions.js';
-import { SUBJECTS } from '../data/curriculum.js';
+import { SUBJECTS, visibleQuestionCount } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [] }) {
@@ -17,7 +17,11 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
 
       <div className="vmx-subject-grid">
         {SUBJECTS.map((s) => {
-          const count = s.id === 'all' ? allQuestions.length : allQuestions.filter((q) => q.subject === s.id).length;
+          // Count only Qs in non-hidden topics — matches what user
+          // actually sees in TopicSelectView (avoids "127 promised, 70
+          // visible" confusion). For 'all' subject, sum visible per
+          // subject across the bank.
+          const count = visibleQuestionCount(s.id, allQuestions);
           const isEmpty = count === 0;
 
           return (

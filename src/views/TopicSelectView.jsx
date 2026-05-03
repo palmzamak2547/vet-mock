@@ -1,6 +1,6 @@
 import { lazy, Suspense, useState } from 'react';
 import { QB } from '../data/questions.js';
-import { SUBJECTS } from '../data/curriculum.js';
+import { SUBJECTS, hiddenTopicIdsFor } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
@@ -32,8 +32,13 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
   // Reading-checklist summary for this subject
   const subjReadDone = topics.filter((t) => readingChecklist[t.id]).length;
 
+  // For "all" topicId we exclude Qs whose topic is hidden — keeps the
+  // header count consistent with the visible topic tiles below it.
+  const _hiddenTopics = hiddenTopicIdsFor(subject);
   const countFor = (topicId) => {
-    if (topicId === 'all') return allQuestions.filter((q) => q.subject === subject).length;
+    if (topicId === 'all') {
+      return allQuestions.filter((q) => q.subject === subject && !_hiddenTopics.has(q.topic)).length;
+    }
     return allQuestions.filter((q) => q.subject === subject && q.topic === topicId).length;
   };
 
