@@ -678,7 +678,7 @@ export const QB_POULTRY = [
   // ════════════════════════════════════════════════════════════════════
 
   // ── Aj. Somsak — Immunology / Vaccination basics (MCQ) ──────────────
-  { id: 1767, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1900, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak MCQ#4 (page 3)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -693,7 +693,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'แม่ไก่ส่ง Ab ผ่านไข่แดง (yolk) เป็น IgY (avian homologue ของ IgG ใน mammal) · MDA (maternal-derived antibody) ป้องกันลูกไก่ ~3 wk แรก · IgM ส่งผ่านไข่ขาวในปริมาณน้อย · ไม่มีรกในไก่' },
 
-  { id: 1768, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1901, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak MCQ#5 (page 3)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -703,7 +703,7 @@ export const QB_POULTRY = [
     answer: 3,
     explain: 'IgM = pentamer (ขนาดใหญ่ · 10 binding sites) → จับ antigen ได้หลายจุดพร้อมกัน → cross-link → agglutination · ใช้ใน plate agglutination test สำหรับ Salmonella Pullorum + Mycoplasma' },
 
-  { id: 1769, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1902, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak MCQ#6 (page 3)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -713,7 +713,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'ELISA ตรวจ IgG (IgY) ได้ดี เพราะมีปริมาณมากในซีรั่ม + persist นาน · IgM ก็ตรวจได้ใน acute phase แต่ไม่ค่อยใช้ · ELISA ดีกว่า agglutination ในการประเมิน vaccine response (titer monitoring)' },
 
-  { id: 1770, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1903, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak MCQ#7 (page 3)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -723,7 +723,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: 'IgY = avian IgG equivalent · พบมากที่สุดในซีรั่ม · ทำหน้าที่ neutralization + opsonization · ส่งผ่านไข่แดง (yolk) → MDA ลูกไก่' },
 
-  { id: 1771, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1904, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak MCQ#8 (page 3)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -738,7 +738,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: 'Harderian gland = lymphoid tissue ที่อยู่หลังลูกตา · กระตุ้นด้วย eye drop vaccination → local IgA + systemic immunity · ใช้กับ ND/IB live vaccine · ทางอื่น (IM/SC/feed) ไม่กระตุ้น Harderian โดยตรง' },
 
-  { id: 1772, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1905, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak MCQ#10 (page 3)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -748,7 +748,7 @@ export const QB_POULTRY = [
     answer: 3,
     explain: 'MDA = maternal-derived antibody · half-life ~3-5 วัน → ลดลงครึ่งหนึ่งทุกๆ ~3-5 วัน · หมดประมาณ 3 wk · เป็นช่วง "window of susceptibility" ที่ต้องวางแผน vaccination ให้ดี' },
 
-  { id: 1773, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1906, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak MCQ#15 (page 3)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -763,7 +763,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'Cloacal cleft swab = bursal area · เพาะเชื้อได้หลายอย่าง: Mycoplasma + ND + AI + IBD · เป็น routine surveillance test · ทำได้กับไก่ที่ยังมีชีวิต · ผ่าซากใช้ tracheal swab + organ tissue' },
 
-  { id: 1774, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1907, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak MCQ#18 (page 3)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -778,7 +778,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'AE = neurotropic + pancreatropic virus · gross lesion มักไม่เห็นชัด → ต้องส่ง histopath · sample หลัก: สมอง (non-suppurative encephalitis) + proventriculus + pancreas + duodenum (lymphoid foci) · เก็บใน 10% formalin' },
 
-  { id: 1775, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1908, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak MCQ#19 (page 3)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -794,7 +794,7 @@ export const QB_POULTRY = [
     explain: 'ตำแหน่งเจาะเลือดในไก่: (1) หัวใจ — ได้ปริมาณมาก แต่ทำในลูกไก่/ตอน euthanize · (2) Right jugular vein — ไก่โต · (3) Brachial vein (under wing) — ไก่โต ทำง่ายที่สุด · เก็บ 1 ml · ตัวอย่าง 20-30 ตัว/โรงเรือน' },
 
   // ── Aj. Somsak — Vaccination T/F ─────────────────────────────────────
-  { id: 1776, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1909, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak T/F#7 (page 4)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -803,7 +803,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'ตรวจหลัง 7 วัน (ไม่ใช่ 10) · ใช้กับ Fowl pox + AE vaccine · ใช้เข็มเจาะปีกที่ไม่มีเส้นเลือด · เจอตุ่ม = take · ไม่เจอ = ต้องทำใหม่' },
 
-  { id: 1777, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1910, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak T/F#1 (page 4)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -812,7 +812,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'ผิด — Live vaccine กระตุ้นภูมิได้ไวจริง แต่ภูมิอยู่ได้ "ไม่นาน" เพราะไม่มี adjuvant · Killed vaccine มี adjuvant → ภูมิอยู่ได้ "นานกว่า" แต่ต้องใช้เวลามากขึ้นในการกระตุ้น · มักใช้ live prime + killed boost' },
 
-  { id: 1778, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1911, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak T/F#2 (page 4)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -821,7 +821,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'ผิด — เป็น 2-8 องศา "เซลเซียส" (ไม่ใช่ฟาเรนไฮต์) · เชื้อเป็น "ห้ามแช่แข็ง" เพราะ Ag เสีย · เชื้อเป็นบางตัวต้องเก็บ -196°C (LN2) เช่น Marek\'s vaccine · cold chain critical' },
 
-  { id: 1779, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1912, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak T/F#6 (page 4)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -830,7 +830,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'ผิด — ไก่เนื้อ (broiler) ไม่ฉีด IM เพราะเนื้อเป็นผลผลิต ฉีด IM แล้วเหลือรอย/scar → consumer reject · ใช้ SC (ใต้ผิวหนังหลังคอ) แทน · ไก่ไข่/พ่อแม่พันธุ์ฉีด IM ได้' },
 
-  { id: 1780, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1913, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak T/F#17 (page 4)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -845,7 +845,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'อัตราที่ถูก: ด่างทับทิม : Formalin = 2 : 1 (น้ำหนัก) · เช่น KMnO4 40 g + Formalin 20 ml ต่อพื้นที่ 2.83 m³ · ทำให้เกิด formaldehyde gas → ฆ่าเชื้อ Salmonella + E. coli บน egg shell · ก่อนเข้าตู้ฟัก' },
 
-  { id: 1781, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1914, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak T/F#20 (page 4)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -855,7 +855,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: 'มาตรฐาน: day-old chick mortality < 1% · 7-day mortality < 1% · 14-day mortality < 1.5% · ถ้าเกิน → ตรวจ hatchery factor (egg quality, incubation, dehydration, omphalitis, navel infection)' },
 
-  { id: 1782, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1915, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak self-Q#18 (page 7)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -865,7 +865,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'Pasgar = ประเมิน 5 อย่าง: (1) ปาก beak, (2) ท้อง belly, (3) สะดือ navel, (4) ขา leg, (5) hock flexibility (HFlex) จับนอนตะแคงดูว่าพลิกกลับได้ไหม · score 0-10 (max 10) · บอกคุณภาพของ hatchery + egg quality' },
 
-  { id: 1783, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1916, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak self-Q#19 (page 7)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -875,7 +875,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'New house disease = ลูกไก่เข้าโรงเรือนใหม่ที่มี slat/พลาสติกที่ผ่านการฆ่าเชื้อยังไม่หมด → exposed to E. coli (colibacillosis · omphalitis · airsacculitis) + Staphylococcus (skin/joint) · เพิ่ม biosecurity + cleaning ก่อนลูกไก่เข้า' },
 
-  { id: 1784, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1917, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Somsak self-Q#21 (page 7)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Somsak Vet 83 Final',
@@ -891,7 +891,7 @@ export const QB_POULTRY = [
     explain: 'Rolling reaction = ไก่ที่มีอาการแพ้ vaccine ต่อเนื่อง shed virus → ตัวอื่นรับเชื้อช้าๆ → แพ้ตามกัน → ระบายเป็นวง · สาเหตุ: poor admin + คุณภาพน้ำ + uneven MDA → ป้องกัน: ปรับ vaccine timing ให้ตรงกับ MDA window' },
 
   // ── Avian Zoonoses Table (zoonosis lecturer) ─────────────────────────
-  { id: 1785, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
+  { id: 1918, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Avian Zoonoses table (page 8)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. zoonosis Vet 83 Final',
@@ -906,7 +906,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'Chlamydiosis (Psittacosis / Parrot fever) — Parrot/Turkey/Pigeon · นกแสดง: green droppings + respi signs + sudden death · คน (zoonotic): flu-like illness · pneumonia · transmit ทางอากาศจากขี้แห้ง' },
 
-  { id: 1786, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
+  { id: 1919, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Avian Zoonoses table (page 8)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. zoonosis Vet 83 Final',
@@ -921,7 +921,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'Erysipelas: gram+ rod (Erysipelothrix) · เกิดในไก่งวง/เป็ด/ห่าน · sudden death + skin darkening + swollen joints · ในเกาะสามารถเป็น vegetative endocarditis · คน: "erysipeloid" — skin lesion (rare, occupational ในคนเลี้ยงสัตว์/ฆ่าสัตว์)' },
 
-  { id: 1787, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
+  { id: 1920, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Avian Zoonoses table (page 8)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. zoonosis Vet 83 Final',
@@ -936,7 +936,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: 'Cryptococcus = yeast · reservoir คือนกพิราบ (pigeon droppings · alkaline + nitrogen-rich = ideal) · นกเองไม่ค่อยป่วย · คน (immunocompromised, เช่น HIV) → pulmonary + CNS (cryptococcal meningitis · India ink + CrAg test)' },
 
-  { id: 1788, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
+  { id: 1921, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Avian Zoonoses table (page 8)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. zoonosis Vet 83 Final',
@@ -946,7 +946,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'WNV = Flavivirus · reservoir: wild birds (crow + corvid · pigeon) · vector: Culex mosquito · นกแสดง CNS: loss coordination + head tilt + tremor + death · คน: fever + encephalitis (rare) · emerging zoonosis · ใน TH ตรวจพบใน wild crow' },
 
-  { id: 1789, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
+  { id: 1922, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Avian Zoonoses table (page 8)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. zoonosis Vet 83 Final',
@@ -956,7 +956,7 @@ export const QB_POULTRY = [
     answer: 3,
     explain: 'Yersinia enterocolitica · reservoir: wild birds (mostly inapparent) · คน: diarrhea + fever + mesenteric lymphadenitis คล้ายไส้ติ่งอักเสบ → "pseudo-appendicitis" → misdiagnosis บ่อย · self-limiting · differential กับ Campylobacter (cramps + bloody diarrhea)' },
 
-  { id: 1790, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
+  { id: 1923, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Avian Zoonoses table (page 8)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. zoonosis Vet 83 Final',
@@ -972,7 +972,7 @@ export const QB_POULTRY = [
     explain: 'NDV ในคน = self-limiting conjunctivitis (อักเสบที่ตา) · เกิดจาก vaccine handlers ที่ใช้ live ND vaccine spray/eye-drop แล้ว splash เข้าตา · ป้องกัน: ใส่แว่น + mask · ไม่มีการแพร่ระหว่างคนสู่คน · นก: respi + nervous + GI signs + death' },
 
   // ── Aj. Nakcha — Biosecurity / Surveillance ─────────────────────────
-  { id: 1791, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1924, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #1-2 (page 9)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -987,7 +987,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'Prevalence = point-in-time / snapshot — บอก "ขนาดปัญหา" ของฝูง ณ เวลานั้น · Incidence = อัตรา new case ในช่วงเวลา — บอก "ความเร็วของโรค" → ใช้คำนวณ R0/หา outbreak · Aj. Nakcha emphasis: incidence ดีกว่าในการตามโรคใหม่' },
 
-  { id: 1792, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1925, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #4 (page 9)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -997,7 +997,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'มาตรฐาน Aj. Nakcha: 20-30 ตัว/โรงเรือน · ตัวละ 1 ml → enough volume ทำ ELISA + serial dilution · ตำแหน่ง: หัวใจ (ลูกไก่) / right jugular / brachial vein (ไก่โต) · ถี่ตรวจซ้ำสม่ำเสมอเพื่อสร้าง baseline' },
 
-  { id: 1793, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1926, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #5 (page 9)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1007,7 +1007,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: 'Paired serum (acute + convalescent) → ดู 4-fold rise ของ titer = active infection · ตรวจครั้งเดียวอาจจะ false positive (vaccine titer / past infection) · 2 weeks gap เพราะ IgG/IgY peak ที่ 2-3 wk post-infection' },
 
-  { id: 1794, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1927, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #6 (page 9)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1017,7 +1017,7 @@ export const QB_POULTRY = [
     answer: 3,
     explain: 'Box paper = chick paper / pad ที่รองในกล่องลูกไก่ · ใช้ตรวจ Salmonella (S. Pullorum + S. Gallinarum + S. Enteritidis) — เป็นการ screening ที่ hatchery → ป้องกัน vertical transmission · "ไม่ใช้" ตรวจ AI (ต้องใช้ tracheal/cloacal swab)' },
 
-  { id: 1795, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1928, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #7 (page 9)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1026,7 +1026,7 @@ export const QB_POULTRY = [
     answer: false,
     explain: 'ผิด — ตัวอย่างไวรัส "ห้ามแช่แข็ง" (ในขั้นเก็บส่ง) เพราะ freeze-thaw cycle ทำลาย viral envelope/integrity · เก็บ "แช่เย็น 4°C" ส่งห้องปฏิบัติการภายใน 24 ชม. · ที่ lab จะเก็บ -80°C ระยะยาว' },
 
-  { id: 1796, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1929, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #9 (page 9)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1036,7 +1036,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: '"Down time" 3-7 วัน — ไม่สัมผัสไก่ตัวอื่น ก่อนเข้าฟาร์ม · ป้องกัน mechanical transmission (เสื้อผ้า/รองเท้า/ผม) · ระยะนี้ครอบคลุม incubation period ของหลายโรค · entry log + เปลี่ยนชุด + อาบน้ำ ก่อนเข้า' },
 
-  { id: 1797, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1930, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #10 (page 9)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1046,7 +1046,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Mortality threshold (Aj. Nakcha): พ่อแม่พันธุ์/breeder >0.3/1000 ตัว/วัน · ไก่เนื้อ/broiler >1/1000 ตัว/วัน → ถ้าเกิน = ผิดปกติ ต้องวินิจฉัยเพิ่ม (necropsy + lab) · เช่น 10,000 ตัว → broiler >10 ตัว/วัน = abnormal' },
 
-  { id: 1798, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1931, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #11 (page 9)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1061,7 +1061,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'Organic matter (โคลน · ขี้ไก่) "inactivate" disinfectant — ต้อง pre-clean ก่อน · เปลี่ยนน้ำยาทุกวัน เพราะ effectiveness ลดลงเมื่อสะสม organic matter · contact time สำคัญ (ตามฉลาก) · เปลี่ยนรองเท้าเป็นแบบฟาร์ม > จุ่ม' },
 
-  { id: 1799, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1932, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha + slide deck',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1071,7 +1071,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Boot/drag swab = ผ้าผ้าปลาสติกครอบรองเท้าเดินทั่วโรงเรือน → เก็บ environmental sample · เป็น routine sampling สำหรับ Salmonella surveillance · ทำคู่ละ 2 คู่/โรงเรือน · sensitive กว่าการเลือก swab ตัวสัตว์เพราะครอบคลุมพื้นที่กว้าง' },
 
-  { id: 1800, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1933, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha slide deck',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1081,7 +1081,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: 'Cleft palate (ฟ่างปากบน) + tracheal swab → respiratory pathogen panel: ND (Paramyxovirus) + AI (Influenza) + Mycoplasma · ในไก่มีชีวิต · ส่ง PCR หรือ virus isolation · แตกต่างจาก cloacal swab ที่ตรวจ ND + IBD + Salmonella' },
 
-  { id: 1801, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1934, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha slide deck (Hen Housed Production)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1096,7 +1096,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Hen Housed Production: ตัวหารคงที่ = ไก่ที่ "เริ่ม" ไข่ (จุดต้น) · เช่น 1000 ตัวเริ่ม → 5 wk หลังตาย 50 ตัว ไข่วันนี้ 850 ฟอง → HHP = 850×100/1000 = 85% · vs Hen Day = ใช้ไก่ที่ยังให้ไข่ในวันนั้น = ไก่ตายไม่นับ' },
 
-  { id: 1802, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1935, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha slide deck (Egg break-out)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1111,7 +1111,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Egg break-out = ผ่าไข่ฟักที่ไม่ฟัก (วันที่ 18-19 + วันคลอดแล้วไม่ออก) → จัดประเภท: Infertile (ใส) · Early dead (1-7d) · Mid dead (8-14d) · Late dead (15-19d) · External pip (เริ่มเจาะแต่ตาย) · Contaminated · Malposition (6 แบบ) → ระบุปัญหา: เก็บไข่ผิด/อุณหภูมิ/RH/contamination' },
 
-  { id: 1803, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1936, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha slide deck',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1126,7 +1126,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: '4 ส่วน (Aj. Nakcha): (1) Farm info — ชื่อฟาร์ม/ที่ตั้ง · (2) Area risk factor — สภาพแวดล้อม/ความหนาแน่นของฟาร์มในพื้นที่ · (3) Farm risk factor — ประวัติโรคในฟาร์ม · (4) House risk factor — สภาพโรงเรือน → score แบบ exponential' },
 
-  { id: 1804, subject: 'poultry', topic: 'biosecurity', year: 4,
+  { id: 1937, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha slide deck (Building serological program)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1141,7 +1141,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Flock profile = single flock 1-day-old → end of cycle (longitudinal) · Baseline = aggregate ของ ≥10 ฝูง similar program → "normal" expected · เปรียบเทียบ profile ปัจจุบันกับ baseline → uniformity / titer value / titer pattern → จับ abnormality' },
 
-  { id: 1805, subject: 'poultry', topic: 'first-week-mortality', year: 4,
+  { id: 1938, subject: 'poultry', topic: 'first-week-mortality', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha slide deck (Window of susceptibility)',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Nakcha (ณทยา) Vet 83 Final',
@@ -1157,7 +1157,7 @@ export const QB_POULTRY = [
     explain: 'Window of susceptibility = MDA decline (~2-3 wk) ก่อน vaccine response build up · ถ้า MDA สูง → vaccine ไม่ work (interference) · ถ้า window กว้าง → ไก่เสี่ยงติด field virus · ป้องกัน: เพิ่ม biosecurity ในช่วงนี้ + คำนวณ vaccine timing โดยตรวจ MDA titer day 1' },
 
   // ── Aj. Ekasingh — Quality Assurance MCQ (5 ข้อสอบจริง · sunsun84) ───
-  { id: 1806, subject: 'poultry', topic: 'quality-assurance', year: 4,
+  { id: 1939, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'sunsun84 (Vet 84) — อ.เอกสิงห์.pdf · MCQ#2',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84 Final',
@@ -1172,7 +1172,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: 'UNICEF = องค์กรเด็ก (UN Children\'s Fund) ไม่เกี่ยวข้องกับ food production standard · OIE/WOAH + Codex + GAP/GMP/HACCP/ISO ทั้งหมดเป็น food/animal production standards' },
 
-  { id: 1807, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1940, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'sunsun84 (Vet 84) — อ.เอกสิงห์.pdf · MCQ#4',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84 Final',
@@ -1187,7 +1187,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'WHO Highest Priority Critically Important Antimicrobials (CIA): Colistin (last-resort สำหรับ MDR gram-neg ในคน) + Cephalosporin 3rd-4th gen (cefotaxime/ceftiofur — last-resort) · ใช้ในสัตว์ → drive AMR → กระทบรักษาคนได้ · Thailand DLD ห้ามใช้ในอาหารสัตว์' },
 
-  { id: 1808, subject: 'poultry', topic: 'quality-assurance', year: 4,
+  { id: 1941, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'sunsun84 (Vet 84) — อ.เอกสิงห์.pdf · MCQ#3',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84 Final',
@@ -1202,7 +1202,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'มาตรฐานน้ำดื่มฟาร์มไก่: ห้ามมี E. coli + Salmonella โดยเด็ดขาด (zero tolerance) · TVC < 1000 cfu/ml · Coliform < 5000 cfu/ml · pH 6.0-8.0 · iron/manganese ≤ 0.3/0.05 mg/L · ตรวจ quarterly' },
 
-  { id: 1809, subject: 'poultry', topic: 'quality-assurance', year: 4,
+  { id: 1942, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'sunsun84 (Vet 84) — อ.เอกสิงห์.pdf — Betagro QM framework',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84 Final',
@@ -1217,7 +1217,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'BQM 3 มิติ (case study Betagro ที่ Aj. Ekasingh สอน): (1) Food Safety — ไม่มีเชื้อโรค + ไม่มี drug residue · (2) Quality — เนื้อสัตว์ตามสเปค · (3) Service — ตรงเวลา ตามคำสั่ง · ใช้ PDCA cycle ขับเคลื่อน improvement' },
 
-  { id: 1810, subject: 'poultry', topic: 'quality-assurance', year: 4,
+  { id: 1943, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'sunsun84 (Vet 84) — อ.เอกสิงห์.pdf — surface microbiology standard',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84 Final',
@@ -1238,7 +1238,7 @@ export const QB_POULTRY = [
   // Prof. Niwat Chansiripornchai · DVM, MSc, PhD, DTBVM · CU Vet
   // ════════════════════════════════════════════════════════════════════
 
-  { id: 1811, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1944, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
@@ -1253,7 +1253,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'Dose-dependent (concentration-dependent) → Cmax/MIC ratio · กลุ่มหลัก: Aminoglycoside (Gentamicin/Streptomycin) + Fluoroquinolone (Enrofloxacin) + Amoxicillin · ให้ครั้งเดียวขนาดสูง (once daily) · vs Time-dependent: Macrolide + β-lactam (Penicillin/Cephalosporin) → T>MIC ratio · ต้องให้บ่อย' },
 
-  { id: 1812, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1945, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
@@ -1268,7 +1268,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'Mycoplasma "ไม่มี cell wall" → β-lactam ใช้ไม่ได้ (peptidoglycan target) · ใช้ยาที่ออกฤทธิ์ผ่าน protein synthesis: Tylosin (macrolide) · Lincomycin-Spectinomycin · Tetracycline · Tiamulin · Fluoroquinolone · ระวัง: บางตัว banned ใน laying hens (residue)' },
 
-  { id: 1813, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1946, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
@@ -1278,7 +1278,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Synergism (1+1=3): Sulfa + Trimethoprim → block folic acid synthesis 2 enzyme พร้อมกัน (DHPS + DHFR) → bactericidal · ตัวอย่างอื่น: Tetracycline+Tylosin = Additive (1+1=2) · Penicillin+Erythromycin = Antagonistic (cidal+static ต้านกัน · 1+1=0)' },
 
-  { id: 1814, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1947, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
@@ -1288,7 +1288,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: 'กรมปศุสัตว์ banned: (1) Nitrofurans = carcinogen · (2) Nitroimidazoles (Metronidazole) = mutagen · (3) Glycopeptide (Vancomycin) = WHO last-resort · (4) β-agonists (Clenbuterol/Diethylstilbestrol) = anabolic, ทำให้เนื้อนุ่ม + carcinogen · (5) Chloramphenicol = aplastic anemia · (6) Enrofloxacin (in layers) = AMR · "อ.นิวัต ข้อเขียน 3 ตัวห้ามแน่ๆ": Diethylstilbestrol · Vancomycin · Chloramphenicol' },
 
-  { id: 1815, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1948, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
@@ -1298,7 +1298,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Aminoglycoside (Neomycin/Streptomycin/Gentamicin) + Polymyxin (Colistin) + Bacitracin → ทุกตัว "ไม่ดูดซึม" จาก GI (highly polar/large MW) → systemic level ต่ำมาก → ไม่ต้องหยุดยาก่อนเชือด · ใช้รักษาโรค GI infection (E. coli enteritis)' },
 
-  { id: 1816, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1949, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
@@ -1308,7 +1308,7 @@ export const QB_POULTRY = [
     answer: 2,
     explain: 'Avian malaria (Plasmodium gallinaceum) — แพร่โดยยุง · พบในฟาร์มเปิดใกล้ชายป่า/หน้าฝน · Tx: Chloroquine (1st choice) · Doxycycline · Quinine (drug-resistant) · ป้องกัน: ใช้มุ้ง + กำจัดยุง' },
 
-  { id: 1817, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1950, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
@@ -1318,7 +1318,7 @@ export const QB_POULTRY = [
     answer: 3,
     explain: 'Benzimidazole = broad-spectrum (กลม + ตืด) · ใช้แพร่หลายในไก่ · จับ β-tubulin ในพยาธิ · alternatives: Levamisole (กลม nicotinic-like, narrow) · Piperazine (กลม narrow) · Praziquantel (ตืด · ไก่ใช้น้อย · หมา/แมวใช้เยอะ)' },
 
-  { id: 1818, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1951, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
@@ -1334,7 +1334,7 @@ export const QB_POULTRY = [
     explain: 'แยกระหว่าง: (1) "Mold inhibitor" = ป้องกันไม่ให้รา grow · ใช้ Organic acid (Propionic / Sorbic) · (2) "Mold binder" (Mycotoxin binder) = ดูดซับ toxin ที่มีอยู่แล้ว · ใช้ HSCAS / Zeolite / Clay / Activated charcoal · ดี aflatoxin · ตัวเลือกผิด = Propionic = inhibitor ไม่ใช่ binder' },
 
   // ── Aj. Ekasingh QA — supplementary (Five Freedoms · BQM 4 มิติ · NCR) ─
-  { id: 1819, subject: 'poultry', topic: 'quality-assurance', year: 4,
+  { id: 1952, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Ekasingh QA page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84-86 Final',
@@ -1349,7 +1349,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Five Freedoms (FAWC 1979 · Brambell 1965): (1) Hunger & Thirst — อาหารน้ำเพียงพอ · (2) Discomfort — ที่อยู่เหมาะสม · (3) Pain/Injury/Disease — ป้องกัน + รักษา · (4) Express normal behaviour — แสดงพฤติกรรมตามธรรมชาติ · (5) Fear & Distress — ลด stress · เป็น core ของ welfare audit' },
 
-  { id: 1820, subject: 'poultry', topic: 'quality-assurance', year: 4,
+  { id: 1953, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Ekasingh BQM page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84-86 Final',
@@ -1364,7 +1364,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'BQM 4 มิติ (ฉบับ Betagro ขยายจาก 3 มิติ): (1) Food quality + Food safety · (2) Service excellence · (3) Animal welfare (Five Freedoms) · (4) Corporate responsibility (CSR + environment + community) · ใช้ "BQM 24/7" — คุณภาพ 24 ชม. × 7 วัน ตลอด' },
 
-  { id: 1821, subject: 'poultry', topic: 'quality-assurance', year: 4,
+  { id: 1954, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Ekasingh QA page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84-86 Final',
@@ -1379,7 +1379,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'NCR (Non-Conformance Report) = เอกสารบันทึกข้อ "ไม่ผ่าน" จากการ audit · ระบุ: หน่วยงาน · ลักษณะปัญหา · root cause · CAPA (Corrective and Preventive Action) · ติดตาม 30/60/90 วัน · เป็น core ของ ISO 9001 + GMP/HACCP audit' },
 
-  { id: 1822, subject: 'poultry', topic: 'quality-assurance', year: 4,
+  { id: 1955, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Betagro layer farm standard',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84-86 Final',
@@ -1395,7 +1395,7 @@ export const QB_POULTRY = [
     explain: 'Haugh Unit (HU) = log10 ของความหนาของไข่ขาวข้น vs น้ำหนักไข่ · HU ≥ 60-65 = ไข่สดมาตรฐาน · HU > 72 = AA grade · ลดลงเมื่อเก็บนาน/อุณหภูมิสูง · ตรวจคู่กับ shell strength + yolk color (Roche 8-10) + drug residue + Salmonella spp. = absent' },
 
   // ── Aj. Niwat drug application route ────────────────────────────────
-  { id: 1823, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1956, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — drug application techniques',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
@@ -1405,7 +1405,7 @@ export const QB_POULTRY = [
     answer: 0,
     explain: 'Order of preference: (1) Water medication = first choice (ไก่ป่วย ลดอาหาร แต่ยังกินน้ำ) · ครอบคลุมทั้งฝูง · ใช้ยาที่ละลายน้ำได้ + stable in water · (2) Feed medication = สำหรับ prevention/long-term · dose ต่ำกว่า · (3) Injection = critical case ฉุกเฉิน · ใช้กับไก่จำนวนน้อย/พ่อแม่พันธุ์' },
 
-  { id: 1824, subject: 'poultry', topic: 'avian-drugs', year: 4,
+  { id: 1957, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat written exam',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14 (essay style)',
@@ -1416,7 +1416,7 @@ export const QB_POULTRY = [
     explain: 'AMR prevention 5 Rs: Right drug (sensitivity test) · Right dose · Right duration · Right route · Right reason (ไม่ใช้ prophylactic) · เลี่ยง: ใต้โดส/over-dose/ใช้ยาผิดเชื้อ/growth promoter/colistin/cephalosporin (CIA) · combine ใช้แค่กรณี documented synergy (Sulfa+TMP)' },
 
   // ── Avian Zoonosis additions (Aj. Kamonpan slide deck) ──────────────
-  { id: 1825, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
+  { id: 1958, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Kamonpan zoonosis page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Kamonpan Avian Zoonosis L10-11',
@@ -1431,7 +1431,7 @@ export const QB_POULTRY = [
     answer: 1,
     explain: 'M. avium = environmental — ปนเปื้อนใน ground water + soil + bird feces · backyard poultry (ไก่บ้าน) เสี่ยงเพราะ free-range · นกแสดง: emaciation + organ enlargement (granulomatous lesion ที่ตับ ไต ม้าม) · คน (immunocompromised, esp. HIV): chronic lung infection · ใน TH พบในนกพิราบ + ไก่บ้าน' },
 
-  { id: 1826, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
+  { id: 1959, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
     source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Kamonpan zoonosis page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Kamonpan Avian Zoonosis L10-11',

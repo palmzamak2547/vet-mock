@@ -514,7 +514,7 @@ export const QB_COM3 = [
     answer: 2, explain: 'UMN lesion = above LMN cell body → ตัด inhibition → spinal reflex normal/hyper\nLMN lesion = at/below cell body → hyporeflexia/absent\n\n💡 intact reflex arc + loss of inhibition',
     verified: 'neuro_exam 1 hr.pdf + master p.5' },
 
-  { id: 785, subject: 'com3', topic: 'neuro-localised', year: 4, source: 'neuro_localised 1 hr.pdf',
+  { id: 785, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_localised 1 hr.pdf',
     tags: ['localisation', 'segments'], type: 'match',
     q: 'จับคู่ spinal segment กับ pattern ของ deficit',
     pairs: [
