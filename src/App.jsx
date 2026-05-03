@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense, lazy } from 'react';
 import { flushSync } from 'react-dom';
 import { QB } from './data/questions.js';
-import { SUBJECTS, CURRENT_YEAR } from './data/curriculum.js';
+import { SUBJECTS, CURRENT_YEAR, hiddenTopicIdsFor } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
@@ -422,7 +422,22 @@ export default function App() {
     else if (practiceMode === 'weak') pool = allQuestions.filter((q) => analytics?.weakQuestions.includes(q.id));
     else {
       pool = subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === subject);
-      if (topic) pool = pool.filter((q) => q.topic === topic);
+      if (topic) {
+        // Specific topic chosen — show all Qs of that topic (incl. hidden topics
+        // are reachable only via direct deep link, never auto-suggested).
+        pool = pool.filter((q) => q.topic === topic);
+      } else if (subject !== 'all') {
+        // "ทำรวม" mode for one subject: exclude hidden-topic Qs (uncertain-scope,
+        // midterm leftovers, etc.) so users get only Final-scope content.
+        const hidden = hiddenTopicIdsFor(subject);
+        if (hidden.size) pool = pool.filter((q) => !hidden.has(q.topic));
+      } else {
+        // subject === 'all': filter hidden across every subject.
+        pool = pool.filter((q) => {
+          const hidden = hiddenTopicIdsFor(q.subject);
+          return !hidden.has(q.topic);
+        });
+      }
     }
 
     // Apply question-category filter so users can split MCQ vs Writing
