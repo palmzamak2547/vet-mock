@@ -10313,7 +10313,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 ---
 
-## ⚠️ NOT_FOUND ใน lecture นี้ (vs schedule.js scope)
+## ⚠️ ไม่ได้สอนในคาบนี้ (เทียบกับ exam scope)
 - ★ **BSP (Bovine Spastic Paresis)** — Aj. ไม่พูดเลย
 - ★ **Tendon surgery / Tenotomy** — ไม่พูดเลย
 - Fracture repair (long bone)
@@ -10485,16 +10485,16 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 ★★★ **Series เรื่องกีบทั้งหมดเก็บไว้ทบทวนตอนฝึกงานปี 5**
 
-## ⚠️ NOT_FOUND ใน transcript (per syllabus checklist)
-- **Foot rot pathogens** (Fusobacterium · Bacteroides) — NOT_FOUND
-- **Foot rot Tx** specific drugs — NOT_FOUND
-- **Sole ulcer** = "Rusterholz ulcer" — NOT_FOUND (เรียก "ulcer" เฉยๆ)
-- **Sole ulcer typical location (zone 4)** — NOT_FOUND
-- **Digital dermatitis = Treponema** — NOT_FOUND (เรียก "DD")
-- **Strawberry lesion** — NOT_FOUND
-- **Footbath protocol** (copper/formalin/zinc sulfate) — NOT_FOUND
-- **Sprecher 1-5** detailed — NOT_FOUND
-- **Dutch 5-step** trimming — NOT_FOUND
+## ⚠️ ไม่ได้พูดในคาบนี้ (ตาม syllabus checklist)
+- **Foot rot pathogens** (Fusobacterium · Bacteroides) — ไม่ได้กล่าวถึง
+- **Foot rot Tx** specific drugs — ไม่ได้กล่าวถึง
+- **Sole ulcer** = "Rusterholz ulcer" — ไม่ได้กล่าวถึง (เรียก "ulcer" เฉยๆ)
+- **Sole ulcer typical location (zone 4)** — ไม่ได้กล่าวถึง
+- **Digital dermatitis = Treponema** — ไม่ได้กล่าวถึง (เรียก "DD")
+- **Strawberry lesion** — ไม่ได้กล่าวถึง
+- **Footbath protocol** (copper/formalin/zinc sulfate) — ไม่ได้กล่าวถึง
+- **Sprecher 1-5** detailed — ไม่ได้กล่าวถึง
+- **Dutch 5-step** trimming — ไม่ได้กล่าวถึง
 
 > รายละเอียดโรคให้ดูจาก lecture อื่นใน Hoof Health series (lecture 1-6) เทอมก่อน — lecture นี้คือ **applied herd assessment + management decision**`
 },
