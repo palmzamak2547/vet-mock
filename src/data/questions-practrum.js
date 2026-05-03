@@ -133,9 +133,9 @@ export const QB_PRACTRUM = [
     confidence: 'EXTRACTED',
     tags: ['indication', 'trp', 'hardware-disease'], type: 'mcq',
     q: 'Indication หลักของการทำ Rumenotomy คือข้อใด',
-    options: ['Cecal dilatation', 'Hardware disease (Traumatic Reticuloperitonitis) + frothy bloat ที่ trochar ไม่ออก', 'LDA (Left displaced abomasum)', 'Intussusception ของ small intestine'],
+    options: ['Cecal dilatation', 'Hardware disease (TRP)', 'Left displaced abomasum', 'Intussusception ของลำไส้เล็ก'],
     answer: 1,
-    explain: 'Rumenotomy หลักๆ ทำเพื่อ:\n1. Hardware disease (TRP) — เอา foreign body (ลวด/ตะปู) ออกจาก reticulum\n2. Frothy/foamy bloat ที่ trochar/orogastric tube ไม่ระบาย\n3. Choke (FB ที่ผ่านได้แต่ติดกระเพาะ)\n4. Vagal indigestion (severe rumen dysfunction)\n\n💡 LDA → omentopexy / abomasopexy (ไม่ใช่ rumenotomy)',
+    explain: 'Rumenotomy indications หลัก:\n1. **Hardware disease (TRP — Traumatic Reticuloperitonitis)** — เอา foreign body (ลวด/ตะปู) ออกจาก reticulum\n2. Frothy/foamy bloat ที่ trochar/orogastric tube ไม่ระบาย gas/foam ออก\n3. Choke (FB ติด rumen ผ่านไม่ได้)\n4. Vagal indigestion (severe rumen dysfunction)\n5. Persistent rumen impaction\n6. Exploration ของ rumen + reticulum + parts of omasum\n\n💡 LDA + RDA → omentopexy / abomasopexy (ไม่ใช่ rumenotomy) · Cecal dilatation → typhlotomy · Intussusception → enterotomy',
     verified: 'Sunsun84 p.2 "Rumen & int (15 ข้อ?): indications ของ rumenotomy · สามารถทำเป็น emergency case · เร็ว 2 ชั้น"' },
 
   { id: 2009, subject: 'practrum', topic: 'rumenotomy', year: 4,
