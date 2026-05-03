@@ -413,6 +413,67 @@ export const QB_CLIAPPRUM = [
     explain: '**4 elements ของ LCS evaluation** (อ.ปิยะณัฐ slide 3-7):\n\n1. **Timing** (ประเมินตอนไหนดี?) — ไม่รบกวน work flow · ใช้คนน้อย · โคเดินอิสระ · เวลาประณีต\n2. **Location** (ประเมินตรงไหนดี?) — work flow น้อย · พื้นเรียบไม่ลาดเอียง · ระยะเดินตรง ≥4 เมตร\n3. **Identification** (จดเบอร์โคให้ครบทุกตัว) — ต้องได้ ID ครบ\n4. **Interpretation** (แปลผลอย่างไร) — ดูปัจจัย RT (Routine trimming) ของฟาร์ม\n\n💡 Goal: ออกแบบการประเมิน LCS ที่นำไปประยุกต์ใช้ได้ในภาคสนาม + แปลผลได้ + วางแผนจัดการสุขภาพกีบ',
     verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx · อ.ปิยะณัฐ slide 3' },
 
+  // ═══════════════════════════════════════════════════════════
+  // GI MEDICINE (VDTT · TB · 5 Qs added 2026-05-04) — Q2129-2133
+  // อ.ธนศักดิ์ บุญเสริม (TB) · "Ruminant Gastrointestinal Disorder"
+  // Slide content: rumen pH · methylene blue · sediment activity · gram stain · GI motility
+  // ═══════════════════════════════════════════════════════════
+
+  { id: 2129, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
+    source: 'อ.ธนศักดิ์ TB GI Disorder slide + Sunsun84 cross-ref',
+    sourceType: 'lecture-verified-draft',
+    confidence: 'EXTRACTED',
+    tags: ['rumen-pH', 'acidosis'], type: 'mcq',
+    q: 'pH ของ ruminal fluid ที่ <5.5 บ่งบอกภาวะใด',
+    options: ['Inactive rumen', 'Clinical lactic acidosis', 'ปกติ post-feeding', 'Alkalosis'],
+    answer: 1,
+    explain: 'Ruminal pH interpretation (อ.ธนศักดิ์):\n\n• **<5.0**: Severe acute acidosis (grain engorgement)\n• **<5.5**: Clinical lactic acidosis ⭐\n• 5.5-7.5: Normal (มักอยู่ 6.0-7.0 ระหว่างมื้อ)\n• >7.0: Inactive rumen (rumen washout · spoiled feed · prolonged anorexia)\n\n💡 Subacute rumen acidosis (SARA):\n• pH 5.0-5.5 intermittent (ไม่ severe แต่ chronic)\n• เกิดจาก high concentrate · low effective fiber\n• Sequelae: laminitis, milk fat depression, LDA',
+    verified: 'อ.ธนศักดิ์ GI Disorder + standard ruminant medicine' },
+
+  { id: 2130, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
+    source: 'อ.ธนศักดิ์ TB GI Disorder slide',
+    sourceType: 'lecture-verified-draft',
+    confidence: 'EXTRACTED',
+    tags: ['methylene-blue', 'rumen-microflora'], type: 'mcq',
+    q: 'การทดสอบ Methylene Blue Reduction Test ใน ruminal fluid · ค่าปกติของ decolorization time คือกี่นาที',
+    options: ['<1 นาที', '3-6 นาที', '15-20 นาที', '>30 นาที'],
+    answer: 1,
+    explain: 'Methylene Blue Reduction Test:\n\n📋 Procedure: เติม methylene blue ใน ruminal fluid · จับเวลาจน blue หาย\n\n• **<3 นาที**: Bacteria เยอะมาก (over-fermentation · acidosis)\n• **3-6 นาที**: Normal ⭐ (active microflora)\n• **>6 นาที**: Bacteria ไม่ทำงาน (inactive rumen · post-antibiotic · spoiled feed)\n\n💡 ใช้ประเมิน rumen function แบบ semi-quantitative · cheap + cowside · ผลเร็ว\n\n💡 Companion tests:\n• Sediment activity (4-8 min normal)\n• Gram stain ratio\n• pH (5.5-7.5)\n• Protozoa motility',
+    verified: 'อ.ธนศักดิ์ GI Disorder + Smith Internal Medicine' },
+
+  { id: 2131, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
+    source: 'อ.ธนศักดิ์ TB GI Disorder slide',
+    sourceType: 'lecture-verified-draft',
+    confidence: 'EXTRACTED',
+    tags: ['gram-stain', 'flora-shift'], type: 'mcq',
+    q: 'ใน rumen fluid ปกติ Gram stain แสดง predominant flora แบบใด · การ shift มี gram-negative มากขึ้นบอกอะไร',
+    options: ['ปกติ G(+) · shift G(-) = alkalosis', 'ปกติ G(+) · shift G(-) = acidosis', 'ปกติ G(-) · shift G(+) = acidosis', 'ปกติ ไม่มี bacteria'],
+    answer: 1,
+    explain: 'Rumen flora gram stain:\n\n• **Normal: Gram-positive predominant** (Streptococcus, Lactobacillus ตามปกติ บางส่วน + cellulolytic)\n• **Acidosis shift**: Gram(-) เพิ่ม + Gram(+) ลด ⭐\n  - Streptococcus bovis บูม → lactic acid\n  - pH ลด · กลำลายเซลล์ Gram(+)\n  - Endotoxin จาก Gram(-) → laminitis sequela\n\n💡 Diagnostic value:\n• Cowside Gram stain ของ rumen fluid (orogastric tube + slide)\n• ใช้ประเมิน acidosis indirect (เสริม pH measurement)\n• Limitation: smear quality + reader experience\n\n💡 Clinical correlate:\n• Healthy: G(+) protozoa visible motile\n• SARA: G(-) เพิ่ม · protozoa decreased motility\n• Acute acidosis: G(-) dominant · protozoa absent',
+    verified: 'อ.ธนศักดิ์ GI Disorder + standard ruminant lab medicine' },
+
+  { id: 2132, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
+    source: 'อ.ธนศักดิ์ TB GI Disorder slide',
+    sourceType: 'lecture-verified-draft',
+    confidence: 'EXTRACTED',
+    tags: ['rumen-contraction', 'auscultation'], type: 'mcq',
+    q: 'ฟัง rumen contraction ใน left paralumbar fossa ของวัวปกติ จะได้ยินเสียง contraction กี่ครั้ง/นาที',
+    options: ['0-1 ครั้ง/นาที (atony)', '1-3 ครั้ง/นาที (1 ครั้ง/30 วิ)', '5-7 ครั้ง/นาที', '>10 ครั้ง/นาที'],
+    answer: 1,
+    explain: 'Rumen contraction frequency:\n\n• Normal: **1-3 contractions/minute** (~1 ครั้งทุก 30-45 วินาที) ⭐\n• 0 = Rumen atony (severe disease · TRP · hypocalcemia · severe acidosis)\n• Hypermotility: >3/min (early SARA · stress)\n\n📋 Auscultation:\n• Stethoscope ที่ left paralumbar fossa\n• ฟัง 2-3 นาที (cycle slow)\n• เสียง: rumbling/gurgling เป็น wave\n• Concurrent abdominal observation: paralumbar bulge during contraction\n\n💡 Cycle ปกติ: A-cycle (mixing) + B-cycle (eructation) สลับกัน\n• A-cycle: dorsal sac → ventral → mixing\n• B-cycle: trigger eructation (gas release)\n\n⚠️ Bloat: B-cycle impaired → gas accumulate · rumen distension',
+    verified: 'อ.ธนศักดิ์ GI Disorder + Smith Internal Medicine' },
+
+  { id: 2133, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
+    source: 'อ.ธนศักดิ์ TB GI Disorder + Sunsun84',
+    sourceType: 'lecture-verified-draft',
+    confidence: 'EXTRACTED',
+    tags: ['hypomotility', 'differential'], type: 'mcq',
+    q: 'วัวที่มี Rumen hypomotility (ฟัง <1 contraction/min) Diff Dx อันดับแรกที่ต้องนึกถึงคือกลุ่มใด',
+    options: ['Polycythemia', 'Hardware disease (TRP) / hypocalcemia / acidosis / displaced abomasum / severe systemic disease', 'Heart disease only', 'Skin disease'],
+    answer: 1,
+    explain: 'Rumen hypomotility DDx (อ.ธนศักดิ์):\n\n💡 **Mechanical causes**:\n• Hardware disease (TRP) — pain inhibits rumen reflex\n• Displaced abomasum (LDA/RDA) — anatomical disturbance\n• Cecal dilatation — caudal pressure\n• Bloat (severe distension)\n\n💡 **Metabolic causes**:\n• Hypocalcemia (post-partum) — Ca needed for smooth muscle contraction\n• Acidosis (rumen pH <5.0) — direct toxin to rumen wall\n• Endotoxemia (mastitis · metritis · laminitis sequela)\n• Hyperkalemia\n\n💡 **Systemic causes**:\n• Sepsis · severe pneumonia · BVDV · MCF\n• Late-stage ketosis\n• Vagal indigestion (chronic)\n\n💡 Approach:\n1. PE + rumen pH + bloodwork (Ca, K, BHBA, lactate)\n2. Rectal exam (LDA/RDA/cecum)\n3. Pain test (TRP)\n4. Treat underlying + supportive (Ca · NaHCO3 · fluids)',
+    verified: 'อ.ธนศักดิ์ GI Disorder DDx framework' },
+
   { id: 2128, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4,
     source: 'อ.ปิยะณัฐ slide 9-10 interpretation',
     sourceType: 'lecture-verified-draft',
