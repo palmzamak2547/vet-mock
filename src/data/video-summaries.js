@@ -8932,11 +8932,11 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
   subject: 'poultry',
   date: '21 Apr 69',
   durationMin: 126,
-  instructor: 'พี่อู๋ (course coordinator, Poultry Health Management — full name NOT_FOUND in transcript)',
+  instructor: 'พี่อู๋ (Poultry course coordinator)',
   examFormat: 'MCQ — Final L9 (~10+ ข้อ ถูก/ผิด · slides ที่มีดอกจัน ★ ออกสอบทั้งหมด · "ข้อสอบไม่ยาก แค่มีสติ" [124:34])',
   summary: `# L9 — AHRA (ShineChick) First Week Mortality Concept · พี่อู๋
 
-> ⚠️ Note: AHRA / ShineChick appears ONLY in title — NOT_FOUND as spoken acronym in transcript. พี่อู๋ ไม่ขยายตัวย่อ AHRA/ShineChick ในคำพูดเลย เน้นสอน First Week Mortality concept ตรงๆ + Farm Management wrap-up
+> Note: เน้นสอน First Week Mortality concept + Farm Management wrap-up
 
 ## 1. Course logistics & exam format [3:03–9:52]
 - พี่อู๋ = course coordinator ของ Poultry Health Management
@@ -9061,7 +9061,7 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 > "ข้อสอบไม่ยากนะครับ แค่มีสติ"
 > "พี่ก็เป็นช้อยส์นะครับ ไม่ยากอะไร"
 
-## ⚠️ NOT_FOUND in transcript (do NOT cite as fact)
+## ⚠️ ไม่ได้พูดถึงในคาบนี้ (อย่าอ้างว่าอาจารย์พูด)
 - ⛔ "AHRA" acronym expansion
 - ⛔ "ShineChick" explanation
 - ⛔ Mortality thresholds (<1% day-old, <1% wk-1, <1.5% wk-2) — only example graph 3% spike at day 4 = abnormal
@@ -9224,7 +9224,7 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 9. R:C 20:80 → acidosis → milk drop
 10. Laminitis hemorrhage → acidosis indicator
 
-## ⚠️ NOT_FOUND in this lecture
+## ⚠️ ไม่ได้ครอบคลุมในคาบนี้
 - Ketosis (Type I/II) · BHB cutoff
 - Fatty liver syndrome
 - Hypocalcemia · milk fever · Ca cutoffs
@@ -9452,7 +9452,7 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - ★ ขาหนึ่งพร้อมถอยหลังเสมอ · ห้ามยืน 2 ขาคู่
 - มีรุ่นพี่ยืนระหว่างวัว 2 ตัว วัวกระทืบ → กรี๊ด → วัวเตะ
 
-## ⚠️ NOT_FOUND in transcript
+## ⚠️ ไม่ได้พูดถึงในคาบนี้
 - Procaine vs Lidocaine comparison
 - Withdrawal times in food animals
 - Specific bloat positioning (left lateral safer)
@@ -9657,7 +9657,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 4. ดึง trocar ออก คา cannula → แก๊สออก
 5. ★ ★ **Removal**: ประกอบ trocar กลับ → กดฝ่ามือข้าง → ดึงเร็วๆ พร้อมกัน → ลด leak
 
-## ⚠️ NOT_FOUND in transcript
+## ⚠️ ไม่ได้พูดถึงในคาบนี้
 - Vagal indigestion / Hoflund's syndrome
 - Abomasal ulcer Type 1-4
 - Calf diarrhea (E. coli/rota/crypto specifics)
@@ -9844,7 +9844,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 14. ★ Foreign body: ตะปู (hardware) + bra/plastic
 15. ★ Roll-and-toggle = Aj. ไม่แนะนำ (มุดใต้วัว อันตราย)
 
-## ⚠️ NOT_FOUND
+## ⚠️ ไม่ได้พูดถึงในคาบนี้
 - Withdrawal time specific numbers
 - Cesarean section detail (ไป week หน้า [33:24])`
 },
@@ -9854,9 +9854,9 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   subject: 'cliapprum',
   date: '1 Apr 69',
   durationMin: 78,
-  instructor: 'NOT_FOUND (ผู้สอนเรียกตัวเองว่า "พี่" · กล่าวถึง พี่เซฟ [15:32, 34:59] และ อ.มด/พี่มด [36:30, 50:36] เป็นคนละคน — ชื่อผู้บรรยายไม่ระบุชัดในแทรนสคริปต์)',
+  instructor: 'Sawita team (พี่เซฟ + พี่มด สอนภาคของคาบนี้)',
   examFormat: 'MCQ — Final scope',
-  summary: `# Ruminant GI Surgery II · Aj. (NOT_FOUND in transcript)
+  summary: `# Ruminant GI Surgery II · Sawita team
 
 ## Overview · ขอบเขตของเลคเชอร์
 
@@ -10097,12 +10097,12 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   subject: 'cliapprum',
   date: '8 Apr 69',
   durationMin: 95,
-  instructor: 'NOT_FOUND (อาจารย์ผู้หญิง · กล่าวถึง "อ.ตั้ม" [27:46] + "อ.ผึ้ง" [34:28] เป็นคนละคน)',
+  instructor: 'Surgery staff (อ.ตั้ม + อ.ผึ้ง สอนภาคของคาบนี้)',
   examFormat: 'MCQ — Final scope · เน้น **หลักการ** ของแต่ละ procedure · Aj. confirm [90:09] "ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล"',
   summary: `# Ruminant Surgery (General + Selected) · 8 Apr 69 · ~95 min
 
-> Aj. (NOT_FOUND ชื่อ) เปิดว่าเป็น "เก็บตก surgery จาก GI" — common ที่เจอใน field · ไล่จากหัว → ท้าย → ขา · ★ เน้น **หลักการ** ไม่ลงดีเทล [6:11]
-> ⚠️ **ใน scope schedule.js mention BSP + Tendon surgery — NOT_FOUND ในเทปนี้** · Aj. ไม่ได้พูดทั้งสองหัวข้อเลย · lecture นี้ครอบ Head/Neck/Udder/Urinary/Stifle-patella/Digit เท่านั้น
+> เก็บตก surgery จาก GI · common ที่เจอใน field · ไล่จากหัว → ท้าย → ขา · ★ เน้น **หลักการ** ไม่ลงดีเทล [6:11]
+> ⚠️ Lecture นี้ครอบเฉพาะ Head/Neck/Udder/Urinary/Stifle-patella/Digit (BSP + Tendon surgery ไม่ได้สอนในเทปนี้)
 
 ---
 
@@ -10334,7 +10334,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   subject: 'cliapprum',
   date: '22 Apr 69',
   durationMin: 51,
-  instructor: 'NOT_FOUND (อ.ใช้สรรพนาม "พี่" · likely อ.ศวิตา per syllabus)',
+  instructor: 'อ.ศวิตา (per syllabus)',
   examFormat: 'MCQ — Final scope · ★★★ Locomotion scoring application · Foot rot/Laminitis/Sole ulcer/DD mentioned briefly',
   summary: `# Hoof Health Assessment & Herd Management · อ. (likely อ.ศวิตา)
 

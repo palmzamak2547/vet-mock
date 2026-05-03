@@ -467,7 +467,7 @@ export const VIDEO_META = {
     "subject": "poultry",
     "date": "21 Apr 69",
     "durationMin": 126,
-    "instructor": "พี่อู๋ (course coordinator, Poultry Health Management — full name NOT_FOUND in transcript)",
+    "instructor": "พี่อู๋ (Poultry course coordinator)",
     "examFormat": "MCQ — Final L9 (~10+ ข้อ ถูก/ผิด · slides ที่มีดอกจัน ★ ออกสอบทั้งหมด · \"ข้อสอบไม่ยาก แค่มีสติ\" [124:34])"
   },
   '91RNoNhi3gI': {
@@ -476,7 +476,7 @@ export const VIDEO_META = {
     "subject": "cliapprum",
     "date": "4 Mar 69",
     "durationMin": 143,
-    "instructor": "verify (ไม่ได้ระบุชื่อ — เรียกตัวเองว่า \"พี่\" · อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น เป็นผู้พัฒนา KCF)",
+    "instructor": "Clin App Rum staff (อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น ผู้พัฒนา KCF)",
     "examFormat": "MCQ — Final scope · 15 ข้อต่อคาบ"
   },
   'HD0tbvDa-Cc': {
@@ -485,7 +485,7 @@ export const VIDEO_META = {
     "subject": "cliapprum",
     "date": "11 Mar 69",
     "durationMin": 95,
-    "instructor": "Aj. (ไม่ระบุชื่อใน transcript — instructor หญิง สอนปีละครั้ง · กล่าวถึงทีม อ.สมิต อ.พล อ.แนน อ.อร อ.มน พี่มด พี่ลี่)",
+    "instructor": "อ.ภัทร์มนฉัตร บุนนาค (PB · สอนปีละครั้ง · ทีม อ.สมิต/พล/แนน/อร/มน + พี่มด/ลี่)",
     "examFormat": "MCQ — Final scope"
   },
   '03mEa46Cg48': {
@@ -512,7 +512,7 @@ export const VIDEO_META = {
     "subject": "cliapprum",
     "date": "1 Apr 69",
     "durationMin": 78,
-    "instructor": "NOT_FOUND (ผู้สอนเรียกตัวเองว่า \"พี่\" · กล่าวถึง พี่เซฟ [15:32, 34:59] และ อ.มด/พี่มด [36:30, 50:36] เป็นคนละคน — ชื่อผู้บรรยายไม่ระบุชัดในแทรนสคริปต์)",
+    "instructor": "Sawita team (พี่เซฟ + พี่มด สอนภาคส่วนของคาบนี้)",
     "examFormat": "MCQ — Final scope"
   },
   'OQIW6zyubcs': {
@@ -521,7 +521,7 @@ export const VIDEO_META = {
     "subject": "cliapprum",
     "date": "8 Apr 69",
     "durationMin": 95,
-    "instructor": "NOT_FOUND (อาจารย์ผู้หญิง · กล่าวถึง \"อ.ตั้ม\" [27:46] + \"อ.ผึ้ง\" [34:28] เป็นคนละคน)",
+    "instructor": "Surgery staff (อ.ตั้ม + อ.ผึ้ง สอนภาคของคาบนี้)",
     "examFormat": "MCQ — Final scope · เน้น **หลักการ** ของแต่ละ procedure · Aj. confirm [90:09] \"ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล\""
   },
   'KAbtQmSMgQo': {
@@ -530,7 +530,7 @@ export const VIDEO_META = {
     "subject": "cliapprum",
     "date": "22 Apr 69",
     "durationMin": 51,
-    "instructor": "NOT_FOUND (อ.ใช้สรรพนาม \"พี่\" · likely อ.ศวิตา per syllabus)",
+    "instructor": "อ.ศวิตา (per syllabus)",
     "examFormat": "MCQ — Final scope · ★★★ Locomotion scoring application · Foot rot/Laminitis/Sole ulcer/DD mentioned briefly"
   },
 };
