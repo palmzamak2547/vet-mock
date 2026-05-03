@@ -205,7 +205,7 @@ export const SUBJECTS_BY_YEAR = {
           lecturer: 'Chaowaphan Yinharnmingmongkol', lecturer_year: 2026, schedule: '20 มี.ค. · Lect 20',
           lecturerNote: 'Exotic reproductive overview · slide 2026 is scan-heavy, so paired with sunsun84/Kimchii notes' },
         { id: 'genetics', label: 'Lect 21 · Genetic considerations', icon: '🧬',
-          lecturer: 'Nantapong Kampprasert', lecturer_year: 2026, schedule: '27 มี.ค. · Lect 21',
+          lecturer: 'Nantapong Kamprasert (Bank · UNE Australia · external guest)', lecturer_year: 2026, schedule: '27 มี.ค. · Lect 21',
           lecturerNote: 'P = G + E, heritability, selection, EBV/BLUP/GBLUP, inbreeding risk' },
         { id: 'surgical-neutering', label: 'Lect 22 · Surgical neutering', icon: '✂️',
           lecturer: 'Sroisuda Chotimanukul (SC)', lecturer_year: 2026, schedule: '27 มี.ค. · Lect 22',
