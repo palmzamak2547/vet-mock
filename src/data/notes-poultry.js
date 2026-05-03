@@ -2,6 +2,12 @@
 // Poultry Health Management (3107409) Study Notes — Final scope (L9-L15)
 // Final exam: 7 พ.ค. 2569 · VET6 702 · 13:00-15:00
 // Coordinator: อ.ดร.เกรียงวิชญ์ ลิมป์วิทยาคุณ
+//
+// Source priority:
+//   1) Lecture 2026 slides (L9-L15)
+//   2) Nicky 86 master compilation (senior recall)
+//   3) Kim85 + Ploy83 cross-ref
+//   4) AAAP / OIE / WHO standards
 // ──────────────────────────────────────────────────────────────────
 
 export const NOTES_POULTRY = {
@@ -13,26 +19,136 @@ export const NOTES_POULTRY = {
     summary: 'AHRA framework · Pasgar score · IgY/MDA/Harderian gland · Rolling reaction · vaccine principles',
     sections: [
       {
-        heading: 'Avian Immunology',
+        heading: 'Avian Immune System Anatomy',
         source: 'อ.สมศักดิ์ Lecture + Kim85 + Nicky 86',
         body: [
           { bullets: [
-            '**Lymphoid organs**: Bursa of Fabricius (B-cell) · Thymus (T-cell) · cecal tonsils',
-            '**IgY** (avian homologue ของ IgG) — ส่งจากแม่ผ่านไข่แดง (yolk) → MDA ป้องกันลูกไก่ ~3 wk',
-            'IgM ส่งผ่านไข่ขาวในปริมาณน้อย · ไม่มีรกในไก่',
-            '**Harderian gland** — secretory IgA · upper respiratory immunity',
+            '**Primary lymphoid organs**:',
+            '  • **Bursa of Fabricius** — B-cell maturation (unique to birds) · involutes ~15 wk',
+            '  • **Thymus** — T-cell maturation · 7 lobes neck',
+            '**Secondary lymphoid organs**:',
+            '  • Spleen · cecal tonsils · Peyer\'s patches · Harderian gland (eye)',
+            '  • GALT (gut-associated) · BALT (bronchus-associated)',
+            '⚠️ **No lymph nodes** in chickens (unlike mammals)',
           ] },
         ],
       },
       {
-        heading: 'First Week Mortality',
+        heading: 'Antibodies + Maternal Immunity',
+        source: 'อ.สมศักดิ์',
+        body: [
+          { table: {
+            headers: ['Ig class', 'Mammal equivalent', 'Notes'],
+            rows: [
+              ['**IgY**', 'IgG', 'Major serum Ab · transferred via **yolk** → MDA in chick ~3 wk'],
+              ['IgM', 'IgM', 'Pentamer · early infection · transferred via egg white (small amount)'],
+              ['IgA', 'IgA', 'Mucosal · Harderian gland (upper resp) · gut'],
+            ],
+          } },
+          { bullets: [
+            '**MDA (Maternal-Derived Antibody)** — protect chick first 1-3 weeks · interferes with vaccine',
+            '**Harderian gland** — secretory IgA · upper respiratory immunity · spray vaccine target',
+            'No placenta → all maternal Ig via egg',
+          ] },
+        ],
+      },
+      {
+        heading: 'First Week Mortality Targets',
         source: 'AHRA / ShineChick framework',
         body: [
+          { table: {
+            headers: ['Period', 'Target Mortality', 'Concern If'],
+            rows: [
+              ['Day 0 (placement)', '<0.5%', '>1% = hatchery/transport'],
+              ['Day 1-7', '<1%', '>1.5% spike = investigate'],
+              ['Day 8-14', '<1.5%', 'Cumulative day 14 <2-3%'],
+              ['Day 15-21', '<2%', 'Cumulative day 21 <3-4%'],
+            ],
+          } },
           { bullets: [
-            '**Target: <1% day-old · <1% wk-1 · <1.5% wk-2** (slide showed 3% spike day 4 = abnormal)',
-            'Common causes: omphalitis · yolk sac infection · chilling/overheating · dehydration',
-            '**Pasgar score** (5 points) — eval chick quality at 24h',
-            '**Rolling reaction** — vaccine response timing concept',
+            'Slide showed 3% spike day 4 = abnormal (investigate hatchery / brooding)',
+          ] },
+        ],
+      },
+      {
+        heading: 'Pasgar Score (Chick Quality at 24h)',
+        source: 'Pasgar+© commercial framework',
+        body: [
+          { bullets: [
+            'Score **5 categories** · each 0-1 · total 0-5 (perfect = 5)',
+            '**P** — Posture (legs steady · alert)',
+            '**A** — Activity (responsive)',
+            '**S** — Skin (navel closure)',
+            '**G** — Gut (yolk absorption)',
+            '**A** — Appearance (clean · feathered)',
+            '**R** — Reflex (right itself when laid back)',
+            '⭐ Pasgar ≥4 = good batch',
+          ] },
+        ],
+      },
+      {
+        heading: 'Common Causes of First Week Mortality',
+        source: 'AHRA framework + Aviagen',
+        body: [
+          { bullets: [
+            '**Yolk sac infection (omphalitis)** — bacterial entry via unhealed navel · E. coli · Enterococcus · Staph',
+            '**Dehydration** — improper water access · high temp brooding',
+            '**Chilling** — cold floor · poor heat distribution',
+            '**Overheating** — close-quarter brooding · heat stress',
+            '**Starve-out** — chick fails to find feed/water (poor placement · long transport)',
+            '**Pulmonary hypertension syndrome (ascites)** — high-altitude or hypoxia',
+            '**Wet litter** — contributes to cold stress + paw pad injury',
+          ] },
+        ],
+      },
+      {
+        heading: 'Vaccine Strategy (Rolling Reaction Concept)',
+        source: 'อ.สมศักดิ์ + WVPA',
+        body: [
+          { bullets: [
+            '**Rolling reaction** = vaccine mild local infection rolls through flock + boosts immunity',
+            'Live vaccine spreads bird-to-bird → entire flock immunized even if some birds skip dose',
+            'Risk: rolling reaction too strong → reaction stronger than disease → respiratory or production loss',
+            'Mitigate: titer match · hatchery vs farm timing · MDA decay window',
+          ] },
+          { sub: 'Common Vaccines + Routes',
+            body: [
+              { table: {
+                headers: ['Disease', 'Vaccine type', 'Route'],
+                rows: [
+                  ['Marek\'s', 'HVT/SB-1 cell-associated', 'In-ovo / SC day-old (hatchery)'],
+                  ['IBD (Gumboro)', 'Live attenuated', 'Drinking water / SC immune complex'],
+                  ['NDV', 'Live (LaSota · B1)', 'Spray · drinking water · eye drop'],
+                  ['IB', 'Live (Mass · Ark · Conn)', 'Spray · drinking water'],
+                  ['ILT', 'Live (TCO/CEO · vector)', 'Eye drop · spray (vector)'],
+                  ['AI (H5/H7)', 'Inactivated', 'IM (regulated)'],
+                  ['Coccidiosis', 'Live oocyst', 'Spray · feed gel'],
+                ],
+              } },
+            ] },
+          { sub: 'Vaccine Timing Decision',
+            body: [
+              { bullets: [
+                'MDA high (early week 1) → live vaccine neutralized → ineffective',
+                'MDA decay (week 2-3) → optimal vaccination window',
+                'Multi-dose schedule: prime + boost · monitor seroconversion (HI · ELISA)',
+              ] },
+            ] },
+        ],
+      },
+      {
+        heading: 'Past Exam Mapping (L9 immunology + first week)',
+        source: 'Nicky 86 master + Kim85',
+        body: [
+          { bullets: [
+            'Q "Avian B-cell maturation organ" → Bursa of Fabricius',
+            'Q "Maternal Ab via yolk" → IgY',
+            'Q "Harderian gland role" → Mucosal IgA respiratory',
+            'Q "Day 0 mortality target" → <0.5%',
+            'Q "Pasgar 5 categories" → Posture · Activity · Skin · Gut · Appearance/Reflex',
+            'Q "Omphalitis pathogen" → E. coli + Enterococcus + Staph',
+            'Q "Rolling reaction concept" → live vaccine spread bird-to-bird boost flock immunity',
+            'Q "ทำไม MDA ทำลายวัคซีน" → maternal Ab neutralize live vaccine virus',
           ] },
         ],
       },
@@ -44,28 +160,117 @@ export const NOTES_POULTRY = {
     title: 'L10 · Avian Zoonosis',
     lecturer: 'อ.กมลพรรณ จรัญกุล (Vet Public Health, CU)',
     icon: '🧬',
-    summary: 'Zoonotic diseases ที่ติดจากสัตว์ปีกมาคน · bacteria + virus + fungi',
+    summary: 'Zoonotic diseases ที่ติดจากสัตว์ปีกมาคน · bacteria + virus + fungi · AI pandemic · One Health',
     sections: [
       {
-        heading: 'Major Avian Zoonoses',
-        source: 'Aj.กมลพรรณ slide L10',
+        heading: 'Major Avian Zoonoses (Bacterial)',
+        source: 'Aj.กมลพรรณ slide L10 + WHO',
         body: [
           { table: {
             headers: ['Disease', 'Pathogen', 'Notes'],
             rows: [
-              ['Chlamydiosis (Psittacosis)', 'Chlamydia psittaci', 'Gram-neg obligate intracellular'],
-              ['Erysipelas', 'Erysipelothrix rhusiopathiae', 'Skin lesions in handlers'],
-              ['Avian TB', 'Mycobacterium avium', 'Chronic granuloma'],
-              ['Salmonellosis', 'Salmonella spp.', 'Common foodborne'],
-              ['Campylobacteriosis', 'Campylobacter jejuni', 'Common foodborne'],
-              ['Yersiniosis', 'Yersinia pseudotuberculosis', ''],
-              ['Q Fever', 'Coxiella burnetii', 'Aerosol transmission'],
-              ['Cryptococcosis', 'Cryptococcus neoformans (yeast)', 'Pigeon droppings'],
-              ['Newcastle disease (NDV)', 'Paramyxovirus', 'Conjunctivitis ใน handler'],
-              ['West Nile (WNV)', 'Flavivirus', 'Mosquito-borne'],
-              ['Avian Influenza', 'Influenza A H5N1/H7N9', 'Pandemic potential'],
+              ['**Chlamydiosis (Psittacosis)**', 'Chlamydia psittaci', 'Gram-neg obligate intracellular · pet birds (parrots) · pneumonia in handlers · doxycycline Tx'],
+              ['**Erysipelas**', 'Erysipelothrix rhusiopathiae', 'Skin lesions in handlers · "fish handler\'s disease"'],
+              ['**Avian TB**', 'Mycobacterium avium', 'Chronic granuloma · slow growth · zoonotic but rare'],
+              ['**Salmonellosis**', 'Salmonella spp. (Typhimurium · Enteritidis)', 'Common foodborne · egg contamination via shell + transovarian'],
+              ['**Campylobacteriosis**', 'Campylobacter jejuni', 'Most common bacterial gastroenteritis worldwide · undercooked poultry'],
+              ['**Yersiniosis**', 'Yersinia pseudotuberculosis · Y. enterocolitica', 'Cold-loving · refrigerator pathogen'],
+              ['**Q Fever**', 'Coxiella burnetii', 'Aerosol transmission · ruminants > poultry'],
+              ['**Listeriosis**', 'Listeria monocytogenes', 'Refrigerator pathogen · pregnant + immunocompromised'],
             ],
           } },
+        ],
+      },
+      {
+        heading: 'Major Avian Zoonoses (Viral)',
+        source: 'Aj.กมลพรรณ slide L10 + WHO + WOAH',
+        body: [
+          { table: {
+            headers: ['Disease', 'Pathogen', 'Pandemic Risk'],
+            rows: [
+              ['**Avian Influenza (HPAI)**', 'Influenza A H5N1 · H7N9 · H5N6', '⭐ Highest · pandemic potential · 2024-2026 H5N1 dairy outbreak US'],
+              ['**Newcastle disease (NDV)**', 'Paramyxovirus type 1', 'Conjunctivitis ใน handler · self-limiting'],
+              ['**West Nile (WNV)**', 'Flavivirus', 'Mosquito-borne · birds = reservoir · neurologic in human'],
+              ['**Eastern/Western EE**', 'Alphavirus', 'Mosquito vector · neurologic'],
+              ['**Japanese encephalitis**', 'Flavivirus', 'Mosquito · pigs amplify'],
+            ],
+          } },
+        ],
+      },
+      {
+        heading: 'Avian Influenza (HPAI) — Detail',
+        source: 'WOAH + WHO 2024-26',
+        body: [
+          { bullets: [
+            '**Hemagglutinin (H1-18)** + **Neuraminidase (N1-11)** → 144 combinations theoretically',
+            '**HPAI** = high pathogenicity (multibasic cleavage site at HA) · 100% mortality in chickens',
+            '**LPAI** = low pathogenicity · localized respiratory · can mutate to HPAI',
+            '**Reservoir** = wild waterfowl (asymptomatic) → migration spread',
+            '**Pandemic potential**: H5N1 (since 1997) · H7N9 (China 2013) · current concern dairy cattle 2024',
+          ] },
+          { sub: 'Transmission to Human',
+            body: [
+              { bullets: [
+                'Direct contact with infected birds (slaughter · culling · handling)',
+                'Aerosol from contaminated environments',
+                'Rare human-to-human (pandemic alert)',
+                'PPE: N95 · goggles · gloves · gown',
+              ] },
+            ] },
+          { sub: 'Public Health Response (Stamp Out)',
+            body: [
+              { bullets: [
+                'Detection → quarantine premises → cull all birds → disposal (burn/bury) → disinfect → restocking after waiting period',
+                'Surveillance ring 3-10 km',
+                'Trace-back + trace-forward',
+                'Biosecurity audit',
+                'Compensation farmers',
+              ] },
+            ] },
+        ],
+      },
+      {
+        heading: 'Major Avian Zoonoses (Fungal · Parasitic)',
+        source: 'Aj.กมลพรรณ slide',
+        body: [
+          { table: {
+            headers: ['Disease', 'Pathogen', 'Notes'],
+            rows: [
+              ['**Cryptococcosis**', 'Cryptococcus neoformans (yeast)', 'Pigeon droppings · soil · meningitis in immunocompromised'],
+              ['**Histoplasmosis**', 'Histoplasma capsulatum', 'Bird/bat droppings · pulmonary · endemic Mississippi'],
+              ['**Aspergillosis**', 'Aspergillus fumigatus', 'Decaying organic matter · pulmonary · immunocompromised'],
+              ['**Cryptosporidiosis**', 'Cryptosporidium spp.', 'Diarrhea · waterborne'],
+            ],
+          } },
+        ],
+      },
+      {
+        heading: 'One Health Concept',
+        source: 'WHO + WOAH + FAO Tripartite',
+        body: [
+          { bullets: [
+            '**One Health** = human + animal + environment integrated',
+            '~75% of emerging infectious diseases are zoonotic',
+            '~60% of all human pathogens are zoonotic',
+            'Major collaborations: GLEWS (Global Early Warning System) · OFFLU (avian flu) · Tripartite (WHO+WOAH+FAO+UNEP since 2022)',
+            'Vet role: surveillance · biosecurity · risk communication · One Health education',
+          ] },
+        ],
+      },
+      {
+        heading: 'Past Exam Mapping (L10 zoonosis)',
+        source: 'Nicky 86 master + WHO',
+        body: [
+          { bullets: [
+            'Q "Psittacosis pathogen" → Chlamydia psittaci',
+            'Q "Avian TB" → Mycobacterium avium',
+            'Q "Pigeon dropping fungus" → Cryptococcus neoformans',
+            'Q "AI HPAI subtype" → H5N1 · H7N9',
+            'Q "WNV reservoir" → wild birds',
+            'Q "ทำไม Salmonella ไข่" → transovarian + shell contamination',
+            'Q "Stamp out คือ" → cull all + disposal + disinfect + restock after wait',
+            'Q "One Health คือ" → human + animal + environment integrated',
+          ] },
         ],
       },
     ],
@@ -85,11 +290,23 @@ export const NOTES_POULTRY = {
           { table: {
             headers: ['Level', 'Definition', 'Examples'],
             rows: [
-              ['**Conceptual**', 'แผนผังโครงสร้างฟาร์ม', 'Zoning · fencing · pest exclusion · ระยะห่างจากฟาร์มอื่น'],
-              ['**Structural**', 'อุปกรณ์ + ระบบ', 'Boot dip · perimeter fence · shower-in · dedicated equipment per house'],
-              ['**Procedural**', 'SOP + monitoring', 'Employee training · water quality (pH + heavy metal + bacterial count) · feed QC · recordkeeping'],
+              ['**Conceptual**', 'แผนผังโครงสร้างฟาร์ม', 'Zoning · fencing · pest exclusion · ระยะห่างจากฟาร์มอื่น >1-3 km · prevailing wind direction'],
+              ['**Structural**', 'อุปกรณ์ + ระบบ', 'Boot dip · perimeter fence · shower-in · dedicated equipment per house · all-in/all-out'],
+              ['**Procedural**', 'SOP + monitoring', 'Employee training · water quality (pH + heavy metal + bacterial count) · feed QC · recordkeeping · vehicle disinfection'],
             ],
           } },
+        ],
+      },
+      {
+        heading: 'Bio-Exclusion vs Bio-Containment',
+        source: 'Aj.ณทยา + AAAP',
+        body: [
+          { bullets: [
+            '**Bio-exclusion** = keep pathogens OUT (most poultry farms · prevent introduction)',
+            '**Bio-containment** = keep pathogens IN (during outbreak · prevent spread)',
+            'Both use same tools (PPE · disinfection · zoning) but mindset differs',
+            'Bio-management = continuous biosecurity audit + improvement',
+          ] },
         ],
       },
       {
@@ -98,22 +315,90 @@ export const NOTES_POULTRY = {
         body: [
           { bullets: [
             '**Sample size depends on test Se/Sp** — low Se/Sp → ต้องเพิ่ม n เพื่อ statistical power',
-            '**Boot swab** — environmental sampling (Salmonella · AI)',
-            '**Cloacal swab** — individual bird (NDV · AI · LT)',
-            '**Cleft palate swab** — respiratory pathogens',
+            'Cannon-Roe formula: n = log(α) / log(1 - Se×P) where P = expected prevalence · α = confidence',
+            'Example: 95% confidence detect ≥5% prevalence with Se 90% → n ≈ 60',
+          ] },
+          { sub: 'Sample Types',
+            body: [
+              { table: {
+                headers: ['Sample', 'Use'],
+                rows: [
+                  ['**Boot swab**', 'Environmental sampling (Salmonella · AI · litter)'],
+                  ['**Cloacal swab**', 'Individual bird (NDV · AI · LT)'],
+                  ['**Cleft palate / oropharyngeal swab**', 'Respiratory pathogens (MG · ILT · IB)'],
+                  ['**Tracheal swab**', 'Respiratory virus high yield'],
+                  ['**Serum**', 'Serology · titer · seroconversion (HI · ELISA)'],
+                  ['**Tissue**', 'Necropsy lesions · IHC · PCR'],
+                ],
+              } },
+            ] },
+        ],
+      },
+      {
+        heading: 'Production Metrics',
+        source: 'Aviagen + Hy-Line + Lohmann',
+        body: [
+          { bullets: [
             '**Hen Housed (HH) production** = total eggs / hens housed at start',
             '**Hen Day (HD) production** = eggs that day / hens alive that day',
+            'HD > HH always (HD ignores mortality)',
+            '**Mortality % cumulative** = critical KPI',
+            '**Feed Conversion Ratio (FCR)** = feed consumed / weight gain (broiler) or per dozen eggs (layer)',
+            '**EPEF (European Production Efficiency Factor)** = (livability × BW × 100) / (FCR × age) · broiler benchmarking',
           ] },
         ],
       },
       {
-        heading: 'Disease Prevention vs Control',
+        heading: 'Disease Prevention vs Control vs Eradication',
         source: 'Nicky 86 master p.28',
         body: [
+          { table: {
+            headers: ['Phase', 'Goal', 'Tools'],
+            rows: [
+              ['**Prevention**', 'ก่อนติด · keep out', 'Vaccine + biosecurity + surveillance + immunity check'],
+              ['**Control**', 'หลังติด · limit spread', 'Isolation · culling · treatment · disinfection · trace + restrict movement'],
+              ['**Eradication**', 'กำจัดให้หมด', 'Stamp out (HPAI) · vaccination + cull · long-term surveillance'],
+            ],
+          } },
           { bullets: [
-            '**Prevention** (ก่อนติด): vaccine + biosecurity + surveillance + immunity check',
-            '**Control** (หลังติด): isolation · culling · treatment · disinfection · trace + restrict movement',
             'ถ้าโรคไวรัสที่รักษาไม่ได้ (เช่น HPAI) → stamp out (กำจัดทั้งฝูง + ทำลายซาก)',
+            'Reportable diseases: AI · ND · Salmonellosis · Mycoplasmosis · ILT (varies by country)',
+          ] },
+        ],
+      },
+      {
+        heading: 'Key Disinfectants',
+        source: 'OIE + AAAP',
+        body: [
+          { table: {
+            headers: ['Disinfectant', 'Spectrum', 'Use'],
+            rows: [
+              ['**Quaternary ammonium**', 'Bact · enveloped virus', 'General farm · gentle'],
+              ['**Glutaraldehyde**', 'Broad incl. spores', 'Footbath · equipment'],
+              ['**Sodium hypochlorite (bleach)**', 'Broad', 'Surface · 1:10 dilution · inactivated by organic matter'],
+              ['**Phenolics**', 'Bact + some virus', 'Less affected by organic'],
+              ['**Iodophors**', 'Broad', 'Equipment · footdip'],
+              ['**Peracetic acid**', 'Broad incl. spores', 'Hatchery'],
+              ['**Formaldehyde**', 'Broad incl. spores', '⚠️ Carcinogen · restricted · hatchery only'],
+            ],
+          } },
+          { callout: '⚠️ Always clean (remove organic matter) BEFORE disinfect — most disinfectants inactivated by feces/feed', kind: 'warn' },
+        ],
+      },
+      {
+        heading: 'Past Exam Mapping (L11 biosecurity)',
+        source: 'Nicky 86 master + Aj.ณทยา',
+        body: [
+          { bullets: [
+            'Q "3 levels biosecurity" → Conceptual · Structural · Procedural',
+            'Q "Conceptual ตัวอย่าง" → Zoning · ระยะห่างฟาร์ม · prevailing wind',
+            'Q "Procedural ตัวอย่าง" → SOP · training · water QC · feed QC',
+            'Q "Bio-exclusion vs containment" → out vs in',
+            'Q "Boot swab ใช้ตรวจอะไร" → environmental Salmonella · AI litter',
+            'Q "HH vs HD difference" → HH ignore mortality เริ่มต้น · HD รายวัน',
+            'Q "Stamp out คืออะไร" → cull + disposal + disinfect + restock wait',
+            'Q "Disinfectant ก่อนใช้ต้องทำไร" → clean organic matter ก่อน',
+            'Q "Sample size ขึ้นกับ" → Se/Sp + prevalence + confidence',
           ] },
         ],
       },
@@ -134,48 +419,112 @@ export const NOTES_POULTRY = {
           { table: {
             headers: ['Class', 'Mechanism', 'Example'],
             rows: [
-              ['Cidal vs Static', 'Kill vs inhibit growth', 'Cidal: PCN, FQs · Static: tetra, macrolide'],
-              ['Time-dependent', 'Effect = time above MIC', 'β-lactams (PCN) · macrolides — give frequent doses'],
+              ['Cidal vs Static', 'Kill vs inhibit growth', 'Cidal: PCN · FQs · aminoglycoside · Static: tetra · macrolide · sulfonamide'],
+              ['Time-dependent', 'Effect = time above MIC', 'β-lactams (PCN · cephalosporin) · macrolides — give frequent doses'],
               ['Concentration-dependent', 'Effect = peak/MIC ratio', 'FQs · aminoglycosides — give high doses less often'],
+              ['Mixed (AUC/MIC)', 'Both concentration + time', 'Tetracyclines · vancomycin (not in poultry)'],
             ],
           } },
         ],
       },
       {
-        heading: '⛔ Banned Drugs (Thailand poultry)',
-        source: 'Prof.นิวัตร · Thai DLD regulations',
+        heading: 'PK/PD Principles',
+        source: 'Prof.นิวัตร + Plumb',
         body: [
           { bullets: [
-            '**Vancomycin** — last-resort human · ห้ามในสัตว์อาหาร',
-            '**DES (Diethylstilbestrol)** — synthetic estrogen · carcinogen',
-            '**Chloramphenicol (CAP)** — bone marrow toxicity in humans',
-            '**Nitrofurans** (Furazolidone, Nitrofurazone) — carcinogenic + mutagenic',
+            '**PK (Pharmacokinetics)** = what body does to drug · ADME (Absorption · Distribution · Metabolism · Excretion)',
+            '**PD (Pharmacodynamics)** = what drug does to body · MIC · MBC · post-antibiotic effect',
+            '**MIC (Minimum Inhibitory Concentration)** = lowest conc inhibits visible growth in vitro',
+            '**MBC (Minimum Bactericidal Concentration)** = lowest conc kills 99.9%',
+            '**Distribution in poultry**:',
+            '  • Water-soluble (tetracycline · sulfonamide · macrolide low-MW) → drinking water effective',
+            '  • Lipid-soluble (FQs · macrolide high-MW) → IM/SC route',
+            '  • Crop · gizzard pH affect oral absorption',
           ] },
-          { callout: 'Reason: ตกค้างในผลิตภัณฑ์ → carcinogen/mutagen + AMR concern', kind: 'warn' },
         ],
       },
       {
-        heading: 'Common Conditions',
-        source: 'Slide L13',
+        heading: '⛔ Banned Drugs (Thailand poultry)',
+        source: 'Prof.นิวัตร · Thai DLD regulations + EU/FDA',
         body: [
           { bullets: [
-            '**Mycoplasmosis (MG/MS)** — Tylosin, Tilmicosin, Enrofloxacin (NOT β-lactams · no cell wall)',
-            '**Plasmodium (Avian malaria)** — chloroquine + primaquine',
-            '**Knemidocoptes (scaly leg mite)** — ivermectin',
-            '**Mold binders** (mycotoxin) — clay binders + activated charcoal',
+            '**Vancomycin** — last-resort human · ห้ามในสัตว์อาหาร (AMR critical)',
+            '**DES (Diethylstilbestrol)** — synthetic estrogen · carcinogen',
+            '**Chloramphenicol (CAP)** — bone marrow toxicity in humans (aplastic anemia) · zero tolerance residue',
+            '**Nitrofurans** (Furazolidone · Nitrofurazone · AOZ · AMOZ) — carcinogenic + mutagenic',
+            '**Nitroimidazoles** (Metronidazole · Dimetridazole) — carcinogenic suspected',
+            '**Beta-agonists** (Clenbuterol · Ractopamine ห้ามในไทยและ EU)',
+            '**Carbadox** (growth promoter) — carcinogenic',
+          ] },
+          { callout: '⚠️ Reason: ตกค้างในผลิตภัณฑ์ → carcinogen/mutagen + AMR concern · zero tolerance ห้ามแม้ trace', kind: 'warn' },
+        ],
+      },
+      {
+        heading: 'Common Conditions + First-line Drugs',
+        source: 'Slide L13 + AAAP',
+        body: [
+          { table: {
+            headers: ['Condition', 'Pathogen', 'First-line'],
+            rows: [
+              ['**Mycoplasmosis (MG/MS)**', 'Mycoplasma gallisepticum / synoviae', 'Tylosin · Tilmicosin · Enrofloxacin (NOT β-lactams · no cell wall) · Doxycycline'],
+              ['**Colibacillosis**', 'E. coli', 'Enrofloxacin · trimethoprim-sulfa · amoxicillin'],
+              ['**Necrotic enteritis**', 'Clostridium perfringens', 'Bacitracin · Amoxicillin · Tylosin'],
+              ['**Coccidiosis**', 'Eimeria spp.', 'Toltrazuril · Amprolium · Sulfaquinoxaline · Decoquinate (in feed)'],
+              ['**Salmonellosis**', 'Salmonella spp.', 'Enrofloxacin · Trimethoprim-sulfa · vaccinate prefer'],
+              ['**Pasteurellosis (Fowl cholera)**', 'Pasteurella multocida', 'Sulfonamide · Tetra · Penicillin'],
+              ['**Plasmodium (Avian malaria)**', 'Plasmodium spp.', 'Chloroquine + Primaquine'],
+              ['**Knemidocoptes (scaly leg mite)**', 'Mite', 'Ivermectin'],
+              ['**Mold binders (mycotoxin)**', 'Aspergillus · Fusarium toxin', 'Clay binders + activated charcoal'],
+            ],
+          } },
+        ],
+      },
+      {
+        heading: 'Drug Withdrawal Period',
+        source: 'EMA · FDA · Thai DLD',
+        body: [
+          { bullets: [
+            '**Withdrawal time** = period drug must be stopped before slaughter / egg sales · safe MRL',
+            'Examples (broiler):',
+            '  • Enrofloxacin: 8-10 days',
+            '  • Doxycycline: 5-7 days',
+            '  • Tylosin: 1-5 days',
+            '  • Amoxicillin: 1-7 days',
+            'Layer: more strict due to egg residue → many drugs ห้ามใน laying hens',
+            'Records mandatory · audit trail',
           ] },
         ],
       },
       {
         heading: 'AMR 5 Rs (responsible use)',
-        source: 'WHO + OIE',
+        source: 'WHO + OIE + FAO Tripartite',
         body: [
           { bullets: [
-            'Right **Drug** (narrow spectrum if possible)',
-            'Right **Dose** (full therapeutic · ไม่ underdose)',
-            'Right **Duration** (ไม่ short course)',
-            'Right **Time** (early · culture-guided ถ้าเป็นไปได้)',
-            'Right **Patient** (correct ID · withdrawal time)',
+            '**Right Drug** (narrow spectrum if possible · culture-guided)',
+            '**Right Dose** (full therapeutic · ไม่ underdose → resistance selection)',
+            '**Right Duration** (ไม่ short course · complete treatment)',
+            '**Right Time** (early · before deterioration)',
+            '**Right Patient** (correct ID · withdrawal time · residue avoidance)',
+            '+ Avoid prophylactic mass medication where possible',
+            '+ Never use HPCIA (Highest Priority Critically Important Antimicrobials · colistin · 3rd-gen ceph) in poultry routine',
+          ] },
+        ],
+      },
+      {
+        heading: 'Past Exam Mapping (L13 drugs)',
+        source: 'Nicky 86 + Kim85',
+        body: [
+          { bullets: [
+            'Q "Time-dependent ตัวอย่าง" → β-lactams · macrolides',
+            'Q "Concentration-dependent ตัวอย่าง" → FQs · aminoglycosides',
+            'Q "Mycoplasma ทำไมไม่ใช้ β-lactam" → ไม่มี cell wall',
+            'Q "Mycoplasma drug" → Tylosin · Tilmicosin · Enrofloxacin · Doxycycline',
+            'Q "Banned drug poultry" → Vancomycin · CAP · Nitrofurans · DES',
+            'Q "ทำไม CAP ห้าม" → bone marrow aplastic anemia in human',
+            'Q "AMR 5 Rs" → Right Drug · Dose · Duration · Time · Patient',
+            'Q "Withdrawal time" → period before slaughter for residue safety',
+            'Q "Coccidiostat ตัวอย่าง" → Toltrazuril · Amprolium · Decoquinate',
+            'Q "Knemidocoptes Tx" → Ivermectin',
           ] },
         ],
       },
@@ -187,56 +536,149 @@ export const NOTES_POULTRY = {
     title: 'L14-15 · Quality Assurance · Betagro framework',
     lecturer: 'น.สพ.เอกสิงห์ สาเรือง (Betagro)',
     icon: '🏆',
-    summary: 'QA 5 ด้าน · PDCA cycle · Five Freedoms · BQM 4 มิติ · Haugh Unit · FCR',
+    summary: 'QA 5 ด้าน · PDCA cycle · Five Freedoms · BQM 4 มิติ · Haugh Unit · FCR · Slow-growth',
     sections: [
       {
         heading: 'Quality Assurance 5 ด้าน',
         source: 'น.สพ.เอกสิงห์ slide L14',
         body: [
-          { bullets: [
-            '**Quality Control** — inspection ระหว่างผลิต',
-            '**Quality Audit** — internal/external review',
-            '**Accreditation** — certification body (GAP · HACCP · ISO)',
-            '**Quality Assessment** — outcome metrics (Haugh Unit, FCR, mortality)',
-            '**Traceability** — track product back to farm/batch',
-          ] },
+          { table: {
+            headers: ['Element', 'Definition'],
+            rows: [
+              ['**Quality Control (QC)**', 'Inspection ระหว่างผลิต · catch defect early'],
+              ['**Quality Audit**', 'Internal/external review · compliance check'],
+              ['**Accreditation**', 'Certification body (GAP · HACCP · ISO · GMP)'],
+              ['**Quality Assessment**', 'Outcome metrics (Haugh Unit · FCR · mortality)'],
+              ['**Traceability**', 'Track product back to farm/batch · QR code · barcode'],
+            ],
+          } },
         ],
       },
       {
         heading: 'PDCA Cycle (Deming wheel)',
-        source: 'Quality management standard',
+        source: 'Quality management standard · ISO 9001',
         body: [
           { bullets: [
-            '**Plan** — ระบุปัญหา + วางแผน (เช่น egg quality drop)',
+            '**Plan** — ระบุปัญหา + วางแผน (e.g. egg quality drop)',
             '**Do** — ลงมือทำตามแผน (test new feed in 1 house)',
             '**Check** — เก็บข้อมูล + ประเมิน (Haugh Unit · egg weight)',
             '**Act** — Standardize ถ้าสำเร็จ · revise ถ้าไม่ · loop กลับ Plan',
+            'Continuous improvement · iterative',
           ] },
         ],
       },
       {
         heading: 'Five Freedoms (Welfare)',
-        source: 'FAWC + AVMA',
+        source: 'FAWC + AVMA + RSPCA',
         body: [
           { bullets: [
-            '1. Freedom from hunger + thirst',
-            '2. Freedom from discomfort (proper environment)',
-            '3. Freedom from pain · injury · disease',
-            '4. Freedom to express normal behavior',
-            '5. Freedom from fear + distress',
+            '1. Freedom from **hunger + thirst** (access to fresh water + balanced diet)',
+            '2. Freedom from **discomfort** (proper environment · shelter · resting area)',
+            '3. Freedom from **pain · injury · disease** (prevention + rapid diagnosis + treatment)',
+            '4. Freedom to **express normal behavior** (space · facilities · social companions)',
+            '5. Freedom from **fear + distress** (conditions avoid mental suffering)',
+          ] },
+          { callout: '⭐ Five Freedoms = foundation of modern animal welfare science · adopted globally', kind: 'tip' },
+        ],
+      },
+      {
+        heading: 'Five Domains Model (newer · 2020)',
+        source: 'Mellor 2020',
+        body: [
+          { bullets: [
+            'Update of Five Freedoms · 5 domains:',
+            '1. Nutrition',
+            '2. Physical environment',
+            '3. Health',
+            '4. Behavioural interactions',
+            '5. **Mental state** (positive emotions · NOT just absence of negative)',
+            '⭐ Adds positive welfare focus (vs only avoiding negative)',
           ] },
         ],
       },
       {
-        heading: 'BQM 4 มิติ + Key Metrics',
+        heading: 'BQM 4 มิติ (Better Quality Management)',
         source: 'Betagro QA framework',
         body: [
+          { table: {
+            headers: ['Dimension', 'Metric examples'],
+            rows: [
+              ['**Productivity**', 'Hen housed · FCR · livability · weight gain'],
+              ['**Quality**', 'Haugh Unit · egg weight uniformity · meat color/pH'],
+              ['**Safety**', 'Antibiotic residue zero · Salmonella negative · withdrawal compliance'],
+              ['**Welfare**', 'Stocking density · footpad lesion score · mortality · behavioral indicators'],
+            ],
+          } },
+        ],
+      },
+      {
+        heading: 'Key Metrics',
+        source: 'Betagro + Aviagen + Hy-Line',
+        body: [
           { bullets: [
-            '**BQM (Better Quality Management) 4 มิติ**: Productivity · Quality · Safety · Welfare',
             '**Haugh Unit (HU)** — egg quality · log of albumen height adjusted for egg weight · >72 = AA grade',
             '**FCR (Feed Conversion Ratio)** = feed consumed / weight gain · target broiler 1.6-1.8',
-            '**Slow-growth trade-offs** — better welfare · slower growth · higher cost vs intensive',
+            '**ADG (Average Daily Gain)** = total weight gain / days',
+            '**Slow-growth trade-offs** — better welfare · slower growth · higher cost vs intensive · ~56-day vs 35-day · "premium" market',
             '**NCR (Non-Conformance Report)** — log + corrective action',
+            '**Footpad Dermatitis Score (FPD)** — 0-4 scale · welfare KPI · linked to litter wetness',
+            '**Hock burn** — welfare indicator · lower body contact with wet litter',
+          ] },
+        ],
+      },
+      {
+        heading: 'Egg Quality Parameters',
+        source: 'USDA + Hy-Line',
+        body: [
+          { bullets: [
+            '**Albumen height** = proxy for protein quality',
+            '**Yolk color** = Roche fan 1-15 · feed pigment (xanthophyll · marigold · capsanthin)',
+            '**Shell quality** = thickness >0.33 mm · color · cracks',
+            '**Specific gravity** = 1.080-1.100 = good shell',
+            'Storage affects HU drop (~0.5 unit/day at room temp) · refrigerate slows decline',
+          ] },
+        ],
+      },
+      {
+        heading: 'GAP / HACCP / ISO Standards',
+        source: 'Codex Alimentarius + Thai DLD',
+        body: [
+          { bullets: [
+            '**GAP (Good Agricultural Practice)** — farm-level standard · Thai GAP DLD',
+            '**HACCP (Hazard Analysis Critical Control Point)** — food safety · 7 principles · CCP identification',
+            '**ISO 9001** — quality management system · documented process',
+            '**ISO 22000** — food safety management',
+            '**Halal · Kosher** — religious certification',
+            '**Animal Welfare standards** (Global GAP · RSPCA assured)',
+          ] },
+          { sub: 'HACCP 7 Principles',
+            body: [
+              { bullets: [
+                '1. Conduct hazard analysis',
+                '2. Determine CCPs',
+                '3. Establish critical limits',
+                '4. Establish monitoring procedures',
+                '5. Establish corrective actions',
+                '6. Establish verification procedures',
+                '7. Establish recordkeeping',
+              ] },
+            ] },
+        ],
+      },
+      {
+        heading: 'Past Exam Mapping (L14-15 QA)',
+        source: 'Nicky 86 + Kim85',
+        body: [
+          { bullets: [
+            'Q "QA 5 ด้าน" → QC · Audit · Accreditation · Assessment · Traceability',
+            'Q "PDCA" → Plan · Do · Check · Act',
+            'Q "Five Freedoms" → hunger/thirst · discomfort · pain/disease · normal behavior · fear/distress',
+            'Q "Haugh Unit AA grade" → >72',
+            'Q "FCR broiler target" → 1.6-1.8',
+            'Q "BQM 4 มิติ" → Productivity · Quality · Safety · Welfare',
+            'Q "HACCP CCP" → Critical Control Point · 7 principles',
+            'Q "Slow-growth tradeoff" → welfare ↑ · cost ↑ · time ↑',
+            'Q "Egg yolk color scale" → Roche fan 1-15',
           ] },
         ],
       },
