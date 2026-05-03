@@ -91,11 +91,17 @@ export function timeForQuestion(q, baseSeconds) {
 }
 
 // Categorize a question for the ConfigView type-filter chip.
-//   'mcq'     = auto-graded (mcq, tf, fill, match)
-//   'writing' = open-ended (short, essay)
+//   'mcq'     = pure multiple-choice / true-false (mcq, tf, match)
+//   'writing' = anything that needs typing input (short, essay, fill)
+//
+// Updated 2026-05-04 per Palm: fill-in-the-blank should NOT pollute MCQ
+// practice pools (they're a different study mode requiring keyboard input).
+// Old behavior: fill in mcq → mixed with options → confusing UX.
+// New behavior: fill in writing → user picks "writing" chip to practice all
+// typed-input questions together (fill + short + essay).
 export function questionCategory(q) {
   if (!q?.type) return 'mcq';
-  return (q.type === 'short' || q.type === 'essay') ? 'writing' : 'mcq';
+  return (q.type === 'short' || q.type === 'essay' || q.type === 'fill') ? 'writing' : 'mcq';
 }
 
 // Check if today is a new study day (for streak)
