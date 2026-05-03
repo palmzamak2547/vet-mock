@@ -1234,12 +1234,12 @@ export const QB_POULTRY = [
 
   // ════════════════════════════════════════════════════════════════════
   // Aj. Niwat — Avian Drug & Application Techniques (Final L14)
-  // Source: POULTRY FINAL 86🏅.pdf · jubing vet86 compilation pages
+  // Source: POULTRY FINAL 86.pdf · jubing vet86 compilation pages
   // Prof. Niwat Chansiripornchai · DVM, MSc, PhD, DTBVM · CU Vet
   // ════════════════════════════════════════════════════════════════════
 
   { id: 1944, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
     tags: ['antimicrobial', 'PK-PD', 'dose-dependent'], type: 'mcq',
@@ -1254,7 +1254,7 @@ export const QB_POULTRY = [
     explain: 'Dose-dependent (concentration-dependent) → Cmax/MIC ratio · กลุ่มหลัก: Aminoglycoside (Gentamicin/Streptomycin) + Fluoroquinolone (Enrofloxacin) + Amoxicillin · ให้ครั้งเดียวขนาดสูง (once daily) · vs Time-dependent: Macrolide + β-lactam (Penicillin/Cephalosporin) → T>MIC ratio · ต้องให้บ่อย' },
 
   { id: 1945, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
     tags: ['Mycoplasmosis', 'treatment', 'high-yield'], type: 'mcq',
@@ -1269,7 +1269,7 @@ export const QB_POULTRY = [
     explain: 'Mycoplasma "ไม่มี cell wall" → β-lactam ใช้ไม่ได้ (peptidoglycan target) · ใช้ยาที่ออกฤทธิ์ผ่าน protein synthesis: Tylosin (macrolide) · Lincomycin-Spectinomycin · Tetracycline · Tiamulin · Fluoroquinolone · ระวัง: บางตัว banned ใน laying hens (residue)' },
 
   { id: 1946, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
     tags: ['drug-combination', 'synergism'], type: 'mcq',
@@ -1279,7 +1279,7 @@ export const QB_POULTRY = [
     explain: 'Synergism (1+1=3): Sulfa + Trimethoprim → block folic acid synthesis 2 enzyme พร้อมกัน (DHPS + DHFR) → bactericidal · ตัวอย่างอื่น: Tetracycline+Tylosin = Additive (1+1=2) · Penicillin+Erythromycin = Antagonistic (cidal+static ต้านกัน · 1+1=0)' },
 
   { id: 1947, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
     tags: ['banned-drugs', 'DLD-prohibited', 'high-yield'], type: 'mcq',
@@ -1289,7 +1289,7 @@ export const QB_POULTRY = [
     explain: 'กรมปศุสัตว์ banned: (1) Nitrofurans = carcinogen · (2) Nitroimidazoles (Metronidazole) = mutagen · (3) Glycopeptide (Vancomycin) = WHO last-resort · (4) β-agonists (Clenbuterol/Diethylstilbestrol) = anabolic, ทำให้เนื้อนุ่ม + carcinogen · (5) Chloramphenicol = aplastic anemia · (6) Enrofloxacin (in layers) = AMR · "อ.นิวัต ข้อเขียน 3 ตัวห้ามแน่ๆ": Diethylstilbestrol · Vancomycin · Chloramphenicol' },
 
   { id: 1948, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
     tags: ['no-withdrawal', 'GI-non-absorbed'], type: 'mcq',
@@ -1299,7 +1299,7 @@ export const QB_POULTRY = [
     explain: 'Aminoglycoside (Neomycin/Streptomycin/Gentamicin) + Polymyxin (Colistin) + Bacitracin → ทุกตัว "ไม่ดูดซึม" จาก GI (highly polar/large MW) → systemic level ต่ำมาก → ไม่ต้องหยุดยาก่อนเชือด · ใช้รักษาโรค GI infection (E. coli enteritis)' },
 
   { id: 1949, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
     tags: ['Plasmodium', 'avian-malaria'], type: 'mcq',
@@ -1309,7 +1309,7 @@ export const QB_POULTRY = [
     explain: 'Avian malaria (Plasmodium gallinaceum) — แพร่โดยยุง · พบในฟาร์มเปิดใกล้ชายป่า/หน้าฝน · Tx: Chloroquine (1st choice) · Doxycycline · Quinine (drug-resistant) · ป้องกัน: ใช้มุ้ง + กำจัดยุง' },
 
   { id: 1950, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
     tags: ['anthelmintic', 'nematode', 'cestode'], type: 'mcq',
@@ -1319,7 +1319,7 @@ export const QB_POULTRY = [
     explain: 'Benzimidazole = broad-spectrum (กลม + ตืด) · ใช้แพร่หลายในไก่ · จับ β-tubulin ในพยาธิ · alternatives: Levamisole (กลม nicotinic-like, narrow) · Piperazine (กลม narrow) · Praziquantel (ตืด · ไก่ใช้น้อย · หมา/แมวใช้เยอะ)' },
 
   { id: 1951, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat drug page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Niwat drug page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
     tags: ['mycotoxin', 'mold-binder', 'feed-additive'], type: 'mcq',
@@ -1335,7 +1335,7 @@ export const QB_POULTRY = [
 
   // ── Aj. Ekasingh QA — supplementary (Five Freedoms · BQM 4 มิติ · NCR) ─
   { id: 1952, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Ekasingh QA page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Ekasingh QA page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84-86 Final',
     tags: ['animal-welfare', 'Five-Freedoms', 'high-yield'], type: 'mcq',
@@ -1350,7 +1350,7 @@ export const QB_POULTRY = [
     explain: 'Five Freedoms (FAWC 1979 · Brambell 1965): (1) Hunger & Thirst — อาหารน้ำเพียงพอ · (2) Discomfort — ที่อยู่เหมาะสม · (3) Pain/Injury/Disease — ป้องกัน + รักษา · (4) Express normal behaviour — แสดงพฤติกรรมตามธรรมชาติ · (5) Fear & Distress — ลด stress · เป็น core ของ welfare audit' },
 
   { id: 1953, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Ekasingh BQM page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Ekasingh BQM page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84-86 Final',
     tags: ['BQM-4', 'Betagro', 'corporate-responsibility'], type: 'mcq',
@@ -1365,7 +1365,7 @@ export const QB_POULTRY = [
     explain: 'BQM 4 มิติ (ฉบับ Betagro ขยายจาก 3 มิติ): (1) Food quality + Food safety · (2) Service excellence · (3) Animal welfare (Five Freedoms) · (4) Corporate responsibility (CSR + environment + community) · ใช้ "BQM 24/7" — คุณภาพ 24 ชม. × 7 วัน ตลอด' },
 
   { id: 1954, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Ekasingh QA page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Ekasingh QA page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84-86 Final',
     tags: ['NCR', 'non-conformance', 'CAPA'], type: 'mcq',
@@ -1380,7 +1380,7 @@ export const QB_POULTRY = [
     explain: 'NCR (Non-Conformance Report) = เอกสารบันทึกข้อ "ไม่ผ่าน" จากการ audit · ระบุ: หน่วยงาน · ลักษณะปัญหา · root cause · CAPA (Corrective and Preventive Action) · ติดตาม 30/60/90 วัน · เป็น core ของ ISO 9001 + GMP/HACCP audit' },
 
   { id: 1955, subject: 'poultry', topic: 'quality-assurance', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Betagro layer farm standard',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Betagro layer farm standard',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Ekasingh Vet 84-86 Final',
     tags: ['egg-quality', 'Haugh-unit', 'layer'], type: 'mcq',
@@ -1396,7 +1396,7 @@ export const QB_POULTRY = [
 
   // ── Aj. Niwat drug application route ────────────────────────────────
   { id: 1956, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — drug application techniques',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — drug application techniques',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14',
     tags: ['drug-application', 'route', 'water-medication'], type: 'mcq',
@@ -1406,7 +1406,7 @@ export const QB_POULTRY = [
     explain: 'Order of preference: (1) Water medication = first choice (ไก่ป่วย ลดอาหาร แต่ยังกินน้ำ) · ครอบคลุมทั้งฝูง · ใช้ยาที่ละลายน้ำได้ + stable in water · (2) Feed medication = สำหรับ prevention/long-term · dose ต่ำกว่า · (3) Injection = critical case ฉุกเฉิน · ใช้กับไก่จำนวนน้อย/พ่อแม่พันธุ์' },
 
   { id: 1957, subject: 'poultry', topic: 'avian-drugs', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Niwat written exam',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Niwat written exam',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Niwat Avian Drug L14 (essay style)',
     tags: ['AMR-prevention', 'rational-use', 'high-yield'], type: 'mcq',
@@ -1417,7 +1417,7 @@ export const QB_POULTRY = [
 
   // ── Avian Zoonosis additions (Aj. Kamonpan slide deck) ──────────────
   { id: 1958, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Kamonpan zoonosis page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Kamonpan zoonosis page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Kamonpan Avian Zoonosis L10-11',
     tags: ['Avian-TB', 'Mycobacterium-avium', 'ground-water'], type: 'mcq',
@@ -1432,7 +1432,7 @@ export const QB_POULTRY = [
     explain: 'M. avium = environmental — ปนเปื้อนใน ground water + soil + bird feces · backyard poultry (ไก่บ้าน) เสี่ยงเพราะ free-range · นกแสดง: emaciation + organ enlargement (granulomatous lesion ที่ตับ ไต ม้าม) · คน (immunocompromised, esp. HIV): chronic lung infection · ใน TH พบในนกพิราบ + ไก่บ้าน' },
 
   { id: 1959, subject: 'poultry', topic: 'avian-zoonosis', year: 4,
-    source: 'POULTRY FINAL 86🏅.pdf · jubing vet86 — Aj. Kamonpan zoonosis page',
+    source: 'POULTRY FINAL 86.pdf · jubing vet86 — Aj. Kamonpan zoonosis page',
     sourceType: 'past-paper',
     examOrigin: 'Aj. Kamonpan Avian Zoonosis L10-11',
     tags: ['avian-influenza', 'duck', 'reservoir'], type: 'mcq',
