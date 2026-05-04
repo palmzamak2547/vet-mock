@@ -1986,9 +1986,9 @@ export const QB_COM3 = [
     tags: ['acute-abdomen', 'first-line'], type: 'mcq', examOrigin: 'COM III Final 86',
     q: 'จุดใดที่มีลำดับความสำคัญสูงสุดในการประเมินและให้การรักษาเบื้องต้น เมื่อสงสัยอาการ acute abdomen',
     options: [
-      'ส่งไป x-ray ของท้องเพื่อพิจารณาความผิดปกติของของในช่องท้องหรือไม่',
+      'ส่งไป x-ray ของท้องเพื่อพิจารณาความผิดปกติในช่องท้องหรือไม่',
       'พิจารณาว่าเป็นอาการ abdominal pain หรือ back pain (localize source)',
-      'ประเมินอัตราการหายใจ ลีของเมือก CRT อัตราและความแรงของชีพจร และความรู้สึกตัว',
+      'ประเมินอัตราการหายใจ สีของเมือก CRT อัตราและความแรงของชีพจร และความรู้สึกตัว',
       'ให้ fluid replacement ทันทีถ้ามีภาวะ hypovolemic shock (ก่อน image / surgery)',
       'ตรวจ initial minimum database ดู PCV / total protein / blood glucose / lactate',
     ],
