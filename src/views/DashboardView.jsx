@@ -1,7 +1,98 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { SUBJECTS, QB } from '../data/questions.js';
 import { downloadJSON } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
+
+// Bucket history into per-subject daily accuracy over the last `daysBack`
+// days. Returns { dayLabels, subjects: [{id, name, icon, color, points,
+// totalN}] } or null if no usable data.
+//
+// Why: drives the multi-line "learning curve" — Palm wanted to see if
+// each subject is improving or plateauing as the exam approaches.
+// Subjects with <5 attempts in the window are skipped (noise floor).
+function buildLearningCurve(history, daysBack = 14) {
+  if (!history?.length) return null;
+  const MS_DAY = 24 * 60 * 60 * 1000;
+  const todayStart = new Date(); todayStart.setHours(0, 0, 0, 0);
+  const t0 = todayStart.getTime();
+  const dayBuckets = [];
+  for (let i = daysBack - 1; i >= 0; i--) {
+    const start = t0 - i * MS_DAY;
+    dayBuckets.push({ start, label: new Date(start).toLocaleDateString('th-TH', { day: 'numeric', month: 'short' }) });
+  }
+  const startMs = dayBuckets[0].start;
+  const bySubject = new Map();
+  for (const h of history) {
+    if (!h.subject || h.date < startMs) continue;
+    const idx = Math.floor((h.date - startMs) / MS_DAY);
+    if (idx < 0 || idx >= daysBack) continue;
+    if (!bySubject.has(h.subject)) bySubject.set(h.subject, Array.from({ length: daysBack }, () => ({ total: 0, correct: 0 })));
+    const arr = bySubject.get(h.subject);
+    arr[idx].total += 1;
+    if (h.correct) arr[idx].correct += 1;
+  }
+  const subjects = [];
+  for (const [id, arr] of bySubject) {
+    const totalN = arr.reduce((s, x) => s + x.total, 0);
+    if (totalN < 5) continue;
+    const meta = SUBJECTS.find((s) => s.id === id);
+    if (!meta) continue;
+    subjects.push({
+      id,
+      name: meta.name,
+      icon: meta.icon,
+      color: meta.color || 'var(--clr-ink)',
+      points: arr.map((b, i) => ({ day: i, pct: b.total ? (b.correct / b.total) * 100 : null, n: b.total })),
+      totalN,
+    });
+  }
+  if (subjects.length === 0) return null;
+  subjects.sort((a, b) => b.totalN - a.totalN);
+  return { dayLabels: dayBuckets.map((d) => d.label), subjects };
+}
+
+// Multi-line SVG chart — one line per subject. No chart lib.
+// Lines skip days with no data (each subject has its own point set).
+function LearningCurveChart({ data }) {
+  const W = 360, H = 200, PADL = 36, PADR = 12, PADT = 14, PADB = 24;
+  const innerW = W - PADL - PADR;
+  const innerH = H - PADT - PADB;
+  const days = data.dayLabels.length;
+  const xFor = (i) => PADL + (days <= 1 ? innerW / 2 : (innerW * i) / (days - 1));
+  const yFor = (pct) => PADT + innerH * (1 - pct / 100);
+  const labelStride = Math.max(1, Math.ceil(days / 6));
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', maxHeight: 260, display: 'block' }} aria-label="Learning curve per subject">
+      {[0, 50, 70, 100].map((y) => (
+        <g key={y}>
+          <line x1={PADL} y1={yFor(y)} x2={W - PADR} y2={yFor(y)} stroke="var(--clr-border)" strokeDasharray={y === 70 ? '0' : '2 4'} opacity={y === 70 ? 0.5 : 0.4} />
+          <text x={PADL - 4} y={yFor(y) + 3} textAnchor="end" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="var(--clr-ink-soft)">{y}%</text>
+        </g>
+      ))}
+      {data.subjects.map((s) => {
+        const valid = s.points.filter((p) => p.pct !== null);
+        if (valid.length === 0) return null;
+        const pathD = valid.length >= 2
+          ? valid.map((p, i) => `${i === 0 ? 'M' : 'L'}${xFor(p.day).toFixed(1)},${yFor(p.pct).toFixed(1)}`).join(' ')
+          : '';
+        return (
+          <g key={s.id}>
+            {pathD && <path d={pathD} stroke={s.color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.85" />}
+            {valid.map((p) => (
+              <circle key={p.day} cx={xFor(p.day)} cy={yFor(p.pct)} r="3" fill={s.color}>
+                <title>{s.icon} {s.name} — {data.dayLabels[p.day]}: {Math.round(p.pct)}% ({p.n} ข้อ)</title>
+              </circle>
+            ))}
+          </g>
+        );
+      })}
+      {data.dayLabels.map((label, i) => (i === 0 || i === days - 1 || i % labelStride === 0) && (
+        <text key={i} x={xFor(i)} y={H - 6} textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="var(--clr-ink-soft)">{label}</text>
+      ))}
+    </svg>
+  );
+}
 
 // Compute last-7-days bucket — returns one entry per day (oldest →
 // newest) with `total` attempts + `correct` count + `pct`. Returns
@@ -92,6 +183,8 @@ function TrendChart({ days }) {
 
 export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, customQuestions }) {
   const trend = useMemo(() => build7DayTrend(history), [history]);
+  const [curveDays, setCurveDays] = useState(14);
+  const learningCurve = useMemo(() => buildLearningCurve(history, curveDays), [history, curveDays]);
   const exportData = () => {
     const data = {
       exportDate: new Date().toISOString(),
@@ -164,6 +257,36 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             <div className="vmx-dash-card" style={{ marginTop: 16 }}>
               <h3>📈 7 วันล่าสุด</h3>
               <TrendChart days={trend} />
+            </div>
+          )}
+
+          {learningCurve && (
+            <div className="vmx-dash-card" style={{ marginTop: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 8 }}>
+                <h3 style={{ margin: 0 }}>📊 Learning Curve รายวิชา</h3>
+                <div style={{ display: 'flex', gap: 4 }}>
+                  {[7, 14, 30].map((d) => (
+                    <button
+                      key={d}
+                      onClick={() => setCurveDays(d)}
+                      className={`vmx-chip ${curveDays === d ? 'active' : ''}`}
+                      style={{ fontSize: 11, padding: '3px 10px' }}
+                    >{d}d</button>
+                  ))}
+                </div>
+              </div>
+              <LearningCurveChart data={learningCurve} />
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 8 }}>
+                {learningCurve.subjects.map((s) => (
+                  <span key={s.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+                    <span style={{ display: 'inline-block', width: 10, height: 2, background: s.color, borderRadius: 1 }}></span>
+                    {s.icon} {s.name} ({s.totalN})
+                  </span>
+                ))}
+              </div>
+              <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+                เส้นแต่ละสีคือความแม่นยำต่อวันของแต่ละวิชา · เส้น 70% เป็น threshold เป้าหมาย · แตะจุดเพื่อดูจำนวนข้อ
+              </div>
             </div>
           )}
 
