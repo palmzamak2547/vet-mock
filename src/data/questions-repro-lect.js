@@ -535,7 +535,7 @@ export const QB_REPRO_LECT = [
 
   { id: 1876, subject: 'repro-lect', topic: 'surgical-neutering', year: 4,
     source: 'Kimchii85 final p.30 — Blackboard screenshot ORS Q3', sourceType: 'past-paper', tags: ['past-paper', 'ORS-pseudopregnancy', 'case'], type: 'mcq',
-    q: 'สุนัข อายุ 9 ปี ทำหมันมาแล้วไม่นานเรื่องส่วยใหญ่ 1-2 ปีที่ผ่านมา · สมเจ้าตอนตัดอย่างถวยจุดสมัด่ส มีอวัยวะเพศสุนัขโดยตรงต่ำเหมือนเหมือนเครื่อง 0.5 cm in diameter, no obvious sign of illness, no pain at palpation, มีอาการ galactopoiesis อันใต้ที่จะมีไม่ในใจในตัวสมัตรี',
+    q: 'สุนัขเพศเมีย อายุ 9 ปี ทำหมัน OVH มาแล้ว 1-2 ปีที่ผ่านมา · เจ้าของพามาด้วยเรื่องเต้านมโตกว่าปกติ คลำพบก้อนขนาดประมาณ 0.5 cm in diameter, no obvious sign of illness, no pain at palpation, มีอาการ galactopoiesis (มีน้ำนมไหลออกจากเต้า) — Dx ที่น่าจะเป็นที่สุดคือ',
     options: ['Pseudopregnancy', 'Pyometra', 'Ovarian tumor', 'Mammary gland tumor', 'Cervical stump infection'],
     answer: 0, explain: 'Pseudopregnancy (false pregnancy) จาก Ovarian Remnant Syndrome ★\n\n💡 Clinical reasoning:\nผู้ป่วย: 9 ปี, ทำหมัน 1-2 ปีที่แล้ว, มี galactopoiesis (mammary gland producing milk) + small mammary changes\n\n→ การที่ทำหมันแล้วยัง mammary develop + ทำงาน = มี ovarian tissue residual (ORS) ที่ผลิต P4\n→ P4 ↓ ตอนปลาย luteal phase → prolactin ↑ → pseudopregnancy (false pregnancy)\n\n💡 Pseudopregnancy / False pregnancy / Pseudocyesis:\n— Hormonal mimicry of pregnancy\n— Common in intact bitches at end of diestrus (~ 6-8 weeks post-estrus)\n— Can occur in OVH bitches with ORS when residual ovary cycles\n\nSigns:\n— Galactopoiesis (milk production!) ★\n— Mammary enlargement\n— Behavioral changes:\n  - Nesting behavior\n  - "Adopting" toys/objects as puppies\n  - Mothering behavior\n  - Decreased appetite, lethargy\n  - Aggression / overprotectiveness\n- Vaginal discharge possible\n\nPathophysiology:\n— After luteal phase: P4 drops + Prolactin rises (mirrors true pregnancy hormone shift)\n— Prolactin → mammary development + milk\n— Behavioral effects from prolactin + oxytocin\n\nTreatment:\n— Cabergoline 5 µg/kg PO q24h × 5-7 days ★ (dopamine agonist → ↓ prolactin)\n— Bromocriptine alternative\n— Avoid hand-stripping milk (stimulates more milk)\n— Address underlying ORS: OVE for residual ovary\n\n❌ Why not other options:\n— Pyometra: would have purulent vaginal discharge, fever, illness signs (this case: no illness)\n— Ovarian tumor: would have masses on palpation/imaging\n— Mammary tumor: would be discrete masses, not diffuse galactopoiesis\n— Cervical stump infection: would have brown/red discharge (not milk)', verified: 'Kimchii85 Blackboard ORS Q3' },
 
@@ -553,7 +553,7 @@ export const QB_REPRO_LECT = [
 
   { id: 1878, subject: 'repro-lect', topic: 'surgical-neutering', year: 4,
     source: 'Kimchii85 final p.30 — Blackboard screenshot ORS Q7', sourceType: 'past-paper', tags: ['past-paper', 'cervical-stump', 'OVH-complication'], type: 'mcq',
-    q: 'สุนัขพันธุ์พุดเดิ้ล อายุ 12 ปี ตัวเมียที่ทำหมันแบบ "Ovariohysterectomy (OVH)" เมื่อ 2 ปีที่ผ่านมา ตรวจพบ "brown to red colored vaginal discharge" ของอวัยวะสุนัขโดยอาจะรงเป็นในใจในใต้ติด',
+    q: 'สุนัขพันธุ์พุดเดิ้ล เพศเมีย อายุ 12 ปี ทำหมัน OVH (Ovariohysterectomy) เมื่อ 2 ปีที่ผ่านมา · ตรวจพบ brown to red colored vaginal discharge และมีรอยอักเสบบริเวณช่องคลอดส่วนใน — Dx ที่น่าจะเป็นที่สุดคือ',
     options: [
       'Puppy vaginitis',
       'Cervical stump inflammation/infection',

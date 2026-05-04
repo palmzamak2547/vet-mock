@@ -817,7 +817,7 @@ export const QB_MAHAHON = [
       'Resting metabolic rate ลด + ความอยากอาหารเพิ่ม',
       'Resting metabolic rate เพิ่ม',
       'ไม่มีการเปลี่ยนแปลง metabolism',
-      'เกิดจาก hormone replacement ที่ทำลายหลัง',
+      'เกิดจากการให้ hormone replacement หลังผ่าตัด',
     ],
     answer: 0,
     explain: 'Loss of estrogen/androgen → RMR ลด ~25% · Leptin/ghrelin signaling เปลี่ยน → appetite ↑ · Recommendation: ลด kcal ~20-30% หลัง spay/neuter + monitor BCS',

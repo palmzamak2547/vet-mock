@@ -47,7 +47,7 @@ export const QB_TERMPAPER = [
       'Epilobium extract',
     ],
     answer: 2,
-    explain: 'Deslorelin = GnRH agonist implant → down-regulation LH/FSH → testosterone ลด ~ลด ใกล้เคียง castration · reversible chemical castration · ไม่ต้องผ่าตัด เหมาะ cardiac patient · Finasteride/Osaterone ต่ออายุการรักษา BPH แต่ไม่เทียบ castration',
+    explain: 'Deslorelin = GnRH agonist implant → down-regulation LH/FSH → testosterone ลดใกล้เคียง castration · reversible chemical castration · ไม่ต้องผ่าตัด เหมาะ cardiac patient · Finasteride/Osaterone รักษา BPH ได้แต่ไม่เทียบ castration',
     verified: 'Term Paper Group 2 (PDF p41 highlight + เฉลย)' },
 
   // ── Group 3: Gene Editing Technologies ────────────────────
