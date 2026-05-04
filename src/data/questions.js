@@ -12,9 +12,11 @@ import { QB_REPRO_LECT } from './questions-repro-lect.js';
 import { QB_PRACTRUM } from './questions-practrum.js';
 import { QB_CLIAPPRUM } from './questions-cliapprum.js';
 import { QB_SHORT } from './questions-short.js';
+import { QB_MAHAHON } from './questions-mahahon.js';
+import { QB_TERMPAPER } from './questions-termpaper.js';
 
 // All questions combined
-export const QB = [...QB1, ...QB_PART2, ...QB_PART3, ...QB_COM5, ...QB_COM3, ...QB_COM3_SPECIAL, ...QB_COM4, ...QB_ENGPROF, ...QB_EXOTIC, ...QB_POULTRY, ...QB_REPRO_LECT, ...QB_PRACTRUM, ...QB_CLIAPPRUM, ...QB_SHORT];
+export const QB = [...QB1, ...QB_PART2, ...QB_PART3, ...QB_COM5, ...QB_COM3, ...QB_COM3_SPECIAL, ...QB_COM4, ...QB_ENGPROF, ...QB_EXOTIC, ...QB_POULTRY, ...QB_REPRO_LECT, ...QB_PRACTRUM, ...QB_CLIAPPRUM, ...QB_SHORT, ...QB_MAHAHON, ...QB_TERMPAPER];
 
 // Re-export for convenience
 export { SUBJECTS } from './curriculum.js';

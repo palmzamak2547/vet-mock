@@ -326,6 +326,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </>
           )}
           <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
+          {currentQ.imagePath && (
+            <div style={{ textAlign: 'center', margin: '10px 0' }}>
+              <img src={currentQ.imagePath} alt="ภาพประกอบคำถาม" loading="lazy"
+                   style={{ maxWidth: '100%', maxHeight: 240, borderRadius: 8, border: '1px solid var(--clr-border)' }} />
+            </div>
+          )}
         </div>
         {showAnswer && (
           <div className="back">

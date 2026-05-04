@@ -218,6 +218,78 @@ export const SUBJECTS_BY_YEAR = {
           lecturerNote: 'Pregnancy diagnosis, uterine/ovarian/prostatic/testicular disorders, fetal assessment' },
       ] },
 
+    // ── ข้อสอบหมาหอน (REPRO Special bank from PDF เส้นแดงคือโพย) ──
+    { id: 'mahahon', code: '3108409-X1', name: 'ข้อสอบหมาหอน', name_en: 'REPRO Final 86 — Blackboard caps + synthesized topics',
+      icon: '🐺', color: '#8b3d2f', semester: 2, has_questions: true,
+      examFormat: {
+        weight: 'แยกชุด · 90 ข้อ (9 หัวข้อ × 10)',
+        examDate: '5 พ.ค. 2569 · ใช้คู่กับ Repro Lecture',
+        choiceCount: 4,
+        notes: [
+          '🎯 90 ข้อแยกจากคลัง Repro Lect — ทำได้ทั้ง block ไม่ต้อง dedupe',
+          '✅ Hormone+US+Semen freeze+ART+Exotic = past-paper จาก Blackboard caps · score 10/10 verified',
+          '⚠️ Risk-benefit / Genetic / Surgical neutering / Semen evaluation = สังเคราะห์จาก slide 2026',
+          '📷 U/S Q4-Q7+Q10 มี imagePath ภาพอัลตร้าซาวด์ครอปจาก Blackboard caps',
+        ],
+      },
+      topics: [
+        { id: 'hormone', label: 'หมวด 1 · Hormone applications (Blackboard 10/10)', icon: '💊',
+          lecturer: 'Suppawiwat Ponglowhapan (SP)', lecturer_year: 2026,
+          lecturerNote: '10 ข้อจาก Blackboard quiz "Progestins to control feline reproduction" · Auto-grade ยืนยันคำตอบ' },
+        { id: 'ultrasound', label: 'หมวด 2 · Ultrasound (Blackboard 10/10 + ภาพ)', icon: '🩻',
+          lecturer: 'Suppawiwat Ponglowhapan (SP)', lecturer_year: 2026,
+          lecturerNote: '10 ข้อจาก Blackboard "diencephalon-telencephalic" quiz · Q4-7+Q10 มีภาพ U/S ประกอบ (CEH/Doppler/fluid uterus/estrus ovary/hydrocephalus)' },
+        { id: 'semen-freezing', label: 'หมวด 3 · Semen freezing + Infertility (Blackboard p14)', icon: '❄️',
+          lecturer: 'Theerawat Tharasanit (TT)', lecturer_year: 2026,
+          lecturerNote: '10 ข้อ — sperm morphology, hemospermia, anestrus, infectious infertility, ovulation timing, conception rate factors' },
+        { id: 'semen-evaluation', label: 'หมวด 4 · Semen evaluation (synthesized)', icon: '🔬',
+          lecturer: 'Theerawat Tharasanit (TT)', lecturer_year: 2026,
+          lecturerNote: '10 ข้อสังเคราะห์จาก slide 2026 Lect 16 · ejaculate fractions, UrCaPI, P4 timing, CASA, IUAI, fertilization window' },
+        { id: 'art', label: 'หมวด 5 · ART พี่อิม (Blackboard p17)', icon: '🧬',
+          lecturer: 'Ampika Thongphakdee (Zoological Park Org. Thailand)', lecturer_year: 2026,
+          lecturerNote: '10 ข้อ — ICSI/IVF/SCNT/embryo transfer/cryopreservation · 8 ข้อจาก Blackboard + 2 สังเคราะห์ (IVM duration, vitrification)' },
+        { id: 'exotic-repro', label: 'หมวด 6 · Exotic repro (Blackboard p22)', icon: '🐇',
+          lecturer: 'Chaowaphan Yinharnmingmongkol', lecturer_year: 2026,
+          lecturerNote: '10 ข้อ — rabbit/chinchilla/ferret/reptile/turtle reproductive med · gestation, OVH complications, sexing, dystocia' },
+        { id: 'risk-benefit', label: 'หมวด 7 · Risk-benefit gonadectomy (synthesized)', icon: '⚖️',
+          lecturer: 'Sroisuda Chotimanukul (SC)', lecturer_year: 2026,
+          lecturerNote: '10 ข้อสังเคราะห์จากเส้นแดง p26-30 · mammary tumor timing, USMI, MCT, osteosarcoma, obesity, behavior, pediatric, BPH/perianal, cat detriments' },
+        { id: 'genetic', label: 'หมวด 8 · Genetic (synthesized)', icon: '🔬',
+          lecturer: 'Nantapong Kamprasert (Bank · UNE Australia)', lecturer_year: 2026,
+          lecturerNote: '10 ข้อสังเคราะห์จาก slide 2026 Lect 21 · inbreeding F, founder/bottleneck, linebreeding, Ne, h², CRISPR, breed screening, popular sire, ethics' },
+        { id: 'surgical-neutering', label: 'หมวด 9 · Surgical neutering (synthesized)', icon: '✂️',
+          lecturer: 'Sroisuda Chotimanukul (SC)', lecturer_year: 2026,
+          lecturerNote: '10 ข้อสังเคราะห์จาก slide 2026 Lect 22 · OVH/OE, cryptorchidectomy, open/closed castration, ORS, pyometra emergency, ligation pitfalls, multimodal analgesia' },
+      ] },
+
+    // ── ข้อสอบ Term Paper (REPRO 12 groups) ──
+    { id: 'termpaper', code: '3108409-X2', name: 'ข้อสอบ Term Paper', name_en: 'REPRO Final 86 — Term paper Q from 12 groups',
+      icon: '📜', color: '#5d4037', semester: 2, has_questions: true,
+      examFormat: {
+        weight: 'แยกชุด · 12 ข้อ (1 ข้อ/กลุ่ม)',
+        examDate: '5 พ.ค. 2569 · ใช้คู่กับ Repro Lecture',
+        choiceCount: 5,
+        notes: [
+          '🎯 12 ข้อ MCQ จากการนำเสนอรายงานของแต่ละกลุ่ม · Vet 86 Repro 2026',
+          '✅ ทุกข้อมีเฉลยรายตัวเลือก verified จาก PDF เส้นแดงคือโพย p41-45',
+          '📚 Topics span: Companion Animal + Ruminant repro · พ้นจาก Lect 15-24 scope แต่อยู่ในหลักสูตร',
+        ],
+      },
+      topics: [
+        { id: 'group01-nutrition-neutered', label: 'G1 · Nutrition for neutered dogs', icon: '🍽️', lecturer: 'Term Paper Group 1', lecturer_year: 2026 },
+        { id: 'group02-bph-pharmacology', label: 'G2 · BPH pharmacology (Deslorelin)', icon: '💊', lecturer: 'Term Paper Group 2', lecturer_year: 2026 },
+        { id: 'group03-gene-editing', label: 'G3 · Gene editing (ZFN/TALEN/CRISPR)', icon: '🧬', lecturer: 'Term Paper Group 3', lecturer_year: 2026 },
+        { id: 'group04-dermato-repro', label: 'G4 · Dermato-Reproductive (Alopecia X)', icon: '🐕', lecturer: 'Term Paper Group 4', lecturer_year: 2026 },
+        { id: 'group05-felidae-infertility', label: 'G5 · Felidae infertility (teratozoospermia)', icon: '🐅', lecturer: 'Term Paper Group 5', lecturer_year: 2026 },
+        { id: 'group06-iugr-piglet', label: 'G6 · IUGR in piglets', icon: '🐖', lecturer: 'Term Paper Group 6', lecturer_year: 2026 },
+        { id: 'group07-ruminant-us-CL', label: 'G7 · Ruminant US for CL function', icon: '🐄', lecturer: 'Term Paper Group 7', lecturer_year: 2026 },
+        { id: 'group08-PAGs-ruminant', label: 'G8 · PAGs pregnancy test', icon: '🩸', lecturer: 'Term Paper Group 8', lecturer_year: 2026 },
+        { id: 'group09-placenta', label: 'G9 · Comparative placentation', icon: '🫁', lecturer: 'Term Paper Group 9', lecturer_year: 2026 },
+        { id: 'group10-heat-stress', label: 'G10 · Heat stress + HPG axis', icon: '🌡️', lecturer: 'Term Paper Group 10', lecturer_year: 2026 },
+        { id: 'group11-buserelin-pig', label: 'G11 · GnRH agonist (Buserelin) in pig', icon: '💉', lecturer: 'Term Paper Group 11', lecturer_year: 2026 },
+        { id: 'group12-NEB-dairy', label: 'G12 · NEB postpartum dairy cow', icon: '🥛', lecturer: 'Term Paper Group 12', lecturer_year: 2026 },
+      ] },
+
     // ── Poultry Health Management ──
     // Topics restructured 2026-04-29 to match 2026 final-scope slides
     // exactly (5 PDFs in /Slide Lecture 2026/ folder). Lectures 9-14

@@ -55,6 +55,30 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     <div className="vmx-q-content-pane">
       <div className="vmx-qtext"><RichText text={currentQ.q} /></div>
 
+      {/* Image rendering — used for U/S sonograms in mahahon bank.
+          Tap to enlarge. Lazy-loaded so off-screen Qs don't waste bandwidth. */}
+      {currentQ.imagePath && (
+        <a
+          href={currentQ.imagePath}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: 'block', textAlign: 'center', margin: '12px 0' }}
+        >
+          <img
+            src={currentQ.imagePath}
+            alt="ภาพประกอบคำถาม"
+            loading="lazy"
+            style={{
+              maxWidth: '100%',
+              maxHeight: 360,
+              borderRadius: 8,
+              border: '1px solid var(--clr-line)',
+              cursor: 'zoom-in',
+            }}
+          />
+        </a>
+      )}
+
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
           self-optimization rule 1d (hold to facts). */}

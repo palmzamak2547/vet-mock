@@ -216,6 +216,14 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             )}
             <div className="vmx-review-q"><RichText text={q.q} /></div>
 
+            {q.imagePath && (
+              <a href={q.imagePath} target="_blank" rel="noopener noreferrer"
+                 style={{ display: 'block', textAlign: 'center', margin: '8px 0' }}>
+                <img src={q.imagePath} alt="ภาพประกอบคำถาม" loading="lazy"
+                     style={{ maxWidth: '100%', maxHeight: 280, borderRadius: 8, border: '1px solid var(--clr-border)', cursor: 'zoom-in' }} />
+              </a>
+            )}
+
             {(q.type === 'short' || q.type === 'essay') ? (
               <>
                 <div style={{ margin: '8px 0 6px', padding: 10, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
