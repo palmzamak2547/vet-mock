@@ -32,12 +32,21 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
   // Reading-checklist summary for this subject
   const subjReadDone = topics.filter((t) => readingChecklist[t.id]).length;
 
+  // Collections: virtual "ทำรวม" cards that bundle topics by prefix
+  // (e.g. รวมหมาหอน covers 9 mahahon-* topics, รวม Term Paper covers 12 group* topics).
+  const collections = subjectMeta?.collections || [];
+
   // For "all" topicId we exclude Qs whose topic is hidden — keeps the
   // header count consistent with the visible topic tiles below it.
   const _hiddenTopics = hiddenTopicIdsFor(subject);
   const countFor = (topicId) => {
     if (topicId === 'all') {
       return allQuestions.filter((q) => q.subject === subject && !_hiddenTopics.has(q.topic)).length;
+    }
+    // Collection card: count by topic prefix
+    const coll = collections.find((c) => c.id === topicId);
+    if (coll?.topicPrefix) {
+      return allQuestions.filter((q) => q.subject === subject && q.topic?.startsWith(coll.topicPrefix)).length;
     }
     return allQuestions.filter((q) => q.subject === subject && q.topic === topicId).length;
   };
@@ -106,6 +115,26 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
           <div className="sub">All topics in {subjectMeta?.name}</div>
           <div className="count">{countFor('all')} questions</div>
         </button>
+
+        {/* Collection cards — virtual "ทำรวม" bundles for grouped topic blocks */}
+        {collections.map((c) => {
+          const cnt = countFor(c.id);
+          return (
+            <button
+              key={c.id}
+              className="vmx-subject-card"
+              disabled={cnt === 0}
+              onClick={() => { if (cnt > 0) choose(c.id); }}
+              style={{ opacity: cnt === 0 ? 0.5 : 1, cursor: cnt === 0 ? 'not-allowed' : 'pointer' }}
+            >
+              <div className="accent" style={{ background: c.accent || subjectMeta?.color || 'var(--clr-ink)' }}></div>
+              <div className="icon">{c.label.match(/^\p{Emoji}/u)?.[0] || '📦'}</div>
+              <div className="title">{c.label.replace(/^\p{Emoji}\s*/u, '')}</div>
+              <div className="sub">{c.sub}</div>
+              <div className="count">{cnt} questions</div>
+            </button>
+          );
+        })}
 
         {topics.map((t) => {
           const count = countFor(t.id);

@@ -175,6 +175,13 @@ export const SUBJECTS_BY_YEAR = {
       } },
     { id: 'repro-lect', code: '3108409', name: 'Repro Lecture', name_en: 'Companion Animal Reproduction · Lecture',
       icon: '🐾', color: '#b88940', semester: 2, has_questions: true,
+      // Collections: virtual "ทำรวม" cards that filter topics by prefix.
+      // Used when a coherent block of topics deserves its own bundled exam
+      // (e.g., หมาหอน 90 Q across 9 sub-topics, Term Paper 12 Q across 12).
+      collections: [
+        { id: '_mahahon-all', label: '🐺 รวมหมาหอน', sub: 'Master 86 — Blackboard caps + synthesized', topicPrefix: 'mahahon-', accent: '#8b3d2f' },
+        { id: '_termpaper-all', label: '📜 รวม Term Paper', sub: 'Master 86 — 12 groups', topicPrefix: 'group', accent: '#5d4037' },
+      ],
       examFormat: {
         weight: 'Final 40% · Lecture course 3108-409',
         examDate: '5 พ.ค. 2569 · 13:00-16:00 · VET6 B01-B03',

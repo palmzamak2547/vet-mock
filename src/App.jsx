@@ -423,9 +423,23 @@ export default function App() {
     else {
       pool = subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === subject);
       if (topic) {
-        // Specific topic chosen — show all Qs of that topic (incl. hidden topics
-        // are reachable only via direct deep link, never auto-suggested).
-        pool = pool.filter((q) => q.topic === topic);
+        // Collection IDs (prefix `_<name>-all`) bundle multiple topics by
+        // a shared topic prefix — used for "รวมหมาหอน" / "รวม Term Paper"
+        // in repro-lect. Resolved here before exact-match filtering.
+        if (topic.startsWith('_') && topic.endsWith('-all')) {
+          const collectionId = topic.slice(1, -4); // '_mahahon-all' -> 'mahahon'
+          const subj = SUBJECTS.find((s) => s.id === subject);
+          const coll = subj?.collections?.find((c) => c.id === topic);
+          if (coll?.topicPrefix) {
+            pool = pool.filter((q) => q.topic?.startsWith(coll.topicPrefix));
+          } else {
+            pool = pool.filter((q) => q.topic?.startsWith(collectionId));
+          }
+        } else {
+          // Specific topic chosen — show all Qs of that topic (incl. hidden topics
+          // are reachable only via direct deep link, never auto-suggested).
+          pool = pool.filter((q) => q.topic === topic);
+        }
       } else if (subject !== 'all') {
         // "ทำรวม" mode for one subject: exclude hidden-topic Qs (uncertain-scope,
         // midterm leftovers, etc.) so users get only Final-scope content.
