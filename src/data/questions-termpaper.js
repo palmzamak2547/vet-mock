@@ -1,7 +1,7 @@
 // ============================================================
 // REPRO Lect — "ข้อสอบ Term Paper" Bank (Vet 86 Final 2026)
 // ============================================================
-// Source: REPRO FINAL 86 เส้นแดงคือโพย.pdf p41-45
+// Source: Repro Final 86 master compilation p41-45
 //   Section: รวบรวมข้อสอบจากการนำเสนอรายงาน วิชา Com Ani Repro
 //   Reference: Reproductive vet 2026 Year 4 (Google Sheet doc)
 //
@@ -17,8 +17,8 @@
 
 export const QB_TERMPAPER = [
   // ── Group 1: Nutritional management for neutered dogs ────────
-  { id: 2200, subject: 'termpaper', topic: 'group01-nutrition-neutered', year: 4,
-    source: 'REPRO FINAL 86 PDF p41 Term Paper Group 1',
+  { id: 2200, subject: 'repro-lect', topic: 'group01-nutrition-neutered', year: 4,
+    source: 'Repro Final 86 master p41 Term Paper Group 1',
     sourceType: 'student-compilation',
     tags: ['nutrition', 'neutered', 'obesity-prevention'], type: 'mcq',
     q: 'สุนัขเพศเมีย อายุ 3 ปี น้ำหนักปกติ เพิ่งทำหมัน เจ้าของกังวลเรื่องน้ำหนักเพิ่ม แนวทางใดเหมาะสมที่สุดในการป้องกันภาวะอ้วนหลังทำหมัน',
@@ -34,8 +34,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 1 (PDF p41 highlight + เฉลย)' },
 
   // ── Group 2: Pharmacological Management of BPH ────────────
-  { id: 2201, subject: 'termpaper', topic: 'group02-bph-pharmacology', year: 4,
-    source: 'REPRO FINAL 86 PDF p41 Term Paper Group 2',
+  { id: 2201, subject: 'repro-lect', topic: 'group02-bph-pharmacology', year: 4,
+    source: 'Repro Final 86 master p41 Term Paper Group 2',
     sourceType: 'student-compilation',
     tags: ['BPH', 'deslorelin', 'GnRH-agonist', 'cardiac-patient'], type: 'mcq',
     q: 'สุนัขเพศผู้ อายุ 11 ปี ได้รับการวินิจฉัยภาวะต่อมลูกหมากโต และมีโรคหัวใจ เสี่ยงต่อดมยา/ผ่าตัด หากเจ้าของกังวลเกี่ยวกับการดมยา ท่านที่เป็นสัตวแพทย์จะแนะนำวิธีใดที่ใกล้เคียงกับการทำหมันมากที่สุด',
@@ -51,8 +51,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 2 (PDF p41 highlight + เฉลย)' },
 
   // ── Group 3: Gene Editing Technologies ────────────────────
-  { id: 2202, subject: 'termpaper', topic: 'group03-gene-editing', year: 4,
-    source: 'REPRO FINAL 86 PDF p41-42 Term Paper Group 3',
+  { id: 2202, subject: 'repro-lect', topic: 'group03-gene-editing', year: 4,
+    source: 'Repro Final 86 master p41-42 Term Paper Group 3',
     sourceType: 'student-compilation',
     tags: ['gene-editing', 'ZFN', 'TALEN', 'CRISPR', 'specificity'], type: 'mcq',
     q: 'ในการเปรียบเทียบเทคโนโลยีในการปรับแต่งพันธุกรรม ข้อใดสามารถอธิบายถึง "ความจำเพาะ" ได้ดีที่สุด',
@@ -68,8 +68,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 3 (PDF p42 highlight + เฉลย)' },
 
   // ── Group 4: Dermato-Reproductive Diseases ────────────────
-  { id: 2203, subject: 'termpaper', topic: 'group04-dermato-repro', year: 4,
-    source: 'REPRO FINAL 86 PDF p42 Term Paper Group 4',
+  { id: 2203, subject: 'repro-lect', topic: 'group04-dermato-repro', year: 4,
+    source: 'Repro Final 86 master p42 Term Paper Group 4',
     sourceType: 'student-compilation',
     tags: ['Alopecia-X', 'Pomeranian', 'melatonin', 'deslorelin'], type: 'mcq',
     q: 'สุนัขพันธุ์ Pomeranian อายุ 4 ปี มาพบสัตวแพทย์ด้วยอาการขนร่วงแบบสมมาตรทั้งสองข้าง ไม่คัน บริเวณลำตัว ต้นขาด้านหลัง และหาง โดยที่บริเวณศีรษะและปลายขาทั้งสี่มีขนปกติ ผิวหนังบริเวณที่ขนร่วงมีสีเข้มขึ้น (hyperpigmentation) ไม่พบสัญญาณอักเสบ ผลตรวจเลือดทั่วไปปกติ ตรวจตัด hypothyroidism + hyperadrenocorticism ออกแล้ว · การวินิจฉัยที่เป็นไปได้มากที่สุด และแนวทางการรักษาที่เหมาะสมที่สุดคือ',
@@ -85,8 +85,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 4 (PDF p42 highlight + เฉลย)' },
 
   // ── Group 5: Infertility in Felidae ───────────────────────
-  { id: 2204, subject: 'termpaper', topic: 'group05-felidae-infertility', year: 4,
-    source: 'REPRO FINAL 86 PDF p42 Term Paper Group 5',
+  { id: 2204, subject: 'repro-lect', topic: 'group05-felidae-infertility', year: 4,
+    source: 'Repro Final 86 master p42 Term Paper Group 5',
     sourceType: 'student-compilation',
     tags: ['felidae', 'teratospermia', 'inbreeding', 'wildlife'], type: 'mcq',
     q: 'ข้อใดผิดเกี่ยวกับความไม่สมบูรณ์พันธุ์ในสัตว์ตระกูลเสือและแมว (infertility in Felidae)',
@@ -102,8 +102,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 5 (PDF p42 highlight + เฉลย)' },
 
   // ── Group 6: IUGR in newborn piglets ──────────────────────
-  { id: 2205, subject: 'termpaper', topic: 'group06-iugr-piglet', year: 4,
-    source: 'REPRO FINAL 86 PDF p42-43 Term Paper Group 6',
+  { id: 2205, subject: 'repro-lect', topic: 'group06-iugr-piglet', year: 4,
+    source: 'Repro Final 86 master p42-43 Term Paper Group 6',
     sourceType: 'student-compilation',
     tags: ['IUGR', 'piglet', 'sow-nutrition'], type: 'mcq',
     q: 'ข้อใดกล่าวผิดเกี่ยวกับภาวะ Intrauterine Growth Restriction (IUGR) ในลูกสุกร',
@@ -119,8 +119,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 6 (PDF p42-43 highlight + เฉลย)' },
 
   // ── Group 7: Ultrasonography in Ruminants ─────────────────
-  { id: 2206, subject: 'termpaper', topic: 'group07-ruminant-us-CL', year: 4,
-    source: 'REPRO FINAL 86 PDF p43 Term Paper Group 7',
+  { id: 2206, subject: 'repro-lect', topic: 'group07-ruminant-us-CL', year: 4,
+    source: 'Repro Final 86 master p43 Term Paper Group 7',
     sourceType: 'student-compilation',
     tags: ['ruminant', 'CL', 'color-doppler', 'luteal-blood-flow'], type: 'mcq',
     q: 'พารามิเตอร์ใดที่ใช้ประเมินการทำงานของ corpus luteum (luteal function) ได้แม่นยำที่สุด และมีความสัมพันธ์กับระดับฮอร์โมนโปรเจสเตอโรนสูงกว่าการวัดขนาด CL เพียงอย่างเดียว',
@@ -136,8 +136,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 7 (PDF p43 highlight + เฉลย + Herzog 2010)' },
 
   // ── Group 8: PAGs in Ruminant Pregnancy ───────────────────
-  { id: 2207, subject: 'termpaper', topic: 'group08-PAGs-ruminant', year: 4,
-    source: 'REPRO FINAL 86 PDF p43 Term Paper Group 8',
+  { id: 2207, subject: 'repro-lect', topic: 'group08-PAGs-ruminant', year: 4,
+    source: 'Repro Final 86 master p43 Term Paper Group 8',
     sourceType: 'student-compilation',
     tags: ['PAG', 'pregnancy-test', 'real-time-PCR', 'beef-cattle'], type: 'mcq',
     q: 'การตรวจ Pregnancy-Associated Glycoproteins (PAGs) ในวัวเนื้อ เทคนิคใดสามารถตรวจการตั้งท้องได้เร็วที่สุด',
@@ -153,8 +153,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 8 (PDF p43 highlight + เฉลย)' },
 
   // ── Group 9: Placental Structure ──────────────────────────
-  { id: 2208, subject: 'termpaper', topic: 'group09-placenta', year: 4,
-    source: 'REPRO FINAL 86 PDF p44 Term Paper Group 9',
+  { id: 2208, subject: 'repro-lect', topic: 'group09-placenta', year: 4,
+    source: 'Repro Final 86 master p44 Term Paper Group 9',
     sourceType: 'student-compilation',
     tags: ['placenta', 'comparative-anatomy', 'equine', 'glutamine'], type: 'mcq',
     q: 'ข้อใดจับคู่ความสัมพันธ์ระหว่าง ชนิดสัตว์ : ชั้นเนื้อเยื่อกั้น (Histology) : รูปร่างของรก (Gross) : สรีรวิทยา/เมตาบอลิซึม ได้ถูกต้องทั้งหมด',
@@ -170,8 +170,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 9 (PDF p44 highlight + เฉลยรายข้อ)' },
 
   // ── Group 10: Heat Stress and Reproductive Performance ────
-  { id: 2209, subject: 'termpaper', topic: 'group10-heat-stress', year: 4,
-    source: 'REPRO FINAL 86 PDF p44 Term Paper Group 10',
+  { id: 2209, subject: 'repro-lect', topic: 'group10-heat-stress', year: 4,
+    source: 'Repro Final 86 master p44 Term Paper Group 10',
     sourceType: 'student-compilation',
     tags: ['heat-stress', 'HPG-axis', 'livestock'], type: 'mcq',
     q: 'ข้อใดอธิบายผลกระทบของความเครียดจากความร้อนต่อระบบประสาทและต่อมไร้ท่อ (Neuroendocrine - HPG axis) ในสัตว์ปศุสัตว์ได้ถูกต้อง',
@@ -187,8 +187,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 10 (PDF p44 highlight + เฉลย)' },
 
   // ── Group 11: GnRH Agonists in Pig ─────────────────────────
-  { id: 2210, subject: 'termpaper', topic: 'group11-buserelin-pig', year: 4,
-    source: 'REPRO FINAL 86 PDF p44 Term Paper Group 11',
+  { id: 2210, subject: 'repro-lect', topic: 'group11-buserelin-pig', year: 4,
+    source: 'Repro Final 86 master p44 Term Paper Group 11',
     sourceType: 'student-compilation',
     tags: ['buserelin', 'GnRH-agonist', 'pituitary', 'pig'], type: 'mcq',
     q: 'หากนำ Buserelin ฉีดในหมู จะเกิดกระตุ้นการผลิตฮอร์โมนที่อวัยวะใดในหมู',
@@ -198,8 +198,8 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 11 (PDF p44 highlight + เฉลย)' },
 
   // ── Group 12: NEB in Postpartum Dairy Cow ─────────────────
-  { id: 2211, subject: 'termpaper', topic: 'group12-NEB-dairy', year: 4,
-    source: 'REPRO FINAL 86 PDF p45 Term Paper Group 12',
+  { id: 2211, subject: 'repro-lect', topic: 'group12-NEB-dairy', year: 4,
+    source: 'Repro Final 86 master p45 Term Paper Group 12',
     sourceType: 'student-compilation',
     tags: ['NEB', 'negative-energy-balance', 'dairy-cow', 'postpartum'], type: 'mcq',
     q: 'ข้อใดกล่าวผิดเกี่ยวกับภาวะ Negative Energy Balance (NEB) ในแม่โคนมหลังคลอด',

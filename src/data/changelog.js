@@ -44,6 +44,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.18.0',
+    date: '2026-05-04',
+    headline: '🐺 Repro Lecture — เพิ่ม 102 ข้อใหม่จาก Master 86 (หมาหอน 90 + Term Paper 12) พร้อมภาพ U/S 5 ภาพ',
+    changes: [
+      { scope: 'repro-lect', kind: 'content', icon: '🐺', title: 'เพิ่ม 9 หมวดหัวข้อ "ข้อสอบหมาหอน" ใต้ Repro Lecture (90 ข้อ)',
+        desc: 'หาในรายการหัวข้อของ Repro Lecture ใต้ Lect 24 จะเจอ 9 หมวดที่ขึ้นต้นด้วย 🐺 — Hormone 10 ข้อ, Ultrasound 10 ข้อ (มีภาพ U/S 5 ข้อ คือ CEH, Doppler, Fluid uterus, Estrus ovary, Hydrocephalus), Semen freezing 10, Semen evaluation 10, ART พี่อิม 10, Exotic 10, Risk-Benefit 10, Genetic 10, Surgical neutering 10. 40 ข้อจาก Blackboard caps verified 10/10 และ 50 ข้อสังเคราะห์จาก slide 2026 + textbook (Feldman&Nelson, Quesenberry, Fossum, WSAVA)' },
+      { scope: 'repro-lect', kind: 'content', icon: '📜', title: 'เพิ่ม 12 ข้อ Term Paper ใต้ Repro Lecture (1 ข้อ/กลุ่ม)',
+        desc: 'หาในรายการหัวข้อของ Repro Lecture จะเจอ 12 รายการที่ขึ้นต้นด้วย 📜 ตั้งแต่ G1 Nutrition, G2 BPH (Deslorelin), G3 Gene editing, G4 Dermato (Alopecia X), G5 Felidae infertility, G6 IUGR piglet, G7 Ruminant US CL, G8 PAGs, G9 Placenta, G10 Heat stress, G11 Buserelin pig, G12 NEB dairy ทุกข้อมีเฉลยรายตัวเลือก verified จาก Master 86 p41-45' },
+      { scope: 'system', kind: 'feature', icon: '🩻', title: 'รองรับภาพประกอบในข้อสอบ (imagePath)',
+        desc: 'ข้อที่มีภาพ U/S หรือ X-ray จะแสดงภาพในหน้าทำข้อสอบ Review และ SR แตะภาพเพื่อเปิดดูเต็มจอได้ เริ่มใช้กับ U/S 5 ข้อในชุดหมาหอน พร้อมขยายไปวิชาอื่นในอนาคต' },
+    ],
+  },
+  {
     version: '5.17.0',
     date: '2026-05-03',
     headline: '🐂 เปิดวิชา Vet Prac Rum (47 ข้อ · 6 พ.ค.) + ขยาย Clin App Rum (37 ข้อ · 8 พ.ค.) · พร้อมใช้',
