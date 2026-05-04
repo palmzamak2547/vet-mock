@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import SmartPassage from './SmartPassage.jsx';
+import ZoomableImage from './ZoomableImage.jsx';
 
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote }) {
   // Passage panel (for reading-comprehension questions) — handled by
@@ -55,29 +56,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     <div className="vmx-q-content-pane">
       <div className="vmx-qtext"><RichText text={currentQ.q} /></div>
 
-      {/* Image rendering — used for U/S sonograms in mahahon bank.
-          Tap to enlarge. Lazy-loaded so off-screen Qs don't waste bandwidth. */}
-      {currentQ.imagePath && (
-        <a
-          href={currentQ.imagePath}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ display: 'block', textAlign: 'center', margin: '12px 0' }}
-        >
-          <img
-            src={currentQ.imagePath}
-            alt="ภาพประกอบคำถาม"
-            loading="lazy"
-            style={{
-              maxWidth: '100%',
-              maxHeight: 360,
-              borderRadius: 8,
-              border: '1px solid var(--clr-line)',
-              cursor: 'zoom-in',
-            }}
-          />
-        </a>
-      )}
+      {/* Image rendering — used for U/S sonograms in หมาหอน bank.
+          Tap to enlarge in lightbox modal (close: tap outside / × / Esc). */}
+      {currentQ.imagePath && <ZoomableImage src={currentQ.imagePath} maxHeight={360} />}
 
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +

@@ -5,6 +5,7 @@ import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import SmartGrader from '../components/SmartGrader.jsx';
 import BackBar from '../components/BackBar.jsx';
+import ZoomableImage from '../components/ZoomableImage.jsx';
 
 // NOTE: Smart AI grading was temporarily removed from the UI per user
 // request — the model + rubric + self-assessment workflow alone is
@@ -216,13 +217,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             )}
             <div className="vmx-review-q"><RichText text={q.q} /></div>
 
-            {q.imagePath && (
-              <a href={q.imagePath} target="_blank" rel="noopener noreferrer"
-                 style={{ display: 'block', textAlign: 'center', margin: '8px 0' }}>
-                <img src={q.imagePath} alt="ภาพประกอบคำถาม" loading="lazy"
-                     style={{ maxWidth: '100%', maxHeight: 280, borderRadius: 8, border: '1px solid var(--clr-border)', cursor: 'zoom-in' }} />
-              </a>
-            )}
+            {q.imagePath && <ZoomableImage src={q.imagePath} maxHeight={280} />}
 
             {(q.type === 'short' || q.type === 'essay') ? (
               <>
