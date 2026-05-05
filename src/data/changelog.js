@@ -44,6 +44,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.19.0',
+    date: '2026-05-05',
+    headline: '🐂 Vet Prac Rum หมาหอน — เพิ่ม 58 ข้อรวม (สอบ 6 พ.ค.) ครบทั้ง 3 ภาควิชา + ภาพคลอดยาก 12 ท่า',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🐺', title: 'รวมหมาหอน Vet Prac Rum 58 ข้อ ครอบคลุม 3 ภาควิชา',
+        desc: 'การ์ดใหม่ "🐺 รวมหมาหอน Vet Prac Rum" ใต้วิชา Practice Ruminant แยก 5 หมวดที่ขึ้นต้นด้วย 🐺 — ภาคศัลย์ past paper Q1-10 verified TJ + ภาคสัตวบาล อ.น้ำ feed mgmt 18 + silage 9 + ภาคสูติฯ dystocia 15 + Penile deviation/Caudal epididymectomy 6 ข้อ ครอบคลุมตามที่อาจารย์ชี้แจงจะออก ทำรวมในชุดเดียวก่อนสอบได้' },
+      { scope: 'multi', kind: 'content', icon: '🎨', title: 'ภาพคลอดยาก 12 ท่า A-L (ฝึก visual recognition ก่อนสอบวาด)',
+        desc: 'ใต้หมวด "หมาหอน 4 — Dystocia" มี 12 ข้อ image MCQ ใหม่ แต่ละข้อโชว์ภาพ grid 12 ท่ามาตรฐานแล้วถามว่าท่าไหนตรงกับชื่อ presentation ที่ระบุ ครอปจาก PRAC RUM Final TJ p10 ฝึก map ชื่อท่ากับภาพก่อนสอบจริงที่ให้วาดด้วยดินสอ + ยางลบ' },
+      { scope: 'multi', kind: 'content', icon: '🌽', title: '17 ข้อจากคำพูดอาจารย์ Field Practice (อ.น้ำ feed/silage)',
+        desc: 'เพื่อนจดมาจากชั้นเรียน Field Practice 5 พ.ค. (99.99% accurate) ค่าจำเพาะที่อาจารย์เน้น เช่น crude fiber 18% min, ปลาป่น 55-61% protein, urea NPN max 3%, ถั่วเหลือง lysine สูง, รำละเอียดไม่เกิน 30%, DMI 2-3% ของน้ำหนักตัว, squish test 60-70%, NDF/ADF, lactic acid bacteria, aflatoxin 14% moisture, full-fat soy heat treatment, ไขมันรวมไม่เกิน 5%' },
+    ],
+  },
+  {
     version: '5.18.0',
     date: '2026-05-04',
     headline: '🐺 Repro Lecture — เพิ่ม 102 ข้อใหม่จาก Master 86 (หมาหอน 90 + Term Paper 12) พร้อมภาพ U/S 5 ภาพ',
