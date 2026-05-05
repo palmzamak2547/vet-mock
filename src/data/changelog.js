@@ -44,14 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
-    version: '5.19.0',
+    version: '5.19.1',
     date: '2026-05-05',
-    headline: '🐂 Vet Prac Rum หมาหอน — เพิ่ม 58 ข้อรวม (สอบ 6 พ.ค.) ครบทั้ง 3 ภาควิชา + ภาพคลอดยาก 12 ท่า',
+    headline: '🐂 Vet Prac Rum หมาหอน — เพิ่มเป็น 70 ข้อ (Nicky 86 master compilation + LINE teacher notes + dystocia images)',
     changes: [
-      { scope: 'multi', kind: 'content', icon: '🐺', title: 'รวมหมาหอน Vet Prac Rum 58 ข้อ ครอบคลุม 3 ภาควิชา',
-        desc: 'การ์ดใหม่ "🐺 รวมหมาหอน Vet Prac Rum" ใต้วิชา Practice Ruminant แยก 5 หมวดที่ขึ้นต้นด้วย 🐺 — ภาคศัลย์ past paper Q1-10 verified TJ + ภาคสัตวบาล อ.น้ำ feed mgmt 18 + silage 9 + ภาคสูติฯ dystocia 15 + Penile deviation/Caudal epididymectomy 6 ข้อ ครอบคลุมตามที่อาจารย์ชี้แจงจะออก ทำรวมในชุดเดียวก่อนสอบได้' },
+      { scope: 'multi', kind: 'content', icon: '📝', title: 'เพิ่ม 12 ข้อจาก Master 86 Nicky compilation (anesthesia dose table + fetotomy + cosmetic dehorning)',
+        desc: 'ตารางขนาดยา anesthesia ที่ออกแน่ — Paravertebral 20cc 18G 3.5", Caudal epidural 0.22 mg/kg max 6cc 1-1.5", Cornual 5cc 21G 1", Retrobulbar 4-point 5-10cc curved 6cm, umbilical hernia 10-20cc, medial patellar 5-8cc + Fetotomy bone grip (radius+ulna ขาหน้า / tibia+fibula ขาหลัง) + Wire saw introducer + Laparoscopic AI ในแพะ/แกะ ปล่อยน้ำเชื้อ uterine horn + Cosmetic dehorning (embryotome wire + chromic catgut #2 + horizontal mattress)' },
+      { scope: 'multi', kind: 'content', icon: '🐺', title: 'รวมหมาหอน Vet Prac Rum ทั้งหมด 70 ข้อ ครอบคลุม 3 ภาควิชา',
+        desc: 'การ์ด "🐺 รวมหมาหอน Vet Prac Rum" ใต้วิชา Practice Ruminant แยก 5 หมวดที่ขึ้นต้นด้วย 🐺 — ภาคศัลย์ 19 (past paper Q1-10 + dose table + cosmetic dehorning + rumenotomy detail) + ภาคสัตวบาล 27 (อ.น้ำ feed 18 + silage 9) + ภาคสูติฯ dystocia 18 (image MCQ + correction + fetotomy) + Penile/Epididymectomy 6 ข้อ ทำรวมก่อนสอบ 6 พ.ค.' },
       { scope: 'multi', kind: 'content', icon: '🎨', title: 'ภาพคลอดยาก 12 ท่า A-L (ฝึก visual recognition ก่อนสอบวาด)',
-        desc: 'ใต้หมวด "หมาหอน 4 — Dystocia" มี 12 ข้อ image MCQ ใหม่ แต่ละข้อโชว์ภาพ grid 12 ท่ามาตรฐานแล้วถามว่าท่าไหนตรงกับชื่อ presentation ที่ระบุ ครอปจาก PRAC RUM Final TJ p10 ฝึก map ชื่อท่ากับภาพก่อนสอบจริงที่ให้วาดด้วยดินสอ + ยางลบ' },
+        desc: 'ใต้หมวด "หมาหอน 4 — Dystocia" มี image MCQ ที่โชว์ภาพ grid 12 ท่ามาตรฐานแล้วถามว่าท่าไหนตรงกับชื่อ presentation ที่ระบุ ครอปจาก PRAC RUM Final TJ p10 ฝึก map ชื่อท่ากับภาพก่อนสอบจริงที่ให้วาดด้วยดินสอ + ยางลบ' },
       { scope: 'multi', kind: 'content', icon: '🌽', title: '17 ข้อจากคำพูดอาจารย์ Field Practice (อ.น้ำ feed/silage)',
         desc: 'เพื่อนจดมาจากชั้นเรียน Field Practice 5 พ.ค. (99.99% accurate) ค่าจำเพาะที่อาจารย์เน้น เช่น crude fiber 18% min, ปลาป่น 55-61% protein, urea NPN max 3%, ถั่วเหลือง lysine สูง, รำละเอียดไม่เกิน 30%, DMI 2-3% ของน้ำหนักตัว, squish test 60-70%, NDF/ADF, lactic acid bacteria, aflatoxin 14% moisture, full-fat soy heat treatment, ไขมันรวมไม่เกิน 5%' },
     ],
