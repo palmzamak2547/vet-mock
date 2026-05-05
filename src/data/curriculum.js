@@ -396,6 +396,13 @@ export const SUBJECTS_BY_YEAR = {
     // ตารางสอนไม่ระบุชัด — บางหัวข้อปีก่อนเรียงไม่เหมือนกัน per Palm.
     { id: 'practrum', code: '3108412', name: 'Practice Ruminant', name_en: 'VET PRAC RUM',
       icon: '🐂', color: '#5c7d4a', semester: 2, has_questions: true,
+      // Collection: หมาหอน Vet Prac Rum (high-yield exam-prep set)
+      // 31 ข้อ จาก past paper Final 86 (verified TJ red highlight) +
+      // อ.น้ำ silage/feed (10 ข้อปรนัย) + dystocia 12 presentations +
+      // penile deviation/caudal epididymectomy (Palm friend tip)
+      collections: [
+        { id: '_mahahon-practrum-all', label: '🐺 รวมหมาหอน Vet Prac Rum', sub: 'Final 86 past paper + อ.น้ำ + ชี้แจงอาจารย์', topicPrefix: 'mahahon-practrum-', accent: '#5c7d4a' },
+      ],
       examFormat: {
         weight: 'Mid + Final + ปฏิบัติการ',
         examDate: '6 พ.ค. 2569 (week 27 เม.ย. – 12 พ.ค.)',
@@ -440,6 +447,23 @@ export const SUBJECTS_BY_YEAR = {
           icon: '❓', hidden: true,
           lecturer: 'TBD — Sunsun84 (Vet 84) ครอบคลุม 25 ข้อ',
           lecturerNote: 'พี่มด (5 hernia) + พี่ลี (5 esophageal) + พี่พล (5 head/neck/eye) + พี่ดิติศักดิ์ (5 udder/teat T/F) + พี่แนน (5 foot/tendon) · ปีก่อนอาจ midterm · ปี 86 ตารางไม่เห็นชัด — ซ่อนไว้ก่อนรอ verify' },
+
+        // ── ข้อสอบหมาหอน Vet Prac Rum (Final 86 high-yield prediction set) ──
+        { id: 'mahahon-practrum-surgery', label: '🐺 หมาหอน 1 — ภาคศัลย์ (Past paper Q1-10 verified)', icon: '🔪',
+          lecturer: 'อ.วิมล + อ.เอกพล (Surgery)', lecturer_year: 2026,
+          lecturerNote: '10 ข้อจาก (Final) Prac Rum Final 86 PDF · verified จาก TJ red highlights + พี่พล/sunsun84 ค่าตอบ · rumen anatomy, rumenotomy indications/closure, calf NPO, xylazine dose, lidocaine duration, paravertebral L1, caudal epidural S5-C1, propofol NOT used' },
+        { id: 'mahahon-practrum-silage', label: '🐺 หมาหอน 2 — Silage Quality (อ.น้ำ ชี้แจง)', icon: '🌽',
+          lecturer: 'อ.น้ำ', lecturer_year: 2026,
+          lecturerNote: '5 ข้อ ปรนัย — อ.น้ำบอกแนวข้อสอบ "ชนิดของอาหารหยาบและประเมินคุณภาพอาหารหยาบหมัก" · หัวข้อหลัก: กลิ่น (เปรี้ยว lactic) · pH<4 · สี (เขียวปนน้ำตาล) · ความชื้น 60-70% · ระยะเวลาหมัก 21d ขั้นต่ำ' },
+        { id: 'mahahon-practrum-feed', label: '🐺 หมาหอน 3 — Feed Mgmt (อ.น้ำ formulas)', icon: '📐',
+          lecturer: 'อ.น้ำ', lecturer_year: 2026,
+          lecturerNote: '5 ข้อ — สูตร DMI, R:C ratio (50:50 high-yield), Particle size >19mm peNDF, NEL คือ, NDF vs ADF · จาก Feed mgt page ของ (Final) PDF p2' },
+        { id: 'mahahon-practrum-dystocia', label: '🐺 หมาหอน 4 — Dystocia Drawing Prep', icon: '🎨',
+          lecturer: 'Surgery/สูติฯ staff', lecturer_year: 2026,
+          lecturerNote: '5 ข้อ (2 match-type 12 ท่า A-L + 3 MCQ correction) · อาจารย์บอกออกข้อสอบวาดรูปคลอดยาก ต้องเตรียมดินสอ+ยางลบ · หมาหอนนี้ฝึก map ชื่อ/ท่า ก่อน + รู้วิธี mutation ก่อนวาด' },
+        { id: 'mahahon-practrum-penile', label: '🐺 หมาหอน 5 — Penile Deviation + Caudal Epididymectomy', icon: '🐂',
+          lecturer: 'Surgery staff', lecturer_year: 2026,
+          lecturerNote: '6 ข้อ — Palm เพื่อนถามมา · อ.บอกอ่านคร่าวๆ ให้รู้หลักการ · 3 types penile deviation (spiral/ventral/S-shape) + apical ligament + reinforcement surgery + caudal epididymectomy → teaser bull concept' },
       ] },
     // Clin App Rum — restructured 2026-05-03 from scratch
     // Coordinator scope text confirms อ.ศวิตา (Sawita) 3 lectures × 15 ข้อ = 45 Q (main)

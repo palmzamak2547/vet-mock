@@ -715,7 +715,7 @@ export const QB_PRACTRUM = [
   // ═══════════════════════════════════════════════════════════
 
   // ── ภาคศัลย์ — Past paper Q1-10 (verified by TJ red answers) ──
-  { id: 3000, subject: 'practrum', topic: 'rumenotomy', year: 4,
+  { id: 3000, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ + พี่พล Q1', sourceType: 'past-paper',
     tags: ['past-paper', 'rumen', 'anatomy', 'magnet'], type: 'mcq',
     q: 'ข้อใดผิดเกี่ยวกับ rumen',
@@ -730,7 +730,7 @@ export const QB_PRACTRUM = [
     explain: 'แม่เหล็กที่ป้อนเข้าไปจะลงไปอยู่ที่ reticulum (กระเพาะส่วนหน้า · หนักที่สุด · gravity-dependent) ไม่ใช่ rumen · เป้าหมายคือดูดเหล็กแหลมที่ก่อ Hardware disease (traumatic reticuloperitonitis)',
     verified: 'TJ p3 + พี่พล/sunsun84 highlighted E' },
 
-  { id: 3001, subject: 'practrum', topic: 'rumenotomy', year: 4,
+  { id: 3001, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q2', sourceType: 'past-paper',
     tags: ['past-paper', 'rumenotomy', 'indications'], type: 'mcq',
     q: 'ข้อไหนไม่ใช่ indications ในการทำ rumenotomy',
@@ -739,7 +739,7 @@ export const QB_PRACTRUM = [
     explain: 'Software disease ไม่มีอยู่จริง · เป็น distractor · indications จริง: Hardware disease, frothy bloat (severe), choke (rumen-side), impaction, foreign body, rumen wash',
     verified: 'TJ p3 highlighted C' },
 
-  { id: 3002, subject: 'practrum', topic: 'rumenotomy', year: 4,
+  { id: 3002, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q3', sourceType: 'past-paper',
     tags: ['past-paper', 'calf', 'pre-op'], type: 'mcq',
     q: 'ถ้าจะผ่าตัดในลูกวัว (neonatal calf) ต้องอดอาหารนานเท่าไหร่',
@@ -748,7 +748,7 @@ export const QB_PRACTRUM = [
     explain: 'ลูกวัวยังเป็น monogastric functional (rumen ไม่ทำงานเต็มที่ก่อน 6 สัปดาห์) · ระบบเสี่ยง hypoglycemia + hypothermia ถ้าอดอาหาร · จึงไม่ต้องอด ต่างจากวัวโตที่อด 24-36 ชม.',
     verified: 'TJ p3 highlighted A' },
 
-  { id: 3003, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
+  { id: 3003, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q4', sourceType: 'past-paper',
     tags: ['past-paper', 'xylazine', 'dose-calculation', 'standing'], type: 'mcq',
     q: 'จะต้องใช้ xylazine กี่ ml ในวัวที่มีน้ำหนัก 500 kg ในการทำ rumenotomy (standing position) โดยใช้ความเข้มข้น 20 mg/ml',
@@ -757,7 +757,7 @@ export const QB_PRACTRUM = [
     explain: 'Standing rumenotomy xylazine dose ~0.02 mg/kg (low to maintain standing) · 500 kg × 0.02 = 10 mg ÷ 20 mg/ml = 0.5 ml · Dose recumbent จะสูงกว่า (0.1 mg/kg) แต่ standing ต้องน้อยเพื่อไม่ให้ล้ม',
     verified: 'TJ p3 highlighted D' },
 
-  { id: 3004, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
+  { id: 3004, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q5', sourceType: 'past-paper',
     tags: ['past-paper', 'lidocaine', 'duration'], type: 'mcq',
     q: 'ถ้าใช้ lidocaine จะต้องทำหัตถการภายในกี่นาที',
@@ -766,7 +766,7 @@ export const QB_PRACTRUM = [
     explain: 'Lidocaine onset 5-10 นาที · duration ~ 60-90 นาที · ต้องทำหัตถการเสร็จภายใน 90 นาทีก่อน block หมดฤทธิ์ · Bupivacaine จะนานกว่า ~ 4-8 ชม. แต่ onset ช้ากว่า',
     verified: 'TJ p3 highlighted C' },
 
-  { id: 3005, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
+  { id: 3005, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q6', sourceType: 'past-paper',
     tags: ['past-paper', 'paravertebral', 'landmark'], type: 'mcq',
     q: 'ถ้าต้องการจะทำ paravertebral nerve block ที่ L1 spinal nerve จะต้องมีอะไรเป็น landmark',
@@ -781,7 +781,7 @@ export const QB_PRACTRUM = [
     explain: 'L1 spinal nerve ออกมาทาง caudal ของ TP L1 → ใช้ TP L2 (ตัวที่อยู่ caudal กว่า) เป็น landmark · หลัก "block n nerve → use TP n+1 as landmark" สำหรับ proximal paravertebral block',
     verified: 'TJ p4 highlighted C' },
 
-  { id: 3006, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
+  { id: 3006, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q7', sourceType: 'past-paper',
     tags: ['past-paper', 'caudal-epidural', 'landmark'], type: 'mcq',
     q: 'Caudal epidural nerve block ทำที่ตำแหน่งใดในวัว',
@@ -790,7 +790,7 @@ export const QB_PRACTRUM = [
     explain: 'Caudal epidural ในวัว 2 ตำแหน่งมาตรฐาน: (1) S5-Co1 = sacrococcygeal junction (high caudal · ตำแหน่งในข้อสอบ) (2) Co1-Co2 = 1st intercoccygeal space (low caudal · ใช้บ่อยกว่าใน routine) · คลำหา joint โดยยกหางขึ้น-ลง · block tail + perineum + posterior vagina · ปริมาณ 5-7 ml lidocaine 2%',
     verified: 'TJ p4 highlighted E + Roberts Veterinary Obstetrics' },
 
-  { id: 3007, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
+  { id: 3007, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q8', sourceType: 'past-paper',
     tags: ['past-paper', 'paravertebral', 'success-indicator'], type: 'mcq',
     q: 'ข้อใดเป็นสิ่งที่สำคัญที่สุดที่จะบอกได้ว่าทำ paravertebral nerve block สำเร็จแล้ว',
@@ -805,7 +805,7 @@ export const QB_PRACTRUM = [
     explain: 'Test ด้วยเข็มจิ้ม (pin-prick test) ที่บริเวณที่ block ครอบคลุม · ถ้าวัวไม่ตอบสนองต่อความเจ็บปวด = block สำเร็จ · อาการอื่น (skin warm, scoliosis curve toward block side) เป็น secondary signs',
     verified: 'TJ p4 highlighted B' },
 
-  { id: 3008, subject: 'practrum', topic: 'rumenotomy', year: 4,
+  { id: 3008, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q9', sourceType: 'past-paper',
     tags: ['past-paper', 'rumenotomy', 'drugs', 'NOT-used'], type: 'mcq',
     q: 'ยาใดในข้อต่อไปนี้ไม่ได้นำไปใช้ในการทำ rumenotomy',
@@ -814,7 +814,7 @@ export const QB_PRACTRUM = [
     explain: 'Propofol = IV induction agent สำหรับสัตว์เล็ก · ในวัวต้อง IV access ใหญ่ + เสี่ยง regurgitation + bloat · standing rumenotomy ใช้ local (lidocaine) + sedation (xylazine) + post-op analgesia (flunixin) + antibiotic (procaine penicillin) · หมายเหตุ: บางเวอร์ชั่นข้อสอบเปลี่ยน Propofol เป็น Cefazolin (sunsun84 marked B5-on propofol) — Cefazolin (1st gen ceph) ก็ไม่ได้ใช้ใน food animal เพราะ withdrawal time ปัญหา ตอบเหมือนกัน',
     verified: 'TJ p5 highlighted D' },
 
-  { id: 3009, subject: 'practrum', topic: 'rumenotomy', year: 4,
+  { id: 3009, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q10', sourceType: 'past-paper',
     tags: ['past-paper', 'rumenotomy', 'closure', 'suture-pattern'], type: 'mcq',
     q: 'ข้อใดถูกต้องเกี่ยวกับการเย็บปิด rumen',
@@ -830,7 +830,7 @@ export const QB_PRACTRUM = [
     verified: 'TJ p5 highlighted C' },
 
   // ── อ.น้ำ Silage / Feed Management (ภาคสัตวบาล · 10 ข้อปรนัย) ──
-  { id: 3010, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3010, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
     source: 'TJ p2 (อ.น้ำ silage quality criteria)', sourceType: 'student-compilation',
     tags: ['silage', 'quality-assessment', 'อ.น้ำ', 'roughage'], type: 'mcq',
     q: 'ข้าวโพดหมัก (silage) คุณภาพดี ควรมีกลิ่นแบบใด',
@@ -839,7 +839,7 @@ export const QB_PRACTRUM = [
     explain: 'Silage ที่หมักดี = lactic acid bacteria ผลิต lactic acid → กลิ่นเปรี้ยวอ่อน · กลิ่นหืน = butyric acid (Clostridia overgrowth · poor fermentation) · กลิ่นแอมโมเนีย = protein degradation · กลิ่นโคลน = mold contamination',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
-  { id: 3011, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3011, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
     source: 'TJ p2 (silage pH cutoff)', sourceType: 'student-compilation',
     tags: ['silage', 'pH', 'fermentation'], type: 'mcq',
     q: 'pH ที่บ่งชี้ว่าการหมักข้าวโพดสมบูรณ์ (silage well-fermented)',
@@ -848,7 +848,7 @@ export const QB_PRACTRUM = [
     explain: 'Lactic acid fermentation ที่สมบูรณ์ → pH < 4 (ปกติ 3.8-4.2) · pH สูง = bacteria แข่ง lactic ไม่ชนะ → spoilage · ใช้ pH paper ตรวจ field-side ได้',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
-  { id: 3012, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3012, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
     source: 'TJ p2 (silage color)', sourceType: 'student-compilation',
     tags: ['silage', 'visual-assessment'], type: 'mcq',
     q: 'สีของข้าวโพดหมัก (corn silage) คุณภาพดี',
@@ -857,7 +857,7 @@ export const QB_PRACTRUM = [
     explain: 'Silage ที่หมักดี = สี yellowish-green / greenish-brown · สีเข้ม/ดำ = overheating หรือ caramelization (ใช้น้ำตาลในการ fermentation มากเกินไป → ลดคุณภาพ) · สีขาว = mold',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
-  { id: 3013, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3013, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
     source: 'TJ p2 (silage moisture)', sourceType: 'student-compilation',
     tags: ['silage', 'moisture-content'], type: 'mcq',
     q: 'ความชื้นที่เหมาะสมสำหรับการทำ silage',
@@ -866,7 +866,7 @@ export const QB_PRACTRUM = [
     explain: 'Optimal moisture 60-70% (DM 30-40%) · ชื้นเกิน → seepage + Clostridial fermentation + butyric acid · แห้งเกิน → packing ไม่แน่น → aerobic fermentation + mold',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
-  { id: 3014, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3014, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
     source: 'TJ p2 (silage fermentation duration)', sourceType: 'student-compilation',
     tags: ['silage', 'fermentation-time'], type: 'mcq',
     q: 'ระยะเวลาขั้นต่ำในการหมัก silage ก่อนเปิดใช้',
@@ -875,7 +875,7 @@ export const QB_PRACTRUM = [
     explain: 'Silage ต้องหมักอย่างน้อย 21 วัน เพื่อ pH ลงต่ำพอ + lactic acid ครอบงำ + กำจัด pathogen · เปิดเร็วเกิน → fermentation ไม่สมบูรณ์ → spoilage · เปิดแล้วต้องใช้เร็ว (face management)',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
-  { id: 3015, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3015, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p2 (Feed mgt formulas)', sourceType: 'student-compilation',
     tags: ['DMI', 'feed-formula', 'อ.น้ำ'], type: 'mcq',
     q: 'สูตรคำนวณ DMI (Dry Matter Intake) เป็น kg ของอาหารเปียก',
@@ -889,7 +889,7 @@ export const QB_PRACTRUM = [
     explain: 'DMI (kg DM) = น้ำหนักอาหารเปียก (kg as-fed) × %DM / 100 · เช่น silage 10 kg ที่ DM 35% → DMI = 10 × 35/100 = 3.5 kg DM · ใช้คำนวณการกินจริงของวัว',
     verified: '(Final) p2 — อ.น้ำ formula box' },
 
-  { id: 3016, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3016, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p2 (R:C ratio)', sourceType: 'student-compilation',
     tags: ['R:C-ratio', 'roughage-concentrate'], type: 'mcq',
     q: 'R:C ratio (Roughage : Concentrate) ที่เหมาะสมสำหรับวัวรีดนม high-yield (>30 kg/วัน)',
@@ -898,7 +898,7 @@ export const QB_PRACTRUM = [
     explain: 'High-yield dairy: R:C ~50:50 เป็นมาตรฐานสมดุลที่สุด · ถ้า yield สูงมาก (>40 kg/d) อาจถึง 40:60 แต่ต้อง buffer + monitor SARA · ห้าม concentrate เกิน 60% — เสี่ยง SARA (subacute ruminal acidosis) · Beef cow + dry cow: R:C 70:30 ถึง 80:20',
     verified: '(Final) p2 — Feed mgt + NRC Dairy 2021' },
 
-  { id: 3017, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3017, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p2 (Particle size)', sourceType: 'student-compilation',
     tags: ['particle-size', 'TMR', 'rumination'], type: 'mcq',
     q: 'Particle size ของอาหารหยาบที่กระตุ้นการเคี้ยวเอื้อง (rumination) ได้ดี',
@@ -912,7 +912,7 @@ export const QB_PRACTRUM = [
     explain: 'Particle > 19 mm = "physically effective fiber" stimulate cud chewing → saliva (buffer) → ป้องกัน acidosis · Penn State Particle Separator: top sieve >19 mm = 2-8% ของ TMR · ถ้า particle เล็กไปทุก part → ไม่มี cud chewing → SARA risk',
     verified: '(Final) p2 — Particle size box' },
 
-  { id: 3018, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3018, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p2 (NEL formula)', sourceType: 'student-compilation',
     tags: ['NEL', 'energy', 'lactation'], type: 'mcq',
     q: 'NEL (Net Energy for Lactation) คือพลังงานสุทธิที่วัวใช้สำหรับ',
@@ -926,7 +926,7 @@ export const QB_PRACTRUM = [
     explain: 'NEL (Mcal/kg DM) = energy ที่เหลือหลังหัก feces + urine + gas + heat increment · ใช้ maintain + ผลิตน้ำนม + สำหรับลูกในท้อง · standard sale ration ~1.6-1.7 Mcal/kg DM สำหรับ high yield cow',
     verified: '(Final) p2' },
 
-  { id: 3019, subject: 'practrum', topic: 'animal-nutrition', year: 4,
+  { id: 3019, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p2 (NDF/ADF)', sourceType: 'student-compilation',
     tags: ['NDF', 'ADF', 'fiber'], type: 'mcq',
     q: 'NDF (Neutral Detergent Fiber) ต่างจาก ADF (Acid Detergent Fiber) อย่างไร',
@@ -941,7 +941,7 @@ export const QB_PRACTRUM = [
     verified: '(Final) p2' },
 
   // ── ภาคสูติฯ — Dystocia 12 presentations (drawing-prep) ──
-  { id: 3020, subject: 'practrum', topic: 'parturition-fetotomy', year: 4,
+  { id: 3020, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p4 — ท่าคลอด A-L', sourceType: 'student-compilation',
     tags: ['dystocia', 'presentation', 'match', 'drawing-prep'], type: 'match',
     q: 'จับคู่ Dystocia presentation กับชื่อท่าคลอดผิดปกติ',
@@ -955,7 +955,7 @@ export const QB_PRACTRUM = [
     explain: 'อ.บอกแนวข้อสอบ: วาดรูปคลอดยาก (ดินสอ+ยางลบ) · 12 ท่ามาตรฐาน A-L · ฝึกจาก (Final) Prac Rum p4 · ดู notes-practrum สำหรับภาพอ้างอิง',
     verified: '(Final) p4 dystocia chart' },
 
-  { id: 3021, subject: 'practrum', topic: 'parturition-fetotomy', year: 4,
+  { id: 3021, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p4', sourceType: 'student-compilation',
     tags: ['dystocia', 'presentation', 'match', 'posterior'], type: 'match',
     q: 'จับคู่ Dystocia presentation (ต่อ) — Ventral / Posterior / Transverse',
@@ -971,7 +971,7 @@ export const QB_PRACTRUM = [
     explain: 'ท่า G = bilateral hip flexion = "transverse stomach presentation" (โพรง pelvic ติดท้องลูก) · H = breech (ก้น) ต้อง mutation: convert เป็น hock flexion ก่อนแล้วดึง · K-L transverse = ต้อง C-section ส่วนใหญ่',
     verified: '(Final) p4 dystocia chart' },
 
-  { id: 3022, subject: 'practrum', topic: 'parturition-fetotomy', year: 4,
+  { id: 3022, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p4 + sunsun84', sourceType: 'student-compilation',
     tags: ['dystocia', 'correction', 'mutation'], type: 'mcq',
     q: 'ท่าคลอด D (Dorsal Longitudinal Anterior with deviation of head and neck downward) แก้ไขอย่างไร',
@@ -985,7 +985,7 @@ export const QB_PRACTRUM = [
     explain: 'Head/neck deviation: 1) push fetus ลงไปสร้าง space, 2) hook ที่ orbit (ระวัง globe rupture) หรือ jaw, 3) rotate head เข้า birth canal, 4) ดึงปกติ · ถ้า fetus ใหญ่/แม่เล็ก/แก้ไม่ได้ใน 30 นาที → C-section หรือ fetotomy',
     verified: 'sunsun84 dystocia notes + (Final) p4' },
 
-  { id: 3023, subject: 'practrum', topic: 'parturition-fetotomy', year: 4,
+  { id: 3023, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p4', sourceType: 'student-compilation',
     tags: ['dystocia', 'breech', 'posterior'], type: 'mcq',
     q: 'ท่าคลอด H (breech / Dorsal Longitudinal Posterior with hip flexion) แก้ไขอย่างไร',
@@ -999,7 +999,7 @@ export const QB_PRACTRUM = [
     explain: 'True breech (hip flexion · hock extended) ดึงตรงไม่ได้ — ต้อง mutation: push fetus cranial → flex hock → จับ hock + ขาหลัง → ดึงออก · เป็นท่าผสมที่ deliver ได้ง่ายขึ้น · ถ้า uterus inertia หรือ fetus ใหญ่ → C-section',
     verified: 'sunsun84 + (Final) p4 ท่า H-I-J' },
 
-  { id: 3024, subject: 'practrum', topic: 'parturition-fetotomy', year: 4,
+  { id: 3024, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
     source: 'Background + sunsun84', sourceType: 'student-compilation',
     tags: ['dystocia', 'transverse', 'C-section'], type: 'mcq',
     q: 'Transverse presentation (K, L) ในวัวแก้ด้วยวิธีใดเป็นหลัก',
@@ -1014,7 +1014,7 @@ export const QB_PRACTRUM = [
     verified: 'Roberts Veterinary Obstetrics + sunsun84' },
 
   // ── ภาคศัลย์ extension — Penile deviation + Caudal epididymectomy ──
-  { id: 3025, subject: 'practrum', topic: 'penile-deviation', year: 4,
+  { id: 3025, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
     source: 'Lecture 2026 + Palm friend tip 2026-05-05', sourceType: 'lecture-verified-draft',
     tags: ['penile-deviation', 'bull', 'classification'], type: 'mcq',
     q: 'Penile deviation ในโคพ่อพันธุ์ มีกี่แบบหลักที่พบบ่อย',
@@ -1028,7 +1028,7 @@ export const QB_PRACTRUM = [
     explain: '3 ท่าหลัก: 1) Spiral (corkscrew) — apical ligament rupture/elongation, 2) Ventral (downward) — same etiology, 3) S-shape/Rainbow — milder · ส่วนใหญ่ congenital + สังเกตช่วง breeding soundness exam',
     verified: 'Lecture 2026 (อ.บอกอ่านคร่าวๆ ให้รู้หลักการ)' },
 
-  { id: 3026, subject: 'practrum', topic: 'penile-deviation', year: 4,
+  { id: 3026, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
     source: 'Lecture 2026', sourceType: 'lecture-verified-draft',
     tags: ['penile-deviation', 'pathology', 'apical-ligament'], type: 'mcq',
     q: 'สาเหตุหลักของ Spiral penile deviation ในโคพ่อพันธุ์',
@@ -1042,7 +1042,7 @@ export const QB_PRACTRUM = [
     explain: 'Apical ligament (= dorsal ligament ของ penis ที่ยึดให้ตรง) อ่อนแอ/ขาด → penile body bend spiral ระหว่าง intromission · genetic predisposition (Hereford, Polled Shorthorn) · diagnosis ขณะ erect penis (electroejaculation/teaser cow)',
     verified: 'Lecture 2026' },
 
-  { id: 3027, subject: 'practrum', topic: 'penile-deviation', year: 4,
+  { id: 3027, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
     source: 'Lecture 2026', sourceType: 'lecture-verified-draft',
     tags: ['penile-deviation', 'treatment', 'surgical'], type: 'mcq',
     q: 'การรักษา Spiral penile deviation ที่ใช้เป็นมาตรฐาน',
@@ -1056,7 +1056,7 @@ export const QB_PRACTRUM = [
     explain: 'Apical ligament reinforcement หลายเทคนิค: tunica albuginea flap (Walker procedure modify) · fascia lata graft · synthetic mesh · Success rate ~60-80% · post-op rest 60 วัน ก่อนใช้ผสม · เหมาะกับ valuable bull · ถ้าไม่คุ้มมูลค่า → cull',
     verified: 'Lecture 2026 (หลักการ)' },
 
-  { id: 3028, subject: 'practrum', topic: 'penile-deviation', year: 4,
+  { id: 3028, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
     source: 'Lecture 2026 + Palm friend tip', sourceType: 'lecture-verified-draft',
     tags: ['caudal-epididymectomy', 'teaser-bull', 'sterilization'], type: 'mcq',
     q: 'Caudal epididymectomy ในโคพ่อพันธุ์ทำเพื่อจุดประสงค์ใด',
@@ -1070,7 +1070,7 @@ export const QB_PRACTRUM = [
     explain: 'Caudal epididymectomy = ตัด tail of epididymis ออก 2 ข้าง → sperm ไม่ผ่าน epididymis maturation → infertile แต่ libido + behavior ปกติ (testis ยังผลิต testosterone) · ใช้เป็น teaser bull ในระบบ AI/breeding mgmt · เป็นทางเลือกที่ดีกว่า vasectomy (recanalization risk ต่ำกว่า)',
     verified: 'Lecture 2026 (อ.บอกอ่านคร่าวๆ)' },
 
-  { id: 3029, subject: 'practrum', topic: 'penile-deviation', year: 4,
+  { id: 3029, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
     source: 'Lecture 2026', sourceType: 'lecture-verified-draft',
     tags: ['caudal-epididymectomy', 'technique', 'anesthesia'], type: 'mcq',
     q: 'การวางยาสำหรับ Caudal epididymectomy ในโคที่นิยม',
@@ -1084,7 +1084,7 @@ export const QB_PRACTRUM = [
     explain: 'Local infiltration lidocaine ที่ skin + epididymal tail + sedation มาก/น้อยตาม temperament · Standing position · Incision เล็กที่ scrotum (caudal) → exteriorize tail of epididymis → ligate + remove · post-op antibiotic + NSAID · suture ปิด/ปล่อยเปิดให้ drain ได้',
     verified: 'Lecture 2026' },
 
-  { id: 3030, subject: 'practrum', topic: 'penile-deviation', year: 4,
+  { id: 3030, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
     source: 'Lecture 2026', sourceType: 'lecture-verified-draft',
     tags: ['teaser-bull', 'concept', 'breeding-management'], type: 'mcq',
     q: 'ข้อใดถูกต้องเกี่ยวกับ teaser bull (vasectomized หรือ epididymectomized bull)',
