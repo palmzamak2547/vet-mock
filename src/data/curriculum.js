@@ -322,10 +322,9 @@ export const SUBJECTS_BY_YEAR = {
           hidden: true,
           lecturer: 'Kris Angkanaporn', lecturer_year: 2026, schedule: 'L1-2 · Midterm scope',
           lecturerNote: 'Lymphoid organs · B-cell (Bursa) · T-cell (Thymus) · cecal tonsils — 3 ข้อ จาก pre-test note' },
-        { id: 'nutrition',            label: 'L8 · Feed Management', icon: '🌾',
-          hidden: true,
-          lecturer: 'หทัยรัตน์ พลายมาศ (ผศ.ดร. · ปี 86)', lecturer_year: 2026, schedule: 'L8 · Midterm scope',
-          lecturerNote: '⚠️ ผู้สอนเปลี่ยน — ปี 84 Aj. Chackrit Nuengjamnong สอน · ปี 86 Aj. หทัยรัตน์ พลายมาศ สอนแทน · Protein and amino acids (Met/Lys/Thr) · Mineral (Calcium/Phosphorus/Phytase) · Insoluble vs soluble fiber · Pellet vs crumble · Coarse calcium for layer 17-35 wk' },
+        { id: 'nutrition',            label: 'L8 · Animal Nutrition (อ.หทัยรัตน์) ★ Final scope!', icon: '🌾',
+          lecturer: 'หทัยรัตน์ พลายมาศ (ผศ.ดร. · ปี 86)', lecturer_year: 2026, schedule: '2026-03-10 · L8 · Final scope',
+          lecturerNote: '★ ก่อนนี้คิดว่าเป็น Mid scope แต่ syllabus ระบุชัดอยู่ใน Final · TJ มี 15 ข้อ Vet 85 · Protein & amino acids (Met/Lys/Thr most limiting · Lysine ref=100) · Cysteine+Tyrosine semi-essential · Linoleic essential fatty acid · Mineral (Ca:P ratio Broiler 2:1, Layer 10:1) · Phytate-P 60-80% need phytase · DEB 250 mEq/kg · Heat stress: Vit C+E + electrolytes · Coarse Ca 2-4mm for layer eggshell · Phase feeding (Starter Crumble/Grower/Finisher · Layer Starter/Developer/Layer)' },
         { id: 'midterm-disease',      label: 'L6-7 · Midterm Diseases', icon: '🦠',
           hidden: true,
           lecturer: 'Somsak Pakpinyo', lecturer_year: 2026, schedule: 'L6-7 · Midterm scope',
@@ -348,6 +347,9 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'mahahon-poultry-firstweek', label: '🐺 หมาหอน 5 — L14 First-Week Mortality (เกรียงวิทย์) TJ', icon: '🐣',
           lecturer: 'Kriengwich Limpavithayakul', lecturer_year: 2026,
           lecturerNote: 'จาก TJ p8-9 — Disease = virulence × frequency × dose · Broiler Cobb 500/ROSS 308/Hubbard · Layer Lohmann/ISA brown · Crob fulfill 24h 80-100% · UVC for disinfect · ND/AI/IBD/IB/AE clinical signs · CAV → Blue wing disease · Splayed leg heat stress · Pasgar score 5 components · Hetchy egg wet → infection' },
+        { id: 'mahahon-poultry-nutrition', label: '🐺 หมาหอน 6 — L8 Nutrition (อ.หทัยรัตน์) TJ + Master 86', icon: '🌾',
+          lecturer: 'หทัยรัตน์ พลายมาศ (ผศ.ดร.)', lecturer_year: 2026,
+          lecturerNote: 'จาก TJ p1-2 (15 ข้อ Vet 85) + Master 86 p4-7 — Limiting AAs: Methionine/Lysine/Threonine · Lysine ref=100 ทุก phase · Cysteine+Tyrosine = Semi-essential · Linoleic = Essential FA (Broiler >3%) · Phytate-P 60-80% ต้อง phytase · Ca:P ratio Broiler 2:1 / Layer 10:1 · DEB 250 mEq/kg · Heat stress: Vit C+E + electrolytes · Coarse Ca 2-4mm สำคัญต่อเปลือกไข่ · Layer Coarse:Fine 50:50 → 35:65 ตามอายุ · Broiler 3 phases (Starter Crumble/Grower/Finisher) · Developer diet hi-fiber + coarse → ชะลอเจริญ · Egg weight control: ลด Met+Cys + Linoleic' },
       ] },
 
     // ── Wildlife & Exotic ──

@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.20.1',
+    date: '2026-05-06',
+    headline: '🐔 Poultry หมาหอน v2 — เพิ่ม 15 ข้อ Nutrition (อ.หทัยรัตน์ L8 Final scope!) + cross-check เส้นแดง 86',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🌾', title: 'L8 Animal Nutrition (อ.หทัยรัตน์) เป็น Final scope! (เพิ่งรู้)',
+        desc: 'ก่อนนี้คิดว่า L8 Nutrition เป็น Midterm scope จึงซ่อนไว้ พบจาก syllabus update 6 พ.ค. + TJ p1-2 มี 15 ข้อ Vet 85 ของอ.หทัยรัตน์ตรง ๆ → un-hide + ย้ายเข้า Final scope · จัดเป็น 🐺 หมาหอน 6 — Limiting AAs (Met/Lys/Thr) · Lysine ref=100 · Cysteine+Tyrosine semi-essential · Linoleic essential FA (Broiler >3%) · Ca:P Broiler 2:1 / Layer 10:1 · Phytate-P 60-80% ต้อง phytase · DEB 250 mEq/kg · Heat stress Vit C+E · Coarse Ca 2-4mm · Phase feeding · Egg weight control',
+      },
+    ],
+  },
+  {
     version: '5.20.0',
     date: '2026-05-06',
     headline: '🐔 Poultry หมาหอน — เพิ่ม 30 ข้อ TJ + แก้ลำดับ Lecture L9-L14 ตาม syllabus',
