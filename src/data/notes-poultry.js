@@ -1,10 +1,15 @@
 // ──────────────────────────────────────────────────────────────────
-// Poultry Health Management (3107409) Study Notes — Final scope (L9-L15)
+// Poultry Health Management (3107409) Study Notes — Final scope (L8-L14)
 // Final exam: 7 พ.ค. 2569 · VET6 702 · 13:00-15:00
 // Coordinator: อ.ดร.เกรียงวิชญ์ ลิมป์วิทยาคุณ
 //
+// ⚠️ Lecture order corrected per myCourseVille syllabus 6 พ.ค.:
+//   L8 = Nutrition (อ.หทัยรัตน์) | L9 = Biosecurity (ณทยา) |
+//   L10-11 = Drugs (นิวัตร) | L12 = QA (เอกสิงห์) |
+//   L13 = Zoonosis (กมลพรรณ) | L14 = First-week mortality (เกรียงวิทย์)
+//
 // Source priority:
-//   1) Lecture 2026 slides (L9-L15)
+//   1) Lecture 2026 slides (L8-L14)
 //   2) Master 86 compilation (senior recall)
 //   3) Kim85 + Ploy83 cross-ref
 //   4) AAAP / OIE / WHO standards
@@ -13,7 +18,7 @@
 export const NOTES_POULTRY = {
   'first-week-mortality': {
     topic: 'first-week-mortality',
-    title: 'L9 · First Week Mortality + Immunology (AHRA)',
+    title: 'L14 · First Week Mortality + Immunology (AHRA)',
     lecturer: 'อ.สมศักดิ์ + พี่อู๋ (course coordinator)',
     icon: '🐣',
     summary: 'AHRA framework · Pasgar score · IgY/MDA/Harderian gland · Rolling reaction · vaccine principles',
@@ -137,7 +142,7 @@ export const NOTES_POULTRY = {
         ],
       },
       {
-        heading: 'Past Exam Mapping (L9 immunology + first week)',
+        heading: 'Past Exam Mapping (L14 immunology + first week)',
         source: 'Master 86 compilation + Kim85',
         body: [
           { bullets: [
@@ -157,14 +162,14 @@ export const NOTES_POULTRY = {
 
   'avian-zoonosis': {
     topic: 'avian-zoonosis',
-    title: 'L10 · Avian Zoonosis',
+    title: 'L13 · Avian Zoonosis',
     lecturer: 'อ.กมลพรรณ จรัญกุล (Vet Public Health, CU)',
     icon: '🧬',
     summary: 'Zoonotic diseases ที่ติดจากสัตว์ปีกมาคน · bacteria + virus + fungi · AI pandemic · One Health',
     sections: [
       {
         heading: 'Major Avian Zoonoses (Bacterial)',
-        source: 'Aj.กมลพรรณ slide L10 + WHO',
+        source: 'Aj.กมลพรรณ slide L13 + WHO',
         body: [
           { table: {
             headers: ['Disease', 'Pathogen', 'Notes'],
@@ -183,7 +188,7 @@ export const NOTES_POULTRY = {
       },
       {
         heading: 'Major Avian Zoonoses (Viral)',
-        source: 'Aj.กมลพรรณ slide L10 + WHO + WOAH',
+        source: 'Aj.กมลพรรณ slide L13 + WHO + WOAH',
         body: [
           { table: {
             headers: ['Disease', 'Pathogen', 'Pandemic Risk'],
@@ -258,7 +263,7 @@ export const NOTES_POULTRY = {
         ],
       },
       {
-        heading: 'Past Exam Mapping (L10 zoonosis)',
+        heading: 'Past Exam Mapping (L13 zoonosis)',
         source: 'Master 86 compilation + WHO',
         body: [
           { bullets: [
@@ -278,14 +283,14 @@ export const NOTES_POULTRY = {
 
   'biosecurity': {
     topic: 'biosecurity',
-    title: 'L11 · Biosecurity + Disease Surveillance',
+    title: 'L9 · Biosecurity + Disease Surveillance',
     lecturer: 'อ.ณทยา เจริญวิศาล (ผศ.สพ.ญ.ดร.)',
     icon: '🛡',
     summary: '3-level biosecurity (Conceptual/Structural/Procedural) · sample size + Se/Sp · disease prevention vs control',
     sections: [
       {
         heading: '3 Levels of Biosecurity',
-        source: 'Aj.ณทยา slide L11 + Master 86 compilation p.28',
+        source: 'Aj.ณทยา slide L9 + Master 86 compilation p.28',
         body: [
           { table: {
             headers: ['Level', 'Definition', 'Examples'],
@@ -386,7 +391,7 @@ export const NOTES_POULTRY = {
         ],
       },
       {
-        heading: 'Past Exam Mapping (L11 biosecurity)',
+        heading: 'Past Exam Mapping (L9 biosecurity)',
         source: 'Master 86 compilation + Aj.ณทยา',
         body: [
           { bullets: [
@@ -407,14 +412,14 @@ export const NOTES_POULTRY = {
 
   'avian-drugs': {
     topic: 'avian-drugs',
-    title: 'L13 · Avian Drugs · AMR',
+    title: 'L10-11 · Avian Drugs · AMR',
     lecturer: 'Prof.นิวัตร จันทร์ศิริพรชัย (DTBVM · CU Vet)',
     icon: '💊',
     summary: 'Antimicrobial classification · time- vs concentration-dependent · Mycoplasma Tx · banned drugs · AMR 5 Rs',
     sections: [
       {
         heading: 'Antimicrobial Classification',
-        source: 'Prof.นิวัตร slide L13',
+        source: 'Prof.นิวัตร slide L10-11',
         body: [
           { table: {
             headers: ['Class', 'Mechanism', 'Example'],
@@ -461,7 +466,7 @@ export const NOTES_POULTRY = {
       },
       {
         heading: 'Common Conditions + First-line Drugs',
-        source: 'Slide L13 + AAAP',
+        source: 'Slide L10-11 + AAAP',
         body: [
           { table: {
             headers: ['Condition', 'Pathogen', 'First-line'],
@@ -511,7 +516,7 @@ export const NOTES_POULTRY = {
         ],
       },
       {
-        heading: 'Past Exam Mapping (L13 drugs)',
+        heading: 'Past Exam Mapping (L10-11 drugs)',
         source: 'Master 86 + Kim85',
         body: [
           { bullets: [
@@ -533,14 +538,14 @@ export const NOTES_POULTRY = {
 
   'quality-assurance': {
     topic: 'quality-assurance',
-    title: 'L14-15 · Quality Assurance · Betagro framework',
+    title: 'L12 · Quality Assurance · Betagro framework',
     lecturer: 'น.สพ.เอกสิงห์ สาเรือง (Betagro)',
     icon: '🏆',
     summary: 'QA 5 ด้าน · PDCA cycle · Five Freedoms · BQM 4 มิติ · Haugh Unit · FCR · Slow-growth',
     sections: [
       {
         heading: 'Quality Assurance 5 ด้าน',
-        source: 'น.สพ.เอกสิงห์ slide L14',
+        source: 'น.สพ.เอกสิงห์ slide L12',
         body: [
           { table: {
             headers: ['Element', 'Definition'],
@@ -666,7 +671,7 @@ export const NOTES_POULTRY = {
         ],
       },
       {
-        heading: 'Past Exam Mapping (L14-15 QA)',
+        heading: 'Past Exam Mapping (L12 QA)',
         source: 'Master 86 + Kim85',
         body: [
           { bullets: [

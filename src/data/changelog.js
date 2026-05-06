@@ -44,6 +44,17 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.20.2',
+    date: '2026-05-06',
+    headline: '🐔 Poultry หมาหอน — แปลง 7 ข้อจาก MCQ เป็นเติมคำ (ตามรูปแบบข้อสอบเก่าหลายปี) + จัด L-numbering ใน Notes ให้ตรงกับ syllabus',
+    changes: [
+      { scope: 'multi', kind: 'feature', icon: '✏️', title: 'เปลี่ยนข้อสอบ Poultry 7 ข้อเป็นเติมคำ (Fill-in) เพราะปีก่อน ๆ ออกเป็นเติมคำ',
+        desc: 'จาก TJ + ข้อสอบเก่าที่เห็นว่าเป็นเติมคำ (ไม่ใช่ MCQ) — แปลงให้ตรงรูปแบบจริง: Q4001 Biosecurity 3 levels (Conceptual/Structural/Procedural) · Q4002 Disease equation (Virulence/Frequency/Dose) · Q4011 Piperazine · Q4012 QA 5 components · Q4013 PDCA cycle · Q4031 Most limiting AAs (Met/Lys/Thr) · Q4032 Lysine ref=100 · Q4034 Linoleic acid · Q4036 Ca:P ratio Broiler 2:1 / Layer 10:1 · Q4037 DEB 250 mEq/kg · Q4042 Coarse Ca 2-4mm · ฝึกเหมือนสอบจริงมากขึ้น (พิมพ์เอง ไม่ใช่เลือกตัวเลือก)' },
+      { scope: 'system', kind: 'fix', icon: '🔧', title: 'แก้ลำดับ L-numbering ใน Poultry Notes ให้ตรงกับ syllabus',
+        desc: 'หน้า Notes ของ Poultry เคยขึ้นเป็น L9 First-week / L10 Zoonosis / L11 Biosecurity / L13 Drugs / L14-15 QA ซึ่งสลับกับ syllabus จริง — แก้แล้วเป็น L9 Biosecurity / L10-11 Drugs / L12 QA / L13 Zoonosis / L14 First-week (รวมไปถึง heading "Past Exam Mapping" และ source attribution slide L# ทุกแห่ง) เนื้อหาในแต่ละหัวข้อคงเดิม · topic ID ไม่เปลี่ยน' },
+    ],
+  },
+  {
     version: '5.20.1',
     date: '2026-05-06',
     headline: '🐔 Poultry หมาหอน v2 — เพิ่ม 15 ข้อ Nutrition (อ.หทัยรัตน์ L8 Final scope!) + cross-check Master 86',
