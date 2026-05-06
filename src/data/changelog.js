@@ -44,6 +44,15 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.20.5',
+    date: '2026-05-07',
+    headline: '🐺 Poultry — เพิ่ม 15 ข้อใหม่จาก "รวมโพยไก่ 82 หน้า" (Vet 85 ออกตามนี้ ⭐ + cross-ref TJ)',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🐺', title: 'เพิ่ม 15 ข้อหมาหอน Poultry — ทุกข้อมี marker "85 ออกตามนี้" หรือเนื้อหาตรงกับสไลด์',
+        desc: 'ดึงจาก "รวมโพยไก่.pdf" (รวมโพยจากเพื่อน 82 หน้า ครอบคลุม 6 อาจารย์) — หมวด Drug 3 ข้อ (Enrofloxacin ห้ามใช้ทั้งไก่เนื้อ/ไข่ · Ionophores list · Eimeria ตำแหน่งในลำไส้) · Biosecurity 2 (Mortality benchmark พ่อแม่พันธุ์ vs ไก่เนื้อ · Crop fill 24h) · First-week 2 (6 acute death viruses · แกลบ 4 kg/m²) · QA 3 (Salmonella sp. 5 vs 2 · Beak trim Infrared · Light intensity 50/20 lux) · Nutrition 3 (Maillard 135°C · Aflatoxin limit 100 vs 30 μg/kg · Antinutritionals Glucosinolates/Mimosine) · Zoonosis 2 (Erysipelas vaccine 2 doses · LPAI vs HPAI IVPI 1.2)' },
+    ],
+  },
+  {
     version: '5.20.4',
     date: '2026-05-07',
     headline: '🌾 Poultry — ขยาย Note L8 Nutrition จาก 8 → 16 sections (จากสไลด์ Vet 84 + จัดลำดับ Lecture ใหม่)',
