@@ -44,6 +44,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.20.0',
+    date: '2026-05-06',
+    headline: '🐔 Poultry หมาหอน — เพิ่ม 30 ข้อ TJ + แก้ลำดับ Lecture L9-L14 ตาม syllabus',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '📅', title: 'แก้ลำดับ Poultry L9-L14 ตาม syllabus myCourseVille (เดิมเรียงผิด)',
+        desc: 'จาก syllabus ที่ Palm อัปโหลด: L9 = Biosecurity (ณทยา), L10-11 = Drugs (นิวัตร), L12 = QA (เอกสิงห์), L13 = Zoonosis (กมลพรรณ), L14 = First-week mortality (เกรียงวิทย์) ก่อนนี้ผมเรียงผิดทำให้สับสน · topic ID เดิมไม่เปลี่ยน เก็บ data user ไว้',
+      },
+      { scope: 'multi', kind: 'content', icon: '🐺', title: 'รวมหมาหอน Poultry 30 ข้อ ครอบคลุม 5 หัวข้อ Final scope',
+        desc: 'การ์ด "🐺 รวมหมาหอน Poultry" ใต้วิชา Poultry แยก 5 หมวด — L9 Biosecurity 6 ข้อ (Iceberg/Boot swab/Cleft palate/Specificity), L10-11 Drugs 5 (Dip>Spray/Neomycin/Ionophores ห้ามไข่/Nitrofurans ห้ามเนื้อ/Piperazine), L12 QA 5 (5 components/PDCA/Food safety/AMR/Five Freedoms), L13 Zoonosis 6 (Chlamydiosis/Erysipelas/NDV/AI/Yersinia/Crypto), L14 First-week 8 (Broiler breeds/Crob fulfill/UVC/IBD/CAV/Pasgar/Splayed leg/Vent pasting) จาก Poultry Final TJ.pdf 9 หน้า',
+      },
+    ],
+  },
+  {
     version: '5.19.1',
     date: '2026-05-05',
     headline: '🐂 Vet Prac Rum หมาหอน — เพิ่มเป็น 70 ข้อ (Nicky 86 master compilation + LINE teacher notes + dystocia images)',
