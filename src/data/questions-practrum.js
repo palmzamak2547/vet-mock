@@ -1398,13 +1398,13 @@ export const QB_PRACTRUM = [
     verified: 'LINE teacher note' },
 
   // ═══════════════════════════════════════════════════════════
-  // ADDED 2026-05-05 evening — PRAC RUM FINAL 86 เส้นแดงคือโพย.pdf (Nicky 86 master, 27 pages)
+  // ADDED 2026-05-05 evening — PRAC RUM Master 86.pdf (Master 86 compilation, 27 pages)
   // High-yield content from anesthesia dose table (p13), fetotomy details (p22), cosmetic dehorning (p27)
   // ═══════════════════════════════════════════════════════════
 
-  // ── ภาคศัลย์ extension — Local anesthesia dose table (Nicky 86 p13) ──
+  // ── ภาคศัลย์ extension — Local anesthesia dose table (Master 86 p13) ──
   { id: 3060, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
-    source: 'PRAC RUM FINAL 86 เส้นแดงคือโพย p13 anes dose table', sourceType: 'student-compilation',
+    source: 'PRAC RUM Master 86 p13 anes dose table', sourceType: 'student-compilation',
     tags: ['paravertebral', 'needle-size', 'volume'], type: 'mcq',
     q: 'Paravertebral nerve block ใช้ขนาดยาและขนาดเข็มเท่าไร',
     options: [
@@ -1415,7 +1415,7 @@ export const QB_PRACTRUM = [
     ],
     answer: 1,
     explain: 'Paravertebral block: lidocaine 2% รวม 20 cc แบ่งเป็น ventral br. 15 cc + dorsal br. 5 cc · เข็ม 18G หรือ spinal needle 20-18G ยาว 3.5" · ถ้าใช้ 25 cc จะเป็น ventral 15 + dorsal 10',
-    verified: 'Nicky 86 p13 anes table' },
+    verified: 'Master 86 p13 anes table' },
 
   { id: 3061, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: 'PRAC RUM FINAL 86 p13', sourceType: 'student-compilation',
@@ -1429,7 +1429,7 @@ export const QB_PRACTRUM = [
     ],
     answer: 1,
     explain: 'Caudal epidural lidocaine 0.22 mg/kg (1 ml/100 kg of 2% lidocaine), max 6 cc, ใช้เริ่มต้น 2.5 cc สำหรับวัวขนาดกลาง · เข็ม 18G ยาว 1-1.5" · Loss of resistance + hanging drop technique',
-    verified: 'Nicky 86 p13 + Rumenotomy lecture p20' },
+    verified: 'Master 86 p13 + Rumenotomy lecture p20' },
 
   { id: 3062, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: 'PRAC RUM FINAL 86 p13', sourceType: 'student-compilation',
@@ -1443,7 +1443,7 @@ export const QB_PRACTRUM = [
     ],
     answer: 0,
     explain: 'Cornual n. block: lidocaine 2% 5 cc · เข็ม 21G ยาว 1" · ฉีด @ ใต้ temporal ridge ระหว่าง eye กับ base of horn · ถ้า adult eyeball block ใช้ 10-15 cc',
-    verified: 'Nicky 86 p13 + p27 cosmetic dehorning' },
+    verified: 'Master 86 p13 + p27 cosmetic dehorning' },
 
   { id: 3063, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: 'PRAC RUM FINAL 86 p13', sourceType: 'student-compilation',
@@ -1457,7 +1457,7 @@ export const QB_PRACTRUM = [
     ],
     answer: 0,
     explain: 'Retrobulbar 4-point block: lidocaine 5-10 cc ต่อจุด 4 จุด (12, 3, 6, 9 นาฬิกา) · เข็มโค้ง (curved) ยาว 6 cm · ใช้สำหรับ enucleation หรือ severe ocular surgery',
-    verified: 'Nicky 86 p13' },
+    verified: 'Master 86 p13' },
 
   { id: 3064, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: 'PRAC RUM FINAL 86 p13', sourceType: 'student-compilation',
@@ -1466,9 +1466,9 @@ export const QB_PRACTRUM = [
     options: ['1-2 cc', '5-8 cc', '10-20 cc', '50 cc'],
     answer: 2,
     explain: 'Umbilical hernia local infiltration: lidocaine 10-20 cc รอบรอยผ่า · เข็ม 21G 1.5" · ใช้รูปแบบ inverted-L หรือ line block · Medial patellar desmotomy ใช้น้อยกว่า 5-8 cc',
-    verified: 'Nicky 86 p13' },
+    verified: 'Master 86 p13' },
 
-  // ── ภาคสูติฯ — Fetotomy + bone grip + Laparoscopic AI (Nicky 86 p22) ──
+  // ── ภาคสูติฯ — Fetotomy + bone grip + Laparoscopic AI (Master 86 p22) ──
   { id: 3065, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
     source: 'PRAC RUM FINAL 86 p22 fetotomy', sourceType: 'student-compilation',
     tags: ['fetotomy', 'obstetrical-chain', 'bone-grip', 'limb'], type: 'mcq',
@@ -1476,7 +1476,7 @@ export const QB_PRACTRUM = [
     options: ['Humerus', 'Radius และ Ulna', 'Femur', 'Carpal bones', 'Phalanges'],
     answer: 1,
     explain: 'ขาหน้า: จับที่ Radius + Ulna (ใต้ข้อศอก) — ห้ามจับเหนือ carpus เพราะ humerus หักได้ · ขาหลัง: จับที่ Tibia + Fibula (ใต้ข้อ stifle) — ห้ามจับ femur · ผูก obstetrical chain 2 ตำแหน่ง (pastern + fetlock)',
-    verified: 'Nicky 86 p22 + Roberts Vet Obstetrics' },
+    verified: 'Master 86 p22 + Roberts Vet Obstetrics' },
 
   { id: 3066, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
     source: 'PRAC RUM FINAL 86 p22', sourceType: 'student-compilation',
@@ -1485,7 +1485,7 @@ export const QB_PRACTRUM = [
     options: ['Embryotome handle', 'Wire saw introducer', 'Krey hook', 'Eye hook', 'Obstetrical chain'],
     answer: 1,
     explain: 'Wire saw introducer = ใช้ร้อยลวด wire saw ใส่รอบส่วนของ fetus ที่จะตัด (incomplete loop technique) · Embryotome handle ใช้ถือลวด · Krey/eye hook ใช้ดึงเฉยๆ ไม่ตัด',
-    verified: 'Nicky 86 p22' },
+    verified: 'Master 86 p22' },
 
   { id: 3067, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
     source: 'PRAC RUM FINAL 86 p22', sourceType: 'student-compilation',
@@ -1494,9 +1494,9 @@ export const QB_PRACTRUM = [
     options: ['Vagina', 'Cervix', 'Uterine body', 'Uterine horn', 'Oviduct'],
     answer: 3,
     explain: 'Laparoscopic AI ในแพะ/แกะ ปล่อย semen ที่ uterine horn (intrauterine deep deposit) เพราะ cervix ของแพะ/แกะมี complex folds ผ่านยาก · ทำผ่าน laparoscope 2 ports ที่ paramedian abdomen',
-    verified: 'Nicky 86 p22' },
+    verified: 'Master 86 p22' },
 
-  // ── ภาคศัลย์ — Cosmetic dehorning (Nicky 86 p27) ──
+  // ── ภาคศัลย์ — Cosmetic dehorning (Master 86 p27) ──
   { id: 3068, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: 'PRAC RUM FINAL 86 p27 cosmetic dehorning', sourceType: 'student-compilation',
     tags: ['cosmetic-dehorning', 'breeding-bull', 'indication'], type: 'mcq',
@@ -1509,7 +1509,7 @@ export const QB_PRACTRUM = [
     ],
     answer: 1,
     explain: 'Cosmetic dehorning: ใช้ในพ่อแม่พันธุ์โคเนื้อ/นมเพื่อความสวยงาม + เพิ่มมูลค่าทางพันธุกรรม · ทำในท่ายืน sedate · ตัดผ่าน frontal bone + frontal sinus + เย็บ subcu ด้วย chromic catgut เบอร์ 2 + skin horizontal mattress',
-    verified: 'Nicky 86 p27' },
+    verified: 'Master 86 p27' },
 
   { id: 3069, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: 'PRAC RUM FINAL 86 p27', sourceType: 'student-compilation',
@@ -1518,9 +1518,9 @@ export const QB_PRACTRUM = [
     options: ['Hoof knife', 'Tube dehorner', 'Embryotome wire (Gigli/obstetric wire)', 'Robert dehorner'],
     answer: 2,
     explain: 'Cosmetic dehorning ตัดด้วย embryotome wire (Gigli wire / obstetric wire) เพราะตัดผ่าน skin + frontal bone + frontal sinus ได้สะอาด · Tube/Robert dehorner ใช้ในการ dehorn ปกติที่ไม่ตัดกระดูก · เป้าหมายคือเอาเขาออกพร้อม part of frontal bone เพื่อความสวยงาม',
-    verified: 'Nicky 86 p27' },
+    verified: 'Master 86 p27' },
 
-  // ── ภาคศัลย์ — Rumenotomy closure detail (Nicky 86 p24) ──
+  // ── ภาคศัลย์ — Rumenotomy closure detail (Master 86 p24) ──
   { id: 3070, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: 'PRAC RUM FINAL 86 p24 rumenotomy detail', sourceType: 'student-compilation',
     tags: ['rumenotomy', 'skin-closure', 'suture-pattern'], type: 'mcq',
@@ -1534,12 +1534,12 @@ export const QB_PRACTRUM = [
     ],
     answer: 2,
     explain: 'Rumenotomy skin closure ใช้ horizontal mattress — ทนทาน, hold tension ได้ดีในแผลขนาดใหญ่ paralumbar fossa ~6" · ทำ stent + โรยยงกันแมลง · เย็บ rumen ด้วย Lembert/Rt. angle pattern (inverting), peritoneum + transverse m. ด้วย simple continuous',
-    verified: 'Nicky 86 p24' },
+    verified: 'Master 86 p24' },
 
   { id: 3071, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: 'PRAC RUM FINAL 86 p24 + Lecture 2026', sourceType: 'student-compilation',
     tags: ['rumenotomy', 'post-op', 'antibiotics-NSAIDs'], type: 'mcq',
-    q: 'หลัง rumenotomy ยาที่ Nicky 86 + lecture บอกให้ใช้คือ',
+    q: 'หลัง rumenotomy ยาที่ Master 86 + lecture บอกให้ใช้คือ',
     options: [
       'Pendistrep L.A. 20,000 IU + Phenylbutazone 5 mg IV',
       'Cefazolin 22 mg/kg + Carprofen',
@@ -1548,7 +1548,7 @@ export const QB_PRACTRUM = [
     ],
     answer: 0,
     explain: 'Post-op rumenotomy: ABO Pendistrep L.A. (procaine penicillin G + dihydrostreptomycin) 20,000 IU + NSAID Phenylbutazone 5 mg IV · ทำ ≥3 วัน · บางตำราใช้ Procaine penicillin 22-66k U/kg + Flunixin 1.1-2.2 mg/kg แทน — concept เดียวกัน',
-    verified: 'Nicky 86 p24 + Rumenotomy lecture p32' },
+    verified: 'Master 86 p24 + Rumenotomy lecture p32' },
 
 ];
 

@@ -5,7 +5,7 @@
 //   - Slide Lecture 2026: ZOO_VET_CU2026.pdf · RolesVeterinarians.pdf
 //     · ABOARD POST-GRADUATE Wildlife COURSES.pdf · โรคไม่ติดเชื้อ.pptx
 //     · โรคติดเชื้อ.pptx · การรักษานกสวยงาม.pptx
-//   - EXOTIC FINAL 86 เส้นแดงคือรวมโพย .pdf (master compilation)
+//   - EXOTIC Master 86 .pdf (master compilation)
 //   - course syllabus.docx (รหัส 3107414 · ผศ.น.สพ. ธวัช เล็กดำรงศักดิ์)
 //
 // Body item types:

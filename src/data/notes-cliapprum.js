@@ -6,7 +6,7 @@
 // Source priority:
 //   1) Lecture 2026 PDFs/PPTX (อ.ศวิตา GI Sx · อ.ปิยะณัฐ Hoof · อ.ภัทร์มนฉัตร Anesthesia · อ.ธนศักดิ์ GI VDTT)
 //   2) Sunsun84 รวมข้อสอบเก่า (Vet 84 senior recall)
-//   3) Kim85 + Ploy83 + Nicky 86 cross-reference
+//   3) Kim85 + Ploy83 + Master 86 cross-reference
 //   4) Smith Internal Medicine Large Animal · AABP standards
 // ──────────────────────────────────────────────────────────────────
 

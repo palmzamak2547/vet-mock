@@ -5,7 +5,7 @@
 //
 // Source priority:
 //   1) Lecture 2026 slides (L9-L15)
-//   2) Nicky 86 master compilation (senior recall)
+//   2) Master 86 compilation (senior recall)
 //   3) Kim85 + Ploy83 cross-ref
 //   4) AAAP / OIE / WHO standards
 // ──────────────────────────────────────────────────────────────────
@@ -20,7 +20,7 @@ export const NOTES_POULTRY = {
     sections: [
       {
         heading: 'Avian Immune System Anatomy',
-        source: 'อ.สมศักดิ์ Lecture + Kim85 + Nicky 86',
+        source: 'อ.สมศักดิ์ Lecture + Kim85 + Master 86',
         body: [
           { bullets: [
             '**Primary lymphoid organs**:',
@@ -138,7 +138,7 @@ export const NOTES_POULTRY = {
       },
       {
         heading: 'Past Exam Mapping (L9 immunology + first week)',
-        source: 'Nicky 86 master + Kim85',
+        source: 'Master 86 compilation + Kim85',
         body: [
           { bullets: [
             'Q "Avian B-cell maturation organ" → Bursa of Fabricius',
@@ -259,7 +259,7 @@ export const NOTES_POULTRY = {
       },
       {
         heading: 'Past Exam Mapping (L10 zoonosis)',
-        source: 'Nicky 86 master + WHO',
+        source: 'Master 86 compilation + WHO',
         body: [
           { bullets: [
             'Q "Psittacosis pathogen" → Chlamydia psittaci',
@@ -285,7 +285,7 @@ export const NOTES_POULTRY = {
     sections: [
       {
         heading: '3 Levels of Biosecurity',
-        source: 'Aj.ณทยา slide L11 + Nicky 86 master p.28',
+        source: 'Aj.ณทยา slide L11 + Master 86 compilation p.28',
         body: [
           { table: {
             headers: ['Level', 'Definition', 'Examples'],
@@ -350,7 +350,7 @@ export const NOTES_POULTRY = {
       },
       {
         heading: 'Disease Prevention vs Control vs Eradication',
-        source: 'Nicky 86 master p.28',
+        source: 'Master 86 compilation p.28',
         body: [
           { table: {
             headers: ['Phase', 'Goal', 'Tools'],
@@ -387,7 +387,7 @@ export const NOTES_POULTRY = {
       },
       {
         heading: 'Past Exam Mapping (L11 biosecurity)',
-        source: 'Nicky 86 master + Aj.ณทยา',
+        source: 'Master 86 compilation + Aj.ณทยา',
         body: [
           { bullets: [
             'Q "3 levels biosecurity" → Conceptual · Structural · Procedural',
@@ -512,7 +512,7 @@ export const NOTES_POULTRY = {
       },
       {
         heading: 'Past Exam Mapping (L13 drugs)',
-        source: 'Nicky 86 + Kim85',
+        source: 'Master 86 + Kim85',
         body: [
           { bullets: [
             'Q "Time-dependent ตัวอย่าง" → β-lactams · macrolides',
@@ -667,7 +667,7 @@ export const NOTES_POULTRY = {
       },
       {
         heading: 'Past Exam Mapping (L14-15 QA)',
-        source: 'Nicky 86 + Kim85',
+        source: 'Master 86 + Kim85',
         body: [
           { bullets: [
             'Q "QA 5 ด้าน" → QC · Audit · Accreditation · Assessment · Traceability',

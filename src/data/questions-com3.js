@@ -1207,7 +1207,7 @@ export const QB_COM3 = [
 
   // ═══════════════════════════════════════════════════════════
   // FINAL 86 review batch — pulled from "รวบรวมข้อสอบเก่า 86" compilation
-  // (Nicky 86) — confirmed exam questions with red-line answers
+  // (Master 86) — confirmed exam questions with red-line answers
   // ═══════════════════════════════════════════════════════════
 
   { id: 893, subject: 'com3', topic: 'spinal', year: 4, source: 'KS Spinal disorder + FINAL 86',

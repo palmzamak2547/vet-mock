@@ -46,7 +46,7 @@ export const CHANGELOG = [
   {
     version: '5.20.1',
     date: '2026-05-06',
-    headline: '🐔 Poultry หมาหอน v2 — เพิ่ม 15 ข้อ Nutrition (อ.หทัยรัตน์ L8 Final scope!) + cross-check เส้นแดง 86',
+    headline: '🐔 Poultry หมาหอน v2 — เพิ่ม 15 ข้อ Nutrition (อ.หทัยรัตน์ L8 Final scope!) + cross-check Master 86',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🌾', title: 'L8 Animal Nutrition (อ.หทัยรัตน์) เป็น Final scope! (เพิ่งรู้)',
         desc: 'ก่อนนี้คิดว่า L8 Nutrition เป็น Midterm scope จึงซ่อนไว้ พบจาก syllabus update 6 พ.ค. + TJ p1-2 มี 15 ข้อ Vet 85 ของอ.หทัยรัตน์ตรง ๆ → un-hide + ย้ายเข้า Final scope · จัดเป็น 🐺 หมาหอน 6 — Limiting AAs (Met/Lys/Thr) · Lysine ref=100 · Cysteine+Tyrosine semi-essential · Linoleic essential FA (Broiler >3%) · Ca:P Broiler 2:1 / Layer 10:1 · Phytate-P 60-80% ต้อง phytase · DEB 250 mEq/kg · Heat stress Vit C+E · Coarse Ca 2-4mm · Phase feeding · Egg weight control',
@@ -69,9 +69,9 @@ export const CHANGELOG = [
   {
     version: '5.19.1',
     date: '2026-05-05',
-    headline: '🐂 Vet Prac Rum หมาหอน — เพิ่มเป็น 70 ข้อ (Nicky 86 master compilation + LINE teacher notes + dystocia images)',
+    headline: '🐂 Vet Prac Rum หมาหอน — เพิ่มเป็น 70 ข้อ (Master 86 compilation + LINE teacher notes + dystocia images)',
     changes: [
-      { scope: 'multi', kind: 'content', icon: '📝', title: 'เพิ่ม 12 ข้อจาก Master 86 Nicky compilation (anesthesia dose table + fetotomy + cosmetic dehorning)',
+      { scope: 'multi', kind: 'content', icon: '📝', title: 'เพิ่ม 12 ข้อจาก Master 86 compilation (anesthesia dose table + fetotomy + cosmetic dehorning)',
         desc: 'ตารางขนาดยา anesthesia ที่ออกแน่ — Paravertebral 20cc 18G 3.5", Caudal epidural 0.22 mg/kg max 6cc 1-1.5", Cornual 5cc 21G 1", Retrobulbar 4-point 5-10cc curved 6cm, umbilical hernia 10-20cc, medial patellar 5-8cc + Fetotomy bone grip (radius+ulna ขาหน้า / tibia+fibula ขาหลัง) + Wire saw introducer + Laparoscopic AI ในแพะ/แกะ ปล่อยน้ำเชื้อ uterine horn + Cosmetic dehorning (embryotome wire + chromic catgut #2 + horizontal mattress)' },
       { scope: 'multi', kind: 'content', icon: '🐺', title: 'รวมหมาหอน Vet Prac Rum ทั้งหมด 70 ข้อ ครอบคลุม 3 ภาควิชา',
         desc: 'การ์ด "🐺 รวมหมาหอน Vet Prac Rum" ใต้วิชา Practice Ruminant แยก 5 หมวดที่ขึ้นต้นด้วย 🐺 — ภาคศัลย์ 19 (past paper Q1-10 + dose table + cosmetic dehorning + rumenotomy detail) + ภาคสัตวบาล 27 (อ.น้ำ feed 18 + silage 9) + ภาคสูติฯ dystocia 18 (image MCQ + correction + fetotomy) + Penile/Epididymectomy 6 ข้อ ทำรวมก่อนสอบ 6 พ.ค.' },

@@ -44,7 +44,7 @@ export const QB_SHORT = [
     explain: 'ยาห้ามใช้ใน poultry production (Aj. Niwat L13):\n1. **Vancomycin** — last-resort human antibiotic, ห้ามใช้ในสัตว์อาหาร\n2. **DES (Diethylstilbestrol)** — synthetic estrogen, carcinogen\n3. **Chloramphenicol (CAP)** — bone marrow toxicity in humans\n4. **Nitrofurans** (Furazolidone, Nitrofurazone) — carcinogenic\n\n💡 Common reason: ตกค้างในผลิตภัณฑ์ → ผู้บริโภคได้รับ → mutagenic/carcinogenic/AMR' },
 
   { id: 2202, subject: 'poultry', topic: 'biosecurity', year: 4,
-    source: 'Aj. Nataya slide L11 + Nicky 86 master p.28',
+    source: 'Aj. Nataya slide L11 + Master 86 compilation p.28',
     sourceType: 'lecture-verified-draft',
     confidence: 'EXTRACTED',
     tags: ['biosecurity', '3-levels', 'fill'], type: 'fill',

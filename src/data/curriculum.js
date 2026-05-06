@@ -279,7 +279,7 @@ export const SUBJECTS_BY_YEAR = {
       icon: '🐔', color: '#d97744', semester: 2, has_questions: true,
       // Collection: หมาหอน Poultry (high-yield exam-prep set, มาจาก TJ + Master 86)
       collections: [
-        { id: '_mahahon-poultry-all', label: '🐺 รวมหมาหอน Poultry', sub: 'TJ + Master 86 + Nicky 86', topicPrefix: 'mahahon-poultry-', accent: '#d97744' },
+        { id: '_mahahon-poultry-all', label: '🐺 รวมหมาหอน Poultry', sub: 'TJ + Master 86 + Master 86', topicPrefix: 'mahahon-poultry-', accent: '#d97744' },
       ],
       examFormat: {
         weight: 'Mid 105/200 (52.5%) · Final 90/200 (45%) · Class 5/200 (2.5%) · Letter Grade A-F',
