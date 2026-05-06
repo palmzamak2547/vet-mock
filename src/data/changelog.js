@@ -44,6 +44,17 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.20.4',
+    date: '2026-05-07',
+    headline: '🌾 Poultry — ขยาย Note L8 Nutrition จาก 8 → 16 sections (จากสไลด์ Vet 84 + จัดลำดับ Lecture ใหม่)',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🌾', title: 'ขยาย Note L8 Nutrition เพิ่ม 8 sections จากสไลด์ Vet 84 (อ.หทัยรัตน์ — ผู้สอนคนเดียวกัน)',
+        desc: 'จากสไลด์ "การจัดการด้านอาหารสัตว์ปีก_13Feb2024" 62 หน้า เพิ่มเนื้อหาที่ขาดไป — ภาพรวม 3 ส่วน (แหล่ง/วัตถุดิบ/กระบวนการ) · Animal Feed Composition (Energy 60% Protein 30%) · Energy ที่สำคัญ (3,200 kcal/kg ไก่เนื้อ vs 2,800 ไก่ไข่ · Non-cage +10-15%) · ตาราง ROSS 308 (Lysine 1.35→1.06 ตามอายุ) · Antinutritional factors ตามวัตถุดิบ (Aflatoxin/Trypsin inhibitor/Gizzerosine) · Feed processing (Grinding/Pelleting/Crumbling) · QC + FIFO · Heat stress AAs (Glutamine/Arginine/Threonine) · Layer Diet 5 phases ครบ (Starter/Grower/Developer/Pre-lay/Production) · Egg quality (albumen/yolk/shell + Vit D 1,25-(OH)2)' },
+      { scope: 'system', kind: 'fix', icon: '📅', title: 'จัดลำดับ Lecture L8 Nutrition ให้มาก่อน L9-L14',
+        desc: 'L8 Nutrition (อ.หทัยรัตน์) เคยปรากฏใต้ L14 First-week ในรายการหัวข้อ + ใต้สุดของหน้า Notes — ตอนนี้ย้ายขึ้นเป็นหัวข้อแรก ตามลำดับ syllabus จริง L8 → L9 → L10-11 → L12 → L13 → L14' },
+    ],
+  },
+  {
     version: '5.20.3',
     date: '2026-05-06',
     headline: '🌾 Poultry — เพิ่ม Note L8 Nutrition (อ.หทัยรัตน์) ครบ 8 sections',

@@ -294,7 +294,10 @@ export const SUBJECTS_BY_YEAR = {
         ],
       },
       topics: [
-        // ── Final scope (Lectures 9-14 per syllabus 2026) ──
+        // ── Final scope (Lectures 8-14 per syllabus 2026) ──
+        { id: 'nutrition',            label: 'L8 · Animal Nutrition (อ.หทัยรัตน์) ★ Final scope!', icon: '🌾',
+          lecturer: 'หทัยรัตน์ พลายมาศ (ผศ.ดร. · ปี 86)', lecturer_year: 2026, schedule: '2026-03-10 · L8 · Final scope',
+          lecturerNote: '★ ก่อนนี้คิดว่าเป็น Mid scope แต่ syllabus ระบุชัดอยู่ใน Final · TJ มี 15 ข้อ Vet 85 · Protein & amino acids (Met/Lys/Thr most limiting · Lysine ref=100) · Cysteine+Tyrosine semi-essential · Linoleic essential fatty acid · Mineral (Ca:P ratio Broiler 2:1, Layer 10:1) · Phytate-P 60-80% need phytase · DEB 250 mEq/kg · Heat stress: Vit C+E + electrolytes · Coarse Ca 2-4mm for layer eggshell · Phase feeding (Starter Crumble/Grower/Finisher · Layer Starter/Developer/Layer)' },
         { id: 'biosecurity',          label: 'L9 · Biosecurity & Disease Surveillance', icon: '🛡',
           lecturer: 'Nataya Charoenvisal (ณทยา เจริญวิศาล · ผศ.สพ.ญ.ดร.)', lecturer_year: 2026, schedule: '2026-03-17 · L9 · Final scope',
           lecturerNote: 'Conceptual + Structural + Procedural biosecurity · Iceberg concept · Flock immunity · Sample size + Sensitivity/Specificity · Boot/cloacal/cleft palate swabs · Disease surveillance methods' },
@@ -322,9 +325,6 @@ export const SUBJECTS_BY_YEAR = {
           hidden: true,
           lecturer: 'Kris Angkanaporn', lecturer_year: 2026, schedule: 'L1-2 · Midterm scope',
           lecturerNote: 'Lymphoid organs · B-cell (Bursa) · T-cell (Thymus) · cecal tonsils — 3 ข้อ จาก pre-test note' },
-        { id: 'nutrition',            label: 'L8 · Animal Nutrition (อ.หทัยรัตน์) ★ Final scope!', icon: '🌾',
-          lecturer: 'หทัยรัตน์ พลายมาศ (ผศ.ดร. · ปี 86)', lecturer_year: 2026, schedule: '2026-03-10 · L8 · Final scope',
-          lecturerNote: '★ ก่อนนี้คิดว่าเป็น Mid scope แต่ syllabus ระบุชัดอยู่ใน Final · TJ มี 15 ข้อ Vet 85 · Protein & amino acids (Met/Lys/Thr most limiting · Lysine ref=100) · Cysteine+Tyrosine semi-essential · Linoleic essential fatty acid · Mineral (Ca:P ratio Broiler 2:1, Layer 10:1) · Phytate-P 60-80% need phytase · DEB 250 mEq/kg · Heat stress: Vit C+E + electrolytes · Coarse Ca 2-4mm for layer eggshell · Phase feeding (Starter Crumble/Grower/Finisher · Layer Starter/Developer/Layer)' },
         { id: 'midterm-disease',      label: 'L6-7 · Midterm Diseases', icon: '🦠',
           hidden: true,
           lecturer: 'Somsak Pakpinyo', lecturer_year: 2026, schedule: 'L6-7 · Midterm scope',
