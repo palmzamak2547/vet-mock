@@ -44,6 +44,15 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.20.3',
+    date: '2026-05-06',
+    headline: '🌾 Poultry — เพิ่ม Note L8 Nutrition (อ.หทัยรัตน์) ครบ 8 sections',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🌾', title: 'เพิ่ม Note L8 Nutrition (อ.หทัยรัตน์ พลายมาศ) ที่ขาดไป',
+        desc: 'หน้า Notes ของ Poultry เคยมีแค่ L9-L14 — แต่ L8 Nutrition ก็เป็น Final scope (TJ p1-2 มี 15 ข้อ Vet 85) เพิ่มแล้ว 8 sections — Limiting AAs (Met/Lys/Thr) · Fat & EFA (Linoleic 3% Broiler) · Ca-P ratio (Broiler 2:1 / Layer 10:1) + Phytate-P 60-80% + Coarse Ca 2-4mm · DEB 250 mEq/kg · Heat stress Vit C+E · Fiber NSP/NSC + High GI pH effect on pepsin · Phase feeding · Past Exam Mapping 14 Q ไว้ทบทวนเร็วก่อนสอบ' },
+    ],
+  },
+  {
     version: '5.20.2',
     date: '2026-05-06',
     headline: '🐔 Poultry หมาหอน — แปลง 7 ข้อจาก MCQ เป็นเติมคำ (ตามรูปแบบข้อสอบเก่าหลายปี) + จัด L-numbering ใน Notes ให้ตรงกับ syllabus',

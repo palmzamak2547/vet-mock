@@ -689,4 +689,154 @@ export const NOTES_POULTRY = {
       },
     ],
   },
+
+  'nutrition': {
+    topic: 'nutrition',
+    title: 'L8 · Animal Nutrition (Final scope!)',
+    lecturer: 'ผศ.ดร.หทัยรัตน์ พลายมาศ (Hatairat Plaimast · ปี 86)',
+    icon: '🌾',
+    summary: 'Limiting AAs · Lysine ref=100 · Linoleic essential FA · Phytate-P · Ca:P (Broiler 2:1 / Layer 10:1) · DEB · Coarse Ca · Phase feeding',
+    sections: [
+      {
+        heading: 'Most Limiting Amino Acids ในไก่',
+        source: 'Aj.หทัยรัตน์ slide L8 + Master 86 p4-5 + TJ p1',
+        body: [
+          { bullets: [
+            '**3 most limiting AAs** (จำกัดที่สุด ลำดับการขาด):',
+            '  1. **Methionine** — ไก่ไข่ขาดบ่อยสุด · key methyl donor',
+            '  2. **Lysine** — กินเด่น เป็น **reference = 100** ใน ideal AA profile',
+            '  3. **Threonine** — สำคัญต่อ mucin (gut)',
+            '**Ideal AA Profile** เทียบเป็น % ของ Lysine ทุกช่วงอายุ:',
+            '  • Met+Cys = 72 · Threonine = 67-68.5 · Tryptophan = 16-17 · Arginine = 105-108',
+            '**Semi-essential AAs** = Cysteine + Tyrosine',
+            '  • ปกติ Non-essential แต่สังเคราะห์จาก Met (→Cys) + Phe (→Tyr)',
+            '  • ถ้าได้ Cys/Tyr ตรง → ลดความต้องการ Met + Phe',
+          ] },
+        ],
+      },
+      {
+        heading: 'Fat & Essential Fatty Acid',
+        source: 'Aj.หทัยรัตน์ slide L8 + Master 86 p6',
+        body: [
+          { bullets: [
+            '**Linoleic acid (omega-6)** = Essential FA ในไก่ · ไก่สังเคราะห์เองไม่ได้',
+            '  • ใช้สร้าง phospholipid · arachidonic acid · prostaglandins',
+            '**Minimum requirement**:',
+            '  • Broiler > **3%**',
+            '  • Pullet > 2%',
+            '  • Layer (production) > 3%',
+            '**Total fat** ในอาหาร — ไม่ควรเกิน 5% (ป้องกันรา + เหม็นหืน)',
+          ] },
+        ],
+      },
+      {
+        heading: 'Calcium & Phosphorus (สำคัญมาก!)',
+        source: 'Aj.หทัยรัตน์ slide L8 + Master 86 p7 + TJ p1 #3',
+        body: [
+          { table: {
+            headers: ['Parameter', 'Broiler', 'Layer'],
+            rows: [
+              ['**Ca:Available P ratio**', '**2:1**', '**10:1** (เปลือกไข่)'],
+              ['Eggshell composition', '—', '~95% CaCO₃'],
+              ['Risk if imbalanced', 'ขาดโครงกระดูก', 'osteomalacia · hen fatigue'],
+            ] } },
+          { bullets: [
+            '**Phytate-P** = 60-80% ของ P ในอาหารพืช',
+            '  • ไก่ไม่มี phytase enzyme → ใช้ไม่ได้',
+            '  • ผูก mineral อื่น (Ca · Zn · Fe)',
+            '  • **เสริม Phytase** ช่วยย่อย → ลด P inorganic',
+            '**Available P (Non-phytate)** จาก Monocalcium phosphate / Dicalcium phosphate (inorganic)',
+            '**Coarse calcium 2-4 mm** (หินเกล็ด) สำคัญต่อ eggshell quality:',
+            '  • ค้างใน gizzard → ปล่อย Ca ช้าๆ ตอนกลางคืน (ช่วงสร้างเปลือก)',
+            '  • Fine Ca ดูดซึมเร็ว แต่หมดเร็ว — ใช้คู่กัน',
+            '**Fine:Coarse Ca ratio ใน Layer** เปลี่ยนตามอายุ:',
+            '  • 17-35 wk: **50:50** · 36-55 wk: 40:60 · 56-90 wk: 35:65',
+            '  • อายุมาก → เปลือกบางลง → เพิ่ม Coarse',
+          ] },
+        ],
+      },
+      {
+        heading: 'Dietary Electrolyte Balance (DEB)',
+        source: 'Aj.หทัยรัตน์ slide L8 + Master 86 p7',
+        body: [
+          { bullets: [
+            '**สูตร**: DEB = (Na⁺ + K⁺) − Cl⁻ mEq/kg',
+            '**Optimum** = **250 mEq/kg** (สำหรับ growth)',
+            'DEB **สูงเกิน** → wet litter · alkalosis',
+            'DEB **ต่ำเกิน** → acidosis · ลด feed intake',
+            '**ปรับด้วย**: NaHCO₃ (Na⁺) · NH₄Cl (Cl⁻) · KCl · K₂SO₄',
+          ] },
+        ],
+      },
+      {
+        heading: 'Heat Stress Nutrition',
+        source: 'Aj.หทัยรัตน์ slide L8 + TJ p2 #11',
+        body: [
+          { bullets: [
+            '**Heat stress** → reactive oxygen species (ROS) เพิ่ม + immunosuppression',
+            '**เสริม antioxidant vitamins**:',
+            '  • **Vitamin E** (lipid-soluble · ปกป้อง cell membrane)',
+            '  • **Vitamin C** (water-soluble · regenerate Vit E)',
+            '**เสริม electrolytes ในน้ำดื่ม**: NaHCO₃ + KCl',
+            'ลด protein excess (ลด heat increment) · เพิ่ม fat (low heat increment) · ให้กินตอนเย็น/เช้ามืด',
+          ] },
+        ],
+      },
+      {
+        heading: 'Fiber & Carbohydrate',
+        source: 'Aj.หทัยรัตน์ slide L8 + TJ p1 #5',
+        body: [
+          { bullets: [
+            '**Insoluble fiber (NSP)** = Cellulose · Lignin',
+            '  • ย่อยช้า/ไม่ได้ → กระตุ้น **gizzard motility** + ลำไส้เคลื่อนตัว',
+            '  • ลด pathogen attachment',
+            '  • ใช้ใน developer diet (ไก่ไข่ระยะพัฒนา)',
+            '**Soluble fiber (NSC)** = FOS · Beta-glucans · Resistant starch',
+            '  • ferment เร็ว → SCFA energy + microbiome',
+            '**High GI pH** (proventriculus + gizzard pH สูงผิดปกติ):',
+            '  • Pepsin ทำงานดีที่ pH 1.5-3.5 (acidic)',
+            '  • pH สูง → pepsin denatured → ย่อย protein แย่ลง',
+            '  • undigested protein → bacterial fermentation → enteric problem',
+          ] },
+        ],
+      },
+      {
+        heading: 'Phase Feeding (Broiler vs Layer)',
+        source: 'Aj.หทัยรัตน์ slide L8 + TJ p2 #12',
+        body: [
+          { bullets: [
+            '**Broiler 3 phases**: Starter → Grower → Finisher',
+            '  • Protein **ลด** ตามอายุ · Energy **เพิ่ม** ตามอายุ',
+            '**Layer phase**:',
+            '  • Pullet developer (low protein · high fiber for crop training)',
+            '  • Pre-lay (เพิ่ม Ca preparing for shell)',
+            '  • Layer phases ตามช่วงอายุ (17-35 / 36-55 / 56-90 wk)',
+            '**Egg weight control** — ปรับด้วย Linoleic acid + Methionine + crude protein',
+          ] },
+        ],
+      },
+      {
+        heading: 'Past Exam Mapping (L8 nutrition)',
+        source: 'Master 86 compilation + TJ p1-2',
+        body: [
+          { bullets: [
+            'Q "Most limiting AAs ในไก่" → Methionine · Lysine · Threonine',
+            'Q "Lysine ref ใน ideal profile" → = 100',
+            'Q "Semi-essential AAs" → Cysteine + Tyrosine',
+            'Q "Essential FA ในไก่" → Linoleic acid (omega-6)',
+            'Q "Phytate-P %" → 60-80% ของ P ในอาหารพืช',
+            'Q "Ca:P Broiler / Layer" → 2:1 / 10:1',
+            'Q "DEB optimum" → 250 mEq/kg · (Na+K)−Cl',
+            'Q "Heat stress vitamins" → Vit C + E',
+            'Q "Coarse Ca size" → 2-4 mm · ค้าง gizzard ปล่อยตอนกลางคืน',
+            'Q "Fine:Coarse Ca 17-35 wk" → 50:50',
+            'Q "High GI pH effect" → ลด pepsin → ย่อย protein แย่ลง',
+            'Q "Insoluble fiber benefit" → กระตุ้น gizzard + ลำไส้เคลื่อน',
+            'Q "Broiler diet phases" → 3 phases · Protein ลด · Energy เพิ่ม',
+            'Q "Banned antibiotics in layer" → Monensin/Salinomycin/Narasin/Maduramicin (cross-ref L10-11)',
+          ] },
+        ],
+      },
+    ],
+  },
 };
