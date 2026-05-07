@@ -44,6 +44,17 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.22.5',
+    date: '2026-05-08',
+    headline: '🐤 แก้บั๊กฟังก์ชันออฟไลน์ — มินิเกม + banner + connectivity check',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '🎮', title: 'แก้บั๊กมินิเกม',
+        desc: 'ขอบคุณที่แจ้ง! แก้ 6 จุด — (1) แตะมือถือทีเดียว trigger 2 ครั้ง (pointerdown + touchstart ฟังพร้อมกัน) ตอนนี้เลือกใช้ตัวเดียวตาม browser support · (2) หมุนมือถือแล้ว canvas เพี้ยน ตอนนี้ ResizeObserver re-apply hi-DPI scale อัตโนมัติ · (3) hitbox 20px แน่นเกินสำหรับ emoji 30px ขยายเป็น 26px ให้ collision รู้สึก fair · (4) แมลงวันบินมาเร็วขึ้น (warmup 200 → 100 คะแนน) · (5) เปลี่ยน tab แล้วเกมยังวิ่งกินแบต ตอนนี้ pause อัตโนมัติเมื่อ tab hidden · (6) เพิ่ม WebkitTapHighlightColor transparent ปิดกรอบฟ้าตอนแตะ' },
+      { scope: 'system', kind: 'fix', icon: '📡', title: 'แก้ banner ออฟไลน์ + connectivity check แม่นขึ้น',
+        desc: 'navigator.onLine บน iOS Safari/Android WebView โกหกบ่อย (บอก online แต่จริงๆ captive portal/dropped Wi-Fi) — ตอนนี้เพิ่ม HEAD ping favicon.ico ทุก 30 วิเพื่อยืนยัน + verify ทันทีเมื่อกลับมา foreground · banner เปลี่ยนจาก div onClick ทั้งก้อน (กดที่ไหนก็เปิดเกม เผลอแตะตอน scroll ก็เด้ง) → button "🎮 เล่นเกม" ชัดเจน · ข้อความก็ปรับให้แม่นขึ้น "ใช้งานต่อได้ปกติ ข้อมูลจะ sync เมื่อเน็ตกลับ"' },
+    ],
+  },
+  {
     version: '5.22.4',
     date: '2026-05-08',
     headline: '🐄 Clin App Rum หมาหอน Round 3 — เพิ่ม 24 ข้อจาก TJ Vet 85/84/86 ที่ตกหล่น + Hoof framework Kim',

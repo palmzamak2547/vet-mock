@@ -605,14 +605,15 @@ export default function App() {
       <TopLoadingBar />
       <div className="vmx-app">
         <div className="vmx-container">
-          {/* Network-status banner — only shown when offline OR for a few
-              seconds after coming back online. Kept inline (not absolute)
-              so it pushes content down rather than covering the header.
-              When offline, clicking it opens the mini-game (Chrome-style). */}
+          {/* Network-status banner — shown when offline OR briefly after
+              regaining connectivity. The "Play game" action lives on a
+              dedicated button so a stray tap on the banner text doesn't
+              navigate accidentally (used to be a div-wide onClick which
+              hijacked any tap, including swipe-to-scroll on iOS). */}
           {(!networkOnline || networkJustChanged) && view !== 'offline-game' && view !== 'exam' && (
             <div
               role="status"
-              onClick={() => { if (!networkOnline) setView('offline-game'); }}
+              aria-live="polite"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -626,16 +627,31 @@ export default function App() {
                   ? 'rgba(74, 107, 74, 0.12)'
                   : 'rgba(184, 137, 64, 0.18)',
                 color: networkOnline ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-gold, #b88940)',
-                cursor: networkOnline ? 'default' : 'pointer',
-                transition: 'background 0.2s',
               }}
             >
               <span>
                 {networkOnline
                   ? '● กลับมาออนไลน์แล้ว — ข้อมูลจะ sync อัตโนมัติ'
-                  : '● ออฟไลน์อยู่ — แตะเพื่อเล่น 🐤 มินิเกมระหว่างรอเน็ตกลับ'}
+                  : '● ออฟไลน์อยู่ — ใช้งานต่อได้ปกติ ข้อมูลที่บันทึกจะ sync เมื่อเน็ตกลับ'}
               </span>
-              {!networkOnline && <span style={{ fontSize: 16 }}>🎮</span>}
+              {!networkOnline && (
+                <button
+                  type="button"
+                  onClick={() => setView('offline-game')}
+                  className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                  style={{
+                    padding: '4px 10px',
+                    fontSize: 12,
+                    color: 'var(--clr-gold, #b88940)',
+                    border: '1px solid currentColor',
+                    background: 'transparent',
+                    flexShrink: 0,
+                  }}
+                  aria-label="เล่นมินิเกมระหว่างรอเน็ตกลับ"
+                >
+                  🎮 เล่นเกม
+                </button>
+              )}
             </div>
           )}
 

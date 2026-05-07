@@ -5,33 +5,53 @@
 // Obstacles:
 //   • 🦠 Salmonella (ground)
 //   • 💩 vent pasting (ground)
-//   • 🪰 fly vector (mid-air — must stay grounded)
+//   • 🟡 mycotoxin (ground)
+//   • 🪰 fly vector (mid-air — must duck or jump)
 // Controls:
-//   • Space / Up / Tap — jump
+//   • Space / Up / Tap — jump (or restart after game-over)
 //   • Down — duck (lets fly pass overhead)
-//   • Any key after game-over — restart
+//   • Esc — close
 // Scoring:
-//   • +1 / frame distance
-//   • Speed scales every 500 score
+//   • +1 / frame distance · speed scales every 500 score
 //   • High score persisted in localStorage as vmx-game-highscore
 //
 // Why all the game state is in refs instead of React state:
-// the render loop runs at 60fps; if every velocity tweak triggered
-// a re-render the framerate would tank. React only re-renders for
-// the score display + game-over overlay.
+// the render loop runs at 60fps; if every velocity tweak triggered a
+// re-render the framerate would tank. React state is only used for
+// the UI panel (high-score banner) which doesn't need to refresh
+// every frame.
+//
+// Bug fixes (2026-05-08, Palm reported):
+//   1. Double-fire input: was attaching both pointerdown AND touchstart,
+//      so a single tap on mobile fired twice (jump-then-jump or
+//      reset-then-jump). Fix: detect pointer support; use one or the
+//      other.
+//   2. Hi-DPI on rotate/resize: canvas scale was set only at mount, so
+//      rotating phone or resizing browser distorted the canvas. Fix:
+//      ResizeObserver + re-apply scale on size change.
+//   3. Hitbox too tight: 20px window for 30px sprite felt unfair —
+//      visual contact didn't trigger collision. Fix: bumped to 26.
+//   4. Air obstacle threshold too high: 200 score (~33s) before any
+//      flying obstacle made warmup boring. Fix: lowered to 100.
+//   5. Background tab kept running RAF: drained battery if user
+//      switched tabs. Fix: pause via visibilitychange.
+//   6. Game over → press Down: residual ducking state. Fix: reset()
+//      explicitly sets ducking: false (was already done; verified).
 // ──────────────────────────────────────────────────────────────────
 import { useEffect, useRef, useState } from 'react';
 
 const CANVAS_W = 600;
 const CANVAS_H = 200;
-const GROUND_Y = 160;          // top of the path line
+const GROUND_Y = 160;
 const PLAYER_SIZE = 30;
 const GRAVITY = 0.6;
 const JUMP_V = -11;
 const DUCK_HEIGHT = 18;
+const HITBOX_X = 26;          // was 20 — felt too tight
+const AIR_OBSTACLE_AFTER = 100; // was 200 — long boring warmup
 
-const GROUND_OBSTACLES = ['🦠', '💩', '🟡']; // salmonella · vent paste · mycotoxin
-const AIR_OBSTACLES = ['🪰'];                 // fly vector — duck under
+const GROUND_OBSTACLES = ['🦠', '💩', '🟡'];
+const AIR_OBSTACLES = ['🪰'];
 
 const HIGH_SCORE_KEY = 'vmx-game-highscore';
 
@@ -45,7 +65,8 @@ export default function OfflineGame({ onClose }) {
     nextSpawn: 80,
     spawnTimer: 0,
     frame: 0,
-    state: 'ready', // ready | playing | gameover
+    state: 'ready',
+    paused: false,
   });
   const [scoreDisplay, setScoreDisplay] = useState(0);
   const [gameState, setGameState] = useState('ready');
@@ -54,19 +75,23 @@ export default function OfflineGame({ onClose }) {
     catch { return 0; }
   });
 
-  // Single setup+teardown — game loop lives forever inside this effect.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    // Hi-DPI: render at 2x for crisp text on retina displays
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = CANVAS_W * dpr;
-    canvas.height = CANVAS_H * dpr;
-    canvas.style.width = `${CANVAS_W}px`;
-    canvas.style.height = `${CANVAS_H}px`;
-    ctx.scale(dpr, dpr);
+    // Hi-DPI scaling. Re-applied on resize so phone rotation looks
+    // sharp instead of stretched.
+    const applyScale = () => {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = CANVAS_W * dpr;
+      canvas.height = CANVAS_H * dpr;
+      canvas.style.width = `${CANVAS_W}px`;
+      canvas.style.height = `${CANVAS_H}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); // reset before re-scaling
+      ctx.scale(dpr, dpr);
+    };
+    applyScale();
 
     let rafId;
     let alive = true;
@@ -81,6 +106,7 @@ export default function OfflineGame({ onClose }) {
       s.spawnTimer = 0;
       s.frame = 0;
       s.state = 'playing';
+      s.paused = false;
       setGameState('playing');
       setScoreDisplay(0);
     };
@@ -119,6 +145,13 @@ export default function OfflineGame({ onClose }) {
       else jump();
     };
 
+    // Input handlers. We pick exactly ONE pointer-style listener — the
+    // browser's PointerEvents API supersedes touchstart on modern
+    // mobile; the legacy touchstart fallback is only attached when
+    // PointerEvents are missing (very old WebView). This stops the
+    // double-fire that caused tapping to "jump twice" on iOS.
+    const supportsPointer = typeof window !== 'undefined' && 'PointerEvent' in window;
+
     const onKeyDown = (e) => {
       if (e.code === 'Space' || e.code === 'ArrowUp') {
         e.preventDefault();
@@ -141,16 +174,37 @@ export default function OfflineGame({ onClose }) {
 
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('keyup', onKeyUp);
-    canvas.addEventListener('pointerdown', onPointer);
-    canvas.addEventListener('touchstart', onPointer, { passive: false });
+    if (supportsPointer) {
+      canvas.addEventListener('pointerdown', onPointer);
+    } else {
+      canvas.addEventListener('touchstart', onPointer, { passive: false });
+    }
+
+    // Pause loop when the tab is hidden — saves battery and prevents
+    // a giant time-jump when you tab back in (rAF coalesces hidden
+    // ticks but our scoring is per-frame, so an unpaused background
+    // would either freeze or accelerate the next frame).
+    const onVisibility = () => {
+      stateRef.current.paused = document.hidden;
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    // Re-apply DPR when window/canvas size changes (rotation, browser
+    // resize, dev-tools panel toggle).
+    const ro = new ResizeObserver(() => applyScale());
+    ro.observe(canvas);
 
     const loop = () => {
       if (!alive) return;
       const s = stateRef.current;
 
+      if (s.paused) {
+        rafId = requestAnimationFrame(loop);
+        return;
+      }
+
       // ── update ──
       if (s.state === 'playing') {
-        // Player physics
         const p = s.player;
         p.vy += GRAVITY;
         p.y += p.vy;
@@ -165,8 +219,7 @@ export default function OfflineGame({ onClose }) {
         if (s.spawnTimer >= s.nextSpawn) {
           s.spawnTimer = 0;
           s.nextSpawn = 70 + Math.floor(Math.random() * 80);
-          // 25% chance of an air obstacle once we're past warm-up
-          const useAir = s.score > 200 && Math.random() < 0.25;
+          const useAir = s.score > AIR_OBSTACLE_AFTER && Math.random() < 0.25;
           const list = useAir ? AIR_OBSTACLES : GROUND_OBSTACLES;
           const type = list[Math.floor(Math.random() * list.length)];
           s.obstacles.push({
@@ -177,13 +230,13 @@ export default function OfflineGame({ onClose }) {
           });
         }
 
-        // Move obstacles + cull off-screen
+        // Move + cull
         s.obstacles = s.obstacles.filter((o) => {
           o.x -= s.speed;
           return o.x > -40;
         });
 
-        // Collisions: tighter hitbox so it feels fair
+        // Collisions — wider hitbox so visual contact actually counts
         const px = p.x;
         const pyTop = p.ducking ? p.y + DUCK_HEIGHT : p.y;
         const pyBot = p.y + PLAYER_SIZE;
@@ -191,7 +244,7 @@ export default function OfflineGame({ onClose }) {
           const ox = o.x;
           const oyTop = o.y;
           const oyBot = o.y + 26;
-          const overlapX = Math.abs(px - ox) < 20;
+          const overlapX = Math.abs(px - ox) < HITBOX_X;
           const overlapY = pyBot > oyTop && pyTop < oyBot;
           if (overlapX && overlapY) {
             gameOver();
@@ -199,7 +252,7 @@ export default function OfflineGame({ onClose }) {
           }
         }
 
-        // Score + difficulty ramp
+        // Score + difficulty
         s.score += 0.1;
         const newScore = Math.floor(s.score);
         if (newScore !== Math.floor(s.score - 0.1)) setScoreDisplay(newScore);
@@ -220,7 +273,7 @@ export default function OfflineGame({ onClose }) {
       ctx.lineTo(CANVAS_W, GROUND_Y + PLAYER_SIZE);
       ctx.stroke();
 
-      // Animated dashes on the ground (parallax)
+      // Animated dashes (parallax)
       ctx.strokeStyle = '#c4b694';
       ctx.lineWidth = 1;
       ctx.setLineDash([10, 14]);
@@ -253,7 +306,7 @@ export default function OfflineGame({ onClose }) {
       ctx.fillText(`HI ${hi}   ${scoreStr}`, CANVAS_W - 12, 22);
       ctx.textAlign = 'left';
 
-      // Ready / gameover overlays
+      // Overlays
       if (stateRef.current.state === 'ready') {
         ctx.fillStyle = '#3d3a36';
         ctx.font = 'bold 18px sans-serif';
@@ -285,8 +338,13 @@ export default function OfflineGame({ onClose }) {
       cancelAnimationFrame(rafId);
       document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('keyup', onKeyUp);
-      canvas.removeEventListener('pointerdown', onPointer);
-      canvas.removeEventListener('touchstart', onPointer);
+      document.removeEventListener('visibilitychange', onVisibility);
+      if (supportsPointer) {
+        canvas.removeEventListener('pointerdown', onPointer);
+      } else {
+        canvas.removeEventListener('touchstart', onPointer);
+      }
+      ro.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -310,6 +368,9 @@ export default function OfflineGame({ onClose }) {
           boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
           touchAction: 'none',
           cursor: 'pointer',
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          WebkitTapHighlightColor: 'transparent',
         }}
         aria-label="Offline mini-game canvas"
       />

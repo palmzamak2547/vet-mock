@@ -1,16 +1,46 @@
 // ──────────────────────────────────────────────────────────────────
-// useOnlineStatus — track navigator.onLine + show transient banners
+// useOnlineStatus — track connectivity with both navigator.onLine
+// and an active reachability ping.
 //
-// Returns { online, justChanged } where justChanged is true for ~3s
-// after a transition so the UI can flash a "back online" / "offline"
-// toast without persisting indefinitely.
+// Why a ping?  navigator.onLine on iOS Safari and several Android
+// WebViews returns `true` whenever there is *any* network interface,
+// even if it can't actually reach the public internet (captive
+// portal, tethered with no service, dropped Wi-Fi but DNS still
+// resolving). The Chrome team has long recommended pairing it with a
+// real fetch. We do a lightweight HEAD against /favicon.ico every
+// 30s while the tab is visible. Fast, same-origin, no CORS, and
+// already cached so it costs essentially nothing on a healthy link.
 //
-// navigator.onLine alone lies on some platforms (it just means there
-// is a network interface, not that the internet is reachable). We
-// keep it as the primary signal because it's fast + cheap, and pair
-// it with manual fetch() pings only when needed.
+// Returns { online, justChanged }:
+//   online       — best-guess current connectivity
+//   justChanged  — true for ~3.5s after a transition (for toast UI)
 // ──────────────────────────────────────────────────────────────────
 import { useEffect, useState } from 'react';
+
+const PING_URL = '/favicon.ico';
+const PING_INTERVAL_MS = 30_000;
+const PING_TIMEOUT_MS = 4_000;
+
+async function pingReachable() {
+  if (typeof fetch === 'undefined') return true;
+  // AbortController for a hard timeout — some WebViews hang fetch
+  // calls indefinitely when the connection silently drops.
+  const ac = new AbortController();
+  const t = setTimeout(() => ac.abort(), PING_TIMEOUT_MS);
+  try {
+    // cache: 'no-store' so we don't trust a stale cached response.
+    const r = await fetch(`${PING_URL}?t=${Date.now()}`, {
+      method: 'HEAD',
+      cache: 'no-store',
+      signal: ac.signal,
+    });
+    clearTimeout(t);
+    return r.ok;
+  } catch {
+    clearTimeout(t);
+    return false;
+  }
+}
 
 export function useOnlineStatus() {
   const [online, setOnline] = useState(() =>
@@ -22,20 +52,68 @@ export function useOnlineStatus() {
     if (typeof window === 'undefined') return;
 
     let toastTimer;
+    let pingTimer;
+    let lastSeen = navigator.onLine;
+
     const flash = () => {
       setJustChanged(true);
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => setJustChanged(false), 3500);
     };
-    const onUp = () => { setOnline(true); flash(); };
-    const onDown = () => { setOnline(false); flash(); };
+
+    const setStatus = (next) => {
+      if (next !== lastSeen) {
+        lastSeen = next;
+        setOnline(next);
+        flash();
+      }
+    };
+
+    // Browser events — fastest signal; trust them but verify on the
+    // "online" edge because they sometimes lie.
+    const onUp = async () => {
+      setStatus(true);
+      // The browser claims we're online — confirm with a real ping
+      // before celebrating. If the ping fails, flip back to offline.
+      const reachable = await pingReachable();
+      if (!reachable) setStatus(false);
+    };
+    const onDown = () => setStatus(false);
 
     window.addEventListener('online', onUp);
     window.addEventListener('offline', onDown);
+
+    // Periodic ping — covers the "navigator says online but isn't"
+    // case. Only runs while the tab is visible so we don't waste
+    // cycles when the user is in another tab.
+    const tick = async () => {
+      if (document.hidden) return;
+      const reachable = await pingReachable();
+      // Reconcile: if browser+ping disagree, trust the ping.
+      const navSays = navigator.onLine;
+      const next = navSays && reachable;
+      setStatus(next);
+    };
+    pingTimer = setInterval(tick, PING_INTERVAL_MS);
+
+    // Run an initial verification shortly after mount so the very
+    // first render reflects reality, not just the cached
+    // navigator.onLine flag.
+    const initial = setTimeout(tick, 1500);
+
+    // When the tab becomes visible again, immediately verify — the
+    // user has likely just unlocked the phone or come back from
+    // another app. Don't wait the full 30s.
+    const onVisibility = () => { if (!document.hidden) tick(); };
+    document.addEventListener('visibilitychange', onVisibility);
+
     return () => {
       window.removeEventListener('online', onUp);
       window.removeEventListener('offline', onDown);
+      document.removeEventListener('visibilitychange', onVisibility);
       clearTimeout(toastTimer);
+      clearTimeout(initial);
+      clearInterval(pingTimer);
     };
   }, []);
 
