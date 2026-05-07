@@ -44,6 +44,15 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.22.6',
+    date: '2026-05-08',
+    headline: '📝 แก้บั๊ก SummaryModal — เลื่อนอ่านสรุปคลิปไม่ได้บนคอม',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '📜', title: 'แก้บั๊กเลื่อนสรุปคลิปบนคอมไม่ลง',
+        desc: 'Palm รายงาน "ในคอมเหมือนมันเลื่อนลงไปดูสรุปคลิปไม่ได้" — สาเหตุ 2 จุด: (1) layout เก่าใช้ flex column + min-height: 0 trick ที่ Firefox/บาง Chrome build บนเดสก์ท็อปไม่ตอบสนอง — เปลี่ยนเป็น CSS Grid template-rows "auto minmax(0, 1fr) auto" ซึ่ง predictable กว่า บอกขนาด body ตรงๆ (2) SummaryModal เคย render อยู่ใน VideoView player overlay — DOM order ทำให้ player modal painting ทับ summary บนเดสก์ท็อป (มือถือไม่เห็นเพราะ overlay scrim ดำเหมือนกัน) — ย้าย SummaryModal ให้ render นอก player overlay แทน ใช้ React Fragment + zIndex 1100 ปิดบั๊ก click bubbling ที่เผลอปิด player ตามไปด้วย' },
+    ],
+  },
+  {
     version: '5.22.5',
     date: '2026-05-08',
     headline: '🐤 แก้บั๊กฟังก์ชันออฟไลน์ — มินิเกม + banner + connectivity check',

@@ -429,8 +429,16 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   const currentSummary = currentVideoId ? VIDEO_SUMMARIES[currentVideoId] : null;
 
   return (
-    <div className="vmx-modal-overlay" onClick={onClose}>
+    <>
+      {/* SummaryModal renders OUTSIDE the player overlay so its fixed
+          positioning naturally sits on top in DOM order — previously
+          it was nested inside, where the player modal (rendered after
+          it as a sibling) painted on top and made the summary
+          unreachable on desktop. Also prevents click bubbling: tapping
+          the summary's overlay no longer also closes the underlying
+          player. */}
       {openSummary && <SummaryModal summary={openSummary} onClose={() => setOpenSummary(null)} />}
+    <div className="vmx-modal-overlay" onClick={onClose}>
       <div className="vmx-modal" style={{ maxWidth: showList && playlistItems.length > 0 ? 1200 : 800, width: '100%', padding: 0, overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
 
         {/* Header bar */}
@@ -643,6 +651,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
         )}
       </div>
     </div>
+    </>
   );
 }
 

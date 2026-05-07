@@ -147,17 +147,24 @@ export default function SummaryModal({ summary, onClose }) {
   };
 
   return (
-    <div className="vmx-modal-overlay" onClick={onClose}>
+    <div className="vmx-modal-overlay" onClick={onClose} style={{ zIndex: 1100 }}>
+      {/* Grid > flex for the header / body / footer split: with
+          flex-column we needed `min-height: 0` on the body to bypass
+          the `min-height: auto` default, but Firefox + some Chrome
+          builds occasionally still left the body unscrollable on
+          desktop. Grid with template-rows `auto 1fr auto` gives the
+          body exactly the leftover space, no min-height tricks. */}
       <div
         className="vmx-modal vmx-summary-modal"
         style={{
           maxWidth: 820,
           width: '100%',
-          maxHeight: '92vh',
+          maxHeight: 'min(92vh, calc(100dvh - 24px))',
           padding: 0,
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
+          overflowX: 'hidden',
+          overflowY: 'hidden',
+          display: 'grid',
+          gridTemplateRows: 'auto minmax(0, 1fr) auto',
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -201,19 +208,20 @@ export default function SummaryModal({ summary, onClose }) {
           </button>
         </div>
 
-        {/* Body — scrollable.
-            `minHeight: 0` is critical: in a flex column the default
-            `min-height: auto` lets the child grow to its content
-            size, which suppresses overflow-y on desktop (iOS/Android
-            momentum-scroll papers over it, so the bug only shows on
-            PC). With min-height 0 the child can shrink to fit the
-            parent's max-height, which then triggers the scrollbar. */}
+        {/* Body — scrollable. Grid track `minmax(0, 1fr)` gives this
+            row exactly the leftover height between header and footer,
+            so overflowY: auto reliably triggers a scrollbar on desktop
+            when content overflows. (Previous flex-column + min-height:
+            0 trick worked on mobile thanks to momentum scroll papering
+            over edge cases, but PC users sometimes saw a stuck modal.)
+            Keep `overscroll-behavior: contain` so wheel scrolling
+            doesn't leak into the underlying VideoView player when the
+            user reaches the top/bottom. */}
         <div
           className="vmx-summary-body"
           style={{
-            flex: 1,
-            minHeight: 0,
             overflowY: 'auto',
+            overscrollBehavior: 'contain',
             WebkitOverflowScrolling: 'touch',
             padding: '18px 26px 26px',
             lineHeight: 1.7,
