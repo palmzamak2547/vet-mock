@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.22.3',
+    date: '2026-05-08',
+    headline: '🐄 Sawita ครบ 45 ข้อ! เพิ่ม Sawita Round 2 อีก 21 ข้อ (15 × 3 lectures ตามที่อาจารย์บอก)',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🔪', title: 'Sawita Round 2 — เพิ่ม 21 ข้อ ครอบคลุม Sawita I/II/III ละ 15 ข้อ',
+        desc: 'แก้รอบก่อนที่เข้าใจผิดว่ารวม 45 (Sawita = 45 ตัวเอง อาจารย์อื่นๆ อีก!) — Sawita I 10 ใหม่ (Surgical classification clean→dirty + Field vs Hospital + Pre-op tests electrolytes/urinalysis + Standing flank principle + Rumen anchor + Reticulum exploration path + Double-layer closure + LDA pathophys VFA→ferment→gas + RTA >180° volvulus ↓Cl ↓K + 3-layer laparotomy closure ventral interrupted) · Sawita II 6 ใหม่ (Pinging anterior to umbilicus around xiphoid + Hernia classification location/content + Umbilical signalment Holstein-Friesian Female>Male 5-7wk + Inguinal surgery lateral recumbency 15-20cm + Diaphragmatic 2-phase Lt flank rumenotomy then cranio-ventral midline + Tension-relieving Mayo overlapping pattern) · Sawita III 5 ใหม่ (Cosmetic dehorning 4 main steps + Trephination postorbital 4cm caudal + Esophageal 2-layer mucosa+muscular + Persistent Urachus foals/calves ligate close to bladder + Teat laceration prognostic vertical good vs distal/base/crush poor)',
+      },
+    ],
+  },
+  {
     version: '5.22.2',
     date: '2026-05-08',
     headline: '🐄 Sawita expansion — เพิ่มอีก 15 ข้อ ครอบคลุม scope 45 ข้อ ของ Sawita 3 lectures',
