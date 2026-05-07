@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.22.2',
+    date: '2026-05-08',
+    headline: '🐄 Sawita expansion — เพิ่มอีก 15 ข้อ ครอบคลุม scope 45 ข้อ ของ Sawita 3 lectures',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🔪', title: 'เพิ่ม 15 ข้อ Sawita ครอบคลุม Sawita I, II, III ครบ scope ที่อาจารย์บอก 45 ข้อ',
+        desc: 'ตาม Slide 2026 ที่ Palm อัพให้ — Sawita I 5 ข้อ (Flank laparotomy ตำแหน่ง 5cm caudal to last rib + Rumenotomy LEFT FLANK indications + Rumenostomy fistula 2-3cm chronic bloat + Right Flank Omentopexy 2 mattress sutures + Typhlotomy incision 3cm liquid vs ≥6cm solid) · Sawita II 5 ข้อ (LDA Roll & Toggle 4-6 wk suture + Right paramedian contraindication abomasal volvulus/dorsal recumbency + Inguinal Polled Hereford finger test 1-2 normal vs >4 risk + Left flank ventral hernia rumen ไม่ผ่าตัด + Herniorrhaphy <10-15cm vs Hernioplasty mesh >10-15cm) · Sawita III remainder 5 ข้อ (Enucleation Retrobulbar 4-point 15ml + Teat laceration 3-layer mucosa simple cont 3-0/4-0 + Urethrostomy distal sigmoid flexure most common low > high + Upward fixation patella medial desmotomy 3cm incision + Digit amputation BW>680kg poor prognosis)',
+      },
+    ],
+  },
+  {
     version: '5.22.1',
     date: '2026-05-08',
     headline: '🔧 Clin App Rum หมาหอน — แก้ topic attribution (Loco ของอ.ปิยะณัฐ ไม่ใช่ Sawita) ตาม Lecture 2026 ล่าสุด',
