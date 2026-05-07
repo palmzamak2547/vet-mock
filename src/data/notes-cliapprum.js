@@ -4,17 +4,21 @@
 // Main scope: อ.ศวิตา (Sawita · 3 lectures × 15 ข้อ = 45 ข้อ)
 //
 // Source priority:
-//   1) Lecture 2026 PDFs/PPTX (อ.ศวิตา GI Sx · อ.ปิยะณัฐ Hoof · อ.ภัทร์มนฉัตร Anesthesia · อ.ธนศักดิ์ GI VDTT)
+//   1) Lecture 2026 PDFs/PPTX (อ.ศวิตา GI Sx · อ.ปิยะณัฐ Metabolism+Hoof · อ.ภัทร์มนฉัตร Anesthesia · อ.ธนศักดิ์ GI VDTT)
 //   2) Sunsun84 รวมข้อสอบเก่า (Vet 84 senior recall)
 //   3) Kim85 + Ploy83 + Master 86 cross-reference
 //   4) Smith Internal Medicine Large Animal · AABP standards
+//
+// Lecturer attribution corrections (2026-05-08, per Palm + TJ p4):
+//   - Metabolism & Nutrition lecturer = ผศ.น.สพ. ปิยะณัฐ ประสมศรี (Piyanat Prasomsri)
+//     (was "Clin App Rum staff" — same lecturer as Hoof Health, both PP)
 // ──────────────────────────────────────────────────────────────────
 
 export const NOTES_CLIAPPRUM = {
   'metabolism-nutrition': {
     topic: 'metabolism-nutrition',
     title: 'Metabolism & Nutrition in Dairy Cows',
-    lecturer: 'Clin App Rum staff',
+    lecturer: 'ผศ.น.สพ. ปิยะณัฐ ประสมศรี (Piyanat Prasomsri, PP)',
     icon: '🌾',
     summary: 'Clinical Dashboard 5 sections · Transition period · Subclinical ketosis (BHBA) · NEFA · BCS · Feces + Locomotion Score',
     sections: [

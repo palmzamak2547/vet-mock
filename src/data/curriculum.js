@@ -512,8 +512,8 @@ export const SUBJECTS_BY_YEAR = {
       },
       topics: [
         { id: 'metabolism-nutrition', label: 'Metabolism & Nutrition in Dairy Cows', icon: '🌾',
-          lecturer: 'Clin App Rum staff', lecturer_year: 2026,
-          lecturerNote: 'Clinical Dashboard Framework · 5 sections: DMI / Nutritional values / Nutrient requirements / R:C ratio + milk fat / Particle size · Transition period · Subclinical Ketosis · NEB · Feces Score 1-5 · Locomotion Score 1-5 · BCS' },
+          lecturer: 'ผศ.น.สพ. ปิยะณัฐ ประสมศรี (Piyanat Prasomsri, PP)', lecturer_year: 2026,
+          lecturerNote: 'อ.ปิยะณัฐ (PP) สอนทั้ง Metabolism+Nutrition และ Hoof Health ใน Clin App Rum 2026 · Clinical Dashboard Framework 5 sections: DMI / Nutritional values / Nutrient requirements / R:C ratio + milk fat / Particle size · Transition period · Subclinical Ketosis · NEB · Feces Score 1-5 · Locomotion Score 1-5 · BCS' },
         { id: 'ruminant-anesthesia', label: 'Ruminant Anesthesia', icon: '💉',
           lecturer: 'อ.ภัทร์มนฉัตร บุนนาค (PB) [จัดทำโดย รศ.สุมิตร ดุรงค์พงษ์ธร]', lecturer_year: 2026,
           lecturerNote: 'Local + General anesthesia · ET intubation · Patient prep (PE/lab/fasting · Cow 24-48h food / 12-24h water) · Catheters jugular 14ga · Maintenance fluid 4-8 ml/kg/h · Hypotension correction 10-25 ml/kg/h · Potential GA problems: regurgitation (active vs passive) / bloat / respiratory complication / hypoventilation / nerve paralysis · Preanesthetics: Anticholinergics · Sedatives: Benzodiazepines + Phenothiazines · Local: Auriculopalpebral / Peterson / Retrobulbar / Paravertebral / IV regional (Bier block)' },

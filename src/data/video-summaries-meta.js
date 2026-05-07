@@ -476,7 +476,7 @@ export const VIDEO_META = {
     "subject": "cliapprum",
     "date": "4 Mar 69",
     "durationMin": 143,
-    "instructor": "Clin App Rum staff (อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น ผู้พัฒนา KCF)",
+    "instructor": "ผศ.น.สพ. ปิยะณัฐ ประสมศรี (Piyanat Prasomsri, PP) · อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น ผู้พัฒนา KCF",
     "examFormat": "MCQ — Final scope · 15 ข้อต่อคาบ"
   },
   'HD0tbvDa-Cc': {
