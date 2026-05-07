@@ -755,8 +755,8 @@ export const QB_CLIAPPRUM = [
     explain: 'Diaphragmatic hernia ไม่ค่อยพบในวัว แต่พบบ่อยกว่าในควาย water buffalo (diaphragm บาง). ภายใน body cavity ไม่เห็น protusion. ต้องใช้ ventilator เพราะการผ่าตัดเปิดเข้า thoracic cavity → pneumothorax. ส่วนที่ออกมาก่อน: liver, reticulum',
     verified: 'Tomato p15' },
 
-  { id: 5018, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-gi', year: 4,
-    source: 'Tomato p25 (Esophageal choke)', sourceType: 'student-compilation',
+  { id: 5018, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-respi', year: 4,
+    source: 'Sawita III 2026 p18-19 + Tomato p25', sourceType: 'lecture',
     tags: ['choke', 'esophagus', 'cervical'], type: 'mcq',
     q: 'Esophageal choke ในวัว FB มักติดที่ตำแหน่งใดและทำให้เกิดอาการอะไร',
     options: [
@@ -769,8 +769,8 @@ export const QB_CLIAPPRUM = [
     explain: 'FB มักติดที่ cervical part = ส่วนแคบสุด ประมาณ 20 cm แรก เอาออกง่าย. อาการ: bloat (gas ผ่านไม่ได้), salivation (กลืนไม่ได้น้ำลายไหล), metabolic acidosis ถ้านาน, nasal discharge (สำลัก)',
     verified: 'Tomato p25' },
 
-  { id: 5019, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-gi', year: 4,
-    source: 'Tomato p25 (Orogastric tube test)', sourceType: 'student-compilation',
+  { id: 5019, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-respi', year: 4,
+    source: 'Sawita III 2026 p19 + Tomato p25', sourceType: 'lecture',
     tags: ['orogastric-tube', 'esophagus', 'trachea'], type: 'mcq',
     q: 'การสอด orogastric tube แยกระหว่างเข้า esophagus กับเข้า trachea ได้อย่างไร',
     options: [
@@ -784,7 +784,7 @@ export const QB_CLIAPPRUM = [
     verified: 'Tomato p25' },
 
   // ── Sawita Locomotion/Hoof — Tomato p20-24 ──
-  { id: 5020, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-loco', year: 4,
+  { id: 5020, subject: 'cliapprum', topic: 'mahahon-cliapprum-piyanat-hoof', year: 4,
     source: 'Tomato p20 (90/90 rule)', sourceType: 'student-compilation',
     tags: ['lameness', '90-90-rule', 'lateral-claw'], type: 'mcq',
     q: 'หลัก 90/90 ของ lameness ในวัวคือข้อใด',
@@ -798,7 +798,7 @@ export const QB_CLIAPPRUM = [
     explain: '90% ของ lameness มาจากเท้า และ 90% ในนั้นมาจาก claw โดยเฉพาะ lateral claw (รับแรงเยอะกว่า medial). ส่งผลให้เกิด pain → stress → ลด milk production ประมาณ 3 L/day. การยืนปกติ = ลากเส้นตรงจากสะโพกลงเท้า',
     verified: 'Tomato p20' },
 
-  { id: 5021, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-loco', year: 4,
+  { id: 5021, subject: 'cliapprum', topic: 'mahahon-cliapprum-piyanat-hoof', year: 4,
     source: 'Tomato p21 (Foot bath)', sourceType: 'student-compilation',
     tags: ['foot-bath', 'formalin', 'copper-sulfate'], type: 'mcq',
     q: 'สูตรน้ำยา foot bath มาตรฐานในฟาร์มโคนม',
@@ -812,7 +812,7 @@ export const QB_CLIAPPRUM = [
     explain: 'Foot bath: 4% formalin หรือ 5% copper sulfate หรือ zinc sulfate. อ่างขนาด 15-20 cm สูง น้ำยาสูง 8-10 cm. medial และ lateral claw ควรยาวเท่ากัน. Hoof trimmer ตัดความยาวที่เกิน 7-8 cm. Hoof knife ปาดเฉพาะ medial หรือ lateral claw ไม่ปาด heel เพราะโตช้า',
     verified: 'Tomato p21' },
 
-  { id: 5022, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-loco', year: 4,
+  { id: 5022, subject: 'cliapprum', topic: 'mahahon-cliapprum-piyanat-hoof', year: 4,
     source: 'Tomato p21 (Digital dermatitis M-staging)', sourceType: 'student-compilation',
     tags: ['digital-dermatitis', 'M-staging', 'treponema'], type: 'mcq',
     q: 'Digital Dermatitis (DD) เชื้อก่อโรคหลักและขั้น M2 มีลักษณะอย่างไร',
@@ -826,7 +826,7 @@ export const QB_CLIAPPRUM = [
     explain: 'DD เกิดจาก Treponema spp. เป็นหลัก. M-staging: M0 normal, M1 small granulomatous, M2 ulcer + lameness (เจ็บมาก), M3 scab formation, M4 proliferative หรือ hyperkeratotic. encyst form ทำให้ดูเหมือนหายแล้ว แต่ recurrent ได้',
     verified: 'Tomato p21' },
 
-  { id: 5023, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-loco', year: 4,
+  { id: 5023, subject: 'cliapprum', topic: 'mahahon-cliapprum-piyanat-hoof', year: 4,
     source: 'Tomato p22 (Foot rot)', sourceType: 'student-compilation',
     tags: ['foot-rot', 'fusobacterium', 'dichelobacter'], type: 'mcq',
     q: 'Foot rot (interdigital phlegmon) เชื้อก่อโรค 2 ตัวหลักและการรักษา first-line',
@@ -840,7 +840,7 @@ export const QB_CLIAPPRUM = [
     explain: 'Foot rot: Fusobacterium necrophorum + Dichelobacter nodosus. Lesion รุนแรง: cellulitis, swelling, erythema. มี 3 forms: superficial, profound, peracute (common). Tx: Penicillin G หรือ Oxytetracycline หรือ Sulfa-trimethoprim',
     verified: 'Tomato p22' },
 
-  { id: 5024, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-loco', year: 4,
+  { id: 5024, subject: 'cliapprum', topic: 'mahahon-cliapprum-piyanat-hoof', year: 4,
     source: 'Tomato p22 (Laminitis pathway)', sourceType: 'student-compilation',
     tags: ['laminitis', 'pathway', 'MMP'], type: 'mcq',
     q: 'Pathway ของ Laminitis ในโคนมจาก high-concentrate diet',
@@ -854,7 +854,7 @@ export const QB_CLIAPPRUM = [
     explain: 'Pathway: diet high-carb → rumen acidosis (SARA) → imbalance flora → bacterial endotoxin → histamine release → MMP (matrix metalloproteinase) ย่อย collagen ที่ยึด pedal bone (distal phalanx) กับ wall → pedal bone เอียงลงมาแทงกีบ → hemorrhage, wall crack, bone necrosis → lameness. Tx: ปรับ diet + regular claw trimming',
     verified: 'Tomato p22' },
 
-  { id: 5025, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-loco', year: 4,
+  { id: 5025, subject: 'cliapprum', topic: 'mahahon-cliapprum-piyanat-hoof', year: 4,
     source: 'Tomato p23 (Sole ulcer treatment)', sourceType: 'student-compilation',
     tags: ['sole-ulcer', 'wooden-block', 'treatment'], type: 'mcq',
     q: 'Sole ulcer (pododermatitis circumscripta) ที่ lateral claw การรักษาที่ถูกต้อง',
@@ -868,7 +868,7 @@ export const QB_CLIAPPRUM = [
     explain: 'Sole ulcer: เจาะระบายหนอง + NSAIDs (ketoprofen) + วาง wooden หรือ rubber block ที่ claw ข้างตรงข้ามกับ lesion → ยก claw ที่เป็นแผลขึ้น ไม่ให้โดนพื้น. สาเหตุ: พื้นโรงเรือนแข็ง หรือ toe โตเร็ว → distal phalanx ลงมากระแทก heel',
     verified: 'Tomato p23' },
 
-  { id: 5026, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-loco', year: 4,
+  { id: 5026, subject: 'cliapprum', topic: 'mahahon-cliapprum-piyanat-hoof', year: 4,
     source: 'Tomato p24 (Digital amputation S-levels)', sourceType: 'student-compilation',
     tags: ['digital-amputation', 'level', 'phalanx'], type: 'mcq',
     q: 'Digital amputation ในวัว ระดับ S2 ตัดที่ใด',

@@ -44,6 +44,17 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.22.1',
+    date: '2026-05-08',
+    headline: '🔧 Clin App Rum หมาหอน — แก้ topic attribution (Loco ของอ.ปิยะณัฐ ไม่ใช่ Sawita) ตาม Lecture 2026 ล่าสุด',
+    changes: [
+      { scope: 'multi', kind: 'fix', icon: '🔧', title: 'แก้ผู้สอน Lameness/Hoof จาก Sawita → อ.ปิยะณัฐ ตาม Slide 2026',
+        desc: 'ตอนแรกอิงจาก Tomato compilation จัด Lameness/Hoof ไว้ใต้ Sawita แต่ Slide 2026 ระบุชัด Sawita III = Head + Respi + Eye + Udder + Urinary (ไม่มี Loco) — Loco/Hoof มาจากคาบของ อ.ปิยะณัฐ ประสมศรี ที่สอนแยก. ย้ายข้อสอบ Q5020-5026 (90/90 rule, foot bath, DD M-staging, foot rot, laminitis, sole ulcer, digital amputation) จาก topic "Sawita Loco" → "อ.ปิยะณัฐ Hoof Health"' },
+      { scope: 'multi', kind: 'fix', icon: '🔧', title: 'แก้ Esophageal Choke (Q5018-5019) ย้ายจาก Sawita GI → Sawita Head/Respi',
+        desc: 'Slide 2026 Sawita III บรรยาย esophageal surgery ในหมวด Head/Respi ไม่ใช่ GI Surgery I/II ที่เน้น hernia + LDA/RDA — ปรับ topic ให้ตรงโครงสร้างคาบ' },
+    ],
+  },
+  {
     version: '5.22.0',
     date: '2026-05-08',
     headline: '🐄 Clin App Rum หมาหอน — เพิ่ม 30 ข้อ (Anesthesia + GI + Sawita Hernia/Loco/Respi) จาก TJ Vet 86 + Tomato',
