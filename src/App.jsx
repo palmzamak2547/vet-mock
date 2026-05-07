@@ -6,6 +6,7 @@ import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
+import { useOnlineStatus } from './hooks/useOnlineStatus.js';
 import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
 import { isFlashcardCompatible } from './hooks/sr-filter.js';
@@ -88,6 +89,7 @@ const NotesView = lazy(() => import('./views/NotesView.jsx'));
 const ReadingChecklistView = lazy(() => import('./views/ReadingChecklistView.jsx'));
 const FacultyView = lazy(() => import('./views/FacultyView.jsx'));
 const AccountSettingsView = lazy(() => import('./views/AccountSettingsView.jsx'));
+const OfflineGameView = lazy(() => import('./views/OfflineGameView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 
@@ -99,6 +101,11 @@ export default function App() {
   // users to drop out of the count whenever they clicked into a topic /
   // exam, and to lose the indicator since it only rendered on home.)
   const { count: onlineCount, status: onlineStatus } = useOnlineCount();
+
+  // navigator.onLine — separate from realtime presence count above.
+  // online: false ⇒ banner suggests the offline game ✦ justChanged
+  // ⇒ flash a transient "back online" toast for ~3.5s.
+  const { online: networkOnline, justChanged: networkJustChanged } = useOnlineStatus();
 
   // Detect password-reset deep link on first render so the very first
   // view is AuthView (which then enters mode='update-password' from the
@@ -598,6 +605,40 @@ export default function App() {
       <TopLoadingBar />
       <div className="vmx-app">
         <div className="vmx-container">
+          {/* Network-status banner — only shown when offline OR for a few
+              seconds after coming back online. Kept inline (not absolute)
+              so it pushes content down rather than covering the header.
+              When offline, clicking it opens the mini-game (Chrome-style). */}
+          {(!networkOnline || networkJustChanged) && view !== 'offline-game' && view !== 'exam' && (
+            <div
+              role="status"
+              onClick={() => { if (!networkOnline) setView('offline-game'); }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 12,
+                padding: '8px 14px',
+                marginBottom: 8,
+                borderRadius: 8,
+                fontSize: 13,
+                background: networkOnline
+                  ? 'rgba(74, 107, 74, 0.12)'
+                  : 'rgba(184, 137, 64, 0.18)',
+                color: networkOnline ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-gold, #b88940)',
+                cursor: networkOnline ? 'default' : 'pointer',
+                transition: 'background 0.2s',
+              }}
+            >
+              <span>
+                {networkOnline
+                  ? '● กลับมาออนไลน์แล้ว — ข้อมูลจะ sync อัตโนมัติ'
+                  : '● ออฟไลน์อยู่ — แตะเพื่อเล่น 🐤 มินิเกมระหว่างรอเน็ตกลับ'}
+              </span>
+              {!networkOnline && <span style={{ fontSize: 16 }}>🎮</span>}
+            </div>
+          )}
+
           <div className="vmx-header">
             <div className="vmx-logo" onClick={goHome}>Vet<span>Mock</span></div>
             <div className="vmx-header-right">
@@ -652,6 +693,7 @@ export default function App() {
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView {...{ user, goHome, onSignedOut: goHome }} />}
+              {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
             </Suspense>
             </ErrorBoundary>
           )}
@@ -662,6 +704,7 @@ export default function App() {
             {' · '}<a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
             {' · '}<a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
             {' · '}<a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
+            {' · '}<a onClick={() => setView('offline-game')} style={{ cursor: 'pointer', textDecoration: 'underline' }} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">🐤 มินิเกม</a>
           </div>
 
           {/* Floating clinical-math FAB — visible on every view except
