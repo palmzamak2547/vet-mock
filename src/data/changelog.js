@@ -44,12 +44,23 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.22.7',
+    date: '2026-05-08',
+    headline: '📝 แก้บั๊ก player modal — ปุ่มอ่านสรุปคลิปอยู่ใต้ iframe เลื่อนไปกดไม่ได้',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '🎬', title: 'Player modal เลื่อนได้แล้ว — กดปุ่ม "อ่านสรุปคลิป" ที่ด้านล่างได้',
+        desc: 'แก้รอบก่อนแก้ผิดจุด — Palm รายงานว่า "เลื่อนลงไปดูสรุปคลิปไม่ได้" จริงๆ คือเลื่อนใน player modal ไม่ลง ไม่ใช่ใน SummaryModal — เพราะปุ่ม "📝 อ่านสรุปคลิป" อยู่ใต้ iframe ในแถวเดียวกับ "เปิดใน YouTube" + "Copy link" และ player modal เคยมี overflow:hidden + max-height 90vh — บนคอมจอเล็กที่ iframe กิน 70-80% ของ height ปุ่มเหล่านี้ถูก clip มองไม่เห็นและไม่มี scrollbar ให้เลื่อนถึง — เปลี่ยนเป็น overflowY:auto ให้ scroll ภายใน modal ได้ตามปกติ (overflowX ยังคง hidden เพื่อไม่ให้ sidebar หลุด)',
+      },
+    ],
+  },
+  {
     version: '5.22.6',
     date: '2026-05-08',
-    headline: '📝 แก้บั๊ก SummaryModal — เลื่อนอ่านสรุปคลิปไม่ได้บนคอม',
+    headline: '📝 แก้ SummaryModal grid layout + stacking order',
     changes: [
-      { scope: 'system', kind: 'fix', icon: '📜', title: 'แก้บั๊กเลื่อนสรุปคลิปบนคอมไม่ลง',
-        desc: 'Palm รายงาน "ในคอมเหมือนมันเลื่อนลงไปดูสรุปคลิปไม่ได้" — สาเหตุ 2 จุด: (1) layout เก่าใช้ flex column + min-height: 0 trick ที่ Firefox/บาง Chrome build บนเดสก์ท็อปไม่ตอบสนอง — เปลี่ยนเป็น CSS Grid template-rows "auto minmax(0, 1fr) auto" ซึ่ง predictable กว่า บอกขนาด body ตรงๆ (2) SummaryModal เคย render อยู่ใน VideoView player overlay — DOM order ทำให้ player modal painting ทับ summary บนเดสก์ท็อป (มือถือไม่เห็นเพราะ overlay scrim ดำเหมือนกัน) — ย้าย SummaryModal ให้ render นอก player overlay แทน ใช้ React Fragment + zIndex 1100 ปิดบั๊ก click bubbling ที่เผลอปิด player ตามไปด้วย' },
+      { scope: 'system', kind: 'fix', icon: '📜', title: 'ปรับ SummaryModal เป็น grid + ย้ายออกนอก player overlay',
+        desc: '(แก้รอบก่อนพลาดเป้าจริง — แต่ยังเก็บไว้เพราะปรับโครงสร้างให้ robust ขึ้น) เปลี่ยน SummaryModal layout จาก flex+min-height:0 → CSS Grid template-rows "auto minmax(0, 1fr) auto" ซึ่ง Firefox/บาง Chrome desktop ตอบสนองได้แม่นยำกว่า + ย้าย SummaryModal ออกจาก VideoView player overlay (เคย nest อยู่ข้างใน DOM order ทำให้ player paint ทับเมื่อ z-index auto)',
+      },
     ],
   },
   {

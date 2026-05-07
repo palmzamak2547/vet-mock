@@ -439,7 +439,13 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           player. */}
       {openSummary && <SummaryModal summary={openSummary} onClose={() => setOpenSummary(null)} />}
     <div className="vmx-modal-overlay" onClick={onClose}>
-      <div className="vmx-modal" style={{ maxWidth: showList && playlistItems.length > 0 ? 1200 : 800, width: '100%', padding: 0, overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
+      {/* Player modal: overflowX hidden (sidebar not allowed to escape
+          horizontally), but overflowY MUST be auto so the player column
+          can scroll past the iframe to reach the "📝 อ่านสรุปคลิป"
+          button + Footer actions on shorter desktop screens. The old
+          `overflow: 'hidden'` clipped everything below the iframe and
+          users couldn't reach the summary button at all. */}
+      <div className="vmx-modal" style={{ maxWidth: showList && playlistItems.length > 0 ? 1200 : 800, width: '100%', padding: 0, overflowX: 'hidden', overflowY: 'auto' }} onClick={(e) => e.stopPropagation()}>
 
         {/* Header bar */}
         <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
