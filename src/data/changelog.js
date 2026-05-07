@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.22.0',
+    date: '2026-05-08',
+    headline: '🐄 Clin App Rum หมาหอน — เพิ่ม 30 ข้อ (Anesthesia + GI + Sawita Hernia/Loco/Respi) จาก TJ Vet 86 + Tomato',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🐺', title: 'รวมหมาหอน Clin App Rum 30 ข้อ ครอบคลุม 5 กลุ่ม',
+        desc: 'การ์ด "🐺 รวมหมาหอน Clin App Rum" ใต้วิชา Clinical App Ruminant แยก 5 หมวด — Anesthesia 8 ข้อ (อ.ภัทร์มนฉัตร: GA problems, Diazepam vs Midazolam, Acepromazine ในพ่อพันธุ์ระวัง penile prolapse, Xylazine sensitivity Brahmans>Hereford>Holstein, Lidocaine 800kg vัว 400ml, Peterson block, Paravertebral) · GI VDTT 6 ข้อ (อ.ธนศักดิ์ Vet 85 ออกตรง: Wither test, Ping right=RDA/RTA, oily sheen=LDA, Methylene blue <3min=acidosis, pH 5.5-7.5) · Sawita Hernia/Esoph 6 ข้อ (umbilical <2cm conservative, diaphragmatic ในควาย, choke ที่ cervical 20cm, orogastric tube swallow reflex test) · Sawita Loco/Hoof 7 ข้อ (90/90 rule, foot bath 4% formalin, DD M-staging Treponema, foot rot Fusobact+Dichelobacter, laminitis pathway carb→MMP, sole ulcer wooden block opposite, digital amputation S1/S2/S3) · Sawita Head/Respi 3 ข้อ (dehorning <2m, cornual block, frontal>maxillary sinusitis trephination)',
+      },
+    ],
+  },
+  {
     version: '5.21.0',
     date: '2026-05-08',
     headline: '🐤 มินิเกมตอนเน็ตหลุด — ลูกไก่หนีเชื้อโรค (เหมือน T-Rex ของ Chrome แต่ธีม Poultry)',

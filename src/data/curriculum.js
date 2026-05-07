@@ -495,6 +495,10 @@ export const SUBJECTS_BY_YEAR = {
     // PDF→PNG conversion used (avoid 7MB+ image render bug)
     { id: 'cliapprum', code: '3108411', name: 'Clinical App Rumen', name_en: 'VET CLI APP RUM',
       icon: '🐄', color: '#7d5a44', semester: 2, has_questions: true,
+      // Collection: หมาหอน Clin App Rum (high-yield mine from TJ + Tomato compilations)
+      collections: [
+        { id: '_mahahon-cliapprum-all', label: '🐺 รวมหมาหอน Clin App Rum', sub: 'TJ Vet 86 + 🍅 Tomato + Vet 85 markers', topicPrefix: 'mahahon-cliapprum-', accent: '#7d5a44' },
+      ],
       examFormat: {
         weight: 'คาบละ 15 คะแนน · จำนวนข้อขึ้นกับอาจารย์',
         examDate: '8 พ.ค. 2569',
@@ -522,6 +526,23 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'hoof-health-fleet', label: 'Hoof Health Management ในฝูง', icon: '🐾',
           lecturer: 'ผศ.น.สพ. ปิยะณัฐ ประสมศรี (PP)', lecturer_year: 2026,
           lecturerNote: 'อ.ปิยะณัฐ (PP · pptx slide 1 ระบุ) สอนทั้ง Vet Prac Rum hoof+nutrition และ Clin App Rum hoof fleet · Framework 4 elements (T-L-I-I): Timing (work flow น้อย คนน้อย โคเดินอิสระ เวลาประณีต) · Location (พื้นเรียบไม่ลาด · ระยะเดิน ≥4m) · Identification (ครบทุกตัว) · Interpretation (มี RT ปีละ 2 ครั้ง vs ไม่มี RT) · Routine trimming 6-12 เดือน · Sole ulcer / White line / Infectious / Laminitis (feeding mgt) / Iatrogenic' },
+        // ── ข้อสอบหมาหอน Clin App Rum (high-yield prediction from TJ Vet 86 + Tomato)
+        // Source: Clin approach final TJ.pdf p1-3 (Vet 86 reorganized + Vet 85/84 markers) + 🍅clin rum final🐄.pdf p13-30 (Sawita GI/Loco/Respi)
+        { id: 'mahahon-cliapprum-anes', label: '🐺 หมาหอน 1 — Anesthesia (อ.ภัทร์มนฉัตร) TJ', icon: '💉',
+          lecturer: 'อ.ภัทร์มนฉัตร บุนนาค', lecturer_year: 2026,
+          lecturerNote: 'จาก TJ p1-2 — General anes problems (regurg/bloat/respi/hypovent/nerve paralysis) + Diazepam vs Midazolam (insoluble vs water-soluble) + Acepromazine ระวัง bull (penile prolapse) + Xylazine sensitivity Brahmans>Hereford>Holstein + Standing sedation 0.1-0.2 mg/kg + Lidocaine toxic 10 mg/kg + Peterson block (enucleation) + Bier block + Paravertebral T13/L1/L2 vs L1/L2/L4 + Epidural lumbosacral (small) vs sacrococcygeal (cattle)' },
+        { id: 'mahahon-cliapprum-givdtt', label: '🐺 หมาหอน 2 — GI Internal Med (อ.ธนศักดิ์) TJ ปี 85', icon: '🩺',
+          lecturer: 'อ.ธนศักดิ์ บุญเสริม', lecturer_year: 2026,
+          lecturerNote: 'จาก TJ p3 — Vet 85 ตรง 10 ข้อ + Vet 84 8 ข้อ — Signs ของ GI dysfunction + Wither test grunting + Ping sound right (RDA, RTA) + Feces oily sheen = LDA + Methylene blue <3 min = grain engorgement + Rumen pH 5.5-7.5 normal + Rumen contraction 1-2/3min + Foamy bloat hypermotility early phase' },
+        { id: 'mahahon-cliapprum-sawita-gi', label: '🐺 หมาหอน 3 — Sawita GI Surgery (Hernia/Esoph) 🍅', icon: '🔪',
+          lecturer: 'อ.ศวิตา สันติวิภารัตน์', lecturer_year: 2026,
+          lecturerNote: 'จาก 🍅 Tomato p13-15 + p25-26 — Hernia composition (ring/content/sac) + Umbilical (T. pyogenes infection, conservative <2cm vs sx >5cm, mesh >10-15cm) + Inguinal scrotal (Lt > Rt, close technique) + Diaphragmatic (water buffalo > cow) + Esophageal choke (cervical 20cm, salivation, orogastric vs trachea swallow reflex) + Stenosis classification' },
+        { id: 'mahahon-cliapprum-sawita-loco', label: '🐺 หมาหอน 4 — Sawita Locomotion/Hoof 🍅', icon: '🐾',
+          lecturer: 'อ.ศวิตา สันติวิภารัตน์', lecturer_year: 2026,
+          lecturerNote: 'จาก 🍅 Tomato p20-24 — Lameness 90/90 rule (90% from claw, 90% lateral claw) + Sole 8mm thick + Foot bath 4% formalin/5% Cu-Zn sulfate + DD M0-M4 staging (Treponema) + Foot rot (Fusobact necrophorum + Dichelobacter, penicillin G) + Laminitis pathway (carb→acidosis→endotoxin→histamine→MMP) + Sole ulcer (wooden block opposite) + Digital amputation S1/S2/S3 levels + 4-point nerve block' },
+        { id: 'mahahon-cliapprum-sawita-respi', label: '🐺 หมาหอน 5 — Sawita Head/Respi 🍅', icon: '👁',
+          lecturer: 'อ.ศวิตา สันติวิภารัตน์', lecturer_year: 2026,
+          lecturerNote: 'จาก 🍅 Tomato p17-19 — Dehorning age (<2m bud / 2-4m connect frontal / >4m sinus open) + Cornual nerve block 2% lidocaine + Methods (chemical paste = KOH/NaOH young / thermal portable / cutting / cosmetic for Z) + Sinusitis (frontal > maxillary, trephination + flush) + BSP (bovine spastic paresis) + Medial patella desmotomy (standing position)' },
         // Hidden — legacy Vet 84 past-paper Qs (Q136 BSP, Q139 patella) ที่อยู่นอก 2026 scope
         { id: 'uncertain-scope', label: '❓ Uncertain Scope · Tendon Sx (legacy Vet 84)', icon: '❓',
           hidden: true,
