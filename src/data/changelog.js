@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.22.4',
+    date: '2026-05-08',
+    headline: '🐄 Clin App Rum หมาหอน Round 3 — เพิ่ม 24 ข้อจาก TJ Vet 85/84/86 ที่ตกหล่น + Hoof framework Kim',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🐺', title: 'ขุดข้อสอบเก่าที่ตกหล่นจาก TJ — Anes 7 + GI VDTT 9 + Hoof 8 ข้อ',
+        desc: 'TJ Anesthesia (อ.ภัทร์มนฉัตร) มี 17 รายการ Vet 86 ออกตรง ก่อนนี้เอามาแค่ 8 — เพิ่มอีก 7 (Thiopental <3 เดือนห้ามใช้ + Diazepam+Ketamine choice for induction + Zoletil 60 นาที + Guaifenesin 5% central muscle relaxant + Auriculopalpebral ไม่มี analgesia + Epidural small rum LS vs cattle SC/IC + Peterson cranial nerves block II/III/IV/V/VI). TJ GI VDTT ก่อนนี้เอามาแค่ 6 — เพิ่มอีก 9 (Vet 85: rumen forestomach fiber ferment + rectal palpation findings + peritonitis Dx cytology + rumen fluid landmark rib 13/knee + spinal needle 18G; Vet 84: ruminal contraction 1-2/3min + concentrate ratio acidosis gram+ shift + omasum impactation puncture not pole test + rumen hypermotility foamy bloat early + bilateral distension DDx pregnancy/peritonitis/ascites). Piyanat hoof + 8 (T-L-I-I framework: Timing/Location/Identification/Interpretation + LCS distribution + DDx with vs without RT + Sole 8mm/white line junction)',
+      },
+    ],
+  },
+  {
     version: '5.22.3',
     date: '2026-05-08',
     headline: '🐄 Sawita ครบ 45 ข้อ! เพิ่ม Sawita Round 2 อีก 21 ข้อ (15 × 3 lectures ตามที่อาจารย์บอก)',
