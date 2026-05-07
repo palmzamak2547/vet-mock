@@ -179,6 +179,25 @@ export default function App() {
   // API). Auto-releases when leaving exam view or component unmount.
   useWakeLock(view === 'exam');
 
+  // Pre-warm the post-exam chunks (ResultsView + ReviewView) the
+  // moment the exam starts. Reason: those views are lazy-loaded, so
+  // their chunks (e.g. ResultsView-XXXXXXXX.js) are fetched only
+  // when setView('results') runs. If we ship a deploy mid-exam,
+  // Vercel atomically swaps to a new bundle and the OLD chunk hash
+  // becomes a 404. The submit button would then strand the user on
+  // a blank screen — exactly the regression Palm hit on 2026-05-08.
+  // Importing here puts the chunk in the browser's module cache; if
+  // a deploy happens later, the in-memory module survives even if
+  // the URL stops resolving. Errors are swallowed because a network
+  // hiccup at exam start shouldn't fail the exam itself — the
+  // dynamic import inside Suspense will still try again at submit.
+  useEffect(() => {
+    if (view === 'exam') {
+      import('./views/ResultsView.jsx').catch(() => {});
+      import('./views/ReviewView.jsx').catch(() => {});
+    }
+  }, [view]);
+
   // In-flight exam state. Persisted to localStorage so an accidental
   // tab close, browser crash, or PWA force-quit during a long writing
   // session doesn't lose answers — restored when the user opens the
@@ -511,9 +530,22 @@ export default function App() {
       const duration = examStartTime ? Math.round((Date.now() - examStartTime) / 1000) : 0;
       saveExamResult({ user_id: user.id, mode, subject, total: autoQs.length, correct, pct, duration_sec: duration }).catch(() => {});
     }
-    // Clear the auto-save now that the exam is submitted — Review/
-    // Results doesn't need the in-flight key anymore
-    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+    // We used to clear `vmx-inflight-exam` here, but that left
+    // submitted exams unrecoverable if the ResultsView chunk failed
+    // to load (deploy mid-session 404, slow network, etc). Now we
+    // tag the in-flight state as 'submitted' first; the user can
+    // reload and ReviewView will replay the answers. ResultsView
+    // does its own clear once it has actually mounted with score in
+    // hand (see ResultsView's `useEffect` cleanup).
+    try {
+      const raw = window.localStorage?.getItem('vmx-inflight-exam');
+      if (raw) {
+        const obj = JSON.parse(raw);
+        obj.submitted = true;
+        obj.submittedAt = Date.now();
+        window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify(obj));
+      }
+    } catch {}
     setView('results');
   };
 

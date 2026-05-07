@@ -102,6 +102,14 @@ export default function ResultsView({ score, questions, answers, goHome, setView
   // Fire confetti once on mount for a perfect auto-graded score.
   // Lazy-imported so the canvas/animation code never hits the
   // main bundle. Guarded by useRef so React StrictMode's double
+  // Clear the in-flight exam key once we're safely mounted with a
+  // score in hand. App.jsx now keeps the key (tagged submitted)
+  // through finishExam so a chunk-load failure mid-deploy doesn't
+  // strand the user on a blank screen — ReviewView can replay.
+  useEffect(() => {
+    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+  }, []);
+
   // mount in dev doesn't trigger the burst twice.
   const firedRef = useRef(false);
   useEffect(() => {
