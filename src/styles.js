@@ -71,16 +71,31 @@ html, body { overscroll-behavior-y: contain; }
 }
 .vmx-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; cursor: pointer; }
 .vmx-logo span { color: var(--clr-rose); font-style: italic; font-weight: 500; }
-.vmx-header-right { display: flex; gap: 10px; align-items: center; }
+.vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .vmx-subtitle { font-size: 12px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
 .vmx-streak { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--clr-gold); }
 .vmx-theme-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-theme-btn:hover { border-color: var(--clr-ink); }
+.vmx-theme-btn:disabled { cursor: not-allowed; }
+.vmx-theme-btn:disabled:hover { border-color: var(--clr-border); }
 
 .vmx-cmdk-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 13px; color: var(--clr-ink-soft); transition: all 0.15s; font-family: inherit; }
 .vmx-cmdk-btn:hover { border-color: var(--clr-ink); color: var(--clr-ink); }
 .vmx-cmdk-kbd { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 6px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-bg); color: var(--clr-ink-soft); letter-spacing: 0.04em; }
-@media (max-width: 600px) { .vmx-cmdk-kbd { display: none; } .vmx-cmdk-btn { padding: 6px 10px; } }
+
+/* Mobile header — keeps everything visible by tightening spacing,
+   shrinking icons, and hiding the streak chip (still in dashboard).
+   Below 600px, header is compact: logo + year pill on row 1, tools
+   wrap to row 2 if needed. */
+@media (max-width: 600px) {
+  .vmx-cmdk-kbd { display: none; }
+  .vmx-cmdk-btn { padding: 5px 8px; font-size: 12px; }
+  .vmx-header { padding-bottom: 14px; margin-bottom: 18px; gap: 8px; }
+  .vmx-header-right { gap: 6px; }
+  .vmx-theme-btn { width: 32px; height: 32px; font-size: 14px; }
+  .vmx-streak { display: none; } /* free up space; visible on Analytics */
+  .vmx-logo { font-size: 19px; }
+}
 
 /* View Transitions API — smooth fade between views (Chrome/Edge/Safari TP).
    Firefox falls back to no animation gracefully. */

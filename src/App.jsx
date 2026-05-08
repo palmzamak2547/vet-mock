@@ -572,6 +572,19 @@ export default function App() {
     }));
     setHistory((h) => [...h, ...newEntries]);
 
+    // Snapshot the session config so the '🔁 ทำซ้ำ' preset on HomeView
+    // can replay the exact same exam shape (mode + subject + topic +
+    // numQuestions + timer settings). Per-Q history alone doesn't carry
+    // these — only auto-graded session settings need preservation.
+    try {
+      window.localStorage?.setItem('vmx-last-session-config', JSON.stringify({
+        mode, subject, topic, practiceMode,
+        numQuestions, useTimer, timePerQ, questionCategory,
+        savedAt: Date.now(),
+        score: { correct, total: autoQs.length, pct: autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0 },
+      }));
+    } catch {}
+
     if (user) {
       const pct = autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0;
       const duration = examStartTime ? Math.round((Date.now() - examStartTime) / 1000) : 0;
@@ -847,7 +860,7 @@ export default function App() {
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}

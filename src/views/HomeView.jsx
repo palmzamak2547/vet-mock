@@ -8,7 +8,7 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
-export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill }) {
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill }) {
   // Year context — determines hero copy + reading checklist scope.
   // Only Y4 has actual exam schedule entries today; for scaffold years
   // we hide the countdown banner since `getNextExam('y5')` returns null.
@@ -33,6 +33,13 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
   const [lastSeenChangelog, setLastSeenChangelog] = useLocalStorage('vmx-last-seen-changelog', null);
   const [expanded, setExpanded] = useState(false);
   const showAnnouncement = LATEST_CHANGELOG && lastSeenChangelog !== LATEST_CHANGELOG.version;
+
+  // Onboarding tour — shown once on first home visit (after year-pick).
+  // 3-step explanation of subject grid + smart presets + persistent header.
+  // Suppressed forever after dismiss via vmx-onboarding-seen flag.
+  const [onboardingSeen, setOnboardingSeen] = useLocalStorage('vmx-onboarding-seen', false);
+  const [tourStep, setTourStep] = useState(0);
+  const showOnboarding = !onboardingSeen;
 
   // (Removed dedicated IG banner from HomeView — Palm flagged the
   // home page had too many announcements. IG launch already lives in:
@@ -64,6 +71,13 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
 
   return (
     <>
+      {showOnboarding && (
+        <OnboardingTour
+          step={tourStep}
+          onNext={() => setTourStep((s) => s + 1)}
+          onDismiss={() => { setOnboardingSeen(true); setTourStep(0); }}
+        />
+      )}
       <div className="vmx-hero">
         <h1>
           {user ? (
@@ -337,16 +351,21 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         bookmarks={bookmarks}
         history={history}
         onPick={(s) => {
-          if (s.scaffold) {
-            // Scaffold subjects: route to feedback PRE-FILLED with subject
-            // context so user doesn't have to re-type which subject they
-            // want help with. Type='Content', subject summary, message
-            // template — user just adds details.
+          // Both scaffold AND empty-LIVE subjects route to feedback with
+          // subject prefilled. Difference is just messaging: scaffold =
+          // "expected to be empty" (early stage), empty-LIVE = "this should
+          // have content but doesn't, please tell us why or contribute."
+          const totalQ = visibleQuestionCount(s.id, [...QB, ...(customQuestions || [])]);
+          const isEmptyOrScaffold = s.scaffold || totalQ === 0;
+          if (isEmptyOrScaffold) {
             if (setFeedbackPrefill) {
+              const reason = s.scaffold
+                ? 'อยากให้เพิ่มเนื้อหา'
+                : 'วิชานี้ยังไม่มีข้อสอบ — มี slide/notes/ข้อสอบเก่าส่งมาช่วยได้ไหม';
               setFeedbackPrefill({
                 type: 'Content',
                 subject: `ขอเนื้อหา · ${s.name} (${s.code || 'TBD'}) · ปี ${selectedYear}`,
-                message: `อยากให้เพิ่มเนื้อหาวิชา "${s.name}" (${s.name_en || ''}) ของปี ${selectedYear} เพราะ...\n\nมี slide / notes / ข้อสอบเก่าจะส่งมาช่วย:\n- (แนบลิงก์ Google Drive หรือบรรยายตรงนี้ได้เลย)`,
+                message: `${reason}\n\nวิชา: "${s.name}" (${s.name_en || ''}) · ปี ${selectedYear}\n\nรายละเอียด:\n- (แนบลิงก์ Google Drive หรือบรรยายตรงนี้ได้เลย)`,
               });
             }
             setView('feedback');
@@ -362,33 +381,54 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           their data preconditions are met, jumping straight to ConfigView
           to skip subject/topic drill-down. */}
       {!isScaffoldYear && (() => {
-        // Compute weakest subject (in this year + ≥10 attempts) from history
+        // Compute weakest TOPIC (then map up to subject) — gives a more
+        // actionable signal than subject-level. Min 10 attempts, < 70%.
         const yearSubjectIds = new Set((SUBJECTS_BY_YEAR[selectedYear] || []).map((s) => s.id));
         const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
-        const accMap = {};
+        // Index Q→topic for history lookups (history doesn't store topic)
+        const qIndex = new Map();
+        for (const q of QB) qIndex.set(q.id, q);
+        const topicAcc = {};
         for (const h of (history || [])) {
           if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
           if (h.date && h.date < cutoff) continue;
-          if (!accMap[h.subject]) accMap[h.subject] = { total: 0, correct: 0 };
-          accMap[h.subject].total++;
-          if (h.correct) accMap[h.subject].correct++;
+          const q = qIndex.get(h.questionId);
+          const topic = q?.topic;
+          if (!topic) continue;
+          const key = `${h.subject}::${topic}`;
+          if (!topicAcc[key]) topicAcc[key] = { subject: h.subject, topic, total: 0, correct: 0 };
+          topicAcc[key].total++;
+          if (h.correct) topicAcc[key].correct++;
         }
-        let weakSubj = null;
-        let weakPct = 100;
-        for (const [sid, { total, correct }] of Object.entries(accMap)) {
+        let weakSubj = null, weakTopic = null, weakPct = 100;
+        for (const { subject: sid, topic, total, correct } of Object.values(topicAcc)) {
           if (total < 10) continue;
           const pct = Math.round((correct / total) * 100);
-          if (pct < weakPct && pct < 70) { weakPct = pct; weakSubj = sid; }
+          if (pct < weakPct && pct < 70) {
+            weakPct = pct; weakSubj = sid; weakTopic = topic;
+          }
         }
-        // Last-session subject (for ทำซ้ำ) — most recent history entry
-        let lastSubj = null;
-        let lastTs = 0;
-        for (const h of (history || [])) {
-          if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
-          if ((h.date || 0) > lastTs) { lastTs = h.date || 0; lastSubj = h.subject; }
+        // Try to read structured last-session-config first (full restore);
+        // fall back to history scan if absent (older users without snapshot).
+        let lastSession = null;
+        try {
+          const raw = window.localStorage?.getItem('vmx-last-session-config');
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed?.subject && yearSubjectIds.has(parsed.subject)) lastSession = parsed;
+          }
+        } catch {}
+        let lastSubj = lastSession?.subject || null;
+        if (!lastSubj) {
+          let lastTs = 0;
+          for (const h of (history || [])) {
+            if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
+            if ((h.date || 0) > lastTs) { lastTs = h.date || 0; lastSubj = h.subject; }
+          }
         }
         const lastSubjMeta = lastSubj ? SUBJECTS.find((s) => s.id === lastSubj) : null;
         const weakSubjMeta = weakSubj ? SUBJECTS.find((s) => s.id === weakSubj) : null;
+        const weakTopicMeta = (weakSubjMeta?.topics || []).find((t) => t.id === weakTopic);
 
         return (
         <>
@@ -419,42 +459,77 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
               </button>
             )}
 
-            {/* Smart: จุดอ่อน — when ≥10 attempts in a subject + accuracy <70% */}
+            {/* Smart: จุดอ่อน — topic-granular when ≥10 attempts + <70%.
+                Sets subject + topic so ConfigView opens already filtered. */}
             {weakSubj && weakSubjMeta && (
               <button
                 className="vmx-mode-card"
                 onClick={() => {
                   setMode('quick');
                   setSubject && setSubject(weakSubj);
+                  // Topic-granular: set the weakest specific topic if found,
+                  // else fall back to subject-level (ConfigView reads null).
+                  if (setTopic) setTopic(weakTopic || null);
                   setPracticeMode && setPracticeMode('all');
                   setView('config');
                 }}
                 style={{ borderColor: 'var(--clr-gold)' }}
-                title={`90 วันล่าสุด ตอบถูก ${weakPct}% — ซ้อมเสริม`}
+                title={
+                  weakTopicMeta
+                    ? `จุดอ่อนสุด: ${weakTopicMeta.label} (ตอบถูก ${weakPct}%)`
+                    : `90 วันล่าสุด ตอบถูก ${weakPct}% — ซ้อมเสริม`
+                }
               >
                 <div className="icon">⚠️</div>
                 <div className="title">จุดอ่อน</div>
-                <div className="sub">{weakSubjMeta.name} · ตอบถูก {weakPct}%</div>
+                <div className="sub">
+                  {weakTopicMeta ? (() => {
+                    const cleaned = weakTopicMeta.label.replace(/^[\d\s.·\-]+/, '').trim();
+                    const label = cleaned.length > 24 ? `${cleaned.slice(0, 24)}…` : cleaned;
+                    return `${weakSubjMeta.name} · ${label}`;
+                  })() : `${weakSubjMeta.name} · ${weakPct}% ถูก`}
+                </div>
                 <div className="badge" style={{ background: 'var(--clr-gold)' }}>SMART</div>
               </button>
             )}
 
-            {/* Smart: ทำซ้ำ — last subject from history (any year-aligned) */}
+            {/* Smart: ทำซ้ำ — full restore from vmx-last-session-config when
+                available (mode + subject + topic + numQuestions + timer).
+                Falls back to history-derived subject-only mode for users
+                who took exams before the snapshot existed. */}
             {lastSubj && lastSubjMeta && lastSubj !== nextExam?.subject && lastSubj !== weakSubj && (
               <button
                 className="vmx-mode-card"
                 onClick={() => {
-                  setMode('quick');
-                  setSubject && setSubject(lastSubj);
-                  setPracticeMode && setPracticeMode('all');
+                  if (lastSession) {
+                    if (setMode) setMode(lastSession.mode || 'quick');
+                    if (setSubject) setSubject(lastSession.subject);
+                    if (setTopic) setTopic(lastSession.topic || null);
+                    if (setPracticeMode) setPracticeMode(lastSession.practiceMode || 'all');
+                    if (setNumQuestions && lastSession.numQuestions) setNumQuestions(lastSession.numQuestions);
+                    if (setUseTimer && typeof lastSession.useTimer === 'boolean') setUseTimer(lastSession.useTimer);
+                    if (setTimePerQ && lastSession.timePerQ) setTimePerQ(lastSession.timePerQ);
+                  } else {
+                    setMode('quick');
+                    setSubject && setSubject(lastSubj);
+                    if (setTopic) setTopic(null);
+                    setPracticeMode && setPracticeMode('all');
+                  }
                   setView('config');
                 }}
                 style={{ borderColor: 'var(--clr-ocean)' }}
-                title="ทำซ้ำวิชาที่ซ้อมล่าสุด"
+                title={
+                  lastSession?.score
+                    ? `ครั้งที่แล้วตอบถูก ${lastSession.score.pct}% (${lastSession.score.correct}/${lastSession.score.total})`
+                    : 'ทำซ้ำวิชาที่ซ้อมล่าสุด'
+                }
               >
                 <div className="icon">🔁</div>
-                <div className="title">ทำซ้ำวิชาล่าสุด</div>
-                <div className="sub">{lastSubjMeta.name}</div>
+                <div className="title">ทำซ้ำ</div>
+                <div className="sub">
+                  {lastSubjMeta.name}
+                  {lastSession?.score && ` · ${lastSession.score.pct}% ครั้งก่อน`}
+                </div>
                 <div className="badge" style={{ background: 'var(--clr-ocean)' }}>SMART</div>
               </button>
             )}
@@ -800,14 +875,13 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
             key={s.id}
             className="vmx-subject-card"
             onClick={() => onPick && onPick(s)}
-            disabled={isEmpty}
             style={{
-              opacity: isEmpty ? 0.45 : (isScaffold ? 0.7 : 1),
-              cursor: isEmpty ? 'not-allowed' : 'pointer',
+              opacity: isEmpty ? 0.6 : (isScaffold ? 0.7 : 1),
+              cursor: 'pointer',
             }}
             title={
               isScaffold ? 'คลิกเพื่อช่วยเติมเนื้อหา (ส่ง slide/notes/past paper)'
-              : isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้'
+              : isEmpty ? 'ยังไม่มีข้อสอบ — คลิกเพื่อขอเพิ่มเนื้อหา'
               : ''
             }
           >
@@ -886,6 +960,143 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
           </button>
         );
       })}
+    </div>
+  );
+}
+
+// ── Onboarding Tour ─────────────────────────────────────────────
+// First-visit walkthrough — 3 steps explaining the layout. Dismissible
+// at any step (saves to localStorage so it never shows again on this
+// browser). Modal overlay; doesn't block JS but visually blocks clicks
+// behind it via backdrop.
+function OnboardingTour({ step, onNext, onDismiss }) {
+  const steps = [
+    {
+      icon: '👋',
+      title: 'ยินดีต้อนรับสู่ VetMock',
+      body: 'คลังข้อสอบ + Notes + คลิป สำหรับสัตวแพทย์จุฬา ทุกชั้นปี\nค่อย ๆ พาทัวร์ 3 จุดสำคัญก่อนเริ่มใช้',
+      cta: 'ถัดไป →',
+    },
+    {
+      icon: '📚',
+      title: 'เริ่มจาก "เลือกวิชา"',
+      body: 'หน้าแรกจะแสดงวิชาในปีของคุณ\nคลิกวิชาไหน → จะเข้าหน้าเลือกหัวข้อ + ปุ่มฝึกซ้อม / สอบจริง / Notes / คลิป\n\nวิชาที่ยังไม่มีเนื้อหา (PREVIEW) คลิกได้ — จะพาไปแบบฟอร์มขอเพิ่มข้อสอบ',
+      cta: 'ถัดไป →',
+    },
+    {
+      icon: '🎯',
+      title: 'Smart Presets ดูจาก progress',
+      body: 'เมื่อใช้ไปสักพัก ระบบจะแสดง smart cards ให้:\n• 📅 ใกล้สอบ — ซ้อมวิชาที่กำลังจะสอบ\n• ⚠️ จุดอ่อน — ซ้อมวิชา/หัวข้อที่ตอบผิดบ่อย\n• 🔁 ทำซ้ำ — config ของ session ล่าสุด\n\nไม่ต้องไป config เอง',
+      cta: 'ถัดไป →',
+    },
+    {
+      icon: '🎓',
+      title: 'Header อยู่ทุกหน้า',
+      body: '🎓 ปี ▾ — สลับชั้นปีได้ตลอด\n🔍 ⌘K — ค้นหาเร็ว\n📊 — Analytics\n🔖 — Bookmarks\n🌙 — สลับโหมดมืด/สว่าง\n\nลุยเลย!',
+      cta: 'เริ่มใช้',
+    },
+  ];
+
+  const current = steps[step] || steps[0];
+  const isLast = step >= steps.length - 1;
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={current.title}
+      onClick={onDismiss}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 1200,
+        background: 'rgba(0, 0, 0, 0.45)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 16,
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: 'var(--clr-bg)',
+          border: '1px solid var(--clr-border)',
+          borderRadius: 16,
+          padding: 28,
+          maxWidth: 460,
+          width: '100%',
+          boxShadow: '0 12px 40px rgba(0, 0, 0, 0.18)',
+          position: 'relative',
+        }}
+      >
+        <button
+          type="button"
+          aria-label="ข้าม onboarding"
+          onClick={onDismiss}
+          style={{
+            position: 'absolute',
+            top: 12,
+            right: 12,
+            background: 'transparent',
+            border: 'none',
+            fontSize: 18,
+            color: 'var(--clr-ink-soft)',
+            cursor: 'pointer',
+            padding: 4,
+            lineHeight: 1,
+          }}
+          title="ข้าม"
+        >×</button>
+
+        <div style={{ fontSize: 44, lineHeight: 1, marginBottom: 12 }}>{current.icon}</div>
+        <h2 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, margin: '0 0 10px', lineHeight: 1.2 }}>
+          {current.title}
+        </h2>
+        <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)', whiteSpace: 'pre-line', marginBottom: 18 }}>
+          {current.body}
+        </div>
+
+        {/* Dots indicator */}
+        <div style={{ display: 'flex', gap: 6, marginBottom: 18 }}>
+          {steps.map((_, i) => (
+            <span
+              key={i}
+              style={{
+                width: i === step ? 18 : 8,
+                height: 8,
+                borderRadius: 8,
+                background: i === step ? 'var(--clr-sage)' : 'var(--clr-border)',
+                transition: 'all 0.2s',
+              }}
+            />
+          ))}
+        </div>
+
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            onClick={onDismiss}
+            style={{
+              all: 'unset',
+              cursor: 'pointer',
+              fontSize: 12,
+              color: 'var(--clr-ink-soft)',
+              fontFamily: 'JetBrains Mono, monospace',
+            }}
+          >
+            ข้าม
+          </button>
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-primary"
+            onClick={isLast ? onDismiss : onNext}
+            style={{ background: 'var(--clr-sage)', borderColor: 'var(--clr-sage)' }}
+          >
+            {current.cta}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
