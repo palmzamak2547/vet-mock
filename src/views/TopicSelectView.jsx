@@ -8,7 +8,7 @@ import BackBar from '../components/BackBar.jsx';
 // without ever opening this, so we keep it out of the main bundle.
 const InstructorModal = lazy(() => import('../components/InstructorModal.jsx'));
 
-export default function TopicSelectView({ subject, setTopic, setView, goHome, mode, customQuestions = [], readingChecklist = {} }) {
+export default function TopicSelectView({ subject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {} }) {
   const [openInstructor, setOpenInstructor] = useState(null);
 
   // Open instructor profile by lecturer string. Looks up via the
@@ -98,10 +98,66 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
         )}
       </div>
 
+      {/* PRIMARY actions — promoted to top so users see "what can I do
+          with this subject" before topic drill-down. Mirrors the home
+          mode grid pattern but scoped to this subject. */}
+      <div className="vmx-section-label">เลือกการกระทำ</div>
+      <div className="vmx-mode-grid" style={{ marginBottom: 20 }}>
+        <button
+          className="vmx-mode-card"
+          onClick={() => {
+            if (setMode) setMode('quick');
+            setTopic(null);
+            setView('config');
+          }}
+          style={{ borderColor: subjectMeta?.color }}
+        >
+          <div className="icon">📝</div>
+          <div className="title">ฝึกซ้อม</div>
+          <div className="sub">สุ่ม {countFor('all')} ข้อในวิชานี้ · ปรับจำนวน/เวลาได้</div>
+        </button>
+
+        <button
+          className="vmx-mode-card"
+          onClick={() => {
+            if (setMode) setMode('exam');
+            if (setNumQuestions) setNumQuestions(50);
+            if (setUseTimer) setUseTimer(true);
+            if (setTimePerQ) setTimePerQ(60);
+            setTopic(null);
+            setView('config');
+          }}
+          style={{ borderColor: subjectMeta?.color }}
+        >
+          <div className="icon">🎓</div>
+          <div className="title">สอบจริง</div>
+          <div className="sub">50 ข้อ × 60 วิ · เลียนข้อสอบจริง</div>
+        </button>
+
+        <button
+          className="vmx-mode-card"
+          onClick={() => setView('notes')}
+        >
+          <div className="icon">📖</div>
+          <div className="title">Notes / สรุป</div>
+          <div className="sub">อ่าน slide สรุป · อ้างอิง slide จริง</div>
+        </button>
+
+        <button
+          className="vmx-mode-card"
+          onClick={() => setView('videos')}
+        >
+          <div className="icon">🎥</div>
+          <div className="title">คลิปย้อนหลัง</div>
+          <div className="sub">Video library · YouTube playlist</div>
+        </button>
+      </div>
+
       {subjectMeta?.examFormat && (
         <ExamFormatBanner format={subjectMeta.examFormat} accent={subjectMeta.color} />
       )}
 
+      <div className="vmx-section-label">หรือเลือกหัวข้อเฉพาะ</div>
       <div className="vmx-subject-grid">
         {/* All-topics card */}
         <button
@@ -225,11 +281,9 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
         })}
       </div>
 
-      <div className="vmx-btn-row">
-        <button className="vmx-btn vmx-btn-primary" onClick={() => setView('notes')}>📖 ทวนเนื้อหา</button>
-        <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('videos')}>🎥 คลิป</button>
-        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
-      </div>
+      {/* Bottom-row buttons removed — Notes/Videos moved to top action
+          panel; "หน้าแรก" available via BackBar. Saves vertical space
+          on long subjects (cliapprum has ~30 topic cards). */}
 
       {openInstructor && (
         <Suspense fallback={null}>

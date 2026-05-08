@@ -297,10 +297,14 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
       <SubjectGrid
         subjects={SUBJECTS_BY_YEAR[selectedYear] || []}
         questions={[...QB, ...(customQuestions || [])]}
+        readingChecklist={readingChecklist}
+        bookmarks={bookmarks}
         onPick={(s) => {
           if (s.scaffold) {
-            // Scaffold subjects have no Qs/topics yet — just no-op
-            // (could open a "subscribe for updates" modal later)
+            // Scaffold subjects: route to feedback so users can contribute
+            // notes/slides/past papers for this exact subject. Better than
+            // a dead-end click — turns "🚧 รอเติม" into an actionable CTA.
+            setView('feedback');
             return;
           }
           setSubject && setSubject(s.id);
@@ -360,38 +364,66 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         </>
       )}
 
-      {/* TERTIARY: Year tools — schedule, scores, reading, videos, analytics */}
+      {/* TERTIARY: Year tools — schedule/scores/reading/videos disabled on
+          scaffold years (data is year-scoped + empty). Analytics stays
+          since it's cross-year. Adds a contribute CTA on scaffold years. */}
       <div className="vmx-section-label" style={{ marginTop: 28 }}>เครื่องมือ{yearMeta?.label || 'ปี 4'}</div>
       <div className="vmx-mode-grid">
-        <button className="vmx-mode-card" onClick={() => setView('schedule')}>
+        <button
+          className="vmx-mode-card"
+          onClick={() => !isScaffoldYear && setView('schedule')}
+          disabled={isScaffoldYear}
+          style={{ opacity: isScaffoldYear ? 0.45 : 1, cursor: isScaffoldYear ? 'not-allowed' : 'pointer' }}
+          title={isScaffoldYear ? 'ยังไม่มีตารางสำหรับปีนี้' : ''}
+        >
           <div className="icon">📅</div>
           <div className="title">ตารางสอบ</div>
           <div className="sub">
-            {isScaffoldYear ? 'ยังไม่มีตาราง · ดูปี 4 ได้' : 'Final exam schedule'}
+            {isScaffoldYear ? '🚧 ยังไม่มีตาราง' : 'Final exam schedule'}
           </div>
         </button>
 
-        <button className="vmx-mode-card" onClick={() => setView('reading-checklist')} style={{ borderColor: readingDone > 0 ? 'var(--clr-gold)' : undefined }}>
+        <button
+          className="vmx-mode-card"
+          onClick={() => !isScaffoldYear && setView('reading-checklist')}
+          disabled={isScaffoldYear}
+          style={{
+            opacity: isScaffoldYear ? 0.45 : 1,
+            cursor: isScaffoldYear ? 'not-allowed' : 'pointer',
+            borderColor: readingDone > 0 ? 'var(--clr-gold)' : undefined,
+          }}
+          title={isScaffoldYear ? 'รายการอ่าน scaffold ปีนี้ยังว่าง' : ''}
+        >
           <div className="icon">📚</div>
           <div className="title">รายการอ่าน</div>
           <div className="sub">
-            {readingTotal > 0
-              ? `${readingDone}/${readingTotal} หัวข้อ`
-              : 'ยังไม่มีหัวข้อใน scope'}
+            {isScaffoldYear ? '🚧 ยังไม่มีหัวข้อ' : (readingTotal > 0 ? `${readingDone}/${readingTotal} หัวข้อ` : 'ยังไม่มีหัวข้อใน scope')}
           </div>
-          {readingDone > 0 && <div className="badge" style={{ background: 'var(--clr-gold)' }}>{readingDone}</div>}
+          {!isScaffoldYear && readingDone > 0 && <div className="badge" style={{ background: 'var(--clr-gold)' }}>{readingDone}</div>}
         </button>
 
-        <button className="vmx-mode-card" onClick={() => setView('scores')}>
+        <button
+          className="vmx-mode-card"
+          onClick={() => !isScaffoldYear && setView('scores')}
+          disabled={isScaffoldYear}
+          style={{ opacity: isScaffoldYear ? 0.45 : 1, cursor: isScaffoldYear ? 'not-allowed' : 'pointer' }}
+          title={isScaffoldYear ? 'สัดส่วนคะแนนของปีนี้ยังไม่มี' : ''}
+        >
           <div className="icon">💰</div>
           <div className="title">สัดส่วนคะแนน</div>
-          <div className="sub">Mid · Final · ฟรี · ทำงาน</div>
+          <div className="sub">{isScaffoldYear ? '🚧 ยังไม่มีข้อมูล' : 'Mid · Final · ฟรี · ทำงาน'}</div>
         </button>
 
-        <button className="vmx-mode-card" onClick={() => setView('videos')}>
+        <button
+          className="vmx-mode-card"
+          onClick={() => !isScaffoldYear && setView('videos')}
+          disabled={isScaffoldYear}
+          style={{ opacity: isScaffoldYear ? 0.45 : 1, cursor: isScaffoldYear ? 'not-allowed' : 'pointer' }}
+          title={isScaffoldYear ? 'ยังไม่มีคลิปสำหรับปีนี้' : ''}
+        >
           <div className="icon">🎥</div>
           <div className="title">คลิปย้อนหลัง</div>
-          <div className="sub">Video library แยกวิชา</div>
+          <div className="sub">{isScaffoldYear ? '🚧 ยังไม่มีคลิป' : 'Video library แยกวิชา'}</div>
         </button>
 
         <button className="vmx-mode-card" onClick={() => setView('dashboard')}>
@@ -399,6 +431,18 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           <div className="title">Analytics</div>
           <div className="sub">สถิติ · จุดอ่อน · ประวัติ</div>
         </button>
+
+        {isScaffoldYear && (
+          <button
+            className="vmx-mode-card"
+            onClick={() => setView('feedback')}
+            style={{ borderColor: 'var(--clr-gold)' }}
+          >
+            <div className="icon">🤝</div>
+            <div className="title">ช่วยเติมเนื้อหา</div>
+            <div className="sub">ส่ง slide / notes / past paper ของปีนี้</div>
+          </button>
+        )}
       </div>
 
       {/* Multiplayer (cross-year, account-scoped) */}
@@ -543,7 +587,7 @@ function FeedbackChip() {
 // or PREVIEW state (faculty count from vault_lecturers, course code).
 // LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
 // are visually distinct + non-interactive (subjects without Qs yet).
-function SubjectGrid({ subjects, questions, onPick }) {
+function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [], onPick }) {
   if (!subjects?.length) {
     return (
       <div style={{
@@ -559,33 +603,88 @@ function SubjectGrid({ subjects, questions, onPick }) {
     );
   }
 
+  // Pre-index Q by id + bucket bookmarks per subject. Done ONCE here so
+  // each card's lookup is O(1). Without this, the per-card .find() loops
+  // produced O(subjects × bookmarks × questions) work — ~700K ops on a
+  // user with 50 bookmarks across 8 Y4 subjects + 1700 Q bank.
+  const bookmarksBySubject = {};
+  if (Array.isArray(bookmarks) && bookmarks.length > 0) {
+    const qById = new Map();
+    for (const q of questions) qById.set(q.id, q);
+    for (const qId of bookmarks) {
+      const q = qById.get(qId);
+      if (q?.subject) bookmarksBySubject[q.subject] = (bookmarksBySubject[q.subject] || 0) + 1;
+    }
+  }
+
   return (
     <div className="vmx-subject-grid">
       {subjects.map((s) => {
         const count = visibleQuestionCount(s.id, questions);
-        const isScaffold = !!s.scaffold || count === 0;
+        // `scaffold: true` is an explicit flag for placeholder subjects.
+        // Use that as the source of truth — `count === 0` alone could
+        // misclassify a real subject that we just haven't filled with Qs.
+        const isScaffold = !!s.scaffold;
+        const isEmpty = count === 0 && !isScaffold;
+
+        // Per-subject progress (Phase 3) — readingChecklist + bookmarks
+        // are local-storage backed and cheap to compute.
+        const topics = Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden) : [];
+        const readDone = topics.filter((t) => readingChecklist[t.id]).length;
+        // O(1) lookup using bookmarksBySubject precomputed above
+        const bookmarkCount = isScaffold ? 0 : (bookmarksBySubject[s.id] || 0);
+        const readPct = topics.length > 0 ? Math.round((readDone / topics.length) * 100) : 0;
 
         return (
           <button
             key={s.id}
             className="vmx-subject-card"
             onClick={() => onPick && onPick(s)}
-            disabled={isScaffold}
+            disabled={isEmpty}
             style={{
-              opacity: isScaffold ? 0.55 : 1,
-              cursor: isScaffold ? 'not-allowed' : 'pointer',
+              opacity: isEmpty ? 0.45 : (isScaffold ? 0.7 : 1),
+              cursor: isEmpty ? 'not-allowed' : 'pointer',
             }}
-            title={isScaffold ? 'รอเติมเนื้อหา · ส่ง slide/notes มาช่วยได้' : ''}
+            title={
+              isScaffold ? 'คลิกเพื่อช่วยเติมเนื้อหา (ส่ง slide/notes/past paper)'
+              : isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้'
+              : ''
+            }
           >
             <div className="accent" style={{ background: s.color }}></div>
             <div className="icon">{s.icon}</div>
             <div className="title">{s.name}</div>
             <div className="sub">{s.name_en}</div>
-            <div className="count" style={{ color: isScaffold ? 'var(--clr-gold)' : 'var(--clr-ink-soft)' }}>
+            <div className="count" style={{ color: isScaffold ? 'var(--clr-gold)' : (isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)') }}>
               {isScaffold
                 ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? ` · ${s.vault_lecturers.length} faculty` : ''}`
-                : `${count} questions`}
+                : (isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} questions`)}
             </div>
+
+            {/* Per-subject progress chips — only when LIVE + has data */}
+            {!isScaffold && !isEmpty && (readDone > 0 || bookmarkCount > 0) && (
+              <div style={{
+                marginTop: 6,
+                display: 'flex',
+                gap: 6,
+                flexWrap: 'wrap',
+                fontSize: 10,
+                fontFamily: 'JetBrains Mono, monospace',
+                color: 'var(--clr-ink-soft)',
+              }}>
+                {readDone > 0 && (
+                  <span title={`อ่านแล้ว ${readDone}/${topics.length} หัวข้อ`}>
+                    📚 {readPct}%
+                  </span>
+                )}
+                {bookmarkCount > 0 && (
+                  <span title={`มี bookmark ${bookmarkCount} ข้อในวิชานี้`}>
+                    🔖 {bookmarkCount}
+                  </span>
+                )}
+              </div>
+            )}
+
             {s.code && (
               <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
                 {s.code}
