@@ -348,11 +348,40 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         }}
       />
 
-      {/* SECONDARY: Practice modes — cross-subject within selected year */}
+      {/* SECONDARY: Practice modes — cross-subject within selected year.
+          Smart preset 'ใกล้สอบ' surfaces ONLY when nextExam exists, jumping
+          straight to that subject's ConfigView. Saves user 2 clicks. */}
       {!isScaffoldYear && (
         <>
           <div className="vmx-section-label" style={{ marginTop: 28 }}>โหมดซ้อม</div>
           <div className="vmx-mode-grid">
+            {/* Smart preset — appears ahead of generic Quick Practice when
+                an exam is upcoming. Filters to the exam's subject + opens
+                ConfigView ready to start. */}
+            {nextExam && nextExam.subject && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 30 && (
+              <button
+                className="vmx-mode-card"
+                onClick={() => {
+                  setMode('quick');
+                  setSubject && setSubject(nextExam.subject);
+                  setPracticeMode && setPracticeMode('all');
+                  setView('config');
+                }}
+                style={{ borderColor: 'var(--clr-rose)' }}
+              >
+                <div className="icon">{nextExam.icon || '📅'}</div>
+                <div className="title">ซ้อมใกล้สอบ</div>
+                <div className="sub">
+                  {(() => {
+                    const subjMeta = SUBJECTS.find((s) => s.id === nextExam.subject);
+                    const label = subjMeta?.name || nextExam.subject;
+                    return `${label} · อีก ${nextExam.daysLeft} วันจะสอบ`;
+                  })()}
+                </div>
+                <div className="badge" style={{ background: 'var(--clr-rose)' }}>SMART</div>
+              </button>
+            )}
+
             <button className="vmx-mode-card" onClick={() => {
               setMode('quick');
               setSubject && setSubject('all');
