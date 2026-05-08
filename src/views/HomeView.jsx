@@ -110,7 +110,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         <p>
           {isScaffoldYear
             ? <>🚧 <strong>{yearMeta.label}</strong> · {yearMeta.desc} · พรีวิว — รอเติมเนื้อหา</>
-            : <>คลังข้อสอบ {totalQ} ข้อ · ปี 4 Vet 86 · By vet86 for vet86</>}
+            : <>คลังข้อสอบ <strong>{totalQ}</strong> ข้อ · {yearMeta?.label || 'ปี 4'}</>}
         </p>
         {/* Year-switcher pill removed from HomeView hero — moved to the
             global persistent App header (since 2026-05-08). One canonical
@@ -570,13 +570,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
             </button>
 
-            <button className="vmx-mode-card" onClick={() => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}>
-              <div className="icon">🔖</div>
-              <div className="title">Bookmarks</div>
-              <div className="sub">
-                {bookmarks.length > 0 ? `${bookmarks.length} ข้อที่บันทึก` : 'ยังไม่มีข้อที่บันทึก'}
-              </div>
-            </button>
           </div>
         </>
         );
@@ -644,12 +637,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           <div className="sub">{isScaffoldYear ? '🚧 ยังไม่มีคลิป' : 'Video library แยกวิชา'}</div>
         </button>
 
-        <button className="vmx-mode-card" onClick={() => setView('dashboard')}>
-          <div className="icon">📊</div>
-          <div className="title">Analytics</div>
-          <div className="sub">สถิติ · จุดอ่อน · ประวัติ</div>
-        </button>
-
         {isScaffoldYear && (
           <button
             className="vmx-mode-card"
@@ -692,56 +679,65 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </>
       )}
 
-      {/* Account / admin — cross-year */}
-      <div className="vmx-section-label" style={{ marginTop: 28 }}>เกี่ยวกับ</div>
-      <div className="vmx-mode-grid">
-        <button className="vmx-mode-card" onClick={() => setView('question-manager')}>
-          <div className="icon">➕</div>
-          <div className="title">Question Manager</div>
-          <div className="sub">เพิ่ม/แก้ข้อสอบเอง + Import/Export</div>
-        </button>
-
-        <button className="vmx-mode-card" onClick={() => setView('about')}>
-          <div className="icon">ℹ️</div>
-          <div className="title">เกี่ยวกับ VetMock</div>
-          <div className="sub">ที่มา · Credits · Tech stack</div>
-        </button>
-
-        <button className="vmx-mode-card" onClick={() => setView('feedback')} style={{ borderColor: 'var(--clr-plum)' }}>
-          <div className="icon">💌</div>
-          <div className="title">แจ้งปัญหา / เสนอแนะ</div>
-          <div className="sub">เจอ bug? อยากเสนอไอเดีย? ส่งมาเลย</div>
-        </button>
-      </div>
-
-      <div style={{ marginTop: 30, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
-        💡 ใช้ Spaced Repetition ทุกวัน วันละ 15-30 นาที จะได้ผลดีที่สุด<br/>
-        ⌨️ กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
-        🌙 สลับโหมดมืด/สว่างที่ปุ่มขวาบน
-      </div>
-
-      {/* If user dismissed announcement, give them a way to re-open it */}
-      {!showAnnouncement && LATEST_CHANGELOG && (
-        <div style={{ marginTop: 12, textAlign: 'right' }}>
-          <button
-            type="button"
-            onClick={() => setLastSeenChangelog(null)}
-            style={{
-              all: 'unset',
-              cursor: 'pointer',
-              fontSize: 11,
-              color: 'var(--clr-ink-soft)',
-              fontFamily: 'JetBrains Mono, monospace',
-              textDecoration: 'underline',
-            }}
-          >
-            🔔 ดูสิ่งที่อัปเดตล่าสุด ({LATEST_CHANGELOG.version})
-          </button>
+      {/* Tips footer — only for first-time users (pre-onboarding-dismiss).
+          Returning users have absorbed these already; hiding declutters
+          the home view. Onboarding tour now covers the keyboard shortcuts
+          + dark mode tips on first visit. */}
+      {!onboardingSeen && (
+        <div style={{ marginTop: 30, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
+          💡 ใช้ Spaced Repetition ทุกวัน วันละ 15-30 นาที จะได้ผลดีที่สุด<br/>
+          ⌨️ กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
+          🌙 สลับโหมดมืด/สว่างที่ปุ่มขวาบน
         </div>
       )}
+
+      {/* Bottom strip — about / feedback / Q manager / changelog re-open
+          all consolidated as small text links. They're rarely-used utility
+          actions that don't deserve full mode-card real estate. */}
+      <div style={{
+        marginTop: 36,
+        paddingTop: 18,
+        borderTop: '1px dashed var(--clr-border)',
+        display: 'flex',
+        gap: 18,
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        fontSize: 12,
+        fontFamily: 'JetBrains Mono, monospace',
+        color: 'var(--clr-ink-soft)',
+      }}>
+        <button type="button" onClick={() => setView('about')} style={linkStyle}>
+          ℹ️ เกี่ยวกับ
+        </button>
+        <button type="button" onClick={() => setView('feedback')} style={linkStyle}>
+          💌 แจ้งปัญหา / ขอเนื้อหา
+        </button>
+        <button type="button" onClick={() => setView('question-manager')} style={linkStyle}>
+          ➕ เพิ่ม/แก้ข้อสอบเอง
+        </button>
+        {!showAnnouncement && LATEST_CHANGELOG && (
+          <button type="button" onClick={() => setLastSeenChangelog(null)} style={linkStyle}>
+            🔔 อัปเดตล่าสุด ({LATEST_CHANGELOG.version})
+          </button>
+        )}
+      </div>
     </>
   );
 }
+
+// Compact link style — used in the bottom strip for utility actions
+// (about, feedback, Q manager, changelog re-open). Not a button visually,
+// but still keyboard-focusable + click-target sized.
+const linkStyle = {
+  background: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  fontSize: 'inherit',
+  fontFamily: 'inherit',
+  color: 'var(--clr-ink-soft)',
+  padding: '4px 8px',
+  borderRadius: 6,
+};
 
 // ── Scope chip (วิชา / ระบบ) — inline, before the title ─────────
 function ScopeChip({ scope }) {
