@@ -70,7 +70,7 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
 
   return (
     <>
-      <BackBar onBack={() => setView('subject-select')} label="เลือกวิชาอื่น" subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
+      <BackBar onBack={goHome} label="หน้าแรก" subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
       <div className="vmx-hero">
         <h1>เลือก <em>หัวข้อ</em></h1>
         <p>{subjectMeta?.icon} {subjectMeta?.name} · เลือกเฉพาะหัวข้อที่จะสอบ หรือทั้งหมดก็ได้</p>
@@ -226,9 +226,9 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
       </div>
 
       <div className="vmx-btn-row">
-        <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('subject-select')}>← ย้อนกลับ</button>
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('notes')}>📖 ทวนเนื้อหา</button>
-        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>หน้าแรก</button>
+        <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('videos')}>🎥 คลิป</button>
+        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
       </div>
 
       {openInstructor && (

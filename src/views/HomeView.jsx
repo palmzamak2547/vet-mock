@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
-import { SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR } from '../data/curriculum.js';
+import { SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 
@@ -292,71 +292,92 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         </div>
       )}
 
-      {isScaffoldYear ? (
-        <ScaffoldYearPreview
-          yearMeta={yearMeta}
-          subjects={SUBJECTS_BY_YEAR[selectedYear] || []}
-          onBackToY4={() => { setSelectedYear && setSelectedYear(4); }}
-          onPickSubject={(s) => { setSubject && setSubject(s.id); setView('subject-select'); }}
-        />
-      ) : (
+      {/* PRIMARY: Subject Grid — natural mental model is "I want to study X subject" */}
+      <div className="vmx-section-label">วิชาใน{yearMeta?.label || 'ปี 4'}</div>
+      <SubjectGrid
+        subjects={SUBJECTS_BY_YEAR[selectedYear] || []}
+        questions={[...QB, ...(customQuestions || [])]}
+        onPick={(s) => {
+          if (s.scaffold) {
+            // Scaffold subjects have no Qs/topics yet — just no-op
+            // (could open a "subscribe for updates" modal later)
+            return;
+          }
+          setSubject && setSubject(s.id);
+          setView('topic-select');
+        }}
+      />
+
+      {/* SECONDARY: Practice modes — cross-subject within selected year */}
+      {!isScaffoldYear && (
         <>
-      <div className="vmx-section-label">โหมดการเรียน</div>
-      <div className="vmx-mode-grid">
-        <button className="vmx-mode-card" onClick={() => { setMode('quick'); setView('subject-select'); }}>
-          <div className="icon">📝</div>
-          <div className="title">Quick Practice</div>
-          <div className="sub">สุ่มข้อสอบ 5-50 ข้อ พร้อมจับเวลา</div>
-        </button>
+          <div className="vmx-section-label" style={{ marginTop: 28 }}>โหมดซ้อม</div>
+          <div className="vmx-mode-grid">
+            <button className="vmx-mode-card" onClick={() => {
+              setMode('quick');
+              setSubject && setSubject('all');
+              setPracticeMode && setPracticeMode('all');
+              setView('config');
+            }}>
+              <div className="icon">📝</div>
+              <div className="title">Quick Practice</div>
+              <div className="sub">สุ่มข้อทุกวิชา · 5-50 ข้อ</div>
+            </button>
 
-        <button className="vmx-mode-card" onClick={() => {
-          setMode('exam');
-          if (setNumQuestions) setNumQuestions(50);
-          if (setUseTimer) setUseTimer(true);
-          if (setTimePerQ) setTimePerQ(60);
-          setView('subject-select');
-        }}>
-          <div className="icon">🎓</div>
-          <div className="title">Exam Mode</div>
-          <div className="sub">เริ่มต้น 50 ข้อ × 60 วิ (ปรับได้)</div>
-        </button>
+            <button className="vmx-mode-card" onClick={() => {
+              setMode('exam');
+              setSubject && setSubject('all');
+              setPracticeMode && setPracticeMode('all');
+              if (setNumQuestions) setNumQuestions(50);
+              if (setUseTimer) setUseTimer(true);
+              if (setTimePerQ) setTimePerQ(60);
+              setView('config');
+            }}>
+              <div className="icon">🎓</div>
+              <div className="title">Exam Mode</div>
+              <div className="sub">50 ข้อ × 60 วิ · เลียนข้อสอบจริง</div>
+            </button>
 
-        <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>
-          <div className="icon">🧠</div>
-          <div className="title">Spaced Repetition</div>
-          <div className="sub">
-            {cardStats.due > 0
-              // Rough estimate: ~1 min/card (read stem + grade self-assess +
-              // pause on confusing ones). Round up to nearest 5 for honesty.
-              ? `${cardStats.due} ข้อที่ต้องทบทวนวันนี้ · ≈ ${Math.max(5, Math.ceil(cardStats.due / 5) * 5)} นาที`
-              : 'ทบทวนแบบ Anki'}
+            <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>
+              <div className="icon">🧠</div>
+              <div className="title">Spaced Repetition</div>
+              <div className="sub">
+                {cardStats.due > 0
+                  ? `${cardStats.due} ข้อทบทวนวันนี้ · ≈ ${Math.max(5, Math.ceil(cardStats.due / 5) * 5)} นาที`
+                  : 'ทบทวนแบบ Anki'}
+              </div>
+              {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
+            </button>
+
+            <button className="vmx-mode-card" onClick={() => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}>
+              <div className="icon">🔖</div>
+              <div className="title">Bookmarks</div>
+              <div className="sub">
+                {bookmarks.length > 0 ? `${bookmarks.length} ข้อที่บันทึก` : 'ยังไม่มีข้อที่บันทึก'}
+              </div>
+            </button>
           </div>
-          {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
-        </button>
+        </>
+      )}
 
+      {/* TERTIARY: Year tools — schedule, scores, reading, videos, analytics */}
+      <div className="vmx-section-label" style={{ marginTop: 28 }}>เครื่องมือ{yearMeta?.label || 'ปี 4'}</div>
+      <div className="vmx-mode-grid">
         <button className="vmx-mode-card" onClick={() => setView('schedule')}>
           <div className="icon">📅</div>
           <div className="title">ตารางสอบ</div>
           <div className="sub">
-            {selectedYear === 4
-              ? 'Final Exam Schedule · ปี 4'
-              : `ปี ${selectedYear} · ${isScaffoldYear ? 'ยังไม่มีตาราง · ดูปี 4 ได้' : 'Schedule'}`}
+            {isScaffoldYear ? 'ยังไม่มีตาราง · ดูปี 4 ได้' : 'Final exam schedule'}
           </div>
         </button>
 
-        <button className="vmx-mode-card" onClick={() => { setSubject && setSubject('com5'); setView('notes'); }} style={{ borderColor: 'var(--clr-sage)' }}>
-          <div className="icon">📖</div>
-          <div className="title">ทวนเนื้อหา</div>
-          <div className="sub">Study notes อ้างอิง slide จริง · COM III + COM IV + COM V</div>
-        </button>
-
-        <button className="vmx-mode-card" onClick={() => setView('reading-checklist')} style={{ borderColor: 'var(--clr-gold)' }}>
+        <button className="vmx-mode-card" onClick={() => setView('reading-checklist')} style={{ borderColor: readingDone > 0 ? 'var(--clr-gold)' : undefined }}>
           <div className="icon">📚</div>
           <div className="title">รายการอ่าน</div>
           <div className="sub">
             {readingTotal > 0
-              ? `${readingDone}/${readingTotal} หัวข้อ · ติ๊กที่อ่านเสร็จแล้ว`
-              : 'ติ๊กหัวข้อที่อ่านเสร็จแล้ว — track progress'}
+              ? `${readingDone}/${readingTotal} หัวข้อ`
+              : 'ยังไม่มีหัวข้อใน scope'}
           </div>
           {readingDone > 0 && <div className="badge" style={{ background: 'var(--clr-gold)' }}>{readingDone}</div>}
         </button>
@@ -364,39 +385,26 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         <button className="vmx-mode-card" onClick={() => setView('scores')}>
           <div className="icon">💰</div>
           <div className="title">สัดส่วนคะแนน</div>
-          <div className="sub">Mid · Final · ฟรี · ทำงาน — แต่ละวิชา</div>
+          <div className="sub">Mid · Final · ฟรี · ทำงาน</div>
         </button>
 
         <button className="vmx-mode-card" onClick={() => setView('videos')}>
           <div className="icon">🎥</div>
           <div className="title">คลิปย้อนหลัง</div>
-          <div className="sub">Video library จาก YouTube แยกวิชา</div>
+          <div className="sub">Video library แยกวิชา</div>
         </button>
 
         <button className="vmx-mode-card" onClick={() => setView('dashboard')}>
           <div className="icon">📊</div>
           <div className="title">Analytics</div>
-          <div className="sub">ดูสถิติ จุดอ่อน และประวัติ</div>
-        </button>
-
-        <button className="vmx-mode-card" onClick={() => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}>
-          <div className="icon">🔖</div>
-          <div className="title">Bookmarks</div>
-          <div className="sub">
-            {bookmarks.length > 0 ? `${bookmarks.length} ข้อที่บันทึก` : 'ยังไม่มีข้อที่บันทึก'}
-          </div>
-        </button>
-
-        <button className="vmx-mode-card" onClick={() => setView('question-manager')}>
-          <div className="icon">➕</div>
-          <div className="title">Question Manager</div>
-          <div className="sub">เพิ่ม/แก้ไขข้อสอบเอง + Import/Export</div>
+          <div className="sub">สถิติ · จุดอ่อน · ประวัติ</div>
         </button>
       </div>
 
+      {/* Multiplayer (cross-year, account-scoped) */}
       {hasSupabase && (
         <>
-          <div className="vmx-section-label">Multiplayer {!user && '(ต้อง login)'}</div>
+          <div className="vmx-section-label" style={{ marginTop: 28 }}>Multiplayer {!user && '(ต้อง login)'}</div>
           <div className="vmx-mode-grid">
             {user ? (
               <>
@@ -422,18 +430,19 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         </>
       )}
 
-      <div className="vmx-section-label">เพิ่มเติม</div>
+      {/* Account / admin — cross-year */}
+      <div className="vmx-section-label" style={{ marginTop: 28 }}>เกี่ยวกับ</div>
       <div className="vmx-mode-grid">
-        <button className="vmx-mode-card" onClick={() => setView('year-select')}>
-          <div className="icon">🎓</div>
-          <div className="title">เลือกชั้นปี</div>
-          <div className="sub">ครบ 6 ปีแล้ว · ปี 4 เปิดเต็ม · ปี 1-3, 5-6 พรีวิว</div>
+        <button className="vmx-mode-card" onClick={() => setView('question-manager')}>
+          <div className="icon">➕</div>
+          <div className="title">Question Manager</div>
+          <div className="sub">เพิ่ม/แก้ข้อสอบเอง + Import/Export</div>
         </button>
 
         <button className="vmx-mode-card" onClick={() => setView('about')}>
           <div className="icon">ℹ️</div>
           <div className="title">เกี่ยวกับ VetMock</div>
-          <div className="sub">ที่มาของข้อสอบ · Credits · Tech stack</div>
+          <div className="sub">ที่มา · Credits · Tech stack</div>
         </button>
 
         <button className="vmx-mode-card" onClick={() => setView('feedback')} style={{ borderColor: 'var(--clr-plum)' }}>
@@ -448,8 +457,6 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         ⌨️ กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
         🌙 สลับโหมดมืด/สว่างที่ปุ่มขวาบน
       </div>
-        </>
-      )}
 
       {/* If user dismissed announcement, give them a way to re-open it */}
       {!showAnnouncement && LATEST_CHANGELOG && (
@@ -530,103 +537,80 @@ function FeedbackChip() {
   );
 }
 
-// ── Scaffold Year Preview ─────────────────────────────────────
-// Shown on HomeView when user picks a non-Y4 (scaffold) year. Replaces
-// the full mode grid with a focused "what's coming" view so users don't
-// hit dead-ends like Exam Mode → all subjects greyed.
-function ScaffoldYearPreview({ yearMeta, subjects, onBackToY4, onPickSubject }) {
-  const totalLecturers = subjects.reduce((acc, s) => acc + (s.vault_lecturers?.length || 0), 0);
-  const phase = yearMeta.desc;
-
-  return (
-    <>
+// ── Subject Grid ──────────────────────────────────────────────
+// Primary content of HomeView (across all years). Each card represents
+// a subject in the current year, with LIVE state (counts, exam format)
+// or PREVIEW state (faculty count from vault_lecturers, course code).
+// LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
+// are visually distinct + non-interactive (subjects without Qs yet).
+function SubjectGrid({ subjects, questions, onPick }) {
+  if (!subjects?.length) {
+    return (
       <div style={{
-        marginTop: 8,
-        padding: 24,
-        borderRadius: 16,
-        background: 'rgba(184, 137, 64, 0.06)',
-        border: '2px dashed var(--clr-gold)',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8, flexWrap: 'wrap' }}>
-          <div style={{ fontSize: 32 }}>🚧</div>
-          <div>
-            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, lineHeight: 1.2 }}>
-              {yearMeta.label} · {phase}
-            </div>
-            <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-              วางโครง {subjects.length} วิชา · faculty {totalLecturers} คน · ค่อย ๆ เติม Q + notes ปิดเทอม
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="vmx-section-label" style={{ marginTop: 24 }}>วิชาที่วางโครงไว้</div>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-        gap: 12,
-      }}>
-        {subjects.map((s) => (
-          <button
-            key={s.id}
-            onClick={() => onPickSubject && onPickSubject(s)}
-            className="vmx-mode-card"
-            style={{
-              textAlign: 'left',
-              padding: 14,
-              cursor: 'pointer',
-              opacity: 0.85,
-            }}
-            title="คลิกดูรายละเอียดวิชา"
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <div style={{ fontSize: 24 }}>{s.icon}</div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, lineHeight: 1.25 }}>
-                  {s.name}
-                </div>
-                <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-                  {s.name_en}
-                </div>
-              </div>
-            </div>
-            <div style={{
-              marginTop: 10,
-              display: 'flex',
-              gap: 6,
-              flexWrap: 'wrap',
-              fontSize: 10,
-              fontFamily: 'JetBrains Mono, monospace',
-              color: 'var(--clr-ink-soft)',
-            }}>
-              {s.code && <span>{s.code}</span>}
-              {s.vault_lecturers?.length > 0 && (
-                <span>· {s.vault_lecturers.length} faculty</span>
-              )}
-            </div>
-          </button>
-        ))}
-      </div>
-
-      <div style={{
-        marginTop: 24,
-        padding: 16,
+        padding: 20,
         borderRadius: 12,
         background: 'var(--clr-surface-2)',
         fontSize: 13,
         color: 'var(--clr-ink-soft)',
-        lineHeight: 1.7,
+        textAlign: 'center',
       }}>
-        🤝 อยากช่วยเติมเนื้อหา? ส่ง slide / notes / ข้อสอบเก่า ทาง <strong>แจ้งปัญหา</strong> ใน footer ได้เลย<br/>
-        📅 ทยอยเปิดทีละวิชาช่วงปิดเทอม พ.ค.–ก.ย. 2026
+        ยังไม่มีวิชาในปีนี้ — กลับไปเลือกปีอื่นได้
       </div>
+    );
+  }
 
-      <div className="vmx-btn-row" style={{ marginTop: 24 }}>
-        <button className="vmx-btn vmx-btn-primary" onClick={onBackToY4}>
-          ← กลับไปปี 4 (เปิดเต็ม)
-        </button>
-      </div>
-    </>
+  return (
+    <div className="vmx-subject-grid">
+      {subjects.map((s) => {
+        const count = visibleQuestionCount(s.id, questions);
+        const isScaffold = !!s.scaffold || count === 0;
+
+        return (
+          <button
+            key={s.id}
+            className="vmx-subject-card"
+            onClick={() => onPick && onPick(s)}
+            disabled={isScaffold}
+            style={{
+              opacity: isScaffold ? 0.55 : 1,
+              cursor: isScaffold ? 'not-allowed' : 'pointer',
+            }}
+            title={isScaffold ? 'รอเติมเนื้อหา · ส่ง slide/notes มาช่วยได้' : ''}
+          >
+            <div className="accent" style={{ background: s.color }}></div>
+            <div className="icon">{s.icon}</div>
+            <div className="title">{s.name}</div>
+            <div className="sub">{s.name_en}</div>
+            <div className="count" style={{ color: isScaffold ? 'var(--clr-gold)' : 'var(--clr-ink-soft)' }}>
+              {isScaffold
+                ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? ` · ${s.vault_lecturers.length} faculty` : ''}`
+                : `${count} questions`}
+            </div>
+            {s.code && (
+              <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
+                {s.code}
+              </div>
+            )}
+            {s.examFormat && !isScaffold && (
+              <div style={{
+                marginTop: 6,
+                padding: '3px 8px',
+                borderRadius: 999,
+                background: 'var(--clr-surface-2)',
+                fontSize: 10,
+                fontFamily: 'JetBrains Mono, monospace',
+                color: 'var(--clr-ink-soft)',
+                display: 'inline-block',
+                letterSpacing: '0.05em',
+              }}>
+                📝 {s.examFormat.weight}
+                {s.examFormat.choiceCount && ` · ${s.examFormat.choiceCount} ช้อยส์`}
+              </div>
+            )}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
