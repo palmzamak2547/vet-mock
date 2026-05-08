@@ -111,11 +111,27 @@ export default function App() {
   // view is AuthView (which then enters mode='update-password' from the
   // same query param). Without this, clicking the email link drops the
   // user on the home page and the recovery form is never shown.
+  //
+  // Year-select front-door (since 2026-05-08 6-year scaffold): if the
+  // user has never picked a year (no `vmx-selected-year` in localStorage),
+  // show YearSelectView first instead of dropping them on Y4 by default.
+  // Returning users with a remembered pick land directly on HomeView for
+  // their year. The pick is read SYNCHRONOUSLY here (not via the hook)
+  // because useLocalStorage's useEffect hydrates the key on first mount,
+  // which would erase the "absent" signal.
   const initialView = (() => {
     if (typeof window === 'undefined') return 'home';
     try {
       const params = new URLSearchParams(window.location.search);
       if (params.get('auth') === 'reset') return 'auth';
+    } catch {}
+    try {
+      // Parse the stored value — `null` is a valid serialized state
+      // meaning "user hasn't picked yet". `getItem` only returns raw
+      // null when the key is absent, so distinguish via JSON.parse.
+      const raw = window.localStorage.getItem('vmx-selected-year');
+      const parsed = raw === null ? null : JSON.parse(raw);
+      if (parsed === null) return 'year-select';
     } catch {}
     return 'home';
   })();
@@ -126,7 +142,15 @@ export default function App() {
   const [topic, setTopic] = useState(null);
   const [practiceMode, setPracticeMode] = useState('all');
   const [activeGroup, setActiveGroup] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(CURRENT_YEAR);
+  // selectedYear persists in localStorage. Fallback `null` means "user
+  // hasn't picked yet" — the year-select front door above keys off this.
+  // useLocalStorage will write `null` back on first mount (which serializes
+  // as the string 'null'); the IIFE above parses that correctly so user
+  // keeps seeing year-select until they actively pick a year.
+  const [selectedYearStored, setSelectedYear] = useLocalStorage('vmx-selected-year', null);
+  // Components expect a number — fall back to CURRENT_YEAR when null so
+  // HomeView/etc. don't crash if the user somehow lands there pre-pick.
+  const selectedYear = selectedYearStored ?? CURRENT_YEAR;
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [openInstructor, setOpenInstructor] = useState(null);
 
@@ -737,7 +761,7 @@ export default function App() {
               {view === 'about' && <AboutView {...{ goHome, setView }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
-              {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView }} />}
+              {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView, firstTime: selectedYearStored === null }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView {...{ user, goHome, onSignedOut: goHome }} />}
