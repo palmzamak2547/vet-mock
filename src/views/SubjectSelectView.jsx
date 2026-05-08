@@ -72,10 +72,8 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 setView(hasTopics ? 'topic-select' : 'config');
               }}
               style={{
-                opacity: isEmpty ? 0.55 : 1,
+                opacity: isEmpty ? 0.5 : 1,
                 cursor: isEmpty ? 'not-allowed' : 'pointer',
-                borderColor: isScaffold ? 'var(--clr-gold)' : undefined,
-                borderStyle: isScaffold ? 'dashed' : undefined,
               }}
               title={isScaffold ? 'รอเติมเนื้อหา · ส่ง slide/notes มาช่วยได้' : (isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : '')}
             >

@@ -94,47 +94,30 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           )}
         </h1>
         <p>
-          คลังข้อสอบ {totalQ} ข้อ · {yearMeta?.label || 'ปี 4'}
-          {selectedYear === 4 ? ' Vet 86' : ''} · By vet86 for vet86
-          {setSelectedYear && (
-            <>
-              {' · '}
-              <button
-                type="button"
-                onClick={() => setView('year-select')}
-                title="สลับชั้นปี"
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: 'var(--clr-ink-soft)',
-                  textDecoration: 'underline',
-                  textDecorationStyle: 'dotted',
-                  fontSize: 'inherit',
-                  fontFamily: 'inherit',
-                  padding: 0,
-                }}
-              >
-                เปลี่ยนปี
-              </button>
-            </>
-          )}
+          {isScaffoldYear
+            ? <>🚧 <strong>{yearMeta.label}</strong> · {yearMeta.desc} · พรีวิว — รอเติมเนื้อหา</>
+            : <>คลังข้อสอบ {totalQ} ข้อ · ปี 4 Vet 86 · By vet86 for vet86</>}
         </p>
-        {isScaffoldYear && (
-          <div style={{
-            marginTop: 12,
-            padding: '8px 14px',
-            borderRadius: 999,
-            background: 'rgba(184, 137, 64, 0.12)',
-            border: '1px solid var(--clr-gold)',
-            display: 'inline-block',
-            fontSize: 12,
-            fontFamily: 'JetBrains Mono, monospace',
-            color: 'var(--clr-ink)',
-            letterSpacing: '0.05em',
-          }}>
-            🚧 PREVIEW · {yearMeta.desc} · {(SUBJECTS_BY_YEAR[selectedYear] || []).length} วิชา รอเติมเนื้อหา
-          </div>
+        {setSelectedYear && (
+          <button
+            type="button"
+            onClick={() => setView('year-select')}
+            title="สลับชั้นปี"
+            style={{
+              marginTop: 10,
+              padding: '6px 14px',
+              borderRadius: 999,
+              background: 'var(--clr-surface-2)',
+              border: '1px solid var(--clr-border)',
+              cursor: 'pointer',
+              fontSize: 12,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-ink)',
+              letterSpacing: '0.05em',
+            }}
+          >
+            🎓 เปลี่ยนปี
+          </button>
         )}
         {onlineStatus === 'connected' && onlineCount > 0 && (
           <div
@@ -309,6 +292,15 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         </div>
       )}
 
+      {isScaffoldYear ? (
+        <ScaffoldYearPreview
+          yearMeta={yearMeta}
+          subjects={SUBJECTS_BY_YEAR[selectedYear] || []}
+          onBackToY4={() => { setSelectedYear && setSelectedYear(4); }}
+          onPickSubject={(s) => { setSubject && setSubject(s.id); setView('subject-select'); }}
+        />
+      ) : (
+        <>
       <div className="vmx-section-label">โหมดการเรียน</div>
       <div className="vmx-mode-grid">
         <button className="vmx-mode-card" onClick={() => { setMode('quick'); setView('subject-select'); }}>
@@ -456,6 +448,8 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         ⌨️ กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
         🌙 สลับโหมดมืด/สว่างที่ปุ่มขวาบน
       </div>
+        </>
+      )}
 
       {/* If user dismissed announcement, give them a way to re-open it */}
       {!showAnnouncement && LATEST_CHANGELOG && (
@@ -533,6 +527,106 @@ function FeedbackChip() {
     >
       📨 จาก feedback
     </span>
+  );
+}
+
+// ── Scaffold Year Preview ─────────────────────────────────────
+// Shown on HomeView when user picks a non-Y4 (scaffold) year. Replaces
+// the full mode grid with a focused "what's coming" view so users don't
+// hit dead-ends like Exam Mode → all subjects greyed.
+function ScaffoldYearPreview({ yearMeta, subjects, onBackToY4, onPickSubject }) {
+  const totalLecturers = subjects.reduce((acc, s) => acc + (s.vault_lecturers?.length || 0), 0);
+  const phase = yearMeta.desc;
+
+  return (
+    <>
+      <div style={{
+        marginTop: 8,
+        padding: 24,
+        borderRadius: 16,
+        background: 'rgba(184, 137, 64, 0.06)',
+        border: '2px dashed var(--clr-gold)',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8, flexWrap: 'wrap' }}>
+          <div style={{ fontSize: 32 }}>🚧</div>
+          <div>
+            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, lineHeight: 1.2 }}>
+              {yearMeta.label} · {phase}
+            </div>
+            <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              วางโครง {subjects.length} วิชา · faculty {totalLecturers} คน · ค่อย ๆ เติม Q + notes ปิดเทอม
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="vmx-section-label" style={{ marginTop: 24 }}>วิชาที่วางโครงไว้</div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+        gap: 12,
+      }}>
+        {subjects.map((s) => (
+          <button
+            key={s.id}
+            onClick={() => onPickSubject && onPickSubject(s)}
+            className="vmx-mode-card"
+            style={{
+              textAlign: 'left',
+              padding: 14,
+              cursor: 'pointer',
+              opacity: 0.85,
+            }}
+            title="คลิกดูรายละเอียดวิชา"
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ fontSize: 24 }}>{s.icon}</div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, lineHeight: 1.25 }}>
+                  {s.name}
+                </div>
+                <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+                  {s.name_en}
+                </div>
+              </div>
+            </div>
+            <div style={{
+              marginTop: 10,
+              display: 'flex',
+              gap: 6,
+              flexWrap: 'wrap',
+              fontSize: 10,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-ink-soft)',
+            }}>
+              {s.code && <span>{s.code}</span>}
+              {s.vault_lecturers?.length > 0 && (
+                <span>· {s.vault_lecturers.length} faculty</span>
+              )}
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <div style={{
+        marginTop: 24,
+        padding: 16,
+        borderRadius: 12,
+        background: 'var(--clr-surface-2)',
+        fontSize: 13,
+        color: 'var(--clr-ink-soft)',
+        lineHeight: 1.7,
+      }}>
+        🤝 อยากช่วยเติมเนื้อหา? ส่ง slide / notes / ข้อสอบเก่า ทาง <strong>แจ้งปัญหา</strong> ใน footer ได้เลย<br/>
+        📅 ทยอยเปิดทีละวิชาช่วงปิดเทอม พ.ค.–ก.ย. 2026
+      </div>
+
+      <div className="vmx-btn-row" style={{ marginTop: 24 }}>
+        <button className="vmx-btn vmx-btn-primary" onClick={onBackToY4}>
+          ← กลับไปปี 4 (เปิดเต็ม)
+        </button>
+      </div>
+    </>
   );
 }
 
