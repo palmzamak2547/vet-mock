@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
-import { SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
-export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear }) {
+export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam }) {
   // Year context — determines hero copy + reading checklist scope.
   // Only Y4 has actual exam schedule entries today; for scaffold years
   // we hide the countdown banner since `getNextExam('y5')` returns null.
@@ -150,6 +150,60 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
           </div>
         )}
       </div>
+
+      {/* Resume in-flight exam — top priority. Shown when App detected a
+          stale exam state in localStorage (< 6h old). Replaces the old
+          jarring window.confirm prompt with an actionable banner. */}
+      {pendingResume && (() => {
+        // Search all years (the in-flight exam may not match selectedYear).
+        const subjMeta = SUBJECTS.find((s) => s.id === pendingResume.subjectId);
+        const subjLabel = subjMeta ? `${subjMeta.icon || ''} ${subjMeta.name || ''}` : 'ข้อสอบที่ค้างอยู่';
+        const timeAgo = pendingResume.ageMin < 60
+          ? `${pendingResume.ageMin} นาทีที่แล้ว`
+          : `${Math.round(pendingResume.ageMin / 60)} ชม. ที่แล้ว`;
+        return (
+          <div style={{
+            padding: 16,
+            borderRadius: 16,
+            marginBottom: 20,
+            background: 'rgba(74, 107, 74, 0.08)',
+            border: '2px solid var(--clr-sage)',
+            display: 'flex',
+            gap: 14,
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}>
+            <div style={{ fontSize: 32 }}>▶️</div>
+            <div style={{ flex: 1, minWidth: 200 }}>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                ทำต่อจาก {timeAgo}
+              </div>
+              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18, marginTop: 2 }}>
+                {subjLabel}
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+                ตอบไปแล้ว <strong>{pendingResume.answered}</strong>/{pendingResume.qCount} ข้อ
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <button
+                className="vmx-btn vmx-btn-primary"
+                onClick={() => resumePendingExam && resumePendingExam()}
+                style={{ background: 'var(--clr-sage)', borderColor: 'var(--clr-sage)' }}
+              >
+                ทำต่อ
+              </button>
+              <button
+                className="vmx-btn vmx-btn-ghost"
+                onClick={() => dismissPendingExam && dismissPendingExam()}
+                title="เริ่มใหม่ (ลบข้อสอบที่ค้าง)"
+              >
+                ยกเลิก
+              </button>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Next exam countdown banner */}
       {nextExam && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 30 && (

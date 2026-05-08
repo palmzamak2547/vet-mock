@@ -254,6 +254,10 @@ export default function App() {
   const [questionCategory, setQuestionCategory] = useState('all');
   const [timeLeft, setTimeLeft] = useState(0);
   const [examStartTime, setExamStartTime] = useState(null);
+  // Resume banner state — populated on boot if a stale in-flight exam
+  // was detected. Lives in App so HomeView (and any future entry points)
+  // can read + handle resume/dismiss without re-querying localStorage.
+  const [pendingResume, setPendingResume] = useState(null);
 
   const [theme, setTheme] = useLocalStorage('vmx-theme', 'light');
   const [bookmarks, setBookmarks] = useLocalStorage('vmx-bookmarks', []);
@@ -328,40 +332,55 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [view, questions, answers, currentIdx]);
 
-  // Detect a previous in-flight exam at boot and offer to resume.
-  // Only show the prompt once — after dismiss, the storage key is
-  // cleared so it doesn't re-pop on every refresh.
+  // Detect a previous in-flight exam at boot and surface as a non-modal
+  // banner on HomeView (replaces the old window.confirm prompt — that
+  // was jarring + couldn't be dismissed without committing). Stale state
+  // (>6h old) is auto-cleared so the banner doesn't lure users into
+  // resuming an exam they conceptually moved on from.
   useEffect(() => {
-    if (view !== 'home' || questions.length > 0) return;
+    if (questions.length > 0) return;
     let raw;
     try { raw = window.localStorage?.getItem('vmx-inflight-exam'); } catch {}
     if (!raw) return;
     let saved;
     try { saved = JSON.parse(raw); } catch { return; }
     if (!saved?.questions?.length) return;
-    // Only offer resume if save is < 6 hours old — older state likely stale
     const ageMs = Date.now() - (saved.savedAt || 0);
     if (ageMs > 6 * 60 * 60 * 1000) {
       try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
       return;
     }
-    const ageMin = Math.round(ageMs / 60000);
-    const answeredCount = Object.keys(saved.answers || {}).length;
-    const ok = window.confirm(
-      `🔄 พบข้อสอบที่ค้างอยู่ (${saved.questions.length} ข้อ · ตอบไป ${answeredCount} ข้อ · ${ageMin} นาทีที่แล้ว)\n\nกลับไปทำต่อไหม?`
-    );
-    if (ok) {
-      setQuestions(saved.questions);
-      setAnswers(saved.answers || {});
-      setCurrentIdx(saved.currentIdx || 0);
-      setView('exam');
-    } else {
-      try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
-      setQuestions([]);
-      setAnswers({});
-      setCurrentIdx(0);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only on first home render
+    setPendingResume({
+      qCount: saved.questions.length,
+      answered: Object.keys(saved.answers || {}).length,
+      ageMin: Math.round(ageMs / 60000),
+      // Look up the first question to derive the subject for display
+      subjectId: saved.questions[0]?.subject || null,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only on first mount
+  }, []);
+
+  // Handler triggered by the resume banner on HomeView.
+  const resumePendingExam = useCallback(() => {
+    let raw;
+    try { raw = window.localStorage?.getItem('vmx-inflight-exam'); } catch {}
+    if (!raw) { setPendingResume(null); return; }
+    let saved;
+    try { saved = JSON.parse(raw); } catch { setPendingResume(null); return; }
+    if (!saved?.questions?.length) { setPendingResume(null); return; }
+    setQuestions(saved.questions);
+    setAnswers(saved.answers || {});
+    setCurrentIdx(saved.currentIdx || 0);
+    setPendingResume(null);
+    setView('exam');
+  }, []);
+
+  const dismissPendingExam = useCallback(() => {
+    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+    setQuestions([]);
+    setAnswers({});
+    setCurrentIdx(0);
+    setPendingResume(null);
   }, []);
 
   useEffect(() => {
@@ -740,7 +759,7 @@ export default function App() {
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
