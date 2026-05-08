@@ -8,7 +8,7 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
-export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam }) {
+export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill }) {
   // Year context — determines hero copy + reading checklist scope.
   // Only Y4 has actual exam schedule entries today; for scaffold years
   // we hide the countdown banner since `getNextExam('y5')` returns null.
@@ -335,11 +335,20 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         questions={[...QB, ...(customQuestions || [])]}
         readingChecklist={readingChecklist}
         bookmarks={bookmarks}
+        history={history}
         onPick={(s) => {
           if (s.scaffold) {
-            // Scaffold subjects: route to feedback so users can contribute
-            // notes/slides/past papers for this exact subject. Better than
-            // a dead-end click — turns "🚧 รอเติม" into an actionable CTA.
+            // Scaffold subjects: route to feedback PRE-FILLED with subject
+            // context so user doesn't have to re-type which subject they
+            // want help with. Type='Content', subject summary, message
+            // template — user just adds details.
+            if (setFeedbackPrefill) {
+              setFeedbackPrefill({
+                type: 'Content',
+                subject: `ขอเนื้อหา · ${s.name} (${s.code || 'TBD'}) · ปี ${selectedYear}`,
+                message: `อยากให้เพิ่มเนื้อหาวิชา "${s.name}" (${s.name_en || ''}) ของปี ${selectedYear} เพราะ...\n\nมี slide / notes / ข้อสอบเก่าจะส่งมาช่วย:\n- (แนบลิงก์ Google Drive หรือบรรยายตรงนี้ได้เลย)`,
+              });
+            }
             setView('feedback');
             return;
           }
@@ -349,15 +358,43 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
       />
 
       {/* SECONDARY: Practice modes — cross-subject within selected year.
-          Smart preset 'ใกล้สอบ' surfaces ONLY when nextExam exists, jumping
-          straight to that subject's ConfigView. Saves user 2 clicks. */}
-      {!isScaffoldYear && (
+          Smart presets ('ใกล้สอบ' / 'จุดอ่อน' / 'ทำซ้ำ') surface only when
+          their data preconditions are met, jumping straight to ConfigView
+          to skip subject/topic drill-down. */}
+      {!isScaffoldYear && (() => {
+        // Compute weakest subject (in this year + ≥10 attempts) from history
+        const yearSubjectIds = new Set((SUBJECTS_BY_YEAR[selectedYear] || []).map((s) => s.id));
+        const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
+        const accMap = {};
+        for (const h of (history || [])) {
+          if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
+          if (h.date && h.date < cutoff) continue;
+          if (!accMap[h.subject]) accMap[h.subject] = { total: 0, correct: 0 };
+          accMap[h.subject].total++;
+          if (h.correct) accMap[h.subject].correct++;
+        }
+        let weakSubj = null;
+        let weakPct = 100;
+        for (const [sid, { total, correct }] of Object.entries(accMap)) {
+          if (total < 10) continue;
+          const pct = Math.round((correct / total) * 100);
+          if (pct < weakPct && pct < 70) { weakPct = pct; weakSubj = sid; }
+        }
+        // Last-session subject (for ทำซ้ำ) — most recent history entry
+        let lastSubj = null;
+        let lastTs = 0;
+        for (const h of (history || [])) {
+          if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
+          if ((h.date || 0) > lastTs) { lastTs = h.date || 0; lastSubj = h.subject; }
+        }
+        const lastSubjMeta = lastSubj ? SUBJECTS.find((s) => s.id === lastSubj) : null;
+        const weakSubjMeta = weakSubj ? SUBJECTS.find((s) => s.id === weakSubj) : null;
+
+        return (
         <>
           <div className="vmx-section-label" style={{ marginTop: 28 }}>โหมดซ้อม</div>
           <div className="vmx-mode-grid">
-            {/* Smart preset — appears ahead of generic Quick Practice when
-                an exam is upcoming. Filters to the exam's subject + opens
-                ConfigView ready to start. */}
+            {/* Smart: ซ้อมใกล้สอบ — when nextExam exists in current year */}
             {nextExam && nextExam.subject && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 30 && (
               <button
                 className="vmx-mode-card"
@@ -379,6 +416,46 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
                   })()}
                 </div>
                 <div className="badge" style={{ background: 'var(--clr-rose)' }}>SMART</div>
+              </button>
+            )}
+
+            {/* Smart: จุดอ่อน — when ≥10 attempts in a subject + accuracy <70% */}
+            {weakSubj && weakSubjMeta && (
+              <button
+                className="vmx-mode-card"
+                onClick={() => {
+                  setMode('quick');
+                  setSubject && setSubject(weakSubj);
+                  setPracticeMode && setPracticeMode('all');
+                  setView('config');
+                }}
+                style={{ borderColor: 'var(--clr-gold)' }}
+                title={`90 วันล่าสุด ตอบถูก ${weakPct}% — ซ้อมเสริม`}
+              >
+                <div className="icon">⚠️</div>
+                <div className="title">จุดอ่อน</div>
+                <div className="sub">{weakSubjMeta.name} · ตอบถูก {weakPct}%</div>
+                <div className="badge" style={{ background: 'var(--clr-gold)' }}>SMART</div>
+              </button>
+            )}
+
+            {/* Smart: ทำซ้ำ — last subject from history (any year-aligned) */}
+            {lastSubj && lastSubjMeta && lastSubj !== nextExam?.subject && lastSubj !== weakSubj && (
+              <button
+                className="vmx-mode-card"
+                onClick={() => {
+                  setMode('quick');
+                  setSubject && setSubject(lastSubj);
+                  setPracticeMode && setPracticeMode('all');
+                  setView('config');
+                }}
+                style={{ borderColor: 'var(--clr-ocean)' }}
+                title="ทำซ้ำวิชาที่ซ้อมล่าสุด"
+              >
+                <div className="icon">🔁</div>
+                <div className="title">ทำซ้ำวิชาล่าสุด</div>
+                <div className="sub">{lastSubjMeta.name}</div>
+                <div className="badge" style={{ background: 'var(--clr-ocean)' }}>SMART</div>
               </button>
             )}
 
@@ -427,7 +504,8 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
             </button>
           </div>
         </>
-      )}
+        );
+      })()}
 
       {/* TERTIARY: Year tools — schedule/scores/reading/videos disabled on
           scaffold years (data is year-scoped + empty). Analytics stays
@@ -652,7 +730,7 @@ function FeedbackChip() {
 // or PREVIEW state (faculty count from vault_lecturers, course code).
 // LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
 // are visually distinct + non-interactive (subjects without Qs yet).
-function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [], onPick }) {
+function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [], history = [], onPick }) {
   if (!subjects?.length) {
     return (
       <div style={{
@@ -679,6 +757,23 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
     for (const qId of bookmarks) {
       const q = qById.get(qId);
       if (q?.subject) bookmarksBySubject[q.subject] = (bookmarksBySubject[q.subject] || 0) + 1;
+    }
+  }
+
+  // Compute per-subject accuracy from history. History entries are
+  // {date, questionId, correct, subject} — same fields the finishExam
+  // path writes. We use the LAST 90 days of attempts to keep the
+  // accuracy current (a 50% from 6 months ago shouldn't drag down a
+  // recently-mastered subject's display). Min 5 attempts to avoid
+  // misleading "100% (1/1)" displays.
+  const accBySubject = {};
+  if (Array.isArray(history) && history.length > 0) {
+    const cutoffMs = Date.now() - 90 * 24 * 60 * 60 * 1000;
+    for (const h of history) {
+      if (!h?.subject || (h.date && h.date < cutoffMs)) continue;
+      if (!accBySubject[h.subject]) accBySubject[h.subject] = { total: 0, correct: 0 };
+      accBySubject[h.subject].total++;
+      if (h.correct) accBySubject[h.subject].correct++;
     }
   }
 
@@ -726,29 +821,46 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
                 : (isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} questions`)}
             </div>
 
-            {/* Per-subject progress chips — only when LIVE + has data */}
-            {!isScaffold && !isEmpty && (readDone > 0 || bookmarkCount > 0) && (
-              <div style={{
-                marginTop: 6,
-                display: 'flex',
-                gap: 6,
-                flexWrap: 'wrap',
-                fontSize: 10,
-                fontFamily: 'JetBrains Mono, monospace',
-                color: 'var(--clr-ink-soft)',
-              }}>
-                {readDone > 0 && (
-                  <span title={`อ่านแล้ว ${readDone}/${topics.length} หัวข้อ`}>
-                    📚 {readPct}%
-                  </span>
-                )}
-                {bookmarkCount > 0 && (
-                  <span title={`มี bookmark ${bookmarkCount} ข้อในวิชานี้`}>
-                    🔖 {bookmarkCount}
-                  </span>
-                )}
-              </div>
-            )}
+            {/* Per-subject progress chips — only when LIVE + has data.
+                Accuracy chip shown when ≥5 attempts (avoids "100% (1/1)"
+                misleading display). Color: rose <60, gold 60-79, sage ≥80. */}
+            {!isScaffold && !isEmpty && (() => {
+              const acc = accBySubject[s.id];
+              const hasAccData = acc && acc.total >= 5;
+              const accPct = hasAccData ? Math.round((acc.correct / acc.total) * 100) : 0;
+              const accColor = hasAccData
+                ? (accPct < 60 ? 'var(--clr-rose)' : (accPct < 80 ? 'var(--clr-gold)' : 'var(--clr-sage)'))
+                : 'var(--clr-ink-soft)';
+              const showAny = readDone > 0 || bookmarkCount > 0 || hasAccData;
+              if (!showAny) return null;
+              return (
+                <div style={{
+                  marginTop: 6,
+                  display: 'flex',
+                  gap: 6,
+                  flexWrap: 'wrap',
+                  fontSize: 10,
+                  fontFamily: 'JetBrains Mono, monospace',
+                  color: 'var(--clr-ink-soft)',
+                }}>
+                  {hasAccData && (
+                    <span title={`ตอบถูก ${acc.correct}/${acc.total} ใน 90 วันล่าสุด`} style={{ color: accColor, fontWeight: 600 }}>
+                      🎯 {accPct}%
+                    </span>
+                  )}
+                  {readDone > 0 && (
+                    <span title={`อ่านแล้ว ${readDone}/${topics.length} หัวข้อ`}>
+                      📚 {readPct}%
+                    </span>
+                  )}
+                  {bookmarkCount > 0 && (
+                    <span title={`มี bookmark ${bookmarkCount} ข้อในวิชานี้`}>
+                      🔖 {bookmarkCount}
+                    </span>
+                  )}
+                </div>
+              );
+            })()}
 
             {s.code && (
               <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>

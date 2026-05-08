@@ -3,14 +3,21 @@ import BackBar from '../components/BackBar.jsx';
 
 const CONTACT_EMAIL = 'palmzamak2547@gmail.com';
 
-export default function FeedbackView({ goHome, user, profile }) {
-  const [formData, setFormData] = useState({
-    type: 'Bug',
-    subject: '',
-    message: '',
+export default function FeedbackView({ goHome, user, profile, prefill, clearPrefill }) {
+  // Prefill arrives from contextual entry points (e.g. clicking a
+  // scaffold subject card on HomeView). Apply once on mount, then
+  // tell App to clear so a manual revisit doesn't reuse stale context.
+  const [formData, setFormData] = useState(() => ({
+    type: prefill?.type || 'Bug',
+    subject: prefill?.subject || '',
+    message: prefill?.message || '',
     fromEmail: user?.email || '',
     fromName: profile?.username || '',
-  });
+  }));
+  useEffect(() => {
+    if (prefill && clearPrefill) clearPrefill();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only on mount
+  }, []);
   // status: 'idle' | 'sending' | 'success' | 'api-error' | 'network-error'
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');

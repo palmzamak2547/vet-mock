@@ -258,6 +258,10 @@ export default function App() {
   // was detected. Lives in App so HomeView (and any future entry points)
   // can read + handle resume/dismiss without re-querying localStorage.
   const [pendingResume, setPendingResume] = useState(null);
+  // Feedback prefill — populated when a contextual entry (e.g. scaffold
+  // subject card) routes to feedback. FeedbackView reads it on mount,
+  // then clears so a manual revisit isn't pre-stuffed with old context.
+  const [feedbackPrefill, setFeedbackPrefill] = useState(null);
 
   const [theme, setTheme] = useLocalStorage('vmx-theme', 'light');
   const [bookmarks, setBookmarks] = useLocalStorage('vmx-bookmarks', []);
@@ -843,7 +847,7 @@ export default function App() {
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
@@ -862,7 +866,7 @@ export default function App() {
               {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView {...{ goHome }} />}
               {view === 'about' && <AboutView {...{ goHome, setView }} />}
-              {view === 'feedback' && <FeedbackView {...{ goHome, user, profile }} />}
+              {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView, firstTime: selectedYearStored === null }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setView }} />}
