@@ -98,27 +98,9 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
             ? <>🚧 <strong>{yearMeta.label}</strong> · {yearMeta.desc} · พรีวิว — รอเติมเนื้อหา</>
             : <>คลังข้อสอบ {totalQ} ข้อ · ปี 4 Vet 86 · By vet86 for vet86</>}
         </p>
-        {setSelectedYear && (
-          <button
-            type="button"
-            onClick={() => setView('year-select')}
-            title="สลับชั้นปี"
-            style={{
-              marginTop: 10,
-              padding: '6px 14px',
-              borderRadius: 999,
-              background: 'var(--clr-surface-2)',
-              border: '1px solid var(--clr-border)',
-              cursor: 'pointer',
-              fontSize: 12,
-              fontFamily: 'JetBrains Mono, monospace',
-              color: 'var(--clr-ink)',
-              letterSpacing: '0.05em',
-            }}
-          >
-            🎓 เปลี่ยนปี
-          </button>
-        )}
+        {/* Year-switcher pill removed from HomeView hero — moved to the
+            global persistent App header (since 2026-05-08). One canonical
+            place for year context = no duplication, no confusion. */}
         {onlineStatus === 'connected' && onlineCount > 0 && (
           <div
             title="จำนวนคนที่เปิดเว็บอยู่ตอนนี้ (อัพเดต realtime)"

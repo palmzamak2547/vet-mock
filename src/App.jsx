@@ -730,31 +730,103 @@ export default function App() {
             </div>
           )}
 
-          <div className="vmx-header">
-            <div className="vmx-logo" onClick={goHome}>Vet<span>Mock</span></div>
-            <div className="vmx-header-right">
-              <button
-                className="vmx-cmdk-btn"
-                onClick={() => setPaletteOpen(true)}
-                title="Quick search (⌘K / Ctrl+K)"
-                aria-label="เปิด command palette"
-              >
-                <span style={{ fontSize: 13 }}>🔍</span>
-                <kbd className="vmx-cmdk-kbd">⌘K</kbd>
-              </button>
-              {streakData.streak > 0 && <div className="vmx-streak">🔥 {streakData.streak}</div>}
-              {user && profile && (
-                <UserMenu profile={profile} onLogout={handleSignOut} onGroups={() => setView('groups')} onLeaderboard={() => setView('leaderboard-global')} />
-              )}
-              {!user && hasSupabase && (
-                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('auth')}>Login</button>
-              )}
-              <div className="vmx-subtitle">v5.0</div>
-              <button className="vmx-theme-btn" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} title="Toggle theme">
-                {theme === 'light' ? '🌙' : '☀️'}
-              </button>
+          {/* Header — hidden on full-screen / focus views (exam in progress,
+              results, review, auth) so user isn't tempted to navigate away
+              mid-session and so the result/review pages don't have nav
+              chrome competing with the data presentation. */}
+          {!['exam', 'results', 'review', 'auth'].includes(view) && (
+            <div className="vmx-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <div className="vmx-logo" onClick={goHome}>Vet<span>Mock</span></div>
+                {/* Year pill — visible on every page after pick, persistent
+                    year context. Click → year-select. Hidden during the
+                    first-time picker flow (selectedYearStored === null). */}
+                {selectedYearStored !== null && view !== 'year-select' && (
+                  <button
+                    type="button"
+                    onClick={() => setView('year-select')}
+                    title="สลับชั้นปี"
+                    style={{
+                      padding: '4px 12px',
+                      borderRadius: 999,
+                      background: 'var(--clr-surface)',
+                      border: '1px solid var(--clr-border)',
+                      cursor: 'pointer',
+                      fontSize: 12,
+                      fontFamily: 'JetBrains Mono, monospace',
+                      color: 'var(--clr-ink)',
+                      letterSpacing: '0.04em',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6,
+                    }}
+                  >
+                    🎓 ปี {selectedYear}
+                    <span style={{ opacity: 0.5, fontSize: 10 }}>▾</span>
+                  </button>
+                )}
+              </div>
+              <div className="vmx-header-right">
+                <button
+                  className="vmx-cmdk-btn"
+                  onClick={() => setPaletteOpen(true)}
+                  title="Quick search (⌘K / Ctrl+K)"
+                  aria-label="เปิด command palette"
+                >
+                  <span style={{ fontSize: 13 }}>🔍</span>
+                  <kbd className="vmx-cmdk-kbd">⌘K</kbd>
+                </button>
+                {/* Quick-access icons — bookmarks + analytics. Hidden on
+                    small screens via inline @media query won't work in JSX,
+                    so just rely on flex-wrap to drop them to next row. */}
+                <button
+                  className="vmx-theme-btn"
+                  onClick={() => setView('dashboard')}
+                  title="Analytics · ดูสถิติ + ประวัติ"
+                  aria-label="Analytics"
+                >📊</button>
+                <button
+                  className="vmx-theme-btn"
+                  onClick={() => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}
+                  title="Bookmarks · ทำข้อที่บันทึก"
+                  aria-label="Bookmarks"
+                  style={{ position: 'relative' }}
+                >
+                  🔖
+                  {bookmarks.length > 0 && (
+                    <span style={{
+                      position: 'absolute',
+                      top: -4,
+                      right: -4,
+                      minWidth: 16,
+                      height: 16,
+                      padding: '0 4px',
+                      borderRadius: 8,
+                      background: 'var(--clr-rose)',
+                      color: 'white',
+                      fontSize: 10,
+                      fontFamily: 'JetBrains Mono, monospace',
+                      fontWeight: 600,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      lineHeight: 1,
+                    }}>{bookmarks.length}</span>
+                  )}
+                </button>
+                {streakData.streak > 0 && <div className="vmx-streak">🔥 {streakData.streak}</div>}
+                {user && profile && (
+                  <UserMenu profile={profile} onLogout={handleSignOut} onGroups={() => setView('groups')} onLeaderboard={() => setView('leaderboard-global')} />
+                )}
+                {!user && hasSupabase && (
+                  <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('auth')}>Login</button>
+                )}
+                <button className="vmx-theme-btn" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} title="Toggle theme">
+                  {theme === 'light' ? '🌙' : '☀️'}
+                </button>
+              </div>
             </div>
-          </div>
+          )}
 
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
