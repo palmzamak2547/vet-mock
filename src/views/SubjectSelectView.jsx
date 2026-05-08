@@ -1,28 +1,61 @@
 import { QB } from '../data/questions.js';
-import { SUBJECTS, visibleQuestionCount } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 
-export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [] }) {
+export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear }) {
   const allQuestions = [...QB, ...customQuestions];
+
+  // Filter subjects to selectedYear (or show all if no year selected — for
+  // legacy "all subjects" flow). Year 4 has the only "all" subject card,
+  // so we keep `all` only when viewing Y4.
+  // Scaffold years (1, 2, 3, 5, 6) show their subjects but each subject
+  // ends up disabled because visibleQuestionCount = 0 — so users see the
+  // structure without being able to enter a broken exam mode.
+  const yearMeta = YEARS.find((y) => y.id === selectedYear);
+  const isScaffoldYear = !!yearMeta?.scaffold;
+  const yearSubjects = selectedYear
+    ? (SUBJECTS_BY_YEAR[selectedYear] || [])
+    : [];
+  const visibleSubjects = selectedYear
+    ? (selectedYear === 4
+        ? [SUBJECTS.find((s) => s.id === 'all'), ...yearSubjects].filter(Boolean)
+        : yearSubjects)
+    : SUBJECTS;
 
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1>เลือก <em>วิชา</em></h1>
+        <h1>
+          เลือก <em>วิชา</em>
+          {yearMeta && (
+            <span style={{ fontSize: '0.55em', marginLeft: 12, color: 'var(--clr-ink-soft)', verticalAlign: 'middle' }}>
+              · {yearMeta.label}
+            </span>
+          )}
+        </h1>
         <p>
-          {mode === 'exam' ? '🎓 Exam Mode — สอบจริงจัง · ตั้งค่าจำนวนข้อ/เวลาได้ในขั้นถัดไป' : '📝 Quick Practice — สุ่มข้อสอบตามจำนวนที่เลือก'}
+          {isScaffoldYear ? (
+            <>
+              🚧 <strong>{yearMeta.label}</strong> · {yearMeta.desc} — โครงสร้างวิชาวางไว้แล้ว · รอเติมข้อสอบ/เนื้อหาทีละวิชา
+            </>
+          ) : mode === 'exam' ? (
+            '🎓 Exam Mode — สอบจริงจัง · ตั้งค่าจำนวนข้อ/เวลาได้ในขั้นถัดไป'
+          ) : (
+            '📝 Quick Practice — สุ่มข้อสอบตามจำนวนที่เลือก'
+          )}
         </p>
       </div>
 
       <div className="vmx-subject-grid">
-        {SUBJECTS.map((s) => {
+        {visibleSubjects.map((s) => {
           // Count only Qs in non-hidden topics — matches what user
           // actually sees in TopicSelectView (avoids "127 promised, 70
           // visible" confusion). For 'all' subject, sum visible per
           // subject across the bank.
           const count = visibleQuestionCount(s.id, allQuestions);
           const isEmpty = count === 0;
+          const isScaffold = !!s.scaffold;
 
           return (
             <button
@@ -39,17 +72,23 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 setView(hasTopics ? 'topic-select' : 'config');
               }}
               style={{
-                opacity: isEmpty ? 0.5 : 1,
+                opacity: isEmpty ? 0.55 : 1,
                 cursor: isEmpty ? 'not-allowed' : 'pointer',
+                borderColor: isScaffold ? 'var(--clr-gold)' : undefined,
+                borderStyle: isScaffold ? 'dashed' : undefined,
               }}
-              title={isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : ''}
+              title={isScaffold ? 'รอเติมเนื้อหา · ส่ง slide/notes มาช่วยได้' : (isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : '')}
             >
               <div className="accent" style={{ background: s.color }}></div>
               <div className="icon">{s.icon}</div>
               <div className="title">{s.name}</div>
               <div className="sub">{s.name_en}</div>
               <div className="count" style={{ color: isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)' }}>
-                {isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} questions`}
+                {isScaffold
+                  ? '📋 รอเติมเนื้อหา'
+                  : isEmpty
+                    ? '🚧 รอข้อสอบเพิ่ม'
+                    : `${count} questions`}
               </div>
               {s.code && s.id !== 'all' && (
                 <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
@@ -76,6 +115,14 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           );
         })}
       </div>
+
+      {isScaffoldYear && (
+        <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
+          💡 <strong>ปีนี้กำลังวางโครงสร้าง</strong> — รายวิชา + course code + รายชื่ออาจารย์ มาจาก vault profiles ของ {yearSubjects.reduce((acc, s) => acc + (s.vault_lecturers?.length || 0), 0)} คนใน Chula Vet faculty<br/>
+          🤝 ช่วยกันได้: ถ้ามี slide เก่า · notes · ข้อสอบ past paper ปีนี้ ส่งมาทาง feedback ได้เลย<br/>
+          📅 จะค่อย ๆ เปิดปีหลัง ปี 4 sem 2 จบ (ปิดเทอม พ.ค.–ก.ย. 2026)
+        </div>
+      )}
 
       <div className="vmx-btn-row">
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>

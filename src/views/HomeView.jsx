@@ -2,18 +2,28 @@ import { useEffect, useState } from 'react';
 import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
-import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import { SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
-export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled' }) {
-  const totalQ = QB.length + (customQuestions?.length || 0);
-  const nextExam = getNextExam('y4');
+export default function HomeView({ setView, setMode, setSubject, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear }) {
+  // Year context — determines hero copy + reading checklist scope.
+  // Only Y4 has actual exam schedule entries today; for scaffold years
+  // we hide the countdown banner since `getNextExam('y5')` returns null.
+  const yearMeta = YEARS.find((y) => y.id === selectedYear) || YEARS.find((y) => y.id === 4);
+  const isScaffoldYear = !!yearMeta?.scaffold;
+  const nextExam = getNextExam(`y${selectedYear}`);
 
-  // Reading checklist progress (year 4 only — current year)
-  const checklistTopics = (SUBJECTS_BY_YEAR[4] || [])
+  // Question count — show year-filtered count so PREVIEW years don't
+  // mislead users with the global total.
+  const totalQ = isScaffoldYear
+    ? QB.filter((q) => q.year === selectedYear).length
+    : QB.length + (customQuestions?.length || 0);
+
+  // Reading checklist progress — scoped to the active year.
+  const checklistTopics = (SUBJECTS_BY_YEAR[selectedYear] || [])
     .filter((s) => Array.isArray(s.topics) && s.topics.length > 0)
     .flatMap((s) => s.topics.map((t) => t.id));
   const readingDone = checklistTopics.filter((id) => readingChecklist[id]).length;
@@ -83,7 +93,49 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
             <>อ่านแล้ว ลอง <em>ทำข้อสอบ</em> กันเถอะ</>
           )}
         </h1>
-        <p>คลังข้อสอบ {totalQ} ข้อ · ปี 4 Vet 86 · By vet86 for vet86</p>
+        <p>
+          คลังข้อสอบ {totalQ} ข้อ · {yearMeta?.label || 'ปี 4'}
+          {selectedYear === 4 ? ' Vet 86' : ''} · By vet86 for vet86
+          {setSelectedYear && (
+            <>
+              {' · '}
+              <button
+                type="button"
+                onClick={() => setView('year-select')}
+                title="สลับชั้นปี"
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: 'var(--clr-ink-soft)',
+                  textDecoration: 'underline',
+                  textDecorationStyle: 'dotted',
+                  fontSize: 'inherit',
+                  fontFamily: 'inherit',
+                  padding: 0,
+                }}
+              >
+                เปลี่ยนปี
+              </button>
+            </>
+          )}
+        </p>
+        {isScaffoldYear && (
+          <div style={{
+            marginTop: 12,
+            padding: '8px 14px',
+            borderRadius: 999,
+            background: 'rgba(184, 137, 64, 0.12)',
+            border: '1px solid var(--clr-gold)',
+            display: 'inline-block',
+            fontSize: 12,
+            fontFamily: 'JetBrains Mono, monospace',
+            color: 'var(--clr-ink)',
+            letterSpacing: '0.05em',
+          }}>
+            🚧 PREVIEW · {yearMeta.desc} · {(SUBJECTS_BY_YEAR[selectedYear] || []).length} วิชา รอเติมเนื้อหา
+          </div>
+        )}
         {onlineStatus === 'connected' && onlineCount > 0 && (
           <div
             title="จำนวนคนที่เปิดเว็บอยู่ตอนนี้ (อัพเดต realtime)"
@@ -293,7 +345,11 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         <button className="vmx-mode-card" onClick={() => setView('schedule')}>
           <div className="icon">📅</div>
           <div className="title">ตารางสอบ</div>
-          <div className="sub">Final Exam Schedule · ปี 4</div>
+          <div className="sub">
+            {selectedYear === 4
+              ? 'Final Exam Schedule · ปี 4'
+              : `ปี ${selectedYear} · ${isScaffoldYear ? 'ยังไม่มีตาราง · ดูปี 4 ได้' : 'Schedule'}`}
+          </div>
         </button>
 
         <button className="vmx-mode-card" onClick={() => { setSubject && setSubject('com5'); setView('notes'); }} style={{ borderColor: 'var(--clr-sage)' }}>
@@ -379,7 +435,7 @@ export default function HomeView({ setView, setMode, setSubject, setPracticeMode
         <button className="vmx-mode-card" onClick={() => setView('year-select')}>
           <div className="icon">🎓</div>
           <div className="title">เลือกชั้นปี</div>
-          <div className="sub">ตอนนี้มีแค่ปี 4 (Vet 86) · ปีอื่นกำลังทำ</div>
+          <div className="sub">ครบ 6 ปีแล้ว · ปี 4 เปิดเต็ม · ปี 1-3, 5-6 พรีวิว</div>
         </button>
 
         <button className="vmx-mode-card" onClick={() => setView('about')}>

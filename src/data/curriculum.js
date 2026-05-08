@@ -14,13 +14,19 @@
 //   in instructors.js#getInstructorByLecturerString().
 // ============================================================
 
+// Year states (since 2026-05-08 expansion):
+//   available: true  + scaffold: false → LIVE (full content, ปี 4 today)
+//   available: true  + scaffold: true  → PREVIEW (subjects listed, no Q yet)
+//   available: false                   → SOON (hidden from year selector)
+// All 6 years are now browsable so users see the roadmap. Scaffold subjects
+// render as "🚧 รอเพิ่มเนื้อหา" cards in HomeView (no exam mode entry).
 export const YEARS = [
-  { id: 1, label: 'ปี 1', available: false, current: false, desc: 'Pre-clinic — จะเพิ่มทีหลัง' },
-  { id: 2, label: 'ปี 2', available: false, current: false, desc: 'Pre-clinic — จะเพิ่มทีหลัง' },
-  { id: 3, label: 'ปี 3', available: false, current: false, desc: 'Paraclinic — จะเพิ่มทีหลัง' },
-  { id: 4, label: 'ปี 4', available: true,  current: true,  desc: 'ปีปัจจุบัน · Vet 86' },
-  { id: 5, label: 'ปี 5', available: false, current: false, desc: 'Clinical rotation — จะเพิ่มทีหลัง' },
-  { id: 6, label: 'ปี 6', available: false, current: false, desc: 'Internship — จะเพิ่มทีหลัง' },
+  { id: 1, label: 'ปี 1', available: true,  current: false, scaffold: true,  desc: 'Pre-clinic · Foundation' },
+  { id: 2, label: 'ปี 2', available: true,  current: false, scaffold: true,  desc: 'Pre-clinic · Body Systems' },
+  { id: 3, label: 'ปี 3', available: true,  current: false, scaffold: true,  desc: 'Paraclinic · Disease & Diagnostics' },
+  { id: 4, label: 'ปี 4', available: true,  current: true,  scaffold: false, desc: 'Vet 86 · ปัจจุบัน' },
+  { id: 5, label: 'ปี 5', available: true,  current: false, scaffold: true,  desc: 'Clinical Rotation · Specialty' },
+  { id: 6, label: 'ปี 6', available: true,  current: false, scaffold: true,  desc: 'Internship · Externship' },
 ];
 
 export const CURRENT_YEAR = 4;
@@ -580,7 +586,214 @@ export const SUBJECTS_BY_YEAR = {
           lecturerNote: '150-word target · main idea + key details · own words · ห้าม opinion/invented material' },
       ] },
   ],
-  // ปีอื่นๆ เพิ่มที่นี่ในอนาคต
+
+  // ════════════════════════════════════════════════════════════════════
+  // SCAFFOLD — Years 1, 2, 3, 5, 6 (added 2026-05-08)
+  // ════════════════════════════════════════════════════════════════════
+  // Subjects below are placeholders — `scaffold: true` flags them as
+  // "📋 รอเพิ่มเนื้อหา" in HomeView. No Q files yet, no exam mode entry.
+  // Source: vault `knowledge/instructors/_index.md` (135 profiles) +
+  //         `_meta` curriculum research 2026-05-08 + agent scaffold pass.
+  //
+  // Course codes:
+  //   - Confirmed (no TBD-) when matching existing Y4 codes (3107417 etc.)
+  //   - `TBD-31xxxxx` = pattern-derived guess; verify with Chula registrar
+  //     before locking IDs. Pattern: 31 D Y X X X (D=dept, Y=year tier).
+  //
+  // Lecturer info attached as `vault_lecturers: ['slug-1', 'slug-2']` —
+  //   these are vault profile slugs. App ignores this field for now;
+  //   used as ground truth when content arrives.
+  // ════════════════════════════════════════════════════════════════════
+
+  // ─── Year 1 · Pre-clinic Foundation ──────────────────────────────
+  1: [
+    { id: 'intro-vet', code: 'TBD-3100101', name: 'สัตวแพทย์เบื้องต้น',
+      name_en: 'Intro to Veterinary Profession & Ethics',
+      icon: '🩺', color: '#5d8b8b', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['kaywalee-chatdarong'],
+      topics: [] },
+    { id: 'gen-bio', code: 'TBD-2303101', name: 'ชีววิทยาทั่วไป',
+      name_en: 'General Biology',
+      icon: '🧬', color: '#4a7d6b', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: [],
+      topics: [] },
+    { id: 'gen-chem', code: 'TBD-2302101', name: 'เคมีทั่วไป',
+      name_en: 'General Chemistry',
+      icon: '⚗️', color: '#8b6b3d', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: [],
+      topics: [] },
+    { id: 'gen-physics', code: 'TBD-2304101', name: 'ฟิสิกส์ทั่วไป',
+      name_en: 'General Physics',
+      icon: '🔬', color: '#6b5d8e', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: [],
+      topics: [] },
+    { id: 'vet-anat-1', code: 'TBD-3100201', name: 'กายวิภาคสัตว์ I',
+      name_en: 'Veterinary Gross Anatomy I',
+      icon: '🦴', color: '#c26d6d', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['paisan-tianthailand', 'kongkiat-srisuwattanaskul', 'sayamon-srisuwattanaskul', 'pawana-ueasiri'],
+      topics: [] },
+    { id: 'vet-histo', code: 'TBD-3100211', name: 'จุลกายวิภาค + คัพภวิทยา',
+      name_en: 'Veterinary Histology & Embryology',
+      icon: '🔬', color: '#7d5a8b', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['kongkiat-srisuwattanaskul', 'wuthichai-klomkliao', 'damri-daraviroj'],
+      topics: [] },
+  ],
+
+  // ─── Year 2 · Pre-clinic Body Systems ────────────────────────────
+  2: [
+    { id: 'vet-anat-2', code: 'TBD-3100202', name: 'กายวิภาคสัตว์ II',
+      name_en: 'Veterinary Gross Anatomy II (visceral · neuro)',
+      icon: '🫀', color: '#c26d6d', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['paisan-tianthailand', 'saritvich-pannyabaribun', 'benchaphorn-limcharoen'],
+      topics: [] },
+    { id: 'vet-physio-1', code: 'TBD-3101201', name: 'สรีรวิทยาสัตว์ I',
+      name_en: 'Veterinary Physiology I',
+      icon: '⚡', color: '#5d7d8b', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['sumpun-thammacharoen', 'chollada-buranakarl', 'anusak-kijtawornrat', 'kittipong-tachampa', 'suwanakiet-sawangkoon'],
+      topics: [] },
+    { id: 'vet-physio-2', code: 'TBD-3101202', name: 'สรีรวิทยาสัตว์ II',
+      name_en: 'Veterinary Physiology II (endo · renal · GI · poultry)',
+      icon: '💓', color: '#5d7d8b', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['sumpun-thammacharoen', 'kris-angkanaporn', 'sutthasinee-poonyachoti', 'sarinee-kalandakanond-thongsong', 'saikaew-sutayatram', 'sumonwan-chamsuwan'],
+      topics: [] },
+    { id: 'vet-biochem', code: 'TBD-3101211', name: 'ชีวเคมีทางสัตวแพทย์',
+      name_en: 'Veterinary Biochemistry',
+      icon: '🧪', color: '#8b6b3d', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['gunnaporn-suriyaphol', 'sariya-asawakarn', 'meena-sarikaphuti', 'sirakarnt-dhitavat', 'prapruddee-piyaviriyakul'],
+      topics: [] },
+    { id: 'animal-husbandry-1', code: 'TBD-3105201', name: 'สัตวบาล + การจัดการ I',
+      name_en: 'Animal Husbandry & Production I',
+      icon: '🐄', color: '#5c7d4a', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['chackrit-nuengjamnong', 'boonrit-thongsong', 'chatree-ketviraveach', 'talerngsak-angkuraseranee'],
+      topics: [] },
+    { id: 'animal-nutrition', code: 'TBD-3105211', name: 'โภชนศาสตร์สัตว์',
+      name_en: 'Animal Nutrition',
+      icon: '🌾', color: '#a78b3d', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['kris-angkanaporn', 'hatairat-plaimast', 'anongnart-assavacheep', 'boonrit-thongsong', 'saranporn-poothong'],
+      topics: [] },
+    { id: 'vet-genetics', code: 'TBD-3105221', name: 'พันธุศาสตร์สัตว์',
+      name_en: 'Animal Genetics & Breeding',
+      icon: '🧬', color: '#4a7d6b', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['chatree-ketviraveach', 'talerngsak-angkuraseranee', 'praopilas-phakdeedindan', 'nantapong-kamprasert'],
+      topics: [] },
+  ],
+
+  // ─── Year 3 · Paraclinic (Disease & Diagnostics) ─────────────────
+  3: [
+    { id: 'vet-microbio', code: 'TBD-3102301', name: 'จุลชีววิทยา + วิทยาภูมิคุ้มกัน',
+      name_en: 'Veterinary Microbiology + Immunology',
+      icon: '🦠', color: '#7d5a8b', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['pattrarat-chanchaithong', 'sanipa-suradhat', 'nuvee-prapasarakul', 'aunyaratana-tonteerawong', 'dachrit-nilubol', 'teerawut-nedumpun', 'navapon-techakriengkrai'],
+      topics: [] },
+    { id: 'vet-parasitology', code: 'TBD-3103301', name: 'ปรสิตวิทยาทางสัตวแพทย์',
+      name_en: 'Veterinary Parasitology',
+      icon: '🪱', color: '#8b6b3d', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['sonthaya-tiawsirisup', 'morakot-kaewthamasorn', 'piyanan-taweethavonsawat', 'woraporn-sukhumavasi'],
+      topics: [] },
+    { id: 'vet-pathology', code: 'TBD-3102311', name: 'พยาธิวิทยาทางสัตวแพทย์',
+      name_en: 'General + Systemic Pathology',
+      icon: '🔬', color: '#c26d6d', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['somporn-techangamsuwan', 'nopadon-pirarat', 'anudep-rungsipipat', 'roongroje-thanawongnuwech', 'wijit-banlunara', 'theerayuth-kaewamatawong', 'komkrich-tiankam', 'sawang-kesdangsakonwut'],
+      topics: [] },
+    { id: 'vet-pharm', code: 'TBD-3103311', name: 'เภสัชวิทยา + พิษวิทยา',
+      name_en: 'Veterinary Pharmacology & Toxicology',
+      icon: '💊', color: '#6b5d8e', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['nipattra-suwanpairintr', 'piyarat-chansiripornchai', 'chenpop-sawangmake', 'kananuch-vasunthararaksa'],
+      topics: [] },
+    { id: 'vet-public-health', code: 'TBD-3104301', name: 'สัตวแพทยสาธารณสุข',
+      name_en: 'Veterinary Public Health & Epidemiology',
+      icon: '🌐', color: '#3d6b82', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['alongkorn-amonsin', 'rungtip-chuanchuen', 'suphachai-nuanualsuwan', 'taradon-luangtongkum', 'saharuetai-jeamsripong', 'vachira-hunprasit'],
+      topics: [] },
+    { id: 'clin-path', code: 'TBD-3107301', name: 'พยาธิคลินิก + เทคนิคตรวจวินิจฉัย',
+      name_en: 'Clinical Pathology & Diagnostic Techniques',
+      icon: '🩸', color: '#a73d4a', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['yaowalak-panyasing', 'namphung-suemanotham', 'araya-radtanakatikanon', 'nan-choisunirachon', 'chutimon-thanaboonnipat'],
+      topics: [] },
+    { id: 'animal-husbandry-2', code: 'TBD-3105301', name: 'สัตวบาล II · ระบบฟาร์ม',
+      name_en: 'Production Systems (poultry/swine/rum/aqua)',
+      icon: '🚜', color: '#5c7d4a', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['chackrit-nuengjamnong', 'ajjima-chansaenroj', 'chaidate-inchaisri'],
+      topics: [] },
+  ],
+
+  // ─── Year 5 · Clinical Rotation & Specialty ──────────────────────
+  // (Y4 already has cliapprum/practrum/poultry/exotic/com5/repro — those
+  //  are coded as Y4 courses per Chula registrar. Y5 adds specialty
+  //  courses + clinical rotation entry points.)
+  5: [
+    { id: 'equine-medicine', code: 'TBD-3107413', name: 'เวชปฏิบัติม้า',
+      name_en: 'Equine Medicine & Surgery',
+      icon: '🐎', color: '#8b5a3d', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['theerawat-tharasanit', 'sumit-durongphongtorn'],
+      topics: [] },
+    { id: 'aquatic-clinic', code: 'TBD-3107412', name: 'คลินิกสัตว์น้ำ',
+      name_en: 'Aquatic Animal Medicine',
+      icon: '🐟', color: '#3d6b82', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['aranya-ponpornpisit', 'patharapol-piamsomboon', 'thanida-haetrakul', 'nopadon-pirarat', 'charnnarong-rodkhum'],
+      topics: [] },
+    { id: 'swine-clinic', code: 'TBD-3107411', name: 'คลินิกและเวชปฏิบัติสุกร',
+      name_en: 'Swine Medicine & Practice',
+      icon: '🐖', color: '#c26d8e', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['athipoo-nuntaprasert', 'pornchalit-assavacheep', 'suphot-wattanaphansak', 'roongtham-kedkovid', 'padet-tummaruk', 'nutthee-am-in'],
+      topics: [] },
+    { id: 'avian-medicine', code: 'TBD-3107415', name: 'อายุรศาสตร์สัตว์ปีก (เชิงลึก)',
+      name_en: 'Avian Medicine (advanced)',
+      icon: '🦅', color: '#d97744', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['niwat-chansiripornchai', 'somsak-pakpinyo', 'nataya-charoenvisal'],
+      topics: [] },
+    { id: 'food-safety', code: 'TBD-3104411', name: 'ความปลอดภัยอาหาร + โรงฆ่าสัตว์',
+      name_en: 'VPH II — Food Safety & Slaughterhouse',
+      icon: '🥩', color: '#a73d4a', semester: 2, has_questions: false, scaffold: true,
+      vault_lecturers: ['alongkorn-amonsin', 'rungtip-chuanchuen', 'suphachai-nuanualsuwan', 'saharuetai-jeamsripong'],
+      topics: [] },
+    { id: 'small-animal-med-advanced', code: 'TBD-3107416', name: 'อายุรศาสตร์สัตว์เล็กขั้นสูง',
+      name_en: 'Small Animal Internal Medicine (advanced)',
+      icon: '🐕‍🦺', color: '#3d6b82', semester: 1, has_questions: false, scaffold: true,
+      vault_lecturers: ['rosama-pusoonthornthum', 'sitilak-surachetpong', 'sukullaya-ritthikulprasert', 'nattawan-tangmahakul'],
+      topics: [] },
+  ],
+
+  // ─── Year 6 · Internship / Externship Rotation ───────────────────
+  // Block-based, not semester-based at Chula. Marked semester: 0
+  // (placeholder) — UI should show "Block" label instead of สอบกลาง/ปลาย.
+  6: [
+    { id: 'rotation-small-animal', code: 'TBD-3107601', name: 'หมุนเวียน · สัตว์เล็ก (รพ.)',
+      name_en: 'Small Animal Hospital Rotation',
+      icon: '🏥', color: '#3d6b82', semester: 0, has_questions: false, scaffold: true,
+      vault_lecturers: ['chaiyot-tanrattana', 'chutirat-torsahakul', 'krissda-boonaramrueng', 'rosama-pusoonthornthum', 'siwaporn-pengpis', 'sitilak-surachetpong'],
+      topics: [] },
+    { id: 'rotation-surgery-anesth', code: 'TBD-3106601', name: 'หมุนเวียน · ศัลย์ + วิสัญญี',
+      name_en: 'Surgery & Anesthesia Rotation',
+      icon: '🔪', color: '#c26d6d', semester: 0, has_questions: false, scaffold: true,
+      vault_lecturers: ['kumpanart-soontornvipart', 'sumit-durongphongtorn', 'nan-choisunirachon', 'chalika-wangdee', 'chutimon-thanaboonnipat', 'pattaramonchat-bunnak', 'ekkapol-akkraputtiporn'],
+      topics: [] },
+    { id: 'rotation-livestock-farm', code: 'TBD-3108601', name: 'หมุนเวียน · ปศุสัตว์ + ฟาร์ม',
+      name_en: 'Livestock & Farm Animal Rotation',
+      icon: '🚜', color: '#5c7d4a', semester: 0, has_questions: false, scaffold: true,
+      vault_lecturers: ['kittisak-ajariyakhajorn', 'chaidate-inchaisri', 'padet-tummaruk', 'siriwat-suadsong', 'piyanat-prasomsri', 'roongtham-kedkovid', 'pornchalit-assavacheep'],
+      topics: [] },
+    { id: 'rotation-aquatic-wildlife', code: 'TBD-3107602', name: 'หมุนเวียน · สัตว์น้ำ + สัตว์ป่า',
+      name_en: 'Aquatic & Wildlife Rotation',
+      icon: '🦓', color: '#7d4a7d', semester: 0, has_questions: false, scaffold: true,
+      vault_lecturers: ['aranya-ponpornpisit', 'patharapol-piamsomboon', 'thanida-haetrakul', 'thavajchai-lekdamrongsak', 'pannawat-supapannachart', 'saowaphang-sanannu'],
+      topics: [] },
+    { id: 'rotation-vph-extern', code: 'TBD-3104601', name: 'หมุนเวียน · VPH + ฝึกงานนอก',
+      name_en: 'VPH & Food Safety Externship',
+      icon: '🌐', color: '#3d6b82', semester: 0, has_questions: false, scaffold: true,
+      vault_lecturers: ['alongkorn-amonsin', 'rungtip-chuanchuen', 'suphachai-nuanualsuwan', 'taradon-luangtongkum'],
+      topics: [] },
+    { id: 'rotation-imaging-pathlab', code: 'TBD-3102601', name: 'หมุนเวียน · Imaging + Path Lab',
+      name_en: 'Diagnostic Imaging & Path Lab Rotation',
+      icon: '🩻', color: '#6b5d8e', semester: 0, has_questions: false, scaffold: true,
+      vault_lecturers: ['nan-choisunirachon', 'chutimon-thanaboonnipat', 'somporn-techangamsuwan', 'sawang-kesdangsakonwut', 'kasem-rattanapinyopituk'],
+      topics: [] },
+    { id: 'senior-project', code: 'TBD-3100601', name: 'โครงการพิเศษปีสุดท้าย',
+      name_en: 'Senior Project (research thesis)',
+      icon: '🎓', color: '#a78b3d', semester: 0, has_questions: false, scaffold: true,
+      vault_lecturers: ['nan-choisunirachon'],
+      topics: [] },
+  ],
 };
 
 // Flat list (includes "all")
