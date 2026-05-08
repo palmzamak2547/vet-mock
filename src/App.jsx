@@ -733,8 +733,10 @@ export default function App() {
           {/* Header — hidden on full-screen / focus views (exam in progress,
               results, review, auth) so user isn't tempted to navigate away
               mid-session and so the result/review pages don't have nav
-              chrome competing with the data presentation. */}
-          {!['exam', 'results', 'review', 'auth'].includes(view) && (
+              chrome competing with the data presentation.
+              Also hidden on year-select to avoid a confusing logo→home
+              click when the user hasn't picked a year yet. */}
+          {!['exam', 'results', 'review', 'auth', 'year-select'].includes(view) && (
             <div className="vmx-header">
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                 <div className="vmx-logo" onClick={goHome}>Vet<span>Mock</span></div>
@@ -787,10 +789,20 @@ export default function App() {
                 >📊</button>
                 <button
                   className="vmx-theme-btn"
-                  onClick={() => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}
-                  title="Bookmarks · ทำข้อที่บันทึก"
+                  onClick={() => {
+                    if (bookmarks.length === 0) return;
+                    setPracticeMode('bookmarks');
+                    setMode('quick');
+                    setView('config');
+                  }}
+                  disabled={bookmarks.length === 0}
+                  title={bookmarks.length === 0 ? 'ยังไม่มีข้อที่บันทึก' : `Bookmarks · ทำ ${bookmarks.length} ข้อที่บันทึก`}
                   aria-label="Bookmarks"
-                  style={{ position: 'relative' }}
+                  style={{
+                    position: 'relative',
+                    opacity: bookmarks.length === 0 ? 0.45 : 1,
+                    cursor: bookmarks.length === 0 ? 'not-allowed' : 'pointer',
+                  }}
                 >
                   🔖
                   {bookmarks.length > 0 && (
