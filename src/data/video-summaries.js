@@ -25824,6 +25824,273 @@ For external gilts:
 > 🦴 **Welfare = profit** — modern farms cannot ignore welfare for premium markets`,
   },
 
+  I478HTK1kKY: {
+    videoId: 'I478HTK1kKY',
+    title: '5. Swine Breeds and Inbreeding Problems',
+    subject: 'swine-herd',
+    date: '3 Sep 67',
+    durationMin: 86,
+    instructor: 'พี่เอ็ม (อาจารย์สัตวบาล CUVET)',
+    examFormat: 'MCQ — 5 main breeds (Yorkshire/Landrace/Duroc/Hampshire/Pietrain) · 3-way crossing · maternal vs paternal lines · selection vs mating · inbreeding depression · ASF impact ออกบ่อย',
+    summary: `# Swine Breeds and Inbreeding Problems
+
+> 🎯 **Why does this matter?** Pig is #1 consumed meat globally · breed = revenue
+> Top exam: **5 main breeds · 3-way crossbreeding · maternal vs paternal line traits · inbreeding consequences · ASF-driven inbreeding crisis**
+
+---
+
+## 1. Why Pig Breeds Matter ⭐ (Context)
+
+- Pig = #1 consumed meat globally (data 2022, FAO)
+- Followed by chicken, beef, lamb
+- ~500-600 swine breeds worldwide (90% local breeds)
+- Industrial breeders use ~5 commercial breeds
+
+---
+
+## 2. The 5 Main Commercial Breeds ⭐⭐⭐ (MUST KNOW!)
+
+### Maternal lines (Sow-side breeds)
+| Breed | Origin | Color | Key traits |
+|---|---|---|---|
+| **Yorkshire / Large White** ⭐ | UK | White, prick ears | **Mothering ability** · large litter · prolific |
+| **Landrace** ⭐ | Denmark | White, **drop ears** · LONG body | **Long body** (more teats, more ribs!) · good mother · high carcass yield |
+
+### Paternal lines (Boar-side breeds)
+| Breed | Origin | Color | Key traits |
+|---|---|---|---|
+| **Duroc** ⭐ | USA | Red/brown | **Hardy** · strong legs · low backfat · good meat color |
+| **Hampshire** | USA | Black + white belt | Lean, muscular |
+| **Pietrain** | Belgium | Spotted | **HIGHEST muscle %** · highest dressing % · BUT stress-sensitive (PSS) |
+
+### Quick recognition mnemonic
+| Visual cue | Breed |
+|---|---|
+| White, ears UP | Yorkshire |
+| White, ears DOWN, LONG | Landrace |
+| Solid red/brown | Duroc |
+| Black with white BELT | Hampshire |
+| White with BLACK SPOTS | Pietrain |
+
+---
+
+## 3. Niche/Premium Breeds ⭐
+
+### Kurobuta (黒豚) "Black pig"
+- **Berkshire** breed (England origin)
+- Black with white points (face, feet, tail tip)
+- Premium meat, expensive
+- Japanese marketing creates "Kurobuta" brand
+- Thai market mostly NOT real Kurobuta (CP-style locally bred)
+
+---
+
+## 4. 3-Way Crossbreeding ⭐⭐⭐ (Standard commercial system)
+
+### Why crossbreed?
+- **Hybrid vigor (heterosis)** — F1 outperforms parents
+- Combines strengths of multiple breeds
+- Maintains uniformity in commercial pigs
+
+### Standard 3-Way Cross
+
+| Step | Cross | Result |
+|---|---|---|
+| **1** | Yorkshire × Landrace | F1 sow ("YL" or "LY") — White × White maternal hybrid |
+| **2** | F1 sow × Duroc boar | Commercial pig (3-way cross) — Y mothering + L body length + D meat quality |
+
+### Why this combo?
+- F1 sow = best mother (Yorkshire prolificness + Landrace teats)
+- Duroc boar adds hardiness + meat quality
+- Commercial pig = market-ready
+
+---
+
+## 5. Pig Production Pyramid ⭐⭐ (Industry structure)
+
+### From elite genetics → market pig
+| Tier | What | Purpose |
+|---|---|---|
+| **Nucleus (GGP)** | Pure genetic stock | Slowest selection, most expensive |
+| **Multiplier (GP)** | Hybrid breeders | Sells F1 sows to commercial farms |
+| **Parent Stock (PS)** | F1 sows + terminal sires | Produces commercial pigs |
+| **Commercial / Fattening** | Final 3-way cross | Slaughter for meat |
+
+> ⭐ Most farms work at **Commercial** level · few have nucleus
+
+---
+
+## 6. Animal Breeding Principles ⭐ (Backbone!)
+
+### Two foundations
+| Tool | What it does |
+|---|---|
+| **SELECTION** | Choose which animals to breed (best performers) |
+| **MATING** | Decide WHO to mate with WHOM (avoid inbreeding, promote heterosis) |
+
+### Three trait categories to improve
+1. **Production traits** ⭐ (revenue-generating!)
+   - **ADG** (Average Daily Gain)
+   - **FCR** (Feed Conversion Ratio)
+   - **Backfat thickness**
+   - **Carcass yield**
+2. **Functional traits** (longevity-related)
+   - Leg/foot health
+   - Udder/teat quality
+   - Disease resistance
+3. **Reproductive traits**
+   - Litter size
+   - Conception rate
+   - Mothering ability
+
+### Selecting on what?
+- **Heritability**: how much trait passes genetically
+- High heritability = backfat, growth (easy to select)
+- Low heritability = litter size, fertility (slow gain)
+
+---
+
+## 7. INBREEDING ⭐⭐⭐ (Core topic!)
+
+### What is inbreeding?
+**Mating closely related animals** (same family · grandparent → grandchild · siblings)
+
+### Why does it occur?
+| Cause | Explanation |
+|---|---|
+| **Closed nucleus** | Limited breeding pool |
+| **Small farm population** | Few new genetics |
+| **No record-keeping** | Cannot avoid related crosses |
+| **ASF crisis (post-2019)** ⭐⭐ | Massive sow loss → forced sibling-fattener upgrades to breeders |
+| **Imported semen unavailable** | War/embargo limits genetic diversity |
+
+### Inbreeding Depression ⭐⭐⭐ (KEY concept)
+**Loss of vigor** in offspring of related parents
+- Manifests in: smaller litters, weaker piglets, reduced fertility
+- Caused by: homozygosity at deleterious recessive alleles
+- More severe in traits with **low heritability** (reproduction, immunity)
+
+### Calculated metric: COI (Coefficient of Inbreeding)
+- 0% = no inbreeding
+- 25% = parent-offspring or sibling cross
+- 50% = parent-self cross
+- Modern target = **<5% in commercial herds**
+
+---
+
+## 8. Inbreeding Effects on Herd Health ⭐⭐
+
+### Classic signs
+| Sign | Mechanism |
+|---|---|
+| **Smaller litter size** | Low embryo viability |
+| **Weaker piglets** | Low genetic vigor |
+| **Higher pre-weaning mortality** | Weak immune systems |
+| **Slower growth** | Less heterotic boost |
+| **Reduced fertility** | Hormonal imbalances · ovulation issues |
+| **Increased disease susceptibility** | Loss of MHC diversity |
+| **Congenital defects** | Recessive defects expressed |
+| **Poor semen quality** (boars) | Reduced motility, count |
+
+### Direct impact on KPIs
+| KPI | Inbreeding effect |
+|---|---|
+| **PSY** | ↓ (smaller litters + higher mortality) |
+| **Conception rate** | ↓ |
+| **Wean rate** | ↓ |
+| **Days to slaughter** | ↑ (slower growth) |
+
+---
+
+## 9. ASF & Inbreeding Crisis ⭐ (Modern issue!)
+
+### Cascade of events
+1. ASF outbreaks (2018-2020 Asia, 2022 Thailand)
+2. **Massive sow culling** (millions of pigs)
+3. **Genetics shortage** — no time to wait for proper imports
+4. Some farms **upgrade their fattening pigs to breeders** (siblings often!)
+5. **Inbreeding emerges** in 1-2 generations
+6. New problems: small litters, weakness
+
+### What vets must check
+- Recent breeding source (was it from outside?)
+- Family records
+- Calculate COI if possible
+- Watch for "unexplained" reproductive declines
+
+---
+
+## 10. Outbreeding & Vigor Restoration ⭐
+
+### Solutions to inbreeding
+| Approach | Effect |
+|---|---|
+| **Import new semen** ⭐ | Fastest genetic refresh |
+| **Buy unrelated boars** | Adds new genes |
+| **Use rotational breeding** | Spreads genetic base |
+| **Outcross to different breed** | Maximum heterosis |
+
+### Outbreeding (opposite of inbreeding)
+- Mating UNRELATED animals
+- Maximizes heterosis (F1 vigor)
+- Foundation of commercial 3-way cross system
+
+---
+
+## 11. Selection Methods ⭐
+
+### Modern tools
+| Method | Description |
+|---|---|
+| **Visual selection** | Conformation, body condition |
+| **Production records** | ADG, FCR, litter size |
+| **Estimated Breeding Value (EBV)** | Statistical estimate of genetic merit |
+| **Genomic selection** ⭐ | DNA markers · most modern |
+| **Phenotypic selection** | Based on individual performance |
+
+### Selection intensity
+- High intensity = pick top 5% only
+- Low intensity = pick top 50%
+- Higher intensity = faster genetic gain BUT higher inbreeding risk!
+
+---
+
+## 12. Vet's Role in Breeding Programs ⭐
+
+### Beyond clinical work
+1. **Audit breeding records** at farm visits
+2. **Recommend rotation** of boars/genetics
+3. **Monitor inbreeding signs** (litter size trends)
+4. **Advise on biosecurity** for imported genetics
+5. **Educate owner** on long-term breeding strategy
+
+---
+
+## 🎯 Exam Recap — top 16 testable points
+
+1. **Pig = #1 consumed meat** globally
+2. **5 main commercial breeds**: Yorkshire · Landrace · Duroc · Hampshire · Pietrain
+3. **Yorkshire = mothering** (white, prick ears)
+4. **Landrace = LONG body, drop ears** (more teats, ribs)
+5. **Duroc = hardy, red/brown, low backfat**
+6. **Hampshire = black + white BELT**
+7. **Pietrain = highest muscle %, BUT stress-sensitive**
+8. **3-way cross**: Y × L = F1 sow → × Duroc = commercial pig
+9. **Selection + Mating** = breeding fundamentals
+10. **Heritability** affects selection speed (high for backfat, low for litter size)
+11. **Inbreeding depression** = lost vigor in related crosses
+12. **COI <5% target** in commercial herds
+13. **ASF caused inbreeding resurgence** post-2019
+14. **Inbreeding signs**: small litter, weak piglets, ↓ fertility, congenital defects
+15. **Outbreeding maximizes heterosis** (commercial advantage)
+16. **Maternal vs Paternal lines**: differ in selection priorities
+
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 6-7 Record analysis (AbDfu2y3oW0) · 8 Epidemiology (1mFans-0DNY)
+> 🩻 **Practice tip**: Memorize visual breed recognition · color + ear position
+> 💡 **ASF + inbreeding** = modern Thai farm reality · check sources
+> 🦴 **3-way cross** = backbone of Thai commercial swine industry`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
