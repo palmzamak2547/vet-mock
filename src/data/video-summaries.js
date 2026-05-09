@@ -55334,6 +55334,2286 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
 5. ⭐ One Health quadripartite (WHO+WOAH+FAO+UNEP 2022)`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // SWINE CLINIC / SWINE MEDICINE (Y5 sem 1) — 27 lectures
+  // ─────────────────────────────────────────────────────────────
+
+  'sm6u0EdKqwI': {
+    videoId: 'sm6u0EdKqwI',
+    title: '1. โรคระบบทางเดินอาหารจากเชื้อไวรัสในสุกร',
+    subject: 'swine-clinic',
+    date: '2025-08-15',
+    durationMin: 90,
+    instructor: 'อ.สายลม + Swine team',
+    examFormat: 'MCQ + clinical + DDx',
+    summary: `# 🐷 Swine Clinic #1 — Viral GI Diseases in Swine
+
+## 🎯 Major viral GI diseases
+
+| Disease | Pathogen | Age affected | Mortality |
+|---|---|---|---|
+| TGE | Coronavirus (alpha) | All ages, esp. <2 wk | 100% in piglets <2wk |
+| PED | Coronavirus (alpha) | All ages, esp. <1 wk | High in suckling |
+| PDCoV | Coronavirus (delta) | Suckling | Variable |
+| Rotavirus | Rotavirus A,B,C | Suckling, weaning | Low-moderate |
+| Sapovirus / Norovirus | Calicivirus | Various | Low |
+| Astrovirus | Astrovirus | Various | Low |
+
+## 🦠 Transmissible Gastroenteritis (TGE)
+- *Alphacoronavirus 1* — TGEV
+- All ages, but neonates <2 weeks → ~100% mortality
+- Vomiting + watery diarrhea (yellow, fetid)
+- Rapid dehydration
+- Sows: anorexia, transient agalactia
+- Spread: fecal-oral, fomite, dogs/cats can carry virus
+- Dx: PCR, IF on intestinal mucosa, serology
+- Tx: supportive (electrolytes, no specific)
+- Vaccine: live + killed (sows for passive immunity)
+- Now uncommon — replaced by PED globally
+
+## 🦠 Porcine Epidemic Diarrhea (PED)
+- *Alphacoronavirus 1* — PEDV
+- Re-emerged USA 2013, devastating
+- TH 2007 first detection, 2013 widespread
+- Suckling piglet diarrhea, vomiting, dehydration
+- Mortality up to 100% in <1 wk piglets
+- Sow exposure → milk antibodies (lactogenic immunity = key!)
+- "Feedback" — old practice (intestinal homogenate to sows)
+- Dx: PCR (feces, intestinal tissue)
+- Vaccine: killed + modified live (TH commercial avail)
+
+## 🦠 Porcine Deltacoronavirus (PDCoV)
+- 2014 USA first identified
+- Similar to PED but milder
+- Co-infection with PED common
+- Dx: PCR (panel for all swine coronaviruses)
+
+## 🦠 Rotavirus
+- Reovirus family, 11 dsRNA segments
+- Type A (most common), B, C, E, H
+- Suckling and post-weaning diarrhea
+- Self-limiting but +bacterial co-infection severe
+- Dx: PCR, ELISA, EM
+- Vaccine: live oral (limited availability)
+
+## 🩺 Clinical approach to neonatal pig diarrhea
+
+### Differential diagnosis grid
+
+| Pathogen | Color | Onset age | Vomiting | Mortality |
+|---|---|---|---|---|
+| TGE | Yellow watery | <2 wk | Yes | 100% |
+| PED | Yellow watery | <1 wk | Yes | 100% |
+| Rota | White-yellow | 3 d-3 wk | Sometimes | 10-30% |
+| E. coli | Yellow watery | <1 wk | No | 30-70% |
+| C. perfringens C | Hemorrhagic | 1-7 d | No | 50-100% |
+| Coccidia | Pasty yellow | 7-21 d | No | Low |
+| Strongyloides | Watery | >2 wk | No | Low |
+
+## 🔬 Diagnostic workflow
+1. History (age, herd status, vaccination, biosecurity break)
+2. Necropsy (collect mid-jejunum + ileum + colon)
+3. PCR panel (TGE/PED/PDCoV/Rota)
+4. Bacterial culture + serotyping
+5. Histopath (villous atrophy patterns)
+6. Antibiogram if E. coli/Salmonella
+
+## 🛡️ Prevention + control
+- **Biosecurity** = #1 (downtime, cleaning, disinfection)
+- Sow vaccination → passive immunity
+- All-in-all-out
+- Lactogenic immunity (key for coronaviruses)
+- Quarantine new gilts
+- Pig flow management
+
+## 📝 EXAM RECAP
+1. ⭐ TGE + PED both alphacoronaviruses, neonate ~100% mortality
+2. ⭐ Lactogenic immunity = milk antibody (key for PED)
+3. ⭐ Rotavirus 11 dsRNA segments, Type A most common
+4. ⭐ DDx grid by age + color + vomiting
+5. ⭐ PEDV TH endemic, 2013 widespread`,
+  },
+
+  '8NesHHQKPx8': {
+    videoId: '8NesHHQKPx8',
+    title: '2.1 โรคระบบทางเดินหายใจจากไวรัสในสุกร',
+    subject: 'swine-clinic',
+    date: '2025-08-22',
+    durationMin: 56,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + control',
+    summary: `# 🐷 Swine Clinic #2.1 — Viral Respiratory Diseases
+
+## 🎯 Major viral respiratory pathogens
+
+| Disease | Pathogen | Family | Key feature |
+|---|---|---|---|
+| PRRS | PRRSV | Arterivirus | Repro + resp, persistent |
+| SI | Influenza A | Orthomyxo | H1N1, H3N2, H1N2 |
+| PRCV | Coronavirus | Corona | Mild resp, TGE relative |
+| PCMV | Cytomegalovirus | Herpes | Inclusion body rhinitis |
+| Pseudorabies | Aujeszky's | Herpes | Resp + neuro |
+| Nipah | Henipavirus | Paramyxo | Encephalitis (zoonotic) |
+
+## 🦠 PRRSV (Porcine Reproductive & Respiratory Syndrome)
+
+### Pathogen
+- Arteriviridae, Type 1 (European) + Type 2 (NA)
+- TH: Type 2 (highly pathogenic strain HP-PRRSV from China 2010)
+- Infects macrophages → immunosuppression
+
+### Clinical
+- Sows: late-term abortion, mummified, weak piglets
+- Boars: ↓semen quality
+- Nursery: cough, fever, "blue ear", high mortality
+- Co-infection (PCV2, *Strep suis*, APP) common
+
+### Diagnosis
+- PCR (serum, lung, lymph node)
+- ELISA (IgG seroconversion 14-21 days post-infection)
+- ORF5 sequencing (strain typing)
+
+### Control
+- Modified live vaccine (controversial - reverts)
+- Killed vaccine (low protection)
+- "PRRS-stable" + "PRRS-naïve" status
+- Herd closure for elimination
+- Biosecurity (pig truck, air filtration)
+
+## 🦠 Swine Influenza
+- H1N1, H3N2, H1N2 strains
+- 2009 pandemic H1N1 — triple reassortant
+- Acute: cough, fever, anorexia, "barking"
+- Recovery 5-7 days (uncomplicated)
+- Vaccine: killed (matched to circulating strains)
+
+## 🦠 Pseudorabies (Aujeszky's disease)
+- Suid herpesvirus 1
+- Pigs = natural host (other species fatal!)
+- Adult: respiratory + repro
+- Piglets: severe neuro (tremor, paddling, death)
+- "Mad itch" — fatal in cattle, dogs, cats
+- TH: eradicated commercially, sporadic backyard
+- gE-deleted vaccine + DIVA strategy for eradication
+
+## 🦠 Nipah virus (zoonotic!)
+- Bat → pig → human (Malaysia 1998)
+- Pigs: respiratory + neuro (barking cough, hindlimb weakness)
+- Humans: fatal encephalitis
+- TH: bat surveillance ongoing, no outbreaks
+
+## 🩺 Clinical approach (resp + cough in nursery)
+1. PRRS-cough (chronic, low-grade) → PRRSV
+2. Acute high fever + cough → SI or APP
+3. Sneezing + bloody nasal discharge → AR
+4. Cyanotic ears → PRRS or septicemia
+5. Convulsion + tremor → PR or *S. suis*
+
+## 🛡️ Prevention
+- Vaccination program (PRRS, SI, AR if relevant)
+- Biosecurity (downtime, shower-in)
+- All-in-all-out
+- Air quality (NH3, dust)
+- Stocking density management
+
+## 📝 EXAM RECAP
+1. ⭐ PRRSV: arterivirus, infects macrophages, "blue ear"
+2. ⭐ TH PRRSV = Type 2 (HP-PRRSV from China 2010)
+3. ⭐ SI 2009 H1N1 = triple reassortant pandemic
+4. ⭐ Pseudorabies = "mad itch" fatal in cattle/dogs
+5. ⭐ Nipah Malaysia 1998 = bat→pig→human`,
+  },
+
+  'd4_ymlDCdoc': {
+    videoId: 'd4_ymlDCdoc',
+    title: '2.2 โรคระบบประสาทในสุกร',
+    subject: 'swine-clinic',
+    date: '2025-08-22',
+    durationMin: 43,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + DDx + clinical',
+    summary: `# 🐷 Swine Clinic #2.2 — Neurological Diseases
+
+## 🎯 Major neurologic diseases by age
+
+### Suckling (0-3 wk)
+- Streptococcus suis (meningitis)
+- Glasser's disease (Hps, polyserositis + meningitis)
+- Salt poisoning / water deprivation
+- Pseudorabies (paddling, tremor)
+- Hypoglycemia
+- Congenital tremor (CSFV, PCV2 associated)
+
+### Nursery / grow-finish
+- *S. suis* (chronic carrier reactivation)
+- Edema disease (*E. coli* STEC)
+- *Haemophilus parasuis* (Glasser's)
+- Salt poisoning
+- Pseudorabies (rare in TH commercial)
+- Mulberry heart disease (vit E/Se)
+
+### Adults
+- Pseudorabies (Aujeszky's)
+- Listeria (rare)
+- Rabies (rare)
+- Toxic (organophosphate, lead)
+
+## 🐷 Streptococcus suis
+- Most common neurologic dz in TH swine
+- Tonsil colonization → bacteremia → meningitis
+- Clinical: sudden death OR fever, paddling, opisthotonus, ataxia
+- Dx: CSF tap, brain culture, PCR
+- Tx: penicillin or amoxicillin (early)
+- Zoonotic (raw pork → meningitis + deafness)
+- Control: depop nursery, biosecurity
+
+## 🐷 Edema Disease (*E. coli*)
+- Shiga-toxin producing *E. coli* (STEC)
+- Post-weaning (1-4 wk after wean)
+- Edema of eyelids, forehead, larynx
+- Squealing voice change, ataxia, sudden death
+- Necropsy: edema of mesocolon, stomach wall
+- Tx: discontinue feed 24h, lower protein, electrolytes
+- Prevention: vaccination, fiber, gradual diet change
+
+## 🐷 Glasser's disease (*Haemophilus parasuis*)
+- Polyserositis: fibrinous pericarditis, pleuritis, peritonitis, meningitis, arthritis
+- 4-8 wk pigs (post-weaning)
+- Stress trigger (PRRS, mixing)
+- Tx: ceftiofur, ampicillin
+- Vaccine: bacterin (sow + pig)
+
+## 🐷 Salt poisoning / Water deprivation
+- Common when water restriction + high salt feed
+- Confused, head pressing, blindness, seizures
+- Histo: eosinophilic meningoencephalitis
+- Tx: SLOW rehydration (rapid → cerebral edema)
+
+## 🐷 Mulberry Heart Disease
+- Vit E + Se deficiency
+- Sudden death in fast-growing pigs
+- Heart: mottled "mulberry" appearance
+- Tx: prevention via supplementation
+
+## 🐷 Pseudorabies (revisited)
+- Suckling: paddling, tremor, opisthotonus, fatal
+- Adults: sneeze, fever, transient
+- Cattle/dogs/cats: pruritus + death
+
+## 🩺 Clinical approach to neuro signs
+
+### History
+- Age, vaccination, water access, recent stress
+
+### Exam
+- Mentation, gait, posture, cranial nerves
+- Body temp, respiratory pattern
+
+### Necropsy
+- Brain (fix in formalin, fresh for culture)
+- CSF tap
+- Polyserositis (Glasser's)
+- Mesocolon edema (edema dz)
+- Eyelid edema (edema dz)
+
+## 📝 EXAM RECAP
+1. ⭐ S. suis = #1 swine meningitis in TH
+2. ⭐ Edema dz = STEC, post-weaning, eyelid edema
+3. ⭐ Glasser's = polyserositis + meningitis (Hps)
+4. ⭐ Salt poisoning: SLOW rehydration
+5. ⭐ Mulberry heart = vit E/Se deficiency`,
+  },
+
+  'P2Qi00Rb5N8': {
+    videoId: 'P2Qi00Rb5N8',
+    title: '3. Bacterial Respiratory — Actinobacillus pleuropneumoniae (APP)',
+    subject: 'swine-clinic',
+    date: '2025-08-29',
+    durationMin: 119,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + lab + control',
+    summary: `# 🐷 Swine Clinic #3 — Actinobacillus pleuropneumoniae (APP)
+
+## 🎯 APP overview
+- *Actinobacillus pleuropneumoniae* — Gram-negative coccobacillus
+- 18 serotypes (1-18) — different virulence
+- Apx toxins (I, II, III, IV) — major virulence
+- Tonsil colonization, lung infection
+- Highly contagious, high economic impact
+
+## 🩺 Clinical forms
+
+### Peracute
+- Sudden death
+- Cyanosis (mucosa, skin)
+- Bloody foam from nose
+- Within hours
+
+### Acute
+- High fever (>41°C)
+- Severe respiratory distress (open mouth breathing)
+- Cyanotic ears, nose
+- Mortality 10-50%
+
+### Subacute / Chronic
+- Cough (intermittent)
+- Reduced ADG
+- Lung scarring on slaughter
+
+## 🔬 Diagnosis
+
+### Necropsy
+- **Pathognomonic:** Hemorrhagic-necrotic pleuropneumonia
+- Diaphragmatic lobe most affected
+- Fibrinous pleuritis (lung adhered to ribs)
+- Cavities + necrotic foci
+
+### Lab
+- Culture (Chocolate agar + NAD/V factor)
+- PCR (Apx toxin genes — specific)
+- Serotyping
+- ELISA (ApxIV — universal serological marker)
+
+## 💊 Treatment
+- **Acute:** ceftiofur, enrofloxacin, tulathromycin, marbofloxacin
+- IM injection (rapid)
+- Whole-herd water medication if outbreak
+- Tilmicosin in feed for prevention
+- Antimicrobial susceptibility test recommended
+
+## 🛡️ Vaccination
+- **Bacterin** (killed) — limited protection (serotype-specific)
+- **Subunit (Apx toxoid)** — broad protection (most modern vaccines)
+- 2 doses at weaning + 4-6 weeks later
+- Sows: pre-farrow
+
+## 🛡️ Control / eradication
+- All-in-all-out flow
+- Biosecurity (entry control, downtime)
+- Air quality (NH3 < 25 ppm)
+- Stocking density
+- Eradication: medicated early weaning + repopulation
+
+## 🇹🇭 Thailand epidemiology
+- Endemic in commercial herds
+- Serotypes 1, 2, 5, 7 most common
+- Co-infection with Mhp + PRRS = "PRDC" (Porcine Resp Dz Complex)
+- Antimicrobial resistance increasing — ASTM trends important
+
+## 📝 EXAM RECAP
+1. ⭐ APP = Apx toxins, hemorrhagic-necrotic pleuropneumonia
+2. ⭐ Diaphragmatic lobe lesion = pathognomonic
+3. ⭐ ApxIV ELISA = universal serological marker
+4. ⭐ 18 serotypes, TH: 1, 2, 5, 7 common
+5. ⭐ Subunit Apx toxoid = best protection`,
+  },
+
+  'OSnFzv-Yso8': {
+    videoId: 'OSnFzv-Yso8',
+    title: '4.1 Actinobacillus suis',
+    subject: 'swine-clinic',
+    date: '2025-09-05',
+    durationMin: 36,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + comparison APP',
+    summary: `# 🐷 Swine Clinic #4.1 — Actinobacillus suis
+
+## 🎯 Pathogen
+- *Actinobacillus suis* — Gram-negative coccobacillus
+- Related to APP but different niche
+- Tonsil + tonsillar carriage common (10-40%)
+- Stress / immunosuppression → systemic dz
+
+## 🩺 Clinical forms
+
+### Sucklings + nursery
+- Sudden death
+- Septicemia (fever, cyanosis)
+- Endocarditis (chronic)
+- Arthritis, meningitis
+
+### Grow-finish
+- "Diamond skin" rhomboid skin lesions (similar to erysipelas!)
+- Septicemia
+- Pneumonia (less common than APP)
+
+### Sows
+- Abortion (sporadic)
+- Sudden death
+
+## 🔬 Diagnosis
+- Culture from blood, lung, joint
+- Differential: erysipelas (skin lesions overlap)
+- PCR specific for *A. suis*
+- Histopath: vasculitis (similar to erysipelas)
+
+## 💊 Treatment
+- Penicillin, ceftiofur, ampicillin
+- Early intervention key
+- Whole-herd if outbreak
+
+## 🛡️ Prevention
+- Stress reduction
+- No specific vaccine commercial
+- Biosecurity
+- Cull chronic carriers
+
+## 🆚 Comparison with APP
+
+| Feature | APP | A. suis |
+|---|---|---|
+| Main organ | Lung (pleuropneumonia) | Multi (sepsis, skin) |
+| Toxin | Apx I-IV | RTX-like, ApxI/II homolog |
+| Skin lesion | No | Diamond rhomboid |
+| Mortality | Variable | High in stressed |
+| Antibiotic | Ceftiofur, fluoroquinolone | Penicillin works |
+
+## 📝 EXAM RECAP
+1. ⭐ A. suis = Gram-neg coccobacillus, tonsil carriage
+2. ⭐ Diamond skin = mimics erysipelas
+3. ⭐ Sudden death + septicemia common
+4. ⭐ Penicillin works (vs APP needs broader)
+5. ⭐ Stress trigger → systemic dz`,
+  },
+
+  'dIWm1zOx3TE': {
+    videoId: 'dIWm1zOx3TE',
+    title: '4.2 Pneumonic Pasteurellosis',
+    subject: 'swine-clinic',
+    date: '2025-09-05',
+    durationMin: 32,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + DDx',
+    summary: `# 🐷 Swine Clinic #4.2 — Pneumonic Pasteurellosis
+
+## 🎯 Pathogen
+- *Pasteurella multocida* — Gram-negative coccobacillus
+- Capsular types A, B, D, E, F
+- A and D most common in pigs
+- Often secondary pathogen (after Mhp, PRRS, SI primary)
+
+## 🩺 Clinical
+- Cough (chronic, productive)
+- Fever (variable)
+- Dyspnea
+- Reduced ADG
+- Anterior-ventral lung consolidation (catarrhal-purulent bronchopneumonia)
+
+## 🔬 Diagnosis
+- Necropsy: cranio-ventral lung consolidation, +/- abscess, fibrinous pleuritis
+- Culture: blood agar, MacConkey-negative
+- PCR: capsular type, virulence genes (toxA for AR strain)
+
+## 💊 Treatment
+- Tetracycline (doxycycline), florfenicol, ceftiofur, tulathromycin
+- Antibiogram-guided ideal
+
+## 🐷 Atrophic Rhinitis (separate but linked)
+- Toxigenic *P. multocida* (PMT toxin) + *Bordetella bronchiseptica*
+- Snout deformity (lateral deviation)
+- Turbinate atrophy
+- See lecture 4.3
+
+## 🆚 Compared with APP
+- APP: hemorrhagic-necrotic pleuropneumonia (diaphragmatic)
+- *P. multocida*: catarrhal-purulent bronchopneumonia (cranio-ventral)
+- APP: more peracute death
+- *P. multocida*: more chronic cough
+
+## 🛡️ Prevention
+- Bacterin (limited efficacy alone)
+- Combined Mhp + PCV2 + APP + Pm vaccines
+- Biosecurity, all-in-all-out
+- Air quality
+
+## 📝 EXAM RECAP
+1. ⭐ P. multocida = secondary pathogen (after primary)
+2. ⭐ Cranio-ventral consolidation pattern
+3. ⭐ Toxigenic strain → AR (snout deformity)
+4. ⭐ DDx: APP (diaphragmatic, hemorrhagic-necrotic)
+5. ⭐ Tx: tetracycline, florfenicol`,
+  },
+
+  'idYYTJbm13Y': {
+    videoId: 'idYYTJbm13Y',
+    title: '4.3 Atrophic Rhinitis',
+    subject: 'swine-clinic',
+    date: '2025-09-05',
+    durationMin: 32,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + control',
+    summary: `# 🐷 Swine Clinic #4.3 — Atrophic Rhinitis (AR)
+
+## 🎯 Pathogen complex
+- **Toxigenic *Pasteurella multocida*** (PMT toxin) — main cause of progressive AR
+- ***Bordetella bronchiseptica*** — non-progressive AR + facilitates Pm colonization
+
+## 🩺 Clinical signs
+
+### Non-progressive AR (Bordetella alone)
+- Mild sneezing, transient
+- Resolves naturally
+- No turbinate atrophy
+
+### Progressive AR (toxigenic Pm + Bb)
+- Sneezing (early)
+- Bloody nasal discharge (epistaxis)
+- Tearing → "tear stains" on cheek
+- **Snout deformity** — lateral deviation
+- Turbinate atrophy + facial bone osteoporosis
+- Reduced ADG (10-15%)
+- Reduced feed efficiency
+
+## 🔬 Diagnosis
+- **Snout cross-section** at PM2 — gold standard (slaughterhouse surveillance)
+- Score 0-5 (0 = normal, 5 = complete atrophy)
+- Culture (toxigenic Pm — PMT toxin gene)
+- PCR for toxA (PMT toxin)
+- ELISA (anti-PMT antibody)
+
+## 💉 Vaccination
+- **Subunit toxoid (PMT recombinant)** = key
+- Sow vaccination → colostral immunity
+- Piglet booster optional
+- Bordetella bacterin component
+
+## 💊 Treatment
+- Antibiotic (sulfa, tetracycline, ceftiofur) — early stages
+- Cannot reverse turbinate damage once established
+
+## 🛡️ Control
+- Sow vaccination (PMT toxoid + Bb)
+- All-in-all-out
+- Biosecurity (no introduction of toxigenic Pm)
+- Slaughter surveillance (snout score)
+
+## 🇹🇭 Thailand status
+- Common in older facilities
+- Sow vaccination widely adopted
+- Major slaughter checks reduced incidence
+
+## 📝 EXAM RECAP
+1. ⭐ Progressive AR = toxigenic Pm + Bb
+2. ⭐ Snout deformity + tear stains
+3. ⭐ PMT toxoid (recombinant subunit) vaccine = key
+4. ⭐ Slaughter snout cross-section PM2 surveillance
+5. ⭐ Sow vaccinate → colostral immunity for piglets`,
+  },
+
+  'uSrLs0XaAX8': {
+    videoId: 'uSrLs0XaAX8',
+    title: '5. Porcine Mycoplasmosis',
+    subject: 'swine-clinic',
+    date: '2025-09-12',
+    durationMin: 87,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + control',
+    summary: `# 🐷 Swine Clinic #5 — Porcine Mycoplasmosis
+
+## 🎯 Major pathogenic mycoplasmas
+
+| Species | Disease | Site |
+|---|---|---|
+| *M. hyopneumoniae* (Mhp) | Enzootic pneumonia | Lung (cranio-ventral) |
+| *M. hyorhinis* | Polyserositis, pneumonia | Multi |
+| *M. hyosynoviae* | Polyarthritis | Joints |
+| *M. suis* | Eperythrozoonosis (anemia) | RBC surface |
+
+## 🦠 Mycoplasma hyopneumoniae (Mhp) — MOST IMPORTANT
+
+### Pathogen
+- Cell wall-deficient (no β-lactam efficacy!)
+- Strictly mucosal — adhered to ciliated cells
+- Damage to mucociliary clearance → 2° bacterial infection
+- Slow growth, chronic infection
+
+### Clinical
+- Chronic non-productive cough (dry, raspy)
+- "Catarrhal cough" — mostly grow-finish
+- Reduced ADG (5-10%)
+- Increased lung lesion at slaughter
+- Often asymptomatic in absence of co-pathogens
+
+### Pathology (necropsy)
+- **Cranio-ventral lung consolidation** (purple-grey)
+- Apical lobe + cardiac lobe most affected
+- Lobular pattern, sharp demarcation
+- "Lung lesion score" 0-100% at slaughter
+
+### Diagnosis
+- Lung lesion score at slaughter (most practical)
+- PCR (BAL, lung, lymph node)
+- Serology ELISA (herd-level)
+- Histopath: peribronchiolar lymphoid hyperplasia
+
+### Treatment
+- **Macrolides** (tilmicosin, tylvalosin, gamithromycin)
+- **Tetracyclines** (chlortetracycline, doxycycline)
+- **Pleuromutilins** (tiamulin, valnemulin)
+- Avoid: β-lactams (no cell wall!)
+
+### Prevention
+- **Bacterin (whole-cell killed)** — single or two-dose at 1-3 weeks of age
+- **Live attenuated** — newer, broader protection
+- Sow vaccination = lactogenic immunity
+- Biosecurity, all-in-all-out
+- Air quality (NH3 < 20 ppm)
+
+### Eradication
+- Medicated early weaning
+- Herd closure + repopulation from clean source
+- Costs millions, only worthwhile if PRRS/PCV2 also clean
+
+## 🦠 Other mycoplasmas
+
+### M. hyorhinis
+- Suckling, nursery
+- Polyserositis (similar to Glasser's)
+- DDx with Hps + S. suis
+- Tx: tetracycline, tylosin
+
+### M. hyosynoviae
+- Grow-finish
+- Polyarthritis (knee, hock, shoulder)
+- Lameness without skin trauma
+- Tx: tylosin, lincomycin
+
+### M. suis (eperythrozoonosis)
+- Hemotropic (RBC surface)
+- Anemia + jaundice
+- Acute or chronic
+- Dx: blood smear (Giemsa), PCR
+- Tx: tetracycline
+
+## 📝 EXAM RECAP
+1. ⭐ Mhp = cell wall-deficient → NO β-lactam
+2. ⭐ Cranio-ventral lung consolidation = pathognomonic
+3. ⭐ Macrolides + tetracyclines + pleuromutilins = first line
+4. ⭐ Mhp + PRRS + APP = PRDC (Porcine Resp Dz Complex)
+5. ⭐ M. suis = hemotropic, anemia, RBC surface`,
+  },
+
+  'X-SwmmuVtRE': {
+    videoId: 'X-SwmmuVtRE',
+    title: '6.1 Glasser\'s Disease (Haemophilus parasuis)',
+    subject: 'swine-clinic',
+    date: '2025-09-19',
+    durationMin: 47,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + control',
+    summary: `# 🐷 Swine Clinic #6.1 — Glasser's Disease
+
+## 🎯 Pathogen
+- *Glaesserella parasuis* (renamed from *Haemophilus parasuis* 2020)
+- Gram-negative coccobacillus
+- 15 serovars — 1, 5, 10, 12, 13, 14 most virulent
+- Tonsil + URT colonization
+
+## 🩺 Clinical
+- Most affected: 4-8 weeks (post-weaning, mixing stress)
+- Acute: fever (>40.5°C), anorexia, lameness, dyspnea, neuro signs
+- Sudden death possible
+- Chronic: arthritis, ill-thrift
+
+## 🔬 Pathology — POLYSEROSITIS (key!)
+
+| Site | Lesion |
+|---|---|
+| Pericardium | Fibrinous pericarditis |
+| Pleura | Fibrinous pleuritis |
+| Peritoneum | Fibrinous peritonitis |
+| Joint | Fibrinous arthritis |
+| Meninges | Fibrinous meningitis |
+
+- "5-S disease" — Septicemia + Polyserositis + Polyarthritis + Sudden death + Stress-triggered
+
+## 🔬 Diagnosis
+- Culture (Chocolate agar + NAD/V factor) — fastidious
+- PCR (rapid, specific)
+- Serotyping (PCR or LPS)
+- DDx: *Strep suis* (also meningitis, arthritis), *Mycoplasma hyorhinis*, *E. rhusiopathiae*, APP, *Actinobacillus suis*
+
+## 💊 Treatment
+- Early intervention key (sepsis progresses fast)
+- Ceftiofur, ampicillin, ceftriaxone
+- Whole-herd water medication if outbreak
+- NSAID (flunixin) for fever + inflammation
+
+## 🛡️ Vaccination
+- **Bacterin** — serovar-specific (mismatch = poor protection)
+- 2 doses at 2-4 wk + 4-6 wk
+- Sow vaccination for passive immunity
+- Autogenous vaccine if herd-specific serovar
+
+## 🛡️ Control
+- All-in-all-out (avoid mixing ages)
+- Stress reduction (PRRS-stable, environment)
+- Antibiotic prophylaxis at weaning (high-risk farms)
+- Biosecurity (gilt acclimation)
+
+## 📝 EXAM RECAP
+1. ⭐ Glaesserella parasuis (renamed from Hps 2020)
+2. ⭐ Polyserositis (5-S) = Glasser's pathognomonic
+3. ⭐ 4-8 wk pigs (post-weaning stress)
+4. ⭐ Bacterin serovar-specific (mismatch → fail)
+5. ⭐ DDx: S. suis, M. hyorhinis, E. rhusiopathiae`,
+  },
+
+  'Oya0xx4S28s': {
+    videoId: 'Oya0xx4S28s',
+    title: '6.2 Streptococcus suis',
+    subject: 'swine-clinic',
+    date: '2025-09-19',
+    durationMin: 50,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + zoonotic',
+    summary: `# 🐷 Swine Clinic #6.2 — Streptococcus suis
+
+## 🎯 Pathogen
+- *Streptococcus suis* — Gram-positive cocci, β-hemolytic
+- 35 serotypes — type 2 most common globally
+- Tonsil + URT carriage (50-100% herds)
+- Vertical (sow→piglet) + horizontal spread
+- **Zoonotic!**
+
+## 🩺 Clinical (pigs)
+
+### Acute
+- Sudden death
+- Fever (>41°C), anorexia
+- Meningitis: paddling, opisthotonus, ataxia, blindness
+- Septicemia, arthritis, endocarditis
+
+### Subacute / chronic
+- Arthritis (lameness)
+- Endocarditis (valvular vegetation)
+- Pneumonia (component of PRDC)
+
+### Age affected
+- Most: 5-10 wk (post-weaning)
+- Sucklings: sepsis from sow vertical
+- Adults: rare
+
+## 🔬 Diagnosis
+- Brain CSF tap (for meningitis cases)
+- Culture (blood, brain, joint) — α-hemolytic on blood agar
+- PCR (cps2J for type 2, mrp/epf/sly virulence markers)
+- Serotyping
+- Necropsy: meningitis, polyarthritis, endocarditis, polyserositis
+
+## 💊 Treatment
+- **Penicillin G** (still works for most strains)
+- **Amoxicillin, ampicillin** — first line
+- Ceftiofur if resistance suspected
+- NSAID (flunixin) for inflammation + fever
+- Early treatment = recovery; late = neurologic sequelae
+
+## 🛡️ Vaccination
+- **Autogenous bacterin** (most effective — serotype + strain match)
+- Commercial bacterin available but limited
+- Sow vaccination + piglet booster
+
+## 🛡️ Control
+- All-in-all-out
+- Stress reduction (esp. post-weaning)
+- PRRS control (PRRS+→S. suis amplifies)
+- Hygiene (umbilical, tail-dock, castration)
+- Antibiotic prophylaxis at weaning (controversial — AMR)
+
+## 🚨 Zoonotic risk
+- TH NE: raw pork dishes (ลาบหมูดิบ, หมูกะทะ undercooked)
+- Slaughterhouse workers, butchers, vets
+- Human: meningitis + sensorineural hearing loss + septicemia
+- Tx: penicillin or ceftriaxone IV
+- Mortality 5-15% in humans
+
+## 📝 EXAM RECAP
+1. ⭐ S. suis serotype 2 = most common globally
+2. ⭐ Meningitis + polyarthritis + endocarditis
+3. ⭐ Penicillin first line (still works)
+4. ⭐ Zoonotic: raw pork → human meningitis + deafness
+5. ⭐ PRRS+ = S. suis amplifier`,
+  },
+
+  's-WxswtSxB8': {
+    videoId: 's-WxswtSxB8',
+    title: '7.1 Diseases of Locomotor System',
+    subject: 'swine-clinic',
+    date: '2025-10-03',
+    durationMin: 45,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + DDx + clinical',
+    summary: `# 🐷 Swine Clinic #7.1 — Locomotor System Diseases
+
+## 🎯 Major causes of lameness in pigs
+
+| Cause | Age | Joints affected |
+|---|---|---|
+| *S. suis* arthritis | 5-10 wk | Multi (carpus, tarsus) |
+| *Mycoplasma hyosynoviae* | Grow-finish | Tarsus, carpus, stifle |
+| *Mycoplasma hyorhinis* | Suckling/nursery | Multi |
+| *E. rhusiopathiae* | Any | Acute systemic + arthritis |
+| Glasser's | 4-8 wk | Polyarthritis |
+| Trauma / injury | Any | Single joint |
+| OCD (osteochondrosis) | Grow-finish | Stifle, hock, elbow |
+| Foot rot / hoof crack | Any | Foot |
+
+## 🐷 Erysipelas (*Erysipelothrix rhusiopathiae*)
+- Gram-positive rod
+- Tonsil colonization (30-50%)
+- Three forms:
+
+### Septicemic (acute)
+- High fever (>41°C)
+- Anorexia
+- **Diamond skin lesions** (rhomboid, pink-purple) — 24-48 h
+- Arthritis (rapid onset)
+- Sudden death possible
+
+### Cutaneous
+- Diamond skin only, mild
+- Self-limiting
+
+### Chronic
+- Polyarthritis (proliferative)
+- Endocarditis (valvular vegetation, sudden death later)
+
+### Diagnosis
+- Clinical (diamond skin pathognomonic)
+- Culture (blood, joint, skin scraping)
+- PCR
+
+### Treatment
+- **Penicillin G** = drug of choice
+- Acute response in 24-36 h
+- Chronic: less responsive
+
+### Vaccination
+- Live or killed bacterin
+- Sow + nursery + grow protocols
+
+## 🐷 Osteochondrosis (OCD)
+- Cartilage disturbance, growth-related
+- Fast-growing breeds (Pietrain, Duroc)
+- Subchondral lesion → fracture → joint inflammation
+- Stifle, hock, elbow most affected
+- Necropsy: clefts in articular cartilage
+- Selection genetics + nutrition (Ca:P, manganese, zinc) — prevention
+
+## 🐷 Foot rot / hoof problems
+- *Fusobacterium necrophorum* + others
+- Wet, abrasive flooring
+- Sole abscess, white line dz
+- Tx: trim + antibiotic + dry housing
+
+## 🩺 Clinical approach to lame pig
+1. Single vs multi joint
+2. Acute vs chronic
+3. Skin findings (diamond → erysipelas; abscess → trauma; cyanosis → S. suis)
+4. Other systemic signs (fever, neuro, repro)
+5. Age + group (suckling? post-wean? grow-finish?)
+
+## 📝 EXAM RECAP
+1. ⭐ Diamond skin = erysipelas (pathognomonic)
+2. ⭐ Penicillin = erysipelas drug of choice
+3. ⭐ M. hyosynoviae = grow-finish polyarthritis
+4. ⭐ S. suis = post-wean meningitis + arthritis
+5. ⭐ OCD = fast-growing breeds, stifle/hock/elbow`,
+  },
+
+  'mcccYj5fMyM': {
+    videoId: 'mcccYj5fMyM',
+    title: '7.2 Reproductive Disease — Porcine Parvovirus (PPV)',
+    subject: 'swine-clinic',
+    date: '2025-10-03',
+    durationMin: 73,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + control',
+    summary: `# 🐷 Swine Clinic #7.2 — Porcine Parvovirus (PPV)
+
+## 🎯 Pathogen
+- *Parvoviridae*, *Protoparvovirus*
+- Single-stranded DNA
+- Highly stable (resistant to heat, disinfectants)
+- 6 species (PPV1 historic; PPV2-7 emerging)
+- PPV1 = repro losses
+
+## 🦠 Pathogenesis
+- Sow exposure → viremia → fetal infection (transplacental)
+- Day 30-70 of gestation = critical window
+- Fetus depends on age:
+  - <30 d: resorption (early embryonic death)
+  - 30-70 d: mummification
+  - >70 d: born immunocompetent (live or stillborn)
+
+## 🩺 Clinical signs (SMEDI)
+- **S** Stillbirth
+- **M** Mummification (most characteristic — varying sizes from same litter!)
+- **E** Embryonic death
+- **D** Delayed return to estrus
+- **I** Infertility
+
+### Sow itself
+- No visible illness
+- Subclinical viremia
+
+## 🔬 Diagnosis
+- Mummified fetus PCR (multiple sizes from one litter = classic PPV)
+- Sow serology (paired) — IgG seroconversion
+- Stillborn pre-suckle serum (IgG = in utero exposure)
+- DDx: PRRSV (late abortion + weak), CSF (hemorrhagic fetus), Aujeszky's (resp + neuro), Lepto (icteric piglets), Brucella (rare TH)
+
+## 🛡️ Vaccination
+- **Killed PPV vaccine** = essential for all gilts/sows
+- Gilt: 2 doses pre-breeding, then annual booster
+- Sow: pre-breeding or annual booster
+- Combined with leptospirosis + erysipelas often
+
+## 🛡️ Control
+- Vaccinate ALL gilts before first breeding (3-6 months)
+- Sow herd vaccination program
+- Acclimation of replacement gilts
+- Boar vaccination (some programs)
+
+## 🇹🇭 Thailand context
+- PPV1 well-controlled with vaccination
+- PPV2-7 emerging — surveillance ongoing
+- Most modern farms use combined PPV+Lepto+Erysipelas vaccine
+
+## 📝 EXAM RECAP
+1. ⭐ SMEDI = Stillbirth + Mummification + Embryonic death + Delayed estrus + Infertility
+2. ⭐ Mummies of various sizes from same litter = PPV classic
+3. ⭐ Day 30-70 gestation = critical window
+4. ⭐ Killed vaccine = mandatory for gilts
+5. ⭐ Sow itself looks healthy (subclinical)`,
+  },
+
+  'f1mPnrcIFHU': {
+    videoId: 'f1mPnrcIFHU',
+    title: '8.1 Porcine Brucellosis',
+    subject: 'swine-clinic',
+    date: '2025-10-10',
+    durationMin: 23,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + zoonotic + control',
+    summary: `# 🐷 Swine Clinic #8.1 — Porcine Brucellosis
+
+## 🎯 Pathogen
+- *Brucella suis* — Gram-negative coccobacillus
+- 5 biovars (1, 2, 3 pigs; 4 reindeer; 5 rodents)
+- Biovar 2 — wild boar/hare reservoir, low zoonotic
+- Biovar 1, 3 — pig adapted, zoonotic
+- Intracellular, persistent in macrophages
+
+## 🩺 Clinical
+
+### Sow
+- Abortion (any stage, but mid-late gestation more common)
+- Endometritis, infertility
+- Mummified, weak piglets
+
+### Boar
+- Orchitis (uni- or bilateral)
+- Epididymitis
+- ↓Semen quality, sterility
+- Lame from arthritis
+
+### Both sexes
+- Lameness (vertebral spondylitis, polyarthritis)
+- Sub-clinical bacteremia common
+
+## 🚨 Zoonotic
+- **Vet occupational hazard** — abortion fluids, semen, blood
+- Human: undulant fever, sweats, arthralgia, hepatosplenomegaly, orchitis
+- Raw milk, undercooked pork, contact
+
+## 🔬 Diagnosis
+- Serology: rose Bengal test (RBPT), CFT, ELISA, FPA
+- Culture (BSL-3) — abortion material, semen, lymph node
+- PCR
+
+## 💊 Treatment
+- NOT recommended (chronic intracellular, expensive, public health risk)
+- TEST AND CULL = standard
+
+## 🛡️ Control
+- Test-and-slaughter
+- Surveillance (slaughter checks, AI station screening)
+- No vaccine for swine (no S19 equivalent, RB51 cattle-specific)
+- Wild boar surveillance (biovar 2 reservoir)
+- Biosecurity (no contact with wild pigs)
+
+## 🇹🇭 Thailand status
+- Sporadic in commercial herds
+- DLD eradication program ongoing
+- Test before AI station entry
+
+## 📝 EXAM RECAP
+1. ⭐ B. suis biovar 1, 3 = zoonotic; biovar 2 = wild boar
+2. ⭐ Boar: orchitis + ↓semen quality
+3. ⭐ Sow: abortion + infertility
+4. ⭐ Test-and-cull (no Tx)
+5. ⭐ Vet occupational hazard + human undulant fever`,
+  },
+
+  'OsKDGpR4H8c': {
+    videoId: 'OsKDGpR4H8c',
+    title: '8.2 MMA Group, PCVAD, PRRSV',
+    subject: 'swine-clinic',
+    date: '2025-10-10',
+    durationMin: 65,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + control',
+    summary: `# 🐷 Swine Clinic #8.2 — MMA / PCVAD / PRRSV
+
+## 🍼 MMA — Mastitis-Metritis-Agalactia
+
+### Definition
+- Postpartum syndrome of sows
+- Triad: mastitis + metritis + agalactia (within 12-72 h of farrowing)
+- Most common postpartum problem
+
+### Pathogenesis
+- Multifactorial: bacterial (E. coli, Klebsiella, Strep) + endotoxin + stress + management
+- Risk: prolonged farrowing, dystocia, retained placenta, constipation
+
+### Clinical
+- Sow: fever, anorexia, decreased milk
+- Mammary gland: hot, swollen, painful, sometimes purulent
+- Vaginal discharge (purulent if metritis)
+- Piglets: starvation, FTT, hypothermia, hypoglycemia, scours
+
+### Treatment
+- Oxytocin (uterine evacuation)
+- Antibiotics: ceftiofur, enrofloxacin, ampicillin
+- NSAIDs (flunixin) — relieve fever, pain, ↑prolactin
+- Fluid therapy
+- Cross-foster piglets
+- Manual milking + warm compress
+
+### Prevention
+- Constipation control (high fiber, water access pre-farrowing)
+- Hygiene (washed sow before entering crate)
+- Avoid prolonged farrowing (oxytocin sparingly)
+- Pre-farrow vaccination (E. coli K88, Klebs)
+
+## 🦠 PCVAD (Porcine Circovirus Associated Disease)
+
+### Pathogen
+- *Porcine circovirus type 2 (PCV2)* — ssDNA virus, very small
+- PCV1 = non-pathogenic
+- PCV3, PCV4 emerging
+
+### Disease syndromes
+1. **PMWS** (post-weaning multisystemic wasting) — original PCV2 disease
+2. **PDNS** (porcine dermatitis & nephropathy) — skin + kidney
+3. PCV2-respiratory disease
+4. PCV2-enteric disease
+5. PCV2-reproductive failure
+
+### Clinical (PMWS)
+- 5-12 weeks, post-weaning
+- Wasting, jaundice, anemia
+- Lymphadenopathy (esp. inguinal)
+- Cough, dyspnea
+- Mortality 5-30%
+
+### Diagnosis
+- Histopathology + IHC (lymphoid depletion + inclusion bodies)
+- PCR (high copy number — quantitative)
+- Triad: clinical + lymphoid depletion + virus presence
+
+### Vaccination
+- **PCV2 vaccine** — game changer! (2006 onward)
+- Subunit (Cap protein) — 1 dose at 3 weeks
+- Maternal vaccination → some passive immunity
+- Has nearly eliminated PMWS in vaccinated herds
+
+## 🦠 PRRSV (revisited — clinical mgmt)
+
+### Three goals (Holtkamp classification)
+1. **Negative status** (no PRRS) — most stringent
+2. **Stable** (no positive piglets at weaning) — practical for many
+3. **Active virus circulation** — endemic, controlled
+
+### Sow herd PRRS control
+- "Load-close-expose" — all sows exposed to same virus, then close herd
+- 200-day herd closure for stability
+- Modified live vaccine (controversial — reverts)
+- Killed vaccine (low protection, but safer)
+
+### Nursery / grow-finish PRRS
+- Severe pneumonia (PRDC component)
+- Co-infection (Mhp, APP, S. suis, PCV2) → high mortality
+- Tx: tetracycline + tilmicosin (control 2° bacterial)
+
+### Eradication
+- Whole herd depopulation + repopulation from PRRS-neg source
+- Costly, only worthwhile for major operations
+
+## 📝 EXAM RECAP
+1. ⭐ MMA: mastitis + metritis + agalactia 12-72 h postpartum
+2. ⭐ Oxytocin + ceftiofur + flunixin = MMA tx
+3. ⭐ PMWS = PCV2 in 5-12 wk pigs (wasting, lymph)
+4. ⭐ PCV2 vaccine eliminated PMWS in modern farms
+5. ⭐ PRRS load-close-expose = sow stability strategy`,
+  },
+
+  'eK0aOUgQHsM': {
+    videoId: 'eK0aOUgQHsM',
+    title: '8.3 Control & Prevention Strategies — Biosecurity',
+    subject: 'swine-clinic',
+    date: '2025-10-10',
+    durationMin: 37,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + planning + scenario',
+    summary: `# 🐷 Swine Clinic #8.3 — Biosecurity Strategies
+
+## 🎯 Biosecurity = #1 disease prevention
+
+## 🔐 External biosecurity (keep dz OUT)
+
+### Physical barriers
+- Perimeter fence (1.8 m, double-fence ideal)
+- Single entry point
+- Vehicle wash + disinfection station
+- Insect/bird/rodent control
+- Bird-proof feed bins
+
+### People
+- Shower-in / shower-out
+- Boots + coveralls (farm-only)
+- Downtime (24-72 h between farms)
+- Visitor logbook
+- Vehicle restrictions
+
+### Animals
+- Quarantine new pigs (45-60 days)
+- Pre-entry testing (PRRS, Mhp, APP, M. hyorhinis, AR)
+- Acclimation (controlled exposure → immunity)
+- Single-source replacements
+
+### Trucks
+- Truck wash + disinfect
+- Bake protocol (>60°C 30 min)
+- Loading dock (one-way pig flow)
+- Driver shower
+
+### Feed + water
+- Sealed feed transport
+- Heat-treated feed (esp. for ASF risk)
+- Water quality testing
+- Insect-proof feed storage
+
+## 🔒 Internal biosecurity (limit dz spread WITHIN farm)
+
+### Pig flow
+- All-in-all-out (room or building level)
+- One-way flow (sow → nursery → grow-finish)
+- No mixing of age groups
+- Empty + clean + disinfect between batches
+
+### Hygiene
+- Boots between rooms
+- Hand washing
+- Tools (needle, ear tag, etc.) — disinfect or single-use
+- Feed scoop dedicated per room
+
+### Health monitoring
+- Daily checks (clinical signs)
+- Mortality records
+- Feed intake monitoring
+- Slaughter check feedback
+- Diagnostic surveillance (PRRS, Mhp serology)
+
+## 🛡️ Disease eradication strategies
+
+| Strategy | When | Cost | Success |
+|---|---|---|---|
+| Vaccine + management | Most diseases | $ | Variable |
+| Medicated early weaning | Mhp, *S. suis* | $$ | Good for specific |
+| Herd closure + vaccinate | PRRS, Mhp | $$ | Good if compliance |
+| Whole herd depop-repop | PRRS, Mhp, APP | $$$ | Excellent if biosec |
+| Test-and-cull | Brucella, TB, AD | $ | Slow but cost-effective |
+
+## 🚨 ASF (African Swine Fever) — top biosecurity threat
+
+### Why concerning
+- 100% mortality
+- No vaccine commercial
+- Highly stable virus (months in pork products)
+- Wild boar reservoir
+- Devastating economic impact
+
+### TH ASF control
+- Confirmed Jan 2022 (Nakhon Pathom small farm)
+- DLD response: zoning, surveillance, culling
+- Border surveillance (China, Vietnam, Cambodia)
+- Feed heat treatment requirement
+- No swill feeding (illegal in TH)
+
+## 📋 Biosecurity audit
+- Cuvet/DLD biosecurity scoring tools
+- 1) personnel 2) vehicles 3) animals 4) feed/water 5) cleaning 6) waste
+- Annual review + improvement plan
+
+## 📝 EXAM RECAP
+1. ⭐ External (keep out) + Internal (limit spread) = 2 layers
+2. ⭐ All-in-all-out = #1 internal biosecurity
+3. ⭐ Quarantine new pigs 45-60 d
+4. ⭐ ASF: 100% mortality, no vaccine, stable virus
+5. ⭐ Heat-treated feed = ASF prevention`,
+  },
+
+  'n25WhtAUBT8': {
+    videoId: 'n25WhtAUBT8',
+    title: '9.1 Japanese Encephalitis (JE)',
+    subject: 'swine-clinic',
+    date: '2025-10-17',
+    durationMin: 33,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + zoonotic + control',
+    summary: `# 🐷 Swine Clinic #9.1 — Japanese Encephalitis (JE)
+
+## 🎯 Pathogen
+- Japanese encephalitis virus (JEV)
+- Family *Flaviviridae*, mosquito-borne flavivirus
+- Vector: *Culex tritaeniorhynchus* (rice paddy mosquito)
+- Reservoir: ardeid birds (egrets, herons)
+- **Pigs = amplifying host** (high viremia)
+- Humans + horses = dead-end hosts
+
+## 🐷 Clinical (pigs)
+
+### Sows (mostly subclinical, but repro losses)
+- Abortion (mid-late gestation)
+- Mummified fetuses
+- Stillborn
+- Weak piglets (some born with neuro signs)
+
+### Boars
+- Orchitis (transient, can affect fertility)
+
+### Piglets/Growers
+- Mostly subclinical
+- Some may show neuro signs (rare)
+
+## 🩺 Pathology
+- Sow: viremia → fetal infection
+- Fetus: encephalitis, hydrocephalus, microcephaly
+- Hard to distinguish from PPV without lab
+
+## 🚨 Public health
+- Pig amplifier → mosquito → human
+- Human JE: encephalitis, ~25% CFR, ~50% sequelae
+- Children most affected
+- Vaccine in TH EPI (since 1990s)
+- ~3,000 cases/year globally, declining
+
+## 🛡️ Vaccination
+
+### Pigs
+- Killed vaccine (limited use commercially)
+- Live attenuated (more common)
+- Sow vaccination pre-breeding → fetal protection
+- TH: recommended in repro farms
+
+### Humans
+- TH EPI program (childhood vaccine)
+- Adult travelers — vaccine available
+
+## 🛡️ Control
+- Vaccinate gilts/sows
+- Vector control (mosquito)
+- House away from rice paddies if possible
+- Monitor sow herd repro performance
+
+## 🇹🇭 Thailand context
+- Endemic (S, NE, N regions)
+- Peak transmission rainy season
+- Pig farms near rice paddies = highest risk
+- Human cases declining due to EPI
+
+## 📝 EXAM RECAP
+1. ⭐ JEV = flavivirus, *Culex* mosquito, rice paddy
+2. ⭐ Pig = amplifier; human + horse = dead-end
+3. ⭐ Sow: abortion + mummification (DDx with PPV)
+4. ⭐ Vaccinate pigs to control human JE
+5. ⭐ TH EPI childhood JE vaccine`,
+  },
+
+  'Zb1UbWvwPeA': {
+    videoId: 'Zb1UbWvwPeA',
+    title: '9.2 Nipah Virus Disease',
+    subject: 'swine-clinic',
+    date: '2025-10-17',
+    durationMin: 7,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + zoonotic',
+    summary: `# 🐷 Swine Clinic #9.2 — Nipah Virus Disease
+
+## 🎯 Pathogen
+- Nipah virus (NiV)
+- Family *Paramyxoviridae*, genus *Henipavirus*
+- Reservoir: *Pteropus* fruit bats
+- Pigs: amplifying host (Malaysia 1998-99)
+
+## 🩺 Clinical (pigs)
+
+### Adults
+- Acute respiratory: barking cough, dyspnea, nasal discharge
+- Fever (mild)
+- Some neuro: tremor, hindlimb weakness, hemiparesis
+- Sows: abortion (sporadic)
+
+### Piglets
+- Severe respiratory + neurological
+- Higher mortality
+
+### Subclinical possible
+
+## 🚨 Public health (highly fatal in humans!)
+- Direct contact with infected pigs (slaughterhouse, farm)
+- Human encephalitis
+- CFR 40-75%
+- Bangladesh: bat → date palm sap → humans (no pig)
+- India 2018: human-to-human cluster
+
+## 🔬 Diagnosis
+- BSL-4 pathogen!
+- PCR (sample to reference lab)
+- Virus isolation rare
+- Serology (ELISA, IFA)
+
+## 💊 Treatment
+- No specific antiviral
+- Supportive (humans)
+- Cull infected pigs (Malaysia model)
+- Ribavirin tried, limited efficacy
+
+## 🛡️ Control / prevention
+
+### Malaysia 1998-99 outbreak
+- 105 deaths human
+- 1.1 million pigs culled
+- Pig farms with bat habitat overlap → ban
+- Surveillance + biosecurity
+
+### TH preparedness
+- Bat species mapping (CU EID-AS Center)
+- No outbreak detected
+- High-alert: pig farms near orchards (bat habitat)
+
+## 📝 EXAM RECAP
+1. ⭐ NiV = Paramyxoviridae, fruit bats
+2. ⭐ Malaysia 1998-99 → 105 human deaths, 1.1M pigs culled
+3. ⭐ BSL-4 pathogen
+4. ⭐ Pig amplifier → human via direct contact
+5. ⭐ TH preparedness via bat surveillance`,
+  },
+
+  '3Et9b2Qj9Q0': {
+    videoId: '3Et9b2Qj9Q0',
+    title: '9.3 Exudative Epidermitis (Greasy Pig Disease)',
+    subject: 'swine-clinic',
+    date: '2025-10-17',
+    durationMin: 28,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + skin',
+    summary: `# 🐷 Swine Clinic #9.3 — Exudative Epidermitis (Greasy Pig Disease)
+
+## 🎯 Pathogen
+- *Staphylococcus hyicus* — Gram-positive cocci
+- Toxin (ExhA, ExhB, ExhC, ExhD) — exfoliative
+- Sometimes *S. aureus*, *S. chromogenes* involved
+- Skin commensal → opportunistic when skin barrier broken
+
+## 🩺 Clinical
+
+### Affected age
+- Suckling + nursery (3-30 days)
+- Occasionally older
+
+### Lesions
+- Brown-greasy seborrheic exudate (face → ears → trunk)
+- Hyperkeratosis, scaling
+- "Greasy" oily appearance
+- No pruritus initially
+- Crusts and fissures with secondary infection
+
+### Severity
+- Mild: localized, self-limiting
+- Severe: generalized, dehydration, +/- death
+
+### Risk factors
+- Skin trauma (fighting, abrasive flooring, tail docking, ear notching)
+- Wet bedding
+- Mange mite infestation (predisposes)
+- Stress, immunosuppression (PRRS, PCV2)
+
+## 🔬 Diagnosis
+- Clinical (greasy + scaling, no pruritus)
+- Skin culture (S. hyicus)
+- DDx: parakeratosis (zinc def, dry not greasy), mange (intense pruritus), pityriasis rosea (rare, transient)
+
+## 💊 Treatment
+
+### Topical
+- Bathe with antibacterial shampoo (chlorhexidine, povidone-iodine)
+- Repeat 2-3x weekly until resolved
+- Lanolin or petroleum jelly to soften crusts
+
+### Systemic
+- Penicillin, ampicillin, ceftiofur
+- 5-7 days
+- Antibiogram if recurrent
+
+### Supportive
+- Fluids (severe cases)
+- Vitamin E + Se (skin health)
+
+## 🛡️ Prevention
+- Reduce skin trauma (proper tail docking, ear notching technique)
+- Smooth flooring
+- Mite control
+- Keep dry bedding
+- Sow vaccination (no commercial vaccine, autogenous in some farms)
+- Cull chronic carrier sows
+
+## 📝 EXAM RECAP
+1. ⭐ S. hyicus = greasy pig disease
+2. ⭐ Brown-greasy seborrheic exudate
+3. ⭐ Suckling + nursery age (3-30 d)
+4. ⭐ Risk: skin trauma + mange + stress
+5. ⭐ Tx: topical + penicillin/ceftiofur`,
+  },
+
+  'hZT79w_evh0': {
+    videoId: 'hZT79w_evh0',
+    title: '9.4 Mycoplasma suis (Eperythrozoonosis)',
+    subject: 'swine-clinic',
+    date: '2025-10-17',
+    durationMin: 10,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + diagnosis',
+    summary: `# 🐷 Swine Clinic #9.4 — Mycoplasma suis (Eperythrozoonosis)
+
+## 🎯 Pathogen
+- *Mycoplasma suis* (formerly *Eperythrozoon suis*)
+- Hemotropic mycoplasma — adheres to RBC surface
+- Cell wall-deficient (no β-lactam efficacy)
+- Cannot be cultured
+
+## 🩺 Clinical
+
+### Acute (icteroanemia)
+- Sow: pale mucosa, jaundice
+- Fever (40-41°C), anorexia
+- Constipation followed by diarrhea
+- Decreased milk production (if lactating)
+- Abortion, stillbirth
+- Acute death possible
+
+### Chronic
+- Subclinical in many sows
+- Stress / immunosuppression triggers acute
+- Poor reproductive performance
+- Anemia
+
+### Piglet
+- Severe anemia (suckling pig death)
+- Pale, weak, hypoglycemic
+
+## 🔬 Diagnosis
+
+### Blood smear (Giemsa/Wright)
+- Coccoid, ring-shaped, rod-shaped organisms on RBC surface
+- Best seen in acute febrile phase
+- Sensitivity low in chronic phase
+
+### PCR
+- Most sensitive + specific
+- Acute or chronic
+- Quantitative load possible
+
+### Serology
+- ELISA, IHA — herd-level
+
+## 💊 Treatment
+- **Tetracyclines** (oxytetracycline IM, doxycycline in feed/water) — 7-14 days
+- Acute response in 24-48 h
+- Chronic: chronic carriers may persist
+- Iron supplementation (for anemia)
+
+## 🛡️ Control
+- Reduce stress (PRRS control, mixing, transport)
+- Treat acute outbreaks
+- Tetracycline pulse therapy in herds (controversial — AMR)
+- Vector control (lice, mites — minor mechanical role)
+- Needle hygiene (iatrogenic transmission)
+
+## 📝 EXAM RECAP
+1. ⭐ M. suis = hemotropic, RBC surface, no culture
+2. ⭐ Acute: anemia + jaundice + fever (icteroanemia)
+3. ⭐ Blood smear (Giemsa) + PCR for diagnosis
+4. ⭐ Tetracycline = treatment of choice
+5. ⭐ Stress trigger → acute exacerbation`,
+  },
+
+  'ta9AE1Dl0t8': {
+    videoId: 'ta9AE1Dl0t8',
+    title: '9.5 Pseudorabies (Aujeszky\'s Disease)',
+    subject: 'swine-clinic',
+    date: '2025-10-24',
+    durationMin: 46,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + control',
+    summary: `# 🐷 Swine Clinic #9.5 — Pseudorabies (Aujeszky's Disease)
+
+## 🎯 Pathogen
+- Suid herpesvirus 1 (SuHV-1)
+- Family *Herpesviridae*, alphaherpesvirus
+- Neurotropic, latent in trigeminal ganglia
+- Pigs = natural reservoir
+- Other species (cattle, dog, cat, sheep) = fatal accidental hosts
+
+## 🩺 Clinical (by age)
+
+### Suckling piglets (<2 weeks) — high mortality
+- Severe neurological signs
+- Tremor, paddling, opisthotonus
+- Hypersalivation
+- Convulsions, sudden death
+- Mortality nearly 100%
+
+### Nursery pigs (2-4 weeks)
+- Fever, anorexia
+- Cough, sneeze
+- Mild-moderate neuro
+- Mortality 20-50%
+
+### Grow-finish (>2 months)
+- Mostly respiratory
+- Cough, fever, anorexia
+- Recovery in 5-10 days
+- Mortality <5%
+
+### Adults
+- Subclinical or mild respiratory
+- Sow abortion, weak piglets, stillborn
+- Boar — temporary infertility
+
+## 🐄 Other species ("Mad itch" — fatal!)
+- **Cattle, dog, cat, sheep**
+- Intense pruritus at site of infection
+- Self-mutilation
+- CNS signs, paralysis
+- 100% fatal within 48-72 h
+- Source: contact with pigs or pig products
+
+## 🔬 Diagnosis
+- PCR (tonsil, brain, lymph node)
+- Serology — ELISA (gB or gE-specific for DIVA)
+- Virus isolation (cell culture)
+- Necropsy: encephalitis (non-suppurative), tonsillitis
+
+## 🛡️ Vaccination + DIVA strategy
+- **gE-deleted modified live vaccine (DIVA marker)**
+- Differentiating Infected from Vaccinated Animals
+- Vaccinated pigs: gB+, gE-
+- Naturally infected: gB+, gE+
+- Allows surveillance + eradication
+
+## 🛡️ Eradication (model program)
+- USA: eradicated 2004 (commercial pigs)
+- EU: many countries free
+- TH: commercial herds essentially free (sporadic backyard)
+- Strategy: vaccinate + serosurvey + cull positives + biosecurity
+
+## 🇹🇭 Thailand status
+- DLD declared commercial herds "AD-free" status
+- Backyard + small farms — sporadic
+- Surveillance ongoing
+
+## 📝 EXAM RECAP
+1. ⭐ Suid herpesvirus 1, latent in trigeminal ganglia
+2. ⭐ Suckling: severe neuro, ~100% mortality
+3. ⭐ Cattle/dog/cat: "mad itch" fatal in 48-72 h
+4. ⭐ gE-deleted DIVA vaccine = eradication tool
+5. ⭐ TH commercial herds essentially free`,
+  },
+
+  'RlQMr44RI70': {
+    videoId: 'RlQMr44RI70',
+    title: '9.6 Classical Swine Fever (CSF / Hog Cholera)',
+    subject: 'swine-clinic',
+    date: '2025-10-24',
+    durationMin: 62,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + control + DDx ASF',
+    summary: `# 🐷 Swine Clinic #9.6 — Classical Swine Fever (CSF)
+
+## 🎯 Pathogen
+- *Classical swine fever virus* (CSFV)
+- Family *Flaviviridae*, genus *Pestivirus*
+- Related to BVDV, BDV
+- Single serotype, multiple genotypes (1.1, 2.1, 2.3 etc.)
+
+## 🩺 Clinical forms
+
+### Acute (highly virulent strains)
+- Fever (40-42°C)
+- Anorexia, lethargy
+- Conjunctivitis
+- Cyanosis (ears, abdomen, tail) — purple-blue
+- Hemorrhages (skin petechiae)
+- Constipation → diarrhea (sometimes hemorrhagic)
+- CNS: ataxia, posterior paresis, convulsion
+- Death 7-14 days
+- Mortality 80-100%
+
+### Chronic (moderate virulence)
+- Wax + wane fever
+- Wasting, intermittent fever
+- Skin lesions, lameness
+- Death weeks to months
+- Mortality 30-60%
+
+### Mild / late onset (low virulence)
+- Subclinical
+- Repro: abortion, stillborn, weak, "trembler" piglets (congenital)
+- Late form most insidious — silent spread
+
+## 🩺 Pathology (necropsy)
+- **Petechial hemorrhages** widespread (kidney "turkey egg", lymph node, larynx, bladder)
+- **Lymph node hemorrhage** — peripheral red, central white
+- **"Button ulcer" cecum/colon** — characteristic, late
+- Splenic infarction (wedge-shaped)
+- Encephalitis (nonsuppurative)
+
+## 🆚 CSF vs ASF (CRITICAL!)
+
+| Feature | CSF | ASF |
+|---|---|---|
+| Family | Flavivirus (Pestivirus) | Asfarvirus |
+| Vaccine | Yes (modified live) | No |
+| Mortality | 80-100% (acute) | ~100% (acute) |
+| Clinical | Hemorrhages, neuro | Hemorrhages, dyspnea |
+| Spleen | Infarcts | Massively enlarged + dark |
+| Surveillance test | RT-PCR, ELISA | PCR, ELISA |
+| Quarantine | National reportable | National reportable |
+
+## 🔬 Diagnosis
+- RT-PCR (tonsil, lymph node, blood) — fast
+- Virus isolation (PK-15 cell)
+- Serology — ELISA, neutralization
+- Differentiate from ASF urgently
+
+## 🛡️ Vaccination + control
+
+### Vaccine
+- C-strain (modified live) — gold standard, used widely
+- E2 subunit (DIVA — newer)
+- Effective single dose
+
+### Control programs
+- Endemic country: vaccinate + monitor
+- Eradication country: stamping out + surveillance
+- TH: vaccination required (CSF endemic in some areas)
+
+## 🇹🇭 Thailand status
+- Endemic in some regions (small/backyard farms)
+- Commercial herds: vaccinated routinely
+- DLD coordinates control program
+- Major outbreaks rare
+
+## 📝 EXAM RECAP
+1. ⭐ CSFV = Pestivirus (Flavivirus family)
+2. ⭐ "Turkey egg kidney" + "button ulcer" cecum
+3. ⭐ DDx with ASF (urgent — different mgmt)
+4. ⭐ C-strain modified live vaccine
+5. ⭐ Late form: subclinical, repro losses (insidious)`,
+  },
+
+  'OGDf7S2qHz8': {
+    videoId: 'OGDf7S2qHz8',
+    title: '10.1.1 PE / Clostridium / Brachyspira / Yersinia / MMA',
+    subject: 'swine-clinic',
+    date: '2025-10-31',
+    durationMin: 96,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + DDx + control',
+    summary: `# 🐷 Swine Clinic #10.1.1 — Bacterial GI Diseases I
+
+## 🦠 Proliferative Enteropathy (PE / Ileitis)
+
+### Pathogen
+- *Lawsonia intracellularis* — obligate intracellular
+- Cell wall-deficient
+- Affects ileum (terminal small intestine)
+
+### Forms
+- **Acute (PHE — Proliferative Hemorrhagic Enteropathy)** — adult, sudden death, hemorrhagic
+- **Chronic (PIA — Porcine Intestinal Adenomatosis)** — grow-finish, scour, ill-thrift
+- **Necrotic (NE — Necrotic Enteritis)** — chronic untreated PIA
+
+### Clinical
+- PHE: pale pig, melena (black tarry feces), sudden death (adult, gilt)
+- PIA: dark loose feces, FTT, uneven growth (8-20 wk)
+
+### Pathology
+- Ileum: thickened, "garden hose" appearance
+- "Hosepipe gut" — proliferative mucosa
+- PHE: hemorrhage in ileum lumen
+- IHC: silver stain shows curved bacteria in apical cytoplasm
+
+### Diagnosis
+- PCR (feces, ileum) — most sensitive
+- IHC on intestinal section
+- DDx: salmonellosis, swine dysentery
+
+### Treatment
+- Tylosin, lincomycin, tiamulin, valnemulin (in feed)
+- Acute (PHE): individual injection (long-acting tetracycline)
+
+### Vaccination
+- **Live oral vaccine** (Enterisol Ileitis) — single dose
+- Killed (newer)
+- Pre-grow finish protocol
+
+## 🦠 Clostridial GI Diseases
+
+### *C. perfringens* type C (suckling — first 1-7 days)
+- Hemorrhagic enteritis, sudden death
+- Bloody diarrhea
+- Necropsy: hemorrhagic/necrotic small intestine
+- Tx: type C antitoxin + supportive
+- Prevention: sow vaccination → colostral immunity
+
+### *C. perfringens* type A
+- Less severe, watery diarrhea
+- Suckling + post-weaning
+- Tx: amoxicillin
+
+### *C. difficile*
+- Newborn piglet (1-7 days)
+- Diarrhea, mesocolonic edema, "owl-eye" lesion
+- Tx: metronidazole
+
+## 🦠 Brachyspira (Swine Dysentery + Spirochetosis)
+
+### *B. hyodysenteriae* (Swine Dysentery)
+- Spirochete, Gram-negative
+- Mucohemorrhagic colitis
+- Grow-finish (8-14 weeks typical)
+- Bloody-mucus diarrhea
+- Necropsy: colon thickened, mucohemorrhagic, "wet-cement" feces
+- Dx: PCR, dark-field microscopy, culture
+- Tx: tiamulin, valnemulin, lincomycin
+- Eradication: depop-repop or medicated cleanup
+
+### *B. pilosicoli* (Spirochetal Colitis)
+- Milder than SD
+- Watery + mucus diarrhea
+- Tx: similar (lincomycin, tiamulin)
+
+## 🦠 Yersinia
+- *Y. enterocolitica* — more zoonotic concern (cold-tolerant)
+- *Y. pseudotuberculosis*
+- Mostly asymptomatic carriers
+- Sporadic enterocolitis
+- Public health: foodborne human GI illness from undercooked pork
+
+## 🍼 MMA (revisited from 8.2)
+- Triad: mastitis + metritis + agalactia
+- Sow postpartum
+- Oxytocin + ceftiofur + flunixin
+- Prevention: constipation control, hygiene, pre-farrow vaccine
+
+## 📝 EXAM RECAP
+1. ⭐ PE = *Lawsonia intracellularis*, obligate intracellular
+2. ⭐ "Hosepipe gut" + acute hemorrhage (PHE) or chronic (PIA)
+3. ⭐ *C. perfringens* type C = neonatal hemorrhagic enteritis
+4. ⭐ Swine dysentery = *B. hyodysenteriae*, mucohemorrhagic colitis
+5. ⭐ Tylosin/lincomycin/tiamulin = PE + dysentery treatment`,
+  },
+
+  '_tQG1q9x3tQ': {
+    videoId: '_tQG1q9x3tQ',
+    title: '10.1.2 E. coli / Campylobacter / Salmonella / Coccidiosis / Balantidiasis / Gastric Ulcer',
+    subject: 'swine-clinic',
+    date: '2025-11-07',
+    durationMin: 72,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + DDx',
+    summary: `# 🐷 Swine Clinic #10.1.2 — Bacterial GI Diseases II + Parasites + Ulcer
+
+## 🦠 *E. coli*
+
+### Neonatal colibacillosis (suckling, 0-7 days)
+- ETEC (enterotoxigenic) — F4 (K88), F5 (K99), F6 (987P)
+- Watery diarrhea, dehydration
+- High morbidity, moderate-high mortality
+- Tx: oral electrolytes, antibiotics (ceftiofur, enrofloxacin, gentamicin)
+- Prevention: sow vaccination (multivalent E. coli + C. perfringens)
+
+### Post-weaning colibacillosis (3-7 weeks)
+- ETEC F4, F18
+- Watery diarrhea, dehydration
+- Risk: stress + diet change at weaning
+- Tx: similar
+- Prevention: piglet vaccination at weaning, gradual diet change, ZnO (banned in EU 2022)
+
+### Edema disease (post-weaning, ~3-6 weeks)
+- STEC (Shiga-like toxin) — F18 most common
+- Eyelid edema, larynx edema, neuro signs
+- Tx: limit feed 24h, electrolytes, antibiotics
+
+## 🦠 Salmonellosis
+
+### *S. Choleraesuis*
+- Pig-adapted, septicemic
+- Splenomegaly, "blue ear" (cyanosis)
+- Sudden death, fever, dyspnea
+- Tx: ceftiofur, fluoroquinolone
+
+### *S. Typhimurium*
+- Enteric — diarrhea, FTT
+- Public health: human gastroenteritis
+- Tx: ceftiofur, enrofloxacin
+- Carrier state common
+
+### Necropsy
+- *S. Choleraesuis*: splenic infarcts (DDx CSF), pneumonia, hepatomegaly
+- *S. Typhimurium*: enteric → "button ulcer" cecum
+
+## 🦠 Campylobacter
+- *C. coli*, *C. hyointestinalis*
+- Mild diarrhea
+- Public health: human GI from pork
+- Self-limiting in pigs
+
+## 🪱 Coccidiosis (*Isospora suis*)
+- Suckling (5-15 days, peak 7-10 d)
+- Yellow-grey pasty diarrhea
+- DDx: TGE/PED/Rota/E. coli (in age window)
+- Necropsy: jejunal villous atrophy, fibrinonecrotic enteritis
+- Dx: oocyst in feces (small, 12-25 μm)
+- Tx: toltrazuril (Baycox) — single oral dose at 4-5 days
+- Prevention: hygiene, all-in-all-out
+
+## 🪱 Balantidiasis (*Balantidium coli*)
+- Largest intestinal protozoan (50-150 μm)
+- Mostly commensal
+- Rarely causes ulcerative colitis (immunosuppressed)
+- Zoonotic potential
+- Tx: tetracycline, metronidazole
+
+## 🩺 Gastric Ulcer
+
+### Pathogenesis
+- Pars esophagea (squamous portion)
+- Multifactorial: fine particle feed, stress, *Helicobacter suis*, diet (high-energy, low-fiber)
+- Adult sow + finisher most affected
+
+### Clinical
+- Subclinical (most)
+- Pale (anemia), dark feces (melena), sudden death (hemorrhage)
+- Reduced ADG, FE
+
+### Necropsy
+- Pars esophagea ulcer (round, sharp edges)
+- Hemorrhage in stomach lumen
+- Hyperkeratosis around ulcer
+
+### Prevention
+- Coarse particle feed (>700 μm)
+- Adequate fiber
+- Stress reduction
+- Continuous feed access
+
+## 📝 EXAM RECAP
+1. ⭐ Neonatal E. coli: ETEC F4/F5/F6, sow vaccinate
+2. ⭐ Edema disease: STEC F18, eyelid edema, post-wean
+3. ⭐ S. Choleraesuis = septicemic; S. Typhimurium = enteric
+4. ⭐ I. suis: suckling 5-15 d, toltrazuril treatment
+5. ⭐ Gastric ulcer pars esophagea: coarse feed prevention`,
+  },
+
+  'oZyvFA5oDJs': {
+    videoId: 'oZyvFA5oDJs',
+    title: '11. โรคปากและเท้าเปื่อย (Foot-and-Mouth Disease)',
+    subject: 'swine-clinic',
+    date: '2025-11-07',
+    durationMin: 20,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + clinical + control',
+    summary: `# 🐷 Swine Clinic #11 — Foot-and-Mouth Disease (FMD)
+
+## 🎯 Pathogen
+- Foot-and-mouth disease virus (FMDV)
+- Family *Picornaviridae*, genus *Aphthovirus*
+- 7 serotypes: O, A, C, SAT1, SAT2, SAT3, Asia1
+- TH: O, A, Asia1 historic; current outbreaks O + A
+- Highly contagious, all cloven-hoofed
+
+## 🩺 Clinical (pigs)
+- Vesicles on:
+  - Tongue (less prominent than in cattle)
+  - Snout
+  - Coronary band, interdigital skin (FOOT lesions = main!)
+  - Teats (sows)
+- Lameness — most prominent in pigs
+- Fever (40-41°C)
+- Anorexia
+- Salivation (less than cattle)
+- Sows: abortion possible
+- Piglets: high mortality from myocarditis ("tiger heart")
+
+## 🩺 Compared with cattle
+- Cattle: more drooling/salivation, prominent oral lesions
+- Pigs: more lameness, foot lesions
+
+## 🆚 DDx vesicular diseases
+- **Vesicular stomatitis** (VSV) — rare, +cattle, horses
+- **Swine vesicular disease** (SVD) — pigs only, milder
+- **Vesicular exanthema** (VES) — historical, eradicated
+- **Senecavirus A** — emerging, mild
+
+## 🔬 Diagnosis
+- WOAH reportable!
+- Vesicular fluid + epithelium + heparinized blood
+- ELISA, PCR, virus isolation, serology
+- TH: NIAH lab + DLD field team
+
+## 🛡️ Control
+
+### Endemic countries (TH)
+- **Vaccination** — inactivated, 2-3 times/year
+- Multivalent (O + A + Asia1 in TH)
+- Mass vaccination + surveillance
+
+### Outbreak response
+- Movement restriction (zone)
+- Ring vaccination
+- Possibly stamping out (small outbreaks)
+- Cleaning + disinfection (acid-sensitive virus — citric acid, sodium carbonate)
+
+### Free countries
+- Stamping out
+- Trade restrictions
+- Border control
+
+## 🇹🇭 Thailand status
+- Endemic, periodic outbreaks
+- DLD vaccination program
+- Recent serotypes O, A
+- Major economic impact (pig + cattle export)
+
+## 📝 EXAM RECAP
+1. ⭐ FMDV = Aphthovirus, 7 serotypes
+2. ⭐ Pigs: lameness > oral signs (vs cattle)
+3. ⭐ "Tiger heart" myocarditis in piglets → high mortality
+4. ⭐ TH: O + A + Asia1 vaccine, endemic
+5. ⭐ Acid-sensitive virus (citric acid disinfection)`,
+  },
+
+  'rG-rc9rp5Ek': {
+    videoId: 'rG-rc9rp5Ek',
+    title: '12.1 Differentiate Red Dot — PCV2 vs Others',
+    subject: 'swine-clinic',
+    date: '2025-11-13',
+    durationMin: 41,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + DDx + clinical',
+    summary: `# 🐷 Swine Clinic #12.1 — Differentiate "Red Dot" Skin Lesions
+
+## 🎯 Differential diagnoses for skin lesions in pigs
+
+| Disease | Lesion | Distribution | Other signs |
+|---|---|---|---|
+| PDNS (PCV2) | Red-purple raised papules | Hindquarters, legs | Lethargy, fever, kidney involvement |
+| Erysipelas | Diamond rhomboid | Trunk, ears | Acute septicemia, fever |
+| Septicemia (S. suis, S. salmonella) | Cyanosis ears, abdomen | Extremities | Fever, neuro |
+| CSF | Petechial hemorrhage | Skin, kidney | Hemorrhages internal |
+| ASF | Cyanosis | Ears, abdomen, legs | Hemorrhages, splenomegaly |
+| Sarcoptic mange | Erythema, papule | Ears, trunk | Pruritus +++ |
+| Pityriasis rosea | Pink-red rings | Ventral abdomen | Self-limiting, transient |
+| Photosensitization | Erythema | Pink-skin areas | Sunlight exposure |
+| Sunburn | Erythema | Dorsal | UV exposure |
+| Insect bite | Papule, edema | Variable | Vector seasonal |
+
+## 🐷 PDNS (Porcine Dermatitis & Nephropathy Syndrome)
+- Type III hypersensitivity (immune complex) — PCV2-associated
+- 12-14 weeks (grow-finish)
+- Skin: red-purple raised papules → coalesce → necrotic
+- Kidney: glomerulonephritis (immune complex) → renal failure → death
+- Mortality 20-50%
+- Tx: supportive (NSAID), prognosis poor if renal involvement
+- Prevention: PCV2 vaccination
+
+## 🐷 Erysipelas (revisited)
+- *E. rhusiopathiae*
+- Diamond skin rhomboid pattern
+- Fever, septicemia
+- Penicillin treatment of choice
+- Vaccinate
+
+## 🐷 Septicemic skin (cyanosis)
+- *S. suis*, *Salmonella Choleraesuis*, APP, *A. suis*
+- Cyanosis at extremities (ears, snout, abdomen)
+- Endotoxic shock
+- Other signs: fever, neuro, sudden death
+
+## 🐷 CSF / ASF
+- Petechiae + cyanosis
+- Reportable diseases — investigate urgently!
+
+## 🐷 Sarcoptic mange
+- Intense pruritus (rubbing)
+- Papules, crusts, alopecia
+- Skin scraping → mites
+- Tx: ivermectin, doramectin
+
+## 🐷 Pityriasis rosea
+- Hereditary in some lines (Landrace especially)
+- Self-limiting (4-8 weeks)
+- No treatment needed
+- DDx with mange (no pruritus, no mites)
+
+## 🩺 Clinical approach
+1. Pruritus? → mange first
+2. Diamond? → erysipelas
+3. Cyanosis ears? → septicemia (PRRS+, S. suis, ASF, CSF)
+4. Hindquarter red dots? → PDNS
+5. Sun exposure? → photosensitization/sunburn
+6. Self-limiting young pig? → pityriasis rosea
+
+## 📝 EXAM RECAP
+1. ⭐ PDNS = PCV2 + Type III hypersensitivity
+2. ⭐ PDNS skin: hindquarter raised papules + renal failure
+3. ⭐ Erysipelas: diamond rhomboid, penicillin
+4. ⭐ ASF/CSF: cyanosis + petechiae → reportable
+5. ⭐ Pruritus + skin = mange first DDx`,
+  },
+
+  'pj6drykU974': {
+    videoId: 'pj6drykU974',
+    title: '12.2 Trichinosis & Trypanosomiasis',
+    subject: 'swine-clinic',
+    date: '2025-11-13',
+    durationMin: 17,
+    instructor: 'อ.สายลม',
+    examFormat: 'MCQ + zoonotic + control',
+    summary: `# 🐷 Swine Clinic #12.2 — Trichinosis & Trypanosomiasis
+
+## 🪱 Trichinellosis (Trichinosis)
+
+### Pathogen
+- *Trichinella spiralis* (most common)
+- *T. britovi*, *T. nativa*, *T. pseudospiralis* (other species)
+- Nematode, intracellular muscle larva
+
+### Life cycle
+1. Pig eats infected meat (raw garbage, wild boar) → larva → adult in intestine
+2. Adult releases newborn larvae → migrate to skeletal muscle
+3. Encyst in muscle (lifelong)
+4. Human eats undercooked pork → repeat cycle
+
+### Clinical (pigs)
+- Mostly asymptomatic
+- Heavy infection: muscle pain, weakness
+- Sudden death rare
+
+### Clinical (humans!)
+- GI phase (1-2 wk): nausea, vomiting, diarrhea
+- Migratory phase (2-8 wk): fever, periorbital edema (PATHOGNOMONIC!), muscle pain, eosinophilia
+- Convalescent: chronic muscle pain
+- CFR <1% with treatment
+
+### Diagnosis
+- Slaughterhouse: trichinoscopy or digestion test (mandatory in EU/USA)
+- TH: only sporadic surveillance
+- Human: serology + muscle biopsy + eosinophilia
+
+### Treatment
+- Albendazole or mebendazole + steroids (humans)
+- No treatment for pigs
+
+### Prevention
+- Cook pork ≥71°C internal
+- Freeze -25°C 10 days kills larvae
+- No swill feeding to pigs (ban garbage)
+- Slaughter inspection
+
+### TH context
+- Wild boar reservoir
+- Some hunters/wild boar consumers at risk
+- Rare in commercial pork
+
+## 🦟 Trypanosomiasis (Surra)
+
+### Pathogen
+- *Trypanosoma evansi* (Asia, S America, Africa)
+- Hemoflagellate protozoan
+- Mechanical vector: biting flies (Tabanus, Stomoxys)
+
+### Hosts
+- Camels (most affected — Africa)
+- Cattle, buffalo (Asia — TH context)
+- Horses, pigs (occasional)
+- Dogs (in TH — emerging)
+
+### Clinical
+- Cattle/buffalo: anemia, fever, edema, weight loss, abortion
+- Pigs: rare, mostly subclinical
+- Horse: severe, fatal
+- Dog: anemia, fever, neuro
+
+### Diagnosis
+- Blood smear (Giemsa) — trypomastigote
+- Wet mount (motile)
+- Serology (CATT, ELISA)
+- PCR
+
+### Treatment
+- Diminazene aceturate (Berenil)
+- Suramin
+- Quinapyramine
+
+### Control
+- Vector control (biting flies)
+- Treat infected
+- Quarantine new animals
+
+### TH context
+- Endemic in cattle/buffalo (rural, esp NE)
+- Emerging in dogs
+- Pigs: rare clinical
+
+## 📝 EXAM RECAP
+1. ⭐ Trichinella in muscle → human disease via raw pork
+2. ⭐ Periorbital edema = pathognomonic in human trichinosis
+3. ⭐ Cook pork 71°C or freeze -25°C 10d kills larvae
+4. ⭐ Surra = T. evansi, biting fly vector
+5. ⭐ Surra TH: cattle/buffalo, emerging in dogs`,
+  },
+
+  'D-Sj1cWYS3w': {
+    videoId: 'D-Sj1cWYS3w',
+    title: '13. African Swine Fever (ASF)',
+    subject: 'swine-clinic',
+    date: '2025-11-21',
+    durationMin: 81,
+    instructor: 'อ.สายลม + DLD',
+    examFormat: 'MCQ + clinical + control + DDx CSF',
+    summary: `# 🐷 Swine Clinic #13 — African Swine Fever (ASF)
+
+## 🎯 Pathogen
+- African swine fever virus (ASFV)
+- Family *Asfarviridae*, genus *Asfivirus* (only family member)
+- Large dsDNA virus (~170-190 kb)
+- 24+ genotypes — Genotype II currently global pandemic
+- VERY stable in environment (months in pork, blood)
+- No vaccine commercially available!
+
+## 🦠 Transmission
+- Direct contact (infected pigs)
+- Indirect: contaminated meat products, feed, fomites
+- Soft tick (*Ornithodoros*) — Africa cycle
+- Wild boar reservoir — important in Europe/Asia spread
+- Swill feeding (illegal in many countries)
+
+## 🩺 Clinical forms
+
+### Peracute (highly virulent strain)
+- Sudden death
+- High fever (>42°C)
+- Anorexia
+- Cyanosis (ears, abdomen, limbs)
+- Hemorrhages (skin, mucosa)
+- Death within 1-7 days
+- ~100% mortality
+
+### Acute
+- Fever, anorexia, recumbency
+- Vomiting, diarrhea (sometimes hemorrhagic)
+- Cyanosis, petechiae
+- Abortion (sows)
+- Death 7-14 days
+- 90-100% mortality
+
+### Subacute / chronic (lower virulence — rare currently)
+- Wax-and-wane fever
+- Pneumonia, arthritis
+- Wasting
+- Death weeks to months
+- Lower mortality
+
+## 🩺 Pathology (necropsy)
+
+### Hallmark
+- **Splenomegaly** — massively enlarged, dark, soft (DDx CSF: spleen has infarcts)
+- **Hemorrhagic lymph nodes** (gastrohepatic + renal especially)
+- **Petechiae** kidney, bladder, larynx
+- **Edema fluid** — abdomen, thorax, gallbladder
+
+## 🆚 ASF vs CSF (CRITICAL!)
+
+| Feature | ASF | CSF |
+|---|---|---|
+| Virus family | Asfarvirus (DNA) | Pestivirus (Flavi, RNA) |
+| Vaccine | NONE | Yes (C-strain) |
+| Spleen | Massively enlarged, dark | Infarcts (wedge) |
+| Lymph node | Hemorrhagic (red-black) | Hemorrhagic peripheral |
+| Stability | Very stable (months) | Less stable |
+| Treatment | Cull only | Cull + vaccinate |
+
+## 🔬 Diagnosis
+- WOAH reportable!
+- Real-time PCR (blood, spleen, lymph node) — fastest
+- Antigen ELISA (acute)
+- Antibody ELISA (chronic)
+- Virus isolation (BSL-3)
+- Differential from CSF — urgent (different control strategies)
+
+## 🛡️ Control + prevention
+
+### Currently (no vaccine)
+- **Stamping out** = ONLY effective method
+- Movement restriction (zoning)
+- Surveillance (active + passive)
+- Biosecurity (extreme)
+- Wild boar management
+
+### Biosecurity (top priority)
+- No swill feeding (illegal)
+- Heat-treated feed (>70°C)
+- No pork products on farm
+- Tight visitor + truck control
+- Wild boar exclusion fencing
+
+## 🇹🇭 Thailand outbreak
+- **Confirmed Jan 2022** — small farm Nakhon Pathom (suspected backyard)
+- DLD response: zoning, surveillance, culling
+- Industry impact: pork prices, export concerns
+- Border surveillance (China since 2018, Vietnam, Cambodia)
+- Compensation programs for affected farmers
+
+## 🆕 Vaccine development (2024+)
+- 2 live attenuated vaccines licensed in Vietnam (2023-2024)
+- Limited efficacy, safety concerns
+- TH: monitoring closely, not yet adopted
+- Industry waiting for safer/more effective options
+
+## 📝 EXAM RECAP
+1. ⭐ ASFV = Asfarvirus, dsDNA, NO vaccine in TH
+2. ⭐ Splenomegaly + hemorrhagic lymph node = pathognomonic
+3. ⭐ DDx CSF: spleen massive (ASF) vs infarcts (CSF)
+4. ⭐ TH confirmed Jan 2022, ongoing surveillance
+5. ⭐ Stamping out = ONLY current control method`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
