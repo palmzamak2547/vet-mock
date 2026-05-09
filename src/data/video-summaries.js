@@ -42656,6 +42656,415 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 💊 **Drug withdrawal time** for dairy: Ivermectin 28 days · Albendazole 6 days · check label always`,
   },
 
+  ez3VyARqzUQ: {
+    videoId: 'ez3VyARqzUQ',
+    title: 'Mastitis in Cattle (Clinical + Subclinical · Contagious + Environmental)',
+    subject: 'herd-health-rum',
+    date: '2024-09-18',
+    durationMin: 161,
+    instructor: 'อ.ธนศักดิ์ + หมอแนท (final lecture · Saraburi research center · vet career philosophy)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง 5 inflammation signs + clinical vs subclinical + contagious vs environmental + SCC threshold + CMT + dry cow therapy',
+    summary: `## 🎯 Lead Summary
+**Mastitis = #1-3 disease in dairy cattle** by economic impact. Approach via **3 elements (Iceberg Triangle)**: ⭐ **People + Environment + Animal**. Two patterns: **Clinical** (visible signs · 5 inflammation criteria) vs **Subclinical** (no visible signs · detected by **SCC** + **CMT**). Two epidemiologies: **Contagious** (human-spread, S. aureus, Strep agalactiae) vs **Environmental** (housing-spread, E. coli, Strep uberis). Treatment philosophy: ⭐ **8 steps** including dry cow therapy + selective dry-off. ⭐ **80% of dairy business value** is keeping cows healthy (NOT treating sick) — the "iceberg insight" for vet career planning.
+
+## 1️⃣ Vet Career Philosophy (Iceberg Insight!) ⭐⭐
+
+### The 10-20% vs 80-90% Rule ⭐
+> "Vets focus on 10-20% (sick animals) but 80-90% of dairy business value is **keeping cows healthy**"
+
+**Sick animal business** (10-20%):
+- Mastitis treatment, drugs, vaccines
+- Limited revenue, but **only vets can do this** (legal protection!)
+
+**Healthy animal business** (80-90%):
+- Genetics, nutrition, housing, prevention
+- ⭐ **Massive market** (Thai dairy = ฿5-6 billion/year)
+- Pet food market: ฿50-60 billion/year (10× dairy!)
+- ⚠️ Often dominated by non-vets
+
+### Dairy Product Value Chain ⭐
+| Product | Value tier |
+|---|---|
+| **Raw milk dairy farm** | ⭐ Lowest (฿20/L) |
+| Pasteurized fluid milk | Low |
+| Yogurt | Medium |
+| Ice cream | Medium-high |
+| Butter | High |
+| ⭐ **Cheese** (especially aged) | **Highest** (฿2,000/kg!) |
+
+> 💡 Thailand imports billions in cheese while producing milk · vet-led innovation opportunity!
+
+### Real Saraburi Research Center ⭐
+- **50-cow farm** with full dairy facility
+- Built during COVID (instructor had to milk personally!)
+- 800 m² compact training site
+- 4 different dairy products (cheddar, jersey cream, ice cream, yogurt)
+- VR training platform (Walk-Through VR for pandemic restrictions)
+
+### Career Decision at Year 4 ⭐
+> "Year 4 = turning point — if you decide what to do, life becomes easier; if not, you suffer 2 more years"
+- ⚠️ Don't be afraid to admit interests
+- ⚠️ Don't hide ambition — let mentors notice you
+- ⭐ **Reject every opportunity** = career suicide
+
+## 2️⃣ Mastitis Definition & Classification ⭐⭐⭐
+
+### Etymology
+- **"Mastitis"** = inflammation of mammary gland
+- **"Mast-"** Greek = breast/udder
+- **"-itis"** = inflammation
+
+### Two Pattern Classifications
+
+#### A. By Clinical Signs (Visible vs Hidden) ⭐
+| Pattern | Detection | Action |
+|---|---|---|
+| **Clinical Mastitis** ⭐ | Visible 5 inflammation signs | Treat individual cow |
+| **Subclinical Mastitis** ⭐ | Detected by SCC, CMT | Often missed but causes biggest economic loss |
+
+#### B. By Epidemiology (How spread) ⭐⭐
+| Pattern | Spread | Pathogens | Strategy |
+|---|---|---|---|
+| **Contagious** ⭐ | Human/equipment to cow | **S. aureus**, **Strep agalactiae**, Mycoplasma | Hygiene + milking order |
+| **Environmental** ⭐ | Housing/bedding to cow | **E. coli**, **Strep uberis**, Klebsiella | Bedding + housing |
+
+## 3️⃣ Clinical Mastitis ⭐⭐⭐
+
+### 5 Cardinal Signs of Inflammation (Latin: Calor, Rubor, Tumor, Dolor, Functio Laesa)
+1. ⭐ **Calor (Heat)** — udder feels warm to hot
+2. ⭐ **Rubor (Redness)** — udder is reddish
+3. ⭐ **Tumor (Swelling)** — udder is swollen
+4. ⭐ **Dolor (Pain)** — cow flinches when touched
+5. ⭐ **Functio Laesa** (Loss of Function) — abnormal milk:
+   - Watery, clots, blood, pus
+   - Yellow, off-color
+   - Reduced volume
+
+### Diagnosis Criteria
+- ⭐ **1 of 5 signs = clinical mastitis** (don't need all 5!)
+- Most common: **Functio Laesa first** (abnormal milk in strip cup)
+
+### Detection Methods (Clinical)
+| Method | Detail |
+|---|---|
+| **Visual inspection** | Udder symmetry, swelling |
+| **Strip cup test** | First milk on dark surface → see clots |
+| **Palpation** | Heat, hardness comparison |
+| **Routine pre-milking inspection** | Critical farm SOP! |
+
+## 4️⃣ Subclinical Mastitis ⭐⭐⭐
+
+### Why It's More Important Than Clinical
+- ⚠️ **Subclinical = ICEBERG** — 80% hidden, 20% visible (clinical)
+- ⭐ **More economic loss** than clinical (more cows affected, longer)
+- Reduced milk yield (5-25% per quarter)
+- Reduced milk quality (high SCC = penalty/discount)
+- Sets up future clinical cases
+
+### Detection Methods ⭐
+| Method | Pros | Cons |
+|---|---|---|
+| ⭐ **SCC** (Somatic Cell Count) | Quantitative · gold standard | Lab needed |
+| ⭐ **CMT** (California Mastitis Test) | Field test · cheap · fast | Subjective |
+| **Bulk Tank SCC** | Whole-farm screen | No quarter info |
+| **Conductivity meters** | Inline · automated | Expensive |
+| **PCR/culture** | ID specific pathogen | Slow |
+
+### SCC Thresholds ⭐⭐⭐
+| SCC level | Status |
+|---|---|
+| **<200,000 cells/mL** | ⭐ Healthy |
+| **200,000-500,000** | ⚠️ Subclinical mastitis |
+| **>500,000** | ⚠️ Severe subclinical · likely chronic |
+| **>1,000,000** | ⚠️ Very high · culling consideration |
+
+> ⭐ Bulk tank SCC <200,000 = farm doing well · >400,000 = penalty payment in Thailand
+
+### CMT (California Mastitis Test) ⭐
+**Procedure**:
+1. Squirt milk from each quarter into paddle
+2. Add CMT reagent (alkyl-aryl sulfonate)
+3. Mix gently with circular motion
+4. Read consistency reaction
+
+**Score interpretation**:
+| Score | Reaction | SCC equivalent |
+|---|---|---|
+| Negative | No change | <200,000 |
+| Trace | Slight thickening | 200-400K |
+| 1+ | Distinct thickening | 400-1,200K |
+| 2+ | Gel formation | 1,200-5,000K |
+| 3+ | Solid gel | >5,000,000 |
+
+### Why CMT Works
+- Reagent **lyses leukocytes**
+- Released DNA forms gel/precipitate
+- More cells = more gel = positive
+
+## 5️⃣ Pathogens by Pattern ⭐⭐
+
+### Contagious Pathogens
+| Bacterium | Source | Key feature |
+|---|---|---|
+| ⭐ **Staphylococcus aureus** | Cow-cow via hands/cluster | ⚠️ Forms abscesses, often chronic |
+| ⭐ **Streptococcus agalactiae** | Cow-cow via udder | ⚠️ HIGHLY contagious, but easy to treat |
+| **Mycoplasma bovis** | Cow-cow | Multi-quarter, severe, no treatment |
+| **Corynebacterium bovis** | Cow-cow | Mild, opportunistic |
+
+### Environmental Pathogens
+| Bacterium | Source | Key feature |
+|---|---|---|
+| ⭐ **E. coli** ⭐ | Bedding, manure | ⚠️ **Endotoxin shock** possible · sudden death! |
+| ⭐ **Streptococcus uberis** | Wet bedding | Common · summer mastitis |
+| **Klebsiella** | Sawdust bedding | Severe, hard to treat |
+| **Pseudomonas** | Water sources | Resistant to many drugs |
+| **Yeast/Fungi** | Damp environments | Misuse of antibiotics → opportunistic |
+
+### Color Coding (Educational shortcut!) ⭐
+- **Contagious**: control via **PEOPLE/EQUIPMENT** discipline
+- **Environmental**: control via **HOUSING/BEDDING** quality
+
+## 6️⃣ Risk Factors (3-Element Iceberg) ⭐⭐
+
+### People Factors ⭐ (Often #1 problem!)
+- ⭐ **Hand hygiene** before milking
+- ⭐ **Gloves usage** (no skin contact)
+- **Pre-dipping** with disinfectant
+- **Strip cup** routine
+- **Drying** with individual paper towels
+- **Post-dipping** after milking
+- ⭐ **Milking order**: Healthy → infected last
+- ⭐ **Cluster (milking machine) cleaning** between cows
+- Technique: no over-milking, proper claw position
+
+### Environment Factors ⭐
+- **Bedding quality** (clean, dry, comfortable)
+- **Stall hygiene** (manure removed)
+- **Ventilation** (no humidity buildup)
+- **Cooling** (heat stress reduces immunity)
+- **Cubicle dimensions** (correct sizing)
+- **Walking surface** (prevents teat injuries)
+
+### Animal (Cow) Factors ⭐
+- **Genetics** (selectable for udder shape!)
+  - ⭐ Teat length, diameter affects mastitis risk
+- **Lactation stage** (early lactation = high risk)
+- **Parity** (older cows = more cumulative exposure)
+- **Body condition** (thin = poor immunity)
+- **Concurrent disease** (BVD immune suppression)
+
+### Equipment Factors
+- ⭐ **Milking machine maintenance** (vacuum levels, pulsation)
+- **Worn liners** (rubber teat cups)
+- **Cluster fall-off** (re-attached without cleaning)
+
+## 7️⃣ Pathogenesis ⭐
+
+### Infection Route
+- Bacteria enter via **teat canal opening**
+- ⭐ Milk = perfect growth medium (warm, nutrient-rich)
+- ⭐ Lactose → bacterial fermentation
+- Initial colonization → multiplication
+
+### Inflammation Cascade
+1. **Bacterial entry** through streak canal
+2. **Toxin release** → damage epithelium
+3. **Immune response** → leukocyte infiltration → ⭐ **SCC ↑**
+4. **Vasodilation** → heat, redness, swelling
+5. **Pain** from edema + inflammatory mediators
+6. ⚠️ **Septicemia** (E. coli) → endotoxin shock (peracute)
+
+### Acute vs Chronic Patterns ⭐
+| Pattern | Duration | Detection | Treatment |
+|---|---|---|---|
+| **Peracute** | Hours | E. coli mostly · sudden | Aggressive systemic + supportive |
+| **Acute** | Days | Visible clinical signs | Standard antibiotics |
+| **Subclinical** | Months | SCC/CMT only | Prolonged or DCT |
+| **Chronic** | Months-years | Recurring · firm udder | Often cull |
+
+## 8️⃣ Treatment Strategy (8-Step Protocol) ⭐⭐⭐
+
+### Step 1: Identify the cow + quarter
+- Strip cup → which quarter?
+- CMT → which quarter is positive?
+
+### Step 2: Sample for culture (BEFORE treatment!)
+- ⭐ Sterile sampling (clean teat end with alcohol)
+- Submit for culture + antibiotic sensitivity
+- Critical for chronic/recurring cases
+
+### Step 3: Express milk (Strip out infected quarter)
+- Reduces bacterial load
+- Removes inflammatory mediators
+
+### Step 4: ⭐ Intramammary antibiotics ⭐
+- ⭐ Specific drug for cattle udder (NOT extra-label!)
+- Match pathogen sensitivity
+- Common: Cloxacillin, Amoxicillin, Cephapirin
+
+### Step 5: Systemic antibiotics (selected cases)
+- **Severe/septic mastitis** (E. coli toxemia)
+- **Chronic with multi-quarter** spread
+- ⚠️ Must have milk withdrawal (28 days for Ivermectin · Penicillin 4 days)
+
+### Step 6: Anti-inflammatory ⭐
+- **NSAIDs** (Flunixin, Meloxicam)
+- Reduces pain, edema, fever
+- ⭐ Critical in peracute septic cases
+
+### Step 7: Fluid + supportive
+- IV fluids if shock/dehydration
+- Calcium for downer cows
+
+### Step 8: Follow-up
+- Re-examine 3-7 days post
+- Repeat CMT/SCC
+- Decide: cure vs cull
+
+## 9️⃣ Dry Cow Therapy (DCT) ⭐⭐⭐
+
+### Why DCT?
+- ⭐ **Drying-off period** = vulnerable
+- Last milking → no milk flushing
+- Bacteria can colonize without resistance
+- Without DCT: clinical mastitis ↑ in next lactation
+
+### Approaches
+| Strategy | Detail |
+|---|---|
+| **Blanket DCT** ⭐ | Treat ALL quarters of ALL drying cows |
+| **Selective DCT** | Treat only quarters with SCC > threshold |
+| ⭐ **Internal teat sealant** | Block teat canal physically (no antibiotic) |
+| **Combined** | DCT + sealant (best protection) |
+
+### When to Apply DCT ⭐
+- ⭐ Last milking (drying off)
+- 1 tube per quarter of approved DCT product
+- ⭐ Wait full dry period (~60 days)
+- Withdrawal: 30 days post-calving for milk
+
+### DCT Antibiotics (Approved)
+- Cloxacillin LA
+- Cephapirin
+- Penicillin G procaine
+- ⚠️ **Different formulation** from lactating cow products!
+
+## 🔟 Prevention Programs ⭐
+
+### Premilking Routine ⭐ (5 essential steps)
+1. ⭐ **Forestripping** (3 squirts) → strip cup → check
+2. ⭐ **Pre-dip** (disinfectant on teat)
+3. **Wait 30 sec** for kill time
+4. ⭐ **Dry with individual paper towels** (NOT shared cloth!)
+5. **Attach milking unit** within 60 seconds (let-down reflex)
+
+### Postmilking Routine
+1. ⭐ **Post-dip** ALL teats (covers teat canal until closed)
+2. **Don't return** to stall immediately (cow stays standing while teat canal closes)
+3. **Walk to feeding** prevents lying in dirty bedding
+
+### Milking Order ⭐
+1. **Fresh cows** (1st calving)
+2. **Healthy cows** (low SCC)
+3. **High SCC cows**
+4. **Clinically sick** (LAST!)
+
+### Equipment Maintenance
+- ⭐ Annual vacuum + pulsation check
+- Replace liners by manufacturer schedule
+- Cluster cleaning between cows (esp. clinical)
+
+## 1️⃣1️⃣ Bulk Tank Monitoring ⭐
+
+### Bulk Tank SCC (BTSCC)
+- ⭐ **Bulk tank** = mixed milk from all cows
+- Monthly SCC measurement
+- Threshold: **<200K = excellent · >400K = penalty**
+
+### Action Levels
+| BTSCC | Action |
+|---|---|
+| <200K | Excellent · maintain |
+| 200-400K | Investigate · CMT individual |
+| 400-750K | Review hygiene + culture |
+| >750K | Major intervention needed |
+
+### Differential Costs
+- **Pasteurized fluid milk price**: ~฿20/L
+- ⭐ **Premium milk** (low SCC, low bacteria): ฿28-30/L
+- Saraburi Premium milk program — proves Thailand can match Hokkaido!
+
+## 1️⃣2️⃣ Special Mastitis Forms
+
+### Summer Mastitis
+- Common in dry cows + heifers
+- ⭐ Hot, humid weather
+- Causes: T. pyogenes, P. indolicus
+- Severe abscessation
+- Often quarter loss
+
+### Mastitis from Brucellosis ⭐ (Cross-ref!)
+- B. abortus localizes in udder
+- ⚠️ Chronic, low-grade
+- ⚠️ Zoonotic risk!
+
+### Leptospira Mastitis (Hardjo)
+- ⭐ Wilted udder, NO inflammation
+- Yellow watery milk
+- ⭐ Self-resolving (no treatment needed)
+
+### Actinomyces mastitis
+- "Wooden" or hard udder
+- Granulomatous reaction
+- Often quarter loss
+
+## 1️⃣3️⃣ Economic Impact ⭐
+
+### Cost Per Case
+- **Clinical mastitis**: ฿3,000-10,000/case
+- **Subclinical chronic**: ฿15,000+ over lactation
+- **Culling losses**: ฿30,000-50,000 per cow
+
+### Farm-Level Losses
+- ⭐ Reduced milk yield (5-25% drop)
+- Discarded milk (treatment withdrawal)
+- Drug cost
+- Vet visits
+- Replacement costs
+- **Bulk tank SCC penalty** payments
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### Concepts (1-4)
+1. ⭐ **Iceberg model**: 20% clinical · 80% subclinical (or vice versa for vet career)
+2. ⭐ **3 Elements**: People + Environment + Animal (key risk factor analysis)
+3. ⭐ **5 Inflammation Signs**: Calor, Rubor, Tumor, Dolor, Functio Laesa
+4. **Functio Laesa** in udder = abnormal milk = first detected sign
+
+### Classification (5-7)
+5. ⭐ **Contagious vs Environmental** (different prevention strategies!)
+6. **Contagious**: S. aureus + Strep agalactiae · spread by people
+7. **Environmental**: E. coli + Strep uberis · from bedding/housing
+
+### Diagnosis (8-10)
+8. ⭐ **SCC <200K = healthy · >500K = chronic concerning**
+9. ⭐ **CMT** = field test · 5-grade scoring
+10. **Bulk tank SCC** = farm-level monitoring · penalty above 400K
+
+### Treatment & Prevention (11-15)
+11. ⭐ **Intramammary antibiotic** is primary treatment route
+12. ⭐ **DCT** (Dry Cow Therapy) = critical prevention strategy
+13. ⭐ **Internal teat sealant** = antibiotic-free option
+14. **Premilking routine 5 steps**: Strip → Pre-dip → Wait → Dry → Attach
+15. ⭐ **Milking order**: Healthy first → Infected LAST
+
+> 📚 **Cross-refs**: BRD complex (similar inflammation principles) · Brucellosis (also udder disease) · Lepto Hardjo (atypical mastitis pattern) · GI parasites (uses similar data-driven prevention)
+> 🩺 **Practical**: Strip cup before EVERY milking · CMT monthly · DCT at every dry-off · Bulk tank SCC monthly trend
+> 💰 **Career insight**: Dairy industry = ฿3 billion+ market · vet roles in 80% prevention space largely vacant
+> 🥛 **Farm rule**: "If your hands aren't clean enough to drink milk from, they're not clean enough to milk a cow"
+> 🎯 **Decision tree**: SCC > 200K → CMT → Positive quarter → Culture → Treat per sensitivity → Re-test`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
