@@ -10502,6 +10502,421 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   // ═════════════════════════════════════════════════════════════════
   // COM I (Y4 sem 1) — DekDokVet85 (Vet 85 cohort, recorded 2024)
   // ═════════════════════════════════════════════════════════════════
+  // 1.2 Oral Tumor (benign vs malignant + tx planning · pairs with 1.1)
+  CQIrJmz3APo: {
+    videoId: 'CQIrJmz3APo',
+    title: '1.2 : Oral Tumor',
+    subject: 'com1',
+    date: '5 Aug 2024 (DekDokVet85 recording)',
+    durationMin: 68,
+    instructor: 'อาจารย์ COM I (small animal oncology / surgery)',
+    examFormat: 'Top-3 incidence + bone-vs-metastasis table + Tx planning by tumor type ออกบ่อย · stage I-IV criteria classic',
+    summary: `# 1.2 Oral Tumor — Benign vs Malignant + Tx Planning
+
+> 🎯 Surgery = primary Tx for ALL oral tumors · combine with chemo/radiation/immuno depending on tumor type
+> ⚠️ **2 critical features per tumor**: bone invasion + metastasis rate → drives Tx planning
+
+---
+
+# 🟢 Part 1: Non-neoplastic Masses (DDx ก่อนเข้า tumor)
+
+| Disease | Key feature | Cause | Tx |
+|---|---|---|---|
+| **Gingival hyperplasia** | เหงือกหนาเกิน CEJ | **Drug-induced** (cyclosporine, amlodipine, antiepileptics) · bacterial overgrowth | หยุดยา · scaling · excise if severe |
+| **Dentigerous cyst** | บวมรอบ unerupted tooth | ฟันไม่โผล่พ้นเหงือก | Extract tooth + remove cyst |
+| **FCGS** (lymphoplasmacytic stomatitis) | แดงทั้งช่องปาก esp. fauces (cat) | Immune dysreg + bacteria · worse with FIV/FeLV | Biopsy first (DDx tumor) · steroids · extract all teeth |
+| **Eosinophilic granuloma** | Red ring/thickening at lip/palate (cat) | Food allergy (chicken) · immune | **Hypoallergenic diet first** · surgery if persists |
+
+> 💡 ทุก oral mass ต้อง **biopsy/cytology** ก่อนตัดสินว่าเป็น tumor — บางอันเลียนแบบ cancer
+
+---
+
+# 🔬 Part 2: Tumor Categories
+
+## Benign vs Malignant
+| | Benign | Malignant |
+|---|---|---|
+| Local invasion | ส่วนใหญ่ไม่ลุกลาม (**ยกเว้น AA**) | Locally invasive |
+| Metastasis | 0% | ผันแปร 0-70% (depends on type) |
+| Surgery alone | จบได้ | ต้อง combine therapy |
+
+## Top Incidence (เก็งสอบ ⭐⭐)
+
+### **Dog** (oral tumor = ~6% of all tumors)
+| Rank | Type | % | Class |
+|---|---|---|---|
+| **1** | **Melanoma** | 30-40% | Malignant |
+| **2** | **SCC (Squamous Cell Carcinoma)** | ~25% | Malignant |
+| **3** | **Fibrosarcoma** | ~25% | Malignant |
+| **4** | **Acanthomatous Ameloblastoma (AA)** | — | Benign (but invades bone!) |
+
+### **Cat** (oral tumor = 3-12%)
+| Rank | Type | % |
+|---|---|---|
+| **1** | **SCC** | **~80%** ⭐ |
+| **2** | Fibrosarcoma | — |
+
+> 💡 Cat oral cancer ≈ SCC (เกือบทั้งหมด) · prognosis แย่มาก
+
+---
+
+# 📊 Part 3: Bone Invasion + Metastasis Table ⭐⭐⭐ (high-yield)
+
+| Tumor | Bone invasion | Metastasis | Surgery response | MST |
+|---|---|---|---|---|
+| **Melanoma** | low | **HIGH (40-70% LN)** | Fair-Good | ~5 mo (good if >1 yr) |
+| **SCC dog (non-tonsillar)** | **HIGH** | low | Good | better than melanoma |
+| **SCC dog (tonsillar)** ⚠️ | high | high | Fair | poor |
+| **SCC cat** | high | low | **Poor** ⚠️ | **<45 days** |
+| **Fibrosarcoma** | **HIGH** | low | Fair | better |
+| **Acanthomatous Ameloblastoma (AA)** | **HIGH** | 0% | Excellent | >64 mo |
+| **Peripheral Odontogenic Fibroma (PoF)** | **NONE** | 0% | Excellent | >64 mo |
+
+> 🎯 **จำง่าย**:
+> - แพร่กระจายเก่งสุด = **เมลาโนมา** (อันเดียว)
+> - Bone invasion = SCC, Fibrosarcoma, **AA (benign แต่ invade bone!)**
+> - PoF = ไม่ invade bone (ตัดง่ายสุด)
+
+---
+
+# 🦠 Part 4: Specific Tumor Profiles
+
+## 4.1 Acanthomatous Ameloblastoma (AA) — Benign แต่อย่ามองข้าม
+- ชื่อเดิม: **acanthomatous epulis**
+- หน้าตา: ก้อน firm, ผิวค่อนข้างเรียบ (compared to malignant)
+- ตำแหน่ง: rostral mandible/maxilla รอบ canine teeth
+- **Bone invasion → ต้องตัด wide margin (include bone)**
+- Tx: **wide excision + bone** (ไม่ใช่แค่ marginal) → curative
+
+## 4.2 Peripheral Odontogenic Fibroma (PoF) — Benign ที่ตัดง่าย
+- ชื่อเดิม: **fibrous epulis** / ossifying epulis
+- หน้าตา: ก้อน firm-hard (มีเนื้อเหลือ fibrotic/ossifying)
+- โตช้า (เจ้าของบอกเจอมาเป็นปี)
+- **NO bone invasion** ← key feature
+- Tx: marginal excision + extract adjacent tooth → done
+
+## 4.3 Melanoma — Dog #1 malignant
+- **Predisposing breeds**: pigmented gingiva (Cocker, German Shepherd, Golden)
+- หน้าตา: ก้อนสีดำ classic (90% มี pigment)
+- **Amelanotic melanoma** (~1/3 of cases) — ไม่มี pigment, **MORE AGGRESSIVE**
+  - Confirmation: **Melan-A IHC** (immunohistochemistry brown stain)
+- ⚠️ **High metastasis** → mandatory regional + thoracic staging
+- Best at: **rostral location < 2 cm** (can excise wide)
+
+## 4.4 SCC (Squamous Cell Carcinoma) — #2 dog, #1 cat
+### Dog
+- **Tonsillar SCC** (rare): aggressive · high metastasis · poor prognosis
+- **Non-tonsillar SCC**: less metastasis, more bone invasion · better surgery response
+- หน้าตา: ก้อนแดงสด, ulcerative
+
+### Cat
+- **80% of cat oral tumors** = SCC
+- Risk factors:
+  - **Canned food** (high tuna)
+  - **Smoke exposure** (passive smoke from owner)
+  - **Papillomavirus** induction
+- Locations: gingiva, sublingual, **nasal planum** (white cat, sun exposure)
+- Prognosis: **MST < 45 days** even with surgery — counsel owner honestly
+- Look-alike: FCGS — ต้อง biopsy เพื่อ DDx
+
+## 4.5 Fibrosarcoma — Dog #3, Cat #2
+- หน้าตา: firm mass, more aggressive looking than benign
+- Mostly large breed dogs
+- **Locally invasive bone**, low metastasis, **HIGH recurrence rate** post-op
+
+## 4.6 Osteosarcoma (oral) — rare
+- Mostly limb (require amputation) but oral exists
+- Tx: maxillectomy/mandibulectomy
+- Less aggressive than limb osteosarcoma
+
+---
+
+# 🔍 Part 5: Diagnosis Workflow
+
+## History + Clinical
+- Owner sees mass / drooling / bleeding / halitosis / weight loss / facial asymmetry
+- **Eyeball protrusion** = maxillary tumor pushing orbital socket
+- **Loose tooth without PD** = bone resorption from underlying tumor
+- **Cervical lymphadenopathy** = nodal involvement
+- Paraneoplastic: anorexia, hypercalcemia (rare)
+
+## TNM Staging (WHO classification)
+| Stage | T (size) | N (LN) | M (distant) |
+|---|---|---|---|
+| **1** | T1 (<2 cm) | N0 | M0 |
+| **2** | T2 (2-4 cm) | N0 | M0 |
+| **3** | T3 (>4 cm) **OR** any T + N1 | varies | M0 |
+| **4** | any T + any N + **M1** | — | M1 |
+
+## Imaging
+| Tool | Use |
+|---|---|
+| **Skull radiograph** | First-line · Bone involvement (~40% bone destruction needed to be visible) |
+| **Thoracic radiograph** | Pulmonary mets · detects ≥7-9 mm lesions |
+| **CT scan** | Best for **maxillary tumors** (overlapping skull anatomy) · pulmonary mets ≥1 mm · bone destruction earlier |
+| **MRI** | Soft tissue infiltration depth |
+| **Abdominal U/S** | Distant mets esp. melanoma → liver |
+
+## Sampling (in order of preference)
+1. **FNA cytology** — first-line, often without sedation. รู้ว่า tumor vs non-tumor ได้
+2. **Tissue biopsy (incisional)** — blade or punch · avoid electrocautery (burns sample)
+   - ⚠️ Electrocautery = ห้ามใช้เก็บตัวอย่าง (ใช้แค่ห้ามเลือดหลังเก็บ)
+   - เก็บใหญ่พอ · เลี่ยง infected/necrotic area
+
+## Lymph Node Assessment
+- **Mandibular LN** at caudal mandible · normal <3-5 mm diameter
+- ⚠️ **40% of melanoma dogs have LN mets while LN size still normal** → palpation not enough
+- Best: **FNA cytology of LN** or **excisional biopsy + histopath**
+- True local control: **sentinel LN mapping** (inject dye → trace) — gold standard
+
+---
+
+# 🛠 Part 6: Treatment
+
+## Surgery Margin Rules
+| Tumor type | Margin needed | Example |
+|---|---|---|
+| **Intracapsular** (sample only) | None | Incisional biopsy |
+| **Marginal** | Just past reactive zone | PoF (no bone invasion) |
+| **Wide excision (>2 cm)** | 2 cm + bone | AA, small SCC, melanoma |
+| **Radical resection** | Entire compartment | Large melanoma, large SCC |
+
+## Surgical Procedures
+- **Maxillectomy** (sub-types named by area):
+  - Rostral · Lateral · Caudal · Hemimaxillectomy · Bilateral · Total
+- **Mandibulectomy** (same naming):
+  - Rostral · Lateral · Hemimandibulectomy · Total
+  - Total mandibulectomy → tongue droops, may need feeding adjustment
+- **Cheiloplasty** (lip reconstruction) — for lip tumors
+- **Orbitectomy** — when tumor invades orbit
+- **Facial reconstruction** — restore appearance after wide excision
+
+## Other Modalities
+- **Cryosurgery** (liquid N₂) — small benign masses · rarely used now
+- **Chemotherapy** — combine for melanoma, aggressive SCC
+- **Radiation therapy**:
+  - Melanoma + SCC respond well
+  - Fibrosarcoma + cat SCC = poor response
+  - Pre-op for shrinking + post-op for residual disease
+  - ⚠️ Each session needs GA · facial mucositis side effect
+- **Immunotherapy** — **Melanoma vaccine (Tyrosinase DNA plasmid)**:
+  - Indications: post-resection Stage 1-2 · prevent metastasis · slow distant disease
+  - Course: ~4 doses, ~20,000 THB each (imported)
+  - Some Stage 1-2 patients get >1 year extra survival
+
+## Surgical Complications
+| Complication | Note |
+|---|---|
+| **Hemorrhage** (intra-op + post-op) | Cross-match + transfusion ready · ligate major vessels |
+| **Infection** | Pre-op dental scaling · clean OP field |
+| **Wound dehiscence** | Avoid electrocautery on oral tissue (burns) · proper suture |
+| **Functional deficits** | Tongue droop after total mandibulectomy · feeding tube post-op |
+
+---
+
+# 🤝 Part 7: Supportive Care (palliative)
+
+When surgery isn't feasible:
+- **Pain management** (NSAID, opioids, gabapentin)
+- **Nutritional support**: feeding tube (esophagostomy, gastrostomy)
+- **Oral hygiene** if mass open/bleeding
+- Honest counseling: median survival reality
+
+---
+
+# 🎯 Exam High-Yield Recap
+
+1. **Dog top 3**: Melanoma > SCC > Fibrosarcoma · #4 benign = **AA (still invades bone!)**
+2. **Cat top**: **SCC ~80%** · MST <45 days
+3. **High metastasis**: Melanoma (only one) · 40% LN mets while LN normal-sized
+4. **Bone invasion**: SCC, Fibrosarcoma, **AA** (NOT PoF)
+5. **AA** vs **PoF**: both benign, AA invades bone (wider excision), PoF doesn't
+6. **Tonsillar SCC** = much worse than non-tonsillar
+7. **Amelanotic melanoma** = 1/3 of cases, more aggressive, IHC Melan-A confirms
+8. **Cat SCC risk factors**: canned food (tuna), passive smoke, white cat sun-exposure
+9. **TNM**: T1<2cm, T2 2-4cm, T3 >4cm OR LN+, M1=distant
+10. **Surgery margin**: 2 cm minimum + bone for malignant · marginal OK for PoF only
+11. **Melanoma vaccine** (Oncept) — Stage 1-2 post-op · ~4 doses ~80K THB
+
+> 📚 อ่านควบ: 1.1 Oral cavity (anatomy + DDx of non-tumor masses) · 7.1 Hemolymph Sx (anemia from chronic bleeding tumor) · oncology surgery principles in Y3 com2`,
+  },
+
+  // 8.2 Lower Urinary System 1 (terminology + species patterns + obstruction)
+  z0Id0mmM4Fk: {
+    videoId: 'z0Id0mmM4Fk',
+    title: '8.2 : Lower Urinary System 1',
+    subject: 'com1',
+    date: '7 Oct 2024 (DekDokVet85, อ.วชิรา)',
+    durationMin: 28,
+    instructor: 'อ.วชิรา (Med II) — small animal urology',
+    examFormat: 'Define problem + species/age × disease pattern + hyperkalemia management ออกบ่อย',
+    summary: `# 8.2 Lower Urinary System I — Terminology + Patterns + Obstruction
+
+> 🎯 Lower urinary tract (LUT) disease ต่าง upper tract → focus communication กับเจ้าของ
+> ⚠️ ไม่ใช่แค่ตอบ "FLUTD" — ต้องไปต่อหา **specific diagnosis**
+
+---
+
+# 📚 Part 1: Clinical Sign Terminology (define ก่อน workup)
+
+| Term | Meaning |
+|---|---|
+| **Hematuria** | เลือดในปัสสาวะ |
+| **Stranguria** + **Dysuria** | ในคน = แสบ/ฉี่ขัด · **ในสัตว์รวมเป็นคำเดียว** (สัตว์บอกไม่ได้) → "เบ่งฉี่เหมือนฉี่ไม่ออก / ร้องดังตอนฉี่" |
+| **Pollakiuria** | **ฉี่บ่อย กองเล็ก ๆ** (เข้ากระบะทรายบ่อย ๆ) |
+| **Polyuria** | ฉี่ **เยอะ กองใหญ่** (ต่างจาก pollakiuria) |
+| **Incontinence** | คุมฉี่ไม่ได้ · **"ปัสสาวะเล็ด"** (นอนเสร็จลุกขึ้นมีคราบ) |
+| **Periuria** | **ฉี่นอกกระบะทราย** (cat) · "accidental in the house" |
+| **Excessive licking of perineum** | เลียอวัยวะเพศบ่อย ๆ — เจ็บ/แสบ |
+
+> 💡 **Pollakiuria vs Incontinence**: เจ้าของพูด "ฉี่กระปริบกระปอย" คลุมเครือ
+> - "เข้ากระบะบ่อย" = pollakiuria
+> - "ฉี่หยดเอง / นอนเสร็จเปื้อน" = incontinence
+> → **คนละโรค คนละทาง treatment**
+
+---
+
+# 🔍 Part 2: Differentials Before Diagnosing LUT
+
+ก่อนไปต่อ ต้อง rule out:
+
+## 1. Reproductive Tract
+- **Male dog (intact)**: prostate disease (BPH, prostatitis) → คล้าย LUT
+- **Female (estrus/heat)**: bloody discharge → "ฉี่เป็นเลือด" ของเจ้าของ
+
+## 2. GI (อึ vs ฉี่)
+- ⚠️ Case story: เด็กตอบ "stranguria" แต่จริง ๆ คือ **constipation/megacolon** (เบ่งอึไม่ออก)
+- ตรวจ: คลำลำอึใหญ่ + กระเพาะปัสสาวะเล็ก → constipation, ไม่ใช่ urinary
+- **Megacolon, obstipation, constipation** มักเลียนแบบ stranguria
+
+## 3. Hematuria type (เจ้าของบอก "ฉี่แดง" — observation, ไม่ใช่ interpretation)
+- **Centrifuge urine**:
+  - Supernatant ใส + sediment แดง = **true hematuria** (RBC ตกลง)
+  - Supernatant แดง = **myoglobinuria / hemoglobinuria**
+- Confirm: **serum/plasma color**:
+  - Plasma ใส → muscle (myoglobin from rhabdomyolysis) หรือ **intravesicular hemolysis**
+  - Plasma แดง → **intravascular hemolysis** (IMHA)
+- ⚠️ **Intravesicular hemolysis** (RBC แตกในกระเพาะปัสสาวะ): hematuria จริง แต่ centrifuge เห็น hemoglobin ปนใน supernatant — เจอบ่อยใน cat ที่ฉี่ไม่ออกนาน · serum/plasma สีปกติ → confusing แต่จริง ๆ คือ hemorrhage in bladder
+
+---
+
+# 🐈 Part 3: Cat — FLUTD Umbrella + Sub-diagnoses
+
+## ⚠️ ห้ามตอบ "FLUDI" — เขียน/พูด **FLUTD** (Feline Lower Urinary Tract Disease)
+
+FLUTD = **umbrella term** สำหรับ cat ที่มีอาการ LUT ใด ๆ:
+hematuria · stranguria/dysuria · pollakiuria · periuria · excessive licking
+
+> 💡 ข้อสอบให้ 10 คะแนน ตอบ "FLUTD" ได้แค่ 4 — ต้องไปต่อ identify specific cause:
+
+## Sub-diagnoses by Age (แมว)
+
+### Cat **<10 ปี** (rank by frequency)
+1. **FIC** (Feline Idiopathic Cystitis) ⭐ — diagnosis of exclusion
+2. **Stones** (urolithiasis)
+3. UTI (rare in young cats)
+
+### Cat **>10 ปี** (rank shifts!)
+1. **Stones** + **UTI** — climb to top
+2. **FIC** drops to bottom
+3. + **Neoplasia** (TCC) consideration
+
+> 💡 **FIC = idiopathic cystitis** — model ของ interstitial cystitis ในผู้หญิง · ผู้ชายไม่ค่อยรู้จัก · stress/environment-triggered
+
+## Practical Use
+- 6yr Persian male, ฉี่ไม่ออก/ฉี่ปนเลือด → **FIC หรือ stones**
+- 13yr cat, ฉี่ไม่ออก → **stones หรือ UTI** (FIC unlikely)
+
+---
+
+# 🐕 Part 4: Dog — LUT Disease Pattern
+
+| Age | Common dx |
+|---|---|
+| All ages | **UTI + Stones** ยืนพื้น |
+| **>10 ปี** | + **TCC (Transitional Cell Carcinoma)** เพิ่มขึ้น |
+
+> 💡 Dog FLUTD pattern simpler — fewer differentials than cat
+
+---
+
+# 🚨 Part 5: Obstruction (Critical — สัตว์ตายเร็ว)
+
+## Pathophysiology
+\`\`\`
+Obstruction (urethra/ureter) → back pressure UP toward Bowman's
+                                ↓
+                  GFR drops → can't excrete K, PO₄, H+
+                                ↓
+        🚨 Hyperkalemia + Hyperphosphatemia + Metabolic acidosis (high anion gap)
+                                ↓
+                      Bradycardia → death
+\`\`\`
+
+## 2 Levels of Obstruction
+| Level | Site | Detection | Outcome |
+|---|---|---|---|
+| **Lower** | Urethra | ง่าย — palpate distended bladder, observe straining | Cath unblock |
+| **Upper** | Ureter | **ยาก — looks like AKI** (toxic, depressed, vomiting) → diagnose with imaging | One kidney left long-term |
+
+## Critical Workup
+1. **Bloodwork FIRST** in unstable patient: K+, BUN/Cr, blood gas, HR
+2. **Bradycardia** (HR cat normal ~200 → if 80, severe hyperkalemia)
+3. **STABILIZE before unblocking**:
+   - Ca gluconate (cardioprotective)
+   - Insulin + dextrose / regular insulin / β-agonist (drive K into cells)
+   - Bicarbonate for acidosis
+   - IV fluids (gentle to avoid edema)
+4. **Then unblock** (urethrocath, manual prostate massage, etc.)
+
+> ⚠️ **Don't rush to unblock unstable cat** — they'll die on the table from K+/acidosis crash
+
+## Urethral Plugs (Cat)
+- 10-20 ปีก่อน common — protein matrix + struvite crystals
+- Now rare แต่ยังเจอ
+- Material: white/cream "cake-like" plug at penile tip
+- Trick: **gentle massage of penile tip** เผื่อ plug ปึ๊ดออกเอง → unblock without cath
+- ถ้าไม่ออก → urethrocath ด้วย flush
+
+---
+
+# 🩺 Part 6: Workup Workflow
+
+## Triage Rule
+- **Unstable** (bradycardia, depressed, severe hyperK): max 10 min for hx + PE → **stabilize first**
+- **Stable**: take time for thorough history + PE
+
+## Order
+1. **Define problem** (term mapping above)
+2. **Rule out** reproductive + GI mimics
+3. **Confirm hematuria type** (centrifuge + serum color)
+4. **Imaging**: bladder + ureter US, abdominal radiograph
+5. **Urinalysis + culture** (mid-stream catch or cystocentesis)
+6. **Blood**: CBC, chem (K+, BUN/Cr, PO₄), blood gas
+
+---
+
+# 🎯 Exam High-Yield Recap
+
+1. **Pollakiuria** (ฉี่บ่อย กองเล็ก) ≠ **Polyuria** (กองใหญ่) ≠ **Incontinence** (เล็ดเอง)
+2. **FLUTD = umbrella, not diagnosis** — must identify FIC vs stones vs UTI
+3. **Cat <10yr top dx**: FIC > Stones > UTI
+4. **Cat >10yr top dx**: Stones + UTI (FIC drops)
+5. **Dog age >10**: add TCC to differential
+6. **Centrifuge red urine**:
+   - Supernatant clear + sediment red = true hematuria
+   - Supernatant red + plasma normal = intravesicular hemolysis OR myoglobinuria
+   - Supernatant red + plasma red = intravascular hemolysis (IMHA)
+7. **Obstruction emergencies**:
+   - Hyperkalemia → bradycardia → death
+   - Stabilize K+ + acidosis BEFORE unblocking
+   - Ca gluconate + insulin/dextrose + bicarb
+8. **Megacolon mimics stranguria** — palpate abdomen first
+9. **Lower obstruction (urethra)** = easier · **upper (ureter)** mimics AKI
+
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.3 Lower Urinary 2 (vLjnPuFgvj4) · 10.1 Imaging Urinary (Q0AGFF70m8M)`,
+  },
+
   // 1.1 Oral cavity (foundational anatomy + exam + common diseases)
   // Key string-quoted because videoId contains hyphen (not valid JS identifier).
   'I7M-pekGTIU': {
