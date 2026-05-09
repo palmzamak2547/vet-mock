@@ -15042,6 +15042,394 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 > 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY) · 12.2 Arrhythmia + ATE + HT (6mOoAWOWTDw) · 13.1 Surgical Heart (dn_W-7eWQl0)`,
   },
 
+  H5z8i1YOteY: {
+    videoId: 'H5z8i1YOteY',
+    title: '11 : Cardio Evaluate + Diagnosis Method + CHF',
+    subject: 'com1',
+    date: '2024-10-28',
+    duration: '173 min',
+    instructor: 'DekDokVet85 — รุ่นพี่',
+    examFormat: 'MCQ — clinical eval + workup steps + CHF drug logic',
+    summary: `# 11 Cardiac Evaluation + Diagnostic Methods + CHF
+
+> 🎯 Foundation lecture สำหรับ cardiology block — **3 parts**: clinical evaluation · diagnostic methods · congestive heart failure (CHF). 173 min ยาว แต่เนื้อสำคัญสุดคือ **CHF treatment 4 goals** + neurohormonal compensation
+
+---
+
+## PART 1 — Clinical Evaluation
+
+### Signalment
+- **Young (<2 yr)**: think congenital defects
+- **Old**: think acquired (MMVD, DCM, HCM)
+- Breed-specific predisposition (see 12.1 summary)
+
+### History (Dog symptoms)
+| Symptom | Disease clue |
+|---|---|
+| **Cough + dyspnea** | Left CHF (pulmonary edema) |
+| Cough alone (chronic, Toy breed) | Tracheal collapse / cardiomegaly compression |
+| Exercise intolerance | Generic — could be anything |
+| Weakness | Late stage CHF |
+| Syncope | Activity-induced (cardiac) vs spontaneous (neuro) |
+| Ascites + peripheral edema | Right CHF |
+| Cyanotic mucous membranes | Severe hypoxemia |
+| Stunted growth | Congenital defect |
+
+### History (Cat symptoms — vague!)
+- Anorexia, weight loss, lethargy = generic for any disease
+- ⭐ **Specific cardiac signs in cats**:
+  - **Tachypnea** (rapid shallow breathing) at rest
+  - **Open-mouth breathing** = emergency
+  - **Acute hindlimb paralysis** = ATE (saddle thrombus)
+  - "Meditation pose" — sphinx-position breathing
+  - Hiding behavior
+
+### Sneeze: Acute vs Chronic
+- **Syncope** ≠ seizure (3 features)
+  - **Syncope**: activity-induced, brief unconsciousness, no aura, no postictal phase
+  - **Seizure**: aura + tonic-clonic + postictal lethargy/disorientation
+
+### Distinguishing dyspnea types
+| Pattern | Likely cause |
+|---|---|
+| **Rapid + shallow** | Restrictive (lung parenchyma OR pleural space) — **typical CHF cat** |
+| **Inspiratory + sound** | Upper airway obstruction |
+| **Expiratory + abdominal push** | Lower airway obstruction |
+| **Mixed** | Severe lung pathology |
+
+---
+
+## PART 2 — Physical Exam (5 cardinal findings)
+
+### A. Mucous Membranes + CRT
+
+**Color**:
+- Pink = normal
+- **Pale** = anemia OR poor perfusion (cardiogenic shock)
+- **Cyanotic (blue)** = hypoxemia
+- **Yellow** = jaundice (rare cardiac)
+
+**Cyanosis types**:
+- **Central**: all mucosa blue → systemic hypoxemia
+- **Peripheral**: only one limb/area → local thrombosis (ATE)
+- **Differential** ⭐: cranial pink + caudal blue = **reversed PDA shunt**
+
+**CRT (Capillary Refill Time)**:
+- Press gum → release → time to refill
+- Normal = **1-2 sec**
+- Prolonged → poor perfusion (cardiac failure)
+- Pale + prolonged CRT + low body temp = **shock**
+
+### B. Jugular Vein
+
+**Distension**: vein bulges + visible
+- **Right CHF** (high CVP)
+- Pericardial effusion / cardiac tamponade
+- Cranial vena cava obstruction (mass, thrombus)
+
+**Pulsation**: vein pulses synchronously with heartbeat above 1/3 of neck height
+- **Tricuspid regurgitation**
+- **Right CHF**
+- Pulmonary hypertension
+
+### C. Femoral Pulse
+
+| Type | Description | Cause |
+|---|---|---|
+| **Hyperkinetic / Bounding** | Strong | PDA, anemia, fever, hyperthyroidism |
+| **Hypokinetic / Weak** | Weak | Subaortic stenosis, low CO, hypovolemia |
+| **Pulse deficit** | Audible heart sound but no pulse felt | Arrhythmia (AF, frequent VPCs) |
+| **Absent** | No pulse | ATE, shock |
+
+### D. Abdominal Palpation
+
+- **Fluctuation** (palpate fluid wave) = **ascites** (right CHF, neoplasia, hypoalbuminemia)
+- **Hepatomegaly** beyond costal arch = right CHF (hepatic congestion)
+- Blood pressure indirectly from femoral pulse character
+
+### E. Thoracic Auscultation (5 components)
+
+#### Observation
+- Breathing pattern (rapid shallow = pulmonary edema)
+- Posture (orthopnea = can't lie down)
+
+#### Palpation
+- **Cardiac impulse** (apex beat) — feel at left ICS 4-5
+  - Position shift = mass displacement, cardiomegaly
+- **Palpable thrill** (vibration from blood turbulence) = severe murmur (Grade IV+)
+
+#### Percussion
+- Normal = resonant (gas)
+- Dull = fluid/mass (pleural effusion, mass)
+
+#### Auscultation
+**Normal heart sounds**: S1 (closure of AV valves at start of systole) + S2 (closure of semilunar valves at end of systole)
+
+**Abnormal sounds**:
+- **Murmurs** — turbulent flow during heart cycle
+- **Gallop** — S3 or S4 (stiff or dilated heart)
+- **Click** — valve abnormality
+
+#### Murmur Grading (1-6)
+| Grade | Description |
+|---|---|
+| 1/6 | Soft, not always audible |
+| 2/6 | Soft but consistently heard |
+| 3/6 | Easily heard, moderate intensity |
+| 4/6 | Loud, NO palpable thrill |
+| **5/6** | Loud + **palpable thrill** ⭐ |
+| 6/6 | Audible without stethoscope contact |
+
+#### Murmur location → disease
+- **Left apex (mitral area)** = MMVD, MR
+- **Left base (pulmonary)** = PS, PDA continuous, ToF
+- **Left base (aortic)** = SAS
+- **Right sternal border** = VSD, TR
+
+#### Murmur timing
+- **Systolic** = AV valve regurgitation (MR, TR) OR semilunar stenosis (AS, PS) OR VSD
+- **Diastolic** = AR, PR, MS (rare in vet)
+- **Continuous** = PDA ⭐
+
+---
+
+## PART 3 — Diagnostic Methods
+
+### Imaging
+- **Thoracic radiograph** ⭐ — first line · cardiac silhouette + pulmonary fields
+- **Echocardiography (Echo)** — gold standard for cardiac structure
+  - **B-mode (2D)**: structure
+  - **M-mode**: chamber dimensions over time
+  - **Color Doppler**: blood flow direction (red = toward, blue = away)
+  - **Spectral Doppler**: velocity measurement
+- **CT angiography**: vascular anatomy + congenital defects
+
+### ECG
+- **Lead II** standard
+- Detects **arrhythmias** (see 12.2 summary)
+- Cardiomegaly clues (chamber enlargement criteria)
+
+### Cardiac Biomarkers
+| Marker | Indicates | Use |
+|---|---|---|
+| **Troponin** (cTnI) | Myocardial injury (myocyte necrosis) | Like liver enzymes — non-specific |
+| **NT-proBNP** ⭐ | Cardiac dilation | Differentiates cardiac vs respiratory dyspnea |
+
+⚠️ **NT-proBNP** specifically — helps decide: CHF or respiratory disease?
+- Normal NT-proBNP + dyspnea = think respiratory (NOT cardiac)
+- Elevated NT-proBNP + dyspnea = think CHF
+
+### Blood pressure
+- Doppler (cats) > oscillometric
+- Cuff = 30-40% of limb circumference
+
+### Other
+- **Holter monitor** — 24-hr ECG (Boxer, Doberman screening)
+- **Cardiac MRI** — research level
+
+---
+
+## PART 4 — Congestive Heart Failure (CHF) ⭐⭐⭐
+
+### Definition
+Heart can't pump enough blood to meet tissue metabolic demand.
+
+### Categorization
+
+**By function**:
+- **Systolic failure**: poor contraction (DCM)
+- **Diastolic failure**: poor relaxation/filling (HCM)
+
+**By side**:
+- **Left CHF** → pulmonary edema (lung)
+- **Right CHF** → ascites + pleural effusion (in cats!) + jugular distension + hepatomegaly
+
+⚠️ Cat exception: **pleural effusion can be from LEFT CHF** in cats (different anatomy — bronchial veins drain into LA)
+
+**By cause**:
+- **Myocardial failure** — contractility issue
+- **Restrictive failure** — diastolic issue
+- **Volume overload** — regurgitation, shunt
+- **Pressure overload** — stenosis, hypertension
+
+### Forward vs Backward failure
+- **Forward** = inadequate cardiac output → weakness, lethargy, syncope, hypotension, cool extremities
+- **Backward** = congestion behind failing side → pulmonary edema (L) OR ascites (R)
+
+---
+
+## Compensation Mechanisms ⭐
+
+### Stage 1: Neurohormonal stimulation
+4 systems activate to maintain BP:
+
+1. **Sympathetic Nervous System**
+   - ↑ HR, contractility, vasoconstriction → ↑ BP
+
+2. **RAAS (Renin-Angiotensin-Aldosterone System)**
+   - Renin → Angiotensin I → **Angiotensin II** (via ACE) → potent vasoconstrictor
+   - Angiotensin II → adrenal → **Aldosterone** → Na+/H2O retention
+   - Aldosterone also released independently of ACE!
+
+3. **ADH (Anti-Diuretic Hormone, Vasopressin)**
+   - Posterior pituitary → free water reabsorption
+   - Increases preload
+
+4. **Cortisol** + others
+
+### Counter-regulatory (balance system)
+- **Prostaglandin E/I** — vasodilation
+- **Natriuretic peptides (ANP, BNP)** — Na+ excretion, vasodilation
+- Endothelial-derived NO
+
+### Stage 2: Decompensation
+- When activation overwhelms the compensation
+- Fluid retention → volume overload → cardiac dilation
+- Persistent vasoconstriction → afterload ↑ → wall hypertrophy/remodeling
+- Edema, ascites manifest
+
+---
+
+## CHF Treatment — 4 Goals ⭐
+
+### Goal 1: Reduce CONGESTION (น้ำท่วม → ระบายน้ำ)
+
+**Two strategies**:
+1. **Remove fluid** = Diuretics (sustainable)
+2. **Redistribute fluid** = Vasodilators (temporary)
+
+### Diuretics
+
+#### Loop Diuretics
+| Drug | Notes |
+|---|---|
+| **Furosemide (Lasix)** ⭐ | First-line · rapid onset · 1-2 mg/kg IV/PO |
+| **Torsemide** | Newer · 10-20× more potent · once daily · use when furosemide resistance |
+
+⚠️ Furosemide loses **ALL electrolytes** → monitor K+, Na+, Cl-, Ca2+, Mg2+
+
+#### Thiazides
+- **Hydrochlorothiazide** — distal tubule · moderate potency
+- Often combined with amiloride (commercial: **Moducin**)
+
+#### Potassium-sparing
+- **Spironolactone** ⭐ — aldosterone antagonist · also has neurohormonal modulation effect
+- **Amiloride** — Na channel blocker · NOT neurohormonal modulator
+
+### Vasodilators
+
+#### Venodilators (preload reduction)
+- **Nitroglycerin patch** — applied to chest wall · 12-hr cycle on/off
+- ⚠️ Less commonly used now (no strong studies)
+
+#### Mixed (preload + afterload)
+- **Sodium nitroprusside** — IV CRI · short acting
+- **Hydralazine** — arterial dilator · oral
+
+### Diuretic monitoring
+1. **Body weight** (volume status)
+2. **Respiratory rate + effort**
+3. **Hydration status** (skin tent, mucous membranes)
+4. **BUN, creatinine** (over-diuresis → renal injury)
+5. **Electrolytes** (especially K+)
+
+### Goal 2: Improve FORWARD FLOW
+
+**Positive inotropes**:
+- **Pimobendan** ⭐⭐ — calcium sensitizer + PDE3 inhibitor
+  - First-line for **DCM, MMVD Stage B2+**
+  - Increases contractility WITHOUT increasing O₂ demand
+  - 0.25 mg/kg PO BID
+- **Dobutamine** — IV CRI · acute decompensation only
+
+⚠️ Avoid in HCM (wrong physiology — diastolic problem, not contractility)
+
+### Goal 3: Normalize HEART RATE + RHYTHM
+- Treat tachy/bradyarrhythmias (see 12.2)
+- Common: AF rate control with **Diltiazem + Digoxin**
+
+### Goal 4: NEUROHORMONAL MODULATION
+
+**ACE Inhibitors** ⭐
+- **Enalapril, Benazepril** — block angiotensin I → II conversion
+- Reduces vasoconstriction + aldosterone release
+- Benefits demonstrated in MMVD + DCM
+- ⚠️ Caution in dehydration (acute renal failure)
+
+**ARBs** (Angiotensin Receptor Blockers)
+- **Telmisartan** ⭐ — newer, more selective
+- Better tolerated long-term
+- Can use when ACE-I not enough
+
+**Aldosterone antagonists**
+- **Spironolactone** — completes RAAS blockade
+- ⚠️ ACE-I doesn't fully block aldosterone (which can release independently)
+
+**Beta-blockers** (carefully!)
+- Used in **early stage** chronic CHF
+- Can WORSEN if heart can't compensate the heart rate drop
+- Not first-line in vet med
+
+---
+
+## CHF Treatment by Disease
+
+### Acute Decompensated CHF (Emergency)
+1. **Oxygen** ⭐
+2. **Furosemide** (high dose IV)
+3. **Pimobendan** (if MMVD/DCM)
+4. **Sedation** if anxious (avoid Beta-blocker; use butorphanol)
+5. ± Vasodilator
+6. Monitor hourly (RR, MM color)
+
+### MMVD Stage C (Chronic CHF) — 4-Drug Combo ⭐
+1. **Furosemide** (taper to lowest effective)
+2. **Pimobendan** (BID)
+3. **ACE-I** (Enalapril/Benazepril)
+4. **Spironolactone**
+
+### DCM (Symptomatic) — Same 4 + treat arrhythmia
+- Pimobendan **mandatory** (vs MMVD where it's helpful)
+
+### HCM (Symptomatic Cat)
+- **Furosemide** = ONLY proven beneficial drug
+- ACE-I controversial
+- Pimobendan off-label (late stage only)
+- **Clopidogrel** for ATE prevention
+
+---
+
+## Long-term monitoring
+- Owner records **resting respiratory rate (RRR)** at home
+  - Normal cat: < 30/min
+  - Normal dog: < 25/min
+  - Increase = imminent decompensation → ↑ furosemide dose
+- Vet visits q3-6 months: re-echo, labs, BP
+- Adjust diuretics by weight + symptoms
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **5 cardiovascular exam steps**: MM/CRT, jugular, pulse, abdomen, thoracic auscultation
+2. **Differential cyanosis** = reversed PDA shunt (cranial pink, caudal blue)
+3. **Hyperkinetic pulse** = PDA, anemia · **Hypokinetic** = SAS, low CO
+4. **Pulse deficit** = arrhythmia (more heart sounds than pulses)
+5. **Murmur grade 5+** = palpable thrill
+6. **NT-proBNP** = differentiates cardiac vs respiratory dyspnea
+7. **Troponin** = myocardial injury marker (like liver enzymes)
+8. **CHF compensation** = SNS + RAAS + ADH + cortisol
+9. **Aldosterone released independently of ACE** → must add Spironolactone for full RAAS block
+10. **Treatment 4 goals**: reduce congestion + improve forward flow + normalize HR/rhythm + neurohormonal modulation
+11. **Furosemide = first-line diuretic** for acute CHF
+12. **Pimobendan** = first inotrope for MMVD/DCM
+13. **MMVD Stage C 4-drug combo** = Furosemide + Pimobendan + ACE-I + Spironolactone
+14. **Cat HCM** = Furosemide is ONLY proven drug · Clopidogrel for ATE prevention
+15. **Owner home monitoring** = resting respiratory rate (cat <30, dog <25)
+
+> 📚 อ่านควบ: 12.1 Acquired + Congenital Cardiac (SiLZIu-aWlY) · 12.2 Arrhythmia (6mOoAWOWTDw) · 13.1 Surgical Heart (dn_W-7eWQl0)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
