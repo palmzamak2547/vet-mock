@@ -49108,6 +49108,1458 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
 5. ⭐ Health certificates for export`,
   },
 
+  // ═══════════════════════════════════════════════════════════════
+  // avian-medicine (DekDokVet85 · Y5 sem 1) — 32 videos
+  // ═══════════════════════════════════════════════════════════════
+
+  D7BZwM1JoVQ: {
+    videoId: 'D7BZwM1JoVQ', title: 'Avian Medicine — 0 Introduction', subject: 'avian-medicine',
+    date: '2025-08-05', durationMin: 3, instructor: 'CUVET avian team',
+    examFormat: 'Brief intro',
+    summary: `## 🎯 Lead Summary
+Course intro for avian medicine. Thailand = major poultry producer + exporter. Course covers viral, bacterial, parasitic, mycotic diseases.
+
+## Course Coverage ⭐
+- Major viral diseases (ND, IB, ILT, AI)
+- Bacterial diseases
+- Parasitic + mycotic
+- Vaccination programs
+- Egg analysis
+
+## Career Paths ⭐
+- Poultry industry (CP, Betagro)
+- Pet bird practice
+- Wildlife/zoo
+- Government surveillance
+
+> 📚 Cross-refs: All 31 avian lectures
+> 🎯 Thailand = #4 chicken meat producer globally`,
+  },
+  tG5VRKQuGhw: {
+    videoId: 'tG5VRKQuGhw', title: 'Avian Medicine — 1.1 Newcastle Disease (ND)', subject: 'avian-medicine',
+    date: '2025-08-05', durationMin: 43, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก ND virulence types · clinical signs · vaccination',
+    summary: `## 🎯 Lead Summary
+**Newcastle Disease (ND)** = #1 viral concern in poultry. ⭐ Paramyxovirus (APMV-1). 5 pathotypes by virulence.
+
+## Etiology ⭐⭐
+- ⭐ APMV-1 (Avian Paramyxovirus type 1)
+- ⭐ Genotypes I-XXI
+- ⭐ Single-stranded RNA virus
+
+## Pathotypes ⭐⭐⭐ (5 types!)
+1. ⭐ **Velogenic viscerotropic** (lethal, GI signs)
+2. ⭐ **Velogenic neurotropic** (lethal, neuro)
+3. ⭐ **Mesogenic** (moderate)
+4. ⭐ **Lentogenic** (mild, vaccine strain)
+5. ⭐ **Asymptomatic enteric**
+
+## Transmission ⭐
+- ⭐ Respiratory + fecal-oral
+- ⭐ Highly contagious
+- ⭐ Wild birds = reservoir
+
+## Clinical Signs ⭐⭐
+- ⭐ Sudden death
+- ⭐ Respiratory: gasping, sneezing
+- ⭐ Neurological: tremors, paralysis
+- ⭐ Drop in egg production
+- Greenish diarrhea
+
+## Diagnosis ⭐
+- ⭐ Clinical signs + history
+- ⭐ Virus isolation in eggs
+- ⭐ RT-PCR
+- ⭐ HI test (serology)
+- ⭐ Histopathology
+
+## Vaccination ⭐⭐⭐
+- ⭐ Live vaccines (B1, LaSota)
+- ⭐ Inactivated vaccines
+- ⭐ Programs vary by farm
+- ⭐ Maternal antibodies interfere
+
+## Control ⭐
+- ⭐ Biosecurity essential
+- Vaccination rigorous
+- ⭐ Eradication impossible (wild birds)
+- Endemic in Thailand
+
+## 📋 Exam Recap
+1. ⭐ APMV-1 paramyxovirus
+2. ⭐ 5 pathotypes by virulence
+3. ⭐ Velogenic = most dangerous
+4. ⭐ LaSota vaccine common
+5. ⭐ Endemic in Thailand`,
+  },
+  Md1qQYAH5kU: {
+    videoId: 'Md1qQYAH5kU', title: 'Avian Medicine — 1.2 Infectious Bronchitis (IB)', subject: 'avian-medicine',
+    date: '2025-08-05', durationMin: 25, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก IB serotypes · clinical signs · vaccination',
+    summary: `## 🎯 Lead Summary
+**Infectious Bronchitis (IB)** — Coronavirus respiratory disease in chickens. Multiple serotypes complicate vaccination.
+
+## Etiology ⭐⭐
+- ⭐ ⭐ **Avian Coronavirus** (IBV)
+- ⭐ Multiple serotypes (Mass, Conn, Ark, etc.)
+- ⭐ ⭐ Cross-protection LIMITED between serotypes
+- Spike protein critical
+
+## Clinical Signs ⭐⭐
+- ⭐ Respiratory: rales, sneezing, gasping
+- ⭐ Egg production drop + abnormal eggs
+- ⭐ Misshapen eggshells
+- ⭐ Wrinkled, soft-shelled eggs
+- ⚠️ Some strains nephropathogenic (kidney damage!)
+- Pullet syndrome ("false layer")
+
+## Diagnosis ⭐
+- ⭐ Clinical signs (respiratory + egg)
+- ⭐ RT-PCR for genotyping
+- ⭐ Virus isolation
+- ⭐ HI test
+
+## Vaccination ⭐⭐
+- ⭐ MUST match circulating serotype!
+- ⭐ Live + inactivated programs
+- ⭐ Mass + variant strains common
+- ⭐ Maternal antibodies short-lived
+
+## Control ⭐
+- ⭐ Multi-serotype vaccination
+- ⭐ Biosecurity
+- All-in-all-out
+
+## 📋 Exam Recap
+1. ⭐ IB = Coronavirus
+2. ⭐ Multiple serotypes (no cross-protection)
+3. ⭐ Egg production drop + shell quality
+4. ⭐ Vaccine must match field strain
+5. ⭐ Some strains affect kidneys`,
+  },
+  NVZopbDW4j8: {
+    videoId: 'NVZopbDW4j8', title: 'Avian Medicine — 1.3 Infectious Laryngotracheitis (ILT)', subject: 'avian-medicine',
+    date: '2025-08-05', durationMin: 15, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก ILT herpesvirus · clinical signs · vaccination',
+    summary: `## 🎯 Lead Summary
+**ILT** = Infectious Laryngotracheitis. Herpesvirus (latent infection!). Severe respiratory.
+
+## Etiology ⭐⭐
+- ⭐ ⭐ **Avian Herpesvirus 1 (ILTV)**
+- ⭐ Latent in trigeminal ganglion
+- ⭐ Reactivation during stress
+
+## Clinical Signs ⭐⭐
+- ⭐ Severe gasping
+- ⭐ ⭐ **Bloody mucus + neck extension** (pathognomonic!)
+- ⭐ High mortality (severe form)
+- ⭐ Drop in egg production
+- ⚠️ Hyperemia of trachea
+
+## Diagnosis ⭐
+- ⭐ Clinical signs (bloody mucus!)
+- ⭐ Tracheal histopath: ⭐ ⭐ syncytial cells + intranuclear inclusion bodies
+- ⭐ Virus isolation
+- ⭐ PCR
+
+## Vaccination ⭐⭐
+- ⭐ Live (CEO, TCO strains)
+- ⚠️ Carrier state from vaccine
+- ⭐ Strict programs
+- ⭐ Some areas no vaccination
+
+## Control ⭐
+- ⭐ Biosecurity
+- ⭐ Vaccine carriers can spread virus
+
+## 📋 Exam Recap
+1. ⭐ Herpesvirus = latent infection
+2. ⭐ Bloody mucus = pathognomonic
+3. ⭐ Syncytial cells + inclusion bodies in histopath
+4. ⭐ Vaccinated birds can be carriers
+5. ⭐ Stress reactivates infection`,
+  },
+  'v2-VlxsTnsM': {
+    videoId: 'v2-VlxsTnsM', title: 'Avian Medicine — 1.4 Avian Metapneumovirus (aMPV)', subject: 'avian-medicine',
+    date: '2025-08-05', durationMin: 15, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก aMPV pathogenesis · clinical signs · TRT in chicken',
+    summary: `## 🎯 Lead Summary
+**Avian Metapneumovirus (aMPV)** — causes Turkey Rhinotracheitis (TRT) and Swollen Head Syndrome (SHS). Pneumovirus.
+
+## Etiology ⭐
+- ⭐ Avian Pneumovirus (aMPV)
+- ⭐ Subtypes A, B, C, D
+- ⭐ Single-stranded RNA
+
+## Clinical Signs ⭐⭐
+- ⭐ ⭐ **Swollen head + face** (in chickens) — SHS
+- ⭐ Sneezing, coryza
+- ⭐ Drop in egg production
+- ⭐ Secondary bacterial infection common
+
+## Pathogenesis ⭐
+- ⭐ Upper respiratory tropism
+- ⭐ Damage cilia
+- ⭐ Predispose to secondary infections (E. coli)
+
+## Diagnosis ⭐
+- ⭐ Clinical signs
+- ⭐ RT-PCR
+- ⭐ Serology (ELISA)
+
+## Vaccination ⭐
+- ⭐ Live + inactivated
+- ⭐ Subtype-specific
+
+## 📋 Exam Recap
+1. ⭐ aMPV = Pneumovirus
+2. ⭐ Swollen Head Syndrome (SHS)
+3. ⭐ Subtypes A, B, C, D
+4. ⭐ Cilia damage = secondary infection risk
+5. ⭐ E. coli often follows`,
+  },
+  zGDseeDV_Zk: {
+    videoId: 'zGDseeDV_Zk', title: 'Avian Medicine — 1.5 Fowlpox', subject: 'avian-medicine',
+    date: '2025-08-05', durationMin: 19, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก fowlpox 2 forms · vector · vaccination',
+    summary: `## 🎯 Lead Summary
+**Fowlpox** = DNA poxvirus, 2 forms: cutaneous (dry) + diphtheritic (wet). Mosquito-transmitted.
+
+## Etiology ⭐
+- ⭐ Fowlpox virus (Avipoxvirus)
+- ⭐ DNA virus
+
+## 2 Clinical Forms ⭐⭐⭐
+### Cutaneous (Dry Pox) ⭐
+- ⭐ Lesions on featherless areas (face, comb, wattle)
+- ⭐ Nodules → scabs
+- ⭐ Mild course
+
+### Diphtheritic (Wet Pox) ⭐
+- ⭐ Lesions in respiratory/digestive tract
+- ⭐ Yellow plaques in mouth, esophagus
+- ⚠️ Can cause death (suffocation)
+
+## Transmission ⭐⭐
+- ⭐ ⭐ **Mosquito vector** (mechanical)
+- ⭐ Bird-to-bird via wounds
+
+## Diagnosis ⭐
+- ⭐ Clinical signs
+- ⭐ Histology: Bollinger bodies (intracytoplasmic inclusions)
+
+## Vaccination ⭐
+- ⭐ Wing-web stab vaccine
+- ⭐ Pigeon pox or fowlpox attenuated
+- ⭐ Lifelong immunity after vaccination
+
+## 📋 Exam Recap
+1. ⭐ Two forms: dry (cutaneous) + wet (diphtheritic)
+2. ⭐ Wet form deadly (suffocation)
+3. ⭐ Mosquito-transmitted
+4. ⭐ Bollinger bodies on histology
+5. ⭐ Wing-web stab vaccination`,
+  },
+  JlF6YXZM490: {
+    videoId: 'JlF6YXZM490', title: 'Avian Medicine — 2 Mycoplasmosis', subject: 'avian-medicine',
+    date: '2025-08-19', durationMin: 97, instructor: 'CUVET avian team (รุ่นพี่)',
+    examFormat: 'Multiple choice · ออก MG · MS · vertical transmission · vaccination · monitoring',
+    summary: `## 🎯 Lead Summary
+**Mycoplasma** in poultry = MG (Mycoplasma gallisepticum) + MS (Mycoplasma synoviae). Vertical transmission. Major economic concern.
+
+## Important Species ⭐⭐⭐
+- ⭐ ⭐ **MG (Mycoplasma gallisepticum)** = Chronic Respiratory Disease (CRD)
+- ⭐ ⭐ **MS (Mycoplasma synoviae)** = synovitis (joint disease)
+- ⭐ M. meleagridis (turkeys)
+- M. iowae (turkeys)
+
+## MG Clinical Signs ⭐⭐
+- ⭐ Chronic respiratory disease
+- ⭐ Sinusitis, swollen face
+- ⭐ ⭐ ⭐ Compounded with E. coli = severe
+- ⭐ Egg production drop
+- Mortality usually low alone
+
+## MS Clinical Signs ⭐⭐
+- ⭐ Synovitis (lameness)
+- ⭐ Air sac affected
+- ⭐ Chronic course
+- ⭐ Egg shell quality issues (top apex abnormality)
+
+## Transmission ⭐⭐⭐
+- ⭐ ⭐ **Vertical (egg-borne)** = critical!
+- Horizontal (respiratory)
+- Stress reactivates
+
+## Diagnosis ⭐
+- ⭐ ⭐ **Serology** (RPA, ELISA, HI)
+- ⭐ PCR
+- ⭐ Culture (slow, fastidious)
+
+## Control ⭐⭐
+- ⭐ ⭐ **Mycoplasma-free breeders** = critical!
+- ⭐ All-in-all-out
+- ⭐ Vaccination (F-strain MG, ts-11)
+- Biosecurity
+
+## 📋 Exam Recap
+1. ⭐ MG + MS = main concerns
+2. ⭐ Vertical transmission (egg-borne)
+3. ⭐ MG → respiratory + facial swelling
+4. ⭐ MS → synovitis (lameness)
+5. ⭐ Mycoplasma-free breeders essential`,
+  },
+  Jp0fuXZfNmg: {
+    videoId: 'Jp0fuXZfNmg', title: 'Avian Medicine — 3.1 Colibacillosis', subject: 'avian-medicine',
+    date: '2025-08-26', durationMin: 58, instructor: 'CUVET avian team (รุ่นพี่)',
+    examFormat: 'Multiple choice · ออก E. coli APEC · clinical syndromes · APEC virulence factors',
+    summary: `## 🎯 Lead Summary
+**Colibacillosis** = E. coli infections in poultry. APEC (Avian Pathogenic E. coli). Often secondary to viruses.
+
+## Etiology ⭐
+- ⭐ ⭐ APEC (Avian Pathogenic E. coli)
+- ⭐ Multiple serotypes (O1, O2, O78 most common)
+- ⭐ Various virulence factors
+
+## Clinical Syndromes ⭐⭐⭐
+- ⭐ ⭐ **Airsacculitis** (most common!)
+- ⭐ ⭐ **Colisepticemia** (acute systemic)
+- ⭐ Pericarditis + perihepatitis (classic triad)
+- ⭐ Yolk sac infection (chicks!)
+- ⭐ Salpingitis (laying hens)
+- Cellulitis
+- Coligranuloma
+
+## Predisposing Factors ⭐
+- ⭐ Stress + immunosuppression
+- ⭐ Previous viral infection (ND, IB, MG)
+- ⭐ Poor ventilation (ammonia)
+- ⭐ Poor hatching practices
+- Trauma
+
+## Diagnosis ⭐
+- ⭐ Clinical signs
+- ⭐ Bacterial culture from heart blood, liver, air sacs
+- ⭐ PCR for virulence genes
+- ⭐ Antibiotic sensitivity!
+
+## Treatment ⭐⭐
+- ⭐ ⭐ Antibiotics (sensitivity-guided!)
+- ⭐ Address underlying cause
+- ⚠️ AMR concerns (multidrug resistance!)
+- Common: enrofloxacin, amoxicillin
+
+## Control ⭐
+- ⭐ Biosecurity
+- ⭐ Hatchery hygiene
+- ⭐ Vaccinate primary infections
+- ⭐ Vaccine for E. coli available
+
+## 📋 Exam Recap
+1. ⭐ APEC = avian pathogenic E. coli
+2. ⭐ Pericarditis + perihepatitis triad
+3. ⭐ Often secondary to MG, viruses
+4. ⭐ AMR major concern
+5. ⭐ E. coli vaccine available`,
+  },
+  Uhe17jfgFD4: {
+    videoId: 'Uhe17jfgFD4', title: 'Avian Medicine — 3.2 Fowl Cholera', subject: 'avian-medicine',
+    date: '2025-08-26', durationMin: 25, instructor: 'CUVET avian team (รุ่นพี่)',
+    examFormat: 'Multiple choice · ออก Pasteurella multocida · acute vs chronic',
+    summary: `## 🎯 Lead Summary
+**Fowl Cholera** = Pasteurella multocida in poultry. Acute septicemia or chronic localized disease.
+
+## Etiology ⭐
+- ⭐ Pasteurella multocida
+- ⭐ Multiple serotypes (1, 3, 4)
+- ⭐ Not host-restricted (cattle pasteurellosis = same!)
+
+## Clinical Forms ⭐⭐⭐
+### Peracute/Acute ⭐
+- ⭐ Sudden death (often layers)
+- ⭐ Septicemia
+- ⭐ Swollen wattles
+- ⭐ Bloody discharge
+
+### Chronic ⭐
+- ⭐ Lameness (joint infection)
+- ⭐ Wattle abscesses
+- ⭐ Twisted neck (otitis interna)
+- ⭐ Localized infections
+
+## Diagnosis ⭐
+- ⭐ Bipolar staining (Methylene blue)
+- ⭐ Culture from heart blood
+- ⭐ PCR
+
+## Treatment ⭐
+- ⭐ Antibiotics (sulfa, tetracycline, ceftiofur)
+- Acute: rapid response
+- Chronic: surgery + antibiotics
+
+## Control ⭐
+- ⭐ Vaccination available
+- ⭐ Biosecurity
+- ⭐ Wild bird control (carriers)
+- Stress reduction
+
+## 📋 Exam Recap
+1. ⭐ Pasteurella multocida
+2. ⭐ Acute = sudden death
+3. ⭐ Chronic = wattle/joint
+4. ⭐ Bipolar staining diagnostic
+5. ⭐ Vaccine available`,
+  },
+  '9v-CfsIpxk0': {
+    videoId: '9v-CfsIpxk0', title: 'Avian Medicine — 4.1 Introduction to Avian Medicine', subject: 'avian-medicine',
+    date: '2025-09-02', durationMin: 76, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Thai poultry industry · disease overview · biosecurity',
+    summary: `## 🎯 Lead Summary
+**Avian medicine introduction** — Thai poultry industry context, key diseases overview, biosecurity principles.
+
+## Thai Poultry Industry ⭐⭐
+- ⭐ Major export country
+- ⭐ CP, Betagro, Sun Group dominate
+- ⭐ Broilers, layers, parent stock
+- ⭐ Modern intensive production
+
+## Key Disease Categories ⭐
+- ⭐ Viral (ND, IB, ILT, AI)
+- ⭐ Bacterial (Salmonella, E. coli, Mycoplasma)
+- ⭐ Parasitic (Coccidia, helminths)
+- ⭐ Mycotic
+- ⭐ Toxin-related
+
+## Biosecurity Principles ⭐⭐⭐
+- ⭐ All-in-all-out
+- ⭐ Pest control
+- ⭐ Footbaths/showers
+- ⭐ Vehicle disinfection
+- ⭐ Restricted access
+- ⭐ Mortality disposal
+
+## Vet Career in Poultry ⭐
+- ⭐ Field veterinarian
+- ⭐ Hatchery management
+- ⭐ Lab/diagnostics
+- ⭐ Government surveillance
+- ⭐ Drug/vaccine industry
+
+## 📋 Exam Recap
+1. ⭐ Thai industry massive scale
+2. ⭐ Multiple disease categories
+3. ⭐ Biosecurity = primary defense
+4. ⭐ All-in-all-out essential
+5. ⭐ Multiple vet career paths`,
+  },
+  'gelIUT2-jcA': {
+    videoId: 'gelIUT2-jcA', title: 'Avian Medicine — 4.2 Avian Influenza (AI)', subject: 'avian-medicine',
+    date: '2025-09-02', durationMin: 73, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก HPAI vs LPAI · H5N1 · pandemic potential · Thai 2547 outbreak',
+    summary: `## 🎯 Lead Summary
+**Avian Influenza (AI)** — Influenza A virus, multiple subtypes. ⭐ ⭐ HPAI (Highly Pathogenic) vs LPAI (Low Pathogenic). Thailand HPAI success story.
+
+## Etiology ⭐⭐⭐
+- ⭐ ⭐ Influenza A virus
+- ⭐ HA + NA subtypes (H1-H18, N1-N11)
+- ⭐ ⭐ HPAI: H5, H7 (most concerning)
+- ⭐ LPAI: lower pathogenicity but can mutate!
+
+## HPAI vs LPAI ⭐⭐⭐
+| Type | Mortality | Examples |
+|---|---|---|
+| HPAI | High (70-100%) | H5N1, H5N6, H7N9 |
+| LPAI | Low | H9N2, others |
+
+## Clinical Signs ⭐⭐
+- ⭐ Sudden death (HPAI)
+- ⭐ Drop in egg production
+- ⭐ Respiratory + neurological
+- ⭐ Cyanotic comb/wattle
+- ⭐ Hemorrhages on legs
+
+## Thai 2547 Outbreak ⭐⭐⭐
+- ⭐ ⭐ ⭐ H5N1 outbreak 2004
+- ⭐ ⭐ Massive culling response
+- ⭐ ⭐ Global model country
+- ⭐ ⭐ NO HPAI cases since 20+ years!
+- LPAI still detected occasionally
+
+## Zoonotic Risk ⭐⭐
+- ⭐ ⭐ H5N1 fatal in humans
+- ⭐ Direct bird contact
+- ⭐ Pandemic potential
+- ⭐ Deaths in Thailand 2547 (vet death case)
+
+## Diagnosis ⭐
+- ⭐ Clinical signs (mass death)
+- ⭐ ⭐ Real-time PCR (gold standard)
+- ⭐ Virus isolation
+- ⭐ HI test (subtyping)
+
+## Control ⭐⭐
+- ⭐ ⭐ ⭐ **Stamping out** (no vaccination Thailand)
+- ⭐ Strict biosecurity
+- ⭐ Movement control
+- ⭐ Surveillance (active + passive)
+
+## 📋 Exam Recap
+1. ⭐ HPAI H5/H7 = most lethal
+2. ⭐ Thailand 2547 success story (model country)
+3. ⭐ Zoonotic + pandemic potential
+4. ⭐ NO vaccination in Thailand (stamping out)
+5. ⭐ Active surveillance ongoing`,
+  },
+  SZnryRPaIuA: {
+    videoId: 'SZnryRPaIuA', title: 'Avian Medicine — 5.1 Infectious Bursal Disease (IBD/Gumboro)', subject: 'avian-medicine',
+    date: '2025-09-09', durationMin: 31, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก IBD · age-specific · immunosuppression · vaccination',
+    summary: `## 🎯 Lead Summary
+**IBD (Gumboro)** = Infectious Bursal Disease. ⭐ ⭐ Birnavirus targeting Bursa of Fabricius. ⭐ ⭐ Causes immunosuppression!
+
+## Etiology ⭐⭐
+- ⭐ IBD virus (Birnavirus)
+- ⭐ Classical, variant, very virulent strains
+
+## Pathogenesis ⭐⭐⭐
+- ⭐ ⭐ Targets B-cells in Bursa of Fabricius
+- ⭐ ⭐ Causes IMMUNOSUPPRESSION
+- ⭐ Predisposes to other infections!
+- Different from BVD/PI!
+
+## Age Susceptibility ⭐⭐
+- ⭐ ⭐ ⭐ **3-6 weeks** = peak susceptibility
+- ⭐ Earlier than 3 weeks: subclinical (more dangerous!)
+- ⭐ After 6 weeks: less severe
+
+## Clinical Signs ⭐⭐
+- ⭐ Sudden onset
+- ⭐ Watery diarrhea
+- ⭐ Depression, ruffled feathers
+- ⭐ Picking at vent
+- ⚠️ Mortality 5-50%
+- ⚠️ Chronic immunosuppression survivors
+
+## Diagnosis ⭐
+- ⭐ Bursal atrophy at necropsy
+- ⭐ Histopath (B-cell depletion)
+- ⭐ ELISA, PCR
+
+## Vaccination ⭐⭐
+- ⭐ Live + inactivated
+- ⭐ Maternal antibody timing critical
+- ⭐ Various strains available
+- ⭐ Programs vary by farm
+
+## 📋 Exam Recap
+1. ⭐ Birnavirus targets Bursa of Fabricius
+2. ⭐ Immunosuppression = major impact
+3. ⭐ 3-6 weeks peak age
+4. ⭐ Maternal antibody timing for vaccine
+5. ⭐ Predisposes to other infections`,
+  },
+  eWlad6RyZf0: {
+    videoId: 'eWlad6RyZf0', title: 'Avian Medicine — 5.2 Neoplastic Diseases (Marek\'s + Lymphoid Leukosis)', subject: 'avian-medicine',
+    date: '2025-09-09', durationMin: 37, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Marek vs ALV · age · vaccination',
+    summary: `## 🎯 Lead Summary
+**Avian Neoplastic Diseases**: Marek's (herpesvirus) + Lymphoid Leukosis (retrovirus). Both T-cell tumors but different.
+
+## Marek's Disease ⭐⭐⭐
+### Etiology
+- ⭐ ⭐ Marek's Disease Virus (alphaherpesvirus)
+- ⭐ T-cell oncogenic
+
+### Clinical Signs
+- ⭐ Lymphoid tumors (visceral, neural, ocular)
+- ⭐ Paralysis (legs, wings)
+- ⭐ Iridocyclitis (gray eye)
+- ⭐ ⭐ Age: 6-30 weeks (younger than ALV)
+
+### Vaccination ⭐⭐⭐
+- ⭐ ⭐ ⭐ **MD vaccine at hatch** = standard
+- ⭐ HVT (Herpesvirus Turkey) most common
+- ⭐ Doesn't prevent infection but prevents tumors
+
+## Lymphoid Leukosis (ALV) ⭐⭐
+### Etiology
+- ⭐ ⭐ Avian Leukosis Virus (Retrovirus)
+- ⭐ Vertical transmission!
+
+### Clinical Signs
+- ⭐ Tumors
+- ⭐ Older birds (>14 weeks)
+- ⭐ Slow course
+
+### Control
+- ⭐ Eradication: ALV-free breeders
+- ⭐ NO vaccine
+- ⭐ Cull positives
+
+## Comparison ⭐⭐
+| Feature | Marek's | ALV |
+|---|---|---|
+| Virus | Herpes | Retro |
+| Age | 6-30 wks | >14 wks |
+| Vaccine | YES | NO |
+| Vertical | NO | YES |
+| Common | Very | Less |
+
+## 📋 Exam Recap
+1. ⭐ Marek's = herpesvirus, vaccinated at hatch
+2. ⭐ ALV = retrovirus, vertical transmission
+3. ⭐ Marek's age 6-30 weeks
+4. ⭐ ALV control = eradication
+5. ⭐ HVT vaccine standard for Marek's`,
+  },
+  XQkik3El7es: {
+    videoId: 'XQkik3El7es', title: 'Avian Medicine — 5.3 Chicken Infectious Anemia (CIA)', subject: 'avian-medicine',
+    date: '2025-09-09', durationMin: 13, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก CIA virus · clinical signs · vertical transmission',
+    summary: `## 🎯 Lead Summary
+**Chicken Infectious Anemia (CIA)** — Circovirus. Causes anemia + immunosuppression in young chicks.
+
+## Etiology ⭐
+- ⭐ Chicken Anemia Virus (CAV) - Circovirus
+- ⭐ Single-stranded DNA
+
+## Pathogenesis ⭐⭐
+- ⭐ Targets bone marrow + thymus
+- ⭐ ⭐ Causes anemia + immunosuppression
+- ⭐ Vertical transmission to chicks
+
+## Clinical Signs ⭐
+- ⭐ Pale chicks (anemia)
+- ⭐ Stunted growth
+- ⭐ Increased mortality
+- ⭐ Hemorrhages
+- ⭐ Bone marrow yellow/fatty
+
+## Diagnosis ⭐
+- ⭐ Histopath (bone marrow, thymus depletion)
+- ⭐ PCR
+- ⭐ ELISA serology
+
+## Control ⭐
+- ⭐ Vaccinate breeders (maternal Ab protects chicks)
+- ⭐ Some commercial vaccines
+
+## 📋 Exam Recap
+1. ⭐ Circovirus
+2. ⭐ Anemia + immunosuppression
+3. ⭐ Vertical transmission
+4. ⭐ Bone marrow + thymus depletion
+5. ⭐ Vaccinate breeders for maternal protection`,
+  },
+  COR6qWQJauo: {
+    videoId: 'COR6qWQJauo', title: 'Avian Medicine — 5.4 Reovirus Infections', subject: 'avian-medicine',
+    date: '2025-09-09', durationMin: 12, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก reovirus · viral arthritis · MAS',
+    summary: `## 🎯 Lead Summary
+**Avian Reovirus** — causes viral arthritis/tenosynovitis (VAT). Also: MAS (Malabsorption Syndrome).
+
+## Etiology ⭐
+- ⭐ Avian Reovirus (Orthoreovirus)
+- ⭐ Multiple serotypes
+
+## Clinical Syndromes ⭐⭐⭐
+### Viral Arthritis/Tenosynovitis (VAT) ⭐
+- ⭐ Lameness
+- ⭐ Swollen hocks
+- ⭐ Tendon rupture (catastrophic!)
+- ⭐ Broilers especially
+
+### Malabsorption Syndrome (MAS) ⭐
+- ⭐ Stunted growth
+- ⭐ Pale chicks
+- ⭐ Femoral head necrosis
+
+### Other
+- ⭐ Runting-stunting syndrome
+- Respiratory disease
+
+## Diagnosis ⭐
+- ⭐ Clinical + histopath
+- ⭐ PCR
+- ⭐ Virus isolation
+
+## Vaccination ⭐
+- ⭐ Live + inactivated
+- ⭐ Programs in breeders for maternal protection
+
+## 📋 Exam Recap
+1. ⭐ Reovirus = Orthoreovirus
+2. ⭐ VAT = viral arthritis/tenosynovitis
+3. ⭐ Tendon rupture catastrophic
+4. ⭐ MAS = stunted growth
+5. ⭐ Vaccinate breeders`,
+  },
+  uGvRYnq5gvw: {
+    videoId: 'uGvRYnq5gvw', title: 'Avian Medicine — 6.1 Runting-Stunting Syndrome', subject: 'avian-medicine',
+    date: '2025-09-16', durationMin: 15, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก RSS · multifactorial · differential diagnosis',
+    summary: `## 🎯 Lead Summary
+**Runting-Stunting Syndrome (RSS)** = multifactorial growth disease in young chicks.
+
+## Etiology ⭐⭐
+- ⭐ Multifactorial!
+- ⭐ Suspected: Astrovirus, Reovirus, Rotavirus
+- ⭐ Combined with management factors
+
+## Clinical Signs ⭐
+- ⭐ Stunted growth
+- ⭐ Pale chicks
+- ⭐ Diarrhea
+- ⭐ "Broken wing" appearance
+- ⭐ Increased culls
+
+## Diagnosis ⭐
+- ⭐ Often by exclusion
+- ⭐ Histopath (intestinal)
+- PCR for various viruses
+
+## Control ⭐
+- ⭐ Hatchery hygiene
+- ⭐ Maternal antibody
+- ⭐ Manage stocking density
+- ⭐ Quality feed/water
+
+## 📋 Exam Recap
+1. ⭐ Multifactorial syndrome
+2. ⭐ Multiple viruses suspected
+3. ⭐ Stunted, pale chicks
+4. ⭐ Diagnose by exclusion
+5. ⭐ Management = key control`,
+  },
+  fhVsp587xn8: {
+    videoId: 'fhVsp587xn8', title: 'Avian Medicine — 6.2 Coccidiosis', subject: 'avian-medicine',
+    date: '2025-09-16', durationMin: 40, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Eimeria species · location · ionophores · treatment',
+    summary: `## 🎯 Lead Summary
+**Coccidiosis** = Eimeria spp. Most economically significant parasitic disease in poultry. Multiple species, each with specific intestinal location.
+
+## Etiology ⭐⭐⭐
+- ⭐ ⭐ Eimeria species
+- ⭐ Each species → specific intestinal site
+- ⭐ 7 important species:
+  - E. tenella (cecum)
+  - E. maxima (mid-intestine)
+  - E. acervulina (duodenum)
+  - E. necatrix (small intestine)
+  - E. brunetti (cloaca/distal)
+
+## Clinical Signs ⭐⭐
+- ⭐ Bloody diarrhea (E. tenella!)
+- ⭐ Weight loss
+- ⭐ Dehydration
+- ⭐ Pale chicks
+- ⭐ Mortality up to 50%
+
+## Pathogenesis ⭐
+- ⭐ Sporulated oocysts ingested
+- ⭐ Multiplication in intestine
+- ⭐ Massive sporulation in environment
+- ⭐ Cycle 5-7 days
+
+## Diagnosis ⭐
+- ⭐ Bloody droppings (E. tenella!)
+- ⭐ Postmortem examination (lesion scoring)
+- ⭐ Oocyst counts
+- ⭐ Histopath
+
+## Control ⭐⭐⭐
+### Prevention
+- ⭐ ⭐ Anti-coccidial feed (ionophores)
+- ⭐ ⭐ Vaccination (live oocysts)
+- ⭐ Litter management
+- ⭐ Rotation programs
+
+### Treatment
+- ⭐ Toltrazuril, sulfaquinoxaline
+- ⭐ Address dehydration
+
+## Resistance ⭐
+- ⭐ Major issue with overuse
+- ⭐ Rotation strategies needed
+
+## 📋 Exam Recap
+1. ⭐ Eimeria species, each with specific gut location
+2. ⭐ E. tenella = bloody diarrhea (cecal)
+3. ⭐ Lesion scoring at postmortem
+4. ⭐ Ionophores in feed prevention
+5. ⭐ Vaccination (live oocysts)`,
+  },
+  ZxF5mCBb7nE: {
+    videoId: 'ZxF5mCBb7nE', title: 'Avian Medicine — 6.3 Necrotic Enteritis', subject: 'avian-medicine',
+    date: '2025-09-16', durationMin: 22, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Clostridium perfringens · NE · risk factors',
+    summary: `## 🎯 Lead Summary
+**Necrotic Enteritis (NE)** = Clostridium perfringens type A. ⭐ ⭐ Especially common after AGP (Antimicrobial Growth Promoter) ban.
+
+## Etiology ⭐⭐
+- ⭐ ⭐ Clostridium perfringens type A (or C)
+- ⭐ NetB toxin = key virulence factor
+- ⭐ Anaerobic, spore-forming
+
+## Clinical Signs ⭐⭐
+- ⭐ Sudden death
+- ⭐ Bloody/watery diarrhea
+- ⭐ Wet litter
+- ⭐ ⭐ Postmortem: distended small intestine with gas + necrotic membrane
+
+## Risk Factors ⭐⭐⭐
+- ⭐ ⭐ **Coccidiosis predisposes!**
+- ⭐ ⭐ AGP ban created problem
+- ⭐ Sudden diet changes
+- ⭐ High stocking density
+- ⭐ Wet litter
+
+## Diagnosis ⭐
+- ⭐ Postmortem (necrotic membrane)
+- ⭐ Culture + toxin detection
+- ⭐ Histology
+
+## Treatment ⭐
+- ⭐ Antibiotics (amoxicillin, lincomycin, BMD)
+- ⭐ Address coccidiosis
+- ⭐ Improve management
+
+## Prevention ⭐
+- ⭐ Probiotics
+- ⭐ Manage coccidiosis
+- ⭐ Limit dietary changes
+- Vaccination research
+
+## 📋 Exam Recap
+1. ⭐ Clostridium perfringens (NetB toxin)
+2. ⭐ Coccidiosis predisposes
+3. ⭐ Postmortem: necrotic membrane in SI
+4. ⭐ AGP ban created NE problem
+5. ⭐ Probiotics + coccidiosis management`,
+  },
+  'RQD-rP8AVFQ': {
+    videoId: 'RQD-rP8AVFQ', title: 'Avian Medicine — 6.4 Leucocytozoonosis', subject: 'avian-medicine',
+    date: '2025-09-16', durationMin: 12, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Leucocytozoon · vector · clinical signs',
+    summary: `## 🎯 Lead Summary
+**Leucocytozoonosis** — protozoan blood parasite, vector-transmitted. Major issue in tropical Thailand.
+
+## Etiology ⭐
+- ⭐ Leucocytozoon caulleryi (chickens)
+- ⭐ L. simondi (waterfowl)
+- ⭐ Sporozoan parasite
+
+## Vector ⭐⭐
+- ⭐ ⭐ **Black flies (Simulium)**
+- ⭐ Outdoor exposure key
+
+## Clinical Signs ⭐
+- ⭐ Anemia (pale combs)
+- ⭐ Sudden death (acute)
+- ⭐ Drop in egg production
+- ⭐ Hemorrhages
+
+## Diagnosis ⭐
+- ⭐ Blood smears (parasites in WBCs)
+- ⭐ Histopath
+- ⭐ PCR
+
+## Control ⭐
+- ⭐ ⭐ Vector control (insecticides)
+- ⭐ Indoor housing
+- ⭐ Sulphonamides (treatment)
+- ⭐ Clopidol prophylaxis
+
+## 📋 Exam Recap
+1. ⭐ Leucocytozoon = blood parasite
+2. ⭐ Black fly vector
+3. ⭐ Outdoor risk factor
+4. ⭐ Anemia + sudden death
+5. ⭐ Vector control + sulphonamides`,
+  },
+  zqmN4NDEThs: {
+    videoId: 'zqmN4NDEThs', title: 'Avian Medicine — 6.5 Avian Malaria (Plasmodium)', subject: 'avian-medicine',
+    date: '2025-09-16', durationMin: 8, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Plasmodium juxtanucleare · vector',
+    summary: `## 🎯 Lead Summary
+**Avian Malaria** — Plasmodium spp. Mosquito-transmitted. Tropical concern.
+
+## Etiology ⭐
+- ⭐ Plasmodium juxtanucleare (chickens, Thailand)
+- ⭐ P. relictum (waterfowl/wild birds)
+- ⭐ Mosquito vector (similar to human malaria)
+
+## Clinical Signs ⭐
+- ⭐ Anemia (pale comb/wattles)
+- ⭐ Acute death (severe)
+- ⭐ Drop in egg production
+- ⭐ Splenomegaly, hepatomegaly
+
+## Diagnosis ⭐
+- ⭐ Blood smears (parasites in RBCs)
+- ⭐ PCR
+
+## Treatment ⭐
+- ⭐ Chloroquine
+- ⭐ Pyrimethamine + sulfa
+- ⭐ Vector control (mosquito)
+
+## 📋 Exam Recap
+1. ⭐ Plasmodium juxtanucleare in Thai chickens
+2. ⭐ Mosquito vector
+3. ⭐ Parasites in RBCs
+4. ⭐ Chloroquine treatment
+5. ⭐ Vector control essential`,
+  },
+  pQ3y5Ki_DmQ: {
+    videoId: 'pQ3y5Ki_DmQ', title: 'Avian Medicine — 7 Poultry Vet Career (NOT IN EXAM)', subject: 'avian-medicine',
+    date: '2025-09-30', durationMin: 116, instructor: 'CUVET avian team',
+    examFormat: 'NOT IN EXAM (ไม่ออกสอบ) — career discussion',
+    summary: `## 🎯 Lead Summary
+⚠️ **NOT EXAMINED** — Career discussion for poultry veterinarian path.
+
+## Career Paths ⭐
+- ⭐ **Field veterinarian** (CP, Betagro)
+- ⭐ **Hatchery manager**
+- ⭐ **Lab/diagnostics** (Bluestone, etc.)
+- ⭐ **Government** (DLD)
+- ⭐ **Drug/vaccine industry**
+- ⭐ **Research**
+
+## Skills Needed ⭐
+- ⭐ Industry knowledge
+- ⭐ Disease understanding
+- ⭐ Management consultation
+- ⭐ Communication
+- ⭐ Data analysis
+
+## Income Potential ⭐
+- ⭐ Industry: 50K-150K+/month
+- ⭐ Senior positions: leadership
+- ⭐ International opportunities
+
+## 📋 Recap
+- ⚠️ NOT EXAMINED but career-relevant
+- ⭐ Multiple paths available
+- ⭐ Industry needs vet expertise
+
+> 🎯 Consider as career option!`,
+  },
+  w5HjhQ2Dq64: {
+    videoId: 'w5HjhQ2Dq64', title: 'Avian Medicine — 8 Omphalitis/Ascites/AE/Staph/Salm/Adeno', subject: 'avian-medicine',
+    date: '2025-10-07', durationMin: 126, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก mixed bag of poultry diseases',
+    summary: `## 🎯 Lead Summary
+**Mixed poultry diseases**: Omphalitis (yolk sac infection) · Ascites Syndrome · Avian Encephalomyelitis · Staphylococcus · Salmonella · Adenovirus.
+
+## Omphalitis ⭐⭐
+- ⭐ Yolk sac infection in chicks
+- ⭐ E. coli, other bacteria
+- ⭐ Hatchery-related
+- ⭐ Cull affected chicks
+
+## Ascites Syndrome ⭐⭐
+- ⭐ ⭐ "Water belly" in broilers
+- ⭐ Right-sided heart failure
+- ⭐ ⭐ Pulmonary hypertension (rapid growth!)
+- ⭐ High altitude or O2 issues
+- ⭐ Common in fast-growing broilers
+
+## Avian Encephalomyelitis (AE) ⭐
+- ⭐ Picornavirus
+- ⭐ Tremors, ataxia in young chicks
+- ⭐ Vertical transmission
+- ⭐ Vaccinate breeders
+
+## Staphylococcus ⭐
+- ⭐ S. aureus = bumblefoot, septic arthritis
+- ⭐ Wound entry
+- ⭐ Surgical drainage + antibiotics
+
+## Salmonella ⭐⭐⭐
+- ⭐ ⭐ S. Pullorum (Pullorum disease)
+- ⭐ ⭐ S. Gallinarum (fowl typhoid)
+- ⭐ S. Enteritidis (zoonotic, eggs!)
+- ⭐ S. Typhimurium (zoonotic)
+- ⭐ Vertical transmission
+- ⭐ Eradicated by RSAT (Rapid Slide Agglutination Test)
+
+## Avian Adenovirus ⭐⭐
+- ⭐ ⭐ Inclusion Body Hepatitis (IBH)
+- ⭐ Hydropericardium Syndrome
+- ⭐ Multiple serotypes
+- ⭐ Vertical + horizontal
+
+## 📋 Exam Recap
+1. ⭐ Omphalitis = hatchery yolk sac infection
+2. ⭐ Ascites = water belly in broilers (PH)
+3. ⭐ AE Picornavirus tremors in chicks
+4. ⭐ S. Pullorum/Gallinarum = vertical transmission
+5. ⭐ Adenovirus IBH + Hydropericardium`,
+  },
+  wIk7mL5kVMg: {
+    videoId: 'wIk7mL5kVMg', title: 'Avian Medicine — 9.1 Mycotic Infection', subject: 'avian-medicine',
+    date: '2025-10-20', durationMin: 54, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Aspergillosis · brooder pneumonia · diagnosis',
+    summary: `## 🎯 Lead Summary
+**Avian mycotic infections** — primarily Aspergillus + Candida.
+
+## Aspergillosis ⭐⭐⭐
+### Etiology
+- ⭐ ⭐ Aspergillus fumigatus (most common)
+- ⭐ Spores in environment
+
+### Forms ⭐
+- ⭐ ⭐ **Brooder pneumonia** (chicks)
+- ⭐ Acute (mass mortality)
+- ⭐ Chronic granulomas
+- ⭐ Chicks <2 weeks most affected
+
+### Clinical Signs ⭐
+- ⭐ Gasping, difficult breathing
+- ⭐ Air sacculitis
+- ⭐ Nodules in lungs
+- ⭐ Mortality variable
+
+### Diagnosis ⭐
+- ⭐ Postmortem (yellow nodules in lungs)
+- ⭐ Histopath (fungal hyphae)
+- ⭐ Culture (Sabouraud agar)
+
+### Treatment ⭐
+- ⭐ Itraconazole, voriconazole (limited effectiveness)
+- ⚠️ Often fatal once clinical
+- ⭐ ⭐ Prevention > treatment
+
+## Candidiasis ⭐⭐
+- ⭐ Candida albicans
+- ⭐ Crop, oral cavity affected
+- ⭐ "Sour crop"
+- ⭐ Treatment: nystatin
+
+## Prevention ⭐
+- ⭐ Clean dry feed (no moldy!)
+- ⭐ Hatchery hygiene
+- ⭐ Ventilation
+- ⭐ Litter management
+
+## 📋 Exam Recap
+1. ⭐ Aspergillus fumigatus most common
+2. ⭐ Brooder pneumonia in chicks
+3. ⭐ Yellow lung nodules at PM
+4. ⭐ Prevention > treatment (often fatal)
+5. ⭐ Hygiene + ventilation key`,
+  },
+  'aekeCV0a-Z4': {
+    videoId: 'aekeCV0a-Z4', title: 'Avian Medicine — 9.2 Mycotoxicosis', subject: 'avian-medicine',
+    date: '2025-10-27', durationMin: 108, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก aflatoxin · ochratoxin · trichothecenes · clinical signs',
+    summary: `## 🎯 Lead Summary
+**Mycotoxicosis** — toxins from feed-borne fungi. Major economic concern. ⭐ Aflatoxin · Ochratoxin · Trichothecenes · Fumonisins · Zearalenone.
+
+## Major Mycotoxins ⭐⭐⭐
+
+### Aflatoxin (Aspergillus) ⭐⭐⭐
+- ⭐ B1 most carcinogenic
+- ⭐ Liver toxicity
+- ⭐ Immunosuppression
+- ⭐ Reduced productivity
+- ⭐ ⭐ **Hepatocellular carcinoma**
+
+### Ochratoxin (Aspergillus, Penicillium) ⭐
+- ⭐ Kidney damage
+- ⭐ Reduced egg production
+
+### Trichothecenes (Fusarium) ⭐⭐
+- ⭐ T-2 toxin
+- ⭐ Oral lesions
+- ⭐ Immunosuppression
+- ⭐ Hemorrhage
+
+### Fumonisins (Fusarium) ⭐
+- ⭐ Hepatotoxic
+- ⭐ Pulmonary edema (less in poultry)
+
+### Zearalenone (Fusarium) ⭐
+- ⭐ Estrogenic effects
+- ⭐ Reproductive impacts
+
+## Source ⭐
+- ⭐ ⭐ Contaminated feed (corn, peanuts, soybean)
+- ⭐ Storage conditions (humidity!)
+- ⭐ Climate change increasing risk
+
+## Clinical Signs ⭐
+- ⭐ Reduced growth/production
+- ⭐ Liver/kidney damage
+- ⭐ Immunosuppression (predispose to other diseases!)
+- ⭐ Sudden death (severe)
+
+## Diagnosis ⭐
+- ⭐ Feed analysis (HPLC, ELISA)
+- ⭐ Histopath
+- ⭐ Liver/kidney biochem
+
+## Control ⭐⭐
+- ⭐ ⭐ Mycotoxin binders in feed
+- ⭐ Quality control of feed ingredients
+- ⭐ Storage conditions (dry, cool)
+- ⭐ Discard moldy feed
+
+## 📋 Exam Recap
+1. ⭐ 5 major mycotoxin groups
+2. ⭐ Aflatoxin B1 = most concerning (liver cancer)
+3. ⭐ Trichothecenes = oral lesions + immunosuppression
+4. ⭐ Source = moldy feed
+5. ⭐ Mycotoxin binders in feed`,
+  },
+  bUnUB3XMrww: {
+    videoId: 'bUnUB3XMrww', title: 'Avian Medicine — 10+11 Duck and Goose Diseases', subject: 'avian-medicine',
+    date: '2025-10-28', durationMin: 99, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก duck plague · DVH · waterfowl-specific diseases',
+    summary: `## 🎯 Lead Summary
+**Duck + Goose diseases** — major Thai industry. Specific waterfowl diseases.
+
+## Duck Diseases ⭐⭐⭐
+
+### Duck Virus Hepatitis (DVH) ⭐
+- ⭐ Picornavirus
+- ⭐ Ducklings (1-3 weeks)
+- ⭐ High mortality
+- ⭐ Liver hemorrhages
+- ⭐ Vaccination available
+
+### Duck Plague (DEV) ⭐⭐
+- ⭐ Herpesvirus (Anatid herpesvirus)
+- ⭐ All ages affected
+- ⭐ Acute death
+- ⭐ Hemorrhages throughout
+- ⭐ Vaccination
+
+### Riemerella anatipestifer ⭐
+- ⭐ Bacterial septicemia
+- ⭐ Ducks especially susceptible
+- ⭐ Antibiotics
+
+## Goose Diseases ⭐
+- ⭐ Goose parvovirus (Derzsy's disease)
+- ⭐ Goose hemorrhagic polyomavirus
+- ⭐ Cholera (similar to chickens)
+
+## Common to Both ⭐
+- ⭐ Avian Influenza (zoonotic risk!)
+- ⭐ Pasteurella
+- ⭐ Salmonella
+
+## 📋 Exam Recap
+1. ⭐ DVH Picornavirus in ducklings
+2. ⭐ Duck Plague Herpesvirus all ages
+3. ⭐ Riemerella anatipestifer specific to ducks
+4. ⭐ Geese: Derzsy's parvovirus
+5. ⭐ AI zoonotic concern in both`,
+  },
+  Ih7HFbP9oJU: {
+    videoId: 'Ih7HFbP9oJU', title: 'Avian Medicine — 12.1 Ornithobacteriosis', subject: 'avian-medicine',
+    date: '2025-11-04', durationMin: 49, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Ornithobacterium rhinotracheale · ORT',
+    summary: `## 🎯 Lead Summary
+**Ornithobacteriosis (ORT)** = Ornithobacterium rhinotracheale. Respiratory disease, often combined with other agents.
+
+## Etiology ⭐
+- ⭐ Ornithobacterium rhinotracheale
+- ⭐ Gram-negative pleomorphic
+- ⭐ Multiple serotypes
+
+## Clinical Signs ⭐
+- ⭐ Respiratory: cough, sneeze
+- ⭐ Drop in egg production
+- ⭐ Reduced growth
+- ⭐ Often complicated with other agents
+
+## Diagnosis ⭐
+- ⭐ Culture
+- ⭐ PCR
+- ⭐ Serology
+
+## Treatment ⭐
+- ⭐ Antibiotics (sensitivity testing)
+- ⭐ Often resistant!
+
+## Control ⭐
+- ⭐ Biosecurity
+- ⭐ Vaccination available
+
+## 📋 Exam Recap
+1. ⭐ ORT respiratory disease
+2. ⭐ Often combined with other agents
+3. ⭐ Antibiotic resistance growing
+4. ⭐ Vaccine available
+5. ⭐ Biosecurity essential`,
+  },
+  ciAa6ypG2A4: {
+    videoId: 'ciAa6ypG2A4', title: 'Avian Medicine — 12.2 Campylobacter Infection', subject: 'avian-medicine',
+    date: '2025-11-04', durationMin: 22, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Campylobacter zoonotic risk · food safety',
+    summary: `## 🎯 Lead Summary
+**Campylobacter** — zoonotic concern, foodborne pathogen. Often subclinical in poultry but causes human disease.
+
+## Etiology ⭐
+- ⭐ ⭐ C. jejuni (most common)
+- ⭐ C. coli
+- ⭐ Gram-negative spiral
+
+## Clinical Signs in Poultry ⭐
+- ⭐ ⭐ ⭐ **OFTEN ASYMPTOMATIC in chickens**
+- ⭐ Carrier state common
+- ⭐ Major food safety issue!
+
+## Zoonotic Risk ⭐⭐⭐
+- ⭐ ⭐ ⭐ Major cause of human gastroenteritis
+- ⭐ Cross-contamination during processing
+- ⭐ Undercooked chicken
+- ⭐ Contaminated water
+
+## Control ⭐⭐
+- ⭐ Biosecurity
+- ⭐ Hatchery hygiene
+- ⭐ Slaughter hygiene
+- ⭐ Public health education
+- ⭐ Vaccination research
+
+## 📋 Exam Recap
+1. ⭐ C. jejuni = #1 foodborne human gastroenteritis
+2. ⭐ Asymptomatic in poultry
+3. ⭐ Cross-contamination at slaughter
+4. ⭐ Undercooked chicken risk
+5. ⭐ Public health priority`,
+  },
+  '6mL3tE_Xdy4': {
+    videoId: '6mL3tE_Xdy4', title: 'Avian Medicine — 12.3 Listeriosis', subject: 'avian-medicine',
+    date: '2025-11-04', durationMin: 8, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Listeria in poultry · zoonotic',
+    summary: `## 🎯 Lead Summary
+**Listeriosis in poultry** — Listeria monocytogenes. ⚠️ EU export concern. ⭐ Soil-dwelling, cold tolerant.
+
+## Etiology ⭐
+- ⭐ Listeria monocytogenes
+- ⭐ Soil organism, cold-tolerant
+- ⭐ Multiple serotypes
+
+## Clinical Signs ⭐
+- ⭐ Often asymptomatic in poultry
+- ⭐ Septicemia possible
+- ⭐ CNS signs
+
+## Importance ⭐⭐
+- ⭐ ⭐ ⭐ ZOONOTIC - serious in pregnant women
+- ⭐ ⭐ EU EXPORT REQUIREMENT for testing!
+- ⭐ Survives in cold storage
+- ⭐ Food safety concern
+
+## Control ⭐
+- ⭐ Mandatory testing for EU export
+- ⭐ Slaughter + processing hygiene
+- ⭐ Cold chain monitoring
+
+## 📋 Exam Recap
+1. ⭐ Listeria monocytogenes
+2. ⭐ Often asymptomatic in poultry
+3. ⭐ Zoonotic - dangerous in pregnant
+4. ⭐ EU export mandatory testing
+5. ⭐ Cold-tolerant organism`,
+  },
+  'YZYg9-0oHWQ': {
+    videoId: 'YZYg9-0oHWQ', title: 'Avian Medicine — 12.4 Histomoniasis (Blackhead)', subject: 'avian-medicine',
+    date: '2025-11-04', durationMin: 8, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก Histomonas · turkey · blackhead',
+    summary: `## 🎯 Lead Summary
+**Histomoniasis (Blackhead)** = Histomonas meleagridis. Mainly turkeys. Heterakis gallinarum vector.
+
+## Etiology ⭐
+- ⭐ Histomonas meleagridis (protozoan)
+- ⭐ Heterakis gallinarum (cecal worm) carrier!
+- ⭐ Earthworm intermediate
+
+## Clinical Signs ⭐⭐
+- ⭐ ⭐ Cyanosis of head (BLACKHEAD)
+- ⭐ Watery diarrhea
+- ⭐ Mortality high in turkeys
+- ⭐ Liver lesions (yellowish circular)
+- ⭐ Cecal core/lesions
+
+## Hosts ⭐
+- ⭐ ⭐ Turkeys most susceptible (severe)
+- ⭐ Chickens (mild, often asymptomatic carriers)
+- ⭐ Pheasants, peafowl
+
+## Treatment ⭐
+- ⭐ Few options (metronidazole banned)
+- ⭐ Nitarsone removed
+- ⚠️ Limited modern treatments
+
+## Control ⭐
+- ⭐ Heterakis control (deworming)
+- ⭐ Avoid mixing chickens + turkeys
+- ⭐ Soil management
+
+## 📋 Exam Recap
+1. ⭐ Histomonas meleagridis
+2. ⭐ Heterakis gallinarum vector
+3. ⭐ Turkeys most affected
+4. ⭐ Cyanotic head (blackhead)
+5. ⭐ Limited modern treatment options`,
+  },
+  XRnD2Y8DYBQ: {
+    videoId: 'XRnD2Y8DYBQ', title: 'Avian Medicine — 13.1 Vaccines, Methods, Programs', subject: 'avian-medicine',
+    date: '2025-11-11', durationMin: 86, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก vaccine types · routes · maternal Ab · poultry vaccination programs',
+    summary: `## 🎯 Lead Summary
+**Vaccination programs** = backbone of poultry health. Routes, schedules, maternal antibody timing critical.
+
+## Vaccine Types ⭐⭐
+- ⭐ ⭐ **Live vaccines** (replicating, longer immunity)
+- ⭐ ⭐ **Inactivated** (killed, longer-lasting Ab)
+- ⭐ Recombinant (HVT vector)
+- ⭐ DNA vaccines (research)
+
+## Administration Routes ⭐⭐⭐
+| Route | Use |
+|---|---|
+| ⭐ **In ovo** | Day 18 incubation (Marek's) |
+| ⭐ **Subcutaneous** | Day-old chicks |
+| ⭐ **Intramuscular** | Older birds |
+| ⭐ **Eye drop** | Live respiratory |
+| ⭐ **Drinking water** | Mass administration |
+| ⭐ **Spray (coarse)** | Respiratory diseases |
+
+## Maternal Antibody ⭐⭐⭐
+- ⭐ ⭐ ⭐ Critical concept!
+- ⭐ Protects chicks first 2-3 weeks
+- ⚠️ Interferes with live vaccines if too high
+- ⭐ Programs designed to vaccinate when MDA dropping
+
+## Standard Programs ⭐
+### Broilers
+- Day 1: Marek's (in ovo or SC)
+- Week 1: ND, IB
+- Week 2-3: IBD
+- Week 3: ND boost
+
+### Layers
+- Pullet: NDD, IB, IBD, IL T, AI, fowlpox, salmonella
+- Pre-lay: Inactivated vaccine boost
+- Production: regular boosters
+
+## Programs ⭐
+- ⭐ Vary by farm + region
+- ⭐ Disease pressure dependent
+- ⭐ Cost-benefit analysis
+
+## 📋 Exam Recap
+1. ⭐ Live vs Inactivated vaccines
+2. ⭐ 6+ administration routes
+3. ⭐ Maternal antibody timing critical
+4. ⭐ Marek's = in ovo or day 1
+5. ⭐ Programs vary by farm/region`,
+  },
+  qtH9lZN90hk: {
+    videoId: 'qtH9lZN90hk', title: 'Avian Medicine — 13.2 Egg Breakout Analysis', subject: 'avian-medicine',
+    date: '2025-11-11', durationMin: 31, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก egg breakout · embryo mortality · hatchery diagnostics',
+    summary: `## 🎯 Lead Summary
+**Egg breakout analysis** = systematic examination of unhatched eggs to identify hatchery problems.
+
+## Categories Examined ⭐⭐⭐
+- ⭐ Infertile eggs
+- ⭐ Early embryonic death
+- ⭐ Mid-incubation death
+- ⭐ Late embryonic death (pipping)
+- ⭐ Dead-in-shell
+- ⭐ Cracked/contaminated
+
+## Systematic Approach ⭐⭐
+1. ⭐ Open eggs at end of incubation
+2. ⭐ Categorize each
+3. ⭐ Look for specific lesions
+4. ⭐ Calculate percentages
+
+## Interpretation ⭐
+- ⭐ ⭐ High infertility = breeder issue
+- ⭐ Early death = nutrition, breeders
+- ⭐ Late death = hatchery conditions (humidity, turning)
+- ⭐ Contamination = hatchery hygiene
+
+## Importance ⭐
+- ⭐ ⭐ Hatchery management tool
+- ⭐ Track problems
+- ⭐ Identify specific issues
+- ⭐ Optimize hatch percentage
+
+## 📋 Exam Recap
+1. ⭐ Systematic approach to egg analysis
+2. ⭐ Categories of mortality
+3. ⭐ High infertility = breeder issue
+4. ⭐ Late mortality = hatchery conditions
+5. ⭐ Critical hatchery management tool`,
+  },
+  ux5PbQ7iOHo: {
+    videoId: 'ux5PbQ7iOHo', title: 'Avian Medicine — 14 Serological Evaluation', subject: 'avian-medicine',
+    date: '2025-11-11', durationMin: 137, instructor: 'CUVET avian team',
+    examFormat: 'Multiple choice · ออก ELISA · HI test · serology interpretation · vaccine monitoring',
+    summary: `## 🎯 Lead Summary
+**Serological evaluation** = monitoring antibody titers. Used for vaccination evaluation, disease diagnosis, surveillance.
+
+## Common Tests ⭐⭐⭐
+### ELISA ⭐⭐
+- ⭐ Most common
+- ⭐ Multiple antigens
+- ⭐ Quantitative titers
+- ⭐ Commercial kits
+
+### HI (Hemagglutination Inhibition) ⭐⭐
+- ⭐ ⭐ Standard for ND, IB, AI
+- ⭐ Functional antibody test
+- ⭐ Inhibits virus-RBC binding
+- ⭐ Titers in dilutions (log2)
+
+### AGID (Agar Gel Immunodiffusion) ⭐
+- ⭐ Used for AI, EDS, REV
+- ⭐ Qualitative
+- ⭐ Slow but reliable
+
+### IFA (Immunofluorescence)
+- ⭐ Some specialized uses
+
+## Interpretation ⭐⭐
+### Vaccine Response
+- ⭐ ⭐ Higher titers = better protection (usually)
+- ⭐ Coefficient of Variation (CV) — uniformity
+- ⭐ HI ≥ 8 generally protective for ND
+- ⭐ Low CV = uniform vaccination
+
+### Disease Diagnosis
+- ⭐ ⭐ Paired sera (acute + convalescent)
+- ⭐ 4-fold increase = active infection
+- ⭐ Combined with clinical signs
+
+### Surveillance
+- ⭐ Sampling protocols
+- ⭐ Statistical interpretation
+- ⭐ Population-level decisions
+
+## Sampling ⭐
+- ⭐ Random selection
+- ⭐ Adequate sample size
+- ⭐ Proper sample handling
+
+## 📋 Exam Recap
+1. ⭐ ELISA most common test
+2. ⭐ HI for ND, IB, AI standard
+3. ⭐ Paired sera for diagnosis
+4. ⭐ HI ≥ 8 protective for ND
+5. ⭐ CV measures vaccination uniformity`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
