@@ -43446,6 +43446,467 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > - Down cow + tongue paralysis → Botulism`,
   },
 
+  GuZ6W0kLOuw: {
+    videoId: 'GuZ6W0kLOuw',
+    title: 'Nutritional & Metabolic Disorders in Ruminants',
+    subject: 'herd-health-rum',
+    date: '2024-10-16',
+    durationMin: 187,
+    instructor: 'อ.อุตรา (ภาควิชาสรีรวิทยา · ขอไม่ให้อัดเสียง)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง Acidosis (SARA + acute) · Bloat · Ketosis · Hypocalcemia (Milk Fever) · Grass Tetany · Mineral imbalance',
+    summary: `## 🎯 Lead Summary
+**Nutritional/Metabolic disorders** of dairy cattle = ⭐ **non-infectious disease cluster** caused by feed imbalance, transition stress, and physiological state mismatch. Group by macronutrient: ⭐ **Carbohydrate-related** (Acidosis SARA + acute, Bloat) · ⭐ **Lipid-related** (Ketosis, Fatty Liver, Pregnancy Toxemia, Milk Fat Depression) · ⭐ **Protein-related** (Urea toxicity, Negative Energy Balance) · ⭐ **Mineral-related** (Milk Fever Hypocalcemia, Grass Tetany Hypomagnesemia, Phosphorus deficiency). All share: **prevention via dietary balance + transition management** > treatment of established cases.
+
+## 1️⃣ Conceptual Framework ⭐⭐
+
+### Microbial Ecology System (Microbiome) ⭐
+> "ในกระเพาะรูเมน = โลกใบหนึ่ง"
+- ⭐ **Bacteria, Fungi, Viruses, Protozoa** all coexist
+- Modern term: **Rumen Microbiome**
+- Old term: Microbial Ecology System
+- ⭐ **Balance = healthy cow**
+- ⚠️ Imbalance → metabolic disease
+
+### Disease vs Disorder ⭐
+- ⭐ Instructor uses "disorder" not "disease" for nutritional issues
+- Often: secondary effect of feeding mismatch
+- Some caused by physiological state (transition, lactation peak)
+
+### Key Factors Affecting Rumen Health ⭐
+1. **Feed**: forage:concentrate ratio · feed quantity · feed quality
+2. **Mycotoxin contamination** (drought stress)
+3. **Modern additives**: prebiotics · probiotics · postbiotics · ionophores
+4. **Physiology**: lactation stage · gestation · stress
+
+### Optimal Forage:Concentrate Ratio ⭐
+- ⭐ Concentrate **NOT >45%**
+- Forage ⭐ **>55% minimum**
+- ⚠️ Too much concentrate → acidosis
+- ⚠️ Too much forage → energy deficit
+
+## 2️⃣ Carbohydrate Disorders ⭐⭐⭐
+
+### A. Sub-Acute Ruminal Acidosis (SARA) ⭐⭐⭐
+
+**Etiology**:
+- ⭐ Excessive **digestible CHO** (corn, grains, high-starch feed)
+- Insufficient effective fiber
+- ⭐ **pH 5.5-5.8** (mildly acidic)
+- "Subclinical" — most common form!
+
+**Pathogenesis**:
+1. ⭐ **Lactic acid producers** (Streptococcus bovis) outcompete normal flora
+2. ⭐ **Lactate accumulation** → pH drop
+3. Ruminal motility decreases
+4. ⚠️ **Inflammation** of rumen wall
+5. ⭐ "**Leaky gut**" → bacteria/toxins enter blood
+6. Long-term: laminitis, liver abscesses
+
+**Clinical Signs**:
+- Mildly reduced feed intake
+- Variable manure consistency (loose ↔ pasty)
+- ⚠️ **Lameness** (laminitis) — late sign
+- Reduced milk fat (⭐ < 3.0%)
+- Delayed puberty in heifers
+
+**Diagnosis**:
+- **Rumen pH** measurement (pH probe via fistula)
+- **Fecal pH**: <6.0 suggests SARA
+- ⭐ **Milk fat:protein ratio** <1.0 = warning sign
+- Herd pattern: multiple cows with mild signs
+
+**Treatment & Prevention**:
+- ⭐ **Sodium bicarbonate** (NaHCO3) buffer in feed
+- ⭐ Reformulate ration: **more effective fiber**
+- **Yeast** (S. cerevisiae) supplements
+- ⭐ Slow feed transitions (TMR vs PMR)
+- Limit concentrate feeding episodes
+
+### B. Acute Ruminal Acidosis ⭐⭐ (Grain Overload)
+
+**Etiology**:
+- ⭐ **Sudden grain consumption** (escaped cattle, accidental access)
+- Or sudden diet change to high-grain
+- ⭐ **pH <5.0** (severely acidic)
+
+**Pathogenesis** (Critical!):
+1. ⭐ **Massive lactate** production
+2. **Severe acidosis** + dehydration
+3. ⭐ **Rumen wall damage** → bacterial translocation
+4. **Liver abscesses** (Fusobacterium necrophorum)
+5. ⚠️ **Death** in untreated severe cases
+
+**Clinical Signs**:
+- ⭐ Sudden anorexia
+- Abdominal pain (kicking, restlessness)
+- ⭐ **Diarrhea** (sour-smelling)
+- Severe dehydration
+- Recumbency
+- ⚠️ **Death within 24-48h** (severe)
+
+**Treatment**:
+- ⭐ **Rumen lavage** (drain via rumenotomy if severe)
+- **IV fluids** (Lactated Ringer's, hypertonic saline)
+- **Sodium bicarbonate** systemic + oral
+- **Yogurt/transfaunation** to restore flora
+- Cull severe survivors (chronic problems)
+
+### C. Bloat (Frothy + Free Gas) ⭐⭐⭐
+
+**2 Types**:
+| Type | Cause | Clinical |
+|---|---|---|
+| ⭐ **Frothy bloat** ⭐ | Stable foam (legumes, fresh) | Gas trapped in foam |
+| ⭐ **Free gas bloat** | Esophageal obstruction or motility | Gas above feed, can pass tube |
+
+**Frothy Bloat Pathogenesis** ⭐:
+- ⭐ Legumes + lush pasture rich in **soluble proteins**
+- Forms ⭐ **stable foam** that traps fermentation gas
+- ⚠️ Cow can't eructate (burp)
+- ⭐ **Saliva normally has anti-foaming agent**
+- ⚠️ Insufficient saliva → bloat
+
+**Clinical Signs**:
+- ⭐ **Distended LEFT flank** (rumen)
+- Difficulty breathing
+- Salivation, restlessness
+- ⚠️ **Death by suffocation** (rumen presses diaphragm)
+
+**Treatment ⭐**:
+- ⭐ **Stomach tube** (free gas → easy fix!)
+- **Trocar** (frothy bloat → emergency)
+- ⭐ **Anti-foaming agents**: Poloxalene, Tympanyl
+- Alternative: **vegetable oil** (300-500 mL)
+- Stomach surgery if life-threatening
+
+**Prevention**:
+- ⭐ Avoid pure legume pastures
+- Feed dry hay BEFORE pasture access
+- Add anti-foam to water (Poloxalene blocks)
+- ⭐ Mixed grass-legume pastures preferred
+
+## 3️⃣ Lipid/Energy Disorders ⭐⭐⭐
+
+### A. Ketosis (Acetonemia) ⭐⭐⭐
+
+**Multiple Names**:
+- ⭐ **Ketosis** (general)
+- **Acetonemia** = ketones in blood
+- **Hepatic Lipidosis** = fat in liver
+- **Pregnancy Toxemia** = small ruminants
+- **Protein Energy Malnutrition** = beef cattle
+
+**Etiology** ⭐:
+- ⭐ **Negative Energy Balance** (NEB)
+- Most common: **first 6 weeks postpartum** in dairy cows
+- High-producing cows + insufficient feed
+- Body fat mobilization → ⭐ **fatty acid → ketones**
+
+**3 Ketone Bodies** ⭐:
+1. **Acetone** (volatile, breath odor!)
+2. **Acetoacetate**
+3. **Beta-hydroxybutyrate (BHB)**
+
+**Clinical Signs** ⭐:
+- ⭐ **Reduced feed intake** (cow eats less)
+- ⭐ **Body Condition Score drops**
+- Reduced milk yield
+- ⭐ **Sweet (fruity) breath odor** ⭐ pathognomonic
+- ⚠️ Severe: nervous form (head pressing, walking circles, blindness)
+
+**Diagnosis**:
+| Test | Cutoff |
+|---|---|
+| **Blood glucose** | ⭐ <40 mg/dL (low!) |
+| **Blood ketones** | ⭐ >30 mg/dL |
+| **Urine ketones** | >10 mg/dL |
+| ⭐ **BHB blood** (gold standard) | >1.4 mmol/L (subclinical) · >3.0 (clinical) |
+| **Sodium nitroprusside test** | Strip → purple = positive |
+| **Milk strip** | Field test option |
+
+**Treatment** ⭐:
+- ⭐ **IV 50% Dextrose** (300-500 mL)
+- ⭐ **Propylene glycol** PO (300 mL ×2 daily for 3-5 days)
+- **Glucocorticoids** (Dexamethasone) — short-acting
+- **Long-acting insulin** (rare in field)
+- ⭐ Treat underlying issue
+
+**Prevention** ⭐:
+- ⭐ Separate dry cows from milking herd
+- ⭐ **Transition cow management** (close-up dry diet)
+- Avoid stress around calving
+- ⭐ **Niacin + protected choline** in late dry diet
+- BCS at calving: 3.0-3.5 ideal (not >4.0!)
+
+### B. Fatty Liver Syndrome (Hepatic Lipidosis) ⭐
+
+**Etiology**:
+- ⭐ Excessive fat mobilization from adipose
+- ⚠️ Liver re-uptakes fat (feedback loop!)
+- Often comorbid with ketosis
+- ⭐ Common in **fat dry cows** (BCS >4.0)
+
+**Pathogenesis**:
+- NEFA (non-esterified fatty acid) ↑↑
+- Liver synthesizes triglycerides faster than export
+- ⭐ **Triglyceride accumulation** in hepatocytes
+- ⚠️ Impaired liver function
+
+**Consequences**:
+- Predisposes to: ⭐ Mastitis, milk fever, retained placenta, displaced abomasum
+- Reduced milk yield
+- Reproductive failure
+
+**Diagnosis**:
+- Liver biopsy (rare in field)
+- **Elevated liver enzymes** (AST, GGT)
+- BHB elevated
+- BCS >4.0 history
+
+**Prevention** = SAME as ketosis (transition management)
+
+### C. Pregnancy Toxemia (Twin Lamb Disease) ⭐⭐
+
+**Affected**: ⭐ **Pregnant ewes/does** (NOT cows!)
+- Late gestation (last 4-6 weeks)
+- ⭐ **Twin/triplet pregnancies** (high energy demand)
+
+**Etiology**:
+- Increased fetal demand
+- Decreased rumen capacity (fetus pressure)
+- → Negative Energy Balance + ketosis
+
+**Clinical Signs**:
+- ⭐ Anorexia · uncoordinated
+- ⭐ **Leaning against objects** (walls, fences)
+- Recumbent · reluctant to rise
+- Muscle tremor · teeth grinding
+- ⚠️ Coma · death (⭐ **80% mortality!**)
+
+**Treatment**:
+- ⭐ **IV 50% Dextrose**
+- **Propylene glycol** PO
+- ⚠️ **Cesarean section** (deliver lambs to remove fetal demand)
+- ⚠️ Or **induce abortion** (controversial in Thailand)
+- Supportive: fluids, vitamins
+
+**Prevention**:
+- ⭐ Increase concentrate in late gestation
+- Twin lambs scan + extra feed
+- Monitor BCS
+
+### D. Milk Fat Depression (Low-Fat Milk Syndrome) ⭐
+
+**Cause**:
+- ⭐ Excess **concentrate + unsaturated FA**
+- Insufficient effective fiber
+
+**Mechanism** ⭐:
+- ⭐ **Trans-10 cis-12 CLA** (Conjugated Linoleic Acid) increases
+- CLA inhibits **fatty acid synthesis** in mammary epithelial cells
+- Result: ⭐ **Milk fat <3.0%** but lactose, protein normal
+
+**Treatment**:
+- ⭐ Increase **dietary fiber**
+- Adjust forage:concentrate ratio
+- May take 2-4 weeks for milk fat to recover
+
+## 4️⃣ Protein Disorders ⭐
+
+### A. Urea Toxicity ⭐
+- ⚠️ Too much urea/NPN (Non-Protein Nitrogen) in feed
+- Rumen NH3 ↑↑ → systemic alkalemia
+- ⭐ Tremors, salivation, recumbency, death
+- Treatment: ⭐ **Vinegar (acetic acid)** PO + IV fluids
+- Prevention: gradual urea introduction, max 1% diet
+
+### B. Negative Energy Balance Concept (See Ketosis above)
+
+## 5️⃣ Mineral Disorders ⭐⭐⭐
+
+### A. Milk Fever (Parturient Hypocalcemia) ⭐⭐⭐
+
+**Etiology**:
+- ⭐ **Calcium drops** at parturition (mass milk synthesis)
+- High-producing cows · multiparous
+- ⚠️ **Day 0-3 postpartum** typical
+- ⭐ Inadequate calcium homeostasis (parathyroid lag)
+
+**3 Stages** ⭐:
+| Stage | Signs |
+|---|---|
+| **Stage 1** | Excitement, hyperesthesia, tremors |
+| ⭐ **Stage 2** ⭐ | ⭐ **Sternal recumbency** ⭐, neck "S-curve", cold ears, dilated pupils |
+| **Stage 3** | Lateral recumbency, coma, death |
+
+**Clinical Signs**:
+- ⭐ "Down cow" pattern shortly after calving
+- ⚠️ Parturient origin (NOT trauma!)
+- Cold extremities
+- Reduced ruminal motility
+- ⚠️ Cardiac arrhythmias
+
+**Diagnosis**:
+- **Total calcium** <8 mg/dL (severe <5)
+- ⚠️ Don't wait for confirmation — TREAT clinically!
+
+**Treatment** ⭐:
+- ⭐ **Calcium borogluconate** ⭐ 23% (500 mL bottle)
+- ⭐ **IV slowly** (5-10 minutes!)
+- ⚠️ Watch heart rate (bradycardia signal)
+- ⭐ **SC** route OK with borogluconate (boric acid solubilizes)
+- Improvement: belching, urination, eructation
+- Standing: 30-60 min post-treatment
+
+**Prevention** ⭐:
+- ⭐ **Low Ca diet** in close-up dry period (last 3 weeks)
+- Why: triggers parathyroid pre-activation
+- ⭐ **Anionic salts** (DCAD diet)
+- Magnesium supplementation
+- ⚠️ **Avoid alfalfa** in dry cows (high Ca)
+
+### B. Grass Tetany (Hypomagnesemia) ⭐⭐
+
+**Etiology**:
+- ⭐ **Low magnesium** in lush spring grass
+- Or high K + N pasture (binds Mg)
+- ⚠️ **Lactating beef cows on pasture**
+
+**Clinical Signs** ⭐:
+- ⭐ **Hyperexcitability** (opposite of milk fever!)
+- Muscle tremors, twitching
+- Aggressive behavior
+- Convulsions
+- ⚠️ **Death within hours** if untreated
+
+**Diagnosis**:
+- **Serum Mg** <1.5 mg/dL
+- History + clinical pattern
+
+**Treatment**:
+- ⭐ **Calcium-Magnesium-Phosphorus** combination IV
+- **Slow IV** to avoid cardiac issues
+- Magnesium sulfate (epsom salt) PO follow-up
+
+**Prevention**:
+- ⭐ **Mg supplementation** (200 g/cow/week pre-spring)
+- Provide hay before turnout
+- Mineral lick blocks with Mg
+
+### C. Phosphorus Deficiency (Pica) ⭐
+- ⚠️ Cattle eat ⭐ **bones, plastic, weird objects**
+- Reduced fertility
+- ⚠️ ⭐ Connects to **Botulism risk** (bones may have Clostridium spores!)
+- Treatment: P supplementation in feed
+- Prevention: balanced minerals year-round
+
+### D. Selenium Deficiency (White Muscle Disease) ⭐
+- Calves: stiff gait, weak, sudden death
+- Cardiac muscle damage
+- Affected: ⭐ **Pasture-raised in Se-deficient soil**
+- Treatment: Vitamin E + Se injection
+- Prevention: Se in mineral mix
+
+### E. Iodine Deficiency (Goiter)
+- Enlarged thyroid in calves
+- Stillborns or weak
+- Treatment: KI in mineral
+- Prevention: iodized salt block
+
+### F. Cobalt Deficiency (Wasting)
+- Cobalt = essential for B12 synthesis by rumen flora
+- Pining, anemia
+- Treatment: Co-fortified mineral
+- Prevention: salt block with Co
+
+### G. Copper Toxicity (Sheep + Goats!) ⭐
+- ⚠️ **Sheep + goats VERY sensitive!**
+- Don't use cattle mineral mix in sheep!
+- Hemolytic crisis · jaundice · sudden death
+- Cattle can tolerate higher Cu
+- ⭐ **Real case from instructor**: Cu hoofbath drained into goat water → poisoning + Haemonchus DDx confusion!
+
+## 6️⃣ Vitamin Deficiencies (Less Common in Ruminants) ⭐
+
+### A. Vitamin A Deficiency
+- ⚠️ Night blindness, dry eyes
+- Stillborn calves, weak
+- ⭐ Vitamin A injection · green forage
+
+### B. Vitamin D Deficiency
+- Rickets in calves
+- Combined Ca-P-D problems
+
+### C. Vitamin E Deficiency
+- Combined with Se → White Muscle Disease
+
+### D. B-Vitamins
+- ⭐ ⭐ Normally produced by rumen bacteria!
+- Not usually deficient unless rumen flora disturbed
+- Exception: **Polioencephalomalacia** — Thiamine deficiency in young
+
+## 7️⃣ Polioencephalomalacia (PEM) ⭐⭐
+
+**Etiology**:
+- ⭐ **Thiamine deficiency** (Vitamin B1)
+- Caused by sulfur intake or thiaminase
+- Rumen flora destroys B1 with high sulfate water/feed
+
+**Clinical Signs** ⭐:
+- ⭐ Star-gazing posture
+- Blindness · circling · head pressing
+- Opisthotonos · convulsions
+- Muscle tremors
+- ⚠️ Death possible
+
+**Treatment**:
+- ⭐ **Thiamine HCl** IV (500 mg ×3-4 daily)
+- Recovery dramatic if early
+- Supportive
+
+**Prevention**:
+- ⭐ Avoid high-sulfate water
+- Limit thiaminase plants (bracken fern)
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### Carbohydrate (1-3)
+1. ⭐ **SARA** (sub-acute) = pH 5.5-5.8 · concentrate excess · low milk fat
+2. ⭐ **Acute Acidosis** = pH <5.0 · grain overload · death
+3. ⭐ **Frothy Bloat** = legumes/foam · LEFT flank distension · trocar emergency
+
+### Lipid (4-7)
+4. ⭐ **Ketosis** = NEB · 6 weeks postpartum · BHB >3.0 mmol/L · sweet breath
+5. ⭐ **Pregnancy Toxemia** = ewe/doe with twins · 80% mortality · cesarean option
+6. ⭐ **Milk Fat Depression** = CLA-mediated · increase fiber
+7. ⭐ **3 Ketone bodies**: Acetone · Acetoacetate · BHB
+
+### Protein (8)
+8. ⭐ **Urea Toxicity** = vinegar (acetic acid) PO treatment
+
+### Mineral (9-13)
+9. ⭐ **Milk Fever** (Hypocalcemia) = sternal recumbency · S-curve neck
+10. ⭐ **Calcium borogluconate IV slowly** = milk fever treatment
+11. ⭐ **Grass Tetany** (Hypomagnesemia) = hyperexcitability · convulsions
+12. ⭐ **Phosphorus deficiency** → bone-eating → botulism risk!
+13. ⚠️ **Copper toxicity** (sheep > cattle sensitive!)
+
+### Other (14-15)
+14. ⭐ **PEM (Polioencephalomalacia)** = thiamine deficiency · blindness · star-gazing
+15. ⭐ **Transition cow management** = #1 prevention strategy for all metabolic dz
+
+> 📚 **Cross-refs**: Mastitis (transition cow stress) · BRD complex (NEB predisposes) · Herd reproductive performance (NEB → poor fertility)
+> 🩺 **Practical**: BCS scoring at dry-off + calving · transition diet 3 weeks pre-calving · bicarb buffer in concentrate
+> 💉 **Field treatment kit**: Ca borogluconate · IV dextrose · propylene glycol · vinegar · thiamine · Mg sulfate
+> 🎯 **Cow life cycle prevention map**:
+> - Late dry: low Ca diet · DCAD anionic salts
+> - Transition (3 weeks pre-calving): TMR balanced
+> - Fresh cow (0-3 weeks postpartum): monitor BHB · Ca · feed intake
+> - Lactation peak: balanced concentrate:forage 45:55
+> - Late lactation: avoid overfeeding (BCS >4 = bad!)
+> 💡 **Disorder ≠ disease**: most are management issues, not infections!`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
