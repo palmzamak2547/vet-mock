@@ -10741,6 +10741,218 @@ When surgery isn't feasible:
 > 📚 อ่านควบ: 1.1 Oral cavity (anatomy + DDx of non-tumor masses) · 7.1 Hemolymph Sx (anemia from chronic bleeding tumor) · oncology surgery principles in Y3 com2`,
   },
 
+  // 8.3 Lower Urinary System 2 (urolithiasis — 5 stone types + Tx logic)
+  vLjnPuFgvj4: {
+    videoId: 'vLjnPuFgvj4',
+    title: '8.3 : Lower Urinary System 2',
+    subject: 'com1',
+    date: '7 Oct 2024 (DekDokVet85, อ.วชิรา)',
+    durationMin: 63,
+    instructor: 'อ.วชิรา (Med II) — small animal urology',
+    examFormat: 'Stone identification × species/age + dissolution vs surgery decision · struvite Tx (dog vs cat different!) ออกบ่อย',
+    summary: `# 8.3 Lower Urinary System II — Urolithiasis (Stones)
+
+> 🎯 5 main stone types · each with distinct etiology + Tx
+> ⚠️ **Dissolvable vs surgery-only** — pred new from imaging + crystal + species before Tx
+
+---
+
+# 🪨 Part 1: Stone Formation Principle
+
+## Super-saturation
+- Urine is **constantly super-saturated** (kidney reabsorbs water → concentrates solutes)
+- Crystals can form anytime if conditions allow
+- Inhibitors (citrate, peptides) keep crystals from aggregating into stones
+- Stone = crystal aggregation when inhibitors fail
+
+## 5 Main Stone Types (memorize!)
+1. **Struvite** (Mg ammonium phosphate hexahydrate)
+2. **Calcium oxalate (CaOx)**
+3. **Urate**
+4. **Cystine**
+5. **Silica**
+
+> 💡 New 2024: GS-441524 stones in cats treated for FIP (rare, USA/Brazil so far · not yet in Thailand)
+
+---
+
+# 🦠 Part 2: Struvite — Most Important to Distinguish (Dog vs Cat!)
+
+## Composition
+**Magnesium Ammonium Phosphate Hexahydrate**
+\`\`\`
+Mg + NH₄ + PO₄ + 6H₂O
+   ↑    ↑     ↑
+diet   diet  metab/diet
+\`\`\`
+
+## Dog Struvite (most common etiology = INFECTION)
+- **Urease-producing bacteria**: Staph, Strep (most), Klebsiella, Proteus, Mycoplasma, Ureaplasma
+- Mechanism: bacteria produce urease → splits urea → ammonia → urine pH **alkaline (8-9)**
+- Smells of ammonia
+- Minor sub-set = **sterile struvite** (no infection) — rare
+
+### **Tx Dog Struvite = Antibiotics** ⭐
+- Kill the bacteria → no urease → urine pH drops to normal (~5-6) → **stone dissolves**
+- **Dietary alone WRONG** for dog struvite (it's not diet-driven)
+
+## Cat Struvite (most common etiology = IDIOPATHIC/STERILE)
+- Mostly NOT infection-driven
+- Diet + condition factors
+- Minor sub-set = infection (rare in cats)
+
+### **Tx Cat Struvite = Acidifying Diet** ⭐
+- Hill's s/d, Royal Canin Urinary SO, etc.
+- Antibiotic NOT useful unless culture positive
+
+> ⚠️ **EXAM PITFALL**: Dog vs cat struvite Tx is OPPOSITE — antibiotic vs diet. Memorize!
+
+## Both: **Struvite is dissolvable** if pure (no calcium core)
+
+---
+
+# 💎 Part 3: Calcium Oxalate (CaOx) — Most Common Now
+
+## Etiology (3 mechanisms, often combined)
+1. **Hypercalciuria** — too much Ca in urine (diet, hyperCa-emia, renal leak)
+2. **Hyperoxaluria** — too much oxalate (diet — spinach, chocolate)
+3. **Hypocitraturia** — citrate prevents Ca-Ox binding; if low, Ca + Ox couple in urine
+
+## Pathway
+\`\`\`
+Diet Ca + Diet Oxalate → absorbed independently → both excreted in urine
+                           ↓
+                    Meet in urine → Ca-Ox crystal
+                    BUT citrate inserts between → prevents binding
+                           ↓
+                    If citrate LOW → Ca-Ox forms → stone
+\`\`\`
+
+## ⚠️ **Cannot dissolve — surgery only**
+- No medical Tx for established CaOx stones
+- Prevention: alkalinize urine (citrate supplementation), reduce Ca/Ox in diet
+
+---
+
+# 🐾 Part 4: Urate Stones
+
+## 2 Etiology Groups
+
+### Group 1: Dalmatian-type (genetic enzyme defect)
+- **Uricase deficiency** + gene mutation (SLC2A9 et al.)
+- Cannot convert uric acid → allantoin → urate accumulates
+- Note: Dalmatians are now rare as pets in Thailand (so this is less commonly seen)
+
+### Group 2: Non-Dalmatian (acquired)
+- **Portosystemic shunt (PSS)** is the main cause
+- Liver bypass → can't convert ammonia → ammonium urate stones
+- Often Yorkshire Terrier, Maltese, small breeds
+- Tx PSS = surgery for shunt + stone management
+
+## Tx
+- **Dissolvable** (urate is one of the dissolvable types)
+- Allopurinol (xanthine oxidase inhibitor) + low-purine diet
+- Address PSS if non-Dalmatian etiology
+
+---
+
+# 🧬 Part 5: Cystine Stones
+
+## Etiology
+- **Genetic mutations**: SLC3A1, SLC7A9 (cystine transporter — kidney can't reabsorb cystine)
+- 3 sub-types including **androgen-dependent** form (intact male dogs)
+
+## Predisposed breeds (especially intact males)
+- **French Bulldog, English Bulldog**
+- Other small breeds (some terriers)
+
+## Tx
+- **Castration is often curative** for androgen-dependent form
+- Dissolvable with diet + alkalinizing therapy
+- Recurrence high if not castrated
+
+> 💡 Cystine stone in cat = lifetime rarity (~8 cases per 900 stones analyzed)
+
+---
+
+# 🪨 Part 6: Silica Stones
+
+- Rare · sand/dirt ingestion
+- Surgery only · not dissolvable
+
+---
+
+# 🩻 Part 7: Diagnosis
+
+## Imaging
+- **X-ray** (first-line):
+  - Sees stones ≥3 mm
+  - Radiopaque: Struvite, CaOx (most opaque)
+  - Radiolucent-ish (low opacity but **STILL VISIBLE**): Urate, Cystine
+  - ⚠️ **Old teaching wrongly says urate/cystine = invisible** — they ARE visible, just less opaque
+- **Ultrasound**: detects smaller stones, distinguishes structures
+- **Radiograph + US together** = best sensitivity
+
+## Urine Analysis (UA)
+| Crystal | Shape |
+|---|---|
+| **Struvite** | "**Coffin lid**" rectangular |
+| **Calcium Oxalate** | "**Envelope**" / Maltese cross |
+| **Urate** | Brown amorphous/spheroid |
+| **Cystine** | **Hexagonal** (typical) |
+
+> ⚠️ **50% of stone cases show NO crystals on UA** — new crystals join existing stone instead of accumulating in urine
+
+## Urine pH × Stone Type
+- **Alkaline urine (pH 7-9)** = Struvite (especially dog)
+- **Acidic urine** = CaOx, Urate, Cystine
+
+---
+
+# 💊 Part 8: Treatment Decision Tree
+
+## Dissolvable ⭐
+1. **Struvite** (always, if pure) — dog: ABO; cat: diet
+2. **Urate** — allopurinol + diet + manage PSS
+3. **Cystine** — diet + alkalinize + castrate if androgen-dependent
+
+## Surgery Only ⛔
+1. **Calcium Oxalate** — cannot dissolve
+2. **Silica** — cannot dissolve
+
+## Surgical Options
+- **Cystotomy** (open bladder) — most common
+- **Lithotripsy** (laser/extracorporeal shockwave) — advanced facilities
+- **Voiding urohydropropulsion** — small bladder stones in females, flush out
+- **Retrograde urohydropropulsion** — push urethral stone back to bladder for cystotomy
+
+## Pre-op Considerations
+- ALWAYS culture + sensitivity (bacterial infection may have driven struvite formation)
+- Submit retrieved stone to lab for **quantitative analysis** (confirm composition for prevention)
+- Address obstruction emergencies first (see 8.2)
+
+---
+
+# 🎯 Exam High-Yield Recap
+
+1. **5 stone types**: Struvite, CaOx, Urate, Cystine, Silica — memorize all
+2. **CaOx = #1 most common now** in both dog + cat
+3. **Struvite Tx differs by species**:
+   - **Dog**: ANTIBIOTIC (infection-driven)
+   - **Cat**: ACIDIFYING DIET (idiopathic)
+4. **Dissolvable**: Struvite, Urate, Cystine — **NOT** CaOx, Silica
+5. **Urease producers**: Staph, Strep (most), Klebsiella, Proteus, Mycoplasma, Ureaplasma → alkaline urine pH 8-9
+6. **Calcium oxalate prevention**: citrate (the inhibitor) + reduce dietary Ca/Ox + alkalinize
+7. **Urate non-Dalmatian = PSS** (portosystemic shunt) — surgery for shunt
+8. **Cystine in male intact dog**: castrate (androgen-dependent form)
+9. **X-ray sees ≥3 mm stones** · all 5 types are visible (urate/cystine just less opaque)
+10. **Crystal shapes**: struvite=coffin lid · CaOx=envelope · cystine=hexagonal
+11. **50% of stone cases**: no crystals on UA (joined existing stone)
+12. **Urine pH 7-9** = think struvite first
+
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk · obstruction stabilize) · 10.1 Imaging Urinary (Q0AGFF70m8M)`,
+  },
+
   // 8.2 Lower Urinary System 1 (terminology + species patterns + obstruction)
   z0Id0mmM4Fk: {
     videoId: 'z0Id0mmM4Fk',
