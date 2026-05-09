@@ -20050,6 +20050,263 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > 💊 **Practice tip**: เจ้าของหลายคน "ลดน้ำหนัก" = ลดอาหาร → กินโปรตีนน้อย → กล้ามเนื้อลดด้วย → กลับมา OA ใหม่`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 9.1 Developmental Orthopedic Disease (LCP) (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  Spz38qa5upU: {
+    videoId: 'Spz38qa5upU',
+    title: '9.1. Developmental Orthopedic Disease + LCP',
+    subject: 'com2',
+    date: '16 Oct 67 (รุ่นพี่)',
+    durationMin: 24,
+    instructor: 'อ. (รุ่นพี่ — แทน อ.วรพันธ์)',
+    examFormat: 'MCQ — DOD multifactorial concept · LCP signalment · pathogenesis (avascular necrosis) · FHO indication ออกบ่อย',
+    summary: `# Developmental Orthopedic Disease (DOD) + Legg-Calvé-Perthes (LCP)
+
+> 🎯 บทสั้น (24 นาที) แนะนำ DOD + เจาะลึก LCP โรคแรก
+> 🟧 LCP = "**Avascular necrosis ของ femoral head**" ในสุนัขพันธุ์เล็กอายุ 4-12 เดือน
+> Top exam: **Predisposing breeds · 4-12 mo onset · FHO indication (< 20 kg)**
+
+---
+
+## 1. Developmental Orthopedic Disease (DOD) Overview ⭐
+
+**Definition**: กลุ่มโรคที่เกิดในช่วง **พัฒนาการจากเด็ก → ผู้ใหญ่** (ปีแรกของชีวิต)
+
+⭐ **DOD diseases ที่อยู่ในกลุ่มนี้**:
+- **Canine Hip Dysplasia (CHD)** — 9.2
+- **Fragmented Coronoid Process (FMP/FCP)** — Elbow dysplasia
+- **Legg-Calvé-Perthes (LCP)** — 9.1 (วันนี้)
+- **Osteochondritis Dissecans (OCD)** — 15.2
+- **Patellar Luxation (MPL/LPL)** — 9.3
+- **Ununited Anconeal Process (UAP)**
+- **Premature physeal closure**
+
+---
+
+## 2. DOD Concept ⭐⭐ (สำคัญ!)
+
+**Old idea**: Genetic disease (single dominant/recessive)
+
+**Modern idea** ⭐: **Multifactorial Disorder**
+- Multiple Genes (polygenic)
+- Environmental factors (อาหาร · เลี้ยงดู · hormone · sex)
+- ไม่มี simple genetic test (ยกเว้น Doberman/von Willebrand)
+
+⭐ **Why "Disease" not just "Joint"**: ปัจจัยเด่นรวม muscle + bone + soft tissue · ไม่ใช่กระดูกอย่างเดียว!
+
+---
+
+## 3. Predisposing Breeds Concept ⭐
+
+> "ทำไม CHD เป็น Lab/Golden แต่ MPL เป็น Yorkie?"
+
+⭐ **Breed predisposition** = critical clinical clue
+- Always factor in breed signalment
+- Different DODs have different breed predispositions
+
+---
+
+# 🟧 PART 2 — Legg-Calvé-Perthes (LCP)
+
+## 4. LCP Definition ⭐⭐⭐
+
+**Names** (multiple):
+- **LCP** (Legg-Calvé-Perthes disease)
+- **Avascular necrosis of femoral head** ⭐
+- Aseptic necrosis
+
+**Key concept**: **เลือดไม่มาเลี้ยงหัวกระดูก femoral** → bone death → fracture → OA
+
+⚠️ **เกิดได้ทั้งคน · หมู · สัตว์ทุก species** — แต่ในหมาเจอเยอะ!
+
+---
+
+## 5. Signalment ⭐⭐⭐
+
+| Feature | Detail |
+|---|---|
+| **Breeds (top)** | **West Highland White Terrier · Yorkshire Terrier · Cairn Terrier · Poodle · Pinscher · Pomeranian** |
+| **Size** | **Small/Toy breeds** เท่านั้น! (ไม่เคยเป็นพันธุ์ใหญ่) |
+| **Age onset** | **4-12 months** (peak: **7 months**) ⭐ |
+| **Sex** | M = F (50/50) |
+| **Laterality** | Usually **Unilateral** · sometimes Bilateral |
+
+⚠️ **Breeding rule**: ห้ามเอาตัวที่เป็น LCP มา breed (genetic component)
+
+---
+
+## 6. Pathogenesis ⭐⭐⭐
+
+### 6.1 Vascular Anatomy (KEY!) ⭐
+
+**Vascular pathway**: Iliac artery → Caudal gluteal artery → Lateral & Medial Circumflex femoral artery → Joint capsule → Femoral head/neck
+
+⭐ **2 supplying arteries**:
+- **Lateral circumflex femoral artery**
+- **Medial circumflex femoral artery**
+
+(Extra-capsular → Intra-capsular → Intra-osseous)
+
+### 6.2 Mechanism (Cycle)
+1. **Vascular injury** (1 หรือทั้ง 2 arteries)
+2. **Avascular necrosis** ของ femoral head
+3. **Bone death** + **microfractures**
+4. Body พยายาม **revascularization**:
+   - **Successful** → remodeling → osteophyte/OA
+   - **Failed** → severe collapse + fracture → ปวดมาก
+
+### 6.3 Sequence of Events
+- Trabecular bone necrosis
+- Subchondral collapse
+- Cartilage damage
+- Femoral head deformity ("**mushroom-shape**" or "**flattened**")
+- Secondary OA + capsular thickening
+
+---
+
+## 7. Clinical Signs ⭐⭐⭐
+
+| Sign | Detail |
+|---|---|
+| **Hindlimb lameness** | Unilateral · progressive |
+| **Non-weight bearing (toe-touching)** | ยกขา · ไม่ยอมใช้ขา |
+| **Self-mutilation** ⭐ | กัด/แทะที่บริเวณ hip / hind end |
+| **Muscle atrophy** ⭐ | **Hamstring atrophy เด่น** (extension ไม่ได้ → ฝ่อ) |
+| **Crepitus** | กึ๊บๆ ที่ hip joint (โดยเฉพาะ chronic) |
+| **Shortened limb** | เทียบ 2 ขา-ทาบ — ขาที่เป็นสั้นกว่า |
+
+### Pain on Manipulation ⭐
+- **Internal rotation** = ปวดมากสุด ⭐
+- **Hip extension (Hyper-extension)**
+- **Hip abduction**
+- "**Bicycle motion**" = sensitive maneuver
+
+---
+
+## 8. Diagnosis (X-ray Findings) ⭐⭐⭐
+
+| Finding | Description |
+|---|---|
+| **Flattened femoral head** | "Mushroom-shape" |
+| **Subchondral bone necrosis** | Lucent areas in femoral head/neck |
+| **Femoral neck shortening** | Shortened, widened |
+| **Osteophyte / Bone spur** | Periarticular |
+| **Joint space widening** | (ตรงข้ามจาก CHD) |
+| **Subluxation** | บางราย |
+| **Acetabulum** | Usually NORMAL (different from CHD!) |
+
+⚠️ **Compare to contralateral side** — bilateral cases harder to detect
+
+---
+
+## 9. Treatment ⭐⭐⭐
+
+### 9.1 Conservative (Mild/Early Cases) ⭐
+**Indication**: Intermittent lameness · pain manageable · early stage
+
+**Plan**:
+1. **Cage rest** 1-2 weeks (NOT 3 months — short-term!)
+2. **NSAIDs + pain control**
+3. **Light physical therapy** (gentle ROM)
+4. **Recheck every 2 weeks**
+5. **Monitor X-ray** — femoral head deterioration
+6. ติดตามจนกระดูกโตเต็ม (~1 ปี)
+
+### 9.2 Femoral Head Ostectomy (FHO) ⭐⭐⭐ (KEY!)
+
+**Indication**:
+- **Severe pain** + non-functional
+- **Chronic muscle atrophy**
+- **End-stage** with collapsed/fractured femoral head
+- **Body weight ≤ 20 kg** (preferred — best outcomes!)
+
+⭐ **> 20 kg can do FHO too** — but recovery less complete
+
+**Surgical Technique**:
+- Cut from **greater trochanter** to **lesser trochanter**
+- Remove femoral head + neck
+
+**Post-FHO Anatomy**:
+- Bone removed → space → **Pseudo-joint forms** (fibrous tissue)
+- Function via **fibrous union** + **muscle support**
+
+⭐ **Why it works**: Dog has 4 legs · weight distributed → can compensate when 1 hip is salvaged
+
+### 9.3 Total Hip Replacement (THR) ⭐ (Modern Option)
+
+**Indication**:
+- Younger dogs needing full function
+- Owner can afford expense
+- Skilled surgeon available
+- **Body weight 1.5 kg → 70+ kg** all possible (technology improved!)
+
+**Components**:
+- Acetabular cup (artificial socket)
+- Femoral stem (drilled into femoral shaft)
+- Femoral head (artificial ball)
+
+⭐ More popular abroad · expensive but excellent outcomes
+
+### 9.4 FHO vs THR Comparison
+
+| Factor | FHO | THR |
+|---|---|---|
+| Cost | Low | Very high |
+| Skill needed | Moderate | Specialist |
+| Outcome (small dog) | Good | Excellent |
+| Outcome (large dog) | Compromised | Excellent |
+| Recovery time | 4-8 weeks | 6-12 weeks |
+| Complications | Pseudo-joint stiffness | Infection, luxation, implant fail |
+
+---
+
+## 10. Post-Op Care (FHO)
+
+| Action | Timing |
+|---|---|
+| **Pain control** | NSAIDs + opioids first 7-10 days |
+| **Rehabilitation** ⭐ | **Most important!** Build hamstring + gluteal mass |
+| **Hydrotherapy** | (selected — preferred for dogs that swim) |
+| **PROM exercises** | Daily |
+| **Weight bearing** | Encourage early (oddly — not restricted!) |
+| **Recheck X-ray** | 6-8 weeks |
+
+⚠️ **Hamstring rebuilding** = success determinant
+
+---
+
+## 11. Prognosis
+
+| Factor | Outcome |
+|---|---|
+| Small dog (< 15 kg) + FHO + good rehab | **Excellent** — return to near-normal function |
+| 15-20 kg + FHO | Good · slight gait abnormality may persist |
+| > 20 kg + FHO | Fair · noticeable gait change |
+| THR (any size) | **Excellent** if no complications |
+
+---
+
+## 📝 EXAM RECAP — 12 Key Points
+
+1. **DOD = multifactorial** (genetic + environment), not simple Mendelian
+2. **DOD includes**: CHD · ED (FMP/UAP) · LCP · OCD · Patellar Luxation · Premature physeal closure
+3. **LCP = Avascular Necrosis** of femoral head ⭐
+4. **LCP signalment**: Small/Toy breeds (Westie, Yorkie, Pom, Pug, Poodle) · 4-12 mo · peak 7 mo
+5. **Vascular anatomy**: Lateral + Medial Circumflex Femoral Artery
+6. **Self-mutilation** = LCP-specific behavior
+7. **Internal rotation pain** = sensitive sign
+8. **Hamstring atrophy** = signature finding
+9. **X-ray**: Flattened/mushroom femoral head + Joint space widening + Normal acetabulum
+10. **Conservative Tx**: 1-2 wk cage rest + NSAIDs + monitor (NOT 3 months!)
+11. **FHO** = primary surgical Tx · best for **dogs ≤ 20 kg**
+12. **THR** = modern alternative · best function · expensive
+
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.2 Hip Dysplasia (hIlH1i845wI) · 9.3 Patella Luxation (CIUpw8GNtQ4) · 11 Common Joint (MMTtwT_7c94)
+> 🩻 LCP X-ray: รอผ่านอาทิตย์หน้าจะเรียน CHD — ตอนนั้นเปรียบเทียบ acetabular morphology
+> 💊 Conservative timeline: ขังกรง **1-2 wk** เท่านั้น · "ขังกรง 3 เดือน = wrong concept" — ทำให้ joint ankylosis แทน`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
