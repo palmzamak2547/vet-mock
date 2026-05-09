@@ -39712,6 +39712,213 @@ For food animals, welfare also includes:
 > 🌍 **Global trend**: EU ban sow stalls + battery cages · Thailand 5-10 yr behind`,
   },
 
+  'F3Ngx-50Hlc': {
+    videoId: 'F3Ngx-50Hlc',
+    title: '4. Animal Welfare 2 — Behavioral Assessment',
+    subject: 'vet-juris',
+    date: '2024-09-16',
+    durationMin: 124,
+    instructor: 'อ.อาทิตย์',
+    examFormat: 'behavior identification + welfare assessment',
+    summary: `# 4. Animal Welfare 2 — Behavioral Assessment
+
+> ⚠️ Continuation of Animal Welfare lecture (3-pillar concept)
+> Focus: **Behavioral measures** = current most popular welfare assessment method
+> Foundation for hands-on welfare assessment in clinic/farm
+
+## 🎯 ภาพรวมคาบ
+1. Normal Behavior indicators (good welfare)
+2. Poor Welfare Behavior indicators (6 categories)
+3. **Stereotypic Behavior** ⭐
+4. **Time Budget** concept
+5. Giraffe research case
+6. **Anthropomorphism** — pros and cautions
+7. Transport welfare
+
+## 1️⃣ Why Behavior?
+**Behavior is the most direct, real-time welfare indicator**
+- Easier than blood tests
+- Visible to all observers
+- Reflects internal state immediately
+- Standard tool in modern welfare science
+
+## 2️⃣ Normal Behavior — Indicators of GOOD Welfare ⭐
+
+| Behavior | Indicator |
+|----------|-----------|
+| **Alertness** | Animal pays attention to changes (sheep example) |
+| **Curiosity** ⭐ | Animal investigates new objects/people · "curiosity killed the cat" |
+| **Range of activities** | Diverse behaviors in time budget (NOT just sleep+stand) |
+| **Social interaction** | Engages with herd members in herd species |
+| **Human interaction** | Friendly when had positive past experience |
+| **Play** ⭐ | "Play associates with feeling of wellbeing" — most reliable indicator! |
+
+### Human Interaction Nuance ⭐
+**Depends on past experience** with humans:
+| Past | Normal Response |
+|------|------------------|
+| Wild animal (no human) | Fear is NORMAL |
+| Negative human history (abused) | Fear/aggression is NORMAL |
+| Positive human history | Friendly approach is NORMAL |
+
+> ⭐ If **abused dairy cow fears humans** → it's abnormal (should be friendly with daily handling)
+
+## 3️⃣ Behaviors Indicating POOR Welfare (6 categories)
+
+### 1. Limited Range of Activity
+**Causes**:
+- Insufficient space (intensive farming, lab housing)
+- Close tethering (chained)
+- Result: ⭐ Sleep dominates time budget · vicious cycle of more sleep + more disease
+
+### 2. Panting / Sweating
+**Causes** to investigate:
+- Heat stress (high temp)
+- Fever (illness)
+- Overcrowding
+- Fear
+
+> Action: don't just diagnose disease — examine **management** (cooling, density)
+
+### 3. Huddling / Shivering
+**Causes**:
+- Cold (especially young animals can't thermoregulate)
+- Fear
+- Lack of shelter
+- Inadequate feeding (hypoglycemia in young)
+
+### 4. Depression / Withdrawal
+**Signs**:
+- Loss of interest
+- "Withdrawal" — not engaging
+- Especially in zoo animals confined in tight spaces
+
+**Cause**: cannot control environment → learned helplessness
+
+### 5. Abnormal Fear / Aggression
+**Critical clue**: animal SHOULD be calm with humans (regular handling) but isn't
+- Indicates past abuse / poor handling
+- Sob exam: dairy cow fearful of human approach → abnormal!
+
+### 6. Stereotypic Behavior ⭐⭐
+**= Repetitive behavior with NO purpose/function**
+
+**Examples**:
+- Sow biting metal bars (oral stereotypy)
+- Caged horse "crib biting"
+- Zoo bear/lion **pacing**
+- Giraffe **licking walls** / repetitive tongue movements
+- Rocking/swaying behavior
+
+**Cause**: Restricted environment → frustration → coping mechanism
+
+> ⭐ Sometimes called **compulsive behavior**
+> Even after rescue/improvement, can persist as "scar"
+
+## 4️⃣ Time Budget Concept ⭐
+
+**Definition**: Distribution of behaviors across 24-hour cycle
+
+### Use
+- Compare wild vs captive animals of same species
+- Identify deficit in natural behavior repertoire
+
+### Famous Giraffe Study
+| Setting | Time Budget |
+|---------|--------------|
+| **Wild giraffe** | Walking/grazing dominant · NO stereotypy |
+| **Zoo giraffe** | Standing dominant · LITTLE walking · ⭐ **60% of NIGHT time = stereotypy** (wall licking, tongue play) |
+
+### Zoo Giraffe Stereotypies Observed
+- Licking walls/bars
+- Tongue rolling
+- Continuous rhythmic tongue out + back
+- Pacing same path
+
+> Conclusion: zoo space — even seemingly large — may not be enough for natural behavior expression
+
+## 5️⃣ Anthropomorphism (มนุษย์ลักษณะ) ⭐
+
+### Definition
+**Treating animals as human** — projecting human thoughts/feelings onto animals
+
+### Pros (when well-applied) ✅
+- Drove development of veterinary anesthesia/analgesia
+- ⭐ **Pain perception**: "if I'm in pain, animal must be too"
+- Modern surgical practice now uses adequate analgesia (was rare in past!)
+- Recovery faster when pain controlled
+- Drives ethical care decisions
+
+### Cautions ⚠️
+- Different species have different needs
+- Cat is NOT social like dog — adding 2nd cat may CAUSE stress
+- Putting clothes on pets — some hate it
+- Don't assume your preference = animal's preference
+
+### Use Cases
+| Action | Anthropomorphism OK? |
+|--------|----------------------|
+| Use anesthesia for surgery | ✅ Yes |
+| Provide pain medication | ✅ Yes |
+| Force socialize a solitary species | ❌ No |
+| Dress in human clothes | ⚠️ Depends on individual |
+
+## 6️⃣ Transport Welfare
+
+### Why Important
+- Major welfare challenge: animals can't escape stress
+- Significant in livestock industry
+
+### Stress Factors
+- Vibration/motion sickness
+- Heat/cold
+- Overcrowding density
+- Long duration without water/food
+- Loud noise
+- Unfamiliar handling
+
+### Thai Context
+- Mother law (general welfare) exists
+- ⭐ **Daughter law** (specific transport regulations) **NOT yet released**
+- Industry self-regulation prevails for now
+
+### EU Standards (Reference)
+- Max transport time
+- Required rest stops
+- Density limits per species
+- Temperature monitoring
+- Driver training requirements
+
+## 7️⃣ Welfare Indicator Categories Summary
+
+### 4 Types of Welfare Indicators
+1. **Physiological output** — cortisol, heart rate, respiratory rate
+2. **Disease and Production** — illness rates, weight gain, milk yield
+3. **Behavioral** ⭐ — current focus, this lecture
+4. **Input** (resources, environment) — to be discussed
+
+> Behavior is increasingly preferred because it integrates all stressors
+
+## 📋 Exam Recap (12 จุดสำคัญ)
+1. **Behavior** = most popular welfare assessment method
+2. ⭐ Good welfare signs: **alertness, curiosity, range, interaction, play**
+3. Play = best single indicator of good welfare (Webster quote)
+4. Animal abuse history → abnormal fear of humans (clue!)
+5. **Stereotypic behavior** = repetitive without purpose
+6. Examples: pacing, bar biting, tongue rolling
+7. Cause: restricted environment → frustration
+8. ⭐ **Time budget** compares wild vs captive
+9. Giraffe study: 60% of zoo night = stereotypy
+10. Stereotypies persist even after rescue (welfare scar)
+11. **Anthropomorphism**: drove modern anesthesia/analgesia
+12. ⚠️ Don't anthropomorphize across all species (cat ≠ social like dog)
+
+> 📚 อ่านควบ: 3 Animal Welfare 1 (2d7SZ4LMPz8) · 5 พรบ. สถานพยาบาล (dbHv3LpFSAg)
+> 🦒 **Real-world**: Even big zoo enclosures may be insufficient
+> 💡 **Practice tip**: Watch behavior FIRST before diagnostic tests in welfare cases
+> 🌍 **Future**: Time budget assessment will become standard in farm audits`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
