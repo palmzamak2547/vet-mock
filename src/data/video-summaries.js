@@ -25558,6 +25558,272 @@ For external gilts:
 > 🦴 **Lysine = pig · Methionine = poultry** (don't confuse!)`,
   },
 
+  gdqDDbl74Yk: {
+    videoId: 'gdqDDbl74Yk',
+    title: '4. สวัสดิภาพจัดการสุขภาพ การจับบังคับ และการุณยฆาต',
+    subject: 'swine-herd',
+    date: '27 Aug 67',
+    durationMin: 128,
+    instructor: 'อาจารย์สัตวบาล (CUVET)',
+    examFormat: 'MCQ — 5 Freedoms · 3 Rings of Welfare · gestation crate vs group housing · Snare technique · Mass euthanasia methods · Animal Welfare Act 2557 ออกบ่อย',
+    summary: `# Animal Welfare + Restraint + Euthanasia in Swine
+
+> 🎯 **Three big themes** combined in one foundation lecture
+> Top exam: **5 Freedoms · Welfare assessment · Snare technique · Tail-docking compromise · Animal Welfare Act 2557**
+
+---
+
+## PART 1: Animal Welfare ⭐⭐⭐
+
+### A. The 3 Rings of Welfare (3 Sphere Model)
+| Ring | Color | Includes |
+|---|---|---|
+| **Physical** | Green | Growth, health, weight, body condition |
+| **Mental** | Yellow | Emotions, fear, stress, contentment |
+| **Natural** | Blue | Ability to express natural behaviors (rooting, social, etc.) |
+
+### B. The 5 Freedoms ⭐⭐⭐ (UK origin · MUST KNOW!)
+| # | Freedom from... | What it means |
+|---|---|---|
+| **1** | Hunger & Thirst | Adequate food + clean water |
+| **2** | Discomfort | Appropriate environment, shelter |
+| **3** | Pain, Injury, Disease | Prevention or rapid treatment |
+| **4** | Fear & Distress | Conditions to avoid mental suffering |
+| **5** | Express Normal Behavior | Sufficient space + companions |
+
+### C. Welfare assessment levels
+**Welfare measured at 3 production stages:**
+1. **On-Farm** (the daily life)
+2. **Transport** (loading + travel + unloading)
+3. **Slaughterhouse** (lairage + stunning + slaughter)
+
+### D. Why welfare matters in modern farming ⭐
+| Reason | Mechanism |
+|---|---|
+| **Premium pricing** | Welfare-certified meat sells higher (especially Europe export) |
+| **Sustainability** | Farms with good welfare last longer |
+| **Worker efficiency** | Calm pigs cooperate → faster work · less injury |
+| **Public perception** | Bad welfare news = consumer boycott |
+| **Disease reduction** | Stressed pigs = immunosuppressed = sick more |
+
+### E. Welfare evaluation tools
+- **Production indicators** (growth rate, mortality)
+- **Behavioral indicators** (aggression, stereotypies)
+- **Physiological indicators** (cortisol levels, heart rate)
+
+---
+
+## PART 2: Thai Animal Welfare Act 2557 (2014) ⭐⭐
+
+### Key articles
+| Article | Content |
+|---|---|
+| **มาตรา 3** | Definition of "animal" — covers wild + domestic + livestock |
+| **มาตรา 20** | What constitutes cruelty (Tarunkam) |
+| **มาตรา 20(7)** | Exemption for licensed veterinarian's clinical judgment ⭐ |
+| **มาตรา 21 (1-11)** | Allowed procedures (e.g., traditional ceremonies, religion, science) |
+
+### 4 intent of the law
+1. **Prevent unnecessary harm** to animals
+2. **Mandate owner welfare provision**
+3. **Recognize welfare organizations + shelters**
+4. **Establish rules for cruelty determination**
+
+### What the law DOES allow (exemptions)
+- **Traditional/cultural** practices (e.g., cock fighting, Muay Thai with elephants)
+- **Religious slaughter** (e.g., Halal procedures)
+- **Veterinary procedures** (under licensed vet supervision) ⭐⭐
+- **Scientific research** (under approved protocols)
+
+### What is illegal
+- Using sick/old/pregnant animals for excessive work
+- Force-feeding or starvation
+- Public abuse causing suffering
+- Random mutilation
+
+> ⛔ Common exam: tail-docking, ear-notching = ALLOWED if done by trained vet (มาตรา 20(7))
+
+---
+
+## PART 3: Common Welfare Issues in Swine ⭐⭐
+
+### A. Gestation Crates (ขังซอง)
+- **Old standard**: sows in individual stalls, can't turn around
+- **Modern trend**: group housing (better welfare)
+- **Thailand**: still mostly crate · few demonstration group farms
+- **Compromise**: some farms allow brief turn-around or group at certain stages
+
+### B. Tail Docking, Ear Notching, Tooth Clipping ⭐
+| Procedure | Reason | Welfare concern |
+|---|---|---|
+| **Tail docking** | Prevent tail biting in crowded pens | Pain at procedure |
+| **Ear notching** | ID system | Pain · stress |
+| **Tooth clipping (canines)** | Prevent injury to sow's teats | Pulpitis if done badly |
+| **Castration (male)** | Reduce boar taint odor | Pain · stress |
+
+### Compromise approaches (research-supported)
+| Procedure | Better method |
+|---|---|
+| Tooth clipping | **Grinding > cutting** (less trauma) — 2009 study |
+| Tail docking | **Hot iron > cold cut** (cauterizes, less pain) |
+| Castration | **Anesthesia + analgesia** (vs cold cut) |
+| Ear notching | **Tag > notch** when possible |
+
+> ⭐ As vet, you must JUSTIFY procedures with research + Animal Welfare Act 20(7)
+
+### C. Mass Euthanasia (Culling for ASF · TB · etc.)
+- Public reaction often negative ("they look healthy!")
+- Vet must explain disease control rationale
+- Method choice critical for welfare
+
+---
+
+## PART 4: Restraint Techniques ⭐⭐
+
+### A. Pig psychology basics
+| Tool | Use |
+|---|---|
+| **Sound** | Familiar voice → calm; unfamiliar → stress |
+| **Touch** | Stroking · physical contact for handling |
+| **Food** | THE biggest motivator — pigs LOVE eating ⭐ |
+
+### Why same caretaker matters
+- Pig recognizes voice, scent
+- Strangers cause stress + uncooperation
+- Farms keep same workers as long as possible
+
+### B. Pig blind spot ⭐
+- Vision NOT 360° — small blind zone behind head
+- Approach from blind zone if needed
+
+### C. Group movement vs individual ⭐
+| Approach | When |
+|---|---|
+| **Group movement** ⭐ | Use when possible — pigs follow leader naturally |
+| **Individual** | Only if necessary — singled pigs become panicked |
+
+### D. The 3-Mind Approach ⭐
+> "ใจกล้า แต่อย่าบ้าบิ่น" (Brave heart, but no recklessness)
+
+1. **Mind 1**: Confidence comes first ("ใจ")
+2. **Mind 2**: Honest self-assessment (don't over-confident)
+3. **Mind 3**: Use brain + body together (not body alone!)
+
+> ⛔ Bone-headed bravado = injury risk
+> ✅ Calm planning + sufficient backup = success
+
+### E. Snare Technique ⭐⭐⭐ (THE classic pig restraint)
+
+#### Equipment
+- Snare = metal pole + sliding wire/rope loop
+- Adjustable handle for tightening
+
+#### Procedure
+1. **Loop must enter MOUTH** (not over snout from outside)
+2. Loop placement: **UPPER jaw, BEHIND the canine teeth (tooth nubs)**
+3. Two-handed grip: one tightens loop, other supports pole
+4. **Pull BACKWARD with body weight** — pig will instinctively pull AGAINST → tightens snare
+5. Pig will not "follow" the lead — they ALWAYS resist
+
+#### Why it works
+- Pig has natural "pull-back" reflex when restrained
+- This counter-pull TIGHTENS the snare automatically
+- Tooth nubs (post-tooth-clipping) prevent slip-off
+
+#### Common Errors ⭐
+| Error | Result |
+|---|---|
+| Loop NOT in mouth (just over snout) | Snare slips off when pig pulls |
+| Loop in lower jaw | Insecure (less surface) |
+| Single-hand grip | Pig sideswings, snare hits VET'S FACE! |
+| Letting pig face you | Risk of bite + face strike |
+
+> ⚠️ **Most dangerous moment**: when pig sideswings head with snare attached — pole can hit vet's face
+> ALWAYS keep snare TENSE + steady · use both hands
+
+### F. Restraining Piglets ⭐
+| WRONG method | RIGHT method |
+|---|---|
+| Holding by ears (sensitive!) | Cup body in arms (like baby) |
+| Hanging by tail | Support hindquarters |
+| Single hand grip | Both hands secure |
+
+> ⭐ Properly held piglet = silent · improperly held = screaming
+> "Scream meter" = welfare indicator
+
+---
+
+## PART 5: Euthanasia Methods ⭐⭐
+
+### Why proper euthanasia matters
+1. **Welfare**: minimize suffering
+2. **Legal**: must comply with Animal Welfare Act
+3. **Disease control**: stop pathogen spread
+4. **Public perception**: visible methods affect public trust
+
+### Mass culling methods (e.g., for ASF outbreak)
+| Method | Use case |
+|---|---|
+| **CO₂ / inhaled gas** ⭐ | Smaller pigs · large groups · most humane |
+| **Captive bolt** | Adult sows · individual |
+| **Electrocution** | Industrial slaughter (in slaughterhouse) |
+| **Injection (barbiturate)** | Pet pigs · small numbers · meat NOT consumed after |
+
+### Selection criteria
+- Animal size (piglet vs sow)
+- Number of animals (1 vs 1000+)
+- Available equipment
+- Welfare standards required
+- Carcass disposal plan
+
+### Disposal after euthanasia
+- **Burial** (deep pit, lime treatment)
+- **Incineration** (ASF requires this for biosecurity)
+- **Composting** (some farms)
+
+---
+
+## PART 6: Vet's Role in Welfare ⭐
+
+### Daily clinical decisions
+1. Assess pig's welfare status during exam
+2. Recommend management changes
+3. Train workers in proper restraint
+4. Document welfare incidents
+
+### Long-term advisory
+1. Audit farm against 5 Freedoms
+2. Recommend infrastructure changes
+3. Educate owner on legal requirements
+4. Help farm achieve welfare certification
+
+---
+
+## 🎯 Exam Recap — top 16 testable points
+
+1. **5 Freedoms = UK origin** (memorize names!)
+2. **3 Rings of Welfare** = Physical · Mental · Natural
+3. **Welfare assessed at 3 stages** = Farm · Transport · Slaughterhouse
+4. **Animal Welfare Act 2557** = Thai law, 4 intents
+5. **มาตรา 20(7)** = vet exemption clause
+6. **Gestation crate** = traditional, group housing = welfare trend
+7. **Tooth grinding > cutting** (2009 evidence)
+8. **Tail docking hot > cold** (cauterization)
+9. **Snare goes in MOUTH, behind canine tooth nubs, UPPER jaw**
+10. **Pull BACKWARD** (pig instinctively pulls against)
+11. **Group movement > individual** for stress reduction
+12. **Same caretaker** = lower stress
+13. **Pig blind spot** = behind head (small)
+14. **Piglets**: cup like baby, NOT ears/tail
+15. **CO₂ for mass euthanasia** of small pigs
+16. **Captive bolt for adults** · injection for pets
+
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 5 Breeds (I478HTK1kKY) · 8 Epidemiology (1mFans-0DNY)
+> 🩻 **Practice tip**: Always ASK before procedures — "is this for the animal's benefit?"
+> 💡 **Snare safety**: BOTH hands · TENSE always · expect head sideswings
+> 🦴 **Welfare = profit** — modern farms cannot ignore welfare for premium markets`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
