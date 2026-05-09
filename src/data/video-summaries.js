@@ -50560,6 +50560,1211 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
 5. ⭐ CV measures vaccination uniformity`,
   },
 
+  // ═══════════════════════════════════════════════════════════════
+  // milk-meat-hygiene (DekDokVet85 · Y5 sem 1) — 23 videos
+  // ═══════════════════════════════════════════════════════════════
+
+  '5ExcMb--C34': {
+    videoId: '5ExcMb--C34', title: 'Milk-Meat — 1.1 Composition and Quality of Raw Milk', subject: 'milk-meat-hygiene',
+    date: '2025-08-06', durationMin: 68, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก milk composition · quality parameters',
+    summary: `## 🎯 Lead Summary
+**Raw milk composition + quality**: ⭐ Water 87% · Fat 3-5% · Protein 3.3% · Lactose 4.7% · Minerals 0.7%. Quality determined by composition + microbiology.
+
+## Composition ⭐⭐⭐
+| Component | % |
+|---|---|
+| ⭐ Water | 87% |
+| ⭐ Fat (butterfat) | 3-5% |
+| ⭐ Protein (casein 80% + whey 20%) | 3.3% |
+| ⭐ Lactose | 4.7% |
+| ⭐ Minerals (Ca, P) | 0.7% |
+| Vitamins | trace |
+
+## Quality Parameters ⭐⭐
+- ⭐ ⭐ **SCC** (somatic cell count) — health indicator
+- ⭐ ⭐ **TPC** (total plate count) — bacteria
+- ⭐ Fat % + Protein %
+- ⭐ Adulteration tests
+
+## Standards Thai ⭐
+- ⭐ SCC <500K (premium <200K)
+- ⭐ TPC <100K
+- ⭐ Fat ≥3.25%
+- ⭐ Protein ≥3.0%
+
+## 📋 Exam Recap
+1. ⭐ Water 87% main component
+2. ⭐ Casein = 80% of milk protein
+3. ⭐ SCC + TPC = quality markers
+4. ⭐ Premium: SCC <200K
+5. ⭐ Bonus pricing for quality`,
+  },
+  '7VJAcHzLwfg': {
+    videoId: '7VJAcHzLwfg', title: 'Milk-Meat — 1.2 Standards of Raw Milk and Dairy Products', subject: 'milk-meat-hygiene',
+    date: '2025-08-06', durationMin: 56, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก Thai standards · TIS · Codex',
+    summary: `## 🎯 Lead Summary
+**Thai + International standards** for raw milk and dairy products. ⭐ ⭐ TIS (Thai Industrial Standards) · Codex Alimentarius.
+
+## Thai Standards ⭐⭐
+- ⭐ ⭐ **TIS** (Thai Industrial Standards)
+- ⭐ Ministry of Public Health
+- ⭐ Specific microbiological + chemical limits
+
+## International ⭐
+- ⭐ ⭐ **Codex Alimentarius** (FAO/WHO)
+- ⭐ EU regulations
+- ⭐ ISO standards
+
+## Key Standards ⭐⭐
+### Pasteurized milk
+- ⭐ Coliforms <10/mL
+- ⭐ TPC <50K/mL
+
+### Sterilized
+- ⭐ Commercial sterility
+- ⭐ Long shelf life
+
+### Cheese, Yogurt
+- ⭐ Specific microbiological criteria
+
+## 📋 Exam Recap
+1. ⭐ TIS = Thai standards
+2. ⭐ Codex = international
+3. ⭐ Microbiological + chemical limits
+4. ⭐ Pasteurization standards
+5. ⭐ Trade requires certification`,
+  },
+  gWjJHkmTrHY: {
+    videoId: 'gWjJHkmTrHY', title: 'Milk-Meat — 2.1 Milk Microbiology', subject: 'milk-meat-hygiene',
+    date: '2025-08-13', durationMin: 49, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก milk microflora · spoilage organisms · pathogens',
+    summary: `## 🎯 Lead Summary
+**Milk microbiology** — natural flora + spoilage + pathogens. Multiple sources of contamination.
+
+## Sources of Contamination ⭐⭐
+- ⭐ Udder (mastitis, environment)
+- ⭐ Equipment (milking, cooling)
+- ⭐ Personnel (hands, clothes)
+- ⭐ Environment (air, water)
+
+## Major Groups ⭐⭐
+### Lactic Acid Bacteria (LAB) ⭐
+- ⭐ Lactobacillus
+- ⭐ Streptococcus
+- ⭐ Lactococcus
+- ⭐ Beneficial (yogurt, cheese)
+
+### Spoilage ⭐
+- ⭐ Pseudomonas (cold tolerant!)
+- ⭐ Coliforms
+
+### Pathogens ⭐⭐⭐
+- ⭐ Salmonella
+- ⭐ E. coli O157:H7
+- ⭐ Listeria monocytogenes
+- ⭐ Campylobacter
+- ⭐ Brucella
+- ⭐ M. tuberculosis/bovis
+- ⭐ Staph aureus (toxin!)
+
+## Cold Tolerance ⭐
+- ⭐ ⭐ Psychrotrophs grow at 4°C!
+- ⭐ Spoilage in refrigerated milk
+
+## 📋 Exam Recap
+1. ⭐ Multiple contamination sources
+2. ⭐ LAB beneficial
+3. ⭐ Pseudomonas cold-tolerant spoilage
+4. ⭐ Listeria + Brucella zoonotic
+5. ⭐ Pasteurization needed`,
+  },
+  K8Z36l4Uexc: {
+    videoId: 'K8Z36l4Uexc', title: 'Milk-Meat — 2.2 Milk-borne Pathogens and Diseases', subject: 'milk-meat-hygiene',
+    date: '2025-08-13', durationMin: 47, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก milk-borne diseases · zoonotic risks',
+    summary: `## 🎯 Lead Summary
+**Milk-borne diseases** — zoonotic pathogens transmitted via raw milk + improperly pasteurized products.
+
+## Major Pathogens ⭐⭐⭐
+| Pathogen | Disease |
+|---|---|
+| ⭐ M. bovis | Bovine TB → Human TB |
+| ⭐ Brucella abortus | Brucellosis (undulant fever) |
+| ⭐ Salmonella | Salmonellosis |
+| ⭐ E. coli O157:H7 | HUS, bloody diarrhea |
+| ⭐ Listeria monocytogenes | Listeriosis (pregnant!) |
+| ⭐ Campylobacter | Gastroenteritis |
+| Coxiella burnetii | Q fever |
+| Mycobacterium paratuberculosis | Crohn's link debated |
+
+## Critical Concept ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Pasteurization kills most pathogens**
+- ⭐ Raw milk = HIGH risk
+- ⭐ TB + Brucella eliminated by pasteurization
+
+## High-Risk Groups ⭐
+- ⭐ ⭐ Pregnant women (Listeria!)
+- ⭐ Immunocompromised
+- ⭐ Children
+- ⭐ Elderly
+
+## Prevention ⭐
+- ⭐ ⭐ ⭐ Pasteurization (HTST 72°C × 15s)
+- ⭐ Test cattle (TB, Brucella)
+- ⭐ Mastitis control
+- ⭐ Hygiene at milking
+
+## 📋 Exam Recap
+1. ⭐ Multiple zoonotic pathogens in raw milk
+2. ⭐ Pasteurization is critical
+3. ⭐ Pregnant women avoid raw milk
+4. ⭐ HTST 72°C × 15 seconds standard
+5. ⭐ TB + Brucella eradicated by pasteurization`,
+  },
+  AbSNPyYHexI: {
+    videoId: 'AbSNPyYHexI', title: 'Milk-Meat — 3.1 Introduction of Milk Hygiene', subject: 'milk-meat-hygiene',
+    date: '2025-08-20', durationMin: 41, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก milk hygiene principles · farm to table',
+    summary: `## 🎯 Lead Summary
+**Milk hygiene principles** — farm to consumer. Multiple control points.
+
+## Critical Control Points ⭐⭐
+- ⭐ Cow health (mastitis-free)
+- ⭐ Hygienic milking (clean udder, equipment)
+- ⭐ Cooling (≤4°C ASAP)
+- ⭐ Transport (cold chain)
+- ⭐ Processing (pasteurization)
+- ⭐ Storage (refrigerated)
+- ⭐ Distribution
+- ⭐ Consumer handling
+
+## Hygiene at Farm ⭐⭐
+- ⭐ Pre-milking udder cleaning
+- ⭐ Strip cup screening
+- ⭐ Pre + post-dipping
+- ⭐ Single-use towels
+- ⭐ Equipment cleaning + sanitization
+- ⭐ Bulk tank temperature monitoring
+
+## Personnel Hygiene ⭐
+- ⭐ Hand washing
+- ⭐ Health screening
+- ⭐ Training
+
+## 📋 Exam Recap
+1. ⭐ Farm to consumer hygiene chain
+2. ⭐ Pre + post dipping mandatory
+3. ⭐ Cooling to ≤4°C
+4. ⭐ Single-use towels
+5. ⭐ Personnel training`,
+  },
+  xhtE4JH2uHY: {
+    videoId: 'xhtE4JH2uHY', title: 'Milk-Meat — 3.2 Mastitis and Milk Quality', subject: 'milk-meat-hygiene',
+    date: '2025-08-20', durationMin: 60, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก mastitis impact on quality · SCC · CMT',
+    summary: `## 🎯 Lead Summary
+**Mastitis impact on milk quality** — major economic + safety concern. ⭐ ⭐ Direct connection: SCC ↑ = mastitis. (Cross-ref herd-health-rum mastitis lecture!)
+
+## Impact on Quality ⭐⭐⭐
+- ⭐ ⭐ Increased SCC (somatic cells)
+- ⭐ ⭐ Increased TPC (bacteria)
+- ⭐ Reduced shelf life
+- ⭐ Reduced cheese yield
+- ⭐ Off-flavors
+- ⭐ Antibiotic residues (treatment!)
+
+## SCC Thresholds ⭐⭐
+- ⭐ <200K = healthy
+- ⭐ 200-500K = subclinical mastitis
+- ⭐ >500K = clinical mastitis likely
+- ⭐ >1M = severe
+
+## Detection ⭐⭐
+- ⭐ ⭐ **CMT** (California Mastitis Test) — field test
+- ⭐ Bulk tank SCC
+- ⭐ Strip cup
+- ⭐ Conductivity meters
+
+## Antibiotic Residues ⭐⭐⭐
+- ⭐ ⭐ ⭐ MUST observe withdrawal time!
+- ⭐ Fines for residue detection
+- ⭐ Public health concern
+
+## 📋 Exam Recap
+1. ⭐ Mastitis → quality issues
+2. ⭐ SCC <200K = healthy
+3. ⭐ CMT field test
+4. ⭐ Antibiotic withdrawal critical
+5. ⭐ Cross-ref: herd-health-rum mastitis lecture`,
+  },
+  '7MF8myXGPKc': {
+    videoId: '7MF8myXGPKc', title: 'Milk-Meat — 4.1 Storage of Raw Milk', subject: 'milk-meat-hygiene',
+    date: '2025-08-27', durationMin: 36, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก raw milk storage · cold chain · quality maintenance',
+    summary: `## 🎯 Lead Summary
+**Raw milk storage** = cold chain critical. From farm to processor.
+
+## Storage Principles ⭐⭐
+- ⭐ ⭐ Cool to 4°C ASAP after milking (within 2 hours)
+- ⭐ Bulk tank cooling
+- ⭐ Refrigerated transport
+- ⭐ Storage at processor
+- ⭐ Maintain cold chain
+
+## Storage Temperatures ⭐
+- ⭐ ⭐ ≤4°C raw milk
+- ⭐ Maximum 48 hours
+- ⭐ Avoid temperature fluctuations
+
+## Quality Changes ⭐
+- ⭐ Bacterial growth (psychrotrophs)
+- ⭐ Lipase action (rancidity)
+- ⭐ Protein changes
+- ⭐ Fat oxidation (light exposure)
+
+## Cold Chain Breaks ⭐⭐
+- ⚠️ Power outages
+- ⚠️ Transport delays
+- ⚠️ Bulk tank failures
+- ⭐ Monitoring required
+
+## 📋 Exam Recap
+1. ⭐ Cool to 4°C within 2 hours
+2. ⭐ Maximum 48 hours storage
+3. ⭐ Cold chain integrity essential
+4. ⭐ Psychrotrophs grow at 4°C still
+5. ⭐ Avoid light + temperature fluctuations`,
+  },
+  COkWvKPk9uw: {
+    videoId: 'COkWvKPk9uw', title: 'Milk-Meat — 4.2 Storage of Dairy Products', subject: 'milk-meat-hygiene',
+    date: '2025-08-27', durationMin: 27, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก dairy product storage by type',
+    summary: `## 🎯 Lead Summary
+**Dairy product storage** — varies by product type. Specific conditions for each.
+
+## Product-Specific Storage ⭐⭐
+| Product | Storage |
+|---|---|
+| ⭐ Pasteurized milk | 4°C, 7-14 days |
+| ⭐ UHT milk | Room temp, 6-9 months unopened |
+| ⭐ Yogurt | 4°C, 3-4 weeks |
+| ⭐ Hard cheese | 4°C, months-years |
+| ⭐ Soft cheese | 4°C, weeks |
+| ⭐ Butter | 4°C, weeks |
+| ⭐ Ice cream | -18°C |
+| ⭐ Milk powder | Room temp, sealed |
+
+## Quality Maintenance ⭐
+- ⭐ Temperature logging
+- ⭐ FIFO (First In First Out)
+- ⭐ Hygienic handling
+- ⭐ Avoid contamination
+
+## 📋 Exam Recap
+1. ⭐ Each product different storage
+2. ⭐ UHT room temp (sealed)
+3. ⭐ Hard cheese long shelf life
+4. ⭐ FIFO inventory
+5. ⭐ Temperature logging required`,
+  },
+  wwVpRndiOGg: {
+    videoId: 'wwVpRndiOGg', title: 'Milk-Meat — 4.3.1 Determination of Milk Quality I', subject: 'milk-meat-hygiene',
+    date: '2025-08-27', durationMin: 97, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก quality testing methods · physical/chemical/microbiological',
+    summary: `## 🎯 Lead Summary
+**Milk quality testing** — physical, chemical, microbiological methods.
+
+## Physical Tests ⭐⭐
+- ⭐ Temperature
+- ⭐ Color
+- ⭐ Odor
+- ⭐ Specific gravity (lactometer)
+- ⭐ Sediment test (visible debris)
+
+## Chemical Tests ⭐⭐⭐
+- ⭐ ⭐ **Fat content** (Gerber, Babcock methods)
+- ⭐ **Protein** (Kjeldahl, Bradford)
+- ⭐ **Lactose**
+- ⭐ **pH** (4.6 = casein precipitates)
+- ⭐ **Acidity** (titratable)
+- ⭐ **Adulteration tests**:
+  - Water (lactometer)
+  - Starch (iodine)
+  - Sugar (resorcinol)
+  - Urea (urease)
+
+## Microbiological Tests ⭐⭐⭐
+- ⭐ ⭐ **TPC** (Total Plate Count)
+- ⭐ **Coliform count**
+- ⭐ **MBRT** (Methylene Blue Reduction Test) — quick quality
+- ⭐ **Resazurin test** — similar
+- ⭐ Specific pathogens (Salmonella, Listeria)
+
+## Modern Methods ⭐
+- ⭐ ⭐ MilkoScan (FT-IR for composition)
+- ⭐ Bactoscan (rapid TPC)
+- ⭐ PCR for pathogens
+
+## 📋 Exam Recap
+1. ⭐ 3 categories: physical/chemical/micro
+2. ⭐ Fat: Gerber method standard
+3. ⭐ Adulteration tests important
+4. ⭐ MBRT quick quality screen
+5. ⭐ Modern: MilkoScan, Bactoscan`,
+  },
+  'AVsA-jlkKeM': {
+    videoId: 'AVsA-jlkKeM', title: 'Milk-Meat — 4.3.2 Determination of Milk Quality II', subject: 'milk-meat-hygiene',
+    date: '2025-09-17', durationMin: 28, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก antibiotic residue testing · advanced methods',
+    summary: `## 🎯 Lead Summary
+**Advanced milk quality testing** — antibiotic residues + sophisticated methods.
+
+## Antibiotic Residue Testing ⭐⭐⭐
+### Screening Tests
+- ⭐ ⭐ Charm SafeLevel (rapid)
+- ⭐ Delvotest (microbial inhibition)
+- ⭐ SNAP test
+- ⭐ Petrifilm
+
+### Confirmatory ⭐
+- ⭐ HPLC
+- ⭐ LC-MS/MS
+- ⭐ ELISA-based
+
+## Importance ⭐⭐⭐
+- ⭐ ⭐ ⭐ MANDATORY before processing
+- ⭐ Withdrawal times must be observed
+- ⭐ Penalties for residues
+- ⭐ Public health (antibiotic resistance)
+
+## Other Modern Tests ⭐
+- ⭐ Aflatoxin M1 (mycotoxin)
+- ⭐ Heavy metals
+- ⭐ Specific allergens
+
+## 📋 Exam Recap
+1. ⭐ Antibiotic residue testing mandatory
+2. ⭐ Charm/Delvotest = screening
+3. ⭐ HPLC = confirmatory
+4. ⭐ Aflatoxin M1 monitored
+5. ⭐ Withdrawal times critical`,
+  },
+  '64pJ6PklAiE': {
+    videoId: '64pJ6PklAiE', title: 'Milk-Meat — 5 GMP and HACCP Standards', subject: 'milk-meat-hygiene',
+    date: '2025-09-03', durationMin: 90, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก GMP · HACCP · 7 principles · CCP',
+    summary: `## 🎯 Lead Summary
+**GMP + HACCP** = global food safety standards. ⭐ Required for export.
+
+## GMP (Good Manufacturing Practices) ⭐⭐
+- ⭐ Pre-requisite to HACCP
+- ⭐ Building, equipment, hygiene
+- ⭐ Personnel hygiene
+- ⭐ Pest control
+- ⭐ Sanitation programs
+
+## HACCP ⭐⭐⭐ (7 Principles!)
+1. ⭐ Hazard analysis
+2. ⭐ Identify Critical Control Points (CCPs)
+3. ⭐ Establish critical limits
+4. ⭐ Monitor CCPs
+5. ⭐ Corrective actions
+6. ⭐ Verification
+7. ⭐ Documentation/records
+
+## Hazards Categories ⭐
+- ⭐ ⭐ **Biological** (pathogens)
+- ⭐ ⭐ **Chemical** (pesticides, antibiotics, mycotoxins)
+- ⭐ ⭐ **Physical** (metal, glass)
+
+## CCPs in Dairy ⭐
+- ⭐ Pasteurization (temperature, time)
+- ⭐ Cooling
+- ⭐ Storage temperature
+- ⭐ Acidity (cheese)
+
+## Implementation ⭐
+- ⭐ HACCP team
+- ⭐ Plant-specific plan
+- ⭐ Training
+- ⭐ Audits
+
+## 📋 Exam Recap
+1. ⭐ GMP precedes HACCP
+2. ⭐ HACCP = 7 principles
+3. ⭐ 3 hazard types: bio/chem/phys
+4. ⭐ Pasteurization = key dairy CCP
+5. ⭐ Required for international trade`,
+  },
+  EZjDaUeGQaM: {
+    videoId: 'EZjDaUeGQaM', title: 'Milk-Meat — 6 Biosecurity for Quality Milk Production', subject: 'milk-meat-hygiene',
+    date: '2025-09-10', durationMin: 117, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก biosecurity · dairy farm hygiene',
+    summary: `## 🎯 Lead Summary
+**Biosecurity in dairy farms** = preventing disease entry + spread for quality milk production.
+
+## Biosecurity Levels ⭐⭐
+- ⭐ External: prevent entry
+- ⭐ Internal: prevent spread within
+- ⭐ Personnel hygiene
+- ⭐ Vehicle disinfection
+- ⭐ Pest/wildlife control
+- ⭐ Mortality disposal
+
+## Direct Impact on Milk Quality ⭐
+- ⭐ Pathogen-free environment
+- ⭐ Reduced antibiotic use
+- ⭐ Lower SCC
+- ⭐ Premium pricing eligibility
+
+## Common Disease Concerns ⭐
+- ⭐ TB
+- ⭐ Brucellosis
+- ⭐ Mastitis pathogens
+- ⭐ FMD
+- ⭐ LSD
+
+## Key Practices ⭐
+- ⭐ ⭐ Test new animals before introduction
+- ⭐ Quarantine 30+ days
+- ⭐ Visitor restrictions
+- ⭐ Footbaths
+- ⭐ Vehicle washing
+
+## 📋 Exam Recap
+1. ⭐ External + internal biosecurity
+2. ⭐ Test before introduction
+3. ⭐ Footbaths + vehicle hygiene
+4. ⭐ Quarantine 30+ days
+5. ⭐ Premium milk requires biosecurity`,
+  },
+  Adtc6FyLqrg: {
+    videoId: 'Adtc6FyLqrg', title: 'Milk-Meat — 7 Processing Technologies for Milk Products', subject: 'milk-meat-hygiene',
+    date: '2025-09-17', durationMin: 99, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก pasteurization · UHT · cheese · yogurt processing',
+    summary: `## 🎯 Lead Summary
+**Milk processing technologies** — from raw to consumer products.
+
+## Pasteurization ⭐⭐⭐
+| Method | Temperature × Time |
+|---|---|
+| ⭐ ⭐ **HTST** | 72°C × 15 sec |
+| ⭐ **LTLT** | 63°C × 30 min |
+| ⭐ **UHT** | 135-150°C × 1-2 sec |
+
+## Other Processing ⭐⭐
+### Homogenization
+- ⭐ Reduce fat globule size
+- ⭐ Stable emulsion
+
+### Standardization
+- ⭐ Adjust fat %
+- ⭐ Skim, semi-skim, whole
+
+### Concentration
+- ⭐ Evaporation (concentrated milk)
+- ⭐ Spray drying (milk powder)
+
+### Fermentation ⭐
+- ⭐ Yogurt: Lactobacillus + Streptococcus
+- ⭐ Cheese: lactic acid bacteria + rennet
+- ⭐ Butter: cream churning
+
+## Cheese Process ⭐
+- ⭐ Coagulation (rennet/acid)
+- ⭐ Cutting curd
+- ⭐ Cooking
+- ⭐ Pressing
+- ⭐ Salting
+- ⭐ Aging
+
+## 📋 Exam Recap
+1. ⭐ HTST 72°C × 15s standard
+2. ⭐ UHT for long shelf life
+3. ⭐ Homogenization stabilizes
+4. ⭐ Yogurt = LAB fermentation
+5. ⭐ Cheese = coagulation + aging`,
+  },
+  ikNOlIazPoc: {
+    videoId: 'ikNOlIazPoc', title: 'Milk-Meat — 9.1 Introduction to Meat Hygiene', subject: 'milk-meat-hygiene',
+    date: '2025-10-08', durationMin: 39, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก meat hygiene principles · slaughter to consumer',
+    summary: `## 🎯 Lead Summary
+**Meat hygiene** = ensuring safe meat from slaughter to consumer. Critical control points throughout chain.
+
+## Meat Production Chain ⭐⭐
+- ⭐ Live animal (farm)
+- ⭐ Transport to slaughter
+- ⭐ Antemortem inspection
+- ⭐ Slaughter (humane)
+- ⭐ Postmortem inspection
+- ⭐ Processing
+- ⭐ Distribution
+- ⭐ Retail/consumer
+
+## Hygiene Principles ⭐
+- ⭐ Cleanliness throughout
+- ⭐ Cold chain (≤4°C)
+- ⭐ Trained personnel
+- ⭐ Veterinary supervision
+- ⭐ Quality assurance
+
+## Control Points ⭐⭐
+- ⭐ Antemortem inspection (vet)
+- ⭐ Postmortem inspection (vet)
+- ⭐ Sanitation
+- ⭐ Temperature control
+- ⭐ Cross-contamination prevention
+
+## 📋 Exam Recap
+1. ⭐ Multi-step chain control
+2. ⭐ Antemortem + postmortem inspection by vet
+3. ⭐ Cold chain ≤4°C
+4. ⭐ Cross-contamination prevention
+5. ⭐ Vet supervision required`,
+  },
+  lvMbZF8uElA: {
+    videoId: 'lvMbZF8uElA', title: 'Milk-Meat — 10 Microbiology of Meat', subject: 'milk-meat-hygiene',
+    date: '2025-10-15', durationMin: 146, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก meat microbiology · spoilage · pathogens',
+    summary: `## 🎯 Lead Summary
+**Meat microbiology** — natural flora + spoilage organisms + pathogens. Critical for safety + shelf life.
+
+## Sources of Contamination ⭐⭐
+- ⭐ Hide/skin
+- ⭐ GI tract spillage
+- ⭐ Equipment
+- ⭐ Personnel
+- ⭐ Environment
+
+## Spoilage Organisms ⭐⭐
+- ⭐ Pseudomonas (cold-tolerant!)
+- ⭐ Lactobacillus
+- ⭐ Clostridium (anaerobic, vacuum)
+- ⭐ Brochothrix
+- ⭐ Yeasts/Molds (refrigerated)
+
+## Pathogenic Bacteria ⭐⭐⭐
+- ⭐ Salmonella spp.
+- ⭐ E. coli O157:H7 (HUS!)
+- ⭐ Campylobacter
+- ⭐ Listeria monocytogenes
+- ⭐ Clostridium perfringens
+- ⭐ Staph aureus
+- ⭐ Yersinia enterocolitica
+
+## Parasites ⭐
+- ⭐ Trichinella
+- ⭐ Toxoplasma
+- ⭐ Taenia (cysticerci)
+
+## Viruses ⭐
+- ⭐ Hepatitis E (pork!)
+- ⭐ Norovirus
+
+## Mycotoxins ⭐
+- ⭐ Aflatoxin
+- ⭐ Other fungal toxins
+
+## 📋 Exam Recap
+1. ⭐ Pseudomonas = cold-tolerant spoilage
+2. ⭐ Salmonella + E. coli O157:H7 major pathogens
+3. ⭐ Cysticercosis = pork tapeworm risk
+4. ⭐ Trichinella in pork
+5. ⭐ Cold storage limits but doesn't eliminate`,
+  },
+  xJGeA7PHHO4: {
+    videoId: 'xJGeA7PHHO4', title: 'Milk-Meat — 11.1 Storage of Meat and Meat Products', subject: 'milk-meat-hygiene',
+    date: '2025-10-22', durationMin: 69, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก meat storage methods · shelf life',
+    summary: `## 🎯 Lead Summary
+**Meat storage methods** — refrigeration, freezing, curing, drying, packaging.
+
+## Storage Methods ⭐⭐⭐
+| Method | Temperature/Conditions | Shelf Life |
+|---|---|---|
+| ⭐ Refrigeration | 0-4°C | Days |
+| ⭐ Freezing | -18°C | Months |
+| ⭐ Vacuum | 0-4°C | 2-3 weeks |
+| ⭐ MAP | 0-4°C | 2-4 weeks |
+| ⭐ Curing | Salt + nitrite | Long |
+| ⭐ Drying | Low moisture | Long |
+| ⭐ Smoking | Smoke + heat | Variable |
+| ⭐ Canning | Heat sterilized | Years |
+
+## Cold Storage Considerations ⭐
+- ⭐ Hide humidity high
+- ⭐ Temperature stability
+- ⭐ FIFO inventory
+
+## Freezing Effects ⭐
+- ⭐ Ice crystals damage tissue
+- ⭐ Slow freezing more damage
+- ⭐ Quick freezing better
+
+## 📋 Exam Recap
+1. ⭐ Refrigeration 0-4°C
+2. ⭐ Freezing -18°C
+3. ⭐ Vacuum/MAP extends shelf life
+4. ⭐ Curing/drying historical methods
+5. ⭐ Quick freezing preserves quality`,
+  },
+  szE5NLhgs78: {
+    videoId: 'szE5NLhgs78', title: 'Milk-Meat — 11.2 Meat Quality and Wholesomeness', subject: 'milk-meat-hygiene',
+    date: '2025-10-22', durationMin: 36, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก meat quality factors · grading',
+    summary: `## 🎯 Lead Summary
+**Meat quality + wholesomeness** — combined safety + quality assessment.
+
+## Quality Factors ⭐⭐
+- ⭐ Color (pH-dependent)
+- ⭐ Tenderness (aging effect)
+- ⭐ Juiciness (water-holding)
+- ⭐ Flavor
+- ⭐ Marbling (fat)
+- ⭐ Cleanliness
+
+## pH and Color ⭐⭐
+- ⭐ Normal pH 5.3-5.6 (24h post-slaughter)
+- ⭐ ⭐ DFD (Dark Firm Dry) — high pH (stress!)
+- ⭐ ⭐ PSE (Pale Soft Exudative) — low pH (stress!)
+
+## Wholesomeness ⭐⭐
+- ⭐ Free of pathogens
+- ⭐ Free of residues
+- ⭐ Free of parasites
+- ⭐ Free of foreign material
+
+## Grading ⭐
+- ⭐ USDA grading
+- ⭐ Thai standards
+- ⭐ Marbling, age, fat color
+
+## 📋 Exam Recap
+1. ⭐ Quality vs Wholesomeness
+2. ⭐ DFD = stressed before slaughter
+3. ⭐ PSE = stressed at slaughter
+4. ⭐ Normal pH 5.3-5.6
+5. ⭐ Multiple grading systems`,
+  },
+  RYK_n1_XWes: {
+    videoId: 'RYK_n1-XWes', title: 'Milk-Meat — 11.3 Application of Molecular Biology in Meat Science', subject: 'milk-meat-hygiene',
+    date: '2025-10-22', durationMin: 31, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก molecular techniques · DNA testing · species ID',
+    summary: `## 🎯 Lead Summary
+**Molecular biology in meat science** — DNA-based testing for species identification, pathogen detection, fraud prevention.
+
+## Applications ⭐⭐⭐
+- ⭐ ⭐ **Species identification** (fraud detection!)
+- ⭐ ⭐ **Pathogen detection** (PCR)
+- ⭐ Allergen detection
+- ⭐ GMO testing
+- ⭐ Adulteration testing
+
+## Species ID Importance ⭐
+- ⭐ ⭐ Halal certification
+- ⭐ Religious/cultural concerns
+- ⭐ Fraud (cheaper meats substituted)
+- ⭐ "Horse meat scandal" Europe 2013
+
+## Methods ⭐⭐
+- ⭐ ⭐ PCR (Polymerase Chain Reaction)
+- ⭐ Real-time PCR
+- ⭐ Multiplex PCR
+- ⭐ DNA barcoding (cytochrome b)
+- ⭐ Mitochondrial DNA analysis
+
+## Pathogen Detection ⭐
+- ⭐ Salmonella PCR
+- ⭐ E. coli O157:H7 detection
+- ⭐ Listeria
+- ⭐ Faster than culture
+
+## 📋 Exam Recap
+1. ⭐ PCR for species ID
+2. ⭐ Halal certification benefits
+3. ⭐ DNA barcoding (cytochrome b)
+4. ⭐ Pathogen PCR faster than culture
+5. ⭐ Anti-fraud applications`,
+  },
+  PgNTcMmgVT8: {
+    videoId: 'PgNTcMmgVT8', title: 'Milk-Meat — 12.1 Pest Control in Meat Hygiene', subject: 'milk-meat-hygiene',
+    date: '2025-10-29', durationMin: 30, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก pest control · IPM · slaughter facility',
+    summary: `## 🎯 Lead Summary
+**Pest control in meat facilities** — IPM (Integrated Pest Management) approach.
+
+## Common Pests ⭐
+- ⭐ Rodents (rats, mice)
+- ⭐ Flies
+- ⭐ Cockroaches
+- ⭐ Ants
+- ⭐ Birds (perimeter)
+
+## IPM Approach ⭐⭐⭐
+- ⭐ ⭐ **Exclusion** (physical barriers)
+- ⭐ ⭐ **Sanitation** (food/water removal)
+- ⭐ ⭐ **Monitoring** (traps, inspection)
+- ⭐ ⭐ **Control** (last resort, targeted)
+- ⭐ Documentation
+
+## Why Important ⭐
+- ⭐ Pathogen vectors (Salmonella, etc.)
+- ⭐ Damage to facilities
+- ⭐ Regulatory compliance
+- ⭐ Customer perception
+
+## 📋 Exam Recap
+1. ⭐ IPM = best approach
+2. ⭐ Exclusion → Sanitation → Monitoring → Control
+3. ⭐ Rodents = main concern
+4. ⭐ Documentation required
+5. ⭐ Pathogen vectors`,
+  },
+  vryAe657soA: {
+    videoId: 'vryAe657soA', title: 'Milk-Meat — 12.2 Microbiology of the Avian Egg', subject: 'milk-meat-hygiene',
+    date: '2025-10-29', durationMin: 37, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก egg microbiology · Salmonella · contamination routes',
+    summary: `## 🎯 Lead Summary
+**Egg microbiology** — natural defenses + contamination + Salmonella concerns.
+
+## Egg Defenses ⭐⭐
+- ⭐ Cuticle (outer layer)
+- ⭐ Shell (porous but barrier)
+- ⭐ ⭐ Inner membranes
+- ⭐ ⭐ Egg white (albumin) — antimicrobial proteins
+- ⭐ Yolk membrane
+
+## Antimicrobial Proteins ⭐
+- ⭐ Lysozyme
+- ⭐ Conalbumin (binds iron)
+- ⭐ Avidin (binds biotin)
+- ⭐ Ovomucin
+
+## Contamination Routes ⭐⭐⭐
+### Vertical (in ovo) ⭐
+- ⭐ ⭐ Salmonella Enteritidis
+- ⭐ Mycoplasma
+- ⭐ Through ovary/oviduct
+
+### Horizontal (penetration) ⭐
+- ⭐ Through shell pores
+- ⭐ Salmonella, E. coli
+- ⭐ Wet shells especially
+
+## Storage ⭐
+- ⭐ Cool storage
+- ⭐ Don't wash (removes cuticle!)
+- ⭐ FIFO
+
+## 📋 Exam Recap
+1. ⭐ Multiple natural defenses
+2. ⭐ Lysozyme + conalbumin antimicrobial
+3. ⭐ Salmonella Enteritidis vertical transmission
+4. ⭐ Wet shells = penetration risk
+5. ⭐ Don't wash eggs (cuticle protection)`,
+  },
+  '97fveYG5caY': {
+    videoId: '97fveYG5caY', title: 'Milk-Meat — 13 Slaughterhouse and Sanitary Practices', subject: 'milk-meat-hygiene',
+    date: '2025-11-05', durationMin: 152, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก slaughterhouse design · operations · vet roles',
+    summary: `## 🎯 Lead Summary
+**Slaughterhouse operations** — design, sanitary practices, vet supervision. Critical for food safety.
+
+## Design Principles ⭐⭐
+- ⭐ Linear flow (clean → dirty)
+- ⭐ Antemortem area
+- ⭐ Stunning area
+- ⭐ Bleeding
+- ⭐ Skinning/scalding
+- ⭐ Evisceration
+- ⭐ Splitting
+- ⭐ Inspection
+- ⭐ Cooling
+- ⭐ Cutting
+
+## Antemortem Inspection ⭐⭐⭐
+- ⭐ ⭐ ⭐ VET RESPONSIBILITY
+- ⭐ Live animal exam
+- ⭐ Identify diseases
+- ⭐ Reject unfit
+- ⭐ Direct fit animals to slaughter
+
+## Slaughter Practices ⭐⭐
+- ⭐ ⭐ Humane stunning (electric, captive bolt)
+- ⭐ Religious considerations (halal, kosher)
+- ⭐ Bleeding
+- ⭐ Avoid stress (PSE/DFD!)
+
+## Sanitation ⭐
+- ⭐ Hot water, sanitizers
+- ⭐ Equipment cleaning between species/batches
+- ⭐ Personnel hygiene
+- ⭐ Pest control
+- ⭐ Waste management
+
+## Veterinary Roles ⭐⭐⭐
+- ⭐ ⭐ Antemortem inspection
+- ⭐ ⭐ Postmortem inspection
+- ⭐ Quality control
+- ⭐ Compliance with regulations
+- ⭐ Documentation
+
+## 📋 Exam Recap
+1. ⭐ Linear flow design
+2. ⭐ Antemortem = vet duty
+3. ⭐ Humane stunning required
+4. ⭐ Religious slaughter accommodations
+5. ⭐ Detailed sanitation programs`,
+  },
+  mLj5N7jKVR0: {
+    videoId: 'mLj5N7jKVR0', title: 'Milk-Meat — 14 Antemortem and Postmortem Inspection', subject: 'milk-meat-hygiene',
+    date: '2025-11-12', durationMin: 95, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก inspection procedures · diseases identified · disposition',
+    summary: `## 🎯 Lead Summary
+**Vet inspections at slaughter** — antemortem (live) + postmortem (carcass). Diseases identified, disposition decisions made.
+
+## Antemortem ⭐⭐
+### Procedures
+- ⭐ Visual exam in pens
+- ⭐ Detect: lameness, respiratory, neuro, fever
+- ⭐ Identify suspect animals
+
+### Disposition Decisions ⭐
+- ⭐ ⭐ **Pass to slaughter** (healthy)
+- ⭐ ⭐ **Hold for re-inspection** (mild)
+- ⭐ ⭐ **Suspect** (slaughter separately)
+- ⭐ ⭐ **Condemned** (don't slaughter)
+- ⭐ ⭐ **Emergency slaughter** (welfare)
+
+## Postmortem ⭐⭐⭐
+### Examination Order
+- ⭐ ⭐ Head + tongue
+- ⭐ Lungs + pleura
+- ⭐ Heart + pericardium
+- ⭐ Liver + diaphragm
+- ⭐ Spleen
+- ⭐ Kidneys
+- ⭐ GI tract
+- ⭐ Muscle
+- ⭐ Lymph nodes
+- ⭐ Carcass
+
+### Common Findings ⭐
+- ⭐ TB lesions (granulomas)
+- ⭐ Cysticercosis (tapeworm cysts)
+- ⭐ Liver abscesses
+- ⭐ Pneumonia
+- ⭐ Mastitis (udder)
+
+### Disposition ⭐⭐
+- ⭐ ⭐ Pass for human consumption
+- ⭐ Reduced grade (trim affected)
+- ⭐ Total condemnation
+- ⭐ Process for animal feed/rendering
+
+## 📋 Exam Recap
+1. ⭐ Antemortem + postmortem mandatory
+2. ⭐ 5 antemortem dispositions
+3. ⭐ Systematic postmortem order
+4. ⭐ TB granulomas common finding
+5. ⭐ Vet decision drives disposition`,
+  },
+  Lo3e262VMXE: {
+    videoId: 'Lo3e262VMXE', title: 'Milk-Meat — 15 Postmortem Changes & Meat Cutting/Grading', subject: 'milk-meat-hygiene',
+    date: '2025-11-19', durationMin: 139, instructor: 'CUVET food hygiene team',
+    examFormat: 'Multiple choice · ออก postmortem chemistry · rigor mortis · cutting · grading',
+    summary: `## 🎯 Lead Summary
+**Postmortem changes + Meat cutting/grading**. Rigor mortis, aging, primal cuts, grading systems.
+
+## Postmortem Phases ⭐⭐⭐
+| Phase | Time | Changes |
+|---|---|---|
+| ⭐ **Pre-rigor** | 0-1h | Glycolysis active |
+| ⭐ ⭐ **Rigor mortis** | 1-12h | Muscle stiff |
+| ⭐ **Resolution** | 12-24h | Tenderizing begins |
+| ⭐ **Aging** | days | Enzymatic tenderization |
+
+## Rigor Mortis ⭐⭐
+- ⭐ ATP depletion
+- ⭐ Actomyosin formation
+- ⭐ pH falls 7.2 → 5.5
+- ⭐ Muscle becomes firm
+
+## Aging Process ⭐⭐
+- ⭐ Cathepsin enzymes break down proteins
+- ⭐ Calpain enzymes
+- ⭐ Tenderization
+- ⭐ Flavor development
+- ⭐ 7-21 days standard for beef
+
+## Cutting ⭐
+### Primal Cuts (beef)
+- ⭐ Round
+- ⭐ Loin
+- ⭐ Rib
+- ⭐ Chuck
+- ⭐ Brisket
+- ⭐ Plate, flank
+
+## Grading ⭐⭐
+### USDA Beef
+- ⭐ Prime (best)
+- ⭐ Choice
+- ⭐ Select
+- ⭐ Standard
+- Lower grades
+
+### Factors
+- ⭐ Marbling
+- ⭐ Maturity
+- ⭐ Color
+- ⭐ Yield
+
+## Thai Standards ⭐
+- ⭐ TIS specifications
+- ⭐ Halal grading
+- ⭐ Export requirements
+
+## 📋 Exam Recap
+1. ⭐ Rigor mortis 1-12 hours
+2. ⭐ pH 7.2 → 5.5 normal
+3. ⭐ Aging 7-21 days for beef
+4. ⭐ Cathepsin + Calpain tenderize
+5. ⭐ USDA Prime/Choice/Select grading`,
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // food-industry (DekDokVet85 · Y5 sem 1) — 6 videos
+  // ═══════════════════════════════════════════════════════════════
+
+  '8rghO9wFZJ4': {
+    videoId: '8rghO9wFZJ4', title: 'Food Industry — 1.1 Introduction', subject: 'food-industry',
+    date: '2025-08-13', durationMin: 32, instructor: 'CUVET food industry team',
+    examFormat: 'Multiple choice · ออก Thai food industry · vet role',
+    summary: `## 🎯 Lead Summary
+**Thai food industry overview** — major export sector. Vet role in quality, safety, regulation.
+
+## Thai Food Industry ⭐⭐
+- ⭐ Major export sector ($30+ billion/year)
+- ⭐ Rice, sugar, processed foods
+- ⭐ Animal products: poultry, seafood, dairy
+- ⭐ World's "kitchen of the world"
+
+## Vet Roles ⭐
+- ⭐ Quality control
+- ⭐ Food safety
+- ⭐ Regulatory compliance
+- ⭐ R&D
+- ⭐ Production management
+
+## Key Regulations ⭐
+- ⭐ FDA Thailand
+- ⭐ DLD (livestock)
+- ⭐ DOF (fisheries)
+- ⭐ International trade requirements
+
+## 📋 Exam Recap
+1. ⭐ Major export sector
+2. ⭐ Multiple vet roles
+3. ⭐ Multiple regulatory bodies
+4. ⭐ International trade requirements`,
+  },
+  TlJLBRajUm4: {
+    videoId: 'TlJLBRajUm4', title: 'Food Industry — 1.2 พระราชบัญญัติการสาธารณสุข (Public Health Act)', subject: 'food-industry',
+    date: '2025-08-13', durationMin: 32, instructor: 'CUVET food industry team',
+    examFormat: 'Multiple choice · ออก พรบ. สาธารณสุข · food regulations',
+    summary: `## 🎯 Lead Summary
+**พรบ. การสาธารณสุข** — Public Health Act controlling food safety, hygiene, vendors.
+
+## Key Provisions ⭐⭐
+- ⭐ ⭐ Food vendor licensing
+- ⭐ ⭐ Hygiene standards
+- ⭐ Penalty system
+- ⭐ Local government enforcement
+- ⭐ Inspections
+
+## Areas Covered ⭐
+- ⭐ Food vendors (restaurants, street food)
+- ⭐ Markets
+- ⭐ Slaughterhouses (with DLD)
+- ⭐ Sanitation services
+
+## Vet Connection ⭐
+- ⭐ Animal-derived foods
+- ⭐ Zoonotic disease control
+- ⭐ Sanitary inspection support
+
+## 📋 Exam Recap
+1. ⭐ พรบ. สาธารณสุข
+2. ⭐ Vendor licensing required
+3. ⭐ Local government enforcement
+4. ⭐ Hygiene standards
+5. ⭐ Vet supports zoonotic control`,
+  },
+  '7owfQF79jwU': {
+    videoId: '7owfQF79jwU', title: 'Food Industry — 2 อุตสาหกรรมอาหารสัตว์และการควบคุมคุณภาพ', subject: 'food-industry',
+    date: '2025-08-20', durationMin: 87, instructor: 'CUVET food industry team',
+    examFormat: 'Multiple choice · ออก animal feed industry · quality control',
+    summary: `## 🎯 Lead Summary
+**Animal feed industry + quality control** — major Thai industry supporting livestock production.
+
+## Industry Overview ⭐
+- ⭐ Major suppliers: CP, Betagro, etc.
+- ⭐ Multi-billion baht industry
+- ⭐ Export + domestic
+
+## Feed Components ⭐
+- ⭐ Energy: corn, sorghum, cassava
+- ⭐ Protein: soybean, fish meal, MBM
+- ⭐ Vitamins, minerals
+- ⭐ Additives
+
+## Quality Control ⭐⭐
+- ⭐ ⭐ NIR (Near Infrared) analysis
+- ⭐ Mycotoxin testing
+- ⭐ Bacterial testing
+- ⭐ Heavy metals
+- ⭐ Antibiotic residues
+
+## Regulations ⭐
+- ⭐ DLD oversight
+- ⭐ Feed registration
+- ⭐ Manufacturing standards
+- ⭐ Labeling requirements
+
+## Issues ⭐
+- ⭐ Mycotoxin contamination
+- ⭐ Antibiotic in feed (banned/restricted)
+- ⭐ Cost fluctuations
+
+## 📋 Exam Recap
+1. ⭐ Major Thai industry
+2. ⭐ Multiple ingredient sources
+3. ⭐ NIR for quality
+4. ⭐ Mycotoxin major concern
+5. ⭐ Antibiotic restrictions`,
+  },
+  j44XnjxUPFI: {
+    videoId: 'j44XnjxUPFI', title: 'Food Industry — 3 การควบคุมกระบวนการฆ่าและจำหน่ายเนื้อสัตว์', subject: 'food-industry',
+    date: '2025-08-27', durationMin: 106, instructor: 'CUVET food industry team',
+    examFormat: 'Multiple choice · ออก slaughter regulations · meat distribution control',
+    summary: `## 🎯 Lead Summary
+**Slaughter + meat distribution control** in Thailand — DLD oversight, vet inspection.
+
+## Regulatory Framework ⭐⭐
+- ⭐ DLD (Department of Livestock Development) lead
+- ⭐ Slaughterhouse licensing
+- ⭐ Vet inspection mandatory
+- ⭐ Meat hygiene standards
+
+## Slaughter Categories ⭐
+- ⭐ Modern slaughterhouses (export grade)
+- ⭐ Local slaughterhouses
+- ⚠️ Illegal/unregistered (problem!)
+
+## Distribution ⭐
+- ⭐ Cold chain requirements
+- ⭐ Permit for transport
+- ⭐ Market regulations
+- ⭐ Retail standards
+
+## Vet Roles ⭐⭐
+- ⭐ Antemortem inspection
+- ⭐ Postmortem inspection
+- ⭐ Disposition decisions
+- ⭐ Documentation
+- ⭐ Public health protection
+
+## 📋 Exam Recap
+1. ⭐ DLD oversight
+2. ⭐ Vet inspection mandatory
+3. ⭐ Cold chain critical
+4. ⭐ Multiple slaughter categories
+5. ⭐ Public health protection role`,
+  },
+  CgGp2dEVgZg: {
+    videoId: 'CgGp2dEVgZg', title: 'Food Industry — 4 มาตรฐานสินค้าเกษตรและผลิตภัณฑ์จากปสุสัตว์', subject: 'food-industry',
+    date: '2025-09-03', durationMin: 90, instructor: 'CUVET food industry team',
+    examFormat: 'Multiple choice · ออก agricultural standards · livestock product standards',
+    summary: `## 🎯 Lead Summary
+**Agricultural + livestock product standards** in Thailand. Quality, safety, certification systems.
+
+## Standards Bodies ⭐⭐
+- ⭐ ⭐ TIS (Thai Industrial Standards)
+- ⭐ ⭐ MAS (Ministry of Agriculture Standards)
+- ⭐ Q Mark (Q ปลอดภัย)
+- ⭐ Organic certifications
+- ⭐ Halal standards
+
+## Product Categories ⭐
+- ⭐ Fresh meat
+- ⭐ Processed meat
+- ⭐ Dairy products
+- ⭐ Eggs
+- ⭐ Aquaculture products
+
+## International Standards ⭐
+- ⭐ Codex Alimentarius
+- ⭐ EU regulations
+- ⭐ US standards
+- ⭐ Trading partner requirements
+
+## Certification Process ⭐
+- ⭐ Application
+- ⭐ Audit/inspection
+- ⭐ Compliance verification
+- ⭐ Certification
+- ⭐ Renewal/surveillance
+
+## 📋 Exam Recap
+1. ⭐ Multiple Thai standards bodies
+2. ⭐ TIS = industrial standards
+3. ⭐ Q mark = safety
+4. ⭐ Halal certification
+5. ⭐ International compliance for export`,
+  },
+  QwFDzP3_w58: {
+    videoId: 'QwFDzP3_w58', title: 'Food Industry — 6 การควบคุมคุณภาพสัตว์น้ำและผลิตภัณฑ์สัตว์น้ำ', subject: 'food-industry',
+    date: '2025-10-29', durationMin: 61, instructor: 'CUVET food industry team',
+    examFormat: 'Multiple choice · ออก aquatic product quality control · DOF',
+    summary: `## 🎯 Lead Summary
+**Aquatic product quality control** — DOF oversight. Major export industry (shrimp, tilapia, ornamental).
+
+## Regulatory Framework ⭐⭐
+- ⭐ ⭐ DOF (Department of Fisheries) lead
+- ⭐ Aquaculture certification (GAP)
+- ⭐ Processing standards
+- ⭐ Export requirements
+
+## Quality Control Points ⭐
+- ⭐ ⭐ Farm level (drug residue, pathogens)
+- ⭐ ⭐ Processing (HACCP)
+- ⭐ ⭐ Cold chain
+- ⭐ ⭐ Final product testing
+
+## Major Concerns ⭐⭐
+- ⭐ Antibiotic residues (chloramphenicol banned!)
+- ⭐ Heavy metals
+- ⭐ Pathogenic bacteria
+- ⭐ Mycotoxins (in feed)
+
+## Trade ⭐
+- ⭐ EU certification rigorous
+- ⭐ Japan standards
+- ⭐ US FDA requirements
+- ⭐ Country-specific testing
+
+## 📋 Exam Recap
+1. ⭐ DOF lead authority
+2. ⭐ GAP certification
+3. ⭐ Chloramphenicol banned
+4. ⭐ Heavy metals concern
+5. ⭐ International trade compliance`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
