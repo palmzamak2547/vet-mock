@@ -20688,6 +20688,441 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > 💊 Genetic counseling: ถ้าหมาเป็น CHD → **ไม่ควรเอามา breed!**`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 9.3 Patellar Luxation (MPL/LPL) (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  CIUpw8GNtQ4: {
+    videoId: 'CIUpw8GNtQ4',
+    title: '9.3. Patellar Luxation (MPL/LPL)',
+    subject: 'com2',
+    date: '16 Oct 67 (รุ่นพี่)',
+    durationMin: 127,
+    instructor: 'อ. (รุ่นพี่ — ปกติสอน 3 ชม. รวบ 2 ชม.)',
+    examFormat: 'MCQ — extensor mechanism · MPL > LPL · 4 grades · varus + external torsion · 6 surgical methods · concurrent CCL rupture (10-40%) ออกบ่อย',
+    summary: `# Patellar Luxation (MPL / LPL)
+
+> 🎯 บทยาวสุด 127 นาที (น้อยกว่า com1 video 3 แต่เป็น 2nd longest com2)
+> ⚠️ **#1 ortho disease in small breed dogs** — Pomeranian, Chihuahua, Yorkie, Pug...
+> Top exam: **Extensor mechanism · MPL = 95% in small dogs · 4 grades · Trochleoplasty types · CCL co-occurrence**
+
+---
+
+## 1. Stifle Joint Anatomy ⭐⭐ (Recap)
+
+### 1.1 Extensor Mechanism ⭐⭐⭐ (KEY!)
+**4 muscles ของ Quadriceps femoris**:
+| Muscle | Origin | Function |
+|---|---|---|
+| **Vastus lateralis** | Proximal femur (lateral) | Extend stifle |
+| **Vastus medialis** | Proximal femur (medial) | Extend stifle |
+| **Vastus intermedius** | Proximal femur (cranial) | Extend stifle |
+| **Rectus femoris** ⭐ | **Acetabular rim** (NOT femur!) | Extend stifle + flex hip |
+
+→ All converge into **Quadriceps tendon** → **Patella** (sesamoid) → **Patellar ligament** → **Tibial tuberosity**
+
+### 1.2 Joint Stabilizers
+- **Cranial cruciate ligament (CCL)** — prevents tibia from moving cranial
+- **Caudal cruciate ligament** — prevents caudal movement
+- **Medial + Lateral collateral ligament** — prevents varus/valgus
+- **Medial + Lateral menisci** — shock absorption
+- **Patella + femoral trochlear sulcus** — extensor articulation
+
+### 1.3 Patellofemoral Articulation
+- **Patella** = largest sesamoid bone in body
+- **Trochlear groove (sulcus)** with **medial + lateral trochlear ridges**
+- Patella moves up-down within groove during flex/extend
+
+---
+
+## 2. Definition + Classification ⭐⭐⭐
+
+### 2.1 Direction
+| Type | Direction | Frequency |
+|---|---|---|
+| **MPL (Medial Patellar Luxation)** ⭐⭐⭐ | Inward | **95% in small breeds** · 60% in large breeds |
+| **LPL (Lateral Patellar Luxation)** | Outward | More common in large breeds |
+| **Bidirectional / Bilateral** | Both ways | Rare · complex |
+
+### 2.2 4 Grades ⭐⭐⭐ (จำให้แม่น!)
+
+| Grade | Behavior | Manipulation |
+|---|---|---|
+| **Grade 1** | Patella in groove · won't luxate during normal activity | Need induced (push) to luxate · self-reduces |
+| **Grade 2** | Luxates intermittently (during activity) | Easy to push out · self-reduces |
+| **Grade 3** ⭐ | **Permanent luxation** but **manually reducible** | Patella outside groove always · can push back |
+| **Grade 4** ⭐ | **Permanent luxation** + **NOT reducible** | Locked outside · fibrous tissue holds |
+
+⭐ **Grade 1 = no clinical signs typically** · Grade 2-3 = skipping · Grade 4 = "praying position" gait
+
+---
+
+## 3. Predisposing Breeds ⭐⭐⭐
+
+### 3.1 Small Breeds (95% MPL!) ⭐
+| Top breeds |
+|---|
+| **Pomeranian** ⭐ |
+| **Chihuahua** ⭐ |
+| **Yorkshire Terrier** |
+| **Poodle (Toy/Miniature)** |
+| **Shih Tzu** |
+| **Pug** |
+| **West Highland White Terrier** |
+
+### 3.2 Large Breeds (LPL more common)
+- **Bangkaew (Thai)**
+- Akita
+- Siberian Husky
+- Saint Bernard
+
+---
+
+## 4. Etiology
+
+| Cause | Detail |
+|---|---|
+| **Developmental** ⭐ (most common) | Onset puppyhood (2-12 months) · grows into deformity |
+| **Congenital** | Born luxated (rare) |
+| **Traumatic** | CCL rupture · acute injury (rare) |
+
+---
+
+## 5. Pathogenesis ⭐⭐⭐ (KEY!)
+
+### 5.1 Cycle Pattern (similar to CHD!)
+> **Soft tissue origin → bone deformity** (NOT vice versa!)
+
+### 5.2 MPL Sequence
+1. Joint capsule + medial ligaments **weak/lax**
+2. Patella shifts **medially**
+3. Quadriceps pulls patella + tibia **inward**
+4. **Femoral varus** develops (medial deviation distal femur)
+5. **External torsion of femur** (compensatory)
+6. **Tibial tuberosity** shifts medially
+7. **External torsion of tibia** (extreme cases)
+8. **Tibial varus** + foot deformities (cow-hocked)
+9. Trochlear groove **doesn't develop deep** (no patellar stress to groove)
+
+⭐ **Net result**: "Bow-legged" appearance with knees pointing inward, feet pointing outward in severe MPL
+
+### 5.3 Trochlear Groove Pathology ⭐
+| Severity | Groove |
+|---|---|
+| **Mild** | Shallow but present |
+| **Moderate** | Flat |
+| **Severe** | **Convex** (hypoplastic ridge) — opposite of normal! |
+
+### 5.4 Concurrent CCL Rupture ⭐⭐⭐
+- **10-40% of MPL dogs have concurrent CCL rupture**!
+- **Why**: 3 factors:
+  1. Extensor mechanism shifted medially → tibial **internal rotation** stress on CCL
+  2. **OA inflammatory cytokines** weaken CCL
+  3. **Quadriceps atrophy** → joint instability → CCL stress
+
+⚠️ **Always check for CCL in older MPL dogs!**
+
+---
+
+## 6. Clinical Signs ⭐⭐⭐
+
+| Sign | Detail |
+|---|---|
+| **Skipping gait** ⭐ | กระโดดสั้นๆ · ขาลอย-วาง สลับกัน · MPL Grade 2 typical |
+| **Bunny hopping** | Both hindlimbs jump together |
+| **"Cowhock" stance** | LPL — แมวน้ำ position · ขาแบะ |
+| **Praying position** ⭐ | MPL Grade 4 — เดินย่อขา (extension impossible) |
+| **Lameness** | Variable · intermittent or persistent |
+| **Reluctance to exercise** | Pain |
+| **Quadriceps atrophy** | Chronic disuse |
+| **Limb shortening** | When measuring 2 legs together |
+
+⚠️ **Asymptomatic Bilateral MPL Grade 2 is common** — dogs run normally!
+
+---
+
+## 7. Physical Exam — Key Tests ⭐⭐
+
+### 7.1 Patellar Glide Test
+- Stifle in extension
+- Push patella medially → does it luxate?
+- Push laterally → does it luxate?
+
+### 7.2 Reduction Test
+- After luxation, does it pop back **spontaneously**? (Grade 1-2)
+- Or only with **manual push**? (Grade 3)
+- Or **NOT at all**? (Grade 4)
+
+### 7.3 Trochlear Test
+- Palpate trochlear ridges → "click" felt during flex/extend
+- Can detect groove abnormality through skin in some cases
+
+---
+
+## 8. Imaging ⭐⭐⭐
+
+### 8.1 X-ray Views
+1. **VD (frontal/cranio-caudal)** — assess limb alignment + tibial torsion
+2. **Lateral** — assess patellar position + height
+3. **Skyline view** — direct visualization of trochlear groove cross-section ⭐
+
+### 8.2 True VD Criteria ⭐
+- Femurs **parallel + perpendicular** to floor
+- Pelvis **symmetric**
+- Both **fabellae visible** (patella height markers)
+- Trochlear groove visible
+
+### 8.3 CT Scan ⭐
+**Indications**:
+- Severe deformity (Grade 3-4)
+- Pre-op planning for osteotomy
+- Bilateral assessment
+
+---
+
+## 9. Bone Angle Measurements ⭐⭐⭐ (สำคัญ!)
+
+### 9.1 Anatomical vs Mechanical AIS
+| Type | When to use |
+|---|---|
+| **Anatomical AIS** (mid-bone landmark) | Straight bones (femur usually) |
+| **Mechanical AIS** (proximal-distal joint center) | Curved bones (tibia + deformed femur) |
+
+⭐ **Anatomical AIS** = midpoint at **33% and 50%** of bone length
+
+### 9.2 Naming Convention (4-letter code) ⭐⭐⭐
+| Letter | Meaning |
+|---|---|
+| **m** = mechanical OR **a** = anatomical | AIS type |
+| **L** = lateral OR **M** = medial | Side of measurement |
+| **P** = proximal OR **D** = distal | Position |
+| **F** = femur OR **T** = tibia | Bone |
+| **A** = Angle | Always |
+
+**Examples**:
+- **mLDFA** = mechanical Lateral Distal Femoral Angle (~95° normal · key for MPL!)
+- **mMPTA** = mechanical Medial Proximal Tibial Angle
+- **mMDTA** = mechanical Medial Distal Tibial Angle
+
+### 9.3 Femoral Anteversion Angle ⭐
+- Normal: **~27°** (range 12-36°)
+- **Increased** = excessive femoral antetorsion = MPL risk
+
+### 9.4 Patella Alta vs Baja ⭐⭐
+**Reach (Reichelt) Index** = Patellar tendon length / Patella length
+- **Normal**: 1.9-2.06
+- **Patella Alta** (high-riding): Index > 2.06 → **MPL recurrence risk!**
+- **Patella Baja**: low-riding · less common
+
+---
+
+## 10. Surgical Treatment ⭐⭐⭐ (6 Categories!)
+
+### 10.1 Goal
+1. **Re-alignment** of extensor mechanism
+2. **Stabilization** of patella in trochlea
+3. **Restore function** without luxation
+
+---
+
+### 10.2 Soft Tissue Procedures
+
+#### 10.2.1 Medial Desmotomy ⭐
+- **Cut/release** medial joint capsule (medial release)
+- Required when patella stuck medially → can't reduce
+
+#### 10.2.2 Lateral Imbrication
+- **Tighten** lateral joint capsule by overlapping suture (mattress pattern)
+- Pulls patella toward lateral → centers it
+
+#### 10.2.3 Sartorius Tenotomy
+- **Cut sartorius muscle insertion** at medial side
+- Reduces medial pull on extensor mechanism
+
+#### 10.2.4 Rectus Femoris Release ⭐
+- **Modify origin** of rectus femoris from acetabular rim
+- For "bow-conformation" breeds (Pekingese, Bulldog)
+
+#### 10.2.5 Modified Fascia Lata Transplantation
+- **Slide fascia lata** from lateral to medial
+- Closes joint capsule defect after large medial release
+
+#### 10.2.6 Anti-Rotational Sutures ⭐
+| Type | Detail |
+|---|---|
+| **Patella Anti-rotational suture** | Loop around lateral fabella + over patella · pulls it laterally |
+| **Tibial Anti-rotational suture** | Lateral fabella → tibial tuberosity · prevents internal rotation |
+
+⚠️ **Best in puppies < 1 year** (sutures can guide bone growth)
+
+---
+
+### 10.3 Bone Procedures (Trochleoplasty) ⭐⭐⭐
+
+#### 10.3.1 Trochlear Chondroplasty (1969 - OUTDATED!) ❌
+- Scrape away articular cartilage + subchondral bone
+- ⚠️ **Causes severe OA** — heals as fibrocartilage (poor!)
+
+#### 10.3.2 Trochlear Wedge Resection ⭐
+- Cut **wedge-shaped piece** of trochlea (V-shape)
+- Remove some base cartilage
+- Replace wedge → groove deeper
+- ⭐ **Preserves articular cartilage**
+
+#### 10.3.3 Trochlear Block Resection ⭐
+- Cut **rectangular block** (wider area)
+- Wider groove than wedge
+- ⭐ **Standard technique** today
+
+#### 10.3.4 Modified Trochleoplasty (Flap Technique) ⭐
+- Cut **3 sides** only (not 4)
+- Lift cartilage as **flap**
+- Scrape bone underneath
+- Replace flap
+- ⚠️ Only works in **young dogs < 6 months** (flexible cartilage)
+
+#### 10.3.5 Asymmetric Wedge Trochleoplasty (2013) ⭐
+- Cut **asymmetric wedge** (one side acute, other obtuse)
+- **Rotate 180°** → creates new ridge
+- Use K-wire to stabilize
+- ⭐ Newer modification
+
+#### 10.3.6 Patellar Groove Replacement (PGR)
+- **Titanium prosthesis** replaces trochlea
+- Salvage procedure for failed surgeries
+- Last resort
+
+---
+
+### 10.4 Realignment Procedures
+
+#### 10.4.1 Tibial Tuberosity Transposition (TTT) ⭐⭐⭐
+- **Cut tibial tuberosity** with osteotome
+- **Move it laterally** (for MPL)
+- **Stabilize with 2 K-wires** (or tension band wire if needed)
+
+⭐ **Why 2 pins?**
+- 1 pin → bone can rotate around pin
+- 2 pins → **anti-rotation** lock
+
+⚠️ Pin direction: **upward parallel to bone axis** (resists quadriceps pull · NOT downward!)
+
+#### 10.4.2 Distal Femoral Osteotomy (dFO) ⭐⭐⭐ (KEY for severe!)
+
+**Indication**: Severe femoral varus deformity (mLDFA significantly off from breed-specific normal)
+
+**Technique**:
+1. Measure mLDFA on X-ray (normal ~95° in many breeds)
+2. Calculate correction angle needed
+3. **Cut wedge of bone** (lateral side, base outward)
+4. Remove wedge → close osteotomy → straightens bone
+5. **Plate fixation** with 2-screw plates per fragment
+
+⭐ Must use **breed-specific normal mLDFA** values
+
+#### 10.4.3 Distal Tibial Osteotomy
+- Same concept, for tibial varus deformity
+
+---
+
+### 10.5 Other Modalities
+
+#### 10.5.1 Ridge Stop ⭐
+- **Polyethylene implant** to elevate trochlear ridge
+- For cases with hypoplastic single ridge
+- Used in cats with large patella
+
+#### 10.5.2 Patellar Plasty (Lateral Patellar Cut)
+- Trim **lateral edge** of patella
+- For overly wide patella in deep groove
+- Last resort
+
+---
+
+## 11. Procedure Selection ⭐⭐⭐
+
+| Scenario | Recommended |
+|---|---|
+| Grade 1-2 + young + soft tissue origin | **Soft tissue procedures only** (TTT + Anti-rotational sutures) |
+| Grade 2-3 + shallow groove | **Trochleoplasty + TTT** + soft tissue |
+| Grade 3-4 + bone deformity | **Add dFO ± Tibial osteotomy** (combined) |
+| Failed surgery / End-stage | **PGR or arthrodesis** |
+
+---
+
+## 12. Complications ⭐⭐
+
+| Type | Rate | Examples |
+|---|---|---|
+| **Overall complications** | 18-43% | Swelling · seroma · wound dehiscence |
+| **Major complications** | 13-24% | Re-luxation · pin failure · implant failure |
+| **Recurrent MPL** ⭐ | **6-20%** | Repeated luxation requiring 2nd surgery |
+
+### Risk Factors for Complications
+- **Larger dogs** ⭐
+- **Higher grade** (3-4)
+- **Obesity**
+- **Failure to address bony deformity** (relying on soft tissue alone)
+
+---
+
+## 13. Post-op Management ⭐
+
+| Action | Timing |
+|---|---|
+| **Pain control** | Multimodal · NSAIDs + opioids |
+| **Cold packing** | First 3 days (bvomotsing) |
+| **Joint mobilization** | Early — **prevent ankylosis** |
+| **Confine** (cage rest) | 4-6 weeks |
+| **Restrict jumping** | Long-term |
+| **Rehab** | Hydrotherapy · TENS · LASER (covered in 15.3) |
+| **Re-luxation appears** | Within 1-2 weeks usually (early problem!) |
+
+---
+
+## 14. Conservative Treatment
+
+**Indication**: Grade 1, asymptomatic, owner declines surgery, very old dog with comorbidities
+
+**Plan**:
+- Pain control as needed
+- Weight management
+- Activity modification (no jumping)
+- Monitor progression
+
+⚠️ Bone deformity progresses without surgical intervention
+
+---
+
+## 📝 EXAM RECAP — 22 Key Points
+
+1. **Extensor mechanism** = quadriceps + patella + patellar tendon + tibial tuberosity
+2. **Rectus femoris** ≠ other 3 vasti — originates from **acetabular rim** (not femur!)
+3. **MPL = 95% in small breeds** ⭐ · LPL more common in large breeds
+4. **Predisposing**: Pomeranian · Chihuahua · Yorkie · Pug · Poodle · Shih Tzu · Westy
+5. **4 Grades**: 1 (induced only) · 2 (intermittent) · 3 (permanent reducible) · 4 (permanent irreducible)
+6. **Pathogenesis**: soft tissue → bone (femoral varus + external torsion + tibial tuberosity shift)
+7. **Trochlear groove pathology**: shallow → flat → **convex** in severe cases
+8. **CCL rupture co-occurs in 10-40% of MPL** ⭐ — always check older MPL dogs
+9. **Skipping gait** = MPL Grade 2 typical
+10. **"Praying position"** = MPL Grade 4 (extension impossible)
+11. **Bone angle conventions**: m/aLDFA, mMPTA, mMDTA — letter codes for measurement
+12. **mLDFA normal ~95°** (breed-specific) · key for dFO planning
+13. **Patella Alta** (Reichelt > 2.06) = MPL recurrence risk
+14. **Anti-rotational sutures** = best in **puppies < 1 yr** ⭐
+15. **Trochleoplasty types**: Chondroplasty (outdated) · Wedge · Block (standard) · Flap · Asymmetric
+16. **Block trochleoplasty** = current standard ⭐
+17. **TTT** with **2 K-wires** for anti-rotation · upward direction
+18. **dFO** for severe femoral varus → wedge osteotomy + plate
+19. **PGR (Patellar Groove Replacement)** = salvage with titanium implant
+20. **Concurrent disease**: always check Hip Dysplasia, LCP, CCL in MPL cases
+21. **Complications**: 18-43% overall · 13-24% major · 6-20% recurrent
+22. **Re-luxation appears within 1-2 weeks** post-op typically
+
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.1 LCP (Spz38qa5upU) · 9.2 Hip Dysplasia (hIlH1i845wI) · 11 Common Joint (MMTtwT_7c94) · 12 Cruciate (9U-Dgu0ouUk) · 15.3 Rehab (zj4go8swIgM)
+> 📺 Supplementary clips: 9.3.1-9.3.5 (Normal articulation, MPL/LPL, Femoral torsion, Distal femoral osteotomy I-II)
+> 💊 **Practice tip**: เด็กๆ มี MPL Grade 1-2 → ผ่าตัดเร็วป้องกัน bone deformity progression`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
