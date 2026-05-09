@@ -45081,6 +45081,315 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 📊 **Herd target**: <5% locomotion score 3+ = healthy farm`,
   },
 
+  U55DYTp0ORA: {
+    videoId: 'U55DYTp0ORA',
+    title: 'Practitioner Skills Summary (สรุปทักษะที่จำเป็นในการทำงานเป็น Practitioner)',
+    subject: 'herd-health-rum',
+    date: '2024-11-27',
+    durationMin: 114,
+    instructor: 'อ.ธนศักดิ์ + อาจารย์อื่น (สรุปวิชา · Virtual Farm Saraburi tour · Year 5-6 preview)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง 10-history checklist · clinical examination · drug routes · diagnostic approach · ภาพรวมงาน practitioner',
+    summary: `## 🎯 Lead Summary
+**Final lecture summary** of this herd-health-rum course. ⭐ **Practitioner skills** > disease knowledge alone! Covers: Virtual Farm tour at Saraburi research center · ⭐ **10-point History Checklist** for cattle (specific to dairy practice) · ⭐ **Clinical examination flow** (history → physical → diagnostics) · ⭐ **Drug administration routes** unique to cattle (intramammary, intrauterine) · ⭐ **Diagnostic approach** by syndrome. Goal: prepare students for **Year 5/6 fieldwork** + future practice. Key insight: ⭐ **80% of vet work is preventive/management, not treating sick animals**.
+
+## 1️⃣ Course Overview & Final Lecture Goals ⭐
+
+### Why This Final Lecture
+- Course covered **diseases primarily** (13 lectures)
+- ⭐ **Real practice = much more than diseases**
+- Need: ⭐ **Skills + Understanding + Communication**
+- ⭐ Preview Year 5/6 + practice prep
+- Some via **Virtual Farm tour** (CUVET Saraburi research center)
+
+### Course Structure Reflection
+1. EBL/MCF/Rinderpest/BEF
+2. Respiratory disease BRD
+3. FMD + LSD
+4. TB + ParaTB
+5. Brucellosis + HS + Lepto
+6. GI Parasites
+7. Mastitis
+8. Anthrax + Clostridium
+9. Nutritional disorders
+10. Recording/data analytics
+11. Reproductive index
+12. Lameness
+13. ⭐ **THIS: Practitioner skills summary**
+
+## 2️⃣ Virtual Farm Tour (Saraburi Research Center) ⭐⭐
+
+### Site Layout
+- **Front area**: office, biosecurity station
+- **Milking parlor** (1 side)
+- **Feed bunker** (other side)
+- **Cow housing**: divided into adult cows + replacements
+- **Heat reduction**: misters + fans (Aj. Sirivat's expertise)
+- **Auto cleaning system**: scraper drains slurry every 4-6 hours
+- **TMR feed mixer**: red wagon delivers feed automatically
+
+### Biosecurity Demo ⭐⭐
+- ⭐ Boots changes for visitors
+- ⭐ **Disinfection station** at entry
+- ⭐ Targeted at: ⭐ ⭐ **Vet = biggest disease vector** (clothes, hair, phone, shoes)
+- Communication style for farmers (less technical, "ภาษาเกษตรกร")
+
+### Mobile Clinic Concept
+- Vet drives between farms
+- Must adapt biosecurity to each farm's standards
+- Bare minimum: clean boots + disinfectant for shared boots
+
+## 3️⃣ ⭐⭐⭐ 10-Point History Checklist (Cattle-Specific!)
+
+### Why Cattle History is Unique
+- ⭐ Plus farm-level data (NOT just patient-level)
+- Population context affects diagnosis
+- Management info crucial for diagnosis + control
+
+### The 10 Items ⭐⭐⭐
+| # | Item | Why important |
+|---|---|---|
+| ⭐ **1** | New Case or Follow-up | Avoid duplicate work |
+| ⭐ **2** | Cow group: Milking · Dry · Heifer | Different physiology, different DDx |
+| ⭐ **3** | DIM (Days In Milk) for milking cows | Lactation stage = key context |
+| ⭐ **4** | Pregnant? + Trimester (if yes) | Avoids drugs that abort |
+| ⭐ **5** | AI date + service number | Reproductive context |
+| ⭐ **6** | Lactation Number | Older = different disease pattern |
+| ⭐ **7** | Feed: Number of meals + Quantity + Type | Most metabolic problems are feed-related! |
+| ⭐ **8** | (Calves) Age + birth date + colostrum history | Maternal IgG status critical |
+| ⭐ **9** | Individual or Herd problem? | Treatment scale changes |
+| ⭐ **10** | Vaccine history (FMD + LSD routine; others) | Rules out vaccine-preventable |
+
+### How To Use This
+- ⭐ Ask BEFORE physical exam
+- Some items volunteered by owner; others need explicit asking
+- Build into routine farm visit SOP
+
+## 4️⃣ Clinical Examination Flow ⭐⭐
+
+### Definition
+- ⭐ Clinical examination = **History + Physical examination**
+- Don't conflate with "physical examination" alone
+- Physical = subset of clinical
+
+### 2 Reference Books
+1. ⭐ **"Clinical Examination of Farm Animal"**
+2. ⭐ **"Diseases of Dairy Cattle"** (digital + library)
+
+### Physical Examination Order
+1. **General observation** (BCS, posture, eye, skin)
+2. **TPR**: Temperature, Pulse, Respiration
+3. **Thorax + abdomen** (auscultation)
+4. **Specific organs** (per concern)
+5. **Mammary gland** (in dairy)
+6. **Reproductive tract** (if reproductive concern)
+7. **Locomotion + hooves**
+8. **Lab samples** (blood, milk, urine, feces)
+
+### Communication Note ⭐
+- ⭐ **Use simple, non-technical language** with farmers
+- Watch for "nodding pretend understanding" syndrome
+- ⭐ Build trust through clarity
+
+## 5️⃣ Drug Administration Routes (Cattle-Specific!) ⭐⭐
+
+### Common Routes
+| Route | Use | Notes |
+|---|---|---|
+| **IV** | Emergency, fluid, hypocalcemia | Jugular common · slow infusion |
+| **IM** | Long-acting antibiotics | Deep IM (1.5" needle!) |
+| **SC** | Long-acting, less reactive | Behind shoulder |
+| ⭐ **Intramammary** | Mastitis treatment | Specific dairy route! |
+| ⭐ **Intrauterine** | Endometritis, retained placenta | Specific dairy route! |
+| **PO** | Oral drugs, propylene glycol | Drench gun |
+| **Topical** | Skin lesions, foot baths | CuSO4, etc. |
+
+### Withdrawal Times ⭐
+- ⭐ ⭐ **CRITICAL**: each drug has milk + meat withdrawal time
+- ⚠️ Penalty: 20× milk price + vet liability
+- ⭐ Always check label before injection
+- ⚠️ Extra-label use = vet's personal responsibility
+
+### Practical Tips
+- ⭐ Always **alcohol-swab** before injection (Clostridium prevention!)
+- ⭐ Use **right needle size** (deep IM = 1.5" min)
+- ⭐ Avoid manure-stained skin areas
+
+## 6️⃣ Diagnostic Approach by Syndrome ⭐⭐
+
+### Common Cattle Syndromes
+| Syndrome | First DDx | Action |
+|---|---|---|
+| ⭐ **Sudden death** | Anthrax (don't open!) → HS → Botulism | Investigate before necropsy |
+| ⭐ **Acute lameness** | Footrot · BEF | Trim + inspect |
+| ⭐ **Down cow** | Milk fever · BEF · Botulism | Calcium first if periparturient |
+| ⭐ **Abortion storm** | Brucellosis · Lepto Hardjo | MRT + serology |
+| ⭐ **Bloody diarrhea + calf** | C. perfringens | Penicillin |
+| ⭐ **Pea-soup diarrhea + adult** | Johne's disease | Cull suggestion |
+| ⭐ **Fever + nasal discharge + drop in milk** | BRD complex · MCF · FMD | Multi-DDx workup |
+| ⭐ **Clinical mastitis** | Bacterial · Lepto Hardjo (atypical) | Strip cup + culture |
+
+### Lab Tests Hierarchy
+1. ⭐ **Hematology + biochemistry** (basic)
+2. **Microbiology** (culture, PCR)
+3. **Serology** (ELISA, MAT, MRT)
+4. **Histopathology** (necropsy/biopsy)
+5. **Imaging** (ultrasound, X-ray)
+
+### When to Refer/Consult
+- ⭐ Beyond your skill level
+- Unknown disease
+- ⭐ ⚠️ Anthrax suspicion (DON'T open!)
+- Outbreak investigation
+
+## 7️⃣ Reproductive Veterinarian Skills ⭐
+
+### Core Reproductive Tasks
+1. ⭐ **Estrus detection** (AI timing)
+2. ⭐ **Pregnancy diagnosis** (rectal palpation, ultrasound)
+3. ⭐ **Postpartum check** (uterine involution)
+4. **Treatment of repro issues** (cystic ovaries, endometritis, retained placenta)
+5. ⭐ **AI/embryo transfer** (advanced)
+6. **Cull-keep decisions**
+
+### Year 5-6 Skill Targets
+- Master rectal palpation
+- Field ultrasound interpretation
+- KPI dashboard usage
+- Sensor data interpretation
+
+## 8️⃣ Modern Technologies in Practice ⭐⭐
+
+### "Precision Dairy Farming" Concept ⭐
+**Definition**: Using sensors + data to monitor individual cow health/production
+
+### Available Sensors at Saraburi
+| Sensor | Function |
+|---|---|
+| ⭐ **Activity collar** | Step count → estrus + sickness detection |
+| ⭐ **Rumination sensor** | Cud chewing minutes (welfare indicator) |
+| **Temperature sensor** | Body temp · sickness + heat stress |
+| ⭐ **Auto-weighing system** | Weight on parlor entry/exit |
+| **Auto-detach milking** | Auto-detect milk flow drop, releases unit |
+| **Real-time milk meter** | Per-cow yield + composition |
+| **TMR load cell** | Feed delivered per pen |
+
+### Software Integration
+- ⭐ All data → cloud → mobile app
+- AI alerts for: heat, fever, lameness onset, calving prediction
+- ⭐ **Vet uses dashboard** to triage which cows to visit
+- Replaces guesswork with data
+
+## 9️⃣ Real-World Practice Reality Check ⭐⭐
+
+### What Vets Actually Do (Time Distribution)
+- ⭐ **80% Prevention/management** (rounds, programs, training, records)
+- **20% Treatment** of sick animals
+
+### Skills Beyond Disease Knowledge ⭐
+1. ⭐ **Communication** (with farmers, workers, owners)
+2. ⭐ **Economic analysis** (cost-benefit of interventions)
+3. ⭐ **Records management** (data → decisions)
+4. ⭐ **Team coordination** (with other vets, technicians)
+5. ⭐ **Diplomatic skills** (cultural sensitivities, family hierarchy)
+6. ⭐ **Adaptability** (small farm vs large farm vs cooperative)
+
+### Challenge: Different Farm Types
+| Farm Type | Approach |
+|---|---|
+| ⭐ **Small holder (<20 cows)** | Single owner · personal relationship · simpler tools |
+| **Medium (20-100)** | Family + workers · mid-tech · written records |
+| ⭐ **Large (>100 cows)** | Manager + workers · high-tech · KPI dashboards |
+| **Cooperative** | Multiple farms · shared services · group purchasing |
+
+## 1️⃣0️⃣ Year 5-6 Preview ⭐
+
+### Year 5: Practical Externship
+- ⭐ Hands-on at Saraburi research center
+- 2-week intensive training
+- Skills check: AI, palpation, drug admin, hoof trimming
+- Real cow handling
+- ⭐ Don't skip class — limited cow access!
+
+### Year 6: Specialization Module
+- ⭐ Choose track: Food Animal · Small Animal · Equine · Mixed
+- Few students per group (deep focus)
+- Project-based
+- Field placement
+
+## 1️⃣1️⃣ Career Paths in Cattle Practice ⭐
+
+### Job Options
+1. ⭐ **Mobile clinic** (private practice, multiple farms)
+2. **Cooperative vet** (employed by Coop)
+3. **Government** (DLD: regulation, surveillance)
+4. **University/Research** (academic + research)
+5. **Industry** (drug company, equipment, semen)
+6. ⭐ **Farm-employed** (large farms hire dedicated vets)
+7. **Consulting** (advisor to multiple farms)
+
+### Income Potential ⭐
+- ⭐ Saraburi area cattle vets: 50,000-100,000+ baht/month
+- Land prices ~1 million baht/rai (modest farms = 200-300 rai owners!)
+- ⭐ Owners often wealthy + humble lifestyle
+- ⭐ ⚠️ **Vet shortage** in cattle = high opportunity
+
+## 1️⃣2️⃣ Final Reminders for Future Practitioners ⭐
+
+### What to Remember
+1. ⭐ ⭐ **Use 10-point history every visit** (build muscle memory!)
+2. ⭐ **Communication > technical knowledge** (with farmers)
+3. ⭐ **Withdrawal times** = vet's personal liability
+4. ⭐ **Biosecurity = vet protects herd + self**
+5. ⭐ **Records → data → decisions** (move beyond gut feeling)
+6. ⭐ **80% prevention, 20% treatment** (mind frame shift)
+7. ⭐ **Yes you can quantify ROI** (2 million baht/year case study)
+
+### Common Mistakes to Avoid
+- ⚠️ Not asking lactation status
+- ⚠️ Forgetting pregnancy in drug selection
+- ⚠️ Skipping withdrawal time check
+- ⚠️ Talking too technical to farmers
+- ⚠️ Not following biosecurity protocols
+- ⚠️ Treating individuals when herd-level intervention needed
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### Practitioner Mindset (1-3)
+1. ⭐ **Vet work = 80% prevention + 20% treatment**
+2. ⭐ **Skills > disease knowledge** for real practice
+3. ⭐ **Communication critical** (use farmer-friendly language!)
+
+### History Taking (4-7)
+4. ⭐ **10-point cattle history checklist** (mandatory!)
+5. ⭐ **Cow group + DIM + lactation #** sets context
+6. ⭐ **Pregnancy + AI history** affects drug choice
+7. ⭐ **Feed history + 7-day window** for metabolic DDx
+
+### Clinical Examination (8-10)
+8. ⭐ **Clinical exam = History + Physical**
+9. ⭐ **TPR + general observation first**
+10. ⭐ **Mammary + reproductive + locomotion** = dairy-specific
+
+### Drug Routes (11)
+11. ⭐ **Intramammary + Intrauterine** unique to cattle · Withdrawal time always check!
+
+### Modern Practice (12-14)
+12. ⭐ **Precision Dairy Farming** = sensors + data + AI
+13. ⭐ **Activity collar** = main multi-purpose sensor
+14. ⭐ **80% real value** in keeping cows healthy (preventive)
+
+### Career (15)
+15. ⭐ **Cattle vet shortage** = high opportunity · 50K-100K+ baht/month potential
+
+> 📚 **Cross-refs**: ALL previous lectures · This is the meta-summary
+> 🩺 **Year 5/6 prep**: Master 10-point history · Practice palpation · Read both reference books
+> 💉 **Drug rule**: ALWAYS check withdrawal time · ALWAYS swab with alcohol
+> 🎯 **Career insight**: Be the **vet who can quantify ROI** = stand out!
+> 📊 **Tools to master**: Hoof knife · Stethoscope · Strip cup · CMT paddle · Hoof tester · Palpation glove · Sensor app
+> 🌟 **Final wisdom**: "Don't be a disease specialist — be a HERD HEALTH PARTNER for your farms"
+> 🎓 **Course complete!** herd-health-rum done · ready for Year 5 fieldwork`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
