@@ -17102,6 +17102,453 @@ When anastomosing **smaller bowel to larger bowel** (e.g., ileum to colon):
 > 📚 อ่านควบ: 7.2 Fluid analysis (9Fvz4J6dMCo) · 4.2 Endoscope GI (0C218gD_tZM) · 6 Hepato/pancreas Sx (5rcEK-3IW0M) · IMHA disease summaries`,
   },
 
+  '5rcEK-3IW0M': {
+    videoId: '5rcEK-3IW0M',
+    title: '6 : Hepato/Pancreas Sx + Hernia',
+    subject: 'com1',
+    date: '2024-09-09',
+    duration: '205 min',
+    instructor: 'รุ่นพี่',
+    examFormat: 'MCQ — surgical decision + hepatic/pancreatic technique + hernia',
+    summary: `# 6 Hepato/Pancreas Surgery + Hernia
+
+> 🎯 ครอบคลุม **liver + biliary + pancreas surgery + abdominal hernia**. Foundation Sx for Year 5+. 205 min lecture covering the most complex GI procedures
+
+---
+
+## PART 1 — LIVER
+
+## 1. Liver Anatomy
+
+### 6 lobes
+**Left side** (2 lobes):
+- **Left lateral** ⭐ — **largest lobe**
+- **Left medial**
+
+**Right side** (4 lobes):
+- **Quadrate**
+- **Right medial** (between quadrate + gallbladder)
+- **Right lateral**
+- **Caudate** (with caudate process)
+
+Between quadrate + right medial = **Gallbladder**
+
+### Functions
+- Bile secretion + emulsification
+- Glycogen storage (energy reserve)
+- Detoxification
+- Drug metabolism
+- Coagulation factors synthesis ⭐
+- Albumin production
+- Urea production from ammonia
+
+### Vasculature
+- **Hepatic artery** (from celiac trunk) — oxygenated
+- **Portal vein** ⭐ — drains all GI organs to liver (except CV vein)
+- **Hepatic veins** → caudal vena cava
+
+### Liver labs
+| Test | Normal range | Indicates |
+|---|---|---|
+| **ALT (sgpt)** | up to ~70 U/L | Hepatocellular damage |
+| **AST** | up to ~50 U/L | Liver + muscle damage |
+| **ALP** | varies by age | Cholestasis (NOT liver-specific!) |
+| **GGT** | up to ~10 U/L | Cholestasis (more specific than ALP) |
+| **Albumin** | 2.5-4 g/dL | Liver synthesis function |
+| **BUN** | 7-25 mg/dL | Liver/Kidney function |
+| **Bilirubin** | < 0.5 mg/dL | Heme metabolism |
+
+⚠️ Surgery considerations with liver disease:
+- **Reduce anesthetic doses** (50%) — liver clears drugs
+- **Coagulation factor depletion** → check before surgery (or postpone)
+- **Hypoalbuminemia** → reduced drug binding
+- **Stop NSAIDs** 2-3 days before surgery
+
+---
+
+## 2. Pre-op Liver Disease Management
+
+- ⭐ **Reduce protein intake** (less ammonia)
+- **Lactulose** (oral or enema) — reduces ammonia absorption
+- **Carbohydrate-rich diet** for energy
+- **Vitamin K** if coagulopathy suspected
+- Treat underlying cause first (if possible)
+
+---
+
+## 3. Liver Imaging
+
+- **X-ray** = first line · liver size on lateral view (>13 ribs = enlarged)
+- Ultrasound = best for parenchyma + masses
+- **CT** for surgical planning
+
+### Hepatomegaly signs on X-ray
+- Liver shadow extends past rib 13
+- Stomach displaced caudally
+- Rounded liver edges (vs sharp normal)
+- Caudal lobes pushed dorsally
+
+### Distinguishing left vs right lobe enlargement
+- **Right lobe**: stomach displaced left + medial
+- **Left lobe**: cardia (stomach top) displaced medial
+- **Total**: stomach pushed caudally
+
+---
+
+## 4. Liver Surgical Procedures
+
+### A. Liver Biopsy
+
+#### 1. Percutaneous (US-guided)
+- ✅ Less invasive
+- Sedation usually sufficient (or GA in fractious patients)
+- Aseptic prep + small skin incision
+- **Tru-Cut needle**:
+  - 2-stage spring-loaded
+  - Stage 1: needle penetrates tissue
+  - Stage 2: cannula slides over → traps tissue
+  - Withdraw → tissue in groove
+
+⚠️ Always biopsy **multiple sites** + include normal + abnormal areas
+
+#### 2. Surgical Biopsy (Open)
+- Indication: percutaneous fails, multiple lesions, surgical planning
+- **Approach**: Cranial midline laparotomy
+- ⭐ Easiest target: **Left lateral lobe** (largest, most accessible)
+
+### B. Liver Lobectomy (partial or complete)
+
+**Indication**: focal lesion, mass (HCC, metastasis), trauma with hemorrhage
+
+#### Punch biopsy method
+- Use **circular punch** (like a cookie cutter)
+- For small focal lesions at lobe edge
+- Punch + forceps → close defect
+
+#### Suture method (most common)
+- ⭐ **Pre-place suture** at least **1 cm from edge** of lesion
+- Cut **0.5 cm** between suture and lesion (so 0.5 cm tissue between margin + suture)
+- Why: prevents suture slip-off
+
+#### Overlapping interrupted suture pattern
+- For larger lesions
+- **Simple interrupted full-thickness** sutures around lesion
+- Each suture **overlaps 1/3 of previous**
+- Like roof shingles
+
+#### Stapling method
+- TA stapler — fast, reliable
+- Lobe is divided + stapled simultaneously
+
+### C. Complete Lobectomy
+
+**Indications**: large mass, severe parenchymal disease, trauma
+
+**Technique**:
+1. Identify lobe + supplying vessel
+2. **Triple ligate** vessel + duct
+3. Cut between ligatures 2 + 3
+4. ⚠️ **Caudate lobe** = trickiest (close to caudal vena cava)
+5. Suture stapler may help
+
+### D. Liver Mass
+
+**Most common types**:
+- **Hepatocellular carcinoma (HCC)** ⭐ most common primary
+- **Bile duct adenoma/carcinoma**
+- **Hemangiosarcoma** (mets from spleen common!)
+- **Lymphoma**
+- Lipomas (benign, no resection needed)
+
+**Patterns**:
+- **Massive** (single large mass) → lobectomy
+- **Nodular** (multiple distinct nodules) → consider chemo
+- **Diffuse** (entire liver involved) → poor prognosis
+
+---
+
+## 5. Biliary System Surgery
+
+### Anatomy
+- **Hepatic ducts** (from each lobe) → **Common hepatic duct**
+- **Cystic duct** (from gallbladder) → joins hepatic duct
+- **Common bile duct** → empties into duodenum (with pancreatic duct)
+
+### A. Cholecystectomy (gallbladder removal)
+
+**Indications**:
+- **Mucocele** ⭐ (immobile gel-like contents)
+- **Cholelithiasis** (gallstones — rare in dogs)
+- **Severe cholecystitis**
+- **Bile peritonitis** from gallbladder rupture
+
+**Technique**:
+1. Cranial midline laparotomy
+2. Identify gallbladder + cystic duct
+3. **Ligate cystic duct** + cystic artery
+4. Dissect gallbladder from hepatic fossa
+5. Inspect common bile duct patency
+6. ⚠️ **Always inspect duodenal papilla** — bile must flow
+
+### B. Cholecystoduodenostomy / Cholecystojejunostomy
+
+**Indication**: common bile duct obstruction (e.g., pancreatic mass)
+
+**Technique**: anastomose gallbladder directly to GI tract bypassing CBD
+
+### C. Bile peritonitis
+
+**Cause**: ruptured gallbladder or CBD
+**Diagnosis**:
+- Abdominal effusion **bilirubin > 2× serum** = diagnostic ⭐
+- Yellow-green fluid
+**Treatment**: emergency surgery + drainage + antibiotics
+
+---
+
+## PART 2 — PANCREAS
+
+## 6. Pancreas Anatomy
+
+### Two lobes
+- **Right limb** (along duodenum)
+- **Left limb** (along greater curvature of stomach + spleen)
+- Connected at the **body**
+
+### Functions
+**Endocrine**: insulin, glucagon, somatostatin
+**Exocrine**: amylase, lipase, trypsinogen
+
+### Ducts
+- Pancreatic duct → joins CBD → duodenum
+- (Some species have accessory duct)
+
+### Vasculature
+- **Pancreaticoduodenal arteries** (cranial + caudal) — also supply duodenum
+- ⚠️ **Don't disrupt** during surgery
+
+---
+
+## 7. Pancreas Surgical Procedures
+
+### A. Pancreatic Biopsy
+
+**Indication**: chronic pancreatitis dx, mass
+
+**Technique**:
+1. Cranial midline laparotomy
+2. Identify pancreas
+3. **Suture-fracture technique**: place sutures around tip → cut → tip detaches with closed margin
+4. Or **needle biopsy** with US-guided
+
+### B. Partial Pancreatectomy
+
+**Indication**: focal lesion, abscess, mass
+
+**Technique**:
+1. Isolate target area
+2. **Ligate vessels** carefully
+3. Use **suture fracture** or **stapling**
+4. Avoid common pancreaticoduodenal artery
+
+### C. Pancreatic Mass
+
+**Types**:
+- **Pancreatic adenocarcinoma** — aggressive
+- **Insulinoma** ⭐ (functional tumor → hypoglycemia)
+- **Gastrinoma** (functional → ulcers)
+
+**Surgery for insulinoma**:
+- Localize tumor preoperatively (CT, intra-op US)
+- Resect with margin
+- Glucose monitoring critical pre/intra/post-op
+
+### D. Pancreatitis Surgery
+
+⚠️ **Most pancreatitis = medical**, NOT surgical!
+- Surgery only if:
+  - **Abscess** (US-guided drainage may suffice)
+  - **Necrosis with sepsis**
+  - **Complete duct obstruction**
+
+---
+
+## PART 3 — HERNIA
+
+## 8. Hernia Basics
+
+### Definition
+- Protrusion of organ/tissue through a wall defect
+
+### Types
+1. **Congenital** (defect from birth)
+2. **Acquired** (trauma, surgery)
+
+### Classification
+- **True hernia**: hernia sac (peritoneum lining) intact
+- **False hernia**: no peritoneum (e.g., post-trauma)
+
+### Components
+1. **Hernia sac** (peritoneum)
+2. **Hernia ring** (defect)
+3. **Hernia content** (omentum, bowel, organ)
+
+---
+
+## 9. Specific Hernias
+
+### A. Umbilical Hernia ⭐
+
+**Demographics**: puppies/kittens · congenital
+
+**Cause**: incomplete umbilical ring closure at birth
+
+**Diagnosis**: palpable defect at umbilicus + reducible mass
+
+**Treatment**: surgical repair (often combined with spay/neuter at 6 months)
+
+### B. Inguinal Hernia
+
+**Demographics**:
+- **Male puppies** + **Female adults** (especially intact post-pregnancy)
+- Some breed predisposition
+
+**Cause**: defect at inguinal canal · bowel/uterus protrudes
+
+**Severity**: incarcerated (trapped) → strangulated (vascular compromise) = emergency!
+
+**Surgical repair**:
+- Reduce contents
+- Inspect bowel viability (resect if necrotic)
+- Close hernia ring
+- Use **non-absorbable monofilament**
+
+### C. Diaphragmatic Hernia ⭐
+
+**Cause**: trauma (HBC) most common · congenital rare
+
+**Clinical**:
+- Dyspnea
+- Tachypnea
+- Decreased lung sounds (one or both sides)
+- "Empty" abdomen on palpation
+- ⚠️ **Cardiogenic differential** (right CHF can also cause dyspnea)
+
+**Diagnosis**:
+- **X-ray** ⭐ — see GI organs in thorax
+  - "Cardiac silhouette obscured"
+  - Loss of diaphragm line
+  - Bowel loops in chest
+
+**Pre-op stabilization**:
+- ⚠️ **Wait 24-48 hr** if shock — surgery now = high mortality
+- Stabilize cardiovascular system first
+- O₂ supplementation
+- IV fluids cautiously (avoid worsening pulmonary edema)
+
+**Surgery technique**:
+1. **Cranial midline + paracostal extension** (better visualization)
+2. **Decompress abdominal organs back into abdomen**
+3. Inspect bowel for ischemia
+4. Close diaphragm with **non-absorbable monofilament** (PDS or polypropylene)
+5. **Chest tube** placement before closing (drain pneumothorax post-op)
+
+**Closure pattern**: Simple continuous or interrupted
+
+### D. Perineal Hernia
+
+**Demographics**: **older intact male dogs** (Boston Terrier, Boxer, etc.)
+
+**Cause**: pelvic diaphragm muscle weakness · testosterone influence
+
+**Clinical**:
+- Tenesmus (straining to defecate)
+- Perineal swelling (one or both sides)
+- Constipation/obstipation
+- Urinary retention if bladder herniates
+
+**Treatment**:
+- ⭐ **Castration first** (reduces testosterone influence)
+- Wait several weeks
+- Then surgical repair
+
+**Surgical methods**:
+- **Internal obturator transposition**
+- **Mesh repair**
+- ⚠️ Can recur even after surgery
+
+### E. Scrotal Hernia
+- Bowel descends through inguinal canal into scrotum
+- Surgery: castrate + close ring
+
+### F. Femoral Hernia
+- Below inguinal ligament
+- Rare in vet
+
+---
+
+## 10. Hernia Surgery Principles
+
+### General Steps
+1. **Identify ring** + **sac** + **contents**
+2. **Reduce** contents back to original cavity
+3. **Inspect viability** (resect if necrotic)
+4. **Close defect** without tension
+5. Use **non-absorbable monofilament** for hernia ring
+6. **Mesh** if defect too large
+
+### Suture Pattern
+- **Simple Interrupted** for small defects
+- **Mattress sutures** for larger defects
+- **Mesh + Onlay/Inlay** for very large defects
+
+### Closure considerations
+- ⚠️ Don't suture too tight (compromises blood supply)
+- ⚠️ Don't suture loose (recurrence)
+- Use **non-absorbable** to maintain long-term strength
+
+---
+
+## 11. Anesthesia Considerations
+
+### Hepatic disease
+- Reduce anesthetic doses by **50%**
+- Avoid drugs metabolized by liver (or extend recovery)
+- Ketamine OK · NSAIDs avoid
+
+### Diaphragmatic hernia
+- **Pre-oxygenate**
+- ⚠️ **Don't induce until ready to ventilate** (lungs need IPPV immediately)
+- Monitor blood gas
+- Capnography essential
+
+### Pancreatic surgery
+- Glucose monitoring (insulinoma)
+- Anti-emetics + maintain perfusion
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **Left lateral lobe** = largest, easiest to biopsy
+2. **Liver biopsy** = US-guided Tru-Cut OR surgical
+3. **Liver lobectomy** = triple ligation + cut between 2nd and 3rd
+4. **HCC** = most common primary liver tumor
+5. **Cholecystectomy** = gallbladder removal · indications: mucocele, stones, severe disease
+6. **Bile peritonitis** = abdominal fluid bilirubin >2× serum
+7. **Insulinoma** = functional pancreatic tumor → hypoglycemia
+8. **Pancreatitis surgery** = rare · only for abscess, necrosis with sepsis, duct obstruction
+9. **Diaphragmatic hernia** = trauma cause · stabilize first 24-48hr · then surgery
+10. **Diaphragmatic surgery** = cranial midline + paracostal · chest tube essential
+11. **Perineal hernia** = older intact male · castrate first
+12. **Umbilical hernia** = puppies/kittens · combine with spay/neuter
+13. **Inguinal hernia** = male puppies + female post-pregnancy
+14. **Hernia repair** = non-absorbable monofilament for ring
+15. **Pre-op liver disease** = check coagulation, reduce protein, lactulose
+
+> 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU) · 4.2 Endoscope (0C218gD_tZM) · 5.1 Intestine Sx (lS4wSGDKFrY) · 3 Hepatobiliary (keqE30HxM7Y)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
