@@ -38286,6 +38286,267 @@ Where:
 > 🥫 **Canning rule**: pH 4.6 + 121°C × 3 min for low-acid (botulinum prevention)`,
   },
 
+  RmoRw0wA1g4: {
+    videoId: 'RmoRw0wA1g4',
+    title: '12. Foodborne Viral Infections',
+    subject: 'food-safety-y4',
+    date: '2024-11-08',
+    durationMin: 83,
+    instructor: 'อ.ธราดล',
+    examFormat: 'virus ID + transmission + key food/setting',
+    summary: `# 12. Foodborne Viral Infections
+
+> ⚠️ Important: Viruses estimated cause **>50%** of foodborne illness BUT bacteria get "credit"
+> Why? Viruses can't be cultured easily → underdiagnosed
+> Key trick: viruses transmitted **person → person** (not from animals usually)
+
+## 🎯 ภาพรวมคาบ
+1. Why viruses underdiagnosed
+2. **Norovirus** ⭐ (Cruise ship · raspberries · projectile vomiting)
+3. **Hepatitis A** ⭐ (food/water · long incubation)
+4. Hepatitis E (zoonotic — pigs)
+5. Rotavirus (children diarrhea)
+6. Adenovirus, Astrovirus
+
+## 1️⃣ Why Viruses Different from Bacteria
+
+| Feature | Bacteria | Virus |
+|---------|----------|-------|
+| **Multiplication in food** | YES | ❌ NO (need host) |
+| **Culture in lab** | Easy | ❌ Hard (cell line) |
+| **Diagnosis** | Standard | Molecular (PCR) |
+| **Survives outside host** | Variable | ⭐ Highly stable (non-enveloped) |
+| **Reservoir** | Many | ⭐ **Mostly humans only** |
+| **Transmission** | Multiple routes | ⭐ **Fecal-oral predominant** |
+
+### Common foodborne viruses
+- ⭐ **Norovirus** (~80% of viral cases!)
+- **Hepatitis A** + Hepatitis E
+- Rotavirus
+- Adenovirus (serotypes 40, 41)
+- Sapovirus
+- Astrovirus
+
+### Properties enabling foodborne transmission
+- ⭐ **Small + non-enveloped** (highly stable in environment)
+- ⭐ **Person-to-person** = main transmission
+- Cannot grow in food (only contaminate)
+
+## 2️⃣ Norovirus ⭐ Most Important
+
+### Old name
+- **Norwalk virus** / Norwalk-like virus
+- Family: **Caliciviridae**
+- Single-stranded RNA virus
+
+### Common name
+**"Winter vomiting disease"** — peaks in winter
+
+### Why dominant?
+- ⭐ ~80% of viral foodborne illness
+- Outbreaks happen in confined populations
+
+### Iconic Settings ⭐ Sob clue!
+- ⭐ **Cruise ships** (recurrent outbreaks!)
+- Daycare centers, nursing homes
+- Schools, military bases, prisons
+- Catered events
+
+### Foods Associated
+- ⭐ **Raspberries** ⭐ (frozen, imported)
+- ⭐ **Raw oysters** (filter-feed contaminated water)
+- Salads (food handler contamination)
+- Sandwiches
+
+### Possible Animal Reservoir ⭐ NEW
+- ⭐ **Pigs carry Norovirus genogroup II** = same as human!
+- Pork might be source (still investigating)
+- One Health implication
+
+### Symptoms — Sob Clue Words ⭐
+- ⭐ **"Projectile vomiting"** ⭐ (forceful, dramatic)
+- Watery diarrhea, abdominal pain
+- Mild fever, dehydration
+- Self-limiting in 24-48 hr
+- Incubation: **24-48 hr**
+
+### Transmission Mechanism
+- ⭐ **Food handlers** = main vector (poor hygiene + Norovirus shed in vomit + stool)
+- Aerosols from vomiting (contaminate surfaces!)
+- Person-to-person on cruise ships
+
+### Control
+- ⭐ **Personal hygiene** (handwashing with soap + water)
+- ⭐ **Alcohol hand sanitizer EFFECTIVE** (COVID-era data showed Norovirus rates dropped!)
+- Sick food handlers stay home (incl. 48 hr post-recovery)
+- Clean surfaces with bleach (not alcohol — ineffective on hard surfaces)
+
+## 3️⃣ Hepatitis A (HAV) ⭐
+
+### Properties
+- Family: **Picornaviridae**
+- Single-stranded RNA, non-enveloped
+- Heat resistant (still infectious after 60°C × 1 min)
+
+### Comparison with Other Hepatitis Viruses ⭐ Critical!
+| Type | Transmission | Long-term liver damage |
+|------|--------------|------------------------|
+| ⭐ **HAV** | **Fecal-oral (food/water)** | ❌ **NO** (no cirrhosis/cancer) |
+| **HBV** | Sex, blood, mother→child | ✅ YES (cirrhosis, HCC) |
+| **HCV** | Blood (needles, transfusion) | ✅ YES (cirrhosis, HCC) |
+| **HEV** | **Fecal-oral (zoonotic — pig)** | ❌ Mostly no (severe in pregnant!) |
+
+> ⭐ **Key**: HAV is foodborne, HBV/HCV are bloodborne
+
+### Epidemiology
+- ⭐ **Developing countries**: 90% adults seropositive (childhood exposure)
+- Developed countries: low rate, occasional outbreaks
+- Major Thai outbreak setting
+
+### Foods Associated
+- Raw oysters, clams (filter-feed contamination)
+- Imported berries (frozen raspberries — multiple US/EU outbreaks)
+- Restaurant food handler contamination
+
+### Transmission Specials
+- Daycare centers (diaper changing → food contamination)
+- Sex workers, MSM communities
+- Blood transfusion (rare but documented)
+
+### Incubation Period ⭐ Important!
+- ⭐ **2-6 weeks** (avg 28 days = 4 weeks!)
+- ⚠️ **Long incubation = hard outbreak investigation**
+- Different from typical foodborne (1-3 days)
+
+### Symptoms ⭐
+- Adults: severe (vs children: mild — opposite of Rotavirus!)
+- Symptoms last 8 weeks
+- Pre-icteric: fatigue, fever, nausea, RUQ pain (liver area)
+- ⭐ **Icteric phase**:
+  - **Jaundice** (yellow eyes/skin)
+  - **Dark urine**
+  - **Pale/clay-colored stool**
+  - **Liver tenderness** (RUQ)
+- Self-limiting · NO chronic disease
+
+### Shedding
+- ⭐ Virus shed in feces **2 weeks BEFORE + 2 weeks AFTER** symptoms
+- Pre-symptomatic spread possible!
+
+### Vaccine
+- HAV vaccine available (recommended for travel to endemic areas)
+- High efficacy
+
+## 4️⃣ Hepatitis E (HEV) — Important for Vets!
+
+### Why vets care
+- ⭐ **Zoonotic** — pigs primary reservoir!
+- Genotype 3 + 4 = swine-derived (pig → human)
+- Genotype 1 + 2 = human-only (waterborne)
+
+### Severity
+- Usually self-limiting (like HAV)
+- ⚠️ **EXCEPT pregnant women**: 25% mortality in 3rd trimester!
+
+### Foods
+- Undercooked pork (liver especially)
+- Wild boar meat
+- Deer meat
+
+### Geographic
+- Genotype 1, 2: Asia, Africa (waterborne outbreaks)
+- Genotype 3: Europe, US, Japan (pig-related)
+- Genotype 4: China (pig-related)
+
+## 5️⃣ Rotavirus
+
+### Properties
+- Family: **Reoviridae**
+- Double-stranded RNA, non-enveloped (segmented genome)
+
+### Epidemiology
+- ⭐ **Severe in children <5 yrs** (opposite of HAV — adults severe!)
+- Mild in adults
+- Common in winter
+- Vaccine available (rotavirus oral vaccine for infants)
+
+### Symptoms
+- Watery diarrhea (severe in children → dehydration)
+- Vomiting, fever
+- Dehydration deaths in developing countries
+
+## 6️⃣ Other Foodborne Viruses (brief)
+
+### Adenovirus
+- Serotypes 40, 41 = enteric adenoviruses
+- Children diarrhea
+- Double-stranded DNA
+
+### Astrovirus
+- Children gastroenteritis
+- Mild
+
+### Sapovirus
+- Similar to Norovirus (Caliciviridae family)
+- Less common
+
+## 7️⃣ Comparative Summary ⭐ Sob Table
+
+| Virus | Family | Genome | Setting | Severity |
+|-------|--------|--------|---------|----------|
+| **Norovirus** | Caliciviridae | ssRNA | Cruise ship, raspberries | Mild adults |
+| **HAV** | Picornaviridae | ssRNA | Oysters, day care | **Adults > children** |
+| **HEV** | Hepeviridae | ssRNA | Pork (zoonotic!) | Mild · ⚠️ pregnant fatal |
+| **Rotavirus** | Reoviridae | dsRNA | Daycare, water | **Children > adults** |
+| **Adenovirus 40/41** | Adenoviridae | dsDNA | Children | Mild |
+
+## 8️⃣ Why HAV vs Rotavirus Severity Pattern Inverted ⭐
+
+| Virus | Severity in Children | Severity in Adults |
+|-------|----------------------|---------------------|
+| **Hepatitis A** | Mild (often subclinical) | **Severe** (jaundice, weeks-long) |
+| **Rotavirus** | **Severe** (dehydration, death) | Mild |
+
+> Sob favorite trick: distinguish based on age group!
+
+## 9️⃣ Diagnosis Challenge
+
+### Why viral cases under-reported
+1. Can't culture in standard lab
+2. Need PCR/molecular
+3. Self-limiting — patients don't seek care
+4. Long incubation (HAV) makes outbreak source hard to trace
+
+### When to suspect viral
+- Multiple cases at confined gathering (Norovirus)
+- Long incubation > typical 1-3 days (HAV)
+- Bloody stool absent + watery diarrhea + vomiting
+- "Projectile vomiting" keyword (Norovirus)
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. Viruses = **>50%** estimated foodborne illness · only ~20% confirmed
+2. Viruses person-to-person · NOT from animals (mostly)
+3. Non-enveloped + small = highly stable
+4. **Norovirus** ⭐ = #1 viral foodborne (~80%)
+5. ⭐ **Cruise ship** = Norovirus clue · ⭐ **Raspberries** = Norovirus
+6. ⭐ **Projectile vomiting** = Norovirus keyword
+7. **HAV** = fecal-oral · NO chronic liver damage
+8. ⭐ **HBV/HCV** ≠ HAV (different transmission, chronic disease)
+9. **HAV incubation 2-6 weeks** (long! hard to investigate)
+10. HAV severe in **adults > children** (opposite Rotavirus!)
+11. HAV jaundice + dark urine + pale stool + RUQ tender
+12. HAV vaccine available
+13. ⭐ **HEV zoonotic** — pigs (genotypes 3, 4)
+14. ⚠️ HEV pregnant 3rd trimester: 25% mortality!
+15. Rotavirus severe in **children <5** (opposite HAV!)
+
+> 📚 อ่านควบ: 9 Foodborne Intro · 10-11 Bacterial · 14 Parasitic
+> 🚢 **Cruise rule**: Cruise + GI = Norovirus suspect
+> 🍓 **Berry warning**: Frozen imported berries = HAV/Norovirus risk
+> 🐷 **Vet pearl**: Pork undercooked = HEV (zoonotic — One Health)
+> 💉 **Vaccine note**: HAV + Rotavirus have vaccines (HEV does not in most countries)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
