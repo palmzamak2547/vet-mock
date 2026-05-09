@@ -26887,6 +26887,301 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 > 🦴 **Modern trend = combination shots** for biosecurity + worker efficiency`,
   },
 
+  b5AHszT1NXY: {
+    videoId: 'b5AHszT1NXY',
+    title: '12. Principle of Using Antimicrobials in Swine',
+    subject: 'swine-herd',
+    date: '5 Nov 67',
+    durationMin: 123,
+    instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
+    examFormat: 'MCQ — MIC vs MBC · bacteriostatic vs bactericidal · Spectrum (broad vs narrow) · Synergism vs antagonism · β-lactamase · Mycoplasma vs cell-wall drugs · ppm calculation · ARM regulation ออกบ่อย',
+    summary: `# Principles of Antimicrobial Use in Swine
+
+> 🎯 **THE most-used drug class in swine** — but most-abused too · ARM = #1 modern concern
+> Top exam: **MIC/MBC · Cidal vs Static · Spectrum · Synergism · Mycoplasma cell-wall · ppm calc · Banned drugs**
+
+---
+
+## 1. Definitions ⭐ (Foundation)
+
+### Antimicrobial vs Antibiotic
+| Term | Source |
+|---|---|
+| **Antimicrobial** (broader) | Anything that kills/inhibits microbes (synthetic + biological) |
+| **Antibiotic** (narrower) | Made by microorganisms specifically |
+
+### Two basic mechanisms
+| Mechanism | Action |
+|---|---|
+| **Bacteriostatic** ⭐ | INHIBIT bacterial multiplication (bacteria stay at current count) |
+| **Bactericidal** ⭐ | KILL existing bacteria (count drops over time) |
+
+---
+
+## 2. MIC vs MBC ⭐⭐⭐ (CRITICAL exam concept!)
+
+### Definitions
+| Term | Definition |
+|---|---|
+| **MIC** (Minimum Inhibitory Concentration) | Lowest drug conc preventing visible growth |
+| **MBC** (Minimum Bactericidal Concentration) | Lowest drug conc killing 99.9% bacteria |
+
+### Relationship rule ⭐
+**MBC > MIC always** (typically 1 log higher)
+- E.g., MIC = 0.5 µg/mL → MBC ≈ 5 µg/mL
+
+### How measured
+| Method | Description |
+|---|---|
+| **Broth dilution** ⭐ | Tubes with serial drug dilutions · find clearest tube = MIC; subculture to find MBC |
+| **Disk diffusion (Kirby-Bauer)** ⭐ | Paper disks on agar · clear zone = inhibition · qualitative |
+| **E-Test** | Strip with gradient · combines BOTH · gives MIC value |
+
+---
+
+## 3. Drug Spectrum ⭐⭐ (Choose smart!)
+
+| Spectrum | Coverage | Pros | Cons |
+|---|---|---|---|
+| **Broad** | Gram+, Gram−, Anaerobes, Sometimes Protozoa | "All-in-one" | Disrupts normal flora · drives ARM |
+| **Narrow** | Specific group only | Preserves flora · lower ARM | Need accurate diagnosis |
+
+### Examples in swine
+| Drug | Spectrum |
+|---|---|
+| **CTC (chlortetracycline)** | Broad (everything) |
+| **Tylosin / Lincomycin** | Narrow (Gram-pos + Mycoplasma) |
+| **Neomycin / Apramycin** | Narrow (Gram-neg) |
+| **Penicillin** | Narrow (Gram-pos) |
+
+> 💡 Match spectrum to disease — broad-spectrum overuse = ARM driver
+
+---
+
+## 4. Cidal vs Static — Treatment Strategy ⭐
+
+### Static drugs (preferred for chronic + maintenance)
+- Drug holds bacteria at low level
+- **Animal develops natural antibody** during exposure
+- After stopping drug → animal has immunity
+- **No re-infection risk**
+- Examples: Tetracyclines · Tylosin · Macrolides
+
+### Cidal drugs (preferred for acute/severe)
+- Drug eliminates bacteria
+- Animal stays NAÏVE (no antibody made)
+- After stopping drug → re-infection POSSIBLE
+- Examples: Penicillins · Aminoglycosides · Fluoroquinolones
+
+### When to use which
+| Situation | Choice |
+|---|---|
+| Severe acute infection | Cidal |
+| Chronic problem · build immunity | Static |
+| Carrier elimination (cleansing) | Cidal |
+| Long-term prevention | Static (low dose) |
+
+---
+
+## 5. Drug Selection Decision Tree ⭐
+
+### Question hierarchy
+1. **Is it bacterial?** (vs viral · viral = no antibiotics)
+2. **Gram+ or Gram−?**
+3. **Aerobic or anaerobic?**
+4. **What organ?** (respiratory · gut · joint · etc.)
+5. **MIC of likely pathogen?**
+6. **Is the drug allowed?** (banned list)
+7. **Cost-effective?**
+8. **Easy to administer?** (in feed · water · injection)
+
+### Common errors
+| Error | Result |
+|---|---|
+| Using broad-spectrum without diagnosis | Drives ARM |
+| Wrong dose (under-dosing) | Drives ARM (selects resistant strains) |
+| Wrong route (e.g., IV vs PO for poor-absorbed drug) | Therapeutic failure |
+| Stop too early | Recurrence |
+
+---
+
+## 6. Synergism vs Antagonism ⭐⭐ (Combinations!)
+
+### Synergistic combinations
+**Drugs targeting different cellular machinery work together**
+| Combo | Why it works |
+|---|---|
+| Penicillin (cell wall) + Aminoglycoside (ribosome) | Cell wall breaks → aminoglycoside enters easier |
+| **CTC + Tiamulin (1:3)** ⭐ | Different ribosome subunits |
+| Trimethoprim + Sulfonamide | Both block folate synthesis at different steps |
+
+### Antagonistic combinations
+**Drugs targeting same site cancel each other**
+| Combo | Issue |
+|---|---|
+| Tylosin + Lincomycin | Both target 50S ribosome → compete |
+| Bacteriostatic + Bactericidal (dosed wrong) | Static prevents the bacteria from being targets for cidal |
+
+### β-Lactamase ⭐ (KEY exam concept!)
+- Enzyme produced by bacteria to **destroy β-lactam antibiotics**
+- Affected drugs: **Penicillins · Cephalosporins**
+- Bacteria with β-lactamase: *Staphylococcus* (especially *S. aureus*)
+- Solution: β-lactamase inhibitors (clavulanic acid, sulbactam) OR use non-β-lactam drugs
+
+---
+
+## 7. Drug Targets ⭐ (Which part of bacteria?)
+
+### Bacteria parts and which drugs target them
+| Target | Drug class |
+|---|---|
+| **Cell wall** | Penicillins · Cephalosporins · Vancomycin |
+| **30S ribosome** | Aminoglycosides · Tetracyclines |
+| **50S ribosome** | Macrolides · Lincosamides · Chloramphenicol · Tiamulin |
+| **DNA gyrase** | Quinolones (Enrofloxacin, Marbofloxacin) |
+| **Folate synthesis** | Sulfonamides · Trimethoprim |
+| **Cell membrane** | Polymyxin · Colistin |
+
+### Mycoplasma — special case ⭐⭐
+**Mycoplasma has NO cell wall!** → all cell-wall drugs FAIL
+| Drug | Works on Mycoplasma? |
+|---|---|
+| Penicillin · Cephalosporin · Amoxicillin | ❌ NO |
+| Macrolides (Tylosin, Tilmicosin) | ✅ YES |
+| Tetracyclines (Doxycycline, CTC) | ✅ YES |
+| Tiamulin · Valnemulin | ✅ YES (best) |
+| Quinolones (Enrofloxacin) | ✅ YES |
+
+> ⛔ Common exam trap: "use penicillin for Mycoplasma" → FALSE!
+
+---
+
+## 8. PPM Calculation ⭐⭐⭐ (EXAM EVERY YEAR!)
+
+### Conversion formulas
+**1 ppm = 1 mg/kg = 1 µg/g = 1 µg/mL**
+
+### Worked example: Amoxicillin 300 ppm in feed
+- 300 ppm = 300 mg per kg of feed
+- 300 mg = 300,000 µg per kg of feed
+- If pig eats 3 kg feed/day → consumes 900 mg amoxy/day
+- If pig weighs 100 kg → 9 mg/kg body weight/day
+
+### Why low MIC = effective drug
+- E.g., MIC 0.5 µg/mL means just 0.5 µg in blood plasma is enough
+- 300,000 µg ingested → easily achieves blood level >> MIC
+- Ample drug to reach target organ at MIC
+
+### Drug delivery routes
+| Route | Dose adjustment |
+|---|---|
+| **In feed** | Standard dose |
+| **In water** ⭐ | **HALF the dose** (pigs drink ~2x feed weight) |
+| **Injection** | Direct dose |
+| **Topical/spray** | Local only |
+
+> ⭐ Water dose = half of feed dose (memorize!)
+
+---
+
+## 9. Use Categories ⭐
+
+### Three uses
+| Use | Definition | Status in modern Thailand |
+|---|---|---|
+| **Therapeutic** (treatment) | Treat existing disease | ✅ Allowed with diagnosis |
+| **Prophylactic** (prevention) | Prevent disease before symptoms | ✅ Allowed with reason |
+| **Growth Promotion** (low-dose in feed) | Improve ADG/FCR with sub-therapeutic dose | ⛔ **BANNED** in EU + Thailand! |
+
+### Why growth promotion banned
+- Drives ARM in human pathogens
+- Sub-therapeutic doses select for resistance
+- Public health threat
+
+---
+
+## 10. Banned Drugs in Thailand ⭐ (MUST KNOW!)
+
+### Top banned (NEVER use!)
+| Drug | Reason |
+|---|---|
+| **Chloramphenicol** | Aplastic anemia in humans (residue) |
+| **Colistin (in feed)** | mcr-1 gene resistance · last-line defender for human carbapenem-resistant infection |
+| **Nitrofurans** | Carcinogenic |
+| **Sulfa drugs (some)** | Residue concerns |
+
+### Restricted but allowed
+- **Fluoroquinolones** — limited use, prescription required
+- **Cephalosporins** (3rd/4th gen) — extra-label restricted
+
+---
+
+## 11. Antimicrobial Resistance (ARM) ⭐⭐ (Modern crisis!)
+
+### Why ARM matters
+- China example (lecturer's visit): pigs injected daily wk 3-10 → meat tests positive for residual antibiotics → resistant *Staph* on meat
+- Result: humans eating Chinese pork can develop ARM strains
+- Thailand → similar concerns
+
+### How resistance develops
+1. Wild-type bacteria population
+2. Random mutations create resistant strains
+3. **Antibiotic pressure** kills sensitive strains
+4. Resistant strains over-grow
+5. Disease becomes untreatable
+
+### Prevention
+- Use antibiotics judiciously
+- Right drug, right dose, right duration
+- Always finish course
+- Reduce sub-therapeutic use
+- Maintain biosecurity (less infections = less drug needed)
+
+---
+
+## 12. Practical Decision Algorithm ⭐
+
+### When pigs sick — vet's checklist
+1. **Confirm bacterial** (not viral)
+2. **Identify likely pathogen** (history, age, signs)
+3. **Lab confirmation** if possible (culture + sensitivity)
+4. **Choose drug**:
+   - Spectrum match
+   - Cidal/static appropriate
+   - Avoid banned list
+   - Cost-effective
+   - Practical to administer
+5. **Calculate dose** (mg/kg → ppm)
+6. **Treat for full duration** (don't stop early)
+7. **Monitor response** (improve or change)
+
+---
+
+## 🎯 Exam Recap — top 16 testable points
+
+1. **MIC = inhibition · MBC = killing** (MBC always higher)
+2. **Static = inhibit · Cidal = kill** (different treatment philosophies)
+3. **Broad spectrum = wider coverage but ARM risk**
+4. **Synergism = different targets** (cell wall + ribosome)
+5. **β-Lactamase destroys penicillins** — used by Staph
+6. **Mycoplasma has NO cell wall** → penicillin DOESN'T work
+7. **Mycoplasma works**: Macrolides · Tetracyclines · Tiamulin · Quinolones
+8. **1 ppm = 1 mg/kg** = 1 µg/g
+9. **Water dose = HALF feed dose** (pigs drink 2x feed weight)
+10. **Growth promoter use = BANNED** in Thailand + EU
+11. **Chloramphenicol = BANNED** (human aplastic anemia)
+12. **Colistin = BANNED in feed** (mcr-1 last-line)
+13. **CTC + Tiamulin 1:3** = classic synergy combo
+14. **Cidal animal stays naïve · Static builds immunity**
+15. **Disk diffusion = qualitative** · Broth dilution = quantitative · E-Test = both
+16. **Drug + dose + duration matters** for ARM prevention
+
+> 📚 อ่านควบ: 11 Vaccination (75NLH3PfQ0Y) · 8 Epidemiology (1mFans-0DNY) · 13 Feed Management (ND2MrxWAsBI)
+> 🩻 **Practice tip**: Memorize Mycoplasma + cell wall trick · ALWAYS gets tested
+> 💡 **PPM math**: practice 100 ppm × 3kg feed = how many mg drug consumed
+> 🦴 **Modern reality**: banned list keeps growing — stay updated`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
