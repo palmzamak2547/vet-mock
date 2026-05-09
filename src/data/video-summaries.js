@@ -35643,6 +35643,244 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 > 🦴 **Future**: vet MRI growing — ICU brain trauma + neuro-onc + spinal will use these protocols`,
   },
 
+  aA9ht3Lxn_k: {
+    videoId: 'aA9ht3Lxn_k',
+    title: '11. Equine Radiographic Positioning',
+    subject: 'vet-imaging',
+    date: '2024-10-31',
+    durationMin: 72,
+    instructor: 'อ.พี่เม่น',
+    examFormat: 'positioning + view nomenclature + practical',
+    summary: `# 11. Equine Radiographic Positioning
+
+> ⚠️ **Goal of this lecture**: ไม่ใช่อ่านฟิล์ม แต่คือ "**ถ่ายให้ได้ diagnostic quality**"
+> ปัญหาในม้า: ไม่สามารถจับยึดเหมือนสัตวเล็ก · ต้องใช้ Approach แตกต่าง
+> Practical: ตอนบ่าย — แบ่ง 4 กลุ่ม · จัดท่า + อจารย์ให้โจทย์ตำแหน่งที่ต้องการ
+
+## 🎯 ภาพรวมคาบ
+1. Equine X-ray principles + 2-view rule
+2. Portable vs Mobile + DR vs CR
+3. Restraint: chemical > physical > GA
+4. Radiation safety in field
+5. Marker rules (สำคัญมาก!)
+6. Oblique view nomenclature
+7. Head + sinus positioning
+8. Limb + carpus positioning
+
+## 1️⃣ Why Equine X-ray Different
+- **Body too thick** → X-ray มากแค่ extremities + head
+- ม้า 600 kg ไม่มีทาง physically restrain
+- **2 views minimum** — แต่บางตำแหน่ง orthogonal view ทำไม่ได้ (ฟิล์มเข้าไม่ถึง / ม้าเหยียบ / เตะ)
+- ต้องใช้ **oblique views** + reasoning
+
+## 2️⃣ Equipment
+
+### Portable vs Mobile X-ray
+| Type | Wheels | Use |
+|------|--------|-----|
+| **Fix** | — | ติดตั้งใน hospital |
+| **Mobile** | ✅ มีล้อ | ห้องผ่าตัด/ICU · push around |
+| **Portable** ⭐ | ❌ ถือได้ | ใช้ในม้า — ออกไป field, สนามแข่ง |
+
+⭐ **ม้าใช้ Portable เสมอ** เพราะต้องเอาไปคอกม้า / สนามม้า — ไม่มีล้อ
+
+### Detector Type
+| Type | Speed | Durability | Use case |
+|------|-------|------------|-----------|
+| **DR** (Direct Radiography) | < 5 sec | ❌ Drop = เสีย | Clinical practice |
+| **CR** (Computed) | 2-3 min | ✅ Drop OK | **Student lab** (CUVET) |
+
+### X-ray Tube
+- ขนาดใหม่ ~4 kg
+- มีไม้ต่อเพื่อยิงคนเดียว (แต่ไม่แนะนำ)
+
+### Laser Collimation
+- เครื่อง portable ม้าใช้ **laser** (ไม่ใช่ visible light)
+- เหตุผล: ม้า sedated หัวจะตื่นเลยถ้าไฟกระพริบ
+
+## 3️⃣ Restraint Hierarchy
+> **Goal**: ลำดับนี้สำคัญ — ม้าจำได้ครั้งหน้าจะกลัวเรา
+
+1. **Best**: Chemical sedation (Alpha-2 ± opioid)
+   - Standard: **Alpha-2 (xylazine/detomidine) + morphine**
+   - ม้ายืนนิ่ง · น้ำหนักลงขาทั้งหมด
+   - ⚠️ **ปัญหา**: ม้าทิ้งน้ำหนักลงขาทั้งหมด → ยกขายาก
+   - ⚠️ หัวตก → หาเก้าอี้/โต๊ะมารองพร้อม pad
+
+2. **Acceptable**: Physical restraint (น้อยที่สุด)
+   - Twitch (chain on lip)
+   - Crush/stocks (ซองเหล็ก) — แต่บาง position ทำไม่ได้เพราะ steel ขวาง
+
+3. **Last resort**: General anesthesia
+   - ❌ ไม่ใช้สำหรับ X-ray เฉยๆ
+   - ✅ ใช้เมื่ออยู่ในระหว่าง surgery
+   - ม้าจะเป็น lateral recumbency → จัดท่าจำกัด
+
+## 4️⃣ Radiation Safety (Field Setting)
+
+### Personnel Minimum
+| Configuration | Personnel |
+|---------------|-----------|
+| Conscious horse | 1 (machine) + 2 (film) + 3 (handle horse) |
+| Heavy sedation | 1 + 2 + skip handler |
+| Solo (with extension pole) | 1 — not recommended |
+
+### Safety Rules
+- **2 m clear zone** beyond beam (scatter limit)
+- **Behind X-ray machine = SAFEST** (radiation forward only)
+- **Owners present** in field — ใช้เป็นผู้ช่วย; แต่อย่าให้ยืนหน้าลำแสง
+- **Never** point machine toward your gonads / face / chest
+- ⚠️ **Real incident**: เด็กฝึกงานหนีบเครื่อง X-ray ระหว่างขา + ทับเสื้อตะกั่วผิดด้าน → ไข่เรืองแสง 3 ครั้งก่อนถูกหยุด
+
+### Lead Apron + Field
+- น้ำหนัก ~10 kg (รวมเครื่อง 14 kg → คนแบก 20-24 kg)
+- ปี 5 ฝึกงาน: ผู้หญิงตัวเล็กแบกเครื่อง · ผู้ชายเป็นกำลังใจ (joke)
+
+## 5️⃣ Focus Setup ⭐ (Portable specific)
+
+**Portable**: 2-laser dot point converge = **focus point**
+**Rule**: focus ที่ **cassette/film** (NOT ที่ม้า!)
+- เหตุผล: thickness ของ structure แตกต่างกันได้แต่ระยะต้อง constant
+- = ทำเหมือน fixed machine: focus ถูกเซ็ตก่อนใส่ patient
+
+## 6️⃣ Marker Placement Rules (สำคัญมาก!)
+
+### Body Images
+| Body part | Marker side |
+|-----------|-------------|
+| **Body / limb** | ⭐ Always **LATERAL** |
+| **Head** (only exception) | L stays L · R stays R |
+
+### Why Lateral?
+- All limb obliques shot from outside → marker on lateral side = consistent
+- Hanging convention: head left except dental (L→L, R→R)
+
+### Marker Mistakes = Wrong Side Surgery!
+> **Real case**: Surgeon resected wrong head from cadaver because tech placed L marker on R side
+> Always: place marker EXACT same way every time
+
+## 7️⃣ Oblique View Nomenclature ⭐ Exam-critical
+
+### Format: [Beam entry]-[Beam exit] **Oblique**
+**Default angle**: 45° (if not specified)
+
+### Common views:
+| Code | Full name | Use |
+|------|-----------|-----|
+| **DLPaMO** | DorsoLateral-PalmaroMedial Oblique | Distal limb (front) |
+| **DMPaLO** | DorsoMedial-PalmaroLateral Oblique | Distal limb (front) |
+| **DLPlMO** | DorsoLateral-PlantaroMedial Oblique | Distal limb (back) |
+| **DLPaMO 45°** | 45° from dorsal-lateral side | Standard |
+
+> **Memory aid**: highlight (lift away) what you want to see
+> "Want to see **L**ateral structure → shoot **DM** = enters dorsomedial"
+> "Want to see **M**edial structure → shoot **DL** = enters dorsolateral"
+
+### Why Oblique?
+- Lateral view = sesamoid bones superimposed
+- DLPaMO splits one sesamoid forward, other backward
+- Reveals fractures hidden by superimposition
+
+### Marker on Oblique
+- Marker placed **lateral side** (not the entry side)
+- ตัวอย่าง: ในภาพ DLPaMO marker อยู่ lateral side (sesamoid lateral)
+
+## 8️⃣ Head Positioning
+
+### Lateral Projection (most useful)
+- ใช้ดู **sinus** เป็นหลัก (frontal sinus + maxillary sinus)
+- Sinus เห็นชัดที่สุดใน lateral
+- ม้าซึม → หัว stable
+
+#### Fluid Detection Rule ⭐
+- **Sinus เน่าเกิด congestion / infection / inflammation → fluid accumulates**
+- **Head DOWN** (recumbent) → fluid spreads out → invisible
+- **Head UP** (standing/sedated upright) → fluid settles by gravity → forms **fluid line**
+- → fluid line = pathognomonic of sinusitis
+
+#### Special "Ball Marker" for Head
+- มาเกอร์มีลูกปัดเหล็กเล็กๆข้างใน
+- Ball settles toward floor (gravity)
+- → ระบุได้ "พื้นอยู่ที่ไหน" ในภาพ
+- Useful: confirm head was upright + identify floor for fluid-line interpretation
+
+### DV (DorsoVentral) Projection
+- ⚠️ **Problem**: maxilla + mandible superimposed → sinus blocked by teeth
+- เห็น **nasal septum** ตรง — ใช้ดูความผิดปกติของกระดูก nasal
+
+### One-Sided Sinus Trick
+**Goal**: see sinus on left only (not right)
+**Step**: shift mandible (narrower) toward right, leaving left sinus exposed
+- Maxilla = anchored to skull (can't move)
+- Mandible = movable → shift it AWAY from sinus of interest
+| Want to see | Shift mandible |
+|-------------|-----------------|
+| **Left sinus** | Right |
+| **Right sinus** | Left |
+
+## 9️⃣ Special Equipment for Head/Dental
+
+| Item | Use |
+|------|-----|
+| **Dental cassette / intraoral film** | Inside mouth for tooth root |
+| **Speculum** | Hold mouth open |
+| **Wedge block** | Open jaw for unilateral exposure |
+| **Hemi-mandible mount** | Cadaver lab — clean dental images |
+
+### Dental X-ray Reality
+- 2 sides of teeth always superimposed in vivo
+- Choose: where to "park" superimposition (avoid lesion area)
+- ตัวอย่าง: want to see L tooth clearly → make R tooth superimpose elsewhere
+
+## 🔟 Limb / Carpus Positioning
+
+### Carpus = Complex
+- Many small bones overlapping
+- Choose target bone → tilt to highlight
+- Standard views: DP, LM, DLPaMO, DMPaLO
+
+### Distal Limb Standard Set
+1. **DP** (DorsoPalmar) — hoof straight ahead
+2. **LM** (LateroMedial) — side
+3. **DLPaMO** — oblique medial highlight
+4. **DMPaLO** — oblique lateral highlight
+5. **Up-Navicular view** — special positioning to see navicular bone clearly
+
+### Hoof Prep
+⚠️ **Remove halter** before head X-ray (buckle = artifact)
+⚠️ **Remove horseshoe** before hoof X-ray (steel = artifact)
+⚠️ Even halter strap can be artifact — pull aside if removable
+
+## 1️⃣1️⃣ Hong Kong Modul (Optional)
+- ปี 5 program — ม้าแข่ง Jockey Club Hong Kong
+- 3 days backstage at major track
+- Standing CT! (sedate horse → walk into CT for head + leg scans)
+- Internship requires 2-yr advance booking — modul direct access
+- Selection: prove yourself ปี 5 เทอม 1 + 2 then apply
+
+## 📋 Exam recap (15 จุดสำคัญ)
+1. Equine X-ray = mostly extremities + head (body too thick)
+2. **Portable** > Mobile (no wheels) — used outdoor
+3. **DR** = clinical · **CR** = student lab (drop-resistant)
+4. Restraint: **chemical first** (alpha-2 + morphine) · physical minimum · GA only with surgery
+5. **2m radiation clear zone** + behind machine = safest
+6. Personnel: 1 machine + 2 film + 3 handler (skip handler if sedated)
+7. Set focus on **cassette/film** (not patient) for portable
+8. Markers: body = **lateral always** · head = L→L, R→R
+9. Wrong marker = wrong-side surgery (real case!)
+10. Oblique nomenclature: DLPaMO etc · 45° default
+11. Memory: shoot DL → see L · shoot DM → see M
+12. **Lateral view** for sinus · **fluid line** = head UP
+13. **DV view trick**: shift mandible to expose one sinus
+14. **Ball marker** identifies floor in any rotation
+15. ⚠️ Always remove halter (head) + horseshoe (hoof)
+
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 5.2 Thoracic Lab (yc88x669lIA) · 4.1 Abdominal (rTLWWO65Rs8)
+> 🩻 **Practical OSCE**: ปี 5 จะลงคอกม้า · จัดท่าจริง · ฝึก oblique nomenclature
+> 💡 **Mantra**: "Diagnostic quality first" — ถ้าภาพไม่สวย don't try to interpret
+> 🦴 **Career**: equine specialty needs CUVET-Sankamphaeng + horse exposure + HK modul edge`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
