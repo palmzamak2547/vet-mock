@@ -30087,6 +30087,261 @@ Exposing gilt to **mature boar** triggers:
 > 🦴 **PGF2α handler safety**: pregnant women ABSOLUTELY no handle`,
   },
 
+  NSULhtJz_Oc: {
+    videoId: 'NSULhtJz_Oc',
+    title: '8. Pregnancy Development and Detection',
+    subject: 'swine-repro',
+    date: '8 Oct 67',
+    durationMin: 122,
+    instructor: 'อ.มรกต (CUVET)',
+    examFormat: 'MCQ — 114 day pregnancy (3-3-3 rule) · Maternal recognition Day 11-13 · Pregnancy detection methods · Highly Prolific Sow management · Lactation feed staging ออกบ่อย',
+    summary: `# Pregnancy Development & Detection in Swine
+
+> 🎯 **The full pregnancy story** — from fertilization to near-term
+> Top exam: **3-3-3 rule (114 days) · Maternal Recognition Day 11-13 · 4 detection methods · Hyper-prolific sow trends · Embryonic vs Fetal stages**
+
+---
+
+## 1. Pregnancy Duration ⭐⭐ (3-3-3 rule!)
+
+### Classic mnemonic
+**3 months + 3 weeks + 3 days = 114 days** ⭐
+
+### Modern variability
+- Standard: **113-117 days**
+- Some sources: **115 days ± 2 days**
+- Different breeds vary slightly
+- 16 weeks ("Weekly System")
+
+### What changed?
+- Modern Danish genetics: shorter, more variable
+- Earlier weaning common (21 days vs older 28)
+- Whole production system tighter
+
+---
+
+## 2. Pregnancy Stages ⭐⭐⭐ (Critical!)
+
+### Three time-based phases
+| Phase | Days | Activity |
+|---|---|---|
+| **Phase 1: Pregnancy detection (4 wks)** | Day 0-30 | Maternal recognition · embryo migration · implantation · early development |
+| **Phase 2: Fetal growth (8 wks)** | Day 30-90 | Embryo → fetus · organ development · ossification |
+| **Phase 3: Lactogenesis prep (last weeks)** | Day 90-114 | Mammary development · last fetal growth · prep for parturition |
+
+---
+
+## 3. Maternal Recognition of Pregnancy ⭐⭐ (KEY!)
+
+### Critical window
+**Day 11-13** = sow's body must "recognize" pregnancy
+- Otherwise → cycles back into estrus
+
+### How it works
+1. Embryos migrate within uterus
+2. Each embryo produces **estrogen**
+3. Estrogen → signals dam **NOT** to lyse CL
+4. CL maintained → progesterone continues
+5. Pregnancy continues!
+
+### Why this matters
+- ~30% of "fertilization failures" actually = failed maternal recognition
+- Need ≥4 viable embryos in EACH horn for recognition
+- Otherwise "pseudo-pregnancy" or return to estrus
+
+> ⛔ **Why pigs need MANY ova**: Need ≥ 4 embryos per horn, total 8+ for recognition!
+
+---
+
+## 4. Embryo Development Timeline ⭐
+
+### Days 0-30 critical events
+| Day | Event |
+|---|---|
+| 0 | Fertilization in oviduct |
+| 1-4 | Cell division (zygote → morula → blastocyst) |
+| 5-6 | Enter uterus |
+| 7-12 | **Migration** through uterine horns |
+| 11-13 ⭐ | **Maternal Recognition** |
+| 13-18 | Elongation (rapid!) |
+| 18-24 | Attachment/implantation begins |
+| 30 | Embryos firmly attached |
+
+### Embryo death window
+- **Days 11-13** = highest risk of loss
+- **Days 25-35** = secondary risk
+- After Day 35 = mostly stable
+
+---
+
+## 5. Pregnancy Detection Methods ⭐⭐⭐
+
+### 4 methods commonly used
+
+#### A. Non-Return to Estrus
+- Cheapest, simplest
+- Wait 21 days post-AI → no estrus signs = likely pregnant
+- 80-90% accurate
+- **Confirm later** with another method
+
+#### B. Ultrasound (Transabdominal) ⭐⭐
+- **From Day 21-25 post-breeding** = earliest reliable detection
+- Sees uterine fluid + early embryos
+- Ideal: **Day 28-30**
+- Equipment: portable ultrasound (~$3-5K)
+
+#### C. Real-time Ultrasound (B-mode)
+- More accurate than older Doppler
+- See embryos directly
+- Can detect **embryonic loss**
+- Standard in modern farms
+
+#### D. Hormone Assay (rare)
+- Estrone sulfate test
+- More research-grade
+- Expensive
+
+### Comparison
+| Method | Accuracy | Earliest day | Cost |
+|---|---|---|---|
+| Non-return | 80-90% | 21 | Free |
+| Ultrasound (transabdominal) | 95%+ | 21-25 | Equipment |
+| Real-time US | 99% | 28+ | Equipment + training |
+| Hormone assay | 99% | 28+ | High cost |
+
+> ⭐ **Modern standard**: Real-time ultrasound at Day 28-30
+
+---
+
+## 6. Highly Prolific Sow (HPS) ⭐⭐⭐ (Modern trend!)
+
+### Definition
+**Sows with litter size 14-20+** = "Hyper-prolific"
+
+### Genetics behind
+- Mostly Danish/Dutch lines
+- Ovulation rate 30-40 eggs (vs 15-20 traditional)
+- Embryo survival improved
+
+### Management challenges with HPS
+| Issue | Why |
+|---|---|
+| **More piglets fight for teats** | Some born without milk source |
+| **More uterine space pressure** | Embryos compete for placental space |
+| **Different feeding needs** | More energy required |
+| **Crushing risk** | More piglets in farrowing pen |
+| **Smaller piglets** | Born ~ 1.0-1.2 kg (was 1.4-1.5) |
+
+### Modern feeding strategy
+- **Phase feeding** during gestation (different stages)
+- **Ad libitum** in late gestation
+- **High-energy** in lactation
+
+---
+
+## 7. Pregnancy Feeding Stages ⭐⭐ (4 phases!)
+
+### A. Phase 1: Days 0-30 (Implantation period)
+- **Restrict feed** ~2.0 kg/day
+- Body recovery from previous lactation
+- Avoid stress
+
+### B. Phase 2: Days 30-75 (Mid-gestation)
+- **Maintenance** ~2.5 kg/day
+- Slow fetal growth
+- Maintain body condition
+
+### C. Phase 3: Days 75-110 (Late gestation)
+- **Increase feed** 3.0 kg/day
+- Rapid fetal growth (60% in last 30 days)
+- Start mammary development
+
+### D. Phase 4: Days 110-114 (Pre-farrow)
+- **Reduce slightly** 2.0 kg/day
+- Add fiber for constipation prevention
+- Avoid heavy meal day before farrowing
+
+---
+
+## 8. Litter Size Genetics ⭐
+
+### Driver factors
+| Factor | Influence |
+|---|---|
+| **Ovulation rate** | Genetic + heat synchronization |
+| **Fertilization rate** | Sperm quality + AI timing |
+| **Embryo survival** | Maternal recognition + uterine capacity |
+| **Fetal survival** | Late gestation health |
+
+### Heritability is LOW for litter size
+- Slow genetic gain
+- Selection benefits modest
+- Management often more impactful
+
+### Recent improvements
+- Danish PIC + Topigs lines: 18-20 average
+- Best: 22+ recorded
+- Future: 25+ targets
+
+---
+
+## 9. Pseudopregnancy ⭐ (Look-alike!)
+
+### What is it?
+**Sow shows no estrus but is NOT pregnant**
+
+### Causes
+- Persistent CL (failed luteolysis)
+- Embryonic loss WITHOUT cycling back
+- Endometritis (uterine infection)
+
+### Detection
+- Ultrasound after Day 25 → no embryos
+- Negative pregnancy hormones
+- Treatment: PGF2α to reset cycle
+
+---
+
+## 10. Farrowing-to-Service Interval (FSI) ⭐
+
+### Definition
+**Days from one farrowing to next service**
+
+### Goal
+- ≤6 days = Excellent
+- 7-10 days = Acceptable
+- >10 days = Problem (anestrus)
+
+### Implications
+- Direct effect on PSY
+- Each extra day = lost productivity
+- Vet's primary KPI to optimize
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Pregnancy = 114 days (3-3-3 rule)**
+2. **Range 113-117** modern
+3. **Maternal recognition Day 11-13** ⭐
+4. **Need ≥4 embryos per horn** for recognition
+5. **Embryo loss highest Days 11-13**
+6. **Ultrasound from Day 21-25** earliest
+7. **Real-time ultrasound = modern gold standard**
+8. **Non-return to estrus = simplest method** (free, 80-90%)
+9. **Hyper-prolific sows** = 14-20+ litter
+10. **Phase feeding** in 4 stages during gestation
+11. **High-fiber pre-farrow** to prevent constipation
+12. **Litter size heritability LOW** = slow genetic gain
+13. **Pseudopregnancy** = false signs, treatable with PGF2α
+14. **FSI ≤6 days** = excellent
+
+> 📚 อ่านควบ: 6 Puberty Gilt (hzJKpe4SLyw) · 7.1 AI (0vUVH0tVcqw) · 9 Pregnancy failure (pcytvk49Yc8) · 10 Parturition (Oazp-JWIKhw)
+> 🩻 **Practice tip**: Memorize 3-3-3 = THE classical answer
+> 💡 **Maternal recognition Day 11-13** = where most pregnancies fail
+> 🦴 **Modern target**: 18+ piglets per litter routine`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
