@@ -34776,6 +34776,209 @@ Survey high titer = MUST be field exposure
 > 🦴 **Emergency**: Stomach in DH = surgical emergency`,
   },
 
+  '90jMK-YbOBw': {
+    videoId: '90jMK-YbOBw',
+    title: '7. CT 1 — CT Principles, Components, Modes, Image Quality',
+    subject: 'vet-imaging',
+    date: '2024-09-19',
+    durationMin: 47,
+    instructor: 'อ.ชุติมนต์ (พี่)',
+    examFormat: 'concept understanding',
+    summary: `# 7. CT 1 — Computed Tomography Principles
+
+> ⚠️ Lecture สั้น 47 นาที · concept-heavy · เน้นความเข้าใจหลักการ + เทคโนโลยี
+> ก่อน lab ภาคบ่ายของวันนั้น
+
+## 🎯 ภาพรวมคาบ
+หลักการ CT scan + เครื่อง 2 ประเภท + ส่วนประกอบ + scan modes 2 แบบ + image quality 3 resolutions + Hounsfield Unit + Window width/level + multiplanar reconstruction
+
+## 1️⃣ CT Principle — เหมือน X-ray แต่หมุนรอบตัว
+
+**Gantry** (อุโมงค์) มี:
+- หลอด X-ray (ปล่อยรังสีปริมาณ**มากกว่า** plain X-ray)
+- Detector (ตรงข้ามหลอด)
+- ทั้งคู่หมุนรอบตัวสัตว์ ขณะ bed เคลื่อนผ่าน
+
+⏱️ **Scan time** ทั้งตัว < 5 นาที (วางยาช้ากว่าเสียอีก)
+
+## 2️⃣ Two CT Types
+
+### A. Conventional CT (Multi-Detector CT — MDCT)
+- ใช้ในโรงพยาบาลคนและสัตวเล็กส่วนใหญ่ (รวม CUVET-SAH = 64-slice)
+- เป็นเทคโนโลยีหลักในเวชสาตว์ปัจจุบัน
+
+### B. Cone-Beam CT (CBCT / HDV — High Definition Volumetric Imaging)
+- ภาพเหมือน "ถ่ายรูป" volume เดียว (vs MDCT ที่ต่อภาพหลายชิ้น)
+- Resolution ≈ MDCT 4-16 slice
+- เครื่องเล็ก เคลื่อนย้ายได้
+
+### Comparison
+| Feature | Conventional CT | Cone-Beam CT |
+|---------|-----------------|---------------|
+| **เครื่อง** | ใหญ่ · ติดตั้งถาวร | เล็ก · เคลื่อนย้ายได้ |
+| **Cost** | สูง (ห้องตะกั่ว + setup) | ถูกกว่า |
+| **เหมาะกับ** | สัตว์ ≥ 5 kg ถึง medium-large | สัตว์ < 10 kg (exotic, นก, กระต่าย) |
+| **Speed** | เร็วมาก (ยิ่ง slice เยอะ) | ช้ากว่า |
+| **Radiation** | สูง (ปล่อยตลอด) | ต่ำกว่า (ปล่อยเป็นช่วง) |
+| **ภาพในสัตว์ใหญ่** | สวย | แตก ใช้ไม่ได้ |
+| **ภาพในสัตว์เล็ก** | ปกติ | สวยกว่า detail ดีกว่า |
+
+### Single-slice → Multi-slice evolution
+- Yuger 1 = single-slice (1 รอบ → 1 ภาพ) → ช้า + radiation สูง
+- ปัจจุบัน MDCT: 4 → 16 → **64** (CUVET) → 256/320/512 (โรงพยาบาลคน)
+- ยิ่ง slice เยอะ = ยิ่งเร็ว + dose ต่ำ + ภาพคมขึ้น
+
+## 3️⃣ Components
+
+### Gantry + X-ray tube
+- หลอด CT ปล่อย dose **น้อยกว่าจำเป็น** (เฉพาะที่ต้องใช้)
+- **Heat dissipation ดีกว่า** plain X-ray tube → scan หลายตัวต่อเนื่องได้
+
+### Detector — 2-step image creation
+**Step 1**: X-ray → light energy
+- **Xenon gas** (เก่า) — efficiency 60-70% · ภาพไม่คม · หายาก
+- **Solid state** (ปัจจุบัน) — Cadmium Tungstate / Gadolinium Oxide / GdOS · efficiency **95-97%** · ภาพคม
+
+**Step 2**: light → electrical signal
+- **Photodetector** = silicon photodiode → ส่งเข้า computer
+
+⏱️ ทั้ง 2 step ใช้เวลาระดับ **millisecond**
+
+### Bed
+- **Radiolucent material** (carbon fiber) — ไม่ดูดรังสี → ไม่เป็น artifact
+- เคลื่อนเข้า-ออกได้
+
+### Iso-center Laser
+- 3D indicating laser (เส้นแดงตัดกัน)
+- ใช้จัดท่าให้ symmetrical
+
+## 4️⃣ Scan Modes
+
+### A. Axial Scan Mode ("Step and shoot")
+- Bed **หยุดนิ่ง** ขณะ gantry หมุน → สแกน 1 slide → bed ขยับ → สแกนใหม่
+- ✅ **High resolution** (สแกนเสถียร)
+- ❌ **ช้า + radiation สูง** + สัตว์/คนรับ dose มาก
+- ❌ ไม่เหมาะ moving organs (heart, lung)
+- ✅ เหมาะ: brain · ต้องการ detail สูงๆ
+- ปัจจุบัน**ไม่ค่อยใช้**
+
+### B. Helical Scan Mode ("Continuous scan") ⭐ Standard
+- Bed เคลื่อนที่ตลอด ขณะ gantry ปล่อย radiation ตลอด
+- ✅ **เร็วมาก** + dose ต่ำ + เหมาะ moving organs (heart, lung)
+- ✅ **Overlap ระหว่าง slides** → detect lesion เล็กๆได้
+- ❌ ภาพมีความ blurry นิดหน่อย (motion)
+- ปัจจุบัน**ใช้เป็นหลัก**
+
+> **Axial gap risk**: ระหว่าง slide อาจ miss lesion เล็กๆ เพราะไม่ overlap
+> **Helical advantage**: tiny lesion ใน overlap zone จะถูก detect ได้
+
+## 5️⃣ Image Quality — 3 Resolutions
+
+### A. Spatial Resolution
+**= ความสามารถแยก 2 จุดที่อยู่ใกล้กัน**
+
+ขึ้นกับ:
+1. **Pixel count** (ต้อง ≥ **512 × 512** สำหรับ medical imaging)
+2. **Field of View (FOV)** — กว้าง = res ต่ำลง
+3. **Focal spot** — เล็ก = res สูง
+4. **Slice thickness** — บาง = res สูง
+5. **Detector size** — เล็ก = res สูง
+6. **Magnification** — ขยายมาก = res ต่ำลง
+
+### B. Temporal Resolution
+**= ความเร็วในการสแกน** (เหมือน shutter speed กล้อง)
+- ขึ้นกับ **gantry rotation speed**
+- เร็ว = ภาพคม + ลด motion artifact
+
+### C. Contrast Resolution
+**= ความสามารถแยก shades สีบนภาพ** (ดีกว่า X-ray)
+- ขึ้นกับ **noise** — noise มาก = contrast ต่ำ
+
+**ลด noise → เพิ่ม:**
+- mAs ↑
+- Scanning time ↑
+- FOV ↑
+- Slice thickness ↑
+
+## 6️⃣ CT Number / Hounsfield Unit (HU) ⭐
+**Terminology** — ห้ามจำสับ:
+| Imaging | คำเฉพาะ |
+|---------|----------|
+| X-ray | Radio**opacity** |
+| Ultrasound | **Echo**genicity |
+| CT | **Attenuation** (HU) |
+| MRI | (เรียนใน CT 2 / MRI) |
+
+### HU Scale (12-bit: −1024 ถึง +3071)
+| Tissue | HU |
+|--------|-----|
+| Air (ปอด) | **−1000** ถึง −500 |
+| Fat | −100 ถึง −50 |
+| **Water** | **0** |
+| Soft tissue (organs) | +30 ถึง +80 |
+| Blood | +40 ถึง +60 |
+| Bone (cancellous→cortical) | +300 ถึง +1500 |
+| **Metal / FB / implant** | **+3000+** |
+
+### Attenuation terminology
+- **Hyperattenuation** = ภาพ**ขาว** (HU สูง)
+- **Hypoattenuation** = ภาพ**ดำ** (HU ต่ำ)
+
+> ⚠️ **อย่าใช้คำ X-ray (radioopaque/radiolucent) บอกภาพ CT** = สอบโดน
+
+### ประโยชน์ของ HU
+- วัด HU ของ mass → ประมาณได้ว่าเป็น tissue type ไหน
+- ตัวอย่าง: cyst content ~0 HU = น้ำใส · 30-50 = soft tissue · 80+ = blood
+
+## 7️⃣ Window Width (WW) & Window Level (WL)
+
+**เป้าหมาย**: เลือก HU range ที่ต้องการเห็น contrast ดีที่สุด
+
+| Term | นิยาม |
+|------|-------|
+| **Window Width (WW)** | ช่วง HU ที่เห็น shades ได้ (กว้าง = เห็นเยอะแต่ contrast ต่ำ) |
+| **Window Level (WL)** | ค่ากลางของ window |
+
+**Outside WW** → ภาพดำหรือขาวล้วน · แยก shades ไม่ได้
+
+### Standard Windows
+| Window | WW (HU) | WL (HU) | Show |
+|--------|---------|---------|------|
+| **Bone** | กว้าง (~2000) | ~400 | กระดูก ชัดเจน |
+| **Soft tissue** | แคบ (~400) | ~50 | organs ใน abdomen, brain |
+| **Lung** | กว้าง (~1500) | −500 | parenchyma ปอด |
+| **Brain** | แคบ (~80) | ~40 | gray-white matter |
+
+> ⭐ **Rule**: ดูทุก window เสมอ! ไม่งั้นอาจพลาด lesion เล็ก
+> CT software มี preset ให้เลือกอยู่แล้ว
+
+## 8️⃣ Voxel & Multiplanar Reconstruction (MPR)
+- **Pixel** (2D — plain X-ray) → **Voxel** (3D — CT)
+- ภาพดิบ scan ออกมา = **Transverse / Axial plane**
+- Computer reformat → **Sagittal** / **Coronal** plane (ไม่ต้อง re-scan!)
+- ✅ ไม่มี **superimposition** (vs X-ray ที่ทุก structure ทับกัน)
+- ✅ **3D reconstruction** ได้
+
+## 📋 Exam recap (12 จุดสำคัญ)
+1. CT 2 types: Conventional MDCT (≥5kg, ใหญ่ ราคาแพง) vs CBCT/HDV (<10kg, exotic, mobile)
+2. Single-slice → Multi-slice evolution: 4 → 64 (CUVET) → 320 (human)
+3. Detector solid state (CdW/GdO) > Xenon gas (efficiency 95-97% vs 60-70%)
+4. Bed = radiolucent carbon fiber
+5. **Axial** = step-and-shoot (slow, high res, brain) vs **Helical** = continuous (fast, moving organs)
+6. Helical advantage: overlap → catch tiny lesion
+7. Spatial resolution ≥ 512×512 pixels for medical use
+8. Resolution ขึ้นกับ FOV, focal spot, slice thickness, detector size
+9. Reduce noise: ↑ mAs, scan time, FOV, slice thickness
+10. **HU**: Air −1000 · Water **0** · Soft tissue +30-80 · Bone +1000+ · Metal +3000+
+11. CT terminology: **Hyper/hypoattenuation** (NOT radioopaque/radiolucent)
+12. Window: ดูทั้ง bone + soft tissue + lung เสมอ · MPR = axial→sagittal→coronal
+
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 8 CT 2 (5eTxpi37pG0) · 9 MRI 1 (vMRQ11km0RI)
+> 🩻 **Memory aid**: HU scale ตามท่อง — Air-1000, Water 0, Bone +1000, Metal +3000
+> 💡 **Critical confusion**: CT = attenuation (NOT opacity) · ระวังสอบ
+> 🦴 **Cost reality**: 64-slice CT = ~10-20M baht · Lab tech รุ่นใหม่ขึ้น CT แทน X-ray มากขึ้น`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
