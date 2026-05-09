@@ -38547,6 +38547,313 @@ Where:
 > 💉 **Vaccine note**: HAV + Rotavirus have vaccines (HEV does not in most countries)`,
   },
 
+  GaHfOqbxEfs: {
+    videoId: 'GaHfOqbxEfs',
+    title: '14. Foodborne Protozoan + Parasitic Infections',
+    subject: 'food-safety-y4',
+    date: '2024-11-22',
+    durationMin: 144,
+    instructor: 'อ.ธราดล (รุ่นพี่)',
+    examFormat: 'parasite ID + life cycle + reservoir + control',
+    summary: `# 14. Foodborne Protozoan + Parasitic Infections
+
+> ⚠️ Long lecture (144 min) covering 5+ major protozoa
+> Note: Lecture #13 absent in playlist (12 → 14 jump)
+> Builds on parasitology — emphasis on Food Safety angle (transmission, control)
+
+## 🎯 ภาพรวมคาบ
+1. **Toxoplasma gondii** ⭐ (cats + congenital)
+2. **Cryptosporidium parvum** ⭐ (chlorine-resistant!)
+3. **Entamoeba histolytica** (amoebic dysentery + liver abscess)
+4. **Balantidium coli** (largest protozoan, pig reservoir)
+5. **Sarcocystis** (humans = final host!)
+6. Brief: Giardia, Cyclospora
+
+## 1️⃣ Toxoplasma gondii ⭐
+
+### Hosts (2-host parasite)
+| Type | Animal | Function |
+|------|--------|----------|
+| **Final Host** | ⭐ **Cats** (Felidae) | Shed **oocysts** in feces |
+| **Intermediate Host** | Humans, mammals, birds, sheep | Carry **tachyzoites** (acute) + **cysts** (chronic) |
+
+### Where to find tachyzoites vs cysts
+| Form | Location | Phase |
+|------|----------|-------|
+| **Tachyzoite** | Internal organs (liver, spleen, lung) | Acute infection |
+| **Cyst** | Muscle, brain, eye | Chronic infection |
+
+### Epidemiology
+- ⭐ **1/3 world population seropositive** (WHO)
+- Most asymptomatic
+- Often acquired in childhood
+
+### Transmission to Humans
+1. ⭐ **Cat litter / soil** → oocysts on hands → mouth (ingestion)
+2. **Undercooked meat** with cysts (lamb, pork, game)
+3. Vegetable garden contaminated by cat feces
+4. ⭐ **Transplacental** (mother → fetus) — important!
+5. Organ transplant, blood transfusion (rare)
+6. Insects (flies, cockroaches) as mechanical vectors
+
+### Acquired Infection (Postnatal)
+- Often asymptomatic
+- Mild: GI symptoms, lymphadenopathy, fatigue
+- ⚠️ **Immunocompromised**: encephalitis, pneumonitis (CNS toxoplasmosis)
+
+### Congenital Infection ⭐ (Most Important!)
+**Risk peak**: **2nd trimester** (months 4-6)
+
+**Fetal damage targets**: brain + eyes
+- ⭐ **Hydrocephalus** (water on brain)
+- ⭐ **Chorioretinitis** (eye → blindness)
+- Seizures
+- Hearing loss
+- Microcephaly
+
+### Sheep Connection ⭐
+- Sheep + Toxoplasma = abortion (causes economic loss)
+
+### One-Time vs Repeated Transmission
+| Animal | Transplacental |
+|--------|----------------|
+| Humans, sheep, goats | **Once only** (immunity prevents next pregnancy transmission) |
+| Rodents | **Multiple pregnancies** (no immunity) |
+
+### Control
+- ⭐ **Pregnant women avoid cat litter** (or wear gloves)
+- Cook meat thoroughly (60°C × 5 min destroys cysts)
+- Freeze meat (-20°C × 24 hr destroys cysts)
+- Wash vegetables, garden gloves
+- Indoor cats only · feed cooked food
+
+## 2️⃣ Cryptosporidium parvum ⭐
+
+### Properties
+- ⭐ **No intermediate host needed** (single host)
+- Final host: humans + animals (esp. **calves 0-8 months**)
+
+### Why Famous (Post-AIDS Era)
+- Pre-1980s: not big concern
+- AIDS epidemic → cryptosporidiosis became leading cause of diarrhea in immunocompromised
+- Now: significant pediatric pathogen
+
+### Critical Property ⭐ EXAM!
+**⭐ MOST chlorine-resistant of any pathogen!**
+| Pathogen | Chlorine resistance |
+|----------|---------------------|
+| Giardia | Resistant |
+| **Cryptosporidium** | **14× more resistant than Giardia** ⚠️ |
+| Balantidium | Also resistant |
+
+### Implications
+- Standard water chlorination DOES NOT kill Crypto
+- → Waterborne outbreaks common
+
+### 1993 Milwaukee Outbreak ⭐
+- ⭐ **Largest waterborne outbreak in US history**
+- Wisconsin water supply contaminated
+- **400,000+ cases**, 4,000 hospitalizations
+- ~100 deaths (immunocompromised)
+
+### Transmission
+- ⭐ **Water** (drinking, recreational pools)
+- Contaminated food
+- Person-to-person (fecal-oral)
+- Calves (vet rural exposure!)
+
+### "Pool Outbreak" Pattern ⭐
+- Sob clue: swimming pool + diarrhea = Crypto
+- Person with no symptoms swims → contaminates pool
+- Chlorine doesn't kill Crypto → spreads
+
+### Auto-Infection ⭐ Unique Feature
+- ~20% of oocysts have **THIN walls** → break open inside same host
+- → Re-infection without exiting body
+- Allows persistent infection in immunocompromised
+
+### Symptoms
+- Watery diarrhea (mostly)
+- Abdominal pain, nausea
+- Mild fever
+- Self-limiting in healthy adults
+- ⚠️ Chronic in immunocompromised (no good treatment!)
+
+### Infectious Dose
+- Very low: **30-100 oocysts**
+
+### Incubation: 1-12 days (avg 7)
+
+### Control
+- ⚠️ Filter water (chlorine alone insufficient!)
+- Boil water for travelers
+- Wash hands after calf contact
+- Cover pool when sick
+
+## 3️⃣ Entamoeba histolytica ⭐
+
+### Disease
+- Amoebic dysentery (amebiasis)
+
+### Forms
+- **Trophozoite** (active) — has 1 nucleus
+- **Cyst** (transmissible) — has **4 nuclei** ⭐ (key ID feature)
+
+### Transmission
+- Fecal-oral
+- Contaminated water/food
+- Cysts in environment
+
+### Mechanism
+- Cyst → trophozoite in small intestine
+- Trophozoite → colon
+- Produces hyaluronidase enzyme → ⭐ **Directly damages intestinal mucosa** (vs Balantidium which needs pre-existing wound)
+
+### Symptoms
+| Type | Description |
+|------|-------------|
+| **Intestinal** | Bloody diarrhea, cramping, dysentery |
+| **Extra-intestinal** ⭐ | Liver abscess, lung abscess, brain abscess |
+
+### Liver Abscess ⭐ Key Feature
+- ⭐ **#1 cause of LIVER ABSCESS** (RUQ pain, fever)
+- Trophozoites travel via portal vein → liver
+- Drainable surgically
+
+### Royal Connection ⭐ Thai Pearl
+- ⭐ **Prince Mahidol** (King Bhumibol's father) **died of amoebic liver abscess**
+- King Bhumibol therefore avoided raw food + always peeled fruit
+- Cultural/historical significance
+
+### Treatment
+- **Metronidazole** (first-line)
+- Chloroquine (alternative)
+
+### Control
+- Personal hygiene (key — humans are the reservoir!)
+- Don't defecate in water sources
+- Handwashing
+- Boil/filter water
+
+## 4️⃣ Balantidium coli
+
+### Notable feature
+- ⭐ **Largest pathogenic protozoan** in humans!
+- Has **cilia all around** (visual ID)
+
+### Reservoir
+- ⭐ **Pigs** (primary)
+- Also humans, primates
+
+### vs Entamoeba — Key Difference
+| Feature | E. histolytica | B. coli |
+|---------|----------------|---------|
+| Enzyme produces lesion? | ⭐ **YES (direct)** | NO (needs pre-existing wound) |
+| Liver abscess? | ⭐ YES | ❌ No |
+| Extra-intestinal? | YES | ❌ No (intestinal only) |
+| Bloody diarrhea? | YES | Sometimes (in humans only) |
+
+### Transmission
+- Pig farm runoff contaminates water
+- Cysts also chlorine-resistant (less than Crypto though)
+- Veterinarians at risk treating diarrheal piglets
+
+### Symptoms in Pigs
+- Watery diarrhea (NOT bloody — different from humans)
+- Mortality in piglets
+
+### Symptoms in Humans
+- May be asymptomatic (most common)
+- Or colitis (bloody diarrhea if bowel was already injured)
+
+### Control
+- Pig farm waste management
+- Personal hygiene
+- Filter/boil water
+
+## 5️⃣ Sarcocystis ⭐
+
+### Species & Hosts
+| Species | Final Host | Intermediate Host |
+|---------|------------|-------------------|
+| ***S. hominis*** | **Human** | **Cattle** |
+| ***S. suihominis*** | **Human** | **Pig** |
+
+### ⭐ Key: Humans = Final Host (NOT intermediate!)
+- Different from Toxoplasma (cats are final)
+- Humans excrete **oocysts** in stool
+
+### Life Cycle
+1. **Human (final)** eats undercooked beef/pork with **sarcocyst in muscle**
+2. Cyst breaks open in human gut → **gametocytes** (sexual reproduction)
+3. Macrogamete (♀) + Microgamete (♂) → fertilization → oocyst
+4. Oocyst (thin-walled, often breaks → sporocysts seen in stool)
+5. Cattle/pig eats contaminated feed/water → sporocyst breaks
+6. Sporozoite → blood vessel walls of organs → **schizogony** (asexual)
+7. Bradyzoites → muscle cysts (sarcocysts)
+8. Cycle repeats when human eats meat
+
+### Comparison
+| Disease | Source food | Severity |
+|---------|--------------|----------|
+| ***S. hominis*** (cattle) | Undercooked beef | Mild |
+| ***S. suihominis*** (pig) | Undercooked pork | More severe |
+
+### Symptoms (Humans)
+- Mild GI: nausea, diarrhea, abdominal pain
+- Self-limiting
+
+### Control
+- Cook meat thoroughly
+- Hygiene practices
+
+## 6️⃣ Quick Notes — Other Protozoa
+
+### Giardia lamblia (briefly)
+- Foul-smelling watery diarrhea
+- "Backpacker's diarrhea"
+- Cysts also chlorine-resistant (but less than Crypto)
+- Trophozoite has classic "tear drop" shape with 2 nuclei
+
+### Cyclospora cayetanensis
+- Imported berries (raspberries, lettuce) outbreaks
+- Watery diarrhea, fatigue, weight loss
+
+## 7️⃣ Comparative Sob Table ⭐
+
+| Parasite | Final Host | Reservoir | Key Feature |
+|----------|------------|-----------|-------------|
+| **Toxoplasma** | Cats | Cats + meat | Congenital → hydrocephalus |
+| **Cryptosporidium** | Humans + animals | Calves + water | **Chlorine-resistant** |
+| **Entamoeba** | Humans only | Humans | **Liver abscess** |
+| **Balantidium** | Pigs | Pigs | **Largest** + ciliated |
+| **Sarcocystis** | **Humans** | Cattle/pigs | Eat undercooked meat |
+| **Giardia** | Humans + animals | Wild animals + water | Tear-drop trophozoite |
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. **Toxoplasma**: cats = final host · others = intermediate
+2. Toxoplasma tachyzoites (organs) vs cysts (muscle/brain)
+3. ⭐ Toxoplasma **2nd trimester** = highest fetal risk
+4. Toxoplasma → **hydrocephalus + chorioretinitis** in fetus
+5. ⭐ **Cryptosporidium = MOST chlorine-resistant** (14× Giardia)
+6. **1993 Milwaukee outbreak** = 400K cases (water)
+7. ⭐ Crypto + swimming pool = signature association
+8. Crypto auto-infection from thin-walled oocysts (20%)
+9. ⭐ ***Entamoeba histolytica*** = #1 **liver abscess** cause
+10. Entamoeba 4-nucleus cyst (vs trophozoite 1)
+11. ⭐ Prince Mahidol (King's father) died of amoebic liver abscess
+12. *Balantidium coli* = **largest pathogenic protozoan** + pigs
+13. Balantidium NEEDS pre-existing wound (vs amoeba causes wound)
+14. ⭐ ***Sarcocystis*** = **humans are FINAL host** (eat beef/pork)
+15. Cook meat + handwashing = key control for parasitic foodborne
+
+> 📚 อ่านควบ: 9 Foodborne Intro · 12 Viral · 15 Measurement Methods
+> 🐱 **Vet pearl**: Pregnant + cat = avoid litter cleaning (toxoplasmosis)
+> 🏊 **Pool rule**: Don't swim with diarrhea (chlorine doesn't kill Crypto!)
+> 💧 **Water rule**: Boil + filter (chlorine alone insufficient for Crypto/Balantidium)
+> 👑 **Thai history**: Prince Mahidol's death shaped royal eating habits`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
