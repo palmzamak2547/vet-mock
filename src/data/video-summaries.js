@@ -12385,6 +12385,593 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 > 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk) · 8.3 LUT 2 Stones (vLjnPuFgvj4) · 10.2 Surgical Tx Urinary (WtvWyniLMVE) · 10.3 LUT 3 (eBY8GTlcjiw)`,
   },
 
+  nzpDNtceKKk: {
+    videoId: 'nzpDNtceKKk',
+    title: '14.2 : Surgical Treatment of Respiratory System',
+    subject: 'com1',
+    date: '2024-11-18',
+    duration: '72 min',
+    instructor: 'อ.เกียรติพิเชษฐ์',
+    examFormat: 'MCQ + technique-based',
+    summary: `# 14.2 Surgical Treatment of Respiratory System
+
+> 🎯 ครอบคลุม upper airway surgery: **nasal cavity · pharynx · larynx · trachea**. หัตถการสำคัญ: **rhinotomy · BAS correction · soft palate resection · laryngeal tieback · tracheal stent · tracheostomy**. ⚠️ Brachycephalic syndrome ออกแน่
+
+---
+
+## 1. Nasal Cavity (Pug-go Jamook)
+
+### Diseases
+- **Trauma/wounds** — bite wounds, lacerations
+- **Infection** — bacterial, **fungal** (cats — increasing recently!)
+- **Foreign body**
+- **Stenotic nares** (congenital)
+- **Neoplasia**
+
+### Nasal Tumors
+- Mean age: **~7 years+**
+- **Dogs > cats** · **males > females**
+- Origins:
+  - **Epithelial** — squamous cell carcinoma
+  - **Non-epithelial** — lymphoma (common!)
+  - **Melanoma** — also nasal (also tongue, lip)
+
+### Approach
+1. **Symmetry** — facial swelling? eye bulging?
+2. Discharge — unilateral vs bilateral · which side worse?
+3. **Otoscope examination** of nasal cavity (under sedation in big dogs)
+4. ⚠️ **In cats** — facial wound = **don't assume tumor first** — ระบาดมาก rec recently · 1-2 cases/month minimum
+
+### Imaging
+- **2-view X-ray**: VD + lateral
+- Optional: **AP view** + **Open-mouth view** for nasal cavity detail
+- ⚠️ **Always X-ray thorax** — rule out metastasis (especially if rapid growth)
+- **CT/MRI** for invasive tumors (cribriform plate involvement → brain extension)
+
+### Differential dx of facial swelling
+- Bacterial/fungal infection
+- Aspergillosis (specifically)
+- Systemic hypertension
+- Foreign body
+- Tooth-root abscess
+
+### Treatment
+**Medical**
+- **Chemotherapy** (esp. lymphoma)
+- ⚠️ Check WBC ก่อนให้ — leukopenic = ห้ามให้
+
+**Surgical**
+1. **Biopsy/Nasal flush** — เก็บ tissue
+2. **Cryosurgery** — Rapid Freeze + Slow Thaw (เซลล์แตก)
+3. **Rhinotomy** — เปิดเข้า nasal cavity เพื่อ remove
+
+**Radiotherapy**
+- Chula ส่ง KU (Kasetsart) — ต้องประสาน schedule ตั้งแต่แรก
+- Plan: Surgery → wait healing → Radiation
+- ⚠️ บอก owner ตั้งแต่ต้น schedule เพราะ tumor อาจ recur ระหว่างรอคิว
+
+### Rhinotomy techniques
+
+#### Dorsal approach
+1. Patient ในท่า **prone** (นอนคว่ำ)
+2. กรีด skin จาก nose → between eyes
+3. Periosteum elevator strip down
+4. **Oscillating bone saw** ตัด rectangular flap (dog ใหญ่ทำซ้ายขวาแยก · dog เล็ก/cat ทำเป็นแผ่นเดียว)
+5. **Osteotome + mallet** — เคาะเบาๆ งัด flap ออก
+6. Curette ขูด tumor + masses · cotton swab roll out
+7. Hemostasis: **gauze + dilute epinephrine 1:5** — กดรอ 1-2 min
+8. ⚠️ Saline drip during sawing — กัน thermal necrosis
+9. ใส่ **antibiotic-soaked gauze** ใน cavity (โผล่ปลายจมูก ดึงออกภายหลัง)
+10. **เจาะรู bone flap + lvd ทุกมุมก่อนปิด** (ถ้าผูกก่อน → flap ปิดทับ ทำต่อไม่ได้)
+11. เย็บ periosteum + skin
+
+#### Ventral approach
+1. Patient **supine** (นอนหงาย)
+2. กรีด **hard palate** จากหลัง canine คู่หน้า → maxillary tuberosity (ก่อนถึง tonsil)
+3. Periosteum elevation
+4. ใช้ **dental burr** กรอกระดูก (พื้นที่จำกัด ใช้ saw ไม่ได้)
+5. Remove tumor + curette
+6. ⚠️ ปิด: เย็บ gingiva ปิดเลย (กระดูกที่กรอออกใส่กลับไม่ได้)
+7. **Soft food only** หลังผ่า — กันแผลถูกกดเวลาเคี้ยว
+
+### Bilateral nasal packing complication
+- หายใจไม่ออก → **emergency tracheostomy** (Bypass)
+
+### Subcutaneous emphysema (post-rhinotomy)
+- Air leak from imperfect bone seal → palpable crepitus
+- Resolves spontaneously in 4-5 days
+
+---
+
+## 2. Stenotic Nares + BAS (Brachycephalic Airway Syndrome)
+
+### Pathology
+Normal nostril = **dorsal cartilage + ventral cartilage + accessory cartilage**
+- BAS: **dorsal cartilage collapse** → nostrils pinched closed
+- Brachycephalic breeds: **Pug, Pekingese, Bulldog, French Bulldog, Boxer, Boston Terrier, Shih Tzu**
+- Cat: **Persian** (only common one)
+
+### BAS Components (ออกแน่)
+1. **Stenotic nares** ⚠️
+2. **Elongated soft palate**
+3. **Everted laryngeal saccules**
+4. **Hypoplastic trachea**
+
+### Severity
+- Mild · Moderate · Severe (CV — Critical/Vital)
+
+### Clinical findings
+- Stertor (snoring), exercise intolerance
+- **GI distention** — gulping air → bloating → vomiting (เคี้ยวเร็ว + obstruct → swallow air)
+- Cyanosis (severe)
+- **2-4 yrs**: gradual progression visible
+
+### Stenotic Nares — 5 surgical options
+
+#### Method 1: Alar wing amputation (resection)
+- ตัด dorsal cartilage ทิ้งไปเลย
+- Hemorrhage profuse — เตรียม dilute epinephrine
+
+#### Method 2: Wedge resection
+- ตัด wedge (V-shape) — vertical หรือ horizontal cut
+- เย็บ remaining margins กลับเข้าหากัน
+
+#### Method 3: Alapasty
+- กรีด ~0.5 cm Skin Flow ข้างปีกจมูก
+- เย็บ nasal vs facial skin → pull nostril open
+
+#### Method 4: Mucotaneous junction resection
+- เปิด skin flap หลังจมูก → cut wedge ใน cartilage ด้านหลัง → เย็บ skin
+
+#### Method 5: Laser
+- ⚠️ **เหี้ยมเสมอ** เพราะ tissue ที่อยู่ด้านล่างจะตัดด้วย
+- ห้ามตัดผ่าน **endotracheal tube/oxygen** — ระเบิด/ไฟไหม้
+- ป้องกัน: cover ET tube ด้วย wet gauze
+- ✅ Auto-hemostasis (heat)
+- Used in continuous wave or pulsed mode
+
+### ⚠️ Important warnings
+- **Soft palate**: ตัดสั้นเกินไป → **aspiration** (palate ปิด larynx ไม่ได้ตอนกลืน)
+- ตัดให้เผื่อ swelling — กันบวมแล้วสั้นเกิน
+- ทำ 1 ใน 3 components ไม่หายเสมอ — ต้องคุย owner ก่อนผ่า
+
+---
+
+## 3. Soft Palate Resection (เพดานอ่อนยาว)
+
+### Approach
+- Mouth gag (Lange speculum)
+- **Tonsils as landmark** (ตรงกลาง = soft palate target)
+- Stay suture เกี่ยวปลายของ palate, pull, then **clamp**
+- **ตัดทีละครึ่ง** + เย็บเป็น **simple continuous** ก่อนตัดอีกครึ่ง
+- ⚠️ ห้ามตัดทั้งหมดก่อนเย็บ — palate retract เข้าไปใน pharynx → เย็บไม่ได้
+- Hemorrhage: ใช้ **vessel sealing device (Ligasure)** = น้อยมาก
+- Time: ด้วย scissors + suture ~30-45 min · ด้วย Ligasure ~10 min
+
+---
+
+## 4. Larynx
+
+### Diseases
+- **Laryngeal cysts** — clamp + cut
+- **Laryngeal collapse**
+- **Laryngeal paralysis** ⚠️ — ออกบ่อย
+- **Devocalization** (debarking — rarely done now)
+
+### Laryngeal Paralysis (LP)
+- Innervation fail → arytenoid not abducting on inspiration
+- Same disease as **roaring** in horses
+- Clinical: stertor, exercise intolerance, dyspnea
+- Treatment: **Tieback procedure (laryngeal lateralization)** — suture cricoid → arytenoid permanently abducted
+
+### Devocalization (debarking)
+- **Ventriculocordectomy** — ตัด vocal folds
+- Reduces sound ~50% หลังผ่า
+- ⚠️ **Recurrence in 6 months** — fibrous tissue ทดแทน → bark กลับมา (เบากว่าเดิม)
+- Approaches: oral vs **laryngotomy** (ventral midline ผ่าน thyroid cartilage)
+
+---
+
+## 5. Tracheal Collapse
+
+### Epidemiology
+- **Toy breeds**: **Pomeranian** (9.5/10!), Yorkshire, Poodle, Chihuahua
+- Inherited tendency
+- Cause: **dorsal tracheal membrane (Muscle + ligament) laxity** + softened cartilage rings
+
+### Pathophysiology
+- Trachea normally **C-shaped cartilage** + dorsal membrane
+- Collapse: dorsal membrane sag down → **crescent moon shape** → airway narrows on respiration
+- Air rushing past flapping membrane = "**goose honking cough (Kong-Hong)**"
+
+### Severity
+- 75% (Mild) · 50% (Moderate) · 25% (Severe — CV)
+
+### Clinical
+- **Goose honking cough** (pathognomonic!)
+- Worse on tracheal palpation (gentle press on cervical trachea)
+- Exercise intolerance, agitation, cyanosis
+
+### Diagnosis
+- Cervical palpation reveals "honk"
+- **Lateral X-ray** — show narrowing
+- Fluoroscopy = best (real-time during respiration)
+
+### Treatment
+
+**Medical (mild-moderate)**
+- **Bronchodilators** — terbutaline, etc.
+- Cough suppressants
+- Weight loss + cool environment + sedation
+- Anti-anxiety
+
+**Surgical (severe / refractory)**
+
+**Method 1: Plication of dorsal tracheal ligament**
+- Suture dorsal membrane in **horizontal mattress** pattern → tighten
+- Approach: ventral, then **rotate trachea** to expose dorsal aspect
+
+**Method 2: Extra-luminal prosthetic ring (PRRC)**
+- "Belt" outside trachea — non-absorbable suture to cartilage rings
+
+**Method 3: Intra-luminal stent** ⭐ (popular)
+- Materials: **Nitinol** (Ti-Ni alloy), **Stainless steel**, woven NiTi
+- Self-expanding
+- Length: **C7 → T2** (cervical ↔ thoracic)
+- ⚠️ **Permanent** — ถอดออกไม่ได้ (tissue grows around)
+- Risk: tissue fibrosis around mesh → re-stenosis
+
+### Post-op
+- Antibiotics 7-10 days · pain control · bronchodilators
+- Limited exercise
+
+---
+
+## 6. Tracheostomy
+
+### Indications
+- Upper airway obstruction (BAS post-op swelling, mass)
+- Trauma
+- Bypass
+
+### Anatomic landmark
+- ตำแหน่ง: **cartilage ring 3-4 หรือ 4-5**
+- ⚠️ Don't go lower → tube too deep, hard to secure
+- ⚠️ Don't go higher → hits thyroid cartilage
+
+### Technique
+1. Patient supine
+2. Skin incision midline ventral cervical
+3. Sternohyoid muscles split (sternothyrohyoid)
+4. Identify trachea
+5. Stay suture around cartilage ring (lift trachea up)
+6. **Cut tracheal cartilages — half cut, "fold open"**
+7. Insert ET tube (already in via mouth) → cut adapter, repurpose tube
+8. Secure tube to neck with sutures + tape
+9. Stay sutures: 1 cranial + 1 caudal (so when tube removed for cleaning, opening visible)
+
+### Post-op care
+- ⚠️ **Clean tube q12h (morning + evening)** — mucus dries + plugs without nasal humidification
+- If tube blocks → respiratory distress → emergency
+- Permanent vs temporary based on indication
+
+### Standard ET tube depth (reference)
+- ~16 cm = bifurcation
+- Cut down to fit individual
+
+---
+
+## 7. Tracheal Resection + Anastomosis
+
+### Indications
+- Severe trauma (dog bite tear)
+- Mass requiring full-thickness removal
+
+### Limit
+- ⚠️ **Maximum ~20% of tracheal length** — beyond → primary closure not possible
+
+### Technique
+- Cut: **half of cartilage + half of dorsal membrane** (preserve tissue for anchor)
+- Suture pattern:
+  - Cartilage edges: **simple interrupted** through
+  - Adjacent rings: **vertical mattress** (tension-bearing)
+
+---
+
+## 🎯 Exam recap (10+ ข้อ)
+
+1. **Nasal tumor** — older dogs > cats · LSA + SCC + melanoma common · always X-ray thorax
+2. **CT > X-ray** for cribriform plate involvement
+3. **Rhinotomy** — Dorsal (prone, oscillating saw) vs Ventral (supine, dental burr through hard palate)
+4. **Saline drip during bone saw** — prevent thermal necrosis
+5. **BAS = Stenotic Nares + Elongated Soft Palate + Everted Saccules + Hypoplastic Trachea**
+6. **Brachycephalic breeds** = Pug · Pekingese · Bulldog · Boxer · Persian (cat)
+7. **Soft palate cut too short** = aspiration risk (palate can't seal larynx)
+8. **Soft palate resection technique** — cut half + suture, then cut other half (palate retracts!)
+9. **Laser surgery** — ห้ามตัดผ่าน ET tube (ไฟไหม้), cover with wet gauze
+10. **Tracheal collapse** = Pomeranian (9.5/10) · "**goose honking cough**" pathognomonic
+11. **Tracheal stent permanent** — can't be removed
+12. **Tracheostomy site** = cartilage ring 3-4 or 4-5
+13. **Tracheal resection limit** = 20% length
+14. **Tracheostomy tube clean q12h** — mucus plugs from absent humidification
+
+> 📚 อ่านควบ: 14.1 Common Resp II (FlutqheRR6I) · 14.3 Thoracic Sx (_azRwNxOJas) · 13.2 Resp Clinical Assessment (az6ZIjbDFwQ)`,
+  },
+
+  '9Fvz4J6dMCo': {
+    videoId: '9Fvz4J6dMCo',
+    title: '7.2 : Fluid Analysis',
+    subject: 'com1',
+    date: '2024-09-16',
+    duration: '82 min',
+    instructor: 'DekDokVet85 — รุ่นพี่ (อายุรกรรม)',
+    examFormat: 'MCQ + practical case',
+    summary: `# 7.2 Fluid Analysis — Thoracocentesis · Abdominocentesis · Effusion Workup
+
+> 🎯 Two main procedures: **thoracocentesis (เจาะช่องอก) + abdominocentesis (เจาะช่องท้อง)**. Then classify fluid by **transudate / modified transudate / non-septic exudate / septic exudate / chylous / hemorrhagic / neoplastic**. Critical skill ก่อนจบอายุรศาสตร์
+
+---
+
+## Bigger picture
+
+Body cavities ที่เจาะได้:
+- **Thorax**: pleural cavity (thoracocentesis) ✅ · pericardial sac (US-guided only — specialist skill, not for general medicine vet)
+- **Abdomen**: peritoneal cavity (abdominocentesis) ✅ · urinary bladder (US-guided preferred)
+
+⚠️ **Legal risk** — เจ้าของณปัจจุบันมีความรู้ + ฟ้องร้องได้ → ต้อง follow protocol
+
+---
+
+## 1. Thoracocentesis
+
+### When to suspect (auscultation finding)
+- **Muffled lung sounds** = fluid (น้ำ) หรือ air (อากาศ) ระหว่าง chest wall + lung
+- ⚠️ **Always 2-view X-ray** before procedure (lateral + DV/VD)
+- **Distinguish pneumothorax vs effusion**:
+  - **Pneumothorax**: lung tissue (white) + air (black) outside
+  - **Effusion**: lung pushed dorsal + fluid (gray/white) below
+
+### Equipment
+| Item | Note |
+|---|---|
+| Needle: **21G or 23G** | Small dog/cat = 23G (less aggressive look) |
+| Butterfly needle | ✅ alternative — has built-in extension tubing |
+| Extension tube | ต่อจาก needle (if regular needle) |
+| **3-way stopcock** | ⚠️ **arrow points to OPEN direction** |
+| Syringe | Aspirate via stopcock |
+| **Used saline bottle** | Collection container (not commercial fluid bag — saves $) |
+| Local anesthetic | **Lidocaine 2%** — wait **5 min** for onset |
+
+### Anesthetic onset!
+- Lidocaine ≠ instant — must wait ~5 min
+- ⚠️ Don't inject + immediately needle in (เด็กชอบทำผิด)
+
+### Patient prep
+- **3 personnel**: 1 puncture + 1 restrain + 1 aspirate
+- Position: **sternal recumbency** (sitting)
+- Sedation: cats almost always · dogs PRN
+- aseptic prep + clipping
+
+### Landmarks (ออกสอบ ⚠️)
+**Vertical division**: chest wall divided into 3 horizontal zones
+**Junction with X-axis (ICS 7-8)**:
+- **Upper zone × ICS 7-8** = **AIR** (pneumothorax)
+- **Lower zone × ICS 7-8** = **FLUID** (effusion)
+
+### Why ICS 7-8?
+- ICS 3-5 = **heart** (avoid!)
+- ICS 9+ = **liver** (avoid!)
+- ICS 7-8 = **safe zone**
+- Mnemonic: "เจาะช่องอกเจ็บ-แปด" (7 = แปด/เจ็บ in Thai phonetics)
+
+### Why caudal aspect of rib 8?
+- Vessels + nerves run **caudal to rib** (behind rib 7)
+- Cranial aspect of rib 8 = **safe** (no vessel)
+
+### Technique
+1. Stopcock arrow → opens to syringe (close to bag)
+2. Insert needle **perpendicular** to chest wall
+3. **Slowly advance** (not full plunge!)
+4. **Aspirate ONLY after needle is in tissue** (not in air!)
+5. When fluid/air comes → **stop advancing**
+6. ⚠️ Adjust depth — large dog needs **1.5-inch needle** (1-inch ทะลุไม่ถึง)
+
+### After collection
+- Use saline bottle for bulk
+- Reserve **3-5 mL in syringe** for analysis
+- Aspirate to **near-complete drainage** (chest cavity has limited space)
+
+---
+
+## 2. Abdominocentesis
+
+### Suspect when
+- X-ray: "**ground glass appearance**" (มัวๆ ฟุ้งๆ · organs unclear)
+
+### Equipment
+- **Larger needle** (e.g., 18-20G) — more peritoneum mesentery occlusion in abdomen
+- Otherwise same as thoracocentesis
+
+### Position
+- **Lateral recumbency** (นอนตะแคง)
+- Site: **1 inch caudal to umbilicus**, on midline (linea alba)
+
+### Why this site?
+- Linea alba = avascular fibrous band (no muscle, less bleeding)
+- 1" caudal of umbilicus → **avoid liver** (cranial)
+- Caudal to that → **bladder** — ⚠️ **always palpate UB first** (sterile cath if doubt)
+
+### Skin slide technique ⭐ (different from thoracic!)
+- **Slide skin cranially BEFORE inserting needle**
+- After withdrawal, skin slides back covering puncture
+- ⚠️ Otherwise patient leaks fluid through hole when walking ("หมารั่ว") — เจ้าของไม่ชอบ
+- ⚠️ Only do skin-slide for ABDOMINAL — not thoracic (muscle layer prevents leak in thorax)
+
+### Drainage volume
+- ⚠️ **Don't drain to flat** in abdominocentesis
+- **Drain ~1/3 to 1/2 of fluid** — too rapid drain → **hypovolemic shock** (fluid loss + protein loss)
+- Indication for therapeutic drainage: **dyspnea** from large fluid pressing diaphragm
+
+---
+
+## 3. Sample handling
+
+### Tubes
+| Tube | Use case |
+|---|---|
+| **EDTA (purple top)** | ⭐ Preferred for cytology · prevents clotting + preserves cells |
+| Heparin (green) | Bad for cytology — distorts cell morphology |
+
+### Field smear
+- **Make smear on slide BEFORE sending to lab** if possible
+- Read first → then send for confirmation
+
+---
+
+## 4. Fluid Analysis (4 parameters)
+
+| Parameter | What |
+|---|---|
+| **Gross appearance** | Color, clarity, viscosity (clear/cloudy/milky/blood) |
+| **Total Protein (TP)** | Refractometer · g/dL · serum reference 5-8 g/dL |
+| **Total Nucleated Cell Count (TNCC)** | Cells/μL · counted on hematocrit |
+| **Cytology** | Wright stain → cell types · 10×/40× scan, 100× ID |
+
+### Quick microscopy tips
+- **4× or 10×** to find cell clusters
+- **40× / 100×** to identify cell types
+- ⚠️ **Watch out for stain contaminants** — bacteria in stain bottle can FALSELY appear in fluid
+- Confirm bacteria = **intracellular within phagocyte** (proves origin from sample)
+
+---
+
+## 5. Effusion Classification ⭐
+
+### Mechanism overview
+Two opposing forces govern fluid in vessel:
+1. **Hydrostatic pressure** (pushing out)
+2. **Oncotic pressure** (pulling in via protein)
+
+Imbalance → fluid leak
+
+### A. Pure Transudate
+- **Mechanism**: ↓ oncotic pressure (low protein/albumin)
+- **Total Protein**: < 2.5 g/dL (LOW)
+- **TNCC**: < 1,500 cells/μL (LOW)
+- **Cells**: small mononuclear, lymphocytes
+- **Color**: clear, watery
+- **Causes**:
+  - **Hypoalbuminemia** (most common): protein-losing nephropathy/enteropathy, liver failure, malnutrition
+  - **Albumin < 1.5 g/dL** = threshold for ascites/edema
+  - Less common: lymphatic obstruction, ureteral leak
+
+### B. Modified Transudate
+- **Mechanism**: ↑ hydrostatic pressure (vessel wall normal, more pressure pushes fluid out)
+- **TP**: 2.5-5 g/dL (intermediate)
+- **TNCC**: 1,000-7,000 cells/μL
+- **Cells**: more lymphocytes, mononuclear, **occasional reactive mesothelial cells**, RBC
+- **Color**: clear yellow to slightly cloudy
+- **Causes**:
+  - **Right-sided heart failure** (most common in CHF dogs/cats)
+  - **Liver disease** with portal hypertension
+  - **Neoplasia**
+  - **FIP** (cats) — cytology has fibrin background, RIVALTA test positive ⚠️ unique exception
+  - **Diaphragmatic hernia**
+  - **Early uroabdomen** (will progress to exudate)
+
+### FIP & Rivalta test ⭐
+- **Effusion in cat suspect FIP** → cytology shows **pink granular background** (fibrin)
+- **Rivalta test**: drop fluid into **acetic acid solution**
+  - Positive (FIP) = drop persists as visible droplet (jellyfish-like)
+  - Negative (transudate) = drop dissolves immediately
+- ⚠️ **Screening test only** — must confirm with full cytology + serology
+
+### C. Non-septic Exudate
+- **Mechanism**: vasculitis with widened endothelial gaps → larger molecules + cells leak
+- **TP**: 3-5 g/dL
+- **TNCC**: 5,000-50,000 cells/μL
+- **Cells**: many neutrophils + macrophages + lymphocytes
+- **Causes**: often **FIP** (most common), early peritonitis, mild inflammation, neoplasia
+
+### D. Septic Exudate
+- **Mechanism**: bacterial infection → inflammation
+- **TP**: > 3 g/dL (HIGH)
+- **TNCC**: > 7,000 cells/μL (often 10,000-100,000+)
+- **Cells**: **degenerate neutrophils** (look "ghosting", chromatin loose) + **intracellular bacteria** in phagocytes
+- **Color**: cloudy/purulent · foul smell ✋
+- **Causes**: GI rupture, bile peritonitis, pancreatitis, foreign body, post-surgical contamination
+
+### E. Chylous Effusion
+- **Mechanism**: lymphatic leak (high TG)
+- **Color**: **milky white / pink (cold milk)**
+- **Cytology**: **small lymphocytes** + lipid droplets in background
+- **Triglycerides** > serum (essential lab test)
+- **Causes**: cardiac disease, trauma, neoplasia, **idiopathic 50%**, lung lobe torsion
+
+### F. Hemorrhagic Effusion
+- **Color**: red/blood
+- **Need to determine**: Active bleeding vs old hemorrhage vs iatrogenic
+- **Active bleeding** (recent <24 hr):
+  - PCV ~ peripheral (35-50%)
+  - TP ~ peripheral (5-7 g/dL)
+  - **Platelets present** (eat or consume?)
+- **Old/Resolved bleeding** (>24 hr):
+  - PCV < peripheral
+  - **Erythrophagocytosis** in macrophages (cell eat RBC)
+  - Pigment-laden macrophages
+- **Iatrogenic (you punctured vessel)**:
+  - PCV ≈ peripheral
+  - **Platelets present** (clots quickly!)
+  - Stop puncturing, change site
+- **If you puncture spleen**:
+  - PCV > peripheral (spleen = blood reservoir)
+  - **Hematopoietic precursor cells visible** (red lineage)
+
+### G. Neoplastic Effusion
+- **Cells**: tumor cells (lymphoma, carcinoma, mesothelioma)
+- ⚠️ **Mesothelioma** vs **reactive mesothelial cells** look identical to non-experts
+- **NEVER** diagnose mesothelioma without pathologist confirmation — can lead to unnecessary surgery + lawsuit risk
+
+---
+
+## 6. Quick Diagnosis Algorithm
+
+| Color | Lab finding | Likely diagnosis |
+|---|---|---|
+| Clear/yellow | TP <2.5 + TNCC <1.5K | Pure transudate (hypoalbuminemia, liver, PLE) |
+| Clear/yellow | TP 2.5-5 + TNCC 1-7K | Modified transudate (heart, liver, FIP, neoplasia) |
+| Cloudy/purulent | High TNCC + degenerate neutrophils | Septic exudate (peritonitis, pyothorax) |
+| Milky | Small lymphs + high TG | Chylous effusion |
+| Red/Blood | PCV ~ periph + platelets present | Iatrogenic puncture |
+| Red/Blood | PCV ~ periph + no platelets | Active bleeding |
+| Red/Blood | PCV < periph + erythrophagocytes | Resolved bleeding |
+| Red/Blood | PCV > periph + hematopoietic cells | Splenic puncture |
+| Suspicious cells | — | Send to pathologist (do not self-diagnose) |
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **Thoracocentesis site** = ICS 7-8, junction with vertical zones (UPPER for air, LOWER for fluid)
+2. **Avoid** ICS 3-5 (heart) + ICS 9+ (liver)
+3. **Cranial aspect of rib 8** = safe (vessel runs caudal to rib)
+4. **Abdominocentesis site** = 1 inch caudal of umbilicus on linea alba
+5. **Skin-slide technique** for abdominocentesis only (not thoracic)
+6. **Drainage limit** = thoracic to dryness · abdominal max 1/3 to 1/2 (avoid hypovolemic shock)
+7. **Always palpate UB** before abdominocentesis (avoid bladder puncture)
+8. **EDTA tube** for cytology (Heparin distorts cells)
+9. **Lidocaine** = wait **5 min** before procedure
+10. **Pure transudate** = TP < 2.5 + TNCC < 1.5K · cause = hypoalbuminemia
+11. **Modified transudate** = TP 2.5-5 + TNCC 1-7K · cause = heart/liver/FIP
+12. **Septic exudate** = degenerate neutrophils + intracellular bacteria
+13. **Rivalta test for FIP** — droplet persists in dilute acetic acid
+14. **Chylous** = milky + small lymphocytes + high TG
+15. **Hemorrhagic effusion**: distinguish active vs old vs iatrogenic by PCV/platelets/erythrophagocytes
+16. **NEVER diagnose mesothelioma** without pathologist (reactive mesothelial cells look identical)
+
+> 📚 อ่านควบ: 7.1 Anemia + Hemolym (FCRDICfyMlM) · 14.1 Common Resp II Pleural cavity (FlutqheRR6I) · imha video summary (existing)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
