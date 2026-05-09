@@ -34243,6 +34243,295 @@ Survey high titer = MUST be field exposure
 > 🦴 **Coverage rule**: never crop important areas`,
   },
 
+  FYjDUCYr0Eo: {
+    videoId: 'FYjDUCYr0Eo',
+    title: '5.1 Clinical Ultrasound',
+    subject: 'vet-imaging',
+    date: '5 Sep 67',
+    durationMin: 67,
+    instructor: 'อ.ชุติมนต์ (CUVET)',
+    examFormat: 'MCQ — Indications · Patient prep · Probe selection · Systematic abdominal exam · Liver/spleen/kidney/bladder/uterus protocols · FAST scan · Common diseases ออกบ่อย',
+    summary: `# Clinical Ultrasound
+
+> 🎯 **The practical ultrasound lecture** — when, where, how to use US clinically
+> Top exam: **Indications by system · Hair shaving + gel · Systematic exam · Abdominal protocol · FAST scan emergency · Common findings**
+
+---
+
+## 1. Indications for Ultrasound ⭐⭐ (Use chart!)
+
+### By system (when to scan)
+| System | Indication |
+|---|---|
+| **GI** | Vomiting, diarrhea, mass, foreign body suspect |
+| **Hepatobiliary** | Jaundice, abnormal liver enzymes |
+| **Urinary** | Dysuria, hematuria, anuria, kidney issues |
+| **Reproductive** | Pregnancy detection, pyometra, mass |
+| **Cardiac** | Murmur, arrhythmia, suspected cardiomyopathy |
+| **Trauma** | Abdominal effusion, pneumothorax (FAST) |
+| **General** | Abnormal blood work, palpable mass |
+
+### Best uses ⭐
+- **Soft tissue evaluation** (vs bone for X-ray)
+- **Fluid identification** (anechoic = fluid)
+- **Real-time motion** (peristalsis, heartbeat)
+- **Guided procedures** (FNA, biopsy, drainage)
+
+---
+
+## 2. Patient Preparation ⭐⭐ (Critical!)
+
+### Essential prep
+1. **Shave fur** ⭐ — air in fur blocks ultrasound
+2. **Apply gel** generously (couples probe to skin)
+3. **Calm patient** (sedation if needed)
+4. **Empty bladder** if scanning bladder OR full bladder for pelvic
+5. **Fasted** if upper GI to avoid food artifact
+
+### Why shaving matters
+- Air in fur causes 99% reflection
+- Cannot see through fur
+- Even short fur is problematic
+
+### Owner discussion
+- Get permission to shave (some don't want)
+- Explain limitations if no shave
+- Document discussion
+
+---
+
+## 3. Probe Selection ⭐ (Match to anatomy!)
+
+### Probe types
+| Probe | Frequency | Use |
+|---|---|---|
+| **Microconvex** | 5-10 MHz | Small dogs, cats, abdomen |
+| **Curvilinear/Convex** | 3-7 MHz | Medium-large dog abdomen |
+| **Linear array** | 8-15 MHz | Superficial structures, vessels |
+| **Phased array (sector)** | 2-5 MHz | Cardiac (small footprint) |
+
+### Selection rules
+- Smaller patient → higher frequency probe
+- Deeper structure → lower frequency probe
+- Cardiac → small footprint phased array
+
+---
+
+## 4. Patient Positioning ⭐
+
+### Standard for abdominal US
+- **Dorsal recumbency** (on back) ⭐ most common in Thai practice
+- Lateral recumbency alternative
+- **Standing** for some specific evaluations (e.g., gravity-dependent)
+
+### Why dorsal?
+- Easy access to all abdominal organs
+- Operator comfort
+- Good for systematic exam
+
+### When to use lateral
+- Large patient
+- Specific organ better visible
+- Cardiac (sternal recumbency or lateral)
+
+---
+
+## 5. Systematic Abdominal Exam ⭐⭐⭐ (CRITICAL!)
+
+### Why systematic
+- Vet patients can't tell us what hurts (unlike human medicine)
+- Must scan ALL organs
+- Easy to miss findings without protocol
+
+### Standard sequence (one approach)
+1. **Bladder** (start caudal, easy landmark)
+2. **Prostate/Uterus** if applicable
+3. **Liver** (cranial, caudal to diaphragm)
+4. **Gallbladder** + bile ducts
+5. **Stomach + Pylorus**
+6. **Pancreas** (right + left)
+7. **Spleen**
+8. **Kidneys** (right + left)
+9. **Adrenal glands**
+10. **Small intestine** (multiple segments)
+11. **Cecum + Colon**
+12. **Lymph nodes** (mesenteric, sublumbar, iliac)
+13. **Vessels** (aorta, vena cava)
+
+### Tips
+- Always image in 2 planes (transverse + longitudinal)
+- Document each organ
+- Note abnormalities immediately
+
+---
+
+## 6. FAST Scan ⭐⭐ (Emergency tool!)
+
+### What is FAST?
+**Focused Assessment with Sonography for Trauma**
+- Rapid 4-quadrant abdominal scan
+- Detects free fluid (blood, urine, ascites)
+- Used in emergency triage
+
+### 4 windows
+1. **DH (Diaphragmatico-Hepatic)**: liver-diaphragm interface
+2. **CC (Cysto-Colic)**: bladder-colon area
+3. **SR (Spleno-Renal)**: spleen-kidney interface
+4. **HR (Hepato-Renal)**: liver-kidney (Morrison's pouch)
+
+### Time to perform
+- 5-10 minutes
+- Can be done bedside
+- Critical in HBC patients
+
+### Indications
+- Trauma (HBC, fall)
+- Abdominal distension acute
+- Hypotension unexplained
+
+---
+
+## 7. T-FAST (Thoracic FAST) ⭐ (Modern addition)
+
+### What it adds
+- Pleural effusion
+- Pericardial effusion
+- Pneumothorax
+
+### Useful in
+- Trauma + dyspnea
+- Suspected heart failure
+- Cardiac tamponade
+
+---
+
+## 8. Common Abdominal Findings ⭐ (Pattern recognition)
+
+### Liver
+| Finding | Implication |
+|---|---|
+| **Diffuse hyperechoic** | Lipidosis (cats), steroid hepatopathy |
+| **Diffuse hypoechoic** | Lymphoma |
+| **Mixed nodular** | Multifocal disease, neoplasia |
+| **Mass + biliary distension** | Tumor obstructing bile flow |
+
+### Kidneys
+| Finding | Implication |
+|---|---|
+| **Hyperechoic cortex** | Chronic kidney disease |
+| **Pelvic dilation** | Hydronephrosis |
+| **Stones** (hyperechoic with shadowing) | Nephroliths |
+| **Mass** | Tumor (RCC, lymphoma) |
+
+### Bladder
+| Finding | Implication |
+|---|---|
+| **Stones** (hyperechoic + shadow) | Cystoliths |
+| **Wall thickening** | Cystitis |
+| **Mass** | Polyp, transitional cell carcinoma |
+| **Diverticulum** | Congenital |
+
+### Spleen
+| Finding | Implication |
+|---|---|
+| **Diffuse enlarged** | Various (congestion, lymphoma) |
+| **Nodular** | Hyperplasia, neoplasia (HSA in dogs!) |
+| **Mass + fluid** | Hemangiosarcoma rupture (urgent!) |
+
+---
+
+## 9. Pregnancy Diagnosis ⭐
+
+### Earliest detection
+- **Day 21-25 post-breeding** in dog
+- Day 18-20 in cat
+- See gestational sac → embryo → heart beat → fetal movement
+
+### Evaluation includes
+- Number of fetuses (count)
+- Viability (heart beat ~120-150 bpm)
+- Gestational age estimation
+- Position
+- Fluid amount
+
+---
+
+## 10. Pyometra ⭐⭐ (Common!)
+
+### Diagnosis
+- Distended uterine horns
+- Anechoic to hypoechoic content
+- Wall thickening
+- Often differentiable from pregnancy by anechoic vs structured content
+
+### Action
+- Urgent (if open pyometra)
+- Surgical OHE usually
+
+---
+
+## 11. Echocardiography Basics ⭐⭐ (Specialty)
+
+### Purpose
+- Assess cardiac chambers
+- Valve function
+- Wall motion
+- Pericardial effusion
+
+### Standard views
+- Right parasternal long axis
+- Right parasternal short axis
+- Left apical 4-chamber
+- Left parasternal
+
+### Common findings
+- Mitral valve disease (small breeds)
+- Hypertrophic cardiomyopathy (cats)
+- Dilated cardiomyopathy (large breeds)
+- Pericardial effusion
+
+---
+
+## 12. Reporting Findings ⭐
+
+### Standard sonographic report includes
+1. Patient ID + clinical history
+2. Indications for scan
+3. Quality of exam (limitations)
+4. Findings per organ (or systems)
+5. Measurements (organ size, masses)
+6. Differential diagnosis
+7. Recommendations
+
+### Example phrasing
+- "Right kidney measures X cm with normal corticomedullary differentiation"
+- "Heterogeneous nodular spleen with multiple hypoechoic foci, consistent with..."
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Shave fur** = mandatory for clear US
+2. **Couple gel** = matches impedance
+3. **Microconvex probe** for small abdomens
+4. **Phased array** for cardiac (small footprint)
+5. **Dorsal recumbency** = standard
+6. **Systematic 13-organ scan** to avoid missing
+7. **FAST scan** = 4-quadrant trauma exam
+8. **T-FAST** adds thoracic windows
+9. **Pregnancy detection Day 21-25** earliest
+10. **Pyometra** = distended uterine horns
+11. **Liver hyperechoic diffuse** = lipidosis (cats!)
+12. **Kidney hyperechoic cortex** = CKD
+13. **Bladder stones** = hyperechoic + shadowing
+14. **HSA spleen** = mass + free fluid (urgent)
+
+> 📚 อ่านควบ: 4.1 Basic US (rTLWWO65Rs8) · 4.2 Abdominal Lab (5RXoan8azRs) · 5.2 Thoracic Lab (yc88x669lIA)
+> 🩻 **Practice tip**: Year 5 will practice US · master systematic abdominal scan
+> 💡 **FAST scan** = life-saver in trauma
+> 🦴 **Cats vs dogs**: cat hepatic lipidosis is hyperechoic liver (classic exam)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
