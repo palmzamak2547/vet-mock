@@ -31134,6 +31134,521 @@ Exposing gilt to **mature boar** triggers:
 > 🦴 **Modern target**: Reduce repro disorders to <20% of culls`,
   },
 
+  Gn6IhMqcNA4: {
+    videoId: 'Gn6IhMqcNA4',
+    title: '12.1 Swine Anesthesia',
+    subject: 'swine-repro',
+    date: '5 Nov 67',
+    durationMin: 53,
+    instructor: 'อ.สุมิตร (Anesthesiology)',
+    examFormat: 'MCQ — PSS (Porcine Stress Syndrome) · Halothane gene · Restraint difficulty · ET intubation challenges · Anatomical airway issues · Anesthetic protocols ออกบ่อย',
+    summary: `# Swine Anesthesia
+
+> 🎯 **Why swine anesthesia is challenging** — anatomy, behavior, and PSS make pigs uniquely tricky
+> Top exam: **PSS (Halothane gene) · Anatomical airway issues · Pre-anesthetic protocols · IV access challenges · Common anesthetic combos**
+
+---
+
+## 1. Why Pigs Are Unique for Anesthesia ⭐⭐ (Foundation!)
+
+### Behavioral challenges
+- **Loud screaming** when restrained
+- **Strong** (300+ kg adult)
+- **Resistant** to handling
+- **Social** - stress when isolated
+- **Curious** - chew on each other when sedated!
+
+### Anatomical challenges
+| Issue | Why |
+|---|---|
+| **Tiny veins** | Hard IV access |
+| **Thick subcutaneous fat** | Hard injections |
+| **Narrow upper airway** | Difficult ET intubation |
+| **Long larynx + angled trachea** | Hard intubation |
+| **Sensitive larynx** | Easy laryngospasm |
+| **Wide tongue** | Blocks visualization |
+
+---
+
+## 2. PSS (Porcine Stress Syndrome) ⭐⭐⭐ (KEY exam!)
+
+### Definition
+**Genetic disorder causing fatal hyperthermia under stress/anesthesia**
+
+### Genetics
+- **Halothane gene (HAL gene)** ⭐
+- Recessive inheritance
+- Cause: ryanodine receptor mutation (RYR1)
+
+### Mechanism
+1. Stress/halothane triggers Ca²⁺ release in muscle
+2. Sustained muscle contraction
+3. **Hyperthermia** (>41°C)
+4. **Lactic acidosis**
+5. Death within hours
+
+### Clinical syndrome (similar to malignant hyperthermia in humans!)
+- Muscle rigidity
+- Tachycardia
+- Hyperventilation
+- Cyanosis
+- Death
+
+### Risk factors
+- **Pietrain breed** = highest risk
+- Halothane anesthesia (avoid!)
+- Stress (transport, restraint)
+- Hot weather
+
+### Prevention
+- **Genetic testing** for HAL
+- **Cull homozygous animals** from breeding
+- Avoid halothane (use isoflurane/sevoflurane instead)
+- Reduce stress
+- Modern Pietrain lines = mostly HAL-free
+
+> ⛔ **Avoid halothane in pigs** — has been replaced by safer alternatives
+
+---
+
+## 3. Pre-Anesthetic Workup ⭐ (Standard protocol)
+
+### Pre-op fasting
+- **Solid food: 12 hours**
+- **Water: 4 hours**
+- Pigs rarely vomit, but reflux can occur
+
+### Physical exam
+- Vital signs (TPR)
+- Body condition score
+- Lung auscultation (Mycoplasma very common!)
+- Skin lesions
+- Existing pregnancy
+
+### Pre-medication
+| Drug | Use | Dose |
+|---|---|---|
+| **Acepromazine** | Sedation | 0.05 mg/kg IM |
+| **Azaperone** | Sedation, anti-stress | 4 mg/kg IM |
+| **Xylazine** | Sedation + analgesia | 1-2 mg/kg IM |
+| **Atropine** | Reduce salivation | 0.05 mg/kg IM |
+
+> ⭐ **Azaperone** = THE swine sedative (specific to pigs!)
+
+---
+
+## 4. Induction ⭐⭐ (Multi-route!)
+
+### Common combinations
+| Combo | Notes |
+|---|---|
+| **Tiletamine-Zolazepam (Telazol/Zoletil)** | Popular IM combo |
+| **Ketamine + Xylazine** | Field anesthesia |
+| **Ketamine + Azaperone** | Pig-specific |
+| **Propofol IV** | If IV access available |
+
+### Doses (general)
+- Tiletamine-zolazepam: 4-6 mg/kg IM
+- Ketamine: 10-20 mg/kg IM
+- Propofol: 4-6 mg/kg IV titrated
+
+---
+
+## 5. Endotracheal Intubation ⭐⭐ (Difficult!)
+
+### Why challenging
+- Tongue blocks view
+- Larynx far back
+- Larynx angled
+- Easy to enter esophagus
+- Laryngospasm common
+
+### Technique
+1. Pig in **sternal recumbency** (NOT lateral!)
+2. Open mouth, pull tongue out + DOWN
+3. Use **long laryngoscope** with curved blade
+4. Spray **LIDOCAINE 2%** on larynx (prevents spasm) ⭐
+5. Tube selection: **8-10 mm ID adult**, smaller for piglets
+6. Lubricate generously
+7. Pass tube through cords
+8. Confirm placement (capnograph, breath sounds)
+
+> ⭐ **Lidocaine spray on larynx** = mandatory step in pig intubation
+
+---
+
+## 6. Maintenance ⭐
+
+### Inhalant gas (preferred)
+| Gas | Pros | Cons |
+|---|---|---|
+| **Isoflurane** ⭐ | Safe, fast | Cost |
+| **Sevoflurane** ⭐ | Faster, less irritating | More expensive |
+| **Halothane** | Older, cheaper | ⛔ PSS risk! |
+| **Nitrous oxide** | Adjunct | Limited |
+
+### TIVA (Total IV Anesthesia)
+- For long procedures
+- Propofol + ketamine + opioid
+- Less common in field
+
+---
+
+## 7. Recovery ⭐
+
+### Concerns
+| Issue | Mitigation |
+|---|---|
+| **Other pigs chewing** | Recover ALONE in safe pen |
+| **Hypothermia** | Heat lamps, blankets |
+| **Aspiration** | Lateral position |
+| **Self-injury** | Padded recovery area |
+
+### Pen recovery
+- Same pen (familiar smells)
+- Quiet
+- Visible to other pigs (reduces stress) but separated
+- Monitor 30-60 min post-extubation
+
+---
+
+## 8. Specific Procedures + Anesthesia ⭐
+
+### Routine surgery
+- Castration: light sedation OR general
+- Hernia repair: full general
+- C-section: epidural + light sedation
+- Tail docking: <7d, no anesthesia by law (welfare debate)
+
+### Field anesthesia
+- IM induction (no IV access usually)
+- Tiletamine-zolazepam common
+- Limited monitoring
+
+### Hospital anesthesia
+- IV induction
+- Inhalant maintenance
+- Full monitoring (ECG, SpO2, NIBP, capnograph)
+
+---
+
+## 9. Pain Management ⭐ (Welfare critical!)
+
+### Modern pain protocol
+- **Pre-emptive** (before pain starts)
+- **Multimodal** (multiple drug classes)
+- **Continued post-op**
+
+### NSAIDs
+- Meloxicam ⭐
+- Flunixin
+
+### Opioids
+- Buprenorphine
+- Butorphanol
+
+### Local anesthesia
+- Lidocaine line block
+- Epidural (excellent for posterior body)
+
+---
+
+## 10. Special Populations ⭐
+
+### Pregnant sows
+- Avoid halothane (PSS + uterine effects)
+- Reduce drug doses (smaller volume of distribution)
+- Monitor fetal viability
+- Use isoflurane safe
+
+### Piglets
+- Tiny size — careful dosing
+- Hypothermia risk
+- Glucose support
+
+### Geriatric boars (4-5 years)
+- Reduced dose
+- Pre-existing organ issues
+- Slower recovery
+
+---
+
+## 🎯 Exam Recap — top 12 testable points
+
+1. **PSS = Porcine Stress Syndrome** = HAL gene mutation
+2. **Pietrain breed** highest PSS risk
+3. **Avoid halothane** in pigs (PSS trigger)
+4. **Azaperone** = THE pig-specific sedative
+5. **Tiletamine-zolazepam** IM popular induction
+6. **ET intubation difficult** (narrow airway, sensitive larynx)
+7. **Lidocaine spray on larynx** = mandatory step
+8. **Sternal recumbency** for intubation (not lateral!)
+9. **Isoflurane/sevoflurane** = modern gas choice
+10. **Recovery alone** to prevent chewing by herd-mates
+11. **Pre-op fast 12h food, 4h water**
+12. **Multimodal pain** = pre-emptive + post-op continuation
+
+> 📚 อ่านควบ: 12.2 Reproductive disease (i8D7FUq6nLM) · 13 Reproductive surgery (frFnnBQiyug) · 14 Postpartum complications (yxrcr-gg8sQ)
+> 🩻 **Practice tip**: Pre-medicate adequately — pigs WILL fight you
+> 💡 **PSS reality**: less common now thanks to genetic testing
+> 🦴 **Modern protocol**: Azaperone-Tiletamine combo for routine cases`,
+  },
+
+  i8D7FUq6nLM: {
+    videoId: 'i8D7FUq6nLM',
+    title: '12.2 โรคทางระบบสืบพันธุ์ในสุกร I',
+    subject: 'swine-repro',
+    date: '5 Nov 67',
+    durationMin: 51,
+    instructor: 'อ.มรกต / อ.เผด็จ (CUVET)',
+    examFormat: 'MCQ — Brucella suis · Leptospira pomona · PRRS · PED · Erysipelas reproductive forms · Aujeszky disease ออกบ่อย',
+    summary: `# Reproductive Diseases in Swine I
+
+> 🎯 **Specific pathogens** affecting reproduction
+> Top exam: **Brucella suis · Leptospira · PRRS · PED · Erysipelas · Aujeszky · Disease-specific signs vs prevention**
+
+---
+
+## 1. Brucella suis ⭐⭐⭐ (TOP zoonotic!)
+
+### Significance
+- **ZOONOTIC** to humans (undulant fever)
+- Cull-flag in many countries
+- Reportable disease
+- Public health concern
+
+### Clinical signs in pigs
+| Sex | Signs |
+|---|---|
+| **Boar** | Orchitis · epididymitis · scrotal swelling |
+| **Sow** | Abortion (any time) · mummification · stillbirth |
+| Both | Lymph node swelling (esp. inguinal!) |
+
+### Diagnosis
+- **Serology** (Rose Bengal, ELISA)
+- **Culture** from tissues
+- Lymph node biopsy
+
+### Action
+- **CULL** infected animals (no treatment)
+- Test entire herd
+- Notify authorities
+
+---
+
+## 2. Leptospira pomona ⭐⭐ (Common cause!)
+
+### Significance
+- **Most common reproductive bacterial infection** in some regions
+- Carried in urine of pigs, rats, wildlife
+- Survives in water, mud
+
+### Clinical signs
+- **Late-term abortion** (last 2-4 weeks)
+- Stillbirth
+- Weak piglets
+- Retained placenta
+- Mummification (less common)
+
+### Diagnosis
+- **Serology** (microscopic agglutination test - MAT)
+- PCR of urine/tissues
+- Dark field microscopy of urine
+
+### Treatment + Prevention
+- **Vaccination** for breeding animals
+- Antibiotics (streptomycin, oxytetracycline)
+- Rodent control
+- Water source management
+
+---
+
+## 3. PRRS (Porcine Reproductive & Respiratory Syndrome) ⭐⭐⭐ (Modern #1!)
+
+### Significance
+- Most economically damaging swine disease globally
+- 2 strains: US/EU
+- Endemic in many farms
+- Vaccine partial protection only
+
+### Clinical syndromes
+| Syndrome | Signs |
+|---|---|
+| **Reproductive** | Abortion (late-term), mummification, stillbirth, weak piglets |
+| **Respiratory** | Pneumonia in growers/piglets, persistent cough |
+| **Other** | Reduced ADG, elevated mortality |
+
+### Diagnosis
+- **Serology** (ELISA - antibodies)
+- **PCR** for virus (current infection)
+- Necropsy + histopathology
+
+### Management
+- Vaccination (MLV or killed)
+- Acclimation of new gilts
+- Strict biosecurity
+- May achieve "stable" but not free state
+
+---
+
+## 4. PED (Porcine Epidemic Diarrhea) ⭐⭐ (Acute disaster!)
+
+### Significance
+- Catastrophic in suckling piglets
+- 100% mortality if naïve
+- Spreads via fecal-oral
+- Coronavirus
+
+### Reproductive impact
+- Some sows abort if infected during pregnancy
+- Stillbirth possible
+- Mainly affects piglets after born
+
+### Prevention
+- Strict biosecurity
+- Vaccinate gilts pre-breeding (controversial)
+- Feed-back protocol (controversial)
+- All-in/all-out
+
+---
+
+## 5. Erysipelas (Erysipelothrix rhusiopathiae) ⭐ (Diamond skin!)
+
+### Three forms
+| Form | Signs |
+|---|---|
+| **Acute** | Fever, "diamond skin" rhomboid lesions |
+| **Subacute** | Lameness, arthritis |
+| **Reproductive** | Abortion, stillbirth |
+
+### Cull or treat
+- **Treat early** with penicillin (highly effective)
+- Vaccination available
+- Cull chronic cases
+
+---
+
+## 6. Aujeszky's Disease (Pseudorabies) ⭐ (AD = ADD)
+
+### Eradicated in many countries
+- USA = AD-free
+- Thailand = still endemic
+- Highly contagious viral disease
+
+### Reproductive signs
+- Late-term abortion
+- Mummified fetuses
+- Stillbirth
+- Weak piglets
+
+### Other signs
+- "Mad itch" (severe pruritus in older pigs)
+- Neurological signs (piglets)
+- Sudden death
+
+### Status
+- Vaccination program common
+- Eradication possible (if government priority)
+
+---
+
+## 7. Other Reproductive Diseases ⭐
+
+### Parvovirus (PPV)
+- See Pregnancy Failure lecture
+- Silent in non-pregnant
+- Mummification + stillbirth in pregnant
+
+### Classical Swine Fever (CSF)
+- Vaccinated in many countries
+- Causes abortion
+- Eradicated in some areas
+
+### Mycotoxin-induced
+- Zearalenone
+- T-2 toxin
+- Not infectious but causes reproductive failure
+
+---
+
+## 8. Disease Investigation Approach ⭐
+
+### Steps when reproductive failure occurs
+1. **Establish pattern** (single sow vs herd-wide?)
+2. **Submit material** (fetuses, placenta, blood)
+3. **Lab tests**:
+   - Serology panel (PRRS, Lepto, Parvo, AD, Brucella)
+   - PCR for relevant pathogens
+   - Histopathology
+4. **Feed analysis** (mycotoxin)
+5. **Environmental review** (heat, stress)
+6. **Vaccination history** review
+
+---
+
+## 9. Vaccination Program for Breeding Stock ⭐
+
+### Standard pre-breeding vaccinations
+| Vaccine | Schedule |
+|---|---|
+| **Parvovirus** ⭐ | Pre-breed mandatory |
+| **Leptospirosis** | Pre-breed |
+| **Erysipelas** | Pre-breed |
+| **PRRS** | Per farm protocol |
+| **Aujeszky's** | If endemic area |
+
+### Boosters
+- 6-12 months for most
+- Per manufacturer recommendations
+
+---
+
+## 10. Key Differential Diagnoses ⭐
+
+### "Sow aborted" — what to test first?
+1. **Parvovirus** (mummified fetuses)
+2. **Leptospira** (late-term)
+3. **PRRS** (any stage)
+4. **Erysipelas** (with skin signs)
+5. **Brucella** (swelling LN)
+6. **Aujeszky's** (with neurological signs)
+7. **Mycotoxin** (feed-related)
+
+### Stillbirths cluster?
+- Late-term Lepto/Erysipelas
+- Birth canal issues
+- Calcium deficiency
+
+### Mummification cluster?
+- Parvovirus first suspect
+- PRRS possible
+- Aujeszky's possible
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Brucella suis = ZOONOTIC** + cull
+2. **Brucella signs**: orchitis (boar), abortion (sow), lymph node
+3. **Leptospira pomona** = late-term abortion
+4. **PRRS = #1 modern disease** (reproductive + respiratory)
+5. **PED** = catastrophic suckling piglet diarrhea
+6. **Erysipelas** = diamond skin + 3 forms
+7. **Erysipelas treatment = penicillin** (effective)
+8. **Aujeszky's** = pseudorabies, "mad itch"
+9. **Parvovirus** = silent + mummification
+10. **Pre-breed vaccination MANDATORY**: Parvo + Lepto + Erysipelas
+11. **Mass abortion = INFECTIOUS until proven otherwise**
+12. **Late-term abortion** = think Lepto + Aujeszky
+13. **Mummification cluster** = think Parvo
+14. **Vaccination + biosecurity** = best prevention
+
+> 📚 อ่านควบ: 9 Pregnancy failure (pcytvk49Yc8) · 11 Female disorders I (wCl4h_EhFuU) · 14 Postpartum + Diseases II (yxrcr-gg8sQ)
+> 🩻 **Practice tip**: Submit fetus tissue + maternal serum for ALL abortions
+> 💡 **Brucella in boar** = inguinal LN swell + orchitis = CULL
+> 🦴 **Modern reality**: PRRS dominates daily clinical concerns`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
