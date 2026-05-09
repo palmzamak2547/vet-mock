@@ -37736,6 +37736,258 @@ Where:
 > 🦠 **Memory aid**: YOPI = "yo-pee" = high-risk groups`,
   },
 
+  ihparzz9KJ8: {
+    videoId: 'ihparzz9KJ8',
+    title: '10. Foodborne Infection I + II — Bacterial Pathogens',
+    subject: 'food-safety-y4',
+    date: '2024-10-25',
+    durationMin: 158,
+    instructor: 'อ.ธราดล',
+    examFormat: 'pathogen ID + mechanism + food source + disease',
+    summary: `# 10. Foodborne Infection — Bacterial Pathogens
+
+> ⚠️ Long lecture (158 min) · covers major bacterial foodborne pathogens
+> Continues mechanism framework: Invasive vs Toxico-infection vs Intoxication
+
+## 🎯 ภาพรวมคาบ
+1. Foodborne Infection vs Intoxication recap
+2. **Salmonella** ⭐ + types + Thailand exports
+3. **Shigella** + dysentery
+4. **E. coli** 5 pathotypes (ETEC, EPEC, EIEC, EHEC ⭐, EAEC)
+5. EHEC + HUS (hemolytic uremic syndrome)
+6. 2011 Germany E. coli O104:H4 outbreak
+
+## 1️⃣ Foodborne Infection vs Intoxication
+
+| Type | Mechanism | Incubation |
+|------|-----------|------------|
+| **Foodborne Infection** | Eat live bacteria → grow in gut → disease | 12-72 hr |
+| ↳ Invasive | Bacteria invade mucosa directly | — |
+| ↳ Toxico-infection | Bacteria produce toxin in gut | — |
+| **Foodborne Intoxication** | Eat pre-formed toxin in food | 1-6 hr |
+
+> **Outbreak investigation**: Intoxication needs to test FOOD for toxin (not just culture organism)
+
+## 2️⃣ Salmonella ⭐ Thailand Top Concern
+
+### Taxonomy & Naming
+- ***Salmonella enterica* subsp. *enterica* serovar Typhimurium**
+- 2 species: *S. enterica* (matters) + *S. bongori* (rare)
+- *S. enterica* has 6 subspecies; *enterica* most pathogenic
+- Cell-Wahl-Kauffmann scheme: O antigen (LPS) + H antigen (flagella) + Vi (capsule)
+
+### Properties
+- Gram-negative rod, facultative anaerobe
+- Produces H₂S (used in TSI test → black color)
+- Mesophilic (35-37°C)
+- a_w ≥ 0.93
+- Motile via peritrichous flagella
+
+### Hosts (3 categories)
+| Category | Examples |
+|----------|----------|
+| **Human-only** | *S.* Typhi (typhoid fever), *S.* Paratyphi A/C (paratyphoid) — has Vi capsule |
+| **Host-specific (animal)** | *S.* Pullorum (chicken white diarrhea), *S.* Gallinarum (chicken typhoid), *S.* Dublin (cattle), *S.* Cholerasuis (pig), *S.* Abortus equi (horse) |
+| **Non-specific** ⭐ | Most common foodborne pathogens — *S.* Typhimurium, *S.* Enteritidis, *S.* Newport, *S.* Stanley |
+
+### Prevalent Serovars
+- **US/Europe**: Enteritidis, Typhimurium, Newport
+- **Thailand**: Stanley, Weltevreden
+
+### Thailand Export Standards ⭐
+**Prohibited in chicken meat:**
+- Broiler farm: Typhimurium + Enteritidis
+- Breeder farm: Typhimurium + Enteritidis + Hadar + Virchow + Infantis (5 total)
+
+### *S.* Typhimurium DT104 ⭐
+- **First MDR strain** discovered (~20 yr ago)
+- Resistant to 5 drugs simultaneously: ampicillin, chloramphenicol, streptomycin, sulfa, tetracycline
+- Established mc resistance precedent
+
+### Symptoms
+- Incubation: **12-36 hours**
+- Symptoms: gastroenteritis (vomiting, diarrhea, fever)
+- Duration: 1-4 days
+
+### Foods of concern
+- Chicken, eggs, raw milk
+- Pork, beef
+- ⚠️ Vegetables (cantaloupe especially!)
+- Sprouts (alfalfa, beans)
+
+### Control
+- Cook thoroughly
+- **Avoid cross-contamination** (utensils, surfaces)
+- Hand washing
+- Egg vaccine in breeder hens (Japan model — reduces transovarian transmission)
+
+## 3️⃣ Shigella ⭐
+
+### Properties
+- Gram-negative rod
+- **Non-motile** (unlike Salmonella)
+- **Human-specific** (no animal reservoir!)
+- Very low ID (~10 cells!)
+
+### 4 Species (Groups A-D)
+| Species | Severity | Notes |
+|---------|----------|-------|
+| **S. dysenteriae** | Most severe | Produces **Shiga toxin** ⭐ |
+| S. flexneri | Moderate | Common in developing countries |
+| S. boydii | Mild | — |
+| S. sonnei | Mildest | Common in developed countries |
+
+### Shiga Toxin Mechanism
+- Binds 60S ribosomal subunit
+- Inhibits protein synthesis → cell death
+- → Bloody diarrhea
+
+### Symptoms — "Bacillary Dysentery" ⭐
+- **Bloody diarrhea + mucus + high fever**
+- Distinguishes from EHEC (no fever in EHEC!)
+- Common in daycare/childcare centers
+
+### Transmission
+- Fecal-oral
+- Person-to-person (no animal reservoir)
+- Water-borne outbreaks
+
+### Control
+- Personal hygiene
+- Sanitation
+- Antibiotics if severe (norfloxacin first-line)
+
+## 4️⃣ E. coli — 5 Pathotypes ⭐ EXAM CRITICAL
+
+### Naming convention
+- O antigen + H antigen (e.g., **O157:H7**)
+- Same scheme as Salmonella
+
+### A. ETEC (Enterotoxigenic E. coli)
+**= Traveler's diarrhea**
+- Watery diarrhea (NO blood)
+- Toxins: **LT** (Heat-Labile, similar to cholera toxin) + **ST** (Heat-Stable)
+- Mechanism: stimulates cAMP/cGMP → ↑ Cl⁻ secretion → water loss
+- Source: contaminated water, raw vegetables, ice
+- Reservoir: humans
+
+### B. EPEC (Enteropathogenic E. coli)
+**= Infant diarrhea (daycare)**
+- Watery diarrhea, mucus
+- NO toxin production
+- Mechanism: alters microvilli architecture → impaired absorption
+- ⚠️ Bloody = think Shigella (NOT EPEC)
+
+### C. EIEC (Enteroinvasive E. coli)
+**= Shigella-like (low ID)**
+- Bloody diarrhea + fever + mucus
+- Low ID (~10 cells)
+- Short incubation (12 hr)
+- Mechanism: invades colon mucosa, spreads cell-to-cell
+- Resembles bacillary dysentery
+- Reservoir: humans
+
+### D. EHEC (Enterohemorrhagic E. coli) ⭐ Most Important!
+**Synonyms**: VTEC (Verotoxic E. coli), STEC (Shiga Toxin-producing E. coli)
+- ⭐ Most famous: ***E. coli* O157:H7**
+- 75% of EHEC cases = O157:H7
+- Non-O157 group also exists (O26, O45, etc.)
+
+#### Lab feature
+- ⭐ **Does NOT ferment sorbitol** (vs other E. coli that do)
+- On MacConkey: O157:H7 = **cream colored** (not pink)
+
+#### Reservoir
+- ⭐ **Cattle** (especially calves)
+- ⚠️ **Cattle don't get sick** — no Stx receptor in their gut!
+- Humans have receptors → severe disease
+
+#### Foods
+- ⭐ **Hamburger** (raw/undercooked beef)
+- Unpasteurized milk
+- ⚠️ **Unpasteurized apple cider** (Thanksgiving in US — apples fertilized with manure)
+- Sprouts, lettuce, spinach (manure contamination)
+
+#### Toxins (Shiga-like)
+- **Stx1** = like *Shigella* dysenteriae toxin → bloody diarrhea
+- **Stx2** = associated with **HUS** complications
+
+#### Symptoms
+- Hemorrhagic colitis (bloody diarrhea)
+- ⭐ **No fever or low fever** ⚠️ (key distinguisher from Shigella!)
+- Severe abdominal pain
+
+#### HUS (Hemolytic Uremic Syndrome) ⭐
+**3 components:**
+1. **Hemolytic anemia** (low RBCs)
+2. **Thrombocytopenia** (low platelets)
+3. **Acute renal failure** ⭐
+
+- ⭐ **EHEC = leading cause of acute renal failure in young children** (<4 yr)
+- Occurs in ~4-10% of EHEC cases
+- Stx2 → HUS
+
+#### ID
+- Very low: 10-1000 cells
+- Incubation: 2-5 days
+- Duration: 3-7 days
+
+### E. EAEC (Enteroaggregative E. coli)
+- Persistent watery diarrhea (~2 weeks)
+- No bloody stool
+- Mechanism: forms aggregates on intestinal wall (stacked-brick)
+- May produce toxin (mechanism unclear)
+
+## 5️⃣ 2011 Germany E. coli O104:H4 Outbreak ⭐
+
+### Why notable
+- Largest E. coli outbreak in history
+- 3,800+ cases, **42 deaths** (highest death toll)
+- HUS rate ~15% (vs typical 4-10%)
+- Started Germany → spread to 15+ EU countries
+
+### Source
+- ⚠️ **Sprouted fenugreek seeds** (organic farm)
+- Imported from Egypt
+
+### Strain
+- O104:H4 = unusual — it's actually an EAEC + EHEC hybrid
+- Produces Shiga toxin BUT classified as EAEC by aggregation pattern
+- Hybridization makes it especially virulent
+
+## 6️⃣ Mechanism Comparison Table ⭐
+
+| Pathogen | Toxin? | Invasion? | Watery | Bloody | Fever |
+|----------|--------|-----------|--------|--------|-------|
+| **ETEC** | LT/ST | No | ✅ | — | Mild |
+| **EPEC** | No | No (alter microvilli) | ✅ | — | Mild |
+| **EIEC** | No | ✅ | ✅ early | ✅ later | High |
+| **EHEC** | Stx1/Stx2 | No (mostly) | ✅ early | ✅ | NO/low ⭐ |
+| **EAEC** | Maybe | No (aggregate) | ✅ persistent | — | Low |
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. **Foodborne Infection** = eat live bacteria · **Intoxication** = eat toxin
+2. Salmonella H₂S+ (TSI black) · facultative anaerobe
+3. **3 Salmonella host categories**: human-only/animal-specific/non-specific
+4. *S.* Typhi has Vi capsule (severity)
+5. Thailand chicken export bans: Typhimurium + Enteritidis (broiler), +3 (breeder)
+6. *S.* Typhimurium DT104 = first MDR strain
+7. **Shigella = human-only** · 4 species · S. dysenteriae has Shiga toxin
+8. Shigella vs EHEC: bloody + **fever** = Shigella; bloody + **NO fever** = EHEC
+9. ETEC = traveler's diarrhea · LT toxin like cholera
+10. **EHEC = O157:H7** · cattle reservoir (no symptom in cattle!)
+11. ⭐ **EHEC = #1 cause of acute renal failure in <4 yr children** (HUS)
+12. **HUS triad**: hemolytic anemia + thrombocytopenia + acute renal failure
+13. EHEC sorbitol-negative (cream colony on MacConkey)
+14. Hamburger + unpasteurized milk = key EHEC foods
+15. 2011 Germany O104:H4 = EAEC/EHEC hybrid · sprouts source · 42 deaths
+
+> 📚 อ่านควบ: 9 Foodborne Intro (juDD-Hduw6I) · 11 Intoxication (e16wNH-zV6Q) · 12 Viral (RmoRw0wA1g4)
+> 🍔 **Burger rule**: Cook thoroughly + handle separately = EHEC prevention
+> 💡 **Distinguishing rule**: Bloody + fever → Shigella · Bloody + NO fever → EHEC
+> 🐄 **One Health**: Cattle = silent EHEC reservoir → public health control challenge`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
