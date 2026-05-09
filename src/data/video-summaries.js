@@ -35881,6 +35881,201 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 > 🦴 **Career**: equine specialty needs CUVET-Sankamphaeng + horse exposure + HK modul edge`,
   },
 
+  o0rgzFHEcE0: {
+    videoId: 'o0rgzFHEcE0',
+    title: '1. Food Deterioration + Preservation + Food Additive',
+    subject: 'food-safety-y4',
+    date: '2024-08-09',
+    durationMin: 153,
+    instructor: 'อ.พชร',
+    examFormat: 'concept + reaction + preservation method',
+    summary: `# 1. Food Deterioration + Preservation + Food Additive
+
+> ⚠️ คาบยาว 153 นาที · ครอบคลุมทั้งวิชา basics
+> Sections: 1) Food chemistry review · 2) Acceptable food · 3) Deterioration · 4) Preservation · 5) Additives
+
+## 🎯 Food Components Review
+
+### Carbohydrate (4 kcal/g)
+| Type | Examples | Use |
+|------|----------|-----|
+| Monosaccharide | Glucose, Fructose, Galactose | Direct energy |
+| Disaccharide | Sucrose, Lactose, Maltose | Common sweeteners |
+| Oligosaccharide | 3-10 units | — |
+| **Polysaccharide** | Starch (amylose+amylopectin), **Cellulose** (humans can't digest), **Glycogen** (animal storage) | Structural/storage |
+
+### Protein (4 kcal/g)
+**Amino acid structure**: NH2 + COOH + R-group (R = differentiator)
+
+**4 levels of structure:**
+| Level | Description |
+|-------|-------------|
+| **Primary** | Linear amino acid chain · peptide bonds |
+| **Secondary** | Alpha-helix or β-sheet (2D) |
+| **Tertiary** | 3D folded subunit (e.g., Hb subunit) |
+| **Quaternary** | ≥2 polypeptide subunits (e.g., hemoglobin) |
+
+### Lipid (9 kcal/g)
+| Type | Bond | State at RT | Source |
+|------|------|--------------|--------|
+| **Saturated** | No double bond · stable | Solid | Animal (fat) |
+| **Unsaturated** | ≥1 double bond · reactive | Liquid | Plant (oil) |
+
+## 🍴 Acceptable Food (4 criteria)
+1. Correct stage of harvest/age (not too young/old)
+2. Safe production (no toxic process input)
+3. No undesired changes (physical/chemical/biological)
+4. No pathogenic microbes
+
+## 🔬 Food Deterioration — 3 Categories
+
+### A. Biological (microbial) — taught post-midterm w/ อ.ธราดล
+- **Bacteria**: Pseudomonas (aerobic), Lactobacillus (anaerobic), Clostridium (anaerobic), Bacillus
+- **Fungi**:
+  - **Mold** = multicellular fungi (filamentous)
+  - **Yeast** = unicellular fungi
+  - Common in low pH, low water activity foods (fruits, dried meats)
+
+### B. Chemical (8 key reactions) ⭐
+
+#### 1. Lipid Oxidation → Rancidity
+- O2 attacks unsaturated fatty acid (double bond) → free radical chain reaction
+- 3 stages: **Initiation → Propagation → Termination**
+- Catalysts: light, radiation, metals
+- Result: **off-odor, off-taste = ranid odor**
+- Products: aldehydes, ketones, alcohols, organic acids
+
+#### 2. Lipolysis (Enzyme-mediated)
+- **Lipase** hydrolyzes triglyceride → free fatty acids + glycerol
+- FFA cause bitterness/rancid taste
+- Source: natural in tissue + microbial contamination
+- Milk has **lipoprotein lipase** → kill via heating (lipase NOT heat-resistant)
+
+#### 3. Enzymatic Browning (cut apple example)
+- Phenolic compound (tyrosine in seafood, tannin in fruit) + **Phenoloxidase** + O2
+- → ortho-quinone → polymer → **melanin (brown)**
+- Found: fruits, seafood, tea, coffee, cocoa
+- Not toxic but unappetizing
+
+#### 4. Caramelization (NO enzyme!)
+- **Dry heat** + sugar → dehydration → polymer → caramel
+- No water/no enzyme involved
+- Examples: caramel candies, browning of meringues
+- Made via concentrated sugar boiling
+
+#### 5. Maillard Reaction ⭐
+- **Reducing sugar + amino acid + heat** → brown polymer (melanoidin)
+- Examples: roasted coffee, bread crust, grilled meat
+- ⚠️ **Acrylamide formation** (carcinogenic!) when amino acid = asparagine
+- Reason: "อย่ากินปิ้งย่างบ่อยๆ"
+
+#### 6. Protein Oxidation (Myoglobin)
+**Meat color change pathway:**
+| Form | Color | State |
+|------|-------|-------|
+| Deoxymyoglobin | Dark red | Vacuum-packed |
+| Oxymyoglobin (Fe²⁺ + O2) | Bright red | Fresh exposed |
+| **Metmyoglobin** (Fe³⁺) | Brown | Old/spoiled |
+
+**Cause**: too much O2 + warm storage → oxidation Fe²⁺ → Fe³⁺
+
+### C. Physical
+- Improper storage temperature
+- Mechanical damage
+- Humidity not controlled
+- Vibration during transport
+
+## 🛡️ Food Preservation Methods
+
+### A. Heat-Based
+| Method | Temperature | Use |
+|--------|-------------|-----|
+| **Pasteurization** | 63-85°C | Milk, juice |
+| **Sterilization (UHT)** | >100°C | Long-shelf milk, canned |
+
+### B. Canning ⭐ (botulism safety!)
+**Critical rule**: pH 4.6 cutoff
+| Type | pH | Method | Examples |
+|------|-----|--------|----------|
+| **High acidity** | < 4.6 | **Water bath canning** (100°C) | Pickles, fruit |
+| **Low acidity** | > 4.6 | **Pressure canning** (115°C) | Meat, fish |
+
+⚠️ **Why pressure for low-acid?**
+- *C. botulinum* spores survive 100°C
+- Spores germinate in anaerobic + pH > 4.6 → produce botulinum toxin
+- Need 115°C+ to kill spores
+
+### C. Water Activity (aw) Reduction
+**Definition**: aw = vapor pressure of water in food / vapor pressure of pure water (0-1 scale)
+
+| aw range | Category | Examples |
+|----------|----------|----------|
+| < 0.6 | Dry food | Crackers, dried meat |
+| 0.6-0.85 | Intermediate moisture (IMF) | Jam, dried fruit |
+| > 0.85 | Fresh food | Meat, fresh fruit |
+
+**Microbe minimum aw**:
+- Most bacteria: 0.95+
+- *S. aureus*: 0.85
+- Yeasts/halophilic bacteria: ~0.75
+- Xerophilic mold: ~0.6
+
+### D. Drying Methods
+1. **Natural sun drying** — cheap, weather-dependent (เนื้อแดดเดียว)
+2. **Mechanical drying** — tunnel/roller/spray
+   - **Spray drying** = liquid → fine droplets → hot air → instant powder (instant coffee, milk powder)
+   - **Roller drying** = milk powder
+3. **Freeze drying (Lyophilization)** ⭐
+   - Freeze first → sublimate ice (vacuum) → water removed without heating
+   - Preserves shape + nutrition
+   - Premium: freeze-dried mango, durian, **somtam** packets
+
+### E. Smoking
+- Low heat + smoke compounds (phenolic) = antimicrobial + flavor
+- Examples: bacon, smoked ham
+
+### F. Salting/Sugaring/Pickling
+- High solute → osmotic pressure → water out of microbes
+- Salting: dried meat, salted egg
+- Sugaring: fruit preserves
+- Pickling: vinegar/brine + acid
+
+### G. Fermentation
+- Bacterial conversion of sugar → acid/alcohol/gas → low pH → preservation
+- Examples: yogurt, sauerkraut, kimchi, wine, ส้มไก่
+
+### H. Modern Methods
+| Method | Mechanism |
+|--------|-----------|
+| **Irradiation** | DNA damage to microbes |
+| **Vacuum packaging** | Anaerobic + low O2 |
+| **Pulsed Electric Field (PEF)** | Cell membrane disruption · minimal heat |
+| **Ultrasound** | Cavitation shears cell |
+| **Cold plasma** | Ionized gas kills microbes |
+| **High Pressure Processing (HPP)** | 600 MPa kills microbes · preserves taste |
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. Carbs 4 kcal · Protein 4 · Fats 9 kcal/g
+2. Saturated FA = solid + animal · Unsaturated = liquid + plant
+3. Protein 4 levels: Primary/Secondary/Tertiary/Quaternary (Hb = quaternary)
+4. **Lipid oxidation** = rancidity from FA double bonds + O2
+5. **Lipolysis** = lipase + triglyceride → FFA → bitter
+6. **Enzymatic browning** = phenol + O2 + enzyme → melanin
+7. **Caramelization** = sugar + dry heat (NO enzyme)
+8. **Maillard** = reducing sugar + amino acid + heat → melanoidin
+9. ⚠️ Maillard + asparagine → **acrylamide carcinogen**
+10. Myoglobin → Metmyoglobin (Fe²⁺→Fe³⁺) = meat browning
+11. **Canning pH 4.6 rule**: <4.6 water bath · >4.6 pressure (botulinum!)
+12. Water activity: < 0.6 dry · 0.6-0.85 IMF · > 0.85 fresh
+13. **Freeze drying** preserves shape + nutrition (premium products)
+14. **Spray drying** = instant coffee/milk powder
+15. Smoking = heat + antimicrobial phenolic compounds
+
+> 📚 อ่านควบ: 2 Mycotoxins (zAXlmhPU1rg) · 3 Drug residues (R1-1wtoZ8-8) · 5 Food Chemical Risk (fs0TOM677as)
+> 🍞 **Daily life**: Maillard ทำขนมปัง grill อร่อยแต่ระวัง acrylamide
+> 💡 **Vet pearl**: เนื้อสด pH > 5.5 → mostly *Pseudomonas* spoilage`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
