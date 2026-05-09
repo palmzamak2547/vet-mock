@@ -37304,6 +37304,212 @@ Range: **0 to 1** (pure water = 1)
 > 🥫 **Botulinum trap**: vacuum + neutral pH = perfect storm`,
   },
 
+  'oy-ZkKZG_i8': {
+    videoId: 'oy-ZkKZG_i8',
+    title: '8. QMRA — Quantitative Microbial Risk Assessment',
+    subject: 'food-safety-y4',
+    date: '2024-10-11',
+    durationMin: 101,
+    instructor: 'อ.ธราดล',
+    examFormat: 'calculation + concept (formulas given)',
+    summary: `# 8. QMRA — Quantitative Microbial Risk Assessment
+
+> ⚠️ Final risk assessment lecture for microbes (parallel to chemistry RA in lecture 5)
+> ⭐ Only taught at CUVET — extinct elsewhere · "ไม่ค่อยมีใครสอน"
+> Key application: Salmonella in chicken (Thailand exports!)
+
+## 🎯 ภาพรวมคาบ
+1. Risk Analysis vs Risk Assessment distinction
+2. **4 steps applied to microbes** (parallel to chemical)
+3. Beta-Poisson dose-response model
+4. Exposure assessment formula
+5. Risk characterization integration
+6. Worked Salmonella example
+
+## 1️⃣ Risk Analysis vs Risk Assessment ⭐
+
+> ⚠️ DON'T use these interchangeably! Risk Assessment = **subset** of Risk Analysis
+
+### Risk Analysis (umbrella term) — 3 Components
+| Component | Function |
+|-----------|----------|
+| **Risk Assessment** | Quantify the risk |
+| **Risk Management** | Decide what to do |
+| **Risk Communication** | Tell stakeholders |
+
+### Critical realization
+**Risk Assessment alone does NOT make food safer!**
+- Like weighing yourself — number doesn't change you
+- Only **Risk Management** (interventions) makes food safer
+- Risk Assessment is the diagnostic tool
+
+## 2️⃣ The 4 Steps (Same as Chemical RA, Different Targets)
+
+| Step | Activity | Output |
+|------|----------|--------|
+| 1 | **Hazard Identification** | Describe organism (qualitative) |
+| 2 | **Hazard Characterization** | Dose-Response Model (P_disease) |
+| 3 | **Exposure Assessment** | Probability of Exposure (P_exposure) |
+| 4 | **Risk Characterization** | Combined P_risk = P_exposure × P_disease |
+
+## 3️⃣ Step 1: Hazard Identification (Salmonella case)
+
+### Describe the organism
+**Salmonella enterica subsp. enterica** (only species we care about)
+- 2 species total in genus · S. enterica + S. bongori (rare)
+- 2,000+ serovars (formerly serotypes)
+- Most famous: ⭐ ***S.* Typhimurium**
+
+### Naming conventions (sob trap!)
+- Full: *Salmonella enterica* subsp. *enterica* serovar Typhimurium
+- Short: ***Salmonella* Typhimurium**
+- ⚠️ "Typhimurium" = **serovar**, NOT species (note: NOT italicized, capitalized)
+
+### Salmonella key features
+- Gram-negative rod
+- **Facultative anaerobe**
+- **Does NOT form spores** (G-neg)
+- Habitat: humans + animals + environment (3 reservoirs!) → hard to control
+- Surveillance proxy: **coliform** count (gut origin)
+
+### BARF diet warning ⚠️
+- Raw food diets for pets risk Salmonella
+- Indirect human transmission via pet
+- Even healthy carrier dogs
+
+## 4️⃣ Step 2: Hazard Characterization — Dose-Response Model
+
+### Beta-Poisson Model ⭐ Sob Formula
+**P(illness | dose) = 1 − (1 + dose/β)^(−α)**
+
+Where:
+- **dose** = number of bacteria ingested (CFU)
+- **α** + **β** = pathogen-specific parameters (lookup table)
+
+### Salmonella values (memorize for sob)
+- α = **0.1324**
+- β = **51.45**
+
+### Critical concept ⭐
+- **NO minimum infective dose**
+- Even 1 cell has SOME risk (small but nonzero)
+- More dose = higher illness probability (proportional)
+- Probability of illness **directly proportional** to dose
+
+### Important rule
+> **DR model is pathogen-specific, NOT food-specific**
+> 5 foods + 1 pathogen = need only **1** model
+> 5 pathogens + 1 food = need **5** models
+
+### Cannot apply to non-pathogens
+- *Lactobacillus* in yogurt = NO QMRA (doesn't cause disease)
+
+## 5️⃣ Step 3: Exposure Assessment
+
+### Goal
+Calculate Probability of Exposure (P_E) = chance of ingesting contaminated food
+
+### Required Data (3 inputs)
+| Variable | Symbol | Definition | Example |
+|----------|--------|------------|---------|
+| **Prevalence** | P | % contaminated samples | 5/10 = 50% |
+| **Concentration** | C | CFU per gram (often log scale) | 2 log = 100 CFU/g |
+| **Consumption** | M | mass eaten per meal (g) | 50 g pork |
+
+### Exposure Formula (simplified)
+**P_E = 1 − (1 − P)^(M × 10^C)**
+
+Where:
+- (1 − P) = probability NOT contaminated per unit
+- M × 10^C = total potential bacteria exposure
+- Bacterial concentration usually in log scale → 10^C converts back
+
+### Salmonella standard (Thailand + global)
+- ⭐ **Not detected in 25 g** (zero tolerance · Codex/EU/Thailand)
+- High-risk pathogen → no allowance
+
+### Output of Step 3
+1. **P_E** — probability of exposure (e.g., 0.4 = 40%)
+2. **dose** = C × M (total bacteria received)
+
+## 6️⃣ Step 4: Risk Characterization
+
+### Combine 2 probabilities (multiply)
+> Like rolling 2 dice — both events must occur for disease
+> **Event 1**: get exposed (P_E)
+> **Event 2**: get sick from that exposure (P_D)
+
+### Formula
+**P(risk) = P_E × P_D**
+
+### Worked example
+- P_E = 0.4 (40% exposure rate)
+- Dose from C × M → input to Beta-Poisson
+- α=0.1324, β=51.45 → P_D = 1.62 × 10⁻⁵
+- **Risk = 0.4 × 1.62 × 10⁻⁵ = 6.48 × 10⁻⁶**
+
+### Interpretation
+- 6.48 × 10⁻⁶ = "**6 in 1 million**" people will get sick
+- Population context (Bangkok 10 million):
+  - 6.48 × 10⁻⁶ × 10⁷ = ~65 cases
+- **Threshold question**: is this acceptable? — Risk Manager decides
+
+## 7️⃣ Probabilistic Independence Recap
+
+### Why multiply?
+**P(A and B) = P(A) × P(B)** when independent
+
+**Coin example**: P(H, H twice) = 0.5 × 0.5 = 0.25
+**Dice**: P(1, 1 twice) = 1/6 × 1/6 = 1/36
+
+> Disease requires BOTH: (1) exposure AND (2) infection from that exposure
+> So P_risk = P_E × P_D
+
+## 8️⃣ Public Health Application
+
+### Bangkok water dispenser study (อ.ธราดล's project)
+- Sampled water dispensers around dorms
+- One had a cockroach on the spigot (literally)
+- Tested for coliform, Salmonella, E. coli
+- Result pending — but lesson clear:
+  > **"Save the planet" needs both wallet AND immune system**
+- Reusing bottle = environmental but bacterial contamination risk
+
+## 9️⃣ QMRA Summary — Sob Pattern
+
+### 4-step minimal output table
+| Step | Need | Source |
+|------|------|--------|
+| 1 | Pathogen description | Lit review |
+| 2 | DR model (α, β) | Published values |
+| 3a | Prevalence | Sampling study |
+| 3b | Concentration | Sampling + assay |
+| 3c | Consumption | Survey/literature |
+| 4 | P_E × P_D | Calculate |
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. **Risk Analysis** ⊃ Risk Assessment ⊃ 4 steps
+2. **Risk Assessment alone doesn't make food safer** — Management does
+3. 4 steps: Hazard ID → Hazard Char → Exposure → Risk Char
+4. Salmonella full name: *S. enterica* subsp. *enterica* serovar Typhimurium
+5. Typhimurium = serovar (not species, not italicized)
+6. Salmonella Gram-neg + facultative anaerobe + no spore
+7. Salmonella habitat = 3 reservoirs (human/animal/env) → control hard
+8. ⭐ **Beta-Poisson**: P(illness) = 1 − (1 + dose/β)^(−α)
+9. Salmonella: α = **0.1324**, β = **51.45**
+10. NO minimum infective dose (any dose = some risk)
+11. DR model = **pathogen-specific** (not food-specific!)
+12. P_E formula uses prevalence + concentration + consumption
+13. Salmonella legal standard: **not detected in 25 g**
+14. P_risk = P_E × P_D (multiply, independent events)
+15. CAN'T do QMRA for non-pathogens (Lactobacillus etc.)
+
+> 📚 อ่านควบ: 5 Risk Assessment chemical (fs0TOM677as) · 9 Foodborne intro (juDD-Hduw6I) · 10-11 Foodborne infections
+> 🧮 **Sob practical**: เครื่องคิดเลข + จำสูตร α, β · log convert
+> 💡 **Common pitfall**: Salmonella vs serovar Typhimurium naming — italics matter!
+> 🦴 **Real-world**: Thailand chicken export = QMRA must validate to EU/Codex level`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
