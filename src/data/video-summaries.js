@@ -44253,6 +44253,396 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🌍 **Global benchmark**: 1 calf/cow/year as productivity standard`,
   },
 
+  '15J-Z_3sRPo': {
+    videoId: '15J-Z_3sRPo',
+    title: 'Reproductive Performance Index for Dairy Herd Management',
+    subject: 'herd-health-rum',
+    date: '2024-11-06',
+    durationMin: 187,
+    instructor: 'อ.ธนศักดิ์ (final reproduction lecture · KPI calculation deep dive)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง KPI calculation · CI vs CTC · VWP · population proportions · 4-quadrant cattle classification',
+    summary: `## 🎯 Lead Summary
+**Reproductive index calculation** for dairy herd evaluation. Key concepts: ⭐ **Calving Interval (CI) target 365 days** is the gold standard but it's a **lagging indicator** (reflects 2 years past). Better leading indicators: **Calving to First Service (CTFS)** + **Calving to Conception (CTC)** which reflect current management. ⭐ **Voluntary Waiting Period (VWP) ~45 days** = don't breed too early! 4-quadrant cattle classification: ⭐ **Milking-Open · Milking-Pregnant · Dry-Open · Dry-Pregnant** with proportions ~24% · 41% · 17% · 17% in well-managed herd.
+
+## 1️⃣ Industry Context (Recap from Previous Lecture) ⭐
+
+### Thailand Dairy Production Reality
+- **Stuck**: 4,000 kg/cow/year for decades
+- **World top**: 11,000-12,000 kg
+- **Vietnam catching up**: started recently, used Israeli tech
+- **Israel record**: desert country yet 11,000+ kg/cow!
+
+### Farm Trends (2565-2567)
+| Year | Number of dairy farms | Total cows |
+|---|---|---|
+| 2565 | 24,000 | ~700,000 |
+| 2566 | 22,000 | similar |
+| 2567 | ⚠️ **15,000** | ~700,000 |
+- ⚠️ **Farm closures > cow loss** = farms consolidating into bigger sizes
+
+### Production Areas
+1. **Saraburi-Lopburi-Pakchong**: 50%+ Thai dairy
+2. Ratchaburi-Nongpoh, Nakhon Pathom-Kamphaengsaen secondary
+3. Trend: ⭐ small farms (<20 cows) shrinking, mid-large stable
+
+### Free Trade Agreement (FTA) Impact
+- ⚠️ **Thailand has FTA with Australia + New Zealand**
+- Allows tariff-free milk powder import
+- ⭐ **Imported milk powder = 14 baht/L** (reconstituted) vs Thai fresh milk = 21 baht/L
+- ⚠️ Pressures Thai farmers
+- Factories now sign **MOU contracts** with cooperatives to lock supply
+
+### Milk Demand vs Supply
+- Production: ~3,000 tons/day
+- Consumption: ~5,000+ tons/day demand
+- Average Thai consumption: ⭐ **80 mL/person/day** (low!)
+- Gap filled by imported powder
+
+### Market Structure
+- Total Thai dairy market: ~60 billion baht
+- ⭐ **School milk program: 14 billion baht/year!**
+- Commercial market: rest
+
+## 2️⃣ Recording System Basics (ผท.1 Card) ⭐
+
+### Standard Cow Card (ผท.1)
+**Required for DLD AI service** (Department of Livestock Development):
+- ⭐ Cow ID + name
+- Cow drawing (color-able for distinguishing!)
+- Pedigree (dam + sire info)
+- ⭐ **Insemination history**: dates of services 1-10
+- ⭐ **Calving dates** for each lactation
+
+### Key Records Needed
+| Record | Purpose |
+|---|---|
+| ⭐ **Cow ID** | Unique tracking |
+| ⭐ **Calving date** | Reference for all calculations |
+| ⭐ **Service dates** | All AI attempts |
+| **Service number** to conception | ⭐ Service per Conception |
+| ⭐ **Pregnancy confirmation date** | Status update |
+| **Voluntary status changes** | Health, treatment events |
+
+### Why Status Matters ⭐
+- ⭐ Cow doesn't change status until **confirmed pregnant**
+- Field PD (palpation): minimum **50 days post-AI**
+- Until then: ⚠️ "Not pregnant" status persists (statistically!)
+- Affects population proportions used for KPI calc
+
+## 3️⃣ Population Distribution (4-Quadrant Model) ⭐⭐⭐
+
+### Conceptual Foundation
+> "If we want **steady milk supply year-round**, calving must be **distributed evenly**"
+
+### The 4 Cattle States ⭐
+**2 axes**: Lactation × Reproduction status
+| State | Definition | Ideal % |
+|---|---|---|
+| ⭐ **Milking-Open** | Milking but not pregnant | ~40% |
+| ⭐ **Milking-Pregnant** | Milking AND pregnant | ~40% |
+| ⭐ **Dry-Open** | Not milking, not pregnant ⚠️ | ⚠️ <5% (problem indicator!) |
+| ⭐ **Dry-Pregnant** | Drying off before next calving | ~17% |
+
+### Why These Numbers ⭐
+- Production cycle: **305 days milking + 60 days dry**
+- Calving interval: **365 days ideal**
+- Distribution should mirror this ratio
+
+### Calculation: 100-Cow Herd Example ⭐
+**Assumption**: Even calving = 8.3 cows/month
+
+**Lactation distribution** (10 months × 8.3 = ~83% milking):
+- Cows that calved 0-1 month ago: 8 cows
+- Cows that calved 1-2 months ago: 8 cows
+- ... up to 9-10 months: 8 cows
+- **Total milking**: 80 cows (80%)
+
+**Dry distribution** (2 months × 8.3 = ~17% dry):
+- Cows in last 2 months pre-calving: 17 cows
+- **Total dry**: 17 cows (17%)
+
+### Reproductive Distribution
+**Milking-Open** (recently calved, not yet PD-confirmed):
+- ⭐ ~3 month-cohorts = 24%
+
+**Milking-Pregnant** (confirmed pregnant + still milking):
+- ⭐ ~5 month-cohorts = 40%
+
+**Dry-Pregnant** (last 2 months, all confirmed pregnant):
+- ⭐ ~17%
+
+**Dry-Open** ⚠️
+- ⭐ Should be **near zero** in healthy herd
+- ⚠️ Indicates serious management failure if >5%
+- These cows = "free riders" eating but not producing
+
+### Real Farm Example (Mismatched!) ⭐
+- Milking-Open: 53% (too high! · indicates poor PD program)
+- Milking-Pregnant: 30% (low!)
+- Dry-Pregnant: 8%
+- Dry-Open: 9% (warning!)
+
+⭐ **Action**: Add palpation/ultrasound program → reclassify cows
+
+## 4️⃣ Days In Milk (DIM) ⭐
+
+### What It Is
+- ⭐ Days since calving (per cow)
+- Average DIM across herd = key snapshot indicator
+
+### Ideal Average DIM ⭐
+- Lactation length: 305 days
+- Half = ⭐ **~160 days** ideal average
+- ⭐ Means even calving distribution
+- ⚠️ **Higher** than 160 = batch calving (seasonal)
+- ⚠️ Much higher = many cows late lactation (not getting bred back)
+
+### Why It Matters
+- ⭐ **Snapshot indicator** of herd reproductive health
+- Easy to calculate from any farm software
+- Compare month-to-month for trends
+
+## 5️⃣ Calving Interval (CI) ⭐⭐⭐
+
+### Definition
+- ⭐ Days between two consecutive calvings (same cow)
+- ⭐ **Target: 365 days** ("1 calf/cow/year")
+- ⭐ Reality in Thailand: **400-500 days** common
+
+### Why It's the Gold Standard
+- ⭐ Easy to measure (just need calving dates!)
+- Universal language for dairy comparison
+- Drives milk yield over lifetime
+
+### ⚠️ Critical Limitation ⭐
+- ⭐ **CI is a LAGGING indicator**
+- Reflects **management 2 years ago** (full lactation cycle)
+- ⚠️ Can't change CI today, won't see effect for 18+ months
+- → Need **leading indicators** for management
+
+## 6️⃣ Calving to First Service (CTFS) ⭐⭐⭐
+
+### Definition
+- ⭐ Days from calving to FIRST AI of current lactation
+- ⭐ **Target: 60-80 days**
+- Better world-class: <70 days
+
+### Why It's a Better Indicator
+- ⭐ **Current lactation** data (not lagging)
+- ⭐ Reflects current heat detection + management
+- ⭐ Can react quickly to changes
+
+### Voluntary Waiting Period (VWP) ⭐⭐⭐ NEW concept!
+- ⭐ **Don't breed too early!**
+- Default VWP = ~**45 days postpartum**
+- Why: uterine involution takes time
+- ⭐ ⚠️ If breed before 45 days:
+  1. **Low conception** (uterus not ready)
+  2. **Even if it conceives** → too short lactation:
+     - 30 days postpartum + 9 months pregnancy = 10 months gestation
+     - 60-day dry-off → only 7 months milking actual!
+     - ⚠️ Lost milk production!
+- Solution: **Set VWP** at 45-60 days, only breed AFTER that
+
+### How to Calculate Optimal VWP
+- Goal: maximum lifetime milk yield × cow productivity
+- Most farms: 45-60 days
+- Some high-producers: 75-90 days (let cow rest more)
+
+## 7️⃣ Calving to Conception (CTC / Days Open) ⭐⭐⭐
+
+### Definition
+- ⭐ Days from calving to **successful conception** (not just AI!)
+- ⭐ Target: <100 days (world-class), <150 days (acceptable)
+
+### Why It's the BEST Indicator ⭐
+- ⭐ **Captures everything**:
+  - Time to first service (CTFS)
+  - Conception success
+  - Estrus detection
+  - All combined!
+
+### How to Calculate
+- ⭐ Use date of LAST service that resulted in confirmed pregnancy
+- Subtract calving date
+- Per cow → average across herd
+
+### Why "Conception" Not "Pregnancy"
+- ⭐ Conceptus may form but be lost early
+- Pregnancy = confirmed live, established
+- ⭐ Use last service date for accuracy
+
+## 8️⃣ Service per Conception (S/C) ⭐⭐
+
+### Definition
+- ⭐ Average AI services per pregnancy in herd
+- ⭐ **Target: 1.2-1.5** (most cows pregnant in <2 services)
+
+### Calculation
+> **S/C = Total services in herd ÷ Total cows confirmed pregnant**
+
+### Real Calculation Example
+- Cow A: 1 service → conceived → S/C = 1.0
+- Cow B: 2 services → conceived → S/C = 2.0
+- Cow C: 3 services → conceived → S/C = 3.0
+- Herd average: (1+2+3) services / 3 cows = ⭐ **2.0**
+
+### ⭐ ⚠️ Trap of S/C Alone (Important!)
+- ⚠️ Can be GAMED by selective breeding!
+- Strategy: only breed perfect cows → 100% conception
+- ⭐ But ignores poor cows = total herd suffers
+- ⭐ Reason: Need MULTIPLE indicators (CTC + S/C + others!)
+
+### Selective Breeding Trap (Real Story) ⭐
+- Vet wanting bonus on S/C improvement
+- Strategy: cull "non-pregnant after 30 days" cows
+- Don't breed thin cows, those with infections, etc.
+- Result: S/C = 1.0 ⭐ (perfect on paper)
+- ⚠️ But many cows stop being bred → economic disaster!
+
+## 9️⃣ Conception Rate ⭐
+
+### Definition
+- ⭐ % of services that result in pregnancy
+- ⭐ Target: ⭐ **57-60%** (world-class), 30-40% (Thai average)
+
+### Calculation
+> **CR% = (Pregnant from this service / Total services this cycle) × 100**
+
+### Why It's Useful
+- ⭐ Indicates breeding success per attempt
+- Reflects: semen quality + cow status + AI technique + timing
+
+## 1️⃣0️⃣ Heat Detection Rate ⭐
+
+### Definition
+- ⭐ % of cows in heat that are detected
+- Target: ⭐ **70%** (world-class), 30-40% (manual only)
+
+### Calculation
+> **HDR% = (Heats detected / Heats actually occurring) × 100**
+
+### Manual vs Sensor ⭐ (KEY!)
+| Method | Detection rate |
+|---|---|
+| ⭐ **Visual only** | 30-40% |
+| ⭐ **Sensors** | 70-80% |
+
+⭐ This is why sensor adoption transforms dairy!
+
+## 1️⃣1️⃣ % Pregnant by Day ⭐⭐
+
+### Multiple Indicators
+| Metric | Definition | Target |
+|---|---|---|
+| ⭐ **% Pregnant within 100 days** | Quick conception | >65% |
+| ⭐ **% Pregnant within 200 days** | Catch slow ones | >85% |
+| ⭐ **% Not pregnant >200 days** | Problem cows | <6% |
+
+### Why Useful
+- ⭐ Combines RATE (proportion pregnant) with TIME constraint
+- Indirect: management quality
+
+## 1️⃣2️⃣ Decision Framework ⭐
+
+### Choosing Indicators (Per Question)
+| Question | Best Indicator |
+|---|---|
+| Overall herd health | CI |
+| Current management quality | DIM average |
+| Are cows being bred? | CTFS |
+| Are breedings successful? | CR + S/C |
+| Time to next milk? | CTC |
+| Identify problem cows | % not pregnant 200+ days |
+
+### Multi-Indicator Approach ⭐
+- ⭐ ⚠️ NO single indicator tells full story
+- ⭐ Need ⭐ **3-4 indicators minimum**
+- Combine: CI (lifetime) + CTC (recent) + S/C (efficiency) + Population proportions
+
+## 1️⃣3️⃣ Comparison: Thailand vs World ⭐
+
+### KPI Comparison Table
+| KPI | UK Standard | Thai Reality |
+|---|---|---|
+| Day To First Service | **61-75 days** | 100+ days |
+| Calving to Conception | **<90 days** | 200+ days |
+| Conception Rate | **>57%** | <40% |
+| Heat Detection Rate | **>70%** | 30-40% |
+| % Pregnant <80 days | **>75%** | low |
+| % Pregnant <100 days | **>65%** | low |
+| % Not Pregnant >200 days | **<6%** | varies |
+| Lactation Yield | ⭐ **8,000 kg/305 days** | 3,600 kg/305 days |
+
+### ⚠️ The Reality Check
+- Thai cows produce ⭐ **45% less milk per lactation**
+- ⚠️ Different KPI scale needed for Thailand
+- Goals adjusted to local context (5,000-6,000 kg target)
+
+## 1️⃣4️⃣ Economic Impact of Reproductive Failures ⭐⭐
+
+### Cost of Open Cow Calculation ⭐
+**Scenario**: 1 cow not pregnant + Vet finds out today
+- Add 9 months = 270 days to next pregnancy
+- + 1 month current = 300 days
+- Daily cost: 400 baht/day (feed + management)
+- ⭐ **Total cost: 300 × 400 = 120,000 baht!**
+
+### Cull-Replace Decision
+- ⭐ Buy young heifer: 60,000 baht
+- ⭐ Cost of keeping open cow: 120,000 baht
+- ⭐ Cull = save 60,000+ baht!
+
+### Why Some Owners Don't Cull ⭐ (Cultural)
+1. ⭐ **Cow as collateral** for loans
+2. ⭐ **Sentimental attachment** ("She's my first cow!")
+3. ⭐ **Hope** ("Maybe next month she'll get pregnant")
+4. **Religion** ("Buddhist not to slaughter")
+
+### Vet's Role
+- ⚠️ Provide DATA + RECOMMENDATIONS
+- ⚠️ Don't force decision — owner's call
+- ⭐ Education: show calculations clearly
+- Build long-term trust
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### Concepts (1-3)
+1. ⭐ **CI = Calving Interval target 365 days**, but lagging indicator (2 years!)
+2. ⭐ **CTC = Calving to Conception** target <100 days = best leading indicator
+3. ⭐ **VWP = Voluntary Waiting Period** ~45 days · don't breed too early!
+
+### Population Model (4-7)
+4. ⭐ **4-quadrant cattle states**: Milking-Open · Milking-Pregnant · Dry-Open · Dry-Pregnant
+5. ⭐ **Ideal proportions**: 24% · 40% · ~0% · 17%
+6. ⭐ **Dry-Open >5% = WARNING** (free riders!)
+7. ⭐ **DIM average ~160 days** = even calving · ⚠️ much higher = batch calving
+
+### Calculation KPIs (8-12)
+8. ⭐ **CTFS target 60-80 days** = current lactation, not lagging
+9. ⭐ **S/C target 1.2-1.5** services per pregnancy
+10. ⭐ **Conception Rate target 57%+** (world-class), 30-40% Thai
+11. ⭐ **Heat Detection Rate**: visual 30-40% vs sensor 70-80%
+12. ⭐ **% Pregnant <100 days target >65%**, **% Not Pregnant >200 days <6%**
+
+### Reality (13-15)
+13. ⭐ **Thailand stuck at 3,600 kg/305 days** vs UK 8,000 kg
+14. ⭐ **Cost of 1 open cow: 120,000 baht** for 300 extra days
+15. ⭐ **Cull threshold: when keeping costs > replacement value** (often 60,000+ baht)
+
+> 📚 **Cross-refs**: Mastitis (transition cow risks · part of CTFS calculations) · Nutritional disorders (NEB extends CTC) · Recording analytics (technology enables real KPI calculation)
+> 🩺 **Practical**: Run KPI dashboard monthly · educate owners with calculations · use sensors for HDR
+> 💰 **Career**: Reproductive specialist vets earn premium for KPI improvements
+> 📊 **Multi-indicator rule**: NEVER use one KPI alone · always 3-4 in combination
+> 🎯 **Decision tree**:
+> - Open cow >150 days → suspected fertility issue → exam + treat or cull
+> - VWP not respected → adjust farm protocol
+> - Heat Detection <50% → invest in sensors
+> - S/C >2 → semen quality or AI technique issue
+> 🐄 **Calculation order for new vet**: Population proportions → DIM avg → CI → CTFS → CTC → S/C
+> ⏰ **Historic vs current**: CI (history) · CTFS, CTC, S/C (current management) — use them together!`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
