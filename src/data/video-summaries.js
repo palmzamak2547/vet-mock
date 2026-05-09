@@ -26614,6 +26614,279 @@ For external gilts:
 > 🦴 **ASF reality**: Multi-route + no vaccine = will be with us for years`,
   },
 
+  '75NLH3PfQ0Y': {
+    videoId: '75NLH3PfQ0Y',
+    title: '11. Principle of Vaccination Program in Swine',
+    subject: 'swine-herd',
+    date: '29 Oct 67',
+    durationMin: 108,
+    instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
+    examFormat: 'MCQ — Live vs killed vaccine pros/cons · 3 live vaccines in swine · Acclimation · 2-shot rule for killed · Maternal antibody interference · PCV-2 vaccine reverted-virulence incident ออกบ่อย',
+    summary: `# Vaccination Programs in Swine
+
+> 🎯 **Why this matters**: Most swine farm $$$ disease control = vaccines + biosecurity
+> Top exam: **Live vs killed pros/cons · 3 live vaccines in swine (PRRS · CSF · Pseudorabies) · Maternal antibody timing · PRRS vaccine limitation · Acclimation procedure**
+
+---
+
+## 1. Vaccine Types ⭐⭐ (Foundation)
+
+### Two main categories
+| Type | Source | Pros | Cons |
+|---|---|---|---|
+| **LIVE (Modified Live Vaccine, MLV)** | Attenuated pathogen | Strong immunity · longer duration · cellular + humoral | Risk of reversion to virulence · contraindicated in pregnant |
+| **KILLED (Inactivated)** ⭐ | Whole or part of pathogen | Safe (cannot revert) · OK for pregnant | Weaker immunity · needs **booster** · adjuvants |
+
+### Why live vaccines work better
+- Closer to natural infection
+- Replicates in body → more antigen presented
+- Stimulates **cellular immunity** (T-cell)
+- BUT carries reversion risk
+
+### Why most modern swine vaccines are KILLED
+- **Safety priority** in commercial farms
+- ASF era → reduce ALL infection-like risks
+- Production tighter quality control
+
+---
+
+## 2. Three Live Vaccines Used in Swine ⭐⭐⭐ (MUST KNOW)
+
+| Live MLV | Disease | Notes |
+|---|---|---|
+| **PRRS MLV** | Porcine Reprod & Respir Syndrome | Widely used, controversial efficacy |
+| **CSF MLV (Hog Cholera)** | Classical Swine Fever | Highly effective, long history |
+| **Pseudorabies MLV** | Aujeszky's disease | Used in Europe |
+
+> ⭐ Almost ALL OTHER swine vaccines = killed (Mycoplasma · APP · Salmonella · Strep · PCV2 · etc.)
+
+---
+
+## 3. PCV-2 Vaccine Reversion Incident ⭐⭐ (Real-world!)
+
+### What happened (~10 years ago)
+- PCV-2 vaccine was supposed to be **killed**
+- But **inactivation incomplete** during production
+- Live PCV-2 contaminated vaccine batches
+- Caused PCV-2 outbreaks in vaccinated farms!
+- Vaccine RECALLED quickly
+
+### Lesson for veterinarians
+- Always check vaccine batch numbers
+- Monitor unusual disease patterns post-vaccination
+- Trust major manufacturers but stay vigilant
+
+---
+
+## 4. Vaccine Schedule Decisions ⭐ (Modern flexibility)
+
+### Production cycle alignment
+**Sow cycle = 16 weeks gestation + 4 weeks lactation + 1 week wean-to-service**
+
+### Vaccination timing principles
+| Stage | Vaccine Goal |
+|---|---|
+| **Gilts (replacement)** | Build immunity BEFORE breeding |
+| **Pre-breeding** | Parvo vaccine MANDATORY (silent stillbirth otherwise!) |
+| **Pre-farrowing (3-5 wks)** | Boost colostral antibodies for piglets |
+| **Suckling pigs (1-3 wks)** | If maternal antibodies allow |
+| **Weaners (3-5 wks)** | Window of waning maternal immunity |
+| **Growers/Finishers** | If respiratory or production diseases endemic |
+
+---
+
+## 5. The 2-Shot Rule for Killed Vaccines ⭐
+
+### Why 2 shots minimum
+- **Primary**: triggers initial response (low antibody titer)
+- **Booster (2-4 weeks later)**: amplifies response (high titer)
+- 1 shot only → suboptimal protection
+- Some vaccines need 3+ shots in young animals
+
+### Booster intervals
+| Type | Booster |
+|---|---|
+| Killed (most) | 2-4 weeks |
+| MLV PRRS | Single dose, sometimes annual booster |
+| Annual maintenance | Once per year for sows |
+
+---
+
+## 6. Maternal Antibody Interference ⭐⭐ (Key concept!)
+
+### The problem
+- Piglets get IgG via colostrum (~24 hours after birth)
+- High maternal antibodies = vaccinate too early → vaccine NEUTRALIZED
+- Wait for waning → optimal vaccination window
+
+### Vaccination timing chart
+| Disease | Maternal antibodies wane at... | Best vaccination age |
+|---|---|---|
+| **PRRS** | ~6-8 weeks | After 6 weeks |
+| **PCV-2** | ~3-4 weeks | 3-4 weeks |
+| **Mycoplasma** | ~3-7 weeks | 3-7 weeks (variable) |
+| **CSF** | ~6-8 weeks | After 6 weeks |
+
+### Why timing matters
+- Vaccinate too early → wasted dose, no protection
+- Vaccinate too late → window of susceptibility
+- → **DENS test** (Duration Estimation of Neonatal/Sow antibodies) helps optimize
+
+---
+
+## 7. PRRS Vaccine — Why Not 100% Effective ⭐⭐⭐
+
+### Why PRRS vaccines are "controversial"
+| Reason | Mechanism |
+|---|---|
+| **Multiple genetic strains** | 2 main types (US/EU) + many sub-strains |
+| **Limited cross-protection** | Vaccine for one strain may not protect against another |
+| **Antigenic drift** | Virus mutates rapidly |
+| **Imperfect immune response** | Even "good" vaccines give <80% protection |
+
+### Two control approaches
+| Approach | Used by |
+|---|---|
+| **No vaccine** (rely on biosecurity + acclimation) | Some Western countries |
+| **Vaccine + biosecurity + acclimation** ⭐ | Thailand (most farms) |
+
+> 💡 PRRS control = combination strategy, NOT vaccine alone
+
+---
+
+## 8. Acclimation (กักโรค + คลุกเชื้อ) ⭐⭐⭐ (THE Thai-specific technique)
+
+### What is acclimation?
+**Exposing replacement gilts to FARM PATHOGENS** before they join breeding herd
+
+### Why?
+- Vaccine protection is incomplete
+- Natural infection = stronger, longer immunity
+- BUT must happen BEFORE breeding (so silent disease doesn't cause stillbirth)
+
+### Acclimation procedure
+1. **Quarantine new gilts** (~30 days) to ensure NO outside diseases
+2. Move to **gilt pool** (กิ้วพู) — separate from main herd
+3. **Mix with retired sows** carrying farm pathogens
+4. Allow **natural exposure** for 4-6 weeks
+5. Confirm seroconversion (antibody check)
+6. **THEN** join breeding herd
+
+### Critical point ⭐
+Vaccinate against **PARVOVIRUS** BEFORE breeding!
+- Parvo is silent in non-pregnant
+- BUT causes massive stillbirth/mummification in pregnant
+- Acclimation does NOT solve this — must vaccinate
+
+---
+
+## 9. Herd Immunity Strategy ⭐ (Why this matters)
+
+### Two-component approach
+| Component | Mechanism |
+|---|---|
+| **Vaccination** | Direct immunity boost |
+| **Natural infection (acclimation)** | Stronger, longer immunity |
+
+### Balance
+- **Too much vaccination only** = weaker immunity over time
+- **Too much natural exposure** = unpredictable, risky
+- **Optimal** = combined approach with proper timing
+
+---
+
+## 10. New Susceptible Populations ⭐⭐ (Where outbreaks start)
+
+### Two main groups in farms
+| Group | Why susceptible |
+|---|---|
+| **Newborn piglets** | No immune system mature yet · maternal Ab declining |
+| **Replacement gilts** | Naïve to farm pathogens |
+
+### Why replacement gilts are dangerous
+- Bring NEW genetics (good)
+- BUT bring NO immunity to farm pathogens (bad)
+- If integrated wrong → become disease reservoir
+- Acclimation prevents this
+
+### Gilt management cycle
+1. **Source from healthy farm** (or self-replacement)
+2. **Quarantine** — verify no outside disease
+3. **Acclimate** — expose to farm pathogens
+4. **Vaccinate** — Parvo, others as needed
+5. **Confirm** seroconversion
+6. **Integrate** to breeding herd
+
+---
+
+## 11. Disease Categories by Vaccination Strategy ⭐
+
+### Bacterial diseases (often vaccinated)
+- *Mycoplasma hyopneumoniae* — universal
+- *Streptococcus suis* — common
+- APP (Actinobacillus pleuropneumoniae) — endemic farms
+- *E. coli* — for piglet diarrhea
+- *Erysipelothrix rhusiopathiae*
+
+### Viral diseases (vaccinated where applicable)
+- **PRRS** — almost universal in Thailand
+- **PCV-2** — universal
+- **CSF** — required by law
+- **Pseudorabies** (in Europe)
+- **Parvovirus** — for breeding stock
+- **Influenza** — selected farms
+
+### NOT vaccinated (no effective vaccine)
+- **ASF** — no vaccine exists yet
+- **Brachyspira** — relies on management
+- **PED** — vaccines available but limited efficacy
+
+---
+
+## 12. Vaccine Programs by Production Stage ⭐
+
+### Sow program (typical)
+| Time | Vaccine |
+|---|---|
+| Pre-breeding | Parvo + Lepto + Erysipelas |
+| Mid-gestation | PRRS booster |
+| Pre-farrowing | E. coli (transferred to piglets via colostrum) |
+
+### Piglet program (typical)
+| Age | Vaccine |
+|---|---|
+| 1-3 weeks | Iron + sometimes Mycoplasma |
+| 3-4 weeks | PCV-2 + Mycoplasma |
+| 6-8 weeks | PRRS · CSF |
+| 10-12 weeks | Boosters as needed |
+
+> 💡 Modern trend: COMBINE vaccines into 1 syringe to reduce injections
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **2 vaccine types**: Live (MLV) and Killed (Inactivated)
+2. **Live = stronger but riskier · Killed = safer but weaker**
+3. **3 live vaccines in swine**: PRRS, CSF, Pseudorabies
+4. **PCV-2 reversion incident** = batch quality issue (~10 yrs ago)
+5. **2-shot rule for killed** = primary + booster
+6. **Maternal antibody interference** delays piglet vaccination
+7. **PRRS vaccine = imperfect** due to multiple strains
+8. **Acclimation = expose gilts to farm pathogens** before breeding
+9. **Quarantine before acclimation** = 30 days minimum
+10. **Parvovirus vaccine MANDATORY** before breeding (silent stillbirth otherwise)
+11. **Gilts + piglets** = main susceptible populations
+12. **Combine vaccines** in modern injection (reduce stress)
+13. **No ASF vaccine** exists yet
+14. **Vaccinate Mycoplasma + PCV-2 + PRRS** = standard program
+
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 4 Welfare (gdqDDbl74Yk) · 8 Epidemiology (1mFans-0DNY) · 12 Antimicrobials (b5AHszT1NXY)
+> 🩻 **Practice tip**: Always vaccinate gilts WITH parvo before breeding
+> 💡 **PRRS = combine vaccine + biosec + acclimation** (no single solution)
+> 🦴 **Modern trend = combination shots** for biosecurity + worker efficiency`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
