@@ -15430,6 +15430,290 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 > 📚 อ่านควบ: 12.1 Acquired + Congenital Cardiac (SiLZIu-aWlY) · 12.2 Arrhythmia (6mOoAWOWTDw) · 13.1 Surgical Heart (dn_W-7eWQl0)`,
   },
 
+  WtvWyniLMVE: {
+    videoId: 'WtvWyniLMVE',
+    title: '10.2 : Surgical Treatment of Urinary System',
+    subject: 'com1',
+    date: '2024-10-21',
+    duration: '104 min',
+    instructor: 'อ.ณิโคล',
+    examFormat: 'MCQ — surgical decision + technique + suture choice',
+    summary: `# 10.2 Surgical Treatment of Urinary System
+
+> 🎯 Surgery สำหรับ urinary system **kidney → ureter → bladder → urethra**. เน้น **technique selection (nephrotomy vs pyelotomy vs nephrectomy)** + **suture choice** + **iatrogenic risks**
+
+---
+
+## 1. Anatomy Review
+
+### Upper urinary tract
+- **Kidneys** (right slightly cranial to left)
+- **Ureters**
+
+### Lower urinary tract
+- **Urinary bladder (UB)**
+- **Urethra**
+
+### Male vs Female differences
+**Male dog**: long urethra (prostatic + membranous + penile parts) · prostate adjacent
+**Male cat**: urethra exits straight + dorsally · much **smaller diameter** ⚠️
+**Female (both species)**: shorter, wider urethra · ⚠️ urinary tract close to **reproductive tract** (uterus, ovaries, vagina)
+
+⚠️ During spay/neuter, urinary tract injury risk!
+
+---
+
+## 2. Pre-surgical Workup
+
+### History + Examination first!
+- Don't jump to imaging — exam is free + valuable
+- Use **proper terminology** in records:
+  - **Pollakiuria** = frequent urination
+  - **Oliguria** = decreased urine
+  - **Anuria** = no urine
+  - **Stranguria** = straining
+  - **Hematuria** = bloody urine
+  - **Dysuria** = painful
+
+### Labs
+- **Urinalysis (UA)** + **Sediment**
+- **CBC + Chemistry (BUN, Cr, SDMA)** — kidney function
+- **Urine Culture & Sensitivity** ⭐
+  - ⚠️ **MUST use cystocentesis sample** for culture — voided/catheterized = contaminated
+- **Stone analysis** essential — guides post-op prevention
+
+### Imaging
+- **X-ray** (radiopaque stones visible)
+- **Ultrasound** (radiolucent stones, masses)
+- **Cystoscopy** — small dogs only (urethra too small in cats and small breeds)
+- **Scintigraphy** = gold standard for GFR but unavailable in Thailand
+
+---
+
+## 3. Suture Selection ⭐
+
+### Avoid in urinary tract
+- ⛔ **Multifilament/braided** — biofilm formation in contaminated environment
+- ⛔ **Non-absorbable in lumen** — nidus for stone formation
+- ⛔ **Natural (silk, catgut)** — reactive, can promote stone formation
+
+### Use
+- ✅ **Synthetic absorbable monofilament** ⭐
+- Subtypes:
+  - **Short-term** (Polyglecaprone 25 / Monocryl) — UB heals in 7-14 days; OK!
+  - **Mid-term** (PDS / Polydioxanone) — universal good choice
+  - **Long-term** (PDS larger, Maxon) — caution! tail can persist >3 months → stone nidus risk
+
+### Bladder healing rate
+- **50% strength regained in 7-14 days** ⭐
+- Use **mid-term** for best balance · Short-term OK if tissue healthy
+- Long-term only if abnormal healing expected · ⚠️ avoid getting suture into lumen
+
+---
+
+## 4. Kidney Surgery
+
+### Three main procedures
+| Procedure | What |
+|---|---|
+| **Nephrotomy** | Cut into kidney parenchyma to remove large/embedded stone |
+| **Pyelotomy** | Cut into renal pelvis only (less damage) |
+| **Nephrectomy** | Remove entire kidney |
+
+### Approach
+- **Cranial midline laparotomy** ⭐
+- May extend caudally for working room
+- May add paracostal (lateral) incision in deep-chested dogs
+
+### Decision algorithm
+| Situation | Procedure |
+|---|---|
+| Large stone filling renal pelvis | **Nephrotomy** |
+| Small stone obstructing pelvis | **Pyelotomy** ⭐ (less damage) |
+| Severe hydronephrosis + non-functional kidney | **Nephrectomy** |
+| Severe pyelonephritis (refractory) | **Nephrectomy** |
+| Bilateral stones | **Operate better side first** |
+
+### When to operate on stones (not always indicated!)
+1. Rapid stone growth compressing parenchyma
+2. **Recurrent infection** linked to stone
+3. **Pain**
+4. **Obstruction (hydronephrosis)**
+
+### Nephrotomy technique
+1. **Mobilize kidney** out of retroperitoneal fat
+2. **Vascular occlusion** of renal vessels
+   - Surgeon/assistant fingertip occlusion (better than clamp/loop)
+   - ⚠️ **Max 20 min ischemia** per textbook (instructor uses **5 min cycles** — releases briefly)
+3. **Cut kidney longitudinally** along greater curvature
+4. Bluntly dissect down to stone
+5. Make incision long enough — too short → kidney tears during stone retrieval
+6. Remove stone(s)
+7. Lavage with saline
+8. Close in **simple continuous** with **3-0 to 4-0 monofilament absorbable**
+   - Suture should engage **renal capsule** (capsule alone too thin — must include parenchyma)
+9. Inspect for bleeding before closing abdomen
+
+⚠️ **Pre-op check**: contralateral kidney must be functional (don't remove the ONE working kidney!)
+
+---
+
+## 5. Bladder Surgery (Cystotomy)
+
+### Indications
+- **Bladder stones (uroliths)** — most common
+- **Bladder mass** (TCC, polyp)
+- **Bladder rupture** (trauma, iatrogenic catheter injury)
+- **Foreign body**
+- **Ectopic ureter correction**
+
+### Technique
+1. **Caudal midline laparotomy** ⭐
+2. Pack abdomen with moist gauze (prevent leakage contamination)
+3. **Empty bladder** with cystocentesis or syringe before incising
+4. **Stay sutures** at apex
+5. Incision at **ventral surface** (avoid dorsal — ureteral entries) on **avascular line**
+6. Remove stones with spoon · check both sides + urethral entry
+7. **Pass urethral catheter** retrograde to confirm urethra patent (rule out urolith stuck in urethra!)
+8. Lavage UB lumen
+9. **Close in 2 layers**:
+   - **First layer**: simple continuous through mucosa-submucosa (or mucosa only if thick)
+   - **Second layer**: simple continuous Lembert/Cushing seromuscular
+   - ⚠️ Don't penetrate to lumen with suture (stone nidus!)
+10. Leak test with saline injection through urethra
+11. Submit stone for analysis ⭐
+
+### Suture
+- **3-0 or 4-0 monofilament absorbable** (PDS/Monocryl)
+
+---
+
+## 6. Urethral Surgery
+
+### A. Urethral stone removal
+
+#### Retrograde Urohydropulsion
+- For male dog with stone in urethra
+- Catheter advanced + rectal pressure on penis + flushing → push stone back to bladder
+- Then **cystotomy** to remove
+
+#### Urethrotomy
+- Direct incision over palpable stone
+- Less common now (urohydropulsion preferred)
+
+### B. Urethral Reconstruction (Urethrostomy)
+
+**Indication**: chronic obstruction not relievable by other means
+
+#### Cat: Perineal Urethrostomy ⭐ (PU surgery)
+- For obstructive feline lower urinary disease (FIC, calculi)
+- **Sacrifice penis** — turn male into "permanent female-like opening"
+- Wider urethra at perineum (less stone obstruction)
+- ⚠️ **Increased UTI risk** post-op (wider opening, less defense)
+- ⚠️ **Strict aseptic technique** + Elizabethan collar 7-14 days
+
+#### Dog:
+- **Scrotal urethrostomy** (most common) — for stones recurring at sigmoid flexure
+- Pre-scrotal alternative
+- Less morbidity than perineal (in dog)
+
+### C. Urethral Rupture
+- Cause: trauma, iatrogenic (catheter)
+- **Diagnosis**: positive contrast urethrography
+- **Management**:
+  - **Conservative** — indwelling catheter 7-10 days · small tears
+  - **Surgical** — primary anastomosis · large tears
+
+---
+
+## 7. Ureteral Surgery
+
+### Indications
+- **Ureteral stone** (most common — small breeds!)
+- **Ectopic ureter** (congenital)
+- **Ureteral stricture** (post-trauma/surgery)
+
+### Stone removal
+- **Ureterotomy** (open small ureteral incision)
+- ⚠️ **Strict microsurgical technique** — ureter is tiny + delicate
+- Stent placement post-op
+- Submit stone for analysis
+
+### Ureteral Stent
+- Indication: prevent restenosis post-stone removal
+- ⚠️ Specialized procedure — referral
+
+### SUB (Subcutaneous Ureteral Bypass)
+- Newer procedure
+- Bypass severely strictured ureter
+- Subcutaneous device
+
+---
+
+## 8. Iatrogenic Injury Prevention
+
+### During spay (Female)
+- **Ovariohysterectomy** — ureters cross close to broad ligament
+- ⚠️ **Don't cut/ligate ureter accidentally** when ligating ovarian pedicle/cervix
+- Ligature must be tight to avoid bleeding but **not include ureter**
+
+### During neuter (Male)
+- **Castration** — testicular vessels close to internal inguinal ring
+- Lower risk than spay
+
+### Catheter trauma
+- Forceful catheterization of male cat → urethral rupture
+- Use **lubricant generously** + **gentle technique**
+- Stop if resistance — image first
+
+---
+
+## 9. Post-op Care
+
+### Monitoring
+- **Urination** — must pee post-op (catheter if needed)
+- **Hydration** — IV fluids 24-48 hr
+- **Pain control** — opioid + NSAID (after renal function check)
+- **Antibiotics** — based on culture · 7-14 days
+- **Activity restriction** — 7-14 days
+
+### Indwelling Catheter (if used)
+- Closed collection system (sterile bag)
+- Daily evaluation: urine character, output volume
+- Monitor for **catheter-associated UTI**
+- Remove ASAP when no longer needed
+
+### Long-term Stone Prevention
+- Stone analysis → diet recommendation
+  - **Struvite** (Hill's s/d) — prevents formation
+  - **Calcium oxalate** (low oxalate diet)
+  - **Urate** (low purine, e.g., Hill's u/d)
+- Encourage **water intake**
+- Avoid recurrent UTI (especially struvite)
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **Suture choice**: synthetic absorbable monofilament ⭐ · NEVER multifilament/braided/silk
+2. **Bladder healing 50% in 7-14 days** → mid-term absorbable ideal
+3. **3 kidney procedures**: nephrotomy / pyelotomy / nephrectomy
+4. **Pyelotomy preferred when possible** (less parenchymal damage)
+5. **Bilateral stones**: operate better side FIRST
+6. **Renal vessel occlusion max** = 20 min textbook (5 min cycles in practice)
+7. **Cystotomy site** = ventral bladder surface (avoid dorsal — ureteral entries)
+8. **2-layer bladder closure** + don't penetrate lumen
+9. **Pass urethral catheter** during cystotomy to rule out urethral stones
+10. **Submit ALL removed stones** for analysis
+11. **Cystocentesis sample only** for urine culture (sterile)
+12. **PU (Perineal Urethrostomy)** in cat — increased UTI risk · need e-collar 7-14 days
+13. **Scrotal urethrostomy** for recurrent dog urethral stones
+14. **Ureter close to broad ligament** — at risk during spay
+15. **Don't remove a kidney** without confirming contralateral function!
+
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk) · 8.3 LUT 2 Stones (vLjnPuFgvj4) · 10.1 Imaging Urinary (Q0AGFF70m8M) · 10.3 LUT 3 (eBY8GTlcjiw)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
