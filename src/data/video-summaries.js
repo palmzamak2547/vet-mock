@@ -10499,6 +10499,371 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 > รายละเอียดโรคให้ดูจาก lecture อื่นใน Hoof Health series (lecture 1-6) เทอมก่อน — lecture นี้คือ **applied herd assessment + management decision**`
 },
 
+  // ═════════════════════════════════════════════════════════════════
+  // COM I (Y4 sem 1) — DekDokVet85 (Vet 85 cohort, recorded 2024)
+  // ═════════════════════════════════════════════════════════════════
+  // 1.1 Oral cavity (foundational anatomy + exam + common diseases)
+  // Key string-quoted because videoId contains hyphen (not valid JS identifier).
+  'I7M-pekGTIU': {
+    videoId: 'I7M-pekGTIU',
+    title: '1.1 : Oral cavity',
+    subject: 'com1',
+    date: '5 Aug 2024 (DekDokVet85 recording)',
+    durationMin: 93,
+    instructor: 'อาจารย์ COM I (small animal dental)',
+    examFormat: 'Anatomy ID, Triadan numbering, normal occlusion criteria, FORL types, and PD complications ออกบ่อย',
+    summary: `# 1.1 Oral Cavity — Anatomy + Exam + Common Diseases
+
+> 🎯 Foundation lecture สำหรับ COM I · ครอบคลุม oral anatomy → examination → tooth eruption → numbering → diseases (PD, FORL, malocclusion, stomatitis, cleft palate, salivary disorders)
+> ⚠️ **No radiograph, no dentistry** — dental work ต้อง GA + intra-oral X-ray เสมอ
+
+---
+
+# 🦷 Part 1: Oral Anatomy
+
+## 2 Compartments
+- **Oral cavity proper** = องค์ประกอบที่เห็นเป็นรูปร่าง: hard palate + soft palate + tongue + floor of mouth
+- **Oral vestibule** = ช่องว่างระหว่างฟันกับ lip/cheek
+  - **Labial vestibule** = lip ↔ teeth (front: incisors-canines)
+  - **Buccal vestibule** = cheek ↔ teeth (back)
+
+## Palate Anatomy
+| Region | Note |
+|---|---|
+| **Hard palate** | กระดูกข้างใต้ · มีรอยหยัก (rugae) |
+| **Soft palate** | ต่อจาก hard palate · ไม่มีกระดูก · พื้นผิวเรียบ |
+| **Caudal palate** | ส่วนโค้งหลัง soft palate |
+| **Fauces** | ลึกสุดต่อจาก soft palate · ⚠️ จุดที่เกิดโรค **stomatitis** ในแมวบ่อย |
+
+## Mucosa Types (สำคัญตอนผ่าตัด)
+| Type | ตำแหน่ง | ลักษณะ | กรีด/เย็บ |
+|---|---|---|---|
+| **Masticatory mucosa** | gingiva (เหงือก) | Keratinized · เหนียว · หนา | กรีดยาก แต่เย็บแน่น |
+| **Lining mucosa** | labial · buccal | Non-keratinized · นุ่ม | กรีดง่าย · เป็นแผลง่าย |
+| **Specialized mucosa** | papillae บนลิ้น | — | — |
+
+> 💡 รอยต่อ masticatory→lining = **mucogingival junction** (สำคัญตอนทำ flap)
+
+## Salivary Glands (4 หลัก)
+- **Mandibular** (ใหญ่สุด, คลำเจอจาก PE) + **Sublingual** = ติดกัน → "submandibular complex"
+- **Parotid** (ป้ายปกหู)
+- **Zygomatic** (ใต้ตา · ค่อนข้างใหญ่)
+- **Minor salivary glands** = molar gland (cat, ใหญ่กว่าหมา) + sublingual ductule openings
+
+## Tooth Anatomy
+\`\`\`
+        ┌── Crown (เหนือเหงือก)
+        │   - Enamel (อาเล) — ขาวสุด, แข็งสุด, ด้านนอก
+        │   - Dentin (เดนทีน) — เหลืองกว่า, อยู่ใต้ enamel
+        │   - Pulp cavity (ประสาท) — ในสุด, มีหลอดเลือด+เส้นประสาท
+        ├── CEJ (Cementoenamel Junction) — รอยต่อ crown↔root
+        └── Root (ใต้เหงือก)
+            - Cementum (ด้านนอก root)
+            - Dentin (เนื้อฟันต่อจาก crown)
+            - Pulp continues — ปลายเปิดออกเข้าเส้นประสาท → ปวดฟันถ้า pulp expose
+\`\`\`
+
+## Periodontal Probe Reading (ค่า normal)
+| สัตว์ | Normal sulcus depth |
+|---|---|
+| 🐈 Cat | **0.5–1 mm** |
+| 🐕 Dog (small/medium) | **1–3 mm** |
+| 🐕 Large dog (>40 kg, e.g. St. Bernard) | up to 5 mm |
+
+> ⚠️ ถ้า probe หายเข้าจมูก → **oronasal fistula**
+
+---
+
+# 🔍 Part 2: Oral Examination (3 components)
+
+## 1. Extra-oral exam
+- ดูภายนอก: ความสมมาตรของหน้า · facial swelling
+- หน้าบวมข้างใดข้างหนึ่ง = มี issue ใน mouth/teeth/sinus
+
+## 2. Intra-oral exam
+- เปิดปากดู: tongue, palate, gingival color, mucosa, occlusion
+- น้องที่ aggressive/painful → ต้อง sedation เพื่อตรวจ
+- Owner อาจช่วยจับเปิดปากในตัวที่ใจดี
+
+## 3. Dentition exam (intra-oral X-ray)
+- ⚠️ **General anesthesia เสมอ** — probe sulcus + intra-oral X-ray
+- **"No radiograph, no dentistry"** — ดูเฉพาะ crown ภายนอก ไม่พอ
+- X-ray ตรวจ:
+  - Pulp pathology, root abnormality, alveolar bone loss
+  - Tooth resorption (FORL) — รากละลายโดย crown ยังอยู่
+  - Persistent deciduous (>6mo)
+
+## Calculus Index (ตอนตรวจสุขภาพช่องปาก)
+| Grade | Coverage |
+|---|---|
+| **C1** | หินปูน 1/3 ของ crown |
+| **C2** | 2/3 ของ crown |
+| **C3** | คลุม crown ทั้งหมด · มองไม่เห็นเนื้อฟัน |
+
+## Gingival Index
+| Grade | Inflammation |
+|---|---|
+| **G1** | ขอบเหงือกแดงเป็นเส้นบางๆ |
+| **G2** | แดงเป็นแถบกว้าง |
+| **G3** | แดงทั้งช่องปาก |
+
+---
+
+# 🍼 Part 3: Tooth Eruption + Age Estimation
+
+## Deciduous (น้ำนม) — Total dog 28, cat 26 (ไม่มี molar)
+| Age | Tooth |
+|---|---|
+| 1 mo | Deciduous canines |
+| 2 mo | Deciduous incisors |
+| 3 mo | Deciduous premolars |
+
+## Permanent — replace deciduous starting 4 mo
+| Age | Permanent eruption |
+|---|---|
+| 4 mo | Canines + incisors begin replacing |
+| 5 mo | Premolars |
+| **6 mo** | **Molars erupt — full set** |
+
+> 💡 **เปิดปากเห็น molars → อย่างน้อย 6 เดือน**
+> 💡 **>6 mo + deciduous still present = persistent deciduous (abnormal)** → ต้องถอน
+
+## Distinguishing Deciduous vs Permanent
+- Deciduous: ซี่เล็ก, แหลมกว่า
+- Persistent deciduous + permanent ขึ้นมาคู่กัน → **ถอนซี่ deciduous ออก** (เก็บ permanent)
+
+---
+
+# 🔢 Part 4: Triadan Numbering (รหัสฟัน)
+
+\`\`\`
+Quadrant (clockwise from operator's view):
+   1 (upper R) | 2 (upper L)
+  ─────────────────────────
+   4 (lower R) | 3 (lower L)
+
+Position (01–11):
+   01 = central incisor
+   02–03 = lateral incisors
+   04 = canine
+   05–08 = premolars (P1–P4)
+   09–11 = molars (M1–M3)
+\`\`\`
+
+> ตัวอย่าง: **104** = upper right canine · **404** = lower right canine
+
+---
+
+# 🦠 Part 5: Periodontal Disease (PD) — most common oral disease
+
+## Pathogenesis
+\`\`\`
+Plaque → Calculus (tartar) → Gingivitis → Periodontitis
+                                                ↓
+                          Alveolar bone loss + tooth mobility → tooth loss
+\`\`\`
+
+## Treatment Cascade
+- Mild: **scaling + polishing** (dental scaling and prophylaxis)
+- Severe: **extraction** (gold standard ในหมา · มากกว่า root canal เพราะ practical)
+
+## ⚠️ Complication: Oronasal Fistula
+- Upper teeth (canines → caudal molars) แชร์กับ nasal cavity
+- ฟันโยก/หลุด + alveolar bone หาย → ช่องปาก-จมูก เชื่อมติด
+- **Symptoms (mild → severe)**:
+  - Sneezing
+  - Nasal discharge (ทาง resp dx ก็ DDx ได้, อย่าลืม dental cause)
+  - **Food/water coming out of nose** = severe
+  - Aspiration pneumonia = อันตราย
+- **Tx**: ถอนฟัน + เย็บปิด fistula
+
+---
+
+# 🛠 Part 6: Dental Equipment Glossary
+
+## Dental Unit (เครื่อง)
+- **Ultrasonic scaler** — สั่นสะเทือน + น้ำเย็นปลายอุปกรณ์ (ลด heat)
+- **High-speed bur** — ตัด tooth/bone (เช่น sectioning multi-root tooth)
+- **Low-speed polisher** — ขัดผิวฟันด้วยผง prophy paste (หลังขูดหินปูน)
+- **Air/water syringe** + light + suction
+
+## Hand Instruments
+| Tool | Use |
+|---|---|
+| **Periodontal probe** | วัด sulcus depth (1 ขีด = 1 mm, 1 แถบ = 3 mm) |
+| **Calculus scaler** | ขูดหินปูน supragingival เท่านั้น (คม 2 ด้าน, ไม่ลงใต้เหงือก) |
+| **Curette** | ขูดหินปูน subgingival (คมด้านเดียว, ด้านคมชิดฟัน) |
+| **Periosteal elevator** | แยก masticatory mucosa (gingiva) จาก root ก่อนถอน |
+| **Dental elevator** | ตัด periodontal ligament (ใช้คู่กับ luxator) |
+| **Luxator** | บาง+แบนกว่า · ตัด periodontal ligament ตรงๆ |
+| **Extraction forceps** | ดึงฟันออก (หลัง elevator/luxator ตัด PDL) |
+| **Root tip pick** | ตามรากที่หักค้าง |
+
+## Extraction Techniques
+- **Simple** = ฟันรากเดี่ยว/โยกแล้ว · ดึงตรงๆ
+- **Surgical** = เปิด gingival flap + buccal alveolar bone removal + section tooth + extract roots ทีละราก
+
+---
+
+# 😬 Part 7: Tooth Count Abnormalities
+
+## Persistent Deciduous (ฟันน้ำนมค้าง)
+- เห็น 2 ซี่คู่กัน (n้ำนม + permanent)
+- Permanent อยู่ด้านหน้ากว่า (incisor) หรือด้านนอก (canine, lower) หรือด้านหลัง (canine, upper)
+- **Tx**: ถอน deciduous ออก
+
+## Supernumerary Teeth
+- ฟันเกิน, anatomy ปกติ
+- มักไม่มีปัญหาเว้นถ้า: ขัดการสบ, ทิ่มฟันตรงข้าม, ทำให้เก็บ plaque ง่าย → ถอนเฉพาะที่มีปัญหา
+
+## Fusion Teeth
+- 1 root + 2 crown (หรือ partially fused)
+- ปกติไม่มีปัญหา · แค่ทำความสะอาดดี
+
+## Missing Teeth (Hypodontia / Oligodontia)
+- เปิดปากแล้วฟันน้อย
+- ต้อง X-ray เพื่อ DDx:
+  - **True missing** (genetic)
+  - **Unerupted tooth** → อาจ develop เป็น **dentigerous cyst** ได้
+- Tx: unerupted ที่อายุน้อย (<6mo or <1yr) → **operculectomy** (กรีดเหงือกให้ฟันขึ้นเอง) · cyst → extraction
+
+---
+
+# 🦷 Part 8: Malocclusion (สบฟันผิดปกติ)
+
+## 3 Criteria for Normal Occlusion
+1. **Scissor bite of incisors** — ฟันบนคม overlap ฟันล่าง
+2. **Diastema of canines** — เขี้ยวล่างอยู่ระหว่าง upper canine + 3rd incisor
+3. **Pinking shear of premolars** — interdigitation (ฟันบน-ล่างสบกันแบบฟันปลา)
+
+## Classes
+| Class | Name | Description |
+|---|---|---|
+| **1** | Individual tooth abnormality | ภาพรวม occlusion ปกติ · บางซี่บิด/เคลื่อน |
+| **2** | Brachygnathism (overshot) | ฟันบน > ฟันล่าง · upper jaw longer · canine บนทิ่ม fauces ↓ → แผลเรื้อรัง |
+| **3** | Prognathism (undershot) | ฟันล่าง > ฟันบน |
+| **4** | Wry mouth (ผิดปกติด้านข้าง) | จาว lateral asymmetry |
+
+## Tx Options
+- **Orthodontic devices** (braces) — ทำได้แต่ไม่ practical ในสุนัข (อุปกรณ์หลุด, retention ยาก)
+- **Crown reduction + restoration** — ตัด canine ที่ทิ่มเหงือกลง + อุด pulp (ป้องกัน expose pulp → painful, septic)
+- **Extraction** — ถ้าเป็น minor tooth (ไม่ใช่ canine functional)
+- **Maxillectomy / Mandibulectomy + prosthesis** — ในกรณีรุนแรง (rare)
+
+---
+
+# 🔻 Part 9: Tooth Resorption (FORL) — มักในแมว
+
+## Pathogenesis
+- รากฟันค่อยๆ ละลาย (root resorption) ภายใน → cementum/dentin หาย
+- Pulp expose → painful ปวดมาก
+- Internal vs external resorption
+
+## 3 Types
+| Type | Root status | Tx |
+|---|---|---|
+| **Type 1** | Roots intact | **Extract** ตามปกติ |
+| **Type 2** | Roots resorbed (ละลาย, เป็น bone-like) | ⚠️ **Crown amputation only** — ไม่ต้องเอา root ออก (เอาไม่ออก) |
+| **Type 3** | Mixed: 1 root type 1, อีก root type 2 | Extract type 1 + crown amp type 2 |
+
+> 💡 **Cat exam classic Q**: เห็น tooth resorption ในแมว → ชื่อโรค? **FORL (Feline Odontoclastic Resorptive Lesion)** หรือ **Tooth Resorption (TR)**
+
+---
+
+# 🦠 Part 10: Other Tooth Conditions
+
+## Enamel Hypoplasia
+- ฟันเหลืองเป็นจุด/ขาวสะดุด (probe ลากผิวฟัน)
+- เกิดจาก **Canine Distemper Virus** ตอนเป็นลูกหมา (when teeth developing)
+- Pulp expose → painful, septic
+- **Tx**: composite restoration (อุด with light-cured composite)
+
+---
+
+# 🐈 Part 11: Stomatitis (แมว — high yield)
+
+## Spectrum
+- **Gingivitis** — แค่ขอบเหงือก
+- **Faucitis** — fauces แดง
+- **FCGS (Feline Chronic Gingivostomatitis)** — รุนแรงสุด, palate + fauces + caudal areas
+
+## Cause
+- **Immune dysregulation** (immune ตอบสนองแย่ต่อ plaque bacteria)
+- Worse with **FIV / FeLV** — ต้อง screen เสมอ
+
+## Type
+- **Type 1** — gingivitis only (ขอบเหงือก)
+- **Type 2** — gingivitis + caudal (palate, fauces)
+
+## Diagnosis
+- **Biopsy + histopath** required (DDx eosinophilic granuloma · neoplasia)
+- Look for **chronic inflammatory infiltrate**
+
+## Cat Exam Classic
+- เปิดปากแมว เจอเหงือก+fauces แดงทั้งสองข้าง → ชื่อโรค? **FCGS / lymphoplasmacytic stomatitis**
+
+---
+
+# 👄 Part 12: Cleft Palate
+
+## 2 Types
+| Type | Cause | Population |
+|---|---|---|
+| **Congenital cleft palate** | Developmental defect (palate not fusing in utero) | Newborn puppies/kittens, brachycephalic breeds |
+| **Traumatic cleft** | Falls from height, dog bite, car accident | Mostly cats (small body, fall risk) |
+
+## Symptoms
+- Food/milk coming out of nose during eating
+- Failure to thrive (congenital)
+- Aspiration pneumonia risk
+
+## Surgery
+- **Double flap technique** (2 layers — oral + nasal mucosa)
+- ต้องวางยา GA · ทำตอนน้องโตพอที่ vital signs เสถียร
+
+---
+
+# 💧 Part 13: Salivary Gland Disorders
+
+## Sialocele / Salivary Mucocele
+- น้ำลายรั่วจาก gland หรือ duct → คั่งใต้ผิวหนัง/เยื่อบุ
+- 3 ตำแหน่ง:
+  - **Cervical mucocele** = บวมที่คอ (sublingual or mandibular gland leak)
+  - **Sublingual mucocele = Ranula** = ก้อนใต้ลิ้น
+  - **Pharyngeal** = หลังคอ (rare)
+
+## Cause
+- Trauma (chain pull, foreign body, biting hard object → mucosal tear)
+
+## Diagnosis
+- Palpation: **fluctuant** (ของเหลว, ไม่แข็ง)
+- Aspiration: **viscous, stringy fluid** (น้ำลาย — ไม่ใช่ neoplastic solid)
+- Optional: cytology to confirm
+- Imaging: rule out other structural disease
+
+## Treatment
+- **Excise affected gland** (ส่วนใหญ่ sublingual)
+- **Marsupialization** (กรีดเปิด ระบายเป็น chronic drain) — for ranula
+- ⚠️ **Don't worry**: เอาต่อมเดียวออก ยังมีต่ออื่นๆ ผลิตน้ำลายชดเชย (parotid, zygomatic, contralateral mandibular)
+
+---
+
+# 🎯 Exam High-Yield Recap
+
+1. **No radiograph, no dentistry** (always GA + intra-oral X-ray)
+2. **Triadan numbering**: 3-digit code, quadrants 1-4 clockwise
+3. **Tooth eruption**: full permanent set by 6 months
+4. **Cat probe normal**: 0.5–1mm · **Dog**: 1–3mm
+5. **Persistent deciduous**: ถอน **deciduous** ออก (NOT permanent)
+6. **FORL Type 2**: crown amputation only (roots can't be extracted)
+7. **Oronasal fistula**: signs from sneeze → nasal discharge → food out nose
+8. **FCGS**: caudal stomatitis ที่ fauces · biopsy + FIV/FeLV screen
+9. **Normal occlusion 3 criteria**: scissor bite + canine diastema + premolar pinking shear
+10. **Sialocele**: viscous fluid on aspiration · differentiate from neoplasia by fluctuance
+
+> 📚 อ่านควบ: 1.2 Oral Tumor (CQIrJmz3APo) · GI examination (4.1)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
