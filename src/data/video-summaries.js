@@ -12972,6 +12972,684 @@ Imbalance → fluid leak
 > 📚 อ่านควบ: 7.1 Anemia + Hemolym (FCRDICfyMlM) · 14.1 Common Resp II Pleural cavity (FlutqheRR6I) · imha video summary (existing)`,
   },
 
+  phyvefbYWqE: {
+    videoId: 'phyvefbYWqE',
+    title: '13.3 : Common Respiratory Diseases in dog and cat I',
+    subject: 'com1',
+    date: '2024-11-11',
+    duration: '83 min',
+    instructor: 'DekDokVet85 — รุ่นพี่',
+    examFormat: 'MCQ',
+    summary: `# 13.3 Common Respiratory Diseases I — Upper Airway / Trachea / Bronchi
+
+> 🎯 ครอบคลุม **upper airway → trachea → lower airway diseases**: nasal aspergillosis · sinonasal tumor · BAS · laryngeal paralysis · **tracheal collapse** ⭐ · chronic bronchitis · **feline asthma** ⭐
+
+---
+
+## 1. Sinonasal Aspergillosis
+
+### Pathophysiology
+- **Aspergillus fumigatus** — ubiquitous spore in air
+- Normal immune defense clears spores
+- **Pathogenic when**: immunocompromised host OR massive spore exposure (dirty environment)
+- **Non-invasive fungal rhinitis** initially — fungus grows in mucosal surface
+- ⚠️ Inflammation + fungal enzymes → eventually erode **nasal turbinate bone**
+
+### Predisposing
+- Outdoor dogs/long-faced breeds (German Shepherd, etc.) · ⚠️ Brachycephalic = LOW risk (different anatomy)
+- Young to middle-age more common (more outdoor activity)
+
+### Clinical signs
+- **Chronic rhinitis** (>weeks-months)
+- **Hemorrhagic-purulent discharge** (epistaxis + mucopurulent)
+- Initially **unilateral** → later bilateral
+- **Depigmentation + ulceration of nasal planum** (around external naris) ⚠️ classic sign
+- Late: lethargy, anorexia
+
+### Diagnosis
+- X-ray: **turbinate destruction**
+- CT: extent of destruction, frontal sinus involvement
+- **Endoscopy**: see fungal plaques (white/green mat)
+- **Biopsy under endoscopic guidance** + fungal culture
+- Histopath: numerous Aspergillus hyphae
+
+### Treatment
+1. **Debridement under endoscopy** — physically remove plaques
+2. **Topical antifungal** ⭐ (treatment of choice if no cribriform involvement):
+   - Clotrimazole / Enilconazole instillation
+   - Patient under anesthesia → balloon occlude posterior choana → fill nasal cavity
+   - Rotation through 4 positions × 15 min each (or single 60 min)
+   - **Repeat in 2-4 weeks if needed** — single treatment often insufficient
+3. **Systemic antifungal** (when topical contraindicated — e.g., cribriform breach):
+   - Itraconazole or terbinafine + posaconazole
+   - **18 months** treatment (long!)
+   - Lower success rate than topical
+
+### Prognosis
+- Confined to nasal cavity → good if 2 sessions of topical
+- Cribriform breach (brain extension) → poor
+
+---
+
+## 2. Sinonasal Tumor
+
+### Demographics
+- **Older** (mean ~7 yr+) · dog > cat
+- Locally invasive · rare metastasis (regional LN if any)
+- **Carcinomas** (adenocarcinoma) most common in dog
+- **Lymphoma** most common in cat (especially nasal)
+
+### Clinical
+- Gradual progressive **chronic discharge** (>8 weeks)
+- **Sangineous + hemorrhagic + epistaxis** (turbinate erosion)
+- Initial unilateral → bilateral
+- **Facial deformity** (late) — push outward
+- Eye changes (proptosis, vision loss)
+- Neurologic signs (cranial extension)
+
+### Diagnosis
+- **CT** = gold standard for staging + extent
+- **Biopsy** (endoscopy or via rhinotomy) → histopath
+- Submandibular LN palpation + FNA if enlarged
+- **Always image thorax** — rule out met
+
+### Treatment
+- **Benign**: surgical excision
+- **Malignant** (most cases): **Radiation therapy** = treatment of choice
+  - Limited by proximity to eyes + brain
+  - Combination: surgery → radiation
+  - Chemotherapy = adjunct only (less effective)
+- Long-term **prognosis = poor** for invasive cases
+
+---
+
+## 3. Brachycephalic Airway Syndrome (BAS)
+
+### Components — 4 + 2 secondary
+**Primary** (congenital):
+1. **Stenotic nares**
+2. **Elongated soft palate**
+3. **Hypoplastic trachea**
+4. **Aberrant turbinates** (especially Pug)
+
+**Secondary** (develop from primary):
+5. **Everted laryngeal saccules**
+6. **Laryngeal collapse** (Stage 1: saccule eversion · Stage 2: cuneiform collapse · Stage 3: corniculate collapse)
+
+### Clinical
+- **Stertor** (snoring) at rest, especially during sleep
+- Stridor if laryngeal involvement
+- **Sleep-disordered breathing** — wakes up gasping
+- Exercise intolerance, cyanosis
+- **GI problems** (gulping air → bloat → vomiting/regurgitation)
+
+### Diagnosis
+- Signalment: brachycephalic breed (Pug, Bulldog, Boxer, Shih Tzu, Persian cat)
+- **Laryngoscopy** under anesthesia — see soft palate length, larynx structures
+- X-ray skull + thorax
+
+### Treatment
+- **Surgery is treatment of choice** (correct anatomy permanently)
+- Medical: weight control, avoid stress, exercise restriction
+- Emergency: O₂, sedation, dexamethasone, intubation if needed
+
+### Prognosis
+- Early surgery → good
+- Late surgery (laryngeal collapse) → poor
+
+---
+
+## 4. Laryngeal Paralysis
+
+### Demographics
+- **Large breeds**: **Labrador Retriever** (most common!), Saint Bernard, Newfoundland
+- **Older animals** (>9 yr)
+- Cause often **unknown** (idiopathic) — possibly nerve damage, hypothyroidism
+
+### Pathophysiology
+- Recurrent laryngeal nerve dysfunction
+- Arytenoid cartilage **fails to abduct** during inspiration
+- Air rushes through narrowed glottis → **turbulent flow + edema**
+- Edema → further obstruction → vicious cycle
+
+### Clinical
+- **Stridor** (high-pitched inspiratory)
+- **Voice change** ⭐ — bark sounds different (early sign owners notice)
+- Mild cough
+- Severe: respiratory distress, cyanosis, syncope, dysphagia
+
+### Diagnosis
+- **Laryngoscopy under light anesthesia** ⭐
+  - Watch arytenoid movement during respiration
+  - **Failure to abduct** = LP
+  - Bilateral or unilateral
+- Need to **rule out laryngeal mass** with U/S
+
+### Treatment
+
+**Emergency**:
+- O₂, sedation, dexamethasone (anti-inflammatory)
+- Cool environment, restrict activity
+
+**Surgical** (severe + bilateral):
+- **Tieback procedure** (laryngeal lateralization)
+- Permanently abducts one side
+
+**Medical** (mild + unilateral):
+- Avoid heat, exercise restriction, weight control
+- ⚠️ Long-term complication: **aspiration pneumonia** (post-tieback, palate doesn't seal)
+
+---
+
+## 5. Tracheal Collapse ⭐ (เจอบ่อยมาก)
+
+### Demographics
+- **Toy breeds**: **Pomeranian** (most!), Yorkshire, Poodle, Chihuahua, Maltese
+- Middle-age to older
+- **Cats rarely** affected
+- Inherited tendency (cartilage abnormality)
+
+### Pathophysiology
+- Tracheal cartilage = C-shaped + dorsal trachealis muscle (membrane)
+- **Cartilage softens** + **dorsal membrane sags**
+- Form **crescent moon shape** (dorsal sag)
+- Dorsal membrane vibrates against air → "**goose honking cough**" 🦢
+
+### Concurrent diseases worsening symptoms
+- **Obesity** — increases airway sensitivity
+- **MMVD** (cardiac disease) — left atrial enlargement compresses trachea
+- **Allergic/infectious bronchitis** — adds inflammation
+- **Bronchomalacia** (cartilage soft in bronchi too)
+
+### Dynamic Collapse — Location matters!
+| Location | Worse during |
+|---|---|
+| **Cervical (extra-thoracic)** | **Inspiration** (negative pressure pulls collapse inward) |
+| **Thoracic (intra-thoracic)** | **Expiration** (positive intra-thoracic pressure pushes inward) |
+| **Both / mixed** | Both phases |
+
+### Common collapse site
+- **Thoracic inlet** (T1) — junction of cervical + intra-thoracic trachea = **HIT zone**
+- **Tracheal kinking** — trachea bends, hard to image
+
+### Clinical
+- **Goose honking cough** 🦢 = pathognomonic
+- **Tracheal palpation reflex+** (gentle press → cough)
+- Exercise intolerance, cyanosis if severe
+- Worse with excitement, heat, weight gain
+
+### Diagnosis
+- **X-ray** — best done at **inspiration AND expiration** to capture dynamic collapse
+- **Tangential view** (head up, lateral X-ray) — can show cervical narrowing
+- **Fluoroscopy** ⭐ = best (real-time, no anesthesia)
+- **CT** = better detail than fluoroscopy
+- **Echocardiogram** — rule out concurrent MMVD
+
+### Stages (severity grading)
+- Mild — slight narrowing
+- Moderate — significant narrowing
+- Severe — near complete collapse
+
+### Treatment
+
+**Emergency**:
+- O₂, sedation (acepromazine or butorphanol)
+- Dexamethasone (anti-inflammatory)
+- Anti-tussive (butorphanol, hydrocodone)
+- Bronchodilator
+- ⚠️ Avoid: stress, heat, excessive handling
+
+**Long-term medical**:
+- **Weight control** ⭐ (most important)
+- Anti-tussive (suppress cough cycle)
+- Bronchodilator (terbutaline, theophylline)
+- Steroid (taper to lowest effective)
+
+**Surgical** (severe + refractory):
+- **Intra-luminal stent** ⭐ (Nitinol self-expanding) — for thoracic location
+- **Extra-luminal prosthetic ring** (PRRC) — for cervical location
+- ⚠️ Stent **permanent** — tissue fibrosis can cause re-stenosis
+
+### Prognosis
+- Mild + good owner compliance → ok long-term
+- Severe + concurrent disease → guarded
+
+---
+
+## 6. Chronic Bronchitis (Dog) ⭐ (เจอเยอะมาก)
+
+### Diagnostic criteria (3 must)
+1. **Chronic cough** > **8 weeks**
+2. Excess mucus production
+3. **Rule out other causes** (heart disease, tracheal collapse, infectious bronchitis, parasites)
+
+### Demographics
+- **Small breeds**, middle-age to older
+- Dogs > cats
+
+### Pathophysiology
+- **Inhaled irritant** (eran/non-allergen) → airway inflammation
+- Neutrophilic inflammation
+- **Bronchial wall thickening** + **mucus production**
+- Eventually: **bronchiectasis** (dilated airways) and/or **bronchomalacia** (collapse)
+- Vicious cycle: cough → more inflammation → more cough
+
+### Predisposing
+- Air pollution, **PM 2.5**, smoke
+- Obesity
+- Concurrent dental disease
+- History of canine infectious respiratory disease complex (CIRDC, "Kennel cough")
+
+### Clinical
+- **Chronic cough** (terminal retching with mucus expectoration)
+- Initially non-productive → eventually productive
+- Patient still alert/active (no systemic signs early)
+- Severe: dyspnea, **expiratory push** (use abdominal muscles), cyanosis
+
+### Diagnosis
+- Tracheal palpation — cough reflex+
+- Auscultation: wheezes, crackles
+- **X-ray pattern**: **Bronchial pattern**
+  - "**Donuts**" (cross-section) — thickened bronchi cross-cut
+  - "**Tram lines**" (longitudinal) — parallel thickened walls
+- BAL: **non-degenerative neutrophils**
+
+### Treatment
+
+**First-line: Steroids** ⭐
+- Initial high dose, then taper to lowest effective
+- **Inhaled corticosteroid** (ICS): Fluticasone or Beclomethasone
+- Use **mask + spacer** for cats/small dogs (7-10 puffs × 2× daily)
+- ⚠️ ICS onset ~7-10 days for full effect — not 3 days!
+
+**Adjunct**:
+- **Bronchodilator** if dyspnea (terbutaline, theophylline)
+- ⚠️ Don't combine theophylline + fluoroquinolones (drug interaction)
+- **Cough suppressant** if dry cough · ⛔ NOT productive cough
+- **Nebulization with saline** + **coupage** (cup-hand percussion)
+- **Doxycycline** if concurrent infection suspected
+
+**Lifestyle**:
+- **Weight control** ⭐
+- Avoid PM 2.5, air pollutant exposure
+- Air purifier indoors
+
+### Prognosis
+- **Cannot cure** — chronic management for life
+- Compliance + weight control = key
+
+---
+
+## 7. Feline Inflammatory Bronchial Disease (FIBD) ⭐
+
+### 2 distinct diseases
+| | Feline Chronic Bronchitis | **Feline Asthma** |
+|---|---|---|
+| **Mechanism** | Eran-induced inflammation | Allergic (IgE Type 1 hypersensitivity) |
+| **Reversibility** | Permanent damage | **Reversible** (with allergen removal) |
+| **BAL cytology** | Neutrophilic | **Eosinophilic** |
+| **Cell type** | Neutrophils | Eosinophils |
+
+⚠️ Clinical signs IDENTICAL — must do BAL to distinguish
+
+### Demographics
+- All ages but middle-age common
+- **Predisposed breeds**: Siamese, Oriental, Burmese cats
+
+### Pathophysiology of asthma — 3 hallmarks
+1. **Reversible airway inflammation** (allergen-driven)
+2. **Airway obstruction** (mucus + bronchoconstriction)
+3. **Airway hyperresponsiveness** (sensitive to triggers)
+
+Components:
+- Epithelial cell hyperplasia
+- **Smooth muscle hypertrophy/constriction** ⭐
+- Goblet cell hyperplasia → mucus
+- Bronchial wall thickening
+
+### Air Trapping ⭐
+- During asthma attack: **smooth muscle contraction**
+- Air enters but cannot exit → **trapped in alveoli**
+- X-ray finding: **lung hyperinflation** + **flat diaphragm** + radiolucent lung
+
+### Clinical
+- Cough, **expiratory dyspnea + abdominal push**
+- **Crackles** (mucus) + **wheezes** (bronchoconstriction)
+- ⛔ **Air trapping** → muffled lung + heart sounds (deceptive)
+- Severe: **status asthmaticus** = life-threatening
+
+### Diagnosis
+- X-ray: **bronchial + bronchointerstitial pattern** + **lung hyperinflation** + flat diaphragm
+- **Right middle lobe atelectasis** (collapsed lobe) common
+- **BAL** → cell count + differential
+  - Eosinophilic = asthma
+  - Neutrophilic = chronic bronchitis
+- ⚠️ **Multiple lobes** for BAL (cell distribution variable)
+- **Mycoplasma PCR** on BAL fluid (cats often co-infected)
+
+### Treatment
+
+**Acute crisis (status asthmaticus)**:
+- **O₂ supplementation** ⭐
+- **Reduce stress** (cats can die from stress!)
+- **Bronchodilator** ⭐
+  - **Terbutaline** IV/IM/SQ
+  - **Albuterol/Salbutamol inhaled** (mask spacer)
+- **Steroid IV**: Dexamethasone
+- ⚠️ Don't handle excessively until stable
+
+**Long-term**:
+- **Prednisolone** systemic (taper to lowest effective)
+- **Inhaled steroid** (Fluticasone) BID
+- **Bronchodilator** if needed (long-term: not albuterol — beta-agonist tachyphylaxis)
+- Avoid known triggers
+- Weight control
+
+### Prognosis
+- **Cannot cure** — lifelong management
+- Asthma → ⚠️ 25% develop **spontaneous pneumothorax** (air trapping → bullae)
+
+---
+
+## 🎯 Exam recap (12 ข้อ)
+
+1. **Aspergillosis** = depigmentation + epistaxis + turbinate destruction · Tx = topical clotrimazole
+2. **Sinonasal tumor** = old age + chronic unilateral discharge · Tx = radiation
+3. **BAS** = stenotic nares + elongated soft palate + hypoplastic trachea + secondary saccule eversion
+4. **Tracheal collapse pathognomonic** = goose honking cough in toy breeds (Pomeranian)
+5. **Tracheal collapse worse**: cervical → inspiration · thoracic → expiration
+6. **Tracheal collapse Tx**: stent (intra-thoracic) · prosthetic ring (cervical) · medical first
+7. **Chronic bronchitis** = chronic cough >8 weeks + rule out others
+8. **Bronchial X-ray pattern** = donuts + tram lines
+9. **ICS onset** = 7-10 days for full effect (not 3 days)
+10. **Feline asthma** = eosinophilic + reversible · vs chronic bronchitis = neutrophilic + permanent
+11. **Air trapping** = bronchoconstriction → lung hyperinflation + flat diaphragm
+12. **Status asthmaticus** = O₂ + bronchodilator + steroid + stress reduction
+
+> 📚 อ่านควบ: 14.1 Common Resp II Pleural cavity (FlutqheRR6I) · 14.2 Surgical Resp (nzpDNtceKKk) · 13.2 Resp Clinical Assessment (az6ZIjbDFwQ)`,
+  },
+
+  eBY8GTlcjiw: {
+    videoId: 'eBY8GTlcjiw',
+    title: '10.3 : Lower Urinary System 3',
+    subject: 'com1',
+    date: '2024-10-21',
+    duration: '84 min',
+    instructor: 'DekDokVet85 — รุ่นพี่',
+    examFormat: 'MCQ + clinical reasoning',
+    summary: `# 10.3 Lower Urinary System 3 — FIC · UTI · Incontinence · Nutrition
+
+> 🎯 ครอบคลุม **FIC (cat) ⭐ · UTI dx & ATB stewardship · USMI · ectopic ureter · feeding calculation**. FIC + UTI ออกสอบแน่ — case-based reasoning เน้น
+
+---
+
+## 1. Feline Idiopathic Cystitis (FIC) ⭐
+
+### Demographics
+- **Top disease in cats < 10 years** (UTI is rare in cats this age)
+- Increasing incidence post-COVID (work-from-home stress)
+- Cats > 10 years → think nephrolith, UTI first
+
+### Diagnosis = "Diagnosis of Exclusion"
+- Cannot diagnose FIC at first visit
+- Must **rule out**:
+  1. **Urolithiasis** (X-ray + U/S)
+  2. **UTI** (urine C&S — but rare in cats!)
+  3. Neoplasia (bladder mass)
+  4. Other
+
+⚠️ **X-ray often misses lesions** — supplement with **U/S** (sees small stones, bladder wall mass)
+
+### Etiology — UNKNOWN ⛔
+- Old name: **idiopathic FLUTD**
+- Now part of "**Pandora Syndrome**" — opens many cans of worms
+- Multifactorial belief (NOT proof):
+  1. **Cat factors** — temperament, obesity, indoor lifestyle
+  2. **Environment** — multi-cat household, lack of enrichment
+  3. **Owner** — relationship dynamics, stress sources
+- **Stress** = strong correlation but NOT proven cause
+
+### Pathophysiology (proposed)
+- **Neurogenic inflammation** (stress → nerve signal → inflammation)
+- **GAG layer disruption** — protective glycosaminoglycan layer of bladder mucosa lost
+- Without GAG → urine directly irritates mucosa → inflammation cycle
+
+### Treatment (5 ยาหลัก — ⚠️ careful, cats stressed by pilling!)
+
+1. **GAG layer supplement** — restore mucosal protection
+2. **Pain control** — NSAIDs (cat-safe ones)
+3. **Anti-anxiety** — Fluoxetine, Amitriptyline (severe stress signs)
+4. **Maropitant (Cerenia)** — blocks substance P (neurogenic inflammation) — newer adjunct
+5. **Antibiotics** — ⚠️ **NOT routinely indicated** (FIC ≠ infection!)
+6. **Linex** (urethral relaxant) — popular but **little evidence**
+
+⚠️ **Pill aversion** — pilling stresses the cat MORE → worsens FIC. **Pick the most important medication only**, drop the rest if patient won't take
+
+### Diet management ⭐
+- **Hill's c/d Multicare Stress** — contains:
+  - **Tryptophan** (serotonin precursor)
+  - **Alpha-casozepine** (anxiolytic peptide)
+- ⚠️ **NEVER abrupt diet change** — cats hate change · gradual transition
+- Tip: place new food + small portion of old food side-by-side · let cat choose
+
+### Water intake increase
+- Each cat unique preference: stainless bowl, ceramic, bowl height, fountain, drips
+- **Flavored water** (chicken/salmon broth) — newer trend in market
+
+### Environmental modification (memo / EE)
+- **N+1 rule** (litter boxes, water bowls, feeders) — but **doesn't always work** (multi-cat houses, small condos)
+- Adjust **case-by-case** — listen to owner first
+- ⚠️ **Don't change everything at once** — sometimes makes worse
+- Goal: let cat express predator/explorer behavior (puzzle feeder, hiding spots, climbing)
+- ⚠️ **Equal love distribution** — extra attention to one cat triggers jealousy stress in others
+
+### Owner education
+- Vet = **coach**, not commander
+- Find true stresser (boyfriend? new cat? new apartment? construction noise?)
+- Sometimes the answer is "Don't medicate, just adjust environment"
+
+### Prognosis
+- **Episodic, recurrent** — many cats relapse with stress events
+- Some need **lifelong** environmental + dietary management
+
+---
+
+## 2. Urinary Tract Infection (UTI) ⭐
+
+### Demographics
+- **Cats** — RARE if < 10 yr (unless predisposing: spinal injury, paralysis)
+- **Cats > 10 yr** — common
+- **Dogs** — common, often comorbid (Cushing's, diabetes, CKD)
+
+### Diagnosis
+- ⚠️ **Bacterial UTI** (other types — viral/fungal/yeast — rare or hard to prove)
+- **Need 3 things for bacterial UTI**:
+  1. **Attachment** (key target for prevention!)
+  2. **Colonization**
+  3. **Persistence**
+
+### Sample collection
+- **Cystocentesis** = gold standard (sterile)
+- **Catheterization** = OK if cysto contraindicated (e.g., suspected TCC → cysto would seed tumor)
+- **Voided/free-catch** — only for tools that have specific cut-offs (like SDMA), not for culture
+
+### Sub-categories (ISCAID Guidelines ⭐)
+| Type | Definition |
+|---|---|
+| **Sporadic UTI** | < 3 episodes / 12 months |
+| **Recurrent UTI** | ≥ 3 episodes / 12 months |
+| **Relapse** | Recurrent + **same organism** → drug/dose/duration was inadequate |
+| **Re-infection** | Recurrent + **different organism** → host factor (concurrent disease) |
+| **Subclinical bacteriuria** | Bacteria in urine + NO symptoms → **don't treat** if non-virulent |
+| **Super-infection** | New resistant organism appears during ATB course |
+
+⚠️ Old terminology "Simple vs Complicated" — replaced by Sporadic vs Recurrent
+
+### Workup
+1. **Urine C&S** (Culture + Drug Sensitivity)
+2. ⛔ **NOT "MIC test"** — common mistake! MIC = Minimum Inhibitory Concentration (after culture grows). Use term: "**urine culture and drug sensitivity**"
+3. Subsequent: identify type of UTI → treatment plan
+
+### Empirical antibiotics (while waiting C&S — ~7 days)
+| Agent | Use |
+|---|---|
+| **Amoxicillin-clavulanic acid** | First-line ⭐ |
+| **Sulfonamides (TMP-S)** | Alternative · ⚠️ caution renal toxicity |
+| **Fluoroquinolone** (high dose, short course 3-5 days) | Newer concept for severe cases |
+
+### "We treat the patient, not the lab result"
+- If symptoms resolve on chosen ATB despite resistance reported → continue
+- If symptoms persist + lab says resistant → switch
+- Case-by-case — don't blindly follow lab
+
+### Key principle
+- **Sporadic** = mild → empirical OK · don't necessarily need C&S confirmation
+- **Recurrent (Relapse)** = drug/dose/duration was inadequate → review regimen
+- **Recurrent (Re-infection)** = host factor → look for Cushing's, DM, anatomic abnormality (ectopic ureter)
+- **Subclinical bacteriuria** = leave alone if non-virulent · (paralysis cats often have this)
+
+### Prevention principles
+- Target **attachment phase** (most important)
+- Cranberry products (proanthocyanidins block adhesion) — limited evidence
+- Address underlying disease
+
+---
+
+## 3. Urinary Incontinence
+
+### Definitions
+- **Continence** = ability to hold urine
+- **Incontinence** = loss of voluntary control
+- ⚠️ Not the same as **Polyuria** — old dog on diuretics may be polyuric, not incontinent (just can't get up fast enough)
+
+### Micturition phases
+| Phase | Detrusor (bladder muscle) | Sphincter |
+|---|---|---|
+| **Storage** | RELAX | CONTRACT |
+| **Voiding** | CONTRACT | RELAX |
+
+Memory: "**ParaSym = Pee · Sym = Storage**"
+- Sympathetic (alpha-receptor) → sphincter contracts
+- Parasympathetic → bladder contracts
+
+### Clinical clues
+| Pattern | Phase issue |
+|---|---|
+| **Drip drip when lying down (sphincter not closing)** | **Storage failure** (sphincter incompetence) |
+| **Urination + dripping during attempts** | **Voiding failure** (obstruction or atony) |
+
+### Bladder size clue
+- Storage failure → **small bladder** (constantly leaks empty)
+- Voiding failure → **large bladder** (can't empty)
+
+### Neurological exam
+- ⚠️ **Don't only check withdrawal + nail-pinch** (femoral/sciatic nerve = LMN spinal lower)
+- **Pudendal nerve** (S1-S3) controls external urethral sphincter
+- Test: **anal reflex, bulbocavernous reflex** → assess pudendal
+
+---
+
+### A. USMI (Urethral Sphincter Mechanism Incompetence)
+
+**Demographics**: middle-age **large-breed spayed female** (Labrador, Golden, etc.) · spayed at young age
+
+**Pathophysiology**: ↓ estrogen → ↓ alpha-receptor expression on sphincter → sphincter weakness during Storage phase
+
+**Diagnosis**: based on signalment + rule out other causes (UTI, stones)
+
+**Treatment options**
+1. **Estrogen** — incomplete response · ⚠️ **risk: aplastic anemia** (estrogen toxicity in dogs)
+2. **Alpha-agonist** — Phenylpropanolamine (PPA) ⭐ works best
+   - ⛔ **PPA banned in Thailand since 2001** — illegal as veterinary drug
+   - Imported "underground" only — risk to clinic if found
+3. **Ephedrine** — alternative alpha-agonist
+4. **Surgical**: collagen injection (intra-mural) or **artificial sphincter device** (extra-mural) — both **not available in Thailand**
+5. **In Thailand reality**: → "**Pampers / diaper**" (Cosmetic management) since meds + surgery not accessible
+
+### B. Ectopic Ureter
+
+**Demographics**: **Young female large breed** (often Labrador puppies 3 months) · ⚠️ owners notice "drip drip from birth"
+
+**Pathophysiology**: ureter opens at wrong location (urethra, vagina) instead of bladder neck
+
+**Diagnosis**:
+- **CT urography with IV contrast** ⭐
+- **Cystoscopy** — direct visualization
+
+**Types**:
+- **Intra-mural** — ureter has tunnel through bladder wall but opens distal — laser ablation possible (not in Thailand)
+- **Extra-mural** — ureter completely bypasses bladder — surgical reimplantation only
+
+**Treatment in Thailand** = **Surgery only** (laser ablation not available)
+- **Ureteroneocystostomy** (re-implant ureter to bladder)
+- ⚠️ Outcome inconsistent — recurrent UTI common post-op (sphincter dysfunction persists)
+- Sometimes condition is BETTER LEFT alone if mild — comparison: leaking diaper vs persistent UTI/pyelonephritis
+
+---
+
+## 4. Nutrition Calculation ⭐ (สำคัญ!)
+
+### Step 1: Calculate RER (Resting Energy Requirement)
+
+**Formula** (use this when possible):
+- **RER = 70 × (BW kg)^0.75** kcal/day
+
+**Linear shortcut** (only for animals 2-30 kg):
+- RER = 30 × BW + 70 kcal/day
+
+⚠️ **Use ideal BW**, not actual BW (don't include fat from obesity)
+
+### Step 2: Apply Factor → DER (Daily Energy Requirement)
+
+| Patient state | Factor |
+|---|---|
+| Healthy adult dog | 1.6× RER |
+| Healthy adult cat | 1.2× RER |
+| Growing puppy/kitten | 2-3× RER |
+| Pregnant | 1.6-3× RER |
+| Lactating | 4-8× RER |
+| Working dog | 2-8× RER |
+| Obesity weight loss | 0.8-1.0× RER |
+| Hospitalized | 1.0-1.4× RER |
+
+### Step 3: Match to food caloric content
+
+**Example calculation** (10 kg dog, factor 1.0 for sick patient):
+- RER = 70 × 10^0.75 = 70 × 5.62 = **393 kcal/day**
+- Food k/d wet = 422 kcal/can
+- Need: 393 / 422 = **~0.93 can/day** ≈ 1 can/day
+- Split: morning ¾ can + evening ¼ can
+
+### Apply to all kidney/stone diets
+- Hill's k/d (kidney), s/d (struvite stones), c/d (idiopathic cystitis), u/d (urate stones)
+- ⚠️ Reading "give x/d" without calorie calc = often wrong
+- Always calculate kcal needed → divide into meals
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **FIC** = top diagnosis for **cat < 10 yr** with hematuria/dysuria after rule-outs
+2. **FIC etiology** = UNKNOWN · "stress-related belief" but NOT proven
+3. **Pandora syndrome** — FIC is a part of it
+4. **FIC diet** = c/d Multicare **Stress** (tryptophan + alpha-casozepine)
+5. **FIC owner** = case-by-case · don't blindly follow N+1 rule
+6. **UTI cats < 10 yr** = rare unless paralysis/spinal disease
+7. **UTI workup**: cystocentesis → urine **culture + drug sensitivity** (NOT "MIC")
+8. **Sporadic vs Recurrent UTI** = < 3 vs ≥ 3 episodes / 12 months
+9. **Relapse vs Re-infection** — same organism = drug/dose/duration issue · different = host factor
+10. **Subclinical bacteriuria** = leave alone (paralysis cats)
+11. **Empirical ATB**: amoxiclav OR sulfa
+12. **USMI** = older spayed female large breed (Lab, Golden)
+13. **PPA banned in Thailand** since 2001 — illegal · use diapers as cosmetic management
+14. **Ectopic ureter** = young female large breed · surgical only
+15. **Pudendal nerve (S1-S3)** controls external sphincter — test with anal reflex
+16. **RER formula** = 70 × BW^0.75
+17. **DER** = RER × Factor (1.0-3+ depending on state)
+
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk · obstruction stabilize) · 8.3 LUT 2 Stones (vLjnPuFgvj4) · 10.1 Imaging Urinary (Q0AGFF70m8M) · 10.2 Surgical Tx Urinary (WtvWyniLMVE)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
