@@ -24823,6 +24823,282 @@ Real patients often have:
 > 🦴 **Calculation tip**: Most patients = 2 sec/drop with 5-10 mL/kg/hr · use this as sanity check`,
   },
 
+  '8zbE_NXPdVI': {
+    videoId: '8zbE_NXPdVI',
+    title: '1. Introduction of Swine Herd Health',
+    subject: 'swine-herd',
+    date: '6 Aug 67',
+    durationMin: 107,
+    instructor: 'อ.รุ่งธรรม (อายุรศาสตร์) + อ.บุญฤทธิ์ (สัตวบาล) — co-coordinators',
+    examFormat: 'MCQ — Pig categorization · parity numbering · 117-day gestation · ~160 day cycle · One-site vs Multi-site · weekly batch system · all-in/all-out · gilt replacement strategies ออกบ่อย',
+    summary: `# Introduction of Swine Herd Health
+
+> 🎯 **Foundation lecture** for all subsequent swine herd content
+> Top exam: **Pig categorization · parity definition · breeding cycle math · production systems · weekly batch · disease hotspots (nursery)**
+
+---
+
+## 1. Course Structure ⭐
+
+| Component | Weight |
+|---|---|
+| **Midterm** | **45%** |
+| **Final** | **50%** |
+| **Assignment** | 5% |
+| Grade A | ≥80% |
+
+**Co-coordinators**:
+- **อ.บุญฤทธิ์** (สัตวบาล) — pre-mid lectures
+- **อ.รุ่งธรรม** (อายุรศาสตร์) — post-mid lectures (mostly disease-focused)
+
+---
+
+## 2. Pig Categorization ⭐⭐⭐ (MUST KNOW for all later lectures!)
+
+### Sub-population groupings
+| Term | Definition | Why it matters |
+|---|---|---|
+| **Boar** | Adult male breeding pig | Often in separate AI unit |
+| **Gilt** (P0) | Female pig BEFORE first farrowing | Replacement candidate |
+| **Sow (Primiparous = P1)** | Sow after 1st farrowing | Less herd immunity |
+| **Sow (Multiparous = P2+)** | Sow after 2+ farrowings | Peak production at P3-4 |
+| **Suckling pig (Nursing pig)** | Lactating piglet (still on dam) | Maternal immunity protects |
+| **Nursery pig (Weaner)** | Post-weaning piglet | **Disease HOTSPOT** ⭐ |
+| **Grower** | Growing pig (light fattener) | — |
+| **Finisher** | Heavy fattener ready for slaughter | Prep for market |
+
+### Parity Numbering Rules ⭐ (Common exam trap!)
+- **P0** = gilt (never farrowed)
+- **P1** = sow after 1st FARROWING (NOT after 1st conception!)
+- Status changes ONLY at farrowing event
+- ⚠️ Even if all piglets stillborn → still counts as farrowing → P0 → P1
+
+> ⛔ **Common exam trap**: pregnant gilt that aborts → still P0 (no farrowing) NOT P1
+
+---
+
+## 3. Breeding Cycle ⭐⭐⭐
+
+### Cycle stages (memorize!)
+| Stage | Duration | Notes |
+|---|---|---|
+| **Service (AI)** | Day 0 | Artificial insemination · sow in estrus |
+| **Gestation** | **117 days** ⭐ | Modern ~117 (older texts say 114-116) |
+| **Farrowing** | Birth event | P number changes |
+| **Lactation (Suckling)** | **21-28 days** | Wean target ~21 (early) or 28 (late) |
+| **Wean-to-Service** | **~7 days** ⭐ | Sow returns to estrus → re-bred |
+
+### Total cycle math
+**117 + 24 + 7 ≈ 148-160 days** ⭐ per cycle (theoretical maximum efficiency)
+- 1 year (365 days) → ~2.3 cycles per sow
+- Each cycle = ~10-12 piglets weaned (varies by genetics)
+
+### Pre/post-weaning estrus
+- During lactation: NO estrus (suckling suppresses cycling)
+- After weaning: most sows return to heat in **5-7 days**
+- Target: ≥80-90% of sows back in heat within 1 week
+
+---
+
+## 4. Replacement Gilt Sourcing ⭐⭐
+
+### Why we need replacements?
+1. **Aging out** — production peaks at P3-4 then declines (cull at P5-7 typical)
+2. **Mortality** — disease outbreaks · death · culling
+3. **ASF wipeout** ⭐ NEW REASON since 2019! → forced internal sourcing from grower stock
+
+### Two sources
+| Source | Pros | Cons |
+|---|---|---|
+| **Internal (self-replacement)** ⭐ | Same disease history · adapted to farm immunity · no new pathogens | Limited genetics · slow stock improvement |
+| **External (purchased gilts)** | Fresh genetics · faster genetic gain | **Disease introduction risk** · need quarantine |
+
+### ⚠️ ASF impact on inbreeding (modern issue!)
+- ASF caused massive sow losses
+- Some farms had to **upgrade fatteners → breeders** (using siblings = inbreeding!)
+- Re-emergence of inbreeding problems we hadn't seen for years
+
+### Quarantine Protocol (Canadian — "**ขันทีน**")
+For external gilts:
+1. **Pre-purchase audit** of source farm health status
+2. **Quarantine in isolation** ~30 days minimum
+3. **Watch for clinical signs** (latent disease emerges)
+4. **Diagnostics** at end (serology · PCR for key pathogens)
+5. **Acclimatization** to farm pathogens before mixing with breeding herd
+
+### Subclinical disease danger ⭐⭐
+**Parvovirus** (PPV) ⭐⭐ — exam favorite trap!
+- In non-pregnant pigs: NO clinical signs at all
+- In pregnant pigs: stillbirth · mummification · embryonic death
+- VCI test trap: don't confuse with PPV in cats/dogs (different presentation!)
+
+---
+
+## 5. Animal Welfare in Swine ⭐
+
+### Trend
+- Developing countries: economy first, welfare second
+- Developed countries: increasing welfare focus → drives system changes
+
+### **Gestation Crate vs Group Housing** ⭐
+- **Gestation crate (ขังซอง)**: traditional · 1 sow per stall · easier management · WELFARE concerns
+- **Group housing**: better welfare · more space · BUT harder feed management · aggression risk
+- Thailand currently mostly crate · few demonstration group-housed farms
+
+---
+
+## 6. Production Systems ⭐⭐⭐
+
+### One-Site vs Multi-Site
+
+| System | Description | Disease control |
+|---|---|---|
+| **One-Site** | All stages in same farm (gestation + farrowing + nursery + grow-finish) | Easier logistics · WORSE biosecurity |
+| **Multi-Site** ⭐ | Each stage in separate farm | Better biosecurity · stops cascade · costs more |
+
+### Multi-Site sub-types
+| Type | Stages |
+|---|---|
+| **Farrow-to-Wean** | Has sows + piglets till weaning |
+| **Farrow-to-Nursery** | Adds nursery stage |
+| **Farrow-to-Finish** | Complete one-site (= one-site!) |
+| **Wean-to-Finish** | Receives weaners · raises to slaughter |
+
+### Why Multi-Site is better for disease ⭐
+- ASF outbreak example: hits one site → only depopulate that site, sows safe in another
+- Different stages don't share staff/equipment → lower cross-contamination
+- Hot zones isolated from clean zones
+
+### When One-Site = Multi-Site
+- If staff/equipment STRICTLY separated within one-site → can equal multi-site biosecurity
+- BUT human error often breaks this in practice → multi-site safer in practice
+
+---
+
+## 7. Weekly Batch System ⭐⭐
+
+### Concept
+**1 batch farrows per week** → continuous piglet supply throughout year
+
+### Math
+- Each cycle = ~22-23 weeks
+- Need **22-23 separate sow groups** (each 1 week apart)
+- One group farrows each week
+- Continuous output forever
+
+### Variations (Batch farrowing)
+| System | Frequency |
+|---|---|
+| **Weekly** | Every week — most common |
+| **3-week batch** | Every 3 weeks — labor concentration |
+| **4-week batch** | Every 4 weeks |
+| **5-week batch** | Less common |
+
+### Why batch?
+- Concentrates labor → workers have free weeks for other tasks
+- Trades convenience for personnel efficiency
+
+---
+
+## 8. All-in/All-out vs Continuous Flow ⭐⭐⭐
+
+### All-in/All-out (AI/AO)
+- Each batch enters EMPTY barn
+- All exit together when ready to slaughter
+- Barn cleaned between batches
+- **GOLD STANDARD biosecurity**
+
+### Continuous Flow
+- New batches enter as old ones leave (overlap)
+- Barn never fully cleaned
+- Easier scheduling but POOR biosecurity
+- ⛔ Disease persists
+
+### Why AI/AO is better
+- All pigs same age → uniform immune status
+- No subpopulation acting as disease reservoir
+- Cleaning windows possible
+
+---
+
+## 9. Disease Hotspots ⭐⭐
+
+### Why nursery is hotspot
+| Factor | Mechanism |
+|---|---|
+| **Maternal immunity wanes** ~5-6 weeks | Piglet starts losing IgG from colostrum |
+| **No active immunity yet** | Vaccination ongoing |
+| **Mixed batches** if poor biosecurity | Cross-contamination |
+| **Stress of weaning** | Immunosuppression |
+
+> 💡 If you see a problem at NURSERY → check 5-6 wk timing first!
+
+### Cascading direction
+- **Sow → Fattener** (most common direction)
+- **Fattener → Sow** RARE but possible (e.g., growth retardation forces farrow space delay → cascade)
+
+---
+
+## 10. Bacteria vs Virus Spread Patterns ⭐
+
+### Common misconception
+> "Virus = fast spread, bacteria = slow spread" — NOT always true!
+
+### Reality
+| Scenario | Real spread speed |
+|---|---|
+| **Bacteria via water/feed contamination** | FAST — looks like outbreak |
+| **Virus in immune population** | SLOW — like PED in vaccinated farms |
+| **Virus in naïve population** | EXPLOSIVE — PED, ASF |
+
+### PED example (Porcine Epidemic Diarrhea)
+- Naïve farm: 100% mortality in suckling piglets
+- Immunized farm: side-by-side litters can show 0% vs 100% (depends on individual sow's immunity)
+- → Same disease, SAME exposure, vastly different outcome
+
+---
+
+## 11. Herd Immunity (สำคัญมาก) ⭐
+
+### COVID-19 analogy taught
+- "Herd immunity" makes sense to students post-COVID
+- Synchronized exposure = synchronized resolution
+- Subpopulation with no immunity = disease persistence reservoir
+
+### Application to swine
+- Plan vaccinations so all pigs SAME-AGED reach immunity together
+- Avoid mixing groups with different immune status
+- Acclimation periods are critical
+
+---
+
+## 🎯 Exam Recap — top 18 testable points
+
+1. **P0 = gilt; P1 = sow after 1st FARROWING** (not conception!)
+2. **Gestation = 117 days** (modern standard)
+3. **Lactation = 21-28 days**
+4. **Wean-to-Service = 7 days** (≥80% of sows)
+5. **Total cycle ~160 days** (theoretical max efficiency)
+6. **Parvovirus = no signs in non-pregnant; stillbirth in pregnant** ⭐ exam trap
+7. **ASF resurfaced inbreeding problem** post-2019
+8. **Quarantine ~30 days** for external gilts
+9. **One-site = traditional · Multi-site = better biosecurity**
+10. **Multi-site sub-types**: F2W · F2N · F2F · W2F
+11. **Weekly batch** = 22-23 sow groups for continuous output
+12. **All-in/All-out** = best biosecurity practice
+13. **Continuous flow** = bad disease control
+14. **Nursery = disease HOTSPOT** (5-6 wk waning maternal immunity)
+15. **Disease cascade direction**: usually sow → fattener
+16. **PED: naïve = 100% mortality**, immunized litters can be 0%
+17. **Cull sows at P5-7** depending on production drop
+18. **Gestation crate vs group housing** = welfare debate
+
+> 📚 อ่านควบ: 2 Record analysis (80466NsBZSo) · 5 Inbreeding (I478HTK1kKY) · 8 Epidemiology (1mFans-0DNY) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY)
+> 🩻 **Practice tip**: Memorize the 117/24/7 numbers · they appear in EVERY swine MCQ
+> 💡 **PPV trap**: pregnant pigs only = stillbirth · don't confuse with cat/dog parvo (enteritis)
+> 🦴 **Modern issue**: ASF + inbreeding + welfare are dominant 2020s themes`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
