@@ -44643,6 +44643,444 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > ⏰ **Historic vs current**: CI (history) · CTFS, CTC, S/C (current management) — use them together!`,
   },
 
+  '7NMNifb-Ebw': {
+    videoId: '7NMNifb-Ebw',
+    title: 'Lameness in Cattle (Digital Lameness · Hoof Anatomy + Trimming + Common Diseases)',
+    subject: 'herd-health-rum',
+    date: '2024-11-13',
+    durationMin: 140,
+    instructor: 'อ.ธนศักดิ์ (3rd most important dairy issue: mastitis · repro · LAMENESS)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง hoof anatomy · 3 layers (Horn/Corium/P3) · Footrot vs Sole Ulcer · Locomotion Score · 90% lameness from digital structures',
+    summary: `## 🎯 Lead Summary
+**Lameness = #3 dairy disease** (after mastitis + reproduction). ⭐ **>90% of cattle lameness originates in the FOOT/HOOF/DIGIT** — hence "Digital Lameness". Critical concepts: ⭐ **Hoof = 3 layers** (Horn → Corium → P3 bone) · ⭐ **Hindlimb >> forelimb affected** (3 reasons: weight + manure + biomechanics) · ⭐ **Lateral claw > medial** (yawn faster) · ⭐ **Locomotion Score** for herd-level monitoring · Diseases divided into ⭐ **Infectious** (Footrot · Digital Dermatitis) and ⭐ **Non-infectious** (Sole Ulcer · White Line Disease · Laminitis).
+
+## 1️⃣ Why Lameness Matters ⭐⭐
+
+### Top 3 Dairy Issues (Economic Impact)
+1. ⭐ **Mastitis** (#1)
+2. ⭐ **Reproductive failure** (#2)
+3. ⭐ **Lameness** (#3) ⭐
+
+### Why ">Digital Lameness"?
+- ⭐ **>90% of lameness** originates in the **foot/hoof/digit**
+- Other causes (joint, tendon, etc.) <10%
+- Term "Digital" = referring to digit (toe), not "electronic"!
+
+### Lameness Costs ⭐
+- Reduced milk yield
+- Reduced feed intake (cow doesn't walk to feed)
+- Reduced reproductive performance
+- Premature culling
+- Treatment + labor costs
+- ⚠️ Welfare = ethical concern
+
+## 2️⃣ Hoof Anatomy ⭐⭐⭐
+
+### External Structures (Lateral View)
+| Structure | Thai/English | Function |
+|---|---|---|
+| ⭐ **Coronary Band** ⭐ | ไรกีบ | White band between skin + hoof horn · ⭐ **CRITICAL diagnostic marker**: if swollen → infection ascending! |
+| **Wall (Horn)** | วอ (กำแพง) | Lateral horn — strongest |
+| **Sole (Hown)** | โซ | Bottom horn — bears weight |
+| ⭐ **White Line** ⭐ | เส้นขาว | Junction Sole + Wall · ⭐ **Weakest point** of hoof |
+| **Inter-digital Space** | ง่ามกลีบ | Skin between two claws · ⭐ **Where infection lives** |
+| **Bulb (Heel)** | ส้น | Soft posterior horn |
+| Dewclaw | นิ้วติ่ง | Vestigial — minimal weight bearing |
+
+### Internal Layers ⭐⭐⭐
+| Layer | Composition | Function |
+|---|---|---|
+| ⭐ **Horn (outer)** | Keratinized epithelium · NO blood vessels | Hard protective shell |
+| ⭐ **Corium (middle)** | Dermis · MANY blood vessels | Living, sensitive · grows hoof |
+| ⭐ **P3 (Distal Phalanx) bone** | Bone | Internal skeleton |
+
+### Why It Matters
+- ⭐ **Horn** = trim safely (no pain!)
+- ⭐ **Corium exposed** = bleed + pain
+- ⭐ **P3 contact** = lameness emergency
+
+### Histology Notes
+- Hoof = same origin as skin (epidermis + dermis)
+- ⭐ **Stratum basale (basal layer)** = where new horn cells form
+- ⭐ Pressure stimulates horn growth (more pressure → more horn!)
+- Bath/topical chemicals affect ⭐ **only outer keratinized layer**
+
+## 3️⃣ Hoof Biomechanics ⭐⭐
+
+### Weight Distribution Reality ⭐
+**Normal cattle**:
+- ⭐ **Forelimb: 2/3 weight**
+- **Hindlimb: 1/3 weight**
+
+**BUT modern dairy cattle**:
+- Pregnant uterus + lactating udder = ⭐ **shifts weight BACK** (toward hindlimbs)
+- During pregnancy + lactation = high hindlimb load
+
+### 3 Reasons Hindlimb Lameness Dominates ⭐
+| Reason | Mechanism |
+|---|---|
+| 1. ⭐ **Weight shifted back** | Pregnancy + heavy udder |
+| 2. ⭐ **More manure/urine contact** | Hindlimbs in slurry · ⚠️ Ammonia degrades hoof keratin! |
+| 3. ⭐ **Direct bone-bone shock** | Hindlimb action force → femoral head/acetabulum (bone-on-bone) vs forelimb where scapula floats on muscles (built-in shock absorber) |
+
+### Lateral vs Medial Claw ⭐⭐
+- ⭐ **Lateral claw grows ~10% faster** than medial
+- → More pressure on lateral
+- → ⭐ **Lateral claw 90%+ of lameness**!
+- Cow stance: when lateral hurts → "toes-out" (cow-hocked posture)
+
+### Hoof Growth Rate ⭐
+| Factor | Detail |
+|---|---|
+| **Wall growth rate** | ⭐ 5-6 mm/month |
+| **Wear rate** | ~50% of growth (varies by environment) |
+| **Surface effect** | Concrete = more growth + more wear · pasture = less of both |
+| **Net result** | Hoof generally lengthens over time → needs trimming! |
+
+## 4️⃣ Locomotion Score ⭐⭐⭐
+
+### Why Score?
+- ⭐ Herd-level lameness monitoring
+- Compare against benchmarks (cut-off)
+- Track changes over time
+- Decide intervention timing
+
+### Score System (5-point scale) ⭐
+| Score | Description |
+|---|---|
+| **1** | Normal · flat back, even strides |
+| **2** | Slight asymmetry · arched standing back |
+| ⭐ **3** | Definite limp · limb favoring · arched walking back ⚠️ **TRIM NEEDED** |
+| **4** | Severe limp · 1 limb significantly affected |
+| **5** | Severe non-weight-bearing · stumbling |
+
+### Cut-off Standards ⭐
+- ⭐ **<5% of herd at score 3+** = healthy farm
+- 5-15% = monitor closely
+- ⚠️ >15% = serious problem, intervene!
+
+### Implementation
+- Record monthly
+- Score in walking line (after milking exit)
+- Need clean, even surface to assess properly
+
+## 5️⃣ Hoof Trimming (Foot Trimming / Hoof Rasping) ⭐⭐⭐
+
+### Why Trim?
+1. ⭐ Restore normal weight distribution
+2. ⭐ Prevent sole ulcer (P3 pressure on sole!)
+3. ⭐ Identify hidden lesions
+4. ⭐ Improve overall comfort + production
+
+### Frequency
+- ⭐ Routine: every 6 months (dairy adult)
+- After lameness cases: as needed
+- ⭐ Just before drying off (dry-off period for healing)
+
+### Tools
+- Hoof knife
+- Hoof gauge (depth)
+- ⭐ Hoof tester (find painful spots)
+- Tilting chute (for restraint!) ⭐ critical
+- Modern hydraulic chutes
+
+### Trimming Principle (5 Steps) ⭐
+1. ⭐ **Lateral claw to standard length** (~7.5 cm wall)
+2. ⭐ **Match medial claw** to lateral (DON'T trim if shorter!)
+3. ⭐ **Pare flat sole** uniformly
+4. ⭐ **Remove sole concavity** (cup) toward axial side
+5. ⭐ **Smooth heel** (bulb)
+
+### What To Avoid
+- ⚠️ **Don't trim too deep** (avoid Corium exposure!)
+- ⚠️ **Don't make medial > lateral** (creates new problems)
+- ⚠️ **Don't ignore inflammation** (treat first!)
+
+### Why Concavity at Axial?
+- ⭐ Reduces inter-digital pressure
+- ⭐ Less moisture trap → less infection
+- ⭐ Allows natural ventilation
+
+## 6️⃣ Infectious Hoof Diseases ⭐⭐⭐
+
+### A. Footrot (Foul of the Foot · ฟลอ) ⭐⭐⭐
+
+**Etiology**:
+- ⭐ ⭐ **Fusobacterium necrophorum** + Bacteroides + Trueperella + Dichelobacter (mixed flora)
+- Anaerobic, in soil + manure
+- Foul, distinctive odor!
+
+**Pathogenesis**:
+- ⭐ Skin damage in inter-digital space (wet conditions, mud)
+- Bacteria invade dermis → cellulitis
+- ⚠️ Spreads deep — can reach tendon, bone
+
+**Clinical Signs** ⭐:
+- ⭐ **Acute onset** ("yesterday OK, today limping")
+- ⭐ **Asymmetric inter-digital swelling** ⭐ pathognomonic
+- Inter-digital fissure with foul-smelling discharge
+- ⭐ **Severe lameness** (cow won't bear weight)
+- ⭐ **Systemic signs**: fever, anorexia, milk drop ⭐
+- ⚠️ **Ascending infection** possible → septic arthritis
+
+**Diagnosis**:
+- Clinical pattern + odor
+- Foul interdigital lesion
+- ⭐ Acute + systemic = Footrot until proven otherwise
+
+**Treatment** ⭐:
+- ⭐ **Systemic antibiotics**:
+  - Penicillin (high dose, long-acting)
+  - Florfenicol or Ceftiofur (covers anaerobes)
+- **Topical**: clean + disinfect (CuSO4, formalin foot baths)
+- **NSAIDs** for pain/inflammation
+- **Trim** affected hoof
+- ⚠️ **Quarantine** infected cow!
+
+**Prevention** ⭐:
+- ⭐ **Clean, dry footing** (key!)
+- ⭐ **Foot baths** (CuSO4 5-10% or formalin 3-5%)
+- Walk-through baths at parlor entry/exit
+- Cull repeat offenders
+- ⚠️ Vaccine (rare, limited efficacy)
+
+### B. Digital Dermatitis (Hairy Heel Wart · Mortellaro Disease) ⭐⭐
+
+**Etiology**:
+- ⭐ **Treponema spp.** (anaerobic spirochetes)
+- Often mixed with other bacteria
+- Endemic in many farms
+
+**Pathogenesis**:
+- ⭐ Wet conditions on **heel/heel-bulb skin**
+- Treponema invades epidermis
+- ⚠️ Becomes chronic, recurrent
+
+**Clinical Signs** ⭐:
+- ⭐ **Heel area lesion** (NOT inter-digital!)
+- ⭐ **Painful, ulcerative, hairy appearance** (granulation tissue)
+- Strawberry-red color
+- Severe pain → cow shifts weight away
+- ⚠️ Can be subclinical for weeks before lameness obvious
+
+**Stages** (M-classification: M0-M4)
+- M0: No lesion
+- M1: Small (<2 cm) red area
+- ⭐ **M2**: Active ulcer with hair
+- M3: Healing
+- M4: Chronic chronic (raised wart-like)
+
+**Treatment** ⭐:
+- ⭐ **Topical antibiotics** (oxytetracycline spray)
+- Clean + debride
+- ⭐ **Foot baths** (CuSO4, formalin) — most important prevention
+- Topical bandage
+- Systemic for severe
+
+**Prevention**:
+- ⭐ **Daily foot bath** (especially in milking parlor exit)
+- Manage flooring + bedding hygiene
+- Identify M-stage lesions early
+
+### C. Inter-digital Hyperplasia (Corn Type) ⭐
+- Mass of inflamed tissue in inter-digital space
+- Chronic mechanical irritation
+- May need surgical excision
+
+### D. Septic Pedal Arthritis ⭐
+- ⚠️ ⚠️ Most severe form — infection has reached joint!
+- Result of untreated footrot or chronic infection
+- Joint is destroyed
+- ⛔ Often requires CULLING (poor prognosis)
+
+## 7️⃣ Non-Infectious Hoof Diseases ⭐⭐⭐
+
+### A. Sole Ulcer (Heel Sore · Pododermatitis Circumscripta) ⭐⭐⭐
+
+**Pathogenesis**:
+- ⭐ ⭐ **P3 bone (flexor process)** presses on Corium under sole
+- → Localized necrosis of Corium
+- → Erosion + ulcer at sole
+- ⭐ **Most common at sole-heel junction** (heel-sore region)
+
+**Cause** ⭐:
+- ⚠️ ⭐ **Unbalanced trimming** (too much heel removed)
+- Long hoof + weight on heel
+- Concrete flooring + thin soles
+- High-yielding cows (more weight changes)
+
+**Clinical Signs**:
+- ⭐ Cow shifts weight off affected limb
+- Limping, milk drop
+- ⭐ **Localized swelling at coronary band** (extension)
+- Sole shows ⭐ **dark spot** = early ulcer
+- Active ulcer = ⭐ **red, painful Corium exposed**
+
+**Treatment** ⭐:
+- ⭐ **Trim AROUND ulcer** (relieve pressure!)
+- ⭐ **Block on healthy claw** (sister claw) → off-load affected
+- Antibacterial topical
+- NSAIDs
+- Cow walks on healthy claw + heals over weeks
+
+**Prevention**:
+- ⭐ Routine trimming (don't let hoof get too long!)
+- Mat flooring or rubber walkways
+- Avoid thin soles
+
+### B. White Line Disease ⭐⭐
+
+**Pathogenesis**:
+- ⭐ ⭐ **White Line = junction of Sole + Wall** = weakest point
+- Stress + wear + moisture → cracks
+- Bacteria enter cracks → ascending infection
+- May progress to deep abscess
+
+**Cause**:
+- Mechanical: turning sharply on hard floors
+- Thin soles + heavy weight
+- Wet conditions
+- Genetic factors
+
+**Clinical Signs**:
+- ⭐ Visible black line/crack at White Line
+- ⭐ When pared → sometimes purulent material
+- Lameness varies — chronic white line disease may not lame
+- Acute abscess = severe pain
+
+**Treatment** ⭐:
+- ⭐ **Pare AROUND lesion** to drain/expose
+- Block + topical antibacterial
+- NSAIDs
+- Heal over weeks
+
+### C. Laminitis ⭐⭐
+
+**Pathogenesis** (Complex!):
+- ⭐ Inflammation of **sub-clinical** Corium (laminae)
+- ⭐ ⭐ **Acidosis-related** (rumen acidosis → bacterial endotoxin → vasoactive mediators → digital vasculopathy)
+- ⚠️ Can be acute, sub-acute, chronic
+
+**3 Forms** ⭐:
+| Form | Onset | Pattern |
+|---|---|---|
+| **Acute** | Sudden | Often goes unnoticed but real! |
+| ⭐ **Sub-clinical** ⭐ | Slow | Flat sole, soft horn, frequent ulcers |
+| ⭐ **Chronic** ⭐ | Long-term | Slipper foot, ridges, structural changes |
+
+**Cause** ⭐:
+- ⭐ ⭐ **Sub-acute Ruminal Acidosis (SARA)**
+- High concentrate diets (dairy!)
+- Rumen pH drop → bacterial death → endotoxin release
+- Activates inflammatory cascade in laminar tissue
+- Other: high protein diet, history of mastitis, parturition stress
+
+**Clinical Signs (Sub-clinical)**:
+- Hoof horn changes (haemorrhages in sole)
+- Flat soles, prone to ulcers
+- Increased digital lameness rate
+- Often whole-herd issue
+
+**Treatment**:
+- ⚠️ ⛔ Limited specific treatment
+- ⭐ **Address acidosis** (diet review)
+- NSAIDs
+- ⭐ Trim affected hooves regularly
+- Severe chronic = cull
+
+**Prevention**:
+- ⭐ **TMR (Total Mixed Ration)** balanced
+- ⭐ **Adequate effective fiber** (>22% NDF)
+- ⭐ **Slow concentrate transitions**
+- Bicarbonate buffer in feed
+- Cooling in summer (heat → less rumination)
+
+### D. Other Common Lesions
+- **Sand Cracks** (Wall): vertical wall cracks
+- **Horizontal Cracks**: indicate previous laminitis episode
+- **Heel Erosion**: chronic moisture damage
+- **Toe Necrosis**: severe deep infection
+
+## 8️⃣ Treatment Approach Summary ⭐
+
+### Decision Tree
+**Workflow**: Lame cow → Trim → Inspect → Categorize lesion location → Treat accordingly:
+- Inter-digital → Footrot or Digital Dermatitis
+- Sole → Sole Ulcer or White Line Disease
+- Wall → Sand Crack or Wall problem
+- No visible lesion → Re-evaluate higher up (joints, tendons)
+
+### Block (Wooden/Plastic Block) ⭐
+- ⭐ ⭐ **Healthy claw** gets the block (off-loads injured)
+- Adheres with adhesive
+- Wears off naturally over weeks
+- ⭐ Critical for sole ulcer + white line healing
+
+### Universal Footbath Recipe ⭐
+- ⭐ **5-10% CuSO4 (Copper Sulfate)** = standard
+- Or 3-5% Formalin
+- Walk-through 5+ times/day if lameness high
+- Replace solution daily
+
+## 9️⃣ Farm-Level Management ⭐
+
+### Risk Reduction Strategies
+| Strategy | Action |
+|---|---|
+| ⭐ **Trim quarterly** | Consistent care |
+| ⭐ **Foot baths** | Daily exit from parlor |
+| ⭐ **Dry, clean walkways** | Stall hygiene |
+| ⭐ **Rubber mats** | High-traffic areas |
+| ⭐ **TMR balanced** | Prevent laminitis |
+| ⭐ **Genetic selection** | Better feet/legs scores |
+| **Locomotion scoring** | Monthly tracking |
+| **Cull repeat offenders** | Quality of life + economic |
+
+### Records ⭐
+- ⭐ Track lameness incidents per cow
+- Identify chronic problem cows
+- Calculate herd lameness rate
+- Use for benchmarking
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### Anatomy & Function (1-5)
+1. ⭐ **Coronary Band swollen = ascending infection** → systemic Tx needed
+2. ⭐ **3 layers**: Horn (no nerves) → Corium (vessels + nerves) → P3 bone
+3. ⭐ **White Line = weakest point** of hoof
+4. ⭐ **Lateral claw 10% > medial growth** → most lameness here
+5. ⭐ **Hindlimb >> forelimb** lameness (3 reasons explained)
+
+### Trimming (6-8)
+6. ⭐ **Routine trim every 6 months**
+7. ⭐ **Match medial to lateral length** (don't shorten medial!)
+8. ⭐ **Concavity at axial sole** for ventilation
+
+### Locomotion Score (9)
+9. ⭐ **5-point scale · Score 3+ = trim/treat needed · <5% of herd = healthy**
+
+### Infectious Diseases (10-12)
+10. ⭐ **Footrot = inter-digital + acute + systemic + odor** · Fusobacterium
+11. ⭐ **Digital Dermatitis (Mortellaro) = heel area + Treponema + chronic**
+12. ⭐ **Septic arthritis = WORST outcome** (cull)
+
+### Non-Infectious (13-15)
+13. ⭐ **Sole Ulcer = P3 pressure on Corium** · trim + block on healthy claw
+14. ⭐ **White Line Disease = weakest junction crack** · pare + block
+15. ⭐ **Laminitis = SARA-related** · whole-herd issue · prevent with TMR
+
+> 📚 **Cross-refs**: Mastitis (transition cow stress affects feet too) · Nutritional disorders (SARA causes laminitis!) · Reproductive index (lameness reduces fertility)
+> 🩺 **Practical**: Locomotion score monthly · trim quarterly · daily foot baths · CuSO4 5-10% · address SARA at herd level
+> 🔧 **Tool kit**: hoof knife · gauge · tester · tilting chute · blocks · CuSO4 solution
+> 💉 **Medication**: Penicillin LA · Florfenicol · NSAIDs · oxytetracycline spray
+> 🎯 **Decision tree**:
+> - Inter-digital + acute + systemic → Footrot → Systemic Abx
+> - Heel granulation → Digital Dermatitis → Topical + foot bath
+> - Sole dark spot → Sole Ulcer → Trim + Block
+> - Whole herd flat soles → Laminitis → Diet review (SARA!)
+> 📊 **Herd target**: <5% locomotion score 3+ = healthy farm`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
