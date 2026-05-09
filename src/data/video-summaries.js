@@ -19131,6 +19131,231 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > 🩻 หมายเหตุ — บทนี้แค่ 38 นาที · เอาให้จำ Quad contracture + Achilles plantigrade + non-absorbable suture for tendon ก็ผ่าน`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 6.2 External Skeletal Fixation (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  LwNNZYoCpZE: {
+    videoId: 'LwNNZYoCpZE',
+    title: '6.2. External skeletal fixation (ESF)',
+    subject: 'com2',
+    date: '11 Sep 67',
+    durationMin: 81,
+    instructor: 'อ. (Internal/External fixation)',
+    examFormat: 'MCQ — ESF type 1A/1B/2/3 · pin sequence · indications/contraindications · post-op pin removal sequence ออกบ่อย',
+    summary: `# External Skeletal Fixation (ESF)
+
+> 🎯 **ESF = "ลูกครึ่ง"** ระหว่าง internal และ external fixation
+> ครึ่งนึงอยู่ในร่างกาย (pin), ครึ่งนึงอยู่นอก (bar + clamp)
+> ⚠️ Top exam: **Type 1/2/3 classification · pin insertion sequence · removal sequence**
+
+---
+
+## 1. ESF Components (3 ส่วนหลัก) ⭐⭐⭐
+
+| Component | Function |
+|---|---|
+| **Fixation Pin** | เสียบทะลุกระดูก (cortex 2 ฝั่ง) · คล้าย IM pin |
+| **Connecting Bar** | "ไม้เท้า" — รับน้ำหนักแทนกระดูกหัก · ขนานกับ long bone |
+| **Fixation Clamp** (Linkage Device) | น็อต-ยึดระหว่าง pin กับ bar |
+
+---
+
+## 2. Pin Types ⭐
+
+| Type | Strength | Hold |
+|---|---|---|
+| **Smooth pin** | สูง (ไม่มีร่อง) | ต่ำ |
+| **Threaded pin (full)** | ต่ำ (Weak Point ที่ thread) | สูง (ล็อคเหมือนน็อต) |
+| **Mid-thread / Tip-thread / Both-thread** | กึ่งกลาง | ที่ thread = ที่ติด bone |
+
+⭐ Threaded ที่ตำแหน่ง bone = ป้องกัน pin หลุด-เลื่อน
+
+---
+
+## 3. Pin Diameter Rule ⭐
+- **ESF pin** = **1/4 ของเส้นผ่านศูนย์กลางกระดูก** (เล็กกว่า IM pin)
+- **IM pin** = 65-80% ของ diameter
+- เหตุผล: ESF ใช้หลายพินจึงเล็กลงได้
+
+---
+
+## 4. ESF Classification ⭐⭐⭐ (จำให้แม่น!)
+
+### 4.1 Type 1 (Half Pin Splintage = ทะลุ skin 1 ด้าน, cortex 2 ด้าน)
+
+| Subtype | Configuration | Description |
+|---|---|---|
+| **Type 1A** | Unilateral · Uniplanar | 1 bar, 1 ระนาบ — half pin splintage 1 ชุด |
+| **Type 1B** | Unilateral · Biplanar | 2 bars, 2 ระนาบ (2 ทิศ) — เสริม stability |
+
+### 4.2 Type 2 (Full Pin Splintage = ทะลุ skin 2 ด้าน, cortex 2 ด้าน)
+
+| Subtype | Description |
+|---|---|
+| **Maximum Type 2** ⭐ | **ทุก pin** ทะลุทั้ง 2 ฝั่งของ skin + cortex |
+| **Minimal Type 2** | เฉพาะ pin บนสุด-ล่างสุดทะลุ 2 ฝั่ง · ที่เหลือทะลุด้านเดียว |
+
+### 4.3 Type 3 (Bilateral · Biplanar/Multiplanar)
+
+- **Mix ของ Type 1 + Type 2** = multiple planes
+- **Circular ESF** (วงกลม) — ใช้ใน complex fracture / limb lengthening
+- เสียบ 360 องศา / multiple directions
+
+⚠️ **Type 3 = "ลูกผสม"** — Type 1 + Type 2 ในตัวเดียว
+
+### 4.4 Tie-In Configuration ⭐
+- **ESF + IM pin** = "**Type Tie-in**"
+- Hybrid for additional stability
+
+---
+
+## 5. Indications ⭐
+| Indication | Note |
+|---|---|
+| **Open fracture** ⭐ (compound Fx) | Top indication — minimize foreign material in wound |
+| **Gunshot fracture** | Multiple/comminuted from ballistic trauma |
+| **Bone reconstruction / osteotomy** | Correct malunion, deformity, limb lengthening |
+| **Comminuted fracture** | Close reduction + ESF (no need to open!) |
+| **Stable + Unstable fracture** | ใช้ได้ทุกแบบ |
+| **Delayed/Non-union** | ⚠️ ต้อง curette + remove fibrous + freshen bone ก่อน |
+| **Joint arthrodesis** | (rare use) |
+
+---
+
+## 6. Contraindications ⭐
+- ❌ **Articular fracture** — joint surface · ใช้ screw/plate แทน
+- ❌ **Femoral neck/condylar fracture** — ใช้ screw/locking plate
+- ❌ **Pelvis** — ใช้ wire/plate
+- ❌ **Spinal fracture** — ใช้ "**Pedicle screw**" (ดูเหมือน ESF แต่ฝังใน)
+
+---
+
+## 7. Reduction Methods ⭐
+
+| Method | When |
+|---|---|
+| **Close reduction** ⭐ | Fresh fracture < 1 week (Golden Period 2-5 days) — ไม่เปิด, preserve periosteum, ไม่เสีย vascular supply → healing เร็ว |
+| **Open reduction** | Old fracture (>2-4 weeks) — มี fibrous tissue หุ้ม fracture line → ต้อง curette + freshen bone + อาจต้องใส่ bone graft |
+
+⭐ **ทำไม close ดีกว่า**: รักษา periosteum + soft tissue blood supply
+
+---
+
+## 8. Pin Insertion Rules ⭐⭐
+
+### 8.1 Pin Direction
+- เลี่ยงกล้ามเนื้อมัดใหญ่
+- แทงผ่านบริเวณที่ muscle น้อย (medial บ่อย)
+- **อย่าโยก** → จะทำให้รูกว้าง → pin หลวม
+
+### 8.2 Critical Rules ⭐⭐⭐
+1. **Cortex 2 ฝั่งต้องทะลุเสมอ** (ไม่ว่า half pin / full pin)
+2. **อย่างน้อย 2 pins ต่อ fragment** (ขั้นต่ำ = บน 2 + ล่าง 2)
+3. **Clamp อยู่ห่างจาก skin ~1 cm**
+   - ใกล้ไป → กดสกินช้ำ → necrosis
+   - ห่างไป → ไม่ stable
+
+---
+
+## 9. Pin Insertion Sequence ⭐⭐⭐ (สำคัญมาก!)
+
+> **กฎ**: **บนสุด-ล่างสุด → ใกล้ Fx Line → ตรงกลาง**
+
+| Step | Pin position | เหตุผล |
+|---|---|---|
+| **1st (pins 1, 6)** | **บนสุด + ล่างสุด** | Anchor ที่ spongy bone (epiphysis) — แน่นที่สุด · กำหนด **bone length** |
+| **2nd (pins 3, 4)** | **ใกล้ Fx line** (ห่าง = ½ diameter) | ควบคุม fracture alignment ⭐ |
+| **3rd (pins 2, 5)** | **ตรงกลาง** (ถ้าใส่เพิ่ม) | ความยาวกระดูก + รับน้ำหนักเพิ่ม |
+
+⚠️ **ห้ามใส่ pins 3, 4 ห่าง Fx เกินไป** — fragment จะเอียง / ไม่ชน
+
+⚠️ Fixation clamps ต้องใส่ครบจำนวนตั้งแต่แรก (จะแทรกทีหลังไม่ได้)
+
+---
+
+## 10. Acrylic Bar (ลด cost!) ⭐ (Thai context)
+
+**Problem**: หมาไทย-แมวไทย กัด bar ราคา 5,000-10,000+ บาท พังหมด
+
+**Solution**:
+1. แทง pin + ใส่ standard bar + clamp
+2. ใส่ท่อพลาสติก / cuff รอบ pin
+3. **ใส่ epoxy / acrylic แทน connecting bar**
+4. รออะคริลิคแข็ง 10-30 นาที
+5. **ถอด standard bar + clamp ออก** → คืนของแพง
+6. เหลือแค่ pin + acrylic bar ติดตัวสุนัข
+
+⭐ ของเมืองนอก = ใส่ standard bar ทิ้งไว้ → ถอดคืนได้เงิน · ของไทย = acrylic ถูกกว่า
+
+---
+
+## 11. Post-op Care ⭐
+
+| Action | Timing |
+|---|---|
+| **Antibiotics** | 4-7 วัน |
+| **Bandage rotation** (โคแบน/สำลีพันรอบ pin) | ทุก 2-3 วัน |
+| **Wound care** (ทาเบตาดีนตรงรูพิน) | ทุกวัน |
+| **E-collar** | ถ้าเลีย |
+| **Recheck + X-ray** | ทุก 3-4 สัปดาห์ |
+| **Limit activity** | ตลอด |
+
+---
+
+## 12. Pin Removal Sequence ⭐⭐⭐ (ทยอยถอด - REVERSE!)
+
+> **กฎ**: ถอดในลำดับ **ตรงข้าม** กับการใส่ — ใส่ก่อน ถอดทีหลัง
+
+| Stage | Time | Pins removed | Healing % |
+|---|---|---|---|
+| **Stage 1** | ~1 เดือน | **Pins 2, 5** (ตรงกลาง) | 30-50% |
+| **Stage 2** | 1.5-2 เดือน | **Pins 3, 4** (ใกล้ Fx) | 60-70% |
+| **Stage 3** | เมื่อ healing > 80% | **Pins 1, 6** (บน-ล่าง) — anchor pins | 80-100% |
+
+⭐ **ทำไม "ทยอย"**: ลด structural support ทีละน้อย → load shifts to bone → กระตุ้น callus formation + healing
+
+---
+
+## 13. After Final Pin Removal — **Splint 2 Weeks!** ⭐
+
+⚠️ **Pin holes = Weak Points** ของกระดูก
+- หมาตื่นมา → กระโดด → fracture ที่รูพิน!
+- ใส่ **splint** หรือ confine 2 wk เพื่อให้ pin holes heal
+
+---
+
+## 14. Bone Healing Type — ESF vs Plate ⭐
+| Method | Healing |
+|---|---|
+| **Plate + screw** (rigid) | **Primary bone union** — direct healing, NO callus |
+| **IM pin / ESF / Cast / Splint** | **Secondary bone union** — callus formation → remodeling |
+
+---
+
+## 📝 EXAM RECAP — 16 Key Points
+
+1. **ESF = 3 components**: Pin · Connecting Bar · Fixation Clamp
+2. **Pin diameter = 1/4 ของ bone diameter** (เล็กกว่า IM pin 65-80%)
+3. **Type 1A** = Unilateral Uniplanar (1 bar, 1 plane)
+4. **Type 1B** = Unilateral Biplanar (2 bars, 2 planes)
+5. **Type 2 Maximum** = ทุก pin ทะลุ 2 ด้าน · **Minimal** = เฉพาะ top + bottom
+6. **Type 3** = Bilateral Biplanar / multiplanar (Type 1 + 2 mix · Circular ESF)
+7. **Tie-in** = ESF + IM pin combined
+8. **Indications**: Open Fx ⭐ · gunshot · bone recon · comminuted · delayed/non-union
+9. **Contraindications**: articular Fx · femoral neck · spine (use pedicle screws) · pelvis
+10. **Close reduction within 5-7 days** = Golden period (preserve periosteum)
+11. **Pin insertion sequence**: 1st = top + bottom (anchor + bone length) · 2nd = near Fx (alignment) · 3rd = middle ⭐
+12. **Pin tips**: cortex 2 ฝั่งทะลุเสมอ · clamp อยู่ห่าง skin 1 cm · อย่างน้อย 2 pin/fragment · อย่าโยกตอนแทง
+13. **Acrylic bar** = ทดแทน standard bar (ลด cost ในไทย)
+14. **Pin removal REVERSE order**: 2,5 → 3,4 → 1,6 (top-bottom anchor ออกท้ายสุด)
+15. **Splint × 2 weeks หลังถอด pin** = ป้องกัน fracture ที่ pin holes
+16. **ESF heals via secondary bone union** (callus) — different from rigid plate (primary union)
+
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 7 External Immobilization (9cXpZwgUAPI) · 12 Cruciate (9U-Dgu0ouUk) · 14 Spinal Fracture (C1Q5SHxSkGw)
+> 🦴 ESF เป็นเทคนิค flexible ที่สุด — ทุก fracture ตั้งแต่ open compound ถึง limb lengthening ใช้ได้
+> ⚠️ Pin removal sequence ออกสอบบ่อย — จำลำดับ "บน-ล่าง = ออกสุดท้าย"`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
