@@ -20307,6 +20307,387 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > 💊 Conservative timeline: ขังกรง **1-2 wk** เท่านั้น · "ขังกรง 3 เดือน = wrong concept" — ทำให้ joint ankylosis แทน`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 9.2 Canine Hip Dysplasia (CHD) (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  hIlH1i845wI: {
+    videoId: 'hIlH1i845wI',
+    title: '9.2. Canine Hip Dysplasia (CHD)',
+    subject: 'com2',
+    date: '16 Oct 67 (รุ่นพี่)',
+    durationMin: 68,
+    instructor: 'อ. (รุ่นพี่ — แทน อ.วรพันธ์)',
+    examFormat: 'MCQ — Hip laxity primary cause · Predisposing breeds (Lab/Golden/GSD) · Norberg angle · Ortolani test · 6 surgical options · age cutoffs ออกบ่อย',
+    summary: `# Canine Hip Dysplasia (CHD)
+
+> 🎯 บทยาว 68 นาที · second longest com2 lecture
+> ⚠️ **#1 cause of secondary OA in dogs** + most common DOD
+> Top exam: **Hip laxity = root cause · Norberg ≥ 105 · Ortolani test · 6 Tx options + age cutoffs**
+
+---
+
+## 1. Definition Evolution ⭐⭐
+
+### 1.1 Original Concept (Old, ~1960s)
+"**Continental bilateral subluxation** ของ coxofemoral joint"
+- หัวกระดูก subluxation
+- ออก-เข้าจาก acetabulum
+
+### 1.2 Modern Definition ⭐ (1970s onwards)
+**Hip Dysplasia = "Degree of subluxation due to LAXITY of coxofemoral joint"**
+
+⭐⭐⭐ **Key insight**: **Hip laxity is the PRIMARY cause** — not bone deformity!
+
+---
+
+## 2. Pathogenesis (KEY!) ⭐⭐⭐
+
+> "**Soft tissue origin** that causes bone changes — NOT vice versa!"
+
+### 2.1 Primary Cause = Joint Laxity
+- **Joint capsule** หลวม
+- **Round ligament (Ligament of femoral head)** weak
+- **Surrounding muscles** poorly developed
+
+### 2.2 Sequence of Damage
+1. **Stage 0** (3-4 months): **Passive Hip Laxity** develops
+2. **Stage 1**: Sliding subluxation during weight-bearing
+3. **Stage 2**: **Functional laxity** = subluxation while standing/walking
+4. **Stage 3**: Acetabulum begins to **flatten** (no longer cup-shaped)
+5. **Stage 4**: Femoral head **flattens**, deforms
+6. **Stage 5** (End-stage): Severe OA, osteophytes, joint destruction
+
+### 2.3 Sub-cluster: Femoral Head Position by Gait Phase ⭐
+| Phase | Position |
+|---|---|
+| **Swing phase** (leg lifted) | Hip muscles parallel to femoral axis → low load → can subluxate |
+| **Stance phase** (weight-bearing) | Femoral head contacts acetabular rim at single focal point → repetitive damage |
+
+⭐ **Bunny-hopping gait** = compensatory in dogs (วิ่งกระโดดทั้ง 2 ขาหลังพร้อมกัน) — เพื่อลดเจ็บ + ตามเพื่อนทัน
+
+---
+
+## 3. Etiology (Multifactorial) ⭐
+
+| Factor | Detail |
+|---|---|
+| **Genetic** | Polygenic · breed predisposition |
+| **Rapid growth** ⭐ | Body grows faster than bone develops · obesity |
+| **Calorie/protein excess** | Bigger pup = more stress on developing joints |
+| **Calcium/Phosphorus imbalance** | Excess Ca → poor bone strength |
+| **Ca-D-P imbalance** | Vitamin D malabsorption |
+| **Hormone factors** | Sex hormones · estrogen |
+| **Raw diet trends** | "ปัจจุบันเทรนด์ราว diet มาแรง — ทำให้ imbalance!" |
+
+---
+
+## 4. Predisposing Breeds ⭐⭐⭐
+
+| Common Breeds (Large) ⭐ |
+|---|
+| **Labrador Retriever** |
+| **Golden Retriever** |
+| **German Shepherd Dog (GSD)** |
+| Saint Bernard |
+| Newfoundland |
+| Bernese Mountain Dog |
+| Rottweiler |
+| Alaskan Malamute |
+| Siberian Husky |
+
+⭐ ในไทย: เห็นในบ้านเลี้ยงพันธุ์ใหม่ๆ อย่าง Husky, Malamute, Tibetan Mastiff เพิ่มขึ้น
+
+---
+
+## 5. Clinical Signs ⭐⭐⭐
+
+### 5.1 Two Patient Groups
+| Group | Age | Pattern |
+|---|---|---|
+| **Young dogs** ⭐ | 5-10 months | Active disease — laxity + acute pain |
+| **Mature dogs** | > 1 year | Chronic OA · stable rocky course |
+
+### 5.2 Typical Signs
+| Sign | Detail |
+|---|---|
+| **Hindlimb lameness** | Bilateral or unilateral · intermittent |
+| **Bunny-hopping gait** ⭐ | กระโดดทั้ง 2 ขาหลังพร้อมกัน · ตามเพื่อนทันได้ |
+| **Hip-sway gait** ⭐ | "เดินเหมือนนางแบบ" — ก้น swaying side-to-side |
+| **Short stride** (small steps) | Pain → ก้าวสั้น |
+| **Difficulty rising** | ยกขาลำบาก |
+| **Reluctant to climb stairs/jump** | Avoid hip stress |
+| **Muscle atrophy** | Hamstring, gluteal, quadriceps |
+
+### 5.3 Pain on Manipulation ⭐
+- **Hip extension** (caudal direction)
+- **External rotation**
+- Joint capsule stretched → painful
+
+### 5.4 Disease Course (Bimodal Pattern)
+- **Phase 1**: Severe pain at ~5-10 months (active development)
+- **Plateau**: Pain stabilizes by ~1 year (skeletal maturity)
+- **50% improve** spontaneously by maturity
+- **50% progress to chronic OA** later in life
+
+---
+
+## 6. Diagnosis — Physical Exam ⭐⭐⭐
+
+### 6.1 Ortolani Test ⭐⭐⭐ (KEY!)
+
+**Purpose**: Detect joint **laxity** + **palpable subluxation/reduction**
+
+**Position**:
+- **Lateral recumbency** (preferred) OR Dorsal recumbency
+- **Femur perpendicular to pelvis · parallel to floor**
+
+**Technique**:
+1. ออกแรงกดที่ **stifle (knee)** ไปทาง pelvis
+2. หัวกระดูก **subluxates** (เด้งออก)
+3. ค่อยๆ **abduct** (กางขาออก)
+4. หัวกระดูกจะ **gluck back into acetabulum** = "**clunk**" ที่ได้ยิน/รู้สึก
+
+⭐ **Two key angles**:
+| Angle | Definition | Significance |
+|---|---|---|
+| **Angle of Reduction** | มุม abduction ที่หัวกระดูกกลับเข้าเบ้า | Larger = **more laxity** |
+| **Angle of Subluxation** | มุม adduction ที่หัวกระดูกเริ่มหลุดอีก | Smaller = poor dorsal acetabular rim coverage |
+
+⚠️ **Ortolani limitations** (cases where test is negative):
+- Normal hip
+- End-stage OA (joint frozen by fibrous tissue/osteophyte)
+- Severe luxation (out of joint completely)
+- Large dog resistance (50+ kg) → use **sedation + muscle relaxant**
+
+### 6.2 Bardens Test
+- Variant of laxity assessment
+- Useful if Ortolani negative
+
+---
+
+## 7. Diagnosis — Imaging ⭐⭐⭐
+
+### 7.1 Hip Extension View (Standard Ventro-Dorsal)
+- Dog in dorsal recumbency
+- **Both femurs extended + parallel to each other**
+- Pelvis symmetric (obturator foramen = same shape both sides!)
+
+⚠️ **NOT good for laxity assessment** — extended position **forces head into acetabulum** (winching effect)
+
+⭐ Used for: detecting **OA changes** (osteophytes, sclerosis) NOT laxity
+
+### 7.2 Norberg Angle (NA) ⭐⭐⭐
+**Method**:
+1. Connect centers of both femoral heads
+2. Draw line from each femoral head center to its acetabular rim
+3. Measure angle
+
+| Norberg Angle | Interpretation |
+|---|---|
+| **≥ 105°** ⭐ | Normal |
+| **99-105°** | Borderline |
+| **< 99°** | Abnormal — Hip Dysplasia |
+
+⭐ ใช้ใน OFA scoring system (US)
+
+### 7.3 PennHIP (Distraction Index — DI) ⭐⭐⭐ (KEY!)
+
+**Developed**: 1993 by University of Pennsylvania
+**Goal**: Quantify **passive laxity**
+
+**Technique**:
+- Dog in dorsal recumbency
+- **Femurs perpendicular to pelvis**
+- **Distractor** (aluminum rod) wedged between femurs at greater trochanter level
+- Force femoral heads laterally → measure laxity
+
+**Calculation**: **DI = D / r**
+- D = distance between centers of femoral head and acetabulum
+- r = radius of femoral head
+
+| DI Value | Interpretation |
+|---|---|
+| **< 0.3** | Tight hip · low CHD risk |
+| 0.3-0.7 | Moderate laxity |
+| **> 0.7** | High laxity · high CHD risk |
+| > 1.0 | Severe |
+
+⭐ **Advantages of PennHIP**:
+1. Predictive of CHD (not just current state)
+2. **Age-independent** ⭐ (consistent across life stages)
+3. Can be done as early as **4 months**
+4. Weight-independent
+
+### 7.4 CT-based Measurements ⭐
+| Index | What it measures |
+|---|---|
+| **Acetabular Rim Angle (ARA)** | Larger = better coverage (femoral head wrap) |
+| **Dorsal Acetabular Rim Angle (DARA)** | **Smaller** = better coverage |
+
+---
+
+## 8. Treatment ⭐⭐⭐
+
+### 8.1 Decision Tree (Age + Severity)
+
+| Age Group | Available Options |
+|---|---|
+| **3-5 months** ⭐ (early) | JPS · DPO/TPO · THR · FHO (delayed best) |
+| **5-12 months** | DPO · TPO · THR · FHO |
+| **> 12 months** | THR · FHO only |
+
+### 8.2 Conservative Treatment (ALL ages)
+| Component | Detail |
+|---|---|
+| **Pain control** | NSAIDs (carprofen, meloxicam, etc.) |
+| **Weight management** | ⭐ Lifelong! Lean body composition |
+| **Diet adjustment** | Switch puppy → adult food earlier |
+| **Exercise** | Walking · NOT excessive jumping/running |
+| **Rehabilitation** | Hydrotherapy (selected) · TENS · LASER |
+
+⭐ Studies confirm: dogs on **calorie restriction** have **significantly less OA** vs ad-libitum-fed dogs
+
+---
+
+## 9. Surgical Options (6 Methods!) ⭐⭐⭐
+
+### 9.1 JPS (Juvenile Pubic Symphysiodesis) ⭐⭐
+- **Earliest age**: 3-4 months
+- **Latest age**: 4-5 months (window very narrow!)
+
+**Technique**:
+- **Electrocautery** (40 W) burns 1/3 to ½ of pubic symphysis
+- Causes premature fusion of pubic growth plate
+
+**Mechanism**: Pubic plate stops growing → other plates continue → **acetabular rim rotates over femoral head**
+
+**Pros**:
+- 10-min procedure
+- Minimally invasive
+- "Preventive" intervention before clinical OA
+
+**Cons**:
+- Narrow age window (often missed)
+- Won't help if OA already developed
+
+### 9.2 TPO (Triple Pelvic Osteotomy) ⭐⭐
+**Age range**: 4-10 months (best at 6-7 months)
+
+**3 osteotomy sites**:
+1. **Ilium**
+2. **Pubis**
+3. **Ischium**
+
+**Result**: Acetabulum rotates → better femoral head coverage
+
+**Special TPO plate**: Has **angle step** (20°, 25°, 30°) determined by laxity severity
+
+**Pros**: Long history · proven technique
+**Cons**: **35-70% complication rate** ⚠️
+- Screw loosening at sacroiliac
+- Pelvic narrowing
+
+### 9.3 DPO (Double Pelvic Osteotomy) ⭐⭐ (Modern!)
+**Age range**: < 10 months
+
+**2 osteotomy sites**:
+1. **Ilium**
+2. **Pubis**
+(NO ischium cut — pelvic ring intact!)
+
+**Pros over TPO**:
+- Easier surgery
+- Lower complication rate
+- Less pain post-op
+- Smaller incision
+
+**Cons**: Slightly less rotation possible (since ischium not cut)
+
+### 9.4 Selection Criteria for DPO/TPO ⭐
+- Dog **< 10 months** (ideally 6-7 mo)
+- **No OA** on radiograph
+- **DI ≤ 1.0**
+- **Angle of Subluxation ≤ 25°**
+- **DARA ≤ 20°** (still has dorsal rim)
+
+### 9.5 THR (Total Hip Replacement) ⭐⭐
+**Age range**: Any (typically > 12 months)
+
+**Components**:
+- Acetabular cup (titanium)
+- Femoral head (artificial ball)
+- Femoral stem (anchored in shaft)
+
+**Cost (Thailand)**: ~150,000 baht/hip (one side)
+
+**Pros**: Best functional outcome · gold standard
+**Cons**: Very expensive · skilled surgeon required
+
+### 9.6 FHO (Femoral Head Ostectomy) ⭐
+**See LCP video (9.1) for details**
+
+- Best for dogs **≤ 20 kg**
+- Salvage procedure
+- Pseudo-joint forms with fibrous tissue
+
+⚠️ **FHO + Greater Trochanter** = "femoral head and neck excision" (FHNE)
+
+### 9.7 Future: Acetabular Rim Implants
+- Titanium implant covering only the dorsal acetabular rim
+- "อีกประมาณ 2-3 ปีจะตีพิมพ์ออกมา"
+
+---
+
+## 10. Surgical Comparison Table ⭐
+
+| Method | Age | Indication | Pros | Cons |
+|---|---|---|---|---|
+| **JPS** | 3-4 mo | Hip laxity + no OA | Quick, easy | Narrow window |
+| **TPO** | 4-10 mo | Moderate laxity, no OA | Long history | High complications |
+| **DPO** | < 10 mo | Moderate laxity, no OA | Lower complications | Less rotation |
+| **THR** | > 12 mo | End-stage OA | Best function | Expensive |
+| **FHO** | Any | Salvage, small dogs | Cost-effective | Some gait change |
+
+---
+
+## 11. Post-op Care
+
+| Action | Timing |
+|---|---|
+| **Pain control** | NSAIDs + opioids first 7-10 days |
+| **Cage rest** | 4-6 weeks |
+| **Rehabilitation** ⭐ | **Critical** for muscle rebuilding |
+| **Hydrotherapy** | (selected) — decreased load |
+| **Recheck X-ray** | 6, 12 weeks |
+
+---
+
+## 📝 EXAM RECAP — 18 Key Points
+
+1. **Hip laxity = ROOT CAUSE** of CHD ⭐
+2. **Soft tissue origin first**, bone changes follow
+3. **Predisposing breeds (TOP 3)**: Labrador · Golden · GSD ⭐
+4. **Clinical signs**: bunny-hopping · hip-sway gait · short stride
+5. **Bimodal disease course**: peak pain 5-10 mo, may plateau by 1 yr
+6. **Ortolani test (+)** = laxity present; need GA for accurate result
+7. **Angle of Reduction** = larger = more laxity
+8. **Norberg angle ≥ 105° = normal · < 99° = abnormal** ⭐
+9. **PennHIP DI < 0.3 = tight · > 0.7 = loose** ⭐
+10. **PennHIP advantages**: predictive, age-independent, can do at 4 mo
+11. **Hip extension view** misses laxity (winching effect)
+12. **JPS** = 3-4 mo only · electrocautery 40W on pubic symphysis
+13. **TPO** = 3-cut osteotomy (ilium + pubis + ischium) · 35-70% complications!
+14. **DPO** = 2-cut · lower complications · modern preferred
+15. **THR** = best function but ~150K baht/side
+16. **FHO** = salvage, best in dogs < 20 kg
+17. **Conservative Tx** for ALL: weight management + NSAIDs + walking
+18. **Calorie restriction** scientifically reduces OA development
+
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.1 LCP (Spz38qa5upU) · 9.3 Patella Luxation (CIUpw8GNtQ4) · 11 Common Joint (MMTtwT_7c94) · 12 Cruciate (9U-Dgu0ouUk) · 15.1 Elbow (Os6MWLC8oso) · 15.3 Rehab (zj4go8swIgM)
+> 🩻 8 video clips ใน MyCRView สำหรับ Ortolani technique + osteotomy steps
+> 💊 Genetic counseling: ถ้าหมาเป็น CHD → **ไม่ควรเอามา breed!**`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
