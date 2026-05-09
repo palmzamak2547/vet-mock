@@ -30609,6 +30609,252 @@ Exposing gilt to **mature boar** triggers:
 > 🦴 **Modern reality**: most pregnancy failure preventable with vaccines + biosecurity`,
   },
 
+  'Oazp-JWIKhw': {
+    videoId: 'Oazp-JWIKhw',
+    title: '10. Parturition',
+    subject: 'swine-repro',
+    date: '22 Oct 67',
+    durationMin: 131,
+    instructor: 'อ.ออย (CUVET)',
+    examFormat: 'MCQ — 3 stages of parturition · Hormonal trigger · Farrowing duration · Dystocia management · Manual exam technique · Signs of impending farrowing ออกบ่อย',
+    summary: `# Parturition (Farrowing) in Swine
+
+> 🎯 **The pregnancy finale** — managing successful birth
+> Top exam: **3 stages parturition · Hormonal cascade · Normal duration · Dystocia management · Pre-farrowing signs · Manual exam (assists technique)**
+
+---
+
+## 1. Hormonal Cascade Triggering Parturition ⭐⭐⭐
+
+### Physiology cascade
+| Step | Mechanism |
+|---|---|
+| **Day 110-114** | Fetal cortisol rises (HPA axis matures) |
+| Fetal cortisol → **placental** | Increases estrogen, decreases progesterone |
+| **Estrogen ↑** | Sensitizes uterus to oxytocin |
+| **PGF2α released** | Lyses corpus luteum → progesterone falls |
+| **Progesterone ↓** | Removes uterine inhibition |
+| **Oxytocin pulses** | Causes uterine contractions |
+| **Birth!** | Sequential expulsion of piglets |
+
+### Why this matters clinically
+- **Fetal-driven** trigger (sow doesn't decide!)
+- Disease in fetuses can affect timing
+- Stress in sow can DELAY (catecholamines block oxytocin)
+- Quiet calm environment essential
+
+---
+
+## 2. Pre-Farrowing Signs ⭐⭐ (Detect timing!)
+
+### Physical signs (12-72 hours before)
+| Sign | Timing |
+|---|---|
+| **Vulval swelling + redness** | 24-48 hours pre |
+| **Mammary engorgement + milk** | 24 hours pre |
+| **Nesting behavior** | 12-24 hours pre |
+| **Restlessness, panting** | 12 hours pre |
+| **Decreased appetite** | 12 hours pre |
+| **Vaginal mucus discharge** | 6 hours pre |
+| **Tail movement, contractions** | 1-3 hours pre |
+| **Body temp drop ~0.5°C** | Within 24h |
+
+### "Milk let-down" test ⭐
+- Squeeze teat — if milk flows freely → birth within 12 hours
+- Used as final readiness check
+
+---
+
+## 3. Three Stages of Parturition ⭐⭐⭐ (KEY exam!)
+
+### Stage 1: Cervical Dilation (3-12 hours)
+- Mild contractions begin
+- Cervix gradually dilates
+- Sow restless, may eat less
+- May be missed in pigs (subtle)
+
+### Stage 2: Expulsion ⭐ (3-8 hours typical)
+- **Average: 3-5 hours total** for entire litter
+- **Piglet interval: 15-30 minutes between**
+- Strong abdominal contractions
+- Each piglet extruded with placenta fragment
+- **First-born easier**, later-born can be slower
+- **Acceptable max**: 8 hours
+- **Concerning**: >8 hours = consider intervention
+
+### Stage 3: Placental Expulsion (within 4 hours)
+- Placental membranes pass after litter
+- May come in pieces (10+ pieces normal — one per piglet)
+- **Retained placenta** = >4 hours = problem
+- Rare in pigs (vs cows/horses)
+
+---
+
+## 4. Normal Litter Distribution ⭐
+
+### Typical farrowing
+- **Total piglets: 12-18** (modern), some up to 22+
+- **Total time: 3-5 hours** ideal
+- **Stillborn rate: 2-5%** acceptable
+- **Mummified: <2%** ideal
+
+### Position at birth
+- **Anterior (head-first): ~60%**
+- **Posterior (tail-first): ~40%**
+- BOTH normal in pigs (vs cows where breech is rare)
+
+---
+
+## 5. Dystocia (Difficult Birth) ⭐⭐
+
+### Classification
+| Type | Cause |
+|---|---|
+| **Maternal (sow-side)** | Uterine inertia · pelvic narrowing · obesity |
+| **Fetal (piglet-side)** | Oversized · malposition · twins lodged |
+
+### When to intervene? ⭐
+**Rule**: 1+ hour without progress = check
+- 2+ hours without piglet = action needed
+- Sow exhausted/distressed = action needed
+
+### Manual examination (Year 5 + 6 skill!)
+1. **Wash hands + arms** thoroughly
+2. **Apply lubricant** (sterile)
+3. **Glove or no glove** — depending on protocol
+4. **Insert hand slowly** into vagina/cervix
+5. **Identify obstruction** (head? legs? twins?)
+6. **Gently extract** if accessible
+7. **Repeat as needed**
+8. **Antibiotics post-procedure** to prevent infection
+
+### Sow restraint during exam
+- Snare around upper jaw (gentle hold)
+- Calm environment
+- Quiet handling
+
+---
+
+## 6. Farrowing Pen Setup ⭐
+
+### Modern pen design
+| Component | Purpose |
+|---|---|
+| **Sow crate** | Prevents crushing of piglets |
+| **Piglet creep area** | Warm zone (heating lamp + mat) |
+| **Sow space** | Cooler temperature for sow |
+| **Slatted floor** | Drainage of fluids |
+| **Water + feed** | Accessible to sow |
+| **Heating lamps** | Above piglet area, NOT sow |
+
+### Temperature requirements
+- **Sow: 18-22°C**
+- **Piglet zone: 28-32°C** (decreasing as they age)
+
+---
+
+## 7. Stillbirth Causes ⭐ (At parturition!)
+
+### Mechanisms
+| Cause | Mechanism |
+|---|---|
+| **Asphyxia** | Long delivery time → cord compressed → no O2 |
+| **Cord rupture during birth** | Premature severance |
+| **Late-term infection** | Fetus dies near term |
+| **Maternal nutritional deficiency** | Calcium especially |
+| **Birth canal obstruction** | Twin presentation |
+
+### Reducing stillbirth
+1. **Induce parturition** at Day 113 (prevent over-due)
+2. **Supervise farrowing** during day shift
+3. **Calcium supplementation** in late gestation
+4. **Manual assistance** if delays
+5. **Oxygen** if available for last-born
+
+---
+
+## 8. Post-Farrowing Care ⭐
+
+### Immediate piglet care
+1. **Clear airways** (suction or wipe nose)
+2. **Towel dry** (heat conservation)
+3. **Heating lamp** (prevent hypothermia)
+4. **Cut umbilicus** + iodine dip
+5. **Help to first teat** for colostrum
+
+### Sow post-farrow care
+1. **Check for retained placenta**
+2. **Monitor temperature** (fever = MMA risk)
+3. **Encourage water intake**
+4. **Easy-digest feed** Day 1-3
+5. **Oxytocin** if uterine inertia
+6. **NSAIDs** if needed for pain
+
+---
+
+## 9. Induction of Parturition ⭐⭐ (Common practice!)
+
+### Why induce?
+- Daytime supervised farrowing
+- Predictable timing
+- Reduce overdue births
+- Better stillborn rates
+
+### Method
+- **PGF2α** at Day 113
+- Inject morning → expect birth ~24-30 hours
+- Schedule for Tuesday-Thursday delivery (work week)
+
+### When NOT to induce
+- Before Day 110 (premature piglets)
+- If sow is sick
+- If overcrowded farrowing facility
+- If staff unavailable for monitoring
+
+---
+
+## 10. Mortality Causes in Newborn Piglets ⭐
+
+### Top causes
+| Cause | % of pre-wean mortality |
+|---|---|
+| **Crushing by sow** ⭐ | 50%+ |
+| **Hypothermia** | 20% |
+| **Failure to nurse** | 15% |
+| **Disease (PED, E. coli)** | 10% |
+| **Birth defects** | 5% |
+
+### Reducing crushing
+- Tight farrowing crates
+- Slow sow movements
+- Anti-crushing rails
+- Vigilant supervision in first 48 hours
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Fetal cortisol triggers** parturition cascade
+2. **Progesterone DROP + Estrogen UP** = key
+3. **3 stages**: Dilation · Expulsion · Placental
+4. **Stage 2 expulsion ~3-5 hours** total
+5. **15-30 min between piglets** normal
+6. **>8 hours total = consider intervention**
+7. **Pre-farrow signs**: vulval swell, milk let-down, nesting
+8. **Anterior 60% : Posterior 40%** birth positions
+9. **Manual exam** for dystocia (after 2hr no progress)
+10. **PGF2α Day 113** = scheduled induction
+11. **Crushing** = #1 piglet death cause (50%+)
+12. **Piglet temp 28-32°C** (heating lamp)
+13. **Sow temp 18-22°C** (cooler)
+14. **Calcium supp** = late gestation prevention
+
+> 📚 อ่านควบ: 7.2 Hormones (AWu12JovU0Q) · 8 Pregnancy (NSULhtJz_Oc) · 9 Pregnancy failure (pcytvk49Yc8) · 14 Postpartum complications (yxrcr-gg8sQ)
+> 🩻 **Practice tip**: Year 5 + 6 will practice manual exam — start with relaxed sow
+> 💡 **Crushing prevention** = the biggest piglet survival win
+> 🦴 **Modern induction**: Day 113 PGF2α + supervise = max live births`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
