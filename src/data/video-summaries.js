@@ -40652,6 +40652,383 @@ When opening a clinic, you need **BOTH**:
 > 🎓 **Final lecture!** vet-juris course complete`,
   },
 
+  // ═══════════════════════════════════════════════════════════════
+  // herd-health-rum (DekDokVet85 · Y4 sem 1) — 13 videos
+  // ═══════════════════════════════════════════════════════════════
+
+  'jIb4jZno-Lo': {
+    videoId: 'jIb4jZno-Lo',
+    title: 'EBL · MCF · Rinderpest · BEF (4 cattle viral diseases)',
+    subject: 'herd-health-rum',
+    date: '2024-08-07',
+    durationMin: 164,
+    instructor: 'อ.โน้ต (พี่หมอ ภาควิชาอายุรศาสตร์ ตึก 50 ปี · รุ่น 62)',
+    examFormat: 'Multiple choice (เปลี่ยนจากเขียน) · ออกเฉพาะที่สอน · เน้น keywords',
+    summary: `## 🎯 Lead Summary
+**4 viral diseases of cattle/ruminants** · ไล่จาก EBL (chronic, persistent, มะเร็งเม็ดเลือดขาว) → MCF (acute, fatal, จากแพะแกะ res host) → Rinderpest (Global FREE since 2011 · 2nd disease eradicated after smallpox) → BEF (3-day fever, mosquito-borne, mortality <1% but secondary problem จาก downer cow). โน้ตคีย์เวิร์ดข้อสอบ VCA: **PRSP lymphocytosis · DLA-DR8/16 resistance · sheep-associated MCF · 5 phases of rinderpest · 3-day stiffness BEF**.
+
+## 📚 Course Intro (Ruminant track)
+
+### โครงสร้างวิชา ruminant
+- **7 วิชา** จำเพาะกับสัตว์เคี้ยวเอื้อง · 2 ภาควิชาหลัก (อายุรศาสตร์ + สูตินิติศาสตร์)
+- **ปี 4**: 3 วิชา (เทอมนี้ 1 + เทอมหน้า 2)
+- **ปี 5**: 2 วิชา · ฝึกงานรวมเสมือนวิชาเดียว
+- **ปี 6**: 2 วิชา + module (ปีที่แล้วเปิดปีแรก 3 คนเลือก)
+
+### Career paths
+- Vet practitioner · นักวิจัย · ทำฟาร์มเอง · ที่ปรึกษาฟาร์ม · งานเชิงรุก (improve farm efficiency)
+- ผู้สอนเน้น dairy cow เป็น model (ประยุกต์ใช้ได้ในแกะ แพะ ควาย วัวเนื้อ)
+
+### วงรอบการผลิตในอุดมคติ (Dairy)
+| Stage | Months |
+|---|---|
+| Calving (start) | 0 |
+| Lactation | 0–10 (300 วัน) |
+| Dry-off | 10–12 (2 เดือน) |
+| Calving interval (ideal) | 365 วัน |
+| Reality | 400–500 วัน (ผสมล่าช้า, ไม่เป็นสัด) |
+
+> 📊 **Key**: 300 วันรีดนม + 60 วัน dry · ในงานวิจัยใช้ 305 วัน
+
+### งานเชิงรุก vs เชิงรับ
+- **เชิงรุก** (proactive · ก่อนป่วย): ตรวจตัวชี้วัดในคอกลูกโค (colostrum), BCS, น้ำนมคุณภาพ, post-calving genital tract
+- **เชิงรับ** (reactive · clinician work): on-call, downer cow, hoof trimming, lameness, abomasal hernia, eye enucleation, dystocia, GI prolapse
+- ⭐ **Iceberg model**: clinical = ส่วนน้อย · subclinical = ส่วนใหญ่ ต้องทำเชิงรุก
+
+### Routes ของยาในวัวที่ไม่มีในสัตว์อื่น
+- **Intramammary** (เข้าเต้านม) — for mastitis
+- **Intrauterine** (เข้ามดลูก)
+
+## 1️⃣ EBL · Enzootic Bovine Leukosis (มะเร็งเม็ดเลือดขาวในโค)
+
+### Etiology
+- **Bovine leukemia virus (BLV)** · Retrovirus · Reverse transcriptase
+- Genus: Deltaretrovirus
+
+### Prevalence in Thailand
+| Year | Herd zer+ | Animal zer+ |
+|---|---|---|
+| 2009 | 61% | ~40% |
+| 2016 | สูงขึ้น | สูงขึ้น |
+| Trend | ⚠️ เพิ่มขึ้นทุกปี | ⚠️ เพิ่มขึ้นทุกปี |
+
+### Modes of Transmission ⭐
+1. **Infected lymphocytes** — 0.1 mL เลือดติดได้!
+2. **Iatrogenic** (สำคัญมาก!):
+   - เข็มฉีดยาซ้ำ (ค่ายอาสาฉีด vaccine ลืมเปลี่ยนเข็ม!)
+   - **Rectal palpation** (ล้วงตรวจ) — เลือดติดถุงมือ
+   - ถุงมือล้วงไม่เปลี่ยน
+3. **Hematophagous insects** — บวกลบ · lab สร้างได้ · ในธรรมชาติยังไม่ confirm
+4. Vertical (in utero · colostrum)
+
+### Pathogenesis & DLA-DR Genotype ⭐⭐⭐
+| DLA-DR allele | Outcome |
+|---|---|
+| DLA-DR8 | **Resistant** (resistance allele) |
+| DLA-DR16 | **Susceptible** (susceptible allele) |
+| Heterozygous | Intermediate |
+
+### Disease progression (3 stages)
+1. **Aleukemic** (no clinical signs · normal blood)
+2. **PL — Persistent Lymphocytosis** (~30% ของ infected · lymphocyte สูง > 3 เดือน)
+3. **Lymphosarcoma (LS)** (1–5% · clinical disease!)
+
+### Lymphosarcoma sites (5 จุดหลัก) ⭐
+| Site | Clinical sign |
+|---|---|
+| Abomasum | GI · weight loss · anorexia |
+| **Epidural space** | Paralysis · downer cow |
+| **Retrobulbar space** | **Tail-sign: ตาโปน** (exophthalmos) |
+| Heart/pericardium | Heart sounds abnormal · brisket edema |
+| Liver/kidney/spleen | Variable |
+| Plus: Superficial lymph node enlargement (palpable!) |
+
+### Palpable Lymph Nodes ⭐ (ต้องคลำเป็น)
+| Lymph node | Location |
+|---|---|
+| **Submandibular** | ใต้ขากรรไกรล่าง |
+| **Prescapular** | หน้า scapula · ตรง shoulder joint |
+| **Prefemoral** | หน้า femur · ตรง stifle joint |
+
+> ⚡ When lymphosarcoma → ต่อมน้ำเหลืองโตใหญ่ 3-5 เท่า · เห็นชัด
+
+### Diagnosis
+1. **Clinical signs** (จาก lymphosarcoma site)
+2. **Incidental finding** — hemogram → lymphocyte ↑ + lymphocyte = dominant
+3. **Blood test (PL confirm)**: lymphocyte > 3 เดือน
+4. **Antigen test (PCR)** — สำหรับ confirm
+5. **Serology**:
+   - **AGID** (agar gel immunodiffusion) — Gold std (OIE) · serum only · false-neg in low Ab + post-calving immune suppression
+   - **ELISA** — ปัจจุบันนิยม · serum/milk/tissue fluid · pooled milk for screening
+
+### Hemogram pattern (Case examples shown)
+| Parameter | Normal | EBL case |
+|---|---|---|
+| Lymphocyte% | 18-28% | 86% (dominant!) |
+| WBC count | High normal 12,000 | 170,000 (case 1) |
+| WBC count | High normal 12,000 | 80,000+ (case 2-3) |
+
+⚠️ Total WBC สูงมาก แต่ไม่มี clinical sign อื่น → suspect EBL
+
+### Management
+- **No treatment** (no specific antiviral) · No vaccine
+- **Live with the disease** — strict horizontal control:
+  - 1 needle/animal · 1 glove/animal
+  - Withhold/treatment colostrum (or feed-through)
+  - Separate housing (or culling)
+- **Eradicate from farm**:
+  - Test-and-cull
+  - Test-and-segregate
+  - Test-and-control transmission
+- **International trade** — affected status
+
+### Voluntary vs Involuntary Culling
+- **Voluntary**: planned (e.g., 4 lactations max)
+- **Involuntary**: forced by disease/decreased performance ← EBL contributes here
+
+## 2️⃣ MCF · Malignant Catarrhal Fever (สัตว์ตื่น)
+
+### Etiology — 2 herpesviruses
+| Virus | Reservoir | Note |
+|---|---|---|
+| **AlHV-1** (alcelaphine HV-1) | **Wildebeest** (วิลเดอบีส) | "WA-MCF" Wildebeest-Associated · natural |
+| **OvHV-2** (ovine HV-2) | **Sheep + goats** (แพะแกะ) | "SA-MCF" Sheep-Associated · domestic |
+
+### Susceptibility
+| Status | Species |
+|---|---|
+| **Reservoir** (no clinical signs · carry virus) | Wildebeest, sheep, goats |
+| **Susceptible** (severe disease, high mortality) | Cattle, buffalo, deer, swine |
+
+### Transmission ⭐ Key concept
+- **Direct contact** with ocular/nasal discharge of reservoir
+- ⭐ Almost ALL outbreaks → reservoir + susceptible เลี้ยงรวมกัน!
+- **Prevention**: ห้ามเลี้ยงแพะแกะ + วัวรวมกัน · ระยะห่าง ≥100 m
+
+### Clinical Signs ⭐
+- High fever (very acute!)
+- Ocular & nasal discharge · lacrimation · conjunctivitis
+- ⭐ **Corneal opacity** — pneumonic region: เริ่มขุ่นจาก **ขอบนอก → เข้าด้านใน** (vs Pink Eye = ตรงกลางออกข้างนอก!)
+- Erosions ที่จมูก, oral mucosa (DDx: FMD!)
+- Mortality > 90%
+
+### Pathogenesis (Pneumonic Lesion) ⭐
+- ⭐ **Vasculitis** with **lymphocytic infiltrate** ในหลอดเลือดทุกอวัยวะ
+- Especially: ตา (corneal vasculature), ไต (renal medulla), gut
+- HistoPath = **Gold Standard** (OIE)
+- Gross: petechiae, ecchymoses, multifocal hemorrhages
+
+### CUVET case ⭐ (ที่ศูนย์ฝึก by อ.คมกิจ)
+- ควาย die from MCF
+- Investigation: เลี้ยงรวมกับแกะ in same field
+- Histopath confirmed vasculitis pattern
+
+### Differential ⭐⭐
+| Lesion | First DDx |
+|---|---|
+| Erosions on muzzle/oral mucosa | **FMD** (foot-and-mouth) ก่อน MCF |
+| Corneal opacity from outer rim → in | **MCF** |
+| Corneal opacity from center → out | **Pink Eye** (Moraxella bovis) |
+
+### Diagnosis & Management
+- Clinical signs + outbreak pattern
+- Antigen/Ab testing
+- **Histopath confirms** (vasculitis at LN, kidney, eye)
+- **No treatment** — too acute, mortality near 100%
+- **Prevention**: separate species housing · pen rest 2 days–1 week between species
+
+## 3️⃣ Rinderpest (โรคล้มควาย)
+
+### History ⭐
+- **Caused founding of 1st vet school** (Lyon, France 1762)
+- Pandemic in Europe → food security threat → animal transport
+- Thailand last outbreak: **1959**
+- Thailand FREE: **2004**
+- ⭐ **Global FREE: 28 June 2011** (FAO + OIE/WOAH announcement)
+- **2nd disease eradicated globally** (after smallpox in humans)
+
+### Etiology
+- **Paramyxovirus** (Morbillivirus genus, family Paramyxoviridae)
+- **Large virus** + **environmentally fragile** = easy to control
+- Susceptible: cattle, buffalo, sheep, goats, swine, wild ruminants
+
+### Transmission
+- **Droplets** (respiratory route + ingestion)
+- Comes out in secretions (nasal, ocular, oral)
+- ⚠️ **Requires direct contact** (large virus + fragile = poor airborne)
+- Different from FMD which can spread between adjacent farms!
+
+### 5 Phases of Disease ⭐⭐⭐ (Classic exam pattern)
+| Phase | Days | Features |
+|---|---|---|
+| 1. **Incubation** | varies | normal temp |
+| 2. **Prodromal/Fever** | 1–2 | high fever (40-42°C) |
+| 3. **Erosion phase** | 3-4 | mucous membrane erosions, salivation |
+| 4. **Diarrhea phase** | 5-6 | dysentery, dehydration |
+| 5. **Recovery/Death** | 7+ | usually death in per-acute/acute |
+
+### Clinical patterns
+- **Per-acute**: fever only → die <1 day
+- **Acute**: fever + erosions → die 4-5 days
+- **Sub-acute**: + diarrhea phase, may recover (lifelong immunity)
+- > 90% mortality in classic outbreaks · post-vaccine era → milder
+
+### Pathology — Tigroid striping ⭐
+- ⭐ **Zebra stripes** (longitudinal red bands) at colon/cecum mucosa
+- Pathognomonic gross lesion!
+
+### Clinical diagnosis criteria (OIE surveillance) ⭐
+> If cattle has Ocular + Nasal discharge **PLUS ≥2 of**:
+> - High fever
+> - Erosion
+> - Diarrhea
+> - Death
+
+### ⭐ Why still wary despite Global FREE?
+- "**eradication ≠ elimination**"
+- Virus seed strains still kept in research labs (govt + universities worldwide)
+- ⚠️ Lab accident risk · bioterrorism risk
+- After long absence → re-introduction = severe outbreak
+
+### Outbreak control (3 options for infected zone)
+| Option | Cost | Speed | When |
+|---|---|---|---|
+| 1. **Stamping out all** | High | Fastest | Free country (Japan FMD 2010+) |
+| 2. **Stamp affected + vaccinate rest** | Mid | Medium | Mixed status |
+| 3. **Stamp clinical only + vaccinate all** | Low | Slowest | Endemic country |
+
+### Surveillance zone (after infected zone defined)
+- Live vaccination + monitoring
+- Animal movement control
+- Post-outbreak: cull vaccinated animals if free-status restoration desired (need Ab-free)
+
+### Vaccine notes
+- Cross-protection across all strains
+- Maternal immunity ~11 months
+- Routine vax: only **FMD + LSD** in Thai dairy
+- Other diseases vaccinated only in endemic areas
+
+## 4️⃣ BEF · Bovine Ephemeral Fever (ไข้ 3 วัน · ไข้ขาแข็ง)
+
+### Names
+- BEF = Bovine Ephemeral Fever
+- Wabe (ญี่ปุ่น)
+- 3-Day Sickness
+- ไข้ 3 วัน · ไข้ขาแข็ง (Thai folk names)
+
+### Etiology
+- **Rhabdovirus** (bullet-shaped) · genus Ephemerovirus
+- ⭐ **Arbovirus** (arthropod-borne)
+- **Vector**: mosquitoes, biting midges (Culicoides), ticks
+- Outbreak season: **rainy season** (vector abundance) · also year-round if breeding sites near farm
+
+### Susceptible hosts
+- Cattle (primary), buffalo
+- Sheep/goats: zer-positive but no clinical disease
+
+### Geographic distribution
+- Tropical/subtropical only (no Europe/Americas)
+- ⚠️ Textbooks from western countries lack info on tropical cattle diseases
+
+### Prevalence in Thailand
+| Year | Cattle zer+ |
+|---|---|
+| 2027 | 70% |
+| 2031 | ~100% |
+- ⭐ **Endemic** — exposure happens regularly
+
+### Clinical Signs ⭐
+- ⭐ **Acute fever** (sudden onset · normal in evening, sick by morning)
+- ⭐ **Acute lameness** (stiffness · "hard legs") — *pathognomonic*
+  - Polyarthritis pattern
+  - **No** specific hoof lesion (hooves clear → not laminitis)
+- Milk drop (significant!)
+- Anorexia, depression
+- Mild ocular/nasal discharge (serous)
+- ⭐ **Hypocalcemia** common
+- Some abortion (~5% during high fever)
+- Temporary infertility in bulls
+
+### Mortality
+- ⭐ **<1%** from primary cause
+- BUT secondary problems drive losses:
+  - **Permanent paralysis** (downer cow → muscle/nerve damage from prolonged recumbency in 500-600 kg cow!)
+  - Pneumonia (secondary bacterial)
+  - Mastitis from prolonged dry-off
+
+### Pathophysiology
+- **Hyperthyremia + arthritis**
+- Joint inflammation → stiffness clinical sign
+- **Hypocalcemia** secondary
+
+### Treatment ⭐
+| Drug | Why |
+|---|---|
+| **NSAIDs** (key drug!) | Anti-inflammatory · pain · NOT antibiotics primary |
+| Calcium borogluconate | Hypocalcemia (SC route OK with boric acid) |
+| Calcium gluconate | Hypocalcemia (IV only) |
+| Antibiotics (long-acting) | Prevent 2° pneumonia · oxytetracycline LA |
+
+> ⚠️ Avoid **steroids** in cattle:
+> - Can terminate pregnancy (induce parturition!)
+> - Reduces milk production via mammary epithelial glucose uptake suppression
+
+### Why long-acting antibiotics over short-acting?
+| Type | Volume | Frequency | Animal stress |
+|---|---|---|---|
+| LA oxytetracycline | 50 mL · split 2 sites | q72h | Low (1 inj/3 days) |
+| SA oxytetracycline | 120 mL | q24h | High (daily) |
+
+### Vector control reality
+- Hard to do 100% (mosquito nets reduce ventilation)
+- Useful only if obvious breeding source nearby
+
+### Vaccine
+- **Live attenuated** vaccine available in Thailand (~2 years)
+- 150-180 baht/dose · annual booster (initial 3-dose primer)
+- Not widely used (low impact justifies passive treatment)
+- Cost-benefit model presented in slides (not exam material)
+
+### Take-Home: 3-day pattern + acute lameness without hoof lesion + endemic = BEF
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### EBL ⭐
+1. **Retrovirus** with reverse transcriptase
+2. ⭐ **DLA-DR8 = Resistance, DLA-DR16 = Susceptibility**
+3. **3 stages**: Aleukemic → PL (30%) → Lymphosarcoma (1-5%)
+4. **5 LS sites**: Abomasum, Epidural, Retrobulbar, Heart, GI/parenchymal
+5. **3 palpable LNs**: Submandibular, Prescapular, Prefemoral
+6. **Hemogram**: WBC ↑↑, lymphocyte dominant 86%
+7. **Iatrogenic transmission** = #1 control target (needles, gloves, palpation)
+
+### MCF ⭐
+8. **Reservoir**: wildebeest (AlHV-1) + sheep/goats (OvHV-2)
+9. **Susceptible**: cattle, buffalo (severe!)
+10. ⭐ **Pathognomonic**: vasculitis + lymphocytic infiltrate (kidney, eye)
+11. **Corneal opacity** outer→in (vs Pink Eye center→out)
+12. **First DDx for muzzle erosions**: FMD before MCF!
+
+### Rinderpest ⭐
+13. ⭐ **Global FREE 28 June 2011** (2nd after smallpox)
+14. **Paramyxovirus** · large + fragile = controllable
+15. **Tigroid stripes** at colon/cecum (gross lesion)
+16. **5 phases**: incubation→fever→erosion→diarrhea→recovery/death
+17. ⚠️ Still wary: virus seeds in labs · lab accident risk
+
+### BEF ⭐
+18. ⭐ **Mortality <1%** but secondary downer-cow risk huge
+19. **Acute lameness** without hoof lesion = key sign
+20. **NSAIDs primary** · NOT antibiotics primary · avoid steroids
+21. ⭐ **Calcium borogluconate** (SC route OK in cattle)
+22. **LA antibiotics** preferred over SA (welfare + practical)
+
+> 🎓 **First lecture of ruminant track** · sets vocabulary for entire course
+> 📚 **Cross-refs**: vet-juris (พ.ร.บ. โรคระบาด — these are listed diseases) · vet-imaging (ultrasound for downer cow workup)
+> 🛡️ **Practical takeaway**: ALWAYS change needles + gloves between cattle (EBL prevention)
+> 🧬 **Genetic angle**: DLA-DR genotyping = future tool for breeding programs`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
