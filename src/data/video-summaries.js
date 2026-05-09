@@ -22998,6 +22998,312 @@ Every VFL patient must be localized to ONE of 4 segments:
 > 📺 Supplementary clip: 14.0.1 Trans-iliac pin demonstration (OmBvQyf_Sa4)`,
   },
 
+  Os6MWLC8oso: {
+    videoId: 'Os6MWLC8oso',
+    title: '15.1 Elbow Joint Disease / Elbow Dysplasia (ED)',
+    subject: 'com2',
+    date: '27 Nov 67',
+    durationMin: 57,
+    instructor: 'อ.มาริสาก (orthopedic surgeon · CUVET)',
+    examFormat: 'MCQ — 4 pathologies of ED · UAP fusion timing per breed · OC vs OCD distinction · RUI step direction · FCP/MCD epidemiology · Surgical decision tree (SCo, BUR, PUO, BOUO, PAUL, SHO, TER) ออกบ่อย',
+    summary: `# Elbow Joint Disease / Elbow Dysplasia (ED)
+
+> 🎯 **Why this lecture is hard**: 4 pathologies in ONE complex joint — 3 bones articulating + 5 ligaments + multiple muscle insertions
+> ⚠️ **75% of weight loads through humeroradial joint** · 20-25% through medial coronoid (the failure point!)
+> Top exam: **4 pathologies of ED · UAP fusion timing · OC vs OCD · RUI direction · FCP/MCD treatment hierarchy**
+
+---
+
+## 1. Elbow Anatomy — 3 Bones, 3 Joints ⭐⭐
+
+**Bones**: Humerus + Radius + Ulna (all 3 articulate together — that's why it's "complex")
+
+| Joint | Function | Load |
+|---|---|---|
+| **Humero-Radial** | Weight bearing | **75%** ⭐⭐ |
+| **Humero-Ulnar** | Movement (flexion/extension) — anconeal process locks/unlocks | — |
+| **Radio-Ulnar** | Supination + Pronation | 20-25% (medial + lateral coronoid) |
+
+**Key landmarks**:
+- **Anconeal process** = "จะงอยของอุลน่า" — hooks into olecranon fossa
+- **Medial coronoid process (MCP)** = small bony tip on medial side of ulna · **THE failure point** in FCP
+- **Lateral coronoid process (LCP)** = on lateral side
+- **Radial head** articulates with capitulum of humerus
+
+**Concept**: ผิวสัมผัส (joint surface) ของกระดูก 3 ชิ้นต้อง **congruent** = สม่ำเสมอ ไม่มี step → ถ้าโตไม่เท่ากัน → step → pathology
+
+---
+
+## 2. Why Elbow Joint Fails ⭐⭐ (Predisposing Factors)
+
+### A. Mechanical structures around joint
+| Structure | What it does | Force impact |
+|---|---|---|
+| **Biceps brachii + brachialis** | Cross cranial side · insert on radius + ulna | Pulls on MCP |
+| **Triceps (long, lateral, medial heads)** | Cross caudal + lateral | Compresses joint |
+| **Anconeus muscle** | Covers caudo-lateral | Stress on anconeal process |
+
+### B. 5 Ligaments cross the joint
+1. **Lateral collateral ligament** (humeral → 2 branches: radius + ulna)
+2. **Medial collateral ligament** (humeral → 2 branches)
+3. **Annular ligament** (around radial head)
+4. **Oblique ligament** (cranial)
+5. **Olecranon ligament** (caudal)
+
+→ **5 ligaments = 5 stress directions** → joint is constantly "stressed"
+
+### C. Forces at MCP
+- **Vertical compressive** (humerus → MCP)
+- **Horizontal compressive** (radial head ↔ MCP)
+- **Tensile** (annular ligament + biceps insertion)
+
+> ⭐ This is why MCP fails first → **microcrack → fragmentation → FCP**
+
+---
+
+## 3. The 4 Pathologies of Elbow Dysplasia ⭐⭐⭐ (MUST KNOW!)
+
+| # | Disease | Location | Mechanism | Common breeds |
+|---|---|---|---|---|
+| **1** | **UAP** (Ununited Anconeal Process) | Anconeal process | Failed fusion of growth plate | German Shepherd · Bernese · Mastiff |
+| **2** | **OC / OCD** | Medial humeral condyle | Cartilage cleft (OC) → fragment loose body (OCD) | Lab · Retriever · Rottweiler |
+| **3** | **RUI** (Radio-Ulnar Incongruity) | RU joint | Differential growth → step elbow | Bernese · Newfoundland |
+| **4** | **FCP / MCD** (Fragmented Coronoid Process / Medial Coronoid Disease) | Medial coronoid | Microcrack → fragment | **Lab · Golden · Rottweiler** ⭐ MOST COMMON |
+
+> ⛔ Not every dog has all 4 — **อาจมี 1, 2, 3, หรือ 4 ก็ได้** depending on individual
+
+---
+
+## 4. UAP — Ununited Anconeal Process ⭐⭐
+
+**Normal**: anconeal process has separate ossification center that **fuses** to ulna at:
+- **14-15 weeks** in **Greyhound**
+- **5 months (~20 weeks)** in **German Shepherd** ⭐ (latest fuse → most prone)
+
+**UAP** = > 5 months old, anconeal process **NOT fused** → seen as radiolucent line on X-ray
+
+### Diagnosis
+- **Flexed elbow X-ray** ⭐ — pulls humerus down, exposes anconeal process clearly
+- Look for radiolucent gap at anconeal base
+
+### Treatment
+- **Lag screw** ⭐ — compresses anconeal fragment to ulnar mainland → stimulates fusion
+- May combine with **proximal ulnar osteotomy** (releases stress from RUI if also present)
+
+---
+
+## 5. OC vs OCD — Don't Confuse These! ⭐⭐⭐
+
+> Most commonly confused on exam. Even Year 6 students + clinicians get this wrong!
+
+| Feature | OC (Osteochondrosis) | OCD (Osteochondritis Dissecans) |
+|---|---|---|
+| Pathology | Cartilage layer abnormal differentiation | OC + **fragment broken off** (Joint mouse) |
+| X-ray finding | Subtle subchondral lucency | Visible cartilage flap + free fragment |
+| Cartilage cleft | Yes (subtle) | Yes + **detached piece** |
+| Surgery? | Often NOT needed if small | **YES — indication for arthroscopy** |
+| Common term | "kissing lesion" | "joint mouse" / "loose body" |
+
+**Location**: **Medial humeral condyle** — opposite to MCP
+
+### Mechanism
+1. Subchondral bone develops abnormally (avascular)
+2. Articular cartilage doesn't anchor properly
+3. **Microcrack → flap → loose body** (OCD)
+
+### Treatment
+- **Arthroscopy** = diagnostic + therapeutic in one
+- **Remove flap** + **subchondral debridement** (curette to bleeding bone for healing)
+
+---
+
+## 6. RUI — Radio-Ulnar Incongruity ⭐⭐
+
+**Concept**: Radius + Ulna grow at different rates → STEP at joint
+
+| Pattern | What's shorter | Result |
+|---|---|---|
+| **Radius Short** | Radius | Ulna sits ABOVE radius (humerus presses ulna more) → MCP overload |
+| **Ulna Short** | Ulna | Radius sits above ulna → joint instability + UAP risk (anconeal can't fuse) |
+
+### X-ray sign
+- Joint space NOT uniform
+- Step visible at radio-ulnar junction
+- May see angular limb deformity (in chronic case)
+
+### Treatment (depends on direction)
+| Variant | Surgery |
+|---|---|
+| **Radius short** | **Radial osteotomy** to release stress |
+| **Ulna short** | **Proximal Ulnar Osteotomy (PUO)** — cuts ulna + interosseous ligament → ulna can free-float |
+
+---
+
+## 7. FCP / MCD — The Most Common ⭐⭐⭐
+
+**FCP** = Fragmented Coronoid Process · also known as **Medial Coronoid Disease (MCD)**
+**Studied since 1974** · Malaysian colleague's seminal study (sacrificed Labrador puppies q2wk)
+
+### Epidemiology
+- **11-50% of lame Labradors** have FCP/MCD
+- Onset: **4-8 months old**
+- **Males > Females** · **Bilateral often**
+- Predisposed: Lab · Golden · Rottweiler · Newfoundland · Bernese
+
+### Etiology (genetic + environmental polygenic)
+- **Genetic**: polygenic, no single gene identified
+- **Overfeeding** → calcium/Vit D imbalance → cartilage differentiation disrupted
+- **Hormonal imbalance** (early neuter → growth disturbance)
+- **Microtrauma** (repeated stress at MCP)
+- **Decreased mineralization at MCP** (bone weaker → microcrack)
+
+### Pathology
+- Microcrack in subchondral bone of MCP
+- Crack propagates → fragment separates
+- **Stage Factor** stress + radial head compression → fragmentation
+- Articular cartilage degenerates → **OA inevitable**
+
+### Clinical signs
+- **Forelimb lameness** (subtle — often missed!)
+- **Head bob** (lift head when sore leg lands)
+- **Crab walk / 가uddling gait** (try to off-load medial side)
+- Joint effusion (hard to detect — small joint)
+- Muscle atrophy
+- **Pain on flexion + supination** ⭐ (Hands-on exam)
+- **Pain on pressure over biceps insertion** at MCP
+
+> ⚠️ Forelimb lameness easier to MISS than hindlimb (less obvious head bob)
+> → many dogs present at **end-stage OA** rather than early disease!
+
+---
+
+## 8. Diagnosis Workflow ⭐
+
+### Physical exam
+1. **Supination + medial pressure** at biceps insertion → pain
+2. **Flexion + extension** elbow → pain
+3. Compare bilateral
+
+### Imaging hierarchy
+| Modality | Use | Sensitivity |
+|---|---|---|
+| **X-ray** (M-L + Cr-Cd + **Flexed** + Cr-Cd Oblique) | Screening · UAP detection · subchondral sclerosis sign | Low for FCP |
+| **CT scan** ⭐ | **Best non-invasive for FCP** | High |
+| **MRI** | Cartilage detail | High but expensive |
+| **Arthroscopy** ⭐ | Gold standard · also therapeutic | Highest |
+
+### X-ray signs to look for
+1. **Subchondral sclerosis** at MCP (whitish bone) ⭐ earliest sign
+2. **Anconeal radiolucent line** (UAP)
+3. **Osteophyte** at anconeal tip ⭐
+4. **OCD flap** at medial humeral condyle
+5. **Joint space asymmetry** (RUI step)
+6. **Blurred MCP outline** (vs sharp in normal)
+
+> 💡 In normal: MCP edge appears **crisp** on X-ray
+> In FCP: MCP edge appears **blurry/fuzzy**
+
+---
+
+## 9. Surgical Treatment Decision Tree ⭐⭐⭐
+
+### Goal: **Reduce pain + reduce OA progression** (OA will still occur eventually)
+
+### A. Direct fragment removal (early/middle stage)
+| Procedure | Indication | Technique |
+|---|---|---|
+| **Sub-Total Coronoidectomy (SCo)** | FCP fragment present | Arthroscopic removal of fragment + curette dead subchondral bone (debride) → expose bleeding bone for healing |
+| **OCD flap removal** | OCD with loose body | Arthroscopic + debridement |
+| **Lag screw fixation** | UAP | Compress anconeal fragment to ulna |
+
+### B. Stress-reduction osteotomies (if RUI or biomechanical overload)
+| Procedure | Concept | When to use |
+|---|---|---|
+| **Biceps Ulnar Release (BUR)** | Cut biceps insertion at ulna | Reduces traction on MCP |
+| **Proximal Ulnar Osteotomy (PUO)** | Cut ulna + release interosseous ligament | RUI ulna-short |
+| **Bi-Oblique Ulnar Osteotomy (BOUO)** | Single cut at 45°/48° dual angle | Modern alternative to PUO · NO instability · NO pin needed |
+| **PAUL (Proximal Abducting Ulnar Osteotomy)** | Step-shaped plate tilts joint | Shifts load from medial to lateral |
+
+### C. Joint resurfacing (advanced)
+| Procedure | When |
+|---|---|
+| **Sliding Humeral Osteotomy (SHO)** | Advanced medial compartment disease · cartilage gone · shifts humerus to off-load medial |
+| **Unicompartmental Arthroplasty (CUE)** | Single compartment cartilage loss (off-the-shelf or customized implant) |
+| **Customized Medial Compartment Replacement** | Larger lesion · 3D-printed customized to lesion shape |
+| **Total Elbow Replacement (TER)** ⭐ | End-stage OA · cartilage GONE · salvage procedure (taught by อ.เอกพล) |
+
+> 💰 TER expensive + limited availability in Thailand · custom implants need design + import
+
+---
+
+## 10. Medical Management ⭐ (always alongside surgery)
+
+| Modality | Purpose |
+|---|---|
+| **NSAIDs** | Pain + inflammation |
+| **Joint protectants** (Chondroitin · Glucosamine · Cartrophen) | Slow OA |
+| **Weight control** | Reduce joint load (target = mildly underweight + muscular) |
+| **Omega-3 fatty acids** | Anti-inflammatory diet |
+| **Hydrotherapy** ⭐ | Low-impact exercise (อ.ฤทัยทิพย์ teaches this) |
+| **Regenerative medicine** | PRP · stem cells |
+
+---
+
+## 11. Prognosis
+
+| Stage at presentation | Prognosis |
+|---|---|
+| **Early** (puppy 4-8 mo, surgical correction) | Good — slows OA |
+| **Mid** (subadult, fragment removal + osteotomy) | Fair |
+| **End-stage OA** | Manage chronic pain · NSAID + hydrotherapy · TER if salvage |
+
+> ⚠️ OA will develop in EVERY ED case — surgery just slows it down + reduces pain
+> ⛔ Lifetime management required — client education is critical!
+
+---
+
+## 12. Client Education ⭐ (predisposing prevention)
+
+For at-risk breeds (Lab · Golden · Rottweiler · German Shepherd · Bernese):
+1. **Avoid overfeeding** in 4-12 month rapid growth phase
+2. **Avoid excess Ca + Vit D supplements** (imbalance)
+3. **Delay neutering** until skeletal maturity in giant breeds
+4. **Avoid high-impact exercise** during growth (jumping · forced running)
+5. **Screen at 6-12 mo** with X-ray + clinical exam if suspected
+
+---
+
+## 🎯 Exam Recap — top 22 testable points
+
+1. **Elbow = 3 bones articulating** (humerus · radius · ulna)
+2. **75% load through humeroradial joint**
+3. **MCP receives 20-25% load** → failure point
+4. **5 ligaments** stress the joint constantly
+5. **4 pathologies of ED**: UAP · OC/OCD · RUI · FCP/MCD
+6. **UAP fuses at 14-15 wk Greyhound, 5 mo German Shepherd**
+7. **OC = lesion only**; **OCD = + fragment loose body**
+8. **OCD location = medial humeral condyle**
+9. **RUI step direction matters** for surgery choice
+10. **FCP = most common** (Lab 11-50% if lame)
+11. **FCP onset 4-8 months**, males > females, often bilateral
+12. **Subchondral sclerosis = earliest X-ray sign** of FCP
+13. **CT scan = best non-invasive** test
+14. **Arthroscopy = gold standard** + therapeutic
+15. **Lag screw = UAP treatment** (compresses fragment)
+16. **Sub-Total Coronoidectomy + debridement** for FCP
+17. **BUR releases biceps tension** at MCP
+18. **PUO/BOUO for RUI** ulna-short variant
+19. **PAUL = abducting osteotomy** redistributes load
+20. **SHO = sliding humeral osteotomy** for advanced medial disease
+21. **TER = salvage** for end-stage OA (taught by อ.เอกพล)
+22. **OA WILL develop** — surgery slows it but doesn't prevent
+
+> 📚 อ่านควบ: 9.1 Dev Ortho/LCP (Spz38qa5upU) · 9.2 CHD (hIlH1i845wI) · 11 Common Joint (MMTtwT_7c94) · 15.2 Osteochondrosis (jo-p8MeAMXk) · 15.3 Rehab (zj4go8swIgM)
+> 🩻 **Practice tip**: Always palpate elbow joint with **flexion + supination** combined
+> 💡 Look for **head bob on lameness** — easier than spotting forelimb gait subtly off
+> 🦴 **Modern trend**: Arthroscopic SCo + early diagnosis > delayed end-stage TER`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
