@@ -29378,6 +29378,285 @@ Fetal death in utero → dehydration + retention → "mummy"
 > 🦴 **Modern AI**: 1 ejaculate = 16+ doses · single boar feeds 100s of sows`,
   },
 
+  hzJKpe4SLyw: {
+    videoId: 'hzJKpe4SLyw',
+    title: '6. Puberty in Gilt',
+    subject: 'swine-repro',
+    date: '10 Sep 67',
+    durationMin: 145,
+    instructor: 'อ.เผด็จ + อ.มรกต',
+    examFormat: 'MCQ — Skip 1st estrus rule (2 eggs/cycle gain) · Replacement rate 40-50% Thai · Cull reasons ranking · Parity at culling 4.4 vs 7.9 ideal · Boar effect ออกบ่อย',
+    summary: `# Puberty in Gilt + Replacement Strategy
+
+> 🎯 **The female-side launching pad** — gilts that succeed = the future herd
+> Top exam: **First estrus skip rule · Replacement rates · Cull reasons ranking · Parity-at-culling targets · Boar effect**
+
+---
+
+## 1. Skip-First-Estrus Rule ⭐⭐⭐ (CRITICAL!)
+
+### The 50-year-old experiment
+**Researcher 50 years ago slaughtered gilts:**
+- 6 gilts at 1st estrus → counted ovulations
+- 6 gilts at 2nd estrus → counted
+- 6 gilts at 3rd estrus → counted
+
+### Result
+| Estrus # | Eggs ovulated | Trend |
+|---|---|---|
+| 1st | Baseline | — |
+| 2nd | **+2-4 eggs** ⭐ | Major increase |
+| 3rd | +1 egg | Minor increase |
+
+### Implication ⭐
+**SKIP FIRST ESTRUS** → wait 21 days → breed at 2nd estrus
+- Result: **2-4 more piglets per litter for life of sow!**
+- Cumulative effect over 5+ litters = 10-20+ extra piglets
+
+> ⛔ **Common exam trap**: "should you breed at first estrus?" Answer: **NO!** Skip and wait
+
+---
+
+## 2. Replacement Rate ⭐⭐ (Industry economics!)
+
+### Sweden study (21 farms, 14,000 sows)
+**Average replacement: 49.5% per year**
+
+### Range
+| Type | % |
+|---|---|
+| Best farm | 33.6% |
+| Average | 49.5% |
+| Worst | 66% |
+
+### Thailand
+- **Average ~49.8%**
+- Best ~38.9%
+- Worst ~60%
+- **Target: 40%** (industry standard)
+
+### Implication
+- 100-sow farm needs ~40 replacement gilts/year
+- 1000-sow farm needs ~400 replacement gilts/year
+- Constant pipeline of gilts critical
+
+### Modern target: <40%
+- Lower replacement = higher profit
+- Each kept sow saves replacement cost
+- Animal welfare improvement
+
+---
+
+## 3. Cull Reasons ⭐⭐⭐ (RANKED!)
+
+### Top causes (Sweden + Thailand)
+| Rank | Reason | % of culls |
+|---|---|---|
+| **1** | **Reproductive disorders** ⭐⭐ | ~30-40% |
+| **2** | Old age (parity 6+) | 18-20% |
+| **3** | Mammary issues | 18-20% |
+| **4** | Production failure | 10-15% |
+| **5** | Lameness | 5-10% |
+| **6** | Other | <5% |
+
+### Why ranking matters
+- **Reproductive disorders = #1** = vet's main target!
+- Reduce these = improve farm profitability
+- Many are PREVENTABLE (heat detection, AI technique, nutrition)
+
+### Sub-types of reproductive disorders
+- Failed conception (return to estrus)
+- Abortion
+- Stillbirth
+- Reduced litter size
+- Pseudopregnancy
+- Anestrus (not cycling)
+
+---
+
+## 4. Cull Method Distribution ⭐
+
+| Method | % |
+|---|---|
+| **Slaughter** ⭐ | 85% |
+| **Euthanasia** | 10% |
+| **Sudden death** | 4.3% |
+
+### Implication
+- Most culled sows go to slaughter (income recovery)
+- Euthanasia for terminal cases
+- Sudden death = unexplained — investigate!
+
+---
+
+## 5. Parity at Culling ⭐⭐ (Performance metric!)
+
+### Reality vs Ideal
+| Type | Average parity at cull |
+|---|---|
+| **Reality (Thai industry)** | 4.4 |
+| **Goal** | **7-8** ⭐ |
+
+### Economics insight
+- **Parity 1-2** = COST recovery (lose money!)
+- **Parity 3** = BREAKEVEN
+- **Parity 4+** = PROFIT
+- **Parity 6-8** = Maximum profit per sow lifetime
+
+### Current problem
+- Average cull at 4.4 = barely past breakeven
+- 14.5% of culls are at **Parity 0 (no offspring!)** = pure loss
+- 13.8% at Parity 1 = still loss
+- **Combined Parity 0-1 = 28% = 1 in 4 sows never profitable!**
+
+### Why this matters
+- ENORMOUS economic waste
+- Need better gilt selection + management
+- Welfare implication (premature culling)
+
+---
+
+## 6. Welfare Concerns in Modern Farms ⭐
+
+### EU stance (2013)
+- **NO gestation crates** (group housing mandatory)
+- Animal Welfare Act enforcement
+
+### Thailand
+- Still mostly crate housing
+- A few demonstration farms (CP, Betagro) with group housing
+- **Future direction**: full transition to group housing
+- "Welfare" sells premium pork
+
+### Future targets
+- 30 piglets weaned per sow per year
+- 2 litters per sow per year
+- Higher welfare standards
+- Lower antibiotics
+
+---
+
+## 7. Gilt Puberty Definition ⭐
+
+### Gilt puberty = first ovulation
+- Symptoms detectable: "standing reflex" (heat behavior)
+- Hormonal markers: LH surge, then ovulation
+
+### Age at puberty (varies)
+- **Landrace, Yorkshire**: 5-7 months
+- **Duroc**: similar
+- **Native breeds**: earlier (~4-5 months)
+- **Modern Danish genetics**: 5-6 months
+
+---
+
+## 8. Boar Effect ⭐⭐ (Powerful tool!)
+
+### What is it?
+Exposing gilt to **mature boar** triggers:
+- **First estrus** (in slow-developing gilts)
+- **Synchronization** of estrus in groups
+- **Estrus detection** (sows display heat in boar's presence)
+
+### Why it works
+- Boar pheromones (androstenone, androstenol)
+- Activate hypothalamus → GnRH → ovulation
+- **Key: USE INTACT MATURE BOAR** (>10 months)
+
+### Practical use
+1. Place teaser boar near gilt pens
+2. Daily 15-20 min exposure
+3. Combined with handler "back pressure test"
+4. Estrus detection accuracy improves dramatically
+
+---
+
+## 9. Heat Detection Methods ⭐
+
+### Standing reflex (key sign!)
+**Sow stands STILL when handler presses on her back**
+- "Back pressure test"
+- Best with boar nearby for sensitization
+- 90%+ accuracy when done correctly
+
+### Other signs
+- Reddened/swollen vulva
+- Mounting other sows
+- Decreased appetite
+- Restlessness
+
+### Heat duration
+- **Onset of standing → ovulation = 36-44 hours**
+- AI timing: **24-30 hours after standing onset** (peak fertility)
+
+---
+
+## 10. Gilt Selection Criteria ⭐ (For replacement)
+
+### What to look for
+| Factor | Why |
+|---|---|
+| **Body conformation** | Sound legs · adequate frame |
+| **Teats** | At least 14, evenly spaced |
+| **BCS** | 3 ideal at puberty |
+| **Genetic background** | High maternal traits |
+| **Disease history** | Free of major diseases |
+| **Heat onset** | By 7 months ideal |
+
+### Disqualifying factors
+- Cryptorchidism in litter (genetic flag)
+- Few teats (<12)
+- Poor leg structure
+- Family history of fertility issues
+
+---
+
+## 11. Pre-Breeding Management ⭐
+
+### Quarantine
+- New gilts: 30 days minimum
+- Test for diseases
+- Adapt to farm pathogens
+
+### Acclimation
+- Mix with retired sows
+- Develop herd immunity
+- 4-6 weeks before breeding
+
+### Vaccination ⭐ (critical!)
+- **Parvovirus** mandatory
+- PRRS, Erysipelas, Lepto
+- Complete 4+ weeks before first breeding
+
+### Nutrition
+- Flushing (extra calories) → boost ovulation
+- Stop flushing at 1st AI
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Skip first estrus** → 2nd estrus = +2-4 eggs/litter
+2. **Replacement rate** average 49.5% (target <40%)
+3. **#1 cull reason = reproductive disorders**
+4. **Parity at cull**: real 4.4 vs ideal 7-8
+5. **Parity 1-2 = lose money · Parity 4+ = profit**
+6. **28% of sows never profitable** (Parity 0-1)
+7. **EU banned gestation crates 2013**
+8. **Boar effect** triggers + synchronizes estrus
+9. **Standing reflex** = primary heat detection
+10. **AI timing = 24-30 hr after standing onset**
+11. **Gilt puberty 5-7 months** in modern breeds
+12. **Need 14+ teats** in selected gilts
+13. **Pre-breed parvovirus mandatory**
+14. **Flushing pre-AI** boosts ovulation
+
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 4 Reproductive problems (ABb7TdP98Zc) · 7.1 AI (0vUVH0tVcqw) · 7.2 Hormones (AWu12JovU0Q) · 8 Pregnancy (NSULhtJz_Oc)
+> 🩻 **Practice tip**: SKIP-first-estrus rule = THE classical exam trap
+> 💡 **Boar effect**: cheapest, most natural fertility booster
+> 🦴 **Modern target**: 30 piglets/sow/year + 2 litters/year`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
