@@ -17549,6 +17549,617 @@ Between quadrate + right medial = **Gallbladder**
 > 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU) · 4.2 Endoscope (0C218gD_tZM) · 5.1 Intestine Sx (lS4wSGDKFrY) · 3 Hepatobiliary (keqE30HxM7Y)`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM I — 3. Hepatobiliary system + Diet Manage (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  keqE30HxM7Y: {
+    videoId: 'keqE30HxM7Y',
+    title: '3. Hepatobiliary system + Diet Manage',
+    subject: 'com1',
+    date: '19 Aug 67',
+    durationMin: 227,
+    instructor: 'อ. (Med II)',
+    examFormat: 'Case-based MCQ — bile acids · ALP/GGT · acetaminophen toxicity · PSS · TLI/PLI cut-offs · diet selection ออกบ่อย',
+    summary: `# Hepatobiliary System + Diet Management
+
+> 🎯 คลิป 3 ชม.ครึ่ง · ยาวสุดของ COM I · 2 ส่วน:
+> Part 1 = ตับ + ตับอ่อน (~2 ชม.) · Part 2 = Diet Management ของ GIS (~1 ชม.)
+> อ.บอกตอนเปิดคลิป: ถ้า completion rate ต่ำ (<30% ดูจบ) → ข้อสอบจะออกเอื้อคนดูคลิป
+
+---
+
+# 🟧 PART 1 — Liver Disease (เฮปาตlogy)
+
+## 1. Anatomy + Function Recap
+
+**Liver lobule** = หน่วยรูปหกเหลี่ยม (hexagon) มี hepatocyte เรียงเป็น hepatic cord + bile canaliculi แทรก
+- เลือดวิ่งจาก **periportal area** (zone 1) → **midzonal** (zone 2) → **centrilobular** (zone 3, ใกล้ central vein)
+- Zone 3 ขาดเลือดง่ายสุด → ตายก่อน (centrilobular necrosis pattern)
+
+**6 Functions ของตับ**
+| Function | รายละเอียด |
+|---|---|
+| **Metabolism** | CHO · Protein · Lipid · Nucleic acid · Heavy metal |
+| **Bile secretion** | Bile acid · Bile component (bilirubin) |
+| **Detoxification** | Xenobiotics · ammonia · endogenous hormones |
+| **Hemostasis** | Clotting factors · anticoagulants · fibrinolytic proteins |
+| **Immunosurveillance** | ผ่าน Kupffer cells (เม็ดเลือดขาวในตับ) |
+| **Regeneration** | ตับสามารถ regenerate ตัวเองได้ ถ้าเสียหายเล็กน้อย |
+
+---
+
+## 2. Clinical Signs ที่ทำให้นึกถึงโรคตับ
+
+| Sign | กลไก |
+|---|---|
+| **Jaundice (icterus)** | Pre-/Hepatic/Post-hepatic — แยกด้วย CBC + imaging |
+| **Abdominal distension** | "**7 F's**" → Fluid · Fat · Flatus · Feces · Fetus · Flabby · Foreign mass + Organomegaly |
+| **Hepatic encephalopathy (HE)** | NH3 ขึ้น → BBB → behavior change · head pressing · wandering · seizure · hypersalivation |
+| **Coagulopathy** | Petechia · ecchymosis · hemoabdomen · hematuria |
+| **Acholic feces** | สีขาวเทา (no stercobilin) → bile duct obstruction |
+| **Steatorrhea** | สีเหลืองมัน → cholestasis · ต้องแยกกับ EPI |
+| **PUPD** | PSS, hepatic dysfunction (urea ↓ → osmotic gradient เสีย) |
+| **Small bowel diarrhea** | secondary GI involvement |
+
+**7F detail (Abdominal distension)**:
+- **F**luid (effusion) → albumin ↓ (oncotic ↓) · portal hypertension (hydrostatic ↑) · vascular permeability (FIP)
+- **F**at, **F**lapping (Cushing's, hormone), **F**lapin abdomen
+- **F**eces (constipation), **F**etus, **F**lapinant tumor (HCC, cholangiocarcinoma, lymphoma, hemangiosarcoma)
+- **O**rganomegaly: hepatomegaly · splenomegaly (portal hypertension)
+
+---
+
+## 3. Lab Markers — RER Enzymes vs Liver Function
+
+### Hepatocellular Injury Markers
+| Enzyme | Source | ขึ้นเมื่อ |
+|---|---|---|
+| **ALT** | Hepatocyte (mitochondria + cytosol) | Specific ตับ · ขึ้นเมื่อ cell injury |
+| **AST** | Hepatocyte + muscle | ถ้า AST >> ALT → muscle origin |
+
+⚠️ **End-stage cirrhosis** → ALT/AST อาจ Normal เพราะไม่เหลือเซลล์ให้ leak
+
+### Cholestasis Markers
+| Enzyme | Specifics |
+|---|---|
+| **ALP** | Bone form (ลูกสัตว์ขึ้นได้) · Cortico-induced form (สุนัขเท่านั้น · แมวไม่มี) · Liver form |
+| **GGT** | parallels ALP · ใน cat hepatic lipidosis: **ALP ↑↑ มาก แต่ GGT normal/mild** ⭐ |
+
+### Liver Function Tests
+| ลด ↓ (Decrease concentration) | เพิ่ม ↑ (Increase concentration) |
+|---|---|
+| Albumin · Glucose · Cholesterol · BUN | Bilirubin · Bile acids · Ammonia · Coagulation time |
+
+⚠️ Markers ไม่ sensitive: ตับต้องเสีย **>70-80%** ก่อน function test จะผิดปกติ
+
+---
+
+## 4. Bile Acid Test
+
+ทำเฉพาะกรณี: ALP/ALT ขึ้น แต่ไม่มีตัวเหลืองชัด · สงสัย PSS หรือ hepatic disease · เก็บ pre-prandial + post-prandial (2 ชม.)
+
+| Bile acid | แปลผล |
+|---|---|
+| < 25 µmol/L | Gray zone — ไม่น่าเป็น PSS |
+| 25–35 | กลางๆ |
+| > 35 (โดยเฉพาะ > 100) | สงสัย PSS สูงมาก ⭐ → ทำ imaging ต่อ |
+
+⚠️ Cholestasis (extra-hepatic) อาจ bile acid > 100 ได้เหมือน PSS — ไม่ specific 100%
+
+**Ammonia limitation**: ไม่คงตัว · เก็บในหลอดเฉพาะ · ตรวจภายใน 30 นาที · sample ต้องแช่เย็น
+
+---
+
+## 5. Urinalysis ที่บ่งบอกโรคตับ
+
+- **USG ต่ำมาก** → urea ต่ำ → osmotic gradient เสีย (PSS, hepatic insufficiency)
+- **Bilirubinuria** — สุนัข 1+ ยังรับได้ · แมว 1+ = abnormal เลย (renal threshold cat สูงกว่าหมา)
+- **Ammonium biurate crystal** ⭐ — รูป "apple-puff" หรือ sarcoptic mite-like → สงสัย PSS / hyperammonemia · เคยพบในพันธุ์ Dalmatian
+
+---
+
+## 6. โรคที่เจอบ่อย (Top 8)
+
+### 6.1 Acute Hepatitis
+**สาเหตุ**: toxin (aflatoxin · mushroom · xylitol · acetaminophen · carprofen · sulfonamide) · infection (ICH adenovirus · Leptospira) · ischemic disorder (lobe torsion)
+
+**Lab**: ALT ↑↑↑ · ALP ↑ · GGT ↑ · บางทีเจอ hyperbilirubinemia + hyperammonemia + coagulopathy
+
+**Treatment**: หยุด exposure + supportive (fluid + electrolyte + liver supplement + nutrition)
+- Specific antidotes: Lepto → Penicillin G IV/Doxycycline · Acetaminophen → **N-acetylcysteine (NAC)**
+
+⚠️ ต้อง follow-up เพราะอาจ progress สู่ chronic hepatitis ภายใน 4-6 wks
+
+---
+
+### 6.2 Acetaminophen Toxicity ⭐ (จำให้แม่น)
+
+**Mechanism**: 3 metabolic pathways = Glucuronidation (หลัก-ปลอดภัย) · Sulfation · Cytochrome P450
+- แมวมี glucuronidation/sulfation จำกัด → วิ่งไป CYP450 → ได้ **NAPQI** (toxic metabolite)
+- NAPQI ทำลาย hepatocyte + RBC (methemoglobin formation)
+- Glutathione (GSH) จับ NAPQI ไปทิ้งในปัสสาวะ — แต่ stock จำกัด
+
+**Clinical signs**:
+- Depression · cyanosis · **brown/blueish mucous membrane** (methemoglobinemia)
+- Hypersalivation · vomiting · panting (hypoxia)
+- ⭐ **Facial edema, paw edema, leg edema** (เห็นแล้วต้องนึกถึง acetaminophen!)
+- Brown urine (hemoglobinuria)
+
+**Lab**: ALT/AST/ALP ↑ · hyperbilirubinemia · anemia · **Heinz bodies** บน blood smear
+
+**Treatment**:
+| Drug | Dose | Note |
+|---|---|---|
+| **N-acetylcysteine (NAC)** | Loading 140 mg/kg slow IV → maintenance 70 mg/kg q6-8h × 7 doses | Antidote — GSH precursor |
+| Vitamin C | + | Anti-oxidant adjunct |
+| Cimetidine | + | Anti-oxidant adjunct |
+| SAMe | Switch to PO เมื่อกินได้ | Long-term liver support |
+| Silymarin | + | Long-term liver support |
+
+⚠️ NAC long-term ไม่ได้ → กลายเป็น **pro-oxidant** ตัวเอง
+
+---
+
+### 6.3 Chronic Hepatitis
+**Causes**: Acute → chronic · long-term chemical (heavy metal — copper) · long-term drug (phenobarbital, glucocorticoid) · idiopathic
+
+**Lab**: ALT/AST ขึ้น · hypoalbuminemia · low cholesterol · hyperammonemia (severe case)
+
+**US**: เห็น irregular surface (fibrosis) · บางทีดู normal
+
+**Treatment**: SAMe · Ursodiol · low-protein diet (ถ้ามี HE) — antifibrotic agent ยังไม่มีที่ work 100%
+
+---
+
+### 6.4 Portosystemic Shunt (PSS)
+
+**Congenital** (vs acquired) = หลอดเลือดเชื่อม Portal vein กับ vena cava/azygous → bypass ตับ
+- **Intra-hepatic** vs **Extra-hepatic**
+- **Predisposing breeds (สุนัข)**: Yorkshire · Mini Schnauzer · Labrador Retriever ⭐ (แมวไม่มี)
+- มักแสดงอาการช่วง > 6 เดือน
+
+**Clinical**: weakness · PUPD · neurological signs (HE) · **stunted growth** · ammonium biurate uroliths
+
+**Lab**: ↑ liver enzymes · hypoalbuminemia · hyperammonemia · ↑ post-prandial bile acid (↑↑↑) · ammonium biurate crystals in UA
+
+**Diagnosis**: Ultrasound + Doppler · CT scan (gold standard for surgical planning)
+
+**Treatment**:
+- **Surgical closure** (ของให้ดีที่สุด) — partial close → ค่อยๆ ปิด เพื่อไม่ให้ portal pressure ขึ้นเร็วเกิน
+- ถ้าทำไม่ได้ → medical: low-protein diet + lactulose (lactulose ลด ammonia absorption + เพิ่ม colonic transit)
+
+---
+
+### 6.5 Hepatic Tumors
+
+| Tumor | Note |
+|---|---|
+| **HCC (Hepatocellular carcinoma)** | Common · 3 patterns: massive · nodular · diffuse |
+| HCC adenoma | Benign |
+| **Cholangiocarcinoma** | More aggressive than HCC · spread เร็ว |
+| Mets: lymphoma · hemangiosarcoma · MCT | จาก primary อื่น |
+
+⭐ **Insulin-like Growth Factor** จาก HCC → ดึงน้ำตาลเข้า → **hypoglycemia** → episodic weakness/UVD
+
+---
+
+### 6.6 Hepatic Lipidosis (สำคัญในแมว!)
+
+**Classic case**: แมวอ้วน, middle-age, anorexic 2-14 วัน → ตับบวม
+
+**Pathogenesis**: Negative energy balance → ดึง glycogen หมด → ดึง fat (lipid mobilization) → triglyceride สะสมใน hepatocyte
+
+**Types**:
+- **Primary** (idiopathic): ไม่อร่อย · เข้าถึงไม่ได้ · stress event
+- **Secondary**: GI disease · liver disease · pancreatitis · CKD · DM · cancer
+
+**Clinical**: anorexia · jaundice · dehydration · vomiting · constipation · weakness · cervical ventroflexion (K+ ↓) · hypersalivation (HE)
+
+**Lab signature** ⭐:
+- **ALP ↑↑↑ มาก** (5–10x) แต่ **GGT normal/mild** (ขึ้นต่างจากโรคตับอื่น!)
+- ALT mild–moderate · hyperbilirubinemia · ↑ bile acid · hypoalbuminemia · hyperglycemia (stress)
+- Electrolytes: ↓ K · ↓ P · ↓ Mg
+
+**Cytology**: hepatocyte บวมด้วย micro/macrovesicular lipid · confirm ด้วย **Oil Red O stain** → สีแดง
+
+**Treatment** ⭐:
+- **Nutrition support** = หัวใจของการรักษา — **enteral feeding tube** (esophagostomy)
+- **High protein** (cat = obligate carnivore!) · moderate fat · **low CHO**
+- คำนวณจาก RER · ค่อยๆ ทยอยให้ 1/3 → 2/3 → 3/3 (refeeding syndrome prevention)
+- Fluid + electrolyte · ARG + Taurine + B12 supplement
+- Appetite stimulant: mirtazapine
+- NAC แรกๆ → switch SAMe เมื่อกินได้
+
+---
+
+### 6.7 Extra-hepatic Bile Duct Obstruction (EHBO)
+**สาเหตุ**: Stone · neoplasia · external compression · inflammation จากออร์แกนข้างๆ · **river fluke** (แมวที่กินปลาดิบ/หอยทาก)
+
+**Clinical**: jaundice · vomiting · weight loss · cranial abdominal pain · acholic feces
+
+**Lab**: ALP ↑↑ · GGT ↑ · ALT mild · hyperbilirubinemia · ↑ bile acids
+
+**US**: dilated common bile duct · gallbladder distension · thickened wall
+
+**Treatment**:
+- Surgical correction ถ้า complete obstruction — choledochojejunostomy
+- River fluke (cat) → **Praziquantel 20 mg/kg PO × 3-5 วัน** ⭐
+
+---
+
+### 6.8 Cholecystitis (ถุงน้ำดีอักเสบ)
+**สาเหตุ**: Ascending bacterial (duodenal reflux) — **E. coli · Enterococcus · Streptococcus · Clostridium · Bacteroides**
+
+**Lab**: leukocytosis (neutrophilic) · ALP ↑ · GGT ↑ · hyperbilirubinemia
+
+**US**: thickened gallbladder wall · gallstones · mucocele
+
+**Treatment**:
+- **Cholecystocentesis** + culture + cytology
+- Empirical: **Amoxicillin-clavulanate + Metronidazole** หรือ Fluoroquinolone (broad spectrum)
+- **Ursodeoxycholic acid** (choleretic — ห้ามให้ถ้า complete obstruction!)
+- Severe → **cholecystectomy**
+
+---
+
+### 6.9 Cholangitis (ท่อน้ำดีอักเสบ)
+4 types (common ในแมวมากกว่าหมา):
+
+| Type | Mechanism | Treatment |
+|---|---|---|
+| **Neutrophilic (NC)** | Bacterial ascending | Amox-clav + Metro × หลาย wks–เดือน |
+| **Lymphocytic (LC)** | Immune-mediated | Immunosuppressive + AB cover |
+| **Chronic** | River fluke infection | Praziquantel 20 mg/kg × 3-5d |
+| **Destructive** | Idiosyncratic (sulfonamides · canine distemper) | Immune suppressive |
+
+⚠️ Course of treatment ยาว — สัปดาห์ถึง 2-3 เดือน
+
+---
+
+### 6.10 Gallbladder Mucocele ⭐ (เจอเยอะขึ้น)
+
+**Predisposing**: middle-aged dog · small-medium breed (Cocker spaniel · Mini Schnauzer · Pomeranian · Shih Tzu) · risk = endocrine disease · long-term steroid
+
+**Pathogenesis**: bile หนืดข้น → ขยายถุงน้ำดี → bile duct obstruction → biliary peritonitis (rupture)
+
+**6 Types บน Ultrasound** (kiwi pattern!):
+| Type | Pattern |
+|---|---|
+| 1 | Mucin layer เกาะผนัง > 30% |
+| 2 | Stellate (เริ่มแฉก) |
+| 3 | Stellate complete |
+| 4 | Early kiwi pattern |
+| 5 | Residual center + kiwi edge |
+| 6 | **Complete kiwi pattern** ⭐ — ขีดขาวรอบ (เหมือนผลไม้กีวี) |
+
+**Treatment**:
+- **Treatment of choice = cholecystectomy** ตัดถุงน้ำดีออก (esp. type ≥ 2)
+- Type 1 + asymptomatic → medical: **Ursodiol 10-15 mg/kg/day with food** + SAMe + Silymarin + low-fat diet
+- Follow-up ทุก 4-6 wks (ไม่งั้น progress อาจเป็น rupture)
+
+---
+
+## 7. Liver Supplements (ต้องจำ 4 ตัว!) ⭐⭐⭐
+
+| Drug | Dose | Mechanism | Tip |
+|---|---|---|---|
+| **Silymarin (Legalon)** | 20-50 mg/kg/day | Anti-oxidant + choleretic + inhibit hepatotoxin binding | **ห้ามให้พร้อมอาหาร** (bioavailability ต่ำ) |
+| **SAMe (S-adenosyl methionine)** | 20 mg/kg/day | Anti-oxidant + GSH precursor + anti-inflammatory + anti-fibrotic | **ก่อนอาหาร** · แพง · ดีกว่า silymarin |
+| **N-acetylcysteine (NAC)** | Load 140 → 70 mg/kg q6-8h × 7 doses | GSH precursor (acetaminophen antidote) | **Short course** เท่านั้น (long = pro-oxidant) |
+| **Ursodeoxycholic acid** | 10-15 mg/kg/day | Choleretic + cytoprotective + immunomodulating | **กับอาหารได้ดูดซึมดี** · ห้ามใช้ใน complete EHBO |
+
+---
+
+# 🟪 PART 2 — Pancreas
+
+## 8. Pancreatitis
+
+### 8.1 Acute vs Chronic
+- **Acute**: neutrophilic + necrosis · **reversible** if treated
+- **Chronic**: lympho-plasmacytic + **fibrosis** · **permanent histo change** · atrophy
+
+### 8.2 Etiologies (สำคัญ)
+- Predisposing breeds: Mini Schnauzer · Boxer · Cocker Spaniel · Collie · Yorkie
+- **Obesity + hyperlipidemia + hypertriglyceridemia** ⭐ (เด่นในสุนัข)
+- High-fat diet (treats > 10% of caloric needs)
+- Hypoperfusion · trauma · obstruction · duodenal reflux
+- Drugs: phenobarbital · organophosphate · sulfonamide
+- Infection: bacterial · **FIP (cat)** · parvo (dog) · toxoplasma · river fluke
+
+### 8.3 Triaditis (cat ⭐) = Pancreatitis + IBD/cholangitis + cholangiohepatitis รวมกัน
+
+### 8.4 Local vs Systemic Complications
+| Local | Systemic |
+|---|---|
+| Pancreatic necrosis | Electrolyte imbalance |
+| Pseudocyst | Acid-base imbalance |
+| Abscess | Acute kidney failure |
+| | Myocarditis · DIC · neurologic |
+
+⭐ Severity → systemic = bad prognosis
+
+### 8.5 Clinical Signs
+
+| Dog | Cat |
+|---|---|
+| Vomiting · anorexia · abdominal pain | Anorexia · lethargy · hypothermia · dehydration |
+| **Prayer position** ⭐ (หมอบกราบ) | **Feline Grimace Scale** (หู ตา หนวด muzzle tension) |
+| Diarrhea · weakness · dehydration | Vague — access pain ยากกว่า |
+
+### 8.6 Diagnosis
+- CBC: thrombocytopenia · anemia · neutrophilia (left shift)
+- Chemistry: ↑ liver enzymes · pre-renal azotemia · hypoalbuminemia · hypocalcemia · electrolyte imbalance
+- UA: ↑ USG (pre-renal)
+
+**Pancreatic Enzymes** ⭐:
+| Test | Note |
+|---|---|
+| Serum amylase/lipase | Low sens/spec — สร้างจากที่อื่นด้วย |
+| **Spec PLI (Pancreatic Lipase Immunoreactivity)** | Quantitative · gold standard |
+| **Snap PLI** | Qualitative POC test |
+| **VCheck PLI** ⭐ | Korean device · ใช้กันใน Thailand · semi-quantitative |
+
+**cPLI cut-offs (dog)** ⭐:
+| Old | New | แปลผล |
+|---|---|---|
+| 0–2.5 normal | 0–5.5 normal | Normal |
+| 2.6–5.6 gray zone | 5.6–7.5 / 7.6–10.8 gray | ดู clinical · trial Tx |
+| > 4.0 (positive) | > 10.9 = definite | Pancreatitis |
+
+**fPLI cut-off (cat)**: > 5.4 = pancreatitis · gray 3.5–5.4
+
+**Imaging**: US เห็น hypoechoic pancreas + hyperechoic peripancreatic fat (acute) · hyperechoic pancreas (chronic, fibrosis)
+
+### 8.7 Treatment
+
+| Component | Detail |
+|---|---|
+| **Aggressive supportive** | Admit ถ้าได้ |
+| Fluid + electrolyte | IV crystalloid |
+| Anti-emetic | Maropitant · ondansetron |
+| **Analgesia** | **Opioids** (fentanyl drip/patch · methadone) · NSAIDs ห้ามใน pancreatitis! |
+| Antibiotic | เฉพาะถ้า culture positive — ไม่ให้พร่ำเพรื่อ |
+| Anti-inflammatory | สเตียรอยด์ controversial ใน acute · ใน chronic อาจให้ cyclosporine |
+| **Nutrition support** | Enteral > parenteral · ใน dog = low-fat · ใน cat = ไม่ต้อง low-fat (carnivore) |
+| Monitoring | Repeat PLI + Inflammatory markers + US |
+
+---
+
+## 9. Exocrine Pancreatic Insufficiency (EPI) ⭐
+
+### 9.1 Causes
+- **Pancreatic acinar atrophy (PAA)** — congenital, polygenic mode · breed: **German Shepherd** · Rough Collie
+- **Chronic pancreatitis** → atrophy of acinar cells (middle-old age)
+- Pancreatic structural disorder (rare)
+
+### 9.2 Pathophysiology
+Acinar cells หาย → enzymes ↓ → maldigestion → **osmotic diarrhea** + steatorrhea
+- Lost antibacterial substance → **dysbiosis** → ↑ folate (bacterial production) + ↓ B12
+- Lost intrinsic factor → **cobalamin (B12) deficiency** ⭐
+- Severe chronic → endocrine pancreas atrophy → **diabetes mellitus**
+
+### 9.3 Classic Clinical Picture ⭐
+- Chronic small bowel diarrhea · **steatorrhea** (yellow greasy stool)
+- **Severe weight loss** (BCS 1/9)
+- **Polyphagia** + **coprophagia** + pica (กินอึตัวเอง · กินสิ่งแปลกปลอม) ⭐
+- Cat: greasy soiling of tail
+- ขนเสีย · stunted growth (เด็ก)
+
+### 9.4 Diagnosis — TLI (Trypsin-like Immunoreactivity) ⭐⭐⭐
+
+**Key**: ต้อง **อดอาหาร 8-12 ชม.** ก่อนเก็บ · false ↑ ใน renal disease (TLI ขับทาง kidney)
+
+**cTLI cut-off (dog)**:
+| Old | **New (in use abroad, TH รออัปเดต)** | แปลผล |
+|---|---|---|
+| < 2.5 = EPI | < 5.5 = EPI | EPI confirmed |
+| 2.6–5.6 gray | 5.6–7.5 / 7.6–10.8 gray | Trial enzyme |
+| > 5.7 normal | > 10.9 normal | ไม่ใช่ EPI |
+
+**fTLI (cat)**: < 8.0 = EPI ⚠️ ไม่มีในไทย → ต้อง try empirical enzyme replacement
+
+**Other tests**: fecal smear (Sudan III/Oil Red O for fat) · **proteolytic activity** (3-day test, falling out of use)
+
+### 9.5 Treatment ⭐⭐⭐
+
+**Pancreatic Enzyme Replacement** = **lifelong therapy** (ไม่หาย!)
+- Bovine/porcine pancreas extract — powder (preferred) > capsule
+- **Mix กับอาหารทันที** (ไม่ต้องรอ) · ทุกมื้อ · ก่อนอาหาร
+- Dose: 0.5-1 tsp powder per 10 kg per meal
+
+⚠️ Side effect: **oral bleeding** ในโดสสูง (mucosal irritation) → ลดโดส
+
+**Adjunct**:
+- **Cobalamin (B12) supplementation** (lifelong if low)
+- **Acid suppressant** (PPI / H2 antagonist) — ป้องกันกรดทำลาย enzyme · taper PPI ถ้าใช้ > 4 wks
+- **Manage dysbiosis**: prebiotic/probiotic/symbiotic · Metronidazole/tylosin if confirmed bacterial overgrowth
+- Diet: **highly digestible** · avoid high fiber · low-fat depends on individual
+
+⚠️ Counsel เจ้าของ: ห้ามให้อาหารอื่น/ขนม · ไม่ทิ้ง mixed food ไว้นานก่อนป้อน · enzyme **replace ไม่ใช่ regenerate**
+
+**Prognosis**: ดีถ้าไม่มี concurrent disease (DM, chronic enteropathy) · controllable lifelong
+
+---
+
+# 🟦 PART 3 — Diet Management for GI Disease
+
+## 10. Macronutrient Basics
+
+### 10.1 Carbohydrate
+- **Complex CHO** (starch) — main source · ย่อยโดยร่างกาย
+- **Fiber** — แบคทีเรียย่อย → short chain fatty acids (SCFA) ↗ colon health
+- **Lactose** — แมว/หมาโตแล้ว enzyme ↓ → lactose intolerance → osmotic diarrhea (เลี่ยงนมวัว)
+
+### 10.2 Protein
+- Essential amino acids · บางตัวกลายเป็น food allergen
+- **Hydrolyzed protein** = peptide < 15 kDa (sometimes 1-3 kDa)
+- **Novel protein** = แหล่งใหม่ที่สัตว์ไม่เคยกิน (แกะ ปลา จิงโจ้)
+
+### 10.3 Fat
+| Type | Note |
+|---|---|
+| Long-chain triglyceride (LCT) | ส่วนใหญ่ในอาหาร · absorb via lymphatic |
+| **Medium-chain triglyceride (MCT)** ⭐ | bypass lymphatic → portal vein direct · MCT oil/coconut oil · ใช้ใน lymphangiectasia |
+| Short-chain fatty acid (SCFA) | จาก fiber fermentation · colon energy |
+
+⚠️ MCT = ketogenic potential (caution in acidosis/ketosis)
+
+### 10.4 Fiber Classification
+- **Solubility**: Soluble (gel-forming, prebiotic) · Insoluble (bulk laxative)
+- **Fermentability**: High (SCFA + gas) · Moderate (preferred) · Low (blocking agent)
+
+### 10.5 Microbiota
+- **Prebiotic** = อาหารของแบคทีเรียดี (FOS, inulin, fiber)
+- **Probiotic** = เชื้อแบคทีเรียดี (Bifidobacterium, Lactobacillus) · CFU > 10⁸-⁹
+- **Symbiotic** = pre + pro รวมกัน
+- **Postbiotic** ⭐ ใหม่ = bioactive compound จาก probiotic (SCFA + AMP + amino acid)
+
+⚠️ Yogurt ทั่วไปไม่ confirmed dose — ใช้ commercial product ดีกว่า
+
+---
+
+## 11. The 6 Therapeutic Diet Categories
+
+| Diet | Use | Key feature |
+|---|---|---|
+| **GI Diet (Highly Digestible)** | First-line ทั่วไป | Protein 87% · CHO 90% digestibility · low fiber |
+| **Hydrolyzed Protein** | Food allergy · IBD · acute enteritis | Protein < 15 kDa · low immunogenicity · expensive |
+| **Novel Protein** | Food allergy (later phase) | New protein source (lamb, fish) · check label for hidden ingredients |
+| **Home-cooked** | Custom (last resort) | Need nutritionist · risk of imbalance |
+| **Fiber Enhanced** | Colitis · constipation · diabetes · GDV recovery | Mix soluble + insoluble · ↓ digestibility (need ↑ vol) |
+| **Restricted Fat (low-fat)** | Pancreatitis · lymphangiectasia · GDV recovery · esophagitis | < 10% fat (low) · 10-15% (moderate) |
+
+### 11.1 Home-cooked rules
+- ปรึกษา nutritionist + ระบุ protein source
+- Risk of relapse + ไม่ balanced
+
+---
+
+## 12. Disease-Specific Diet (Recap-style)
+
+### 12.1 Esophageal Disease ⭐
+- **Low-fat** (high fat → delay gastric emptying → ↓ LES pressure → reflux ↗)
+- Adequate protein (↑ LES pressure)
+- **Small frequent meals** + **elevated feeding** (Bailey chair posture)
+- Vertical posture × 30 min after meal
+- Severe → feeding tube (gastrostomy/jejunostomy)
+
+### 12.2 Gastric Disease (Gastritis)
+- GI diet (highly digestible)
+- Wet/warm food → ↓ gastric retention
+- Small frequent meals
+- **Feed through vomiting** (modern approach — preserve villi) ✓ better than 12-24 hr fasting
+
+### 12.3 GDV Recovery ⭐
+- **Large particle size > 30 mm** (slow eating)
+- Dental care diet หรือ size-appropriate kibble
+- Eat alone in quiet area + no exercise post-meal
+- Slow-feeder bowl
+
+### 12.4 Enteritis
+- Highly digestible · small frequent meals
+- ± Hydrolyzed if suspect food allergy
+
+### 12.5 Adverse Food Reaction
+- **Food intolerance** (no immune) — eliminate offending food
+- **Food allergy** (immune-mediated) — **Elimination Trial × 6-12 wks**:
+  - Use hydrolyzed first (small molecule, less immunogenic, preserve gut healing)
+  - Switch to novel protein later
+  - Re-introduce to confirm (เจ้าของมัก decline)
+- Common allergens: beef · chicken · fish · dairy · wheat · soy · egg
+
+⚠️ "Single protein" claim บนถุง = ดูฉลาก! บางทีมี chicken ปนอยู่จริง
+
+### 12.6 Chronic Enteropathy ⭐
+Steps: diet → microbiota → biopsy → immunosuppressive
+- Use hydrolyzed protein early (gut leaky stage)
+- Switch to novel protein later
+- + B12 + folate + omega-3 (anti-inflammatory)
+
+### 12.7 Protein-Losing Enteropathy (PLE)
+- Highly digestible / hydrolyzed / novel protein
+- ⭐ **Lymphangiectasia subtype → Restricted-fat** (< 10-15%) + MCT
+- Avoid high fiber (interferes absorption)
+- Egg white/albumin tab supplement (slow)
+- Severe → IV albumin/synthetic colloid
+
+### 12.8 Colitis / Constipation
+- **Fiber adjustment** (key nutrient) — fermentable fiber → SCFA → colonocyte energy
+- Megacolon (no motility) → low-fiber + colectomy if intractable
+- + wet food + activity + laxative (lactulose) + prokinetic (short-term only)
+
+### 12.9 Hepatic Disease
+- **No protein restriction unless HE** (HE → low-protein + lactulose)
+- Avoid high-fat if cholestasis/cholecystitis
+- **Taurine + Arginine** (esp. cat hepatic lipidosis) · Zinc supplement
+- B-complex · Vitamin E + C
+- Multiple small meals
+
+### 12.10 Cat Hepatic Lipidosis ⭐
+- **High protein** (cat = obligate carnivore!)
+- **Moderate fat** (calorie-dense)
+- **Low CHO** (avoid hyperinsulinemia → electrolyte shift)
+- Energy distribution: Protein 30-40% · Fat 50% · CHO < 20%
+- Refeeding protocol: 1/3 → 2/3 → 3/3 ของ RER
+
+### 12.11 Pancreatitis Diet
+- **Dog**: low-fat diet (10-15%)
+- **Cat**: ไม่ต้อง low-fat (high fat tolerance)
+- Enteral feeding > parenteral · feeding tube ถ้าจำเป็น
+
+---
+
+## 13. Refeeding Syndrome ⭐ (สำคัญ-ออกบ่อย)
+
+**Definition**: ภาวะ metabolic derangement ในการให้อาหาร patient ที่ prolong starvation/negative catabolic state
+
+**Pathogenesis**: Insulin surge ดึง K · P · Mg · water เข้าเซลล์ → severe electrolyte deficit
+
+**Clinical**: vomiting · diarrhea · weakness · ventroflexion (severe hypoK) · cardiac arrhythmia
+
+**Lab**: **Hypokalemia · Hypophosphatemia · Hypomagnesemia** (จำ K-P-Mg!)
+
+**Prevention**:
+- ค่อยๆทยอยให้: **1/3 → 2/3 → 3/3** ของ RER
+- Low CHO (avoid insulin surge)
+- Monitor electrolytes daily
+
+**Correction**:
+| Electrolyte | Dose |
+|---|---|
+| Hypokalemia (K < 2.5) | KCl ใน fluid · max 0.5 mEq/kg/hr |
+| Hypophosphatemia | K-phosphate · stop เมื่อ > 2 mg/dL |
+| Hypomagnesemia | MgSO4 IV |
+
+---
+
+## 📝 EXAM RECAP — 20 Key Points
+
+1. **Liver zones**: Zone 3 (centrilobular) = ตายก่อนเพราะขาดเลือด
+2. **7F mnemonic** for abdominal distension (Fluid · Fat · Flatus · Feces · Fetus · Flabby · Foreign mass)
+3. **AST > ALT** = muscle origin · isolated **ALT ↑** = liver
+4. **Cat hepatic lipidosis**: ALP ↑↑↑ · GGT normal/mild (unique pattern!)
+5. **Bile acid > 100** = สงสัย PSS แต่ cholestasis ก็ขึ้นได้
+6. **Ammonium biurate crystals** ใน UA = PSS / hepatic insufficiency
+7. **Acetaminophen toxicity in cat**: NAPQI (CYP450) → methemoglobin · facial edema · brown mucus membrane → **NAC antidote 140 → 70 mg/kg**
+8. **PSS predisposing breeds**: Yorkshire · Mini Schnauzer · Lab Retriever (dog) · cat ไม่มี
+9. **Hepatic encephalopathy** = NH3 ขึ้น · low-protein diet + lactulose
+10. **River fluke (cat)** → Praziquantel 20 mg/kg PO × 3-5 วัน
+11. **Cholangitis 4 types**: NC (bacterial) · LC (immune) · Chronic (fluke) · Destructive (idiosyncratic drug)
+12. **GB mucocele kiwi pattern** type 6 = surgical · type 1 = medical (Ursodiol + SAMe)
+13. **4 liver supplements**: Silymarin (no food) · SAMe (before food) · NAC (short course) · Ursodiol (with food)
+14. **Pancreatitis pain in dog = prayer position** · cat = Feline Grimace Scale
+15. **EPI breed = German Shepherd** · TLI < 2.5 (or new < 5.5) · classic = **diarrhea + weight loss + polyphagia + coprophagia**
+16. **EPI treatment = lifelong** enzyme + B12 supplement
+17. **MCT bypasses lymphatic** → use in lymphangiectasia PLE
+18. **Refeeding syndrome**: hypoK + hypoP + hypoMg · prevent with 1/3 → 2/3 → 3/3 protocol
+19. **Cat lipidosis diet**: high-protein · moderate-fat · **low-CHO** (NOT low-fat!)
+20. **Esophagitis feeding posture**: elevated + vertical post-meal × 30 min
+
+> 📚 อ่านควบ: 6 Hepato/Pancreas Sx (5rcEK-3IW0M) · 7.1 Anemia · 8.1-3 Renal · 12.1-2 Cardio · 14.1-3 Neuro
+> 🎬 วิดีโอยาวสุด 227 นาที · ดูจบแล้วเช็ค completion rate ในระบบเพื่อให้ได้ exam advantage`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
