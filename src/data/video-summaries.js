@@ -32506,6 +32506,281 @@ Survey high titer = MUST be field exposure
 > 🦴 **Modern reality**: Most clinics have only X-ray + ultrasound`,
   },
 
+  gmultIaMHq4: {
+    videoId: 'gmultIaMHq4',
+    title: '1.2 Film and Digital Radiography',
+    subject: 'vet-imaging',
+    date: '8 Aug 67',
+    durationMin: 67,
+    instructor: 'อ.ชุติมนต์ (CUVET)',
+    examFormat: 'MCQ — Film structure (4 layers) · Silver halide chemistry · Latent image · Intensifying screens · Film vs Digital · Storage conditions · Dark room · Cassette types ออกบ่อย',
+    summary: `# Film and Digital Radiography
+
+> 🎯 **The technical foundation** — how X-ray images are physically formed
+> Top exam: **Film 4 layers · Silver halide → metallic silver chemistry · Latent image · Screen vs Non-screen · Storage conditions · Dark room red light**
+
+---
+
+## 1. Film Structure ⭐⭐⭐ (Memorize layers!)
+
+### 4 layers from outside to inside
+1. **Protective coating** (top + bottom)
+2. **Emulsion** ⭐ — chemistry happens here
+3. **Adhesive** (sublayer)
+4. **Base** = polyester plastic (blue-tinted)
+
+### Why blue-tinted base?
+- Reduces eye fatigue when reading
+- Standardized appearance
+
+### Emulsion contents
+- **Gelatin** = supportive matrix
+- **Silver halide crystals** = active chemistry
+- Mostly **silver bromide (AgBr)** + some **silver iodide (AgI)**
+
+---
+
+## 2. Silver Halide Chemistry ⭐⭐⭐ (CRITICAL!)
+
+### How image forms
+**3-step process**:
+
+#### Step 1: X-ray exposure → Latent image (invisible)
+- X-rays hit film
+- Activate **sensitivity speck** in silver halide crystal
+- Create "latent image" (still chemically present, invisible)
+- More X-rays = more sensitized crystals
+
+#### Step 2: Development → Metallic silver (visible)
+- Film goes into developer chemical
+- Sensitized crystals → reduce to **metallic silver** (BLACK)
+- Unsensitized crystals stay translucent
+
+#### Step 3: Fixing → Stable image
+- Fixer chemicals remove unsensitized silver halide
+- Image becomes permanent
+- Wash + dry
+
+### Result on film
+- **Areas with MORE X-rays passing through** (e.g., air, lung) = More black
+- **Areas with FEWER X-rays passing** (e.g., bone) = Less black (white)
+
+> ⛔ Common confusion: X-ray IS NOT what creates blackness directly — it CREATES the latent image which DEVELOPER converts to black silver
+
+---
+
+## 3. Two Types of Film ⭐⭐ (Memorize uses!)
+
+### Non-Screen Film
+- **Direct exposure** to X-ray only
+- High X-ray dose required
+- Used for **dental X-rays** (small area, high detail)
+- Single film in paper/foil packet
+
+### Screen Film
+- Used WITH **intensifying screens** ⭐
+- LOWER X-ray dose (1000-4000x amplification!)
+- Most common in veterinary
+- Stored in cassette (sealed, light-tight)
+
+---
+
+## 4. Intensifying Screens ⭐⭐⭐ (KEY concept!)
+
+### What they do
+- Convert X-rays → visible light
+- Light is what actually exposes film (not X-rays directly!)
+- Allow lower X-ray dose
+
+### Why this matters
+- **Lower X-ray = safer** for patient + handler
+- Image quality maintained
+- Modern standard
+
+### Mechanism
+1. X-ray hits screen
+2. Phosphor crystals (e.g., calcium tungstate, rare earth) absorb X-ray
+3. Phosphors emit visible light (blue or green)
+4. Light exposes adjacent film
+5. Latent image forms in film
+
+### Phosphor types
+| Phosphor | Color emitted | Era |
+|---|---|---|
+| **Calcium tungstate** | Blue | Older |
+| **Rare earth (gadolinium, lanthanum)** | Green or blue | Modern, more efficient |
+
+### Cassette construction
+- Front: low-X-ray-absorbing material
+- Internal padding (foam) for film contact
+- Two intensifying screens (front + back)
+- Film between screens
+- Back: high-density (prevents back-scatter)
+
+---
+
+## 5. Film Storage Conditions ⭐⭐ (Critical!)
+
+### Storage requirements
+| Factor | Range |
+|---|---|
+| **Temperature** | ~20°C (cool but not cold) |
+| **Humidity** | 30-50% RH |
+| **Light** | NO light exposure! |
+| **Chemicals** | NO fumes (chemical contamination) |
+| **Radiation** | NO X-ray sources nearby |
+
+### Storage environments
+| Type | Condition |
+|---|---|
+| **Unexposed film** | Strict (cool, dry) |
+| **Exposed but unprocessed** | Process ASAP |
+| **Processed film** | More tolerant of conditions |
+
+### Tropical climate challenge
+- Thailand humidity often >50%
+- Dehumidifier needed
+- Air conditioning helps
+
+### Storage problems
+- **Too humid** → gelatin swells, films stick
+- **Too dry** → static electricity → artifacts
+- **Heat** → chemical breakdown
+
+---
+
+## 6. Dark Room ⭐ (Light-sensitive area!)
+
+### Why "dark"?
+- Film is sensitive to ALL visible light
+- Even brief exposure ruins film
+- Use **safe light** = red or amber filtered
+
+### Why red light works
+- Silver halide responds to blue/green light
+- Red wavelength doesn't trigger silver halide
+- Allow visual work without ruining film
+
+### Dark room components
+- Light-tight door (interlock)
+- Red safe lights
+- Wet area (chemicals)
+- Dry area (drying)
+- Storage shelves
+
+### Modern relevance
+- Digital systems = no dark room needed
+- Old facilities still use dark rooms
+- Some clinics still have dark rooms for backup
+
+---
+
+## 7. Film Processing ⭐ (4-tank system)
+
+### Standard process
+1. **Developer tank**: Convert latent image to metallic silver (BLACK)
+2. **Stop bath / rinse**: Halt development
+3. **Fixer tank**: Remove unexposed silver halide
+4. **Wash tank**: Remove residual chemicals
+5. **Dry**: Hot air drying
+
+### Modern automatic processors
+- Replace manual dipping
+- Faster, consistent
+- 90 seconds to image
+
+---
+
+## 8. Digital Radiography ⭐⭐⭐ (Modern!)
+
+### Two main types
+
+#### CR (Computed Radiography)
+- Phosphor plate replaces film
+- Plate captures X-ray
+- Read in CR reader → digital image
+
+#### DR (Direct Radiography)
+- **Flat panel detector** captures X-ray directly
+- Image instantaneous
+- Best quality, most expensive
+
+### File format
+- **DICOM** (Digital Imaging and Communications in Medicine)
+- Standard medical format
+- Includes patient + image data + metadata
+
+### Advantages over film
+| Advantage | Why |
+|---|---|
+| **No chemicals** | No dark room, no waste |
+| **Instant image** | View immediately |
+| **Easier storage** | Database vs filing |
+| **Easier sharing** | PACS, internet |
+| **Image manipulation** | Brightness, contrast, zoom |
+| **Lower X-ray dose** ⭐ | More efficient detectors |
+
+### Disadvantages
+- **High initial cost**
+- Require digital infrastructure
+- Power dependent
+- Equipment maintenance
+
+---
+
+## 9. Image Quality Factors ⭐
+
+### Factors affecting image quality
+| Factor | Effect |
+|---|---|
+| **kVp** (Voltage) | Penetration |
+| **mA** (Current) | Quantity of X-rays |
+| **Time** | Exposure duration |
+| **Distance** (FFD/FOD) | Inverse square law |
+| **Subject thickness** | Affects penetration |
+| **Tissue type** | Different absorption |
+
+---
+
+## 10. Modern Trends ⭐
+
+### Industry direction
+1. **Digital replacing film** (>90% in developed countries)
+2. **Tablet-based viewing** (no light box)
+3. **AI assistance** in interpretation
+4. **PACS** (Picture Archiving + Communication System)
+5. **Cloud storage** for images
+
+### Thailand reality
+- Major hospitals: digital
+- Smaller clinics: still use film occasionally
+- Year 5 students: practice on digital systems
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Film 4 layers**: Protective + Emulsion + Adhesive + Base
+2. **Silver bromide + iodide** in emulsion
+3. **3-step process**: X-ray → Latent image → Metallic silver (black)
+4. **Latent image = invisible** until developed
+5. **Intensifying screens** convert X-ray to light (1000-4000x)
+6. **Screen film vs Non-screen film** (dental = non-screen)
+7. **Cassette = light-tight container** with screens + film
+8. **Dark room red light** = doesn't trigger silver halide
+9. **Storage 20°C, 30-50% humidity**
+10. **Too humid = gelatin swells**
+11. **Too dry = static electricity artifacts**
+12. **Digital DR** = direct flat panel · CR = phosphor plate
+13. **DICOM** = standard medical image format
+14. **Digital advantages**: instant + lower dose + easier storage
+
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 1.3 Safety (_IVm9RZlyIg) · 2 Positioning (vbtkOXh1XPc)
+> 🩻 **Practice tip**: Memorize 3-step chemistry — exam classic
+> 💡 **Latent image** = the invisible step often tested
+> 🦴 **Modern reality**: Digital almost everywhere now in major facilities`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
