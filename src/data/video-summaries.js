@@ -21123,6 +21123,395 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > 💊 **Practice tip**: เด็กๆ มี MPL Grade 1-2 → ผ่าตัดเร็วป้องกัน bone deformity progression`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 11 Common Joint Disease (Hip/Shoulder/Elbow Luxation) (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  MMTtwT_7c94: {
+    videoId: 'MMTtwT_7c94',
+    title: '11. Common Joint Disease (Hip/Shoulder/Elbow Luxation)',
+    subject: 'com2',
+    date: '30 Oct 67 (รุ่นพี่)',
+    durationMin: 73,
+    instructor: 'อ. (รุ่นพี่)',
+    examFormat: 'MCQ — 3 traumatic joint luxations · Hip CDL most common · Shoulder MGHL · Elbow interlocking mechanism · Pelvic Triangle · Thumb test ออกบ่อย',
+    summary: `# Common Joint Disease (Traumatic Joint Luxations)
+
+> 🎯 บทสำคัญ — 3 ข้อหลักที่หลุดจาก trauma:
+> 🟧 **Hip Joint Luxation** (เพิ่มเติมจาก CHD)
+> 🟪 **Shoulder Joint Instability/Luxation**
+> 🟦 **Elbow Joint Luxation**
+> Top exam: **CDL pattern in hip · Pelvic triangle · Thumb test · Shoulder abduction angle · Elbow interlocking mechanism**
+
+---
+
+# 🟧 PART 1 — Hip Joint Luxation (Traumatic)
+
+## 1. Hip Joint Stability ⭐⭐
+
+### 1.1 Primary Stabilizers
+- **Round ligament** (Ligament of Femoral Head)
+- **Joint capsule**
+
+### 1.2 Secondary Stabilizers
+- **Acetabular labrum** (rim cartilage)
+- **Hydrostatic pressure** of synovial fluid
+
+### 1.3 Trauma Result
+When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle pull**
+
+---
+
+## 2. Direction Patterns ⭐⭐⭐
+
+| Type | Direction | Frequency | Mechanism |
+|---|---|---|---|
+| **Cranio-Dorsal Luxation (CDL)** ⭐⭐ | Up + cranial | **Most common!** | Gluteal pull from ilium |
+| **Caudo-Ventral** | Down + caudal | Rare | Direct trauma |
+| **Ventral** (intrapelvic) | Into pelvic canal | Very rare | Direct fall |
+
+⭐ **Why CDL?**: Gluteus medius attaches to greater trochanter + ilium → after capsule tears, gluteal pulls femoral head **dorsal + cranial**
+
+---
+
+## 3. Clinical Signs ⭐⭐
+
+### 3.1 CDL Position
+- **Limb adduction** (held inward)
+- **Hip externally rotated**
+- **Stifle externally rotated**
+- **Hock internally rotated**
+- **Limb shortening** (femoral head displaced up)
+
+### 3.2 Ventral Luxation
+- **Limb appears LONGER** (femoral head in pelvic canal)
+- Limb abducted
+- Often more painful
+
+---
+
+## 4. Pelvic Triangle Assessment ⭐⭐⭐ (KEY EXAM!)
+
+**3 Anatomical Landmarks** (palpable from outside):
+1. **Greater trochanter** of femur
+2. **Iliac tubercle (Ilium)**
+3. **Ischial tuberosity**
+
+### 4.1 Normal Pattern
+- Connect 3 points → **obtuse triangle**
+- **Symmetric** when comparing both sides
+
+### 4.2 CDL Pattern ⭐⭐
+- **Greater trochanter displaced dorsal-cranial**
+- Triangle becomes **straight line** OR **wider obtuse angle**
+- Asymmetric vs healthy side
+
+⭐ **Tip**: Always palpate **bilaterally** with patient in lateral recumbency
+
+---
+
+## 5. Thumb (Tam) Test ⭐⭐⭐ (Specific Test)
+
+**Purpose**: Differentiate hip luxation from other causes of lameness
+
+**Technique**:
+1. Patient in lateral recumbency
+2. Place thumb between **greater trochanter + ischial tuberosity**
+3. Rotate femoral head externally (rotate stifle outward)
+4. **NORMAL hip**: trochanter moves caudally → **pushes thumb out** ⭐ "Test positive"
+5. **LUXATED hip**: thumb stays in place (no push-out) → "**Test negative**"
+
+⭐ **Test Negative = Luxation** (or fracture)
+
+---
+
+## 6. Imaging
+**X-ray** (VD + Lateral):
+- Confirm direction of luxation
+- Check for **acetabular fractures**
+- Check for **femoral head fractures**
+
+---
+
+## 7. Treatment ⭐⭐⭐
+
+### 7.1 Closed Reduction (CDL Acute)
+**Indications**: Fresh luxation (1-2 days) + no fractures + patient tolerates GA
+
+**Technique**:
+1. **General anesthesia** + muscle relaxant
+2. **Pull leg distally** (caudal traction)
+3. **Externally rotate** + **abduct** to reposition
+4. Confirm reduction (palpate)
+
+### 7.2 Post-Reduction Bandaging
+
+| Method | Indication |
+|---|---|
+| **Ehmer Sling** (figure-of-8) | **CDL** — keeps hip in flexion + abduction + internal rotation × **10-14 days** |
+| **Hobble Bandage** | **Ventral luxation** — keeps both hindlimbs together to prevent femoral head from sinking into pelvis |
+
+### 7.3 Open Reduction (Surgical)
+
+**Indications**:
+- **Acetabular fracture**
+- **Femoral head fracture**
+- **Failed closed reduction**
+- **Recurrent luxation** after closed reduction
+- **Chronic luxation** (> 3 days · fibrous tissue formed)
+- **Need for early weight-bearing** (e.g., other limb injured)
+
+### 7.4 Surgical Methods (6 Techniques!) ⭐
+
+| Method | Detail |
+|---|---|
+| **Capsulorraphy** | Suture joint capsule (rarely used alone — fails) |
+| **Whacker Pin** ⭐ (Wacker pin / **Knowles pin**) | Pin from ischium → femoral neck → ilium wing · holds for 2-4 weeks · ⚠️ Risk: sciatic nerve injury! |
+| **Prosthetic Capsular Replacement** ⭐ | **Screw + washer** at acetabulum + greater trochanter · Suture in figure-8 · clock positions 11-2 (R hip) / 10-1 (L hip) |
+| **Extra-Capsular Iliofemoral Suture** | Drill holes in ilium + femur · suture loop |
+| **Talker Pin (Toggle Pin)** ⭐ | Drill through fovea → acetabulum → suture loop secured by clip |
+| **Trans-Articular Pinning** | Drive pin across joint · ⚠️ Risk of pin breakage |
+
+---
+
+# 🟪 PART 2 — Shoulder Joint Instability/Luxation
+
+## 8. Shoulder Anatomy ⭐⭐
+
+### 8.1 Joint Structure
+- **Glenoid (cup)** + **Humeral head (ball)** = "Rotator cup" joint
+- Movement = 2/3 from glenohumeral joint + 1/3 from scapular muscles
+- 20+ muscles coordinate
+
+### 8.2 Stabilizers (Passive)
+| Structure | Detail |
+|---|---|
+| **Medial Glenohumeral Ligament (MGHL)** ⭐ | Fan-shaped on medial side · most important! |
+| **Lateral Glenohumeral Ligament (LGHL)** | Bar-shaped on lateral side |
+| **Joint capsule** | Surrounds joint |
+| **Subscapularis tendon** | Medial · prevents medial luxation |
+| **Biceps brachii tendon** ⭐ | Across joint to bicipital groove |
+
+### 8.3 Stabilizers (Active)
+- **Rotator cuff muscles**: subscapularis, infraspinatus, supraspinatus, teres major/minor
+- **Biceps + Triceps**
+
+---
+
+## 9. Etiology
+
+| Group | Cause |
+|---|---|
+| **Small breeds** | **Congenital** — incomplete development · seen in Pomeranians, Chihuahuas |
+| **Large athletic dogs** | **Microtrauma** — repetitive overuse · jumping/landing · agility/sport dogs |
+
+---
+
+## 10. Diagnosis ⭐⭐⭐
+
+### 10.1 Shoulder Abduction Angle (KEY TEST!) ⭐⭐⭐
+**Position**: Patient in lateral recumbency
+
+**Technique**:
+1. Stabilize scapulohumeral joint with one hand
+2. Slowly abduct limb (gradually lift)
+3. Measure angle of abduction
+
+| Result | Interpretation |
+|---|---|
+| **30-35°** | **Normal** (range varies by breed) |
+| **> 49°** ⭐ | **Medial Shoulder Instability** confirmed! |
+
+⚠️ Stabilize joint center, NOT just lift the leg — to avoid measuring muscle stretch
+
+### 10.2 Pain on Manipulation
+- **Extension** (forward) = painful
+- **Caudal extension** (backward) = painful
+- **Abduction** = painful (most diagnostic!)
+
+### 10.3 Imaging
+- **X-ray**: Late changes — osteophytes · subchondral sclerosis ("**stippling**") · joint space asymmetry
+- **Ultrasound**: Soft tissue inflammation
+- **CT**: Limited soft tissue detail
+- **MRI** ⭐: Best for soft tissue (expensive)
+- **Arthroscopy** ⭐: **Gold standard** — direct visualization
+
+### 10.4 Arthroscopy Findings
+- **Synovitis** (inflammation, redness)
+- **MGHL fiber tearing**
+- **Subscapularis pathology**
+- **Biceps tendon** changes
+
+---
+
+## 11. Treatment
+
+### 11.1 Conservative (Mild laxity, no luxation)
+- NSAIDs · pain control
+- Cage rest · controlled exercise
+- Physical therapy · rehab
+- Weight management
+
+### 11.2 Regenerative Medicine ⭐ (Newer!)
+| Therapy | Detail |
+|---|---|
+| **Stem cell injection** | Reduces inflammation · promotes healing |
+| **PRP (Platelet-rich plasma)** | Growth factors for healing |
+
+### 11.3 Surgical Options ⭐
+
+| Method | Detail |
+|---|---|
+| **Imbrication/Repair** | Suture damaged ligament (low success) |
+| **Synthetic Ligament Reconstruction** | Replace MGHL with synthetic suture |
+| **Radiofrequency Thermal Capsulorrhaphy** ⭐ | RF heating → fibrous tissue contracture (open or arthroscopic) |
+| **Prosthetic Joint Reconstruction** ⭐⭐ | Screw + washer + figure-8 suture (clock 11-2 or 10-1) — **Most popular!** |
+| **Biceps Tendon Transposition** | Move biceps origin to medial/lateral · for severe cases |
+| **Arthrodesis** ⭐ | **Salvage** — fuse shoulder joint at standing angle |
+| **Total Shoulder Replacement** | Newer · expensive |
+
+⭐ **Suture button/Toggle button** technique — popular Japanese technique with metal clip + suture
+
+---
+
+## 12. Post-op (Shoulder)
+- **Velpeau Sling** × 6 weeks (prevents weight-bearing)
+- Then graduated rehab + ROM
+
+⚠️ Shoulder arthrodesis = lose ROM but eliminate pain in salvage
+
+---
+
+# 🟦 PART 3 — Elbow Joint Luxation
+
+## 13. Elbow Anatomy ⭐⭐
+
+### 13.1 3-Bone Joint Structure
+- **Humeroradial joint** — weight-bearing
+- **Humeroulnar joint** ⭐ — **Interlocking via anconeal process + olecranon fossa**
+- **Proximal radioulnar joint** — supination/pronation
+
+### 13.2 Stabilizing Ligaments
+- **Medial Collateral Ligament**: humerus medial epicondyle → radius
+- **Lateral Collateral Ligament**: humerus lateral epicondyle → radius
+
+### 13.3 Range of Motion
+- **Flexion ~36°** (minimum)
+- **Extension ~165°** (maximum)
+- **ROM = 130°**
+
+---
+
+## 14. Stability by Position ⭐⭐⭐ (Unique to elbow!)
+
+| Joint Angle | Primary Stabilizer |
+|---|---|
+| **Extension (135°)** | **Anconeal process + Olecranon fossa** ⭐ (interlocking!) |
+| **Pronation** | Anconeal process articulation |
+| **Supination** | Lateral collateral ligament |
+| **Flexion (90°)** | Medial collateral ligament |
+
+⭐ **Why elbow rarely luxates**: The **anconeal-olecranon interlock** prevents most luxations
+
+---
+
+## 15. Etiology
+- **Trauma** (most common) — falls, vehicle accidents
+- **Congenital** (rare) — Chihuahuas, very small breeds with hypoplastic anconeal process
+- Often associated with **Monteggia fracture** (proximal ulna fracture + radial head dislocation)
+
+---
+
+## 16. Clinical Signs
+- Acute non-weight bearing
+- **Joint swelling**
+- Pain on palpation
+- **Limited ROM** (cannot fully flex/extend)
+
+---
+
+## 17. Imaging
+**X-ray** — confirm direction of luxation:
+- Lateral or medial displacement
+- Check for fractures
+- "**Cranio-caudal view**" → see anconeal process out of olecranon fossa
+
+---
+
+## 18. Treatment ⭐⭐⭐
+
+### 18.1 Closed Reduction ⭐⭐⭐ (Usually Successful!)
+
+**Why elbow easy to reduce**: Interlocking mechanism guides the reduction
+
+**Technique** ⭐:
+1. **Flex elbow to < 90°** (creates space for anconeal process)
+2. **Pronate the limb**
+3. Push anconeal process into olecranon fossa
+4. **Slowly extend + rotate back** to physiological position
+5. Confirm reduction
+
+### 18.2 Open Reduction Indications
+- **Failed closed reduction**
+- **Avulsion fracture** of collateral ligament insertion
+- **Intra-articular fractures**
+- **Chronic luxation** (fibrous tissue + scar)
+
+### 18.3 Surgical Repair
+- **Reconstruct collateral ligaments** with suture or synthetic
+- **Screw fixation** for avulsion fragment
+- **Bone screw + figure-8 suture** for ligament reconstruction
+- **External fixator** in some cases (Type 1 ESF)
+
+---
+
+## 19. Post-Reduction Care (Elbow)
+
+| Action | Timing |
+|---|---|
+| **Spica splint** | 2-3 weeks (keeps elbow in extension) |
+| **Bandage** | If open reduction |
+| **Activity restriction** | 4-6 weeks |
+| **Rehab** | After 3 weeks |
+
+⭐ **Prognosis**: **Best of 3 joints!** — major complication rate **lowest** for elbow
+
+---
+
+## 📝 EXAM RECAP — 22 Key Points
+
+### Hip
+1. **Hip CDL = most common** direction (cranio-dorsal) ⭐
+2. **Pelvic triangle** = greater trochanter · iliac tubercle · ischial tuberosity
+3. **Thumb (Tam) test**: negative = luxation
+4. **Ehmer sling for CDL** · **Hobble for ventral**
+5. **Closed reduction within 1-2 days** = best success
+6. **6 surgical methods**: capsulorraphy · Knowles pin · prosthetic capsular · extra-capsular iliofemoral · toggle (talker) pin · trans-articular pinning
+7. **Sciatic nerve injury** = risk of Knowles pin (avoid!)
+
+### Shoulder
+8. **Medial Glenohumeral Ligament (MGHL)** = key stabilizer ⭐
+9. **Predisposing**: small breed (congenital) · large athletic (microtrauma)
+10. **Shoulder abduction angle > 49°** = instability ⭐
+11. **Arthroscopy** = gold standard diagnosis
+12. **Prosthetic joint reconstruction** + **screw + figure-8 suture** = most popular ⭐
+13. **Biceps tendon transposition** = severe cases
+14. **Velpeau sling** × 6 weeks post-op
+
+### Elbow
+15. **3-bone joint**: humerus + radius + ulna
+16. **Anconeal process + olecranon fossa** = interlocking mechanism ⭐⭐
+17. **ROM 130°** (36° flexion to 165° extension)
+18. **Stability varies by position**: anconeal in extension · MCL in flexion
+19. **Closed reduction**: flex < 90° + pronate + extend ⭐
+20. **Monteggia fracture** = elbow luxation + ulna fracture
+21. **Spica splint** × 2-3 weeks post-reduction
+22. **Best prognosis** of all 3 joints — interlock holds reduction
+
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.1 LCP (Spz38qa5upU) · 9.2 Hip Dysplasia (hIlH1i845wI) · 9.3 Patella (CIUpw8GNtQ4) · 12 Cruciate (9U-Dgu0ouUk) · 15.1 Elbow Disease (Os6MWLC8oso)
+> 🦴 Same instructor as 9.x videos · same vibe (รุ่นพี่ + casual style)
+> ⭐ **Practice tip**: หยิบกระดูก elbow + ulna จริง → ทำท่า reduction practice หลายรอบ`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
