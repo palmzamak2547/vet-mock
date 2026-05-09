@@ -30342,6 +30342,273 @@ Exposing gilt to **mature boar** triggers:
 > 🦴 **Modern target**: 18+ piglets per litter routine`,
   },
 
+  pcytvk49Yc8: {
+    videoId: 'pcytvk49Yc8',
+    title: '9. Pregnancy Failure in Swine',
+    subject: 'swine-repro',
+    date: '15 Oct 67',
+    durationMin: 120,
+    instructor: 'อ.มรกต (CUVET)',
+    examFormat: 'MCQ — Regular vs Irregular Return · Embryonic vs Fetal stages · Day 35 ossification cutoff · Abortion vs Stillbirth · Mummification body length aging ออกบ่อย',
+    summary: `# Pregnancy Failure in Swine
+
+> 🎯 **The dark-side counterpart** — when 114-day pregnancy fails
+> Top exam: **Regular vs Irregular Return rule (Day 11) · Embryonic vs Fetal cutoff (Day 35) · Abortion vs Stillbirth · Mummy aging · 6 failure mechanisms**
+
+---
+
+## 1. Pregnancy Failure Terminology ⭐⭐⭐ (KEY exam!)
+
+### Three categorical types
+| Term | Days | Definition |
+|---|---|---|
+| **Regular Return to Estrus** | Death **before Day 11** | Sow cycles back at usual 21-day interval (no pregnancy detected) |
+| **Irregular Return to Estrus** | Death **after Day 11** | Sow cycles back delayed (>21 days from previous heat) |
+| **Not-In-Pig** | Day 30+ identified non-pregnant | Lab-confirmed empty after expected pregnancy day |
+| **Abortion** | Days 30-110 | Visible expulsion of embryo/fetus |
+| **Stillbirth** | Days 110-114 | Born dead at term |
+| **Mummification** | In utero death | Dehydrated, retained fetus |
+
+### Why this matters
+- Each term = different cause investigation
+- Each = different management approach
+- Reporting standardization
+
+---
+
+## 2. Regular vs Irregular Return ⭐⭐⭐ (CRITICAL distinction!)
+
+### The Day 11 rule
+**Day 11-13 = Maternal Recognition of Pregnancy**
+
+### Before Day 11 (death = regular return)
+- Embryo dies BEFORE maternal recognition
+- Sow's body never "knew" she was pregnant
+- CL still regresses on schedule
+- Return to estrus at **21 days normal**
+
+### After Day 11 (death = irregular return)
+- Embryo dies AFTER maternal recognition signal
+- Sow's body initiated pregnancy maintenance
+- CL was rescued initially
+- Need additional days to clear CL
+- Return to estrus **delayed (25-40+ days)**
+
+### Diagnostic value
+- **Regular return** = could be just failed AI (sperm bad, timing off)
+- **Irregular return** = embryonic death AFTER recognition (often disease)
+- Different intervention needed!
+
+---
+
+## 3. Embryonic vs Fetal ⭐⭐ (Stage cutoff)
+
+### Day 35 = the dividing line ⭐
+| Stage | Days | Characteristic |
+|---|---|---|
+| **Embryonic** | Day 0-35 | Pre-ossification |
+| **Fetal** | Day 35-114 | Post-ossification (skeleton forming) |
+
+### Why ossification matters
+- Before Day 35: embryo is small, soft → can be REABSORBED
+- After Day 35: bony skeleton can't reabsorb → must be EXPELLED (abortion) or RETAINED (mummified)
+
+---
+
+## 4. Six Failure Mechanisms ⭐⭐ (By time)
+
+### 1. Failed fertilization (Day 0)
+- Sperm bad
+- Wrong AI timing
+- Anatomical issues
+
+### 2. Pre-implantation loss (Day 0-11)
+- Embryo migration failure
+- Maternal stress
+- Endocrine dysfunction
+- → **Regular return**
+
+### 3. Failed maternal recognition (Day 11-13)
+- Insufficient embryos (<4/horn)
+- Poor estrogen production
+- → **Irregular return**
+
+### 4. Early embryonic death (Day 11-30)
+- Stress, nutrition, disease
+- → **Irregular return** or pseudopregnancy
+
+### 5. Late embryonic / Fetal death (Day 30-110)
+- → **Abortion** (visible) or **Mummification** (retained)
+
+### 6. Stillbirth (Day 110-114)
+- Asphyxia at birth
+- Difficult parturition
+- Late-term disease
+
+---
+
+## 5. Abortion ⭐⭐ (Visible failure!)
+
+### Definition
+**Expulsion of dead conceptus from Day 30+**
+
+### Clinical signs
+- Visible discharge (mucus + tissues)
+- Premature opening of vulva
+- Fluid loss
+- Sometimes mass casualties (entire litter)
+
+### Common causes
+| Type | Examples |
+|---|---|
+| **Infectious** | Parvovirus · Lepto · PRRS · Brucella |
+| **Mycotoxin** | Zearalenone · Aflatoxin |
+| **Stress** | Heat stress · transport · disease |
+| **Nutritional** | Severe malnutrition · vitamin deficiency |
+
+> ⭐ **Mass abortion** in a herd = INFECTIOUS until proven otherwise
+
+### Investigation
+1. Submit aborted material to lab
+2. Serology (PRRS, Parvo, Lepto)
+3. Check feed for mycotoxin
+4. Review herd history
+
+---
+
+## 6. Mummification ⭐⭐⭐ (Body length aging!)
+
+### Definition
+**Death AFTER Day 35 + retention without expulsion → dehydrated mummy**
+
+### Why aging matters
+- Identifies WHEN infection hit
+- Single-event vs chronic infection
+
+### Body length-to-age formula ⭐
+**Measure crown to tail base in mm**
+
+| Length | Estimated fetal age |
+|---|---|
+| 30 mm | ~Day 35 |
+| 50 mm | ~Day 50 |
+| 80 mm | ~Day 65 |
+| 120 mm | ~Day 80 |
+| 150 mm | ~Day 95 |
+| 180 mm | ~Day 105 |
+
+### Clinical use
+- Same length = single timed event
+- Multiple sizes = chronic ongoing
+- Cluster around specific age = infection happening then
+
+### Most common cause
+**Parvovirus (PPV)** ⭐⭐
+- Causes mummification at varied ages
+- Need vaccinated gilts before breeding!
+
+---
+
+## 7. Stillbirth ⭐ (Born dead at term)
+
+### Definition
+**Pig born DEAD at full term (Day 110-114)**
+
+### Causes
+| Type | Examples |
+|---|---|
+| **Asphyxia** | Long birth · Birth canal compression |
+| **Cord injury** | Twisted, snapped umbilicus |
+| **Infectious** | Lepto, PRRS at term |
+| **Nutritional** | Calcium deficiency at parturition |
+
+### Distinguishing from miscarried
+- Stillborn = full size, normal hair, fluid in lungs
+- Miscarried = smaller, often immature
+
+### Management
+- Reduce parturition duration (induction at Day 113)
+- Monitor sow during birth
+- Calcium supplementation
+
+---
+
+## 8. Diagnostic Approach to Pregnancy Failure ⭐
+
+### Investigation steps
+1. **Identify pattern** — single sow vs herd-wide?
+2. **Time of failure** — early embryonic? late?
+3. **Clinical signs** — discharge? abortion? mummies?
+4. **Submit samples** — fetuses, placenta, blood
+5. **Lab testing** — serology, PCR, histology
+6. **Feed analysis** — mycotoxin, nutrition
+7. **Environmental** — heat stress, ventilation
+8. **Herd history** — recent disease, vaccinations
+
+---
+
+## 9. Common Specific Diseases Causing Failure ⭐
+
+### Top 5 in swine
+| Disease | Type | Effect |
+|---|---|---|
+| **Parvovirus** ⭐ | Virus | Mummification, stillbirth (silent in non-pregnant!) |
+| **PRRS** | Virus | Late abortion, weak piglets |
+| **Leptospirosis** | Bacteria | Abortion, retained placenta |
+| **Brucella suis** | Bacteria | Abortion, sterility |
+| **Erysipelas** | Bacteria | Late abortion |
+| **Classical Swine Fever** | Virus | Multiple abortion (rare in vaccinated) |
+
+### Key prevention
+- Pre-breed vaccinations (Parvo + Lepto + Erysipelas)
+- Quarantine new gilts
+- Acclimation
+- Strict biosecurity
+
+---
+
+## 10. Risk Factors ⭐
+
+### Non-infectious
+- Heat stress (especially Days 11-13!)
+- Mycotoxin in feed
+- Severe BCS swing
+- Severe handling/restraint stress
+- Crowd housing
+
+### Critical periods
+| Period | Vulnerability |
+|---|---|
+| Days 0-3 (post-AI) | Sperm + early development |
+| **Days 11-13** ⭐⭐ | Maternal recognition (highest risk!) |
+| Days 30-35 | Implantation completion |
+| Days 90-114 | Late fetal stress |
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Day 11-13 Maternal recognition** = key threshold
+2. **Regular Return** = death BEFORE Day 11 (21-day cycle)
+3. **Irregular Return** = death AFTER Day 11 (delayed cycle)
+4. **Day 35 = ossification cutoff** (Embryonic → Fetal)
+5. **Abortion = expulsion Day 30+**
+6. **Mummification** = death + retention AFTER Day 35
+7. **Mummy length** indicates fetal age
+8. **Parvovirus** = #1 mummification cause
+9. **Stillbirth = born dead at term**
+10. **Mass abortion = infectious until proven otherwise**
+11. **Pre-breed Parvo + Lepto + Erysipelas mandatory**
+12. **Days 11-13 most vulnerable** to heat stress
+13. **PRRS = late abortion + weak piglets**
+14. **PRRS, Lepto, Brucella, Parvo, Erysipelas** = top 5 abortion causes
+
+> 📚 อ่านควบ: 7.2 Hormones (AWu12JovU0Q) · 8 Pregnancy (NSULhtJz_Oc) · 10 Parturition (Oazp-JWIKhw) · 11 Female reproductive disorders (wCl4h_EhFuU) · 12.2 Reproductive diseases (i8D7FUq6nLM)
+> 🩻 **Practice tip**: Memorize Day 11 + Day 35 = the two timeline cutoffs
+> 💡 **Mummy aging** = useful clinical skill
+> 🦴 **Modern reality**: most pregnancy failure preventable with vaccines + biosecurity`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
