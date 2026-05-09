@@ -16735,6 +16735,373 @@ When anastomosing **smaller bowel to larger bowel** (e.g., ileum to colon):
 > 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU) · 4.2 Endoscope (0C218gD_tZM) · 6 Hepato Pancreas Sx (5rcEK-3IW0M) · 3 Hepatobiliary (keqE30HxM7Y)`,
   },
 
+  FCRDICfyMlM: {
+    videoId: 'FCRDICfyMlM',
+    title: '7.1 : Anemia + Surgery of Hemolymphatic System',
+    subject: 'com1',
+    date: '2024-09-16',
+    duration: '145 min',
+    instructor: 'รุ่นพี่',
+    examFormat: 'MCQ — anemia approach + IMHA + splenectomy',
+    summary: `# 7.1 Anemia + Hemolymphatic Surgery
+
+> 🎯 Two parts: **Anemia approach + IMHA** (medical) + **Surgery of bone marrow, spleen, lymph nodes** (surgical). Foundation: distinguish anemia vs other causes of pale mucosa, then narrow down to root cause
+
+---
+
+## PART 1 — Approach to Anemia
+
+### Initial complaint
+- Owner says "**pale**" or "**white gums**" — NOT "anemia" directly
+- Veterinarian must convert "pale" → diagnose
+
+### Pale ≠ always anemia!
+- **Other causes of pale**:
+  - Massive epinephrine release → vasoconstriction (cardiogenic/hypovolemic shock — gums white as paper!)
+  - Severe peripheral perfusion compromise
+
+### Confirm anemia first
+- **Hb (Hemoglobin)** = **most reliable** ⭐ (direct measurement)
+- **PCV (Packed Cell Volume)** = fast bedside test (centrifuged blood)
+- **RBC count** + Hct = derived calculations
+
+⚠️ When parameters disagree → **trust Hb**
+
+### PCV by spinning
+- ✅ Quick (5 min)
+- ✅ Visualize plasma color:
+  - **Yellow plasma** = ↑ bilirubin (hemolysis OR liver disease)
+  - **Red plasma** = intravascular hemolysis (free Hb)
+  - **Clear** = normal
+
+---
+
+## Anemia Mechanism Tree
+
+### Three causes of low RBC mass
+1. **Decreased production** (hypoplasia)
+2. **Lost** (bleeding, chronic loss)
+3. **Increased destruction** (hemolysis)
+
+⚠️ Always identify which mechanism → directs treatment
+
+### A. Decreased Production (Hypoplasia)
+- Causes:
+  - **Bone marrow infiltration** (neoplasia, fibrosis)
+  - **CKD** → low erythropoietin
+  - Chronic disease
+  - Drugs/toxins (estrogen, certain chemo)
+  - Iron/B12/folate deficiency
+- Diagnosis: **bone marrow biopsy** + decreased reticulocytes
+
+### B. Loss (Bleeding)
+- Acute: trauma, surgery, intra-cavitary hemorrhage, GI ulcer, neoplasia rupture (HSA!)
+- Chronic: hookworm, ulcers, low-grade GI bleeding
+- ⭐ **Body has clotting/hemostasis** = saves you from rapid loss
+- ⚠️ Acute massive loss → hypovolemic shock + low Hct
+
+### C. Hemolysis
+- Multiple sub-causes:
+  1. **Immune-mediated** ⭐ most common in vet
+  2. **Mechanical** (microangiopathic hemolysis — DIC, vasculitis)
+  3. **Metabolic** (rare in dogs/cats — PFK deficiency)
+  4. **Infectious** (Babesia, Mycoplasma haemofelis)
+  5. **Oxidative** (acetaminophen, onion, zinc, garlic)
+
+---
+
+## IMHA (Immune-Mediated Hemolytic Anemia) ⭐⭐
+
+### Pathophysiology
+- Body recognizes RBC as **antigen** (foreign)
+- **Antibody binds RBC** → triggers destruction
+- 2 destruction mechanisms:
+  1. **Complement-mediated** → membrane attack → **intravascular hemolysis**
+  2. **Splenic phagocytosis** → macrophages "eat" RBC → **extravascular hemolysis**
+
+### Triggers
+- **Idiopathic** (most common)
+- **Vaccine-induced** (~2 weeks post-vaccine in some cases)
+- **Drug-induced**
+- **Infections** (Babesia, certain viruses)
+- **Neoplasia**
+
+### Classification by destruction site
+
+#### Intravascular hemolysis
+- ⭐ **Hb spilled into plasma**
+- **Plasma color: RED** ⭐
+- **Hemoglobinuria** (red urine)
+- More severe presentation
+
+#### Extravascular hemolysis (more common in IMHA)
+- Splenic macrophages phagocytose RBCs
+- Bilirubin produced → enters blood
+- **Plasma color: YELLOW** ⭐
+- ⚠️ **Yellow plasma also seen in liver disease** — must distinguish!
+
+### Coombs Test (DAT — Direct Antiglobulin Test)
+- Detects **antibody on RBC surface**
+- Positive = supports IMHA diagnosis
+- ⚠️ Negative doesn't rule out IMHA
+
+### Spherocytosis
+- ⭐ **Pathognomonic finding** for IMHA in dogs
+- RBCs lose biconcave shape → become small dense spheres
+- Cause: macrophage partial nibbling → loss of membrane → no longer biconcave
+- Easy on cytology (ghost-like, dark, smaller than normal RBC)
+
+### Other clinical findings
+- Pale mucous membranes (often very pale!)
+- Tachycardia, tachypnea (compensation)
+- Lethargy, weakness
+- ⚠️ **Splenomegaly common** (since spleen is doing the destruction)
+- Bilirubinuria, sometimes hemoglobinuria
+- **Regenerative anemia** (reticulocytosis) — bone marrow responds
+
+### Lab findings
+- **Anemia** (often severe, Hct < 20%)
+- **Spherocytes** ⭐
+- **Reticulocytosis** (3-5 days post-onset)
+- **Leukocytosis** (left shift)
+- **Hyperbilirubinemia**
+- **Hemoglobinuria** (if intravascular)
+
+### Treatment
+
+**1. Immunosuppression** ⭐
+- **Prednisolone** 2-4 mg/kg/day SID (taper over months)
+- ⚠️ Side effects: PU/PD, polyphagia, GI upset
+- **Cyclosporine** — adjunct in refractory cases
+- **Azathioprine** (dog only — CAUTION) or **Mycophenolate**
+- **Atopical doses** + slow taper
+
+**2. Anti-thrombotic** ⭐ (IMHA = high thromboembolism risk!)
+- **Clopidogrel** ± aspirin
+- ⚠️ DIC + IMHA = lethal combination
+
+**3. Supportive**
+- **Blood transfusion** if Hct < 12-15%
+- IV fluids (volume support)
+- O₂ if dyspneic
+
+### Prognosis
+- Survival ~ 50-70% at 1 year
+- High recurrence rate
+- Acute phase = critical 7-14 days
+
+---
+
+## Other Anemias (Brief)
+
+### Babesiosis
+- Tick-borne · in Thailand: **B. canis vogeli, B. gibsoni**
+- Causes intra/extracellular RBC parasitism
+- Treatment: **Imidocarb diproprionate** (B. canis) · **Atovaquone + Azithromycin** (B. gibsoni)
+
+### Mycoplasma haemofelis (cat)
+- Causes feline infectious anemia
+- Treatment: **Doxycycline** + supportive
+
+### IVCT (Iron Deficiency Anemia)
+- Chronic GI loss → microcytic, hypochromic
+- Treatment: iron supplementation + treat underlying cause
+
+### Aplastic Anemia
+- Bone marrow failure
+- Pancytopenia (low RBC, WBC, platelets)
+- Drug-induced or idiopathic
+
+---
+
+## PART 2 — Surgery of Hemolymphatic System
+
+## A. Bone Marrow Biopsy
+
+### Indications
+- Pancytopenia investigation
+- Suspected hematopoietic neoplasia (lymphoma, leukemia)
+- Anemia of unknown cause
+
+### Equipment
+- **Jamshidi or Rosenau needle** — special bone marrow needles (thicker than regular)
+- ⚠️ Needs to penetrate cortical bone
+
+### Sites
+1. **Iliac crest** (Wing of ilium)
+2. **Greater trochanter** (femur)
+3. **Proximal humerus**
+
+### Technique
+1. **General anesthesia** (it's painful)
+2. Aseptic prep
+3. Small skin incision
+4. Insert needle through cortex with twisting motion
+5. **Aspirate with negative pressure**
+6. ⚠️ Bone marrow is **viscous** (jelly-like) — needs strong negative pressure
+7. Push-pull syringe several times
+8. Get small amount (0.1-0.2 mL) — don't dilute with blood
+9. Make smear immediately on slide
+10. Submit for cytology + cellularity
+
+### Avoid
+- ⚠️ **Sciatic nerve** runs along ilium — enter cranial 1/3 of wing
+- ⚠️ **Sciatic nerve** also wraps around greater trochanter — enter cranial-lateral
+
+---
+
+## B. Splenectomy ⭐
+
+### Anatomy
+- **Spleen** = largest lymphoid organ
+- Located **left side, ventral to stomach**
+- Composed of **white pulp + red pulp**
+- ⚠️ **Cannot be lifted out** if attached normally — held by gastrosplenic ligament
+
+### Vasculature
+- **Splenic artery** (from celiac trunk) — gives off 5-10 short branches
+- **Short gastric arteries** ⭐ — go from spleen to greater curvature of stomach
+- ⚠️ **Don't ligate stomach-side of short gastric** in partial splenectomy (compromises stomach blood supply!)
+
+### Indications for splenectomy
+
+**Total splenectomy**:
+- **Splenic mass** (HSA, lymphoma)
+- **Splenic torsion / GDV with splenic infarction**
+- Severe trauma not amenable to repair
+- Severe immune-mediated thrombocytopenia (rare)
+
+**Partial splenectomy**:
+- Localized lesion
+- Hematoma if bleeding stops
+
+### Splenic Mass Differentials
+| Disease | Notes |
+|---|---|
+| **Hemangiosarcoma (HSA)** ⭐ | Most common malignant; high mortality |
+| **Hematoma** | Benign; may resolve if bleeding stops |
+| **Nodular hyperplasia** | Benign; "active spleen" |
+| **Lymphoma** | Diffuse splenic involvement |
+| **Histiocytic sarcoma** | Aggressive |
+| **Abscess** | Rare |
+
+### Splenectomy Technique
+1. **Cranial midline laparotomy**
+2. Identify spleen — **pull out gently** (don't tear ligaments)
+3. Identify vessels in gastrosplenic ligament
+4. ⭐ **Triple ligation** for each vessel:
+   - 2 ligatures **proximal** (toward spleen) — leave on patient side
+   - 1 ligature **distal** (close to spleen)
+   - **Cut between ligature 2 and 3**
+5. ⚠️ **Don't ligate short gastric stomach-side** if doing partial spleen
+6. Remove spleen
+7. Inspect for bleeding
+8. Close abdomen routine
+
+### Partial Splenectomy
+- Cross-clamp with intestinal forceps
+- Cut spleen
+- Suture parenchyma in **simple continuous + lock** (or 2 layers)
+- Use **synthetic absorbable monofilament**
+
+### Post-op
+- Monitor for **bleeding**
+- Monitor for **arrhythmia** (HSA + GDV cases)
+- Monitor for **peritonitis** (if abscess)
+
+### Splenomegaly causes (general)
+- Inflammation/infection
+- Hyperplasia (immune response, drug-induced)
+- Congestion (heart failure, portal hypertension, GDV)
+- Neoplasia
+- Splenic torsion
+
+---
+
+## C. Lymphadenectomy / Lymph Node Biopsy
+
+### Major palpable lymph nodes (5)
+1. **Submandibular** — under jaw
+2. **Pre-scapular (superficial cervical)** — in front of shoulder
+3. **Axillary** — armpit
+4. **Inguinal (superficial)** — groin
+5. **Popliteal** — behind knee
+
+### When to biopsy
+- **Lymphadenopathy** (enlarged LN)
+- **Suspect lymphoma**
+- **Metastatic spread evaluation**
+
+### Methods
+| Method | When |
+|---|---|
+| **FNA** ⭐ | First-line; cell type identification |
+| **Tru-Cut biopsy** | Architecture preservation |
+| **Excisional biopsy** | Definitive diagnosis · surgical removal |
+
+### Excisional biopsy technique
+1. Aseptic prep
+2. Incise overlying skin
+3. **Wedge biopsy** (triangular section) preferred
+4. Suture LN with **horizontal mattress** (tight tissue) using **monofilament absorbable**
+5. Or remove entire LN if mass or strong suspicion
+
+### Differentials for enlarged LN
+- **Reactive hyperplasia** (infection, inflammation)
+- **Lymphoma** (multicentric most common in dogs!)
+- **Metastasis**
+- **Abscess**
+
+---
+
+## D. Tonsillectomy (rare in vet med)
+
+### Indications
+- Recurrent severe tonsillitis
+- Tonsillar carcinoma
+- **Tonsillar neoplasia** (squamous cell carcinoma — aggressive!)
+
+### Technique
+- Mouth gag
+- **Stay suture** in tonsil
+- Ligate base, excise
+
+---
+
+## E. Thymus Surgery (rare)
+
+### Anatomy
+- **Cranial mediastinum** — fades with age (active in puppies/kittens)
+- T-cell production site
+
+### Indications
+- **Thymoma** (mass)
+- Myasthenia gravis association
+- Aspiration/biopsy via thoracoscopy or median sternotomy
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **Hb is most reliable** anemia parameter (direct measurement)
+2. **Pale ≠ always anemia** — could be vasoconstriction (shock)
+3. **Plasma yellow** = ↑ bilirubin (hemolysis OR liver disease)
+4. **Plasma red** = intravascular hemolysis
+5. **3 anemia mechanisms** = decreased production / loss / increased destruction
+6. **IMHA** = most common acquired hemolytic anemia
+7. **Spherocytes** = pathognomonic for IMHA in dogs
+8. **IMHA treatment**: Prednisolone + Clopidogrel (anti-thrombotic) + supportive
+9. **IMHA + DIC** = highly lethal combination
+10. **Bone marrow biopsy sites**: iliac crest, greater trochanter, proximal humerus
+11. **Sciatic nerve** at risk during ilium biopsy — enter **cranial** to nerve
+12. **Splenectomy** = triple ligation per vessel
+13. **HSA** = most common splenic malignancy
+14. **Short gastric vessels** ⚠️ don't ligate stomach-side in partial spleen
+15. **5 palpable LN** for biopsy: submandibular, pre-scapular, axillary, inguinal, popliteal
+
+> 📚 อ่านควบ: 7.2 Fluid analysis (9Fvz4J6dMCo) · 4.2 Endoscope GI (0C218gD_tZM) · 6 Hepato/pancreas Sx (5rcEK-3IW0M) · IMHA disease summaries`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
