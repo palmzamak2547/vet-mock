@@ -26091,6 +26091,261 @@ For external gilts:
 > 🦴 **3-way cross** = backbone of Thai commercial swine industry`,
   },
 
+  AbDfu2y3oW0: {
+    videoId: 'AbDfu2y3oW0',
+    title: '6-7. Record Analysis (Reproductive Performance)',
+    subject: 'swine-herd',
+    date: '17 Sep 67',
+    durationMin: 126,
+    instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
+    examFormat: 'MCQ — 6 record analysis areas · Production tree fork (per litter vs per year) · NPD definition · Parity structure · symptom→disease reverse maps ออกบ่อย',
+    summary: `# Record Analysis — Reproductive Performance Deep Dive
+
+> 🎯 **The KPI investigator's toolkit** — combine 6 records to find farm problems
+> Top exam: **6 essential records · Production Tree fork (per litter vs cycles/year) · NPD math · diagnose by record pattern · 8 key swine diseases**
+
+---
+
+## 1. Workflow for Farm Problem Investigation ⭐
+
+### 3 modes
+| Mode | When |
+|---|---|
+| **Pre-visit data + Site visit** | Standard, classic |
+| **Site visit primary** | Limited pre-data |
+| **Remote consult only** | ASF era · biosecurity restricted |
+
+### Steps
+1. **Pre-visit**: Get history + production data + lab results
+2. **Site visit**: Walk farm, check records, confirm or refute hypothesis
+3. **Lab tests**: Send samples for confirmation
+4. **Diagnosis + Plan**: Communicate findings
+
+---
+
+## 2. Information Sources ⭐ (Triangulate!)
+
+### Three sources
+| Source | Reliability | Caveats |
+|---|---|---|
+| **Verbal interview** | Owner perception | May be biased toward "we're doing OK" |
+| **Records** ⭐ | Direct data | Can be tampered (intentional or not) |
+| **Direct observation** | What you see | Limited time on-farm |
+
+### Common discrepancies
+- Worker says one thing, record says another, eyes show third
+- **Triangulate** — believe nothing until 3 sources agree
+
+### Record tampering examples ⭐
+- Falsifying mortality (e.g., "10 born, record 8" to keep "spare" pigs)
+- Inflating performance for incentive bonuses
+- Hiding failures from boss
+
+---
+
+## 3. The 6 Essential Records to Analyze ⭐⭐⭐ (Course backbone!)
+
+| # | Record type | What it shows |
+|---|---|---|
+| **1** | **Production Trend** | Long-term trajectory of overall PSY |
+| **2** | **Parity Structure** | Distribution of P0, P1, P2... in herd |
+| **3** | **Mating Activity** | When sows bred, success rate |
+| **4** | **Farrowing Activity** | Date, # born alive, stillborn, mummified |
+| **5** | **Weaning Activity** | # weaned, average weight |
+| **6** | **Culling Activity** | Why and when sows removed |
+
+> 💡 ALL 6 must be analyzed together — single record shows partial picture
+
+---
+
+## 4. Production Tree (KPI Decomposition) ⭐⭐⭐
+
+### Top of tree
+**PSY (Pigs Weaned per Sow per Year)** = the master KPI
+- Modern target: 24-30
+- Older standard: 18-24
+
+### Tree forks into 2 branches
+**PSY = (Pigs weaned per litter) × (Litters per sow per year)**
+
+#### Branch 1: Pigs Weaned per Litter
+- **Total born** (live + stillborn + mummified)
+- **Born alive**
+- **Pre-weaning mortality** (lower = better)
+- **Average litter size weaned**
+
+#### Branch 2: Litters per Sow per Year ⭐
+- Target: **2.3 cycles/year** (standard) or **2.6** (excellent)
+- Affected by **gestation + lactation + wean-to-service** total time
+- = 365 / (cycle days) → e.g., 365/160 = 2.28
+
+> ⭐ Both branches matter! Big litter but few cycles = same as small litter many cycles!
+
+---
+
+## 5. NPD — Non-Productive Day ⭐⭐ (Vet's primary target)
+
+### Definition
+**Days a sow is NOT pregnant AND NOT lactating**
+
+### Sources of NPD
+| Cause | Example |
+|---|---|
+| **Wean-to-service delay** | Sow takes 2 weeks instead of 5 days |
+| **Conception failure** | Sow returns to estrus, must re-breed |
+| **Abortion** | Pregnancy lost mid-term |
+| **Re-cycle (regular return)** | Failed AI, return at 21 days |
+| **Pseudopregnancy** | Sow seems pregnant but isn't |
+| **Empty days waiting for slaughter** | Cull sow not yet shipped |
+
+### Why NPD matters
+- **More NPD = fewer cycles per year** = lower PSY
+- Modern target: **<10-15% of total days**
+- A sow with 60 NPD/year is much less productive than one with 20
+
+### Two ways to measure
+1. **Direct**: count actual NPD per sow
+2. **Indirect (preferred)**: calculate from cycle gaps
+
+---
+
+## 6. Time Granularity for Analysis ⭐
+
+### Annual view (looking back)
+- Use for **summary trends**
+- "Last year's PSY was 25"
+- Slow to detect emerging issues
+
+### Monthly view (more sensitive!) ⭐
+- Use for **detecting current problems**
+- Track wean rate per month
+- Catch issues before annual review
+
+### Why both?
+- Annual = strategic planning
+- Monthly = tactical intervention
+
+---
+
+## 7. Common Swine Diseases by Clinical Sign ⭐⭐⭐ (Reverse map!)
+
+### Quick reverse-mapping for exam!
+
+| Clinical sign | Top differentials |
+|---|---|
+| **Reproductive failure (abortion/stillbirth)** | **Parvovirus** (silent in non-pregnant!) · **PRRS** · Lepto · Erysipelas · Mycotoxin (Zearalenone) |
+| **Diarrhea (suckling pigs)** | **PED** ⭐ · TGE · *E. coli* · *Clostridium perfringens* · Rotavirus |
+| **Diarrhea (post-wean)** | **Brachyspira (swine dysentery)** ⭐ · *Lawsonia (PIA)* · *E. coli* |
+| **Respiratory disease** | **PRRS** ⭐ · Mycoplasma hyopneumoniae (PIA) · APP (App pleuropneumonia) · Swine Influenza |
+| **Joint swelling + neurological** | **Streptococcus suis** ⭐ (also zoonotic!) |
+| **Sudden death** | **ASF** · Hog cholera · *E. rhusiopathiae* · Streptococcus |
+| **Skin lesions** | Erysipelas (diamond skin) · Mange · Greasy pig disease |
+| **Anemia** | Iron deficiency · Aflatoxin · Mycotoxicosis |
+
+---
+
+## 8. The 8 Critical Diseases to Memorize ⭐⭐⭐
+
+### MUST-KNOW for exam
+| Disease | Type | Key sign |
+|---|---|---|
+| **Cysticercosis (Tania)** | Parasite | (Public health concern) |
+| **Brachyspira hyodysenteriae** | Bacteria | Bloody diarrhea (post-wean) |
+| **Mycoplasma hyopneumoniae** | Atypical bact | Chronic dry cough |
+| **PRRS** (Porcine Reprod & Respir Syndrome) | Virus | Reproductive failure + respiratory in piglets |
+| **Parvovirus** ⭐ | Virus | **Stillbirth/mummified ONLY in pregnant pigs** (silent in others!) |
+| **Streptococcus suis** ⭐ | Bacteria | Joint swelling, meningitis · ZOONOTIC! |
+| **PED (Porcine Epidemic Diarrhea)** ⭐ | Coronavirus | Catastrophic suckling piglet diarrhea (100% mortality if naïve) |
+| **Hog Cholera (Classical Swine Fever)** | Virus | Sudden death, fever, hemorrhages |
+
+### Bonus high-relevance
+- **ASF (African Swine Fever)** — recent Thai outbreak, depopulation
+- **Salmonella choleraesuis** — septicemia, diarrhea
+- **Erysipelothrix rhusiopathiae** — diamond skin disease
+- **TGE (Transmissible Gastroenteritis)** — older relative of PED
+
+---
+
+## 9. Diarrhea by Age — Trick Question Setup ⭐
+
+| Age | Most likely cause |
+|---|---|
+| **Suckling pig** | PED · TGE · *E. coli* · Rotavirus |
+| **Post-wean (3-8 wks)** | *E. coli* · *Lawsonia* (PIA) · Coccidia |
+| **Grower-finisher** | Brachyspira (swine dysentery) ⭐ · *Lawsonia* (older form) |
+
+> ⭐ **Brachyspira RARELY in pre-wean** — exam favorite trap
+
+---
+
+## 10. PRRS — The Great Pretender ⭐
+
+### Why PRRS is so important
+- **#1 most economically damaging swine disease** globally
+- Affects BOTH reproduction AND respiratory
+- Endemic in most Thai farms
+- Vaccination + biosecurity are key
+
+### Clinical syndromes
+| Syndrome | Affects | Signs |
+|---|---|---|
+| **Reproductive** | Pregnant sows | Abortion, mummification, weak piglets |
+| **Respiratory** | Piglets, growers | Pneumonia, growth check |
+| **Subclinical** | Adults | Persistent shedder |
+
+---
+
+## 11. Parvovirus — The Silent Killer ⭐⭐
+
+### Why it's tricky
+- **Pre-pregnancy infection**: NO clinical signs → "all clear"
+- **Post-conception infection**: silent stillbirth, mummification
+- **Easily missed** without serology
+
+### Vaccination protocol
+- Vaccinate gilts BEFORE first breeding
+- Booster annually for sows
+
+---
+
+## 12. Stillbirth vs Mummified — Exam Distinction ⭐
+
+| Term | Definition |
+|---|---|
+| **Stillborn** | Born DEAD at term (full-size, dark-skinned, fluid-filled) |
+| **Mummified** | Died in utero, dehydrated and shrunken (smaller than normal piglet) |
+
+### Causes overlap heavily but...
+- **Pure stillbirth, late-term** → think birthing problem, pre-eclampsia
+- **Mummification + stillbirth mixed** → think infectious cause (Parvo, PRRS)
+
+---
+
+## 🎯 Exam Recap — top 16 testable points
+
+1. **Triangulate**: verbal + records + observation (don't trust just one)
+2. **6 essential records**: Trend · Parity · Mating · Farrow · Wean · Cull
+3. **Production Tree forks**: pigs/litter × litters/year
+4. **PSY target = 24-30** modern
+5. **2.3 cycles/year = standard**
+6. **NPD = non-productive day** (not pregnant + not lactating)
+7. **Monthly view detects problems FASTER than annual**
+8. **PED = catastrophic suckling diarrhea** (Coronavirus)
+9. **Brachyspira hyodysenteriae = bloody diarrhea POST-WEAN** (not pre)
+10. **PRRS = reproductive + respiratory** (most damaging globally)
+11. **Parvovirus = silent in non-pregnant, stillbirth in pregnant**
+12. **Streptococcus suis = joint + meningitis + ZOONOTIC** to humans!
+13. **Mycoplasma hyopneumoniae = chronic dry cough**
+14. **Stillborn ≠ Mummified** (terminal vs dehydrated in utero)
+15. **Mycotoxin (Zearalenone) = abortion** (feed-related!)
+16. **Records can be falsified** — verify always
+
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 2 Records (80466NsBZSo) · 3 Feed (xasWlGj92Yk) · 8 Epidemiology (1mFans-0DNY) · 11 Vaccination (75NLH3PfQ0Y)
+> 🩻 **Practice tip**: Memorize 8 key diseases by clinical sign — diagnosis by exclusion is the test!
+> 💡 **Diagnosis trick**: Always ask "what age group?" before naming the differential
+> 🦴 **NPD = vet's #1 target** — every NPD reduction = direct PSY gain`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
