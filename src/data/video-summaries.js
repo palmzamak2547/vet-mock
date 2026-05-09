@@ -21512,6 +21512,401 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 > ⭐ **Practice tip**: หยิบกระดูก elbow + ulna จริง → ทำท่า reduction practice หลายรอบ`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 12 Cranial Cruciate Ligament Disease (CrCL/CCL) (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  '9U-Dgu0ouUk': {
+    videoId: '9U-Dgu0ouUk',
+    title: '12. Cruciate Ligament Disease',
+    subject: 'com2',
+    date: '6 Nov 67 (รุ่นพี่)',
+    durationMin: 120,
+    instructor: 'อ. (รุ่นพี่)',
+    examFormat: 'MCQ — CrCL is degenerative (NOT trauma) · Cranial Drawer Test technique · Tibial Compression Test · TPLO concept · Tibial plateau slope · Sit Square sign ออกบ่อย',
+    summary: `# Cranial Cruciate Ligament (CrCL/CCL) Disease
+
+> 🎯 **Most common orthopedic disease in dogs!** ⭐
+> ⚠️ ในหมา = **DEGENERATIVE** (ไม่ใช่ trauma แบบในคน!)
+> Top exam: **CrCL anatomy 2 bands · Cranial Drawer · Tibial Compression · TPLO concept · 18-24° tibial plateau angle**
+
+---
+
+## 1. Anatomy ⭐⭐⭐
+
+### 1.1 CrCL Origin/Insertion (Hand-in-pocket trick!)
+- **CrCL** = "**กระเป๋า**" — เส้นวิ่งจาก **lateral femoral condyle (medial side)** → **cranial tibia**
+- **CdCL** (Caudal Cruciate Lig) = ตรงกันข้าม
+- Both are **intra-articular but extra-synovial** (synovial membrane covers them)
+
+### 1.2 CrCL = 2 Bands ⭐⭐⭐ (สำคัญมาก!)
+| Band | Function | When tense? |
+|---|---|---|
+| **Craniomedial Band (CMB)** | Smaller | **Always tense** (extension + flexion) |
+| **Caudolateral Band (CLB)** | Larger | **Tense in extension only** · loose in flexion |
+
+⭐ **Why it matters**: Partial tear of **CMB only** → drawer test (-) in extension but (+) in flexion!
+
+### 1.3 Functions of CrCL
+1. **Prevent cranial tibial subluxation** (cranial drawer)
+2. **Prevent stifle hyper-extension**
+3. **Prevent excessive internal rotation**
+
+### 1.4 Other Stifle Structures
+- **Caudal Cruciate Ligament (CdCL)**
+- **Medial + Lateral Collateral Ligaments**
+- **Medial + Lateral Menisci** (fibrocartilage shock absorbers)
+- **Long digital extensor tendon** (lateral landmark)
+
+---
+
+## 2. Etiology ⭐⭐⭐ (CRITICAL!)
+
+### 2.1 Dogs vs Humans (Big Difference!)
+| Species | Mechanism |
+|---|---|
+| **Humans** | **Acute trauma** (sports injury) ⭐ — football, ski etc. |
+| **Dogs** ⭐⭐⭐ | **Progressive Degeneration** — gradual fiber breakdown over time! |
+
+⭐ **Why "Cruciate Ligament Disease" not "Rupture"** in dogs — implies the degenerative process
+
+### 2.2 Pathogenesis Cycle
+1. Initial **micro-fairing** (fiber-level degradation)
+2. Inflammatory cytokines released
+3. Joint arthritis develops
+4. More CrCL fibers fail
+5. Progressive instability
+6. Eventually full rupture
+7. Late: **Meniscal damage** (bucket-handle tear)
+
+### 2.3 Risk Factors (Multifactorial!) ⭐
+| Factor | Detail |
+|---|---|
+| **Tibial plateau slope** ⭐ | High slope = more CrCL stress |
+| **Genetics** | Collagen synthesis defects |
+| **Breed** | Lab, Golden, Rottweiler (large breeds) |
+| **Age** | 2-10 years typical |
+| **Sex/Hormone** | **Spayed females** higher risk |
+| **Body weight** | **Obesity** = #1 modifiable factor |
+| **Body conformation** | Affects forces |
+| **Vascular supply** | To ligament |
+
+### 2.4 Special: Pediatric Avulsion
+- **Immature dogs** can have **avulsion fracture** of CrCL insertion (with bone fragment) — different from adult
+- Requires **screw/pin fixation** of bone fragment
+
+---
+
+## 3. Predisposing Breeds ⭐
+| Top breeds |
+|---|
+| **Labrador Retriever** |
+| **Rottweiler** |
+| **Golden Retriever** |
+| Newfoundland |
+| Saint Bernard |
+
+---
+
+## 4. Clinical Signs ⭐⭐⭐
+
+### 4.1 Acute Pattern
+- Sudden non-weight bearing
+- Hindlimb lameness
+- Pain on stifle manipulation
+- Joint effusion (swelling)
+
+### 4.2 Chronic Pattern
+- Intermittent lameness
+- Worse after exercise
+- Progressive muscle atrophy
+- "**Medial Buttress**" ⭐⭐⭐ (KEY SIGN!) = thickened periarticular fibrosis on medial side · palpable medial swelling
+
+### 4.3 Sit Square Sign ⭐⭐⭐ (KEY EXAM!)
+**Normal dog**: Sits with both hindlimbs **symmetrically** (S-Square)
+
+**CrCL disease**: Sits with affected leg **abducted out to side** (cannot fully flex stifle due to pain)
+- **Sign POSITIVE in 99% of dogs with CrCL disease**
+
+⚠️ ไม่ใช่ทุกตัวที่นั่งแบบนี้ = CrCL · บางตัวก็แค่อารมณ์ — แต่ CrCL dog 99% นั่งแบบนี้!
+
+---
+
+## 5. Physical Exam ⭐⭐⭐
+
+### 5.1 Cranial Drawer Test ⭐⭐⭐ (KEY!)
+
+**Purpose**: Detect cranial tibial translation (CrCL function loss)
+
+**Technique** ⭐:
+1. **Hand 1** = grip **femur** (thumb on patella, index finger on fabella) — holds femur stable
+2. **Hand 2** = grip **tibia** (thumb on fibular head, index finger on tibial tuberosity)
+3. **Pull tibia cranially** (forward)
+4. Test in **BOTH** stifle extension AND flexion ⭐⭐
+
+**Interpretation**:
+| Translation | Significance |
+|---|---|
+| **0-3 mm** | Normal · "**puppy drawer**" up to 5 mm in young dogs |
+| **8-10 mm or more** | **CrCL rupture** ⭐ |
+
+**Partial Tear Pattern** ⭐:
+| Test in Extension | Test in Flexion | Interpretation |
+|---|---|---|
+| **Negative** | **Positive** | **CMB tear** (CdCL band intact) — partial tear |
+| Positive | Positive | Complete rupture |
+| Negative | Negative | Normal OR end-stage chronic with fibrosis |
+
+⚠️ Use sedation if dog tense — false negatives common
+
+### 5.2 Tibial Compression Test (Henderson Test) ⭐⭐⭐
+
+**Purpose**: Dynamic test simulating weight-bearing
+
+**Technique** ⭐:
+1. **Hand 1** = grip femur · Place **index finger on tibial tuberosity**
+2. **Hand 2** = grip metatarsus
+3. **Hold stifle in extension** (NO change in flexion angle)
+4. **Flex hock** (push paw upward)
+5. Watch index finger:
+   - **Normal**: Finger doesn't move
+   - **CrCL disease**: Finger pushed forward = "**Cranial Tibial Thrust**" detected ⭐
+
+⭐ "Static" test = Cranial Drawer · "**Dynamic**" test = Tibial Compression
+
+### 5.3 Pain on Manipulation
+- **Hyper-extension** = painful
+- **Hyper-flexion** = painful
+- "**Meniscal Click**" if meniscal tear (audible click during flex/extend)
+
+---
+
+## 6. Imaging ⭐⭐
+
+### 6.1 X-ray Findings (Indirect signs!) ⭐⭐⭐
+**X-ray cannot directly visualize ligaments — look for indirect signs:**
+
+| Finding | Mechanism |
+|---|---|
+| **Joint effusion (Fat pad sign)** ⭐ | Synovial fluid pushes intra-articular fat pad cranially |
+| **Caudal joint capsule distension** | Fluid bulging caudally |
+| **Subchondral bone changes** | Late OA · sclerosis |
+| **Periarticular osteophytes** | Cranial femoral condyle, popliteal sesamoid |
+| **Cranial tibial subluxation** | Tibia displaced forward |
+
+⭐ "**TPLO View**" or **Stress View** (flex hock during X-ray) → exaggerates cranial tibial translation
+
+### 6.2 Tibial Plateau Angle (TPA) Measurement ⭐⭐⭐ (KEY for surgery planning!)
+
+**3 Lines on lateral X-ray**:
+1. **Line A**: **Mechanical AIS of tibia** (proximal joint center → distal joint center) — usually black
+2. **Line B**: **Tibial plateau slope** — through **cranial + caudal tibial plateau points** (blue)
+3. **Line C**: **Perpendicular to mechanical AIS** (orange)
+
+**TPA = angle between Line B and Line C** = **90° - Mechanical Caudal Proximal Tibial Angle (mCdPTA)**
+
+**Normal Values** ⭐:
+| Species | TPA |
+|---|---|
+| **Humans** | **5-7°** ⭐ (almost flat!) |
+| **Dogs (normal)** | **18-24°** ⭐⭐ |
+| **Dogs (steep)** | 30-45° (high CrCL stress!) |
+
+⭐ **Why dogs different**: Steep slope creates **cranial tibial thrust** force that puts CrCL under tension every step — humans don't have this!
+
+### 6.3 Other Imaging
+- **MRI**: Direct ligament view (expensive · rarely used)
+- **Ultrasound**: Can see CrCL but limited
+- **Arthroscopy** ⭐: **Gold standard** — direct visualization + meniscal exam
+
+---
+
+## 7. Treatment ⭐⭐⭐
+
+### 7.1 Conservative
+**Indication**: Small dogs (< 15 kg) · partial tear · early disease · owner declined surgery
+- NSAIDs · weight management · controlled exercise
+- Joint supplements (PUFA · undenatured collagen)
+- ⚠️ Less effective in dogs > 15 kg
+
+---
+
+## 8. Surgical Options (5+ Categories!) ⭐⭐⭐
+
+### 8.1 Intra-capsular Reconstruction (Concept like in humans)
+**Replace torn CrCL with graft** through bone tunnels
+- Used in HUMANS routinely
+- **In dogs**: ⚠️ **High failure rate** because of tibial plateau slope!
+- Graft fails due to chronic shear stress
+- ❌ **NOT recommended in dogs** anymore
+
+### 8.2 Extra-capsular Stabilization ⭐⭐
+**Concept**: Place suture **outside the joint** to mimic CrCL function
+
+#### 8.2.1 Lateral Fabellar Suture ⭐
+**Technique**:
+1. Drill hole through **lateral fabella** (sesamoid behind femoral condyle)
+2. Drill hole through **proximal tibia** (Gerdy's tubercle area)
+3. Pass synthetic suture (high-strength braided) loop
+4. Tension to mimic CrCL force
+5. Use **toggle pin/button** for anchor + **tension device** to set 10-15 N
+
+**Common Equipment** ⭐:
+- **Suture system** (Securos®, etc.) with toggle buttons + special crimps
+- High-strength braided fiber
+- Tension device for accurate force
+
+⚠️ **Disadvantages**:
+- **Stretch + Failure** over time
+- **Infection risk** (foreign material)
+- "Will fail eventually with tibial plateau slope"
+- Better for **small dogs** only
+
+### 8.3 Tibial Osteotomy Procedures (TPLO Family) ⭐⭐⭐ (MODERN STANDARD!)
+
+**Concept**: **Modify the tibial plateau slope** so CrCL no longer needed
+
+#### 8.3.1 Cranial Closing Wedge Osteotomy (CCWO) ⭐
+- **Cut wedge from cranial tibia**
+- Close osteotomy → flattens tibial plateau
+- Mathematical: TPA reduced from 25° to 5°
+
+#### 8.3.2 TPLO (Tibial Plateau Leveling Osteotomy) ⭐⭐⭐ (GOLD STANDARD!)
+**Inventor**: Slocum (USA · saw human plateau is flat)
+
+**Technique**:
+1. **Curved (radial) cut** of proximal tibia (using TPLO saw)
+2. **Rotate** tibial plateau caudally
+3. Result: **TPA = 5°** (matches human!)
+4. Stabilize with **TPLO plate + screws**
+
+**Mechanism**: Eliminates **cranial tibial thrust** force during weight-bearing → CrCL not needed!
+
+⭐ **Most common technique today!** Best long-term outcomes
+- Excellent for large athletic dogs
+
+#### 8.3.3 CBLO (CORA-Based Leveling Osteotomy)
+- Variant of TPLO at different cut location
+- Less popular
+
+#### 8.3.4 TTA (Tibial Tuberosity Advancement) ⭐⭐
+**Inventor**: Swiss group (physicists!) · Maquet concept from human knee
+
+**Concept** (different from TPLO):
+- Don't change TPA
+- Instead, **advance the tibial tuberosity cranially**
+- Goal: **Patellar tendon angle = 90° to tibial plateau** ⭐
+- Result: Joint reaction force vector parallel to tibial plateau → no shear force → CrCL not needed!
+
+**Technique**:
+1. Cut tibial tuberosity (osteotomy)
+2. Advance it cranially
+3. Hold with **special TTA cage/spacer** (titanium)
+4. Plate fixation
+
+#### 8.3.5 TTA Rapid (Modified Maquet)
+- Simpler technique
+- Uses **OrthoFoam™** (degradable biomaterial bone graft) + 2 staples + pin
+- Less invasive
+- Faster recovery
+
+---
+
+## 9. Comparison Table — Surgical Techniques ⭐⭐⭐
+
+| Method | Mechanism | Best for | Cost |
+|---|---|---|---|
+| **Conservative** | Pain control + rehab | Small dog (< 15 kg) | $ |
+| **Lateral Fabellar Suture** | Synthetic CrCL outside joint | Small dog · low budget | $$ |
+| **Intra-capsular** | Graft replaces CrCL | ❌ Not recommended | $$$$ |
+| **CCWO** | Cuts wedge to flatten plateau | Older technique | $$$ |
+| **TPLO** ⭐ | Curved cut + rotate plateau | **Standard for large active dogs!** | $$$$ |
+| **TTA** | Advances tibial tuberosity | Alternative · physics-based | $$$$ |
+| **TTA Rapid** | Simplified TTA | Less complex cases | $$$ |
+
+---
+
+## 10. Concurrent Meniscal Damage ⭐
+
+### 10.1 Common Pattern
+**Bucket-handle tear of medial meniscus** (caudal pole)
+
+### 10.2 Why Medial > Lateral
+- **Medial meniscus** has stronger attachment to **tibial intermeniscal lig** AND **caudal cdmtl ligament** to tibia
+- **Lateral meniscus** has more laxity (popliteal fossa) → moves more, gets injured less
+
+### 10.3 Diagnosis
+- **Meniscal click** during flex/extend
+- Direct visualization at surgery
+- Meniscectomy of damaged portion at time of CrCL surgery
+
+---
+
+## 11. Post-op Care ⭐
+
+| Action | Timing |
+|---|---|
+| **Pain control** | NSAIDs + opioids |
+| **Cold packing** | First 3 days |
+| **Cage rest** | 4-6 weeks (TPLO/TTA) · 8 weeks (extracapsular) |
+| **Walking only** | Leash · graduated |
+| **Rehabilitation** | Critical for recovery! |
+| **Recheck X-ray** | 6-8 weeks (osteotomy healing) |
+| **Return to activity** | 12-16 weeks |
+
+⭐ **TPLO/TTA**: Cranial drawer remains POSITIVE post-op (no replacement of CrCL — just biomechanics fixed!)
+
+---
+
+## 12. Key Differences Recap ⭐⭐⭐
+
+| Feature | Humans | Dogs |
+|---|---|---|
+| **Etiology** | Acute trauma | Progressive degeneration |
+| **Tibial plateau slope** | 5-7° (almost flat) | 18-24° (steep) |
+| **Treatment focus** | Replace CrCL with graft | Modify biomechanics (TPLO) |
+| **Cranial drawer post-op** | Negative (graft restores) | **Positive** (TPLO doesn't replace CrCL) |
+| **Reconstruction success** | Excellent | Poor (graft fails) |
+
+---
+
+## 📝 EXAM RECAP — 22 Key Points
+
+### Anatomy/Etiology
+1. **CrCL = 2 bands**: CMB (always tense) + CLB (only in extension)
+2. **CrCL prevents**: Cranial tibial subluxation · stifle hyper-extension · excessive internal rotation
+3. **Dogs ≠ Humans**: Progressive degeneration vs trauma ⭐⭐⭐
+4. **Predisposing**: Lab · Rottweiler · Golden · Spayed females · Obesity
+
+### Diagnosis
+5. **Sit Square positive** = abducted leg = CrCL likely
+6. **Cranial Drawer Test**: Test BOTH extension + flexion ⭐
+7. **Drawer in extension only (-), flexion (+)** = partial tear (CMB)
+8. **Tibial Compression Test (Henderson)** = dynamic test mimicking weight-bearing
+9. **Cranial Tibial Thrust** = finger pushed forward during Tibial Compression
+10. **Joint effusion + fat pad displacement** = X-ray hallmark
+11. **Medial buttress** = chronic CrCL sign — palpable thickening
+12. **Meniscal click** = associated meniscal tear
+
+### Tibial Plateau Slope ⭐
+13. **Human TPA = 5-7°** vs **Dog TPA = 18-24°** ⭐
+14. **Steeper slope = more cranial tibial thrust = more CrCL stress**
+15. **TPLO goal**: Reduce TPA to **~5°** like humans
+
+### Treatment
+16. **Lateral fabellar suture** = extracapsular · suture outside joint · for small dogs
+17. **TPLO** = curved cut + rotate · **gold standard** for large dogs ⭐
+18. **TTA** = advance tibial tuberosity · patellar tendon to tibial plateau = 90°
+19. **TTA Rapid (Modified Maquet)** = OrthoFoam + staples + pin
+20. **Intra-capsular graft** = ❌ NOT recommended in dogs (fails due to TPA)
+21. **Conservative Tx** = OK for small dogs (< 15 kg) only
+22. **Meniscectomy** at time of surgery if bucket-handle tear
+
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.3 MPL (CIUpw8GNtQ4) · 11 Common Joint (MMTtwT_7c94) · 15.3 Rehab (zj4go8swIgM)
+> 🩺 **Practice tip**: Cranial Drawer Test ต้องวางมือถูกตำแหน่ง! mistake บ่อยที่สุดคือจับ tibia ผิด — ใช้ thumb on **fibular head**, index on **tibial tuberosity**
+> 🎬 Supplementary clip: 12.0.1 Cranial drawer sign demonstration (XsHdYvH4IOE)
+> 📐 **TPLO concept**: ฟิสิกส์เวกเตอร์! · ลด tibial plateau slope = ลด cranial tibial thrust = CrCL ไม่จำเป็น`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
