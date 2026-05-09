@@ -36314,6 +36314,266 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 > 🥛 **Milk safety**: AFM1 ใน infant formula = แต่ระวังที่สุด · WHO 0.025 ppb`,
   },
 
+  'R1-1wtoZ8-8': {
+    videoId: 'R1-1wtoZ8-8',
+    title: '3. Drug Residues + Withdrawal Time',
+    subject: 'food-safety-y4',
+    date: '2024-08-23',
+    durationMin: 108,
+    instructor: 'อ.พชร',
+    examFormat: 'drug class + residue effect + WT calculation',
+    summary: `# 3. Drug Residues in Animal Products
+
+> ⚠️ Continues from pharmacology + pharmacotoxicology
+> Drug residues = vet's responsibility — control proper use to prevent consumer exposure
+
+## 🎯 ภาพรวมคาบ
+1. Drug residue definition + VMP
+2. Causes of residues (4 main)
+3. Adverse public health effects (7 categories)
+4. Approved drug classes + bans
+5. Specific drug groups + concerns
+6. Withdrawal time concept + factors
+
+## 1️⃣ Definitions
+
+### Drug Residue (per EU + US)
+Pharmacologically active substance + metabolites + bound residues remaining in:
+- Meat
+- Animal products (milk, eggs)
+- Of animals receiving drugs (VMPs)
+
+### VMP (Veterinary Medicinal Product)
+Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of disease/disorder + restoration/correction of physiological function in animals
+
+### Pharmacokinetics Refresher: ADME
+1. **A**bsorption
+2. **D**istribution
+3. **M**etabolism (mostly liver)
+4. **E**xcretion (mostly urine, also milk, eggs!)
+
+## 2️⃣ Causes of Drug Residues (4 categories)
+
+### A. Pharmacokinetics Variation
+**Animal factors:**
+| Factor | Effect |
+|--------|--------|
+| Species | Different metabolism rates |
+| **Age** | **Young animals slower clearance** (immature liver/kidney) |
+| Disease status | Mastitis → reduced milk excretion → residue |
+| Body fat % | Lipophilic drugs accumulate more |
+| Liver/kidney disease | Reduced clearance |
+
+### B. Extra-Label Use (ELU)
+**Definition**: using drug outside labeled instruction (different route, dose, species, age)
+- Withdrawal time becomes **invalid** (not tested for that route/dose)
+- Can cause residues despite "following" WT
+- Avoid unless absolutely necessary
+
+### C. Improper Withdrawal Time
+- Following label exactly but ignoring WT
+- **Mastitis intramammary**: dry ALL teats (drug spreads), not just treated quarter
+- Ship milk too early → residue detection → market rejection
+
+### D. Management Failures
+- **Poor record-keeping** → repeat dosing → effective dose doubles
+- **Injection site accumulation** → fibrosis/abscess + drug concentration
+- **Dirty pen/feed trough** → cross-contamination
+- **Water medication** quality issue → uneven dose distribution
+- **Milking equipment** unclean → drug carryover from treated to healthy cows
+
+## 3️⃣ Adverse Effects on Public Health (7 categories) ⭐
+
+### A. Pharmacological/Toxicological Effects
+| Drug | Effect |
+|------|--------|
+| **Chloramphenicol** | **Aplastic anemia** (bone marrow suppression) — irreversible! |
+| Sulfa | Hemolytic anemia (G6PD def) |
+| Phenylbutazone | Leukopenia |
+| **Beta-agonist** (clenbuterol, ractopamine) | Cardiac stimulation, tachycardia, anxiety, muscle pain (residue from "lean meat" growth promoters) |
+| **Tetracycline** | **Yellow tooth staining** (in children <8) |
+
+### B. Hypersensitivity (Allergic Reactions)
+- Most common: **Penicillin** ⭐ + **Cephalosporin**
+- Type I (IgE-mediated) → urticaria → anaphylaxis
+- Type III → serum sickness (Ag-Ab complex)
+- Penicillin allergy = lifelong, document carefully
+
+### C. Carcinogenic Effect ⭐
+**Drugs of concern:**
+- Chloramphenicol
+- **Furazolidone**
+- **Nitroimidazole** (metronidazole, dimetridazole)
+- Bind DNA/RNA/protein → mutation → cancer
+
+### D. Mutagenic Effect
+- Chloramphenicol
+- N-Nitrosamines
+- Some imidazoles
+
+### E. Teratogenic Effect (Birth Defects)
+- **Griseofulvin** (antifungal!)
+- **Colchicine** (gout treatment in humans)
+- → fetal malformation in pregnant exposure
+
+### F. Disturbance of Normal Flora
+- Broad-spectrum antibiotics
+- Symptoms: nausea, diarrhea, constipation, abdominal pain
+- Especially: gut + skin microbiome disruption
+- Distinguish: **Antibiotic** = natural origin · **Antimicrobial agent** = broader (includes synthetic)
+
+### G. Antimicrobial Resistance Development ⭐ Critical
+**Mechanism:**
+- Sub-therapeutic dose → kill susceptible bacteria → resistant survive → multiply
+- Develop via: **Intrinsic resistance** vs **Acquired resistance** (mutation/transfer)
+- Spread route: foodborne, environmental, direct contact, manure → vegetable contamination
+
+**One Health concern**: livestock antibiotic use → human-pathogen resistance
+
+## 4️⃣ Drug Classes Approved in Animals
+
+### 5 Approved Categories
+1. **Antimicrobials** (most concern)
+2. **Antifungals**
+3. **Antiparasitics** (helminths)
+4. **Ectoparasiticides** (mites, fleas, ticks)
+5. **Production enhancers** ⚠️ (limited per country)
+
+### Beta-Agonists — Country Variation ⭐
+| Country | Status |
+|---------|--------|
+| **Thailand** | **BANNED ALL** (no exception) |
+| US | Limited: Ractopamine (Paylean), Zilpaterol |
+| Japan | Some allowed (Ractopamine) |
+| EU | Banned |
+
+> Trump-era US-China meat trade dispute partly over ractopamine
+
+## 5️⃣ EU Drug Classification (Council Reg 96/23)
+
+### Group A — PROHIBITED ⚠️ Zero tolerance
+| Sub-group | Examples |
+|-----------|----------|
+| A1 | Stilbenes (DES), thyrostats |
+| A2 | Steroid hormones (estrogen, androgen, progesterone) |
+| A3 | Resorcylic acid lactone — **Zeranol** (mimics estrogen!) |
+| A4 | **Beta-agonists** (clenbuterol, ractopamine) |
+| **A5** ⭐ | **Chloramphenicol, Nitrofurans, Nitroimidazole** |
+
+### Group B — Allowed with MRL
+| Sub-group | Examples |
+|-----------|----------|
+| B1 | Antimicrobials |
+| B2 | Antiparasitic |
+| B3 | Other organic |
+
+## 6️⃣ Specific Drug Groups
+
+### A. Aminoglycosides
+**Source**: -mycin (from *Streptomyces*) · -micin (from *Micromonospora*)
+**Examples**: gentamicin, kanamycin, neomycin, streptomycin
+**Toxicity**: **Oto** + **Nephro** at high dose
+> Less concern as residue (low-dose effect minimal)
+
+### B. Beta-Lactams (Penicillins + Cephalosporins)
+- Penicillin G, ampicillin, amoxicillin
+- Cephalosporins now 5th-6th generation
+- + **Beta-lactamase inhibitors** (clavulanic acid) → augmentin
+- ⚠️ **Concern**: ESBL (Extended-Spectrum Beta-Lactamase) resistance
+- Allergy → most common drug allergy in humans
+
+### C. Macrolides
+- Mechanism: bind **50S ribosome subunit**
+- Examples: tylosin, tilmicosin (sometimes called wrong as -mycin)
+- Use: respiratory disease in ruminants + pigs
+- Concern: **disturb normal flora**
+
+### D. Lincosamides
+- Anti-bacterial + anti-coccidial
+- Examples: lincomycin, clindamycin
+- ⚠️ Side effect: **muscle weakness, rhabdomyolysis** → "Coca-Cola colored urine"
+- Common cause: accidental ingestion (e.g., dog eats medicated horse food)
+
+### E. Polypeptides / Polymyxins
+- Examples: **Colistin** (Polymyxin E) ⚠️
+- ⭐ **mcr-1 gene** = colistin resistance — discovered 2015 China
+- Banned in livestock as growth promoter (was used as feed additive)
+- Even though minimal GI absorption, excretion in feces creates resistance environment
+
+### F. Fluoroquinolones
+- Examples: enrofloxacin, ciprofloxacin (-floxacin)
+- Resistance via **gyrA/parC mutations**
+- **Banned for livestock in some countries**
+
+### G. Sulfonamides + Trimethoprim
+- Examples: sulfamethoxazole + trimethoprim = **TMP-SXT**
+- Allergic reactions
+- ⚠️ **Hemolytic anemia in G6PD-deficient patients**
+- ⚠️ **Kernicterus in newborns** (bilirubin displacement → brain damage)
+
+### H. Tetracyclines ⭐ Important for residues!
+- Examples: oxytetracycline, doxycycline, chlortetracycline
+- ⭐ **Bone deposition for months**!
+- ⭐ **Yellow tooth staining** in children <8 yo
+- Fetal exposure → abnormal bone development
+- Use: respiratory disease, mycoplasma in chickens
+
+### I. Phenylbutazone (Bute) — NSAID
+- Approved: horses, dogs (pain relief — laminitis, OA)
+- ❌ NOT for cattle
+- Long half-life → residue concern
+- ⚠️ Side effect: **aplastic anemia + carcinogen in rats**
+- ⭐ **2013 EU Horsemeat Scandal** — horse meat sold as beef → consumer Bute exposure → "Beef Crisis"
+
+## 7️⃣ Withdrawal Time (WT) ⭐
+
+### Definition
+**WT** = period from **last drug administration** to **animal/product entering food chain**
+
+### Critical Concept
+- WT does NOT mean "zero residue"
+- Means: residue ≤ **MRL** (Maximum Residue Limit)
+- MRL based on ADI calculation (taught Class 5)
+
+### Factors Affecting WT
+| Factor | Effect |
+|--------|--------|
+| Species | Different metabolism |
+| **Health status** | Disease → reduced clearance → longer WT |
+| Dose + frequency | More dose = longer WT |
+| Route | Different absorption pattern |
+| Drug formulation | Long-acting vs short |
+| **Detection method sensitivity** | More sensitive method → can shorten WT |
+
+### Example
+- Older method detects min 100 mg/L → WT must be 24 days
+- New method detects 10 mg/L → WT can be reduced to ~14 days
+
+> **Detection sensitivity ↑ = WT can ↓** (without compromising safety)
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. Drug residue = active drug + metabolites + bound forms
+2. Causes: PK variation · ELU · improper WT · management failure
+3. **Mastitis IM**: dry ALL quarters (drug spreads)
+4. **Chloramphenicol** = aplastic anemia · banned globally for food animals
+5. **Tetracycline** = yellow teeth + bone deposition (children <8)
+6. **Beta-agonist** = banned in Thailand all use
+7. **Penicillin** = #1 allergy concern in residue
+8. **EU Group A5**: chloramphenicol/nitrofurans/nitroimidazole — banned
+9. **Sulfa + G6PD** = hemolytic · **+ infant** = kernicterus
+10. **Macrolide** binds 50S ribosome
+11. **mcr-1** = colistin resistance gene (livestock concern)
+12. **Phenylbutazone** = horse only · banned in cattle · 2013 EU horsemeat scandal
+13. **Aminoglycoside** = -mycin (Strep) vs -micin (Micromono)
+14. **WT** = until residue ≤ MRL (NOT zero)
+15. Detection sensitivity ↑ → WT ↓ (safe)
+
+> 📚 อ่านควบ: 4 International Standards (mKqT3c6qxOY) · 5 Risk Assessment (fs0TOM677as)
+> 💉 **Practical**: ลงบันทึกให้ชัด · เปลี่ยนเข็มทุกครั้ง · ตำแหน่งฉีด standard
+> ⚠️ **Banned Thailand**: Beta-agonist, chloramphenicol food animals, nitrofurans
+> 🥛 **WT trap**: dry-off treatment → ห้ามรีดทุกเต้า`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
