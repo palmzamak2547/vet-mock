@@ -25320,6 +25320,244 @@ For external gilts:
 > 🦴 **NPD = where vets earn their money** — focus on returns to estrus`,
   },
 
+  xasWlGj92Yk: {
+    videoId: 'xasWlGj92Yk',
+    title: '3. ปัญหาสุขภาพสุกรที่เกิดจากอาหารและการให้อาหาร',
+    subject: 'swine-herd',
+    date: '20 Aug 67',
+    durationMin: 100,
+    instructor: 'อาจารย์โภชนศาสตร์สุกร (CUVET)',
+    examFormat: 'MCQ — Lysine = #1 essential AA in pigs · Mycotoxins (Zearalenone, Aflatoxin) · symptom→cause reverse mapping · stage-specific feed needs ออกบ่อย',
+    summary: `# Swine Health Problems from Feed & Feeding
+
+> 🎯 **Symptom → Feed cause** reverse-mapping for clinical work
+> Top exam: **Lysine #1 in pigs · Zearalenone abortion · Aflatoxin liver/anemia · stage-specific feed needs · excess protein causes diarrhea**
+
+---
+
+## 1. Definitions ⭐
+
+| Term | Definition |
+|---|---|
+| **Under-nutrition** | Insufficient TOTAL feed (calories) |
+| **Malnutrition** | Specific nutrient deficiency (e.g., one vitamin missing in premix) |
+
+> 💡 Both develop SLOWLY (weeks-months) — not acute presentation
+
+---
+
+## 2. Energy Sources ⭐
+
+### Two components
+| Source | Examples |
+|---|---|
+| **Carbohydrates** | Grain, broken rice, cassava, corn — main energy in pig feed |
+| **Fats (plant)** | Rice bran oil, cotton seed, palm oil |
+| **Fats (animal)** | Animal fat (lard, tallow) |
+
+### Energy deficiency signs
+- Slow growth, runting, weight loss
+- Decreased feed intake
+- Reduced protein utilization (energy + protein interact)
+- All life stages affected
+
+### Fat deficiency adds (specific to fat):
+- **Hair loss / dry coat**
+- **Skin scaling / dermatitis**
+- (Energy deficiency alone doesn't cause skin/hair issues)
+
+---
+
+## 3. Protein & Amino Acids ⭐⭐⭐
+
+### Why it matters
+- Building block for muscle, hormones, enzymes
+- Quality > Quantity (need correct AA balance)
+
+### 10 Essential Amino Acids ⭐ — but #1 differs by species!
+| Species | Most-limiting EAA |
+|---|---|
+| **Pig (swine)** | **LYSINE** ⭐⭐ |
+| **Poultry** | **METHIONINE** ⭐ |
+| Both pig + poultry second | The other one (Met for pig, Lys for poultry) |
+
+> ⛔ Common exam trap: don't confuse pig (Lys) with poultry (Met)!
+
+### Why feed bag labels show LYSINE
+- Lysine is most limiting in pig diets → must be SUPPLEMENTED
+- Bag shows: protein %, fat max %, **Lysine %** as main quality indicator
+
+### AA-related disorders
+| Term | Meaning |
+|---|---|
+| **AA toxicity** | Excess of one AA → toxic |
+| **AA imbalance** | Disproportionate AA ratios → poor utilization |
+| **AA antagonism** | One AA competes with another at receptor → impaired absorption |
+
+### Excess protein consequences ⭐
+1. Wasted money (protein costs more than carbs)
+2. Body excretes excess as urea via urine → **wastes energy** to detoxify
+3. **Diarrhea** (high protein osmotically draws water into gut)
+
+---
+
+## 4. Stage-Specific Feed Needs ⭐⭐ (KEY exam table!)
+
+### Protein requirements by stage
+| Stage | Protein % | Daily intake (kg) |
+|---|---|---|
+| **Suckling/early nursery** ⭐ | **20-24% (HIGHEST)** | < 1 |
+| Late nursery / starter | 18-20% | 1-2 |
+| Grower | 16% | 2-3 |
+| **Finisher** | **14% (LOWEST)** | 3-3.5 |
+| **Lactating sow** | 14-16% | 3-4 |
+| **Gestating sow** | 14% | 2-2.5 |
+
+### Energy requirements by stage
+| Stage | Energy (kcal/kg) |
+|---|---|
+| Grower/Finisher | 3,200-3,300 |
+| **Gestating sow** ⭐ | **3,800 (HIGHEST)** |
+| **Lactating sow** ⭐ | **3,800** |
+
+> ⭐ Pregnant + lactating sows need MOST energy (NOT highest protein)
+> ⭐ Young/suckling pigs need MOST protein (NOT highest energy)
+
+### Sex effect
+- **Boars > Sows** in protein needs (muscle building)
+
+---
+
+## 5. Symptom → Feed Cause Reverse Map ⭐⭐⭐ (THE clinical tool!)
+
+| Symptom | Feed-related causes |
+|---|---|
+| **Abortion** | **Zearalenone** (mycotoxin) ⭐⭐ · energy deficiency |
+| **Anemia** | **Iron deficiency** ⭐⭐ · Aflatoxin · Coumarin · protein deficiency |
+| **Bone/skeletal problems** | **Calcium deficiency** ⭐ · Vitamin D · Phosphorus |
+| **Diarrhea** | **Excess protein** ⭐ · feed too rich · spoiled feed |
+| **Hemorrhage / coagulopathy** | **Vitamin K deficiency** ⭐ · coumarin |
+| **Neurological signs (incoordination · ataxia)** | **Cu, Mg, Mn deficiency** · vitamins · **water deprivation** ⭐ |
+| **Poor growth (runting)** | Energy + Protein deficiency |
+| **Small litter size** | Energy · **Folic acid** · **Lysine** |
+| **Reproductive failure** | Energy · **Zearalenone** · **Vitamins (E, A)** |
+| **Respiratory disease** | (Predisposing) energy + protein · vitamin A |
+
+---
+
+## 6. Mycotoxins ⭐⭐⭐ (Critical exam topic!)
+
+### What are mycotoxins?
+- **Toxic compounds produced by FUNGI** in feed
+- Fungi grow on poorly stored feed (humid Thai climate!)
+- Fungus dies → toxin remains (heat-stable)
+
+### Key mycotoxins in swine
+| Mycotoxin | Source fungus | Main effect |
+|---|---|---|
+| **Zearalenone** ⭐⭐ | **Fusarium roseum** | **Reproductive: abortion, false estrus, hyperestrogenism** |
+| **Aflatoxin** ⭐⭐ | **Aspergillus** (flavus, parasiticus) | **Liver damage + Anemia + Hepatocarcinoma + Immunosuppression** |
+| **Fumonisin** | Fusarium moniliforme | Pulmonary edema (PPE) |
+| **Ochratoxin** | Aspergillus, Penicillium | Kidney damage |
+| **DON (Deoxynivalenol)** | Fusarium | Vomiting, feed refusal |
+| **T-2 toxin** | Fusarium | Skin lesions, immunosuppression |
+
+> ⭐ Zearalenone is **THE feed-related abortion answer** in MCQ
+> ⭐ Aflatoxin is **THE feed-related anemia + liver answer**
+
+### Risk factors for mycotoxin
+1. **Hot humid climate** (Thailand!) → mold-friendly
+2. Poor feed storage (high moisture)
+3. Damaged grain (insects, harvest damage)
+4. Improper drying
+
+---
+
+## 7. Sow-Stage Feed Adjustments ⭐
+
+### Gestation (117 days)
+- **HIGH energy** (3,800 kcal)
+- Moderate protein (14%)
+- Restrict feed amount in first 90 days (avoid obesity)
+- Increase last 30 days (fetal growth)
+
+### Lactation (21-28 days)
+- **HIGH energy** (3,800 kcal)
+- Higher protein (14-16%)
+- Free-feed (ad libitum) to support milk production
+- Sow loses ~10% body weight normally during lactation
+
+### Wean-to-Service (3-7 days)
+- Maintenance levels OK
+- Some farms use "flushing" (extra calories) to boost ovulation
+
+---
+
+## 8. Feed Formulator Role ⭐
+
+### Modern process
+- Computer software (e.g., Brill, Format) optimizes
+- Inputs: target energy, target protein, ingredient prices
+- Software outputs: cheapest mix to meet specs
+- Manual calculation (square method, Pearson square) = exam-only
+
+### Vet's role
+- Review formula vs life stage
+- Cross-check on-farm with **feed bag analysis**
+- Recommend changes if symptoms suggest deficiency
+
+---
+
+## 9. Walk-Through Pen Checks ⭐ (What to observe!)
+
+| Observable | Clue to feed problem |
+|---|---|
+| **Feces consistency** | Diarrhea → excess protein/spoiled |
+| **Urine color** | Dark/red → kidney/UTI/feed pigment |
+| **Skin / coat** | Hair loss → fat deficiency |
+| **Eating behavior** | Refusal → mycotoxin (DON), feed spoilage |
+| **BCS** | Low → under-nutrition · high → over-feed |
+| **Respiratory rate** | High in heat → ventilation issue |
+| **Aggression** | Hungry pigs fight at feeder → feed restriction issue |
+
+---
+
+## 10. Common Thai Farm Issues ⭐
+
+### Feed mistakes
+1. **Skipping premix** → vitamin/mineral deficiency
+2. **Wrong stage formula** (using grower formula on suckling pigs)
+3. **Old feed** → mycotoxin contamination
+4. **Substituting cheap ingredients** without recalculating
+5. **Worker giving wrong feed amount** (over-feeding or under)
+
+---
+
+## 🎯 Exam Recap — top 16 testable points
+
+1. **Under-nutrition = total cal deficit · Malnutrition = specific nutrient deficit**
+2. **Lysine = #1 essential AA in pigs** (Methionine in poultry)
+3. **Suckling pigs need HIGHEST protein** (20-24%)
+4. **Gestating + lactating sows need HIGHEST energy** (3,800 kcal/kg)
+5. **Excess protein → diarrhea + wasted energy**
+6. **Zearalenone (Fusarium) = abortion + reproductive failure**
+7. **Aflatoxin (Aspergillus) = liver + anemia + immunosuppression**
+8. **Fumonisin = pulmonary edema**
+9. **Iron deficiency = anemia in piglets**
+10. **Calcium deficiency = bone/skeletal problems**
+11. **Vitamin K deficiency = hemorrhage**
+12. **Water deprivation = neurological signs (incoordination, seizure)**
+13. **AA toxicity, imbalance, antagonism** = three AA-related issues
+14. **Hair loss + skin scaling = fat deficiency**
+15. **Boars need MORE protein than sows** (muscle building)
+16. **Folic acid + Lysine deficiency = small litter size**
+
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 2 Records (80466NsBZSo) · 13 Feed Management (ND2MrxWAsBI)
+> 🩻 **Practice tip**: Memorize symptom→cause reverse map · most exam Qs come from this
+> 💡 **Mycotoxin = Thai farm reality** — humid storage = inevitable problem
+> 🦴 **Lysine = pig · Methionine = poultry** (don't confuse!)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
