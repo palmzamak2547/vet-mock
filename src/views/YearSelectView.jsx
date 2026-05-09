@@ -1,7 +1,8 @@
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { QB } from '../data/questions.js';
+import { detectCurrentPhase } from './PhaseSelectView.jsx';
 
-export default function YearSelectView({ goHome, selectedYear, setSelectedYear, setView, firstTime = false }) {
+export default function YearSelectView({ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime = false }) {
   const y4Count = QB.filter((q) => q.year === 4).length;
 
   return (
@@ -33,7 +34,17 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
               className="vmx-mode-card"
               onClick={() => {
                 setSelectedYear(y.id);
-                setView('home');
+                // Y6 is block-based (rotation, not semester-tied) → skip
+                // phase picker. Other years go through phase-select to
+                // choose mid/final scope. Pre-set phase to current month's
+                // detected phase so the picker highlights NOW.
+                if (y.id === 6) {
+                  if (setSelectedPhase) setSelectedPhase(null);
+                  setView('home');
+                } else {
+                  if (setSelectedPhase) setSelectedPhase(detectCurrentPhase());
+                  setView('phase-select');
+                }
               }}
               style={{ borderColor: isPicked || y.current ? accent : undefined }}>
               <div className="icon">🎓</div>

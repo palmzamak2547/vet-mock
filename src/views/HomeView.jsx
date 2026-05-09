@@ -8,13 +8,28 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill }) {
+// Phase metadata for label rendering. Mirrors PhaseSelectView's PHASES.
+const PHASE_LABELS = {
+  '1-mid':   { thai: 'เทอม 1 กลางภาค', short: 'เทอม 1 กลาง',  semester: 1, icon: '📚' },
+  '1-final': { thai: 'เทอม 1 ปลายภาค', short: 'เทอม 1 ปลาย',  semester: 1, icon: '🎯' },
+  '2-mid':   { thai: 'เทอม 2 กลางภาค', short: 'เทอม 2 กลาง',  semester: 2, icon: '📖' },
+  '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2, icon: '🏁' },
+};
+
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill }) {
   // Year context — determines hero copy + reading checklist scope.
   // Only Y4 has actual exam schedule entries today; for scaffold years
   // we hide the countdown banner since `getNextExam('y5')` returns null.
   const yearMeta = YEARS.find((y) => y.id === selectedYear) || YEARS.find((y) => y.id === 4);
   const isScaffoldYear = !!yearMeta?.scaffold;
   const nextExam = getNextExam(`y${selectedYear}`);
+  const phaseMeta = selectedPhase ? PHASE_LABELS[selectedPhase] : null;
+  // Filter SUBJECTS_BY_YEAR[selectedYear] to phase scope. If no phase
+  // selected (e.g. Y6 block-based), show all subjects.
+  const allYearSubjects = SUBJECTS_BY_YEAR[selectedYear] || [];
+  const yearSubjects = phaseMeta
+    ? allYearSubjects.filter((s) => s.semester === phaseMeta.semester)
+    : allYearSubjects;
 
   // Question count — show year-filtered count so PREVIEW years don't
   // mislead users with the global total.
@@ -22,8 +37,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     ? QB.filter((q) => q.year === selectedYear).length
     : QB.length + (customQuestions?.length || 0);
 
-  // Reading checklist progress — scoped to the active year.
-  const checklistTopics = (SUBJECTS_BY_YEAR[selectedYear] || [])
+  // Reading checklist progress — scoped to the active year + phase.
+  const checklistTopics = yearSubjects
     .filter((s) => Array.isArray(s.topics) && s.topics.length > 0)
     .flatMap((s) => s.topics.map((t) => t.id));
   const readingDone = checklistTopics.filter((id) => readingChecklist[id]).length;
@@ -326,10 +341,33 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* PRIMARY: Subject Grid — natural mental model is "I want to study X subject" */}
-      <div className="vmx-section-label">วิชาใน{yearMeta?.label || 'ปี 4'}</div>
+      {/* PRIMARY: Subject Grid — natural mental model is "I want to study X subject".
+          Filtered to current phase (e.g. only sem 2 subjects when phase is '2-final'). */}
+      <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 8 }}>
+        <span>
+          วิชาใน{yearMeta?.label || 'ปี 4'}
+          {phaseMeta && <span style={{ color: 'var(--clr-ink-soft)', fontWeight: 400 }}> · {phaseMeta.short}</span>}
+        </span>
+        {phaseMeta && setSelectedPhase && (
+          <button
+            type="button"
+            onClick={() => setView('phase-select')}
+            style={{
+              all: 'unset',
+              cursor: 'pointer',
+              fontSize: 11,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-ink-soft)',
+              textDecoration: 'underline',
+              textDecorationStyle: 'dotted',
+            }}
+          >
+            เปลี่ยน phase
+          </button>
+        )}
+      </div>
       <SubjectGrid
-        subjects={SUBJECTS_BY_YEAR[selectedYear] || []}
+        subjects={yearSubjects}
         questions={[...QB, ...(customQuestions || [])]}
         readingChecklist={readingChecklist}
         bookmarks={bookmarks}
@@ -367,7 +405,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {!isScaffoldYear && (() => {
         // Compute weakest TOPIC (then map up to subject) — gives a more
         // actionable signal than subject-level. Min 10 attempts, < 70%.
-        const yearSubjectIds = new Set((SUBJECTS_BY_YEAR[selectedYear] || []).map((s) => s.id));
+        // Scope to phase-filtered subjects so smart presets respect the
+        // current phase context (e.g. don't suggest sem 1 weak topic when
+        // user is in sem 2 phase).
+        const yearSubjectIds = new Set(yearSubjects.map((s) => s.id));
         const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
         // Index Q→topic for history lookups (history doesn't store topic)
         const qIndex = new Map();

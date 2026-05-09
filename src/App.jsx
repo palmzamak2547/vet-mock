@@ -84,6 +84,7 @@ const AboutView = lazy(() => import('./views/AboutView.jsx'));
 const FeedbackView = lazy(() => import('./views/FeedbackView.jsx'));
 const IgCardStudioView = lazy(() => import('./views/IgCardStudioView.jsx'));
 const YearSelectView = lazy(() => import('./views/YearSelectView.jsx'));
+const PhaseSelectView = lazy(() => import('./views/PhaseSelectView.jsx'));
 const TopicSelectView = lazy(() => import('./views/TopicSelectView.jsx'));
 const NotesView = lazy(() => import('./views/NotesView.jsx'));
 const ReadingChecklistView = lazy(() => import('./views/ReadingChecklistView.jsx'));
@@ -151,6 +152,10 @@ export default function App() {
   // Components expect a number — fall back to CURRENT_YEAR when null so
   // HomeView/etc. don't crash if the user somehow lands there pre-pick.
   const selectedYear = selectedYearStored ?? CURRENT_YEAR;
+  // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
+  // null means "no phase scoping" — show all subjects across both
+  // semesters of the year (used as fallback for Y6 which is block-based).
+  const [selectedPhase, setSelectedPhase] = useLocalStorage('vmx-selected-phase', null);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [openInstructor, setOpenInstructor] = useState(null);
 
@@ -784,6 +789,36 @@ export default function App() {
                     <span style={{ opacity: 0.5, fontSize: 10 }}>▾</span>
                   </button>
                 )}
+                {/* Phase pill — separate from year so user can switch phase
+                    without losing year context. Hidden if no phase set
+                    (e.g. Y6 block-based) or on the picker views themselves. */}
+                {selectedPhase && view !== 'phase-select' && view !== 'year-select' && (
+                  <button
+                    type="button"
+                    onClick={() => setView('phase-select')}
+                    title="สลับ phase สอบ"
+                    style={{
+                      padding: '4px 12px',
+                      borderRadius: 999,
+                      background: 'var(--clr-surface)',
+                      border: '1px solid var(--clr-border)',
+                      cursor: 'pointer',
+                      fontSize: 12,
+                      fontFamily: 'JetBrains Mono, monospace',
+                      color: 'var(--clr-ink)',
+                      letterSpacing: '0.04em',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6,
+                    }}
+                  >
+                    {(() => {
+                      const map = { '1-mid':'📚 ทม.1 กลาง', '1-final':'🎯 ทม.1 ปลาย', '2-mid':'📖 ทม.2 กลาง', '2-final':'🏁 ทม.2 ปลาย' };
+                      return map[selectedPhase] || selectedPhase;
+                    })()}
+                    <span style={{ opacity: 0.5, fontSize: 10 }}>▾</span>
+                  </button>
+                )}
               </div>
               <div className="vmx-header-right">
                 <button
@@ -860,7 +895,7 @@ export default function App() {
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
@@ -881,7 +916,8 @@ export default function App() {
               {view === 'about' && <AboutView {...{ goHome, setView }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
-              {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setView, firstTime: selectedYearStored === null }} />}
+              {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}
+              {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView {...{ user, goHome, onSignedOut: goHome }} />}
