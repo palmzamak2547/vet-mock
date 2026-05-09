@@ -33071,6 +33071,310 @@ Survey high titer = MUST be field exposure
 > 🦴 **Pregnancy + radiation** = NEVER mix unless absolutely essential`,
   },
 
+  vbtkOXh1XPc: {
+    videoId: 'vbtkOXh1XPc',
+    title: '2. Radiographic Positioning + Quality Artifact',
+    subject: 'vet-imaging',
+    date: '15 Aug 67',
+    durationMin: 154,
+    instructor: 'อ.อรพันธ์ + อ.ชุติมนต์ (CUVET)',
+    examFormat: 'MCQ — Standard 2-view positioning · Lateral vs Cd-Cr · Inspiration vs Expiration · Centering · Universal positioning · Image quality factors · Common artifacts ออกบ่อย',
+    summary: `# Radiographic Positioning + Quality Artifact
+
+> 🎯 **Practical positioning lecture** — universal standards for X-ray reading
+> Top exam: **Standard 2-view rule · Body region positioning · Inspiratory phase · Centering · Common artifacts · Image quality factors (kVp, mA, time, distance)**
+
+---
+
+## 1. Standard Positioning Principle ⭐⭐⭐ (Universal!)
+
+### The 2-view rule
+**ALWAYS take 2 views perpendicular to each other**
+- View 1: Lateral
+- View 2: Caudo-cranial (CC) or Ventro-dorsal (VD) or Dorso-ventral (DV)
+
+### Why?
+- Single view = depth ambiguity
+- 2 perpendicular = better localization
+- Standard worldwide (Universal positioning)
+
+### Why universal?
+- Vets in different countries can compare
+- Textbooks reference standard views
+- Chinese, Thai, US, Japanese all do same way
+
+---
+
+## 2. Thoracic Positioning ⭐⭐⭐ (Most common!)
+
+### Indications
+- Coughing, dyspnea
+- Suspected heart disease
+- Trauma to chest
+- Cancer staging (lung mets)
+
+### Standard 2 views
+| View | Purpose |
+|---|---|
+| **Right Lateral (RL)** ⭐ | See LEFT lung better (left up = expanded) |
+| **Left Lateral (LL)** | See RIGHT lung better |
+| **VD (Ventro-Dorsal)** ⭐ | Heart shape, mediastinum |
+| **DV (Dorso-Ventral)** | Alternative if VD difficult |
+
+### Patient positioning rules
+- Sternum + spine in line (no rotation!)
+- Forelegs pulled forward (out of way)
+- **Inspiration phase** — gives lung maximum expansion
+- Center on heart (~5th intercostal space)
+
+### Why right lateral default?
+- Convention in most textbooks
+- Most diagnoses done in right lateral
+- Add left lateral if specific indication
+
+> ⭐ "Side UP = side seen better" for lung evaluation!
+
+---
+
+## 3. Abdominal Positioning ⭐⭐
+
+### Indications
+- Vomiting, diarrhea
+- Trauma
+- Suspected foreign body
+- Urinary issues
+
+### Standard views
+| View | Purpose |
+|---|---|
+| **Right Lateral** ⭐ | Standard initial |
+| **VD (Ventro-Dorsal)** | Symmetry assessment |
+
+### Rules
+- Forelegs pulled cranial
+- Hindlegs pulled caudal
+- Spine straight
+- Sternum + spine aligned (no rotation)
+- **Expiration phase** — abdominal contents most visible
+
+### Centering
+- T13/L1 or umbilicus
+- Open from cranial diaphragm to coxofemoral
+- Don't crop important areas
+
+### Special view: Left lateral
+- For descending colon evaluation
+- Add when colon issues suspected
+
+---
+
+## 4. Inspiration vs Expiration ⭐⭐⭐ (KEY!)
+
+### Inspiration (breath IN)
+| Use | Why |
+|---|---|
+| **Thorax** ⭐ | Lung expanded, see all alveoli |
+| **Tracheal evaluation** | Open trachea |
+
+### Expiration (breath OUT)
+| Use | Why |
+|---|---|
+| **Abdomen** ⭐ | Diaphragm pushes content cranial → see organs |
+| **Tracheal collapse** | Worse on expiration |
+
+### Why timing matters
+- Wrong phase = misdiagnosis
+- Practice catching the right moment
+- In pigs/large animals: harder to time!
+
+---
+
+## 5. Limb Positioning ⭐ (Multi-region)
+
+### Standard views for joint
+| View | Purpose |
+|---|---|
+| **Lateral** | Tendon, joint space |
+| **Cranial-Caudal (CrCd)** OR Caudal-Cranial (CdCr) | Bone alignment |
+| **Stress views** | Ligament integrity |
+
+### Stress view
+- Apply force during X-ray (e.g., flex knee while imaging)
+- Detects ligament tears
+- Common in stifle (CCL evaluation)
+
+### Horizontal Beam (HB) ⭐
+- Beam parallel to ground (not perpendicular)
+- Detects fluid lines + free air
+- Used when patient can't be repositioned (trauma)
+
+---
+
+## 6. Skull Positioning ⭐
+
+### Standard views
+- Lateral
+- DV
+- Open mouth (for nasal cavity assessment)
+- Frontal sinus oblique
+- Bullae views (specific oblique angles)
+
+### Specialized
+- Dental: Different angles for each tooth
+- Cervical spine: for neck pain
+
+---
+
+## 7. Centering & Cropping Rules ⭐
+
+### Center the X-ray on...
+| Region | Center |
+|---|---|
+| Thorax | Heart (5th intercostal) |
+| Abdomen | T13/L1 or umbilicus |
+| Limb | Joint of interest |
+| Spine | Specific vertebra |
+| Pelvis | Pubic symphysis (or hip joint) |
+
+### Cropping rules
+- Open from cranial structure to caudal structure
+- Don't crop too tight (miss findings)
+- Don't open too wide (waste detector area)
+
+---
+
+## 8. Image Quality Factors ⭐⭐⭐ (Memorize!)
+
+### Four primary factors
+| Factor | Effect |
+|---|---|
+| **kVp (kilovoltage peak)** | Penetration (higher = more penetrating) |
+| **mA (milliamps)** | Quantity of X-rays |
+| **Time (seconds)** | Exposure duration |
+| **Distance (FFD/SOD)** | Affected by inverse square law |
+
+### Practical interpretation
+- **Underexposed** = too white (not enough X-rays)
+- **Overexposed** = too dark (too many X-rays)
+- Adjust kVp first, then mA, then time
+
+### Modern digital systems
+- Auto-exposure (AEC)
+- Adjust based on body part + thickness
+- Less manual adjustment needed
+
+---
+
+## 9. Common Artifacts ⭐⭐ (KEY!)
+
+### Motion artifacts
+| Cause | Appearance |
+|---|---|
+| **Patient breathing** | Blurred |
+| **Cassette movement** | Blurred + linear streaks |
+| **Patient struggling** | Multi-edge blur |
+
+### Solution: faster exposure time, better restraint, sedation if needed
+
+### Foreign body artifacts
+- Metal (collar, microchips) = bright white
+- ECG leads = bright lines
+- Hair clippings = subtle linear
+
+### Solution: remove items before X-ray
+
+### Image processing artifacts
+- Grid lines (anti-scatter grid issues)
+- Scatter radiation
+- Backscatter
+
+### Solution: proper grid alignment, lead backing
+
+### Patient artifacts
+- Wet skin = brighter
+- Casts = altered
+- Air pockets = darker spots
+
+---
+
+## 10. Quality Control Checklist ⭐
+
+### Before reading X-ray, verify
+1. Patient ID correct?
+2. Date/time correct?
+3. Anatomy positioning correct?
+4. No rotation (sternum + spine aligned)?
+5. Inspiratory phase (thorax)?
+6. Centering correct?
+7. Adequate exposure (kVp/mA right)?
+8. No motion blur?
+9. No major artifacts?
+10. Both standard views taken?
+
+### If any "no" → consider re-take
+
+---
+
+## 11. Sedation Decisions ⭐
+
+### When to sedate
+- Painful patient (won't hold position)
+- Dangerous patient (won't hold for X-ray)
+- Need precise positioning (orthopedic)
+- Long study (multiple views)
+
+### Sedation drugs
+- Acepromazine (mild)
+- Butorphanol (analgesia)
+- Dexmedetomidine (deeper)
+- Anesthesia for delicate cases
+
+### When NOT to sedate
+- Critical patient (sedation risk too high)
+- Quick screening
+- Cooperative patient
+
+---
+
+## 12. Universal Positioning Importance ⭐ (Why we standardize)
+
+### Benefits
+- Vets globally can interpret each other's X-rays
+- Textbooks consistent
+- AI systems trained on standard views
+- Enables comparison over time
+- Liability/legal documentation
+
+### Pitfalls of non-standard
+- Misinterpretation
+- Can't compare to references
+- Difficult for second-opinion
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Always take 2 perpendicular views**
+2. **Right Lateral + VD/DV** = thorax standard
+3. **Right Lateral + VD** = abdomen standard
+4. **Side UP = side seen better** (lateral lung)
+5. **Inspiration phase** for thorax
+6. **Expiration phase** for abdomen
+7. **Sternum + spine aligned** (no rotation)
+8. **kVp** = penetration · **mA** = quantity · **Time** · **Distance**
+9. **Inverse square law** for distance
+10. **Underexposed = too white** · **Overexposed = too dark**
+11. **Motion artifact** = blurry, fix with faster time
+12. **Metal artifacts** bright white (remove items first)
+13. **Centering** matches anatomy of interest
+14. **Sedation** if painful/dangerous/precise positioning needed
+
+> 📚 อ่านควบ: 1.1-1.3 Introductory (9BKTe9spGGc, gmultIaMHq4, _IVm9RZlyIg) · 3 MSK Interpretation (3NNhQwnyNqY) · 4.2 Abdominal Lab (5RXoan8azRs) · 5.2 Thoracic Lab (yc88x669lIA)
+> 🩻 **Practice tip**: Year 5 lab will practice positioning · master 2-view rule
+> 💡 **Inspiration thorax, Expiration abdomen** — easy to mix up!
+> 🦴 **Universal positioning** = key to inter-vet communication`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
