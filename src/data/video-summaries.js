@@ -48316,6 +48316,798 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. ⭐ Always check oral cavity for hidden cause`,
   },
 
+  // ═══════════════════════════════════════════════════════════════
+  // aquatic-clinic (DekDokVet85 · Y5 sem 1) — 19 videos
+  // ═══════════════════════════════════════════════════════════════
+
+  '7z5EeUMqDXg': {
+    videoId: '7z5EeUMqDXg', title: 'Aquatic Clinic — 0 Introduction', subject: 'aquatic-clinic',
+    date: '2025-08-05', durationMin: 15, instructor: 'CUVET aquatic medicine team',
+    examFormat: 'Brief overview · course structure',
+    summary: `## 🎯 Lead Summary
+Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians, reptiles, ornamental species. Thai aquaculture industry context.
+
+## Topics Covered ⭐
+- Course structure
+- Aquatic species range
+- Career opportunities
+- Thailand's role as major producer
+
+## Key Career Areas ⭐
+- Shrimp farming (major export!)
+- Tilapia/catfish farming
+- Ornamental fish (Bangkok hub)
+- Public aquariums
+- Wild + conservation
+
+> 📚 Cross-refs: All aquatic-clinic lectures
+> 🎯 Thailand = #1 ornamental fish exporter`,
+  },
+  WBElJErmmj0: {
+    videoId: 'WBElJErmmj0', title: 'Aquatic Clinic — 1.1 Aquaculture in Thailand', subject: 'aquatic-clinic',
+    date: '2025-08-05', durationMin: 63, instructor: 'CUVET aquatic team',
+    examFormat: 'Multiple choice · ออก Thai aquaculture statistics · main species',
+    summary: `## 🎯 Lead Summary
+**Thai aquaculture industry**: ⭐ World's leading producer of shrimp + tilapia. Major species, geography, economics.
+
+## Main Thai Species ⭐⭐
+- ⭐ **Shrimp** (Penaeus vannamei, P. monodon)
+- ⭐ **Tilapia** (most farmed freshwater)
+- ⭐ **Catfish** (Pangasius, Clarias)
+- ⭐ Sea bass · Striped bass · Snapper
+- Ornamental: betta, goldfish, koi
+
+## Economic Importance ⭐
+- ⭐ Major export (~$2 billion+/yr)
+- Employment: 100,000s
+- Food security
+- Foreign exchange earnings
+
+## Geography ⭐
+- ⭐ South: marine + brackish (shrimp)
+- ⭐ Central: freshwater
+- ⭐ North/NE: tilapia, catfish
+- Coastal: marine cages
+
+## Challenges ⭐
+- ⭐ Disease outbreaks (EMS, EHP, WSSV)
+- ⭐ Climate change
+- ⭐ Antibiotic resistance
+- Trade restrictions
+- Water quality
+
+> 🎯 Thailand = top global producer multiple species`,
+  },
+  cYtkvs3oKNI: {
+    videoId: 'cYtkvs3oKNI', title: 'Aquatic Clinic — 1.2 Aquaculture Industry & Technology', subject: 'aquatic-clinic',
+    date: '2025-08-05', durationMin: 99, instructor: 'CUVET aquatic team',
+    examFormat: 'Multiple choice · ออก farming systems · technology · biofloc',
+    summary: `## 🎯 Lead Summary
+**Aquaculture systems + technology**. From traditional pond to modern intensive systems with biofloc, RAS (Recirculating Aquaculture Systems).
+
+## Farming Systems ⭐⭐⭐
+| System | Description |
+|---|---|
+| ⭐ Extensive | Low density, natural feed |
+| ⭐ Semi-intensive | Mixed natural + supplementary |
+| ⭐ Intensive | High density, complete feed |
+| ⭐ ⭐ **Biofloc** | Bacteria-based system |
+| ⭐ **RAS** | Recirculating, indoor |
+
+## Modern Technology ⭐
+- ⭐ Aerators · feeding automation
+- ⭐ Water quality monitoring sensors
+- ⭐ DNA-based disease diagnosis
+- ⭐ Vaccine development
+- Genetic improvement
+
+## Biofloc Concept ⭐⭐
+- ⭐ Heterotrophic bacteria recycle nitrogen
+- ⭐ No water exchange
+- ⭐ High density possible
+- ⭐ Bacteria as supplemental feed
+
+## RAS Benefits ⭐
+- ⭐ 99% water reuse
+- ⭐ Disease control
+- ⭐ Year-round production
+- ⚠️ High capital cost
+
+> 🎯 Future: precision aquaculture + AI`,
+  },
+  '_kvFNpcCh5M': {
+    videoId: '_kvFNpcCh5M', title: 'Aquatic Clinic — 2 Fish Biology', subject: 'aquatic-clinic',
+    date: '2025-08-12', durationMin: 155, instructor: 'CUVET aquatic team',
+    examFormat: 'Multiple choice · ออก fish anatomy/physiology · gill function · osmoregulation',
+    summary: `## 🎯 Lead Summary
+**Fish biology** — fundamentals for aquatic vet. Gills, scales, swim bladder, lateral line, osmoregulation. Different from mammals!
+
+## Anatomy Highlights ⭐⭐
+- ⭐ **Gills**: respiration + gas exchange
+- ⭐ **Operculum**: protects gills
+- ⭐ **Lateral line**: detects vibrations
+- ⭐ **Swim bladder**: buoyancy
+- ⭐ **Scales**: 4 types (cycloid, ctenoid, etc.)
+
+## Physiology Key Points ⭐⭐⭐
+### Osmoregulation ⭐
+- ⭐ **Freshwater fish**: hyperosmotic to environment, dilute urine
+- ⭐ **Saltwater fish**: hypoosmotic, drink water, concentrated urine
+- ⭐ Critical for transport, treatment
+
+### Respiration ⭐
+- ⭐ Counter-current exchange in gills (efficient O2)
+- ⭐ Rate increases with stress, low O2
+- ⚠️ Gill damage = often fatal
+
+### Immune System ⭐
+- ⭐ Innate immunity dominant
+- ⭐ Adaptive immunity slower than mammals
+- ⭐ Mucous = first defense
+- Temperature affects immunity!
+
+## Reproduction ⭐
+- ⭐ Most external (broadcast spawning)
+- Some internal (livebearers)
+- Hormonal manipulation common in farms
+
+## 📋 Exam Recap
+1. ⭐ Counter-current gas exchange in gills
+2. ⭐ Freshwater vs saltwater osmoregulation reverse
+3. ⭐ Mucous = first immune defense
+4. ⭐ Temperature affects fish immunity
+5. ⭐ Lateral line = unique fish sense organ`,
+  },
+  YXlt_Me9d6Q: {
+    videoId: 'YXlt_Me9d6Q', title: 'Aquatic Clinic — 3.0.1 Shrimp Biology and Immunology', subject: 'aquatic-clinic',
+    date: '2025-08-19', durationMin: 132, instructor: 'CUVET shrimp team',
+    examFormat: 'Multiple choice · ออก shrimp anatomy · molting · immunology · disease susceptibility',
+    summary: `## 🎯 Lead Summary
+**Shrimp biology** — Thailand's most economically important aquatic species. Unique: molting cycle, hemolymph, hepatopancreas. Innate-only immunity.
+
+## Anatomy ⭐⭐
+- ⭐ Hepatopancreas (liver + pancreas combined)
+- ⭐ Hemolymph (open circulatory system)
+- ⭐ Gut anatomy (foregut + midgut + hindgut)
+- ⭐ Gills (lateral)
+- ⭐ Antennae, eyestalks
+
+## Molting Cycle ⭐⭐⭐
+- ⭐ ⭐ **Molting = vulnerable phase**
+- ⭐ Premolt → Postmolt phases
+- ⭐ Hormone-controlled (ecdysone)
+- ⚠️ Disease risk highest during molt
+
+## Immunology ⭐⭐⭐
+- ⭐ ⭐ **NO adaptive immunity**
+- ⭐ Innate only (PAMPs/PRRs)
+- ⭐ Hemocytes = main effectors
+- ⭐ Phagocytosis, encapsulation
+- ⭐ Antimicrobial peptides
+
+### Implications
+- ⭐ ⭐ ⭐ **VACCINES DON'T WORK in shrimp!**
+- ⭐ Prevention via biosecurity, immune stimulants
+- ⭐ Probiotic/prebiotic strategies
+
+## 📋 Exam Recap
+1. ⭐ Hepatopancreas = vital organ
+2. ⭐ Molting = vulnerable phase
+3. ⭐ NO adaptive immunity in shrimp
+4. ⭐ NO vaccines work
+5. ⭐ Biosecurity = primary defense`,
+  },
+  rGCxK_2ivRs: {
+    videoId: 'rGCxK_2ivRs', title: 'Aquatic Clinic — 3.0.2 Fish Immunity', subject: 'aquatic-clinic',
+    date: '2025-08-26', durationMin: 32, instructor: 'CUVET aquatic team',
+    examFormat: 'Multiple choice · ออก fish immune system · vaccination · temperature effects',
+    summary: `## 🎯 Lead Summary
+**Fish immunity** = both innate + adaptive (unlike shrimp!). Vaccines work but with caveats.
+
+## Innate Immunity ⭐⭐
+- ⭐ Mucous (Ig + AMPs)
+- ⭐ Skin/scales physical barrier
+- ⭐ Macrophages, neutrophils
+- ⭐ Complement, lysozyme
+- ⭐ Antimicrobial peptides
+
+## Adaptive Immunity ⭐⭐
+- ⭐ B + T cells exist
+- ⭐ Antibodies (IgM dominant)
+- ⭐ Memory cells (limited)
+- ⚠️ Slower than mammals
+
+## Vaccination ⭐⭐
+- ⭐ Works! (vs shrimp)
+- ⭐ Routes: injection, immersion, oral
+- ⭐ Common diseases vaccinated:
+  - Streptococcus
+  - Edwardsiella
+  - Aeromonas
+  - VHS, IHN (cold-water)
+
+## Temperature Effects ⭐
+- ⭐ Cold = ↓ immune function
+- ⭐ Stress reduces immunity
+- ⭐ Optimal temperature for vaccine response
+
+## 📋 Exam Recap
+1. ⭐ Fish DO have adaptive immunity
+2. ⭐ IgM dominant (not IgG)
+3. ⭐ Vaccines work in fish
+4. ⭐ Temperature affects immunity
+5. ⭐ Streptococcus + Aeromonas common targets`,
+  },
+  RkcMZy109vk: {
+    videoId: 'RkcMZy109vk', title: 'Aquatic Clinic — 4.1 Water Quality in Aquaculture Pond', subject: 'aquatic-clinic',
+    date: '2025-08-26', durationMin: 45, instructor: 'CUVET aquatic team',
+    examFormat: 'Multiple choice + calculation · ออก water parameters · monitoring · DO, pH, ammonia',
+    summary: `## 🎯 Lead Summary
+**Water quality** = fundamental to fish health. ⭐ ⭐ "Healthy water = healthy fish". Critical parameters: DO, temperature, pH, NH3, NO2, NO3, salinity, hardness.
+
+## Critical Parameters ⭐⭐⭐
+| Parameter | Acceptable Range |
+|---|---|
+| ⭐ Dissolved O2 | >5 mg/L |
+| ⭐ Temperature | Species-specific |
+| ⭐ pH | 6.5-8.5 |
+| ⭐ Ammonia (NH3) | <0.05 mg/L |
+| ⭐ Nitrite (NO2) | <0.5 mg/L |
+| Nitrate (NO3) | <50 mg/L |
+| Salinity | Species-specific |
+
+## Nitrogen Cycle ⭐⭐
+- ⭐ Fish waste → NH3 (toxic)
+- ⭐ Nitrosomonas → NO2 (toxic)
+- ⭐ Nitrobacter → NO3 (less toxic)
+- ⭐ Plants/water change remove NO3
+
+## Toxic at Different Stages ⭐
+- ⭐ NH3 → gill damage, neurologic
+- ⭐ NO2 → "brown blood" (methemoglobinemia)
+- ⭐ Low DO → suffocation
+
+## Monitoring ⭐
+- ⭐ Daily DO check
+- ⭐ Weekly pH, NH3, NO2
+- ⭐ Test kits or electronic sensors
+
+## 📋 Exam Recap
+1. ⭐ DO > 5 mg/L minimum
+2. ⭐ pH 6.5-8.5
+3. ⭐ Ammonia toxicity → gills
+4. ⭐ NO2 → brown blood
+5. ⭐ Nitrogen cycle important to understand`,
+  },
+  i37x85TXsUw: {
+    videoId: 'i37x85TXsUw', title: 'Aquatic Clinic — 4.2 Life Supporting System', subject: 'aquatic-clinic',
+    date: '2025-08-26', durationMin: 83, instructor: 'CUVET aquatic team',
+    examFormat: 'Multiple choice · ออก aeration systems · filtration · water exchange',
+    summary: `## 🎯 Lead Summary
+**Life support systems** for aquaculture. Aeration, filtration, water exchange - keep fish alive at high density.
+
+## Aeration Methods ⭐⭐
+- ⭐ Paddle wheels (most common Thailand!)
+- ⭐ Air diffusers
+- ⭐ Aspirator pumps
+- Surface agitators
+- Liquid O2 (intensive)
+
+## Filtration ⭐⭐
+### Mechanical
+- ⭐ Sand filters
+- Foam fractionators
+
+### Biological ⭐⭐
+- ⭐ Bacterial colonies on media
+- Convert NH3 → NO3
+- ⭐ Need maturation (4-6 weeks)
+
+### Chemical
+- ⭐ Activated carbon
+- Zeolite
+- UV sterilization
+
+## Water Exchange ⭐
+- ⭐ Traditional: 30% daily
+- ⭐ Biofloc: minimal exchange
+- ⭐ RAS: 1-5% daily
+
+## 📋 Exam Recap
+1. ⭐ Paddle wheel = Thai standard
+2. ⭐ Biological filter needs 4-6 weeks
+3. ⭐ Mechanical → biological → chemical filtration order
+4. ⭐ UV sterilization for pathogens
+5. ⭐ RAS minimizes water use`,
+  },
+  Ht4uH8mzYQ8: {
+    videoId: 'Ht4uH8mzYQ8', title: 'Aquatic Clinic — 5 Ornamental Fish Medicine', subject: 'aquatic-clinic',
+    date: '2025-09-02', durationMin: 165, instructor: 'CUVET aquatic team',
+    examFormat: 'Multiple choice · ออก ornamental fish DDx · betta diseases · koi',
+    summary: `## 🎯 Lead Summary
+**Ornamental fish medicine**. Thailand = world hub for ornamental fish exports. Common species + diseases.
+
+## Major Thai Ornamental Species ⭐⭐
+- ⭐ Betta (Siamese fighting fish) — Thai national fish!
+- ⭐ Goldfish
+- ⭐ Koi
+- ⭐ Discus
+- Cichlids
+- Tetras, guppies
+
+## Common Diseases ⭐⭐⭐
+### Bacterial
+- ⭐ Aeromonas
+- ⭐ Pseudomonas
+- ⭐ Mycobacterium
+- Vibrio (marine)
+
+### Parasitic
+- ⭐ Ich/White Spot (Ichthyophthirius)
+- ⭐ Trichodina
+- ⭐ Gyrodactylus
+- ⭐ Argulus (fish lice)
+
+### Viral
+- ⭐ KHV (Koi Herpesvirus) ← devastating!
+- ⭐ Spring Viremia of Carp
+- Lymphocystis
+
+### Fungal
+- ⭐ Saprolegnia (water mold)
+
+## Diagnostic Approach ⭐
+1. ⭐ Water quality FIRST!
+2. ⭐ Skin scraping → microscopy
+3. Gill biopsy
+4. Histopathology
+5. Culture
+
+## Treatment ⭐
+- ⭐ Salt baths (parasites)
+- ⭐ Formalin baths
+- ⭐ Methylene blue
+- ⭐ Antibiotics (in feed)
+- ⭐ Improve water quality
+
+## 📋 Exam Recap
+1. ⭐ Thailand = ornamental fish export hub
+2. ⭐ Always check water quality first
+3. ⭐ Ich = most common parasitic disease
+4. ⭐ KHV = catastrophic for koi
+5. ⭐ Salt baths effective for many parasites`,
+  },
+  D5LZtcXUYso: {
+    videoId: 'D5LZtcXUYso', title: 'Aquatic Clinic — 6.1 Basic Amphibian Medicine', subject: 'aquatic-clinic',
+    date: '2025-09-09', durationMin: 82, instructor: 'CUVET amphibian team',
+    examFormat: 'Multiple choice · ออก amphibian anatomy · diseases · husbandry',
+    summary: `## 🎯 Lead Summary
+**Amphibian medicine** — frogs, toads, salamanders. Bullfrog farming is Thai industry. Skin = critical organ.
+
+## Unique Anatomy ⭐⭐
+- ⭐ Permeable skin (drug absorption)
+- ⭐ Cutaneous respiration
+- Lungs simple
+- ⭐ Mucus protective barrier
+
+## Common Diseases ⭐⭐⭐
+- ⭐ ⭐ **Chytridiomycosis** (Batrachochytrium) — global concern
+- ⭐ Red-leg syndrome (Aeromonas)
+- ⭐ Mycobacterium (chronic)
+- ⭐ Saprolegnia
+- Parasites
+- Toxin exposure
+
+## Husbandry Issues ⭐
+- ⭐ Temperature/humidity range
+- ⭐ Water quality (chlorine kills!)
+- ⭐ UV-B for some species
+- ⭐ Diet (live insects)
+
+## Treatment Considerations ⭐
+- ⭐ Skin absorbs medications
+- ⭐ Reduced doses
+- ⭐ Avoid water contamination
+
+## 📋 Exam Recap
+1. ⭐ Skin = critical (permeable, respiration)
+2. ⭐ Chytridiomycosis = global amphibian threat
+3. ⭐ Chlorine kills amphibians
+4. ⭐ Drug doses reduced for absorption
+5. ⭐ Bullfrog farming Thai industry`,
+  },
+  lcYOKEmEWb8: {
+    videoId: 'lcYOKEmEWb8', title: 'Aquatic Clinic — 6.2 Diseases in Cultured Frogs', subject: 'aquatic-clinic',
+    date: '2025-09-09', durationMin: 52, instructor: 'CUVET amphibian team',
+    examFormat: 'Multiple choice · ออก cultured frog diseases · Thai bullfrog industry',
+    summary: `## 🎯 Lead Summary
+**Cultured frog diseases** — focus on Thai bullfrog (Rana catesbeiana, Rana rugulosa) industry. Major export.
+
+## Thai Bullfrog Industry ⭐
+- ⭐ Major export to China
+- ⭐ Intensive culture systems
+- ⭐ Disease outbreaks common
+- Thailand = top global producer
+
+## Common Diseases ⭐⭐
+### Bacterial
+- ⭐ Red-leg syndrome (Aeromonas hydrophila)
+- ⭐ Edwardsiella
+- ⭐ Streptococcus
+- ⭐ Mycobacterium
+
+### Viral
+- ⭐ Ranavirus (FV3)
+- ⭐ Iridovirus
+
+### Fungal
+- ⭐ Saprolegniasis
+- ⭐ Chytridiomycosis (B. dendrobatidis)
+
+### Parasitic
+- ⭐ Trematodes
+- ⭐ Nematodes
+
+## Management ⭐
+- ⭐ Stocking density control
+- ⭐ Water quality monitoring
+- ⭐ Disinfection between batches
+- ⭐ Vaccination research ongoing
+
+## 📋 Exam Recap
+1. ⭐ Bullfrog = Thai export
+2. ⭐ Red-leg = most common bacterial
+3. ⭐ Ranavirus = viral concern
+4. ⭐ Chytridiomycosis = global issue
+5. ⭐ Stocking density critical`,
+  },
+  F8AvbK_6tyg: {
+    videoId: 'F8AvbK_6tyg', title: 'Aquatic Clinic — 7 Chelonian (Turtles + Tortoises)', subject: 'aquatic-clinic',
+    date: '2025-09-16', durationMin: 181, instructor: 'CUVET reptile team',
+    examFormat: 'Multiple choice · ออก turtle/tortoise anatomy · common diseases · husbandry',
+    summary: `## 🎯 Lead Summary
+**Chelonian medicine** — turtles + tortoises. Increasing popularity as pets in Thailand. Unique anatomy + special needs.
+
+## Categories ⭐
+- ⭐ **Aquatic** (Red-eared slider, snapping)
+- ⭐ **Semi-aquatic** (box turtle)
+- ⭐ **Terrestrial** (sulcata, leopard tortoise)
+
+## Anatomy ⭐⭐
+- ⭐ Carapace (top) + plastron (bottom)
+- ⭐ Bony shell with scutes
+- ⭐ Lung anatomy unique
+- Cloaca
+
+## Common Diseases ⭐⭐⭐
+### Husbandry-related
+- ⭐ ⭐ MBD (calcium/UV deficiency)
+- ⭐ Hypovitaminosis A (eye disease)
+- ⭐ Shell rot (bacterial/fungal)
+- ⭐ Pyramiding (poor diet/UV)
+
+### Infectious
+- ⭐ Mycoplasma URTD (tortoise)
+- ⭐ Chelonid Herpesvirus
+- ⭐ Salmonella (zoonotic!)
+- ⭐ Ranavirus
+
+### Other
+- ⭐ Egg binding
+- Trauma, fracture
+- Drowning (terrestrial in water)
+
+## Husbandry ⭐
+- ⭐ Species-specific UVB
+- ⭐ Temperature gradient
+- ⭐ Diet diversity
+- ⭐ Water for hydration
+- Calcium supplementation
+
+## 📋 Exam Recap
+1. ⭐ Aquatic vs semi vs terrestrial care different
+2. ⭐ MBD = #1 husbandry disease
+3. ⭐ UVB essential for terrestrial
+4. ⭐ Salmonella zoonotic risk
+5. ⭐ Pyramiding = chronic poor husbandry`,
+  },
+  fn03KM77X7Q: {
+    videoId: 'fn03KM77X7Q', title: 'Aquatic Clinic — 9.1.1 Shrimp Diseases', subject: 'aquatic-clinic',
+    date: '2025-10-07', durationMin: 32, instructor: 'CUVET shrimp team',
+    examFormat: 'Multiple choice · ออก major shrimp diseases · WSSV · EMS · EHP',
+    summary: `## 🎯 Lead Summary
+**Shrimp diseases** = devastating for Thai industry. Top: ⭐ WSSV (white spot) · EMS/AHPND · EHP · IMNV · YHV.
+
+## Major Viral Diseases ⭐⭐⭐
+- ⭐ ⭐ **WSSV** (White Spot Syndrome Virus) — most lethal
+- ⭐ ⭐ **YHV** (Yellow Head Virus)
+- ⭐ **IHHNV** (Infectious Hypodermal & Hematopoietic Necrosis)
+- ⭐ **TSV** (Taura Syndrome)
+- ⭐ **IMNV** (Infectious Myonecrosis)
+
+## Bacterial ⭐⭐
+- ⭐ ⭐ **EMS / AHPND** (Acute Hepatopancreatic Necrosis - Vibrio parahaemolyticus)
+- ⭐ Vibriosis (multiple species)
+- Necrotizing hepatopancreatitis
+
+## Parasitic ⭐⭐
+- ⭐ ⭐ **EHP** (Enterocytozoon hepatopenaei) — microsporidian
+- White feces syndrome (Vermiform-Gregarine?)
+
+## Diagnostic Approach ⭐
+- ⭐ ⭐ Real-time PCR (gold standard)
+- ⭐ Histology
+- Visual inspection (clinical signs)
+- Microscopy (gross examination of hepatopancreas)
+
+## Control ⭐
+- ⭐ ⭐ **Biosecurity is everything!** (no vaccines!)
+- ⭐ SPF (Specific Pathogen Free) post-larvae
+- ⭐ Disinfection
+- ⭐ Water filtration
+- ⭐ Limit movement
+
+## 📋 Exam Recap
+1. ⭐ WSSV = #1 shrimp killer
+2. ⭐ EMS = bacterial (Vibrio)
+3. ⭐ EHP = microsporidian
+4. ⭐ NO vaccines work
+5. ⭐ Biosecurity = primary defense`,
+  },
+  '4nLqFMqASgg': {
+    videoId: '4nLqFMqASgg', title: 'Aquatic Clinic — 9.1.2 Shrimp Diseases - Biosecurity Cases', subject: 'aquatic-clinic',
+    date: '2025-10-14', durationMin: 123, instructor: 'CUVET shrimp team',
+    examFormat: 'Multiple choice + case studies · ออก biosecurity protocols · case investigations',
+    summary: `## 🎯 Lead Summary
+**Shrimp biosecurity + case studies**. Real outbreak investigations. Prevention strategies for Thai farms.
+
+## Biosecurity Pillars ⭐⭐⭐
+- ⭐ ⭐ **SPF post-larvae** sourcing
+- ⭐ ⭐ **Disinfection** (between cycles)
+- ⭐ ⭐ **Water inlet** filtration + treatment
+- ⭐ ⭐ **Predator control**
+- ⭐ ⭐ **Personnel hygiene**
+- ⭐ Footbaths, vehicle disinfection
+
+## Case Studies ⭐⭐
+### EMS Outbreak
+- ⭐ Hepatopancreas pale + small
+- ⭐ Vibrio parahaemolyticus carrying toxin gene
+- Control: pond drying, lime, biosecurity
+
+### WSSV Outbreak
+- ⭐ White spots on cuticle
+- ⭐ High mortality 100%
+- ⭐ Stop pond, disinfect, restart with SPF
+
+### EHP Issue
+- ⭐ Slow growth, no death
+- ⭐ White muscle spores
+- ⭐ Control: pond cleaning, alkaline treatment
+
+## Modern Approaches ⭐
+- ⭐ DNA-based screening
+- ⭐ Probiotics
+- ⭐ Phage therapy research
+
+## 📋 Exam Recap
+1. ⭐ SPF source post-larvae
+2. ⭐ EMS pathognomonic: pale hepatopancreas
+3. ⭐ WSSV cuticle white spots
+4. ⭐ EHP causes growth retardation
+5. ⭐ Biosecurity pillars must all be in place`,
+  },
+  yVDdJKpws5A: {
+    videoId: 'yVDdJKpws5A', title: 'Aquatic Clinic — 10 Conservation Aquatic Animals', subject: 'aquatic-clinic',
+    date: '2025-10-21', durationMin: 187, instructor: 'CUVET conservation team',
+    examFormat: 'Multiple choice · ออก endangered aquatic species · conservation medicine',
+    summary: `## 🎯 Lead Summary
+**Conservation aquatic medicine** — endangered species, wildlife. Different from production focus.
+
+## Thai Endangered Aquatic Animals ⭐
+- ⭐ Mekong giant catfish (Pangasianodon gigas)
+- ⭐ Siamese giant carp
+- ⭐ Irrawaddy dolphin (Mae Khong)
+- ⭐ Sea turtles (multiple species)
+- Whale sharks
+- Dugong
+
+## Conservation Medicine Principles ⭐⭐
+- ⭐ Ecosystem health connection
+- ⭐ Wild animal capture/release
+- ⭐ Disease surveillance in wild
+- ⭐ Translocation issues
+- ⭐ Genetic considerations
+
+## Common Health Issues ⭐
+- ⭐ Pollution effects
+- ⭐ Climate change
+- ⭐ Parasites
+- Plastic ingestion (sea turtles)
+- Ship strikes (large mammals)
+
+## Conservation Strategy ⭐
+- ⭐ Habitat protection
+- ⭐ Anti-poaching
+- ⭐ Captive breeding
+- ⭐ Reintroduction programs
+- One Health approach
+
+## 📋 Exam Recap
+1. ⭐ Multiple endangered Thai aquatic species
+2. ⭐ Pollution = major threat
+3. ⭐ Climate change concerns
+4. ⭐ One Health approach
+5. ⭐ Captive breeding programs`,
+  },
+  bXHto5noX1A: {
+    videoId: 'bXHto5noX1A', title: 'Aquatic Clinic — 11.1 Aquarium Management', subject: 'aquatic-clinic',
+    date: '2025-10-28', durationMin: 86, instructor: 'CUVET aquarium team',
+    examFormat: 'Multiple choice · ออก aquarium setup · water management · stocking',
+    summary: `## 🎯 Lead Summary
+**Aquarium management** — public/private aquariums. Water management, stocking, education, exhibit design.
+
+## Aquarium Types ⭐
+- ⭐ Public aquariums (Siam Ocean World, Phuket Aquarium)
+- ⭐ Research aquariums
+- ⭐ Home/hobby aquariums
+
+## Setup Components ⭐⭐
+- ⭐ Tank/exhibit design
+- ⭐ Filtration (sized to bioload)
+- ⭐ Lighting (UV, day/night)
+- ⭐ Water source treatment
+- ⭐ Quarantine system
+- Backup life support
+
+## Management ⭐
+- ⭐ Daily monitoring
+- ⭐ Water testing protocols
+- ⭐ Feeding schedules
+- ⭐ Health surveillance
+- Record keeping
+
+## Stocking Considerations ⭐
+- ⭐ Compatibility (predator-prey)
+- ⭐ Density (oxygen demand)
+- ⭐ Quarantine new arrivals
+- ⭐ Genetic/age diversity
+
+## 📋 Exam Recap
+1. ⭐ Quarantine all new arrivals
+2. ⭐ Multiple filtration types
+3. ⭐ Backup life support critical
+4. ⭐ Daily monitoring SOPs
+5. ⭐ Compatibility before stocking`,
+  },
+  XXPMMegcGy8: {
+    videoId: 'XXPMMegcGy8', title: 'Aquatic Clinic — 11.2 Aquarium Veterinarian', subject: 'aquatic-clinic',
+    date: '2025-10-28', durationMin: 95, instructor: 'CUVET aquarium team',
+    examFormat: 'Multiple choice · ออก aquarium vet career · responsibilities',
+    summary: `## 🎯 Lead Summary
+**Aquarium veterinarian career**. Public aquariums need vets for animal care, surgeries, education.
+
+## Career Path ⭐
+- ⭐ Aquatic medicine + animal husbandry
+- ⭐ Continuing education + certification
+- ⭐ Practical experience essential
+
+## Responsibilities ⭐⭐
+- ⭐ Routine health surveillance
+- ⭐ Quarantine management
+- ⭐ Disease investigation
+- ⭐ Treatment + surgery
+- ⭐ Necropsy
+- ⭐ Public education
+- ⭐ Husbandry consultation
+
+## Common Procedures ⭐
+- ⭐ Anesthesia (MS-222 most common)
+- ⭐ Blood sampling
+- ⭐ Imaging (X-ray, US)
+- ⭐ Endoscopy
+- ⭐ Surgery (tumor removal, sex change!)
+
+## Special Considerations ⭐
+- ⭐ Multi-species facility
+- ⭐ Public viewing
+- ⭐ Educational role
+- ⭐ Conservation contribution
+
+## 📋 Exam Recap
+1. ⭐ Aquarium vet = niche but growing
+2. ⭐ MS-222 = standard anesthetic
+3. ⭐ Multi-species expertise needed
+4. ⭐ Public + education role
+5. ⭐ Quarantine management critical`,
+  },
+  '7m8K5kt4AS0': {
+    videoId: '7m8K5kt4AS0', title: 'Aquatic Clinic — 12 Aquatic Toxicology', subject: 'aquatic-clinic',
+    date: '2025-11-04', durationMin: 112, instructor: 'CUVET aquatic team',
+    examFormat: 'Multiple choice · ออก common toxins · LC50 · diagnostic approach',
+    summary: `## 🎯 Lead Summary
+**Aquatic toxicology** — toxin effects on fish, shellfish. Pollution, agricultural runoff, industrial discharge.
+
+## Common Toxins ⭐⭐
+### Pesticides
+- ⭐ Organophosphates (cholinesterase inhibitor)
+- ⭐ Carbamates
+- Pyrethroids
+
+### Heavy Metals
+- ⭐ Lead, Mercury, Cadmium, Copper
+- ⭐ Bioaccumulation
+- ⭐ Bioconcentration
+
+### Industrial
+- ⭐ Cyanide
+- ⭐ Ammonia (point source)
+- Hydrocarbons
+
+### Algal Toxins ⭐⭐
+- ⭐ Dinoflagellates (red tide)
+- ⭐ Cyanobacteria toxins
+- ⭐ Saxitoxin (PSP), domoic acid
+
+## Diagnostic Approach ⭐
+1. ⭐ History (recent activities, water source)
+2. ⭐ Water analysis
+3. ⭐ Tissue sampling
+4. ⭐ Sentinel species
+5. ⭐ LC50 reference data
+
+## Treatment ⭐
+- ⭐ Remove from contaminated water
+- ⭐ Activated carbon if oral
+- ⭐ Symptomatic care
+- ⚠️ Prevention better than treatment
+
+## 📋 Exam Recap
+1. ⭐ Heavy metals bioaccumulate
+2. ⭐ Algal toxins (red tide) zoonotic
+3. ⭐ Cholinesterase inhibitors common
+4. ⭐ Water analysis essential
+5. ⭐ Prevention > treatment`,
+  },
+  '9fABd_2RhNw': {
+    videoId: '9fABd_2RhNw', title: 'Aquatic Clinic — 13 Aquatic Disease Control Authorities', subject: 'aquatic-clinic',
+    date: '2025-11-11', durationMin: 105, instructor: 'CUVET aquatic team',
+    examFormat: 'Multiple choice · ออก Thai authorities · DOF · OIE/WAHIS · trade',
+    summary: `## 🎯 Lead Summary
+**Thai aquatic disease control authorities** — DOF (Department of Fisheries), OIE/WAHIS reporting.
+
+## Thai Authorities ⭐⭐
+- ⭐ ⭐ **Department of Fisheries (DOF)** = lead authority
+- ⭐ Ministry of Agriculture
+- DLD (livestock part)
+- DEPA (aquaculture promotion)
+
+## International ⭐
+- ⭐ ⭐ **WOAH (formerly OIE) WAHIS**
+- ⭐ FAO
+- ⭐ Trade partners' regulations
+
+## Reportable Aquatic Diseases ⭐⭐
+- ⭐ WSSV
+- ⭐ AHPND (EMS)
+- ⭐ EHP
+- ⭐ KHV
+- ⭐ Many others
+
+## Trade Restrictions ⭐
+- ⭐ Mandatory disease testing
+- ⭐ Health certificates
+- ⭐ Quarantine requirements
+- ⭐ Country/zone status
+
+## 📋 Exam Recap
+1. ⭐ DOF = Thai aquatic authority
+2. ⭐ WOAH/WAHIS international reporting
+3. ⭐ Multiple shrimp diseases reportable
+4. ⭐ Trade depends on disease-free status
+5. ⭐ Health certificates for export`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
