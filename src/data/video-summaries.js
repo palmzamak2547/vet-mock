@@ -27817,6 +27817,360 @@ Fetal death in utero → dehydration + retention → "mummy"
 > 🦴 **Sentinel = 3 weeks** = the safest way to confirm cleanout success`,
   },
 
+  PrPV1sMvX_8: {
+    videoId: 'PrPV1sMvX_8',
+    title: '15. Disease Control & Prevention in Nursery & Fattening Pig Herds',
+    subject: 'swine-herd',
+    date: '26 Nov 67',
+    durationMin: 97,
+    instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
+    examFormat: 'MCQ — Fair Test concept · ROI calculation · Disease transmission routes by physical size · Probiotics/Prebiotics/Postbiotics · Organic acid action · Diarrhea pathogens by age · Worm differential ออกบ่อย',
+    summary: `# Disease Control & Prevention in Nursery & Fattening Pig Herds
+
+> 🎯 **The growing pig is the income generator** — protect this stage = protect profit
+> Top exam: **Fair Test design · ROI math · Pathogen size vs spread distance · Anti-bacterial alternatives · Organic acids · Diarrhea by age · Pig parasites**
+
+---
+
+## 1. Concepts to Master ⭐ (Foundation thinking)
+
+### A. The Fair Test Concept ⭐⭐
+**Fair Test** = comparing groups where ONLY ONE variable differs
+
+#### Why it matters
+- Cannot conclude effect of intervention if confounders exist
+- All factors must be matched: genetics, feed, environment, management, age
+- Real fair test = experimental design with control + treatment groups
+
+#### Common Thai farm trial mistakes
+| Error | Result |
+|---|---|
+| Different barns for trial vs control | Environmental confounding |
+| Different ages | Disease susceptibility varies |
+| Different worker | Skill confounder |
+| Skipping control group entirely | No baseline |
+
+> 💡 In any farm trial: ASK "what's confounding this?"
+
+### B. ROI / Benefit-Cost Ratio ⭐⭐⭐ (Critical exam math!)
+
+**ROI = Benefit ÷ Cost**
+
+#### Example: vaccine ROI
+- Vaccine cost: 1 baht/dose
+- Benefit: pig recovers, grows faster, costs less feed
+- Total benefit calculated: 10 baht/pig
+- ROI = 10/1 = **10x return**
+
+#### What counts as "Benefit"?
+- Reduced mortality
+- Faster growth (FCR improvement)
+- Lower feed cost
+- Reduced treatment costs
+- Reduced labor
+
+> ⭐ Always think in MONEY when communicating with farms
+> Vaccine costing 60 baht saving 9,000 baht feed = 150x ROI!
+
+---
+
+## 2. Disease Transmission Routes ⭐⭐ (By size!)
+
+### Direct contact pathogens
+- Disease spreads pig-to-pig via:
+  - Mouth (saliva)
+  - Skin (cuts, abrasions)
+  - Nose (sneezing)
+  - Anus (fecal-oral)
+
+### Vehicle pathogens (fomites)
+- Stay on surfaces (boots, clothing, equipment)
+- Critical: dedicated equipment per zone
+- Footbaths essential
+
+### Vector pathogens
+- Mosquitoes carry **ASF** ⭐
+- Flies carry **PED, E. coli**
+- Ticks carry various
+
+### Aerosol pathogens
+- Distance traveled depends on PARTICLE SIZE
+- **Bacteria** (large): ~few meters
+- **Virus** (small): much farther
+
+---
+
+## 3. Distance of Disease Spread by Size ⭐⭐ (Memorize!)
+
+### Why size matters
+| Pathogen | Particle size | Spread distance |
+|---|---|---|
+| **Bacteria** (e.g., APP) | Large | **0.5-2 meters** |
+| **Virus** (e.g., PED) | Small | **Up to 16 km (10 miles!)** |
+| FMD (virus, but heavy) | Variable | 8-16 km |
+| Influenza (virus) | Small | Up to several km |
+
+### Practical implication ⭐
+- ASF can spread between farms via wind!
+- Mycoplasma can spread between barns
+- Strict perimeter biosecurity essential for viral diseases
+
+### Visualization mnemonic
+> Bacteria = "spits in your face range"
+> Virus = "village over the hill range"
+
+---
+
+## 4. Diarrhea by Age — Pathogen Differentials ⭐⭐⭐ (Exam favorite!)
+
+### Suckling pigs (0-3 weeks)
+| Pathogen | Type | Notes |
+|---|---|---|
+| **PED** ⭐ | Virus (Coronavirus) | Catastrophic, 80-100% mortality if naïve |
+| **TGE** | Virus | Same family as PED, less common in Thailand |
+| **Rotavirus** | Virus | Large, fat pigs that don't dehydrate |
+| ***Clostridium perfringens*** | Bacteria | Hemorrhagic enteritis |
+| ***E. coli* (K88, etc.)** | Bacteria | Watery diarrhea |
+| **Coccidia (Cystoisospora suis)** | Protozoa | Yellow pasty diarrhea ~10-14 days |
+
+### Post-weaning (3-8 weeks)
+| Pathogen | Type | Notes |
+|---|---|---|
+| **E. coli (post-wean)** | Bacteria | Most common |
+| **Lawsonia (PIA — Porcine Intestinal Adenomatosis)** | Atypical bacteria | Mild diarrhea, growth check |
+| **Coccidia** | Protozoa | Continues from suckling |
+
+### Grower-finisher (>8 weeks)
+| Pathogen | Type | Notes |
+|---|---|---|
+| ***Brachyspira hyodysenteriae* (Swine Dysentery)** ⭐ | Spirochete | **BLOODY diarrhea + mucus** ("BLOODY-MUCOID" = key sign!) |
+| ***Lawsonia (Ileitis)*** | Atypical bacteria | Severe form with bloody diarrhea |
+| **Salmonella** | Bacteria | Acute septicemia possible |
+
+> ⭐ **Brachyspira = NEVER in pre-wean** (exam trap!)
+> Pre-wean diarrhea → think PED, E. coli, Coccidia
+> Post-wean diarrhea → think E. coli, Lawsonia
+> Adult diarrhea → think Brachyspira, Salmonella
+
+---
+
+## 5. Necropsy Findings ⭐ (Visual diagnosis at slaughter)
+
+### Typical findings by pathogen
+| Pathogen | Gross findings |
+|---|---|
+| ***E. coli* (typical)** | Distended bowel + gas, NO bloody content |
+| ***Cystoisospora* + *E. coli*** | Severe, mucohemorrhagic |
+| **Lawsonia (Ileitis)** | Hosepipe ileum (thickened, cobblestone wall) |
+| **Brachyspira (Dysentery)** | Mucohemorrhagic colitis with blood + mucus |
+| **Rotavirus** | Watery, normal-looking gross intestine |
+| **PED/TGE** | Thin, transparent intestine, fluid-filled |
+
+> ⭐ Memorize Lawsonia "**hosepipe ileum**" — exam favorite
+
+---
+
+## 6. Respiratory Disease Differentials ⭐ (Reverse map!)
+
+### Common pathogens
+| Pathogen | Sign |
+|---|---|
+| **Mycoplasma hyopneumoniae** ⭐ | Chronic dry cough, focal pneumonia (apical lobes) |
+| **APP (Actinobacillus pleuropneumoniae)** | Acute death, frothy lung, pleuritis |
+| **PRRS** | Reproductive + respiratory in young |
+| **Pasteurella multocida** | Pneumonia secondary to Mycoplasma |
+| **Streptococcus suis** | Septicemia, joint, meningitis (less respiratory) |
+| **Influenza** | Sudden, severe, transient (1-2 days) |
+
+### Diagnostic approach
+1. Lung scoring at slaughter
+2. Differential by location
+3. Bacterial culture
+4. Serology
+
+---
+
+## 7. Antibiotic Alternatives ⭐⭐ (Modern direction!)
+
+### Why we need alternatives
+- ARM crisis
+- Banned drugs increasing
+- Consumer demand for "antibiotic-free meat"
+
+### Five groups of alternatives
+| Group | Mechanism | Example |
+|---|---|---|
+| **Probiotics** ⭐ | Live beneficial bacteria | *Lactobacillus*, *Bifidobacterium* |
+| **Prebiotics** | Food for beneficial bacteria | Inulin, oligosaccharides |
+| **Synbiotics** | Combined probiotic + prebiotic | Combo products |
+| **Postbiotics** | Beneficial metabolites only | Heat-killed bacterial fragments |
+| **Phytobiotics** | Plant compounds with antimicrobial activity | Curcuma (turmeric), Andrographis (ฟ้าทะลายโจร), Garlic |
+
+### Other tools
+| Tool | Action |
+|---|---|
+| **Organic acids** ⭐⭐ | Lower gut pH → suppress pathogens · improve absorption |
+| **Toxin binders** | Bind mycotoxins in gut |
+| **Enzymes** | Improve digestibility (xylanase, phytase) |
+| **Zinc oxide** | Antibacterial in gut, but environmental concerns |
+| **Plant essential oils** | Antimicrobial + immunomodulatory |
+
+---
+
+## 8. Organic Acids ⭐⭐ (Important detail!)
+
+### Common organic acids in swine
+| Acid | Source |
+|---|---|
+| **Formic acid** | Cheap, antibacterial |
+| **Acetic acid** | Vinegar |
+| **Propionic acid** | Anti-mold + antibacterial |
+| **Lactic acid** | Probiotic byproduct |
+| **Butyric acid** | Gut epithelium energy source |
+| **Citric acid** | Acidifier |
+
+### Mechanism
+1. Lower stomach pH → kill pathogens
+2. Lower gut pH → favor *Lactobacillus*
+3. Compete with bad bacteria for niche
+4. Provide energy for gut epithelium (butyric)
+
+### Use cases
+- **Post-weaning diarrhea** prevention
+- Reducing E. coli load
+- General gut health
+- Replacing antibiotic growth promoters
+
+---
+
+## 9. Common Pig Parasites ⭐ (Memorize!)
+
+### Internal parasites
+| Parasite | Type | Sign |
+|---|---|---|
+| ***Ascaris suum*** ⭐ | Roundworm (large) | Migration through liver = "milk spots" + lungs |
+| ***Trichuris suis*** | Whipworm | Cecum/colon, bloody diarrhea |
+| ***Strongyloides ransomi*** | Threadworm | Skin penetration, mostly in suckling pigs |
+| ***Hyostrongylus rubidus*** | Stomach worm | Older pigs |
+| ***Cystoisospora suis*** | Coccidia | Suckling pig diarrhea |
+
+### External parasites
+| Parasite | Sign |
+|---|---|
+| **Mange (Sarcoptes scabiei)** | Itching, alopecia, hyperkeratosis |
+| **Lice (Haematopinus suis)** | Heavy infestations cause anemia |
+| **Ticks** | Vectors for various |
+
+### Treatment
+- Ivermectin (most effective for both internal + external)
+- Pyrantel for nematodes
+- Sulfonamides + amprolium for coccidia
+- Mange: ivermectin spray/injection + environmental cleaning
+
+> ⭐ "Ascaris milk spots" on liver at slaughter = condemned
+
+---
+
+## 10. Pig Pyramid Disease Cascade ⭐⭐ (System thinking!)
+
+### Vertical transmission (Sow → Piglet)
+- *Streptococcus* (Day 7 colonizer)
+- Mycoplasma (chronic)
+- *E. coli* (varied)
+- PRRS (transplacental)
+
+### Horizontal transmission (Pig-to-pig)
+- PED (catastrophic between batches)
+- ASF (devastating)
+- *Lawsonia*
+
+### Environmental (Persistent)
+- ASF (highly stable)
+- *Brachyspira* (in pen materials)
+- Coccidia (oocysts very durable)
+
+---
+
+## 11. Treatment Protocols ⭐ (Practical!)
+
+### Diarrhea management
+1. **Fluid replacement** (oral electrolytes preferred · IV in severe cases)
+2. **Soft, easily-digestible feed** (less milk, easier carbs, "porridge" form)
+3. **Stop new feeds** (revert to known-tolerated diet)
+4. **Antimicrobials if bacterial** confirmed
+5. **Coccidiostats** if Coccidia
+6. **NSAIDs** for inflammation/pain
+
+### Respiratory disease management
+1. **Identify pathogen** (lung tap, BAL)
+2. **Antibiotics** if bacterial (Mycoplasma → macrolides; APP → quinolones)
+3. **Anti-inflammatory** to reduce lung damage
+4. **Ventilation improvement**
+5. **Vaccination** for chronic problems
+
+---
+
+## 12. Modern Practitioner Mindset ⭐
+
+### What 6-year DVM training prepares for
+- **Practitioner** (clinical work) — primary goal
+- NOT researcher (different career path)
+- Need basic skills + judgment
+
+### Diagnostic toolkit balance
+| Old-school | New-school |
+|---|---|
+| CBC + blood smear | PCR · genomic |
+| Histopathology | Real-time PCR |
+| Culture | Multiplex panels |
+| Necropsy | NGS (next-gen sequencing) |
+
+> ⭐ DON'T skip basics! PCR is great but Hmtology + Histopath + Necropsy still essential
+
+### Sensitivity vs Specificity (from Year 3)
+- **Sensitivity** = positive when disease present (low false negative)
+- **Specificity** = negative when disease absent (low false positive)
+- Always check test before purchase
+- COVID rapid test = real-world example
+
+---
+
+## 13. End-of-Course Themes ⭐
+
+### Key takeaways for swine herd health course
+1. **PSY is master KPI** — measure everything against it
+2. **Disease Triangle** still applies (Agent + Host + Environment)
+3. **Biosecurity > Treatment** (prevention pays better)
+4. **Records + Triangulation** = reliable diagnosis
+5. **Modern feed + antibiotic alternatives** + ASF awareness = future-proof
+
+---
+
+## 🎯 Exam Recap — top 16 testable points
+
+1. **Fair Test = ONE variable differs** between groups
+2. **ROI = Benefit ÷ Cost** (vaccine 14x typical)
+3. **Bacteria spread 0.5-2m · Virus up to 16 km**
+4. **Diarrhea by age**: suckling = PED/Coccidia · post-wean = Lawsonia/E.coli · adult = Brachyspira
+5. **Brachyspira = adult bloody mucohemorrhagic diarrhea**
+6. **Lawsonia = hosepipe ileum** at necropsy
+7. **PED = catastrophic suckling**
+8. **5 antibiotic alternatives**: Pro/Pre/Sym/Post/Phyto-biotics
+9. **Organic acids lower gut pH** → favor good bacteria
+10. **Butyric acid = gut epithelium energy**
+11. **Ascaris milk spots** on liver at slaughter
+12. **Mange = scratching, alopecia, hyperkeratosis**
+13. **Cystoisospora** = pre-wean coccidia diarrhea
+14. **Streptococcus = Day 7 colonizer** (vertical)
+15. **6-year DVM = practitioner training** (basics important)
+16. **PCR + histopathology** = optimal modern diagnostic combo
+
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 8 Epidemiology (1mFans-0DNY) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY) · 14 Disease control breeding (gBdwkFQLi28)
+> 🩻 **Practice tip**: Always start with "what AGE is this pig?" before naming differentials
+> 💡 **Modern direction**: Reduce antibiotics with probiotics + acids + management
+> 🦴 **End-of-course mindset**: PSY + biosecurity + records = swine vet's toolbox`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
