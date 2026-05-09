@@ -20,13 +20,19 @@ import {
   signOut,
   signOutAllDevices,
   deleteAccountData,
+  updateProfileMetadata,
+  updateUsername,
 } from '../lib/supabase.js';
 import { thaiAuthError } from '../lib/auth-errors.js';
-import { passwordStrength } from '../lib/auth-utils.js';
+import {
+  passwordStrength,
+  validateUsername,
+  sanitizeUsername,
+} from '../lib/auth-utils.js';
 import BackBar from '../components/BackBar.jsx';
 
 export default function AccountSettingsView({ user, goHome, onSignedOut }) {
-  const [section, setSection] = useState(null); // null | 'password' | 'email' | 'delete'
+  const [section, setSection] = useState(null); // null | 'profile' | 'password' | 'email' | 'delete'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
@@ -36,6 +42,15 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
+
+  // Profile-edit form state — pre-populated from current user_metadata
+  const md = user?.user_metadata || {};
+  const [editUsername, setEditUsername] = useState(md.username || user?.email?.split('@')[0] || '');
+  const [editYear, setEditYear] = useState(md.year ?? '');
+  const [editCohort, setEditCohort] = useState(md.cohort || '');
+  const [editAvatar, setEditAvatar] = useState(md.avatar_emoji || '🐾');
+  const [editBio, setEditBio] = useState(md.bio || '');
+  const [editShowLb, setEditShowLb] = useState(md.show_on_leaderboard !== false); // default true
 
   if (!user) {
     return (
@@ -52,6 +67,82 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
   const username = user.user_metadata?.username || '—';
 
   const reset = () => { setError(''); setInfo(''); };
+
+  const handleSaveProfile = async (e) => {
+    e?.preventDefault();
+    reset();
+    setLoading(true);
+    try {
+      // Username: only call updateUsername if changed (round-trip + uniqueness re-check)
+      const currentUsername = md.username || '';
+      if (editUsername && editUsername !== currentUsername) {
+        const v = validateUsername(editUsername);
+        if (!v.ok) { setError(`Username: ${v.reason}`); setLoading(false); return; }
+        await updateUsername(editUsername);
+      }
+      // Other profile fields → user_metadata in one batched updateUser call
+      await updateProfileMetadata({
+        year: editYear ? Number(editYear) : null,
+        cohort: editCohort || null,
+        avatar_emoji: editAvatar || null,
+        bio: (editBio || '').slice(0, 140) || null,
+        show_on_leaderboard: editShowLb,
+      });
+      setInfo('✓ บันทึกโปรไฟล์เรียบร้อย — รีเฟรชหน้าเพื่อเห็นผลทุกที่');
+      setTimeout(() => { setSection(null); setInfo(''); }, 1800);
+    } catch (err) {
+      setError(thaiAuthError(err));
+    } finally { setLoading(false); }
+  };
+
+  const handleExportData = async () => {
+    reset();
+    setLoading(true);
+    try {
+      // Bundle local + cloud-mirrored state into a single JSON download
+      // — matches the data Cloud sync covers + local-only flags.
+      const read = (k) => {
+        try {
+          const raw = window.localStorage?.getItem(k);
+          return raw ? JSON.parse(raw) : null;
+        } catch { return null; }
+      };
+      const exportBlob = {
+        version: 1,
+        exported_at: new Date().toISOString(),
+        user: {
+          id: user.id,
+          email: user.email,
+          username: md.username,
+          metadata: md,
+        },
+        progress: {
+          bookmarks:        read('vmx-bookmarks') || [],
+          history:          read('vmx-history') || [],
+          notes:            read('vmx-notes') || {},
+          sr_cards:         read('vmx-sr-cards') || {},
+          custom_questions: read('vmx-custom-q') || [],
+          streak_data:      read('vmx-streak') || null,
+          reading_checklist: read('vmx-reading-checklist') || {},
+          selected_year:    read('vmx-selected-year'),
+          last_session:     read('vmx-last-session-config'),
+          theme:            read('vmx-theme'),
+        },
+      };
+      const blob = new Blob([JSON.stringify(exportBlob, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `vetmock-export-${user.id?.slice(0, 8)}-${Date.now()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      setInfo('✓ ดาวน์โหลด JSON เรียบร้อย — เปิดด้วย text editor หรือ import ที่ Question Manager ได้');
+    } catch (err) {
+      setError(`ส่งออกไม่สำเร็จ: ${err?.message || err}`);
+    } finally { setLoading(false); }
+  };
 
   const handleChangePassword = async (e) => {
     e?.preventDefault();
@@ -144,12 +235,126 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       </div>
 
       <div className="vmx-config-panel" style={{ maxWidth: 560, margin: '0 auto' }}>
-        {/* Profile info */}
+        {/* Profile info — read-only summary + last sign-in metadata */}
         <Card>
           <h3 style={cardHeading}>📋 ข้อมูล account</h3>
-          <KV label="อีเมล" value={email} />
-          <KV label="Username" value={username} />
+          <KV label="อีเมล" value={
+            <>
+              {email}
+              {user.email_confirmed_at
+                ? <span style={{ marginLeft: 6, color: 'var(--clr-sage)', fontSize: 11 }}>✓ ยืนยันแล้ว</span>
+                : <span style={{ marginLeft: 6, color: 'var(--clr-gold)', fontSize: 11 }}>⚠ ยังไม่ยืนยัน</span>}
+            </>
+          } />
+          <KV label="Username" value={
+            <>
+              {md.avatar_emoji || ''} {username}
+            </>
+          } />
+          {md.year && <KV label="ชั้นปี" value={`ปี ${md.year}${md.cohort ? ` · ${md.cohort}` : ''}`} />}
+          {md.bio && <KV label="Bio" value={<span style={{ maxWidth: 280, textAlign: 'right' }}>{md.bio}</span>} />}
+          {user.last_sign_in_at && (
+            <KV label="Login ล่าสุด" value={
+              <span title={new Date(user.last_sign_in_at).toLocaleString('th-TH')}>
+                {timeAgoTh(user.last_sign_in_at)}
+              </span>
+            } />
+          )}
           <KV label="User ID" value={<code style={{ fontSize: 11 }}>{user.id?.slice(0, 8)}…</code>} />
+        </Card>
+
+        {/* Edit profile (year + cohort + avatar + bio + privacy) */}
+        <Card>
+          <h3 style={cardHeading}>✏️ แก้ไขโปรไฟล์</h3>
+          {section !== 'profile' ? (
+            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('profile'); }}>
+              แก้ไข username · ชั้นปี · avatar · bio · privacy →
+            </button>
+          ) : (
+            <form onSubmit={handleSaveProfile}>
+              <div className="vmx-form-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  value={editUsername}
+                  onChange={(e) => setEditUsername(sanitizeUsername(e.target.value))}
+                  placeholder="vet86_ping"
+                  maxLength={30}
+                  autoComplete="username"
+                />
+                <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+                  ใช้ได้: a-z, A-Z, 0-9, _ · 3-30 ตัว
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                <div className="vmx-form-group" style={{ flex: '0 0 100px' }}>
+                  <label>ชั้นปี</label>
+                  <select value={editYear} onChange={(e) => setEditYear(e.target.value)}>
+                    <option value="">—</option>
+                    <option value="1">ปี 1</option>
+                    <option value="2">ปี 2</option>
+                    <option value="3">ปี 3</option>
+                    <option value="4">ปี 4</option>
+                    <option value="5">ปี 5</option>
+                    <option value="6">ปี 6</option>
+                  </select>
+                </div>
+                <div className="vmx-form-group" style={{ flex: 1, minWidth: 140 }}>
+                  <label>Cohort</label>
+                  <input
+                    type="text"
+                    value={editCohort}
+                    onChange={(e) => setEditCohort(e.target.value.slice(0, 30))}
+                    placeholder="Vet 86"
+                    maxLength={30}
+                  />
+                </div>
+                <div className="vmx-form-group" style={{ flex: '0 0 90px' }}>
+                  <label>Avatar</label>
+                  <input
+                    type="text"
+                    value={editAvatar}
+                    onChange={(e) => setEditAvatar(e.target.value.slice(0, 4))}
+                    placeholder="🐾"
+                    maxLength={4}
+                    style={{ textAlign: 'center', fontSize: 18 }}
+                  />
+                </div>
+              </div>
+              <div className="vmx-form-group">
+                <label>Bio (≤140 ตัว)</label>
+                <textarea
+                  value={editBio}
+                  onChange={(e) => setEditBio(e.target.value.slice(0, 140))}
+                  placeholder="แนะนำตัวสั้น ๆ — อะไรที่อยากให้คนรู้"
+                  maxLength={140}
+                  rows={2}
+                  style={{ width: '100%', boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit', fontSize: 14, padding: 8, border: '1px solid var(--clr-border)', borderRadius: 8, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
+                />
+                <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', textAlign: 'right' }}>
+                  {editBio.length}/140
+                </div>
+              </div>
+              <div style={{ marginBottom: 12, fontSize: 13, color: 'var(--clr-ink)' }}>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={editShowLb}
+                    onChange={(e) => setEditShowLb(e.target.checked)}
+                  />
+                  แสดงบน Leaderboard (ปิดถ้าอยากเก็บ progress เป็น private)
+                </label>
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={loading}>
+                  {loading ? '…' : 'บันทึก'}
+                </button>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); reset(); }}>
+                  ยกเลิก
+                </button>
+              </div>
+            </form>
+          )}
         </Card>
 
         {/* Banners */}
@@ -220,6 +425,17 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
               </div>
             </form>
           )}
+        </Card>
+
+        {/* Export data — GDPR portability + offline backup */}
+        <Card>
+          <h3 style={cardHeading}>📦 Export ข้อมูล</h3>
+          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
+            ดาวน์โหลด progress ทั้งหมด (bookmarks · history · notes · custom Q · streak) เป็น JSON
+          </p>
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleExportData} disabled={loading}>
+            {loading ? '…' : '↓ ดาวน์โหลด JSON'}
+          </button>
         </Card>
 
         {/* Logout all devices */}
@@ -331,6 +547,23 @@ function KV({ label, value }) {
       <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{value}</span>
     </div>
   );
+}
+
+// Cheap Thai relative-time formatter — used for "Login ล่าสุด" display.
+// No timezone math; relies on the user's clock matching their actual TZ
+// (always true for browser-based UIs).
+function timeAgoTh(iso) {
+  if (!iso) return '—';
+  const ts = new Date(iso).getTime();
+  if (!Number.isFinite(ts)) return '—';
+  const diffMin = Math.round((Date.now() - ts) / 60000);
+  if (diffMin < 1) return 'เมื่อสักครู่';
+  if (diffMin < 60) return `${diffMin} นาทีที่แล้ว`;
+  const diffHr = Math.round(diffMin / 60);
+  if (diffHr < 24) return `${diffHr} ชม. ที่แล้ว`;
+  const diffDay = Math.round(diffHr / 24);
+  if (diffDay < 30) return `${diffDay} วันที่แล้ว`;
+  return new Date(iso).toLocaleDateString('th-TH');
 }
 
 function PasswordStrengthBar({ password }) {

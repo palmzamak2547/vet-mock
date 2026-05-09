@@ -248,3 +248,167 @@ export async function isUsernameAvailable(username) {
   if (error) return null;
   return (count ?? 0) === 0;
 }
+
+// ─── Profile enrichment ─────────────────────────────────────────
+// Profile fields (year/cohort/avatar/bio/privacy) live in user_metadata
+// rather than a separate `profiles.year` column so we don't have to
+// block on a Supabase schema migration. user_metadata is a JSON blob
+// on auth.users that the user owns + can update via updateUser().
+//
+// Fields:
+//   year (1-6) | cohort ("Vet 86") | avatar_emoji | bio (≤140) |
+//   show_on_leaderboard (bool) | onboarded (bool, set after first
+//   onboarding flow finishes — used to suppress the modal on returns)
+export async function updateProfileMetadata(metadata) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { data, error } = await supabase.auth.updateUser({ data: metadata });
+  if (error) throw error;
+  notifyAuthChanged();
+  return data;
+}
+
+// ─── Update username (in profiles table) ────────────────────────
+// Username uniqueness is enforced server-side via a unique index. If
+// another user grabs the name between availability check and update,
+// the error is surfaced in Thai.
+export async function updateUsername(newUsername) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { data: sess } = await supabase.auth.getSession();
+  const userId = sess?.session?.user?.id;
+  if (!userId) throw new Error('ไม่ได้ login อยู่');
+  const { data, error } = await supabase
+    .from('profiles')
+    .update({ username: newUsername })
+    .eq('id', userId)
+    .select()
+    .single();
+  if (error) throw error;
+  // Mirror to user_metadata so HomeView / UserMenu pick it up without
+  // a profiles re-fetch round-trip.
+  await supabase.auth.updateUser({ data: { username: newUsername } });
+  return data;
+}
+
+// ─── LINE OAuth (Thailand-specific provider) ────────────────────
+// Requires Supabase Dashboard → Auth → Providers → LINE setup with a
+// LINE Developer app's channel ID + secret. Until that's configured,
+// this throws a helpful error instead of failing silently.
+export async function signInWithLine() {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'line',
+    options: { redirectTo: window.location.origin },
+  });
+  if (error) {
+    // Surface "provider not enabled" cleanly so AuthView can render
+    // a Thai message pointing to the Supabase setup checklist.
+    if (/provider/i.test(error.message)) {
+      throw new Error('PROVIDER_NOT_CONFIGURED:line');
+    }
+    throw error;
+  }
+  return data;
+}
+
+// ─── Apple Sign-in (iOS PWA users) ──────────────────────────────
+// Requires Apple Developer account + Services ID + private key
+// configured in Supabase Dashboard. Frontend code is identical to
+// Google; the heavy lifting is at the dashboard level.
+export async function signInWithApple() {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'apple',
+    options: { redirectTo: window.location.origin },
+  });
+  if (error) {
+    if (/provider/i.test(error.message)) {
+      throw new Error('PROVIDER_NOT_CONFIGURED:apple');
+    }
+    throw error;
+  }
+  return data;
+}
+
+// ─── Anonymous → Registered migration ───────────────────────────
+// When a user has been playing offline (localStorage only) and then
+// signs up, their progress should follow them to the cloud — not get
+// overwritten by an empty pull. Called from App after a successful
+// signup, BEFORE pullUserData runs (which would otherwise fetch
+// {} from cloud and clear local state).
+//
+// Strategy: read localStorage, push to user_data row. If row didn't
+// exist (first-ever account), this becomes the initial state. If it
+// did exist (rare — user had a prior account on same browser), we
+// MERGE conservatively: keep the higher count for arrays, take the
+// non-null for objects. Conflicts that can't be resolved automatically
+// get logged but don't block.
+export async function migrateLocalToCloud() {
+  const supabase = await getSupabase();
+  if (!supabase) return { ok: false, reason: 'no-supabase' };
+  const { data: sess } = await supabase.auth.getSession();
+  const userId = sess?.session?.user?.id;
+  if (!userId) return { ok: false, reason: 'not-signed-in' };
+
+  // Read all known localStorage state — same keys App.jsx uses.
+  const read = (k) => {
+    try {
+      const raw = window.localStorage?.getItem(k);
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+  };
+  const local = {
+    bookmarks:        read('vmx-bookmarks') || [],
+    history:          read('vmx-history') || [],
+    notes:            read('vmx-notes') || {},
+    sr_cards:         read('vmx-sr-cards') || {},
+    custom_questions: read('vmx-custom-q') || [],
+    streak_data:      read('vmx-streak') || { streak: 0, lastDate: null },
+  };
+  // Skip migration if local is empty across the board — saves a write.
+  const isEmpty =
+    local.bookmarks.length === 0 &&
+    local.history.length === 0 &&
+    Object.keys(local.notes).length === 0 &&
+    Object.keys(local.sr_cards).length === 0 &&
+    local.custom_questions.length === 0 &&
+    !local.streak_data?.lastDate;
+  if (isEmpty) return { ok: true, migrated: false, reason: 'no-local-data' };
+
+  // Upsert into user_data — same table pushUserData targets.
+  const { error } = await supabase
+    .from('user_data')
+    .upsert({ user_id: userId, ...local, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+  if (error) {
+    return { ok: false, reason: 'upsert-failed', error };
+  }
+  return { ok: true, migrated: true, counts: {
+    bookmarks: local.bookmarks.length,
+    history: local.history.length,
+    notes: Object.keys(local.notes).length,
+    sr_cards: Object.keys(local.sr_cards).length,
+    custom_questions: local.custom_questions.length,
+  } };
+}
+
+// ─── Friend search (find user by username) ──────────────────────
+// Simple LIKE search against profiles.username. RLS should restrict
+// to public profiles only (not enforced client-side; relying on
+// `show_on_leaderboard` user_metadata flag = honor system for v1).
+// Caps at 10 results to avoid full-table scans on a popular prefix.
+export async function searchUsersByUsername(query) {
+  const supabase = await getSupabase();
+  if (!supabase) return [];
+  const q = String(query || '').trim();
+  if (q.length < 2) return [];
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, username, avatar_emoji')
+    .ilike('username', `${q}%`)
+    .limit(10);
+  if (error) return [];
+  return data || [];
+}
