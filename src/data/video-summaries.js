@@ -46085,6 +46085,104 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🎯 **Memorize**: Sporadic / Endemic / Epidemic / Pandemic — definitely on exam!`,
   },
 
+  uvdjbAGvMnQ: {
+    videoId: 'uvdjbAGvMnQ',
+    title: 'Veterinary Epidemiology — 1.3.2 Disease Concepts II',
+    subject: 'epidemiology',
+    date: '2025-08-18',
+    durationMin: 21,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + scenario · ออก agent factors · host classification · Vertical/Horizontal transmission · Infection Chain Model · vector types',
+    summary: `## 🎯 Lead Summary
+**Continuation of disease concepts**. Focuses on: ⭐ **3-component disease triangle** (Agent + Host + Environment) · ⭐ **Host types** · ⭐ **Risk factors** · ⭐ **Agent properties** · ⭐ **Infection Chain Model** · ⭐ **Vertical vs Horizontal transmission**.
+
+## 1️⃣ Disease Triangle ⭐⭐⭐
+| Component | Meaning |
+|---|---|
+| ⭐ **Agent** | Infectious or non-infectious cause |
+| ⭐ **Host** | Animal at risk |
+| ⭐ **Environment** | Surrounding conditions |
+
+## 2️⃣ Host Classification ⭐⭐⭐
+| Type | Definition | Example |
+|---|---|---|
+| ⭐ **Primary Host** | Has SEXUAL state | ⭐ Mosquito for Plasmodium! |
+| ⭐ **Intermediate Host** | ASEXUAL state only | Human for Plasmodium |
+| ⭐ **Transport Host** | Carries but no infection | Vet's hands |
+| ⭐ **Reservoir Host** | Maintains pathogen | Wildebeest for MCF |
+| **Definitive Host** | Adult worms live | Cat for Toxoplasma |
+
+## 3️⃣ Agent Properties ⭐⭐⭐
+| Term | Definition |
+|---|---|
+| ⭐ **Infectivity** | Ability to cause infection |
+| ⭐ **Pathogenicity** | Ability to cause pathology |
+| ⭐ **Virulence** | Severity of disease |
+| ⭐ **CFR** | % of cases that die |
+
+## 4️⃣ ID50 / LD50 ⭐⭐
+- **Salmonella** ID50: 10,000 cells
+- ⭐ **Shigella**: 10-500 cells (very infectious!)
+- ⭐ **Listeria**: 100-1,000 cells (cold country danger)
+- **Yersinia**: 10 million cells
+
+## 5️⃣ Host Factors ⭐
+- ⭐ Species · Breed · Sex (4 cats) · Age · Physiological state · Immunity
+- ⭐ ⚠️ **Age trap**: Dengue worse in young adults (strong immune reaction)
+- **Gumboro**: 3-6 weeks chickens
+
+## 6️⃣ Transmission Routes ⭐⭐⭐
+
+### Vertical Transmission (Mother → Offspring) ⭐
+- Transplacental · Colostrum · Sperm/egg
+- Examples: BVD PI calves, Brucella
+
+### Horizontal Transmission ⭐⭐
+| Type | Example |
+|---|---|
+| ⭐ **Fomites** | Clothes, equipment |
+| ⭐ **Mechanical Vector** | Stable flies (NO replication) |
+| ⭐ **Biological Vector** | Mosquito (replication) |
+| ⭐ **Airborne** | FMD, ND, TB, B. melitensis |
+| ⭐ **Foodborne / Waterborne** | Contaminated food/water |
+
+⭐ ⭐ **UK Example**: FMD aerosol FROM France ACROSS English Channel!
+
+## 7️⃣ Infection Chain Model ⭐⭐⭐ (CRITICAL!)
+
+### 6 Steps
+1. ⭐ Infective Agent
+2. ⭐ Susceptible Host
+3. ⭐ Portal of Entry
+4. ⭐ Multiplication in Host
+5. ⭐ Portal of Exit
+6. ⭐ Reservoir
+
+### Break the Chain (Vet's Tool)
+- ⭐ Reduce agent · Protect host · Block entry · Stop multiplication · Block exit · Remove reservoir
+
+## 8️⃣ Reservoir Types ⭐
+- ⭐ Active shedders (continuous low-level)
+- ⭐ Episodic shedders (burst — Rabies bite!)
+- ⭐ Asymptomatic carriers
+- Environmental: soil (anthrax) · water (lepto) · decaying matter (botulism)
+
+## 📋 Exam Recap (10 จุดสำคัญ)
+1. ⭐ **Disease Triangle**: Agent + Host + Environment
+2. ⭐ **5 Host types** (Primary sexual, Intermediate asexual, Transport, Reservoir, Definitive)
+3. ⭐ **Mosquito = PRIMARY for malaria** (sexual stage)
+4. ⭐ **4 Agent properties**: Infectivity, Pathogenicity, Virulence, CFR
+5. ⭐ **ID50 = infection dose 50%** · LD50 = lethal dose 50%
+6. ⭐ **Vertical transmission**: mother→offspring (3 routes)
+7. ⭐ **Mechanical vs Biological vector** (mechanical = no replication)
+8. ⭐ **6-Step Infection Chain Model** — break ANY link to control
+9. ⭐ **Listeria** = soil, cold country, EU export concern
+10. ⭐ **FMD aerosol** can cross English Channel!
+
+> 📚 **Cross-refs**: Disease patterns · Future: outbreak investigation · Vector control
+> 🎯 **Vet skill**: Use 6-step chain to design control strategy`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
