@@ -41357,6 +41357,304 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🏥 **Most important farm factor**: VENTILATION (alone affects everything)`,
   },
 
+  XgcUHCEMTdk: {
+    videoId: 'XgcUHCEMTdk',
+    title: 'FMD (ปากเท้าเปื่อย) + LSD (ลัมปี้สกิน) — Endemic vs Emerging Viral Diseases',
+    subject: 'herd-health-rum',
+    date: '2024-08-21',
+    durationMin: 145,
+    instructor: 'อ.ธนศักดิ์ (เน้น movement control + biosecurity philosophy)',
+    examFormat: 'Multiple choice + clinical scenario · ออกเรื่องการ surveillance + control measures + Carrier state',
+    summary: `## 🎯 Lead Summary
+**2 vesicular/cutaneous viral diseases** of cattle critical for Thai practice. **FMD** = endemic in SE Asia, highly contagious vesicular disease, no eradication realistic, sudden death in calves from myocarditis. **LSD** = emerging since April 2021 (entered Thailand via movement, NOT mosquitoes), Capripoxvirus skin lesions 1-5cm, devastating economic loss. ⭐ Both demonstrate Thailand's biosecurity failure: HPAI = won battle, ASF = fail #1, LSD = fail #2. **Movement control > vaccine** for emerging diseases.
+
+## 1️⃣ FMD (Foot-and-Mouth Disease · ปากเท้าเปื่อย) ⭐⭐⭐
+
+### Etiology
+- **Picornavirus** (FMDV) · 7 serotypes globally (O, A, C, SAT 1, SAT 2, SAT 3, Asia 1)
+- ⭐ Thailand strains: **O, A, Asia 1** (mostly O type)
+- Strain naming sometimes uses location: **O-Lopburi**, **O-Surin** (named after province where strain was isolated)
+
+### Highly Contagious (key concept!)
+- ⭐ "หากตัวหนึ่งเป็น ตัวอื่นในคอกจะเป็นหมดภายในบ่ายวันรุ่งขึ้น"
+- All cloven-hoofed animals susceptible: cattle, buffalo, swine, sheep, goats
+- **Transmission routes** (must control all):
+  | Route | Examples |
+  |---|---|
+  | **Aerosol/airborne** | Wind-borne · upwind farms at risk |
+  | **Direct contact** | Infected → naive animal |
+  | **Indirect/fomite** | People (clothes, hair ties, phones, shoes!) |
+  | **Vehicles** | Trucks transporting animals/feed |
+  | **Products** | Meat, milk, hides, slaughterhouse waste |
+
+### Why Veterinarians = Biggest Vector ⭐
+> "เราเป็นพาหะตัวใหญ่เลยสำหรับปากเท้าเปื่อย"
+- ⭐ **Hair ties** — cannot disinfect! (use hair caps)
+- **Mobile phones** — UV doesn't kill on contact (need bag + wipe)
+- **Shoes** — change OR plastic bag cover
+- **Clothing** — must change before/after farm visits
+- ⚠️ Spoons in restaurant UV ≈ false security
+
+### Viral Load & TCID50 Concept
+| Tissue/secretion | Viral load (TCID50) |
+|---|---|
+| Nasal discharge | **~6.09** (very high · airborne risk!) |
+| Vesicle fluid | High |
+| Milk | Significant (Thailand legal debate over movement!) |
+| Semen | Yes |
+| Blood | Moderate |
+| Urine, feces | Lower but still infectious |
+
+### ⭐ Disease Phases (Time Series)
+| Phase | Time | What you see |
+|---|---|---|
+| Exposure | Day 0 | Nothing |
+| **Latent period** | ~1.5 days | No virus shed |
+| **Subclinical** | ~2 days | Virus shedding starts BEFORE clinical signs! |
+| Incubation total | **2.7-4.8 days** (avg 3.6) | First signs appear |
+| **Clinical** | ~8-9 days | Vesicles, fever, lameness |
+| **Recovery** | ~20+ days | Carrier state begins |
+| **Carrier** | Up to **180 days** in cattle! | Pharyngeal virus persistence |
+
+### Clinical Signs (Order of appearance!) ⭐
+1. ⭐ **Fever, depression** (FIRST — before vesicles!)
+2. **Drop in milk** (sudden, no other reason)
+3. **Calf sudden death** (myocarditis · "tigroid heart")
+4. ⭐ **Salivation** ("น้ำลายยืด"), abnormal cud chewing
+5. **Lameness** (interdigital + coronary band lesions)
+6. **Vesicles** on:
+   - Tongue, gums, hard palate
+   - Coronary band (interdigital area)
+   - Teats (mastitis follows!)
+   - Muzzle, dental pad
+
+### Calf Mortality (Multifocal Myocarditis) ⭐
+- ⚠️ Calves <3-5 months → **sudden death** (no vesicles)
+- Necropsy: ⭐ **white streaks in heart muscle** (NOT fat!) = pathognomonic
+- Often missed by farmers ("just one calf died")
+
+### Sheep/Goat (Different Pattern!) ⭐
+- ⚠️ **SUBCLINICAL** to mild signs in small ruminants
+- Watch for: ↓ activity, lagging in flock, hesitation
+- Coronary band lesions (must lift hooves to find)
+- Whole flock infected even if you only spot 1-2 sick
+
+### Outbreak 2016 (Thailand)
+- Mass outbreak from vaccine strain mismatch
+- Calves died in large numbers (myocarditis)
+- Lesson: **strain monitoring critical for vaccine efficacy**
+
+### Diagnosis (OIE Method Selection Table) ⭐
+**Purpose-driven selection:**
+| Purpose | Method |
+|---|---|
+| **Confirm clinical case** | Virus isolation + Antigen ELISA + RT-PCR |
+| **Prevalence survey** | Serology (ELISA) |
+| **Free from infection** | Multiple modalities |
+| **Immune status** | Serology |
+
+**Sample types**:
+- Acute (vesicle present): vesicular fluid, epithelium
+- Late (vesicle resolved): pharyngeal probang sampling (carrier!)
+- Always: blood (PCR + serology)
+
+### ⭐ Probang Test (Carrier Detection)
+- Stainless steel cup on rod
+- Inserted into pharynx → collects nasopharyngeal fluid
+- Detects carrier state (up to 180 days post-infection!)
+- ⚠️ Stressful procedure · 1-time use only
+
+### Why Eradication is Impossible (Thailand reality)
+1. **Endemic** in SE Asia (regional problem)
+2. ⚠️ Need **regional cooperation** (Thailand alone can't)
+3. Vaccine strain monitoring needs constant updating
+4. Farmer behavior + economics complicate control
+5. ⭐ "Free from FMD" status would require ALL neighbors to also be free
+
+### Vaccination Strategy (Thai Routine!)
+- ⭐ **FMD = ROUTINE vaccine** for ALL Thai cattle (with LSD now)
+- **Inactivated** vaccine (Thailand only allows inactivated)
+- **2 doses** initially, then annual booster
+- Strain selection updated based on circulating strains
+- ⚠️ Doesn't prevent INFECTION, but prevents/reduces clinical disease
+
+### Treatment
+- **Supportive only** · no specific antiviral
+- Anti-inflammatory (NSAIDs)
+- Antibiotics for secondary bacterial infection (mastitis, foot rot)
+- Wound care for vesicle ulcers
+- ⚠️ **Reportable disease** — must notify DLD!
+
+### Clinical Pearls (Differential)
+- **Rabies** can mimic FMD! (salivation, recumbency, abnormal mouth)
+  - ⭐ Story: students all got post-exposure prophylaxis after exposing to "FMD" cow that was actually rabid (bitten by stray dog)
+
+## 2️⃣ LSD (Lumpy Skin Disease · ลัมปี้สกิน) ⭐⭐⭐
+
+### Etiology
+- **Capripoxvirus** family (with Sheep pox, Goat pox)
+- DNA virus · large · environmental persistence
+- **LSDV** strain (specific to cattle/buffalo)
+- Cross-protection with sheep/goat pox (debated)
+
+### Thailand Outbreak — April 2021 ⭐
+- ⚠️ **First detected: 5 April 2021**
+- Initial reported provinces: ร้อยเอ็ด, ศรีสะเกษ, เพชรบุรี, ขอนแก่น
+- ⭐ **Suspicious pattern**: simultaneous appearance in distant provinces!
+- Mosquitoes can't fly that far → **MOVEMENT was the cause** (not vector)
+- Likely earlier index case in กาฬสินธุ์ (not reported in time)
+
+### Geographic Spread Logic ⭐
+- Africa → SE Europe → Asia (2015-2019)
+- Walking distance: virus spread 4-5 years
+- **Only explanation**: **HUMAN TRANSPORT** (animals + vehicles)
+- Vietnam neighbor of China → got it 2019
+- Thailand should have caught at border (didn't!)
+- **6 million Thai cattle** out of 10 million affected
+
+### Why Did Europe Avoid It? ⭐
+- ⭐ **SE Europe Vaccination Project** (Balkan countries)
+- Donors funded 100% vaccine coverage
+- **Buffer zone** strategy at borders
+- Disease "turned right" to Asia where no buffer existed
+
+### Clinical Signs ⭐
+- ⭐ **Skin nodules 1-5 cm** (cardinal sign)
+  - Round, raised, firm
+  - Multiple sites: head, neck, body, limbs, perineum
+- **Ulcers** when nodules slough (secondary infection!)
+- **Fever, depression**
+- **Reduced milk yield**
+- **Lymph node enlargement**
+- **Limb lameness** if joint involved
+- **Mastitis** if teat lesions
+- ⚠️ **Abortion**, infertility post-recovery
+- **Dairy cattle** also affected (denied initially!)
+
+### Pathology
+- Lesions extend through full skin thickness
+- May involve respiratory mucosa, GI tract
+- Histopath: epithelial hyperplasia, ballooning degeneration, eosinophilic inclusions
+
+### Transmission Vectors ⭐
+| Vector | Mobility | Importance |
+|---|---|---|
+| **Mosquitoes** (Culex, Aedes) | Local | Major in season |
+| **Biting flies** (Stomoxys, Tabanus) | Mid-range | Significant |
+| **Ticks** (Rhipicephalus) | Local but can travel on hosts | Underrated |
+| **Stable flies (เหลือบ)** | Lazy! | Short-range only |
+| ⭐ **Animal movement** | Long-range | **#1 mechanism!** |
+| Needles (iatrogenic) | Farm-level | Important |
+
+### ⭐ Diagnosis
+- **Clinical signs** = obvious in primary outbreak (less so years later)
+- Biopsy → histopath
+- **PCR** on skin lesions (very high viral load!)
+- Electron microscopy
+- Serology less useful (lesions are diagnostic)
+
+### Vaccine Strategy ⭐
+- ⭐ **Modified live vaccine** (Neethling strain · LSDV homologous)
+- **Foreign vaccines available**:
+  - Sheep pox + Goat pox derived (cheaper, but Thailand refuses — don't want introducing new poxvirus)
+  - Lumpy Skin specific (Neethling) — preferred but limited supply
+- World production: only **2-3 million doses/year** (not enough!)
+- Thailand has 2 brands registered
+
+### Vaccine Practical Issues
+- ⭐ **Modified live** = same handling as small animal vaccines
+  - Diluent + lyophilized
+  - Heat + light sensitive!
+  - Cold chain required
+- ⚠️ **25-dose bottles** → waste if <25 cattle to vaccinate
+- **80% efficacy target** (not 100%)
+- Side effects: mild swelling, occasional pseudo-disease
+
+### ⭐ The Famous Wrong Picture (Thai biosecurity meme!)
+- Picture in official poster: man in PPE spraying disinfectant **into the SKY** (hoping for airborne)
+- Instructor's response: "Hoping to disinfect angels?"
+- ⭐ Real lesson: **The dirtiest thing humans carry on a farm is THEIR HANDS** (not air!)
+
+### Outbreak Control (What Should Have Happened) ⭐
+1. ⭐ **STOP MOVEMENT** immediately at first detection
+2. Quarantine affected farms (incubation = ~28 days)
+3. Stamping out (if possible)
+4. Vaccinate buffer zones
+5. Vector control (limited efficacy alone)
+6. Trace contacts (vehicles, semen, etc.)
+
+### What Actually Happened ❌
+- Disease report DELAYED (COVID distraction)
+- Movement NOT stopped → spread nationwide in 6 weeks
+- Vaccine arrived months late + insufficient supply
+- Sprayed sky for "airborne" (waste)
+- Sub-standard biosecurity at multiple farms
+
+### Treatment (Supportive)
+- **Anti-inflammatory** (NSAIDs)
+- **Antibiotics** for secondary bacterial infection (skin ulcers, mastitis)
+- **Fluid + vitamins** for anorexic cases
+- Wound care for ulcers
+- ⚠️ **No specific antiviral**
+
+### Public Communication ⭐
+- ❓ Zoonotic? **NO** — humans NOT susceptible
+- ❓ Eat the meat? Yes (virus in skin only · lesion areas trimmed)
+- ❓ Drink milk? Yes (cooked properly)
+- ⚠️ Consumer concern was huge → economic damage > biological damage
+
+## 3️⃣ Thailand's Disease Battle Record ⭐
+> "ในช่วงอายุ 30 ปีของอาจารย์ทำงานเนี่ย เราเฟลวิชาชีพไป 3 ครั้งแล้ว"
+
+| # | Year | Disease | Outcome |
+|---|---|---|---|
+| 1 | 2547 (2004) | **HPAI (H5N1)** | ⭐ **WON** — culled poultry, recovered free status |
+| 2 | 2562+ | **ASF** | ❌ FAILED — endemic now |
+| 3 | 2564 (2021) | **LSD** | ❌ FAILED — endemic now |
+| 4 | (next?) | TBD | ⚠️ Watch this space |
+
+### What HPAI Did Right
+- Quick movement stop
+- Mass culling with compensation
+- Industry coordinated (CP, Betagro impacted = political will)
+- Public messaging clear
+
+### What ASF/LSD Did Wrong
+- Slow reporting
+- No movement control
+- Individual farmers paid the cost
+- No coordinated cull
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### FMD (1-8)
+1. ⭐ **7 serotypes** (Thailand: O, A, Asia 1)
+2. **Picornavirus** · 7 antigenically distinct serotypes
+3. ⭐ **Highly contagious** — entire pen affected within 24h
+4. **Order of clinical signs**: fever → milk drop → salivation → vesicles → lameness
+5. ⭐ **Calf sudden death** = myocarditis (white streaks in heart, NOT fat!)
+6. ⭐ **Carrier state** in cattle: up to **180 days** (probang test detects)
+7. **Sheep/goats subclinical** — easy to miss
+8. **Routine vaccination** in Thailand · Inactivated · 2 doses + annual
+
+### LSD (9-13)
+9. **First Thailand outbreak**: April 2021
+10. ⭐ **Capripoxvirus** family
+11. ⭐ **Skin nodules 1-5 cm** = pathognomonic
+12. ⭐ **Movement = #1 transmission** (NOT mosquitoes alone — disease "jumped" provinces)
+13. **Modified live vaccine** (Neethling) preferred · 25-dose bottles · cold chain
+
+### Control & Lessons (14-15)
+14. ⭐ **Movement control > vaccination** for emerging disease
+15. ⭐ **"The dirtiest thing humans carry is their HANDS"** (vet = vector!)
+
+> 🎯 **Practical**: ALWAYS change clothes + use hair cap + bag phone before farm visit
+> 📚 **Cross-refs**: BRD complex (1° viral · 2° bacterial principle applies here too) · vet-juris (เคลื่อนย้ายสัตว์ controls) · MCF (DDx for muzzle erosions)
+> 🚨 **Reportable**: Both FMD + LSD must notify DLD immediately
+> 🌏 **Regional reality**: Thailand can't be FMD-free until SE Asia neighbors are
+> 💉 **Routine vaccines in Thai dairy**: ONLY 2 — FMD + LSD (everything else = endemic-zone only)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
