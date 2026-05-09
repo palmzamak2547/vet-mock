@@ -25099,6 +25099,227 @@ For external gilts:
 > 🦴 **Modern issue**: ASF + inbreeding + welfare are dominant 2020s themes`,
   },
 
+  '80466NsBZSo': {
+    videoId: '80466NsBZSo',
+    title: '2. แนวทางการบันทึกข้อมูลและวิเคราะห์ข้อมูลในฟาร์มสุกร',
+    subject: 'swine-herd',
+    date: '13 Aug 67',
+    durationMin: 91,
+    instructor: 'อาจารย์สัตวบาล (CUVET)',
+    examFormat: 'MCQ — PSY definition · target production calc · 2.3 cycles/year · production breakdown by KPI · what-to-record principle ออกบ่อย',
+    summary: `# Swine Farm Record Keeping & Data Analysis
+
+> 🎯 **The KPI lecture** — how to measure, analyze, and improve farm performance
+> Top exam: **PSY (Pigs per Sow per Year) · 2.3-3 cycles/year · production target calc · KPI breakdown · what-to-record principle**
+
+---
+
+## 1. The "What to Record" Principle ⭐⭐ (Foundation)
+
+### Two-rule approach
+**Vet cannot watch farm 24/7** → must teach owner WHAT to record
+
+| Rule | Record what... |
+|---|---|
+| **Rule 1** | What generates **REVENUE** |
+| **Rule 2** | What represents **PROBLEMS** |
+
+### Examples by farm type
+| Farm type | Key recorded data |
+|---|---|
+| Sow farm | Piglets/sow/year, litter size, weaning weight |
+| Fattener farm | ADG (Average Daily Gain), days to slaughter weight |
+| Breeding herd | Conception rate, P# distribution |
+
+> 💡 Workers respond best to **2 things to record** — bombard them with 10 metrics → they record nothing
+
+---
+
+## 2. Production Cycle Math ⭐⭐⭐
+
+### Standard breeding cycle
+| Stage | Days |
+|---|---|
+| **Service (AI) → Conception confirmed** | Day 0-21 |
+| **Gestation** | **114-117 days** |
+| **Lactation (suckling)** | 21-28 days (avg ~24) |
+| **Wean to next service** | **3-7 days** ⭐ (modern target = 3-5 days) |
+| **TOTAL CYCLE** | **~138-160 days** |
+
+### Cycles per year
+| Performance | Cycles/year | Comment |
+|---|---|---|
+| **2.3** | Standard/typical | Most farms |
+| **2.6** | Excellent | Top-performing farms |
+| **2.9+** | Suspicious | Probably fake records! |
+| < 2.3 | Underperforming | Problem zone |
+
+> ⛔ If owner reports 2.9+ cycles/yr → check records for falsification!
+
+---
+
+## 3. PSY — The KPI of KPIs ⭐⭐⭐
+
+### Definition
+**PSY = Pigs per Sow per Year**
+(also: PWSY = Pigs Weaned per Sow per Year, PBSY = Pigs Born per Sow per Year)
+
+### Quick estimate
+**PSY ≈ Total pigs weaned in year ÷ Total sows in farm**
+
+### Target ranges
+| PSY | Performance |
+|---|---|
+| < 18 | Old-school (early 2010s) |
+| 24 | Standard 2010s benchmark |
+| **24-30** | Modern range (2020s) |
+| 30+ | Top performers (premium genetics + management) |
+
+> ⭐ Update yourself every 5-10 years — KPI standards SHIFT upward over time
+
+### PSY Drivers (what affects PSY?)
+**Increase PSY by maximizing:** ↑ Litter size · ↑ Cycles/year · ↑ Wean rate
+**Increase PSY by minimizing:** ↓ Stillbirths · ↓ Mummified · ↓ Pre-weaning mortality · ↓ NPD (Non-productive days)
+
+### Where vets work (clinical action zones)
+| Zone | Color | Examples |
+|---|---|---|
+| **Genetic ceiling** (cannot change) | Gray | Breed potential litter size limit |
+| **Husbandry-modifiable** | Orange | Feed quality · housing · biosecurity |
+| **NPD reducers** ⭐ | Orange | Treat infertility · improve heat detection · reduce returns |
+
+---
+
+## 4. Production Target Calculation ⭐⭐⭐ (Worked example!)
+
+### Scenario
+- Farm has **1000 sows**
+- Owner targets **PSY = 28**
+
+### Step-by-step calculation
+| Step | Calculation | Result |
+|---|---|---|
+| 1. Annual weaned target | 1000 × 28 | **28,000 pigs/year** |
+| 2. Account for 5% pre-wean mortality | 28,000 / 0.95 | **~29,500 born/year** |
+| 3. Born per month | 29,500 / 12 | ~2,460/month |
+| 4. Annual sow services needed | 28,000 / 12 piglets/litter | ~2,330 farrowings |
+| 5. Account for 90% farrow rate | 2,330 / 0.90 | ~2,590 services |
+| 6. Per week service rate | 2,590 / 52 weeks | **~50 services/week** ⭐ |
+| 7. Round to integer | (need farrow stalls!) | **45 sows/week** (depends on capacity) |
+
+### Practical reality
+- If worker can't actually breed 50/week → adjust target down OR add staff
+- Always **check farrow stall capacity** before setting service target
+- Never overshoot housing capacity → stress + disease
+
+---
+
+## 5. Target vs Actual Comparison ⭐ (How to spot problems)
+
+### Process
+1. **Get owner's TARGETS** (e.g., PSY 28, conception 90%, litter 13.9, weaned 12)
+2. **Get FARM ACTUAL** (real data from records)
+3. **Compare each metric** column by column
+
+### Diagnosing patterns
+| Pattern | Likely problem |
+|---|---|
+| Target met = ALL conception OK, weaned LOW | Pre-wean mortality issue |
+| Target met = conception LOW, rest OK | Heat detection · semen quality |
+| Target met = litter LOW, conception OK | Genetics or sow nutrition |
+| Target met = NPD HIGH | Reproductive disease (Parvo, Lepto, PRRS) |
+| ALL metrics off | Systemic problem (housing · management) |
+
+---
+
+## 6. Reality-Check Targets ⭐⭐ (When targets are unrealistic!)
+
+### Example: owner sets these targets
+| Metric | Target value | Realistic? |
+|---|---|---|
+| PSY | 28 | ✅ achievable |
+| Conception rate | >90% | ✅ achievable |
+| Farrow rate | >90% | ✅ achievable |
+| Litter size | 15 | ⚠️ very high (top genetics only) |
+| Stillbirth + mummified | <10% | ✅ achievable |
+| Average weaned/litter | >13.9 | ⚠️ high |
+| Wean weight | >12 kg | ⚠️ depends on age weaned |
+| Return-to-estrus rate | >90% | ✅ achievable |
+| **Pre-wean mortality** | **<5%** | ⚠️ TOUGHEST — touches industry standard |
+
+> 💡 **Hardest target = lowest pre-wean mortality** because it brushes the industry frontier
+
+### Fixing unrealistic targets
+- If owner sets unrealistic targets → educate them on industry data
+- "100% conception" is NEVER achievable → adjust expectations
+
+---
+
+## 7. Recording Methods ⭐
+
+### Levels of farm sophistication
+| Level | What's recorded | Example |
+|---|---|---|
+| **Premium farms (e.g., CP, Betagro)** | Detailed log books at every barn (fan timing, AC settings) | Industrial-grade |
+| **Mid-tier farms** | KPI dashboard, weekly review | Standard |
+| **Backyard farms** | Often nothing! | Owner says "I think it's fine" |
+
+### Vet's role with weak records
+1. Train workers to record minimum 2 things
+2. Use simple sheet (paper or smartphone app)
+3. Review monthly with owner
+
+---
+
+## 8. Body Condition Score (BCS) ⭐
+
+### Quick problem indicator
+- BCS too LOW → feeding inadequate · disease
+- BCS too HIGH → over-feeding (fat sows = poor reproduction)
+
+### Common Thai farm problems
+1. **Feed quality** issues (mycotoxin contamination → "false estrus" / silent heat)
+2. **Heat-humid climate** → mold growth → aflatoxin in feed
+3. **Worker error** in feeding times
+
+> ⭐ Mycotoxin/aflatoxin = makes pigs FEEL pregnant (false signs) → exam favorite trap
+
+---
+
+## 9. Time-of-Day Stress Effects ⭐
+
+### Worker schedule discipline matters!
+- Worker's mood (e.g., fight with spouse) → arrives early/late → feeds at wrong time
+- Pigs trained to expect feeding at 8 AM → feeding at 6 AM = stress
+- **Cumulative stress** → reduced growth · reduced reproduction
+
+> 💡 Premium farms log feeding times explicitly · backyard farms don't
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **PSY = Pigs per Sow per Year** — primary KPI
+2. **Modern PSY = 24-30** (older texts say 18-24)
+3. **2.3 cycles/year = standard** · 2.6 = excellent · 2.9+ = suspicious
+4. **Cycle ~160 days** ideal (or **138 days** if record-keeping perfect)
+5. **PSY drivers**: ↑ litter, ↑ cycles, ↓ stillbirth, ↓ mummified, ↓ NPD
+6. **PSY 28 × 1000 sows ÷ 0.95 ≈ 29,500 born/year**
+7. **NPD = Non-Productive Days** — what vets target most
+8. **BCS issues** = #1 cause of poor reproduction in Thai farms
+9. **Mycotoxin/aflatoxin** = trick exam answer (false estrus signs)
+10. **Record what generates REVENUE + what's a PROBLEM**
+11. **Worker compliance**: 2 metrics max for buy-in
+12. **Pre-wean mortality <5%** = toughest realistic target
+13. **Falsified records**: 2.9+ cycles/yr is red flag
+14. **Industrial farms** log fan times, AC settings, feed times
+
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 3 Feed problems (xasWlGj92Yk) · 6-7 Record analysis (AbDfu2y3oW0) · 8 Epidemiology (1mFans-0DNY)
+> 🩻 **Practice tip**: Memorize PSY = 24-30 modern range
+> 💡 **Mycotoxin = false pregnancy** — exam classic
+> 🦴 **NPD = where vets earn their money** — focus on returns to estrus`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
