@@ -35203,6 +35203,233 @@ Survey high titer = MUST be field exposure
 > 🦴 **Liability**: CIN ในสัตว์ไตเสีย → ฟ้องร้องได้ · prep + dose monitor`,
   },
 
+  vMRQ11km0RI: {
+    videoId: 'vMRQ11km0RI',
+    title: '9. MRI 1 — Principles, Sequences, Contrast',
+    subject: 'vet-imaging',
+    date: '2024-10-17',
+    durationMin: 61,
+    instructor: 'อ.พี่มน',
+    examFormat: 'concept + sequence ID',
+    summary: `# 9. MRI 1 — Principles, T1/T2 Sequences, Contrast
+
+> ⚠️ Hardest topic in vet-imaging — physics-heavy concept-load
+> First half · MRI 2 จะต่อ functional MRI (DWI, DTI, MR-spectroscopy)
+
+## 🎯 ภาพรวมคาบ
+1. MRI principles (magnetic field + hydrogen atom + RF coil)
+2. Components (4 core)
+3. MRI types (Closed/Open/Low-field)
+4. T1 vs T2 relaxation
+5. Sequences (T1W, T2W, FLAIR, STIR, Fat Sat)
+6. Gadolinium contrast + NSF risk + BBB-related enhancement
+
+## 1️⃣ Why MRI Different from CT
+| Feature | CT | MRI |
+|---------|-----|-----|
+| **Energy** | X-ray (ionizing) | Magnetic field (non-ionizing) |
+| **Safety** | Radiation exposure | ✅ No radiation |
+| **Scan time** | 5 min | **2-3 hours** (whole body) |
+| **Best for** | Bone, lung, vessels (with contrast) | Soft tissue: **brain, spinal cord** ⭐ |
+| **Cost (CUVET)** | ~10-20M baht (64-slice) | **35M** baht (1.5T) |
+
+> ⭐ **MRI = closest to actual anatomy** ของทุก imaging modality
+> สวยที่สุด · soft tissue detail สุด
+
+## 2️⃣ Magnetic Field Strength (Tesla)
+**1 Tesla = 10,000 Gauss · Earth = 0.5 Gauss**
+| Type | Strength | Notes |
+|------|----------|-------|
+| **Closed/Last MRI** | 1-10 T (CUVET = **1.5 T**) | Super-conductive magnet · best image |
+| **Open MRI** | 0.2-0.5 T | smaller, sometimes used clinic |
+| **Low-field** | < 0.1 T | minimal use |
+| **Human research** | 3 T (~70M baht) · up to 7T | extreme detail |
+
+## 3️⃣ MRI Principle (Simplified)
+**4 Steps:**
+1. **B0 alignment** — Hydrogen atoms (most abundant in body, 60-80% water) have **magnetic property** + highest **gyromagnetic ratio** → align parallel to B0 field
+   - Most atoms align **parallel** (lower energy state)
+   - Few align **anti-parallel** (higher energy state)
+   - Net magnetization vector = +Z (parallel direction)
+
+2. **RF excitation** — Radio frequency coil pulse adds energy to hydrogen atoms
+   - More atoms flip to **anti-parallel** state
+   - Net vector flips toward −Z
+
+3. **Relaxation** — RF stops → atoms return to equilibrium
+   - Emit signals as they relax
+
+4. **Image reconstruction** — Computer detects relaxation signals → builds image
+
+### Larmor Equation
+**ω = γ × B0**
+- ω = precession frequency (atoms spinning)
+- γ = gyromagnetic ratio (intrinsic to element)
+- B0 = field strength
+> ↑ B0 = ↑ frequency = ↑ signal = สวยกว่า (แต่แพงกว่า)
+
+## 4️⃣ Components (4 core)
+
+### 4.1 Primary Magnet (Super-conductive)
+- Generates B0 field (e.g., 1.5T at CUVET)
+- Always on · ห้ามนำของโลหะใกล้!
+
+### 4.2 Gradient Coils
+- **เสียง knocking ติ๊กๆ** ของเครื่อง MRI = gradient coils ทำงาน
+- Function: enable multi-plane imaging (axial/sagittal/coronal)
+- Without these → only 1 plane
+
+### 4.3 RF Coil (Radio Frequency)
+- Sends pulses to **excite** hydrogen atoms in target region
+- Examples:
+  - **Knee coil** (ครอบเข่า)
+  - **Spine coil** (ฝังในเตียง)
+  - **Endorectal coil** (in 1.5T human prostate scan)
+- ⭐ ใกล้ region of interest → strong signal → ภาพคม
+
+### 4.4 Computer System
+- Process signals → reconstruct image
+
+## 5️⃣ T1 vs T2 Relaxation
+
+**MRI = วัด relaxation time differences ของ tissues ต่างๆ**
+
+| Type | Recovery direction | Graph shape |
+|------|---------------------|-------------|
+| **T1 relaxation** | Longitudinal (vertical, −Z → +Z) | Rising curve |
+| **T2 relaxation** | Transverse (horizontal) | Decay curve |
+
+ทุก tissue มี T1 + T2 ที่ไม่เท่ากัน → ภาพต่างกัน
+
+## 6️⃣ Basic Sequences
+
+### A. T1-Weighted (T1W) ⭐
+**Mnemonic: "T1 น้ำดำ แฟตขาว"**
+| Tissue | Appearance |
+|--------|-------------|
+| Fat (white matter) | **Hyperintense** (bright) |
+| Water/CSF | **Hypointense** (dark) |
+| Soft tissue | Gray |
+
+**Use**: anatomical detail · post-contrast (Gd enhances T1)
+
+### B. T2-Weighted (T2W) ⭐
+**Mnemonic: "T2 น้ำขาว แฟตดำ"** (opposite of T1)
+| Tissue | Appearance |
+|--------|-------------|
+| Water/CSF | **Hyperintense** (bright) |
+| Fat | Hypointense (dark) |
+| White matter | Hypointense |
+
+**Use**: **pathology** detection — edema, inflammation, abnormal fluid collection
+
+### C. T2*** (T2 Star) — additional sequence
+
+### D. FLAIR (Fluid Attenuated Inversion Recovery)
+- **Suppresses water (CSF) signal** → CSF turns black on T2W image
+- ⚠️ Only suppresses **intravascular CSF** — NOT extracellular fluid (edema)
+- **Use**: differentiate **CSF vs edema/inflammation**
+- Edema/protein-rich fluid (blood, abscess) NOT suppressed → still bright
+
+### E. STIR (Short Tau Inversion Recovery)
+- **Suppresses fat signal**
+- Use: **OCD** (osteochondritis dissecans) — suspect lesion in subchondral bone (which has fat marrow)
+- After STIR: fat suppressed; if lesion still bright = real pathology, not fat
+
+### F. Fat Sat (Fat Saturation)
+- Another fat suppression method
+- Combined with **T1 + contrast** → confirm enhancement is contrast (not fat!)
+
+### G. Heavy T2W
+- Extra-sensitive fluid imaging
+
+### Vascular MRI
+- **MR Angiography (MRA)** — arteries
+- **MR Venography (MRV)** — veins
+
+### Sequence Summary Table
+| Sequence | Suppresses | Use |
+|----------|------------|-----|
+| **T1W** | — | Anatomy + post-contrast |
+| **T2W** | — | Pathology · fluid lesions |
+| **FLAIR** | CSF only | Edema vs CSF |
+| **STIR** | Fat | Bone marrow / OCD |
+| **Fat Sat** | Fat | Combined w/ T1+contrast |
+
+## 7️⃣ Functional MRI (intro — detail in MRI 2)
+- **DWI** (Diffusion-Weighted Imaging) — water molecule diffusion
+- **DTI** (Diffusion Tensor Imaging) — fiber orientation in white matter
+- **MR Spectroscopy** — metabolic information (peak metabolite identification)
+
+## 8️⃣ MRI Contrast — Gadolinium ⭐
+
+### Why different from CT?
+| Modality | Contrast |
+|----------|----------|
+| CT | **Iodinated** (iohexol) |
+| MRI | **Gadolinium-based** (Gd) |
+
+> ⚠️ **DON'T mix up** — Iodine ≠ Gadolinium
+
+### Properties
+- **Paramagnetic** → enhances **T1 signal** → hyperintense (bright on T1)
+- Brand names: Omniscan, Magnevist, Gadovist
+- Use **T1 + Fat Sat + Gd** to differentiate enhancement from fat
+
+### Side Effects
+- Common: headache, nausea, vomiting, itching
+- ⚠️ **Critical: NSF (Nephrogenic Systemic Fibrosis)**
+  - Mechanism: Gd excreted via kidney; renal failure → Gd retained in body → deposits in joints → fibrotic tissue → joint contracture
+  - Risk: pre-existing kidney disease
+  - Human practice: check **GFR** before injection · don't inject if low
+  - Vet: not yet reported but precaution warranted
+
+### Brain Enhancement Pattern ⭐
+**Normal brain has Blood-Brain Barrier (BBB)** → no contrast leaks through
+
+**Where BBB is absent (normal enhancement):**
+- Pituitary gland
+- Choroid plexus
+- Infundibulum
+
+**Where BBB is broken (pathology):**
+- Tumor
+- Inflammation/abscess
+- Stroke (sub-acute)
+- Demyelination
+
+> ⭐ **Rule**: post-contrast enhancement ≠ tumor confirmed
+> = "BBB is damaged here" — could be tumor/infection/inflammation
+> ต้องวินิจฉัยจาก context อื่น
+
+### Pituitary
+- **Normal**: enhances on post-contrast (no BBB) — called "**pituitary blush**"
+- **Pituitary tumor**: enhances + abnormal shape/size
+
+## 📋 Exam recap (16 จุดสำคัญ)
+1. MRI = magnetic field + hydrogen atoms · NO radiation
+2. CUVET = **1.5 T** Closed MRI · 35M baht
+3. 1 Tesla = 10,000 Gauss · Earth = 0.5 Gauss
+4. Components: Primary magnet + Gradient coils + RF coil + Computer
+5. Gradient coils = the loud knocking sound · enable multi-plane
+6. RF coil excites hydrogen atoms in target region
+7. **T1**: น้ำดำ แฟตขาว · use for anatomy + post-contrast
+8. **T2**: น้ำขาว แฟตดำ · use for **pathology** (edema, fluid lesions)
+9. **FLAIR** suppresses CSF only — differentiates CSF vs edema
+10. **STIR** suppresses fat — OCD diagnosis
+11. **Fat Sat** with T1+Gd: distinguishes enhancement from fat
+12. MRI contrast = **Gadolinium** (NOT iodine!)
+13. Gd enhances T1 → hyperintense on post-contrast T1
+14. **NSF** = Gd retention from renal failure → joint fibrosis
+15. Normal pituitary enhances (no BBB) = "pituitary blush"
+16. Post-contrast enhancement = damaged BBB (tumor / infection / etc — not just tumor)
+
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 7 CT 1 (90jMK-YbOBw) · 8 CT 2 (5eTxpi37pG0) · 10 MRI 2 (k-W75o6p-Kc)
+> 🩻 **Memory**: T1=น้ำดำแฟตขาว · T2=น้ำขาวแฟตดำ
+> 💡 **Sequence summary**: T1=anatomy · T2=pathology · FLAIR=CSF off · STIR=fat off
+> 🦴 **Critical**: Gd safe? — check kidney first (NSF risk)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
