@@ -26346,6 +26346,274 @@ For external gilts:
 > 🦴 **NPD = vet's #1 target** — every NPD reduction = direct PSY gain`,
   },
 
+  '1mFans-0DNY': {
+    videoId: '1mFans-0DNY',
+    title: '8. Epidemiology for Swine Disease & Prevention',
+    subject: 'swine-herd',
+    date: '8 Oct 67',
+    durationMin: 95,
+    instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
+    examFormat: 'MCQ — Disease triangle (Agent/Host/Environment) · Endemic/Epidemic/Pandemic · ASF outbreak history · Pig flow biosecurity · Swine disease era timeline ออกบ่อย',
+    summary: `# Epidemiology for Swine Disease & Prevention
+
+> 🎯 **Why epidemiology?** ASF taught everyone — knowing dynamics = surviving outbreaks
+> Top exam: **Swine disease era timeline · Disease Triangle · ASF transmission routes · Pig flow biosecurity · Endemic/Epidemic/Pandemic**
+
+---
+
+## 1. Why Epidemiology Matters in Swine ⭐
+
+### The ASF Lesson (2018-present)
+- Outbreak in China 2018 → Vietnam → Laos → **Thailand 2022**
+- Some farms lost ENTIRE stocks (3000 pigs in 10 days)
+- Some farms in Nakhon Pathom **NEVER got ASF** (golden zone!)
+- Studying WHY = survival skill for future outbreaks
+
+### Career Outlook (Bonus context)
+- 80% of vet students go small animal
+- Food animal = SHRINKING vet population
+- **Job security guaranteed for swine vets** (high demand, low supply)
+
+---
+
+## 2. Three Pillars of Epidemiology ⭐⭐ (Time, Place, Pop)
+
+| Pillar | Question |
+|---|---|
+| **TIME** | When does disease occur? (seasonal, era, age cycle) |
+| **PLACE** | Where geographically? (region, farm, barn, age group) |
+| **POPULATION** | Who is affected? (species, age, parity) |
+
+### Two analytic styles
+| Type | Use |
+|---|---|
+| **Descriptive epidemiology** | Person/Place/Time narrative (no math) |
+| **Analytic epidemiology** | Statistical (Odds Ratio, RR, p-values) |
+
+---
+
+## 3. Thai Swine Disease Era Timeline ⭐⭐⭐ (Memorize!)
+
+### Sequential outbreaks
+| Era | Disease | Key sign |
+|---|---|---|
+| **1995-1997** | **Classical Swine Fever (Hog Cholera)** | Inguinal lymph node swelling + sudden death |
+| **1997-2002** | **PRRS** ⭐ (entered Thailand) | Reproductive + respiratory |
+| **2002-2004** | Continued CSF problem | Same |
+| **2005-2007** | **PCV2 (Postweaning Multisystemic Wasting Syndrome)** | Inguinal LN swelling (NEW differential!) ⭐ |
+| **2008-2010** | **PED outbreak** ⭐ | Catastrophic suckling diarrhea |
+| **2018-present** | **ASF (African Swine Fever)** ⭐⭐ | Sudden death, hemorrhages |
+
+### Pattern recognition
+> 💡 **Inguinal LN swelling**:
+> - Pre-2004 → CSF
+> - 2005+ → PCV2 (more likely)
+
+### Geographic flow
+> Almost all major outbreaks: **China → Vietnam → Thailand** in ~1 year cycle
+> If China has outbreak → Thailand will see it within 12 months!
+
+---
+
+## 4. The Disease Triangle ⭐⭐⭐ (Foundation concept!)
+
+### Three components must align for disease
+| Component | Definition | Vet's intervention |
+|---|---|---|
+| **AGENT** | Pathogen (virus, bacteria, parasite) | Antimicrobials, biosecurity |
+| **HOST** | Susceptible animal | Vaccination, breed selection, herd immunity |
+| **ENVIRONMENT** | Conditions favoring disease | Cleaning, climate control, ventilation |
+
+### Break ANY ONE point → disease cannot occur!
+
+> ⭐ **ASF break methods**:
+> - **Agent**: cleaning + disinfection (limited because ASF very stable)
+> - **Host**: depopulate (extreme!) or genetic resistance
+> - **Environment**: insect control, water control, biosecurity
+
+---
+
+## 5. ASF Transmission Routes ⭐⭐ (Why so hard to control!)
+
+### Multi-route transmission
+| Route | Mechanism |
+|---|---|
+| **Direct contact** | Pig-to-pig saliva, blood, secretions |
+| **Indirect (fomites)** | Contaminated equipment, clothing, vehicles |
+| **Mosquitoes** ⭐ | Biological vector — bite carries virus |
+| **Other vectors** | Flies, ticks |
+| **Water** ⭐ | Floods carry virus from pen to pen |
+| **Feed** | Contaminated feed |
+| **Wild boars** | Reservoir host |
+
+### Why ASF outbreaks correlate with rain ⭐
+1. Mosquitoes/flies thrive
+2. Floodwater spreads virus
+3. Fomite contamination from wet equipment
+4. Humidity favors virus stability
+
+> 🔑 **Pen drinking ponds (ส้วมน้ำ)** = #1 ASF detection spot
+> Both feces + urine accumulate → pathogen reservoir
+
+---
+
+## 6. Pig Flow Biosecurity ⭐⭐ (Modern post-ASF)
+
+### Pre-ASF era flow
+- Open lanes between pens
+- Mixed batches in transit
+- Workers/equipment shared between rooms
+- → Easy disease spread
+
+### Post-ASF flow (NEW STANDARD) ⭐
+| Change | Reason |
+|---|---|
+| **Compartmentalize batches** | If one pen infected, contain to that pen |
+| **Dedicated equipment per area** | Stop fomite transfer |
+| **No worker crossover** | Stop human-vectored spread |
+| **Move pigs minimally** | Reduce multi-pen exposure |
+| **Cohort age uniformly** | All-in/all-out per zone |
+
+### Cascade effect of post-ASF flow
+- Other diseases (PRRS, PED) ALSO decreased
+- Result: cleaner overall disease picture in Thai farms
+
+---
+
+## 7. Endemic vs Epidemic vs Pandemic ⭐⭐ (Definition!)
+
+### Three terms to memorize
+| Term | Definition | Example |
+|---|---|---|
+| **ENDEMIC** | Disease consistently present at low level in a region | PRRS in Thai swine farms (most farms have it) |
+| **EPIDEMIC** | Sudden outbreak above expected level (regional) | PED outbreak 2008 in Thai farms |
+| **PANDEMIC** | Global outbreak | COVID-19, ASF (now spreading globally) |
+
+### How endemic becomes epidemic
+- New susceptible introduction (gilts, new boars)
+- Mutation of pathogen
+- Environmental change
+- Loss of herd immunity
+
+---
+
+## 8. Vaccination Strategy in Modern Swine ⭐
+
+### Pre-ASF (traditional)
+- Vaccinate at weeks 3, 6, 9, 12 (multiple visits)
+- Single-pathogen vaccines
+
+### Post-ASF (modern)
+- **Combine vaccines** in single shot ⭐
+- Examples:
+  - PRRS + PCV2 + Mycoplasma (3-in-1)
+  - Multiple bacterial combos
+- **Reasons**:
+  - Less injection stress (which can spread ASF if needle dirty)
+  - Fewer worker visits (biosecurity)
+  - Lower stress = better immune response
+- **Needle-free injectors** for high-volume farms
+
+### Vaccine selection criteria
+- Disease prevalence in your region
+- Cost-benefit (e.g., 60฿/dose for ileitis vs 1000฿ extra feed/pig saved)
+- Worker capacity
+- Existing biosecurity
+
+---
+
+## 9. Cost-Benefit of Vaccination ⭐⭐ (Worked example!)
+
+### Example: Ileitis Vaccine
+- Vaccine cost: 60฿/dose
+- 10,000 pigs × 60฿ = **600,000฿ vaccination cost**
+- Without vaccine: pigs take 24 weeks to slaughter (instead of 21)
+- Extra 3 weeks × 10,000 pigs × 3 kg feed/day × 15฿/kg × 21 days = **9.45 MILLION฿ feed cost**
+- **Savings**: 9.45M − 0.6M = **8.85 MILLION฿ benefit**
+- ROI = 14.75x ⭐⭐
+
+> ⭐ Vaccine "cost" is far less than disease "cost" — modern math wins always
+> "Saving cost" by NOT vaccinating → bigger losses downstream
+
+---
+
+## 10. ASF Severity Ranking ⭐ (Among all swine diseases)
+
+### Top 3 most severe in textbook
+1. **ASF** ⭐⭐⭐ — sudden death · 100% mortality if naïve
+2. **CSF (Hog Cholera)** — high mortality but vaccine works
+3. **FMD** — devastating economically (depopulation)
+
+### Why ASF is worst
+- NO effective vaccine yet (different from CSF)
+- Multi-route transmission
+- High survival in environment
+- Wild boar reservoir
+- Spread via Vector + Water + Fomite + Feed simultaneously
+
+---
+
+## 11. Sudden Death + High Mortality Differentials ⭐
+
+### When pigs die suddenly + mass
+1. **ASF** ⭐ (most likely modern cause)
+2. CSF (rare in vaccinated farms)
+3. *Streptococcus suis* septicemia
+4. *Erysipelothrix rhusiopathiae*
+5. Acute toxicosis (mycotoxin, plant)
+6. Heat stroke (in unventilated barns)
+
+> ⭐ Differential by **clinical pattern**:
+> - Hemorrhages on skin → ASF, CSF
+> - Joint swelling → Strep suis
+> - Diamond skin → Erysipelas
+
+---
+
+## 12. Investigative Approach to New Disease ⭐
+
+### Step-by-step (using nasal turbinate atrophy example)
+1. **Identify cause types**: bacterial? viral? nutritional? environmental?
+2. **List risk factors** for each
+3. **Test hypotheses** with statistics
+4. **Calculate odds ratios** (e.g., gilt-replacement farms 8x more likely to have PRRS)
+5. **Implement intervention**
+6. **Re-evaluate** after intervention
+
+### Three study designs
+| Design | Direction |
+|---|---|
+| **Prospective (cohort)** | Forward in time |
+| **Retrospective (case-control)** | Backward |
+| **Cross-sectional** | Snapshot at one moment |
+
+---
+
+## 🎯 Exam Recap — top 16 testable points
+
+1. **3 pillars**: Time + Place + Population
+2. **Disease Triangle**: Agent + Host + Environment (break ANY ONE)
+3. **Era timeline**: CSF (90s) → PRRS (97-02) → PCV2 (05+) → PED (08-10) → ASF (18-now)
+4. **Inguinal LN swelling**: Pre-2004 = CSF; Post-2005 = PCV2
+5. **China → Thailand** = ~1 year disease lag
+6. **ASF transmission**: contact + mosquitoes + water + fomites + wild boars
+7. **Rain season ↑ ASF outbreaks** (mosquitoes + floods)
+8. **Pen drinking pond** = #1 ASF detection spot
+9. **Endemic = consistent low level**
+10. **Epidemic = sudden surge**
+11. **Pandemic = global**
+12. **Post-ASF biosecurity = combine vaccines + needle-free + compartmentalize**
+13. **ROI of vaccination = 14x typically** (skip vaccine = bigger loss)
+14. **ASF = #1 worst swine disease** (no vaccine)
+15. **Sudden death differentials**: ASF, Strep, Erysipelas, mycotoxin
+16. **3 study designs**: Prospective, Retrospective, Cross-sectional
+
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 6-7 Records (AbDfu2y3oW0) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY) · 14 Disease control breeding (gBdwkFQLi28) · 15 Disease control nursery/fattening (PrPV1sMvX_8)
+> 🩻 **Practice tip**: Always check "what era + what age + what region" before diagnosing
+> 💡 **Inguinal LN trap**: Year matters! 2005+ likely PCV2, not CSF
+> 🦴 **ASF reality**: Multi-route + no vaccine = will be with us for years`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
