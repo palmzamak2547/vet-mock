@@ -37988,6 +37988,304 @@ Where:
 > 🐄 **One Health**: Cattle = silent EHEC reservoir → public health control challenge`,
   },
 
+  'e16wNH-zV6Q': {
+    videoId: 'e16wNH-zV6Q',
+    title: '11. Foodborne Infection II + Intoxication',
+    subject: 'food-safety-y4',
+    date: '2024-11-01',
+    durationMin: 112,
+    instructor: 'อ.ธราดล',
+    examFormat: 'pathogen ID + toxin mechanism + food source',
+    summary: `# 11. Foodborne Infection II + Intoxication
+
+> ⚠️ Continuation of bacterial pathogens · adds 4 Vibrio + GR+ intoxication group
+> Critical: Salt-loving (halophilic) bacteria + heat-stable toxins + botulinum
+
+## 🎯 ภาพรวมคาบ
+1. **Vibrio** species (cholerae, parahaemolyticus, vulnificus) — seafood
+2. **Foodborne Intoxication** (GR+ pathogens)
+3. ***Staph aureus*** — heat-stable enterotoxin
+4. ***Bacillus cereus*** — emetic vs diarrheal type
+5. ***Clostridium perfringens*** — buffet pathogen
+6. ***Clostridium botulinum*** — botulism + 3 forms
+
+## 1️⃣ Vibrio Group (Foodborne Infection)
+
+### Common Properties
+- Gram-negative rods
+- Facultative anaerobe (some species)
+- Motile
+- ⭐ Most pathogenic species require **salt** (halophilic)
+- Family Vibrionaceae
+
+### Diagnostic Media: TCBS ⭐
+**Thiosulfate-Citrate-Bile salts-Sucrose agar**
+- Differential medium for Vibrio
+- ⭐ ***V. cholerae*** = **YELLOW** colony (sucrose+)
+- ***V. parahaemolyticus*** + ***V. vulnificus*** = **GREEN** (sucrose−)
+
+### A. Vibrio cholerae ⭐
+**= อหิวาตกโรค (Cholera)**
+
+**Signs**:
+- ⭐ "**Rice water stool**" — pure white watery diarrhea (looks like rice rinse water)
+- NO blood, NO fever
+- Up to 1 L/hr fluid loss → severe dehydration → shock
+
+**Reservoir**: humans (no animal)
+
+**Outbreaks**:
+- Poor sanitation areas
+- Sewage → river → ocean → oysters/shellfish
+- Raw oyster consumption
+
+**Serogroups** (O antigen):
+- ⭐ **O1** + **O139** = pandemic strains
+- O1 has 2 biotypes: **Classical** (severe, rare) + **El Tor** (current)
+- Each biotype has 3 serotypes: Inaba, Ogawa, Hikojima (Japanese names because Japan studied them historically)
+
+**Cholera Toxin (CT) Mechanism** ⭐
+- Structure: 1 A-subunit + 5 B-subunits
+- B binds GM1 receptor on epithelium
+- A activates **adenylate cyclase** → ↑ cAMP
+- → ↑ Cl⁻ secretion via CFTR
+- → Na⁺ + water follow → massive watery diarrhea
+
+**Treatment**:
+- ⭐ **ORS (Oral Rehydration Solution)** — Nobel-prize-winning solution!
+- Severe: IV fluids
+- Antibiotics: tetracycline, ciprofloxacin, azithromycin
+
+### B. Vibrio parahaemolyticus
+- ⭐ **Halophilic** (needs 1-8% NaCl)
+- Top cause of seafood-related foodborne disease in Asia (Japan formerly)
+- Foods: raw seafood, oysters, **post-cooking contamination of cooked seafood** (shrimp, crab)
+
+#### Kanagawa Phenomenon ⭐ Sob trick!
+- 98% of *V. parahaemolyticus* in environment = NON-pathogenic
+- Pathogenic = **β-hemolysis on Wagatsuma agar** = "Kanagawa-positive"
+- Need this test to confirm pathogenicity (vs just isolation)
+
+**Mechanism**: invasive (NOT toxin like cholera)
+
+#### Two clinical forms
+| Form | Symptoms |
+|------|----------|
+| Typical | Watery diarrhea + abdominal pain + fever |
+| Severe (dysenteric) | **Bloody stool + mucus** |
+
+**Temperature dependence** ⭐
+- Doesn't grow in seawater <15°C
+- Some countries restrict shellfish harvest when seawater warm
+- Heat-sensitive: dies at 70°C
+
+**Depuration**: keeping shellfish in clean water tanks to purge bacteria before consumption
+
+### C. Vibrio vulnificus
+- ⭐ **Most lethal** Vibrio (mortality up to 50% in immunocompromised!)
+- Halophilic
+- Source: raw oysters, wound contact with seawater
+- Symptoms: severe gastroenteritis + sepsis + necrotizing fasciitis
+- High-risk groups: liver disease, immunocompromised
+- "Flesh-eating bacteria" reputation
+
+## 2️⃣ Foodborne Intoxication — GR+ Pathogens
+
+> ⚠️ **Key concept**: Toxin formed in food BEFORE eaten
+> Short incubation (1-6 hr typical)
+> Bacteria can be killed but **toxin survives reheating** (often)
+
+## 3️⃣ Staphylococcus aureus ⭐ #1 Intoxication
+
+### Properties
+- Gram-positive cocci, **NO spores**
+- Halotolerant (a_w 0.85, salt 12%!)
+- Found everywhere — **human skin** = main source
+- Nose, hair, hands of food handlers
+
+### Heat-Stable Enterotoxin ⭐ Critical!
+- Multiple types: A (most common), B, C, D, E, etc.
+- ⭐ **Survives 100°C × 30 min**
+- **Cannot inactivate by reheating!**
+- Mechanism: stimulates vagus nerve → vomiting
+
+### Symptoms
+- ⭐ **Incubation 1-6 hr** (very short!)
+- Sudden vomiting + nausea
+- Diarrhea (watery)
+- Mild diarrhea, NO fever
+- Resolves 24 hr
+
+### Common foods
+- Cream-filled pastries, custard
+- Potato salad, ham salad
+- Meat dishes left at room temperature
+- Mishandling = food handler contamination + Danger Zone
+
+### Control
+- ⭐ **Personal hygiene** of food handlers (handwashing, glove)
+- ⭐ **Don't leave at Danger Zone >2 hr**
+- Reheating WON'T fix (toxin heat-stable)
+- Cover open wounds, no work if sick
+
+## 4️⃣ Bacillus cereus
+
+### Properties
+- Gram-positive rod
+- ⭐ **Spore-forming**
+- Aerobic
+- Soil + water reservoir
+- ⚠️ **Psychrotrophic strain** (NEW!) = grows + makes toxin at 4°C!
+
+### Two distinct toxins → 2 syndromes ⭐
+
+#### A. Emetic Type (Cereulide toxin)
+- ⭐ **Heat-STABLE** (survives 121°C × 90 min!)
+- Mechanism: vagus nerve (like Staph)
+- Symptoms: **vomiting** ⭐
+- ⭐ Foods: **STARCHES** — rice (fried rice!), pasta, noodles
+- Incubation: **1-5 hours**
+- Type: **Foodborne intoxication** (toxin pre-formed)
+
+#### B. Diarrheal Type
+- **Heat-LABILE** (destroyed at 56°C × 5 min)
+- Mechanism: damages mucosa, impairs water reabsorption
+- Symptoms: **watery diarrhea + abdominal pain**
+- Foods: meats, vegetables, dairy
+- Incubation: 8-16 hr
+- Type: **Toxico-infection** (bacteria grow in gut, produce toxin there)
+
+### Comparison ⭐
+| Feature | Emetic | Diarrheal |
+|---------|--------|-----------|
+| Toxin | Heat-stable cereulide | Heat-labile enterotoxin |
+| Type | Intoxication | Toxico-infection |
+| Symptoms | Vomiting | Diarrhea |
+| Food | Rice, pasta | Mixed |
+| Incubation | 1-5 hr | 8-16 hr |
+| Similar to | *Staph aureus* | *C. perfringens* |
+
+### Control
+- Avoid leaving cooked rice at room temp >2 hr
+- Reheat properly + serve hot
+- Refrigerate quickly (psychrotroph caveat)
+
+## 5️⃣ Clostridium perfringens
+
+### Properties
+- Gram-positive rod
+- **Obligate anaerobe**
+- Spore-forming
+- ⭐ Normal gut flora of warm-blooded animals
+- ⭐ Causes **Toxico-Infection** (NOT pure intoxication)
+
+### Mechanism
+- Eat food with **>10⁶ vegetative cells**
+- Sporulation in gut → toxin production
+- Toxin destroys brush border → impaired water absorption
+- Watery diarrhea (no blood)
+
+### Foods (the "buffet bug") ⭐
+- ⭐ **Cooked meat** held warm too long
+- Roast beef, stews
+- ⚠️ ⭐ **Catered events, weddings, large parties**
+- Why?: Anaerobic conditions in covered/foil-wrapped large meat masses
+- Spores survive cooking → germinate → grow → eaten
+
+### Symptoms
+- Incubation: 6-24 hr
+- Watery diarrhea + abdominal pain
+- NO fever, NO vomiting (usually)
+- Resolves 24 hr
+
+### Distinguishing
+- Similar symptoms to *B. cereus* diarrheal type
+- Common: cooked food held in Danger Zone
+
+### Control
+- ⭐ **Don't pre-prepare large quantities + hold warm**
+- Cool quickly: shallow containers, divide into portions
+- Reheat thoroughly to >74°C
+- ⚠️ **Don't put hot food directly into fridge** (center stays warm!)
+
+## 6️⃣ Clostridium botulinum ⭐ Most Dangerous
+
+### Properties
+- Gram-positive rod
+- ⭐ **Obligate anaerobe**
+- Spore-forming (highly heat-resistant!)
+- Soil + ocean sediment reservoir
+
+### Botulinum Toxin
+- ⭐ **Most potent biological toxin known** (LD50 ~1 ng/kg)
+- 8 types: A, B, C, D, E, F, G, H
+- Human disease: A, B, E, F mostly
+- **Mechanism**: blocks acetylcholine release at neuromuscular junction → flaccid paralysis
+- Heat-LABILE (80°C × 10 min destroys)
+- BUT spores need 121°C for ≥3 min ⚠️
+
+### 3 Forms of Botulism ⭐ EXAM!
+
+#### A. Foodborne Botulism
+- Source: improperly canned foods, fermented foods
+- ⭐ **Thai context**: ***หน่อไม้ปี๊บ*** (canned bamboo shoots) — recurrent outbreaks (Nan Province)
+- Mechanism: low pH not achieved (>4.6) + anaerobic + no proper heat = spores germinate + produce toxin
+- Onset: 12-72 hr post-ingestion
+- ⭐ **Symptoms**: descending paralysis, blurred vision, ptosis, dysphagia, respiratory failure
+
+#### B. Wound Botulism
+- Source: dirt-contaminated wounds in children (cuts, scrapes from playing)
+- Spore enters wound → germinates → toxin
+- Less common
+
+#### C. Infant Botulism ⭐ Important!
+- ⭐ **<1 year old children**
+- Source: ⭐ ***HONEY*** ⚠️ (contains C. botulinum spores)
+- ⭐ **Reason**: infant gut microbiome immature → spores germinate in gut
+- Adult gut flora prevents this
+- ⭐ **Honey labels say: "Don't give to <1 yr"**
+- Symptoms: floppy baby, weak cry, poor feeding, constipation
+
+### Treatment
+- **Antitoxin** ASAP (pre-formed antibodies)
+- Supportive care + ventilator
+- Wound: surgical debridement
+
+### Prevention
+- Proper canning (pressure cook >121°C × 3 min for low-acid)
+- pH <4.6 (acid foods safer — water-bath canning OK)
+- Don't give honey to infants
+- ⚠️ **Bulging cans = throw away** (gas from C. bot)
+
+### Famous Use: Botox ⭐
+- *C. botulinum* type A toxin = **Botox**
+- Cosmetic + medical use (muscle spasm, migraines)
+- Same toxin, controlled dose = therapeutic
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. **Vibrio** halophilic (most pathogenic species need salt)
+2. **TCBS**: V. cholerae yellow · V. para/vulnificus green
+3. **Cholera toxin**: A-B subunit · cAMP ↑ · "rice water stool"
+4. **ORS Nobel prize** = saved millions
+5. **Kanagawa-positive** = pathogenic V. parahaemolyticus
+6. **V. vulnificus** = most lethal (50% mortality immunocompromised)
+7. ⭐ ***Staph aureus*** **enterotoxin = HEAT STABLE** (100°C × 30 min)
+8. Staph: 1-6 hr vomiting · NO fever · personal hygiene main control
+9. *B. cereus* **emetic = rice/pasta** · diarrheal = mixed foods
+10. *B. cereus* emetic toxin SUPER heat-stable (121°C × 90 min!)
+11. ***C. perfringens*** = "buffet bug" · large cooked meat held warm
+12. ***C. botulinum*** = obligate anaerobe + most potent toxin known
+13. ⭐ **3 botulism forms**: foodborne / wound / **infant** (honey ⚠️)
+14. หน่อไม้ปี๊บ + Nan Province = recurrent botulism
+15. Botulism = descending flaccid paralysis · antitoxin treatment
+
+> 📚 อ่านควบ: 9 Foodborne Intro · 10 Foodborne Infection I · 12 Viral · 14 Parasitic
+> 🍯 **Critical rule**: NO honey for infants <1 yr (botulism risk)
+> 🥡 **Catering trap**: Large warm meat = C. perfringens factory
+> 🍚 **Rice rule**: Cooked rice sitting out = B. cereus emetic time bomb
+> 🥫 **Canning rule**: pH 4.6 + 121°C × 3 min for low-acid (botulinum prevention)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
