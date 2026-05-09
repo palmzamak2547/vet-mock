@@ -14613,6 +14613,435 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 > 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY) · 12.1 Acquired Cardiac Disease (SiLZIu-aWlY) · 13.1 Surgical Heart (dn_W-7eWQl0)`,
   },
 
+  'SiLZIu-aWlY': {
+    videoId: 'SiLZIu-aWlY',
+    title: '12.1 : Acquired + Congenital Cardiac Disease',
+    subject: 'com1',
+    date: '2024-11-04',
+    duration: '117 min',
+    instructor: 'DekDokVet85 — รุ่นพี่',
+    examFormat: 'MCQ — disease ID by signalment + auscultation + imaging',
+    summary: `# 12.1 Acquired + Congenital Cardiac Disease
+
+> 🎯 ครอบคลุม **3 acquired diseases** (MMVD · DCM · HCM) + **5 congenital defects** (PDA · VSD · SAS · PS · ToF). **Don't mix dog/cat/acquired/congenital** in answer ⚠️ ที่ออกสอบบ่อย: **breed + age + murmur location → disease**
+
+---
+
+## ACQUIRED Cardiac Diseases (3 only)
+
+| Disease | Species | Breed |
+|---|---|---|
+| **MMVD/DMVD** ⭐ | Dog | Small + Toy breeds (CKCS, Poodle, Chihuahua, Shih Tzu) |
+| **DCM** | Dog | Large breeds (Boxer, Doberman, Great Dane, Irish Wolfhound) |
+| **HCM** ⭐ | Cat | Maine Coon, Persian, Ragdoll, Sphynx, ASH |
+
+⚠️ **NEVER mix species** in exam answers!
+
+---
+
+## 1. MMVD / DMVD (Myxomatous/Degenerative Mitral Valve Disease)
+
+### Demographics
+- **Most common cardiac disease in dogs** — small/toy breeds
+- **Older dogs** (>6-7 yr) — except **CKCS at 4 yr** (early onset breed)
+- **Males > females** · males have **worse prognosis**
+
+### Pathophysiology
+- **Primary**: leaflet thickening, chordae tendineae elongation/rupture
+- **Mitral regurgitation** during systole → blood backflow to LA
+- **Volume overload** → LA enlargement → eccentric LV hypertrophy
+- LA pressure ↑ → pulmonary vein congestion → pulmonary edema → **Left CHF**
+
+### Clinical
+- **Cough, dyspnea, tachypnea** (Pulmonary edema)
+- Exercise intolerance, syncope
+- ⚠️ Cough also from cardiomegaly compressing trachea (not just pulmonary edema)
+
+### Murmur
+- **Left apex (mitral valve location)** = ICS 4-5 left
+- **Systolic murmur** (S1)
+- Heard with stethoscope below front-leg level
+
+### Auscultation
+- **Wet rales/crackles** if pulmonary edema
+- **Increased lung sounds** if early CHF
+
+### Why measure BP in MMVD?
+1. Concurrent **systemic hypertension** worsens regurgitation (more resistance → more backflow)
+2. Late stage = Cardiac output drops → BP drops
+
+### Imaging Findings
+**X-ray** (cardiogenic pulmonary edema pattern):
+- ⭐ Distribution: **caudo-dorsal** (most reliable for cardiogenic edema)
+- ⭐ **LA enlargement** with **caudal split of caudal lobar bronchi** (look for this!)
+- Pulmonary vein > pulmonary artery (vein congestion)
+- **Perihilar edema** initially → progressive
+- Pattern: interstitial → alveolar
+
+**Echocardiography**:
+- LA:Ao ratio **>1.6** = LA enlargement
+- Mitral valve thickening, prolapse (cup-shaped)
+- Color Doppler: regurgitant jet (large jet area / LA = severity)
+- M-mode: LV chamber dilatation
+
+### Classification (ACVIM 2019 Guidelines)
+| Stage | Definition |
+|---|---|
+| **A** | Predisposed breed, no murmur yet |
+| **B1** | Has murmur, **no cardiomegaly** |
+| **B2** | Has murmur **with cardiomegaly** (LA:Ao >1.6, VHS >10.5) |
+| **C** | Active or past CHF |
+| **D** | Refractory to standard therapy |
+
+### Treatment
+
+**Acute CHF**:
+- **O₂ therapy**
+- **Furosemide** (Volume overload removal — first priority!)
+- **Pimobendan** (positive inotrope)
+- **Vasodilator** (nitroglycerin/hydralazine — adjunct)
+
+**Chronic by stage**:
+- A: nothing
+- B1: nothing (re-evaluate)
+- B2: **Pimobendan** (delay CHF onset) + dietary management
+- C: **4-drug combo** = Furosemide + Pimobendan + ACE inhibitor + Spironolactone
+- D: Same + dose adjustment, additional diuretics (HCT, etc.)
+
+### Surgical option
+- **Mitral valve repair (clip)** — done at Stage B2+ in some centers
+- Not yet available in Thailand
+
+---
+
+## 2. DCM (Dilated Cardiomyopathy)
+
+### Demographics
+- **Large breeds**: Boxer, Doberman, Great Dane, Irish Wolfhound, Cocker Spaniel
+- ⚠️ **Lab + Golden may be diet-induced** (taurine deficiency from boutique foods!)
+
+### Pathophysiology
+- **Primary**: systolic dysfunction (genetic) → poor contraction
+- **Secondary causes** ⚠️:
+  - **Taurine/L-carnitine deficiency** (BARF, exotic protein, grain-free diets)
+  - **Doxorubicin chemotherapy** (cardiotoxic)
+  - **Chronic tachycardia** (tachycardia-induced cardiomyopathy)
+  - **Trypanosoma cruzi** (Chagas — Texas)
+  - **Hypothyroidism**
+- Dilation **follows** dysfunction (not before)
+
+### Clinical
+- Subtle initial: weight loss, exercise intolerance
+- Eventually: dyspnea, cough, ascites (right CHF)
+- ⚠️ **Sudden death** from arrhythmia (especially Boxer, Doberman) — owner reports "fine yesterday, dead today"
+
+### Murmur
+- **Functional MR** — valve normal but ventricle dilated → leaflets pulled apart
+- ⚠️ Murmur often absent in **Early stage** — only develops once heart enlarged
+
+### Auscultation
+- **Gallop rhythm** (S3) — common
+- Weak femoral pulse (low cardiac output)
+
+### Diagnosis
+- Echocardiography ⭐
+- **Reduced fractional shortening** (poor contraction)
+- Dilated LV chamber + thin walls
+- Holter monitor for arrhythmia screening (Doberman, Boxer)
+
+### Treatment
+
+**Pre-clinical (asymptomatic)**:
+- **Pimobendan** ⭐ first-line (improves contractility)
+- ACE inhibitor (RAAS blockade)
+- Anti-arrhythmic if VT present
+
+**Symptomatic (overt CHF)**:
+- **All 4 drugs**: Furosemide + Pimobendan + ACE-I + Spironolactone
+- ⚠️ **Pimobendan REQUIRED** in DCM (different from MMVD — DCM is contractility issue)
+- Treat secondary causes (taurine supplementation, diet change)
+
+---
+
+## 3. HCM (Hypertrophic Cardiomyopathy)
+
+### Demographics
+- **Cats only** ⭐ — most common cardiac disease in cats
+- Breeds: **Maine Coon** (genetic + early onset), Ragdoll, Sphynx, BSH, ASH, Persian
+- **Males > females** · usually 6-7 yr (Maine Coon as early as 1-2 yr)
+
+### Pathophysiology
+- **Primary**: genetic
+- **Secondary causes** (rule out!):
+  - **Hypertension** ⭐
+  - **Hyperthyroidism** ⭐
+  - **Acromegaly** (GH excess)
+  - **Subaortic stenosis**
+- LV myocardium thickens → **chamber smaller** → **diastolic dysfunction** (can't fill)
+- LA pressure ↑ → pulmonary vein congestion → pulmonary edema OR pleural effusion
+- LA dilation → **stasis** → **thrombus formation** → **ATE** (saddle thrombus to hindlimbs)
+
+### Clinical
+- Often **asymptomatic** (subclinical)
+- CHF: dyspnea, tachypnea (often no cough in cats)
+- **ATE** (sudden hindlimb paralysis with cyanotic foot)
+- Sudden death possible
+
+### Murmur in HCM (different from MMVD!)
+1. **Outflow tract velocity ↑** (chamber narrowed) — Reynold number effect
+2. **SAM (Systolic Anterior Motion)** ⭐:
+   - Normally anterior MV leaflet stays in LV during systole
+   - In HCM: leaflet pulled into LVOT during systole due to:
+     - **Chordae malposition** (myocardium thick changes geometry)
+     - **Venturi effect** — high-velocity LVOT flow sucks leaflet
+   - Result: dynamic LVOT obstruction + MR
+
+### Imaging
+**X-ray cat CHF**:
+- Pulmonary edema **distribution variable** (no specific pattern in cats)
+- Common: **diffuse interstitial → alveolar**
+- Can be only caudal lobe!
+- **LA pushed dorsally** lifting trachea (different from dog where LA pushes caudal)
+- Bilateral atrial enlargement → **"Valentine heart shape"** ⚠️ classic
+- ± **Pleural effusion** (can be either alone or with edema)
+
+**Echocardiography**:
+- LV wall thickness > 6 mm (diastolic) = HCM diagnostic
+- LA:Ao **>1.6** OR **>2.0** for severe
+- Reduced LV chamber size
+
+### Classification (Stages)
+- A: predisposed breed, normal cardiac
+- **B1**: HCM + small LA (low risk for ATE/CHF)
+- **B2**: HCM + large LA (high risk for ATE/CHF) ⭐
+- C: symptomatic
+- D: refractory
+
+### Treatment
+**B1**: nothing
+**B2**: **Clopidogrel** ⭐ (prevent ATE only — no proven benefit on CHF prevention)
+**C (symptomatic)**:
+- **Furosemide** (only proven beneficial drug)
+- ACE inhibitor — controversial benefit
+- Pimobendan — **off-label** in cats, sometimes used in late HCM (when contractility fails)
+- Clopidogrel for ATE prevention
+
+⚠️ Cats die from **stress** during treatment — handle gently!
+
+---
+
+## CONGENITAL Cardiac Defects (5 only)
+
+| Disease | Murmur | Breed |
+|---|---|---|
+| **PDA** ⭐ | Continuous, left base | Female small dog (Poodle, CKCS) — recently French Bulldog |
+| **VSD** | Right sternal border | Chihuahua, English Bulldog · also cats! |
+| **SAS** | Left base | Large breed (Golden, Boxer, Newfoundland) |
+| **PS** ⭐ | Left base | English/French Bulldog (rising!), terriers |
+| **ToF** | Variable | English Bulldog, Chihuahua · cyanotic disease |
+
+---
+
+## 4. PDA (Patent Ductus Arteriosus)
+
+### Demographics
+- **Most common congenital defect** worldwide
+- **Females > males**
+- Older popularity: Poodle → Pomeranian → CKCS · now French Bulldog rising
+
+### Pathophysiology
+- Ductus arteriosus connects pulmonary artery to descending aorta in fetus
+- Normally closes at birth (via O₂ + ↓ prostaglandin → smooth muscle contraction)
+- ⚠️ Dog/cat PDA = **NO smooth muscle** → prostaglandin inhibitor doesn't work (unlike humans)
+- **Surgery required**
+
+### Hemodynamics
+- **Left-to-right shunt**: aorta → pulmonary artery (always L→R because aortic pressure higher)
+- Volume overload **left** side (pulm vein → LA → LV)
+- **Reverse shunt** (R→L) if pulmonary HT progresses → **differential cyanosis** (cranial pink, caudal cyanotic)
+
+### Murmur
+- **Continuous "machinery" murmur** at **left base (under axilla)** ⭐
+- Audible during **both systole + diastole**
+
+### Pulse
+- **Hyperkinetic ("water-hammer") pulse** — wide pulse pressure
+- Diastolic BP drops (blood diverted to PA in diastole)
+
+### Imaging
+- **3 enlargements at L base**: aorta + pulmonary artery + LA
+- Pulmonary venous + arterial congestion
+- Caudal lobar pulmonary edema if CHF
+
+### Treatment
+- **Surgical ligation** ⭐ first-line
+- **Coil embolization / Amplatzer Canine Duct Occluder (ACDO)** — interventional
+- ⚠️ **Best prognosis of all congenital defects** — closed PDA = normal life
+
+---
+
+## 5. VSD (Ventricular Septal Defect)
+
+### Demographics
+- Common in: Chihuahua, English Bulldog, French Bulldog
+- ⚠️ **Common in cats too** (one of few cardiac defects in cats!)
+
+### Pathophysiology
+- Hole in interventricular septum
+- **Left-to-right shunt** (LV pressure > RV)
+- Severity depends on:
+  - **Size of hole** (small = no overload; large = severe)
+  - **Location** (apical = LV+RV overload; basilar = pure pulmonary)
+
+### Most common location
+- **Perimembranous VSD** (just below aortic valve)
+
+### Murmur
+- **Right sternal border (low)** — different from MMVD!
+- Systolic murmur
+
+### Imaging
+- Variable: LV alone (small VSD) or biventricular enlargement (large VSD)
+- Pulmonary overcirculation if large shunt
+- Possible perihilar edema
+
+### Treatment
+- Small VSD = **no treatment**
+- Large VSD = surgical (PA banding palliation, patch closure — not in Thailand)
+- ⚠️ **Reverse shunt** = poor prognosis (Eisenmenger physiology)
+
+---
+
+## 6. SAS (Subaortic Stenosis)
+
+### Demographics
+- **Large breeds**: Golden Retriever, Boxer, Newfoundland, Rottweiler, English Bulldog
+- Cat: typically valvular AS (not subvalvular)
+
+### Pathophysiology
+- Fibromuscular ring just below aortic valve
+- **Pressure overload** on LV → **concentric LV hypertrophy**
+- Sub-endocardial ischemia (thick myocardium can't be perfused)
+- Risk of **VT/sudden death** from ischemia
+
+### Murmur
+- **Systolic murmur at left base** (aortic valve location)
+- Slides cranially from apex toward base
+
+### Pulse
+- **Hypokinetic (weak) pulse** — opposite of PDA!
+
+### Imaging
+- ⭐ **Ascending aorta dilatation** ("**post-stenotic dilatation**") at 1 o'clock on VD view
+- Wide cranial mediastinum
+- Heart silhouette may appear normal (not dilated unless CHF develops)
+- Echo: subvalvular muscular ridge, hyperechoic endocardium (ischemia)
+
+### Treatment
+- ⚠️ **Procedures generally don't prolong survival**
+- **Beta-blocker** (slow HR, reduce O₂ demand)
+- Restrict exercise (reduce risk of syncope/sudden death)
+- Balloon dilation, Cutting balloon = limited success
+
+---
+
+## 7. PS (Pulmonic Stenosis) ⭐ Currently rising in popularity
+
+### Demographics
+- Was Terriers (Poodle, Chihuahua) · **Now mostly French Bulldog** (90% of cases!)
+- ⚠️ Often comorbid with VSD, SAS in same dog
+
+### Pathophysiology
+- Stenosis at pulmonic valve → **right-sided pressure overload**
+- RV concentric hypertrophy
+- **Right CHF** if severe (ascites, pleural effusion)
+
+### Types
+- **Type A (Fusion)**: leaflets fused at commissure, normal annulus → **balloon dilation works**
+- **Type B (Hypoplastic annulus)**: thickened wall + small ring → **harder to treat, poor prognosis**
+
+### Murmur
+- **Systolic at left base (pulmonary area)**
+- Highest in pulmonic position
+
+### Imaging
+- ⭐ **Right ventricle hypertrophy** + **pulmonary artery post-stenotic dilatation** (2 o'clock VD)
+- Pulmonary undercirculation (small PA + PV)
+- LA/LV normal size
+
+### Treatment
+- **Balloon valvuloplasty** ⭐ for Type A (success rate ~70%)
+- Patch graft surgery for Type B
+- Stent placement if hypoplastic annulus
+
+---
+
+## 8. Tetralogy of Fallot (ToF)
+
+### "**Tetra**logy" = **4 components** ⭐ memorize all 4
+1. **Pulmonic stenosis**
+2. **Right ventricular hypertrophy**
+3. **Large VSD**
+4. **Overriding aorta** (aorta sits over VSD between LV+RV)
+
+### Demographics
+- English Bulldog, Chihuahua, Cat (rare)
+
+### Pathophysiology
+- Mixed blood (deoxygenated from RV + oxygenated from LV) → systemic circulation
+- → **Hypoxemia** (cyanosis, **Blue Baby**)
+- Body compensates → **polycythemia** (↑ RBC)
+- ⚠️ Hyperviscosity → poor flow → death
+
+### Clinical
+- **Cyanosis** (blue → purple)
+- **Tachypnea** (compensate for hypoxia, no dyspnea)
+- Exercise intolerance, syncope
+- Bluish baby at birth/early
+
+### Imaging
+- Heart often **normal-sized**
+- Wide cranial mediastinum (overriding aorta)
+- Pulmonary undercirculation (small vessels)
+
+### Lab
+- **Polycythemia** (↑ Hct, often >65%)
+
+### Treatment
+- **Beta-blocker** (slow HR)
+- **Phlebotomy** if Hct >65% — small volumes, replace with fluids
+- **Modified Blalock-Taussig shunt** (artificial connection between subclavian + PA)
+- **Modified PDA** (rare creative procedures)
+- All complex surgical not in Thailand yet
+
+---
+
+## 🎯 Exam recap (20 ข้อ)
+
+1. **MMVD** = small old dog · left apex systolic murmur
+2. **DCM** = large breed · check **diet** (taurine deficiency from BARF/exotic)
+3. **HCM** = cats only · LA enlargement + ATE risk
+4. **HCM Valentine heart** = bilateral LA + RA enlargement on VD
+5. **Cat CHF** can be edema OR pleural effusion (or both)
+6. **MMVD murmur location** = left apex (ICS 4-5)
+7. **PDA murmur** = continuous machinery, left base
+8. **PDA pulse** = hyperkinetic (water hammer)
+9. **SAS pulse** = hypokinetic (weak)
+10. **VSD murmur** = right sternal border
+11. **PS** = English/French Bulldog rising · type A balloon-friendly · type B hard
+12. **ToF 4 components** = PS + RVH + VSD + overriding aorta
+13. **ToF lab** = polycythemia (Hct >65%) → phlebotomy
+14. **DCM treatment** must include **Pimobendan** (contractility issue)
+15. **MMVD Stage C** = 4-drug combo (Furosemide + Pimobendan + ACE-I + Spironolactone)
+16. **HCM treatment**: Clopidogrel for ATE prevention · Furosemide for CHF
+17. **PDA prostaglandin inhibitor** doesn't work in dogs/cats (no smooth muscle in ductus)
+18. **Reverse shunt PDA** = differential cyanosis (cranial pink, caudal blue)
+19. **SAM (Systolic Anterior Motion)** in HCM = anterior MV leaflet displaced into LVOT
+20. **PS Type A vs B** distinction = annulus size (B = hypoplastic, poor outcome)
+
+> 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY) · 12.2 Arrhythmia + ATE + HT (6mOoAWOWTDw) · 13.1 Surgical Heart (dn_W-7eWQl0)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
