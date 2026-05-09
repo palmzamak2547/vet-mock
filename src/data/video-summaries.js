@@ -39533,6 +39533,185 @@ Microbe whose presence/level **indicates**:
 > 🎓 **Recap**: ข้อ 8 + CE + Confidentiality = 3 ข้อที่โดนฟ้องร้องบ่อยสุดในชีวิตจริง`,
   },
 
+  '2d7SZ4LMPz8': {
+    videoId: '2d7SZ4LMPz8',
+    title: '3. Animal Welfare — Concept + Sentient Being',
+    subject: 'vet-juris',
+    date: '2024-09-09',
+    durationMin: 106,
+    instructor: 'อ.อาทิตย์',
+    examFormat: 'concept + framework + species application',
+    summary: `# 3. Animal Welfare (1) — Concept + 3-Pillar Framework
+
+> ⚠️ Critical concept · public concern is **rising** every year
+> Foundation for understanding intensive farming, lab animals, wildlife policies
+> Continued in lecture 4 (Animal Welfare 2)
+
+## 🎯 ภาพรวมคาบ
+1. Animal Welfare nationality
+2. Sentient Being concept ⭐
+3. **3-Pillar Framework**: Physical · Mental · Naturalness
+4. ตัวอย่าง real-world (sow stall, battery cage, free-range)
+5. Animal Welfare ครอบคลุมสัตว์อะไรบ้าง
+
+## 1️⃣ What is Animal Welfare?
+
+### 2 Perspectives
+| Viewpoint | Focus |
+|-----------|-------|
+| **Human's view** | "Are we treating the animal well?" — concern, ethics |
+| **Animal's view** | "Am I doing OK?" — physical + mental state |
+
+### Why Care?
+- Animals are ⭐ **Sentient Beings** (เซ็นเทียน) — capable of feeling
+- Can experience: fear, sadness, hopelessness, pain, joy
+- → Humans have moral obligation to ensure good welfare
+
+## 2️⃣ Animal Welfare Concept Evolution
+
+### Old View (Past)
+- Welfare = **physical** health + production output
+- "If healthy + producing milk = good welfare"
+
+### Current View (Modern) ⭐
+**3 Pillars of Animal Welfare**:
+
+### Pillar 1: Physical (ร่างกาย)
+- Health status
+- No injury, no disease
+- Adequate nutrition
+
+### Pillar 2: Mental (จิตใจ)
+- Free from fear
+- Free from stress, frustration, hopelessness
+- Mental wellbeing
+
+### Pillar 3: Naturalness (ธรรมชาติ) ⭐ Most Recent Addition
+- Express natural behaviors
+- ⭐ Quote: "Animals should have right to **Run** if they have legs, **Swim** if they have fins, **Fly** if they have wings"
+- Especially important for animals confined by humans
+
+### Professor John Webster Definition
+**"Living a Natural Life + Being Fit and Healthy + Being Happy"**
+> = Body + Nature + Mind
+
+## 3️⃣ Which Animals Does Welfare Cover?
+
+| Category | Examples | Welfare Concern |
+|----------|----------|-----------------|
+| **Pet animals** | Dogs, cats | Care, no abuse |
+| **Zoo animals** | Lions, elephants | Confinement vs natural |
+| **Farm animals** ⭐ | Pigs, cattle, chickens | Housing + slaughter |
+| **Show animals** | Performing | Training methods |
+| **Lab animals** ⭐ | Research subjects | Strict regulation! |
+| **Wildlife** ⭐ NEW | Wild animals | Habitat encroachment, hunting |
+
+### Lab Animals — Stricter Than General Welfare!
+- Specific Animal Welfare laws BEFORE general anti-cruelty laws
+- 3R: Replace · Reduce · Refine
+
+### Sentient Sentience Includes
+- Mammals, birds, fish, reptiles
+- **NEW research**: Octopus + cephalopods!
+- → Welfare laws expanding to include cephalopods
+
+## 4️⃣ Real Examples — Pig Farming ⭐
+
+### Example 1: Sow Stalls (กรงคลอด)
+**Setup**: Pregnant sow confined in narrow stall, can't turn around
+
+**Physical (Pillar 1)**:
+- ⭐ **Mouth injuries** from biting metal bars
+- Pressure sores on body
+- Weak muscles from lack of movement
+
+**Mental (Pillar 2)**:
+- Cannot escape — chronic frustration
+- Hopelessness ("learned helplessness")
+- Eating + defecating in same spot — stress
+
+**Naturalness (Pillar 3)**:
+- Cannot turn around (legs but cannot move!)
+- Cannot socialize naturally
+- Cannot do "natural piggish" things (biting, rooting)
+
+> **Industry justification**: prevents sow from crushing piglets
+> **Counter-argument**: piglets still die · alternative housing exists
+
+### Example 2: Battery Cages (กรงตับ — Layer Hens)
+**Quote of caged hen** (imagined):
+> *"I don't believe I was born to live my whole life in a dark, dingy building, cramped in a wire cage so small I can't spread my wings."*
+
+**Issues**:
+- Cannot spread wings
+- Cannot dust-bathe (natural behavior)
+- Cannot perch
+- ⭐ Egg-laying without nest = severe distress
+- ⭐ At CUVET-Sankamphaeng, layer hen farm still uses some battery — may need to update
+
+### Example 3: Free-Range Farming ⭐ Modern Practice
+**Setup**: Pigs free in pasture/outdoor
+
+**Pillars Met**:
+- Physical: free movement, healthier
+- Mental: low stress, social interaction
+- Naturalness: rooting, mud-bathing, natural behaviors
+
+**Trade-off**:
+- More expensive ⚠️
+- Lower production efficiency
+- Premium meat quality (justifies cost)
+
+> **Thai context**: เนื้อหมูวิ่ง / Happy Pig brand exists in Thailand
+> Limited because **developing country price sensitivity**
+
+## 5️⃣ The "Slaughter Welfare" Concept
+
+For food animals, welfare also includes:
+- ⭐ **Humane slaughter** methods
+- Stunning before killing (CO2, electric, captive bolt)
+- Minimize fear during transport
+- Curriculum: ภาคสัตวบาล teaches detailed methods
+
+## 6️⃣ Critical Distinctions
+
+### Animal Welfare vs Animal Rights
+| Concept | Stance |
+|---------|--------|
+| **Animal Welfare** | "Use animals well" · accepts farming/research with good conditions |
+| **Animal Rights** | "Don't use animals at all" · vegan position, no animal use ethically OK |
+
+> Lecture covers **welfare** (legal/scientific) primarily
+
+### Welfare vs Health
+- Health = physical only
+- Welfare = health + mental + naturalness (broader!)
+
+## 7️⃣ Pig Sow Gestation Period (review)
+- Gestation: ~114-116 days
+- = ~4 months in stall before farrowing
+- → That's the duration of welfare concern
+
+## 📋 Exam Recap (12 จุดสำคัญ)
+1. ⭐ Animal Welfare 2 perspectives: human's + animal's
+2. ⭐ **Sentient Being** = capable of feeling pain/fear/joy
+3. 3 Pillars: **Physical + Mental + Naturalness**
+4. Old view = physical only (production focus)
+5. Modern view (1990s+) = added Mental + Naturalness
+6. Quote: "Run if legs · Swim if fins · Fly if wings"
+7. Webster: "Natural Life + Fit/Healthy + Happy"
+8. Welfare covers: pets, zoo, farm, show, lab, wildlife
+9. **Sow stalls** = severe welfare violation (3 pillars all fail)
+10. **Battery cages** = same issue for layer hens
+11. **Free-range** addresses all 3 pillars but costlier
+12. Welfare ≠ Rights (welfare allows ethical use)
+
+> 📚 อ่านควบ: 4 Animal Welfare 2 (F3Ngx-50Hlc) · 2 จรรยาบรรณ (LV4hu3ObA-0)
+> 🐷 **Vet pearl**: Practice = ดูทั้ง 3 pillars ก่อนตัดสินสุขภาพ
+> 💡 **Career path**: Animal Welfare science = growing field internationally
+> 🌍 **Global trend**: EU ban sow stalls + battery cages · Thailand 5-10 yr behind`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
