@@ -29102,6 +29102,282 @@ Fetal death in utero → dehydration + retention → "mummy"
 > 🦴 **Modern issue**: ASF era brings inbreeding-related cryptorchidism back`,
   },
 
+  '3cJC9Ymk1TI': {
+    videoId: '3cJC9Ymk1TI',
+    title: '5. Semen Collection and Evaluation',
+    subject: 'swine-repro',
+    date: '3 Sep 67',
+    durationMin: 118,
+    instructor: 'อ.นัฐ (CUVET)',
+    examFormat: 'MCQ — Glove method · 5 boar history items · pre-collection assessment · 4 evaluation parameters · sperm motility scoring ออกบ่อย',
+    summary: `# Semen Collection & Evaluation
+
+> 🎯 **The hands-on exam topic** — Year 5 students MUST be able to do this!
+> Top exam: **Glove method only · 5 boar history items · Hand collection technique · 4 evaluation parameters · Sperm motility 5-grade**
+
+---
+
+## 1. Glove Method ⭐⭐ (Pig-specific!)
+
+### Why "glove method"?
+- ONLY tool needed = **GLOVE** (sterile)
+- No artificial vagina (AV) used in pigs
+- No electroejaculator (EE) needed
+- Pig penis "locks" naturally onto handler's gloved hand
+
+### Other species methods
+| Species | Method |
+|---|---|
+| **Boar** | Hand/Glove method |
+| **Bull** | Artificial Vagina (AV) or EE |
+| **Stallion** | AV (specialized) |
+| **Ram** | AV |
+
+### Why pig is unique
+- Sigmoid flexure (corkscrew penis)
+- "Locks" into something firm
+- Hand mimics cervix grip
+- Long ejaculation time (3-15 min!)
+
+---
+
+## 2. Boar History Items ⭐⭐ (5 essentials!)
+
+| # | Item | Why important |
+|---|---|---|
+| **1** | **True age + birthdate** | Reflects puberty status |
+| **2** | **Name + Number ID** | Both for double-check |
+| **3** | **ADG + FCR** | Production performance |
+| **4** | **BCS + leg condition** | Physical readiness |
+| **5** | **Disease history** (PRRS, AD, Brucella) | Health status |
+
+### ID logic
+- Name alone = could duplicate
+- Number alone = hard to recall during work
+- BOTH = identification + quick recall
+
+---
+
+## 3. Pre-Collection Physical Exam ⭐
+
+### Top-down checklist
+1. **Legs** (4-leg integrity)
+   - Hindlegs CRITICAL (mount support)
+   - Forelegs less critical
+   - Lameness = collection fails
+2. **BCS** (3 ideal)
+   - Too thin = sperm quality drop
+   - Too fat = leg pain, low libido
+3. **Skin/eyes/general health**
+4. **Genital exam**:
+   - Scrotal turgidity (Soft superficial, Hard deep)
+   - Symmetric testis
+   - Penile health
+
+### Lameness rules ⭐
+| Affected limb | Action |
+|---|---|
+| **Forelimb (mild)** | Can still collect |
+| **Hindlimb (any)** | DON'T collect |
+| **Both/severe** | Cull consideration |
+
+---
+
+## 4. Genital Examination ⭐
+
+### What to check
+- **Scrotal Soft superficial · Hard deep** (turgid normal)
+- Bilateral symmetry (asymmetry → tumor or atrophy)
+- Penile sigmoid flexure (extends correctly during arousal)
+- No discharge
+- No swelling
+
+### Common pre-collection problems
+- Brucella → swollen testis → cull
+- Old injury → reduced fertility
+- Cryptorchid → was not detected at piglet age
+
+---
+
+## 5. Collection Technique (Hand Method) ⭐⭐⭐
+
+### Required setup
+- **Quiet collection room**
+- **Padded dummy** (artificial sow shape)
+- **Clean cup** for collection
+- **Gauze or filter** for gel removal
+- **Sterile gloves**
+- **Gentle stimulation** approach
+
+### Procedure
+1. Boar mounts dummy
+2. Penis extends from sheath (sigmoid flexure)
+3. Handler grasps penis with gloved hand
+4. **Gentle, firm grip** at sigmoid bend
+5. Boar ejaculates over 3-15 minutes!
+6. Collect 3 fractions:
+   - Pre-sperm (DISCARD)
+   - Sperm-rich (KEEP) ⭐
+   - Post-sperm (PARTIAL keep)
+7. Filter to remove gel plug
+8. Send to lab immediately
+
+### Tips
+- Maintain firm, consistent grip
+- Don't release prematurely
+- Keep cup at body temperature
+- Avoid drafts (sperm sensitive to cold!)
+
+---
+
+## 6. Semen Evaluation ⭐⭐⭐ (4 parameters!)
+
+### A. Volume ⭐
+- **Normal: 150-500 mL** total
+- After gel removal: ~80-150 mL usable
+- **Hypospermia** = <100 mL (low!)
+- **Hyperspermia** = >500 mL (rare)
+
+### B. Concentration (Sperm count per mL)
+- **Normal: 200-400 million/mL**
+- Measure with hemocytometer
+- **Azoospermia** = no sperm
+- **Oligospermia** = <100 million/mL
+
+### C. Motility ⭐ (5-grade visual)
+| Grade | Description |
+|---|---|
+| **5** | Excellent — vigorous progressive movement |
+| **4** | Good — many progressive |
+| **3** | Fair — some progressive, mostly slow |
+| **2** | Poor — minimal motion |
+| **1** | None — dead/non-motile |
+
+### Modern: CASA (Computer-Assisted Sperm Analysis)
+- Objective measurement
+- Velocity, linearity, progression
+- Replaces subjective scoring
+- Standard in research labs
+
+### D. Morphology ⭐
+- **Normal: >70% normal shape**
+- Common abnormalities:
+  - Proximal cytoplasmic droplet (immaturity)
+  - Bent tails
+  - Coiled tails
+  - Detached heads
+  - Acrosome defects
+- Stain with eosin-nigrosin
+
+---
+
+## 7. Calculate AI Doses per Ejaculate ⭐
+
+### Formula
+**Doses = (Volume × Motile Concentration) / Required dose**
+
+### Example
+- Volume: 200 mL
+- Concentration: 300M/mL × 80% motile = 240M/mL motile
+- Total motile sperm: 200 × 240M = 48 BILLION
+- Each AI dose: ~3 billion motile sperm
+- **Doses = 48B / 3B = 16 doses**
+
+### Practical implication
+- Single boar feeds 15-20 sows per ejaculate
+- 2 ejaculates/week = ~32-40 sows
+- 1 boar serves ~150 sows per week
+
+---
+
+## 8. Storage and Extender ⭐
+
+### Why use extender (เอ็กซ์เทนเดอร์)?
+- Dilute concentrated semen
+- Provides nutrients
+- Prevents bacterial growth (antibiotics)
+- Buffers pH
+
+### Common extenders
+| Type | Storage |
+|---|---|
+| **Short-term (1-3 days)** | BTS, MR-A — common in farms |
+| **Long-term (5-7 days)** | Modena, X-Cell — for shipped semen |
+| **Frozen** | Cryopreservation — research only in pigs |
+
+### Storage temperature
+- **17°C optimal** for liquid semen
+- NOT 4°C (kills boar sperm!)
+- NOT room temp (deteriorates)
+- Special semen refrigerators
+
+### Why pig sperm doesn't freeze well
+- Membrane sensitive to cold shock
+- Frozen semen success rate <30% in pigs
+- Most farms use FRESH or LIQUID-stored only
+
+---
+
+## 9. Quality Control Standards ⭐
+
+### Minimum acceptable for AI
+| Parameter | Threshold |
+|---|---|
+| Volume | >100 mL (post-gel) |
+| Motility | >70% |
+| Concentration | >200 million/mL |
+| Normal morphology | >70% |
+| Bacteria | Low (<100 CFU/mL) |
+| pH | 7.2-7.5 |
+
+### Reject ejaculate if
+- Motility <50%
+- Concentration <100 million/mL
+- Visible blood, pus, debris
+- Foul odor
+- pH out of range
+
+---
+
+## 10. Year 5 Practical Notes ⭐
+
+### What students must learn
+- Collection technique (hands-on practice)
+- Microscope evaluation
+- Concentration calculation
+- Extender preparation
+- Storage protocol
+- Quality control assessment
+
+### Year 6 elective
+- Senior sub-specialty in swine surgery + AI
+- Real farm internship
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Glove method ONLY** for pigs (no AV/EE)
+2. **5 history items**: Age · ID · ADG/FCR · BCS · Disease
+3. **Hindleg lameness = NO collection**
+4. **Scrotal turgidity check** = Soft superficial, Hard deep
+5. **3 fractions**: Pre-sperm (discard), Sperm-rich (keep), Post-sperm (partial)
+6. **Volume normal: 150-500 mL** total
+7. **Concentration: 200-400 million/mL**
+8. **Motility 5-grade** scoring
+9. **Morphology >70% normal** acceptable
+10. **CASA** = modern computer-assisted analysis
+11. **AI doses calc**: Volume × Motile concentration / Required dose
+12. **17°C storage** (not 4°C, not room!)
+13. **Pig semen doesn't freeze well** (cold shock)
+14. **Reject if motility <50%** or concentration <100M/mL
+
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 2 Spermatogenesis (piJq-n43sO8) · 3 Boar management (tGn3BDDIl9o) · 7.1 Artificial Insemination (0vUVH0tVcqw)
+> 🩻 **Practice tip**: Year 5 lab MANDATORY · don't skip
+> 💡 **17°C storage** — biggest mistake is using 4°C fridge
+> 🦴 **Modern AI**: 1 ejaculate = 16+ doses · single boar feeds 100s of sows`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
