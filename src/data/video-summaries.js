@@ -21907,6 +21907,666 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 > 📐 **TPLO concept**: ฟิสิกส์เวกเตอร์! · ลด tibial plateau slope = ลด cranial tibial thrust = CrCL ไม่จำเป็น`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 13.1 Limb Amputation + Arthrodesis (Y4/2)
+  // ─────────────────────────────────────────────────────────────
+  KqbNuuu8X90: {
+    videoId: 'KqbNuuu8X90',
+    title: '13.1. Limb Amputation + Arthrodesis',
+    subject: 'com2',
+    date: '13 Nov 67',
+    durationMin: 38,
+    instructor: 'อ. (ortho block)',
+    examFormat: 'MCQ — salvage procedures · indications for amputation · cut levels · arthrodesis joints (which work, which don\'t) · post-op care ออกบ่อย',
+    summary: `# Limb Amputation + Arthrodesis
+
+> 🎯 บทเสริม — 2 หัตการสำคัญที่เป็น "**salvage procedures**" (ขยะ-ที่ทำเป็นทางเลือกสุดท้าย)
+> ⚠️ ทำแล้วกลับมาไม่ได้ — ต้องคิดดี ๆ ก่อนทำ
+> Top exam: **Cut level rules · which joints OK to fuse · which arthrodesis fail**
+
+---
+
+# 🟧 PART 1 — Limb Amputation
+
+## 1. Definition
+**Amputation** = ตัดอวัยวะออก (ตัดระยาง · limb)
+
+⚠️ **Salvage procedure** = หัตการขยะ · ทำเป็น **last resort**
+- ตัดแล้วกลับมาไม่ได้
+- เก็บไว้ก่อนถ้ายังมีทางอื่น
+
+---
+
+## 2. Indications ⭐⭐⭐
+
+| Indication | Detail |
+|---|---|
+| **Severe trauma** ⭐ | กระดูกแตกแหลก · ไม่มีเนื้อให้เย็บ · รถไฟทับ |
+| **Bone/Soft tissue cancer** | Salvage life · prevent metastasis |
+| **Chronic non-healing wound** | แมวลีย-แทะแผล · ไม่หาย 1-2 ปี |
+| **Severe neurologic deficits** | นิวโรไม่หาย · เดินไม่ได้ · self-mutilation |
+| **Severe infection (osteomyelitis)** | คุมไม่ได้ |
+| **Severe deformity** | (rare for amputation alone) |
+| **Financial issue** ⭐ | บางทีในไทย — กระดูกหักเงินรักษาไม่ไหว |
+
+⚠️ **Should NEVER amputate just because**: economic alone, owner doesn't want surgery, not exhausted other options
+
+---
+
+## 3. Forelimb Amputation Levels ⭐⭐⭐ (3 Options!)
+
+### 3.1 Scapulectomy (Highest cut) ⭐
+- **Remove entire scapula**
+- "Yank out shoulder blade entirely"
+- ⭐ **MOST POPULAR** today!
+- ⚠️ Some controversy — scapula offers chest wall protection
+- Pros: completely smooth · no bony protrusion to nibble
+- Cons: less cosmetic for some breeds
+
+### 3.2 Scapulohumeral Disarticulation
+- Cut **between scapula + humerus**
+- Keep scapula in place
+- ⚠️ ⚠️ **Bone prominence becomes weight-bearing** if dog lies on it → **bedsores** at scapular tip!
+- ⭐ **Less popular** today
+
+### 3.3 Mid-Humeral Amputation
+- Cut at **proximal humerus**
+- Keeps short stump
+- ⭐ **Pros**: thermal preservation in young dogs (warmth)
+- ⚠️ Cons: requires bone cutting (saw/oscillating), harder
+
+⚠️ **Why NOT cut more distal?**:
+**Stump touching ground** → wound chronically — animal will USE remaining limb!
+
+⭐ **Exception**: If planning **prosthesis** ("ขาเทียม") — keep distal bone
+- Modern prosthesis = ~6,000-7,000 baht (similar cost to surgery)
+- ⚠️ Requires daily care · not yet popular in Thailand
+
+---
+
+## 4. Hindlimb Amputation Levels ⭐⭐
+
+### 4.1 Coxofemoral Disarticulation ⭐ (Most popular)
+- Cut at **hip joint**
+- No bone cutting needed (just disarticulate)
+- Easy technique
+- Standard for most cases
+
+### 4.2 Mid-Femoral Amputation
+- Cut at **proximal femur**
+- Keeps short stump
+- For thermal preservation OR aesthetic reasons (especially male — protect testicles!)
+
+### 4.3 Hemipelvectomy ⭐ (RARE - aggressive!)
+- Remove **half of pelvis**
+- Used when **cancer involves pelvis**
+- ⚠️ Major surgery · ⚠️ poor quality of life often
+
+---
+
+## 5. Special Cases ⭐
+
+### 5.1 Bilateral Forelimb (Both Front Legs)
+- ⭐ Patient walks on hindlimbs (kangaroo-style!)
+- Quality of life decent · need adapted environment
+
+### 5.2 Bilateral Hindlimb (Both Back Legs)
+- ⭐ ⚠️ **Harder** than forelimb bilateral
+- Patient drags front · uses **wheelchair (cart)**
+- Wheelchair available — small dogs/cats adapt well
+
+### 5.3 Diagonal (e.g., L-Front + R-Back)
+- ⭐ **Easiest pattern** — opposite legs work
+- Pet can compensate
+
+### 5.4 Same-Side (e.g., Both Left)
+- ⚠️ **Hardest** — patient lops to one side
+- Bad balance · poor quality of life
+- ⭐ "**Better to euthanize**" if both same side gone
+
+---
+
+## 6. Pain Management ⭐⭐ (CRITICAL!)
+
+### 6.1 Pre-emptive (Before Surgery)
+- Block pain pathways before nociception starts
+- Multimodal — NSAIDs + opioids
+
+### 6.2 Intraoperative
+- **Local anesthesia** infiltration
+- **Intra-operative nerve block** ⭐ — direct nerve infiltration once exposed!
+
+### 6.3 Post-operative
+- Continued multimodal
+- Watch for **Phantom Pain** ⭐ (rare in animals, but reported)
+
+---
+
+## 7. Complications
+
+| Complication | Detail |
+|---|---|
+| **Hemorrhage** ⭐ | #1 risk — large blood vessels cut · pre-op cross-match if borderline |
+| **Seroma** | Common · drains usually resolve |
+| **Infection** | Aseptic technique |
+| **Neuroma formation** (nerve tumor regrowth) | Rare |
+| **Phantom pain** | Hard to assess in animals |
+
+---
+
+## 8. Decision Framework ⭐
+
+| Consideration | Question |
+|---|---|
+| **Cancer**: Curative or palliative? | If pet won't survive long, may not amputate |
+| **Other limbs OK?** | If 3 legs are bad, 1 amputation won't help |
+| **Quality of life expectation?** | Walking? Lying around? |
+| **Owner ability**: Can they care for amputee? | Daily wound check, lifting? |
+| **Euthanasia decision** | Sometimes humane vs amputating |
+
+---
+
+# 🟪 PART 2 — Arthrodesis (Joint Fusion)
+
+## 9. Definition
+**Arthrodesis** = การเชื่อมข้อ — make joint into solid bone (no movement)
+
+⚠️ **Salvage procedure** — like amputation, can't reverse
+
+---
+
+## 10. Indications ⭐⭐
+| Indication | Detail |
+|---|---|
+| **Severe OA** | End-stage joint pain |
+| **Joint instability** | Ligament destruction beyond repair |
+| **Joint fracture** | Intra-articular fractures unrepairable |
+| **Failed joint surgery** | Last resort after other Tx fail |
+
+---
+
+## 11. Surgical Principles ⭐⭐⭐
+
+| Principle | Detail |
+|---|---|
+| **1. Pre-op planning** | Measure proper joint angle (use opposite normal limb) |
+| **2. Remove all cartilage** ⭐ | Burr/grind down to bleeding bone (must be bone-to-bone) |
+| **3. Optimal joint position** | Set in functional standing angle |
+| **4. RIGID fixation** ⭐ | Plate + screws · External skeletal fixation · NOT just pins |
+| **5. Bone graft optional** | Cancellous from ilium · proximal humerus · proximal tibia |
+
+⭐ **Why rigid fixation**: Joint we make non-moving must be VERY stable — common cause of failure = micromotion
+
+---
+
+## 12. Joint Fusion — Which Work? ⭐⭐⭐ (KEY!)
+
+### Joint Movement Hierarchy (LOW = good for fusion)
+
+| Joint | ROM | Fusion outcome |
+|---|---|---|
+| **Carpus** ⭐ | LOW (less ROM in dog/cat) | **Excellent** results |
+| **Tarsus** ⭐ | LOW | **Excellent** |
+| **Shoulder** | Medium | **Good** |
+| **Elbow** ⚠️ | HIGH | **Poor** — sometimes amputation better! |
+| **Stifle** ⚠️ | HIGH | **Poor** |
+| **Hip** ❌ | **Ball-and-socket** (most ROM) | **CANNOT fuse** ⭐⭐⭐ |
+
+⭐ **Rule**: More joint motion → worse fusion outcome → consider amputation instead
+
+⚠️ **Bilateral arthrodesis = NOT recommended for poor-prognosis joints!**
+
+---
+
+## 13. Specific Joint Arthrodesis ⭐
+
+### 13.1 Shoulder Arthrodesis ⭐
+- **Joint angle**: 110° (use other side as reference)
+- **Cut**: Trochlear groove of humerus + glenoid → flat bone-to-bone
+- **Plate fixation**
+
+### 13.2 Elbow Arthrodesis
+- **Joint angle**: ~110°
+- **Cut some humerus + radius** (elbow blocks plate)
+- ⚠️ **Bad outcome** — better to amputate often!
+
+### 13.3 Carpal Arthrodesis ⭐⭐ (2 Types!)
+**Pancarpal Arthrodesis**:
+- Fuse **all 4 carpal joints**
+- Easier · standard
+
+**Partial Carpal Arthrodesis**:
+- Fuse all **except antebrachiocarpal joint** (highest ROM)
+- **Cannot fuse just one if surrounding joints would break!**
+- Surrounding joints face high stress
+
+⭐ Note: **Antebrachiocarpal joint** = main carpal motion (between radius and carpus) · **rarely fused alone**
+
+### 13.4 Stifle Arthrodesis
+- **Joint angle**: 135° (functional)
+- Cut distal femur + proximal tibia
+- ⚠️ Patella + tibial tuberosity removed
+- **High failure** · technically demanding
+
+### 13.5 Tarsal Arthrodesis ⭐
+- 6 joints in tarsus — most are tiny
+- **Tarsocrural joint** = main one (90% of motion)
+- **Pancarpal/Pantarsal** vs **Partial**
+- Can use **ESF** as alternative fixation method (less popular due to long care time needed)
+
+### 13.6 Phalangeal/Digital Arthrodesis (rare)
+- Mostly only for **racing dogs**
+- Not really clinically necessary
+
+---
+
+## 14. Post-op Care ⭐
+
+| Action | Timing |
+|---|---|
+| **Pain control** | NSAIDs + opioids |
+| **External support** (splint/cast) | 6-8 weeks (depending on joint) |
+| **Weight bearing** | Restricted initially |
+| **X-ray follow-up** | Every 4-6 weeks |
+| **Return to activity** | 12-16 weeks for full fusion |
+
+---
+
+## 15. Both Procedures Summary ⭐
+
+> **Both are SALVAGE procedures** — last resort
+> **No going back** after surgery
+
+| Feature | Amputation | Arthrodesis |
+|---|---|---|
+| **Reversible?** | No | No |
+| **Pain control** | High priority | High priority |
+| **Recovery time** | 2-4 weeks | 12-16 weeks |
+| **Outcome** | 3-leg locomotion | Some retained function (low-mobility joints) |
+| **Cost** | Lower | Higher |
+
+---
+
+## 📝 EXAM RECAP — 14 Key Points
+
+### Amputation
+1. **Salvage procedure** — last resort
+2. **Forelimb cut levels**: Scapulectomy ⭐ · Scapulohumeral · Mid-humeral
+3. **Hindlimb cut levels**: Coxofemoral disarticulation ⭐ · Mid-femoral · Hemipelvectomy
+4. **Cut HIGH, not LOW** — distal stump = chronic wound (will be used!)
+5. **Diagonal pattern (e.g., L-front + R-back)** = easiest bilateral
+6. **Same-side bilateral** = consider euthanasia
+7. **Pre-emptive + multimodal pain control** essential
+8. **Hemorrhage** = #1 complication
+
+### Arthrodesis
+9. **More motion → worse fusion**
+10. **Cannot fuse hip** (ball-and-socket joint)
+11. **Best outcomes**: Carpus + Tarsus (low motion)
+12. **Worst outcomes**: Elbow + Stifle (high motion → consider amputation)
+13. **Joint angle** matched to other side for proper standing position
+14. **Rigid fixation** + **complete cartilage removal** = success keys
+
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 6.2 ESF (LwNNZYoCpZE) · 13.2 Metabolic Bone Disease (u_T60WiAG4s) · 15.3 Rehab (zj4go8swIgM)
+> 🦴 **Practice tip**: ทุก salvage = "ทำแล้วทำดี" — โอกาสเดียวเท่านั้น!
+> 🎬 Brief lecture (38 min) — short & decisive content`,
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 13.2 Metabolic + Hereditary Bone Diseases (Y4/2)
+  // ─────────────────────────────────────────────────────────────
+  u_T60WiAG4s: {
+    videoId: 'u_T60WiAG4s',
+    title: '13.2. Metabolic + Hereditary Bone Diseases',
+    subject: 'com2',
+    date: '13 Nov 67',
+    durationMin: 37,
+    instructor: 'อ. (ortho block)',
+    examFormat: 'MCQ — Fibrous osteodystrophy 4 causes · Rickets/osteomalacia · LCP signalment · Panosteitis vs HOD ออกบ่อย',
+    summary: `# Metabolic + Hereditary Bone Diseases
+
+> 🎯 **น้อยอยู่ในชีวิตจริง** แต่ออกสอบได้ — เรียนเพื่อ Dx differential
+> ⚠️ "เจอน้อย · DDx ยาก · มัก mis-Dx"
+> Top exam: **Fibrous Osteodystrophy 4 causes · Rubber Jaw · LCP key features · Panosteitis vs HOD**
+
+---
+
+# 🟧 PART 1 — Metabolic Bone Diseases
+
+## 1. The 4 Metabolic Bone Diseases ⭐⭐⭐
+
+| Disease | English | Common in dogs/cats? |
+|---|---|---|
+| **Fibrous Osteodystrophy** ⭐⭐ | Rubber Jaw Syndrome | Sometimes (esp. nutritional) |
+| **Rickets** | Pediatric | Rare |
+| **Osteomalacia** | Adult | Rare |
+| **Osteoporosis** | Bone porosity | Very rare in pets |
+| **Scurvy** ❌ | Vitamin C deficiency | **NOT in dogs/cats** (synthesize own!) |
+
+⭐ **Common feature**: All affect Ca-P-Vitamin D metabolism
+
+---
+
+## 2. Calcium Homeostasis Recap ⭐
+
+| Hormone | Effect |
+|---|---|
+| **Parathyroid Hormone (PTH)** ⭐ | ↑ Ca · sources from bone, kidney, gut |
+| **Vitamin D** | ↑ Ca absorption from gut |
+| **Calcitonin** | ↓ Ca |
+| **Fibroblast Growth Factor (FGF)** | Modulator |
+
+**Body sites involved**:
+- **Kidney**: filtration · reabsorption
+- **Intestine**: absorption
+- **Bone**: storage · release
+
+---
+
+## 3. Fibrous Osteodystrophy (Rubber Jaw) ⭐⭐⭐
+
+### 3.1 Pathology
+- Bone replaced by **fibrous tissue**
+- Bone becomes "**rubbery**" — flexible, soft
+
+### 3.2 4 Causes ⭐⭐⭐ (Memorize!)
+
+| # | Cause | Mechanism |
+|---|---|---|
+| 1 | **Primary Hyperparathyroidism** | Tumor of parathyroid gland → excessive PTH |
+| 2 | **Renal Secondary Hyperparathyroidism** ⭐ | CKD → ↑ phosphorus retention → binds Ca → ↓ ionized Ca → PTH ↑ |
+| 3 | **Nutritional Secondary Hyperparathyroidism** ⭐⭐ | High-phosphorus diet (raw meat-only, BARF) → ↑ P → ↓ Ca → PTH ↑ |
+| 4 | **Pseudohyperparathyroidism** (Hypercalcemia of Malignancy) | Some cancers produce PTH-like hormone (PTHrP) |
+
+⭐ **Most common in real life**: Renal + Nutritional (especially in BARF-fed dogs!)
+
+### 3.3 Clinical Signs
+- **Mandible (rubber jaw)** — palpable soft, flexible
+- **Tooth loosening / loss**
+- Difficulty closing mouth · drooling
+- Pathologic fractures
+- Lethargy + ataxia (if hypercalcemia)
+- **PUPD** (in renal cause)
+
+### 3.4 Lab Diagnosis ⭐ (Pattern Recognition!)
+| Disease | Ca | P | PTH | PTHrP |
+|---|---|---|---|---|
+| **Primary Hyperparathyroidism** | ↑ | ↓ | ↑↑ | (-) |
+| **Renal SHPT** | ↓ or normal | ↑↑ | ↑ | (-) |
+| **Nutritional SHPT** | ↓ | ↓ | ↑ | (-) |
+| **Pseudohyperparathyroidism** ⭐ | ↑↑ | varies | ↓ (suppressed) | (+) |
+
+⭐ **Most diagnostic**: Combination Ca + PTH levels
+
+### 3.5 X-ray Findings
+- **Generalized bone porosity**
+- Mandibular bone "moth-eaten" / fading
+- Loose teeth · empty alveolar sockets
+- Pathologic fractures
+- Bone deformities
+
+### 3.6 Treatment ⭐⭐
+| Cause | Treatment |
+|---|---|
+| **Primary** | Surgical tumor removal |
+| **Renal** | Treat CKD · phosphate binders |
+| **Nutritional** ⭐ | **Switch to balanced commercial diet!** Ca:P = 1:1 ratio · supplement Ca/Vit D · ⚠️ confine cage 1 month (prevent fractures!) |
+| **Pseudo (cancer)** | Treat tumor |
+
+⚠️ **Cage rest essential** to prevent pathologic fractures during recovery!
+
+---
+
+## 4. Rickets / Osteomalacia ⭐
+
+### 4.1 Definition
+| Disease | Pediatric | Adult |
+|---|---|---|
+| **Rickets** ⭐ | Children/puppies | — |
+| **Osteomalacia** ⭐ | — | Adults |
+
+⭐ **Same disease** — different name based on age!
+
+### 4.2 Pathology
+**Bone fails to mineralize**:
+- Cartilage matrix forms
+- But Ca/P doesn't deposit
+- Result: bone soft, weak
+
+### 4.3 Causes
+- **Phosphorus deficiency** ⭐
+- **Vitamin D deficiency** (also possible Ca deficiency)
+- ⚠️ In Thai pets: more common in **stray cats/dogs eating only meat** (no proper bone/Ca)
+
+⭐ **Vitamin D in dogs/cats**: Cannot synthesize from sunlight (unlike humans)! → must come from **diet**
+
+### 4.4 Clinical Signs
+- Pain · lameness
+- **Swollen metaphyses** (esp. growth plates) ⭐
+- **Delayed dental eruption**
+- Pathologic fractures
+- **Wide growth plates** on X-ray ⭐
+
+### 4.5 X-ray
+- Wide, irregular growth plates
+- Cup-shaped metaphyseal widening
+- Compare to normal opposite side
+
+### 4.6 Treatment
+- **Balanced diet** (commercial) — fix the deficiency
+- Ca:P = 1:1 + Vitamin D supplement
+- Limit activity until bone heals
+
+---
+
+## 5. Osteoporosis ⭐
+
+### 5.1 Definition
+**Imbalance** between formation + resorption → bone with **low quantity** but **normal quality**
+
+⭐ Different from Fibrous OD/Rickets — bone composition normal, just less of it
+
+### 5.2 Causes (Rare in pets)
+- Old age + immobilization (paralyzed, bed-ridden long-term)
+- **Long-term steroid use** ⭐
+- Hyperthyroidism
+- Malabsorption
+- Drug-induced
+
+⭐ **NOT spay-related in dogs!** — different from humans (unlike postmenopausal women)
+
+### 5.3 Treatment
+- Treat primary cause
+- Stop offending drug
+- Ca/D supplementation
+- Cage rest to prevent fractures
+
+---
+
+## 6. Scurvy (Vitamin C Deficiency) ⭐
+
+⭐ **NOT in dogs/cats** — they synthesize their own Vitamin C!
+- Rare exception: humans, primates, guinea pigs
+
+---
+
+# 🟪 PART 2 — Hereditary Bone Diseases
+
+## 7. Definition + Classification ⭐
+
+**Hereditary** = passed via genetics (often **multifactorial**, not strict Mendelian)
+
+**Categories**:
+| Type | Onset |
+|---|---|
+| **Congenital** | At birth |
+| **Developmental** | Appears as pet grows |
+
+---
+
+## 8. The 8 Hereditary Diseases ⭐ (4 covered today!)
+
+### 8.1 Calcinosis Cutis (NOT covered today)
+### 8.2 Storage diseases (NOT covered today)
+### 8.3 Mucopolysaccharidoses (NOT covered today)
+
+### 8.4 **Craniomandibular Osteopathy (CMO)** ⭐
+- "Lion Jaw" / **Lion Jaw Syndrome**
+- Names: Mandibular periostitis · Temporomandibular osteodystrophy
+
+**Features**:
+- **Small breeds**: West Highland Terrier · Scottish Terrier · Boston Terrier · Cairn Terrier
+- **Age**: Young dogs (3-8 months)
+- Excessive **bone formation** at mandibular ramus + TMJ
+- ⚠️ NOT seen in adults
+
+**Clinical**:
+- Painful mandible · "lion-like" wide jaw
+- Drooling
+- Cannot open mouth
+- Pain on palpation
+
+**Treatment**:
+⭐ "**Pain control + supportive only**" — *irreversible*!
+- Steroids
+- ⚠️ If quality of life poor → **euthanasia consideration**
+- ❌ Mandibulectomy not curative (pain comes back)
+
+### 8.5 **Legg-Calvé-Perthes (LCP)** ⭐⭐ (Covered in 9.1!)
+
+**Refresher**:
+- **Avascular necrosis** of femoral head
+- Small breeds (Pomeranian, Yorkie, Westy)
+- 5-8 months age
+- **Unilateral** typically
+- "**Moth-eaten**" femoral head appearance on X-ray ⭐
+
+**Treatment**:
+- Conservative for mild cases (some resolve)
+- **FHO** (Femoral Head Ostectomy) for severe
+- **Total Hip Replacement** for large/active dogs
+
+### 8.6 **Panosteitis** ⭐ (Growing Pain!)
+
+**Features** ⭐:
+- "**Growing Pain**" disease
+- **Large breed dogs**: GSD, Doberman, Lab, Golden, Boxer
+- **Age**: Young (5-18 months)
+- **Etiology**: Unclear (rapid growth + nutrition?)
+- **Acute pain** without trauma!
+- "อยู่ดี ๆ ก็เจ็บฉับพลัน" — sudden severe pain
+
+**Pathology**: Inflammation of bone (medullary cavity)
+
+**Multi-limb shifting**:
+- Pain may move from leg to leg
+- 1-2 weeks per leg
+
+**X-ray**:
+- ⭐ **Increased bone density** at **diaphysis** (long bones)
+- Patchy "snow-flake" pattern in marrow
+
+**Treatment**:
+- ⭐ **Self-limiting** — eventually resolves!
+- NSAIDs · pain control
+- Cage rest
+- Owner reassurance — "will go away in days/weeks"
+
+⚠️ **DDx miss** — sometimes resolves before vet visit
+
+### 8.7 **HOD (Hypertrophic Osteodystrophy)** ⭐ "Saw-horse / Cow Hocks Disease"
+
+**Features**:
+- "**Saw-horse appearance**" (โหคล่ฮอ)
+- **Large breeds**: GSD, Great Dane, Mastiff
+- **Young dogs**: 2-7 months ⭐
+- **Painful, swollen joints** (especially metaphyses)
+- Sudden onset · acute systemic illness
+
+**Etiology**: Unclear · possibly related to:
+- Rapid growth + over-nutrition
+- Vitamin C imbalance theory
+- Distemper virus association (theoretical)
+
+**X-ray** ⭐⭐⭐:
+- "**Trans-physeal lucent line**" (parallel double line at growth plate!) — diagnostic!
+- Increased bone density at metaphysis
+- Joint swelling
+
+**Treatment**:
+- ⭐ **Self-limiting** — resolves in 2-4 weeks
+- Pain control (NSAIDs)
+- **Steroids** in severe cases
+- Cage rest
+- Diet adjustment (avoid over-supplementation)
+
+⚠️ Differential vs Panosteitis:
+| Feature | Panosteitis | HOD |
+|---|---|---|
+| **Location** | **Diaphysis** | **Metaphysis** |
+| **Joint involvement** | NO | **YES** (joint swelling) |
+| **Trans-physeal line** | NO | **YES** ⭐ |
+| **Self-resolving?** | YES | YES |
+
+### 8.8 Enostosis (similar to panosteitis)
+
+---
+
+## 9. Real-Life Encounter Frequency ⭐
+
+| Disease | How often seen |
+|---|---|
+| **LCP** ⭐ | Most common — yearly cases |
+| **HOD** | Sometimes |
+| **Panosteitis** | Sometimes |
+| **CMO (Lion Jaw)** | Rare |
+| **Fibrous OD (Rubber Jaw)** | **Mostly stray cats/dogs** ⭐ |
+| **Rickets** | Mostly stray pets |
+| **Osteoporosis** | Very rare |
+
+⭐ **Thai context**: Metabolic disease often seen in **stray rescue cases** with malnutrition
+
+---
+
+## 10. Diagnostic Approach Pattern
+
+| Clinical Pattern | Top DDx |
+|---|---|
+| **Young dog + sudden lameness** | Panosteitis · HOD · LCP |
+| **Small breed + 5-8 mo + hindlimb** | LCP |
+| **Young + jaw pain** | CMO |
+| **Stray + multiple deformities** | Rickets · Fibrous OD |
+| **Adult + multiple fractures** | Osteomalacia · Osteoporosis · neoplasia |
+
+---
+
+## 📝 EXAM RECAP — 16 Key Points
+
+### Metabolic
+1. **Dogs/cats can synthesize Vit C** — no scurvy!
+2. **Vitamin D in dogs**: from **diet only** — sunlight doesn't help (different from humans)
+3. **Fibrous Osteodystrophy 4 causes**: Primary HPT · Renal SHPT · Nutritional SHPT · Pseudo (PTHrP)
+4. **Renal SHPT mechanism**: ↑ P → binds Ca → ↓ ionized Ca → PTH ↑
+5. **Nutritional SHPT** = **BARF/all-meat diet** ⭐
+6. **Rubber Jaw** = pathognomonic for severe Fibrous OD
+7. **Primary HPT**: Ca ↑ · P ↓ · PTH ↑↑
+8. **Pseudo HPT**: Ca ↑ · PTH ↓ · **PTHrP +** (cancer)
+9. **Rickets vs Osteomalacia**: pediatric vs adult (same disease)
+10. **Treatment principle**: balanced diet (Ca:P = 1:1) + cage rest to prevent fractures!
+
+### Hereditary
+11. **CMO** = Lion Jaw · Westie/Scottie · 3-8 mo · *irreversible*
+12. **LCP** = Avascular necrosis · small breed · 5-8 mo · unilateral
+13. **Panosteitis** = "Growing pain" · large breed · 5-18 mo · diaphysis · self-limiting
+14. **HOD** = Saw-horse · large breed · 2-7 mo · **metaphysis** · trans-physeal line ⭐ · self-limiting
+15. **Panosteitis vs HOD location**: dia vs meta
+16. **Both Pano + HOD**: NSAIDs + cage rest · resolve in 2-4 weeks
+
+> 📚 อ่านควบ: 9.1 LCP (Spz38qa5upU) · 9.2 CHD (hIlH1i845wI) · 13.1 Amputation (KqbNuuu8X90) · 15.2 Osteochondrosis (jo-p8MeAMXk)
+> 💊 **Practice tip**: เจอแมวจรเด็ก กระดูกแตกๆ บิดๆ → คิดถึง Nutritional SHPT/Rickets/Osteomalacia ก่อน!
+> 🩻 **Trans-physeal line** = HOD pathognomonic finding`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
