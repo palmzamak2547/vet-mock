@@ -15714,6 +15714,308 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 > 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk) · 8.3 LUT 2 Stones (vLjnPuFgvj4) · 10.1 Imaging Urinary (Q0AGFF70m8M) · 10.3 LUT 3 (eBY8GTlcjiw)`,
   },
 
+  '_azRwNxOJas': {
+    videoId: '_azRwNxOJas',
+    title: '14.3 : Thoracic Surgery',
+    subject: 'com1',
+    date: '2024-11-18',
+    duration: '105 min',
+    instructor: 'รุ่นพี่',
+    examFormat: 'MCQ — approach + technique + chest tube placement',
+    summary: `# 14.3 Thoracic Surgery
+
+> 🎯 ครอบคลุม **2 main thoracic approaches**: intercostal thoracotomy + median sternotomy + minimally invasive thoracoscopy. Critical: **chest tube placement** + **post-op 4 hypos**
+
+---
+
+## 1. Approach Methods
+
+### A. Intercostal Thoracotomy
+- **Most common** approach for vet med
+- Enters between ribs (intercostal space)
+
+### B. Median Sternotomy
+- Cut through sternum midline
+- Allows bilateral access to entire thorax
+
+### C. Minimally Invasive (Thoracoscopy)
+- 2 sub-techniques:
+  - **Intercostal port** — through ICS
+  - **Trans-diaphragmatic** — through subxiphoid + diaphragm
+- ✅ Less pain, smaller incisions
+- ⚠️ Requires special skill + equipment (used in referrals)
+
+---
+
+## 2. Intercostal Thoracotomy ⭐
+
+### Indications
+- Lung lobe biopsy/lobectomy
+- PDA ligation
+- PRAA correction
+- Pericardiectomy
+- Pleural exploration / biopsy
+- Pulmonary mass excision
+- Diaphragmatic hernia
+- Esophageal foreign body
+
+### ICS selection table (memorize ⚠️)
+| Procedure | ICS |
+|---|---|
+| **PDA / PRAA** | **4 (left)** |
+| Lung lobectomy (cranial) | 5 |
+| Lung lobectomy (caudal) | 6 |
+| Diaphragmatic hernia | 8-10 |
+| Esophageal FB (caudal) | 9-10 |
+| Pericardiectomy | 5 (left) |
+
+### Side selection
+- **Left**: PDA, PRAA, pericardiectomy
+- **Right**: most lung procedures, vena cava
+- ⚠️ Wrong side = can't reach!
+
+### Limitations
+- Cannot see beyond rib 3 cranially (sternum blocks)
+- Cannot see beyond rib 10 caudally (diaphragm blocks)
+
+---
+
+## 3. Anesthesia Prep ⭐
+
+### Pre-oxygenation
+- ⚠️ **Always pre-oxygenate** before induction
+- Methods (best → worst):
+  - O₂ chamber (highest %)
+  - O₂ mask flush at face (~30-50%)
+  - O₂ "blow-by" loose (~20-30%)
+
+### IPPV / Mechanical Ventilation
+- ⭐ **MUST use ventilator** — patient can't breathe spontaneously when chest is open
+- Without ventilator: tension pneumothorax risk = death
+- Set TV ~10-15 mL/kg, RR 8-12 bpm
+
+### Patient prep
+- Wide clip (sternum to spine, all around chest)
+- Aseptic prep (chlorhexidine + alcohol)
+- Drape with windows for chest tube site
+
+---
+
+## 4. Surgical Technique — Intercostal
+
+### Skin to Pleural Space (steps)
+1. **Skin incision** — cranio-caudal
+2. **Latissimus dorsi muscle** — cut perpendicular (not retract — too thick)
+3. **Identify scalenus muscle** ⭐ (insertion at **rib 5**) — landmark for rib counting
+4. **Serratus ventralis** — split between fiber bundles
+5. **Internal intercostal muscle** — cut along ICS chosen
+6. **Pleura** — final layer
+   - ⚠️ **Lift pleura first** before incising (don't cut underlying lung!)
+   - As soon as pleura broken → loss of negative pressure → lung deflates → easier to work
+
+### Rib counting ⭐
+- Method 1: Count from rib 1 cranially to caudally
+- Method 2: Use **scalenus muscle insertion** at rib 5 as anchor
+- ⚠️ "อันนี้ข้อสอบ" — remember rib 5 = scalenus insertion
+
+### Caudal vs Cranial aspect of rib
+- Vessels + nerves run **CAUDAL to rib**
+- Always cut at **CRANIAL aspect of rib** (avoid neurovascular bundle)
+- For ICS 4 = cut cranial to rib 5 (= caudal aspect of rib 4)
+
+### Rib retraction
+- **Finochietto retractor** ⭐ — adjustable C-shaped
+- Provides ~30% additional working space
+
+### Local anesthetic block
+- **Intercostal nerve block** at:
+  - Site of incision (≥2 ICS)
+  - 2 ICS cranial + 2 ICS caudal
+- Inject at dorsal aspect (close to nerve root)
+- Lidocaine (fast onset, 10 min) or Bupivacaine (slow onset, longer duration)
+
+---
+
+## 5. Median Sternotomy
+
+### Indications
+- Bilateral exposure needed
+- Thymic mass excision
+- Cranial mediastinal mass
+
+### Advantages
+- Bilateral pleural access
+- ⚠️ In humans, **less painful** than intercostal (no neurovascular bundle damage)
+
+### Disadvantages
+- Patient must be in **dorsal recumbency** → dorsal structures (e.g., trachea, hilum) hard to reach
+- Requires **bone saw** + **wire closure**
+- ⚠️ Risk of osteomyelitis (rare in vet)
+
+### Technique
+1. Patient in **strict dorsal recumbency** (use rolled towels to keep aligned)
+2. Skin incision midline
+3. Through subq + pectoral muscles
+4. **Bone saw**: oscillating (riskier — surgeon must control depth) OR **reciprocating** (safer — has foot guard)
+   - Cut directly midline! ⚠️ off-midline = damages **internal thoracic arteries** running on either side
+5. ⭐ **Leave 1 sternebra intact** — either cranial (manubrium) or caudal (xiphoid) for stability
+6. **Finochietto retractor** to spread
+
+### Closure
+- **Wires through sternum** in **figure-of-8 pattern**
+- Alternate twist directions (X then Y, X then Y) for stability
+- Pre-place all wires before closing → twist sequentially
+- Then close pectoral muscles, subq, skin
+
+---
+
+## 6. Chest Tube ⭐ (สำคัญมาก)
+
+### Why use chest tube?
+- Evacuate residual air after thoracotomy closure
+- Drain post-op effusion
+- Manage pneumothorax / pleural effusion
+
+### Tube selection
+- **Largest size that fits ICS** — typically 10-14 Fr for cats/small dogs, 14-18 Fr for medium dogs, 24+ Fr for large
+- Tubes have multiple **fenestrations** (side holes) at the chest end
+
+### Placement technique ⭐
+1. **Tunnel through skin first** ⭐ — start at ICS 10
+2. Skin tunnel under SQ to ICS 7-8
+3. Pierce intercostal muscle at ICS 7-8 entry
+4. Advance tube tip toward ICS 2 cranially
+5. ⚠️ **Why tunnel?** — creates a **one-way valve** preventing air leak around tube
+6. Without tunnel: open pneumothorax risk
+
+### Securing
+- **Purse-string + Chinese finger trap** suture
+- Mark tube depth with permanent marker
+- Connect to closed drainage system (or 3-way stopcock + syringe for intermittent suction)
+
+### Emergency chest tube (for tension pneumothorax)
+- **Without thoracotomy** — count ICS externally
+- Site: **ICS 7-8** (in animals) — count from rib 13 cranially
+- Same skin-tunnel technique
+
+---
+
+## 7. Post-op 4 "Hypos" Management ⭐
+
+### A. Hypothermia
+- Lose body heat through open chest
+- ⚠️ Pre-warm IV fluids to body temp before infusion (cold fluid worsens hypothermia)
+- Goal: T > 99°F (37.2°C) before recovery, then 102°F as patient stabilizes
+- Use heating blankets, Bair Hugger, etc.
+
+### B. Hypotension
+- Causes: blood loss, pre-existing volume deficit, anesthetic-induced
+- Goal: maintain MAP > 60 mmHg
+- IV fluids + colloids · vasopressors if needed
+- ⚠️ Hypotension during surgery = poor wound healing + organ injury
+
+### C. Hypoxia
+**Multiple contributors**:
+1. **Hemoglobin** — pre-op anemia worsens · target Hct > 30%
+2. **Body temperature** — hypothermia → Hb-O₂ curve **shift left** → O₂ stuck on Hb (won't release to tissues)
+3. **Acid-base** — acidosis → curve shifts right (releases O₂ in tissues)
+4. **Hypoventilation** (next)
+
+⭐ Hb-O₂ Dissociation Curve concept:
+- Hot, acidic, high CO₂ → **shift right** = release O₂ at tissue
+- Cold, alkalotic, low CO₂ → **shift left** = retain O₂ on Hb (hypoxia at tissue)
+
+### D. Hypoventilation
+- ⚠️ Pain → patient avoids chest expansion → CO₂ retention → respiratory acidosis
+- **Treatment = pain management** ⭐
+- Pain plan:
+  1. **Opioid (Fentanyl CRI)** ⭐ first-line
+  2. **Intercostal nerve block** (still effective post-op)
+  3. **Intrapleural lidocaine** through chest tube
+     - ⚠️ Cardiotoxic in cattle/horses · safe in dogs/cats
+     - Bathes pleural surface — direct local anesthesia
+
+---
+
+## 8. Chest Tube Removal Criteria
+
+### Indications for removal
+- Volume drained: **< 2-5 mL/kg/day**
+- Air leak resolved
+- Patient comfortable
+
+### Drainage frequency
+- **First 4 hours**: every hour
+- Hours 5-24: every 4 hours
+- Day 2-3: every 12 hours
+
+### Removal technique
+- Cut suture, withdraw tube quickly
+- Press skin closed immediately to seal tunnel
+- Bandage
+
+---
+
+## 9. Common Procedures Summary
+
+### Lung Lobectomy
+- **Partial** vs **complete** lobectomy
+- Indication: lung mass, lung lobe torsion, abscess
+- **Stapling device** (TA stapler) preferred over hand-sewn
+- Air leak test post-staple: submerge in saline, look for bubbles
+
+### Pulmonary Wedge Resection
+- Smaller resection of focal lesion
+- Typically with stapler
+
+### Pericardiectomy
+- See 13.1 summary
+- **Sub-total** (saves phrenic nerve)
+
+### Diaphragmatic Hernia Repair
+- Approach: cranial midline laparotomy ± thoracic extension
+- Chest tube placement at end essential
+
+### PDA Ligation
+- See 13.1 summary
+- Left ICS 4
+
+---
+
+## 10. Suture Selection
+
+| Layer | Suture |
+|---|---|
+| **Pleura/intercostal** | Long-term absorbable (PDS) or non-absorbable |
+| **Periosteum/sternum** | Wire (18-20G) or non-absorbable |
+| **Pectoral muscle** | Long-term absorbable |
+| **Subq** | Mid-term absorbable |
+| **Skin** | Non-absorbable (Nylon) - cutting needle |
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **Intercostal thoracotomy ICS for PDA** = **4 left**
+2. **Scalenus inserts at rib 5** ⭐ — landmark for counting
+3. **Cut cranial aspect of rib** (vessels caudal to rib)
+4. **Lift pleura before incising** (don't cut lung)
+5. **Always use IPPV ventilator** during open chest surgery
+6. **Pre-oxygenate** before induction
+7. **Median sternotomy** = bilateral access · dorsal recumbency
+8. **Leave 1 sternebra intact** for stability
+9. **Cut MIDLINE on sternum** (avoid internal thoracic arteries)
+10. **Wire closure figure-of-8** alternating directions
+11. **Chest tube tunnel** = enter ICS 10, exit at ICS 7-8 (one-way valve)
+12. **Tube tip toward ICS 2** cranially
+13. **4 hypos post-op** = hypothermia + hypotension + hypoxia + hypoventilation
+14. **Hb-O₂ curve shift LEFT** = cold, alkalotic, low CO₂ → tissue hypoxia
+15. **Pain management** prevents hypoventilation
+16. **Tube removal criteria** = drainage <2-5 mL/kg/day · no air leak
+
+> 📚 อ่านควบ: 13.1 Surgical Heart (dn_W-7eWQl0) · 14.1 Common Resp II (FlutqheRR6I) · 14.2 Surgical Resp (nzpDNtceKKk) · Anatomy of thoracic wall`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
