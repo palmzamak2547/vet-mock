@@ -34532,6 +34532,250 @@ Survey high titer = MUST be field exposure
 > 🦴 **Cats vs dogs**: cat hepatic lipidosis is hyperechoic liver (classic exam)`,
   },
 
+  yc88x669lIA: {
+    videoId: 'yc88x669lIA',
+    title: '5.2 Lab : Thoracic Radiograph Interpretation',
+    subject: 'vet-imaging',
+    date: '2024-09-05',
+    durationMin: 155,
+    instructor: 'อ.ชุติมนต์',
+    examFormat: 'lab + identification + measurement',
+    summary: `# 5.2 Lab : Thoracic Radiograph Interpretation
+
+> ⚠️ **เตือน**: คลาสนี้คือคลาสสุดท้ายของ thoracic film series (ต่อจาก lect อาจารย์สิรินันท์ + อาจารย์สิม)
+> Cover ~90% ของ basics ที่จะเจอในคลินิก ส่วน detail เคสจะไป discuss ตอนปี 5 clinical
+> สอบจริง: cardiac measurement (VHS) ต้องวัดได้ทุกคน
+
+## 🎯 ภาพรวมคาบ
+อ่าน + แปลผลฟิล์ม chest อย่างเป็นระบบ — เน้น **cardiovascular** ก่อน + ออกไปยัง mediastinum, lung, pleural space, diaphragm
+
+## 1️⃣ Quality Assessment ก่อนแปลผล
+**ภาพดี = symmetrical + full inspiration + cover thoracic inlet ถึง last rib**
+
+### Body conformation 3 แบบ
+| Type | ลักษณะ | หัวใจ |
+|------|---------|--------|
+| **Deep chest** | อกลึก (Doberman, Setter) | ดูผอม ในแล lateral · เล็กในนอนหงาย/คว่ำ |
+| **Barrel chest** | อกกว้าง (Bulldog) | กว้าง · มี chondrodystrophy ร่วม |
+| **Cat (block-shape)** | สี่เหลี่ยมคางหมู | uniform · estimate ง่ายกว่าหมา |
+
+### Symmetry check
+**Lateral** = top of ribs ทั้ง 2 ข้างต้องอยู่ระดับเดียวกัน · ถ้าเอียงด้านใดด้านนึงสูง = rotation
+- เกิดจากกดบังคับสุนัขดื้อ → หัวใจบิดดูใหญ่หลอกๆ
+- **ห้าม** วัด VHS รูปที่ rotated
+
+**VD/DV** = sternum + dorsal spinous process ต้องทับกันพอดี · DSP เป็นตุ่มสั้นบน vertebra
+- ถ้า DSP โผล่ออกข้าง = rotated · ถ้าทิป DSP หลุดนอก vertebra = rotate มากเกินไป
+
+### Inspiration check
+- **Lateral**: caudodorsal angle ของปอด expand เกิน T12
+- **VD/DV**: caudolateral angle expand เกิน T10 · cupola เกิน mid-T8
+
+⚠️ ถ่าย expiration → thoracic volume เล็ก → หัวใจดูใหญ่หลอกๆ + ปอดดูขาวขึ้น
+
+### Motion blur
+- หายใจเร็ว/ตื่นเต้น → diaphragm ขยับ → กลางภาพเบลอ ส่วน neck ภาพคม
+- ห้าม diagnose detail บนภาพเบลอ
+
+### Position selection
+| Position | ข้อดี | ข้อเสีย |
+|----------|------|---------|
+| **Right lateral** (standard) | หัวใจบิดน้อย | — |
+| **Left lateral** | — | หัวใจ rotated + external contact น้อย |
+| **VD** (นอนหงาย) | symmetry ง่ายกว่า | สัตว์เครียด |
+| **DV** (นอนคว่ำ) | สัตว์ไม่เครียด · ลมเข้าปอดดี · เห็น caudal lung | magnification น้อยกว่า VD |
+
+⭐ **โรคหัวใจ → DV** (วัดขนาดได้ใกล้เคียง actual size · object ใกล้ film = magnify น้อย)
+
+## 2️⃣ Systematic Approach
+**อย่า jump เข้า diagnosis ทันที!** ดูเป็นระบบ → list differential → ใส่ที่ likely บนสุด
+
+ลำดับการดู (เลือก center→peripheral หรือ peripheral→center ก็ได้)
+1. Thoracic wall (skin → ribs → intercostal muscle)
+2. Pleural space
+3. Lungs
+4. Mediastinum
+5. Heart
+
+> วันนี้อาจารย์เริ่ม **center → out** = หัวใจ + vessel ก่อน
+
+## 3️⃣ Cardiac Size Evaluation
+> ⭐ Anatomy class สอน heart weight % BW = ใช้สำหรับ **dead** animal · class นี้ = **living** patient
+
+### Pre-measurement: แยกเงาหัวใจจากไขมัน
+- Pericardial fat → ลาก line วัดผิด → ค่า over → contrast adjust ก่อน
+- **95%** ของ heart disease = cardiac enlargement (heart shrink พบน้อยมาก)
+
+### Method 1 — Empirical (eye-ball)
+
+**A. Intercostal space (ICS) count** - lateral view
+- ดูเงาหัวใจ "กิน" intercostal space กี่ space
+| Animal | Normal max ICS |
+|--------|----------------|
+| Deep chest dog | ≤ 2.5 |
+| Barrel chest dog | ≤ 3.5 |
+| Cat | ≤ 2 |
+
+**B. Cardiac height / Thorax height ratio** - lateral view
+- ลากจาก carina ลงปลาย apex = cardiac height
+- ห้องหัวใจโต → ดัน sternum ไม่ได้ → ปูดขึ้นด้านบน → height มากขึ้น
+- **ค่าปกติ < 70%** ของ thoracic height ระนาบเดียวกัน
+- ดูพื้นที่ trapezoid เหนือ trachea (จาก thoracic inlet ถึง carina) → ปกติ 4-เหลี่ยมคางหมู ฐานกว้างที่ carina · หัวใจโต → ดัน trachea สูง → กลับด้าน
+
+**C. Width (VD/DV)** - หัวใจกว้างไม่เกิน 2/3 ของ thoracic width ที่ T8
+- W(L) + W(R) ของ midline / max thoracic width
+
+⚠️ **ข้อเสีย empirical**: rely on inspiration phase
+
+### Method 2 — Vertebral Heart Score (VHS) ⭐
+> "จบ DVM ต้องวัดได้ทุกคน" · ปี 5-6 จะถูกสอบเดี่ยว
+
+**Steps:**
+1. ลาก **long axis** = carina → apex
+2. ลาก **short axis** = ตั้งฉากกับ long axis · ระดับ caval vein (ตรงกลางก็ได้)
+3. ทาบ long axis บน vertebrae เริ่มจาก **anterior edge of T4**
+4. นับจำนวน vertebrae (รวม intervertebral disc)
+5. ทำเหมือนกันกับ short axis
+6. **VHS = long + short** vertebrae
+
+| Species | Normal VHS | Maximum |
+|---------|------------|---------|
+| Dog | 9.7 ± 0.5 | — |
+| Cat | 7.5 ± 0.3 | 8.0 |
+
+> Cat VHS เชื่อถือได้กว่าหมา (uniform conformation)
+
+**Caveats — VHS ไม่ใช้ใน:**
+- Spinal abnormalities: kyphosis · lordosis · scoliosis
+- Schol breeds: Bulldog (Eng/Fr) · Boston Terrier · Pug → spine สั้น
+- Schnauzer → spine สั้น → VHS เกินค่าปกติเป็น norm
+- Whippet (sport athletic) → physiological hypertrophy → VHS โตปกติ
+- Nutritional hyperparathyroidism cat → bone soft + deformed
+
+## 4️⃣ Mediastinum
+**3 zones:**
+| Zone | Boundary | Contents |
+|------|----------|----------|
+| **Cranial** | thoracic inlet → cranial heart | thymus, vessels, esophagus, sternal LN, cranial mediastinal LN |
+| **Middle** | heart level | heart, vessels, perihilar LN, esophagus, bronchi |
+| **Caudal** | caudal heart → diaphragm | esophagus, aorta, caudal vena cava |
+
+### Common findings
+**Thymus** — sail-shape on left side (cranial mediastinum)
+- ปกติ ≤ 2 yr · adult: gone (มีกลับมาถ้า immune stimulated หรือ thymoma)
+
+**Sternal LN** (lateral view) — ขยายใหญ่ → drain peritoneum + thoracic wall + abdominal cavity
+
+**Cranial mediastinal LN** (perihilar) — large mass จะดัน trachea ขึ้น → "tracheal elevation"
+- VS fat infiltration: fat = uniform spread, no trachea push
+
+⚠️ **Tracheal elevation ต้องดู expiration phase ด้วย!**
+- Expiration → diaphragm ดันหัวใจ → trachea สั้นลง → curve ดูเหมือน mass
+- จุดเริ่ม curve อยู่ที่ thoracic inlet · จุดสุดท้าย carina
+
+### Pneumomediastinum
+- Air in mediastinum → reveal vessel/structure outline ปกติ ไม่เห็น
+- มักจาก trachea rupture · esophagus rupture
+
+## 5️⃣ Esophagus
+- 2/3 cranial = skeletal muscle · 1/3 caudal = smooth (cat)
+- **Cat normal**: herringbone pattern (ลายเฉียงเหมือนกระดูกปลา) — ไม่ใช่ pathology!
+- **Pathology**:
+  - Megaesophagus (myasthenia gravis · idiopathic) → dilation cranial to heart
+  - Foreign body (bone stuck) — common เคสจากการกินกระดูกไก่
+  - Esophageal diverticulum
+  - Vascular ring anomaly (PRAA) → focal dilation cranial to heart base
+
+### Mass localization rule
+> เจอก้อนกลางทรวงอก → ลำบากแยก esophagus vs accessory lobe?
+> → ดู VD: accessory lobe อยู่กลาง · esophagus mass dorsal/eccentric → **ดู 2 view เสมอ**
+
+## 6️⃣ Pleural Space
+**ปกติ** = negative pressure · invisible · ชุ่มชื้นเล็กน้อย ไม่มี fluid pool
+
+### Pneumothorax (PTX)
+- Air ใน pleural space → **ดำกว่า** lung air (ไม่มี parenchyma)
+- Heart "elevated" (จริงๆ axis บิด ไม่ได้ลอย) — apex ปักที่ costochondral junction ไม่ใช่ sternum
+- ⚠️ **VHS ห้ามวัดใน PTX** — heart distorted
+
+#### PTX vs Hyperinflation — DIFFERENTIATE!
+| Feature | PTX | Hyperinflation |
+|---------|-----|-----------------|
+| Pulmonary parenchyma | ❌ ไม่เห็น vessel | ✅ เห็น vessel ฝอย |
+| ผลแปร | medical emergency · เจาะลม | medical management |
+
+⚠️ ถ้า misdiagnose hyperinflation เป็น PTX → ไปเจาะ → ปอดฉีก → ฟ้องร้องได้!
+
+### Pleural Effusion (PE)
+- น้ำเข้า fissure ระหว่าง lobes
+- **Right lateral**: เห็น cranial fissure (KCM/KCP/middle/caudal) · accessory lobe
+- **Fissure line** medial < peripheral (น้ำเข้ามาจาก peripheral)
+
+#### น้ำเยอะมาก
+- Heart ถูก fluid ปิดในระนาบ → ดูหัวใจไม่ออก → **ใช้ DV** (น้ำตกลงด้านล่าง · เห็นหัวใจชัดกว่า)
+- ตรวจปอด → ใช้ VD
+
+#### Horizontal beam radiograph
+- ยืน → น้ำตกลง · ลมลอยขึ้น → confirm small pleural effusion / pneumothorax
+- Useful: differentiate caudal mediastinal mass
+
+#### Fluid type identification
+- ปกติ XR แยกไม่ได้ (blood/clear/cloudy/cellular)
+- **ยกเว้น**: เจอ gas bubble + ไม่เคยเจาะมาก่อน → **pyothorax** (anaerobic bacteria fermentation)
+
+#### Pleuritis (no fluid)
+- Thickened pleural line · no fissure penetration
+- Pig: common (Glässer's, etc.) · Dog: rare
+
+## 7️⃣ Diaphragm
+**Components:** 2 crura (R/L) + cupola (central dome)
+- Crura insertion: L2-L4 (species-dependent)
+
+### Position identification ⭐ ตอบสอบบ่อย
+| Position | Diaphragm appearance |
+|----------|---------------------|
+| **Right lateral** | R crus protrudes cranial · L crus + gastric fundus เคียงกัน (gas + food) |
+| **Left lateral** | L crus protrudes cranial · gastric fundus ใกล้ L crus มากกว่า R |
+| **DV (sternal)** | Cupola โดดเด่น · 1 dome |
+| **VD (dorsal)** | 2 "ears" ของ crura + cupola = "Mickey Mouse" pattern |
+
+### Diaphragmatic Hernia (DH)
+- Tear in diaphragm → abdominal organs herniate → compress lungs
+- **Radiologist must report:**
+  - **Tear location** (right/left/dorsal/ventral) → surgical planning
+  - **Organs herniated** (intestine/liver/spleen/stomach)
+- Stomach herniated = **EMERGENCY** (gas-distended → severe lung compression → can suffocate)
+
+### Hiatal hernia
+- Sliding of GI organs through esophageal hiatus
+- Aorta + caudal vena cava + esophagus pass through hiatus
+
+## 8️⃣ Lung Patterns (overview — detail in clinic)
+- เจอก้อนใน thorax + ไม่แน่ใจ esophagus vs accessory lobe → **ใช้ 2 view รวมกัน** ตัดสิน
+
+## 📋 Exam recap (15 จุดสำคัญ)
+1. ภาพดี = symmetry + full inspiration + cover inlet ถึง last rib
+2. Top of ribs ทั้ง 2 ข้างต้อง level (lateral) · DSP บน vertebra (VD/DV)
+3. Caudodorsal lung angle expand เกิน T12 (lateral) / T10 (DV)
+4. Right lateral = standard · DV = ดีสุดสำหรับโรคหัวใจ
+5. Empirical method: 2.5 ICS deep chest · 3.5 ICS barrel · 2 ICS cat
+6. Heart height < 70% thorax height
+7. **VHS dog 9.7±0.5** · **cat 7.5±0.3 (max 8)**
+8. VHS ไม่ใช้: schol breeds · schnauzer · whippet · spinal deformity
+9. Cat herringbone pattern = NORMAL (อย่า over-diagnose!)
+10. Pneumomediastinum = reveal mediastinal structures
+11. PTX vs hyperinflation = ดู vessel → PTX ไม่มี vessel · ⚠️ ผิดแล้วเจาะ = ปอดฉีก
+12. Pyothorax sign = gas bubble + ไม่เคยเจาะ
+13. R lateral: R crus protrudes · L lateral: L crus protrudes (+ gastric fundus)
+14. VD = "Mickey Mouse" diaphragm
+15. DH report: tear location + organs herniated · stomach hernia = EMERGENCY
+
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 4.1 Abdominal Lecture (rTLWWO65Rs8) · 4.2 Abdominal Lab (5RXoan8azRs) · 5.1 Clinical US (FYjDUCYr0Eo)
+> 🩻 **Practice**: ปี 5 จะวัด VHS เป็น OSCE · ฝึกตอนนี้!
+> 💡 **Iron rule**: 2-view always · symmetry first · then VHS
+> 🦴 **Emergency**: Stomach in DH = surgical emergency`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
