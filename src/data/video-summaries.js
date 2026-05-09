@@ -41655,6 +41655,322 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 💉 **Routine vaccines in Thai dairy**: ONLY 2 — FMD + LSD (everything else = endemic-zone only)`,
   },
 
+  VCkp0wxo84o: {
+    videoId: 'VCkp0wxo84o',
+    title: 'Bovine Tuberculosis (วัณโรคโค) + Paratuberculosis (Johne\'s Disease)',
+    subject: 'herd-health-rum',
+    date: '2024-08-28',
+    durationMin: 138,
+    instructor: 'อ.ธนศักดิ์ (โครงการกำจัดวัณโรคที่สหกรณ์โคนมกำแพงแสน · 600+ ฟาร์ม 100% screened)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่องการตรวจ Single Intradermal · DDx · F+/F- causes · 3-5 ปี incubation',
+    summary: `## 🎯 Lead Summary
+**2 chronic mycobacterial diseases** of cattle. **Bovine TB** = M. bovis · re-emerging zoonotic disease · diagnosed by **Single Intradermal Tuberculin Test** at caudal fold or cervical · "test-and-cull only" — no treatment. **Paratuberculosis (Johne's)** = M. avium ssp. paratuberculosis · ⭐ **3-5 year incubation** (longest of any cattle disease!) · **Pea-soup green diarrhea**, no fever, animal eats normally but wastes away. Both diseases: **culture takes weeks to months**, screening tests imperfect, control strategy = test-and-segregate or cull.
+
+## 1️⃣ Bovine Tuberculosis (วัณโรคโค) ⭐⭐⭐
+
+### Why It's Re-emerging
+- ⭐ **Old disease**, increasing recently — should have been eradicated by now
+- Re-emerging = increasing detection in modern Thai dairy farms
+- Fundamentally a **zoonotic disease**
+
+### Etiology — Mycobacterium spp.
+| Species | Niche | Notes |
+|---|---|---|
+| **M. bovis** ⭐ | Cattle (primary) | Crosses to humans! |
+| **M. tuberculosis** | Humans (primary) | Crosses to cattle! |
+| **M. avium** | Birds (primary) | HIV-AIDS opportunistic in humans |
+| **M. avium ssp. paratuberculosis** | Cattle (Johne's) | Cross-reaction with TB tests! |
+
+### Microbiology
+- ⭐ **Acid-fast staining** (Ziehl-Neelsen) — pathognomonic
+- Slow-growing on culture
+- ⭐ **Intracellular + extracellular** survival
+- Pathognomonic histology: **Langhans giant cells** (multinucleate from macrophage fusion)
+
+### Pathogenesis
+- ⭐ **Tubercle formation**: granuloma with calcium deposition
+- "Crunchy" sound when knife cuts (calcium content!)
+- ⚠️ Macrophages fail to kill organism → bacteria proliferate inside
+
+### Routes of Infection ⭐
+| Route | Lesion Location |
+|---|---|
+| **Inhalation** ⭐ Most common in adults | Lungs, **mediastinal LN**, pulmonary LN (head LN at early) |
+| **Ingestion** ⭐ Common in calves (milk) | Intestine, **mesenteric LN**, liver |
+| Vertical (milk) | GI tract |
+| Genital (semen, urine) | Reproductive tract |
+| ⚠️ Worker case (Thailand!) | Worker's TB → urinated on grass → cattle infected! |
+
+### Disease Progression
+| Stage | Findings |
+|---|---|
+| **Early Infection** | Local LN involvement only (hidden) |
+| **Advanced** | Hematogenous + lymphatic spread → multiorgan |
+| **Generalized** | Visible at necropsy throughout body |
+
+### Clinical Signs (Highly Variable!)
+- ⚠️ **Most cattle: subclinical** (especially early)
+- Chronic cough, weight loss (when advanced lung)
+- Lameness (joint TB rare)
+- Reduced milk yield (~4% drop in affected herds!)
+- Reproductive failure (uterine TB)
+- ⚠️ Mastitis (intramammary lesions = ⚠️ very advanced!)
+- ⭐ **Chronic wasting syndrome** — main pattern
+
+### Target Organs at Necropsy ⭐ (Must check!)
+1. **Tracheobronchial LN**
+2. **Mediastinal LN**
+3. **Lung** (slice it open! "Slice like กั๊วะ" — multiple sections)
+4. **Mesenteric LN**
+5. **Liver** (slice it open · expensive organ — ask owner first!)
+6. **Supramammary LN**
+
+### Special Lesions
+- ⭐ **Pearl Disease** (Pearl-like lesions in pleural cavity) = TB pathognomonic
+- "Sand in the kidney" feel (calcium)
+- Reproductive: uterus, ovaries with multiple tubercles (looks like pregnancy!)
+
+### Diagnosis: Single Intradermal Tuberculin Test (SIT) ⭐⭐⭐
+
+#### Principle
+- **Delayed-type hypersensitivity** (DTH) reaction
+- Inject **PPD tuberculin** (purified protein derivative) into intradermal layer
+- Wait 72 hours → measure swelling
+
+#### Locations
+| Location | Sensitivity | Notes |
+|---|---|---|
+| **Caudal fold** (skin under tail base) ⭐ | Lower | Easy access · most common |
+| **Cervical** (neck) | Higher | Requires shaving + restraint |
+
+#### Procedure
+1. **Dose**: 0.1 mL PPD bovis (max 0.2 mL if 1st injection failed)
+2. **Needle**: Tuberculin needle 26-G (very fine!)
+3. **Pre-injection**: measure skin thickness with vernier caliper
+4. **Inject intradermal** (NOT subcutaneous!)
+5. **Verify**: small bleb (size of green pea) appears = correct
+6. ⚠️ If bleb disappears = subcutaneous = re-do!
+7. **Wait 72 hours**
+8. **Re-measure**: if **≥ 4 mm increase** → **Positive**
+
+#### Why 72 Hours?
+- DTH peaks at 72h (not earlier inflammation)
+- Earlier = false swelling from injection trauma
+- Must palpate firmness too — pure edema = not real DTH
+
+### Comparative Intradermal Test (CIT) ⭐
+- **Increases specificity** — distinguishes M. bovis vs M. avium reactions
+- 2 PPD injections: bovis + avium
+- Distance: 12 cm apart
+- Read both at 72h
+- ⭐ **Bovis swelling > Avium swelling by 4 mm = True Positive M. bovis**
+- ⚠️ M. avium PPD rarely available now
+
+### Stormont Test (Alternative)
+- Similar to SIT but **2 injections at 7 days apart**
+- Read 72h after 2nd injection
+- ⭐ **5 mm threshold** instead of 4 mm
+- **Best for buffalo** (Surin study) and deer
+
+### Short Thermal Test (Old method)
+- Inject 4 mL PPD subcutaneously at neck
+- Measure rectal temp at 4, 6, 8 hours
+- ⭐ **>104°F = Positive**
+- ⚠️ Risk: anaphylactic shock from large dose
+- Expensive: 4 mL @ 1,600 Baht/mL
+
+### Other Diagnostics
+- **Interferon-gamma (γ-IFN) ELISA** — stimulates blood with PPD, measure cytokine
+- **PCR** for M. bovis DNA
+- **Culture** (slow! 6 weeks - 6 months)
+
+### False Positive Causes ⭐
+1. ⭐ **Non-tuberculous mycobacteria** (cross-reactivity)
+2. ⭐ **Paratuberculosis** infection (M. avium ssp. paratuberculosis cross-reacts!)
+3. ⭐ **Corynebacterium** (esp. C. pseudotuberculosis) infection in lungs
+
+### False Negative Causes ⭐
+1. ⭐ **Anergy** (advanced disease — animal can't mount immune response)
+2. ⭐ **Desensitization** (test < 60 days from previous test → 6-month suppression!)
+3. ⭐ **Postpartum** (4 weeks) — colostrum production diverts immune cells
+4. ⭐ **Malnutrition** (low protein → poor immune response)
+5. **Anti-inflammatory steroids** within 1 week of test
+6. **Test < 6 weeks** post-infection
+
+### CUVET Kamphaengsaen Cooperative Project (Real Story!) ⭐
+- **600+ farms · 20,000+ cattle**
+- **First Thai cooperative** to achieve 100% TB screening
+- 10 days to complete · 3 years (then ended)
+- ⭐ Dispute resolution: necropsy revealed truth (positive = real)
+
+### Treatment & Control ⭐
+- ⛔ **NO TREATMENT** in Thailand
+- ⚠️ Drugs: 6+ months · expensive · zoonotic risk to caretakers · DRUG RESISTANCE!
+- Strategy: **Test-and-cull** OR **Test-and-segregate**
+
+### Famous Princess Sirindhorn Buffalo School Story
+- โรงเรียนกาสรกสีวิตย์ (Buffalo school for plowing rice)
+- ⚠️ TB outbreak in royal buffalo herd
+- Decision: cull all (despite genetic value)
+- Reason: Worker exposure risk + drug resistance + 6-month tx infeasibility
+
+### Pasteurization Note ⭐
+- ⭐ M. bovis killed by pasteurization (65°C × 30 min, 72°C × 15 sec)
+- ⚠️ Raw milk (organic markets) = consumer risk
+- Pasteurized milk = 100% safe for TB
+
+### BCG Vaccine Question ⭐
+- **All Thai humans get BCG at birth** → can't use SIT for human screening
+- ⚠️ BCG in cattle: Low protection · Used only in endemic areas (e.g., UK badger management)
+- Thai law: ⚠️ BCG NOT used in Thai cattle (would invalidate SIT screening)
+
+### Pregnant Cattle Decision ⭐
+- ⚠️ Owner request: "wait for calf, then cull"
+- Issues:
+  - Calf may get TB transplacentally (~6 months old confirmed cases)
+  - Owner often delays culling further
+  - Colostrum from positive cow = NEVER feed!
+- Final solution often: cull pregnant cow when farm-policy requires
+
+### Real Farm Case (300-cow herd) ⭐
+- 30% Positive on combined SIT + γ-IFN
+- Owner won't cull all → economic devastation
+- ⭐ **Solution**: split herd into Negative + Positive groups
+- Same milk processor (pasteurization protects)
+- Double-fence (2m gap)
+- Separate equipment, milking order (Negative first, Positive last)
+- No colostrum/milk to calves on positive side
+- Gradual culling over time
+
+## 2️⃣ Paratuberculosis (Johne's Disease · พาราทีบี) ⭐⭐⭐
+
+### Why It's Difficult
+- ⭐ **Diagnosis very hard** — screening tests poor
+- Disease process slow (3-5 years)
+- ⚠️ Possibly zoonotic (Crohn's disease association — debated, 50/50 evidence!)
+
+### Etiology
+- **Mycobacterium avium subspecies paratuberculosis** (MAP)
+- Aka "Johne's bacillus"
+- Genetically very close to M. avium
+- ⭐ **Acid-fast** stain
+- ⚠️ Culture: **6 weeks to 6 months!**
+
+### Survival in Environment ⭐
+- Survives months in feces, water, soil
+- ⭐ Resistant to most disinfectants
+- Need: ⭐ **Phenol 1:40 OR 5% concentration** to kill
+- Boots from infected farm = vector!
+
+### Hosts
+- Cattle (primary in dairy)
+- Buffalo, sheep, goats (small ruminants get severe form!)
+- Pigs, rabbits, deer, primates
+- ⚠️ **Humans** (chronic diarrhea cases) — Crohn's link debated
+
+### Pathogenesis ⭐
+- Enters via **ingestion** (calves <6 months susceptible!)
+- Targets ⭐ **Peyer's patches** in distal jejunum/ileum
+- ⭐ **Intracellular only** (in macrophages)
+- Forms **granulomas** in intestinal wall → thickens it
+- ⚠️ Even pasteurized milk may have residual MAP (0.3 colonies — but below ID50)
+
+### Incubation: 3-5 YEARS! ⭐⭐⭐
+- ⭐ **Longest incubation of any cattle disease!**
+- ⚠️ Infection happens in calves <6 months
+- Clinical disease appears at 2-5 years old
+- ⚠️ **Calves with diarrhea ≠ Johne's** (incubation too short!)
+
+### Clinical Signs (Triad!) ⭐⭐
+| Sign | Detail |
+|---|---|
+| **1. Chronic diarrhea** | ⭐ "Pea-soup green" · projectile · doesn't respond to antibiotics |
+| **2. Weight loss** | "Skin and bones" but cow eats normally! |
+| **3. NO fever** ⭐ | Distinguishes from most infectious diseases |
+
+### Other Signs
+- Hypoproteinemia → bottle-jaw edema (chin, brisket)
+- Hypocalcemia
+- Reduced milk yield, infertility
+- Vertical transmission (~20% of pregnancies)
+- Possible semen transmission
+
+### Differential Diagnosis ⭐
+| Disease | Diarrhea | Weight loss | Fever | Eat normally |
+|---|---|---|---|---|
+| **Paratuberculosis** | Chronic, projectile | Marked | **NO** | YES |
+| **TB (intestinal)** | Variable | Yes | Mild | Variable |
+| **Chronic local peritonitis** | Yes | Yes | Maybe | No |
+| **Liver abscess** (chronic) | Yes | Yes | Yes | No |
+| **Liver abscess** (acute) | — | — | — | ⚠️ Sudden death! |
+| **Parasitism** | Yes | Yes | NO | Maybe |
+| **Salmonellosis (chronic)** | Foul-smelling, foul | Yes | Yes | No |
+
+### Pathology
+- Intestinal wall **markedly thickened** (corrugated appearance)
+- Mesenteric LN enlarged
+- Histopath: granulomas, giant cells, MAP organisms in macrophages
+
+### Diagnosis Challenges ⭐
+1. **ELISA**: ⚠️ Only 30-40% sensitive in early stages (high false negatives!)
+2. **Fecal culture**: takes 6 weeks - 6 months
+3. **Fecal PCR**: more practical but still slow + low shedding hides positives
+4. **Necropsy + histopath**: gold standard but post-mortem
+
+### "Iceberg Effect" ⭐
+- 1 clinical case = many subclinical infected animals
+- 1:5 to 1:10 ratio
+- ⚠️ By time clinical seen, herd already heavily infected
+
+### Treatment
+- ⛔ **No treatment** that works
+- Cull, cull, cull
+- Prevention: clean colostrum, separate calves from positive cows
+
+### Vaccine
+- ⚠️ Vaccines exist but interfere with TB testing
+- Thailand: not approved
+- Limited use in some countries
+
+### Why "Why does no one care about Para TB?" ⭐
+> Sapporo World Congress: Researcher complained about field neglect
+- Diagnosis too hard
+- Slow disease = farmers don't connect dots
+- No specific treatment options
+- Economic impact slow to manifest
+
+### Pregnancy Question ⭐
+- ⚠️ Vertical transmission proven (~20%)
+- Cull pregnant cow (or never feed calf colostrum from positive dam)
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### TB (1-9)
+1. **M. bovis** = main · zoonotic · cross to/from humans
+2. ⭐ **Acid-fast** staining + **Langhans giant cells**
+3. ⭐ **Tubercle** = granuloma + calcium deposition
+4. **Routes**: Inhalation > Ingestion (humans urinating in pasture!)
+5. ⭐ **SIT @ 4 mm** swelling = Positive (caudal fold or cervical, 0.1 mL × 72h)
+6. ⭐ **F+ causes**: NTM, M. avium, Corynebacterium
+7. ⭐ **F- causes**: Anergy, desensitization (60 days+!), postpartum, malnutrition
+8. ⭐ **Pearl Disease** = TB pleural lesions
+9. ⛔ **No treatment** (drug resistance + zoonotic risk + cost)
+
+### ParaTB (10-15)
+10. **MAP** = M. avium ssp. paratuberculosis
+11. ⭐ **3-5 year incubation** (longest in cattle!)
+12. ⭐ **Pea-soup diarrhea + weight loss + NO fever** = triad
+13. **Calves <6 months** infected (vertical transmission ~20%)
+14. ⭐ **Diagnosis very hard** — ELISA poor sensitivity, culture 6+ weeks
+15. ⛔ **No treatment** · cull-and-segregate
+
+> 🎓 **Cross-refs**: BRD complex (different respiratory pathogens) · vet-juris (reportable diseases under พ.ร.บ.)
+> 🛡️ **Practical**: ALWAYS pasteurize milk · 65°C × 30 min for safety
+> 🏥 **Public health**: TB still zoonotic — protect farm workers + slaughter staff
+> 📊 **Reality check**: M. bovis still endemic in Thai cattle · Annual surveillance recommended
+> 🎯 **Decision tree**: Diarrhea + 3-5yo + no fever + eats normally = SUSPECT JOHNE'S`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
