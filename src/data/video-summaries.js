@@ -46881,6 +46881,733 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🎯 **Decision rule**: Match test to clinical question (rule-in vs rule-out)`,
   },
 
+  PkN1k8LI_w0: {
+    videoId: 'PkN1k8LI-w0',
+    title: 'Veterinary Epidemiology — 3.2 Animal Disease Surveillance and Monitoring',
+    subject: 'epidemiology',
+    date: '2025-08-25',
+    durationMin: 81,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + scenario · ออก surveillance types · monitoring vs surveillance · syndromic surveillance · WAHIS reporting',
+    summary: `## 🎯 Lead Summary
+**Surveillance** = systematic collection + analysis + dissemination of disease data. ⭐ Distinguishes from monitoring. ⭐ ⭐ **Active vs Passive · Syndromic · Sentinel · Risk-Based · Targeted** surveillance types. Critical for: detection, control, trade, public health.
+
+## 1️⃣ Surveillance vs Monitoring ⭐⭐
+| Term | Purpose |
+|---|---|
+| ⭐ **Surveillance** | Continuous · ACTION-oriented |
+| ⭐ **Monitoring** | Tracking only · NO action required |
+
+## 2️⃣ Surveillance Types ⭐⭐⭐
+
+### Passive Surveillance
+- ⭐ Routine reporting from veterinarians/farms
+- ⭐ Cheaper, less labor
+- Default approach
+
+### Active Surveillance ⭐
+- ⭐ Targeted investigation
+- More expensive
+- Used during outbreaks
+
+### Syndromic Surveillance
+- ⭐ Track signs, not specific diseases
+- Early warning system
+- Used pre-diagnosis
+
+### Sentinel Surveillance
+- ⭐ Selected farms/animals as indicators
+- Cost-effective
+- Statistical sampling
+
+### Risk-Based Surveillance
+- ⭐ Focus high-risk areas/populations
+- Efficient use of resources
+
+## 3️⃣ Surveillance Goals ⭐
+- ⭐ Early disease detection
+- ⭐ Track spread + trends
+- ⭐ Evaluate control programs
+- ⭐ Demonstrate disease freedom (trade!)
+- ⭐ Identify emerging threats
+
+## 4️⃣ International Reporting ⭐⭐
+
+### WAHIS (formerly OIE)
+- ⭐ World Animal Health Information System
+- ⭐ All countries must report
+- 5 status colors: Red (confirmed), Yellow (suspected), Green (free), Gray (no data!)
+
+### List of Reportable Diseases
+- ⭐ FMD, HPAI, ASF, Anthrax, etc.
+- Mandatory immediate reporting
+
+## 5️⃣ Thai Surveillance System ⭐
+- ⭐ DLD = Department of Livestock Development
+- ⭐ Provincial, district, sub-district structure
+- Lab network (Reference labs)
+- ⭐ X-ray system (HPAI active surveillance)
+
+## 6️⃣ Data Collection ⭐
+- ⭐ Standardized forms
+- Electronic systems (cloud-based)
+- Mobile reporting apps
+- Lab integration
+
+## 📋 Exam Recap (8 จุดสำคัญ)
+1. ⭐ **Surveillance ≠ Monitoring** (action vs tracking)
+2. ⭐ **5 surveillance types**: Passive · Active · Syndromic · Sentinel · Risk-based
+3. ⭐ **Passive default**, Active for outbreaks
+4. ⭐ **WAHIS** (formerly OIE) reporting
+5. ⭐ **5 status colors** in WAHIS
+6. ⭐ **DLD** = Thai authority
+7. ⭐ **Disease freedom** = trade requirement
+8. ⭐ **Resource trade-off** drives surveillance choice
+
+> 📚 **Cross-refs**: Outbreak investigation · Test interpretation · Public Health
+> 🎯 **Practical**: Know reporting structure for your region`,
+  },
+
+  '2_ekqdW_d7w': {
+    videoId: '2_ekqdW_d7w',
+    title: 'Veterinary Epidemiology — 3.3 Observation Study Designs',
+    subject: 'epidemiology',
+    date: '2025-08-25',
+    durationMin: 156,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + calculation · ออก Cohort · Case-Control · Cross-Sectional · OR · RR · Confounding · Selection bias',
+    summary: `## 🎯 Lead Summary
+**Observational study designs** = how epidemiologists collect data without experimental control. 3 main types: ⭐ ⭐ **Cohort · Case-Control · Cross-Sectional**. Each with strengths/weaknesses. ⭐ **Risk Ratio (RR)** for cohort, ⭐ **Odds Ratio (OR)** for case-control. Critical for vet research + clinical decisions.
+
+## 1️⃣ Why Observational? ⭐⭐
+- ⭐ Can't always do RCT (ethics, time, cost)
+- ⭐ Real-world data
+- ⭐ Larger samples possible
+- ⚠️ Cannot prove causation alone
+
+## 2️⃣ Cohort Study ⭐⭐⭐
+
+### Design
+- ⭐ Start with EXPOSED + UNEXPOSED groups
+- ⭐ Follow forward in time
+- ⭐ Compare disease incidence
+
+### Types
+- **Prospective**: Follow into future
+- **Retrospective**: Use past records
+
+### Calculation: Risk Ratio (RR)
+- ⭐ ⭐ **RR = Incidence in Exposed / Incidence in Unexposed**
+- RR = 1: no association
+- RR > 1: risk factor
+- RR < 1: protective
+
+### Strengths
+- ⭐ Direct measure of incidence
+- ⭐ Multiple outcomes per exposure
+- ⭐ Establish temporality
+
+### Weaknesses
+- ⚠️ Expensive, slow
+- ⚠️ Loss to follow-up
+- ⚠️ Not for rare diseases
+
+## 3️⃣ Case-Control Study ⭐⭐⭐
+
+### Design
+- ⭐ Start with CASES + CONTROLS
+- ⭐ Look BACK at exposure history
+- ⭐ Compare exposure rates
+
+### Calculation: Odds Ratio (OR)
+- ⭐ ⭐ **OR = (a×d) / (b×c)** from 2×2 table
+- a=Exposed Cases, b=Exposed Controls, c=Unexposed Cases, d=Unexposed Controls
+
+### Strengths
+- ⭐ Fast, cheap
+- ⭐ Good for rare diseases
+- ⭐ Multiple exposures per outcome
+
+### Weaknesses
+- ⚠️ Recall bias
+- ⚠️ Selection bias
+- ⚠️ Cannot calculate true incidence
+
+## 4️⃣ Cross-Sectional Study ⭐⭐
+
+### Design
+- ⭐ "Snapshot" — measure exposure + outcome simultaneously
+- Single point in time
+- ⭐ Calculates PREVALENCE not incidence
+
+### Strengths
+- ⭐ Quick, cheap
+- ⭐ Good for prevalence surveys
+
+### Weaknesses
+- ⚠️ Cannot establish temporality (chicken-egg!)
+- ⚠️ Survivor bias
+
+## 5️⃣ Real-World Veterinary Examples ⭐
+
+### Cohort: BVD PI Animals
+- Follow PI calves vs non-PI from birth
+- Measure: BRD incidence
+- ⭐ PI calves higher BRD = strong evidence
+
+### Case-Control: Mastitis Outbreak
+- Cases: cows with mastitis
+- Controls: healthy cows
+- ⭐ Look back at risk factors
+
+### Cross-Sectional: Brucella Survey
+- Random farm selection
+- Test all + record management
+- ⭐ Calculate herd prevalence
+
+## 6️⃣ Selecting Right Design ⭐
+
+### Decision Tree
+- ⭐ Rare disease → Case-Control
+- ⭐ Common disease → Cohort
+- ⭐ Prevalence needed → Cross-Sectional
+- ⭐ Multiple outcomes → Cohort
+- ⭐ Multiple exposures → Case-Control
+
+## 7️⃣ Bias + Confounding ⭐⭐
+
+### Types of Bias
+- ⭐ Selection bias
+- ⭐ Information/Recall bias
+- ⭐ Detection bias
+- ⭐ Misclassification
+
+### Confounding Control
+- ⭐ Restriction (study one group)
+- ⭐ Matching (case-control)
+- ⭐ Stratification (analyze separately)
+- ⭐ Multivariable regression
+
+## 8️⃣ Sample Size Concepts ⭐
+- ⭐ Larger samples → more power
+- ⭐ Effect size affects need
+- ⭐ Power calculation before study
+
+## 📋 Exam Recap (10 จุดสำคัญ)
+1. ⭐ **3 designs**: Cohort · Case-Control · Cross-Sectional
+2. ⭐ **Cohort** = exposure → outcome (forward)
+3. ⭐ **Case-Control** = outcome → exposure (backward)
+4. ⭐ **Cross-Sectional** = both at once (snapshot)
+5. ⭐ **RR** for Cohort (incidence ratio)
+6. ⭐ **OR** for Case-Control (= ad/bc)
+7. ⭐ **Rare diseases** → Case-Control
+8. ⭐ **Bias types**: Selection · Recall · Detection · Misclassification
+9. ⭐ **Confounding control**: Restriction · Matching · Stratification · Regression
+10. ⭐ **Sample size** + Power calculation
+
+> 📚 **Cross-refs**: Causation lecture · Disease frequency · Future: Statistics
+> 🎯 **Calc tip**: OR = ad/bc — memorize and practice!`,
+  },
+
+  bNB5K2zbKbY: {
+    videoId: 'bNB5K2zbKbY',
+    title: 'Veterinary Epidemiology — 4+6 Applied Statistics',
+    subject: 'epidemiology',
+    date: '2025-09-01',
+    durationMin: 282,
+    instructor: 'อ.ธนศักดิ์ (รุ่นพี่)',
+    examFormat: 'Multiple choice + calculation · ออก descriptive vs inferential · t-test · chi-square · regression · sample size',
+    summary: `## 🎯 Lead Summary
+**Applied Statistics for Veterinary Epidemiology** — practical statistics for analyzing animal health data. Covers: ⭐ **Descriptive statistics** (means, medians, distributions) · ⭐ **Inferential statistics** (hypothesis testing, p-values) · ⭐ **Common tests** (t-test, ANOVA, Chi-square, regression) · ⭐ **Sample size calculation**. Use software (R, SPSS, Python) — not hand calc — but MUST know which test fits.
+
+## 1️⃣ Statistics Foundation ⭐⭐
+- ⭐ Quantitative analysis of data
+- ⭐ Tests hypotheses
+- ⭐ Quantifies uncertainty
+- ⭐ Drives decisions
+
+## 2️⃣ Variable Types ⭐
+| Type | Examples |
+|---|---|
+| ⭐ **Continuous** | Weight, milk yield, temp |
+| ⭐ **Discrete** | Number of cases, count |
+| ⭐ **Nominal categorical** | Breed, sex |
+| ⭐ **Ordinal categorical** | Disease severity (mild/severe) |
+| ⭐ **Binary** | Yes/No, Sick/Healthy |
+
+## 3️⃣ Descriptive Statistics ⭐⭐⭐
+
+### Central Tendency
+- ⭐ Mean (average)
+- ⭐ Median (middle value)
+- ⭐ Mode (most frequent)
+
+### Spread/Dispersion
+- ⭐ Range (max - min)
+- ⭐ Standard Deviation (SD)
+- ⭐ Variance
+- ⭐ IQR (interquartile range)
+
+### Distribution Shapes
+- ⭐ Normal (bell curve)
+- ⭐ Skewed (left/right)
+- ⭐ Bimodal
+
+## 4️⃣ Inferential Statistics ⭐⭐⭐
+
+### Hypothesis Testing
+- ⭐ ⭐ **Null Hypothesis (H0)**: no difference
+- ⭐ ⭐ **Alternative (H1)**: difference exists
+- ⭐ p-value < 0.05 → reject H0
+
+### p-value Interpretation
+- ⭐ Probability of observing data IF H0 true
+- ⭐ Small p = unlikely H0 = reject
+- ⚠️ p < 0.05 = arbitrary convention
+
+### Confidence Intervals
+- ⭐ Range likely to contain true value
+- ⭐ 95% CI most common
+- More informative than just p-value
+
+## 5️⃣ Common Statistical Tests ⭐⭐⭐
+
+### t-test
+- ⭐ Compare 2 means
+- Independent or paired
+
+### ANOVA
+- ⭐ Compare 3+ means
+- One-way or two-way
+
+### Chi-Square (χ²)
+- ⭐ ⭐ Categorical data
+- ⭐ Test associations in 2×2 tables
+
+### Fisher's Exact Test
+- ⭐ Small samples
+- Alternative to Chi-square
+
+### Mann-Whitney U
+- ⭐ Non-parametric
+- When data not normal
+
+### Wilcoxon
+- ⭐ Paired non-parametric
+
+## 6️⃣ Regression Analysis ⭐⭐
+
+### Linear Regression
+- ⭐ Continuous outcome
+- Y = a + bX + error
+- ⭐ Predict + identify factors
+
+### Logistic Regression
+- ⭐ Binary outcome (yes/no)
+- ⭐ Calculate Odds Ratios
+- Multivariable possible
+
+### Multivariable Models
+- ⭐ Control for confounders
+- ⭐ Multiple predictors
+- ⭐ Critical for epi research
+
+## 7️⃣ Sample Size Calculation ⭐⭐
+
+### Why Calculate?
+- ⭐ Avoid underpowered studies
+- ⭐ Cost-effective
+- ⭐ Required for ethics approval
+
+### Components
+- ⭐ Effect size (expected difference)
+- ⭐ Power (usually 80%)
+- ⭐ Significance level (α = 0.05)
+- ⭐ Variance/proportions
+
+## 8️⃣ Software Tools ⭐
+- ⭐ R (free, powerful)
+- ⭐ SPSS (commercial)
+- ⭐ STATA (epidemiology)
+- ⭐ Python (programming)
+- ⭐ Excel (basic)
+
+## 9️⃣ Common Errors ⭐
+- ⭐ p-hacking
+- ⭐ Multiple testing
+- ⭐ Wrong test selection
+- ⭐ Ignoring confounders
+- ⭐ Misinterpreting CI
+
+## 1️⃣0️⃣ Reading Papers Critically ⭐
+- ⭐ Was sample size justified?
+- ⭐ Was right test used?
+- ⭐ Was confounding addressed?
+- ⭐ Are CIs reported?
+- ⭐ Is effect size meaningful (not just p)?
+
+## 📋 Exam Recap (10 จุดสำคัญ)
+1. ⭐ **Variable types** drive test choice
+2. ⭐ **Mean, Median, Mode** + SD
+3. ⭐ **p-value < 0.05** convention (not law!)
+4. ⭐ **CI** more informative than p-value alone
+5. ⭐ **t-test** for 2 means
+6. ⭐ **ANOVA** for 3+ means
+7. ⭐ **Chi-square** for categorical data
+8. ⭐ **Linear vs Logistic regression**
+9. ⭐ **Sample size**: power × effect × significance × variance
+10. ⭐ **Use software** but understand the math
+
+> 📚 **Cross-refs**: All previous epi lectures · Required for research career
+> 🎯 **Practical**: Practice with real datasets in R or SPSS`,
+  },
+
+  '19nuIoprxC8': {
+    videoId: '19nuIoprxC8',
+    title: 'Veterinary Epidemiology — 5.1 Disease Control, Prevention and Eradication',
+    subject: 'epidemiology',
+    date: '2025-09-08',
+    durationMin: 67,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + scenario · ออก control vs prevention vs eradication · stamping out · vaccination strategy · zoning',
+    summary: `## 🎯 Lead Summary
+**Disease control hierarchy**: ⭐ ⭐ **Prevention < Control < Elimination < Eradication**. Each level requires more resources. Methods: ⭐ Quarantine · Vaccination · Movement Control · Stamping Out · Test-and-Cull · Vector Control. Real examples: Smallpox + Rinderpest = world eradicated.
+
+## 1️⃣ Disease Control Levels ⭐⭐⭐
+
+### Hierarchy (Increasing Difficulty)
+1. ⭐ **Prevention**: Stop disease occurring
+2. ⭐ **Control**: Reduce burden to acceptable level
+3. ⭐ **Elimination**: No disease in specific area
+4. ⭐ **Eradication**: NO virus exists anywhere
+
+### Real Examples
+- ⭐ ⭐ **Smallpox**: ERADICATED (1980, only human disease)
+- ⭐ ⭐ **Rinderpest**: ERADICATED (2011, animal disease)
+- ⭐ HPAI Thailand: ELIMINATED (no cases 20+ years)
+- ⭐ FMD Thailand: CONTROL (still endemic)
+
+## 2️⃣ Prevention Strategies ⭐⭐
+
+### Primary Prevention
+- ⭐ Stop infection occurring
+- Vaccination, biosecurity, hygiene
+
+### Secondary Prevention
+- ⭐ Early detection + treatment
+- Screening programs
+
+### Tertiary Prevention
+- ⭐ Limit damage from established disease
+- Treatment optimization
+
+## 3️⃣ Control Methods ⭐⭐⭐
+
+### A. Quarantine + Movement Control
+- ⭐ Isolate affected animals
+- ⭐ Stop spread to new areas
+- ⭐ International + national borders
+
+### B. Vaccination ⭐
+- ⭐ Routine (FMD, LSD in Thailand)
+- ⭐ Ring vaccination (around outbreak)
+- ⭐ Targeted high-risk
+
+### C. Stamping Out ⭐⭐
+- ⭐ Cull affected + contact animals
+- ⭐ Most aggressive
+- ⭐ Used for serious diseases (HPAI, FMD outbreak)
+
+### D. Test-and-Cull
+- ⭐ Test population
+- ⭐ Cull positive only
+- ⭐ Used for chronic diseases (TB, Brucella)
+
+### E. Vector Control
+- ⭐ Reduce vector populations
+- Insecticides, environmental management
+- ⭐ Important for arbovirus, mosquito-borne
+
+### F. Disinfection + Sanitation
+- ⭐ Break transmission chains
+- ⭐ Foot baths, equipment cleaning
+- ⭐ Critical post-outbreak
+
+## 4️⃣ Zoning Concept ⭐⭐
+
+### 3 Zones
+- ⭐ **Infected Zone**: Active outbreak
+- ⭐ **Buffer/Surveillance Zone**: Around infected
+- ⭐ **Free Zone**: Clean area
+
+### Movement Restrictions
+- ⭐ No movement OUT of infected
+- ⭐ Restricted IN/OUT of buffer
+- Free zone = normal
+
+## 5️⃣ Vaccination Strategy Types ⭐⭐
+
+### Mass Vaccination
+- ⭐ All animals
+- High coverage
+- ⭐ Used for endemic disease
+
+### Ring Vaccination
+- ⭐ Around outbreak focus
+- ⭐ Prevent spread
+
+### Targeted Vaccination
+- ⭐ High-risk groups only
+- Cost-effective
+
+### Marker Vaccines
+- ⭐ Distinguish vaccinated from infected
+- ⭐ Critical for trade
+- ⭐ Used for IBR eradication
+
+## 6️⃣ Eradication Requirements ⭐⭐
+- ⭐ Effective intervention available
+- ⭐ Disease in narrow host range
+- ⭐ Easily diagnosed
+- ⭐ Political will + resources
+- ⭐ International cooperation
+
+### Why Smallpox Worked
+- Single host (humans)
+- Effective vaccine
+- No animal reservoir
+- Visible disease
+- WHO-led global effort
+
+## 7️⃣ Why Some Diseases Hard to Eradicate ⭐
+- ⭐ **Wildlife reservoirs** (rabies, brucella)
+- ⭐ **Multiple species** (FMD)
+- ⭐ **Carrier states** (Brucella, BLV)
+- ⭐ **Vector-borne** (BEF, Lepto)
+- ⭐ **Subclinical infections**
+
+## 8️⃣ Thailand's Disease Battle Record ⭐⭐
+| Disease | Outcome |
+|---|---|
+| ⭐ **HPAI** | ⭐ ELIMINATED (success!) |
+| ⭐ **FMD** | Control (still endemic) |
+| ⭐ **ASF** | ⚠️ Now endemic (failed control) |
+| ⭐ **LSD** | Control (vaccine works) |
+
+## 9️⃣ Economic Cost-Benefit ⭐
+- ⭐ Eradication = high upfront, low long-term
+- ⭐ Control = ongoing cost
+- ⭐ Decision based on: prevalence, severity, cost, public health
+
+## 1️⃣0️⃣ Communication + Compliance ⭐
+- ⭐ Farmer education critical
+- ⭐ Compensation programs
+- ⭐ Trust between vet + farmer
+- ⭐ Cultural/religious considerations
+
+## 📋 Exam Recap (10 จุดสำคัญ)
+1. ⭐ **4 levels**: Prevention < Control < Elimination < Eradication
+2. ⭐ **Smallpox + Rinderpest** = only diseases eradicated globally
+3. ⭐ **6 control methods**: Quarantine · Vaccine · Stamping out · Test-and-Cull · Vector · Sanitation
+4. ⭐ **3 zones**: Infected · Buffer · Free
+5. ⭐ **4 vaccination strategies**: Mass · Ring · Targeted · Marker
+6. ⭐ **Marker vaccines** = trade requirement
+7. ⭐ **Wildlife reservoirs** complicate eradication
+8. ⭐ **HPAI Thailand** = success story
+9. ⭐ **ASF Thailand** = failure story
+10. ⭐ **Communication** = key to compliance
+
+> 📚 **Cross-refs**: All previous lectures · Surveillance · Public Health
+> 🎯 **Application**: Match strategy to disease characteristics`,
+  },
+
+  pE66KLSuspY: {
+    videoId: 'pE66KLSuspY',
+    title: 'Veterinary Epidemiology — 5.6 Public Private Partnerships',
+    subject: 'epidemiology',
+    date: '2025-09-08',
+    durationMin: 7,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Brief topic · short multiple choice possible',
+    summary: `## 🎯 Lead Summary
+**Public-Private Partnerships (PPP)** in animal disease control. Essential for: ⭐ ⭐ tackling diseases government alone can't handle. Examples: ⭐ Vaccine development · ⭐ Surveillance systems · ⭐ Outbreak response · ⭐ Rural extension services.
+
+## 1️⃣ Why PPP? ⭐⭐
+- ⭐ Government resources finite
+- ⭐ Private sector innovation + scale
+- ⭐ Combined expertise
+- ⭐ Industry has assets gov lacks
+
+## 2️⃣ Common PPP Models ⭐⭐
+- ⭐ **Vaccine development**: Pharma + DLD
+- ⭐ **Surveillance**: Industry data → public DB
+- ⭐ **Outbreak response**: Joint task forces
+- ⭐ **Rural extension**: Veterinary services
+- ⭐ **Technology transfer**: ICT, sensors
+
+## 3️⃣ Examples in Thailand ⭐
+- ⭐ FMD vaccine production (DLD + private)
+- ⭐ Sensor adoption in dairy (Saraburi research)
+- ⭐ One Health (multi-sector)
+- ⭐ Rabies elimination (multi-stakeholder)
+
+## 4️⃣ Success Factors ⭐
+- ⭐ Clear roles + responsibilities
+- ⭐ Trust between partners
+- ⭐ Data sharing protocols
+- ⭐ Sustainable funding
+
+## 5️⃣ Challenges ⭐
+- ⭐ Conflict of interest
+- ⭐ Data ownership
+- ⭐ Profit motives
+- ⭐ Bureaucracy mismatch
+
+## 📋 Exam Recap (5 จุดสำคัญ)
+1. ⭐ **PPP** = Public-Private Partnership
+2. ⭐ Combine gov + industry strengths
+3. ⭐ **Examples**: Vaccines · Surveillance · Outbreak · Extension
+4. ⭐ **Thailand examples**: FMD vaccine · Saraburi sensors
+5. ⭐ **Critical**: clear roles + trust + sustainable funding
+
+> 📚 **Cross-refs**: Disease control · Surveillance · One Health
+> 🎯 **Future**: Increasingly important in modern epidemiology`,
+  },
+
+  l0PNCPnuuns: {
+    videoId: 'l0PNCPnuuns',
+    title: 'Veterinary Epidemiology — 7.1 Introduction to Practice Epidemiology',
+    subject: 'epidemiology',
+    date: '2025-10-06',
+    durationMin: 106,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + practical scenarios · ออก field application · clinical decision making · investigation steps',
+    summary: `## 🎯 Lead Summary
+**Practice-based epidemiology** = applying epi tools in clinical settings. Bridge theory → practice. Skills: ⭐ ⭐ recognize unusual patterns · investigate systematically · communicate findings · drive control.
+
+## 1️⃣ Practice Epidemiology Goals ⭐⭐
+- ⭐ Detect emerging diseases early
+- ⭐ Investigate outbreaks
+- ⭐ Evaluate interventions
+- ⭐ Quality improvement
+- ⭐ Evidence-based vet medicine
+
+## 2️⃣ When to Use Epi Skills ⭐
+- ⭐ Sudden case clusters
+- ⭐ Unusual patterns
+- ⭐ Therapeutic failure
+- ⭐ Vaccine effectiveness questions
+- ⭐ Farm performance issues
+
+## 3️⃣ Practice Investigation Steps ⭐⭐⭐
+1. ⭐ Define problem
+2. ⭐ Define case (case definition)
+3. ⭐ Confirm outbreak
+4. ⭐ Describe T-P-P
+5. ⭐ Generate hypotheses
+6. ⭐ Test hypotheses
+7. ⭐ Implement controls
+8. ⭐ Communicate
+9. ⭐ Follow-up
+10. ⭐ Document
+
+## 4️⃣ Practical Tools ⭐⭐
+- ⭐ **Records review**: farm history
+- ⭐ **Walking the farm**: visual assessment
+- ⭐ **Sample collection**: blood, milk, swabs
+- ⭐ **Lab integration**: rapid PCR, ELISA
+- ⭐ **Software**: herd management, sensors
+
+## 5️⃣ Clinical Decision Making ⭐⭐
+- ⭐ Use Hill's criteria for causation
+- ⭐ Consider differential diagnosis
+- ⭐ Risk assessment
+- ⭐ Cost-benefit analysis
+
+## 6️⃣ Communication Skills ⭐
+- ⭐ Use farmer-friendly language
+- ⭐ Visual aids (graphs, maps)
+- ⭐ Clear action steps
+- ⭐ Document for records
+
+## 7️⃣ Career Paths ⭐
+- ⭐ Field practitioner
+- ⭐ Government surveillance
+- ⭐ Industry quality control
+- ⭐ Research epidemiologist
+- ⭐ Public health advisor
+
+## 8️⃣ Modern Trends ⭐
+- ⭐ Big data + analytics
+- ⭐ AI-assisted diagnosis
+- ⭐ Genomic epidemiology
+- ⭐ One Health integration
+
+## 📋 Exam Recap (8 จุดสำคัญ)
+1. ⭐ **Practice epidemiology** = applied epi tools
+2. ⭐ **10-step investigation protocol**
+3. ⭐ **Hill's criteria** for clinical decisions
+4. ⭐ **Communication** with farmers critical
+5. ⭐ **Career paths**: practitioner · government · industry · research
+6. ⭐ **Trends**: big data · AI · genomics · One Health
+7. ⭐ **Records review** = first investigation step
+8. ⭐ **Documentation** essential
+
+> 📚 **Cross-refs**: All previous lectures · Career planning
+> 🎯 **Skill**: Apply epidemiology tools daily, not just for outbreaks`,
+  },
+
+  XTDvx2Bym1w: {
+    videoId: 'XTDvx2Bym1w',
+    title: 'Veterinary Epidemiology — 7.2 Epidemiology Application in Current Research',
+    subject: 'epidemiology',
+    date: '2025-10-06',
+    durationMin: 64,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'NOT IN EXAM (ไม่ออกสอบ) — interesting research overview',
+    summary: `## 🎯 Lead Summary
+⚠️ **NOT EXAMINED** — Aj. Tanasak said this lecture is for inspiration, NOT exam content. Overview of current epidemiology research applications. Examples: AI in disease prediction · genomic epi · One Health.
+
+## 1️⃣ Why This Lecture? ⭐
+- ⭐ Show research career possibilities
+- ⭐ Inspire continuing education
+- ⭐ Modern technology integration
+
+## 2️⃣ Modern Research Topics ⭐
+- ⭐ **Big data analytics**: massive datasets
+- ⭐ **Machine learning**: predict outbreaks
+- ⭐ **Genomic epidemiology**: pathogen tracking
+- ⭐ **Geographic Information Systems (GIS)**: spatial analysis
+- ⭐ **Mobile/sensor data**: real-time
+- ⭐ **One Health**: human-animal-environment
+
+## 3️⃣ Thai Research Examples ⭐
+- ⭐ HPAI surveillance + early warning
+- ⭐ ASF spread modeling
+- ⭐ Rabies elimination strategies
+- ⭐ Dairy efficiency improvement (Saraburi center)
+- ⭐ Climate change × disease
+
+## 4️⃣ International Collaborations ⭐
+- ⭐ FAO + WAHIS
+- ⭐ One Health initiatives
+- ⭐ Vaccine development consortiums
+- ⭐ Disease elimination programs
+
+## 5️⃣ Career Outlook ⭐
+- ⭐ Research epidemiologist demand
+- ⭐ International opportunities
+- ⭐ Multidisciplinary collaboration
+
+## 📋 Recap
+- ⚠️ **NOT EXAMINED** but valuable for career thinking
+- ⭐ Future research directions
+- ⭐ Interdisciplinary work growing
+
+> 📚 **Cross-refs**: All previous lectures · Career planning
+> 🎯 **Inspirational**: Consider research as a path!`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
