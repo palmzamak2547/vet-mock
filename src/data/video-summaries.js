@@ -28901,6 +28901,207 @@ Fetal death in utero → dehydration + retention → "mummy"
 > 🦴 **Modern AI farm**: 10 boars feed 1000-sow farm with proper management`,
   },
 
+  ABb7TdP98Zc: {
+    videoId: 'ABb7TdP98Zc',
+    title: '4. Reproductive Problems and Sterility',
+    subject: 'swine-repro',
+    date: '27 Aug 67',
+    durationMin: 72,
+    instructor: 'อ.มรกต (CUVET)',
+    examFormat: 'MCQ — Fertility/Subfertility/Infertility/Sterility · 4 sperm-defect terms (a-, hypo-, hyper-) · Cryptorchidism management · Hypoplasia types ออกบ่อย',
+    summary: `# Reproductive Problems & Sterility in Boars
+
+> 🎯 **Critical exam: WRITTEN definitions!** Memorize 4 fertility levels + sperm-defect terminology
+> Top exam: **4-tier fertility scale · Aspermia/Hypospermia/Hyperspermia · Azoospermia · Oligospermia · Cryptorchidism (ทองแดง)**
+
+---
+
+## 1. The 4-Tier Fertility Scale ⭐⭐⭐ (Memorize verbatim — written exam!)
+
+### Definitions
+| Term | Meaning |
+|---|---|
+| **Fertility** | Full breeding capacity — produces viable sperm + normal organs + normal mating |
+| **Subfertility** | LOW conception rate — sometimes succeeds |
+| **Infertility** | NO conception — temporary reproductive failure |
+| **Sterility** ⭐ | PERMANENT — no possibility of reproduction (e.g., post-castration) |
+
+### Key distinctions
+- Subfertility ≠ Infertility (gradient!)
+- Infertility CAN be temporary (e.g., heat stress, treatable)
+- Sterility is PERMANENT/IRREVERSIBLE
+
+---
+
+## 2. Sperm-Defect Terminology ⭐⭐⭐ (Exam regular!)
+
+### Volume-related
+| Term | Meaning |
+|---|---|
+| **Aspermia** | NO ejaculate at all |
+| **Hypospermia** ⭐ | LOW ejaculate volume |
+| **Hyperspermia** | HIGH ejaculate volume |
+
+### Sperm count-related
+| Term | Meaning |
+|---|---|
+| **Azoospermia** | NO sperm in ejaculate |
+| **Oligospermia** | LOW sperm count |
+| **Polyspermia** | High sperm count (rarely problematic) |
+
+### Morphology-related
+| Term | Meaning |
+|---|---|
+| **Teratozoospermia** ⭐ | Abnormal sperm shapes (defects) |
+| **Asthenozoospermia** | Low motility |
+
+### Memory aid
+> "**A-** = none/absent · **Hypo-** = low · **Hyper-** = high · **Oligo-** = scant · **Tera-** = monster (defects)"
+
+---
+
+## 3. Causes of Reproductive Problems ⭐
+
+### Primary (congenital, since birth)
+- Chromosomal defects
+- **Testicular hypoplasia** (small testicles since birth)
+- **Cryptorchidism** ⭐ (undescended testicles)
+- **Segmental hypoplasia** of vas deferens
+
+### Secondary (acquired later)
+- **Heat stress**
+- **Disease** (Brucella, Mycoplasma)
+- **Trauma**
+- **Aging**
+- **Drug toxicity**
+
+### Infectious vs Non-infectious
+- Disease cause (e.g., Brucella) vs trauma/genetics
+
+---
+
+## 4. Cryptorchidism (ทองแดง) ⭐⭐ (KEY exam topic!)
+
+### What is it?
+**Failure of one or both testicles to descend** into scrotum during development
+
+### Types
+| Type | Description |
+|---|---|
+| **Unilateral** ⭐ | One testis in scrotum, other in abdomen |
+| **Bilateral** | Both retained in abdomen → STERILE (heat kills sperm) |
+
+### Genetic significance
+- Considered **HEREDITARY**
+- Track parents' history
+- **Cull from breeding** if found
+
+### Clinical management
+| Issue | Reason |
+|---|---|
+| **Don't castrate as 1-fonded piglet** | Need to identify cryptorchid + remove |
+| **Wait for after weaning** | Larger pig = easier surgery |
+| **Surgical challenge** ⭐ | Retained testis in abdomen often retracts during exploration |
+
+### Why we MUST remove cryptorchid testis
+- Produces **boar taint** (unpleasant meat odor)
+- Risk of malignant transformation
+- Genetic — propagates if used for breeding
+- Often condemned at slaughter inspection
+
+### Surgical technique
+1. Anesthetize pig
+2. Make small incision at inguinal area
+3. Insert finger to feel for testis
+4. **DON'T probe wildly** — testis retreats further!
+5. If found, slowly extract
+6. If not found in reasonable time → close + try later
+7. Practice = key
+
+---
+
+## 5. Hypoplasia ⭐ (Small + abnormal organ since birth)
+
+### Sites in boars
+| Type | Description |
+|---|---|
+| **Testicular hypoplasia** ⭐ | Smaller testis (one or both) |
+| **Penile hypoplasia** | Underdeveloped penis (rare) |
+| **Segmental hypoplasia of vas deferens** | Missing portion of duct |
+
+### Diagnosis
+- Visual inspection (small testis)
+- Palpation
+- Ultrasound (definitive for vas deferens)
+- Semen analysis (low/no sperm if bilateral)
+
+### Treatment
+- NONE for true hypoplasia (genetic)
+- Cull from breeding
+
+---
+
+## 6. Brucellosis Effects ⭐ (Acquired sterility)
+
+### Brucella suis
+- Zoonotic
+- Causes:
+  - **Orchitis** (inflamed testis)
+  - **Epididymitis** (inflamed epididymis)
+  - Vesiculitis
+  - Causes **chronic infertility**
+
+### Detection
+- Lymph node swelling (inguinal, especially!)
+- Serology
+- Bacteriology
+
+### Action
+- **CULL** infected boars
+- Notify other farms
+- Public health concern
+
+---
+
+## 7. Practical Pig Farming Implications ⭐
+
+### Why these problems matter
+1. **Economic loss** — failed breeding
+2. **Boar replacement cost** — premium genetics expensive
+3. **Slaughter losses** — boar taint condemned
+4. **Genetic propagation** if not culled
+5. **Zoonotic concerns** (Brucella)
+
+### When to cull boar
+- Confirmed bilateral hypoplasia
+- Cryptorchidism (always)
+- Brucella positive
+- Persistent low fertility (3+ collections)
+- Severe lameness or aggression
+
+---
+
+## 🎯 Exam Recap — top 12 testable points
+
+1. **4-tier fertility**: Fertility · Subfertility · Infertility · Sterility
+2. **Aspermia = no ejaculate**
+3. **Azoospermia = no sperm**
+4. **Hypospermia vs Oligospermia** = volume vs count
+5. **Teratozoospermia** = abnormal shapes
+6. **Cryptorchidism (ทองแดง)** = undescended testis
+7. **Bilateral cryptorchid = STERILE**
+8. **DON'T castrate cryptorchid early** — wait for surgical removal
+9. **Hypoplasia = congenital small organ**
+10. **Brucella suis** = zoonotic + cause chronic orchitis
+11. **Cull boars** with congenital defects
+12. **Boar taint** = reason to remove cryptorchid testis (unsold meat)
+
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 2 Spermatogenesis (piJq-n43sO8) · 3 Boar management (tGn3BDDIl9o) · 5 Semen collection (3cJC9Ymk1TI)
+> 🩻 **Practice tip**: Memorize 4 fertility tiers + 6 sperm defect terms — written exam favorites
+> 💡 **Cryptorchid surgery** = practice patience, finger sense, no random probing
+> 🦴 **Modern issue**: ASF era brings inbreeding-related cryptorchidism back`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
