@@ -19720,6 +19720,336 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > 🦴 **Practical**: Lab Sx 3 จะมี hands-on practice — ทุก technique ในนี้จะได้ทำจริง`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 8.2 Degenerative Joint Disease (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  VJ8ixtXP9XU: {
+    videoId: 'VJ8ixtXP9XU',
+    title: '8.2. Degenerative Joint Disease (DJD/OA)',
+    subject: 'com2',
+    date: '9 Oct 67 (รุ่นพี่)',
+    durationMin: 59,
+    instructor: 'อ. (ortho specialist · 50+ international lectures on this topic)',
+    examFormat: 'MCQ — OA vs DJD terminology · primary vs secondary OA in cats vs dogs · pain types · multimodal approach ออกบ่อย',
+    summary: `# Degenerative Joint Disease (DJD / OA)
+
+> 🎯 **Most common ortho condition** ที่จะเจอใน clinical practice
+> ⚠️ "ยาแก้ปวด = ยาขายดีที่สุดในโลก · 99% ใช้กับโรคนี้!"
+> Top exam: **OA vs DJD definition · primary vs secondary · cat OA · multimodal Tx**
+
+---
+
+## 1. Terminology ⭐⭐⭐ (สำคัญ-ออกสอบ!)
+
+| Term | Origin | Coverage |
+|---|---|---|
+| **OA (Osteoarthritis)** | European convention | Joint disease at **extremities** (hip, knee, elbow) |
+| **DJD (Degenerative Joint Disease)** | American convention | **Umbrella term** — includes **spinal** as well |
+
+⭐ **ทำไม Americans ปฏิเสธคำว่า OA**: cartilage มี **no blood supply** → strict inflammation (-itis) เกิดไม่ได้
+⭐ **Modern consensus**: DJD = umbrella · OA = peripheral joints subset
+
+---
+
+## 2. Primary vs Secondary OA ⭐⭐⭐ (KEY DIFFERENCE!)
+
+| Species | Type | Cause |
+|---|---|---|
+| **Dog** ⭐ | **Secondary OA** | Develops from underlying disease — Hip Dysplasia · Elbow Dysplasia · Patellar Luxation · OCD · trauma |
+| **Cat** ⭐⭐ | **Primary OA** | **Idiopathic!** No underlying cause identified |
+
+⭐ **Cat OA Reality** (last 10 years): "เจอเยอะมาก แต่หมอและเจ้าของไม่สังเกต!"
+- Modern indoor cats + breed selection → ↑ incidence
+- ตามเก็บแมวปกติฉีดวัคซีน → เจอ OA สูงเกินคาด
+
+---
+
+## 3. Joint Anatomy Recap (ที่ต้องเข้าใจ!) ⭐
+
+| Component | Detail |
+|---|---|
+| **Articular cartilage** | Hyaline type · NO blood/nerve/lymph supply · เลี้ยงด้วย synovial fluid only |
+| **Synovial fluid** | สร้างจาก **pumping mechanism** — joint movement! |
+| **Synovial membrane (Capsule)** | นี่คือที่อยู่ของ **nociceptors** (ปวดจริงๆ มาจากที่นี่!) |
+| **Subchondral bone** | "เห็นจาก X-ray ก็ต่อเมื่อ cartilage damage แล้ว" |
+
+⭐ **Cartilage Types** (3 ชนิด):
+- **Hyaline** = articular cartilage
+- **Fibrocartilage** = meniscus
+- **Elastic cartilage** = ear
+
+⚠️ **Joint immobilization > 3 weeks** → no pumping → no synovial fluid → **OA**
+
+---
+
+## 4. OA Pathogenesis ⭐⭐
+
+**Simple Concept**:
+- **Abnormal stress on Normal cartilage** OR
+- **Normal stress on Abnormal cartilage**
+- = **OA**
+
+**Common Setup**: น้ำหนักเพิ่ม + ขยับน้อย + คุณนั่งเรียน lecture = OA brewing!
+
+**Molecular**:
+- MMPs (Matrix Metalloproteinases) — esp. **MMP-1, 9, 13**
+- Collagen Type 2 destruction
+- Cytokine release → low-grade inflammation
+
+---
+
+## 5. Pain Generation ⭐⭐⭐
+
+### 5.1 Pain Source Layers
+| Stage | Source | Sensation |
+|---|---|---|
+| **Early** | Synovium (nociceptors) | Joint pain |
+| **Late** | Subchondral bone | Bone pain (deep aching) |
+
+⚠️ **Cartilage damage = NOT painful by itself!** (no nerve supply)
+
+### 5.2 The Pain → Disuse → Weight Cycle
+1. Pain → ขี้เกียจขยับ
+2. ↓ Activity → ↑ Weight
+3. ↑ Weight → ↑ Joint stress
+4. ↑ Joint stress → ↑ Cartilage damage
+5. → ↑ Pain → loop
+
+---
+
+## 6. Pain Classification ⭐⭐⭐
+
+### 6.1 Acute vs Chronic
+| Type | Duration | Mechanism |
+|---|---|---|
+| **Acute Pain** | < 3 months | Adaptive · noise receptor + inflammation |
+| **Chronic Pain** ⭐ | > 3 months | **Maladaptive** · pathological — neuropathic + functional |
+
+⚠️ **OA = Always Chronic Pain** (after early stage)
+
+### 6.2 Acute on Chronic
+- หมา OA chronic อยู่ + ไปกระแทก → **acute on chronic** flare-up
+
+### 6.3 Sensitization Types ⭐
+| Type | Mechanism |
+|---|---|
+| **Peripheral sensitization** | Local nerve hyperresponsiveness |
+| **Central sensitization** | Spinal cord/brain hyperresponsiveness |
+
+---
+
+## 7. Pain Localization → Drug Choice ⭐⭐⭐ (KEY EXAM!)
+
+| Pain Site | Drug Reaches |
+|---|---|
+| **Local (joint)** | **NSAIDs** |
+| **Spinal cord** | NSAIDs + **Opioids** + **Alpha-2 agonist** |
+| **Brain** | Only **Opioids** ⭐ |
+
+⭐ "เป็น OA + NSAID อย่างเดียวเอาไม่อยู่!" → ต้อง multimodal
+
+---
+
+## 8. Diseases that Lead to OA ⭐ (ALL of them!)
+
+| Category | Examples |
+|---|---|
+| **Articular fractures** | Salter-Harris IV · Acetabular Fx · ทุก type |
+| **Joint luxation** | Hip · Shoulder · Elbow → **เกิด OA after reduction!** |
+| **Developmental** | Hip Dysplasia · Elbow Dysplasia · OCD · MPL/LPL · Premature physeal closure |
+| **Trauma** | Articular cartilage exposed to air = OA |
+| **Joint surgery** | Even tomy/arthrotomy! |
+| **Systemic disease** | Cushing · Hypothyroid · CKD (low protein) · Heart disease (exercise intolerance) |
+| **Long immobilization** | Cast > 3 wks → arthrosis (no synovial fluid) |
+| **Neurologic disease** | Cauda equina · Wobbler |
+
+⭐ **Conclusion**: หมาทุกตัวกำลังเข้าใกล้ OA · "End-up = OA" — แค่ **เร็ว vs ช้า**
+
+---
+
+## 9. Diagnostic Imaging ⭐
+
+### 9.1 X-ray Settings
+- **Low kV, High mAs** ⭐
+- **Deep sedation/anesthesia** for accurate exposure
+
+### 9.2 X-ray Signs of OA ⭐⭐⭐
+| Sign | Meaning |
+|---|---|
+| **Osteophyte (กระดูกงอก)** | จาก **enthesitis** (sclerosis at ligament/tendon attachment) → develops into osteophyte |
+| **Subchondral bone sclerosis** | สีขาวเข้มที่ joint contact area = chronic inflammation + ↑ Ca |
+| **Joint space narrowing** | (only useful in human standing X-ray, not in dogs!) |
+| **Subchondral cysts** | Late finding |
+
+⚠️ **Cannot use joint space in animals** — no Reference for breed/size/age standing X-ray exists
+
+### 9.3 Other Modalities
+- **CT/MRI** — soft tissue + cartilage detail
+- **Ultrasound** — synovial assessment
+- **Arthroscopy** — gold standard but expensive
+
+---
+
+## 10. Treatment Goals ⭐⭐⭐
+
+> **OA cannot be cured! · Goals = (1) Relieve Pain (2) Slow Progression**
+
+### 10.1 Decision Framework
+| Approach | Goal |
+|---|---|
+| **Medical Treatment** | Pain release · ↓ inflammation · maintain function |
+| **Surgical Treatment** | (1) **Preventive** — fix early disease (OCD, FMP) before OA (2) **Pain release** — late stage (THR, FHO) |
+
+---
+
+## 11. Pharmacotherapy (เลือกตัวให้ถูก!) ⭐
+
+### 11.1 NSAIDs ⭐ (mainstay)
+- Top selling drug worldwide
+- Modern landscape: **Carprofen · Meloxicam · Robenacoxib · Firocoxib · Mavacoxib · Grapiprant**
+- ⚠️ **Each drug has different niche** — เลือกตาม situation
+
+### 11.2 Opioids
+- For severe pain · spinal/CNS reach
+- Tramadol — ❌ "ในหมา NO evidence ลดปวด เมื่อใช้เดี่ยว!" ⭐
+  - ใช้ฉีดร่วมกับยาอื่น OK
+  - ในแมว — เซโรโทนิน-related pain OK
+
+### 11.3 Newer Options ⭐
+| Drug class | Note |
+|---|---|
+| **Anti-NGF monoclonal antibody** | "NGF = nerve growth factor" · revolutionary new option |
+| **PRP (Platelet-rich plasma)** | "ผมใช้เยอะมาก" — ลด inflammation + delay progression |
+| **Stem cell injection** | Investigational |
+| **Gene therapy** | Future |
+
+### 11.4 Supplements (Evidence Update!) ⭐
+| Supplement | Status |
+|---|---|
+| **Glucosamine + Chondroitin** | "ผมเลิกใช้แล้ว!" — งานวิจัยไม่ confirm efficacy |
+| **PUFA (Omega-3, Omega-6)** | ลด inflammation · evidence-supported |
+| **Undenatured Collagen Type 2** | บล็อก T-cell at Peyer's patch → ↓ inflammation (NOT direct cartilage) |
+| **Hyaluronic acid** | Joint injection · variable efficacy |
+
+⚠️ **Collagen ขายเป็นซองตามทีวี = ปัญญาอ่อน** — protein digested in stomach!
+
+---
+
+## 12. Pain Management Concepts ⭐⭐⭐
+
+### 12.1 The Two 2022 Guidelines (must know!)
+- **AAHA** (American Animal Hospital Association)
+- **WSAVA** (World Small Animal Veterinary Association)
+
+⭐ **2 Core Concepts**:
+1. **Pre-emptive analgesia** — ป้องกันก่อน pain เกิด
+2. **Multimodal treatment** — ใช้ทุกวิธีร่วมกัน · ไม่สนว่าใครเป็นพระเอก
+
+### 12.2 Pain Score Tools
+| Tool | Use |
+|---|---|
+| **Colorado Pain Scale** | Acute pain |
+| **Glasgow CMPS** | Acute pain |
+| **Liverpool COA** ⭐ | **Chronic OA pain** |
+| **CSU OA scale** | Veterinary specific |
+
+---
+
+## 13. Non-Pharmacological Treatment ⭐
+
+### 13.1 Weight Control = Fat Loss (NOT just weight loss!)
+- ⭐ **ลดไขมัน · เพิ่มกล้ามเนื้อ** = healthy
+- ลดน้ำหนัก = ลดทั้ง muscle + fat = unhealthy
+
+### 13.2 Exercise Concepts
+| Type | Effect |
+|---|---|
+| **Vigorous + Repetitive Impact** ❌ | Damage cartilage (e.g., extreme running) |
+| **Moderate + Regular** ✅ ⭐ | Walking · light shocking · daily routine |
+
+⭐ **Walking research**: หมาเดิน regularly = pain reduction = NSAID effect (statistically equivalent)
+
+### 13.3 Swimming ⭐ (Controversial!)
+- "Textbook 90% บอกว่าดี — ผม **against**!"
+- **เหมาะ**: บางสายพันธุ์ที่ชอบน้ำ + supervised
+- **ไม่เหมาะ**: หมาที่กลัวน้ำ · cats · brachycephalic
+- เคสจริง: Bernese Mountain Dog ตกน้ำ panic → วิ่งหนี → รถชนหน้าหัก
+
+### 13.4 Rehabilitation Modalities
+- Cold/warm packing
+- Ultrasound therapy
+- Laser therapy
+- Hydrotherapy (selected cases)
+- Therapeutic exercises (PT)
+- Acupuncture
+
+---
+
+## 14. Surgical Options ⭐
+
+| Procedure | Indication |
+|---|---|
+| **Preventive Sx**: OCD removal · FMP removal · MPL correction · CCL repair | Early disease — block OA development |
+| **Joint replacement** (THR · TER · TKR) | End-stage OA |
+| **Arthrodesis** | Joint fusion — eliminate motion = pain |
+| **Femoral Head Ostectomy (FHO)** | Hip salvage |
+| **Amputation** | Last resort severe pain |
+
+---
+
+## 15. Cat OA Recognition ⭐⭐⭐ (ตัว exam ตัวเด็ด!)
+
+### 15.1 Behavioral Signs (ที่หมอ + เจ้าของไม่สังเกต!)
+- **Hesitates before jumping** — มองสูง/ต่ำก่อน · เคยกระโดดเลย!
+- **Slides down instead of jumping**
+- **Reduced grooming**
+- **Sleeping in unusual positions**
+- **Skin twitch when palpating spine** ⭐ — sign of **spinal pain**
+
+### 15.2 Cat-specific Findings
+- Spinal hyperalgesia palpable
+- ⭐ **Skin "rolling/twitching"** when paraspinal area touched (similar to horses!)
+
+---
+
+## 16. Multimodal Treatment Algorithm ⭐ (Practice!)
+
+| Step | Action |
+|---|---|
+| **1. Diagnosis** | X-ray + Pain score |
+| **2. Pharmacological** | NSAID (1st line) → + Opioid (severe) → + Adjunct (PUFA, Collagen Type 2) → Consider PRP, Anti-NGF, Stem cell |
+| **3. Non-pharmacological** | Weight management (fat loss) · Therapeutic exercise (regular walking) · Rehab (cold/warm, US, laser) |
+| **4. Surgical** (if appropriate) | Preventive Sx (early) · Salvage/Replacement (end-stage) |
+| **5. Continuous monitoring** | Reassess + adjust |
+
+---
+
+## 📝 EXAM RECAP — 18 Key Points
+
+1. **OA vs DJD** — DJD = umbrella term · OA = peripheral joints
+2. **Dog OA = Secondary** (from underlying disease) ⭐⭐⭐
+3. **Cat OA = Primary** (idiopathic) ⭐⭐
+4. **Cartilage has NO blood/nerve/lymph supply** — fed by synovial fluid only
+5. **Synovial fluid sources**: pumping mechanism (joint motion!)
+6. **Pain origin**: Synovium (early) → Subchondral bone (late) — NOT cartilage!
+7. **Joint immobilization > 3 weeks** → arthrosis
+8. **OA pathogenesis**: ↑ stress on N cartilage OR N stress on ↓ cartilage
+9. **MMPs (matrix metalloproteinases)** = key enzymes (MMP-1, 9, 13)
+10. **Acute vs Chronic Pain**: 3 months cutoff
+11. **Pain reach**: NSAID = local · Opioid = brain · Alpha-2 = spinal
+12. **Tramadol useless alone in dogs** ⭐
+13. **Weight management = fat loss**, not just weight loss
+14. **Exercise**: Moderate-Regular > Vigorous-Repetitive
+15. **Glucosamine/Chondroitin = controversial** — many specialists abandoning
+16. **Multimodal Tx**: AAHA + WSAVA 2022 guidelines
+17. **Surgical**: Preventive (early) vs Salvage/Replacement (late)
+18. **Cat OA signs**: hesitation before jumping · skin twitch · sliding down
+
+> 📚 อ่านควบ: 9.1 Dev Ortho (Spz38qa5upU) · 9.2 Hip Dysplasia (hIlH1i845wI) · 9.3 Patella Luxation (CIUpw8GNtQ4) · 11 Common Joint (MMTtwT_7c94) · 12 Cruciate (9U-Dgu0ouUk) · 15.1 Elbow (Os6MWLC8oso)
+> 🎬 หมายเหตุ: รุ่นพี่บันทึก · clip Mac มีผีหลอก! · video clips ไม่เล่น · slides มี details เพิ่มเติม
+> 💊 **Practice tip**: เจ้าของหลายคน "ลดน้ำหนัก" = ลดอาหาร → กินโปรตีนน้อย → กล้ามเนื้อลดด้วย → กลับมา OA ใหม่`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
