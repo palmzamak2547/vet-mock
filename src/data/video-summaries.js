@@ -45627,6 +45627,229 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 💡 **First lecture takeaway**: This subject CONNECTS biostatistics + public health + clinical practice`,
   },
 
+  oH3iSvwMdYY: {
+    videoId: 'oH3iSvwMdYY',
+    title: 'Veterinary Epidemiology — 1.2 Basic Concepts in Epidemiology',
+    subject: 'epidemiology',
+    date: '2025-08-07',
+    durationMin: 79,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง definition · qualitative vs quantitative · 3 study designs · etymology epi-demos-logos',
+    summary: `## 🎯 Lead Summary
+**Basic concepts in epidemiology** — building on the introduction. Core idea: ⭐ **Epidemiology = study of disease in POPULATIONS (not individuals)**. Differs from pathology because it works at HERD level. Etymology: ⭐ **Epi (upon) + Demos (people) + Logos (knowledge)** = "knowledge upon people". Modern split: ⭐ **Qualitative** (Natural History · Causation · Microbe characterization) vs ⭐ **Quantitative** (Disease Measuring · Observational Studies · Modelling · Clinical Trials · Economic Assessment · Risk Assessment). 3 study designs: ⭐ **Cross-sectional · Retrospective · Prospective**.
+
+## 1️⃣ Why Epidemiology Connects Everything ⭐⭐
+
+### Vet Career Foundation
+> "อายุรศาสตร์ = core of vet career"
+- ⭐ Surgery? Can refer if can't do
+- ⭐ Reproduction? Can refer
+- ⚠️ ⭐ **Diagnosis/Treatment skills?** = ⭐ MUST HAVE (= core)
+- ⭐ Epidemiology supports = better Decision Making
+
+### Where Epidemiology Lives in Universities
+- Some: Department of **Public Health** (focus on infectious + zoonotic)
+- Some: Department of **Medicine** (focus on herd health)
+- ⭐ Both correct — depends on focus
+
+### Career Wisdom from Instructor ⭐
+- ⭐ "Vet jobs ↑ when you can DECISION-MAKE quickly + correctly"
+- ⭐ Real practice: not as ideal as student life
+- ⭐ Decisions affected by: colleagues, society, finances, politics
+- ⭐ "If you're the vet they think of when crisis hits → you'll be wealthy"
+
+## 2️⃣ Definition Distinctions ⭐⭐⭐
+
+### Etymology
+> ⭐ **Epi** (upon) + **Demos** (people) + **Logos** (knowledge)
+> = "Study of what is UPON THE PEOPLE"
+
+### Pathology vs Epidemiology
+| Pathology | Epidemiology |
+|---|---|
+| ⭐ Studies INDIVIDUAL animal | ⭐ Studies POPULATION |
+| Cellular, tissue level | Herd, farm, country level |
+| Lab-based | Field + data |
+| One case → diagnosis | Many cases → trends |
+
+### WHO Definition (Translated)
+> ⭐ "Epidemiology = study of distribution and determinants of disease frequency in populations"
+
+## 3️⃣ Epidemiology Study Areas ⭐⭐⭐
+
+### A. Qualitative Epidemiology
+| Topic | What it studies |
+|---|---|
+| ⭐ **Natural History of Disease** | How disease occurs naturally · "Pipithak Tham-machart Wittaya" connection (CU Natural History Museum) |
+| ⭐ **Causal/Cause** | Disease causation factors |
+| ⭐ **Microbe characterization** | Pathogen properties, vectors, hosts |
+| **Disease distribution** | Where it occurs |
+
+### B. Quantitative Epidemiology ⭐⭐
+| Topic | What it studies |
+|---|---|
+| ⭐ **Disease Measuring** | Count cases, calculate rates |
+| ⭐ **Observational study** | Compare groups (with/without exposure) |
+| ⭐ **Modelling** | Predict spread (e.g., COVID R-value!) |
+| **Clinical Trial** | Test interventions |
+| **Economic Assessment** | Cost-benefit of programs |
+| **Risk Assessment** | (Mainly in VPH course) |
+
+## 4️⃣ Disease Causation Concept ⭐
+
+### Single vs Multiple Causes
+- ⭐ Most diseases = ⭐ **MULTIPLE causes** (multifactorial)
+- Single cause examples:
+  - Trauma (one event)
+  - Burns
+  - Toxic ingestion (specific)
+
+### Multifactorial Disease ⭐
+- ⭐ Pathogen + Host susceptibility = disease
+- Example: Cold virus + low immunity → cold
+- Vet practice: ⭐ Manage multiple risk factors
+
+## 5️⃣ Cross-Sectional Study (CS) ⭐⭐
+
+### Definition
+- ⭐ "Snapshot in time"
+- ⭐ Measure disease + exposure SIMULTANEOUSLY
+- Single point of data collection
+
+### Use Case
+- Prevalence surveys
+- Quick farm health snapshot
+- ⭐ When time is limited
+
+### Limitations
+- Can't establish causation order
+- "Chicken vs egg" problem
+- Just associations
+
+## 6️⃣ Retrospective Study ⭐⭐⭐
+
+### Definition
+- ⭐ ⭐ "Look BACKWARD in time"
+- Start with disease, search for past exposures
+- Case-control studies
+
+### Direction
+- Disease (now) → Exposure (past)
+- ⭐ "ศึกษาโรคกลับไปหาปัจจัย"
+
+### Example: HPAI
+- ⭐ Real story from class!
+- Birds got new virus → look back
+- Found: avian flu + swine flu both infected pigs
+- Pigs = ⭐ **mixing vessel**
+- Genetic reassortment created human-infectious strain
+
+### Pros/Cons
+- ✅ Faster
+- ✅ Cheaper
+- ✅ Good for rare diseases
+- ⚠️ Recall bias
+- ⚠️ Selection bias
+
+## 7️⃣ Prospective Study ⭐⭐
+
+### Definition
+- ⭐ "Look FORWARD in time"
+- Start with exposure, follow for disease
+- Cohort studies
+
+### Direction
+- Exposure (now) → Disease (future)
+- ⭐ "ศึกษาปัจจัยไปหาโรค"
+
+### Pros/Cons
+- ✅ Strong causation evidence
+- ✅ Multiple outcomes per exposure
+- ⚠️ Expensive
+- ⚠️ Slow (years)
+- ⚠️ Loss to follow-up
+
+## 8️⃣ Modelling in Epidemiology ⭐
+
+### Predictive Power
+- ⭐ Mathematical models predict spread
+- Government uses these for COVID decisions!
+
+### Key Concept: ⭐ R-value (Reproduction Number)
+- ⭐ "How many new cases each infected person creates"
+- Example values:
+  - HPAI: ~1 → 4
+  - COVID early: ⭐ 1 → 16!
+  - COVID later strains: 1 → 1
+
+### Application
+- Resource allocation (hospitals, vaccines)
+- Policy decisions (lockdowns, schools)
+- Public communication
+
+## 9️⃣ Real-World Application ⭐
+
+### Risk-Factor Investigation Workflow
+1. ⭐ Detect disease in farm
+2. ⭐ Compare with similar farms (Farm A vs Farm B)
+3. ⭐ Identify risk factor differences
+4. ⭐ Calculate statistical significance
+5. ⭐ Implement control measures
+
+### Example: HPAI Study
+- Why didn't it infect humans for 100 years?
+- ⭐ Retrospective study revealed:
+  - Co-infection mechanism
+  - Mixing vessel pigs
+  - Reassortment events
+- Result: ⭐ Better surveillance in mixed-species farms
+
+## 1️⃣0️⃣ Diseases Thailand Doesn't Have (Yet) ⭐
+
+### Examples Mentioned
+- ⭐ **BSE (Bovine Spongiform Encephalopathy)** = Mad Cow Disease
+- ⭐ Not in Thailand yet
+- ⚠️ Could come if importation rules fail
+- Need surveillance even for absent diseases
+
+### Recent NEW Diseases (during course)
+- ⭐ ⭐ **African Swine Fever** (ASF, in last ~6 years)
+- ⭐ ⭐ **Lumpy Skin Disease** (LSD, since 2021)
+- ⭐ Lesson: Can have new disease anytime!
+
+## 1️⃣1️⃣ Surveillance Importance ⭐
+
+### Why Knowledge Matters
+- ⭐ HPAI 2003: **Couldn't control because didn't know it**
+- ⭐ One outbreak → spread nationwide
+- ⭐ As knowledge grew → control improved
+
+### Modern Status
+- HPAI: 20+ years no Thai cases
+- ASF: Endemic now
+- LSD: Slowly being controlled
+
+## 📋 Exam Recap (12 จุดสำคัญ)
+
+1. ⭐ **Etymology**: Epi (upon) + Demos (people) + Logos (knowledge)
+2. ⭐ **Population focus** (NOT individual) = key difference from pathology
+3. ⭐ **Qualitative epi**: Natural History · Causation · Microbe characterization
+4. ⭐ **Quantitative epi**: Disease Measuring · Observational · Modelling · Clinical · Economic · Risk
+5. ⭐ **3 study designs**: Cross-sectional · Retrospective · Prospective
+6. ⭐ **Cross-sectional** = snapshot in time
+7. ⭐ **Retrospective** = disease → look back at exposure
+8. ⭐ **Prospective** = exposure → follow forward to disease
+9. ⭐ **Multiple causation** = norm (not single causes)
+10. ⭐ **R-value** = reproduction number for disease spread
+11. ⭐ **Mixing vessel** concept (HPAI in pigs example)
+12. ⭐ **Decision-making support** = ultimate purpose of epidemiology
+
+> 📚 **Cross-refs**: 1.1 Introduction · Surveillance + Test-kits · Public Health
+> 🩺 **Practical**: Always think POPULATION not individual when doing epi
+> 📊 **Key skill**: Know which study design fits which question
+> 🎯 **Application**: All knowledge → DECISION MAKING for prevention/control`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
