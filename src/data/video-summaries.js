@@ -45390,6 +45390,243 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🎓 **Course complete!** herd-health-rum done · ready for Year 5 fieldwork`,
   },
 
+  // ═══════════════════════════════════════════════════════════════
+  // epidemiology (DekDokVet85 · Y5 sem 1) — 15 videos
+  // ═══════════════════════════════════════════════════════════════
+
+  JcwXAnIb5uM: {
+    videoId: 'JcwXAnIb5uM',
+    title: 'Veterinary Epidemiology — 1.1 Introduction',
+    subject: 'epidemiology',
+    date: '2025-08-07',
+    durationMin: 90,
+    instructor: 'อ.ธนศักดิ์ (อดีตนายกฯ · 2 วาระหมด · ผู้สอนหลักคอร์สนี้)',
+    examFormat: 'Multiple choice + scenario · ออกตามคำพูด keywords (อ.บอกแล้ว) · เน้น concepts + study designs',
+    summary: `## 🎯 Lead Summary
+**Veterinary Epidemiology = first course in Y5 sem 1**. ⭐ **Definition**: study of disease distribution + frequency + determinants in animal populations. Covers BOTH infectious and non-infectious diseases. Connects to: ⭐ **Biostatistics + Public Health + Preventive Medicine + Herd Health**. Course goal: ⭐ **Disease Prevention + Control + Eradication** through data-driven decisions. Critical concepts intro'd: ⭐ **Sporadic · Endemic · Epidemic · Pandemic** · ⭐ **Reservoir host · Primary host · Intermediate host** · ⭐ **Active vs Passive Surveillance** · ⭐ **Test-kit metrics** (Sensitivity, Specificity, Accuracy).
+
+## 1️⃣ Epidemiology Definition ⭐⭐⭐
+
+### What Epidemiology IS
+- ⭐ Study of **disease distribution** in populations
+- ⭐ Study of **disease frequency** (how often)
+- ⭐ Study of **determinants** (what causes/contributes)
+- ⭐ Population-level (NOT individual)
+
+### What Epidemiology IS NOT
+- Just biostatistics
+- Just public health
+- Just preventive medicine
+- It's the **CONNECTOR** between all of these
+
+### Real-World Examples ⭐
+| Example | Epidemiology aspect |
+|---|---|
+| ⭐ **COVID-19 case curves** | Frequency tracking → predict resources |
+| ⭐ **HPAI cases by year/country** | Distribution mapping → preparedness |
+| **Mortality from H7N7 in Netherlands (2003)** | First human death from avian flu (a vet!) |
+| **H5N1 in Thailand 2547** | Different strain, same family |
+
+## 2️⃣ Course Topics (Roadmap) ⭐⭐
+
+### Sequence
+1. ⭐ **Introduction** (today)
+2. ⭐ **Basic concepts** in epidemiology
+3. ⭐ **Disease in populations I & II**
+4. ⭐ **Association vs Causation**
+5. ⭐ **Measurement of disease frequency**
+6. ⭐ **Outbreak Investigation**
+7. ⭐ **Screening + Diagnostic tests** (Test-kits)
+8. ⭐ **Animal disease surveillance + monitoring**
+9. ⭐ **Observation studies** (Study Design)
+10. ⭐ **Applied Statistics** in Epidemiology
+11. ⭐ **Disease Control, Prevention, Eradication**
+12. **Public Private Partnerships**
+13. **Practice + Application** in research
+
+### Why It Matters
+- ⭐ **Statistics needed!** Review your stats!
+- ⭐ Will use software (not hand calculations)
+- BUT must know which method to choose
+- Career: surveillance, research, drug development, public health
+
+## 3️⃣ Key Concepts Introduced ⭐⭐⭐
+
+### Disease Patterns (4 key terms!)
+| Term | Definition | Example |
+|---|---|---|
+| ⭐ **Sporadic** | Occasional, irregular cases | Anthrax in Thailand |
+| ⭐ **Endemic** | Constantly present in population | FMD in Thailand |
+| ⭐ **Epidemic** | Sudden increase above expected | LSD outbreak 2021 |
+| ⭐ **Pandemic** | Global spread | COVID-19, Spanish Flu |
+
+### Host Types ⭐
+| Term | Role | Example |
+|---|---|---|
+| ⭐ **Primary Host** | Disease completes life cycle here | Cattle for FMD |
+| ⭐ **Intermediate Host** | Larval/asexual stage | Snail for Fasciola |
+| ⭐ **Reservoir Host** | Maintains disease, may not be sick | Wildebeest for MCF, Sheep for OvHV-2 |
+| **Vector** | Transmits agent | Mosquito for malaria |
+
+### Disease Eradication Hierarchy ⭐
+- ⭐ **Eradication** = no virus exists anywhere (Smallpox, Rinderpest)
+- **Elimination** = no disease in specific area
+- **Control** = reducing burden
+
+## 4️⃣ Surveillance Types ⭐⭐⭐
+
+### Passive Surveillance ⭐
+- ⭐ **Routine** disease reporting
+- ⭐ **Cheaper** (uses existing infrastructure)
+- Example: Lab tests on samples already submitted
+- ⭐ Default approach when no outbreak
+
+### Active Surveillance ⭐
+- ⭐ **Targeted** investigation
+- ⭐ **More expensive** (need teams + travel)
+- Triggered by: outbreak alerts, high-risk events
+- Example: HPAI X-ray (door-to-door investigation)
+
+### Why Mostly Passive? ⭐
+- ⭐ **Cost** (limited budgets)
+- ⭐ Resources better targeted
+- Active reserved for emergencies
+
+### When to Switch to Active
+- ⚠️ Notify-able disease detected
+- Mortality cluster
+- Public health concern
+- Trade barrier triggered
+
+## 5️⃣ Test-Kit Metrics (Critical for Future Practice!) ⭐⭐⭐
+
+### 3 Key Metrics
+| Metric | Definition | Question Answered |
+|---|---|---|
+| ⭐ **Sensitivity** | True Positive rate | ⭐ Does it detect SICK? |
+| ⭐ **Specificity** | True Negative rate | ⭐ Does it confirm HEALTHY? |
+| ⭐ **Accuracy** | Overall correctness | ⭐ How reliable overall? |
+
+### Why It Matters in Practice
+- ⭐ When choosing diagnostic kits
+- COVID test comparison: 99% Sens / 90% Spec vs 90/85
+- Influences clinical decisions
+- ⭐ Different kits for different purposes
+
+### Application: Surveillance Test Selection
+- Screening tool → high SENSITIVITY (catch all positives)
+- Confirmatory test → high SPECIFICITY (rule out false +)
+
+## 6️⃣ Bird Flu Case Study ⭐⭐ (Excellent Example!)
+
+### Why It's a Great Example
+- ⭐ **Long history** but didn't infect humans for 100 years
+- 2003: First human death (Netherlands, vet, H7N7)
+- 2547 (2004): Thailand outbreak (H5N1)
+
+### How Did Bird Flu Become Human-Lethal? ⭐
+- ⭐ **Retrospective study** revealed:
+  - Avian flu + Swine flu BOTH infected pigs simultaneously
+  - ⭐ **Mixing vessel** (pigs) → genetic reassortment
+  - New strain → infectious to humans!
+- Lessons:
+  - Co-circulation between species = danger
+  - Surveillance critical at pig-poultry interfaces
+
+### Thailand's HPAI Success Story ⭐
+- ⭐ **Model country** for HPAI control
+- Recognition by: FAO, WOAH (formerly OIE)
+- Strategy: Stamping out + movement control + biosecurity
+- ⭐ **Result**: No HPAI in Thailand for 20+ years!
+- Currently only Low Pathogenic strains detected
+
+## 7️⃣ Public Health × Veterinary Epidemiology ⭐
+
+### Why It's Inseparable
+- ⭐ Many animal diseases are zoonotic
+- ⭐ Trade impacts → economic public health
+- ⭐ Food safety
+- One Health approach (more in later lectures)
+
+### Examples
+| Disease | Animal | Human impact |
+|---|---|---|
+| Avian Influenza | Birds, pigs | Pandemic risk |
+| Brucellosis | Cattle, goats | Undulant fever |
+| Salmonella | Multiple | Food poisoning |
+| Rabies | Mammals | Always fatal |
+
+## 8️⃣ Economics + Decision Making ⭐⭐
+
+### Resources Are Finite
+- ⭐ Thai government budget: **3 trillion baht/year**
+- BUT diseases are MANY
+- ⚠️ Can't control all diseases simultaneously
+
+### Selection Criteria for Disease Priorities ⭐
+1. ⭐ **Economic impact**: Major export disease (FMD, ASF) = priority
+2. ⭐ **Public health impact**: Zoonotic risk
+3. **Trade impact**: WTO/SPS barriers
+4. **Welfare concern**: Severe animal suffering
+
+### Government Surveillance Priorities ⭐
+- Routine: FMD, LSD (vaccine programs)
+- Targeted: HPAI, ASF, Brucellosis
+- Emerging: New diseases via wildlife
+
+## 9️⃣ Study Design Types ⭐⭐
+
+### Briefly Introduced (More in later lectures)
+| Design | Direction | Example |
+|---|---|---|
+| **Cross-sectional** | Snapshot | Prevalence survey |
+| ⭐ **Prospective** | Follow forward in time | Cohort study |
+| ⭐ **Retrospective** | Look back at past | Case-control study |
+
+### Quick Quiz from Class ⭐
+**Q1**: Studying cattle morbidity in Nakhon Pathom = ?
+- Answer: ⭐ Epidemiology
+
+**Q2**: H5N1 transmission between birds + humans = ?
+- Answer: ⭐ Epidemiology + Public Health
+
+**Q3**: Reducing piglet mortality in farrowing = ?
+- Answer: ⭐ Veterinary medicine + Herd health
+
+## 1️⃣0️⃣ Connection to Other Subjects ⭐
+
+### How Epidemiology Connects
+| Subject | Connection |
+|---|---|
+| ⭐ **Biostatistics** | Calculations + analysis |
+| ⭐ **Public Health** | Population-level interventions |
+| ⭐ **Preventive Medicine** | Disease prevention strategies |
+| ⭐ **Herd Health** | Animal population management |
+| **Microbiology** | Pathogen identification |
+| **Pharmacology** | Treatment efficacy studies |
+| **Toxicology** | Environmental disease |
+
+## 📋 Exam Recap (10 จุดสำคัญ)
+
+1. ⭐ **Epidemiology = study of disease distribution + frequency + determinants in populations**
+2. ⭐ **4 patterns**: Sporadic · Endemic · Epidemic · Pandemic
+3. ⭐ **3 host types**: Primary · Intermediate · Reservoir
+4. ⭐ **Eradication ≠ Elimination ≠ Control**
+5. ⭐ **Passive vs Active Surveillance** (cost vs targeting trade-off)
+6. ⭐ **3 Test-kit metrics**: Sensitivity · Specificity · Accuracy
+7. ⭐ **Mixing vessel concept** (HPAI + swine flu in pigs)
+8. ⭐ **Resource constraints** drive disease priority decisions
+9. ⭐ **3 Study designs**: Cross-sectional · Prospective · Retrospective
+10. ⭐ **Thai HPAI success** = WOAH model country (no cases 20+ years)
+
+> 📚 **Cross-refs**: Herd-health-rum (KPI calculations) · Public health subjects · Preventive medicine
+> 🩺 **Practical**: Stats software is fine but MUST know which method · Read course before class
+> 📊 **Key formula**: Surveillance = Passive default + Active when triggered
+> 🎯 **Goal of all epidemiology**: Disease Prevention, Control, Eradication
+> 🌍 **Reality**: Thailand + Israel + similar tropic countries — different from temperate epidemiology
+> 💡 **First lecture takeaway**: This subject CONNECTS biostatistics + public health + clinical practice`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
