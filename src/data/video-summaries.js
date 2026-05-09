@@ -43907,6 +43907,352 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 💡 **Disorder ≠ disease**: most are management issues, not infections!`,
   },
 
+  BFTJMA4UVuU: {
+    videoId: 'BFTJMA4UVuU',
+    title: 'Recording & Data Analytics for Dairy Herd Health Management',
+    subject: 'herd-health-rum',
+    date: '2024-10-30',
+    durationMin: 165,
+    instructor: 'อ.ธนศักดิ์ (Saraburi research center · 5-yr improvement project)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง KPI calving interval · CTC/CTFS · biosecurity · sensor data · economic loss calculation',
+    summary: `## 🎯 Lead Summary
+**Dairy farm performance management** = ⭐ data-driven approach. Thai dairy stuck at **4,000 kg/cow/year** (vs world top 11,000-12,000) — gap exists because of poor recording + no clear KPIs. Solution: ⭐ **Send vet + sensor technology** → reduces calving-to-conception (CTC) from 250+ days to <200 days → **economic gain ~2 million baht/year per 65-cow farm**. Critical concepts: ⭐ **Calving Interval (CI) target 365 days** · **CTC <100 days** = world-class · **Bio-security as new EU standard** for Thai vet schools · **Heat detection rate** (manual ~30% vs sensor ~70-80%).
+
+## 1️⃣ Thailand Dairy Industry Context ⭐⭐
+
+### Production Reality Check
+| Country | Average milk yield | Notes |
+|---|---|---|
+| **Thailand** | ⚠️ 4,000 kg/cow/year | Stuck since 2010 |
+| Vietnam | ↑↑ recent gains | Used Israeli technology |
+| **World top tier** | ⭐ 11,000-12,000 kg | Israel, USA, Netherlands |
+| Israel ⭐ | 11,000 kg | ⚠️ DESERT country yet world leader! |
+
+### Why Thailand Lags Behind ⭐
+1. ⭐ **Poor recording systems** (paper, scattered data)
+2. **No clear performance targets** (no KPI culture)
+3. **Mixed-quality feed** (using cheap byproducts without standards)
+4. **Disease burden** (FMD, LSD, mastitis ongoing)
+5. ⚠️ **Vet shortage** in dairy (most vets prefer small animal)
+6. **Low farm size** (avg 20-30 cows, 50% area in Saraburi-Lopburi-Pakchong)
+
+### Major Production Areas
+- **Saraburi-Lopburi-Pakchong**: 50%+ Thai dairy
+- **Ratchaburi-Nongpoh**: large secondary
+- **Nakhon Pathom-Kamphaengsaen**: CUVET research
+- **Kanchanaburi-Tha Muang**: regional cluster
+- **Prachuap, Chiang Mai, Khon Kaen**: smaller clusters
+
+## 2️⃣ Saraburi Research Center (CUVET) ⭐
+
+### Mission
+- ⭐ **Real working dairy farm** (50 cows!)
+- ⭐ **Integrated technology testing**: sensors, AI, premium milk
+- Train mobile vet teams
+- Improve regional farms (proven model)
+
+### Vet Team Structure ⭐
+| Role | Count | Focus |
+|---|---|---|
+| **Hospital vet (Nakhon Pathom)** | 2 | Center coordination |
+| **Farm vet (Saraburi)** | 1 | On-site direct care |
+| ⭐ **Field vets** | 8 | Mobile clinic farms |
+| **Assistants** | 8+ | Support |
+
+### Projects
+- **Premium Milk** label (Saraburi · matches Hokkaido!)
+- **VR Walk-Through** training platform (post-COVID)
+- **Cheese production** (cheddar, jersey · 2,000 baht/kg!)
+- ⭐ **Vet ID + cattle ID system** (unique cow tracking)
+
+## 3️⃣ Biosecurity (New EU Standard!) ⭐⭐⭐
+
+### Why Bio-Security Matters
+> "Thailand จะเข้าสู่มาตรฐาน EU ได้ต้องมี biosecurity!"
+- ⭐ **EU requirement** for vet school accreditation
+- Protect veterinary students + workers
+- Prevent disease spread between farms
+- ⭐ **Vet = often biggest disease vector** (clothes, hair, phone, shoes!)
+
+### Key Diseases (Vet Risk!) ⭐
+| Disease | Risk |
+|---|---|
+| ⭐ **TB** | Cattle to vets · researchers · maids who wash gowns! |
+| ⭐ **Brucellosis** | Goat farm workers · samples |
+| **FMD** | Carrier on clothes |
+| **Anthrax** | ⛔ Don't open carcasses! |
+| **Leptospirosis** | Water/urine contact |
+| **Rabies** | Stray dogs in cattle areas |
+
+### Biosecurity SOPs (Standard Operating Procedures)
+1. ⭐ Change clothes before/after farm visit
+2. ⭐ Hair caps (hair ties can't be disinfected!)
+3. ⭐ Mobile phone in plastic bag
+4. ⭐ Boot changes / disposable boot covers
+5. **PPE**: gloves, mask (N95 in goat farms)
+6. ⭐ Handwashing stations at farm entry
+7. **High-risk visitors** = no animal contact (perimeter only)
+
+### CCTV Monitoring
+> "ที่ฟาร์มมีกล้อง CCTV หมด — บันทึกทุกอย่างยกเว้น 'วินัย'"
+- Real concern at training centers
+- Students often skip protocols thinking "just this time"
+- Permanent loss = farm contamination
+
+## 4️⃣ Critical KPIs (Key Performance Indicators) ⭐⭐⭐
+
+### Primary Reproduction KPIs ⭐
+| KPI | Definition | World class | Thailand current |
+|---|---|---|---|
+| ⭐ **Calving Interval (CI)** | Time between births | **365 days** | 430+ days |
+| ⭐ **Calving to First Service (CTFS)** | Days post-calving until 1st AI | <80 days | 150+ days |
+| ⭐ **Calving to Conception (CTC)** | Days post-calving until pregnant | <90 days | 250+ days |
+| **Days Open** | CTC essentially | <90 days | varies |
+| **Conception Rate** | % AI that result in pregnancy | >50% | <30% |
+| **Pregnancy Rate** | Composite metric | >25% | low |
+
+### Pregnancy Diagnosis Timeline
+- ⭐ Calf gestation: ⭐ **270-280 days** (avg 280)
+- Dry-off: ⭐ **2 months before calving** (60 days)
+- Conception → Dry-off interval: ⭐ **220 days**
+
+### Why CI 365 Matters ⭐
+- ⭐ "1 calf per cow per year" = ideal
+- 365 days = 1 calf annually
+- 430 days = ~10 months "lost" lactation per year
+- Each lost month = ~30 kg milk × 23 baht = ~700 baht
+- Per cow per year: ⚠️ **15,000-25,000 baht in lost milk!**
+
+## 5️⃣ Recording Systems ⭐⭐
+
+### Data Required for Each Cow
+1. ⭐ **Cow ID** (unique tracking number)
+2. ⭐ **Farm ID** (when vet covers multiple farms)
+3. ⭐ **Calving date** (key reference)
+4. ⭐ **Insemination dates** (1st, 2nd, 3rd service)
+5. **Pregnancy check date** (positive/negative)
+6. ⭐ **Dry-off date** (220 days post-conception)
+7. **Expected calving date** (280 days post-conception)
+8. **Health events** (mastitis, lameness, abortion)
+9. **Milk yield** (daily/monthly average)
+10. **Treatment records** (drug + withdrawal time!)
+
+### Evolution of Recording in Thailand
+| Era | Method | Limitation |
+|---|---|---|
+| Old | Paper notebooks | Lost · no analysis |
+| ⚠️ Common still | Wall chalkboards | One person knows |
+| Improving | Excel spreadsheets | Manual entry |
+| ⭐ Modern | Cloud apps + sensors | Real-time data |
+
+### Vet Workflow Triggers (App-based) ⭐
+- ⭐ **30 days post-calving** → schedule postpartum check
+- ⭐ **30 days post-AI** → pregnancy diagnosis
+- ⭐ **220 days pregnancy** → dry-off list
+- ⭐ **270-280 days pregnancy** → calving prep
+- ⭐ **Mastitis cases** → SCC monitoring
+
+## 6️⃣ Heat Detection (Estrus) — The Sensor Revolution! ⭐⭐⭐
+
+### Manual Detection Failure Rate ⭐
+| Method | Detection rate |
+|---|---|
+| ⭐ **Visual observation only** | ⚠️ **30-40%** |
+| **Tail paint** | ~50% |
+| **Vasectomized bull** | ~70% (older method) |
+| ⭐ **Wearable sensors** | ⭐ **70-80%** |
+
+### Why Manual Fails ⭐
+- Estrus signs **most visible at dawn/dusk** (when farmers off duty)
+- Cows show estrus **only ~12 hours**
+- Workers may miss subtle signs
+- Cows can be silent (esp. heat stress)
+
+### Sensor Detection Mechanism ⭐
+- ⭐ **Activity tracking** — estrus cows walk much more
+- **Mounting behavior** — repeated standing/sitting
+- **Restlessness** patterns
+- ⭐ Compare baseline vs current activity → flag heat
+- Cloud → app notification
+
+### What Sensors Also Detect
+1. ⭐ **Heat stress** (less rest, less rumination)
+2. ⭐ **Calving onset** (specific behavior pattern)
+3. ⭐ **Sickness early** (reduced eating, lethargy)
+4. ⭐ **Lameness** (uneven gait)
+5. **Rumination minutes** (welfare indicator)
+
+## 7️⃣ Economic Impact Analysis ⭐⭐⭐
+
+### Heat Stress Loss Calculation Example ⭐
+- 1 cow on hot day → ⭐ -3 kg milk/day (or -10%)
+- × 365 days × 23 baht = ⭐ **~17,000 baht/cow/year LOSS**
+- × 65 cows = ⭐ **~1 million baht/year**!
+
+### Feed Frequency Impact ⭐
+- ⭐ Cows can eat ⭐ **12 times/day** (rumen physiology)
+- Most farms: 2-3 feedings → cow eats less
+- Why: rumen heat from fermentation reduces appetite
+- Solution: TMR (Total Mixed Ration) feeders + 12-meal pattern
+- Net gain: ⭐ ~1 million baht/year per 65-cow farm
+
+### Veterinary Service ROI ⭐
+- ⭐ Vet visit fee: 2,500-10,000 baht
+- Returns: 2,000,000+ baht annual gain
+- ⭐ Owners willing to pay for QUANTIFIED improvement
+- ⚠️ ⭐ Without records → no proof of value
+
+### Components of Farm Profit
+| Cost | % of revenue |
+|---|---|
+| ⭐ **Feed cost** | ⭐ **60% normal · 40% optimized · 80-85% crisis** |
+| Labor | ~10-15% |
+| Healthcare | ~5% |
+| Other (utilities, etc.) | ~10-15% |
+| ⭐ **Profit margin** | 5-15% |
+
+## 8️⃣ Premium Milk Programs ⭐
+
+### Bonus Pricing Mechanism ⭐ (Real prices!)
+**Base price**: 23 baht/kg
+
+**Quality bonuses (+/- per kg)**:
+| Parameter | Threshold | Bonus |
+|---|---|---|
+| ⭐ **SCC <200,000** | low cell count | +0.50 |
+| ⭐ **SCC >700,000** | high cell count | -0.50 |
+| ⭐ **Bacteria <7h color change** | low bacterial count | +0.30 |
+| **Milk fat >3.5%** | high fat | +0.30 |
+| **Milk fat >4.0%** | very high fat | +0.50 |
+| ⭐ **Total premium** | combined | up to **+2 baht/kg!** |
+
+### Per-Farm Math ⭐
+- 1 ton milk/day × 2 baht premium = ⭐ **+2,000 baht/day**
+- × 365 days = ⭐ **+730,000 baht/year**!
+
+## 9️⃣ Feed Cost Optimization ⭐
+
+### Stock Management ⭐
+- **Rice straw price** (post-harvest):
+  - Cheap season: 25-35 baht/bale
+  - Rainy season: 70-80 baht/bale
+- ⭐ **Buy in cheap season** + storage = save thousands
+- ⭐ Need physical storage capacity
+
+### Yield Improvement ⭐
+| Crop | Thailand current | World best |
+|---|---|---|
+| ⭐ **Corn** | 3 tons/rai | 12 tons (USA), 9 tons (Sweden) |
+| Cassava | medium | improving |
+| Sugar cane | high | high |
+
+⭐ **Lopburi project**: improving corn yield from 3 → 6 tons/rai via:
+- Soil analysis + correction
+- Smart irrigation
+- Variety selection
+
+## 1️⃣0️⃣ Real Improvement Case Study (CUVET) ⭐
+
+### MK Farm (Mid-size 65 cows)
+**Before vet/sensor intervention**:
+- CTC > 200 days
+- ⚠️ Pregnancy rate within 200 days: 20%
+
+**After 1 year (vet + sensor)**:
+- CTC dropped to <200 days
+- ⭐ Pregnancy rate within 200 days: ⭐ **70%**
+- ⭐ **3.12× improvement** in calving-to-first-service
+- ⚠️ Statistical: P-value <0.001 (highly significant)
+
+### NF Farm
+- Calving to conception within 200 days: ⭐ **17× improvement**!
+- Demonstrates: sensor effect varies by farm baseline
+
+### Lactation Pattern
+| Lactation | Reproductive efficiency |
+|---|---|
+| ⭐ **2nd lactation** ⭐ | Best (1.9× vs heifer) |
+| 1st (heifer) | Slowest |
+| 3rd+ | Mixed |
+
+## 1️⃣1️⃣ Mastitis KPI Tracking ⭐
+
+### Monthly Monitoring Indicators
+- ⭐ **Clinical mastitis cases** per month
+- ⭐ **Sub-clinical mastitis** (SCC >300K or 500K)
+- New cases vs chronic
+- Antibiotic usage
+- Discarded milk volume
+
+### Index Calculation Issues
+- ⚠️ Raw count misleading (population changes!)
+- Account for: dry cows, fresh cows, exits
+- ⭐ **Use rate per population**, not absolute numbers
+- Annual seasonality patterns important
+
+### Risk Periods
+- ⭐ **First 100 days postpartum** = highest risk
+- **Dry-off transition** = critical
+- **Hot season** (clinical mastitis spikes)
+
+## 1️⃣2️⃣ Modern Tools Summary ⭐
+
+### Hardware
+- ⭐ **Activity sensors** (collar/ankle band)
+- **Rumination sensors** (ear tag)
+- **Temperature sensors** (vaginal/intravaginal)
+- ⭐ **Robotic milking** (limited Thailand · 1+ million baht/unit)
+- ⭐ **Robotic feeders** (12-meal automation)
+- **GPS for grazing** (open systems)
+
+### Software
+- ⭐ **Cloud-based herd management** (Dairy Comp, custom Thai apps)
+- ⭐ **Mobile apps** for farmers + vets
+- ⭐ **Heat detection algorithms**
+- **Decision support** (AI-augmented)
+- **Financial accounting** (separate from personal!)
+
+### Integration Benefits
+- Real-time alerts for vet
+- Quality control automation
+- ⭐ **Data-driven KPI tracking**
+- Predictive analytics (mastitis risk, etc.)
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### Industry Context (1-3)
+1. ⭐ **Thailand 4,000 kg/cow/year vs World 11,000+ kg/cow/year** (3× gap!)
+2. **Saraburi-Lopburi-Pakchong** = 50%+ Thai dairy
+3. **Israel = desert + world top dairy** (proves technology > climate)
+
+### Biosecurity (4-5)
+4. ⭐ **Vet = biggest disease vector** (clothes, hair, phone, shoes)
+5. **EU standard biosecurity** = new requirement for Thai vet schools
+
+### KPIs (6-9)
+6. ⭐ **Calving Interval (CI) target 365 days**
+7. ⭐ **Calving to Conception (CTC) target <100 days**
+8. ⭐ **Calving to First Service (CTFS) target <80 days**
+9. ⭐ **Gestation 280 days · Dry-off 220 days post-conception**
+
+### Heat Detection (10-11)
+10. ⭐ **Manual heat detection: 30-40%** vs ⭐ **Sensors: 70-80%**
+11. **Estrus only 12 hours · most visible dawn/dusk**
+
+### Economics (12-15)
+12. ⭐ **Feed cost normal 60% · optimized 40% · crisis 80%+**
+13. ⭐ **Heat stress loss 17,000 baht/cow/year** (3 kg/day reduction!)
+14. ⭐ **Premium milk: SCC + fat bonuses up to +2 baht/kg**
+15. ⭐ **Total potential improvement: 2 million baht/year per 65-cow farm**
+
+> 📚 **Cross-refs**: Mastitis (SCC threshold values applied here) · Nutritional disorders (transition cow concepts) · BRD complex (similar approach to herd management)
+> 🩺 **Practical**: Always quantify vet service ROI · use cloud-based recording · sensor adoption is win-win
+> 📱 **Modern stack**: Excel → Cloud app → Activity sensors → AI alerts → KPI dashboards
+> 🎯 **Career insight**: ⭐ Dairy vets = high-demand + well-paid · Saraburi area land prices ~1 million baht/rai · Farm owners often wealthy but humble lifestyle
+> 💡 **Key insight**: "Send a vet" alone ≠ profit · "Send a vet + sensors + records" = quantified business case
+> 🌍 **Global benchmark**: 1 calf/cow/year as productivity standard`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
