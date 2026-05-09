@@ -41,6 +41,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const [tourStep, setTourStep] = useState(0);
   const showOnboarding = !onboardingSeen;
 
+  // Email-verify banner dismiss — session-only state. We don't persist
+  // because we WANT a gentle re-nag if they ignore it across sessions
+  // until they actually verify. Once verified, the banner disappears
+  // permanently because user.email_confirmed_at flips truthy.
+  const [verifyDismissed, setVerifyDismissed] = useState(false);
+
   // (Removed dedicated IG banner from HomeView — Palm flagged the
   // home page had too many announcements. IG launch already lives in:
   //   1. Footer (every page)
@@ -93,6 +99,37 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             global persistent App header (since 2026-05-08). One canonical
             place for year context = no duplication, no confusion. */}
       </div>
+
+      {/* Email verification reminder — for users who signed up but
+          haven't clicked the link yet. Dismissible per-session via
+          state (not localStorage — gentle re-nag on next visit). */}
+      {user && !user.email_confirmed_at && !verifyDismissed && (
+        <div style={{
+          padding: 12,
+          borderRadius: 12,
+          marginBottom: 16,
+          background: 'rgba(184, 137, 64, 0.10)',
+          border: '1px solid var(--clr-gold)',
+          display: 'flex',
+          gap: 12,
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          fontSize: 13,
+        }}>
+          <span style={{ fontSize: 20 }}>📧</span>
+          <span style={{ flex: 1, minWidth: 200, lineHeight: 1.5 }}>
+            <strong>ยืนยันอีเมล</strong> · ส่งไปที่ <code style={{ fontSize: 12 }}>{user.email}</code> แล้ว — กดลิงก์ในอีเมล (ดู junk/spam ด้วย)
+          </span>
+          <button
+            type="button"
+            onClick={() => setVerifyDismissed(true)}
+            style={{ all: 'unset', cursor: 'pointer', fontSize: 12, color: 'var(--clr-ink-soft)', padding: '4px 8px' }}
+            title="ปิดประกาศ (รอบนี้)"
+          >
+            ปิด
+          </button>
+        </div>
+      )}
 
       {/* Resume in-flight exam — top priority. Shown when App detected a
           stale exam state in localStorage (< 6h old). Replaces the old
