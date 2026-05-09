@@ -28468,6 +28468,439 @@ Fetal death in utero → dehydration + retention → "mummy"
 > 🦴 **Modern reality**: AC barns for boars (high genetics worth protecting)`,
   },
 
+  'piJq-n43sO8': {
+    videoId: 'piJq-n43sO8',
+    title: '2. Spermatogenesis and Puberty in Boars',
+    subject: 'swine-repro',
+    date: '13 Aug 67',
+    durationMin: 115,
+    instructor: 'อ.นัฐ (CUVET)',
+    examFormat: 'MCQ — 3 key hormones (GnRH/FSH/LH) · Sertoli vs Leydig functions · spermatogenesis cycle days · puberty markers · 2-stage maturation ออกบ่อย',
+    summary: `# Spermatogenesis & Puberty in Boars
+
+> 🎯 **The cellular factory of male reproduction** — drives all later breeding outcomes
+> Top exam: **Sertoli vs Leydig role · 3-hormone axis · spermatogenesis 3-stage · puberty markers · cycle duration**
+
+---
+
+## 1. Three Key Definitions ⭐⭐⭐
+
+| Term | Definition |
+|---|---|
+| **Spermatogenesis** | Sperm cell production process |
+| **Puberty** ⭐ | First time animal reproduces (boar = first viable sperm; gilt = first ovulation) |
+| **Mating behavior** | Display of correct courtship + service behavior |
+
+> ⛔ All 3 needed for fertility — sperm alone insufficient if no mating behavior
+
+---
+
+## 2. Hypothalamic-Pituitary-Gonadal (HPG) Axis ⭐⭐⭐
+
+### The 3-hormone cascade
+| Hormone | Origin | Action |
+|---|---|---|
+| **GnRH** (Gonadotropin-Releasing) | Hypothalamus | Triggers FSH + LH release |
+| **FSH** (Follicle Stimulating) | Anterior pituitary | Sertoli cells → spermatogenesis |
+| **LH** (Luteinizing) | Anterior pituitary | Leydig cells → testosterone |
+
+### Modern research (2020s)
+- **Kisspeptin** + other upstream regulators above GnRH
+- Still research-stage, not clinical practice yet
+
+---
+
+## 3. Sertoli vs Leydig Cells ⭐⭐⭐ (KEY exam concept!)
+
+### Position rule
+| Cell | Location | Function |
+|---|---|---|
+| **Sertoli (Sustentacular)** | INSIDE seminiferous tubules | Nurse cells · support spermatogenesis |
+| **Leydig (Interstitial)** | BETWEEN tubules | Produce testosterone |
+
+### Memory aid
+> "Sertoli sits **inside** (S=inside) · Leydig **lounges between** (L=lateral)"
+
+### Sertoli cell functions (8 functions!) ⭐
+1. Nutritional support to germ cells
+2. Initiate spermatogenesis (stimulate mitosis of basal cells)
+3. Produce **Androgen Binding Protein (ABP)** — crucial!
+4. Form blood-testis barrier (immune protection)
+5. Phagocytose residual cytoplasm
+6. Secrete tubular fluid
+7. **Negative feedback to FSH** (Inhibin)
+8. Regulate temperature/microenvironment
+
+### Leydig cell functions
+1. Produce **testosterone** (in response to LH)
+2. Maintain libido + secondary sex characters
+3. Negative feedback to LH
+
+---
+
+## 4. Spermatogenesis Stages ⭐⭐ (Mitosis → Meiosis → Differentiation)
+
+### Three phases
+| Phase | What happens |
+|---|---|
+| **1. Mitotic** | Spermatogonia → primary spermatocytes (still 2n) |
+| **2. Meiotic** ⭐ | Primary → secondary spermatocytes → spermatids (2n → n) |
+| **3. Spermiogenic (Differentiation)** | Round spermatid → mature sperm (acrosome, tail develop) |
+
+### Cell types (in order of maturity)
+1. **Spermatogonia** (2n) — stem cells at basal membrane
+2. **Primary spermatocyte** (2n) — beginning meiosis
+3. **Secondary spermatocyte** (n) — after first meiotic division
+4. **Spermatid** (n) — round
+5. **Spermatozoa** (n) — fully mature with tail
+
+### Boar spermatogenesis timing
+- **34-40 days** total cycle
+- Add **2 weeks epididymal maturation**
+- = ~7-8 weeks from start to ejaculatable sperm
+
+> ⭐ **Clinical implication**: After heat stress, wait ~8 weeks for full sperm recovery!
+
+---
+
+## 5. Sperm Maturation in Epididymis ⭐
+
+### Two-stage maturation
+| Stage | Location | Changes |
+|---|---|---|
+| **Functional maturation** | Caput → Corpus | Acquire motility |
+| **Storage maturation** | Cauda | Stable, ready for ejaculation |
+
+### What happens during maturation
+- Cytoplasmic droplet shed (proximal → distal → lost)
+- Membrane modifications
+- Acrosome stabilizes
+- Motility develops
+- Capacitation NOT yet (happens in female tract)
+
+### "Cytoplasmic droplet"
+- Remnant of cytoplasm during sperm formation
+- **Proximal droplet** = immature sperm (problem!)
+- **Distal droplet** = nearly mature
+- **No droplet** = fully mature
+- High % proximal droplets in semen → fertility issue
+
+---
+
+## 6. Puberty Markers in Boars ⭐⭐
+
+### Timeline
+| Age | Event |
+|---|---|
+| **3-4 months** | First spermatogenesis begins |
+| **4-6 months** | First viable sperm (puberty by definition) |
+| **5-7 months** ⭐ | **Sexual behavior development** |
+| **7-9 months** | Reaches breeding maturity |
+| **8-12 months** | Used for AI/breeding |
+
+### Why we don't breed boars too young
+- Sperm count too low (< 8 months)
+- Mating behavior immature
+- Risk of injury (smaller body)
+- Better fertility achieved at 8+ months
+
+### Variations by breed
+- **Landrace, Yorkshire**: 7-8 months viable
+- **Duroc**: slightly later
+- **Native pigs**: faster but lower volume
+
+---
+
+## 7. Sperm Production Capacity ⭐
+
+### Daily Sperm Production (DSP)
+- Boar: **~10-15 billion sperm/day**
+- Higher than bull or stallion
+- Why pig is "AI-friendly"
+
+### Total ejaculate sperm count
+- ~50-100 billion per ejaculation
+- Single ejaculate = thousands of AI doses
+
+### Refractory period
+- After ejaculation, sperm reserves replenish in **24-48 hours**
+- Frequent collection (daily) reduces sperm/ejaculate
+- **Optimal**: 2-3 collections per week
+
+---
+
+## 8. Hormonal Feedback Loops ⭐
+
+### Negative feedback regulation
+1. Testosterone (from Leydig) → **suppresses GnRH + LH**
+2. Inhibin (from Sertoli) → **suppresses FSH**
+3. High testosterone = decreased sperm production paradoxically (over time)
+
+### Why steroid abuse causes infertility (humans)
+- Exogenous testosterone suppresses HPG
+- LH falls → testicles atrophy
+- Sperm production halts
+- Same principle: don't supplement steroids in pigs!
+
+---
+
+## 9. Accessory Sex Glands Function ⭐ (3 in boar)
+
+| Gland | Function |
+|---|---|
+| **Bulbourethral (Cowper's)** ⭐⭐ | Pre-ejaculate · gel formation (huge in boar!) |
+| **Prostate** | Adds nutrients to semen |
+| **Vesicular** | Bulk volume + buffering |
+
+### Why boar gel is unique
+- Forms tapioca-like mass during ejaculation
+- Function: prevent backflow + retain in cervix
+- AI: filter through gauze to remove gel
+
+---
+
+## 10. Clinical Applications ⭐
+
+### Heat stress recovery
+- 35°C+ for >7 days → spermatogenesis halts
+- Recovery requires ~8 weeks (full cycle)
+- Use **AC barns** + **misting** in summer
+
+### Vaccination timing
+- Avoid vaccinating boars during sperm production peak
+- May cause transient fertility dip
+- Schedule vaccination 4+ weeks before AI need
+
+### Aging boars
+- Production peaks 1-3 years
+- After 4-5 years: declining quality
+- Cull or reduce frequency
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **HPG axis**: Hypothalamus → GnRH → Pituitary → FSH + LH → Testes
+2. **Sertoli cells INSIDE tubules** (nurse cells)
+3. **Leydig cells BETWEEN tubules** (testosterone)
+4. **FSH → Sertoli** (spermatogenesis)
+5. **LH → Leydig** (testosterone)
+6. **Spermatogenesis 3 phases**: Mitotic → Meiotic → Spermiogenic
+7. **Boar spermatogenesis = 34-40 days** in testis
+8. **+ 2 weeks epididymal maturation**
+9. **Total ~8 weeks** sperm to mature
+10. **Cytoplasmic droplet** = immaturity marker
+11. **Puberty = first viable sperm** (boar 4-6 mo, breeding 8+ mo)
+12. **Boar daily sperm production = 10-15 billion**
+13. **Optimal collection = 2-3x/week**
+14. **Heat stress recovery = 8 weeks**
+
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 3 Boar management (tGn3BDDIl9o) · 4 Reproductive problems (ABb7TdP98Zc) · 5 Semen collection (3cJC9Ymk1TI)
+> 🩻 **Practice tip**: Memorize 8-week recovery timeline — clinical golden rule
+> 💡 **Sertoli vs Leydig**: position dictates function (in vs between)
+> 🦴 **Modern AI**: 1 boar produces enough for hundreds of sows weekly`,
+  },
+
+  tGn3BDDIl9o: {
+    videoId: 'tGn3BDDIl9o',
+    title: '3. Boar Management and Training',
+    subject: 'swine-repro',
+    date: '20 Aug 67',
+    durationMin: 117,
+    instructor: 'พี่ออย (CUVET)',
+    examFormat: 'MCQ — Boar housing requirements · feeding schedule · training methods (dummy) · libido scoring · fertility evaluation ออกบ่อย',
+    summary: `# Boar Management and Training
+
+> 🎯 **Practical hands-on lecture** — managing AI boar studs
+> Top exam: **Housing specs · Feeding rules · Training-on-dummy · Libido scoring · Collection frequency**
+
+---
+
+## 1. Boar Housing Requirements ⭐
+
+### Space requirements
+- **6-7 m² per boar minimum**
+- Solid floor (slatted causes leg issues)
+- Good ventilation
+- Easy cleaning
+
+### Environmental
+- **Temperature: 18-22°C optimal** (cooler than sows!)
+- AC strongly recommended for genetic boars
+- Humidity <70%
+- Adequate lighting (16h light cycle)
+
+### Pen design
+- **Anti-mounting bars** — prevent self-injury
+- Smooth walls
+- Soft floor surface
+- Visual contact with other boars (social, not isolated!)
+
+### Why AC for boars?
+- Heat stress >35°C → sperm death
+- Heat-recovered sperm takes 8 weeks
+- AC = ROI through preserved fertility
+
+---
+
+## 2. Feeding Boars ⭐
+
+### Daily intake
+- **2.5-3 kg/day** typical
+- Lower than sows (less metabolic demand)
+- Higher protein for muscle maintenance
+
+### Diet specs
+| Nutrient | % |
+|---|---|
+| Protein | 14-16% |
+| Energy | 3,200 kcal |
+| Lysine | 0.7% |
+| Vitamins (E, B-complex, biotin) | High |
+
+### Critical: don't overfeed!
+- Obese boars = leg problems
+- Reduced libido
+- Heat sensitive
+- Aim for **lean muscular boar**, not fat
+
+### Feeding schedule
+- **Once or twice daily**
+- Same time daily (routine reduces stress)
+- After collection (post-collection reward)
+
+---
+
+## 3. Boar Training to Dummy ⭐⭐⭐ (Practical exam topic!)
+
+### Why train?
+- AI requires collection on dummy (artificial sow)
+- Natural mating = inefficient
+- Boar must learn to mount + ejaculate on dummy
+
+### Training timeline
+- Start: **8-9 months old** (post-puberty)
+- First sessions: 5-10 min each
+- 2-3 sessions per week
+- Most boars trained in 2-4 weeks
+
+### Steps
+1. **Introduce to collection room** (familiar, calm)
+2. Show boar a sow in heat (visual stimulation)
+3. Allow boar to approach **dummy sow** (padded, sow-shaped)
+4. Reward attempts
+5. Manual stimulation if hesitant
+6. **First successful mount** = celebrate!
+7. Reinforce with sessions every 2-3 days
+
+### Tips
+- Collect at consistent time
+- Same handler if possible
+- Quiet environment
+- Avoid loud noises
+
+---
+
+## 4. Libido Scoring ⭐ (Clinical evaluation)
+
+### 5-point scale
+| Score | Description |
+|---|---|
+| 5 | Excellent — eager, immediate mount |
+| 4 | Good — mounts within 5 min |
+| 3 | Fair — mounts within 10 min |
+| 2 | Poor — mounts hesitantly, > 10 min |
+| 1 | None — no mounting attempt |
+
+### Score 1-2 troubleshooting
+- Heat stress
+- Underweight or obese
+- Pain (lameness, prostatitis)
+- Endocrine issue (low testosterone)
+- Behavioral (poor training)
+
+---
+
+## 5. Collection Frequency ⭐ (KEY!)
+
+### Recommended schedule
+- **2-3 collections per week**
+- Same days each week
+- Avoid daily collection (depletes sperm reserves)
+
+### Effects of frequency
+| Frequency | Sperm count/ejaculate |
+|---|---|
+| Daily | LOW (depleted) |
+| 3x/week | OPTIMAL |
+| Once/week | High count, but lost AI doses |
+
+### Older boars
+- Reduce to 1-2x/week
+- Lower volume, fertility declines
+- Cull at 4-5 years usually
+
+---
+
+## 6. Routine Health Care ⭐
+
+### Daily checks
+- Appetite
+- Locomotion
+- Scrotal palpation (weekly)
+- Behavior
+- Temperature when sick
+
+### Vaccination
+- Same as adult sow program
+- Schedule ≥4 weeks before scheduled collection week
+
+### Hoof trimming
+- Every 6-12 months
+- Critical for breeding boars (mount support)
+
+---
+
+## 7. Boar Cull Decision ⭐
+
+### When to cull
+| Reason | Trigger |
+|---|---|
+| Age | >4-5 years |
+| Sperm quality decline | Below standards × 3 collections |
+| Lameness | Severe, untreatable |
+| Disease | Brucella, infertility chronic |
+| Genetic obsolescence | Better stock available |
+| Behavior | Aggression, refuses mounts |
+
+### Cull procedure
+- Sell to slaughter (not breeding)
+- Document fertility records for future
+- Replace with new boar trial
+
+---
+
+## 🎯 Exam Recap — top 12 testable points
+
+1. **6-7 m² per boar** (more space than sows)
+2. **18-22°C** boar pen optimal (cooler than sows)
+3. **AC barns recommended** for genetic boars
+4. **Feed 2.5-3 kg/day** lean diet
+5. **Lysine 0.7%** for muscle maintenance
+6. **Train at 8-9 months** to dummy sow
+7. **2-3 collections/week** = optimal
+8. **Daily collection depletes** sperm reserves
+9. **Libido 5-point scale**
+10. **Cull at 4-5 years** typically
+11. **Hoof trim every 6-12 months**
+12. **Recovery from heat = 8 weeks** (re-emphasized)
+
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 2 Spermatogenesis (piJq-n43sO8) · 4 Reproductive problems (ABb7TdP98Zc) · 5 Semen collection (3cJC9Ymk1TI)
+> 🩻 **Practice tip**: Routine = key in boar care · same time, same handler
+> 💡 **Training is patience** — 2-4 weeks normal · don't rush
+> 🦴 **Modern AI farm**: 10 boars feed 1000-sow farm with proper management`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
