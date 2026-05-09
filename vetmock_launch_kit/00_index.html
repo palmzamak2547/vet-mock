@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VetMock · Complete Launch Kit · Index</title>
+<style>
+  :root {
+    --sage: #4a6b4a; --sage-deep: #2d4530; --cream: #fdf8ef; --cream-warm: #f5ecd8;
+    --bg: #faf7f0; --text: #2d3d2d; --text-muted: #6b7a6a; --border: #e1e4dc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Sukhumvit Set', sans-serif;
+    color: var(--text); background: var(--bg); padding: 48px 20px; line-height: 1.6;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  .hero {
+    text-align: center; margin-bottom: 56px;
+    padding-bottom: 32px; border-bottom: 1px solid var(--border);
+  }
+  .hero-logo { width: 84px; height: 84px; margin: 0 auto 18px; }
+  .hero-title { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; color: var(--sage-deep); margin-bottom: 8px; }
+  .hero-sub { font-size: 16px; color: var(--text-muted); max-width: 680px; margin: 0 auto; }
+
+  .stats-row {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    margin-top: 22px;
+  }
+  .stat-pill {
+    padding: 8px 16px; background: var(--sage); color: var(--cream);
+    border-radius: 20px; font-size: 13px; font-weight: 600;
+  }
+
+  .section {
+    background: white; border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px; margin-bottom: 28px;
+  }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    padding-bottom: 18px; border-bottom: 1px solid var(--border); margin-bottom: 24px;
+  }
+  .section-num-circle {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--sage);
+    color: var(--cream); display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px; flex-shrink: 0;
+  }
+  .section-title { display: flex; align-items: center; gap: 14px; }
+  .section-title h2 { font-size: 20px; font-weight: 700; color: var(--sage-deep); }
+  .section-title small { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; font-weight: 400; }
+  .section-meta { font-size: 12px; color: var(--text-muted); }
+  .section-meta strong { color: var(--sage); }
+
+  .grid { display: grid; gap: 12px; }
+  .grid-6 { grid-template-columns: repeat(6, 1fr); }
+  .grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 800px) {
+    .grid-6, .grid-5, .grid-4 { grid-template-columns: repeat(3, 1fr); }
+    .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  .asset {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+    overflow: hidden; text-align: center;
+  }
+  .asset img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; background: white; }
+  .asset.story img { aspect-ratio: 9/16; }
+  .asset.banner img { aspect-ratio: 1200/630; }
+  .asset.lockup img { aspect-ratio: 1600/480; }
+  .asset.wordmark img { aspect-ratio: 900/320; }
+  .asset-meta { padding: 10px; font-size: 11px; }
+  .asset-meta .name { font-weight: 700; color: var(--text); }
+  .asset-meta .file { font-size: 10px; color: var(--text-muted); margin-top: 2px; font-family: monospace; }
+  .asset.transparent img { background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, 10px 0px; }
+
+  .links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  .link {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .link:hover { opacity: 0.85; }
+  .link.primary { background: var(--sage); color: var(--cream); }
+  .link.secondary { background: var(--cream-warm); color: var(--sage-deep); border: 1px solid var(--border); }
+
+  .next-steps {
+    background: var(--sage); color: var(--cream); border-radius: 16px;
+    padding: 32px; margin-top: 8px;
+  }
+  .next-steps h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: var(--cream); }
+  .next-steps p.lede { color: var(--cream-warm); font-size: 14px; margin-bottom: 24px; }
+  .step { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(253, 248, 239, 0.15); }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--cream);
+    color: var(--sage-deep); display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .step-text { font-size: 14px; line-height: 1.55; }
+  .step-text strong { color: var(--cream-warm); }
+
+  .palette-bar {
+    display: flex; border-radius: 8px; overflow: hidden;
+    margin-top: 12px; height: 36px; border: 1px solid var(--border);
+  }
+  .palette-bar div {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; font-family: monospace;
+  }
+
+  .new-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #d97757;
+    color: white;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <svg class="hero-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <rect width="512" height="512" rx="96" ry="96" fill="#4a6b4a"/>
+      <g fill="#fdf8ef">
+        <ellipse cx="256" cy="338" rx="92" ry="74"/>
+        <ellipse cx="148" cy="232" rx="36" ry="48" transform="rotate(-18 148 232)"/>
+        <ellipse cx="212" cy="158" rx="34" ry="46" transform="rotate(-6 212 158)"/>
+        <ellipse cx="300" cy="158" rx="34" ry="46" transform="rotate(6 300 158)"/>
+        <ellipse cx="364" cy="232" rx="36" ry="48" transform="rotate(18 364 232)"/>
+      </g>
+    </svg>
+    <h1 class="hero-title">VetMock · Complete Launch Kit</h1>
+    <p class="hero-sub">49 ภาพ พร้อม upload · 2 documents · จากการสร้าง account ถึง Day 14 recap</p>
+    <div class="stats-row">
+      <div class="stat-pill">6 Highlight covers</div>
+      <div class="stat-pill">3 Teaser posts</div>
+      <div class="stat-pill">7 Carousel slides</div>
+      <div class="stat-pill">8 Logo variations</div>
+      <div class="stat-pill">3 Repost stories</div>
+      <div class="stat-pill">12 Highlight stories</div>
+      <div class="stat-pill">6 Day 9-14 posts</div>
+      <div class="stat-pill">2 Score templates</div>
+      <div class="stat-pill">OG image</div>
+      <div class="stat-pill">QR code</div>
+    </div>
+    <div class="palette-bar">
+      <div style="background:#4a6b4a;color:#fdf8ef">#4a6b4a</div>
+      <div style="background:#3a5638;color:#fdf8ef">#3a5638</div>
+      <div style="background:#2d4530;color:#fdf8ef">#2d4530</div>
+      <div style="background:#fdf8ef;color:#4a6b4a">#fdf8ef</div>
+      <div style="background:#f5ecd8;color:#4a6b4a">#f5ecd8</div>
+      <div style="background:#faf7f0;color:#4a6b4a">#faf7f0</div>
+    </div>
+  </div>
+
+  <!-- 1. Highlight Covers -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">1</div>
+        <div><h2>Highlight Covers · 6 ชิ้น</h2><small>Cover ของแต่ละ Highlight · IG จะ crop เป็นวงกลม</small></div>
+      </div>
+      <div class="section-meta"><strong>1080×1080</strong></div>
+    </div>
+    <div class="grid grid-6">
+      <div class="asset"><img src="01_highlight_start.png"><div class="asset-meta"><div class="name">เริ่มที่นี่</div></div></div>
+      <div class="asset"><img src="02_highlight_features.png"><div class="asset-meta"><div class="name">ฟีเจอร์</div></div></div>
+      <div class="asset"><img src="03_highlight_exam.png"><div class="asset-meta"><div class="name">ข้อสอบ</div></div></div>
+      <div class="asset"><img src="04_highlight_review.png"><div class="asset-meta"><div class="name">รีวิว</div></div></div>
+      <div class="asset"><img src="05_highlight_qa.png"><div class="asset-meta"><div class="name">Q&A</div></div></div>
+      <div class="asset"><img src="06_highlight_team.png"><div class="asset-meta"><div class="name">ทีม</div></div></div>
+    </div>
+  </div>
+
+  <!-- 2. Teaser Posts -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">2</div>
+        <div><h2>Teaser Posts · Day 3-5</h2><small>โพสต์ feed ก่อน launch · pain → hint → reveal</small></div>
+      </div>
+      <div class="section-meta"><strong>1080×1080</strong></div>
+    </div>
+    <div class="grid grid-3">
+      <div class="asset"><img src="07_teaser_day3_pain.png"><div class="asset-meta"><div class="name">Day 3 · Pain Point</div></div></div>
+      <div class="asset"><img src="08_teaser_day4_hint.png"><div class="asset-meta"><div class="name">Day 4 · Hint + Countdown</div></div></div>
+      <div class="asset"><img src="09_teaser_day5_reveal.png"><div class="asset-meta"><div class="name">Day 5 · Logo Reveal</div></div></div>
+    </div>
+  </div>
+
+  <!-- 3. Launch Carousel -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">3</div>
+        <div><h2>Launch Day Carousel · 7 สไลด์</h2><small>โพสต์เป็น carousel เลื่อน 7 รูปวัน Day 8</small></div>
+      </div>
+      <div class="section-meta"><strong>1080×1080</strong></div>
+    </div>
+    <div class="grid grid-4">
+      <div class="asset"><img src="10_carousel_01_cover.png"><div class="asset-meta"><div class="name">1 · Cover</div></div></div>
+      <div class="asset"><img src="11_carousel_02_problem.png"><div class="asset-meta"><div class="name">2 · Problem</div></div></div>
+      <div class="asset"><img src="12_carousel_03_solution.png"><div class="asset-meta"><div class="name">3 · Solution</div></div></div>
+      <div class="asset"><img src="13_carousel_04_features.png"><div class="asset-meta"><div class="name">4 · Features</div></div></div>
+      <div class="asset"><img src="14_carousel_05_coverage.png"><div class="asset-meta"><div class="name">5 · Coverage</div></div></div>
+      <div class="asset"><img src="15_carousel_06_proof.png"><div class="asset-meta"><div class="name">6 · Proof</div></div></div>
+      <div class="asset"><img src="16_carousel_07_cta.png"><div class="asset-meta"><div class="name">7 · CTA</div></div></div>
+    </div>
+  </div>
+
+  <!-- 4. Logo Variations [NEW] -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">4</div>
+        <div><h2>Logo Variations · 8 ชิ้น <span class="new-badge">NEW</span></h2><small>Lockup horizontal + wordmark · ใช้ใน email signature, header, presentation</small></div>
+      </div>
+    </div>
+    <div class="grid grid-2">
+      <div class="asset lockup"><img src="17_lockup_horizontal_sage_bg.png"><div class="asset-meta"><div class="name">Lockup · Sage BG</div></div></div>
+      <div class="asset lockup"><img src="18_lockup_horizontal_cream_bg.png"><div class="asset-meta"><div class="name">Lockup · Cream BG</div></div></div>
+      <div class="asset lockup"><img src="19_lockup_horizontal_white_bg.png"><div class="asset-meta"><div class="name">Lockup · White BG</div></div></div>
+      <div class="asset lockup transparent"><img src="20_lockup_horizontal_cream_transparent.png"><div class="asset-meta"><div class="name">Lockup · Cream (transparent)</div></div></div>
+      <div class="asset lockup transparent"><img src="21_lockup_horizontal_sage_transparent.png"><div class="asset-meta"><div class="name">Lockup · Sage (transparent)</div></div></div>
+    </div>
+    <div class="grid grid-3" style="margin-top: 12px;">
+      <div class="asset wordmark"><img src="22_wordmark_sage_bg.png"><div class="asset-meta"><div class="name">Wordmark · Sage</div></div></div>
+      <div class="asset wordmark"><img src="23_wordmark_cream_bg.png"><div class="asset-meta"><div class="name">Wordmark · Cream</div></div></div>
+      <div class="asset wordmark transparent"><img src="24_wordmark_transparent.png"><div class="asset-meta"><div class="name">Wordmark · Transparent</div></div></div>
+    </div>
+  </div>
+
+  <!-- 5. Web Assets [NEW] -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">5</div>
+        <div><h2>Web Assets · OG + QR <span class="new-badge">NEW</span></h2><small>OG image สำหรับ vetmock.vercel.app · QR code สำหรับ offline poster</small></div>
+      </div>
+    </div>
+    <div class="grid grid-2">
+      <div class="asset banner"><img src="25_og_image_1200x630.png"><div class="asset-meta"><div class="name">OG Image</div><div class="file">1200×630 · ใส่ใน meta og:image</div></div></div>
+      <div class="asset"><img src="26_qr_code_vetmock.png"><div class="asset-meta"><div class="name">QR Code</div><div class="file">1080×1080 · → vetmock.vercel.app</div></div></div>
+    </div>
+  </div>
+
+  <!-- 6. Repost Stories [NEW · CRITICAL] -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">6</div>
+        <div><h2>Repost Story Templates <span class="new-badge">NEW · CRITICAL</span></h2><small>ส่งให้เพื่อน/รุ่นพี่ ตามที่ DM template บอก "เตรียมรูปให้แล้ว"</small></div>
+      </div>
+      <div class="section-meta"><strong>1080×1920</strong> · Story</div>
+    </div>
+    <div class="grid grid-3">
+      <div class="asset story"><img src="27_story_repost_friend.png"><div class="asset-meta"><div class="name">Friend version</div><div class="file">ส่งให้เพื่อนในคณะ</div></div></div>
+      <div class="asset story"><img src="28_story_repost_senior.png"><div class="asset-meta"><div class="name">Senior version</div><div class="file">ส่งให้รุ่นพี่ที่มี following</div></div></div>
+      <div class="asset story"><img src="29_story_repost_short.png"><div class="asset-meta"><div class="name">Short version</div><div class="file">ใครๆ ก็ใช้ได้</div></div></div>
+    </div>
+  </div>
+
+  <!-- 7. Highlight Content Stories [NEW] -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">7</div>
+        <div><h2>Highlight Content Stories · 12 stories <span class="new-badge">NEW</span></h2><small>Content จริงที่อยู่ใน Highlight แต่ละกลุ่ม (ไม่ใช่ cover)</small></div>
+      </div>
+      <div class="section-meta"><strong>1080×1920</strong></div>
+    </div>
+    <div class="grid grid-3">
+      <div class="asset story"><img src="30_hl_start_1.png"><div class="asset-meta"><div class="name">เริ่มที่นี่ · 1/3</div></div></div>
+      <div class="asset story"><img src="31_hl_start_2.png"><div class="asset-meta"><div class="name">เริ่มที่นี่ · 2/3</div></div></div>
+      <div class="asset story"><img src="32_hl_start_3.png"><div class="asset-meta"><div class="name">เริ่มที่นี่ · 3/3</div></div></div>
+    </div>
+    <div class="grid grid-4" style="margin-top: 12px;">
+      <div class="asset story"><img src="33_hl_feature_1.png"><div class="asset-meta"><div class="name">ฟีเจอร์ · MCQ</div></div></div>
+      <div class="asset story"><img src="34_hl_feature_2.png"><div class="asset-meta"><div class="name">ฟีเจอร์ · ข้อสอบเก่า</div></div></div>
+      <div class="asset story"><img src="35_hl_feature_3.png"><div class="asset-meta"><div class="name">ฟีเจอร์ · คลิป</div></div></div>
+      <div class="asset story"><img src="36_hl_feature_4.png"><div class="asset-meta"><div class="name">ฟีเจอร์ · สรุป</div></div></div>
+    </div>
+    <div class="grid grid-3" style="margin-top: 12px;">
+      <div class="asset story"><img src="37_hl_qa_1.png"><div class="asset-meta"><div class="name">Q&A · ฟรีไหม</div></div></div>
+      <div class="asset story"><img src="38_hl_qa_2.png"><div class="asset-meta"><div class="name">Q&A · ข้อสอบจากไหน</div></div></div>
+      <div class="asset story"><img src="39_hl_qa_3.png"><div class="asset-meta"><div class="name">Q&A · เก็บข้อมูลไหม</div></div></div>
+    </div>
+    <div class="grid grid-2" style="margin-top: 12px;">
+      <div class="asset story"><img src="40_hl_team_1.png"><div class="asset-meta"><div class="name">ทีม · ใครทำ</div></div></div>
+      <div class="asset story"><img src="41_hl_team_2.png"><div class="asset-meta"><div class="name">ทีม · contribute</div></div></div>
+    </div>
+  </div>
+
+  <!-- 8. Day 9-14 Sustain Posts [NEW] -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">8</div>
+        <div><h2>Day 9-14 Sustain Posts <span class="new-badge">NEW</span></h2><small>Feed posts สำหรับ week 1 ต่อจาก launch</small></div>
+      </div>
+      <div class="section-meta"><strong>1080×1080</strong></div>
+    </div>
+    <div class="grid grid-3">
+      <div class="asset"><img src="42_sustain_day9_mcq.png"><div class="asset-meta"><div class="name">Day 9 · MCQ</div></div></div>
+      <div class="asset"><img src="43_sustain_day10_archive.png"><div class="asset-meta"><div class="name">Day 10 · ข้อสอบเก่า</div></div></div>
+      <div class="asset"><img src="44_sustain_day11_videos.png"><div class="asset-meta"><div class="name">Day 11 · คลิป</div></div></div>
+      <div class="asset"><img src="45_sustain_day12_testimonial.png"><div class="asset-meta"><div class="name">Day 12 · Testimonial</div></div></div>
+      <div class="asset"><img src="46_sustain_day13_tips.png"><div class="asset-meta"><div class="name">Day 13 · Tips</div></div></div>
+      <div class="asset"><img src="47_sustain_day14_recap.png"><div class="asset-meta"><div class="name">Day 14 · Week 1 Recap</div></div></div>
+    </div>
+  </div>
+
+  <!-- 9. Score Share Templates [NEW] -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">9</div>
+        <div><h2>Score Share Templates <span class="new-badge">NEW</span></h2><small>เพิ่ม story เมื่อ user ทำ mock เสร็จ · Free organic marketing</small></div>
+      </div>
+    </div>
+    <div class="grid grid-2">
+      <div class="asset story"><img src="48_score_share_story.png"><div class="asset-meta"><div class="name">Story · 1080×1920</div><div class="file">User repost ลง story ตัวเอง</div></div></div>
+      <div class="asset"><img src="49_score_share_post.png"><div class="asset-meta"><div class="name">Feed · 1080×1080</div><div class="file">โพสต์ feed ปกติ</div></div></div>
+    </div>
+  </div>
+
+  <!-- Documents -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">
+        <div class="section-num-circle">10</div>
+        <div><h2>Documents</h2><small>เปิดเป็น HTML — copy paste พร้อมใช้</small></div>
+      </div>
+    </div>
+    <div class="links">
+      <a class="link primary" href="01_profile_mockup.html">Profile Mockup + Captions</a>
+      <a class="link secondary" href="03_dm_templates_and_launch_caption.html">DM Templates + Launch Caption + Checklist</a>
+    </div>
+  </div>
+
+  <!-- Roadmap -->
+  <div class="next-steps">
+    <h2>Launch Roadmap · 14 วัน</h2>
+    <p class="lede">ทำตามลำดับ — ไม่ต้อง improvise</p>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Day 0 · Setup (1-2 ชม):</strong> เปิด @vetmock.cu · upload profile pic · ใส่ bio · สร้าง 6 highlight ใส่ cover · ตั้ง OG image ที่ vetmock.vercel.app</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Day 1-2 · เติม highlight content:</strong> ใส่ 12 stories ใน 4 highlights หลัก · ตัวอย่างข้อสอบ + รีวิวเติมทีหลัง</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Day 3-5 · Teaser:</strong> โพสต์ pain → hint → reveal · ส่ง DM template #3 ไปเพจคณะ</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text"><strong>Day 5-6 · ส่ง DM:</strong> DM template #2 ไปรุ่นพี่ · DM template #1 ไปเพื่อน พร้อมแนบ repost story (#27/28/29)</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-text"><strong>Day 8 · LAUNCH:</strong> โพสต์ carousel 7 สไลด์ 8:00 · ตอบ DM/comment · Story takeover ทั้งวัน</div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-text"><strong>Day 9-14 · Sustain:</strong> โพสต์ตามแพลน 6 อัน · แชร์ score template ให้ user แรกๆ</div>
+    </div>
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-text"><strong>Day 14 · Recap:</strong> ใส่ตัวเลขจริง · ขอบคุณทุกคน · plan week 2</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

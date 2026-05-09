@@ -22567,6 +22567,437 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 > 🩻 **Trans-physeal line** = HOD pathognomonic finding`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 14 Vertebral Fracture/Luxation (VFL) (Y4/2)
+  // ─────────────────────────────────────────────────────────────
+  C1Q5SHxSkGw: {
+    videoId: 'C1Q5SHxSkGw',
+    title: '14. Spinal Fracture / Vertebral Fracture-Luxation (VFL)',
+    subject: 'com2',
+    date: '20 Nov 67',
+    durationMin: 116,
+    instructor: 'พี่ไอซ์ (neurosurgery specialist · expert clinician + lecturer)',
+    examFormat: 'MCQ — Localization 4 segments · Modified Frankel grading · Deep Pain test · 3-compartment theory · TL junction (T13-L1) most common · Surgical implant choice · Trans-iliac pin technique ออกบ่อย',
+    summary: `# Vertebral Fracture / Luxation (VFL)
+
+> 🎯 **One of the longest com2 lectures (116 min)** by neurosurgery specialist
+> ⚠️ **Critical difference from long bone fracture**: spinal cord involvement!
+> Top exam: **4-segment localization · Frankel grading · Deep Pain · 3-compartment theory · TL junction · Implant choice**
+
+---
+
+## 1. Definition + Etiology ⭐⭐
+
+**Vertebral Fracture/Luxation (VFL)** = กระดูกสันหลังหัก/ขยับออกจากกัน
+
+**Causes** (2 groups):
+| Type | Detail |
+|---|---|
+| **External Trauma** ⭐ (most common) | Vehicle accidents 40-60% · falls · bites · gunshot |
+| **Pathologic Fracture** | Spinal tumors → bone weakening → spontaneous fracture |
+
+⭐ **#3 cause of neurodeficit in pets** (after IVDD #1, vascular injury #2)
+
+---
+
+## 2. KEY DIFFERENCE: VFL vs Long Bone Fracture ⭐⭐⭐
+
+| Feature | Long bone | VFL |
+|---|---|---|
+| What's inside | Marrow | **Spinal cord!** |
+| Healing | Bone heals → walking | Cord recovery determines outcome |
+| Repair logic | Realign + immobilize | Same + assess cord function |
+| Prognosis depends on | Bone alignment | **Spinal cord injury severity** |
+
+⭐ **"You can perfectly fix the bone — but if the cord is destroyed, the dog still won't walk."**
+
+---
+
+## 3. Vertebra Function (2 jobs) ⭐
+1. **Protect spinal cord**
+2. **Support axial skeleton** (axial compression)
+
+---
+
+## 4. Localization — 4 Spinal Segments ⭐⭐⭐ (KEY EXAM!)
+
+Every VFL patient must be localized to ONE of 4 segments:
+
+| Segment | Innervates |
+|---|---|
+| **C1-C5** | Forelimb + hindlimb (UMN to all) |
+| **C6-T2** | Forelimb LMN + hindlimb UMN |
+| **T3-L3** | Hindlimb only (UMN) |
+| **L4-S3** | Hindlimb LMN |
+
+### 4.1 The 2 Questions Method ⭐⭐⭐
+
+**Q1**: Which limbs are affected?
+- **Forelimbs + Hindlimbs (Tetraparesis)** → narrows to **C1-C5** OR **C6-T2**
+- **Hindlimbs only (Paraparesis)** → narrows to **T3-L3** OR **L4-S3**
+
+**Q2**: Are spinal reflexes in affected limbs **decreased**?
+- **YES** (LMN signs) → goes to **C6-T2** (if forelimbs) or **L4-S3** (if hindlimbs)
+- **NO** (UMN signs preserved) → goes to **C1-C5** or **T3-L3**
+
+⭐ **ALWAYS localize BEFORE X-ray!** — you'll know which segment to image
+⚠️ Example: Don't waste time on hip X-rays when fracture is at T13-L1!
+
+---
+
+## 5. Modified Frankel Grading ⭐⭐⭐ (5 Grades — KEY!)
+
+| Grade | Detail | Function |
+|---|---|---|
+| **Grade 1** | **Pain only** | Walks normally |
+| **Grade 2** | **Ambulatory paresis** | Walks but ataxic |
+| **Grade 3** | **Non-ambulatory paresis** | Cannot walk · still has motor |
+| **Grade 4** | **Paralysis (no motor)** + Deep Pain (+) | No voluntary motion · still has sensation |
+| **Grade 5** ⭐ | **Paralysis** + **Deep Pain ABSENT** | No voluntary motion + no sensation |
+
+⭐ **Grade 5 = WORST PROGNOSIS** — surgery has only **<10% success in VFL** (vs 50% in IVDD!)
+
+### 5.1 Why Grade 3 vs 4 vs 5 Matter ⭐
+| Grade | Cord damage |
+|---|---|
+| **3** | Outer cord (proprioception lost) |
+| **4** | Deeper (motor lost) |
+| **5** | Cord destroyed > 50% diameter (deep pain lost) |
+
+---
+
+## 6. Deep Pain (DP) Test ⭐⭐⭐ (CRITICAL!)
+
+### 6.1 Definition
+**Deep Pain** = patient must show **CONSCIOUS RESPONSE** to noxious stimulus
+- Turn head to bite
+- Vocalize · cry
+- Clear awareness response
+
+⚠️ **NOT just withdrawal reflex** (that's just spinal reflex)!
+
+### 6.2 Technique
+1. Pinch deep with hemostat at digit/toenail/foot pad
+2. Look for **emotional response** (turn to bite, cry, attempt to move toward stimulus)
+
+### 6.3 Compare to Forelimb!
+- If unsure → test forelimb first → see what conscious response looks like
+- Then compare to hindlimb result
+
+⚠️ **VFL Grade 5 vs IVDD Grade 5**:
+- IVDD G5 surgery = up to **50% recovery** in 48 hours
+- VFL G5 surgery = **<10% recovery** even with rapid surgery!
+- Why: VFL involves multidirectional cord damage during fracture · IVDD = unidirectional compression
+
+---
+
+## 7. Why TL Junction Is Most Common ⭐⭐⭐
+
+### 7.1 The Static-Kinetic Concept
+**Mobile vs Immobile zones**:
+- **Mobile** = where ligaments fuse less, more motion (e.g., dog sitting)
+- **Immobile** = locked between mobile (e.g., thoracic with ribs)
+
+### 7.2 Most Common Sites
+| Site | Frequency | Why |
+|---|---|---|
+| **T13-L1 (TL junction)** ⭐⭐ | **50%** | Junction between thoracic (immobile, ribs) + lumbar (mobile) |
+| **L7-S1 (LS junction)** ⭐ | 20-30% | Lumbar (mobile) + sacrum (immobile, fused to pelvis) |
+| Lumbar diaphysis | Variable | Mostly L4-L6 |
+
+⭐ **TL junction = "Where motion meets no-motion = stress riser = fracture point"**
+
+---
+
+## 8. Vertebral Body Anatomy + Force Patterns ⭐
+
+### 8.1 Common Fracture Patterns
+| Pattern | Mechanism | X-ray |
+|---|---|---|
+| **Dorsal Axis (DA) / Ventral Axis (VA)** ⭐ | **Flexion injury** (running dog hit by car) | Dorsal opening or ventral opening |
+| **Compressive Fracture** | Hyperextension at impact | "**Short Body**" — vertebra appears shorter |
+| **Lateral Axis** | Side-impact | Hard to see on lateral X-ray |
+| **L7-S1 Ventral Axis** ⭐ | Always ventrally displaced | Sacrum drops down (gluteal pull) |
+
+⭐ **L7-S1 always ventral axis** because gluteal muscles are 2x stronger than dorsal mucles!
+
+---
+
+## 9. 3-Compartment Theory ⭐⭐⭐ (Stability Decision!)
+
+### 9.1 Spine Divisions (lateral view)
+| Compartment | Location | Color (typical X-ray) |
+|---|---|---|
+| **Dorsal** | Spinous process + lamina + dorsal articular processes | (Top) |
+| **Middle** | Pedicle + dorsal half of vertebral body + dorsal annulus | (Middle - critical!) |
+| **Ventral** | Ventral half of body + ventral annulus + ventral ligament | (Bottom) |
+
+### 9.2 Stability Rule ⭐⭐⭐
+| Compartments damaged | Status |
+|---|---|
+| **0-1** | **STABLE** — conservative possible |
+| **≥ 2** | **UNSTABLE** — surgery required! |
+
+⚠️ **Compressive fracture only damages dorsal? STABLE — no surgery!**
+⚠️ **Burst fracture damages all 3? Definitely unstable!**
+
+---
+
+## 10. Imaging Strategy ⭐
+
+### 10.1 X-ray Order ⭐
+**ALWAYS lateral view first** — minimize movement of unstable spine
+- **VD only if NO obvious luxation on lateral**
+- VD requires turning patient → may worsen cord injury!
+
+### 10.2 X-ray Limitations
+- ✅ Sees: Body fractures, alignment, "short body"
+- ❌ Cannot assess: 3 compartments precisely · cord function
+
+### 10.3 CT Scan ⭐⭐ (Gold standard for bone planning)
+**Best for**:
+- 3-compartment assessment
+- Implant corridor identification
+- Multi-fragment imaging
+- **Hidden fractures** (e.g., compressive within body)
+
+### 10.4 MRI ⭐⭐ (Gold standard for cord)
+**Best for**:
+- Spinal cord injury (myelomalacia, T2 hyperintensity)
+- Cord compression assessment
+- Soft tissue evaluation
+
+⭐ **Combined CT + MRI** = ideal for complex VFL planning
+
+---
+
+## 11. Treatment Decision Tree ⭐⭐⭐
+
+| Grade | Stability | Treatment |
+|---|---|---|
+| **1-2** | Stable | **Conservative** (cage rest + ext fixation) |
+| **3-4** | Stable or unstable | **Surgical stabilization** preferred |
+| **5** | Any | **Salvage** — palliative or surgery (<10% success) |
+
+### 11.1 Conservative Tx (Conservative Approach)
+**Indication**: Stable + Grade 1-2 + neurologic improving
+- **External fixation** (Body cast / Spica splint) × 4-6 weeks
+- Strict cage rest
+- Pain control
+- Bladder care (urinary catheter if needed) ⭐
+- **Pad + reposition** every 4 hours (prevent decubitus)
+- Monitor for progression
+
+### 11.2 Open Fracture Exception
+- ⚠️ Spinal open fractures (rare) → must operate (cannot amputate spine!)
+- Higher infection risk
+
+---
+
+## 12. Surgical Treatment ⭐⭐⭐
+
+### 12.1 Goals
+1. **Decompression** — relieve cord pressure
+2. **Stabilization** — restore alignment + prevent ongoing injury
+
+### 12.2 Force Considerations ⭐⭐ (Why dog-sitting matters!)
+
+**Standing dog**: Main force = **Axial compression**
+**Dog-sitting (paralyzed)**: ADD **Flexion force** — significantly stronger!
+
+⭐ **Implant must resist 3 forces**:
+1. **Compression** (axial)
+2. **Flexion** (hyper-flexion · post-op critical!)
+3. **Rotation** (torsion)
+
+### 12.3 Surgical Methods Hierarchy ⭐⭐⭐
+
+| Method | Strength | Indication |
+|---|---|---|
+| **Dorsal Spinous Pinning + Cerclage** ⭐ | Lowest (single-axis only) | Cats / dogs < 5 kg only |
+| **Lumbar Spinal Plate** | Moderate | Lumbar only · clamps spinous processes · large incision |
+| **SOP plate** | Moderate | Body screws |
+| **Standard LCP plate** | Good | Locking · but contour issues |
+| **Screws + PMMA Bone Cement** ⭐⭐ | **Excellent (Gold Standard 2000-2010)** | All locations · resists 3 forces |
+| **Pedicle Screw + Rod (Titanium)** ⭐⭐⭐ | **Excellent (Modern Standard!)** | Replaces PMMA · less infection · realignable |
+| **Trans-iliac Pin** ⭐ | Specific use | L7-S1 only |
+
+### 12.4 PMMA Bone Cement Technique ⭐
+**Setup**: Place screws first → leave 10mm exposed → mold cement around screw heads
+**Setting time**: 7 minutes
+**⚠️ Heat output**: 70°C during set → **flush with saline continuously** to protect tissue!
+**Disadvantages**:
+- High infection rate over time
+- Cannot reposition once set
+- Often requires removal years later (chronic draining tract)
+
+### 12.5 Pedicle Screw + Rod (Modern!) ⭐⭐⭐
+**Adopted from human spine surgery**
+
+**Process**:
+1. **Awl** to start hole
+2. **Probe (feeler)** through cancellous bone (NOT cortex!)
+3. **"Sounding"** test — like running straw on glass edge — should feel constant ridge
+4. **Tap** if needed
+5. **Insert pedicle screw**
+6. Connect screws with **titanium rods**
+7. Locking nuts secure
+
+**Advantages**:
+- Titanium = less infection
+- Modular · adjustable
+- Can correct alignment
+- No exothermic damage
+
+---
+
+## 13. Implant Position Rules ⭐⭐⭐
+
+### 13.1 Cervical (C1-C7) — Ventral Approach ⭐
+- Approach: **Ventral**
+- **Cannot use dorsal**: large vessels (vertebral artery)
+- Screw type:
+  - **Bicortical** (through both cortices) = stronger but risky (vessel)
+  - **Monocortical** (single cortex only) = safer · recommended ⭐
+- Angle: **20-25° from midline (lateral)**
+
+### 13.2 Locked Cervical Facet ⭐ (Special Case!)
+**Pattern**: After bite trauma + neck shake — **C6 facet locks dorsal**
+**Treatment**: **Dorsal approach** (exception to ventral rule!)
+- Spread + reduce locked facet
+- Stabilize with 2 screws
+
+### 13.3 Thoracolumbar (T-L) — Dorsal Approach ⭐⭐
+- Approach: **Dorsal**
+- **Cannot use ventral**: thoracic/abdominal organs
+- Vertebral artery on lateral side → use dorsal-only screws
+
+### 13.4 Implant Safe Zone ⭐⭐⭐ (KEY!)
+
+**On dorsal approach**, draw 2 lines:
+- **Upper line**: Above accessory process
+- **Lower line**: Above transverse process
+
+⭐ **Safe Zone** = between these 2 lines!
+**Insertion**: At pedicle base · angle into vertebral body
+
+### 13.5 Pedicle Angles by Region ⭐
+| Region | Angle from midline |
+|---|---|
+| **Cervical** | 20-25° |
+| **Thoracic (T13)** | 45° |
+| **Lumbar (L1+)** | 60° |
+
+⭐ Angles widen as you go caudal (anatomy)
+
+---
+
+## 14. Trans-Iliac Pin Technique (L7-S1) ⭐⭐⭐
+
+### 14.1 Concept (Like a Lever-and-Prop!)
+**Visualization** (with student volunteers):
+- **L7** = vertebra
+- **Sacrum + Pelvis** = block falling down (ventral axis displacement)
+- **Pin** = prop holding sacrum up against L7's spinous process
+
+### 14.2 Steps
+1. Use **Allis forceps** to lever pelvis up (NOT pulling cord!)
+2. Drive **pin from one ilium → through dorsal pelvis → over L7 spinous process → out other ilium**
+3. **Bend tip** at 90° → cut → tuck under skin/muscle
+4. Repeat with **2nd pin** on opposite side (anti-rotation)
+5. Pin acts as **caval-iliac bar** holding L7 up
+
+### 14.3 Indications
+- L7-S1 fracture/luxation only
+- L7 vertebra **must be intact** (need it as a prop!)
+- Body weight < 15 kg ideal
+
+⚠️ Always use **2 pins** — single pin allows rotation
+
+---
+
+## 15. Post-Op Care ⭐⭐⭐
+
+### 15.1 Critical Items
+| Action | Detail |
+|---|---|
+| **Pain management** | Multimodal · NSAIDs + opioids |
+| **Soft bedding** | Prevent decubitus ulcers |
+| **Reposition every 4 hours** | If non-ambulatory |
+| **Bladder management** ⭐⭐ | **Catheterize** all paraplegics! Prevents UTI + bladder rupture |
+| **Hair clipping/cleaning** | Around urinary area · prevent dermatitis |
+| **Decubitus monitoring** | Coin-sized ulcer = 1 month healing time! |
+
+⚠️ **Bladder care prevents lethal complications** — UTI ascending to kidney, bladder rupture
+
+### 15.2 Rehabilitation ⭐
+**After surgery**:
+- **Underwater Treadmill** ⭐ (best for hindlimb-focused rehab)
+- **Swimming** (forelimb-dominant — less effective for paraparesis)
+- **Passive ROM**
+- **Massage**
+- **Balance ball** (for small dogs)
+- **Heat/cold packing**
+- **Laser/ultrasound therapy**
+- **Electrostimulation**
+
+⚠️ Without rehab → recovery slower BUT possible · WITH rehab → faster + better outcome
+
+---
+
+## 16. Bladder Care Critical Notes ⭐⭐
+
+| Issue | Action |
+|---|---|
+| **Cannot urinate** (UMN bladder = T3-L3) | Express bladder 4x/day OR catheterize |
+| **Urinary incontinence** (LMN bladder = L4-S3) | Diaper · keep clean |
+| **Catheter in place** | Closed system · sterile · check daily for blockage |
+| **UTI prevention** | Antimicrobials prophylactically · monitor urine |
+| **Bladder rupture** | Lethal! · Express bladder regularly |
+
+---
+
+## 📝 EXAM RECAP — 22 Key Points
+
+### Localization
+1. **VFL ≠ Long bone fracture** — spinal cord matters most!
+2. **4 segments**: C1-C5 · C6-T2 · T3-L3 · L4-S3
+3. **2-Question localization**: which limbs + reflexes preserved?
+4. **ALWAYS localize before X-ray** — saves time + avoids missing remote fracture
+
+### Grading (Modified Frankel)
+5. **Grade 1**: Pain only
+6. **Grade 2**: Ambulatory paresis
+7. **Grade 3**: Non-ambulatory paresis (motor present)
+8. **Grade 4**: Paralysis + Deep Pain (+)
+9. **Grade 5**: Paralysis + Deep Pain ABSENT — **<10% surgical success in VFL!**
+10. **Deep Pain = conscious response**, not just withdrawal!
+
+### Anatomic Sites
+11. **TL junction (T13-L1) = 50%** of all VFL ⭐
+12. **LS junction (L7-S1) = 20-30%** ⭐
+13. **L7-S1 always Ventral Axis** (gluteal muscle pull)
+
+### Imaging + Stability
+14. **X-ray lateral first** — VD only if necessary
+15. **CT** = bone planning + 3-compartment assessment
+16. **MRI** = spinal cord injury severity
+17. **3-Compartment Theory**: ≥ 2 damaged = UNSTABLE → surgery
+
+### Treatment
+18. **Conservative** = Grade 1-2 + stable
+19. **Surgical** = Grade 3-4 unstable (Grade 5 mostly palliative)
+20. **Post-op forces**: Compression + **Flexion (Dog sitting!)** + Rotation
+21. **Modern Implant**: Pedicle screw + rod (titanium) > PMMA cement
+22. **Trans-iliac pin** = L7-S1 specific · 2 pins to prevent rotation
+
+> 📚 อ่านควบ: 13.1 Limb Amp/Arthrodesis (KqbNuuu8X90) · 13.2 Metabolic Bone (u_T60WiAG4s) · 15.3 Rehab (zj4go8swIgM)
+> 🩻 **Practice tip**: Always assess **Deep Pain** by comparing forelimb vs hindlimb response
+> 💉 **Bladder care saves lives** — paraplegics need urinary management priority!
+> 🦴 Modern surgical trend: titanium pedicle screw + rod replaces older PMMA cement
+> 📺 Supplementary clip: 14.0.1 Trans-iliac pin demonstration (OmBvQyf_Sa4)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────

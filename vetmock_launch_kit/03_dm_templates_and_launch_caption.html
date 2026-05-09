@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VetMock · DM Templates + Launch Caption</title>
+<style>
+  :root {
+    --sage: #4a6b4a;
+    --sage-dark: #3a5638;
+    --sage-deep: #2d4530;
+    --cream: #fdf8ef;
+    --cream-warm: #f5ecd8;
+    --bg: #faf7f0;
+    --text: #2d3d2d;
+    --text-muted: #6b7a6a;
+    --border: #e1e4dc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Sukhumvit Set', 'IBM Plex Sans Thai', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    padding: 48px 20px;
+    line-height: 1.6;
+  }
+  .container { max-width: 880px; margin: 0 auto; }
+
+  .doc-header {
+    text-align: center;
+    margin-bottom: 56px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-logo { width: 56px; height: 56px; margin: 0 auto 14px; }
+  .doc-title { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--sage-deep); }
+  .doc-sub { font-size: 14px; color: var(--text-muted); }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 56px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--sage);
+    color: var(--cream);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .template-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .template-head {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .template-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--sage);
+    color: var(--cream);
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .template-name { font-size: 16px; font-weight: 700; color: var(--sage-deep); }
+  .template-when { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  .template-body {
+    padding: 22px;
+  }
+  .template-body pre {
+    font-family: -apple-system, BlinkMacSystemFont, 'Sukhumvit Set', sans-serif;
+    white-space: pre-wrap;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--cream-warm);
+    padding: 18px 20px;
+    border-radius: 8px;
+    border-left: 3px solid var(--sage);
+  }
+
+  .template-notes {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--bg);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .template-notes strong { color: var(--sage-deep); font-weight: 700; }
+
+  .caption-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .caption-box pre {
+    font-family: inherit;
+    white-space: pre-wrap;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--text);
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .meta-row .meta { display: flex; align-items: center; gap: 6px; }
+  .meta-row .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
+
+  .timing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 700px) { .timing-grid { grid-template-columns: 1fr; } }
+  .timing-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .timing-day {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+  .timing-task { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .timing-detail { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  .checklist {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .checklist-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-num {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--sage);
+    color: var(--sage);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .checklist-item .text strong { color: var(--sage-deep); }
+  .checklist-item .text small { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="doc-header">
+    <svg class="doc-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <rect width="512" height="512" rx="96" ry="96" fill="#4a6b4a"/>
+      <g fill="#fdf8ef">
+        <ellipse cx="256" cy="338" rx="92" ry="74"/>
+        <ellipse cx="148" cy="232" rx="36" ry="48" transform="rotate(-18 148 232)"/>
+        <ellipse cx="212" cy="158" rx="34" ry="46" transform="rotate(-6 212 158)"/>
+        <ellipse cx="300" cy="158" rx="34" ry="46" transform="rotate(6 300 158)"/>
+        <ellipse cx="364" cy="232" rx="36" ry="48" transform="rotate(18 364 232)"/>
+      </g>
+    </svg>
+    <div class="doc-title">DM Templates + Launch Caption</div>
+    <div class="doc-sub">Copy-paste ready · ส่งวันไหน · พูดยังไง</div>
+  </div>
+
+  <!-- ============ DM TEMPLATES ============ -->
+  <div class="section-title"><span class="section-num">1</span> DM Templates · ขอ share จาก 3 กลุ่ม</div>
+
+  <!-- Template 1 -->
+  <div class="template-card">
+    <div class="template-head">
+      <div class="template-tag">DAY 6 · ส่งล่วงหน้า 2 วัน</div>
+      <div class="template-name">เพื่อนในคณะ · ขอ share story พร้อมกันวัน launch</div>
+      <div class="template-when">ส่งให้: 8-12 คน ที่สนิทพอจะกดส่งกลับ "ได้!"</div>
+    </div>
+    <div class="template-body">
+<pre>เพื่อน เราเริ่มทำ vetmock 🐾
+คลังข้อสอบ Vet จุฬาฯ ฟรี ทุกชั้นปี
+(MCQ + ข้อสอบเก่า + คลิป + สรุป)
+
+วัน launch จันทร์หน้า อยากขอนิดเดียว —
+ช่วย share story ตอนเช้า ~9 โมงได้มะ?
+
+เราเตรียมรูปให้แล้ว แค่กด repost จาก @vetmock.cu
+ใช้เวลา 5 วิ จบ 🙏
+
+ขอบคุณมากๆ เลย</pre>
+      <div class="template-notes">
+        <strong>ทำไมแค่ขอ story:</strong> ง่ายที่สุดที่จะตอบ "ได้" — feed post คือ commitment ใหญ่กว่า · ระบุเวลา 9 โมงเช้าเพื่อให้ algorithm boost พร้อมกัน · ส่งให้ 8-12 คน คาดว่าได้ 5-7 คนช่วย = พอดี
+      </div>
+    </div>
+  </div>
+
+  <!-- Template 2 -->
+  <div class="template-card">
+    <div class="template-head">
+      <div class="template-tag">DAY 5-6 · ขอล่วงหน้าเพราะคนเขายุ่ง</div>
+      <div class="template-name">รุ่นพี่ที่มี following · ขอ honest share</div>
+      <div class="template-when">ส่งให้: 3-5 คนที่มี follower หลัก ๆ ในวงสัตวแพทย์</div>
+    </div>
+    <div class="template-body">
+<pre>สวัสดีครับพี่ [ชื่อ] 🙏
+
+ผม [ชื่อ] นิสิตปี [N] ครับ
+เห็นว่าพี่ตามคนในวงการ vet เยอะเลย
+อยากขอความช่วยเหลือนิดเดียว
+
+ผมกับเพื่อนทำเว็บ vetmock.vercel.app
+คลังข้อสอบสัตวแพทย์ จุฬาฯ ฟรี — MCQ + ข้อสอบเก่า + คลิป + สรุป
+ครอบคลุม COM III, IV, V และ Eng Vet Prof II
+
+วันจันทร์ที่ [DD] เปิดตัวบน IG @vetmock.cu
+ถ้าพี่ลองเข้าเว็บแล้วชอบ
+ช่วย share story ให้นิดนึงได้ไหมครับ?
+จะเป็นพระคุณมาก น้องๆ ชั้นปีต่ำกว่าจะเห็นเร็วขึ้นเยอะ
+
+ไม่ต้องเขียนอะไรพิเศษเลย repost จาก IG ก็ได้
+หรือถ้าจะ honest review ก็ดีกว่าครับ 🙏
+
+ขอบคุณมากครับ</pre>
+      <div class="template-notes">
+        <strong>โครงสร้างที่ใช้ได้ผล:</strong> แนะนำตัวสั้นๆ → ชม/อ้างอิงสิ่งที่เขาทำ (1 บรรทัดพอ) → ขอเฉพาะเจาะจง → ลด friction (ไม่ต้องเขียนเอง) → ขอบคุณ · <strong>อย่า:</strong> ขอ feed post · ขอแบบ urgent · ส่งวัน launch (สายเกินไป)
+      </div>
+    </div>
+  </div>
+
+  <!-- Template 3 -->
+  <div class="template-card">
+    <div class="template-head">
+      <div class="template-tag">DAY 3 · ขอล่วงหน้า 5 วัน เพราะเพจมีกระบวนการ</div>
+      <div class="template-name">เพจคณะ / สโมสรนิสิต · ขอ feature post</div>
+      <div class="template-when">ส่งให้: เพจสัตวแพทย์จุฬา, สโมสรฯ, รุ่นต่างๆ</div>
+    </div>
+    <div class="template-body">
+<pre>สวัสดีครับ/ค่ะ ทีมแอดมิน [ชื่อเพจ] 🙏
+
+ผม/หนู [ชื่อ] นิสิตสัตวแพทย์ จุฬาฯ ปี [N] ครับ/ค่ะ
+อยากแนะนำโปรเจกต์ของนิสิต ที่อาจเป็นประโยชน์กับเพื่อนๆ ที่ติดตามเพจ
+
+— — —
+
+🐾 VetMock — คลังข้อสอบสัตวแพทย์ จุฬาฯ
+เว็บ: vetmock.vercel.app
+IG: @vetmock.cu
+
+มีอะไรบ้าง:
+· คลังข้อสอบเก่า + เฉลย
+· Mock Exam แบบจับเวลา (MCQ)
+· คลิปย้อนหลังจากรุ่นพี่/อาจารย์
+· สรุปย่อก่อนสอบ
+
+ครอบคลุม: COM III, IV, V และ Eng Vet Prof II
+(กำลังขยายให้ครบทุกชั้นปี)
+
+จุดเด่น:
+· ฟรี 100% — ไม่มีเก็บเงิน ไม่มี ads
+· ทำโดยนิสิต เพื่อนิสิต
+· ไม่ต้องสมัครสมาชิกยุ่งยาก
+
+— — —
+
+จะเปิดตัวบน IG วันจันทร์ที่ [DD/MM]
+ถ้าทางเพจเห็นว่าเป็นประโยชน์
+ขอความกรุณาช่วย share / feature ให้น้องๆ ในคณะรู้จักหน่อยได้ไหมครับ/คะ?
+
+เตรียมรูป + caption ให้พร้อมแล้ว ส่งให้ได้ทันที
+หรือถ้าทีมงานอยากปรับเองตามสไตล์เพจ ก็ยินดีครับ/ค่ะ
+
+ขอบคุณที่อ่านจบครับ/ค่ะ 🙏
+
+ติดต่อกลับ: [LINE / IG / Email]</pre>
+      <div class="template-notes">
+        <strong>โครงสร้าง press-release-friendly:</strong> ระบุตัวตน → ข้อมูลเป็นหมวด (เพจชอบใช้ format นี้ copy ลงโพสต์ได้เลย) → จุดเด่น (ทำไมน่าสนใจ) → CTA + offer ให้ความสะดวก · <strong>ส่งล่วงหน้า 5+ วัน</strong> เพราะเพจคณะมักประชุมก่อนโพสต์
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TIMING ============ -->
+  <div class="section-title"><span class="section-num">2</span> Timing · ส่งวันไหน</div>
+
+  <div class="timing-grid">
+    <div class="timing-card">
+      <div class="timing-day">DAY 3 · พุธ</div>
+      <div class="timing-task">ส่งเพจคณะ/สโมสรฯ</div>
+      <div class="timing-detail">ให้เวลาทีมเพจประชุม + เตรียมโพสต์</div>
+    </div>
+    <div class="timing-card">
+      <div class="timing-day">DAY 5-6 · ศุกร์-เสาร์</div>
+      <div class="timing-task">ส่งรุ่นพี่</div>
+      <div class="timing-detail">ก่อนวันหยุด คนว่างกว่าจะอ่านยาวๆ</div>
+    </div>
+    <div class="timing-card">
+      <div class="timing-day">DAY 6 · เสาร์</div>
+      <div class="timing-task">ส่งเพื่อนในคณะ</div>
+      <div class="timing-detail">เตือนตอนเย็นวันอาทิตย์ก่อน launch อีกครั้ง</div>
+    </div>
+  </div>
+
+  <!-- ============ LAUNCH CAPTION ============ -->
+  <div class="section-title"><span class="section-num">3</span> Launch Day Caption (Day 8)</div>
+
+  <div class="caption-box">
+    <div class="meta-row">
+      <div class="meta"><span class="dot"></span> โพสต์: Carousel 7 สไลด์</div>
+      <div class="meta"><span class="dot"></span> เวลาแนะนำ: 8:00 AM</div>
+      <div class="meta"><span class="dot"></span> ความยาว: 1,250 char</div>
+    </div>
+<pre>VetMock 🐾
+
+คลังข้อสอบสัตวแพทย์ จุฬาฯ
+เปิดให้ใช้งานแล้ววันนี้
+
+— — —
+
+ทำไมเราทำ:
+
+อ่านมาเยอะ ทำสรุปแน่น
+แต่พอเข้าห้องสอบ — เจอข้อที่ไม่เคยคิดว่าจะออก
+ปัญหาไม่ใช่ "อ่านน้อย"
+แต่คือ "ไม่รู้ว่าตัวเองยังไม่แน่นตรงไหน"
+
+และข้อสอบเก่าที่ควรได้ใช้ฝึก
+กลับกระจายอยู่ใน group line, drive, หรือไม่มีเลย
+
+— — —
+
+VetMock มีอะไร:
+
+📝 คลังข้อสอบเก่า + เฉลย
+⏱️ Mock Exam แบบ MCQ จับเวลา
+🎥 คลิปย้อนหลังจากรุ่นพี่/อาจารย์
+📑 สรุปย่อก่อนสอบ
+
+ครอบคลุม COM III, IV, V และ Eng Vet Prof II
+(กำลังขยายให้ครบทุกชั้นปี)
+
+— — —
+
+จุดยืนของเรา:
+
+ฟรี 100% — ไม่มีเก็บเงิน ไม่มี ads
+ทำโดยนิสิต เพื่อนิสิต
+เข้าเว็บได้เลย ไม่ต้องสมัคร
+
+— — —
+
+เริ่มทำข้อสอบที่ 👉 vetmock.vercel.app
+
+ฝาก follow @vetmock.cu
+จะ update ข้อสอบใหม่ + คลิป + tip อ่านสอบ ตลอดเทอม
+
+ถ้ามีรายวิชาไหนอยาก contribute ข้อสอบ — DM มาได้เลย
+
+🐾 ขอให้สอบติด
+
+#VetMock #สัตวแพทย์จุฬา #VetCU
+#COM3 #COM4 #COM5 #EngVetProf2
+#นิสิตสัตวแพทย์ #จุฬา</pre>
+  </div>
+
+  <!-- ============ LAUNCH DAY CHECKLIST ============ -->
+  <div class="section-title"><span class="section-num">4</span> Launch Day · Checklist (Day 8)</div>
+
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="checklist-num">1</div>
+      <div class="text">
+        <strong>7:30 AM — เช็คทุกอย่างพร้อม</strong>
+        <small>เว็บ live · IG bio + link ใส่ครบ · highlight covers อัพแล้ว · post draft + 7 รูป carousel จัดเรียงถูก</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-num">2</div>
+      <div class="text">
+        <strong>8:00 AM — โพสต์ carousel</strong>
+        <small>เวลาคนเริ่มเปิด IG ก่อนเริ่มเรียน · เลือก 8:00 ตรงเพื่อให้ติด feed ก่อนใครๆ</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-num">3</div>
+      <div class="text">
+        <strong>8:05 AM — แจ้งเพื่อน</strong>
+        <small>ส่ง group chat: "โพสต์แล้ว 🙏 รบกวน share story ตอนนี้ได้เลย" · แนบ link โพสต์</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-num">4</div>
+      <div class="text">
+        <strong>9:00 AM — โพสต์ story ของตัวเอง</strong>
+        <small>โชว์ว่ามีคนเริ่มใช้แล้ว (screenshot คะแนน mock exam ตัวอย่าง) · ใส่ poll: "เคยใช้ vetmock แล้วไหม?"</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-num">5</div>
+      <div class="text">
+        <strong>10:00 AM-12:00 PM — ตอบ DM/comment ทุกข้อความ</strong>
+        <small>ช่วงนี้คือ engagement window สำคัญที่สุด · IG algorithm ดูที่ความเร็วในการตอบ + จำนวน interaction</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-num">6</div>
+      <div class="text">
+        <strong>เที่ยง — โพสต์ story takeover</strong>
+        <small>10-15 stories ตลอดบ่าย: feature ทีละอย่าง · UI screenshot · poll · Q&A box · "ใครใช้แล้ว tag เราหน่อย"</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-num">7</div>
+      <div class="text">
+        <strong>เย็น — เช็คตัวเลข + DM ขอบคุณ</strong>
+        <small>คนเข้าเว็บกี่คน · follower เพิ่มกี่คน · คนทำข้อสอบกี่ชุด → DM ขอบคุณคนที่ share + คนที่ทำข้อสอบเสร็จคนแรก (ขอ feedback)</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-num">8</div>
+      <div class="text">
+        <strong>ก่อนนอน — โพสต์ story สรุปวัน</strong>
+        <small>"ขอบคุณทุกคนที่ช่วย share วันนี้ 🙏 มี [N] คนเข้ามาทำข้อสอบ ทำรวมกัน [N] ข้อ" · สร้าง social proof ตั้งแต่วันแรก</small>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

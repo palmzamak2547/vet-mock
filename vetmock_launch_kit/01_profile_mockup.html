@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VetMock · IG Launch Kit</title>
+<style>
+  :root {
+    --sage: #4a6b4a;
+    --sage-dark: #3a5638;
+    --sage-deep: #2d4530;
+    --cream: #fdf8ef;
+    --cream-warm: #f5ecd8;
+    --bg: #faf7f0;
+    --tile-soft: #e8ede4;
+    --text: #2d3d2d;
+    --text-muted: #6b7a6a;
+    --border: #e1e4dc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Sukhumvit Set', 'IBM Plex Sans Thai', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    padding: 48px 20px;
+    line-height: 1.5;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .doc-header {
+    text-align: center;
+    margin-bottom: 56px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-logo {
+    width: 64px; height: 64px;
+    margin: 0 auto 16px;
+  }
+  .doc-title { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--sage-deep); }
+  .doc-sub { font-size: 14px; color: var(--text-muted); }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--sage);
+    color: var(--cream);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .block { margin-bottom: 64px; }
+
+  /* ============ IG PROFILE FRAME ============ */
+  .phone-wrap { display: flex; justify-content: center; }
+  .phone {
+    width: 100%;
+    max-width: 380px;
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(74, 107, 74, 0.16), 0 1px 3px rgba(74, 107, 74, 0.08);
+    border: 1px solid var(--border);
+  }
+  .ig-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid #F0F0F0;
+  }
+  .ig-username {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .ig-icons { display: flex; gap: 16px; color: var(--text); }
+  .ig-icons svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  .profile-row {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    gap: 24px;
+  }
+  .avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: var(--sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 1px var(--border);
+  }
+  .avatar svg { width: 100%; height: 100%; }
+  .stats { display: flex; gap: 20px; flex: 1; }
+  .stat { text-align: center; }
+  .stat-num { font-weight: 700; font-size: 16px; color: var(--text); }
+  .stat-label { font-size: 12px; color: var(--text-muted); }
+
+  .bio { padding: 0 16px 14px; }
+  .bio-name { font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+  .bio-cat { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+  .bio-text {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre-line;
+  }
+  .bio-link { color: var(--sage); font-weight: 600; font-size: 13px; margin-top: 4px; display: block; }
+
+  .actions { display: flex; gap: 6px; padding: 0 16px 14px; }
+  .btn {
+    flex: 1;
+    padding: 7px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: #F9FAFB;
+  }
+  .btn.primary { background: var(--sage); color: var(--cream); border-color: var(--sage); }
+
+  /* ============ HIGHLIGHTS ============ */
+  .highlights {
+    display: flex;
+    gap: 14px;
+    padding: 8px 16px 16px;
+    overflow-x: auto;
+  }
+  .hl { text-align: center; flex-shrink: 0; }
+  .hl-circle {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    border: 2px solid white;
+    box-shadow: 0 0 0 1.5px var(--sage);
+  }
+  .hl-circle svg {
+    width: 28px; height: 28px;
+    stroke: var(--cream);
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .hl-label { font-size: 11px; color: var(--text); font-weight: 500; }
+
+  /* ============ TABS ============ */
+  .tabs { display: flex; border-top: 1px solid #F0F0F0; }
+  .tab { flex: 1; padding: 10px; text-align: center; color: #9CA3AF; }
+  .tab.active { color: var(--text); border-top: 1.5px solid var(--text); margin-top: -1px; }
+  .tab svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+  /* ============ GRID ============ */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: white; }
+  .tile {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    text-align: center;
+  }
+  .tile-pain { background: var(--cream-warm); }
+  .tile-pain .label { font-size: 11px; line-height: 1.4; color: var(--sage-deep); font-weight: 500; }
+  .tile-pain .label strong { display: block; font-size: 13px; margin-bottom: 4px; font-weight: 700; }
+
+  .tile-hint { background: var(--sage); color: var(--cream); }
+  .tile-hint .label { font-size: 10px; line-height: 1.45; font-weight: 500; }
+  .tile-hint .accent { color: var(--cream-warm); font-weight: 700; }
+
+  .tile-reveal { background: var(--sage); color: var(--cream); flex-direction: column; gap: 8px; }
+  .tile-reveal .mini-paw { width: 36px; height: 36px; }
+  .tile-reveal .logo-text { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; }
+  .tile-reveal .sub { font-size: 9px; color: rgba(253, 248, 239, 0.7); letter-spacing: 0.1em; }
+
+  .tile-future { background: #F0EEE8; color: #B8B5AD; }
+  .tile-future svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+  /* ============ ENLARGED HIGHLIGHTS ============ */
+  .hl-detail {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 700px) { .hl-detail { grid-template-columns: repeat(3, 1fr); } }
+  .hl-card {
+    text-align: center;
+    padding: 20px 8px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .hl-big {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: var(--sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .hl-big svg { width: 44px; height: 44px; stroke: var(--cream); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .hl-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .hl-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+  /* ============ TEASER POSTS ============ */
+  .teasers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 800px) { .teasers { grid-template-columns: 1fr; } }
+  .teaser {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: white;
+  }
+  .teaser-img {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    text-align: center;
+  }
+  .teaser-meta { padding: 16px; border-top: 1px solid #F0F0F0; }
+  .teaser-day {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+  .teaser-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .teaser-desc { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+
+  .teaser-1 { background: var(--cream-warm); }
+  .teaser-1 .h { font-size: 22px; font-weight: 700; color: var(--sage-deep); line-height: 1.3; margin-bottom: 16px; }
+  .teaser-1 .s { font-size: 12px; color: var(--text-muted); }
+
+  .teaser-2 { background: var(--sage); color: var(--cream); }
+  .teaser-2 .h { font-size: 20px; font-weight: 600; line-height: 1.4; margin-bottom: 20px; }
+  .teaser-2 .h strong { color: var(--cream-warm); font-weight: 700; }
+  .teaser-2 .s { font-size: 10px; letter-spacing: 0.18em; color: var(--cream-warm); font-weight: 700; }
+
+  .teaser-3 { background: var(--sage); color: var(--cream); flex-direction: column; gap: 18px; }
+  .teaser-3 .big-paw { width: 100px; height: 100px; }
+  .teaser-3 .logo-text { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; }
+  .teaser-3 .tag { font-size: 11px; color: rgba(253, 248, 239, 0.75); letter-spacing: 0.08em; }
+  .teaser-3 .date {
+    margin-top: 8px;
+    padding: 7px 16px;
+    border: 1px solid var(--cream-warm);
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--cream-warm);
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+
+  .note {
+    font-size: 13px;
+    color: var(--text);
+    margin-top: 20px;
+    padding: 16px 18px;
+    background: white;
+    border-left: 3px solid var(--sage);
+    border-radius: 4px;
+    line-height: 1.65;
+  }
+  .note strong { color: var(--sage-deep); }
+
+  .caption-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    margin-top: 18px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .caption-box .label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--sage);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .caption-box .label::before {
+    content: '';
+    display: inline-block;
+    width: 14px; height: 1.5px;
+    background: var(--sage);
+  }
+  .caption-box pre {
+    font-family: inherit;
+    white-space: pre-wrap;
+    color: var(--text);
+  }
+
+  .palette {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .swatch { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: white; border: 1px solid var(--border); border-radius: 8px; font-size: 12px; }
+  .swatch-color { width: 20px; height: 20px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.05); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="doc-header">
+    <svg class="doc-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <rect width="512" height="512" rx="96" ry="96" fill="#4a6b4a"/>
+      <g fill="#fdf8ef">
+        <ellipse cx="256" cy="338" rx="92" ry="74"/>
+        <ellipse cx="148" cy="232" rx="36" ry="48" transform="rotate(-18 148 232)"/>
+        <ellipse cx="212" cy="158" rx="34" ry="46" transform="rotate(-6 212 158)"/>
+        <ellipse cx="300" cy="158" rx="34" ry="46" transform="rotate(6 300 158)"/>
+        <ellipse cx="364" cy="232" rx="36" ry="48" transform="rotate(18 364 232)"/>
+      </g>
+    </svg>
+    <div class="doc-title">VetMock · IG Launch Kit</div>
+    <div class="doc-sub">Profile mockup · Highlight covers · 3 Teaser posts</div>
+  </div>
+
+  <!-- ============ MOCKUP ============ -->
+  <div class="block">
+    <div class="section-title"><span class="section-num">1</span> โปรไฟล์ IG · ภาพรวม</div>
+
+    <div class="phone-wrap">
+    <div class="phone">
+      <div class="ig-header">
+        <div class="ig-username">vetmock.cu</div>
+        <div class="ig-icons">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </div>
+      </div>
+
+      <div class="profile-row">
+        <div class="avatar">
+          <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <rect width="512" height="512" fill="#4a6b4a"/>
+            <g fill="#fdf8ef">
+              <ellipse cx="256" cy="338" rx="92" ry="74"/>
+              <ellipse cx="148" cy="232" rx="36" ry="48" transform="rotate(-18 148 232)"/>
+              <ellipse cx="212" cy="158" rx="34" ry="46" transform="rotate(-6 212 158)"/>
+              <ellipse cx="300" cy="158" rx="34" ry="46" transform="rotate(6 300 158)"/>
+              <ellipse cx="364" cy="232" rx="36" ry="48" transform="rotate(18 364 232)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="stat-num">3</div><div class="stat-label">posts</div></div>
+          <div class="stat"><div class="stat-num">—</div><div class="stat-label">followers</div></div>
+          <div class="stat"><div class="stat-num">—</div><div class="stat-label">following</div></div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <div class="bio-name">VetMock · สัตวแพทย์ จุฬาฯ</div>
+        <div class="bio-cat">Education</div>
+        <div class="bio-text">🐾 คลังข้อสอบสัตวแพทย์ จุฬาฯ — ฟรี
+MCQ + ข้อสอบเก่า + คลิป + สรุป
+COM III/IV/V · Eng Vet Prof II
+ทำโดยนิสิต เพื่อนิสิต</div>
+        <a class="bio-link">vetmock.vercel.app</a>
+      </div>
+
+      <div class="actions">
+        <div class="btn primary">Follow</div>
+        <div class="btn">Message</div>
+        <div class="btn" style="flex: 0 0 36px;">▾</div>
+      </div>
+
+      <div class="highlights">
+        <div class="hl">
+          <div class="hl-circle"><svg viewBox="0 0 24 24"><path d="M5 4h10a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4V4z"/><path d="M5 4v12"/></svg></div>
+          <div class="hl-label">เริ่มที่นี่</div>
+        </div>
+        <div class="hl">
+          <div class="hl-circle"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+          <div class="hl-label">ฟีเจอร์</div>
+        </div>
+        <div class="hl">
+          <div class="hl-circle"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h4"/></svg></div>
+          <div class="hl-label">ข้อสอบ</div>
+        </div>
+        <div class="hl">
+          <div class="hl-circle"><svg viewBox="0 0 24 24"><path d="M7 9c0-1 1-2 2-2s2 1 2 2-1 2-2 3v1M9 16h.01"/><path d="M21 12c0 5-4 9-9 9-1.5 0-3-.4-4.3-1L3 21l1-4.7C3.4 15 3 13.5 3 12c0-5 4-9 9-9s9 4 9 9z"/></svg></div>
+          <div class="hl-label">รีวิว</div>
+        </div>
+        <div class="hl">
+          <div class="hl-circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4M12 17h.01"/></svg></div>
+          <div class="hl-label">Q&amp;A</div>
+        </div>
+        <div class="hl">
+          <div class="hl-circle"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M14 20c0-2 2-4 4-4s3 1.5 3 4"/></svg></div>
+          <div class="hl-label">ทีม</div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="tab active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div>
+        <div class="tab"><svg viewBox="0 0 24 24"><polygon points="10 8 16 12 10 16 10 8"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+        <div class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg></div>
+      </div>
+
+      <div class="grid">
+        <div class="tile tile-pain">
+          <div class="label"><strong>อ่านมาเยอะ...</strong>แต่ไม่รู้ว่าตัวเอง<br/>อ่อนตรงไหน?</div>
+        </div>
+        <div class="tile tile-hint">
+          <div class="label">ถ้ามีคลังข้อสอบ<br/><span class="accent">ตรงหลักสูตรจุฬาฯ</span><br/>+ วิเคราะห์ผลให้<br/>จะใช้ไหม?</div>
+        </div>
+        <div class="tile tile-reveal">
+          <svg class="mini-paw" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#fdf8ef">
+              <ellipse cx="256" cy="338" rx="92" ry="74"/>
+              <ellipse cx="148" cy="232" rx="36" ry="48" transform="rotate(-18 148 232)"/>
+              <ellipse cx="212" cy="158" rx="34" ry="46" transform="rotate(-6 212 158)"/>
+              <ellipse cx="300" cy="158" rx="34" ry="46" transform="rotate(6 300 158)"/>
+              <ellipse cx="364" cy="232" rx="36" ry="48" transform="rotate(18 364 232)"/>
+            </g>
+          </svg>
+          <div class="logo-text">VetMock</div>
+          <div class="sub">SOON</div>
+        </div>
+        <div class="tile tile-future"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="tile tile-future"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="tile tile-future"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="tile tile-future"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="tile tile-future"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="tile tile-future"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+    </div>
+    </div>
+
+    <div class="note">
+      <strong>Bio update:</strong> เปลี่ยนจาก "Mock Exam จับเวลา + วิเคราะห์จุดอ่อน" → ระบุ feature จริงตามเว็บ ("MCQ + ข้อสอบเก่า + คลิป + สรุป") และระบุชั้นเรียน ("COM III/IV/V · Eng Vet Prof II") — ตรงกว่า เป็น signal ทันทีว่าตรง syllabus จริง · Domain แก้เป็น vetmock.vercel.app
+    </div>
+
+    <div class="palette">
+      <div class="swatch"><div class="swatch-color" style="background:#4a6b4a"></div>Sage · #4a6b4a</div>
+      <div class="swatch"><div class="swatch-color" style="background:#fdf8ef"></div>Cream · #fdf8ef</div>
+      <div class="swatch"><div class="swatch-color" style="background:#3a5638"></div>Sage Dark · #3a5638</div>
+      <div class="swatch"><div class="swatch-color" style="background:#f5ecd8"></div>Cream Warm · #f5ecd8</div>
+      <div class="swatch"><div class="swatch-color" style="background:#faf7f0"></div>Bg · #faf7f0</div>
+    </div>
+  </div>
+
+  <!-- ============ HIGHLIGHTS DETAIL ============ -->
+  <div class="block">
+    <div class="section-title"><span class="section-num">2</span> Highlight Covers · 6 ชิ้น</div>
+
+    <div class="hl-detail">
+      <div class="hl-card">
+        <div class="hl-big"><svg viewBox="0 0 24 24"><path d="M5 4h10a4 4 0 0 1 4 4v12H9a4 4 0 0 1-4-4V4z"/><path d="M5 4v12"/></svg></div>
+        <div class="hl-name">เริ่มที่นี่</div>
+        <div class="hl-desc">vetmock คืออะไร · เริ่มยังไง</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-big"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <div class="hl-name">ฟีเจอร์</div>
+        <div class="hl-desc">MCQ · ข้อสอบเก่า · คลิป · สรุป</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-big"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h4"/></svg></div>
+        <div class="hl-name">ตัวอย่างข้อสอบ</div>
+        <div class="hl-desc">screenshot จากแต่ละวิชาจริง</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-big"><svg viewBox="0 0 24 24"><path d="M7 9c0-1 1-2 2-2s2 1 2 2-1 2-2 3v1M9 16h.01"/><path d="M21 12c0 5-4 9-9 9-1.5 0-3-.4-4.3-1L3 21l1-4.7C3.4 15 3 13.5 3 12c0-5 4-9 9-9s9 4 9 9z"/></svg></div>
+        <div class="hl-name">รีวิว</div>
+        <div class="hl-desc">reshare story รุ่นพี่/เพื่อน</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-big"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4M12 17h.01"/></svg></div>
+        <div class="hl-name">Q&amp;A</div>
+        <div class="hl-desc">FAQ · ฟรีจริงไหม · ข้อสอบจากไหน</div>
+      </div>
+      <div class="hl-card">
+        <div class="hl-big"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M14 20c0-2 2-4 4-4s3 1.5 3 4"/></svg></div>
+        <div class="hl-name">ทีม</div>
+        <div class="hl-desc">ใครทำ · ทำไม · ติดต่อ</div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>วิธีทำเป็นไฟล์จริงเพื่อ upload:</strong> Export 1080×1080 PNG · พื้น sage <code>#4a6b4a</code> · icon cream <code>#fdf8ef</code> · วาง icon ในกรอบกลาง 700×700 (IG crop เป็นวงกลม กันเอ็กซ์โดนตัด) · บอกได้ครับ จะ generate PNG ทั้ง 6 ชิ้นพร้อม upload ให้
+    </div>
+  </div>
+
+  <!-- ============ TEASER POSTS DETAIL ============ -->
+  <div class="block">
+    <div class="section-title"><span class="section-num">3</span> Teaser Posts · Day 3 / 4 / 5</div>
+
+    <div class="teasers">
+      <div class="teaser">
+        <div class="teaser-img teaser-1">
+          <div>
+            <div class="h">อ่านมาเยอะ...<br/>แต่ไม่รู้ว่าตัวเอง<br/>อ่อนตรงไหน?</div>
+            <div class="s">— นิสิตสัตวแพทย์ทุกคน, ทุกปี</div>
+          </div>
+        </div>
+        <div class="teaser-meta">
+          <div class="teaser-day">DAY 3 · PAIN POINT</div>
+          <div class="teaser-title">ตั้งคำถาม ไม่ขายของ</div>
+          <div class="teaser-desc">ภาพ minimal · พื้น cream · ไม่มี logo · ให้คนหยุดเลื่อน</div>
+        </div>
+      </div>
+
+      <div class="teaser">
+        <div class="teaser-img teaser-2">
+          <div>
+            <div class="h">ถ้ามีคลังข้อสอบ<br/><strong>ตรงหลักสูตรจุฬาฯ</strong><br/>+ วิเคราะห์จุดอ่อนให้<br/>จะใช้ไหม?</div>
+            <div class="s">COMING · 14 DAYS</div>
+          </div>
+        </div>
+        <div class="teaser-meta">
+          <div class="teaser-day">DAY 4 · HINT + COUNTDOWN</div>
+          <div class="teaser-title">โผล่ทางออก ยังไม่บอกชื่อ</div>
+          <div class="teaser-desc">พื้น sage · text cream · เริ่มสร้าง anticipation</div>
+        </div>
+      </div>
+
+      <div class="teaser">
+        <div class="teaser-img teaser-3">
+          <svg class="big-paw" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#fdf8ef">
+              <ellipse cx="256" cy="338" rx="92" ry="74"/>
+              <ellipse cx="148" cy="232" rx="36" ry="48" transform="rotate(-18 148 232)"/>
+              <ellipse cx="212" cy="158" rx="34" ry="46" transform="rotate(-6 212 158)"/>
+              <ellipse cx="300" cy="158" rx="34" ry="46" transform="rotate(6 300 158)"/>
+              <ellipse cx="364" cy="232" rx="36" ry="48" transform="rotate(18 364 232)"/>
+            </g>
+          </svg>
+          <div class="logo-text">VetMock</div>
+          <div class="tag">FOR VET STUDENTS · CU</div>
+          <div class="date">LAUNCHING · DAY 8</div>
+        </div>
+        <div class="teaser-meta">
+          <div class="teaser-day">DAY 5 · LOGO REVEAL</div>
+          <div class="teaser-title">โชว์โลโก้จริง · เปิดวันเปิดตัว</div>
+          <div class="teaser-desc">paw + ชื่อ · นิ่ง confident · ไม่อธิบายเยอะ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAPTIONS -->
+    <div class="caption-box">
+      <div class="label">CAPTION · DAY 3 (PAIN POINT)</div>
+<pre>อ่านชีทเป็นรอบ
+ทำสรุปแน่น
+แต่พอเข้าห้องสอบ — เจอข้อที่ไม่เคยคิดว่าจะออก
+
+ปัญหาไม่ใช่ "อ่านน้อย"
+แต่คือ "ไม่รู้ว่าตัวเองยังไม่แน่นตรงไหน"
+
+. . .
+
+อะไรบางอย่างกำลังจะมา 🐾
+
+#สัตวแพทย์จุฬา #VetCU #นิสิตสัตวแพทย์</pre>
+    </div>
+
+    <div class="caption-box">
+      <div class="label">CAPTION · DAY 4 (HINT + COUNTDOWN)</div>
+<pre>ลองนึกภาพ —
+
+คลังข้อสอบที่ตรงหลักสูตรจุฬาฯ จริงๆ
+มี MCQ + ข้อสอบเก่า + คลิปย้อนหลัง + สรุป
+ครอบคลุม COM III, IV, V และ Eng Vet Prof II
+
+ฟรี
+ไม่มีเก็บเงิน
+ไม่มีสมัครสมาชิกยุ่งยาก
+
+อีก 14 วัน เจอกัน 🐾
+
+#สัตวแพทย์จุฬา #VetCU #COM3 #COM4 #COM5</pre>
+    </div>
+
+    <div class="caption-box">
+      <div class="label">CAPTION · DAY 5 (LOGO REVEAL)</div>
+<pre>VetMock 🐾
+
+คลังข้อสอบสัตวแพทย์ จุฬาฯ
+MCQ · ข้อสอบเก่า · คลิป · สรุป
+
+ทำโดยนิสิต — เพื่อนิสิต
+ฟรี 100%
+
+8 วันเจอกันที่ vetmock.vercel.app
+กดติดตามไว้รอเปิดตัวพร้อมกัน 👇
+
+#VetMock #สัตวแพทย์จุฬา #VetCU</pre>
+    </div>
+
+    <div class="note">
+      <strong>เคล็ดลับ caption โทน organic-professional:</strong> ใช้ enter เยอะให้อ่านง่าย · จำกัด emoji 1 ตัวต่อ caption (ใช้ 🐾 เป็น signature ของแบรนด์ — เลิกใช้ 🩺) · hashtag 3-5 ตัว เน้น niche เฉพาะกลุ่ม (#สัตวแพทย์จุฬา, #COM3) ไม่ใช่ทั่วไป · Day 4 ใส่ #COM3/4/5 เพื่อให้คนเสิร์ชเจอตรงเป้า
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
