@@ -41971,6 +41971,386 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🎯 **Decision tree**: Diarrhea + 3-5yo + no fever + eats normally = SUSPECT JOHNE'S`,
   },
 
+  trecK_M_UyA: {
+    videoId: 'trecK_M_UyA',
+    title: 'Brucellosis + Hemorrhagic Septicemia + Leptospirosis (3 zoonotic bacterial diseases)',
+    subject: 'herd-health-rum',
+    date: '2024-09-04',
+    durationMin: 164,
+    instructor: 'อ.ธนศักดิ์ (เน้น zoonotic risk + brucellosis screening at coop level)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง 4 species ของ Brucella + abortion in last trimester + sudden death in buffalo + abortion storm Lepto',
+    summary: `## 🎯 Lead Summary
+**3 zoonotic bacterial diseases** of cattle/ruminants. **Brucellosis** = chronic abortion + retained placenta · **B. abortus** in cattle, **B. melitensis** in goats (most dangerous to humans!) · diagnosed by milk/serum agglutination tests. **Hemorrhagic Septicemia** = ⚠️ buffalo sudden death from Pasteurella multocida · "swollen neck" disease · stress + flooding precipitate · vaccinate annually with oil adjuvant. **Leptospirosis** = "rat-piss disease" · last-trimester **abortion storm** · 4 important serovars (Pomona, Hardjo, Hebdomadis, Canicola) · zoonotic via skin/mucous membrane.
+
+## 1️⃣ Brucellosis (โรคแท้งติดต่อ) ⭐⭐⭐
+
+### Etiology — 4 main species ⭐
+| Species | Primary host | Cross to humans | Risk level |
+|---|---|---|---|
+| **B. abortus** ⭐ | **Cattle** | YES | Moderate · undulant fever |
+| **B. melitensis** ⭐ | **Goats, sheep** | YES | ⚠️ **HIGHEST** · airborne strain · used for biowarfare |
+| **B. suis** | Pigs | YES | Moderate · controlled in industrial farms |
+| **B. ovis** | Sheep | NO | Animal only |
+| B. canis | Dogs | YES (mild) | — |
+| B. ceti | Marine mammals | Rare | — |
+
+### Why B. melitensis is Most Feared ⭐
+- ⭐ **Airborne pathogen** (only Brucella species that aerosolizes!)
+- 1st airborne case: **lab worker** isolating B. melitensis (encephalitis after exposure)
+- Used as **biological warfare agent** historically
+- Goat farms in Thailand: increasing zoonotic risk
+- ⭐ Real Thailand cases:
+  - Agricultural professor + farm worker (goat handler) + worker's wife (handled goat milk distribution)
+  - All became symptomatic after handling positive goats
+
+### Microbiology
+- ⭐ **Gram-negative coccobacilli** (small)
+- Slow-growing
+- ⭐ **Intracellular pathogen** (in macrophages, neutrophils)
+
+### Survival in Environment
+- Survives weeks in feces, urine, water, soil
+- ⭐ Sun + heat = kills it (Thailand favorable!)
+- Cold/cold-dairy products = preserves it!
+
+### Survival in Dairy Products ⭐
+| Product | Storage | Survival |
+|---|---|---|
+| Milk (whole) | 8°C | 48 hours |
+| Cream | 4°C | 30+ days |
+| Ice cream | 0°C | 30 days |
+| **Cheese (raw milk)** ⭐ | Salt added | Months! |
+| Yogurt | Acid | Days |
+| Butter | Centrifuged | In milk fat retained |
+| Pasteurized milk (HTST 72°C × 15 sec) | 0°C | **DEAD** ✅ 18 months |
+
+> ⚠️ **Beware**: "Premium artisan unpasteurized cheese" sold in Thailand — explicit risk!
+
+### Pathogenesis
+- ⭐ **Predilection sites** ("ที่ชอบที่ชอบของมัน"):
+  - Pregnant uterus (placenta)
+  - Mammary gland + supramammary LN
+  - Testes
+  - ⚠️ All contain **erythritol** — substance Brucella loves to grow on!
+
+### Routes of Infection ⭐
+| Route | Why important |
+|---|---|
+| **Ingestion** ⭐ MAIN! | Direct/indirect via contaminated environment |
+| Mucous membranes | After cow-to-cow licking (sniff genital area in heat!) |
+| Skin (open wounds) | Vet exposure during palpation |
+| Aerosol (B. melitensis only!) | Goat farms, lab |
+| Vertical | Rare in true sense |
+| Semen (artificial insemination) | Rare with proper screening |
+
+### Why Cows Lick Each Other in Estrus ⭐
+- ⭐ **Pre-mating behavior**: female in heat → other cows mount + lick genitalia
+- This is how B. abortus spreads even in 100% AI farms!
+- Reduces but doesn't eliminate horizontal transmission
+
+### Disease Course
+1. **Septicemia phase** (1-2 weeks)
+   - Fever, depression
+   - Brucella in blood, lymphatic spread
+2. ⭐ **Chronic phase** — settles in predilection organs
+   - Placenta + fetus → abortion
+   - Mammary gland → contaminated milk
+   - Testes → orchitis + epididymitis
+
+### Clinical Signs in Cattle ⭐⭐⭐
+- ⭐ **Abortion in LAST TRIMESTER** (after 5-6 months gestation)
+- Calf comes out fully developed, with hair coat — but stillborn or weak
+- Retained placenta (4-6+ hours)
+- ⭐ **Endometritis** post-abortion
+- Persistent infection → orchitis (males), low fertility
+- ⚠️ **Not all positive cows abort** — 20% during pregnancy when first infected
+- Subsequent pregnancies: may go to term but contaminated
+
+### Important Diagnostic Concepts ⭐
+1. ⭐ **incubation period 60 days** → seroconversion
+   - If today screening Negative → re-test in 60 days minimum!
+2. ⭐ **Latent infection** in calf born from infected dam
+   - Calf considers Brucella "self" → never seroconverts
+   - Continues spreading silently in herd
+
+### Diagnosis ⭐
+| Test | Detail |
+|---|---|
+| **Serum Agglutination** | Standard tube test |
+| **Plate agglutination** ⭐ | Old method · Thailand uses now (DLD-only antigen) |
+| ⭐ **Milk Ring Test (MRT)** | Pour milk + dyed antigen → ring at top = Positive |
+| ⭐ **Vaginal Swab/Culture** | From aborting animal |
+| **Abomasal fluid culture** ⭐ | Best for aborted fetus diagnosis |
+| **PCR** | Available |
+| **Histopath** | Granulomas in placenta, testes |
+
+### Milk Ring Test Pros & Cons ⭐
+- ✅ **Cheap** (no needles, no centrifuge)
+- ✅ **Easy to scale** (test pooled tank milk = whole farm screen)
+- ✅ Field-deployable
+- ⚠️ **Dilution effect** in large herds (>100 cows) reduces sensitivity
+- ⚠️ Best for confirming farms before individual testing
+
+### Real Story: Pakchong Cooperative ⭐
+- 150 farms tested via milk ring test
+- 2 farms positive
+- One farm: 150-cow herd · 10 positive → ALL CULLED
+- Other farm: 30-cow herd · 3-4 positive → owner kicked out vets, refused to cull
+- Result: published in Sapporo conference + DLD reactivated brucellosis surveillance
+- ⭐ Lesson: **Same coop, opposite reactions** — communication matters!
+
+### Treatment & Control ⭐
+- ⛔ **NO TREATMENT** in Thailand
+- Cull all positive animals
+- Quarantine farm 60+ days after last positive
+- ⚠️ NO test-and-recover possible
+- **Vaccine** (S19 / RB51) used in some countries — limited in Thailand
+  - Side effect: vaccinated cattle may abort if given during pregnancy
+  - Not a routine Thai practice
+
+### Public Health Communication ⭐
+- ⚠️ Aborted material is highly infectious!
+- Wear PPE: gloves, mask, eye protection
+- N95 masks recommended for goat farms
+- ⚠️ ⛔ **AI semen** must be from certified Brucella-free centers
+
+## 2️⃣ Hemorrhagic Septicemia (โรคคอบวม / โรคคอตีบ) ⭐⭐⭐
+
+### Etiology
+- ⭐ **Pasteurella multocida** (serotype B:2 in Asia)
+- ⚠️ Same bacterium that's secondary in BRD complex — but in **buffalo** = primary disease!
+- Bipolar staining (dark ends, light middle) when Methylene Blue stained ⭐
+
+### Why Buffalo > Cattle ⭐
+- ⭐ **Buffalo wallowing behavior** (water buffalos love water/mud)
+- Stagnant water = bacterial reservoir
+- 1 dead buffalo in pond → bacteria contaminate → other buffalo drink → outbreak!
+- ⭐ **Mortality 90-100%** in symptomatic buffalo (vs ~5-10% in cattle)
+- Listed under พรบ.โรคระบาดสัตว์
+
+### Real Story: Sakhonnakhon Outbreak ⭐
+- 2541-2542 (1998-1999): outbreak in Sakhon Nakhon
+- 1 buffalo died in communal pond → 30 buffalos died in following weeks (news inflated to "300")
+- ⭐ Classic Hemorrhagic Septicemia presentation
+- Survivor: 1 elderly woman's only buffalo — first photographed case of "swollen neck"
+
+### Pathogenesis
+- ⭐ Almost always: **secondary** to viral respiratory infection + stress
+- Pre-disposing: BRD viruses (BHV-1, BVD, etc.)
+- Stress (transport, feed change, weather)
+- Pasteurella multiplies → septicemia → toxemia → death
+
+### Clinical Signs (Sudden Death!) ⭐
+- ⭐ **Incubation 2-3 days** — rapid!
+- High fever
+- Depression, anorexia, salivation
+- ⭐ **"Swollen neck"** (เนื้อบริเวณคางบวม) — pathognomonic!
+  - Submental edema (chin, brisket)
+  - Edema fluid = serum leak from vasculitis
+  - More obvious in buffalo than cattle
+- Abortion in pregnant
+- Diarrhea
+- ⚠️ **Death within 24 hours** in buffalo!
+
+### Pathology at Necropsy
+- Submental edema with **gelatinous appearance** (jelly-like!)
+- Pleural cavity: petechial hemorrhages
+- Lung: pneumonia, **consolidation**
+- Pleuritis with serofibrinous exudate
+- Pericarditis
+- ⚠️ **Pathology widespread** = septicemia evidence
+
+### Diagnosis ⭐
+- **Clinical signs** + species (buffalo!) + sudden death pattern
+- **Methylene Blue stain** of blood smear → bipolar bacilli
+- Blood culture (during septicemia)
+- ⭐ **Bone marrow culture** if internal organs autolyzed (key!)
+- Impression smear on heart blood, liver, lung
+
+### Treatment ⭐⭐ (FIRST disease in this lecture that's TREATABLE!)
+- **Antibiotics** ASAP — gold standard:
+  - **Ceftiofur** ⭐ (preferred · narrow + effective)
+  - **Penicillin** (still works)
+  - Florfenicol (broader)
+  - Avoid **tetracyclines alone** (resistance increasing)
+- ⚠️ **Time-concentration** principle: complete the course!
+- ⚠️ **No bacteriostatic + bactericidal mix** (concept!)
+
+### Drug Selection in Cattle ⭐
+1. ⭐ **Susceptibility data**: Thailand lacks national Pasteurella resistance survey (instructor collecting)
+2. ⭐ **Food Animal approved**: must have **withdrawal time** for milk on label!
+3. ⚠️ Extra-label use = veterinarian liability
+4. **Penalty for milk residue**: 20× milk price + vet personal liability
+5. **Time-concentration** of drug: complete course = no resistance
+
+### Vaccine — Hemorrhagic Septicemia ⭐
+- **Bacterin** vaccine produced by DLD
+- 2 forms:
+  - **Aluminum hydroxide gel** (old) — protects 4-6 months · ⚠️ frequent **anaphylactic shock**
+  - ⭐ **Oil adjuvant** (new) — protects 9-12 months · less reactive · more practical
+- ⚠️ **Deep IM** required (1.5-inch needle, NOT 1-inch!)
+- ⚠️ If subcutaneous: → sterile abscess → no immunity!
+
+### Vaccination Story ⭐ (Lesson learned!)
+- ⚠️ Old method needed instant rescue kit:
+  - Adrenaline + Dexamethasone + Caffeine in EVERY vaccination team's bag
+  - "Dig 2 holes — 1 for buffalo, 1 for vet who collapses!"
+- ⭐ Lesson: ALWAYS keep buffalo at vaccination site for 30 minutes post-injection — watch for anaphylaxis
+- Real story: Instructor's team had vaccine but FORGOT syringes (in cookie box!) — buffalo died staring at unused medicine!
+
+### Outbreak Control ⭐ (Sakhon Nakhon Strategy!)
+| Zone | Action |
+|---|---|
+| **Hotspot** | Antibiotics ONLY (no vaccine) — to break shedding |
+| **5-8 km buffer** | Vaccinate (ring vaccination) |
+| Reasoning | Vaccine in active outbreak → late effect; antibiotic = immediate |
+| Recovery criterion | ⭐ **No new cases for 1 incubation period (2-3 days)** = outbreak over |
+
+### Why NOT vaccinate in active outbreak
+- Animal already exposed → vaccine immunity too late
+- Antibiotic gives immediate protection
+- Vaccinate ONLY uninfected ring + after recovery
+
+## 3️⃣ Leptospirosis (โรคฉี่หนู) ⭐⭐⭐
+
+### Etiology
+- **Leptospira** spp. (Spirochete · 250 serovars total!)
+- ⭐ **4 important serovars in ruminants**:
+  | Serovar | Specificity | Disease pattern |
+  |---|---|---|
+  | **Pomona** | Non-host-specific | Hemolysis, nephritis (CALVES) |
+  | **Icterohaemorrhagiae** | Non-host-specific | Severe icterus |
+  | **Hebdomadis** | Non-host-specific | Mild |
+  | ⭐ **Hardjo** | **Host-specific** (cattle/buffalo) | ⚠️ **Abortion storm + mastitis!** |
+
+### Naming Etymology ⭐
+- "Lepto" = thin
+- "Spira" = spiral
+- "Hardjo" = species-specific Greek root
+- โรคฉี่หนู = "rat piss disease" (rats are reservoirs!)
+
+### Survival
+- Loves: warm, humid, neutral pH (6-8)
+- ⭐ Survives months in water (paddy fields!)
+- ⚠️ Inactivated by extreme pH (<6 or >8)
+
+### Reservoirs (Important for prevention!) ⭐
+- ⭐ **Rats, mice, rodents** — primary reservoir (worldwide)
+- ⚠️ **Cattle, buffalo** can be reservoir (chronic shedders)
+- ⚠️ **Carrier state for LIFE** in kidney → urine shedding
+- Pigs, dogs
+
+### Routes of Infection ⭐
+1. **Skin penetration** (between toes, abrasions)
+2. **Mucous membranes** (eyes, mouth, nose)
+3. **Open wounds** (especially feet during rainy season)
+4. ⚠️ **Drinking contaminated water**
+5. ⚠️ **Wading in rice paddies** (workers!)
+
+### Public Health (Why "Rat Piss Disease") ⭐
+- Thai farmers in rainy season working in flooded paddies
+- Buffalo + rats = both reservoirs
+- ⚠️ **Boots** = simple protection (gov distribution program in flood season)
+- ⭐ Workers' #1 protection!
+
+### Pathogenesis
+- ⭐ Penetrates skin/mucosa → blood (leptospiremia, days 1-7)
+- Body temp ↑ acutely
+- Settles in **kidney tubules** → carrier state for life
+- ⚠️ **Continuous urinary shedding** even after clinical recovery!
+
+### Disease Patterns ⭐
+| Form | Animal age | Causative serovar | Manifestation |
+|---|---|---|---|
+| **Acute (severe)** | **Calves** | **Pomona, Icterohaemorrhagiae** | ⚠️ Severe! Hemolysis, jaundice, hemoglobinuria, fever, death |
+| **Subacute** | Variable | Variable | Mild fever, milk drop |
+| **Chronic** | Adults | **Hardjo** ⭐ | ⭐ **Abortion storm** in last trimester |
+| **Mastitis variant** | Adults | **Hardjo** ⭐ | "Wilted udder" — pale, yellow milk, no swelling, NO heat |
+
+### Pomona-specific Pathology ⭐
+- ⭐ **Intravascular hemolysis** — RBC lysis
+- ⭐ **Hemoglobinuria** — "Coca-Cola colored urine"
+- ⭐ **Interstitial nephritis** — kidney inflammation
+- → Anemia → tachycardia (heart rate ↑ to compensate)
+- May die from uremia
+
+### Hardjo-specific Pathology ⭐
+- ⚠️ **Reproductive only** (no hemolysis, no nephritis)
+- ⭐ **Abortion in last trimester** (3 last months)
+- ⭐ **Abortion STORM** — multiple cows abort simultaneously over 2-3 weeks
+- ⭐ **Atypical mastitis** ⭐⭐:
+  - Compare with bacterial mastitis:
+  | Feature | Bacterial mastitis | Leptospira (Hardjo) mastitis |
+  |---|---|---|
+  | Udder | Hot, swollen, red, painful | **Wilted, soft, NOT inflamed** |
+  | Milk | Curd, abnormal, blood | **Yellow water or no milk!** |
+  | Recovery | Treatment needed | **Self-resolves** |
+
+### Diagnosis ⭐
+| Method | Notes |
+|---|---|
+| **Dark Field Microscopy** | ⭐ Direct visualization of spirochetes |
+| Sample: **Urine** | Best in carrier · spinning swim! |
+| Sample: **Aborted fetus** | Kidney, lung |
+| **MAT (Microscopic Agglutination Test)** | Gold standard serology |
+| **PCR** | Rapid + specific |
+| **Culture** (Fletcher medium) | Slow-growing |
+
+### Urine Collection in Cattle ⭐
+- ⭐ Cows pee when **strangers enter the pen** (alarm response!)
+- "Catheterize urine" — possible but rare in field
+- Easier: wait for pee, catch in container
+- Best fresh sample (pH neutral)
+
+### Treatment
+- **Streptomycin + Penicillin** combination = traditional
+- **Tetracyclines** (oxytetracycline, doxycycline)
+- ⚠️ **Multi-week course** required (clear kidney shedding)
+- ⚠️ Chronic carriers may not fully clear
+
+### Prevention & Control
+- **Vaccine** (combined polyvalent)
+- ⚠️ Available worldwide but only modest efficacy (esp. Hardjo)
+- **Rodent control**
+- **Dry housing** + drainage
+- **Boot protocols** for workers
+- ⚠️ **Cull persistent carriers** in test-and-cull herds
+
+### Public Health (Zoonotic Acute Syndrome) ⭐
+- Workers exposed → flu-like illness
+- ⚠️ Severe form: **Weil's disease** (hepatorenal failure, jaundice)
+- Can be fatal in humans!
+- ICU treatment: penicillin G + supportive
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### Brucellosis (1-6)
+1. ⭐ **4 species**: B. abortus (cattle), B. melitensis (goat — most dangerous!), B. suis, B. ovis
+2. ⭐ **B. melitensis = airborne, biowarfare-grade**
+3. ⭐ **Predilection**: pregnant uterus, mammary gland, testes (erythritol-loving!)
+4. ⭐ **Abortion in LAST TRIMESTER** (5+ months)
+5. ⭐ **Milk Ring Test** = field screening for tank milk
+6. ⛔ **No treatment** · cull only · 60-day re-test interval
+
+### Hemorrhagic Septicemia (7-11)
+7. ⭐ **Pasteurella multocida B:2** in **buffalo**
+8. ⭐ **"Swollen neck"** (submental edema) = pathognomonic
+9. ⚠️ **Mortality 90-100%** in symptomatic buffalo · sudden death!
+10. ⭐ **Methylene Blue → bipolar staining**
+11. ⭐ **TREATABLE** ⭐ Ceftiofur or Penicillin · vaccinate annually with Oil adjuvant
+
+### Leptospirosis (12-15)
+12. ⭐ **4 serovars**: Pomona/Icterohaemorrhagiae/Hebdomadis (non-host) + **Hardjo (cattle-specific!)**
+13. ⭐ **Pomona = hemolysis + Coca-Cola urine** in calves (acute)
+14. ⭐ **Hardjo = ABORTION STORM** in last trimester + **wilted udder mastitis**
+15. ⚠️ **Carrier state for LIFE** in kidney → urine shedding · zoonotic!
+
+> 📚 **Cross-refs**: TB+ParaTB (chronic infectious), FMD+LSD (other reportable diseases)
+> 🩺 **Practical**: Annual Hemorrhagic Septicemia vaccine in buffalo · MRT screening at coop level for Brucella · Boot rule for workers (Lepto)
+> 🚨 **Reportable**: All 3 are zoonotic + listed under พรบ.โรคระบาดสัตว์
+> 🧪 **Diagnostic key**: MRT for Brucella · Methylene Blue bipolar for HS · Dark field microscopy for Lepto`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
