@@ -40371,6 +40371,287 @@ When opening a clinic, you need **BOTH**:
 > ⚠️ **Mpox lesson**: Coordinated import suspension prevents panic`,
   },
 
+  MYyGov4_mC4: {
+    videoId: 'MYyGov4_mC4',
+    title: '8. กฎหมายการควบคุมโรคระบาดสัตว์ — Animal Disease Act',
+    subject: 'vet-juris',
+    date: '2024-11-18',
+    durationMin: 81,
+    instructor: 'อ.ศุภลักษ์ (กรมปสุสัตว์)',
+    examFormat: 'definitions + zones + officer roles',
+    summary: `# 8. กฎหมายการควบคุมโรคระบาดสัตว์
+
+> ⚠️ Final lecture in vet-juris series 🎉
+> Critical for animal disease control + livestock trade
+> **Mother law**: พ.ร.บ. โรคระบาดสัตว์ พ.ศ. 2558 ⭐
+
+## 🎯 ภาพรวมคาบ
+1. WOAH + WTO/SPS Agreement context
+2. **Department of Livestock Development (DLD)** structure
+3. Key Acts under DLD
+4. **พ.ร.บ. โรคระบาดสัตว์ 2558** ⭐
+5. Critical definitions
+6. **Officer types** (นายสัตวแพทย์ vs สัตวแพทย์ vs สารวัตร)
+7. Real-world: airport sting & ASF prevention
+
+## 1️⃣ International Context
+
+### WOAH (formerly OIE)
+- **Reference Organization** for international livestock trade
+- Sets standards for: disease prevention, quarantine, lab testing, animal welfare
+- ⭐ **WTO** uses WOAH standards for **SPS Agreement**
+
+### Why It Matters for Thailand
+- DLD = **Competent Authority** for Thailand
+- Need **legal tools** (พ.ร.บ.) to enforce SPS standards
+- Without legal framework → cannot trade internationally
+
+## 2️⃣ Department of Livestock Development (DLD / กรมปสุสัตว์)
+
+### Mission
+- Disease control + prevention
+- Animal welfare
+- Livestock production
+- Standards
+- ⭐ Coordinates with **Ministry of Agriculture** + international bodies
+
+### Structure
+**4 Divisions**:
+1. Animal Health (สุขภาพสัตว์)
+2. Standards (มาตรฐาน)
+3. Production (การผลิต)
+4. Admin/Support (อาทิ International Cooperation Division)
+
+### Geographic
+- Central HQ near BTS Phaya Thai (looks like a palace!)
+- 9 Regional Livestock Offices
+- 77 Provincial Livestock Offices
+- Bangkok separate
+
+## 3️⃣ Key Acts Under DLD
+
+### Three Critical Acts ⭐
+1. **พ.ร.บ. โรคระบาดสัตว์ พ.ศ. 2558** (Animal Epidemic Act) — main focus today
+2. **พ.ร.บ. โรคพิษสุนัขบ้า** (Rabies Act)
+3. **พ.ร.บ. ป้องกันการทารุณกรรมและจัดสวัสดิภาพสัตว์** (Animal Welfare Act)
+
+### Resource
+> Search at **dld.go.th** for full list of all DLD Acts
+
+## 4️⃣ ⭐ พ.ร.บ. โรคระบาดสัตว์ 2558
+
+### Purpose
+- Enable disease prevention + control
+- Equip vets/officers/officials with enforcement powers
+- Protect public safety
+- Economic benefit
+- Define penalties
+
+### Key Article: มาตรา 4 (Definitions)
+
+#### "สัตว์" Defined
+**Listed species**:
+- Cattle, horse, water buffalo, donkey, mule
+- Sheep, goat, deer, pig, wild pig
+- Dog, cat, rabbit
+- Monkey, gibbon
+- Semen and embryos
+- Birds (chicken, duck, goose)
+- ⭐ **PLUS: "Other animals as Minister announces"** (covers everything else!)
+
+> Latest list: ประกาศกระทรวงเกษตร 2565 (review every 2-3 years)
+
+#### Trick Question: หมูเด้ง อยู่ใต้พรบ.นี้ไหม?
+- หมูเด้ง = pygmy hippo at zoo
+- ⚠️ Yes, falls under previous lecture (พรบ. คุ้มครองสัตว์ป่า) for zoo animals
+- BUT also covered if disease control needed
+
+#### "ซากสัตว์" (Carcass)
+- Includes meat, organs
+- ⭐ **Includes cooked food + processed products** as Minister announces
+- ⭐ ⭐ **Pork floss / pork sticks (หมูแผ่น/หมูแท่ง) cannot be imported!**
+- Why? **ASF (African Swine Fever)** prevention
+- Beagle dogs at airports detect this
+
+### "โรคระบาด" (Epidemic Disease)
+- Listed diseases (FMD, ASF, AI, etc.)
+- ⭐ **PLUS: "other diseases as Minister announces"** (transboundary, climate-change, zoonotic)
+
+### "พหะของโรค" (Disease Carrier)
+1. Live animals shedding pathogen (with or without symptoms)
+2. Carcasses with confirmed pathogen
+3. Carcasses with reasonable suspicion based on origin/history
+
+## 5️⃣ ⭐ Disease Control Zones
+
+### 3 Zone Types
+| Zone | Status |
+|------|--------|
+| **Disease Control Zone** (เขตควบคุม) | Active outbreak management |
+| **Disease-Free Zone** (เขตปลอดโรค) | Already cleared, certified |
+| **Buffer Zone** (เขตกั้น/Buffer) | Separates 2 above zones |
+
+### Why Important for Trade
+- Trade depends on disease-free zone certification
+- Products from disease-free zones can be exported
+- Products from disease zones cannot
+
+## 6️⃣ ⭐ Identification Marks
+
+### "เครื่องหมายประจำตัวสัตว์" (Animal ID)
+**For live animals**:
+- ⭐ **Ear tag** (cattle)
+- ⭐ **Microchip** (dogs)
+- Tattoo
+
+**For carcasses/products**:
+- Batch numbers
+- Consignment certificates
+- Health certificates
+
+## 7️⃣ ⭐ Owner Definition (สำคัญมาก!)
+
+### "เจ้าของ" (Owner) Per Act
+**Includes**:
+- Registered owner
+- Person who FEEDS the animal
+- Person who provides shelter
+- ⭐ **Person who is HOLDING the animal at any moment** (even temporarily!)
+
+### Real-World Trap ⭐
+**Scenario 1**: Cat at hospital
+- "I just feed it at home" → still owner per Act
+- Hospital can pursue you for fees
+
+**Scenario 2**: Friend's cow with FMD
+- Friend hands you the rope and runs to London
+- ⚠️ **YOU ARE THE OWNER!**
+- Inspector arrives → you're responsible per the Act
+
+> Lesson: don't accept rope from friend with sick livestock!
+
+## 8️⃣ ⭐ Officer Types — Critical Distinction!
+
+### "นายสัตวแพทย์" (Veterinarian)
+**Per this Act** (NOT per Vet Council):
+- 6-yr graduate with **VCA license**
+- ⭐ **Plus** member of DLD or appointed by Minister
+- **Gender-neutral** despite "นาย" prefix
+
+> Lecturer is "นาย"สัตวแพทย์ even though female — common typo to fix!
+
+### "สัตวแพทย์" (Per Act, Old Definition)
+- ⭐ **Class 2 vets**: 4-yr trained at OLD DLD School (not 6-yr program)
+- Created during vet shortage era
+- DLD-employed only
+- Aging out — rarely seen now
+
+### Big Difference ⭐
+- Your VCA license alone DOES NOT make you "นายสัตวแพทย์ per Act"
+- Need to be DLD member OR Ministerially appointed
+
+### "สารวัตร" (Inspector/Sarawat)
+- Minister-appointed officer
+- Often **military-trained appearance**
+- Dog handlers (Beagle teams!)
+- Spray equipment for disinfection
+- **Stationed at**:
+  - Quarantine stations (ด่านกักสัตว์)
+  - Airports
+  - Border posts
+
+## 9️⃣ ด่านกักสัตว์ (Quarantine Stations)
+
+### Locations
+- Roadside posts at provincial boundaries
+- Airports (Suvarnabhumi, Don Mueang)
+- Seaports
+- Border crossings
+
+### Function
+- Inspect animal/product transport documents
+- Verify health certificates
+- Detect smuggling
+- Manage disease zone restrictions
+
+### Visibility
+- ⚠️ Sometimes appears closed (no inspection actively)
+- Doesn't mean inspection isn't happening
+- Don't stop unless instructed!
+
+## 1️⃣0️⃣ Real-World Vignettes
+
+### Beagle Dog Sting at Airport ⭐
+- Bangkok → Tokyo Narita
+- ASUBWAY sandwich in luggage
+- Beagle detects pork
+- ⚠️ **Criminal case in Japan** (not just fine!)
+- Same in Taiwan, Singapore (variable enforcement)
+
+### Why ASF is Special
+- ⭐ Won FAO awards for prevention efforts
+- Devastating to swine industry
+- Pork products = top concern at borders
+
+### Mpox/Monkeypox Coordination Example
+- 2022 outbreak
+- DLD coordinated with importers
+- Voluntary import suspension
+- Risk communication to public
+- "Monkey doesn't carry it" — animal vs human disease distinction
+
+## 1️⃣1️⃣ Vet Schools Growth
+
+### Then vs Now
+- Pre-2000s: 5-6 vet schools
+- 1 cohort: ~20 students total
+- Now: 13 schools
+- 1 cohort: 1000+ students nationally
+
+### International Reaction
+- Recent assessment: "Why so many?"
+- Joke: graduates become flight attendants
+- True: many enter Food Safety/livestock industry
+
+## 1️⃣2️⃣ Sarawat Roles + Authority
+
+### Powers
+- Inspect animals/products without warrant
+- Sample collection (zone monitoring)
+- Detain suspect goods
+- Coordinate with police/customs
+- Disinfection during outbreak
+
+### Equipment
+- Detection dogs (Beagles)
+- Disinfectant sprayers
+- Documentation tools
+- Communication for HQ
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. ⭐ Mother law: **พ.ร.บ. โรคระบาดสัตว์ 2558**
+2. **DLD = Competent Authority** for Thailand
+3. WTO/SPS Agreement uses **WOAH** standards
+4. **มาตรา 4** = critical definitions section
+5. ⭐ **"สัตว์"** = listed species + Minister-announced others
+6. ⭐ **"ซากสัตว์"** includes processed pork (no import!)
+7. **3 zones**: Control + Free + Buffer
+8. ⭐ **"เจ้าของ"** = even temporary holder!
+9. ID marks: ear tag, microchip, batch certs
+10. ⭐ **นายสัตวแพทย์** = 6-yr + VCA + DLD/appointed
+11. **สัตวแพทย์ (per Act)** = old class-2 vets (aging out)
+12. ⭐ **สารวัตร** = Minister-appointed enforcement officer
+13. ด่านกักสัตว์ = quarantine posts at airports/borders
+14. **Beagle dogs** detect pork at airports → criminal charges
+15. ASF = #1 import concern · won FAO awards
+
+> 📚 อ่านควบ: 1-7 (preceding vet-juris lectures)
+> 🛂 **Travel rule**: NEVER pack pork products when crossing borders
+> 💼 **Career**: DLD = government employment path · International Cooperation niche
+> 🐕 **Practical**: VCA license alone ≠ official vet under Acts
+> 🎓 **Final lecture!** vet-juris course complete`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
