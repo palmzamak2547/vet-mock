@@ -47608,6 +47608,714 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🎯 **Inspirational**: Consider research as a path!`,
   },
 
+  // ═══════════════════════════════════════════════════════════════
+  // poa-clinical (DekDokVet85 · Y5 sem 1) — 11 videos
+  // POA = Problem-Oriented Approach to small animal clinical cases
+  // ═══════════════════════════════════════════════════════════════
+
+  cbShDs2tqs8: {
+    videoId: 'cbShDs2tqs8',
+    title: 'POA — 3 Vomiting and Regurgitation',
+    subject: 'poa-clinical',
+    date: '2025-08-20',
+    durationMin: 61,
+    instructor: 'CUVET small animal medicine team',
+    examFormat: 'Multiple choice + clinical scenarios · ออก differential diagnosis · workup approach · DDx vomiting vs regurgitation',
+    summary: `## 🎯 Lead Summary
+**Vomiting vs Regurgitation** — distinguish for proper workup. ⭐ ⭐ **Vomiting**: active abdominal contraction · **Regurgitation**: passive, esophageal origin. Different DDx, different approach.
+
+## 1️⃣ Vomiting vs Regurgitation ⭐⭐⭐
+| Feature | Vomiting | Regurgitation |
+|---|---|---|
+| ⭐ Active vs Passive | Active (effort) | Passive |
+| ⭐ Origin | Stomach/intestine | Esophagus |
+| ⭐ Material | Bile, food, may have abdominal contraction | Undigested, often tubular shape |
+| ⭐ Timing | Variable from eating | Often soon after eating |
+| ⭐ pH | Acidic | Neutral/alkaline |
+
+## 2️⃣ Vomiting Causes ⭐⭐
+### GI Causes
+- Gastritis · GI obstruction · Foreign body · Toxins · Parasites · IBD · Pancreatitis · Tumors
+
+### Non-GI Causes ⭐
+- Renal failure (uremic vomiting)
+- Liver disease
+- Endocrine (Addison's, hyperthyroid)
+- ⭐ CNS (vestibular, brain tumor)
+- Drugs/toxins
+- Motion sickness
+
+## 3️⃣ Regurgitation Causes ⭐⭐
+- ⭐ Megaesophagus (idiopathic, myasthenia gravis)
+- ⭐ Esophagitis
+- Esophageal stricture
+- Foreign body
+- Vascular ring anomaly
+- Tumor
+
+## 4️⃣ Workup Approach ⭐
+1. ⭐ History (timing, content, frequency)
+2. ⭐ Physical exam (abdomen, hydration)
+3. ⭐ CBC + biochem + UA
+4. ⭐ Imaging (radiograph + ultrasound)
+5. ⭐ Endoscopy if indicated
+
+## 5️⃣ Treatment Principles ⭐
+- ⭐ Address underlying cause
+- ⭐ Anti-emetics (Maropitant, Metoclopramide, Ondansetron)
+- ⭐ Fluid therapy for dehydration
+- ⭐ Diet modification
+
+## 📋 Exam Recap
+1. ⭐ Distinguish vomiting (active) vs regurgitation (passive)
+2. ⭐ GI vs Non-GI vomiting causes
+3. ⭐ Megaesophagus = main regurgitation cause
+4. ⭐ Workup: History → Exam → Labs → Imaging → Endoscopy
+5. ⭐ Maropitant = preferred anti-emetic`,
+  },
+
+  'hdh-0yuxcvo': {
+    videoId: 'hdh-0yuxcvo',
+    title: 'POA — 4 Sneezing/Nasal Discharge + Coughing/Dyspnea',
+    subject: 'poa-clinical',
+    date: '2025-08-27',
+    durationMin: 64,
+    instructor: 'CUVET small animal medicine team',
+    examFormat: 'Multiple choice + clinical scenarios · ออก respiratory DDx · upper vs lower airway',
+    summary: `## 🎯 Lead Summary
+**Respiratory complaints** in small animals. Distinguish: ⭐ ⭐ **Upper airway** (nasal, pharyngeal) vs **Lower airway** (trachea, bronchi, lungs). Different DDx, different management.
+
+## 1️⃣ Upper Airway: Sneezing/Nasal Discharge ⭐⭐
+### Causes
+- ⭐ Foreign body (most common in dogs!)
+- ⭐ Infections (URI, Bordetella)
+- ⭐ Nasal tumor (older animals)
+- Allergic rhinitis
+- Dental disease (oronasal fistula)
+- Trauma
+
+### Workup
+- ⭐ History · age · onset
+- ⭐ Discharge characterization (unilateral vs bilateral, type)
+- ⭐ Rhinoscopy
+- ⭐ CT scan (gold standard)
+
+## 2️⃣ Lower Airway: Cough/Dyspnea ⭐⭐⭐
+### Causes
+- ⭐ Bronchitis (chronic, asthma)
+- ⭐ Pneumonia (bacterial, viral, aspiration)
+- ⭐ Heartworm (esp. Thailand!)
+- ⭐ Lung tumors
+- ⭐ Pulmonary edema (CHF)
+- Tracheal collapse (small breeds!)
+
+### Workup
+- ⭐ Auscultation (crackles, wheezes)
+- ⭐ Thoracic radiograph
+- ⭐ CBC, biochem
+- ⭐ Echocardiogram (if cardiac suspected)
+- ⭐ Bronchoalveolar lavage
+
+## 3️⃣ Distinguishing Features ⭐
+| Sign | Likely Origin |
+|---|---|
+| Stertor | Upper |
+| Stridor | Upper (laryngeal) |
+| Cough | Lower |
+| Wheezing | Lower (bronchial) |
+| Crackles | Lower (alveolar) |
+| Cyanosis | Severe lower or cardiac |
+
+## 4️⃣ Treatment ⭐
+- ⭐ Cause-specific
+- O2 therapy if hypoxic
+- Antibiotics for bacterial
+- Bronchodilators for asthma
+- Diuretics for CHF
+
+## 📋 Exam Recap
+1. ⭐ Upper vs Lower airway distinction
+2. ⭐ Sneezing → nasal foreign body, tumor, infection
+3. ⭐ Cough → bronchitis, pneumonia, CHF, heartworm
+4. ⭐ Heartworm = Thai concern
+5. ⭐ Tracheal collapse = small breeds`,
+  },
+
+  Wb9F3GbBDaY: {
+    videoId: 'Wb9F3GbBDaY',
+    title: 'POA — 5 Edema and Effusion',
+    subject: 'poa-clinical',
+    date: '2025-09-03',
+    durationMin: 60,
+    instructor: 'CUVET small animal medicine team',
+    examFormat: 'Multiple choice + scenario · ออก mechanisms of edema · transudate vs exudate · effusion analysis',
+    summary: `## 🎯 Lead Summary
+**Edema + Effusion** = abnormal fluid accumulation. 4 mechanisms: ⭐ Increased hydrostatic · ⭐ Decreased oncotic · ⭐ Increased capillary permeability · ⭐ Lymphatic obstruction. Effusion classified: ⭐ **Transudate · Modified Transudate · Exudate**.
+
+## 1️⃣ 4 Mechanisms ⭐⭐⭐
+| Mechanism | Examples |
+|---|---|
+| ⭐ ↑ Hydrostatic pressure | CHF, portal hypertension |
+| ⭐ ↓ Oncotic pressure | Hypoalbuminemia (PLE, PLN, liver) |
+| ⭐ ↑ Capillary permeability | Inflammation, sepsis |
+| ⭐ Lymphatic obstruction | Tumor, surgery, congenital |
+
+## 2️⃣ Effusion Types ⭐⭐⭐
+| Type | Protein | Cells | Cause |
+|---|---|---|---|
+| ⭐ **Transudate** | <2.5 | <1500 | Hydrostatic, oncotic |
+| ⭐ **Modified Transudate** | 2.5-3.5 | 1500-5000 | CHF, portal HTN |
+| ⭐ **Exudate** | >3.5 | >5000 | Inflammation, FIP, neoplasia |
+
+## 3️⃣ Common Causes by Location ⭐
+### Subcutaneous Edema
+- Hypoalbuminemia
+- Heart failure
+- Vasculitis
+
+### Ascites
+- ⭐ CHF (right-sided)
+- Liver failure
+- Hypoalbuminemia
+- ⭐ FIP (cats!)
+- Neoplasia
+
+### Pleural Effusion
+- ⭐ CHF (cats)
+- ⭐ FIP
+- Pyothorax
+- Chylothorax
+- Neoplasia
+
+### Pericardial Effusion
+- ⭐ Hemangiosarcoma
+- Idiopathic
+- Heart base tumor
+
+## 4️⃣ Diagnostic Approach ⭐⭐
+1. ⭐ Identify location
+2. ⭐ Centesis + fluid analysis
+3. ⭐ TP, cells, cytology
+4. ⭐ Imaging (US essential!)
+5. ⭐ CBC, biochem, urinalysis
+
+## 5️⃣ Treatment ⭐
+- ⭐ Address underlying cause!
+- Diuretics (furosemide for CHF)
+- Pericardiocentesis if tamponade
+- Albumin support (rare in vet)
+
+## 📋 Exam Recap
+1. ⭐ **4 mechanisms** of edema
+2. ⭐ **3 effusion types**: Transudate · Modified · Exudate
+3. ⭐ **FIP** = cats with effusion (esp. yellow!)
+4. ⭐ **Pericardial effusion** → hemangiosarcoma DDx
+5. ⭐ **Albumin <2.0** → systemic edema risk`,
+  },
+
+  BHEBIjQLm8g: {
+    videoId: 'BHEBIjQLm8g',
+    title: 'POA — 6.1.1 Exotic Animal Approach I',
+    subject: 'poa-clinical',
+    date: '2025-09-10',
+    durationMin: 56,
+    instructor: 'CUVET exotic medicine team',
+    examFormat: 'Multiple choice · ออก species-specific anatomy · husbandry-related disease · common exotic pets in Thailand',
+    summary: `## 🎯 Lead Summary
+**Exotic Animal POA Part I**: husbandry + clinical approach to common exotic pets in Thailand. Includes: ⭐ rabbits · guinea pigs · hamsters · sugar gliders · ferrets · hedgehogs.
+
+## 1️⃣ Why Husbandry First ⭐⭐
+- ⭐ Most exotic disease = husbandry-related
+- Improper diet, housing, temperature, humidity
+- ⭐ Fix husbandry → fix disease
+
+## 2️⃣ Rabbit Common Issues ⭐⭐
+- ⭐ **GI stasis** (most common emergency!)
+- ⭐ **Dental disease** (overgrown teeth)
+- ⭐ **E. cuniculi** infection
+- ⭐ **Snuffles** (Pasteurella)
+- Calcium issues
+
+## 3️⃣ Guinea Pig Issues ⭐
+- ⭐ **Vitamin C deficiency** (must supplement!)
+- Dental issues
+- Respiratory infections
+- Bumblefoot
+
+## 4️⃣ Small Mammals ⭐
+- ⭐ Hamster: wet tail (Lawsonia)
+- ⭐ Hedgehog: WHS, mites, obesity
+- ⭐ Sugar glider: protein deficiency, social needs
+
+## 5️⃣ Diagnostic Approach ⭐
+- ⭐ Stress reduces immunity → handle gently
+- Small body size → tiny doses
+- ⭐ Reverse stress: warm environment, oxygen
+- Imaging often needed
+
+## 6️⃣ Treatment Principles ⭐
+- ⭐ Use exotic-friendly drugs
+- ⚠️ Avoid certain antibiotics (rabbit fluoroquinolones safe; penicillins TOXIC!)
+- ⭐ Supportive care priority
+
+## 📋 Exam Recap
+1. ⭐ Husbandry assessment first
+2. ⭐ Rabbit GI stasis = emergency
+3. ⭐ Guinea pig needs vitamin C
+4. ⭐ Avoid certain antibiotics in rabbits
+5. ⭐ Supportive care critical for small body size`,
+  },
+
+  tCPuvbytmK4: {
+    videoId: 'tCPuvbytmK4',
+    title: 'POA — 6.1.2 Exotic Animal Approach II',
+    subject: 'poa-clinical',
+    date: '2025-09-17',
+    durationMin: 68,
+    instructor: 'CUVET exotic medicine team',
+    examFormat: 'Multiple choice · ออก reptile + bird approach · species-specific nutrition · UV light needs',
+    summary: `## 🎯 Lead Summary
+**Exotic Animal POA Part II**: reptiles + birds. Critical: ⭐ ⭐ **UV light + temperature gradient** for reptiles · ⭐ ⭐ **Calcium requirements** · ⭐ Diet diversity · Species-specific medicine.
+
+## 1️⃣ Reptile Care ⭐⭐⭐
+### Critical Husbandry
+- ⭐ **Temperature gradient** (cool + warm zones)
+- ⭐ **UV-B light** (calcium metabolism!)
+- ⭐ **Humidity** species-specific
+- ⭐ **Hide spots**
+
+### Common Diseases
+- ⭐ **MBD (Metabolic Bone Disease)** = #1 problem
+- ⭐ **Respiratory infections** (URI)
+- ⭐ **Stomatitis** (mouth rot)
+- ⭐ **Egg binding**
+- Parasites
+
+## 2️⃣ Bird Care ⭐⭐
+### Husbandry
+- ⭐ Diet diversity (not just seeds!)
+- ⭐ Cage size + perches
+- ⭐ Behavioral enrichment
+- Vitamin A supplementation
+
+### Common Diseases
+- ⭐ Respiratory (chlamydophila!)
+- ⭐ Egg binding
+- Crop stasis
+- Self-mutilation
+- ⭐ PBFD virus
+
+## 3️⃣ Diagnostic Approach ⭐
+- ⭐ Quick exam (stress!)
+- ⭐ Crop sampling
+- ⭐ Fecal exam
+- Radiograph
+- Blood (small volume)
+
+## 4️⃣ Treatment ⭐
+- ⭐ Supplement calcium for MBD
+- ⭐ Antibiotics: doxycycline for chlamydophila
+- ⭐ Supportive: heat, fluids, gavage feeding
+- ⭐ Surgical for egg binding
+
+## 📋 Exam Recap
+1. ⭐ Reptile MBD from poor UV/calcium
+2. ⭐ Bird diet diversity prevents many issues
+3. ⭐ Chlamydophila zoonotic from birds
+4. ⭐ Egg binding common in both
+5. ⭐ Stress = exotic animal killer`,
+  },
+
+  IJDT6exmPV4: {
+    videoId: 'IJDT6exmPV4',
+    title: 'POA — 7 Approach to Pale Mucous Membranes and Anemia',
+    subject: 'poa-clinical',
+    date: '2025-10-01',
+    durationMin: 49,
+    instructor: 'CUVET small animal medicine team (รุ่นพี่)',
+    examFormat: 'Multiple choice + calculation · ออก anemia classification · regenerative vs non · DDx',
+    summary: `## 🎯 Lead Summary
+**Anemia in small animals** — quantitative + qualitative classification. ⭐ ⭐ **Regenerative** (responsive) vs **Non-regenerative**. Causes vary widely. Always: history, exam, CBC, blood smear.
+
+## 1️⃣ Anemia Definition ⭐
+- ⭐ Decreased RBC, Hb, or PCV
+- Pale mucous membranes
+- ⭐ Tachycardia, weakness, exercise intolerance
+
+## 2️⃣ Classification ⭐⭐⭐
+### By Cause
+- ⭐ **Blood loss** (acute or chronic)
+- ⭐ **Hemolysis** (immune-mediated, parasitic, toxin)
+- ⭐ **Decreased production** (bone marrow disorders)
+
+### By Response (Reticulocyte count)
+- ⭐ **Regenerative**: > 60,000/μL retics
+- ⭐ **Non-regenerative**: < 60,000/μL
+
+## 3️⃣ Common Causes ⭐⭐
+### Regenerative
+- ⭐ Hemorrhage (trauma, ulcer, parasites)
+- ⭐ IMHA (Immune-Mediated Hemolytic Anemia)
+- ⭐ Babesia, Mycoplasma haemofelis (Thailand!)
+- Onion/garlic toxicity
+
+### Non-regenerative
+- ⭐ Chronic kidney disease (no EPO)
+- ⭐ Bone marrow failure
+- ⭐ FeLV/FIV (cats)
+- Iron deficiency
+
+## 4️⃣ Diagnostic Approach ⭐⭐
+1. ⭐ Confirm anemia (CBC)
+2. ⭐ Reticulocyte count
+3. ⭐ Blood smear (parasites, morphology)
+4. ⭐ Coombs test (IMHA)
+5. ⭐ Biochem (kidney, liver)
+6. ⭐ Imaging if mass suspected
+
+## 5️⃣ Treatment ⭐
+- ⭐ **Acute severe**: blood transfusion
+- ⭐ **IMHA**: prednisolone, immunosuppressants
+- ⭐ **Babesia**: imidocarb
+- ⭐ **Iron def**: iron supplementation
+
+## 📋 Exam Recap
+1. ⭐ Regenerative vs Non-regenerative split
+2. ⭐ Reticulocyte count >60K = regenerative
+3. ⭐ IMHA (most common immune anemia)
+4. ⭐ Babesia in Thailand (tick-borne)
+5. ⭐ CKD = non-regenerative anemia (low EPO)`,
+  },
+
+  dFllSW7gHAE: {
+    videoId: 'dFllSW7gHAE',
+    title: 'POA — 8 Jaundice (Icterus)',
+    subject: 'poa-clinical',
+    date: '2025-10-08',
+    durationMin: 41,
+    instructor: 'CUVET small animal medicine team',
+    examFormat: 'Multiple choice · ออก 3 types of jaundice · DDx · diagnostic approach',
+    summary: `## 🎯 Lead Summary
+**Jaundice/Icterus** = yellow skin/sclera from bilirubin accumulation. ⭐ ⭐ **3 types**: Pre-hepatic (hemolysis) · Hepatic (liver disease) · Post-hepatic (biliary obstruction). Workup needed to distinguish.
+
+## 1️⃣ Bilirubin Pathway ⭐⭐
+- ⭐ Hb breakdown → unconjugated bilirubin
+- Liver conjugates → conjugated bilirubin
+- Bile excretes
+- ⭐ Failure at any step = jaundice
+
+## 2️⃣ 3 Types of Jaundice ⭐⭐⭐
+
+### Pre-Hepatic
+- ⭐ Hemolysis overwhelms liver
+- ⭐ ↑ Unconjugated bilirubin
+- Causes: IMHA, Babesia, toxins
+
+### Hepatic
+- ⭐ Liver dysfunction
+- ⭐ Both unconjugated + conjugated ↑
+- Causes: hepatitis, lipidosis (cats), toxic, neoplastic
+
+### Post-Hepatic
+- ⭐ Biliary obstruction
+- ⭐ ↑ Conjugated bilirubin (regurgitation)
+- Causes: gallstones, pancreatitis, neoplasia
+
+## 3️⃣ Diagnostic Approach ⭐⭐
+1. ⭐ Confirm jaundice (sclera, gum)
+2. ⭐ CBC + reticulocyte (anemia type)
+3. ⭐ Biochem (ALT, AST, ALP, GGT, bilirubin direct/indirect)
+4. ⭐ Coombs test for IMHA
+5. ⭐ Ultrasound (gallbladder, biliary tract)
+6. Liver biopsy if needed
+
+## 4️⃣ Treatment ⭐
+- ⭐ Address underlying cause
+- ⭐ IMHA: immunosuppression
+- ⭐ Hepatic lipidosis (cats): aggressive nutrition!
+- ⭐ Biliary obstruction: surgery
+
+## 📋 Exam Recap
+1. ⭐ 3 types of jaundice (pre/hepatic/post)
+2. ⭐ Hemolysis = pre-hepatic (unconjugated)
+3. ⭐ Cat hepatic lipidosis = nutritional emergency
+4. ⭐ Biliary obstruction may need surgery
+5. ⭐ Bilirubin >0.5 mg/dL = abnormal in dog/cat`,
+  },
+
+  'q9--iRJffoA': {
+    videoId: 'q9--iRJffoA',
+    title: 'POA — 10 Polyuria and Polydipsia (PU/PD)',
+    subject: 'poa-clinical',
+    date: '2025-10-22',
+    durationMin: 44,
+    instructor: 'CUVET small animal medicine team',
+    examFormat: 'Multiple choice + clinical scenarios · ออก PU/PD differential · USG · water deprivation test',
+    summary: `## 🎯 Lead Summary
+**PU/PD** = drinking + urinating excessively. Common chief complaint. ⭐ Multiple causes spanning endocrine, kidney, metabolic.
+
+## 1️⃣ Definition ⭐
+- ⭐ **Polyuria**: >50 mL/kg/day
+- ⭐ **Polydipsia**: >100 mL/kg/day water intake
+
+## 2️⃣ DDx ⭐⭐⭐
+### Endocrine
+- ⭐ **Diabetes mellitus**
+- ⭐ **Hyperadrenocorticism (Cushing)**
+- ⭐ **Hyperthyroidism (cats)**
+- ⭐ Diabetes insipidus
+
+### Kidney
+- ⭐ **Chronic kidney disease**
+- Pyelonephritis
+- Glomerular disease
+
+### Other
+- ⭐ Liver disease
+- Hypercalcemia
+- Pyometra
+- Drug-induced (steroids, diuretics)
+- Psychogenic polydipsia
+
+## 3️⃣ Diagnostic Approach ⭐⭐
+1. ⭐ Confirm PU/PD (history)
+2. ⭐ ⭐ **USG (Urine Specific Gravity)** ← key first test!
+   - <1.012 = isosthenuric
+   - >1.030 (dog), >1.035 (cat) = concentrated
+3. ⭐ CBC, biochem, electrolytes
+4. ⭐ Specific tests by suspected cause
+5. ⭐ Water deprivation test (last resort)
+
+## 4️⃣ USG Interpretation ⭐⭐
+- ⭐ **Concentrated + PU/PD** = consider primary polydipsia
+- ⭐ **Isosthenuric + azotemia** = renal failure
+- ⭐ **Dilute + glucose+** = diabetes mellitus
+
+## 5️⃣ Treatment ⭐
+- ⭐ Treat underlying cause
+- ⭐ Free water access always
+
+## 📋 Exam Recap
+1. ⭐ PU >50 mL/kg/day · PD >100 mL/kg/day
+2. ⭐ USG = first diagnostic step
+3. ⭐ Top 4: DM · Cushing · Hyperthyroid (cats) · CKD
+4. ⭐ Don't water-deprive without ruling out CKD!
+5. ⭐ Pyometra = surgical emergency`,
+  },
+
+  wOvbK5pJU58: {
+    videoId: 'wOvbK5pJU58',
+    title: 'POA — 11 Collapse, Seizure, Syncope',
+    subject: 'poa-clinical',
+    date: '2025-10-29',
+    durationMin: 44,
+    instructor: 'CUVET small animal medicine team',
+    examFormat: 'Multiple choice + clinical scenarios · ออก differentiate collapse types · seizure DDx',
+    summary: `## 🎯 Lead Summary
+**Collapse syndromes**: ⭐ ⭐ Distinguish ⭐ **Seizure** (CNS) vs ⭐ **Syncope** (cardiac) vs ⭐ **Collapse** (other). Different DDx, different urgency.
+
+## 1️⃣ 3 Distinct Conditions ⭐⭐⭐
+
+### Seizure
+- ⭐ CNS origin
+- ⭐ Pre-ictal · ictal · post-ictal phases
+- ⭐ Loss of consciousness + motor activity
+
+### Syncope
+- ⭐ Cardiovascular origin
+- ⭐ Brief LOC, no motor activity
+- ⭐ Recovery rapid + complete
+
+### Collapse
+- ⭐ Heterogeneous causes
+- Weakness, ataxia, intermittent
+
+## 2️⃣ Seizure Causes ⭐⭐
+### Intracranial
+- ⭐ Idiopathic epilepsy
+- ⭐ Brain tumor
+- ⭐ Encephalitis
+- Trauma
+
+### Extracranial
+- ⭐ Hypoglycemia
+- ⭐ Hepatic encephalopathy
+- ⭐ Toxin (lead, chocolate, etc.)
+- Electrolyte (hypocalcemia)
+
+## 3️⃣ Syncope Causes ⭐⭐
+- ⭐ Cardiac arrhythmia
+- ⭐ Heart failure
+- Pulmonary disease
+- Vasovagal
+
+## 4️⃣ Other Collapse Causes ⭐
+- ⭐ Hypoglycemia
+- ⭐ Anemia
+- Addison's disease
+- Heat stroke
+- Trauma
+
+## 5️⃣ Workup ⭐⭐
+1. ⭐ History (witness account!)
+2. ⭐ ECG, blood pressure
+3. ⭐ CBC, biochem, glucose
+4. ⭐ Imaging (echo, X-ray)
+5. ⭐ MRI/CT if seizure
+6. CSF analysis if encephalitis
+
+## 6️⃣ Treatment ⭐
+- ⭐ Status epilepticus: diazepam IV
+- ⭐ Hypoglycemia: dextrose IV
+- ⭐ Long-term: phenobarbital, levetiracetam
+- ⭐ Cardiac syncope: address arrhythmia
+
+## 📋 Exam Recap
+1. ⭐ 3 distinct presentations: seizure · syncope · collapse
+2. ⭐ Status epilepticus = emergency (>5 min)
+3. ⭐ Diazepam IV first-line for active seizure
+4. ⭐ Cardiac syncope often DCM, AV block
+5. ⭐ Pre/ictal/post-ictal pattern = seizure`,
+  },
+
+  'vTSK9ti--XM': {
+    videoId: 'vTSK9ti--XM',
+    title: 'POA — 12 Alopecia and Pruritus',
+    subject: 'poa-clinical',
+    date: '2025-11-04',
+    durationMin: 59,
+    instructor: 'CUVET small animal medicine team',
+    examFormat: 'Multiple choice + clinical scenarios · ออก dermatology DDx · diagnostic approach',
+    summary: `## 🎯 Lead Summary
+**Skin disease workup** focusing on alopecia + pruritus. ⭐ ⭐ Common but complex. Systematic approach: history, distribution, lesion type, lab tests.
+
+## 1️⃣ Pruritus DDx ⭐⭐⭐
+### Top Causes (Thailand!)
+- ⭐ **Atopic dermatitis** (allergy)
+- ⭐ **Flea allergy dermatitis**
+- ⭐ **Food allergy**
+- ⭐ **Demodex mites**
+- ⭐ **Sarcoptes** (highly pruritic!)
+- ⭐ **Malassezia** (yeast)
+- Dermatophytosis (ringworm)
+- Bacterial pyoderma
+
+## 2️⃣ Alopecia Categories ⭐⭐
+### Pruritic Alopecia
+- ⭐ Self-trauma from itch
+- Patchy, irregular
+
+### Non-Pruritic Alopecia
+- ⭐ ⭐ Endocrine (Cushing, hypothyroid)
+- ⭐ Pattern alopecia (genetic)
+- Telogen effluvium
+- Color dilution alopecia
+
+## 3️⃣ Diagnostic Approach ⭐⭐⭐
+1. ⭐ History + signalment
+2. ⭐ Skin scraping (microscopy)
+3. ⭐ Cytology (impression smear)
+4. ⭐ Wood's lamp + DTM (fungal)
+5. ⭐ CBC, biochem (endocrine workup)
+6. ⭐ Allergy testing (IDT, serology)
+7. ⭐ Food trial (8 weeks!)
+8. Biopsy if needed
+
+## 4️⃣ Treatment ⭐
+### Pruritus
+- ⭐ **Apoquel** (oclacitinib)
+- ⭐ **Cytopoint** (lokivetmab)
+- Antihistamines
+- Glucocorticoids
+
+### Specific Causes
+- ⭐ Demodex: Bravecto (afoxolaner) etc.
+- ⭐ Sarcoptes: Selamectin
+- ⭐ Malassezia: ketoconazole
+- ⭐ Dermatophyte: itraconazole
+
+## 5️⃣ Atopic Dermatitis ⭐⭐
+- ⭐ Cornerstone diagnosis: rule out other causes
+- ⭐ Multi-modal therapy
+- Lifelong management
+- ⭐ Apoquel/Cytopoint changed treatment landscape
+
+## 📋 Exam Recap
+1. ⭐ Pruritic vs non-pruritic alopecia
+2. ⭐ Skin scraping = first test
+3. ⭐ 8-week food trial for food allergy
+4. ⭐ Apoquel/Cytopoint = modern atopic therapy
+5. ⭐ Demodex demands long-term ectoparasiticide`,
+  },
+
+  sHxPuM0ZRlc: {
+    videoId: 'sHxPuM0ZRlc',
+    title: 'POA — 13 Anorexia and Weight Loss',
+    subject: 'poa-clinical',
+    date: '2025-11-12',
+    durationMin: 45,
+    instructor: 'CUVET small animal medicine team',
+    examFormat: 'Multiple choice + scenario · ออก systematic workup · DDx anorexia',
+    summary: `## 🎯 Lead Summary
+**Anorexia + Weight Loss** = nonspecific common complaint. Wide DDx requires systematic workup.
+
+## 1️⃣ Definitions ⭐
+- ⭐ **Anorexia**: complete loss of appetite
+- ⭐ **Hyporexia**: reduced appetite
+- ⭐ **Cachexia**: muscle wasting + weight loss
+
+## 2️⃣ Major DDx Categories ⭐⭐⭐
+### Systemic Disease
+- ⭐ Renal failure
+- ⭐ Liver disease
+- ⭐ Pancreatitis
+- Heart failure
+- Endocrine (Addison, hyperT cats)
+
+### GI Disease
+- ⭐ IBD
+- ⭐ Gastric ulcer
+- Foreign body
+- Neoplasia
+
+### Neoplasia
+- ⭐ Many types
+- ⭐ Cachexia common late-stage
+
+### Infectious/Inflammatory
+- ⭐ FIP (cats)
+- ⭐ Pyometra
+- Sepsis
+
+### Other
+- ⭐ Pain (oral, dental, joint)
+- Stress, anxiety
+- Drugs
+
+## 3️⃣ Workup ⭐⭐
+1. ⭐ Full history + diet
+2. ⭐ Physical exam (oral cavity!)
+3. ⭐ CBC, biochem, UA
+4. ⭐ T4 (cats - hyperthyroid)
+5. ⭐ Imaging (X-ray + ultrasound)
+6. ⭐ Specific tests by suspect
+
+## 4️⃣ Treatment Principles ⭐
+- ⭐ Address underlying cause
+- ⭐ Support nutrition (esophagostomy tube if severe)
+- ⭐ Appetite stimulants: ⭐ Mirtazapine, Capromorelin
+- ⭐ Anti-nausea: Maropitant
+- ⭐ Pain management
+- ⚠️ Cats can't fast >2 days (lipidosis!)
+
+## 📋 Exam Recap
+1. ⭐ Anorexia is symptom, not diagnosis
+2. ⭐ Cat 2-day fast → hepatic lipidosis risk
+3. ⭐ Mirtazapine = appetite stimulant
+4. ⭐ Cachexia = late neoplasia sign
+5. ⭐ Always check oral cavity for hidden cause`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
