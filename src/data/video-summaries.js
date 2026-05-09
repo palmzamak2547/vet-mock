@@ -23304,6 +23304,215 @@ For at-risk breeds (Lab · Golden · Rottweiler · German Shepherd · Bernese):
 > 🦴 **Modern trend**: Arthroscopic SCo + early diagnosis > delayed end-stage TER`,
   },
 
+  'jo-p8MeAMXk': {
+    videoId: 'jo-p8MeAMXk',
+    title: '15.2 Osteochondrosis (OC / OCD)',
+    subject: 'com2',
+    date: '27 Nov 67',
+    durationMin: 19,
+    instructor: 'อ.มาริสาก (orthopedic surgeon · CUVET)',
+    examFormat: 'MCQ — 3 OC stages (latens/manifesta/dissecans) · 4 predictable locations · Polygenic + nutritional etiology · 3 surgical groups (palliative/reparative/restorative) · Prognosis hierarchy (Shoulder best → Hock worst) ออกบ่อย',
+    summary: `# Osteochondrosis (OC / OCD)
+
+> 🎯 **Bridges 15.1 Elbow** — OCD is the OC pathology in elbow's "OC component" of ED · but more common at OTHER joints
+> ⚠️ **Predictable joint sites**: Shoulder · Stifle · Tarsus · Elbow (medial coronoid)
+> Top exam: **3 OC stages · 4 sites · 3 surgical approaches · prognosis ranking by joint**
+
+---
+
+## 1. Definition + Why It Matters ⭐
+
+**Osteochondrosis** = developmental MSK disorder
+- Disrupts **endochondral ossification** at growth cartilage
+- Cartilage layer doesn't get blood supply → grows abnormally → weakens → cracks/flaps
+- All species affected — **horses most studied** (highest prevalence)
+- Dogs · pigs · humans · cats (rare)
+
+> ⛔ Cats RARELY get OCD (unlike orthopedic counterparts)
+
+---
+
+## 2. Predictable Joint Locations ⭐⭐ (LOAD-related)
+
+OCD has "**predictable size locations**" = specific sites on each joint
+
+| Joint | Site | Frequency |
+|---|---|---|
+| **Shoulder** ⭐⭐ | Caudal aspect of medial humeral head | Most common · best prognosis |
+| **Elbow** | Medial humeral condyle (covered in 15.1) | Common in ED |
+| **Stifle** | Lateral OR medial femoral condyle | Less common |
+| **Tarsus / Hock** | Medial OR lateral trochlear ridge of talus | Worst prognosis |
+
+> Almost always **bilateral symmetric** — but can be unilateral
+> **Local or multifocal** lesions
+
+---
+
+## 3. Three OC Stages ⭐⭐⭐ (Classification)
+
+| # | Stage | Definition | Detectable how? |
+|---|---|---|---|
+| **1** | **Osteochondrosis Latens** | Microscopic histopathology only | NOT visible clinically — earliest |
+| **2** | **Osteochondrosis Manifesta (OC)** | Lesion visible · NO cartilage flap | X-ray subtle dimple |
+| **3** | **Osteochondritis Dissecans (OCD)** | Cartilage flap + joint mouse (loose body) | X-ray + arthroscopy clearly |
+
+> 💡 **OC vs OCD distinction** = central exam topic
+> OC = lesion only (no detached piece)
+> OCD = lesion + **detached fragment** (joint mouse)
+
+---
+
+## 4. Etiology ⭐⭐ (Multifactorial!)
+
+### A. Genetic predisposition — **POLYGENIC** ⭐
+- ~100-150 genes implicated
+- NOT single-gene (unlike some hereditary diseases)
+- Cannot run "OCD gene panel" — can only identify risk
+- Predisposed breeds: **Newfoundland · Golden Retriever · German Shepherd** + other large/giant breeds
+
+### B. Nutritional factors
+- **Rapid growth** (overfeeding) → sets up failure
+- **Calcium/Vit D imbalance** (excess) → disrupts cartilage differentiation
+- **Hormones**: IGF-1 · Insulin → modulate cartilage growth
+
+> ⛔ DO NOT supplement Ca/Vit D in growing puppies of large breeds — it WORSENS OCD risk
+> ✅ Feed balanced large-breed puppy food only · no extra supplements
+
+### C. Mechanical factors
+- **Overload** (heavy body weight)
+- **Macrotrauma** (single major impact)
+- **Microtrauma** (repeated low-grade stress)
+
+---
+
+## 5. Clinical Signs
+
+| Sign | Description |
+|---|---|
+| **Lameness** | Forelimb (Shoulder OCD) or hind (Stifle/Tarsus OCD) |
+| **Head bob** | When lame leg lands, head goes UP |
+| **Joint effusion** | Swelling at joint — easier to feel at Shoulder than Elbow |
+| **Exercise intolerance** | Worse after activity |
+| **Pain on flexion/extension** | Range-of-motion testing |
+| **Bilateral often** | Both sides affected typically |
+
+---
+
+## 6. Diagnosis ⭐ (Imaging hierarchy)
+
+| Modality | Best for | Notes |
+|---|---|---|
+| **X-ray** | Shoulder (joint not complex → easy to see dimple) | Limited for elbow/tarsus |
+| **CT** ⭐ | Best non-invasive for all sites | Shows "rat-bitten" bone defect |
+| **MRI** | Cartilage detail | Expensive |
+| **Ultrasound** | Possible but expertise rare in vet med | Subchondral defect visible |
+| **Arthroscopy** ⭐⭐ | Gold standard · diagnostic + therapeutic | Direct flap visualization |
+
+### X-ray signs
+- Subchondral dimple/lucency
+- Sclerosis around lesion
+- "Joint mouse" if mineralized fragment detached
+- Joint effusion
+
+---
+
+## 7. Treatment Strategy ⭐⭐⭐
+
+### A. Conservative (non-surgical) — for these:
+| Indication | Why |
+|---|---|
+| **Small lesion (OC, no flap)** | May heal with rest |
+| **Minimal clinical signs** | Pain not significant |
+| **Advanced OA (end-stage)** | Surgery won't help — manage chronic disease |
+
+**Conservative regimen**:
+- NSAIDs for pain
+- Controlled exercise
+- Weight management
+- Rehabilitation (hydrotherapy)
+- Joint-supportive nutrition (omega-3 · glucosamine · chondroitin)
+
+### B. Surgical — 3 approaches based on lesion size
+
+#### B1. **Palliative** (smallest lesions)
+- Remove flap (arthroscopic)
+- Joint lavage
+- Done if defect is small enough to heal naturally
+
+#### B2. **Reparative** ⭐ (most common)
+- Remove flap + **debride lesion edges** (block healing if left)
+- **Curette dead subchondral bone** to expose bleeding bone
+- **Microfracture / Forage**: pierce subchondral bone with K-wire/pin → bleeding from marrow → forms **fibrocartilage** healing
+- Joint lavage
+
+#### B3. **Restorative** (resurfacing — large lesions)
+- **Osteochondral Autograft Transplantation (OATS)** ⭐
+  - Take bone-cartilage plug from **non-articular surface** (e.g., medial trochlear ridge of stifle)
+  - Transplant to defect site
+  - Used in stifle joint
+- **Synthetic implant** (SynACART · polycarbonate-urethane plug)
+  - Used when no donor site available (e.g., Shoulder)
+  - Cup-shape implant fills defect
+  - Expensive but effective
+
+### C. **Total joint replacement** (end-stage)
+- Whole-joint or compartmental replacement
+- For irreversible OA
+
+---
+
+## 8. Prognosis Hierarchy ⭐⭐⭐ (KEY exam point!)
+
+### Best → Worst prognosis by joint:
+| Rank | Joint | Why |
+|---|---|---|
+| 1 (Best) | **Shoulder** ⭐ | Caudal location → not main weight-bearing surface · easy access |
+| 2 | **Stifle** | Medium load · OATS available |
+| 3 | **Elbow** | Complex joint · OA inevitable |
+| 4 (Worst) | **Tarsus / Hock** | Small joint · multiple compartments · high load |
+
+### Lesion-size effect
+- **Larger lesion** → worse prognosis
+- **Smaller lesion** → better outcome with reparative surgery
+
+> ⛔ ALL OCD develops OA eventually — surgery slows it but doesn't prevent it
+> Lifetime management required (similar to ED/HD/CHD)
+
+---
+
+## 9. Compare with FCP/MCD (15.1 Elbow) ⭐
+
+| Feature | OCD | FCP / MCD |
+|---|---|---|
+| Mechanism | Cartilage layer fails | Subchondral bone microcrack |
+| Location | Multiple joints (Shoulder · Stifle · Tarsus + Elbow medial humerus) | Elbow ONLY (medial coronoid) |
+| Bilateral | Often bilateral | Often bilateral |
+| Treatment | Remove flap + repair OR resurface | Remove fragment + curette |
+| OA outcome | Inevitable | Inevitable |
+
+---
+
+## 🎯 Exam Recap — top 12 testable points
+
+1. **OCD = developmental MSK disorder** of endochondral ossification
+2. **3 stages**: Latens (histo only) · Manifesta (OC) · Dissecans (OCD with flap)
+3. **4 predictable sites**: Shoulder · Elbow · Stifle · Tarsus
+4. **Polygenic genetic predisposition** — not single-gene
+5. **Predisposing breeds**: Newfoundland · Golden · German Shepherd
+6. **Don't supplement Ca/Vit D** in large breed puppies (WORSENS OCD)
+7. **CT is best non-invasive** for diagnosis
+8. **Arthroscopy = gold standard** + treatment
+9. **3 surgical approaches**: Palliative · Reparative · Restorative
+10. **Microfracture promotes fibrocartilage** healing (key reparative concept)
+11. **OATS uses autograft** from non-articular trochlear ridge
+12. **Prognosis ranking: Shoulder > Stifle > Elbow > Hock**
+
+> 📚 อ่านควบ: 15.1 Elbow Disease (Os6MWLC8oso) · 9.1 LCP (Spz38qa5upU) · 8.2 OA (VJ8ixtXP9XU) · 11 Common Joint (MMTtwT_7c94)
+> 🩻 **Practice tip**: Shoulder OCD is the FIRST site to suspect in a young large-breed dog with forelimb lameness
+> 💡 **OC vs OCD** = lesion alone vs lesion + detached fragment
+> 🦴 **Prognosis pearl**: Shoulder > Stifle > Elbow > Hock — remember this hierarchy!`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
