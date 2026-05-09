@@ -31969,6 +31969,264 @@ Exposing gilt to **mature boar** triggers:
 > 🦴 **Modern surgical reality**: Zoletil + epidural = combination win`,
   },
 
+  'yxrcr-gg8sQ': {
+    videoId: 'yxrcr-gg8sQ',
+    title: '14. โรคระบบสืบพันธุ์ II + Post-partum complications',
+    subject: 'swine-repro',
+    date: '19 Nov 67',
+    durationMin: 116,
+    instructor: 'อ.มรกต (CUVET)',
+    examFormat: 'MCQ — Parvovirus titer 512 cutoff · PCR detection window · PRRS apoptosis at implantation · Aujeszky G1 marker · Post-partum complications · MMA endotoxemia ออกบ่อย',
+    summary: `# Reproductive Diseases II + Post-partum Complications
+
+> 🎯 **Course finale** — disease deep-dives + post-farrow management
+> Top exam: **Parvovirus titer 512 cutoff · PRRS apoptosis mechanism · PCR window · Aujeszky G1 marker (DIVA) · Post-partum complications · MMA endotoxemia**
+
+---
+
+## 1. Parvovirus Titer Cutoffs ⭐⭐⭐ (Memorize!)
+
+### Antibody titer interpretation
+| Titer | Meaning |
+|---|---|
+| **<32** | Suspect, no protection · vaccinate! |
+| **32-256** | Cannot distinguish vaccine vs natural infection · ambiguous |
+| **>512** ⭐ | **Natural infection** (vaccine alone won't reach this!) |
+
+### Clinical use
+- Survey herd → if titers >512 = exposure happened
+- Use to plan vaccination strategy
+- Track effectiveness of acclimation
+
+### Key principle ⭐
+**Vaccine alone CANNOT reach >512 titer**
+Vaccine + Natural infection = high titer
+Survey high titer = MUST be field exposure
+
+---
+
+## 2. PCR Detection Window ⭐⭐ (Time-sensitive!)
+
+### Parvovirus PCR positive window
+| Day post-infection | PCR result |
+|---|---|
+| Day 1 | Negative (early) |
+| Day 3 | **POSITIVE 10⁹** copies (peak!) |
+| Day 7 | Positive 10⁶ copies |
+| Day 10 | Positive 10² copies (declining) |
+| **Day 14+** | **NEGATIVE** ⭐ |
+
+### Why this matters
+- **Sample within 10 days of suspected infection**
+- Late samples = false negative
+- For aborted material: best fresh
+
+### Tissue with highest viral load
+- **Mesenteric lymph nodes** ⭐
+- Liver, spleen secondary
+- Sample multiple sites
+
+---
+
+## 3. PRRS Mechanism — Apoptosis at Implantation ⭐⭐⭐ (Modern science!)
+
+### The discovery (2011)
+**Belgian researcher Dr. Nauwynck** showed PRRS causes:
+- **Apoptosis** (NOT necrosis) of placental anchor cells
+- Cell-by-cell programmed death
+- Fetus loses placental attachment
+- Hangs but eventually expelled
+
+### Why PRRS is "great pretender"
+- Necropsy of aborted fetus = **NORMAL!**
+- No lesions visible
+- Old understanding: "couldn't find cause"
+- New understanding: damage at implantation interface
+
+### Implication
+- PRRS = #1 abortion cause in modern Thai farms
+- Especially late-term (Day 100+ pregnancy)
+- Often missed without PCR
+
+### Chula contribution (same year, 2011)
+- Dr. Lukita's PhD work
+- Confirmed PRRS in reproductive tissues
+- Cell-specific localization
+- Published alongside Nauwynck's work
+
+---
+
+## 4. Vaccine Recommendations ⭐ (Tren's protocol)
+
+### Parvovirus
+**Re-vaccinate every 4-6 months** for breeding sows
+- Sync with reproductive cycle (1 cycle ~5 months)
+- Use during lactation (sow not pregnant)
+- Mandatory for gilts pre-breeding
+
+### Why only twice yearly?
+- Breeding cycle ~5 months
+- Sows lactating = good vaccination window
+- Practical for farm staff
+
+---
+
+## 5. Aujeszky's Disease (Pseudorabies) Marker Vaccine ⭐⭐ (DIVA)
+
+### Unique feature
+**Marker vaccine (gE-deleted)** ⭐
+- Only swine vaccine with this property
+- Allows DIVA: Differentiate Infected from Vaccinated Animals
+
+### How it works
+| Test | Vaccinated | Field Infected |
+|---|---|---|
+| Total Aujeszky antibodies | + | + |
+| **gE antibody** ⭐ | **NEGATIVE** | **POSITIVE** |
+| (gE deleted from vaccine) | (no immune response to gE) | (full virus has gE) |
+
+### Diagnostic value
+- Track herd infection status DESPITE vaccination
+- Eradication programs use this principle
+- gE+ animals → CULL (true infection)
+
+### Eradication progress
+- USA: AD-free since 2004
+- EU: many countries free
+- Thailand: still endemic, vaccinated
+
+---
+
+## 6. Post-Partum Complications ⭐⭐ (Common problems)
+
+### Major issues post-farrowing
+| Problem | Mechanism |
+|---|---|
+| **Retained placenta** | Failed expulsion >4 hours post-farrow |
+| **Endometritis** | Bacterial infection of uterus |
+| **MMA (Mastitis-Metritis-Agalactia)** | Triple complication |
+| **Vulval discharge (post-cleansing)** | Normal vs abnormal |
+| **Dystocia sequelae** | After-effects of difficult birth |
+| **Crushing of piglets** | Sow rolls onto piglets |
+
+### Vital sign monitoring
+- **Temperature** post-farrowing 1-3 days (fever = infection)
+- **Appetite** (drop = problem)
+- **Lochia** (discharge color/odor)
+- **Mammary** (heat, swelling, pain)
+
+---
+
+## 7. MMA Syndrome ⭐⭐⭐ (THE postpartum disease!)
+
+### MMA = M + M + A
+- **M**astitis (mammary infection)
+- **M**etritis (uterine infection)
+- **A**galactia (no milk)
+
+### Triple complication
+- All 3 often co-occur
+- Sow can't make milk → piglets starve
+- Massive litter mortality
+
+### LPS Endotoxemia mechanism (KEY!)
+1. Sow constipated (no fiber, no water)
+2. Gut bacteria die in stagnant content
+3. **LPS (lipopolysaccharide)** released
+4. LPS absorbed into blood
+5. **LPS suppresses prolactin**
+6. Prolactin needed for milk → no milk
+7. Piglets starve
+
+### Treatment
+- **Antibiotics** (E. coli most common cause)
+- **NSAIDs** (anti-inflammatory)
+- **Oxytocin** (milk let-down + uterine contraction)
+- **Fluid therapy** (rehydration)
+- **Manual milking** if needed
+
+### Prevention (modern)
+- **Fiber + salt** in late gestation feed (prevent constipation)
+- **Adequate water** access
+- **Sterile farrowing technique**
+- **Vaccinate against E. coli, Clostridium**
+
+---
+
+## 8. Disease II Deep-dives ⭐
+
+### Common diseases continuing from Lecture I
+- Erysipelas (3 forms reminder)
+- Brucella (zoonotic emphasis)
+- Leptospirosis (late-term)
+
+### Modern emerging
+- ASF (recent decade reality)
+- New PRRS strains
+- Antibiotic resistance
+
+---
+
+## 9. Diagnostic Sample Submission ⭐
+
+### What to submit when sow aborts
+| Sample | Tests |
+|---|---|
+| **Aborted fetus (entire if possible)** | Histopath, PCR |
+| **Placenta** | Bacterial culture |
+| **Maternal serum (paired)** | Serology (acute + convalescent) |
+| **Aborted fluid** | PCR |
+| **Lymph nodes from fetus** | Best for Parvo PCR |
+
+### Timing
+- Early in event = better
+- Within 10 days for Parvo PCR
+- Fresh refrigerated (not frozen for histopathology)
+
+---
+
+## 10. Practical Workflow ⭐
+
+### When facing reproductive problem
+1. **Investigate herd-wide** vs single sow
+2. **Submit comprehensive sample set**
+3. **Test for top differentials**:
+   - PRRS (PCR + serology)
+   - Parvovirus (titer + PCR if recent)
+   - Lepto (MAT)
+   - Brucella (Rose Bengal + ELISA)
+4. **Review feed** for mycotoxin
+5. **Review vaccination history**
+6. **Review heat stress + management**
+7. **Consult lab pathologist**
+8. **Implement intervention**
+9. **Monitor recurrence**
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Parvo titer >512** = field infection (vaccine alone can't)
+2. **Parvo PCR positive window: <10 days post-infection**
+3. **Mesenteric LN** = best Parvo sample
+4. **PRRS apoptosis** at placental implantation (Nauwynck 2011)
+5. **PRRS abortion = late-term + normal-looking fetus**
+6. **Vaccinate Parvo every 4-6 months** sows
+7. **Aujeszky's gE-deleted vaccine** = DIVA marker
+8. **gE positive** = field infection (cull!)
+9. **MMA = Mastitis + Metritis + Agalactia**
+10. **LPS suppresses prolactin** = milk failure
+11. **Fiber + salt prevents** MMA
+12. **Retained placenta >4 hours** = problem
+13. **Crushing** = #1 piglet death cause
+14. **Submit fetus + placenta + maternal serum** for diagnosis
+
+> 📚 อ่านควบ: 9 Pregnancy failure (pcytvk49Yc8) · 11 Female disorders I (wCl4h_EhFuU) · 12.2 Diseases I (i8D7FUq6nLM) · 13 Surgery (frFnnBQiyug)
+> 🩻 **Practice tip**: Memorize Parvo cutoff 512 + PCR window 10 days
+> 💡 **PRRS apoptosis** = why fetus looks normal
+> 🦴 **Aujeszky DIVA** = THE marker vaccine concept`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
