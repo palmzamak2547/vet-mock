@@ -45850,6 +45850,241 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🎯 **Application**: All knowledge → DECISION MAKING for prevention/control`,
   },
 
+  '48mvLLg_m_4': {
+    videoId: '48mvLLg_m_4',
+    title: 'Veterinary Epidemiology — 1.3.1 Disease Concepts in Populations I',
+    subject: 'epidemiology',
+    date: '2025-08-07',
+    durationMin: 41,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + scenario · ออก Iceberg Phenomenon · 4 disease patterns · Epidemic Curve · incubation/latent period definitions',
+    summary: `## 🎯 Lead Summary
+**Disease occurrence patterns in populations**. Key insight: ⭐ ⭐ **Iceberg Phenomenon** — most disease cases are **subclinical** (you don't see them) but only the tip is **clinical** (visible). Vets must understand: ⭐ exposed-not-infected → ⭐ infected-no-clinical-signs → ⭐ clinical-mild → ⭐ severe → ⭐ death pyramid. Critical Thai exam terms: ⭐ ⭐ **Sporadic · Endemic · Epidemic · Pandemic** (must know for exam!). Plus: ⭐ **Epidemic Curve** = bell-shaped graph for outbreak analysis · ⭐ **Latent vs Incubation period** distinction.
+
+## 1️⃣ Why "Subtle" Diseases Matter ⭐⭐⭐
+
+### Reality Check
+- ⭐ Diseases are RARELY textbook-clear in practice
+- Real farms: signs are subtle, ambiguous
+- Vets must read between lines
+
+### Common Subtle Indicators (vs Clinical)
+| Subtle | Clinical |
+|---|---|
+| ⭐ Reduced feed intake | Visible weight loss |
+| ⭐ Production drop (eggs, milk) | Visible illness |
+| ⭐ Behavior change | Death |
+| ⭐ Reproductive failure | Lameness |
+
+### "ต้องรู้ปกติก่อน → ถึงจะรู้ผิดปกติ" ⭐
+- ⭐ Must know normal first to recognize abnormal!
+- Examples:
+  - Layer hen feed: 100-110 g/day
+  - Peak egg production: ~90-95%
+  - Ducks normal water consumption
+- ⚠️ Without baseline = can't spot disease!
+
+## 2️⃣ Iceberg Phenomenon ⭐⭐⭐ (CRITICAL CONCEPT!)
+
+### The 5-Level Pyramid (bottom to top)
+
+**Top (smallest, visible)**: Death → Severe Clinical → Mild Clinical (My Illness) → Subclinical (Infection without clinical) → **Bottom (largest base!)**: Exposed without Infection
+
+
+### Population View ⭐
+| Level | What you see | What's actually there |
+|---|---|---|
+| ⭐ **Exposed without infection** | Nothing | Most animals (90%+ in mild outbreaks) |
+| ⭐ **Subclinical infection** | Subtle changes | Many animals |
+| ⭐ **Mild clinical** | Cough, slight signs | Some animals |
+| ⭐ **Severe clinical** | Down, lame, ill | Few animals |
+| ⭐ **Death** | Carcasses | Smallest fraction |
+
+### Why It Matters
+- ⭐ Vet income depends on ⭐ **detecting subclinical cases EARLY**
+- ⭐ Can't wait for clinical death (too late!)
+- ⭐ Use: numbers, behavior, production data
+
+## 3️⃣ Career Wisdom from Lecture ⭐
+
+### Vet Reality Check
+- ⭐ "ใครเก่งวินิจฉัยก็รวยกว่า" — diagnostic skill = income
+- ⚠️ "อาจารย์ปกป้องในมหาลัย แต่ออกไปแล้วตัวใครตัวมัน"
+- ⭐ Real practice: data-driven decisions, not guessing
+- ⭐ Vet who's first thought of in crisis = wealthy
+
+### Key Skill
+- ⭐ Convert ⭐ **subjective** (feeling, qualitative) → ⭐ **objective** (numbers, quantitative)
+- Numbers can be analyzed, calculated, used
+- Subjective opinions can't drive decisions
+
+## 4️⃣ 4 Disease Patterns (MUST KNOW!) ⭐⭐⭐
+
+### A. Sporadic ⭐
+- ⭐ Disease occurs OCCASIONALLY, irregular
+- Random cases, no pattern
+- ⭐ Examples: Anthrax in Thailand, rare exotic diseases
+
+### B. Endemic ⭐
+- ⭐ Disease CONSTANTLY PRESENT in population
+- Always there, but at low/manageable levels
+- ⭐ Thai examples:
+  - **FMD** (endemic)
+  - **Newcastle Disease (ND)**
+  - **Pasteurellosis** (Hemorrhagic Septicemia in cattle, called "คอบวม")
+  - **Rabies**
+
+### C. Epidemic ⭐
+- ⭐ SUDDEN INCREASE above expected level
+- Outbreak situation
+- ⭐ Examples:
+  - **HPAI 2547** (came, now controlled but watching)
+  - **ASF** entry
+  - **LSD 2021** outbreak
+
+### D. Pandemic ⭐
+- ⭐ GLOBAL spread (worldwide)
+- Multiple countries simultaneously
+- ⭐ Examples:
+  - ⭐ **COVID-19** (recent, classic pandemic)
+  - **FMD 2566** (was pandemic-level worldwide)
+  - **HPAI** when it spread globally
+  - **ND** can be pandemic
+
+### Memorize Trick
+> Sporadic = **occasional** (sometimes)
+> Endemic = **EN** stays IN
+> Epidemic = **EPI** = upon (outbreak)
+> Pandemic = **PAN** = ALL (everywhere)
+
+## 5️⃣ Why Pasteurellosis ("Cobuam") Connects ⭐
+
+### One Pathogen, Multiple Diseases
+| Species | Disease name |
+|---|---|
+| Cattle | ⭐ "คอบวม" (Hemorrhagic Septicemia) |
+| Chicken | ⭐ "อหิวาต์ไก่" (Fowl cholera) |
+| Pig | ⭐ Pasteurellosis swine |
+
+### Pattern
+- ⭐ All caused by **Pasteurella multocida**
+- Endemic when conditions favor (rainy season!)
+- Thai DLD vaccinates BEFORE rainy season (preventive)
+
+## 6️⃣ Epidemic Curve ⭐⭐⭐
+
+### What It Is
+- ⭐ ⭐ **Graph of cases over time**
+- Bell-shaped (rises then falls)
+- ⭐ Critical tool for outbreak investigation
+
+### Single Source Outbreak Pattern
+- ⭐ Single bell curve
+- One source of infection
+- Clear rise-peak-fall
+- Example: All cattle infected at one feed
+
+### Multi-Source Pattern
+- ⭐ Multiple overlapping curves
+- ⭐ ⭐ COVID-19 example (multiple cities, dates)
+- Suggests: spread between locations
+- ⭐ Different prevention strategy needed
+
+### What to Read from Curve ⭐
+1. ⭐ **Origin** — single or multiple sources?
+2. **Peak** — when most cases occurred
+3. **Spread** — how fast did it move?
+4. **Duration** — when does it end?
+5. ⭐ **Incubation period** — first cases timing
+
+## 7️⃣ Period Definitions ⭐⭐ (Must memorize!)
+
+### Latent Period vs Incubation Period
+| Term | Definition |
+|---|---|
+| ⭐ **Latent Period** | Time from exposure → biochemical changes detectable in lab |
+| ⭐ **Incubation Period** | Time from exposure → clinical signs visible |
+| ⭐ **Recovery (Convalescence)** | Period after acute phase, immune developing |
+
+### Why It Matters
+- ⭐ Lab can detect BEFORE clinical signs
+- Critical for outbreak control
+- Quarantine timing depends on these
+
+### Real Application
+- ⭐ COVID timeline visualization (everyone learned during pandemic!)
+- ⭐ FMD: short incubation (2-14 days)
+- ⭐ TB: very long incubation (months-years)
+- ⭐ Johne's: 3-5 YEARS!
+
+## 8️⃣ Population-Level Thinking ⭐
+
+### Why Speed Matters in Flocks ⭐
+- ⭐ ⭐ Chicken: 50 dead today → ⭐ **500 tomorrow if no action!**
+- ⭐ Single visit → can't go home and "look it up"
+- ⚠️ Flock dynamics demand fast decisions
+- Compare with dog: can wait until tomorrow
+
+### Vet Pay Justification
+- ⭐ Owners pay if vet adds value
+- ⭐ Performance must justify salary
+- ⭐ Failure → "go change profession" message
+
+## 9️⃣ Diagnosing Disease (Workflow) ⭐
+
+### What Vet Does in Population Setting
+1. ⭐ Compare to baseline (must know normal!)
+2. ⭐ Check production data
+3. ⭐ Look for behavioral changes
+4. ⭐ Examine subset of animals clinically
+5. ⭐ Run lab tests
+6. ⭐ Build epidemic curve
+7. ⭐ Identify source/cause
+8. ⭐ Implement control
+
+### Tools
+- ⭐ ⭐ Records (recording from previous lecture!)
+- ⭐ Sensors (Precision Dairy Farming)
+- Production logs
+- Health history
+
+## 1️⃣0️⃣ Naming Diseases ⭐
+
+### How Diseases Get Their Names
+1. ⭐ **By cause**: TB (Tuberculosis), Brucellosis
+2. ⭐ **By specific lesion**: Bovine spongiform encephalopathy (BSE)
+3. ⭐ **By signs**: Hemorrhagic Septicemia
+4. ⭐ **By location of first occurrence**: Lyme disease
+5. ⭐ **By discoverer**: Brucellosis (Brucе)
+
+### Thai Folk Names
+- คอบวม = Hemorrhagic Septicemia
+- หัวบวม = Coryza
+- ปากเท้าเปื่อย = FMD
+- โรคล้มควาย = Rinderpest
+- ไข้ขาแข็ง = BEF
+
+## 📋 Exam Recap (12 จุดสำคัญ)
+
+1. ⭐ ⭐ **Iceberg Phenomenon**: 5 levels with subclinical = vast majority
+2. ⭐ **"Know normal first to detect abnormal"** = key vet wisdom
+3. ⭐ ⭐ **4 Patterns**: Sporadic · Endemic · Epidemic · Pandemic (MUST KNOW!)
+4. ⭐ **Endemic Thai diseases**: FMD · ND · Pasteurellosis · Rabies
+5. ⭐ **Epidemic example**: HPAI · ASF · LSD entry to Thailand
+6. ⭐ **Pandemic example**: COVID-19 · FMD globally
+7. ⭐ ⭐ **Epidemic Curve** = bell-shaped graph for outbreak analysis
+8. ⭐ **Single curve** = single source · **Multiple curves** = multi-source
+9. ⭐ **Latent Period** ≠ Incubation Period (lab detection vs clinical signs)
+10. ⭐ **Pasteurellosis** = same pathogen → different name per species
+11. ⭐ **Speed matters in flocks** (50 → 500 dead in 1 day!)
+12. ⭐ **Vet income** = ability to detect subclinical + decide fast
+
+> 📚 **Cross-refs**: 1.1 Intro · 1.2 Basic concepts · Future: outbreak investigation
+> 🩺 **Practical**: Build farm-specific normal baselines BEFORE outbreaks
+> 📊 **Tool**: Always graph cases vs time for outbreak investigation
+> 🎯 **Memorize**: Sporadic / Endemic / Epidemic / Pandemic — definitely on exam!`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
