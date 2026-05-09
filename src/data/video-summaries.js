@@ -29657,6 +29657,436 @@ Exposing gilt to **mature boar** triggers:
 > 🦴 **Modern target**: 30 piglets/sow/year + 2 litters/year`,
   },
 
+  '0vUVH0tVcqw': {
+    videoId: '0vUVH0tVcqw',
+    title: '7.1 Artificial Insemination in Swine',
+    subject: 'swine-repro',
+    date: '17 Sep 67',
+    durationMin: 60,
+    instructor: 'อ.มรกต (CUVET)',
+    examFormat: 'MCQ — AI history Leeuwenhoek discovery · 1:100 boar:sow ratio derivation · External vs On-farm semen pricing · AI advantages · Boar selection criteria ออกบ่อย',
+    summary: `# Artificial Insemination in Swine
+
+> 🎯 **The pig industry's transformation tool** — AI changed everything
+> Top exam: **AI history (Leeuwenhoek 1677) · 1:100 ratio derivation · External vs Own semen economics · AI advantages · Boar selection**
+
+---
+
+## 1. AI History ⭐
+
+### First sperm observation
+- **Antoni van Leeuwenhoek (1677)** ⭐ — first to see sperm under microscope
+- Used his own ejaculate (couldn't get any other source!)
+- Called sperm "Animalcules"
+- Looked like worms wiggling under primitive microscope
+
+### AI development
+- Developed primarily in cattle (1700s)
+- Pig AI came later (mid-1900s)
+- Modern technology = mature (~700 years since first observation!)
+
+---
+
+## 2. AI Advantages ⭐⭐ (Why everyone uses it now)
+
+### Genetic improvement
+| Benefit | Mechanism |
+|---|---|
+| **Premium genetics access** | Import semen from Denmark, USA |
+| **Faster genetic gain** | Use top boars worldwide |
+| **Reduced boar count** | 1 boar serves more sows |
+
+### Disease control
+- **Reduces direct contact** disease transmission
+- Prevents FMD spread
+- Avoids physical injury risk
+
+### Safety
+- **Sow safety**: 200 kg sow + 300 kg boar = injury risk
+- **Worker safety**: handlers don't manage natural mating
+- **Boar safety**: less aggression, no injury risk
+
+### Convenience
+- Sound semen quality assured (lab-tested)
+- Predictable dosing
+- Year-round breeding
+
+---
+
+## 3. The 1:100 Ratio Math ⭐⭐⭐ (CRITICAL exam!)
+
+### Worked example for 1,000-sow farm
+| Step | Calculation | Result |
+|---|---|---|
+| 1. Litters per sow per year | 2.4 | — |
+| 2. Total breedings/year | 1000 × 2.4 | 2,400 |
+| 3. Per week | 2400 / 52 | ~47/week |
+| 4. Doses per breeding | × 2-3 | 141 doses/week |
+| 5. Doses per boar collection | 10 | — |
+| 6. Boar collections needed/wk | 141/10 | ~14 |
+| 7. Add buffer for cycle issues | 15 | — |
+| 8. Boar collected once/2 weeks | × 2 | ~30 collections cycle |
+| 9. Need at any time | / 3 | **~10 boars** |
+
+### Result: **10 boars for 1,000 sows = 1:100 ratio** ⭐
+
+### Variations
+- High-quality boar (50 doses/ejaculate) → 1:200 ratio possible
+- Multiple breedings per estrus → adjust accordingly
+
+---
+
+## 4. Semen Economics ⭐ (Pricing reality!)
+
+### Purchased semen prices (Thailand)
+| Source | Price/dose |
+|---|---|
+| **Local commercial boar** | ~200 baht/dose |
+| **Imported genetics (Thai-collected)** | ~3,000 baht/dose ⭐ |
+| **Direct imported (frozen)** | ~5,000 baht/dose |
+
+### Why expensive imported is worth it
+- Boar from Denmark = 200,000-300,000 baht to buy
+- Spread cost over 50 doses/ejaculate = 6,000 baht/dose
+- Dose cost × 50 doses = breeds many sows
+- Genetic premium pays back over years
+
+### Own-farm semen
+- ~20 baht/dose (just labor + extender + collection)
+- Cheaper but lower genetic gain
+- Best for commercial-grade
+
+### Decision: Buy or Make?
+- **Tier 1 farms (premium genetics)**: Buy imported
+- **Tier 2 (mixed)**: Buy + collect
+- **Backyard**: Collect own only
+
+---
+
+## 5. AI Disadvantages ⭐ (Be balanced!)
+
+### Skill required
+- Microscope use
+- Semen evaluation
+- Sterile technique
+- Cycle timing
+- Catheter insertion technique
+
+### Equipment cost
+- Initial setup: 200,000 - 2,000,000 baht
+- Microscope, incubator, lab supplies
+- Premium farms: 3M+ baht setup
+
+### Logistics
+- **Cannot get semen instantly**
+- Must order in advance
+- 2-3 hour delivery from semen lab to farm
+- Plan ahead for estrus timing
+
+### Heat detection accuracy
+- Must catch estrus correctly
+- Wrong timing = no conception
+- Critical skill for workers
+
+---
+
+## 6. Boar Selection for AI ⭐⭐ (Premium genetics!)
+
+### What makes a "good boar"?
+| Criterion | Why |
+|---|---|
+| **Pedigree** ⭐ | Genetic background documented |
+| **Breeding Value (BV)** | Statistical merit estimate |
+| **Birth date + age** | Optimal collection age |
+| **Disease-free status** | Especially PRRS, AD, Brucella |
+| **Conformation** | Sound legs, body |
+| **Production goals match** | Match farm targets |
+
+### Goals match boar to farm
+| Farm goal | Pick boar with... |
+|---|---|
+| Fast-growing fatteners | High ADG genetics |
+| Lean meat | Low backfat genetics |
+| Large litters | High maternal index sow line |
+
+> ⭐ "Beauty is subjective" — boar selection depends on FARM GOALS
+
+---
+
+## 7. PFI Phenix AI Station ⭐ (Standards!)
+
+### Lab certification
+- Must be certified by **กรมปสุสัตว์** (Department of Livestock Development)
+- Quarterly inspections
+- Disease testing
+- Hygiene swabs
+
+### Disease screening
+- PRRS (mandatory)
+- ASF
+- Brucella suis
+- Aujeszky's (Pseudorabies)
+- Mycoplasma
+- + others as required
+
+### Hygiene standards
+- Sterile collection
+- Gloved hands
+- Cleaned dummy
+- Filtered semen
+- Bacteriological surface tests
+
+---
+
+## 8. AI Procedure Outline ⭐
+
+### Step-by-step (AI itself)
+1. **Detect estrus** (standing reflex)
+2. **Time AI** (24-30 hr after standing)
+3. **Position sow** (standing, calm)
+4. **Stimulate** (boar nearby + back pressure)
+5. **Insert catheter** (foam-tip into cervix)
+6. **Connect semen bottle**
+7. **Allow uterine contractions** to draw semen in
+8. **Wait 5-10 min** for full uptake
+9. **Withdraw catheter**
+10. **Repeat in 12-24 hr** (second AI)
+
+### Why second AI?
+- Estrus lasts 24-72 hours
+- Multiple ovulations possible
+- Maximizes conception rate
+
+---
+
+## 9. Modern AI Trends ⭐
+
+### Post-cervical AI
+- Catheter goes BEYOND cervix
+- Less semen needed (1.5 billion vs 3 billion)
+- Higher conception rate
+- More expensive technique
+
+### Estrus synchronization
+- Hormonal protocols
+- Group AI = labor efficient
+- Discussed in Video 7.2 + further courses
+
+### Frozen semen (rare in pigs)
+- Cold-shock issue
+- 30-50% pregnancy rate (vs 80%+ liquid)
+- Used only for very valuable genetics
+
+---
+
+## 🎯 Exam Recap — top 12 testable points
+
+1. **Leeuwenhoek (1677)** = first to see sperm
+2. **AI replaces 1:20 natural ratio** with **1:100 AI**
+3. **1000-sow farm needs ~10 boars** (15 × 1.5 buffer)
+4. **Imported semen ~3,000 baht/dose** vs ~200 commercial
+5. **Own-farm semen ~20 baht/dose**
+6. **AI advantages**: genetics + biosecurity + safety
+7. **AI disadvantages**: skill + equipment + heat detection
+8. **Boar selection** = match farm goals (BV, conformation)
+9. **กรมปสุสัตว์ certification** required for AI labs
+10. **17°C semen storage** (not 4°C)
+11. **AI timing 24-30 hr** after standing onset
+12. **Two AIs per estrus** = standard for max conception
+
+> 📚 อ่านควบ: 5 Semen collection (3cJC9Ymk1TI) · 7.2 Hormones (AWu12JovU0Q) · 8 Pregnancy (NSULhtJz_Oc)
+> 🩻 **Practice tip**: Memorize 1:100 derivation — exam favorite math
+> 💡 **Imported worth it** if farm targets premium markets
+> 🦴 **AI center certification** = quality guarantee`,
+  },
+
+  AWu12JovU0Q: {
+    videoId: 'AWu12JovU0Q',
+    title: '7.2 Hormone Usage in Swine',
+    subject: 'swine-repro',
+    date: '17 Sep 67',
+    durationMin: 52,
+    instructor: 'อ.เผด็จ (CUVET)',
+    examFormat: 'MCQ — PG600 (eCG+hCG) for puberty induction · GnRH for estrus synchronization · Prostaglandin parturition induction · Altrenogest for estrus suppression ออกบ่อย',
+    summary: `# Hormone Usage in Swine Reproduction
+
+> 🎯 **Pharmacological tools to fine-tune reproduction**
+> Top exam: **PG600 (eCG+hCG) puberty induction · GnRH synchronization · Prostaglandin parturition · Altrenogest cycle control**
+
+---
+
+## 1. Why Use Hormones in Swine? ⭐
+
+### Goals
+| Goal | Hormone class |
+|---|---|
+| **Induce puberty** in slow gilts | eCG/hCG (PG600) |
+| **Synchronize estrus** in groups | Prostaglandin or GnRH |
+| **Time ovulation** for AI | GnRH |
+| **Induce parturition** at desired time | Prostaglandin (PGF2α) |
+| **Suppress estrus** in gilts pre-breeding | Altrenogest (Regumate) |
+| **Treat anestrus** | PG600 + others |
+
+---
+
+## 2. PG600 ⭐⭐⭐ (Most-used in swine!)
+
+### Composition
+- **eCG (equine Chorionic Gonadotropin)** — like FSH
+- **hCG (human Chorionic Gonadotropin)** — like LH
+- Combination = both follicular development + ovulation
+
+### Indications
+| Use | Effect |
+|---|---|
+| **Puberty induction** in late gilts (>7 months no estrus) | Triggers first estrus |
+| **Anestrus treatment** in sows | Re-cycles weaned sows |
+| **Synchronization** in groups | Ovulate at predicted time |
+
+### Dose
+- 1000 IU eCG + 500 IU hCG per dose
+- Single IM injection
+- Estrus expected in 3-5 days
+- Ovulation 6-8 days post-injection
+
+---
+
+## 3. GnRH (Gonadotropin-Releasing Hormone) ⭐
+
+### Function
+- Stimulates pituitary → release FSH + LH
+- **Synchronization** of ovulation
+- Used for fixed-time AI protocols
+
+### Common products
+- Buserelin
+- Gonadorelin
+- Synthetic analogs
+
+### Use case
+- After PGF2α to synchronize cycle
+- Time AI without heat detection
+- Used in commercial high-volume farms
+
+---
+
+## 4. Prostaglandin F2α (PGF2α) ⭐⭐
+
+### Function
+- Causes **luteolysis** (CL regression)
+- In pregnant sow: **induces parturition**
+- In non-pregnant: **brings into estrus**
+
+### Indications in swine
+| Use | Mechanism |
+|---|---|
+| **Parturition induction** ⭐ | After Day 110-114 of pregnancy → birth in 24-48 hr |
+| **Estrus synchronization** | Lyse CL in cyclic sow |
+| **Pyometra/persistent CL treatment** | Resolve hormonal block |
+
+### Common products
+- Cloprostenol
+- Lutalyse (dinoprost)
+- Estrumate
+
+### Parturition induction protocol ⭐
+- Inject Day 113 morning
+- Most sows farrow within 24-30 hours
+- Allows daytime supervised farrowing
+- Increases live-born survival
+
+---
+
+## 5. Altrenogest (Regumate) ⭐⭐ (Synthetic progesterone)
+
+### Function
+- Mimics progesterone → blocks estrus
+- Used for **estrus suppression** + synchronization
+
+### Standard use
+- **Gilt cycle synchronization** before breeding
+- Feed Altrenogest daily for **18 days**
+- Withdraw → all gilts come into heat 4-6 days later
+- AI all gilts on schedule = labor efficiency
+
+### Why 18 days?
+- Spans full estrus cycle (21 days)
+- Suppresses any cycling status
+- Synchronizes pickup at withdrawal
+
+### Practical use
+- Group AI implementation
+- Predictable workflow
+- Fits weekly batch system
+
+---
+
+## 6. Hormone Use Decision Tree ⭐
+
+### When to use what?
+| Scenario | Choice |
+|---|---|
+| Gilt 8 months no estrus | PG600 |
+| Group needs synchrony | Altrenogest 18d → withdrawal |
+| Want exact ovulation time | GnRH after Altrenogest |
+| Sow about to farrow weekend | PGF2α Day 113 |
+| Anestrus weaned sow | PG600 + observe |
+| Pyometra | PGF2α |
+
+---
+
+## 7. Side Effects + Cautions ⭐
+
+### Hormone risks
+| Hormone | Side effect |
+|---|---|
+| **PG600** | Cysts if used too often |
+| **GnRH** | Generally safe, mild |
+| **PGF2α** | ⚠️ **HUMAN HANDLER RISK** — abortion-causing if pregnant! |
+| **Altrenogest** | Long withdrawal |
+
+### PGF2α handler precaution
+- Pregnant women MUST NOT handle
+- Gloves mandatory
+- Skin absorption possible
+- Causes uterine contractions in humans
+
+---
+
+## 8. Cost-Benefit ⭐
+
+### When economically worth it?
+- **Group sync** for batch farrowing → labor savings
+- **Daytime farrowing** → fewer overnight emergencies
+- **Anestrus rescue** → recover 1-2 productive cycles
+- **Premium farms** with high genetic value
+
+### When NOT worth it?
+- Backyard farms (low scale)
+- Experimental/unsupervised use
+- If natural cycling works fine
+
+---
+
+## 🎯 Exam Recap — top 10 testable points
+
+1. **PG600 = eCG + hCG** (FSH-like + LH-like)
+2. **PG600 indications**: puberty induction, anestrus, sync
+3. **GnRH** = synchronizes ovulation timing
+4. **PGF2α** = parturition induction (Day 113) or estrus
+5. **Altrenogest 18 days** = gilt synchronization
+6. **PG600 single dose 1000 IU + 500 IU** IM
+7. **PGF2α handlers DANGER** if pregnant
+8. **Hormone use** = labor savings on big farms
+9. **Day 113 PGF2α** = farrow within 24-30h
+10. **Synchronization** + AI = high efficiency batch farms
+
+> 📚 อ่านควบ: 6 Puberty Gilt (hzJKpe4SLyw) · 7.1 AI (0vUVH0tVcqw) · 8 Pregnancy (NSULhtJz_Oc) · 10 Parturition (Oazp-JWIKhw)
+> 🩻 **Practice tip**: PG600 = THE classic pig hormone — memorize uses
+> 💡 **Altrenogest = ALL gilts heat at same time** (great for batches)
+> 🦴 **PGF2α handler safety**: pregnant women ABSOLUTELY no handle`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
