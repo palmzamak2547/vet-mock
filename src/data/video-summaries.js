@@ -13650,6 +13650,603 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 > 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk · obstruction stabilize) · 8.3 LUT 2 Stones (vLjnPuFgvj4) · 10.1 Imaging Urinary (Q0AGFF70m8M) · 10.2 Surgical Tx Urinary (WtvWyniLMVE)`,
   },
 
+  az6ZIjbDFwQ: {
+    videoId: 'az6ZIjbDFwQ',
+    title: '13.2 : Clinical Assessment of the Respiratory System',
+    subject: 'com1',
+    date: '2024-11-11',
+    duration: '88 min',
+    instructor: 'DekDokVet85 — รุ่นพี่',
+    examFormat: 'MCQ — cough receptor location ออกแน่ ⚠️',
+    summary: `# 13.2 Clinical Assessment of the Respiratory System
+
+> 🎯 Foundation video สำหรับ Common Resp ทั้งหมด — anatomy split + history + auscultation + clinical signs (sneeze, stridor, stertor, cough, dyspnea) + breathing patterns + workup approach. **Cough receptor location ออกสอบทุกครั้ง** ⚠️
+
+---
+
+## 1. Anatomy Split
+
+### Upper Respiratory Tract
+- **Nose → External nares → Nasal cavity → Pharynx → Larynx → Trachea (cervical, before thoracic inlet)**
+- = **External / Cervical / Extra-thoracic trachea**
+
+### Lower Respiratory Tract
+- **Intra-thoracic trachea → Bronchi → Bronchioles → Alveoli + Interstitium**
+- Plus: **Thoracic wall + Diaphragm + Pleural cavity**
+
+⚠️ Critical landmark: **Thoracic inlet (T1)** divides upper vs lower
+
+---
+
+## 2. History Taking
+
+### Signalment
+- Age, sex, breed, weight
+- ⚠️ Each predisposes different diseases:
+  - Brachycephalic → BAS
+  - Toy breed older → tracheal collapse
+  - Large breed older → laryngeal paralysis
+  - Cat (any age) → asthma, bronchitis
+  - Young dog → infectious (CIRDC, kennel cough)
+
+### Clinical signs (key clues)
+- Nasal discharge (color, amount, side)
+- Sneeze · Reverse sneezing
+- Stertor / Stridor
+- Cough (productive/non-productive)
+- Dyspnea / Respiratory distress
+- Other systemic signs (fever, lethargy)
+
+### Duration
+- **Acute < 3 weeks**
+- **Sub-acute 3-8 weeks**
+- **Chronic > 8 weeks**
+
+### Character + Location + Onset = full history
+
+---
+
+## 3. Physical Examination
+
+### Observation (ตั้งแต่เดินเข้าห้อง!)
+- Posture, gait
+- Mental status
+- Facial symmetry — **swelling, asymmetric eye, etc.**
+- Respiratory rate + effort
+- HR, CRT, body temperature
+
+### Examination details
+- Inspect both nares (discharge, deformity)
+- **Air flow test**: cool glass slide → fog up → check both sides equal/unequal
+- Open mouth examine — **rule out oronasal fistula** if discharge contains food
+- Palpate: lymph nodes (submandibular), tracheal palpation
+- Eyes — proptosis, visual reflex
+- Neurological exam if facial deformity
+
+### Auscultation (ฟังให้ครบทุก lobe)
+- Imagine **9-grid pattern** on each chest side
+- **Bronchial sound** (red zone) — over trachea + main stem bronchi · loud
+- **Bronchovesicular sound** (blue/middle) — between
+- **Vesicular sound** (peripheral) — soft "leaves rustling"
+
+### Lobe distribution clue
+- **Caudoventral** = where left CHF effusion sits → must auscultate caudo-ventrally
+- ⚠️ Don't only listen at neck/cranial chest!
+
+### Inspiration:Expiration ratio
+- **Normal**: 1:1 to 1:2
+- **1:3 or more** → expiratory effort issue (lower airway, chest)
+- **2:1 or more** → inspiratory effort issue (upper airway, larynx)
+
+### Percussion (เคาะ)
+- Normal lung = resonant (hollow)
+- **Dull tone** = fluid or mass
+
+---
+
+## 4. Common Findings & Pathology
+
+### Wheezes
+- Whistling sound during airflow through narrowed airway → vibration
+- **Mostly heard during EXPIRATION** = lower airway pathology
+- During inspiration = upper airway/extra-thoracic trachea
+- High-pitched = small airway (bronchioles)
+- Low-pitched = large airway (trachea, main bronchi)
+- Causes: tracheal collapse, asthma, bronchitis, mass compression
+- Often paired with **expiratory abdominal push**
+
+### Crackles
+- Air bubbling through fluid OR rapid opening of small airways
+- **Coarse crackles** — large airways · low-pitched · throughout breath
+  - Causes: pneumonia, edema, fibrosis
+- **Fine crackles** — small airways · high-pitched · **end-inspiration only**
+  - Sound: rubbing hair near ear
+  - Causes: edema, bronchitis, pneumonia, pulmonary fibrosis
+
+### Decreased/absent breath sounds
+- Something between chest wall + lung (insulator)
+- **Pleural effusion** → muffled VENTRAL (gravity)
+- **Pneumothorax** → muffled DORSAL (air rises)
+- **Mass/diaphragmatic hernia** → focal silence
+
+### Heart sounds
+- Often muffled with same conditions
+
+---
+
+## 5. Clinical Presentations
+
+### A. Nasal discharge
+
+**Defense mechanism**: ciliary apparatus + mucus
+
+**Volume + Frequency + Location + Color** = differentiate
+
+| Type | Color | Cell | Cause |
+|---|---|---|---|
+| **Serous** | Clear watery | None | Tearing, irritation, viral, allergic |
+| **Mucoid** | Clear thick | Mucin | Chronic non-infectious inflammation |
+| **Muco-purulent** | Yellow-green | Neutrophils + mucus | Secondary bacterial, neoplasia |
+| **Purulent** | Yellow-green thick | Neutrophils | Infected, severe inflammation |
+| **Sangineous** | Blood-tinged + other | Mixed | Local trauma, mucosal damage |
+| **Epistaxis (กำเดา)** | Pure blood | RBC | Severe trauma, fungal, neoplasm |
+| **Food** | Food contents | — | **Oronasal fistula** (cleft palate, neoplasia) |
+
+### Causes by location
+- **Intra-nasal**: aspergillosis, nasal tumor, foreign body, trauma → **unilateral first**
+- **Extra-nasal**: lower airway disease, systemic (HT, coagulopathy, hyperviscosity) → **bilateral**
+
+### Causes by duration
+- **Acute (<2 wk)**: irritation, allergy, viral, foreign body
+- **Chronic (months)**: neoplasia, fungal, polyp
+
+### B. Sneezing (จาม)
+- Expel particles from cranial nasal cavity
+- ⚠️ Pawing at nose suggests intranasal pathology
+- Early disease = a lot of sneezing · later = less sneezing + more discharge
+
+### C. Reverse Sneezing (ดูดกลืน)
+- Inspiration of air rapidly + neck extension + elbow abduction
+- Caused by **nasopharyngeal irritation**
+- ✅ **Normal in dogs** if occasional
+- ⚠️ Frequent + severe = pathology
+- ⚠️ **Cats** — never normal · think **feline asthma**, fungal disease
+
+### D. Stertor (กรน)
+- **Low-pitched** snoring sound
+- During **inspiration** (mostly)
+- Cause: Soft tissue/wall vibration in **nasopharynx + nasal cavity**
+- Worse during sleep/relaxation
+- Common in: **Brachycephalic breeds** (BAS), pharyngeal mass
+
+### E. Stridor (หวีดแหลม)
+- **High-pitched** whistle
+- During **inspiration**
+- Cause: narrowing of larynx or **extra-thoracic trachea**
+- Common in: **laryngeal paralysis**, laryngeal mass, foreign body
+- Worse during exercise/excitement
+
+### F. Cough
+
+**Defense mechanism** to clear airway
+
+**Cough receptors** ⭐⭐⭐ **OUT OF EXAM EVERY YEAR**:
+| Location | Type |
+|---|---|
+| **Larynx** | ✅ |
+| **Trachea** | ✅ |
+| **Bronchi** | ✅ (NOT alveoli, NOT bronchioles!) |
+
+⚠️ **Cough only originates from these 3 locations** — alveolar inflammation alone won't cause cough
+
+**Stimulus → C-fiber → CN X (Vagus) → Cough Center (medulla) → motor → cough**
+
+### Cough triggers
+- Mechanical (physical compression — e.g., **enlarged left atrium pressing on left main bronchus** in MMVD)
+- Chemical (inhaled irritants)
+- Inflammatory mediators
+
+### Cough types
+| Type | Description | Causes |
+|---|---|---|
+| **Non-productive** ("dry") | Harsh, hacking | Tracheal/bronchial stenosis, early infection, chronic bronchitis early |
+| **Productive** ("wet") | Lower-pitched, terminal retch with mucus | Pneumonia, late chronic bronchitis, lower airway infection |
+
+### G. Dyspnea / Respiratory Distress
+
+**Definition**: difficulty breathing — variable signs:
+- Tachypnea (don't equate alone — also from excitement)
+- **Open-mouth breathing**
+- Nostril flaring
+- Neck extension (straightens airway)
+- Stress, fear
+- **Orthopnea** = can't lie down comfortably (must sit/stand)
+- **Paradoxical respiration** — chest + abdomen out of sync
+
+---
+
+## 6. Breathing Patterns ⭐ (สำคัญ ออกสอบ)
+
+### A. Obstructive
+- **Slow + deep** breathing
+- ⚠️ **Inspiratory effort + sound** = upper airway (Stertor → nasal/nasopharynx · Stridor → larynx/extra-thoracic trachea)
+- ⚠️ **Expiratory effort + abdominal push** = lower airway (intra-thoracic trachea, bronchi)
+- **Mixed** = both phases obstructed → think permanent stenosis
+
+| Sign | Likely location |
+|---|---|
+| Inspiratory + Stertor | Nasal cavity / nasopharynx |
+| Inspiratory + Stridor | Larynx / extra-thoracic trachea |
+| Expiratory + abdominal push | Lower airway (intra-thoracic) |
+| No sound + abdominal distention | Diaphragm impingement |
+| No sound + nothing else | Intra-thoracic structure |
+
+### B. Restrictive
+- **Fast + shallow** breathing
+- Cannot fully expand lung
+- Causes:
+  - **Lung parenchyma**: pneumonia, edema, fibrosis
+  - **Pleural cavity**: effusion, pneumothorax, mass, hernia
+
+### C. Paradoxical
+- Chest + abdomen move out of sync
+- During inspiration → chest IN, abdomen OUT (instead of normal)
+- Causes:
+  - **Flail chest** — multiple rib fractures in same rib in 2+ places · floating segment moves opposite to chest wall
+  - Severe pleural disease
+  - Diaphragmatic dysfunction
+
+---
+
+## 7. Localization Summary
+
+| Sign | Likely location |
+|---|---|
+| Sneezing + nasal discharge | Nasal cavity / paranasal sinus / nasopharynx |
+| Reverse sneeze | Nasopharynx |
+| Stertor | Nasal cavity / nasopharynx |
+| Stridor | Larynx / extra-thoracic trachea |
+| Cough | Larynx / trachea / bronchi |
+| Dyspnea (only) | Larynx / intra-thoracic location |
+| Cough + dyspnea | Bronchi-alveolar location |
+
+---
+
+## 8. Diagnostic Approach by Location
+
+### Nasal cavity
+1. **History + signalment**
+2. **Examination** (symmetry, air-flow test, oronasal exam)
+3. **Imaging**: X-ray skull (open mouth view) → CT
+4. **Endoscopy** (rigid + flexible for nasopharynx)
+5. **Biopsy** + histopath
+6. **Fungal culture / serology** if aspergillosis suspect
+7. ⚠️ **Avoid nasal swab for culture** (normal flora contamination, low value)
+
+### Larynx + Pharynx
+1. **History + observation**
+2. **Auscultation chest** (always!)
+3. **Laryngoscopy under light anesthesia** (see arytenoid abduction during inspiration)
+4. ⚠️ **Don't use surgical OR speculum on awake patient**
+
+### Lower airway (trachea, bronchi)
+1. **History + auscultation**
+2. **Fecal exam, parasite serology** (parasites mimic resp signs)
+3. **X-ray thorax** ± CT
+4. **Bronchoscopy + BAL/Tracheal wash**
+5. Flexible scope through ET tube
+
+### Pulmonary parenchyma
+1. **Auscultation**
+2. **X-ray + CT** (CT > X-ray sensitivity)
+3. **Ultrasound** (peripheral lesions)
+4. **FNA / core biopsy** (US-guided)
+5. **BAL**
+
+### Pleural cavity
+1. **Auscultation** (location of muffling)
+2. **T-FAST** ⭐ (point-of-care US, minimal restraint — for unstable patient)
+3. X-ray (if stable)
+4. **Thoracocentesis** + fluid analysis ± culture
+
+---
+
+## 9. Auscultation Sound Library
+
+| Sound | Phase | Cause |
+|---|---|---|
+| Bronchial | Inspiration + expiration equal | Normal central airways |
+| Vesicular | Soft, expiration brief | Normal periphery |
+| **Wheeze** | Mostly expiratory | Lower airway narrowing |
+| **Coarse crackle** | Throughout | Fluid/secretions in large airways |
+| **Fine crackle** | End-inspiration | Edema/fibrosis in alveoli |
+| **Stridor** | Inspiratory | Laryngeal/upper airway stenosis |
+| **Stertor** | Inspiratory (low) | Nasopharyngeal vibration |
+
+---
+
+## 🎯 Exam recap (15 ข้อ — สำคัญสุดๆ)
+
+1. **Cough receptors** = **Larynx + Trachea + Bronchi** (NOT alveoli!) ⭐⭐⭐ ออกทุกปี
+2. **Vagus nerve (CN X)** = afferent for cough
+3. **Stertor** = **inspiratory**, low-pitched, nasopharynx
+4. **Stridor** = **inspiratory**, high-pitched, larynx/extra-thoracic trachea
+5. **Wheezes** = expiratory mostly, lower airway
+6. **Coarse crackles** = throughout, large airway
+7. **Fine crackles** = end-inspiration, alveoli
+8. **Pleural effusion** → muffled **ventral** auscultation
+9. **Pneumothorax** → muffled **dorsal** (air rises)
+10. **Reverse sneeze** = normal occasionally in dogs · NEVER normal in cats (think asthma)
+11. **Inspiration:Expiration normal** = 1:1 to 1:2
+12. **Obstructive breathing** = slow, deep
+13. **Restrictive breathing** = fast, shallow
+14. **Flail chest** = multiple rib fractures in same rib in 2+ places → paradoxical movement
+15. **Dyspnea + cough** = bronchoalveolar location · **dyspnea alone** = larynx or intra-thoracic
+16. **Don't use nasal swab for culture** (normal flora) · use **biopsy** instead
+17. **T-FAST** = first-line for unstable patient with suspected effusion
+
+> 📚 อ่านควบ: 13.3 Common Resp I (phyvefbYWqE) · 14.1 Common Resp II (FlutqheRR6I) · 14.2 Surgical Resp (nzpDNtceKKk) · 14.3 Thoracic Sx (_azRwNxOJas) · 7.2 Fluid analysis (9Fvz4J6dMCo)`,
+  },
+
+  '2SJ4M6IiJeU': {
+    videoId: '2SJ4M6IiJeU',
+    title: '4.1 : GI Diagnosis (Imaging-based)',
+    subject: 'com1',
+    date: '2024-08-26',
+    duration: '91 min',
+    instructor: 'อาจารย์ — vet imaging integration',
+    examFormat: 'MCQ — image identification + algorithm',
+    summary: `# 4.1 GI Diagnostics — Imaging-based Approach
+
+> 🎯 Foundation video สำหรับ alimentary tract imaging — ใช้ **X-ray + Ultrasound + CT** ในการวินิจฉัย. เน้น **ภาพถ่ายตามอนาตอมี + GI motility + contrast techniques**. เน้น **case-based image MCQ**
+
+---
+
+## 1. Roentgen Signs (อ่านภาพต้องเรียงตามนี้)
+
+### Memorize: **Location · Size · Shape · Contour · Opacity · Motility**
+- เหมือน "5 colors" ของ X-ray
+- ⚠️ **Motility ต้องใช้ contrast study หรือ Ultrasound** — plain X-ray ไม่เห็น
+
+### Differential diagnosis = ใช้ทั้ง 6 elements ร่วมกัน → narrow down
+
+---
+
+## 2. Imaging Modalities — Quick Compare
+
+| Modality | Strength | Limitation | Cost |
+|---|---|---|---|
+| **X-ray (plain)** | Screening · GI dilatation · radio-opaque FB | Layer not visible · 2D | ~500 THB |
+| **X-ray + Contrast (UGI/BE)** | Mucosal pattern · motility · stricture | Long study (24-48 hr) · Ba aspiration risk | 5,000+ THB |
+| **Ultrasound** ⭐ | Real-time · layers visible · peripheral organs · vessels | Operator-dependent · **air poor through** | 1,000-2,000 THB |
+| **CT scan** | 3D volume · surgical planning · best resolution | Expensive · radiation · sedation | ~10,000 THB |
+
+⚠️ **Modality ladder**: X-ray → US → Contrast → CT (escalate as needed)
+
+---
+
+## 3. Contrast Media
+
+### Barium Sulfate (suspension)
+- ✅ Coats mucosa well · stable · doesn't dilute
+- ✅ Cheap · accessible (Vitra Sam, etc., ~chocolate-box packaging)
+- ⚠️ **Cannot use if perforation suspected** (causes severe granuloma in peritoneum)
+- ⚠️ Aspiration → severe pneumonitis
+- Mix ratio: **liquid for stomach/intestine** vs **paste for esophagus** (study muscle contraction)
+- Standard dose: **10 mL/kg** (small/medium dog)
+
+### Iodine Solution (water-soluble)
+- ✅ Use **if perforation suspected** (absorbed safely)
+- ✅ Both **ionic + non-ionic** OK for GI (oral) — non-ionic preferred
+- ⚠️ Diluted by GI fluid (less radiopaque)
+- ⚠️ Hyperosmolar → can cause diarrhea
+- ⚠️ Expensive (~50 THB/mL)
+- Dilution: **1:2 with water**
+
+### Aspiration risk
+- ⚠️ ALWAYS ask: vomiting? GI rupture suspect?
+- Plain film FIRST → if free air seen → switch from barium to iodine
+
+---
+
+## 4. Gastric Emptying Time
+
+| Species | Normal emptying time |
+|---|---|
+| **Dog** | ~4 hours |
+| **Cat** | ~1 hour ⚠️ much faster |
+
+### Used in barium series
+- T0 (immediate) → 30 min → 1 hr → 2 hr → 4 hr (dog) → 24 hr if delayed
+- Detect: gastric outflow obstruction, ileus, motility disorder
+
+---
+
+## 5. Disease Patterns
+
+### A. Esophageal Disease
+
+#### PRAA (Persistent Right Aortic Arch)
+- **Vascular ring anomaly** — most common type · 95%
+- Compresses esophagus at **heart base** → megaesophagus
+- Clinical: regurgitation **starting when switching to solid food** (~2-3 mo)
+- X-ray: **dilated esophagus** with cranial bulging
+- Barium: contrast pools cranial to heart base
+- ⚠️ Always **CT confirm** before surgery (variants exist: PRAA, double aortic arch, Persistent ductus diverticulum)
+
+#### Esophageal Foreign Body
+- Common: bone, stick (kebab skewer!), fishhook, fruit pit
+- Stick perforation = emergency
+- Diagnosis: X-ray (radiopaque) → endoscopy
+- Need surgery or endoscopic removal
+
+#### Megaesophagus
+- Other causes: idiopathic, myasthenia gravis, infectious
+
+### B. Gastric Disease
+
+#### Gastric Dilatation-Volvulus (GDV)
+**Plain X-ray pathognomonic finding**: **"Popeye Sign"**
+- Lateral view: stomach gas pattern with **partition** (dividing wall) → twisted
+- ⚠️ MUST distinguish:
+  - **Position**: pylorus shifted dorsally
+  - **Partition**: rotation creates internal wall
+
+#### Gastric Dilatation (GD only)
+- Stomach enlarged · **position normal** (pylorus still right)
+- No partition seen
+- Causes: gastric outflow obstruction, paralytic ileus, aerophagia
+
+#### Pyloric Stenosis / Pyloric Mucosal Hypertrophy
+- Pylorus thickened → outflow obstruction → recurrent vomiting
+- Common in **brachycephalic breeds**
+- US: thickened pyloric wall + retained ingesta + dilated stomach
+- Treatment: pyloroplasty / Y-U pyloroplasty
+
+#### Helicobacter
+- Found in dog/cat stomach (controversial pathogen)
+- ⚠️ **Zoonotic** — handle with care
+- Can erode stomach wall → ulcer · perforation possible
+
+### C. Small Intestine
+
+#### Mechanical Ileus (Obstruction)
+- **Cause**: foreign body, intussusception, mass, stricture, hernia
+- **Image findings**:
+  - **Dilated bowel before lesion** (cranial)
+  - **Normal/empty bowel after lesion** (caudal)
+  - **Intermixed dilated + normal loops** (key feature!)
+- Severity: **Complete vs Partial**
+- Complete: severe vomiting, no fecal output, abdominal pain
+
+#### Functional / Paralytic Ileus
+- **Causes**: spinal injury, post-anesthesia, peritonitis, hypocalcemia, autonomic dysfunction, severe diarrhea, mesenteric thromboembolism
+- **Image findings**:
+  - **Diffuse generalized dilatation** (whole bowel similar size)
+  - **No focal severity**
+  - **No "intermixed pattern"** seen in mechanical
+
+⚠️ Distinguish: mechanical = focal severe + normal · paralytic = uniform diffuse
+
+#### Linear Foreign Body ⭐ (cats!)
+- **Common in cats** (string, thread, ribbon, cloth)
+- ⚠️ **Always check under tongue** (string anchor)
+- Pathophysiology:
+  - String anchored at base + bowel peristalsis
+  - Bowel "plicates" (folds + bunches up) along string
+  - Like: making rose petals from rolled paper
+- **Image findings**:
+  - **Folded/plicated bowel** with **comma-shaped gas bubbles**
+  - On contrast: linear pattern with bowel wrinkled
+- **Risk**: bowel perforation along mesenteric border (linear cuts) → peritonitis · POOR prognosis
+
+#### Intussusception
+- Bowel telescopes into another segment
+- Common: ileocolic
+- **Causes**: parvovirus (formerly common), linear FB, peritonitis, mass
+- **Palpation**: "**sausage-like structure**" in abdomen
+- US ⭐: **"target sign / bullseye"** — concentric rings (outer wall + inner wall + mesentery)
+- Often surgical (some need resection)
+
+### D. Large Intestine
+
+#### Constipation / Obstipation
+- X-ray: large fecal load, "sausage" segmentation in colon
+- ⚠️ **Distinguish from obstipation** (mechanical):
+  - Pelvic fracture causing pelvic stenosis
+  - Pelvic mass
+  - Megacolon (cats)
+- **Causes of constipation**: dehydration (CKD), diet, neuro (LMN), drugs
+
+#### Anal Atresia (อิสเอ้)
+- Congenital — no anal opening
+- **Female (rectovaginal fistula)**: feces exit through vagina · animal can grow → presents later
+- **Male**: no escape route → severe early presentation
+- **X-ray technique**: head-down, barium under tail → shows distance from skin to rectal pouch
+- Surgery technique varies based on rectal pouch position
+
+### E. Other Important Signs
+
+#### Free Air in Abdomen
+- ⚠️ = **GI perforation** = surgical emergency
+- ⛔ Don't give barium contrast!
+- Causes: ulcer rupture, FB perforation, post-op leak
+
+---
+
+## 6. Imaging Algorithm
+
+| Step | Action | If positive | If negative |
+|---|---|---|---|
+| 1 | **Plain X-ray (2 views)** | Free air? → ⚠️ surgical emergency · no barium | Continue |
+| 2 | Obvious FB / massive dilation? | Surgery / endoscopy | Continue |
+| 3 | **Ultrasound** | Sees lesion → FNA / biopsy → surgery | Continue |
+| 4 | **Contrast study (Ba UGI or BE)** | Motility, stricture, mucosal pattern detected | Continue if complex |
+| 5 | **CT scan** | Surgical planning, 3D volume | — |
+
+---
+
+## 7. Ultrasound GI Layers ⭐
+
+**5 layers visible** on high-frequency US:
+1. **Mucosa-lumen interface** (white)
+2. **Mucosa** (hypoechoic — black)
+3. **Submucosa** (hyperechoic — white)
+4. **Muscularis** (hypoechoic — black)
+5. **Serosa-mesentery** (hyperechoic — white)
+
+Disease patterns:
+- **Mural lesion** = wall thickening (neoplasia, inflammation)
+- **Loss of layering** = neoplasia
+- **Outer-layer effacement** = aggressive neoplasia (penetrating)
+
+### Motility on US (real-time!)
+- Normal **peristalsis**: forward propulsion waves
+- **Anti-peristalsis**: backward → vomiting suspect
+- **Decreased motility** = ileus
+
+---
+
+## 8. Common Diagnoses Cheat Sheet
+
+| Image finding | Likely diagnosis |
+|---|---|
+| Megaesophagus + bird beak narrowing at heart base | **PRAA** |
+| Stomach dilation + partition + Popeye sign | **GDV** |
+| Stomach dilation + normal position | **GD only** |
+| Pyloric thick wall + retained ingesta | **Pyloric stenosis** |
+| Free air in peritoneum | **GI perforation** ⚠️ emergency |
+| Dilated bowel (cranial) + normal (caudal) | **Mechanical obstruction** |
+| Diffuse uniform dilation | **Paralytic ileus** |
+| Plicated/folded bowel + comma gas | **Linear foreign body** (cat) |
+| Sausage palpation + target sign US | **Intussusception** |
+| Large fecal load + pelvic abnormality | **Obstipation** (pelvic obstruction) |
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **6 Roentgen Signs** — Location, Size, Shape, Contour, Opacity, Motility
+2. **Imaging ladder** — X-ray → US → Contrast → CT
+3. **Barium = NO if perforation** suspect (use iodine instead)
+4. **Gastric emptying** = dog 4 hr · cat 1 hr
+5. **PRAA** = vascular ring · regurgitation when switching to solid food (~2-3 mo)
+6. **GDV pathognomonic** = Popeye sign + partition wall
+7. **GD vs GDV** = position (pylorus location)
+8. **Pyloric stenosis** = brachycephalic breeds, recurrent vomiting
+9. **Mechanical ileus** = mixed dilated + normal bowel loops
+10. **Paralytic ileus** = uniform diffuse dilation
+11. **Linear FB** in cats = check under tongue, plicated bowel
+12. **Intussusception** = sausage palpation + bullseye US
+13. **Free abdominal air** = perforation = NO barium · surgical emergency
+14. **Anal atresia female** = rectovaginal fistula (feces through vagina)
+15. **US can't see through air** — start with plain X-ray
+16. **CT** when you need surgical planning + 3D volume
+17. **Helicobacter** = zoonotic, handle stomach samples carefully
+
+> 📚 อ่านควบ: 4.2 Endoscope + Stomach (0C218gD_tZM) · 5.1 Intestine Sx (lS4wSGDKFrY) · 6 Hepato Pancreas Sx (5rcEK-3IW0M) · 10.1 Imaging Urinary (Q0AGFF70m8M)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
