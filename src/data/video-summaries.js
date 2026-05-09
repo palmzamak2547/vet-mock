@@ -33929,6 +33929,320 @@ Survey high titer = MUST be field exposure
 > 🦴 **Frequency trade-off**: high res vs deep penetration`,
   },
 
+  '5RXoan8azRs': {
+    videoId: '5RXoan8azRs',
+    title: '4.2 Lab Abdominal Radio Interpretation',
+    subject: 'vet-imaging',
+    date: '29 Aug 67',
+    durationMin: 178,
+    instructor: 'อ.ชุติมนต์ (CUVET)',
+    examFormat: 'MCQ — Abdominal positioning · Cupula to greater trochanter coverage · 50-90 kVp short-scale · Liver/spleen/kidney/bladder/uterus interpretation · Common abdominal pathologies ออกบ่อย',
+    summary: `# Lab: Abdominal Radiograph Interpretation
+
+> 🎯 **The hands-on abdominal reading** — practice on actual films
+> Top exam: **Abdominal positioning · Coverage rules · 5 organs interpretation · Common pathologies · 50-90 kVp short-scale**
+
+---
+
+## 1. Indications for Abdominal X-ray ⭐⭐
+
+### Clinical signs prompting X-ray
+- **Vomiting** (esp. acute)
+- **Diarrhea**
+- **Anorexia**
+- **Foreign body suspected**
+- **Melena** (black stool, GI bleeding)
+- **Dyschezia** (difficulty defecating)
+- **Urinary signs** (hematuria, dysuria, anuria)
+- **Trauma** (HBC, fall)
+- **Palpable mass**
+
+### Routine usage
+- Pre-operative assessment
+- Cancer staging
+- Follow-up after treatment
+
+---
+
+## 2. Standard Positioning Review ⭐⭐⭐
+
+### 2 standard views
+| View | Position |
+|---|---|
+| **Right Lateral (RL)** ⭐ | Patient lies on right side |
+| **VD (Ventro-Dorsal)** ⭐ | Patient supine (back down) |
+
+### Rules
+- 2 perpendicular views always (orthogonal)
+- **Expiration phase** (NOT inspiration!)
+- Center on T13/L1 area
+- Pull forelegs cranial, hindlegs caudal
+- No rotation (sternum + spine aligned)
+
+### Coverage rule ⭐⭐
+**From CUPULA (diaphragm) to GREATER TROCHANTER**
+- Top: cranial diaphragm
+- Bottom: hip joint
+- Don't crop short!
+- Don't crop wide
+
+---
+
+## 3. Why Expiration Phase ⭐⭐ (KEY!)
+
+### During expiration
+- Diaphragm moves CRANIAL
+- Abdominal volume INCREASES
+- Organs more visible
+- Less compression
+
+### During inspiration
+- Diaphragm moves CAUDAL
+- Abdominal volume DECREASES
+- Organs compressed
+- Harder to interpret
+
+> ⛔ Common confusion: thorax = INSPIRATION, abdomen = EXPIRATION
+
+---
+
+## 4. Exposure Settings ⭐
+
+### Abdominal kVp range
+**50-90 kVp** = "Short scale of contrast"
+
+### Why short scale?
+- Greater contrast between densities
+- Easier to differentiate organs
+- Important for distinguishing fat from water-density
+
+### Compare with thorax
+- Thorax: HIGH kVp (90-120) = long scale, less contrast (lung details preserved)
+- Abdomen: LOW kVp = short scale, more contrast (organ separation)
+
+---
+
+## 5. Dog vs Cat Identification ⭐ (Quick trick!)
+
+### Vertebral body shape
+| Species | Vertebral body |
+|---|---|
+| **Dog** ⭐ | Square (cube-shaped) |
+| **Cat** ⭐ | Rectangular (longer than wide) |
+
+### Other clues
+- Cat: small body, slimmer
+- Dog: larger, varies by breed
+- Cat: small adrenals
+- Dog: more variable
+
+### Exception
+- Dachshund-like breeds: longer vertebrae, can confuse
+
+---
+
+## 6. Major Abdominal Organs to Identify ⭐⭐⭐
+
+### Standard checklist (in order)
+1. **Diaphragm** (cranial border)
+2. **Liver** (just behind diaphragm)
+3. **Stomach** (left side, fundus + body)
+4. **Spleen** (left ventral)
+5. **Kidneys** (right + left, retroperitoneal)
+6. **Small intestine** (variable)
+7. **Cecum, Colon** (descending = left, transverse, ascending)
+8. **Bladder** (caudal)
+9. **Reproductive organs** (testis/uterus if present)
+10. **Lymph nodes** (mesenteric, sublumbar)
+
+---
+
+## 7. Liver Evaluation ⭐⭐
+
+### Normal appearance
+- Soft tissue density
+- Caudal to diaphragm
+- Liver edge sharp (cranial)
+- Caudal extent: tip past last rib normally
+
+### Hepatomegaly signs
+- Liver extends past last rib
+- Rounded liver edges
+- Stomach pushed caudally
+- "Reverse curve" of stomach
+
+### Microhepatica (small liver)
+- Liver doesn't reach last rib
+- Stomach pulled cranial
+- Could indicate cirrhosis, portosystemic shunt
+
+---
+
+## 8. Spleen Evaluation ⭐
+
+### Normal
+- Variable in size
+- Triangular or comma-shaped
+- Left ventral abdomen
+
+### Splenomegaly
+- Enlarged
+- Common causes: Babesia, lymphoma, mass, congestion
+
+---
+
+## 9. Kidney Evaluation ⭐⭐ (Important!)
+
+### Normal size (relative to L2)
+- **Dog**: 2.5-3.5 × L2 length
+- **Cat**: 2.4-3.0 × L2 length
+
+### Enlargement (renomegaly)
+- Hydronephrosis
+- Mass (renal cell carcinoma, lymphoma)
+- Pyelonephritis acute
+
+### Small kidney
+- Chronic kidney disease (CKD)
+- End-stage renal failure
+
+### Hyperechoic foci
+- Mineralization
+- Stones (visible on plain X-ray)
+
+---
+
+## 10. Bladder Evaluation ⭐⭐
+
+### Normal
+- Pear-shaped, caudal abdomen
+- Soft tissue density (urine)
+- Smooth contour
+
+### Common findings
+| Finding | Implication |
+|---|---|
+| **Bladder stones** ⭐ (radiopaque) | Cystoliths, may need surgery |
+| **Distended bladder** | Outflow obstruction |
+| **Small bladder** | Recently urinated, or rupture |
+| **Mass effect** | Tumor, polyp |
+| **Free fluid in abdomen** | Bladder rupture, peritonitis |
+
+---
+
+## 11. GI Evaluation ⭐⭐ (Critical!)
+
+### Normal stomach
+- Contains gas + food + fluid
+- Variable position based on fullness
+
+### Normal intestines
+- Small intestine: smooth, narrow loops
+- Large intestine: ascending, transverse, descending colon
+
+### Abnormalities to identify
+| Finding | Implication |
+|---|---|
+| **Distended bowel loops** | Obstruction (ileus) |
+| **Plicated bowel** | Linear foreign body (string!) |
+| **Foreign body** ⭐ | Radiopaque (metal coin) or radiolucent (plastic) |
+| **GI gas pattern** | Ileus, obstruction |
+| **Intussusception** ("pseudokidney") | Bowel telescoped into itself |
+| **Megacolon** (cats) | Constipated, dilated colon |
+
+---
+
+## 12. Reproductive Organs ⭐
+
+### Pregnant uterus
+- Visible from ~Day 35-45 (skeletal calcification)
+- Multiple round structures (puppies)
+
+### Pyometra (uterine infection)
+- Soft tissue density tube in caudal abdomen
+- Distended uterine horns
+- Common in unspayed females
+
+### Testicular issues
+- Cryptorchidism: undescended testis (need surgery)
+- Tumor: enlarged scrotum
+
+---
+
+## 13. Common Abdominal Pathologies ⭐⭐
+
+### Foreign body
+- Linear: typical "string from under tongue" in cats
+- Single: e.g., coin, ball, toy
+- Multiple: signs of pica or game-playing dog
+
+### Pyometra
+- Large soft tissue tube in caudal abdomen
+- Often middle-aged-older intact females
+- Common in young cats post-estrus
+
+### Megacolon
+- Severe colon distension
+- Most cats; some dogs
+- Cats often need medical management or subtotal colectomy
+
+### GDV (Gastric Dilation Volvulus)
+- "Bloat" — large breed dogs
+- Stomach twists + dilates
+- "Double bubble" or compartmentalized appearance
+- EMERGENCY!
+
+---
+
+## 14. Free Fluid + Free Air ⭐
+
+### Free abdominal fluid (effusion)
+- "Ground glass" appearance
+- Loss of organ detail (loss of contrast)
+- Causes: hemorrhage, ascites, urine, pus
+
+### Pneumoperitoneum (free air)
+- Black areas in unusual locations
+- Causes: GI perforation, recent surgery, gas-producing infection
+
+---
+
+## 15. Lab Practical Tips ⭐
+
+### Approach to each film
+1. **Verify**: ID, date, view
+2. **Survey**: scan entire image
+3. **Systematic check**: each organ in order
+4. **Identify abnormalities**: describe before diagnose
+5. **Compare to opposite**: if applicable
+6. **Generate differentials**: from findings
+7. **Recommend**: additional imaging, biopsy, etc.
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Abdomen = EXPIRATION phase** (vs thorax inspiration)
+2. **Coverage**: cupula to greater trochanter
+3. **kVp 50-90** = short-scale contrast for abdomen
+4. **Dog vertebra = square**, **Cat = rectangular**
+5. **Right Lateral + VD** = standard 2 views
+6. **Liver size** = relative to last rib position
+7. **Kidney size** = 2.5-3.5 × L2 in dog, 2.4-3.0 × L2 in cat
+8. **Bladder stones** = radiopaque (visible on plain X-ray)
+9. **Plicated bowel** = linear foreign body
+10. **Pseudokidney sign** = intussusception
+11. **GDV "double bubble"** = emergency
+12. **Pyometra** = large soft tissue tube caudal
+13. **Megacolon** = severe colon distension (mostly cats)
+14. **Ground glass + lost detail** = abdominal effusion
+
+> 📚 อ่านควบ: 2 Positioning (vbtkOXh1XPc) · 3 Interpretation (3NNhQwnyNqY) · 5.1 Clinical US (FYjDUCYr0Eo) · 5.2 Thoracic (yc88x669lIA)
+> 🩻 **Practice tip**: Year 5 lab will have many abdominal cases · master systematic approach
+> 💡 **GDV** = emergency life-saving recognition
+> 🦴 **Coverage rule**: never crop important areas`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
