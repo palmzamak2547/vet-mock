@@ -31649,6 +31649,326 @@ Exposing gilt to **mature boar** triggers:
 > 🦴 **Modern reality**: PRRS dominates daily clinical concerns`,
   },
 
+  frFnnBQiyug: {
+    videoId: 'frFnnBQiyug',
+    title: '13. Reproductive Surgery in Pigs',
+    subject: 'swine-repro',
+    date: '12 Nov 67',
+    durationMin: 106,
+    instructor: 'อ.มรกต (CUVET)',
+    examFormat: 'MCQ — Castration · Vasectomy · Cryptorchidectomy · Hernia repair · Persistent frenulum · Caesarean section · Vaginal/Cervical prolapse · Tiletamine-zolazepam (Zoletil) protocol · Lumbosacral epidural ออกบ่อย',
+    summary: `# Reproductive Surgery in Pigs
+
+> 🎯 **The hands-on practical lecture** — Year 5 students will perform these
+> Top exam: **Boar surgeries (castration, vasectomy, cryptorchidectomy, persistent frenulum) · Sow surgeries (C-section, prolapse) · Anesthetic protocol · Lumbosacral epidural**
+
+---
+
+## 1. Surgery Categories ⭐⭐ (Today's syllabus)
+
+### Boar (Male) Surgeries
+| # | Procedure | Purpose |
+|---|---|---|
+| 1 | **Castration** | Remove testes (no sperm + no boar taint) |
+| 2 | **Vasectomy** | Sterile, retains hormones (teaser boar) |
+| 3 | **Cryptorchidectomy** | Remove undescended testis (ทองแดง) |
+| 4 | **Inguinal/Scrotal hernia repair** | Replace abdominal contents |
+| 5 | **Perineal hernia repair** | Repair perineal defect |
+| 6 | **Persistent frenulum surgery** | Cut frenulum to allow penis extension |
+
+### Sow (Female) Surgeries
+| # | Procedure | Purpose |
+|---|---|---|
+| 1 | **Caesarean section** | Deliver piglets surgically (rare in modern pig farms) |
+| 2 | **Vaginal/Cervical prolapse repair** | Replace prolapsed tissue |
+
+---
+
+## 2. Anesthetic Protocol — Tiletamine-Zolazepam (Zoletil) ⭐⭐⭐
+
+### Why Zoletil now standard
+- **Sernyl banned** (was previous gold standard)
+- Tiletamine-zolazepam = THE replacement
+- Single combo IM injection
+- Predictable duration
+
+### Doses
+| Route | Dose | Use |
+|---|---|---|
+| **IM (intramuscular)** | **6 mg/kg** | Direct field anesthesia |
+| **IV (ear vein)** | **3 mg/kg** | If sow already sedated · max 3 doses (9 mg/kg total) |
+
+### Duration
+- ~15 minutes per IV dose
+- 45 minutes TOTAL working time across 3 doses
+- Most procedures finish within 15 minutes!
+
+### Cost reality
+- **~1,300 baht** per ampoule (5 mL = 500 mg)
+- Expensive BUT only option in Thailand
+- Procedures earn 10,000+ baht so ROI strong
+
+> ⭐ **Sernyl** = old "blue drug" pig sedative · gone from market
+
+---
+
+## 3. Lumbosacral Epidural ⭐⭐⭐ (KEY skill!)
+
+### Why pigs need lumbosacral (NOT thoracolumbar)
+- **Pigs HAVE space at lumbosacral junction**
+- **Cattle DON'T have lumbosacral space** (anatomy difference!)
+- This is why we did Comparative Anatomy 2!
+
+### Landmark
+**Wing of Ilium** — bony prominence
+- Bilateral landmarks
+- Connect line between them
+- Center = lumbosacral injection point
+
+### Technique
+1. Identify wings of ilium
+2. Mark midline
+3. Insert needle perpendicular
+4. Feel pop into epidural space
+5. Inject slowly
+6. Sow falls within minutes
+
+### Block extends from
+- Hindlegs caudally
+- Includes uterus, ovaries, perineum
+- Ideal for sow C-section, prolapse
+
+### Drug for epidural
+- **Lidocaine 2%** + adrenaline
+- ~10-15 mL volume for adult sow
+- Works within 5 minutes
+
+### Caveat
+- Sow falls = sudden = handle carefully
+- Don't drop big sow on broken leg
+- Have padding ready
+
+---
+
+## 4. Castration ⭐⭐ (Most common!)
+
+### Why castrate
+- Remove boar taint (meat odor)
+- Reduce aggression
+- Improve carcass quality
+- Reduce energy spent on libido
+
+### Timing
+- **Traditional**: <7 days old (no anesthesia required by law!)
+- **Modern (welfare)**: anesthesia + analgesia
+- **Older boars**: full surgical procedure
+
+### Procedure (older boar)
+1. **General anesthesia** (Zoletil 6 mg/kg IM)
+2. Sternal recumbency
+3. **Skin prep** scrotum
+4. **Incision** through scrotum + tunica
+5. **Identify spermatic cord**
+6. **Crush + ligate** spermatic cord
+7. **Remove testis + cord**
+8. Repeat opposite side
+9. Skin closure (often left to heal by 2nd intention)
+10. **Antibiotics + NSAIDs** post-op
+
+---
+
+## 5. Vasectomy ⭐ (Teaser boar creation!)
+
+### Purpose
+**Create boar that:**
+- Cannot impregnate
+- Retains testosterone + libido
+- Used for estrus detection
+
+### Procedure
+1. Anesthetize
+2. Skin incision over scrotum (small)
+3. Identify spermatic cord
+4. Locate **vas deferens** (firm white tube)
+5. Cut + ligate ~2-3 cm segment
+6. Remove segment
+7. Repeat opposite side
+8. Skin closure
+
+### Result
+- Sperm cannot exit
+- Testosterone intact
+- Sexual behavior intact
+- Cannot impregnate
+
+> ⭐ Teaser boar = "frustrated mounter" — used near sows for estrus detection
+
+---
+
+## 6. Cryptorchidectomy (ทองแดง surgery) ⭐⭐ (Tricky!)
+
+### Why surgery (not just discard)
+- Boar taint from retained testis
+- Genetic implication (cull from breeding)
+- Marketable carcass
+
+### Surgical challenges
+- **Retained testis HARD to find** (intra-abdominal)
+- Often retracts deep when palpated
+- Needs patience + finger sense
+
+### Technique
+1. Anesthetize
+2. **Inguinal incision** (small)
+3. Insert finger into inguinal canal
+4. Slowly probe (don't be aggressive!)
+5. **Find testis** (firm, ~marble-sized)
+6. Slowly extract
+7. Crush + ligate cord
+8. Remove
+9. **If can't find** → close + try later
+
+### Complications
+- May need to convert to laparotomy
+- Testis can be very deep
+- Unilateral vs bilateral cases differ
+
+---
+
+## 7. Hernia Repair ⭐ (Common in piglets)
+
+### Inguinal/Scrotal hernia
+- Abdominal contents protrude through inguinal canal
+- Often genetic (cull from breeding!)
+- Surgical repair under GA
+
+### Procedure
+1. **GA**
+2. Inguinal incision
+3. Identify hernial sac
+4. Reduce contents back into abdomen
+5. **Close hernial ring** with non-absorbable suture
+6. Castrate if male
+7. Skin closure
+
+---
+
+## 8. Persistent Frenulum ⭐ (Less common but exam!)
+
+### What is it?
+**Frenulum (cord) holding penis to sheath fails to break**
+- Penis cannot fully extend
+- Boar can't mate
+- Trapped at ~10-20cm extension (vs normal 60cm)
+
+### Surgery
+- Cut the frenulum band
+- Allows full penile extension
+- Boar can serve again
+
+### Considered cull or repair?
+- Genetic component (cull from breeding lines)
+- Repair OK for non-breeding (research)
+- Generally cull
+
+---
+
+## 9. Caesarean Section ⭐ (Rare in modern pigs!)
+
+### Why rare
+- Modern pigs farrow easily (genetics improved)
+- Better economical to cull
+- Only for valuable genetics
+
+### Procedure
+1. **GA + lumbosacral epidural** combined
+2. Sternal/lateral recumbency
+3. **Linea alba incision** (ventral midline)
+4. Locate uterus
+5. Incise uterus carefully
+6. Remove piglets ONE BY ONE
+7. Stimulate piglets to breathe
+8. Close uterus
+9. Close abdomen
+
+### Timing
+- **Day 113-114** if induction available
+- Ideally before exhausted labor
+- After 8+ hours of dystocia = consider C-section
+
+### Outcome
+- Sow recovery 2-4 weeks
+- Often sow culled after weaning current litter
+- Piglets more vulnerable post C-section
+
+---
+
+## 10. Vaginal/Cervical Prolapse ⭐ (Last resort!)
+
+### Mechanism
+- Hyper-prolific sow + multiple piglets
+- Strain pushes uterus/vagina/cervix outward
+- Tissue exposed, often damaged
+
+### Repair (if attempted)
+1. **Heavy sedation + epidural**
+2. Clean prolapsed tissue thoroughly
+3. **Reduce edema** with sugar/saline soaks
+4. **Push back** carefully
+5. **Purse-string suture** at vulva to retain
+6. Antibiotics + monitoring
+
+### Modern reality
+- Often easier to **CULL** sow
+- Repair attempted only for valuable breeding stock
+- Sow rarely returns to full breeding
+
+---
+
+## 11. Post-Surgical Care ⭐
+
+### Immediate
+- Recovery alone (avoid herd-mates chewing)
+- Heat lamp for piglets
+- Monitor consciousness
+- Check for bleeding
+
+### Days 1-7
+- **Antibiotics** (penicillin or others)
+- **NSAIDs** for pain
+- Wound care
+- Watch for infection
+
+### Long-term
+- Suture removal in 7-14 days
+- Return to normal activity
+- Document for medical records
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Tiletamine-Zolazepam (Zoletil)** = current standard pig anesthetic
+2. **Dose: 6 mg/kg IM, 3 mg/kg IV (max 3 doses)**
+3. **Sernyl** = old blue drug, banned
+4. **Lumbosacral epidural** in pigs (vs paralumbar in cattle)
+5. **Wing of ilium** = landmark for epidural
+6. **Castration <7 days** = no anesthesia traditional
+7. **Vasectomy** = teaser boar creation
+8. **Cryptorchid surgery** challenging — testis retracts
+9. **Hernia repair** = inguinal/scrotal approach
+10. **Persistent frenulum** = penis can't extend fully
+11. **C-section rare** in modern pigs (cull easier)
+12. **Vaginal prolapse repair** = often impractical, cull
+13. **All surgery sites infection risk** — antibiotics mandatory
+14. **Post-op recovery alone** to prevent chewing
+
+> 📚 อ่านควบ: 4 Reproductive problems boar (ABb7TdP98Zc) · 12.1 Anesthesia (Gn6IhMqcNA4) · 14 Postpartum complications (yxrcr-gg8sQ)
+> 🩻 **Practice tip**: Year 5 will practice these — start with castration before complex
+> 💡 **Lumbosacral epidural** = key swine skill differing from cattle
+> 🦴 **Modern surgical reality**: Zoletil + epidural = combination win`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
