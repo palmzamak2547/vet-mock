@@ -32781,6 +32781,296 @@ Survey high titer = MUST be field exposure
 > 🦴 **Modern reality**: Digital almost everywhere now in major facilities`,
   },
 
+  '_IVm9RZlyIg': {
+    videoId: '_IVm9RZlyIg',
+    title: '1.3 Safety + Special Technique',
+    subject: 'vet-imaging',
+    date: '8 Aug 67',
+    durationMin: 116,
+    instructor: 'อ.อรพันธ์ (CUVET)',
+    examFormat: 'MCQ — 4 dose types · Deterministic vs Stochastic effects · MPD 50 mSv/year · Pregnant fetus risk · Time/Distance/Shielding (TDS) · Contrast media · Special techniques ออกบ่อย',
+    summary: `# Radiation Safety + Special Techniques
+
+> 🎯 **The safety lecture** — protect yourself, the patient, the public
+> Top exam: **4 dose types · Deterministic vs Stochastic · MPD 50 mSv · Pregnancy risk · TDS principle · Contrast media types**
+
+---
+
+## 1. Why Radiation Safety? ⭐ (Why we care)
+
+### What ionizing radiation does
+- **DNA damage** directly
+- Can cause:
+  - Cell death (acute)
+  - Mutation (chronic)
+  - Cancer (long-term)
+  - Sterility/reproductive damage
+- **Invisible** = cannot detect without instruments
+
+### Common bad practices to avoid
+- Hand holding patient during X-ray (vet exposed!)
+- Head/torso in primary beam
+- No protective gear
+- Multiple X-rays unnecessarily
+
+---
+
+## 2. Four Dose Types ⭐⭐⭐ (Memorize!)
+
+### Definitions
+| Term | Definition |
+|---|---|
+| **Exposure dose** | Radiation released to environment (rare to use clinically) |
+| **Absorbed dose (Gy)** | Energy absorbed by material (Gray = SI unit) |
+| **Equivalent dose (Sv)** | Adjusted for biological impact per organ (Sievert = SI) |
+| **Effective dose (Sv)** | Sum of equivalent doses across all organs |
+
+### Why different units?
+- Different tissues have different radiosensitivity
+- Same dose ≠ same biological effect
+- Equivalent dose accounts for this
+
+---
+
+## 3. Deterministic vs Stochastic Effects ⭐⭐⭐ (KEY exam!)
+
+### Deterministic (Dose-Dependent)
+**Cell DEATH from inability to repair DNA**
+
+| Feature | Description |
+|---|---|
+| **Threshold** | YES — below threshold = no effect |
+| **Severity** | Increases with dose |
+| **Examples** | Skin burns, hair loss, cataracts, infertility |
+| **Onset** | Hours to days after high dose |
+| **Memory aid** | "**D**eterministic = **D**ead cell" |
+
+### Stochastic (Random)
+**Cell MUTATION from DNA damage repaired incorrectly**
+
+| Feature | Description |
+|---|---|
+| **Threshold** | NO — any dose can cause |
+| **Probability** | Increases with dose (severity does NOT) |
+| **Examples** | Cancer, hereditary defects |
+| **Onset** | Years to decades after exposure |
+| **Memory aid** | "**S**tochastic = **S**urvived but mutated" |
+
+### Comparison table
+| Aspect | Deterministic | Stochastic |
+|---|---|---|
+| Threshold | Yes | No |
+| Severity vs dose | Dose-dependent | Probability-dependent |
+| Time to onset | Acute | Late |
+| Examples | Burns, cataracts | Cancer, mutations |
+
+---
+
+## 4. Maximum Permissible Dose (MPD) ⭐⭐⭐
+
+### Annual Limits (Memorize!)
+| Population | Annual Limit |
+|---|---|
+| **Radiation workers** | **50 mSv/year** ⭐ |
+| **General public** | **1 mSv/year** ⭐ |
+| **Pregnant workers** | **5 mSv/9 months** |
+
+### Why 50 mSv?
+- Internationally agreed (ICRP, NCRP)
+- Below threshold for deterministic effects
+- Acceptably low for stochastic (cancer)
+
+### Practical reality
+- **Single CT scan** ≈ 10 mSv (10% of annual limit!)
+- **Lifetime cumulative** matters too
+- ALARA principle: As Low As Reasonably Achievable
+
+---
+
+## 5. Pregnancy + Fetal Risk ⭐⭐ (Special!)
+
+### Why fetus is most vulnerable
+- Rapidly dividing cells
+- Most sensitive to radiation
+- Effect varies by trimester:
+
+### Trimester sensitivity
+| Trimester | Risk |
+|---|---|
+| **1st (1-3 months)** | Highest — organogenesis disruption |
+| **2nd (4-6 months)** | Growth retardation, malformations |
+| **3rd (7-9 months)** | Cancer risk, fetal CNS effects |
+
+### Action
+- **Pregnant staff MUST NOT handle X-ray patients**
+- Pregnant clients informed before procedures
+- Avoid X-ray in pregnant animals if possible
+
+---
+
+## 6. The 3 Pillars of Protection (TDS) ⭐⭐⭐ (CRITICAL!)
+
+### T = TIME
+**Reduce exposure time**
+- Don't dawdle near X-ray source
+- Quick procedures = less dose
+- Limit retakes (proper technique = fewer)
+
+### D = DISTANCE
+**Inverse square law!**
+- Doubling distance = 1/4 the exposure
+- Tripling distance = 1/9 the exposure
+- Always step BACK during X-ray exposure
+
+### S = SHIELDING
+**Lead apron + thyroid collar**
+- 0.5mm Pb (lead equivalent) standard
+- Thyroid collar essential (high radiosensitivity)
+- Lead-lined glasses for long procedures
+- Lead-lined walls in radiology rooms
+
+---
+
+## 7. Personal Protective Equipment (PPE) ⭐
+
+### Standard X-ray PPE
+| Item | Purpose |
+|---|---|
+| **Lead apron** (0.5mm Pb) | Protects torso |
+| **Thyroid collar** | Protects thyroid (sensitive!) |
+| **Lead gloves** (when manual hold needed) | Hand protection |
+| **Lead glasses** | Eye protection (reduces cataract risk) |
+| **Dosimeter** | Records cumulative dose |
+
+### When to wear PPE
+- ALL X-ray procedures
+- Even brief ones
+- When in same room as X-ray exposure
+- During fluoroscopy (high dose!)
+
+---
+
+## 8. Special Techniques in Radiography ⭐⭐ (Beyond plain X-ray!)
+
+### Why use special techniques?
+- Plain X-ray sometimes insufficient
+- Need to visualize:
+  - GI tract (peristalsis)
+  - Vasculature (blood flow)
+  - Joints (cartilage)
+  - Soft tissue lesions
+
+### Common contrast media types
+| Type | Use | Description |
+|---|---|---|
+| **Barium sulfate** | GI tract | Insoluble, white on X-ray |
+| **Iodine-based** | IV vascular, urinary | Water-soluble, white |
+| **Air (negative contrast)** | Bladder, joints | Black on X-ray |
+| **Double contrast** | GI lining | Both barium + air |
+
+---
+
+## 9. Common Special Techniques ⭐⭐
+
+### Upper GI study
+- Patient swallows **barium sulfate**
+- Sequential X-rays follow movement
+- Detects: ulcers, masses, motility issues
+
+### Lower GI / Barium enema
+- Barium injected per rectum
+- Detects colon issues
+- Less common in vet practice
+
+### IVP (Intravenous Pyelogram)
+- IV contrast → kidney → bladder
+- Visualizes urinary tract
+- Detects stones, tumors, structural issues
+
+### Cystography
+- Bladder filled with contrast
+- Detects ruptures, masses, stones
+
+### Myelogram
+- Contrast in spinal canal
+- Detects spinal cord lesions
+- Largely replaced by MRI now
+
+### Arthrography
+- Contrast into joint
+- Detects joint capsule issues
+- Less common today
+
+---
+
+## 10. Contrast Media Safety ⭐
+
+### Barium contraindications
+- **GI perforation** — barium escapes into peritoneum (severe!)
+- Use water-soluble (iodinated) instead
+
+### Iodinated contrast risks
+- **Allergic reactions** (rare in animals)
+- **Kidney damage** (especially in dehydrated animals)
+- Premedicate if at-risk patient
+
+---
+
+## 11. Special Setups ⭐
+
+### Stress radiography
+- Pull/push joint while imaging
+- Detects ligament tears (knee instability)
+
+### Standing radiography
+- Position-dependent issues (e.g., sand in stomach)
+- Show fluid lines
+
+### Rolling/positional radiography
+- Side-up preferred for unilateral lesions
+- Roll patient between images
+
+---
+
+## 12. Modern Trends ⭐
+
+### Dose-reduction techniques
+- Digital systems use less dose
+- Pulsed fluoroscopy
+- Better collimation
+- Higher kVp + lower mA
+- AI image enhancement
+
+### Cumulative tracking
+- Each radiology worker has dosimeter
+- Reviewed quarterly
+- Limits enforced
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **4 dose types**: Exposure, Absorbed (Gy), Equivalent (Sv), Effective (Sv)
+2. **Deterministic = Dose-dependent + threshold + acute**
+3. **Stochastic = Random + no threshold + late onset**
+4. **Deterministic = cell DEATH** (skin burns, cataracts)
+5. **Stochastic = MUTATION** (cancer, hereditary)
+6. **MPD: workers 50 mSv/year, public 1 mSv/year**
+7. **Pregnant: 5 mSv/9 months**
+8. **1st trimester** = highest fetal risk
+9. **TDS principle**: Time + Distance + Shielding
+10. **Inverse square law** for distance
+11. **0.5mm Pb apron** standard
+12. **Thyroid collar mandatory** (highly radiosensitive)
+13. **Barium sulfate** GI tract (insoluble white)
+14. **Iodinated contrast** for IV/urinary (water-soluble)
+
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 1.2 Film and digital (gmultIaMHq4) · 2 Positioning (vbtkOXh1XPc)
+> 🩻 **Practice tip**: ALWAYS wear PPE, even for "quick" X-ray
+> 💡 **TDS principle** = THE radiation safety mantra
+> 🦴 **Pregnancy + radiation** = NEVER mix unless absolutely essential`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
