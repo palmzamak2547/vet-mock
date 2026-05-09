@@ -18560,6 +18560,359 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > 📐 ฟิสิกส์เบสิกแต่จำเป็น — ทุกหัวข้อ ortho ที่ตามมาในเทอม 1+2 จะใช้ความรู้นี้`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 5. Oral Surgical Treatment (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  OzV5BJrJfDc: {
+    videoId: 'OzV5BJrJfDc',
+    title: '5. Oral Surgical Treatment',
+    subject: 'com2',
+    date: '4 Sep 67',
+    durationMin: 133,
+    instructor: 'อ. (Dental/Maxillofacial Sx) — Sx ortho block',
+    examFormat: 'MCQ — tooth fracture types · TMJ luxation direction · Salter-Harris in maxilla · 30-min/48-hr time windows · plate placement rules ออกบ่อย',
+    summary: `# Oral Surgical Treatment
+
+> 🎯 บทนี้แบ่ง 2 ส่วน:
+> Part 1 = **Oral Trauma** (ฟัน · ริมฝีปาก · TMJ)
+> Part 2 = **Maxilla + Mandibular Fracture**
+> ⚠️ Time-critical windows สำคัญ: 30 นาที (avulsion/luxation) · 48 ชม (vital pulp therapy)
+
+---
+
+# 🟧 PART 1 — Oral Trauma
+
+## 1. Classification
+
+| Type | Detail |
+|---|---|
+| **Non-maxillary/mandibular** | Dental · Lip · TMJ trauma |
+| **Maxillary/Mandibular** | กระดูกใหญ่หัก (ดู Part 2) |
+
+**Common causes**: รถชน · ตกที่สูง · สู้กับสัตว์อื่น · เคี้ยวของแข็ง · เบสบอล/กอล์ฟ (ต่างประเทศ)
+
+---
+
+## 2. Dental (Tooth) Trauma ⭐
+
+### 2.1 Anatomy Recap
+**ฟันมีชีวิต** — สร้าง dentin ตลอด · primary dentin (ตอนเด็ก-pulp ใหญ่) → secondary dentin (โต) → **tertiary/reparative dentin** (เมื่อ damage)
+
+### 2.2 Tooth Fracture Types ⭐⭐⭐
+| Type | Visual | Detail |
+|---|---|---|
+| **Uncomplicated crown fracture** | รอยแตก · ไม่มีจุดแดง | ไม่ทะลุ pulp · อาจสร้าง reparative dentin (จุดน้ำตาล/ดำ) |
+| **Complicated crown fracture** | รอยแตก + **จุดแดงตรงกลาง** | ทะลุ pulp → bleeding · pulp exposure |
+
+⚠️ **Pulp exposure** → bacterial infection → pulpitis → pulp necrosis → ฟันเปลี่ยนสี (น้ำตาล/ดำ/ชมพู)
+
+### 2.3 Treatment Options ⭐⭐⭐
+| Scenario | Treatment | Time window |
+|---|---|---|
+| **Uncomplicated** | Monitor หรือ **dental restoration** (composite resin filling) | — |
+| **Complicated, fresh** | **Vital pulp therapy** — remove pulp บางส่วน + Ca(OH)2 + restoration | **ภายใน 48 ชม.** ⭐ |
+| **Complicated, late/dead** | **Root canal therapy** (endodontic Tx) — เก็บฟันเป็น structure | กัตตาเปอร์ชา (gutta-percha) ใส่ในคลอง |
+| **Severe / non-restorable** | **Extraction** | always option |
+
+### 2.4 Clinical Signs of Pulp Pain (ถามเจ้าของ)
+- เคี้ยวปาก/เลียฟันบ่อย
+- น้ำลายไหลเยอะ
+- กินข้าวแล้วปล่อยอาหารร่วง
+- เกาหน้า · ถูพื้น · หันหน้าหนีตอนถูก
+- เลือกอาหารเปียกแทนเม็ด · ไม่กัดของเล่น
+
+**Physical findings**: หน้าบวม (โดยเฉพาะใต้ตาฝั่งฟันบนติดเชื้อ) · sinus tract · submandibular LN โต
+
+---
+
+## 3. Tooth Luxation / Avulsion ⭐⭐
+
+| Condition | Definition |
+|---|---|
+| **Luxation** | ฟันเคลื่อนแต่ยังอยู่ในเบ้า |
+| **Avulsion** | ฟันหลุดจากเบ้าหมด |
+
+**Treatment** ⭐:
+| Time | Action |
+|---|---|
+| **< 30 นาที** ⭐⭐ | Reposition + splint (acrylic/wire) × 1-2 สัปดาห์ |
+| **> 30 นาที** | Extraction (เก็บไม่ได้แล้ว) |
+
+⚠️ Avulsion มักมี gum laceration → suture closure ด้วย
+
+---
+
+## 4. Lip Trauma
+
+### 4.1 Lip Laceration
+- เย็บปิด **full-thickness** (4 ชั้น): skin · subcutis · mucosa · oral mucosa
+- ใช้ **flap closure**
+
+### 4.2 Lip Avulsion ⭐ (พบในแมว)
+**Mechanism**: skin-mucosa ลอกออกจากกระดูกเหมือนถลอกถุงเท้า · มักทั้ง lower lip
+
+**Treatment** = **Suture + Wiring technique** ⭐:
+1. Stabilize vital signs ก่อน (อาจวางยาไม่ได้วันแรก)
+2. กระดูก expose → ปิดกระดูกให้ชุ่มชื้น (bandage)
+3. **เจาะรูกระดูกระหว่างฟัน** (ระวัง! ห้ามโดนฟัน)
+4. ผ่าน suture/wire ผ่านรูเพื่อยึด lip กลับขึ้นไปที่กระดูก
+
+---
+
+## 5. TMJ Trauma ⭐⭐⭐
+
+### 5.1 Clinical Picture
+- **ปากเบี้ยว** (asymmetric)
+- ปิดปากไม่สนิท / เปิดปากไม่สุด
+- เคี้ยวอาหารลำบาก
+- Wound จากฟันทิ่มเหงือก/เพดาน (chronic case)
+
+### 5.2 Differential Diagnosis (ปากเบี้ยว)
+| Dx | Clue |
+|---|---|
+| **TMJ luxation** ⭐ | เพิ่งเกิด · acute |
+| **TMJ subluxation** | mild · ปิดปากไม่สนิทแต่ไม่เบี้ยวมาก |
+| Mandibular fracture | กระดูกหัก-ยุบ |
+| TMJ dysplasia | developmental |
+| **TMJ ankylosis** ⭐ | chronic · เปิดปากแคบ < 1-2 cm |
+| Foreign body | หินปูนหนาก็เบี้ยวได้! |
+| Periodontal disease | เรื้อรัง |
+| Trigeminal neuropathy | nerve issue |
+
+### 5.3 Direction Logic ⭐⭐ (สำคัญ-ออกสอบ!)
+
+**Bilateral luxation** → กรามล่างเลื่อนมา **ด้านหน้า** ทั้งคู่
+
+**Unilateral luxation**:
+| Direction | ปากเบี้ยวไป |
+|---|---|
+| **Rostral** (มาด้านหน้า) | **ฝั่งตรงข้าม** ของฝั่งหลุด |
+| **Caudal** (ไปด้านหลัง) | **ฝั่งเดียวกัน** กับฝั่งหลุด |
+
+⭐ **Memorize**: rostral = opposite · caudal = same side
+
+### 5.4 Imaging
+**X-ray normal**: caudal process รูปรีวางอยู่บนเบ้า, symmetric
+**Luxation**: condyle ลอยออกจากเบ้า
+
+⚠️ **CT scan** = gold standard for TMJ (ไม่งั้น duplicate กัน)
+
+### 5.5 Treatment
+
+| Approach | Indication |
+|---|---|
+| **Closed reduction** | TMJ luxation (no fracture) |
+| **Open reduction** | Reduction ไม่ได้ · มี soft tissue ขวาง · มี fracture ของ condyle |
+| **Condylectomy** ⭐ | Condylar fracture → ตัด condyle ออก · กล้ามเนื้อรอบ ๆ จะ support · risk = TMJ ankylosis ในอนาคต |
+
+**Closed Reduction Technique**:
+- Anesthesia + sternal recumbency
+- ใส่ดินสอ/ไม้นิ่มเป็น **fulcrum** ตำแหน่งหลัง M1 ล่าง + หลัง upper P4
+- ค่อย ๆ ปิดปาก → fulcrum สไลด์ condyle กลับเข้าเบ้า
+
+⚠️ **ห้าม reduce ถ้า condyle หัก** — จะทำให้แย่ลง + เกิด ankylosis
+
+### 5.6 Post-reduction Restriction (6-8 สัปดาห์) ⭐
+| Method | Detail |
+|---|---|
+| **Tape muzzle** | เปิดช่อง 1-1.5 cm ให้เลียกินได้ · ไม่ใช้ใน mandibular Fx ที่ + maxilla (เพราะกด Mx) |
+| **Interdental composite splint** | acrylic เชื่อมเขี้ยวบน-ล่าง |
+| **Wiring** (interdental) | ลวดร้อยฟันกรามบน-ล่าง |
+| **Labial reverse suture to button** | กระดุมที่หน้า + suture ใต้คาง — ดีกว่า muzzle |
+
+---
+
+# 🟪 PART 2 — Maxillary + Mandibular Fracture
+
+## 6. Anatomy Recap
+
+### 6.1 Maxilla
+- เกือบเสมอ involve **incisive bone** + บางครั้ง zygomatic, lacrimal, frontal, nasal
+- **PR maxillary fracture** = หักก่อนถึง maxilla proper · มัก wiring repair
+
+### 6.2 Mandible — 7 Sections ⭐
+| Section | Description |
+|---|---|
+| **Symphysis** | ตรงกลาง — fibrous tissue (NOT bone!) → เรียก "mandibular symphyseal **separation**" ไม่ใช่ fracture |
+| **Parasymphyseal** | ใกล้ symphysis |
+| **Rostral** | บริเวณ incisor + premolar |
+| **Lateral / Body** | premolar 2 ถึง molar 1 |
+| **Caudal** | หลัง molar |
+| **Ramus** | ส่วนตั้ง |
+| **Condylar (TMJ)** | (ดู Part 1) |
+
+### 6.3 Inside Mandible (ห้ามลืม!)
+- **2/3 dorsal** = ฟัน (รากฟัน)
+- **1/3 ventral** = **mandibular canal** = inferior alveolar artery + vein + nerve
+
+⚠️ **Plate ต้องวาง ventral surface** เพื่อหนีรากฟัน · ระวัง screws ไม่ให้โดนฟัน + canal
+
+---
+
+## 7. Causes
+
+| Cause | Detail |
+|---|---|
+| **Traumatic** | รถชน · กัด · ตี · กระทบกระแทก |
+| **Pathologic** ⭐ | Severe periodontitis (สุนัขพันธุ์เล็ก!) · neoplasia · osteomyelitis · iatrogenic จาก extraction (หมอออกแรงมากเกิน!) |
+
+⭐ **Pathologic fracture** ในสุนัขพันธุ์เล็ก = mandible เล็ก-ฟันใหญ่ → cortical bone บาง → หักง่าย
+
+---
+
+## 8. Diagnosis
+
+### 8.1 Signalment + History
+- อายุน้อย → traumatic เน้น
+- อายุเยอะ → คิดถึง pathologic (cancer · periodontitis)
+- สุนัขพันธุ์เล็กแก่ → severe perio + pathologic Fx
+
+### 8.2 Examination
+- คลำ symmetric เปรียบเทียบซ้าย-ขวา
+- เปิด-ปิดปาก · เสียง crepitus
+- ตรวจปากด้วยนิ้ว ดู gum tear (= bone exposed → infection risk!)
+- **GA จำเป็น** ในการ exam ละเอียด
+
+### 8.3 Imaging
+| Modality | Use |
+|---|---|
+| **Conventional X-ray** (DV/VD + open-mouth lateral) | First-line |
+| **CT scan** ⭐ | Maxilla · TMJ · condylar fx · complex fractures |
+| **Dental X-ray** | Concurrent dental trauma |
+
+---
+
+## 9. Fracture Patient Assessment Score ⭐ (เลือกวิธี Tx)
+
+| Score component | Detail |
+|---|---|
+| **Mechanical** | Pattern (simple > comminuted) · displacement |
+| **Biological** | Age · health · concurrent disease · time since injury |
+| **Clinical** | Owner compliance · home care |
+
+| Total Score | Treatment recommendation |
+|---|---|
+| **High** | Conservative — tape muzzle · interdental composite |
+| **Moderate** | Inter-fragmentary wiring · ESF · plate-and-screw |
+| **Low** | ESF only (last resort) |
+
+---
+
+## 10. Treatment Options ⭐⭐⭐
+
+### 10.1 Conservative
+| Method | Use |
+|---|---|
+| **Tape muzzle** | TMJ luxation, mandibular fx (NOT for Mx + Md fx!) |
+| **Dental composite bonding** | Acrylic ครอบฟัน — non-displaced fx + maxillary fx |
+| **Interdental composite splint** | เคี้ยวบน-เคี้ยวล่างเชื่อม acrylic |
+
+### 10.2 Surgical — Internal Fixation
+| Method | Indication |
+|---|---|
+| **Orthopedic wire / Cerclage wire** | Simple fx, low cost |
+| **Inter-fragmentary wiring** ⭐ | เจาะรูห่าง fx line 5-10 mm · ผ่าน wire mass |
+| **Interdental wiring** | ร้อยลวดผ่านฟัน 2 ซี่ขึ้นไป (เหมือนจัดฟัน) |
+| **Plate and screw** ⭐⭐ | Strongest · "**mini plate**" 3-4 mm · vent surface ⭐ |
+| **Locking plate** | Better stability than non-locking |
+
+⚠️ **IM Pin ห้ามใช้ใน mandible** — โดนฟัน + canal (เคยมีในอดีต)
+
+### 10.3 Surgical — External Fixation
+- Type 1, Type 2 ESF
+- **Acrylic connecting bar** (แทน metal bar)
+- ⚠️ **Last resort** เพราะดูแลยาก-เลอะอาหาร
+
+---
+
+## 11. Mandibular Symphyseal Separation ⭐
+
+**Why "separation" not "fracture"**: symphysis = fibrous tissue (ไม่ใช่กระดูก-กระดูก)
+
+**Treatment**: **Cerclage wire** รวบหลังเขี้ยว → ผูกปมใต้คาง · 6-8 สัปดาห์ → **ต้องเอาลวดออก** (ไม่งั้นเกิด osteomyelitis · เคยเจอเคส 2 ปี)
+
+---
+
+## 12. Palatal Fracture ⭐
+
+**Mechanism**: **High-rise syndrome** ในแมว — ตกที่สูง หน้าฟาดตรง ๆ → cortical bone ของ hard palate แตกตามแนวกลาง
+
+⭐ มักพ่วงกับ **mandibular symphyseal separation** (แตกแนวเดียวกัน บน-ล่าง)
+
+**Treatment**: Wiring เขี้ยวบนซ้าย-ขวาเข้าหากัน → บีบ palate ชิด หรือ open wiring ตำแหน่งที่หัก
+
+---
+
+## 13. Plate Placement Rules (Mandibular Fx) ⭐⭐⭐
+
+| Fracture pattern | Recommended fixation |
+|---|---|
+| **Transverse Fx** | Plate ventral + interdental wiring บน |
+| **Oblique Fx** | Inter-fragmentary wiring → plate ทับ |
+| **Ramus Fx** | Plate ที่ลัส (lateral) |
+| **Comminuted Fx** | 2 plates (ventral + dorsal) |
+
+⚠️ **Pharyngotomy / oropharyngeal intubation** ⭐ — สอด ET tube ผ่านท่อ ขึ้นด้านหลัง mandible (ไม่ผ่านปาก) เพื่อเช็ค **dental occlusion** ระหว่างผ่า
+
+---
+
+## 14. Post-op Care (4-12 wks)
+
+| Action | When |
+|---|---|
+| **X-ray** | 1 เดือน = check alignment + device · > 1 เดือน = check healing |
+| **Dental occlusion check** | Every visit ⭐ |
+| **Suture removal** | 2 wks |
+| **Tape muzzle** | Add for extra immobilization (ระวัง skin infection · ทำใหม่ทุกวัน) |
+| **Soft food only** + งดของเล่นกัดแทะ | จนกว่าจะ heal |
+| **Esophagostomy tube** | Severe case · ไม่ใช้ NG tube > 1 เดือน |
+| **Chlorhexidine oral rinse** | 2x/day ถ้ามี oral wound |
+
+---
+
+## 15. Complications ⭐
+
+| Complication | Detail |
+|---|---|
+| **Malocclusion** ⭐⭐ | **Most common serious** complication · ตามด้วย TMJ arthritis · fractured teeth · periodontitis · → **extraction หรือ ostectomy** แก้ |
+| **Osteomyelitis + Bone sequester** | Implant infected · comminuted fragment ตาย → remove implant + culture + antibiotics |
+| **Non-union** | Inappropriate stabilization OR pathologic Fx OR poor health → **bone graft** + growth factor |
+
+---
+
+## 16. 4 Keys for Success ⭐
+1. **Early fixation**
+2. **Stabilize systemic + mental health** (ไม่ใช่แค่กระดูก!)
+3. **Nutritional support** (healing requires nutrition)
+4. **Pain management** + soft tissue care
+
+---
+
+## 📝 EXAM RECAP — 18 Key Points
+
+1. **Tooth fracture**: Uncomplicated (no pulp) vs Complicated (red dot = pulp exposure)
+2. **Vital pulp therapy** = **48 ชม.** · Tooth avulsion/luxation reposition = **30 นาที** ⭐
+3. **Reparative dentin** = จุดน้ำตาล-ดำ ตรงกลางฟัน = ร่างกายซ่อมเอง
+4. **Lip avulsion** ในแมว → suture + wiring (เจาะรูกระดูกระหว่างฟัน, ห้ามโดนฟัน)
+5. **TMJ luxation direction**: rostral = ปากเบี้ยวฝั่งตรงข้าม · caudal = เบี้ยวฝั่งเดียวกัน
+6. **Bilateral TMJ luxation** = เลื่อนรอสตรัล (มาหน้า) ทั้งคู่
+7. **Closed reduction TMJ** = ใช้ดินสอ/ไม้เป็น fulcrum หลัง M1 ล่าง + P4 บน
+8. **ห้าม reduce** ถ้า condyle หัก → **condylectomy** แทน
+9. **Tape muzzle** = ห้ามใช้ใน maxilla + mandible Fx (กด maxilla)
+10. **Mandibular symphysis** = fibrous tissue → "separation" ไม่ใช่ "fracture"
+11. **Symphyseal cerclage** = 6-8 wks · **ต้องเอาออก** (ไม่งั้น osteomyelitis)
+12. **Plate placement** = ventral surface (หนีรากฟัน) · screws หลีกรากฟัน
+13. **IM pin ห้ามใช้ใน mandible** (โดน canal + ฟัน)
+14. **Pathologic Fx** = สุนัขพันธุ์เล็กแก่ + perio · cancer · iatrogenic
+15. **Palatal Fx** = high-rise syndrome ในแมว · มักพ่วง symphyseal separation
+16. **Pharyngotomy intubation** = สอด ET ข้าม mandible เพื่อเช็ค occlusion ระหว่างผ่า
+17. **Most common complication** = **malocclusion** → arthritis · fracture · perio
+18. **Post-op X-ray timing**: 1 เดือน = device check · > 1 เดือน = healing check
+
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 6.1 Muscle/tendon (BLk5OjwlduA) · 7 External immobilization (9cXpZwgUAPI) · 11 Common Joint (MMTtwT_7c94)
+> 🦷 หัวข้อนี้ overlap กับ COM 1 oral cavity (ปี 3) — ใช้ความรู้ dental anatomy เดิม`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
