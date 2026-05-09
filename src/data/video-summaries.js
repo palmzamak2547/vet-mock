@@ -36798,6 +36798,266 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 > 🌍 **OneHealth**: Codex + WOAH + IPPC = three pillars · WTO over umbrella`,
   },
 
+  fs0TOM677as: {
+    videoId: 'fs0TOM677as',
+    title: '5. Food Chemical Risk Assessment + Calculations',
+    subject: 'food-safety-y4',
+    date: '2024-09-06',
+    durationMin: 186,
+    instructor: 'อ.พชร',
+    examFormat: 'calculation + concept (formulas given!)',
+    summary: `# 5. Food Chemical Risk Assessment
+
+> ⚠️ **Calculation-heavy** lecture (186 min) · pre-midterm final
+> Sob exam: formulas + variable values **given** · only need to apply
+> Bring calculator (basic OK · scientific too) · know unit conversions ⚠️
+
+## 🎯 ภาพรวมคาบ
+1. MRL definition + tissues + species
+2. Risk Analysis 3 components
+3. **4 steps of Risk Assessment** (Hazard ID → Characterization → Exposure → Risk)
+4. NOAEL vs LOAEL
+5. **Safe Dose calculation** ⭐
+6. Uncertainty Factor (UF) breakdown
+7. Carcinogen vs non-carcinogen
+
+## 1️⃣ MRL (Maximum Residue Limit) Refresher
+
+**Definition**: highest residue allowed in food from agricultural chemical use
+**Unit**: mg residue / kg food (or ppm/ppb)
+
+### Per-species + per-tissue
+| Species | Tissues evaluated |
+|---------|-------------------|
+| Cattle | Muscle, liver, kidney, **milk** (no fat) |
+| Pig | Muscle, liver, kidney (sometimes fat) |
+| Sheep | Muscle, liver, kidney, **milk** |
+| Poultry | Muscle, liver, kidney, **eggs** |
+| Fish | Muscle |
+| Shrimp | Muscle |
+
+### What counts as "edible animal product"
+- ⭐ **Muscle** (bulk consumption)
+- **Tissue/organs**: liver, kidney (drug accumulation sites — vet exam)
+- **Fat** (lipophilic drug accumulation)
+- **Milk, eggs, honey** (non-tissue)
+- ⚠️ Bone marrow, semen — yes consumed in some diets
+
+## 2️⃣ Risk Analysis Framework
+
+**Risk Analysis** = umbrella term · 3 components:
+| Component | Function | Type |
+|-----------|----------|------|
+| **Risk Assessment** | What's the risk? | Science-based |
+| **Risk Management** | What do we do? | Policy-based |
+| **Risk Communication** | How do we tell? | Cross-cutting |
+
+### Codex vs WOAH Approach
+- **Codex** focus: food
+- **WOAH** focus: animal health (e.g., import animal disease assessment)
+- Slight model differences but same Risk Analysis structure
+
+### 2 Critical Concepts
+- **State of the Art**: best current method · NOT a fixed recipe (e.g., disease has multiple valid treatment approaches)
+- **Dynamic**: methods + data evolve · evaluation must update
+
+## 3️⃣ Hazard vs Risk
+
+| Term | Definition |
+|------|------------|
+| **Hazard** | Agent (biological/chemical/physical) capable of causing harm |
+| **Risk** | Probability × Severity of adverse effect |
+
+## 4️⃣ Risk Assessment — 4 Steps ⭐
+
+| Step | Type | Question |
+|------|------|----------|
+| 1. **Hazard Identification** | Qualitative | Does the chemical cause harm? |
+| 2. **Hazard Characterization** | Quantitative | Dose-response relationship? |
+| 3. **Exposure Assessment** | Quantitative | How much do people consume? |
+| 4. **Risk Characterization** | Integration | Final risk verdict |
+
+## 5️⃣ Step 1: Hazard Identification
+
+### Two chemical categories
+| Type | Approach |
+|------|----------|
+| **Non-carcinogen** | Threshold-based (NOAEL/LOAEL) |
+| **Carcinogen** | No-threshold, slope factor |
+
+### Use IARC classification
+- Group 1 (definite human carcinogen)
+- 2A, 2B (probable/possible)
+- 3 (not classifiable)
+
+### Toxicology Data Types
+| Type | Example |
+|------|---------|
+| Count | Yes/No, %, dichotomous (toxic/not) |
+| Continuous | Body weight, blood values |
+| Ordinal | None/mild/moderate/severe |
+
+> Continuous can convert to count via threshold criteria
+
+## 6️⃣ Step 2: Hazard Characterization (Dose-Response)
+
+### Goal
+Find Toxicological Reference Value (TRV) — safe daily exposure level
+
+### TRV Naming by Organization ⭐ Sob exam!
+| Org | Name | Type |
+|-----|------|------|
+| **Codex** | **ADI** (additive) / **TDI** (contaminant) | Diary intake |
+| EU FSA | ADI | Acceptable Daily Intake |
+| **US EPA** | **RfD** (Oral Reference Dose) | Reference dose |
+| US ATSDR | **MRL** (Minimal Risk Level) ⚠️ | NOT same as Maximum Residue! |
+| Canada Health | ADI | — |
+| WHO | TDI | Tolerable Daily Intake |
+| Australia (ANZ) | Chronic TRV (oral) | — |
+
+**All units**: **mg/kg BW/day** ⭐
+
+### NOAEL & LOAEL ⭐ Critical
+| Term | Full | Definition |
+|------|------|------------|
+| **NOAEL** | No Observed Adverse Effect Level | Highest dose with NO adverse effect |
+| **LOAEL** | Lowest Observed Adverse Effect Level | Lowest dose WITH adverse effect |
+
+**Rule**: NOAEL < threshold < LOAEL (always!)
+- True threshold somewhere between
+- For safety, use NOAEL (more conservative)
+- If NOAEL not available, use LOAEL + extra UF
+
+### Adverse vs Effect
+- **Effect** = any change
+- **Adverse Effect** = harmful/significant change
+
+## 7️⃣ Safe Dose Calculation ⭐ EXAM!
+
+### Master Formula
+**Safe Dose = NOAEL / (UF × MF)**
+
+Where:
+- **UF** = Uncertainty Factor (composite of sub-factors)
+- **MF** = Modifying Factor (default = **1**, only changes if specified)
+
+### Uncertainty Factor (UF) — 5 Sub-factors
+| Symbol | What it covers | Default Value |
+|--------|-----------------|---------------|
+| **UF_H** | Within-human variation (age, sex, race, sensitivity) | **10** |
+| **UF_A** | Animal-to-human extrapolation | **10** (if from animal study) |
+| **UF_S** | Subchronic → chronic | **10** (if not chronic study) |
+| **UF_L** | LOAEL instead of NOAEL | **10** (if NOAEL unavailable) |
+| **UF_D** | Database deficiency | **10** (if data incomplete) |
+
+### Default rule
+- Multiply all relevant: UF_H × UF_A × UF_S × UF_L × UF_D
+- Common case: animal study, chronic, NOAEL available → UF = 10 × 10 = **100**
+
+### Sub-factor Refinement (US EPA)
+- Each UF can split into TK (toxicokinetic) + TD (toxicodynamic) parts
+- Each part = √10 ≈ **3** (rounded)
+- If only TK or TD differs → use **3**
+- If both differ → use **10**
+
+### "Chronic Study" Cutoff
+| Subject | Cutoff |
+|---------|--------|
+| Animal | ≥ **2 years** |
+| Human | ≥ **10% of lifespan** = ~**7 years** (lifespan = **70 yr** standard) |
+
+## 8️⃣ Worked Example (Lecture Practice)
+
+### Formaldehyde rat study (US EPA)
+- 70 rats per dose × 24 months · 4 doses
+- Doses (mg/kg BW/day): 0 (control), 1.2, 15, 82 (M); 1.8, 21, 109 (F)
+- Findings:
+  - Significant **weight loss** at high dose (M from week 1, F from week 24)
+  - **Chronic atrophic gastritis** (focal hyperplasia) at high dose, both sexes
+  - Hematology + clinical chem — no change
+
+### Calculation Steps
+1. **LOAEL** = lowest dose with effect = **82 mg/kg/day** (use lower of M/F for safety)
+2. **NOAEL** = next-lower dose = **15 mg/kg/day**
+3. **UF**:
+   - UF_A (animal→human) = 10
+   - UF_H (within human) = 10 (assume different sensitivity)
+   - UF_S = 1 (study was 24 months = chronic)
+   - UF_L = 1 (NOAEL available)
+   - **Total UF = 100**
+4. MF = 1 (default)
+5. **Safe Dose = 15 / (100 × 1) = 0.15 mg/kg/day**
+
+### Then convert to MRL
+For 70 kg human eating X kg food/day:
+**Permitted residue = (Safe Dose × BW) / consumption mass**
+
+## 9️⃣ Step 3: Exposure Assessment
+
+### Estimated Daily Intake (EDI)
+**EDI = Σ (food_i consumption × residue_i concentration)**
+
+Per body weight: **EDI = (food intake × residue) / body weight**
+
+## 🔟 Step 4: Risk Characterization
+
+### Compare EDI to Safe Dose
+| Result | Status |
+|--------|--------|
+| **EDI < Safe Dose** | ✅ Safe |
+| **EDI > Safe Dose** | ⚠️ Risk |
+
+### Margin of Exposure (MOE)
+**MOE = NOAEL / EDI**
+- MOE > 100 → typically safe
+- MOE < 100 → concerning
+
+## 1️⃣1️⃣ Carcinogen Approach (different)
+
+### Non-threshold model
+- Assume any exposure carries risk (no NOAEL applicable)
+- Use **Slope Factor (SF)**:
+  **Risk = SF × EDI**
+- Acceptable risk: typically 10⁻⁴ to 10⁻⁶ (1 in 10,000 to 1 in 1,000,000 lifetime)
+
+## 1️⃣2️⃣ Unit Conversion ⚠️ Sob Trap
+
+### Common conversions
+| Unit | mg | µg | g |
+|------|-----|-----|---|
+| 1 mg | 1 | 1,000 | 0.001 |
+| 1 µg | 0.001 | 1 | 0.000001 |
+| 1 ppm | 1 mg/kg | 1,000 µg/kg | — |
+| 1 ppb | 0.001 mg/kg | 1 µg/kg | — |
+
+### Tips
+- Sob will use **mg/kg/day** mostly — but read carefully
+- Body weight ALWAYS in kg
+- Time in days unless explicitly other
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. **Risk Analysis** = Assessment + Management + Communication
+2. **Risk Assessment 4 steps**: Hazard ID → Characterization → Exposure → Risk Char
+3. **Hazard** = agent · **Risk** = probability × severity
+4. Chemical categories: carcinogen (no threshold) vs non-carcinogen (threshold)
+5. **NOAEL** = highest dose NO effect · **LOAEL** = lowest dose WITH effect
+6. NOAEL < threshold < LOAEL (always)
+7. ⭐ **Safe Dose = NOAEL / (UF × MF)**
+8. UF defaults: each = 10 · 5 sub-factors (H, A, S, L, D)
+9. Common UF total: animal chronic NOAEL = **100**
+10. MF default = **1** (unless specified)
+11. **EDI** = consumption × residue / BW
+12. Risk: EDI < Safe Dose = OK
+13. **TRV names**: Codex ADI/TDI · EPA RfD · ATSDR MRL · WHO TDI
+14. ATSDR MRL ≠ Codex Maximum Residue Limit (different concept!)
+15. Animal chronic ≥ 2 yr · Human chronic ≥ 7 yr
+
+> 📚 อ่านควบ: 3 Drug Residues (R1-1wtoZ8-8) · 4 Standards (mKqT3c6qxOY) · 8 QMRA (oy-ZkKZG_i8)
+> 🧮 **Sob practical**: เครื่องคิดเลขเข้าได้ · จำสูตร safe dose · ระวัง unit
+> 💡 **Default rule**: UF=100 (animal+chronic+NOAEL) · MF=1
+> 🦴 **TRV naming pitfall**: ATSDR MRL ≠ Codex MRL — ดูบริบท`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
