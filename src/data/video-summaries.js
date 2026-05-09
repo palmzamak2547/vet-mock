@@ -39919,6 +39919,232 @@ For food animals, welfare also includes:
 > 🌍 **Future**: Time budget assessment will become standard in farm audits`,
   },
 
+  dbHv3LpFSAg: {
+    videoId: 'dbHv3LpFSAg',
+    title: '5. พรบ. สถานพยาบาลสัตว์',
+    subject: 'vet-juris',
+    date: '2024-10-07',
+    durationMin: 91,
+    instructor: 'อ.พชร',
+    examFormat: 'regulations + clinic types + signage',
+    summary: `# 5. พระราชบัญญัติสถานพยาบาลสัตว์
+
+> ⚠️ Critical for those opening clinics! · Sob VCA covers this
+> 2 Acts working together: **2533** (original) + **2557** (amendment)
+> Goal: protect both consumers + the veterinary profession
+
+## 🎯 ภาพรวมคาบ
+1. Why this Act exists
+2. Definitions (มาตรา 1-5)
+3. **Clinic types** + space requirements
+4. **Equipment requirements** ⭐
+5. **Signage rules** (color = type)
+6. License types: ใบตั้ง + ใบดำเนินการ
+7. ⭐ The selling-medicine trap
+
+## 1️⃣ Why This Act Exists
+
+### 2 Goals
+1. **Protect consumers** (pet owners getting vet care)
+2. **Protect the profession** (only licensed vets can run clinics)
+
+### Closes Loopholes
+- Non-vets cannot open clinics (no fake clinics by vet techs)
+- No false advertising of "specialists"
+- Standard for facility quality
+- Geographic limits (don't put clinic next to slaughterhouse, etc.)
+
+## 2️⃣ Important Acts
+
+| Act | Year | Status |
+|-----|------|--------|
+| **พรบ. สถานพยาบาลสัตว์ พ.ศ. 2533** | 1990 | Mother law (still active) |
+| **พรบ. สถานพยาบาลสัตว์ ฉบับ 2 พ.ศ. 2557** | 2014 | Amendment (added) |
+
+> ⚠️ Read **both together** — Act #2 doesn't replace Act #1
+
+## 3️⃣ Definitions (มาตรา 1-5)
+
+### "สถานพยาบาลสัตว์"
+- Includes building/place + **vehicles** (ambulances)
+- ⚠️ Cannot be **vehicle-only** (must have fixed location)
+- Whether profit or non-profit — **must obtain license**
+- Excludes pharmacies (different Act)
+
+### "ผู้รับอนุญาต" (License Holder)
+- Person/entity holding clinic license
+- Must be licensed vet
+
+### "ผู้ดำเนินการ" (Operator)
+- Daily operations responsibility
+- Must be licensed vet
+
+> Some clinics: ผู้รับอนุญาต ≠ ผู้ดำเนินการ (e.g., owner hires manager)
+
+## 4️⃣ ⭐ 2 License Types Required (พระเอก)
+
+When opening a clinic, you need **BOTH**:
+1. **ใบตั้ง** = license to ESTABLISH the clinic
+2. **ใบดำเนินการ** = license to OPERATE
+
+> Both required! If you have only ใบตั้ง but no ใบดำเนินการ = cannot operate
+
+## 5️⃣ Clinic Types (2 main + 1 sub-type)
+
+### Type 1: NO Animal Hospitalization (ไม่มีที่พักสัตว์ป่วย)
+**Sign color**: 🟢 **Green text**
+
+**Minimum requirements**:
+- Area: ≥ **20 m²** (4×5)
+- Suitable location (no smell/noise complaints)
+- Easy access for pets
+- Lighting + ventilation
+- Cleanliness
+- Separate from other businesses (Pet Shop / grooming must be sectioned!)
+- Examination room
+- Waiting area
+- Restroom
+- Backup power + fire equipment
+- Optional: 1-2 cages for **observation only**
+
+### Type 2: WITH Animal Hospitalization
+**Sign color**: 🔵 **Blue/Navy text**
+
+**Sub-types**:
+- **Small**: ≤ 10 cages
+- **Large**: > 10 cages
+
+**Minimum requirements (additional to Type 1)**:
+- Area: ≥ **90 m²** (~9×10) → 2 commercial unit
+- Hospitalization area with locking doors
+- Sound + smell control (don't disturb neighbors)
+- ⭐ **Separate infectious vs non-infectious sections**
+- Required: **X-ray room**
+- Required: **Surgery room**
+- Required: **Lab room**
+- Required: 1+ vet sleeping room
+- Backup electricity, fire prevention, fire alarm, water reservoir
+
+## 6️⃣ Required Equipment
+
+### Type 1 (No Hospitalization)
+- Cabinet for medical records
+- Cabinet for medications
+- Sterile equipment cabinet
+- Standard examination tools
+- Hand wash basin
+- Waste bin
+- Adequate medications
+- ⭐ **Optional X-ray** — but if has, must be approved by กรมวิทยาศาสตร์การแพทย์ + room must shield radiation
+
+### Type 2 (With Hospitalization) — Adds:
+- ⭐ **X-ray machine** (with shield)
+- ⭐ **Anesthesia machine**
+- ⭐ **Endotracheal tube + breathing assist (Ambu bag, ventilator)**
+- ⭐ **Suction**
+- ⭐ **Oxygen tank**
+- ⭐ **Refrigerator** for carcass storage
+
+> ⚠️ **NOT yet required by law** but increasingly standard:
+> - Ultrasound · MRI · CT · Endoscope · Laser · Real-time blood analyzer
+
+## 7️⃣ Signage Rules ⭐ (สำคัญมาก!)
+
+### Required Sign Specs
+- Width: ≥ 40 cm
+- Length: ≥ 120 cm
+- Total: 120 × 40 cm
+
+### Layout
+| Position | Color | Content |
+|----------|-------|---------|
+| **Top-left** | Black ⬛ | Clinic type (with/without hospitalization) |
+| **Center** | 🟢 Green if Type 1 / 🔵 Blue if Type 2 | Clinic name |
+| **Bottom area** | Black ⬛ | License holder + operator names |
+
+### Reading Rule for Public ⭐
+- 🟢 Green = no overnight care
+- 🔵 Blue = overnight care available
+
+> Walk past clinic → see color → know capability instantly
+
+## 8️⃣ ⭐ The Drug-Selling Trap
+
+### Critical Rule
+**Pet pharmacy ≠ vet clinic** (different Act!)
+- Vet clinic = treats animals + dispenses medicine TO patients
+- Cannot sell drugs to walk-in customers without consultation
+
+### Sting Operation Test
+- Stranger comes in: "Hi doctor, my dog has eye infection, sell me medicine"
+- ⚠️ If you sell → **TRAP! Caught!**
+- ⭐ Must: Examine animal first → record in chart → THEN dispense
+- Subsequent visits OK to refill
+
+### Why?
+- Drug Act regulates pharmacies
+- Vet Act regulates clinics
+- Some "fake" clinics were just pharmacy without exam
+- ⭐ Sting operations done by both Vet Act + Pharmacy Act enforcers
+- 7-8 years ago: enforcement campaigns caught many
+
+## 9️⃣ False Advertising Rules
+
+### Cannot Claim Specialty Without
+- ⭐ ⭐ **อวว/วว = Diplomate/Residency** completed
+- 5 specialty residencies in Thailand: Internal Medicine, Surgery, Theriogenology, Pathology, VPH
+- Without 3-yr residency + exam → not "specialist"
+
+### Cannot Falsely Claim
+- "Hospital with specialist doctors" — only if has Diplomate vet
+- "Expert clinic" — only legit specialty boards count
+
+## 1️⃣0️⃣ Geographic & Public Health Restrictions
+
+### Cannot Open Near
+- Slaughterhouses (zoonosis risk)
+- Sources of disease transmission
+- Areas causing public nuisance
+
+### Must Submit Map
+- Showing clinic location
+- Showing surrounding context (neighbors, businesses)
+- Reviewed by local authority
+
+## 1️⃣1️⃣ Inspection & Authority
+
+### Approval Authority
+- **Director-General of Department of Livestock Development (DLD)** or designee
+- Provincial Livestock Office for regional clinics
+- Detailed standards in **Ministerial Regulations** (กฎกระทรวง)
+
+### Pre-license Inspection
+- Site visit to verify standards
+- Pass = license issued
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. 2 Acts: **2533** + **2557** (read together)
+2. ⭐ 2 licenses: **ใบตั้ง + ใบดำเนินการ** (both required)
+3. **Type 1** = no hospitalization · **Green sign** · ≥20 m²
+4. **Type 2** = with hospitalization · **Blue sign** · ≥90 m²
+5. Type 2 sub-types: small (≤10 cages) + large (>10 cages)
+6. Type 2 separate infectious vs non-infectious
+7. ⭐ Type 2 must have: **X-ray + anesthesia + breathing support + O2 + lab + refrigerator**
+8. X-ray approved by **กรมวิทยาศาสตร์การแพทย์**
+9. ⭐ **Cannot sell drugs to walk-ins without exam** (sting operation risk)
+10. Pet shop/grooming must be sectioned off from clinic
+11. Cannot claim "specialist" without **อวว/วว**
+12. 5 residencies: Internal Med, Surgery, Repro, Pathology, VPH
+13. Sign: 120×40 cm · color-coded · readable from outside
+14. Cannot open near slaughterhouse / disease sources
+15. Approval by **DLD director-general** or designee
+
+> 📚 อ่านควบ: 1 พรบ. วิชาชีพ (RGmj3awzY5Q) · 2 จรรยาบรรณ (LV4hu3ObA-0)
+> 💡 **Practical**: เปิดคลินิก = 2 ใบ + ป้าย + อุปกรณ์ครบ + ระวัง drug sale
+> 🚪 **Pre-launch**: ทำตาม checklist + ผ่าน inspection ก่อนเปิด
+> ⚠️ **Sting operation**: ห้ามขายยาให้คนแปลกหน้าที่ไม่มีประวัติเลย`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
