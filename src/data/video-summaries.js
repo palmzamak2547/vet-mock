@@ -36574,6 +36574,230 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 > 🥛 **WT trap**: dry-off treatment → ห้ามรีดทุกเต้า`,
   },
 
+  mKqT3c6qxOY: {
+    videoId: 'mKqT3c6qxOY',
+    title: '4. International Food Standards + Thai Regulations',
+    subject: 'food-safety-y4',
+    date: '2024-08-30',
+    durationMin: 159,
+    instructor: 'อ.พชร',
+    examFormat: 'organization + standard ID + Thai law authority',
+    summary: `# 4. International Food Standards + Thai Regulations
+
+> ⚠️ Long lecture (159 min) — overview of standards architecture
+> Foundation for Year 5 detailed study · know "who governs what"
+
+## 🎯 ภาพรวมคาบ
+1. Why food standards exist
+2. WTO + **SPS Agreement** (key for vets)
+3. International orgs: **Codex** + WOAH + IPPC
+4. Codex structure + Thailand membership
+5. Thai laws + ministry split (สาธา vs เกษตร)
+6. Standard by production stage
+7. Farm standard transition (voluntary → mandatory)
+
+## 1️⃣ Why International Standards?
+
+### Problem
+- Each country: different geography, climate, technology, capability
+- Different food safety standards → unfair trade
+- High-standard countries reject imports as "trade barrier"
+- Conflicts arise (US-China, EU-developing nations)
+
+### Solution
+- International harmonization through Codex/WOAH/IPPC
+- Standards must be **scientifically based** (per WTO rule)
+- Lower-tier countries can negotiate transition periods
+
+## 2️⃣ World Trade Organization (WTO)
+
+### Background
+- Founded 1995 · Thailand member #59 (founding member!)
+- Goal: free, predictable, non-discriminatory trade
+- Members must comply with multiple agreements
+
+### SPS Agreement ⭐ (Sanitary and Phyto-sanitary)
+**Full name**: WTO Agreement on the Application of Sanitary and Phyto-Sanitary Measures
+
+**Purpose**: countries can use measures to protect human/animal/plant life — but minimal trade impact, scientifically justified
+
+**4 Measures Coverage**:
+| Measure | Protect | From |
+|---------|---------|------|
+| 1 | **Plants + Animals** | Pests, disease vectors, microbes |
+| 2 | **Humans + Animals** | Food additives, contaminants, toxins, microbes in food/drink/feed |
+| 3 | **Humans only** | Animal-borne disease, plant-borne disease, pest spread |
+| 4 | Property | Other pest damage |
+
+**NOT covered**:
+- Environment (separate agencies)
+- Animal welfare (WOAH)
+- Consumer concerns without scientific basis
+
+### Coverage scope
+- Product standards + production methods
+- Inspection procedures
+- Certification details
+- Transport requirements
+- Risk assessment data
+- Packaging + labeling
+
+## 3️⃣ Three International Organizations
+
+| Organization | Acronym | Domain |
+|--------------|---------|--------|
+| **Codex Alimentarius** | Codex | Food safety |
+| **World Organization for Animal Health** | **WOAH** (was OIE) | Animal health |
+| **International Plant Protection** | IPPC | Plant protection |
+
+### Codex Alimentarius ⭐
+- Founded by FAO + WHO
+- Latin: "Food Code" / "Food Law"
+- Set standards, codes of practice, regulations
+
+### Codex Membership
+- **189 members** = 188 countries + 1 EU (one vote, but heavy weight)
+- Two types:
+  - **Member** (right to vote)
+  - **Observer** (240 — can join meetings, no vote)
+- Observers: IGOs (e.g., ASEAN), NGOs (e.g., World Veterinary Association = WVA), UN agencies
+
+### Codex Operating Principles (3)
+1. **Harmonization** — adapt to country context, follow Codex framework
+2. **Equivalence** — accept other members' assessments as equal
+3. **Transparency** — declare own standards · maintain Codex Contact Point
+
+## 4️⃣ Codex Structure
+
+### Codex Alimentarius Commission (CAC)
+**Executive Committee** = 1 chair + 3 vice-chairs + 7 regional reps + 6 coordinators
+
+### 4 Types of Committees
+1. **General Subject** (Horizontal) — applies across all foods
+2. **Commodity** (Vertical) — specific food/product groups
+3. **Ad Hoc Task Force** — temporary, hot-issue groups
+4. **Regional Coordinating** — 6 regions
+
+### Vet-relevant General Subject Committees ⭐
+| Committee | Purpose |
+|-----------|---------|
+| **Contaminants in Food** | Heavy metals, PCBs, etc. |
+| **Food Additives** | Preservatives, colors |
+| **Food Hygiene** | HACCP, GMP |
+| **Import/Export Inspection + Certification** | Border control |
+| **Residues of Veterinary Drugs in Food** ⭐ | Drug withdrawal, MRL |
+
+### 6 Codex Regions
+| Region | Reps |
+|--------|------|
+| Africa | Uganda |
+| **Asia** ⭐ (Thailand here) | rotates |
+| Europe | Germany |
+| Latin America + Caribbean | Ecuador |
+| **Near East** | Saudi Arabia (note: "Near" = Middle East from European POV) |
+| North America + SW Pacific | rotates |
+
+### Thailand Codex Contact Point
+**ACFS** (มกอช · Office of Agricultural Commodity and Food Standards)
+- Coordinates with: Department of Livestock Development (DLD), FDA, academics
+
+## 5️⃣ Thai Regulations Architecture
+
+### Mandatory vs Voluntary
+| Type | Examples |
+|------|----------|
+| **Mandatory (สภาพบังคับ)** | Acts (พรบ), Royal Decrees, Ministerial regulations |
+| **Voluntary (สมัครใจ)** | GHP, HACCP, ISO, Codex (REQUIRED for export!) |
+
+### Key Thai Laws (พรบ) ⭐
+| Act | Authority |
+|-----|-----------|
+| **Food Act** (พรบอาหาร) | FDA / Public Health |
+| **Agricultural Standards Act** | ACFS / Agriculture |
+| **Slaughter Control for Meat Sales Act** | DLD |
+| **Animal Disease Act** | DLD |
+| **Animal Feed Quality Act** | Agriculture |
+| **Drug Act** | FDA (covers vet drugs!) |
+| **Public Health Act** | Public Health (farms, slaughter as "harmful biz") |
+| **Fisheries Act** | Fisheries Dept |
+
+### Ministry Split — Master Rule ⭐
+**"Export → Agriculture · Domestic → Public Health"**
+
+| Function | Public Health (สาธา) | Agriculture (เกษตร) |
+|----------|----------------------|---------------------|
+| Drug REGISTRATION | ✅ All drugs (incl. vet) | — |
+| Drug USE IN FARM | — | ✅ DLD oversight |
+| Food import | ✅ except meat/poultry/fish/shrimp | ✅ Meat/poultry/fish/shrimp |
+| Domestic processing | ✅ All food factories | — |
+| **Export** | — | ✅ ALL exported food |
+| Farm standards | — | ✅ DLD |
+| Animal feed | — | ✅ Agriculture |
+
+### Recent Mandatory Farm Standards
+**Were voluntary, NOW MANDATORY**:
+- ✅ **Broiler chicken farms** (first mandatory · we're #1 broiler exporter)
+- ✅ **Layer farms** (size-dependent · pushing away from cage systems)
+- 🆕 **Swine farms** (recent · Animal Welfare driven)
+
+**Transition period given** for small farms
+
+## 6️⃣ Standards by Production Stage
+
+### Upstream (Feed)
+- **Animal Feed Quality Act** + **Agricultural Standards Act**
+- DLD inspects feed quality
+
+### Farm Stage
+- **GAP** = Good Agricultural Practice
+- Animal Disease Act + Agricultural Standards Act
+- Product = live animals (incl. hatcheries)
+
+### Slaughterhouse / Midstream
+- **GMP** = Good Manufacturing Practice
+- Slaughter Control Act + Public Health Act
+- DLD vet supervision
+
+### Processing / Downstream
+- GMP + Industry Product Standards
+- Food Act + Agricultural Standards Act
+- ISO certification (for export)
+
+## 7️⃣ ISO Standard Definition
+
+**ISO** (International Organization for Standardization)
+
+**Standard** = document established by consensus, approved by recognized body, providing rules/guidelines/characteristics for activities, used commonly to achieve maximum efficiency
+
+### 4 Benefits of Standards
+1. **Trade**: shared understanding · faster transactions
+2. **Production**: consistent quality · clear SOPs
+3. **Communication**: less ambiguity · documented procedures
+4. **Compliance**: meets export requirements (for SMEs especially)
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. Standards needed because country differences cause unfair trade
+2. **SPS Agreement** = WTO sanitary/phyto-sanitary umbrella
+3. SPS measures must be scientific · doesn't cover welfare/environment
+4. **Codex** = food safety (FAO/WHO joint) · 189 members
+5. **WOAH** (was OIE) = animal health
+6. **IPPC** = plant protection
+7. Codex committees: General Subject + Commodity + Ad Hoc + Regional
+8. Vet-relevant: Drug Residues Committee + Hygiene + Contaminants + Additives
+9. Thailand Codex Contact Point = **ACFS** (มกอช)
+10. **Rule**: Export = Agriculture · Domestic = Public Health
+11. **Drug registration** = Public Health · **drug use in farm** = Agriculture
+12. **Broiler farm** = first mandatory standard (we're #1 exporter)
+13. Standard tiers: GAP (farm) → GMP (slaughter/processing)
+14. Mandatory: Acts published in Royal Gazette
+15. Voluntary: GHP/HACCP/ISO/Codex (but required for export markets)
+
+> 📚 อ่านควบ: 5 Risk Assessment (fs0TOM677as) · 9 Foodborne Disease (juDD-Hduw6I)
+> 🏢 **Career**: ACFS (มกอช) · DLD/FDA · ทำงานกับ standards
+> 💡 **Quick rule**: ส่งออก = เกษตร · ขายในประเทศ = สาธา · ยา = สาธา · ฟาร์ม = เกษตร
+> 🌍 **OneHealth**: Codex + WOAH + IPPC = three pillars · WTO over umbrella`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
