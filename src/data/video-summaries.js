@@ -16016,6 +16016,375 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 > 📚 อ่านควบ: 13.1 Surgical Heart (dn_W-7eWQl0) · 14.1 Common Resp II (FlutqheRR6I) · 14.2 Surgical Resp (nzpDNtceKKk) · Anatomy of thoracic wall`,
   },
 
+  '0C218gD_tZM': {
+    videoId: '0C218gD_tZM',
+    title: '4.2 : Endoscope + Stomach + Esophagus Surgery',
+    subject: 'com1',
+    date: '2024-08-26',
+    duration: '126 min',
+    instructor: 'รุ่นพี่',
+    examFormat: 'MCQ — endoscope use + esophageal/gastric surgery',
+    summary: `# 4.2 Endoscope + Stomach + Esophagus Surgery
+
+> 🎯 ครอบคลุม **Endoscopy** (flexible vs rigid · scope use cases) + **Esophageal disease + surgery** + **Gastric disease + surgery**. Big procedures: **GDV repair**, **Y-U pyloroplasty**, **gastrotomy**
+
+---
+
+## 1. Endoscope Equipment
+
+### Two main types
+| Type | Use |
+|---|---|
+| **Flexible** | GI tract, respiratory tract, urinary tract — anywhere with curves |
+| **Rigid (Telescope)** | Body cavities (laparoscopy, thoracoscopy), straight tubes, joints |
+
+### Flexible scope subtypes
+- **Fiber Optic** — image transmitted through glass fibers
+  - ✅ Best image quality (analog)
+  - ❌ Fragile fibers can break → **black spots in image**
+  - ❌ Expensive (~1 million THB/scope)
+- **Video Endoscope** — digital camera at tip
+  - ✅ More durable
+  - Image to monitor
+  - Limited resolution by sensor pixels
+
+### Working channels
+- Most scopes have **side channels** for instruments (biopsy forceps, baskets, suction, water flush, air insufflation)
+
+---
+
+## 2. Endoscopy Use Cases
+
+### Foreign Body Retrieval ⭐
+- **Common scenarios**:
+  - Coins, bone, fishhook, kebab skewer, button, nail
+  - Cat: thread/string (linear FB)
+
+### Foreign body management decision
+| Type | Action |
+|---|---|
+| **Smooth + small** (coin in big dog) | Conservative — give laxative + monitor stool |
+| **Sharp/spiny** (bone shard, hook) | Endoscopic removal OR surgery — **don't pass through GI** (risk of mucosal trauma along entire path!) |
+| **Large** | Endoscopic if accessible OR open surgery |
+
+### Key technique
+- **Always orient FB to long axis when extracting** through pylorus/cardia
+- Cross-wise FB → must rotate first (use multi-finger graspers)
+- Sharp FB → careful retrieval to avoid lacerating esophagus on way out
+
+### Other endoscope uses
+- **Biopsy** (esophagus, stomach, intestine, bladder)
+- **Foreign body removal**
+- **Stricture dilation** (with bougies)
+- **Stent placement** (tracheal collapse, esophageal stricture)
+- **Cystoscopy** (urinary)
+- **Bronchoscopy** (respiratory + BAL)
+- **Endo-spay** (laparoscopic ovariectomy)
+
+---
+
+## 3. Esophagus
+
+### Anatomy refresh
+- **Cervical part** + **Thoracic part**
+- 4 layers: Mucosa, Submucosa, Muscularis (longitudinal + circular), Adventitia (NOT serosa!)
+- **Submucosa = strongest layer for healing** ⭐
+- ⚠️ **Vagus nerve** runs alongside (dorsal + ventral branches at heart base)
+- ⚠️ **Phrenic nerve** runs ventral to esophagus (don't touch!)
+
+### Diseases
+1. **Esophageal stricture**
+2. **Foreign body in esophagus**
+3. **Esophageal rupture (perforation)**
+4. **Neoplasia** (rare in dogs/cats)
+5. **Vascular ring anomaly** (PRAA — see 13.1)
+6. **Diverticulum**
+7. **Esophago-bronchial / esophago-tracheal fistula**
+
+### A. Esophageal Stricture
+
+#### Causes
+- **Acid reflux** (GERD-like) chronic
+- **Caustic substances** (toilet cleaner)
+- **Post-surgery** stricture
+- ⭐ **Excessive ET tube cuff inflation** (compression of esophagus against trachea) — common iatrogenic cause!
+
+#### Diagnosis
+- **Barium swallow** with X-ray
+- **Endoscopy + biopsy** (rule out neoplasia)
+
+#### Treatment
+- **Bougienage** (rigid dilator) — start small, dilate gradually
+- **Balloon dilation**
+- ⚠️ Don't dilate too much at once — esophageal rupture risk
+- Multiple sessions (every 2-4 weeks initially)
+
+### B. Esophageal Foreign Body
+
+- ⚠️ Best to **PUSH down to stomach** (then retrieve via gastrotomy) rather than pull out (mucosal damage)
+- Endoscopic retrieval if cannot push
+
+### C. Esophageal Rupture / Perforation
+
+- ⚠️ Surgical emergency
+- Sources: bone perforation, iatrogenic, trauma
+- Treatment: NPO + nasogastric tube + IV fluids · or open surgery + repair if leak
+- Antibiotic essential (mediastinitis risk!)
+
+### D. Esophageal Diverticulum
+
+- **Pseudo-diverticulum** (mucosa pouches outward through muscle layer) — most common
+- **Traction diverticulum** — chronic inflammation pulls esophagus toward fixed structure (lung, etc.)
+- **Pulsion diverticulum** (true) — pressure inside bulges full thickness wall
+- **Diagnosis**: barium swallow + endoscopy
+- **Treatment**: small → conservative (G-tube feeding) · large → surgical excision + closure
+
+### E. Esophago-tracheal Fistula
+
+- Rare congenital defect
+- Symptoms: cough/sputum after drinking liquids
+- **Diagnosis**: scope shows bubbles in opposite tube during respiration
+- **Treatment**: surgical division + closure
+
+---
+
+## 4. Stomach Anatomy + Function
+
+### Five parts
+1. **Cardia** (esophageal entry)
+2. **Fundus**
+3. **Body**
+4. **Pyloric antrum**
+5. **Pylorus** (exit to duodenum)
+
+### 4 layers (different from esophagus!)
+- **Serosa** (outer)
+- **Muscularis** (3 layers: longitudinal, circular, oblique)
+- **Submucosa** (strongest for healing ⭐)
+- **Mucosa** (inner)
+
+### Vasculature
+- **Left gastric artery** (Lesser curvature)
+- **Right gastric artery** (Lesser curvature)
+- **Left gastroepiploic artery** (Greater curvature)
+- **Right gastroepiploic artery** (Greater curvature)
+
+### Innervation
+- **Vagus nerve**
+- **Splanchnic nerves**
+
+### Position
+- ⚠️ Stomach **CANNOT be lifted out** of abdomen during surgery (anchored by gastrohepatic + gastrodiaphragmatic ligaments)
+- If you can lift it = something is torn!
+
+### Gastric emptying time
+- Liquid: ~5-10 min
+- Solid: 3-7 hours (depends on content)
+- Speed: **carbohydrate > protein > fat**
+
+---
+
+## 5. Gastric Diseases
+
+### A. Pyloric Stenosis / Hypertrophic Gastropathy
+
+#### Two types
+- **Congenital pyloric stenosis** — brachycephalic puppies (Boxer, Boston Terrier) <1 yr
+- **Acquired chronic hypertrophic pyloric gastropathy (CHPG)** — small breeds <10 kg, older (Shih Tzu, Maltese, Lhasa Apso)
+
+#### Three subtypes (CHPG)
+- **Type 1**: muscularis hypertrophy only
+- **Type 2**: mucosal hyperplasia + muscularis hypertrophy
+- **Type 3**: mucosal only
+
+#### Clinical
+- **Vomiting** ~15-30 min POST-meal (delayed)
+- ⚠️ Differs from esophageal disease (immediate regurgitation)
+- Weight loss, dehydration
+- Possible "Bird-beak sign" on barium swallow
+
+#### Diagnosis
+- **Barium contrast** — slow gastric emptying + narrow outlet
+- **Fluoroscopy** — real-time motility
+- **Endoscopy + biopsy** — confirm hyperplasia (rule out neoplasia)
+  - ⚠️ **Don't assume neoplasia from gross appearance!** Always biopsy.
+
+### B. Gastric Foreign Body
+
+- ⚠️ **Owner often doesn't know** — pet ate something quietly
+- Clinical: chronic intermittent vomiting
+
+### C. Gastric Mucosal Disease
+
+- **Helicobacter** ⚠️ (zoonotic — handle samples carefully)
+- Gastric ulcers, erosions
+- NSAID-induced disease
+
+### D. GDV (Gastric Dilatation-Volvulus) ⭐⭐⭐ ออกแน่
+
+**Demographics**: large/giant breed deep-chested dogs (Great Dane, GSD, Standard Poodle, Boxer, Setters)
+
+**Pathophysiology**:
+- **Stomach distension** with gas/food/fluid
+- **Volvulus** — stomach rotates around mesenteric axis
+- Most common: **clockwise** rotation (viewed from front)
+- Pylorus moves from right → DV (top) → left
+
+**X-ray pathognomonic**: **"Popeye sign"** ⭐
+- Stomach gas with internal **partition** (folded over from rotation)
+- VD/DV view: pylorus shifts to left dorsal
+
+**Clinical**:
+- Sudden abdominal distension
+- Non-productive retching ⚠️ (= "trying to vomit but nothing comes up")
+- Hyperventilation
+- Restless, anxious
+- Pale mucous membranes (shock!)
+- Cardiac arrhythmia common
+
+**Pathophysiology consequences**:
+- **Vena cava + portal vein occlusion** → no return blood → distributive shock
+- Splenic torsion → splenic infarction
+- Cardiac arrhythmia
+- **Gastric necrosis** (vascular compromise)
+- Death within hours if untreated!
+
+**Treatment** = **EMERGENCY** ⭐
+1. **Decompression** (gastric trocar through abdominal wall) — life-saving stabilization
+2. **IV fluids + electrolyte correction**
+3. **Cardiac monitoring** (treat VT with lidocaine)
+4. **Surgery** — emergency laparotomy:
+   - **Derotation**
+   - **Gastropexy** (anchor stomach to right body wall — prevents recurrence)
+   - **Splenectomy** if splenic infarction
+   - **Gastrectomy** if necrotic gastric wall
+
+**Prophylactic gastropexy** in at-risk breeds (concurrent with neuter)
+
+---
+
+## 6. Gastric Surgery
+
+### A. Gastrotomy
+
+**Indication**: foreign body removal, biopsy, ulcer treatment
+
+**Technique**:
+1. Cranial midline laparotomy
+2. **Identify ventral surface** (the side facing you when stomach exposed)
+   - ⚠️ **Operate on ventral side ONLY** — don't flip!
+3. Pack abdomen with gauze
+4. **Stay sutures** at corners
+5. **Incision midway between greater + lesser curvature** ⭐
+6. ⭐ **Cut along muscle fiber direction**:
+   - **Cardia/pylorus**: longitudinal incision
+   - **Body**: transverse incision
+   - **Always parallel to muscle fibers**
+7. Remove FB
+8. Lavage stomach with warm saline
+9. **Close in 2 layers**:
+   - **First layer**: Cushing or Lembert pattern (mucosa-submucosa, then muscularis-serosa)
+   - **Second layer**: Lembert seromuscular (inverting)
+   - ⚠️ Don't penetrate to lumen (stone risk)
+10. Leak test if possible
+
+### B. Y-U Pyloroplasty ⭐
+
+**Indication**: pyloric stenosis (CHPG, brachycephalic)
+
+**Technique**:
+1. Make a Y-shaped incision over pylorus
+   - Stem of Y on **antrum**
+   - Arms extending toward duodenum **at least 1 cm from greater/lesser curvature**
+2. Suture in U pattern (stem + arms reposition to widen lumen):
+   - First, place key suture: stem-tip of Y to cross-bar
+   - Then close arms with simple interrupted
+
+### C. Fredet-Ramstedt (Pyloromyotomy)
+
+**Technique**: longitudinal cut through serosa + muscularis + ONLY (not full thickness)
+- Allow mucosa-submucosa to bulge out without further closure
+- ⚠️ Less invasive than full pyloroplasty
+- Used for early/mild pyloric stenosis
+
+### D. Heineke-Mikulicz Pyloroplasty
+
+**Technique**:
+- Cut **longitudinally** (full thickness)
+- Sew **transversely** (perpendicular to incision)
+- Use stay sutures to pull edges open
+- Suture pattern: Simple Interrupted
+
+### E. Gastropexy (GDV prevention)
+
+**Indication**: After GDV repair · prophylactic in at-risk breed
+
+**Technique** (most common = **incisional gastropexy**):
+1. Make 4-6 cm seromuscular incision on **right body wall** at level of pyloric antrum
+2. Make matching incision on antral wall
+3. Suture stomach to body wall
+
+**Other techniques**: belt-loop, circumcostal, tube gastropexy
+
+---
+
+## 7. Suture for Stomach
+
+| Layer | Suture |
+|---|---|
+| Submucosa | **Synthetic absorbable monofilament** (PDS) — must include for strength |
+| Seromuscular | Same |
+
+⚠️ Stomach **heals quickly** (days)
+⚠️ Don't suture through mucosa to lumen (granuloma + stone risk)
+
+---
+
+## 8. Post-op Management
+
+### Diet progression (post-gastrotomy)
+- **NPO** 12-24 hr
+- Then small frequent feedings
+- **Liquid diet** day 1-2
+- Soft food day 3-7
+- Normal food after day 7
+
+### Post-pyloroplasty
+- Liquid only days 1-3
+- Soft transition gradually
+- Monitor for vomiting — if persistent, repeat imaging
+
+### Post-GDV
+- Aggressive fluid + electrolyte
+- Monitor for arrhythmia (VT)
+- Anti-emetics (Maropitant)
+- PPI (omeprazole)
+- Sucralfate (if mucosal injury)
+- Pain management
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **Flexible scope** for curved tracts · **rigid scope** for straight/cavity
+2. **Foreign body retrieval** = orient long-axis, careful with sharp objects
+3. **Push esophageal FB to stomach** (don't pull through esophagus)
+4. **Esophageal stricture cause** = ET cuff over-inflation (iatrogenic!)
+5. **Esophagus 4 layers** (no serosa) · **submucosa = strongest**
+6. **Don't lift stomach out of abdomen** — anchored by ligaments
+7. **GDV pathognomonic** = Popeye sign + partition on X-ray
+8. **GDV breeds** = large + deep-chested dogs
+9. **GDV surgery** = derotation + **gastropexy** ⭐ + splenectomy/gastrectomy if needed
+10. **Pyloroplasty Y-U** = Y incision, U suture, for pyloric stenosis
+11. **CHPG** = small breed older dog · vomiting 15-30 min post-meal
+12. **Gastrotomy incision midway** between greater/lesser curvature
+13. **Cut along muscle fibers** (cardia longitudinal, body transverse)
+14. **Suture in 2 layers** + must include submucosa
+15. **Helicobacter zoonotic** — wear gloves with samples
+
+> 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU) · 5.1 Intestine Sx (lS4wSGDKFrY) · 6 Hepato/pancreas Sx (5rcEK-3IW0M) · 3 Hepatobiliary (keqE30HxM7Y)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
