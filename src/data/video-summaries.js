@@ -19356,6 +19356,370 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > ⚠️ Pin removal sequence ออกสอบบ่อย — จำลำดับ "บน-ล่าง = ออกสุดท้าย"`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 7. External Immobilization + Fracture Complications (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  '9cXpZwgUAPI': {
+    videoId: '9cXpZwgUAPI',
+    title: '7. External Immobilization + Complications',
+    subject: 'com2',
+    date: '18 Sep 67',
+    durationMin: 170,
+    instructor: 'อ. (ortho team)',
+    examFormat: 'MCQ — bandage type · cast technique · digit 3-4 marker · sling indications · M/D/N union types ออกบ่อย',
+    summary: `# External Immobilization + Fracture Complications
+
+> 🎯 บทที่ยาวสุดของ ortho block (170 นาที = 2 hours 50 mins)
+> 2 ส่วน: (A) **External immobilization** — Cast/Splint/Sling · (B) **Fracture complications** — Delayed/Non/Mal-Union
+> ⚠️ Top exam: **digit 3-4 visualization rule · cast indications · sling techniques · 3 union types**
+
+---
+
+# 🟧 PART A — External Immobilization
+
+## 1. Classification (2 กลุ่มหลัก) ⭐⭐⭐
+
+| Type | Duration | Examples |
+|---|---|---|
+| **Long Duration** (> 3 weeks) | จนกระดูกติด | **Cast/Cast** เท่านั้น (1 method) |
+| **Temporary** (≤ 3 weeks) | ระยะสั้น | Splint · Modified Thomas Splint · Modified Robert Jones · Ehmer Sling · Velpeau Sling · Spica Cast |
+
+⭐ **Cast = self-complete tool** (ใช้ตัวเดียวจากหักจนติดได้)
+⭐ **Temporary devices ≠ self-complete** — ต้องใช้ร่วมกับวิธีอื่น
+
+---
+
+## 2. Anatomic Limitations ⭐⭐⭐
+
+| Bone | Cast applicable? | Reason |
+|---|---|---|
+| **Radius/Ulna · Tibia/Fibula** | ✅ | ต่ำกว่า elbow/stifle → bracket joints ได้ |
+| **Carpus · Tarsus · MC/MT/Phalanges** | ✅ | ใช้ short cast |
+| **Humerus** | ❌ | ติดรักแร้ — bracket shoulder ไม่ได้ |
+| **Femur** | ❌ | ติดขาหนีบ — bracket hip ไม่ได้ |
+| **Pelvis · Spine** | ❌ | ใช้ pedicle screw แทน |
+
+⚠️ **Rule**: Cast ใช้ได้กับ fractures **distal to elbow/stifle เท่านั้น!**
+
+---
+
+## 3. Cast Materials (3 ชนิด)
+
+| Material | Setting time | Pros | Cons |
+|---|---|---|---|
+| **Plaster of Paris** | 5 นาที (จุ่มน้ำ) | ราคาถูก · ทำง่าย · ดัดง่าย | หนัก · เปียกน้ำไม่ได้ · ไม่ reusable |
+| **Thermoplastic (XL)** | กดความร้อนแล้วเย็น | Reusable · เบา | ไม่แนบขา · ไม่นิยมทำ full cast |
+| **Fiberglass (3M)** | 5-7 นาที (โดนอากาศ) | เบา · แข็งแรง | ราคาแพง 10× POP · ไม่ reusable |
+
+⭐ **Setting time 5 นาที ดีที่สุด** — เร็วไป = ไม่ทันโม / ช้าไป = สัตว์ขยับ
+
+---
+
+## 4. Cast Lengths
+
+| Type | Coverage |
+|---|---|
+| **Long Leg Cast** | ปลายนิ้ว → กลาง humerus (ขาหน้า) / กลาง femur (ขาหลัง) — สำหรับ R/U Fx, T/F Fx |
+| **Short Leg Cast** | ปลายนิ้ว → กลาง R/U (ขาหน้า) / กลาง T/F (ขาหลัง) — สำหรับ MC/MT/phalanges Fx |
+
+⭐ Spica Cast = พิเศษสำหรับ **fissure** ที่ humerus/femur (ไม่ displaced) — cross over shoulder/hip
+
+---
+
+## 5. Cast Application Procedure (ขั้นตอนสำคัญ!) ⭐⭐⭐
+
+### 5.1 Pre-Cast Setup
+1. **Lateral recumbency** ขาหักชี้บน
+2. **Counter-traction**: เชือกคล้องรักแร้/ขาหนีบ + ผู้ช่วยดึงปลายเท้า
+3. **Reduction** กระดูกให้ overlap > 50%
+
+### 5.2 Stirrup Tape (จุดเริ่มต้น) ⭐
+- **2 strips of adhesive tape** ตามแนว medial-lateral หรือ cranial-caudal
+- **3rd strip** พันรอบยึด 2 strips แรก
+- ⚠️ ถ้าหลุด = **เริ่มใหม่ทั้งหมด!**
+- เป็น **load-bearing** สำหรับ cast — ป้องกัน cast เลื่อนลง
+
+### 5.3 Cast Padding (สำลีรองเฝือก)
+- **Bottom edge อยู่ระดับ digit 2-5** ⭐
+- **Digit 3-4 ต้องโผล่ออกมา** (visualization markers)
+- พัน 2 รอบ: ล่างขึ้นบน + บนลงล่าง · ซ้อนทับ 50%
+- **ขาหน้า**: เสริมที่ olecranon หนา 4-6 ชั้น (จุดโดน cast บาด!)
+- **ขาหลัง**: ไม่ต้องเสริมที่ calcaneus (ไม่โดน)
+
+### 5.4 Cast Material Application
+- Cut into strips (1.5 รอบ × ความยาว)
+- Overlap ที่ด้าน **caudal** (ขาหน้า) / **cranial** (ขาหลัง) = weight-bearing side
+- Width: 2 นิ้ว (สุนัข 5-15 kg) · 3 นิ้ว (> 20 kg)
+- 1 layer up + 1 layer down = standard
+- ⭐ **เสริมความแข็งแรง**: ใช้ extra layers เฉพาะ weight-bearing side
+
+### 5.5 Stirrup Closure
+- พลิก stirrup tape 2 strips กลับขึ้นมาทับ cast → ดึงให้ตึง
+- พัน cast strip ทับอีกชั้น = lock stirrup ในตำแหน่ง
+
+### 5.6 Outer Wrap
+- Elastic bandage / Co-Ban (ป้องกันเคี้ยว)
+- Adhesive tape ปิดปลาย
+
+---
+
+## 6. Digit 3-4 Visualization Rule ⭐⭐⭐ (KEY!)
+
+| Observation | Meaning | Action |
+|---|---|---|
+| **Digits 3-4 บวม** | Cast แน่นเกิน → ขาดเลือด | Re-do cast (ภายใน 24 hr) |
+| **Digits 3-4 ไม่เห็น** (cast เลื่อนลง) | Cast หลวม | Re-do cast → fragment อาจ displace |
+| **Digits 3-4 โผล่ปกติ** | OK | Continue monitoring |
+
+⚠️ **Worst-case scenario**: Cast wet + tight + ignored → ขาเน่า → **ตัดขา!**
+
+---
+
+## 7. Cast Care Rules ⭐
+
+| Rule | Reason |
+|---|---|
+| **24 hr post-cast check** | Detect tight/loose early |
+| **ห้ามเปียกน้ำ** | สำลีดูดน้ำ → เน่า ภายใน 3-5 วัน |
+| **Replace cast every 3-4 wks** (เด็ก!) | สัตว์โต cast คับ + joint stiffness |
+| **Mobilize joints** ตอนเปลี่ยน cast | ป้องกัน joint stiffness |
+| **Post-cast X-ray** ทุกครั้ง | Confirm fragment alignment |
+
+⭐ Cast healing time: **6-16 weeks** (1.5-4 months) ขึ้นกับอายุ + Fx type
+
+---
+
+## 8. Splints (Half Cast) ⭐
+
+⭐ Splint = **เฝือกครึ่ง** (half cast) — caudal สำหรับขาหน้า · cranial สำหรับขาหลัง
+
+| Indication | Detail |
+|---|---|
+| **Pre-op** | ป้องกัน fracture ทิ่มทะลุ |
+| **Post-op** | Reduce load on plate/pin |
+| **Open Fx** | สามารถจัดการแผลได้ (cast ปิดสนิท ทำไม่ได้) |
+| **Severe edema** | ใส่ cast ไม่ได้ |
+
+**Materials**: Plaster of Paris หรือ **Thermoplastic XL** (preferred — เบา · reusable · 1 sheet XL = 2 layers POP)
+
+---
+
+## 9. Modified Thomas Splint ⭐
+
+- ลวดดัดเป็น **ring** ที่ขาหนีบ/รักแร้ + bar ตามแนวขา + tape ยึด
+- ใช้ใน **fissure ที่ humerus/femur** (ไม่ displaced) + **fractures ต่ำกว่า elbow/stifle**
+- ปัจจุบันไม่ค่อยใช้ในสัตว์เล็ก · ยังใช้ใน **วัว · ม้า**
+
+---
+
+## 10. Modified Robert Jones Bandage ⭐
+
+| Indication | Detail |
+|---|---|
+| **Pre-op** | ประคองก่อนผ่า |
+| **Post-op** | ลด dead space · ลด swelling |
+| **Patellar tendon repair** | Support |
+| **Soft tissue trauma** | Compression dressing |
+
+**Method**: Cast Padding + Elastic bandage (no plaster!) — softer than splint, more compression
+
+---
+
+## 11. Slings (สำหรับ joint stabilization, NOT bone Fx) ⭐⭐⭐
+
+### 11.1 Ehmer Sling (ขาหลัง)
+**Indication**: **Hip luxation post-reduction** (Coxofemoral joint dislocation)
+
+**Goal Position**: Hip in **flexion + abduction + internal rotation** = ปลายเท้าบิดเข้า, hock บิดออก
+
+**Technique** (figure-of-8):
+1. Reduce hip first
+2. Tape เริ่มจาก metatarsus → slide เข้า medial → up to groin → down
+3. พัน 2 รอบ → รอบ 3 บิดเข้า medial หลัง hock → กลับขึ้น groin → repeat
+4. **For short legs** (Shih Tzu, Pug, Mini, Pom, Chihuahua): + รอบ T-bia → รอบเอว → กลับ T-bia
+5. **ระวัง**: ตัวผู้ — ห้ามรัด penis (urinary obstruction!)
+
+**Duration**: **10 days** · check digits + X-ray confirm
+
+⚠️ **Hip dysplasia → ไม่ควร reduce** (เบาตื้น/หัวกระดูกแบน → จะหลุดอีก)
+
+### 11.2 Velpeau Sling (ขาหน้า)
+**Indication**: **Shoulder luxation** post-reduction
+
+**Goal Position**: Shoulder + elbow + carpus all flexed → ขาหน้าซ่อนใน sling, ไม่เห็นนิ้ว
+
+**Method**: Tape เริ่มจาก metacarpus → over scapula → behind opposite axilla → repeat (figure-of-8)
+
+### 11.3 Carpal Flexion (Shoulder) Sling
+**Indication**: Lameness · post-op · prevent weight-bearing
+
+**Method**: Tape เริ่ม distal radius → over scapula → behind opposite axilla → repeat
+- **Different from Velpeau**: เห็นปลายเท้า · ไม่ flex carpus
+- ⚠️ **Never overtighten**: chest expansion → respiratory compromise (esp. brachycephalic)
+
+---
+
+## 12. Tape Application Tip ⭐⭐⭐
+- **Stretch tape first → re-roll loosely** before applying
+- Reason: tape's adhesive resistance → over-tension when applying directly → 80-90% cases swell!
+
+---
+
+## 13. Cast Removal Criteria ⭐
+1. **Clinical Union**: สัตว์ลงน้ำหนักได้
+2. **Radiographic union > 70-80%**
+
+⭐ "Clinical union" ≠ "Complete union" — partial healing แต่ functional use แล้ว
+
+| Age | Healing time |
+|---|---|
+| < 3 months (puppy/kitten) | 2-3 weeks |
+| 3-12 months (juvenile) | 4-6 weeks |
+| Adult | 6-12 weeks |
+| Senior | 12-16+ weeks |
+
+---
+
+# 🟪 PART B — Fracture Complications
+
+## 14. 3 Types of Healing Failure ⭐⭐⭐ (KEY!)
+
+| Type | Definition | X-ray |
+|---|---|---|
+| **Delayed Union** ⭐ | ติด แต่ช้ากว่าปกติ (เกิน 16-20 wk) | Healing visible แต่ incomplete |
+| **Non-Union** ⭐ | ไม่ติด · กระดูกอาจ resorb หรือกลายเป็น false joint | Sclerotic ends · Smooth contour · Possible "elephant foot" pattern |
+| **Mal-Union** ⭐ | ติด **แต่ผิดรูป** — ขาบิด/เอียง/สั้น | Fragment heal in displaced position |
+
+⭐ **Goal**: ป้องกัน 3 ภาวะนี้ตั้งแต่ pre-op planning + intra-op + post-op care
+
+---
+
+## 15. Risk Factors for Healing Failure
+
+| Factor | Mechanism |
+|---|---|
+| **Fracture line movement** | Fragment unstable → callus เปราะ |
+| **Poor reduction** | Overlap < 50% · gap กว้าง |
+| **Lost blood supply** | ขัดเลือด from tight cast · Aggressive periosteal stripping · Trauma severity |
+| **Infection** ⭐ | Pre-op (open Fx · contaminated) · Intra-op (poor sterility) · Post-op (poor wound care) |
+| **Bone loss** | Comminuted Fx + missing fragments · Chronic infection |
+| **Late repair** | Fibrous tissue + dead bone at Fx ends → must debride |
+
+---
+
+## 16. Patient & Equipment Factors
+
+| Factor | Impact |
+|---|---|
+| **Age** | Young = fast (< 3 mo: 2-3 wk) · Senior = slow |
+| **Breed** | Large + healthy = fast · Toy/small = slow |
+| **Health status** | Malnourished, hypothyroid, Cushing → poor healing |
+| **Bone location** | Long bone (rich BS) > Phalanges (poor BS) |
+| **Fracture pattern** | Stable > Unstable · Simple > Comminuted |
+| **Implant choice** | Plate (rigid) > IM pin · Tight > Loose |
+| **Time to repair** | **5-7 days = Golden Period** ⭐ — preserve periosteum |
+
+---
+
+## 17. Non-Union Subclassification ⭐⭐
+
+### 17.1 Viable (Vascular) Non-Union — ยังมีเลือดมา · พร้อมจะสร้าง
+
+| Subtype | Characteristic | Cause |
+|---|---|---|
+| **Hypertrophic** ⭐ | "**Elephant foot**" pattern · callus เยอะมาก · ไม่ติด | Fx unstable + ร่างกายพยายาม heal |
+| **Moderately hypertrophic** | "**Horse-hoof**" pattern · callus ปานกลาง | Same — แต่ less reactive |
+| **Oligotrophic** | Callus น้อย · ไม่เห็นชัด | Cerclage wire impingement on periosteum · Poor reduction |
+
+**Treatment**: Debride · Re-stabilize with **rigid fixation** (plate) · Bone graft
+
+### 17.2 Non-Viable (Avascular) Non-Union — ขาดเลือด
+
+| Subtype | Detail |
+|---|---|
+| **Dystrophic** | Bone fragment isolated, no blood supply |
+| **Necrotic** | Dead bone segment |
+| **Defect** | Large bone gap |
+| **Atrophic** | Bone resorption |
+
+**Treatment**: Aggressive debridement of dead bone · Bone graft (autologous from iliac crest / proximal femur / proximal tibia) · Rigid fixation
+
+---
+
+## 18. Bone Healing Types ⭐ (Recap)
+
+| Type | Mechanism | When |
+|---|---|---|
+| **Primary (1°) bone union** | Direct healing · NO callus | Rigid plate + screws · Compression at Fx site |
+| **Secondary (2°) bone union** | External callus → remodeling | IM pin · ESF · Cast/Splint |
+
+⭐ Primary union → **Fx line หายไปเอง** ไม่เห็นใน X-ray
+⭐ Secondary union → **Callus formation** เห็นชัด
+
+---
+
+## 19. Treatment Algorithm
+
+### 19.1 Delayed Union Management
+1. X-ray → confirm callus formation
+2. Add **splint** (extra support) หรือ **ESF**
+3. Treat infection if present (culture + sensitivity-specific antibiotic)
+4. Restrict activity
+5. Re-image weekly
+
+### 19.2 Non-Union Management (Surgical)
+1. **Debride** Fx site → fresh bone
+2. **Remove fibrous tissue / dead bone**
+3. **Bone graft** (cancellous bone from iliac crest)
+4. **Rigid fixation** (plate + screws preferred)
+5. ⚠️ **Treat infection FIRST** before re-implanting!
+
+### 19.3 Mal-Union Management
+- Mild → may leave alone if functional
+- Severe → **osteotomy + re-reduction + plate**
+
+---
+
+## 20. Bone Graft Sources ⭐
+| Source | Type | Use |
+|---|---|---|
+| **Iliac crest** | Cancellous (best) | Most common · rich in osteogenic cells |
+| **Proximal femur** | Cancellous | Alternative |
+| **Proximal tibia** | Cancellous | Alternative |
+| **Cortical strut** | Cortical | Bridge defects |
+
+---
+
+## 📝 EXAM RECAP — 22 Key Points
+
+1. **Cast = self-complete tool** · Temporary devices = adjuncts only
+2. **Cast applicable ONLY distal to elbow/stifle** ⭐ — not for humerus/femur (except spica for fissure)
+3. **3 cast materials**: POP (cheap, heavy) · XL/Thermoplastic (reusable) · Fiberglass (light, expensive)
+4. **Setting time 5 min ideal** for all
+5. **Stirrup tape** = 2 strips + 1 securing strip = MUST be intact (ถ้าหลุด = restart!)
+6. **Cast Padding edge ที่ digit 2-5** · digit 3-4 โผล่ = visualization markers ⭐⭐⭐
+7. **Olecranon padding** = 4-6 layers extra (ป้องกัน cast bite)
+8. **Overlap 1.5x → caudal (forelimb) / cranial (hindlimb)** = weight-bearing side
+9. **Digit 3-4 monitor**: Swollen = tight · Hidden = loose · Both = redo!
+10. **NEVER wet cast** → Necrosis in 3-5 days → may amputate ⭐
+11. **Replace cast q 3-4 wks** (for puppies → growing!) · Mobilize joint
+12. **Post-cast X-ray mandatory** every application
+13. **Modified Thomas Splint** = ring at groin/axilla + bar — for fissure or low Fx
+14. **Modified Robert Jones** = soft compression dressing (no plaster)
+15. **Ehmer Sling** = hip luxation · figure-8 · **flexion + abduction + internal rotation** · 10 days
+16. **Velpeau Sling** = shoulder luxation · forelimb hidden in sling · 10 days
+17. **Tape technique**: stretch → re-roll loosely BEFORE applying ⭐
+18. **3 healing failures**: Delayed (slow) · Non (no heal) · Mal (heal wrong) ⭐
+19. **Hypertrophic non-union** = "elephant foot" — callus เยอะ but no union (Fx unstable + reactive bone)
+20. **Atrophic non-union** = avascular · need bone graft
+21. **Rigid fixation = primary union (no callus)** · IM/ESF/Cast = secondary union (callus)
+22. **Golden Period = 5-7 days** for fresh repair · After 2 wk = need debridement
+
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 6.2 ESF (LwNNZYoCpZE) · 9.2 Hip Dysplasia (hIlH1i845wI) · 9.3 Patella Luxation (CIUpw8GNtQ4)
+> ⚠️ **Top exam focus**: Digit 3-4 rule · Cast indications · Sling figure-8 (Ehmer/Velpeau) · 3 union types
+> 🦴 **Practical**: Lab Sx 3 จะมี hands-on practice — ทุก technique ในนี้จะได้ทำจริง`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
