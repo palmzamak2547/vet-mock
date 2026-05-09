@@ -30855,6 +30855,285 @@ Exposing gilt to **mature boar** triggers:
 > 🦴 **Modern induction**: Day 113 PGF2α + supervise = max live births`,
   },
 
+  wCl4h_EhFuU: {
+    videoId: 'wCl4h_EhFuU',
+    title: '11. ความผิดปกติของอวัยวะสืบพันธุ์สุกรเพศเมีย I',
+    subject: 'swine-repro',
+    date: '29 Oct 67',
+    durationMin: 122,
+    instructor: 'อ.มรกต (CUVET)',
+    examFormat: 'MCQ — Cull rate 49.5% · 3 main reproductive disorders · Single vs Multiple ovarian cysts · Anestrus vs Silent estrus · Delayed ovulation · Sow teat memory ออกบ่อย',
+    summary: `# Female Reproductive Disorders in Swine I
+
+> 🎯 **The dark side of sow productivity** — what causes 49.5% cull rate
+> Top exam: **Cull rate 49.5% Sweden/Thai · 3 disorders · Cystic ovary (Single vs Multiple) · Anestrus vs Silent · Delayed ovulation · Teat memory phenomenon**
+
+---
+
+## 1. The 49.5% Cull Rate Problem ⭐⭐⭐ (Why this lecture matters!)
+
+### Sweden study (21 farms, 14,000 sows)
+- **Average annual cull rate: 49.5%**
+- Best farm: 33.6%
+- Worst farm: 66%
+
+### Thailand similar
+- **Average: 49.8%**
+- Best: 38.9%
+- Worst: 60%
+
+### What does 50% cull mean?
+- 1,000-sow farm = 500 sows culled per year
+- ~10 sows per week
+- ~40 per month
+- Most around weaning timing
+
+### 14.5% of culls = Parity 0 (gilt!)
+- Never even produced 1 litter
+- Pure economic loss
+- Often due to PRE-BREEDING repro problems
+
+---
+
+## 2. Three Main Female Reproductive Disorders ⭐⭐⭐ (FOUNDATION!)
+
+| Rank | Disorder | % of culls |
+|---|---|---|
+| **1** | **Reproductive disorders** ⭐ | 26.9% |
+| **2** | **Old age (>P6)** | 18.7% |
+| **3** | **Mammary disorders** | ~17% |
+
+### Other categories
+- Other problems (often incl. mammary): variable
+- Low production: 10%
+- Lameness: 5-10%
+- Trauma: minimal
+
+> ⭐ **#1 cull cause is REPRODUCTIVE** = vet's main target
+
+---
+
+## 3. The Three Main Reproductive Disorders ⭐⭐ (Today's focus!)
+
+### Group 1: Cystic Ovaries (~10%)
+- Single seat (one cyst)
+- Multiple seats (2+ cysts)
+- Various sizes
+
+### Group 2: Endometritis (Uterine Inflammation)
+- Uterine infection
+- Often post-MMA syndrome
+- Limits fertility
+
+### Group 3: Congenital Defects
+- Found in gilts only (Parity 0)
+- Mostly genetic
+- Cull from breeding
+
+---
+
+## 4. Anestrus vs Silent Estrus ⭐⭐ (KEY distinction!)
+
+### Anestrus (true cessation)
+**Ovaries NOT working**
+- No follicular development
+- No ovulation
+- No estrus signs (because none occurring)
+
+### Silent Estrus
+**Ovaries WORKING but signs missed**
+- Follicles develop normally
+- Ovulation occurs
+- BUT no behavioral signs visible
+- Detection failed
+- Common in low-light or stressed sows
+
+### Same clinical presentation
+- Sow doesn't show estrus
+- Heat detection negative
+- Worker reports "not in heat"
+
+### How to differentiate
+| Method | Anestrus | Silent estrus |
+|---|---|---|
+| Ultrasound for follicles | Empty ovaries | Normal follicles |
+| Progesterone test | Low (no CL) | Normal |
+| Treatment | PG600 | Better detection method (boar exposure) |
+
+---
+
+## 5. When Does Estrus Normally Occur?
+
+### Two key time points
+| Trigger | Onset of estrus |
+|---|---|
+| **Gilt puberty** | Usually 180-200 days (5-7 months) |
+| **Post-weaning** | 4-7 days after weaning |
+
+### Why post-weaning estrus comes back
+- Suckling stimulation → prolactin → suppresses GnRH
+- Wean = stimulation stops
+- GnRH releases all at once (it was waiting!)
+- LH/FSH surge → follicle growth → ovulation in 4-7 days
+
+---
+
+## 6. Cystic Ovaries ⭐⭐ (#1 disorder!)
+
+### Definition
+**Persistent enlarged follicles that fail to ovulate**
+
+### Two types
+| Type | Description | Implication |
+|---|---|---|
+| **Single seat** | 1 cyst | Often resolves |
+| **Multiple seats** | 2+ cysts | Persistent, harder to treat |
+
+### Comparison to cattle
+- In cattle: 1 cyst = pathological
+- In swine: average 26 follicles ovulate, so 1 cyst not = problem
+- Multiple cysts = real issue (>2)
+
+### Causes
+- Stress
+- Nutritional deficiency (selenium, vitamin E)
+- Mycotoxin (especially zearalenone!)
+- Aging
+- Genetic predisposition
+
+### Diagnosis
+- Ultrasound (transrectal best)
+- Persistent follicles >25mm = suspect
+- Hormone profile: high estrogen, low progesterone
+
+### Treatment
+- **PGF2α** (lyse if luteinized)
+- **GnRH** (induce ovulation if responding)
+- **PG600** (combined therapy)
+- Cull if persistent
+
+---
+
+## 7. Delayed Ovulation ⭐⭐ (Hidden problem!)
+
+### What is it?
+**Ovulation occurs LATER than 40-60 hours post-onset of standing**
+
+### Why problematic
+- AI is timed for usual schedule (24-30h post-onset)
+- Sperm survives ~24 hours in tract
+- 2-3 AIs cover normal range
+- If ovulation at 80+ hours → no live sperm left → no fertilization
+
+### Causes
+- Mycotoxin
+- Stress
+- Aging sows
+- Erratic cycles
+
+### Detection
+- Ultrasound every 4 hours (impractical)
+- Repeat AI every 24 hours
+- Combine with GnRH timing
+
+### Modern solution
+- **GnRH at AI** to time ovulation
+- Reduces variability
+- Improves conception rate
+
+---
+
+## 8. Endometritis (Uterine Inflammation) ⭐
+
+### Common causes
+- Post-farrowing infection
+- Manual insertion of contaminated catheter
+- Retained placenta
+- Birth canal trauma
+
+### Clinical signs
+- Vaginal discharge (yellow/cream)
+- Decreased fertility
+- Failed conception
+- Sometimes fever
+
+### Diagnosis
+- Ultrasound (uterine wall thickening + fluid)
+- Vaginal cytology
+- Endometrial swab + culture
+
+### Treatment
+- Systemic + intrauterine antibiotics
+- Sterile AI catheter
+- PGF2α to flush uterus
+- If persistent → CULL
+
+---
+
+## 9. Teat Memory Phenomenon ⭐⭐⭐ (FUN trivia!)
+
+### Discovery (Nature paper)
+**Piglets memorize their teat by Day 3**
+
+### Process
+| Day | Behavior |
+|---|---|
+| Day 1 (24h) | No teat preference |
+| Day 2 | Begin to recognize |
+| **Day 3** ⭐ | **Each piglet sticks to ONE teat for life** |
+
+### Implication
+- If a teat dies (mastitis), THAT piglet dies
+- Cannot share/swap teats
+- Cross-fostering only works in first 24-72 hours
+
+### Why this matters
+- Mammary disorders = 17% of culls
+- Each lost teat = 1 piglet dies
+- Mastitis prevention critical
+
+---
+
+## 10. Genetic vs Acquired Disorders ⭐
+
+### Congenital (Parity 0 only)
+- Persistent hymen
+- Uterus unicornis (one horn)
+- Ovarian aplasia
+- Vulval malformations
+- All = cull from breeding
+
+### Acquired (Parity 1+)
+- Endometritis
+- Cystic ovaries
+- Trauma
+- Disease
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **Cull rate 49.5%** Sweden + Thailand
+2. **#1 cull cause = reproductive disorders** (26.9%)
+3. **3 main disorders**: Cysts, Endometritis, Congenital
+4. **Anestrus = ovaries OFF** (true cessation)
+5. **Silent estrus = ovaries ON** (signs missed)
+6. **Cystic ovaries Single vs Multiple**
+7. **Multiple cysts = persistent, harder to treat**
+8. **Mycotoxin (zearalenone)** = cyst trigger
+9. **PG600 / GnRH** = cyst treatment
+10. **Delayed ovulation** = AI fails (sperm dies before egg)
+11. **GnRH at AI** = times ovulation
+12. **Endometritis** = post-farrow infection
+13. **Piglets memorize teats by Day 3** (Tea memory)
+14. **Lost teat = lost piglet** (no swapping)
+
+> 📚 อ่านควบ: 4 Reproductive problems boar (ABb7TdP98Zc) · 9 Pregnancy failure (pcytvk49Yc8) · 14 Postpartum (yxrcr-gg8sQ)
+> 🩻 **Practice tip**: Differentiate Anestrus vs Silent — different treatments!
+> 💡 **Mycotoxin**: causes cysts, infertility, abortion — feed quality critical
+> 🦴 **Modern target**: Reduce repro disorders to <20% of culls`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
