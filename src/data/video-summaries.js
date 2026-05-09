@@ -23513,6 +23513,234 @@ OCD has "**predictable size locations**" = specific sites on each joint
 > 🦴 **Prognosis pearl**: Shoulder > Stifle > Elbow > Hock — remember this hierarchy!`,
   },
 
+  zj4go8swIgM: {
+    videoId: 'zj4go8swIgM',
+    title: '15.3 Basic Animal Rehabilitation (ไม่ออกสอบ)',
+    subject: 'com2',
+    date: '27 Nov 67',
+    durationMin: 46,
+    instructor: 'อ.ฤทัยทิพย์ อุปริพุทธิ (พี่หมอทิพย์ · animal physiotherapist · CUVET rehab center)',
+    examFormat: 'ไม่ออกสอบ — supplementary lecture · but useful clinical concepts: 7 rehab modalities · Gate Control Theory · Kinesio taping · Myofascial Kinetic Linkage',
+    summary: `# Basic Animal Rehabilitation
+
+> 🎯 **NOT ON EXAM** but ESSENTIAL clinical concepts for orthopedic/neuro recovery
+> **Lecturer**: พี่หมอทิพย์ — runs CUVET small animal hospital rehab center (2nd floor · M/T/W)
+> Top concepts: **3 rehab assessments · 7 modalities · Gate Control Theory · 5-grade muscle strength · taping kinetic linkage**
+
+---
+
+## 1. Rehab Examination ⭐ (3 components — before treatment)
+
+### A. Passive Range of Motion (PROM)
+- Tool: **Goniometer** ⭐ (protractor with movable arm)
+- Stationary arm = parallel to upper bone · pivot at joint center · moving arm tracks lower bone
+- Measure flexion + extension angles for shoulder · elbow · carpus · hip · stifle · tarsus
+- Each joint has **normal ROM range** to compare against
+- **Decreased ROM** in OCD/OA = pain → reduced movement
+
+### B. Muscle Mass measurement
+- Tape measure at **70% of leg length** (anatomical landmark)
+- Compare bilateral · check for atrophy
+
+### C. Muscle Strength grading (Standing test) ⭐
+| Grade | Test result |
+|---|---|
+| **5** | Normal — bears weight on 1 leg both flat AND inclined surface |
+| **4** | Stands on flat 1 leg · CANNOT on inclined |
+| **3** ⭐ | Stands on flat ground 1 leg · cannot on inclined (case in lecture) |
+| **2** | Stands with assistance only |
+| **1** | Cannot stand at all |
+
+---
+
+## 2. Benefits of Rehab ⭐
+
+| Benefit | Why important |
+|---|---|
+| **Pain reduction** | Multiple modalities target different mechanisms |
+| **Faster recovery** | Tissue regeneration accelerated |
+| **Muscle strengthening** | Counters disuse atrophy |
+| **Non-invasive** | No needles, no surgery, no GA |
+| **Low side effects** | vs NSAIDs which cause renal/hepatic issues lifetime |
+
+> **Trend**: Owners prefer rehab over chronic NSAIDs (similar to humans choosing alternative medicine over pharmaceuticals)
+
+---
+
+## 3. The 7 Rehab Modalities ⭐⭐⭐
+
+### A. Cryotherapy (Cold compress)
+- **Mechanism**: vasoconstriction → ↓ inflammation
+- **Indication**: Post-op (1-3 days) · acute injury · ongoing inflammation
+- **Duration**: 15-20 min per session
+- **Contraindications**: DM (peripheral neuropathy → can burn) · senior dogs (poor feedback)
+
+### B. Heat Therapy (Warm compress)
+- **Mechanism**: vasodilation → ↑ blood flow → flushes lactic acid · oxygenates muscle · loosens collagen
+- **Indication**: Muscle cramping · Hip OA · myofascial pain · Office Syndrome (humans!)
+- Increases collagen extensibility · relaxes nerves → pain relief
+
+### C. Therapeutic Ultrasound ⭐
+- **Mechanism**: Piezoelectric crystal generates compression-rarefaction waves at high freq
+- **Penetration**: ~5 cm deep — reaches deep muscle layers
+- **Two effects**:
+  | Effect | What it does |
+  |---|---|
+  | **Thermal** | Heats deep muscle/joint capsule → ↑ extensibility |
+  | **Non-thermal (cavitation)** | Cell membrane oscillates → opens → Ca²⁺ influx → ↑ ion exchange → ↑ fibroblast/angiogenesis/collagen synthesis → faster healing |
+- **Indications**: Post-op (e.g., FHNE — Femoral Head & Neck Excision) for pseudoarthrosis formation
+- **Contraindications**: ⛔ Cancer · ⛔ Growth plates (open epiphysis = burn cells → uneven growth) · ⛔ Recent post-op spinal cord (5cm depth might burn cord) · ⛔ Metal implants
+
+### D. Electrical Stimulation ⭐⭐ (Most-discussed concept)
+
+#### History — Electric eel discovery
+> Ancient migraine sufferer accidentally caught electric eel · electric shock relieved migraine → started research
+
+#### Two types:
+| Type | Use |
+|---|---|
+| **TENS / IFC** | Pain reduction |
+| **NMES** (NeuroMuscular E-Stim) | Muscle contraction → preserves muscle in paraplegic / post-op disuse atrophy |
+
+#### **Gate Control Theory** ⭐⭐⭐ (Why E-stim works for pain)
+**Two nerve fiber types** in spinal cord:
+| Fiber | Size | Myelin | Conducts | Speed |
+|---|---|---|---|---|
+| **C-fiber** | Small | None | **Pain** | Slow (walking) |
+| **Aβ-fiber** | Large | Yes (Schwann + Nodes of Ranvier) | **Touch / massage / E-stim** | Fast (running) |
+
+**Mechanism**:
+1. Pain (C-fiber) inhibits inhibitory interneuron → pain signal reaches brain
+2. **Touch/E-stim (Aβ-fiber) fires FIRST** (faster) → activates inhibitory interneuron → BLOCKS C-fiber signal → no pain to brain
+
+> 💡 Clinical analogy: when slapped, you instinctively touch your face → Aβ activation closes the "gate" → pain reduced
+
+#### Evidence (research)
+- Hip OA dogs treated with E-stim → improved weight-bearing by **7%** vs baseline → confirms pain reduction
+- Used in disuse atrophy (paraplegic dogs · 1-2 wk post-op)
+
+#### Application
+- Shave fur · place electrodes along muscle alignment (e.g., hip flexor group)
+- Adjust intensity until visible muscle contraction
+- ⛔ NEVER over heart or brain (can cause arrhythmia/seizure)
+
+### E. Laser Therapy (Photobiomodulation)
+- **Mechanism**: Light photons absorbed by **chromophores** (cell components like mitochondria) → activate cellular machinery
+- **Effects**:
+  | Effect | Result |
+  |---|---|
+  | ↑ Mitochondrial activity | ↑ ATP production (peaks 5 min post-Tx · sustained 6-12 hr · returns to baseline 24 hr) |
+  | ↑ O₂ exchange | RBCs absorb/release O₂ faster |
+  | ↑ Vascularization | Angiogenesis · tissue healing |
+  | Smooth muscle contraction | Releases actin/myosin lockup in cramped muscle |
+  | ↑ Pain threshold | Acts at peripheral nerve endings |
+- **Indications**: Wound healing · OA · muscle pain · post-op recovery
+- **Contraindications**:
+  - ⛔ **Cancer** (laser ↑ ATP → feeds cancer growth → metastasis risk!) ⭐⭐
+  - ⛔ Cyst · thyroid (alters endocrine function)
+  - ⛔ Dark-coated dogs need **half dose** (melanin absorbs light → burn risk)
+- ⚠️ Always wear protective glasses during treatment
+
+### F. Shockwave Therapy
+- **Mechanism**: High-energy acoustic waves → controlled "**re-inflammation**" → triggers healing cascade
+- **Effects**:
+  - ↑ Growth factors → ↑ collagen synthesis
+  - **Revascularization / neovascularization** → blood flow to AVN bone (e.g., LCP, FCP)
+  - Releases mechanotransduction signals → tendon/bone repair
+- **Indications**: Hip OA · LCP (avascular necrosis) · FCP · chronic pain
+- **Duration**: ~2 min per session (painful but brief!)
+- **Contraindications**: ⛔ Cancer · ⛔ Acute inflammation · ⛔ Immune-mediated joint disease (further destabilizes)
+
+### G. Kinesio Taping ⭐⭐ (Newest concept — fascia-based!)
+
+#### Anatomy primer: **Fascia layers**
+- Skin → **Superficial fascia** → **Deep fascia** → Muscle
+- Cramped muscle = layers stick together → poor lymphatic/blood flow → pain
+
+#### Tape mechanism:
+1. Tape lifts skin → **separates superficial from deep fascia** ⭐
+2. Muscle relaxation (gliding restored)
+3. Lymphatic & venous flow improved
+4. **Mechanoreceptor activation** → Aβ fiber → Gate Control → pain reduction
+5. Neurological signaling to brain → improved coordination
+
+#### Use in athletes (golf, Olympics)
+- Tape on deltoid → enhances proprioception → better swing coordination
+
+#### Use in dogs/horses
+- Hip OA · sore back · cervical pain (conservative cases when surgery isn't possible)
+- Case study: FHNE dog · weight bearing pre-tape **85%** → post-tape **98%** ⭐
+
+---
+
+## 4. Myofascial Kinetic Linkage ⭐ (Tom Myers' lines)
+
+**Concept**: Fascia is NOT just packing material — it's a **connecting network** between distant body parts!
+
+### Tom Myers' "Anatomy Trains" research (Humans)
+- Dissected 1000s of cadavers
+- Found 12 named fascial lines (e.g., Superficial Back Line · Superficial Front Line · Spiral Line)
+- Pain at one site can originate from connected site (e.g., neck pain → flat foot)
+
+### Clinical pearl
+> "Treating where the pain is doesn't always fix the pain" — fix the fascial linkage
+
+Example case: chronic neck pain unresponsive to local treatment → fixed flat foot → neck pain resolved (Superficial Back Line connection)
+
+### Veterinary application
+- **Dogs**: 11 mapped fascial lines (paper published 2024)
+- **Horses**: same concept · venal abdominal taping → improved gait
+- **Pigs**: same concept
+
+### How to use
+- **Hip pain** → also evaluate **back + neck** (Superficial Dorsal Line connects all 3)
+- Treatment plan = whole alignment, not just sore spot
+
+> ⭐ Not yet in formal vet curriculum — but emerging field, papers starting 2024
+
+---
+
+## 5. Therapeutic Exercise ⭐ (Examples)
+
+| Exercise | Targets | How |
+|---|---|---|
+| **Dancing** | Hip extensor strength | Hold dog's forepaws · walk forward + backward |
+| **Underwater treadmill** ⭐ | Disused muscle preservation · paraparesis recovery | Buoyancy reduces weight load · forces normal gait pattern |
+| **Cavaletti rails** | Proprioception | Step over poles |
+| **Sit-to-stand** | Hindlimb strength | Repeated transitions |
+
+---
+
+## 6. Combined Treatment Algorithm ⭐
+
+| Step | Action | Tools/Examples |
+|---|---|---|
+| **1** | **Diagnose** | Identify pain source via rehab exam |
+| **2** | **Pain reduction** | E-stim (gate control) · Ultrasound (collagen extensibility) · Laser (ATP boost) · Cold/heat compress |
+| **3** | **Strengthening** | NMES (preserve) · Therapeutic exercise (active) |
+| **4** | **Combine** | Multiple modalities — single tool rarely sufficient |
+
+---
+
+## 🎯 Key clinical pearls (NOT exam — but practical)
+
+1. **3-component rehab exam**: PROM · muscle mass · strength grade
+2. **7 modalities**: Cold · Heat · Ultrasound · E-stim · Laser · Shockwave · Tape
+3. **Gate Control Theory**: Aβ fiber blocks C fiber → pain reduction
+4. **Ultrasound has dual effect**: thermal (deep heat) + non-thermal (cell-level)
+5. **Laser BANNED in cancer** (feeds ATP)
+6. **Ultrasound BANNED at growth plates** (kills cells)
+7. **Shockwave triggers re-inflammation** for healing cascade
+8. **Tape separates fascia layers** → muscle gliding restored
+9. **Myofascial Kinetic Linkage** = fascia connects body parts → treat the whole line
+10. **Strengthening requires ACTIVE muscle contraction** — NMES preserves but doesn't strengthen
+
+> 📚 อ่านควบ: All com2 orthopedic videos (1, 5, 6.1-2, 7, 8.2, 9.1-3, 11, 12, 13.1-2, 14, 15.1-2)
+> 🩻 **Practice tip**: Visit CUVET rehab center 2nd floor (Mon/Tue/Wed) to see real cases
+> 💡 **Owner education**: Rehab > chronic NSAIDs for long-term joint disease management
+> 🦴 **Modern trend**: Tom Myers' fascial lines now applied to dogs · paper 2024`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
