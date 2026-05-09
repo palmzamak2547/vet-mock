@@ -27182,6 +27182,303 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 > 🦴 **Modern reality**: banned list keeps growing — stay updated`,
   },
 
+  ND2MrxWAsBI: {
+    videoId: 'ND2MrxWAsBI',
+    title: '13. Feed Management in Swine',
+    subject: 'swine-herd',
+    date: '12 Nov 67',
+    durationMin: 96,
+    instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
+    examFormat: 'MCQ — 4 feed criteria · ingredients categories · Edema disease (overfeed weaners) · 4 feed phases · cassava cyanogen toxicity · feed cost = 60-70% of pig cost ออกบ่อย',
+    summary: `# Swine Feed Management
+
+> 🎯 **The biggest cost center** — 60-70% of pig production = feed
+> Top exam: **4 feed criteria · key ingredients pros/cons · Edema disease in over-fed weaners · Aflatoxin sources · Phase feeding · ppm calculations**
+
+---
+
+## 1. Feed Criteria ⭐⭐ (4 things every feed must have)
+
+### What modern pig feed needs
+| Criterion | Definition |
+|---|---|
+| **Palatability** | Pig WANTS to eat it (taste, smell, texture) |
+| **Digestibility** | Pig CAN absorb nutrients efficiently |
+| **Quality ingredients** | No old/contaminated/low-grade |
+| **Economic** | Affordable per nutritional unit |
+
+### Why historical "หมูน้ำ" doesn't work today
+- Old: feed pigs market scraps + waste (sustainable but unhealthy)
+- Modern: industrial production demands consistency
+- Cannot use rotting scraps, pesticide residues, or random waste
+
+---
+
+## 2. Plant Protein Sources ⭐ (Common ingredients)
+
+| Ingredient | Protein % | Issues |
+|---|---|---|
+| **Soybean meal** ⭐ | ~44-48% | Trypsin inhibitor (anti-nutrient) · **Aflatoxin** risk |
+| **Cottonseed meal** | ~40-45% | **Gossypol** (anti-nutrient) · digestibility low |
+| **Coconut meal** | ~20% | Easily rancid (high lipid) |
+| **Kenaf / Castor meal** | Variable | Less common · used economically |
+
+### Aflatoxin risk pathway
+1. Soybeans grown in Brazil
+2. Long shipping (3+ months)
+3. Humidity exposure → mold growth → aflatoxin
+4. Arrives Thailand contaminated
+5. Pig eats → liver damage, anemia, cancer
+
+> ⭐ **Aflatoxin** = top exam mycotoxin · from *Aspergillus* species
+
+---
+
+## 3. Animal Protein Sources ⭐
+
+| Ingredient | Protein % | Issues |
+|---|---|---|
+| **Fish meal** ⭐ | ~60% | Fishy odor, expensive |
+| **Chicken byproduct meal** | ~55% | Spreads avian disease (across-species OK) |
+| **Pork byproduct meal** ⭐ | ~70-80% | ⛔ **Risk of pathogen recycling** (ASF, etc!) |
+| **Blood meal (spray-dried plasma)** | ~80% | Ham-pink color, potential pathogen risk |
+| **Milk powder (whey)** | Variable | Off-grade school milk used commercially |
+
+### Pork meal warning ⭐⭐
+- Pigs eating PIG byproducts = high risk of pathogen recycling
+- ASF, PRRS, classic swine fever can transfer this way
+- Many farms AVOID pork meal entirely
+- Use chicken + fish meal instead (different species barrier)
+
+---
+
+## 4. Carbohydrate Sources ⭐
+
+| Ingredient | Energy | Notes |
+|---|---|---|
+| **Broken rice (ปลายข้าว)** | High | 88% carb, mycotoxin risk |
+| **Rice bran (รำ)** | Medium | 12% protein, prone to rancidity |
+| **Corn** ⭐ | High | **Aflatoxin** risk |
+| **Sorghum** | High | Tannin (anti-nutrient) |
+| **Cassava** ⭐ | High | **Cyanogen** (cyanide-precursor!) |
+
+### Cassava cyanogen warning ⭐⭐⭐
+- Raw cassava contains cyanogenic glycosides
+- Hydrolyzes to **HCN (cyanide)** in body
+- Use only DRIED, properly processed cassava
+- Limit to <30% of diet typically
+
+### Tannin in sorghum
+- Astringent, reduces palatability
+- Reduces nutrient absorption (especially proteins)
+- Some breeds tolerate better
+
+---
+
+## 5. Fat Sources ⭐
+
+### Plant fat
+- **Palm oil** (most common in Thailand)
+- **Soybean oil**
+- **Rice bran oil**
+
+### Animal fat (FAT smell ranking!)
+| Source | Smell |
+|---|---|
+| **Beef tallow** ⭐ | STRONGEST (gamy) |
+| Pork lard | Medium |
+| **Chicken fat** | LIGHTEST/MOST PALATABLE |
+
+### Why fats added
+- High-energy in small volume
+- Help in winter ("Energy preservation")
+- Improve coat condition
+
+### Storage warning
+- Fat goes RANCID over time
+- Store in cool, sealed containers
+
+---
+
+## 6. Premix (Vitamin + Mineral Supplements) ⭐
+
+### What's in premix
+- Vitamin A, D, E, K, B-complex (B1, B2, B5, B12)
+- Calcium, Phosphorus
+- Trace minerals (Cu, Zn, Mn, Fe, I, Se)
+- Lysine + Methionine (sometimes)
+
+### Two ways farms get premix
+| Method | Pros |
+|---|---|
+| **Buy ready-made from manufacturer** | Easier, guaranteed quality |
+| **Make own (large farms)** | Cheaper, customizable |
+
+### Stage-specific premix needs
+- **Lactating sow**: high Ca (milk production)
+- **Suckling pig**: high vitamins
+- **Grower**: balanced
+- **Finisher**: less premix (cheaper)
+
+---
+
+## 7. Phase Feeding ⭐⭐⭐ (THE feed structure!)
+
+### Standard phases (most common system)
+| Phase | Age | Feed name |
+|---|---|---|
+| **Creep feed** ⭐ | Suckling, 1-3 wk | "Creep" or "C-EP feed" — high protein, palatable |
+| **Nursery 1 (อ.1)** | 4-6 wk post-wean | High protein |
+| **Nursery 2 (อ.2)** | 7-10 wk | Lower protein, higher energy |
+| **Grower (รุ่น)** | 10-15 wk | Standard |
+| **Finisher (ขุน)** | 15-22 wk | Lower protein, higher energy (cheapest formula) |
+
+### Why phase feed?
+- Match nutrient profile to pig's needs at each age
+- **Save costs** (don't feed expensive starter to finishers!)
+- Better growth metrics (FCR, ADG)
+
+---
+
+## 8. Sow Feeding ⭐ (Special considerations)
+
+### Gestation
+- **Restrict feed** in first 90 days (avoid obesity)
+- **Increase last 30 days** (fetal growth + udder development)
+- Energy: 3,800 kcal/kg
+
+### Lactation
+- **Free-feed** (ad libitum) — milk production is energy-intensive
+- High protein 14-16%
+- Sow loses ~10% body weight normally
+- Calcium critical (milk = high Ca content)
+
+### Wean to service
+- Standard maintenance OR slightly elevated ("flushing")
+- Boost ovulation rate
+
+---
+
+## 9. Edema Disease ⭐⭐ (Common over-feed problem!)
+
+### What is it?
+**Bacterial enterotoxemia** in over-fed weaners (3-6 wk post-wean)
+
+### Cause
+- Worker over-feeds nursery pigs ("they look hungry")
+- Pigs gorge → rapid carb fermentation
+- *E. coli* (specific strain producing **Shiga-like toxin**) over-grows
+- Toxin causes vascular damage → **edema in head, eyelids, gut wall, larynx**
+
+### Clinical signs
+- Sudden death (highest weight pigs first!)
+- Eyelid swelling, head edema
+- Squealing voice change (laryngeal edema)
+- Neurologic signs (ataxia)
+
+### Prevention
+1. Don't over-feed weaners
+2. Use **graduated feed schedule** (don't free-feed initially)
+3. Watch for "fastest growers" — they're at highest risk
+4. Add zinc oxide (helps gut health)
+
+> ⭐ Edema = "rich pig disease" — affects fastest growers, NOT the small ones
+
+---
+
+## 10. Feed Cost vs. Total Cost ⭐⭐ (Economic reality!)
+
+### Cost breakdown of finished pig
+| Component | % of total cost |
+|---|---|
+| **Feed** ⭐ | **60-70%** ⭐ |
+| Genetics | 5-10% |
+| Labor | 5-10% |
+| Medication | 3-5% |
+| Utilities | 5-10% |
+| Other | 5-10% |
+
+### Why feed dominates
+- Pig consumes 3 kg feed/day × 22 weeks = ~460 kg lifetime
+- At 15฿/kg = 6,900฿ feed cost per pig
+- Pig sold at 7,000-10,000฿ → margin razor-thin
+
+### Cost reduction strategies
+| Strategy | Effect |
+|---|---|
+| Better ingredients (less waste) | -5-10% feed cost |
+| Phase feeding | -3-5% |
+| Reduce mortality | Indirect savings |
+| Bulk buying | -5% |
+| Use cheap by-products | -10% but watch quality |
+
+---
+
+## 11. Feed Sources by Production Scale ⭐
+
+### Small farm (< 100 sows)
+- Buy commercial feed bag-by-bag
+- Pay highest price per kg
+- Easy management
+
+### Mid farm (100-1,000 sows)
+- Bulk delivery from feed company
+- Lower price per kg
+- Still buy ready-mix
+
+### Large farm (> 1,000 sows)
+- **Make own feed** (own producing feed)
+- Buy raw ingredients in bulk
+- Mix on-site
+- Lowest cost per kg
+- Need feed mill, formulator
+
+---
+
+## 12. Modern Trends ⭐
+
+### Disease-resistant pigs
+- Genetic selection for ASF tolerance (research stage)
+- PRRS-resistant lines (proven for some genetics)
+- Future: transgenic resistance
+
+### Functional feed additives
+- **Probiotics** (replacing antibiotics)
+- **Prebiotics** (gut health)
+- **Toxin binders** (for mycotoxins)
+- **Enzymes** (improve digestibility)
+- **Organic acids** (acidify gut, reduce pathogens)
+
+### Sustainability
+- Insect protein (BSF — Black Soldier Fly)
+- Algae protein
+- Reduce reliance on imported soy
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **4 feed criteria**: Palatability + Digestibility + Quality + Economy
+2. **Feed = 60-70% of pig cost**
+3. **Aflatoxin** comes from *Aspergillus* in soybean, corn (humidity-exposed)
+4. **Cassava** has **cyanogen** (HCN precursor) — must dry properly
+5. **Sorghum** has **tannin** (anti-nutrient)
+6. **Pork meal** = pathogen recycling risk (ASF!)
+7. **Chicken fat** = most palatable; beef tallow = gamy
+8. **Phase feeding**: Creep → Nursery1 → Nursery2 → Grower → Finisher
+9. **Edema disease** = over-fed weaners + Shiga-toxin *E. coli*
+10. **Edema affects FASTEST growers** (not small ones)
+11. **Lactating sow** needs HIGHEST energy + free-feed
+12. **Gestating sow**: restrict early, increase late
+13. **Premix** has vitamins + minerals + amino acids
+14. **Trypsin inhibitor in soybean** + **gossypol in cottonseed** = anti-nutrients
+
+> 📚 อ่านควบ: 3 Feed problems (xasWlGj92Yk) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY)
+> 🩻 **Practice tip**: Memorize Edema disease (over-feed pattern often missed)
+> 💡 **Phase feeding rationale**: cost-saving in finisher (cheapest mix possible)
+> 🦴 **Modern trend**: insect/algae protein replacing imported soy (sustainability)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
