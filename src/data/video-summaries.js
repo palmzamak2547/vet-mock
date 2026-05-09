@@ -18913,6 +18913,224 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > 🦷 หัวข้อนี้ overlap กับ COM 1 oral cavity (ปี 3) — ใช้ความรู้ dental anatomy เดิม`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 6.1 Muscle and Tendon Disorders (Y4/1)
+  // ─────────────────────────────────────────────────────────────
+  BLk5OjwlduA: {
+    videoId: 'BLk5OjwlduA',
+    title: '6.1. Muscle and tendon disorders',
+    subject: 'com2',
+    date: '11 Sep 67 (รุ่นพี่)',
+    durationMin: 38,
+    instructor: 'พี่ (อาจารย์รุ่นพี่)',
+    examFormat: 'MCQ — Quad contracture · Achilles plantigrade · suture choice for tendon · grade-based treatment',
+    summary: `# Muscle and Tendon Disorders
+
+> 🎯 บทเสริม ortho — soft tissue ที่อยู่รอบกระดูก (กล้ามเนื้อ + เส้นเอ็น) เสียหายได้พอกัน
+> ⚠️ Top 3 keywords ที่ออกสอบ: **Quadriceps contracture · Achilles tendon · Bicipital tendinosis**
+
+---
+
+# 🟧 PART 1 — Muscle Disorders
+
+## 1. Spectrum of Damage
+
+| Stage | กลไก | Detail |
+|---|---|---|
+| **Strain** | หด-เกร็ง | Office syndrome · ออกกำลังเบา ๆ |
+| **Contusion** | กระแทก-ช้ำ | Blunt trauma |
+| **Rupture** | ฉีกขาดของ Muscle Fiber | บางส่วนของมัด |
+| **Laceration** | ฉีกขาดทั้งมัด | Severe |
+
+## 2. Muscle Damage Grade (1-4) ⭐
+
+| Grade | Damage | Treatment |
+|---|---|---|
+| **Grade 1** | Few Muscle fibers | **Rest + NSAIDs** + cold pack 48 hr |
+| **Grade 2** | More fibers, mild bleeding | Rest + medical |
+| **Grade 3** | Many fibers + hematoma + fascia tear | **Surgical repair** |
+| **Grade 4** | **Whole muscle belly rupture** | Surgical repair |
+
+⭐ **48-hour rule**: cold pack first 48 hr → switch to **warm pack 50-60°C** (อย่าร้อนจนหนังลอก!)
+
+## 3. Common Muscle Causes
+- **Blunt trauma** (รถชน · ตก) → กระดูกหัก + Muscle damage รอบ ๆ
+- **Overuse** (Office Syndrome · นักกีฬา · หมาวิ่งกีฬา)
+- **Iatrogenic** (จากการผ่าตัด)
+
+---
+
+## 4. Quadriceps Contracture ⭐⭐⭐ (KEY TOPIC!)
+
+> "**Quadriceps contracture**" — ภาวะกล้ามเนื้อหดเกร็งหลัง trauma · กลายเป็น fibrotic myopathy
+
+### 4.1 Pathogenesis
+1. **Trauma หรือ femoral fracture** (โดยเฉพาะ distal femoral / Salter-Harris ในเด็ก!)
+2. กล้ามเนื้อหดตัวพยายามรักษาตัวเอง
+3. หากปล่อย → **fibrosis + scar tissue** → กล้ามเนื้อหดถาวร
+4. เห็น **ขาเหยียดตรง · เกร็ง · ใช้งานไม่ได้**
+
+### 4.2 Predisposing Factors ⭐
+- **สุนัข/แมวเด็ก** (กระดูกยังพัฒนาอยู่)
+- **Distal femoral fracture** หรือ **Salter-Harris** type
+- **Delayed fixation** (ปล่อยไว้นาน)
+- **Long-term immobilization** ในเฝือกแข็งโดยไม่ขยับ
+
+### 4.3 Prevention ⭐⭐⭐ (ป้องกันดีกว่าแก้!)
+1. **Early surgical fixation** — ผ่าตัดเร็วที่สุด!
+2. **Modified Robert Jones bandage** (NOT splint แข็ง) ในระหว่างรอผ่า
+3. **Early rehabilitation** — กระตุ้น Range of Motion + weight-bearing เร็ว
+
+### 4.4 Treatment (ถ้าเกิดแล้ว · ผลลัพธ์ไม่ 100%)
+- **Rehabilitation** — physical therapy
+- **Z-plasty** — กรีด fibrous tissue เป็นรูป Z เพื่อยืดออก (แต่บางตัว reaction → fibrosis กลับมาอีก!)
+- **Joint fixation** — fix joint ใน position ที่ functional ที่สุด
+
+⭐ **Bottom line**: รักษาแล้วดีขึ้น แต่ไม่ 100% — **defense คือ prevention**
+
+---
+
+## 5. Other Muscle Disorders (Mention)
+
+| Disease | Detail |
+|---|---|
+| **Myositis ossificans** | Calcification ในกล้ามเนื้อหลัง severe trauma · von Willebrand · tumor-associated · Tx = palliative resection |
+| **Infectious myositis** | Parasites · bacterial — common in Thailand! |
+| **Myasthenia gravis** | Muscle weakness — neurologic disease |
+
+---
+
+## 6. Muscle Healing Phases ⭐
+
+| Phase | ทำอะไรได้ |
+|---|---|
+| **Inflammation** | Rest only · ultrasound therapy ลด inflammation ได้ |
+| **Repair** | Rest only |
+| **Remodelling** ⭐ | **เริ่ม weight-bearing rehab!** กระตุ้น remodelling |
+
+⭐ ขนาด **Gap** มีผลต่อ scar tissue:
+- Gap แคบ → scar น้อย
+- Gap กว้าง + hematoma → scar มาก → fibrosis
+
+---
+
+## 7. Suture Choice for Muscle ⭐
+
+| Property | Choice |
+|---|---|
+| **Pattern** | **Mattress suture** (ทนแรงตึงดี) |
+| **Material** | **Long-term absorbable monofilament** (PDS/Maxon · Polydioxanone) |
+| **Layer** | เย็บ **fascia ทับ** (Strength อยู่ที่ fascia) — ถ้าฟาเชียเสีย = เย็บ muscle ตรง ๆ |
+
+---
+
+# 🟪 PART 2 — Tendon Disorders
+
+## 8. Tendon Background
+- **Composition**: คอลลาเจนเป็นหลัก (เหมือนเนื้อตุ๋น!)
+- **Vascularity**: ต่ำ → **healing ช้า**
+
+## 9. Healing Timeline ⭐⭐⭐ (สำคัญ-เลือก suture!)
+| Time | Process |
+|---|---|
+| **21 วัน** | เริ่มกระบวนการซ่อมแซม |
+| **~1 ปี** | Healing complete |
+
+⭐ **Suture choice = Non-absorbable!**
+- **Polypropylene (Prolene)** ⭐ = **Truly non-absorbable** — ดีที่สุด
+- **Nylon** = น้อยกว่า Prolene · แต่ยังใช้ได้ในคลินิกเล็ก ๆ
+- ❌ Absorbable — แม้ long-term ก็ยังเสีย tensile strength ก่อน 1 ปี
+
+---
+
+## 10. Achilles Tendon Disorder ⭐⭐⭐
+
+### 10.1 Anatomy
+- **Aris tendon** = Achilles tendon = N เอ็นร้อยหวาย
+- ขาหลัง บริเวณ tarsus
+
+### 10.2 Clinical Signs
+| Stage | Sign |
+|---|---|
+| **Acute** | เจ็บ · lameness |
+| **Chronic** ⭐ | **Plantigrade walk** — เดินเอาขาตรงแตะพื้นทั้งหมด · ไม่เจ็บแล้ว แต่เดินผิดรูปถาวร |
+
+### 10.3 Treatment
+| Severity | Tx |
+|---|---|
+| **Partial rupture** | Medical (rest · NSAIDs · splint) |
+| **Complete rupture** ⭐ | **Surgical repair** with non-absorbable suture |
+
+### 10.4 Suture Patterns ⭐ (ต้องจำได้)
+| Pattern | Use |
+|---|---|
+| **Three-loop pulley** | High strength |
+| **Krackow suture** | High strength · locking |
+| **Bunnell suture** | Old standby |
+| **Locking-loop (Kessler)** | Variation |
+
+⭐ **อาจารย์ใช้บ่อย**: ฟาเซียเย็บ + locking pattern · ข้อสอบอาจถามรูปแบบ
+
+---
+
+## 11. Bicipital Tendinosis ⭐ (ขาหน้า · หัวไหล่)
+
+### 11.1 Pathology
+- **Bicipital tendon** ที่หัวไหล่ (origin ของ biceps brachii)
+- เกิด inflammation จาก **overuse**
+- เจอบ่อยใน: **Doberman · Golden · Labrador**
+
+### 11.2 Clinical Signs
+- เจ็บขาหน้า · bobbing gait (ยกหัวเวลาลงน้ำหนัก)
+- เกร็งหัวเวลาลงน้ำหนักขานั้น
+- **Stretch test** — ยืดขา + กดเข้าที่ tendon = bicipital pain
+
+### 11.3 Diagnosis
+| Method | Detail |
+|---|---|
+| **Walk test** → localize | เจ็บขาหน้า → หัวไหล่ |
+| **Stretch test** | กดที่ bicipital tendon → เจ็บกี๊ด |
+| **Skyline radiograph** | เห็น mineralization (chronic only) |
+| **Arthroscopy** ⭐ | Gold standard — เห็น tear/inflammation ชัดเจน |
+
+### 11.4 Treatment
+- **Medical**: NSAIDs + rest (most cases)
+- **Surgical**: **Tenotomy** (ตัด tendon) — ถ้า medical ไม่หาย · มีผลกระทบ ROM ในอนาคต
+
+---
+
+## 12. Other Tendon (Mention)
+- **Infraspinatus contracture** — ขาหน้า · เจอน้อย
+
+---
+
+## 13. Post-op Tendon Care
+1. **Pain management** (continued)
+2. **Immobilization phase** — splint/cast
+3. **Gradual weight-bearing** — กระตุ้น remodelling
+4. **Rehab** — ROM exercises เมื่อเข้า remodelling phase
+
+---
+
+## 📝 EXAM RECAP — 12 Key Points
+
+1. **Muscle damage 4 grades**: 1-2 = medical · 3-4 = surgical
+2. **48-hr rule**: cold pack 48 hr → warm pack 50-60°C
+3. **Quadriceps contracture** = สุนัขเด็ก + femoral Fx + delayed fixation → fibrotic myopathy
+4. **Quad contracture prevention** = early Sx + Modified Robert Jones (NOT cast) + early rehab ⭐
+5. **Quad contracture Tx not 100%** — defense = prevention
+6. **Myositis ossificans** = calcification in muscle หลัง trauma
+7. **Muscle suture**: Mattress + long-term absorbable monofilament + fascia layer
+8. **Tendon healing 21 d → 1 yr** → must use **non-absorbable suture**
+9. **Polypropylene > Nylon** for tendon (truly non-absorbable)
+10. **Achilles rupture** → **plantigrade walk** (chronic) ⭐
+11. **Suture patterns for tendon**: Three-loop pulley · Krackow · Bunnell · Kessler
+12. **Bicipital tendinosis** → predisposing breeds Dobermann/Golden/Lab · arthroscopy = Dx of choice
+
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 6.2 ESF (LwNNZYoCpZE) · 7 External Immobilization (9cXpZwgUAPI) · 12 Cruciate (9U-Dgu0ouUk)
+> 🩻 หมายเหตุ — บทนี้แค่ 38 นาที · เอาให้จำ Quad contracture + Achilles plantigrade + non-absorbable suture for tendon ก็ผ่าน`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
