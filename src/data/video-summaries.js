@@ -23741,6 +23741,689 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
 > 🦴 **Modern trend**: Tom Myers' fascial lines now applied to dogs · paper 2024`,
   },
 
+  NVFmvB9ZUSw: {
+    videoId: 'NVFmvB9ZUSw',
+    title: '9.3.1 (เพิ่มเติม) Normal Femoropatellar Articulation',
+    subject: 'com2',
+    date: '7 Aug 67',
+    durationMin: 1,
+    instructor: 'Aj. Kongthit (CUVET)',
+    examFormat: 'Supplementary clip — anatomy demo · NOT exam-worthy alone',
+    summary: `# Normal Femoropatellar Articulation
+
+> 🎯 **Short anatomy demo** (~1 min) supplementing 9.3 Patella Luxation main lecture
+> Shows normal patellar tracking in trochlear groove
+
+---
+
+## Key Anatomy ⭐
+
+**Normal femoropatellar joint** = patella sits inside trochlear groove between **medial trochlear ridge + lateral trochlear ridge**
+
+### Movement
+| Action | Patella position |
+|---|---|
+| **Knee flexion** | Patella slides DOWN trochlear groove |
+| **Knee extension** | Patella slides UP trochlear groove |
+
+### Why it stays in place
+- **Trochlear ridges (medial + lateral)** form U-shape walls
+- **Quadriceps tendon + patellar ligament** hold patella in alignment
+- **Joint capsule + retinaculum** add lateral stability
+- **Femoral condyles** are properly aligned (not rotated)
+
+> ⭐ **If trochlear ridges are SHALLOW** → patella escapes → **Patellar Luxation (PL)**
+> Most common deformity for **MPL** = medial trochlear ridge underdeveloped
+
+---
+
+> 📚 อ่านควบ: 9.3 Patella Luxation main lecture (CIUpw8GNtQ4) · 9.3.2 MPL/LPL (cd3VUI6K23A) · 9.3.3 Femoral torsion (L1-qPyZYjJk) · 9.3.4-5 Distal femoral osteotomy (5KOc0NTBZFI · 09hdZ-OBvnI)
+> 🩻 Anatomy reference: Always know orientation of medial vs lateral trochlear ridge before MPL surgery!`,
+  },
+
+  cd3VUI6K23A: {
+    videoId: 'cd3VUI6K23A',
+    title: '9.3.2 (เพิ่มเติม) MPL & LPL Direction Orientation',
+    subject: 'com2',
+    date: '7 Aug 67',
+    durationMin: 1,
+    instructor: 'Aj. Kongthit (CUVET)',
+    examFormat: 'Supplementary — confusing direction concept · helps confirm MCQ on PL types',
+    summary: `# MPL & LPL — Direction & Foot Position
+
+> 🎯 **Critical rotation concept** that confuses students!
+> When patella luxates, FOOT also rotates in opposite direction
+
+---
+
+## The Rotation Rule ⭐⭐ (Counterintuitive!)
+
+### MPL (Medial Patellar Luxation)
+- Patella displaces **MEDIALLY** (inward)
+- **Femoral head luxates LATERALLY** (outward!)
+- Foot rotates **EXTERNALLY** (toes point outward)
+
+### LPL (Lateral Patellar Luxation)
+- Patella displaces **LATERALLY** (outward)
+- Femoral head luxates **MEDIALLY** (inward!)
+- Foot rotates **INTERNALLY** (toes point inward)
+
+---
+
+## Why this matters ⭐
+
+**To remember**: When patella goes ONE way, the rest of the leg rotates the OTHER way
+
+| Type | Patella | Foot rotation | Femoral head |
+|---|---|---|---|
+| **MPL** | Medial | External (toes out) | Lateral displacement |
+| **LPL** | Lateral | Internal (toes in) | Medial displacement |
+
+> 💡 Think of femur as a "rotating barrel" — when patella escapes one side, femur counter-rotates
+
+---
+
+## Clinical implication
+- **MPL more common** in small breeds (Pomeranian · Chihuahua · Yorkie)
+- **LPL more common** in large breeds (Lab · Mastiff)
+- Foot rotation direction = important PE finding!
+
+> 📚 อ่านควบ: 9.3 Patella main (CIUpw8GNtQ4) · 9.3.1 Normal anatomy (NVFmvB9ZUSw)
+> 🩻 **Practice tip**: Watch foot rotation during gait — clue to PL direction before manipulation`,
+  },
+
+  'L1-qPyZYjJk': {
+    videoId: 'L1-qPyZYjJk',
+    title: '9.3.3 (เพิ่มเติม) Femoral Torsion Correction Math',
+    subject: 'com2',
+    date: '7 Aug 67',
+    durationMin: 1,
+    instructor: 'Aj. Kongthit (CUVET)',
+    examFormat: 'Supplementary — math demo for surgical planning · concept understanding',
+    summary: `# Femoral Torsion Correction — Math for Surgery
+
+> 🎯 **Pre-surgical calculation** for derotational osteotomy in MPL with femoral torsion
+> Math you need BEFORE making the cut!
+
+---
+
+## The Concept ⭐
+
+When femur has **torsion** (rotational deformity), surgical correction requires:
+1. Cut bone
+2. Rotate proximal/distal fragment by specific angle
+3. Reconnect
+
+**You need to calculate**: How far do you need to **slide** the cut to achieve the correct rotation angle?
+
+---
+
+## The Math ⭐
+
+### Given
+- **Bone diameter** at cut site (e.g., 10 mm)
+- **Torsion angle to correct** (e.g., 20°)
+- **Goal**: rotate the segment by 20° to neutralize deformity
+
+### Calculation
+| Step | Formula | Example |
+|---|---|---|
+| 1. Find circumference | C = 2πr | Diameter 10mm → r = 5 → C = 31.4 mm |
+| 2. Full circle = 360° | — | 31.4 mm = 360° |
+| 3. Find arc length for 20° | (20/360) × 31.4 | ≈ 1.74 mm slide distance |
+
+> ⭐ **Translation**: To rotate the bone segment by 20°, slide the cut by 1.74 mm circumferentially
+
+---
+
+## Practical Tip
+- If you have **angled cut guide** (e.g., 10° wedge metal jig) → just place against bone & cut
+- If NOT → calculate manually like above
+- Always **measure pre-op CT** to know exact deformity (e.g., 20° version vs 30° anteversion)
+
+---
+
+## Combined deformity
+Often need BOTH:
+1. **Wedge cut** (varus/valgus) — covered in 9.3.4-5
+2. **Rotation** (torsion) — this clip
+3. = "Closing wedge with rotation" osteotomy
+
+> 📚 อ่านควบ: 9.3.4 Distal femoral osteotomy I (5KOc0NTBZFI) · 9.3.5 II (09hdZ-OBvnI) · 9.3 Patella main (CIUpw8GNtQ4)
+> 🩻 **Practice tip**: Always know x = arc length, calc x in mm before cutting · CT scan first`,
+  },
+
+  '5KOc0NTBZFI': {
+    videoId: '5KOc0NTBZFI',
+    title: '9.3.4 (เพิ่มเติม) Distal Femoral Osteotomy I — Reference Lines',
+    subject: 'com2',
+    date: '7 Aug 67',
+    durationMin: 3,
+    instructor: 'Aj. Kongthit (CUVET)',
+    examFormat: 'Supplementary — reference line drawing technique for DFO',
+    summary: `# Distal Femoral Osteotomy I — Reference Line Drawing
+
+> 🎯 **Step-by-step** for setting up the surgical plan from X-ray
+> Concept: aLDFA (anatomic Lateral Distal Femoral Angle)
+
+---
+
+## Step-by-Step Reference Line Construction ⭐
+
+### Line 1: Anatomic Axis (Red Line) ⭐
+- Draws **midline of femur** through long bone
+- Two-step construction:
+  - Mark midpoint at **proximal femur** (anatomical center)
+  - Mark midpoint at **distal femur**
+  - Connect → "Anatomical Axis"
+
+### Line 2: Joint Reference Line (Blue Line)
+- Drawn **tangent to distal femoral condyles**
+- Touches both medial and lateral femoral condyle apex
+
+### Line 3: Anatomical Lateral Distal Femoral Angle (aLDFA)
+- Angle between Anatomic Axis (red) and Joint Reference Line (blue)
+- **Normal aLDFA = 95°** ⭐ (in dogs)
+
+---
+
+## What if aLDFA is abnormal?
+
+### Example calculation:
+- Patient measures **120°** aLDFA (instead of normal 95°)
+- Difference = 120° - 95° = **25° valgus deformity**
+
+### Surgical correction
+- Cut **closing wedge** of **25°** from lateral side
+- Bone realigns to normal angle when wedge closes
+- This neutralizes valgus deformity → patella sits in groove again
+
+---
+
+## Concept summary
+| Component | Purpose |
+|---|---|
+| **Anatomic Axis** | Reference for "straight" femur |
+| **Joint Reference Line** | Reference for joint orientation |
+| **aLDFA** | Quantifies valgus/varus angle |
+| **Closing wedge** | Surgical correction (cut + close) |
+
+> 📚 อ่านควบ: 9.3.5 DFO II — full calculation example (09hdZ-OBvnI) · 9.3.3 Torsion math (L1-qPyZYjJk) · 9.3 Patella main (CIUpw8GNtQ4)
+> 🩻 **Practice tip**: aLDFA must be measured carefully on TRUE craniocaudal X-ray with limb extended`,
+  },
+
+  '09hdZ-OBvnI': {
+    videoId: '09hdZ-OBvnI',
+    title: '9.3.5 (เพิ่มเติม) Distal Femoral Osteotomy II — Combined Correction',
+    subject: 'com2',
+    date: '7 Aug 67',
+    durationMin: 5,
+    instructor: 'Aj. Kongthit (CUVET)',
+    examFormat: 'Supplementary — combined valgus + torsion correction example',
+    summary: `# Distal Femoral Osteotomy II — Combined Wedge + Rotation
+
+> 🎯 **Worked example** of combined deformity correction
+> Builds on 9.3.4 (lines) + 9.3.3 (rotation math)
+
+---
+
+## Worked Example ⭐⭐
+
+### Pre-op measurements
+| Parameter | Patient value | Normal | Deformity |
+|---|---|---|---|
+| **aLDFA** (lateral distal femoral angle) | 114° | 94° | **20° valgus** |
+| **Femoral antetorsion** | 5° | 25° | **20° external torsion** |
+
+### Surgical plan
+**Two simultaneous corrections needed:**
+
+1. **Closing Wedge for Valgus (20°)**
+   - Cut wedge from lateral side at distal femur
+   - Wedge angle = 20° (= deformity amount)
+   - Close → bone realigns
+
+2. **Internal Rotation (20°) for Torsion**
+   - After wedge cut, also rotate distal segment **internally by 20°**
+   - This brings femur back to normal **25° anteversion**
+
+### Math reminder (from 9.3.3)
+- Bone diameter at cut → calculate circumference (2πr)
+- Arc length for 20° = (20/360) × C
+- Slide cut by that distance to achieve rotation
+
+---
+
+## CORA Concept ⭐ (Center Of Rotation of Angulation)
+
+The **CORA** = point where the deformity originates
+- Found at intersection of:
+  - Anatomic axis ABOVE the deformity
+  - Anatomic axis BELOW the deformity
+- Surgical cut should be **at or near CORA** for cleanest correction
+
+> 💡 **Cutting at CORA** = closes wedge with no translation needed (clean realignment)
+> Cutting AWAY from CORA → causes translation artifact → less aesthetic but functional
+
+---
+
+## Multi-plane deformity
+Real patients often have:
+- **Frontal plane** (varus/valgus) — fix with wedge cut
+- **Sagittal plane** (procurvatum/recurvatum) — fix with second cut
+- **Axial plane** (torsion) — fix with rotation
+
+→ Modern technique: **3D-printed surgical guides** based on CT to handle complex cases
+
+---
+
+## Clinical implication
+- **Younger dogs with severe MPL** + femoral deformity may need DFO at 6-12 months
+- Wait until growth plates close (at least 9-10 months in large breed)
+- Otherwise → growth disturbance
+
+> 📚 อ่านควบ: 9.3.4 DFO Reference Lines (5KOc0NTBZFI) · 9.3.3 Torsion math (L1-qPyZYjJk) · 9.3 Patella main (CIUpw8GNtQ4) · 9.1 Dev Ortho (Spz38qa5upU)
+> 🩻 **Practice tip**: Always do **PRE-OP CT** for deformity quantification before DFO`,
+  },
+
+  'SgIZmpoh-8Q': {
+    videoId: 'SgIZmpoh-8Q',
+    title: '11.0.1 (เพิ่มเติม) Screw and Washer Position for Hip Luxation',
+    subject: 'com2',
+    date: '14 Nov 67',
+    durationMin: 2,
+    instructor: 'Aj. Kongthit (CUVET)',
+    examFormat: 'Supplementary — clock-face landmark for screw placement · ออกบ่อยแน่นอน',
+    summary: `# Screw and Washer Technique — Clock-Face Landmark
+
+> 🎯 **Mnemonic for safe screw placement** in hip luxation toggle pin / extracapsular repair
+> Critical anatomical orientation reference!
+
+---
+
+## The Clock-Face System ⭐⭐
+
+### Imagine femoral head viewed from acetabulum side as a CLOCK FACE:
+- **12 o'clock** = cranial (front of dog)
+- **6 o'clock** = caudal (back of dog)
+- **3 o'clock** = depends on side
+
+### Safe Zones for screw + washer placement (LEFT hip)
+| Position | Time | Clinical meaning |
+|---|---|---|
+| **Cranio-medial** | **10 o'clock** ⭐ | Anterior + safe from sciatic nerve |
+| **Caudo-lateral** | **1 o'clock** ⭐ | Posterior + safe from sciatic nerve |
+
+### MIRROR for RIGHT hip
+- Right side = **2 o'clock** (cranio-medial) and **11 o'clock** (caudo-lateral)
+- Time positions FLIP because cranial-caudal is the same but medial-lateral reverses!
+
+---
+
+## Why these specific positions? ⭐
+
+### Avoid these "danger zones":
+- **3 o'clock + 9 o'clock** (lateral + medial direct) → sciatic nerve at 9 o'clock!
+- **6 o'clock** (caudal) → sciatic nerve runs here!
+- **12 o'clock** (cranial) → femoral artery runs here!
+
+### Safe oblique angles
+- 10 + 1 (left) or 11 + 2 (right) → drilling at oblique angle gives:
+  - Better bone purchase (more bone thickness here)
+  - Avoids neurovascular structures
+  - Stable hold against luxation forces
+
+---
+
+## Mnemonic 🔑
+"**10 to 1**" (Left) → safe oblique screws
+"**2 to 11**" (Right) → mirror image
+
+---
+
+## Clinical use
+- **Toggle pin technique** for hip luxation reduction
+- **Capsulorrhaphy reinforcement screws**
+- **Femoral head ostectomy (FHO)** revision cases
+
+> 📚 อ่านควบ: 11 Common Joint Disorders (MMTtwT_7c94) · 9.2 CHD (hIlH1i845wI) · 8.2 OA (VJ8ixtXP9XU)
+> 🩻 **Practice tip**: Always orient X-ray as if "looking at the clock from outside" before drilling
+> 💡 Easy way to remember: think of the dog standing — 12 = nose, 6 = tail`,
+  },
+
+  GOuoS07lt8g: {
+    videoId: 'GOuoS07lt8g',
+    title: '11.0.2 (เพิ่มเติม) Closed Reduction of Elbow Luxation',
+    subject: 'com2',
+    date: '14 Nov 67',
+    durationMin: 1,
+    instructor: 'Aj. Kongthit (CUVET)',
+    examFormat: 'Supplementary — manipulation technique · clinical procedure',
+    summary: `# Closed Reduction of Elbow Luxation
+
+> 🎯 **Hands-on technique** for non-surgical reduction of elbow luxation
+> Mechanical principle: use anconeal process as the "lever"
+
+---
+
+## Step-by-Step Technique ⭐
+
+### Step 1: Position
+- Sedation/light GA (animal must be relaxed)
+- Hold limb in flexion **<90°**
+- This is critical — flexion <90° opens the joint space
+
+### Step 2: Internal Rotation + Supination
+- Slowly rotate forearm **inward (internal rotation)**
+- This realigns the anconeal process tip with olecranon fossa
+
+### Step 3: Abduction
+- Slightly **abduct** the limb
+- Causes anconeal process tip to "hook" into olecranon fossa
+
+### Step 4: Extension + Push
+- Slowly **extend** the elbow while pushing
+- Hand pressure on **radial head** pushes it back into joint
+- Should hear/feel a "**clunk**" as joint reduces
+
+---
+
+## Why each step matters
+
+| Step | Mechanical reason |
+|---|---|
+| Flex <90° | Opens joint space for re-entry |
+| Internal rotation | Aligns anconeal "hook" |
+| Abduction | Hooks anconeal into fossa |
+| Slow extension + push | Forces radial head back |
+
+> ⛔ **NEVER** force extension before alignment — can fracture anconeal process or damage cartilage!
+
+---
+
+## Post-reduction care
+- **Spica splint** for 1-2 weeks (immobilize elbow flexed)
+- **NSAIDs** for pain
+- **Rest** 4-6 weeks
+- Recheck X-ray → ensure stable reduction
+- **If fails** → open surgical reduction with collateral ligament repair
+
+---
+
+## When closed reduction FAILS
+- **Chronic luxation** (>1 week) → muscle contracture prevents reduction
+- **Concurrent fracture** → contraindicated
+- **Severe ligament damage** → unstable post-reduction
+- → All require **open surgical repair**
+
+> 📚 อ่านควบ: 11 Common Joint (MMTtwT_7c94) · 15.1 Elbow Disease (Os6MWLC8oso) · 14 Spinal Fracture (C1Q5SHxSkGw)
+> 🩻 **Practice tip**: Always sedate adequately — fighting/tensing prevents reduction
+> 💡 Listen for the "clunk" — that's confirmation of successful reduction`,
+  },
+
+  XsHdYvH4IOE: {
+    videoId: 'XsHdYvH4IOE',
+    title: '12.0.1 (เพิ่มเติม) Cranial Drawer Sign — CCL Rupture Examination',
+    subject: 'com2',
+    date: '14 Nov 67',
+    durationMin: 1,
+    instructor: 'Aj. Kongthit (CUVET)',
+    examFormat: 'Supplementary — hands-on technique demo · CRITICAL clinical skill',
+    summary: `# Cranial Drawer Sign — CCL Rupture Examination
+
+> 🎯 **THE primary test for CCL/Cranial Cruciate Ligament rupture**
+> Master this technique = master orthopedic exam!
+
+---
+
+## Hand Position ⭐⭐ (MUST get right!)
+
+### Femoral hand (proximal · holding hand)
+- **Index finger** on patella (anterior)
+- **Thumb** on **lateral fabella** (posterior caudo-lateral)
+- Hand stays **STILL** — provides counterforce
+
+### Tibial hand (distal · pushing hand)
+- **Index finger** on **tibial tuberosity** (anterior)
+- **Thumb** on **fibular head** (posterior)
+- This is the hand that pushes!
+
+---
+
+## Technique Step-by-Step ⭐
+
+### Step 1: Position
+- Sedate or anesthetize (must be RELAXED)
+- Stifle in mild flexion (~130°)
+- Femur in alignment — NO movement of femur during test
+
+### Step 2: Push tibia FORWARD
+- Use thumb on fibular head to push tibia cranially
+- Femoral hand stays absolutely still
+- Tibia should move forward 0-2 mm normally
+
+### Step 3: Compare bilateral
+- ALWAYS test contralateral leg first as control
+- Difference of >2-3 mm = positive drawer sign
+
+---
+
+## Common Errors ⭐⭐ (KEY exam point!)
+
+### Error 1: Allowing stifle flexion during push
+- If you flex while pushing → tibia moves but it's not drawer
+- "Pseudo-drawer" — false positive
+- ⛔ **Always extend-extend or maintain mid-flexion** during entire test
+
+### Error 2: Not stabilizing femur
+- If femoral hand moves → falsely transmitted motion
+- Tibial movement may be from femoral movement, not drawer
+
+### Error 3: Patient tense
+- Awake/struggling animal → muscle splinting masks drawer
+- ALWAYS sedate adequately
+
+---
+
+## Interpreting Results
+
+| Drawer findings | Interpretation |
+|---|---|
+| **<2 mm anterior translation** | Normal · CCL intact |
+| **>3 mm anterior translation** | Positive · CCL rupture |
+| **Both sides positive** | Bilateral CCL disease (common in some breeds) |
+| **Painful but no drawer** | Partial CCL tear (test under sedation) |
+
+---
+
+## Alternative test: **Tibial Compression Test**
+- Hold stifle straight
+- Push hock dorsally (compresses tibia upward)
+- Watch for tibial tuberosity moving forward
+- Positive = CCL rupture (tibia thrusts forward)
+
+---
+
+## Imaging confirmation
+- **X-ray**: cranial drawer position view, fat pad sign, joint effusion
+- **Definitive**: arthroscopy or surgical exploration
+
+> 📚 อ่านควบ: 12 Cruciate Ligament (9U-Dgu0ouUk) · 11 Common Joint (MMTtwT_7c94) · 9.3 Patella (CIUpw8GNtQ4) · 15.1 Elbow (Os6MWLC8oso)
+> 🩻 **Practice tip**: Sedate first → palpate quietly → assess from 4 sides
+> 💡 Drawer findings always ESTABLISH the diagnosis · X-ray rarely shows actual ligament tear`,
+  },
+
+  OmBvQyf_Sa4: {
+    videoId: 'OmBvQyf_Sa4',
+    title: '14.0.1 (เพิ่มเติม) Trans-iliac Pin Technique',
+    subject: 'com2',
+    date: '20 Nov 67',
+    durationMin: 1,
+    instructor: 'พี่ไอซ์ (neurosurgery specialist)',
+    examFormat: 'Supplementary — biomechanics demonstration for L7-S1 fracture · ออกบ่อยมาก',
+    summary: `# Trans-iliac Pin Technique — Lever and Prop Principle
+
+> 🎯 **Specific technique** for L7-S1 sacral fracture-luxation
+> Mechanical principle: **lever and prop** — pin acts as a fulcrum
+
+---
+
+## The Problem ⭐
+
+**L7-S1 fracture-luxation** = sacrum (S1) fractures and "**falls down**" relative to L7
+- Both ilial wings are connected to sacrum (sacroiliac joint)
+- Fracture causes sacrum to drop ventrally
+- This pinches cauda equina → bladder paralysis · paraplegia · pain
+
+---
+
+## The Solution: Trans-iliac Pin ⭐⭐
+
+### Mechanical Concept
+**Lever and Prop**:
+- The two **ilial wings** = beam (lever)
+- The trans-iliac pin = **prop**
+- Sacrum (between ilial wings) = the load to lift
+
+### Procedure
+1. Drive pin **transversely** through both ilial wings
+2. Pin sits **ABOVE L7** (cranial dorsal aspect)
+3. Pin **lifts/supports** the sacrum from above
+4. Sacrum can no longer drop ventrally
+
+### Why TWO pins are recommended ⭐
+- Single pin → can rotate around itself (instability)
+- TWO pins (parallel or crossed) → prevents rotation
+- Modern technique = **trans-iliac TWO pins** + cerclage wire option
+
+---
+
+## Pin Placement Detail
+| Step | Action |
+|---|---|
+| 1 | Open dorsal approach to dorsal ilial wings |
+| 2 | Drill from one ilial wing → through sacrum/spinous process L7 region → out other ilial wing |
+| 3 | Repeat with second pin (parallel or crossed) |
+| 4 | Cut excess pin · bend ends or cap with PMMA |
+
+### Modern alternative
+- **Lumbosacral plate + pedicle screws** (if equipment + skill available)
+- For severe injuries with bladder dysfunction
+
+---
+
+## Clinical pearls
+
+| Pearl | Why important |
+|---|---|
+| **Bladder management** is #1 post-op priority | Paraparetic dogs need urinary expression q6-8h |
+| **Steroids contraindicated** | NEVER give in spinal injury (worsens outcome) |
+| **Supportive care 6-8 wks** | Strict cage rest while bone heals |
+| **Modified Frankel grade** before surgery | Predicts outcome (G1-3 best, G5 <10% recovery) |
+
+---
+
+## When NOT to use trans-iliac pin
+- **Pure ilial fractures** (no sacral involvement) — use plate instead
+- **Pelvic ring fractures with multiple sites** — may need full ORIF
+- **Severe comminution** at L7/S1 — pedicle screws better
+
+> 📚 อ่านควบ: 14 Spinal Fracture VFL main (C1Q5SHxSkGw) · 11 Common Joint (MMTtwT_7c94) · 13.1 Limb Amp (KqbNuuu8X90)
+> 🩻 **Practice tip**: Pin placement angle is 45-60° from horizontal · always confirm with intraop X-ray
+> 💡 **Lever-prop visualization**: imagine prying up a fallen book with a pencil from above`,
+  },
+
+  '1VHy7_hr7As': {
+    videoId: '1VHy7_hr7As',
+    title: '15.1.1 (เพิ่มเติม) Bi-Oblique Proximal Ulnar Osteotomy (BOUO)',
+    subject: 'com2',
+    date: '27 Nov 67',
+    durationMin: 1,
+    instructor: 'อ.มาริสาก (orthopedic surgeon · CUVET)',
+    examFormat: 'Supplementary — modern PUO alternative technique · ออกบ่อย',
+    summary: `# Bi-Oblique Proximal Ulnar Osteotomy (BOUO)
+
+> 🎯 **Modern alternative to PUO** for Radio-Ulnar Incongruity (RUI)
+> Single cut at TWO angles simultaneously = no instability!
+
+---
+
+## Why BOUO Was Invented ⭐
+
+### Problem with classic PUO (Proximal Ulnar Osteotomy)
+- After cutting ulna → ulna becomes UNSTABLE
+- Distal ulna can drop dorsally + medially
+- Need **intramedullary pin** to stabilize
+- Pin causes its own complications (irritation, migration)
+
+### BOUO Solution
+- **Single cut** at **two angles** = self-stabilizing geometry
+- NO intramedullary pin needed!
+- Bone fragments stay aligned post-cut
+
+---
+
+## Bi-Oblique Cut Angles ⭐⭐
+
+### The two angles
+- **Medial angle**: 45°
+- **Lateral angle**: 48°
+- (~3° offset between two planes)
+
+### Visualization
+- Cut blade is **oriented obliquely** in TWO planes simultaneously
+- One angle = cranio-caudal plane
+- Other angle = medio-lateral plane
+
+### Why this works
+- The 3° offset creates a **wedge interlock**
+- After cut, bone fragments naturally settle into stable position
+- Ulna translates slightly but stays interlocked
+
+---
+
+## Step-by-step Technique
+
+| Step | Action |
+|---|---|
+| 1 | Approach proximal ulna (caudal/medial dorsal) |
+| 2 | Mark cut location distal to anconeal process |
+| 3 | Position oscillating saw at FIRST angle (45° medial) |
+| 4 | Adjust to bicompound angle (48° lateral plane) |
+| 5 | Make ONE single cut through both angles simultaneously |
+| 6 | Bone fragments settle into stable interlock |
+| 7 | NO pin needed unless extreme instability |
+
+---
+
+## Comparison with Classic PUO
+
+| Feature | Classic PUO | BOUO |
+|---|---|---|
+| Cuts | Single transverse | **Single bi-oblique** ⭐ |
+| Stability post-cut | UNSTABLE | **STABLE** |
+| Intramedullary pin | Required | **NOT required** |
+| Pin complications | Yes (irritation, migration) | None |
+| Recovery time | Longer (pin issues) | Shorter |
+| Surgeon learning curve | Easier | Harder (need 3D thinking) |
+
+---
+
+## Indication ⭐ (when to use BOUO)
+- **Mild-moderate Radio-Ulnar Incongruity (RUI)** with ulna-short variant
+- **Surgeon prefers no pin**
+- **Combined with FCP fragment removal** (BOUO + sub-total coronoidectomy)
+
+### NOT for:
+- Severe RUI (need PAUL or sliding humeral osteotomy)
+- Skeletally immature dogs (use simpler PUO)
+- End-stage OA (need joint replacement)
+
+> 📚 อ่านควบ: 15.1 Elbow Disease main (Os6MWLC8oso) · 15.2 Osteochondrosis (jo-p8MeAMXk) · 15.3 Rehab (zj4go8swIgM)
+> 🩻 **Practice tip**: BOUO requires good 3D mental model — practice cutting paper cardboard before real bone
+> 💡 **Alternative**: PAUL osteotomy if BOUO not available — also load-altering`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
