@@ -18160,6 +18160,406 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 > 🎬 วิดีโอยาวสุด 227 นาที · ดูจบแล้วเช็ค completion rate ในระบบเพื่อให้ได้ exam advantage`,
   },
 
+  // ─────────────────────────────────────────────────────────────
+  // COM II — 1. Basic about fracture (Y4/1) — Orthopedic Surgery
+  // ─────────────────────────────────────────────────────────────
+  xy6nxu6Sduc: {
+    videoId: 'xy6nxu6Sduc',
+    title: '1. Basic about fracture',
+    subject: 'com2',
+    date: '7 Aug 67',
+    durationMin: 116,
+    instructor: 'พี่พล (อาจารย์รุ่นพี่)',
+    examFormat: 'MCQ — biomechanics terms · fracture classification · Salter-Harris types · pre-op management ออกบ่อย',
+    summary: `# Basic about Fracture
+
+> 🎯 บทเปิด ortho · 3 ส่วน:
+> Part 1 = Biomechanics ของกระดูก (ฟิสิกส์เบสิก)
+> Part 2 = Fracture Classification (7 หมวด)
+> Part 3 = Pre-op Management + Basic Instruments
+
+---
+
+# 🟧 PART 1 — Biomechanics ของกระดูก
+
+## 1. โครงสร้างกระดูก
+| Component | % | Detail |
+|---|---|---|
+| **Inorganic (mineral)** | 70% | 95% = **Hydroxyapatite** (Ca-P) → ให้ความแข็ง |
+| **Organic** | 30% | 98% = matrix (**collagen**) → ให้ความยืดหยุ่น |
+| **Cells** | 2% ของ organic | osteocyte/blast/clast |
+
+⭐ จุดเด่นของกระดูก = **แข็ง + ยืดหยุ่น** (ไม่ใช่แค่แข็งเปราะ)
+
+**Functions**:
+- **Biological**: Mineral homeostasis (Ca · P · Mg)
+- **Mechanical**: Skeletal support + organ protection
+
+**Bone Mineral Density (BMD)** = ความหนาแน่นมวลกระดูก · ลดลงได้จากแก่ · disease · low activity · ยาบางชนิด
+
+---
+
+## 2. Stress vs Strain ⭐ (ห้ามสับสน)
+
+| Term | คำแปล | Definition |
+|---|---|---|
+| **Stress (ความเค้น)** | ไม่ใช่ "เครียด"! | แรงต่อพื้นที่ (N/m² หรือ Pa) |
+| **Strain (ความเครียด)** | แต่ใช่ — "เครียด" | การเปลี่ยนแปลงรูปร่างหลังรับแรง (ΔL/L) |
+
+⚠️ **กระดูกรับแรงเค้น (stress) แล้วเกิดความเครียด (strain)**
+
+---
+
+## 3. Stress-Strain Curve ⭐⭐⭐
+
+| Region | Behavior |
+|---|---|
+| **Elastic region** | คืนรูปได้ 100% · ไม่มี damage แม้ระดับ micro |
+| **Yield Point / Yield Failure** | เริ่มมี structural damage แต่วัตถุยังคงรูปอยู่ |
+| **Plastic region** | คืนรูปไม่ได้ทั้งหมด — เริ่มเสียหาย |
+| **Ultimate Failure / Failure Point** | แตกหักจริง ๆ |
+
+**Young's Modulus (E)** = slope ของ elastic region = ความแข็ง (stiffness)
+- สูง → วัตถุแข็ง (steel)
+- ต่ำ → วัตถุยืดหยุ่น (rubber/foam)
+
+| Material | E (GPa) |
+|---|---|
+| Stainless steel | 200 |
+| Titanium | ~110 |
+| Cortical bone | < 30 |
+| Cancellous bone | < 5 |
+| Bone cement | < 3 |
+
+**Ductile vs Brittle**:
+- **Ductile (เหนียว)** = plastic region กว้าง · ทนการ deform เยอะก่อนแตก (rubber, bone)
+- **Brittle (เปราะ)** = plastic region แคบ · พังตู้ม (glass, ceramic)
+
+---
+
+## 4. คุณสมบัติพิเศษ 2 อย่างของกระดูก ⭐
+
+### 4.1 Anisotropic ⭐
+ความแข็งแรง **ขึ้นกับทิศทางของแรง**
+- **Longitudinal (ตามแนวยาว) = แข็งแรงสุด** (สำหรับการเดิน-รับน้ำหนัก)
+- **Transverse (ตั้งฉาก) = เปราะ** → โดนไม้ฟาดขาตรงๆ หักง่าย
+
+### 4.2 Viscoelastic ⭐
+ความแข็งแรง **ขึ้นกับความเร็วของแรง**
+- โหลดเร็ว → กระดูกแข็ง (โดดลงน้ำเร็ว = น้ำแข็ง)
+- โหลดช้า → กระดูกยอม → หักง่ายกว่า (รถขับช้า ๆ ทับขา = หัก)
+
+---
+
+## 5. Failure Modes (2 อย่างที่จำให้ได้)
+
+| Mode | กลไก | Common in |
+|---|---|---|
+| **Overload failure** ⭐ | แรงครั้งเดียวเกิน yield/ultimate | ตัวกระดูก + implant ขนาดเล็ก |
+| **Fatigue failure** ⭐ | แรงเล็ก ๆ ซ้ำ ๆ → micro damage สะสม | implant ใส่ค้างนาน · กระดูก healing ช้า |
+
+⚠️ Implant ใส่ใหญ่ไปก็ไม่ได้ — กระดูกรับไม่ไหว → **balance**
+
+---
+
+## 6. 4 Factors ของแรงทำให้กระดูกหัก
+
+| Factor | สัมพันธ์กับ |
+|---|---|
+| **Magnitude** | F = ma · ขนาดแรง |
+| **Direction** | Anisotropic (ทิศทาง) |
+| **Duration** | Viscoelastic (ความเร็ว) |
+| **Number** | Fatigue (ความซ้ำ) |
+
+---
+
+## 7. Bone Healing — Strain Tolerance ⭐⭐⭐
+
+> **กระดูกทน strain ได้แค่ 2%** — ถ้าเกิน ตัวเซลล์ที่จะมาสร้างใหม่จะตาย
+
+**Sequence**:
+1. Granulation tissue (ทน strain เยอะที่สุด)
+2. Fibrous tissue
+3. Cartilage (fibrocartilage)
+4. Woven bone → Lamellar bone
+
+⚠️ ถ้า fragment ขยับ > 2% ตลอด → กระดูกใหม่ที่เพิ่งสร้างจะแตกตลอด = non-union
+**สรุป**: เพราะฉะนั้นต้อง **immobilize** ในการรักษา fracture
+
+---
+
+## 8. Loading Modes & Fracture Patterns ⭐⭐⭐
+
+| Loading | Pattern | Mnemonic |
+|---|---|---|
+| **Tension** (ดึง) | **Transverse fracture** (ตรง) | ดึงขนมจีน → ขาดตรง |
+| **Compression** (กด) | **Oblique fracture** (เฉียง) | กดกระป๋อง → สลิป |
+| **Bending** (งอ) | **Wedge / Butterfly fragment** + Transverse | ด้านยืด + ด้านบี้ → กระเด้งออก |
+| **Shearing** (เฉือน) | ตามทิศแรงเฉือน | |
+| **Torsion** (บิด) | **Spiral fracture** (เกลียว) | บิดผ้า → ลอยเกลียว |
+| **Combined** | **Multiple / Comminuted** ⭐ | tvma จริง ๆ มักผสม |
+
+---
+
+# 🟪 PART 2 — Fracture Classification (7 หมวด)
+
+## 9. ทำไมต้อง classify?
+**Communication** — ส่งเคสต้องบอกได้ว่าเท่าไหน · ตรงไหน · แบบไหน
++ สำหรับงานวิจัย/เก็บข้อมูล + การติดตามอาการ
+
+---
+
+## 9.1 Degree (สภาพการแตกหัก)
+- **Complete** = แยกออกจากกัน
+- **Incomplete**:
+  - **Greenstick fracture** ⭐ — เด็ก · กระดูกหัก แต่ไม่แยก (เหมือนกิ่งไม้สด-เหนียว)
+  - **Fissure / Crack** — ผู้ใหญ่ · เห็นรอยร้าว แต่กระดูกไม่หัก
+
+---
+
+## 9.2 Pattern (รูปแบบการแตก)
+
+| Pattern | เกิดจาก | Detail |
+|---|---|---|
+| **Transverse** | Tension | แตกตรง |
+| **Short oblique** ⭐ | Compression | แนวรอย < 2× diameter ของกระดูก |
+| **Long oblique** ⭐ | Compression | แนวรอย ≥ 2× diameter |
+| **Spiral** | Torsion | เกลียว |
+| **Wedge / Butterfly** | Bending | แตก 3 ชิ้น (มี wedge fragment) |
+| **Segmental** | Combined | แตกเป็น block ตรงกลาง (rare) |
+| **Comminuted** | Combined | แตกละเอียด ≥ 3 ชิ้นเล็ก ๆ |
+
+⚠️ Short vs Long oblique → มีผลในการเลือกวิธี repair ต่างกัน!
+
+**Simple vs Multiple**:
+- Simple = หยิบ 2 ชิ้นต่อกันได้แบบจิ๊กซอ (transverse · oblique · spiral)
+- Multiple = ≥ 3 ชิ้น (segmental · comminuted)
+
+⭐ **Cat tip**: ในแมว ~95% เป็น **comminuted** (กระดูกเปราะแบบไม้ไผ่) · simple/spiral ไม่ค่อยเจอ
+
+---
+
+## 9.3 Displacement ⭐⭐⭐ (งงเยอะที่สุด)
+
+**Rule**: ดูแกนหลักจาก **proximal segment** (ส่วนติดกับตัว) แล้วลากเส้นลงมา · ชิ้น distal เอียงไปทางไหน = displace ไปทางนั้น
+
+**Direction**: medial · lateral · cranial · caudal · proximal · distal · combined (เช่น caudolateral)
+
+⚠️ **ต้องดู 2 views** (VD + lateral) — ฟิล์มเดียวบอกได้แค่มุมเดียว!
+
+⭐ ถ้าเคลื่อนน้อย → **non-displaced** หรือ **minimal displacement**
+
+---
+
+## 9.4 Open vs Closed (Level of Contamination)
+
+**Open fracture detection**: เห็น **air opacity** บน X-ray ใต้ skin ใกล้กระดูก = สงสัยว่า open
+
+⚠️ Open ไม่จำเป็นต้องเห็นกระดูกโผล่ — บางทีโผล่แล้วเด้งกลับเข้าไป
+
+**Open Fracture Types** ⭐:
+| Type | Detail | Mechanism |
+|---|---|---|
+| **Type 1** | รู < 1 cm · "**inside-out**" | ปลายแหลมกระดูกจิ้มทะลุออก · สะอาด |
+| **Type 2** | รู ≥ 1 cm · "**outside-in**" | แรงกระแทกจากนอก · สกปรกขึ้น |
+| **Type 3A** | รูใหญ่ + soft tissue เสียหาย แต่เย็บปิดได้ |
+| **Type 3B** | รูใหญ่ + soft tissue เสียหายเยอะ + ต้องทำ flap |
+| **Type 3C** ⭐ | + vascular/nerve injury → **มัก amputate** |
+
+---
+
+## 9.5 Anatomical Location (ตามตำแหน่ง)
+
+| Section | Position | Subdivision |
+|---|---|---|
+| **Epiphysis** | หัวกระดูก (proximal + distal) | — |
+| **Metaphysis** | รอยต่อระหว่าง epi-diaphysis | — |
+| **Diaphysis** | ตรงกลางกระดูก (shaft) | Proximal third · Mid-diaphyseal · Distal third |
+
+**Mixed-location names**:
+- Diaphyseal · proximal third diaphyseal · mid-diaphyseal · distal third diaphyseal
+- **Distal/Proximal metadiaphyseal** = หักรอยต่อระหว่าง metaphysis + diaphysis
+
+---
+
+## 9.6 Salter-Harris Classification ⭐⭐ (Physeal Fracture · เด็กเท่านั้น!)
+
+⚠️ **เกิดเฉพาะเด็ก** — physis (growth plate) closed ในหมาแมวที่ ~1 ปี (ผู้ใหญ่ไม่มี physis แล้ว)
+
+**Mnemonic จากภาพ distal femur** (กลาง-บน-ล่าง):
+
+| Type | Location | Frequency |
+|---|---|---|
+| **Type 1** | Through **physis only** (กลาง) | Common |
+| **Type 2** | Physis + **metaphysis** (กลาง+บน) ⭐ | Most common! |
+| **Type 3** | Physis + **epiphysis** (กลาง+ล่าง) | Common |
+| **Type 4** | Physis + meta- + epiphysis (ทั้ง 3 zone) | Less common |
+| **Type 5** | **Crush** (compression ของ physis) | Rare · hard to see |
+| **Type 6** | **Partial crush** (เฉียง) | Rare |
+
+⭐ **ผลกระทบหลัก**: physeal damage → growth disturbance → ขาสั้น/ยืดบิด
+
+⚠️ **Diagnosis tip**: type 5 มัก subtle → X-ray ข้างปกติเทียบเสมอ!
+
+---
+
+## 9.7 Cause (สาเหตุ)
+- **Traumatic** ⭐ — ที่เจอบ่อยสุด (รถชน ตกที่สูง ฯลฯ)
+- **Pathologic** — กระดูกผิดปกติอยู่แล้ว (มะเร็งกระดูก) → หักจากการเดินธรรมดา
+- **Developmental** — ลูกสัตว์ขาดสารอาหาร · กระดูกเปราะ
+
+---
+
+## 10. Full Fracture Description ตัวอย่าง
+
+> "Complete · Closed · Long oblique · Mid-diaphyseal · Traumatic fracture of left femur with **caudo-medial displacement**"
+
+---
+
+# 🟦 PART 3 — Pre-operative Management
+
+## 11. Initial Patient Examination (Phase 1)
+
+⚠️ **กระดูกหักไม่ตาย — ตรวจ life-threatening ก่อน!**
+
+### AMPLE History
+| Letter | Detail |
+|---|---|
+| **A**llergy | แพ้ยาอะไรมั้ย |
+| **M**edications | กินยาประจำอะไร |
+| **P**ast illness | โรคประจำตัว · เคยผ่าตัด |
+| **L**ast meal | กินครั้งสุดท้ายเมื่อไหร่ (สำคัญสำหรับ anesthesia) |
+| **E**nvironment | ไปโดนอะไรมา |
+
+### ABCDE Vital Assessment ⭐
+| Letter | System | Action |
+|---|---|---|
+| **A**irway | ทางเดินหายใจ | suction · intubate · emergency tracheostomy |
+| **B**reathing | RR · pattern · effort | O2 · re-cate |
+| **C**irculation | mucus · CRT · HR · BP | fluid · vasopressor |
+| **D**isability | consciousness · response | neurological assessment |
+| **E**xternal | external wound | bandage · pressure |
+
+---
+
+## 12. Detailed Examination (Phase 2) — A CRASH PLAN
+| Letter | System |
+|---|---|
+| **A** | Airway |
+| **C** | Cardiovascular |
+| **R** | Respiratory |
+| **A** | Abdomen |
+| **S** | Spine |
+| **H** | Head |
+| **P** | Pelvis |
+| **L** | Limbs |
+| **A** | Arteries (vessels) |
+| **N** | Nerves |
+
+⭐ **Re-assessment เป็นระยะ** — อาการเปลี่ยนใน 15 นาทีได้!
+
+**Add labs**: CBC · chemistry · blood gas · X-ray ตามจำเป็น
+
+---
+
+## 13. Soft Tissue Management
+
+**Open fracture care** ⭐:
+1. ป้องกันไม่ให้กระดูกที่โผล่แห้ง — ทาน้ำเกลือ + ปิดผ้าชุ่ม
+2. **Lavage เยอะ ๆ** ล้างฝุ่น/ดิน
+3. **Antibiotics**: Amoxicillin-clavulanate · cefazolin · ทำ culture ก่อนเริ่มยา
+4. **Sedation/anesthesia** ถ้าเจ็บไม่ยอมให้ทำแผล
+5. **Aseptic technique** เสมอ
+
+**Don't try to push exposed bone back** ถ้าไม่มีประสบการณ์ — เพิ่ม trauma!
+
+---
+
+## 14. Temporary Immobilization
+- **Splint / soft padded bandage** — ป้องกันปลายแหลมแทงเนื้อข้างใน
+- **Cage rest** + จำกัดบริเวณ
+- ⭐ **Goal**: ป้องกันไม่ให้ closed fracture กลายเป็น open!
+
+---
+
+## 15. Pre-op X-ray (สำคัญมาก!) ⭐
+
+**Mandatory**:
+1. **2 orthogonal views** (VD + lateral) — มิติ 3D
+2. **Include adjacent joints** — รอยหักเพิ่มอาจอยู่ข้าง ๆ
+3. **X-ray ข้างปกติเทียบ** — วินิจฉัย Salter-Harris ง่ายขึ้น
+4. **X-ray Marker** L/R — ป้องกันผ่าผิดข้าง! ⚠️
+
+**Calibration Ball** ⭐ (เม็ดเหล็กกลม-ขาว):
+- ขนาดมาตรฐาน 2.5 cm
+- ใช้คำนวณ magnification ratio ของฟิล์ม
+- จำเป็นสำหรับ **TPLO · TTA · osteotomy** ที่ต้องวางแผนแม่นยำ
+
+**CT scan** — ใช้ใน complex/comminuted/pelvic fracture
+
+---
+
+## 16. Pain Management ⭐
+
+| Drug class | Examples |
+|---|---|
+| **Opioids** | Morphine · Fentanyl drip/patch · Methadone |
+| **NSAIDs** | Carprofen · meloxicam (caution if hypotension) |
+| **Local anesthesia** | Lidocaine block · epidural |
+
+**ข้อดีของ pain control**:
+- ลด stress → metabolism ดีขึ้น
+- ป้องกันสัตว์ทุลนทุลาย → ป้องกัน secondary trauma
+- พักผ่อนได้ดี
+
+---
+
+# 🟨 PART 4 — Basic Orthopedic Instruments
+
+## 17. Instrument Recap (เห็นจริงใน Lab Sx 3)
+
+| Instrument | Use |
+|---|---|
+| **Bone holding forceps** | หนีบกระดูก (10+ แบบ) |
+| **Mallet** | ตอก (คู่กับ osteotome) |
+| **Hohmann retractor** | งัดกระดูก |
+| **Periosteal elevator** | แหวก periosteum |
+| **Senn retractor** | ดึง |
+| **Gelpi retractor** | เปิดแผลค้าง |
+| **Bone cutter** | ตัดกระดูก |
+| **SS ruler / Caliper** | วัดระยะ (สำคัญในการ planning) |
+| **Cerclage wire + Wire twister + Wire cutter** | ดามด้วยลวด |
+| **Plates + Screws** | ดามแผ่น (ตัวละ ~1,000 บาท!) |
+| **Screwdriver** | 4 แฉก / 6 แฉก / star — ต้อง match กับ screw! ⭐ |
+| **Drill bit + Drill guide + Sleeve guide** | เจาะรู screw |
+| **Power drill (auto-clavable)** | สว่าน ortho เฉพาะ — แพง |
+
+⚠️ **Wire twister ≠ Needle holder** — needle holder คอบางกว่า · ใช้ผิดพังเร็ว
+
+---
+
+## 📝 EXAM RECAP — 15 Key Points
+
+1. **Bone composition**: 70% mineral (95% hydroxyapatite) + 30% organic (98% collagen) + 2% cells
+2. **Stress = แรง/พื้นที่ · Strain = การเปลี่ยนรูป** (อย่าสับสน!)
+3. **Stress-strain curve**: Elastic → Yield → Plastic → Ultimate Failure
+4. **Young's modulus**: SS 200 · Bone < 30 · Cancellous < 5 · Cement < 3 GPa
+5. **Anisotropic**: longitudinal แข็ง · transverse เปราะ
+6. **Viscoelastic**: เร็วแข็ง · ช้าหวัย
+7. **Bone strain tolerance < 2%** → ต้อง immobilize
+8. **Loading-Pattern map**: Tension→Transverse · Compression→Oblique · Bending→Wedge · Torsion→Spiral
+9. **Greenstick fracture** = pediatric incomplete (กิ่งไม้สด)
+10. **Open fracture types**: 1 (<1cm inside-out) · 2 (≥1cm outside-in) · 3A/B/C (severity by tissue damage)
+11. **Salter-Harris**: Type 1 (through physis) · 2 (most common, +metaphysis) · 3 (+epiphysis) · 4 (all 3) · 5 (crush) · 6 (partial)
+12. **Displacement** ดูจาก proximal segment เสมอ + ต้องดู 2 views
+13. **Cat fractures** ~95% เป็น comminuted (เปราะแบบไม้ไผ่)
+14. **AMPLE history + ABCDE vital + A CRASH PLAN** ทุกรายก่อนผ่า
+15. **Calibration ball 2.5 cm** จำเป็นสำหรับ planning ที่ต้องการความแม่นยำสูง
+
+> 📚 อ่านควบ: 5 Oral Sx (OzV5BJrJfDc) · 6.2 ESF (LwNNZYoCpZE) · 7 External Immobilization (9cXpZwgUAPI) · 9.3 Patella Luxation (CIUpw8GNtQ4) · 12 Cruciate (9U-Dgu0ouUk) · 14 Spinal fracture (C1Q5SHxSkGw)
+> 📐 ฟิสิกส์เบสิกแต่จำเป็น — ทุกหัวข้อ ortho ที่ตามมาในเทอม 1+2 จะใช้ความรู้นี้`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
