@@ -35430,6 +35430,219 @@ Survey high titer = MUST be field exposure
 > 🦴 **Critical**: Gd safe? — check kidney first (NSF risk)`,
   },
 
+  'k-W75o6p-Kc': {
+    videoId: 'k-W75o6p-Kc',
+    title: '10. MRI 2 — Advanced Sequences & Functional MRI',
+    subject: 'vet-imaging',
+    date: '2024-10-24',
+    durationMin: 62,
+    instructor: 'อ.พี่มน',
+    examFormat: 'sequence ID + functional application',
+    summary: `# 10. MRI 2 — T2*/SWI, Heavy T2, MRA, Functional MRI
+
+> ⚠️ Final lecture ของ MRI series · ต่อ functional MRI ที่ MRI 1 เปิดท้ายไว้
+> Last lecture จาก อ.พี่มน ใน vet-imaging course
+
+## 🎯 ภาพรวมคาบ
+1. T2* / SWI — detect intracranial hemorrhage
+2. Heavy T2 — spinal cord (MR myelography) + biliary (MRCP)
+3. Vascular MRI — MRA/MRV (TOF + Phase Contrast + Contrast-enhanced)
+4. Functional MRI:
+   - ASL (perfusion)
+   - DWI (acute stroke detection — 30min window!)
+   - DTI (white matter fiber tracking)
+   - MRS (metabolite peaks)
+   - fMRI (active brain regions)
+
+## 1️⃣ T2* and SWI — Hemorrhage Detection ⭐
+
+### Principle
+Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distorts H atom signal → appears as **dark dots/regions** on T2* and SWI
+
+### Comparison
+| Feature | T2* | SWI |
+|---------|-----|------|
+| **Full name** | T2 Star | Susceptibility Weighted Imaging |
+| **Pattern** | Dark **dots/spots** | Dark **branched** (vessel-like) |
+| **Sensitivity for bleed** | Good | Better |
+| **Use** | Intracranial hemorrhage | Hemorrhage + small vessel |
+
+### Clinical Use
+- **Microbleed detection** — small hemorrhages invisible on T1/T2
+- **Hemorrhagic mass** confirmation
+- Trauma · stroke · vascular malformation
+
+### Case Example
+- T2W: hyperintense (white) ring suggests fluid
+- T2 FLAIR: doesn't suppress → not pure CSF (= edema)
+- T1+Contrast: hyperintense → vascular leakage
+- **T2*/SWI**: black hypointense dot → confirms **hemorrhagic mass** (e.g., metastasis with bleeding)
+
+> ⭐ **Diagnostic combo**: T2* sees hemorrhage CT + X-ray ทำไม่ได้
+
+## 2️⃣ Heavy T2W
+
+**= T2W with extra water signal weighting**
+
+### Two main applications:
+
+### A. MR Myelography (Spinal Cord)
+- Visualize CSF around spinal cord clearly
+- **Spondylomyelopathy** — generic term for spinal cord pathology
+  - Cervical = **cervical spondylomyelopathy**
+- Detect:
+  - **Disc dehydration** (T2 normal disc = bright with water · degenerated = dark)
+  - **Disc protrusion/extrusion** compressing cord
+  - CSF flow disruption around cord
+
+### B. MRCP (Magnetic Resonance Cholangiopancreatography)
+- Visualize **biliary tree + pancreatic duct + common bile duct**
+- ⭐ **No contrast injection needed!** — uses native water signal
+- Detect: cholelithiasis · biliary obstruction · pancreatic duct disease
+- Common in human medicine; growing in vet
+
+## 3️⃣ Vascular MRI
+
+### MR Angiography (MRA) = arteries
+### MR Venography (MRV) = veins
+
+### Three Techniques to Detect Blood Flow
+
+#### A. Time of Flight (TOF) Imaging
+**Mechanism**:
+1. RF saturation pulse → suppresses signal in vessel walls + static blood
+2. New blood (unsaturated) flows in → has signal → appears bright
+
+✅ **No contrast** · safe for renal failure
+❌ Image quality < contrast-enhanced
+
+#### B. Phase Contrast (PC) Imaging
+- Detects flow via phase shift in moving spins
+- Less common in clinic
+- ✅ No contrast
+
+#### C. Contrast-Enhanced MRA (CE-MRA)
+- IV gadolinium → vessels light up (T1 hyperintense)
+- ✅ **Best image quality**
+- ❌ NSF risk · contrast cost
+
+### Use Case
+- Brain AVM (arteriovenous malformation) — abnormal artery-vein fusion
+- Stenosis detection (smaller vessels on affected side)
+- Aneurysm
+
+## 4️⃣ Functional MRI Suite
+
+### A. ASL (Arterial Spin Labelling)
+**Detect cerebral blood flow (perfusion)**
+- Magnetically label blood entering brain
+- Compare labelled vs unlabelled images
+- ✅ No contrast
+- **Detect**: hypoperfusion (stroke side · vascular stenosis)
+
+### B. DWI (Diffusion-Weighted Imaging) ⭐ Critical
+**THE most sensitive sequence for ACUTE stroke**
+
+| Time post-stroke | T1/T2/FLAIR | DWI |
+|-------------------|--------------|-----|
+| **30 min** | Negative | ✅ **Hyperintense already!** |
+| 6 hr | Subtle | Bright |
+| 24-48 hr | Becoming visible | Bright |
+
+**Mechanism**: dead/dying cells → cytotoxic edema → restricted water diffusion → hyperintense on DWI
+
+> ⭐ **In humans**: stroke window for thrombolytics = 4.5 hrs · DWI = lifesaver
+> Vet uses for stroke + ischemia detection
+
+### C. DTI (Diffusion Tensor Imaging)
+**= DWI extended to track white matter fiber direction**
+
+**Use case (mainly human surgical planning):**
+- Brain tumor + adjacent white matter tract
+- DTI shows: tract destroyed? compressed? infiltrated?
+| Finding | Surgical decision |
+|---------|---------------------|
+| Tract intact, compressed | Resect tumor + spare tract |
+| Tract infiltrated | Partial resection |
+| Tract destroyed | Aggressive resection (no function lost) |
+
+### D. MR Spectroscopy (MRS)
+**= detect metabolite peaks** in tissue (no need for biopsy!)
+
+#### Brain Application
+| Metabolite | Normal brain | Tumor |
+|-----------|--------------|-------|
+| **NAA (N-acetylaspartate)** | **High** ⭐ (neuronal marker) | Low |
+| **Choline (Cho)** | Low | **High** ⭐ |
+| **Lactate** | Low | High (necrosis) |
+
+**Rule**: Choline > NAA → tumor likely
+**Rule**: NAA > Choline → normal brain
+
+#### Prostate Application (Human)
+| Metabolite | Normal prostate | Cancer |
+|-----------|------------------|--------|
+| **Citrate** | **High** ⭐ | Low |
+| **Choline** | Low | **High** |
+
+**Rule**: Citrate low + Choline high → prostate cancer suspicion (no biopsy needed for screening)
+
+### E. Functional MRI (fMRI) — BOLD imaging
+**= detect active brain regions during tasks**
+
+**Mechanism**: BOLD (Blood Oxygen Level Dependent) signal
+- Active neurons → more oxygen consumption → more deoxy-Hb → signal change
+
+**Use case** (mainly human):
+- Pre-surgical mapping — patient moves finger → which brain area lights up
+- Plan tumor resection avoiding critical motor/language cortex
+- If tumor + critical region overlap → conservative resection
+- Prognosis: spared cortex predicts post-op recovery
+
+## 5️⃣ MRI Sequence Master Summary
+
+### Decision Table
+| Want to see... | Best Sequence |
+|-----------------|---------------|
+| **Anatomy detail** | T1W |
+| **Pathology / fluid lesion** | T2W |
+| **CSF vs edema** | FLAIR (suppress CSF) |
+| **Bone marrow / OCD** | STIR (suppress fat) |
+| **Hemorrhage (microbleeds)** | T2* / SWI ⭐ |
+| **Spinal cord pathology** | Heavy T2 (MR myelography) |
+| **Biliary tree** | MRCP (Heavy T2 noncontrast) |
+| **Brain arteries** | MRA (TOF or contrast) |
+| **Brain veins** | MRV |
+| **Acute stroke** | DWI ⭐ (30-min sensitivity) |
+| **White matter tracts** | DTI |
+| **Tumor metabolic** | MRS (NAA vs Choline) |
+| **Active brain region** | fMRI (BOLD) |
+| **Cerebral perfusion** | ASL |
+| **Tissue enhancement / mass** | T1 + Gd + Fat Sat |
+
+## 📋 Exam recap (15 จุดสำคัญ)
+1. **T2* / SWI** detects hemorrhage (Fe paramagnetic) · dots vs branched
+2. **Heavy T2 = MR myelography** for spinal cord pathology
+3. **MRCP** = Heavy T2 for biliary tree (NO contrast needed!)
+4. MRA = arteries · MRV = veins · 3 techniques
+5. **TOF** = saturate then watch new blood (no contrast)
+6. **CE-MRA** = best image but NSF risk
+7. **DWI** = MOST sensitive for acute stroke (positive in 30 min!)
+8. DWI lesion = hyperintense (restricted diffusion)
+9. **DTI** = white matter fiber tracking · tumor surgical planning
+10. **MRS NAA**: neuron marker (HIGH normal) · **Choline**: HIGH = tumor
+11. **MRS prostate**: Citrate HIGH normal · Choline HIGH = cancer
+12. **fMRI / BOLD** = active brain regions during task · pre-surgical mapping
+13. **ASL** = perfusion imaging (no contrast)
+14. Vet currently uses MRI mostly for **brain/spine** — functional MRI growing
+15. Combination: T1+T2+FLAIR+STIR+T2*+DWI = standard brain protocol
+
+> 📚 อ่านควบ: 1.1 (9BKTe9spGGc) · 7 CT 1 (90jMK-YbOBw) · 8 CT 2 (5eTxpi37pG0) · 9 MRI 1 (vMRQ11km0RI) · 11 Equine (aA9ht3Lxn_k)
+> 🩻 **Best sequence per goal**: เริ่มจาก task → เลือก sequence
+> 💡 **Critical for stroke**: DWI within 30 min · don't wait for T2 to show up
+> 🦴 **Future**: vet MRI growing — ICU brain trauma + neuro-onc + spinal will use these protocols`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
