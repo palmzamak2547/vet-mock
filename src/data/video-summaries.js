@@ -46183,6 +46183,704 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🎯 **Vet skill**: Use 6-step chain to design control strategy`,
   },
 
+  Vg3lcZMrjOk: {
+    videoId: 'Vg3lcZMrjOk',
+    title: 'Veterinary Epidemiology — 2.1 Association vs Causation',
+    subject: 'epidemiology',
+    date: '2025-08-18',
+    durationMin: 50,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + scenario · ออก Risk Factor · Hill Criteria · Necessary vs Sufficient cause · Bias types',
+    summary: `## 🎯 Lead Summary
+**Association vs Causation** — critical for distinguishing correlation from cause. ⭐ ⭐ Just because A is associated with B doesn't mean A causes B! Concepts: ⭐ **Risk Factor** definition · ⭐ **Confounding · Bias · Chance** as alternative explanations · ⭐ **Hill's Criteria** for causation (9 criteria) · ⭐ **Necessary vs Sufficient Cause** · ⭐ **Direct vs Indirect causation**.
+
+## 1️⃣ Why This Matters ⭐⭐
+- Epidemiology shows **associations** (statistical patterns)
+- ⭐ NOT necessarily causation
+- Vets MUST distinguish to design correct interventions
+- ⭐ Treating wrong cause = waste resources
+
+## 2️⃣ Risk Factor Definition ⭐⭐⭐
+- ⭐ **Risk Factor** = factor associated with INCREASED probability of disease/death
+- ⭐ **Exposure to Risk Factor** = animal coming in contact with it
+- Used to: design control strategies, predict outbreaks
+
+## 3️⃣ Concept of Risk ⭐⭐
+- ⭐ **Risk** = probability of event in time period
+- Range: 0 (impossible) to 1 (certain)
+- ⭐ Calculated from observation studies
+- Example: 60% of cattle exposed to FMD develop disease → Risk = 0.6
+
+## 4️⃣ Association Types ⭐⭐⭐
+
+### Statistical Association
+- ⭐ Two variables move together
+- Could be cause, could be coincidence, could be confounder
+- Need additional analysis!
+
+### Causal Association
+- ⭐ A truly causes B
+- Removing A reduces B
+- Hill's criteria help establish
+
+### Spurious Association ⭐
+- ⭐ False association from:
+  - **Chance** (random coincidence)
+  - **Bias** (study design flaw)
+  - **Confounding** (third variable explains)
+
+## 5️⃣ Confounding ⭐⭐⭐ (CRITICAL!)
+
+### Definition
+- ⭐ Third variable that affects BOTH exposure and outcome
+- Creates illusion of association
+
+### Classic Example
+- ⭐ Coffee drinking ↔ Lung cancer
+- ⭐ Confounder: Smoking (smokers drink coffee + get cancer)
+- Without controlling for smoking → false association
+
+### Veterinary Examples
+- Old cows + mastitis: ⭐ confounder = parity (multiple lactations damage)
+- Breed + disease: ⭐ confounder = management practices
+- Season + outbreak: ⭐ confounder = animal movement patterns
+
+## 6️⃣ Bias Types ⭐⭐
+
+### Selection Bias
+- ⭐ How subjects were chosen affects results
+- Example: Only severely ill animals brought to vet
+- Fix: Random sampling, well-defined population
+
+### Information Bias
+- ⭐ How data was collected creates errors
+- ⭐ **Recall bias**: owners forget past exposure
+- ⭐ **Observer bias**: vet expects to find what they think
+
+### Misclassification
+- ⭐ Animals categorized incorrectly
+- Differential vs non-differential
+
+## 7️⃣ Hill's Criteria for Causation ⭐⭐⭐ (9 Criteria!)
+
+### The 9 Criteria
+1. ⭐ **Strength of association** — bigger effect = more likely causal
+2. ⭐ **Consistency** — replicated in multiple studies
+3. ⭐ **Specificity** — one cause → one outcome (rare in real world)
+4. ⭐ **Temporality** — cause MUST precede effect (most important!)
+5. ⭐ **Biological gradient** — dose-response relationship
+6. ⭐ **Plausibility** — biological mechanism makes sense
+7. ⭐ **Coherence** — fits with existing knowledge
+8. ⭐ **Experimental evidence** — controlled studies confirm
+9. ⭐ **Analogy** — similar known causes
+
+### Most Important: Temporality ⭐
+- ⭐ Cause must come BEFORE effect
+- Vaccination must precede protection
+- ⚠️ Common error: showing correlation but not direction
+
+## 8️⃣ Necessary vs Sufficient Cause ⭐⭐⭐
+
+### 4 Combinations
+| Type | Definition | Example |
+|---|---|---|
+| ⭐ **Necessary + Sufficient** | Required AND alone causes disease | TB requires M. tuberculosis · M. tuberculosis alone causes TB |
+| ⭐ **Necessary, NOT Sufficient** | Required but needs others | HIV needed for AIDS but co-factors involved |
+| ⭐ **Sufficient, NOT Necessary** | Alone causes but not required | Smoking → lung cancer (one cause but not only) |
+| ⭐ **Neither Necessary nor Sufficient** | Risk factor only | Stress → many diseases (correlative) |
+
+### Application
+- ⭐ Vet treats Necessary cause if known
+- For multifactorial: address sufficient combination
+
+## 9️⃣ Direct vs Indirect Causation ⭐
+
+### Direct
+- A → Disease
+- ⭐ Single mechanism, no intermediary
+- Example: virus directly infects cells
+
+### Indirect
+- A → B → Disease
+- ⭐ Through intermediate steps
+- Example: Stress → cortisol ↑ → immune drop → infection
+
+### Why Distinguish
+- ⭐ Direct = treat at primary cause
+- ⭐ Indirect = can intervene at any chain step
+
+## 1️⃣0️⃣ Strength of Association Measures ⭐⭐
+
+### Common Metrics (More in next lecture!)
+| Metric | Use |
+|---|---|
+| ⭐ **Risk Ratio (RR)** | Cohort studies |
+| ⭐ **Odds Ratio (OR)** | Case-control studies |
+| ⭐ **Attributable Risk** | Public health planning |
+
+### Interpretation
+- ⭐ RR/OR = 1: no association
+- ⭐ RR/OR > 1: positive association (risk factor)
+- ⭐ RR/OR < 1: negative association (protective factor)
+
+### Practical Application
+- ⭐ Vet finds OR=5 for stress + mastitis → focus on stress reduction
+- ⭐ Calculate effect size = drives intervention
+
+## 1️⃣1️⃣ Causal Web Concept ⭐
+
+### Multifactorial Reality
+- ⭐ Most diseases have **web of causes**
+- Each factor contributes
+- Removing key node disrupts web
+
+### Vet's Job
+- ⭐ Identify weakest links in web
+- Most cost-effective intervention
+- ⭐ Combine multiple interventions
+
+## 📋 Exam Recap (10 จุดสำคัญ)
+1. ⭐ **Association ≠ Causation** (correlation isn't cause!)
+2. ⭐ **Risk Factor** = increases disease probability
+3. ⭐ **Confounding** = 3rd variable explains apparent association
+4. ⭐ **Bias types**: Selection, Information, Recall, Observer
+5. ⭐ ⭐ **Hill's 9 Criteria** for establishing causation
+6. ⭐ **Temporality** = MOST IMPORTANT criterion (cause before effect!)
+7. ⭐ **Necessary vs Sufficient cause** (4 combinations)
+8. ⭐ **Direct vs Indirect causation** (with intermediary steps)
+9. ⭐ **RR/OR**: =1 no association, >1 risk, <1 protective
+10. ⭐ **Causal Web** = most diseases multifactorial
+
+> 📚 **Cross-refs**: Disease patterns · Future: Disease frequency measurement · Outbreak investigation
+> 🩺 **Practical**: Use Hill's criteria when investigating new disease outbreaks
+> 📊 **Calculation tip**: RR/OR > 2 generally meaningful association
+> 🎯 **Key skill**: Always ask "What else could explain this?"`,
+  },
+
+  WrMlmkEYtQA: {
+    videoId: 'WrMlmkEYtQA',
+    title: 'Veterinary Epidemiology — 2.2 Measurement of Disease Frequency',
+    subject: 'epidemiology',
+    date: '2025-08-18',
+    durationMin: 52,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + calculation · ออก Rate vs Ratio vs Proportion · Incidence vs Prevalence · Population at Risk · CFR · Mortality',
+    summary: `## 🎯 Lead Summary
+**Disease frequency measurement** — quantifying how often disease occurs in populations. ⭐ ⭐ Critical: ⭐ **Rate vs Ratio vs Proportion** are different! ⭐ ⭐ **Incidence** (new cases) vs ⭐ ⭐ **Prevalence** (existing cases). All calculations require ⭐ **Population at Risk** as denominator (not total population!). Output values used to compare farms, time periods, interventions.
+
+## 1️⃣ Why We Measure ⭐⭐
+- ⭐ Compare disease severity between groups
+- ⭐ Track outbreak progression
+- ⭐ Evaluate control programs
+- ⭐ Calculate economic impact
+- ⚠️ "10 cases in farm A vs 50 in farm B" = MEANINGLESS without total population!
+
+## 2️⃣ 3 Measurement Types ⭐⭐⭐
+
+### Rate (อัตรา)
+- ⭐ a / (a + b) × constant K
+- ⭐ ⭐ **DYNAMIC** measure — includes time component
+- Has units (per year, per 1000)
+- Example: Mortality rate
+
+### Ratio (อัตราส่วน)
+- ⭐ a : b directly
+- ⭐ **STATIC** measure
+- Compare two values
+- Example: Male:Female ratio = 1:2
+
+### Proportion (สัดส่วน)
+- ⭐ x / (x + y + z)
+- ⭐ **STATIC** measure
+- Part of whole, expressed as %
+- Example: % of deaths from cause A
+
+### Constant K
+- ⭐ Multiplier to make numbers readable
+- Human population: K = million
+- Animal population: K = 100 / 1000 / 10,000
+- ⭐ Always check K in papers!
+
+## 3️⃣ Population at Risk ⭐⭐⭐ (CRITICAL!)
+
+### Definition
+- ⭐ Animals that COULD develop disease
+- NOT total population
+- Excludes immune, vaccinated, already sick
+
+### Cat Mammary Cancer Example ⭐
+- Numerator: Cats with mammary cancer
+- ⭐ Denominator: ⭐ **FEMALE cats only** (population at risk!)
+- ⚠️ NOT all cats (males don't get this!)
+
+### Why Important
+- ⭐ Wrong denominator → wrong rate
+- Always think: "Who could really get this?"
+
+## 4️⃣ Incidence ⭐⭐⭐ (NEW Cases)
+
+### Definition
+- ⭐ ⭐ **New cases occurring in time period**
+- Usually 1 year unless specified
+- Units: cases per year per population
+
+### Incidence Rate
+- ⭐ Cases / Population at Risk × K
+- Reflects ⭐ **risk of acquiring disease**
+
+### Cumulative Incidence
+- ⭐ Total new cases / Initial population at risk
+- Long-term risk over study period
+
+### Example Calculation
+- 17 cats developed FIV in 1 week from 212 cats
+- Incidence = 17/212 = 0.08
+- ⭐ At 3 weeks: 1 - (1-0.08)³ = 0.22
+
+## 5️⃣ Attack Rate ⭐
+- ⭐ Used for short-time-frame outbreaks
+- Common in foodborne, accidents
+- Usually used in HUMAN epi (rare in vet)
+- Calculation: cases / exposed × 100
+
+## 6️⃣ Prevalence ⭐⭐⭐ (EXISTING Cases)
+
+### Definition
+- ⭐ ⭐ **All cases (new + old) at point in time**
+- "Snapshot of disease burden"
+
+### Point Prevalence
+- ⭐ At specific time
+- Most common usage
+
+### Period Prevalence
+- During time interval
+- Includes new cases during period
+
+### Calculation
+- ⭐ Existing cases / Total population × K
+
+### Why Prevalence ≠ Incidence
+- ⭐ Prevalence = Incidence × Duration
+- Long-duration disease → high prevalence
+- Short-duration disease → low prevalence
+- Example: Diabetes (chronic) = high prevalence
+- FMD (acute, fast resolution) = low prevalence
+
+## 7️⃣ Other Important Rates ⭐⭐
+
+### Mortality Rate
+- ⭐ Deaths / Population × K
+- Different from CFR!
+
+### Case Fatality Rate (CFR) ⭐⭐
+- ⭐ Deaths / Cases × 100
+- Reflects disease severity
+- Examples:
+  - Rabies: 100% CFR
+  - HPAI: ~70% CFR (humans)
+  - COVID: ~1-3% CFR
+
+### Crude vs Specific Rates
+- ⭐ Crude: whole population
+- ⭐ Specific: subset (age, sex, breed)
+- ⭐ Specific is more meaningful
+
+## 8️⃣ Mortality vs Morbidity ⭐⭐
+| Term | Meaning |
+|---|---|
+| ⭐ **Mortality** | Death rate |
+| ⭐ **Morbidity** | Sickness rate (any disease) |
+
+### Example: HPAI
+- Morbidity: 80% (most birds get sick)
+- Mortality: 70-80% (high deaths)
+- Different from rabies: 100% CFR but very low morbidity (rare)
+
+## 9️⃣ Comparing Rates ⭐⭐
+
+### When Comparing Farms
+- ⭐ Use specific rates for population at risk
+- Adjust for confounders (age structure, etc.)
+- Statistical tests for significance
+
+### Example
+- Farm A: 10 cases / 100 cattle = 10% rate
+- Farm B: 50 cases / 1000 cattle = 5% rate
+- ⭐ Farm A has HIGHER rate despite fewer cases!
+
+## 1️⃣0️⃣ Practical Applications ⭐
+- ⭐ Annual incidence track over years
+- ⭐ Vaccination campaign evaluation (incidence ↓?)
+- ⭐ Antimicrobial resistance trends
+- ⭐ Welfare program impact
+
+## 📋 Exam Recap (10 จุดสำคัญ)
+1. ⭐ **Rate / Ratio / Proportion** — different things!
+2. ⭐ **Rate has time** (dynamic), Ratio + Proportion static
+3. ⭐ **Population at Risk** = correct denominator (NOT total!)
+4. ⭐ **Incidence** = new cases in time period
+5. ⭐ **Prevalence** = existing cases at point in time
+6. ⭐ **Prevalence ≈ Incidence × Duration**
+7. ⭐ **CFR** = deaths/cases (rabies = 100%)
+8. ⭐ **Attack rate** for short-term outbreaks
+9. ⭐ **Mortality vs Morbidity** distinction
+10. ⭐ **Compare rates** not raw numbers!
+
+> 📚 **Cross-refs**: Causation lecture · Future: Outbreak investigation · Surveillance
+> 🩺 **Practical**: Always ask "Who's the population at risk?"
+> 📊 **Calculation**: Memorize formulas — these will be on exam!
+> 🎯 **Memorize**: Cat cancer example shows population at risk = female cats only`,
+  },
+
+  KZkTw81bFmY: {
+    videoId: 'KZkTw81bFmY',
+    title: 'Veterinary Epidemiology — 2.3 Outbreak Investigation',
+    subject: 'epidemiology',
+    date: '2025-08-18',
+    durationMin: 92,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + scenario · ออก 10 steps of outbreak investigation · case definition · Epidemic Curve interpretation',
+    summary: `## 🎯 Lead Summary
+**Outbreak Investigation** = systematic field response to disease outbreaks. ⭐ **10-step protocol** (case definition → control → report). Used by DLD, vets in field. Goal: ⭐ identify pathogen + source + transmission + risk factors → control before spread. ⭐ ⭐ **Epidemic Curve** is key analytical tool.
+
+## 1️⃣ When to Investigate ⭐⭐
+- ⭐ Sudden case increase
+- ⭐ New disease appearance
+- ⭐ Unusual pattern
+- ⭐ Public health concern
+- ⭐ Trade-related disease
+
+## 2️⃣ 10-Step Protocol ⭐⭐⭐
+
+### Step 1: Verify Outbreak Exists
+- ⭐ Confirm cases real (not lab error)
+- Check baseline rates
+- Compare to historic data
+
+### Step 2: Establish Case Definition
+- ⭐ ⭐ **CRITICAL!**
+- Clinical signs + lab confirmation + temporal/geographic bounds
+- ⭐ Specific (avoid over-counting)
+
+### Step 3: Active Case Finding
+- ⭐ Search beyond reported cases
+- Door-to-door sometimes (HPAI X-ray)
+- Define population at risk
+
+### Step 4: Descriptive Analysis ⭐⭐
+- ⭐ **Time** (when?), **Place** (where?), **Person/Animal** (who?)
+- ⭐ Build Epidemic Curve
+- Map cases geographically
+
+### Step 5: Generate Hypotheses
+- ⭐ What's the source?
+- What's the route?
+- What are risk factors?
+
+### Step 6: Test Hypotheses
+- ⭐ Case-control study
+- Cohort study
+- Statistical significance
+
+### Step 7: Refine + Re-test if Needed
+- ⭐ New data may emerge
+- Refine hypotheses
+
+### Step 8: Implement Control Measures
+- ⭐ Quarantine
+- Vaccinate
+- Cull
+- Disinfect
+
+### Step 9: Communicate Findings
+- ⭐ Report to authorities
+- Educate stakeholders
+- Public communication
+
+### Step 10: Follow-up + Documentation
+- ⭐ Final report
+- Lessons learned
+- Update protocols
+
+## 3️⃣ Case Definition ⭐⭐⭐
+
+### Components
+- ⭐ Clinical criteria (signs)
+- ⭐ Laboratory criteria (test results)
+- ⭐ Time bounds (when occurred)
+- ⭐ Place bounds (geographic)
+- ⭐ Population (species, age)
+
+### Categories
+- ⭐ **Suspected**: clinical only
+- ⭐ **Probable**: clinical + epidemiologic link
+- ⭐ **Confirmed**: laboratory positive
+
+## 4️⃣ Epidemic Curve Analysis ⭐⭐⭐
+
+### Single Source (Common Source)
+- ⭐ Sharp peak, single bell
+- All cases exposed at one event
+- Example: Salmonella from contaminated feed
+
+### Continuous Source
+- ⭐ Plateau pattern
+- Ongoing exposure
+- Example: contaminated water
+
+### Propagated (Person-to-Person)
+- ⭐ Multiple peaks
+- Each peak = generation of transmission
+- Example: COVID waves
+
+### Mixed
+- ⭐ Common features
+- Real outbreaks often complex
+
+## 5️⃣ Time-Place-Person Triangle ⭐⭐
+
+### Time Analysis
+- ⭐ When did first case occur?
+- ⭐ Onset patterns (rapid vs slow)
+- ⭐ Incubation period clues
+
+### Place Analysis
+- ⭐ Where are cases concentrated?
+- ⭐ Spread pattern (geographic)
+- ⭐ Spot maps reveal clusters
+
+### Person/Animal Analysis
+- ⭐ Demographics (age, sex, breed)
+- ⭐ Risk factors common to cases
+- ⭐ Exposure history
+
+## 6️⃣ Hypothesis Testing ⭐⭐
+
+### Comparison Approach
+- Cases vs Controls
+- ⭐ Look for differences in exposure history
+- Calculate Odds Ratios
+
+### Example
+- 100 affected dogs vs 100 healthy
+- 80% sick ate brand X feed
+- 20% healthy ate brand X feed
+- ⭐ Strong association → investigate brand X
+
+## 7️⃣ Source Identification Tools ⭐
+- ⭐ Trace-back investigation
+- Sample collection (food, water, environment)
+- Lab testing for pathogen
+- Pathogen genotyping
+- Contact tracing
+
+## 8️⃣ Real-World Examples ⭐
+
+### HPAI Outbreak Thailand 2547
+- ⭐ Initial cases identified
+- ⭐ Door-to-door active surveillance
+- ⭐ Massive culling response
+- ⭐ Trade restrictions
+- ⭐ Successful control (still no recurrence!)
+
+### COVID-19 Investigation
+- ⭐ Wuhan source identified
+- ⭐ Contact tracing globally
+- ⭐ Genome sequencing of variants
+- ⭐ Continuous monitoring
+
+### LSD Thailand 2021
+- ⭐ Multiple simultaneous foci suggested movement
+- Vaccine deployment
+- Quarantine zones
+
+## 📋 Exam Recap (10 จุดสำคัญ)
+1. ⭐ **10-step outbreak investigation protocol**
+2. ⭐ **Case definition** = critical first step
+3. ⭐ **3 categories**: Suspected · Probable · Confirmed
+4. ⭐ **Epidemic Curve types**: Common source · Continuous · Propagated · Mixed
+5. ⭐ **Time-Place-Person** triangle for description
+6. ⭐ **Active case finding** beyond reported
+7. ⭐ **Hypothesis test** with case-control
+8. ⭐ **HPAI Thailand 2547** = success story example
+9. ⭐ **DLD = lead authority** in Thailand
+10. ⭐ **Communication + reporting** essential final step
+
+> 📚 **Cross-refs**: Disease patterns · Causation · Future: Surveillance
+> 🩺 **Practical**: Be ready to lead investigation in field
+> 🎯 **Skills**: Map cases · build curves · test hypotheses · communicate clearly`,
+  },
+
+  WZWjg1DhDkQ: {
+    videoId: 'WZWjg1DhDkQ',
+    title: 'Veterinary Epidemiology — 3.1 Screening and Diagnostic Tests',
+    subject: 'epidemiology',
+    date: '2025-08-25',
+    durationMin: 55,
+    instructor: 'อ.ธนศักดิ์',
+    examFormat: 'Multiple choice + calculation · ออก Sensitivity · Specificity · PPV · NPV · 2x2 table · screening vs diagnostic',
+    summary: `## 🎯 Lead Summary
+**Diagnostic test interpretation** — essential for clinical decisions + surveillance. ⭐ **Test metrics**: ⭐ ⭐ **Sensitivity** (true positive rate) · ⭐ ⭐ **Specificity** (true negative rate) · ⭐ **PPV** (positive predictive value) · ⭐ **NPV** (negative predictive value) · ⭐ **Accuracy**. Critical: ⭐ ⭐ **2x2 table** mastery for calculations.
+
+## 1️⃣ Why It Matters ⭐⭐
+- ⭐ Choose right test for situation
+- ⭐ Interpret results correctly
+- ⭐ Avoid false positives/negatives
+- ⭐ Make informed clinical decisions
+- ⭐ Surveillance design
+
+## 2️⃣ The 2×2 Table ⭐⭐⭐
+
+### Standard Layout
+| | Disease + | Disease - |
+|---|---|---|
+| **Test +** | TP (a) | FP (b) |
+| **Test -** | FN (c) | TN (d) |
+
+### Key Cells
+- ⭐ **TP** = True Positive
+- ⭐ **FP** = False Positive
+- ⭐ **FN** = False Negative
+- ⭐ **TN** = True Negative
+
+## 3️⃣ Sensitivity ⭐⭐⭐
+
+### Definition
+- ⭐ ⭐ **TP / (TP + FN)** = TP / All Diseased
+- ⭐ ⭐ **"Does it find the SICK?"**
+- High sensitivity = few false negatives
+
+### When You Want HIGH Sensitivity
+- ⭐ Screening (don't miss cases!)
+- Serious diseases (rabies, HIV)
+- Early detection programs
+
+### Example
+- 90% sensitivity = catches 90% of truly sick
+
+## 4️⃣ Specificity ⭐⭐⭐
+
+### Definition
+- ⭐ ⭐ **TN / (TN + FP)** = TN / All Healthy
+- ⭐ ⭐ **"Does it confirm HEALTHY?"**
+- High specificity = few false positives
+
+### When You Want HIGH Specificity
+- ⭐ Confirmatory tests
+- Costly treatment decisions
+- Avoid unnecessary culling
+
+### Example
+- 95% specificity = correctly identifies 95% of truly healthy
+
+## 5️⃣ PPV (Positive Predictive Value) ⭐⭐
+
+### Definition
+- ⭐ **TP / (TP + FP)** = TP / All Positive Tests
+- ⭐ "If positive, what's chance of disease?"
+
+### Critical Insight
+- ⭐ ⭐ **PPV depends on prevalence!**
+- High prevalence → high PPV
+- Low prevalence → LOW PPV (even with great test!)
+
+### Example
+- Disease prevalence 1%, test 95% specific
+- → ⭐ Positive result still likely false positive!
+- Why screening rare diseases is hard
+
+## 6️⃣ NPV (Negative Predictive Value) ⭐⭐
+
+### Definition
+- ⭐ **TN / (TN + FN)** = TN / All Negative Tests
+- ⭐ "If negative, what's chance of no disease?"
+
+### Application
+- High prevalence → low NPV
+- Low prevalence → high NPV
+
+## 7️⃣ Accuracy ⭐
+
+### Definition
+- ⭐ **(TP + TN) / Total**
+- Overall test performance
+
+### Limitations
+- ⭐ Misleading at extreme prevalences
+- Use sensitivity + specificity instead
+
+## 8️⃣ Screening vs Diagnostic ⭐⭐
+
+### Screening Test
+- ⭐ Apparently healthy population
+- ⭐ Want HIGH sensitivity
+- Low cost, easy to administer
+- ⭐ Examples: ELISA mass screening
+
+### Diagnostic Test
+- ⭐ Suspected sick population
+- ⭐ Want HIGH specificity
+- More expensive, definitive
+- ⭐ Examples: PCR confirmation
+
+### Combined Strategy
+- ⭐ Screen with sensitive test
+- Confirm with specific test
+- ⭐ Standard workflow!
+
+## 9️⃣ Cut-off Values ⭐⭐
+
+### Concept
+- ⭐ Test result above/below threshold
+- ⭐ ROC curve helps choose cutoff
+- Trade-off: sensitivity vs specificity
+
+### Trade-off
+- ⭐ Lower cutoff → higher sensitivity, lower specificity
+- ⭐ Higher cutoff → lower sensitivity, higher specificity
+
+## 1️⃣0️⃣ Real-World Test Examples ⭐
+
+### TB SIT Test
+- 4mm cutoff
+- Sensitivity ~80%
+- Specificity ~95%
+
+### COVID Tests
+- ⭐ ATK home tests: ~80% sensitive
+- ⭐ PCR: ~95% sensitive
+- Antibody tests: variable
+
+### Brucella MRT
+- ⭐ Bulk tank screening
+- High sensitivity for herd
+- Followed by individual confirmation
+
+## 1️⃣1️⃣ Common Pitfalls ⭐
+- ⭐ Confusing sensitivity with PPV
+- ⭐ Ignoring prevalence effect
+- ⭐ Using single test for everything
+- ⭐ Not knowing test characteristics
+
+## 📋 Exam Recap (10 จุดสำคัญ)
+1. ⭐ ⭐ **Sensitivity** = TP/(TP+FN) — finds sick
+2. ⭐ ⭐ **Specificity** = TN/(TN+FP) — confirms healthy
+3. ⭐ **PPV** = TP/(TP+FP) — depends on prevalence!
+4. ⭐ **NPV** = TN/(TN+FN)
+5. ⭐ **2×2 table** — must master!
+6. ⭐ **Screening** wants HIGH sensitivity
+7. ⭐ **Diagnostic** wants HIGH specificity
+8. ⭐ **Cut-off** trades sensitivity vs specificity
+9. ⭐ **Strategy**: Screen sensitive → Confirm specific
+10. ⭐ Low prevalence + good specificity → many false positives still!
+
+> 📚 **Cross-refs**: Surveillance lecture · TB SIT testing (herd-health-rum)
+> 🩺 **Practical**: Always check test characteristics before using!
+> 🧪 **Calculation tip**: Practice 2×2 tables until automatic
+> 🎯 **Decision rule**: Match test to clinical question (rule-in vs rule-out)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
