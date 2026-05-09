@@ -33664,6 +33664,271 @@ Survey high titer = MUST be field exposure
 > 🦴 **Year 5 lab**: practice MSK reading until pattern recognition is automatic`,
   },
 
+  rTLWWO65Rs8: {
+    videoId: 'rTLWWO65Rs8',
+    title: '4.1 Basic Ultrasound',
+    subject: 'vet-imaging',
+    date: '29 Aug 67',
+    durationMin: 71,
+    instructor: 'อ.ชุติมนต์ (CUVET)',
+    examFormat: 'MCQ — US frequency MHz · Wave properties · Acoustic impedance · Cannot pass air/bone · Echocardiography Gold Standard · 4 echogenicity levels (anechoic/hypo/iso/hyper) ออกบ่อย',
+    summary: `# Basic Ultrasound
+
+> 🎯 **The non-radiation imaging tool** — real-time, motion, multi-organ
+> Top exam: **Sound waves vs X-ray · Frequency MHz range · Cannot penetrate air or bone · 4 echogenicity terms · Indications · Gold standard for heart**
+
+---
+
+## 1. Why Ultrasound (vs X-ray)? ⭐⭐
+
+### Limitations of X-ray
+- 2D projection (loss of 3D info)
+- Cannot distinguish soft tissues (all "soft tissue density")
+- Tissue overlap (Super imposition)
+- Ionizing radiation
+
+### Strengths of Ultrasound
+- **Real-time imaging** (motion!) ⭐
+- Multiple planes
+- Differentiates soft tissues
+- **No ionizing radiation**
+- Portable
+- **Echocardiography = gold standard** for heart
+
+---
+
+## 2. Wave Physics ⭐⭐ (Foundation!)
+
+### Sound waves
+- **Sine waves** (longitudinal compression-rarefaction)
+- Properties: Frequency + Wavelength
+- **f × λ = velocity**
+
+### Frequency units
+- **Hertz (Hz)** = cycles per second
+- US uses **MEGAHERTZ (MHz)** = millions of cycles/second
+
+### Frequency in vet practice
+| Range | Use |
+|---|---|
+| **1-3 MHz** | Large animals, deep penetration |
+| **5-12 MHz** | Small animal cardio, abdomen |
+| **15-50 MHz** | Superficial structures, eyes |
+
+### Frequency-Resolution Trade-off ⭐⭐⭐
+- **Higher frequency** = better resolution BUT shallower penetration
+- **Lower frequency** = deeper penetration BUT poorer resolution
+- Choose based on target depth!
+
+---
+
+## 3. Sound Wave Behavior in Body ⭐
+
+### Speed depends on medium
+| Medium | Speed |
+|---|---|
+| **Solids** | Fastest |
+| **Liquids** | Medium |
+| **Gas/Air** | Slowest |
+
+### Average velocity in soft tissue
+- ~1540 m/s (used in calculations)
+
+### Density relationship
+- Higher density → faster sound velocity (in solids/liquids)
+- Body soft tissue calibrated as standard
+
+---
+
+## 4. Acoustic Impedance ⭐⭐ (KEY concept!)
+
+### Definition
+**Z = ρ × v** (density × velocity)
+
+### Importance
+- Determines **how much sound reflects** at boundaries
+- Boundaries with BIG impedance difference → high reflection
+- Boundaries with SMALL difference → most sound passes through
+
+### Reflection examples
+| Boundary | Reflection % |
+|---|---|
+| Soft tissue ↔ Soft tissue | ~1% (most passes) |
+| Soft tissue ↔ Bone | ~50% (lots reflects) |
+| Soft tissue ↔ Air | ~99% (almost all reflects) |
+
+### Why air blocks ultrasound
+- Almost all sound reflects at tissue-air interface
+- No sound penetrates beyond gas
+- Therefore: **lung, GI gas = ULTRASOUND BLINDSPOTS**
+
+### Why bone blocks too
+- High reflection
+- Plus absorption
+- Behind bone = "shadow" with no info
+
+---
+
+## 5. The "Cannot Pass" Rule ⭐⭐ (Critical!)
+
+### Ultrasound CANNOT pass through
+1. **Gas/Air** (lungs, GI, pneumothorax)
+2. **Bone** (skull, vertebrae, long bones)
+3. **Heavy metal/contrast** (e.g., barium)
+
+### Implication for practice
+- Cannot ultrasound LUNG (gas-filled)
+- Cannot ultrasound brain (skull blocks) — except puppies (open fontanelle)
+- Cannot ultrasound GI well if gas-filled (sometimes needs water)
+
+---
+
+## 6. Special Use: Open Fontanelle ⭐ (Brain!)
+
+### When possible
+- Toy breed puppies have open fontanelles (skull "soft spots")
+- Can ultrasound BRAIN through this hole
+- Detects hydrocephalus, brain masses
+
+### Adult animals
+- Closed fontanelles
+- Need MRI/CT for brain imaging
+
+---
+
+## 7. Echogenicity Terms ⭐⭐⭐ (KEY exam!)
+
+### 4 levels of echogenicity
+| Term | Description | On screen |
+|---|---|---|
+| **Anechoic** ⭐ | No echoes (sound passes through) | BLACK |
+| **Hypoechoic** | Few echoes | Dark gray |
+| **Isoechoic** | Same as reference | Same as adjacent |
+| **Hyperechoic** ⭐ | Many echoes (lots reflects) | WHITE/bright |
+
+### Common findings by echogenicity
+| Echogenicity | Examples |
+|---|---|
+| Anechoic | Fluid (urine in bladder, blood, cysts), fluid-filled lesions |
+| Hypoechoic | Most cells, soft tissues |
+| Isoechoic | Healthy organ tissue |
+| Hyperechoic | Bone surface, gas, mineralization, calculi |
+
+### Compare to X-ray terms
+- Don't confuse "anechoic" with "radiolucent"
+- Different modality, different mechanism!
+
+---
+
+## 8. Indications for Ultrasound ⭐
+
+### Common
+- **Abdominal disease** (liver, kidney, spleen, GI, bladder, uterus)
+- **Cardiac disease** (echocardiography = gold standard!)
+- **Pregnancy detection + monitoring**
+- **Soft tissue masses** (characterization)
+- **Vascular flow** (Doppler)
+- **Guided procedures** (FNA, biopsy, drainage)
+
+### Less common but possible
+- Tendons, joints (musculoskeletal US)
+- Eyes (ocular)
+- Brain (open fontanelle only)
+
+---
+
+## 9. Real-Time Imaging Advantages ⭐
+
+### Motion observation
+- See heart contracting
+- See bowel peristalsis
+- See bladder filling
+- See vessel flow (Doppler)
+
+### Diagnostic implications
+- Decreased peristalsis → ileus
+- Heart wall motion abnormality → cardiomyopathy
+- Vessel flow patterns → stenosis, regurgitation
+
+---
+
+## 10. Operator Dependence ⭐⭐ (Skill matters!)
+
+### Why important
+- US images require **active operator skill**
+- Hand position, angle, pressure all matter
+- Different operator = different image
+
+### Build skill through
+- Repetition
+- Anatomy review
+- Pattern recognition
+- Mentor guidance
+
+### Practice progression
+- Year 4: theory
+- Year 5: hands-on
+- Year 6: refinement
+- Internship/residency: mastery
+
+---
+
+## 11. Equipment Components ⭐
+
+### Main parts
+| Part | Function |
+|---|---|
+| **Probe (transducer)** | Generates + receives sound waves |
+| **Console (computer)** | Processes signals, displays image |
+| **Monitor** | Displays image |
+| **Storage** | DICOM files |
+
+### Probe types
+- **Linear array** (high frequency, superficial structures)
+- **Curvilinear/Convex** (medium frequency, abdominal)
+- **Phased array (sector)** (cardiac, narrow window)
+- **Microconvex** (small animals)
+
+---
+
+## 12. Coupling Gel ⭐ (Critical!)
+
+### Why used
+- Fills air between probe and skin
+- Air = ultrasound blocker (99% reflection!)
+- Gel matches impedance (mostly water)
+- Allows clear image
+
+### Clinical pearl
+- Always shave fur for good coupling
+- Generous gel application
+- Warm gel for comfort
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **US uses sound waves** (NOT radiation)
+2. **MHz range**: 1-50 MHz clinical
+3. **Higher freq = better resolution + shallower depth**
+4. **Lower freq = deeper but lower resolution**
+5. **Acoustic impedance** = density × velocity
+6. **Air + bone block ultrasound** (high reflection)
+7. **Open fontanelle** = brain US window in puppies
+8. **4 echogenicity terms**: Anechoic, Hypo-, Iso-, Hyper-
+9. **Anechoic = fluid** (black on screen)
+10. **Hyperechoic = bone/gas/calcification** (white)
+11. **Echocardiography = gold standard** for heart
+12. **Real-time motion** = US advantage
+13. **Operator-dependent** skill
+14. **Coupling gel** mandatory (air = blocker)
+
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 5.1 Clinical Ultrasound (FYjDUCYr0Eo) · 4.2 Abdominal Lab (5RXoan8azRs)
+> 🩻 **Practice tip**: Memorize echogenicity terms — exam classics
+> 💡 **Air + bone = US blockers** — fundamental rule
+> 🦴 **Frequency trade-off**: high res vs deep penetration`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
