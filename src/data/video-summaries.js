@@ -27479,6 +27479,344 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 > 🦴 **Modern trend**: insect/algae protein replacing imported soy (sustainability)`,
   },
 
+  gBdwkFQLi28: {
+    videoId: 'gBdwkFQLi28',
+    title: '14. Disease Control & Prevention in Swine Breeding Herd',
+    subject: 'swine-herd',
+    date: '19 Nov 67',
+    durationMin: 103,
+    instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
+    examFormat: 'MCQ — KPI cascade · 2-Strategy framework (reduce agent + separate) · Depopulation · Sentinel pig · Early weaning rationale · Mummified body length aging · Lung scoring (Madec) · Endotoxemia mechanism ออกบ่อย',
+    summary: `# Disease Control & Prevention in Swine Breeding Herd
+
+> 🎯 **The breeding herd is the engine** — diseases here cascade to all later stages
+> Top exam: **2-strategy framework · Depopulation methods · Sentinel pigs · Early weaning · Mummy aging · Lung scoring · Endotoxemia from MMA**
+
+---
+
+## 1. Production Capacity Calculation ⭐ (Always start here)
+
+### Reverse-engineering farm size
+Example: 1,000 sows · LSY 2 cycles/year · target 500 weaned/week
+| Param | Value |
+|---|---|
+| Sows | 1,000 |
+| Cycles/sow/year | 2.0 |
+| Weaned pigs/year | 2,000 |
+| Weekly batch (Weekly System) | 500/week × 4 weeks = 2,000 |
+| Required nursery rooms | Calculate based on 2,000 weaners/4 weeks |
+
+### Why this matters
+- Set baseline expectation BEFORE intervention
+- Compare actual vs target → gap = problem
+- Plan barns, vaccines, drugs accordingly
+
+---
+
+## 2. KPI Cascade for Breeding Herd ⭐⭐ (Performance check!)
+
+### Master KPI: PSY (Pigs Weaned per Sow per Year)
+**PSY = Pigs Weaned/Litter × Litters/Year**
+
+### Sub-KPIs to investigate
+| KPI | Target | Issue if low |
+|---|---|---|
+| **Conception rate** | >90% | Heat detection · semen · sow nutrition |
+| **Farrowing rate** | >90% | Failed pregnancy · disease |
+| **Total born** | 12-18 | Nutrition · genetics · disease |
+| **Born alive** | 92-95% | Late-term issues · birthing problems |
+| **Stillbirth** | <2-5% | Disease · nutrition · sow age |
+| **Mummified** | <2% | Parvo · PRRS · Lepto |
+| **Pre-wean mortality** | <5-10% | MMA · crushing · disease |
+| **Litter at wean** | >12 | Mortality + transfers |
+
+### Modern targets (Denmark genetics)
+- **Total born: 18-20**
+- **PSY: 30-44** (Denmark champions hit 44)
+- Thai farms: 24-30 typical
+
+---
+
+## 3. The 2-Strategy Framework ⭐⭐⭐ (Foundation!)
+
+### Strategy 1: REDUCE AGENT
+Lower pathogen load on farm
+- Disinfection · cleaning
+- Wash + dry + disinfect + dry
+- Pen pressure washing
+- Use of biosecurity
+
+### Strategy 2: SEPARATE
+Physical/temporal isolation
+- All-in/all-out flow
+- Compartmentalization
+- Quarantine
+- Acclimation pens
+
+> ⭐ Both work TOGETHER — neither alone is sufficient
+
+---
+
+## 4. Depopulation ⭐⭐⭐ (When + How)
+
+### Two types
+| Type | Description | Use |
+|---|---|---|
+| **Total depopulation** | Empty entire farm | Catastrophic disease (ASF first wave) |
+| **Partial depopulation** | Empty specific zones (rooms, batches) | Localized outbreak (PRRS, PED) |
+
+### Why total depopulation FAILS economically
+- **Cash flow stops** during emptying
+- Restocking takes weeks-months
+- Farm income = ZERO during transition
+- Many small farms cannot survive this
+
+### Why partial depopulation is preferred
+- Maintains some cash flow
+- Eradicates disease from ONE zone
+- Other zones continue producing
+- Can stage rolling cleanup
+
+### Modern protocol
+1. Identify infected pigs/zones
+2. Cull or send to slaughter (if disease allows)
+3. Clean + dry + disinfect (4-step protocol)
+4. Test for residual pathogen
+5. Repopulate with naïve animals
+
+---
+
+## 5. Sentinel Pig Test ⭐⭐ (Key concept!)
+
+### What is it?
+**Place naïve, healthy pigs in cleaned environment to test for residual pathogen**
+
+### Procedure
+1. After cleaning, introduce 5-6 naïve pigs (PCR-confirmed clean)
+2. Pigs roam freely in zone (open all pens, all rooms)
+3. Wait 3 weeks
+4. Observe for clinical signs
+5. PCR test pigs for target pathogen
+6. **No infection** → safe to repopulate
+7. **Infection detected** → re-clean, repeat
+
+### Why it works
+- Pig is biological "sensor"
+- Detects pathogen even at very low levels
+- No human can manually swab everything
+
+> ⭐ Sentinel pig = 3-week BIOLOGICAL test before full repop
+
+---
+
+## 6. Cleaning Protocol ⭐ (4-step gold standard)
+
+| Step | Time |
+|---|---|
+| 1. **Wet wash** (water + detergent) | Day 1 |
+| 2. **Dry** (allow surface dry) | Day 1-2 |
+| 3. **Disinfect** (target pathogen, e.g., Virkon for ASF) | Day 2-3 |
+| 4. **Dry again** (24-48 hr) | Day 3-5 |
+
+### Total downtime
+- Minimum 5 days for thorough cleaning
+- Up to 14 days for ASF-grade biosecurity
+- Empty time pays back in disease prevention
+
+### Surface swab testing
+- 1 swab per square meter at 6 sites (corners + middle)
+- Collect with saline-soaked gauze
+- Centrifuge → test supernatant via PCR
+- Confirms pathogen absent before repopulation
+
+---
+
+## 7. Early Weaning System (EWS) ⭐⭐ (Disease control tool)
+
+### What is early weaning?
+Wean piglets at **10-18 days** instead of standard 21-28
+
+### Why?
+- **Cuts vertical transmission** from sow to piglet
+- Many pathogens (e.g., *Streptococcus*, Mycoplasma) are early colonizers
+- *Streptococcus* colonizes piglet gut by Day 7!
+- Earlier weaning = less time exposed to dam's pathogens
+
+### Benefits
+- Lower disease in piglets
+- Better growth (separate from disease pressure)
+- Sow returns to estrus faster (more cycles/year)
+
+### Drawbacks
+- Piglets less robust
+- Need expensive starter feed
+- Higher labor (more frequent transitions)
+
+### Why Thailand doesn't use EWS much
+- Cultural preference for natural weaning
+- Cost of EWS facilities
+- Risk of weak piglets if mismanaged
+
+---
+
+## 8. Mummified Pig Body Length Aging ⭐⭐ (Forensic skill!)
+
+### What is mummification?
+Fetal death in utero → dehydration + retention → "mummy"
+
+### Body length-to-age formula
+**Measure from skull crown to tail base in mm**
+
+| Mummy length (mm) | Estimated fetal age (days) |
+|---|---|
+| 30 | ~20 days |
+| 50 | ~30 days |
+| 80 | ~40 days |
+| 120 | ~60 days |
+| 200+ | ~80+ days (late-term) |
+
+### Why this matters ⭐
+- **Identifies WHEN infection occurred**
+- Multiple mummies same length = single infection event
+- Mixed lengths = chronic infection
+- Helps target **Parvovirus vs PRRS vs Leptospira** diagnosis
+
+### Common Parvo presentation
+- Multiple mummies of varying sizes (continuous infection)
+- Sows with vague reproductive issues over weeks
+
+---
+
+## 9. Lung Scoring at Slaughter ⭐⭐ (Madec system)
+
+### Why score lungs?
+- Slaughterhouse provides bulk health assessment
+- Identifies **Mycoplasma + APP + Pasteurella** chronic pneumonia
+- Drives prevention decisions
+
+### Madec system (simplified)
+| Lobe | Max score | Multiplier |
+|---|---|---|
+| **Diaphragmatic** | 25 | (largest lobe) |
+| **Cardiac** | 5-10 | medium |
+| **Apical** | 5 | smaller |
+| **Accessory** | 10 | per side |
+
+### Total: 0-100 points
+- 0 = healthy
+- 30+ = moderate disease
+- 50+ = severe — investigate immediately
+
+### Pleural/serositis scoring (separate)
+- Scale 0-4 for pleural adhesions
+- Indicates chronic inflammation
+- Different from pneumonia score
+
+> 🩻 **Practice tip**: ALWAYS palpate (don't just visualize) — palpation detects deeper consolidation
+
+---
+
+## 10. MMA Endotoxemia Mechanism ⭐⭐ (Postpartum dysgalactia syndrome)
+
+### MMA = Mastitis + Metritis + Agalactia
+**Sow can't produce milk after farrowing**
+
+### Three causes:
+| Cause | Mechanism |
+|---|---|
+| **Endotoxemia (LPS)** | Bacterial toxin from gut/uterus → suppresses prolactin |
+| **Stress** | Cortisol antagonizes prolactin |
+| **Feeding** | Inadequate before/during lactation |
+
+### LPS pathway ⭐
+1. Sow constipated (no fiber, no salt) at farrowing
+2. Gut bacteria die → release **LPS (lipopolysaccharide endotoxin)**
+3. LPS absorbed into bloodstream
+4. **LPS suppresses prolactin** → no milk
+5. Piglets starve → high pre-wean mortality
+
+### Treatment
+- Add **fiber + salt** to gestation feed (helps defecation)
+- Treat constipation actively
+- Prophylactic NSAIDs for inflammation
+- Antibiotics for established mastitis
+
+---
+
+## 11. Boar Health Issues ⭐
+
+### Common problems
+| Issue | Cause | Action |
+|---|---|---|
+| **Testicular swelling (epididymitis)** | *Brucella suis* | CULL (zoonotic + reproductive risk) |
+| **Reduced libido** | Heat · age · disease | Investigate, supplement, replace |
+| **Poor semen quality** | Heat · disease · stress | Test semen, manage environment |
+
+### Brucella suis warning ⭐⭐
+- Causes **inguinal lymph node swelling** (similar to PCV2/CSF — diagnostic trap!)
+- Zoonotic to humans (undulant fever)
+- ALWAYS cull infected boars
+- Cannot eat infected pork
+
+---
+
+## 12. Vaccination Strategy in Breeding Herd ⭐
+
+### Sow vaccination program
+| Time | Vaccines |
+|---|---|
+| **Pre-breeding (gilts)** | Parvo + Lepto + Erysipelas + PRRS |
+| **Mid-gestation** | PRRS booster · CSF |
+| **Pre-farrowing** | E. coli + Clostridium (transferred via colostrum to piglets) |
+
+### Critical: PARVO before breeding
+- Silent in non-pregnant
+- Devastating in pregnant
+- Mandatory!
+
+---
+
+## 13. Vet's Checklist for Breeding Herd Visit ⭐
+
+### What to evaluate
+1. **Records**: PSY, conception rate, mortality
+2. **Body condition**: scoring 1-5 of sows
+3. **Vaccination program**: gaps?
+4. **Biosecurity**: gates, footbaths, perimeter
+5. **Cleaning protocol**: depth and frequency
+6. **Sentinel test results**: from prior cleanouts
+7. **Lung scoring** at slaughter
+8. **Mummy/stillbirth aging**
+9. **Replacement gilt management**
+10. **Acclimation procedures**
+
+---
+
+## 🎯 Exam Recap — top 16 testable points
+
+1. **PSY = Pigs Weaned/Litter × Litters/Year**
+2. **Modern target PSY = 24-30** (Denmark hits 44)
+3. **2-Strategy**: Reduce agent + Separate
+4. **Total depopulation = catastrophic** (cash flow stops)
+5. **Partial depopulation = preferred** (maintain operations)
+6. **Sentinel pig** = 3-week biological test before repop
+7. **Cleaning = 4 steps**: wash + dry + disinfect + dry
+8. **Surface swab** = 6 sites/m², saline gauze, PCR
+9. **Early Weaning** cuts vertical transmission
+10. **Streptococcus = early colonizer** (Day 7)
+11. **Mummy length → fetal age** (50mm ≈ 30 days, 200mm ≈ 80 days)
+12. **Madec lung score** = Diaphragmatic 25 + Cardiac/Apical/Accessory
+13. **MMA = Mastitis + Metritis + Agalactia** (sow can't make milk)
+14. **LPS endotoxemia** = constipation → bacteria die → LPS → prolactin suppressed
+15. **Brucella suis** = inguinal LN swelling + zoonotic + cull boars
+16. **Parvo before breeding** = mandatory
+
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 8 Epidemiology (1mFans-0DNY) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY) · 15 Disease control nursery/fattening (PrPV1sMvX_8)
+> 🩻 **Practice tip**: Mummy aging = use the formula at every farm visit
+> 💡 **MMA mnemonic**: Mum Made Agalactia (3 M's = no milk)
+> 🦴 **Sentinel = 3 weeks** = the safest way to confirm cleanout success`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
