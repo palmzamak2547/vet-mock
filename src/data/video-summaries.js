@@ -11664,6 +11664,727 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 > 📚 อ่านควบ: 1.2 Oral Tumor (CQIrJmz3APo) · GI examination (4.1)`,
   },
 
+  'dn_W-7eWQl0': {
+    videoId: 'dn_W-7eWQl0',
+    title: '13.1 : Surgical Treatment in Heart Disease',
+    subject: 'com1',
+    date: '2024-11-11',
+    duration: '61 min',
+    instructor: 'พี่มด (รุ่นพี่)',
+    examFormat: 'MCQ',
+    summary: `# 13.1 Surgical Treatment in Heart Disease
+
+> 🎯 Surgery สำหรับ congenital cardiac defects ที่เจอบ่อยในสุนัข + การจัดการ pericardial effusion. เน้น **PDA · PRAA · sub-total pericardiectomy** — 3 หัตถการที่ผ่าน thoracotomy ทางซ้าย ที่ Vet 4-5 ต้องเข้าใจขั้นตอน + landmark anatomy
+
+---
+
+## 1. Patent Ductus Arteriosus (PDA)
+
+### Pathophysiology
+- ตอน fetal: ductus arteriosus = ทางผ่านเลือดจาก pulmonary artery → aorta (เลี่ยงปอดที่ยังไม่ทำงาน)
+- ตอนเกิด: ductus ต้องตีบลง → กลายเป็น **ligamentum arteriosum**
+- ถ้าไม่ตีบ → PDA → **left-to-right shunt** (aorta ความดันสูง → pulmonary artery ความดันต่ำ)
+- ผลตามมา: pulmonary hypertension → pulmonary edema → **CHF**
+- ถ้าทิ้งไว้: ~50% เสียชีวิตภายใน 1 ปี
+
+### Epidemiology
+- **Most common congenital cardiac defect ในสุนัข** (พบในแมวน้อยมาก)
+- เพศเมีย > เพศผู้
+- ถ่ายทอดทางพันธุกรรม → **แนะนำหมันหลังผ่าตัด**
+
+### Diagnosis
+| วิธี | สิ่งที่เจอ |
+|---|---|
+| **Auscultation** | Continuous (machinery) murmur — ได้ยินทั้ง systolic + diastolic |
+| **Echocardiography** | gold standard · ดู shunt direction (left↔right) |
+| **CT angiography** | Lateral view: เห็น aorta + pulmonary artery + PDA bridge |
+| Thoracic radiograph | LA enlargement |
+
+⚠️ **ต้อง confirm shunt direction ก่อนผ่า** — ถ้าเป็น **right-to-left** แสดงว่า pulmonary HT รุนแรงจน reverse แล้ว → **ห้ามผ่า** (palliative medical management เท่านั้น) เพราะวางยาสลบเสี่ยงเสียชีวิต
+
+### PDA Types
+| Type | ลักษณะ | Intervention candidate? |
+|---|---|---|
+| **Type 1** | คอดเล็กมาก แทบปิด | ❌ ไม่เหมาะ (สอดอุปกรณ์ไม่ผ่าน) |
+| **Type 2 (2A/2B)** | คอดเป็นกรวย มีรอยคอด | ✅ เหมาะที่สุด (Amplatzer Canine Duct Occluder) |
+| **Type 3** | ทรงท่อใหญ่ ไม่มีคอด | ❌ ไม่เหมาะ |
+| **Surgical ligation** | ทำได้ทุก type |
+
+### Treatment options
+1. **Coil embolization** (เก่า · complication เยอะ — ไม่นิยม)
+2. **Amplatzer Canine Duct Occluder (ACDO)** — interventional via vascular access · candidate: type 2 + ขนาดตัวใหญ่พอใส่ catheter ได้
+3. **Surgical ligation** — ทุกขนาด · gold standard ปัจจุบันในเคสที่ทำ ACDO ไม่ได้
+
+### Surgical technique (left lateral thoracotomy)
+- **Approach**: dog → **4th intercostal space** · cat → 4th-5th
+- ตัดผ่าน latissimus dorsi + scalenus + serratus + intercostal muscle
+- **Landmark for rib counting**: scalenus muscle insert ที่ rib 5 → หน้า rib 5 = ICS 4 (⚠️ "อันนี้ข้อสอบ")
+- ผ่าน intercostal — กรีดตรงกลาง intercostal space หรือใกล้ rib หลัง (อย่าใกล้ rib หน้า → vessel/nerve อยู่หลัง rib)
+- ใช้ **Finochietto retractor** ถ่าง ICS
+- Identify: **vagus nerve** (พาดบน aorta) + **phrenic nerve** (วิ่งไป diaphragm)
+- PDA วิ่งระหว่าง vagus + phrenic
+- ใช้ Penrose drain คล้อง vagus ดึงขึ้น dorsal เพื่อ expose PDA
+- **Cranial + caudal window dissection** (ใช้ right-angle forceps) → ใช้ forceps คล้องรอบ PDA
+- **Ligate ด้วย 2 silk knots** (non-absorbable หรือ long-term absorbable) — ผูกแบบ **hand tie** (instrument tie ลื่นในที่ลึก)
+- **ไม่ตัด** — ผูกอย่างเดียว
+- ⚠️ Heart เต้นตลอด → ต้องนิ่ง + ระวังโดน conduction node
+
+### Closure
+- ใส่ **chest tube** (ICS 7-8 → ปลายอยู่ ICS 2) — tunnel ผ่าน skin 2 ICS เพื่อกัน air leak
+- เย็บ ICS โดย **คล้องรอบ rib 5 + rib 4** (ไม่เย็บ intercostal muscle เพราะไม่แข็งแรง)
+- เย็บ scalenus + latissimus + cutaneous trunci + subq + skin
+- ใส่ยาชาช่อง intercostal ผ่าน chest tube (lidocaine + bupivacaine)
+- Evacuate air/exudate q2h × 8 hr → q4h × 16 hr → q12h. เอา tube ออกประมาณวันที่ 3
+
+### Prognosis
+- ทำเร็ว (ก่อน irreversible remodeling) → **excellent · กลับมา normal life**
+- ทำช้า + CHF + fibrosis → poor prognosis
+- Reverse shunt (R→L) → contraindicated for surgery
+
+---
+
+## 2. Persistent Right Aortic Arch (PRAA)
+
+### Pathophysiology
+- **Vascular ring anomaly** — มี 7 types · PRAA คือ type 1 (95% ของ vascular ring anomalies)
+- ปกติ aorta พัฒนาจาก left 4th aortic arch → ถ้า persist ทาง right แทน
+- Ligamentum arteriosum ยังอยู่ฝั่งซ้าย → **บีบรัด esophagus + trachea** (ที่อยู่ตรงกลาง) เป็นวงแหวน
+
+### Clinical signs
+- **อาเจียน/regurgitation** — ตอนเริ่มเปลี่ยนจากนม → อาหารแข็ง (~2-3 เดือน)
+- **กระเปาะข้างคอบวม** = อาหารคั่งใน cervical esophagus dilation
+- ไม่ใช่ cardiac sign! → presents as GI disease
+- Predisposed breeds: **German Shepherd**
+
+### Diagnosis
+- **Positive contrast esophagram** → "**Bird beak sign**" (ปากนก) — esophagus คอดกะทันหันที่ระดับ heart base + ป่องด้านหน้า
+
+### Surgery
+- **Approach**: dog → **4th ICS** (cat → 5th) — เหมือน PDA
+- หา esophagus ป่อง → ตามไปดู ligamentum arteriosum ที่บีบรัด
+- ⚠️ ระวัง vagus nerve พาดอยู่บนตำแหน่งที่จะ dissect
+- **Ligate 2 ends + cut กลาง** — ตัดเลย (ต่างจาก PDA ที่ผูกอย่างเดียว)
+- ใช้ **Foley catheter** สอดเข้า esophagus + พอง balloon ที่ตำแหน่งเดิมของ stricture → สลาย fibrous tissue ที่ล้อมรอบ
+
+### Post-op complications
+- **Aspiration pneumonia** — esophageal function อาจไม่กลับ 100%
+- บางตัว stricture เกิด permanent megaesophagus
+
+### Long-term management
+- **Upright feeding** (ยกชามข้าว/ชามน้ำสูง) — ใช้ gravity ช่วย
+- **Bailey chair** — เก้าอี้สูงให้กินอาหารแบบนั่ง
+- **Prokinetic agents** เพิ่ม esophageal motility
+
+### Prognosis
+- 92% improvement ใน clinical signs (literature) — **แต่ยังต้อง upright feeding ตลอดชีวิต**
+
+---
+
+## 3. Pericardiectomy (Sub-total)
+
+### Indication
+- **Pericardial effusion** ที่เกิด **cardiac tamponade** → right heart compression → CHF
+- Causes: idiopathic, neoplasia (mesothelioma, hemangiosarcoma), infection
+
+### Sub-total pericardiectomy
+- **ไม่สามารถตัด pericardium ทั้งหมด 100%** เพราะมี **phrenic nerve** วิ่งอยู่
+- ตัดใต้ phrenic nerve → ตัดเป็นรูป **T** ลงไปที่ apex of heart
+- ⚠️ Pericardium มี 2 ฝั่ง (ซ้าย + ขวา) — ผ่าน left ICS แล้วต้องให้ **assistant ควักหัวใจขึ้นมาพลิก** เพื่อตัดด้านขวา (heart เต้นในมือ ไม่บีบ → stroke volume คงเดิม · แค่ EKG หน้าตาประหลาด)
+- ตัด **sterno-pericardial ligament** ที่ยึดด้านล่าง
+
+### Outcome หลังเอา pericardium ออก
+- หัวใจยังทำงานได้ — แค่ contractility อาจลดลงเล็กน้อย
+- ถ้าน้ำเกิดต่อเนื่อง (e.g., neoplasia) → effusion ไหลออก thoracic cavity → ปลอดภัยกว่า cardiac tamponade · pleurocentesis ง่ายกว่า pericardiocentesis
+
+### Minimally invasive: Thoracoscopic pericardiectomy
+- **เจาะ port + กล้อง** — ไม่ต้องเปิด open thoracotomy
+- ตัด **window** เล็กๆ (ไม่ตัด sub-total)
+- ส่ง pericardium ไปทำ culture + cytology
+
+### Always send samples
+- **Culture + sensitivity** — หา infectious cause
+- **Histopathology** — หา neoplastic cause
+- Idiopathic pericardial effusion → ส่งทุกอย่างก่อนจะให้คำว่า "idiopathic"
+
+### Prognosis
+- Infectious → ดีถ้าตอบสนองยา
+- Neoplastic (mesothelioma, hemangiosarcoma) → ไม่ดี
+
+---
+
+## 🎯 Exam recap (10 ข้อ)
+
+1. **PDA = most common congenital cardiac defect ในสุนัข** · เพศเมีย > เพศผู้
+2. **Continuous (machinery) murmur** = pathognomonic auscultation finding
+3. **ต้อง confirm shunt direction ก่อนผ่า** — R→L = ห้ามผ่า
+4. **Type 2 PDA** = best for ACDO interventional (Type 1 + 3 ไม่เหมาะ)
+5. **Surgical approach** = left **4th** ICS in dogs (5th in cats)
+6. **Rib counting landmark** = scalenus muscle inserts ที่ rib 5 ⚠️ "อันนี้ข้อสอบ"
+7. **PDA technique**: ligate × 2 silk · **ไม่ตัด** · expose ผ่าน vagus nerve retraction
+8. **PRAA = vascular ring anomaly** · บีบรัด esophagus → regurgitation ตอนเปลี่ยนเป็นอาหารแข็ง 2-3 เดือน
+9. **Bird beak sign** = positive contrast esophagram in PRAA
+10. **Sub-total pericardiectomy** — ตัดใต้ phrenic nerve · เก็บ phrenic ไว้
+
+> 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY) · 12.1 Acquired Cardiac Disease (SiLZIu-aWlY) · Anatomy of left thoracotomy approach`,
+  },
+
+  FlutqheRR6I: {
+    videoId: 'FlutqheRR6I',
+    title: '14.1 : Common Respiratory Diseases in dog and cat II',
+    subject: 'com1',
+    date: '2024-11-18',
+    duration: '61 min',
+    instructor: 'DekDokVet85 — รุ่นพี่',
+    examFormat: 'MCQ',
+    summary: `# 14.1 Common Respiratory Diseases II — Lower Airway/Lung/Pleural
+
+> 🎯 ครอบคลุม **lung parenchyma + pleural cavity diseases** ที่เจอบ่อย — bacterial/aspiration pneumonia · pulmonary neoplasia · PTE · pyothorax · chylothorax · hemothorax · pneumothorax. ออกสอบ pulmonary parenchyma + pleural cavity แทร์น ⚠️
+
+---
+
+## 1. Pulmonary parasites
+
+### พยาธิที่ migrate ผ่านปอด
+- **Capillaria** (เก่า: Capillaria aerophila) — เจอทั้ง dog + cat · อยู่ที่ trachea/bronchi · diagnosis: fecal exam (Take wash) · Tx: **fenbendazole**
+- **Aelurostrongylus abstrusus** — เฉพาะแมว · L1 ใน feces · Intermediate host = หอยทาก/นก/หนู · ตรวจด้วย **Baermann technique** · Tx: fenbendazole หรือ spot-on ที่มี selamectin
+
+### Heartworm (Dirofilaria) larva migration
+- ขณะ worm migrate ผ่าน lung → eosinophilic inflammation
+- ทำให้เกิด pulmonary eosinophilic granulomatosis ได้
+
+### Diagnosis
+- CBC: **eosinophilia** (อาจไม่เจอก็ได้)
+- X-ray: **bronchial pattern** หรือ interstitial pattern
+- **Fecal exam** + **Baermann** (Aelurostrongylus)
+
+### Treatment
+- Steroid → ลด inflammation
+- Anti-parasitic ตามชนิด
+
+---
+
+## 2. Bacterial Pneumonia
+
+### Pathway การติดเชื้อ
+1. **Inhalation/aspiration** (most common) — sniff หรือ aspiration
+2. **From pleural space** หรือ adjacent thoracic structures
+3. **Hematogenous** (bloodstream)
+
+### ที่มาเชื้อ
+| Bacteria | Note |
+|---|---|
+| **Bordetella bronchiseptica** | Primary pathogen ของ respiratory tract |
+| **Mycoplasma** | Primary pathogen · ส่ง PCR confirm |
+| E. coli, Klebsiella | Gut translocation (secondary) |
+| Pasteurella, Staph, Strep | URT flora — opportunistic |
+
+⚠️ **Dog > cat สำหรับ bacterial pneumonia**
+
+### Predisposing
+- Defense mechanism failure (ciliary dysfunction, mucociliary apparatus damage)
+- Immunocompromised: FeLV/FIV, Cushing's, diabetes, immunosuppressive drugs
+- Aspiration risk
+
+### Clinical
+- **Productive cough** (mucus++) · dyspnea · tachypnea
+- Auscultation: **crackles** (mucus), increased lung sounds, decreased lung sound (consolidation)
+- Wheezing if airway involvement
+- Fever, lethargy, anorexia
+
+### Diagnosis
+- **X-ray = primary tool**:
+  - **Alveolar pattern with air bronchogram** (เส้นๆ) — most common
+  - Interstitial pattern (less common)
+  - Distribution clue: **ventral** (general) · **dorsocaudal** (hematogenous) · **cranio-ventral** (aspiration)
+- CBC: **neutrophilia ± left shift** + lymphopenia
+- Arterial blood gas: hypoxemia (severity-dependent)
+- **Airway sampling (BAL/Take wash)** — get cytology + **bacterial culture + sensitivity ก่อน start ATB**
+- Cytology: **suppurative inflammation + intracellular bacteria**
+
+### Treatment
+- **Empirical ATB ใน 1-2 hr ถ้ามี sepsis signs**
+- **Mild + suspect Bordetella/Mycoplasma**: doxycycline (oral)
+- **Severe**: parenteral combination — **NOT monotherapy**
+  - Sutra 1: fluoroquinolone + β-lactam (ampicillin/amoxiclav/cephalosporin)
+  - Sutra 2: fluoroquinolone + clindamycin (anaerobic coverage)
+- **Duration**: 4-6 weeks · re-evaluate q10-14 days
+- Supportive: O₂, fluids, **nebulization with normal saline 3-4×/day**, bronchodilators, **mucolytics**
+- ⛔ **ห้ามให้ antitussives (butorphanol, codeine, hydrocodone)** — productive cough ต้องเอา mucus ออก
+
+### Prognosis
+- Depends on severity, organism, host immune status
+
+---
+
+## 3. Aspiration Pneumonia
+
+### Pathophysiology
+1. **Large particle aspiration** → acute airway obstruction → post-obstructive pneumonia
+2. **Liquid/small particle** → ER (endoplasmic reticulum) damage → lung injury → secondary bacterial colonization
+3. Eventually: **non-cardiogenic pulmonary edema** (↑ alveolar capillary permeability) → ARDS · bronchoconstriction · ↑ mucus
+
+### Predisposing
+- Anesthesia, seizures, coma → loss of airway protection
+- Laryngeal paralysis, megaesophagus, dysphagia, post-pharyngeal surgery
+- Force-feeding (ผู้ป่วยที่ป้อนอาหารเร็ว/มาก)
+- Persistent vomiting/regurgitation
+
+### Diagnosis
+- **X-ray distribution**: **right middle lobe** + **caudal part of left cranial lobe** (ventral cranial = "yodhit lobes") — gravity-dependent (ตอนยืน)
+- ⚠️ **Lag time** — radiographic changes lag clinical by hours
+- BAL → cytology + culture (if bacterial superinfection suspected)
+
+### Treatment
+- **Supportive primary** (not all need ATB)
+- O₂ + **bronchodilators** (reduce reflex bronchoconstriction)
+- ATB ถ้า bacterial superinfection — same regimen as bacterial pneumonia
+- **H2 blocker / PPI** — ลด chemical injury (controversial: เพิ่ม gastric bacterial load)
+- **Prokinetics** — ถ้า reflux/regurgitation
+- **Upright feeding** (Bailey chair) — ป้องกัน recurrence ใน megaesophagus dogs
+
+### Prognosis
+- Depends on extent of lung damage
+- Usually survives if managed early
+
+---
+
+## 4. Pulmonary Neoplasia
+
+### Two categories
+| Type | Origin | Frequency |
+|---|---|---|
+| **Primary** | Lung itself | Less common |
+| **Metastatic** | จาก primary elsewhere | More common (high blood flow) |
+
+### Primary
+- Older animals · most: **adenocarcinoma**
+- X-ray: **single mass or few large masses** (caudal lobes) · usually solitary
+- Exception: **histiocytic sarcoma** → diffuse nodular interstitial
+
+### Metastatic
+- จาก mammary, OSA, melanoma, hemangiosarcoma
+- X-ray: **interstitial nodular pattern** (หลายโนด) · **need 4-view radiographs** (DV/VD + lat both sides)
+- **CT > X-ray** sensitivity for small mets
+
+### Clinical
+- Weight loss, lethargy, **non-productive cough** (mass not mucus)
+- ± pleural effusion / pneumothorax / pneumomediastinum if rupture
+
+### Diagnosis
+- X-ray + CT (staging)
+- **FNA under U/S guidance** — for solid peripheral mass + adjacent to chest wall
+- Bronchoscopy + biopsy if central
+- BAL — primarily to **rule out pneumonia/bronchitis**
+
+### Treatment
+- Primary: **surgery (lobectomy)** — treatment of choice if confined to 1 lobe + LN sampling
+- Metastatic: chemotherapy ± resection if few nodules
+- ⚠️ ต้องแยก primary vs metastatic — **diagnosis + treatment + prognosis ต่างกัน**
+
+---
+
+## 5. Pulmonary Thromboembolism (PTE)
+
+### Predisposing
+- Hyperadrenocorticism (Cushing's), heartworm, **IMHA**, protein-losing nephropathy, neoplasia, sepsis, recent surgery
+
+### Clinical
+- **Sudden onset** dyspnea + agitation · tachypnea
+- ± hemoptysis
+- Auscultation variable
+
+### Diagnosis
+- ABG: hypoxemia + **hypocapnia** — but normal ABG ⛔ rule-out PTE
+- X-ray: variable · **small pulmonary vessels** · ↑ right heart silhouette · pleural effusion
+- **D-dimer** — high sensitivity, low specificity
+  - ⚠️ ตรวจภายใน **1-2 hr suspicion** — ระดับ peak แล้วกลับเข้า baseline ภายใน 24-48 hr
+  - Normal D-dimer + acute dyspnea → can rule out PTE
+- **CT pulmonary angiography** (gold standard) — เห็น filling defect (gray instead of white in pulmonary artery)
+- Echo — ถ้าสงสัย cardiac origin หรือ pulmonary HT
+
+### Treatment
+- **Anticoagulant**: heparin (target aPTT prolongation) → keep anti-Factor Xa 0.35-0.7
+- Long-term: aspirin (especially IMHA), clopidogrel, rivaroxaban
+- Sildenafil ถ้ามี pulmonary HT
+- Supportive: O₂, fluids, bronchodilators
+
+---
+
+## 6. Pleural Cavity Diseases
+
+### 3 patterns
+1. **Effusion** (water) — น้ำตกลงล่าง · muffled lung/heart sounds ด้านล่าง
+2. **Pneumothorax** (air) — ลมลอยขึ้นบน · muffled ด้านบน
+3. **Mass/organ displacement** (e.g., diaphragmatic hernia)
+
+### Common: Restrictive breathing pattern + abdominal effort
+
+### Approach
+- **T-FAST** (4-point ultrasound) — for unstable patients
+- X-ray (DV/VD + lat × 2) if stable
+- **Thoracocentesis + fluid analysis + cytology** mandatory
+
+---
+
+### A. Pyothorax (Empyema)
+
+- **Causes**: bite wound (cats!), penetrating trauma, FB inhalation, esophageal rupture, pneumonia spread
+- **Cats > dogs** — bite wound predisposing
+- Cytology: **degenerative neutrophils + intra/extracellular bacteria** = septic exudate
+- **Always send culture + sensitivity**
+- Treatment: **chest tube drainage** + ATB **4-6 weeks** (parenteral first → oral when stable)
+
+### B. Chylothorax
+
+- Effusion appearance: **milky** (cold milk)
+- Fluid analysis: **high triglycerides + small lymphocytes**
+- Causes: **idiopathic 50%**, cardiac disease, neoplasia, lung lobe torsion
+- Treatment:
+  - **Treat underlying cause** (cardiac → cardiac Tx)
+  - **Low-fat diet**
+  - **Rutin** (cats — clinic mainstay)
+  - Octreotide
+  - Lymphangiography + CT → surgical correction if recurrent (>1×/week thoracocentesis)
+
+### C. Hemothorax
+
+- **Causes**: trauma, **lung lobe torsion**, neoplasm rupture, **rodenticide (anticoagulant) toxicity**, coagulopathy
+- Sign: **hypovolemic shock** > respiratory distress
+- Diagnosis: thoracocentesis fluid PCV >20% หรือ >50% ของ peripheral PCV
+- ⚠️ Check coagulation profile **before thoracocentesis**
+- Treatment: **autotransfusion ถ้าน้อย** · transfusion + IV fluids · surgery if severe
+
+### D. Pneumothorax
+
+3 types:
+1. **Open trauma** — penetrating wound
+2. **Closed trauma** — blunt → bronchial/alveolar rupture
+3. **Spontaneous** —
+   - **Primary**: rupture of **bleb (sub-pleural air)** or **bulla (intra-parenchymal air)** — **DOG**
+   - **Secondary**: pre-existing lung disease (PTE, neoplasia, asthma in cats, paragonimus)
+
+### Bleb vs Bulla
+| | Bleb | Bulla |
+|---|---|---|
+| Location | Between visceral pleura layers | Within parenchyma |
+| Pleural separation | Yes | No |
+
+### Diagnosis
+- X-ray: **lung collapse** + **heart elevated** off sternum (pathognomonic)
+- T-FAST in unstable
+
+### Treatment
+- **Thoracocentesis** = both diagnostic + therapeutic
+- **Chest tube** ถ้าต้องเจาะซ้ำๆ
+- **Surgery** if continuous leak, ruptured bleb/bulla, severe trauma
+- Supportive: O₂, rest, sedation
+- Tension pneumothorax = **emergency** (compromises CO)
+
+---
+
+## 🎯 Exam recap (12 ข้อ)
+
+1. **Bacterial pneumonia** — dog > cat · combination ATB ใน severe cases · **NEVER monotherapy in severe**
+2. **อย่าให้ antitussive** ใน productive cough ของ pneumonia (จำเป็นต้อง expel mucus)
+3. **Aspiration distribution**: right middle + caudal part of left cranial lobe (ventral)
+4. **Bordetella + Mycoplasma** = primary pathogens of respiratory tract
+5. **Primary lung tumor** → solitary mass · most = adenocarcinoma · Tx = lobectomy
+6. **Metastatic** → multiple nodules · need 4-view radiograph
+7. **PTE D-dimer** — ตรวจภายใน 1-2 hr · normal = rule out
+8. **CT angio** = gold standard for PTE
+9. **Pyothorax in cats** ส่วนใหญ่จาก bite wound
+10. **Chylothorax** — milky fluid · high TG · low-fat diet + rutin
+11. **Pneumothorax pathognomonic radiographic sign** = **heart elevated off sternum**
+12. **Bleb (between pleura) vs Bulla (in parenchyma)** — anatomic distinction
+
+> 📚 อ่านควบ: 13.2 Resp Clinical Assessment (az6ZIjbDFwQ) · 13.3 Common Resp I (phyvefbYWqE) · 14.2 Surgical Resp (nzpDNtceKKk) · 14.3 Thoracic Sx (_azRwNxOJas)`,
+  },
+
+  Q0AGFF70m8M: {
+    videoId: 'Q0AGFF70m8M',
+    title: '10.1 : Imaging for Urinary System',
+    subject: 'com1',
+    date: '2024-10-31',
+    duration: '65 min',
+    instructor: 'DekDokVet85 — รุ่นพี่ (vet imaging)',
+    examFormat: 'Case-based MCQ — เลือก imaging modality ที่เหมาะสม (~5 ข้อ)',
+    summary: `# 10.1 Imaging for Urinary System
+
+> 🎯 Integration ของ vet imaging + urinary system. เน้นการ **เลือก modality ให้ถูก** (X-ray vs U/S vs CT) ตาม clinical question. ออกสอบเป็น **case-based MCQ ~5 ข้อ** — case มา → ต้องตอบ "ทำอะไรต่อ"
+
+---
+
+## 1. Plain Radiograph (X-ray)
+
+### Anatomy ที่เห็น
+- **Kidneys** — soft tissue opacity ใน retroperitoneal area · เห็นเพราะ retroperitoneal fat ทำ contrast
+- **Urinary bladder (UB)** — caudoventral abdomen · soft tissue opacity
+- **Ureter + urethra** — **ปกติมองไม่เห็น** ใน plain film
+
+### Kidney location
+| | Right | Left |
+|---|---|---|
+| **Dog** | T13-L1 (สูงกว่า) | L1-L3 |
+| **Cat** | L1-L4 | L1-L4 (ใกล้กัน) |
+
+### Kidney shape
+- **Dog**: bean-shaped (ยาวกว่า)
+- **Cat**: rounder, smaller
+
+### Kidney size — vs L2 vertebra
+| Species | Normal ratio (kidney L / L2 L) |
+|---|---|
+| **Dog** | 2.5-3.5 |
+| **Cat (intact/late spay)** | 2.4-3.0 |
+| **Cat early-spayed** | < 2.4 (false low — vertebrae longer due to growth plate stays open) |
+
+⚠️ **ต้องซักประวัติ spay age** — ทำหมันก่อน 7 เดือน → growth plate ปิดช้า → vertebrae ยาว → ratio เล็กกว่าจริง
+
+### Urethra in male dogs (ยาวกว่าตัวเมีย)
+1. **Prostatic urethra**
+2. **Membranous urethra** (ส่วนโค้ง)
+3. **Penile urethra** (ปลาย)
+
+⚠️ Male > female สำหรับ urethral obstruction (ยาว + แคบ)
+
+### UB wall thickness
+- **Normal: ≤ 2 mm** (วัดที่ **kentral area** = caudoventral region of bladder · ตำแหน่งที่อักเสบก่อน เพราะ gravity-dependent)
+- > 2 mm = **cystitis**
+
+---
+
+## 2. Contrast Media — สำคัญมาก
+
+### Positive contrast (radio-opaque · ขาว)
+| Type | Use in urinary? |
+|---|---|
+| **Iodine — non-ionic monomer (iohexol)** ✅ | ใช้ได้ทุก approach |
+| Iodine — ionic | ใช้ได้แต่ side effects เยอะ |
+| **Barium sulfate** | ❌ **NEVER** — irritate mucosa |
+
+⚠️ "ถึงแม้กระเพาะปัสสาวะไม่แตกแน่ๆ ใช้ barium ได้มั้ย?" — **ห้ามใช้** (Trick question!)
+
+**Iodine side effects**:
+- Nausea, vomiting
+- Hypotension (high osmolality → fluid shift)
+- **Contrast-induced nephropathy** ⚠️
+- **Max dose**: ~880 mg/kg (ห้ามเกิน 900)
+- เสี่ยง: pre-existing kidney disease, diabetes, dehydration, geriatric, NSAID-using
+- ⚠️ ต้องประเมิน **renal function ก่อนฉีด** + ให้ adequate IV fluid
+
+### Negative contrast (radiolucent · ดำ)
+- **Room air** ✅ (most common — free, accessible)
+- O₂, CO₂, N₂O (rarely used)
+- ⚠️ Room air = **non-water-soluble** → **air embolism risk** if over-inflated (มี report เสียชีวิต)
+
+---
+
+## 3. Special Cystographic Techniques
+
+| Technique | Indication |
+|---|---|
+| **Positive contrast cystography** | **Bladder rupture** suspect (e.g., post-trauma, no urination) |
+| **Negative contrast** | Wall thickness (less common now) |
+| **Double contrast** ⭐ | **Wall pathology** — cystitis, stones, mass · gold standard for mucosal detail |
+
+### Tip: ใส่ Negative ก่อน Positive → ลด air bubble artifact
+
+### IVP / Excretory urography
+- ฉีด iodine IV → ขับออกผ่าน **ไต** → เห็นทั้ง renal pelvis + ureter + bladder
+- ใช้ดู: **ectopic ureter** (congenital), ureteral obstruction, urethral rupture (rare)
+- Indirectly assess GFR (compare L vs R) — ไม่ใช่ตัวเลข แค่ "ไหนทำงานดีกว่า"
+- ⚠️ ปัจจุบัน **CT > IVP** สำหรับ detailed imaging — IVP ไม่ค่อยทำแล้ว
+
+### Urethrography
+- ฉีด contrast retrograde → urethra
+- Indication: **pelvic fracture + urethral rupture** suspect (peritonitis emergency)
+- เจอ urethral fistula/rupture (อาจเกิดจาก iatrogenic catheter trauma)
+
+---
+
+## 4. Ultrasound
+
+### ข้อดี
+- **Parenchymal detail** > X-ray (ดู kidney internal structure ได้)
+- ไม่มี radiation
+- Real-time
+
+### ข้อเสีย
+- ขนาดประเมินคลาดเคลื่อน (operator-dependent)
+- ดู urethra ใน pelvic canal **ไม่ได้** (sound ไม่ผ่านกระดูก)
+
+### Echogenicity comparison (จำให้แม่น)
+- **Spleen = whitest organ in abdomen** (hyperechoic)
+- **Renal cortex must be HYPOECHOIC to spleen** (left kidney comparison)
+- Right kidney → compare to **liver** (caudate lobe) · normal: similar/slightly hyperechoic
+- ⛔ **Renal cortex HYPER-echoic to spleen = abnormal** → **nephropathy** (general term, not specific cause — could be nephritis, fibrosis, etc.)
+
+### Renal pelvis (in transverse plane)
+- **Normal: ≤ 2 mm**
+- 2-13 mm: possible fluid therapy effect (ask if patient on IV)
+- **>13 mm**: **obstruction** — must find cause (stone, mass)
+- Term: **pyelectasis** = renal pelvis dilation
+
+### Kidney size (vs aorta)
+- **Dog**: 5.5-9.1× aorta
+- Just remember: "compare to aorta" — ตัวเลขไม่ต้องจำ
+
+### UB (in U/S)
+- **Anechoic fluid** (ดำ) = normal urine
+- Kentral area thickness ≤ 2 mm
+- Look for: urinary sediment, stones (with **acoustic shadow**), mass, blood clot
+
+### Key sonographic signs
+| Sign | Meaning |
+|---|---|
+| **Acoustic shadow** | Stone or mineralization (sound reflects, dark shadow below) |
+| **Acoustic enhancement** | Cyst (sound passes through fluid, hyperechoic below) |
+
+### Elastography (newer)
+- Measures kidney stiffness — useful for CKD (fibrotic = stiff)
+- Replaces biopsy in human medicine for some indications
+
+---
+
+## 5. CT Scan
+
+### ข้อดี
+- **Overall regional detail** (planning, surgery)
+- Better than X-ray for fine anatomy
+- Multiplanar reconstruction
+
+### ข้อเสีย
+- **Parenchymal detail < U/S** (cortex/medulla less detailed)
+- Need iodine contrast IV (CIN risk)
+- More expensive
+
+### CT phases — สำคัญมาก
+| Phase | When to view? |
+|---|---|
+| **Pre-contrast** | ⭐ **Stones / mineralization** (จะเห็น hyperdense ชัดเจน · ถ้าดู post-contrast จะสับสนกับ contrast) |
+| **Post-contrast** | ⭐ **Cysts, masses, infarction, hydronephrosis, vasculature** |
+
+⚠️ จำง่ายๆ: **Stone = pre · ทุกอย่างอื่น = post**
+
+### CT terminology
+- **Hyperattenuation** (ขาวขึ้น) — ทดแทน "hyperdense"
+- **Volume rendering** — 3D reconstruction · เลือก HU range ที่ต้องการ
+
+---
+
+## 6. Common Diseases & Imaging Findings
+
+### Congenital
+| Condition | Imaging finding |
+|---|---|
+| **Renal agenesis** | ไตข้างเดียว |
+| **Renal hypoplasia** | ไตข้างเล็ก + อีกข้าง = **compensatory hypertrophy** |
+| **Ectopic ureter** | IVP — ureter เปิดผิดที่ (urethra/vagina) |
+| **PKD (Polycystic kidney disease)** | Persian/British shorthair · multiple renal cysts (acoustic enhancement) · ⚠️ inherited — แนะนำงดเพาะพันธุ์ |
+
+### Inflammation
+| Condition | Imaging finding |
+|---|---|
+| **Cystitis** | Wall > 2 mm at kentral area · ± irregular contour |
+| **Emphysematous cystitis** | Air in bladder wall + thickening — **diabetic** patients (gas-producing bacteria) |
+| **Nephritis** | Kidney bigger + hyperechoic cortex |
+| **Pyelonephritis** | Pyelectasis + thickened pelvic wall |
+
+### Stones (Calculi)
+- Singular = **calculus** · Plural = **calculi**
+- **Sand/grit pattern** = micro-calculi
+- All show **acoustic shadow** in U/S
+- May or may not be radiopaque on plain film
+- **Radiolucent stones** = need cystography (negative contrast) to visualize
+- Common types: struvite, calcium oxalate, urate, cystine
+
+### Obstruction
+- **Hydronephrosis** = renal pelvis + cortex ballooning + thinning of parenchyma
+- **Hydroureter** = ureteral diameter > 2 mm + fluid distention
+- Most often: **ureterolith blocking lower ureter**
+
+### Renal Infarction
+- **Wedge-shaped** hypoperfused area at cortex (post-contrast)
+- Shape: triangular, depressed contour
+- Cause: thromboembolism, vasculitis
+
+### CKD findings
+- **Small kidneys** (length below normal)
+- **Renal contraction** (irregular contour) — describes shape, not size
+- "Small kidney + contraction" = chronic kidney disease
+
+### Neoplasia
+- **Transitional Cell Carcinoma (TCC)** — most common bladder neoplasia
+- **Location**: trigone of bladder (next of bladder) → blocks ureter inflow → hydroureter/hydronephrosis
+- Can metastasize/invade ureter (mineralization in ureter)
+
+### Bladder rupture
+- Plain film: ascites + lost UB silhouette
+- **Positive contrast cystography**: contrast diffuses out of bladder → confirmed
+- **Surgery emergency** — peritonitis risk
+
+### Urethral rupture
+- **X-ray + positive contrast urethrography** = best (CT not great for pelvic canal)
+- Always rule-out with pelvic fracture cases
+
+### Bladder Foreign Body
+- Iatrogenic from catheter dropping into UB (cat/dog chewed catheter while no e-collar)
+- Surgical removal needed
+
+### Bladder blood clot
+- Form after traumatic cystocentesis (struggling cat/dog)
+- Will resolve in ~1 week
+- Just monitor
+
+---
+
+## 🎯 Imaging selection cheatsheet
+
+| Clinical question | Modality of choice |
+|---|---|
+| **Bladder rupture** | Positive contrast cystography |
+| **Cystitis** | Double contrast cystography or U/S |
+| **Renal stone** (radiopaque) | Plain X-ray (then U/S confirm) |
+| **Renal stone** (radiolucent) | Negative contrast or U/S |
+| **Renal cyst (PKD)** | U/S (acoustic enhancement) |
+| **Hydronephrosis** | U/S (>13 mm pelvis) |
+| **Renal mass** | U/S → CT post-contrast |
+| **Renal infarction** | CT post-contrast (wedge-shaped defect) |
+| **Ectopic ureter** | IVP or CT urography |
+| **Urethral rupture** | Positive contrast urethrography (X-ray) |
+| **Pelvic fracture + can't pee** | Urethrography |
+| **CKD assessment** | U/S + elastography |
+| **Bladder TCC** | U/S + post-contrast CT |
+
+---
+
+## ⚠️ Common pitfalls
+
+1. **Barium ห้ามใช้ใน urinary system** — irritant
+2. **Spay age affects kidney/L2 ratio** in cats → ซักประวัติเสมอ
+3. **CIN (Contrast-Induced Nephropathy)** — ประเมิน BUN/Cr ก่อนฉีด · stop NSAIDs
+4. **Stone vs Contrast on CT** — view PRE-contrast for stones, POST for everything else
+5. **Renal cortex hyperechoic to spleen = ALWAYS abnormal**
+6. **Acoustic shadow ≠ acoustic enhancement** (stone vs cyst)
+7. **>13 mm pelvis dilation** is not from fluid therapy alone — must find obstructive cause
+8. **kentral area** = caudoventral UB = primary cystitis location
+
+---
+
+## 🎯 Exam recap (สำคัญ ออกสอบ)
+
+1. Iodine **only** for urinary contrast — never barium
+2. Plain X-ray ratio (kidney/L2): dog 2.5-3.5 · cat 2.4-3.0 (ทำหมันก่อน 7 เดือน → ratio false low)
+3. Positive cystography for **rupture** · double contrast for **wall pathology**
+4. Renal cortex must be hypoechoic to spleen (left side)
+5. Renal pelvis ≤ 2 mm normal · >13 mm = obstruction
+6. **Acoustic shadow = stone** · **Acoustic enhancement = cyst**
+7. CT pre-contrast for stones · post-contrast for everything else
+8. Pelvic fracture → must rule-out urethral rupture with retrograde urethrography
+
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk) · 8.3 LUT 2 Stones (vLjnPuFgvj4) · 10.2 Surgical Tx Urinary (WtvWyniLMVE) · 10.3 LUT 3 (eBY8GTlcjiw)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
