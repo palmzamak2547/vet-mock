@@ -34979,6 +34979,230 @@ Survey high titer = MUST be field exposure
 > 🦴 **Cost reality**: 64-slice CT = ~10-20M baht · Lab tech รุ่นใหม่ขึ้น CT แทน X-ray มากขึ้น`,
   },
 
+  '5eTxpi37pG0': {
+    videoId: '5eTxpi37pG0',
+    title: '8. CT 2 — Image Processing, Contrast, Artifacts, Cases',
+    subject: 'vet-imaging',
+    date: '2024-10-10',
+    durationMin: 50,
+    instructor: 'อ.ชุติมนต์ (พี่)',
+    examFormat: 'application + artifact ID + case interpretation',
+    summary: `# 8. CT 2 — Image Processing, Contrast Media, Artifacts & Cases
+
+> ⚠️ ต่อจาก CT 1 (หลังสอบ midterm) · post-processing tools + contrast + artifacts + case studies
+> Skill ใช้จริงตอน Year 5/6 — กดปุ่มในโปรแกรมเป็นโดยไม่ต้องจำตัวเลข
+
+## 🎯 ภาพรวมคาบ
+**5 functional sections:**
+1. DICOM viewer software (OsiriX/Horos · RadiAnt)
+2. Image processing (MPR · MIP · MinIP · SSD · VR · Virtual Endoscopy · Biopsy guide)
+3. Contrast media (positive iodinated · negative CO2)
+4. Artifacts 4 categories (patient · physics · equipment · helical)
+5. Case studies (chest · abdomen · skeletal)
+
+## 1️⃣ DICOM Software
+- **DICOM** = Digital Imaging and Communication in Medicine
+- ทุก modality (CT/X-ray/US/MRI) export เป็น DICOM (ไม่ใช่ JPG!)
+- **Mac**: OsiriX, **Horos** (free)
+- **Windows**: **RadiAnt** (recommended) · MI-3DVS
+
+## 2️⃣ Image Processing Functions
+
+### A. MPR (Multi-Planar Reconstruction) ⭐ Default
+- ปรับ axis → ดู Axial / Sagittal / Coronal ใน window เดียว
+- ใช้แก้ภาพที่ position เบี้ยว
+- **เห็น lesion จากหลาย angle**
+
+### B. MIP (Maximum Intensity Projection)
+**= เน้นบริเวณ HU สูง** (เห็น attenuator ชัด)
+- **Vascular structures** (post-contrast) — angiogram
+- **Pulmonary nodules** (soft tissue ใน sea of air)
+- ฉีด contrast → MIP → vessel ชัด
+
+### C. MinIP (Minimum Intensity Projection)
+**= เน้นบริเวณ HU ต่ำ** (เห็น air-filled / low density)
+- **Bronchi, bronchiectasis** (lung)
+- **Biliary duct, pancreatic duct** (ไม่ใช่ vessel ปกติไม่มี contrast)
+
+> 📝 **MIP vs MinIP**: opposite functions · เลือกตามต้องการดูอะไร
+
+### D. SSD (Shaded Surface Display)
+- ภาพ 3D แค่ surface (พื้นผิว)
+- ใช้สื่อสารกับเจ้าของ — เข้าใจง่ายกว่าภาพขาวดำ
+
+### E. VR (Volume Rendering)
+- 3D จาก HU range ที่เลือก (เช่น เลือกแสดงเฉพาะกระดูก)
+- แตกต่างจาก SSD: VR แสดง depth ได้
+- Useful: surgical planning, identify lesion 3D
+
+### F. Virtual Endoscopy
+- จำลองการ scope ผ่าน **hollow organ เท่านั้น** (trachea, esophagus, GI)
+- ❌ ไม่ใช้กับ parenchymal organ (liver, kidney, spleen)
+- เห็น mucosa irregularity, bifurcation, intraluminal mass
+
+### G. CT-Guided Biopsy
+- ใช้ marker grid (paste) → locate ตำแหน่ง biopsy ปลอดภัย
+- เลี่ยง critical structures (vessels, heart)
+- เลี่ยง necrotic center ของ tumor (เก็บผิวที่ยังมี viable cell)
+- Indication: lesion ลึก, เสี่ยง, US/X-ray เห็นไม่ชัด
+
+## 3️⃣ Contrast Media
+
+### A. Positive Contrast — Iodinated
+**Drug**: nonionic monomer (iohexol = **Omnipaque®**)
+| Parameter | Value |
+|-----------|-------|
+| **Route** | IV (small animal: cephalic vein · horse: jugular) |
+| **Dose volume** | 2 mL/kg |
+| **Iodine dose** | 600-880 mg I/kg |
+| **MAX dose** | **900 mg I/kg** ⚠️ |
+
+**Phases of scanning:**
+- Arterial phase (~10-20 sec post-injection) — vascular structure
+- Venous phase (~60-70 sec)
+- Delayed phase (3-10 min) — renal/biliary excretion
+
+### Risks of iodinated contrast
+1. **Contrast-Induced Nephropathy (CIN)** — ⚠️ critical!
+   - Mechanism: kidney excretion overload
+   - Risk factors: pre-existing kidney disease · dehydration
+   - Prep: hydrate first · check renal values · don't exceed 900 mg I/kg
+2. **Allergic reaction** — iodine sensitivity (cross-react ~ seafood allergy in human)
+   - Signs in animal: rash · เฝ้าสังเกต post-injection
+
+### B. Negative Contrast — CO2 / Air
+**Use**: hollow organ wall evaluation (intra/extra-luminal lesions)
+| Parameter | Value |
+|-----------|-------|
+| **Gas** | CO2 (preferred) · room air |
+| **Dose** | 20 mL/kg |
+| **MAX pressure** | **20 mmHg** ⚠️ (avoid air embolism / barotrauma) |
+| **Position** | Sternal recumbency |
+| **Use** | Rectum/colon study |
+
+## 4️⃣ Artifacts — 4 Categories (สอบบ่อย!)
+
+### Category A: Patient-Based
+
+#### A1. Motion artifact
+- **Voluntary** (สัตว์ไม่วางยาเพราะเสี่ยง) → blurry stripes
+- **Involuntary** (breathing, heartbeat) → can't be controlled even under anesthesia
+- ภาพเบลอ → ใช้ helical mode ลด
+
+#### A2. Transient Interruption of Contrast (TIC) ⚠️ Trap!
+- **Looks like embolus** in arterial phase
+- เกิดจาก contrast ผสมกับ blood ไม่สมบูรณ์
+- **แก้**: ดู venous/delayed phase ด้วย — ถ้าหายไป = artifact, ถ้ายัง = real
+- ในคน: เกิดจาก breath-hold ↓ intrathoracic pressure ↑ IVC return
+- ในสัตว์: scan timing เร็วเกินไป
+
+#### A3. Clothing / Microchip
+- โลกลวงจาก collar, microchip, embedded objects
+- ดูดรังสี → streak artifact
+
+### Category B: Physics-Based
+
+#### B1. Beam Hardening
+- รังสีผ่าน high-attenuation structures (bone, contrast pool, **barium contrast**)
+- → กระเจิง → **white streaks**
+- ⚠️ **อย่ากลืน barium ก่อนทำ CT** — streaks ทั่ว GI tract → unreadable
+
+#### B2. Photon Starvation (Noise-Induced Streaks)
+- X-ray dose ไม่พอกับขนาดสัตว์ (ตัวใหญ่เกิน setting)
+- **Modern CT**: auto-amperage modulation ลดปัญหานี้ได้
+
+### Category C: Equipment-Based
+
+#### C1. Ring Artifact
+- **Concentric circles** กลางภาพ · ตำแหน่งเดิมหลายภาพ
+- = Detector calibration ผิด
+- → เรียกบริษัทมาซ่อม
+
+#### C2. Out-of-Field Artifact
+- สัตว์ใหญ่เกิน FOV (เช่น CBCT scan หมา 60kg)
+- → streaks ที่ขอบภาพ
+
+#### C3. Air Bubble Artifact
+- เห็นเป็น dark coil/bubble pattern หลายภาพ
+- = X-ray tube cooling oil มีปัญหา/หมด/เก่า
+- → เปลี่ยน cooling oil
+
+### Category D: Helical & Multi-Slide
+
+#### D1. Z-axis Aliasing (Windmill / Propeller Pattern)
+- ภาพบิดเป็น propeller blade pattern
+- จาก reconstruct slices หลาย detector
+
+#### D2. Cone Beam Artifact
+- Streaks ใกล้ small structures (ribs)
+- Detector edge ไม่ scan ทุก slice
+
+#### D3. Cross-Banding (CBA)
+- Banded streak ที่ MIP
+- Reconstruction issue
+
+#### D4. Stair-Step Artifact
+- ขอบ structure เป็นขั้นบันได
+- จาก slice thickness หนาเกินไป (5mm) แล้วทำ MPR
+- **แก้**: scan slice บางตั้งแต่ต้น (1mm)
+
+## 5️⃣ Case Studies
+
+### Case 1: Chest — Cranial Mediastinal Mass + Effusion + PTX
+- Pre vs post-contrast: post = mass enhances (HU ↑)
+- Soft tissue window → mass ใน mediastinum
+- Pulmonary window → free air = pneumothorax (jet black, no vessels)
+- MPR → mass ดัน heart caudally · pleural effusion + PTX combined
+
+### Case 2: Pulmonary Metastases
+- **CT sensitivity > X-ray** — CT detects nodule **≥ 1 mm** vs X-ray ≥ 3 mm
+- ⭐ X-ray clean ≠ no metastasis · always CT for staging
+- MIP → all nodules light up
+
+### Case 3: Abdomen
+- **Cholelithiasis** — gallstone (Hyper attenuation in gallbladder)
+- **Splenic mass** — heterogeneous spleen, irregular contour
+- **Prostatic mineralization** — Hyper attenuation (must ดู PRE-contrast!)
+
+### ⭐ Stones vs Cysts — Critical rule
+| Lesion | View | Why |
+|--------|------|-----|
+| **Stones / mineralization** | **Pre-contrast** | Avoid confusion with contrast enhancement |
+| **Renal cysts** | **Post-contrast** | Cysts don't enhance · stand out on enhanced kidney |
+
+### Case 4: Splenic Tail Mass
+- Pedunculated mass at splenic tail
+- VR/MPR → surgical planning
+
+### Case 5: Skull / TMJ Pathology
+**CT > X-ray for skull** (no superimposition!)
+- TMJ luxation — clearly out of socket on 3D
+- Aggressive tumor — invasion into orbit, frontal sinus, brain
+- Can predict prognosis from invasion extent
+
+## 📋 Exam recap (15 จุดสำคัญ)
+1. DICOM = standard format · NOT JPG · OsiriX/Horos/RadiAnt
+2. **MPR** = multi-plane (axial→sagittal→coronal)
+3. **MIP** = high HU (vessels, nodules) · **MinIP** = low HU (bronchi, ducts)
+4. **VR** = 3D selectable HU range · **SSD** = surface only · **Virtual endoscopy** hollow only
+5. CT-guided biopsy avoids critical structures + necrotic centers
+6. Iodinated contrast: **2 mL/kg** · MAX **900 mg I/kg** · IV
+7. ⚠️ **CIN risk** = pre-existing renal disease + dehydration
+8. CO2 negative contrast: **20 mL/kg** · MAX **20 mmHg** pressure
+9. **TIC** mimics embolus — check venous phase to confirm
+10. **Beam hardening** = streaks from bone/barium · don't drink barium before CT
+11. **Ring artifact** = detector miscalibration · same position multiple slices
+12. **Stair-step** = slice too thick · scan thin (1mm) for MPR
+13. CT sensitivity for pulmonary nodule **≥1mm** (X-ray ≥3mm) → CT for staging
+14. **Stones**: pre-contrast! · **Cysts**: post-contrast!
+15. CT skull > X-ray (no superimposition)
+
+> 📚 อ่านควบ: 7 CT 1 (90jMK-YbOBw) · 9 MRI 1 (vMRQ11km0RI) · 5.2 Thoracic Lab (yc88x669lIA)
+> 🩻 **Workflow**: scan → DICOM → MPR → ปรับ window → MIP/VR เพิ่มได้ตามต้องการ
+> 💡 **Trap**: TIC vs embolism — ดู phase อื่นเสมอก่อน diagnose
+> 🦴 **Liability**: CIN ในสัตว์ไตเสีย → ฟ้องร้องได้ · prep + dose monitor`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
