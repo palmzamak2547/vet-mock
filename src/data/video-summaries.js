@@ -28171,6 +28171,303 @@ Fetal death in utero → dehydration + retention → "mummy"
 > 🦴 **End-of-course mindset**: PSY + biosecurity + records = swine vet's toolbox`,
   },
 
+  NSY3v4IlXTw: {
+    videoId: 'NSY3v4IlXTw',
+    title: '1. Boar Anatomy',
+    subject: 'swine-repro',
+    date: '6 Aug 67',
+    durationMin: 117,
+    instructor: 'อ.เผด็จ + อ.มรกต + อ.นัฐ',
+    examFormat: 'MCQ — 3 anatomical zones · scrotal Texture (Soft superficial Hard deep) · spermatogenesis temp (3-5°C below body) · Vas vs ductus deferens · ejaculate fractions · accessory glands ออกบ่อย',
+    summary: `# Boar Anatomy
+
+> 🎯 **Foundation lecture** — boar anatomy guides all swine reproduction
+> Top exam: **3 anatomical zones · scrotal Texture rule · spermatogenesis temperature requirement · 3-fraction ejaculate · accessory gland functions**
+
+---
+
+## 1. Course Structure ⭐ (Foundation)
+
+### Subject codes
+- **Andrology (ลีจี)** = male reproduction
+- **Gynecology (เนเวสวิทยา)** = female reproduction (non-pregnant)
+- **Obstetrics (อติ)** = pregnancy + parturition
+
+### Key female pig terms
+| Stage | Term |
+|---|---|
+| **Gilt** (ก้ิว) | Pre-first farrowing |
+| **Primiparous (P1)** | After 1st farrowing |
+| **Multiparous (P2+)** | After 2nd farrowing onwards |
+
+### Mid + Final = 50/50 split · all multiple choice
+
+---
+
+## 2. Three Anatomical Zones of Boar ⭐⭐⭐
+
+### Zone 1: Testicles (ลูกอันทะ) — most important!
+- Sperm production
+- Hormone production (Testosterone)
+- Stored in scrotum (gonads outside body)
+
+### Zone 2: Genital tract
+- Epididymis (E) — sperm storage + maturation
+- Vas/Ductus deferens — transport
+- Accessory glands
+
+### Zone 3: External genitalia
+- Penis (sigmoid flexure unique to pig!)
+- Sheath (พงคพ)
+- Glans/Vulva of penis
+
+---
+
+## 3. Scrotal Anatomy ⭐⭐ (Clinical exam!)
+
+### Physical exam rule ⭐⭐ "Soft superficial, Hard deep"
+**Normal palpation feel:**
+- **Soft** when palpated lightly (fat + skin)
+- **Firm/turgid (เธอจิต)** when pressed deeper (testicles)
+
+> ⛔ Don't confuse "Hard" with "Rock hard" — should be **turgid**, not stone-like
+
+### Common clinical scenarios
+| Finding | Possible cause |
+|---|---|
+| Bilateral swelling | Bacterial epididymitis · *Brucella suis* |
+| Unilateral hot, painful | Acute orchitis |
+| Hard nodular | Tumor or chronic inflammation |
+| **NORMAL turgid** | Healthy testicles |
+
+> ⭐ Real case: farm reported swollen "hard kidney-like" testicles → was just superficial bacterial inflammation, not orchitis
+
+---
+
+## 4. Spermatogenesis Temperature Rule ⭐⭐⭐
+
+### The 3-5°C rule
+**Sperm production requires temperature 3-5°C BELOW body temperature**
+
+### In pigs specifically
+- Body temp ~38-39°C
+- Optimal scrotal temp: **35°C or below**
+- **>35°C** = sperm death rate increases
+
+### Why scrotum is OUTSIDE body
+- Cools testes via convection
+- Pampiniform plexus (vein network) provides counter-current heat exchange
+- Cremaster muscle contracts/relaxes for temperature regulation
+
+### **EXCEPTION: ELEPHANTS** ⭐ (Trivia!)
+- Elephants have INTRA-abdominal testicles
+- Yet still produce sperm at body temperature
+- Active research at Chula by อ.ธีรวัฒน์ — applications for human infertility
+
+### Hot weather impact
+- Thai summer can exceed 35°C → sperm production drops
+- Modern farms have **AC for boars** (worth it for valuable genetics!)
+- Boars from Denmark cost 200,000 baht each (worth protecting)
+
+---
+
+## 5. Boar Production Ratios ⭐ (Modern!)
+
+### Historical → Current trend
+| Era | Boar:Sow ratio |
+|---|---|
+| **1990s natural mating** | 1:20 |
+| **2000s AI** | 1:50 |
+| **Modern AI** | **1:100-150** ⭐ |
+| **Future** | 1:200+ (improved AI) |
+
+### Why ratios increased
+- AI replaced natural service
+- Better semen quality + processing
+- Frozen semen extends single ejaculate
+
+### Implication
+- 1,000-sow farm needs only ~10 boars
+- AC for 10 boars = economically feasible
+- Genetics quality drives premium boar prices
+
+---
+
+## 6. Epididymis (E) — Sperm Storage ⭐
+
+### Three regions
+| Region | Function |
+|---|---|
+| **Caput (head)** | Sperm enters from testis |
+| **Corpus (body)** | Maturation |
+| **Cauda (tail)** | Storage of mature sperm |
+
+### Position (species-specific)
+- **Boar**: Caput at TOP, Cauda at BOTTOM (opposite of bull!)
+- **Bull**: Caput at BOTTOM
+- Important for surgical orientation
+
+### Sperm storage capacity
+- Mature sperm waiting for ejaculation
+- Continuous production rate (2-3 weeks for full cycle)
+- "Sperm reserve" — used during high-frequency collection
+
+---
+
+## 7. Ductus Deferens (Vas Deferens) ⭐
+
+### Two names — same structure
+- Vas deferens
+- **Ductus deferens** (Latin)
+- Both interchangeable in clinical use
+
+### Function
+- Transport sperm from cauda epididymis → ejaculatory duct
+- Through spermatic cord (with vessels + nerves)
+- Site of vasectomy in some species
+
+### Vasectomy (ectomy) ⭐⭐
+**Special use in swine**: Create "Teaser Boar" or "Vasectomized Boar"
+- Cut + ligate ductus deferens
+- Preserves libido + hormonal function
+- BUT no sperm in ejaculate
+- Used to **detect estrus in sows** (heat detection)
+
+---
+
+## 8. Accessory Sex Glands ⭐⭐ (Pig has 3!)
+
+### Three glands in boar
+| Gland | Function | Contribution |
+|---|---|---|
+| **Bulbourethral (Cowper's)** ⭐ | LARGE in boar! | Pre-ejaculate fluid · forms gel plug |
+| **Prostate** | Surrounds urethra | Adds nutrients |
+| **Vesicular (Seminal vesicle)** | Largest by volume | Energy + buffering |
+
+### Why bulbourethral is HUGE in boar ⭐
+- Produces gel plug ("เจล")
+- Forms "tapioca-like" mass during ejaculation
+- Function: prevent backflow + retain sperm in cervix
+
+---
+
+## 9. Three-Fraction Ejaculate ⭐⭐⭐ (CRITICAL exam!)
+
+### Boar ejaculate has 3 distinct fractions
+| Fraction | Volume | Sperm content | Components |
+|---|---|---|---|
+| **Pre-sperm** | Small | None | Bulbourethral (cleaning fluid) |
+| **Sperm-rich** ⭐ | 30-50 mL | **HIGHEST** | Concentrated sperm |
+| **Post-sperm** | 100-300 mL | Low | Mostly accessory secretion + gel |
+
+### Total ejaculate volume: **150-500 mL** (huge!)
+- vs Bull: ~5-7 mL
+- vs Stallion: ~50-100 mL
+
+### Practical implication
+- Collection: **discard pre-sperm + collect sperm-rich + selective post-sperm**
+- Filter through gauze to remove gel
+- Modern AI uses **only sperm-rich fraction**
+
+---
+
+## 10. Sigmoid Flexure of Penis ⭐ (Boar-specific!)
+
+### Pig penis is unique
+- **Corkscrew (sigmoid)** shaped
+- Twists during erection
+- Locks into cervix during natural mating
+- AI catheter must MIMIC this corkscrew motion!
+
+### AI catheter types
+- **Spiral catheter** (mimics natural corkscrew)
+- **Foam-tipped catheter** (modern, easier)
+- **Post-cervical catheter** (deeper insertion)
+
+---
+
+## 11. Scrotal Hyperthermia & Production ⭐
+
+### Causes of testicular damage
+| Cause | Effect |
+|---|---|
+| Heat stress | Decreased sperm count |
+| Bacterial infection | Inflammation, fertility loss |
+| **Brucella suis** ⭐ | Chronic, zoonotic — CULL boar |
+| Trauma | Hematoma, fibrosis |
+| Genetic | Cryptorchidism (one or both undescended) |
+
+### Cryptorchidism
+- One or both testicles fail to descend
+- Bilateral cryptorchid = sterile (high body temp kills sperm)
+- Unilateral = fertile but lower count
+- **Genetic disorder** — cull from breeding
+
+---
+
+## 12. Vasectomy Technique ⭐ (For teaser boar)
+
+### Procedure
+1. Sedate boar
+2. Skin incision over scrotum
+3. Identify spermatic cord
+4. **Locate ductus deferens** (firm white tube)
+5. Cut + ligate both ends (~2cm segment)
+6. Remove segment
+7. Repeat opposite side
+8. Close skin
+
+### Result
+- Boar retains libido + hormones
+- No sperm in ejaculate
+- Cannot impregnate sows
+- Used for **estrus detection** (sows must be near heat to display)
+
+---
+
+## 13. Castration ⭐ (Routine in market boars!)
+
+### Why castrate market pigs?
+- Eliminate "boar taint" odor in meat
+- Reduce aggression
+- Improve carcass fat distribution
+
+### When done?
+- Usually **<7 days old** (no anesthesia required by Thai law for piglets)
+- Modern: with anesthesia + analgesia (welfare)
+
+### Procedure
+- Skin incision over scrotum
+- Pop testicles out
+- Crush/tie spermatic cord
+- Remove testes + cord
+- Skin heals naturally
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **3 boar zones**: Testicles + Genital tract + External genitalia
+2. **Scrotal exam**: "Soft superficial, Hard (turgid) deep"
+3. **Sperm production needs 3-5°C below body temp**
+4. **Pig optimal scrotal temp = ≤35°C**
+5. **Elephants** = exception (intra-abdominal testes)
+6. **AI ratio modern = 1:100-150 boars:sows**
+7. **Boar epididymis**: Caput on TOP (opposite bull)
+8. **Vas/Ductus deferens** = same structure
+9. **Bulbourethral gland HUGE in boar** = gel plug
+10. **3-fraction ejaculate**: Pre-sperm + Sperm-rich + Post-sperm
+11. **Total volume 150-500 mL** (huge vs other species)
+12. **Sigmoid flexure** = pig penis corkscrew shape
+13. **Vasectomy → teaser boar** (for estrus detection)
+14. **Castration <7 days old** = routine in market pigs
+
+> 📚 อ่านควบ: 2 Spermatogenesis (piJq-n43sO8) · 3 Boar management (tGn3BDDIl9o) · 4 Reproductive problems (ABb7TdP98Zc) · 5 Semen collection (3cJC9Ymk1TI)
+> 🩻 **Practice tip**: Memorize 3-fraction ejaculate — it's THE collection guide
+> 💡 **Sigmoid flexure** = corkscrew shape · why AI catheter needs spiral
+> 🦴 **Modern reality**: AC barns for boars (high genetics worth protecting)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
