@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, isPlaylistUrl, isChannelUrl } from '../data/videos.js';
 import { VIDEO_SUMMARIES, getSummaryForVideo } from '../data/video-summaries.js';
-import { SUBJECTS } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
@@ -176,16 +176,79 @@ export default function VideoView({ goHome }) {
         </p>
       </div>
 
-      <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 20, flexWrap: 'wrap' }}>
-        <div className="vmx-chip-row" style={{ flex: 1 }}>
-          {SUBJECTS.map((s) => (
-            <button key={s.id} className={`vmx-chip ${filter === s.id ? 'active' : ''}`} onClick={() => setFilter(s.id)}>
-              {s.icon} {s.name}
-            </button>
-          ))}
-        </div>
-        <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={startAdd}>➕ เพิ่มคลิป</button>
-      </div>
+      {/* Subject filter — grouped by year + semester. Only subjects that
+          actually have videos appear (74 total subjects flat would be
+          overwhelming). 'All' chip stays separate at top. */}
+      {(() => {
+        // Build set of subject IDs that have videos in the library
+        const subjectsWithVideos = new Set(allVideos.map((v) => v.subject));
+
+        // Group those subjects by year+semester for section rendering
+        const groups = []; // [{year, semester, label, subjects:[]}]
+        for (const year of YEARS) {
+          const yearSubjects = (SUBJECTS_BY_YEAR[year.id] || [])
+            .filter((s) => subjectsWithVideos.has(s.id));
+          if (yearSubjects.length === 0) continue;
+
+          // Y6 has semester:0 (block-based) → put in single group
+          const sem1 = yearSubjects.filter((s) => s.semester === 1);
+          const sem2 = yearSubjects.filter((s) => s.semester === 2);
+          const sem0 = yearSubjects.filter((s) => !s.semester);
+
+          if (sem1.length) groups.push({ key: `${year.id}-1`, label: `${year.label} · เทอม 1`, subjects: sem1 });
+          if (sem2.length) groups.push({ key: `${year.id}-2`, label: `${year.label} · เทอม 2`, subjects: sem2 });
+          if (sem0.length) groups.push({ key: `${year.id}-block`, label: `${year.label} · บล็อก`, subjects: sem0 });
+        }
+
+        return (
+          <div style={{ marginBottom: 20 }}>
+            {/* Top row — All chip + Add button */}
+            <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12, flexWrap: 'wrap' }}>
+              <button
+                className={`vmx-chip ${filter === 'all' ? 'active' : ''}`}
+                onClick={() => setFilter('all')}
+                style={{ fontWeight: 600 }}
+              >
+                📚 ทั้งหมด ({allVideos.length})
+              </button>
+              <div style={{ flex: 1 }} />
+              <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={startAdd}>➕ เพิ่มคลิป</button>
+            </div>
+
+            {/* Year+sem sections */}
+            {groups.map((g) => (
+              <div key={g.key} style={{ marginBottom: 12 }}>
+                <div style={{
+                  fontSize: 11,
+                  fontFamily: 'JetBrains Mono, monospace',
+                  color: 'var(--clr-ink-soft)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  marginBottom: 6,
+                  paddingLeft: 4,
+                }}>
+                  {g.label}
+                </div>
+                <div className="vmx-chip-row">
+                  {g.subjects.map((s) => {
+                    const count = allVideos.filter((v) => v.subject === s.id).length;
+                    return (
+                      <button
+                        key={s.id}
+                        className={`vmx-chip ${filter === s.id ? 'active' : ''}`}
+                        onClick={() => setFilter(s.id)}
+                        title={`${count} คลิป`}
+                      >
+                        {s.icon} {s.name} <span style={{ opacity: 0.6, fontSize: 10 }}>{count}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      })()}
 
       {showAdd && <AddEditModal {...{ form, setForm, save, onClose: () => setShowAdd(false), editing: editingIdx !== null }} />}
       {playing && <PlayerModal video={playing} onClose={() => setPlaying(null)} watched={watched} markWatched={markWatched} />}
