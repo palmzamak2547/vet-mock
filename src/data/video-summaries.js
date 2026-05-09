@@ -16385,6 +16385,356 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 > 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU) · 5.1 Intestine Sx (lS4wSGDKFrY) · 6 Hepato/pancreas Sx (5rcEK-3IW0M) · 3 Hepatobiliary (keqE30HxM7Y)`,
   },
 
+  lS4wSGDKFrY: {
+    videoId: 'lS4wSGDKFrY',
+    title: '5.1 : Intestine Surgery',
+    subject: 'com1',
+    date: '2024-09-02',
+    duration: '136 min',
+    instructor: 'รุ่นพี่',
+    examFormat: 'MCQ — surgical principles + suture + technique',
+    summary: `# 5.1 Intestine Surgery
+
+> 🎯 Surgical principles + techniques for **small + large intestine**: anatomy → suture → cutting → resection-anastomosis → diameter mismatch → unique techniques. Foundation for any GI surgery on Year 5
+
+---
+
+## 1. Anatomy Refresh
+
+### Small intestine parts
+| Part | Length | Notes |
+|---|---|---|
+| **Duodenum** | ~25 cm | Anchored to right body wall by ligament; can't lift out easily |
+| **Jejunum** | Longest | Most movable; **best target for surgery** |
+| **Ileum** | ~15 cm | Has unique vessel running on **anti-mesenteric** side ⭐ |
+
+### Identifying ileum
+- ⭐ Ileum is the **only** small intestine segment with a vessel on the **anti-mesenteric** border
+- Other parts: vessels only on mesenteric border
+
+### Vasculature
+- **Cranial mesenteric artery** = main trunk for jejunum + ileum
+- Gives off **jejunal arteries** in tree-branch pattern
+- Each branches into terminal vessels supplying intestinal wall
+
+### Duodenum has TWO blood supplies
+- **Cranial pancreaticoduodenal** (from celiac trunk via gastroduodenal artery)
+- **Caudal pancreaticoduodenal** (from cranial mesenteric)
+- ⚠️ Must preserve BOTH during duodenal surgery
+
+### Wall layers (4)
+1. **Serosa** (outer)
+2. **Muscularis** (longitudinal + circular)
+3. **Submucosa** ⭐ — strongest layer for healing!
+4. **Mucosa** (inner)
+
+⚠️ **Always include submucosa in suture** for wound strength
+
+---
+
+## 2. Pre-Op Considerations
+
+### Prophylactic Antibiotics
+**Given when**:
+1. Procedure breaches hollow organ (intestine, stomach, bladder)
+2. Damaged tissue (perforation, ischemia)
+3. **Surgery > 2 hours**
+
+**Drug choice**: **First or Second-Generation Cephalosporin** (ceftriaxone, cefazolin)
+- Coverage: Gram + and -, anaerobes
+- ⚠️ Always include Staph cover (skin flora)
+
+**Timing critical** ⭐
+- Give **30-60 min BEFORE skin incision**
+- ⚠️ Late = not prophylactic, just therapeutic
+- **Repeat every 90 min** during long surgery
+
+### Patient prep
+- Standard aseptic technique
+- Wide clip for laparotomy access
+
+---
+
+## 3. Surgical Principles (Halstead's)
+
+### 1. Gentle Tissue Handling ⭐
+- ⛔ Don't grab/squeeze with teethed forceps
+- Use **intestinal forceps** (DeBakey-style, atraumatic)
+- ⚠️ When clamping with intestinal forcep: **only first ratchet click** — don't lock fully (prevents tissue death)
+
+### 2. Aseptic Technique
+- Drape exclusion ⭐ (see below)
+- Lavage frequently
+- Glove change after dirty steps
+
+### 3. Preserve Blood Supply
+- Identify mesenteric arcade vessels
+- Don't ligate too proximal — could compromise upstream segment
+- Test viability before closing
+
+### 4. Approximation without Tension
+- Sutures must bring edges together without pulling
+- ⚠️ Tension = poor healing, dehiscence
+
+### 5. Sharp Dissection (use blade, not scissors!)
+- ⛔ Scissors crush tissue ("bruising")
+- ✅ Fresh **blade** = clean cut, less crush, better edge for suturing
+
+### 6. Hemostasis
+
+---
+
+## 4. Occlusal Draping (Bowel Pack) ⭐
+
+### Purpose
+Isolate working area from rest of abdomen — prevents contamination from accidental spillage.
+
+### Technique
+1. Use **abdominal swabs (saline-moistened)** — not dry!
+2. Pack **at least 4 layers around the mesenteric base**:
+   - North side
+   - South side
+   - East side
+   - West side
+3. Stack them **in sequence** (don't pile randomly — easy to leave behind!)
+4. Use **6 layers** if time permits
+5. ⚠️ **Count packs** before closing — don't leave one in!
+
+---
+
+## 5. Tissue Viability Assessment
+
+### Subjective (Clinical Judgement)
+- **Color**: pink + perfused vs blue/purple/black (cyanotic)
+- **Peristalsis**: present or absent?
+- **Pulsation** of mesenteric vessels visible?
+- **Bleeding** from cut edge (capillary ooze = good!)
+
+### Objective
+- **Pulse oximeter** ⭐ — clip sterile probe on bowel wall
+  - SpO₂ > 95-100% = viable
+- **Fluorescein dye + UV lamp** — vessel patency confirmation
+
+⚠️ Use **multiple methods together** — never rely on just one
+
+---
+
+## 6. Suture for Intestine
+
+### Material
+- ✅ **Synthetic absorbable monofilament** ⭐
+- ⛔ NEVER multifilament/braided (biofilm risk!)
+- ⛔ NEVER non-absorbable (foreign body in lumen → granuloma)
+
+### Strength category
+- **Mid-term to long-term absorbable** (PDS, Maxon)
+- ⛔ NOT short-term/fast-absorbable (Vicryl, Monocryl) — heals too slowly to use
+
+### Size by patient
+| Patient | Size |
+|---|---|
+| Cat / Pomeranian / Chihuahua | **5-0** |
+| 15-20 kg dog | **4-0** |
+| Large dog | **3-0** |
+
+---
+
+## 7. Suture Pattern
+
+### Best patterns (apposition with no inversion/eversion)
+- **Simple Continuous** ⭐ most common in clinic (faster)
+- **Simple Interrupted** — slower but each knot independent
+- **Modified Gambee** — best apposition but slow + needs thick wall
+
+### Layers
+- ⭐ **One layer only** for small intestine (multi-layer = stricture risk)
+- ⭐ **Always include submucosa** (strongest layer)
+
+### Mucosal eversion (problem!)
+- After cutting, mucosa often everts (curls outward)
+- ⚠️ Mucosa-to-mucosa contact = poor healing, granuloma
+- ✅ **Trim everted mucosa with scissors** before suturing
+
+### Knot location
+- Place outside lumen
+- Don't bury knot in mucosa
+
+---
+
+## 8. Resection and Anastomosis (R&A)
+
+### Indications
+- **Mass removal** (TCC, lymphoma, leiomyoma)
+- **Perforation**
+- **Necrosis** (intussusception, volvulus, severe ischemia)
+- **Foreign body causing necrosis**
+- **Stricture**
+
+### Step-by-step
+1. **Identify segment** to remove
+2. **Pack abdomen** with bowel pack
+3. **Milk content** away from working area + **clamp** with intestinal forceps
+4. **Identify mesenteric vessels** to ligate
+5. **Ligate vessels** with absorbable suture
+6. **Cut bowel** (with #11 or #15 blade)
+   - ⚠️ Cut at **slight angle** (60-70° vs perpendicular) — increases circumference + opens diameter
+7. **Bring ends together** without tension
+8. **Anastomosis suture**:
+   - Start at **mesenteric border** (highest tension area)
+   - Continue around to anti-mesenteric
+9. **Trim eversed mucosa** as needed
+10. **Test for leak**:
+    - Inject saline through proximal segment
+    - Look for leaks at suture line
+11. **Close mesenteric defect** (prevent internal hernia)
+12. **Lavage** abdominal cavity thoroughly
+
+### Diameter mismatch ⭐
+When anastomosing **smaller bowel to larger bowel** (e.g., ileum to colon):
+- **Cut smaller bowel at angle** (60-70° from perpendicular)
+- Or **cut on anti-mesenteric border** to widen
+- Or **add a triangular wedge** of tissue from larger bowel side
+
+### Reinforcement options (after anastomosis)
+1. **Omental patch** — wrap omentum around suture line
+   - ⚠️ Speeds healing (provides blood supply, lymphatics) but doesn't add strength
+2. **Serosal patch** — overlap adjacent loop of bowel and suture
+   - Adds true mechanical strength
+   - Useful for high-risk anastomosis
+
+---
+
+## 9. Special Procedures
+
+### A. Intestinal Foreign Body (Enterotomy)
+
+**Indication**: foreign body cannot be passed/extracted via endoscopy
+
+**Technique**:
+1. Pack abdomen
+2. Clamp proximal + distal to FB
+3. Make incision at **anti-mesenteric border** (avoid vessels)
+4. Use **blade #15** to make full-thickness cut
+5. **Linear cut** along bowel axis
+6. Remove FB
+7. Lavage lumen
+8. Close in **simple continuous** (one layer)
+9. Test leak
+
+### B. Intussusception Repair
+
+**Indication**: invagination of bowel into adjacent segment
+
+**Technique**:
+1. **Manual reduction** (gentle pressure, milking out)
+2. ⚠️ If can't reduce → **resect + anastomose**
+3. ⚠️ If reduced but tissue compromised → **resect + anastomose**
+4. **Enteroplication** (suture loops together) — controversial; some advocate to prevent recurrence
+
+### C. Linear Foreign Body (cats)
+
+**Critical**: do NOT pull single-pull on string!
+- String tightens through bowel → multiple perforations along mesenteric border
+
+**Technique**:
+1. **Cut anchor** (under tongue)
+2. **Multiple enterotomies** along bowel — extract piece by piece
+3. Inspect each segment for perforation
+4. Resect any necrotic segment
+
+### D. Mass Removal
+
+- Resect with **2-3 cm margin** (depending on tumor type)
+- Submit margins for histopath
+- Anastomose
+
+### E. Pyloroplasty (Y-U) — see 4.2 summary
+
+---
+
+## 10. Large Intestine (Colon) Differences
+
+### Anatomy
+- **Ascending → Transverse → Descending → Rectum → Anus**
+- ⚠️ **Higher bacterial load** than small intestine!
+- Different vasculature: **caudal mesenteric artery**
+
+### Surgical considerations
+- ⭐ **More antibiotics needed** before colonic surgery
+- ⭐ **Pre-op enema** (24 hr fasting + warm saline enema)
+- **One-layer closure** + reinforce with omental/serosal patch
+- ⚠️ **Higher dehiscence rate** — be extra careful
+
+### Common procedures
+- **Subtotal colectomy** for **megacolon (cats)**
+- Mass removal
+- Stricture repair
+
+---
+
+## 11. Anastomosis Comparison: Hand-Sewn vs Stapled
+
+### Hand-sewn (vet med standard)
+- All techniques above
+- Cheaper, accessible
+
+### Stapled (TA / GIA stapler)
+- **Faster** (5 min vs 20-30 min)
+- **More uniform** apposition
+- **Lower leak rate** (in human med)
+- ⚠️ Not commonly available in vet clinics
+
+---
+
+## 12. Post-op Care
+
+### Immediate
+- **NPO** 12-24 hr
+- **IV fluids + electrolytes**
+- **Pain management** (opioid + NSAID after kidney check)
+- **Antibiotics** continue 5-7 days
+- **Monitor for**:
+  - Vomiting (ileus, dehiscence)
+  - Abdominal distension
+  - Fever (peritonitis)
+  - Pale mucous membranes (hemorrhage)
+
+### Diet progression
+- Day 1-2: clear liquids
+- Day 3-7: bland soft food (chicken + rice)
+- Day 7+: gradual normal food
+
+### Activity restriction
+- 7-10 days
+
+### Monitor for dehiscence
+- ⚠️ Most common at days 3-5
+- Signs: vomiting, abdominal pain, fever, distension
+- Urgent re-laparotomy if suspected
+
+---
+
+## 🎯 Exam recap (15 ข้อ)
+
+1. **Submucosa = strongest layer** — must include in suture
+2. **Jejunum = best target** for surgery (movable)
+3. **Ileum unique vessel** on anti-mesenteric side
+4. **Duodenum has 2 blood supplies** (preserve both)
+5. **Prophylactic antibiotics** = 30-60 min before incision · cephalosporin
+6. **Repeat antibiotics every 90 min** during long surgery
+7. **Intestinal forceps** — only first ratchet click, atraumatic
+8. **Synthetic absorbable monofilament** + mid-to-long term · NEVER multifilament
+9. **Simple continuous** = most common pattern · **Modified Gambee** = best apposition
+10. **One layer only** for small intestine
+11. **Trim everted mucosa** before suturing
+12. **Cut at angle** for diameter mismatch (small to large bowel)
+13. **Omental patch** = healing acceleration · **Serosal patch** = true strength
+14. **Bowel pack** = 4-6 layers around mesentery base
+15. **Linear FB in cats** = multiple enterotomies, never pull string!
+
+> 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU) · 4.2 Endoscope (0C218gD_tZM) · 6 Hepato Pancreas Sx (5rcEK-3IW0M) · 3 Hepatobiliary (keqE30HxM7Y)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
