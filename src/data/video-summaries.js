@@ -10741,6 +10741,179 @@ When surgery isn't feasible:
 > 📚 อ่านควบ: 1.1 Oral cavity (anatomy + DDx of non-tumor masses) · 7.1 Hemolymph Sx (anemia from chronic bleeding tumor) · oncology surgery principles in Y3 com2`,
   },
 
+  // 8.1 Upper Urinary System (AKI vs CKD — diagnosis + management)
+  a9cdFzIKIGA: {
+    videoId: 'a9cdFzIKIGA',
+    title: '8.1 : Upper Urinary System',
+    subject: 'com1',
+    date: '7 Oct 2024 (DekDokVet85, อ.วชิรา)',
+    durationMin: 115,
+    instructor: 'อ.วชิรา (Med II) — small animal urology',
+    examFormat: 'AKI vs CKD differentiation · IRIS staging · azotemia vs uremia distinction · Cr/BUN/SDMA interpretation ออกบ่อย',
+    summary: `# 8.1 Upper Urinary System — AKI vs CKD
+
+> 🎯 Upper UT = kidney + ureter · Lower UT = bladder + urethra
+> ⚠️ "โรคไต" คำเดียวยังไม่พอ — ต้องระบุว่า **AKI** หรือ **CKD** (Tx ต่างกัน)
+
+---
+
+# 📚 Part 1: Definitions
+
+| Term | Meaning |
+|---|---|
+| **AKI** (Acute Kidney Injury) | Sudden, severe decrease in renal function · **reversible if caught early** |
+| **CKD** (Chronic Kidney Disease) | **Irreversible**, progressive loss · ≥3 months duration |
+| **Acute on top** (acute on chronic) | AKI in patient with pre-existing CKD · trigger event tips them over |
+
+> 💡 Old terms (acute renal failure / chronic renal failure) replaced by AKI/CKD — current standard
+
+## "โรคไต" Communication
+- Owner says "โรคไต" — covers both
+- ⚠️ As clinicians, ALWAYS distinguish AKI vs CKD — drives Tx + prognosis differently
+- AKI early → can fully recover · CKD → manage, never reverse
+
+---
+
+# ⚠️ Part 2: AKI Causes (sniff for these in history)
+
+| Category | Examples |
+|---|---|
+| **Toxins** | Grapes/raisins (dog), Lily (cat — entire plant lethal), ethylene glycol, NSAIDs, ACE-i overdose |
+| **Drugs (nephrotoxic)** | **Aminoglycosides (gentamicin)**, amphotericin B, cisplatin |
+| **Ischemia** | Shock, dehydration, sepsis, anesthesia hypotension |
+| **Infection** | **Leptospirosis** (dog) ⭐, pyelonephritis |
+| **Immune** | Glomerulonephritis (post-infectious) |
+| **Obstruction (post-renal)** | Ureter stones, urethral plug |
+
+> 📝 Classic history: "หมาแอบกินองุ่น 2 วันก่อน, อ้วก, ซึม, ค่าไตขึ้น" → grape toxicity AKI
+
+---
+
+# 🔄 Part 3: AKI Phases (caught early = recoverable)
+
+| Phase | Event | Reversibility |
+|---|---|---|
+| **1. Initiation** | Toxin/insult hits tubules | **Fully reversible** (catch here!) |
+| **2. Extension** | Inflammation amplifies damage | Mostly reversible |
+| **3. Maintenance** | Stable damage 1-2 wk | Partial recovery only |
+| **4. Recovery** | Residual repair | Some loss permanent → may → CKD |
+
+> 💡 **Phase timing unpredictable** — initiation can be hours; maintenance can be days
+> 💡 **Patient caught in 1-2 → full recovery possible · 3-4 → likely some permanent CKD**
+
+---
+
+# 🔬 Part 4: Diagnosis
+
+## Lab Markers
+| Marker | Use | Caveats |
+|---|---|---|
+| **Creatinine (Cr)** ⭐ | Primary — produced by muscle, filtered by GFR | ⚠️ Low in emaciated/cachectic (BCS 1) — masked CKD |
+| **BUN** | Secondary | ↑ from high-protein diet, GI bleed (not kidney-specific) |
+| **SDMA** (Symmetric Dimethylarginine) | More sensitive than Cr · early CKD detection | Expensive (~400฿ vs 60฿) — not routine |
+| **Urinalysis (USG)** | Concentrating ability · isosthenuria (1.008-1.012) = lost concentration | Earliest functional change |
+| **UPC** (urine protein:creatinine) | Glomerular dysfunction · proteinuria = poor prognosis | |
+
+## Azotemia vs Uremia (semantic but important)
+- **Azotemia** = elevated BUN/Cr (lab finding only)
+- **Uremia** = azotemia + **clinical signs** (vomiting, anorexia, depression, oral ulcers)
+- Uremia → must have azotemia · azotemia → not always uremic
+
+---
+
+# 📊 Part 5: IRIS Staging (gold standard for CKD)
+
+International Renal Interest Society stages CKD by **stable Cr** (after rehydration, on 2 occasions):
+
+| Stage | Cr (dog) | Cr (cat) | Description |
+|---|---|---|---|
+| **1** | <1.4 | <1.6 | Non-azotemic · subclinical · USG/UPC abnormal |
+| **2** | 1.4–2.0 | 1.6–2.8 | Mild azotemia |
+| **3** | 2.1–5.0 | 2.9–5.0 | Moderate · clinical signs |
+| **4** | >5.0 | >5.0 | End-stage · severe uremia |
+
+## Sub-staging
+- **UPC** (proteinuria): non- (<0.2), borderline (0.2-0.5), proteinuric (>0.5)
+- **Blood pressure**: normotensive, borderline, hypertensive
+
+---
+
+# 💊 Part 6: Treatment
+
+## AKI (focus on cause + supportive)
+1. **Remove inciting cause** (stop toxin, treat infection)
+2. **IV fluids** — restore perfusion · 24-48h aggressive
+3. **Manage hyperkalemia, acidosis** (see 8.2)
+4. **Anti-emetics** (maropitant), GI protectants (omeprazole)
+5. **Diuretic challenge** (furosemide) if oliguric/anuric
+6. **Hemodialysis / peritoneal dialysis** if available + severe
+7. **Specific antidotes**: ethylene glycol → fomepizole + ethanol drip
+
+## CKD (manage progression + symptoms)
+1. **Renal diet** — reduced protein (esp. quality), low phosphorus, high omega-3, alkalinizing
+2. **Phosphorus binders** — aluminum hydroxide, sevelamer (when serum P stays high despite diet)
+3. **Anti-hypertensive** — amlodipine (cat first-line), telmisartan
+4. **ACE-i / ARB** — telmisartan for proteinuria (esp. dog)
+5. **Erythropoietin / darbepoetin** — for anemia (CKD anemia non-regenerative)
+6. **Hydration support** — SQ fluids at home for cat (IV if hospitalized)
+7. **Anti-emetics** for symptomatic uremia (mirtazapine, maropitant)
+
+---
+
+# 📈 Part 7: Anemia of CKD
+
+- **Non-regenerative** anemia (chronic)
+- Cause: ↓ erythropoietin from peritubular interstitial cells
+- Sub-set of CKD only: depends on which kidney compartment damaged
+  - Glomerulus + tubule disease without interstitial cell loss → no anemia
+  - Diffuse interstitial damage → anemia + uremia together
+- Tx: erythropoietin (rhEPO) or darbepoetin · iron supplementation
+
+---
+
+# 🩻 Part 8: Imaging + Other Workup
+
+- **Abdominal radiograph**: kidney size + outline
+  - AKI: kidneys often **normal size or enlarged** (edema)
+  - CKD: kidneys often **small + irregular** ("ขรุขระ") or sometimes normal
+- **Ultrasound**: cortex/medulla differentiation, infarct, abscess, hydronephrosis (= obstruction)
+- **CT**: ureteral obstruction localization (stones)
+- **Renal biopsy**: if cause unclear · pre/post bleeding risk
+
+---
+
+# 🐈 Part 9: Species-Specific Notes
+
+## Cat
+- **CKD incidence: 1 in 43** (very common!)
+- Most common chronic disease in older cats
+- Risk: high-protein diet, hypertension, smoke exposure
+- Often presents with weight loss, polydipsia/polyuria, vomiting
+
+## Dog
+- CKD incidence: 1 in 285
+- Often genetic predisposition (some breeds)
+- AKI more common than chronic in some clinics
+
+---
+
+# 🎯 Exam High-Yield Recap
+
+1. **AKI** = reversible if caught in initiation/extension · **CKD** = always irreversible
+2. **Cr** = best marker · **BUN** affected by GI bleed/diet · **SDMA** = early sensitive
+3. **Azotemia ≠ Uremia**: uremia = azotemia + clinical signs (vomiting/anorexia/depression)
+4. **Emaciated patient** → low Cr can MASK true CKD (muscle mass = Cr source)
+5. **IRIS Stage** based on **stable** Cr (after rehydration, 2 measurements)
+6. **AKI causes**: grapes/raisins/lily/leptospirosis/aminoglycosides
+7. **Acute on top**: AKI in pre-existing CKD patient → ER situation
+8. **Phases**: catch in initiation/extension for full recovery
+9. **Cat CKD prevalence 1:43** vs dog 1:285 — cat is the model
+10. **Anemia of CKD**: non-regenerative, EPO deficiency, depends on interstitial cell damage
+11. **CKD Tx pillars**: renal diet · P-binder · BP control · proteinuria control · anti-emetic · hydration
+
+> 📚 อ่านควบ: 8.2 LUT 1 (z0Id0mmM4Fk · obstruction crisis) · 8.3 Stones (vLjnPuFgvj4 · post-renal AKI cause)`,
+  },
+
   // 8.3 Lower Urinary System 2 (urolithiasis — 5 stone types + Tx logic)
   vLjnPuFgvj4: {
     videoId: 'vLjnPuFgvj4',
