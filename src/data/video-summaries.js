@@ -37058,6 +37058,252 @@ Per body weight: **EDI = (food intake × residue) / body weight**
 > 🦴 **TRV naming pitfall**: ATSDR MRL ≠ Codex MRL — ดูบริบท`,
   },
 
+  '2JMEuvnHeok': {
+    videoId: '2JMEuvnHeok',
+    title: '6-7. Factors affecting Growth + Survival of Pathogens',
+    subject: 'food-safety-y4',
+    date: '2024-09-20',
+    durationMin: 118,
+    instructor: 'อ.ธราดล',
+    examFormat: 'concept + temperature/pH limit + bacterial group ID',
+    summary: `# 6-7. Factors Affecting Growth + Survival of Pathogens in Food
+
+> ⚠️ Post-midterm content with อ.ธราดล (the harder professor in this course)
+> First lecture in microbial food safety series — focuses on **bacteria** specifically
+
+## 🎯 ภาพรวมคาบ
+1. Growth vs Survival concept
+2. **4 environmental factors**: Temperature · Water Activity · pH · Oxygen
+3. Bacterial Growth Curve (Lag/Log/Stationary/Death)
+4. Microbe categories by tolerance (psychrophile/mesophile/thermophile)
+5. Critical numbers to memorize ⭐
+
+## 1️⃣ Growth vs Survival
+
+| Term | Meaning |
+|------|---------|
+| **Growth** | Active proliferation (1→2→4→8...) leading to **propagation** |
+| **Survival** | Retention of ability to grow when conditions become favorable |
+
+> Bacteria starts at 100 cells:
+> - **Growth** scenario → 100 → 1000 → 10000
+> - **Survival** scenario → 100 → 50 → 10 (declining but viable)
+
+### Why focus on bacteria?
+- **90%+** of foodborne illness from bacteria
+- Bacteria can grow OUTSIDE host (in food/environment)
+- **Viruses + protozoa** = obligate intracellular → can't grow in food
+  - Need host to replicate
+  - Foodborne virus diagnosis hard (need molecular methods, vs bacteria can be cultured)
+
+## 2️⃣ Factor 1 — Temperature
+
+### Temperature Limits ⭐
+Each microbe has **3 critical temperatures**:
+| Term | Meaning |
+|------|---------|
+| **T_min** | Lowest temp where growth occurs |
+| **T_opt** | Optimum temp (max growth rate) |
+| **T_max** | Highest temp where growth still occurs |
+
+> T_opt is closer to T_max than T_min on the curve
+
+### Microbe Groups by Temperature ⭐
+| Group | Optimum (°C) | Examples |
+|-------|--------------|----------|
+| **Psychrophile** | < 15 | Polar marine bacteria (rare in food) |
+| **Psychrotroph** | 0-7 (slow) but optimum 20-30 | **Listeria** ⭐ (refrigerator!) |
+| **Mesophile** ⭐ | **25-40** (peak ~37°C) | **Most pathogens** (Salmonella, E. coli, Staph) |
+| **Thermophile** | 50-65 | Bacillus, some Clostridium |
+| **Extreme thermophile** | 65+ | Geothermal, food spoilage |
+
+### Why T_opt = 37°C for most pathogens?
+- Body temperature of humans + mammals = 37°C
+- Pathogens evolved with hosts → adapted to host temp
+- That's why "**Danger Zone**" exists for food
+
+### "Danger Zone" ⭐
+Temperature range where pathogens proliferate fastest in food
+
+**Rule for canteen/restaurant**:
+- ⭐ **Keep Hot Food Hot · Keep Cold Food Cold**
+- Don't leave food in 5-60°C range
+
+### Listeria — exception case ⚠️
+- **Psychrotrophic** — grows in refrigerator (4-7°C)!
+- Hard cheese, deli meat = high-risk foods
+- ⭐ Sob: Refrigerator does NOT make food safe forever
+
+### Biological Basis of Temperature Limits
+**2 cellular structures determine the range:**
+1. **Cell membrane** (lipid bilayer)
+   - High temp → membrane melts (liquid)
+   - Low temp → membrane stiffens (solid)
+   - Each microbe has lipid composition adapted to its T_range
+2. **Enzymes**
+   - Folding stability dependent on temperature
+   - Outside range → denaturation → metabolism fails
+
+### Temperature Tolerance ≠ Temperature Optimum
+- Some bacteria **survive** wider range than they **grow** in
+- Spores = ultimate tolerance (survive boiling, but won't grow)
+
+## 3️⃣ Bacterial Growth Curve ⭐
+
+### 4 Phases (sob essential)
+| Phase | Description | Analogy |
+|-------|-------------|---------|
+| **Lag** | Adaptation, no division | "First semester adjusting to college" |
+| **Log (exponential)** | Rapid division, plenty of nutrients | "Year 2-3 productive period" |
+| **Stationary** | Death rate = birth rate · waste accumulates | "Equilibrium" |
+| **Death (decline)** | Death > birth · nutrients exhausted | "Old age" |
+
+**X-axis**: time · **Y-axis**: log₁₀(cell number)
+
+### Practical implications
+- Long lag phase = food keeps longer
+- Some preservation methods extend lag phase
+- Once log phase starts, contamination grows fast
+
+## 4️⃣ Factor 2 — Water Activity (a_w)
+
+### Definition
+**a_w = vapor pressure of food / vapor pressure of pure water at same T**
+
+Range: **0 to 1** (pure water = 1)
+
+### a_w ≠ moisture content!
+- Sea water: high moisture but low a_w (salt binds water)
+- Honey: moisture present but low a_w (sugar binds water)
+- Salting/sugaring works because **bound water is unavailable** to microbes
+
+### Critical Numbers ⭐ MEMORIZE
+| Threshold | Significance |
+|-----------|---------------|
+| **a_w < 0.6** | NO microbe grows (universal floor) |
+| **a_w < 0.85** ⭐ | NO **pathogen** grows (foodborne safety target) |
+| 0.6 - 0.85 | Spoilage by mold/yeast still possible |
+| 0.95 - 0.99 | Most bacteria thrive (incl. fresh meat) |
+
+### Bacteria-specific a_w minima
+| a_w | Organisms |
+|------|-----------|
+| 0.95+ | All bacteria |
+| 0.90-0.95 | Salmonella, E. coli, mycotoxin |
+| 0.85 | **Staphylococcus aureus** (notable: high salt tolerance) |
+| 0.75 | Halophilic bacteria |
+| 0.6 | Xerophilic mold |
+
+### Food Categories by a_w
+| Category | a_w | Examples |
+|----------|-----|----------|
+| **Dry food** | < 0.6 | Crackers, dried fish |
+| **Intermediate Moisture Food (IMF)** | 0.6-0.85 | Jam, cake, jerky, **pet food** |
+| **Fresh food** | > 0.85 | Meat, fruits, milk |
+
+### Methods to Reduce a_w
+| Method | Mechanism |
+|--------|-----------|
+| **Drying** | Remove water |
+| **Freeze-drying** | Sublimation (preserves shape) — premium products |
+| **Salting** | Salt binds water (jerky, salted egg) |
+| **Sugaring** | Sugar binds water (jam, candied fruit) |
+| **Frying** | Heat removes water |
+
+> ⭐ **Pet food trick**: Add humectants (propylene glycol, sorbitol) to maintain texture while keeping a_w low
+
+## 5️⃣ Factor 3 — pH ⭐
+
+### pH Limits
+| Group | Optimal pH | Tolerance |
+|-------|------------|-----------|
+| **Most bacteria** | ~7 (neutral) | 4.5 - 9 |
+| **Mold** | 4-6 | **0-12** (huge range!) |
+| **Yeast** | 4-5 | 2-9 (acid tolerant) |
+| **Lactic acid bacteria** | 4-5 | 3.5+ (low pH tolerant) |
+| **Bacillus, alkaliphiles** | 8-9 | 6-10 |
+
+### Critical Numbers ⭐ MEMORIZE
+| Threshold | Significance |
+|-----------|---------------|
+| **pH < 4.5** ⭐ | *Clostridium botulinum* spores **CANNOT** germinate |
+| pH < 4 | Most pathogens stop |
+| pH 7 | Most bacteria optimum |
+
+### Common Food pH
+| Food | pH |
+|------|-----|
+| Lime | 2 |
+| Vinegar | 2.5-3 |
+| Yogurt | 4-4.5 |
+| Tomato | 4-4.7 |
+| **Stomach acid** | **2** (yeast can still grow!) |
+| Most meat | 5.5-6 |
+| Egg white (alkaline!) | 9 |
+
+### Fermentative Bacteria — Acid Tolerance
+**Lactobacillus + LAB** = produce acid → tolerate own acid
+**Examples**: yogurt, kimchi, แหนม, pickles, fermented coffee
+
+### Botulism + หน่อไม้ปี๊บ Connection ⭐
+- Bamboo shoots in cans (หน่อไม้ปี๊บ) recurring outbreak in Thailand
+- Why? Anaerobic + neutral pH = ideal *C. botulinum* environment
+- **2 prevention strategies**:
+  1. Adequate heat processing to kill spores (commercial canning)
+  2. **Lower pH below 4.5** with vinegar/lime (home processing)
+- ⚠️ Heat alone insufficient if pH > 4.5 + anaerobic
+
+## 6️⃣ Factor 4 — Oxygen ⭐
+
+### Categories by Oxygen Requirement
+| Type | Definition | Visual (test tube) |
+|------|------------|---------------------|
+| **Obligate Aerobe** | MUST have O2 | Top of tube only |
+| **Obligate Anaerobe** | CANNOT tolerate O2 | Bottom of tube only |
+| **Facultative Anaerobe** ⭐ | Grows with OR without O2 | Throughout tube |
+| **Microaerophilic** | Needs LITTLE O2 (low %) | Middle band |
+| **Aerotolerant Anaerobe** | Doesn't use O2 but tolerates | Throughout but no growth advantage |
+
+### Examples by Group ⭐
+| Group | Pathogens |
+|-------|-----------|
+| **Obligate aerobe** | *Pseudomonas*, *Bacillus cereus* |
+| **Obligate anaerobe** | ⭐ ***Clostridium botulinum*** (botulism!) · *C. perfringens* · *C. difficile* |
+| **Facultative anaerobe** | ⭐ Most pathogens — *Salmonella*, *E. coli*, *Staphylococcus*, *Listeria*, *Vibrio* |
+| **Microaerophilic** | ⭐ ***Campylobacter***, *Helicobacter pylori* |
+
+### Oxygen Modulation Methods
+| Method | Mechanism |
+|--------|-----------|
+| **Vacuum packaging** | Remove O2 (anaerobic) |
+| **Modified Atmosphere Packaging (MAP)** | Replace O2 with CO2/N2 |
+| **Canning** | Vacuum + heat |
+
+> ⚠️ Vacuum packaging selects FOR anaerobes (botulinum risk!)
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. **Growth** = active multiplication · **Survival** = retention of viability
+2. 90%+ foodborne illness = **bacteria**
+3. **4 factors**: Temperature · Water Activity · pH · Oxygen
+4. Mesophile (25-40°C) = most pathogens
+5. **Listeria** = psychrotrophic exception (grows in fridge!)
+6. Danger Zone: 5-60°C = "Keep Hot Food Hot, Cold Food Cold"
+7. Growth Curve: Lag → Log → Stationary → Death
+8. **a_w** = vapor pressure ratio (0-1)
+9. ⭐ **a_w < 0.85 = no pathogen grows**
+10. ⭐ **a_w < 0.6 = no microbe grows**
+11. ⭐ **pH < 4.5 = C. botulinum cannot germinate**
+12. หน่อไม้ปี๊บ → ลด pH ต่ำกว่า 4.5 ป้องกัน botulism
+13. ⭐ **C. botulinum = obligate anaerobe** (vacuum/canning concern)
+14. **Campylobacter = microaerophilic**
+15. Most pathogens = facultative anaerobes (flexible threat)
+
+> 📚 อ่านควบ: 8 QMRA (oy-ZkKZG_i8) · 9 Foodborne intro (juDD-Hduw6I) · 10-11 Foodborne infections (ihparzz9KJ8, e16wNH-zV6Q)
+> 🥶 **Practical**: ตู้เย็นไม่ปลอดภัย 100% — Listeria + ชีส
+> 💡 **Magic numbers**: a_w 0.85 · pH 4.5 · DZ 5-60°C — จำให้ได้
+> 🥫 **Botulinum trap**: vacuum + neutral pH = perfect storm`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
