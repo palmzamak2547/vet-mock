@@ -43065,6 +43065,387 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🎯 **Decision tree**: SCC > 200K → CMT → Positive quarter → Culture → Treat per sensitivity → Re-test`,
   },
 
+  VMoIqdaKgEc: {
+    videoId: 'VMoIqdaKgEc',
+    title: 'Anthrax + Clostridium Infections (3 patterns: GI · Myositis · Neuro)',
+    subject: 'herd-health-rum',
+    date: '2024-10-09',
+    durationMin: 113,
+    instructor: 'อ.ธนศักดิ์ (spore-forming bacteria · DLD reportable diseases)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง Anthrax 3 forms + spore environmental persistence + Clostridium myositis NSAID injection + tetanus + botulism',
+    summary: `## 🎯 Lead Summary
+**4 spore-forming Gram(+) bacterial diseases** of cattle. ⭐ **Anthrax** = Bacillus anthracis · **3 clinical forms** (cutaneous, GI, inhalational) · ⚠️ **Sudden death + dark blood from orifices** · ⛔ NEVER open carcass! · ↑ to 100 years environmental survival via spores · zoonotic + biowarfare. ⭐ **Clostridium infections (3 syndromes)**: 1) **GI** (perfringens enterotoxemia in calves) · 2) **Myositis** (Black Leg, Malignant Edema · injection-site contamination!) · 3) **Neuro** (Tetanus, Botulism). Common theme: **Exotoxin damage** > antibiotic protection · prevention = vaccination + clean injection technique.
+
+## 1️⃣ ⭐⭐⭐ Anthrax (โรคแอนแทรกซ์)
+
+### Etiology
+- ⭐ **Bacillus anthracis** — Gram(+), large rod-shape, spore-forming
+- "Anthrax" = Greek for "coal" (black skin lesions in cutaneous form)
+- ⚠️ **Spores persist >100 years** in soil!
+
+### 2 Forms of Bacterium ⭐
+| Form | Where | Behavior |
+|---|---|---|
+| **Vegetative form** | Inside body | Active, kills · easy to disinfect |
+| ⭐ **Spore form** | When exposed to oxygen (after death) | ⚠️ **Persists 100+ years** in soil · resistant to most disinfectants |
+
+### Why Spores Are So Dangerous
+- ⭐ **History**: London leather tannery cases (1800s)
+  - Disease: "Wool sorters' disease" — workers handling imported wool/hides
+  - ⚠️ Even processed leather contained viable spores!
+  - Today: Imported animal products = bioterror concern
+
+### Virulence Factors ⭐
+1. ⭐ **Capsule** (poly-D-glutamic acid)
+   - **Anti-phagocytic** — protects from macrophages
+2. ⭐ **3-toxin Complex** (synergistic)
+   - **PA** (Protective Antigen) — binds receptor first
+   - **EF** (Edema Factor) — enters cell, causes fluid loss
+   - **LF** (Lethal Factor) — enters cell, kills it
+
+### 3 Clinical Forms ⭐⭐⭐ (Route-determined!)
+| Form | Route | Most affected | Key signs |
+|---|---|---|---|
+| **GI Anthrax** ⭐ | Ingestion (contaminated grass) | **Cattle, ruminants** | Fever → sudden death |
+| **Cutaneous (Cu)** | Skin wound | Humans (workers) | Black eschar lesion |
+| **Inhalational (Pulmonary)** | Aerosol | Humans (rare) | Severe respiratory failure |
+| **Injection** ⭐ NEW | Iatrogenic injection | Drug users (heroin) | Local + systemic |
+
+### ⭐ Pathognomonic Death Signs
+- ⭐ **Sudden Death** (per-acute) — cow alive in morning, dead by afternoon
+- ⭐ **Dark unclotted blood from natural orifices**:
+  - Mouth, nostrils, anus, vagina (in cows)
+- ⚠️ **Body bloats rapidly**, rigor mortis incomplete
+- Why: bacterium kills endothelial cells → mass apoptosis → vascular leak
+
+### ⭐⭐⭐ DO NOT OPEN THE CARCASS! ⭐⭐⭐
+> "เมื่อสงสัยแอนแทรกซ์ → ⛔ ห้ามเปิดผ่าซากเด็ดขาด!"
+- ⚠️ Inside body = vegetative form (will die from putrefaction)
+- ⚠️ If opened → spores form on contact with air → 100-year contamination!
+- ⚠️ **Vet at risk** of inhalation/cutaneous anthrax!
+
+### Diagnosis (Without Necropsy!) ⭐
+- **Clinical pattern + epidemiology**
+- ⭐ **Blood smear** from cut ear or coronary band (skin) → Methylene Blue stain → giant rod-shaped bacilli
+- 10⁷-10⁸ bacteria/mL blood = easy to find!
+- PCR/ELISA backup
+- ⛔ Don't culture without BSL-3 facility!
+
+### Carcass Disposal ⭐
+- ⭐ **Burn or deep bury** with quicklime
+- 2 m+ depth recommended
+- Site permanently quarantined
+- ⚠️ Avoid contaminating water sources
+
+### High-Risk Groups for Anthrax (Humans) ⭐
+1. ⭐ **Farmers + livestock workers** (contact)
+2. **Slaughterhouse workers** (skin)
+3. **Tannery/wool workers** (inhalation)
+4. ⭐ **Military personnel** ⭐ (biowarfare protection)
+5. ⭐ **Lab workers** (research access)
+6. **NGO/Vet workers in outbreak zones**
+
+### Russia 2016 Reindeer Outbreak ⭐ (Real Case!)
+- ⚠️ **100-year quiescence** — no anthrax in Siberian region
+- 2016: ⭐ **Climate change melted permafrost!**
+- 100-year-old infected reindeer carcass exposed → spores released
+- **2,300 reindeer died · child died · 90 humans hospitalized**
+- ⭐ Mass vaccination of 800,000 reindeer in response
+
+### Treatment (Limited Success) ⭐
+- **Penicillin** = first-line (high dose, IV preferred)
+  - ⚠️ IV preparation rare in Thailand for cattle
+  - Long-acting penicillin → IM only
+- **Oxytetracycline** as alternative
+- ⚠️ Once toxemia established → very poor prognosis
+- Most cattle die before treatment can be given
+
+### Prevention ⭐
+- ⭐ **Vaccine** (live attenuated 34F2 Sterne strain spore vaccine)
+- ⭐ Used **only in endemic areas** OR after outbreak
+- ⚠️ NOT routine in Thai dairy
+- ⭐ **Meat withdrawal**: 6 weeks post-vaccination!
+- Bury old animals quickly · burn if possible
+- ⚠️ DLD reportable disease!
+
+### WOAH (formerly OIE) World Map ⭐
+- **WAHIS** database (World Animal Health Information System)
+- 5 status colors:
+  - 🔴 Red — Confirmed disease in selected period
+  - 🟡 Yellow — Suspected
+  - 🟢 Green — Confirmed disease-free reporting
+  - ⚫ Gray — ⚠️ **NO DATA** (often most concerning!)
+- Thailand: not reported in past 2 years (varies)
+
+## 2️⃣ ⭐ Clostridial Infections (Common Concept)
+
+### Common Features (All 4 syndromes)
+- ⭐ **Gram(+), Anaerobic** rod
+- ⭐ **Spore-forming** (terminal "drumstick" appearance)
+- ⭐ **Exotoxin** is main pathogenic mechanism (NOT bacterium itself!)
+- Live in soil + GI tract of mammals
+- ⭐ Penicillin = treatment of choice for active infection
+- ⚠️ Antibiotics don't neutralize already-produced toxin!
+
+### Anatomical Distinction from Anthrax
+- ⭐ **Anthrax**: bulge in MIDDLE (capsule)
+- ⭐ **Clostridium**: bulge at END (terminal spore = "drumstick")
+- Stain: ⭐ Anthrax = MacFadyen | Clostridium = Gram
+
+### 3 Disease Patterns ⭐⭐⭐
+| Pattern | Location | Causative species |
+|---|---|---|
+| **GI Form** | Intestinal | C. perfringens (mostly Type C) |
+| ⭐ **Myositis** | Muscle | C. chauvoei, C. septicum, C. novyi, C. sordellii |
+| **Neuro** | CNS | C. tetani, C. botulinum |
+
+## 3️⃣ ⭐ Clostridial Myositis (Black Leg + Malignant Edema)
+
+### Why "Don't Need to Distinguish Species"
+> "ในความเป็นจริง ไม่จำเป็นต้องแยก species — clinical = treatment เหมือนกันหมด"
+- ⭐ Group: **Clostridial Myositis**
+- 4 main bacteria can cause:
+  | Bacterium | Old name | Species |
+  |---|---|---|
+  | **C. chauvoei** ⭐ | Black Leg | Cattle |
+  | **C. septicum** ⭐ | Edema disease | Cattle, sheep |
+  | **C. novyi** | Black disease | Sheep, cattle |
+  | **C. sordellii** | — | Cattle |
+
+### Causes (Routes of Infection) ⭐⭐
+| Route | Mechanism | Example |
+|---|---|---|
+| ⭐ **Iatrogenic injection** | Dirty needles → bacteria in muscle | Vaccine without alcohol swab! |
+| ⭐ **Wound contamination** | Open injury + soil | Trauma, surgery |
+| ⭐ **Endogenous** (rare) | Latent spores in muscle activate | C. novyi, C. sordellii after fluke damage |
+| **Trampling/bruising** | Repeated trauma | Crowded chutes |
+
+### ⭐ The Iatrogenic Lesson ⭐
+> "Most cases = vet/farmer fault from dirty injection"
+- ⚠️ ALWAYS swab with alcohol before injection!
+- ⚠️ Don't inject in feces-stained skin areas
+- ⭐ **Common cause = vaccination day** (mass injections, careless technique)
+
+### Pathogenesis
+1. **Bacteria enters muscle** (anaerobic environment ideal!)
+2. Spores germinate → vegetative form
+3. ⭐ **Exotoxin production** → muscle necrosis + gas formation
+4. Toxin worsens local hypoxia → more bacterial growth
+5. Vicious cycle → systemic toxemia → death
+
+### Clinical Signs ⭐
+- ⭐ **ASYMMETRIC swelling** (one limb > other)
+- ⭐ **Pitting edema** that holds the indent (NOT typical inflammation!)
+- ⭐ **Crepitus** — feel "crunchy gas" under skin (palpation!)
+- Severe lameness in affected limb
+- ⭐ Fever, depression, milk drop
+- ⚠️ Sudden death possible
+- "Sweetish" smell from necrotic tissue
+
+### Why Crepitus? ⭐
+- ⭐ Bacteria produce **gas** (CO2, H2) in muscle
+- Crackling sound when palpated
+- "Black leg" name from gas bubbles in dark muscle
+
+### Sites Most Affected
+- Hind quarters (gluteal muscle)
+- ⭐ Where injections were given
+- Bruise areas after trauma
+
+### Diagnosis
+- **Clinical signs** sufficient in most cases
+- Asymmetric edema + crepitus = pathognomonic combination
+- History of injection or trauma
+- Confirmation: bacterial culture (anaerobic) + PCR
+
+### Treatment ⭐
+| Drug | Detail |
+|---|---|
+| ⭐ **Penicillin** | First-line · ⭐ **44,000 IU/kg IM** (DOUBLE normal dose!) · 2× daily for 3+ days |
+| **Florfenicol or Ceftiofur** | Alternative |
+| ⭐ **Local infiltration**: Inject penicillin INTO swelling | Boost local concentration |
+| ⭐ **Surgical drainage**: Cut open swelling | Lets oxygen in → kills anaerobes! |
+| **NSAIDs** | Reduce pain, edema |
+
+### When to Cull
+- Toxemia + multi-quarter spread → poor prognosis
+- ⚠️ Even survivors often need limb amputation
+- ⭐ Owner decision, with vet education
+
+### Prevention ⭐
+1. ⭐ **Strict aseptic injection technique** (alcohol swab!)
+2. **Single-use needles** when possible
+3. **Clean injection site** (no manure)
+4. **Vaccine** (combined Clostridial 7 or 8) in endemic areas
+5. ⭐ ⛔ Don't inject through wet/dirty skin
+
+## 4️⃣ ⭐ Clostridium perfringens Enterotoxemia (Calf "Pulpy Kidney")
+
+### Etiology
+- ⭐ **C. perfringens Type C** (also Type A, B, D rare)
+- Type C produces **β-toxin** (most pathogenic)
+- ⭐ **Type A** = normal flora (asymptomatic)
+
+### Pathogenesis ⭐
+1. ⭐ **Bacterium normally in gut** (Type C in low numbers)
+2. **Trigger**: Sudden carbohydrate or protein influx (overfeed, fast diet change)
+3. → ⭐ **Super-infection** in small intestine
+4. **β-toxin** produced in massive amounts
+5. Pancreatic **trypsin** normally inactivates β-toxin
+6. ⚠️ **In calves**: trypsin levels low + colostrum has trypsin inhibitor → toxin survives!
+7. → Hemorrhagic enteritis → death
+
+### Why Calves Most Affected ⭐
+- ⚠️ **Low pancreatic trypsin** in young
+- ⚠️ **Colostrum trypsin inhibitor** further blocks
+- Sudden milk volume increase
+- Stomach pH changes during transition
+
+### Clinical Signs (Sudden!) ⭐
+- ⭐ **Acute onset** (hours)
+- **Bloody diarrhea** with mucus
+- Abdominal pain
+- Fever (mild) or hypothermia (terminal)
+- ⚠️ **Sudden death** in untreated cases
+
+### Diagnosis
+- Clinical signs + history of dietary change
+- Necropsy: hemorrhagic enteritis, mucosal sloughing
+- PCR for toxin gene
+- Histopath confirms
+
+### Treatment & Prevention
+- ⭐ **Penicillin** + supportive (fluid, anti-inflammatory)
+- ⚠️ **Anti-toxin antibodies**: limited availability in Thailand
+- ⭐ **Vaccine**: Clostridium 7-way or 8-way for calves
+  - Prevents Type C, D enterotoxemia
+  - Combined with myositis protection!
+- ⭐ Prevention: gradual diet change, no overfeeding
+
+## 5️⃣ ⭐ Tetanus (โรคบาดทะยัก) ⭐⭐
+
+### Etiology
+- ⭐ **Clostridium tetani**
+- Spores in soil, animal feces
+- ⭐ Enters via wound (often deep puncture)
+- ⚠️ Anaerobic = needs deep wound to germinate
+
+### Pathogenesis ⭐
+1. **Wound** (deep, contaminated)
+2. **Anaerobic environment** — perfect for C. tetani
+3. ⭐ **Tetanospasmin** (potent neurotoxin) produced
+4. Travels via **retrograde axonal transport** to CNS
+5. Blocks **inhibitory neurotransmitters** (glycine, GABA)
+6. → **Spastic muscle contraction** (no relaxation!)
+
+### Clinical Signs (Pathognomonic!) ⭐
+- ⭐ **"Sawhorse stance"** — legs rigid, splayed
+- ⭐ **Risus sardonicus** — wrinkled forehead, ears erect
+- ⭐ **Trismus / Lockjaw** — can't open mouth!
+- ⭐ **Third eyelid prolapse** with fear/stimulation
+- Stiff tail, neck
+- Hyperreflexia · seizures with stimulation
+- ⚠️ Respiratory failure → death
+
+### Treatment ⭐ (Urgent!)
+1. ⭐ **Tetanus antitoxin** (TAT) — best given EARLY
+2. **Penicillin G** high dose
+3. **Wound debridement** (surgical opening + cleaning)
+4. ⭐ **Quiet, dark stall** (avoid stimulation triggering seizures!)
+5. **Sedation** (acepromazine, diazepam)
+6. **Tracheotomy** if needed
+7. **Supportive**: fluids, soft food
+
+### Prevention ⭐
+- ⭐ **Tetanus toxoid vaccine**
+- Routine in horses (most susceptible!)
+- Cattle: in endemic areas or after wound
+- ⭐ Combined with Clostridial 7-way
+
+### Human Risk Group
+- ⭐ Vets, farmers — KEEP UP TETANUS BOOSTERS!
+
+## 6️⃣ ⭐ Botulism (โรคโบทูลิซึม)
+
+### Etiology
+- ⭐ **Clostridium botulinum** — produces **botulinum toxin**
+- ⚠️ **Most potent toxin known** (1 g could kill 1 million people)
+- Spores in soil, decomposing organic matter
+
+### Sources for Cattle ⭐
+- ⭐ **Decomposing carcasses** in feed (silage, hay)
+- ⚠️ ⭐ **Phosphorus deficiency** → cattle eat bones → bones contain spores!
+- Spoiled silage (poor packing)
+- Dead chickens in pasture (cattle nibble)
+
+### Pathogenesis ⭐
+- ⭐ **Pre-formed toxin in feed** (not infection!)
+- Toxin absorbed in intestine → bloodstream
+- Blocks **acetylcholine release** at neuromuscular junctions
+- → **Flaccid paralysis** (opposite of tetanus!)
+
+### Clinical Signs ⭐⭐ (Opposite of Tetanus!)
+- ⭐ **Generalized weakness** (down cow)
+- ⭐ **Tongue paralysis** — can't eat, drinks fall back
+- ⭐ **Difficulty swallowing** (dysphagia)
+- ⭐ **Eyelid droop** (ptosis)
+- Mydriasis (dilated pupils)
+- ⚠️ **Respiratory paralysis** → death
+
+### Diagnosis
+- Clinical signs (flaccid paralysis pattern)
+- Toxin detection in blood, feces, feed
+- Mouse bioassay (gold standard)
+- ⚠️ Difficult — most diagnosis from history
+
+### Treatment & Prevention
+- ⛔ **No specific antibiotic helps** (toxin already in body)
+- **Antitoxin** if available
+- ⭐ Supportive: feeding tube, IV fluids
+- ⭐ Prognosis: ⚠️ Poor for severe cases
+- **Prevention**:
+  - ⭐ Remove dead animals from pasture
+  - ⭐ Phosphorus supplementation (no bone-eating behavior)
+  - ⭐ Quality silage management
+  - ⭐ Vaccine (in endemic regions)
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+
+### Anthrax (1-7)
+1. ⭐ **Bacillus anthracis** · Gram(+) rod · LARGE
+2. ⭐ **3 Clinical forms**: Cutaneous · GI · Pulmonary (+ injection 4th)
+3. ⭐ **Spores 100+ years** in soil
+4. ⭐ **Capsule + 3-Toxin (PA + EF + LF)** virulence
+5. ⛔ **NEVER open carcass** if anthrax suspected
+6. ⭐ Diagnose by **blood smear from ear/coronary** (Methylene Blue)
+7. ⭐ Vaccine: 34F2 Sterne strain · meat withdrawal **6 weeks**
+
+### Clostridium myositis (8-11)
+8. ⭐ **Asymmetric edema + crepitus** = pathognomonic
+9. ⭐ **Iatrogenic injection** = #1 cause! · clean technique critical
+10. **Penicillin** at **44,000 IU/kg double dose** · IM ×2/day
+11. ⭐ **Surgical drainage** + **local penicillin** = adjunct treatment
+
+### C. perfringens (12)
+12. ⭐ **Type C β-toxin** in calves with sudden diet change · "pulpy kidney"
+
+### Tetanus & Botulism (13-15)
+13. ⭐ **Tetanus = SPASTIC paralysis** (sawhorse stance, lockjaw)
+14. ⭐ **Botulism = FLACCID paralysis** (opposite of tetanus)
+15. ⭐ **Tetanus toxoid** = vet must keep boosters!
+
+> 📚 **Cross-refs**: Brucellosis + Hemorrhagic Septicemia + Lepto (other reportable bacterials) · Mastitis (similar inflammation principles)
+> 🩺 **Practical**: ALWAYS alcohol-swab before injection · Don't open suspected anthrax carcass · Phosphorus supplementation prevents botulism
+> 🚨 **Reportable**: Anthrax · Clostridial outbreaks
+> 💉 **Cattle vaccines**: Combined 7/8-way Clostridial covers most species
+> 🎯 **Decision flowchart**:
+> - Sudden death + dark blood from orifices → ⛔ Anthrax suspect (don't open!)
+> - Asymmetric edema + crepitus + injection history → Clostridial myositis
+> - Bloody diarrhea + young calf + diet change → C. perfringens
+> - Sawhorse + lockjaw → Tetanus
+> - Down cow + tongue paralysis → Botulism`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
