@@ -37510,6 +37510,232 @@ Where:
 > 🦴 **Real-world**: Thailand chicken export = QMRA must validate to EU/Codex level`,
   },
 
+  'juDD-Hduw6I': {
+    videoId: 'juDD-Hduw6I',
+    title: '9. Introduction to Foodborne Diseases',
+    subject: 'food-safety-y4',
+    date: '2024-10-18',
+    durationMin: 83,
+    instructor: 'อ.ธราดล',
+    examFormat: 'concept + pathway + risk groups',
+    summary: `# 9. Introduction to Foodborne Diseases
+
+> ⚠️ Pre-detailed pathogen series · sets up framework for lectures 10-15
+> Foundation: definitions, terms, mechanisms, susceptible groups
+
+## 🎯 ภาพรวมคาบ
+1. Definitions (food poisoning vs foodborne disease)
+2. Causative agents (5 types)
+3. Symptoms + incubation
+4. Susceptible populations (**YOPI** ⭐)
+5. Pathogenesis: 3 mechanisms (invasion, toxico-infection, intoxication)
+6. Diagnosis + treatment
+7. Contamination sources along food chain
+8. Two key concepts: **Mishandling** + **Cross-contamination**
+
+## 1️⃣ Terminology Equivalence
+**All same meaning**:
+- Food poisoning
+- Foodborne disease
+- Foodborne illness
+
+**Definition**: disease from consumption of contaminated food (microbes OR chemicals OR toxins)
+
+## 2️⃣ Causative Agents (5 categories)
+| Category | Examples |
+|----------|----------|
+| **Bacteria** ⭐ | *Salmonella*, *E. coli*, *Campylobacter*, *Listeria*, *C. botulinum* |
+| **Virus** | Norovirus ⭐, Hepatitis A/E, Rotavirus |
+| **Parasite (helminth)** | *Taenia saginata*, *T. solium*, *Trichinella* |
+| **Protozoa** | *Cryptosporidium*, *Giardia*, *Toxoplasma* |
+| **Fungi/toxin** | Mycotoxins, mushroom toxins, Pufferfish toxin, **Prion** |
+
+> **>250 organisms** can cause foodborne disease · 90%+ are bacteria
+> Vet course focuses on: bacteria + selected viruses + zoonotic parasites
+
+## 3️⃣ Symptoms
+
+### Common
+- Nausea, vomiting
+- Fever
+- Abdominal pain
+- **Diarrhea** ⭐ (most common)
+
+### Atypical/severe (specific pathogens)
+| Symptom | Causative |
+|---------|-----------|
+| **Abortion** | *Listeria* (listeriosis) |
+| **Birth defects/encephalitis** | *Toxoplasma gondii* |
+| **Neuro symptoms (paralysis)** | *Clostridium botulinum* (botulism) |
+| **Liver disease** | Hepatitis A/E |
+
+## 4️⃣ Incubation Period
+
+| Cause | Incubation |
+|-------|------------|
+| **Pre-formed toxin** ⭐ | **1-6 hours** (very short!) |
+| **Bacteria/virus** | **12-72 hours** (1-3 days) |
+| **Hepatitis A/E** | **2-3 months** (long) |
+| ***Listeria*** | weeks-months |
+| **Prion** (e.g., vCJD) | **years** |
+
+> ⭐ **Quick onset** (1-6 hr) → suspect toxin (toxin acts fast, no growth needed)
+> Long onset (>1 day) → suspect organism (must replicate first)
+
+## 5️⃣ Susceptible Populations — YOPI ⭐
+**YOPI** = Young, Old, Pregnant, Immunocompromised
+
+| Group | Example |
+|-------|---------|
+| **Y**oung | Infants, children |
+| **O**ld | Elderly |
+| **P**regnant | Pregnant women (also fetus risk) |
+| **I**mmunocompromised | HIV/AIDS, chemotherapy, transplant |
+
+> YOPI need much smaller doses to get sick
+> Sob favorite: identify YOPI in case scenarios
+
+## 6️⃣ Pathogenesis — 3 Mechanisms ⭐
+
+### A. Invasive Infection
+- Bacteria invade intestinal mucosa directly
+- Direct tissue damage
+- Examples: *Salmonella*, invasive *E. coli*, *Shigella*
+- Symptoms: bloody diarrhea, fever, severe
+
+### B. Toxico-Infection
+- Bacteria colonize gut → produce toxin **in vivo**
+- Examples: enterotoxigenic *E. coli* (ETEC), *Vibrio cholerae*, *C. perfringens*
+- Symptoms: watery diarrhea (cholera-like)
+
+### C. Intoxication (food poisoning)
+- Toxin pre-formed in food (NOT in body)
+- Examples: *Staphylococcus aureus* enterotoxin, *Bacillus cereus* emetic toxin, botulinum toxin
+- **Short incubation** (1-6 hr)
+- Heat-stable toxins survive cooking!
+
+> Stomach acid = first defense barrier (Defense mechanism)
+> Food acts as protective vehicle helping bacteria pass through stomach
+> **Target organ**: small intestine (mostly)
+
+## 7️⃣ Dose Required for Disease
+
+**Depends on multiple factors:**
+- Pathogen virulence (some need few cells, some need millions)
+- Host age (YOPI need less)
+- Host immune status
+
+### Examples
+| Pathogen | Infectious Dose |
+|----------|-----------------|
+| *Salmonella* | ~1,000-1,000,000 cells |
+| *Shigella* | as few as **10 cells** ⚠️ |
+| *Campylobacter* | ~500-1,000 cells |
+| *E. coli* O157:H7 | as few as **10-100 cells** ⚠️ |
+
+## 8️⃣ Diagnosis
+
+| Pathogen Type | Method |
+|---------------|--------|
+| Bacteria | Culture (selective media) |
+| Virus | Molecular (PCR) |
+| Parasite | Stool microscopy (eggs/cysts) |
+| Toxin | Specific assays (ELISA, mass spec) |
+
+## 9️⃣ Treatment
+
+### Most cases
+- ⭐ **Self-limiting** (2-3 days)
+- **Supportive only**: fluid + electrolyte replacement
+- NO antibiotics needed for normal adults
+
+### When to use antibiotics
+- High fever
+- Bloody diarrhea
+- Severe symptoms / dehydration
+- YOPI patient
+- Diarrhea > 3 days
+
+### Antibiotic choices
+- **First-line**: norfloxacin (fluoroquinolone) — ⚠️ **but Campylobacter resistance 80-90%!**
+- Alternatives: doxycycline, gentamicin, 3rd-gen cephalosporin
+- Broad-spectrum because culture often not done
+
+### Red Flags → ER ⚠️
+- High fever + bloody stool
+- Vomiting/diarrhea > 3 days
+- Dehydration signs: ↓ urine, dry mouth, dizziness, syncope
+
+## 1️⃣0️⃣ Critical Concept ⭐
+**Pathogen DOES NOT change food's appearance/smell/taste!**
+
+> Spoilage bacteria (Pseudomonas) cause smell/discoloration
+> Pathogens (Salmonella, etc.) leave food looking normal!
+> Food can be **dangerous but appear fine**
+
+## 1️⃣1️⃣ Contamination Sources Along Food Chain ⭐
+
+### Production stages where contamination can occur
+| Stage | Examples |
+|-------|----------|
+| **Farm** | Soil, manure, contaminated water |
+| **Processing** | Slaughterhouse — gut content contamination of carcass |
+| **Distribution** | Dirty containers, vehicles |
+| **Retail/storage** | Improper temperature |
+| **Preparation** | Dirty utensils, hands, surfaces |
+
+> Outbreak Investigation = trace back through chain to find break point
+
+## 1️⃣2️⃣ Two Killer Concepts ⭐ Sob
+
+### A. Mishandling
+**Leaving food in Danger Zone** (40-140°F = 4-60°C)
+- Pathogens grow rapidly at room temperature
+- ⚠️ ***Staph aureus* enterotoxin = HEAT STABLE!**
+  - Forms in food at room temp
+  - Survives reheating!
+  - You can't fix mishandled food by reheating
+
+### B. Cross-Contamination
+**Transfer of pathogen between foods/surfaces**
+- Common: cutting board for raw meat → fresh vegetables
+- Without cleaning → bacteria transferred
+- ⭐ **Currently the #1 cause** of foodborne illness in developed countries (since people now know to avoid raw meat)
+
+## 1️⃣3️⃣ High-Risk Foods
+| Category | Examples |
+|----------|----------|
+| Raw meat | Beef, pork, chicken |
+| Raw seafood | Oysters ⚠️, sushi |
+| Raw eggs | Salmonella in eggs (transovarian!) |
+| Unpasteurized milk | Brucella, Listeria, TB |
+| Soft cheeses | Listeria |
+| Sprouts | E. coli, Salmonella (irrigation water) |
+| Raw vegetables | Cross-contamination from manure |
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. Foodborne disease = food poisoning = foodborne illness (synonyms)
+2. >250 causative organisms · bacteria 90%
+3. **Toxin** incubation 1-6 hr · **bacteria/virus** 12-72 hr
+4. **Listeria** = abortion · **Toxoplasma** = encephalitis · **C. botulinum** = paralysis
+5. ⭐ **YOPI** = Young/Old/Pregnant/Immunocompromised
+6. **Invasive** vs **Toxico-infection** vs **Intoxication**
+7. *Shigella* needs only ~10 cells (very low ID)
+8. Pathogen does NOT change food's taste/smell ⚠️
+9. Self-limiting in normal adults · supportive treatment only
+10. **Norfloxacin** first-line BUT Campylobacter resistance 80-90%
+11. Red flags: fever + bloody stool + >3 days + dehydration
+12. **Mishandling** = Danger Zone temp · Staph toxin heat-stable
+13. **Cross-contamination** = current #1 cause in developed countries
+14. **High-risk**: raw meat/oysters/eggs/unpasteurized milk/sprouts
+15. Contamination occurs along entire food chain (farm→fork)
+
+> 📚 อ่านควบ: 6-7 Factors (2JMEuvnHeok) · 10 Foodborne Infection (ihparzz9KJ8) · 11 Intoxication (e16wNH-zV6Q) · 12 Viral (RmoRw0wA1g4)
+> 🍴 **Practical**: ตู้เย็น 4°C ≠ 100% safe (Listeria!) · ห้องเก็บ 65°C+
+> 💡 **Outbreak detective**: incubation period = clue to causative agent
+> 🦠 **Memory aid**: YOPI = "yo-pee" = high-risk groups`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
