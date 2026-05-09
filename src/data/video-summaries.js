@@ -40145,6 +40145,232 @@ When opening a clinic, you need **BOTH**:
 > ⚠️ **Sting operation**: ห้ามขายยาให้คนแปลกหน้าที่ไม่มีประวัติเลย`,
   },
 
+  vOnzIVT3d0E: {
+    videoId: 'vOnzIVT3d0E',
+    title: '7. กฎหมายคุ้มครองสัตว์ป่า — Wildlife Protection Act',
+    subject: 'vet-juris',
+    date: '2024-11-11',
+    durationMin: 50,
+    instructor: 'อ.กิ่งนภา (กรมอุทยาน)',
+    examFormat: 'category ID + species classification',
+    summary: `# 7. กฎหมายคุ้มครองสัตว์ป่า
+
+> ⚠️ Critical for wildlife/conservation work · CITES compliance
+> Latest version: **พ.ร.บ. สงวนและคุ้มครองสัตว์ป่า พ.ศ. 2562** (current)
+> Note: ไม่มี #6 ใน playlist (skipped)
+
+## 🎯 ภาพรวมคาบ
+1. ประวัติศาสตร์การคุ้มครองสัตว์ป่า
+2. **4 categories of protected animals**: สงวน · คุ้มครอง · ควบคุม · อันตราย
+3. CITES alignment
+4. Vet roles in **กรมอุทยาน** (DNP)
+5. Real cases: confiscated wildlife management
+
+## 1️⃣ Historical Background
+
+### Why Needed?
+- Post-WWII: weapons advanced → easier hunting
+- Population growth → habitat encroachment
+- Some species **already extinct** in Thailand: ⭐ **Kouprey, Schomburgk's deer (สมัน)**
+- → Need legal protection
+
+### Key Milestones
+| Year | Event |
+|------|-------|
+| 2486 | สมาคมนิยมไพร — first conservation society |
+| **2505** | ⭐ **Khao Yai** = first national park |
+| **2508** | ⭐ **Salakphra** = first wildlife sanctuary |
+| 2503 | First Wildlife Reservation Act |
+| **2535** | Major update — 15 reserved species |
+| 2546-2557 | Multiple amendments (CITES alignment) |
+| **2562** | ⭐ **Current Act** (latest) |
+
+## 2️⃣ ⭐ 4 Categories of Protected Animals
+
+### A. สัตว์ป่าสงวน (Reserved Wildlife) — **20 species**
+- Originally 15 → **20** in current Act
+- ⭐ **Most-recent addition**: **นกชนหิน** (Helmeted Hornbill)
+- Definition: extinct or critically endangered species
+- ⚠️ **Cannot hunt, kill, possess, trade, or export**
+- Adding/removing requires:
+  - DG of National Parks proposal
+  - Wildlife Council approval
+  - Royal Decree
+
+### B. สัตว์ป่าคุ้มครอง (Protected Wildlife)
+- **Native species** important to ecosystem
+- Defined by Ministerial Regulations
+- Some can be bred with permission (regulated facilities)
+
+### C. ⭐ สัตว์ป่าควบคุม (Controlled Wildlife) — NEW in 2562!
+- **Foreign/exotic species** imported under CITES
+- 67 species currently
+- Must be **registered for possession**
+- 3 sub-categories:
+
+| Sub-category | Type | Examples |
+|---------------|------|----------|
+| **Controlled-A1** | Dangerous to humans | Big cats (lion, cheetah), great apes (gorilla, chimp, orangutan), giant snakes (anaconda) |
+| Controlled-A2 | Birds (29) | Black cockatoo, macaw, etc. |
+| Controlled-A3 | Reptiles (18) | Iguana, Komodo dragon, Madagascar tortoise |
+
+### D. สัตว์ป่าอันตราย (Dangerous Wildlife) — NEW
+- May harm humans
+- May be disease vectors
+- Special management protocols
+
+## 3️⃣ Important Definitions (มาตรา ในพ.ร.บ. ใหม่)
+
+### "สัตว์ป่า"
+**Includes**: all wild animals (mammals, birds, fish, reptiles, insects, spiders) born + lived naturally + their EGGS
+**Excludes**:
+- Registered draft animals (ช้าง elephant under another Act)
+- Animals scientifically classified as "domestic" (e.g., domesticated species)
+
+### "ซากสัตว์ป่า" (Wildlife Carcass)
+**Now includes**: blood, lymph, **semen** (NEW addition for 2019!)
+
+### "ผลิตภัณฑ์จากซากสัตว์ป่า" (Products from Carcass)
+- Bags from skin
+- Bones, ivory products
+- Anything derived from carcass
+
+### "ล่า" (Hunt)
+**Expanded** to include "**any other method**" — broader to catch new techniques
+
+### "เพาะพันธุ์" (Breed)
+- Now includes **"any method"** to increase numbers (covers AI, embryo transfer)
+
+### "การค้า" (Trade)
+- Includes radio/TV/online advertising
+
+### "นำเข้า" (Import)
+- Includes **re-import** of previously exported items
+
+### "สวนสัตว์" (Zoo)
+- Includes **conservation purpose** (not just leisure)
+
+## 4️⃣ CITES Connection ⭐
+
+### CITES (Convention on International Trade in Endangered Species)
+- International treaty
+- 3 appendices based on threat level
+- Regulates cross-border trade
+
+### Thailand's CITES Authority
+- ⭐ **กองคุ้มครองพันธุ์สัตว์ป่าและพืชป่าตามอนุสัญญา** (under DNP)
+- Issues CITES permits
+- Coordinates with importer/exporter
+
+### Why Controlled Wildlife Category?
+- Pre-2019: foreign species fell through gaps
+- New category covers CITES species + others
+- Holders must register
+
+## 5️⃣ Vet Roles in DNP (กรมอุทยาน)
+
+### Wildlife of Confiscation (สัตว์ป่าของกลาง)
+**Source**: police seize from illegal traders/possessors
+
+**Vet's roles**:
+- Receive from police
+- Health assessment
+- Disease testing + parasite treatment
+- Quarantine before transfer
+- Care at:
+  - **Wildlife Breeding Stations** (สถานีเพาะเลี้ยงสัตว์ป่า)
+  - **Wildlife Rescue Centers** (ศูนย์ช่วยเหลือสัตว์ป่า)
+
+### Repatriation Cases
+- Foreign-origin wildlife → ship back to country of origin
+- ⭐ Example: **Orangutan repatriation to Indonesia**
+- Vet's role: pre-flight health check, parasite treatment, certification
+
+### Wildlife Crisis Response (สัตว์ป่ากรณีแก้ไขปัญหา)
+- Wildlife wandering into communities
+- Injured wildlife
+- Vet helps rescue, treat, release/relocate
+
+### Disease Outbreak Coordination
+**Real example**: Mpox (formerly Monkeypox) outbreak
+- Public concerned about monkey-related risk
+- Vet provides:
+  - Risk communication
+  - Testing data on Thai wild monkey population
+  - Border/import advisories
+- ⭐ Coordinated import suspension via กองคุ้มครอง
+
+## 6️⃣ Vet Practical Workflow Examples
+
+### Confiscated Pangolin Case
+1. Police seizure
+2. Receive at rescue center
+3. Health exam
+4. Parasite treatment
+5. Acclimatize to suitable habitat
+6. Release back to wild OR keep if not viable
+
+### Confiscated Tiger Case (2014-2015 Vat Phra Bat)
+- Famous case of seizing tigers from temple
+- Required complex transport
+- Vet team coordinated movement of dangerous animals
+
+### Captive Orangutan to Indonesia
+1. Initial assessment + isolation
+2. Indonesian government coordination
+3. CITES permit application
+4. Pre-flight health certificate
+5. Early morning transport (avoid heat)
+6. Quarantine at airport
+7. Handover ceremony
+8. Vet accompanies if needed
+
+## 7️⃣ Important Stations & Centers
+
+### Wildlife Breeding Stations
+- Captive breeding for endangered species
+- Example: White peacock recovery
+- Reintroduction programs
+
+### Wildlife Rescue Centers
+- Receive seized wildlife
+- Recovery + rehabilitation
+- Determine if release-able
+
+### CITES Inspection Posts (ด่านตรวจสัตว์ป่า)
+- Suvarnabhumi airport
+- Don Mueang airport
+- Major seaports
+- Verify shipments + documents
+
+## 8️⃣ Latest Regulations (ระเบียบ 2565)
+
+### "ระเบียบกรมอุทยานฯ ว่าด้วยการดำเนินการแก่สัตว์ป่า ซากสัตว์ป่า หรือผลิตภัณฑ์จากซากสัตว์ป่า"
+- Defines vet's role as **"Designated Officer"** (พนักงานเจ้าหน้าที่)
+- Health assessment authority
+- Decision: release vs lifelong captivity
+- Formal procedures for transfer
+
+## 📋 Exam Recap (12 จุดสำคัญ)
+1. **Latest Act**: พ.ร.บ. สงวนและคุ้มครองสัตว์ป่า พ.ศ. **2562**
+2. ⭐ **4 categories**: สงวน · คุ้มครอง · ควบคุม · อันตราย
+3. **สัตว์ป่าสงวน 20 species** (was 15)
+4. ⭐ Latest addition: **นกชนหิน** (Helmeted Hornbill)
+5. **คุ้มครอง** = native ecosystem species
+6. ⭐ **ควบคุม** = NEW category for foreign/CITES species (67 currently)
+7. Controlled-A1 = dangerous big cats/apes/snakes
+8. **อันตราย** = NEW category for harmful species
+9. **First national park**: Khao Yai 2505 · First sanctuary: Salakphra 2508
+10. December 26 = Wildlife Protection Day (วันคุ้มครองสัตว์ป่าแห่งชาติ)
+11. CITES authority in Thailand: **กองคุ้มครองพันธุ์สัตว์ป่า** (DNP)
+12. Vet works at Wildlife Breeding Stations + Rescue Centers + Border posts
+
+> 📚 อ่านควบ: 1 พรบ. วิชาชีพ (RGmj3awzY5Q) · 4 Animal Welfare (F3Ngx-50Hlc) · 8 พรบ. โรคระบาดสัตว์ (MYyGov4_mC4)
+> 🌳 **Career path**: Wildlife vet at DNP = niche but rewarding
+> 🦏 **Real-world**: Orangutan/tiger/pangolin cases = complex multi-agency work
+> ⚠️ **Mpox lesson**: Coordinated import suspension prevents panic`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
