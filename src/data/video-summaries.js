@@ -36076,6 +36076,244 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 > 💡 **Vet pearl**: เนื้อสด pH > 5.5 → mostly *Pseudomonas* spoilage`,
   },
 
+  zAXlmhPU1rg: {
+    videoId: 'zAXlmhPU1rg',
+    title: '2. Mycotoxins + Carcinogens + Plastic Codes',
+    subject: 'food-safety-y4',
+    date: '2024-08-16',
+    durationMin: 122,
+    instructor: 'อ.พชร',
+    examFormat: 'mycotoxin ID + organ target + plastic code',
+    summary: `# 2. Mycotoxins + Carcinogens
+
+> ⚠️ Heavy content session · 5 mycotoxin groups + carcinogen review + plastic resin codes
+> Continue from week 1 food deterioration
+
+## 🎯 ภาพรวมคาบ
+1. Mycotoxin definition + production factors
+2. **5 major mycotoxins** (aflatoxin · ochratoxin · trichothecene · zearalenone · fumonisin)
+3. Carcinogen classification + IARC update
+4. **Plastic Resin Identification Code (RIC)** + chemical leaching
+
+## 1️⃣ Mycotoxin Basics
+
+### Definition
+**Mycotoxin** = toxic secondary metabolite from mold
+- "Secondary metabolite" = not for survival (vs primary)
+- Examples of secondary metabolites we use: **antibiotics** (penicillin from Penicillium!)
+
+### Production Factors
+| Factor | Detail |
+|--------|--------|
+| **Mold species** | Aspergillus · Fusarium · Penicillium (3 main) |
+| **Temperature** | Each mold species different optimum |
+| **Humidity** | Water activity dependent |
+| **Atmosphere** | O2 vs CO2 ratio |
+
+> ⭐ Same toxin from different molds; same mold can make multiple toxins
+
+## 2️⃣ The 5 Major Mycotoxins
+
+### A. Aflatoxin ⭐ Most Important
+- From: **Aspergillus flavus** (A + Fl), A. parasiticus
+- 6 types: **B1, B2, G1, G2, M1, M2**
+  - M1, M2 = milk metabolites of B1, B2
+- **B1 = most potent** = strongest carcinogen!
+- Severity: **B1 > G1 > B2 > G2**
+
+**Source**:
+- Corn, grain, peanut, dried chili, dried garlic, fish meal
+
+**Susceptibility**: **Pig > Poultry > Cattle** (pig most sensitive)
+
+**Toxicity**:
+| Type | Effect |
+|------|--------|
+| Acute | Liver failure · brain edema · seizure · death (children high risk) |
+| **Chronic** ⭐ | Hepatitis · **hepatocellular carcinoma** · immune suppression |
+
+**Mechanism**: B1 → CYP450 (liver) → **AFB1-8,9-epoxide** → DNA binding → mutation → cancer
+
+**M1 in milk** ⚠️ — infant exposure threat
+| Standard | M1 max (ppb) |
+|----------|--------------|
+| **Codex** (international) | **0.5** |
+| US | 0.5 |
+| EU (general) | 0.050 |
+| **EU infant formula** | **0.025** ⭐ |
+
+> **Why EU stricter?** EU climate + technology can achieve lower; standards must be **scientifically achievable in own country**
+
+### B. Ochratoxin A (OTA)
+- From: Aspergillus, **Penicillium verrucosum**
+- Penicillium = temperate · Aspergillus = tropical (Thailand)
+- Source: dried grapes, pork, coffee
+- Sensitivity: pig + poultry > cattle (rumen detoxifies!)
+
+**Toxicity**: ⭐ **Kidney** (vs aflatoxin = liver)
+- Carcinogen
+- Linked to **Balkan Endemic Nephropathy (BEN)**
+- **Excreted in milk**
+
+### C. Trichothecene (largest group)
+- From: **Fusarium**
+- 4 important: **DON**, T2, HT2, DAS
+
+#### DON (Deoxynivalenol / Vomitoxin)
+- Source: corn, wheat, barley
+- Effect: **vomiting** in pig, GI irritation, anorexia
+- **1 ppm enough to cause pig toxicity**!
+- Pig most sensitive · cattle resistant
+- ❌ NOT excreted in milk
+
+#### T2 / HT2 / DAS
+- Mechanism: **inhibit DNA/RNA + protein synthesis**
+- Target: high-turnover cells (GI epithelium, bone marrow)
+- → bone marrow suppression → immune suppression
+- **Yellow-black necrotic plaques** on lips/mouth/tongue (poultry, cattle)
+- **T2 IS excreted in milk**
+
+### D. Zearalenone (ZEN)
+- From: Fusarium (cool/temperate climate, contamination during storage in tropics like Thailand)
+- Structure: **phenolic resorcylic acid lactone** = mimics estrogen
+- = "**estrogenic compound**"
+- Source: corn (most), grain
+- Pig most sensitive
+
+**Toxicity** ⭐:
+| Sex | Effect |
+|-----|--------|
+| **Female** | Vulvar swelling · endometritis · cystic ovary · infertility · abortion |
+| **Male** | Testicular atrophy · low sperm · feminization → pseudo-castrate |
+
+**Historical link**: early puberty in Puerto Rican girls 1980s
+
+### E. Fumonisin
+- From: **Fusarium verticillioides**
+- Source: corn (worldwide!)
+- **Horse most sensitive** (more than pig/cattle/poultry)
+
+**Equine ELEM** (Equine LeukoEncephaloMalacia)
+- Synonyms: "**Moldy corn poisoning**" / "**Blind staggers**"
+- Neurologic: blindness · ataxia · seizure · death
+- Pathognomonic: white matter softening in cerebral hemispheres
+
+## 3️⃣ Carcinogens Review
+
+### Definition (Food Safety context)
+**Carcinogen** = substance inducing cell transformation → tumor formation
+**Tumor/neoplasm** = abnormal tissue growth, uncontrolled proliferation, harmful
+
+### 3 Cause Categories
+| Category | Examples |
+|----------|----------|
+| **Biological** | HPV, HBV, HCV (chronic infection) |
+| **Physical** | UV (skin), X-ray (radiation), Alpha/Beta/Gamma rays |
+| **Chemical** | Aflatoxin, acrylamide, BPA, asbestos, etc. |
+
+### IARC Classification
+| Group | Meaning |
+|-------|---------|
+| **1** | Carcinogenic to humans |
+| **2A** | Probably carcinogenic |
+| **2B** | Possibly carcinogenic |
+| **3** | Not classifiable |
+
+### Recent Updates ⭐
+- **Aflatoxin B1**: Group 1 (strongest!)
+- **Acrylamide**: 2B → **Group 1** (recent upgrade!)
+- **DEHP** (plasticizer): 2B
+- **BPA**: endocrine disruptor
+
+## 4️⃣ Plastic Resin Identification Code ⭐ 7 numbers
+
+**Established**: 1988 by Society of Plastic Industry
+**Purpose**: aid recycling sorting (NOT food safety classification per se)
+
+| # | Type | Common items | Heat tolerance | Reuse? |
+|---|------|--------------|------------------|--------|
+| **1** | **PET/PETE** | Clear water bottle, soda | ❌ Don't microwave/boil | ❌ Single use only |
+| **2** | **HDPE** | Milk jug, shampoo | -20 to 120°C | OK careful |
+| **3** | **PVC** | Plastic wrap, pipes | ❌ NO microwave | ❌ Most toxic |
+| **4** | **LDPE** | Plastic bags, food bags | Low only | Cold use only |
+| **5** | **PP** | Tupperware, straws | Up to 100°C | ✅ OK reuse |
+| **6** | **PS** | Foam (Styrofoam), cheap utensils | ❌ Brittle, no heat | ❌ Single use |
+| **7** | **Other** | 5L water jug, old BPA bottles | Variable | ⚠️ Check |
+
+### Critical Don'ts
+- **#1 PET reused**: degrades + scratches → bacteria + chemical leach
+- **#3 PVC heated**: releases DEHP (phthalate)
+- **#6 PS burned**: releases styrene oxide
+- **All plastic + microwave** unless explicitly labeled
+
+## 5️⃣ Plastic Additive Toxicology
+
+### A. DEHP (Phthalate plasticizer)
+- Adds flexibility to PVC (plastic wrap, food films)
+- **Endocrine disruptor** (anti-androgen)
+- IARC **2B**
+- EU bans in toys; Thailand less strict
+- Leaches more with **fatty foods** + heat
+
+### B. Bisphenol A (BPA)
+- Polycarbonate (PC) + can liner
+- Old baby bottles
+- **Endocrine disruptor** (estrogen-mimic)
+- Linked: diabetes, breast cancer, prostate cancer, infertility, obesity
+- Recent action: **banned in baby bottles** in EU, Thailand, US, China
+- Look for **"BPA-free"** label
+
+### C. Nonyl phenol
+- Stabilizer in PE/PVC
+- Frozen food bags, shrink wrap (เนื้อสัตว์ packaged)
+- Endocrine disruptor
+
+### D. Acrylamide
+- Maillard reaction byproduct
+- Recently upgraded **2B → Group 1** ⭐
+- Found: chips, fries, coffee, grilled meat
+
+### E. PET Decomposition
+- PET + heat → **acetone, antimony**
+- → don't microwave PET water bottle, don't boil
+
+## 6️⃣ EU Migration Limits
+
+### Overall Migration Limit (OML)
+- **General**: 10 mg/dm² packaging surface
+- **Special** (60 mg/kg food):
+  - Small containers (<1L)
+  - Irregular shape (can't measure surface)
+  - **Infant/children containers** ⭐ (high vulnerability)
+
+### Specific Migration Limit (SML)
+- For individual chemicals
+- Derived from **ADI** (Acceptable Daily Intake)
+- Unit: mg chemical / kg food
+
+## 📋 Exam Recap (15 จุดสำคัญ)
+1. Mycotoxin = secondary metabolite of mold (toxic, antimicrobial)
+2. **3 main mold genera**: Aspergillus, Fusarium, Penicillium
+3. **Aflatoxin B1** = most potent · IARC Group 1 · liver cancer
+4. **M1** = milk metabolite of B1 · infant risk · Codex 0.5 ppb · EU infant 0.025
+5. **Ochratoxin** = kidney target · BEN link · cattle resistant (rumen detox)
+6. **DON** (vomitoxin) = pig vomiting at 1 ppm · NOT in milk
+7. **T2** = bone marrow + GI · yellow-black mouth lesions · IS in milk
+8. **Zearalenone** = estrogen mimic · pig vulvar swelling · male feminization
+9. **Fumonisin** + horse = **ELEM** (moldy corn poisoning, blind staggers)
+10. Pig most sensitive to most mycotoxins · ruminants more resistant (rumen)
+11. Acrylamide upgraded to **IARC Group 1** (was 2B)
+12. **#1 PET** = single use only · don't microwave/reheat
+13. **#3 PVC** + heat = DEHP leaching · most toxic plastic
+14. **#5 PP** = safest reusable · up to 100°C
+15. EU migration limits: 10 mg/dm² general · 60 mg/kg infant
+
+> 📚 อ่านควบ: 1 Food Deterioration (o0rgzFHEcE0) · 3 Drug Residues (R1-1wtoZ8-8) · 5 Risk Assessment (fs0TOM677as)
+> 🌽 **Tropical alert**: Aspergillus + Fusarium ในไทย → check corn + peanut + chili
+> 💡 **Practical**: ขวดน้ำเปล่าใช้ครั้งเดียว · ไม่เอาเข้า microwave
+> 🥛 **Milk safety**: AFM1 ใน infant formula = แต่ระวังที่สุด · WHO 0.025 ppb`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
