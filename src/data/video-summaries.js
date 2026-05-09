@@ -42351,6 +42351,311 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 > 🧪 **Diagnostic key**: MRT for Brucella · Methylene Blue bipolar for HS · Dark field microscopy for Lepto`,
   },
 
+  lswJpxUOFhY: {
+    videoId: 'lswJpxUOFhY',
+    title: 'Gastrointestinal Parasites in Ruminant (Haemonchus + Anthelmintic Resistance)',
+    subject: 'herd-health-rum',
+    date: '2024-09-11',
+    durationMin: 54,
+    instructor: 'อ.ธนศักดิ์ (review · เน้น clinical practice + Haemonchus case study + ยา anthelmintic resistance)',
+    examFormat: 'Multiple choice + scenario · ออกเรื่อง Haemonchus blood-sucker + FAMACHA + 500 epg threshold + anthelmintic resistance + combination therapy',
+    summary: `## 🎯 Lead Summary
+**GI parasites in ruminants** — practitioner-focused review (preclinical knowledge applied to field). ⭐ **Haemonchus contortus** = #1 problem in Thai goat farms · blood-sucking nematode causing **severe anemia** (PCV drops to 7-9%!) · ⚠️ **100% Thai goat farms have ivermectin resistance** (instructor's research). **Approach**: Clinical signs (diarrhea, anemia, edema) → fecal exam → FAMACHA color chart → ⭐ **500 epg threshold** for treatment → ⭐ **FECRT** to detect resistance → ⭐ **Combination therapy** (FBZ + Levamisole) revives old drugs.
+
+## 1️⃣ Why This Lecture Matters
+
+### Practitioner Mindset (vs. Lab Mindset) ⭐
+> "ทุกอย่างที่เรียนมาสามารถจบด้วย Ivermectin จริงไหม?"
+- ⭐ Preclinical: detailed life cycles, identification, lab work
+- Practitioner: **focus on clinical decision-making**
+- Updates and field-relevant only in this review
+
+### Why Parasites Cause Disease
+1. **Blood loss** (Haemonchus) → anemia, hypoproteinemia
+2. **Mucosal damage** → diarrhea, malabsorption
+3. **Direct organ invasion** (Fasciola → liver) → tissue damage
+4. **Allergic reactions** → eosinophilia
+5. **Competition for nutrients** → emaciation
+
+## 2️⃣ Clinical Signs of Parasitism ⭐⭐⭐
+
+### Cardinal Signs
+| Sign | Mechanism | Note |
+|---|---|---|
+| **Diarrhea** | Mucosal damage → mucus + fluid | Distinguishable from infectious diarrhea (no foul smell, no blood usually) |
+| **Anemia** | Blood-sucking parasites | ⭐ Pale conjunctiva = key field finding |
+| **Hypoproteinemia** | Protein loss in gut + reduced absorption | ⭐ Edema in dependent body parts |
+| **Emaciation** | Nutrient competition + chronic illness | "Skin and bones" |
+| **Rough hair coat** | Poor nutritional status | "ขนหยอง หยาบ" |
+| **Bottle jaw** ⭐ | Hypoproteinemia → fluid pooling | ⭐ Soft, fluid-filled (NOT inflammatory edema!) |
+
+### ⭐ Edema Distinction (critical clinical skill!)
+| Type | Texture | Cause |
+|---|---|---|
+| **Hypoproteinemic** (parasitic, ParaTB, Johne's) | ⭐ **Soft, fluid-filled, like a balloon** | Low oncotic pressure |
+| **Inflammatory** (HS, infection) | Firm, pitting | Vascular leak from inflammation |
+
+### Special Pattern Recognition ⭐
+- ⚠️ **Pale + Lethargic + Bottle jaw = Haemonchus until proven otherwise** in goats
+- **Jaundice + No fever** in cattle → ⭐ DDx: **Fascioliasis** (NOT just Anaplasmosis!)
+  - Real case: cow at student camp, pale-jaundiced, no fever, on free-range pasture → Fascioliasis with intermediate host exposure
+- **Cough + weight loss + no fever** → ⭐ Lung worms (Dictyocaulus)
+
+## 3️⃣ ⭐⭐⭐ Haemonchus contortus (พยาธิตัวองคุ / Barber Pole Worm)
+
+### Why It's #1 in Thai Goats
+- ⭐ **Blood-sucking nematode** in **abomasum** (true stomach)
+- Mouth has **lancets** (cutting blades) → punctures mucosa → drinks blood
+- ⚠️ Can ingest 10,000+ worms per goat!
+- 1 goat necropsied → 3 jars of worms (instructor's case)
+
+### Pathophysiology
+- ⭐ Each worm consumes ~0.05 mL blood/day
+- 5,000 worms × 0.05 mL = 250 mL/day = ~1/4 of goat's blood volume!
+- → Severe anemia, hypoproteinemia
+- → ⚠️ Death without treatment
+
+### Real Case Story ⭐ (Pivotal lesson!)
+- Dairy farm with goats imported, suddenly dying
+- 1st pathologist: "Anemia, gelatinous bone marrow, parasites Negative"
+- ⚠️ Initial thought: **Copper toxicity** (cow farm dipping hooves in CuSO4)
+- 2nd attempt — instructor's necropsy:
+  - ⭐ **Opened ABOMASUM tract fully** (1st pathologist had not!)
+  - Found: **massive Haemonchus infestation** (worms = "barber pole" pattern)
+  - ⭐ Lesson: ALWAYS open the FULL GI tract during necropsy!
+
+### Pathology
+- ⭐ **Severe anemia** (PCV 7-9% in survivors!)
+- Pale mucous membranes
+- Reduced milk yield
+- Death possible at PCV <5%
+
+### Diagnosis ⭐
+| Method | Detail |
+|---|---|
+| **Clinical signs** | Pallor, bottle jaw, weight loss |
+| **PCV measurement** | < 18% suspicious, < 12% urgent |
+| **Fecal exam** | Strongyle-type eggs (can't differentiate from other strongyles by morphology!) |
+| **Larval culture** | ⭐ ID confirms Haemonchus (vs Trichostrongylus) |
+| **Necropsy** | Direct visualization in abomasum |
+
+### Life Cycle ⭐
+- ⭐ Direct life cycle (no intermediate host!)
+- Eggs in feces → Larvae (L3) on pasture
+- ⚠️ L3 climbs grass blades → ingested by grazing animal
+- Pre-patent period: ~3 weeks (3 weeks egg-to-egg)
+- ⭐ **Hatches at >60°F** — Thailand has year-round transmission!
+
+### Why Mostly in Goats (not Cattle) in Thailand
+- Goat browsing behavior + grass blade climbing of L3
+- Cattle on pasture also affected but tend to ingest from soil more
+- Buffalo grazing = mixed risk
+
+## 4️⃣ Other Important GI Parasites
+
+### Compare Table
+| Parasite | Type | Location | Key feature |
+|---|---|---|---|
+| **Haemonchus** ⭐ | Nematode (Strongyle) | Abomasum | Blood-sucker |
+| **Trichostrongylus** | Nematode (Strongyle) | Small intestine | Mucosal damage, weight loss |
+| **Cooperia** | Nematode | Small intestine | Mild |
+| **Oesophagostomum** | Nematode | Large intestine | Nodular lesions |
+| **Fasciola gigantica** ⭐ | Trematode | Liver bile ducts | Snail intermediate host! |
+| **Moniezia** | Cestode (tapeworm) | Small intestine | ⚠️ 1 egg = significant! |
+| **Coccidia** | Protozoa | Small intestine | Lambs/calves |
+
+### ⭐ Special Significance Rule
+| Finding | Action |
+|---|---|
+| **2-3 strongyle eggs** alone | ⚠️ Don't treat blindly — could be normal flora |
+| **1 tapeworm egg/proglottid** | ⭐ TREAT immediately (potential bowel obstruction!) |
+| **1 fluke egg** | ⭐ TREAT immediately (organ damage!) |
+| **>500 epg in goat** ⭐ | TREATMENT THRESHOLD |
+
+### Tapeworm vs Rectal Prolapse ⭐
+- ⚠️ Some farmers mistake **proglottid trains** (segments out anus) for **rectal prolapse**!
+- Distinguish: prolapse comes from anus; proglottids dangle/fall off
+
+## 5️⃣ Diagnostic Methods ⭐
+
+### 1. Fecal Examination (Field Screening)
+| Method | Use |
+|---|---|
+| **Direct smear** | Quick check for protozoa |
+| ⭐ **Fecal Flotation** (saturated salt) | Eggs float to surface |
+| **Sedimentation** | Heavier eggs (Fluke) sink |
+| **Larval culture** | ID by larval morphology |
+| **Necropsy** | Gold standard — open FULL GI tract |
+
+### 2. Fecal Egg Count (FEC) ⭐
+- ⭐ **Quantitative method** (eggs per gram = epg)
+- Uses **McMaster Chamber** (slide with grids)
+- ⭐ **Treatment threshold**: **500 epg** in goats
+- Below 500: monitor, no treatment needed
+- Above 500: treat with appropriate anthelmintic
+
+### 3. ⭐ FAMACHA Color Chart (Field-Practical!)
+- ⭐ **Color chart for conjunctival pallor** (anemia score)
+- Lift goat's eyelid → match red intensity to chart
+- 5 categories:
+  | Score | Color | Action |
+  |---|---|---|
+  | 1 | Bright red | No treatment |
+  | 2 | Red-pink | No treatment |
+  | 3 | Pink | Borderline (treat or monitor) |
+  | 4 | ⭐ Pale pink | ⚠️ TREAT |
+  | 5 | White | ⚠️ Severe anemia · treat + supportive |
+
+### FAMACHA Caveats ⭐
+- ⚠️ **Color reproduction varies by printer** (need certified version!)
+- ⚠️ Sun fading destroys colors → unusable
+- Best to laminate + keep in clean dry place
+
+### 4. ⭐⭐ FECRT (Fecal Egg Count Reduction Test)
+**Purpose**: Detect anthelmintic resistance!
+
+**Procedure**:
+1. Select 15 ID-tagged animals
+2. **Day 0**: collect feces, run FEC (egg count baseline)
+3. Give anthelmintic at correct dose
+4. **Day 14**: collect feces from same 15 animals, run FEC again
+5. Calculate % reduction:
+   - **>95% reduction** = ⭐ NO resistance
+   - 90-95% = Borderline
+   - **<90% reduction** = ⚠️ RESISTANCE detected!
+
+## 6️⃣ ⭐ Anthelmintic Resistance (Major Crisis!)
+
+### Thailand Survey Results ⭐
+- 28 goat farms surveyed (instructor's research)
+- ⭐ **77% had GI parasites despite routine deworming**
+- **6% had heavy infection**
+- ⚠️ 100% farms used Ivermectin or Albendazole
+
+### Causes of Resistance ⭐
+1. ⭐ **OVERUSE** — deworm "for peace of mind" without diagnosis
+2. ⭐ **UNDERDOSE** — eyeballed body weight estimation
+   - Test: experienced goat farmer estimates ±2 kg accuracy (good for selling, bad for dosing!)
+   - Need scientific weight measurement
+3. ⭐ **BLANKET DOSING** — treat entire herd including healthy
+   - Selects for resistant worms ⚠️
+4. **LACK OF ROTATION** — same drug class for years
+5. **POOR FARM MANAGEMENT** — pasture rotation neglected
+
+### Drug Classes & Status (Thailand) ⭐
+| Class | Examples | Status |
+|---|---|---|
+| **Macrocyclic Lactones** ⭐ | Ivermectin, Doramectin | ⚠️ **100% Thai goat farms RESISTANT!** |
+| **Benzimidazoles** | Albendazole, Fenbendazole | ⚠️ Common, resistance increasing |
+| **Imidazothiazoles** | Levamisole | Older, narrower margin, but still works! |
+| **Closantel** | Closantel | Active vs Haemonchus |
+| **Monepantel** | New class | Limited availability |
+
+### Instructor's FECRT Results (16 Goat Farms) ⭐
+- ⚠️ Only **3/16 farms** showed any reduction with Ivermectin
+- ⚠️ **0/16 farms** had >90% reduction
+- ⚠️ Some farms: **+900% increase** in egg count after Ivermectin (drug failed completely!)
+- ⭐ Conclusion: **Ivermectin alone NO LONGER WORKS in Thai goats**
+
+### ⭐ Combination Therapy Solution ⭐⭐
+**Best results**: ⭐ **Fenbendazole + Levamisole** combination
+- Each at full dose (don't mix in syringe — give same day, separate)
+- ⭐ **99.8% reduction** in egg count
+- Synergistic: 2 different mechanisms attack worms
+- Revives older drugs!
+
+### Other Combinations
+- Fenbendazole + Triclabendazole (also effective)
+- DON'T use Ivermectin or Doramectin (resistance!)
+- Reserve newer drugs (Monepantel) for rotation
+
+## 7️⃣ Treatment Decision Algorithm ⭐
+
+### Standard Practitioner Workflow
+1. **Clinical signs** → suspicious for parasites
+2. **FAMACHA score** (or PCV) → confirms anemia
+3. **Fecal exam** → confirms parasites
+4. **FEC** → quantifies (>500 epg = treat)
+5. **Treatment**:
+   - Combination if available (FBZ + Lev)
+   - OR rotated single agent
+6. **FECRT** at intervals to detect resistance
+
+### Treatment Drug Selection ⭐
+| Factor | Consider |
+|---|---|
+| **Species** | Cattle vs goat — different products! |
+| **Production** | ⭐ **Withdrawal time for milk** (Ivermectin = 28 days!) |
+| **Farm system** | Pasture grazing vs concrete pen (different parasites) |
+| **Pregnant?** | Some drugs contraindicated |
+| **Weight** | ⭐ Weigh accurately, calculate dose, don't eyeball |
+
+### Supportive Treatment for Severe Cases
+- ⭐ **Blood transfusion** in goats (PCV <10%):
+  - No cross-matching needed in ruminants
+  - Give full dose (350-450 mL/transfusion)
+  - RBC half-life ~7 days — must give enough!
+- **Fluid therapy** for dehydration
+- ⭐ **Iron + B12** to support new RBC production
+
+### Real Goat Transfusion Case ⭐
+- 2 goats imported, severe Haemonchus
+- PCV: 7% and 9%
+- Transfused 350 mL + 100 mL respectively
+- ⭐ Both recovered!
+- Lesson: Aggressive supportive care = saves lives
+
+## 8️⃣ Prevention Programs ⭐
+
+### Pasture Management
+- ⭐ **Rotate paddocks** (pasture rest = larvae die)
+- ⭐ **3-week rest minimum** (parasite life cycle break)
+- ⚠️ **Raised housing** = ideal (no pasture transmission)
+
+### Deworming Program Design
+- ⭐ Treat at **strategic timing**:
+  - 3 weeks between treatments (cycle interruption)
+  - Avoid blanket treatment
+- ⭐ **Annual rotation** of drug class (NOT every 6 months!)
+  - Wrong: Ivermectin → Albendazole → Ivermectin (same year)
+  - Right: Combination this year → Different combination next year
+- Base on **FECRT results** for evidence-based selection
+
+### Farm-Level Best Practices
+- ⭐ Quarantine + treat new animals before introduction
+- ⭐ Maintain pasture rotation schedule
+- ⭐ Don't deworm "in advance" or "preventively"
+- Keep records: FEC trends + treatment outcomes
+
+## 📋 Exam Recap (12 จุดสำคัญ)
+
+### Clinical Recognition (1-4)
+1. ⭐ **Diarrhea + anemia + bottle jaw + rough coat** = parasitism
+2. ⭐ **Hypoproteinemic edema = soft, fluid-filled** (vs. inflammatory = firm)
+3. ⭐ **Haemonchus** = blood-sucker · abomasum · most lethal in goats
+4. ⭐ Always **open FULL GI tract** at necropsy (don't focus on suspect organ only)
+
+### Diagnostic (5-7)
+5. ⭐ **FEC threshold for goats: 500 epg**
+6. ⭐ **FAMACHA score 4-5 = treat** (color chart for conjunctiva)
+7. ⭐ **FECRT** = 15 animals, Day 0/14, >95% reduction = no resistance
+
+### Drugs (8-10)
+8. ⚠️ **Ivermectin RESISTANCE = 100%** in Thai goat farms
+9. ⭐ **Combination therapy**: Fenbendazole + Levamisole = 99.8% reduction
+10. ⭐ **Blanket dosing + underdose + no rotation = creates resistance**
+
+### Prevention (11-12)
+11. ⭐ **Annual rotation** across drug families (NOT every 6 months)
+12. ⭐ **Pasture rotation** + 3-week rest interrupts life cycle
+
+> 📚 **Cross-refs**: Brucellosis (different infectious agent · same iceberg principle) · Imaging (Norberg-Olsson for liver fluke?)
+> 🩺 **Practical**: Always weigh animals before dosing · Combine drugs when resistance suspected · Use FAMACHA in field
+> 💉 **Key formula**: 3 weeks between treatments + 500 epg trigger + annual rotation across families
+> 🎯 **Field rule**: "If you wouldn't take it yourself for no symptoms, don't blanket-deworm the herd"
+> 💊 **Drug withdrawal time** for dairy: Ivermectin 28 days · Albendazole 6 days · check label always`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
