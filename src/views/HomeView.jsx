@@ -80,32 +80,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       )}
       <div className="vmx-hero">
         <h1>
-          {user ? (
-            <>
-              สวัสดี <em>{profile?.username || 'เพื่อน'}</em>
-              <button
-                onClick={() => setView('account-settings')}
-                title="Account settings · เปลี่ยนรหัสผ่าน อีเมล หรือ logout"
-                aria-label="Account settings"
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: 18,
-                  marginLeft: 8,
-                  padding: '4px 8px',
-                  borderRadius: 999,
-                  color: 'var(--clr-ink-soft)',
-                  verticalAlign: 'middle',
-                  lineHeight: 1,
-                }}
-              >
-                ⚙️
-              </button>
-            </>
-          ) : (
-            <>อ่านแล้ว ลอง <em>ทำข้อสอบ</em> กันเถอะ</>
-          )}
+          {user
+            ? <>สวัสดี <em>{profile?.username || 'เพื่อน'}</em></>
+            : <>อ่านแล้ว ลอง <em>ทำข้อสอบ</em> กันเถอะ</>}
         </h1>
         <p>
           {isScaffoldYear
@@ -115,36 +92,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         {/* Year-switcher pill removed from HomeView hero — moved to the
             global persistent App header (since 2026-05-08). One canonical
             place for year context = no duplication, no confusion. */}
-        {onlineStatus === 'connected' && onlineCount > 0 && (
-          <div
-            title="จำนวนคนที่เปิดเว็บอยู่ตอนนี้ (อัพเดต realtime)"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              marginTop: 10,
-              padding: '4px 10px',
-              borderRadius: 999,
-              background: 'rgba(74, 107, 74, 0.12)',
-              border: '1px solid var(--clr-sage)',
-              fontSize: 12,
-              fontFamily: 'JetBrains Mono, monospace',
-              color: 'var(--clr-ink)',
-            }}
-          >
-            <span
-              style={{
-                display: 'inline-block',
-                width: 8,
-                height: 8,
-                borderRadius: '50%',
-                background: 'var(--clr-sage)',
-                animation: 'pulse 1.6s ease-in-out infinite',
-              }}
-            />
-            <strong>{onlineCount}</strong> คนกำลังเรียนอยู่
-          </div>
-        )}
       </div>
 
       {/* Resume in-flight exam — top priority. Shown when App detected a
@@ -625,17 +572,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           <div className="sub">{isScaffoldYear ? '🚧 ยังไม่มีข้อมูล' : 'Mid · Final · ฟรี · ทำงาน'}</div>
         </button>
 
-        <button
-          className="vmx-mode-card"
-          onClick={() => !isScaffoldYear && setView('videos')}
-          disabled={isScaffoldYear}
-          style={{ opacity: isScaffoldYear ? 0.45 : 1, cursor: isScaffoldYear ? 'not-allowed' : 'pointer' }}
-          title={isScaffoldYear ? 'ยังไม่มีคลิปสำหรับปีนี้' : ''}
-        >
-          <div className="icon">🎥</div>
-          <div className="title">คลิปย้อนหลัง</div>
-          <div className="sub">{isScaffoldYear ? '🚧 ยังไม่มีคลิป' : 'Video library แยกวิชา'}</div>
-        </button>
+        {/* คลิปย้อนหลัง card removed — Subject Detail's action panel
+            now provides per-subject 🎥 access, which is the natural
+            entry point. Cross-subject "browse all videos" was a rare
+            use case and the redundancy created confusion. */}
 
         {isScaffoldYear && (
           <button
@@ -653,7 +593,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {/* Multiplayer (cross-year, account-scoped) */}
       {hasSupabase && (
         <>
-          <div className="vmx-section-label" style={{ marginTop: 28 }}>Multiplayer {!user && '(ต้อง login)'}</div>
+          <div className="vmx-section-label" style={{ marginTop: 28 }}>Multiplayer</div>
           <div className="vmx-mode-grid">
             {user ? (
               <>
