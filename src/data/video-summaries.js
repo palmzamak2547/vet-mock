@@ -41029,6 +41029,334 @@ When opening a clinic, you need **BOTH**:
 > 🧬 **Genetic angle**: DLA-DR genotyping = future tool for breeding programs`,
   },
 
+  fShVzkXP4tU: {
+    videoId: 'fShVzkXP4tU',
+    title: 'โรคระบบทางเดินหายใจในวัว · BRD Complex (IBR · BVD · PI3 · BRSV + 2° bacteria)',
+    subject: 'herd-health-rum',
+    date: '2024-08-14',
+    durationMin: 192,
+    instructor: 'อ.กิตติศักดิ์ (กำลังจะเกษียณ · รุ่นนี้น่าจะเป็นรุ่นสุดท้ายที่สอน)',
+    examFormat: 'Multiple choice + scenario · ออกตามวิดีโอ Mechanism + Early detection · 20 keywords paragraph exercise',
+    summary: `## 🎯 Lead Summary
+**Bovine Respiratory Disease (BRD) Complex** = #1 cause of morbidity/mortality in young cattle. Triangle: **Host (stress, weaning) + Environment (poor ventilation, mixing) + Pathogen (4 viruses → 2° bacteria)**. 4 viruses: **IBR · BVD · PI3 · BRSV** rarely fatal alone — but immune-suppress → bacterial complications (**Mannheimia haemolytica, Pasteurella multocida, Histophilus somni, Mycoplasma**) cause death. Key concepts: **Early detection = yellow flag · Late = red flag (irreversible damage) · BVD PI animal = "Time Bomb" · IBR marker vaccine = eradication tool**.
+
+## 1️⃣ BRD Complex Concept (Triangle Model)
+
+### Etiologic Triangle
+| Factor | Examples |
+|---|---|
+| **Host** | Weaning stress, age <6 months, low maternal Ab, poor BCS, immune suppression |
+| **Environment** | Poor ventilation, dust, ammonia, mixing groups, transport, weather change, overcrowding, weaning + relocation simultaneously |
+| **Pathogen** | Viral primary (IBR, BVD, PI3, BRSV) → bacterial secondary (Mannheimia, Pasteurella, Histophilus, Mycoplasma) |
+
+### Stress Cascade (Key concept!)
+- **Weaning** = #1 stress event (diet change + maternal separation + crowding)
+- ⚠️ **Worst combo**: Weaning + relocation in same day (avoid!)
+- Stress → **Cortisol ↑** → suppresses immune cells (esp. macrophage activity) → 1° viral attack → epithelial damage → 2° bacterial colonization
+
+### Inflammation cascade — 20 Keywords (exam-style paragraph) ⭐
+Build paragraph from these terms:
+1. Stress · 2. Cortisol · 3. Inflammation · 4. Pro-inflammatory cytokines · 5. IL-1 · 6. TNF-α · 7. Macrophage · 8. Phagocytosis · 9. Nasal discharge · 10. Bacterial proliferation · 11. Antibiotics · 12. Restlessness · 13. Depression · 14. Anorexia/loss of appetite · 15. Vulnerable to infection · 16. Oxygen consumption ↑ · 17. Excessive bacterial growth (nasopharynx) · 18. Irreversible damage · 19. Economic loss · 20. Reduced ADG
+
+### Time Series of Disease (Critical clinical concept) ⭐
+| Phase | What you see | What you find |
+|---|---|---|
+| **Early** (0-24h) | Mild signs · ↑ RR, slight nasal | **Viruses isolatable** (yellow flag) |
+| **Middle** (2-7d) | Fever, depression, cough | Mixed virus + bacteria |
+| **Late** (1-3 weeks) | Severe pneumonia | **Bacteria dominant**, viruses cleared (red flag) |
+| **End-stage** | Chronic pneumonia, atelectasis | Irreversible · poor prognosis |
+
+⭐ Doctor arriving late = miss virus identification window (can only treat bacteria)
+
+## 2️⃣ Anatomy Review
+
+### Upper vs Lower Respiratory Tract
+- ⭐ **Boundary**: trachea entering thoracic cavity (bifurcates into bronchi)
+- Above = Upper (nasal, pharyngeal, laryngeal, tracheal)
+- Below = Lower (bronchial, bronchiolar, alveolar)
+
+### Why this matters
+- **Nasal discharge** → upper tract issue
+- **Dyspnea / open-mouth breathing** → lower tract or severe upper
+- ⭐ Each pathogen targets specific level (e.g., IBR = upper, BRSV = lower)
+
+## 3️⃣ The 4 Primary Viruses ⭐⭐⭐
+
+### Quick Compare Table
+| Virus | Family | Tropism | Severity | Key feature |
+|---|---|---|---|---|
+| **IBR (BHV-1)** | Herpesvirus | **Upper** (rhinotrachea) | Moderate-high | **Latency** in nerve cells |
+| **BVD** | Pestivirus | Multi-system + immunosuppr | Variable | **Persistent Infection (PI)** = "Time Bomb" |
+| **PI3** | Paramyxovirus | Upper (rhinitis-like) | Mild | Like common cold · 87% of cattle exposed |
+| **BRSV** | Pneumovirus | **Lower** (alveolar/bronchiolar) | **Severe** | **Syncytia formation** in histopath |
+
+### A. IBR (Infectious Bovine Rhinotracheitis · BHV-1) ⭐⭐⭐
+
+**Etiology**: Bovine Herpesvirus 1 (BHV-1) · 3 genotypes:
+| Genotype | Manifestation |
+|---|---|
+| **IBR-1.1** | Respiratory (rhinotracheitis) |
+| **IBR-1.2** (IPV) | Genital (Infectious Pustular Vulvovaginitis) — outside reproductive tract pustules |
+| **BHV-5** | Neurologic (CNS) — rare in Thailand |
+
+**Key features**:
+- ⭐ **Latency** in trigeminal ganglion + sacral ganglia
+- Stress / dexamethasone → reactivation → shedding even years later
+- "Once infected, infected for life" — Ab+ for life
+- ⚠️ Can cause **abortion**!
+- Lesions: nasal mucosa erosions, tracheal congestion, pulmonary involvement (severe forms)
+- Open-mouth breathing common (upper obstruction)
+
+**Prevalence in Thailand**: Endemic · zer+ farms common
+
+**Eradication strategy** ⭐:
+- **Marker vaccine (gE-deleted)**: vaccinated animals lack gE Ab → can distinguish vaccinated from infected
+- Test gE → +ve = naturally infected → cull
+- ❗ Thailand currently uses inactivated marker vaccine? (instructor: tools exist but Thai gov hasn't initiated eradication program)
+
+**Detect strategy**: Easier than BVD because Ab-positive = clear evidence (no PI confusion)
+
+### B. BVD (Bovine Viral Diarrhea) ⭐⭐⭐ "Time Bomb"
+
+**Etiology**: Pestivirus · 2 biotypes (cytopathic vs non-cytopathic) · 2 genotypes (BVDV-1, BVDV-2)
+
+**Key concepts**:
+| Type | Mechanism |
+|---|---|
+| **Acute infection** | Most cattle, transient · clears in weeks · immunosuppressive |
+| **Persistent Infection (PI)** ⭐⭐ | Calf infected in utero (50-150 days gestation) → fetus develops immune tolerance → BORN PI · sheds virus FOR LIFE |
+
+**PI vs Latency** (don't confuse!) ⭐
+| | PI (BVD) | Latency (IBR/BHV) |
+|---|---|---|
+| Mechanism | Immune tolerance · "self" recognition fail | Virus hides in nerve cells |
+| Detection | ⚠️ **Ab-NEGATIVE** (can't detect by Ab!) | Ab-positive |
+| Antigen | Always present in blood | Hidden, sheds episodically |
+| Detection method | **Antigen ELISA, PCR** | Serology + clinical |
+
+**Why PI = "Time Bomb"** ⭐:
+- 1 PI calf in herd → constant viral shedding → all naive cattle exposed → repeated abortions, immunosuppression, mucosal disease deaths
+- PI calves often runt-like, but some look normal!
+- ⚠️ Eventually develop **mucosal disease** (90%+ fatal)
+
+**Clinical syndromes**:
+- Acute: fever, diarrhea, mild
+- ⭐ **Reproductive**: early embryonic death, abortion, congenital defects (cerebellar hypoplasia)
+- Mucosal disease (in PI animals): severe oral/GI ulcers, fatal
+- Immunosuppression → BRD predisposition
+
+**Control strategy** ⭐:
+- **Test-and-cull PI animals** = gold standard
+- Test all newborn calves at some farms (e.g., Europe)
+- ⚠️ **Test-and-cull works** — proven in many countries
+- Vaccine: Thailand allows **inactivated only** (live vaccine has higher risk · used elsewhere with caution)
+- Need **2 doses of inactivated** (1st = priming, 2nd at 1 month = "1st" effective dose)
+- ⭐ Some countries achieved BVD-FREE using test-and-cull WITHOUT vaccine
+
+**International trade**: Europe → Thailand semen + livestock must be **BVD-free + IBR-free** certified
+
+### C. PI3 (Parainfluenza-3) — The "Common Cold" Virus
+
+**Etiology**: Paramyxovirus
+
+**Key features**:
+- Like common cold in humans (no fever, watery nasal)
+- Nasal irritation → mild cough
+- ⚠️ **No fever** typically (vs BRSV always fevers!)
+- 86-87% Thai cattle exposed (essentially universal)
+- Exposes nasal/upper tract → predisposes 2° bacteria
+
+**Treatment**: Often self-resolving · supportive
+
+### D. BRSV (Bovine Respiratory Syncytial Virus) ⭐⭐⭐ Most Severe!
+
+**Etiology**: Paramyxovirus (Pneumovirus genus)
+
+**Key features**:
+- ⭐ **Severity**: 1-10 scale vs PI3 — BRSV = 10
+- ⚠️ **Acute death possible** (per-acute pulmonary edema → drowning)
+- Most affected: **calves 6-9 months**
+- ⭐ **High fever** (vs PI3 = no fever)
+- Lower tract attack → **interstitial pneumonia**
+- ⚠️ Can be **fatal in <48h** without treatment
+
+**Pathognomonic**:
+- **Syncytial cells** in histopath (multinucleate giant cells from cell fusion · 1 cell with 2+ nuclei)
+- ⭐ Histopathologists love finding syncytia — diagnostic of BRSV
+- Lung: red, congested, doesn't deflate ("solid")
+- May see **subpleural emphysema** (air trapped in pleural mesothelium → severe respiratory effort sign)
+
+**Time of infection**:
+- Early (<24h): swollen red lung, no neutrophils yet
+- Late (7-14d): neutrophils + pus = mixed bacterial infection now
+- ⭐ Neutrophil presence in histo = DELAYED visit (not early)
+
+**Why hard to isolate**: BRSV is highly cell-associated → needs fresh tissue + fast culture · most isolation attempts fail
+
+**Cross-species note**:
+- Cattle BRSV ≠ Human RSV (different species)
+- Both cause severe disease in young (calves 6mo / human <6mo)
+- Both can be fatal · vaccines partially effective
+
+## 4️⃣ The 4 Secondary Bacteria ⭐⭐
+
+### Compare Table
+| Bacterium | Niche | Notes |
+|---|---|---|
+| **Mannheimia haemolytica** | Lower respiratory · pneumonic pasteurellosis | Most common BRD bacterial · was P. haemolytica |
+| **Pasteurella multocida** | Various | More frequent in chronic cases |
+| **Histophilus somni** | Upper + lower · TEME (thromboembolic meningoencephalitis) | Polysystemic |
+| **Mycoplasma bovis** | Lower respiratory · arthritis | Cell-wall-less · resistant to β-lactams |
+
+### Primary vs Secondary
+- All 4 CAN be primary BUT need severely compromised host
+- **Usually secondary** to viral primary (yellow → red flag transition)
+
+## 5️⃣ Diagnosis Approach
+
+### Field clinical
+- Time-series mindset: when did doctor arrive?
+- Clinical signs + history (mortality pattern, age, season)
+- **Hematology**: WBC pattern, lymphocytes
+- **Serology**: ELISA/AGID for each pathogen (most accessible)
+- **PCR**: for viral antigens (more specific)
+- **Necropsy**: pneumonic pattern, lesion age (color, exudate)
+- **Histopathology**:
+  - BRSV: syncytial cells in bronchiolar epithelium
+  - IBR: inclusion bodies (Cowdry type A)
+  - Vasculitis: BVD mucosal disease
+
+### Pneumonic Pattern at Necropsy
+| Color/texture | Stage |
+|---|---|
+| Red, congested, swollen, doesn't deflate | Acute (≤7 days) |
+| Gray/dark gray, firm | Chronic (≥1 month) — prevention failure! |
+
+## 6️⃣ Treatment ⭐
+
+### The Inflammation-First Principle ⭐⭐
+> "**Antibiotics alone CANNOT stop irreversible damage**"
+> Must address **inflammation** first → then antibiotics for bacterial component → fluid + supportive
+
+### Treatment Drug Tree
+| Drug class | Why | Timing |
+|---|---|---|
+| **NSAIDs** ⭐ | Anti-inflammatory · pain relief · reduce cytokine cascade | First! Even before antibiotics |
+| **Antibiotics** (LA preferred) | Kill 2° bacterial pathogens | After/with NSAIDs |
+| **Fluid + electrolytes** | Dehydration support · NOT confused with pulmonary edema | Critical! |
+| **Antihistamines** | Mild benefit only · for some allergic component | Adjunct |
+| **B-complex vitamins** | Appetite stimulation · metabolism boost | Recovery |
+| **Steroids** | ⚠️ Generally avoid in cattle (abortion risk + milk drop) | Only specific cases |
+
+### Antibiotic of Choice for BRD ⭐
+- **Florfenicol (F type)** — covers Mannheimia, Pasteurella, Histophilus, Mycoplasma!
+- Long-acting form preferred (1 inj q72h vs SA daily)
+- ⭐ Why LA over SA in cattle:
+  - Less stress (1 vs 7 injections)
+  - More animal welfare
+  - Practical for farmers
+
+### Fluid Therapy Concept ⭐ (Universal Science!)
+> **"Fluid therapy = ONE science · same in all species"**
+
+Calculation:
+- **5% dehydration**: 1 day not eating
+- **7% dehydration**: 2 days not eating + sunken eyes
+- **>7%**: severe (skin tent, weakness)
+- Body weight × % dehydration = volume deficit
+
+Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over 24h
+
+### Why Fluid Critical
+- **NOT same as pulmonary edema** (different compartments!):
+  - Dehydration = intravascular volume loss
+  - Pulmonary edema = interstitial lung fluid
+- ⭐ Fluid → restores circulation → drugs can reach tissues
+- Without fluid → drugs don't penetrate → poor outcome
+
+### Acid-Base Balance
+- Vomiting → loss of HCl → **alkalosis**
+- Diarrhea → loss of HCO3⁻ → **acidosis**
+- Each dictates fluid choice!
+
+## 7️⃣ Prevention & Vaccination ⭐
+
+### General Prevention
+1. **Avoid weaning + relocation** in same day (split by 1-2 weeks)
+2. **Ventilation** > everything (most critical farm factor)
+3. Reduce stocking density
+4. Proper colostrum (passive immunity)
+5. Quarantine new animals (incubation periods)
+
+### Vaccine Strategy
+| Vaccine | Type | Indications |
+|---|---|---|
+| **IBR** (gE-marker) | Inactivated | Eradication tool |
+| **BVD** | Inactivated only (Thailand) | 2 doses · annual booster |
+| **PI3** | Combined often | Less critical |
+| **BRSV** | Combined often | High-risk young stock |
+
+### ⭐ The 2-Dose Rule for Inactivated Vaccines
+> "**Count 1 from the SECOND injection**"
+> 1st dose = priming (1 month before)
+> 2nd dose = "Dose 1" of effective immunity
+> Annual booster after = continuation
+
+### Maternal Immunity
+- Calves get Ab via colostrum
+- ⭐ Lasts ~11 months for some viruses
+- Then enters vaccination program
+
+### Marker Vaccine Concept ⭐⭐
+- gE-deleted IBR vaccine
+- Vaccinated cattle = Ab-positive but **gE-Ab negative**
+- Naturally infected = Ab-positive AND **gE-Ab positive**
+- → Can DIFFERENTIATE → eradication possible!
+
+## 8️⃣ Evidence-Based Medicine Concept ⭐
+- Decision: vaccinate or not?
+- Use **Meta-analysis + Systematic Review**
+- Outcome measures: **Morbidity rate + Mortality rate**
+- ⭐ "If a treatment doesn't reduce these → not worth the cost"
+
+## 📋 Exam Recap (20 จุดสำคัญ)
+
+### Concepts (1-5)
+1. ⭐ **BRD = Triangle**: Host + Environment + Pathogen
+2. ⭐ **Stress cascade**: Cortisol ↑ → IL-1, TNF-α ↑ → immune drop
+3. **Worst stress combo**: Weaning + relocation same day
+4. ⭐ **Time series matters**: Early = virus, Late = bacteria + irreversible
+5. **Inflammation-first treatment principle**
+
+### Viruses (6-12)
+6. **4 viruses**: IBR · BVD · PI3 · BRSV
+7. ⭐ **IBR = upper, BRSV = lower** tract
+8. ⭐ **IBR has 3 genotypes**: respiratory · IPV · neuro
+9. ⭐ **PI vs Latency**: PI = Ab-NEG (immune tolerance!) vs Latency = Ab-POS (nerve hidden)
+10. ⭐ **BVD PI = "Time Bomb"** — born infected, sheds for life
+11. **PI3 = no fever (mild)** · **BRSV = high fever (severe)**
+12. ⭐ **BRSV pathognomonic**: syncytial cells (multinucleate)
+
+### Bacteria (13-15)
+13. **4 secondary bacteria**: Mannheimia · Pasteurella · Histophilus · Mycoplasma
+14. ⭐ **Florfenicol = drug of choice** (covers all 4!)
+15. **LA preferred over SA** (welfare + practical)
+
+### Treatment (16-18)
+16. ⭐ **NSAIDs first**, antibiotics second
+17. ⭐ **Fluid therapy is universal science** — same calc all species
+18. ⚠️ **Avoid steroids** in cattle (abortion + milk drop)
+
+### Vaccines & Control (19-20)
+19. ⭐ **Inactivated 2-dose rule**: count 1 from SECOND injection
+20. ⭐ **Marker vaccine (gE-deleted)** = eradication tool for IBR
+
+> 📚 **Cross-refs**: EBL-MCF-Rinderpest-BEF (1st lecture · viral diseases context) · vet-juris (เคลื่อนย้ายสัตว์ controls)
+> 🎯 **Practical**: Be there EARLY for virus diagnosis · LATE = only bacterial culture possible
+> 💊 **Drug priority**: NSAID + Florfenicol LA + Calcium borogluconate (if BEF-like signs) + Fluid
+> 🏥 **Most important farm factor**: VENTILATION (alone affects everything)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
