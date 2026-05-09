@@ -33375,6 +33375,295 @@ Survey high titer = MUST be field exposure
 > 🦴 **Universal positioning** = key to inter-vet communication`,
   },
 
+  '3NNhQwnyNqY': {
+    videoId: '3NNhQwnyNqY',
+    title: '3. Radio Interpretation + Lab Musculoskeletal',
+    subject: 'vet-imaging',
+    date: '22 Aug 67',
+    durationMin: 224,
+    instructor: 'อ.ชุติมนต์ + อ.อรพันธ์ + อ.สิรินัน',
+    examFormat: 'MCQ — 5 radiographic densities · Magnification + Distortion · Volumetric perception · Standard reading approach (location/extent/severity/etc.) · MSK lesion patterns · Bone reactions ออกบ่อย',
+    summary: `# Radio Interpretation Principles + MSK Lab
+
+> 🎯 **The systematic reading approach** + musculoskeletal interpretation
+> Top exam: **5 densities · Magnification/Distortion · Standard report writing · MSK lesion descriptors (location/distribution/etc.) · Bone reactions (lytic/blastic/mixed)**
+
+---
+
+## 1. The 5 Radiographic Densities ⭐⭐⭐ (REVIEW + MASTER!)
+
+| Density | Color | Atomic # |
+|---|---|---|
+| **Air (Gas)** | BLACK | Lowest |
+| **Fat** | Dark gray | Low |
+| **Soft tissue (water-density)** | Medium gray | Medium |
+| **Bone** | LIGHT (whitish) | High |
+| **Metal** | WHITEST | Highest |
+
+### Atomic number = absorption capacity
+- High atomic # → absorbs more X-rays → less reaches detector → WHITE on film
+- Low atomic # → absorbs less → more reaches detector → BLACK on film
+
+### Thickness ALSO matters!
+- Even same density → THICKER part appears WHITER
+- Always remember **2 factors**: density + thickness
+
+---
+
+## 2. Magnification & Distortion ⭐⭐⭐ (KEY!)
+
+### Magnification
+- Object FARTHER from detector = LARGER image
+- Object CLOSER to detector = TRUE size
+
+### Distortion
+- Object NOT parallel to detector = distorted shape
+- Best: object PARALLEL to detector for true size
+
+### Practical rule
+> **"What you want to see best, place CLOSEST to the cassette/detector"** ⭐
+> Exception: Lung (need air to expand → opposite side UP)
+
+### Common error
+- Reading "this leg looks shorter" when actually misposition
+- Always check positioning before drawing conclusions!
+
+---
+
+## 3. Volumetric Perception ⭐⭐ (Why 2 views!)
+
+### Limitation
+- X-ray = 2D projection of 3D
+- Cannot determine depth from 1 view alone
+- Object shape + true location ambiguous
+
+### Solution
+- **Always 2 perpendicular views** (Orthogonal views)
+- Lateral + VD/DV combination
+- Allows mental 3D reconstruction
+
+### Example (memorable!)
+- Metal foreign body in stomach
+- Lateral view: looks small, round
+- VD view: actually a long needle pointing different direction!
+- Without 2 views, surgeon couldn't plan!
+
+---
+
+## 4. Unfamiliar Image Problem ⭐
+
+### Issue
+- Vets familiar with dog/cat = quick reads
+- Same vet sees turtle/bird/exotic → struggles
+- Need exposure to interpret
+
+### Solution
+- Practice with diverse species
+- Build internal "normal" library
+- Reference textbooks for unfamiliar
+
+### Year 5/6 implication
+- Lab time builds pattern recognition
+- Repetition is key
+
+---
+
+## 5. Standard Reading Approach ⭐⭐⭐ (The systematic method!)
+
+### Description elements (memorize order!)
+1. **Location** — Where is the lesion?
+2. **Distribution** — Focal · multifocal · diffuse?
+3. **Number** — Single · multiple?
+4. **Size** — How large?
+5. **Shape** — Round · irregular · linear?
+6. **Margin** — Sharp · ill-defined · smooth?
+7. **Internal structure** — Homogeneous · heterogeneous?
+8. **Effect on surrounding** — Mass effect · displacement?
+9. **Severity** — Mild · moderate · severe?
+
+### Why systematic
+- Don't miss findings
+- Standardized communication
+- Translates to clear reports
+
+---
+
+## 6. Roentgen Signs ⭐⭐ (The fundamentals)
+
+### 5 Roentgen signs to evaluate every X-ray
+1. **Size** — increased / decreased / normal
+2. **Shape** — round / irregular / specific patterns
+3. **Number** — single / multiple
+4. **Position** — anatomical / displaced
+5. **Opacity** — appropriate density?
+
+### Application
+- Heart appears LARGER than normal? → cardiomegaly
+- Liver shape abnormal? → mass / cyst
+- Multiple gallstones? → cholelithiasis
+- Stomach displaced? → gastric dilation
+- Soft tissue density in lung? → mass
+
+---
+
+## 7. Musculoskeletal Interpretation ⭐⭐⭐ (Key topic!)
+
+### Bone reactions (3 types)
+| Reaction | Appearance | Means |
+|---|---|---|
+| **Lytic (osteolysis)** | Dark/black areas | Bone destruction (tumor, infection) |
+| **Blastic (osteoblastic)** | New bright/white bone | New bone formation |
+| **Mixed** | Both lytic + blastic | Aggressive process |
+
+### Lesion patterns
+| Pattern | Suggests |
+|---|---|
+| **Geographic** (large hole) | Slow growing, less aggressive |
+| **Moth-eaten** | Aggressive, rapid |
+| **Permeative** | Most aggressive (often malignant) |
+
+### Bone-tumor signs (aggressive features) ⭐
+- Cortex destruction
+- Periosteal reaction (sunburst, lamellar)
+- Soft tissue swelling around
+- Bone remodeling/distortion
+
+> 🩻 **Osteosarcoma classic signs**: Sunburst periosteal reaction + cortex disruption + soft tissue mass
+
+### Common MSK conditions
+- **Osteoarthritis** = osteophytes + joint space narrowing
+- **Hip dysplasia** = subluxation + acetabular changes
+- **Fractures** = various patterns
+- **Osteosarcoma** = aggressive lytic + blastic
+- **Osteomyelitis** = infection-related changes
+- **Hypertrophic osteodystrophy** = young dogs
+- **Pano (Panosteitis)** = young dogs, especially GSD
+
+---
+
+## 8. Joint Disease Patterns ⭐
+
+### Effusion signs
+- Joint distension (soft tissue swelling around)
+- Increased joint space (rare in pets)
+
+### Degenerative joint disease (DJD)
+- Osteophyte formation (new bone at joint margins)
+- Subchondral sclerosis
+- Joint space narrowing (advanced)
+
+### Septic arthritis
+- Soft tissue swelling
+- Joint distension
+- Sometimes lytic changes
+- Need joint tap to confirm
+
+---
+
+## 9. Fracture Description ⭐ (Standardized!)
+
+### Required elements
+1. **Bone affected**
+2. **Location** (proximal/middle/distal third)
+3. **Type** (transverse/oblique/spiral/comminuted/avulsion)
+4. **Open vs Closed**
+5. **Displacement** (alignment, apposition)
+6. **Other features** (intra-articular?, growth plate involvement?)
+
+### Salter-Harris classification (for growth plate fractures!)
+- Type I-V based on growth plate involvement
+- Important for prognosis in young animals
+
+---
+
+## 10. Cervical/Spinal Imaging ⭐
+
+### Standard views
+- Lateral
+- VD
+- Open mouth (atlantoaxial joint)
+- Stress views (instability)
+- Myelogram (with contrast)
+
+### Common conditions
+- IVDD (Intervertebral disc disease)
+- Atlantoaxial subluxation
+- Wobbler syndrome
+- Spinal trauma
+
+---
+
+## 11. Limb Imaging ⭐ (Common cases)
+
+### Joints commonly imaged
+- Hip (CHD - Canine Hip Dysplasia)
+- Stifle (CCL injury, patellar luxation)
+- Elbow (elbow dysplasia, OCD)
+- Shoulder (OCD, biceps tendinopathy)
+- Carpus, tarsus, hock
+
+### Stress views
+- Apply force during X-ray
+- Detects ligament tears (e.g., CCL deficiency in stifle)
+
+---
+
+## 12. Report Writing Standards ⭐
+
+### Structure
+1. **Heading**: Patient ID, date, history
+2. **Findings**: What you SEE (objective)
+3. **Differential**: What it COULD BE
+4. **Diagnosis**: Most likely
+5. **Recommendations**: Follow-up, additional imaging
+
+### Use precise language
+- "There is..." (objective findings)
+- "Consistent with..." (interpretation)
+- "Differentials include..."
+- Avoid vague "looks like"
+
+---
+
+## 13. Common Pitfalls ⭐
+
+### Reading errors
+- Single view only → 3D ambiguity
+- Wrong positioning → misinterpretation
+- Familiarity bias → miss unusual findings
+- Haste → miss subtle changes
+
+### Anti-pitfall strategies
+- Always 2 views
+- Systematic approach
+- Question your first impression
+- Get second opinion when uncertain
+
+---
+
+## 🎯 Exam Recap — top 14 testable points
+
+1. **5 densities**: Air-Fat-Soft tissue-Bone-Metal (black to white)
+2. **Atomic # AND thickness** affect appearance
+3. **Magnification** if object farther from detector
+4. **Distortion** if object not parallel to detector
+5. **Always 2 perpendicular views** (volumetric perception)
+6. **Closest to cassette = truest size** (exception: lung)
+7. **Bone reactions**: Lytic + Blastic + Mixed
+8. **Lesion patterns**: Geographic < Moth-eaten < Permeative
+9. **Sunburst periosteal reaction** = aggressive/osteosarcoma
+10. **DJD** = osteophytes + joint space narrowing
+11. **Salter-Harris** = growth plate fracture classification
+12. **Standard description**: Location/Distribution/Number/Size/Shape/Margin
+13. **Stress views** for ligament tears
+14. **Always describe before diagnosing**
+
+> 📚 อ่านควบ: 1.1-1.3 (9BKTe9spGGc, gmultIaMHq4, _IVm9RZlyIg) · 2 Positioning (vbtkOXh1XPc) · 4.2 Abdominal (5RXoan8azRs) · 5.2 Thoracic (yc88x669lIA)
+> 🩻 **Practice tip**: Use the systematic 9-element description on EVERY image
+> 💡 **Bone reaction** = Lytic dark vs Blastic bright vs Mixed both
+> 🦴 **Year 5 lab**: practice MSK reading until pattern recognition is automatic`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
