@@ -32227,6 +32227,285 @@ Survey high titer = MUST be field exposure
 > 🦴 **Aujeszky DIVA** = THE marker vaccine concept`,
   },
 
+  '9BKTe9spGGc': {
+    videoId: '9BKTe9spGGc',
+    title: '1.1 Introduction (to Veterinary Diagnostic Imaging)',
+    subject: 'vet-imaging',
+    date: '8 Aug 67',
+    durationMin: 63,
+    instructor: 'อ.แนน · อ.ชุติมนต์ · อ.สิรินัน · อ.อรพันธ์ · อ.ธีรพล · อ.เอกพล',
+    examFormat: 'MCQ — 6 imaging modalities · X-ray vs Gamma vs Ultrasound · 2D vs 3D imaging · Terminology by modality (opacity vs attenuation vs echogenicity) ออกบ่อย',
+    summary: `# Introduction to Veterinary Diagnostic Imaging
+
+> 🎯 **Foundation for the entire course** — modalities, terminology, selection criteria
+> Top exam: **6 imaging modalities · Energy types · 2D vs 3D · Modality-specific terminology · Selection factors**
+
+---
+
+## 1. Course Structure ⭐ (15 weeks)
+
+### Format
+- **Lecture**: 1 credit · 16 hours
+- **Lab**: 1 credit · 24 hours (3 hours × 8 sessions)
+- **Mid-exam**: Topics 1-8 (Sept 26)
+- **Final**: Topics 9-16
+
+### Assessment
+| Component | % |
+|---|---|
+| Quiz (in-class) | 10% |
+| Mid-term | 25% |
+| Final | 25% |
+| Lab written exam | 10% |
+| Lab practical exam | 10% |
+| Lab assignments + cases | 20% |
+
+### Lab format
+- Mostly **X-ray** (positioning + interpretation)
+- Hands-on at 4th floor radiology
+- 2 sessions chest, 1 abdomen, 1 musculoskeletal
+
+---
+
+## 2. Six Imaging Modalities ⭐⭐⭐ (KEY!)
+
+### Energy types
+| Modality | Energy | Output |
+|---|---|---|
+| **Radiography (X-ray)** | X-ray | 2D static image |
+| **Fluoroscopy** | X-ray | 2D moving image |
+| **CT (Computed Tomography)** | X-ray | 3D reconstruction |
+| **Ultrasound (US)** | Sound waves (high freq) | 2D (real-time) + 3D |
+| **MRI (Magnetic Resonance)** | Magnetic field + radio waves | 2D + 3D |
+| **Scintigraphy (Nuclear medicine)** | Gamma rays | Functional imaging |
+
+### Selection criteria
+| Factor | Consider |
+|---|---|
+| **Anatomy region** | Chest, abdomen, bones, etc. |
+| **Disease severity** | Emergency vs routine |
+| **Animal cooperation** | Sedation needs |
+| **Cost** | Hundreds to ten thousands |
+| **Equipment availability** | Not all clinics have CT/MRI |
+
+---
+
+## 3. Modality-Specific Terminology ⭐⭐⭐ (Memorize!)
+
+### Color/Density terminology
+| Modality | White | Black |
+|---|---|---|
+| **Radiography (X-ray)** ⭐ | Radiopaque (radiopacity) | Radiolucent (radiolucency) |
+| **Fluoroscopy** | Inverted (black = bone in some modes) | — |
+| **CT scan** | Hyperattenuating (hyperattenuation) | Hypoattenuating (hypoattenuation) |
+| **Ultrasound** | Hyperechoic (echogenic) | Hypoechoic / Anechoic |
+| **MRI T1** | Hyperintense | Hypointense |
+| **MRI T2** | Different patterns | Different patterns |
+
+### Why different terms?
+- Each technology measures DIFFERENT physical property
+- X-ray = absorption of radiation
+- CT = same as X-ray, but quantified
+- Ultrasound = reflection of sound
+- MRI = relaxation of protons in magnetic field
+
+> ⛔ **Common exam trap**: Don't say "radiopaque" for ultrasound — wrong modality!
+
+---
+
+## 4. X-Ray Basics ⭐⭐
+
+### What is X-ray?
+- Electromagnetic radiation
+- Wavelength shorter than visible light
+- Discovered by Wilhelm Röntgen 1895
+
+### How X-ray creates image
+1. X-ray tube emits photons
+2. Photons pass THROUGH animal
+3. Different tissues absorb differently:
+   - **Bone** = absorbs most → bright on film
+   - **Soft tissue** = moderate
+   - **Air** = absorbs least → dark on film
+4. Detector records what reaches it
+5. Image = inverse of absorption
+
+### Five basic radiographic densities
+| Density | Color on X-ray |
+|---|---|
+| **Air (gas)** | BLACK (radiolucent) |
+| **Fat** | Dark gray |
+| **Water (soft tissue)** | Medium gray |
+| **Bone** | LIGHT (white-ish) |
+| **Metal/Mineral** | WHITEST (radiopaque) |
+
+> ⭐ Memorize the 5 densities — basis for all X-ray reading
+
+---
+
+## 5. Fluoroscopy ⭐
+
+### What is it?
+- **Real-time X-ray imaging**
+- Like a movie of X-ray
+- Shows motion (e.g., contrast through GI tract)
+
+### Uses
+- Barium swallow (esophagus)
+- Cardiac catheterization
+- Joint motion studies
+- Angiography
+
+### Limitation
+- High radiation exposure (continuous beam!)
+- Limited use in small animal practice in Thailand
+
+---
+
+## 6. CT Scan ⭐⭐ (Modern essential!)
+
+### How it works
+- Multiple X-ray angles around patient
+- Computer reconstructs 3D
+- Better contrast resolution than plain X-ray
+
+### Uses
+- Brain (subtle lesions)
+- Lung (small nodules)
+- Bone (complex fractures)
+- Tumors (staging)
+
+### Cost
+- Premium: in major hospitals only
+- Higher dose than X-ray
+- Sedation/anesthesia required (animal must hold still)
+
+---
+
+## 7. Ultrasound ⭐⭐⭐ (Most-used in clinic!)
+
+### How it works
+- Probe emits high-frequency sound waves
+- Tissue reflects waves → echoes
+- Computer processes echoes → image
+
+### Advantages
+- **No radiation** (ionizing-free!)
+- Real-time
+- Portable (point-of-care)
+- Multiple anatomical applications
+
+### Limitations
+- Cannot pass through bone (block sound)
+- Cannot pass through gas (artifact)
+- Operator-dependent (skill matters!)
+
+### Common uses
+- Abdomen (liver, kidney, etc.)
+- Heart (echo)
+- Pregnancy detection
+- Cardiac function
+- Tendons (musculoskeletal)
+
+---
+
+## 8. MRI ⭐ (Specialty)
+
+### How it works
+- Strong magnetic field aligns protons
+- Radio frequency pulses excite protons
+- Protons relax → emit signal
+- Different relaxation rates for tissues
+
+### Best for
+- Neurologic (brain, spinal cord)
+- Soft tissue (ligaments, tendons)
+- Tumor characterization
+
+### Limitations
+- Very expensive
+- Long scan time
+- Animal must be perfectly still (anesthesia)
+- Metal contraindications (some implants)
+
+---
+
+## 9. Scintigraphy (Nuclear) ⭐ (Specialty)
+
+### How it works
+- Inject radioactive tracer
+- Tracer accumulates at problem sites
+- Detector captures gamma rays
+- Image shows FUNCTION not anatomy
+
+### Uses
+- Bone scans (occult fractures)
+- Renal function
+- Thyroid function
+- Cancer detection (PET in human)
+
+### Limitations
+- Radiation hazard for handlers
+- Tracer cost + half-life issues
+- Specialized facilities only
+
+---
+
+## 10. Selection Decision Tree ⭐ (Practical)
+
+### Question hierarchy
+1. **Is it bone or soft tissue?**
+   - Bone → X-ray first
+   - Soft tissue → US or CT
+2. **Need motion?**
+   - Yes → Fluoroscopy or US
+3. **Need 3D detail?**
+   - Yes → CT or MRI
+4. **Need soft tissue contrast?**
+   - Yes → MRI > CT > US
+5. **Need to avoid radiation?**
+   - Yes → US or MRI
+6. **Cost constraint?**
+   - Tight → X-ray or US
+7. **Animal cooperative?**
+   - No → US (often easiest awake)
+
+---
+
+## 11. Course Goals ⭐
+
+### After this course, you should
+- Identify normal vs abnormal anatomy on each modality
+- Choose appropriate modality for clinical scenario
+- Position patient correctly for X-ray
+- Use proper terminology
+- Take basic steps for each imaging type
+- Communicate findings to clinicians
+- Recognize common artifacts
+
+---
+
+## 🎯 Exam Recap — top 12 testable points
+
+1. **6 modalities**: X-ray, Fluoroscopy, CT, US, MRI, Scintigraphy
+2. **X-ray** = static 2D ionizing
+3. **CT** = X-ray-based 3D
+4. **MRI** = magnetic field non-ionizing
+5. **US** = sound waves non-ionizing
+6. **Fluoroscopy** = X-ray motion (real-time)
+7. **Scintigraphy** = gamma + functional imaging
+8. **5 X-ray densities**: Air, Fat, Water, Bone, Metal
+9. **Modality terminology** differs (radiopaque vs hyperattenuating vs hyperechoic)
+10. **Selection criteria**: anatomy + animal + cost + facility
+11. **US** = most-used in primary practice
+12. **CT/MRI** = specialty referral
+
+> 📚 อ่านควบ: 1.2 Film and Digital Radio (gmultIaMHq4) · 1.3 Safety + Special Technique (_IVm9RZlyIg) · 2 Positioning (vbtkOXh1XPc)
+> 🩻 **Practice tip**: Memorize 5 X-ray densities — they're EVERYTHING for X-ray reading
+> 💡 **Modality terminology** = memorize the chart!
+> 🦴 **Modern reality**: Most clinics have only X-ray + ultrasound`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
