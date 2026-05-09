@@ -14247,6 +14247,372 @@ Disease patterns:
 > 📚 อ่านควบ: 4.2 Endoscope + Stomach (0C218gD_tZM) · 5.1 Intestine Sx (lS4wSGDKFrY) · 6 Hepato Pancreas Sx (5rcEK-3IW0M) · 10.1 Imaging Urinary (Q0AGFF70m8M)`,
   },
 
+  '6mOoAWOWTDw': {
+    videoId: '6mOoAWOWTDw',
+    title: '12.2 : Cardiac Arrhythmia + Thromboembolism + Hypertension',
+    subject: 'com1',
+    date: '2024-11-04',
+    duration: '110 min',
+    instructor: 'DekDokVet85 — รุ่นพี่',
+    examFormat: 'MCQ — ECG ID + drug class + ATE 5P + HT target organs',
+    summary: `# 12.2 Cardiac Arrhythmia + Thromboembolism + Hypertension
+
+> 🎯 ครอบคลุม **3 หัวข้อใหญ่**: ECG arrhythmias (brady + tachy) · Anti-arrhythmic drugs (4 classes) · ATE (Arterial thromboembolism · 5P sign) · Systemic Hypertension. **ECG identification + drug selection** ออกสอบ ⭐
+
+---
+
+## 1. Sinus Rhythm — Criteria (ปกติ)
+
+### 5 criteria
+1. **P upright** (lead II)
+2. Every P followed by **QRS complex**
+3. Every QRS preceded by **P**
+4. **PR interval < 0.12 sec** (dog) · < 0.09 (cat)
+5. Regular rhythm + appropriate rate
+
+### Variations (still normal)
+- **Sinus arrhythmia** — irregular but each P→QRS still preserved · respiratory pattern (faster on inspiration, slower on expiration)
+- **Wandering pacemaker** — P morphology varies (different cells in SA node firing)
+
+---
+
+## 2. Bradyarrhythmias
+
+### Rate threshold
+| Species | Bradycardia |
+|---|---|
+| **Large dog** | < 60 bpm |
+| **Small dog** | < 80 bpm |
+| **Cat** | < 130 bpm |
+
+### A. SA Nodal Disorders (3 types)
+
+#### 1. Sinus Bradycardia
+- Normal P-QRS-T but slow rate
+- ⚠️ **Always check underlying causes first**:
+  - High vagal tone (chronic resp disease, BAS, brain mass)
+  - **Drugs** (beta-blockers, even **eye drops with anti-glaucoma**)
+  - GI upset (severe diarrhea/vomiting)
+- Treatment: **find + remove cause**
+
+#### 2. Sinus Pause / Sinus Arrest
+- **Definition**: RR interval > 2× normal
+- After pause, beat may be sinus, junctional escape, or ventricular escape
+- **Sick Sinus Syndrome** = Sinus pause + Syncope (collapse)
+- Predisposed: **Miniature Schnauzer**, American Cocker, West Highland Terrier
+- Treatment:
+  - Asymptomatic → no treatment
+  - Symptomatic → trial **Terbutaline** (β2 → β1 cross-effect) or **Theophylline** (methylxanthine)
+  - **Pacemaker** if drugs fail
+
+#### 3. Atrial Standstill
+- **No P wave** → atrial myocardium not depolarizing
+- Causes:
+  - **Hyperkalemia** ⚠️ most common (rule out FIRST)
+  - Atrial fibrosis (rare)
+- Predisposed (rare): English Springer Spaniel, Old English Sheepdog
+
+##### Hyperkalemia treatment (memorize order)
+1. **Calcium gluconate** — fastest (corrects membrane potential, doesn't change K+)
+2. **Insulin + dextrose** — shifts K+ into cells
+3. **Sodium bicarbonate** — alkalosis shifts K+
+4. **Furosemide** — excretes K+
+5. **Pacemaker** if persistent
+
+### B. AV Nodal Disorders
+
+#### 1st Degree AV Block
+- **PR interval prolonged** (dog > 0.12-0.13, cat > 0.09)
+- Every P → QRS still present, just delayed
+- Causes: high vagal tone, drugs (digoxin)
+- Treatment: usually none
+
+#### 2nd Degree AV Block
+**Mobitz Type I (low grade)** — PR interval **progressively lengthens** until **dropped beat** (no QRS) → Wenckebach
+**Mobitz Type II (high grade)** — fixed PR + sudden dropped beat
+- High grade > 1 dropped per 3 = serious
+
+#### 3rd Degree (Complete) AV Block
+- **P and QRS dissociated** (independent)
+- QRS = **escape beat** (junctional or ventricular)
+- ⛔ **Don't suppress escape beats** — they're saving the heart!
+- Treatment: **Pacemaker** if symptomatic
+
+### Bradyarrhythmia Summary
+| Disease | Treatment |
+|---|---|
+| Sinus bradycardia | None / address cause |
+| Sick sinus syndrome | Terbutaline trial → Pacemaker |
+| Atrial standstill | Treat hyperkalemia → Pacemaker |
+| 1st degree AV block | None |
+| 2nd degree (high grade) | Consider pacemaker if symptomatic |
+| 3rd degree complete | Pacemaker |
+
+---
+
+## 3. Tachyarrhythmias — Foundation
+
+### Action Potential — 2 cell types
+
+#### Pacemaker cells (SA, AV node)
+- **Resting potential**: less negative (~-55 mV)
+- **Phase 4 depolarization** (auto)
+- **Calcium-dependent** (Ca channels for Phase 0)
+- **Slow upstroke** Phase 0
+- **Automaticity** (auto-fire)
+
+#### Non-pacemaker cells (atrial, ventricular myocytes)
+- **Resting potential**: very negative (~-90 mV)
+- **No auto-firing** normally
+- **Sodium-dependent** Phase 0
+- **Fast upstroke**
+
+### Mechanisms of arrhythmia
+1. **Increased automaticity** — non-pacemaker cells acquire pacemaker properties (injury)
+2. **Re-entry** — circular conduction loop · requires **uni-directional block + slowed conduction**
+
+### Distinguishing automaticity vs re-entry
+| Pattern | Likely mechanism |
+|---|---|
+| **Premature beats interspersed in normal rhythm** | Automaticity |
+| **Abrupt onset paroxysm** + sustained or terminates abruptly | **Re-entry** |
+
+---
+
+## 4. Anti-Arrhythmic Drug Classes (Vaughan Williams)
+
+| Class | Mechanism | Use | Examples |
+|---|---|---|---|
+| **I** | **Sodium Channel blocker** | Non-pacemaker cells (VT, atrial premature) | **Lidocaine** ⭐, Procainamide, Mexiletine |
+| **II** | **Beta blocker** | Suppress automaticity | Atenolol, Esmolol |
+| **III** | **Potassium Channel blocker** (prolong refractory) | Re-entry | **Sotalol**, Amiodarone |
+| **IV** | **Calcium Channel blocker** | Pacemaker cells (junctional, AV node) | **Diltiazem**, Verapamil |
+| Other | — | — | **Digoxin** (slow AV conduction) |
+
+### Drug selection logic
+- **VT (Ventricular)** → Class I (Sodium blocker, especially lidocaine) or Class III
+- **SVT** → Class II/III/IV depending on mechanism
+- **Junctional tachycardia** → Class IV (calcium blocker)
+- **Atrial fib (rate control)** → Diltiazem + Digoxin combo
+
+### Lidocaine specifics
+- **Bolus IV** for VT acute
+- Short-acting → CRI for maintenance
+- **Dose-dependent toxicity**: hand tremor, seizures (CNS)
+- ⚠️ No oral form — convert to **Mexiletine** for chronic management
+
+---
+
+## 5. Tachyarrhythmia Identification
+
+### A. Sinus Tachycardia
+- All Sinus criteria met but **fast rate**
+- Causes: pain, fever, fear, hyperthyroidism, hypovolemic shock, **CHF (compensatory)**, hyperthermia
+- Treatment: **address underlying cause** (rarely needs anti-arrhythmic)
+
+### B. Supraventricular Tachycardia (SVT)
+- **Origin above AV node**
+- **Narrow QRS** (uses normal conduction system)
+- ⚠️ Wide QRS possible if AV/conduction system disease (then call it "wide-QRS tachycardia")
+- **P waves visible** (usually)
+
+### C. Ventricular Tachycardia (VT)
+- **Origin below AV node** (ventricular myocardium)
+- **Wide QRS**
+- **No P relationship** to QRS (or P→QRS dissociated)
+- Causes:
+  - **Cardiogenic** (cardiomyopathy, large heart)
+  - **Non-cardiogenic** (most common in dogs!): hepatic mass, splenic mass, pain, sympathetic surge, electrolyte imbalance, GDV
+- Treatment: **Lidocaine first-line** (Class I)
+
+### D. Atrial Fibrillation (AF) ⭐
+**Pathognomonic 4 features**:
+1. **Tachycardia**
+2. **Narrow QRS** (supraventricular)
+3. **No P waves** (multiple re-entry waves)
+4. **IRREGULARLY irregular RR** ← **most important key**
+
+⚠️ Auscultation = "tubatu-tutu-bu-tutu" (no pattern)
+
+### E. Atrial Flutter
+- Re-entry but **larger circuit**
+- **F waves visible** (sawtooth) — not P waves
+- RR also irregular but more regular than AF
+
+### AF/Flutter Management
+- **Rhythm control**: cardioversion (electrical) or amiodarone — usually **fails** in vet med (heart already big)
+- **Rate control** (preferred): **Diltiazem + Digoxin** combo
+- ⚠️ Avoid β-blocker in CHF (can worsen)
+
+### Premature beats (non-sustained)
+- **VPC (Ventricular Premature Complex)** = early wide QRS without P
+- **APC (Atrial Premature Complex)** = early narrow QRS, abnormal P
+- **JPC (Junctional Premature)** = early narrow QRS with inverted P
+- Treatment: only if frequent, sustained, or symptomatic
+
+---
+
+## 6. Arterial Thromboembolism (ATE) ⭐
+
+### Demographics
+- **Cats >>> dogs** (almost exclusively cats!)
+- Especially **HCM cats** (12% develop ATE)
+- **Acute onset** — owner often thinks "got run over by car"
+- Mean age: 5-8 yr (Sphynx, Ragdoll, Maine Coon)
+
+### Pathophysiology — Virchow's Triad
+1. **Blood stasis** (low cardiac output)
+2. **Endothelial injury**
+3. **Hypercoagulability**
+
+### Common location
+- **Saddle thrombus** at aortic trifurcation → both hindlimbs paralyzed
+- Other: brachial (forelimb), mesenteric (intestinal infarction), renal (AKI)
+
+### Clinical — **5 P's** ⭐
+1. **Pulse-less** (first sign!)
+2. **Pale** (then cyanotic = Purple)
+3. **Poikilothermia** (cold extremity)
+4. **Pain** (severe early — first 24-48 hr)
+5. **Paresis/Paralysis** (neurologic damage)
+
+### Distinguishing from neurological problem
+- ATE: **leg cold + necrotic** (leg dies)
+- Spinal cord disease: **leg WARM** (perfusion intact)
+
+### Diagnosis
+- **5 P's** clinical exam
+- **Doppler probe** on distal artery → no audible pulse confirmation
+- **Infrared thermometer** → temp difference
+- **Glucose gap** (ATE limb − normal limb) > 30 mg/dL = positive
+- **Lab**: hyperkalemia (later), hyperlactatemia, ↑AST (muscle damage)
+- **Echocardiography**: spontaneous contrast ("smoke") or visible thrombus in LA
+
+### Treatment
+
+**Goals**:
+1. Pain relief (acute) — **Fentanyl** CRI · usually only needed first 48 hr
+2. **Prevent further clotting** (NOT lyse the existing clot!)
+3. Treat concurrent CHF
+4. Address shock
+
+⚠️ **Don't give thrombolytic (TPA, streptokinase)** — risk of **reperfusion injury** (sudden K+ release → cardiac arrest) · 50% mortality
+
+⚠️ **Surgery feasible only within 4-6 hr golden period** — usually too late by presentation
+
+### Anti-platelet drugs
+- **Clopidogrel** ⭐ better than aspirin (less GI side effects, more effective)
+- **Aspirin** (low dose)
+
+### Anti-coagulant drugs
+- **Unfractionated heparin** (UFH) — more bleeding risk
+- **Low molecular weight heparin (LMWH)** — Anti-Factor Xa, less bleeding, more expensive
+- **Rivaroxaban** — oral Factor Xa inhibitor
+
+### Prognosis indicators (poor)
+- Hypothermia (T < 98.6°F = 37°C)
+- Bradycardia (cat in shock)
+- Absent pain + reflex (severe nerve damage)
+- Bilateral involvement
+- ⚠️ "Leg gone" if no return of pulse in **72 hours** = amputation
+
+---
+
+## 7. Systemic Hypertension
+
+### Definitions
+- **Systolic > 160 mmHg sustained** = systemic hypertension
+- 3 types:
+  1. **Situational/Environmental** (white coat effect) — exclude first!
+  2. **Secondary** — most common in vet med
+  3. **Primary/Idiopathic** — uncommon (13-20%)
+
+### Secondary causes
+| Cat | Dog |
+|---|---|
+| **CKD** ⭐ most | **CKD** ⭐ most |
+| **Hyperthyroidism** ⭐ | **Cushing's** ⭐ |
+| Acromegaly | **Diabetes mellitus** |
+| — | Pheochromocytoma |
+
+Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyroidism, liver disease
+
+### Measurement (cuff method)
+- Use **Doppler** > **oscillometric** (Doppler more accurate in cat!)
+- Cuff width = **30-40% of limb circumference**
+- Patient calm, ideally same operator each time
+- Take **5-7 readings** → discard outliers → average rest
+- Position: limb at heart level
+
+### Target Organ Damage (TOD) ⭐ — 4 organs
+1. **Kidney** — glomerular damage → albuminuria, proteinuria
+2. **Eye** — retinal detachment, blindness, retinal hemorrhage
+3. **Brain** — disorientation, seizures, coma (often missed)
+4. **Heart** — concentric LV hypertrophy
+
+### Treatment cutoffs
+| BP | Action |
+|---|---|
+| < 140 mmHg | Normal |
+| 140-160 | Pre-hypertensive · monitor q3-6 mo |
+| 160-180 with TOD | **Treat now** |
+| 160-180 no TOD | Recheck in 2 mo |
+| > 180 with TOD | **Treat now** |
+| > 180 no TOD | Recheck in 2 weeks |
+
+### Treatment — Drugs
+
+**Dog first-line**:
+- **ACE inhibitor (enalapril, benazepril)** OR
+- **ARB (telmisartan)** ⭐
+- Reduces ~10-20 mmHg
+- Need **calcium channel blocker (amlodipine)** for greater reduction (40-60 mmHg)
+
+**Cat first-line**:
+- **Amlodipine** ⭐ (works fast, peak 1 hr)
+- ACE inhibitor as second-line
+- ARB (telmisartan) per IRIS guidelines = newer first-line option
+
+### Re-check timing
+- Amlodipine: re-check in **3-4 hours** (fast onset)
+- ACE inhibitor: re-check in **7-10 days** (slow steady state)
+
+### Drug warnings
+- **ACE inhibitors / ARBs** caution with **dehydration, azotemia** (worsens GFR)
+- Goal: keep BP **< 160 systolic** AND > 120 (avoid hypotension)
+
+### Combination therapy
+- Dog: ACE inhibitor + Amlodipine OK
+- Cat: Amlodipine + ARB OK (different mechanisms)
+
+---
+
+## 🎯 Exam recap (20 ข้อ)
+
+1. **Sinus rhythm** = P upright + every P→QRS + PR < 0.12 (dog) · 0.09 (cat)
+2. **Bradycardia threshold** = 60 (large dog) · 80 (small dog) · 130 (cat)
+3. **Atrial standstill = Hyperkalemia** until proven otherwise
+4. **Hyperkalemia order** = Calcium gluconate → Insulin/dextrose → bicarbonate → furosemide
+5. **Sick sinus syndrome** = Sinus pause + Syncope · Schnauzer breed
+6. **Don't suppress escape beats** in 3rd degree AV block
+7. **Class I = Na blocker** (Lidocaine for VT)
+8. **Class II = Beta blocker** (suppress automaticity)
+9. **Class III = K blocker** (re-entry, prolong refractory)
+10. **Class IV = Ca blocker** (pacemaker cells, junctional, AV nodal)
+11. **VT first-line** = Lidocaine
+12. **Atrial fibrillation 4 features** = tachycardia + narrow QRS + no P + irregularly irregular RR
+13. **AF treatment** = Rate control (Diltiazem + Digoxin) > Rhythm control
+14. **ATE = HCM cats** mostly · saddle thrombus most common
+15. **5 P's of ATE** = Pulselessness, Pale, Poikilothermia, Pain, Paralysis
+16. ⛔ **Don't lyse ATE clot** (reperfusion injury, 50% mortality)
+17. **ATE prognosis** = 72 hr no perfusion = amputation
+18. **HT 4 target organs** = Kidney, Eye, Brain, Heart
+19. **Doppler > oscillometric** in cats for BP
+20. **Cat HT first-line** = Amlodipine · **Dog HT first-line** = ACE-I or ARB
+
+> 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY) · 12.1 Acquired Cardiac Disease (SiLZIu-aWlY) · 13.1 Surgical Heart (dn_W-7eWQl0)`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
