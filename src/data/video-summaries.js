@@ -51765,6 +51765,2146 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
 5. ⭐ International trade compliance`,
   },
 
+  // ═══════════════════════════════════════════════════════════════
+  // one-health (DekDokVet85 · Y5 sem 1) — 16 videos
+  // ═══════════════════════════════════════════════════════════════
+
+  VI5HY_RI3Rw: {
+    videoId: 'VI5HY_RI3Rw', title: 'One Health — 1 Global One Health Activity Network', subject: 'one-health',
+    date: '2025-08-06', durationMin: 40, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก global initiatives · WHO/FAO/WOAH/UNEP partnership',
+    summary: `## 🎯 Lead Summary
+**One Health = integrated approach** to human + animal + environmental health. Global initiatives by WHO + FAO + WOAH (formerly OIE) + UNEP (Quadripartite).
+
+## Quadripartite ⭐⭐⭐
+- ⭐ ⭐ WHO (Human health)
+- ⭐ ⭐ FAO (Food + agriculture)
+- ⭐ ⭐ WOAH (Animal health, formerly OIE)
+- ⭐ ⭐ UNEP (Environment)
+
+## Key Initiatives ⭐
+- ⭐ AMR (Antimicrobial Resistance) action plan
+- ⭐ Pandemic preparedness
+- ⭐ Zoonotic disease control
+- ⭐ Climate change response
+
+## Why Important ⭐⭐
+- ⭐ 75% emerging diseases zoonotic
+- ⭐ AMR threatens medicine
+- ⭐ Climate impacts disease
+- ⭐ Food security global concern
+
+## 📋 Exam Recap
+1. ⭐ Quadripartite (WHO/FAO/WOAH/UNEP)
+2. ⭐ One Health = integrated approach
+3. ⭐ 75% emerging diseases zoonotic
+4. ⭐ AMR major focus
+5. ⭐ Climate change connection`,
+  },
+  'Vg0_6T-pVBs': {
+    videoId: 'Vg0_6T-pVBs', title: 'One Health — 2 One World One Health Concept', subject: 'one-health',
+    date: '2025-08-13', durationMin: 27, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก One Health concept · history · principles',
+    summary: `## 🎯 Lead Summary
+**"One World One Health" concept** — historical development, core principles.
+
+## History ⭐
+- ⭐ Concept since Roman times (Galen)
+- ⭐ "One Medicine" Schwabe 1980s
+- ⭐ Manhattan Principles 2004
+- ⭐ Modern formalization
+
+## Core Principles ⭐⭐⭐
+- ⭐ ⭐ Integrated approach (no silos)
+- ⭐ ⭐ Multi-disciplinary
+- ⭐ Cross-sector collaboration
+- ⭐ Local-to-global scale
+- ⭐ Equity in health
+
+## Examples ⭐
+- ⭐ Rabies elimination
+- ⭐ AMR action
+- ⭐ Avian influenza response
+- ⭐ COVID-19 (zoonotic origin debated)
+
+## 📋 Exam Recap
+1. ⭐ Historic concept (Galen, 1980s formal)
+2. ⭐ Manhattan Principles 2004
+3. ⭐ Integrated multi-disciplinary
+4. ⭐ Local to global scale
+5. ⭐ Equity emphasis`,
+  },
+  XFqckaz8TTQ: {
+    videoId: 'XFqckaz8TTQ', title: 'One Health — 3 Collaboration and Partnership', subject: 'one-health',
+    date: '2025-08-20', durationMin: 34, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก stakeholders · partnerships · networks',
+    summary: `## 🎯 Lead Summary
+**Collaboration in One Health** — multi-stakeholder partnerships essential.
+
+## Stakeholders ⭐⭐
+- ⭐ Government (multiple ministries)
+- ⭐ Universities/research
+- ⭐ Private sector
+- ⭐ NGOs
+- ⭐ Communities
+- ⭐ International orgs
+
+## Thailand One Health ⭐
+- ⭐ Multiple ministries (Public Health, Agriculture, Environment)
+- ⭐ Academic networks
+- ⭐ Industry partnerships
+- ⭐ International collaborations
+
+## Successful Examples ⭐
+- ⭐ Rabies control
+- ⭐ HPAI 2547 response
+- ⭐ AMR national action plan
+- ⭐ COVID-19 response
+
+## 📋 Exam Recap
+1. ⭐ Multi-stakeholder essential
+2. ⭐ Multiple Thai ministries
+3. ⭐ Academic + industry + NGO
+4. ⭐ International collaboration
+5. ⭐ Rabies = success story`,
+  },
+  d7q5YMsOdKg: {
+    videoId: 'd7q5YMsOdKg', title: 'One Health — 4 Communication', subject: 'one-health',
+    date: '2025-08-27', durationMin: 48, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก risk communication · public engagement',
+    summary: `## 🎯 Lead Summary
+**One Health communication** — risk communication, public engagement, multi-disciplinary language.
+
+## Communication Levels ⭐
+- ⭐ Within scientific community
+- ⭐ With policymakers
+- ⭐ With public
+- ⭐ With media
+
+## Risk Communication ⭐⭐
+- ⭐ Pre-crisis preparation
+- ⭐ During crisis (timely, accurate)
+- ⭐ Post-crisis lessons
+- ⭐ Trust building
+
+## Challenges ⭐
+- ⭐ Different terminology between fields
+- ⭐ Misinformation/social media
+- ⭐ Cultural sensitivity
+- ⭐ Translation accuracy
+
+## Best Practices ⭐
+- ⭐ Clear, simple language
+- ⭐ Trusted spokespersons
+- ⭐ Multi-channel approach
+- ⭐ Evidence-based messaging
+
+## 📋 Exam Recap
+1. ⭐ Multiple audience levels
+2. ⭐ Pre/during/post crisis phases
+3. ⭐ Trust building essential
+4. ⭐ Misinformation challenge
+5. ⭐ Multi-channel approach`,
+  },
+  vHC_KauxjEI: {
+    videoId: 'vHC_KauxjEI', title: 'One Health — 5 Role of Veterinary in One Health', subject: 'one-health',
+    date: '2025-09-03', durationMin: 41, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก vet roles · zoonotic disease · public health',
+    summary: `## 🎯 Lead Summary
+**Vet roles in One Health** — central to zoonotic disease control + public health.
+
+## Vet One Health Roles ⭐⭐⭐
+- ⭐ ⭐ **Zoonotic disease surveillance**
+- ⭐ ⭐ **Animal health for human food safety**
+- ⭐ ⭐ **AMR stewardship**
+- ⭐ Wildlife disease monitoring
+- ⭐ Environmental health
+- ⭐ Pandemic preparedness
+
+## Specific Areas ⭐
+### Public Health Vets
+- ⭐ Government surveillance
+- ⭐ Outbreak response
+- ⭐ Policy development
+
+### Industry Vets
+- ⭐ Food safety
+- ⭐ AMR responsible use
+- ⭐ Production health
+
+### Wildlife Vets
+- ⭐ Conservation medicine
+- ⭐ Spillover monitoring
+
+### Companion Animal Vets ⭐
+- ⭐ Educate clients on zoonotic risk
+- ⭐ Vaccination programs
+- ⭐ Bridge to public health
+
+## Career Opportunities ⭐
+- ⭐ Government health
+- ⭐ International orgs (FAO, WOAH)
+- ⭐ Research institutions
+- ⭐ NGOs
+
+## 📋 Exam Recap
+1. ⭐ Vets central to One Health
+2. ⭐ Multiple role categories
+3. ⭐ Zoonotic surveillance key
+4. ⭐ AMR stewardship
+5. ⭐ Multiple career paths`,
+  },
+  'WwKBcUH1-fM': {
+    videoId: 'WwKBcUH1-fM', title: 'One Health — 6 Applications for Prevention and Control', subject: 'one-health',
+    date: '2025-09-10', durationMin: 38, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก One Health prevention · case studies',
+    summary: `## 🎯 Lead Summary
+**One Health applications** in disease prevention + control. Real case studies.
+
+## Application Areas ⭐⭐
+- ⭐ Zoonotic disease control
+- ⭐ AMR
+- ⭐ Food safety
+- ⭐ Environmental health
+- ⭐ Vector-borne diseases
+
+## Case Studies ⭐⭐
+### Rabies Elimination
+- ⭐ Mass dog vaccination
+- ⭐ Public education
+- ⭐ Surveillance
+- ⭐ Multi-sector collaboration
+
+### Avian Influenza
+- ⭐ Wildlife monitoring
+- ⭐ Poultry control
+- ⭐ Human surveillance
+
+### Brucellosis Control
+- ⭐ Livestock testing
+- ⭐ Worker health
+- ⭐ Pasteurization
+
+## Implementation Steps ⭐
+- ⭐ Stakeholder mapping
+- ⭐ Joint planning
+- ⭐ Coordinated execution
+- ⭐ Shared data systems
+- ⭐ Joint evaluation
+
+## 📋 Exam Recap
+1. ⭐ Multiple application areas
+2. ⭐ Rabies = success story
+3. ⭐ Joint planning essential
+4. ⭐ Shared data systems
+5. ⭐ Multi-sector implementation`,
+  },
+  XYK1JJpMAv4: {
+    videoId: 'XYK1JJpMAv4', title: 'One Health — 7 Integrating One Health into Epidemiology', subject: 'one-health',
+    date: '2025-09-17', durationMin: 37, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก One Health epidemiology · cross-species data',
+    summary: `## 🎯 Lead Summary
+**One Health epidemiology** — integrating data across human, animal, environment.
+
+## Integrated Surveillance ⭐⭐
+- ⭐ Cross-species data
+- ⭐ Joint analysis
+- ⭐ Geographic correlation
+- ⭐ Temporal correlation
+- ⭐ Risk factor identification
+
+## Data Sources ⭐
+- ⭐ Human disease surveillance
+- ⭐ Veterinary surveillance
+- ⭐ Wildlife monitoring
+- ⭐ Environmental data
+- ⭐ Genomic data
+
+## Tools ⭐
+- ⭐ Joint databases
+- ⭐ GIS mapping
+- ⭐ Statistical models
+- ⭐ Predictive analytics
+
+## Examples ⭐
+- ⭐ Influenza tracking (human + bird + swine)
+- ⭐ Rabies surveillance
+- ⭐ AMR patterns
+- ⭐ Vector-borne diseases
+
+## 📋 Exam Recap
+1. ⭐ Cross-species data integration
+2. ⭐ Joint analysis approach
+3. ⭐ GIS + temporal correlation
+4. ⭐ Multiple data sources
+5. ⭐ Predictive analytics emerging`,
+  },
+  '06oB--5vSUQ': {
+    videoId: '06oB--5vSUQ', title: 'One Health — 8 Combat Emerging and Re-emerging Diseases', subject: 'one-health',
+    date: '2025-11-19', durationMin: 43, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก emerging diseases · spillover · prevention',
+    summary: `## 🎯 Lead Summary
+**Emerging + Re-emerging diseases** combated through One Health approach.
+
+## Emerging Diseases Concepts ⭐⭐
+- ⭐ ⭐ **Spillover** events (animal → human)
+- ⭐ ⭐ **75% zoonotic** of emerging
+- ⭐ Examples: COVID-19, Ebola, Nipah, MERS
+
+## Drivers of Emergence ⭐
+- ⭐ Population growth
+- ⭐ Land use change
+- ⭐ Climate change
+- ⭐ Globalization
+- ⭐ Wildlife trade
+- ⭐ Antimicrobial resistance
+
+## Examples ⭐⭐
+| Disease | Origin |
+|---|---|
+| COVID-19 | Bats (suspected) |
+| Ebola | Bats |
+| Nipah | Bats |
+| MERS | Camels |
+| HIV | Primates |
+| Avian Influenza | Birds |
+
+## Prevention Strategies ⭐
+- ⭐ Wildlife monitoring
+- ⭐ Habitat preservation
+- ⭐ Trade controls
+- ⭐ Spillover risk reduction
+- ⭐ Pandemic preparedness
+
+## 📋 Exam Recap
+1. ⭐ 75% emerging zoonotic
+2. ⭐ Spillover from wildlife
+3. ⭐ Bats common reservoirs
+4. ⭐ Multiple drivers
+5. ⭐ Prevention > response`,
+  },
+  YfbNcej_FwE: {
+    videoId: 'YfbNcej_FwE', title: 'One Health — 9 Combat Foodborne Diseases', subject: 'one-health',
+    date: '2025-10-08', durationMin: 40, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก foodborne diseases · One Health approach',
+    summary: `## 🎯 Lead Summary
+**Foodborne diseases** combated via One Health: animal source → food production → consumer.
+
+## Major Foodborne Pathogens ⭐⭐
+- ⭐ Salmonella (eggs, poultry, meat)
+- ⭐ Campylobacter (poultry main)
+- ⭐ E. coli O157:H7 (beef, vegetables)
+- ⭐ Listeria (dairy, deli)
+- ⭐ Norovirus (oysters, food handlers)
+- ⭐ Trichinella (pork)
+- ⭐ Toxoplasma (multiple)
+
+## Farm-to-Fork Approach ⭐⭐⭐
+- ⭐ Animal health (reduce shedding)
+- ⭐ Slaughter hygiene
+- ⭐ Processing controls
+- ⭐ Cold chain
+- ⭐ Retail handling
+- ⭐ Consumer education
+
+## One Health Synergies ⭐
+- ⭐ Vet detects animal health issues
+- ⭐ Public health monitors human cases
+- ⭐ Food regulators ensure safety
+- ⭐ Environmental health monitors water/sanitation
+
+## Statistics ⭐
+- ⭐ ⭐ Millions of cases globally annually
+- ⭐ Significant economic loss
+- ⭐ Particularly affects developing countries
+
+## 📋 Exam Recap
+1. ⭐ Multiple foodborne pathogens
+2. ⭐ Salmonella + Campylobacter common
+3. ⭐ Farm-to-Fork approach
+4. ⭐ Multi-sector collaboration
+5. ⭐ Major global health burden`,
+  },
+  cbW8ULkCM0k: {
+    videoId: 'cbW8ULkCM0k', title: 'One Health — 10 Food and Feed GMOs', subject: 'one-health',
+    date: '2025-10-15', durationMin: 45, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก GMO regulations · safety assessment · One Health',
+    summary: `## 🎯 Lead Summary
+**GMO food + feed** — controversial topic. One Health perspective on safety, environment, ethics.
+
+## GMO Definitions ⭐
+- ⭐ Genetically Modified Organisms
+- ⭐ Transgenic = genes from other species
+- ⭐ Cisgenic = same species genes
+- ⭐ Gene editing (CRISPR) — may differ legally
+
+## Common GMOs ⭐
+- ⭐ ⭐ Soybean (Roundup Ready)
+- ⭐ ⭐ Corn (Bt corn)
+- ⭐ Cotton (Bt)
+- ⭐ Canola
+- ⭐ Salmon (AquAdvantage)
+
+## Safety Assessment ⭐⭐
+- ⭐ Toxicology
+- ⭐ Allergenicity
+- ⭐ Nutritional equivalence
+- ⭐ Environmental impact
+- ⭐ Animal feeding studies
+
+## Thailand Stance ⭐
+- ⭐ ⭐ Restrictive on GMO crop production
+- ⭐ Allows GMO feed import
+- ⭐ Labeling requirements
+
+## One Health Perspective ⭐
+- ⭐ Animal health (feed safety)
+- ⭐ Human health (food safety)
+- ⭐ Environment (cross-pollination, biodiversity)
+- ⭐ Economic (farmer livelihood)
+
+## 📋 Exam Recap
+1. ⭐ GMO categories (transgenic, cisgenic, edited)
+2. ⭐ Common GMOs: soy, corn, cotton
+3. ⭐ Safety assessment multi-faceted
+4. ⭐ Thailand restrictive on production
+5. ⭐ One Health considers all aspects`,
+  },
+  rnn97pswtSY: {
+    videoId: 'rnn97pswtSY', title: 'One Health — 11 AMR from One Health Perspective', subject: 'one-health',
+    date: '2025-10-22', durationMin: 55, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก AMR · animal antibiotic use · stewardship',
+    summary: `## 🎯 Lead Summary
+**Antimicrobial Resistance (AMR)** — global crisis, One Health priority.
+
+## AMR Crisis ⭐⭐⭐
+- ⭐ ⭐ ⭐ Global threat (10 million deaths/year by 2050 projected)
+- ⭐ Loss of antibiotic effectiveness
+- ⭐ Common procedures becoming risky
+- ⭐ Economic devastation
+
+## Animal Antibiotic Use ⭐⭐
+- ⭐ ⭐ ⭐ ⭐ ~70% of global antibiotic use is in animals!
+- ⭐ Growth promotion (banned/restricted now)
+- ⭐ Disease prevention
+- ⭐ Disease treatment
+
+## Resistance Mechanisms ⭐
+- ⭐ Genetic mutations
+- ⭐ Horizontal gene transfer
+- ⭐ Plasmid spread
+- ⭐ Selection pressure
+
+## One Health Action ⭐⭐⭐
+- ⭐ ⭐ Reduce animal antibiotic use
+- ⭐ ⭐ Surveillance (animal + human)
+- ⭐ ⭐ Stewardship programs
+- ⭐ Research alternatives
+- ⭐ Public education
+
+## Thailand AMR ⭐
+- ⭐ National Action Plan
+- ⭐ Banned colistin in feed (2019)
+- ⭐ Ongoing surveillance
+- ⭐ One Health committee
+
+## 📋 Exam Recap
+1. ⭐ ⭐ AMR = global crisis
+2. ⭐ ~70% antibiotic use in animals
+3. ⭐ Multiple resistance mechanisms
+4. ⭐ Stewardship critical
+5. ⭐ Thailand National Action Plan`,
+  },
+  Nm4TT8ny2RU: {
+    videoId: 'Nm4TT8ny2RU', title: 'One Health — 12 Environmental Health Risks I', subject: 'one-health',
+    date: '2025-10-29', durationMin: 59, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก environmental health · pollution · climate',
+    summary: `## 🎯 Lead Summary
+**Environmental health risks I** — pollution, climate change, ecosystem disruption.
+
+## Environmental Risks ⭐⭐
+- ⭐ Air pollution (PM 2.5)
+- ⭐ Water pollution
+- ⭐ Soil contamination
+- ⭐ Climate change
+- ⭐ Heavy metals
+- ⭐ Pesticides
+- ⭐ Endocrine disruptors
+
+## Animal Health Impacts ⭐
+- ⭐ Pesticide poisoning (wildlife)
+- ⭐ Heavy metal accumulation (fish)
+- ⭐ Plastic ingestion (marine)
+- ⭐ Habitat loss
+
+## Human Health Connections ⭐
+- ⭐ Foodborne contamination
+- ⭐ Waterborne diseases
+- ⭐ Respiratory disease (PM 2.5)
+- ⭐ Cancer (chemicals)
+
+## Climate Change ⭐⭐
+- ⭐ Vector range expansion
+- ⭐ New disease emergence
+- ⭐ Extreme weather effects
+- ⭐ Food security
+
+## 📋 Exam Recap
+1. ⭐ Multiple environmental risks
+2. ⭐ Pesticides + heavy metals concerning
+3. ⭐ Climate change major driver
+4. ⭐ Vector range expansion
+5. ⭐ Human + animal interconnected`,
+  },
+  xWwZt25M9L4: {
+    videoId: 'xWwZt25M9L4', title: 'One Health — 13 Environmental Health Risks II', subject: 'one-health',
+    date: '2025-11-05', durationMin: 39, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก environmental health continued · case studies',
+    summary: `## 🎯 Lead Summary
+**Environmental health risks II** — case studies + interventions.
+
+## Case Studies ⭐⭐
+- ⭐ Mercury in fish (Minamata legacy)
+- ⭐ DDT historic
+- ⭐ Endosulfan banned
+- ⭐ Lead poisoning (waterfowl)
+- ⭐ Plastic in marine animals
+
+## Interventions ⭐
+- ⭐ International conventions (Stockholm, Basel)
+- ⭐ Chemical regulations
+- ⭐ Pollution monitoring
+- ⭐ Citizen science
+- ⭐ Education
+
+## Climate Adaptation ⭐
+- ⭐ Heat stress in livestock
+- ⭐ Disease range shifts
+- ⭐ Water management
+- ⭐ Sustainable farming
+
+## Vet Roles ⭐
+- ⭐ Wildlife monitoring
+- ⭐ Toxicology cases
+- ⭐ Conservation medicine
+- ⭐ Public health bridge
+
+## 📋 Exam Recap
+1. ⭐ Mercury, DDT, lead historic concerns
+2. ⭐ Plastic = current crisis
+3. ⭐ International conventions
+4. ⭐ Climate adaptation needed
+5. ⭐ Vets contribute to monitoring`,
+  },
+  '6TieYPHlwhA': {
+    videoId: '6TieYPHlwhA', title: 'One Health — 14 Livestock Waste Management', subject: 'one-health',
+    date: '2025-11-12', durationMin: 54, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก waste management · environmental impact',
+    summary: `## 🎯 Lead Summary
+**Livestock waste management** — environmental + One Health impact.
+
+## Waste Types ⭐
+- ⭐ Manure (solid)
+- ⭐ Urine (liquid)
+- ⭐ Feed waste
+- ⭐ Water effluent
+- ⭐ Mortalities
+- ⭐ Bedding
+- ⭐ Antibiotics in waste
+
+## Environmental Impact ⭐⭐
+- ⭐ ⭐ **Water pollution** (runoff to streams)
+- ⭐ ⭐ Eutrophication (algae blooms)
+- ⭐ Greenhouse gases (methane!)
+- ⭐ Pathogen spread
+- ⭐ Antibiotic in environment
+- ⭐ Odor (community impact)
+
+## Management Strategies ⭐⭐
+- ⭐ ⭐ **Biogas** (methane capture, energy)
+- ⭐ Composting
+- ⭐ Aerobic + anaerobic treatment
+- ⭐ Land application (controlled)
+- ⭐ Sand filtration
+
+## Thai Context ⭐
+- ⭐ Pig farms major concern
+- ⭐ DLD regulations
+- ⭐ Environmental impact assessments
+- ⭐ Biogas adoption
+
+## 📋 Exam Recap
+1. ⭐ Multiple waste types
+2. ⭐ Water pollution major concern
+3. ⭐ Biogas = energy + waste solution
+4. ⭐ Thai pig farms regulated
+5. ⭐ One Health connection`,
+  },
+  REWwuQw0uBo: {
+    videoId: 'REWwuQw0uBo', title: 'One Health — 15.1 Food Risk Analysis', subject: 'one-health',
+    date: '2025-11-19', durationMin: 34, instructor: 'CUVET One Health team',
+    examFormat: 'Multiple choice · ออก risk analysis framework · risk assessment',
+    summary: `## 🎯 Lead Summary
+**Food risk analysis** — systematic approach to food safety. 3 components: Assessment + Management + Communication.
+
+## Risk Analysis Framework ⭐⭐⭐
+1. ⭐ ⭐ **Risk Assessment** (scientific evaluation)
+2. ⭐ ⭐ **Risk Management** (decisions, regulations)
+3. ⭐ ⭐ **Risk Communication** (stakeholder engagement)
+
+## Risk Assessment Steps ⭐⭐
+1. ⭐ Hazard identification
+2. ⭐ Hazard characterization
+3. ⭐ Exposure assessment
+4. ⭐ Risk characterization
+
+## Risk Management ⭐
+- ⭐ Set acceptable risk level
+- ⭐ Implement controls
+- ⭐ Monitor effectiveness
+- ⭐ Adapt as needed
+
+## Examples ⭐
+- ⭐ Salmonella in eggs
+- ⭐ Aflatoxin in feed
+- ⭐ AMR risk
+- ⭐ Pesticide residues
+
+## 📋 Exam Recap
+1. ⭐ ⭐ 3 components: Assess/Manage/Communicate
+2. ⭐ Hazard ID + characterization first
+3. ⭐ Exposure assessment
+4. ⭐ Risk characterization integrates
+5. ⭐ Iterative process`,
+  },
+  YWlclk9v6cE: {
+    videoId: 'YWlclk9v6cE', title: 'One Health — 15.2 Import Risk Assessment for Prawn Products (NOT IN EXAM)', subject: 'one-health',
+    date: '2025-11-19', durationMin: 47, instructor: 'CUVET One Health team',
+    examFormat: 'NOT IN EXAM (ไม่ออกสอบ) — case study application',
+    summary: `## 🎯 Lead Summary
+⚠️ **NOT EXAMINED** — Case study: Import risk assessment for prawn products. Practical application of risk analysis framework.
+
+## Case Study ⭐
+- ⭐ Importing shrimp/prawn products
+- ⭐ Disease risks (WSSV, EHP, EMS)
+- ⭐ Risk assessment process
+- ⭐ Mitigation strategies
+
+## Application of Framework ⭐
+- ⭐ Hazard identification
+- ⭐ Pathway analysis
+- ⭐ Probability calculations
+- ⭐ Risk-benefit analysis
+
+## 📋 Recap
+- ⚠️ NOT EXAMINED but practical
+- ⭐ Real-world application
+- ⭐ Prawn industry critical Thailand`,
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // equine-medicine (DekDokVet85 · Y5 sem 1) — 18 videos
+  // ═══════════════════════════════════════════════════════════════
+
+  YieQkARFQcU: {
+    videoId: 'YieQkARFQcU', title: 'Equine Medicine — 0 Introduction', subject: 'equine-medicine',
+    date: '2025-08-04', durationMin: 7, instructor: 'CUVET equine team',
+    examFormat: 'Brief intro',
+    summary: `## 🎯 Lead Summary
+Course intro for equine medicine. Thailand: small but growing horse industry (sport, racing, leisure).
+
+## Course Coverage ⭐
+- ID + general practice
+- Nutrition, dentistry
+- GI, respiratory, parasites
+- Eye, skin
+- Surgery, anesthesia
+- Lameness, foot
+
+## Career Areas ⭐
+- Racetrack practice
+- Sport horses
+- Leisure/private
+- Royal Thai Army horses
+
+> 📚 Cross-refs: All equine lectures
+> 🎯 Specialty practice in Thailand`,
+  },
+  oOxe_C3TuaU: {
+    videoId: 'oOxe_C3TuaU', title: 'Equine — 1.1 Identification + Microchip', subject: 'equine-medicine',
+    date: '2025-08-04', durationMin: 60, instructor: 'CUVET equine team',
+    examFormat: 'Multiple choice · ออก horse ID methods · microchip · passport',
+    summary: `## 🎯 Lead Summary
+**Horse identification methods** — markings, microchip, passport. Critical for ownership, sales, racing, international trade.
+
+## ID Methods ⭐⭐
+- ⭐ ⭐ Microchip (ISO 11784/11785) — gold standard
+- ⭐ Brand marks (historical)
+- ⭐ Tattoos (racing)
+- ⭐ Markings descriptions (whorls, stars, etc.)
+- ⭐ Photographs
+
+## Microchip Implantation ⭐⭐
+- ⭐ Subcutaneous, left side neck
+- ⭐ Mid-third of neck (nuchal ligament area)
+- ⭐ Sterile technique
+- ⭐ Verify with scanner before/after
+
+## Horse Passport ⭐
+- ⭐ ⭐ International document
+- ⭐ Required for movement
+- ⭐ Includes microchip + markings
+- ⭐ Vaccination history
+- ⭐ Medication records
+
+## Markings ⭐
+- ⭐ White markings on legs (sock, stocking)
+- ⭐ Face (star, blaze, snip)
+- ⭐ Whorls
+- ⭐ Color described per breed
+
+## 📋 Exam Recap
+1. ⭐ Microchip = gold standard
+2. ⭐ Implant left mid-third of neck
+3. ⭐ Passport required for travel
+4. ⭐ Markings + whorls described
+5. ⭐ Multiple methods combined`,
+  },
+  xDUSBVKAwDE: {
+    videoId: 'xDUSBVKAwDE', title: 'Equine — 1.2 General Equine Practice', subject: 'equine-medicine',
+    date: '2025-08-04', durationMin: 98, instructor: 'CUVET equine team',
+    examFormat: 'Multiple choice · ออก equine restraint · physical exam · vital signs',
+    summary: `## 🎯 Lead Summary
+**General equine practice** — restraint, physical exam, vital signs.
+
+## Restraint ⭐⭐⭐
+- ⭐ Halter + lead rope
+- ⭐ Twitch (lip)
+- ⭐ Stocks
+- ⭐ Sedation (xylazine, detomidine)
+- ⚠️ Safety paramount!
+
+## Vital Signs (Adult) ⭐⭐
+- ⭐ ⭐ Heart rate: 28-44 bpm
+- ⭐ Respiratory: 8-16/min
+- ⭐ ⭐ Temperature: 37.5-38.5°C
+- ⭐ MM color: pink moist
+- ⭐ CRT <2 sec
+
+## Physical Exam ⭐⭐
+- ⭐ Distance observation
+- ⭐ Hand-on exam systematic
+- ⭐ Heart auscultation
+- ⭐ Lung auscultation (trachea + thorax)
+- ⭐ GI sounds (4 quadrants)
+- ⭐ Limbs, hooves
+- ⭐ Eyes, mouth, nostrils
+
+## Routine Care ⭐
+- ⭐ Hoof trimming/shoeing every 4-6 weeks
+- ⭐ Dental every 6-12 months
+- ⭐ Deworming program
+- ⭐ Vaccinations
+
+## 📋 Exam Recap
+1. ⭐ Multiple restraint methods
+2. ⭐ HR 28-44 bpm
+3. ⭐ Temp 37.5-38.5°C
+4. ⭐ Systematic exam
+5. ⭐ Routine farrier + dental`,
+  },
+  SwLxaBCfqXo: {
+    videoId: 'SwLxaBCfqXo', title: 'Equine — 2 Basic Nutrition', subject: 'equine-medicine',
+    date: '2025-08-14', durationMin: 134, instructor: 'CUVET equine nutrition team',
+    examFormat: 'Multiple choice · ออก equine nutrition · forage requirements · supplementation',
+    summary: `## 🎯 Lead Summary
+**Equine nutrition** — herbivore with monogastric stomach + cecum. Forage-based diet essential.
+
+## Anatomy Considerations ⭐⭐
+- ⭐ ⭐ Hindgut fermenter (cecum)
+- ⭐ Small stomach (~10% of GI)
+- ⭐ Long small intestine
+- ⭐ ⭐ Cannot vomit!
+
+## Diet Composition ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Forage = base diet** (1-3% body weight/day)
+- ⭐ Grass, hay, alfalfa
+- ⭐ Concentrate (grain, pellets)
+- ⭐ Water (>20-50L/day)
+- ⭐ Salt + minerals
+
+## Energy Requirements ⭐
+- ⭐ Maintenance: ~16 Mcal/day (500kg horse)
+- ⭐ Light work: ~20% increase
+- ⭐ Heavy work: ~50%+ increase
+- ⭐ Pregnant/lactating: significant increase
+
+## Body Condition Score ⭐
+- ⭐ ⭐ 1-9 scale (Henneke)
+- ⭐ Ideal 5
+- ⭐ Below 4 = underweight
+- ⭐ Above 6 = overweight
+
+## Common Issues ⭐
+- ⭐ Colic (multifactorial)
+- ⭐ Laminitis (overweight, sudden grain)
+- ⭐ Equine Metabolic Syndrome (EMS)
+- ⭐ Cushing's (PPID)
+
+## 📋 Exam Recap
+1. ⭐ Hindgut fermenter
+2. ⭐ Cannot vomit
+3. ⭐ Forage = 1-3% body weight
+4. ⭐ BCS 5/9 ideal
+5. ⭐ Sudden diet change = colic risk`,
+  },
+  NP3HbcE9f8E: {
+    videoId: 'NP3HbcE9f8E', title: 'Equine — 3 Equine Dentistry', subject: 'equine-medicine',
+    date: '2025-08-21', durationMin: 188, instructor: 'CUVET equine dental team',
+    examFormat: 'Multiple choice · ออก equine dentition · dental issues · floating',
+    summary: `## 🎯 Lead Summary
+**Equine dentistry** — hypsodont teeth (continuously erupting). Regular dental care essential.
+
+## Equine Dentition ⭐⭐⭐
+- ⭐ ⭐ **Hypsodont** (continuously erupt)
+- ⭐ ⭐ Adult: 36-44 teeth
+- ⭐ Incisors (12)
+- ⭐ Canines (4 in males, 0-2 females)
+- ⭐ Wolf teeth (4, often removed)
+- ⭐ Premolars (12)
+- ⭐ Molars (12)
+
+## Common Issues ⭐⭐⭐
+- ⭐ ⭐ **Sharp enamel points** (require floating)
+- ⭐ ⭐ Hooks (1st upper PM, last lower M)
+- ⭐ Wave mouth
+- ⭐ Step mouth
+- ⭐ Diastema
+- ⭐ Caps (retained baby teeth)
+- ⭐ EOTRH (Equine Odontoclastic Tooth Resorption)
+
+## Floating ⭐⭐
+- ⭐ ⭐ Removing sharp points
+- ⭐ Power tools or hand floats
+- ⭐ Sedation usually required
+- ⭐ Speculum opens mouth
+- ⭐ Routine every 6-12 months
+
+## Aging by Teeth ⭐
+- ⭐ Galvayne's groove (15+ years)
+- ⭐ Cup wear
+- ⭐ Star markings
+- ⭐ Hook on 7s
+
+## 📋 Exam Recap
+1. ⭐ Hypsodont continuous eruption
+2. ⭐ 36-44 teeth adults
+3. ⭐ Sharp points require floating
+4. ⭐ Routine 6-12 months
+5. ⭐ Aging by teeth markers`,
+  },
+  'BDnnySs-m2I': {
+    videoId: 'BDnnySs-m2I', title: 'Equine — 4 GI System I+II', subject: 'equine-medicine',
+    date: '2025-08-28', durationMin: 164, instructor: 'CUVET equine team',
+    examFormat: 'Multiple choice · ออก equine GI · colic types · diagnosis · management',
+    summary: `## 🎯 Lead Summary
+**Equine GI = colic central**. Multiple causes. Critical clinical condition.
+
+## GI Anatomy ⭐⭐⭐
+- ⭐ Stomach (small, ~10% capacity)
+- ⭐ Small intestine (long)
+- ⭐ ⭐ Cecum (large, fermentation)
+- ⭐ ⭐ Large colon (multiple flexures!)
+- ⭐ Small colon
+- ⭐ Rectum
+
+## Colic Types ⭐⭐⭐
+### Spasmodic (Gas)
+- ⭐ Most common
+- ⭐ Painful but resolves
+- ⭐ Spasm of GI
+- ⭐ Buscopan helps
+
+### Impaction ⭐
+- ⭐ ⭐ Pelvic flexure most common
+- ⭐ Cecal impaction
+- ⭐ Colon impaction
+- ⭐ Treatment: fluids, laxatives
+
+### Strangulating ⭐⭐
+- ⭐ Twisting/torsion
+- ⭐ ⭐ Surgical emergency!
+- ⭐ Examples: epiploic foramen entrapment, large colon volvulus
+- ⭐ High mortality
+
+### Inflammatory ⭐
+- ⭐ Enteritis, colitis
+- ⭐ Anterior enteritis (proximal SI)
+- ⭐ Right dorsal colitis (NSAIDs!)
+
+## Diagnosis ⭐⭐
+- ⭐ ⭐ Pain assessment (mild/severe/violent)
+- ⭐ Vital signs (HR > 60 = serious!)
+- ⭐ Rectal exam
+- ⭐ Nasogastric tube (reflux?)
+- ⭐ Abdominal ultrasound
+- ⭐ Abdominocentesis
+
+## Treatment ⭐
+- ⭐ Pain management (Banamine)
+- ⭐ Fluid therapy
+- ⭐ NG tube decompression
+- ⭐ Laxatives
+- ⭐ ⚠️ Surgery if strangulating
+
+## Prevention ⭐
+- ⭐ Consistent diet
+- ⭐ Adequate water
+- ⭐ Regular exercise
+- ⭐ Good dental care
+- ⭐ Parasite control
+
+## 📋 Exam Recap
+1. ⭐ Cannot vomit
+2. ⭐ Pelvic flexure impaction common
+3. ⭐ Strangulating = surgery
+4. ⭐ HR > 60 = serious sign
+5. ⭐ Prevention via management`,
+  },
+  KtIZCqRAN48: {
+    videoId: 'KtIZCqRAN48', title: 'Equine — 5 Equine Parasites in Thailand', subject: 'equine-medicine',
+    date: '2025-09-11', durationMin: 77, instructor: 'CUVET equine parasitology',
+    examFormat: 'Multiple choice · ออก equine parasites · deworming · resistance',
+    summary: `## 🎯 Lead Summary
+**Equine parasites in Thailand** — major health concern. Deworming + resistance issues.
+
+## Major Parasites ⭐⭐⭐
+### Strongyles
+- ⭐ Large strongyles (Strongylus vulgaris) — DANGEROUS!
+- ⭐ Small strongyles (cyathostomins) — most common, encysted larvae
+
+### Other
+- ⭐ Roundworms (Parascaris equorum) — foals!
+- ⭐ Tapeworms (Anoplocephala perfoliata)
+- ⭐ Pinworms (Oxyuris equi)
+- ⭐ Bots (Gasterophilus)
+- ⭐ Habronema (skin/stomach)
+
+## Resistance ⭐⭐
+- ⭐ ⭐ Major problem
+- ⭐ Ivermectin still works for small strongyles
+- ⭐ Resistance to benzimidazoles widespread
+- ⭐ FECRT essential
+
+## Deworming Strategy ⭐⭐⭐
+- ⭐ ⭐ **Targeted/selective** (not blanket!)
+- ⭐ FEC threshold: >200 epg
+- ⭐ Test, then treat
+- ⭐ Rotate drug classes
+- ⭐ Pasture management
+
+## Drug Classes ⭐
+- ⭐ Macrocyclic lactones (ivermectin, moxidectin)
+- ⭐ Benzimidazoles (fenbendazole)
+- ⭐ Pyrimidines (pyrantel)
+- ⭐ Praziquantel (tapeworms)
+
+## 📋 Exam Recap
+1. ⭐ Small strongyles most common
+2. ⭐ Resistance major issue
+3. ⭐ Targeted deworming preferred
+4. ⭐ Praziquantel for tapeworms
+5. ⭐ FECRT to monitor`,
+  },
+  '6Gx958IjPLA': {
+    videoId: '6Gx958IjPLA', title: 'Equine — 6 Respiratory Diseases', subject: 'equine-medicine',
+    date: '2025-09-18', durationMin: 143, instructor: 'CUVET equine team',
+    examFormat: 'Multiple choice · ออก equine respiratory · viral · bacterial · RAO',
+    summary: `## 🎯 Lead Summary
+**Equine respiratory diseases** — viral, bacterial, allergic, neoplastic.
+
+## Major Diseases ⭐⭐⭐
+
+### Viral
+- ⭐ ⭐ **Equine Influenza** (highly contagious)
+- ⭐ ⭐ **Equine Herpesvirus (EHV-1, EHV-4)**
+- ⭐ ⭐ EHV-1 neurologic (EHM!) emerging
+- ⭐ Equine Viral Arteritis (EVA)
+
+### Bacterial
+- ⭐ ⭐ **Strangles** (Streptococcus equi)
+- ⭐ Streptococcus zooepidemicus
+- ⭐ Pneumonia (Rhodococcus equi in foals!)
+- ⭐ Pleuropneumonia (shipping fever)
+
+### Allergic
+- ⭐ ⭐ ⭐ **RAO (Recurrent Airway Obstruction)** — equine asthma!
+- ⭐ Inflammatory Airway Disease (IAD)
+- ⭐ Summer Pasture-Associated RAO
+
+### Neoplastic
+- ⭐ Squamous cell carcinoma
+- ⭐ Lymphoma (rare)
+
+## Strangles ⭐⭐⭐
+- ⭐ Streptococcus equi subsp equi
+- ⭐ Highly contagious
+- ⭐ Lymph node abscesses (face, throat)
+- ⭐ Submandibular swelling
+- ⭐ Bastard strangles (internal abscess) = severe!
+- ⭐ Penicillin treatment
+- ⭐ Quarantine essential
+
+## RAO/Equine Asthma ⭐⭐
+- ⭐ Hay/dust allergy
+- ⭐ Coughing, exercise intolerance
+- ⭐ "Heaves line" abdominal muscle
+- ⭐ Treatment: low-dust environment, bronchodilators, corticosteroids
+
+## Diagnosis ⭐
+- ⭐ Clinical signs + history
+- ⭐ Endoscopy
+- ⭐ Bronchoalveolar lavage
+- ⭐ PCR for pathogens
+- ⭐ Serology
+
+## Vaccination ⭐
+- ⭐ Equine Influenza routine
+- ⭐ EHV
+- ⭐ Strangles available
+- ⭐ Tetanus
+
+## 📋 Exam Recap
+1. ⭐ Equine Influenza routine vaccinate
+2. ⭐ EHV-1 neurologic emerging
+3. ⭐ Strangles = highly contagious
+4. ⭐ RAO = equine asthma
+5. ⭐ Rhodococcus in foals`,
+  },
+  LupUiAT2yT0: {
+    videoId: 'LupUiAT2yT0', title: 'Equine — 7.1 Ophthalmology', subject: 'equine-medicine',
+    date: '2025-10-02', durationMin: 82, instructor: 'CUVET equine ophthalmology',
+    examFormat: 'Multiple choice · ออก equine eye anatomy · common diseases · uveitis',
+    summary: `## 🎯 Lead Summary
+**Equine ophthalmology** — large eyes, prone to injury + uveitis.
+
+## Anatomy Notes ⭐⭐
+- ⭐ Large globe
+- ⭐ Lateral position (panoramic vision)
+- ⭐ Tapetum (night vision)
+- ⭐ Persistent hyaloid
+
+## Common Conditions ⭐⭐⭐
+### Uveitis ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Equine Recurrent Uveitis (ERU)** = most common cause of blindness!
+- ⭐ Leptospira link
+- ⭐ Painful, photophobic
+- ⭐ Aqueous flare
+- ⭐ Treatment: atropine, NSAIDs, steroids
+
+### Corneal Ulcer ⭐
+- ⭐ Trauma common
+- ⭐ Fluorescein staining
+- ⭐ Antibiotics topical
+- ⭐ Atropine for comfort
+
+### Squamous Cell Carcinoma ⭐
+- ⭐ Limbus, third eyelid
+- ⭐ UV exposure
+- ⭐ Surgery + radiation
+
+### Cataracts
+- ⭐ Congenital or acquired
+- ⭐ Surgical removal possible
+
+## Examination ⭐
+- ⭐ Schirmer tear test
+- ⭐ Fluorescein
+- ⭐ Pupil function
+- ⭐ Ophthalmoscopy
+
+## 📋 Exam Recap
+1. ⭐ ERU = equine recurrent uveitis (#1 blindness)
+2. ⭐ Leptospira link
+3. ⭐ Atropine for pain
+4. ⭐ Squamous cell carcinoma at limbus
+5. ⭐ Fluorescein for ulcers`,
+  },
+  'Ck1NSnXl_-M': {
+    videoId: 'Ck1NSnXl_-M', title: 'Equine — 7.2 Dermatology', subject: 'equine-medicine',
+    date: '2025-10-02', durationMin: 85, instructor: 'CUVET equine dermatology',
+    examFormat: 'Multiple choice · ออก equine skin diseases · pruritus · sweet itch',
+    summary: `## 🎯 Lead Summary
+**Equine dermatology** — multiple skin conditions, often pruritic.
+
+## Common Conditions ⭐⭐⭐
+
+### Sweet Itch (IBH) ⭐⭐
+- ⭐ ⭐ Insect Bite Hypersensitivity
+- ⭐ ⭐ Culicoides (biting midges)
+- ⭐ Mane, tail, midline
+- ⭐ Self-trauma
+- ⭐ Treatment: insect control, steroids
+
+### Dermatophytosis (Ringworm) ⭐
+- ⭐ Trichophyton, Microsporum
+- ⭐ Circular alopecia
+- ⭐ Zoonotic!
+- ⭐ Treatment: topical antifungals
+
+### Sarcoids ⭐⭐
+- ⭐ ⭐ ⭐ **Most common skin tumor!**
+- ⭐ Bovine papillomavirus link
+- ⭐ Various forms (occult to fibroblastic)
+- ⭐ Recurrence common
+- ⭐ Multiple treatments (cryo, BCG, excision)
+
+### Habronema (Summer Sores) ⭐
+- ⭐ Larvae in wounds
+- ⭐ Granulomatous response
+- ⭐ Ivermectin systemic + topical
+
+### Other
+- ⭐ Pemphigus foliaceus
+- ⭐ Photosensitization
+- ⭐ Equine sarcoidosis
+
+## Diagnosis ⭐
+- ⭐ Skin scraping
+- ⭐ Cytology
+- ⭐ Biopsy
+- ⭐ Culture
+- ⭐ Allergy testing
+
+## 📋 Exam Recap
+1. ⭐ Sweet itch = Culicoides allergy
+2. ⭐ Sarcoid = most common skin tumor
+3. ⭐ Habronema = summer sores
+4. ⭐ Ringworm zoonotic
+5. ⭐ Multiple treatment modalities`,
+  },
+  'fNJZmO4-8Rw': {
+    videoId: 'fNJZmO4-8Rw', title: 'Equine — 8 Infectious Disease and Vaccination', subject: 'equine-medicine',
+    date: '2025-10-09', durationMin: 99, instructor: 'CUVET equine team (รุ่นพี่)',
+    examFormat: 'Multiple choice · ออก equine infectious diseases · vaccination programs',
+    summary: `## 🎯 Lead Summary
+**Equine infectious diseases + vaccination** — comprehensive overview.
+
+## Core Vaccines (Thailand) ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Tetanus** (essential!)
+- ⭐ ⭐ Equine Influenza
+- ⭐ ⭐ EHV-1 + 4
+- ⭐ Rabies
+- ⭐ Strangles (where appropriate)
+
+## Disease Overview ⭐⭐
+### Tetanus
+- ⭐ Clostridium tetani
+- ⭐ Wound contamination
+- ⭐ ⭐ ⭐ ALWAYS vaccinate horses!
+- ⭐ Annual booster
+
+### Equine Influenza
+- ⭐ Highly contagious
+- ⭐ Annual vaccination
+- ⭐ Multiple strains in vaccine
+
+### Equine Herpesvirus
+- ⭐ EHV-1: respiratory, abortion, neurologic
+- ⭐ EHV-4: respiratory only
+- ⭐ Vaccinate twice yearly
+
+### Equine Infectious Anemia (EIA) ⭐⭐
+- ⭐ ⭐ Coggins test required
+- ⭐ Lifelong carrier if positive
+- ⭐ NO treatment, NO vaccine
+- ⭐ Reportable disease
+
+### Other ⭐
+- ⭐ Equine Viral Arteritis
+- ⭐ West Nile Virus (regional)
+- ⭐ Eastern/Western Equine Encephalitis
+- ⭐ Anaplasmosis
+- ⭐ Babesiosis (piroplasmosis)
+
+## Vaccination Schedule ⭐
+- ⭐ Foal: start 4-6 months
+- ⭐ Booster regimens
+- ⭐ Annual maintenance
+- ⭐ Pre-event additional
+
+## 📋 Exam Recap
+1. ⭐ Tetanus = essential vaccination
+2. ⭐ EHV-1 vs EHV-4 (EHV-1 more dangerous)
+3. ⭐ EIA = Coggins test, no treatment
+4. ⭐ Annual influenza vaccination
+5. ⭐ Schedule based on age + risk`,
+  },
+  '7fykOOyMKJQ': {
+    videoId: '7fykOOyMKJQ', title: 'Equine — 9 Concept of Equine Surgery + Wound Management', subject: 'equine-medicine',
+    date: '2025-10-16', durationMin: 158, instructor: 'CUVET equine surgery',
+    examFormat: 'Multiple choice · ออก surgical principles · wound management · proud flesh',
+    summary: `## 🎯 Lead Summary
+**Equine surgery + wound management** — unique anatomy, healing patterns.
+
+## Surgical Considerations ⭐⭐
+- ⭐ Large size = anesthesia challenges
+- ⭐ Long bones healing
+- ⭐ Skin healing varies (slower legs)
+- ⭐ Prone to proud flesh
+
+## Wound Management ⭐⭐⭐
+### Initial Assessment
+- ⭐ Hemostasis
+- ⭐ Wound classification
+- ⭐ Tetanus status
+- ⭐ Antibiotic indication
+
+### Cleaning ⭐
+- ⭐ Saline irrigation
+- ⭐ Debridement
+- ⭐ Foreign body removal
+- ⭐ Avoid harsh disinfectants
+
+### Closure Decisions ⭐
+- ⭐ Primary closure (clean wounds <6h)
+- ⭐ Delayed primary
+- ⭐ Secondary intention (lower legs!)
+- ⭐ Skin grafts
+
+### Proud Flesh ⭐⭐
+- ⭐ ⭐ Excessive granulation tissue
+- ⭐ ⭐ Common on lower legs
+- ⭐ Multiple treatments (caustic, surgical, bandage)
+- ⭐ ⚠️ Prevention better than cure
+
+## Common Surgeries ⭐
+- ⭐ Castration (most common)
+- ⭐ Colic surgery
+- ⭐ Wound repair
+- ⭐ Sarcoid removal
+- ⭐ Joint surgery
+
+## Anesthesia Considerations ⭐
+- ⭐ Standing sedation when possible
+- ⭐ General: induction → maintenance → recovery (challenging!)
+- ⭐ Recovery facilities essential
+- ⭐ See lecture 10 for details
+
+## 📋 Exam Recap
+1. ⭐ Lower leg wounds heal slowly
+2. ⭐ Proud flesh = common complication
+3. ⭐ Tetanus status before surgery
+4. ⭐ Standing sedation when possible
+5. ⭐ Castration most common surgery`,
+  },
+  '1YFpKE2ZmBE': {
+    videoId: '1YFpKE2ZmBE', title: 'Equine — 10 Anesthesia', subject: 'equine-medicine',
+    date: '2025-10-30', durationMin: 167, instructor: 'CUVET equine anesthesia',
+    examFormat: 'Multiple choice · ออก equine anesthesia · standing vs general · drugs',
+    summary: `## 🎯 Lead Summary
+**Equine anesthesia** — challenging due to size + flight response. Recovery dangerous.
+
+## Sedation Options ⭐⭐
+- ⭐ ⭐ **Xylazine** (alpha-2 agonist) - common
+- ⭐ ⭐ **Detomidine** (longer)
+- ⭐ Romifidine
+- ⭐ + opioids (butorphanol, morphine)
+
+## Standing Sedation ⭐⭐⭐
+- ⭐ ⭐ Preferred when possible
+- ⭐ Many procedures done standing
+- ⭐ Combine with local block
+- ⭐ Lower risk than general
+
+## General Anesthesia ⭐⭐⭐
+### Phases
+1. ⭐ Pre-medication (sedation)
+2. ⭐ Induction
+3. ⭐ Maintenance
+4. ⭐ Recovery (riskiest!)
+
+### Induction Drugs ⭐
+- ⭐ Ketamine + diazepam combo
+- ⭐ Triple drip (xylazine + ketamine + guaifenesin)
+- ⭐ Propofol (less common)
+
+### Maintenance ⭐
+- ⭐ Inhalation: isoflurane, sevoflurane
+- ⭐ TIVA (Total IV Anesthesia)
+
+### Recovery ⭐⭐⭐
+- ⭐ ⭐ ⭐ Most dangerous phase!
+- ⭐ Padded recovery box
+- ⭐ Sedation tapering
+- ⭐ Risk of fractures, myopathy
+
+## Complications ⭐
+- ⭐ Hypotension
+- ⭐ Hypoxemia
+- ⭐ Myopathy (post-anesthetic muscle damage)
+- ⭐ Fractures during recovery
+- ⭐ Death rate ~1%
+
+## Field Anesthesia ⭐
+- ⭐ Short procedures
+- ⭐ Sedation + ketamine
+- ⭐ Local blocks
+- ⭐ Castration commonly done in field
+
+## 📋 Exam Recap
+1. ⭐ Xylazine = standard sedation
+2. ⭐ Standing preferred over general
+3. ⭐ Recovery = riskiest phase
+4. ⭐ Ketamine + diazepam induction
+5. ⭐ Death rate ~1%`,
+  },
+  '9XMg0lXQ8e8': {
+    videoId: '9XMg0lXQ8e8', title: 'Equine — 11 Surgery and Pre/Post Surgery Management', subject: 'equine-medicine',
+    date: '2025-11-06', durationMin: 132, instructor: 'CUVET equine surgery',
+    examFormat: 'Multiple choice · ออก specific surgeries · postoperative care',
+    summary: `## 🎯 Lead Summary
+**Specific equine surgeries + perioperative management**.
+
+## Common Surgeries ⭐⭐
+### Castration ⭐⭐⭐
+- ⭐ Most common equine surgery
+- ⭐ Open or closed technique
+- ⭐ Standing or recumbent
+- ⭐ Complications: hemorrhage, evisceration, infection
+
+### Colic Surgery ⭐
+- ⭐ Ventral midline approach
+- ⭐ Identify lesion
+- ⭐ Resection if needed
+- ⭐ Anastomosis
+- ⭐ Survival depends on cause
+
+### Joint Surgery ⭐
+- ⭐ Arthroscopy common
+- ⭐ Chip removal
+- ⭐ OCD (osteochondrosis) treatment
+
+### Tumor Removal ⭐
+- ⭐ Sarcoid excision
+- ⭐ Eye tumors
+
+## Pre-Surgical Care ⭐
+- ⭐ Fasting (varies)
+- ⭐ Lab work
+- ⭐ Tetanus current
+- ⭐ Antibiotic prophylaxis
+- ⭐ Owner consent
+
+## Post-Surgical Care ⭐⭐
+- ⭐ Recovery monitoring
+- ⭐ Pain management (NSAIDs, opioids)
+- ⭐ Wound care
+- ⭐ Antibiotic continuation if indicated
+- ⭐ Activity restriction
+- ⭐ Follow-up exams
+
+## 📋 Exam Recap
+1. ⭐ Castration most common surgery
+2. ⭐ Colic surgery = ventral midline
+3. ⭐ Arthroscopy for joints
+4. ⭐ Tetanus current required
+5. ⭐ Pain management essential`,
+  },
+  TUpLUL2sTLM: {
+    videoId: 'TUpLUL2sTLM', title: 'Equine — 12.1 Lameness Introduction', subject: 'equine-medicine',
+    date: '2025-11-13', durationMin: 144, instructor: 'CUVET equine lameness',
+    examFormat: 'Multiple choice · ออก lameness exam · grading · localization',
+    summary: `## 🎯 Lead Summary
+**Equine lameness introduction** — common, complex, often performance-limiting.
+
+## Lameness Defined ⭐
+- ⭐ Abnormal gait/stance from pain or mechanical
+- ⭐ Major performance issue
+- ⭐ Common reason for vet visits
+
+## Examination ⭐⭐⭐
+### Static Exam
+- ⭐ Conformation
+- ⭐ Stance
+- ⭐ Limb examination
+- ⭐ Hoof testers
+
+### Dynamic Exam ⭐⭐
+- ⭐ Walk
+- ⭐ Trot (most useful)
+- ⭐ Canter
+- ⭐ Circles
+- ⭐ Different surfaces
+
+## Lameness Grading ⭐⭐⭐
+| Grade | Description |
+|---|---|
+| 0 | Normal |
+| 1 | Inconsistent, subtle |
+| 2 | Consistent at trot, not walk |
+| 3 | Consistent at walk and trot |
+| 4 | Severe, weight-bearing reduced |
+| 5 | Non-weight-bearing |
+
+## Forelimb vs Hindlimb ⭐⭐
+- ⭐ ⭐ **"Head bob"** = forelimb (head goes UP when SOUND limb lands)
+- ⭐ ⭐ **"Hip hike"** = hindlimb (hip rises when LAME limb lands)
+
+## Localization ⭐⭐⭐
+- ⭐ Hoof testers (sole pain)
+- ⭐ Flexion tests
+- ⭐ ⭐ ⭐ **Diagnostic analgesia** (nerve blocks!) — see 12.2
+- ⭐ Imaging (radiograph, ultrasound, MRI)
+
+## 📋 Exam Recap
+1. ⭐ Lameness grading 0-5 scale
+2. ⭐ Trot most diagnostic
+3. ⭐ Head bob = forelimb
+4. ⭐ Hip hike = hindlimb
+5. ⭐ Diagnostic analgesia for localization`,
+  },
+  'qg-7Zw6V_KA': {
+    videoId: 'qg-7Zw6V_KA', title: 'Equine — 12.2 Diagnostic Analgesia', subject: 'equine-medicine',
+    date: '2025-11-13', durationMin: 30, instructor: 'CUVET equine lameness',
+    examFormat: 'Multiple choice · ออก nerve blocks · joint blocks · diagnostic technique',
+    summary: `## 🎯 Lead Summary
+**Diagnostic analgesia (nerve + joint blocks)** = key tool for localizing lameness.
+
+## Principle ⭐⭐
+- ⭐ Block specific area
+- ⭐ Re-evaluate lameness
+- ⭐ If improves → pain source localized
+- ⭐ Distal to proximal approach
+
+## Common Nerve Blocks ⭐⭐⭐
+### Forelimb
+- ⭐ ⭐ **Palmar Digital (PD) block** — hoof
+- ⭐ ⭐ **Abaxial Sesamoid (ASN) block** — pastern, fetlock
+- ⭐ ⭐ **Low Palmar (4-point) block** — fetlock area
+- ⭐ ⭐ **High Palmar block** — knee/cannon area
+- ⭐ Median + Ulnar blocks (forearm)
+
+### Hindlimb
+- ⭐ Similar progression
+- ⭐ Plantar nerve blocks
+- ⭐ Tibial + Peroneal
+
+## Joint Blocks ⭐⭐
+- ⭐ Coffin joint (DIP)
+- ⭐ Pastern joint (PIP)
+- ⭐ Fetlock joint (MCP)
+- ⭐ Carpus
+- ⭐ Hock (tarsus)
+- ⭐ Stifle
+
+## Technique ⭐
+- ⭐ Aseptic technique
+- ⭐ Lidocaine 2% commonly used
+- ⭐ Wait 5-15 min for effect
+- ⭐ Safety paramount
+
+## 📋 Exam Recap
+1. ⭐ PD block = hoof
+2. ⭐ ASN = pastern/fetlock area
+3. ⭐ Distal to proximal approach
+4. ⭐ Lidocaine 2% standard
+5. ⭐ Joint blocks for specific articulation`,
+  },
+  fhUt28T2WnU: {
+    videoId: 'fhUt28T2WnU', title: 'Equine — 13.1 Pathological Conditions of Foot', subject: 'equine-medicine',
+    date: '2025-11-20', durationMin: 69, instructor: 'CUVET equine podiatry',
+    examFormat: 'Multiple choice · ออก hoof anatomy · navicular · laminitis · sole bruising',
+    summary: `## 🎯 Lead Summary
+**Equine foot pathology** — "no foot, no horse". Major source of lameness.
+
+## Hoof Anatomy ⭐⭐
+- ⭐ Hoof wall, sole, frog
+- ⭐ White line (sole-wall junction)
+- ⭐ Coronary band
+- ⭐ P3 (coffin bone)
+- ⭐ Navicular bone
+- ⭐ Deep digital flexor tendon
+- ⭐ Lamina (sensitive + insensitive)
+
+## Major Conditions ⭐⭐⭐
+### Laminitis ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Inflammation of laminae**
+- ⭐ ⭐ Multiple causes (carbohydrate, sepsis, EMS)
+- ⭐ ⭐ Coffin bone rotation/sinking (severe!)
+- ⭐ ⭐ Treatment: cause-specific + supportive
+- ⭐ Prognosis variable
+
+### Navicular Syndrome ⭐⭐
+- ⭐ Heel pain
+- ⭐ Forelimbs predominantly
+- ⭐ Multiple causes (vascular, mechanical)
+- ⭐ Diagnosis: PD block + radiograph
+- ⭐ Treatment: shoeing, NSAIDs, joint injection
+
+### Sole Bruising/Abscess ⭐
+- ⭐ Common cause of lameness
+- ⭐ Hoof testers locate
+- ⭐ Drainage = relief
+- ⭐ Soaking in epsom salts
+
+### White Line Disease ⭐
+- ⭐ Bacterial/fungal of white line
+- ⭐ Resect affected wall
+- ⭐ Topical treatment
+
+### Other
+- ⭐ Quarter cracks
+- ⭐ Thrush (frog infection)
+- ⭐ Canker (chronic)
+
+## 📋 Exam Recap
+1. ⭐ Laminitis = inflamed laminae, possible rotation
+2. ⭐ Navicular = heel pain forelimb
+3. ⭐ Sole abscess = drainage
+4. ⭐ Hoof tester for localization
+5. ⭐ "No foot, no horse"`,
+  },
+  '7kKzWMmbU3w': {
+    videoId: '7kKzWMmbU3w', title: 'Equine — 13.2 Tendon/Ligament Injuries', subject: 'equine-medicine',
+    date: '2025-11-20', durationMin: 64, instructor: 'CUVET equine team',
+    examFormat: 'Multiple choice · ออก SDFT · DDFT · suspensory · treatment · prognosis',
+    summary: `## 🎯 Lead Summary
+**Equine tendon + ligament injuries** — major performance issues, slow healing.
+
+## Anatomy ⭐⭐
+- ⭐ ⭐ **Superficial Digital Flexor Tendon (SDFT)**
+- ⭐ ⭐ **Deep Digital Flexor Tendon (DDFT)**
+- ⭐ ⭐ **Suspensory Ligament**
+- ⭐ Inferior check ligament
+- ⭐ Distal sesamoidean ligaments
+
+## Common Injuries ⭐⭐⭐
+### SDFT Injury (Bowed Tendon) ⭐⭐
+- ⭐ ⭐ Most common
+- ⭐ Front legs predominantly
+- ⭐ Race horses
+- ⭐ "Bowed" appearance
+- ⭐ Painful, hot, swollen
+
+### DDFT Injury ⭐
+- ⭐ Less common
+- ⭐ Often affects deep heel/sole
+
+### Suspensory Desmitis ⭐⭐
+- ⭐ Common
+- ⭐ Hindlimb often
+- ⭐ Proximal vs body vs branch
+
+## Diagnosis ⭐⭐
+- ⭐ ⭐ Ultrasound (gold standard!)
+- ⭐ Clinical exam
+- ⭐ MRI (advanced cases)
+- ⭐ Diagnostic analgesia
+
+## Treatment ⭐⭐
+- ⭐ ⭐ **Cold therapy + bandaging** (acute)
+- ⭐ NSAIDs
+- ⭐ Rest (controlled exercise!)
+- ⭐ ⭐ Stem cell therapy (modern)
+- ⭐ ⭐ PRP (Platelet-Rich Plasma)
+- ⭐ Shockwave therapy
+- ⭐ Surgical: tendon splitting
+
+## Prognosis ⭐
+- ⭐ ⭐ Slow healing (months-year+)
+- ⭐ Re-injury common
+- ⭐ Career-ending often
+
+## 📋 Exam Recap
+1. ⭐ SDFT most commonly injured
+2. ⭐ Ultrasound = gold standard diagnosis
+3. ⭐ Bowed tendon = SDFT
+4. ⭐ Stem cells + PRP modern therapy
+5. ⭐ Slow healing, re-injury common`,
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // equine-repro (DekDokVet85 · Y5 sem 1) — 12 videos
+  // ═══════════════════════════════════════════════════════════════
+
+  xO4ynKSf57I: {
+    videoId: 'xO4ynKSf57I', title: 'Equine Repro — 0 Introduction', subject: 'equine-repro',
+    date: '2025-08-14', durationMin: 4, instructor: 'CUVET equine repro team',
+    examFormat: 'Brief intro',
+    summary: `## 🎯 Lead Summary
+Course intro for equine reproduction. Important for breeding industry, racing, sport horses.
+
+## Coverage ⭐
+- Mare reproduction
+- Stallion reproduction
+- AI/embryo transfer
+- Pregnancy + foaling
+- Reproductive disorders
+
+> 📚 Cross-refs: Equine medicine course
+> 🎯 Specialized practice area`,
+  },
+  Nes36k3vb_0: {
+    videoId: 'Nes36k3vb_0', title: 'Equine Repro — 1.1 Female Reproductive Anatomy + Estrous Cycle', subject: 'equine-repro',
+    date: '2025-08-14', durationMin: 82, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก mare anatomy · estrous cycle · seasonality',
+    summary: `## 🎯 Lead Summary
+**Mare anatomy + estrous cycle**. ⭐ ⭐ Mare = SEASONAL polyestrous (long-day breeder).
+
+## Anatomy ⭐⭐
+- ⭐ Vulva, vestibule, vagina
+- ⭐ ⭐ Cervix (3 structures: longitudinal folds)
+- ⭐ Uterus (T-shaped, bicornuate)
+- ⭐ Oviducts (Fallopian tubes)
+- ⭐ Ovaries (large, ovulation fossa unique!)
+
+## Estrous Cycle ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Seasonal polyestrous** (long-day breeder)
+- ⭐ Cycle length: ~21 days
+- ⭐ Estrus duration: ~5-7 days
+- ⭐ Diestrus: ~14-15 days
+- ⭐ Ovulation: ~24-48h before end of estrus
+- ⭐ ⭐ Anestrus: winter (Thailand less seasonal)
+
+## Cycle Phases ⭐⭐
+| Phase | Days | Hormones |
+|---|---|---|
+| ⭐ Estrus | 5-7 | Estrogen ↑, FSH/LH peak |
+| ⭐ Diestrus | 14-15 | Progesterone ↑ |
+| ⭐ Anestrus | seasonal | Low all |
+
+## Behavior in Estrus ⭐
+- ⭐ Receptive to stallion
+- ⭐ Tail raising
+- ⭐ Frequent urination
+- ⭐ "Winking" of vulva
+
+## Endocrinology ⭐
+- ⭐ FSH → follicle development
+- ⭐ Estrogen → behavioral signs
+- ⭐ LH surge → ovulation
+- ⭐ Progesterone → diestrus
+- ⭐ PGF2α → luteolysis
+
+## 📋 Exam Recap
+1. ⭐ Seasonal polyestrous (long-day)
+2. ⭐ ~21 day cycle
+3. ⭐ 5-7 day estrus
+4. ⭐ Ovulation 24-48h before estrus end
+5. ⭐ Long winter anestrus (less in Thailand)`,
+  },
+  Cxuu_6N6hM4: {
+    videoId: 'Cxuu_6N6hM4', title: 'Equine Repro — 1.2 Examination of Reproductive Organs in Mare', subject: 'equine-repro',
+    date: '2025-08-14', durationMin: 51, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก mare repro exam · ultrasound · palpation',
+    summary: `## 🎯 Lead Summary
+**Mare reproductive exam** — visual, palpation, ultrasound, biopsy.
+
+## Visual Exam ⭐
+- ⭐ Vulvar conformation
+- ⭐ Discharge
+- ⭐ Mammary gland
+- ⭐ Body condition
+
+## Rectal Palpation ⭐⭐
+- ⭐ ⭐ Foundation skill
+- ⭐ Cervix tone (open in estrus, closed diestrus)
+- ⭐ Uterine tone
+- ⭐ Ovary palpation (follicles, CL)
+
+## Vaginal Speculum ⭐
+- ⭐ Cervix appearance
+- ⭐ Mucosal color/discharge
+- ⭐ Sterile technique
+
+## Ultrasound (Transrectal) ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Gold standard for mare repro**
+- ⭐ Follicle measurement
+- ⭐ Pregnancy diagnosis (12+ days)
+- ⭐ Twin detection
+- ⭐ Cyst identification
+- ⭐ Endometrial assessment
+
+## Endometrial Biopsy ⭐
+- ⭐ Categorizes endometrial health
+- ⭐ Kenney's grading (I-III)
+- ⭐ Predicts fertility
+
+## Cytology ⭐
+- ⭐ Detect inflammation
+- ⭐ Bacterial culture
+
+## 📋 Exam Recap
+1. ⭐ Ultrasound = gold standard
+2. ⭐ Pregnancy detection from 12+ days
+3. ⭐ Endometrial biopsy grading
+4. ⭐ Multi-modal exam approach
+5. ⭐ Rectal palpation foundation skill`,
+  },
+  'osl3u85-EQE': {
+    videoId: 'osl3u85-EQE', title: 'Equine Repro — 2.1 Reproductive Biotechnology', subject: 'equine-repro',
+    date: '2025-09-11', durationMin: 38, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก ET · OPU · ICSI · cloning',
+    summary: `## 🎯 Lead Summary
+**Equine reproductive biotechnology** — ET (embryo transfer), OPU, ICSI, cloning.
+
+## Embryo Transfer (ET) ⭐⭐⭐
+- ⭐ ⭐ Most common ART
+- ⭐ Donor + recipient mares
+- ⭐ Day 6-8 collection
+- ⭐ Non-surgical transfer
+- ⭐ Multiple foals per donor per year
+
+## Oocyte Pickup (OPU) ⭐⭐
+- ⭐ Transvaginal aspiration
+- ⭐ Sedated, standing
+- ⭐ Collect immature oocytes
+- ⭐ Use with ICSI
+
+## ICSI (Intracytoplasmic Sperm Injection) ⭐
+- ⭐ Single sperm injection
+- ⭐ Use with limited semen
+- ⭐ Success rates moderate
+- ⭐ Lab-intensive
+
+## Cloning ⭐
+- ⭐ ⭐ Somatic cell nuclear transfer
+- ⭐ Available commercially
+- ⭐ FEI/Jockey Club rules vary
+- ⭐ Significant costs
+
+## Frozen Semen ⭐
+- ⭐ Available for many stallions
+- ⭐ Lower fertility than chilled
+- ⭐ Critical timing of insemination
+
+## 📋 Exam Recap
+1. ⭐ ET = most common ART
+2. ⭐ Day 6-8 embryo collection
+3. ⭐ OPU + ICSI for poor mares
+4. ⭐ Cloning available
+5. ⭐ Frozen semen lower fertility`,
+  },
+  '004_oE5UliE': {
+    videoId: '004_oE5UliE', title: 'Equine Repro — 2.2 Infertility/Subfertility in Mare', subject: 'equine-repro',
+    date: '2025-09-11', durationMin: 56, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก mare infertility · differential · workup',
+    summary: `## 🎯 Lead Summary
+**Mare infertility/subfertility** — multiple causes, requires systematic workup.
+
+## Causes ⭐⭐⭐
+### Anatomic
+- ⭐ Poor vulvar conformation
+- ⭐ Cervical incompetence
+- ⭐ Uterine adhesions
+
+### Endometrial ⭐
+- ⭐ ⭐ Endometritis (#1!)
+- ⭐ Endometriosis
+- ⭐ Cysts
+- ⭐ Lymphangitis
+
+### Hormonal
+- ⭐ Anestrus (seasonal vs pathologic)
+- ⭐ Persistent CL
+- ⭐ Progesterone disorders
+
+### Uterine
+- ⭐ Persistent fluid (PMIE)
+- ⭐ Bacterial infection
+- ⭐ Fungal infection
+- ⭐ STDs (CEM, EVA)
+
+### Ovarian
+- ⭐ Granulosa cell tumor
+- ⭐ Anovulation
+
+### Age-related
+- ⭐ Older mare reduced fertility
+
+## Workup ⭐⭐
+1. ⭐ History (foaling history)
+2. ⭐ Physical + reproductive exam
+3. ⭐ Ultrasound
+4. ⭐ Cytology + culture
+5. ⭐ Biopsy if needed
+6. ⭐ Hormonal evaluation
+
+## Treatment ⭐
+- ⭐ Cause-specific
+- ⭐ Lavage for fluid retention
+- ⭐ Antibiotics for infection
+- ⭐ Surgery for anatomic
+- ⭐ Hormonal management
+
+## 📋 Exam Recap
+1. ⭐ Endometritis = #1 cause
+2. ⭐ Multiple categories
+3. ⭐ Systematic workup
+4. ⭐ Persistent fluid common
+5. ⭐ Age affects fertility`,
+  },
+  '2wbuy6_58AU': {
+    videoId: '2wbuy6_58AU', title: 'Equine Repro — 2.3 Recap + Quiz', subject: 'equine-repro',
+    date: '2025-09-11', durationMin: 29, instructor: 'CUVET equine repro team',
+    examFormat: 'Recap session · self-assessment',
+    summary: `## 🎯 Lead Summary
+**Recap + Quiz session** — review of mare anatomy, estrous cycle, examination, biotechnology, infertility.
+
+## Key Topics Reviewed ⭐
+- Mare anatomy
+- Seasonal polyestrous cycle
+- Reproductive examination
+- Embryo transfer
+- Common infertility causes
+- Diagnostic approach
+
+## Self-Assessment Tips ⭐
+- ⭐ Master estrous cycle phases
+- ⭐ Know hormone changes
+- ⭐ Practice recognizing common conditions
+- ⭐ Understand workup order
+
+## 📋 Recap
+- ⭐ Foundational knowledge
+- ⭐ Practice identifying patterns
+- ⭐ Build clinical reasoning`,
+  },
+  MbDQl_nwsZ4: {
+    videoId: 'MbDQl-nwsZ4', title: 'Equine Repro — 3 Male Reproductive Anatomy', subject: 'equine-repro',
+    date: '2025-10-02', durationMin: 61, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก stallion anatomy · semen production',
+    summary: `## 🎯 Lead Summary
+**Stallion reproductive anatomy + function**.
+
+## Anatomy ⭐⭐
+- ⭐ Testes (in scrotum)
+- ⭐ Epididymis (head, body, tail)
+- ⭐ Vas deferens
+- ⭐ Accessory glands (vesicular, prostate, bulbourethral)
+- ⭐ Penis (musculocavernous)
+- ⭐ Prepuce
+
+## Spermatogenesis ⭐⭐
+- ⭐ ~57 days complete cycle
+- ⭐ Continuous (year-round)
+- ⭐ Temperature sensitive (testes outside body)
+
+## Semen Characteristics ⭐
+- ⭐ Volume: 60-100 mL
+- ⭐ Concentration: 100-500 million/mL
+- ⭐ Motility: >70% progressive
+- ⭐ Morphology: <30% abnormalities
+
+## Hormones ⭐
+- ⭐ Testosterone (Leydig cells)
+- ⭐ Estrogen (high in stallions!)
+- ⭐ FSH/LH from pituitary
+- ⭐ Inhibin from Sertoli cells
+
+## Sexual Behavior ⭐
+- ⭐ Year-round but better spring-summer
+- ⭐ Seasonal libido fluctuation
+- ⭐ Influenced by management
+
+## 📋 Exam Recap
+1. ⭐ Spermatogenesis 57 days
+2. ⭐ Year-round (vs mare seasonal)
+3. ⭐ Stallions have high estrogen!
+4. ⭐ Multiple accessory glands
+5. ⭐ Temperature-sensitive`,
+  },
+  FL4v85SwdXo: {
+    videoId: 'FL4v85SwdXo', title: 'Equine Repro — 4 Endometritis in Mare', subject: 'equine-repro',
+    date: '2025-10-09', durationMin: 80, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก endometritis types · diagnosis · treatment',
+    summary: `## 🎯 Lead Summary
+**Endometritis** = #1 cause of mare infertility. Multiple types + treatments.
+
+## Types ⭐⭐⭐
+### Acute Bacterial ⭐
+- ⭐ Most common after breeding
+- ⭐ E. coli, Strep zooepidemicus
+- ⭐ Cloudy uterine fluid
+
+### Persistent Mating-Induced Endometritis (PMIE) ⭐⭐
+- ⭐ ⭐ Excessive inflammation post-breeding
+- ⭐ Fluid retention >24h
+- ⭐ Older + multiparous mares
+- ⭐ Ultrasound diagnosis
+
+### Chronic Bacterial ⭐
+- ⭐ Persistent infection
+- ⭐ Discharge often
+- ⭐ Multiple organisms
+
+### Sexually Transmitted ⭐⭐
+- ⭐ ⭐ **CEM (Contagious Equine Metritis)** = Taylorella equigenitalis
+- ⭐ Pseudomonas aeruginosa
+- ⭐ Klebsiella pneumoniae
+
+## Diagnosis ⭐⭐
+- ⭐ Ultrasound (fluid retention)
+- ⭐ Cytology
+- ⭐ Culture
+- ⭐ Biopsy
+- ⭐ Pre-breeding exam
+
+## Treatment ⭐⭐
+- ⭐ ⭐ Uterine lavage (saline)
+- ⭐ Oxytocin (uterine clearance)
+- ⭐ Intrauterine antibiotics
+- ⭐ Systemic antibiotics if severe
+- ⭐ NSAIDs
+- ⭐ Hormonal management
+
+## Breeding Management ⭐
+- ⭐ Pre-breeding exam essential
+- ⭐ Treat before breeding
+- ⭐ Lavage post-breeding (PMIE)
+- ⭐ Oxytocin post-breeding
+
+## 📋 Exam Recap
+1. ⭐ Endometritis = #1 infertility cause
+2. ⭐ PMIE = post-breeding fluid retention
+3. ⭐ CEM = STI, Taylorella
+4. ⭐ Lavage + oxytocin treatment
+5. ⭐ Pre-breeding exam essential`,
+  },
+  hk5mce4iPDI: {
+    videoId: 'hk5mce4iPDI', title: 'Equine Repro — 5 Semen Collection and AI', subject: 'equine-repro',
+    date: '2025-10-16', durationMin: 58, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก semen collection · AI techniques · timing',
+    summary: `## 🎯 Lead Summary
+**Semen collection + AI techniques** in horses.
+
+## Collection Methods ⭐⭐
+### Artificial Vagina (AV) ⭐
+- ⭐ ⭐ Most common
+- ⭐ Stallion mounts mare/dummy
+- ⭐ Heated chamber
+- ⭐ Sterile collection
+
+### Phantom (Dummy)
+- ⭐ Replaces mare
+- ⭐ Sturdy structure
+- ⭐ Stallion training required
+
+## Semen Evaluation ⭐⭐
+- ⭐ Volume
+- ⭐ Concentration (hemocytometer, density meter)
+- ⭐ Motility (% progressive)
+- ⭐ Morphology
+- ⭐ pH
+- ⭐ Bacterial culture
+
+## Semen Processing ⭐
+- ⭐ Extender (semen extender)
+- ⭐ Cooled (4°C, 24-48h)
+- ⭐ Frozen (LN2, lifetime)
+- ⭐ Specific protocols
+
+## AI Techniques ⭐⭐⭐
+### Conventional AI ⭐
+- ⭐ ⭐ Catheter through cervix
+- ⭐ Deposit in uterine body
+- ⭐ Most common
+
+### Deep Horn AI ⭐
+- ⭐ Catheter to uterine horn
+- ⭐ Closer to oviduct
+- ⭐ Used with frozen semen
+
+### Hysteroscopic AI ⭐
+- ⭐ Endoscope-guided
+- ⭐ Direct deposit at uterotubal junction
+- ⭐ For poor-quality semen
+
+## Timing ⭐⭐
+- ⭐ ⭐ Within 24h before ovulation ideal
+- ⭐ Frozen: closer to ovulation
+- ⭐ Daily ultrasound during estrus
+
+## 📋 Exam Recap
+1. ⭐ AV most common collection
+2. ⭐ Conventional AI standard
+3. ⭐ Deep horn for frozen
+4. ⭐ Timing critical
+5. ⭐ Daily ultrasound during estrus`,
+  },
+  chRLDPkEJZY: {
+    videoId: 'chRLDPkEJZY', title: 'Equine Repro — 6.1 Stallion Infertility', subject: 'equine-repro',
+    date: '2025-10-30', durationMin: 35, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก stallion infertility · breeding soundness exam',
+    summary: `## 🎯 Lead Summary
+**Stallion infertility/subfertility** — diagnosis + management.
+
+## Causes ⭐⭐
+### Behavioral
+- ⭐ Inadequate libido
+- ⭐ Aggression
+- ⭐ Inexperience
+
+### Anatomic
+- ⭐ Penile lesions (squamous cell carcinoma)
+- ⭐ Inguinal hernia
+- ⭐ Testicular abnormality
+
+### Spermatogenesis
+- ⭐ Oligospermia
+- ⭐ Azoospermia
+- ⭐ Seasonal influence
+- ⭐ Heat stress
+
+### Hormonal
+- ⭐ Cushing's syndrome
+- ⭐ Anabolic steroid use!
+- ⭐ Cryptorchid
+
+### Infectious
+- ⭐ EVA, EHV
+- ⭐ Bacterial in semen
+- ⭐ STIs
+
+## Breeding Soundness Examination ⭐⭐⭐
+- ⭐ ⭐ History (libido, fertility)
+- ⭐ ⭐ Physical exam (testes, penis)
+- ⭐ ⭐ Semen evaluation (multiple ejaculates)
+- ⭐ ⭐ Test breeding (ideal)
+- ⭐ Disease testing (CEM, EIA)
+
+## Treatment ⭐
+- ⭐ Address underlying cause
+- ⭐ Improve management
+- ⭐ Manage diseases
+- ⭐ Some unable to be corrected
+
+## 📋 Exam Recap
+1. ⭐ Multiple causes
+2. ⭐ Breeding Soundness Exam essential
+3. ⭐ Anabolic steroids = sterile!
+4. ⭐ Cryptorchid = poor fertility
+5. ⭐ Multiple ejaculates evaluated`,
+  },
+  vPYMOYBMPtg: {
+    videoId: 'vPYMOYBMPtg', title: 'Equine Repro — 6.2 Reproductive Surgery', subject: 'equine-repro',
+    date: '2025-10-30', durationMin: 36, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก mare + stallion repro surgery',
+    summary: `## 🎯 Lead Summary
+**Equine reproductive surgery** — mares + stallions.
+
+## Mare Surgery ⭐⭐
+### Caslick's Procedure ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Most common!**
+- ⭐ Vulvar lip suturing
+- ⭐ Prevents pneumovagina
+- ⭐ Open before breeding/foaling
+
+### Cervical Repair ⭐
+- ⭐ Cervical lacerations
+- ⭐ Difficult repair
+
+### Ovariectomy
+- ⭐ Granulosa cell tumor
+- ⭐ Behavioral problems
+- ⭐ Standing surgery
+
+### C-Section
+- ⭐ Dystocia
+- ⭐ Emergency only
+
+## Stallion Surgery ⭐⭐
+### Castration ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Most common surgery**
+- ⭐ Open or closed
+- ⭐ Standing or recumbent
+- ⭐ Behavioral + medical reasons
+
+### Cryptorchid Surgery ⭐
+- ⭐ Inguinal or abdominal
+- ⭐ Always remove (testicular cancer risk)
+- ⭐ Surgical approach varies
+
+### Penile Procedures
+- ⭐ Tumor removal (SCC)
+- ⭐ Penile retraction issues
+
+## 📋 Exam Recap
+1. ⭐ Caslick's = most common mare procedure
+2. ⭐ Castration = most common stallion surgery
+3. ⭐ Cryptorchid removal essential
+4. ⭐ Standing surgery often possible
+5. ⭐ C-section emergency only`,
+  },
+  uO07ZMVezSA: {
+    videoId: 'uO07ZMVezSA', title: 'Equine Repro — 7+8 Pregnancy, Parturition + Foal Care', subject: 'equine-repro',
+    date: '2025-11-06', durationMin: 84, instructor: 'CUVET equine repro team',
+    examFormat: 'Multiple choice · ออก gestation · parturition stages · foal care · IgG',
+    summary: `## 🎯 Lead Summary
+**Equine pregnancy, foaling, neonatal foal care** — comprehensive coverage.
+
+## Gestation ⭐⭐⭐
+- ⭐ ⭐ ~340 days (range 320-360)
+- ⭐ Twin reduction at 14-16 days (manual)
+- ⭐ Pregnancy detection: ultrasound 12-14 days
+- ⭐ Heart beat: 25 days
+- ⭐ Sexing: 60-70 days
+
+## Foaling Stages ⭐⭐⭐
+### Stage 1 ⭐
+- ⭐ ⭐ 1-4 hours
+- ⭐ Restlessness
+- ⭐ Sweating
+- ⭐ Cervical dilation
+
+### Stage 2 ⭐⭐
+- ⭐ ⭐ ⭐ **15-30 minutes** (FAST!)
+- ⭐ Active labor
+- ⭐ Foal expelled
+- ⭐ ⚠️ Stage 2 prolonged = emergency!
+
+### Stage 3 ⭐
+- ⭐ Placenta expelled <3 hours
+- ⭐ ⚠️ Retained placenta = emergency in mare!
+
+## Neonatal Foal Care ⭐⭐⭐
+### IgG (Failure of Passive Transfer) ⭐⭐⭐
+- ⭐ ⭐ ⭐ **Critical!**
+- ⭐ Foal needs colostrum within 12-24h
+- ⭐ Test IgG at 12-24h
+- ⭐ <400 mg/dL = failure (need plasma!)
+- ⭐ 400-800 = partial
+- ⭐ >800 = adequate
+
+### Vital Signs ⭐
+- ⭐ HR 80-100 bpm
+- ⭐ Resp 24-36/min
+- ⭐ Temp 37.5-38.6°C
+
+### Common Problems ⭐
+- ⭐ ⭐ FPT (Failure of Passive Transfer)
+- ⭐ Sepsis
+- ⭐ Meconium impaction
+- ⭐ NMS (Neonatal Maladjustment Syndrome)
+- ⭐ Rhodococcus equi (later)
+- ⭐ Umbilical infection
+- ⭐ Limb deformities
+
+## Foal Milestones ⭐
+- ⭐ Stand: 1-2 hours
+- ⭐ Nurse: <2 hours
+- ⭐ Pass meconium: <12h
+- ⭐ Urinate: variable
+
+## 📋 Exam Recap
+1. ⭐ Gestation 340 days
+2. ⭐ Stage 2 = 15-30 min (fast!)
+3. ⭐ Retained placenta = emergency
+4. ⭐ IgG <400 = failure (plasma needed)
+5. ⭐ Foal stand <2 hours, nurse <2 hours`,
+  },
+
 };
 
 // ─────────────────────────────────────────────────────────────
