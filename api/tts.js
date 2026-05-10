@@ -87,7 +87,20 @@ export default async function handler(req, res) {
   } catch (e) {
     return res.status(400).json({ error: 'bad json', detail: String(e?.message).slice(0, 100) });
   }
-  const { text, lang = 'th', rate = 1.0 } = body;
+  const { text, lang = 'th', rate = 1.0, debug } = body;
+  // ── Debug echo — diagnoses what Vercel's body parsing delivered.
+  // Triggered with {"debug":true} in the body. Returns the received
+  // text bytes + length so we can confirm Thai UTF-8 survived.
+  if (debug) {
+    const bytes = text ? Buffer.from(text, 'utf8').toString('hex') : '';
+    return res.status(200).json({
+      receivedText: text,
+      receivedLang: lang,
+      codePoints: text ? Array.from(text).map((c) => c.codePointAt(0).toString(16)) : [],
+      utf8HexBytes: bytes,
+      bodyParserType: typeof req.body,
+    });
+  }
   if (!text || typeof text !== 'string') {
     return res.status(400).json({ error: 'missing text' });
   }
