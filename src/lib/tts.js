@@ -48,6 +48,7 @@
 // ============================================================
 
 import { thaiPhoneticTranslit } from './tts-phonetic.js';
+import { speakViaEdge, stopAllEdgeAudio, stopControllerEdge } from './tts-edge.js';
 
 const THAI_RE = /[฀-๿]/;
 const ENG_RE = /[A-Za-z]/;
@@ -445,39 +446,85 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
   // prosody handles intra-sentence rhythm; we only set inter-segment gaps.
   const P = pausesFor();
 
+  // Thai numbering for natural narrator cadence — "ตัวเลือกที่ หนึ่ง / สอง / สาม …"
+  // is how Thai audiobook narrators read MCQs aloud. Way smoother for
+  // Pattara than "A. ..." which it reads as "เอ ดอท" lurch. English
+  // voices keep "Option A. ..." which Zira reads naturally.
+  const TH_NUM = ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด'];
+
+  // Build the full sentence list once — same for both Edge and Web Speech
+  // paths so a fallback mid-flight resumes from the same content model.
+  const sentences = [];
+  if (stem && stem.trim()) {
+    const text = preprocess(stem, qLang);
+    sentences.push(/[.!?]$/.test(text) ? text : text + '.');
+  }
+  for (let i = 0; i < safeOptions.length; i++) {
+    const raw = safeOptions[i] || '';
+    const opt = preprocess(raw, qLang);
+    sentences.push(qLang === 'th'
+      ? `ตัวเลือกที่ ${TH_NUM[i] || (i + 1)}, ${opt}.`
+      : `Option ${String.fromCharCode(65 + i)}. ${opt}.`);
+  }
+
+  // ── Try Edge TTS first (neural quality on EVERY platform) ────
+  // Bypass when 'standard' tier voices give us free neural elsewhere
+  // (Apple iOS/macOS premium / Edge browser online voices) since local
+  // playback is faster + offline. Edge proxy only kicks in when the
+  // local voice is SAPI-tier robotic.
+  const chosenVoice = pickVoice(voices, qLang);
+  const tier = voiceTier(chosenVoice);
+  const useEdge = tier === 'standard' || !chosenVoice;
+
+  let edgeFallback = false;
+  if (useEdge) {
+    try {
+      for (let i = 0; i < sentences.length; i++) {
+        if (controller?.cancelled) { stopControllerEdge(controller); break; }
+        await speakViaEdge({ text: sentences[i], lang: qLang, rate: 1.0, controller });
+        if (controller?.cancelled) break;
+        // Inter-segment pause — Edge audio has no built-in gap between calls
+        const isStem = i === 0 && stem && stem.trim();
+        const isLast = i === sentences.length - 1;
+        await pause(isStem ? P.afterStem : (isLast ? P.afterLast : P.betweenOpts));
+      }
+      onEnd?.();
+      return;
+    } catch (err) {
+      // Edge failed — clear any half-played audio + fall back to Web Speech
+      console.warn('[tts] edge proxy failed, falling back to Web Speech:', err?.message);
+      stopControllerEdge(controller);
+      stopAllEdgeAudio();
+      edgeFallback = true;
+    }
+  }
+
+  // ── Web Speech fallback / direct path ────────────────────────
   try {
     if (stem && stem.trim()) {
-      const text = preprocess(stem, qLang);
-      const stemText = /[.!?]$/.test(text) ? text : text + '.';
-      await speakSentence(stemText, qLang, voices, controller);
+      await speakSentence(sentences[0], qLang, voices, controller);
       if (controller?.cancelled) { synth.cancel(); return; }
       await pause(P.afterStem);
     }
-
-    // Thai numbering for natural narrator cadence — "ตัวเลือกที่ หนึ่ง / สอง / สาม …"
-    // is how Thai audiobook narrators read MCQs aloud. Way smoother for
-    // Pattara than "A. ..." which it reads as "เอ ดอท" lurch. English
-    // voices keep "Option A. ..." which Zira reads naturally.
-    const TH_NUM = ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด'];
-    for (let i = 0; i < safeOptions.length; i++) {
+    const optStart = (stem && stem.trim()) ? 1 : 0;
+    for (let i = optStart; i < sentences.length; i++) {
       if (controller?.cancelled) { synth.cancel(); break; }
-      const raw = safeOptions[i] || '';
-      const opt = preprocess(raw, qLang);
-      const text = qLang === 'th'
-        ? `ตัวเลือกที่ ${TH_NUM[i] || (i + 1)}, ${opt}.`
-        : `Option ${String.fromCharCode(65 + i)}. ${opt}.`;
-      await speakSentence(text, qLang, voices, controller);
-      const isLast = i === safeOptions.length - 1;
+      await speakSentence(sentences[i], qLang, voices, controller);
+      const isLast = i === sentences.length - 1;
       await pause(isLast ? P.afterLast : P.betweenOpts);
     }
   } finally {
     onEnd?.();
   }
+  // edgeFallback is set when we deliberately fell through; keeps lint
+  // happy and could surface a UI hint later if desired.
+  void edgeFallback;
 }
 
 export function cancelSpeech() {
   if (typeof window === 'undefined' || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
+  stopAllEdgeAudio();
 }
 
 // Exposed for tests / debugging — checks an installed voice setup
