@@ -469,8 +469,14 @@ export default function App() {
     const questionStats = {};
     SUBJECTS.forEach((s) => { if (s.id !== 'all') bySubject[s.id] = { correct: 0, total: 0 }; });
     let totalCorrect = 0;
+    // Q ID collisions exist across subjects (com4↔engprof, com3↔exotic etc).
+    // Use compound (subject:id) lookup to avoid stat leakage. Pre-build a
+    // map once per pass instead of O(n) Array.find per history entry.
+    const qByCompound = new Map();
+    for (const q of allQuestions) qByCompound.set(q.subject + ':' + q.id, q);
     history.forEach((h) => {
-      const q = allQuestions.find((x) => x.id === h.questionId);
+      const q = qByCompound.get((h.subject || '') + ':' + h.questionId)
+        || allQuestions.find((x) => x.id === h.questionId); // fallback for legacy history without subject
       if (!q) return;
       if (!bySubject[q.subject]) bySubject[q.subject] = { correct: 0, total: 0 };
       bySubject[q.subject].total++;

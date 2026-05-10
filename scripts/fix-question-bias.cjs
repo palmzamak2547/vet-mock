@@ -37,6 +37,7 @@ const FILES = [
   'src/data/questions-exotic.js',
   'src/data/questions-poultry.js',
   'src/data/questions-repro-lect.js',
+  'src/data/questions-vca.js',
 ];
 
 const POSITION_BIAS_PCT = 0.50;

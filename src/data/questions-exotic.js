@@ -323,7 +323,7 @@ export const QB_EXOTIC = [
   { id: 1551, subject: 'exotic', topic: 'bird-infect', year: 4,
     source: 'EXOTIC FINAL 86 master compilation', tags: ['inclusion-body'], type: 'mcq',
     q: 'โรคใดต่อไปนี้พบ intracytoplasmic inclusion bodies',
-    options: ['PBFD (intracytoplasmic) · Polyoma', 'Pacheco only', 'Avian pox only', 'Trichomonas'],
+    options: ['PBFD (intracytoplasmic)', 'Pacheco only', 'Avian pox only', 'Trichomonas'],
     answer: 0, explain: "PBFD (Circovirus) = inclusions ทั้ง intranuclear และ intracytoplasmic (ขึ้นกับ tissue: feather follicle = both, bursa = intranuclear) · Polyoma + Pacheco's (Herpes) = predominantly intranuclear" },
 
   // ═════════════════════════════════════════════════════════════

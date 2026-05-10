@@ -42,8 +42,13 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       : allQuestions.filter((q) => q.subject === subjectFilter);
     const eligible = inSubject.filter(isFlashcardCompatible);
     const pool = {};
+    // Attach `subject` to each card runtime so the currentQ lookup below
+    // can disambiguate dupe IDs across subjects. localStorage shape stays
+    // bare-id keyed (no migration); the runtime annotation is enough to
+    // pick the right Q for display.
     eligible.forEach((q) => {
-      pool[q.id] = srCards[q.id] || initCard(q.id);
+      const card = srCards[q.id] || initCard(q.id);
+      pool[q.id] = { ...card, subject: q.subject };
     });
     return {
       duePool: getDueCards(pool),
@@ -205,7 +210,15 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
   // ─── Active session ─────────────────────────────────────────────
   const currentCard = sessionCards[currentIdx];
-  const currentQ = currentCard ? allQuestions.find((q) => q.id === currentCard.questionId) : null;
+  // Use compound (subject:id) match when available — pool building
+  // attaches q.subject to each card. Falls back to id-only match for
+  // legacy cards that pre-date the subject annotation.
+  const currentQ = currentCard
+    ? allQuestions.find((q) =>
+        q.id === currentCard.questionId
+        && (!currentCard.subject || q.subject === currentCard.subject)
+      ) || allQuestions.find((q) => q.id === currentCard.questionId)
+    : null;
 
   const handleGrade = (quality) => {
     const updated = updateCard(currentCard, quality);
