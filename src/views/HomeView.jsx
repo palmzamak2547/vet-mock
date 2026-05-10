@@ -10,6 +10,10 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 // and most users will see it after some interaction. Keeps HomeView's
 // shell as small as possible.
 const DailyGoalCard = lazy(() => import('../components/DailyGoalCard.jsx'));
+// StudyBuddiesPanel — Supabase presence-driven, only meaningful when
+// other users are online too. Lazy so its lookup table doesn't bloat
+// the cold home render.
+const StudyBuddiesPanel = lazy(() => import('../components/StudyBuddiesPanel.jsx'));
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
@@ -21,7 +25,7 @@ const PHASE_LABELS = {
   '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2, icon: '🏁' },
 };
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill }) {
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {} }) {
   // Year context — determines hero copy + reading checklist scope.
   // Only Y4 has actual exam schedule entries today; for scaffold years
   // we hide the countdown banner since `getNextExam('y5')` returns null.
@@ -513,6 +517,36 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             <DailyGoalCard history={history} />
           </div>
         </Suspense>
+      )}
+
+      {/* Study buddies — Supabase presence list. Hidden when no buddies
+          are present (StudyBuddiesPanel returns null). */}
+      {user && Object.keys(buddies || {}).length > 1 && (
+        <Suspense fallback={null}>
+          <StudyBuddiesPanel
+            buddies={buddies}
+            selfUserId={user?.id}
+            onJumpToSubject={(subjectId) => {
+              setSubject?.(subjectId);
+              setMode?.('quick');
+              setView('subject-select');
+            }}
+          />
+        </Suspense>
+      )}
+
+      {/* Race chip — entry to multiplayer race lobby (only when authenticated). */}
+      {user && (
+        <div style={{ marginBottom: 18 }}>
+          <button
+            type="button"
+            onClick={() => setView('race')}
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
+          >
+            🏁 แข่งกับเพื่อน (Race mode)
+          </button>
+        </div>
       )}
 
       {/* PRIMARY: Subject Grid — natural mental model is "I want to study X subject".

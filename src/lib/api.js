@@ -164,3 +164,125 @@ export function pushUserDataDebounced(userId, patch, delay = 2000) {
     pushUserData(userId, patch).catch((e) => console.error('Sync error:', e));
   }, delay);
 }
+
+// ==========================================================
+// Q COMMENTS — discussion threads per question
+// ==========================================================
+// q_comments uses compound key (q_subject, q_id) since Q ids alone
+// aren't unique across the bank (known dupe-ID issue, see vault).
+
+export async function listQComments(qSubject, qId) {
+  const supabase = await getSupabase();
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from('q_comments')
+    .select('id, q_subject, q_id, user_id, body, parent_id, created_at, updated_at, profiles ( username, avatar_emoji )')
+    .eq('q_subject', qSubject)
+    .eq('q_id', qId)
+    .order('created_at', { ascending: true })
+    .limit(200);
+  if (error) {
+    console.warn('[qcomments] list failed:', error.message);
+    return [];
+  }
+  return data || [];
+}
+
+export async function postQComment(qSubject, qId, body, userId, parentId = null) {
+  await ensureProfile();
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('ต้อง login ก่อน');
+  const text = String(body || '').trim();
+  if (!text) throw new Error('ข้อความว่าง');
+  if (text.length > 2000) throw new Error('ยาวเกิน 2000 ตัวอักษร');
+  const { data, error } = await supabase
+    .from('q_comments')
+    .insert({ q_subject: qSubject, q_id: qId, user_id: userId, body: text, parent_id: parentId })
+    .select('id, q_subject, q_id, user_id, body, parent_id, created_at, updated_at, profiles ( username, avatar_emoji )')
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteQComment(commentId) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('ต้อง login ก่อน');
+  const { error } = await supabase.from('q_comments').delete().eq('id', commentId);
+  if (error) throw error;
+}
+
+export async function updateQComment(commentId, body) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('ต้อง login ก่อน');
+  const text = String(body || '').trim();
+  if (!text) throw new Error('ข้อความว่าง');
+  const { data, error } = await supabase
+    .from('q_comments')
+    .update({ body: text })
+    .eq('id', commentId)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+// Subscribe to live comment changes for a single question. Returns the
+// channel so the caller can `.unsubscribe()` on cleanup.
+export async function subscribeQComments(qSubject, qId, onEvent) {
+  const supabase = await getSupabase();
+  if (!supabase) return null;
+  const channel = supabase
+    .channel(`qc:${qSubject}:${qId}`)
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: 'q_comments', filter: `q_subject=eq.${qSubject}` },
+      (payload) => {
+        // Server-side filter only narrows by subject — final filter on q_id
+        // happens here so we don't depend on multi-column filter syntax.
+        const row = payload.new || payload.old;
+        if (row && row.q_id === qId) onEvent(payload);
+      },
+    )
+    .subscribe();
+  return channel;
+}
+
+// ==========================================================
+// RACE RESULTS — final scores from multiplayer races
+// ==========================================================
+export async function recordRaceResult(raceCode, userId, subject, questionCount, correctCount, durationMs) {
+  await ensureProfile();
+  const supabase = await getSupabase();
+  if (!supabase) return null;
+  const { data, error } = await supabase
+    .from('race_results')
+    .insert({
+      race_code: raceCode,
+      user_id: userId,
+      subject,
+      question_count: questionCount,
+      correct_count: correctCount,
+      duration_ms: durationMs,
+    })
+    .select()
+    .single();
+  if (error) {
+    console.warn('[race] record failed:', error.message);
+    return null;
+  }
+  return data;
+}
+
+export async function listRaceResults(raceCode) {
+  const supabase = await getSupabase();
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from('race_results')
+    .select('*, profiles ( username, avatar_emoji )')
+    .eq('race_code', raceCode)
+    .order('correct_count', { ascending: false })
+    .order('duration_ms', { ascending: true })
+    .limit(20);
+  if (error) return [];
+  return data || [];
+}

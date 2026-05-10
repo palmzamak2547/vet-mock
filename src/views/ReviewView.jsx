@@ -12,6 +12,11 @@ import ZoomableImage from '../components/ZoomableImage.jsx';
 // demand — lazy so the review view stays light.
 const ImageAnnotator = lazy(() => import('../components/ImageAnnotator.jsx'));
 
+// QComments only mounts when the user expands the comment thread for
+// a question. Comments need Supabase, so the component is gated by
+// hasSupabase internally and renders a sign-in CTA otherwise.
+const QComments = lazy(() => import('../components/QComments.jsx'));
+
 // NOTE: Smart AI grading was temporarily removed from the UI per user
 // request — the model + rubric + self-assessment workflow alone is
 // sufficient for the Final exam mock practice and avoids the friction
@@ -19,13 +24,22 @@ const ImageAnnotator = lazy(() => import('../components/ImageAnnotator.jsx'));
 // code (src/lib/ai-grade.js + api/grade-summary.js) remains in place
 // so re-enabling the feature is a one-line UI change later.
 
-export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes }) {
+export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user }) {
   // Filter tabs let users zoom into the slice they care about — when
   // reviewing a 200-Q exam, scrolling linearly to find the 30 wrong
   // ones is brutal. 'all' is the default. Cached counts shown in tabs.
   const [filter, setFilter] = useState('all');
   // Image annotator — opens for the URL we set here.
   const [annotateSrc, setAnnotateSrc] = useState(null);
+  // Set of `subject:id` keys whose comment thread the user has opened.
+  // We only mount QComments lazily on click to avoid 200 simultaneous
+  // realtime subscriptions on a 200-Q exam review.
+  const [openComments, setOpenComments] = useState(() => new Set());
+  const toggleComments = (key) => setOpenComments((prev) => {
+    const next = new Set(prev);
+    if (next.has(key)) next.delete(key); else next.add(key);
+    return next;
+  });
 
   const counts = useMemo(() => {
     const c = { all: questions.length, correct: 0, wrong: 0, skipped: 0, bookmarked: 0, noted: 0 };
@@ -358,6 +372,30 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 📚 ไฟล์ต้นทาง: {q.source}
               </div>
             )}
+            {/* Comments thread — opens lazily so we don't subscribe to
+                200 realtime channels on a 200-Q exam review. */}
+            {(() => {
+              const key = `${q.subject}:${q.id}`;
+              const isOpen = openComments.has(key);
+              return (
+                <div style={{ marginTop: 10 }}>
+                  <button
+                    type="button"
+                    onClick={() => toggleComments(key)}
+                    className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                    style={{ fontSize: 12, padding: '4px 10px' }}
+                    aria-expanded={isOpen}
+                  >
+                    💬 {isOpen ? 'ปิดความเห็น' : 'ดูความเห็น'}
+                  </button>
+                  {isOpen && (
+                    <Suspense fallback={<div style={{ marginTop: 8, fontSize: 12, color: 'var(--clr-ink-soft)' }}>กำลังโหลด…</div>}>
+                      <QComments qSubject={q.subject} qId={q.id} user={user} setView={setView} />
+                    </Suspense>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         );
       })}
