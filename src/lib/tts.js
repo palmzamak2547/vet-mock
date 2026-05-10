@@ -111,21 +111,15 @@ function voiceTier(voice) {
 
 function rateFor(lang, tier) {
   if (tier === 'neural' || tier === 'premium') return lang === 'en' ? 0.95 : 1.0;
-  // Standard SAPI voices need slowdown — esp. Pattara on multi-syllable
-  // phonetic strings ("ฮีมานจิโอซาร์โคมา"). 0.90 gives breathing room.
-  return lang === 'en' ? 0.85 : 0.90;
+  // Standard SAPI — slower so multi-syllable phonetic strings articulate
+  return lang === 'en' ? 0.85 : 0.88;
 }
 
-// Adaptive pause durations per voice tier. Neural voices have inherent
-// prosody (own pauses for periods/commas), so external pauses can be
-// shorter. SAPI offline voices are robotic and need bigger gaps to
-// feel narrated rather than chopped.
-function pausesFor(tier) {
-  if (tier === 'neural' || tier === 'premium') {
-    return { afterStem: 500, betweenOpts: 350, afterLast: 150, preLetter: 0 };
-  }
-  // Standard SAPI — longer pauses make the cadence feel deliberate
-  return { afterStem: 800, betweenOpts: 480, afterLast: 220, preLetter: 100 };
+// Single pause schedule — was tier-adaptive but the extra SAPI pauses
+// felt chopped rather than natural. Treat all voices the same and let
+// the voice's own punctuation prosody do most of the work.
+function pausesFor() {
+  return { afterStem: 550, betweenOpts: 380, afterLast: 180 };
 }
 
 function pickVoice(voices, lang) {
@@ -332,7 +326,8 @@ function preprocess(text, lang) {
     // reads them letter-by-letter ("D K A") instead of guessing.
     t = expandAcronyms(t);
   }
-  t = injectBreathCommas(t, lang);
+  // Breath-comma injection removed — was breaking flow inside coherent
+  // Thai sentences. Voices handle their own prosody on punctuation.
   return t.replace(/\s+/g, ' ').trim();
 }
 
@@ -446,12 +441,9 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
   // English wins ONLY when Thai content is < 25 % AND English exists.
   const qLang = (total > 0 && th / total < 0.25 && en > 0) ? 'en' : 'th';
 
-  // Voice + tier-aware pacing. Neural voices have inherent prosody so
-  // external pauses can be shorter; SAPI offline voices are robotic
-  // and need bigger gaps to feel narrated rather than chopped.
-  const chosenVoice = pickVoice(voices, qLang);
-  const tier = voiceTier(chosenVoice);
-  const P = pausesFor(tier);
+  // Single pause schedule for all voices — voice's own punctuation
+  // prosody handles intra-sentence rhythm; we only set inter-segment gaps.
+  const P = pausesFor();
 
   try {
     if (stem && stem.trim()) {
@@ -462,20 +454,18 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
       await pause(P.afterStem);
     }
 
+    // Thai numbering for natural narrator cadence — "ตัวเลือกที่ หนึ่ง / สอง / สาม …"
+    // is how Thai audiobook narrators read MCQs aloud. Way smoother for
+    // Pattara than "A. ..." which it reads as "เอ ดอท" lurch. English
+    // voices keep "Option A. ..." which Zira reads naturally.
+    const TH_NUM = ['หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด'];
     for (let i = 0; i < safeOptions.length; i++) {
       if (controller?.cancelled) { synth.cancel(); break; }
-      const letter = String.fromCharCode(65 + i);
       const raw = safeOptions[i] || '';
       const opt = preprocess(raw, qLang);
-      // Period form for both languages — Thai voices say letter + ". " as
-      // a brief pause, which sounds more like a numbered list. The Thai
-      // dict has the dotted forms via TH_PHONETIC's letter spellings; if
-      // the dict translit produced its own letter form already we skip
-      // double-labeling. Otherwise prepend "A." form.
-      const text = `${letter}. ${opt}.`;
-      // Tier-aware pre-letter pause — gives SAPI options a tiny lead-in
-      // beat so each option feels distinct from the previous.
-      if (P.preLetter > 0) await pause(P.preLetter);
+      const text = qLang === 'th'
+        ? `ตัวเลือกที่ ${TH_NUM[i] || (i + 1)}, ${opt}.`
+        : `Option ${String.fromCharCode(65 + i)}. ${opt}.`;
       await speakSentence(text, qLang, voices, controller);
       const isLast = i === safeOptions.length - 1;
       await pause(isLast ? P.afterLast : P.betweenOpts);
