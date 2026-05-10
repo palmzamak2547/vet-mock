@@ -57,51 +57,26 @@ function ensureVoices() {
   return _voicesPromise;
 }
 
-// Detect language of a chunk: count Thai chars vs Latin letters and pick
-// the majority. Empty/whitespace-only → returns null (skip).
-function detectLang(text) {
-  if (!text) return null;
+// Pick the dominant language of a piece of text — count Thai vs Latin
+// chars and return whichever is bigger. Empty/digit-only → 'th'
+// (default for VetMock since most prose is Thai).
+//
+// We deliberately do NOT split a single sentence into multiple voices.
+// Earlier attempt fragmented every code-switch into its own utterance
+// (Thai voice → English voice → Thai voice ...) which sounded comedic
+// in mid-sentence. Picking ONE voice per sentence + each option means
+// minority-language tokens get phonetic-approximated by the majority
+// voice, which is "slightly off" but never "broken comedy" — a
+// strictly better trade for clinical Q reading.
+function dominantLang(text) {
+  if (!text) return 'th';
   let th = 0, en = 0;
   for (const ch of text) {
     if (THAI_RE.test(ch)) th++;
     else if (ENG_RE.test(ch)) en++;
   }
-  if (th === 0 && en === 0) return null;
+  if (th === 0 && en === 0) return 'th';
   return th >= en ? 'th' : 'en';
-}
-
-// Split text into runs of one language at a time. We don't split on every
-// character — we batch consecutive same-language characters (including
-// punctuation/spaces between them) into one chunk. Mixed runs of words
-// like "Doberman อายุ 5 ปี" become 2 chunks.
-function splitByLanguage(text) {
-  if (!text) return [];
-  const chunks = [];
-  let buf = '';
-  let bufLang = null;
-  const flush = () => {
-    if (buf.trim()) chunks.push({ text: buf, lang: bufLang || 'th' });
-    buf = '';
-    bufLang = null;
-  };
-  for (const ch of text) {
-    let chLang = null;
-    if (THAI_RE.test(ch)) chLang = 'th';
-    else if (ENG_RE.test(ch)) chLang = 'en';
-    // Punctuation/digits/spaces get attached to current run
-    if (chLang === null) {
-      buf += ch;
-      continue;
-    }
-    if (bufLang && chLang !== bufLang) {
-      // Language switch — flush current run
-      flush();
-    }
-    buf += ch;
-    bufLang = chLang;
-  }
-  flush();
-  return chunks;
 }
 
 // Best-voice picker per (lang, platform). Walks the voices list with a
@@ -176,8 +151,21 @@ function speakChunk(text, lang, voices, opts = {}) {
 // scheduling the next utterance.
 const pause = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// Public — speak a Q stem + options sequence. `controller` is an
-// optional { cancelled } object the caller can flip to abort mid-flight.
+// Public — speak a Q stem + options sequence using ONE voice per
+// sentence (dominant language). `controller` is an optional
+// { cancelled } object the caller can flip to abort mid-flight.
+//
+// Voice selection rules:
+//   • Stem is spoken once with the dominant-language voice of the stem.
+//   • Each option is spoken once with the dominant-language voice of
+//     that option (so an English-only option always uses English voice
+//     even if the stem is Thai-dominant).
+//   • The "A.", "B." letter prefix is bundled into the option utterance
+//     instead of a separate utterance. Avoids a forced English voice
+//     swap on every option, which read as comedy ping-pong.
+//   • If the WHOLE Q (stem + all options concatenated) is dominantly
+//     one language, use that single voice for everything — most natural
+//     case for the engprof / vca subjects.
 export async function speakQuestion({ stem, options, onStart, onEnd, controller }) {
   if (typeof window === 'undefined' || !window.speechSynthesis) return;
   const synth = window.speechSynthesis;
@@ -187,33 +175,47 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
   const voices = await ensureVoices();
   if (controller?.cancelled) return;
   onStart?.();
-  try {
-    // Speak the stem
-    const stemChunks = splitByLanguage(stem || '');
-    for (const c of stemChunks) {
-      if (controller?.cancelled) { synth.cancel(); break; }
-      await speakChunk(c.text, c.lang, voices);
-    }
-    if (controller?.cancelled) return;
-    // Slightly longer pause between stem and options
-    await pause(450);
 
-    // Speak each option labelled "A.", "B." with explicit pauses between
-    if (Array.isArray(options)) {
-      for (let i = 0; i < options.length; i++) {
-        if (controller?.cancelled) { synth.cancel(); break; }
-        const letter = String.fromCharCode(65 + i);
-        // Letter is always English — speak with English voice for clarity
-        await speakChunk(letter + '.', 'en', voices, { rate: 0.95 });
-        await pause(180);
-        const optChunks = splitByLanguage(options[i] || '');
-        for (const c of optChunks) {
-          if (controller?.cancelled) { synth.cancel(); break; }
-          await speakChunk(c.text, c.lang, voices);
-        }
-        // Inter-option pause — long enough that it doesn't feel rushed
-        await pause(420);
-      }
+  const safeOptions = Array.isArray(options) ? options : [];
+  // Detect the overall language. If the whole Q is overwhelmingly one
+  // language (≥ 75% of detected chars), force that voice everywhere
+  // for maximum coherence. Otherwise fall back to per-piece dominant.
+  const wholeText = (stem || '') + ' ' + safeOptions.join(' ');
+  let th = 0, en = 0;
+  for (const ch of wholeText) {
+    if (THAI_RE.test(ch)) th++;
+    else if (ENG_RE.test(ch)) en++;
+  }
+  const total = th + en;
+  const forceLang = total > 0
+    ? (th / total >= 0.75 ? 'th' : (en / total >= 0.75 ? 'en' : null))
+    : null;
+
+  const langFor = (text) => forceLang || dominantLang(text);
+
+  try {
+    // Speak the stem in ONE go with its dominant voice
+    if (stem && stem.trim()) {
+      await speakChunk(stem, langFor(stem), voices);
+      if (controller?.cancelled) { synth.cancel(); return; }
+      await pause(500);
+    }
+
+    // Each option is spoken as a single utterance: "A. ..." together.
+    // Letter + content share one voice — no comedic mid-sentence swap.
+    for (let i = 0; i < safeOptions.length; i++) {
+      if (controller?.cancelled) { synth.cancel(); break; }
+      const letter = String.fromCharCode(65 + i);
+      const opt = safeOptions[i] || '';
+      const lang = langFor(opt);
+      // Use a Thai-side period after the letter so Thai voice doesn't
+      // read it as English "A dot"; English voice will say "A period"
+      // for "A." which is fine. Trailing space helps prosody.
+      const text = lang === 'en' ? `${letter}. ${opt}` : `${letter}, ${opt}`;
+      await speakChunk(text, lang, voices);
+      // Inter-option pause — long enough that students can tell where
+      // one option ends and the next begins.
+      await pause(450);
     }
   } finally {
     onEnd?.();
