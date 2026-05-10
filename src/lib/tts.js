@@ -335,19 +335,33 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
 
   const safeOptions = Array.isArray(options) ? options : [];
 
-  // Whole-Q dominance check — if 75%+ of detected chars are one
-  // language, pin that voice for everything (engprof / Thai-only Q).
-  const wholeText = (stem || '') + ' ' + safeOptions.join(' ');
+  // ── ONE voice per Q. ALWAYS. ──────────────────────────────────
+  // Earlier iterations tried per-piece dominance (stem voice could
+  // differ from option voice). Even with each piece internally
+  // consistent, the inter-piece swap landed as comedy ("ตลก" — Palm).
+  //
+  // The user's strong preference is unambiguous: prefer ONE voice
+  // throughout, even if minority-language tokens get phonetically
+  // approximated (Pattara reading "Doberman" sounds odd, but the
+  // listener's brain auto-corrects medical terminology — vastly
+  // better than two robots dueting).
+  //
+  // Rule: dominance is decided by the STEM language, not whole-Q.
+  // Reason: stems carry the bulk of cognitive content; options are
+  // usually short labels. A Thai stem with English-only short options
+  // would otherwise tip the whole-Q count to English (since 4 short
+  // options collectively outweigh a long Thai stem in raw chars), and
+  // Zira would silently skip the Thai stem chars — the worst outcome.
+  // If stem is empty (rare), fall back to combined-text dominance.
+  const stemText = (stem || '').trim();
   let th = 0, en = 0;
-  for (const ch of wholeText) {
+  const target = stemText || ((stem || '') + ' ' + safeOptions.join(' '));
+  for (const ch of target) {
     if (THAI_RE.test(ch)) th++;
     else if (ENG_RE.test(ch)) en++;
   }
-  const total = th + en;
-  const forceLang = total > 0
-    ? (th / total >= 0.75 ? 'th' : (en / total >= 0.75 ? 'en' : null))
-    : null;
-  const langFor = (text) => forceLang || dominantLang(text);
+  // Default Thai when no detected chars (digit-only / empty edge case)
+  const qLang = (en > th) ? 'en' : 'th';
 
   // Audiobook-standard pauses (ms)
   const PAUSE_END_OF_STEM = 600;
@@ -355,12 +369,9 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
 
   try {
     if (stem && stem.trim()) {
-      const lang = langFor(stem);
-      const text = preprocess(stem, lang);
-      // Ensure stem ends with a period so the voice does its own
-      // sentence-final pause (some browsers honor this for prosody).
+      const text = preprocess(stem, qLang);
       const stemText = /[.!?]$/.test(text) ? text : text + '.';
-      await speakSentence(stemText, lang, voices, controller);
+      await speakSentence(stemText, qLang, voices, controller);
       if (controller?.cancelled) { synth.cancel(); return; }
       await pause(PAUSE_END_OF_STEM);
     }
@@ -369,13 +380,11 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
       if (controller?.cancelled) { synth.cancel(); break; }
       const letter = String.fromCharCode(65 + i);
       const raw = safeOptions[i] || '';
-      const lang = langFor(raw);
-      const opt = preprocess(raw, lang);
+      const opt = preprocess(raw, qLang);
       // Comma form for Thai (so Pattara doesn't read "A dot");
       // period form for English (natural newscaster cadence).
-      const text = lang === 'en' ? `${letter}. ${opt}.` : `${letter}, ${opt}.`;
-      await speakSentence(text, lang, voices, controller);
-      // Slightly shorter pause on the LAST option — completes feel
+      const text = qLang === 'en' ? `${letter}. ${opt}.` : `${letter}, ${opt}.`;
+      await speakSentence(text, qLang, voices, controller);
       const isLast = i === safeOptions.length - 1;
       await pause(isLast ? 200 : PAUSE_BETWEEN_OPTIONS);
     }
