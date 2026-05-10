@@ -8,7 +8,18 @@ import BackBar from '../components/BackBar.jsx';
 // without ever opening this, so we keep it out of the main bundle.
 const InstructorModal = lazy(() => import('../components/InstructorModal.jsx'));
 
-export default function TopicSelectView({ subject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {} }) {
+// VCA-specific: cross-link map from VCA topic id → existing notes subject
+// (where direct match exists). Click "📖 Notes" chip → navigate to NotesView
+// with that subject. Other species (swine, equine) have video summaries
+// only — no NotesView entry yet, so we omit chips for those.
+const VCA_NOTES_MAP = {
+  exotic:   { subject: 'exotic',   label: 'Notes Exotic' },
+  poultry:  { subject: 'poultry',  label: 'Notes Poultry' },
+  ruminant: { subject: 'cliapprum', label: 'Notes Cli App Ruminant' },
+  dogcat:   { subject: 'com5',     label: 'Notes COM V (Dog-Cat)' },
+};
+
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {} }) {
   const [openInstructor, setOpenInstructor] = useState(null);
 
   // Open instructor profile by lecturer string. Looks up via the
@@ -274,6 +285,34 @@ export default function TopicSelectView({ subject, setTopic, setView, goHome, mo
               {t.lecturerNote && !isEmpty && (
                 <div style={{ marginTop: 8, padding: '6px 8px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'left', lineHeight: 1.4 }}>
                   ⚠️ {t.lecturerNote}
+                </div>
+              )}
+              {/* VCA-only: cross-link chip → matched NotesView subject */}
+              {subject === 'vca' && VCA_NOTES_MAP[t.id] && !isEmpty && (
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (setSubject) setSubject(VCA_NOTES_MAP[t.id].subject);
+                    if (setTopic) setTopic(null);
+                    setView('notes');
+                  }}
+                  title={`เปิด Notes: ${VCA_NOTES_MAP[t.id].label}`}
+                  style={{
+                    marginTop: 6,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    padding: '2px 8px',
+                    borderRadius: 999,
+                    background: 'rgba(93, 180, 211, 0.12)',
+                    border: '1px solid #5db4d3',
+                    fontSize: 11,
+                    fontFamily: 'JetBrains Mono, monospace',
+                    color: '#3a8aa8',
+                    cursor: 'pointer',
+                  }}
+                >
+                  📖 {VCA_NOTES_MAP[t.id].label}
                 </div>
               )}
             </button>
