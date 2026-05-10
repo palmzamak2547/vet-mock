@@ -180,11 +180,24 @@ function expandAcronyms(text) {
 }
 
 // Symbols that confuse TTS — replace with words appropriate to the
-// surrounding language.
+// surrounding language. Also handles fill-in-blank underscore runs
+// (Pattara would read "_____" as "ขีดล่างๆๆๆๆๆ" — ugly) and dash
+// ranges like "5-10" (Pattara reads as "5 ลบ 10" subtraction).
 function normalizeSymbols(text, lang) {
   if (!text) return text;
   const isEn = lang === 'en';
   return text
+    // Fill-in-the-blank: 2+ underscores in a row → "ช่องว่าง" / "blank"
+    // Single underscore (e.g. in a variable name) kept as-is.
+    .replace(/_{2,}/g, isEn ? ' blank ' : ' ช่องว่าง ')
+    // Numeric ranges with hyphen/dash/en-dash: "5-10" / "5–10" → "5 ถึง 10"
+    // Run BEFORE we touch unit slashes so we don't accidentally absorb the
+    // hyphen inside drug names like "Sulfa-Trimethoprim".
+    .replace(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)/g, (m, a, b) => `${a} ${isEn ? 'to' : 'ถึง'} ${b}`)
+    // Three-or-more dots (ellipsis) → comma pause (browser ignores literal dots)
+    .replace(/\.{3,}/g, ', ')
+    .replace(/…/g, ', ')
+    // Arrows
     .replace(/→|⇒|->/g, isEn ? ' to ' : ' ไป ')
     .replace(/×/g, isEn ? ' times ' : ' คูณ ')
     .replace(/±/g, isEn ? ' plus or minus ' : ' บวกลบ ')
@@ -196,7 +209,20 @@ function normalizeSymbols(text, lang) {
     // Trailing "/min", "/hr"
     .replace(/\/min\b/g, isEn ? ' per minute' : ' ต่อนาที')
     .replace(/\/hr\b|\/h\b/g, isEn ? ' per hour' : ' ต่อชั่วโมง')
-    .replace(/\/day\b|\/d\b/g, isEn ? ' per day' : ' ต่อวัน');
+    .replace(/\/day\b|\/d\b/g, isEn ? ' per day' : ' ต่อวัน')
+    // Veterinary dosing frequency — "q12h" / "q4h" / "q8h" etc.
+    // Format: q<number>h means "every N hours". Pattara reads "q12h"
+    // letter-by-letter ("คิว ทเวลฟ์ เอช") — confusing. Replace with
+    // natural Thai/English phrasing.
+    .replace(/\bq(\d+)h\b/gi, (m, n) => isEn ? `every ${n} hours` : `ทุก ${n} ชั่วโมง`)
+    // Latin abbreviations for daily frequency (SID/BID/TID/QID).
+    // SID = once a day, BID = twice, TID = 3×, QID = 4×.
+    .replace(/\bSID\b/g, isEn ? 'once a day' : 'วันละครั้ง')
+    .replace(/\bBID\b/g, isEn ? 'twice a day' : 'วันละสองครั้ง')
+    .replace(/\bTID\b/g, isEn ? 'three times a day' : 'วันละสามครั้ง')
+    .replace(/\bQID\b/g, isEn ? 'four times a day' : 'วันละสี่ครั้ง')
+    // PRN = as needed
+    .replace(/\bPRN\b/g, isEn ? 'as needed' : 'เมื่อจำเป็น');
 }
 
 // Common clinical units. Thai voices mangle these letter-by-letter.
@@ -216,11 +242,21 @@ const UNIT_EN = {
 function expandUnits(text, lang) {
   if (!text) return text;
   const map = lang === 'en' ? UNIT_EN : UNIT_TH;
-  return text.replace(/(\d+(?:\.\d+)?)\s*([a-zA-Zµμ]{1,5})\b/g, (m, num, unit) => {
-    const expanded = map[unit];
-    if (!expanded) return m;
-    return `${num} ${expanded}`;
-  });
+  return text
+    // "5 mg" / "0.5 mcg" — number-prefixed units
+    .replace(/(\d+(?:\.\d+)?)\s*([a-zA-Zµμ]{1,5})\b/g, (m, num, unit) => {
+      const expanded = map[unit];
+      if (!expanded) return m;
+      return `${num} ${expanded}`;
+    })
+    // "ต่อ kg" / "per kg" — bare units after a preposition word
+    // (normalizeSymbols above turns "mg/kg" into "mg ต่อ kg", so the
+    // trailing "kg" loses its leading number and needs this catch).
+    .replace(/(ต่อ|per)\s+([a-zA-Zµμ]{1,5})\b/g, (m, prep, unit) => {
+      const expanded = map[unit];
+      if (!expanded) return m;
+      return `${prep} ${expanded}`;
+    });
 }
 
 // Add light comma breath points to long Thai monologues — Pattara is
