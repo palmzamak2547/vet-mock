@@ -23,8 +23,11 @@ const TABS = [
   { id: 'rer',          label: 'RER',         icon: '🔥' },
   { id: 'fluid',        label: 'Fluid',       icon: '💧' },
   { id: 'drug',         label: 'Drug dose',   icon: '💊' },
+  { id: 'cri',          label: 'CRI rate',    icon: '⏱' },
   { id: 'transfusion',  label: 'Transfusion', icon: '🩸' },
   { id: 'dka',          label: 'DKA insulin', icon: '🍬' },
+  { id: 'bsa',          label: 'BSA (chemo)', icon: '🎗' },
+  { id: 'convert',      label: 'หน่วย',       icon: '🔁' },
 ];
 
 // Helpers — round to N decimals; never NaN-display
@@ -185,6 +188,167 @@ function DKATab() {
         + add D2.5%, &lt; 100 → STOP + dextrose.
         <br />
         ⚠️ ห้ามให้ insulin bolus IV, ต้อง correct fluid + electrolyte (K) ก่อน.
+      </Note>
+    </div>
+  );
+}
+
+// ── CRI rate (constant rate infusion) ──────────────────────────
+// Solves the most common bedside need: "how much drug do I add to
+// a 250 mL bag, and what pump rate gives me X µg/kg/min?"
+//
+// Inputs: BW, target dose (µg/kg/min), drug stock (mg/mL), bag size,
+// fluid rate. Outputs: drug volume to add to bag and equivalent
+// total dose per hour for double-checking.
+function CRITab() {
+  const [bw, setBw] = useState('');
+  const [target, setTarget] = useState('');           // µg/kg/min
+  const [stock, setStock] = useState('');             // mg/mL
+  const [bag, setBag] = useState('250');              // mL
+  const [rate, setRate] = useState('');               // mL/hr
+  const w = parseFloat(bw);
+  const t = parseFloat(target);
+  const s = parseFloat(stock);
+  const b = parseFloat(bag);
+  const ml = parseFloat(rate);
+  // 1 mg/kg/hr = 16.67 µg/kg/min → going via µg/kg/min for fewer slips
+  // Required mg/hr at target dose = BW(kg) × target(µg/kg/min) × 60 / 1000
+  const mgPerHr = isFinite(w) && isFinite(t) && w > 0 && t > 0 ? r(w * t * 60 / 1000, 3) : null;
+  // Concentration needed in bag (mg/mL) so that running at given mL/hr delivers mgPerHr:
+  const concNeeded = mgPerHr !== null && isFinite(ml) && ml > 0 ? r(mgPerHr / ml, 3) : null;
+  // Drug volume (mL) to add to bag = (concNeeded × bag) / stock
+  const drugMl = concNeeded !== null && isFinite(s) && isFinite(b) && s > 0 && b > 0
+    ? r((concNeeded * b) / s, 2)
+    : null;
+  return (
+    <div>
+      <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="20" type="number" />
+      <Field label="Target dose (µg/kg/min)" value={target} onChange={setTarget} placeholder="5" type="number" suffix="µg/kg/min" />
+      <Field label="Drug stock (mg/mL)" value={stock} onChange={setStock} placeholder="50" type="number" suffix="mg/mL" />
+      <Field label="Bag size (mL)" value={bag} onChange={setBag} placeholder="250" type="number" suffix="mL" />
+      <Field label="Pump rate (mL/hr)" value={rate} onChange={setRate} placeholder="10" type="number" suffix="mL/hr" />
+      <Result label="Total dose / hr" value={fmt(mgPerHr, ' mg/hr')} />
+      <Result label="Concentration ในถุง" value={fmt(concNeeded, ' mg/mL')} />
+      <Result label="ดูดยาใส่ถุง" value={fmt(drugMl, ' mL')} accent />
+      <Note>
+        💡 ตัวอย่าง dopamine 5 µg/kg/min, dog 20 kg, stock 40 mg/mL, bag 250 mL, pump 10 mL/hr
+        → ดูดยา ≈ 1.5 mL ใส่ถุง.
+        <br />
+        เช็คผลซ้ำเสมอ: หมุนกลับ — concentration × pump rate ÷ BW × 1000/60 ควรได้ใกล้ target.
+      </Note>
+    </div>
+  );
+}
+
+// ── Body Surface Area (m²) — for chemo dosing ───────────────────
+// Standard formula: BSA = K × BW^(2/3) / 100, where K = 10.1 (dog)
+// or 10.0 (cat). Used because chemo doses don't scale linearly with
+// weight — small patients get over-dosed if you use mg/kg.
+function BSATab() {
+  const [bw, setBw] = useState('');
+  const [species, setSpecies] = useState('dog');
+  const [drugDose, setDrugDose] = useState('');
+  const w = parseFloat(bw);
+  const k = species === 'dog' ? 10.1 : 10.0;
+  const bsa = isFinite(w) && w > 0 ? r(k * Math.pow(w, 2 / 3) / 100, 3) : null;
+  const drug = parseFloat(drugDose);
+  const totalMg = bsa !== null && isFinite(drug) && drug > 0 ? r(bsa * drug, 2) : null;
+  return (
+    <div>
+      <ChipRow
+        label="Species"
+        options={[{ id: 'dog', label: '🐕 Dog (K=10.1)' }, { id: 'cat', label: '🐈 Cat (K=10.0)' }]}
+        value={species}
+        onChange={setSpecies}
+      />
+      <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="15" type="number" />
+      <Field label="Drug dose (mg/m², optional)" value={drugDose} onChange={setDrugDose} placeholder="250" type="number" suffix="mg/m²" />
+      <Result label="BSA" value={fmt(bsa, ' m²')} accent />
+      <Result label="Total drug dose" value={fmt(totalMg, ' mg')} />
+      <Note>
+        💡 BSA = K × BW<sup>(2/3)</sup> / 100. Used for chemo (e.g., doxorubicin 30 mg/m²).
+        <br />
+        ⚠️ Cats &lt; 10 kg: capped doxorubicin to 1 mg/kg (BSA over-doses small cats — known
+        weakness of the formula).
+      </Note>
+    </div>
+  );
+}
+
+// ── Unit Converter ──────────────────────────────────────────────
+// Quick toggle between common bedside units. mg ↔ µg / mL ↔ drops /
+// kg ↔ lb / °C ↔ °F. Done as a single typed value with all
+// conversions shown — way faster than swapping tabs.
+function ConvertTab() {
+  const [mode, setMode] = useState('mass');
+  const [val, setVal] = useState('');
+  const v = parseFloat(val);
+  const haveV = isFinite(v);
+  let body = null;
+  if (mode === 'mass') {
+    body = (
+      <>
+        <Field label="ใส่ค่าใน mg" value={val} onChange={setVal} placeholder="100" type="number" suffix="mg" />
+        <Result label="µg" value={fmt(haveV ? r(v * 1000, 2) : null)} />
+        <Result label="g" value={fmt(haveV ? r(v / 1000, 4) : null)} />
+        <Result label="grain" value={fmt(haveV ? r(v / 64.8, 4) : null)} />
+      </>
+    );
+  } else if (mode === 'volume') {
+    body = (
+      <>
+        <Field label="ใส่ค่าใน mL" value={val} onChange={setVal} placeholder="2" type="number" suffix="mL" />
+        <Result label="หยด (drops, 20 gtt/mL)" value={fmt(haveV ? Math.round(v * 20) : null, ' gtt')} />
+        <Result label="หยดเล็ก (60 gtt/mL)" value={fmt(haveV ? Math.round(v * 60) : null, ' µgtt')} />
+        <Result label="L" value={fmt(haveV ? r(v / 1000, 4) : null)} />
+        <Result label="tsp (5 mL)" value={fmt(haveV ? r(v / 5, 2) : null)} />
+      </>
+    );
+  } else if (mode === 'weight') {
+    body = (
+      <>
+        <Field label="ใส่ค่าใน kg" value={val} onChange={setVal} placeholder="10" type="number" suffix="kg" />
+        <Result label="lb" value={fmt(haveV ? r(v * 2.2046, 2) : null)} />
+        <Result label="g" value={fmt(haveV ? r(v * 1000, 0) : null)} />
+        <Result label="oz" value={fmt(haveV ? r(v * 35.274, 1) : null)} />
+      </>
+    );
+  } else if (mode === 'temp') {
+    body = (
+      <>
+        <Field label="ใส่ค่าใน °C" value={val} onChange={setVal} placeholder="38.5" type="number" suffix="°C" />
+        <Result label="°F" value={fmt(haveV ? r(v * 9 / 5 + 32, 1) : null)} />
+        <Result label="K" value={fmt(haveV ? r(v + 273.15, 1) : null)} />
+      </>
+    );
+  } else if (mode === 'rate') {
+    body = (
+      <>
+        <Field label="ใส่ค่าใน mL/hr" value={val} onChange={setVal} placeholder="60" type="number" suffix="mL/hr" />
+        <Result label="หยด/นาที (20 gtt/mL)" value={fmt(haveV ? r(v * 20 / 60, 1) : null, ' gtt/min')} />
+        <Result label="หยดเล็ก/นาที (60 gtt/mL)" value={fmt(haveV ? r(v, 1) : null, ' µgtt/min')} />
+        <Result label="mL/min" value={fmt(haveV ? r(v / 60, 2) : null)} />
+      </>
+    );
+  }
+  return (
+    <div>
+      <ChipRow
+        label="ประเภท"
+        options={[
+          { id: 'mass',   label: '⚖ Mass' },
+          { id: 'volume', label: '💧 Volume' },
+          { id: 'weight', label: '🐾 BW' },
+          { id: 'temp',   label: '🌡 Temp' },
+          { id: 'rate',   label: '⏱ Rate' },
+        ]}
+        value={mode}
+        onChange={(id) => { setMode(id); setVal(''); }}
+      />
+      {body}
+      <Note>
+        💡 Macro drip set (10/15/20 gtt/mL), micro drip (60 gtt/mL).
+        ในเด็ก/แมวเล็กควรใช้ micro เพราะคำนวณง่ายกว่า + bolus error น้อยกว่า.
       </Note>
     </div>
   );
@@ -383,8 +547,11 @@ export default function VetCalculator() {
               {activeTab === 'rer'         && <RERTab />}
               {activeTab === 'fluid'       && <FluidTab />}
               {activeTab === 'drug'        && <DrugTab />}
+              {activeTab === 'cri'         && <CRITab />}
               {activeTab === 'transfusion' && <TransfusionTab />}
               {activeTab === 'dka'         && <DKATab />}
+              {activeTab === 'bsa'         && <BSATab />}
+              {activeTab === 'convert'     && <ConvertTab />}
             </div>
 
             <div className="vmx-btn-row" style={{ marginTop: 18 }}>

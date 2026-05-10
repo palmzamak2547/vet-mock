@@ -13,14 +13,32 @@ export default defineConfig({
             if (id.includes('@supabase')) return 'vendor-supabase'
             return 'vendor'
           }
-          // Question banks are heavy + only needed once user starts a quiz
+          // Question banks are heavy + only needed once user starts a quiz.
+          // Splitting each into its own chunk lets the browser fetch them
+          // in parallel over HTTP/2 (~6 simultaneous) and improves cache
+          // granularity — editing 1 subject's Qs won't re-download the rest.
+          if (id.includes('questions-com3-special')) return 'data-q-com3-special'
           if (id.includes('questions-com3')) return 'data-q-com3'
           if (id.includes('questions-com4')) return 'data-q-com4'
           if (id.includes('questions-com5')) return 'data-q-com5'
           if (id.includes('questions-engprof')) return 'data-q-engprof'
           if (id.includes('questions-exotic')) return 'data-q-exotic'
           if (id.includes('questions-repro-lect')) return 'data-q-repro-lect'
+          if (id.includes('questions-poultry')) return 'data-q-poultry'
+          if (id.includes('questions-cliapprum')) return 'data-q-cliapprum'
+          if (id.includes('questions-practrum')) return 'data-q-practrum'
+          if (id.includes('questions-vca')) return 'data-q-vca'
+          if (id.includes('questions-mahahon')) return 'data-q-mahahon'
+          if (id.includes('questions-termpaper')) return 'data-q-termpaper'
+          if (id.includes('questions-short')) return 'data-q-short'
+          if (id.includes('questions-part1')) return 'data-q-part1'
+          if (id.includes('questions-part2')) return 'data-q-part2'
+          if (id.includes('questions-part3')) return 'data-q-part3'
           if (id.includes('data/instructors')) return 'data-instructors'
+          // video-summaries.js is ~60k lines / ~2MB and only loaded inside
+          // VideoView (lazy). Splitting it from VideoView's component code
+          // means the view shell renders fast while data streams in.
+          if (id.includes('video-summaries')) return 'data-video-summaries'
           // Notes data is only loaded when NotesView is opened
           if (id.includes('notes-com3')) return 'data-notes-com3'
           if (id.includes('notes-com4')) return 'data-notes-com4'
@@ -28,6 +46,9 @@ export default defineConfig({
           if (id.includes('notes-engprof')) return 'data-notes-engprof'
           if (id.includes('notes-exotic')) return 'data-notes-exotic'
           if (id.includes('notes-repro-lect')) return 'data-notes-repro-lect'
+          if (id.includes('notes-poultry')) return 'data-notes-poultry'
+          if (id.includes('notes-cliapprum')) return 'data-notes-cliapprum'
+          if (id.includes('notes-practrum')) return 'data-notes-practrum'
         },
       },
     },

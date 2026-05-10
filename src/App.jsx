@@ -15,8 +15,12 @@ import { hasSupabase, signOut } from './lib/supabase.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
 
 // Eager — needed for first paint
-import HomeView from './views/HomeView.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+
+// Lazy — HomeView is 1300+ lines and pulls curriculum.js + changelog.
+// Splitting it shaves ~80KB off the initial bundle. We prefetch it on
+// idle below so navigation feels instant even on first cold load.
+const HomeView = lazy(() => import('./views/HomeView.jsx'));
 
 // Lazy — pulls VIDEO_SUMMARIES (~200KB) into a separate chunk so it
 // only ships when the user actually presses ⌘K (or clicks the search
@@ -33,6 +37,11 @@ const InstructorModal = lazy(() => import('./components/InstructorModal.jsx'));
 // run when the user opens it, so the runtime cost is just ~5KB
 // gzipped of inert UI code on first paint.
 import VetCalculator from './components/VetCalculator.jsx';
+
+// Sketchpad — opens a blank canvas for free-form drawing/diagrams.
+// Lazy because it includes canvas + image processing only used when
+// the user opens the pad.
+const ImageAnnotator = lazy(() => import('./components/ImageAnnotator.jsx'));
 
 // View Transitions API helper — wraps a state update so the browser
 // snapshots the DOM before/after and crossfades automatically. Falls
@@ -60,6 +69,104 @@ function withTransition(updateFn) {
   } catch {
     updateFn();
   }
+}
+
+// ── Theme picker — light/dark + 6 palettes ─────────────────────
+// Click → opens a small popover with theme toggle + palette swatches.
+// Closes on outside click (handled by capturing pointerdown on document).
+const PALETTES = [
+  { id: 'default', name: 'Sage + Gold', dot: '#4a6b4a' },
+  { id: 'forest',  name: 'Forest',      dot: '#2d5a3d' },
+  { id: 'ocean',   name: 'Ocean',       dot: '#3d6b82' },
+  { id: 'plum',    name: 'Plum',        dot: '#7d4a7d' },
+  { id: 'cherry',  name: 'Cherry',      dot: '#c26d6d' },
+  { id: 'mono',    name: 'Mono',        dot: '#4a4a4a' },
+];
+
+function ThemePicker({ theme, setTheme, palette, setPalette }) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    // Defer attaching the outside-click listener until after the click
+    // that opened the menu has finished bubbling (otherwise the same
+    // pointerdown closes the menu we just opened).
+    const raf = requestAnimationFrame(() => {
+      document.addEventListener('pointerdown', onDoc);
+    });
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener('pointerdown', onDoc);
+    };
+  }, [open]);
+  return (
+    <div ref={wrapRef} style={{ position: 'relative' }}>
+      <button
+        className="vmx-theme-btn"
+        onClick={() => setOpen((o) => !o)}
+        title="ธีมและสี"
+        aria-label="ตัวเลือกธีมและจานสี"
+        aria-expanded={open}
+      >
+        {theme === 'light' ? '🌙' : '☀️'}
+      </button>
+      {open && (
+        <div
+          role="menu"
+          style={{
+            position: 'absolute',
+            top: 'calc(100% + 6px)',
+            right: 0,
+            zIndex: 950,
+            background: 'var(--clr-surface)',
+            border: '1px solid var(--clr-border)',
+            borderRadius: 10,
+            padding: 10,
+            boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
+            minWidth: 220,
+          }}
+        >
+          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 6 }}>
+            โหมด
+          </div>
+          <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
+            <button
+              type="button"
+              onClick={() => setTheme('light')}
+              className={`vmx-chip ${theme === 'light' ? 'active' : ''}`}
+              style={{ flex: 1 }}
+            >☀️ Light</button>
+            <button
+              type="button"
+              onClick={() => setTheme('dark')}
+              className={`vmx-chip ${theme === 'dark' ? 'active' : ''}`}
+              style={{ flex: 1 }}
+            >🌙 Dark</button>
+          </div>
+          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 6 }}>
+            จานสี
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
+            {PALETTES.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => setPalette(p.id)}
+                className={`vmx-chip ${palette === p.id ? 'active' : ''}`}
+                style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, padding: '5px 10px' }}
+              >
+                <span style={{ width: 12, height: 12, borderRadius: '50%', background: p.dot, border: '1px solid var(--clr-border)' }} />
+                {p.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 // Lazy — pulled in only when the user navigates to that view.
@@ -158,6 +265,18 @@ export default function App() {
   const [selectedPhase, setSelectedPhase] = useLocalStorage('vmx-selected-phase', null);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [openInstructor, setOpenInstructor] = useState(null);
+  // Sketchpad open state — opens the ImageAnnotator in 'sketch' mode
+  // (blank canvas) when the user taps the 🎨 FAB.
+  const [sketchOpen, setSketchOpen] = useState(false);
+  // Service worker update available — true after a new SW finishes
+  // installing while an old one is still controlling the page. We show
+  // a small toast (NOT during exam) with a "Refresh" button.
+  const [swUpdateReady, setSwUpdateReady] = useState(false);
+  useEffect(() => {
+    const handler = () => setSwUpdateReady(true);
+    window.addEventListener('vmx-sw-update', handler);
+    return () => window.removeEventListener('vmx-sw-update', handler);
+  }, []);
 
   // Wrap setView in a View Transitions snapshot so navigating between
   // views fades smoothly (Chrome/Edge/Safari TP). No-op on Firefox.
@@ -194,6 +313,10 @@ export default function App() {
     const ric = window.requestIdleCallback || ((cb) => setTimeout(cb, 1500));
     const cic = window.cancelIdleCallback || clearTimeout;
     const id = ric(() => {
+      // HomeView itself first — landing page for nearly every session,
+      // so prefetch it the moment we're idle. (Even if `initialView` is
+      // 'year-select', we'll be on home within ~3 seconds anyway.)
+      import('./views/HomeView.jsx').catch(() => {});
       // Most-common next steps from home
       import('./views/SubjectSelectView.jsx').catch(() => {});
       import('./views/ConfigView.jsx').catch(() => {});
@@ -269,6 +392,11 @@ export default function App() {
   const [feedbackPrefill, setFeedbackPrefill] = useState(null);
 
   const [theme, setTheme] = useLocalStorage('vmx-theme', 'light');
+  // Color palette — overlays on top of theme to recolor accent vars
+  // (sage / gold). 'default' uses the original sage+gold; alternatives:
+  // ocean / plum / cherry / mono / forest. Stored in localStorage so
+  // preference is per-device.
+  const [palette, setPalette] = useLocalStorage('vmx-palette', 'default');
   const [bookmarks, setBookmarks] = useLocalStorage('vmx-bookmarks', []);
   const [history, setHistory] = useLocalStorage('vmx-history', []);
   const [notes, setNotes] = useLocalStorage('vmx-notes', {});
@@ -286,6 +414,13 @@ export default function App() {
   }, []);
 
   useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
+  useEffect(() => {
+    if (palette && palette !== 'default') {
+      document.documentElement.setAttribute('data-palette', palette);
+    } else {
+      document.documentElement.removeAttribute('data-palette');
+    }
+  }, [palette]);
 
   useEffect(() => {
     if (!user) return;
@@ -768,6 +903,46 @@ export default function App() {
             </div>
           )}
 
+          {/* New service-worker version installed — shown only when NOT in
+              an exam (don't yank state mid-session). Reload only happens
+              on user click, not auto-reload. */}
+          {swUpdateReady && view !== 'exam' && (
+            <div
+              role="status"
+              aria-live="polite"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 12,
+                padding: '8px 14px',
+                marginBottom: 8,
+                borderRadius: 8,
+                fontSize: 13,
+                background: 'rgba(74, 107, 74, 0.12)',
+                color: 'var(--clr-sage, #4a6b4a)',
+                border: '1px solid var(--clr-sage, #4a6b4a)',
+              }}
+            >
+              <span>✨ มีอัปเดตใหม่พร้อมแล้ว</span>
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                style={{
+                  padding: '4px 10px',
+                  fontSize: 12,
+                  color: 'var(--clr-sage, #4a6b4a)',
+                  border: '1px solid currentColor',
+                  background: 'transparent',
+                  flexShrink: 0,
+                }}
+              >
+                🔄 รีเฟรช
+              </button>
+            </div>
+          )}
+
           {/* Header — hidden on full-screen / focus views (exam in progress,
               results, review, auth) so user isn't tempted to navigate away
               mid-session and so the result/review pages don't have nav
@@ -901,9 +1076,8 @@ export default function App() {
                 {!user && hasSupabase && (
                   <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('auth')}>Login</button>
                 )}
-                <button className="vmx-theme-btn" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} title="Toggle theme">
-                  {theme === 'light' ? '🌙' : '☀️'}
-                </button>
+                <ThemePicker theme={theme} setTheme={setTheme} palette={palette} setPalette={setPalette} />
+
               </div>
             </div>
           )}
@@ -957,6 +1131,42 @@ export default function App() {
               calculator UI mid-question — exam already shows wake lock).
               Rendered eagerly so the button is on first paint. */}
           {view !== 'auth' && view !== 'exam' && <VetCalculator />}
+
+          {/* Sketchpad FAB — sits 64px above the calculator FAB so the
+              two don't overlap on mobile. Hidden during exam/auth. */}
+          {view !== 'auth' && view !== 'exam' && (
+            <button
+              onClick={() => setSketchOpen(true)}
+              title="กระดานวาด — สรุป diagram, anatomy"
+              aria-label="เปิดกระดานวาด"
+              style={{
+                position: 'fixed',
+                right: 16,
+                bottom: 'calc(76px + env(safe-area-inset-bottom))',
+                zIndex: 900,
+                width: 44,
+                height: 44,
+                borderRadius: '50%',
+                border: '1px solid var(--clr-border)',
+                background: 'var(--clr-surface)',
+                fontSize: 18,
+                cursor: 'pointer',
+                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--clr-ink)',
+                fontFamily: 'inherit',
+              }}
+            >
+              🎨
+            </button>
+          )}
+          {sketchOpen && (
+            <Suspense fallback={null}>
+              <ImageAnnotator src={null} mode="sketch" onClose={() => setSketchOpen(false)} />
+            </Suspense>
+          )}
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
@@ -7,6 +7,10 @@ import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
 import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
+
+// Annotator is heavy (canvas + image processing) and only mounts on
+// demand — lazy so the review view stays light.
+const ImageAnnotator = lazy(() => import('../components/ImageAnnotator.jsx'));
 
 // NOTE: Smart AI grading was temporarily removed from the UI per user
 // request — the model + rubric + self-assessment workflow alone is
@@ -20,6 +24,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   // reviewing a 200-Q exam, scrolling linearly to find the 30 wrong
   // ones is brutal. 'all' is the default. Cached counts shown in tabs.
   const [filter, setFilter] = useState('all');
+  // Image annotator — opens for the URL we set here.
+  const [annotateSrc, setAnnotateSrc] = useState(null);
 
   const counts = useMemo(() => {
     const c = { all: questions.length, correct: 0, wrong: 0, skipped: 0, bookmarked: 0, noted: 0 };
@@ -48,6 +54,33 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
       }
     });
   }, [questions, answers, bookmarks, notes, filter]);
+
+  // Incremental rendering — for 200-Q exam reviews, painting all items at
+  // once causes jank on iPad. Variable-height items (images, passages,
+  // model answers, rubrics) make full virtualization too complex, so we
+  // use an IntersectionObserver sentinel: render N items, observe the
+  // bottom of the list, append +N when it scrolls into view.
+  const PAGE = 30;
+  const [visibleCount, setVisibleCount] = useState(PAGE);
+  const sentinelRef = useRef(null);
+  // Reset on filter change so the user always sees from the top
+  useEffect(() => { setVisibleCount(PAGE); }, [filter]);
+  useEffect(() => {
+    const node = sentinelRef.current;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      // Fallback: just show everything (older browsers)
+      setVisibleCount(filtered.length);
+      return;
+    }
+    const obs = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        setVisibleCount((c) => Math.min(c + PAGE, filtered.length));
+      }
+    }, { rootMargin: '600px 0px' });
+    obs.observe(node);
+    return () => obs.disconnect();
+  }, [filtered.length]);
+  const visible = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
   const tabs = [
     { id: 'all',        label: 'ทั้งหมด',  icon: '📋', color: 'var(--clr-ink)' },
@@ -114,7 +147,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         <div className="vmx-empty">ไม่มีข้อในหมวด "{tabs.find((t) => t.id === filter)?.label}" — ลองหมวดอื่น</div>
       )}
 
-      {filtered.map((q, idx) => {
+      {visible.map((q, idx) => {
         const userAns = answers[q.id];
         const answered = userAns !== undefined;
         const correct = isCorrect(q, userAns);
@@ -189,24 +222,40 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </div>
             </div>
             {q.image && safeImageUrl(q.image) && (
-              <>
+              <div style={{ position: 'relative', display: 'inline-block', maxWidth: 300 }}>
                 <img
                   src={safeImageUrl(q.image)}
                   alt={`Question ${q.id} image, ${q.subject}/${q.topic || 'general'}`}
                   loading="lazy"
                   decoding="async"
                   className="vmx-qimage"
-                  style={{ maxWidth: 300 }}
+                  style={{ maxWidth: 300, display: 'block' }}
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     const ph = e.currentTarget.nextElementSibling;
                     if (ph && ph.dataset.imgFallback) ph.style.display = 'block';
                   }}
                 />
+                <button
+                  type="button"
+                  onClick={() => setAnnotateSrc(safeImageUrl(q.image))}
+                  title="วาดทับภาพ (highlight, ลูกศร, โน้ต)"
+                  aria-label="เปิดเครื่องมือวาดทับภาพ"
+                  style={{
+                    position: 'absolute', top: 6, right: 6,
+                    width: 30, height: 30, borderRadius: 8,
+                    border: '1px solid rgba(0,0,0,0.15)',
+                    background: 'rgba(255,255,255,0.92)', fontSize: 14,
+                    cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}
+                >
+                  ✏️
+                </button>
                 <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', maxWidth: 300 }}>
                   ⚠️ ภาพประกอบโหลดไม่ได้
                 </div>
-              </>
+              </div>
             )}
             {q.passage && (
               <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, lineHeight: 1.65, whiteSpace: 'pre-wrap', maxHeight: 220, overflowY: 'auto' }}>
@@ -313,10 +362,25 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         );
       })}
 
+      {/* Lazy-load sentinel — appended after the rendered slice. When it
+          scrolls within 600px of viewport, useEffect above expands the
+          window. Hidden when everything is already shown. */}
+      {visibleCount < filtered.length && (
+        <div ref={sentinelRef} style={{ height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--clr-ink-soft)', fontSize: 12, fontFamily: 'JetBrains Mono, monospace' }}>
+          กำลังโหลด {Math.min(filtered.length - visibleCount, PAGE)} ข้อถัดไป…
+        </div>
+      )}
+
       <div className="vmx-btn-row" style={{ marginTop: 30 }}>
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('config')}>ทำชุดใหม่ →</button>
       </div>
+
+      {annotateSrc && (
+        <Suspense fallback={null}>
+          <ImageAnnotator src={annotateSrc} onClose={() => setAnnotateSrc(null)} />
+        </Suspense>
+      )}
     </>
   );
 }

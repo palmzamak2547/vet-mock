@@ -37,6 +37,75 @@ export const STYLES = `
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
+/* ── Palette overrides ──────────────────────────────────────────
+   Stack on top of light/dark — they only re-color the accent vars
+   (sage = primary, gold = secondary). The rest of the palette
+   (bg/ink/surface) stays consistent with the chosen theme so
+   contrast + readability never break.
+
+   Apply by setting <html data-palette="X">. App.jsx persists this
+   in localStorage 'vmx-palette' and re-applies on mount.            */
+[data-palette="ocean"] {
+  --clr-sage: #3d6b82;
+  --clr-sage-soft: #a8c0d4;
+  --clr-gold: #6b94a8;
+  --clr-gold-soft: #c0d4e0;
+}
+[data-theme="dark"][data-palette="ocean"] {
+  --clr-sage: #6b94a8;
+  --clr-sage-soft: #3d6b82;
+  --clr-gold: #8fb0c2;
+  --clr-gold-soft: #4d6e80;
+}
+[data-palette="plum"] {
+  --clr-sage: #7d4a7d;
+  --clr-sage-soft: #c5a8c5;
+  --clr-gold: #b07ab0;
+  --clr-gold-soft: #e0c8e0;
+}
+[data-theme="dark"][data-palette="plum"] {
+  --clr-sage: #b07ab0;
+  --clr-sage-soft: #7d4a7d;
+  --clr-gold: #c89bc8;
+  --clr-gold-soft: #6e3d6e;
+}
+[data-palette="cherry"] {
+  --clr-sage: #c26d6d;
+  --clr-sage-soft: #e8b8b8;
+  --clr-gold: #b88940;
+  --clr-gold-soft: #e8d4a8;
+}
+[data-theme="dark"][data-palette="cherry"] {
+  --clr-sage: #d89090;
+  --clr-sage-soft: #8b4f4f;
+  --clr-gold: #d4a556;
+  --clr-gold-soft: #8b6a30;
+}
+[data-palette="mono"] {
+  --clr-sage: #4a4a4a;
+  --clr-sage-soft: #b8b8b8;
+  --clr-gold: #777777;
+  --clr-gold-soft: #d0d0d0;
+}
+[data-theme="dark"][data-palette="mono"] {
+  --clr-sage: #c0c0c0;
+  --clr-sage-soft: #4a4a4a;
+  --clr-gold: #909090;
+  --clr-gold-soft: #555555;
+}
+[data-palette="forest"] {
+  --clr-sage: #2d5a3d;
+  --clr-sage-soft: #8fb89e;
+  --clr-gold: #8a7a3a;
+  --clr-gold-soft: #d4c890;
+}
+[data-theme="dark"][data-palette="forest"] {
+  --clr-sage: #6fa07f;
+  --clr-sage-soft: #2d5a3d;
+  --clr-gold: #c0aa68;
+  --clr-gold-soft: #5a4f28;
+}
+
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 html, body { overscroll-behavior-y: contain; }

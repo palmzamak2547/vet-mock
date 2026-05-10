@@ -4,6 +4,7 @@ import { RichText } from '../lib/richtext.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
+import VoiceInputButton from './VoiceInputButton.jsx';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
 // markers and HTML entities sound weird as speech.
@@ -146,7 +147,17 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       {showNote && (
         <div className="vmx-note-panel">
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 6, fontFamily: 'JetBrains Mono, monospace' }}>NOTE</div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>NOTE</div>
+            <VoiceInputButton
+              size={26}
+              onAppend={(text) => {
+                const cur = note || '';
+                const sep = cur && !cur.endsWith(' ') && !cur.endsWith('\n') ? ' ' : '';
+                onNoteChange((cur + sep + text).slice(0, 5000));
+              }}
+            />
+          </div>
           <textarea className="vmx-note-textarea" value={note || ''} onChange={(e) => onNoteChange(e.target.value.slice(0, 5000))} placeholder="จดโน้ตที่นี่..." maxLength={5000} />
         </div>
       )}
@@ -206,12 +217,22 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           or AI-grade in Review since open-text grading is fuzzy. */}
       {currentQ.type === 'short' && (
         <div className="vmx-fill-row">
-          <div className="vmx-fill-label">Your answer (พิมพ์ตอบสั้นๆ)</div>
+          <div className="vmx-fill-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+            <span>Your answer (พิมพ์ตอบสั้นๆ)</span>
+            <VoiceInputButton
+              size={28}
+              onAppend={(text) => {
+                const cur = typeof currentAnswer === 'string' ? currentAnswer : '';
+                const sep = cur && !cur.endsWith(' ') ? ' ' : '';
+                answerCurrent((cur + sep + text).slice(0, 1000));
+              }}
+            />
+          </div>
           <textarea
             className="vmx-fill-input"
             value={typeof currentAnswer === 'string' ? currentAnswer : ''}
             onChange={(e) => answerCurrent(e.target.value.slice(0, 1000))}
-            placeholder="เขียนคำตอบสั้นๆ (1-3 ประโยค)"
+            placeholder="เขียนคำตอบสั้นๆ (1-3 ประโยค) — กดไมค์เพื่อพูดได้"
             rows={3}
             style={{ minHeight: 70, fontFamily: 'inherit', resize: 'vertical', width: '100%', boxSizing: 'border-box', padding: 10 }}
             maxLength={1000}
@@ -229,8 +250,17 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {currentQ.type === 'essay' && (
         <div style={{ marginTop: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 6 }}>
-            <div className="vmx-fill-label" style={{ marginBottom: 0 }}>
-              Your summary
+            <div className="vmx-fill-label" style={{ marginBottom: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span>Your summary</span>
+              <VoiceInputButton
+                size={28}
+                lang={(currentQ.passage_lang === 'en' || currentQ.lang === 'en') ? 'en-US' : 'th-TH'}
+                onAppend={(text) => {
+                  const cur = essayText || '';
+                  const sep = cur && !cur.endsWith(' ') ? ' ' : '';
+                  answerCurrent((cur + sep + text).slice(0, 5000));
+                }}
+              />
             </div>
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               <strong style={{ color: essayBarColor }}>{essayWords}</strong>

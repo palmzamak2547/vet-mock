@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
+
+// DailyGoalCard is lazy-loaded — it only renders if there's history,
+// and most users will see it after some interaction. Keeps HomeView's
+// shell as small as possible.
+const DailyGoalCard = lazy(() => import('../components/DailyGoalCard.jsx'));
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
@@ -498,6 +503,16 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             </button>
           )}
         </div>
+      )}
+
+      {/* Daily goal card — only mount once user has history. Avoids
+          showing an empty quota widget to brand-new visitors. */}
+      {history.length > 0 && (
+        <Suspense fallback={null}>
+          <div style={{ marginBottom: 18 }}>
+            <DailyGoalCard history={history} />
+          </div>
+        </Suspense>
       )}
 
       {/* PRIMARY: Subject Grid — natural mental model is "I want to study X subject".

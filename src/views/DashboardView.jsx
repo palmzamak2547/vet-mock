@@ -1,7 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect, lazy, Suspense } from 'react';
 import { SUBJECTS, QB } from '../data/questions.js';
 import { downloadJSON } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
+import { getWebVitalsSamples, summarize } from '../lib/web-vitals.js';
+import StreakHeatmap from '../components/StreakHeatmap.jsx';
+
+// OSCE drill is a heavier interactive modal — lazy load when launched.
+const OSCEDrill = lazy(() => import('../components/OSCEDrill.jsx'));
 
 // Bucket history into per-subject daily accuracy over the last `daysBack`
 // days. Returns { dayLabels, subjects: [{id, name, icon, color, points,
@@ -181,10 +186,72 @@ function TrendChart({ days }) {
   );
 }
 
+// ── Web Vitals panel ─────────────────────────────────────────────
+// Read-only view of last-50 samples persisted by web-vitals.js. Tells
+// Palm whether the app is still meeting Core Web Vitals thresholds
+// (LCP <2.5s, CLS <0.1, INP <200ms) on his actual device, without
+// any analytics service. Renders nothing if no samples yet.
+function WebVitalsPanel() {
+  const [samples, setSamples] = useState([]);
+  useEffect(() => {
+    setSamples(getWebVitalsSamples());
+  }, []);
+  if (!samples.length) return null;
+  const stats = {
+    lcp: summarize(samples, 'lcp'),
+    cls: summarize(samples, 'cls'),
+    inp: summarize(samples, 'inp'),
+    fcp: summarize(samples, 'fcp'),
+    ttfb: summarize(samples, 'ttfb'),
+  };
+  const fmt = (key, v) => {
+    if (v == null) return '—';
+    if (key === 'cls') return v.toFixed(3);
+    return Math.round(v) + 'ms';
+  };
+  const rate = (key, v) => {
+    if (v == null) return null;
+    const T = { lcp: [2500, 4000], cls: [0.1, 0.25], inp: [200, 500], fcp: [1800, 3000], ttfb: [800, 1800] }[key];
+    if (!T) return null;
+    return v < T[0] ? '🟢' : v < T[1] ? '🟡' : '🔴';
+  };
+  const labels = {
+    lcp: 'LCP · biggest paint',
+    cls: 'CLS · layout shift',
+    inp: 'INP · tap response',
+    fcp: 'FCP · first paint',
+    ttfb: 'TTFB · server speed',
+  };
+  return (
+    <div className="vmx-dash-card">
+      <h3>⚡ Performance (last {samples.length} sessions)</h3>
+      <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
+        {(['lcp', 'cls', 'inp', 'fcp', 'ttfb']).map((key) => {
+          const s = stats[key];
+          if (!s) return null;
+          return (
+            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '6px 8px', borderRadius: 8, background: 'var(--clr-bg-soft, rgba(0,0,0,0.03))' }}>
+              <span style={{ fontSize: 16 }}>{rate(key, s.p75) || '⚪'}</span>
+              <span style={{ flex: 1, fontSize: 13 }}>{labels[key]}</span>
+              <span style={{ fontFamily: 'monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+                p75 {fmt(key, s.p75)} · med {fmt(key, s.median)}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+        🟢 good · 🟡 needs improvement · 🔴 poor (Google Core Web Vitals thresholds)
+      </div>
+    </div>
+  );
+}
+
 export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, customQuestions }) {
   const trend = useMemo(() => build7DayTrend(history), [history]);
   const [curveDays, setCurveDays] = useState(14);
   const learningCurve = useMemo(() => buildLearningCurve(history, curveDays), [history, curveDays]);
+  const [osceOpen, setOsceOpen] = useState(false);
   const exportData = () => {
     const data = {
       exportDate: new Date().toISOString(),
@@ -259,6 +326,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <TrendChart days={trend} />
             </div>
           )}
+
+          <div className="vmx-dash-card" style={{ marginTop: 16 }}>
+            <h3>🗓 ความหนาแน่น 12 เดือน</h3>
+            <StreakHeatmap history={history} />
+          </div>
 
           {learningCurve && (
             <div className="vmx-dash-card" style={{ marginTop: 16 }}>
@@ -343,6 +415,29 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           </div>
         </>
       )}
+
+      <div className="vmx-dash-card">
+        <h3>🎯 OSCE drill</h3>
+        <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
+          ฝึก clinical-skills station แบบจับเวลา + checklist (PE, IV, intubation, suture,
+          anesthesia check, CPCR). มี critical step weight เหมือนสถานีจริง.
+        </div>
+        <button
+          type="button"
+          className="vmx-btn vmx-btn-primary vmx-btn-sm"
+          onClick={() => setOsceOpen(true)}
+        >
+          ▶️ เริ่ม OSCE drill
+        </button>
+      </div>
+
+      {osceOpen && (
+        <Suspense fallback={null}>
+          <OSCEDrill onClose={() => setOsceOpen(false)} />
+        </Suspense>
+      )}
+
+      <WebVitalsPanel />
 
       <div className="vmx-dash-card">
         <h3>Backup & Import</h3>
