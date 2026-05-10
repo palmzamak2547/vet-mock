@@ -141,8 +141,14 @@ export default function ResultsView({ score, questions, answers, goHome, setView
         if (pct > prev) {
           map[subj] = pct;
           window.localStorage.setItem('vmx-personal-best', JSON.stringify(map));
-          isPB = pct >= 60; // only celebrate meaningful PBs (skip 5/10 fluke wins)
-          setPersonalBest({ subj, pct, prev });
+          // Only flag as PB (banner + confetti) when ≥60%. Below that we
+          // still record the new high-water mark in localStorage but
+          // don't celebrate — first-time users hitting 10% shouldn't
+          // see "NEW PERSONAL BEST" since the prior baseline was just 0.
+          if (pct >= 60) {
+            isPB = true;
+            setPersonalBest({ subj, pct, prev });
+          }
         }
       }
     } catch {}

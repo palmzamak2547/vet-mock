@@ -235,10 +235,19 @@ export default function App() {
     try {
       const params = new URLSearchParams(window.location.search);
       if (params.get('auth') === 'reset') return 'auth';
-      // Shareable quiz link — if ?qset= is present, jump straight to the
-      // exam screen with the shared question set. Skip year-select gate
-      // since the receiver may not be Vet 86 — just respect the link.
-      if (params.get('qset')) return 'exam';
+      // Shareable quiz link — only jump to exam if the URL parameter
+      // resolves to at least one valid Q in QB. Otherwise the user
+      // would land on an instant 0/0 results screen (timer effect
+      // auto-fires finishExam on length-0 questions). Falling back to
+      // 'home' shows them the normal UI; the ?qset= param is harmless
+      // dangling text in the URL bar.
+      if (params.get('qset')) {
+        const shared = readShareUrlFromLocation();
+        if (shared.length > 0) {
+          const valid = shared.some((k) => QB.some((q) => q.subject === k.subject && q.id === k.id));
+          if (valid) return 'exam';
+        }
+      }
     } catch {}
     try {
       // Parse the stored value — `null` is a valid serialized state
@@ -567,8 +576,32 @@ export default function App() {
     setPendingResume(null);
   }, []);
 
+  // Shadow-start the exam when entering via a share-link (?qset=).
+  // The normal startExam() flow seeds timeLeft + examStartTime, but a
+  // share-link bootstraps directly into view='exam' with the default
+  // timeLeft=0, which would trip the timer's "time-up" branch and
+  // auto-finish on a 1-Q quiz. This effect fills the gap exactly once
+  // per fresh-entry per question set.
+  useEffect(() => {
+    if (view !== 'exam') return;
+    if (questions.length === 0) return;
+    if (examStartTime !== null) return;
+    setExamStartTime(Date.now());
+    setTimeLeft(timeForQuestion(questions[currentIdx], timePerQ));
+  }, [view, questions, currentIdx, timePerQ, examStartTime]);
+
   useEffect(() => {
     if (view !== 'exam' || !useTimer) return;
+    // Guard against 0-length question set — happens when a shared
+    // ?qset= URL references Q ids that no longer exist in QB. Without
+    // this, the time-up branch immediately fires finishExam and the
+    // user lands on a 0/0 results screen with no warning. Bail early
+    // so the empty-state UI in ExamView's parent can show instead.
+    if (questions.length === 0) return;
+    // Don't auto-tick until the shadow-start effect above has primed
+    // the clock. Otherwise the very first render sees timeLeft=0 and
+    // immediately fires finishExam on single-Q exams.
+    if (examStartTime === null) return;
     if (timeLeft <= 0) {
       if (currentIdx < questions.length - 1) {
         const next = questions[currentIdx + 1];
@@ -882,8 +915,20 @@ export default function App() {
   const goHome = () => {
     setView('home'); setQuestions([]); setAnswers({}); setCurrentIdx(0);
     setPracticeMode('all'); setMode('quick'); setActiveGroup(null); setTopic(null);
+    // Reset exam clock so the next session's shadow-start (or
+    // startExam) can prime timeLeft fresh without the previous
+    // examStartTime value blocking re-init.
+    setExamStartTime(null);
+    setTimeLeft(0);
     // Clear in-flight exam state — user explicitly chose to leave
     try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+    // Strip share-link query so a refresh from home doesn't bounce
+    // back into the shared exam.
+    try {
+      if (window.location.search.includes('qset=')) {
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    } catch {}
   };
 
   const handleSignOut = async () => { if (confirm('Logout?')) { await signOut(); goHome(); } };

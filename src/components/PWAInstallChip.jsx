@@ -27,9 +27,20 @@ function isStandalone() {
 function isIOSSafari() {
   if (typeof window === 'undefined') return false;
   const ua = window.navigator.userAgent;
-  const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  // iPadOS 13+ reports a Mac user agent — `iPad` no longer in UA.
+  // Distinguish a touch-Mac (real iPad) from a real Mac via touchpoint
+  // count + 'ontouchend' presence. Apple has confirmed this is the
+  // sanctioned detection path.
+  const isIOSDevice =
+    /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
+    (/Macintosh/.test(ua) && 'ontouchend' in document);
+  if (!isIOSDevice) return false;
+  // On iOS, Chrome/Firefox/Edge all run on WebKit but identify with their
+  // own UA tokens. We only want plain Safari since other browsers don't
+  // expose A2HS — they'd send the user to a dead end if we showed the tip.
   const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
-  return isIOS && isSafari;
+  return isSafari;
 }
 
 export default function PWAInstallChip() {
