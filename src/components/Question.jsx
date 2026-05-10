@@ -1,10 +1,88 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import SmartPassage from './SmartPassage.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 
+// Strip RichText markup so TTS reads naturally — markdown bold/italic
+// markers and HTML entities sound weird as speech.
+function stripForSpeech(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/_([^_]+)_/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/[#>~]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Q-flag persistence — stored in localStorage as { 'subject:id': { reason, ts } }.
+// Cross-machine sync needs Supabase schema; deferred to a future session.
+const FLAGS_KEY = 'vmx-q-flags';
+function readFlags() {
+  try { return JSON.parse(window.localStorage.getItem(FLAGS_KEY) || '{}'); } catch { return {}; }
+}
+function writeFlags(map) {
+  try { window.localStorage.setItem(FLAGS_KEY, JSON.stringify(map)); } catch {}
+}
+
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote }) {
+  const compoundId = (currentQ?.subject || '?') + ':' + currentQ?.id;
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [flagState, setFlagState] = useState(() => readFlags()[compoundId] || null);
+
+  // Reset flag display when navigating to a new Q
+  useEffect(() => { setFlagState(readFlags()[compoundId] || null); }, [compoundId]);
+
+  // Stop speech when component unmounts or Q changes
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      setIsSpeaking(false);
+    };
+  }, [currentQ?.id]);
+
+  const speakQ = () => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+    const synth = window.speechSynthesis;
+    if (synth.speaking) { synth.cancel(); setIsSpeaking(false); return; }
+    const text = stripForSpeech(currentQ.q) + '. '
+      + (Array.isArray(currentQ.options)
+        ? currentQ.options.map((o, i) => String.fromCharCode(65 + i) + '. ' + stripForSpeech(o)).join('. ')
+        : '');
+    const utter = new SpeechSynthesisUtterance(text);
+    // Pick a Thai or matching voice if available — fallback to default
+    const voices = synth.getVoices();
+    const thaiVoice = voices.find((v) => /th|thai/i.test(v.lang));
+    if (thaiVoice) utter.voice = thaiVoice;
+    utter.rate = 0.95;
+    utter.pitch = 1.0;
+    utter.onend = () => setIsSpeaking(false);
+    utter.onerror = () => setIsSpeaking(false);
+    synth.speak(utter);
+    setIsSpeaking(true);
+  };
+
+  const toggleFlag = () => {
+    const map = readFlags();
+    if (map[compoundId]) {
+      delete map[compoundId];
+      writeFlags(map);
+      setFlagState(null);
+    } else {
+      const reason = window.prompt('แจ้งปัญหาข้อนี้, กรอกรายละเอียดสั้นๆ (เช่น "เฉลยผิด", "ภาษางง", "options ซ้ำ")');
+      if (!reason || !reason.trim()) return;
+      const entry = { reason: reason.trim().slice(0, 200), ts: Date.now() };
+      map[compoundId] = entry;
+      writeFlags(map);
+      setFlagState(entry);
+    }
+  };
+
   // Passage panel (for reading-comprehension questions) — handled by
   // SmartPassage component (see ./SmartPassage.jsx). It owns its own
   // open/closed state, highlight + pen overlays, and persistence.
@@ -199,6 +277,28 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       </button>
       <button className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="Note (N)">
         📝
+      </button>
+      {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).
+          Click again while speaking to stop. Useful during commute /
+          eyes-on-rest study mode. */}
+      <button
+        className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
+        onClick={speakQ}
+        title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง (TTS)'}
+        style={{ right: 108 }}
+      >
+        {isSpeaking ? '🔇' : '🔊'}
+      </button>
+      {/* Q quality flag — local-only for now (Supabase schema TBD).
+          Lets users mark "เฉลยผิด" / "งง" — auditable via
+          localStorage 'vmx-q-flags'. */}
+      <button
+        className={`vmx-note-btn ${flagState ? 'has-note' : ''}`}
+        onClick={toggleFlag}
+        title={flagState ? `ยกเลิก flag, "${flagState.reason}"` : 'แจ้งปัญหาข้อนี้'}
+        style={{ right: 152 }}
+      >
+        {flagState ? '🚩' : '🏳️'}
       </button>
 
       <div className="vmx-qtype-badge">

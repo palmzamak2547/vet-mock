@@ -22,6 +22,11 @@ import { SUBJECTS } from '../data/curriculum.js';
 // ⌘K stays snappy even on slow connections.
 import { VIDEO_META as VIDEO_SUMMARIES } from '../data/video-summaries-meta.js';
 import { ALL_INSTRUCTORS } from '../data/instructors.js';
+// QB is already in the main bundle (App.jsx + HomeView import it eagerly),
+// so adding it here doesn't grow the palette lazy chunk — it's deduped.
+// Only the first 80 chars of q.q are added to the keyword string to keep
+// fuzzy-filter cost bounded (~1999 Qs × short stem = manageable).
+import { QB } from '../data/questions.js';
 
 // Build the searchable item index. Memoized below — items don't
 // change between renders so this only runs once per mount.
@@ -85,6 +90,35 @@ function buildIndex({ goView, setSubject, setPracticeMode, openInstructor }) {
         kw: `${ins.nameEn} ${ins.nameTh || ''} ${ins.position || ''} ${(ins.areas || []).join(' ')} instructor faculty อาจารย์`,
         run: () => openInstructor(ins),
       });
+    });
+  }
+
+  // Question text search — lets users find a specific Q by remembered
+  // keyword (drug name, condition, lab finding). Click jumps into a
+  // single-Q exam scoped to that subject so the user can answer +
+  // see the explain. Only first 60 chars of q.q in keyword string for
+  // perf; full text searched via the .label still shows in dropdown.
+  // We sample up to 1500 Qs (skip duplicates) to bound the index size.
+  const seenQText = new Set();
+  for (const q of (QB || [])) {
+    if (!q?.q || typeof q.q !== 'string') continue;
+    const stem = q.q.slice(0, 100);
+    const dedupeKey = q.subject + ':' + stem.slice(0, 50);
+    if (seenQText.has(dedupeKey)) continue;
+    seenQText.add(dedupeKey);
+    items.push({
+      type: 'question',
+      label: stem.length < q.q.length ? stem + '…' : stem,
+      hint: `${q.subject?.toUpperCase() || 'Q'}, Q${q.id}${q.tags?.length ? ' · ' + q.tags.slice(0, 2).join(', ') : ''}`,
+      icon: '❓',
+      kw: stem.toLowerCase() + ' ' + (q.tags || []).join(' '),
+      run: () => {
+        // Jump to a 1-Q exam scoped to this Q's subject. Same shortcut
+        // as HomeView's "🎲 Quick Q" but pre-filtered.
+        setSubject?.(q.subject);
+        setPracticeMode?.('all');
+        goView('config');
+      },
     });
   }
 
