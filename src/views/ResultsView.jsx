@@ -81,7 +81,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   else if (pct === 100) msg = 'เทพสุดๆ 🏆 อ่านต่อมาเรื่อยๆ';
   else if (pct >= 80) msg = 'ใกล้แล้ว, อ่านอีกนิดเดียว';
   else if (pct >= 60) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
-  else if (pct >= 40) msg = 'สู้ๆ, กลับไปเปิดข้อสอบเก่า';
+  else if (pct >= 40) msg = 'สู้ๆ, กลับไปทบทวนเนื้อหาอีกรอบ';
   else msg = 'เริ่มใหม่ได้เสมอ 💪';
   ctx.font = '400 44px "Fraunces", serif';
   ctx.fillStyle = '#3d342a';
@@ -160,7 +160,7 @@ export default function ResultsView({ score, questions, answers, goHome, setView
     : score.pct === 100 ? '"เทพสุดๆ เก่งมากก 🏆"'
     : score.pct >= 80 ? '"โค้ดดดด ใกล้จะผ่านแล้ว อ่านอีกนิดนึง"'
     : score.pct >= 60 ? '"ผ่านครับ แต่ต้องอ่านซ้ำส่วนที่ผิด"'
-    : score.pct >= 40 ? '"สู้ๆ นะ เปิดข้อสอบเก่าอ่านอีกรอบกันเถอะ"'
+    : score.pct >= 40 ? '"สู้ๆ นะ กลับไปทบทวนเนื้อหาอีกรอบกันเถอะ"'
     : '"ไม่เป็นไร เริ่มใหม่ได้เสมอ 💪"';
 
   const isExam = mode === 'exam';

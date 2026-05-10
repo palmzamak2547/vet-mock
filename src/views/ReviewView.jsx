@@ -201,8 +201,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   return t ? <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)', fontWeight: 600 }}>{t.icon} {t.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></> : null;
                 })()}
                 {q.examOrigin && (
-                  <span title="คำถามนี้อ้างอิงจากข้อสอบเก่า" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
-                    📜 ข้อสอบเก่า
+                  <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
+                    📚 อิงแนวเดิม
                   </span>
                 )}
               </span>

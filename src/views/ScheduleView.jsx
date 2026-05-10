@@ -31,7 +31,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>📅 ตาราง<em>สอบ Final</em></h1>
-        <p>Vet 86 · Semester 2/2568 · อัพเดตล่าสุดจากข้อสอบเก่าและประกาศ</p>
+        <p>Vet 86 · Semester 2/2568 · อัพเดตล่าสุดจากประกาศและรุ่นพี่</p>
       </div>
 
       <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>

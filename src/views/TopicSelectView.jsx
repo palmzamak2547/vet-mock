@@ -355,7 +355,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                     color: 'var(--clr-gold)',
                   }}
                 >
-                  📜 ข้อสอบเก่า {ppCount}/{count}, {ppPct}%
+                  📚 อิงแนวเดิม {ppCount}/{count}, {ppPct}%
                 </div>
               )}
               {t.lecturerNote && !isEmpty && (
@@ -427,7 +427,7 @@ function ExamFormatBanner({ format, accent }) {
       marginBottom: 20,
     }}>
       <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
-        📝 โครงสร้างข้อสอบจริง
+        📝 รูปแบบของชุดโจทย์ฝึก
       </div>
 
       {items.length > 0 && (

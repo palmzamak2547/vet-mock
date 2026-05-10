@@ -181,12 +181,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         <h1>
           {user
             ? <>สวัสดี <em>{profile?.username || 'เพื่อน'}</em></>
-            : <>อ่านแล้ว ลอง <em>ทำข้อสอบ</em> กันเถอะ</>}
+            : <>อ่านแล้ว ลอง <em>ฝึกโจทย์</em> กันเถอะ</>}
         </h1>
         <p>
           {isScaffoldYear
             ? <>🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc}, พรีวิว — รอเติมเนื้อหา</>
-            : <>คลังข้อสอบ <strong>{totalQ}</strong> ข้อ, {yearMeta?.label || 'ปี 4'}</>}
+            : <>คลังโจทย์ฝึก <strong>{totalQ}</strong> ข้อ, {yearMeta?.label || 'ปี 4'}</>}
         </p>
         {/* Year-switcher pill removed from HomeView hero — moved to the
             global persistent App header (since 2026-05-08). One canonical
@@ -591,7 +591,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             if (setFeedbackPrefill) {
               const reason = s.scaffold
                 ? 'อยากให้เพิ่มเนื้อหา'
-                : 'วิชานี้ยังไม่มีข้อสอบ — มี slide/notes/ข้อสอบเก่าส่งมาช่วยได้ไหม';
+                : 'วิชานี้ยังไม่มีโจทย์ฝึก — มี slide/notes/โน้ตทบทวนส่งมาช่วยได้ไหม';
               setFeedbackPrefill({
                 type: 'Content',
                 subject: `ขอเนื้อหา, ${s.name} (${s.code || 'TBD'}), ปี ${selectedYear}`,
@@ -793,7 +793,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             }}>
               <div className="icon">🎓</div>
               <div className="title">Exam Mode</div>
-              <div className="sub">50 ข้อ × 60 วิ, เลียนข้อสอบจริง</div>
+              <div className="sub">50 ข้อ × 60 วิ, จับเวลาเหมือนสนามจริง</div>
             </button>
 
             <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>
@@ -1200,13 +1200,13 @@ function OnboardingTour({ step, onNext, onDismiss }) {
     {
       icon: '👋',
       title: 'ยินดีต้อนรับสู่ VetMock',
-      body: 'คลังข้อสอบ + Notes + คลิป สำหรับสัตวแพทย์จุฬา ทุกชั้นปี\nค่อย ๆ พาทัวร์ 3 จุดสำคัญก่อนเริ่มใช้',
+      body: 'คลังโจทย์ฝึก + Notes + สรุปคลิป สำหรับสัตวแพทย์จุฬา ทุกชั้นปี\nค่อย ๆ พาทัวร์ 3 จุดสำคัญก่อนเริ่มใช้',
       cta: 'ถัดไป →',
     },
     {
       icon: '📚',
       title: 'เริ่มจาก "เลือกวิชา"',
-      body: 'หน้าแรกจะแสดงวิชาในปีของคุณ\nคลิกวิชาไหน → จะเข้าหน้าเลือกหัวข้อ + ปุ่มฝึกซ้อม / สอบจริง / Notes / คลิป\n\nวิชาที่ยังไม่มีเนื้อหา (PREVIEW) คลิกได้ — จะพาไปแบบฟอร์มขอเพิ่มข้อสอบ',
+      body: 'หน้าแรกจะแสดงวิชาในปีของคุณ\nคลิกวิชาไหน → จะเข้าหน้าเลือกหัวข้อ + ปุ่มฝึกซ้อม / Mock test / Notes / คลิป\n\nวิชาที่ยังไม่มีเนื้อหา (PREVIEW) คลิกได้ — จะพาไปแบบฟอร์มขอเพิ่มเนื้อหา',
       cta: 'ถัดไป →',
     },
     {

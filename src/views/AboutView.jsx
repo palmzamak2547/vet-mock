@@ -8,7 +8,7 @@ export default function AboutView({ goHome, setView }) {
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>เกี่ยวกับ <em>VetMock</em></h1>
-        <p>คลังข้อสอบและเครื่องมือเตรียมสอบสำหรับสัตวแพทย์ จุฬาฯ</p>
+        <p>คลังโจทย์ฝึกและเครื่องมือทบทวนสำหรับสัตวแพทย์ จุฬาฯ</p>
       </div>
 
       {/* Who */}
@@ -16,8 +16,8 @@ export default function AboutView({ goHome, setView }) {
         <h3>👥 ผู้สร้าง</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
           เว็บนี้สร้างโดย <strong>Vet 86</strong> (คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย)<br/>
-          เพื่อช่วยให้รุ่นน้อง รุ่นพี่ และเพื่อนร่วมห้อง ได้ฝึกทำข้อสอบแบบจำลอง<br/>
-          เนื้อหาทุกอย่างมาจากข้อสอบเก่าที่เพื่อนๆ รุ่นพี่ช่วยกันรวบรวม
+          เพื่อให้รุ่นน้อง รุ่นพี่ และเพื่อนร่วมห้อง ได้ฝึกโจทย์ทบทวนเนื้อหา lecture<br/>
+          โจทย์ทุกข้อเรียบเรียงจากเนื้อหาที่เรียน + โน้ตที่นิสิตในรุ่นช่วยกันสรุป
         </div>
       </div>
 
@@ -63,10 +63,10 @@ export default function AboutView({ goHome, setView }) {
         <h3>🎯 เป้าหมาย</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
-            <li>เครื่องมือเตรียมสอบครบจบในเว็บเดียว — ไม่ใช่แค่ข้อสอบเก่า แต่รวมถึง notes, flashcard, video, scoring</li>
-            <li>รวมคลังข้อสอบทุกชั้นปีในเว็บเดียว (ตอนนี้เริ่มที่ปี 4 ก่อน)</li>
+            <li>เครื่องมือทบทวนครบจบในเว็บเดียว — โจทย์ฝึก, notes สรุป, flashcard, สรุปคลิป, scoring</li>
+            <li>รวมโจทย์ฝึกทุกชั้นปีในเว็บเดียว (ตอนนี้เริ่มที่ปี 4 ก่อน)</li>
             <li>ไม่มีค่าใช้จ่าย ไม่โฆษณา ไม่เก็บข้อมูลส่วนตัวที่ไม่จำเป็น</li>
-            <li>Open for contribution — ใครอยากช่วยเพิ่มข้อสอบทักมาได้</li>
+            <li>Open for contribution — ใครอยากช่วยเพิ่มโจทย์ฝึกทักมาได้</li>
           </ul>
         </div>
       </div>
@@ -76,7 +76,7 @@ export default function AboutView({ goHome, setView }) {
         <h3>🛠 ฟีเจอร์ที่ใช้ได้ตอนนี้</h3>
         <div style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
           <FeatureGroup
-            title="📝 ทำข้อสอบ"
+            title="📝 ฝึกโจทย์"
             items={[
               'Quick Practice + Exam Mode (ตั้งจำนวนข้อ + เวลา ได้)',
               '4 ประเภท: MCQ (4-5 ช้อยส์) · True/False · Fill-in · Matching',
@@ -96,7 +96,7 @@ export default function AboutView({ goHome, setView }) {
             title="📖 ทบทวนเนื้อหา (Notes)"
             items={[
               'สรุปเนื้อหาแยกหัวข้อ — table, callout, source citation',
-              'อิงจาก slide 2026 + เปรียบเทียบกับข้อสอบเก่าของรุ่นพี่',
+              'อิงจาก slide 2026 + เปรียบเทียบกับโน้ตของรุ่นพี่',
             ]}
           />
           <FeatureGroup
@@ -119,13 +119,13 @@ export default function AboutView({ goHome, setView }) {
             items={[
               'Study Groups + Leaderboard',
               'Sync bookmark/note/SR ข้ามเครื่อง',
-              'แชร์ข้อสอบกับเพื่อนใน group',
+              'แชร์โจทย์ฝึกกับเพื่อนใน group',
             ]}
           />
           <FeatureGroup
             title="✏️ Customize"
             items={[
-              'เพิ่มข้อสอบเอง (custom question manager)',
+              'เพิ่มโจทย์ฝึกเอง (custom question manager)',
               'Theme: ☀️ light / 🌙 dark',
               'Mobile-friendly — ใช้บน iPad, มือถือ portrait/landscape ได้',
             ]}
@@ -135,9 +135,9 @@ export default function AboutView({ goHome, setView }) {
 
       {/* Sources */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
-        <h3>📚 แหล่งที่มาของข้อสอบ</h3>
+        <h3>📚 ที่มาของโจทย์ฝึก</h3>
         <div style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
-          ข้อสอบในเว็บนี้ดึงมาจากข้อสอบเก่าของรุ่นพี่ Vet 83–85 ที่ช่วยกันรวบรวมและแชร์กันในห้อง
+          โจทย์ฝึกในเว็บนี้เรียบเรียงจากเนื้อหา lecture + โน้ตทบทวนที่รุ่นพี่ Vet 83–85 ส่งต่อกันมาในรุ่น
         </div>
 
         {SUBJECTS.filter((s) => s.id !== 'all').map((s) => {
@@ -167,12 +167,12 @@ export default function AboutView({ goHome, setView }) {
         <h3>🙏 ขอบคุณ</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
-            <li><strong>พี่พล Vet 84</strong> — ข้อสอบเก่า Orthopedic, ESF, Approach</li>
-            <li><strong>Kimchii 85</strong> — ข้อสอบเก่า COM III, COM IV, Exotic</li>
-            <li><strong>TJ86</strong> — ข้อสอบเก่า COM V (รวบรวมข้อสอบเก่ารุ่นพี่ + อัพเดต 2024)</li>
-            <li><strong>pployyyn Vet 83</strong> — ข้อสอบเก่า Repro Lab</li>
-            <li><strong>Vet 84</strong> (Ping, Sunsun, Saideang, Janny) — ข้อสอบเก่า Surg Lab 3</li>
-            <li><strong>Vet 85</strong> — ข้อสอบเก่า Surg Lab eye + aural</li>
+            <li><strong>พี่พล Vet 84</strong> — แชร์โน้ตทบทวน Orthopedic, ESF, Approach</li>
+            <li><strong>Kimchii 85</strong> — แชร์โน้ตทบทวน COM III, COM IV, Exotic</li>
+            <li><strong>TJ86</strong> — แชร์โน้ตทบทวน COM V (รวบรวมจากรุ่นพี่ + อัพเดต 2024)</li>
+            <li><strong>pployyyn Vet 83</strong> — แชร์โน้ตทบทวน Repro Lab</li>
+            <li><strong>Vet 84</strong> (Ping, Sunsun, Saideang, Janny) — แชร์โน้ตทบทวน Surg Lab 3</li>
+            <li><strong>Vet 85</strong> — แชร์โน้ตทบทวน Surg Lab eye + aural</li>
             <li><strong>เพื่อนๆ Vet 86</strong> — feedback และการใช้งานจริง</li>
           </ul>
         </div>
@@ -193,7 +193,7 @@ export default function AboutView({ goHome, setView }) {
       {/* Disclaimer */}
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
         <strong>⚠️ Disclaimer:</strong> เว็บนี้เป็น unofficial และไม่มีความเกี่ยวข้องกับคณะสัตวแพทยศาสตร์ จุฬาฯ อย่างเป็นทางการ
-        เนื้อหาเป็นเพียงการ<strong>จำลอง</strong>ข้อสอบเพื่อการฝึก ไม่ใช่ข้อสอบจริง
+        เนื้อหาเป็น<strong>โจทย์ฝึก</strong>ที่นิสิตเรียบเรียงเองจากเนื้อหา lecture · ไม่ใช่ข้อสอบจริงและไม่ทดแทนการอ่านเนื้อหาหลัก
         ข้อมูลตารางสอบอาจมีการเปลี่ยนแปลง โปรดตรวจสอบกับทางคณะ/เพื่อนร่วมห้องอีกครั้ง
       </div>
 

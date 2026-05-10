@@ -1,7 +1,7 @@
 {
   "name": "VetMock — Vet 86 Mock Exam Platform",
   "short_name": "VetMock",
-  "description": "คลังข้อสอบ + ตารางสอบ + คลิปย้อนหลัง สำหรับสัตวแพทย์ จุฬา (Vet 86)",
+  "description": "คลังโจทย์ฝึก + ตารางสอบ + สรุปคลิปย้อนหลัง สำหรับสัตวแพทย์ จุฬา (Vet 86)",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
