@@ -169,19 +169,41 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate' })
     const out = document.createElement('canvas');
     out.width = base.width; out.height = base.height;
     const ctx = out.getContext('2d');
-    ctx.drawImage(base, 0, 0);
-    ctx.drawImage(draw, 0, 0);
-    out.toBlob((blob) => {
-      if (!blob) return;
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `vetmock-annotation-${Date.now()}.png`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }, 'image/png');
+    try {
+      ctx.drawImage(base, 0, 0);
+      ctx.drawImage(draw, 0, 0);
+      // Cross-origin images without CORS headers taint the canvas;
+      // toBlob then returns null. Try-catch + null-check so we surface
+      // a friendly fallback (export only the overlay) instead of
+      // silent-failing.
+      out.toBlob((blob) => {
+        if (!blob) {
+          // Fallback: export ONLY the user's drawing (no base image)
+          // — the overlay canvas isn't tainted so it always exports.
+          draw.toBlob((overlayBlob) => {
+            if (!overlayBlob) {
+              alert('บันทึกไม่ได้: ภาพต้นฉบับมีข้อจำกัด CORS — ลองคลิกขวาที่รูปภาพแล้ว Save image แทน');
+              return;
+            }
+            triggerDownload(overlayBlob, `vetmock-overlay-${Date.now()}.png`);
+          }, 'image/png');
+          return;
+        }
+        triggerDownload(blob, `vetmock-annotation-${Date.now()}.png`);
+      }, 'image/png');
+    } catch (e) {
+      alert('บันทึก PNG ผิดพลาด: ' + (e.message || 'unknown'));
+    }
+  }
+  function triggerDownload(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   return (
