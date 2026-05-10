@@ -111,8 +111,21 @@ function voiceTier(voice) {
 
 function rateFor(lang, tier) {
   if (tier === 'neural' || tier === 'premium') return lang === 'en' ? 0.95 : 1.0;
-  // Standard SAPI voices need slowdown to be comprehensible on med terms
-  return lang === 'en' ? 0.85 : 0.93;
+  // Standard SAPI voices need slowdown — esp. Pattara on multi-syllable
+  // phonetic strings ("ฮีมานจิโอซาร์โคมา"). 0.90 gives breathing room.
+  return lang === 'en' ? 0.85 : 0.90;
+}
+
+// Adaptive pause durations per voice tier. Neural voices have inherent
+// prosody (own pauses for periods/commas), so external pauses can be
+// shorter. SAPI offline voices are robotic and need bigger gaps to
+// feel narrated rather than chopped.
+function pausesFor(tier) {
+  if (tier === 'neural' || tier === 'premium') {
+    return { afterStem: 500, betweenOpts: 350, afterLast: 150, preLetter: 0 };
+  }
+  // Standard SAPI — longer pauses make the cadence feel deliberate
+  return { afterStem: 800, betweenOpts: 480, afterLast: 220, preLetter: 100 };
 }
 
 function pickVoice(voices, lang) {
@@ -275,7 +288,7 @@ function injectBreathCommas(text, lang) {
     out += ch;
     if (/[.,;:!?]/.test(ch)) { runLen = 0; continue; }
     if (THAI_RE.test(ch)) runLen++;
-    if (runLen > 40 && /\s/.test(ch)) {
+    if (runLen > 60 && /\s/.test(ch)) {
       // Replace the just-added space with ", " to inject a pause
       out = out.slice(0, -1) + ', ';
       runLen = 0;
@@ -433,9 +446,12 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
   // English wins ONLY when Thai content is < 25 % AND English exists.
   const qLang = (total > 0 && th / total < 0.25 && en > 0) ? 'en' : 'th';
 
-  // Audiobook-standard pauses (ms)
-  const PAUSE_END_OF_STEM = 600;
-  const PAUSE_BETWEEN_OPTIONS = 450;
+  // Voice + tier-aware pacing. Neural voices have inherent prosody so
+  // external pauses can be shorter; SAPI offline voices are robotic
+  // and need bigger gaps to feel narrated rather than chopped.
+  const chosenVoice = pickVoice(voices, qLang);
+  const tier = voiceTier(chosenVoice);
+  const P = pausesFor(tier);
 
   try {
     if (stem && stem.trim()) {
@@ -443,7 +459,7 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
       const stemText = /[.!?]$/.test(text) ? text : text + '.';
       await speakSentence(stemText, qLang, voices, controller);
       if (controller?.cancelled) { synth.cancel(); return; }
-      await pause(PAUSE_END_OF_STEM);
+      await pause(P.afterStem);
     }
 
     for (let i = 0; i < safeOptions.length; i++) {
@@ -451,12 +467,18 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
       const letter = String.fromCharCode(65 + i);
       const raw = safeOptions[i] || '';
       const opt = preprocess(raw, qLang);
-      // Comma form for Thai (so Pattara doesn't read "A dot");
-      // period form for English (natural newscaster cadence).
-      const text = qLang === 'en' ? `${letter}. ${opt}.` : `${letter}, ${opt}.`;
+      // Period form for both languages — Thai voices say letter + ". " as
+      // a brief pause, which sounds more like a numbered list. The Thai
+      // dict has the dotted forms via TH_PHONETIC's letter spellings; if
+      // the dict translit produced its own letter form already we skip
+      // double-labeling. Otherwise prepend "A." form.
+      const text = `${letter}. ${opt}.`;
+      // Tier-aware pre-letter pause — gives SAPI options a tiny lead-in
+      // beat so each option feels distinct from the previous.
+      if (P.preLetter > 0) await pause(P.preLetter);
       await speakSentence(text, qLang, voices, controller);
       const isLast = i === safeOptions.length - 1;
-      await pause(isLast ? 200 : PAUSE_BETWEEN_OPTIONS);
+      await pause(isLast ? P.afterLast : P.betweenOpts);
     }
   } finally {
     onEnd?.();
