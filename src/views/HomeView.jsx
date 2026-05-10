@@ -26,9 +26,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const phaseMeta = selectedPhase ? PHASE_LABELS[selectedPhase] : null;
   // Filter SUBJECTS_BY_YEAR[selectedYear] to phase scope. If no phase
   // selected (e.g. Y6 block-based), show all subjects.
+  // Special case: semester === 0 means cross-semester (e.g. VCA license
+  // exam prep) — always show regardless of selected phase.
   const allYearSubjects = SUBJECTS_BY_YEAR[selectedYear] || [];
   const yearSubjects = phaseMeta
-    ? allYearSubjects.filter((s) => s.semester === phaseMeta.semester)
+    ? allYearSubjects.filter((s) => s.semester === phaseMeta.semester || s.semester === 0)
     : allYearSubjects;
 
   // Question count — show year-filtered count so PREVIEW years don't

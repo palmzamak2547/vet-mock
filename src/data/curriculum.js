@@ -911,6 +911,31 @@ export const SUBJECTS_BY_YEAR = {
       vault_lecturers: ['athipoo-nuntaprasert', 'pornchalit-assavacheep', 'suphot-wattanaphansak', 'roongtham-kedkovid'],
       topics: [] },
 
+    // ── VCA — VETERINARY COMPETENCY ASSESSMENT (สอบใบประกอบฯ) ───
+    // ข้อสอบสรุปครอบคลุมทุกชนิดสัตว์ · cross-rotation comprehensive prep
+    // Source: @Fukfangfluffy_channel (VCA ผ่านชัวร์ series — แจกฟรี)
+    { id: 'vca', code: 'VCA-Y5', name: 'แนวข้อสอบเก่า VCA',
+      name_en: 'VCA Past Paper Practice — All Species',
+      icon: '🩵', color: '#5db4d3', semester: 0, has_questions: true,
+      examFormat: {
+        weight: 'ใบประกอบวิชาชีพ — ครอบคลุมทุกรายวิชาคลินิก',
+        choiceCount: '4-5',
+        notes: [
+          '📌 Source: @Fukfangfluffy_channel — VCA ผ่านชัวร์ (แจกฟรี IG/Twitter)',
+          '✅ ทุกข้อ Claude verify คำตอบกับความรู้ vet medicine แล้ว · flag ถ้า source ผิด',
+          '🎯 ใช้เตรียมสอบ TVMC license + comprehensive Y5 final',
+        ],
+      },
+      topics: [
+        { id: 'aquatic', label: 'สัตว์น้ำ — Fish & Shrimp', icon: '🐟' },
+        { id: 'exotic',  label: 'Exotic & Wildlife',         icon: '🦎' },
+        { id: 'poultry', label: 'สัตว์ปีก — Poultry',         icon: '🐔' },
+        { id: 'swine',   label: 'หมู — Swine',                icon: '🐖' },
+        { id: 'equine',  label: 'ม้า — Equine',               icon: '🐎' },
+        { id: 'ruminant',label: 'Ruminant — โค กระบือ แพะ แกะ', icon: '🐄' },
+        { id: 'dogcat',  label: 'หมาแมว — Dog & Cat',         icon: '🐕' },
+      ] },
+
     // Y5 sem 2 (2 subjects) — DekDokVet85 'Year 5/2' section
     { id: 'rec-adv-bioscience', code: 'TBD-3100521', name: 'Recent Advance in Bioscience',
       name_en: 'Recent Advance in Bioscience',

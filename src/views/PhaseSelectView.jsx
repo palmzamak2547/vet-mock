@@ -39,7 +39,8 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
 
       <div className="vmx-mode-grid">
         {PHASES.map((p) => {
-          const subjectsInPhase = subjects.filter((s) => s.semester === p.semester);
+          // semester 0 = cross-semester (e.g. VCA) — count in every phase
+          const subjectsInPhase = subjects.filter((s) => s.semester === p.semester || s.semester === 0);
           const liveCount = subjectsInPhase.filter((s) => !s.scaffold).length;
           const isCurrent = p.id === currentPhase;
           const isPicked = p.id === selectedPhase;
