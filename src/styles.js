@@ -574,4 +574,136 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-summary-body strong { color: var(--clr-ink); font-weight: 600; }
 .vmx-summary-body em { color: var(--clr-ink-soft); }
 .vmx-summary-body a { color: var(--clr-sage); text-decoration: underline; }
+
+/* ─── UX polish layer (added 2026-05-10 PM) ─────────────────────────
+   Micro-interactions, skeleton loaders, motion polish. Respects
+   prefers-reduced-motion. */
+
+@keyframes vmx-pulse-soft {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+@keyframes vmx-fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes vmx-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes vmx-pop-in {
+  0% { opacity: 0; transform: scale(0.8); }
+  60% { opacity: 1; transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Streak chip pulse — only animates when ≥3 days (handled via class
+   toggle in HomeView). Subtle so it does not distract during exam. */
+.vmx-streak-active {
+  animation: vmx-pulse-soft 2.6s ease-in-out infinite;
+}
+
+/* Quick-action chips: lift on press, soft glow on focus-visible */
+button.vmx-chip-quick:active { transform: scale(0.96); }
+button.vmx-chip-quick:focus-visible {
+  outline: 2px solid var(--clr-ink);
+  outline-offset: 2px;
+}
+
+/* Subject card press feedback (mobile-first touch target) */
+.vmx-subject-card:active { transform: translateY(0); box-shadow: var(--shadow-sm); transition: all 0.05s; }
+.vmx-subject-card:focus-visible {
+  outline: 2px solid var(--clr-ink);
+  outline-offset: 3px;
+}
+
+/* Option button press for MCQ — gives tactile feedback on tap */
+.vmx-option:active:not(.selected) {
+  transform: scale(0.99);
+  background: var(--clr-surface-2);
+}
+
+/* Mode card press feedback */
+.vmx-mode-card:active { transform: scale(0.98); transition: transform 0.06s; }
+
+/* Skeleton loader — used while NotesView/VideoView lazy chunks fetch.
+   Solid base + shimmer overlay; respects reduced motion. */
+.vmx-skeleton {
+  background: linear-gradient(90deg,
+    var(--clr-surface) 0%,
+    var(--clr-surface-2) 50%,
+    var(--clr-surface) 100%);
+  background-size: 200% 100%;
+  animation: vmx-shimmer 1.4s ease-in-out infinite;
+  border-radius: 8px;
+  display: block;
+}
+.vmx-skeleton-line { height: 14px; margin: 8px 0; border-radius: 4px; }
+.vmx-skeleton-card { height: 120px; border-radius: 16px; }
+
+/* Section content fade-in — applied via inline style on first render
+   of each major view (HomeView wraps its <main> with this). */
+.vmx-fade-in-up {
+  animation: vmx-fade-in-up 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Pop-in for elements that appear after data loads (e.g. streak chip
+   appears the moment history is computed) */
+.vmx-pop-in { animation: vmx-pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* Improved focus rings on all interactive elements (a11y) */
+.vmx-mode-card:focus-visible,
+.vmx-nav-btn:focus-visible,
+.vmx-cmdk-btn:focus-visible,
+.vmx-option:focus-visible {
+  outline: 2px solid var(--clr-ink);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* Empty-state container with friendly illustration spot */
+.vmx-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--clr-ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.vmx-empty-state .icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+.vmx-empty-state .cta {
+  margin-top: 16px;
+  display: inline-block;
+}
+
+/* Reduced-motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .vmx-streak-active,
+  .vmx-skeleton,
+  .vmx-fade-in-up,
+  .vmx-pop-in { animation: none; }
+  .vmx-skeleton { background: var(--clr-surface-2); }
+}
+
+/* Mobile touch-target audit — bump button heights on small screens */
+@media (max-width: 640px) {
+  .vmx-chip-quick {
+    min-height: 44px;
+    padding: 10px 16px !important;
+  }
+  .vmx-option {
+    padding: 16px 18px !important;
+    min-height: 56px;
+  }
+  .vmx-mode-card {
+    padding: 18px 16px !important;
+  }
+  .vmx-subject-card {
+    padding: 16px !important;
+  }
+}
 `;

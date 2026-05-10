@@ -93,22 +93,27 @@ export default function TopLoadingBar() {
 // ─── Suspense fallback that drives the bar ──────────────────────
 // Use this AS the Suspense fallback. It fires the start/end events
 // on mount/unmount, so the bar tracks whatever Suspense is doing.
+//
+// Renders shimmer skeletons that resemble a typical view layout
+// (hero block + 2-3 content cards). Far less jarring than a
+// blank screen when a chunk takes >150ms (NotesView is ~96KB).
 export function ViewFallback() {
   useEffect(() => {
     window.dispatchEvent(new Event('vmx-loading-start'));
     return () => window.dispatchEvent(new Event('vmx-loading-end'));
   }, []);
-  // Keep the layout stable — return an invisible placeholder of
-  // similar height to the normal content area so the bar doesn't
-  // appear next to a collapsed page.
   return (
     <div
-      aria-hidden="true"
-      style={{
-        minHeight: '60vh',
-        opacity: 0,
-        pointerEvents: 'none',
-      }}
-    />
+      aria-busy="true"
+      aria-live="polite"
+      style={{ padding: '16px 0', minHeight: '60vh' }}
+    >
+      <div className="vmx-skeleton vmx-skeleton-line" style={{ width: '50%', height: 28, marginBottom: 12 }} />
+      <div className="vmx-skeleton vmx-skeleton-line" style={{ width: '85%', height: 14 }} />
+      <div className="vmx-skeleton vmx-skeleton-line" style={{ width: '70%', height: 14, marginBottom: 24 }} />
+      <div className="vmx-skeleton vmx-skeleton-card" style={{ marginBottom: 12 }} />
+      <div className="vmx-skeleton vmx-skeleton-card" style={{ marginBottom: 12 }} />
+      <div className="vmx-skeleton vmx-skeleton-card" />
+    </div>
   );
 }

@@ -424,7 +424,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         }}>
           {quickStats.streak > 0 && (
             <div
-              title={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน · วันนี้ทำไปแล้ว ${quickStats.todayCount} ข้อ`}
+              className={quickStats.streak >= 3 ? 'vmx-streak-active vmx-pop-in' : 'vmx-pop-in'}
+              title={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน, วันนี้ทำไปแล้ว ${quickStats.todayCount} ข้อ`}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -445,6 +446,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
           {allQuestionsPool > 0 && (
             <button
+              className="vmx-chip-quick vmx-pop-in"
               onClick={launchRandomQ}
               title={`สุ่ม 1 ข้อจากคลังทั้งหมด ${allQuestionsPool} ข้อ`}
               style={{
@@ -460,7 +462,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 fontSize: 13,
                 fontFamily: 'JetBrains Mono, monospace',
                 color: '#3a8aa8',
+                transition: 'transform 0.12s, background 0.15s',
               }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(93, 180, 211, 0.20)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(93, 180, 211, 0.12)'}
             >
               🎲 ฝึก 1 ข้อด่วน
             </button>
@@ -468,6 +473,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
           {quickStats.wrongCount > 0 && (
             <button
+              className="vmx-chip-quick vmx-pop-in"
               onClick={launchWrongReview}
               title={`ทบทวนข้อที่เคยตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)`}
               style={{
@@ -483,7 +489,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 fontSize: 13,
                 fontFamily: 'JetBrains Mono, monospace',
                 color: '#8a3340',
+                transition: 'transform 0.12s, background 0.15s',
               }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.20)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.12)'}
             >
               🎯 ทบทวนข้อที่ตอบผิด ({quickStats.wrongCount})
             </button>

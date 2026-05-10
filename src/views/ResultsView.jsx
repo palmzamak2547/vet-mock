@@ -114,17 +114,27 @@ export default function ResultsView({ score, questions, answers, goHome, setView
   const firedRef = useRef(false);
   useEffect(() => {
     if (firedRef.current) return;
-    // Use correct === total instead of pct === 100 — pct is rounded,
-    // so 199/200 = 99.5% would round to 100% and false-fire.
-    if (score.total > 0 && score.correct === score.total) {
-      firedRef.current = true;
-      import('../lib/confetti.js').then((m) => {
+    if (score.total === 0) return;
+    // Tiered confetti: perfect score = full burst (3 sources), 90%+ = single
+    // burst, 80%+ = small celebration. pct uses correct/total directly to
+    // avoid the 99.5%→round-to-100% false-fire.
+    const ratio = score.correct / score.total;
+    const isPerfect = score.correct === score.total;
+    const isExcellent = !isPerfect && ratio >= 0.9 && score.total >= 5;
+    const isGood = !isPerfect && !isExcellent && ratio >= 0.8 && score.total >= 5;
+    if (!isPerfect && !isExcellent && !isGood) return;
+    firedRef.current = true;
+    import('../lib/confetti.js').then((m) => {
+      if (isPerfect) {
         m.fireConfetti({ count: 140 });
-        // Second + third bursts from the corners for a fuller spread
         setTimeout(() => m.fireConfetti({ count: 80, originXRatio: 0.2 }), 250);
         setTimeout(() => m.fireConfetti({ count: 80, originXRatio: 0.8 }), 500);
-      }).catch(() => {});
-    }
+      } else if (isExcellent) {
+        m.fireConfetti({ count: 90 });
+      } else if (isGood) {
+        m.fireConfetti({ count: 50 });
+      }
+    }).catch(() => {});
   }, [score.correct, score.total]);
 
   // Split writing from auto-graded for the result counts so writing
