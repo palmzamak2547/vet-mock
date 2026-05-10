@@ -24,7 +24,16 @@ const DB_NAME = 'vmx-tts';
 const STORE = 'audio';
 const VERSION = 1;
 const FETCH_TIMEOUT_MS = 8000;
-const MAX_CACHE_BYTES = 50 * 1024 * 1024; // 50 MB hard cap
+// Cache caps. Eviction runs after each successful write so the store
+// stays bounded even on heavy practice sessions. Was 50 MB but 30 MB
+// holds ~85 chunks (mean 350 KB / 5-chunk Q) — plenty for the active
+// study set. LRU keeps hot Qs around; cold ones age out.
+const MAX_CACHE_BYTES = 30 * 1024 * 1024;
+const EVICT_TARGET_BYTES = Math.floor(MAX_CACHE_BYTES * 0.80); // hysteresis target
+const TTL_MS = 30 * 24 * 60 * 60 * 1000; // entries older than 30 days auto-expire
+// Throttle eviction so rapid-fire plays don't trigger a sweep each time
+let _lastEvictAt = 0;
+const EVICT_THROTTLE_MS = 30_000;
 
 let _dbPromise = null;
 function openDb() {
@@ -72,6 +81,80 @@ async function dbPut(key, value) {
   }
 }
 
+async function dbDelete(key) {
+  try {
+    const store = await dbTx('readwrite');
+    return await new Promise((res, rej) => {
+      const r = store.delete(key);
+      r.onsuccess = () => res();
+      r.onerror = () => rej(r.error);
+    });
+  } catch { /* ignore */ }
+}
+
+// Walk every entry. Returns array of { key, ts, bytes } (audio NOT
+// included so the walk is light — eviction only needs metadata).
+async function dbListAll() {
+  try {
+    const store = await dbTx('readonly');
+    return await new Promise((res, rej) => {
+      const all = [];
+      const r = store.openCursor();
+      r.onsuccess = (e) => {
+        const c = e.target.result;
+        if (c) {
+          const v = c.value;
+          all.push({
+            key: c.primaryKey,
+            ts: v?.ts || 0,
+            bytes: v?.bytes || v?.audio?.byteLength || 0,
+          });
+          c.continue();
+        } else {
+          res(all);
+        }
+      };
+      r.onerror = () => rej(r.error);
+    });
+  } catch {
+    return [];
+  }
+}
+
+// LRU + TTL eviction. Runs after each successful write; throttled to
+// once per 30 sec so a burst of plays doesn't sweep on every call.
+// Logic:
+//   1. Drop entries older than TTL_MS (30 days) — these would be purged
+//      by iOS Safari anyway on inactive-week eviction.
+//   2. If still over MAX_CACHE_BYTES, drop oldest entries (by ts)
+//      until total fits under EVICT_TARGET_BYTES (80% of cap — gives
+//      headroom so the next write doesn't trigger eviction again).
+async function evictStale(force = false) {
+  const now = Date.now();
+  if (!force && now - _lastEvictAt < EVICT_THROTTLE_MS) return;
+  _lastEvictAt = now;
+  let entries = await dbListAll();
+  if (entries.length === 0) return;
+
+  // (1) TTL pass — drop stale
+  for (const e of entries) {
+    if (now - e.ts > TTL_MS) {
+      dbDelete(e.key).catch(() => {});
+    }
+  }
+  entries = entries.filter((e) => now - e.ts <= TTL_MS);
+
+  // (2) Size pass — LRU evict to target
+  let total = entries.reduce((s, e) => s + e.bytes, 0);
+  if (total <= MAX_CACHE_BYTES) return;
+  entries.sort((a, b) => a.ts - b.ts); // oldest first
+  while (total > EVICT_TARGET_BYTES && entries.length > 0) {
+    const evict = entries.shift();
+    dbDelete(evict.key).catch(() => {});
+    total -= evict.bytes;
+  }
+}
+
 // Hash text+voice+rate → 16-byte hex (128 bits, plenty for cache key).
 async function hashKey({ text, lang, rate }) {
   const data = new TextEncoder().encode(`${lang}|${Number(rate).toFixed(2)}|${text}`);
@@ -99,12 +182,21 @@ async function hashKey({ text, lang, rate }) {
 export async function getEdgeAudio({ text, lang, rate = 1.0 }, signal) {
   const key = await hashKey({ text, lang, rate });
 
-  // Cache lookup
+  // Cache lookup with TTL check — if the cached entry is older than
+  // TTL_MS, treat as miss + delete so we re-fetch fresh audio. This
+  // catches the case where iOS Safari is about to evict storage anyway
+  // (it purges inactive-7-day caches): we age-out at 30 days so we
+  // get fresher entries from the upstream voice updates Microsoft ships.
   const cached = await dbGet(key);
   if (cached?.audio) {
-    // Touch ts so LRU eviction prefers stale entries
-    dbPut(key, { ...cached, ts: Date.now() }).catch(() => {});
-    return cached.audio;
+    const age = Date.now() - (cached.ts || 0);
+    if (age > TTL_MS) {
+      dbDelete(key).catch(() => {});
+    } else {
+      // Touch ts so LRU eviction prefers stale entries
+      dbPut(key, { ...cached, ts: Date.now() }).catch(() => {});
+      return cached.audio;
+    }
   }
 
   // Network fetch with explicit timeout
@@ -134,8 +226,12 @@ export async function getEdgeAudio({ text, lang, rate = 1.0 }, signal) {
   const audio = await response.arrayBuffer();
   if (!audio || audio.byteLength === 0) throw new Error('empty audio');
 
-  // Best-effort cache write (don't await; fire-and-forget)
-  dbPut(key, { audio, ts: Date.now(), bytes: audio.byteLength }).catch(() => {});
+  // Best-effort cache write (don't await; fire-and-forget). Then kick
+  // off a throttled eviction sweep — this is what actually keeps the
+  // store bounded over a long study session.
+  dbPut(key, { audio, ts: Date.now(), bytes: audio.byteLength })
+    .then(() => evictStale())
+    .catch(() => {});
 
   return audio;
 }
@@ -223,6 +319,12 @@ export function stopControllerEdge(controller) {
     try { p.stop(); } catch {}
   }
   controller._players.clear();
+}
+
+// Force an immediate LRU + TTL eviction sweep (ignores throttle).
+// Useful from DashboardView debug or after a long offline period.
+export async function forceEvictCache() {
+  await evictStale(true);
 }
 
 // Cache management — exposed for DashboardView "clear cache" if added
