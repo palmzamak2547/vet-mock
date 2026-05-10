@@ -125,10 +125,10 @@ export const VIDEO_LIBRARY = [
   // https://www.youtube.com/@DekDokVet85
   // ═════════════════════════════════════════════════════════════════
   // Vet 85 = cohort หนึ่งปีก่อน Vet 86 → คลิปครอบคลุม:
-  //   • Y4 sem 1 (10 วิชา · เป็น primary source เพราะ Dai ยังไม่มี)
+  //   • Y4 sem 1 (10 วิชา, เป็น primary source เพราะ Dai ยังไม่มี)
   //   • Y4 sem 2 (เพิ่มเป็น 2nd source ถ้าอยากดูมุมอื่น)
-  //   • Y5 specialty (Swine Med · Equine · Aquatic · Avian — scaffold subjects)
-  //   • Cross-year (Zoonoses · One Health · Epidemiology — assigned to VPH)
+  //   • Y5 specialty (Swine Med, Equine, Aquatic, Avian — scaffold subjects)
+  //   • Cross-year (Zoonoses, One Health, Epidemiology — assigned to VPH)
 
   // ─── Y4 sem 1 (NEW coverage) ──────────────────────────────────
   {
@@ -286,7 +286,7 @@ export const VIDEO_LIBRARY = [
     tags: ['lecture', 'review', 'dekdok', 'y4-sem2'],
   },
 
-  // ─── Y5 sem 1 (channel 'Year 5/1' section · 11 subjects) ────────
+  // ─── Y5 sem 1 (channel 'Year 5/1' section, 11 subjects) ────────
   {
     subject: 'epidemiology',
     topic: 'Veterinary Epidemiology — DekDokVet85',
@@ -376,7 +376,7 @@ export const VIDEO_LIBRARY = [
     tags: ['lecture', 'review', 'dekdok', 'y5-sem1'],
   },
 
-  // ─── Y5 sem 2 (channel 'Year 5/2' section · 2 subjects) ─────────
+  // ─── Y5 sem 2 (channel 'Year 5/2' section, 2 subjects) ─────────
   {
     subject: 'rec-adv-bioscience',
     topic: 'Recent Advance in Bioscience — DekDokVet85',

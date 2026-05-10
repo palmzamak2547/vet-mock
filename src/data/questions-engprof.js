@@ -277,7 +277,7 @@ export const QB_ENGPROF = [
   { id: 1103, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.107', tags: ['warmup', 'results'], type: 'tf',
     q: 'The Results section is the appropriate place to interpret the meaning of the findings.',
-    answer: false, explain: 'False — Results เพียงแค่รายงานข้อมูล (ตัวเลข, tables, figures) · การ interpret meaning อยู่ใน Discussion',
+    answer: false, explain: 'False — Results เพียงแค่รายงานข้อมูล (ตัวเลข, tables, figures), การ interpret meaning อยู่ใน Discussion',
     verified: 'Textbook p.107' },
 
   { id: 1104, subject: 'engprof', topic: 'research-paper-structure', year: 4,
@@ -310,20 +310,20 @@ export const QB_ENGPROF = [
     source: 'Textbook p.105', tags: ['warmup', 'rct'], type: 'mcq',
     q: 'Which design is the gold standard for testing the effect of a new treatment?',
     options: ['Case series', 'Cross-sectional', 'Cohort', 'Randomized Controlled Trial'],
-    answer: 3, explain: 'RCT = randomization + control group → minimizes selection & confounding bias · gold standard for causal inference of treatment effect',
+    answer: 3, explain: 'RCT = randomization + control group → minimizes selection & confounding bias, gold standard for causal inference of treatment effect',
     verified: 'Textbook p.104-105' },
 
   { id: 1108, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.105', tags: ['warmup'], type: 'tf',
     q: 'Coin tosses or odd/even number assignment counts as true randomization in an RCT.',
-    answer: false, explain: 'False — coin toss / odd-even = pseudo-randomization · ต้องใช้ machine-generated random tables',
+    answer: false, explain: 'False — coin toss / odd-even = pseudo-randomization, ต้องใช้ machine-generated random tables',
     verified: 'Textbook p.105' },
 
   { id: 1109, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.104', tags: ['warmup', 'cross-sectional'], type: 'mcq',
     q: 'A descriptive study that counts how many dogs in Bangkok have obesity in 2024 (one point in time) is a:',
     options: ['Cohort study', 'Case-control study', 'Cross-sectional study', 'Clinical trial'],
-    answer: 2, explain: 'Cross-sectional = snapshot ณ จุดเวลาเดียว · ดี prevalence',
+    answer: 2, explain: 'Cross-sectional = snapshot ณ จุดเวลาเดียว, ดี prevalence',
     verified: 'Textbook p.104' },
 
   { id: 1110, subject: 'engprof', topic: 'paraphrasing', year: 4,
@@ -335,7 +335,7 @@ export const QB_ENGPROF = [
       'Inventing new information not in the original',
       'Changing sentence structures',
     ],
-    answer: 2, explain: '5 techniques = synonyms / active↔passive / parts of speech / sentence markers / sentence structures · NEVER invent material',
+    answer: 2, explain: '5 techniques = synonyms / active↔passive / parts of speech / sentence markers / sentence structures, NEVER invent material',
     verified: 'Textbook p.149' },
 
   { id: 1111, subject: 'engprof', topic: 'paraphrasing', year: 4,
@@ -360,14 +360,14 @@ export const QB_ENGPROF = [
   { id: 1113, subject: 'engprof', topic: 'paraphrasing', year: 4,
     source: 'Textbook p.147', tags: ['warmup', 'plagiarism'], type: 'tf',
     q: 'When you paraphrase, you must always cite the source to avoid plagiarism.',
-    answer: true, explain: 'True — paraphrase ≠ excuse to skip citation · เปลี่ยนคำเฉยๆ ไม่ทำให้กลายเป็น original idea ของเรา',
+    answer: true, explain: 'True — paraphrase ≠ excuse to skip citation, เปลี่ยนคำเฉยๆ ไม่ทำให้กลายเป็น original idea ของเรา',
     verified: 'Textbook p.147' },
 
   { id: 1114, subject: 'engprof', topic: 'summary-writing', year: 4,
     source: 'Final Exam Spec', tags: ['warmup', 'word-count'], type: 'mcq',
     q: 'In Final Part II, the target summary length is 150 words. What penalty applies if your summary is 205 words?',
     options: ['No penalty', '−1 point (over 180)', '−2 points (over 200)', '−5 points'],
-    answer: 2, explain: '205 > 200 → −2 points. The penalty zones: ≤ 180 = OK · 181-200 = −1 · > 200 = −2',
+    answer: 2, explain: '205 > 200 → −2 points. The penalty zones: ≤ 180 = OK, 181-200 = −1, > 200 = −2',
     verified: 'Final Exam Spec p.2' },
 
   { id: 1115, subject: 'engprof', topic: 'summary-writing', year: 4,
@@ -386,7 +386,7 @@ export const QB_ENGPROF = [
     source: 'Textbook p.152', tags: ['warmup', 'rules'], type: 'mcq',
     q: 'Which should you NOT include in a summary?',
     options: ['The main idea of the original', 'Major supporting details', 'Your own opinion or judgement on the original', 'A clear opening statement'],
-    answer: 2, explain: 'Summary = objective condensation · ห้ามใส่ opinion/judgement · ห้าม invent material',
+    answer: 2, explain: 'Summary = objective condensation, ห้ามใส่ opinion/judgement, ห้าม invent material',
     verified: 'Textbook p.152' },
 
   { id: 1117, subject: 'engprof', topic: 'academic-writing', year: 4,
@@ -411,7 +411,7 @@ export const QB_ENGPROF = [
   { id: 1119, subject: 'engprof', topic: 'academic-writing', year: 4,
     source: 'Textbook p.144', tags: ['warmup', 'plagiarism'], type: 'tf',
     q: 'Common knowledge must always be cited in an academic paper.',
-    answer: false, explain: 'False — common knowledge ไม่ต้อง cite · เฉพาะ ideas/info ที่ไม่ใช่ของเรา + ไม่ใช่ common knowledge ต้อง cite',
+    answer: false, explain: 'False — common knowledge ไม่ต้อง cite, เฉพาะ ideas/info ที่ไม่ใช่ของเรา + ไม่ใช่ common knowledge ต้อง cite',
     verified: 'Textbook p.144' },
 
   // ═══════════════════════════════════════════════════════════
@@ -624,7 +624,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     q: 'What statistical procedures were used in data analysis?',
     keywords: ['descriptive', 't-score', 'qualitative', 'comparison', 'bivariate', 'correlation'],
     model_answer: 'Descriptive statistics including T-scores were used, along with qualitative comparisons of inter-site correspondence and bivariate correlations.',
-    explain: 'Per Exercise 2 KEY: Descriptive statistics: T-score · Qualitative comparisons of inter-site correspondence and bivariate correlations' },
+    explain: 'Per Exercise 2 KEY: Descriptive statistics: T-score, Qualitative comparisons of inter-site correspondence and bivariate correlations' },
 
   // ── Mock 2 Part I — True/False (Results) ──────────────────
   { id: 1148, subject: 'engprof', topic: 'research-paper-structure', year: 4,
@@ -1000,9 +1000,9 @@ Word-count Penalty: > 180 → −1 / > 200 → −2
   { id: 1195, subject: 'engprof', topic: 'paraphrasing', year: 4,
     source: 'Final Examination: Eng Vet Prof II 2021 — Part III',
     tags: ['mock-5', 'past-exam', '2021', 'paraphrase', 'essay'], type: 'essay',
-    examOrigin: 'Past Exam 2021 · Part III',
+    examOrigin: 'Past Exam 2021, Part III',
     passage: PASSAGE_2021_PETS_ALLERGIES,
-    passage_title: '📜 Past Exam 2021 · Part III · Paraphrase task (15 points)',
+    passage_title: '📜 Past Exam 2021, Part III, Paraphrase task (15 points)',
     target_words: 200, soft_max_words: 230, hard_max_words: 260,
     q: 'Final Examination: Eng Vet Prof II 2021 — Part III (15 points)\n\nParaphrase the following text using different paraphrasing techniques.\n\n*Note: this is a paraphrase task (full text), not a 150-word summary. The 2021 exam asked students to paraphrase the source while preserving all the information. Aim for around 200 words.*',
     model_answer: `Sample paraphrase from the 2021 student's response (handwritten):

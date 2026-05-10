@@ -43,10 +43,10 @@ function RERTab() {
   return (
     <div>
       <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="20" type="number" />
-      <Result label="RER (linear · 30·BW + 70)" value={fmt(linear, ' kcal/day')} accent />
-      <Result label="RER (allometric · 70·BW^0.75)" value={fmt(allometric, ' kcal/day')} />
+      <Result label="RER (linear, 30·BW + 70)" value={fmt(linear, ' kcal/day')} accent />
+      <Result label="RER (allometric, 70·BW^0.75)" value={fmt(allometric, ' kcal/day')} />
       <Note>
-        💡 ใช้ <strong>linear</strong> สำหรับ 2-30 kg (ง่าย แม่น). · <strong>allometric</strong>
+        💡 ใช้ <strong>linear</strong> สำหรับ 2-30 kg (ง่าย แม่น)., <strong>allometric</strong>
         สำหรับ &lt; 2 kg หรือ &gt; 30 kg.
         <br />
         Maintenance = RER × illness factor (1.0-1.4) แต่ในสัตว์ป่วยปกติเริ่มที่ RER เลย
@@ -83,8 +83,8 @@ function FluidTab() {
       <Result label="รวม / วัน" value={fmt(total, ' mL/day')} />
       <Result label="Rate / hour" value={fmt(ratePerHr, ' mL/hr')} accent />
       <Note>
-        💡 Deficit = BW × %dehyd × 10 · Maintenance = 60 mL/kg/day (kitten/puppy 80-100) ·
-        Shock bolus (90 mL/kg dog · 60 mL/kg cat) แยก — ให้บางส่วนแล้ว reassess.
+        💡 Deficit = BW × %dehyd × 10, Maintenance = 60 mL/kg/day (kitten/puppy 80-100) ·
+        Shock bolus (90 mL/kg dog, 60 mL/kg cat) แยก — ให้บางส่วนแล้ว reassess.
       </Note>
     </div>
   );
@@ -104,13 +104,13 @@ function DrugTab() {
     <div>
       <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="20" type="number" />
       <Field label="Dose (mg/kg)" value={dose} onChange={setDose} placeholder="2.2" type="number" />
-      <Field label="Concentration (mg/mL · optional)" value={conc} onChange={setConc} placeholder="50" type="number" suffix="mg/mL" />
+      <Field label="Concentration (mg/mL, optional)" value={conc} onChange={setConc} placeholder="50" type="number" suffix="mg/mL" />
       <Result label="Total dose" value={fmt(totalMg, ' mg')} accent />
       <Result label="Volume to draw" value={fmt(totalMl, ' mL')} />
       <Note>
-        💡 ตัวอย่าง: Cefazolin 22 mg/kg · 20 kg dog → 440 mg · vial 100 mg/mL → 4.4 mL.
+        💡 ตัวอย่าง: Cefazolin 22 mg/kg, 20 kg dog → 440 mg, vial 100 mg/mL → 4.4 mL.
         <br />
-        ระวัง: per-kg dose จากตำราเป็น <em>active drug</em> · concentration ใน vial บางครั้ง
+        ระวัง: per-kg dose จากตำราเป็น <em>active drug</em>, concentration ใน vial บางครั้ง
         เป็น <em>salt form</em> (e.g., enrofloxacin base vs HCl) — เช็คหน้า prescribing info.
       </Note>
     </div>
@@ -128,7 +128,7 @@ function TransfusionTab() {
   const target = parseFloat(pcvTarget);
   const donor = parseFloat(pcvDonor);
   // Standard formula: vol (mL) = BW(kg) × 90 × (PCV_target − PCV_now) / PCV_donor
-  // (90 = blood volume mL/kg in dog · cats use 70)
+  // (90 = blood volume mL/kg in dog, cats use 70)
   const [species, setSpecies] = useState('dog');
   const bvFactor = species === 'cat' ? 66 : 90;
   const vol = isFinite(w) && isFinite(now) && isFinite(target) && isFinite(donor) && w > 0 && donor > 0
@@ -150,8 +150,8 @@ function TransfusionTab() {
       <Note>
         💡 สูตร: V = BW × 90 (dog) หรือ 66 (cat) × (PCV_target − PCV_now) / PCV_donor.
         <br />
-        Whole blood ใช้ 2× volume เทียบกับ pRBC. · Transfusion rate: เริ่มช้า 0.25-1
-        mL/kg/hr 15-30 นาที (test dose) · monitor TPR + reaction signs.
+        Whole blood ใช้ 2× volume เทียบกับ pRBC., Transfusion rate: เริ่มช้า 0.25-1
+        mL/kg/hr 15-30 นาที (test dose), monitor TPR + reaction signs.
       </Note>
     </div>
   );
@@ -162,7 +162,7 @@ function DKATab() {
   const [bw, setBw] = useState('');
   const [species, setSpecies] = useState('dog');
   const w = parseFloat(bw);
-  // Standard: dog 2.2 U/kg/day · cat 1.1 U/kg/day · diluted in 250 mL NSS
+  // Standard: dog 2.2 U/kg/day, cat 1.1 U/kg/day, diluted in 250 mL NSS
   const totalU = isFinite(w) && w > 0 ? r(w * (species === 'dog' ? 2.2 : 1.1), 2) : null;
   // Common protocol — Macintire's CRI uses 100 mL/h fixed rate but
   // adjusts insulin amount in the bag depending on glucose
@@ -178,13 +178,13 @@ function DKATab() {
       <Result label="Regular insulin / 24 hr" value={fmt(totalU, ' U')} accent />
       <Result label="Diluted ใน NSS" value={fmt(totalU !== null ? r(totalU, 2) : null, ' U → 250 mL bag')} />
       <Note>
-        💡 Macintire CRI: ใส่ insulin ทั้งหมด (จากด้านบน) ใน NSS 250 mL · run ที่ rate
+        💡 Macintire CRI: ใส่ insulin ทั้งหมด (จากด้านบน) ใน NSS 250 mL, run ที่ rate
         ตาม BG:
         <br />
-        BG &gt; 250 → 10 mL/h · 200-250 → 7 mL/h · 150-200 → 5 mL/h · 100-150 → 5 mL/h
-        + add D2.5% · &lt; 100 → STOP + dextrose.
+        BG &gt; 250 → 10 mL/h, 200-250 → 7 mL/h, 150-200 → 5 mL/h, 100-150 → 5 mL/h
+        + add D2.5%, &lt; 100 → STOP + dextrose.
         <br />
-        ⚠️ ห้ามให้ insulin bolus IV · ต้อง correct fluid + electrolyte (K) ก่อน.
+        ⚠️ ห้ามให้ insulin bolus IV, ต้อง correct fluid + electrolyte (K) ก่อน.
       </Note>
     </div>
   );
@@ -290,7 +290,7 @@ export default function VetCalculator() {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('rer');
 
-  // Esc closes modal · only attach when open so we don't waste a
+  // Esc closes modal, only attach when open so we don't waste a
   // global listener on every page when the calc is dormant.
   useEffect(() => {
     if (!open) return;
@@ -305,7 +305,7 @@ export default function VetCalculator() {
           icon doesn't appear on printed quizzes/notes. */}
       <button
         onClick={() => setOpen(true)}
-        title="เครื่องคิดเลขสำหรับสัตวแพทย์ (RER · Fluid · Dose · Transfusion · DKA)"
+        title="เครื่องคิดเลขสำหรับสัตวแพทย์ (RER, Fluid, Dose, Transfusion, DKA)"
         aria-label="เปิดเครื่องคิดเลขสัตวแพทย์"
         className="vmx-vetcalc-fab"
         style={{
@@ -360,7 +360,7 @@ export default function VetCalculator() {
               </div>
               <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>คำนวณคลินิก</h2>
               <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', margin: '4px 0 0' }}>
-                สูตรพื้นฐานที่นิสิต/สัตวแพทย์ใช้บ่อย · ทุกผลลัพธ์มีสูตรกำกับให้ตรวจมือซ้ำได้
+                สูตรพื้นฐานที่นิสิต/สัตวแพทย์ใช้บ่อย, ทุกผลลัพธ์มีสูตรกำกับให้ตรวจมือซ้ำได้
               </p>
             </div>
 

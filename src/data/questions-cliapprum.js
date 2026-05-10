@@ -1,8 +1,8 @@
 // ──────────────────────────────────────────────────────────────────
-// Clin App Rum (3108411 Veterinary Clinical Approach to Ruminants) · Year 4 Sem 2
+// Clin App Rum (3108411 Veterinary Clinical Approach to Ruminants), Year 4 Sem 2
 // Final exam: 8 พ.ค. 2569
 //
-// ⛔ IRON RULE 0: ห้าม hallucinate · ทุก Q ground จาก Clin App Ruminant Final.pdf master
+// ⛔ IRON RULE 0: ห้าม hallucinate, ทุก Q ground จาก Clin App Ruminant Final.pdf master
 //   (PDF→PNG via pdftoppm) + Ruminant_Anesthesia.pdf 2026 lecture + Scope text
 //
 // 🔬 Confidence tags (graphify pattern):
@@ -12,23 +12,23 @@
 //
 // Final scope per "Scope ออกสอบ Final เท่าที่รู้.txt":
 //   ✴️ อ.ศวิตา (Sawita): 3 คาบ × 15 ข้อ = 45 ข้อ (MAIN)
-//   📦 Other: Anesthesia (PB) · Metabolism/Nutrition · GI VDTT · Hoof health
+//   📦 Other: Anesthesia (PB), Metabolism/Nutrition, GI VDTT, Hoof health
 //
-// Sources mined (all verified · PDF→PNG pipeline):
-//   • Clin App Ruminant - Final.pdf (master compilation · 46 pages)
+// Sources mined (all verified, PDF→PNG pipeline):
+//   • Clin App Ruminant - Final.pdf (master compilation, 46 pages)
 //     → Pages 1-8 = Metabolism + Nutrition Dashboard (5 sections)
 //     → Pages 9-15 = Anesthesia (anticholinergics, benzodiazepines, phenothiazines,
 //       ET intubation, monitoring, local/regional anesthesia, decision matrix)
 //     → Later pages (not yet read in time) = GI Surgery + others
 //   • Lecture 2026/Ruminant_Anesthesia.pdf (15 pages by อ.ภัทร์มนฉัตร PB)
-//   • Lecture 2026/Ruminant_GI_Surgery Sawita I/II/III.pdf (not yet detailed-read · scope known)
+//   • Lecture 2026/Ruminant_GI_Surgery Sawita I/II/III.pdf (not yet detailed-read, scope known)
 //
 // Q ID range: 2100-2149 (free range)
 // ──────────────────────────────────────────────────────────────────
 
 export const QB_CLIAPPRUM = [
   // ═══════════════════════════════════════════════════════════
-  // METABOLISM & NUTRITION DASHBOARD (8 Qs) · Master PDF p.1-8
+  // METABOLISM & NUTRITION DASHBOARD (8 Qs), Master PDF p.1-8
   // ═══════════════════════════════════════════════════════════
 
   { id: 2100, subject: 'cliapprum', topic: 'metabolism-nutrition', year: 4,
@@ -38,7 +38,7 @@ export const QB_CLIAPPRUM = [
     tags: ['transition-period', 'NEB'], type: 'mcq',
     q: 'ในวัวนม Transition Period (ช่วง 3 weeks before to 3 weeks after calving) สิ่งใดสำคัญที่สุดที่ต้องประเมิน',
     options: ['BUN concentration เท่านั้น',
-              'Negative Energy Balance (NEB) · DMI · NEFA · BHBA · BCS — ความสมดุลของสุขภาพ vs ภาวะ pathological',
+              'Negative Energy Balance (NEB), DMI, NEFA, BHBA, BCS — ความสมดุลของสุขภาพ vs ภาวะ pathological',
               'Heart rate และ BP เท่านั้น',
               'Coat color และ tail length'],
     answer: 1,
@@ -57,7 +57,7 @@ export const QB_CLIAPPRUM = [
               'CP × NDF ÷ ADF'],
     answer: 1,
     explain: 'DMI = น้ำหนักอาหารที่กินจริง (as fed) × % Dry Matter ของอาหาร\n\n📊 Example:\n• ฟาร์ม A กินอาหาร TMR 30 kg/day (as fed)\n• อาหาร TMR มี %DM = 48% (= 52% moisture)\n• DMI = 30 × 0.48 = 14.4 kg DM/day ✓\n\n💡 Why DMI matters:\n• Drop ใน DMI = early warning ของโรค (subclinical ketosis, mastitis, lameness, displaced abomasum)\n• ค่าปกติ Holstein lactating: ~3-4% ของ BW (= 18-25 kg DM/day for 600 kg cow)\n• ถ้าน้อยกว่า 2.5% ของ BW = severely depressed',
-    verified: 'Clin App Ruminant Final master PDF p.3 DMI section · ฟาร์ม A 14.40 kg ตัวอย่าง' },
+    verified: 'Clin App Ruminant Final master PDF p.3 DMI section, ฟาร์ม A 14.40 kg ตัวอย่าง' },
 
   { id: 2102, subject: 'cliapprum', topic: 'metabolism-nutrition', year: 4,
     source: 'Clin App Ruminant Final master p.3',
@@ -65,9 +65,9 @@ export const QB_CLIAPPRUM = [
     confidence: 'EXTRACTED',
     tags: ['nutritional-values', 'CP', 'NDF', 'ADF', 'NE'], type: 'mcq',
     q: 'ค่า Nutritional Value ที่สำคัญในการประเมินอาหารโคนม คือชุดข้อใด',
-    options: ['Hb · WBC · BUN', 'CP · NDF · ADF · NE', 'BP · HR · RR · Temp', 'Iron · Copper · Zinc'],
+    options: ['Hb, WBC, BUN', 'CP, NDF, ADF, NE', 'BP, HR, RR, Temp', 'Iron, Copper, Zinc'],
     answer: 1,
-    explain: 'CP / NDF / ADF / NE = standard ration evaluation parameters:\n\n• **CP** (Crude Protein, %) — protein content · target 16-18% for high producers\n• **NDF** (Neutral Detergent Fiber, %) — total fiber (cellulose + hemicellulose + lignin) · ตัวบ่งชี้ "ปริมาณกินได้" · ↑NDF = ↓DMI\n• **ADF** (Acid Detergent Fiber, %) — less digestible fiber (cellulose + lignin) · ตัวบ่งชี้ "พลังงานที่ใช้ได้"\n• **NE** (Net Energy, Mcal/kg) — energy available for maintenance + production\n\n📊 Example (จาก slide):\n• ฟาร์ม A: DMI 14.4 · CP 15.4 · NDF 66.1 · ADF 33.5 · NE 19.10\n• ฟาร์ม B: DMI 14.4 · CP 18.8 · NDF 51.4 · ADF 25.8 · NE 21.17 (BEST)\n• ฟาร์ม C: DMI 9.51 · CP 15.9 · NDF 59.4 · ADF 34.5 · NE 12.55 (low intake/energy)',
+    explain: 'CP / NDF / ADF / NE = standard ration evaluation parameters:\n\n• **CP** (Crude Protein, %) — protein content, target 16-18% for high producers\n• **NDF** (Neutral Detergent Fiber, %) — total fiber (cellulose + hemicellulose + lignin), ตัวบ่งชี้ "ปริมาณกินได้", ↑NDF = ↓DMI\n• **ADF** (Acid Detergent Fiber, %) — less digestible fiber (cellulose + lignin), ตัวบ่งชี้ "พลังงานที่ใช้ได้"\n• **NE** (Net Energy, Mcal/kg) — energy available for maintenance + production\n\n📊 Example (จาก slide):\n• ฟาร์ม A: DMI 14.4, CP 15.4, NDF 66.1, ADF 33.5, NE 19.10\n• ฟาร์ม B: DMI 14.4, CP 18.8, NDF 51.4, ADF 25.8, NE 21.17 (BEST)\n• ฟาร์ม C: DMI 9.51, CP 15.9, NDF 59.4, ADF 34.5, NE 12.55 (low intake/energy)',
     verified: 'Clin App Ruminant Final master PDF p.3 nutritional values table' },
 
   { id: 2103, subject: 'cliapprum', topic: 'metabolism-nutrition', year: 4,
@@ -78,7 +78,7 @@ export const QB_CLIAPPRUM = [
     q: 'การลดสัดส่วน Roughage : Concentrate (R:C) ลงต่ำเกินไป (เช่น 40:60) ในวัวนมจะส่งผลให้เกิดปัญหาอะไร',
     options: ['Milk yield สูงขึ้นเสมอ', 'Milk Fat Depression', 'Polycythemia', 'Hypothermia'],
     answer: 1,
-    explain: '**Milk Fat Depression (MFD)** — เป็นผลเสียหลักของ R:C ต่ำเกิน · mechanism:\n1. R:C ลดลง (concentrate มาก, fiber น้อย) → fermentable CHO เพิ่มในรูเมน\n2. → Lactic acid + propionic acid → rumen pH ลดลง (subacute rumen acidosis · SARA)\n3. → ลด acetate-producing bacteria (cellulolytic) · เพิ่ม propionate-producing bacteria\n4. → **Acetic acid (precursor ของ milk fat) ลดลง**\n5. → Milk fat synthesis ใน mammary epithelial cells ลดลง\n6. **เกิด trans-10 C18:1 fatty acid** (alternative pathway) ที่ inhibit milk fat directly\n\n💡 Other consequences ของ low R:C:\n• Subacute rumen acidosis (SARA)\n• Laminitis (endotoxin → vasoactive amines)\n• Displaced abomasum (LDA)\n• Hoof problems (sole ulcer)\n\n💡 Recommended R:C: 60:40 ถึง 50:50 · early lactation อาจ 40:60 ชั่วคราวเท่านั้น',
+    explain: '**Milk Fat Depression (MFD)** — เป็นผลเสียหลักของ R:C ต่ำเกิน, mechanism:\n1. R:C ลดลง (concentrate มาก, fiber น้อย) → fermentable CHO เพิ่มในรูเมน\n2. → Lactic acid + propionic acid → rumen pH ลดลง (subacute rumen acidosis, SARA)\n3. → ลด acetate-producing bacteria (cellulolytic), เพิ่ม propionate-producing bacteria\n4. → **Acetic acid (precursor ของ milk fat) ลดลง**\n5. → Milk fat synthesis ใน mammary epithelial cells ลดลง\n6. **เกิด trans-10 C18:1 fatty acid** (alternative pathway) ที่ inhibit milk fat directly\n\n💡 Other consequences ของ low R:C:\n• Subacute rumen acidosis (SARA)\n• Laminitis (endotoxin → vasoactive amines)\n• Displaced abomasum (LDA)\n• Hoof problems (sole ulcer)\n\n💡 Recommended R:C: 60:40 ถึง 50:50, early lactation อาจ 40:60 ชั่วคราวเท่านั้น',
     verified: 'Clin App Ruminant Final master PDF p.4 R:C Ratio + VFA + Milk Fat Depression section' },
 
   { id: 2104, subject: 'cliapprum', topic: 'metabolism-nutrition', year: 4,
@@ -89,7 +89,7 @@ export const QB_CLIAPPRUM = [
     q: 'การวิเคราะห์ particle size ของ TMR ด้วย Penn State Shaker box (4 ชั้น) ค่าปกติของชั้นบนสุด (>19 mm) ควรอยู่ในช่วงใด',
     options: ['0%', '2-8%', '30-50%', '50-80%'],
     answer: 1,
-    explain: 'Penn State Particle Separator (PSPS) standard distribution:\n• **ชั้น 1 (>19 mm)**: 2-8% — coarse roughage (effective NDF)\n• **ชั้น 2 (8-19 mm)**: 30-50% — medium fiber\n• **ชั้น 3 (4-8 mm)**: 10-20% — chopped concentrate\n• **ชั้นล่าง (<4 mm)**: 30-40% — fines\n\n💡 ความสำคัญ:\n• ชั้น 1+2 = "physically effective NDF (peNDF)" → กระตุ้น cud chewing → saliva (buffer) → rumen pH stable\n• ถ้า particle size เล็กเกินไป (มี <4mm > 50%) → SARA risk\n• ถ้า particle ใหญ่เกินไป → cow sorting → กินเลือก concentrate ก่อน → SARA\n\n💡 **Sorting** = วัวเลือกกินอาหารบางส่วน · ทำให้ ration ที่กินจริงเบี่ยงเบนจากที่ผสม → ระคายเคือง rumen',
+    explain: 'Penn State Particle Separator (PSPS) standard distribution:\n• **ชั้น 1 (>19 mm)**: 2-8% — coarse roughage (effective NDF)\n• **ชั้น 2 (8-19 mm)**: 30-50% — medium fiber\n• **ชั้น 3 (4-8 mm)**: 10-20% — chopped concentrate\n• **ชั้นล่าง (<4 mm)**: 30-40% — fines\n\n💡 ความสำคัญ:\n• ชั้น 1+2 = "physically effective NDF (peNDF)" → กระตุ้น cud chewing → saliva (buffer) → rumen pH stable\n• ถ้า particle size เล็กเกินไป (มี <4mm > 50%) → SARA risk\n• ถ้า particle ใหญ่เกินไป → cow sorting → กินเลือก concentrate ก่อน → SARA\n\n💡 **Sorting** = วัวเลือกกินอาหารบางส่วน, ทำให้ ration ที่กินจริงเบี่ยงเบนจากที่ผสม → ระคายเคือง rumen',
     verified: 'Clin App Ruminant Final master PDF p.5 particle size analysis' },
 
   { id: 2105, subject: 'cliapprum', topic: 'metabolism-nutrition', year: 4,
@@ -98,9 +98,9 @@ export const QB_CLIAPPRUM = [
     confidence: 'EXTRACTED',
     tags: ['feces-score', 'manure-evaluation'], type: 'mcq',
     q: 'Feces Score 1-5 ที่ถือว่า "อุดมคติ" สำหรับวัวนม lactating dairy คือ score ใด',
-    options: ['Score 1 (น้ำเหลว)', 'Score 2-3 (กึ่งกองกึ่งเปียก · ลักษณะ pancake/cow pie)', 'Score 4-5 (กองสูง แห้ง)', 'Score 5 เท่านั้น (กองสูงเป็นรูปกัปป์)'],
+    options: ['Score 1 (น้ำเหลว)', 'Score 2-3 (กึ่งกองกึ่งเปียก, ลักษณะ pancake/cow pie)', 'Score 4-5 (กองสูง แห้ง)', 'Score 5 เท่านั้น (กองสูงเป็นรูปกัปป์)'],
     answer: 1,
-    explain: 'Bovine Feces Score (1-5):\n• **Score 1**: Watery liquid (เหลวเป็นน้ำ) — diarrhea / acidosis / Johne\'s disease / parasitism\n• **Score 2**: Loose splatter (เหลวบ้าง) — over-feeding protein, lush pasture\n• **Score 3**: Optimal pancake/cow pie (กึ่งกองกึ่งเปียก · 2-4 cm tall · concentric rings) ⭐ **ideal for lactating**\n• **Score 4**: Thick, stacking high (กองสูง) — under-fiber, dehydration, indigestion\n• **Score 5**: Firm balls (กลม แห้ง) — dehydration / blockage / late-gestation cow normal\n\n💡 Diagnostic value:\n• ทั้งฝูง score 1-2 → ระบาด GI infection / acidosis\n• ทั้งฝูง score 4-5 → fiber excess / water access issue\n• Variation ระหว่างวัว → individual GI problems',
+    explain: 'Bovine Feces Score (1-5):\n• **Score 1**: Watery liquid (เหลวเป็นน้ำ) — diarrhea / acidosis / Johne\'s disease / parasitism\n• **Score 2**: Loose splatter (เหลวบ้าง) — over-feeding protein, lush pasture\n• **Score 3**: Optimal pancake/cow pie (กึ่งกองกึ่งเปียก, 2-4 cm tall, concentric rings) ⭐ **ideal for lactating**\n• **Score 4**: Thick, stacking high (กองสูง) — under-fiber, dehydration, indigestion\n• **Score 5**: Firm balls (กลม แห้ง) — dehydration / blockage / late-gestation cow normal\n\n💡 Diagnostic value:\n• ทั้งฝูง score 1-2 → ระบาด GI infection / acidosis\n• ทั้งฝูง score 4-5 → fiber excess / water access issue\n• Variation ระหว่างวัว → individual GI problems',
     verified: 'Clin App Ruminant Final master PDF p.6 Feces Score 1-5 + dairy industry standards' },
 
   { id: 2106, subject: 'cliapprum', topic: 'metabolism-nutrition', year: 4,
@@ -111,10 +111,10 @@ export const QB_CLIAPPRUM = [
     q: 'Locomotion Score (LCS) 1-5 — score ใดที่ต้องเริ่ม clinical intervention (ผ่าตัด/ตัดแต่งกีบ/ยา)',
     options: ['Score 1 (Normal)',
               'Score 2 (Mild — เดินช้านิดนึง)',
-              'Score 3 (Moderate — ขาเดินยาก) เริ่ม intervene · score 4-5 = urgent',
+              'Score 3 (Moderate — ขาเดินยาก) เริ่ม intervene, score 4-5 = urgent',
               'Score 5 เท่านั้น'],
     answer: 2,
-    explain: 'Bovine Locomotion Score (LCS) by Sprecher:\n\n• **Score 1 (Normal)**: เดินสบาย · back ตรง · steps สม่ำเสมอ · ไม่ต้องดูแลเฉพาะ\n• **Score 2 (Mild)**: back arched standing · normal walking · monitor\n• **Score 3 (Moderate)**: arched both standing + walking · short stride affected legs · ⭐ **เริ่ม intervene** (trim · footbath · lift)\n• **Score 4 (Lame)**: marked arch · short, slow strides · favors leg(s) · urgent treatment\n• **Score 5 (Severely Lame)**: refuses to bear weight on affected limb · barely moves · cull or aggressive Tx\n\n💡 Industry target: ฝูง <10% with LCS ≥3 · ถ้า >25% = serious problem\n\n💡 Economic impact: lameness ลด milk yield ~5-15% · culling rate ↑',
+    explain: 'Bovine Locomotion Score (LCS) by Sprecher:\n\n• **Score 1 (Normal)**: เดินสบาย, back ตรง, steps สม่ำเสมอ, ไม่ต้องดูแลเฉพาะ\n• **Score 2 (Mild)**: back arched standing, normal walking, monitor\n• **Score 3 (Moderate)**: arched both standing + walking, short stride affected legs, ⭐ **เริ่ม intervene** (trim, footbath, lift)\n• **Score 4 (Lame)**: marked arch, short, slow strides, favors leg(s), urgent treatment\n• **Score 5 (Severely Lame)**: refuses to bear weight on affected limb, barely moves, cull or aggressive Tx\n\n💡 Industry target: ฝูง <10% with LCS ≥3, ถ้า >25% = serious problem\n\n💡 Economic impact: lameness ลด milk yield ~5-15%, culling rate ↑',
     verified: 'Clin App Ruminant Final master PDF p.6 Locomotion Score 1-5 + Sprecher 1997' },
 
   { id: 2107, subject: 'cliapprum', topic: 'metabolism-nutrition', year: 4,
@@ -125,15 +125,15 @@ export const QB_CLIAPPRUM = [
     q: 'BHBA (β-hydroxybutyrate) cutoff value สำหรับ subclinical ketosis ในวัวนม transition period คือเท่าใด',
     options: ['<0.4 mM', '≥1.2 mM', '≥10 mM', '≥100 mM'],
     answer: 1,
-    explain: '**BHBA (β-hydroxybutyrate) blood test cutoffs**:\n• Normal: <1.0 mM\n• **Subclinical ketosis: 1.2-2.9 mM** ⭐\n• Clinical ketosis: ≥3.0 mM (with clinical signs)\n• Type II ketosis: >3 mM + fatty liver\n\n💡 Detection methods:\n• Cowside ketone test strip (Ketostix)\n• Handheld blood ketone meter (Precision Xtra)\n• Milk ketone strip (less sensitive)\n• Lab BHBA assay (gold standard)\n\n💡 Why BHBA matters:\n• Subclinical ketosis prevalence ~40-50% in early lactation\n• Increases LDA risk 8-fold\n• Reduces milk yield ~3 kg/day\n• Reduces fertility (anovulation, embryonic loss)\n\n💡 Tx subclinical: propylene glycol PO 300 ml/d × 5 days · clinical: dextrose 50% IV + insulin',
-    verified: 'NRC + AABP transition cow standards · cross-ref Clin App Rum master compilation' },
+    explain: '**BHBA (β-hydroxybutyrate) blood test cutoffs**:\n• Normal: <1.0 mM\n• **Subclinical ketosis: 1.2-2.9 mM** ⭐\n• Clinical ketosis: ≥3.0 mM (with clinical signs)\n• Type II ketosis: >3 mM + fatty liver\n\n💡 Detection methods:\n• Cowside ketone test strip (Ketostix)\n• Handheld blood ketone meter (Precision Xtra)\n• Milk ketone strip (less sensitive)\n• Lab BHBA assay (gold standard)\n\n💡 Why BHBA matters:\n• Subclinical ketosis prevalence ~40-50% in early lactation\n• Increases LDA risk 8-fold\n• Reduces milk yield ~3 kg/day\n• Reduces fertility (anovulation, embryonic loss)\n\n💡 Tx subclinical: propylene glycol PO 300 ml/d × 5 days, clinical: dextrose 50% IV + insulin',
+    verified: 'NRC + AABP transition cow standards, cross-ref Clin App Rum master compilation' },
 
   // ═══════════════════════════════════════════════════════════
-  // RUMINANT ANESTHESIA (8 Qs) · Master p.9-15 + Lecture by อ.ภัทร์มนฉัตร PB
+  // RUMINANT ANESTHESIA (8 Qs), Master p.9-15 + Lecture by อ.ภัทร์มนฉัตร PB
   // ═══════════════════════════════════════════════════════════
 
   { id: 2108, subject: 'cliapprum', topic: 'ruminant-anesthesia', year: 4,
-    source: 'Ruminant_Anesthesia.pdf 2026 lecture · slides 1-3',
+    source: 'Ruminant_Anesthesia.pdf 2026 lecture, slides 1-3',
     sourceType: 'lecture-verified-draft',
     confidence: 'EXTRACTED',
     tags: ['general-anesthesia', 'consideration'], type: 'mcq',
@@ -143,7 +143,7 @@ export const QB_CLIAPPRUM = [
               'Malignant hyperthermia',
               'Anaphylaxis'],
     answer: 1,
-    explain: 'Lecture 2026 (อ.ภัทร์มนฉัตร PB):\n\n**Greater risks when prolonged recumbency** in ruminants:\n• **Myopathies** — muscle damage จาก:\n  - Compartment compression (radial, peroneal, sciatic nerve areas)\n  - Hypoperfusion → ischemic damage\n  - Lactic acidosis ใน muscle\n• **Neuropathies**:\n  - Radial nerve (forelimb · esp. when not in proper sternal recumbency with leg extended)\n  - Peroneal nerve (hindlimb · "knuckling")\n  - Sciatic nerve\n\n💡 Prevention:\n• Proper position + protective padding\n• Reposition every 30 min if possible\n• Keep recumbency time <2-3 hr\n• Ensure good systemic perfusion (BP >80 mmHg)\n\n💡 "Violent recovery usually do not occur with ruminants" — ต่างจาก equine ไม่ต้อง force-down recovery box',
+    explain: 'Lecture 2026 (อ.ภัทร์มนฉัตร PB):\n\n**Greater risks when prolonged recumbency** in ruminants:\n• **Myopathies** — muscle damage จาก:\n  - Compartment compression (radial, peroneal, sciatic nerve areas)\n  - Hypoperfusion → ischemic damage\n  - Lactic acidosis ใน muscle\n• **Neuropathies**:\n  - Radial nerve (forelimb, esp. when not in proper sternal recumbency with leg extended)\n  - Peroneal nerve (hindlimb, "knuckling")\n  - Sciatic nerve\n\n💡 Prevention:\n• Proper position + protective padding\n• Reposition every 30 min if possible\n• Keep recumbency time <2-3 hr\n• Ensure good systemic perfusion (BP >80 mmHg)\n\n💡 "Violent recovery usually do not occur with ruminants" — ต่างจาก equine ไม่ต้อง force-down recovery box',
     verified: 'Ruminant_Anesthesia.pdf 2026 General considerations slide' },
 
   { id: 2109, subject: 'cliapprum', topic: 'ruminant-anesthesia', year: 4,
@@ -167,7 +167,7 @@ export const QB_CLIAPPRUM = [
     tags: ['catheter', 'fluid-rate'], type: 'mcq',
     q: 'Maintenance fluid rate สำหรับวัวที่อยู่ภายใต้ anesthesia ปกติ (ไม่ hypotension) คือเท่าใด',
     options: ['1-2 ml/kg/h',
-              '4-8 ml/kg/h (maintenance · 10-25 ml/kg/h ถ้าต้อง correct hypotension)',
+              '4-8 ml/kg/h (maintenance, 10-25 ml/kg/h ถ้าต้อง correct hypotension)',
               '50 ml/kg/h ต่อเนื่อง',
               'ไม่ต้องให้ fluid ระหว่าง anesthesia'],
     answer: 1,
@@ -179,10 +179,10 @@ export const QB_CLIAPPRUM = [
     sourceType: 'lecture-verified-draft',
     confidence: 'EXTRACTED',
     tags: ['regurgitation', 'active-passive'], type: 'mcq',
-    q: 'ใน GA ของวัว Active regurgitation (vomiting) และ Passive (silent) regurgitation เกิดในระดับ anesthesia ที่แตกต่างกัน · ข้อใดถูก',
+    q: 'ใน GA ของวัว Active regurgitation (vomiting) และ Passive (silent) regurgitation เกิดในระดับ anesthesia ที่แตกต่างกัน, ข้อใดถูก',
     options: ['ทั้งสอง = light plane',
-              'Active = light plane · Passive (silent) = deep plane',
-              'Active = deep plane · Passive = light plane',
+              'Active = light plane, Passive (silent) = deep plane',
+              'Active = deep plane, Passive = light plane',
               'ทั้งสอง = deep plane'],
     answer: 1,
     explain: 'Regurgitation in ruminant GA (lecture 2026 PB):\n\n• **Active regurgitation/vomiting** = LIGHT plane of anesthesia\n  - Cow ยังมี swallowing reflex partial\n  - LES tone ยังดีอยู่ตอนต้น\n  - Active expulsion ของ rumen content\n  - Risk: aspiration → pneumonia\n\n• **Passive (silent) regurgitation** = DEEP plane\n  - Loss of LES tone\n  - Rumen content "silently" flows up esophagus\n  - Often unnoticed by anesthetist\n  - HIGHER aspiration risk (no protective swallowing)\n\n💡 Prevention:\n1. **Proper fasting** (12-24 hr food + water)\n2. **Cuffed ET tube** with adequate seal\n3. **Head down position** (during induction → drainage)\n4. **Suction available**\n5. **Avoid extreme depth** (titrate carefully)\n\n💡 If regurgitation occurs:\n• Lower head + suction\n• Maintain ET tube cuff inflated\n• Lavage oropharynx with sterile saline',
@@ -193,13 +193,13 @@ export const QB_CLIAPPRUM = [
     sourceType: 'student-compilation',
     confidence: 'EXTRACTED',
     tags: ['peterson-block', 'eye'], type: 'mcq',
-    q: 'Peterson block ในวัว เป็น regional anesthesia ที่ block อะไร · ใช้สำหรับหัตถการใด',
-    options: ['Block forelimb · ใช้สำหรับ orthopedic',
-              'Block ophthalmic + motor + sensory ของลูกตา · ใช้สำหรับ enucleation, eye surgery',
-              'Block intercostal · ใช้สำหรับ thoracic',
-              'Block sciatic · ใช้สำหรับ rear leg'],
+    q: 'Peterson block ในวัว เป็น regional anesthesia ที่ block อะไร, ใช้สำหรับหัตถการใด',
+    options: ['Block forelimb, ใช้สำหรับ orthopedic',
+              'Block ophthalmic + motor + sensory ของลูกตา, ใช้สำหรับ enucleation, eye surgery',
+              'Block intercostal, ใช้สำหรับ thoracic',
+              'Block sciatic, ใช้สำหรับ rear leg'],
     answer: 1,
-    explain: 'Peterson nerve block (vs Auriculopalpebral block):\n\n• **Auriculopalpebral block** (= 4-point block):\n  - Block motor (orbicularis oculi) ของ eyelid only\n  - ตรวจตา / ทำ minor procedures (lid laceration repair)\n  - กระพริบตาไม่ได้ แต่ลูกตายังกลอกได้\n\n• **Peterson nerve block** ⭐:\n  - Block CN III (oculomotor), IV (trochlear), VI (abducens), V (trigeminal V1+V2)\n  - **Eye akinesia + complete sensory blockade**\n  - ใช้สำหรับ: **enucleation, exenteration, deep intraocular surgery**\n• Retrobulbar block — alternative · inject behind globe directly\n\n💡 Technique (Peterson):\n• Insert needle ที่ angle of caudal supraorbital process\n• Direction: medioventral toward base of opposite ear\n• Inject 10-15 ml of 2% lidocaine\n• Onset: 10-15 min · Duration: 1-2 hr',
+    explain: 'Peterson nerve block (vs Auriculopalpebral block):\n\n• **Auriculopalpebral block** (= 4-point block):\n  - Block motor (orbicularis oculi) ของ eyelid only\n  - ตรวจตา / ทำ minor procedures (lid laceration repair)\n  - กระพริบตาไม่ได้ แต่ลูกตายังกลอกได้\n\n• **Peterson nerve block** ⭐:\n  - Block CN III (oculomotor), IV (trochlear), VI (abducens), V (trigeminal V1+V2)\n  - **Eye akinesia + complete sensory blockade**\n  - ใช้สำหรับ: **enucleation, exenteration, deep intraocular surgery**\n• Retrobulbar block — alternative, inject behind globe directly\n\n💡 Technique (Peterson):\n• Insert needle ที่ angle of caudal supraorbital process\n• Direction: medioventral toward base of opposite ear\n• Inject 10-15 ml of 2% lidocaine\n• Onset: 10-15 min, Duration: 1-2 hr',
     verified: 'Clin App Ruminant master p.15 Peterson block diagram + Anesthesia Decision Matrix' },
 
   { id: 2113, subject: 'cliapprum', topic: 'ruminant-anesthesia', year: 4,
@@ -221,13 +221,13 @@ export const QB_CLIAPPRUM = [
     sourceType: 'student-compilation',
     confidence: 'EXTRACTED',
     tags: ['anticholinergic', 'preanesthetic'], type: 'mcq',
-    q: 'Anticholinergic (Atropine) เป็น preanesthetic ที่นิยมใช้ใน small animal · ในวัว ทำไมต้อง "limited use" หรือไม่ใช้',
+    q: 'Anticholinergic (Atropine) เป็น preanesthetic ที่นิยมใช้ใน small animal, ในวัว ทำไมต้อง "limited use" หรือไม่ใช้',
     options: ['ทำให้ tachycardia เกินไป',
-              'Saliva เหนียวข้น + GI motility ลด · เสี่ยง bloat',
+              'Saliva เหนียวข้น + GI motility ลด, เสี่ยง bloat',
               'ราคาแพงในวัว',
               'ห้ามใช้ใน mammals'],
     answer: 1,
-    explain: 'Anticholinergic (Atropine, Glycopyrrolate) ในวัว — **limited indication**:\n\n💡 ปัญหาในวัว:\n1. **Saliva ไม่ลด แต่กลับเหนียวข้นขึ้น** (vs small animal ที่ลดทั้งปริมาณ)\n   → อาจอุดทางเดินหายใจตอน intubation\n2. **GI motility ลด** → rumen stasis → bloat ระหว่าง anesthesia\n3. **Rumen content ไม่ระบายได้** → regurgitation risk เพิ่ม\n\n💡 ใช้เฉพาะกรณี:\n• Bradyarrhythmia ที่ต้อง intervene\n• Specific procedures ที่ต้อง mydriasis (atropine ophthalmic)\n• Organophosphate poisoning treatment\n\n💡 ดังนั้น routine atropine pre-medication = NOT recommended ใน ruminant\n\n💡 Alternative pre-medication ใน ruminant:\n• Sedative: Xylazine (alpha-2) · low dose 0.02-0.05 mg/kg\n• Benzodiazepine: Diazepam, Midazolam (good muscle relaxation)\n• Phenothiazine: Acepromazine (limited · penile prolapse risk in bulls)',
+    explain: 'Anticholinergic (Atropine, Glycopyrrolate) ในวัว — **limited indication**:\n\n💡 ปัญหาในวัว:\n1. **Saliva ไม่ลด แต่กลับเหนียวข้นขึ้น** (vs small animal ที่ลดทั้งปริมาณ)\n   → อาจอุดทางเดินหายใจตอน intubation\n2. **GI motility ลด** → rumen stasis → bloat ระหว่าง anesthesia\n3. **Rumen content ไม่ระบายได้** → regurgitation risk เพิ่ม\n\n💡 ใช้เฉพาะกรณี:\n• Bradyarrhythmia ที่ต้อง intervene\n• Specific procedures ที่ต้อง mydriasis (atropine ophthalmic)\n• Organophosphate poisoning treatment\n\n💡 ดังนั้น routine atropine pre-medication = NOT recommended ใน ruminant\n\n💡 Alternative pre-medication ใน ruminant:\n• Sedative: Xylazine (alpha-2), low dose 0.02-0.05 mg/kg\n• Benzodiazepine: Diazepam, Midazolam (good muscle relaxation)\n• Phenothiazine: Acepromazine (limited, penile prolapse risk in bulls)',
     verified: 'Clin App Ruminant master p.9 Preanesthetics: Anticholinergics + standard ruminant anesthesia textbook' },
 
   { id: 2115, subject: 'cliapprum', topic: 'ruminant-anesthesia', year: 4,
@@ -235,17 +235,17 @@ export const QB_CLIAPPRUM = [
     sourceType: 'student-compilation',
     confidence: 'EXTRACTED',
     tags: ['benzodiazepine', 'phenothiazine'], type: 'mcq',
-    q: 'ในการใช้ Benzodiazepine (Diazepam · Midazolam) เป็น preanesthetic ในวัว · ข้อดีข้อเสียคืออะไร',
-    options: ['Analgesia ดี · ราคาแพง',
-              'Muscle relaxation + minimal CV depression · ไม่มี analgesic',
-              'Lipid solubility ต่ำ · inhalational only',
+    q: 'ในการใช้ Benzodiazepine (Diazepam, Midazolam) เป็น preanesthetic ในวัว, ข้อดีข้อเสียคืออะไร',
+    options: ['Analgesia ดี, ราคาแพง',
+              'Muscle relaxation + minimal CV depression, ไม่มี analgesic',
+              'Lipid solubility ต่ำ, inhalational only',
               'เพิ่ม rumen contraction'],
     answer: 1,
-    explain: '**Benzodiazepines (Diazepam, Midazolam)** ในวัว anesthesia:\n\n✅ Pros:\n• **Excellent muscle relaxation** (esp. for intubation, recumbency induction)\n• **Minimal cardiopulmonary depression** (safer than alpha-2 in cardiac compromise)\n• Anticonvulsant effect\n• Reversible with **flumazenil**\n\n❌ Cons:\n• **No analgesic effect** — must combine with opioid or alpha-2\n• Diazepam not water-soluble (propylene glycol carrier · pain on IM)\n• Midazolam preferred (water-soluble, IM friendly)\n\n💡 Combinations (synergistic):\n• Diazepam + Ketamine (induction)\n• Midazolam + Xylazine + Ketamine (TIVA-like)\n\n💡 Phenothiazines (Acepromazine):\n• Sedative + tranquilizer (no analgesia)\n• ⚠️ **Penile prolapse risk in bulls** (vasodilation → corpus cavernosum)\n• Hypotension via alpha-1 blockade\n• Long-acting (4-8 hr)',
+    explain: '**Benzodiazepines (Diazepam, Midazolam)** ในวัว anesthesia:\n\n✅ Pros:\n• **Excellent muscle relaxation** (esp. for intubation, recumbency induction)\n• **Minimal cardiopulmonary depression** (safer than alpha-2 in cardiac compromise)\n• Anticonvulsant effect\n• Reversible with **flumazenil**\n\n❌ Cons:\n• **No analgesic effect** — must combine with opioid or alpha-2\n• Diazepam not water-soluble (propylene glycol carrier, pain on IM)\n• Midazolam preferred (water-soluble, IM friendly)\n\n💡 Combinations (synergistic):\n• Diazepam + Ketamine (induction)\n• Midazolam + Xylazine + Ketamine (TIVA-like)\n\n💡 Phenothiazines (Acepromazine):\n• Sedative + tranquilizer (no analgesia)\n• ⚠️ **Penile prolapse risk in bulls** (vasodilation → corpus cavernosum)\n• Hypotension via alpha-1 blockade\n• Long-acting (4-8 hr)',
     verified: 'Clin App Ruminant master p.9 Sedatives: Benzodiazepines & Phenothiazines section' },
 
   // ═══════════════════════════════════════════════════════════
-  // GI SURGERY (SAWITA · 45 ข้อ MAIN SCOPE) — 8 Qs
+  // GI SURGERY (SAWITA, 45 ข้อ MAIN SCOPE) — 8 Qs
   // อ.ศวิตา สันติวิภารัตน์ (SS) — 3 lectures
   // Source: Lecture 2026 PDF + Sunsun84 Vet Prac Rum cross-ref + background
   // ═══════════════════════════════════════════════════════════
@@ -256,12 +256,12 @@ export const QB_CLIAPPRUM = [
     confidence: 'EXTRACTED',
     tags: ['LDA', 'omentopexy'], type: 'mcq',
     q: 'การแก้ไข Left Displaced Abomasum (LDA) ด้วย Right flank omentopexy ทำอย่างไร',
-    options: ['ผ่าด้านซ้าย ดึง abomasum กลับด้านขวา · เย็บ omentum กับ peritoneum + transversus abdominis ส่วน ventral ด้วย horizontal mattress',
-              'ผ่าด้านขวา · ดึง abomasum ลงมาจากด้านซ้ายผ่าน xiphoid · ยึด greater omentum กับ peritoneum + transversus abdominis ส่วน ventral ด้วย horizontal mattress',
+    options: ['ผ่าด้านซ้าย ดึง abomasum กลับด้านขวา, เย็บ omentum กับ peritoneum + transversus abdominis ส่วน ventral ด้วย horizontal mattress',
+              'ผ่าด้านขวา, ดึง abomasum ลงมาจากด้านซ้ายผ่าน xiphoid, ยึด greater omentum กับ peritoneum + transversus abdominis ส่วน ventral ด้วย horizontal mattress',
               'ทำ Cesarean section approach',
-              'ฉีด lidocaine เข้า abomasum · ไม่ต้องผ่าตัด'],
+              'ฉีด lidocaine เข้า abomasum, ไม่ต้องผ่าตัด'],
     answer: 1,
-    explain: '**Right flank omentopexy** (Sawita-style):\n\n📋 Procedure:\n1. Standing right paralumbar fossa incision\n2. Reach across to feel LDA on left side\n3. **Decompress abomasum** with needle/trocar (release gas)\n4. **Manipulate abomasum back to ventral right position** (manual)\n5. Identify pylorus + greater omentum\n6. **Suture greater omentum to peritoneum + transversus abdominis** ใน ventral right paralumbar area\n7. Pattern: **horizontal mattress** ด้วย long-term absorbable suture\n8. Close abdominal wall (3 layers) + skin\n\n💡 Alternative: **Left abomasopexy** (Sawita Lecture 2)\n• Standing left flank · pylorus drawn down + sutured to ventral abdominal wall through stab incision\n• 2 จับปลาย (lumen + final interlocking)\n• เย็บมาตรฐานผ่านผนังหน้าท้อง\n\n⚠️ **RAV (Right abomasal volvulus)** = surgical emergency · poor prognosis · ต้อง immediate decompression + correction',
+    explain: '**Right flank omentopexy** (Sawita-style):\n\n📋 Procedure:\n1. Standing right paralumbar fossa incision\n2. Reach across to feel LDA on left side\n3. **Decompress abomasum** with needle/trocar (release gas)\n4. **Manipulate abomasum back to ventral right position** (manual)\n5. Identify pylorus + greater omentum\n6. **Suture greater omentum to peritoneum + transversus abdominis** ใน ventral right paralumbar area\n7. Pattern: **horizontal mattress** ด้วย long-term absorbable suture\n8. Close abdominal wall (3 layers) + skin\n\n💡 Alternative: **Left abomasopexy** (Sawita Lecture 2)\n• Standing left flank, pylorus drawn down + sutured to ventral abdominal wall through stab incision\n• 2 จับปลาย (lumen + final interlocking)\n• เย็บมาตรฐานผ่านผนังหน้าท้อง\n\n⚠️ **RAV (Right abomasal volvulus)** = surgical emergency, poor prognosis, ต้อง immediate decompression + correction',
     verified: 'Sunsun84 p.2 GI surgery section + Sawita Lecture 2026 GI Surgery I' },
 
   { id: 2117, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
@@ -271,11 +271,11 @@ export const QB_CLIAPPRUM = [
     tags: ['LDA-percussion', 'ping-sound'], type: 'mcq',
     q: 'การวินิจฉัย LDA / RDA ด้วย physical examination ใช้เทคนิคใด',
     options: ['Auscultation + Palpation เท่านั้น',
-              'Simultaneous auscultation + percussion (steel-on-steel "ping" sound) · LDA = left side · RDA = right side',
+              'Simultaneous auscultation + percussion (steel-on-steel "ping" sound), LDA = left side, RDA = right side',
               'X-ray เป็น gold standard',
               'Endoscopy ผ่านหลอดอาหาร'],
     answer: 1,
-    explain: '**Ping sound technique** (combined auscultation + percussion):\n\n📋 Procedure:\n1. Listen with stethoscope บน abdominal wall\n2. Simultaneously flick/percuss adjacent area with finger\n3. Listen for high-pitched **metallic "ping"** sound\n\n💡 Locations:\n• **LDA**: ping at left flank · costal area (rib 9-13) · upper third\n• **RDA / Abomasal volvulus**: ping at right flank · same level\n• **Cecal dilatation**: ping at right flank · lower posterior\n• **Pneumoperitoneum (free gas)**: ping over wide area\n\n💡 Diff Dx with ping sound:\n• Side determines DDx (left vs right)\n• Volume of ping (small = focal · large = severe distension)\n• Concurrent signs:\n  - LDA: decreased appetite, drop in milk, ketosis (50-90% have concurrent ketosis)\n  - RDA: progressive abdominal distension, dehydration, shock if volvulus\n  - Cecal dilatation: bloat-like, palpable on rectal\n\n⚠️ False ping (gas in cecum/colon during normal fermentation)',
+    explain: '**Ping sound technique** (combined auscultation + percussion):\n\n📋 Procedure:\n1. Listen with stethoscope บน abdominal wall\n2. Simultaneously flick/percuss adjacent area with finger\n3. Listen for high-pitched **metallic "ping"** sound\n\n💡 Locations:\n• **LDA**: ping at left flank, costal area (rib 9-13), upper third\n• **RDA / Abomasal volvulus**: ping at right flank, same level\n• **Cecal dilatation**: ping at right flank, lower posterior\n• **Pneumoperitoneum (free gas)**: ping over wide area\n\n💡 Diff Dx with ping sound:\n• Side determines DDx (left vs right)\n• Volume of ping (small = focal, large = severe distension)\n• Concurrent signs:\n  - LDA: decreased appetite, drop in milk, ketosis (50-90% have concurrent ketosis)\n  - RDA: progressive abdominal distension, dehydration, shock if volvulus\n  - Cecal dilatation: bloat-like, palpable on rectal\n\n⚠️ False ping (gas in cecum/colon during normal fermentation)',
     verified: 'Sunsun84 p.3 GI disorder mind map + standard textbook' },
 
   { id: 2118, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
@@ -289,21 +289,21 @@ export const QB_CLIAPPRUM = [
               'Cecal dislocation/retroflexion (body + apex flipped cranially) ⭐ different from simple dilatation',
               'Pregnancy month 9'],
     answer: 2,
-    explain: '**Cecal dislocation/retroflexion** (CDD subtype):\n\n📋 Pathophysiology:\n• Normal cecum: apex points caudally toward pelvic inlet\n• **Dilatation**: cecum distended with gas/fluid · apex still caudal · palpable at right flank\n• **Dislocation/retroflexion**: ทั้ง body + apex รุดไปทาง cranial (90-180° flip)\n  → palpable cecal apex via rectal palpation (because body+apex flipped over the rectum)\n\n💡 Differential by rectal palpation:\n• คล่ำเจอ cecal apex ทางทวาร = **dilatation** (apex still caudal)\n• คล่ำพบ cecal apex ที่ทวาร bulging towards rectum = **dislocation**\n\n💡 Surgical correction:\n• เปิดช่องท้องเพื่อแก้ไข ventral retroflexion (พบ body + apex อยู่นอก supraomental recess)\n• นำ 2 ส่วน (body + apex) ลอกออก ช่องท้องพันท้องที\n• **Typhlotomy** = ผ่าตัดเปิด cecum drain content + decompress · แก้ไข cecal retroflexion ที่ cecal apex\n\n💡 **Cecal dilatation alone** ไม่พบ apex ทางทวาร เมื่อเป็นแบบ simple dilatation',
-    verified: 'Sunsun84 p.2 Cecal dilatation & dislocation section · ตี่ Cecal apex โดยทวาร' },
+    explain: '**Cecal dislocation/retroflexion** (CDD subtype):\n\n📋 Pathophysiology:\n• Normal cecum: apex points caudally toward pelvic inlet\n• **Dilatation**: cecum distended with gas/fluid, apex still caudal, palpable at right flank\n• **Dislocation/retroflexion**: ทั้ง body + apex รุดไปทาง cranial (90-180° flip)\n  → palpable cecal apex via rectal palpation (because body+apex flipped over the rectum)\n\n💡 Differential by rectal palpation:\n• คล่ำเจอ cecal apex ทางทวาร = **dilatation** (apex still caudal)\n• คล่ำพบ cecal apex ที่ทวาร bulging towards rectum = **dislocation**\n\n💡 Surgical correction:\n• เปิดช่องท้องเพื่อแก้ไข ventral retroflexion (พบ body + apex อยู่นอก supraomental recess)\n• นำ 2 ส่วน (body + apex) ลอกออก ช่องท้องพันท้องที\n• **Typhlotomy** = ผ่าตัดเปิด cecum drain content + decompress, แก้ไข cecal retroflexion ที่ cecal apex\n\n💡 **Cecal dilatation alone** ไม่พบ apex ทางทวาร เมื่อเป็นแบบ simple dilatation',
+    verified: 'Sunsun84 p.2 Cecal dilatation & dislocation section, ตี่ Cecal apex โดยทวาร' },
 
   { id: 2119, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
     source: 'Sawita Lecture + Sunsun84',
     sourceType: 'lecture-verified-draft',
     confidence: 'EXTRACTED',
     tags: ['traumatic-reticulopericarditis', 'hardware'], type: 'mcq',
-    q: 'การวินิจฉัย Hardware Disease (Traumatic Reticulopericarditis · TRP) ในวัว สิ่งใดเป็น "gold standard test"',
+    q: 'การวินิจฉัย Hardware Disease (Traumatic Reticulopericarditis, TRP) ในวัว สิ่งใดเป็น "gold standard test"',
     options: ['Wither test เพียงอย่างเดียว',
               'Pole/Bamboo test เพียงอย่างเดียว',
               'รวมทั้ง Pain test (Wither/Pole) + Auscultation + Pole test + Metal detector + bloodwork (neutrophil) + radiography ของ reticulum + xiphoid pressure ทำให้ grunting',
               'Cow magnet trial เป็น diagnostic'],
     answer: 2,
-    explain: '**TRP (Traumatic Reticulopericarditis)** — multi-modal diagnosis:\n\n📋 Diagnostic tests:\n1. **Pain tests**:\n   - Wither test (pinch wither → grunt = pain) · sensitivity moderate\n   - Pole/Bamboo test (lift bamboo under xiphoid → grunt)\n   - Xiphoid pressure (push up on xiphoid cartilage → grunting)\n2. **Auscultation**:\n   - Muffled heart sounds (pericardial effusion)\n   - Rub sounds (pericarditis)\n   - Decreased reticular contraction\n3. **Metal detector** — positive metal foreign body in reticulum area (false positive if cow already has magnet)\n4. **Bloodwork**:\n   - Neutrophilia + left shift\n   - ↑ Fibrinogen (>700 mg/dL)\n   - ↑ AST · ↓ albumin\n5. **Radiography** — confirm metallic FB in reticulum (lateral view)\n6. **Ultrasound** — pericardial effusion, abscess\n\n💡 Tx options:\n• **Cow magnet** PO (preventive + early Tx)\n• **Rumenotomy** + manual removal of FB\n• Pericardiocentesis (if pericardial effusion · drain + AB)\n• Antibiotics (broad-spectrum) + NSAIDs + cull if poor prognosis\n\n💡 Prognosis:\n• Early TRP (no peritonitis): good with magnet ± rumenotomy\n• Advanced TRP + pericarditis: poor (often culled)',
+    explain: '**TRP (Traumatic Reticulopericarditis)** — multi-modal diagnosis:\n\n📋 Diagnostic tests:\n1. **Pain tests**:\n   - Wither test (pinch wither → grunt = pain), sensitivity moderate\n   - Pole/Bamboo test (lift bamboo under xiphoid → grunt)\n   - Xiphoid pressure (push up on xiphoid cartilage → grunting)\n2. **Auscultation**:\n   - Muffled heart sounds (pericardial effusion)\n   - Rub sounds (pericarditis)\n   - Decreased reticular contraction\n3. **Metal detector** — positive metal foreign body in reticulum area (false positive if cow already has magnet)\n4. **Bloodwork**:\n   - Neutrophilia + left shift\n   - ↑ Fibrinogen (>700 mg/dL)\n   - ↑ AST, ↓ albumin\n5. **Radiography** — confirm metallic FB in reticulum (lateral view)\n6. **Ultrasound** — pericardial effusion, abscess\n\n💡 Tx options:\n• **Cow magnet** PO (preventive + early Tx)\n• **Rumenotomy** + manual removal of FB\n• Pericardiocentesis (if pericardial effusion, drain + AB)\n• Antibiotics (broad-spectrum) + NSAIDs + cull if poor prognosis\n\n💡 Prognosis:\n• Early TRP (no peritonitis): good with magnet ± rumenotomy\n• Advanced TRP + pericarditis: poor (often culled)',
     verified: 'Sunsun84 p.3 Reticulum + Hardware disease + AABP standards' },
 
   { id: 2120, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
@@ -311,13 +311,13 @@ export const QB_CLIAPPRUM = [
     sourceType: 'lecture-derived',
     confidence: 'INFERRED',
     tags: ['rumen-fluid', 'pH'], type: 'mcq',
-    q: 'ค่า pH ปกติของ ruminal fluid ในวัวคือเท่าใด · ค่าใดบ่งบอกภาวะ acidosis',
-    options: ['ปกติ 5.5-7.5 · acidosis = pH <5.5 · alkalosis (inactive rumen) = pH >7.0',
-              'ปกติ 7.4-8.0 · acidosis = <6.5',
-              'ปกติ 4.0-5.0 · acidosis = <2.0',
-              'ปกติ 8.5-10 · acidosis = <7.0'],
+    q: 'ค่า pH ปกติของ ruminal fluid ในวัวคือเท่าใด, ค่าใดบ่งบอกภาวะ acidosis',
+    options: ['ปกติ 5.5-7.5, acidosis = pH <5.5, alkalosis (inactive rumen) = pH >7.0',
+              'ปกติ 7.4-8.0, acidosis = <6.5',
+              'ปกติ 4.0-5.0, acidosis = <2.0',
+              'ปกติ 8.5-10, acidosis = <7.0'],
     answer: 0,
-    explain: 'Ruminal fluid pH (Sunsun84 + textbook):\n\n• **Normal: pH 5.5-7.5** ⭐ (mostly 6.0-7.0 between feedings)\n• **Acidosis: pH <5.5** = clinical lactic acidosis\n  - Cause: grain engorgement (Streptococcus bovis → lactic acid)\n  - Subacute: pH 5.0-5.5 (intermittent · SARA)\n  - Acute: pH <5.0 (rapid onset · severe)\n• **Alkalosis: pH >7.0** = inactivate rumen (often after rumen washout / spoiled feed)\n\n💡 Diagnostic tools (apart from pH):\n1. **Methylene blue test**: เติม methylene blue ใน rumen fluid · ดูเปลี่ยนสี\n   - Normal: 3-6 min discoloration (moderate bact activity)\n   - <3 min: bact เยอะมาก (acidosis · over-fermentation)\n   - >6 min: bact ไม่ทำงาน (inactive rumen)\n2. **Sediment activity time**: pour rumen fluid in graduated cylinder\n   - Normal: complete sedimentation in 4-8 min\n3. **Gram stain**:\n   - Normal: predominantly gram(+)\n   - Gram(-) มากกว่า → rumen เป็นกรด (acidic shift kills gram(+) flora)\n4. **Protozoa motility**: \n   - Normal: active motile protozoa visible\n   - No protozoa = severe acidosis or after antibiotic',
+    explain: 'Ruminal fluid pH (Sunsun84 + textbook):\n\n• **Normal: pH 5.5-7.5** ⭐ (mostly 6.0-7.0 between feedings)\n• **Acidosis: pH <5.5** = clinical lactic acidosis\n  - Cause: grain engorgement (Streptococcus bovis → lactic acid)\n  - Subacute: pH 5.0-5.5 (intermittent, SARA)\n  - Acute: pH <5.0 (rapid onset, severe)\n• **Alkalosis: pH >7.0** = inactivate rumen (often after rumen washout / spoiled feed)\n\n💡 Diagnostic tools (apart from pH):\n1. **Methylene blue test**: เติม methylene blue ใน rumen fluid, ดูเปลี่ยนสี\n   - Normal: 3-6 min discoloration (moderate bact activity)\n   - <3 min: bact เยอะมาก (acidosis, over-fermentation)\n   - >6 min: bact ไม่ทำงาน (inactive rumen)\n2. **Sediment activity time**: pour rumen fluid in graduated cylinder\n   - Normal: complete sedimentation in 4-8 min\n3. **Gram stain**:\n   - Normal: predominantly gram(+)\n   - Gram(-) มากกว่า → rumen เป็นกรด (acidic shift kills gram(+) flora)\n4. **Protozoa motility**: \n   - Normal: active motile protozoa visible\n   - No protozoa = severe acidosis or after antibiotic',
     verified: 'Sunsun84 p.3 Rumen fluid analysis section + standard textbook' },
 
   { id: 2121, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
@@ -326,12 +326,12 @@ export const QB_CLIAPPRUM = [
     confidence: 'INFERRED',
     tags: ['bloat', 'frothy-vs-free-gas'], type: 'mcq',
     q: 'การจัดการ bloat ในวัวต่างกันระหว่าง frothy vs free-gas bloat อย่างไร',
-    options: ['Free-gas: trocar/orogastric tube ระบาย gas · Frothy: ใช้ surfactant (poloxalene/dioctyl) ทำลาย foam · ถ้า severe ทำ rumenotomy',
+    options: ['Free-gas: trocar/orogastric tube ระบาย gas, Frothy: ใช้ surfactant (poloxalene/dioctyl) ทำลาย foam, ถ้า severe ทำ rumenotomy',
               'ทั้งสองทำ rumenotomy ทันทีเสมอ',
               'ทั้งสองใช้ trocar เท่านั้น',
               'ไม่ต้องรักษา รอ resolve เอง'],
     answer: 0,
-    explain: '**Bloat management** — distinguish first:\n\n💡 **Free-gas bloat** (Type 1):\n• Cause: esophageal obstruction (choke), nerve damage, hypocalcemia\n• Gas accumulates ใน dorsal sac (separate from fluid)\n• **Tx**:\n  1. Pass orogastric tube → release gas immediately ⭐\n  2. If tube fails: **trocharization** (large-bore trocar through left flank into rumen)\n  3. Treat underlying cause (remove foreign body, calcium for hypoCa)\n\n💡 **Frothy bloat** (Type 2):\n• Cause: legume pasture (alfalfa, clover) · high-protein → stable foam\n• Gas trapped in foam → cannot eructate · cannot pass via tube (foam blocks)\n• **Tx**:\n  1. **Anti-foaming agent (surfactant)** ⭐:\n     - Poloxalene (Bloat Guard) 30 g\n     - Dioctyl sulfosuccinate (DSS) 200 ml\n     - Cooking oil 250 ml (emergency)\n  2. Massage rumen + walk cow\n  3. If severe: **emergency rumenotomy** to remove foam\n\n💡 Prevention:\n• Limit lush legume pasture\n• Ionophores (monensin) reduce frothy bloat\n• Provide non-bloating roughage before grazing',
+    explain: '**Bloat management** — distinguish first:\n\n💡 **Free-gas bloat** (Type 1):\n• Cause: esophageal obstruction (choke), nerve damage, hypocalcemia\n• Gas accumulates ใน dorsal sac (separate from fluid)\n• **Tx**:\n  1. Pass orogastric tube → release gas immediately ⭐\n  2. If tube fails: **trocharization** (large-bore trocar through left flank into rumen)\n  3. Treat underlying cause (remove foreign body, calcium for hypoCa)\n\n💡 **Frothy bloat** (Type 2):\n• Cause: legume pasture (alfalfa, clover), high-protein → stable foam\n• Gas trapped in foam → cannot eructate, cannot pass via tube (foam blocks)\n• **Tx**:\n  1. **Anti-foaming agent (surfactant)** ⭐:\n     - Poloxalene (Bloat Guard) 30 g\n     - Dioctyl sulfosuccinate (DSS) 200 ml\n     - Cooking oil 250 ml (emergency)\n  2. Massage rumen + walk cow\n  3. If severe: **emergency rumenotomy** to remove foam\n\n💡 Prevention:\n• Limit lush legume pasture\n• Ionophores (monensin) reduce frothy bloat\n• Provide non-bloating roughage before grazing',
     verified: 'Sunsun84 p.3 + Smith Large Animal Internal Medicine' },
 
   { id: 2122, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
@@ -353,9 +353,9 @@ export const QB_CLIAPPRUM = [
     sourceType: 'lecture-derived',
     confidence: 'INFERRED',
     tags: ['abomasal-volvulus', 'severity'], type: 'tf',
-    q: 'Right Abomasal Volvulus (RAV / abomasal volvulus) เป็นภาวะที่อาจเสียชีวิตเร็วกว่า simple RDA ทาง shock + circulatory collapse · ต้อง emergency surgery ภายใน 6 ชั่วโมง · prognosis แย่กว่า LDA',
+    q: 'Right Abomasal Volvulus (RAV / abomasal volvulus) เป็นภาวะที่อาจเสียชีวิตเร็วกว่า simple RDA ทาง shock + circulatory collapse, ต้อง emergency surgery ภายใน 6 ชั่วโมง, prognosis แย่กว่า LDA',
     answer: true,
-    explain: '✅ ถูก\n\n**Right abomasal volvulus (RAV)** — surgical emergency:\n\n💡 Pathophysiology:\n• Abomasum displaces to right then rotates (clockwise from rear · 90-360°)\n• Abomasal blood supply compromised → ischemia\n• Continued gas + fluid accumulation → distension\n• Severe dehydration (12-15% in 24 hr)\n• Hypovolemic + endotoxic shock\n• Rumen impaction secondary\n• **Mortality: 25-40% even with surgery** (vs LDA <10%)\n\n💡 Clinical signs (different from LDA):\n• **Rapid progression** (12-48 hr · vs LDA gradual over days)\n• Severe abdominal distension (right flank bulging)\n• Tachycardia (>100 bpm)\n• Dehydration · cold extremities · weak pulse\n• Decreased GI motility · scant feces\n• Severe hypochloremic + hypokalemic metabolic alkalosis\n\n💡 Lab findings (RAV pattern):\n• Hypochloremic: Cl <85 mEq/L\n• Hypokalemic: K <3.0 mEq/L\n• Metabolic alkalosis: HCO3 >32 mEq/L\n• Hemoconcentration: PCV >40%, TP >8 g/dL\n• Lactate elevated (>4 mM = poor prognosis)\n\n💡 Surgical approach:\n• Right flank approach\n• Decompression first (needle/trocar)\n• Manually de-rotate (counterclockwise from rear)\n• Assess viability (color, motility post-correction)\n• If necrotic: euthanize (resection rarely successful)\n• If viable: omentopexy or pyloropexy\n\n💡 Prognosis indicators:\n• **Lactate >4 mM, HR >100, dehydration >10%** → poor\n• Time from onset >6-12 hr → mortality risk doubles',
+    explain: '✅ ถูก\n\n**Right abomasal volvulus (RAV)** — surgical emergency:\n\n💡 Pathophysiology:\n• Abomasum displaces to right then rotates (clockwise from rear, 90-360°)\n• Abomasal blood supply compromised → ischemia\n• Continued gas + fluid accumulation → distension\n• Severe dehydration (12-15% in 24 hr)\n• Hypovolemic + endotoxic shock\n• Rumen impaction secondary\n• **Mortality: 25-40% even with surgery** (vs LDA <10%)\n\n💡 Clinical signs (different from LDA):\n• **Rapid progression** (12-48 hr, vs LDA gradual over days)\n• Severe abdominal distension (right flank bulging)\n• Tachycardia (>100 bpm)\n• Dehydration, cold extremities, weak pulse\n• Decreased GI motility, scant feces\n• Severe hypochloremic + hypokalemic metabolic alkalosis\n\n💡 Lab findings (RAV pattern):\n• Hypochloremic: Cl <85 mEq/L\n• Hypokalemic: K <3.0 mEq/L\n• Metabolic alkalosis: HCO3 >32 mEq/L\n• Hemoconcentration: PCV >40%, TP >8 g/dL\n• Lactate elevated (>4 mM = poor prognosis)\n\n💡 Surgical approach:\n• Right flank approach\n• Decompression first (needle/trocar)\n• Manually de-rotate (counterclockwise from rear)\n• Assess viability (color, motility post-correction)\n• If necrotic: euthanize (resection rarely successful)\n• If viable: omentopexy or pyloropexy\n\n💡 Prognosis indicators:\n• **Lactate >4 mM, HR >100, dehydration >10%** → poor\n• Time from onset >6-12 hr → mortality risk doubles',
     verified: 'Smith Large Animal Internal Medicine + Fubini Smith Farm Animal Surgery RAV chapter' },
 
   // ═══════════════════════════════════════════════════════════
@@ -367,10 +367,10 @@ export const QB_CLIAPPRUM = [
     sourceType: 'lecture-verified-draft',
     confidence: 'INFERRED',
     tags: ['fleet-LCS', 'monitoring'], type: 'mcq',
-    q: 'ใน dairy fleet (ฝูง) การ monitor lameness ใช้ % cow ที่มี LCS ≥3 เป็น indicator · ค่า threshold ที่ถือว่า "serious problem" คือเท่าใด',
-    options: ['<5%', '<10% (industry target)',  '>25% = serious herd-level problem · ต้อง intervention urgent · 10-25% = moderate concern', '>50% = ปกติ'],
+    q: 'ใน dairy fleet (ฝูง) การ monitor lameness ใช้ % cow ที่มี LCS ≥3 เป็น indicator, ค่า threshold ที่ถือว่า "serious problem" คือเท่าใด',
+    options: ['<5%', '<10% (industry target)',  '>25% = serious herd-level problem, ต้อง intervention urgent, 10-25% = moderate concern', '>50% = ปกติ'],
     answer: 2,
-    explain: 'Industry benchmarks for herd lameness:\n\n• **<10% with LCS ≥3 = Industry target** ⭐ (excellent)\n• 10-25% = Moderate concern (review hoof care · footbath · housing)\n• **>25% = Serious problem** ⭐ (urgent intervention needed · audit nutrition + housing + trim schedule + pathogen control)\n\n💡 Monitoring strategy:\n• Score entire herd quarterly (or after each freshening cycle)\n• Use video gait analysis if budget allows\n• Pair with milk production data — lameness reduces yield 5-15%\n• Track repeat offenders (chronic lame cows = cull candidates)\n\n💡 Economic impact:\n• Lame cow loses $300-500/lactation (milk + repro + treatment)\n• Severe lameness (LCS 4-5) → forced cull\n\n💡 Intervention layers (when prevalence high):\n1. Immediate: trim affected cows, footbath weekly\n2. Short-term: review concrete grooving, stall comfort\n3. Long-term: nutritional review (laminitis prevention) · genetic selection (foot conformation) · pathogen monitoring (digital dermatitis) ',
+    explain: 'Industry benchmarks for herd lameness:\n\n• **<10% with LCS ≥3 = Industry target** ⭐ (excellent)\n• 10-25% = Moderate concern (review hoof care, footbath, housing)\n• **>25% = Serious problem** ⭐ (urgent intervention needed, audit nutrition + housing + trim schedule + pathogen control)\n\n💡 Monitoring strategy:\n• Score entire herd quarterly (or after each freshening cycle)\n• Use video gait analysis if budget allows\n• Pair with milk production data — lameness reduces yield 5-15%\n• Track repeat offenders (chronic lame cows = cull candidates)\n\n💡 Economic impact:\n• Lame cow loses $300-500/lactation (milk + repro + treatment)\n• Severe lameness (LCS 4-5) → forced cull\n\n💡 Intervention layers (when prevalence high):\n1. Immediate: trim affected cows, footbath weekly\n2. Short-term: review concrete grooving, stall comfort\n3. Long-term: nutritional review (laminitis prevention), genetic selection (foot conformation), pathogen monitoring (digital dermatitis) ',
     verified: 'AABP Hoof Health Standards + Clin App Rum Hoof Health Fleet lecture scope' },
 
   { id: 2125, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4,
@@ -378,13 +378,13 @@ export const QB_CLIAPPRUM = [
     sourceType: 'lecture-verified-draft',
     confidence: 'INFERRED',
     tags: ['footbath', 'CuSO4'], type: 'mcq',
-    q: 'Footbath เพื่อ control digital dermatitis ใน dairy fleet ใช้สารเคมีอะไรบ่อย · ที่ความเข้มข้นเท่าใด',
+    q: 'Footbath เพื่อ control digital dermatitis ใน dairy fleet ใช้สารเคมีอะไรบ่อย, ที่ความเข้มข้นเท่าใด',
     options: ['NaCl 0.9% เท่านั้น',
-              'CuSO4 5% (= 50 g/L) · หรือ Formalin 3-5% · สลับใช้เพื่อลด resistance · 2-4 ครั้ง/สัปดาห์',
+              'CuSO4 5% (= 50 g/L), หรือ Formalin 3-5%, สลับใช้เพื่อลด resistance, 2-4 ครั้ง/สัปดาห์',
               'แอลกอฮอล์ 70%',
               'Hydrogen peroxide 3% เท่านั้น'],
     answer: 1,
-    explain: 'Footbath protocols for dairy fleet:\n\n💡 **CuSO4 (Copper sulfate)** ⭐ most common:\n• 5% solution (50 g/L) — standard\n• 7-10% if active digital dermatitis outbreak\n• Pros: cheap, effective against Treponema\n• Cons: copper accumulation in environment, fish toxicity\n\n💡 **Formalin (formaldehyde)**:\n• 3-5% solution\n• Pros: kills wider range pathogens\n• Cons: irritant to feet + handler · carcinogenic\n• Restricted in some countries\n\n💡 **Glutaraldehyde**:\n• 1-2% solution\n• Less corrosive than CuSO4 · more stable than formalin\n\n💡 Frequency:\n• Routine prevention: 2x/week\n• Active outbreak: daily for 1-2 weeks\n• Walk through length: ≥3 m (ensures all feet contact)\n\n💡 Best practice rotation:\n• Alternate CuSO4 weeks ↔ Formalin weeks (reduce pathogen adaptation)\n• Ensure clean approach to footbath (avoid manure contamination diluting solution)\n• Replace solution every 200 cows passes (or daily)',
+    explain: 'Footbath protocols for dairy fleet:\n\n💡 **CuSO4 (Copper sulfate)** ⭐ most common:\n• 5% solution (50 g/L) — standard\n• 7-10% if active digital dermatitis outbreak\n• Pros: cheap, effective against Treponema\n• Cons: copper accumulation in environment, fish toxicity\n\n💡 **Formalin (formaldehyde)**:\n• 3-5% solution\n• Pros: kills wider range pathogens\n• Cons: irritant to feet + handler, carcinogenic\n• Restricted in some countries\n\n💡 **Glutaraldehyde**:\n• 1-2% solution\n• Less corrosive than CuSO4, more stable than formalin\n\n💡 Frequency:\n• Routine prevention: 2x/week\n• Active outbreak: daily for 1-2 weeks\n• Walk through length: ≥3 m (ensures all feet contact)\n\n💡 Best practice rotation:\n• Alternate CuSO4 weeks ↔ Formalin weeks (reduce pathogen adaptation)\n• Ensure clean approach to footbath (avoid manure contamination diluting solution)\n• Replace solution every 200 cows passes (or daily)',
     verified: 'Standard hoof health management + AABP guidelines' },
 
   { id: 2126, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4,
@@ -395,28 +395,28 @@ export const QB_CLIAPPRUM = [
     q: 'Routine hoof trimming (RT) ใน dairy fleet ตามที่อ.ปิยะณัฐสอน แนะนำทำที่ frequency เท่าใด',
     options: ['ไม่ต้อง trim หากไม่มีปัญหา', '2x/year (ทุก 6-12 เดือน)', '6x/year', '12x/year'],
     answer: 1,
-    explain: '**Routine Trimming (RT)** อ.ปิยะณัฐ slide 8: 2 ครั้ง/ปี (ทุก 6-12 เดือน) โดยเจ้าหน้าที่/ฟาร์มที่มีทักษะถูกต้อง\n\n💡 Common timing:\n• At **dry-off** (~60 days before next calving)\n• At **mid-lactation** (~150 days in milk)\n• High-risk cows: 3-4x/year\n\n💡 Why 2x/year:\n• Claw growth ~5 mm/month → ~6 cm/year\n• Wear ~3-4 mm/month\n• Excess growth → unbalanced weight → sole ulcer / white line / laminitis sequelae\n\n💡 Slide 9-10: Interpretation framework\n• ฟาร์มที่มี RT: lameness ไม่กังวล (รอรอบ RT) · กังวลถ้าเพิ่งผ่าน RT (= infectious / iatrogenic)\n• ฟาร์มที่ไม่มี RT: น่ากังวลมาก (sole ulcer / white line / infectious / laminitis)',
-    verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx · อ.ปิยะณัฐ slide 8-10' },
+    explain: '**Routine Trimming (RT)** อ.ปิยะณัฐ slide 8: 2 ครั้ง/ปี (ทุก 6-12 เดือน) โดยเจ้าหน้าที่/ฟาร์มที่มีทักษะถูกต้อง\n\n💡 Common timing:\n• At **dry-off** (~60 days before next calving)\n• At **mid-lactation** (~150 days in milk)\n• High-risk cows: 3-4x/year\n\n💡 Why 2x/year:\n• Claw growth ~5 mm/month → ~6 cm/year\n• Wear ~3-4 mm/month\n• Excess growth → unbalanced weight → sole ulcer / white line / laminitis sequelae\n\n💡 Slide 9-10: Interpretation framework\n• ฟาร์มที่มี RT: lameness ไม่กังวล (รอรอบ RT), กังวลถ้าเพิ่งผ่าน RT (= infectious / iatrogenic)\n• ฟาร์มที่ไม่มี RT: น่ากังวลมาก (sole ulcer / white line / infectious / laminitis)',
+    verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx, อ.ปิยะณัฐ slide 8-10' },
 
-  // ── Hoof Health Fleet · Aj. PP TLI Framework (slide 3-7) ───
+  // ── Hoof Health Fleet, Aj. PP TLI Framework (slide 3-7) ───
   { id: 2127, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4,
     source: 'อ.ปิยะณัฐ slide 3 TLI framework',
     sourceType: 'lecture-verified-draft',
     confidence: 'EXTRACTED',
     tags: ['LCS', 'framework', 'TLI'], type: 'mcq',
     q: 'อ.ปิยะณัฐ สอน Framework การประเมิน LCS ในฝูงโคนม 4 ขั้นตอน คือข้อใด',
-    options: ['Treatment · Locomotion · Identification · Inspection',
-              'Timing · Location · Identification · Interpretation',
-              'Trim · Lift · Inject · Isolate',
-              'Track · Lameness · Imaging · Intervention'],
+    options: ['Treatment, Locomotion, Identification, Inspection',
+              'Timing, Location, Identification, Interpretation',
+              'Trim, Lift, Inject, Isolate',
+              'Track, Lameness, Imaging, Intervention'],
     answer: 1,
-    explain: '**4 elements ของ LCS evaluation** (อ.ปิยะณัฐ slide 3-7):\n\n1. **Timing** (ประเมินตอนไหนดี?) — ไม่รบกวน work flow · ใช้คนน้อย · โคเดินอิสระ · เวลาประณีต\n2. **Location** (ประเมินตรงไหนดี?) — work flow น้อย · พื้นเรียบไม่ลาดเอียง · ระยะเดินตรง ≥4 เมตร\n3. **Identification** (จดเบอร์โคให้ครบทุกตัว) — ต้องได้ ID ครบ\n4. **Interpretation** (แปลผลอย่างไร) — ดูปัจจัย RT (Routine trimming) ของฟาร์ม\n\n💡 Goal: ออกแบบการประเมิน LCS ที่นำไปประยุกต์ใช้ได้ในภาคสนาม + แปลผลได้ + วางแผนจัดการสุขภาพกีบ',
-    verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx · อ.ปิยะณัฐ slide 3' },
+    explain: '**4 elements ของ LCS evaluation** (อ.ปิยะณัฐ slide 3-7):\n\n1. **Timing** (ประเมินตอนไหนดี?) — ไม่รบกวน work flow, ใช้คนน้อย, โคเดินอิสระ, เวลาประณีต\n2. **Location** (ประเมินตรงไหนดี?) — work flow น้อย, พื้นเรียบไม่ลาดเอียง, ระยะเดินตรง ≥4 เมตร\n3. **Identification** (จดเบอร์โคให้ครบทุกตัว) — ต้องได้ ID ครบ\n4. **Interpretation** (แปลผลอย่างไร) — ดูปัจจัย RT (Routine trimming) ของฟาร์ม\n\n💡 Goal: ออกแบบการประเมิน LCS ที่นำไปประยุกต์ใช้ได้ในภาคสนาม + แปลผลได้ + วางแผนจัดการสุขภาพกีบ',
+    verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx, อ.ปิยะณัฐ slide 3' },
 
   // ═══════════════════════════════════════════════════════════
-  // GI MEDICINE (VDTT · TB · 5 Qs added 2026-05-04) — Q2129-2133
-  // อ.ธนศักดิ์ บุญเสริม (TB) · "Ruminant Gastrointestinal Disorder"
-  // Slide content: rumen pH · methylene blue · sediment activity · gram stain · GI motility
+  // GI MEDICINE (VDTT, TB, 5 Qs added 2026-05-04) — Q2129-2133
+  // อ.ธนศักดิ์ บุญเสริม (TB), "Ruminant Gastrointestinal Disorder"
+  // Slide content: rumen pH, methylene blue, sediment activity, gram stain, GI motility
   // ═══════════════════════════════════════════════════════════
 
   { id: 2129, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
@@ -427,7 +427,7 @@ export const QB_CLIAPPRUM = [
     q: 'pH ของ ruminal fluid ที่ <5.5 บ่งบอกภาวะใด',
     options: ['Inactive rumen', 'Clinical lactic acidosis', 'ปกติ post-feeding', 'Alkalosis'],
     answer: 1,
-    explain: 'Ruminal pH interpretation (อ.ธนศักดิ์):\n\n• **<5.0**: Severe acute acidosis (grain engorgement)\n• **<5.5**: Clinical lactic acidosis ⭐\n• 5.5-7.5: Normal (มักอยู่ 6.0-7.0 ระหว่างมื้อ)\n• >7.0: Inactive rumen (rumen washout · spoiled feed · prolonged anorexia)\n\n💡 Subacute rumen acidosis (SARA):\n• pH 5.0-5.5 intermittent (ไม่ severe แต่ chronic)\n• เกิดจาก high concentrate · low effective fiber\n• Sequelae: laminitis, milk fat depression, LDA',
+    explain: 'Ruminal pH interpretation (อ.ธนศักดิ์):\n\n• **<5.0**: Severe acute acidosis (grain engorgement)\n• **<5.5**: Clinical lactic acidosis ⭐\n• 5.5-7.5: Normal (มักอยู่ 6.0-7.0 ระหว่างมื้อ)\n• >7.0: Inactive rumen (rumen washout, spoiled feed, prolonged anorexia)\n\n💡 Subacute rumen acidosis (SARA):\n• pH 5.0-5.5 intermittent (ไม่ severe แต่ chronic)\n• เกิดจาก high concentrate, low effective fiber\n• Sequelae: laminitis, milk fat depression, LDA',
     verified: 'อ.ธนศักดิ์ GI Disorder + standard ruminant medicine' },
 
   { id: 2130, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
@@ -435,10 +435,10 @@ export const QB_CLIAPPRUM = [
     sourceType: 'lecture-verified-draft',
     confidence: 'EXTRACTED',
     tags: ['methylene-blue', 'rumen-microflora'], type: 'mcq',
-    q: 'การทดสอบ Methylene Blue Reduction Test ใน ruminal fluid · ค่าปกติของ decolorization time คือกี่นาที',
+    q: 'การทดสอบ Methylene Blue Reduction Test ใน ruminal fluid, ค่าปกติของ decolorization time คือกี่นาที',
     options: ['<1 นาที', '3-6 นาที', '15-20 นาที', '>30 นาที'],
     answer: 1,
-    explain: 'Methylene Blue Reduction Test:\n\n📋 Procedure: เติม methylene blue ใน ruminal fluid · จับเวลาจน blue หาย\n\n• **<3 นาที**: Bacteria เยอะมาก (over-fermentation · acidosis)\n• **3-6 นาที**: Normal ⭐ (active microflora)\n• **>6 นาที**: Bacteria ไม่ทำงาน (inactive rumen · post-antibiotic · spoiled feed)\n\n💡 ใช้ประเมิน rumen function แบบ semi-quantitative · cheap + cowside · ผลเร็ว\n\n💡 Companion tests:\n• Sediment activity (4-8 min normal)\n• Gram stain ratio\n• pH (5.5-7.5)\n• Protozoa motility',
+    explain: 'Methylene Blue Reduction Test:\n\n📋 Procedure: เติม methylene blue ใน ruminal fluid, จับเวลาจน blue หาย\n\n• **<3 นาที**: Bacteria เยอะมาก (over-fermentation, acidosis)\n• **3-6 นาที**: Normal ⭐ (active microflora)\n• **>6 นาที**: Bacteria ไม่ทำงาน (inactive rumen, post-antibiotic, spoiled feed)\n\n💡 ใช้ประเมิน rumen function แบบ semi-quantitative, cheap + cowside, ผลเร็ว\n\n💡 Companion tests:\n• Sediment activity (4-8 min normal)\n• Gram stain ratio\n• pH (5.5-7.5)\n• Protozoa motility',
     verified: 'อ.ธนศักดิ์ GI Disorder + Smith Internal Medicine' },
 
   { id: 2131, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
@@ -446,10 +446,10 @@ export const QB_CLIAPPRUM = [
     sourceType: 'lecture-verified-draft',
     confidence: 'EXTRACTED',
     tags: ['gram-stain', 'flora-shift'], type: 'mcq',
-    q: 'ใน rumen fluid ปกติ Gram stain แสดง predominant flora แบบใด · การ shift มี gram-negative มากขึ้นบอกอะไร',
-    options: ['ปกติ G(+) · shift G(-) = alkalosis', 'ปกติ G(+) · shift G(-) = acidosis', 'ปกติ G(-) · shift G(+) = acidosis', 'ปกติ ไม่มี bacteria'],
+    q: 'ใน rumen fluid ปกติ Gram stain แสดง predominant flora แบบใด, การ shift มี gram-negative มากขึ้นบอกอะไร',
+    options: ['ปกติ G(+), shift G(-) = alkalosis', 'ปกติ G(+), shift G(-) = acidosis', 'ปกติ G(-), shift G(+) = acidosis', 'ปกติ ไม่มี bacteria'],
     answer: 1,
-    explain: 'Rumen flora gram stain:\n\n• **Normal: Gram-positive predominant** (Streptococcus, Lactobacillus ตามปกติ บางส่วน + cellulolytic)\n• **Acidosis shift**: Gram(-) เพิ่ม + Gram(+) ลด ⭐\n  - Streptococcus bovis บูม → lactic acid\n  - pH ลด · กลำลายเซลล์ Gram(+)\n  - Endotoxin จาก Gram(-) → laminitis sequela\n\n💡 Diagnostic value:\n• Cowside Gram stain ของ rumen fluid (orogastric tube + slide)\n• ใช้ประเมิน acidosis indirect (เสริม pH measurement)\n• Limitation: smear quality + reader experience\n\n💡 Clinical correlate:\n• Healthy: G(+) protozoa visible motile\n• SARA: G(-) เพิ่ม · protozoa decreased motility\n• Acute acidosis: G(-) dominant · protozoa absent',
+    explain: 'Rumen flora gram stain:\n\n• **Normal: Gram-positive predominant** (Streptococcus, Lactobacillus ตามปกติ บางส่วน + cellulolytic)\n• **Acidosis shift**: Gram(-) เพิ่ม + Gram(+) ลด ⭐\n  - Streptococcus bovis บูม → lactic acid\n  - pH ลด, กลำลายเซลล์ Gram(+)\n  - Endotoxin จาก Gram(-) → laminitis sequela\n\n💡 Diagnostic value:\n• Cowside Gram stain ของ rumen fluid (orogastric tube + slide)\n• ใช้ประเมิน acidosis indirect (เสริม pH measurement)\n• Limitation: smear quality + reader experience\n\n💡 Clinical correlate:\n• Healthy: G(+) protozoa visible motile\n• SARA: G(-) เพิ่ม, protozoa decreased motility\n• Acute acidosis: G(-) dominant, protozoa absent',
     verified: 'อ.ธนศักดิ์ GI Disorder + standard ruminant lab medicine' },
 
   { id: 2132, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
@@ -460,7 +460,7 @@ export const QB_CLIAPPRUM = [
     q: 'ฟัง rumen contraction ใน left paralumbar fossa ของวัวปกติ จะได้ยินเสียง contraction กี่ครั้ง/นาที',
     options: ['0-1 ครั้ง/นาที (atony)', '1-3 ครั้ง/นาที (1 ครั้ง/30 วิ)', '5-7 ครั้ง/นาที', '>10 ครั้ง/นาที'],
     answer: 1,
-    explain: 'Rumen contraction frequency:\n\n• Normal: **1-3 contractions/minute** (~1 ครั้งทุก 30-45 วินาที) ⭐\n• 0 = Rumen atony (severe disease · TRP · hypocalcemia · severe acidosis)\n• Hypermotility: >3/min (early SARA · stress)\n\n📋 Auscultation:\n• Stethoscope ที่ left paralumbar fossa\n• ฟัง 2-3 นาที (cycle slow)\n• เสียง: rumbling/gurgling เป็น wave\n• Concurrent abdominal observation: paralumbar bulge during contraction\n\n💡 Cycle ปกติ: A-cycle (mixing) + B-cycle (eructation) สลับกัน\n• A-cycle: dorsal sac → ventral → mixing\n• B-cycle: trigger eructation (gas release)\n\n⚠️ Bloat: B-cycle impaired → gas accumulate · rumen distension',
+    explain: 'Rumen contraction frequency:\n\n• Normal: **1-3 contractions/minute** (~1 ครั้งทุก 30-45 วินาที) ⭐\n• 0 = Rumen atony (severe disease, TRP, hypocalcemia, severe acidosis)\n• Hypermotility: >3/min (early SARA, stress)\n\n📋 Auscultation:\n• Stethoscope ที่ left paralumbar fossa\n• ฟัง 2-3 นาที (cycle slow)\n• เสียง: rumbling/gurgling เป็น wave\n• Concurrent abdominal observation: paralumbar bulge during contraction\n\n💡 Cycle ปกติ: A-cycle (mixing) + B-cycle (eructation) สลับกัน\n• A-cycle: dorsal sac → ventral → mixing\n• B-cycle: trigger eructation (gas release)\n\n⚠️ Bloat: B-cycle impaired → gas accumulate, rumen distension',
     verified: 'อ.ธนศักดิ์ GI Disorder + Smith Internal Medicine' },
 
   { id: 2133, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
@@ -471,7 +471,7 @@ export const QB_CLIAPPRUM = [
     q: 'วัวที่มี Rumen hypomotility (ฟัง <1 contraction/min) Diff Dx อันดับแรกที่ต้องนึกถึงคือกลุ่มใด',
     options: ['Polycythemia', 'Hardware disease (TRP) / hypocalcemia / acidosis / displaced abomasum / severe systemic disease', 'Heart disease only', 'Skin disease'],
     answer: 1,
-    explain: 'Rumen hypomotility DDx (อ.ธนศักดิ์):\n\n💡 **Mechanical causes**:\n• Hardware disease (TRP) — pain inhibits rumen reflex\n• Displaced abomasum (LDA/RDA) — anatomical disturbance\n• Cecal dilatation — caudal pressure\n• Bloat (severe distension)\n\n💡 **Metabolic causes**:\n• Hypocalcemia (post-partum) — Ca needed for smooth muscle contraction\n• Acidosis (rumen pH <5.0) — direct toxin to rumen wall\n• Endotoxemia (mastitis · metritis · laminitis sequela)\n• Hyperkalemia\n\n💡 **Systemic causes**:\n• Sepsis · severe pneumonia · BVDV · MCF\n• Late-stage ketosis\n• Vagal indigestion (chronic)\n\n💡 Approach:\n1. PE + rumen pH + bloodwork (Ca, K, BHBA, lactate)\n2. Rectal exam (LDA/RDA/cecum)\n3. Pain test (TRP)\n4. Treat underlying + supportive (Ca · NaHCO3 · fluids)',
+    explain: 'Rumen hypomotility DDx (อ.ธนศักดิ์):\n\n💡 **Mechanical causes**:\n• Hardware disease (TRP) — pain inhibits rumen reflex\n• Displaced abomasum (LDA/RDA) — anatomical disturbance\n• Cecal dilatation — caudal pressure\n• Bloat (severe distension)\n\n💡 **Metabolic causes**:\n• Hypocalcemia (post-partum) — Ca needed for smooth muscle contraction\n• Acidosis (rumen pH <5.0) — direct toxin to rumen wall\n• Endotoxemia (mastitis, metritis, laminitis sequela)\n• Hyperkalemia\n\n💡 **Systemic causes**:\n• Sepsis, severe pneumonia, BVDV, MCF\n• Late-stage ketosis\n• Vagal indigestion (chronic)\n\n💡 Approach:\n1. PE + rumen pH + bloodwork (Ca, K, BHBA, lactate)\n2. Rectal exam (LDA/RDA/cecum)\n3. Pain test (TRP)\n4. Treat underlying + supportive (Ca, NaHCO3, fluids)',
     verified: 'อ.ธนศักดิ์ GI Disorder DDx framework' },
 
   { id: 2128, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4,
@@ -485,8 +485,8 @@ export const QB_CLIAPPRUM = [
               'Pregnancy-induced lameness',
               'Genetic disorder'],
     answer: 1,
-    explain: '**Interpretation framework** (อ.ปิยะณัฐ slide 9):\n\n💡 ฟาร์มที่มี RT 2 ครั้ง/ปี:\n• ถ้า lameness "ไม่น่ากังวล" → รอรอบ RT ถัดไป (กีบยาวเป็นปัจจัย)\n• ถ้า lameness "น่ากังวล + เพิ่งผ่าน RT" → ไม่ใช่ overgrowth · DDx:\n  - **Infectious** (digital dermatitis, foot rot)\n  - **Laminitis** (feeding mgt — high concentrate, SARA)\n  - **Iatrogenic** (over-trimmed at last RT → sole exposed)\n\n💡 ฟาร์มที่ไม่มี RT (slide 10):\n• "น่ากังวลมาก" — DDx: Sole ulcer, White line disorder, Infectious, Laminitis\n• แนะนำเริ่ม RT program ทันที',
-    verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx · อ.ปิยะณัฐ slide 9-10' },
+    explain: '**Interpretation framework** (อ.ปิยะณัฐ slide 9):\n\n💡 ฟาร์มที่มี RT 2 ครั้ง/ปี:\n• ถ้า lameness "ไม่น่ากังวล" → รอรอบ RT ถัดไป (กีบยาวเป็นปัจจัย)\n• ถ้า lameness "น่ากังวล + เพิ่งผ่าน RT" → ไม่ใช่ overgrowth, DDx:\n  - **Infectious** (digital dermatitis, foot rot)\n  - **Laminitis** (feeding mgt — high concentrate, SARA)\n  - **Iatrogenic** (over-trimmed at last RT → sole exposed)\n\n💡 ฟาร์มที่ไม่มี RT (slide 10):\n• "น่ากังวลมาก" — DDx: Sole ulcer, White line disorder, Infectious, Laminitis\n• แนะนำเริ่ม RT program ทันที',
+    verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx, อ.ปิยะณัฐ slide 9-10' },
 
   // ════════════════════════════════════════════════════════════════════
   // 🐺 หมาหอน Clin App Rum (Q5000-5029) — high-yield from TJ Vet 86 + Tomato
@@ -520,10 +520,10 @@ export const QB_CLIAPPRUM = [
     tags: ['benzodiazepine', 'diazepam', 'midazolam'], type: 'mcq',
     q: 'จับคู่ Benzodiazepine กับคุณสมบัติ ข้อใดถูก',
     options: [
-      'Diazepam water-soluble · IM ดูดซึมเร็ว ออกฤทธิ์ < 5 นาที',
-      'Midazolam ไม่ละลายน้ำ · ต้องผสม propylene glycol IV',
-      'Diazepam insoluble (IM ต่ำ) · Midazolam water-soluble (IM ได้)',
-      'คุณสมบัติเหมือนกัน · เลือกใช้ตามราคาตลาด',
+      'Diazepam water-soluble, IM ดูดซึมเร็ว ออกฤทธิ์ < 5 นาที',
+      'Midazolam ไม่ละลายน้ำ, ต้องผสม propylene glycol IV',
+      'Diazepam insoluble (IM ต่ำ), Midazolam water-soluble (IM ได้)',
+      'คุณสมบัติเหมือนกัน, เลือกใช้ตามราคาตลาด',
     ],
     answer: 2,
     explain: '**Diazepam** = insoluble in water → IM absorb ต่ำ ต้องใช้ IV ใน organic vehicle (propylene glycol). **Midazolam** = water-soluble → ฉีด IM ได้ดี ออกฤทธิ์เร็ว เป็นตัวเลือกนิยมในงานสนาม + neonatal sedation',
@@ -590,10 +590,10 @@ export const QB_CLIAPPRUM = [
     tags: ['peterson-block', 'eye', 'enucleation'], type: 'mcq',
     q: 'Peterson Nerve Block ใช้สำหรับหัตถการใด และ block อะไรไม่ได้',
     options: [
-      'Enucleation/Exenteration · block ทั้งดวงตา + เปลือกตา',
-      'Enucleation/Exenteration · block ดวงตา ยกเว้นเปลือกตา',
-      'Corneal ulcer · block เฉพาะ corneal sensation (CN V)',
-      'Retinal detachment · เฉพาะ posterior chamber view',
+      'Enucleation/Exenteration, block ทั้งดวงตา + เปลือกตา',
+      'Enucleation/Exenteration, block ดวงตา ยกเว้นเปลือกตา',
+      'Corneal ulcer, block เฉพาะ corneal sensation (CN V)',
+      'Retinal detachment, เฉพาะ posterior chamber view',
     ],
     answer: 1,
     explain: '**Peterson block** สำหรับ Enucleation (ควักลูกตา) หรือ Exenteration. block ทั้ง sensory และ motor ของโครงสร้างในดวงตา ยกเว้นเปลือกตา ต้องเสริม Auriculopalpebral block แยกอีกหนึ่ง',
@@ -718,10 +718,10 @@ export const QB_CLIAPPRUM = [
     tags: ['umbilical-hernia', 'conservative', 'surgical'], type: 'mcq',
     q: 'การรักษา umbilical hernia ในลูกวัว เลือกวิธีตามขนาด ring อย่างไร',
     options: [
-      'Conservative (รอ) ถ้า ring <2 cm · Surgical ถ้า >5 cm',
-      'Surgical ทันทีทุกกรณี · ไม่ดูขนาด ring เลย',
-      'รอจนวัวอายุครบ 1 ปี · ค่อยทำผ่าตัดเสมอ',
-      'Herbal compression + bandage ทับ · ตลอดชีวิตวัว',
+      'Conservative (รอ) ถ้า ring <2 cm, Surgical ถ้า >5 cm',
+      'Surgical ทันทีทุกกรณี, ไม่ดูขนาด ring เลย',
+      'รอจนวัวอายุครบ 1 ปี, ค่อยทำผ่าตัดเสมอ',
+      'Herbal compression + bandage ทับ, ตลอดชีวิตวัว',
     ],
     answer: 0,
     explain: '**Conservative**: ring <2 cm → รอวัวโต ring เล็กลง + bandage + digital manipulation วันละครั้ง (กัน adhesion).\n**Surgical**: ring >5 cm → herniorrhaphy เย็บปิด (ring <10-15 cm) หรือ hernioplasty ใส่ mesh (ring >10-15 cm).\n**Etiology**: T. pyogenes infection ที่สะดือเป็นสาเหตุหลัก',
@@ -732,8 +732,8 @@ export const QB_CLIAPPRUM = [
     tags: ['lidocaine', 'bupivacaine', 'comparison'], type: 'mcq',
     q: 'เปรียบเทียบ Lidocaine กับ Bupivacaine ในการ block ผ่าตัด hernia',
     options: [
-      'Lidocaine onset ช้า ฤทธิ์สั้น · Bupivacaine onset เร็ว ฤทธิ์สั้น',
-      'Lidocaine onset เร็ว 2 min สั้น · Bupi onset 30 min นาน',
+      'Lidocaine onset ช้า ฤทธิ์สั้น, Bupivacaine onset เร็ว ฤทธิ์สั้น',
+      'Lidocaine onset เร็ว 2 min สั้น, Bupi onset 30 min นาน',
       'ทั้งสองตัวมี onset + duration เท่ากันทุกกรณี',
       'Bupivacaine ใช้ในแมวเท่านั้น ห้ามใช้ในวัว/ม้า',
     ],
@@ -746,10 +746,10 @@ export const QB_CLIAPPRUM = [
     tags: ['diaphragmatic', 'water-buffalo', 'ventilator'], type: 'mcq',
     q: 'Diaphragmatic hernia ในสัตว์เคี้ยวเอื้อง พบบ่อยในสัตว์ใดและการผ่าตัดต้องเตรียมอะไรพิเศษ',
     options: [
-      'พบในวัวบ่อยที่สุด · ไม่ต้องการ ventilator',
-      'พบในควาย water buffalo · ต้องใช้ ventilator',
-      'พบในแพะ-แกะ · ผ่าตัด standing position',
-      'พบในม้าเท่านั้น · ใช้ thoracoscopy techniques',
+      'พบในวัวบ่อยที่สุด, ไม่ต้องการ ventilator',
+      'พบในควาย water buffalo, ต้องใช้ ventilator',
+      'พบในแพะ-แกะ, ผ่าตัด standing position',
+      'พบในม้าเท่านั้น, ใช้ thoracoscopy techniques',
     ],
     answer: 1,
     explain: '**Diaphragmatic hernia** ไม่ค่อยพบในวัว แต่พบบ่อยกว่าในควาย water buffalo (diaphragm บาง). ภายใน body cavity ไม่เห็น protusion. ต้องใช้ ventilator เพราะการผ่าตัดเปิดเข้า thoracic cavity → pneumothorax. ส่วนที่ออกมาก่อน: liver, reticulum',
@@ -760,10 +760,10 @@ export const QB_CLIAPPRUM = [
     tags: ['choke', 'esophagus', 'cervical'], type: 'mcq',
     q: 'Esophageal choke ในวัว FB มักติดที่ตำแหน่งใดและทำให้เกิดอาการอะไร',
     options: [
-      'Thoracic part · เกิด hemoptysis + dyspnea',
-      'Cervical part 20 cm แรก · bloat + salivation',
-      'Cardia ของ rumen · acute vomiting + tympany',
-      'Pyloric sphincter · diarrhea + abomasal ulcer',
+      'Thoracic part, เกิด hemoptysis + dyspnea',
+      'Cervical part 20 cm แรก, bloat + salivation',
+      'Cardia ของ rumen, acute vomiting + tympany',
+      'Pyloric sphincter, diarrhea + abomasal ulcer',
     ],
     answer: 1,
     explain: 'FB มักติดที่ **cervical part = ส่วนแคบสุด ประมาณ 20 cm แรก** เอาออกง่าย. อาการ: bloat (gas ผ่านไม่ได้), salivation (กลืนไม่ได้น้ำลายไหล), metabolic acidosis ถ้านาน, nasal discharge (สำลัก)',
@@ -774,10 +774,10 @@ export const QB_CLIAPPRUM = [
     tags: ['orogastric-tube', 'esophagus', 'trachea'], type: 'mcq',
     q: 'การสอด orogastric tube แยกระหว่างเข้า esophagus กับเข้า trachea ได้อย่างไร',
     options: [
-      'Esophagus มี swallow reflex + แรงต้าน · Trachea ไม่มีแรงต้าน',
-      'Trachea ตื้นกว่า · esophagus ลึกกว่า แยกตามระยะ tube',
-      'แยกไม่ได้ทาง clinical · ต้องดู x-ray confirm ทุกครั้ง',
-      'ใส่ contrast media ก่อน · ดูทางเดิน tube จาก fluoroscopy',
+      'Esophagus มี swallow reflex + แรงต้าน, Trachea ไม่มีแรงต้าน',
+      'Trachea ตื้นกว่า, esophagus ลึกกว่า แยกตามระยะ tube',
+      'แยกไม่ได้ทาง clinical, ต้องดู x-ray confirm ทุกครั้ง',
+      'ใส่ contrast media ก่อน, ดูทางเดิน tube จาก fluoroscopy',
     ],
     answer: 0,
     explain: '**Esophagus**: มี swallow reflex + รู้สึกแรงต้านจาก esophageal wall (peristalsis). **Trachea**: ไม่มีแรงต้าน, tube ลื่นลงง่าย → อันตรายมาก. Confirm: ถ้าลงถึง rumen จะมีลม+กลิ่นตีกลับขึ้นมา. Obstruction case: สอดลงไม่ได้ หรือดัน FB ลง rumen',
@@ -902,10 +902,10 @@ export const QB_CLIAPPRUM = [
     tags: ['cornual-block', 'lidocaine', 'analgesia'], type: 'mcq',
     q: 'การ block สำหรับ dehorning ตำแหน่งและยาที่ใช้',
     options: [
-      'Auriculopalpebral block · bupivacaine 0.5% retro-orbital',
-      'Cornual nerve block · 2% lidocaine กึ่งกลางหางตา-ฐานเขา',
-      'Retrobulbar block · procaine 1% ลึก 4 finger',
-      'Epidural block · lumbosacral cleft + xylazine',
+      'Auriculopalpebral block, bupivacaine 0.5% retro-orbital',
+      'Cornual nerve block, 2% lidocaine กึ่งกลางหางตา-ฐานเขา',
+      'Retrobulbar block, procaine 1% ลึก 4 finger',
+      'Epidural block, lumbosacral cleft + xylazine',
     ],
     answer: 1,
     explain: '**Cornual nerve block** = block cornual branch ของ V1 trigeminal: ฉีด 2% lidocaine 5-10 ml ที่กึ่งกลางเส้นลากจากหางตาไปฐานเขา. Adjunct: xylazine 0.02-0.05 mg/kg IM + NSAID เช่น Meloxicam. ลูกวัวอายุน้อยอาจไม่ต้อง block (paste/cautery dehorning). Auriculopalpebral = block eyelid ไม่ใช่ horn',
@@ -916,10 +916,10 @@ export const QB_CLIAPPRUM = [
     tags: ['sinusitis', 'frontal', 'trephination'], type: 'mcq',
     q: 'Frontal sinusitis ในวัว sinus ใดพบมากกว่ากันและรักษาอย่างไร',
     options: [
-      'Frontal sinus > maxillary · Tx: trephination + ABO + flush',
-      'Maxillary sinus > frontal · Tx: NSAIDs systemic อย่างเดียว',
-      'พบเท่ากันทั้งสอง · Tx: antihistamine intranasal spray',
-      'ไม่พบ sinusitis ในวัว · sinus volume เล็กเกินไป',
+      'Frontal sinus > maxillary, Tx: trephination + ABO + flush',
+      'Maxillary sinus > frontal, Tx: NSAIDs systemic อย่างเดียว',
+      'พบเท่ากันทั้งสอง, Tx: antihistamine intranasal spray',
+      'ไม่พบ sinusitis ในวัว, sinus volume เล็กเกินไป',
     ],
     answer: 0,
     explain: '**Frontal sinus** พบบ่อยกว่า maxillary มาก (post-dehorning infection แทรกเข้า sinus หลัง horn ตัด); maxillary มาจากรากฟันแตก. **Tx**: trephination เจาะรูเอาหนองออก + systemic ABO + flush ล้างวันละ 1-2 ครั้ง. ตำแหน่งเจาะ: postorbital หรือ rostral (นิยม). Skin ไม่ต้องเย็บ ปล่อย ~1 เดือน skin ปิดเอง',
@@ -938,10 +938,10 @@ export const QB_CLIAPPRUM = [
     tags: ['flank-laparotomy', 'incision', 'paralumbar'], type: 'mcq',
     q: 'Flank laparotomy ในวัว ตำแหน่ง vertical incision ที่ถูกต้องคือ',
     options: [
-      'กึ่งกลาง paralumbar fossa · 20-25 cm · 5 cm caudal to last rib',
-      'Vertical กลางท้อง · ยาว 50 cm · จาก xiphoid ถึง pubis',
-      'Cranio-ventral midline (linea alba) · ยาว 30 cm',
-      'Diagonal incision จาก hip ลงเฉียง · ยาว 25 cm',
+      'กึ่งกลาง paralumbar fossa, 20-25 cm, 5 cm caudal to last rib',
+      'Vertical กลางท้อง, ยาว 50 cm, จาก xiphoid ถึง pubis',
+      'Cranio-ventral midline (linea alba), ยาว 30 cm',
+      'Diagonal incision จาก hip ลงเฉียง, ยาว 25 cm',
     ],
     answer: 0,
     explain: 'Vertical incision ในกึ่งกลาง paralumbar fossa, 3-5 cm ventral to transverse process, ยาว 20-25 cm, 5 cm caudal to last rib. ตัดผ่าน skin → SC → ext oblique → int oblique → aponeurosis transverse abdominal m. → peritoneum. Local anesthesia ใช้ paravertebral หรือ inverted L block หรือ incision line block',
@@ -952,10 +952,10 @@ export const QB_CLIAPPRUM = [
     tags: ['rumenotomy', 'left-flank', 'TRP', 'indications'], type: 'mcq',
     q: 'ข้อบ่งใช้ Rumenotomy + ทำที่ flank ด้านใด',
     options: [
-      'TRP/FB/chronic impaction/frothy bloat · LEFT flank',
-      'LDA correction · RIGHT flank omentopexy',
-      'Cecal volvulus · RIGHT flank typhlotomy',
-      'Diaphragmatic hernia · ventral midline crescent',
+      'TRP/FB/chronic impaction/frothy bloat, LEFT flank',
+      'LDA correction, RIGHT flank omentopexy',
+      'Cecal volvulus, RIGHT flank typhlotomy',
+      'Diaphragmatic hernia, ventral midline crescent',
     ],
     answer: 0,
     explain: '**Rumenotomy** = LEFT flank approach โดยตรง (เพราะ rumen อยู่ด้านซ้าย). **Indications**: TRP/Hardware disease, FB removal, chronic ruminal impaction, frothy bloat ที่ refractory. **Key principle**: Contamination control เพราะ rumen มี bacterial load สูง → leakage causes peritonitis. Anchor rumen to incision line ด้วย continuous suture (Heavy gauge: nylon หรือ polypropylene). Double-layer closure: layer 1 simple continuous absorbable No.1-2, layer 2 inverting pattern',
@@ -966,10 +966,10 @@ export const QB_CLIAPPRUM = [
     tags: ['rumenostomy', 'fistulation', 'chronic-bloat'], type: 'mcq',
     q: 'Rumenostomy (rumen fistulation) — indication หลักทาง clinical และขนาด fistula',
     options: [
-      'Acute LDA correction · fistula 10 cm wide',
-      'Chronic bloat (top indication) · fistula 2-3 cm',
-      'TRP เฉียบพลัน acute · fistula 1 cm only',
-      'Cecal volvulus · fistula 8 cm circular',
+      'Acute LDA correction, fistula 10 cm wide',
+      'Chronic bloat (top indication), fistula 2-3 cm',
+      'TRP เฉียบพลัน acute, fistula 1 cm only',
+      'Cecal volvulus, fistula 8 cm circular',
     ],
     answer: 1,
     explain: '**Rumenostomy clinical indication หลัก = chronic bloat**. Final fistula ~2-3 cm (therapeutic).\n**Steps**: 4 cm circular skin removal → blunt dissect through muscles (grid pattern) → expose rumen → 4 horizontal mattress (Cushing inverting) → remove rumen wall quarter-by-quarter → suture rumen edge to skin (continuous appositional).\n**Post-op**: sutures off 10-14 d; ไม่มี cannula → ปิดเอง, มี cannula → เปิดถาวร. NSAIDs 2-3 d, ABO ~5 d',
@@ -981,7 +981,7 @@ export const QB_CLIAPPRUM = [
     q: 'Right Flank Omentopexy สำหรับแก้ LDA — ขั้นตอน omentopexy suture ที่ถูกต้อง',
     options: [
       'Simple interrupted 2 stitches ใน peritoneum ใต้ pylorus 10 cm',
-      '2 mattress sutures cranial+caudal · absorb No.1-2 · 3 cm caudal to pylorus',
+      '2 mattress sutures cranial+caudal, absorb No.1-2, 3 cm caudal to pylorus',
       'Stapler titanium ติด omentum แทนเย็บ (เร็ว 5 นาที)',
       'ไม่ต้องเย็บ omentum ปล่อยให้ fibrous adhesion เกิดเอง',
     ],
@@ -994,7 +994,7 @@ export const QB_CLIAPPRUM = [
     tags: ['cecal-dilation', 'typhlotomy', 'right-flank'], type: 'mcq',
     q: 'Typhlotomy สำหรับ Cecal Dilation/Volvulus — ขนาด incision ที่ tip ของ cecum',
     options: [
-      '3 cm ถ้า liquid · ≥6 cm ถ้า solid ingesta',
+      '3 cm ถ้า liquid, ≥6 cm ถ้า solid ingesta',
       '10 cm คงที่ไม่ดู consistency ของ contents',
       '<1 cm เพื่อกัน leakage + suture เร็ว',
       '20 cm เปิดกว้างเพื่อ exteriorize ทั้งก้อน',
@@ -1037,10 +1037,10 @@ export const QB_CLIAPPRUM = [
     tags: ['inguinal', 'breeding-soundness', 'finger-test'], type: 'mcq',
     q: 'Inguinal hernia ในวัวพ่อพันธุ์ — การประเมินด้วย rectal palpation ที่ internal inguinal ring ค่าปกติเป็นอย่างไร',
     options: [
-      'Normal 1-2 fingers · >4 fingers = inguinal hernia risk',
-      'Normal 5 fingers ทุกกรณี · ไม่ใช่ marker',
-      'Finger test ไม่ได้ · ต้องใช้ ultrasound/x-ray เท่านั้น',
-      'Normal 0 fingers · ใส่ได้ = abnormal เสมอ',
+      'Normal 1-2 fingers, >4 fingers = inguinal hernia risk',
+      'Normal 5 fingers ทุกกรณี, ไม่ใช่ marker',
+      'Finger test ไม่ได้, ต้องใช้ ultrasound/x-ray เท่านั้น',
+      'Normal 0 fingers, ใส่ได้ = abnormal เสมอ',
     ],
     answer: 0,
     explain: '**Routine breeding soundness exam**: rectal palpate internal inguinal ring → normal 1-2 fingers, >4 fingers = inguinal hernia risk. Confirm: ultrasound (mass through ring).\n**Epidemiology**: Mature bull, **Beef > Dairy**, Polled Hereford มาก, **Left > right side** (rumen weight effect).\n**Surgery**: lateral recumbency opposite side, 15-20 cm incision, hemi-castration, close internal inguinal ring',
@@ -1052,7 +1052,7 @@ export const QB_CLIAPPRUM = [
     q: 'Left-side flank hernia ในวัว — แนวทางการรักษา',
     options: [
       'ผ่าตัดทันทีทุกกรณี + emergency laparotomy',
-      'มักไม่ต้องผ่าตัด · rumen อุด hernia เอง',
+      'มักไม่ต้องผ่าตัด, rumen อุด hernia เอง',
       'Antibiotic IV 4 สัปดาห์ + ผ้าพัน support',
       'ใช้ mesh hernioplasty + thoracostomy tube',
     ],
@@ -1065,10 +1065,10 @@ export const QB_CLIAPPRUM = [
     tags: ['herniorrhaphy', 'hernioplasty', 'mesh'], type: 'mcq',
     q: 'หลักการเลือกระหว่าง Herniorrhaphy กับ Hernioplasty (mesh) ตามขนาด hernial ring',
     options: [
-      'Herniorrhaphy <10-15 cm · Hernioplasty mesh >10-15 cm',
+      'Herniorrhaphy <10-15 cm, Hernioplasty mesh >10-15 cm',
       'Hernioplasty mesh ทุกกรณีตั้งแต่ ring 1 cm ขึ้นไป',
       'Herniorrhaphy เฉพาะ ring >50 cm หรือ recurrent',
-      'เลือกตามอายุวัว · ไม่เกี่ยวกับขนาด ring',
+      'เลือกตามอายุวัว, ไม่เกี่ยวกับขนาด ring',
     ],
     answer: 0,
     explain: '**Herniorrhaphy** = suture ring edges together (elliptical incision) ใช้กับ ring <10-15 cm. **Hernioplasty** = synthetic mesh (polypropylene plastic, less expensive) ใช้กับ ring >10-15 cm — fascial overlay technique (McIlwraith and Robertson 1988), 2-layer mesh, interrupted horizontal mattress, non-absorbable, circumferential taut. ⚠️ Mesh increases risk of surgical site infection — ABO therapy required. Open vs Close herniorrhaphy: Open = non-reducible, adhesion, infection, umbilical remnant infection',
@@ -1094,10 +1094,10 @@ export const QB_CLIAPPRUM = [
     tags: ['teat-laceration', '3-layer', 'cannula'], type: 'mcq',
     q: 'Teat laceration repair — pattern + suture material สำหรับชั้น Mucosa',
     options: [
-      'Simple continuous · 3-0/4-0 absorbable monofilament',
-      'Cross mattress · 0 non-absorbable braided silk',
-      'Lembert inverting · chromic catgut #2 large',
-      'Pattern free choice · steel wire 18 gauge',
+      'Simple continuous, 3-0/4-0 absorbable monofilament',
+      'Cross mattress, 0 non-absorbable braided silk',
+      'Lembert inverting, chromic catgut #2 large',
+      'Pattern free choice, steel wire 18 gauge',
     ],
     answer: 0,
     explain: '**3-layer teat laceration closure**:\n• L1 Mucosa = simple continuous, 3-0/4-0 absorbable monofilament\n• L2 Submucosa = simple continuous\n• L3 Skin = near-far-far-near หรือ simple interrupted, non-absorbable\n**Post-op**: insert teat cannula 1 wk for drainage during milking; machine milking ได้ DO NOT hand milk; intramammary + systemic ABO. **Restraint**: lateral/dorsal recumbency, xylazine + butorphanol, ring block + topical lidocaine in canal, tourniquet at base',
@@ -1108,10 +1108,10 @@ export const QB_CLIAPPRUM = [
     tags: ['urethrostomy', 'distal-sigmoid', 'urolithiasis'], type: 'mcq',
     q: 'Urethrostomy ในวัวเพศผู้ — ตำแหน่งที่พบ obstruction บ่อยที่สุด และเลือก low vs high urethrostomy',
     options: [
-      'Pelvic urethra · ใช้ high (perineal) urethrostomy เสมอ',
-      'Distal sigmoid flexure · ใช้ low urethrostomy ที่จุดเดียวกัน',
-      'External urethral orifice · ไม่ผ่า ใช้ catheter ดัน calculi',
-      'Prostatic urethra · transurethral catheterization permanent',
+      'Pelvic urethra, ใช้ high (perineal) urethrostomy เสมอ',
+      'Distal sigmoid flexure, ใช้ low urethrostomy ที่จุดเดียวกัน',
+      'External urethral orifice, ไม่ผ่า ใช้ catheter ดัน calculi',
+      'Prostatic urethra, transurethral catheterization permanent',
     ],
     answer: 1,
     explain: 'Urethral obstruction (urolithiasis) — common ใน **steers > bulls** (smaller urethra). Causes: **Silicate calculi** (pasture-fed) vs **Phosphate calculi** (feedlot). **Distal sigmoid flexure = MOST COMMON obstruction site** (urethra แคบสุด). Clinical purpose = salvage procedure, restore urine flow temporarily → allow stabilization → slaughter. **Low Urethrostomy** advantages: better drainage direction, less urine scald, ตำแหน่งตรงกับ obstruction site. **High (perineal)** disadvantage: urine scald, lower carcass value. Anesthesia: caudal epidural ± xylazine. Position: standing/dorsal — AVOID pressure on distended bladder',
@@ -1122,10 +1122,10 @@ export const QB_CLIAPPRUM = [
     tags: ['patella', 'desmotomy', 'upward-fixation'], type: 'mcq',
     q: 'Upward fixation of patella — surgery technique และตำแหน่ง incision',
     options: [
-      'Lateral patellar ligament desmotomy · 10 cm incision',
-      'Medial patellar ligament desmotomy · 3 cm incision',
+      'Lateral patellar ligament desmotomy, 10 cm incision',
+      'Medial patellar ligament desmotomy, 3 cm incision',
       'Total patellar excision + tibial tuberosity transposition',
-      'Intra-articular triamcinolone monthly · no surgery',
+      'Intra-articular triamcinolone monthly, no surgery',
     ],
     answer: 1,
     explain: '**Upward fixation of patella**: medial trochlear ridge ใหญ่กว่า lateral → patella hooks over ridge → limb locked in extension. **Surgery = Medial Patellar Desmotomy**. Sedation xylazine 0.1 mg/kg IM, lateral recumbency, local 2% lidocaine ~8 ml infiltrate. 3 cm skin incision 0.5 cm lateral to medial patellar ligament, near tibial tuberosity. Blunt dissect under ligament, isolate, horizontal transection. Immediate release of fixation. Skin closure non-absorbable #2 supramid. Postop: penicillin 5 days + phenylbutazone NSAID. Outcome: immediate gait improvement',
@@ -1157,10 +1157,10 @@ export const QB_CLIAPPRUM = [
     tags: ['surgical-classification', 'asepsis', 'SSI'], type: 'mcq',
     q: 'Surgical classification 4 ระดับ — แต่ละระดับบ่งชี้อะไร',
     options: [
-      'Clean (ไม่เปิด viscera) · Clean-cont (controlled) · Cont/Dirty (spill)',
-      'Clean (เปิดทุก viscera) · Dirty (ห้ามเปิด viscera ใดๆ)',
+      'Clean (ไม่เปิด viscera), Clean-cont (controlled), Cont/Dirty (spill)',
+      'Clean (เปิดทุก viscera), Dirty (ห้ามเปิด viscera ใดๆ)',
       'แบ่ง 4 ระดับตามอายุสัตว์ (calf/young/adult/senior)',
-      'Clean (ทำในห้องผ่าตัด) · Dirty (ทำใน field condition)',
+      'Clean (ทำในห้องผ่าตัด), Dirty (ทำใน field condition)',
     ],
     answer: 0,
     explain: '**Surgical classification**: (1) Clean = no viscera entry (2) Clean-contaminated = controlled entry, common (3) Contaminated/Dirty = infection/spillage. กำหนด infection risk + ABO use. SSI levels: Superficial SSI (skin) / Deep SSI (deep soft tissue, fascia, muscle) / Organ/Space SSI. Factors: host defense, physiologic status, bacterial contamination, duration. Goal = minimize all factors. ABO timing: before/during surgery, avoid prolonged use, consider withdrawal time',
@@ -1269,10 +1269,10 @@ export const QB_CLIAPPRUM = [
     tags: ['RTA', 'volvulus', 'electrolyte'], type: 'mcq',
     q: 'Right Torsion Abomasum (RTA) / volvulus — เกณฑ์ degree ของ torsion + electrolyte imbalance',
     options: [
-      'Torsion >180° = volvulus · ↓Cl⁻ + ↓K⁺',
-      'Torsion >360° = volvulus · ↑Na⁺ + ↑K⁺',
-      'Torsion <90° = volvulus · ไม่มี electrolyte change',
-      'ไม่มีเกณฑ์ degree · severity ดูจาก clinical sign อย่างเดียว',
+      'Torsion >180° = volvulus, ↓Cl⁻ + ↓K⁺',
+      'Torsion >360° = volvulus, ↑Na⁺ + ↑K⁺',
+      'Torsion <90° = volvulus, ไม่มี electrolyte change',
+      'ไม่มีเกณฑ์ degree, severity ดูจาก clinical sign อย่างเดียว',
     ],
     answer: 0,
     explain: '**RTA volvulus criterion**: torsion >180° → outflow obstruction → severe distension. **Electrolyte imbalance**: ↓Cl⁻ + ↓K⁺ จาก sequestration ของ abomasal fluid + HCl loss (hypochloremic metabolic alkalosis classic). Severity classification ใช้ volume ของ abomasal fluid sequestration เป็น objective measure',
@@ -1327,8 +1327,8 @@ export const QB_CLIAPPRUM = [
     q: 'Umbilical hernia (omphalocele) ในลูกวัว — signalment ที่พบบ่อยที่สุด',
     options: [
       'Brahman ตัวผู้ อายุ 2 ปี เพิ่งหย่านม',
-      'Calves 5-7 wk · Holstein-Friesian · Female > Male',
-      'วัวสาว Crossbred Brahman-Holstein · ในช่วงท้องท้าย',
+      'Calves 5-7 wk, Holstein-Friesian, Female > Male',
+      'วัวสาว Crossbred Brahman-Holstein, ในช่วงท้องท้าย',
       'วัวพ่อพันธุ์อายุ >5 ปี ที่ผ่านการ semen collection',
     ],
     answer: 1,
@@ -1354,8 +1354,8 @@ export const QB_CLIAPPRUM = [
     tags: ['diaphragmatic', '2-phase', 'rumenotomy'], type: 'mcq',
     q: 'Adult Diaphragmatic-reticular hernia — 2-phase surgery ทำอย่างไร',
     options: [
-      'P1 ventral midline GA · P2 reticulum FB removal full',
-      'P1 Left flank rumenotomy · P2 cranio-ventral diaphragm',
+      'P1 ventral midline GA, P2 reticulum FB removal full',
+      'P1 Left flank rumenotomy, P2 cranio-ventral diaphragm',
       'Single phase ventral midline GA + ventilator support',
       'Conservative NSAIDs + จำกัดอาหารโดยไม่ผ่าตัดเลย',
     ],
@@ -1386,7 +1386,7 @@ export const QB_CLIAPPRUM = [
       'Cut skin → Remove horn → Undermine → Suture',
       'Paste KOH → Wait 3 days → Remove paste → Bandage',
       'Burn → Pull horn out → Cauterize → ปิดผ้าทับ',
-      'ตัดเขาออกขั้นตอนเดียว · ไม่ต้องเย็บ skin',
+      'ตัดเขาออกขั้นตอนเดียว, ไม่ต้องเย็บ skin',
     ],
     answer: 0,
     explain: '**Cosmetic dehorning 4 main steps**: (1) Cutting the skin (2) Removing the horn (3) Undermining the skin (4) Suturing over the wound. Performed conditions: less scarring desirable, short healing time, dehorning during fly season. Easiest if performed when <2 years old. Disadvantages: time-consuming, expensive, greater care needed. Complications: hemorrhage (common, hemostasis), infection, fractured skull. Primary closure ของ skin',
@@ -1439,10 +1439,10 @@ export const QB_CLIAPPRUM = [
     tags: ['teat-laceration', 'prognostic-factors'], type: 'mcq',
     q: 'Teat laceration repair — ปัจจัย prognostic ที่บ่งชี้ผลดี vs ผลแย่',
     options: [
-      'Better: vertical/proximal flaps · Poor: distal/base/crush/contaminated',
-      'Better: contaminated + crush · Poor: vertical clean superficial',
+      'Better: vertical/proximal flaps, Poor: distal/base/crush/contaminated',
+      'Better: contaminated + crush, Poor: vertical clean superficial',
       'ไม่มีปัจจัย prognostic ทำหายเหมือนกันหมดถ้าได้ ABO',
-      'Better: base injuries เท่านั้น · เพราะ blood supply ดี',
+      'Better: base injuries เท่านั้น, เพราะ blood supply ดี',
     ],
     answer: 0,
     explain: '**Teat laceration prognostic factors**: BETTER prognosis = vertical wounds + proximally attached flaps. POOR prognosis = distal teat injuries (fibrosis → milk flow issues), base injuries (risk hemorrhage), crush injuries, contaminated wounds. Indications: prevent teat fistula + mastitis + loss of quarter. Early treatment = better outcome. Layers ของ teat wall (inside → outside): mucosa → submucosa → vascular CT → muscular → skin. Important structures: gland cistern (milk storage), annular ring (separates cistern), teat canal (papillary duct), Furstenberg rosette (barrier + immune), sphincter (closure). Blood supply: pudendal a. + mammary a./venous plexus',
@@ -1450,7 +1450,7 @@ export const QB_CLIAPPRUM = [
 
   // ════════════════════════════════════════════════════════════════════
   // 🐺 อาจารย์อื่น expansion (Q5066-5089) — ขุดจาก TJ ตกหล่น + Vet 85/84 markers
-  // Anesthesia +7 · GI VDTT +9 · Piyanat-hoof +8
+  // Anesthesia +7, GI VDTT +9, Piyanat-hoof +8
   // Source: Clin approach final TJ.pdf p1-3 (Vet 86 reorganized + Vet 85/84) +
   //         Kim p5,16-22 (Hoof framework) + 2026 slides cross-ref
   // ════════════════════════════════════════════════════════════════════
@@ -1475,9 +1475,9 @@ export const QB_CLIAPPRUM = [
     tags: ['induction', 'diazepam-ketamine', 'zoletil'], type: 'mcq',
     q: 'Choice for induction of anesthesia ใน healthy + sick ruminant คือคอมโบใด และทำงานนานเท่าไหร่',
     options: [
-      'Diazepam + Ketamine (10-15 นาที) · Zoletil + Xylazine (60 นาที)',
-      'Acepromazine + Lidocaine เดี่ยว · ออกฤทธิ์สั้น 5 นาที',
-      'Atropine + Saline drip · ระยะเวลา 2 ชั่วโมง',
+      'Diazepam + Ketamine (10-15 นาที), Zoletil + Xylazine (60 นาที)',
+      'Acepromazine + Lidocaine เดี่ยว, ออกฤทธิ์สั้น 5 นาที',
+      'Atropine + Saline drip, ระยะเวลา 2 ชั่วโมง',
       'ห้ามทำ induction ในสัตว์เคี้ยวเอื้องเด็ดขาด',
     ],
     answer: 0,
@@ -1489,10 +1489,10 @@ export const QB_CLIAPPRUM = [
     tags: ['guaifenesin', 'muscle-relaxant', 'GKX'], type: 'mcq',
     q: 'Guaifenesin ในการ anesthesia ruminant — กลไกและรูปแบบที่ใช้',
     options: [
-      'Peripheral neuromuscular blocker · oral tablet form',
-      'Central muscle relaxant · 5% solution ใน GKX combo',
-      'Direct cardiac stimulant · IV bolus 0.1 mg/kg',
-      'Inhalation anesthetic · ใช้ใน semi-closed circle',
+      'Peripheral neuromuscular blocker, oral tablet form',
+      'Central muscle relaxant, 5% solution ใน GKX combo',
+      'Direct cardiac stimulant, IV bolus 0.1 mg/kg',
+      'Inhalation anesthetic, ใช้ใน semi-closed circle',
     ],
     answer: 1,
     explain: '**Guaifenesin** = central muscle relaxant ออกฤทธิ์ที่ spinal cord interneuron. ใช้รูปแบบ 5% solution ร่วมกับยาสลบตัวอื่น. **GKX** (Guaifenesin-Ketamine-Xylazine): 1 L ของ 5% guaifenesin + 1000 mg ketamine + 100 mg xylazine, ให้ IV to effect หรือ bolus 0.5 ml/kg',
@@ -1518,8 +1518,8 @@ export const QB_CLIAPPRUM = [
     q: 'Epidural Analgesia — ตำแหน่งที่ฉีดต่างกันระหว่างสัตว์เล็ก (small ruminants) กับวัว',
     options: [
       'ทั้งสองชนิดฉีดที่ thoracic T13-L1 level เหมือนกัน',
-      'Small ruminant Lumbosacral · Cattle Sacrococcygeal/Intercoccygeal',
-      'Small ruminant neck (cervical C1) · Cattle ที่ caudal cervical',
+      'Small ruminant Lumbosacral, Cattle Sacrococcygeal/Intercoccygeal',
+      'Small ruminant neck (cervical C1), Cattle ที่ caudal cervical',
       'ห้ามทำ epidural ในวัวเด็ดขาด ใช้ paravertebral แทน',
     ],
     answer: 1,
@@ -1545,9 +1545,9 @@ export const QB_CLIAPPRUM = [
     tags: ['peterson', 'cranial-nerves', 'lidocaine-volume'], type: 'mcq',
     q: 'Peterson nerve block — block cranial nerves ใดบ้างและใช้ lidocaine ปริมาณเท่าไหร่',
     options: [
-      'CN II/III/IV/V/VI · 15-20 ml 2% lidocaine · เข็ม 10cm 18G',
-      'CN I (olfactory) เท่านั้น · 5 ml ของ 1% lidocaine',
-      'CN VII facial เท่านั้น · 2 ml ของ 0.5% bupivacaine',
+      'CN II/III/IV/V/VI, 15-20 ml 2% lidocaine, เข็ม 10cm 18G',
+      'CN I (olfactory) เท่านั้น, 5 ml ของ 1% lidocaine',
+      'CN VII facial เท่านั้น, 2 ml ของ 0.5% bupivacaine',
       'ไม่ block nerve ใด ใช้ inhalation GA + endotracheal tube',
     ],
     answer: 0,
@@ -1574,7 +1574,7 @@ export const QB_CLIAPPRUM = [
     tags: ['rectal-palpation', 'cecal-torsion', 'intussusception'], type: 'mcq',
     q: 'Rectal palpation ในวัว สามารถตรวจพบภาวะใดได้บ้าง (Vet 85)',
     options: [
-      'Cecal torsion · Peritonitis · Intussusception · Obstruction',
+      'Cecal torsion, Peritonitis, Intussusception, Obstruction',
       'Pneumonia + meningitis + cardiac murmur',
       'เฉพาะการตั้งครรภ์ + ovarian cyst เท่านั้น',
       'ตรวจ GI ไม่ได้ ใช้ได้กับ urinary tract เท่านั้น',
@@ -1602,9 +1602,9 @@ export const QB_CLIAPPRUM = [
     tags: ['rumen-fluid-collection', 'landmark', 'spinal-needle'], type: 'mcq',
     q: 'Rumen fluid collection ในวัว — landmark + เข็มที่ใช้',
     options: [
-      'จุดตัดเส้น rib 13-floor + knee · spinal needle 18G > 4"',
-      'จุดกึ่งกลางท้องด้านซ้าย · เข็ม 22G ยาว 1"',
-      'จุดหลังหัวด้านขวา · เข็มสั้น 16G ยาว 0.5"',
+      'จุดตัดเส้น rib 13-floor + knee, spinal needle 18G > 4"',
+      'จุดกึ่งกลางท้องด้านซ้าย, เข็ม 22G ยาว 1"',
+      'จุดหลังหัวด้านขวา, เข็มสั้น 16G ยาว 0.5"',
       'ไม่เก็บ ใช้ orogastric swab จากปาก rumen ก็พอ',
     ],
     answer: 0,
@@ -1687,7 +1687,7 @@ export const QB_CLIAPPRUM = [
     tags: ['T-L-I-I', 'framework', 'timing'], type: 'mcq',
     q: 'Framework การประเมินสุขภาพกีบ T-L-I-I ของอ.ปิยะณัฐ — Timing คืออะไร',
     options: [
-      'Work flow น้อย · คนน้อย · โคเดินอิสระ · มีเวลา',
+      'Work flow น้อย, คนน้อย, โคเดินอิสระ, มีเวลา',
       'จัดทุกวันตอนรีดนมเช้า + เย็น (2 รอบ)',
       'จัดเฉพาะช่วง peak production (60-100 DIM)',
       'ทำตอนกลางคืน 22:00-04:00 ไม่รบกวนโค',
@@ -1701,10 +1701,10 @@ export const QB_CLIAPPRUM = [
     tags: ['T-L-I-I', 'location', 'walking-distance'], type: 'mcq',
     q: 'T-L-I-I Location — เกณฑ์พื้นและระยะทางที่เหมาะสม',
     options: [
-      'พื้นลาดชัน 30° · ระยะทางเดิน 1 เมตร',
-      'พื้นเรียบไม่ลาดเอียง · ระยะตรง ≥ 4 เมตร',
-      'พื้นทรายร่วน · ระยะทาง 100 เมตร',
-      'พื้นดินโคลนเปียก · ระยะ 50 ซม.',
+      'พื้นลาดชัน 30°, ระยะทางเดิน 1 เมตร',
+      'พื้นเรียบไม่ลาดเอียง, ระยะตรง ≥ 4 เมตร',
+      'พื้นทรายร่วน, ระยะทาง 100 เมตร',
+      'พื้นดินโคลนเปียก, ระยะ 50 ซม.',
     ],
     answer: 1,
     explain: '**Location criteria**: พื้นเรียบไม่ลาดเอียง (slope ทำให้ gait เปลี่ยน → score ผิด) + ระยะทางตรง ≥ 4 เมตร (พอให้สังเกต gait สม่ำเสมอ). ควรไม่รบกวน work flow + ใช้คนน้อยสุด. ป้องกัน misclassification ของ lameness score จาก positioning',
@@ -1717,7 +1717,7 @@ export const QB_CLIAPPRUM = [
     options: [
       'ก้นดูเบอร์โคทุกตัวทุกครั้ง (50 ตัว = 50 รอบ)',
       'ถ่ายรูปทั้งฝูง ID ภายหลังจาก photo metadata',
-      'Score ก่อน · ก้นดูเฉพาะตัวที่ score ≥ 3',
+      'Score ก่อน, ก้นดูเฉพาะตัวที่ score ≥ 3',
       'ไม่ต้อง ID ใช้ visual count + tally tag',
     ],
     answer: 2,
@@ -1743,7 +1743,7 @@ export const QB_CLIAPPRUM = [
     tags: ['interpretation', 'no-RT', 'sole-ulcer'], type: 'mcq',
     q: 'ฟาร์มที่ไม่มี Routine Trimming (RT) — DDx ที่น่ากังวลและการจัดการ',
     options: [
-      'DDx 4: Sole ulcer/White line/Infectious/Laminitis · ตัดกีบก่อน foot bath',
+      'DDx 4: Sole ulcer/White line/Infectious/Laminitis, ตัดกีบก่อน foot bath',
       'ไม่ต้องทำอะไร ฝูง self-heal ในรอบ lactation ถัดไป',
       'จุ่ม foot bath ทั้งฝูงทันที โดยไม่ต้องคัดแยก case',
       'คัดทิ้งทุกตัวที่ LCS ≥ 3 เพื่อตัดสายพันธุ์ที่กีบอ่อนแอ',
@@ -1757,7 +1757,7 @@ export const QB_CLIAPPRUM = [
     tags: ['locomotion-score', 'priority', 'culling'], type: 'mcq',
     q: 'การจัดการกีบโคนมตาม Locomotion Score (LCS) — แนวทางการตัดสินใจ',
     options: [
-      'LCS 1-2 keep · 3 trim ป้องกัน 6-12 เดือน · 4-5 trim รักษา/cull',
+      'LCS 1-2 keep, 3 trim ป้องกัน 6-12 เดือน, 4-5 trim รักษา/cull',
       'LCS 1-5 ปฏิบัติเหมือนกัน ตัดแต่งกีบทุกตัวทุกเดือน',
       'คัดทิ้งทุกตัวที่ LCS > 1 เพื่อรักษาคุณภาพฝูง',
       'LCS 5 รักษาด้วย antibiotics ระบบเท่านั้น (ไม่ผ่าตัด)',
@@ -1785,10 +1785,10 @@ export const QB_CLIAPPRUM = [
     tags: ['hoof-anatomy', 'sole-thickness', 'white-line'], type: 'mcq',
     q: 'Hoof anatomy ในวัว — ความหนา sole ที่ปกติและจุดอ่อนของกีบ',
     options: [
-      'Sole หนา 8 mm · จุดอ่อน = white line (รอยต่อ sole/wall)',
-      'Sole หนา 50 mm · จุดอ่อน = heel area (ส้นเท้า)',
-      'Sole หนา 1 mm · จุดอ่อน = toe (ปลายกีบ)',
-      'Sole หนา 100 mm · จุดอ่อน = wall abaxial นอก',
+      'Sole หนา 8 mm, จุดอ่อน = white line (รอยต่อ sole/wall)',
+      'Sole หนา 50 mm, จุดอ่อน = heel area (ส้นเท้า)',
+      'Sole หนา 1 mm, จุดอ่อน = toe (ปลายกีบ)',
+      'Sole หนา 100 mm, จุดอ่อน = wall abaxial นอก',
     ],
     answer: 0,
     explain: '**Sole** ปกติหนา ~8 mm. **White line** = รอยต่อ sole + wall = จุดอ่อนสุด → hemorrhage ง่าย → wall+sole แยก → **white line disease**.\n• Wall: abaxial (นอก) + axial (ใน ชิด interdigital)\n• Heel: หนา รับน้ำหนัก โตช้า — ตัดแต่งน้อย\n• Toe: ปลายเท้าโตเร็ว\n• Bow-legged = เท้ากางเข้า, Cow-hocked = เท้ากางออก (hindlimb lameness)',

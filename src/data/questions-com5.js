@@ -76,7 +76,7 @@ export const QB_COM5 = [
     tags: ['CCV', 'vaccine'], type: 'tf',
     q: 'แม้จะมีวัคซีน CCoV ผลิตออกมา แต่ตามแนวทาง WSAVA 2024 และ VPAT 2024 ระบุว่า "ไม่แนะนำให้ใช้"',
     answer: true, explain: 'CCV vaccine = Not Recommended\nevidence ว่า CCoV เป็น primary pathogen ใน adult dog ยังอ่อน + parenteral vaccine ไม่ induce mucosal immunity',
-    verified: 'WSAVA 2024 (Squires et al. JSAP 2024) · Vaccination_guideline.pdf p.16' },
+    verified: 'WSAVA 2024 (Squires et al. JSAP 2024), Vaccination_guideline.pdf p.16' },
 
   // — เพิ่มจาก Master PDF + Slide 2026 —
 
@@ -446,7 +446,7 @@ export const QB_COM5 = [
     tags: ['giardia', 'assemblage'], type: 'mcq',
     q: 'Giardia assemblage ที่ติดต่อจากสัตว์สู่คน (zoonotic) คืออะไร',
     options: ['ไม่มี assemblage zoonotic', 'Assemblage D เท่านั้น', 'Assemblage F เท่านั้น', 'Assemblage C เท่านั้น', 'Assemblage A และ B (zoonotic)'],
-    answer: 4, explain: 'A, B = zoonotic genotypes\nพบในทั้งคนและสัตว์\nclassification ใช้ PCR (GDH, ef1-α, TPI, rDNA)\n\n❌ ทำไมข้ออื่นผิด\n— No assemblage zoonotic = ผิด\n— D เท่านั้น / F เท่านั้น / C เท่านั้น = species-specific assemblages\n\n💡 สุนัข: A,B,C,D · แมว: A,B,F',
+    answer: 4, explain: 'A, B = zoonotic genotypes\nพบในทั้งคนและสัตว์\nclassification ใช้ PCR (GDH, ef1-α, TPI, rDNA)\n\n❌ ทำไมข้ออื่นผิด\n— No assemblage zoonotic = ผิด\n— D เท่านั้น / F เท่านั้น / C เท่านั้น = species-specific assemblages\n\n💡 สุนัข: A,B,C,D, แมว: A,B,F',
     verified: 'GI_protozoa.pdf p.25' },
 
   { id: 573, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
@@ -565,7 +565,7 @@ export const QB_COM5 = [
     tags: ['rabies', 'transmission'], type: 'mcq',
     q: 'วิธีการแพร่เชื้อ Rabies ที่ "ไม่ใช่ bite exposure" (non-bite) ได้แก่',
     options: ['Scratch + Lick to MM/wound + Trans-placenta', 'พาหะแมลง', 'การหายใจในห้องปกติ', 'การกินอาหารปกติ'],
-    answer: 0, explain: 'Non-bite: scratch จากเล็บที่ปนเปื้อนน้ำลาย (สัตว์เลียเล็บตัวเอง) · lick ที่ mucous membrane / แผลเปิด · trans-placental (rare)\nBite = หลัก\n\n❌ ทำไมข้ออื่นผิด\n— พาหะแมลง = arboviral (ไม่ใช่ rabies)\n— หายใจปกติ = ไม่ใช่ aerosol (เฉพาะถ้ำค้างคาว)\n— กินอาหารปกติ = enteric ไม่ใช่ route หลัก',
+    answer: 0, explain: 'Non-bite: scratch จากเล็บที่ปนเปื้อนน้ำลาย (สัตว์เลียเล็บตัวเอง), lick ที่ mucous membrane / แผลเปิด, trans-placental (rare)\nBite = หลัก\n\n❌ ทำไมข้ออื่นผิด\n— พาหะแมลง = arboviral (ไม่ใช่ rabies)\n— หายใจปกติ = ไม่ใช่ aerosol (เฉพาะถ้ำค้างคาว)\n— กินอาหารปกติ = enteric ไม่ใช่ route หลัก',
     verified: 'Rabies.pdf p.7' },
 
   { id: 581, subject: 'com5', topic: 'rabies', year: 4, source: 'Rabies.pdf',
@@ -623,7 +623,7 @@ export const QB_COM5 = [
     tags: ['rabies', 'animal-mgmt'], type: 'match',
     q: 'จับคู่การจัดการสัตว์ที่กัดคน',
     pairs: [
-      { left: 'สัตว์กัดดูปกติ ไม่ป่วย (มีเจ้าของ)', right: 'ขังกรงดูอาการ 10 วัน · ห้ามฉีดวัคซีนทับ' },
+      { left: 'สัตว์กัดดูปกติ ไม่ป่วย (มีเจ้าของ)', right: 'ขังกรงดูอาการ 10 วัน, ห้ามฉีดวัคซีนทับ' },
       { left: 'สัตว์ที่กัดมีอาการป่วย', right: 'Euthanize + ส่งตรวจ DFA' },
       { left: 'สัตว์ไม่มีเจ้าของ (ทั้งป่วยและไม่ป่วย)', right: 'Euthanize + ส่งตรวจ' },
     ],
@@ -682,13 +682,13 @@ export const QB_COM5 = [
     options: ['FPV, FIV, FIP, Rabies', 'FPV, FCV, FHV, Bordetella', 'FPV, FHV, FCV + Rabies + FeLV', 'FPV, FHV, FeLV, Rabies', 'FPV, FIV, FeLV, Rabies'],
     answer: 2, explain: 'VPAT 2024: FPV/FCV/FHV always core + Rabies* (endemic) + FeLV*** (endemic + อายุ < 2 ปี หรือเสี่ยง expose)\nตรวจ FeLV-ve ก่อนฉีด FeLV\n\n❌ ทำไมข้ออื่นผิด\n— "FPV+FIV+FIP+Rabies" = FIV/FIP ไม่ใช่ core\n— "+ Bordetella" = ผิด\n— ขาด FCV / FHV = ผิด core list\n\n💡 conditional FeLV/Rabies',
     verified: 'Vaccination_guideline.pdf p.26 (VPAT 2024)',
-    flag: { note: 'ข้อสอบข้อสอบเก่าบางฉบับเฉลย "FPV/FHV/FCV/Rabies" — ตาม VPAT 2024 ใหม่ FeLV ก็เป็น core ด้วย (with conditions) · ระวังด้วย: WSAVA ใช้ <1ปี, VPAT ใช้ <2ปี', sources: ['VPAT 2024 (vpatthailand.org)', 'WSAVA 2024 §FeLV', 'Vaccination_guideline.pdf p.22, 26'], severity: 'major' } },
+    flag: { note: 'ข้อสอบข้อสอบเก่าบางฉบับเฉลย "FPV/FHV/FCV/Rabies" — ตาม VPAT 2024 ใหม่ FeLV ก็เป็น core ด้วย (with conditions), ระวังด้วย: WSAVA ใช้ <1ปี, VPAT ใช้ <2ปี', sources: ['VPAT 2024 (vpatthailand.org)', 'WSAVA 2024 §FeLV', 'Vaccination_guideline.pdf p.22, 26'], severity: 'major' } },
 
   { id: 533, subject: 'com5', topic: 'vaccine', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['vaccine', 'rabies'], type: 'mcq',
     q: 'โปรแกรมวัคซีน Rabies สำหรับสุนัข/แมว ตาม VPAT 2024 / Thai Rabies CPG',
-    options: ['ให้ 1 ครั้ง อายุ 2 เดือน', 'เริ่มอายุ 8 wk · 2 เข็มห่างกัน 2-4 wk · บูสประจำปี', 'เริ่มอายุ 12 wk', 'ให้ 2 ครั้ง อายุ 3 และ 12 เดือน'],
-    answer: 2, explain: 'VPAT 2024 + Thai Rabies CPG: เริ่ม 12 wk\n2nd dose 2-4 wk later\n1 yr booster\nannual\nปีแรกแนะนำ monovalent rabies\n\n❌ ทำไมข้ออื่นผิด\n— "1 ครั้ง 2 mo" = ผิด\n— "เริ่ม 8 wk" = early กว่ากฎหมาย VPAT (12 wk)\n— "3+12 mo" = ไม่ตรง schedule\n\n💡 2 เข็มห่างกัน 2-4 wk · บูสที่ 1 ปี + ทุกปี',
+    options: ['ให้ 1 ครั้ง อายุ 2 เดือน', 'เริ่มอายุ 8 wk, 2 เข็มห่างกัน 2-4 wk, บูสประจำปี', 'เริ่มอายุ 12 wk', 'ให้ 2 ครั้ง อายุ 3 และ 12 เดือน'],
+    answer: 2, explain: 'VPAT 2024 + Thai Rabies CPG: เริ่ม 12 wk\n2nd dose 2-4 wk later\n1 yr booster\nannual\nปีแรกแนะนำ monovalent rabies\n\n❌ ทำไมข้ออื่นผิด\n— "1 ครั้ง 2 mo" = ผิด\n— "เริ่ม 8 wk" = early กว่ากฎหมาย VPAT (12 wk)\n— "3+12 mo" = ไม่ตรง schedule\n\n💡 2 เข็มห่างกัน 2-4 wk, บูสที่ 1 ปี + ทุกปี',
     verified: 'Vaccination_guideline.pdf p.30 (VPAT 2024) + COM V FINAL 86 p.32' },
 
   { id: 534, subject: 'com5', topic: 'vaccine', year: 4, source: 'Com_5_final_TJ.pdf',
@@ -959,7 +959,7 @@ export const QB_COM5 = [
     tags: ['cryptococcosis', 'cns', 'fluconazole'], type: 'mcq',
     q: 'ในกรณี Cryptococcosis ที่มี CNS involvement (CSF positive) ยา azole ใดเป็นตัวเลือกที่ดีที่สุดเพราะ CNS penetration สูง',
     options: ['Itraconazole', 'Ketoconazole', 'Fluconazole', 'Posaconazole'],
-    answer: 2, explain: 'Fluconazole = best CNS penetration ในกลุ่ม azole (small molecule, water-soluble, low protein binding) → reach CSF concentration > 60% ของ plasma · ใช้ในกรณี mild-moderate CNS Crypto · severe CNS / disseminated → Amphotericin B + Flucytosine (synergistic) ก่อน, แล้ว maintenance ด้วย Fluconazole\n\n❌ ทำไมข้ออื่นผิด\n— Itraconazole = lipophilic, large molecule → CNS penetration แย่\n— Ketoconazole = ไม่ผ่าน BBB + hepatotoxic\n— Posaconazole = active แต่ ราคาแพง + CNS penetration ยังไม่ดีเท่า Fluconazole',
+    answer: 2, explain: 'Fluconazole = best CNS penetration ในกลุ่ม azole (small molecule, water-soluble, low protein binding) → reach CSF concentration > 60% ของ plasma, ใช้ในกรณี mild-moderate CNS Crypto, severe CNS / disseminated → Amphotericin B + Flucytosine (synergistic) ก่อน, แล้ว maintenance ด้วย Fluconazole\n\n❌ ทำไมข้ออื่นผิด\n— Itraconazole = lipophilic, large molecule → CNS penetration แย่\n— Ketoconazole = ไม่ผ่าน BBB + hepatotoxic\n— Posaconazole = active แต่ ราคาแพง + CNS penetration ยังไม่ดีเท่า Fluconazole',
     verified: 'Sporotrichosis and Cryptococcosis.pdf + FINAL 86 p.12 (Crypto box: CSF infection: Fluconazole)' },
 
   { id: 627, subject: 'com5', topic: 'vaccine', year: 4, source: 'WSAVA 2024 + FINAL 86',

@@ -105,7 +105,7 @@ export default function ZoomableImage({ src, alt = 'ภาพประกอบ�
               pointerEvents: 'none',
             }}
           >
-            แตะนอกภาพ · กด × · Esc เพื่อปิด
+            แตะนอกภาพ, กด ×, Esc เพื่อปิด
           </div>
         </div>
       )}

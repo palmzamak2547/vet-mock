@@ -38,6 +38,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
 
   const contextLine = practiceMode === 'bookmarks' ? '🔖 Bookmark — เฉพาะข้อที่บันทึก'
     : practiceMode === 'weak' ? '🎯 Weak Spots — ข้อที่ผิดบ่อย'
+    : practiceMode === 'wrong' ? '🎯 ทบทวนข้อที่ตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)'
     : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
     : `${subjMeta?.icon} ${subjMeta?.name}`;
 

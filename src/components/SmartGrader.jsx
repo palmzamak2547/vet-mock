@@ -376,7 +376,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
           🔮 ทายคะแนนตัวเองก่อน
         </div>
         <div style={{ fontSize: 12, color: 'var(--clr-ink)', lineHeight: 1.5, marginBottom: 8 }}>
-          คาดว่าคำตอบจะได้กี่คะแนน (0-{maxScore}) ก่อนตรวจตาม rubric · เก็บสถิติ self-calibration ระยะยาว
+          คาดว่าคำตอบจะได้กี่คะแนน (0-{maxScore}) ก่อนตรวจตาม rubric, เก็บสถิติ self-calibration ระยะยาว
         </div>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
           <input

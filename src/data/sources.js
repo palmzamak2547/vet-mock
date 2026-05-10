@@ -22,7 +22,7 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['พี่พล Vet 84', 'Vet 84 (Ping, Sunsun, Saideang, Janny)'],
     topics: 'ESF, IM pin, Plate, Cerclage, Tension band, Approach to humerus/hip/femur, Cruciate',
-    note: 'ข้อสอบ Final สอบพฤหัส 23 เม.ย. 2569 · ยกเว้น Lab 3,4,5 (approach)',
+    note: 'ข้อสอบ Final สอบพฤหัส 23 เม.ย. 2569, ยกเว้น Lab 3,4,5 (approach)',
   },
   com5: {
     files: [
@@ -30,7 +30,7 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['TJ86 (vet 86)'],
     topics: 'Canine viral enteritis (CPV/CCV), Sporotrichosis & Cryptococcosis, GI protozoal enteritis, Rabies, Vaccine guidelines (WSAVA/VPAT), Feline URI',
-    note: 'รวบรวมข้อสอบเก่ารุ่นพี่ + อัพเดต 2024 · สอบ จันทร์ 27 เม.ย. 2569 · 08:30-10:30 · VET6 202/203',
+    note: 'รวบรวมข้อสอบเก่ารุ่นพี่ + อัพเดต 2024, สอบ จันทร์ 27 เม.ย. 2569, 08:30-10:30, VET6 202/203',
   },
   com3: {
     files: [
@@ -38,7 +38,7 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['Kimchii 85'],
     topics: 'Companion Animal Clinical Sciences III — รอข้อสอบเพิ่ม',
-    note: 'วิชาซัฟเฟอร์และยากที่สุด · สอบ พุธ 29 เม.ย. 2569',
+    note: 'วิชาซัฟเฟอร์และยากที่สุด, สอบ พุธ 29 เม.ย. 2569',
   },
   com4: {
     files: [
@@ -48,7 +48,7 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['Kimchii 85', 'Vet 86'],
     topics: 'SLE, IMT, IMHA, Glomerular, Dermatology, Endocrine, Cardiology, Pediatric, Geriatric',
-    note: 'ข้อสอบ Final · ศุกร์ 1 พ.ค. 2569 · ข้อสอบยากและเยอะมาก (>2.5 ชม.)',
+    note: 'ข้อสอบ Final, ศุกร์ 1 พ.ค. 2569, ข้อสอบยากและเยอะมาก (>2.5 ชม.)',
   },
   repro: {
     files: [
@@ -57,7 +57,7 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['pployyyn Vet 83', 'Kimchii 85'],
     topics: 'Vaginal cytology, Estrus cycle, Pyometra, Dystocia, Cryptorchid, Hormone',
-    note: 'Repro Lab แยกจาก Lecture · ชุดนี้เป็น lab/practical-style และสอบนอกตารางไปแล้ว',
+    note: 'Repro Lab แยกจาก Lecture, ชุดนี้เป็น lab/practical-style และสอบนอกตารางไปแล้ว',
   },
   'repro-lect': {
     files: [
@@ -78,7 +78,7 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['อาจารย์ผู้สอน 2026', 'Kimchii 85', 'sunsun84'],
     topics: 'Hormonal applications, semen evaluation/AI, semen preservation, infertility, biotechnology, exotic repro, genetics, surgical neutering, gonadectomy risk-benefit, reproductive ultrasound',
-    note: 'Lecture final 3108-409 · สอบ อังคาร 5 พ.ค. 2569 13:00-16:00 · แยกจาก Repro Lab แล้ว · คลังข้อสอบยึดข้อสอบเก่า/recall รุ่นพี่เป็น source หลัก แล้วใช้ slide 2026 verify/map topic',
+    note: 'Lecture final 3108-409, สอบ อังคาร 5 พ.ค. 2569 13:00-16:00, แยกจาก Repro Lab แล้ว, คลังข้อสอบยึดข้อสอบเก่า/recall รุ่นพี่เป็น source หลัก แล้วใช้ slide 2026 verify/map topic',
   },
   exotic: {
     files: [
@@ -86,19 +86,19 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['Kimchii 85', 'Pannawat Supapannachart DVM, MSc'],
     topics: 'ECZM, Residency (USA/EU), Avian medicine, Reptile, Rabbit, Ferret',
-    note: 'Wildlife & Exotic Health Mgt · สอบ พฤหัส 30 เม.ย. 2569',
+    note: 'Wildlife & Exotic Health Mgt, สอบ พฤหัส 30 เม.ย. 2569',
   },
   practrum: {
     files: [],
     contributors: [],
     topics: 'Practice Ruminant — รอข้อสอบเพิ่ม',
-    note: 'สอบ พุธ 6 พ.ค. 2569 · 13:00-16:00 · VET6 B01-B03',
+    note: 'สอบ พุธ 6 พ.ค. 2569, 13:00-16:00, VET6 B01-B03',
   },
   poultry: {
     files: [],
     contributors: [],
     topics: 'Poultry Health Management — รอข้อสอบเพิ่ม',
-    note: 'สอบ พฤหัส 7 พ.ค. 2569 · 13:00-15:00 · VET6 702',
+    note: 'สอบ พฤหัส 7 พ.ค. 2569, 13:00-15:00, VET6 702',
   },
   engprof: {
     files: [
@@ -109,8 +109,8 @@ export const QUESTION_SOURCES = {
       'Practice - Writing Summary.pdf',
     ],
     contributors: ['CULI (Chula Univ Language Institute)', 'Vet 86'],
-    topics: 'Reading Vet Research Papers (Intro/Methods/Results/Discussion) · Research Designs · Writing Academic Papers (Review Article) · Paraphrasing Techniques · Writing a Summary',
-    note: 'สอบ อังคาร 28 เม.ย. 2569 · 13:00-15:00 · VET6 807 · Units 4-5 · 35 pts (30%)',
+    topics: 'Reading Vet Research Papers (Intro/Methods/Results/Discussion), Research Designs, Writing Academic Papers (Review Article), Paraphrasing Techniques, Writing a Summary',
+    note: 'สอบ อังคาร 28 เม.ย. 2569, 13:00-15:00, VET6 807, Units 4-5, 35 pts (30%)',
   },
   cliapprum: {
     files: [
@@ -118,7 +118,7 @@ export const QUESTION_SOURCES = {
     ],
     contributors: ['Vet 84'],
     topics: 'Foot rot, Laminitis, Sole ulcer, LDA, Hardware disease, BSP',
-    note: 'Clinical App Ruminant · สอบ ศุกร์ 8 พ.ค. 2569 · 13:00-16:00',
+    note: 'Clinical App Ruminant, สอบ ศุกร์ 8 พ.ค. 2569, 13:00-16:00',
   },
 };
 

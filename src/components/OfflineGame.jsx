@@ -12,7 +12,7 @@
 //   • Down — duck (lets fly pass overhead)
 //   • Esc — close
 // Scoring:
-//   • +1 / frame distance · speed scales every 500 score
+//   • +1 / frame distance, speed scales every 500 score
 //   • High score persisted in localStorage as vmx-game-highscore
 //
 // Why all the game state is in refs instead of React state:
@@ -314,7 +314,7 @@ export default function OfflineGame({ onClose }) {
         ctx.fillText('แตะ / กด Space เพื่อเริ่ม', CANVAS_W / 2, CANVAS_H / 2 - 8);
         ctx.font = '12px sans-serif';
         ctx.fillStyle = '#7a6f5e';
-        ctx.fillText('ลูกไก่หนีเชื้อโรค · ↓ หมอบ · ↑/Space กระโดด', CANVAS_W / 2, CANVAS_H / 2 + 12);
+        ctx.fillText('ลูกไก่หนีเชื้อโรค, ↓ หมอบ, ↑/Space กระโดด', CANVAS_W / 2, CANVAS_H / 2 + 12);
         ctx.textAlign = 'left';
       } else if (stateRef.current.state === 'gameover') {
         ctx.fillStyle = 'rgba(255,255,255,0.7)';
@@ -375,7 +375,7 @@ export default function OfflineGame({ onClose }) {
         aria-label="Offline mini-game canvas"
       />
       <div style={{ fontSize: 13, color: 'var(--clr-ink-soft, #7a6f5e)', textAlign: 'center' }}>
-        🐤 ลูกไก่หนีเชื้อโรค · ↑/Space = กระโดด · ↓ = หมอบ · Esc = ปิด
+        🐤 ลูกไก่หนีเชื้อโรค, ↑/Space = กระโดด, ↓ = หมอบ, Esc = ปิด
       </div>
       {gameState === 'gameover' && scoreDisplay > 0 && scoreDisplay >= highScore && (
         <div

@@ -334,7 +334,7 @@ export const QB_REPRO_LECT = [
       'ลักษณะรูปร่างอสุจิส่วนหัว (head morphology) และส่วนกลางและหาง (midpiece + tail morphology)',
       'ถูกทุกข้อ',
     ],
-    answer: 3, explain: 'Clinical semen evaluation requires ALL parameters above (ถูกทุกข้อ):\n\nMacroscopic evaluation:\n• Volume\n• Color (milky white normal · yellow = urine · red/brown = blood)\n• pH\n• Morphological appearance\n\nMicroscopic evaluation (basic):\n• Concentration (sperm count/ml)\n• Motility (% moving sperm)\n• Progressive motility (% moving forward — most important functional indicator)\n• Morphology:\n  - Head (size, shape, acrosome)\n  - Midpiece (mitochondrial sheath, cytoplasmic droplet)\n  - Tail (coil, bent, abaxial)\n• Viability (live/dead staining — eosin-nigrosin)\n\nFunctional tests (advanced):\n• Membrane integrity (HOS test, dye exclusion)\n• Acrosome integrity\n• Zona pellucida binding\n• Mitochondrial activity\n\n💡 Total ejaculate analysis = Volume × Concentration × Motility = functional sperm dose for AI calculation', verified: 'Kimchii85 Blackboard Q4' },
+    answer: 3, explain: 'Clinical semen evaluation requires ALL parameters above (ถูกทุกข้อ):\n\nMacroscopic evaluation:\n• Volume\n• Color (milky white normal, yellow = urine, red/brown = blood)\n• pH\n• Morphological appearance\n\nMicroscopic evaluation (basic):\n• Concentration (sperm count/ml)\n• Motility (% moving sperm)\n• Progressive motility (% moving forward — most important functional indicator)\n• Morphology:\n  - Head (size, shape, acrosome)\n  - Midpiece (mitochondrial sheath, cytoplasmic droplet)\n  - Tail (coil, bent, abaxial)\n• Viability (live/dead staining — eosin-nigrosin)\n\nFunctional tests (advanced):\n• Membrane integrity (HOS test, dye exclusion)\n• Acrosome integrity\n• Zona pellucida binding\n• Mitochondrial activity\n\n💡 Total ejaculate analysis = Volume × Concentration × Motility = functional sperm dose for AI calculation', verified: 'Kimchii85 Blackboard Q4' },
 
   { id: 1854, subject: 'repro-lect', topic: 'semen-ai', year: 4,
     source: 'Kimchii85 final p.4 — Blackboard screenshot Semen Eval Q5', sourceType: 'past-paper', tags: ['past-paper', 'functional-quality', 'membrane'], type: 'mcq',
@@ -357,7 +357,7 @@ export const QB_REPRO_LECT = [
       'น้ำเชื้อที่มีความผิดปกติแบบ oligospermia จะมีลักษณะใส (clear)',
       'หากจะประเมินการปนเปื้อนปัสสาวะในน้ำเชื้อ ต้องใช้กล้องจุลทรรศน์ส่องดู',
     ],
-    answer: 2, explain: 'ถูก: Oligospermia = clear (ใส) ★\n\n💡 Why oligospermia appears clear:\n— Normal semen "milky white opacity" = high sperm concentration\n— Oligospermia = low sperm count → clear/watery appearance (macroscopic clue!)\n— Confirms with concentration count\n\n❌ ทำไมข้ออื่นผิด:\n— A ผิด: หมา (dog) มี 3 fractions ไม่ใช่แมว · cat ejaculate is single small volume (no fractions)\n  • Dog 3 fractions: 1st pre-sperm/prostatic clear (small), 2nd sperm-rich opaque (medium), 3rd prostatic large (largest)\n— B ผิด: ผิดปกติของรูปร่างเกินเกณฑ์ = Teratozoospermia (ไม่ใช่ azoospermia)\n  • Azoospermia = no sperm at all\n  • Teratozoospermia = > 40% abnormal morphology (dog) or > 60% (cat)\n— D ผิด: ปัสสาวะในน้ำเชื้อ = Urospermia — ตรวจง่ายๆ ด้วย:\n  • Macroscopic: yellow tinge\n  • pH (urine pH 5-6 vs semen 6.3-6.7)\n  • Glucose strip / urea analysis\n  • ไม่ต้องใช้กล้องจุลทรรศน์\n\n💡 Sperm count terminology:\n— Oligospermia: low sperm (< normal threshold)\n— Azoospermia: no sperm\n— Aspermia: no ejaculate (but erection present)\n— Asthenozoospermia: low motility (< 70% progressive)\n— Teratozoospermia: abnormal morphology\n— Pyospermia / Leukocytospermia: high WBC (infection)\n— Haemospermia: blood in semen\n— Urospermia: urine contamination', verified: 'Kimchii85 Blackboard Q7' },
+    answer: 2, explain: 'ถูก: Oligospermia = clear (ใส) ★\n\n💡 Why oligospermia appears clear:\n— Normal semen "milky white opacity" = high sperm concentration\n— Oligospermia = low sperm count → clear/watery appearance (macroscopic clue!)\n— Confirms with concentration count\n\n❌ ทำไมข้ออื่นผิด:\n— A ผิด: หมา (dog) มี 3 fractions ไม่ใช่แมว, cat ejaculate is single small volume (no fractions)\n  • Dog 3 fractions: 1st pre-sperm/prostatic clear (small), 2nd sperm-rich opaque (medium), 3rd prostatic large (largest)\n— B ผิด: ผิดปกติของรูปร่างเกินเกณฑ์ = Teratozoospermia (ไม่ใช่ azoospermia)\n  • Azoospermia = no sperm at all\n  • Teratozoospermia = > 40% abnormal morphology (dog) or > 60% (cat)\n— D ผิด: ปัสสาวะในน้ำเชื้อ = Urospermia — ตรวจง่ายๆ ด้วย:\n  • Macroscopic: yellow tinge\n  • pH (urine pH 5-6 vs semen 6.3-6.7)\n  • Glucose strip / urea analysis\n  • ไม่ต้องใช้กล้องจุลทรรศน์\n\n💡 Sperm count terminology:\n— Oligospermia: low sperm (< normal threshold)\n— Azoospermia: no sperm\n— Aspermia: no ejaculate (but erection present)\n— Asthenozoospermia: low motility (< 70% progressive)\n— Teratozoospermia: abnormal morphology\n— Pyospermia / Leukocytospermia: high WBC (infection)\n— Haemospermia: blood in semen\n— Urospermia: urine contamination', verified: 'Kimchii85 Blackboard Q7' },
 
   { id: 1857, subject: 'repro-lect', topic: 'semen-ai', year: 4,
     source: 'Kimchii85 final p.6 — Blackboard screenshot Semen Eval Q8', sourceType: 'past-paper', tags: ['past-paper', 'collection-method', 'dog'], type: 'mcq',
@@ -383,7 +383,7 @@ export const QB_REPRO_LECT = [
 
   { id: 1859, subject: 'repro-lect', topic: 'semen-ai', year: 4,
     source: 'Kimchii85 final p.6 — Blackboard screenshot Semen Eval Q10', sourceType: 'past-paper', tags: ['past-paper', 'hemocytometer', 'calculation'], type: 'mcq',
-    q: 'จากการตรวจคุณภาพน้ำเชื้อแมว ใช้ Hemocytometer chamber (ความลึก 0.1 มิลลิเมตร) ได้จำนวนอสุจิใน 5 ช่องเล็กรวม 50 ตัว · ถ้าไม่ได้เจือจาง (df = 1) น้ำเชื้อมีความเข้มข้นเท่าใด',
+    q: 'จากการตรวจคุณภาพน้ำเชื้อแมว ใช้ Hemocytometer chamber (ความลึก 0.1 มิลลิเมตร) ได้จำนวนอสุจิใน 5 ช่องเล็กรวม 50 ตัว, ถ้าไม่ได้เจือจาง (df = 1) น้ำเชื้อมีความเข้มข้นเท่าใด',
     options: ['50 × 10⁶ ตัว/ml', '0.25 × 10⁶ ตัว/ml', '5 × 10⁶ ตัว/ml', '2.5 × 10⁶ ตัว/ml'],
     answer: 3, explain: 'Hemocytometer calculation = 2.5 × 10⁶ ตัว/ml ★\n\n💡 Formula:\n```\nN/V × df × 50 / 1000 (× 10⁶) = sperm/ml\n```\n\nWhere:\n— N = total sperm counted in 5 small squares\n— V = volume = 5 × area × depth = 5 × (1/25 mm² each small square × 1/10 mm depth)\n  = 5 × 0.04 mm² × 0.1 mm = 0.02 mm³ = 0.02 µL\n— df = dilution factor (here df = 1 means undiluted)\n\nCalculation:\nN/V = 50 / 0.02 µL = 2500 sperm/µL\n  = 2500 × 1000 sperm/ml\n  = 2,500,000 sperm/ml\n  = 2.5 × 10⁶ ตัว/ml ✓\n\nหรือใช้สูตรง่าย:\n```\nConcentration = 50 × df × 50 / 1000 × 10⁶\n              = (50 × 1 × 50) / 1000 × 10⁶\n              = 2500 / 1000 × 10⁶\n              = 2.5 × 10⁶ ตัว/ml\n```\n\n💡 Note: 2.5 × 10⁶/ml ใน cat = LOW (oligospermia) — normal cat semen ≥ 30-50 × 10⁶/ml\n\n💡 Hemocytometer details:\n— Improved Neubauer chamber\n— 9 large squares (each 1 mm × 1 mm × 0.1 mm depth = 0.1 µL)\n— Center large square divided into 25 medium squares (each 0.04 mm²)\n— Each medium square divided into 16 small squares\n— Sperm counting: count 5 medium squares (4 corners + center)\n\n💡 Common dilution factors (df):\n— 1:10 = df 10\n— 1:20 = df 20\n— 1:100 = df 100\n— 1:200 = df 200', verified: 'Kimchii85 Blackboard Q10' },
 
@@ -424,7 +424,7 @@ export const QB_REPRO_LECT = [
 
   { id: 1864, subject: 'repro-lect', topic: 'semen-ai', year: 4,
     source: 'Kimchii85 final p.5 — Blackboard screenshot Breeding Mgmt Q5', sourceType: 'past-paper', tags: ['past-paper', 'ovulation-tools'], type: 'mcq',
-    q: 'สุนัขพันธุ์ชิสุ ชื่อน้ำพริก มาตรวจหาวันตกไข่ เพื่อรับการผสมเทียม เจ้าของให้ประวัติว่าเห็นมีอวัยวะเพศบวมและของเหลวจากช่องคลอด มา 3 วันแล้ว · นิสิตจะเลือกใช้วิธีใดในการตรวจหาวันตกไข่ (เลือกครอบคลุม)',
+    q: 'สุนัขพันธุ์ชิสุ ชื่อน้ำพริก มาตรวจหาวันตกไข่ เพื่อรับการผสมเทียม เจ้าของให้ประวัติว่าเห็นมีอวัยวะเพศบวมและของเหลวจากช่องคลอด มา 3 วันแล้ว, นิสิตจะเลือกใช้วิธีใดในการตรวจหาวันตกไข่ (เลือกครอบคลุม)',
     options: ['Vaginoscopy เพื่อดู vaginal fold + erythema', 'Vaginal cytology เพื่อดู cornified cells', 'Progesterone assay เพื่อดู P4 trend', 'ทุกวิธีร่วมกัน (Vaginoscopy + Cytology + P4 assay)'],
     answer: 3, explain: 'Multi-modal approach = ความแม่นยำสูงสุด ★ (Aj. KC slide: "Tool for Assessing")\n\n💡 4 Tools to assess ovulation timing in bitch:\n\n1. Clinical signs:\n— Estrus behavior (acceptance of male)\n— Vulva changes (peak swelling, then softening)\n— Vaginal discharge (bloody → straw-colored → reduced)\n\n2. Vulval/vaginal appearance:\n— Vulva edema progressively ↑ in proestrus\n— Peak edema just before LH surge\n— Soft/wrinkled when ready to mate\n\n3. Vaginal cytology (easy, cheap):\n— Proestrus: parabasal + intermediate, RBC, neutrophils\n— Estrus (start of standing heat): cornified superficial cells > 80%, RBC may persist, NO neutrophils (estrogen peak)\n— Diestrus (D1-2 post-ovulation): sudden ↓ cornified, ↑ intermediate + parabasal, neutrophils return — "metestrum cells"\n— Day of LH surge = ~ peak cornification\n\n4. Progesterone assay ★ (most accurate, $$$):\n— Measure P4 every 2 days from start of proestrus\n— LH surge = P4 1.5-2.5 ng/mL (Day 0)\n— Ovulation = P4 4-10 (LH+2)\n— Fertilization period = P4 10-20 (LH+4 to +6)\n\n💡 Note from Kimchii85 source (Q5 highlighted ambiguously — annotation suggests confusion): The original Q has a self-referential option "B และ C ถูก" which makes wording awkward. Best practice teaching = combine multiple methods for accuracy.\n\n💡 Vaginoscopy findings by cycle:\n— Anestrus: flat, dry, red, thin mucosa\n— Proestrus: edematous, swollen, ± serosanguineous fluid\n— Early estrus (LH surge): mucosal shrinking, pallor (E2 ↓)\n— Mid-late estrus (3-4 d post-LH): angulated, dry, crenulated — best for breeding', verified: 'Kimchii85 Blackboard Breeding Mgmt Q5' },
 
@@ -535,7 +535,7 @@ export const QB_REPRO_LECT = [
 
   { id: 1876, subject: 'repro-lect', topic: 'surgical-neutering', year: 4,
     source: 'Kimchii85 final p.30 — Blackboard screenshot ORS Q3', sourceType: 'past-paper', tags: ['past-paper', 'ORS-pseudopregnancy', 'case'], type: 'mcq',
-    q: 'สุนัขเพศเมีย อายุ 9 ปี ทำหมัน OVH มาแล้ว 1-2 ปีที่ผ่านมา · เจ้าของพามาด้วยเรื่องเต้านมโตกว่าปกติ คลำพบก้อนขนาดประมาณ 0.5 cm in diameter, no obvious sign of illness, no pain at palpation, มีอาการ galactopoiesis (มีน้ำนมไหลออกจากเต้า) — Dx ที่น่าจะเป็นที่สุดคือ',
+    q: 'สุนัขเพศเมีย อายุ 9 ปี ทำหมัน OVH มาแล้ว 1-2 ปีที่ผ่านมา, เจ้าของพามาด้วยเรื่องเต้านมโตกว่าปกติ คลำพบก้อนขนาดประมาณ 0.5 cm in diameter, no obvious sign of illness, no pain at palpation, มีอาการ galactopoiesis (มีน้ำนมไหลออกจากเต้า) — Dx ที่น่าจะเป็นที่สุดคือ',
     options: ['Pseudopregnancy', 'Pyometra', 'Ovarian tumor', 'Mammary gland tumor', 'Cervical stump infection'],
     answer: 0, explain: 'Pseudopregnancy (false pregnancy) จาก Ovarian Remnant Syndrome ★\n\n💡 Clinical reasoning:\nผู้ป่วย: 9 ปี, ทำหมัน 1-2 ปีที่แล้ว, มี galactopoiesis (mammary gland producing milk) + small mammary changes\n\n→ การที่ทำหมันแล้วยัง mammary develop + ทำงาน = มี ovarian tissue residual (ORS) ที่ผลิต P4\n→ P4 ↓ ตอนปลาย luteal phase → prolactin ↑ → pseudopregnancy (false pregnancy)\n\n💡 Pseudopregnancy / False pregnancy / Pseudocyesis:\n— Hormonal mimicry of pregnancy\n— Common in intact bitches at end of diestrus (~ 6-8 weeks post-estrus)\n— Can occur in OVH bitches with ORS when residual ovary cycles\n\nSigns:\n— Galactopoiesis (milk production!) ★\n— Mammary enlargement\n— Behavioral changes:\n  - Nesting behavior\n  - "Adopting" toys/objects as puppies\n  - Mothering behavior\n  - Decreased appetite, lethargy\n  - Aggression / overprotectiveness\n- Vaginal discharge possible\n\nPathophysiology:\n— After luteal phase: P4 drops + Prolactin rises (mirrors true pregnancy hormone shift)\n— Prolactin → mammary development + milk\n— Behavioral effects from prolactin + oxytocin\n\nTreatment:\n— Cabergoline 5 µg/kg PO q24h × 5-7 days ★ (dopamine agonist → ↓ prolactin)\n— Bromocriptine alternative\n— Avoid hand-stripping milk (stimulates more milk)\n— Address underlying ORS: OVE for residual ovary\n\n❌ Why not other options:\n— Pyometra: would have purulent vaginal discharge, fever, illness signs (this case: no illness)\n— Ovarian tumor: would have masses on palpation/imaging\n— Mammary tumor: would be discrete masses, not diffuse galactopoiesis\n— Cervical stump infection: would have brown/red discharge (not milk)', verified: 'Kimchii85 Blackboard ORS Q3' },
 
@@ -553,7 +553,7 @@ export const QB_REPRO_LECT = [
 
   { id: 1878, subject: 'repro-lect', topic: 'surgical-neutering', year: 4,
     source: 'Kimchii85 final p.30 — Blackboard screenshot ORS Q7', sourceType: 'past-paper', tags: ['past-paper', 'cervical-stump', 'OVH-complication'], type: 'mcq',
-    q: 'สุนัขพันธุ์พุดเดิ้ล เพศเมีย อายุ 12 ปี ทำหมัน OVH (Ovariohysterectomy) เมื่อ 2 ปีที่ผ่านมา · ตรวจพบ brown to red colored vaginal discharge และมีรอยอักเสบบริเวณช่องคลอดส่วนใน — Dx ที่น่าจะเป็นที่สุดคือ',
+    q: 'สุนัขพันธุ์พุดเดิ้ล เพศเมีย อายุ 12 ปี ทำหมัน OVH (Ovariohysterectomy) เมื่อ 2 ปีที่ผ่านมา, ตรวจพบ brown to red colored vaginal discharge และมีรอยอักเสบบริเวณช่องคลอดส่วนใน — Dx ที่น่าจะเป็นที่สุดคือ',
     options: [
       'Puppy vaginitis',
       'Cervical stump inflammation/infection',
@@ -577,7 +577,7 @@ export const QB_REPRO_LECT = [
 
   { id: 1880, subject: 'repro-lect', topic: 'surgical-neutering', year: 4,
     source: 'Kimchii85 final p.30 — Blackboard screenshot ORS Q10', sourceType: 'past-paper', tags: ['past-paper', 'ORS', 'surgical-approach', 'classic'], type: 'mcq',
-    q: 'สุนัขที่ดอ ใต้ที่ทำหมัน (Ovariohysterectomy) เมื่อ 4 ปีที่ผ่านมา และนิดเข้ามาตรวจการคือดิจัด มีอาการ "Ovarian Remnant Syndrome" หากต่ำมการสำรวจเตรียมในการทำในใต้ติด · ใช้ surgical approach ใด',
+    q: 'สุนัขที่ดอ ใต้ที่ทำหมัน (Ovariohysterectomy) เมื่อ 4 ปีที่ผ่านมา และนิดเข้ามาตรวจการคือดิจัด มีอาการ "Ovarian Remnant Syndrome" หากต่ำมการสำรวจเตรียมในการทำในใต้ติด, ใช้ surgical approach ใด',
     options: [
       'Left flank laparotomy',
       'Right flank laparotomy',
@@ -606,8 +606,8 @@ export const QB_REPRO_LECT = [
     source: 'Kimchii85 final p.28 — Mast cell tumor section',
     sourceType: 'student-compilation', tags: ['mast-cell-tumor', 'breed', 'high-yield'], type: 'mcq',
     q: 'Predisposing breeds + ปัจจัยเสี่ยงสำหรับ "Mast Cell Tumor (MCT)" ในสุนัข คือ',
-    options: ['Female 2.6×', 'Male only · all breeds equal', 'Cats only', 'Toy breeds <5 kg only', 'Geriatric females >12 yr only'],
-    answer: 0, explain: 'MCT risk factors (Aj. SC ★ "หมายเหตุของพา female, old & obese, specific breeds"):\n\n💡 Mast Cell Tumor key facts:\n— Multifactorial disease\n— Concern in females (some studies show 2-3× ↑ in spayed females)\n— Age >7 years\n— BW 20-30 kg (medium breeds)\n— Predisposing breeds:\n  - Golden Retriever (high prevalence)\n  - Labrador Retriever\n  - Boxer ★ (very high incidence)\n  - Pug (especially mast cell)\n  - German Shepherd\n  - + Bull terrier, Beagle, Boston terrier, Shar-Pei\n\n💡 Gonadectomy + MCT relationship (Aj. SC):\n— Gonadectomized females: 2.6× ↑ risk vs intact (some studies)\n— Older + obese spayed females highest risk group\n— Mechanism unclear — possibly hormonal influence on mast cell biology\n\n💡 Other tumors with gonadectomy association:\n— Osteosarcoma ★: Male, large/giant breeds, early-age neutering (<6 mo) ↑ risk\n— Hemangiosarcoma: Female gonadectomy >12 mo → ↑ incidence\n— Lymphoma: Australian Shepherd, Golden Retriever; gonadectomized female ↑ risk; early age neutering ↑ risk\n— Transitional Cell Carcinoma (TCC): Female, Scottish Terrier ★, age >6 yr, obesity, sex (female)\n— Prostate cancer: ironically slightly ↑ in neutered (vs general population), but absolute incidence very low (<1%)\n\n💡 Decision-making implications (Aj. SC):\n— Discuss with owner — these risks need to be weighed against benefits\n— Specific predisposed breeds (e.g., Rottweiler with osteosarcoma history) → consider delaying or skipping gonadectomy\n— Weight management = strongest predictor of overall longevity\n— Multifactorial — genetic + environmental + hormonal\n\n💡 Aj. SC key message:\n"การทำหมันมีความเสี่ยงมีผล multiple cancers — owner education is critical"\n\n💡 age >7 · BW 20-30 kg · breeds: GR', verified: 'Kimchii85 final p.28 — annotated "Female, old & obese, specific breeds"' },
+    options: ['Female 2.6×', 'Male only, all breeds equal', 'Cats only', 'Toy breeds <5 kg only', 'Geriatric females >12 yr only'],
+    answer: 0, explain: 'MCT risk factors (Aj. SC ★ "หมายเหตุของพา female, old & obese, specific breeds"):\n\n💡 Mast Cell Tumor key facts:\n— Multifactorial disease\n— Concern in females (some studies show 2-3× ↑ in spayed females)\n— Age >7 years\n— BW 20-30 kg (medium breeds)\n— Predisposing breeds:\n  - Golden Retriever (high prevalence)\n  - Labrador Retriever\n  - Boxer ★ (very high incidence)\n  - Pug (especially mast cell)\n  - German Shepherd\n  - + Bull terrier, Beagle, Boston terrier, Shar-Pei\n\n💡 Gonadectomy + MCT relationship (Aj. SC):\n— Gonadectomized females: 2.6× ↑ risk vs intact (some studies)\n— Older + obese spayed females highest risk group\n— Mechanism unclear — possibly hormonal influence on mast cell biology\n\n💡 Other tumors with gonadectomy association:\n— Osteosarcoma ★: Male, large/giant breeds, early-age neutering (<6 mo) ↑ risk\n— Hemangiosarcoma: Female gonadectomy >12 mo → ↑ incidence\n— Lymphoma: Australian Shepherd, Golden Retriever; gonadectomized female ↑ risk; early age neutering ↑ risk\n— Transitional Cell Carcinoma (TCC): Female, Scottish Terrier ★, age >6 yr, obesity, sex (female)\n— Prostate cancer: ironically slightly ↑ in neutered (vs general population), but absolute incidence very low (<1%)\n\n💡 Decision-making implications (Aj. SC):\n— Discuss with owner — these risks need to be weighed against benefits\n— Specific predisposed breeds (e.g., Rottweiler with osteosarcoma history) → consider delaying or skipping gonadectomy\n— Weight management = strongest predictor of overall longevity\n— Multifactorial — genetic + environmental + hormonal\n\n💡 Aj. SC key message:\n"การทำหมันมีความเสี่ยงมีผล multiple cancers — owner education is critical"\n\n💡 age >7, BW 20-30 kg, breeds: GR', verified: 'Kimchii85 final p.28 — annotated "Female, old & obese, specific breeds"' },
 
   { id: 1884, subject: 'repro-lect', topic: 'gonadectomy-risk', year: 4,
     source: 'Kimchii85 final p.28 — USMI section',
@@ -691,7 +691,7 @@ export const QB_REPRO_LECT = [
 
   // ═══════════════════════════════════════════════════════════
   // ADDED 2026-05-04 — Q from Com Reprod Final TJ.pdf + Mod
-  //   TJ = original summary by senior · Mod = TJ + Palm handwritten notes
+  //   TJ = original summary by senior, Mod = TJ + Palm handwritten notes
   //   Topics extended: hormonal-applications, biotech, exotic-repro
   // ═══════════════════════════════════════════════════════════
 
@@ -710,7 +710,7 @@ export const QB_REPRO_LECT = [
       { left: 'Induction of estrus', right: 'GnRH agonist / Cabergoline / Gonadotropins' },
       { left: 'Pyometra (open) — medical mgmt', right: 'Aglepristone + PGF2α' },
     ],
-    explain: 'TJ p1 รวบรวม indication-by-hormone — ตอบ obstructive dystocia ด้วย oxytocin ห้าม! ใช้ใน non-obstructive เท่านั้น (uterine inertia) · cryptorchid ใช้ hCG ทดสอบ ถ้า testosterone ขึ้น = มี testis · เภสัชจริง pyometra สมัยใหม่ aglepristone + PGF + abx',
+    explain: 'TJ p1 รวบรวม indication-by-hormone — ตอบ obstructive dystocia ด้วย oxytocin ห้าม! ใช้ใน non-obstructive เท่านั้น (uterine inertia), cryptorchid ใช้ hCG ทดสอบ ถ้า testosterone ขึ้น = มี testis, เภสัชจริง pyometra สมัยใหม่ aglepristone + PGF + abx',
     verified: 'TJ p1 + Slide 2026 Lect 15' },
 
   // ── Lect 19: ART biotech extended (TJ Q14-21) ─────────────
@@ -720,7 +720,7 @@ export const QB_REPRO_LECT = [
     q: 'หลังทำ ICSI สำเร็จ ตัวอ่อนต้องผ่าน in vitro culture (IVC) นานเท่าไรก่อน embryo transfer ในแมว/สุนัข',
     options: ['ทันที (ไม่ต้อง culture)', 'ประมาณ 2-7 วัน', '14 วัน', '30 วัน'],
     answer: 1,
-    explain: 'IVC 2-7 วัน → ตัวอ่อน develop เป็น cleavage (D2) → morula (D5) → blastocyst (D7) → ค่อย transfer · ระยะที่ ET เลือกตาม recipient stage (oviduct ถ้า cleavage · uterus ถ้า blastocyst)',
+    explain: 'IVC 2-7 วัน → ตัวอ่อน develop เป็น cleavage (D2) → morula (D5) → blastocyst (D7) → ค่อย transfer, ระยะที่ ET เลือกตาม recipient stage (oviduct ถ้า cleavage, uterus ถ้า blastocyst)',
     verified: 'TJ p3 Q17 + Slide 2026 Lect 19' },
 
   { id: 1893, subject: 'repro-lect', topic: 'biotech', year: 4,
@@ -734,7 +734,7 @@ export const QB_REPRO_LECT = [
       'ใช้แค่ sperm ก็พอ',
     ],
     answer: 1,
-    explain: 'SCNT efficiency ต่ำ + lambs/calves ที่ clone ออกมามักมี Large Offspring Syndrome (LOS), telomere เสื่อม, karyotypic abnormalities · Dolly the sheep มี premature aging · imprinting errors เป็นปัญหาเด่น',
+    explain: 'SCNT efficiency ต่ำ + lambs/calves ที่ clone ออกมามักมี Large Offspring Syndrome (LOS), telomere เสื่อม, karyotypic abnormalities, Dolly the sheep มี premature aging, imprinting errors เป็นปัญหาเด่น',
     verified: 'TJ p3 Q19 + Wilmut 1997' },
 
   { id: 1894, subject: 'repro-lect', topic: 'biotech', year: 4,
@@ -748,7 +748,7 @@ export const QB_REPRO_LECT = [
       'Induced pluripotent stem cell',
     ],
     answer: 0,
-    explain: 'Totipotent = สามารถสร้างได้ทุก cell type รวมทั้ง extra-embryonic (placenta) · พบเฉพาะ zygote + early cleavage cells (2-8 cell) · หลังจากนั้นค่อยลด potency ลงเป็น pluripotent',
+    explain: 'Totipotent = สามารถสร้างได้ทุก cell type รวมทั้ง extra-embryonic (placenta), พบเฉพาะ zygote + early cleavage cells (2-8 cell), หลังจากนั้นค่อยลด potency ลงเป็น pluripotent',
     verified: 'TJ p3 Q20 + Slide 2026 Lect 19' },
 
   { id: 1895, subject: 'repro-lect', topic: 'biotech', year: 4,
@@ -762,7 +762,7 @@ export const QB_REPRO_LECT = [
       'Adult somatic cell',
     ],
     answer: 2,
-    explain: 'Pluripotent = สร้างได้ทุก germ layer (endoderm, mesoderm, ectoderm) แต่ไม่สร้าง placenta · ESC isolated จาก ICM ของ blastocyst · ใช้ใน research + therapeutic potential',
+    explain: 'Pluripotent = สร้างได้ทุก germ layer (endoderm, mesoderm, ectoderm) แต่ไม่สร้าง placenta, ESC isolated จาก ICM ของ blastocyst, ใช้ใน research + therapeutic potential',
     verified: 'TJ p3 Q20 + Slide 2026 Lect 19' },
 
   { id: 1896, subject: 'repro-lect', topic: 'biotech', year: 4,
@@ -776,7 +776,7 @@ export const QB_REPRO_LECT = [
       'Inherited Polypotent Stem Cell — ส่งทอดทางพันธุกรรม',
     ],
     answer: 1,
-    explain: 'iPSC = Induced Pluripotent Stem Cell · Yamanaka 2006 (Nobel 2012) · ใส่ 4 transcription factors (Oct3/4, Sox2, c-Myc, Klf4) → reprogram somatic cell (เช่น fibroblast) ให้กลับเป็น pluripotent · ไม่ต้องทำลาย embryo จึงมีประโยชน์ทาง ethics + therapy',
+    explain: 'iPSC = Induced Pluripotent Stem Cell, Yamanaka 2006 (Nobel 2012), ใส่ 4 transcription factors (Oct3/4, Sox2, c-Myc, Klf4) → reprogram somatic cell (เช่น fibroblast) ให้กลับเป็น pluripotent, ไม่ต้องทำลาย embryo จึงมีประโยชน์ทาง ethics + therapy',
     verified: 'TJ p3 Q21 + Takahashi & Yamanaka 2006' },
 
   // ── Lect 20: Exotic repro extended (TJ Q14-17 + Mod notes) ──
@@ -786,7 +786,7 @@ export const QB_REPRO_LECT = [
     q: 'การทำหมันเฟอเรทเพศผู้ (open castration) ใช้เทคนิคใด',
     options: ['Pre-scrotal incision เหมือนสุนัข', 'Scrotal incision 2 ข้าง', 'Inguinal approach เสมอ', 'Midline laparotomy'],
     answer: 1,
-    explain: 'เฟอเรทตัวเล็ก ใช้ scrotal incision 2 ข้าง ligate spermatic cord (closed) · skin glue หรือ subcuticular suture · เร็ว แผลเล็ก · เหมาะ ferret BCS เล็ก\n\n💡 closed castration · ligate spermatic cord · skin glue/suture #3-0',
+    explain: 'เฟอเรทตัวเล็ก ใช้ scrotal incision 2 ข้าง ligate spermatic cord (closed), skin glue หรือ subcuticular suture, เร็ว แผลเล็ก, เหมาะ ferret BCS เล็ก\n\n💡 closed castration, ligate spermatic cord, skin glue/suture #3-0',
     verified: 'TJ p4 Q14 + Quesenberry & Carpenter' },
 
   { id: 1898, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
@@ -795,7 +795,7 @@ export const QB_REPRO_LECT = [
     q: 'Infertility ในไก่/นก สาเหตุที่พบบ่อยข้อใด',
     options: ['Pyometra', 'Follicular stasis', 'Cryptorchidism', 'BPH'],
     answer: 1,
-    explain: 'Avian follicular stasis = mature ovarian follicles ค้างไม่ ovulate ปกติ · เกิดจาก photoperiod ผิด, nutrition, stress, neoplasia · นำไปสู่ egg-yolk coelomitis ได้ถ้า rupture · พบบ่อยใน parrot ที่เลี้ยงเป็น pet\n\n💡 ฟอลลิเคิลค้างไม่ ovulate',
+    explain: 'Avian follicular stasis = mature ovarian follicles ค้างไม่ ovulate ปกติ, เกิดจาก photoperiod ผิด, nutrition, stress, neoplasia, นำไปสู่ egg-yolk coelomitis ได้ถ้า rupture, พบบ่อยใน parrot ที่เลี้ยงเป็น pet\n\n💡 ฟอลลิเคิลค้างไม่ ovulate',
     verified: 'TJ p4 Q15 + Quesenberry' },
 
   { id: 1899, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
@@ -809,7 +809,7 @@ export const QB_REPRO_LECT = [
       'Hemipenis prolapse',
     ],
     answer: 1,
-    explain: 'Jill (เฟอเรทเพศเมีย) เสี่ยงหลายโรคของระบบสืบพันธุ์ที่ relate กัน — pseudopregnancy (จาก induced ovulation ที่ไม่ติด), mammary tumor/mastitis (เกิดจาก hyperestrogenism), ovarian tumor, endometrial hyperplasia · spay ก่อนป้องกันได้',
+    explain: 'Jill (เฟอเรทเพศเมีย) เสี่ยงหลายโรคของระบบสืบพันธุ์ที่ relate กัน — pseudopregnancy (จาก induced ovulation ที่ไม่ติด), mammary tumor/mastitis (เกิดจาก hyperestrogenism), ovarian tumor, endometrial hyperplasia, spay ก่อนป้องกันได้',
     verified: 'TJ p4 Q16 + Quesenberry & Carpenter' },
 
   { id: 1900, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
@@ -818,7 +818,7 @@ export const QB_REPRO_LECT = [
     q: 'Hemipenis prolapse ในงู/กิ้งก่า แนวทางจัดการเริ่มต้นที่เหมาะสมที่สุด',
     options: ['ตัด hemipenis ออกทันที', 'ทำความสะอาด', 'ใส่ antibiotic อย่างเดียว', 'ปล่อยทิ้งไว้'],
     answer: 1,
-    explain: 'Hemipenis prolapse = emergency · ทำความสะอาด → ลด edema (cold/hypertonic) → ดันคืน → purse-string ที่ cloaca กัน recur · ถ้า necrotic ตัดได้ (ตัดข้างเดียว · ยังผสมพันธุ์ได้) · cloaca prolapse ก็ใช้หลักการเดียวกัน\n\n💡 แช่/ประคบน้ำเย็นหรือ hypertonic solution (น้ำตาล/glycerin) ลด edema · ดันคืน + suture purse-string ที่ cloaca',
+    explain: 'Hemipenis prolapse = emergency, ทำความสะอาด → ลด edema (cold/hypertonic) → ดันคืน → purse-string ที่ cloaca กัน recur, ถ้า necrotic ตัดได้ (ตัดข้างเดียว, ยังผสมพันธุ์ได้), cloaca prolapse ก็ใช้หลักการเดียวกัน\n\n💡 แช่/ประคบน้ำเย็นหรือ hypertonic solution (น้ำตาล/glycerin) ลด edema, ดันคืน + suture purse-string ที่ cloaca',
     verified: 'TJ p4 Q18 + Mader Reptile Medicine' },
 
   { id: 1901, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
@@ -827,7 +827,7 @@ export const QB_REPRO_LECT = [
     q: 'Cloacal prolapse ในเต่า/กิ้งก่า อาจเป็น tissue ใดยื่นออกมา',
     options: ['Hemipenis', 'เฉพาะ hemipenis อย่างเดียว', 'เฉพาะ kidney', 'เฉพาะ heart'],
     answer: 0,
-    explain: 'Cloacal prolapse → ต้องระบุ tissue ใดยื่นออก (hemipenis, oviduct, colon, bladder, cloacal mucosa) · จัดการต่างกันตาม tissue · ตัวอย่าง: oviduct prolapse + egg = ต้องผ่าตัด · cloacal mucosa = reduce + suture\n\n💡 oviduct · colon · bladder · cloaca lining',
+    explain: 'Cloacal prolapse → ต้องระบุ tissue ใดยื่นออก (hemipenis, oviduct, colon, bladder, cloacal mucosa), จัดการต่างกันตาม tissue, ตัวอย่าง: oviduct prolapse + egg = ต้องผ่าตัด, cloacal mucosa = reduce + suture\n\n💡 oviduct, colon, bladder, cloaca lining',
     verified: 'TJ p4 Q19 + Mader' },
 
   { id: 1902, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
@@ -841,21 +841,21 @@ export const QB_REPRO_LECT = [
       'ต้องการ Calcium ต่ำพิเศษ',
     ],
     answer: 1,
-    explain: 'Guinea pig (เช่นเดียวกับลิงและคน) ขาด L-gulonolactone oxidase → สังเคราะห์ Vitamin C เองไม่ได้ → ต้องได้รับจากอาหาร · ขาด → scurvy (เลือดออก, joint pain, dental issues) · 10-30 mg/kg/day',
+    explain: 'Guinea pig (เช่นเดียวกับลิงและคน) ขาด L-gulonolactone oxidase → สังเคราะห์ Vitamin C เองไม่ได้ → ต้องได้รับจากอาหาร, ขาด → scurvy (เลือดออก, joint pain, dental issues), 10-30 mg/kg/day',
     verified: 'Mod handwritten + Quesenberry' },
 
   { id: 1903, subject: 'repro-lect', topic: 'exotic-repro', year: 4,
     source: 'Mod Com Reprod Final TJ.pdf p4 (Palm handwritten Sugar glider note)',
     sourceType: 'student-compilation', tags: ['sugar-glider', 'marsupial', 'taxonomy'], type: 'mcq',
-    q: 'Sugar glider (กระรอกบินขนนุ่ม) จัดอยู่ในกลุ่มสัตว์ใด · มีลักษณะการสืบพันธุ์อย่างไร',
+    q: 'Sugar glider (กระรอกบินขนนุ่ม) จัดอยู่ในกลุ่มสัตว์ใด, มีลักษณะการสืบพันธุ์อย่างไร',
     options: [
-      'Rodent · gestation 21 วัน · ลูกใน burrow',
-      'Marsupial · gestation สั้น 15-17 วัน · ลูกออกตัวอ่อนพัฒนาต่อใน pouch (กระเป๋าหน้าท้อง)',
-      'Eutherian mammal · gestation 60 วัน · ลูกพัฒนาเต็มในมดลูก',
-      'Monotreme · ออกไข่',
+      'Rodent, gestation 21 วัน, ลูกใน burrow',
+      'Marsupial, gestation สั้น 15-17 วัน, ลูกออกตัวอ่อนพัฒนาต่อใน pouch (กระเป๋าหน้าท้อง)',
+      'Eutherian mammal, gestation 60 วัน, ลูกพัฒนาเต็มในมดลูก',
+      'Monotreme, ออกไข่',
     ],
     answer: 1,
-    explain: 'Sugar glider = Marsupial (Petaurus breviceps) · gestation 15-17 วัน · ลูกอ่อนเล็กมาก (~0.2 g) คลานเข้า pouch → พัฒนาต่อใน pouch ~70 วัน · มี joey terminology · ต่างจาก rodent ที่ pregnancy นาน + ลูกพัฒนาในมดลูก',
+    explain: 'Sugar glider = Marsupial (Petaurus breviceps), gestation 15-17 วัน, ลูกอ่อนเล็กมาก (~0.2 g) คลานเข้า pouch → พัฒนาต่อใน pouch ~70 วัน, มี joey terminology, ต่างจาก rodent ที่ pregnancy นาน + ลูกพัฒนาในมดลูก',
     verified: 'Mod handwritten + Quesenberry' },
 
 ];

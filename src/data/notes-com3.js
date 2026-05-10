@@ -15,7 +15,7 @@ export const NOTES_COM3 = {
     title: 'AI in Vet Learning',
     lecturer: 'Nutthee Am-In',
     icon: '🤖',
-    summary: 'NotebookLM (best for study notes, low hallucination) · ChatGPT/Gemini/Claude · Prompt engineering · Verify with primary source · Cite usage · ห้าม upload PHI',
+    summary: 'NotebookLM (best for study notes, low hallucination), ChatGPT/Gemini/Claude, Prompt engineering, Verify with primary source, Cite usage, ห้าม upload PHI',
     sections: [
       {
         heading: 'AI Platforms — comparison',
@@ -24,10 +24,10 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Tool', 'Strengths', 'Best for'],
             rows: [
-              ['**ChatGPT** (OpenAI)', 'General purpose · conversational · web browse', 'Brainstorming · drafting · Q&A'],
-              ['**Gemini** (Google)', 'Multimodal · Google Search integration', 'Image-text tasks · current info'],
-              ['**Claude** (Anthropic)', 'Long context · careful reasoning', 'Complex analysis · long documents'],
-              ['**NotebookLM** ⭐', 'Document-grounded · cite from uploaded sources only', 'Study notes · clinical research · low hallucination'],
+              ['**ChatGPT** (OpenAI)', 'General purpose, conversational, web browse', 'Brainstorming, drafting, Q&A'],
+              ['**Gemini** (Google)', 'Multimodal, Google Search integration', 'Image-text tasks, current info'],
+              ['**Claude** (Anthropic)', 'Long context, careful reasoning', 'Complex analysis, long documents'],
+              ['**NotebookLM** ⭐', 'Document-grounded, cite from uploaded sources only', 'Study notes, clinical research, low hallucination'],
               ['Perplexity', 'Search-grounded answers + citation', 'Research with up-to-date info'],
             ] } },
         ],
@@ -52,7 +52,7 @@ export const NOTES_COM3 = {
           { bullets: [
             'Hallucination = AI generates **plausible-sounding but inaccurate** content',
             'Risk: drug doses, specific citations, statistics — can be made up',
-            'Mitigation: use document-grounded tools (NotebookLM) · verify all clinical facts',
+            'Mitigation: use document-grounded tools (NotebookLM), verify all clinical facts',
           ] },
           { callout: '⚠️ ห้าม trust AI สำหรับ drug doses, drug interactions, treatment protocols โดยไม่ verify', kind: 'warn' },
         ],
@@ -103,7 +103,7 @@ export const NOTES_COM3 = {
     title: 'Triage of Emergency Patients',
     lecturer: 'Chutirat Torsahakul',
     icon: '🚦',
-    summary: 'แบ่ง emergency: red/yellow/green · Primary survey ABCDE · 6 perfusion: mentation, MM, CRT, HR, pulse, extremity temp · Secondary survey เมื่อ stable',
+    summary: 'แบ่ง emergency: red/yellow/green, Primary survey ABCDE, 6 perfusion: mentation, MM, CRT, HR, pulse, extremity temp, Secondary survey เมื่อ stable',
     sections: [
       {
         heading: 'Approach to Emergency Patients',
@@ -112,7 +112,7 @@ export const NOTES_COM3 = {
           { bullets: [
             'Triage = ภาษาฝรั่งเศส "to sort"',
             'ขั้นตอน: Brief history → Primary survey → Triage decision → Resuscitation → Secondary survey',
-            { label: 'Triage หลัก 3 สี', value: '🔴 Red (immediate) · 🟡 Yellow (stable but critical) · 🟢 Green (รอได้ 24h)' },
+            { label: 'Triage หลัก 3 สี', value: '🔴 Red (immediate), 🟡 Yellow (stable but critical), 🟢 Green (รอได้ 24h)' },
           ] },
         ],
       },
@@ -123,11 +123,11 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Step', 'ตรวจอะไร'],
             rows: [
-              ['**A — Airway**', 'Patency · obstruction · stridor'],
-              ['**B — Breathing**', 'Pattern · rate · effort · paradoxical breathing · lung sound'],
+              ['**A — Airway**', 'Patency, obstruction, stridor'],
+              ['**B — Breathing**', 'Pattern, rate, effort, paradoxical breathing, lung sound'],
               ['**C — Circulation**', '6 perfusion params (ดูด้านล่าง)'],
-              ['**D — Dysfunction CNS**', 'Mentation level · pupils · seizure · response to pain'],
-              ['**E — Exposure**', 'Wound · trauma · UB distension · bleeding'],
+              ['**D — Dysfunction CNS**', 'Mentation level, pupils, seizure, response to pain'],
+              ['**E — Exposure**', 'Wound, trauma, UB distension, bleeding'],
             ] } },
         ],
       },
@@ -138,9 +138,9 @@ export const NOTES_COM3 = {
           { bullets: [
             '**Mentation** — alert / obtunded / stuporous / comatose',
             '**MM color** — pink (normal) / pale (vasoconstrict, anemia) / brick red (sepsis vasodilate) / cyanotic (hypoxemia) / icteric (hemolysis)',
-            '**CRT** — กดที่ inner lip 4s · normal 1-2s · prolonged > 2s = poor perfusion',
-            '**HR** — สุนัข shock = tachy · ⚠️ **แมว shock = brady** (paradox)',
-            '**Pulse quality** — bounding (sepsis signature) · thready (vasoconstriction) · normal (sys-dias gap)',
+            '**CRT** — กดที่ inner lip 4s, normal 1-2s, prolonged > 2s = poor perfusion',
+            '**HR** — สุนัข shock = tachy, ⚠️ **แมว shock = brady** (paradox)',
+            '**Pulse quality** — bounding (sepsis signature), thready (vasoconstriction), normal (sys-dias gap)',
             '**Extremity temp** — เย็นปลายมือ-เท้า = poor distal perfusion',
           ] },
         ],
@@ -168,7 +168,7 @@ export const NOTES_COM3 = {
             'Secondary survey: complete history + complete PE + problem list + plan',
             'Progress note → continual reassessment',
           ] },
-          { callout: 'RR > 30 ขณะ rest = abnormal · RR > 50 ตอนตื่นเต้น = abnormal', kind: 'tip' },
+          { callout: 'RR > 30 ขณะ rest = abnormal, RR > 50 ตอนตื่นเต้น = abnormal', kind: 'tip' },
         ],
       },
     ],
@@ -180,17 +180,17 @@ export const NOTES_COM3 = {
     title: 'SHOCK',
     lecturer: 'Chutirat Torsahakul',
     icon: '⚠️',
-    summary: '5 types: hypovolemic / cardiogenic / obstructive / distributive / metabolic-hypoxic · Goal: detect early + restore O₂ delivery · Fluid ช่วยทุก type ยกเว้น cardiogenic',
+    summary: '5 types: hypovolemic / cardiogenic / obstructive / distributive / metabolic-hypoxic, Goal: detect early + restore O₂ delivery, Fluid ช่วยทุก type ยกเว้น cardiogenic',
     sections: [
       {
         heading: 'Definition',
         source: 'SHOCK 1 hr.pdf + master p.15',
         body: [
           'Shock = tissue ขาด O₂ จาก imbalance ระหว่าง O₂ delivery (DO₂) และ consumption (VO₂)',
-          'ATP ลด → cell ตาย → organ failure → death · Detection ให้เร็วที่สุด',
+          'ATP ลด → cell ตาย → organ failure → death, Detection ให้เร็วที่สุด',
           { bullets: [
-            'DO₂ formula: CaO₂ × CO · CaO₂ = (1.34 × Hb × SaO₂) + (0.003 × PaO₂)',
-            'Factors affecting DO₂: SV · HR · Hb · SaO₂',
+            'DO₂ formula: CaO₂ × CO, CaO₂ = (1.34 × Hb × SaO₂) + (0.003 × PaO₂)',
+            'Factors affecting DO₂: SV, HR, Hb, SaO₂',
           ] },
         ],
       },
@@ -201,11 +201,11 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Type', 'กลไก', 'ตัวอย่าง'],
             rows: [
-              ['**Hypovolemic** (cold shock)', 'Volume ↓ → VR ↓ → CO ↓', 'Hemorrhage · severe vomit/diarrhea · 3rd-spacing'],
-              ['**Cardiogenic** (forward failure)', 'Pump failure → SV ↓ → DO₂ ↓ · ⚠️ fluid ทำให้แย่ลง', 'DCM, HCM · arrhythmia · valve dz · tamponade'],
-              ['**Obstructive**', 'Block ขัดการไหลเวียน → VR/CO ↓', 'GDV · pericardial effusion · tension pneumothorax · PE · ATE'],
-              ['**Distributive** (warm shock)', 'NO/cytokines → vasodilation → VR ↓', 'Sepsis · SIRS · anaphylaxis'],
-              ['**Metabolic / Hypoxic**', 'O₂ delivery ปกติแต่ใช้ไม่ได้ / Hb ขนส่งไม่พอ', 'Cyanide · hypoglycemia (metabolic) · anemia · pneumonia (hypoxic)'],
+              ['**Hypovolemic** (cold shock)', 'Volume ↓ → VR ↓ → CO ↓', 'Hemorrhage, severe vomit/diarrhea, 3rd-spacing'],
+              ['**Cardiogenic** (forward failure)', 'Pump failure → SV ↓ → DO₂ ↓, ⚠️ fluid ทำให้แย่ลง', 'DCM, HCM, arrhythmia, valve dz, tamponade'],
+              ['**Obstructive**', 'Block ขัดการไหลเวียน → VR/CO ↓', 'GDV, pericardial effusion, tension pneumothorax, PE, ATE'],
+              ['**Distributive** (warm shock)', 'NO/cytokines → vasodilation → VR ↓', 'Sepsis, SIRS, anaphylaxis'],
+              ['**Metabolic / Hypoxic**', 'O₂ delivery ปกติแต่ใช้ไม่ได้ / Hb ขนส่งไม่พอ', 'Cyanide, hypoglycemia (metabolic), anemia, pneumonia (hypoxic)'],
             ] } },
         ],
       },
@@ -222,7 +222,7 @@ export const NOTES_COM3 = {
                 'WBC สูง / ต่ำ / band ↑',
               ] },
             ] },
-          { sub: 'Sepsis = SIRS + infection · Septic shock = sepsis + hypotension (MAP ≤ 65) + lactate > 2 mmol/L + hypoperfusion',
+          { sub: 'Sepsis = SIRS + infection, Septic shock = sepsis + hypotension (MAP ≤ 65) + lactate > 2 mmol/L + hypoperfusion',
             body: [
               { bullets: [
                 'Common: gram-negative (E. coli)',
@@ -250,11 +250,11 @@ export const NOTES_COM3 = {
         source: 'SHOCK 1 hr.pdf p.17',
         body: [
           { bullets: [
-            'PE: HR · RR · pulse · CRT · mentation · MM · temp · SBP',
+            'PE: HR, RR, pulse, CRT, mentation, MM, temp, SBP',
             'CBC + chem + lactate + electrolyte + blood gas + glucose',
-            { label: 'Lactate', value: '> 2.5 mmol/L = hyperlactatemia · type A (poor perfusion) · type B (cellular dysfunction)' },
-            { label: 'Shock Index (SI)', value: 'SI = HR / SBP · normal 0.9-1.0 · > 1 → suspect shock' },
-            { label: 'ScvO₂', value: 'normal 65-75% · < 65% → poor perfusion (ทำยาก ไม่ค่อยใช้)' },
+            { label: 'Lactate', value: '> 2.5 mmol/L = hyperlactatemia, type A (poor perfusion), type B (cellular dysfunction)' },
+            { label: 'Shock Index (SI)', value: 'SI = HR / SBP, normal 0.9-1.0, > 1 → suspect shock' },
+            { label: 'ScvO₂', value: 'normal 65-75%, < 65% → poor perfusion (ทำยาก ไม่ค่อยใช้)' },
           ] },
         ],
       },
@@ -272,8 +272,8 @@ export const NOTES_COM3 = {
           { sub: 'Fluid therapy — first choice (ยกเว้น cardiogenic)',
             body: [
               { bullets: [
-                '**Crystalloid** (LRS, NSS) — bolus 60-90 ml/kg dog · 30-60 ml/kg cat (titrate by response)',
-                '**Hypertonic saline 7%** — 4 ml/kg ใน 5-10 min — ใช้ปริมาณน้อย แต่ดึง fluid เข้า vasc · ตามด้วย crystalloid',
+                '**Crystalloid** (LRS, NSS) — bolus 60-90 ml/kg dog, 30-60 ml/kg cat (titrate by response)',
+                '**Hypertonic saline 7%** — 4 ml/kg ใน 5-10 min — ใช้ปริมาณน้อย แต่ดึง fluid เข้า vasc, ตามด้วย crystalloid',
                 '**Colloid** (HES) — controversial — ทำให้ stay in vasc นานกว่า',
                 'Goal: HR < 150, SBP > 90, lactate ↓',
               ] },
@@ -281,15 +281,15 @@ export const NOTES_COM3 = {
           { sub: 'Vasopressor + Inotrope (cardiogenic / refractory)',
             body: [
               { bullets: [
-                '**Norepinephrine** — α-agonist · vasoconstriction · ใช้บ่อยใน septic shock (SAP < 80, MAP < 60)',
-                '**Dopamine** — α + β · ผลทั้งหัวใจและหลอดเลือด',
-                '**Dobutamine** — β1 specific · inotrope (cardiogenic shock)',
+                '**Norepinephrine** — α-agonist, vasoconstriction, ใช้บ่อยใน septic shock (SAP < 80, MAP < 60)',
+                '**Dopamine** — α + β, ผลทั้งหัวใจและหลอดเลือด',
+                '**Dobutamine** — β1 specific, inotrope (cardiogenic shock)',
               ] },
             ] },
           { sub: 'Additional',
             body: [
               { bullets: [
-                'Diuretics: Furosemide (cardiogenic + back failure) · Mannitol (osmotic)',
+                'Diuretics: Furosemide (cardiogenic + back failure), Mannitol (osmotic)',
                 'ABO if septic: broad-spectrum within 1 hr',
                 'Glucose 0.25-0.5 g/kg IV ถ้า hypoglycemic',
                 'Gastroprotectant (sucralfate, H2-blocker, PPI) — gut mucosa damage',
@@ -309,7 +309,7 @@ export const NOTES_COM3 = {
     title: 'CPCR (Cardiopulmonary Cerebral Resuscitation)',
     lecturer: 'Chutirat Torsahakul',
     icon: '❤️',
-    summary: 'RECOVER guidelines: compression 100-120/min, depth 1/3-1/2 chest · 30:2 (no ETT) · Epi 0.01 mg/kg q3-5min · shockable = VF/pulseless VT',
+    summary: 'RECOVER guidelines: compression 100-120/min, depth 1/3-1/2 chest, 30:2 (no ETT), Epi 0.01 mg/kg q3-5min, shockable = VF/pulseless VT',
     sections: [
       {
         heading: 'Recognition + Team',
@@ -319,9 +319,9 @@ export const NOTES_COM3 = {
             'Detect within < 10s — CAB assessment (Consciousness, Airway, Breathing)',
             'Apnea / agonal breathing = arrest — ห้ามรอดู pulse',
             'Team setup: 4 คน — leader + chest compression + airway + meds/monitoring',
-            'CPR training every 6 months · closed-loop communication',
+            'CPR training every 6 months, closed-loop communication',
           ] },
-          { callout: 'ถ้าอยู่คนเดียว: pump ก่อน · ถ้ามีจนท. ส่ง history และ prepare crash cart', kind: 'tip' },
+          { callout: 'ถ้าอยู่คนเดียว: pump ก่อน, ถ้ามีจนท. ส่ง history และ prepare crash cart', kind: 'tip' },
         ],
       },
       {
@@ -334,7 +334,7 @@ export const NOTES_COM3 = {
                 '**Cardiac pump theory** — สุนัขอกแคบ, แมว, small breed → กดตรงๆ over heart',
                 '**Thoracic pump theory** — round chest (Rottweiler, Retriever) → กดตำแหน่งสูงสุดของ rib',
                 'Ventral abdomen: rib 4-6 (1/3 จาก ventral)',
-                'Sholder กับศอกแนวเดียว · เปลี่ยนคนทุก 2 นาที',
+                'Sholder กับศอกแนวเดียว, เปลี่ยนคนทุก 2 นาที',
                 '"Full chest wall recoil" — กดแล้วรอให้อก expand เต็มที่ก่อนกดต่อ',
               ] },
             ] },
@@ -357,26 +357,26 @@ export const NOTES_COM3 = {
             body: [
               { bullets: [
                 '**ECG** — ดูตอนเปลี่ยนคน (ตอนกดดูไม่ได้)',
-                '**EtCO₂ (capnography)** — goal **> 18 mmHg** · โดดขึ้น 40 mmHg = ROSC',
+                '**EtCO₂ (capnography)** — goal **> 18 mmHg**, โดดขึ้น 40 mmHg = ROSC',
                 'Femoral pulse — ตรวจ ROSC ตอน rotate (ไม่ใช่ during arrest)',
               ] },
             ] },
           { sub: 'Vascular access',
             body: [
               { bullets: [
-                'Cephalic vein (ขาหน้า) ดีกว่า · ไม่เจอ → IO (intraosseous) ในลูกสุนัขเล็ก · สุดท้าย → intratracheal (dose 2x)',
+                'Cephalic vein (ขาหน้า) ดีกว่า, ไม่เจอ → IO (intraosseous) ในลูกสุนัขเล็ก, สุดท้าย → intratracheal (dose 2x)',
               ] },
             ] },
           { sub: 'Drugs',
             body: [
               { bullets: [
-                '**Low-dose Epinephrine 0.01 mg/kg IV q3-5 min** (cycle เว้น cycle) · vasopressor → DBP ↑',
-                '**Atropine 0.04 mg/kg** ในกรณี vagal tone เด่น (vomit, GI obstruction) · ไม่ใช่ทุก case · 1 cycle เดียว (อยู่นาน)',
-                '**Reversal**: Naloxone (opioid) · Flumazenil (benzo) · Atipamezole/Yohimbine (α2)',
-                '**NaHCO₃** IV ถ้า CPA > 15 min · acidosis pH < 7.2 (ให้ได้เลยไม่ต้องรอ blood gas)',
+                '**Low-dose Epinephrine 0.01 mg/kg IV q3-5 min** (cycle เว้น cycle), vasopressor → DBP ↑',
+                '**Atropine 0.04 mg/kg** ในกรณี vagal tone เด่น (vomit, GI obstruction), ไม่ใช่ทุก case, 1 cycle เดียว (อยู่นาน)',
+                '**Reversal**: Naloxone (opioid), Flumazenil (benzo), Atipamezole/Yohimbine (α2)',
+                '**NaHCO₃** IV ถ้า CPA > 15 min, acidosis pH < 7.2 (ให้ได้เลยไม่ต้องรอ blood gas)',
                 '**Lidocaine** (ในสุนัข) — refractory shockable rhythm',
                 '**Amiodarone** (ในแมว) — VF refractory',
-                'IV fluid ใช้ตอน flush ยา · ถ้า arrest จาก hypovolemia → bolus',
+                'IV fluid ใช้ตอน flush ยา, ถ้า arrest จาก hypovolemia → bolus',
               ] },
             ] },
         ],
@@ -388,12 +388,12 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Rhythm', 'Treatment'],
             rows: [
-              ['**Asystole** (no electrical, no mechanical)', 'Epinephrine + CPR · ห้าม shock'],
-              ['**PEA** (electrical OK, no mechanical · HR < 50)', 'Epinephrine + CPR · ห้าม shock'],
+              ['**Asystole** (no electrical, no mechanical)', 'Epinephrine + CPR, ห้าม shock'],
+              ['**PEA** (electrical OK, no mechanical, HR < 50)', 'Epinephrine + CPR, ห้าม shock'],
               ['**VF** (chaotic, no QRS)', '**Defibrillate 2-4 J/kg biphasic** + CPR + epi + lidocaine'],
               ['**Pulseless VT** (HR > 200, wide QRS, no pulse)', '**Defibrillate** + CPR + lidocaine/amiodarone'],
             ] } },
-          { callout: 'Pre-shock: โกนขน + electrode gel · ห้ามใช้ alcohol (ติดไฟ) · พูด "CLEAR!" ทุกคนถอยก่อน shock', kind: 'warn' },
+          { callout: 'Pre-shock: โกนขน + electrode gel, ห้ามใช้ alcohol (ติดไฟ), พูด "CLEAR!" ทุกคนถอยก่อน shock', kind: 'warn' },
         ],
       },
       {
@@ -417,7 +417,7 @@ export const NOTES_COM3 = {
     title: 'Acute Abdomen',
     lecturer: 'Chutirat Torsahakul',
     icon: '🩺',
-    summary: 'ปวดท้องเฉียบพลัน · 8-step approach: recognize → triage → minimum DB → AFAST → primary tx → complete H&PE → secondary survey → categorize',
+    summary: 'ปวดท้องเฉียบพลัน, 8-step approach: recognize → triage → minimum DB → AFAST → primary tx → complete H&PE → secondary survey → categorize',
     sections: [
       {
         heading: 'Causes',
@@ -426,13 +426,13 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['System', 'Conditions'],
             rows: [
-              ['GI tract', 'GDV · gastroenteritis · obstruction · perforation · ulcer · neoplasia · intussusception · intestinal torsion'],
+              ['GI tract', 'GDV, gastroenteritis, obstruction, perforation, ulcer, neoplasia, intussusception, intestinal torsion'],
               ['Pancreas', '**Acute pancreatitis** (ทำให้เกิด SIRS)'],
-              ['Hepatobiliary', 'Bile rupture/obstruction · biliary mucocele · hepatic abscess · liver lobe torsion'],
-              ['Spleen', 'Splenic mass · neoplasia · thrombosis · torsion · hematoma'],
-              ['Repro', 'Pyometra · uterine rupture/torsion · prostatic abscess · testicular torsion'],
-              ['Urinary', 'Urolithiasis · UB rupture · cystitis · kidney issue · obstruction'],
-              ['Peritoneal', 'Hemoperitoneum · uroperitoneum · bile peritonitis · septic peritonitis · pneumoperitoneum'],
+              ['Hepatobiliary', 'Bile rupture/obstruction, biliary mucocele, hepatic abscess, liver lobe torsion'],
+              ['Spleen', 'Splenic mass, neoplasia, thrombosis, torsion, hematoma'],
+              ['Repro', 'Pyometra, uterine rupture/torsion, prostatic abscess, testicular torsion'],
+              ['Urinary', 'Urolithiasis, UB rupture, cystitis, kidney issue, obstruction'],
+              ['Peritoneal', 'Hemoperitoneum, uroperitoneum, bile peritonitis, septic peritonitis, pneumoperitoneum'],
             ] } },
         ],
       },
@@ -453,7 +453,7 @@ export const NOTES_COM3 = {
         heading: 'AFAST 4-point scan',
         source: 'Acute Abdomen 1 hr.pdf p.22',
         body: [
-          'นอน Right lateral · probe ฝั่งซ้าย · 4 จุด:',
+          'นอน Right lateral, probe ฝั่งซ้าย, 4 จุด:',
           { table: {
             headers: ['Site', 'Visualize'],
             rows: [
@@ -462,7 +462,7 @@ export const NOTES_COM3 = {
               ['**CC** (cystocolic)', 'UB + colon'],
               ['**HR** (hepatorenal)', 'Liver + R kidney'],
             ] } },
-          'Score แต่ละจุด: 0 (no fluid) · 1 (มี fluid เล็กน้อย) · 2-3 · 4 (เยอะมาก) — sum = AFS · sensitive แต่ specificity ต่ำ',
+          'Score แต่ละจุด: 0 (no fluid), 1 (มี fluid เล็กน้อย), 2-3, 4 (เยอะมาก) — sum = AFS, sensitive แต่ specificity ต่ำ',
         ],
       },
       {
@@ -472,9 +472,9 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Type', 'Diagnostic finding'],
             rows: [
-              ['**Hemoabdomen**', 'Fluid PCV ≈ Blood PCV · ไม่ clot (factors used)'],
-              ['**Uroabdomen**', 'Fluid Cr : Serum Cr **> 2 : 1** · K+ ratio: dog > 1.4, cat > 1.9'],
-              ['**Septic peritonitis**', 'Degenerate neutrophil ± bacteria · **Fluid glucose < 50 mg/dL** OR fluid-blood glucose gap > 20'],
+              ['**Hemoabdomen**', 'Fluid PCV ≈ Blood PCV, ไม่ clot (factors used)'],
+              ['**Uroabdomen**', 'Fluid Cr : Serum Cr **> 2 : 1**, K+ ratio: dog > 1.4, cat > 1.9'],
+              ['**Septic peritonitis**', 'Degenerate neutrophil ± bacteria, **Fluid glucose < 50 mg/dL** OR fluid-blood glucose gap > 20'],
               ['**Bile peritonitis**', 'Bilirubin in fluid > 2 × serum'],
               ['**Food material**', 'GI perforation'],
               ['**Neoplastic cells**', 'Cytology — malignant cells (ระบุ type ยาก)'],
@@ -488,9 +488,9 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Category', 'Conditions'],
             rows: [
-              ['**Non-surgical (medical)**', 'Acute pancreatitis · gastroenteritis without perforation'],
-              ['**Emergent (urgent surgery)**', 'CV-stable hemoabdomen · GI obstruction without peritonitis · uroabdomen with placed catheter'],
-              ['**Critical (immediate surgery)**', '**GDV** · mesenteric torsion · **septic peritonitis** · uncontrolled hemorrhage'],
+              ['**Non-surgical (medical)**', 'Acute pancreatitis, gastroenteritis without perforation'],
+              ['**Emergent (urgent surgery)**', 'CV-stable hemoabdomen, GI obstruction without peritonitis, uroabdomen with placed catheter'],
+              ['**Critical (immediate surgery)**', '**GDV**, mesenteric torsion, **septic peritonitis**, uncontrolled hemorrhage'],
             ] } },
         ],
       },
@@ -499,8 +499,8 @@ export const NOTES_COM3 = {
         source: 'Acute Abdomen 1 hr.pdf p.23',
         body: [
           { bullets: [
-            '**1st line: Opioids** — fentanyl, morphine, buprenorphine · safe ใน renal/hepatic',
-            'Moderate-severe: loading dose opioid + titrate · ถ้าไม่พอ → MLK/FLK CRI (Morphine/Fentanyl + Lidocaine + Ketamine)',
+            '**1st line: Opioids** — fentanyl, morphine, buprenorphine, safe ใน renal/hepatic',
+            'Moderate-severe: loading dose opioid + titrate, ถ้าไม่พอ → MLK/FLK CRI (Morphine/Fentanyl + Lidocaine + Ketamine)',
             'Local: epidural, intra-pleural, acupuncture',
             '⚠️ NSAIDs **contraindicated** ใน acute abdomen (GI/renal/hepatic risk)',
           ] },
@@ -538,16 +538,16 @@ export const NOTES_COM3 = {
           { sub: 'Cardiogenic (left-sided HF)',
             body: [
               { bullets: [
-                'Pink frothy sputum · soft murmur · gallop rhythm · cardiomegaly',
-                'Tx: **Furosemide 1-4 mg/kg IV bolus** · ทำซ้ำหรือ CRI · O₂ supplement · minimize stress',
+                'Pink frothy sputum, soft murmur, gallop rhythm, cardiomegaly',
+                'Tx: **Furosemide 1-4 mg/kg IV bolus**, ทำซ้ำหรือ CRI, O₂ supplement, minimize stress',
                 '⚠️ **ห้าม IV crystalloid** — ทำให้แย่ลง',
               ] },
             ] },
           { sub: 'Non-cardiogenic',
             body: [
               { bullets: [
-                'Causes: electrocution · choking/upper airway obstruction · neuro (seizure)',
-                'Tx: O₂ + ventilation + supportive · resolve ส่วนใหญ่ภายใน 24-48 hr',
+                'Causes: electrocution, choking/upper airway obstruction, neuro (seizure)',
+                'Tx: O₂ + ventilation + supportive, resolve ส่วนใหญ่ภายใน 24-48 hr',
               ] },
             ] },
         ],
@@ -578,8 +578,8 @@ export const NOTES_COM3 = {
         body: [
           { bullets: [
             'Pericardial effusion compress heart → ลด cardiac filling',
-            'Clinical: muffled heart sound · pulsus paradoxus · jugular distension · ascites · weak pulse',
-            'Common cause: hemangiosarcoma (right atrial/auricular) · idiopathic · neoplasia',
+            'Clinical: muffled heart sound, pulsus paradoxus, jugular distension, ascites, weak pulse',
+            'Common cause: hemangiosarcoma (right atrial/auricular), idiopathic, neoplasia',
             'Tx: **Pericardiocentesis ASAP** (right 5-6 IC, level of CCJ)',
           ] },
         ],
@@ -591,9 +591,9 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Arrhythmia', 'First-line'],
             rows: [
-              ['**Sustained / unstable VT**', '**Lidocaine 2 mg/kg IV bolus** (dog) · 0.25 mg/kg cat (ระวัง!) · CRI 25-75 μg/kg/min'],
+              ['**Sustained / unstable VT**', '**Lidocaine 2 mg/kg IV bolus** (dog), 0.25 mg/kg cat (ระวัง!), CRI 25-75 μg/kg/min'],
               ['**Symptomatic bradycardia**', '**Atropine 0.04 mg/kg IV/IM**'],
-              ['**SVT** (supraventricular tachy)', 'Vagal maneuver · Diltiazem 0.05-0.25 mg/kg slow IV'],
+              ['**SVT** (supraventricular tachy)', 'Vagal maneuver, Diltiazem 0.05-0.25 mg/kg slow IV'],
               ['**Atrial fibrillation**', 'Diltiazem (rate control)'],
               ['**3rd degree AV block**', 'Pacemaker (refractory to atropine)'],
             ] } },
@@ -608,14 +608,14 @@ export const NOTES_COM3 = {
     title: 'Emergency Anesthesia',
     lecturer: 'Assoc.Prof. Sumit Durongphongtorn',
     icon: '😴',
-    summary: 'Stabilize first · ห้าม α2-agonist + propofol ใน hypovolemic shock · เลือก: opioid + benzo + ketamine/etomidate · IPPV ETCO₂ 38-42 mmHg',
+    summary: 'Stabilize first, ห้าม α2-agonist + propofol ใน hypovolemic shock, เลือก: opioid + benzo + ketamine/etomidate, IPPV ETCO₂ 38-42 mmHg',
     sections: [
       {
         heading: 'Pre-anesthesia stabilization',
         source: 'Animal_Emerg_Anes 1 hr.pdf + master p.46',
         body: [
           { bullets: [
-            'Stabilize ก่อน → BP > 90 mmHg · HR < 150 · PCV ≥ 20% · TS ≥ 4 g/dL',
+            'Stabilize ก่อน → BP > 90 mmHg, HR < 150, PCV ≥ 20%, TS ≥ 4 g/dL',
             'Pain control + monitor + correct electrolyte/acid-base',
             'IPPV pre-O₂ก่อน induct',
           ] },
@@ -637,9 +637,9 @@ export const NOTES_COM3 = {
             body: [
               { bullets: [
                 'Premed: benzo + opioid',
-                'Induction: benzo + ketamine · poor — fentanyl + midazolam ± low-dose ketamine',
+                'Induction: benzo + ketamine, poor — fentanyl + midazolam ± low-dose ketamine',
                 'หลีก propofol — affects CV',
-                'Maintain: inhalant + fentanyl CRI (ลด MAC) · dopamine (BP) · lidocaine (V-arrhythmia)',
+                'Maintain: inhalant + fentanyl CRI (ลด MAC), dopamine (BP), lidocaine (V-arrhythmia)',
                 'Post-op: ECG monitor (เสี่ยง arrhythmia)',
               ] },
             ] },
@@ -650,9 +650,9 @@ export const NOTES_COM3 = {
         source: 'Animal_Emerg_Anes 1 hr.pdf + master p.46',
         body: [
           { bullets: [
-            '**HyperK ก่อน sedation** — Ca gluconate stabilize myocardium · dextrose+insulin shift K · fluid',
+            '**HyperK ก่อน sedation** — Ca gluconate stabilize myocardium, dextrose+insulin shift K, fluid',
             'Sedate: ketamine + benzo + buprenorphine',
-            'Maintain: inhalation + IPPV (PaCO₂ 38-42) · ป้องกัน respiratory acidosis (จะเพิ่ม K)',
+            'Maintain: inhalation + IPPV (PaCO₂ 38-42), ป้องกัน respiratory acidosis (จะเพิ่ม K)',
             '⚠️ NSAIDs contraindicated (renal compromise)',
           ] },
         ],
@@ -662,13 +662,13 @@ export const NOTES_COM3 = {
         source: 'Animal_Emerg_Anes 1 hr.pdf + master p.46',
         body: [
           { bullets: [
-            'PG สูง → prolong sedative effect · ใช้ยาน้อยลง',
+            'PG สูง → prolong sedative effect, ใช้ยาน้อยลง',
             'Functional residual capacity ลด — preoxygenate + careful induction',
             'Premed: หลีก α2 (xylazine, dexmed) — depress fetus',
-            'Induction: propofol / alfaxalone (ออกฤทธิ์เร็ว) · ketamine ถ้าออกนาน',
+            'Induction: propofol / alfaxalone (ออกฤทธิ์เร็ว), ketamine ถ้าออกนาน',
             'Maintain: inhalant + IPPV',
             '**ระวัง regurgitation + aspiration** (อุ้งกรอบ esophagus + pelvic press)',
-            'Post: morphine epidural · opioid + NSAIDs (BW OK + MBP > 60)',
+            'Post: morphine epidural, opioid + NSAIDs (BW OK + MBP > 60)',
           ] },
         ],
       },
@@ -691,13 +691,13 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Class', 'Drug', 'Use in ER'],
             rows: [
-              ['Anticholinergic', 'Atropine, Glycopyrrolate', 'แก้ bradycardia · block parasym'],
-              ['Opioid', 'Morphine, Fentanyl, Pethidine', 'Premed + analgesia · safe in shock'],
+              ['Anticholinergic', 'Atropine, Glycopyrrolate', 'แก้ bradycardia, block parasym'],
+              ['Opioid', 'Morphine, Fentanyl, Pethidine', 'Premed + analgesia, safe in shock'],
               ['α2-agonist', 'Xylazine, Dexmedetomidine', '⚠️ ห้ามใน shock / heart dz / pregnancy'],
-              ['Benzodiazepine', 'Diazepam, Midazolam', 'Sedation + muscle relax · ใช้คู่ opioid'],
+              ['Benzodiazepine', 'Diazepam, Midazolam', 'Sedation + muscle relax, ใช้คู่ opioid'],
               ['Acepromazine', '—', '⚠️ ห้าม shock / hypotensive / anemic (vasodilate)'],
-              ['Ketamine', '—', 'Dissociative — เพิ่ม BP/HR · ใช้ใน shock ได้'],
-              ['Propofol', '—', '⚠️ Vasodilate — ใช้ low dose · ไม่ใช่ใน hypovolemia'],
+              ['Ketamine', '—', 'Dissociative — เพิ่ม BP/HR, ใช้ใน shock ได้'],
+              ['Propofol', '—', '⚠️ Vasodilate — ใช้ low dose, ไม่ใช่ใน hypovolemia'],
             ] } },
         ],
       },
@@ -710,7 +710,7 @@ export const NOTES_COM3 = {
     title: 'Metabolic / Endocrine / UT Emergency',
     lecturer: 'Chutirat Torsahakul',
     icon: '💊',
-    summary: 'DKA: rehydrate + correct K → CRI insulin · Addisonian: hyperK + hypoNa · Urethral obstruct: stabilize K ก่อน sedate · AKI: avoid NSAIDs/aminoglycoside.',
+    summary: 'DKA: rehydrate + correct K → CRI insulin, Addisonian: hyperK + hypoNa, Urethral obstruct: stabilize K ก่อน sedate, AKI: avoid NSAIDs/aminoglycoside.',
     sections: [
       {
         heading: 'Diabetic Ketoacidosis (DKA)',
@@ -721,36 +721,36 @@ export const NOTES_COM3 = {
               { bullets: [
                 'Severe DM → fat catabolism → **ketones** (acetoacetic, β-hydroxybutyrate, acetone)',
                 'Glucosuria → super-diuresis → polyuria + dehydration',
-                'Acidosis (ketoacidosis + lactic) · hyperviscosity',
+                'Acidosis (ketoacidosis + lactic), hyperviscosity',
               ] },
             ] },
           { sub: 'Common predisposing — 2 โรคคู่',
             body: [
               { bullets: [
-                'Dog: **Pancreatitis · UTI · Cushing**',
-                'Cat: **Pancreatitis · CKD · neoplasia · infection**',
+                'Dog: **Pancreatitis, UTI, Cushing**',
+                'Cat: **Pancreatitis, CKD, neoplasia, infection**',
               ] },
             ] },
           { sub: 'Lab',
             body: [
               { bullets: [
                 'Hyperglycemia + glucosuria + ketonuria + ketonemia',
-                'Metabolic acidosis · hypoK (จาก polyuria) หรือ pseudo-hyperK (acidosis shift)',
-                'Pre-renal azotemia · hypophosphatemia',
+                'Metabolic acidosis, hypoK (จาก polyuria) หรือ pseudo-hyperK (acidosis shift)',
+                'Pre-renal azotemia, hypophosphatemia',
               ] },
             ] },
           { sub: 'Treatment order ⚠️ (สำคัญ!)',
             body: [
               { bullets: [
-                '1. **Rehydrate ก่อน** — NSS IV bolus 4 hr · perfusion ↑ → carry insulin',
+                '1. **Rehydrate ก่อน** — NSS IV bolus 4 hr, perfusion ↑ → carry insulin',
                 '2. **Replace K**ก่อน insulin — insulin shifts K into cell → fatal hypoK',
-                '3. **Insulin CRI** — Regular insulin · dog 2.2 U/kg/d · cat 1.1 U/kg/d · IM ก็ได้ · **ห้าม SC**',
+                '3. **Insulin CRI** — Regular insulin, dog 2.2 U/kg/d, cat 1.1 U/kg/d, IM ก็ได้, **ห้าม SC**',
                 '4. Coating: ทิ้ง insulin 50 ml ของ tube (ติด plastic)',
-                '5. Monitor: glucose q1-2h · UOP q2-4h · K/Na/P q4-24h · neuro q12-24h',
+                '5. Monitor: glucose q1-2h, UOP q2-4h, K/Na/P q4-24h, neuro q12-24h',
               ] },
             ] },
-          { callout: '⚠️ Cerebral edema — แก้ glucose เร็วเกิน → idiogenic osmoles → fluid เข้า cell สมอง · ลด glucose ช้าๆ', kind: 'warn' },
-          { callout: '⚠️ Hypophosphatemia — phosphate ต่ำมาก → hemolysis (RBC ขาด ATP) · monitor และ replace', kind: 'warn' },
+          { callout: '⚠️ Cerebral edema — แก้ glucose เร็วเกิน → idiogenic osmoles → fluid เข้า cell สมอง, ลด glucose ช้าๆ', kind: 'warn' },
+          { callout: '⚠️ Hypophosphatemia — phosphate ต่ำมาก → hemolysis (RBC ขาด ATP), monitor และ replace', kind: 'warn' },
         ],
       },
       {
@@ -760,7 +760,7 @@ export const NOTES_COM3 = {
           { sub: 'Pathophysiology',
             body: [
               { bullets: [
-                'Glucocorticoid deficiency → glucose ลด · catecholamine impair · vasodilate · hypotension',
+                'Glucocorticoid deficiency → glucose ลด, catecholamine impair, vasodilate, hypotension',
                 'Mineralocorticoid deficiency → Na+ ↓, K+ ↑, Cl- ↓',
                 '**K+ > 7** → bradycardia, no P wave, prolonged QRS',
                 '**Na+ < 132** → hypovolemic shock + cerebral edema',
@@ -769,15 +769,15 @@ export const NOTES_COM3 = {
           { sub: 'Lab — classic',
             body: [
               { bullets: [
-                'HypoNa + hyperK + hypoCl · **Na : K ratio < 25** (suspect, < 20 strong)',
-                'Hypoglycemia · prerenal azotemia · metabolic acidosis · mild anemia',
+                'HypoNa + hyperK + hypoCl, **Na : K ratio < 25** (suspect, < 20 strong)',
+                'Hypoglycemia, prerenal azotemia, metabolic acidosis, mild anemia',
               ] },
             ] },
           { sub: 'Confirm',
             body: [
               { bullets: [
                 '**ACTH stimulation test**: baseline cortisol + ACTH 5 μg/kg IV → cortisol ที่ 1 hr',
-                'Normal: cortisol stim ≥ 7-15 μg/dL · Addison: < 2 μg/dL no rise',
+                'Normal: cortisol stim ≥ 7-15 μg/dL, Addison: < 2 μg/dL no rise',
               ] },
             ] },
           { sub: 'Treatment',
@@ -785,7 +785,7 @@ export const NOTES_COM3 = {
               { bullets: [
                 'IV NSS — correct hypovolemic shock (severe — bolus)',
                 'Hyponatremia correction **ช้าๆ** — Na↑ < 0.5 mEq/L/hr (กัน pontine myelinolysis)',
-                'HyperK: Ca gluconate 0.5-1 ml/kg slow IV (cardiac) · dextrose+insulin shift K · NaHCO₃',
+                'HyperK: Ca gluconate 0.5-1 ml/kg slow IV (cardiac), dextrose+insulin shift K, NaHCO₃',
                 '**Dexamethasone IV** — ไม่ interfere ACTH test',
                 'Maintain: prednisolone PO + fludrocortisone acetate (mineralocorticoid)',
               ] },
@@ -797,9 +797,9 @@ export const NOTES_COM3 = {
         source: 'master p.34',
         body: [
           { bullets: [
-            'พบบ่อย: dog (urolithiasis) · cat (FLUTD)',
+            'พบบ่อย: dog (urolithiasis), cat (FLUTD)',
             'Pathophys: GFR ↓ → uremic + hyperK + acidosis',
-            'Clinical: stranguria · vocalization · hyperK arrhythmia',
+            'Clinical: stranguria, vocalization, hyperK arrhythmia',
             { label: 'Stabilize order', value: '1. Cystocentesis (decompress) → 2. IV fluid (NSS) → 3. Correct hyperK (Ca gluconate, dextrose+insulin) → 4. Sedate + catheterize' },
             'Post-obstructive **diuresis** — UOP เพิ่มมาก ต้องให้ fluid ตาม',
           ] },
@@ -813,8 +813,8 @@ export const NOTES_COM3 = {
             body: [
               { bullets: [
                 '**Pre-renal**: dehydration, shock, sepsis',
-                '**Intrinsic**: NSAIDs · aminoglycoside · ethylene glycol (antifreeze) · raisin/lily (cat) · leptospirosis',
-                '**Post-renal**: urethral obstruction · UB rupture · ureteroliths',
+                '**Intrinsic**: NSAIDs, aminoglycoside, ethylene glycol (antifreeze), raisin/lily (cat), leptospirosis',
+                '**Post-renal**: urethral obstruction, UB rupture, ureteroliths',
               ] },
             ] },
           { sub: '3 phases',
@@ -828,12 +828,12 @@ export const NOTES_COM3 = {
             body: [
               { bullets: [
                 'Fluid therapy (avoid overload — monitor body weight + UOP)',
-                'NaHCO₃ if metabolic acidosis · electrolyte correction',
-                'Diuretics: Mannitol 0.5 g/kg IV · Furosemide CRI',
+                'NaHCO₃ if metabolic acidosis, electrolyte correction',
+                'Diuretics: Mannitol 0.5 g/kg IV, Furosemide CRI',
                 'Vasodilator: low-dose dopamine (controversial)',
                 'Antiemetic + H2-blocker + PPI + sucralfate',
                 'Refractory: peritoneal dialysis or hemodialysis',
-                '⚠️ **ห้าม NSAIDs · aminoglycosides** (gentamicin) — nephrotoxic',
+                '⚠️ **ห้าม NSAIDs, aminoglycosides** (gentamicin) — nephrotoxic',
               ] },
             ] },
         ],
@@ -861,14 +861,14 @@ export const NOTES_COM3 = {
     title: 'Nutrition in Critical Illness',
     lecturer: 'Chutirat Torsahakul',
     icon: '🥣',
-    summary: 'RER = 30(BW) + 70 (3-25 kg) · Stress starvation: hypermetabolic, protein catabolism · Enteral > parenteral · Tube selection ตามตำแหน่ง',
+    summary: 'RER = 30(BW) + 70 (3-25 kg), Stress starvation: hypermetabolic, protein catabolism, Enteral > parenteral, Tube selection ตามตำแหน่ง',
     sections: [
       {
         heading: 'Why nutrition matters',
         source: 'nutrition 1 hr.pdf + master p.36',
         body: [
           { bullets: [
-            'Acute malnutrition → immune ↓ → sepsis · cell function ↓ · organ failure',
+            'Acute malnutrition → immune ↓ → sepsis, cell function ↓, organ failure',
             'Cat → **hepatic lipidosis** (ตับสะสมไขมัน) ภายใน 24-48 hr ของไม่กิน',
             'Goal: prevent further breakdown + support recovery',
           ] },
@@ -883,9 +883,9 @@ export const NOTES_COM3 = {
             rows: [
               ['Metabolism', 'Hypometabolic', '**Hypermetabolic**'],
               ['Hormones', 'Insulin ↓, glucagon ↑', 'Cortisol ↑, catecholamines ↑, cytokines'],
-              ['Energy source', 'Fat (glycogen first 24h, then fat-derived ketones)', 'Protein catabolism เร่ง · fat dependent · insulin resistance'],
+              ['Energy source', 'Fat (glycogen first 24h, then fat-derived ketones)', 'Protein catabolism เร่ง, fat dependent, insulin resistance'],
               ['Protein', 'Spared (2 amino acids ดึงสุดท้าย)', 'Massive breakdown — muscle wasting'],
-              ['Examples', 'Healthy fasting', 'Sepsis · trauma · burn · pancreatitis'],
+              ['Examples', 'Healthy fasting', 'Sepsis, trauma, burn, pancreatitis'],
             ] } },
         ],
       },
@@ -895,8 +895,8 @@ export const NOTES_COM3 = {
         body: [
           { bullets: [
             '**Within 24-48 hr** หลัง stabilize',
-            'Body condition score < 4/9 · weight loss > 10% · NPO > 3 days',
-            'Open wound · burn · sepsis · pancreatitis · IBD',
+            'Body condition score < 4/9, weight loss > 10%, NPO > 3 days',
+            'Open wound, burn, sepsis, pancreatitis, IBD',
             'GI absorb impaired? → parenteral',
           ] },
         ],
@@ -929,10 +929,10 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Tube', 'Indication', 'Note'],
             rows: [
-              ['**NE/NG** (naso-esoph/gastric)', 'Short-term · gag reflex ปกติ', 'Liquid food · ระวัง rhinitis · Confirm placement: X-ray, lidocain test'],
-              ['**E-tube** (esophagostomy)', 'Long-term (wks-months)', 'Distal end: 8th-9th rib · กรณี ESO mass ขึ้น → ห้ามใช้'],
-              ['**G-tube** (gastrostomy)', 'Esophageal disease · long-term', 'Surgical / endoscopic / blind · 24h rest หลังวาง'],
-              ['**J-tube** (jejunostomy)', 'Pancreatitis · gastric stasis · diffuse gastric mucosal disease', 'Bypass stomach · 24h rest · CRI feeding'],
+              ['**NE/NG** (naso-esoph/gastric)', 'Short-term, gag reflex ปกติ', 'Liquid food, ระวัง rhinitis, Confirm placement: X-ray, lidocain test'],
+              ['**E-tube** (esophagostomy)', 'Long-term (wks-months)', 'Distal end: 8th-9th rib, กรณี ESO mass ขึ้น → ห้ามใช้'],
+              ['**G-tube** (gastrostomy)', 'Esophageal disease, long-term', 'Surgical / endoscopic / blind, 24h rest หลังวาง'],
+              ['**J-tube** (jejunostomy)', 'Pancreatitis, gastric stasis, diffuse gastric mucosal disease', 'Bypass stomach, 24h rest, CRI feeding'],
             ] } },
         ],
       },
@@ -965,13 +965,13 @@ export const NOTES_COM3 = {
         source: 'nutrition 1 hr.pdf + master p.37',
         body: [
           { bullets: [
-            'Indication: GI dysfunction · pancreatitis · severe vomit · coma',
+            'Indication: GI dysfunction, pancreatitis, severe vomit, coma',
             '**TPN** = full RER, **hyperosmolar** → **central vein (jugular)** เท่านั้น (ป้องกัน thrombophlebitis)',
             '**PPN** = partial (50-70% RER), diluted → **peripheral vein** ได้',
             'Components: dextrose 50% + amino acid 8.5-10% + lipid 20% + electrolyte + vitamin',
-            'Aseptic prep · 24-h shelf life at room temp',
+            'Aseptic prep, 24-h shelf life at room temp',
           ] },
-          { callout: 'Risks: hyperglycemia · hyperlipidemia · infection · refeeding syndrome (hypoP) · villous atrophy', kind: 'warn' },
+          { callout: 'Risks: hyperglycemia, hyperlipidemia, infection, refeeding syndrome (hypoP), villous atrophy', kind: 'warn' },
         ],
       },
       {
@@ -982,8 +982,8 @@ export const NOTES_COM3 = {
             headers: ['Amino acid', 'Why essential', 'Deficiency'],
             rows: [
               ['**Arginine**', 'Urea cycle', 'Hyperammonemia → neuro signs (cat ไม่กิน 1 มื้อ → toxic)'],
-              ['**Taurine**', 'Bile salt + retina + heart', 'DCM · retinal degeneration'],
-              ['**Glutamine**', 'Enterocyte fuel', 'GI mucosa atrophy in hypermet · enteral preserves better'],
+              ['**Taurine**', 'Bile salt + retina + heart', 'DCM, retinal degeneration'],
+              ['**Glutamine**', 'Enterocyte fuel', 'GI mucosa atrophy in hypermet, enteral preserves better'],
             ] } },
         ],
       },
@@ -996,7 +996,7 @@ export const NOTES_COM3 = {
     title: 'Neurological Examination + Localization',
     lecturer: 'Krissda Boonaramrueng',
     icon: '🔍',
-    summary: 'Goals: confirm + localize + pathology + severity. Hand-off (mentation, posture, gait) → Hand-on (postural, CN, reflex, palpation, pain). UMN = hyper · LMN = hypo.',
+    summary: 'Goals: confirm + localize + pathology + severity. Hand-off (mentation, posture, gait) → Hand-on (postural, CN, reflex, palpation, pain). UMN = hyper, LMN = hypo.',
     sections: [
       {
         heading: 'Goals + workflow',
@@ -1020,7 +1020,7 @@ export const NOTES_COM3 = {
               { bullets: [
                 '**ARAS** (ascending reticular activating system) ใน brainstem + cerebral cortex',
                 { label: 'Levels', value: 'Alert → Obtunded → Stuporous (ตอบ pain ไม่ตอบเสียง) → Comatose (ไม่ตอบอะไรเลย)' },
-                'Behavior change → **limbic system** (forebrain): aggression · disorientation · compulsive walking · head pressing',
+                'Behavior change → **limbic system** (forebrain): aggression, disorientation, compulsive walking, head pressing',
               ] },
             ] },
           { sub: '2. Attitude / Posture',
@@ -1043,9 +1043,9 @@ export const NOTES_COM3 = {
             body: [
               { bullets: [
                 'Normal gait needs: brainstem + cerebellum + SC + sensory/motor PN + NMJ + muscle',
-                { label: 'Ataxia (incoordination)', value: 'Proprioceptive (symmetric, knuckling — SC) · Vestibular (asymmetric, drift one side — VIII/brainstem/inner ear) · Cerebellar (symmetric, hypermetria, "bouncy" — cerebellum)' },
-                { label: 'Paresis/Plegia', value: 'mono- · hemi- · para- (2 hindlimbs) · tetra- (4 limbs)' },
-                'Other movements: circling · tremor · myotonia · myoclonus',
+                { label: 'Ataxia (incoordination)', value: 'Proprioceptive (symmetric, knuckling — SC), Vestibular (asymmetric, drift one side — VIII/brainstem/inner ear), Cerebellar (symmetric, hypermetria, "bouncy" — cerebellum)' },
+                { label: 'Paresis/Plegia', value: 'mono-, hemi-, para- (2 hindlimbs), tetra- (4 limbs)' },
+                'Other movements: circling, tremor, myotonia, myoclonus',
               ] },
             ] },
         ],
@@ -1067,32 +1067,32 @@ export const NOTES_COM3 = {
                 headers: ['CN', 'Test', 'Lesion site'],
                 rows: [
                   ['I (olfactory)', 'Sniff test', 'Forebrain'],
-                  ['II (optic)', 'Vision (menace, cotton ball drop) · PLR (afferent)', 'Forebrain (vision) · midbrain (PLR)'],
-                  ['III (oculomotor)', 'PLR (efferent) · medial deviation', 'Midbrain'],
-                  ['V (trigeminal)', 'Sensory: touch face · jaw tone · corneal · palpebral', 'Pons / brainstem'],
-                  ['VII (facial)', 'Lip droop · ear droop · blink (palpebral efferent)', 'Brainstem (caudal)'],
-                  ['VIII (vestibulocochlear)', 'Head tilt · nystagmus · oculocephalic', 'Brainstem / inner ear'],
+                  ['II (optic)', 'Vision (menace, cotton ball drop), PLR (afferent)', 'Forebrain (vision), midbrain (PLR)'],
+                  ['III (oculomotor)', 'PLR (efferent), medial deviation', 'Midbrain'],
+                  ['V (trigeminal)', 'Sensory: touch face, jaw tone, corneal, palpebral', 'Pons / brainstem'],
+                  ['VII (facial)', 'Lip droop, ear droop, blink (palpebral efferent)', 'Brainstem (caudal)'],
+                  ['VIII (vestibulocochlear)', 'Head tilt, nystagmus, oculocephalic', 'Brainstem / inner ear'],
                   ['IX, X (gloss + vagus)', 'Gag reflex', 'Brainstem'],
                   ['XII (hypoglossal)', 'Tongue', 'Brainstem'],
                 ],
               } },
-              'ตัวย่อ "menace": **menace = II afferent → forebrain → VII efferent (blink)** · cerebellar lesion → menace deficit แม้ vision ปกติ',
+              'ตัวย่อ "menace": **menace = II afferent → forebrain → VII efferent (blink)**, cerebellar lesion → menace deficit แม้ vision ปกติ',
             ] },
           { sub: '3. Spinal reflexes',
             body: [
               { bullets: [
-                '**Patellar reflex**: femoral n. (L4-L6) — UMN intact = normal/hyper · LMN damaged = hypo/absent',
-                '**Withdrawal**: sciatic (L6-S2) HL · radial/median/ulnar (C6-T2) FL — check distal reflex arc',
+                '**Patellar reflex**: femoral n. (L4-L6) — UMN intact = normal/hyper, LMN damaged = hypo/absent',
+                '**Withdrawal**: sciatic (L6-S2) HL, radial/median/ulnar (C6-T2) FL — check distal reflex arc',
                 '**Crossed extensor**: ขาตรงข้ามเหยียดออก = **abnormal** (UMN lesion above lumbar)',
-                '**Cutaneous trunci** (panniculus): cut-off เป็น marker ของ thoracolumbar lesion · ปกติ T2-L4 cranial migration',
-                '**Anal tone**: pudendal n. — bladder/anal function · spinal shock (24h) ก็หายชั่วคราว',
+                '**Cutaneous trunci** (panniculus): cut-off เป็น marker ของ thoracolumbar lesion, ปกติ T2-L4 cranial migration',
+                '**Anal tone**: pudendal n. — bladder/anal function, spinal shock (24h) ก็หายชั่วคราว',
               ] },
             ] },
           { sub: '4. Pain perception',
             body: [
               { bullets: [
                 '**Superficial pain** — pinch skin (response: vocalize, withdraw, look)',
-                '**Deep pain** — pinch periosteum/digit (last to lose) · loss = **prognosis poor** for severe SC injury',
+                '**Deep pain** — pinch periosteum/digit (last to lose), loss = **prognosis poor** for severe SC injury',
                 'Conscious recognition (look, vocalize) ≠ reflex withdrawal',
               ] },
             ] },
@@ -1125,7 +1125,7 @@ export const NOTES_COM3 = {
               ['**T3-L3**', 'Normal', 'UMN'],
               ['**L4-S3** (lumbosacral intumescence)', 'Normal', '**LMN**'],
             ] } },
-          'Intumescence = ที่ที่มี LMN cell body ออกไปสู่ขา · FL ใช้ C6-T2 · HL ใช้ L4-S3',
+          'Intumescence = ที่ที่มี LMN cell body ออกไปสู่ขา, FL ใช้ C6-T2, HL ใช้ L4-S3',
         ],
       },
     ],
@@ -1144,9 +1144,9 @@ export const NOTES_COM3 = {
         source: 'master p.7-8',
         body: [
           { bullets: [
-            '**Head tilt**: หูข้างหนึ่งต่ำกว่าอีกข้าง · ตาฝั่งเอียงต่ำกว่า · vestibular dysfunction (peripheral or central)',
+            '**Head tilt**: หูข้างหนึ่งต่ำกว่าอีกข้าง, ตาฝั่งเอียงต่ำกว่า, vestibular dysfunction (peripheral or central)',
             '**Nystagmus** — eye oscillation: fast phase + slow phase',
-            'Direction: horizontal · vertical · rotary',
+            'Direction: horizontal, vertical, rotary',
           ] },
         ],
       },
@@ -1162,7 +1162,7 @@ export const NOTES_COM3 = {
               ['Nystagmus', 'Horizontal / rotary, **fixed direction**', '**Vertical** OR direction-changing'],
               ['CN deficit', 'CN VII (close to VIII)', 'Multiple CN'],
               ['Head tilt', 'Toward lesion', 'Toward or away (paradoxical)'],
-              ['Common causes', 'Otitis interna · idiopathic · ototoxic drug', 'Brainstem tumor · stroke · GME · trauma'],
+              ['Common causes', 'Otitis interna, idiopathic, ototoxic drug', 'Brainstem tumor, stroke, GME, trauma'],
             ] } },
         ],
       },
@@ -1171,11 +1171,11 @@ export const NOTES_COM3 = {
         source: 'neuro_ataxia_tremor 1 hr.pdf + master',
         body: [
           { bullets: [
-            'Old dog · sudden onset peripheral vestibular signs',
-            'LOC ปกติ · postural reaction OK · CN deficit แค่ VII',
-            'Dx: rule out central + otitis · MRI not always needed',
-            'Tx: supportive (anti-vertigo: meclizine, prochlorperazine) · IV fluid · soft food',
-            '**Self-resolve 1-2 weeks** · head tilt อาจคงอยู่บางส่วน',
+            'Old dog, sudden onset peripheral vestibular signs',
+            'LOC ปกติ, postural reaction OK, CN deficit แค่ VII',
+            'Dx: rule out central + otitis, MRI not always needed',
+            'Tx: supportive (anti-vertigo: meclizine, prochlorperazine), IV fluid, soft food',
+            '**Self-resolve 1-2 weeks**, head tilt อาจคงอยู่บางส่วน',
           ] },
         ],
       },
@@ -1186,12 +1186,12 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Type', 'Trigger', 'Localize'],
             rows: [
-              ['**Resting tremor**', 'At rest', 'Basal ganglia · drug (steroid) · electrolyte'],
-              ['**Intention tremor**', 'During purposeful movement', '**Cerebellum** · cerebellar disease'],
+              ['**Resting tremor**', 'At rest', 'Basal ganglia, drug (steroid), electrolyte'],
+              ['**Intention tremor**', 'During purposeful movement', '**Cerebellum**, cerebellar disease'],
               ['**Postural tremor**', 'Maintaining posture', 'Variable'],
-              ['**Idiopathic head tremor (IHT)**', 'Episodic · "yes/no" head movement · conscious', 'French Bulldog, Boxer, Doberman · self-resolve'],
-              ['**White Shaker syndrome**', 'Whole body fine tremor, ลูกสุนัขขาวเล็ก', 'Cerebellitis · steroid responsive'],
-              ['**Steroid-responsive tremor**', 'After steroid', 'Cerebellitis · responds prednisolone'],
+              ['**Idiopathic head tremor (IHT)**', 'Episodic, "yes/no" head movement, conscious', 'French Bulldog, Boxer, Doberman, self-resolve'],
+              ['**White Shaker syndrome**', 'Whole body fine tremor, ลูกสุนัขขาวเล็ก', 'Cerebellitis, steroid responsive'],
+              ['**Steroid-responsive tremor**', 'After steroid', 'Cerebellitis, responds prednisolone'],
             ] } },
         ],
       },
@@ -1204,7 +1204,7 @@ export const NOTES_COM3 = {
             '**Truncal ataxia** — สวิงตัว ทรงตัวไม่ดี',
             '**Intention tremor** — เห็นชัดตอนกินน้ำ',
             '**Menace deficit** — ไม่ blink to threat แม้ vision ปกติ (cerebellum ทำหน้าที่ในนี้)',
-            'Wide-based stance · symmetric · NO weakness',
+            'Wide-based stance, symmetric, NO weakness',
           ] },
           { sub: 'Common cerebellar diseases',
             body: [
@@ -1212,7 +1212,7 @@ export const NOTES_COM3 = {
                 'Cerebellar hypoplasia (kitten — in utero parvovirus)',
                 'Cerebellar abiotrophy (genetic — Kerry Blue, Gordon Setter)',
                 'Inflammation (GME, MUE)',
-                'Neoplasia · trauma · stroke',
+                'Neoplasia, trauma, stroke',
               ] },
             ] },
         ],
@@ -1226,7 +1226,7 @@ export const NOTES_COM3 = {
     title: 'Seizure & Narcolepsy',
     lecturer: 'Krissda Boonaramrueng',
     icon: '⚡',
-    summary: 'Generalized vs focal · Status > 5 min OR ≥2 in 24h no recovery · 1st line dog: phenobarb + levetiracetam · Emergency: diazepam IV/rectal',
+    summary: 'Generalized vs focal, Status > 5 min OR ≥2 in 24h no recovery, 1st line dog: phenobarb + levetiracetam, Emergency: diazepam IV/rectal',
     sections: [
       {
         heading: 'Definitions',
@@ -1248,9 +1248,9 @@ export const NOTES_COM3 = {
             headers: ['Phase', 'Duration', 'Description'],
             rows: [
               ['**Prodromal**', 'Hours-days', 'Behavior change ก่อนชัก'],
-              ['**Pre-ictal / aura**', 'Sec-min', 'Anxiety · vocalization · hide · ขนลุก'],
+              ['**Pre-ictal / aura**', 'Sec-min', 'Anxiety, vocalization, hide, ขนลุก'],
               ['**Ictal**', 'Sec-min', 'During seizure activity'],
-              ['**Post-ictal**', 'Min-hr', 'Confusion · blindness · ataxia (transient)'],
+              ['**Post-ictal**', 'Min-hr', 'Confusion, blindness, ataxia (transient)'],
             ] } },
         ],
       },
@@ -1261,15 +1261,15 @@ export const NOTES_COM3 = {
           { sub: 'Generalized',
             body: [
               { bullets: [
-                'Tonic · clonic · tonic-clonic (most common in dog)',
-                'Atonic · myoclonic · absence (rare)',
+                'Tonic, clonic, tonic-clonic (most common in dog)',
+                'Atonic, myoclonic, absence (rare)',
                 'Loss of consciousness',
               ] },
             ] },
           { sub: 'Focal',
             body: [
               { bullets: [
-                'Motor (twitching face/limb) · autonomic (drool, vomit) · sensory (fly-biting) · psychological (fear, hide)',
+                'Motor (twitching face/limb), autonomic (drool, vomit), sensory (fly-biting), psychological (fear, hide)',
                 'Consciousness retained or impaired',
                 'อาจ secondarily generalize',
               ] },
@@ -1309,18 +1309,18 @@ export const NOTES_COM3 = {
               { table: {
                 headers: ['Drug', 'Mechanism / use'],
                 rows: [
-                  ['**Phenobarbital**', 'GABA-A potentiate · 1st line · monitor PB level + liver q6mo'],
-                  ['**Imepitoin (Pexion)**', 'Partial GABA-A · daily · less monitoring · alternative 1st line'],
-                  ['**Levetiracetam (Keppra)**', 'SV2A modulator · safe · use with PB or solo · pulse for cluster'],
-                  ['**KBr (potassium bromide)**', 'Add-on · slow loading · diet impact · contraindicated in cat'],
-                  ['Zonisamide', 'Multiple mechanisms · alternative'],
+                  ['**Phenobarbital**', 'GABA-A potentiate, 1st line, monitor PB level + liver q6mo'],
+                  ['**Imepitoin (Pexion)**', 'Partial GABA-A, daily, less monitoring, alternative 1st line'],
+                  ['**Levetiracetam (Keppra)**', 'SV2A modulator, safe, use with PB or solo, pulse for cluster'],
+                  ['**KBr (potassium bromide)**', 'Add-on, slow loading, diet impact, contraindicated in cat'],
+                  ['Zonisamide', 'Multiple mechanisms, alternative'],
                 ],
               } },
             ] },
           { sub: 'Cat',
             body: [
               { bullets: [
-                '**Phenobarbital** = 1st line · ⚠️ facial pruritus + lymphadenopathy + bone marrow suppression',
+                '**Phenobarbital** = 1st line, ⚠️ facial pruritus + lymphadenopathy + bone marrow suppression',
                 '**Levetiracetam** — safe alternative',
                 '⚠️ KBr **ห้าม**ในแมว — bronchitis fatal',
               ] },
@@ -1351,7 +1351,7 @@ export const NOTES_COM3 = {
           { sub: 'Step 3: Supportive',
             body: [
               { bullets: [
-                'Airway protection · O₂',
+                'Airway protection, O₂',
                 'Glucose check + IV dextrose ถ้า hypoglycemic',
                 'Cooling — temperature controlled (severe hyperthermia)',
                 'Mannitol 0.5 g/kg IV ถ้าสงสัย cerebral edema',
@@ -1368,7 +1368,7 @@ export const NOTES_COM3 = {
     title: 'Spinal Disorder & Injuries',
     lecturer: 'Kumpanart Soontornvipart',
     icon: '🦴',
-    summary: 'IVDD type I (acute, chondrodystrophoid) vs II (chronic, large breed) · Wobbler (large), AAI (toy) · DPP critical for prognosis · Hemilaminectomy T-L, SLOT cervical',
+    summary: 'IVDD type I (acute, chondrodystrophoid) vs II (chronic, large breed), Wobbler (large), AAI (toy), DPP critical for prognosis, Hemilaminectomy T-L, SLOT cervical',
     sections: [
       {
         heading: 'Terminology',
@@ -1377,7 +1377,7 @@ export const NOTES_COM3 = {
           { bullets: [
             '**Plegia** = อัมพาต (loss of motor)',
             '**Paresis** = อ่อนแรง (partial)',
-            'Mono · Hemi · **Para** (2 hindlimbs) · **Tetra** (4 limbs)',
+            'Mono, Hemi, **Para** (2 hindlimbs), **Tetra** (4 limbs)',
             'Spinal exam: เพื่อ (1) ระบุตำแหน่ง lesion (2) ประเมิน severity → prognosis',
           ] },
         ],
@@ -1390,7 +1390,7 @@ export const NOTES_COM3 = {
             '**Acute / sudden onset** — annulus fibrosus ฉีกขาดหมด → NP ทะลักเข้า canal',
             '**Chondrodystrophoid breeds**: Dachshund, Pekingese, French Bulldog, Beagle, Basset Hound, American Cocker Spaniel, Shih Tzu, Lhasa Apso',
             'Most common location: **T12-L2** หรือ **C2-3**',
-            'Treatment: medical (mild) · surgical decompression (Sx — moderate-severe)',
+            'Treatment: medical (mild), surgical decompression (Sx — moderate-severe)',
           ] },
         ],
       },
@@ -1399,7 +1399,7 @@ export const NOTES_COM3 = {
         source: 'Spinal disorder 2 hr.pdf + master p.6',
         body: [
           { bullets: [
-            '**Gradual / chronic** — annulus ฉีกบางส่วน · disc protrusion ค่อยๆ',
+            '**Gradual / chronic** — annulus ฉีกบางส่วน, disc protrusion ค่อยๆ',
             '**Non-chondrodystrophoid breeds** — large/medium breeds (Lab, GSD)',
             'Slower progression — months to years',
           ] },
@@ -1412,14 +1412,14 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Disease', 'Breed / feature', 'Key sign'],
             rows: [
-              ['**Wobbler\'s syndrome** (caudal cervical spondylopathy)', 'Large breed, fast growth (Great Dane, Doberman, GSD)', 'UMN HL + LMN FL · gait incoord · Dx: MRI'],
-              ['**Atlantoaxial instability (AAI)**', 'Toy breed (Chihuahua, Yorkie, Pomeranian)', 'C1-C2 unstable · UMN 4 limbs · ⚠️ medulla → respiratory failure'],
-              ['**Cauda equina syndrome / DLSS**', 'Large breed (GSD)', 'L6,7-S1 compression · pseudo-hyperreflexia (patella hyper, sciatic hypo)'],
-              ['**Spondylosis deformans**', '—', 'X-ray finding · degenerative · NOT compress SC · single sign: arched back'],
-              ['**Discospondylitis**', 'Bacterial / fungal', 'Disc + endplate infection · check sepsis (GI, liver)'],
+              ['**Wobbler\'s syndrome** (caudal cervical spondylopathy)', 'Large breed, fast growth (Great Dane, Doberman, GSD)', 'UMN HL + LMN FL, gait incoord, Dx: MRI'],
+              ['**Atlantoaxial instability (AAI)**', 'Toy breed (Chihuahua, Yorkie, Pomeranian)', 'C1-C2 unstable, UMN 4 limbs, ⚠️ medulla → respiratory failure'],
+              ['**Cauda equina syndrome / DLSS**', 'Large breed (GSD)', 'L6,7-S1 compression, pseudo-hyperreflexia (patella hyper, sciatic hypo)'],
+              ['**Spondylosis deformans**', '—', 'X-ray finding, degenerative, NOT compress SC, single sign: arched back'],
+              ['**Discospondylitis**', 'Bacterial / fungal', 'Disc + endplate infection, check sepsis (GI, liver)'],
               ['**Spondylitis**', 'Vertebral body infection', 'Osteomyelitis of spine'],
-              ['**ANNPE** (acute non-compressive nucleus pulposus extrusion)', 'Active dog (running)', 'Acute focal myelopathy · MRI shows bruise, no compression'],
-              ['**FCE** (fibrocartilaginous embolism)', 'Active dog', 'Sudden non-progressive · lateralized · supportive care'],
+              ['**ANNPE** (acute non-compressive nucleus pulposus extrusion)', 'Active dog (running)', 'Acute focal myelopathy, MRI shows bruise, no compression'],
+              ['**FCE** (fibrocartilaginous embolism)', 'Active dog', 'Sudden non-progressive, lateralized, supportive care'],
             ] } },
         ],
       },
@@ -1431,7 +1431,7 @@ export const NOTES_COM3 = {
             '90% = **compression fracture**',
             '3-compartment theory (dorsal, body, ventral) — ventral most important to stabilize',
             { label: 'Critical assessment', value: '**Deep pain perception (DPP)**' },
-            'มี DPP = prognosis ดี · ไม่มี DPP = อาจ spinal shock — รอ 24 ชม. ประเมินซ้ำ',
+            'มี DPP = prognosis ดี, ไม่มี DPP = อาจ spinal shock — รอ 24 ชม. ประเมินซ้ำ',
             '**ถ้ายังไม่มี DPP หลัง 24 ชม. = SC severance — ไม่ผ่าตัด** (poor prognosis)',
           ] },
         ],
@@ -1443,10 +1443,10 @@ export const NOTES_COM3 = {
           { table: {
             headers: ['Technique', 'Indication'],
             rows: [
-              ['**Hemilaminectomy**', 'IVDD type I T-L · ตัดด้านข้างของ lamina · ทำได้ยาวสุด **3 vertebrae**'],
+              ['**Hemilaminectomy**', 'IVDD type I T-L, ตัดด้านข้างของ lamina, ทำได้ยาวสุด **3 vertebrae**'],
               ['**Dorsal laminectomy**', 'Lumbosacral or multiple segments T-L'],
-              ['**Ventral SLOT decompression**', 'Cervical IVDD · Wobbler · ผ่าน ventral · ทำได้ครึ่งอันหน้า + ครึ่งอันหลัง'],
-              ['**Mini-hemilaminectomy / pediculectomy**', 'Smaller window · less destabilizing'],
+              ['**Ventral SLOT decompression**', 'Cervical IVDD, Wobbler, ผ่าน ventral, ทำได้ครึ่งอันหน้า + ครึ่งอันหลัง'],
+              ['**Mini-hemilaminectomy / pediculectomy**', 'Smaller window, less destabilizing'],
             ] } },
           { callout: 'Surgery decompresses BUT prognosis depends on initial severity + DPP', kind: 'tip' },
         ],
@@ -1476,7 +1476,7 @@ export const NOTES_COM3 = {
     title: 'Neurological Emergency',
     lecturer: 'Krissda Boonaramrueng',
     icon: '🧠',
-    summary: 'Acute SC injury · Head trauma · Status epilepticus · MGCS scoring · Mannitol (not steroid) for ICP · Cushing reflex = late warning',
+    summary: 'Acute SC injury, Head trauma, Status epilepticus, MGCS scoring, Mannitol (not steroid) for ICP, Cushing reflex = late warning',
     sections: [
       {
         heading: 'Common emergencies',
@@ -1499,9 +1499,9 @@ export const NOTES_COM3 = {
           { sub: 'Modified Glasgow Coma Scale (MGCS)',
             body: [
               { bullets: [
-                '3 categories: motor activity + brainstem reflex + LOC · each 1-6',
+                '3 categories: motor activity + brainstem reflex + LOC, each 1-6',
                 'Total 3-18',
-                { label: 'Score range → prognosis', value: '**3-8 grave** · 9-14 guarded · 15-18 good' },
+                { label: 'Score range → prognosis', value: '**3-8 grave**, 9-14 guarded, 15-18 good' },
               ] },
             ] },
           { sub: 'Cushing reflex (terminal triad)',
@@ -1520,13 +1520,13 @@ export const NOTES_COM3 = {
         body: [
           { bullets: [
             { label: 'Position', value: 'Head elevated **30°** (avoid jugular compression)' },
-            { label: 'Mannitol', value: '**0.5-1 g/kg IV slow over 15-20 min** · osmotic diuretic · q4-6h prn · monitor U/O' },
-            { label: 'Hypertonic saline 7%', value: 'Alternative to mannitol · 2-4 ml/kg slow' },
+            { label: 'Mannitol', value: '**0.5-1 g/kg IV slow over 15-20 min**, osmotic diuretic, q4-6h prn, monitor U/O' },
+            { label: 'Hypertonic saline 7%', value: 'Alternative to mannitol, 2-4 ml/kg slow' },
             { label: 'IPPV', value: 'Maintain ETCO₂ 35-40 mmHg (avoid hypocap → vasoconstrict ของ brain)' },
             { label: 'O₂ supplement', value: 'PaO₂ > 80 mmHg' },
             'Treat seizures aggressively',
           ] },
-          { callout: '⚠️ ห้าม steroid (CRASH trial 2004 — worse outcome) · ห้ามใช้ใน head trauma routine', kind: 'warn' },
+          { callout: '⚠️ ห้าม steroid (CRASH trial 2004 — worse outcome), ห้ามใช้ใน head trauma routine', kind: 'warn' },
         ],
       },
       {
@@ -1536,8 +1536,8 @@ export const NOTES_COM3 = {
           { bullets: [
             'Stabilize C-spine (dog/cat ใช้ board)',
             'Assess neuro grade (modified Frankel) + DPP',
-            'Imaging: X-ray screen + MRI (ดี surgical planning) · CT (ดี bone)',
-            { label: 'Treatment', value: 'Surgical decompression ใน moderate-severe · medical (cage rest 4-6 wk) ใน mild type II' },
+            'Imaging: X-ray screen + MRI (ดี surgical planning), CT (ดี bone)',
+            { label: 'Treatment', value: 'Surgical decompression ใน moderate-severe, medical (cage rest 4-6 wk) ใน mild type II' },
             '⚠️ Methylprednisolone (high-dose steroid) — **no longer recommended** (NASCIS 3 controversy)',
             'PEMF (pulsed electromagnetic field) emerging therapy',
           ] },
@@ -1548,11 +1548,11 @@ export const NOTES_COM3 = {
         source: 'neuroER 1 hr.pdf + master',
         body: [
           { bullets: [
-            'Skull = closed box · ↑ ICP → herniation',
+            'Skull = closed box, ↑ ICP → herniation',
             'Tentorial (transtentorial) — uncal herniation',
             'Foramen magnum — cerebellar herniation → respiratory arrest',
-            'Sign: progressive mentation deterioration · pupils anisocoria → mydriasis bilateral · postural change · Cushing\'s triad',
-            'Tx: aggressive ICP reduction (mannitol + IPPV) · stabilize · surgery if structural',
+            'Sign: progressive mentation deterioration, pupils anisocoria → mydriasis bilateral, postural change, Cushing\'s triad',
+            'Tx: aggressive ICP reduction (mannitol + IPPV), stabilize, surgery if structural',
           ] },
         ],
       },

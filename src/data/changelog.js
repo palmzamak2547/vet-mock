@@ -1,7 +1,7 @@
 // ============================================================
 // CHANGELOG — สิ่งที่อัปเดตล่าสุด แสดงเป็น banner บนหน้าแรก
 // ============================================================
-// แต่ละ entry คือ release หนึ่ง · เรียงใหม่สุดอยู่ index 0
+// แต่ละ entry คือ release หนึ่ง, เรียงใหม่สุดอยู่ index 0
 //
 // ใช้ `version` เป็น key เก็บ "เห็นแล้ว" ใน localStorage
 //   ('vmx-last-seen-changelog' = '5.1.0')
@@ -40,7 +40,7 @@ export const SCOPE_LABELS = {
 // 📋 Convention: changelog แสดงเฉพาะการเปลี่ยนแปลงที่ผู้ใช้สังเกตได้
 // (content / feature ใหม่ / bug fix ที่กระทบการใช้งาน)
 // → SEO / build / infrastructure / refactor — ไม่ต้อง list ที่นี่
-//   (อยู่ในประวัติ git แล้ว · ผู้ใช้ไม่จำเป็นต้องรู้)
+//   (อยู่ในประวัติ git แล้ว, ผู้ใช้ไม่จำเป็นต้องรู้)
 
 export const CHANGELOG = [
   {
@@ -69,9 +69,9 @@ export const CHANGELOG = [
     headline: '🐤 แก้บั๊กฟังก์ชันออฟไลน์ — มินิเกม + banner + connectivity check',
     changes: [
       { scope: 'system', kind: 'fix', icon: '🎮', title: 'แก้บั๊กมินิเกม',
-        desc: 'ขอบคุณที่แจ้ง! แก้ 6 จุด — (1) แตะมือถือทีเดียว trigger 2 ครั้ง (pointerdown + touchstart ฟังพร้อมกัน) ตอนนี้เลือกใช้ตัวเดียวตาม browser support · (2) หมุนมือถือแล้ว canvas เพี้ยน ตอนนี้ ResizeObserver re-apply hi-DPI scale อัตโนมัติ · (3) hitbox 20px แน่นเกินสำหรับ emoji 30px ขยายเป็น 26px ให้ collision รู้สึก fair · (4) แมลงวันบินมาเร็วขึ้น (warmup 200 → 100 คะแนน) · (5) เปลี่ยน tab แล้วเกมยังวิ่งกินแบต ตอนนี้ pause อัตโนมัติเมื่อ tab hidden · (6) เพิ่ม WebkitTapHighlightColor transparent ปิดกรอบฟ้าตอนแตะ' },
+        desc: 'ขอบคุณที่แจ้ง! แก้ 6 จุด — (1) แตะมือถือทีเดียว trigger 2 ครั้ง (pointerdown + touchstart ฟังพร้อมกัน) ตอนนี้เลือกใช้ตัวเดียวตาม browser support, (2) หมุนมือถือแล้ว canvas เพี้ยน ตอนนี้ ResizeObserver re-apply hi-DPI scale อัตโนมัติ, (3) hitbox 20px แน่นเกินสำหรับ emoji 30px ขยายเป็น 26px ให้ collision รู้สึก fair, (4) แมลงวันบินมาเร็วขึ้น (warmup 200 → 100 คะแนน), (5) เปลี่ยน tab แล้วเกมยังวิ่งกินแบต ตอนนี้ pause อัตโนมัติเมื่อ tab hidden, (6) เพิ่ม WebkitTapHighlightColor transparent ปิดกรอบฟ้าตอนแตะ' },
       { scope: 'system', kind: 'fix', icon: '📡', title: 'แก้ banner ออฟไลน์ + connectivity check แม่นขึ้น',
-        desc: 'navigator.onLine บน iOS Safari/Android WebView โกหกบ่อย (บอก online แต่จริงๆ captive portal/dropped Wi-Fi) — ตอนนี้เพิ่ม HEAD ping favicon.ico ทุก 30 วิเพื่อยืนยัน + verify ทันทีเมื่อกลับมา foreground · banner เปลี่ยนจาก div onClick ทั้งก้อน (กดที่ไหนก็เปิดเกม เผลอแตะตอน scroll ก็เด้ง) → button "🎮 เล่นเกม" ชัดเจน · ข้อความก็ปรับให้แม่นขึ้น "ใช้งานต่อได้ปกติ ข้อมูลจะ sync เมื่อเน็ตกลับ"' },
+        desc: 'navigator.onLine บน iOS Safari/Android WebView โกหกบ่อย (บอก online แต่จริงๆ captive portal/dropped Wi-Fi) — ตอนนี้เพิ่ม HEAD ping favicon.ico ทุก 30 วิเพื่อยืนยัน + verify ทันทีเมื่อกลับมา foreground, banner เปลี่ยนจาก div onClick ทั้งก้อน (กดที่ไหนก็เปิดเกม เผลอแตะตอน scroll ก็เด้ง) → button "🎮 เล่นเกม" ชัดเจน, ข้อความก็ปรับให้แม่นขึ้น "ใช้งานต่อได้ปกติ ข้อมูลจะ sync เมื่อเน็ตกลับ"' },
     ],
   },
   {
@@ -90,7 +90,7 @@ export const CHANGELOG = [
     headline: '🐄 Sawita ครบ 45 ข้อ! เพิ่ม Sawita Round 2 อีก 21 ข้อ (15 × 3 lectures ตามที่อาจารย์บอก)',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🔪', title: 'Sawita Round 2 — เพิ่ม 21 ข้อ ครอบคลุม Sawita I/II/III ละ 15 ข้อ',
-        desc: 'แก้รอบก่อนที่เข้าใจผิดว่ารวม 45 (Sawita = 45 ตัวเอง อาจารย์อื่นๆ อีก!) — Sawita I 10 ใหม่ (Surgical classification clean→dirty + Field vs Hospital + Pre-op tests electrolytes/urinalysis + Standing flank principle + Rumen anchor + Reticulum exploration path + Double-layer closure + LDA pathophys VFA→ferment→gas + RTA >180° volvulus ↓Cl ↓K + 3-layer laparotomy closure ventral interrupted) · Sawita II 6 ใหม่ (Pinging anterior to umbilicus around xiphoid + Hernia classification location/content + Umbilical signalment Holstein-Friesian Female>Male 5-7wk + Inguinal surgery lateral recumbency 15-20cm + Diaphragmatic 2-phase Lt flank rumenotomy then cranio-ventral midline + Tension-relieving Mayo overlapping pattern) · Sawita III 5 ใหม่ (Cosmetic dehorning 4 main steps + Trephination postorbital 4cm caudal + Esophageal 2-layer mucosa+muscular + Persistent Urachus foals/calves ligate close to bladder + Teat laceration prognostic vertical good vs distal/base/crush poor)',
+        desc: 'แก้รอบก่อนที่เข้าใจผิดว่ารวม 45 (Sawita = 45 ตัวเอง อาจารย์อื่นๆ อีก!) — Sawita I 10 ใหม่ (Surgical classification clean→dirty + Field vs Hospital + Pre-op tests electrolytes/urinalysis + Standing flank principle + Rumen anchor + Reticulum exploration path + Double-layer closure + LDA pathophys VFA→ferment→gas + RTA >180° volvulus ↓Cl ↓K + 3-layer laparotomy closure ventral interrupted), Sawita II 6 ใหม่ (Pinging anterior to umbilicus around xiphoid + Hernia classification location/content + Umbilical signalment Holstein-Friesian Female>Male 5-7wk + Inguinal surgery lateral recumbency 15-20cm + Diaphragmatic 2-phase Lt flank rumenotomy then cranio-ventral midline + Tension-relieving Mayo overlapping pattern), Sawita III 5 ใหม่ (Cosmetic dehorning 4 main steps + Trephination postorbital 4cm caudal + Esophageal 2-layer mucosa+muscular + Persistent Urachus foals/calves ligate close to bladder + Teat laceration prognostic vertical good vs distal/base/crush poor)',
       },
     ],
   },
@@ -100,7 +100,7 @@ export const CHANGELOG = [
     headline: '🐄 Sawita expansion — เพิ่มอีก 15 ข้อ ครอบคลุม scope 45 ข้อ ของ Sawita 3 lectures',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🔪', title: 'เพิ่ม 15 ข้อ Sawita ครอบคลุม Sawita I, II, III ครบ scope ที่อาจารย์บอก 45 ข้อ',
-        desc: 'ตาม Slide 2026 ที่ Palm อัพให้ — Sawita I 5 ข้อ (Flank laparotomy ตำแหน่ง 5cm caudal to last rib + Rumenotomy LEFT FLANK indications + Rumenostomy fistula 2-3cm chronic bloat + Right Flank Omentopexy 2 mattress sutures + Typhlotomy incision 3cm liquid vs ≥6cm solid) · Sawita II 5 ข้อ (LDA Roll & Toggle 4-6 wk suture + Right paramedian contraindication abomasal volvulus/dorsal recumbency + Inguinal Polled Hereford finger test 1-2 normal vs >4 risk + Left flank ventral hernia rumen ไม่ผ่าตัด + Herniorrhaphy <10-15cm vs Hernioplasty mesh >10-15cm) · Sawita III remainder 5 ข้อ (Enucleation Retrobulbar 4-point 15ml + Teat laceration 3-layer mucosa simple cont 3-0/4-0 + Urethrostomy distal sigmoid flexure most common low > high + Upward fixation patella medial desmotomy 3cm incision + Digit amputation BW>680kg poor prognosis)',
+        desc: 'ตาม Slide 2026 ที่ Palm อัพให้ — Sawita I 5 ข้อ (Flank laparotomy ตำแหน่ง 5cm caudal to last rib + Rumenotomy LEFT FLANK indications + Rumenostomy fistula 2-3cm chronic bloat + Right Flank Omentopexy 2 mattress sutures + Typhlotomy incision 3cm liquid vs ≥6cm solid), Sawita II 5 ข้อ (LDA Roll & Toggle 4-6 wk suture + Right paramedian contraindication abomasal volvulus/dorsal recumbency + Inguinal Polled Hereford finger test 1-2 normal vs >4 risk + Left flank ventral hernia rumen ไม่ผ่าตัด + Herniorrhaphy <10-15cm vs Hernioplasty mesh >10-15cm), Sawita III remainder 5 ข้อ (Enucleation Retrobulbar 4-point 15ml + Teat laceration 3-layer mucosa simple cont 3-0/4-0 + Urethrostomy distal sigmoid flexure most common low > high + Upward fixation patella medial desmotomy 3cm incision + Digit amputation BW>680kg poor prognosis)',
       },
     ],
   },
@@ -121,7 +121,7 @@ export const CHANGELOG = [
     headline: '🐄 Clin App Rum หมาหอน — เพิ่ม 30 ข้อ (Anesthesia + GI + Sawita Hernia/Loco/Respi) จาก TJ Vet 86 + Tomato',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🐺', title: 'รวมหมาหอน Clin App Rum 30 ข้อ ครอบคลุม 5 กลุ่ม',
-        desc: 'การ์ด "🐺 รวมหมาหอน Clin App Rum" ใต้วิชา Clinical App Ruminant แยก 5 หมวด — Anesthesia 8 ข้อ (อ.ภัทร์มนฉัตร: GA problems, Diazepam vs Midazolam, Acepromazine ในพ่อพันธุ์ระวัง penile prolapse, Xylazine sensitivity Brahmans>Hereford>Holstein, Lidocaine 800kg vัว 400ml, Peterson block, Paravertebral) · GI VDTT 6 ข้อ (อ.ธนศักดิ์ Vet 85 ออกตรง: Wither test, Ping right=RDA/RTA, oily sheen=LDA, Methylene blue <3min=acidosis, pH 5.5-7.5) · Sawita Hernia/Esoph 6 ข้อ (umbilical <2cm conservative, diaphragmatic ในควาย, choke ที่ cervical 20cm, orogastric tube swallow reflex test) · Sawita Loco/Hoof 7 ข้อ (90/90 rule, foot bath 4% formalin, DD M-staging Treponema, foot rot Fusobact+Dichelobacter, laminitis pathway carb→MMP, sole ulcer wooden block opposite, digital amputation S1/S2/S3) · Sawita Head/Respi 3 ข้อ (dehorning <2m, cornual block, frontal>maxillary sinusitis trephination)',
+        desc: 'การ์ด "🐺 รวมหมาหอน Clin App Rum" ใต้วิชา Clinical App Ruminant แยก 5 หมวด — Anesthesia 8 ข้อ (อ.ภัทร์มนฉัตร: GA problems, Diazepam vs Midazolam, Acepromazine ในพ่อพันธุ์ระวัง penile prolapse, Xylazine sensitivity Brahmans>Hereford>Holstein, Lidocaine 800kg vัว 400ml, Peterson block, Paravertebral), GI VDTT 6 ข้อ (อ.ธนศักดิ์ Vet 85 ออกตรง: Wither test, Ping right=RDA/RTA, oily sheen=LDA, Methylene blue <3min=acidosis, pH 5.5-7.5), Sawita Hernia/Esoph 6 ข้อ (umbilical <2cm conservative, diaphragmatic ในควาย, choke ที่ cervical 20cm, orogastric tube swallow reflex test), Sawita Loco/Hoof 7 ข้อ (90/90 rule, foot bath 4% formalin, DD M-staging Treponema, foot rot Fusobact+Dichelobacter, laminitis pathway carb→MMP, sole ulcer wooden block opposite, digital amputation S1/S2/S3), Sawita Head/Respi 3 ข้อ (dehorning <2m, cornual block, frontal>maxillary sinusitis trephination)',
       },
     ],
   },
@@ -130,10 +130,10 @@ export const CHANGELOG = [
     date: '2026-05-08',
     headline: '🐤 มินิเกมตอนเน็ตหลุด — ลูกไก่หนีเชื้อโรค (เหมือน T-Rex ของ Chrome แต่ธีม Poultry)',
     changes: [
-      { scope: 'system', kind: 'feature', icon: '🐤', title: 'อีสเตอร์เอ้กตอนออฟไลน์ — ลูกไก่กระโดดข้าม Salmonella/มูลไก่ติดตูด/เชื้อรา · หมอบหลบแมลงวัน',
-        desc: 'ตอนเน็ตหลุดจะมี banner ขึ้นมาให้แตะเล่นเกมระหว่างรอ (เหมือนไดโนของ Chrome) · ตอนออนไลน์ก็เล่นได้ผ่านลิงก์ "🐤 มินิเกม" ในฟุตเตอร์ · กด Space/↑ กระโดด · ↓ หมอบ · Esc ปิด · มือถือแตะหน้าจอ · คะแนนสูงสุดเก็บในเครื่อง (localStorage ไม่ส่งขึ้น server) · ความเร็วเพิ่มขึ้นทุก 500 คะแนน · มี air obstacle (แมลงวัน) เพิ่มหลังคะแนน 200' },
+      { scope: 'system', kind: 'feature', icon: '🐤', title: 'อีสเตอร์เอ้กตอนออฟไลน์ — ลูกไก่กระโดดข้าม Salmonella/มูลไก่ติดตูด/เชื้อรา, หมอบหลบแมลงวัน',
+        desc: 'ตอนเน็ตหลุดจะมี banner ขึ้นมาให้แตะเล่นเกมระหว่างรอ (เหมือนไดโนของ Chrome), ตอนออนไลน์ก็เล่นได้ผ่านลิงก์ "🐤 มินิเกม" ในฟุตเตอร์, กด Space/↑ กระโดด, ↓ หมอบ, Esc ปิด, มือถือแตะหน้าจอ, คะแนนสูงสุดเก็บในเครื่อง (localStorage ไม่ส่งขึ้น server), ความเร็วเพิ่มขึ้นทุก 500 คะแนน, มี air obstacle (แมลงวัน) เพิ่มหลังคะแนน 200' },
       { scope: 'system', kind: 'feature', icon: '📡', title: 'เพิ่ม banner แสดงสถานะเน็ต',
-        desc: 'ตรวจจับ navigator.onLine แล้วแสดง banner สีน้ำตาลทองตอนหลุด (พร้อมปุ่มเล่นเกม) · banner สีเขียวค้างไว้ ~3.5 วิตอนกลับมาออนไลน์ ("ข้อมูลจะ sync อัตโนมัติ") · ไม่แสดงระหว่างทำข้อสอบ' },
+        desc: 'ตรวจจับ navigator.onLine แล้วแสดง banner สีน้ำตาลทองตอนหลุด (พร้อมปุ่มเล่นเกม), banner สีเขียวค้างไว้ ~3.5 วิตอนกลับมาออนไลน์ ("ข้อมูลจะ sync อัตโนมัติ"), ไม่แสดงระหว่างทำข้อสอบ' },
     ],
   },
   {
@@ -142,7 +142,7 @@ export const CHANGELOG = [
     headline: '🐺 Poultry — เพิ่ม 15 ข้อใหม่จาก "รวมโพยไก่ 82 หน้า" (Vet 85 ออกตามนี้ ⭐ + cross-ref TJ)',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🐺', title: 'เพิ่ม 15 ข้อหมาหอน Poultry — ทุกข้อมี marker "85 ออกตามนี้" หรือเนื้อหาตรงกับสไลด์',
-        desc: 'ดึงจาก "รวมโพยไก่.pdf" (รวมโพยจากเพื่อน 82 หน้า ครอบคลุม 6 อาจารย์) — หมวด Drug 3 ข้อ (Enrofloxacin ห้ามใช้ทั้งไก่เนื้อ/ไข่ · Ionophores list · Eimeria ตำแหน่งในลำไส้) · Biosecurity 2 (Mortality benchmark พ่อแม่พันธุ์ vs ไก่เนื้อ · Crop fill 24h) · First-week 2 (6 acute death viruses · แกลบ 4 kg/m²) · QA 3 (Salmonella sp. 5 vs 2 · Beak trim Infrared · Light intensity 50/20 lux) · Nutrition 3 (Maillard 135°C · Aflatoxin limit 100 vs 30 μg/kg · Antinutritionals Glucosinolates/Mimosine) · Zoonosis 2 (Erysipelas vaccine 2 doses · LPAI vs HPAI IVPI 1.2)' },
+        desc: 'ดึงจาก "รวมโพยไก่.pdf" (รวมโพยจากเพื่อน 82 หน้า ครอบคลุม 6 อาจารย์) — หมวด Drug 3 ข้อ (Enrofloxacin ห้ามใช้ทั้งไก่เนื้อ/ไข่, Ionophores list, Eimeria ตำแหน่งในลำไส้), Biosecurity 2 (Mortality benchmark พ่อแม่พันธุ์ vs ไก่เนื้อ, Crop fill 24h), First-week 2 (6 acute death viruses, แกลบ 4 kg/m²), QA 3 (Salmonella sp. 5 vs 2, Beak trim Infrared, Light intensity 50/20 lux), Nutrition 3 (Maillard 135°C, Aflatoxin limit 100 vs 30 μg/kg, Antinutritionals Glucosinolates/Mimosine), Zoonosis 2 (Erysipelas vaccine 2 doses, LPAI vs HPAI IVPI 1.2)' },
     ],
   },
   {
@@ -151,7 +151,7 @@ export const CHANGELOG = [
     headline: '🌾 Poultry — ขยาย Note L8 Nutrition จาก 8 → 16 sections (จากสไลด์ Vet 84 + จัดลำดับ Lecture ใหม่)',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🌾', title: 'ขยาย Note L8 Nutrition เพิ่ม 8 sections จากสไลด์ Vet 84 (อ.หทัยรัตน์ — ผู้สอนคนเดียวกัน)',
-        desc: 'จากสไลด์ "การจัดการด้านอาหารสัตว์ปีก_13Feb2024" 62 หน้า เพิ่มเนื้อหาที่ขาดไป — ภาพรวม 3 ส่วน (แหล่ง/วัตถุดิบ/กระบวนการ) · Animal Feed Composition (Energy 60% Protein 30%) · Energy ที่สำคัญ (3,200 kcal/kg ไก่เนื้อ vs 2,800 ไก่ไข่ · Non-cage +10-15%) · ตาราง ROSS 308 (Lysine 1.35→1.06 ตามอายุ) · Antinutritional factors ตามวัตถุดิบ (Aflatoxin/Trypsin inhibitor/Gizzerosine) · Feed processing (Grinding/Pelleting/Crumbling) · QC + FIFO · Heat stress AAs (Glutamine/Arginine/Threonine) · Layer Diet 5 phases ครบ (Starter/Grower/Developer/Pre-lay/Production) · Egg quality (albumen/yolk/shell + Vit D 1,25-(OH)2)' },
+        desc: 'จากสไลด์ "การจัดการด้านอาหารสัตว์ปีก_13Feb2024" 62 หน้า เพิ่มเนื้อหาที่ขาดไป — ภาพรวม 3 ส่วน (แหล่ง/วัตถุดิบ/กระบวนการ), Animal Feed Composition (Energy 60% Protein 30%), Energy ที่สำคัญ (3,200 kcal/kg ไก่เนื้อ vs 2,800 ไก่ไข่, Non-cage +10-15%), ตาราง ROSS 308 (Lysine 1.35→1.06 ตามอายุ), Antinutritional factors ตามวัตถุดิบ (Aflatoxin/Trypsin inhibitor/Gizzerosine), Feed processing (Grinding/Pelleting/Crumbling), QC + FIFO, Heat stress AAs (Glutamine/Arginine/Threonine), Layer Diet 5 phases ครบ (Starter/Grower/Developer/Pre-lay/Production), Egg quality (albumen/yolk/shell + Vit D 1,25-(OH)2)' },
       { scope: 'system', kind: 'fix', icon: '📅', title: 'จัดลำดับ Lecture L8 Nutrition ให้มาก่อน L9-L14',
         desc: 'L8 Nutrition (อ.หทัยรัตน์) เคยปรากฏใต้ L14 First-week ในรายการหัวข้อ + ใต้สุดของหน้า Notes — ตอนนี้ย้ายขึ้นเป็นหัวข้อแรก ตามลำดับ syllabus จริง L8 → L9 → L10-11 → L12 → L13 → L14' },
     ],
@@ -162,7 +162,7 @@ export const CHANGELOG = [
     headline: '🌾 Poultry — เพิ่ม Note L8 Nutrition (อ.หทัยรัตน์) ครบ 8 sections',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🌾', title: 'เพิ่ม Note L8 Nutrition (อ.หทัยรัตน์ พลายมาศ) ที่ขาดไป',
-        desc: 'หน้า Notes ของ Poultry เคยมีแค่ L9-L14 — แต่ L8 Nutrition ก็เป็น Final scope (TJ p1-2 มี 15 ข้อ Vet 85) เพิ่มแล้ว 8 sections — Limiting AAs (Met/Lys/Thr) · Fat & EFA (Linoleic 3% Broiler) · Ca-P ratio (Broiler 2:1 / Layer 10:1) + Phytate-P 60-80% + Coarse Ca 2-4mm · DEB 250 mEq/kg · Heat stress Vit C+E · Fiber NSP/NSC + High GI pH effect on pepsin · Phase feeding · Past Exam Mapping 14 Q ไว้ทบทวนเร็วก่อนสอบ' },
+        desc: 'หน้า Notes ของ Poultry เคยมีแค่ L9-L14 — แต่ L8 Nutrition ก็เป็น Final scope (TJ p1-2 มี 15 ข้อ Vet 85) เพิ่มแล้ว 8 sections — Limiting AAs (Met/Lys/Thr), Fat & EFA (Linoleic 3% Broiler), Ca-P ratio (Broiler 2:1 / Layer 10:1) + Phytate-P 60-80% + Coarse Ca 2-4mm, DEB 250 mEq/kg, Heat stress Vit C+E, Fiber NSP/NSC + High GI pH effect on pepsin, Phase feeding, Past Exam Mapping 14 Q ไว้ทบทวนเร็วก่อนสอบ' },
     ],
   },
   {
@@ -171,9 +171,9 @@ export const CHANGELOG = [
     headline: '🐔 Poultry หมาหอน — แปลง 7 ข้อจาก MCQ เป็นเติมคำ (ตามรูปแบบข้อสอบเก่าหลายปี) + จัด L-numbering ใน Notes ให้ตรงกับ syllabus',
     changes: [
       { scope: 'multi', kind: 'feature', icon: '✏️', title: 'เปลี่ยนข้อสอบ Poultry 7 ข้อเป็นเติมคำ (Fill-in) เพราะปีก่อน ๆ ออกเป็นเติมคำ',
-        desc: 'จาก TJ + ข้อสอบเก่าที่เห็นว่าเป็นเติมคำ (ไม่ใช่ MCQ) — แปลงให้ตรงรูปแบบจริง: Q4001 Biosecurity 3 levels (Conceptual/Structural/Procedural) · Q4002 Disease equation (Virulence/Frequency/Dose) · Q4011 Piperazine · Q4012 QA 5 components · Q4013 PDCA cycle · Q4031 Most limiting AAs (Met/Lys/Thr) · Q4032 Lysine ref=100 · Q4034 Linoleic acid · Q4036 Ca:P ratio Broiler 2:1 / Layer 10:1 · Q4037 DEB 250 mEq/kg · Q4042 Coarse Ca 2-4mm · ฝึกเหมือนสอบจริงมากขึ้น (พิมพ์เอง ไม่ใช่เลือกตัวเลือก)' },
+        desc: 'จาก TJ + ข้อสอบเก่าที่เห็นว่าเป็นเติมคำ (ไม่ใช่ MCQ) — แปลงให้ตรงรูปแบบจริง: Q4001 Biosecurity 3 levels (Conceptual/Structural/Procedural), Q4002 Disease equation (Virulence/Frequency/Dose), Q4011 Piperazine, Q4012 QA 5 components, Q4013 PDCA cycle, Q4031 Most limiting AAs (Met/Lys/Thr), Q4032 Lysine ref=100, Q4034 Linoleic acid, Q4036 Ca:P ratio Broiler 2:1 / Layer 10:1, Q4037 DEB 250 mEq/kg, Q4042 Coarse Ca 2-4mm, ฝึกเหมือนสอบจริงมากขึ้น (พิมพ์เอง ไม่ใช่เลือกตัวเลือก)' },
       { scope: 'system', kind: 'fix', icon: '🔧', title: 'แก้ลำดับ L-numbering ใน Poultry Notes ให้ตรงกับ syllabus',
-        desc: 'หน้า Notes ของ Poultry เคยขึ้นเป็น L9 First-week / L10 Zoonosis / L11 Biosecurity / L13 Drugs / L14-15 QA ซึ่งสลับกับ syllabus จริง — แก้แล้วเป็น L9 Biosecurity / L10-11 Drugs / L12 QA / L13 Zoonosis / L14 First-week (รวมไปถึง heading "Past Exam Mapping" และ source attribution slide L# ทุกแห่ง) เนื้อหาในแต่ละหัวข้อคงเดิม · topic ID ไม่เปลี่ยน' },
+        desc: 'หน้า Notes ของ Poultry เคยขึ้นเป็น L9 First-week / L10 Zoonosis / L11 Biosecurity / L13 Drugs / L14-15 QA ซึ่งสลับกับ syllabus จริง — แก้แล้วเป็น L9 Biosecurity / L10-11 Drugs / L12 QA / L13 Zoonosis / L14 First-week (รวมไปถึง heading "Past Exam Mapping" และ source attribution slide L# ทุกแห่ง) เนื้อหาในแต่ละหัวข้อคงเดิม, topic ID ไม่เปลี่ยน' },
     ],
   },
   {
@@ -182,7 +182,7 @@ export const CHANGELOG = [
     headline: '🐔 Poultry หมาหอน v2 — เพิ่ม 15 ข้อ Nutrition (อ.หทัยรัตน์ L8 Final scope!) + cross-check Master 86',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🌾', title: 'L8 Animal Nutrition (อ.หทัยรัตน์) เป็น Final scope! (เพิ่งรู้)',
-        desc: 'ก่อนนี้คิดว่า L8 Nutrition เป็น Midterm scope จึงซ่อนไว้ พบจาก syllabus update 6 พ.ค. + TJ p1-2 มี 15 ข้อ Vet 85 ของอ.หทัยรัตน์ตรง ๆ → un-hide + ย้ายเข้า Final scope · จัดเป็น 🐺 หมาหอน 6 — Limiting AAs (Met/Lys/Thr) · Lysine ref=100 · Cysteine+Tyrosine semi-essential · Linoleic essential FA (Broiler >3%) · Ca:P Broiler 2:1 / Layer 10:1 · Phytate-P 60-80% ต้อง phytase · DEB 250 mEq/kg · Heat stress Vit C+E · Coarse Ca 2-4mm · Phase feeding · Egg weight control',
+        desc: 'ก่อนนี้คิดว่า L8 Nutrition เป็น Midterm scope จึงซ่อนไว้ พบจาก syllabus update 6 พ.ค. + TJ p1-2 มี 15 ข้อ Vet 85 ของอ.หทัยรัตน์ตรง ๆ → un-hide + ย้ายเข้า Final scope, จัดเป็น 🐺 หมาหอน 6 — Limiting AAs (Met/Lys/Thr), Lysine ref=100, Cysteine+Tyrosine semi-essential, Linoleic essential FA (Broiler >3%), Ca:P Broiler 2:1 / Layer 10:1, Phytate-P 60-80% ต้อง phytase, DEB 250 mEq/kg, Heat stress Vit C+E, Coarse Ca 2-4mm, Phase feeding, Egg weight control',
       },
     ],
   },
@@ -192,7 +192,7 @@ export const CHANGELOG = [
     headline: '🐔 Poultry หมาหอน — เพิ่ม 30 ข้อ TJ + แก้ลำดับ Lecture L9-L14 ตาม syllabus',
     changes: [
       { scope: 'system', kind: 'fix', icon: '📅', title: 'แก้ลำดับ Poultry L9-L14 ตาม syllabus myCourseVille (เดิมเรียงผิด)',
-        desc: 'จาก syllabus ที่ Palm อัปโหลด: L9 = Biosecurity (ณทยา), L10-11 = Drugs (นิวัตร), L12 = QA (เอกสิงห์), L13 = Zoonosis (กมลพรรณ), L14 = First-week mortality (เกรียงวิทย์) ก่อนนี้ผมเรียงผิดทำให้สับสน · topic ID เดิมไม่เปลี่ยน เก็บ data user ไว้',
+        desc: 'จาก syllabus ที่ Palm อัปโหลด: L9 = Biosecurity (ณทยา), L10-11 = Drugs (นิวัตร), L12 = QA (เอกสิงห์), L13 = Zoonosis (กมลพรรณ), L14 = First-week mortality (เกรียงวิทย์) ก่อนนี้ผมเรียงผิดทำให้สับสน, topic ID เดิมไม่เปลี่ยน เก็บ data user ไว้',
       },
       { scope: 'multi', kind: 'content', icon: '🐺', title: 'รวมหมาหอน Poultry 30 ข้อ ครอบคลุม 5 หัวข้อ Final scope',
         desc: 'การ์ด "🐺 รวมหมาหอน Poultry" ใต้วิชา Poultry แยก 5 หมวด — L9 Biosecurity 6 ข้อ (Iceberg/Boot swab/Cleft palate/Specificity), L10-11 Drugs 5 (Dip>Spray/Neomycin/Ionophores ห้ามไข่/Nitrofurans ห้ามเนื้อ/Piperazine), L12 QA 5 (5 components/PDCA/Food safety/AMR/Five Freedoms), L13 Zoonosis 6 (Chlamydiosis/Erysipelas/NDV/AI/Yersinia/Crypto), L14 First-week 8 (Broiler breeds/Crob fulfill/UVC/IBD/CAV/Pasgar/Splayed leg/Vent pasting) จาก Poultry Final TJ.pdf 9 หน้า',
@@ -230,47 +230,47 @@ export const CHANGELOG = [
   {
     version: '5.17.0',
     date: '2026-05-03',
-    headline: '🐂 เปิดวิชา Vet Prac Rum (47 ข้อ · 6 พ.ค.) + ขยาย Clin App Rum (37 ข้อ · 8 พ.ค.) · พร้อมใช้',
+    headline: '🐂 เปิดวิชา Vet Prac Rum (47 ข้อ, 6 พ.ค.) + ขยาย Clin App Rum (37 ข้อ, 8 พ.ค.), พร้อมใช้',
     changes: [
-      { scope: 'multi', kind: 'content', icon: '🐂', title: 'วิชา Vet Prac Rum (3108412) เปิดแล้ว · Final scope ครบ',
-        desc: 'รหัส 3108412 · 47 ข้อ ครอบคลุม Final scope week 8-13 · Penile deviation surgery (อ.สุติศาสตร์ VI) · Hoof care + trimming · Animal nutrition (DMI) · Cow restraint · Bovine local anesthesia (Paravertebral · Caudal epidural · Peterson block) · Parturition + Fetotomy · Rumenotomy · Dehorning · มี past-paper จาก pp\'s vet prac rum final85 (Vet 85) + Ploy83 lameness · 36 ข้อจาก past papers จริง 11 ข้อจาก lecture/background · มี confidence tag (EXTRACTED/INFERRED) ทุกข้อ' },
+      { scope: 'multi', kind: 'content', icon: '🐂', title: 'วิชา Vet Prac Rum (3108412) เปิดแล้ว, Final scope ครบ',
+        desc: 'รหัส 3108412, 47 ข้อ ครอบคลุม Final scope week 8-13, Penile deviation surgery (อ.สุติศาสตร์ VI), Hoof care + trimming, Animal nutrition (DMI), Cow restraint, Bovine local anesthesia (Paravertebral, Caudal epidural, Peterson block), Parturition + Fetotomy, Rumenotomy, Dehorning, มี past-paper จาก pp\'s vet prac rum final85 (Vet 85) + Ploy83 lameness, 36 ข้อจาก past papers จริง 11 ข้อจาก lecture/background, มี confidence tag (EXTRACTED/INFERRED) ทุกข้อ' },
       { scope: 'multi', kind: 'content', icon: '🐄', title: 'วิชา Clin App Rum ขยาย — 37 ข้อ ครบ Final scope',
-        desc: 'รหัส 3108411 · เพิ่มจาก 0 → 37 ข้อ · Topics: Metabolism + Nutrition Dashboard (DMI · NDF/ADF/NE · R:C ratio · Particle size · Feces Score · Locomotion Score · BHBA cutoff) · Ruminant Anesthesia (อ.ภัทร์มนฉัตร PB · benzodiazepines · phenothiazines · IV regional Bier block · Peterson block) · GI Surgery (อ.ศวิตา 45 ข้อ scope) · Hoof Health Fleet · 25 ข้อจาก master compilation + 10 ข้อจาก past papers Vet 84' },
+        desc: 'รหัส 3108411, เพิ่มจาก 0 → 37 ข้อ, Topics: Metabolism + Nutrition Dashboard (DMI, NDF/ADF/NE, R:C ratio, Particle size, Feces Score, Locomotion Score, BHBA cutoff), Ruminant Anesthesia (อ.ภัทร์มนฉัตร PB, benzodiazepines, phenothiazines, IV regional Bier block, Peterson block), GI Surgery (อ.ศวิตา 45 ข้อ scope), Hoof Health Fleet, 25 ข้อจาก master compilation + 10 ข้อจาก past papers Vet 84' },
       { scope: 'system', kind: 'fix', icon: '📚', title: 'แก้บั๊ก: หัวข้อที่ซ่อนแล้วยังโผล่ในรายการอ่าน', fromFeedback: true,
-        desc: 'ก่อนหน้านี้หัวข้อที่ marked hidden:true (เช่น Poultry midterm scope · Exotic week 1-6 · Repro uncertain) ยังแสดงใน "รายการอ่าน" · ตอนนี้ filter ให้แล้ว · เห็นเฉพาะ Final scope จริง · จำนวนหัวข้อใน progress bar ตรงกับวิชาที่จะสอบ' },
+        desc: 'ก่อนหน้านี้หัวข้อที่ marked hidden:true (เช่น Poultry midterm scope, Exotic week 1-6, Repro uncertain) ยังแสดงใน "รายการอ่าน", ตอนนี้ filter ให้แล้ว, เห็นเฉพาะ Final scope จริง, จำนวนหัวข้อใน progress bar ตรงกับวิชาที่จะสอบ' },
     ],
   },
   {
     version: '5.16.0',
     date: '2026-05-03',
-    headline: '📷 IG @vetmock.cu เปิดแล้ว · +12 สรุปคลิป Final (Poultry + Cliapprum) · +60 ข้อ Poultry past-paper',
+    headline: '📷 IG @vetmock.cu เปิดแล้ว, +12 สรุปคลิป Final (Poultry + Cliapprum), +60 ข้อ Poultry past-paper',
     changes: [
       { scope: 'system', kind: 'feature', icon: '📷', title: 'เปิด Instagram @vetmock.cu',
-        desc: 'Daily Q ของวัน · clip recommendations · study tips จากเพื่อนๆ ในรุ่น · QR code + ลิงก์ใน About + Footer ทุกหน้า · ปุ่ม "Share Score → IG Story" หลังจบสอบ' },
+        desc: 'Daily Q ของวัน, clip recommendations, study tips จากเพื่อนๆ ในรุ่น, QR code + ลิงก์ใน About + Footer ทุกหน้า, ปุ่ม "Share Score → IG Story" หลังจบสอบ' },
       { scope: 'multi', kind: 'content', icon: '📺', title: '+12 สรุปคลิปอาจารย์ Final scope (Poultry 5 + Cliapprum 7)',
-        desc: 'Poultry Final L9-L15: First Week Mortality (พี่อู๋) · Avian Zoonosis (Aj. Kamonpan) · Biosecurity (Aj. Nataya) · Avian Drug (Prof. Niwat) · Quality Assurance (Aj. Ekasingh Betagro) — Cliapprum Final: Metabolism · Anesthesia · GI Med (อ.ธนศักดิ์) · GI Surgery I-II (อ.แฮม) · Ruminant Surgery · Hoof Health · ทุกสรุปมี [mm:ss] timestamp anchors' },
+        desc: 'Poultry Final L9-L15: First Week Mortality (พี่อู๋), Avian Zoonosis (Aj. Kamonpan), Biosecurity (Aj. Nataya), Avian Drug (Prof. Niwat), Quality Assurance (Aj. Ekasingh Betagro) — Cliapprum Final: Metabolism, Anesthesia, GI Med (อ.ธนศักดิ์), GI Surgery I-II (อ.แฮม), Ruminant Surgery, Hoof Health, ทุกสรุปมี [mm:ss] timestamp anchors' },
       { scope: 'system', kind: 'content', icon: '🐔', title: '+60 ข้อสอบเก่า Poultry Final (mining 3 sources)',
-        desc: 'Mine จาก: 🌻 Kim85 Poultry Final Vet 83 (39 ข้อ) · sunsun84 อ.เอกสิงห์ MCQ (5 ข้อ) · POULTRY FINAL 86 (16 ข้อ · Aj. Niwat + BQM 4 มิติ) · รวม 70 ข้อ visible Final scope' },
+        desc: 'Mine จาก: 🌻 Kim85 Poultry Final Vet 83 (39 ข้อ), sunsun84 อ.เอกสิงห์ MCQ (5 ข้อ), POULTRY FINAL 86 (16 ข้อ, Aj. Niwat + BQM 4 มิติ), รวม 70 ข้อ visible Final scope' },
     ],
   },
   {
     version: '5.15.0',
     date: '2026-05-02',
-    headline: '🐾 Repro Lecture +41 ข้อจาก past-paper screenshot · ลด length bias ทั่วคลัง',
+    headline: '🐾 Repro Lecture +41 ข้อจาก past-paper screenshot, ลด length bias ทั่วคลัง',
     changes: [
       { scope: 'repro-lect', kind: 'content', icon: '📜', title: '+41 ข้อสอบเก่า Kimchii85 (Repro Lecture)',
-        desc: 'ดึงข้อจาก screenshot Blackboard exam ที่ "ตรงข้อสอบเก่า ★=85" (รุ่นพี่ flag ออกซ้ำเดิม) · ครบทุก Lect 15-24 · รวม 91 ข้อแล้ว · มาด้วย sourceType "past-paper" 31 ข้อ + student-compilation 55 ข้อ + lecture-verified-draft 5 ข้อ' },
+        desc: 'ดึงข้อจาก screenshot Blackboard exam ที่ "ตรงข้อสอบเก่า ★=85" (รุ่นพี่ flag ออกซ้ำเดิม), ครบทุก Lect 15-24, รวม 91 ข้อแล้ว, มาด้วย sourceType "past-paper" 31 ข้อ + student-compilation 55 ข้อ + lecture-verified-draft 5 ข้อ' },
       { scope: 'multi', kind: 'fix', icon: '📏', title: 'ทำความสะอาด question quality ทั่วคลัง', fromFeedback: true,
-        desc: 'ใช้ npm run fix:length + fix:questions ของ project · ลบ ★/** จาก option + Q stem (892 markers) · ปรับ length-bias ของ correct option ให้ใกล้เคียง wrong (52 ข้อ trimmed) · rebalance answer position bias (26 swaps) · ผู้ทำข้อสอบไม่สามารถเดาคำตอบจาก visual cue ได้แล้ว' },
+        desc: 'ใช้ npm run fix:length + fix:questions ของ project, ลบ ★/** จาก option + Q stem (892 markers), ปรับ length-bias ของ correct option ให้ใกล้เคียง wrong (52 ข้อ trimmed), rebalance answer position bias (26 swaps), ผู้ทำข้อสอบไม่สามารถเดาคำตอบจาก visual cue ได้แล้ว' },
     ],
   },
   {
     version: '5.13.0',
     date: '2026-04-28',
-    headline: '🦜 วิชา Exotic เปิดแล้ว · 58 ข้อ · Final scope ครบ',
+    headline: '🦜 วิชา Exotic เปิดแล้ว, 58 ข้อ, Final scope ครบ',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🦜', title: 'วิชา Exotic — Final exam scope พร้อมใช้ (58 ข้อ)',
-        desc: 'รหัส 3107414 (Wild Exo Hlth Mgt) · เลือกได้แล้วจากหน้าวิชา · 12 topics ตามตารางสอน อ.ธวัช + อ.เสาวภางค์/ไพศิลป์/ปัณณวัฒน์ · ครอบคลุม week 7-14: นกไม่ติดเชื้อ + นกติดเชื้อ (Pacheco, PDD, PBFD, Polyoma, Chlamydophila, Candida, Trichomonas, Giardia, Eimeria) + Zoo vet (IUCN, CITES, GRB, quarantine) + Field vet (One Health, conservation medicine) + Wildlife career (ECZM 5 specialties, ACZM, ทุน) · ข้อสอบเก่า Kimchii 23 + lecture-based 35 · midterm scope ค่อยมาเก็บปิดเทอม' },
+        desc: 'รหัส 3107414 (Wild Exo Hlth Mgt), เลือกได้แล้วจากหน้าวิชา, 12 topics ตามตารางสอน อ.ธวัช + อ.เสาวภางค์/ไพศิลป์/ปัณณวัฒน์, ครอบคลุม week 7-14: นกไม่ติดเชื้อ + นกติดเชื้อ (Pacheco, PDD, PBFD, Polyoma, Chlamydophila, Candida, Trichomonas, Giardia, Eimeria) + Zoo vet (IUCN, CITES, GRB, quarantine) + Field vet (One Health, conservation medicine) + Wildlife career (ECZM 5 specialties, ACZM, ทุน), ข้อสอบเก่า Kimchii 23 + lecture-based 35, midterm scope ค่อยมาเก็บปิดเทอม' },
     ],
   },
   {
@@ -279,7 +279,7 @@ export const CHANGELOG = [
     headline: '⌘K — ค้นทุกอย่างจากที่เดียวกัน',
     changes: [
       { scope: 'system', kind: 'feature', icon: '⌘', title: '⌘K / Ctrl+K — Quick search ทุกหน้า',
-        desc: 'กด ⌘K (Mac) หรือ Ctrl+K (Windows) → modal ค้นหา → พิมพ์เพื่อหา เมนู / วิชา / สรุปคลิป → ↑↓ เลื่อน ↵ เลือก esc ปิด · มีปุ่ม 🔍 บน header ด้วยถ้าไม่อยาก keyboard · กระโดดข้ามหน้าได้เร็วมาก ไม่ต้องเดินผ่านเมนูยาวๆ' },
+        desc: 'กด ⌘K (Mac) หรือ Ctrl+K (Windows) → modal ค้นหา → พิมพ์เพื่อหา เมนู / วิชา / สรุปคลิป → ↑↓ เลื่อน ↵ เลือก esc ปิด, มีปุ่ม 🔍 บน header ด้วยถ้าไม่อยาก keyboard, กระโดดข้ามหน้าได้เร็วมาก ไม่ต้องเดินผ่านเมนูยาวๆ' },
     ],
   },
   {
@@ -292,7 +292,7 @@ export const CHANGELOG = [
       { scope: 'com3', kind: 'content', icon: '🚨', title: '+6 สรุปคลิป COM III neuro/ER',
         desc: 'Spinal disorders + AI tools workshop + Ataxia/tremor + Seizure & narcolepsy + CPR + Acute abdomen + Metabolic ER + 10 ophtho clips ครอบคลุม diagnostic imaging + ear/orbit surgery' },
       { scope: 'system', kind: 'fix', icon: '🐛', title: 'แก้ template literal syntax error',
-        desc: 'ไฟล์ video-summaries.js เคย parse ไม่ผ่านเพราะ unescaped backticks ใน markdown code block · เปลี่ยนเป็น indented block แทน · build รอดทุกข้อ' },
+        desc: 'ไฟล์ video-summaries.js เคย parse ไม่ผ่านเพราะ unescaped backticks ใน markdown code block, เปลี่ยนเป็น indented block แทน, build รอดทุกข้อ' },
     ],
   },
   {
@@ -301,9 +301,9 @@ export const CHANGELOG = [
     headline: '📝 สรุปคลิปอาจารย์ — อ่านแทนนั่งดูเป็นชั่วโมง + download .md',
     changes: [
       { scope: 'multi', kind: 'feature', icon: '📝', title: 'อ่านสรุปคลิปย้อนหลังในแอป',
-        desc: 'เปิดคลิปใน playlist แล้วกด "📝 อ่านสรุปคลิป" → modal สรุปประเด็นสำคัญในรูปแบบ markdown · มีปุ่ม 💾 download .md เพื่อเอาไปอ่านใน Notability / Obsidian · ใน sidebar ของ playlist คลิปที่มีสรุปจะติดสัญลักษณ์ 📝 ให้เห็นชัดเจน' },
+        desc: 'เปิดคลิปใน playlist แล้วกด "📝 อ่านสรุปคลิป" → modal สรุปประเด็นสำคัญในรูปแบบ markdown, มีปุ่ม 💾 download .md เพื่อเอาไปอ่านใน Notability / Obsidian, ใน sidebar ของ playlist คลิปที่มีสรุปจะติดสัญลักษณ์ 📝 ให้เห็นชัดเจน' },
       { scope: 'com4', kind: 'content', icon: '🩺', title: 'สรุปคลิป "IBD + SLE" พร้อมใช้แล้ว',
-        desc: 'ครอบคลุม 4 IBD criteria, modern treatment (probiotic + diet > antibiotic deprecated), large vs small bowel diarrhea, SLE = "โรคพุ่มพวง", CD4/CD8 ratio, ANA test, breed-specific cases (Sharpei → amyloidosis) + exam hot spots · จะทยอยเพิ่มสรุปคลิปอื่นๆ เข้ามาเรื่อยๆ' },
+        desc: 'ครอบคลุม 4 IBD criteria, modern treatment (probiotic + diet > antibiotic deprecated), large vs small bowel diarrhea, SLE = "โรคพุ่มพวง", CD4/CD8 ratio, ANA test, breed-specific cases (Sharpei → amyloidosis) + exam hot spots, จะทยอยเพิ่มสรุปคลิปอื่นๆ เข้ามาเรื่อยๆ' },
     ],
   },
   {
@@ -312,9 +312,9 @@ export const CHANGELOG = [
     headline: '📜 Phase 3 ข้อสอบเก่า COM III — รวม 93 ข้อ (+33 ข้อ จาก past paper 75 ข้อ)',
     changes: [
       { scope: 'com3', kind: 'content', icon: '📜', title: '+33 ข้อสอบเก่า COM III Final 86 (Phase 3)',
-        desc: 'ดึงมาจาก com ani III ข้อสอบเก่า (75-question past paper) ที่ตรงกับ syllabus 2026 · IDs 1360-1392 · ครอบคลุม Cushing response (TBI), CN VII tympanic bulla, paradoxical central vestibular, cerebellar abiotrophy vs hypoplasia, Hansen Type I IVDD breeds, Wobbler synonyms, white shaker syndrome, refeeding syndrome prevention, RER calculation, fluid math, fentanyl ใน shock, DKA volume-first priority' },
+        desc: 'ดึงมาจาก com ani III ข้อสอบเก่า (75-question past paper) ที่ตรงกับ syllabus 2026, IDs 1360-1392, ครอบคลุม Cushing response (TBI), CN VII tympanic bulla, paradoxical central vestibular, cerebellar abiotrophy vs hypoplasia, Hansen Type I IVDD breeds, Wobbler synonyms, white shaker syndrome, refeeding syndrome prevention, RER calculation, fluid math, fentanyl ใน shock, DKA volume-first priority' },
       { scope: 'com3', kind: 'content', icon: '🎯', title: 'Position-balanced ตั้งแต่เขียน (cycle 0-4)',
-        desc: '33 ข้อใหม่ใช้ deterministic answer cycle 0,1,2,3,4 → distribution 7-7-7-6-6 · 0 swap ต้องแก้หลัง · 0 length bias error · baseline 78 errors เท่าเดิม' },
+        desc: '33 ข้อใหม่ใช้ deterministic answer cycle 0,1,2,3,4 → distribution 7-7-7-6-6, 0 swap ต้องแก้หลัง, 0 length bias error, baseline 78 errors เท่าเดิม' },
     ],
   },
   {
@@ -323,11 +323,11 @@ export const CHANGELOG = [
     headline: '📏 ลด length bias ทั้งคลัง 38% + CI guard ระยะยาว',
     changes: [
       { scope: 'multi', kind: 'fix', icon: '📏', title: 'Auto-trim length bias 194 ข้อ', fromFeedback: true,
-        desc: 'เขียน scripts/fix-length-bias.cjs ตัด trailing parenthetical "(...)" / em-dash / mid-dot " · " / comma list จาก correct option แล้วย้ายไป explain · ลดอัตรา length bias 264 → 163 (38%) · errors 170 → 78 · กระทบ com3 36 ข้อ · com4 33 ข้อ · com5 36 ข้อ · engprof 3 ข้อ' },
+        desc: 'เขียน scripts/fix-length-bias.cjs ตัด trailing parenthetical "(...)" / em-dash / mid-dot ", " / comma list จาก correct option แล้วย้ายไป explain, ลดอัตรา length bias 264 → 163 (38%), errors 170 → 78, กระทบ com3 36 ข้อ, com4 33 ข้อ, com5 36 ข้อ, engprof 3 ข้อ' },
       { scope: 'system', kind: 'feature', icon: '🛡️', title: 'GitHub Actions CI guard',
-        desc: 'ทุก push/PR ที่แก้ questions-*.js → run lint อัตโนมัติ · บล็อก merge ถ้า error count เกิน baseline (78) · กัน regression ในอนาคต · กดดู Action tab ของ repo ได้' },
+        desc: 'ทุก push/PR ที่แก้ questions-*.js → run lint อัตโนมัติ, บล็อก merge ถ้า error count เกิน baseline (78), กัน regression ในอนาคต, กดดู Action tab ของ repo ได้' },
       { scope: 'system', kind: 'feature', icon: '⚙️', title: 'npm script ครอบคลุม 3 ตัว',
-        desc: '`npm run lint:questions` ตรวจ · `npm run fix:questions` แก้ position + ** · `npm run fix:length` ตัด parenthetical · idempotent ทุกตัว run ซ้ำได้' },
+        desc: '`npm run lint:questions` ตรวจ, `npm run fix:questions` แก้ position + **, `npm run fix:length` ตัด parenthetical, idempotent ทุกตัว run ซ้ำได้' },
     ],
   },
   {
@@ -336,9 +336,9 @@ export const CHANGELOG = [
     headline: '📜 Phase 2 ข้อสอบเก่า COM III — รวม 60 ข้อ + linter ครอบคลุม multi-line',
     changes: [
       { scope: 'com3', kind: 'content', icon: '📜', title: '+30 ข้อสอบเก่า DC3final 86 (Phase 2)',
-        desc: 'ดึงมาจาก DC3final read.pdf Q22-Q85 ที่ตรงกับ slide lecture 2026 · ทุกข้อมี examOrigin + balanced answer position ตั้งแต่เขียน · ครอบคลุม vestibular paradox, paraplegia signs, restrictive vs obstructive breathing pattern, hyperkalemia mgmt, paradoxical respiration, white shaker syndrome, Wobbler tetraplegia, DMVD, DKA + analgesia ใน shock' },
+        desc: 'ดึงมาจาก DC3final read.pdf Q22-Q85 ที่ตรงกับ slide lecture 2026, ทุกข้อมี examOrigin + balanced answer position ตั้งแต่เขียน, ครอบคลุม vestibular paradox, paraplegia signs, restrictive vs obstructive breathing pattern, hyperkalemia mgmt, paradoxical respiration, white shaker syndrome, Wobbler tetraplegia, DMVD, DKA + analgesia ใน shock' },
       { scope: 'system', kind: 'fix', icon: '🔧', title: 'Linter รองรับ multi-line options array',
-        desc: 'ก่อนหน้านี้ lint-questions.cjs ตรวจไม่ครบเพราะ regex รับเฉพาะ single-line — แก้ให้รองรับ multi-line array (Phase 2 batch + engprof writing prompts ใช้ format นี้) · ตอนนี้ตรวจ MCQ 445 ข้อ (เดิม 381)' },
+        desc: 'ก่อนหน้านี้ lint-questions.cjs ตรวจไม่ครบเพราะ regex รับเฉพาะ single-line — แก้ให้รองรับ multi-line array (Phase 2 batch + engprof writing prompts ใช้ format นี้), ตอนนี้ตรวจ MCQ 445 ข้อ (เดิม 381)' },
     ],
   },
   {
@@ -347,11 +347,11 @@ export const CHANGELOG = [
     headline: '🎲 ปิด position bias ทุกหัวข้อ + ลบ ** ทั้งคลัง + linter ระยะยาว',
     changes: [
       { scope: 'multi', kind: 'fix', icon: '🎲', title: 'แก้ answer-position bias 13 หัวข้อ (66 ข้อ)', fromFeedback: true,
-        desc: 'Feedback: "ตอบ B ก็ถูกเกือบหมดเลย" — เป็นเพราะตอนรีไรท์ distractor ใน v5.2.0 เก็บ answer:1 ไว้ทุกข้อ · ตอนนี้ครอบคลุม IMHA/IBD/SLE + dermatology series ทั้งหมด (intro/bacterial/fungal/endocrine/nutrition/allergic/autoimmune) + immune-drugs + peds-geri + ai-vet · กระจายคำตอบทุก index 0-4 อย่างสมดุล' },
+        desc: 'Feedback: "ตอบ B ก็ถูกเกือบหมดเลย" — เป็นเพราะตอนรีไรท์ distractor ใน v5.2.0 เก็บ answer:1 ไว้ทุกข้อ, ตอนนี้ครอบคลุม IMHA/IBD/SLE + dermatology series ทั้งหมด (intro/bacterial/fungal/endocrine/nutrition/allergic/autoimmune) + immune-drugs + peds-geri + ai-vet, กระจายคำตอบทุก index 0-4 อย่างสมดุล' },
       { scope: 'system', kind: 'feature', icon: '🛡️', title: 'Question linter + auto-fix script', fromFeedback: true,
-        desc: 'เพิ่ม `npm run lint:questions` ตรวจ position bias / length bias / ** markdown leak อัตโนมัติ — exit-1 ถ้าเจอ error · `npm run fix:questions` แก้ position bias + ลบ ** อัตโนมัติทั้งคลัง · idempotent run ซ้ำได้ไม่เสีย' },
+        desc: 'เพิ่ม `npm run lint:questions` ตรวจ position bias / length bias / ** markdown leak อัตโนมัติ — exit-1 ถ้าเจอ error, `npm run fix:questions` แก้ position bias + ลบ ** อัตโนมัติทั้งคลัง, idempotent run ซ้ำได้ไม่เสีย' },
       { scope: 'multi', kind: 'fix', icon: '✨', title: 'ลบ ** markdown bold ทั่วทั้งคลังข้อสอบ (330 จุด)', fromFeedback: true,
-        desc: 'Feedback: "** ดูเป็น AI" — ลบสัญลักษณ์ ** ทั้ง engprof (170) · com3 (134) · com5 (20) · com4 (6) ออก · เปลี่ยนเป็นภาษาธรรมชาติ ไม่มี emphasis ขัดตา' },
+        desc: 'Feedback: "** ดูเป็น AI" — ลบสัญลักษณ์ ** ทั้ง engprof (170), com3 (134), com5 (20), com4 (6) ออก, เปลี่ยนเป็นภาษาธรรมชาติ ไม่มี emphasis ขัดตา' },
     ],
   },
   {
@@ -360,11 +360,11 @@ export const CHANGELOG = [
     headline: '⬅️ ปุ่มย้อนกลับเด่นขึ้น + 📨 ป้าย "จาก feedback" + 30 ข้อสอบเก่า COM III',
     changes: [
       { scope: 'system', kind: 'fix', icon: '⬅️', title: 'ปุ่มย้อนกลับ user-friendly กว่าเดิม', fromFeedback: true,
-        desc: 'เดิมปุ่ม ghost จาง อยู่ล่างสุด เลื่อนหายาก — ตอนนี้เพิ่ม chip "← ย้อนกลับ" ติด **บนสุดของหน้า** ทุก sub-view สำคัญ (Notes / Schedule / Review / Results / Config / Subject / Topic / About / Feedback / Dashboard / Scores / Video) · ปุ่มเดิมล่างก็เด่นขึ้น (พื้นเทาอ่อน + เส้นกรอบหนา + hover เป็นสีเสจ)' },
+        desc: 'เดิมปุ่ม ghost จาง อยู่ล่างสุด เลื่อนหายาก — ตอนนี้เพิ่ม chip "← ย้อนกลับ" ติด **บนสุดของหน้า** ทุก sub-view สำคัญ (Notes / Schedule / Review / Results / Config / Subject / Topic / About / Feedback / Dashboard / Scores / Video), ปุ่มเดิมล่างก็เด่นขึ้น (พื้นเทาอ่อน + เส้นกรอบหนา + hover เป็นสีเสจ)' },
       { scope: 'system', kind: 'feature', icon: '📨', title: 'ป้าย "จาก feedback" บน announcement', fromFeedback: true,
-        desc: 'รายการที่แก้จาก feedback ของผู้ใช้ (ผ่านเมล/ฟอร์ม) จะมี chip 📨 ติดข้างชื่อ — ผู้ใช้คนอื่นเห็นว่า feedback ของตนได้รับการแก้จริง · retro-tag ทุกรายการที่เคยแก้จาก feedback ตั้งแต่ v5.1.5 เป็นต้นมา' },
+        desc: 'รายการที่แก้จาก feedback ของผู้ใช้ (ผ่านเมล/ฟอร์ม) จะมี chip 📨 ติดข้างชื่อ — ผู้ใช้คนอื่นเห็นว่า feedback ของตนได้รับการแก้จริง, retro-tag ทุกรายการที่เคยแก้จาก feedback ตั้งแต่ v5.1.5 เป็นต้นมา' },
       { scope: 'com3', kind: 'content', icon: '📜', title: '+30 ข้อสอบเก่า COM III Final 86 (DC3final)', fromFeedback: true,
-        desc: 'นำ 30 ข้อจากชุด DC3final read.pdf (ข้อสอบจริง 75 ข้อ Vet 86) มาใส่หลังเช็คว่าตรงกับ slide lecture 2026 ทุกหัวข้อ · ครบ topic: cpcr/triage/seizure/shock/spinal/ataxia-tremor/nutrition/metabolic-er/acute-abdomen/resp-cv-er/neuro-er/er-anes · มี examOrigin tag · ช้อยส์ความยาวเท่ากันทุก option (ไม่ bias)' },
+        desc: 'นำ 30 ข้อจากชุด DC3final read.pdf (ข้อสอบจริง 75 ข้อ Vet 86) มาใส่หลังเช็คว่าตรงกับ slide lecture 2026 ทุกหัวข้อ, ครบ topic: cpcr/triage/seizure/shock/spinal/ataxia-tremor/nutrition/metabolic-er/acute-abdomen/resp-cv-er/neuro-er/er-anes, มี examOrigin tag, ช้อยส์ความยาวเท่ากันทุก option (ไม่ bias)' },
     ],
   },
   {
@@ -373,11 +373,11 @@ export const CHANGELOG = [
     headline: '✏️ Smart Passage (เขียน Apple Pencil ได้) + 🎯 Smart Self-Grader',
     changes: [
       { scope: 'engprof', kind: 'feature', icon: '✏️', title: 'Smart Passage — highlight + ปากกา + Apple Pencil', fromFeedback: true,
-        desc: 'เปลี่ยน reading passage ให้จดได้: 🖍️ ไฮไลท์ 3 สี (ลากเลือก ถ้าจะลบให้คลิก) · ✏️ pen mode รองรับ Apple Pencil ปลายปากกามี pressure-sensitive · 🩹 ยางลบเฉพาะเส้นวาด · บันทึกอัตโนมัติต่อ passage (mock อื่นที่ใช้ passage เดียวกันก็ใช้ mark นั้นได้)' },
+        desc: 'เปลี่ยน reading passage ให้จดได้: 🖍️ ไฮไลท์ 3 สี (ลากเลือก ถ้าจะลบให้คลิก), ✏️ pen mode รองรับ Apple Pencil ปลายปากกามี pressure-sensitive, 🩹 ยางลบเฉพาะเส้นวาด, บันทึกอัตโนมัติต่อ passage (mock อื่นที่ใช้ passage เดียวกันก็ใช้ mark นั้นได้)' },
       { scope: 'engprof', kind: 'feature', icon: '🎯', title: 'Smart Self-Grader — ตรวจข้อเขียนแบบไม่ง้อ AI', fromFeedback: true,
-        desc: '4 panel ในกล่องเดียว: 📊 word count meter · 🔑 keyword coverage % พร้อมรายการที่ขาด · 📝 paraphrase detector (จับ chunk ที่ copy ตรงจาก passage ≥6 คำติด) · 📋 rubric checklist 15 pts (Content 7 + Org 5 + Paraphrase 3) ติ๊กแล้วคำนวณคะแนนเอง · 🔮 confidence calibration ให้ทายคะแนนก่อน track avg bias ระยะยาว' },
+        desc: '4 panel ในกล่องเดียว: 📊 word count meter, 🔑 keyword coverage % พร้อมรายการที่ขาด, 📝 paraphrase detector (จับ chunk ที่ copy ตรงจาก passage ≥6 คำติด), 📋 rubric checklist 15 pts (Content 7 + Org 5 + Paraphrase 3) ติ๊กแล้วคำนวณคะแนนเอง, 🔮 confidence calibration ให้ทายคะแนนก่อน track avg bias ระยะยาว' },
       { scope: 'system', kind: 'feature', icon: '💾', title: 'บันทึก self-grade ต่อข้อ + history',
-        desc: 'คะแนนที่ติ๊ก + การทาย เก็บใน localStorage · กลับมาดูได้ · 50 essay ล่าสุดเก็บไว้คำนวณ "เราชอบประเมินสูง/ต่ำกว่าจริงเฉลี่ยกี่คะแนน"' },
+        desc: 'คะแนนที่ติ๊ก + การทาย เก็บใน localStorage, กลับมาดูได้, 50 essay ล่าสุดเก็บไว้คำนวณ "เราชอบประเมินสูง/ต่ำกว่าจริงเฉลี่ยกี่คะแนน"' },
     ],
   },
   {
@@ -386,9 +386,9 @@ export const CHANGELOG = [
     headline: '🎯 ปรับช้อยส์ COM IV ให้ท้าทายขึ้น + อัพเดทแนวข้อสอบหลายวิชา',
     changes: [
       { scope: 'com4', kind: 'fix', icon: '🎲', title: 'แก้ bias ช้อยส์ใน IMHA / IBD / SLE', fromFeedback: true,
-        desc: 'เดิม distractor สั้นมาก (เช่น "Surgery", "ไม่ต้อง monitor") ทำให้เดาช้อยที่ยาว/ละเอียดที่สุดได้ — ตอนนี้ทุก option มี clinical detail ใกล้เคียงกัน เลือกตามความเข้าใจไม่ใช่ความยาว · แก้ทั้งหมด 28 ข้อ' },
+        desc: 'เดิม distractor สั้นมาก (เช่น "Surgery", "ไม่ต้อง monitor") ทำให้เดาช้อยที่ยาว/ละเอียดที่สุดได้ — ตอนนี้ทุก option มี clinical detail ใกล้เคียงกัน เลือกตามความเข้าใจไม่ใช่ความยาว, แก้ทั้งหมด 28 ข้อ' },
       { scope: 'multi', kind: 'content', icon: '📅', title: 'อัพเดทแนวข้อสอบ 6 วิชา',
-        desc: 'COM IV ย้ายไปศุกร์ 1 พ.ค. เช้า · COM III ออกคาบละ 5-7 ข้อ ช้อย 5 ตัว (AI ไม่ออก) · Vet Prac Rum 3 ภาควิชา (ศัลย์/สัตวบาล/สูติ — เตรียมดินสอวาดคลอดยาก) · Clin App Rum อ.ศวิตา 45 ข้อ · Ani Repro Lect 15-24 + Google Doc รวบข้อสอบ · Poultry T/F + ช้อย + เติมคำ' },
+        desc: 'COM IV ย้ายไปศุกร์ 1 พ.ค. เช้า, COM III ออกคาบละ 5-7 ข้อ ช้อย 5 ตัว (AI ไม่ออก), Vet Prac Rum 3 ภาควิชา (ศัลย์/สัตวบาล/สูติ — เตรียมดินสอวาดคลอดยาก), Clin App Rum อ.ศวิตา 45 ข้อ, Ani Repro Lect 15-24 + Google Doc รวบข้อสอบ, Poultry T/F + ช้อย + เติมคำ' },
       { scope: 'system', kind: 'feature', icon: '🔗', title: 'แสดง external link ในตารางสอบ',
         desc: 'เพิ่ม chip ลิงก์เอกสารแชร์ใต้ exam card (เช่น Google Doc รวมข้อสอบเก่า)' },
     ],
@@ -399,9 +399,9 @@ export const CHANGELOG = [
     headline: '🎯 จัดหน้าตั้งค่าให้ตรงกับวิชา — ตัด UI ที่ไม่ใช้ออก',
     changes: [
       { scope: 'engprof', kind: 'fix', icon: '🎯', title: 'Category picker เฉพาะ Eng Vet Prof II',
-        desc: 'หน้า ConfigView "ทุกประเภท / MCQ / Writing เท่านั้น" โผล่เฉพาะตอนเลือกวิชา Eng Vet Prof II · วิชาอื่นซ่อน (เพราะมีแต่ MCQ อยู่แล้ว ไม่ต้องเลือก)' },
+        desc: 'หน้า ConfigView "ทุกประเภท / MCQ / Writing เท่านั้น" โผล่เฉพาะตอนเลือกวิชา Eng Vet Prof II, วิชาอื่นซ่อน (เพราะมีแต่ MCQ อยู่แล้ว ไม่ต้องเลือก)' },
       { scope: 'system', kind: 'fix', icon: '🧹', title: 'ตัด UI ส่วนที่ไม่ได้ใช้ออก',
-        desc: 'หน้า ConfigView สะอาดขึ้น · เหลือเฉพาะตัวเลือกที่ตรงกับโหมด/วิชาที่เลือก' },
+        desc: 'หน้า ConfigView สะอาดขึ้น, เหลือเฉพาะตัวเลือกที่ตรงกับโหมด/วิชาที่เลือก' },
     ],
   },
   {
@@ -410,28 +410,28 @@ export const CHANGELOG = [
     headline: '🏷️ ประกาศบอกว่าแก้วิชาไหน vs แก้ระบบ — รู้ทันที',
     changes: [
       { scope: 'system', kind: 'feature', icon: '🏷️', title: 'Scope chip ในประกาศอัปเดต',
-        desc: 'แต่ละรายการมี chip บอกชัดว่า ⚙️ ระบบ · 🗣️ Eng Vet Prof II · 🚨 COM III · 🩺 COM IV · 🐕 COM V · 🔐 Auth · ⚡ หลายส่วน — scan ได้ใน 2 วิ' },
+        desc: 'แต่ละรายการมี chip บอกชัดว่า ⚙️ ระบบ, 🗣️ Eng Vet Prof II, 🚨 COM III, 🩺 COM IV, 🐕 COM V, 🔐 Auth, ⚡ หลายส่วน — scan ได้ใน 2 วิ' },
       { scope: 'system', kind: 'feature', icon: '🎨', title: 'Color-coded ตามสีวิชา',
-        desc: 'COM III แดง · COM IV ม่วง · COM V น้ำเงิน · Eng Vet Prof II เทา-น้ำเงิน — ตรงกับสี subject card หน้าเลือกวิชา' },
+        desc: 'COM III แดง, COM IV ม่วง, COM V น้ำเงิน, Eng Vet Prof II เทา-น้ำเงิน — ตรงกับสี subject card หน้าเลือกวิชา' },
       { scope: 'system', kind: 'fix', icon: '📜', title: 'Retrofit ทุกประกาศย้อนหลัง',
-        desc: 'ติด scope ให้ทุก entry ตั้งแต่ v5.1.0 ครบหมด · กดดูประวัติแล้วเห็นได้เลยว่าแก้อะไรไปบ้าง วิชาไหน' },
+        desc: 'ติด scope ให้ทุก entry ตั้งแต่ v5.1.0 ครบหมด, กดดูประวัติแล้วเห็นได้เลยว่าแก้อะไรไปบ้าง วิชาไหน' },
     ],
   },
   {
     version: '5.1.7',
     date: '2026-04-27',
-    headline: '📄 Passage + Writing area แสดงข้างกัน · ไม่ต้องเลื่อนกลับไปกลับมาแล้ว',
+    headline: '📄 Passage + Writing area แสดงข้างกัน, ไม่ต้องเลื่อนกลับไปกลับมาแล้ว',
     changes: [
       { scope: 'system', kind: 'feature', icon: '📄', title: 'Side-by-side passage + writing บนจอใหญ่', fromFeedback: true,
-        desc: 'iPad/Desktop ≥1024px: passage อยู่ซ้าย (sticky) · เขียนคำตอบขวา · เห็นทั้งคู่พร้อมกันโดยไม่ต้องเลื่อน · ใช้ได้ทุกวิชาที่มี passage' },
+        desc: 'iPad/Desktop ≥1024px: passage อยู่ซ้าย (sticky), เขียนคำตอบขวา, เห็นทั้งคู่พร้อมกันโดยไม่ต้องเลื่อน, ใช้ได้ทุกวิชาที่มี passage' },
       { scope: 'system', kind: 'feature', icon: '📱', title: 'ปุ่มลอย "📄 Passage" บนมือถือ', fromFeedback: true,
-        desc: 'แตะปุ่มมุมขวาล่าง → passage เลื่อนกลับมาให้เห็น + ขยายอัตโนมัติถ้ายุบไว้ · ไม่ต้องเลื่อนนิ้วขึ้นลงเอง' },
+        desc: 'แตะปุ่มมุมขวาล่าง → passage เลื่อนกลับมาให้เห็น + ขยายอัตโนมัติถ้ายุบไว้, ไม่ต้องเลื่อนนิ้วขึ้นลงเอง' },
       { scope: 'system', kind: 'fix', icon: '⚡', title: 'Auto-save debounce 500ms',
         desc: 'พิมพ์เร็วๆ ไม่กระตุก แล้ว — เซฟลง localStorage 2 ครั้ง/วินาที (เดิม save ทุก keystroke ทำมือถือเก่าหน่วง)' },
       { scope: 'system', kind: 'fix', icon: '🐛', title: 'Passage open state ไม่หลงข้อ',
-        desc: 'ยุบ passage ใน Q1 → ไป Q2 → เดิม passage ยุบต่อเนื่อง · แก้แล้วเปิดใหม่ทุกข้อ' },
+        desc: 'ยุบ passage ใน Q1 → ไป Q2 → เดิม passage ยุบต่อเนื่อง, แก้แล้วเปิดใหม่ทุกข้อ' },
       { scope: 'system', kind: 'fix', icon: '✍️', title: 'Result message สำหรับ Writing-only',
-        desc: 'เขียน-only session ไม่แสดง "0% FAILED" แล้ว · แสดง "Writing Session · Grade in Review" + message ที่เหมาะ' },
+        desc: 'เขียน-only session ไม่แสดง "0% FAILED" แล้ว, แสดง "Writing Session, Grade in Review" + message ที่เหมาะ' },
     ],
   },
   {
@@ -440,15 +440,15 @@ export const CHANGELOG = [
     headline: '🎚 เลือก Self/AI ก่อนเริ่ม + auto-save กันลืม + bug fix',
     changes: [
       { scope: 'engprof', kind: 'feature', icon: '🎚', title: 'เลือกผู้ตรวจข้อเขียนก่อนเริ่ม', fromFeedback: true,
-        desc: 'ConfigView มี 3 chip เลือก: 🤔 ถามตอนตรวจ (default) · 📝 ประเมินเอง (skip picker) · 🤖 AI ตรวจอัตโนมัติ — เข้า Review ปุ๊บได้ผลทันที (เก็บ preference ใน localStorage)' },
+        desc: 'ConfigView มี 3 chip เลือก: 🤔 ถามตอนตรวจ (default), 📝 ประเมินเอง (skip picker), 🤖 AI ตรวจอัตโนมัติ — เข้า Review ปุ๊บได้ผลทันที (เก็บ preference ใน localStorage)' },
       { scope: 'system', kind: 'feature', icon: '💾', title: 'Auto-save ตอนทำข้อสอบ',
-        desc: 'ทำๆ อยู่ tab ปิดเอง / browser ค้าง / มือถือไฟดับ → กลับมาเปิดเว็บ → เห็น "🔄 พบข้อสอบที่ค้างอยู่ · ทำต่อไหม?" — ไม่หายเลย · ใช้ได้ทุกวิชา' },
+        desc: 'ทำๆ อยู่ tab ปิดเอง / browser ค้าง / มือถือไฟดับ → กลับมาเปิดเว็บ → เห็น "🔄 พบข้อสอบที่ค้างอยู่, ทำต่อไหม?" — ไม่หายเลย, ใช้ได้ทุกวิชา' },
       { scope: 'engprof', kind: 'feature', icon: '✍️', title: 'Quick strategy banner ก่อนเริ่มเขียน',
-        desc: 'ConfigView โหมด Writing → เห็น checklist 7 ข้อ: อ่าน 2 รอบ · topic sentence · transitions · paraphrase 2 อย่าง · cite source · word count · ห้าม opinion' },
+        desc: 'ConfigView โหมด Writing → เห็น checklist 7 ข้อ: อ่าน 2 รอบ, topic sentence, transitions, paraphrase 2 อย่าง, cite source, word count, ห้าม opinion' },
       { scope: 'system', kind: 'fix', icon: '🐛', title: 'Bug: ย้อนข้อแล้วเวลาหด', fromFeedback: true,
-        desc: 'กด ← / jump-to-question ที่ข้อ essay → เวลาเหลือเป็น 60s แทน 25min · แก้แล้วใช้ timeForQuestion ตามประเภท' },
+        desc: 'กด ← / jump-to-question ที่ข้อ essay → เวลาเหลือเป็น 60s แทน 25min, แก้แล้วใช้ timeForQuestion ตามประเภท' },
       { scope: 'system', kind: 'fix', icon: '🔀', title: 'Bug: shuffle ทำลาย mock passage flow',
-        desc: 'เลือก subject แล้วได้ Q4 ของ Mock 2 มาก่อน Q1 ของ Mock 1 → passage งง · แก้: ถ้ามี examOrigin ติด → sort by ID ภายในก่อน' },
+        desc: 'เลือก subject แล้วได้ Q4 ของ Mock 2 มาก่อน Q1 ของ Mock 1 → passage งง, แก้: ถ้ามี examOrigin ติด → sort by ID ภายในก่อน' },
     ],
   },
   {
@@ -459,7 +459,7 @@ export const CHANGELOG = [
       { scope: 'system', kind: 'feature', icon: '📝', title: 'แยก MCQ และ Writing ชัดเจน', fromFeedback: true,
         desc: 'หน้า Config มีเลือก 3 โหมด: ทุกประเภท / MCQ + T/F (auto-graded) / Writing เท่านั้น (short + essay)' },
       { scope: 'system', kind: 'feature', icon: '⏱', title: 'Smart timer ต่อประเภท', fromFeedback: true,
-        desc: 'ตั้งเวลา 60 วิ ครั้งเดียว — ระบบให้ MCQ 60 วิ · Short answer 3 นาที · Essay 25 นาที (ตามสัดส่วนสอบจริง 2 ชม. = 5 นาที/short + 25 นาที/essay)' },
+        desc: 'ตั้งเวลา 60 วิ ครั้งเดียว — ระบบให้ MCQ 60 วิ, Short answer 3 นาที, Essay 25 นาที (ตามสัดส่วนสอบจริง 2 ชม. = 5 นาที/short + 25 นาที/essay)' },
       { scope: 'system', kind: 'fix', icon: '⚠️', title: 'Confirm ก่อนข้ามข้อเขียนที่ยังไม่ตอบ', fromFeedback: true,
         desc: 'กด "ข้อถัดไป" ที่ short/essay ที่ยังไม่ได้เขียน → ถามยืนยัน "ข้ามจริงๆ?" ก่อน — กันพลาดเพราะกดเร็ว' },
       { scope: 'system', kind: 'fix', icon: '📊', title: 'Score % ไม่นับข้อเขียนผิด',
@@ -474,13 +474,13 @@ export const CHANGELOG = [
     headline: '🤖 Smart AI grading + 4 Mock Exams Eng Vet Prof II ครบ',
     changes: [
       { scope: 'system', kind: 'feature', icon: '🤖', title: 'Smart AI score assessment',
-        desc: 'หลังเขียน summary/short answer → กดปุ่ม "🤖 Smart AI grade" → AI ตรวจตาม rubric · score breakdown ต่อเกณฑ์ + จุดเด่น + จุดที่ควรปรับ · หรือเลือก "📝 Self assess" ก็ได้' },
+        desc: 'หลังเขียน summary/short answer → กดปุ่ม "🤖 Smart AI grade" → AI ตรวจตาม rubric, score breakdown ต่อเกณฑ์ + จุดเด่น + จุดที่ควรปรับ, หรือเลือก "📝 Self assess" ก็ได้' },
       { scope: 'engprof', kind: 'content', icon: '📚', title: '4 Mock Exams ครบ Part I + Part II',
-        desc: 'Mock 1: MDORS/CORS · Mock 2: Bone density baboons · Mock 3: Newcastle Oman · Mock 4: ✏️ AMR/MRSP (เขียนใหม่ตาม Final spec) · ทุก mock เรียงคำถามตาม section flow' },
+        desc: 'Mock 1: MDORS/CORS, Mock 2: Bone density baboons, Mock 3: Newcastle Oman, Mock 4: ✏️ AMR/MRSP (เขียนใหม่ตาม Final spec), ทุก mock เรียงคำถามตาม section flow' },
       { scope: 'engprof', kind: 'content', icon: '✏️', title: '20 short-answer + 11 T/F + 4 essay จาก Exercise 2 KEY',
-        desc: 'คำตอบ + keywords ดึงตรงจาก Exercise 2 KEY ที่อาจารย์ให้ · ใช้ฝึกได้สมจริง' },
+        desc: 'คำตอบ + keywords ดึงตรงจาก Exercise 2 KEY ที่อาจารย์ให้, ใช้ฝึกได้สมจริง' },
       { scope: 'engprof', kind: 'feature', icon: '📋', title: 'Reordered ID + question flow',
-        desc: 'Within each mock: passage แสดงก่อนคำถาม · คำถามเรียงตาม section · เลขข้อ run ต่อเนื่อง make sense' },
+        desc: 'Within each mock: passage แสดงก่อนคำถาม, คำถามเรียงตาม section, เลขข้อ run ต่อเนื่อง make sense' },
     ],
   },
   {
@@ -493,11 +493,11 @@ export const CHANGELOG = [
       { scope: 'system', kind: 'feature', icon: '📄', title: 'Reading passage attached to questions',
         desc: 'แสดง passage ยาวด้านบน + คำถามด้านล่าง (collapsible) เหมือน Final Part I จริงๆ' },
       { scope: 'engprof', kind: 'content', icon: '🎯', title: 'Mock Final 86 — Part I + Part II',
-        desc: 'Part I: บทความ MDORS/CORS (Pet-Human Relationships) + 8 short answers + 4 T/F · Part II: บทความ Bats + เขียน 150-word summary' },
+        desc: 'Part I: บทความ MDORS/CORS (Pet-Human Relationships) + 8 short answers + 4 T/F, Part II: บทความ Bats + เขียน 150-word summary' },
       { scope: 'system', kind: 'content', icon: '📋', title: 'Model answer + rubric ใน Review',
         desc: 'ตอบเสร็จ → กดดูเฉลย → เห็น sample summary + marking criteria ครบ → ประเมินตัวเองได้' },
       { scope: 'engprof', kind: 'fix', icon: '🧹', title: 'ลด MCQ meta-concept แปลกๆ ออก',
-        desc: 'เก็บ warm-up ที่จำเป็นไว้ 20 ข้อ · ตัดข้อที่ไม่ตรงกับรูปแบบสอบจริงออก → focus ที่ mock + writing' },
+        desc: 'เก็บ warm-up ที่จำเป็นไว้ 20 ข้อ, ตัดข้อที่ไม่ตรงกับรูปแบบสอบจริงออก → focus ที่ mock + writing' },
     ],
   },
   {
@@ -506,13 +506,13 @@ export const CHANGELOG = [
     headline: '🆕 Eng Vet Prof II พร้อมแล้ว! สอบพรุ่งนี้บ่าย',
     changes: [
       { scope: 'engprof', kind: 'content', icon: '🗣️', title: 'Eng Vet Prof II — เปิดใช้งาน',
-        desc: 'สอบ Final อังคาร 28 เม.ย. 13:00-15:00 · Units 4-5 · Reading Research Papers + Writing Summary' },
+        desc: 'สอบ Final อังคาร 28 เม.ย. 13:00-15:00, Units 4-5, Reading Research Papers + Writing Summary' },
       { scope: 'engprof', kind: 'content', icon: '📖', title: 'Notes ครบ 5 หัวข้อ',
-        desc: 'Research paper structure (IMRD) · Research designs (8 แบบ) · Academic writing · Paraphrasing (5 techniques) · Summary writing rules' },
+        desc: 'Research paper structure (IMRD), Research designs (8 แบบ), Academic writing, Paraphrasing (5 techniques), Summary writing rules' },
       { scope: 'engprof', kind: 'content', icon: '✏️', title: '~36 ข้อสอบจำลอง',
-        desc: 'MCQ + T/F ทุก topic · เลียนแบบ exam pattern (Part I reading, paraphrase acceptability, summary rules)' },
+        desc: 'MCQ + T/F ทุก topic, เลียนแบบ exam pattern (Part I reading, paraphrase acceptability, summary rules)' },
       { scope: 'engprof', kind: 'feature', icon: '🎯', title: 'Exam strategy + word count rules',
-        desc: 'Note หน้าสุดท้ายมี strategy เขียน summary 150 words · นับคำให้ดี (>180 = -1, >200 = -2)' },
+        desc: 'Note หน้าสุดท้ายมี strategy เขียน summary 150 words, นับคำให้ดี (>180 = -1, >200 = -2)' },
     ],
   },
   {
@@ -521,11 +521,11 @@ export const CHANGELOG = [
     headline: 'แก้บั๊ก + อัพเดตหลังเปิดใช้งานจริง',
     changes: [
       { scope: 'com3', kind: 'fix', icon: '🧮', title: 'สัดส่วนคะแนน COM III ถูกแล้ว',
-        desc: 'งาน 20% (เดิมแสดง 10% ผิด) · Mid 40 + Final 40 + งาน 20 = 100 — ขอบคุณคนที่ส่ง feedback มาแจ้ง 🙏' },
+        desc: 'งาน 20% (เดิมแสดง 10% ผิด), Mid 40 + Final 40 + งาน 20 = 100 — ขอบคุณคนที่ส่ง feedback มาแจ้ง 🙏' },
       { scope: 'system', kind: 'fix', icon: '⏱', title: 'Countdown สอบไม่ค้างอีกแล้ว',
         desc: 'สอบเสร็จปุ๊บ "สอบถัดไป" ขยับเป็นวิชาต่อไปทันที (เดิมรอข้ามเที่ยงคืน)' },
       { scope: 'auth', kind: 'fix', icon: '🔐', title: 'Login/Register หาย bug',
-        desc: 'หลัง Login กลับหน้าแรกทันทีไม่ต้อง refresh · "ลืมรหัสผ่าน" ใช้งานได้ · username ซ้ำกันไม่ทำให้สมัครพัง' },
+        desc: 'หลัง Login กลับหน้าแรกทันทีไม่ต้อง refresh, "ลืมรหัสผ่าน" ใช้งานได้, username ซ้ำกันไม่ทำให้สมัครพัง' },
       { scope: 'system', kind: 'feature', icon: '📱', title: 'Add to Home Screen สวยขึ้น',
         desc: 'iPad/iPhone กด Share → "เพิ่มสู่หน้าจอโฮม" → ได้ไอคอน 🐾 + standalone (ไม่มี Safari bar) ดูเหมือนแอปจริง' },
     ],
@@ -536,7 +536,7 @@ export const CHANGELOG = [
     headline: 'อัปเดตใหม่ก่อนสอบ Final',
     changes: [
       { scope: 'system', kind: 'feature', icon: '📚', title: 'รายการอ่าน',
-        desc: 'ติ๊กหัวข้อที่อ่านเสร็จแล้ว เห็น progress · เปิดจากการ์ดใหม่หน้าแรก · ใช้ได้ทุกวิชา' },
+        desc: 'ติ๊กหัวข้อที่อ่านเสร็จแล้ว เห็น progress, เปิดจากการ์ดใหม่หน้าแรก, ใช้ได้ทุกวิชา' },
       { scope: 'system', kind: 'feature', icon: '🟢', title: 'นับคนออนไลน์ realtime',
         desc: 'เห็น badge "N คนกำลังเรียนอยู่" บน hero — รู้ว่ามีเพื่อนเรียนพร้อมกันกี่คน' },
       { scope: 'com4', kind: 'content', icon: '📖', title: 'COM IV notes ครบแล้ว',

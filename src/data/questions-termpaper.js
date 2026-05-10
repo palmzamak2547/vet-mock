@@ -6,13 +6,13 @@
 //   Reference: Reproductive vet 2026 Year 4 (Google Sheet doc)
 //
 // Format:
-//   12 groups present term papers · each contributed 1 MCQ
+//   12 groups present term papers, each contributed 1 MCQ
 //   ตอบ + เฉลยรายตัวเลือก → high-confidence verification
 //
 // ID range: 2200-2211 (one per group)
-// Topics span: nutrition · BPH pharmacology · gene editing · dermato-repro ·
-//              feline infertility · IUGR piglet · ruminant US · PAGs ·
-//              placentation · heat stress · GnRH agonist pig · NEB dairy
+// Topics span: nutrition, BPH pharmacology, gene editing, dermato-repro ·
+//              feline infertility, IUGR piglet, ruminant US, PAGs ·
+//              placentation, heat stress, GnRH agonist pig, NEB dairy
 // ============================================================
 
 export const QB_TERMPAPER = [
@@ -30,7 +30,7 @@ export const QB_TERMPAPER = [
       'ไม่ต้องปรับอาหาร เพราะการทำหมันไม่กระทบ metabolism',
     ],
     answer: 2,
-    explain: 'หลังทำหมัน RMR ลด ~25% + appetite ↑ → ถ้าให้เท่าเดิม → energy surplus → อ้วน · แนวทาง: ลด kcal 20-30% · โปรตีนสูง (รักษากล้ามเนื้อ) · ไขมันต่ำ (ลด energy) · ใยอาหารสูง (อิ่ม)',
+    explain: 'หลังทำหมัน RMR ลด ~25% + appetite ↑ → ถ้าให้เท่าเดิม → energy surplus → อ้วน, แนวทาง: ลด kcal 20-30%, โปรตีนสูง (รักษากล้ามเนื้อ), ไขมันต่ำ (ลด energy), ใยอาหารสูง (อิ่ม)',
     verified: 'Term Paper Group 1 (PDF p41 highlight + เฉลย)' },
 
   // ── Group 2: Pharmacological Management of BPH ────────────
@@ -47,7 +47,7 @@ export const QB_TERMPAPER = [
       'Epilobium extract',
     ],
     answer: 2,
-    explain: 'Deslorelin = GnRH agonist implant → down-regulation LH/FSH → testosterone ลดใกล้เคียง castration · reversible chemical castration · ไม่ต้องผ่าตัด เหมาะ cardiac patient · Finasteride/Osaterone รักษา BPH ได้แต่ไม่เทียบ castration',
+    explain: 'Deslorelin = GnRH agonist implant → down-regulation LH/FSH → testosterone ลดใกล้เคียง castration, reversible chemical castration, ไม่ต้องผ่าตัด เหมาะ cardiac patient, Finasteride/Osaterone รักษา BPH ได้แต่ไม่เทียบ castration',
     verified: 'Term Paper Group 2 (PDF p41 highlight + เฉลย)' },
 
   // ── Group 3: Gene Editing Technologies ────────────────────
@@ -64,7 +64,7 @@ export const QB_TERMPAPER = [
       'เทคโนโลยีที่สามารถออกแบบง่ายมักได้ผลลัพธ์ที่มีความจำเพาะสูง เนื่องจากสามารถปรับแต่งได้อย่างอิสระ',
     ],
     answer: 1,
-    explain: 'ZFNs/TALENs ใช้ protein-DNA binding → จำเพาะสูงสุด + off-target ต่ำสุด แต่ design ยาก (ต้องใช้ผู้เชี่ยวชาญ) · CRISPR-Cas9 ออกแบบง่ายกว่ามาก แต่ off-target risk สูงกว่า · Meganucleases จำเพาะดีแต่ scope จำกัด',
+    explain: 'ZFNs/TALENs ใช้ protein-DNA binding → จำเพาะสูงสุด + off-target ต่ำสุด แต่ design ยาก (ต้องใช้ผู้เชี่ยวชาญ), CRISPR-Cas9 ออกแบบง่ายกว่ามาก แต่ off-target risk สูงกว่า, Meganucleases จำเพาะดีแต่ scope จำกัด',
     verified: 'Term Paper Group 3 (PDF p42 highlight + เฉลย)' },
 
   // ── Group 4: Dermato-Reproductive Diseases ────────────────
@@ -72,16 +72,16 @@ export const QB_TERMPAPER = [
     source: 'Repro Final 86 master p42 Term Paper Group 4',
     sourceType: 'student-compilation',
     tags: ['Alopecia-X', 'Pomeranian', 'melatonin', 'deslorelin'], type: 'mcq',
-    q: 'สุนัขพันธุ์ Pomeranian อายุ 4 ปี มาพบสัตวแพทย์ด้วยอาการขนร่วงแบบสมมาตรทั้งสองข้าง ไม่คัน บริเวณลำตัว ต้นขาด้านหลัง และหาง โดยที่บริเวณศีรษะและปลายขาทั้งสี่มีขนปกติ ผิวหนังบริเวณที่ขนร่วงมีสีเข้มขึ้น (hyperpigmentation) ไม่พบสัญญาณอักเสบ ผลตรวจเลือดทั่วไปปกติ ตรวจตัด hypothyroidism + hyperadrenocorticism ออกแล้ว · การวินิจฉัยที่เป็นไปได้มากที่สุด และแนวทางการรักษาที่เหมาะสมที่สุดคือ',
+    q: 'สุนัขพันธุ์ Pomeranian อายุ 4 ปี มาพบสัตวแพทย์ด้วยอาการขนร่วงแบบสมมาตรทั้งสองข้าง ไม่คัน บริเวณลำตัว ต้นขาด้านหลัง และหาง โดยที่บริเวณศีรษะและปลายขาทั้งสี่มีขนปกติ ผิวหนังบริเวณที่ขนร่วงมีสีเข้มขึ้น (hyperpigmentation) ไม่พบสัญญาณอักเสบ ผลตรวจเลือดทั่วไปปกติ ตรวจตัด hypothyroidism + hyperadrenocorticism ออกแล้ว, การวินิจฉัยที่เป็นไปได้มากที่สุด และแนวทางการรักษาที่เหมาะสมที่สุดคือ',
     options: [
-      'Alopecia X · รักษาด้วย melatonin, deslorelin acetate, การทำหมัน',
-      'Hyperestrogenism · ผ่าตัดเอาอัณฑะออก',
-      'Hyperandrogenism · รักษาด้วย trilostane',
-      'Scrotal dermatitis · ให้ยาต้านอักเสบและยาต้านจุลชีพ',
-      'Hepatoid gland adenoma · ผ่าตัดก้อนบริเวณรอบทวารหนัก',
+      'Alopecia X, รักษาด้วย melatonin, deslorelin acetate, การทำหมัน',
+      'Hyperestrogenism, ผ่าตัดเอาอัณฑะออก',
+      'Hyperandrogenism, รักษาด้วย trilostane',
+      'Scrotal dermatitis, ให้ยาต้านอักเสบและยาต้านจุลชีพ',
+      'Hepatoid gland adenoma, ผ่าตัดก้อนบริเวณรอบทวารหนัก',
     ],
     answer: 0,
-    explain: 'Alopecia X (BAA = Black Skin Disease) · พบใน Nordic breeds (Pomeranian, Keeshond, Chow, Sammoyed) · symmetric truncal alopecia + hyperpigmentation, ไม่คัน + spare ขา · Tx: melatonin (oral) · deslorelin (GnRH agonist implant) · neuter (sex hormone-related)',
+    explain: 'Alopecia X (BAA = Black Skin Disease), พบใน Nordic breeds (Pomeranian, Keeshond, Chow, Sammoyed), symmetric truncal alopecia + hyperpigmentation, ไม่คัน + spare ขา, Tx: melatonin (oral), deslorelin (GnRH agonist implant), neuter (sex hormone-related)',
     verified: 'Term Paper Group 4 (PDF p42 highlight + เฉลย)' },
 
   // ── Group 5: Infertility in Felidae ───────────────────────
@@ -98,7 +98,7 @@ export const QB_TERMPAPER = [
       'ไม่มีข้อใดผิด',
     ],
     answer: 3,
-    explain: 'Felidae เพศผู้ป่วยปัญหาเด่นคือ TERATOZOOSPERMIA (>60% sperm มี morphology ผิดปกติ) ไม่ใช่ asthenozoospermia · เกิดจาก inbreeding depression (cheetah, Florida panther) · Wildt 1987 classic study ใน cheetah',
+    explain: 'Felidae เพศผู้ป่วยปัญหาเด่นคือ TERATOZOOSPERMIA (>60% sperm มี morphology ผิดปกติ) ไม่ใช่ asthenozoospermia, เกิดจาก inbreeding depression (cheetah, Florida panther), Wildt 1987 classic study ใน cheetah',
     verified: 'Term Paper Group 5 (PDF p42 highlight + เฉลย)' },
 
   // ── Group 6: IUGR in newborn piglets ──────────────────────
@@ -115,7 +115,7 @@ export const QB_TERMPAPER = [
       'ลูกสุกรที่มีภาวะ IUGR มีแนวโน้มที่จะมี birth interval ต่ำกว่าลูกสุกรปกติ',
     ],
     answer: 2,
-    explain: 'ผิด: ต้องเพิ่มอาหารให้แม่สุกร "ทั้งระยะต้นและช่วงปลาย" ของการตั้งท้อง (early embryonic + late fetal growth phase) → เพิ่มน้ำหนักแรกเกิดของลูกและการเจริญของตัวอ่อน · ไม่ใช่แค่ช่วงปลาย',
+    explain: 'ผิด: ต้องเพิ่มอาหารให้แม่สุกร "ทั้งระยะต้นและช่วงปลาย" ของการตั้งท้อง (early embryonic + late fetal growth phase) → เพิ่มน้ำหนักแรกเกิดของลูกและการเจริญของตัวอ่อน, ไม่ใช่แค่ช่วงปลาย',
     verified: 'Term Paper Group 6 (PDF p42-43 highlight + เฉลย)' },
 
   // ── Group 7: Ultrasonography in Ruminants ─────────────────
@@ -132,7 +132,7 @@ export const QB_TERMPAPER = [
       'ตำแหน่งของ CL บนรังไข่',
     ],
     answer: 2,
-    explain: 'Herzog et al. (2010): Luteal blood flow จาก Color Doppler มีความสัมพันธ์กับ P4 สูงกว่า CL size · ใช้วินิจฉัย luteal competence/insufficiency + ติดตามการตอบสนอง hormone treatment · CL size อย่างเดียวไม่สะท้อน function จริง',
+    explain: 'Herzog et al. (2010): Luteal blood flow จาก Color Doppler มีความสัมพันธ์กับ P4 สูงกว่า CL size, ใช้วินิจฉัย luteal competence/insufficiency + ติดตามการตอบสนอง hormone treatment, CL size อย่างเดียวไม่สะท้อน function จริง',
     verified: 'Term Paper Group 7 (PDF p43 highlight + เฉลย + Herzog 2010)' },
 
   // ── Group 8: PAGs in Ruminant Pregnancy ───────────────────
@@ -149,7 +149,7 @@ export const QB_TERMPAPER = [
       'การตรวจ PAGs ด้วยเทคนิค IDEXX Bovine Pregnancy Test (BPT)',
     ],
     answer: 2,
-    explain: 'Real-time PCR ตรวจ PAG mRNA ได้เร็วที่สุด ตั้งแต่วันที่ 19 หลังผสม · ELISA/BioPRYN/AMPT/BPT ตรวจ PAG protein ต้องรอ ~28-30 วัน · Real-time PCR sensitivity สูง · เจาะเลือดน้อย',
+    explain: 'Real-time PCR ตรวจ PAG mRNA ได้เร็วที่สุด ตั้งแต่วันที่ 19 หลังผสม, ELISA/BioPRYN/AMPT/BPT ตรวจ PAG protein ต้องรอ ~28-30 วัน, Real-time PCR sensitivity สูง, เจาะเลือดน้อย',
     verified: 'Term Paper Group 8 (PDF p43 highlight + เฉลย)' },
 
   // ── Group 9: Placental Structure ──────────────────────────
@@ -166,7 +166,7 @@ export const QB_TERMPAPER = [
       'ไม่มีข้อใดถูก',
     ],
     answer: 0,
-    explain: 'Equine ✓ ทั้งหมด · ผิด: B Feline ที่สร้าง uteroverdin จริง คือ Canine · C Bovine: Mononucleated trophoblast cell หลั่ง IFN-tau (ไม่ใช่ binucleate) · D Rodent Hemochorial: IgG ผ่านได้ "มาก" ที่สุด (ไม่ใช่น้อย เพราะเลือดสัมผัสตรง)',
+    explain: 'Equine ✓ ทั้งหมด, ผิด: B Feline ที่สร้าง uteroverdin จริง คือ Canine, C Bovine: Mononucleated trophoblast cell หลั่ง IFN-tau (ไม่ใช่ binucleate), D Rodent Hemochorial: IgG ผ่านได้ "มาก" ที่สุด (ไม่ใช่น้อย เพราะเลือดสัมผัสตรง)',
     verified: 'Term Paper Group 9 (PDF p44 highlight + เฉลยรายข้อ)' },
 
   // ── Group 10: Heat Stress and Reproductive Performance ────
@@ -183,7 +183,7 @@ export const QB_TERMPAPER = [
       'ช่วยส่งเสริมให้การแสดงอาการเป็นสัด (Estrus) มีความชัดเจนและยาวนานขึ้น',
     ],
     answer: 1,
-    explain: 'Heat stress: ↑ cortisol → ↓ GnRH → ↓ FSH/LH → ↓ follicle dev + ↓ spermatogenesis · ระยะยาว: anestrus, silent heat, embryonic loss · ในวัวนม ฤดูร้อน fertility ลด 20-30%',
+    explain: 'Heat stress: ↑ cortisol → ↓ GnRH → ↓ FSH/LH → ↓ follicle dev + ↓ spermatogenesis, ระยะยาว: anestrus, silent heat, embryonic loss, ในวัวนม ฤดูร้อน fertility ลด 20-30%',
     verified: 'Term Paper Group 10 (PDF p44 highlight + เฉลย)' },
 
   // ── Group 11: GnRH Agonists in Pig ─────────────────────────
@@ -194,7 +194,7 @@ export const QB_TERMPAPER = [
     q: 'หากนำ Buserelin ฉีดในหมู จะเกิดกระตุ้นการผลิตฮอร์โมนที่อวัยวะใดในหมู',
     options: ['สมอง', 'ต่อมใต้สมอง (Pituitary)', 'รังไข่', 'มดลูก', 'ถูกทุกข้อ'],
     answer: 1,
-    explain: 'Buserelin = GnRH agonist · binding GnRH receptor ที่ "anterior pituitary" → กระตุ้น FSH/LH release · ไม่ออกฤทธิ์โดยตรงที่ ovary/uterus/brain · pituitary เป็น primary target',
+    explain: 'Buserelin = GnRH agonist, binding GnRH receptor ที่ "anterior pituitary" → กระตุ้น FSH/LH release, ไม่ออกฤทธิ์โดยตรงที่ ovary/uterus/brain, pituitary เป็น primary target',
     verified: 'Term Paper Group 11 (PDF p44 highlight + เฉลย)' },
 
   // ── Group 12: NEB in Postpartum Dairy Cow ─────────────────
@@ -211,6 +211,6 @@ export const QB_TERMPAPER = [
       'ไม่มีข้อใดกล่าวผิด',
     ],
     answer: 4,
-    explain: 'ทุกข้อ 1-4 ถูกต้อง: NEB ช่วง 3 wk before-after calving · ketosis/hepatic lipidosis เป็น sequel · Insulin ต่ำ (insulin resistance) · NEFA + BHBA สูงเป็น diagnostic markers · ดังนั้น "ไม่มีข้อใดกล่าวผิด" คือคำตอบ',
+    explain: 'ทุกข้อ 1-4 ถูกต้อง: NEB ช่วง 3 wk before-after calving, ketosis/hepatic lipidosis เป็น sequel, Insulin ต่ำ (insulin resistance), NEFA + BHBA สูงเป็น diagnostic markers, ดังนั้น "ไม่มีข้อใดกล่าวผิด" คือคำตอบ',
     verified: 'Term Paper Group 12 (PDF p45 highlight + เฉลย)' },
 ];

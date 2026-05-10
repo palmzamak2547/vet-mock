@@ -59,7 +59,7 @@ export const NOTES_ENGPROF = {
                 'Interpretation, **implications**, comparison vs prior studies, **limitations**, **recommendations for further research**'],
             ],
           } },
-          { callout: 'จำให้แม่น: ข้อมูลที่อยู่ใน Methods (เช่น sample size, statistical test) จะ**ไม่อยู่ใน Results** หรือ Discussion · ถ้าโจทย์ถาม "what statistical test was used?" คำตอบมาจาก Methods', kind: 'flag' },
+          { callout: 'จำให้แม่น: ข้อมูลที่อยู่ใน Methods (เช่น sample size, statistical test) จะ**ไม่อยู่ใน Results** หรือ Discussion, ถ้าโจทย์ถาม "what statistical test was used?" คำตอบมาจาก Methods', kind: 'flag' },
         ],
       },
       {
@@ -68,9 +68,9 @@ export const NOTES_ENGPROF = {
         body: [
           'Key purpose: ดึงความสนใจของผู้อ่าน + ให้ background พอที่จะเข้าใจ study',
           { bullets: [
-            { label: 'Context & background', value: 'ทฤษฎีที่เกี่ยวข้อง · prior research · concepts ที่ผู้อ่านต้องรู้' },
+            { label: 'Context & background', value: 'ทฤษฎีที่เกี่ยวข้อง, prior research, concepts ที่ผู้อ่านต้องรู้' },
             { label: 'Gap in literature', value: 'พื้นที่ที่ยังไม่มีคนศึกษา (= ทำไมงานนี้สำคัญ)' },
-            { label: 'Research objectives / aims', value: 'บางครั้งอยู่ใน research question · มักอยู่ใน paragraph สุดท้าย' },
+            { label: 'Research objectives / aims', value: 'บางครั้งอยู่ใน research question, มักอยู่ใน paragraph สุดท้าย' },
             { label: 'Expected outcomes', value: 'theoretical significance หรือ practical benefits' },
           ] },
           { callout: 'ข้อสอบ Part I ถามได้บ่อย: **"What was the purpose of the study?"** — คำตอบอยู่ใน Introduction (มักประโยคสุดท้าย)', kind: 'tip' },
@@ -82,10 +82,10 @@ export const NOTES_ENGPROF = {
         body: [
           { bullets: [
             { label: 'Research design', value: 'แบบไหน + ทำไมเลือก (cohort, case-control, RCT ฯลฯ — ดู Topic ถัดไป)' },
-            { label: 'Population & sample', value: 'ใคร · กี่คน/ตัว · เลือกอย่างไร (sampling method) · recruit อย่างไร' },
+            { label: 'Population & sample', value: 'ใคร, กี่คน/ตัว, เลือกอย่างไร (sampling method), recruit อย่างไร' },
             { label: 'Instruments / materials', value: 'แบบสอบถาม, อุปกรณ์, scale ที่ใช้ + การ validate' },
-            { label: 'Data collection procedure', value: 'ทำการทดลองอย่างไร · ใช้ instrument อย่างไร' },
-            { label: 'Data analysis method', value: 'สถิติที่ใช้ (descriptive · t-test · chi-square · ANOVA · Wilcoxon · Spearman · Kolmogorov-Smirnov ฯลฯ)' },
+            { label: 'Data collection procedure', value: 'ทำการทดลองอย่างไร, ใช้ instrument อย่างไร' },
+            { label: 'Data analysis method', value: 'สถิติที่ใช้ (descriptive, t-test, chi-square, ANOVA, Wilcoxon, Spearman, Kolmogorov-Smirnov ฯลฯ)' },
           ] },
           { callout: 'Part I มักให้ "tick (✓) ว่า Methods พูดถึง topic นี้ไหม + give more info" — ตอบแบบสั้น (1-2 วลี) อ้างคำในบทความ', kind: 'tip' },
         ],
@@ -110,13 +110,13 @@ export const NOTES_ENGPROF = {
         body: [
           'เริ่มด้วย summary ของผลที่ได้ + interpret meaning',
           { bullets: [
-            { label: 'Interpretation', value: 'ผลที่ได้แปลว่าอะไร · ทำไมถึงเป็นแบบนั้น' },
-            { label: 'Comparison vs prior studies', value: 'ตรงกับ literature เดิม หรือต่าง · ทำไมถึงต่าง' },
-            { label: 'Implications', value: 'practical / clinical significance · ทำให้รู้อะไรเพิ่ม' },
+            { label: 'Interpretation', value: 'ผลที่ได้แปลว่าอะไร, ทำไมถึงเป็นแบบนั้น' },
+            { label: 'Comparison vs prior studies', value: 'ตรงกับ literature เดิม หรือต่าง, ทำไมถึงต่าง' },
+            { label: 'Implications', value: 'practical / clinical significance, ทำให้รู้อะไรเพิ่ม' },
             { label: 'Limitations', value: 'ข้อจำกัด (sample bias, gender bias, sample size, methodology limits)' },
-            { label: 'Recommendations', value: 'further research ทางไหน · variable อะไรควรศึกษาเพิ่ม' },
+            { label: 'Recommendations', value: 'further research ทางไหน, variable อะไรควรศึกษาเพิ่ม' },
           ] },
-          { callout: 'Part I "What can be concluded from the study?" → ดูประโยคปิดท้าย Discussion · "What were the limitations?" → มักมีย่อหน้าเฉพาะ · "Recommendations?" → มักท้ายสุด', kind: 'tip' },
+          { callout: 'Part I "What can be concluded from the study?" → ดูประโยคปิดท้าย Discussion, "What were the limitations?" → มักมีย่อหน้าเฉพาะ, "Recommendations?" → มักท้ายสุด', kind: 'tip' },
         ],
       },
       {
@@ -128,7 +128,7 @@ export const NOTES_ENGPROF = {
             rows: [
               ['Purpose / aim / objective', 'Introduction'],
               ['Background ของโรค / topic', 'Introduction'],
-              ['Sample size · ใครเป็นผู้เข้าร่วม', 'Methodology'],
+              ['Sample size, ใครเป็นผู้เข้าร่วม', 'Methodology'],
               ['Statistical test ที่ใช้', 'Methodology'],
               ['Research design (cohort, RCT ฯลฯ)', 'Methodology'],
               ['Mean / SD / p-value', 'Results'],
@@ -151,7 +151,7 @@ export const NOTES_ENGPROF = {
     title: 'Research Designs ที่ต้องรู้จัก',
     lecturer: 'CULI Eng Vet Prof II',
     icon: '🔬',
-    summary: '8 designs หลัก: Case Report (1 ราย) · Case Series (หลายรายเหมือนๆ กัน) · Case-Control (โรค vs ไม่เป็นโรค, retrospective) · Cohort (ตามกาลเวลา, prospective) · Clinical Trial (intervention) · Controlled CT (มี control group) · RCT (random assignment) · Cross-sectional (snapshot)',
+    summary: '8 designs หลัก: Case Report (1 ราย), Case Series (หลายรายเหมือนๆ กัน), Case-Control (โรค vs ไม่เป็นโรค, retrospective), Cohort (ตามกาลเวลา, prospective), Clinical Trial (intervention), Controlled CT (มี control group), RCT (random assignment), Cross-sectional (snapshot)',
     sections: [
       {
         heading: 'Observational Studies',
@@ -231,7 +231,7 @@ export const NOTES_ENGPROF = {
                 '**Gold standard** ของ clinical research',
               ] },
             ] },
-          { callout: 'ข้อสอบให้คำบรรยายแล้วถามว่า design อะไร → keywords ที่ช่วยได้: "follow over time" = Cohort · "compared cases vs controls" = Case-Control · "randomly assigned" = RCT · "single patient" = Case Report · "snapshot survey" = Cross-sectional', kind: 'flag' },
+          { callout: 'ข้อสอบให้คำบรรยายแล้วถามว่า design อะไร → keywords ที่ช่วยได้: "follow over time" = Cohort, "compared cases vs controls" = Case-Control, "randomly assigned" = RCT, "single patient" = Case Report, "snapshot survey" = Cross-sectional', kind: 'flag' },
         ],
       },
       {
@@ -398,7 +398,7 @@ export const NOTES_ENGPROF = {
                 'ใช้ **superscript Arabic numbers** (¹ ² ³)',
                 'เรียงตาม order ที่ปรากฏใน paper',
                 'อ้างซ้ำ → ใช้ตัวเลขเดิม',
-                'Author name in-text: ใช้ last name + superscript (Smith¹) · 2 authors = ทั้งคู่ · 3+ = first author + "et al"',
+                'Author name in-text: ใช้ last name + superscript (Smith¹), 2 authors = ทั้งคู่, 3+ = first author + "et al"',
               ] },
             ] },
           { sub: 'Reference list',
@@ -432,7 +432,7 @@ export const NOTES_ENGPROF = {
     title: 'Paraphrasing Techniques',
     lecturer: 'CULI Eng Vet Prof II',
     icon: '🔁',
-    summary: '5 techniques: (1) synonyms (2) active↔passive (3) parts of speech (4) sentence markers (5) sentence structures · Acceptable = แทนคำ + เปลี่ยนโครงสร้าง · Unacceptable = เปลี่ยนคำเล็กน้อย, structure คงเดิม, หรือคัดลอก',
+    summary: '5 techniques: (1) synonyms (2) active↔passive (3) parts of speech (4) sentence markers (5) sentence structures, Acceptable = แทนคำ + เปลี่ยนโครงสร้าง, Unacceptable = เปลี่ยนคำเล็กน้อย, structure คงเดิม, หรือคัดลอก',
     sections: [
       {
         heading: 'What is paraphrasing?',
@@ -471,16 +471,16 @@ export const NOTES_ENGPROF = {
               { bullets: [
                 'Original: "Cats are **susceptible** to the virus"',
                 'Paraphrase: "The virus has a **susceptibility** in cats"',
-                'Adjective ↔ Noun · Verb ↔ Noun · Adjective ↔ Adverb',
+                'Adjective ↔ Noun, Verb ↔ Noun, Adjective ↔ Adverb',
               ] },
             ] },
           { sub: '4. Changing sentence markers (transitions)',
             body: [
               { bullets: [
-                '**because** ↔ since · as · due to the fact that',
-                '**however** ↔ nevertheless · nonetheless · on the other hand',
-                '**therefore** ↔ thus · hence · consequently · as a result',
-                '**although** ↔ though · even though · despite the fact that',
+                '**because** ↔ since, as, due to the fact that',
+                '**however** ↔ nevertheless, nonetheless, on the other hand',
+                '**therefore** ↔ thus, hence, consequently, as a result',
+                '**although** ↔ though, even though, despite the fact that',
               ] },
             ] },
           { sub: '5. Changing sentence structures',
@@ -555,7 +555,7 @@ export const NOTES_ENGPROF = {
               ['**0**', 'Copy all key phrases + sentences'],
             ],
           } },
-          { callout: 'จะได้ 3/3 ต้อง: เปลี่ยน words (synonyms) + เปลี่ยน structure (sentence pattern) + cite source · เปลี่ยนแค่ word ไม่พอ — structure เหมือน original = 1-2', kind: 'flag' },
+          { callout: 'จะได้ 3/3 ต้อง: เปลี่ยน words (synonyms) + เปลี่ยน structure (sentence pattern) + cite source, เปลี่ยนแค่ word ไม่พอ — structure เหมือน original = 1-2', kind: 'flag' },
         ],
       },
     ],
@@ -567,7 +567,7 @@ export const NOTES_ENGPROF = {
     title: 'Writing a Summary',
     lecturer: 'CULI Eng Vet Prof II',
     icon: '📝',
-    summary: 'Summary = condensed objective version (ไม่ใส่ความคิดเห็น). Procedure: (1) อ่าน 2 รอบ (2) ขีดเส้น main idea (3) ตัด examples/details (4) เขียนใหม่ด้วยคำเอง. Final = 150 words target · เกิน 180 -1 · เกิน 200 -2 · marking: Content 7 + Org/Grammar 5 + Paraphrase 3 = 15',
+    summary: 'Summary = condensed objective version (ไม่ใส่ความคิดเห็น). Procedure: (1) อ่าน 2 รอบ (2) ขีดเส้น main idea (3) ตัด examples/details (4) เขียนใหม่ด้วยคำเอง. Final = 150 words target, เกิน 180 -1, เกิน 200 -2, marking: Content 7 + Org/Grammar 5 + Paraphrase 3 = 15',
     sections: [
       {
         heading: 'What is a Summary?',
@@ -665,7 +665,7 @@ export const NOTES_ENGPROF = {
                 '0 = copy all',
               ] },
             ] },
-          { callout: '⏱ Word count penalty: 150 target · 180+ → -1 · 200+ → -2 — **นับคำให้ดี**', kind: 'flag' },
+          { callout: '⏱ Word count penalty: 150 target, 180+ → -1, 200+ → -2 — **นับคำให้ดี**', kind: 'flag' },
         ],
       },
       {
@@ -673,7 +673,7 @@ export const NOTES_ENGPROF = {
         source: 'Exam tips',
         body: [
           { bullets: [
-            '1. **อ่านบทความ 2 รอบเร็วๆ** — รอบแรก get gist · รอบสอง mark main idea',
+            '1. **อ่านบทความ 2 รอบเร็วๆ** — รอบแรก get gist, รอบสอง mark main idea',
             '2. **Underline / list 1 main idea + 4-5 major details** บนกระดาษทด',
             '3. **เขียน topic sentence ก่อน** — main idea ที่ paraphrase แล้ว',
             '4. **เขียน supporting sentences** — แต่ละข้อ paraphrase + transition (However, Moreover, In addition, On the other hand)',
@@ -682,7 +682,7 @@ export const NOTES_ENGPROF = {
             '7. **ห้าม copy phrase ยาวๆ** — เปลี่ยนทั้งคำ + structure',
             '8. **ห้ามใส่ opinion** ของตัวเอง — บอกแค่สิ่งที่ original บอก',
           ] },
-          { callout: 'Time budget: 2 ชม. รวม Part I (20 pts) + Part II (15 pts) → ให้ ~45-50 นาทีเขียน summary · 75-80 นาที reading questions', kind: 'tip' },
+          { callout: 'Time budget: 2 ชม. รวม Part I (20 pts) + Part II (15 pts) → ให้ ~45-50 นาทีเขียน summary, 75-80 นาที reading questions', kind: 'tip' },
         ],
       },
       {

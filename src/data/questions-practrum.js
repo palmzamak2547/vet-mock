@@ -1,12 +1,12 @@
 // ──────────────────────────────────────────────────────────────────
-// Vet Prac Rum (3108412 Veterinary Practice in Ruminants) · Year 4 Sem 2
+// Vet Prac Rum (3108412 Veterinary Practice in Ruminants), Year 4 Sem 2
 // Coordinator: อ.น.สพ.ดร.รุจิกร จงสุวรรณวัฒนา (RJ)
 // Final exam: 6 พ.ค. 2569 (post-midterm Week 8-13 scope)
 //
-// ⛔ IRON RULE 0: ห้าม hallucinate · ทุก Q มาจาก Sunsun84 mind map / Lecture 2026
+// ⛔ IRON RULE 0: ห้าม hallucinate, ทุก Q มาจาก Sunsun84 mind map / Lecture 2026
 //   slide / pre-test note หรือ background veterinary surgery knowledge ที่ cross-ref ได้
 //
-// 🔬 Confidence tags (graphify pattern · 2026-05-03 learning):
+// 🔬 Confidence tags (graphify pattern, 2026-05-03 learning):
 //   EXTRACTED  = directly from past-paper / slide / pre-test (with page ref)
 //   INFERRED   = from veterinary surgery background + Sunsun84 cross-ref
 //   AMBIGUOUS  = uncertain whether 2026 Final scope (ปีก่อนอาจ midterm)
@@ -22,17 +22,17 @@
 //   • dehorning (Week 13) — Sunsun84 p.6 ★ rich
 //
 // Sources mined:
-//   • Sunsun84 รวมข้อสอบเก่า.pdf (Vet 84 senior recall · 8-page mind map)
+//   • Sunsun84 รวมข้อสอบเก่า.pdf (Vet 84 senior recall, 8-page mind map)
 //   • Lecture 2026: Deviation_of_Penis_and_Caudal_epididymectomy.pdf (11 slides)
 //   • Background: Auer Equine Surgery (ruminant chapters), Fubini Smith Farm Animal Surgery
 //
-// Q ID range: 2000-2099 (free range · poultry uses 1900-1959 · repro-lect uses 1800-1890)
+// Q ID range: 2000-2099 (free range, poultry uses 1900-1959, repro-lect uses 1800-1890)
 // ──────────────────────────────────────────────────────────────────
 
 export const QB_PRACTRUM = [
   // ═══════════════════════════════════════════════════════════
   // BOVINE LOCAL ANESTHESIA (8 Qs)
-  // Sunsun84 page 1 — ★★★ rich content · Final scope Week 10-12
+  // Sunsun84 page 1 — ★★★ rich content, Final scope Week 10-12
   // ═══════════════════════════════════════════════════════════
 
   { id: 2000, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
@@ -63,7 +63,7 @@ export const QB_PRACTRUM = [
     confidence: 'EXTRACTED',
     tags: ['acepromazine', 'phenothiazine'], type: 'mcq',
     q: 'Acepromazine (Phenothiazine) มีข้อจำกัดสำคัญเมื่อใช้ในวัว คือข้อใด',
-    options: ['ทำให้เกิด tachycardia รุนแรง', 'ไม่มีฤทธิ์ลดปวด ต้องใช้ร่วม opioids · มีผลข้างเคียง penile prolapse', 'ทำให้ rumen contraction เพิ่ม', 'มี withdrawal time นานเกินไป'],
+    options: ['ทำให้เกิด tachycardia รุนแรง', 'ไม่มีฤทธิ์ลดปวด ต้องใช้ร่วม opioids, มีผลข้างเคียง penile prolapse', 'ทำให้ rumen contraction เพิ่ม', 'มี withdrawal time นานเกินไป'],
     answer: 1,
     explain: 'Acepromazine ใช้เป็น sedative อย่างเดียว ไม่มี analgesic effect ต้องใช้ร่วม opioid\n\n⚠️ ผลข้างเคียงสำคัญในเพศผู้: penile prolapse (รู้โพล่) — Sunsun84 บันทึกชัด\n\n💡 Acepromazine ไม่นิยมใช้ในวัว pre-op เพราะ side effect นี้',
     verified: 'Sunsun84 p.1 Phenothiazine - "รู้โพล่"' },
@@ -88,7 +88,7 @@ export const QB_PRACTRUM = [
     options: ['Lumbosacral space (L6-S1)', 'Sacrococcygeal space (S5-Co1)', 'Atlanto-occipital space', 'Cisterna magna'],
     answer: 1,
     explain: 'วัว: epidural ที่ sacrococcygeal space (S5-Co1) สำหรับ perineal surgery, c-section, dystocia, prolapse correction\n\n💡 ต่างจากแพะแกะ: lumbosacral space\n\nLidocaine dose:\n• 1 mg/5 kg = sufficient for laparotomy\n• 7 kg dose = perineal urethrostomy',
-    verified: 'Sunsun84 p.1 - "@วัว สำหรับ perineal surgery, Pelvic & genitalia · ตน=sarcococcygeal space"' },
+    verified: 'Sunsun84 p.1 - "@วัว สำหรับ perineal surgery, Pelvic & genitalia, ตน=sarcococcygeal space"' },
 
   { id: 2005, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
     source: 'Sunsun84 anesthesia mind map p.1',
@@ -99,7 +99,7 @@ export const QB_PRACTRUM = [
     options: ['Auriculopalpebral nerve block', 'Peterson nerve block', 'Cornual nerve block', 'Retrobulbar block แบบ traditional'],
     answer: 1,
     explain: 'Peterson nerve block: block oculomotor (CN III), trochlear (CN IV), abducens (CN VI), trigeminal (V) ที่ orbital fossa → ทำให้ลูกตาไม่เคลื่อน + sensory anesthesia\n\n💡 Auriculopalpebral block: block motor fiber ของ orbicularis oculi เท่านั้น (กระพริบตาไม่ได้) — ใช้เปิดเปลือกตาตรวจ ไม่ใช่ผ่าตัด',
-    verified: 'Sunsun84 p.1 - "Peterson n block อันที่ eyelid ไม่ถูกบล็อก · คลัก ลูกตา"' },
+    verified: 'Sunsun84 p.1 - "Peterson n block อันที่ eyelid ไม่ถูกบล็อก, คลัก ลูกตา"' },
 
   { id: 2006, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
     source: 'Sunsun84 anesthesia mind map p.1 + background',
@@ -110,7 +110,7 @@ export const QB_PRACTRUM = [
     options: ['Cephalic vein, 18 ga', 'Saphenous vein, 16 ga', 'Jugular vein, 14 ga', 'Auricular vein, 22 ga'],
     answer: 2,
     explain: 'วัว: Jugular vein, 14 gauge — เส้นใหญ่ flow rate สูง สำหรับ rapid IV fluid + GA induction\n\n💡 แพะ/แกะ: Cephalic หรือ Saphenous vein (เส้นเล็กกว่า)\n\nวัวมี jugular furrow ตามแนวคอ คล่ำได้ง่าย',
-    verified: 'Sunsun84 p.1 "Catheters · วัว: Jug v 14 gauge catheter · แพะแกะ: Cephalic v, Saphenous v"' },
+    verified: 'Sunsun84 p.1 "Catheters, วัว: Jug v 14 gauge catheter, แพะแกะ: Cephalic v, Saphenous v"' },
 
   { id: 2007, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
     source: 'Sunsun84 anesthesia mind map p.1',
@@ -124,7 +124,7 @@ export const QB_PRACTRUM = [
     verified: 'Sunsun84 p.1 "ปก: regurgitation Active สลบไม่ลึก Passive ลึกเกิน, bloat พบได้บ่อย, respiratory complication, hypoventilation, Nerve paralysis"' },
 
   // ═══════════════════════════════════════════════════════════
-  // RUMENOTOMY (5 Qs) · Week 13 · Sunsun84 p.2 + Lecture 2026
+  // RUMENOTOMY (5 Qs), Week 13, Sunsun84 p.2 + Lecture 2026
   // ═══════════════════════════════════════════════════════════
 
   { id: 2008, subject: 'practrum', topic: 'rumenotomy', year: 4,
@@ -135,8 +135,8 @@ export const QB_PRACTRUM = [
     q: 'Indication หลักของการทำ Rumenotomy คือข้อใด',
     options: ['Cecal dilatation', 'Hardware disease (TRP)', 'Left displaced abomasum', 'Intussusception ของลำไส้เล็ก'],
     answer: 1,
-    explain: 'Rumenotomy indications หลัก:\n1. **Hardware disease (TRP — Traumatic Reticuloperitonitis)** — เอา foreign body (ลวด/ตะปู) ออกจาก reticulum\n2. Frothy/foamy bloat ที่ trochar/orogastric tube ไม่ระบาย gas/foam ออก\n3. Choke (FB ติด rumen ผ่านไม่ได้)\n4. Vagal indigestion (severe rumen dysfunction)\n5. Persistent rumen impaction\n6. Exploration ของ rumen + reticulum + parts of omasum\n\n💡 LDA + RDA → omentopexy / abomasopexy (ไม่ใช่ rumenotomy) · Cecal dilatation → typhlotomy · Intussusception → enterotomy',
-    verified: 'Sunsun84 p.2 "Rumen & int (15 ข้อ?): indications ของ rumenotomy · สามารถทำเป็น emergency case · เร็ว 2 ชั้น"' },
+    explain: 'Rumenotomy indications หลัก:\n1. **Hardware disease (TRP — Traumatic Reticuloperitonitis)** — เอา foreign body (ลวด/ตะปู) ออกจาก reticulum\n2. Frothy/foamy bloat ที่ trochar/orogastric tube ไม่ระบาย gas/foam ออก\n3. Choke (FB ติด rumen ผ่านไม่ได้)\n4. Vagal indigestion (severe rumen dysfunction)\n5. Persistent rumen impaction\n6. Exploration ของ rumen + reticulum + parts of omasum\n\n💡 LDA + RDA → omentopexy / abomasopexy (ไม่ใช่ rumenotomy), Cecal dilatation → typhlotomy, Intussusception → enterotomy',
+    verified: 'Sunsun84 p.2 "Rumen & int (15 ข้อ?): indications ของ rumenotomy, สามารถทำเป็น emergency case, เร็ว 2 ชั้น"' },
 
   { id: 2009, subject: 'practrum', topic: 'rumenotomy', year: 4,
     source: 'Sunsun84 + background',
@@ -146,7 +146,7 @@ export const QB_PRACTRUM = [
     q: 'Approach มาตรฐานสำหรับ Rumenotomy ในวัว standing คือข้อใด',
     options: ['Right flank paralumbar fossa', 'Left flank paralumbar fossa', 'Ventral midline laparotomy', 'Right ventrolateral approach'],
     answer: 1,
-    explain: 'Left flank standing rumenotomy = standard\n\nเหตุผล: rumen ครอบครอง left abdomen ทั้งหมด · ทำที่ left paralumbar fossa เปิดเข้า rumen ตรง dorsal sac ได้เลย\n\n💡 อย่าผ่าตัดทาง right — จะเจอ omasum, abomasum, intestine, liver แทน',
+    explain: 'Left flank standing rumenotomy = standard\n\nเหตุผล: rumen ครอบครอง left abdomen ทั้งหมด, ทำที่ left paralumbar fossa เปิดเข้า rumen ตรง dorsal sac ได้เลย\n\n💡 อย่าผ่าตัดทาง right — จะเจอ omasum, abomasum, intestine, liver แทน',
     verified: 'Background — bovine surgical anatomy + Sunsun84 anatomy diagram p.3 (Lt side มี rumen บัง organs อื่น)' },
 
   { id: 2010, subject: 'practrum', topic: 'rumenotomy', year: 4,
@@ -165,7 +165,7 @@ export const QB_PRACTRUM = [
     sourceType: 'student-compilation',
     confidence: 'EXTRACTED',
     tags: ['complication', 'peritonitis'], type: 'tf',
-    q: 'ภาวะแทรกซ้อนสำคัญหลัง rumenotomy คือ peritonitis จาก rumen content รั่วไหลออกช่องท้อง · การป้องกันทำได้ด้วยการ exteriorize rumen wall ด้วย Weingart/Gambee suture หรือ Stay suture ก่อนเปิด',
+    q: 'ภาวะแทรกซ้อนสำคัญหลัง rumenotomy คือ peritonitis จาก rumen content รั่วไหลออกช่องท้อง, การป้องกันทำได้ด้วยการ exteriorize rumen wall ด้วย Weingart/Gambee suture หรือ Stay suture ก่อนเปิด',
     answer: true,
     explain: '✅ ถูก\n\nเทคนิค prevention contamination:\n1. Stay suture rumen wall ที่ skin / โอบโดย skin clamps\n2. Plastic drape ป้องกัน rumen content ตกในช่อง (Gambee technique)\n3. Weingart rumen retractor ดึง rumen wall เข้าหา incision\n\n💡 ถ้า contamination เกิดขึ้น → flush ด้วย warm saline + systemic broad-spectrum AB',
     verified: 'Sunsun84 p.2 + Auer Equine/Farm surgery technique' },
@@ -176,13 +176,13 @@ export const QB_PRACTRUM = [
     confidence: 'INFERRED',
     tags: ['post-op', 'feeding', 'antibiotics'], type: 'mcq',
     q: 'Post-op management หลัง rumenotomy ในวัว ควรปฏิบัติข้อใด',
-    options: ['NPO 7 วัน + ให้ยาฆ่าเชื้อทาง IV เท่านั้น', 'ให้กินอาหารปกติเลย ไม่ต้อง AB', 'อาหารอ่อน 3-5 วัน + Pendistrep IM 20,000 IU/kg + NSAID + ระวังการเกิด ileus', 'งดน้ำ 24 ชั่วโมง · ห้ามให้ยา NSAID เด็ดขาด'],
+    options: ['NPO 7 วัน + ให้ยาฆ่าเชื้อทาง IV เท่านั้น', 'ให้กินอาหารปกติเลย ไม่ต้อง AB', 'อาหารอ่อน 3-5 วัน + Pendistrep IM 20,000 IU/kg + NSAID + ระวังการเกิด ileus', 'งดน้ำ 24 ชั่วโมง, ห้ามให้ยา NSAID เด็ดขาด'],
     answer: 2,
     explain: 'Standard post-op rumenotomy:\n• อาหารอ่อน (long-stem hay, soft grass) 3-5 วันแรก\n• Penicillin (Pendistrep L.A.) 20,000 IU/kg IM × 5-7 วัน\n• NSAID (Phenylbutazone 2-5 mg/kg IV หรือ Flunixin) 2-3 วัน\n• ระวัง postoperative ileus — ขุด ตามดู rumen contraction\n• ไม่ NPO นาน — vagal indigestion จาก disuse atrophy\n\n💡 NSAID ไม่ห้าม แต่ระวัง renal toxicity ถ้า dehydrated',
     verified: 'Standard ruminant post-op care + Pendistrep dose ตรงกับ Lecture 2026 Penile Deviation slide' },
 
   // ═══════════════════════════════════════════════════════════
-  // DEHORNING (4 Qs) · Week 13 · Sunsun84 p.6
+  // DEHORNING (4 Qs), Week 13, Sunsun84 p.6
   // ═══════════════════════════════════════════════════════════
 
   { id: 2013, subject: 'practrum', topic: 'dehorning', year: 4,
@@ -194,7 +194,7 @@ export const QB_PRACTRUM = [
     options: ['Frontal sinus', 'Coronary corium', 'Cornual diverticulum', 'Periosteum'],
     answer: 1,
     explain: 'Horn anatomy:\n• Horn = แกนกระดูกเขา (osseous core, extension of frontal bone)\n• Coronary corium = เนื้อเขา (vascular tissue ที่สร้าง keratin sheath)\n• Cornual diverticulum = extension ของ frontal sinus เข้าไปใน horn core (ทำให้ dehorning ในตัวโตเสี่ยง sinusitis)\n\n💡 ตัดเขาที่อายุ <2 เดือน = แค่ horn bud ไม่มี frontal sinus communication',
-    verified: 'Sunsun84 p.6 "Horn = แกนกระดูกเขา · Coronary corium = เนื้อเขา · อายุ<2เดือน : เป็นแค่ Horn bud"' },
+    verified: 'Sunsun84 p.6 "Horn = แกนกระดูกเขา, Coronary corium = เนื้อเขา, อายุ<2เดือน : เป็นแค่ Horn bud"' },
 
   { id: 2014, subject: 'practrum', topic: 'dehorning', year: 4,
     source: 'Sunsun84 mind map p.6',
@@ -215,22 +215,22 @@ export const QB_PRACTRUM = [
     q: 'การทำ debudding (disbudding) ในลูกโคอายุ <6 สัปดาห์ ใช้วิธีใดได้บ้าง',
     options: ['Tube dehorner (Robert\'s) เท่านั้น', 'Obstetric wire (Gigli) เท่านั้น', 'Hoof knife / มีดผ่าตัด / calf dehorner gauge / 50% CaCl2 caustic paste', 'Trephine บิดซ-ขวา ผ่าน frontal sinus'],
     answer: 2,
-    explain: 'Debudding (calves <6w · horn bud ยังเล็ก):\n• Hoof knife / มีดปากดีบ\n• Calf dehorner / debudding gauge\n• Hot iron (electric/gas) — common\n• 50% CaCl2 caustic paste — ทาที่ horn bud\n\n💡 ต่างจากตัวโต ที่ต้องใช้ Tube dehorner (Robert\'s), Obstetric wire (Gigli), หรือ Trephine\n\n⚠️ Caustic paste ระวังเข้าตา/ร่อง',
-    verified: 'Sunsun84 p.6 "การตัดเขาลูกโค <6w: ตัดตุ่มเขา (debudding/disbudding) · อุปกรณ์: มีดผ่าตัด/มีดปากดีบ (hoof knife)/tube · calf dehorned/debudding gauge · หรือฉีก 50% CaCl2"' },
+    explain: 'Debudding (calves <6w, horn bud ยังเล็ก):\n• Hoof knife / มีดปากดีบ\n• Calf dehorner / debudding gauge\n• Hot iron (electric/gas) — common\n• 50% CaCl2 caustic paste — ทาที่ horn bud\n\n💡 ต่างจากตัวโต ที่ต้องใช้ Tube dehorner (Robert\'s), Obstetric wire (Gigli), หรือ Trephine\n\n⚠️ Caustic paste ระวังเข้าตา/ร่อง',
+    verified: 'Sunsun84 p.6 "การตัดเขาลูกโค <6w: ตัดตุ่มเขา (debudding/disbudding), อุปกรณ์: มีดผ่าตัด/มีดปากดีบ (hoof knife)/tube, calf dehorned/debudding gauge, หรือฉีก 50% CaCl2"' },
 
   { id: 2016, subject: 'practrum', topic: 'dehorning', year: 4,
     source: 'Sunsun84 mind map p.6',
     sourceType: 'student-compilation',
     confidence: 'EXTRACTED',
     tags: ['complication', 'sinusitis'], type: 'mcq',
-    q: 'หลังตัดเขาในวัวโต พบ frontal sinusitis + empyema · การรักษาที่เหมาะสมคือข้อใด',
-    options: ['ให้ AB ทาง IV เท่านั้น ไม่ต้องผ่าตัด', 'Open drainage โดยใช้ Trephination (เจาะกระดูก) เปิด frontal sinus · Dia ~2.5 cm', 'ปิด wound ด้วย sutureless closure', 'ฉีดสเตียรอยด์เข้า sinus'],
+    q: 'หลังตัดเขาในวัวโต พบ frontal sinusitis + empyema, การรักษาที่เหมาะสมคือข้อใด',
+    options: ['ให้ AB ทาง IV เท่านั้น ไม่ต้องผ่าตัด', 'Open drainage โดยใช้ Trephination (เจาะกระดูก) เปิด frontal sinus, Dia ~2.5 cm', 'ปิด wound ด้วย sutureless closure', 'ฉีดสเตียรอยด์เข้า sinus'],
     answer: 1,
-    explain: 'Frontal sinusitis post-dehorning treatment:\n\n**Tx = Open drainage (Trephination)**\n• Frontal sinus: ลากเส้น lat canthus 2 ข้างตัด midline · เปิดระหว่างจุดตัดบน/ล่าง ~1 ซม\n• Maxillary sinus (ถ้ามี): เส้นเชื่อม medial canthus ↔ maxillary protuberance\n• ใช้ Trephine เจาะกระดูก Dia ~2.5 cm\n• Flush ด้วย warm saline + systemic AB (Pendistrep)\n\n💡 AB IV อย่างเดียวไม่พอ — pus ใน sinus ไม่ระบาย → chronic empyema',
-    verified: 'Sunsun84 p.6 "Tx open drainage(Trephination) · Frontal sinus · Sx ใช้ Trephine (เจาะกระดูก) · Dia~2.5cm"' },
+    explain: 'Frontal sinusitis post-dehorning treatment:\n\n**Tx = Open drainage (Trephination)**\n• Frontal sinus: ลากเส้น lat canthus 2 ข้างตัด midline, เปิดระหว่างจุดตัดบน/ล่าง ~1 ซม\n• Maxillary sinus (ถ้ามี): เส้นเชื่อม medial canthus ↔ maxillary protuberance\n• ใช้ Trephine เจาะกระดูก Dia ~2.5 cm\n• Flush ด้วย warm saline + systemic AB (Pendistrep)\n\n💡 AB IV อย่างเดียวไม่พอ — pus ใน sinus ไม่ระบาย → chronic empyema',
+    verified: 'Sunsun84 p.6 "Tx open drainage(Trephination), Frontal sinus, Sx ใช้ Trephine (เจาะกระดูก), Dia~2.5cm"' },
 
   // ═══════════════════════════════════════════════════════════
-  // HOOF CARE + TRIMMING (4 Qs) · Week 8/10-12 · Sunsun84 p.7
+  // HOOF CARE + TRIMMING (4 Qs), Week 8/10-12, Sunsun84 p.7
   // ═══════════════════════════════════════════════════════════
 
   { id: 2017, subject: 'practrum', topic: 'hoof-trim', year: 4,
@@ -241,7 +241,7 @@ export const QB_PRACTRUM = [
     q: 'สาเหตุของ digital dermatitis ในวัวนม ที่พบบ่อยที่สุดคือเชื้อใด',
     options: ['Fusobacterium necrophorum', 'Treponema spp.', 'Dichelobacter nodosus', 'Staphylococcus aureus'],
     answer: 1,
-    explain: 'Digital dermatitis (papillomatous digital dermatitis, hairy heel wart):\n• Cause หลัก: **Treponema spp.** (Spirochete)\n• Lesion: red/black/strawberry-like ที่ interdigital cleft + heel\n• Tx: Topical oxytetracycline + bandage · footbath (CuSO4, formalin)\n\n💡 ต่างจาก:\n• **Foot rot** (interdigital phlegmon): Fusobacterium necrophorum + Dichelobacter nodosus\n• **Foot abscess**: Trueperella pyogenes',
+    explain: 'Digital dermatitis (papillomatous digital dermatitis, hairy heel wart):\n• Cause หลัก: **Treponema spp.** (Spirochete)\n• Lesion: red/black/strawberry-like ที่ interdigital cleft + heel\n• Tx: Topical oxytetracycline + bandage, footbath (CuSO4, formalin)\n\n💡 ต่างจาก:\n• **Foot rot** (interdigital phlegmon): Fusobacterium necrophorum + Dichelobacter nodosus\n• **Foot abscess**: Trueperella pyogenes',
     verified: 'Sunsun84 p.7 "Digital dermatitis: Cause พบบ่อย = Treponema ★"' },
 
   { id: 2018, subject: 'practrum', topic: 'hoof-trim', year: 4,
@@ -274,11 +274,11 @@ export const QB_PRACTRUM = [
     q: 'Pathophysiology ของ laminitis ในวัว เริ่มต้นจากอะไรเป็นหลัก',
     options: ['Mechanical trauma จากพื้นแข็ง', 'Carbohydrate overload → rumen acidosis → endotoxemia → vasoactive amines → laminar inflammation', 'Viral infection (BVDV)', 'Heritability ของ Holstein'],
     answer: 1,
-    explain: 'Bovine laminitis pathophysiology:\n1. Carb overload (concentrate มากเกิน) / sudden ration change\n2. → Rumen acidosis (pH <5.5) — Streptococcus bovis เพิ่ม → lactic acid\n3. → Gram(-) ลดลง · Endotoxin เพิ่ม\n4. → Vasoactive amines (histamine, serotonin) release\n5. → Laminar inflammation/edema → P3 sinks → sole ulcer / heel horn erosion / white line disease\n\n💡 Subclinical laminitis = invisible early — manifest as sole ulcer, hemorrhage in white line 2-3 months later',
+    explain: 'Bovine laminitis pathophysiology:\n1. Carb overload (concentrate มากเกิน) / sudden ration change\n2. → Rumen acidosis (pH <5.5) — Streptococcus bovis เพิ่ม → lactic acid\n3. → Gram(-) ลดลง, Endotoxin เพิ่ม\n4. → Vasoactive amines (histamine, serotonin) release\n5. → Laminar inflammation/edema → P3 sinks → sole ulcer / heel horn erosion / white line disease\n\n💡 Subclinical laminitis = invisible early — manifest as sole ulcer, hemorrhage in white line 2-3 months later',
     verified: 'Sunsun84 p.7 "Laminitis: กินคาร์บ/อาหารเปียกมากเกิน → acidosis → gram(-)ลดลง gram(+)เพิ่ม Endotoxinเพิ่ม"' },
 
   // ═══════════════════════════════════════════════════════════
-  // PENILE DEVIATION SURGERY (3 Qs) · Week 8 · Lecture 2026 PDF
+  // PENILE DEVIATION SURGERY (3 Qs), Week 8, Lecture 2026 PDF
   // ═══════════════════════════════════════════════════════════
 
   { id: 2021, subject: 'practrum', topic: 'penile-deviation', year: 4,
@@ -311,13 +311,13 @@ export const QB_PRACTRUM = [
     sourceType: 'lecture-verified-draft',
     confidence: 'INFERRED',
     tags: ['caudal-epididymectomy', 'sterility'], type: 'tf',
-    q: 'Caudal epididymectomy ทำให้วัวเพศผู้เป็นหมัน (azoospermia) ทันทีหลังผ่าตัด · ดังนั้นสามารถใช้เป็น teaser bull ได้เลยโดยไม่ต้องรอช่วงเวลา',
+    q: 'Caudal epididymectomy ทำให้วัวเพศผู้เป็นหมัน (azoospermia) ทันทีหลังผ่าตัด, ดังนั้นสามารถใช้เป็น teaser bull ได้เลยโดยไม่ต้องรอช่วงเวลา',
     answer: false,
     explain: '❌ ผิด\n\nCaudal epididymectomy ทำให้ sterile ใน **30-60 วัน** ไม่ใช่ทันที\n\nเหตุผล: Sperm ที่ค้างอยู่ใน:\n• Caudal epididymis (proximal to ตำแหน่งตัด)\n• Vas deferens\n• Ampulla\n• Accessory sex glands\n\n...ยังคงมี viable sperm สำหรับ ejaculate ได้ ~30-60 วัน → ต้อง quarantine teaser bull ก่อนใช้กับ female cycle\n\n💡 Vasectomy/epididymectomy ห้ามใช้ teaser ทันที — มี risk pregnancy',
     verified: 'Background — bovine reproductive surgery + standard 60-day rule' },
 
   // ═══════════════════════════════════════════════════════════
-  // ANIMAL NUTRITION · DMI (2 Qs) · Week 9
+  // ANIMAL NUTRITION, DMI (2 Qs), Week 9
   // ═══════════════════════════════════════════════════════════
 
   { id: 2024, subject: 'practrum', topic: 'animal-nutrition', year: 4,
@@ -339,10 +339,10 @@ export const QB_PRACTRUM = [
     q: 'Roughage : Concentrate ratio (R:C) ที่เหมาะสมสำหรับ lactating dairy cow ปกติคือข้อใด',
     options: ['100:0', '60:40', '20:80', '0:100'],
     answer: 1,
-    explain: 'R:C ratio ปกติสำหรับวัวนม:\n• **General lactating: 60:40** (forage : concentrate) ⭐\n• Early lactation high producer: อาจถึง 40:60 ชั่วคราว\n• Late lactation/dry cow: 70:30 ถึง 80:20\n\n⚠️ ลดต่ำกว่า 40:60 เสี่ยง:\n• Subacute rumen acidosis (SARA)\n• Laminitis · LDA/RDA · Milk fat depression\n\n💡 Effective NDF ขั้นต่ำ ~21% ของ DM',
+    explain: 'R:C ratio ปกติสำหรับวัวนม:\n• **General lactating: 60:40** (forage : concentrate) ⭐\n• Early lactation high producer: อาจถึง 40:60 ชั่วคราว\n• Late lactation/dry cow: 70:30 ถึง 80:20\n\n⚠️ ลดต่ำกว่า 40:60 เสี่ยง:\n• Subacute rumen acidosis (SARA)\n• Laminitis, LDA/RDA, Milk fat depression\n\n💡 Effective NDF ขั้นต่ำ ~21% ของ DM',
     verified: 'NRC 2001 + standard dairy nutrition guidelines' },
 
-  // ── Animal Nutrition fill-in gaps (3 Qs · 2026-05-04) ────
+  // ── Animal Nutrition fill-in gaps (3 Qs, 2026-05-04) ────
   { id: 2047, subject: 'practrum', topic: 'animal-nutrition', year: 4,
     source: 'PP Lecture 2026 + NRC Dairy',
     sourceType: 'lecture-derived',
@@ -351,7 +351,7 @@ export const QB_PRACTRUM = [
     q: 'DMI ปกติของวัวนม Holstein ในช่วง peak lactation อยู่ที่กี่ % ของน้ำหนักตัว',
     options: ['1-2%', '3-4%', '5-6%', '7-8%'],
     answer: 1,
-    explain: 'DMI = ~3-4% ของ BW ในวัวนม peak lactation\n\n📊 ตัวอย่าง: Holstein 600 kg → DMI 18-24 kg DM/day\n\n💡 Factor ที่ลด DMI:\n• High NDF ในอาหาร (>40% NDF · physical fill)\n• Heat stress (>26°C THI)\n• Subclinical disease (mastitis, lameness, ketosis)\n• Late pregnancy (uterus กดกระเพาะ)\n\n💡 Factor ที่เพิ่ม DMI:\n• Concentrate มากขึ้น (ต้องระวัง SARA)\n• Frequent feeding (4-6 ครั้ง/วัน)\n• TMR sortation prevention',
+    explain: 'DMI = ~3-4% ของ BW ในวัวนม peak lactation\n\n📊 ตัวอย่าง: Holstein 600 kg → DMI 18-24 kg DM/day\n\n💡 Factor ที่ลด DMI:\n• High NDF ในอาหาร (>40% NDF, physical fill)\n• Heat stress (>26°C THI)\n• Subclinical disease (mastitis, lameness, ketosis)\n• Late pregnancy (uterus กดกระเพาะ)\n\n💡 Factor ที่เพิ่ม DMI:\n• Concentrate มากขึ้น (ต้องระวัง SARA)\n• Frequent feeding (4-6 ครั้ง/วัน)\n• TMR sortation prevention',
     verified: 'NRC 2001 Dairy + bovine clinical nutrition' },
 
   { id: 2048, subject: 'practrum', topic: 'animal-nutrition', year: 4,
@@ -373,13 +373,13 @@ export const QB_PRACTRUM = [
     q: 'Crude Protein (CP) ที่เหมาะสมสำหรับ ration ของวัวนม early lactation high producer คือข้อใด',
     options: ['8-10%', '12-14%', '16-18%', '25-30%'],
     answer: 2,
-    explain: 'CP requirement สำหรับ dairy cow:\n• Maintenance/dry: 12-14%\n• **Early lactation peak: 16-18%** ⭐\n• Late lactation: 14-16%\n• Calf growing: 18-20%\n\n💡 CP source balance:\n• RDP (Rumen Degradable Protein) ~60% — feed rumen microbes\n• RUP (Rumen Undegradable Protein/by-pass protein) ~40% — go to small intestine\n\n⚠️ CP สูงเกิน → ammonia waste · BUN สูง · ผลต่อ fertility (urea toxic to embryo)',
+    explain: 'CP requirement สำหรับ dairy cow:\n• Maintenance/dry: 12-14%\n• **Early lactation peak: 16-18%** ⭐\n• Late lactation: 14-16%\n• Calf growing: 18-20%\n\n💡 CP source balance:\n• RDP (Rumen Degradable Protein) ~60% — feed rumen microbes\n• RUP (Rumen Undegradable Protein/by-pass protein) ~40% — go to small intestine\n\n⚠️ CP สูงเกิน → ammonia waste, BUN สูง, ผลต่อ fertility (urea toxic to embryo)',
     verified: 'NRC 2001 Dairy CP requirements' },
 
   // ── Cow Restraint fill-in gaps (3 Qs) ────────────────────
 
   // ═══════════════════════════════════════════════════════════
-  // COW RESTRAINT (2 Qs) · Week 10-12
+  // COW RESTRAINT (2 Qs), Week 10-12
   // ═══════════════════════════════════════════════════════════
 
   { id: 2026, subject: 'practrum', topic: 'cow-restraint', year: 4,
@@ -394,7 +394,7 @@ export const QB_PRACTRUM = [
               'ฉีด succinylcholine paralyze ก่อน'],
     answer: 0,
     explain: 'Cow foot restraint (standing):\n• **ขาหน้า**: ใช้ leg rope พาดข้อเท้าด้านตรงข้ามไหล่ (cross-pull) → ดันด้านให้สมดุล\n• **ขาหลัง**: Leg raising — ยกเข้าด้านหลัง โดยใช้ rope หรือ chute hydraulic\n\n💡 Tilt table (foot bath table) ใช้ในฟาร์มใหญ่\n\n⚠️ Reuff method (rope casting) ใช้สำหรับ recumbency ทั้งตัว ไม่ใช่ foot work\n⚠️ Succinylcholine = depolarizing NMBA (ห้ามใช้สำหรับ restraint!)',
-    verified: 'Sunsun84 p.7 "Restrain: ขาหน้า Leg robe พาดข้อเท้าด้านตรงไหล่ · ขาหลัง Leg raising ยกเข้าไปด้านหลัง"' },
+    verified: 'Sunsun84 p.7 "Restrain: ขาหน้า Leg robe พาดข้อเท้าด้านตรงไหล่, ขาหลัง Leg raising ยกเข้าไปด้านหลัง"' },
 
   { id: 2050, subject: 'practrum', topic: 'cow-restraint', year: 4,
     source: 'Background bovine handling',
@@ -402,10 +402,10 @@ export const QB_PRACTRUM = [
     confidence: 'INFERRED',
     tags: ['casting', 'reuff-method'], type: 'mcq',
     q: 'การ casting (ล้มวัว) ด้วย Reuff method ใช้เชือกพันรอบส่วนใดของวัว',
-    options: ['ขาหน้าทั้ง 2 ข้าง', 'ลำตัว 3 จุด (คอ · หน้าท้อง · หลังขาหลัง)', 'ขาหลังทั้ง 2 ข้าง', 'หัวและคอเท่านั้น'],
+    options: ['ขาหน้าทั้ง 2 ข้าง', 'ลำตัว 3 จุด (คอ, หน้าท้อง, หลังขาหลัง)', 'ขาหลังทั้ง 2 ข้าง', 'หัวและคอเท่านั้น'],
     answer: 1,
-    explain: 'Reuff method (rope casting):\n• พันเชือก 3 จุด: คอ · หลังขาหน้า (ผ่าน sternum) · หน้าขาหลัง\n• ดึงปลายเชือก → cow ล้มลงด้านที่ดึง\n• ใช้สำหรับ short procedures (foot trim · castration)\n\n💡 วิธีอื่น:\n• **Burley method**: 2 loops (ผ่านหน้าขาหน้า + ระหว่างขาหลัง) — ปลอดภัยกว่า · cow ไม่บีบ neck\n• **Hannover trolley**: mobile restraint · ใช้ใน Penile deviation surgery\n• **Tilt table (foot bath)**: hydraulic — ดีสุดสำหรับ foot work\n\n⚠️ Casting อันตราย → ระวัง bloat ระหว่าง recumbency',
-    verified: 'Bovine handling standards · AABP' },
+    explain: 'Reuff method (rope casting):\n• พันเชือก 3 จุด: คอ, หลังขาหน้า (ผ่าน sternum), หน้าขาหลัง\n• ดึงปลายเชือก → cow ล้มลงด้านที่ดึง\n• ใช้สำหรับ short procedures (foot trim, castration)\n\n💡 วิธีอื่น:\n• **Burley method**: 2 loops (ผ่านหน้าขาหน้า + ระหว่างขาหลัง) — ปลอดภัยกว่า, cow ไม่บีบ neck\n• **Hannover trolley**: mobile restraint, ใช้ใน Penile deviation surgery\n• **Tilt table (foot bath)**: hydraulic — ดีสุดสำหรับ foot work\n\n⚠️ Casting อันตราย → ระวัง bloat ระหว่าง recumbency',
+    verified: 'Bovine handling standards, AABP' },
 
   { id: 2051, subject: 'practrum', topic: 'cow-restraint', year: 4,
     source: 'Background',
@@ -415,7 +415,7 @@ export const QB_PRACTRUM = [
     q: 'การใส่ halter ในวัวเพื่อ restraint ตำแหน่ง muzzle band (สายรอบจมูก) ควรอยู่ตรงไหน',
     options: ['ระหว่าง nostrils กับตา', 'ใต้ตา ~2-3 ซม', 'ตรง coronet กีบ', 'รอบคอ'],
     answer: 1,
-    explain: 'Halter fitting:\n• **Muzzle band**: ใต้ตา ~2-3 ซม (ครึ่งทางระหว่าง nostrils กับตา) ⭐\n• Crown piece (poll): ผ่านหลังหู\n• Throat latch: ใต้ขากรรไกร · ปล่อยพอใส่ 2 นิ้วได้ (กันบีบ trachea)\n\n💡 ปัญหาที่พบ:\n• Muzzle band สูงเกิน → กดตา · บาดเจ็บ\n• ต่ำเกิน → cow ดิ้นหลุด\n• Throat แน่นเกิน → trachea collapse\n\n💡 Halter ผูกที่ post: Quick-release knot (ปลดได้ง่ายเมื่อ emergency)',
+    explain: 'Halter fitting:\n• **Muzzle band**: ใต้ตา ~2-3 ซม (ครึ่งทางระหว่าง nostrils กับตา) ⭐\n• Crown piece (poll): ผ่านหลังหู\n• Throat latch: ใต้ขากรรไกร, ปล่อยพอใส่ 2 นิ้วได้ (กันบีบ trachea)\n\n💡 ปัญหาที่พบ:\n• Muzzle band สูงเกิน → กดตา, บาดเจ็บ\n• ต่ำเกิน → cow ดิ้นหลุด\n• Throat แน่นเกิน → trachea collapse\n\n💡 Halter ผูกที่ post: Quick-release knot (ปลดได้ง่ายเมื่อ emergency)',
     verified: 'Bovine handling + AABP standards' },
 
   { id: 2052, subject: 'practrum', topic: 'cow-restraint', year: 4,
@@ -423,23 +423,23 @@ export const QB_PRACTRUM = [
     sourceType: 'lecture-derived',
     confidence: 'INFERRED',
     tags: ['flight-zone', 'low-stress'], type: 'tf',
-    q: 'การเข้า flight zone ของวัวจากด้านหลัง 45° (point of balance) จะทำให้วัวเดินไปข้างหน้า · เป็นหลักการ low-stress handling',
+    q: 'การเข้า flight zone ของวัวจากด้านหลัง 45° (point of balance) จะทำให้วัวเดินไปข้างหน้า, เป็นหลักการ low-stress handling',
     answer: true,
-    explain: '✅ ถูก — Temple Grandin\'s flight zone principle\n\n💡 Cow flight zone:\n• **Edge of flight zone** (~5-15 m) = cow เริ่มสนใจ\n• **Inside flight zone** = cow เริ่มเคลื่อนไหว\n• **Point of balance** = ที่หัวไหล่ของ cow\n\n💡 Movement direction:\n• เข้าหา **ด้านหลัง point of balance** → cow เดินไปข้างหน้า\n• เข้าหา **ด้านหน้า point of balance** → cow ถอย/หยุด\n• 45° angle = optimal (ไม่ตรงหน้าจน cow รู้สึกถูกขู่)\n\n💡 Low-stress benefits:\n• ลด cortisol (stress hormone)\n• ลด adrenaline → ลด lactic acid ในกล้ามเนื้อ\n• Cow handling injury ลด · meat quality ดีขึ้น (ใน beef cattle)\n• เก็บข้อมูลคลินิกได้แม่นยำ',
-    verified: 'Temple Grandin handling principles · AABP standards' },
+    explain: '✅ ถูก — Temple Grandin\'s flight zone principle\n\n💡 Cow flight zone:\n• **Edge of flight zone** (~5-15 m) = cow เริ่มสนใจ\n• **Inside flight zone** = cow เริ่มเคลื่อนไหว\n• **Point of balance** = ที่หัวไหล่ของ cow\n\n💡 Movement direction:\n• เข้าหา **ด้านหลัง point of balance** → cow เดินไปข้างหน้า\n• เข้าหา **ด้านหน้า point of balance** → cow ถอย/หยุด\n• 45° angle = optimal (ไม่ตรงหน้าจน cow รู้สึกถูกขู่)\n\n💡 Low-stress benefits:\n• ลด cortisol (stress hormone)\n• ลด adrenaline → ลด lactic acid ในกล้ามเนื้อ\n• Cow handling injury ลด, meat quality ดีขึ้น (ใน beef cattle)\n• เก็บข้อมูลคลินิกได้แม่นยำ',
+    verified: 'Temple Grandin handling principles, AABP standards' },
 
   { id: 2027, subject: 'practrum', topic: 'cow-restraint', year: 4,
     source: 'Background',
     sourceType: 'lecture-derived',
     confidence: 'INFERRED',
     tags: ['squeeze-chute', 'safety'], type: 'tf',
-    q: 'การจับวัวเข้า squeeze chute (cattle squeeze) ควรปิด head gate ก่อน แล้วจึงปิด tail gate · ขั้นตอนนี้ป้องกัน cow ถอยหลังออก + protect ผู้ดูแล',
+    q: 'การจับวัวเข้า squeeze chute (cattle squeeze) ควรปิด head gate ก่อน แล้วจึงปิด tail gate, ขั้นตอนนี้ป้องกัน cow ถอยหลังออก + protect ผู้ดูแล',
     answer: true,
     explain: '✅ ถูก — order ที่ถูก:\n1. เปิด head gate และ tail gate\n2. ใช้ alley/paddle เพื่อต้อนเข้า\n3. **ปิด head gate ก่อน** — กักหัวก่อน → ตัวลำตัวสามารถ adjust ได้\n4. ปิด tail gate — กันถอย\n5. (option) Squeeze side panels\n\n💡 ถ้าปิด tail gate ก่อน → cow อาจดิ้นถอยกลับไม่ได้ + เครียด/บาดเจ็บ\n\n⚠️ Safety: ผู้ดูแลห้ามอยู่หลังประตูที่จะเปิด — risk kick-back',
     verified: 'Beef Cattle Handling Standards + AABP safety guidelines' },
 
   // ═══════════════════════════════════════════════════════════
-  // PARTURITION + FETOTOMY (4 Qs) · Week 7/10-12
+  // PARTURITION + FETOTOMY (4 Qs), Week 7/10-12
   // ═══════════════════════════════════════════════════════════
 
   { id: 2028, subject: 'practrum', topic: 'parturition-fetotomy', year: 4,
@@ -447,7 +447,7 @@ export const QB_PRACTRUM = [
     sourceType: 'lecture-derived',
     confidence: 'INFERRED',
     tags: ['dystocia', 'correction', 'traction'], type: 'mcq',
-    q: 'ใน "correction and traction" สำหรับ dystocia ใน cow · ขั้นตอนใดทำก่อนเสมอ',
+    q: 'ใน "correction and traction" สำหรับ dystocia ใน cow, ขั้นตอนใดทำก่อนเสมอ',
     options: ['Traction ทันที (ดึงลูกออก)',
               'Correction ก่อน — แก้ presentation, position, posture ผิดปกติ → แล้วจึง traction',
               'Cesarean section ทันทีไม่ต้องลอง',
@@ -486,14 +486,14 @@ export const QB_PRACTRUM = [
     sourceType: 'lecture-derived',
     confidence: 'INFERRED',
     tags: ['obturator-paralysis', 'complication'], type: 'tf',
-    q: 'Obturator nerve paralysis เป็นภาวะแทรกซ้อนสำคัญหลัง dystocia โดย obturator nerve ถูกกดในช่วง pelvic — แสดงออกเป็น hindlimb adductor weakness · cow แสดงท่า "splay leg" และ slip บนพื้นเปียก',
+    q: 'Obturator nerve paralysis เป็นภาวะแทรกซ้อนสำคัญหลัง dystocia โดย obturator nerve ถูกกดในช่วง pelvic — แสดงออกเป็น hindlimb adductor weakness, cow แสดงท่า "splay leg" และ slip บนพื้นเปียก',
     answer: true,
     explain: '✅ ถูก\n\n**Obturator nerve paralysis (post-calving paresis)**:\n• สาเหตุ: prolonged dystocia / large calf compress obturator nerve ที่ pelvic brim\n• Affected: adductor muscles ของ thigh (gracilis, adductor, pectineus)\n• Sign: **splay legs** (hind legs separate sideways), unable to stand on slippery floor\n• Recovery: 2-4 สัปดาห์ ส่วนใหญ่ recover ถ้า axon intact\n\n💡 Tx:\n• Hobbles (มัดข้อเท้าหลังด้วยเชือกอ่อน) — keep adducted\n• Non-slip flooring (rubber mat, sand)\n• NSAID + B-complex vitamins\n• Physical therapy (passive ROM)\n\n⚠️ Severe case → permanent paralysis / culling',
     verified: 'Standard farm animal post-partum complications — Roberts Vet Obstetrics + AABP' },
 
   // ═══════════════════════════════════════════════════════════
   // PAST-PAPER BATCH 1 — pp's vet prac rum final85 p.2 (Vet 85 = 2025 final)
-  // 10 Q · ALL Final scope (rumenotomy + anesthesia) · marked-answer evidence
+  // 10 Q, ALL Final scope (rumenotomy + anesthesia), marked-answer evidence
   // ═══════════════════════════════════════════════════════════
 
   { id: 2032, subject: 'practrum', topic: 'rumenotomy', year: 4,
@@ -506,7 +506,7 @@ export const QB_PRACTRUM = [
     options: ['ประกอบด้วย dorsal sac และ ventral sac', 'ทำหน้าที่ในการหมัก', 'มีสันแยกระหว่าง reticulum',
               'กระเพาะที่ใหญ่ที่สุดของวัว', 'เวลาป้อนแม่เหล็ก คือแม่เหล็กอยู่ส่วนนี้'],
     answer: 4,
-    explain: 'ข้อที่ผิดคือ E — แม่เหล็ก (cow magnet) ที่ป้อนเพื่อ prevent hardware disease จะตกลงไปอยู่ที่ **reticulum** (กระเพาะที่ 2) ไม่ใช่ rumen\n\n💡 Cow magnet ใช้ในการ prevent + treat hardware disease (TRP):\n• Cow ป้อน magnet ทาง orogastric tube\n• Magnet ตกลงไปสู่ reticulum (gravity + reticulum reticular groove)\n• Foreign metals ติดที่ magnet → ไม่ทะลุไปทำลาย pericardium\n\nDorsal/ventral sac ของ rumen เป็นข้อถูก · rumen เป็นกระเพาะใหญ่สุด ทำหน้าที่หมัก',
+    explain: 'ข้อที่ผิดคือ E — แม่เหล็ก (cow magnet) ที่ป้อนเพื่อ prevent hardware disease จะตกลงไปอยู่ที่ **reticulum** (กระเพาะที่ 2) ไม่ใช่ rumen\n\n💡 Cow magnet ใช้ในการ prevent + treat hardware disease (TRP):\n• Cow ป้อน magnet ทาง orogastric tube\n• Magnet ตกลงไปสู่ reticulum (gravity + reticulum reticular groove)\n• Foreign metals ติดที่ magnet → ไม่ทะลุไปทำลาย pericardium\n\nDorsal/ventral sac ของ rumen เป็นข้อถูก, rumen เป็นกระเพาะใหญ่สุด ทำหน้าที่หมัก',
     verified: 'pp\'s vet prac rum final85 p.2 Q1 — answer marked E' },
 
   { id: 2033, subject: 'practrum', topic: 'rumenotomy', year: 4,
@@ -554,7 +554,7 @@ export const QB_PRACTRUM = [
     q: 'ถ้าใช้ lidocaine จะต้องทำหัตถการภายในกี่นาที',
     options: ['15 นาที', '30 นาที', '90 นาที', '180 นาที', '360 นาที'],
     answer: 3,
-    explain: 'Lidocaine 2% มี duration of action ~**180 นาที** (3 ชม.) ในการทำหัตถการ\n\n💡 Local anesthetic duration:\n• Lidocaine 1-2%: ~90-180 min (มี epinephrine จะนานกว่า)\n• Lidocaine + epi: 180-240 min\n• Bupivacaine: 4-6 hr (longer-lasting)\n• Procaine: 30-60 min (เก่ากว่า · จึงไม่นิยม)\n\n⚠️ ในวัว ใช้ lidocaine 2% ลำพังได้ดีพอเพราะหัตถการส่วนใหญ่ <3 ชม.\n\n💡 Max safe dose: adult cattle ≤ 250 ml of 2% lidocaine (line block)',
+    explain: 'Lidocaine 2% มี duration of action ~**180 นาที** (3 ชม.) ในการทำหัตถการ\n\n💡 Local anesthetic duration:\n• Lidocaine 1-2%: ~90-180 min (มี epinephrine จะนานกว่า)\n• Lidocaine + epi: 180-240 min\n• Bupivacaine: 4-6 hr (longer-lasting)\n• Procaine: 30-60 min (เก่ากว่า, จึงไม่นิยม)\n\n⚠️ ในวัว ใช้ lidocaine 2% ลำพังได้ดีพอเพราะหัตถการส่วนใหญ่ <3 ชม.\n\n💡 Max safe dose: adult cattle ≤ 250 ml of 2% lidocaine (line block)',
     verified: 'pp\'s vet prac rum final85 p.2 Q5 — answer marked D' },
 
   { id: 2037, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
@@ -579,7 +579,7 @@ export const QB_PRACTRUM = [
     q: 'Caudal epidural nerve block ทำที่ไหน (ในวัว)',
     options: ['L6-S1', 'L7-S1', 'L8-S1', 'S3-C1', 'S5-C1'],
     answer: 4,
-    explain: 'วัว: caudal epidural ที่ **S5-Co1 (sacrococcygeal space)** หรือ first intercoccygeal (Co1-Co2)\n\n💡 Lecture detail (Aj. Ekkapol 2024):\n• Sacrococcygeal (S5-Co1) ✓\n• First intercoccygeal (Co1-Co2)\n• Lidocaine 2%: 1 ml/100 kg · max 6 ml\n• Loss of resistance + hanging drop technique\n\n💡 Indication: analgesia of pelvic visceral + genitalia (perineal sx, c-section, dystocia)\n\n⚠️ ต่างจากแพะแกะ (lumbosacral L6-S1) เพราะ vertebral anatomy + caudal nerve emergence ต่างกัน',
+    explain: 'วัว: caudal epidural ที่ **S5-Co1 (sacrococcygeal space)** หรือ first intercoccygeal (Co1-Co2)\n\n💡 Lecture detail (Aj. Ekkapol 2024):\n• Sacrococcygeal (S5-Co1) ✓\n• First intercoccygeal (Co1-Co2)\n• Lidocaine 2%: 1 ml/100 kg, max 6 ml\n• Loss of resistance + hanging drop technique\n\n💡 Indication: analgesia of pelvic visceral + genitalia (perineal sx, c-section, dystocia)\n\n⚠️ ต่างจากแพะแกะ (lumbosacral L6-S1) เพราะ vertebral anatomy + caudal nerve emergence ต่างกัน',
     verified: 'pp\'s vet prac rum final85 p.2 Q7 — answer marked E' },
 
   { id: 2039, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
@@ -619,17 +619,17 @@ export const QB_PRACTRUM = [
               'Simple continuous + Horizontal mattress รวม 2 ชั้น',
               'Simple continuous + Vertical mattress รวม 2 ชั้น'],
     answer: 2,
-    explain: 'Rumen closure = **2 layers**:\n• **Layer 1**: Simple continuous (mucosa-submucosa)\n• **Layer 2**: Continuous Lembert (seromuscular inverting)\n• Mid-term absorbable suture, Size 1-2 (Vicryl/PDS)\n• Lavage before released from body wall\n\n💡 Why 2-layer + Lembert?\n• Layer 1 hemostasis + mucosal apposition\n• Layer 2 (Lembert = inverting) = serosa-to-serosa contact → fibrin seal → ป้องกัน rumen content รั่ว → peritonitis\n\n⚠️ Horizontal/Vertical mattress = ไม่ใช่ inverting pattern · ใช้กับ skin/fascia, ไม่เหมาะ rumen wall',
+    explain: 'Rumen closure = **2 layers**:\n• **Layer 1**: Simple continuous (mucosa-submucosa)\n• **Layer 2**: Continuous Lembert (seromuscular inverting)\n• Mid-term absorbable suture, Size 1-2 (Vicryl/PDS)\n• Lavage before released from body wall\n\n💡 Why 2-layer + Lembert?\n• Layer 1 hemostasis + mucosal apposition\n• Layer 2 (Lembert = inverting) = serosa-to-serosa contact → fibrin seal → ป้องกัน rumen content รั่ว → peritonitis\n\n⚠️ Horizontal/Vertical mattress = ไม่ใช่ inverting pattern, ใช้กับ skin/fascia, ไม่เหมาะ rumen wall',
     verified: 'pp\'s vet prac rum final85 p.2 Q10 — answer marked C' },
 
   // ═══════════════════════════════════════════════════════════
   // PAST-PAPER BATCH 2 — Ploy83 รวมข้อสอบเก่า p.31-35 (Vet 83 = 2023 lameness)
-  // 5 Q · Final scope (hoof care + lameness)
-  // ⚠️ Lecturer year-change: ปี 83 = ศิรินันท์ พรรณระวี · ปี 86 = PP ปิยะณัฐ ประสมศรี
+  // 5 Q, Final scope (hoof care + lameness)
+  // ⚠️ Lecturer year-change: ปี 83 = ศิรินันท์ พรรณระวี, ปี 86 = PP ปิยะณัฐ ประสมศรี
   // ═══════════════════════════════════════════════════════════
 
   { id: 2042, subject: 'practrum', topic: 'hoof-trim', year: 4,
-    source: 'Ploy83 รวมข้อสอบเก่า p.31-35 Q1 (Lameness section · ศิรินันท์ พรรณระวี)',
+    source: 'Ploy83 รวมข้อสอบเก่า p.31-35 Q1 (Lameness section, ศิรินันท์ พรรณระวี)',
     examOrigin: 'Vet Prac Rum 2023 (Vet 83)',
     sourceType: 'past-paper',
     confidence: 'EXTRACTED',
@@ -642,7 +642,7 @@ export const QB_PRACTRUM = [
               'ดูแลความสะอาดและความปลอดภัยของโรงเรือนอย่างสม่ำเสมอ'],
     answer: 0,
     explain: '**ถูกทุกข้อ** — bovine hoof care = comprehensive approach\n\n💡 4 pillars of dairy hoof health:\n1. **Footbath**: CuSO4 5-10% / formalin 3-5% / paraformaldehyde — kill Treponema, Fusobacterium\n2. **Routine hoof trimming**: 2x/year ทำให้ weight distribute ปกติ ป้องกัน sole ulcer\n3. **Proper nutrition**: ลด carb overload (acidosis) → ป้องกัน laminitis\n4. **Housing hygiene + safety**: dry bedding, non-slip floor, proper stall design\n\n⚠️ ลำพังข้อใดข้อหนึ่งไม่พอ — ต้องครบ',
-    verified: 'Ploy83 p.31-35 Q1 — Vet 83 final · marked answer A' },
+    verified: 'Ploy83 p.31-35 Q1 — Vet 83 final, marked answer A' },
 
   { id: 2043, subject: 'practrum', topic: 'hoof-trim', year: 4,
     source: 'Ploy83 รวมข้อสอบเก่า p.31-35 Q2 (Lameness section)',
@@ -650,9 +650,9 @@ export const QB_PRACTRUM = [
     sourceType: 'past-paper',
     confidence: 'EXTRACTED',
     tags: ['sole-ulcer', 'location-zone'], type: 'mcq',
-    q: 'จากรูปกีบโค (zone diagram 1-6) sole ulcer มักเกิดที่ตำแหน่งใดมากที่สุด · เบอร์ใด',
+    q: 'จากรูปกีบโค (zone diagram 1-6) sole ulcer มักเกิดที่ตำแหน่งใดมากที่สุด, เบอร์ใด',
     options: ['เบอร์ 5 (toe region)',
-              'เบอร์ 4 (sole-heel junction · กลาง sole)',
+              'เบอร์ 4 (sole-heel junction, กลาง sole)',
               'เบอร์ 2 (axial wall)',
               'เบอร์ 3 (abaxial wall)',
               'เบอร์ 6 (heel)'],
@@ -673,7 +673,7 @@ export const QB_PRACTRUM = [
               'ใช้ embryotome wire ตัดกระดูกที่ตำแหน่งส่วนล่างของกระดูก middle phalanx เฉียงเหนือระดับไรกีบด้าน abaxial 2 เซนติเมตร',
               'จับบังคับให้โคนอนตะแคง โดยให้ขาข้างที่จะผ่าตัดอยู่ด้านบน'],
     answer: 2,
-    explain: 'ข้อที่ผิดคือ C — กรีดผิวหนัง **2 เซน** เกินไป · ที่ถูกคือ **0.5 ซม** เหนือไรกีบ\n\n💡 Correct Digital amputation S2 procedure:\n1. Lateral recumbency · ขาข้างที่ผ่าตัดอยู่บน\n2. Cornual nerve block / NBA (4-point)\n3. ตัด interdigital ligament ตลอดร่องกีบ ✓\n4. **มีดเปิดผิวหนังเหนือไรกีบ ~0.5 ซม** (ไม่ใช่ 2 ซม) ⭐\n5. ใช้ embryotome wire เลื่อยตัดกระดูก S2 (distal 1/3 ของ middle phalanx)\n6. มุมตัด: เฉียงลงระดับไรกีบด้าน abaxial 2 ซม\n7. Curette ขูดเนื้อตาย ✓\n8. Hemostatic powder + bandage\n\n⚠️ ตัด skin มากเกินไป → wound dehiscence',
+    explain: 'ข้อที่ผิดคือ C — กรีดผิวหนัง **2 เซน** เกินไป, ที่ถูกคือ **0.5 ซม** เหนือไรกีบ\n\n💡 Correct Digital amputation S2 procedure:\n1. Lateral recumbency, ขาข้างที่ผ่าตัดอยู่บน\n2. Cornual nerve block / NBA (4-point)\n3. ตัด interdigital ligament ตลอดร่องกีบ ✓\n4. **มีดเปิดผิวหนังเหนือไรกีบ ~0.5 ซม** (ไม่ใช่ 2 ซม) ⭐\n5. ใช้ embryotome wire เลื่อยตัดกระดูก S2 (distal 1/3 ของ middle phalanx)\n6. มุมตัด: เฉียงลงระดับไรกีบด้าน abaxial 2 ซม\n7. Curette ขูดเนื้อตาย ✓\n8. Hemostatic powder + bandage\n\n⚠️ ตัด skin มากเกินไป → wound dehiscence',
     verified: 'Ploy83 p.32 Q3 — marked answer C (incorrect statement)' },
 
   { id: 2045, subject: 'practrum', topic: 'hoof-trim', year: 4,
@@ -705,7 +705,7 @@ export const QB_PRACTRUM = [
               'มักเกิดขึ้นที่ส่วนของ toe',
               'มักไม่ทำให้เกิด lameness'],
     answer: 2,
-    explain: '**Digital dermatitis เกิดจาก Treponema spp.** (Spirochete)\n\n💡 Key facts:\n• Cause: **Treponema spp.** (multiple species — T. denticola, T. medium, T. brennaborense, T. phagedenis, T. pedis, T. putidum) — polymicrobial\n• Site: ส่วน **interdigital cleft + heel bulb** (ไม่ใช่ toe)\n• Sign: red/strawberry/papillomatous lesion · painful · severe **lameness** + decreased milk yield\n• Tx: topical oxytetracycline + bandage · footbath (CuSO4)\n• ⚠️ **ไม่มีวัคซีน effective** — autogenous bacterin ทดลองใช้ มี variable response\n\n⚠️ Hairy heel wart = synonym ของ digital dermatitis (popular name)',
+    explain: '**Digital dermatitis เกิดจาก Treponema spp.** (Spirochete)\n\n💡 Key facts:\n• Cause: **Treponema spp.** (multiple species — T. denticola, T. medium, T. brennaborense, T. phagedenis, T. pedis, T. putidum) — polymicrobial\n• Site: ส่วน **interdigital cleft + heel bulb** (ไม่ใช่ toe)\n• Sign: red/strawberry/papillomatous lesion, painful, severe **lameness** + decreased milk yield\n• Tx: topical oxytetracycline + bandage, footbath (CuSO4)\n• ⚠️ **ไม่มีวัคซีน effective** — autogenous bacterin ทดลองใช้ มี variable response\n\n⚠️ Hairy heel wart = synonym ของ digital dermatitis (popular name)',
     verified: 'Ploy83 p.34-35 Q5 — marked answer C' },
 
   // ═══════════════════════════════════════════════════════════
@@ -727,7 +727,7 @@ export const QB_PRACTRUM = [
       'เวลาป้อนแม่เหล็กคือแม่เหล็กอยู่ส่วนนี้',
     ],
     answer: 4,
-    explain: 'แม่เหล็กที่ป้อนเข้าไปจะลงไปอยู่ที่ reticulum (กระเพาะส่วนหน้า · หนักที่สุด · gravity-dependent) ไม่ใช่ rumen · เป้าหมายคือดูดเหล็กแหลมที่ก่อ Hardware disease (traumatic reticuloperitonitis)',
+    explain: 'แม่เหล็กที่ป้อนเข้าไปจะลงไปอยู่ที่ reticulum (กระเพาะส่วนหน้า, หนักที่สุด, gravity-dependent) ไม่ใช่ rumen, เป้าหมายคือดูดเหล็กแหลมที่ก่อ Hardware disease (traumatic reticuloperitonitis)',
     verified: 'TJ p3 + พี่พล/sunsun84 highlighted E' },
 
   { id: 3001, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -736,7 +736,7 @@ export const QB_PRACTRUM = [
     q: 'ข้อไหนไม่ใช่ indications ในการทำ rumenotomy',
     options: ['Hardware disease', 'Frothy bloat', 'Software disease', 'Choke', 'Impaction'],
     answer: 2,
-    explain: 'Software disease ไม่มีอยู่จริง · เป็น distractor · indications จริง: Hardware disease, frothy bloat (severe), choke (rumen-side), impaction, foreign body, rumen wash',
+    explain: 'Software disease ไม่มีอยู่จริง, เป็น distractor, indications จริง: Hardware disease, frothy bloat (severe), choke (rumen-side), impaction, foreign body, rumen wash',
     verified: 'TJ p3 highlighted C' },
 
   { id: 3002, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -745,7 +745,7 @@ export const QB_PRACTRUM = [
     q: 'ถ้าจะผ่าตัดในลูกวัว (neonatal calf) ต้องอดอาหารนานเท่าไหร่',
     options: ['ไม่อดอาหารเลย', 'อด 8 ชั่วโมง', 'อด 12 ชั่วโมง', 'อด 24 ชั่วโมง', 'อด 36 ชั่วโมง'],
     answer: 0,
-    explain: 'ลูกวัวยังเป็น monogastric functional (rumen ไม่ทำงานเต็มที่ก่อน 6 สัปดาห์) · ระบบเสี่ยง hypoglycemia + hypothermia ถ้าอดอาหาร · จึงไม่ต้องอด ต่างจากวัวโตที่อด 24-36 ชม.',
+    explain: 'ลูกวัวยังเป็น monogastric functional (rumen ไม่ทำงานเต็มที่ก่อน 6 สัปดาห์), ระบบเสี่ยง hypoglycemia + hypothermia ถ้าอดอาหาร, จึงไม่ต้องอด ต่างจากวัวโตที่อด 24-36 ชม.',
     verified: 'TJ p3 highlighted A' },
 
   { id: 3003, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -754,7 +754,7 @@ export const QB_PRACTRUM = [
     q: 'จะต้องใช้ xylazine กี่ ml ในวัวที่มีน้ำหนัก 500 kg ในการทำ rumenotomy (standing position) โดยใช้ความเข้มข้น 20 mg/ml',
     options: ['0.01', '0.05', '0.1', '0.5', '1.0'],
     answer: 3,
-    explain: 'Standing rumenotomy xylazine dose ~0.02 mg/kg (low to maintain standing) · 500 kg × 0.02 = 10 mg ÷ 20 mg/ml = 0.5 ml · Dose recumbent จะสูงกว่า (0.1 mg/kg) แต่ standing ต้องน้อยเพื่อไม่ให้ล้ม',
+    explain: 'Standing rumenotomy xylazine dose ~0.02 mg/kg (low to maintain standing), 500 kg × 0.02 = 10 mg ÷ 20 mg/ml = 0.5 ml, Dose recumbent จะสูงกว่า (0.1 mg/kg) แต่ standing ต้องน้อยเพื่อไม่ให้ล้ม',
     verified: 'TJ p3 highlighted D' },
 
   { id: 3004, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -763,7 +763,7 @@ export const QB_PRACTRUM = [
     q: 'ถ้าใช้ lidocaine จะต้องทำหัตถการภายในกี่นาที',
     options: ['15 นาที', '30 นาที', '90 นาที', '180 นาที', '360 นาที'],
     answer: 2,
-    explain: 'Lidocaine onset 5-10 นาที · duration ~ 60-90 นาที · ต้องทำหัตถการเสร็จภายใน 90 นาทีก่อน block หมดฤทธิ์ · Bupivacaine จะนานกว่า ~ 4-8 ชม. แต่ onset ช้ากว่า',
+    explain: 'Lidocaine onset 5-10 นาที, duration ~ 60-90 นาที, ต้องทำหัตถการเสร็จภายใน 90 นาทีก่อน block หมดฤทธิ์, Bupivacaine จะนานกว่า ~ 4-8 ชม. แต่ onset ช้ากว่า',
     verified: 'TJ p3 highlighted C' },
 
   { id: 3005, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -778,7 +778,7 @@ export const QB_PRACTRUM = [
       'Transverse process of L4',
     ],
     answer: 2,
-    explain: 'L1 spinal nerve ออกมาทาง caudal ของ TP L1 → ใช้ TP L2 (ตัวที่อยู่ caudal กว่า) เป็น landmark · หลัก "block n nerve → use TP n+1 as landmark" สำหรับ proximal paravertebral block',
+    explain: 'L1 spinal nerve ออกมาทาง caudal ของ TP L1 → ใช้ TP L2 (ตัวที่อยู่ caudal กว่า) เป็น landmark, หลัก "block n nerve → use TP n+1 as landmark" สำหรับ proximal paravertebral block',
     verified: 'TJ p4 highlighted C' },
 
   { id: 3006, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -787,7 +787,7 @@ export const QB_PRACTRUM = [
     q: 'Caudal epidural nerve block ทำที่ตำแหน่งใดในวัว',
     options: ['L6-S1', 'L7-S1', 'L8-S1', 'S3-C1', 'S5-C1 (sacrococcygeal junction)'],
     answer: 4,
-    explain: 'Caudal epidural ในวัว 2 ตำแหน่งมาตรฐาน: (1) S5-Co1 = sacrococcygeal junction (high caudal · ตำแหน่งในข้อสอบ) (2) Co1-Co2 = 1st intercoccygeal space (low caudal · ใช้บ่อยกว่าใน routine) · คลำหา joint โดยยกหางขึ้น-ลง · block tail + perineum + posterior vagina · ปริมาณ 5-7 ml lidocaine 2%',
+    explain: 'Caudal epidural ในวัว 2 ตำแหน่งมาตรฐาน: (1) S5-Co1 = sacrococcygeal junction (high caudal, ตำแหน่งในข้อสอบ) (2) Co1-Co2 = 1st intercoccygeal space (low caudal, ใช้บ่อยกว่าใน routine), คลำหา joint โดยยกหางขึ้น-ลง, block tail + perineum + posterior vagina, ปริมาณ 5-7 ml lidocaine 2%',
     verified: 'TJ p4 highlighted E + Roberts Veterinary Obstetrics' },
 
   { id: 3007, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -802,7 +802,7 @@ export const QB_PRACTRUM = [
       'สีผิวหนังเปลี่ยนไป',
     ],
     answer: 1,
-    explain: 'Test ด้วยเข็มจิ้ม (pin-prick test) ที่บริเวณที่ block ครอบคลุม · ถ้าวัวไม่ตอบสนองต่อความเจ็บปวด = block สำเร็จ · อาการอื่น (skin warm, scoliosis curve toward block side) เป็น secondary signs',
+    explain: 'Test ด้วยเข็มจิ้ม (pin-prick test) ที่บริเวณที่ block ครอบคลุม, ถ้าวัวไม่ตอบสนองต่อความเจ็บปวด = block สำเร็จ, อาการอื่น (skin warm, scoliosis curve toward block side) เป็น secondary signs',
     verified: 'TJ p4 highlighted B' },
 
   { id: 3008, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -811,7 +811,7 @@ export const QB_PRACTRUM = [
     q: 'ยาใดในข้อต่อไปนี้ไม่ได้นำไปใช้ในการทำ rumenotomy',
     options: ['Flunixin meglumine', 'Procaine penicillin', 'Xylazine', 'Propofol', 'Lidocaine hydrochloride'],
     answer: 3,
-    explain: 'Propofol = IV induction agent สำหรับสัตว์เล็ก · ในวัวต้อง IV access ใหญ่ + เสี่ยง regurgitation + bloat · standing rumenotomy ใช้ local (lidocaine) + sedation (xylazine) + post-op analgesia (flunixin) + antibiotic (procaine penicillin) · หมายเหตุ: บางเวอร์ชั่นข้อสอบเปลี่ยน Propofol เป็น Cefazolin (sunsun84 marked B5-on propofol) — Cefazolin (1st gen ceph) ก็ไม่ได้ใช้ใน food animal เพราะ withdrawal time ปัญหา ตอบเหมือนกัน',
+    explain: 'Propofol = IV induction agent สำหรับสัตว์เล็ก, ในวัวต้อง IV access ใหญ่ + เสี่ยง regurgitation + bloat, standing rumenotomy ใช้ local (lidocaine) + sedation (xylazine) + post-op analgesia (flunixin) + antibiotic (procaine penicillin), หมายเหตุ: บางเวอร์ชั่นข้อสอบเปลี่ยน Propofol เป็น Cefazolin (sunsun84 marked B5-on propofol) — Cefazolin (1st gen ceph) ก็ไม่ได้ใช้ใน food animal เพราะ withdrawal time ปัญหา ตอบเหมือนกัน',
     verified: 'TJ p5 highlighted D' },
 
   { id: 3009, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -826,17 +826,17 @@ export const QB_PRACTRUM = [
       'เย็บ simple continuous และ vertical mattress รวมทั้งหมดเป็น 2 ชั้น',
     ],
     answer: 2,
-    explain: 'Rumen closure: ชั้นใน Cushing (simple continuous inverting) ที่ mucosa-submucosa + ชั้นนอก continuous Lembert (inverting) ที่ seromuscular = 2 ชั้น invert ป้องกัน leak · ใช้ absorbable suture (Vicryl 0/2-0)',
+    explain: 'Rumen closure: ชั้นใน Cushing (simple continuous inverting) ที่ mucosa-submucosa + ชั้นนอก continuous Lembert (inverting) ที่ seromuscular = 2 ชั้น invert ป้องกัน leak, ใช้ absorbable suture (Vicryl 0/2-0)',
     verified: 'TJ p5 highlighted C' },
 
-  // ── อ.น้ำ Silage / Feed Management (ภาคสัตวบาล · 10 ข้อปรนัย) ──
+  // ── อ.น้ำ Silage / Feed Management (ภาคสัตวบาล, 10 ข้อปรนัย) ──
   { id: 3010, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
     source: 'TJ p2 (อ.น้ำ silage quality criteria)', sourceType: 'student-compilation',
     tags: ['silage', 'quality-assessment', 'อ.น้ำ', 'roughage'], type: 'mcq',
     q: 'ข้าวโพดหมัก (silage) คุณภาพดี ควรมีกลิ่นแบบใด',
     options: ['กลิ่นเปรี้ยวจากกรดแลคติก', 'กลิ่นหืน (rancid)', 'ไม่มีกลิ่น', 'กลิ่นโคลน (musty)', 'กลิ่นแอมโมเนีย'],
     answer: 0,
-    explain: 'Silage ที่หมักดี = lactic acid bacteria ผลิต lactic acid → กลิ่นเปรี้ยวอ่อน · กลิ่นหืน = butyric acid (Clostridia overgrowth · poor fermentation) · กลิ่นแอมโมเนีย = protein degradation · กลิ่นโคลน = mold contamination',
+    explain: 'Silage ที่หมักดี = lactic acid bacteria ผลิต lactic acid → กลิ่นเปรี้ยวอ่อน, กลิ่นหืน = butyric acid (Clostridia overgrowth, poor fermentation), กลิ่นแอมโมเนีย = protein degradation, กลิ่นโคลน = mold contamination',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
   { id: 3011, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
@@ -845,7 +845,7 @@ export const QB_PRACTRUM = [
     q: 'pH ที่บ่งชี้ว่าการหมักข้าวโพดสมบูรณ์ (silage well-fermented)',
     options: ['pH < 4', 'pH 5-5.5', 'pH 6-7', 'pH > 7', 'pH ไม่สำคัญ'],
     answer: 0,
-    explain: 'Lactic acid fermentation ที่สมบูรณ์ → pH < 4 (ปกติ 3.8-4.2) · pH สูง = bacteria แข่ง lactic ไม่ชนะ → spoilage · ใช้ pH paper ตรวจ field-side ได้',
+    explain: 'Lactic acid fermentation ที่สมบูรณ์ → pH < 4 (ปกติ 3.8-4.2), pH สูง = bacteria แข่ง lactic ไม่ชนะ → spoilage, ใช้ pH paper ตรวจ field-side ได้',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
   { id: 3012, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
@@ -854,7 +854,7 @@ export const QB_PRACTRUM = [
     q: 'สีของข้าวโพดหมัก (corn silage) คุณภาพดี',
     options: ['เขียวปนน้ำตาล (greenish-brown)', 'เขียวเข้ม (dark green)', 'น้ำตาลดำ (dark brown/black)', 'เหลืองสด (bright yellow)', 'ขาวซีด'],
     answer: 0,
-    explain: 'Silage ที่หมักดี = สี yellowish-green / greenish-brown · สีเข้ม/ดำ = overheating หรือ caramelization (ใช้น้ำตาลในการ fermentation มากเกินไป → ลดคุณภาพ) · สีขาว = mold',
+    explain: 'Silage ที่หมักดี = สี yellowish-green / greenish-brown, สีเข้ม/ดำ = overheating หรือ caramelization (ใช้น้ำตาลในการ fermentation มากเกินไป → ลดคุณภาพ), สีขาว = mold',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
   { id: 3013, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
@@ -863,7 +863,7 @@ export const QB_PRACTRUM = [
     q: 'ความชื้นที่เหมาะสมสำหรับการทำ silage',
     options: ['30-40%', '50-55%', '60-70%', '75-85%', '90% ขึ้นไป'],
     answer: 2,
-    explain: 'Optimal moisture 60-70% (DM 30-40%) · ชื้นเกิน → seepage + Clostridial fermentation + butyric acid · แห้งเกิน → packing ไม่แน่น → aerobic fermentation + mold',
+    explain: 'Optimal moisture 60-70% (DM 30-40%), ชื้นเกิน → seepage + Clostridial fermentation + butyric acid, แห้งเกิน → packing ไม่แน่น → aerobic fermentation + mold',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
   { id: 3014, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
@@ -872,7 +872,7 @@ export const QB_PRACTRUM = [
     q: 'ระยะเวลาขั้นต่ำในการหมัก silage ก่อนเปิดใช้',
     options: ['7 วัน', '14 วัน', '21 วัน', '60 วัน', '90 วัน'],
     answer: 2,
-    explain: 'Silage ต้องหมักอย่างน้อย 21 วัน เพื่อ pH ลงต่ำพอ + lactic acid ครอบงำ + กำจัด pathogen · เปิดเร็วเกิน → fermentation ไม่สมบูรณ์ → spoilage · เปิดแล้วต้องใช้เร็ว (face management)',
+    explain: 'Silage ต้องหมักอย่างน้อย 21 วัน เพื่อ pH ลงต่ำพอ + lactic acid ครอบงำ + กำจัด pathogen, เปิดเร็วเกิน → fermentation ไม่สมบูรณ์ → spoilage, เปิดแล้วต้องใช้เร็ว (face management)',
     verified: 'TJ p2 (อ.น้ำ slide)' },
 
   { id: 3015, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -886,7 +886,7 @@ export const QB_PRACTRUM = [
       'DMI (kg) = น้ำหนักอาหาร + %DM',
     ],
     answer: 0,
-    explain: 'DMI (kg DM) = น้ำหนักอาหารเปียก (kg as-fed) × %DM / 100 · เช่น silage 10 kg ที่ DM 35% → DMI = 10 × 35/100 = 3.5 kg DM · ใช้คำนวณการกินจริงของวัว',
+    explain: 'DMI (kg DM) = น้ำหนักอาหารเปียก (kg as-fed) × %DM / 100, เช่น silage 10 kg ที่ DM 35% → DMI = 10 × 35/100 = 3.5 kg DM, ใช้คำนวณการกินจริงของวัว',
     verified: '(Final) p2 — อ.น้ำ formula box' },
 
   { id: 3016, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -895,7 +895,7 @@ export const QB_PRACTRUM = [
     q: 'R:C ratio (Roughage : Concentrate) ที่เหมาะสมสำหรับวัวรีดนม high-yield (>30 kg/วัน)',
     options: ['80:20', '60:40', '50:50', '40:60', '20:80'],
     answer: 2,
-    explain: 'High-yield dairy: R:C ~50:50 เป็นมาตรฐานสมดุลที่สุด · ถ้า yield สูงมาก (>40 kg/d) อาจถึง 40:60 แต่ต้อง buffer + monitor SARA · ห้าม concentrate เกิน 60% — เสี่ยง SARA (subacute ruminal acidosis) · Beef cow + dry cow: R:C 70:30 ถึง 80:20',
+    explain: 'High-yield dairy: R:C ~50:50 เป็นมาตรฐานสมดุลที่สุด, ถ้า yield สูงมาก (>40 kg/d) อาจถึง 40:60 แต่ต้อง buffer + monitor SARA, ห้าม concentrate เกิน 60% — เสี่ยง SARA (subacute ruminal acidosis), Beef cow + dry cow: R:C 70:30 ถึง 80:20',
     verified: '(Final) p2 — Feed mgt + NRC Dairy 2021' },
 
   { id: 3017, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -909,7 +909,7 @@ export const QB_PRACTRUM = [
       '> 50 mm — ใหญ่เกิน กินไม่ได้',
     ],
     answer: 2,
-    explain: 'Particle > 19 mm = "physically effective fiber" stimulate cud chewing → saliva (buffer) → ป้องกัน acidosis · Penn State Particle Separator: top sieve >19 mm = 2-8% ของ TMR · ถ้า particle เล็กไปทุก part → ไม่มี cud chewing → SARA risk',
+    explain: 'Particle > 19 mm = "physically effective fiber" stimulate cud chewing → saliva (buffer) → ป้องกัน acidosis, Penn State Particle Separator: top sieve >19 mm = 2-8% ของ TMR, ถ้า particle เล็กไปทุก part → ไม่มี cud chewing → SARA risk',
     verified: '(Final) p2 — Particle size box' },
 
   { id: 3018, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -923,7 +923,7 @@ export const QB_PRACTRUM = [
       'การย่อยอาหารเท่านั้น',
     ],
     answer: 0,
-    explain: 'NEL (Mcal/kg DM) = energy ที่เหลือหลังหัก feces + urine + gas + heat increment · ใช้ maintain + ผลิตน้ำนม + สำหรับลูกในท้อง · standard sale ration ~1.6-1.7 Mcal/kg DM สำหรับ high yield cow',
+    explain: 'NEL (Mcal/kg DM) = energy ที่เหลือหลังหัก feces + urine + gas + heat increment, ใช้ maintain + ผลิตน้ำนม + สำหรับลูกในท้อง, standard sale ration ~1.6-1.7 Mcal/kg DM สำหรับ high yield cow',
     verified: '(Final) p2' },
 
   { id: 3019, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -931,13 +931,13 @@ export const QB_PRACTRUM = [
     tags: ['NDF', 'ADF', 'fiber'], type: 'mcq',
     q: 'NDF (Neutral Detergent Fiber) ต่างจาก ADF (Acid Detergent Fiber) อย่างไร',
     options: [
-      'NDF รวม cellulose + hemicellulose + lignin · ADF เฉพาะ cellulose + lignin',
-      'NDF เฉพาะ protein · ADF เฉพาะ fat',
-      'NDF = น้ำตาล · ADF = แป้ง',
+      'NDF รวม cellulose + hemicellulose + lignin, ADF เฉพาะ cellulose + lignin',
+      'NDF เฉพาะ protein, ADF เฉพาะ fat',
+      'NDF = น้ำตาล, ADF = แป้ง',
       'ทั้งสองเหมือนกัน',
     ],
     answer: 0,
-    explain: 'NDF = total cell wall (cellulose + hemicellulose + lignin) → indicate fill (กินได้เท่าไร) · ADF = cellulose + lignin (indigestible) → indicate digestibility (energy availability) · NDF สูง → DMI ลด · ADF สูง → energy ต่ำ',
+    explain: 'NDF = total cell wall (cellulose + hemicellulose + lignin) → indicate fill (กินได้เท่าไร), ADF = cellulose + lignin (indigestible) → indicate digestibility (energy availability), NDF สูง → DMI ลด, ADF สูง → energy ต่ำ',
     verified: '(Final) p2' },
 
   // ── ภาคสูติฯ — Dystocia 12 presentations (visual recognition + correction) ──
@@ -1076,7 +1076,7 @@ export const QB_PRACTRUM = [
       'ปล่อยให้คลอดเอง',
     ],
     answer: 0,
-    explain: 'Head/neck deviation: 1) push fetus ลงไปสร้าง space, 2) hook ที่ orbit (ระวัง globe rupture) หรือ jaw, 3) rotate head เข้า birth canal, 4) ดึงปกติ · ถ้า fetus ใหญ่/แม่เล็ก/แก้ไม่ได้ใน 30 นาที → C-section หรือ fetotomy',
+    explain: 'Head/neck deviation: 1) push fetus ลงไปสร้าง space, 2) hook ที่ orbit (ระวัง globe rupture) หรือ jaw, 3) rotate head เข้า birth canal, 4) ดึงปกติ, ถ้า fetus ใหญ่/แม่เล็ก/แก้ไม่ได้ใน 30 นาที → C-section หรือ fetotomy',
     verified: 'sunsun84 dystocia notes + (Final) p4' },
 
   { id: 3033, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
@@ -1090,7 +1090,7 @@ export const QB_PRACTRUM = [
       'รอให้คลอดเอง',
     ],
     answer: 1,
-    explain: 'True breech (hip flexion · hock extended) ดึงตรงไม่ได้ — ต้อง mutation: push fetus cranial → flex hock → จับ hock + ขาหลัง → ดึงออก · เป็นท่าผสมที่ deliver ได้ง่ายขึ้น · ถ้า uterus inertia หรือ fetus ใหญ่ → C-section',
+    explain: 'True breech (hip flexion, hock extended) ดึงตรงไม่ได้ — ต้อง mutation: push fetus cranial → flex hock → จับ hock + ขาหลัง → ดึงออก, เป็นท่าผสมที่ deliver ได้ง่ายขึ้น, ถ้า uterus inertia หรือ fetus ใหญ่ → C-section',
     verified: 'sunsun84 + (Final) p4 ท่า H-I-J' },
 
   { id: 3034, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
@@ -1104,7 +1104,7 @@ export const QB_PRACTRUM = [
       'รอให้คลอดเอง',
     ],
     answer: 1,
-    explain: 'Transverse presentation ลูกขวางในมดลูก — มี contact 4 ขาที่ pelvic inlet พร้อมกัน → ดึงไม่ได้ · C-section first choice (เร็ว · ปลอดภัยทั้งแม่+ลูก) · Mutation ทำได้ในลูกเล็กเท่านั้น',
+    explain: 'Transverse presentation ลูกขวางในมดลูก — มี contact 4 ขาที่ pelvic inlet พร้อมกัน → ดึงไม่ได้, C-section first choice (เร็ว, ปลอดภัยทั้งแม่+ลูก), Mutation ทำได้ในลูกเล็กเท่านั้น',
     verified: 'Roberts Veterinary Obstetrics + sunsun84' },
 
   // ── ภาคศัลย์ extension — Penile deviation + Caudal epididymectomy ──
@@ -1113,13 +1113,13 @@ export const QB_PRACTRUM = [
     tags: ['penile-deviation', 'bull', 'classification'], type: 'mcq',
     q: 'Penile deviation ในโคพ่อพันธุ์ มีกี่แบบหลักที่พบบ่อย',
     options: [
-      '3 แบบ: Spiral · Ventral (downward) · S-shape (rainbow)',
-      '5 แบบ: Spiral · Ventral · Dorsal · Lateral · S-shape',
+      '3 แบบ: Spiral, Ventral (downward), S-shape (rainbow)',
+      '5 แบบ: Spiral, Ventral, Dorsal, Lateral, S-shape',
       '1 แบบ: เฉพาะ spiral',
       'ไม่มี classification',
     ],
     answer: 0,
-    explain: '3 ท่าหลัก: 1) Spiral (corkscrew) — apical ligament rupture/elongation, 2) Ventral (downward) — same etiology, 3) S-shape/Rainbow — milder · ส่วนใหญ่ congenital + สังเกตช่วง breeding soundness exam',
+    explain: '3 ท่าหลัก: 1) Spiral (corkscrew) — apical ligament rupture/elongation, 2) Ventral (downward) — same etiology, 3) S-shape/Rainbow — milder, ส่วนใหญ่ congenital + สังเกตช่วง breeding soundness exam',
     verified: 'Lecture 2026 (อ.บอกอ่านคร่าวๆ ให้รู้หลักการ)' },
 
   { id: 3036, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
@@ -1133,7 +1133,7 @@ export const QB_PRACTRUM = [
       'Trauma ที่ scrotum',
     ],
     answer: 0,
-    explain: 'Apical ligament (= dorsal ligament ของ penis ที่ยึดให้ตรง) อ่อนแอ/ขาด → penile body bend spiral ระหว่าง intromission · genetic predisposition (Hereford, Polled Shorthorn) · diagnosis ขณะ erect penis (electroejaculation/teaser cow)',
+    explain: 'Apical ligament (= dorsal ligament ของ penis ที่ยึดให้ตรง) อ่อนแอ/ขาด → penile body bend spiral ระหว่าง intromission, genetic predisposition (Hereford, Polled Shorthorn), diagnosis ขณะ erect penis (electroejaculation/teaser cow)',
     verified: 'Lecture 2026' },
 
   { id: 3037, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
@@ -1147,7 +1147,7 @@ export const QB_PRACTRUM = [
       'ไม่ต้องรักษา',
     ],
     answer: 0,
-    explain: 'Apical ligament reinforcement หลายเทคนิค: tunica albuginea flap (Walker procedure modify) · fascia lata graft · synthetic mesh · Success rate ~60-80% · post-op rest 60 วัน ก่อนใช้ผสม · เหมาะกับ valuable bull · ถ้าไม่คุ้มมูลค่า → cull',
+    explain: 'Apical ligament reinforcement หลายเทคนิค: tunica albuginea flap (Walker procedure modify), fascia lata graft, synthetic mesh, Success rate ~60-80%, post-op rest 60 วัน ก่อนใช้ผสม, เหมาะกับ valuable bull, ถ้าไม่คุ้มมูลค่า → cull',
     verified: 'Lecture 2026 (หลักการ)' },
 
   { id: 3038, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
@@ -1161,7 +1161,7 @@ export const QB_PRACTRUM = [
       'ลด aggression',
     ],
     answer: 0,
-    explain: 'Caudal epididymectomy = ตัด tail of epididymis ออก 2 ข้าง → sperm ไม่ผ่าน epididymis maturation → infertile แต่ libido + behavior ปกติ (testis ยังผลิต testosterone) · ใช้เป็น teaser bull ในระบบ AI/breeding mgmt · เป็นทางเลือกที่ดีกว่า vasectomy (recanalization risk ต่ำกว่า)',
+    explain: 'Caudal epididymectomy = ตัด tail of epididymis ออก 2 ข้าง → sperm ไม่ผ่าน epididymis maturation → infertile แต่ libido + behavior ปกติ (testis ยังผลิต testosterone), ใช้เป็น teaser bull ในระบบ AI/breeding mgmt, เป็นทางเลือกที่ดีกว่า vasectomy (recanalization risk ต่ำกว่า)',
     verified: 'Lecture 2026 (อ.บอกอ่านคร่าวๆ)' },
 
   { id: 3039, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
@@ -1175,7 +1175,7 @@ export const QB_PRACTRUM = [
       'ไม่ต้องวางยา',
     ],
     answer: 0,
-    explain: 'Local infiltration lidocaine ที่ skin + epididymal tail + sedation มาก/น้อยตาม temperament · Standing position · Incision เล็กที่ scrotum (caudal) → exteriorize tail of epididymis → ligate + remove · post-op antibiotic + NSAID · suture ปิด/ปล่อยเปิดให้ drain ได้',
+    explain: 'Local infiltration lidocaine ที่ skin + epididymal tail + sedation มาก/น้อยตาม temperament, Standing position, Incision เล็กที่ scrotum (caudal) → exteriorize tail of epididymis → ligate + remove, post-op antibiotic + NSAID, suture ปิด/ปล่อยเปิดให้ drain ได้',
     verified: 'Lecture 2026' },
 
   { id: 3040, subject: 'practrum', topic: 'mahahon-practrum-penile', year: 4,
@@ -1189,7 +1189,7 @@ export const QB_PRACTRUM = [
       'ใช้แทน AI ได้ทุกกรณี',
     ],
     answer: 0,
-    explain: 'Teaser bull = ม้ามใช้หา estrus คอกใหญ่ที่ AI · libido + mounting behavior + smell estrus female ได้เพราะ testosterone ปกติ · ผสมไม่ติดเพราะไม่มี viable sperm · ใช้กับ chin-ball marker เพื่อ track ตัวที่ standing heat',
+    explain: 'Teaser bull = ม้ามใช้หา estrus คอกใหญ่ที่ AI, libido + mounting behavior + smell estrus female ได้เพราะ testosterone ปกติ, ผสมไม่ติดเพราะไม่มี viable sperm, ใช้กับ chin-ball marker เพื่อ track ตัวที่ standing heat',
     verified: 'Lecture 2026' },
 
   // ═══════════════════════════════════════════════════════════
@@ -1205,7 +1205,7 @@ export const QB_PRACTRUM = [
     q: 'อาหารข้น (concentrate) สำหรับวัวโต ควรมี crude fiber ขั้นต่ำเท่าไร',
     options: ['8%', '12%', '15%', '18%', '25%'],
     answer: 3,
-    explain: 'อ.น้ำ field practice: เยื่อใย 18% ถึงจะถือว่า concentrate ที่เหมาะสมสำหรับ ruminant · ป้องกัน SARA + รักษา rumen function · ถ้าน้อยกว่า rumen pH ตก',
+    explain: 'อ.น้ำ field practice: เยื่อใย 18% ถึงจะถือว่า concentrate ที่เหมาะสมสำหรับ ruminant, ป้องกัน SARA + รักษา rumen function, ถ้าน้อยกว่า rumen pH ตก',
     verified: 'LINE teacher note (อ.น้ำ Field Practice 5 พ.ค.)' },
 
   { id: 3042, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1219,7 +1219,7 @@ export const QB_PRACTRUM = [
       'protein < 5%, พลังงาน 100%',
     ],
     answer: 0,
-    explain: 'อาหารหลัก (carbohydrate-rich) protein < 20% และให้พลังงาน 50-80% · จากพืช: ข้าวโพด ปลายข้าว รำละเอียด มัน น้ำมันพืช · จากสัตว์: ไขมันโค ไขมันสุกร กากน้ำตาล',
+    explain: 'อาหารหลัก (carbohydrate-rich) protein < 20% และให้พลังงาน 50-80%, จากพืช: ข้าวโพด ปลายข้าว รำละเอียด มัน น้ำมันพืช, จากสัตว์: ไขมันโค ไขมันสุกร กากน้ำตาล',
     verified: 'LINE teacher note' },
 
   { id: 3043, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1228,7 +1228,7 @@ export const QB_PRACTRUM = [
     q: 'ปลาป่น (fish meal) มี protein content ประมาณเท่าไร',
     options: ['25-30%', '35-45%', '55-61%', '70-80%', '90%'],
     answer: 2,
-    explain: 'ปลาป่น protein 55-61% · เป็น animal protein source ที่ดี · มี amino acid ครบ + bioavailable แต่ราคาสูง · ไม่ควรเก็บนานเกิน 1 เดือน (oxidize/rancid)',
+    explain: 'ปลาป่น protein 55-61%, เป็น animal protein source ที่ดี, มี amino acid ครบ + bioavailable แต่ราคาสูง, ไม่ควรเก็บนานเกิน 1 เดือน (oxidize/rancid)',
     verified: 'LINE teacher note' },
 
   { id: 3044, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1242,7 +1242,7 @@ export const QB_PRACTRUM = [
       'PE 100%, ใส่ได้ไม่เกิน 10%',
     ],
     answer: 1,
-    explain: 'Urea = NPN (ไม่ใช่ protein แท้) แต่ rumen microbe เปลี่ยนเป็น microbial protein ได้ · protein equivalent ~47% · แต่ใส่ในสูตรได้ไม่เกิน 3% — เกินจะ urea toxicity (ammonia ขึ้นเลือด)',
+    explain: 'Urea = NPN (ไม่ใช่ protein แท้) แต่ rumen microbe เปลี่ยนเป็น microbial protein ได้, protein equivalent ~47%, แต่ใส่ในสูตรได้ไม่เกิน 3% — เกินจะ urea toxicity (ammonia ขึ้นเลือด)',
     verified: 'LINE teacher note' },
 
   { id: 3045, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1256,7 +1256,7 @@ export const QB_PRACTRUM = [
       '70-80%, tryptophan สูง',
     ],
     answer: 2,
-    explain: 'กากถั่วเหลือง (Soybean meal) protein 45-50% · lysine สูง (rumen-degradable amino acid) · ย่อยเร็วใน rumen → microbial protein synthesis · เป็น plant protein source ที่ใช้บ่อยที่สุด',
+    explain: 'กากถั่วเหลือง (Soybean meal) protein 45-50%, lysine สูง (rumen-degradable amino acid), ย่อยเร็วใน rumen → microbial protein synthesis, เป็น plant protein source ที่ใช้บ่อยที่สุด',
     verified: 'LINE teacher note' },
 
   { id: 3046, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1270,7 +1270,7 @@ export const QB_PRACTRUM = [
       'แทนน้ำได้ทั้งหมด',
     ],
     answer: 1,
-    explain: 'Molasses (กากน้ำตาล) ใช้เป็น binder + ลดฝุ่นในอาหารผง + เพิ่ม palatability + แหล่ง sugar-energy + แหล่ง sodium · CP เพียง 1-3% · ห้ามใส่เยอะเกินจะท้องเสีย',
+    explain: 'Molasses (กากน้ำตาล) ใช้เป็น binder + ลดฝุ่นในอาหารผง + เพิ่ม palatability + แหล่ง sugar-energy + แหล่ง sodium, CP เพียง 1-3%, ห้ามใส่เยอะเกินจะท้องเสีย',
     verified: 'LINE teacher note' },
 
   { id: 3047, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1279,7 +1279,7 @@ export const QB_PRACTRUM = [
     q: 'แหล่ง vitamin K สูงในพืชอาหารสัตว์',
     options: ['ข้าวโพด', 'ใบกระถิน (Leucaena)', 'รำละเอียด', 'ปลายข้าว', 'มันเส้น'],
     answer: 1,
-    explain: 'อ.น้ำ teaches: ใบกระถิน (Leucaena leucocephala) = vitamin K สูง · พืชสีเขียวทั่วไป = vitamin A · รำละเอียด = vitamin E เยอะ + B complex · ใช้เป็น natural vitamin source',
+    explain: 'อ.น้ำ teaches: ใบกระถิน (Leucaena leucocephala) = vitamin K สูง, พืชสีเขียวทั่วไป = vitamin A, รำละเอียด = vitamin E เยอะ + B complex, ใช้เป็น natural vitamin source',
     verified: 'LINE teacher note' },
 
   { id: 3048, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1288,7 +1288,7 @@ export const QB_PRACTRUM = [
     q: 'รำละเอียด (Fine rice bran) ในสูตรอาหารวัว ไม่ควรใส่เกินกี่ %',
     options: ['10%', '20%', '30%', '50%', '70%'],
     answer: 2,
-    explain: 'รำละเอียด protein 12% · vit E + B complex สูง · พลังงาน + เยื่อใยสูง · แต่ใส่ในสูตรไม่ควรเกิน 30% · ระวังแกลบปลอมปนเปื้อน · รำหยาบ protein 4-7% · มันเส้น/มันอัดเม็ด protein 2.5% แป้ง 70-80%',
+    explain: 'รำละเอียด protein 12%, vit E + B complex สูง, พลังงาน + เยื่อใยสูง, แต่ใส่ในสูตรไม่ควรเกิน 30%, ระวังแกลบปลอมปนเปื้อน, รำหยาบ protein 4-7%, มันเส้น/มันอัดเม็ด protein 2.5% แป้ง 70-80%',
     verified: 'LINE teacher note' },
 
   { id: 3049, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1297,7 +1297,7 @@ export const QB_PRACTRUM = [
     q: 'อ.น้ำ teach: ปริมาณอาหารข้นที่ให้วัวต่อวัน คิดเป็น % ของน้ำหนักตัว',
     options: ['0.5-1%', '1-1.5%', '2-3%', '5-7%', '10%'],
     answer: 2,
-    explain: 'อาหารข้น 2-3% ของน้ำหนักตัวต่อวัน (เช่น วัว 500 kg ให้ concentrate ~10-15 kg/day) · combined กับอาหารหยาบให้ครบความต้องการ DMI · เก็บข้อมูลไว้ 2 ปี เพื่อ traceability',
+    explain: 'อาหารข้น 2-3% ของน้ำหนักตัวต่อวัน (เช่น วัว 500 kg ให้ concentrate ~10-15 kg/day), combined กับอาหารหยาบให้ครบความต้องการ DMI, เก็บข้อมูลไว้ 2 ปี เพื่อ traceability',
     verified: 'LINE teacher note' },
 
   { id: 3050, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
@@ -1306,7 +1306,7 @@ export const QB_PRACTRUM = [
     q: 'Squish test ในการประเมิน silage ที่บีบแล้วน้ำหยด แสดงว่าความชื้นเท่าไร',
     options: ['<40%', '40-60%', '60-70%', '>70%', 'ไม่สามารถบอกได้'],
     answer: 3,
-    explain: 'Squish test 3 ระดับ: บีบแล้วน้ำหยด = >70% (ชื้นเกิน, เน่า) · บีบแล้วค่อยๆ คลาย = 60-70% ✅ (เหมาะสม) · บีบแล้วคลายเลย = <60% (แห้งเกิน, อัดไม่แน่น) · Particle size 2-3 cm',
+    explain: 'Squish test 3 ระดับ: บีบแล้วน้ำหยด = >70% (ชื้นเกิน, เน่า), บีบแล้วค่อยๆ คลาย = 60-70% ✅ (เหมาะสม), บีบแล้วคลายเลย = <60% (แห้งเกิน, อัดไม่แน่น), Particle size 2-3 cm',
     verified: 'LINE teacher note' },
 
   { id: 3051, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
@@ -1320,7 +1320,7 @@ export const QB_PRACTRUM = [
       'sugar + fat',
     ],
     answer: 1,
-    explain: 'NDF = hemicellulose + cellulose + lignin (ทั้ง cell wall) · ADF = cellulose + lignin (hemicellulose ละลายไป) · Lignin จับ cellulose ทำให้ bacteria ย่อยได้น้อยลง · Lignin เพิ่มขึ้นเมื่อพืชอาหารสัตว์อายุมาก',
+    explain: 'NDF = hemicellulose + cellulose + lignin (ทั้ง cell wall), ADF = cellulose + lignin (hemicellulose ละลายไป), Lignin จับ cellulose ทำให้ bacteria ย่อยได้น้อยลง, Lignin เพิ่มขึ้นเมื่อพืชอาหารสัตว์อายุมาก',
     verified: 'LINE teacher note' },
 
   { id: 3052, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
@@ -1334,7 +1334,7 @@ export const QB_PRACTRUM = [
       'ผลิต gas methane',
     ],
     answer: 0,
-    explain: 'Lactic acid bacteria (LAB) → lactic acid → pH ลด → ฆ่า bacteria กลุ่มอื่น (Clostridium, mold) → preserve สารอาหาร · หมักในสภาพ anaerobic 21 วัน · pH ควรต่ำกว่า 4',
+    explain: 'Lactic acid bacteria (LAB) → lactic acid → pH ลด → ฆ่า bacteria กลุ่มอื่น (Clostridium, mold) → preserve สารอาหาร, หมักในสภาพ anaerobic 21 วัน, pH ควรต่ำกว่า 4',
     verified: 'LINE teacher note' },
 
   { id: 3053, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1343,7 +1343,7 @@ export const QB_PRACTRUM = [
     q: 'Aflatoxin ในอาหารสัตว์ จะเกิดได้เมื่อความชื้นเกินกี่ %',
     options: ['8%', '10%', '14%', '20%', '30%'],
     answer: 2,
-    explain: 'Aflatoxin เกิดจาก Aspergillus flavus/parasiticus ในความชื้น 14% ขึ้นไป · ควรเก็บอาหารที่ <12% · เก็บให้อากาศ flow · ควบคุมโดย propionic acid · activated charcoal เป็น adsorbent · เก็บ sample 4.5 kg ไปตรวจ',
+    explain: 'Aflatoxin เกิดจาก Aspergillus flavus/parasiticus ในความชื้น 14% ขึ้นไป, ควรเก็บอาหารที่ <12%, เก็บให้อากาศ flow, ควบคุมโดย propionic acid, activated charcoal เป็น adsorbent, เก็บ sample 4.5 kg ไปตรวจ',
     verified: 'LINE teacher note' },
 
   { id: 3054, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1357,7 +1357,7 @@ export const QB_PRACTRUM = [
       'ลดน้ำหนัก',
     ],
     answer: 1,
-    explain: 'Full fat soybean (ถั่วเหลืองไขมันเต็ม) มี trypsin inhibitor + lectins (anti-nutritional factors) · ต้องให้ความร้อนพอดี (ไม่มากไม่น้อย) → ทำลาย inhibitor → ใช้ได้ · ต่างจาก soybean meal (กากถั่วเหลือง) ที่สกัดน้ำมันไปแล้ว',
+    explain: 'Full fat soybean (ถั่วเหลืองไขมันเต็ม) มี trypsin inhibitor + lectins (anti-nutritional factors), ต้องให้ความร้อนพอดี (ไม่มากไม่น้อย) → ทำลาย inhibitor → ใช้ได้, ต่างจาก soybean meal (กากถั่วเหลือง) ที่สกัดน้ำมันไปแล้ว',
     verified: 'LINE teacher note' },
 
   { id: 3055, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1366,7 +1366,7 @@ export const QB_PRACTRUM = [
     q: 'ไขมันรวมในสูตรอาหาร ruminant ไม่ควรเกินกี่ %',
     options: ['1%', '2%', '5%', '10%', '20%'],
     answer: 2,
-    explain: 'ไขมันรวม (จากพืช + สัตว์) ไม่ควรเกิน 5% — เกินจะลด digestibility ของ fiber + ทำให้สัตว์ท้องเสีย · เพราะไขมันเคลือบ fiber + ฆ่า rumen microbe · ใช้ rumen-protected fat ถ้าต้องการเพิ่มพลังงาน',
+    explain: 'ไขมันรวม (จากพืช + สัตว์) ไม่ควรเกิน 5% — เกินจะลด digestibility ของ fiber + ทำให้สัตว์ท้องเสีย, เพราะไขมันเคลือบ fiber + ฆ่า rumen microbe, ใช้ rumen-protected fat ถ้าต้องการเพิ่มพลังงาน',
     verified: 'LINE teacher note' },
 
   { id: 3056, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1380,7 +1380,7 @@ export const QB_PRACTRUM = [
       'ใบกระถิน',
     ],
     answer: 2,
-    explain: 'Calcium + phosphorus คู่: กระดูกป่น (bone meal) + di-calcium phosphate · Calcium อย่างเดียว: หินปูน (CaCO3), เปลือกหอยป่น · Sodium chloride: เกลือแกง (≥1%) · NaCl อีกแหล่ง: กากน้ำตาล',
+    explain: 'Calcium + phosphorus คู่: กระดูกป่น (bone meal) + di-calcium phosphate, Calcium อย่างเดียว: หินปูน (CaCO3), เปลือกหอยป่น, Sodium chloride: เกลือแกง (≥1%), NaCl อีกแหล่ง: กากน้ำตาล',
     verified: 'LINE teacher note' },
 
   { id: 3057, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,
@@ -1394,7 +1394,7 @@ export const QB_PRACTRUM = [
       'ทั้งหมด 50%',
     ],
     answer: 1,
-    explain: 'อาหารหยาบ 3 ชนิด: แห้ง 10-15% (ฟาง · หญ้าแห้ง) / สด 70% (หญ้าสด) / หมัก 60-70% (silage · ข้าวโพดหมัก · เนเปียร์หมัก) · ต้องมีเยื่อใย ≥18% ถึงจะเรียก roughage · เอาผสมอาหารข้น = TMR',
+    explain: 'อาหารหยาบ 3 ชนิด: แห้ง 10-15% (ฟาง, หญ้าแห้ง) / สด 70% (หญ้าสด) / หมัก 60-70% (silage, ข้าวโพดหมัก, เนเปียร์หมัก), ต้องมีเยื่อใย ≥18% ถึงจะเรียก roughage, เอาผสมอาหารข้น = TMR',
     verified: 'LINE teacher note' },
 
   // ═══════════════════════════════════════════════════════════
@@ -1414,7 +1414,7 @@ export const QB_PRACTRUM = [
       'ยา 2 cc / เข็ม 25G / 0.5"',
     ],
     answer: 1,
-    explain: 'Paravertebral block: lidocaine 2% รวม 20 cc แบ่งเป็น ventral br. 15 cc + dorsal br. 5 cc · เข็ม 18G หรือ spinal needle 20-18G ยาว 3.5" · ถ้าใช้ 25 cc จะเป็น ventral 15 + dorsal 10',
+    explain: 'Paravertebral block: lidocaine 2% รวม 20 cc แบ่งเป็น ventral br. 15 cc + dorsal br. 5 cc, เข็ม 18G หรือ spinal needle 20-18G ยาว 3.5", ถ้าใช้ 25 cc จะเป็น ventral 15 + dorsal 10',
     verified: 'Master 86 p13 anes table' },
 
   { id: 3061, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -1428,7 +1428,7 @@ export const QB_PRACTRUM = [
       '2 mg/kg, max 50 cc',
     ],
     answer: 1,
-    explain: 'Caudal epidural lidocaine 0.22 mg/kg (1 ml/100 kg of 2% lidocaine), max 6 cc, ใช้เริ่มต้น 2.5 cc สำหรับวัวขนาดกลาง · เข็ม 18G ยาว 1-1.5" · Loss of resistance + hanging drop technique',
+    explain: 'Caudal epidural lidocaine 0.22 mg/kg (1 ml/100 kg of 2% lidocaine), max 6 cc, ใช้เริ่มต้น 2.5 cc สำหรับวัวขนาดกลาง, เข็ม 18G ยาว 1-1.5", Loss of resistance + hanging drop technique',
     verified: 'Master 86 p13 + Rumenotomy lecture p20' },
 
   { id: 3062, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -1442,7 +1442,7 @@ export const QB_PRACTRUM = [
       'ยา 0.5 cc / เข็ม 25G / 0.5"',
     ],
     answer: 0,
-    explain: 'Cornual n. block: lidocaine 2% 5 cc · เข็ม 21G ยาว 1" · ฉีด @ ใต้ temporal ridge ระหว่าง eye กับ base of horn · ถ้า adult eyeball block ใช้ 10-15 cc',
+    explain: 'Cornual n. block: lidocaine 2% 5 cc, เข็ม 21G ยาว 1", ฉีด @ ใต้ temporal ridge ระหว่าง eye กับ base of horn, ถ้า adult eyeball block ใช้ 10-15 cc',
     verified: 'Master 86 p13 + p27 cosmetic dehorning' },
 
   { id: 3063, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -1456,7 +1456,7 @@ export const QB_PRACTRUM = [
       '50 cc รวม 1 จุด, เข็มตรง 10 cm',
     ],
     answer: 0,
-    explain: 'Retrobulbar 4-point block: lidocaine 5-10 cc ต่อจุด 4 จุด (12, 3, 6, 9 นาฬิกา) · เข็มโค้ง (curved) ยาว 6 cm · ใช้สำหรับ enucleation หรือ severe ocular surgery',
+    explain: 'Retrobulbar 4-point block: lidocaine 5-10 cc ต่อจุด 4 จุด (12, 3, 6, 9 นาฬิกา), เข็มโค้ง (curved) ยาว 6 cm, ใช้สำหรับ enucleation หรือ severe ocular surgery',
     verified: 'Master 86 p13' },
 
   { id: 3064, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -1465,7 +1465,7 @@ export const QB_PRACTRUM = [
     q: 'Local infiltration สำหรับการผ่าตัด umbilical hernia ใช้ปริมาณยาเท่าไร',
     options: ['1-2 cc', '5-8 cc', '10-20 cc', '50 cc'],
     answer: 2,
-    explain: 'Umbilical hernia local infiltration: lidocaine 10-20 cc รอบรอยผ่า · เข็ม 21G 1.5" · ใช้รูปแบบ inverted-L หรือ line block · Medial patellar desmotomy ใช้น้อยกว่า 5-8 cc',
+    explain: 'Umbilical hernia local infiltration: lidocaine 10-20 cc รอบรอยผ่า, เข็ม 21G 1.5", ใช้รูปแบบ inverted-L หรือ line block, Medial patellar desmotomy ใช้น้อยกว่า 5-8 cc',
     verified: 'Master 86 p13' },
 
   // ── ภาคสูติฯ — Fetotomy + bone grip + Laparoscopic AI (Master 86 p22) ──
@@ -1475,7 +1475,7 @@ export const QB_PRACTRUM = [
     q: 'ในการช่วยคลอดที่พบ retention ของขาหน้า (forelimb) ควรจับ obstetrical chain ที่กระดูกใด',
     options: ['Humerus', 'Radius และ Ulna', 'Femur', 'Carpal bones', 'Phalanges'],
     answer: 1,
-    explain: 'ขาหน้า: จับที่ Radius + Ulna (ใต้ข้อศอก) — ห้ามจับเหนือ carpus เพราะ humerus หักได้ · ขาหลัง: จับที่ Tibia + Fibula (ใต้ข้อ stifle) — ห้ามจับ femur · ผูก obstetrical chain 2 ตำแหน่ง (pastern + fetlock)',
+    explain: 'ขาหน้า: จับที่ Radius + Ulna (ใต้ข้อศอก) — ห้ามจับเหนือ carpus เพราะ humerus หักได้, ขาหลัง: จับที่ Tibia + Fibula (ใต้ข้อ stifle) — ห้ามจับ femur, ผูก obstetrical chain 2 ตำแหน่ง (pastern + fetlock)',
     verified: 'Master 86 p22 + Roberts Vet Obstetrics' },
 
   { id: 3066, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
@@ -1484,7 +1484,7 @@ export const QB_PRACTRUM = [
     q: 'อุปกรณ์ที่ใช้ในการทำ Fetotome แบบ incomplete loop คือ',
     options: ['Embryotome handle', 'Wire saw introducer', 'Krey hook', 'Eye hook', 'Obstetrical chain'],
     answer: 1,
-    explain: 'Wire saw introducer = ใช้ร้อยลวด wire saw ใส่รอบส่วนของ fetus ที่จะตัด (incomplete loop technique) · Embryotome handle ใช้ถือลวด · Krey/eye hook ใช้ดึงเฉยๆ ไม่ตัด',
+    explain: 'Wire saw introducer = ใช้ร้อยลวด wire saw ใส่รอบส่วนของ fetus ที่จะตัด (incomplete loop technique), Embryotome handle ใช้ถือลวด, Krey/eye hook ใช้ดึงเฉยๆ ไม่ตัด',
     verified: 'Master 86 p22' },
 
   { id: 3067, subject: 'practrum', topic: 'mahahon-practrum-dystocia', year: 4,
@@ -1493,7 +1493,7 @@ export const QB_PRACTRUM = [
     q: 'การผสมเทียมแพะและแกะด้วย laparoscopic AI ปล่อยน้ำเชื้อที่ตำแหน่งใด',
     options: ['Vagina', 'Cervix', 'Uterine body', 'Uterine horn', 'Oviduct'],
     answer: 3,
-    explain: 'Laparoscopic AI ในแพะ/แกะ ปล่อย semen ที่ uterine horn (intrauterine deep deposit) เพราะ cervix ของแพะ/แกะมี complex folds ผ่านยาก · ทำผ่าน laparoscope 2 ports ที่ paramedian abdomen',
+    explain: 'Laparoscopic AI ในแพะ/แกะ ปล่อย semen ที่ uterine horn (intrauterine deep deposit) เพราะ cervix ของแพะ/แกะมี complex folds ผ่านยาก, ทำผ่าน laparoscope 2 ports ที่ paramedian abdomen',
     verified: 'Master 86 p22' },
 
   // ── ภาคศัลย์ — Cosmetic dehorning (Master 86 p27) ──
@@ -1508,7 +1508,7 @@ export const QB_PRACTRUM = [
       'วัวที่มีโรคติดเชื้อ',
     ],
     answer: 1,
-    explain: 'Cosmetic dehorning: ใช้ในพ่อแม่พันธุ์โคเนื้อ/นมเพื่อความสวยงาม + เพิ่มมูลค่าทางพันธุกรรม · ทำในท่ายืน sedate · ตัดผ่าน frontal bone + frontal sinus + เย็บ subcu ด้วย chromic catgut เบอร์ 2 + skin horizontal mattress',
+    explain: 'Cosmetic dehorning: ใช้ในพ่อแม่พันธุ์โคเนื้อ/นมเพื่อความสวยงาม + เพิ่มมูลค่าทางพันธุกรรม, ทำในท่ายืน sedate, ตัดผ่าน frontal bone + frontal sinus + เย็บ subcu ด้วย chromic catgut เบอร์ 2 + skin horizontal mattress',
     verified: 'Master 86 p27' },
 
   { id: 3069, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -1517,7 +1517,7 @@ export const QB_PRACTRUM = [
     q: 'ใน cosmetic dehorning อุปกรณ์ใดใช้ตัดเขาและส่วนของ frontal bone',
     options: ['Hoof knife', 'Tube dehorner', 'Embryotome wire (Gigli/obstetric wire)', 'Robert dehorner'],
     answer: 2,
-    explain: 'Cosmetic dehorning ตัดด้วย embryotome wire (Gigli wire / obstetric wire) เพราะตัดผ่าน skin + frontal bone + frontal sinus ได้สะอาด · Tube/Robert dehorner ใช้ในการ dehorn ปกติที่ไม่ตัดกระดูก · เป้าหมายคือเอาเขาออกพร้อม part of frontal bone เพื่อความสวยงาม',
+    explain: 'Cosmetic dehorning ตัดด้วย embryotome wire (Gigli wire / obstetric wire) เพราะตัดผ่าน skin + frontal bone + frontal sinus ได้สะอาด, Tube/Robert dehorner ใช้ในการ dehorn ปกติที่ไม่ตัดกระดูก, เป้าหมายคือเอาเขาออกพร้อม part of frontal bone เพื่อความสวยงาม',
     verified: 'Master 86 p27' },
 
   // ── ภาคศัลย์ — Rumenotomy closure detail (Master 86 p24) ──
@@ -1533,7 +1533,7 @@ export const QB_PRACTRUM = [
       'Subcuticular',
     ],
     answer: 2,
-    explain: 'Rumenotomy skin closure ใช้ horizontal mattress — ทนทาน, hold tension ได้ดีในแผลขนาดใหญ่ paralumbar fossa ~6" · ทำ stent + โรยยงกันแมลง · เย็บ rumen ด้วย Lembert/Rt. angle pattern (inverting), peritoneum + transverse m. ด้วย simple continuous',
+    explain: 'Rumenotomy skin closure ใช้ horizontal mattress — ทนทาน, hold tension ได้ดีในแผลขนาดใหญ่ paralumbar fossa ~6", ทำ stent + โรยยงกันแมลง, เย็บ rumen ด้วย Lembert/Rt. angle pattern (inverting), peritoneum + transverse m. ด้วย simple continuous',
     verified: 'Master 86 p24' },
 
   { id: 3071, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
@@ -1547,7 +1547,7 @@ export const QB_PRACTRUM = [
       'Tylosin + Meloxicam',
     ],
     answer: 0,
-    explain: 'Post-op rumenotomy: ABO Pendistrep L.A. (procaine penicillin G + dihydrostreptomycin) 20,000 IU + NSAID Phenylbutazone 5 mg IV · ทำ ≥3 วัน · บางตำราใช้ Procaine penicillin 22-66k U/kg + Flunixin 1.1-2.2 mg/kg แทน — concept เดียวกัน',
+    explain: 'Post-op rumenotomy: ABO Pendistrep L.A. (procaine penicillin G + dihydrostreptomycin) 20,000 IU + NSAID Phenylbutazone 5 mg IV, ทำ ≥3 วัน, บางตำราใช้ Procaine penicillin 22-66k U/kg + Flunixin 1.1-2.2 mg/kg แทน — concept เดียวกัน',
     verified: 'Master 86 p24 + Rumenotomy lecture p32' },
 
 ];

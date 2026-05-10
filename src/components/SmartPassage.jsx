@@ -479,8 +479,8 @@ function HelpPanel({ onClose }) {
         <div style={{ flex: 1 }}>
           <div style={{ fontWeight: 700, color: 'var(--clr-ink)', marginBottom: 4 }}>📝 วิธีใช้</div>
           <div>👁️ <strong>โหมดอ่าน</strong> — select/copy ปกติ ไม่สร้าง mark</div>
-          <div>🖍️ <strong>Highlight</strong> — ลากเลือกข้อความ จะเป็นสีตามที่เลือก · <em>คลิก highlight เพื่อลบ</em></div>
-          <div>✏️ <strong>Pen</strong> — เขียนด้วย Apple Pencil หรือนิ้ว · pressure-sensitive ใน Pencil</div>
+          <div>🖍️ <strong>Highlight</strong> — ลากเลือกข้อความ จะเป็นสีตามที่เลือก, <em>คลิก highlight เพื่อลบ</em></div>
+          <div>✏️ <strong>Pen</strong> — เขียนด้วย Apple Pencil หรือนิ้ว, pressure-sensitive ใน Pencil</div>
           <div>🩹 <strong>Eraser</strong> — ลบเฉพาะเส้นที่วาด (ไม่ลบ highlight)</div>
           <div style={{ marginTop: 4, fontStyle: 'italic' }}>💾 บันทึกลงเครื่องอัตโนมัติ — passage เดียวกันมี mark เดียวกันใน mock อื่น</div>
         </div>

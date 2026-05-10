@@ -67,7 +67,7 @@ function buildIndex({ goView, setSubject, setPracticeMode, openInstructor }) {
     items.push({
       type: 'summary',
       label: s.title,
-      hint: `📝 สรุปคลิป · ${(s.subject || '').toUpperCase()}`,
+      hint: `📝 สรุปคลิป, ${(s.subject || '').toUpperCase()}`,
       icon: '📝',
       kw: `${s.title} ${s.subject || ''} ${s.instructor || ''} summary สรุป คลิป`,
       run: () => goView('videos'),
@@ -80,7 +80,7 @@ function buildIndex({ goView, setSubject, setPracticeMode, openInstructor }) {
       items.push({
         type: 'instructor',
         label: `Aj. ${ins.nameEn}`,
-        hint: `👨‍🏫 ${ins.nameTh || ''} · ${(ins.subjects || []).join('/').toUpperCase()}`,
+        hint: `👨‍🏫 ${ins.nameTh || ''}, ${(ins.subjects || []).join('/').toUpperCase()}`,
         icon: '👨‍🏫',
         kw: `${ins.nameEn} ${ins.nameTh || ''} ${ins.position || ''} ${(ins.areas || []).join(' ')} instructor faculty อาจารย์`,
         run: () => openInstructor(ins),

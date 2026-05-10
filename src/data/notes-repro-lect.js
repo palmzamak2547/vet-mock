@@ -24,7 +24,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Hormonal Applications',
     lecturer: 'Suppawiwat Ponglowhapan (SP)',
     icon: '💊',
-    summary: 'Synthetic hormones ในสุนัข/แมว — Progestin (MPA/proligestone) · Aglepristone P4 blocker · Deslorelin GnRH agonist · PGF2α · Cabergoline (anti-prolactin) · Oxytocin · Aj. SP เน้น progestin AE "ออก 2 ล้านข้อ จำไป" ★',
+    summary: 'Synthetic hormones ในสุนัข/แมว — Progestin (MPA/proligestone), Aglepristone P4 blocker, Deslorelin GnRH agonist, PGF2α, Cabergoline (anti-prolactin), Oxytocin, Aj. SP เน้น progestin AE "ออก 2 ล้านข้อ จำไป" ★',
     sections: [
       {
         heading: 'Hormone Groups (จำให้ได้)',
@@ -32,11 +32,11 @@ export const NOTES_REPRO_LECT = {
         body: [
           { bullets: [
             'Progestogens — MPA, megestrol acetate, proligestone, delmadinone acetate (anti-androgen)',
-            'Progesterone antagonist — aglepristone (Alizine®) · ใช้ใน pyometra, termination 3 wk post-mating, FEH ในแมว ★',
-            'GnRH agonist — deslorelin implant · initial flare → down-regulation · ใช้ post-spay UI, BPH',
-            'Prostaglandins (PGF2α) — uterine evacuation + CL regression · นิยม pyometra ร่วมกับ aglepristone',
-            'Prolactin antagonists — cabergoline, bromocriptine · pseudopregnancy, lactation suppression',
-            'Oxytocin — uterine contraction · estrogen-primed receptors near parturition',
+            'Progesterone antagonist — aglepristone (Alizine®), ใช้ใน pyometra, termination 3 wk post-mating, FEH ในแมว ★',
+            'GnRH agonist — deslorelin implant, initial flare → down-regulation, ใช้ post-spay UI, BPH',
+            'Prostaglandins (PGF2α) — uterine evacuation + CL regression, นิยม pyometra ร่วมกับ aglepristone',
+            'Prolactin antagonists — cabergoline, bromocriptine, pseudopregnancy, lactation suppression',
+            'Oxytocin — uterine contraction, estrogen-primed receptors near parturition',
           ] },
         ],
       },
@@ -47,7 +47,7 @@ export const NOTES_REPRO_LECT = {
           { callout: 'Aj. SP เน้นมาก — ทุก adverse effect ของ progestin ต้องจำให้ครบ ★ ออกเป็น MCQ + T/F ทุกครั้ง', kind: 'flag' },
           { bullets: [
             '↑ appetite + weight gain',
-            'Mammary enlargement + nodules · ในแมวกระตุ้น **mammary fibroadenomatous hyperplasia (FEH/MFH)** ★',
+            'Mammary enlargement + nodules, ในแมวกระตุ้น **mammary fibroadenomatous hyperplasia (FEH/MFH)** ★',
             'Hair coat changes ที่ injection site (สีจาง, alopecia)',
             'GH-stimulating effect → acromegaly + diabetes mellitus ★',
             'CEH (Cystic Endometrial Hyperplasia) → pyometra ในเพศเมีย ★',
@@ -57,8 +57,8 @@ export const NOTES_REPRO_LECT = {
             body: [
               { bullets: [
                 'ใช้ในระยะ anestrus เท่านั้น',
-                '⛔ ห้ามใช้ในแม่สุนัขท้อง · ห้าม prepubertal cat (FEH risk)',
-                'ไม่เกิน 3 ครั้ง · ห่าง 5-6 เดือน · ไม่ต่อเนื่อง > 2 ปี',
+                '⛔ ห้ามใช้ในแม่สุนัขท้อง, ห้าม prepubertal cat (FEH risk)',
+                'ไม่เกิน 3 ครั้ง, ห่าง 5-6 เดือน, ไม่ต่อเนื่อง > 2 ปี',
               ] },
             ] },
         ],
@@ -69,7 +69,7 @@ export const NOTES_REPRO_LECT = {
         body: [
           { bullets: [
             '(1) Medical Tx pyometra (open-cervix, stable) — 10 mg/kg SC days 1, 2, 8 ± PGF2α',
-            '(2) Termination of pregnancy — up to ~ 45 days post-mating · 10 mg/kg SC × 2 days',
+            '(2) Termination of pregnancy — up to ~ 45 days post-mating, 10 mg/kg SC × 2 days',
             '(3) Feline mammary fibroadenomatous hyperplasia — block P4 effect → mass regress',
           ] },
         ],
@@ -89,9 +89,9 @@ export const NOTES_REPRO_LECT = {
         heading: 'Oxytocin Critical Use',
         source: 'HHormonal_applications_in_dogs_and_cats.pdf + Kimchii85 p.33',
         body: [
-          { callout: '⛔ ห้ามใช้ใน Obstructive dystocia! → uterine rupture risk · ใช้ได้เฉพาะ uterine inertia (non-obstructive) ที่ cervix open + fetus position OK', kind: 'warn' },
+          { callout: '⛔ ห้ามใช้ใน Obstructive dystocia! → uterine rupture risk, ใช้ได้เฉพาะ uterine inertia (non-obstructive) ที่ cervix open + fetus position OK', kind: 'warn' },
           { bullets: [
-            'Dose: 0.5-2 IU IM · เริ่ม dose ต่ำ titrate',
+            'Dose: 0.5-2 IU IM, เริ่ม dose ต่ำ titrate',
             'Adjuncts: Calcium gluconate IV (ถ้าสงสัย hypocalcemia toy breed), glucose ถ้า hypoglycemic',
             'ถ้าไม่ progress 30 min × 3 dose → C-section',
           ] },
@@ -136,7 +136,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Semen Evaluation + Breeding + AI',
     lecturer: 'Theerawat Tharasanit (TT)',
     icon: '🧪',
-    summary: 'Semen collection (dog = digital · cat = EE/UrCaPI) · evaluation (macro/micro/functional) · ovulation timing (P4 + cytology + vaginoscopy) · AI route choice · Aj. KC unique dog feature: pre-ovulatory luteinization ★',
+    summary: 'Semen collection (dog = digital, cat = EE/UrCaPI), evaluation (macro/micro/functional), ovulation timing (P4 + cytology + vaginoscopy), AI route choice, Aj. KC unique dog feature: pre-ovulatory luteinization ★',
     sections: [
       {
         heading: 'Collection Methods (Aj. TT)',
@@ -144,10 +144,10 @@ export const NOTES_REPRO_LECT = {
         body: [
           { bullets: [
             { label: 'Dog ★', value: 'Digital manipulation (no anesthesia, fraction-separable, every 3-5 days)' },
-            'Dog 3 fractions: 1st pre-sperm/prostatic clear · 2nd sperm-rich opaque ★ · 3rd prostatic large volume',
+            'Dog 3 fractions: 1st pre-sperm/prostatic clear, 2nd sperm-rich opaque ★, 3rd prostatic large volume',
             'Dog AV: less common (penis bulbus glandis ต้องใช้ AV ที่ออกแบบเฉพาะ)',
             'Dog EE: rare (urine contamination, ไม่นิยม)',
-            { label: 'Cat ★', value: 'EE under anesthesia · AV with teaser · UrCaPI (medetomidine 130 µg/kg + urethral catheter)' },
+            { label: 'Cat ★', value: 'EE under anesthesia, AV with teaser, UrCaPI (medetomidine 130 µg/kg + urethral catheter)' },
           ] },
         ],
       },
@@ -157,14 +157,14 @@ export const NOTES_REPRO_LECT = {
         body: [
           { sub: 'Macroscopic',
             body: [
-              { bullets: ['Volume · pH · Color (white milky normal · yellow = urine · red = blood) · density'] },
+              { bullets: ['Volume, pH, Color (white milky normal, yellow = urine, red = blood), density'] },
             ] },
           { sub: 'Microscopic (essential)',
             body: [
               { bullets: [
                 '**Concentration** (sperm count/ml) — hemocytometer formula: N × df × 50 / 1000 × 10⁶',
                 '**Motility** % moving + **Progressive motility** +0 ถึง +5 (most important functional ★)',
-                '**Morphology** — head + midpiece + tail · dog ≥ 80% normal · cat ≥ 60% normal',
+                '**Morphology** — head + midpiece + tail, dog ≥ 80% normal, cat ≥ 60% normal',
                 '**Viability** (eosin-nigrosin) — live/dead',
               ] },
             ] },
@@ -172,12 +172,12 @@ export const NOTES_REPRO_LECT = {
             body: [
               { bullets: [
                 '**Membrane integrity (HOS test)** — swollen tail = intact membrane',
-                'Acrosome integrity · DNA integrity · Mitochondrial activity',
+                'Acrosome integrity, DNA integrity, Mitochondrial activity',
               ] },
             ] },
           { sub: 'Special tests',
             body: [
-              { bullets: ['Culture/sensitivity · Brucella canis test (zoonotic + infertility) · special staining'] },
+              { bullets: ['Culture/sensitivity, Brucella canis test (zoonotic + infertility), special staining'] },
             ] },
         ],
       },
@@ -200,9 +200,9 @@ export const NOTES_REPRO_LECT = {
         source: 'Semen collection.pdf + Kimchii85 Q9',
         body: [
           { bullets: [
-            'Total motility ≥ 70-80% · Progressive ≥ +3 (best ★ +5)',
-            'Concentration ≥ 100 × 10⁶/ml · Total ≥ 200×10⁶ fresh / 300-500×10⁶ frozen',
-            'Morphology ≥ 80% normal (dog) · ≥ 60% (cat)',
+            'Total motility ≥ 70-80%, Progressive ≥ +3 (best ★ +5)',
+            'Concentration ≥ 100 × 10⁶/ml, Total ≥ 200×10⁶ fresh / 300-500×10⁶ frozen',
+            'Morphology ≥ 80% normal (dog), ≥ 60% (cat)',
             'Viability ≥ 70-80% live',
           ] },
         ],
@@ -255,8 +255,8 @@ export const NOTES_REPRO_LECT = {
         body: [
           { bullets: [
             'IVAI (intravaginal) — simplest, no anesthesia, fresh semen only',
-            'TCAI (transcervical) ★ — Scandinavian หรือ Norwegian catheter · **no anesthesia** · ใช้ frozen ได้',
-            'Surgical / Laparoscopic IUAI — anesthesia required · best for marginal frozen quality · ผิดกฎหมายในยุโรป/ออสเตรเลีย',
+            'TCAI (transcervical) ★ — Scandinavian หรือ Norwegian catheter, **no anesthesia**, ใช้ frozen ได้',
+            'Surgical / Laparoscopic IUAI — anesthesia required, best for marginal frozen quality, ผิดกฎหมายในยุโรป/ออสเตรเลีย',
           ] },
         ],
       },
@@ -282,7 +282,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Preserved Semen (Chilled + Frozen)',
     lecturer: 'Theerawat Tharasanit (TT)',
     icon: '❄️',
-    summary: 'Cryopreservation: extender ที่มี egg yolk (cold-shock protection) · CPA (glycerol) ค่อยๆ เติม · LN₂ -196°C · damage จาก ice crystal · thaw + evaluate',
+    summary: 'Cryopreservation: extender ที่มี egg yolk (cold-shock protection), CPA (glycerol) ค่อยๆ เติม, LN₂ -196°C, damage จาก ice crystal, thaw + evaluate',
     sections: [
       {
         heading: 'What Can Be Cryopreserved',
@@ -307,7 +307,7 @@ export const NOTES_REPRO_LECT = {
             '**LN₂ -196°C** = standard storage ★ (below glass transition → indefinite preservation)',
             'Cell damage จาก **ice crystal** ขนาดใหญ่ (intracellular ice เสียหายเด่น)',
             'Extracellular ice forms first → osmotic shift → cell shrink',
-            'CPA (glycerol 6-8%, DMSO, EG) ลด ice formation · permeable + non-permeable',
+            'CPA (glycerol 6-8%, DMSO, EG) ลด ice formation, permeable + non-permeable',
             'CPA เติมช้า → ลด osmotic shock (cell shrink → swell)',
           ] },
         ],
@@ -321,7 +321,7 @@ export const NOTES_REPRO_LECT = {
             'Cold-shock protection (LDL + phospholipid coat membrane)',
             'Energy (fatty acids + cholesterol)',
             'Nutrient (vitamins, AA)',
-            'pH buffer · antibacterial (ร่วมกับ ATB)',
+            'pH buffer, antibacterial (ร่วมกับ ATB)',
             'Osmotic balance',
           ] },
         ],
@@ -348,7 +348,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Infertility Problems (Bitch + Queen + Tom)',
     lecturer: 'Theerawat Tharasanit (TT)',
     icon: '🔍',
-    summary: 'Approach: male vs female × primary vs acquired · timing · infection (Brucella!) · anatomy · hormones · semen quality · breeding management',
+    summary: 'Approach: male vs female × primary vs acquired, timing, infection (Brucella!), anatomy, hormones, semen quality, breeding management',
     sections: [
       {
         heading: 'Bitch Infertility Definition',
@@ -356,7 +356,7 @@ export const NOTES_REPRO_LECT = {
         body: [
           { bullets: [
             'Suspect: failure to conceive after **2-3 properly timed breedings** กับ proven fertile male',
-            'Core tools: history · reproductive exam · vaginal cytology · U/S (ovary + uterus) · P4 monitoring',
+            'Core tools: history, reproductive exam, vaginal cytology, U/S (ovary + uterus), P4 monitoring',
             'Differentials: prolonged anestrus, shortened interval, prolonged estrus, silent heat, ovarian cyst/tumor, CEH/endometritis, **Brucella canis** (zoonotic ★)',
           ] },
         ],
@@ -368,7 +368,7 @@ export const NOTES_REPRO_LECT = {
           { callout: 'Queen = induced ovulator แต่ spontaneous ovulation เกิดได้ — ห้ามตัดสินจาก single P4 sample!', kind: 'warn' },
           { bullets: [
             'Ovulation failure: P4 5-7 d post-mating ยังคง < 2 ng/mL',
-            'Reliable ovulation มัก ต้อง multiple matings · LH release proportional to mating count',
+            'Reliable ovulation มัก ต้อง multiple matings, LH release proportional to mating count',
             'Silent heat: ตา observation ไม่พอ → weekly cytology + P4',
             'ใช้ hCG 250 IU IM เป็น induction (Day 3-4 estrus)',
           ] },
@@ -379,7 +379,7 @@ export const NOTES_REPRO_LECT = {
         source: 'Infertility.pdf + Kimchii85',
         body: [
           { bullets: [
-            'Normal dog semen: total 300×10⁶ - 2×10⁹ · progressive motility > 70% · morphology > 60-80% normal',
+            'Normal dog semen: total 300×10⁶ - 2×10⁹, progressive motility > 70%, morphology > 60-80% normal',
             { label: 'Azoospermia step 1', value: 'ตรวจว่า ejaculation complete? **ALP > 5,000 IU/L = complete (epididymal contribution)**' },
             'Azoospermia + high ALP → testicular origin (sperm production failure)',
             'Azoospermia + low ALP → incomplete ejaculation / obstruction / retrograde',
@@ -414,14 +414,14 @@ export const NOTES_REPRO_LECT = {
     title: 'Reproductive Biotechnology (ART)',
     lecturer: 'Ampika Thongphakdee (AT)',
     icon: '🧬',
-    summary: 'ART = Assisted Reproductive Technology · IVF + ICSI + ET + IVM + SCNT · ใช้ใน conservation (One Plan Approach) · canine/feline as models for endangered species',
+    summary: 'ART = Assisted Reproductive Technology, IVF + ICSI + ET + IVM + SCNT, ใช้ใน conservation (One Plan Approach), canine/feline as models for endangered species',
     sections: [
       {
         heading: 'Why Dogs/Cats Matter for Conservation',
         source: 'Biotech.pdf + Kimchii85',
         body: [
           { bullets: [
-            'Small populations: inbreeding · low genetic diversity · ↓ fertility · poor sperm viability · ↑ offspring mortality',
+            'Small populations: inbreeding, low genetic diversity, ↓ fertility, poor sperm viability, ↑ offspring mortality',
             '**Wild felids → teratospermia** (high abnormal sperm) → cryopreservation + IVF helps',
             '**One Plan Approach**: link ex-situ breeding กับ in-situ conservation goals',
             'Zoo programs: welfare + enrichment + genetics + ART rolled together',
@@ -469,7 +469,7 @@ export const NOTES_REPRO_LECT = {
           { bullets: [
             'Move somatic nucleus into enucleated oocyte → identical clone',
             'Inter-species nuclear transfer attempted when species-specific oocytes limited',
-            'Limits: nuclear-cytoplasmic compatibility · embryo development efficiency · implantation · surrogate matching',
+            'Limits: nuclear-cytoplasmic compatibility, embryo development efficiency, implantation, surrogate matching',
           ] },
         ],
       },
@@ -481,7 +481,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Exotic Pets Reproduction',
     lecturer: 'Chaowaphan Yinharnmingmongkol (CY)',
     icon: '🐇',
-    summary: 'Overview species-specific repro: rabbit (induced ovulator) · guinea pig (ovarian cyst) · ferret (estrogen toxicity) · reptile (hemipenis prolapse) — 2026 slide image-heavy ใช้ sunsun84 summary เสริม',
+    summary: 'Overview species-specific repro: rabbit (induced ovulator), guinea pig (ovarian cyst), ferret (estrogen toxicity), reptile (hemipenis prolapse) — 2026 slide image-heavy ใช้ sunsun84 summary เสริม',
     sections: [
       {
         heading: 'Rabbit Repro Pearls',
@@ -491,8 +491,8 @@ export const NOTES_REPRO_LECT = {
             'Rabbit = **induced ovulator** ★ — breeding can occur soon after parturition',
             'Gestation ~ 30 days',
             'Litter size ~ 4 kits (varies by breed/size)',
-            'Pseudopregnancy 16-18 days · nest-building + mammary enlargement',
-            'Surgery: caudal midline approach · ระวัง cecum + bladder',
+            'Pseudopregnancy 16-18 days, nest-building + mammary enlargement',
+            'Surgery: caudal midline approach, ระวัง cecum + bladder',
           ] },
         ],
       },
@@ -504,7 +504,7 @@ export const NOTES_REPRO_LECT = {
             { label: 'Guinea pig (older female) ★', value: '**Ovarian cyst** — recurring high-yield exam item' },
             { label: 'Ferret (intact female) ★', value: 'Prolonged estrus → **estrogen toxicity** → alopecia + bone marrow suppression' },
             { label: 'Marmoset / primates', value: 'Singleton oversized fetus → dystocia risk' },
-            { label: 'Reptile', value: 'Phallus / hemipenis prolapse — acute: ลด swelling + replace · chronic/necrotic: amputate' },
+            { label: 'Reptile', value: 'Phallus / hemipenis prolapse — acute: ลด swelling + replace, chronic/necrotic: amputate' },
           ] },
         ],
       },
@@ -512,7 +512,7 @@ export const NOTES_REPRO_LECT = {
         heading: 'Exam Note',
         source: 'Kimchii85 + sunsun84',
         body: [
-          { callout: 'Lecture 20 slide PDF ของ 2026 image-heavy → exact numbers อาจต้อง verify · ค่ากลางจำได้ระดับ species + emergency presentation', kind: 'flag' },
+          { callout: 'Lecture 20 slide PDF ของ 2026 image-heavy → exact numbers อาจต้อง verify, ค่ากลางจำได้ระดับ species + emergency presentation', kind: 'flag' },
           { bullets: [
             'Focus: species-specific physiology + emergency reproductive presentations',
             'Husbandry + anesthesia risk ก็เป็น part ของ exotic repro case management',
@@ -527,7 +527,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Genetic Considerations in Breeding',
     lecturer: 'Nantapong Kamprasert (NK)',
     icon: '🧬',
-    summary: 'Phenotype = Genetic + Environment (P=G+E) · Heritability · Selection types · EBV/BLUP/GBLUP · Inbreeding risk',
+    summary: 'Phenotype = Genetic + Environment (P=G+E), Heritability, Selection types, EBV/BLUP/GBLUP, Inbreeding risk',
     sections: [
       {
         heading: 'Core Formulas',
@@ -575,7 +575,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Surgical Neutering',
     lecturer: 'Sroisuda Chotimanukul (SC)',
     icon: '✂️',
-    summary: 'OHE/OE/orchiectomy techniques · ligation + closure · **ORS (Ovarian Remnant Syndrome)** ตัวเอกของ Aj. TT — surgical error #1 cause · AMH dx · caudal midline laparotomy',
+    summary: 'OHE/OE/orchiectomy techniques, ligation + closure, **ORS (Ovarian Remnant Syndrome)** ตัวเอกของ Aj. TT — surgical error #1 cause, AMH dx, caudal midline laparotomy',
     sections: [
       {
         heading: 'Definitions',
@@ -584,8 +584,8 @@ export const NOTES_REPRO_LECT = {
           { bullets: [
             '**Neutered** = testicles or ovaries removed → no offspring',
             '**Spay** = OVH (Ovariohysterectomy) ในเพศเมีย',
-            '**Gonadectomy** = umbrella term: orchiectomy/castration · ovariectomy · OVH',
-            'Therapeutic indications: ovarian cyst/tumor · CEH/pyometra · testicular tumor · cryptorchidism · BPH · pseudopregnancy · diestrus DM · recurrent vaginal hyperplasia · alopecia X',
+            '**Gonadectomy** = umbrella term: orchiectomy/castration, ovariectomy, OVH',
+            'Therapeutic indications: ovarian cyst/tumor, CEH/pyometra, testicular tumor, cryptorchidism, BPH, pseudopregnancy, diestrus DM, recurrent vaginal hyperplasia, alopecia X',
           ] },
         ],
       },
@@ -594,10 +594,10 @@ export const NOTES_REPRO_LECT = {
         source: 'Surgical neutering.pdf',
         body: [
           { bullets: [
-            'Dog OHE position: dorsal recumbency · ventral midline incision **just caudal to umbilicus**',
+            'Dog OHE position: dorsal recumbency, ventral midline incision **just caudal to umbilicus**',
             'Approach: linea alba หรือ right paramedian',
-            'Ovarian pedicle + cervix: **double ligation** · absorbable suture · surgeon knot or modified Miller',
-            'Leave **≥ 0.5 cm tissue tag** distal to ligature ★ · check hemorrhage ก่อน return stump',
+            'Ovarian pedicle + cervix: **double ligation**, absorbable suture, surgeon knot or modified Miller',
+            'Leave **≥ 0.5 cm tissue tag** distal to ligature ★, check hemorrhage ก่อน return stump',
           ] },
         ],
       },
@@ -606,9 +606,9 @@ export const NOTES_REPRO_LECT = {
         source: 'Surgical neutering.pdf',
         body: [
           { bullets: [
-            { label: 'Dog orchiectomy (closed)', value: 'Prescrotal incision · push testis forward · break/incise scrotal ligament · **double ligation**' },
-            { label: 'Cat orchiectomy', value: 'Scrotal incision · double ligation/binding knot · elevate scrotal skin so cords retract · **usually no closure** ★' },
-            'Cryptorchid: location-based approach · abdominal cryptorchid = abdominal exploration',
+            { label: 'Dog orchiectomy (closed)', value: 'Prescrotal incision, push testis forward, break/incise scrotal ligament, **double ligation**' },
+            { label: 'Cat orchiectomy', value: 'Scrotal incision, double ligation/binding knot, elevate scrotal skin so cords retract, **usually no closure** ★' },
+            'Cryptorchid: location-based approach, abdominal cryptorchid = abdominal exploration',
           ] },
         ],
       },
@@ -627,7 +627,7 @@ export const NOTES_REPRO_LECT = {
           { sub: 'Causes ★',
             body: [
               { bullets: [
-                '**(1) Surgical error of surgeons** ★ #1 cause (incomplete removal · dull instrument · poor visualization)',
+                '**(1) Surgical error of surgeons** ★ #1 cause (incomplete removal, dull instrument, poor visualization)',
                 '(2) Dropping ovarian tissue into peritoneum → revascularize',
                 '(3) Accessory / ectopic ovary (rare ~ 1%)',
               ] },
@@ -636,7 +636,7 @@ export const NOTES_REPRO_LECT = {
             body: [
               { bullets: [
                 'Vaginal cytology during suspected estrus → cornified cells (estrogen present)',
-                '**AMH (Anti-Mullerian Hormone)** ★ — best practical lab dx · single sample any cycle',
+                '**AMH (Anti-Mullerian Hormone)** ★ — best practical lab dx, single sample any cycle',
                 '  - Normal intact: 0.5-3 ng/mL',
                 '  - OVH: undetectable < 0.05 ng/mL',
                 '  - **ORS: > 0.1 ng/mL** = ovarian tissue present',
@@ -660,7 +660,7 @@ export const NOTES_REPRO_LECT = {
         source: 'Kimchii85 ORS Q7',
         body: [
           { bullets: [
-            'OVH = removed uterus + ovaries · cervix remains',
+            'OVH = removed uterus + ovaries, cervix remains',
             'Brown-red vaginal discharge in OVH dog → **Cervical stump infection/inflammation** ★',
             '⛔ Pyometra ก็ดี CEH ก็ดี — เป็นไปไม่ได้ใน OVH dog (uterus removed!)',
             'Tx: ATB + possible re-excision of stump',
@@ -675,7 +675,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Risk-Benefit of Neutering',
     lecturer: 'Sroisuda Chotimanukul (SC)',
     icon: '⚖️',
-    summary: 'Individualized decision: species × breed × sex × size × age × disease risk · Aj. SC ★ "จำไปให้หมด" — breed lists for mammary tumor, BPH, MCT, USMI · Springer Spaniel post-neuter aggression',
+    summary: 'Individualized decision: species × breed × sex × size × age × disease risk, Aj. SC ★ "จำไปให้หมด" — breed lists for mammary tumor, BPH, MCT, USMI, Springer Spaniel post-neuter aggression',
     sections: [
       {
         heading: 'Benefits',
@@ -686,7 +686,7 @@ export const NOTES_REPRO_LECT = {
             'Complete uterine removal (incl. cervix) prevents/cures uterine disease',
             'BPH common in intact male dog → gonadectomy resolves in 4-6 wks',
             'Vaginal hyperplasia/prolapse remit + recurrence prevented',
-            'Eliminate mammary tumor risk if before 1st estrus (small breed) · partial benefit if after 1st-2nd estrus',
+            'Eliminate mammary tumor risk if before 1st estrus (small breed), partial benefit if after 1st-2nd estrus',
           ] },
         ],
       },
@@ -698,14 +698,14 @@ export const NOTES_REPRO_LECT = {
           { table: {
             headers: ['Disease', 'Predisposed breeds + Risk factors'],
             rows: [
-              ['**Mammary tumor**', 'Springer + Cocker spaniel + **Boxer** + Poodle + Dachshund · large > small'],
+              ['**Mammary tumor**', 'Springer + Cocker spaniel + **Boxer** + Poodle + Dachshund, large > small'],
               ['**BPH**', 'Doberman + Rottweiler + GSD + Labrador (large breeds, age > 5 yr)'],
-              ['**MCT (Mast Cell Tumor)**', 'Female 2.6× ↑ · age > 7 yr · BW 20-30 kg · GR + LR + Boxer + Pug + GSD'],
+              ['**MCT (Mast Cell Tumor)**', 'Female 2.6× ↑, age > 7 yr, BW 20-30 kg, GR + LR + Boxer + Pug + GSD'],
               ['**Osteosarcoma**', 'Male + large/giant + early gonadectomy (< 6 mo) ↑ risk'],
               ['**Hemangiosarcoma**', 'Female gonadectomy > 12 mo → ↑ risk'],
-              ['**Lymphoma**', 'Australian Shepherd + GR · gonadectomized female ↑'],
-              ['**TCC (urothelial cancer)**', 'Female · **Scottish Terrier** ★ · age > 6 · obesity'],
-              ['**USMI**', 'Female + BW > 20 kg + young gonadectomy (< 3-6 mo) + short urethra · breeds: Boxer, Doberman, GSD, OES'],
+              ['**Lymphoma**', 'Australian Shepherd + GR, gonadectomized female ↑'],
+              ['**TCC (urothelial cancer)**', 'Female, **Scottish Terrier** ★, age > 6, obesity'],
+              ['**USMI**', 'Female + BW > 20 kg + young gonadectomy (< 3-6 mo) + short urethra, breeds: Boxer, Doberman, GSD, OES'],
             ],
           } },
         ],
@@ -715,10 +715,10 @@ export const NOTES_REPRO_LECT = {
         source: 'Risk-benefit assessment.pdf',
         body: [
           { bullets: [
-            'Tumor risk: prostate (slight ↑) · MCT · TCC · OSA · lymphoma · hemangiosarcoma',
-            '**USMI** in female dog (3-20%) · estrogen-dependent sphincter tone loss',
+            'Tumor risk: prostate (slight ↑), MCT, TCC, OSA, lymphoma, hemangiosarcoma',
+            '**USMI** in female dog (3-20%), estrogen-dependent sphincter tone loss',
             'Orthopedic disease ↑ if early gonadectomy < 6 mo + large/heavy breed',
-            'Pediatric gonadectomy 6-16 wks · slide ไม่แนะนำ routine ใน owned pet (case-by-case)',
+            'Pediatric gonadectomy 6-16 wks, slide ไม่แนะนำ routine ใน owned pet (case-by-case)',
             { label: '**Springer Spaniel ★**', value: 'Post-neuter aggression to owner (male > female) — discuss before procedure' },
           ] },
         ],
@@ -744,16 +744,16 @@ export const NOTES_REPRO_LECT = {
     title: 'Reproductive Ultrasound',
     lecturer: 'Suppawiwat Ponglowhapan (SP)',
     icon: '🩻',
-    summary: 'Pregnancy dx (earliest 20-22d post-LH) · gestational age (CRL/BPD/AD/ICC) · fetal sex Day 55-58 · female disease (CEH/pyometra/ovarian) · male disease (BPH/prostatitis/testis)',
+    summary: 'Pregnancy dx (earliest 20-22d post-LH), gestational age (CRL/BPD/AD/ICC), fetal sex Day 55-58, female disease (CEH/pyometra/ovarian), male disease (BPH/prostatitis/testis)',
     sections: [
       {
         heading: 'Major Uses',
         source: 'Ultrasound_Reprod_in_the_dog_and_cat.pdf',
         body: [
           { bullets: [
-            { label: 'Female pregnancy', value: 'Pregnancy dx · gestational age · fetal viability/development · fetal death · parturition prediction' },
-            { label: 'Female disease', value: 'Ovarian cyst · pyometra/mucometra/hydrometra · CEH · stump pyometra · granuloma · postpartum metritis · SIPs · ovarian/uterine tumor' },
-            { label: 'Male disease', value: 'BPH/prostatitis/cyst/abscess/cancer · testis/scrotum disease · epididymal disease · cryptorchidism · infertility lesions' },
+            { label: 'Female pregnancy', value: 'Pregnancy dx, gestational age, fetal viability/development, fetal death, parturition prediction' },
+            { label: 'Female disease', value: 'Ovarian cyst, pyometra/mucometra/hydrometra, CEH, stump pyometra, granuloma, postpartum metritis, SIPs, ovarian/uterine tumor' },
+            { label: 'Male disease', value: 'BPH/prostatitis/cyst/abscess/cancer, testis/scrotum disease, epididymal disease, cryptorchidism, infertility lesions' },
           ] },
         ],
       },
@@ -767,7 +767,7 @@ export const NOTES_REPRO_LECT = {
               ['16-20', 'Implantation begins'],
               ['**20-22**', '**Gestational sac** (1st U/S sign) ★'],
               ['25-30', 'Fetal pole + heartbeat (250 bpm)'],
-              ['30-35', 'Fetal body recognizable · count fetuses (US)'],
+              ['30-35', 'Fetal body recognizable, count fetuses (US)'],
               ['45-50', 'Skeletal mineralization → radiograph fetal count better'],
               ['**55-58**', '**Fetal sex determination** ★'],
               ['60+', 'Fetal monitoring (HR, viability)'],
@@ -781,7 +781,7 @@ export const NOTES_REPRO_LECT = {
         source: 'Kimchii85 Q (Lect 24)',
         body: [
           { bullets: [
-            'Optimal: **Day 55-58** in dog ★ · Day 38-43 in cat',
+            'Optimal: **Day 55-58** in dog ★, Day 38-43 in cat',
             'Female: vulva visible at perineum, prepuce absent',
             'Male: prepuce visible (caudal to umbilicus), testes may be visible later',
             'Best in lateral recumbency, sagittal scan along ventral abdomen',
@@ -815,7 +815,7 @@ export const NOTES_REPRO_LECT = {
         heading: 'Clinical Pitfall',
         source: 'Ultrasound.pdf + Kimchii85',
         body: [
-          { callout: 'Fluid-filled uterus around D30 — pregnancy vs **pyometra**? Combine U/S + CBC inflammation + discharge + reproductive timing · don\'t rely on imaging alone', kind: 'warn' },
+          { callout: 'Fluid-filled uterus around D30 — pregnancy vs **pyometra**? Combine U/S + CBC inflammation + discharge + reproductive timing, don\'t rely on imaging alone', kind: 'warn' },
           { bullets: [
             'Use U/S in infertility cases: ovary, uterus, early fetal death, prostate/testicular/epididymal lesions',
           ] },

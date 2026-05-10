@@ -10,7 +10,7 @@
 //   • Fires on unmount of fallback wrapper (end → 100% → fade out)
 //   • Pure CSS transition for buttery 60fps animation
 //   • Respects prefers-reduced-motion (skips the eased ramp)
-//   • No external lib · ~50 LOC
+//   • No external lib, ~50 LOC
 // ============================================================
 
 import { useEffect, useRef, useState } from 'react';

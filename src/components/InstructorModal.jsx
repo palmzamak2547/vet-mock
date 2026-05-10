@@ -130,7 +130,7 @@ export default function InstructorModal({ instructor, onClose }) {
         {papers && papers.length > 0 && (
           <div style={{ marginBottom: 20 }}>
             <h3 style={{ fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 12px' }}>
-              📑 Notable Papers · {papers.length}
+              📑 Notable Papers, {papers.length}
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {papers.map((p, i) => (
@@ -157,8 +157,8 @@ export default function InstructorModal({ instructor, onClose }) {
                     color: 'var(--clr-ink-soft)',
                   }}>
                     {p.year ? `${p.year}` : ''}
-                    {p.journal ? ` · ${p.journal}` : ''}
-                    {p.authors ? ` · ${p.authors}` : ''}
+                    {p.journal ? `, ${p.journal}` : ''}
+                    {p.authors ? `, ${p.authors}` : ''}
                   </div>
                   {p.summary && (
                     <div style={{

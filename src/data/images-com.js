@@ -32,7 +32,7 @@ export const IMG_SPINAL_LOCALIZATION = e(`
   <text x='340' y='170' font-family='sans-serif' font-size='11' fill='#5c4f3d'>Forelimb: normal</text>
   <text x='340' y='185' font-family='sans-serif' font-size='11' fill='#3d6b82'>Hindlimb: UMN</text>
   <!-- Legend -->
-  <text x='20' y='220' font-family='italic serif' font-size='11' fill='#5c4f3d'>UMN = hyperreflexia · LMN = hyporeflexia/absent · alert mentation rules out forebrain</text>
+  <text x='20' y='220' font-family='italic serif' font-size='11' fill='#5c4f3d'>UMN = hyperreflexia, LMN = hyporeflexia/absent, alert mentation rules out forebrain</text>
 </svg>`);
 
 // ── Modified Frankel grading 1-5 (with DPP) ─────────────────────────
@@ -76,7 +76,7 @@ export const IMG_FRANKEL = e(`
   <text x='310' y='170' font-family='sans-serif' font-size='9' fill='#5c4f3d' text-anchor='middle'>Good if &lt; 48h</text>
   <text x='390' y='170' font-family='sans-serif' font-size='9' fill='#5c4f3d' text-anchor='middle'>Guarded</text>
   <!-- Footer -->
-  <text x='20' y='200' font-family='italic serif' font-size='11' fill='#5c4f3d'>DPP = Deep Pain Perception · pinch periosteum/digit + conscious response (look, vocalize)</text>
+  <text x='20' y='200' font-family='italic serif' font-size='11' fill='#5c4f3d'>DPP = Deep Pain Perception, pinch periosteum/digit + conscious response (look, vocalize)</text>
 </svg>`);
 
 // ── MGCS scoring → prognosis ─────────────────────────────────────────
@@ -133,7 +133,7 @@ export const IMG_CUSHING_REFLEX = e(`
   <text x='350' y='130' font-family='sans-serif' font-size='10' fill='#5c4f3d' text-anchor='middle'>or apneustic</text>
   <!-- Header -->
   <text x='230' y='185' font-family='italic serif' font-size='12' fill='#7d3d3d' text-anchor='middle'>↑ ICP → herniation imminent → ICP first-line: Mannitol 0.5-1 g/kg slow IV</text>
-  <text x='230' y='205' font-family='sans-serif' font-size='10' fill='#5c4f3d' text-anchor='middle'>head 30° elevation · neck neutral · ETCO₂ 35-40</text>
+  <text x='230' y='205' font-family='sans-serif' font-size='10' fill='#5c4f3d' text-anchor='middle'>head 30° elevation, neck neutral, ETCO₂ 35-40</text>
 </svg>`);
 
 // ── Hair cycle phases ───────────────────────────────────────────────
@@ -157,7 +157,7 @@ export const IMG_HAIR_CYCLE = e(`
   <text x='380' y='108' font-family='sans-serif' font-size='13' fill='#2b2419' text-anchor='middle' font-weight='600'>Telogen</text>
   <text x='380' y='123' font-family='sans-serif' font-size='10' fill='#2b2419' text-anchor='middle'>(resting)</text>
   <!-- Footer -->
-  <text x='230' y='195' font-family='italic serif' font-size='11' fill='#5c4f3d' text-anchor='middle'>Stimulator: thyroid hormone · Inhibitors: glucocorticoid + estrogen + cortisol</text>
+  <text x='230' y='195' font-family='italic serif' font-size='11' fill='#5c4f3d' text-anchor='middle'>Stimulator: thyroid hormone, Inhibitors: glucocorticoid + estrogen + cortisol</text>
 </svg>`);
 
 // ── Spherocyte vs normal RBC ────────────────────────────────────────

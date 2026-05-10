@@ -2,11 +2,11 @@
 // Exotic Study Notes — Final exam scope (week 7-14)
 // ============================================================
 // อ้างอิง:
-//   - Slide Lecture 2026: ZOO_VET_CU2026.pdf · RolesVeterinarians.pdf
-//     · ABOARD POST-GRADUATE Wildlife COURSES.pdf · โรคไม่ติดเชื้อ.pptx
-//     · โรคติดเชื้อ.pptx · การรักษานกสวยงาม.pptx
+//   - Slide Lecture 2026: ZOO_VET_CU2026.pdf, RolesVeterinarians.pdf
+//    , ABOARD POST-GRADUATE Wildlife COURSES.pdf, โรคไม่ติดเชื้อ.pptx
+//    , โรคติดเชื้อ.pptx, การรักษานกสวยงาม.pptx
 //   - EXOTIC Master 86 .pdf (master compilation)
-//   - course syllabus.docx (รหัส 3107414 · ผศ.น.สพ. ธวัช เล็กดำรงศักดิ์)
+//   - course syllabus.docx (รหัส 3107414, ผศ.น.สพ. ธวัช เล็กดำรงศักดิ์)
 //
 // Body item types:
 //   string                                — paragraph
@@ -26,16 +26,16 @@ export const NOTES_EXOTIC = {
     title: 'นกสวยงาม + โรคไม่ติดเชื้อในนก',
     lecturer: 'ธวัช เล็กดำรงศักดิ์',
     icon: '🦜',
-    summary: 'Handling, blood collection, anesthesia, husbandry-related diseases (Vit A/D, MBD), feather plucking, crop stasis · พื้นฐานก่อนเรียน infectious diseases',
+    summary: 'Handling, blood collection, anesthesia, husbandry-related diseases (Vit A/D, MBD), feather plucking, crop stasis, พื้นฐานก่อนเรียน infectious diseases',
     sections: [
       {
         heading: 'Handling + Blood Collection',
         source: 'การรักษานกสวยงาม.pptx + EXOTIC FINAL 86',
         body: [
           { bullets: [
-            'จับนกใช้ผ้าขนหนู คลุมหัว → ลด stress · ระวัง keel ไม่ให้กดหายใจ',
-            'เจาะเลือดได้ที่ **ปีก (basilic vein)** · **คอ (jugular vein)** · **ขา (medial metatarsal)**',
-            'ห้ามเจาะลิ้น/หัว/หาง · ปริมาณเลือด ≤ 1% body weight',
+            'จับนกใช้ผ้าขนหนู คลุมหัว → ลด stress, ระวัง keel ไม่ให้กดหายใจ',
+            'เจาะเลือดได้ที่ **ปีก (basilic vein)**, **คอ (jugular vein)**, **ขา (medial metatarsal)**',
+            'ห้ามเจาะลิ้น/หัว/หาง, ปริมาณเลือด ≤ 1% body weight',
           ] },
         ],
       },
@@ -44,7 +44,7 @@ export const NOTES_EXOTIC = {
         source: 'การรักษานกสวยงาม.pptx',
         body: [
           { bullets: [
-            '**Isoflurane** = drug of choice · safety ดี · rapid induction + recovery',
+            '**Isoflurane** = drug of choice, safety ดี, rapid induction + recovery',
             '**Fasting**: นกตัวเล็ก 2-3 ชม. (อดนานเสี่ยง hypoglycemia เพราะ BMR สูง)',
             'นกตัวใหญ่ (raptor, parrot) อด 6-12 ชม.',
           ] },
@@ -58,17 +58,17 @@ export const NOTES_EXOTIC = {
             body: [
               { bullets: [
                 'Squamous metaplasia of epithelium → plaque ใน oropharynx + cloaca',
-                'พบบ่อยในนกที่กิน seed-only diet · แก้โดยให้ pellet + vegetable',
+                'พบบ่อยในนกที่กิน seed-only diet, แก้โดยให้ pellet + vegetable',
               ] },
             ] },
           { sub: 'Metabolic Bone Disease (MBD)',
             body: [
-              'Vit D3/Ca deficiency → soft bones · พบในนกที่ไม่ได้รับ UVB หรือ Ca ไม่พอ',
+              'Vit D3/Ca deficiency → soft bones, พบในนกที่ไม่ได้รับ UVB หรือ Ca ไม่พอ',
               'แก้: UVB exposure + Ca supplement + balanced diet',
             ] },
           { sub: 'Hypocalcemia (African Grey ที่พบบ่อย)',
             body: [
-              'African Grey ไวต่อ low Ca · seizure · ตอบสนองดีต่อ Ca gluconate IV',
+              'African Grey ไวต่อ low Ca, seizure, ตอบสนองดีต่อ Ca gluconate IV',
             ] },
         ],
       },
@@ -88,9 +88,9 @@ export const NOTES_EXOTIC = {
         source: 'โรคไม่ติดเชื้อ.pptx + EXOTIC FINAL 86',
         body: [
           { bullets: [
-            'Mass-like lesion ที่ cloaca · associated กับ **Herpesvirus + Papillomavirus**',
+            'Mass-like lesion ที่ cloaca, associated กับ **Herpesvirus + Papillomavirus**',
             '**Diagnosis**: 5% acetic acid → tissue เปลี่ยนสีขาว (acetowhite test)',
-            '**Treatment**: Silver nitrate (AgNO₃) จี้ chemical cauterization · อาจ recur',
+            '**Treatment**: Silver nitrate (AgNO₃) จี้ chemical cauterization, อาจ recur',
             'พบบ่อยใน New World psittacine (macaw, conure)',
           ] },
         ],
@@ -112,9 +112,9 @@ export const NOTES_EXOTIC = {
         source: 'EXOTIC FINAL 86',
         body: [
           { bullets: [
-            'Scaly leg / scaly face mite · พบบ่อยใน budgerigar (parakeet)',
+            'Scaly leg / scaly face mite, พบบ่อยใน budgerigar (parakeet)',
             'Burrows ในผิวหนัง → hyperkeratotic crust',
-            'Tx: **Ivermectin** topical/SC · repeat 2-week interval',
+            'Tx: **Ivermectin** topical/SC, repeat 2-week interval',
           ] },
         ],
       },
@@ -127,7 +127,7 @@ export const NOTES_EXOTIC = {
     title: 'โรคติดเชื้อในนก (Viral / Bacterial / Fungal / Protozoal)',
     lecturer: 'ธวัช เล็กดำรงศักดิ์',
     icon: '🦠',
-    summary: 'Pacheco / PDD / PBFD / Polyoma / Pox + Chlamydophila + Candida + Trichomonas + Giardia + Eimeria · เป็นหัวใจ Final scope (สัปดาห์ 9-11 · 3 weeks)',
+    summary: 'Pacheco / PDD / PBFD / Polyoma / Pox + Chlamydophila + Candida + Trichomonas + Giardia + Eimeria, เป็นหัวใจ Final scope (สัปดาห์ 9-11, 3 weeks)',
     sections: [
       {
         heading: 'Viral Diseases — Top 5 ที่ออกข้อสอบบ่อย',
@@ -143,7 +143,7 @@ export const NOTES_EXOTIC = {
               ['Avian Pox', 'Poxvirus', 'Bollinger bodies (cytoplasmic)', 'Supportive', '✅ Fowl pox'],
             ],
           } },
-          { callout: '💡 PCR ใช้ confirm ทุกตัวยกเว้น Pox (ทำได้แต่ไม่นิยม) · ดู feather/blood/cloacal swab',
+          { callout: '💡 PCR ใช้ confirm ทุกตัวยกเว้น Pox (ทำได้แต่ไม่นิยม), ดู feather/blood/cloacal swab',
             kind: 'tip' },
         ],
       },
@@ -152,9 +152,9 @@ export const NOTES_EXOTIC = {
         source: 'EXOTIC FINAL 86',
         body: [
           { bullets: [
-            '**Acute hepatic necrosis** + sudden death · "found dead" ในกรง',
+            '**Acute hepatic necrosis** + sudden death, "found dead" ในกรง',
             'Histopath: intranuclear inclusion bodies ใน liver/kidney/spleen',
-            '**Tx**: Acyclovir (antiviral) + supportive · prognosis poor หลังมี clinical sign',
+            '**Tx**: Acyclovir (antiviral) + supportive, prognosis poor หลังมี clinical sign',
             'Carrier birds (latent infection) shed virus เมื่อ stress',
           ] },
         ],
@@ -165,9 +165,9 @@ export const NOTES_EXOTIC = {
         body: [
           { bullets: [
             'Avian Bornavirus → lymphoplasmacytic ganglioneuritis ใน autonomic nervous system',
-            'Wasting + regurgitation + undigested seeds in feces · neuro signs (ataxia, seizure)',
+            'Wasting + regurgitation + undigested seeds in feces, neuro signs (ataxia, seizure)',
             'Dx: PCR (cloacal swab), endoscopic biopsy of crop/proventriculus',
-            'Tx: NSAIDs (celecoxib) + supportive feeding · no cure',
+            'Tx: NSAIDs (celecoxib) + supportive feeding, no cure',
           ] },
         ],
       },
@@ -180,7 +180,7 @@ export const NOTES_EXOTIC = {
             'Feather dystrophy + beak deformity + immunosuppression',
             'Affected feathers → loss of pigment, abnormal shaft, retained sheath',
             'Inclusion: **intracytoplasmic** (key differentiator vs Polyoma which is intranuclear)',
-            'Dx: PCR feather/blood · No vaccine · No cure → cull',
+            'Dx: PCR feather/blood, No vaccine, No cure → cull',
           ] },
         ],
       },
@@ -200,12 +200,12 @@ export const NOTES_EXOTIC = {
         heading: 'Bacterial — Chlamydophila psittaci (Psittacosis)',
         source: 'EXOTIC FINAL 86',
         body: [
-          { callout: '⚠️ ZOONOSIS — ระวังคนติด · psittacosis fever ในเจ้าของ', kind: 'warn' },
+          { callout: '⚠️ ZOONOSIS — ระวังคนติด, psittacosis fever ในเจ้าของ', kind: 'warn' },
           { bullets: [
             'Conjunctivitis + nasal/ocular discharge + diarrhea + lethargy',
             '**Antibiotic of choice**: **Doxycycline**',
             '**Duration**: **45 วัน** (4-6 สัปดาห์) — สำคัญมาก สั้นกว่านี้ relapse',
-            'Penetrates intracellular pathogen ได้ดี · macrolide (azithromycin) เป็น alternative',
+            'Penetrates intracellular pathogen ได้ดี, macrolide (azithromycin) เป็น alternative',
             'Notify owner re: zoonosis precautions',
           ] },
         ],
@@ -215,10 +215,10 @@ export const NOTES_EXOTIC = {
         source: 'EXOTIC FINAL 86',
         body: [
           { bullets: [
-            'White plaque ใน oropharynx + crop · พบใน **young birds** (parent-fed)',
+            'White plaque ใน oropharynx + crop, พบใน **young birds** (parent-fed)',
             'Predispose: long Abx use, immunosuppression, hypovitaminosis A',
             'Dx: cytology — budding yeast / hyphae',
-            'Tx: **Itraconazole** (systemic) · **Nystatin** (topical/oral) สำหรับเฉพาะที่',
+            'Tx: **Itraconazole** (systemic), **Nystatin** (topical/oral) สำหรับเฉพาะที่',
           ] },
         ],
       },
@@ -230,7 +230,7 @@ export const NOTES_EXOTIC = {
             body: [
               { bullets: [
                 'White caseous plaque ใน oropharynx (frownish-yellow)',
-                'พบในนกพิราบ, raptor, finch · transmitted via crop secretions',
+                'พบในนกพิราบ, raptor, finch, transmitted via crop secretions',
                 'Tx: **Metronidazole** PO 5-7 วัน',
               ] },
             ] },
@@ -238,13 +238,13 @@ export const NOTES_EXOTIC = {
             body: [
               { bullets: [
                 'พบบ่อยใน **Cockatiel** (อาจร่วม feather plucking + diarrhea)',
-                'Dx: fecal direct/zinc sulfate · Tx: **Metronidazole**',
+                'Dx: fecal direct/zinc sulfate, Tx: **Metronidazole**',
               ] },
             ] },
           { sub: 'Eimeria / Coccidia',
             body: [
               { bullets: [
-                'GI signs · oocyst ใน feces',
+                'GI signs, oocyst ใน feces',
                 'Tx: **Sulfa-trimethoprim** (drug of choice) 5-7 วัน',
               ] },
             ] },
@@ -255,9 +255,9 @@ export const NOTES_EXOTIC = {
         source: 'EXOTIC FINAL 86',
         body: [
           { bullets: [
-            '✅ **Pox** (fowl pox · live attenuated)',
+            '✅ **Pox** (fowl pox, live attenuated)',
             '✅ **Polyomavirus** (recombinant)',
-            '❌ PBFD · PDD · Pacheco · Chlamydophila — ไม่มี commercial vaccine',
+            '❌ PBFD, PDD, Pacheco, Chlamydophila — ไม่มี commercial vaccine',
           ] },
         ],
       },
@@ -306,8 +306,8 @@ export const NOTES_EXOTIC = {
         source: 'ZOO_VET_CU2026.pdf p.6',
         body: [
           { bullets: [
-            { label: 'In situ', value: 'ในถิ่นอาศัยจริง — Wildlife Department · National Park' },
-            { label: 'Ex situ', value: 'นอกถิ่นอาศัย — Zoo · Captive breeding' },
+            { label: 'In situ', value: 'ในถิ่นอาศัยจริง — Wildlife Department, National Park' },
+            { label: 'Ex situ', value: 'นอกถิ่นอาศัย — Zoo, Captive breeding' },
             'ZPOT (Zoological Park Organization of Thailand) ดูแล 6 zoos ในไทย',
           ] },
         ],
@@ -316,7 +316,7 @@ export const NOTES_EXOTIC = {
         heading: 'Zoo Vet Roles (4 บทบาท)',
         source: 'ZOO_VET_CU2026.pdf p.16',
         body: [
-          { sub: '1. Practitioner — General · Epidemiologist · Pathologist',
+          { sub: '1. Practitioner — General, Epidemiologist, Pathologist',
             body: [
               { bullets: [
                 'Animal health management — preventive medicine, surgery, neonatal',
@@ -329,7 +329,7 @@ export const NOTES_EXOTIC = {
           { sub: '3. Researcher',
             body: [
               { bullets: [
-                'Genome Resource Bank (GRB) — frozen zoo · sperm/embryos/oocytes/fibroblasts',
+                'Genome Resource Bank (GRB) — frozen zoo, sperm/embryos/oocytes/fibroblasts',
                 'Hormonal analysis (non-invasive — fecal/urine) — estrogen/progesterone/cortisol',
                 'Artificial Insemination + IVF + Embryo Transfer',
               ] },
@@ -342,7 +342,7 @@ export const NOTES_EXOTIC = {
         body: [
           { bullets: [
             '**Period**: 30 days minimum (ขึ้นกับ species)',
-            '**All in - all out**: รับสัตว์เป็น batch · ไม่ผสมกับ batch อื่น',
+            '**All in - all out**: รับสัตว์เป็น batch, ไม่ผสมกับ batch อื่น',
             'Separate area from main collection',
             'Disease testing + behavior recording during quarantine',
             'Transportation protocol → DLD permit ก่อน move',
@@ -372,9 +372,9 @@ export const NOTES_EXOTIC = {
           { callout: '⚠️ Zoonosis — TB, Brucellosis, Avian flu, COVID-19 — เฝ้าระวัง keeper + vet ด้วย', kind: 'warn' },
           { bullets: [
             'Tuberculosis (apes/elephants → human zoonosis)',
-            'Nipah · MERS · SARS · Avian Influenza · COVID-19',
-            'Melioidosis (Burkholderia pseudomallei) — soil/water · พบในไทย',
-            'African Swine Fever · African Horse Sickness · Lumpy Skin Disease',
+            'Nipah, MERS, SARS, Avian Influenza, COVID-19',
+            'Melioidosis (Burkholderia pseudomallei) — soil/water, พบในไทย',
+            'African Swine Fever, African Horse Sickness, Lumpy Skin Disease',
           ] },
         ],
       },
@@ -401,7 +401,7 @@ export const NOTES_EXOTIC = {
     title: 'สัตวแพทย์กับงานนอกสวนสัตว์ (Conservation Medicine)',
     lecturer: 'ไพศิลป์ เล็กเจริญ',
     icon: '🌳',
-    summary: 'Conservation medicine = One Health applied to biodiversity · 4 interfaces · surveillance ≠ research · case studies (LSD, rabies, HPAI, mange, malaria, poisoning) · translocation framework',
+    summary: 'Conservation medicine = One Health applied to biodiversity, 4 interfaces, surveillance ≠ research, case studies (LSD, rabies, HPAI, mange, malaria, poisoning), translocation framework',
     sections: [
       {
         heading: 'What is Conservation Medicine?',
@@ -410,7 +410,7 @@ export const NOTES_EXOTIC = {
           'Conservation medicine = interdisciplinary field examining reciprocal relationships among biodiversity, ecosystem integrity, animal health, and human health.',
           { bullets: [
             'Wildlife + Livestock + Humans + Environment (4-pillar)',
-            'Key terms: One Health · Biodiversity · Ecosystem health · Spillover',
+            'Key terms: One Health, Biodiversity, Ecosystem health, Spillover',
           ] },
         ],
       },
@@ -419,9 +419,9 @@ export const NOTES_EXOTIC = {
         source: 'RolesVeterinarians.pdf p.6',
         body: [
           { bullets: [
-            { label: 'Ecological', value: 'species overlap · habitat fragmentation' },
-            { label: 'Epidemiological', value: 'pathogen transmission · spillover' },
-            { label: 'Human-wildlife', value: 'conflict · encroachment' },
+            { label: 'Ecological', value: 'species overlap, habitat fragmentation' },
+            { label: 'Epidemiological', value: 'pathogen transmission, spillover' },
+            { label: 'Human-wildlife', value: 'conflict, encroachment' },
             { label: 'Governance', value: 'wildlife authority + health authority + local communities' },
           ] },
           { callout: '💡 Example: Gaur (wildlife) เข้าทุ่งหญ้าวัว (livestock) = wildlife-livestock interface → LSD spillover risk', kind: 'tip' },
@@ -474,7 +474,7 @@ export const NOTES_EXOTIC = {
               ['Use', 'Decision support', 'Knowledge generation'],
             ],
           } },
-          { callout: '💡 Roadkill = passive surveillance proxy · ใช้ตรวจ rabies/AI ใน wildlife', kind: 'tip' },
+          { callout: '💡 Roadkill = passive surveillance proxy, ใช้ตรวจ rabies/AI ใน wildlife', kind: 'tip' },
         ],
       },
       {
@@ -498,9 +498,9 @@ export const NOTES_EXOTIC = {
         source: 'RolesVeterinarians.pdf p.30',
         body: [
           { bullets: [
-            { label: 'Detection', value: 'carcass detection bias · scavenger removal · inaccessible terrain' },
-            { label: 'Capture/Sampling', value: 'species behavior · stress risk · legal permits · endangered ethics' },
-            { label: 'Diagnostic', value: 'postmortem degradation · small sample size · no baseline data' },
+            { label: 'Detection', value: 'carcass detection bias, scavenger removal, inaccessible terrain' },
+            { label: 'Capture/Sampling', value: 'species behavior, stress risk, legal permits, endangered ethics' },
+            { label: 'Diagnostic', value: 'postmortem degradation, small sample size, no baseline data' },
           ] },
         ],
       },
@@ -513,7 +513,7 @@ export const NOTES_EXOTIC = {
     title: 'การศึกษาต่อด้าน Wildlife / Exotic Animal Medicine',
     lecturer: 'ปัณณวัฒน์ สุภาพรรณชาติ',
     icon: '🎓',
-    summary: 'MSc/PhD comparison (USA vs EU/AUS) · Residency boards (ACZM USA · ECZM EU · 5 specialties) · Funding sources (national + international)',
+    summary: 'MSc/PhD comparison (USA vs EU/AUS), Residency boards (ACZM USA, ECZM EU, 5 specialties), Funding sources (national + international)',
     sections: [
       {
         heading: 'MSc / Master\'s Degree — USA vs EU/AUS',
@@ -522,7 +522,7 @@ export const NOTES_EXOTIC = {
           { table: {
             headers: ['Aspect', 'USA', 'EU / AUS'],
             rows: [
-              ['Requirement', 'GMAT/GRE/TOEFL · IEP/Pathway', 'IELTS · pre-sessional'],
+              ['Requirement', 'GMAT/GRE/TOEFL, IEP/Pathway', 'IELTS, pre-sessional'],
               ['Duration', '2 years', '1-2 years'],
               ['Module', 'Coursework + thesis', 'Coursework + thesis'],
               ['Course choice', 'Optional (Major/Minor)', 'Predefined mandatory'],
@@ -554,7 +554,7 @@ export const NOTES_EXOTIC = {
         body: [
           { bullets: [
             'Both: graduated AVMA/EAEVE-approved school + 1-2 yr internship + license + TOEFL/IELTS',
-            'Duration: **3 years** (ACZM) · **3 yrs (max 6)** (ECZM)',
+            'Duration: **3 years** (ACZM), **3 yrs (max 6)** (ECZM)',
           ] },
           { table: {
             headers: ['Cert requirement', 'ACZM (USA)', 'ECZM (EU)'],
@@ -573,11 +573,11 @@ export const NOTES_EXOTIC = {
           { bullets: [
             '1. **Avian** Medicine and Surgery',
             '2. **Herpetological** Medicine and Surgery',
-            '3. **Wildlife Population Health (WPH)** — free-ranging wildlife · disease surveillance + epi (minimal clinical)',
+            '3. **Wildlife Population Health (WPH)** — free-ranging wildlife, disease surveillance + epi (minimal clinical)',
             '4. **Small Mammal** Medicine and Surgery',
             '5. **Zoo Health Management (ZHM)** — captive collection + preventive medicine + studbook',
           ] },
-          { callout: '💡 WPH = field-level + population health · ZHM = facility-level + clinical zoo med', kind: 'tip' },
+          { callout: '💡 WPH = field-level + population health, ZHM = facility-level + clinical zoo med', kind: 'tip' },
         ],
       },
       {
@@ -587,7 +587,7 @@ export const NOTES_EXOTIC = {
           { sub: 'National (Thailand)',
             body: [
               { bullets: [
-                '**OCSC** (สำนักงาน ก.พ.) — รัฐบาลไทย · ocsc.go.th/scholarship',
+                '**OCSC** (สำนักงาน ก.พ.) — รัฐบาลไทย, ocsc.go.th/scholarship',
                 'University funding — ทุน chula/ม.อื่น',
               ] },
             ] },

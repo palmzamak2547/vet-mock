@@ -33,7 +33,7 @@ export const NOTES_COM5 = {
                 'Family: **Parvoviridae**, Genus: Parvovirus',
                 'Small, **non-enveloped**, single-stranded **DNA** virus',
                 'Highly resistant in environment — 5-7 เดือน',
-                '**CPV-1** (original): ส่วนใหญ่ subclinical · อาจรุนแรงในลูกสุนัข **5-21 วัน**',
+                '**CPV-1** (original): ส่วนใหญ่ subclinical, อาจรุนแรงในลูกสุนัข **5-21 วัน**',
                 '**CPV-2** (a/b/c): highly contagious — **2c รุนแรงสุด**',
               ] },
             ] },
@@ -73,7 +73,7 @@ export const NOTES_COM5 = {
         source: 'CVE.pdf p.5-6 + COM V FINAL 86 p.4',
         body: [
           'Fecal-oral route (และ fomite — ชาม, ผ้า, เจ้าของ) — ติดง่ายมาก',
-          'Incubation **4-14 วัน** · Ingestion → infection → viremia → replication → shedding (10-12 วัน post-infection)',
+          'Incubation **4-14 วัน**, Ingestion → infection → viremia → replication → shedding (10-12 วัน post-infection)',
           { sub: 'Target cells — CPV ชอบ rapidly dividing cells',
             body: [
               { bullets: [
@@ -90,7 +90,7 @@ export const NOTES_COM5 = {
                 'Necrosis / hemorrhage rare',
               ] },
             ] },
-          { callout: 'ลูกสุนัข < 12 weeks → severe infection · adult dog → ส่วนใหญ่ subclinical', kind: 'tip' },
+          { callout: 'ลูกสุนัข < 12 weeks → severe infection, adult dog → ส่วนใหญ่ subclinical', kind: 'tip' },
         ],
       },
       {
@@ -102,7 +102,7 @@ export const NOTES_COM5 = {
             'Phase progression: ถ่ายเหลว → mucohemorrhagic → clear content + เลือด (intestinal lining ลอกหมด)',
             'Vomiting, anorexia',
             'Dehydration → **hypovolemic shock**: tachycardia, poor pulse, pale MM, prolonged CRT',
-            'Fever **หรือ** hypothermia · abdominal pain',
+            'Fever **หรือ** hypothermia, abdominal pain',
           ] },
           { callout: 'Mortality: puppy ≈ 70% / adult ≈ 1%', kind: 'warn' },
         ],
@@ -118,14 +118,14 @@ export const NOTES_COM5 = {
                 'Hypoproteinemia (GI loss)',
                 'Hypoglycemia, electrolyte imbalance (hypoK / hypoNa / hypoCl)',
                 'Pre-renal azotemia (severe dehydration)',
-                '↑ liver enzymes + bilirubin · ↑ CRP (acute phase)',
+                '↑ liver enzymes + bilirubin, ↑ CRP (acute phase)',
               ] },
             ] },
           { sub: 'Viral antigen detection',
             body: [
               { bullets: [
                 'Fecal **ELISA test kit** — POC, ง่าย, ไว',
-                '**False neg:** low viral load · neutralizing Ab จับ Ag ใน bloody stool',
+                '**False neg:** low viral load, neutralizing Ab จับ Ag ใน bloody stool',
                 '**False pos:** 3-10 วันหลัง MLV vaccine → แยกด้วย **PCR**',
                 'Negative ELISA ≠ ไม่มีเชื้อ — ถ้าสงสัย ส่ง PCR ต่อ',
               ] },
@@ -133,7 +133,7 @@ export const NOTES_COM5 = {
           { sub: 'Histopathology (necropsy)',
             body: [
               { bullets: [
-                'Gross: segmental hemorrhage + congestion · mesenteric lymphadenomegaly · thymus atrophy',
+                'Gross: segmental hemorrhage + congestion, mesenteric lymphadenomegaly, thymus atrophy',
                 'Micro: **intestinal crypt necrosis** + dilated crypts + villous collapse',
               ] },
             ] },
@@ -146,9 +146,9 @@ export const NOTES_COM5 = {
           { sub: '1. Fluid + electrolyte restoration',
             body: [
               { bullets: [
-                '**IV fluid** เป็นหลัก (Lactated Ringer\'s / NSS) · ลูกสุนัข/shock → **intraosseous** ได้',
+                '**IV fluid** เป็นหลัก (Lactated Ringer\'s / NSS), ลูกสุนัข/shock → **intraosseous** ได้',
                 'ห้าม SC / IP (ดูดซึมช้า + เพิ่มความเสี่ยงติดเชื้อ)',
-                'เสริม glucose + potassium · ปรับ rate ตาม shock state',
+                'เสริม glucose + potassium, ปรับ rate ตาม shock state',
               ] },
             ] },
           { sub: '2. Early enteral nutrition',
@@ -162,7 +162,7 @@ export const NOTES_COM5 = {
             body: [
               { bullets: [
                 'Combination: **β-lactam + aminoglycoside** หรือ **β-lactam + enrofloxacin**',
-                'ระวัง: aminoglycoside ห้ามใน dehydrated (nephrotoxic) · enrofloxacin ระวัง cartilage ในลูกสัตว์',
+                'ระวัง: aminoglycoside ห้ามใน dehydrated (nephrotoxic), enrofloxacin ระวัง cartilage ในลูกสัตว์',
               ] },
             ] },
           { sub: '4. อื่นๆ',
@@ -191,7 +191,7 @@ export const NOTES_COM5 = {
             body: [
               { bullets: [
                 'MDA persist up to **16 weeks** → ฉีดเข็มสุดท้ายต้อง ≥ 16 wk',
-                'Puppy: เริ่ม **6-8 wk** · q2-4 wk จน ≥ 16 wk · บูสเตอร์ 1 ปี · ไทย annual',
+                'Puppy: เริ่ม **6-8 wk**, q2-4 wk จน ≥ 16 wk, บูสเตอร์ 1 ปี, ไทย annual',
                 'Initial > 16 wk: 2 doses, 2-4 wk apart',
                 'MLV ≫ inactivated (ระยะป้องกันยาวกว่า)',
               ] },
@@ -219,7 +219,7 @@ export const NOTES_COM5 = {
               ['Zoonosis', '**ใช่** (cat-to-human)', '**ไม่** (env-to-host เท่านั้น)'],
               ['Source', 'Plants/soil + infected cat', 'Pigeon droppings (env)'],
               ['Transmission', 'Traumatic inoculation', 'Inhalation of basidiospore'],
-              ['Forms', 'Cutaneous · Cutaneolymphatic · Disseminated', 'Nasal · Cutaneous · CNS · Systemic'],
+              ['Forms', 'Cutaneous, Cutaneolymphatic, Disseminated', 'Nasal, Cutaneous, CNS, Systemic'],
               ['Most common form', 'Cutaneous (timeline progression)', 'Nasal — "Roman nose"'],
               ['Test of choice', 'Fungal culture (SDA, room temp)', '**LCAT** antigen test'],
               ['DOC (cat)', '**Itraconazole**', '**Fluconazole**'],
@@ -232,7 +232,7 @@ export const NOTES_COM5 = {
         heading: 'Sporotrichosis — overview',
         source: 'Sporotrichosis and Cryptococcosis.pdf p.5-9',
         body: [
-          'AKA: **Rose gardener\'s disease** / Rosebush mycosis · **Zoonosis**',
+          'AKA: **Rose gardener\'s disease** / Rosebush mycosis, **Zoonosis**',
           { bullets: [
             'Pathogenic species: **S. schenckii** (ในไทย), S. brasiliensis (Brazil), S. globosa',
             '**Dimorphic fungi** — Mold phase (env, < 30°C) ↔ Yeast phase (in host, 35-40°C)',
@@ -249,9 +249,9 @@ export const NOTES_COM5 = {
           { table: {
             headers: ['Form', 'ลักษณะ'],
             rows: [
-              ['1. Cutaneous', 'Ulcerative-nodular lesions ที่ผิวหนัง (head, limb, ear, tail) · multifocal ได้จาก hematogenous spread'],
-              ['2. Cutaneolymphatic', 'Lesion + regional lymphangitis/lymphadenitis (LN ตามระบายน้ำเหลือง · biopsy/necropsy พบเชื้อ)'],
-              ['3. Disseminated', 'Liver + lung + multi-organ · systemic non-specific (lethargy, anorexia, fever) · มัก FIV+'],
+              ['1. Cutaneous', 'Ulcerative-nodular lesions ที่ผิวหนัง (head, limb, ear, tail), multifocal ได้จาก hematogenous spread'],
+              ['2. Cutaneolymphatic', 'Lesion + regional lymphangitis/lymphadenitis (LN ตามระบายน้ำเหลือง, biopsy/necropsy พบเชื้อ)'],
+              ['3. Disseminated', 'Liver + lung + multi-organ, systemic non-specific (lethargy, anorexia, fever), มัก FIV+'],
             ] } },
           { callout: 'FIV+ cats รักษาได้ — แต่หายช้ากว่าปกติ (เพราะภูมิตก ไม่ใช่ตัวเชื้อโดยตรง)', kind: 'tip' },
         ],
@@ -265,14 +265,14 @@ export const NOTES_COM5 = {
               { bullets: [
                 'Sample: impression smear from ulcerative wound + FNA from nodule',
                 'Stain: **Romanowsky** (Diff-Quik)',
-                'Yeast: **oval / tear-drop** · single round pink nucleus · blue cytoplasm · non-staining cell wall · 2-5 μm + 1 μm clear capsule',
+                'Yeast: **oval / tear-drop**, single round pink nucleus, blue cytoplasm, non-staining cell wall, 2-5 μm + 1 μm clear capsule',
                 'มักเจอใน **macrophage**',
               ] },
             ] },
           { sub: 'Fungal culture — confirmatory',
             body: [
               { bullets: [
-                'Best: **deep area ของ ulcer** (กัน contamination) · exudate · เลือด (disseminated form)',
+                'Best: **deep area ของ ulcer** (กัน contamination), exudate, เลือด (disseminated form)',
                 'Media: **Sabouraud Dextrose Agar (SDA)** ที่ room temp',
                 'Colony: off-white → dark brown/black hyphal',
               ] },
@@ -286,13 +286,13 @@ export const NOTES_COM5 = {
           { table: {
             headers: ['Drug', 'Dose', 'Note'],
             rows: [
-              ['**Itraconazole** ⭐', '5-10 mg/kg q24h PO', '**TOC ในแมว** · ต่อ 1 เดือน หลัง cure · monthly liver enzyme'],
-              ['Ketoconazole', '10 mg/kg q24h PO', 'ใช้ในสุนัข · **ห้ามในแมว** (hepatotoxicity รุนแรง)'],
+              ['**Itraconazole** ⭐', '5-10 mg/kg q24h PO', '**TOC ในแมว**, ต่อ 1 เดือน หลัง cure, monthly liver enzyme'],
+              ['Ketoconazole', '10 mg/kg q24h PO', 'ใช้ในสุนัข, **ห้ามในแมว** (hepatotoxicity รุนแรง)'],
               ['Terbinafine', '30 mg/cat q24h PO', 'Combined with Itraconazole'],
               ['Fluconazole', '50 mg/cat q24h PO', 'Combined with Itraconazole'],
-              ['Amphotericin B (IV)', '0.25-0.5 mg/kg in 5% dextrose IV q48h', 'Disseminated form · diluted infusion 4-6 hr · **nephrotoxic**'],
+              ['Amphotericin B (IV)', '0.25-0.5 mg/kg in 5% dextrose IV q48h', 'Disseminated form, diluted infusion 4-6 hr, **nephrotoxic**'],
               ['Amphotericin B (IL)', '1 mg/kg q1wk intralesional', 'Localized lesion'],
-              ['**Potassium iodide** ⭐', '2.5-20 mg/kg q24h PO', '**TOC ในสุนัข** · ในแมวระวัง hepatotoxicity'],
+              ['**Potassium iodide** ⭐', '2.5-20 mg/kg q24h PO', '**TOC ในสุนัข**, ในแมวระวัง hepatotoxicity'],
             ] } },
         ],
       },
@@ -316,8 +316,8 @@ export const NOTES_COM5 = {
           { table: {
             headers: ['Form', 'ลักษณะเด่น'],
             rows: [
-              ['1. Nasal — most common', 'Chronic sinonasal disease · **nasofacial swelling = "Roman nose"** (มักข้างเดียว)'],
-              ['2. Cutaneous', 'Multiple dermal/subcutaneous **nodules** · alopecic, **ไม่คัน, ไม่เจ็บ** · regional LN-pathy'],
+              ['1. Nasal — most common', 'Chronic sinonasal disease, **nasofacial swelling = "Roman nose"** (มักข้างเดียว)'],
+              ['2. Cutaneous', 'Multiple dermal/subcutaneous **nodules**, alopecic, **ไม่คัน, ไม่เจ็บ**, regional LN-pathy'],
               ['3. CNS', 'Local spread ผ่าน **cribriform plate** → sudden blindness (optic neuritis), seizures, behavior change'],
               ['4. Systemic', 'Hematogenous spread → meningoencephalomyelitis, uveitis, chorioretinitis, osteomyelitis, polyarthritis, multi-organ'],
             ] } },
@@ -360,10 +360,10 @@ export const NOTES_COM5 = {
           { table: {
             headers: ['Drug', 'Dose', 'Note'],
             rows: [
-              ['**Fluconazole** ⭐', '50 mg/cat q12h PO', '**TOC ในแมว (no CNS/systemic)** · กินจน antigen negative · liver monitoring'],
-              ['Itraconazole', '5-10 mg/kg q24h PO', 'Oral solution > capsule · liver monitoring'],
+              ['**Fluconazole** ⭐', '50 mg/cat q12h PO', '**TOC ในแมว (no CNS/systemic)**, กินจน antigen negative, liver monitoring'],
+              ['Itraconazole', '5-10 mg/kg q24h PO', 'Oral solution > capsule, liver monitoring'],
               ['Terbinafine', '10 mg/kg q24h PO', 'Use ถ้า resistant to azole'],
-              ['**Amphotericin B**', '0.25 mg/kg q48h IV', '**TOC สำหรับ CNS / systemic** · significant nephrotoxicity'],
+              ['**Amphotericin B**', '0.25 mg/kg q48h IV', '**TOC สำหรับ CNS / systemic**, significant nephrotoxicity'],
               ['Flucytosine', '25-50 mg/kg q6h PO', '**Synergistic with Amphotericin** — ห้ามใช้เดี่ยว'],
               ['Surgical excision', '—', 'Skin/nostril granuloma ที่กระทบการใช้ชีวิต'],
             ] } },
@@ -388,7 +388,7 @@ export const NOTES_COM5 = {
           { table: {
             headers: ['Group', 'Species', 'Bowel'],
             rows: [
-              ['**Mucosoflagellate**', 'Giardia spp., Tritrichomonas foetus, Entamoeba histolytica', 'Giardia: small bowel · T.foetus: **large bowel**'],
+              ['**Mucosoflagellate**', 'Giardia spp., Tritrichomonas foetus, Entamoeba histolytica', 'Giardia: small bowel, T.foetus: **large bowel**'],
               ['**Enteric coccidia**', 'Cystoisospora, Cryptosporidium', 'Small bowel'],
               ['**Tissue cyst-forming coccidia**', 'Toxoplasma, Neospora, Sarcocystis, Hammondia, Besnoitia', 'Small bowel + tissue cyst'],
             ] } },
@@ -408,10 +408,10 @@ export const NOTES_COM5 = {
           { sub: 'Morphology + biology',
             body: [
               { bullets: [
-                '**Trophozoite**: tear-drop, 12-17 × 7-10 μm, **2 nuclei**, ventral sucking disc, 4 pairs of flagella · **falling-leaf motility**',
+                '**Trophozoite**: tear-drop, 12-17 × 7-10 μm, **2 nuclei**, ventral sucking disc, 4 pairs of flagella, **falling-leaf motility**',
                 '**Cyst**: 9-13 × 7-9 μm, มี 4 nuclei (2 trophozoites inside) — infective stage',
                 'Cyst resistant ต่อ disinfectants ส่วนใหญ่ + cool wet env → infectious for months',
-                'Assemblages: dog A,B,C,D · cat A,B,F · **A+B = zoonotic**',
+                'Assemblages: dog A,B,C,D, cat A,B,F, **A+B = zoonotic**',
               ] },
             ] },
           { sub: 'Pathogenesis',
@@ -419,7 +419,7 @@ export const NOTES_COM5 = {
               { bullets: [
                 '10-100 cysts → infection in human (low ID)',
                 'Loss of microvillus brush border + disaccharidase insufficiency → malabsorption',
-                'Disrupt epithelial tight junctions · destruction of enterocytes',
+                'Disrupt epithelial tight junctions, destruction of enterocytes',
               ] },
             ] },
           { sub: 'Clinical signs (small bowel diarrhea, **self-limiting**)',
@@ -442,7 +442,7 @@ export const NOTES_COM5 = {
           { sub: 'Treatment (CAPC)',
             body: [
               { bullets: [
-                'Dog: **Fenbendazole 50 mg/kg SID × 5 d** ⭐ (CAPC primary) · Metronidazole 22 mg/kg BID × 5 d · combination ดีกว่าเดี่ยว',
+                'Dog: **Fenbendazole 50 mg/kg SID × 5 d** ⭐ (CAPC primary), Metronidazole 22 mg/kg BID × 5 d, combination ดีกว่าเดี่ยว',
                 'Cat: **Metronidazole 22-25 mg/kg BID × 5-7 d** (>50 mg/kg/d → CNS toxicity)',
                 'Febantel-pyrantel-praziquantel (Drontal Plus) × 3 days',
                 'Vaccine ไม่แนะนำ (efficacy ไม่ proven)',
@@ -455,7 +455,7 @@ export const NOTES_COM5 = {
         source: 'GI_protozoa.pdf p.16-21 + COM V FINAL 86',
         body: [
           { bullets: [
-            '**Mucosoflagellate** · pear-shaped 8-11 × 3-4 μm · **1 nucleus** · 3 anterior flagella + undulating membrane · **NO cyst stage**',
+            '**Mucosoflagellate**, pear-shaped 8-11 × 3-4 μm, **1 nucleus**, 3 anterior flagella + undulating membrane, **NO cyst stage**',
             'Movement: **erratic / jerky** (ต่าง Giardia ที่ falling-leaf)',
             'พบในแมว — densely housed young cats (cattery, shelter)',
           ] },
@@ -519,9 +519,9 @@ export const NOTES_COM5 = {
         source: 'GI_protozoa.pdf p.44-46',
         body: [
           { bullets: [
-            '**Tiny oocyst 3-5 μm** — เล็กกว่าเม็ดเลือดแดง · **1:0:4 ratio** (no sporocyst!)',
+            '**Tiny oocyst 3-5 μm** — เล็กกว่าเม็ดเลือดแดง, **1:0:4 ratio** (no sporocyst!)',
             'Sporulated already in host → **immediate infection** (ไม่ต้อง sporulate ใน env)',
-            'Species: **C. canis** (dog), **C. felis** (cat) — rare zoonosis · **C. parvum** (cattle) — major zoonosis (vet students!)',
+            'Species: **C. canis** (dog), **C. felis** (cat) — rare zoonosis, **C. parvum** (cattle) — major zoonosis (vet students!)',
             'Form parasitophorous vacuole on **brush border** ของ microvillus',
           ] },
           { sub: 'Diagnosis',
@@ -536,7 +536,7 @@ export const NOTES_COM5 = {
           { sub: 'Treatment (no specific Tx)',
             body: [
               { bullets: [
-                'Cat: **Tylosin** 10-15 mg/kg q8h × 2-3 wk · **Azithromycin** 5-10 mg/kg q12h × 5-7 d',
+                'Cat: **Tylosin** 10-15 mg/kg q8h × 2-3 wk, **Azithromycin** 5-10 mg/kg q12h × 5-7 d',
                 'Cat/Dog: **Paromomycin** 150 mg/kg q24h × 5 d — **avoid in bloody stool!** (nephrotoxic)',
                 'Nitazoxanide — FDA approved ในคน',
               ] },
@@ -548,8 +548,8 @@ export const NOTES_COM5 = {
         source: 'GI_protozoa.pdf p.36-42',
         body: [
           { bullets: [
-            '**Cat = definitive host** (ตัวเดียว!) · warm-blooded animals = intermediate host',
-            'Oocyst: **10 × 12 μm** · ratio **1:2:4**',
+            '**Cat = definitive host** (ตัวเดียว!), warm-blooded animals = intermediate host',
+            'Oocyst: **10 × 12 μm**, ratio **1:2:4**',
             '**Cat shed oocyst หลัง primary infection ครั้งเดียวในชีวิต** × 7-10 วัน (millions)',
             'Stages: tachyzoite (acute) ↔ bradyzoite (chronic, in tissue cyst)',
             'Reactivation จาก immunosuppression (AIDS, steroids)',
@@ -558,7 +558,7 @@ export const NOTES_COM5 = {
             body: [
               { bullets: [
                 'Fever, dyspnea, icterus, lymphadenopathy',
-                'Neuro signs · **chorioretinitis + uveitis**',
+                'Neuro signs, **chorioretinitis + uveitis**',
                 'Pneumonitis, encephalitis, hepatitis, pancreatitis, myocarditis',
                 'Prenatal toxo (severe!) > postnatal',
               ] },
@@ -575,7 +575,7 @@ export const NOTES_COM5 = {
           { sub: 'Treatment',
             body: [
               { bullets: [
-                '**Clindamycin** ⭐ first line · ± Sulfonamide/Trimethoprim',
+                '**Clindamycin** ⭐ first line, ± Sulfonamide/Trimethoprim',
               ] },
             ] },
           { sub: 'Host pairing (memorize!)',
@@ -618,7 +618,7 @@ export const NOTES_COM5 = {
     title: 'Rabies — โรคพิษสุนัขบ้า',
     lecturer: 'Vachira Hunprasit',
     icon: '🦇',
-    summary: 'Lyssavirus (Rhabdoviridae), zoonotic, fatal · 3 phases (prodromal/excitative/paralytic) · DFA = main Dx · prevention only · 3 ป + 5 ย.',
+    summary: 'Lyssavirus (Rhabdoviridae), zoonotic, fatal, 3 phases (prodromal/excitative/paralytic), DFA = main Dx, prevention only, 3 ป + 5 ย.',
     sections: [
       {
         heading: 'Overview',
@@ -626,10 +626,10 @@ export const NOTES_COM5 = {
         body: [
           { bullets: [
             'Family **Rhabdoviridae**, Genus **Lyssavirus**, bullet-shaped, ssRNA, enveloped',
-            'Zoonosis ที่ฆ่า — เป็นแล้วตายสถานเดียว · ป้องกันได้แต่ **รักษาไม่ได้**',
+            'Zoonosis ที่ฆ่า — เป็นแล้วตายสถานเดียว, ป้องกันได้แต่ **รักษาไม่ได้**',
             'ภายใต้ พรบ.โรคระบาดสัตว์ + พรบ.โรคพิษสุนัขบ้า (ของตัวเอง)',
-            'ไทย = endemic (with control) · top 2 จังหวัด: **อุบลราชธานี + ชลบุรี**',
-            'Distribution: **Dogs ~91% · Cats ~2% · others (rabbit, bat, rat, cattle) ~7%**',
+            'ไทย = endemic (with control), top 2 จังหวัด: **อุบลราชธานี + ชลบุรี**',
+            'Distribution: **Dogs ~91%, Cats ~2%, others (rabbit, bat, rat, cattle) ~7%**',
             '**World Rabies Day = 28 กันยายน** (วันตายของ Louis Pasteur)',
           ] },
         ],
@@ -728,7 +728,7 @@ export const NOTES_COM5 = {
           { table: {
             headers: ['สถานการณ์', 'การจัดการ'],
             rows: [
-              ['สัตว์ดูปกติ (มีเจ้าของ)', '**ขังกรงดูอาการ 10 วัน** · ห้ามฉีดวัคซีนทับ (สับสนกับ adverse effect)'],
+              ['สัตว์ดูปกติ (มีเจ้าของ)', '**ขังกรงดูอาการ 10 วัน**, ห้ามฉีดวัคซีนทับ (สับสนกับ adverse effect)'],
               ['สัตว์ป่วย', '**Euthanize + ส่งตรวจ** (DFA brain)'],
               ['ไม่มีเจ้าของ', '**Euthanize + ส่งตรวจ**'],
             ] } },
@@ -741,9 +741,9 @@ export const NOTES_COM5 = {
           { table: {
             headers: ['ระดับ', 'ลักษณะ', 'การปฏิบัติ'],
             rows: [
-              ['1', 'ถูกต้องตัว · ถูกเลียที่ผิวหนังปกติ', 'ล้างผิวหนัง · **ไม่ต้องฉีดวัคซีน**'],
-              ['2', 'งับเป็นรอยช้ำ · ข่วนเป็นรอยถลอก · ถูกเลียโดน MM/แผล', 'ล้าง+รักษาแผล · **ฉีดวัคซีน**'],
-              ['3', 'ฟันแทงทะลุ + เลือดออก · ข่วนผิวหนังขาด · น้ำลาย/สารคัดหลั่งโดนเยื่อบุตา/ปาก/จมูก/แผลลึก', 'ล้าง+รักษา · **วัคซีน + immunoglobulin** โดยเร็วที่สุด'],
+              ['1', 'ถูกต้องตัว, ถูกเลียที่ผิวหนังปกติ', 'ล้างผิวหนัง, **ไม่ต้องฉีดวัคซีน**'],
+              ['2', 'งับเป็นรอยช้ำ, ข่วนเป็นรอยถลอก, ถูกเลียโดน MM/แผล', 'ล้าง+รักษาแผล, **ฉีดวัคซีน**'],
+              ['3', 'ฟันแทงทะลุ + เลือดออก, ข่วนผิวหนังขาด, น้ำลาย/สารคัดหลั่งโดนเยื่อบุตา/ปาก/จมูก/แผลลึก', 'ล้าง+รักษา, **วัคซีน + immunoglobulin** โดยเร็วที่สุด'],
             ] } },
           { sub: 'Wound care',
             body: [
@@ -770,7 +770,7 @@ export const NOTES_COM5 = {
           { sub: '5 ย — สอนเด็ก',
             body: [
               { bullets: [
-                '**อย่าแหย่** · **อย่าแยก** · **อย่าเหยียบ** · **อย่ายุ่ง** · **อย่าหยิบ**',
+                '**อย่าแหย่**, **อย่าแยก**, **อย่าเหยียบ**, **อย่ายุ่ง**, **อย่าหยิบ**',
               ] },
             ] },
         ],
@@ -811,7 +811,7 @@ export const NOTES_COM5 = {
             headers: ['Category', 'Vaccines'],
             rows: [
               ['**Core (always)**', 'CDV, CPV, CAV-2'],
-              ['**Core with conditions**', 'Rabies (endemic) · Leptospirosis (endemic + known serogroups + suitable vaccines)'],
+              ['**Core with conditions**', 'Rabies (endemic), Leptospirosis (endemic + known serogroups + suitable vaccines)'],
               ['Non-core (optional)', 'CaPiV, B. bronchiseptica, B. burgdorferi, Canine influenza (H3N8/H3N2), Leishmaniosis, Canine herpesvirus-1'],
               ['Not recommended', 'Killed CPV, CCoV, Giardia, Microsporum canis'],
             ] } },
@@ -825,7 +825,7 @@ export const NOTES_COM5 = {
             headers: ['Category', 'Vaccines'],
             rows: [
               ['**Core (always)**', 'FPV, FHV, FCV'],
-              ['**Core with conditions**', 'Rabies (endemic) · FeLV (endemic + < 1 yr or older with risk + FeLV-negative)'],
+              ['**Core with conditions**', 'Rabies (endemic), FeLV (endemic + < 1 yr or older with risk + FeLV-negative)'],
               ['Non-core', 'B. bronchiseptica, C. felis, FIV'],
               ['Not recommended', 'FIP, Giardia, Microsporum canis'],
             ] } },
@@ -852,7 +852,7 @@ export const NOTES_COM5 = {
               { bullets: [
                 'Start no earlier than **6 wks** (suggested 8 wks)',
                 'Revaccinate **q3-4 wks until 16 wks of age**',
-                'High-risk: ต่อจน 20 wks · q2-3 wks',
+                'High-risk: ต่อจน 20 wks, q2-3 wks',
                 'Booster: **6 months of age** (เปลี่ยนจาก 12-16 mo)',
                 'Then: 3 yrs intervals',
               ] },
@@ -860,7 +860,7 @@ export const NOTES_COM5 = {
           { sub: 'Rabies',
             body: [
               { bullets: [
-                'Start **12 wks** · 2nd dose 2-4 wks later',
+                'Start **12 wks**, 2nd dose 2-4 wks later',
                 '**1 yr booster → annual**',
                 'ปีแรก: monovalent rabies > polyvalent',
               ] },
@@ -868,12 +868,12 @@ export const NOTES_COM5 = {
           { sub: 'Leptospirosis (Thai context)',
             body: [
               { bullets: [
-                'Start **8 wks** · 2nd dose 2-4 wks later · annual booster',
+                'Start **8 wks**, 2nd dose 2-4 wks later, annual booster',
                 '⚠️ Top 5 Thai serogroups: **Sejroe, Icterohaemorrhagiae, Bataviae, Canicola, Australis** (Altheimer 2020)',
                 '⚠️ Commercial vaccines (2-/4-serovar) **ไม่ครอบคลุม Sejroe + Bataviae** ที่เป็นกลุ่มหลัก!',
               ] },
             ] },
-          { callout: 'Top 3 breeds เกิด VAE: French Bulldog, Dachshund, Boston Terrier · ≤ 5 kg · young · multiple vaccines · 25% เพิ่มต่อวัคซีนเข็มที่เพิ่ม', kind: 'warn' },
+          { callout: 'Top 3 breeds เกิด VAE: French Bulldog, Dachshund, Boston Terrier, ≤ 5 kg, young, multiple vaccines, 25% เพิ่มต่อวัคซีนเข็มที่เพิ่ม', kind: 'warn' },
         ],
       },
       {
@@ -883,15 +883,15 @@ export const NOTES_COM5 = {
           { sub: 'Core (FPV, FHV, FCV)',
             body: [
               { bullets: [
-                'Start **6-8 wks** · q3-4 wks until 16 wks',
-                'Booster 6 months · then q3 yrs (low-risk) or annual (high-risk)',
+                'Start **6-8 wks**, q3-4 wks until 16 wks',
+                'Booster 6 months, then q3 yrs (low-risk) or annual (high-risk)',
               ] },
             ] },
           { sub: 'FeLV (with conditions)',
             body: [
               { bullets: [
                 '**ตรวจ FeLV-ve ก่อนฉีดเสมอ** — ฉีด FeLV+ cat = ไม่มีประโยชน์',
-                'Start **8 wks** · 2nd dose 3-4 wks later',
+                'Start **8 wks**, 2nd dose 3-4 wks later',
                 'Annual revaccination ใน high-risk (ปล่อยอิสระ, multi-cat)',
               ] },
             ] },
@@ -953,7 +953,7 @@ export const NOTES_COM5 = {
             '**Multifactorial** disease — pathogen + host immunity + environment',
             '**Morbidity ≫ Mortality** (ติดง่าย แต่ตายไม่บ่อย)',
             'Incubation: **2-10 วัน**',
-            'อาการ: 5-10 วัน (uncomplicated) · 6 wk (severe ในลูก/แก่/ภูมิตก)',
+            'อาการ: 5-10 วัน (uncomplicated), 6 wk (severe ในลูก/แก่/ภูมิตก)',
             'Transmission: direct contact + respiratory droplets + fomites + owners/caregivers',
             'พบบ่อยใน shelter, cattery, multi-cat household',
             '**No way to eradicate** → minimize transmission + manage infections',
@@ -967,13 +967,13 @@ export const NOTES_COM5 = {
           { table: {
             headers: ['Pathogen', 'Type', 'Key feature'],
             rows: [
-              ['**FCV** (Feline Calicivirus)', 'ssRNA, non-env', 'Oral vesico-erosive lesions · limping syndrome · FCGS · stable in env'],
-              ['**FHV-1** (Feline Herpesvirus-1)', 'dsDNA, env', '**Dendritic corneal ulcer** · latent in **trigeminal ganglia + cornea**'],
-              ['**Mycoplasma felis**', 'Bacteria (no cell wall)', 'Normal flora ของ URT · culture ยาก · conjunctivitis'],
-              ['**Chlamydia felis**', 'Obligate intracellular G-neg', '**Conjunctivitis (chemosis)** เด่น · shed via ocular secretion 60 d'],
-              ['**Bordetella bronchiseptica**', 'Aerobic G-neg', '**Cough เด่น** · ติดจากสุนัขได้ · **zoonotic** (immunocompromised owner)'],
+              ['**FCV** (Feline Calicivirus)', 'ssRNA, non-env', 'Oral vesico-erosive lesions, limping syndrome, FCGS, stable in env'],
+              ['**FHV-1** (Feline Herpesvirus-1)', 'dsDNA, env', '**Dendritic corneal ulcer**, latent in **trigeminal ganglia + cornea**'],
+              ['**Mycoplasma felis**', 'Bacteria (no cell wall)', 'Normal flora ของ URT, culture ยาก, conjunctivitis'],
+              ['**Chlamydia felis**', 'Obligate intracellular G-neg', '**Conjunctivitis (chemosis)** เด่น, shed via ocular secretion 60 d'],
+              ['**Bordetella bronchiseptica**', 'Aerobic G-neg', '**Cough เด่น**, ติดจากสุนัขได้, **zoonotic** (immunocompromised owner)'],
             ] } },
-          { callout: 'Combinations พบบ่อย → severity เพิ่ม · 80-90% ไม่ต้อง identify เชื้อในการรักษา', kind: 'tip' },
+          { callout: 'Combinations พบบ่อย → severity เพิ่ม, 80-90% ไม่ต้อง identify เชื้อในการรักษา', kind: 'tip' },
         ],
       },
       {
@@ -981,16 +981,16 @@ export const NOTES_COM5 = {
         source: 'Feline_Upper_Respiratory_Infection.pdf p.7-8, 22-25',
         body: [
           { bullets: [
-            'ssRNA non-enveloped · **high mutation rate** → vaccine ไม่ครอบคลุมทุก strain',
+            'ssRNA non-enveloped, **high mutation rate** → vaccine ไม่ครอบคลุมทุก strain',
             'Replicate ใน oropharynx + transient viremia',
-            'Shed via respiratory + oral + ocular secretion · ~1 wk หลังติดเชื้อ (intermittent ตลอดชีวิตได้)',
+            'Shed via respiratory + oral + ocular secretion, ~1 wk หลังติดเชื้อ (intermittent ตลอดชีวิตได้)',
           ] },
           { sub: 'Classical signs',
             body: [
               { bullets: [
                 '**Vesico-erosive lesions** ที่ oral mucosa + URT',
                 'Hypersalivation, fever, conjunctivitis',
-                '**Limping syndrome** = transient fever + alternating leg lameness · มักหลังฉีด FCV vaccine ที่อายุ 6-12 wk · self-resolve 4-5 d',
+                '**Limping syndrome** = transient fever + alternating leg lameness, มักหลังฉีด FCV vaccine ที่อายุ 6-12 wk, self-resolve 4-5 d',
                 'Pneumonia ในลูกแมว (severe)',
                 '**Feline chronic gingivostomatitis (FCGS)**',
               ] },
@@ -998,11 +998,11 @@ export const NOTES_COM5 = {
           { sub: 'VS-FCV (Virulent Systemic FCV)',
             body: [
               { bullets: [
-                'Mutant strain · core vaccine **ไม่ป้องกัน**',
-                '**Mortality 30-70%** · รุนแรงใน adult > kitten',
+                'Mutant strain, core vaccine **ไม่ป้องกัน**',
+                '**Mortality 30-70%**, รุนแรงใน adult > kitten',
                 'Severe vasculitis → cutaneous edema (head + limbs)',
                 'Crusts/ulcers (philtrum, palate, tongue, lip commissure)',
-                'Hepatic necrosis · pancreatitis · DIC · sepsis',
+                'Hepatic necrosis, pancreatitis, DIC, sepsis',
                 'Confirm: IHC of FCV ใน internal organs (necropsy)',
               ] },
             ] },
@@ -1015,7 +1015,7 @@ export const NOTES_COM5 = {
           { bullets: [
             'dsDNA enveloped — **easily killed by disinfectants** (ต่าง FCV ที่ทน)',
             'Replicate ใน cold mucosa: URT, ocular epithelium, neurons',
-            'Latency: **trigeminal ganglia + cornea** · stress → reactivation',
+            'Latency: **trigeminal ganglia + cornea**, stress → reactivation',
             'Shed via ocular/nasal/oral secretion',
           ] },
           { sub: 'Classical signs',
@@ -1024,7 +1024,7 @@ export const NOTES_COM5 = {
                 'Sneezing, nasal discharge, congestion, stertor, fever',
                 'Conjunctivitis, hyperemia, chemosis, ocular discharge (อาจเลือดปน)',
                 '**Dendritic corneal ulceration ⭐** (pathognomonic!)',
-                'Stromal keratitis · chronic rhinosinusitis (turbinate damage permanent)',
+                'Stromal keratitis, chronic rhinosinusitis (turbinate damage permanent)',
                 'Ulceration on lips/nares (cytolysis)',
                 'Adult: recrudescent — milder',
                 'Kitten: severe — tracheitis, pneumonia',
@@ -1046,7 +1046,7 @@ export const NOTES_COM5 = {
             body: [
               { bullets: [
                 'Oropharyngeal / conjunctival swab → PCR',
-                'Bacterial culture · cytology · serum Ab',
+                'Bacterial culture, cytology, serum Ab',
                 'VS-FCV: necropsy → IHC',
               ] },
             ] },
@@ -1061,7 +1061,7 @@ export const NOTES_COM5 = {
             body: [
               { bullets: [
                 '**Appetite stimulant**: Mirtazapine, Cyproheptadine',
-                'Aromatic warm soft food · esophagostomy tube ใน severe',
+                'Aromatic warm soft food, esophagostomy tube ใน severe',
                 'Rehydration: parenteral crystalloid (NSS, ACETAR)',
                 'Unblock nose: clean discharge + saline nebulization + nasal flush',
                 'Analgesia สำหรับ oral ulcer',
@@ -1072,7 +1072,7 @@ export const NOTES_COM5 = {
               { bullets: [
                 '**Doxycycline 10 mg/kg PO q24h × 7-10 d** ⭐ — 1st line, ครอบคลุม Mycoplasma + Bordetella + C. felis',
                 'C. felis: doxycycline ≥ 4 wks',
-                '**Amoxicillin-clavulanate** — สำหรับ 2° infection · **ineffective** ต่อ Mycoplasma + C. felis',
+                '**Amoxicillin-clavulanate** — สำหรับ 2° infection, **ineffective** ต่อ Mycoplasma + C. felis',
                 'Azithromycin → Mycoplasma',
                 'Pradofloxacin (oral suspension) — safer in cats',
                 '⚠️ **Enrofloxacin > 5 mg/kg → retinopathy / blindness** ในแมว',
@@ -1082,16 +1082,16 @@ export const NOTES_COM5 = {
           { sub: 'Antiviral (FHV-1)',
             body: [
               { bullets: [
-                '**Famciclovir 90 mg/kg PO q8-12h × 7-21 d** ⭐ — safe ในแมว · ใช้ต่อ 1 wk หลังหาย',
-                'Ophthalmic: **Cidofovir q12** · Trifluridine q4 (eye irritation) · Idoxuridine q4',
+                '**Famciclovir 90 mg/kg PO q8-12h × 7-21 d** ⭐ — safe ในแมว, ใช้ต่อ 1 wk หลังหาย',
+                'Ophthalmic: **Cidofovir q12**, Trifluridine q4 (eye irritation), Idoxuridine q4',
                 'Acyclovir, Ribavirin = **toxic** ในแมว (อย่าใช้)',
               ] },
             ] },
           { sub: 'Adjunctive',
             body: [
               { bullets: [
-                '**L-lysine** · Vitamin A, B-complex',
-                'Recombinant feline interferon-ω · human IFN-α (immunomodulatory)',
+                '**L-lysine**, Vitamin A, B-complex',
+                'Recombinant feline interferon-ω, human IFN-α (immunomodulatory)',
               ] },
             ] },
         ],
@@ -1108,7 +1108,7 @@ export const NOTES_COM5 = {
               ['VS-FCV (cutaneous edema, DIC)', '**FCV (virulent strain)**'],
               ['Chemosis, ocular > respiratory', '**Chlamydia felis**'],
               ['Cough เด่น + zoonotic', '**Bordetella bronchiseptica**'],
-              ['Severe pneumonia', 'Mycoplasma · Bordetella · severe FHV-1'],
+              ['Severe pneumonia', 'Mycoplasma, Bordetella, severe FHV-1'],
             ] } },
         ],
       },
@@ -1122,7 +1122,7 @@ export const NOTES_COM5 = {
             'Vaccine ลด severity + transmission แต่**ไม่ป้องกัน infection / shedding 100%**',
             'FCV multiple strains → vaccine ไม่ครอบคลุมทุก strain',
             '**MLV ห้ามใน FeLV/FIV/pregnant** → ใช้ inactivated แทน',
-            'Schedule: 6-9 wk · q3-4 wk จน 16 wk · annual',
+            'Schedule: 6-9 wk, q3-4 wk จน 16 wk, annual',
             'Intranasal MLV → mucosal IgA, rapid onset, อาจมี mild respiratory signs',
           ] },
           { sub: 'Disinfection',
@@ -1134,7 +1134,7 @@ export const NOTES_COM5 = {
           { sub: 'Population',
             body: [
               { bullets: [
-                'Quarantine แมวใหม่ 1-2 wks ก่อนเข้าฝูง · ฉีดวัคซีนแมวในฝูงก่อน',
+                'Quarantine แมวใหม่ 1-2 wks ก่อนเข้าฝูง, ฉีดวัคซีนแมวในฝูงก่อน',
                 'Stress reduction: feline pheromones (Feliway), hiding places, group compatible cats',
               ] },
             ] },

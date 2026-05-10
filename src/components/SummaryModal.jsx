@@ -1,6 +1,6 @@
 // ============================================================
 // SummaryModal — แสดงสรุปคลิปอาจารย์ (Claude อ่าน YouTube ASR
-// แล้วถอดเป็น markdown) · มี download .md + open in new tab
+// แล้วถอดเป็น markdown), มี download .md + open in new tab
 // ============================================================
 //
 // Props:
@@ -9,7 +9,7 @@
 //
 // Renderer: minimal Thai-friendly markdown (heading, list, table,
 // blockquote, bold, italic, code) — เขียนเองเพื่อไม่เพิ่ม
-// dependency · summary content เราเขียนเองทั้งหมด ไม่ห่วง XSS
+// dependency, summary content เราเขียนเองทั้งหมด ไม่ห่วง XSS
 
 import { useMemo, useEffect } from 'react';
 
@@ -186,8 +186,8 @@ export default function SummaryModal({ summary, onClose }) {
               {summary.title}
             </h2>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 3, fontStyle: 'italic' }}>
-              {summary.subject?.toUpperCase()} · {summary.date} · {summary.durationMin} นาที
-              {summary.instructor && <> · {summary.instructor}</>}
+              {summary.subject?.toUpperCase()}, {summary.date}, {summary.durationMin} นาที
+              {summary.instructor && <>, {summary.instructor}</>}
             </div>
           </div>
           <button

@@ -11,7 +11,7 @@
 // คำศัพท์แพทย์/ภาษาอังกฤษบางคำ ASR เพี้ยน เช่น "อิม 5" = IMHA,
 // "metnidaose" = metronidazole, "anniบติ" = antibiotic ฯลฯ
 // Claude พยายาม normalize ในการสรุปแล้ว แต่อ่านควบคู่กับสไลด์
-// อาจารย์ยังดีกว่า · summary นี้ใช้เป็น "skim guide" ก่อน-หลังดู
+// อาจารย์ยังดีกว่า, summary นี้ใช้เป็น "skim guide" ก่อน-หลังดู
 // คลิป + เป็นไฟล์ download .md ได้ด้วย
 //
 // วิธีเพิ่มสรุปคลิปใหม่:
@@ -34,7 +34,7 @@ export const VIDEO_SUMMARIES = {
     examFormat: 'Case-based MCQ — โดสยา + side effects + ห้ามใช้ใน species ออกบ่อย',
     summary: `# Drug for Immune-mediated Diseases + IMHA
 
-> 🎯 บทนี้แบ่ง 2 ส่วน · ส่วนแรก = drug review (อ.) · ส่วน 2 = IMHA + IMT (อ.รัสมา)
+> 🎯 บทนี้แบ่ง 2 ส่วน, ส่วนแรก = drug review (อ.), ส่วน 2 = IMHA + IMT (อ.รัสมา)
 > Immune-mediated = ภูมิคุ้มกัน inappropriate/excessive → chronic inflammation → tissue damage
 
 ---
@@ -49,7 +49,7 @@ export const VIDEO_SUMMARIES = {
 | **III** (immune complex) | Ag-Ab complex | Drug reactions, SLE, GN |
 | **IV** (delayed, A/B/C) | T cell, macrophage | Contact dermatitis, granuloma |
 
-> ⚠️ **เลือกยาตาม pathogenesis** — type I (rapid) ต้องใช้ยา rapid-onset (steroid) · ไม่ใช้ cyclosporine (4-6 wk onset)
+> ⚠️ **เลือกยาตาม pathogenesis** — type I (rapid) ต้องใช้ยา rapid-onset (steroid), ไม่ใช้ cyclosporine (4-6 wk onset)
 
 ---
 
@@ -99,8 +99,8 @@ export const VIDEO_SUMMARIES = {
 
 ### 🔹 Cyclosporine (Atopica) ⭐⭐
 - **Calcineurin inhibitor** (block T-cell IL-2)
-- **Dog: 5 mg/kg/day** (range 3-7) · **Cat: 7 mg/kg/day** (range 5-7.5)
-- IBD: 5 mg/kg **BID** · Perianal fistula/severe AI: **5-8 mg/kg q12h**
+- **Dog: 5 mg/kg/day** (range 3-7), **Cat: 7 mg/kg/day** (range 5-7.5)
+- IBD: 5 mg/kg **BID**, Perianal fistula/severe AI: **5-8 mg/kg q12h**
 - ⏰ **Slow onset 4-6 weeks** ⚠️
 - Side effects: **vomiting 10-30%** (dog > cat), gingival hyperplasia, hypercoagulability, ↓ insulin secretion (avoid in DM)
 - 💡 **Tip ลด vomiting:** แช่แคปซูลในช่องแข็ง → ป้อนเป็นแคปซูลแข็งทั้งเม็ด
@@ -125,11 +125,11 @@ export const VIDEO_SUMMARIES = {
 ### 🔹 Mycophenolate (CellCept)
 - Antimetabolite — targets B + T lymphocytes
 - 10 mg/kg BID
-- SE: GI upset · ใช้ร่วมกับ glucocorticoid/CSA
+- SE: GI upset, ใช้ร่วมกับ glucocorticoid/CSA
 - ใช้ในโรคเดียวกับ CSA
 
 ### 🔹 Chlorambucil
-- Alkylating agent · slow onset 2 weeks
+- Alkylating agent, slow onset 2 weeks
 - ⭐ **โดสในแมวสำคัญ:** **0.1-0.2 mg/kg q24h** initial → q48h maintenance
 - ในสุนัขใช้ **BSA** dosing
 - ดีมากในแมว — เริ่มจาก pred แล้ว switch/add ตัวนี้สำหรับ long-term
@@ -142,9 +142,9 @@ export const VIDEO_SUMMARIES = {
 - Block **IL-31 receptor signaling**
 - ใช้ **atopic dermatitis** ในสุนัข **อายุ > 12 เดือน** เท่านั้น
 - Dose: **0.6 mg/kg BID × 2 weeks** → SID maintenance
-- 70% caseคุมได้ด้วย SID · 20-30% ต้อง BID ตลอด
+- 70% caseคุมได้ด้วย SID, 20-30% ต้อง BID ตลอด
 - SE น้อย (mild GI possible)
-- Off-label: ใช้ในแมว (extra-label, dose สูงกว่า) สำหรับ DM/liver disease cat ที่ต้อง alt to steroid · pemphigus (high dose)
+- Off-label: ใช้ในแมว (extra-label, dose สูงกว่า) สำหรับ DM/liver disease cat ที่ต้อง alt to steroid, pemphigus (high dose)
 - ราคาแพง 100+ บาท/เม็ด
 
 ### 🔹 Lokivetmab (Cytopoint) — monoclonal Ab
@@ -199,14 +199,14 @@ export const VIDEO_SUMMARIES = {
 ### Clinical Signs
 **Acute / severe** (เห็นง่าย)
 - 🚨 **PCV ดรอปเร็ว** (e.g., 30→20→10 in days) — classic clue ⭐
-- Pale gums (white as paper) · jaundice · collapse · tachycardia · tachypnea
+- Pale gums (white as paper), jaundice, collapse, tachycardia, tachypnea
 - **Dark/red urine** (hemoglobinuria) — เจ้าของแมวบอก "ทรายแมวเป็นสีแดง/ชา"
 - Splenomegaly + hepatomegaly + lymphadenopathy
 - Melena (dark stool)
 - Pica (กินดิน หิน อิฐ — anemia drive)
 
 **Chronic** (เห็นยาก)
-- Anorexia · weight loss · mild pallor · fatigue
+- Anorexia, weight loss, mild pallor, fatigue
 - Need serial PCV monitoring
 
 ### Diagnosis ⭐⭐⭐
@@ -214,11 +214,11 @@ export const VIDEO_SUMMARIES = {
 **1. Auto-agglutination (slide test)** — screening, ฟรี
 - Method: เลือดสุนัข 1 หยด + saline 1 หยด → คนด้วยไม้จิ้มฟัน → พลิก slide
 - **Positive** = เห็นเป็น "**เม็ดทรายในนาฬิกาทราย**" (ไม่ใช่สี่เหลี่ยม) → strong IMHA
-- ⚠️ **แยกจาก Rouleaux formation** — Rouleaux จะหายเมื่อใส่ saline · auto-agglutination ไม่หาย
+- ⚠️ **แยกจาก Rouleaux formation** — Rouleaux จะหายเมื่อใส่ saline, auto-agglutination ไม่หาย
 - ⚠️ **Dog only — แมวใช้ไม่ได้!**
 
 **2. Coombs' test (direct)** — commercial strip ~800-1,000 บาท
-- Confirmatory · ใช้ได้ทั้ง dog + cat
+- Confirmatory, ใช้ได้ทั้ง dog + cat
 
 **3. Spherocytes** in blood smear
 - RBC โดน macrophage กินบางส่วน → กลม เล็ก ไม่มี central pallor
@@ -248,7 +248,7 @@ export const VIDEO_SUMMARIES = {
 4. **GI protectant** (pantoprazole)
 5. **Antibiotic** (cover secondary infection)
 6. **Blood transfusion** ถ้า PCV < 12-15
-   - Chula มี blood bank · ข้างนอกแพงกว่า 3 เท่า
+   - Chula มี blood bank, ข้างนอกแพงกว่า 3 เท่า
 
 **💊 Long-term Management**
 - เมื่อ stable (PCV > 30, ไม่ hemolyse)
@@ -260,8 +260,8 @@ export const VIDEO_SUMMARIES = {
   - **Cyclosporine** — dog 5 / cat 7 mg/kg/day
   - **Mycophenolate** 10 mg/kg BID
   - IVIG 0.5-1 g/kg single infusion (refractory)
-- ⭐ **Don't taper second line** — taper เฉพาะ pred · keep second line
-- Recheck q3 wk · UA culture q1-2 mo (UTI risk)
+- ⭐ **Don't taper second line** — taper เฉพาะ pred, keep second line
+- Recheck q3 wk, UA culture q1-2 mo (UTI risk)
 - Relapse rate ~15%
 - Often **lifelong therapy**
 
@@ -294,19 +294,19 @@ export const VIDEO_SUMMARIES = {
 ## 📝 Exam Hot Spots ⭐⭐⭐
 
 ### Drug
-1. **Pred dose**: 0.5-1 anti-inflam dog · 1-2 anti-inflam cat · **2-4 mg/kg IMS** ทั้งคู่
-2. **Cyclosporine**: dog 5, cat 7 mg/kg/d · **slow onset 4-6 wk**
+1. **Pred dose**: 0.5-1 anti-inflam dog, 1-2 anti-inflam cat, **2-4 mg/kg IMS** ทั้งคู่
+2. **Cyclosporine**: dog 5, cat 7 mg/kg/d, **slow onset 4-6 wk**
 3. **Azathioprine ห้ามใน cat** ⭐ (lack TPMT)
 4. **Chlorambucil cat dose**: 0.1-0.2 mg/kg q24h
-5. **Apoquel (oclacitinib)**: 0.6 mg/kg BID × 2 wk → SID · dog > 12 mo · JAK inhibitor IL-31R
-6. **Cytopoint (lokivetmab)**: anti-IL-31 mAb · dog only · q3-5 wk SC
+5. **Apoquel (oclacitinib)**: 0.6 mg/kg BID × 2 wk → SID, dog > 12 mo, JAK inhibitor IL-31R
+6. **Cytopoint (lokivetmab)**: anti-IL-31 mAb, dog only, q3-5 wk SC
 7. **Solensia/Librela**: anti-NGF for OA pain (cat/dog respectively)
 8. Chronotherapy: dog AM, cat PM
-9. Taper steroid 10-25% q1-4 wk · alternate-day target
+9. Taper steroid 10-25% q1-4 wk, alternate-day target
 10. Steroid + NSAID = GI ulcer risk
 
 ### IMHA
-1. **Auto-agglutination test** = slide method · **dog only** · Rouleaux disappears with saline
+1. **Auto-agglutination test** = slide method, **dog only**, Rouleaux disappears with saline
 2. **Spherocytes** = dog only diagnostic
 3. **Cat IMHA usually secondary** (FeLV/FIV/Mycoplasma)
 4. **PCV drops fast** = classic clue
@@ -323,7 +323,7 @@ export const VIDEO_SUMMARIES = {
 
 ---
 
-> 💡 **อ.รัสมา closing tip:** "เจ้าของยุคใหม่ access internet เก่งกว่าเรา · อย่าดูถูกประวัติเจ้าของ"
+> 💡 **อ.รัสมา closing tip:** "เจ้าของยุคใหม่ access internet เก่งกว่าเรา, อย่าดูถูกประวัติเจ้าของ"
 > "เลือดออก 20K + ยา immunosuppressive แพงตลอดชีวิต — ต้องอธิบายให้เจ้าของเข้าใจตั้งแต่แรก"`,
   },
 
@@ -337,7 +337,7 @@ export const VIDEO_SUMMARIES = {
     date: '5 Mar 69',
     durationMin: 113,
     instructor: 'อาจารย์ Neuro',
-    examFormat: 'MCQ — exam findings → localization · CN deficit interpretation',
+    examFormat: 'MCQ — exam findings → localization, CN deficit interpretation',
     summary: `# Neurological Examination + Localization
 
 ## Purpose of Neuro Exam
@@ -648,7 +648,7 @@ export const VIDEO_SUMMARIES = {
     examFormat: 'MCQ neuro section: cerebellar abiotrophy breeds + ataxia types',
     summary: `# AI Tools (Workshop) + Neuro Ataxia/Tremor
 
-> 🎯 บทคู่ — ครึ่งแรกเป็น workshop การใช้ AI สำหรับงานวิจัย/การเรียน (อ.นัทธี) · ครึ่งหลัง = neuro ataxia (อ.Neuro)
+> 🎯 บทคู่ — ครึ่งแรกเป็น workshop การใช้ AI สำหรับงานวิจัย/การเรียน (อ.นัทธี), ครึ่งหลัง = neuro ataxia (อ.Neuro)
 
 ---
 
@@ -936,7 +936,7 @@ export const VIDEO_SUMMARIES = {
 6. **NEVER bromide to cats** (lung fibrosis)
 7. **Goal**: reduce frequency 50%+
 8. **Levetiracetam** = no liver toxicity, safer alt
-9. **Tonic** = rigid · **Clonic** = jerk · **Absence** = stare/blank
+9. **Tonic** = rigid, **Clonic** = jerk, **Absence** = stare/blank
 10. **Predisposed**: Beagle, Lab, Golden, GSD, Border Collie
 11. **Narcolepsy** = food/excitement trigger, Doberman genetic
 12. **Post-ictal blindness** can last days; repeated → permanent
@@ -1321,7 +1321,7 @@ export const VIDEO_SUMMARIES = {
 
 # 🔻 Part 1: Cushing's (Hyperadrenocorticism)
 
-> ใช้คำว่า **syndrome** ไม่ใช่ disease — ต้องมีทั้ง **lab สูง + clinical sign** จึงรักษา · แค่ค่าสูงไม่มีอาการ → ไม่รักษา
+> ใช้คำว่า **syndrome** ไม่ใช่ disease — ต้องมีทั้ง **lab สูง + clinical sign** จึงรักษา, แค่ค่าสูงไม่มีอาการ → ไม่รักษา
 
 ### 3 Subtypes
 | Type | Cause | % | Tx |
@@ -1330,10 +1330,10 @@ export const VIDEO_SUMMARIES = {
 | **ADH** (Adrenal-dependent) | Adrenal tumor (adenoma/carcinoma) → cortisol เยอะเอง | 15% | Surgery > Trilostane |
 | **Iatrogenic** | Steroid overuse จากหมอ | (varies) | Taper ยา ค่อยๆ ลด |
 
-> 💡 **Spontaneous Cushing** = PDH + ADH รวมกัน · Iatrogenic แยกออก
+> 💡 **Spontaneous Cushing** = PDH + ADH รวมกัน, Iatrogenic แยกออก
 
 ### Signalment
-- 🐕 Middle-aged → senior (5-6 ปีขึ้นไป) · เพศเมีย ≥ ผู้ (ไม่ใช้ตัดสิน)
+- 🐕 Middle-aged → senior (5-6 ปีขึ้นไป), เพศเมีย ≥ ผู้ (ไม่ใช้ตัดสิน)
 - Breeds: **Poodle, Terrier, Beagle, German Shepherd**
 - ในไทย: **Pomeranian + Chihuahua** เจอเยอะ (เพราะนิยมเลี้ยง)
 
@@ -1342,12 +1342,12 @@ export const VIDEO_SUMMARIES = {
 **Skin signs (ไม่ทุกตัวมี)**
 - Bilateral symmetrical alopecia (**ไม่คัน ไม่อักเสบ**)
 - Pendulous abdomen (ท้องใหญ่ย้อยห้อย — กล้ามเนื้อ catabolism)
-- Thin skin · prominent blood vessels · calcinosis cutis (Ca สะสม คล้ายกระดูกอ่อน)
-- Recurrent skin infection · delayed wound healing
+- Thin skin, prominent blood vessels, calcinosis cutis (Ca สะสม คล้ายกระดูกอ่อน)
+- Recurrent skin infection, delayed wound healing
 
 **Systemic signs (เด่นกว่า)**
 - ⭐ **PU/PD/PP** (กินน้ำมาก ฉี่มาก กินเก่ง — cortisol กดศูนย์อิ่ม)
-- Muscle wasting · abdominal enlargement (hepatomegaly + abdominal fat)
+- Muscle wasting, abdominal enlargement (hepatomegaly + abdominal fat)
 - Recurrent UTI
 
 > ⚠️ Cushing **= โรคต่อมไร้ท่อ** ไม่ใช่โรคผิวหนัง — อาการ systemic เด่นกว่าผิวหนัง
@@ -1370,18 +1370,18 @@ export const VIDEO_SUMMARIES = {
 - ↑ glucose (mild — cortisol ยับยั้ง insulin)
 
 **4. Imaging**
-- **X-ray:** hepatomegaly · adrenal เห็นยาก (ยกเว้นมี calcification)
+- **X-ray:** hepatomegaly, adrenal เห็นยาก (ยกเว้นมี calcification)
 - **Ultrasound** ⭐ sensitivity/specificity สูง
   - **PDH:** dumbbell **2 ข้างโตเท่าๆ กัน** รูปร่างเดิม (เหมือนเล่นกล้าม)
-  - **ADH:** **ข้างเดียว/asymmetric** + รูปร่างผิดปกติ + cavitation · อีกข้างอาจฝ่อ
+  - **ADH:** **ข้างเดียว/asymmetric** + รูปร่างผิดปกติ + cavitation, อีกข้างอาจฝ่อ
 
 **5. Endocrine tests**
 
 | Test | Normal | Equivocal | Cushing | Note |
 |------|--------|-----------|---------|------|
-| **UCCR** (urine cortisol:creatinine ratio) | low | — | สูง | ทำ 3 วันติด, 1,500฿/วัน · ใช้ **rule OUT** ดี (high NPV) |
+| **UCCR** (urine cortisol:creatinine ratio) | low | — | สูง | ทำ 3 วันติด, 1,500฿/วัน, ใช้ **rule OUT** ดี (high NPV) |
 | **Resting cortisol** | จ.5-6 µg/dL | — | — | ❌ ใช้ Dx ไม่ได้ (pulsatile) |
-| **ACTH stim** ⭐ | post < 17 | 17-22 | **> 22 µg/dL** | ใช้ Dx ได้ทั้ง Cushing + Addison · ไม่แยก ADH/PDH |
+| **ACTH stim** ⭐ | post < 17 | 17-22 | **> 22 µg/dL** | ใช้ Dx ได้ทั้ง Cushing + Addison, ไม่แยก ADH/PDH |
 | **LDDS** (low-dose dex suppression 0.01 mg/kg IV) ⭐⭐ | 8h < 1.4 | — | **8h > 1.4** | Dx Cushing แต่ไม่แยก ADH/PDH ชัดเจน |
 
 **LDDS pattern interpretation**
@@ -1389,7 +1389,7 @@ export const VIDEO_SUMMARIES = {
 - **PDH (microadenoma):** กดได้ช่วงกลาง 4hr → 8hr **เด้งกลับขึ้น** > 1.4
 - **PDH (macroadenoma) หรือ ADH:** กดไม่ลงเลย — flat สูงตลอด
 
-> 📌 **ดู 8hr ก่อน** — ถ้า > 1.4 = Cushing แน่ · ค่อยมาดู pattern (กดได้กลาง vs กดไม่ลง)
+> 📌 **ดู 8hr ก่อน** — ถ้า > 1.4 = Cushing แน่, ค่อยมาดู pattern (กดได้กลาง vs กดไม่ลง)
 
 ### Treatment
 
@@ -1425,32 +1425,32 @@ export const VIDEO_SUMMARIES = {
 
 # 🔻 Part 2: Addison's (Hypoadrenocorticism)
 
-> 🎭 **"Great pretender / imitator"** — เลียนแบบโรคได้สารพัด · classic = **wax & wane** (3 วันดี 4 วันไข้)
+> 🎭 **"Great pretender / imitator"** — เลียนแบบโรคได้สารพัด, classic = **wax & wane** (3 วันดี 4 วันไข้)
 
 ### Subtypes
 - **Primary (~95%)** — ปัญหาที่ adrenal เอง (atrophy/destruction)
-  - Idiopathic atrophy · immune-mediated · ischemia · trauma · metastasis · ยาเกิน (mitotane > trilostane)
+  - Idiopathic atrophy, immune-mediated, ischemia, trauma, metastasis, ยาเกิน (mitotane > trilostane)
   - Bilateral adrenalectomy → Addison ทันที
 - **Secondary (rare)** — pituitary failure → ขาด ACTH
 
 ### Hormone deficiency types
 | Type | ขาด | อาการเด่น |
 |------|-----|----------|
-| **Glucocorticoid only** | Cortisol | ซึม · เบื่ออาหาร · GI sign |
+| **Glucocorticoid only** | Cortisol | ซึม, เบื่ออาหาร, GI sign |
 | **Both gluco + mineralo** ⭐ พบบ่อยกว่า | Cortisol + Aldosterone | + electrolyte derangement, crisis |
 
 ### Signalment
 - Young → middle-aged (โตเต็มวัยแต่ยังไม่แก่)
-- เพศเมีย > ผู้ · Poodle, Westy, Great Dane (US)
+- เพศเมีย > ผู้, Poodle, Westy, Great Dane (US)
 - ในไทย: **Pomeranian + Chihuahua** เจอเยอะ (เหมือน Cushing)
 
 ### Clinical Signs (vague!)
 **Non-crisis (chronic, subtle)**
-- Wax & wane · intermittent vomiting/diarrhea · ซึม เหงา หงอย · เบื่ออาหาร · น้ำหนักลด · weakness · PUPD บ้าง
+- Wax & wane, intermittent vomiting/diarrhea, ซึม เหงา หงอย, เบื่ออาหาร, น้ำหนักลด, weakness, PUPD บ้าง
 
 **Crisis (emergency!)** ⭐
-- Collapse · bradycardia · hypothermia · severe dehydration · hypotensive shock
-- อาจชัก · coma
+- Collapse, bradycardia, hypothermia, severe dehydration, hypotensive shock
+- อาจชัก, coma
 
 ### Lab Clues ⭐⭐⭐
 
@@ -1469,12 +1469,12 @@ export const VIDEO_SUMMARIES = {
 **3. อื่นๆ**
 - Hyperkalemia + hyponatremia ± hypochloremia
 - Azotemia (BUN ↑ + Cr ↑) — prerenal จาก hypovolemia
-- Hypoglycemia · USG ต่ำ (เนื่องจาก mineralo ขาด)
+- Hypoglycemia, USG ต่ำ (เนื่องจาก mineralo ขาด)
 - Hypoalbuminemia + ↑ globulin (chronic inflammation)
 
 **4. ECG (hyperkalemia)** ⭐
-- Bradycardia · peaked **T-wave** · wide QRS · **lost P-wave** · low amplitude
-- หลัง correct → P-wave กลับ · QRS แคบลง
+- Bradycardia, peaked **T-wave**, wide QRS, **lost P-wave**, low amplitude
+- หลัง correct → P-wave กลับ, QRS แคบลง
 
 **5. X-ray:** **Microcardia** (hypovolemia → blood volume น้อย → หัวใจเล็ก)
 
@@ -1505,7 +1505,7 @@ export const VIDEO_SUMMARIES = {
 | **DOCP injection** (Zycortal/Percorten) | mineralocorticoid only | q25 days SC | ไม่มีของถูกในไทย, แพง |
 | **Fludrocortisone (Florinef)** | mineralo + gluco | PO daily | มีของคน, หาง่ายในไทย |
 
-> 💡 50-60% ของเคสคุมได้ด้วย **Florinef เดี่ยว** · 30-40% ต้องเสริม **prednisolone** เพิ่ม (สำหรับ glucocorticoid)
+> 💡 50-60% ของเคสคุมได้ด้วย **Florinef เดี่ยว**, 30-40% ต้องเสริม **prednisolone** เพิ่ม (สำหรับ glucocorticoid)
 
 ### Prognosis
 - เก่า: 6 เดือน - 1 ปี
@@ -1521,7 +1521,7 @@ export const VIDEO_SUMMARIES = {
 2. **Stress leukogram** = neutrophilia + lymphopenia + eosinopenia + monocytosis (must memorize!)
 3. **↑↑ ALP** เด่นกว่า ALT
 4. **ACTH stim cut-off**: < 17 normal, 17-22 gray, **> 22 = Cushing**
-5. **LDDS:** 8hr **> 1.4 µg/dL = Cushing** · ดู 8hr ก่อน · ไม่แยก ADH/PDH
+5. **LDDS:** 8hr **> 1.4 µg/dL = Cushing**, ดู 8hr ก่อน, ไม่แยก ADH/PDH
 6. **US:** PDH = bilateral symmetric dumbbell, ADH = asymmetric/cavitation
 7. **Trilostane**: 3β-HSD2 blocker, 1-2 mg/kg BID, monitor K+
 8. Iatrogenic: **taper steroid ค่อยๆ** อย่าหยุดเฉียบ
@@ -1561,8 +1561,8 @@ export const VIDEO_SUMMARIES = {
     examFormat: 'Case-based MCQ — DO₂ formula, shock type, fluid choice, pressor selection, fail quadrant',
     summary: `# Shock + Respiratory & Cardiovascular Emergency
 
-> 🎯 ภาพรวม ER section · Shock = O₂ supply ≠ demand → cardiovascular collapse
-> ⚠️ Shock ไม่ใช่ "หมดสติ" — ส่วนใหญ่ยังรู้สึกตัว · ดูจาก perfusion parameter
+> 🎯 ภาพรวม ER section, Shock = O₂ supply ≠ demand → cardiovascular collapse
+> ⚠️ Shock ไม่ใช่ "หมดสติ" — ส่วนใหญ่ยังรู้สึกตัว, ดูจาก perfusion parameter
 
 ---
 
@@ -1591,7 +1591,7 @@ export const VIDEO_SUMMARIES = {
 | **Metabolic** | Non-circulatory | Hypoglycemia, cyanide → mitochondrial dysfunction | varies |
 | **Hypoxic** | Non-circulatory | Severe anemia, primary lung disease | varies |
 
-> 💡 **Distributive shock = "warm shock"** — vasodilation, brick-red mm, bounding pulse · ตรงข้ามกับ hypovolemic = cold shock
+> 💡 **Distributive shock = "warm shock"** — vasodilation, brick-red mm, bounding pulse, ตรงข้ามกับ hypovolemic = cold shock
 
 ## SIRS / Sepsis Criteria
 
@@ -1626,7 +1626,7 @@ export const VIDEO_SUMMARIES = {
 2. **Hypothermia**
 3. **Bradycardia** ← cat doesn't tachy like dog!
 
-> 💡 Cat ≠ small dog · cat shock = **bradycardia + hypothermia** classic
+> 💡 Cat ≠ small dog, cat shock = **bradycardia + hypothermia** classic
 
 ## Diagnosis Tools
 - **Lactate** > 2.5 mmol/L → suspect shock
@@ -1695,7 +1695,7 @@ export const VIDEO_SUMMARIES = {
 
 ### Blood Gas
 - **PaO₂** (arterial!) — gold standard but hard to draw
-- Normal SaO₂ > 95% · < 75 = serious · < 55 = critical → **ventilator**
+- Normal SaO₂ > 95%, < 75 = serious, < 55 = critical → **ventilator**
 - **PaCO₂** (CO₂ has 20× higher diffusion than O₂ → better marker for **ventilation**)
   - **Hypo-vent** → ↑ CO₂ (> 50 = significant) → respiratory acidosis
   - **Hyper-vent** → ↓ CO₂
@@ -1703,16 +1703,16 @@ export const VIDEO_SUMMARIES = {
 ### A-a Gradient ⭐
 - A = alveolar O₂ (calculated)
 - a = arterial O₂ (measured)
-- Normal **< 15** · > 15 = **diffusion problem** = parenchymal lung disease
+- Normal **< 15**, > 15 = **diffusion problem** = parenchymal lung disease
 
 ### PF Ratio
 - = PaO₂ / FiO₂
 - Normal ~500 (room air FiO₂ 0.21, PaO₂ ~100)
-- < 300 = lung injury · **< 200 = ARDS** (acute respiratory distress syndrome)
+- < 300 = lung injury, **< 200 = ARDS** (acute respiratory distress syndrome)
 
 ### SpO₂ (pulse ox)
-- Should be > 95% · < 90-92 = significant
-- Sites: tongue, ear, lip · noisy → measure repeatedly
+- Should be > 95%, < 90-92 = significant
+- Sites: tongue, ear, lip, noisy → measure repeatedly
 
 ## Localization of Respiratory Distress
 
@@ -1825,7 +1825,7 @@ export const VIDEO_SUMMARIES = {
 - → Echo to confirm
 - Signs: muffled heart sounds, weakness, syncope, ascites, tachycardia, weak pulse
 - Tx: **Pericardiocentesis** (drain) ± diuretic (don't help much, fluid not the issue)
-- Common in **dogs** (rare in cat) · usually atrial mass (hemangiosarcoma) in old large breed
+- Common in **dogs** (rare in cat), usually atrial mass (hemangiosarcoma) in old large breed
 
 ---
 
@@ -1847,14 +1847,14 @@ export const VIDEO_SUMMARIES = {
 13. ⚠️ **Steroid for shock = deprecated** (CIRCI exception only, low dose)
 
 ### Respiratory
-1. **PaCO₂** = ventilation marker (>50 sig) · **PaO₂** = oxygenation
+1. **PaCO₂** = ventilation marker (>50 sig), **PaO₂** = oxygenation
 2. **A-a gradient > 15** = parenchymal disease
-3. **PF ratio < 300** = lung injury · **< 200 = ARDS**
-4. **Stridor** (high) = larynx · **Stertor** (low) = nasopharynx
+3. **PF ratio < 300** = lung injury, **< 200 = ARDS**
+4. **Stridor** (high) = larynx, **Stertor** (low) = nasopharynx
 5. **Ventilator indication**: PaO₂ < 60 OR PaCO₂ > 50
 6. **O₂ toxicity** if FiO₂ > 60% for > 3-4 hr
 7. **Pressure control** for sick lungs (not volume)
-8. **Hyper-vent** → low CO₂ · **Hypo-vent** → high CO₂
+8. **Hyper-vent** → low CO₂, **Hypo-vent** → high CO₂
 
 ### Cardiovascular
 1. **Backward fail** comes first → forward fail later
@@ -1889,7 +1889,7 @@ export const VIDEO_SUMMARIES = {
     summary: `# Triage + Emergency Anesthesia
 
 > 🚑 **Triage** = คำฝรั่งเศส แปล "to sort" — แบ่ง emergency vs stable
-> ER ≠ Med · ER ซักประวัติสั้น + primary survey ก่อน → resuscitate → secondary survey
+> ER ≠ Med, ER ซักประวัติสั้น + primary survey ก่อน → resuscitate → secondary survey
 > Med ตรวจ full history + full physical exam ก่อน
 
 ---
@@ -1903,7 +1903,7 @@ export const VIDEO_SUMMARIES = {
 | 🟡 **Yellow — Potentially unstable** | ภายใน 1 ชม. | open fracture, burn, repeated V/D, urethral obstruction |
 | 🟢 **Green — Stable** | รอได้ / ส่งอายุรกรรม | เจ็บขา, คัน, เช็ดหู (เจ้าของชอบมา 2 AM!) |
 
-> ⚠️ **อย่าตัดสินจากภายนอกอย่างเดียว** — IVDD paralyzed 2 ปีแล้ว = ไม่ใช่ ER · นั่งหายใจ effort เยอะ = ER
+> ⚠️ **อย่าตัดสินจากภายนอกอย่างเดียว** — IVDD paralyzed 2 ปีแล้ว = ไม่ใช่ ER, นั่งหายใจ effort เยอะ = ER
 
 ## ABCDE Primary Survey ⭐⭐⭐
 
@@ -1973,7 +1973,7 @@ export const VIDEO_SUMMARIES = {
 ---
 
 ## Sample Case: น้องเจนนี่ (อ้วก 10 รอบ)
-- Mentation: depressed · CRT 2-3 (prolonged) · HR 160 · weak pulse
+- Mentation: depressed, CRT 2-3 (prolonged), HR 160, weak pulse
 - → **Hypovolemic shock, decompensating** → unstable, RED 🔴
 - **C is the dominant problem**
 - Resuscitate: **small volume fluid bolus** + เก็บเลือดส่งตรวจ
@@ -1984,7 +1984,7 @@ export const VIDEO_SUMMARIES = {
 
 # 🔻 Part 2: Emergency Anesthesia (อ.)
 
-> 🎯 หลักการ: **stabilize ก่อน วางยาทีหลัง** · ถ้าจำเป็นต้องวาง — ใช้ยาที่ minimal cardiovascular impact
+> 🎯 หลักการ: **stabilize ก่อน วางยาทีหลัง**, ถ้าจำเป็นต้องวาง — ใช้ยาที่ minimal cardiovascular impact
 
 ### Pre-anesthetic principles
 1. **Pre-oxygenate** — ตุน O₂ ก่อน induction (mask/flow-by/collar)
@@ -2014,7 +2014,7 @@ export const VIDEO_SUMMARIES = {
 | **Morphine** | 0.5 mg/kg | 3-4 hr |
 | **Fentanyl** | 5 μg/kg | ~45 min |
 
-> 💡 เลือกตาม duration ที่ต้องการ · fentanyl สั้น → ใช้ CRI ใน OR
+> 💡 เลือกตาม duration ที่ต้องการ, fentanyl สั้น → ใช้ CRI ใน OR
 
 ### Induction agents (ในไทย)
 | Group | Drug | Use case |
@@ -2059,7 +2059,7 @@ export const VIDEO_SUMMARIES = {
   - IV fluid → dilute
   - Bicarb if acidotic
 - ⚠️ **Avoid ketamine in cat** (renal excretion — kidney already compromised)
-- Pre-med: opioid + benzo · Induction: low-dose propofol
+- Pre-med: opioid + benzo, Induction: low-dose propofol
 - Decompress bladder → manage urethra
 
 ### 3. Dystocia
@@ -2101,7 +2101,7 @@ export const VIDEO_SUMMARIES = {
 2. **Stridor** (high) vs **Stertor** (low) — anatomic location
 3. **Paradoxical breathing** = diaphragm fatigue/pleural disease
 4. **6 perfusion parameters** for circulation (mentation, mm, CRT, HR, pulse, temp)
-5. **Brick red mm** = sepsis · **yellow** = icterus · **cyanotic** = hypoxia
+5. **Brick red mm** = sepsis, **yellow** = icterus, **cyanotic** = hypoxia
 6. **Stress leukogram absent + ill** = think Addison
 7. **Pulse quality ≠ BP** — must measure BP
 8. **Triage colors**: red (immediate) / yellow (within 1 hr) / green (stable)
@@ -2111,7 +2111,7 @@ export const VIDEO_SUMMARIES = {
 ### Emergency Anesthesia
 1. **Avoid alpha-2 in compromised** patients (Dex/Medetomidine)
 2. **Benzo + opioid** = ER preferred combo
-3. **Ketamine in ER** — sympathomimetic + analgesia · BUT avoid in cat with renal/urinary disease
+3. **Ketamine in ER** — sympathomimetic + analgesia, BUT avoid in cat with renal/urinary disease
 4. **Propofol** = fast but cardiovascular depressant
 5. **Pregnant** = ↓ MAC needed (progesterone effect)
 6. **Cat urethral obstruction** — must reduce **K+ < 7.5** before GA
@@ -2119,13 +2119,13 @@ export const VIDEO_SUMMARIES = {
 8. **Glucose + insulin** drives K into cells (temporary)
 9. **Proptosis** → oculocardiac reflex → atropine if HR low
 10. **GDV** = fluid resuscitate, decompression, watch for arrhythmia
-11. **Hemoabdomen** = splenic mass in old large dog · Resuscitate before surgery
+11. **Hemoabdomen** = splenic mass in old large dog, Resuscitate before surgery
 12. **Opioid equipotent**: Morphine 0.5 = Pethidine 5 = Fentanyl 0.005 mg/kg
 13. **Preemptive + multimodal** analgesia principles
 
 ---
 
-> 💡 **อ.: "ไม่มียาที่ perfect — ทุกตัวมีจุดอ่อน · เลือก individual ตาม situation · ใช้ลด dose ลงให้ต่ำสุด"**
+> 💡 **อ.: "ไม่มียาที่ perfect — ทุกตัวมีจุดอ่อน, เลือก individual ตาม situation, ใช้ลด dose ลงให้ต่ำสุด"**
 > 💡 **อ.รัสมา: "Triage จะดีต้องประเมิน ABCDE ครบ — อย่าใช้สายตาอย่างเดียวตัดสิน"**`,
   },
 
@@ -2203,7 +2203,7 @@ export const VIDEO_SUMMARIES = {
 
 ### **Schirmer Tear Test (STT)**
 - กระดาษเสียบใต้เปลือกตาล่าง 1 นาที
-- Normal dog: **15-18 mm/min** · cat: also ~15
+- Normal dog: **15-18 mm/min**, cat: also ~15
 - **< 15** = early dry eye (KCS)
 - **< 10** = moderate dry eye
 - **< 5** = severe dry eye
@@ -2246,7 +2246,7 @@ export const VIDEO_SUMMARIES = {
 
 ## 📝 Exam Hot Spots
 1. **STT < 15** = dry eye threshold
-2. **IOP > 25** = glaucoma · **< 10** = uveitis
+2. **IOP > 25** = glaucoma, **< 10** = uveitis
 3. **PLR**: afferent CN II, efferent CN III
 4. **Menace**: CN II → CN VII
 5. **Fluorescein** = need cobalt blue + dark room
@@ -2271,7 +2271,7 @@ export const VIDEO_SUMMARIES = {
     examFormat: 'MCQ — drug class + route + dose form choice',
     summary: `# Ophthalmic Medication
 
-> 💊 หลังจากตรวจตาเสร็จ → เลือกยา · ผ่านได้ 2 ทาง: corneal absorption + non-corneal (conjunctival)
+> 💊 หลังจากตรวจตาเสร็จ → เลือกยา, ผ่านได้ 2 ทาง: corneal absorption + non-corneal (conjunctival)
 
 ---
 
@@ -2375,7 +2375,7 @@ export const VIDEO_SUMMARIES = {
 | **Tropicamide** ⭐ | tricyclic anticholinergic | minutes | 3-4 hr |
 | **Atropine** | anticholinergic, **cycloplegic** | 1 day | up to **96 hr** |
 
-> ⚠️ **Atropine ≠ for exam** — too long-lasting · use for **uveitis** (ลด ciliary spasm pain)
+> ⚠️ **Atropine ≠ for exam** — too long-lasting, use for **uveitis** (ลด ciliary spasm pain)
 
 ### Glaucoma drugs (4 classes)
 
@@ -3048,7 +3048,7 @@ export const VIDEO_SUMMARIES = {
 | **Tapetal** ⭐ | yellow/green/blue/orange (varies) | dorsal half always |
 | **Non-tapetal** | dark (pigmented) | ventral |
 
-> 💡 **Dog**: tapetum 2/3 of fundus · **Cat**: 3/4 of fundus
+> 💡 **Dog**: tapetum 2/3 of fundus, **Cat**: 3/4 of fundus
 
 ### Optic Disc ⭐
 - Origin of optic nerve (CN II)
@@ -3150,8 +3150,8 @@ export const VIDEO_SUMMARIES = {
 2. **Asteroid hyalosis** — Ca, "stars in sky", no vision impact
 3. **Synchysis scintillans** — cholesterol, settles when still
 4. **Tapetum** = night vision reflective (varies color)
-5. **Dog optic disc** = triangular + ivory (myelin) · **Cat** = round dark
-6. **Retinal arterioles** 12-20 in dog · 3 main pairs in cat
+5. **Dog optic disc** = triangular + ivory (myelin), **Cat** = round dark
+6. **Retinal arterioles** 12-20 in dog, 3 main pairs in cat
 7. **Retinal detachment** = billowing curtain
 8. Hemorrhage on retina → think **systemic hypertension/kidney**
 9. **PHPV** — fibrovascular vitreous, congenital
@@ -3638,7 +3638,7 @@ export const VIDEO_SUMMARIES = {
     examFormat: 'MCQ — primary/secondary lesion identification + drug choice + species-specific treatment ออกเยอะ',
     summary: `# Dermatology Intro + Parasitic Skin Disease
 
-> 🩺 บทเปิดของ derm section · combined ชั่วโมง 1 (intro) + ชั่วโมง 2 (diagnostic) · ตามด้วย parasitic
+> 🩺 บทเปิดของ derm section, combined ชั่วโมง 1 (intro) + ชั่วโมง 2 (diagnostic), ตามด้วย parasitic
 > 🎯 หลัก: pruritus DDx order = **Parasitic → Bacterial → Fungal → Allergic**
 
 ---
@@ -3661,7 +3661,7 @@ export const VIDEO_SUMMARIES = {
 > ⚠️ Deep lesions (dermis/SQ) → systemic drugs work better
 
 ## Keratinization cycle ⭐
-- **Dog/cat: 3 weeks** · Human: 4 weeks
+- **Dog/cat: 3 weeks**, Human: 4 weeks
 - 📌 Implication: ประเมินผลรักษา derm = **wait at least 3 weeks** per cycle (not 1-2 wks like human)
 - Thicker lesion = more cycles to clear
 
@@ -3798,11 +3798,11 @@ export const VIDEO_SUMMARIES = {
        - If no response → **Atopy** (environmental)
        - 15-20% have BOTH atopy + food (combination allergy)
 
-> ⚠️ **เมื่อสงสัย — TREAT empirically** (ตัวอย่าง parasitic) · ไม่ต้องรอ confirmed
+> ⚠️ **เมื่อสงสัย — TREAT empirically** (ตัวอย่าง parasitic), ไม่ต้องรอ confirmed
 
 ## 🦟 Tick (เห็บ)
-- Female lays **thousands** of eggs · adult lives 2-6 years
-- ⭐ เห็น 1 ตัว ≠ มี 1 ตัว · มี environment full of ticks
+- Female lays **thousands** of eggs, adult lives 2-6 years
+- ⭐ เห็น 1 ตัว ≠ มี 1 ตัว, มี environment full of ticks
 - Direct damage: bite wound, local inflammation, secondary infection
 - **Indirect threat**: vector for **Ehrlichia** → can cause **IMT** → cyclosporine 200mg BID × 3 mo (~30K baht/mo!)
 
@@ -3828,7 +3828,7 @@ export const VIDEO_SUMMARIES = {
 
 **FAD lesions (cat):**
 - ⭐ **Bilateral symmetrical alopecia** (over-grooming)
-- Miliary dermatitis · Eosinophilic plaque
+- Miliary dermatitis, Eosinophilic plaque
 - Indolent ulcer at upper lip
 - ⚠️ **Cat = mysterious** — same lesion can be ANY allergy type! Can't dx by lesion alone
 
@@ -3846,7 +3846,7 @@ export const VIDEO_SUMMARIES = {
 
 ### Otodectes cynotis (Ear mite)
 - Classic: **"coffee-ground" black discharge** in ear
-- Cat > dog · intensely pruritic, head shaking → **aural hematoma**
+- Cat > dog, intensely pruritic, head shaking → **aural hematoma**
 - Dx: ear swab → see white moving dots OR otoscope direct view
 - Tx: **Isoxazoline** + ear flush (mechanical removal)
 
@@ -3928,7 +3928,7 @@ export const VIDEO_SUMMARIES = {
 6. **Hyperpigmented patch** = chronic inflammation
 7. Erosion (epidermis) vs **Ulcer** (dermis, painful)
 8. Comedones = endocrine (Cushing/hypothyroid)
-9. Primary alone = recent · Primary+Secondary = chronic active
+9. Primary alone = recent, Primary+Secondary = chronic active
 
 ### Parasitic
 1. **Pruritus workflow** = parasitic → bact → fungal → allergic
@@ -3947,8 +3947,8 @@ export const VIDEO_SUMMARIES = {
 ---
 
 > 💡 **อ. closing tip:**
-> "เห็บ/หมัดเล็กน้อย — แต่อาจนำเชื้อ Ehrlichia → IMT → ค่ารักษา 30K/เดือน 3-6 เดือน · อย่ามองข้าม"
-> "Cat lesions = mysterious — แมวมี 1 lesion type 1,000 cause · ต้องไล่ทุก step"
+> "เห็บ/หมัดเล็กน้อย — แต่อาจนำเชื้อ Ehrlichia → IMT → ค่ารักษา 30K/เดือน 3-6 เดือน, อย่ามองข้าม"
+> "Cat lesions = mysterious — แมวมี 1 lesion type 1,000 cause, ต้องไล่ทุก step"
 > "Demodex อย่าให้ steroid เด็ดขาด — หากดอาการได้ก็จริง แต่ underlying disease กระจายแน่"`,
   },
 
@@ -3988,8 +3988,8 @@ export const VIDEO_SUMMARIES = {
 | 4 | **Histopathology = Gold Standard** (แต่เจ้าของมักปฏิเสธ biopsy) |
 
 ### Breed Predisposition
-- 🐕 Miniature Schnauzer · Boxer · German Shepherd · Rottweiler · Brittany
-- 🐈 Persian · Persian-cross · พันธุ์ขนยาว
+- 🐕 Miniature Schnauzer, Boxer, German Shepherd, Rottweiler, Brittany
+- 🐈 Persian, Persian-cross, พันธุ์ขนยาว
 
 ### Pathophysiology (สั้น)
 GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria → cytokine cascade (IL-1, IL-2, IL-3, IL-4, IL-30, IL-32) → chronic inflammation
@@ -4026,7 +4026,7 @@ GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria 
    - 🥚 Medium-chain triglyceride supplementation
    - 🌾 **Fiber supplementation** (Gastro Fiber, Fiber Boost ~200฿/กระป๋อง) — ผลดีมาก
    - **เปลี่ยน diet ค่อยๆ ภายใน 7 วัน** (1/7 → 7/7)
-2. **Exercise** — สุนัข: เดินทุกวันช่วย GI motility · แมว: ปล่อยเดินบ้าน อย่าขัง
+2. **Exercise** — สุนัข: เดินทุกวันช่วย GI motility, แมว: ปล่อยเดินบ้าน อย่าขัง
 3. **Antibiotics** — ❌ **deprecated** (เมื่อก่อนใช้ metronidazole — ตอนนี้แทบเลิก)
 4. **Probiotics** ⭐ พระเอกใหม่ — บางตัวมีทั้ง pre-/probiotic
 5. ❌ Sulfasalazine, Imodium → ห้ามใช้ในสุนัขแมว (banned)
@@ -4058,8 +4058,8 @@ GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria 
 - **Genetic predisposition** ชัดเจน
 
 ### Breed Predisposition
-- 🐕 Old English Sheepdog · Collie · Beagle · Afghan Hound · Pointer · Akita · Whippet
-- 🐈 Siamese · Persian · Persian-cross · พันธุ์ไทย (ขาวมณี · ศรีสวาส · สุพลรักษ์ · โคราช)
+- 🐕 Old English Sheepdog, Collie, Beagle, Afghan Hound, Pointer, Akita, Whippet
+- 🐈 Siamese, Persian, Persian-cross, พันธุ์ไทย (ขาวมณี, ศรีสวาส, สุพลรักษ์, โคราช)
 
 ### Clinical Signs (ข้อใหญ่ — เคสมาด้วย)
 1. ⭐ **Polyarthritis** — classic! ปวดหลายข้อ เป็นทั้งคอ เข่า ทั้งตัว
@@ -4095,7 +4095,7 @@ GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria 
 
 ### Special Case: Sharpei (พันธุ์เฉพาะ) ⭐
 - ชาไป่ → มักเจอ **glomerular disease** + **amyloidosis**
-- Pattern: บวมตามตัว · หอบจาก pleural effusion · ค่าไตขึ้นๆ ลงๆ
+- Pattern: บวมตามตัว, หอบจาก pleural effusion, ค่าไตขึ้นๆ ลงๆ
 - Pathophys: Amyloid deposit ที่ renal pelvis → protein-losing nephropathy → **nephrotic syndrome**
 
 ### Treatment (เหมือน immune disease ทั่วไป)
@@ -4191,7 +4191,7 @@ GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria 
 
 ## 🔻 Vaccine Adverse Reaction ⭐⭐⭐ (Focus วันนี้)
 
-> 💬 "ฉีดวัคซีนทุกวัน — โอกาสเจอ reaction สูง · ต้องอธิบายและจัดการเป็น"
+> 💬 "ฉีดวัคซีนทุกวัน — โอกาสเจอ reaction สูง, ต้องอธิบายและจัดการเป็น"
 
 ### ความเข้าใจผิดยุคใหม่
 - **❌ "วัคซีนไม่ดี"** ← ห้ามพูดแล้ว!
@@ -4210,7 +4210,7 @@ GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria 
 | 🐈 แมว | Anaphylactic น้อย — แต่เจอ **FISS** (Feline Injection Site Sarcoma) ในระยะยาว |
 
 ### Incidence (จาก papers ล่าสุด)
-- อังกฤษ ~20/10K · อเมริกา ~20/10K · **ญี่ปุ่น ~63/10K** (สูงผิดปกติ — น่าสนใจวิจัย)
+- อังกฤษ ~20/10K, อเมริกา ~20/10K, **ญี่ปุ่น ~63/10K** (สูงผิดปกติ — น่าสนใจวิจัย)
 - น้ำหนักยิ่งน้อย → reaction ยิ่งสูง
 - **ตอน vs ไม่ตอน** — ตัวที่ทำหมันแล้ว reaction น้อยกว่า
 
@@ -4239,7 +4239,7 @@ GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria 
 
 ---
 
-> 💡 **Closing message**: "การรักษาเป็นศิลปะ — pickup ได้ไม่เท่ากันทุกคน · อ่าน guideline (worldwide professional org) ก่อน magazine · ความเข้าใจ pathophys = ออกแบบ Tx ที่ดีกว่าได้"`,
+> 💡 **Closing message**: "การรักษาเป็นศิลปะ — pickup ได้ไม่เท่ากันทุกคน, อ่าน guideline (worldwide professional org) ก่อน magazine, ความเข้าใจ pathophys = ออกแบบ Tx ที่ดีกว่าได้"`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -4256,7 +4256,7 @@ GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria 
     summary: `# Hypothyroidism — สรุปคลิป (สุนัข เป็นหลัก)
 
 > 🎯 พี่ specialist เล่าจาก practice: **Hypothyroidism = "Common ที่สุดในสุนัข + Over-diagnosed มากที่สุด"**
-> 95% ของเคสเป็น **สุนัข** · แมวแทบไม่เจอ (ยกเว้นหลังรักษา hyperthyroid)
+> 95% ของเคสเป็น **สุนัข**, แมวแทบไม่เจอ (ยกเว้นหลังรักษา hyperthyroid)
 > Adult onset ~95% เกิดจาก **immune-mediated destruction** ของ thyroid gland
 
 ---
@@ -4273,13 +4273,13 @@ GI mucosa **react มากผิดปกติ** ต่อ antigen / bacteria 
 ## 🔹 Hormone Cascade
 TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) → peripheral **deiodination** → **T3** (active form)
 
-> 💡 T3 = active หลักจริง · แต่วัด T4 เพราะ stable + measure ได้ง่ายกว่า
+> 💡 T3 = active หลักจริง, แต่วัด T4 เพราะ stable + measure ได้ง่ายกว่า
 > T3 ใน serum dynamic มาก → ไม่ใช้ในคลินิก
 
 ---
 
 ## 🔹 Signalment
-- **Middle age – senior dog** (3-8 ปี · เฉลี่ย 7 ปี)
+- **Middle age – senior dog** (3-8 ปี, เฉลี่ย 7 ปี)
 - ทำหมันแล้ว → risk เพิ่มขึ้น (ทั้งตัวผู้/ตัวเมีย)
 - **Predisposed breeds**: Golden, Doberman, Cocker, Boxer, **Bangkaew** (ในไทยเจอ ~30% ของเคส)
 - **Sighthound/Husky/Greyhound** — มี T4 baseline ต่ำตามพันธุ์ → **อย่าตกใจ** อย่าวินิจฉัยพลาด
@@ -4291,7 +4291,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 ### 1. Dermatological (~60-80%)
 - **Easy epilated hair** — ดึงขนเบาๆ หลุดทั้งกระจุก ⭐ key feature
 - **Rat tail** — ขนหางหายไปก่อน (แต่ที่อื่นยังมี)
-- ขนหยาบแห้งไม่เป็นมัน · Hyperpigmentation
+- ขนหยาบแห้งไม่เป็นมัน, Hyperpigmentation
 - **Myxedema** ("puffy skin") — hyaluronic acid + น้ำใต้ผิวหนัง — แข็งเหมือน cellulite
 - **Tragic facial expression** — หน้าตก หนังตาห้อย "หน้าเศร้า"
 - Recurrent infection (immunosuppression)
@@ -4299,7 +4299,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 ### 2. Metabolic (~84% — เจอเยอะที่สุด!)
 - **Weight gain** แม้กินน้อย ⭐
 - **Lethargy / exercise intolerance**
-- **Cold intolerance** (เห็นชัดในเมืองนอก · บ้านเรา = อาจสังเกตว่าหนาวสั่นแม้แอร์เย็นเล็กน้อย)
+- **Cold intolerance** (เห็นชัดในเมืองนอก, บ้านเรา = อาจสังเกตว่าหนาวสั่นแม้แอร์เย็นเล็กน้อย)
 
 ### 3. Less Common
 - 🧠 **Neurologic**: facial nerve paralysis, vestibular, neuropathy, ataxia, **megaesophagus**
@@ -4321,7 +4321,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 | Test | Normal | Hypo dog | Sensitivity/Specificity |
 |------|--------|----------|------------------------|
 | **Total T4** | 1.5-3 µg/dL | < 1.5 (ต่ำชัด < 0.5) | High sens, low spec — ลวง NTIS ได้ |
-| **Free T4** | 0.6-3 ng/dL | < 1 (ต่ำชัด < 0.5) | Spec สูงกว่า · แต่ไทยไม่มี ED method |
+| **Free T4** | 0.6-3 ng/dL | < 1 (ต่ำชัด < 0.5) | Spec สูงกว่า, แต่ไทยไม่มี ED method |
 | **TSH (cTSH)** | < 0.6 ng/mL | สูง > 0.6 | 33% ของเคสจริงไม่ขึ้น! → sens ต่ำ |
 
 > 🎯 **3 ค่ารวมกัน** = Total T4 ต่ำ + Free T4 ต่ำ + TSH สูง = น้ำหนักเยอะมากว่า hypothyroid
@@ -4381,14 +4381,14 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 4. **Fasting hypercholesterolemia** — most consistent biochem
 5. **3 endocrine tests** — Total T4 + Free T4 + TSH (ต้องครบ)
 6. **NTIS** = T4 ต่ำลวงจากโรคอื่น — pitfall
-7. **Phenobarbital + glucocorticoid** ทำ T4 ต่ำลวง · K-Br ไม่มีผล
+7. **Phenobarbital + glucocorticoid** ทำ T4 ต่ำลวง, K-Br ไม่มีผล
 8. **Levothyroxine 20 µg/kg PO BID** + ตอนท้องว่าง
-9. **Pre-medication T4 = mid-reference** · **Peak T4 = high-normal**
+9. **Pre-medication T4 = mid-reference**, **Peak T4 = high-normal**
 10. **Sighthound/Husky baseline ต่ำ** ตามพันธุ์ — ระวังพลาด
 
 ---
 
-> 💡 **อ. closing tip:** "อย่าตัด hypothyroid ออกแค่เพราะไม่มีอาการผิวหนัง — เป็น endocrine disease · มี/ไม่มี dermatologic sign ก็ได้"`,
+> 💡 **อ. closing tip:** "อย่าตัด hypothyroid ออกแค่เพราะไม่มีอาการผิวหนัง — เป็น endocrine disease, มี/ไม่มี dermatologic sign ก็ได้"`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -4432,7 +4432,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 1. **Hyperglycemia** → osmotic diuresis → **PU/PD**
 2. **Glucose ไม่เข้า cell** → ร่างกายขาดพลังงาน → **Polyphagia (PP)**
 3. **Fat catabolism** → free fatty acid → ketone → ถ้าหนัก = **DKA**
-4. Muscle catabolism → muscle loss (BCS อาจอ้วน · MCS หาย!)
+4. Muscle catabolism → muscle loss (BCS อาจอ้วน, MCS หาย!)
 
 > 💡 ต้องประเมินทั้ง **Body Condition Score (BCS) + Muscle Condition Score (MCS)**
 
@@ -4455,8 +4455,8 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 - Gray zone 126-270 → ต้อง 2 ใน 3 เกณฑ์เพิ่ม
 
 ### Glycated Proteins
-- **Fructosamine** — สะท้อน glucose ย้อนหลัง 7-10 วัน · ลด stress factor
-- **HbA1c** — ใช้ในคนเป็นหลัก · สัตว์ไม่ค่อยใช้
+- **Fructosamine** — สะท้อน glucose ย้อนหลัง 7-10 วัน, ลด stress factor
+- **HbA1c** — ใช้ในคนเป็นหลัก, สัตว์ไม่ค่อยใช้
 
 ### Subclinical DM
 - เกณฑ์ครบ (น้ำตาล + fructosamine สูง) **แต่ไม่มีอาการ** = subclinical
@@ -4515,7 +4515,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 ### Parameters ที่ต้องดู
 | Parameter | Target | Action |
 |-----------|--------|--------|
-| **Nadir** (lowest pt) | 80-150 mg/dL | < 80 → ลด dose · > 150 → เพิ่ม dose |
+| **Nadir** (lowest pt) | 80-150 mg/dL | < 80 → ลด dose, > 150 → เพิ่ม dose |
 | **Direction of action** | drop > 50 mg/dL | < 50 = dose ไม่พอ |
 | **Duration of action** | covers 12 hr | สั้น/ยาวเกิน → ปรับ |
 | **Clinical sign** | PU/PD ลด | ใช้เป็น **gold standard** |
@@ -4534,7 +4534,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 ---
 
 ## 🔹 Insulin Resistance
-- 🐕 Dog: > 1 U/kg/dose ยังไม่ response · หรือ > 1.5 U/kg ไม่ลง < 300
+- 🐕 Dog: > 1 U/kg/dose ยังไม่ response, หรือ > 1.5 U/kg ไม่ลง < 300
 - 🐈 Cat: > 5 U/dose
 - Causes: cortisol/GH excess, infection, obesity, ฮอร์โมนอื่น, ฉีดผิด
 
@@ -4545,7 +4545,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 - **Subcutaneous interstitial fluid** glucose — lag 5-12 min
 - ติดได้ ~2 wk
 - ลด stress hyperglycemia + ลด owner burden
-- ⭐ **พี่หมอใช้แทน glucose curve ส่วนใหญ่** — ราคาใกล้กัน · สัตว์ทรมานน้อยกว่า
+- ⭐ **พี่หมอใช้แทน glucose curve ส่วนใหญ่** — ราคาใกล้กัน, สัตว์ทรมานน้อยกว่า
 
 ---
 
@@ -4553,21 +4553,21 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 - ไม่ต้องฉีด insulin ≥ 4 เดือน = **remission**
 - โอกาสครั้งที่ 2 ต่ำมาก → control ครั้งแรกให้ดี
 - อาหาร + insulin tight control + แก้ resistance early = remission rate สูง
-- 🆕 **SGLT2 inhibitor (oral)** — สำหรับ "Happy DM cat" only (ไม่มี comorbid · β-cell ยังทำงาน)
+- 🆕 **SGLT2 inhibitor (oral)** — สำหรับ "Happy DM cat" only (ไม่มี comorbid, β-cell ยังทำงาน)
 
 ---
 
 ## 📝 Exam Hot Spots
 
-1. **Type 1 = dog (absolute) · Type 2-like = cat (resistance + exhaustion)**
+1. **Type 1 = dog (absolute), Type 2-like = cat (resistance + exhaustion)**
 2. **Hypersomatotropism เจอใน 25% แมว DM** — ตรวจ!
-3. **ALIVE: dog spot > 200 + sign** · **cat spot > 270 + 1/3 add'l**
+3. **ALIVE: dog spot > 200 + sign**, **cat spot > 270 + 1/3 add'l**
 4. **Classical triad: PU/PD + PP** + weight loss + muscle wasting
 5. **Goal Tx ≠ น้ำตาลปกติ** — Quality of life + ไม่ hypo
-6. **Glargine = cat 1st** · **Caninsulin = dog 1st**
+6. **Glargine = cat 1st**, **Caninsulin = dog 1st**
 7. **DO NOT dilute insulin** (except regular for DKA)
 8. **Cat carb < 10% ME** + wet food
-9. **Glucose curve q 2 hr (dog) / q 4 hr (cat)** · **อย่าปรับโดสจาก single point!**
+9. **Glucose curve q 2 hr (dog) / q 4 hr (cat)**, **อย่าปรับโดสจาก single point!**
 10. **Somogyi**: drop เร็ว → rebound — **ลด dose**
 11. **Remission แมว**: ≥ 4 เดือนไม่ต้อง insulin
 12. **Female dog DM** → ต้องทำหมัน (progesterone effect)
@@ -4575,7 +4575,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 
 ---
 
-> 💡 **Closing**: "Quality of life ของเจ้าของสำคัญ — flexible insulin time ±2 hr ได้ · ถ้าทำให้เจ้าของหดหู่จากต้น = ไม่ไปต่อ = สัตว์ตายเร็ว"`,
+> 💡 **Closing**: "Quality of life ของเจ้าของสำคัญ — flexible insulin time ±2 hr ได้, ถ้าทำให้เจ้าของหดหู่จากต้น = ไม่ไปต่อ = สัตว์ตายเร็ว"`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -4700,15 +4700,15 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 1. **6 hallmarks of cancer** — ออกแน่
 2. **Paraneoplastic syndromes** — table โดยเฉพาะ HCM-lymphoma
 3. **Carcinoma vs Sarcoma vs Round cell** — by cell origin
-4. **Cytology = first line · biopsy = gold standard**
+4. **Cytology = first line, biopsy = gold standard**
 5. **Thoracic rad 3 views** for metastasis screening
 6. **TNM staging** — must know
-7. **Insulinoma → hypoglycemia** · **Renal Ca → polycythemia** · **HSA → DIC**
+7. **Insulinoma → hypoglycemia**, **Renal Ca → polycythemia**, **HSA → DIC**
 8. **MCT → histamine** → flushing, GI ulcer
 
 ---
 
-> 💡 **Closing**: "อย่าพึ่งฟันธงว่าเป็นมะเร็ง — FNA ก่อน · ถ้าผ่าตัดได้และ benign อาจหายขาด · ถ้า malignant ต้อง stage แล้วค่อยตัดสินใจร่วมกับเจ้าของ"`,
+> 💡 **Closing**: "อย่าพึ่งฟันธงว่าเป็นมะเร็ง — FNA ก่อน, ถ้าผ่าตัดได้และ benign อาจหายขาด, ถ้า malignant ต้อง stage แล้วค่อยตัดสินใจร่วมกับเจ้าของ"`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -4763,9 +4763,9 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 - **H** = Hydroxydaunorubicin (Doxorubicin)
 - **O** = Vincristine (Oncovin)
 - **P** = Prednisolone
-- 19-25 weeks · ~80% remission · MST 12 mo
-- **Doxorubicin alone** = simpler · MST ~ 6-9 mo
-- **Single agent prednisolone** = palliative · MST 1-3 mo · INDUCE chemoresistance ⚠️
+- 19-25 weeks, ~80% remission, MST 12 mo
+- **Doxorubicin alone** = simpler, MST ~ 6-9 mo
+- **Single agent prednisolone** = palliative, MST 1-3 mo, INDUCE chemoresistance ⚠️
 
 ---
 
@@ -4813,7 +4813,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 
 ## 🔹 Plasmacytoma (Cutaneous)
 
-- Older dog · digit, ear, lip
+- Older dog, digit, ear, lip
 - Cytology: eccentric nucleus + **Hof zone**
 - **Surgery alone** ส่วนใหญ่หาย — benign behavior in skin
 - ⚠️ Multiple myeloma (systemic) ≠ cutaneous plasmacytoma — check serum protein electrophoresis
@@ -4831,7 +4831,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 
 ## 🔹 Special: Histiocytic Sarcoma
 - Aggressive — Bernese Mountain Dog, Flat-coated Retriever predisposed
-- High metastasis · poor prognosis · **Lomustine** = response ~ 50%
+- High metastasis, poor prognosis, **Lomustine** = response ~ 50%
 
 ---
 
@@ -4842,7 +4842,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 3. **MCT Patnaik grade I-II-III + Kiupel 2-tier**
 4. **MCT surgery margin = 3 cm + 1 fascial plane**
 5. **TVT → vincristine** (most responsive!)
-6. **Plasmacytoma cutaneous = benign · MM systemic = bad**
+6. **Plasmacytoma cutaneous = benign, MM systemic = bad**
 7. **Histiocytoma young dog → regress spontaneously**
 8. **Hypercalcemia + lymphoma = T-cell**
 9. **Buffy coat + spleen FNA in MCT staging**
@@ -4850,7 +4850,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 
 ---
 
-> 💡 **Tip**: "Cytology round cell tumor ดูง่ายสุด — train ให้ recognize pattern ได้ใน 1 wk ก็พอ · เป็น differential ที่ทำได้เร็ว"`,
+> 💡 **Tip**: "Cytology round cell tumor ดูง่ายสุด — train ให้ recognize pattern ได้ใน 1 wk ก็พอ, เป็น differential ที่ทำได้เร็ว"`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -4874,31 +4874,31 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 ## 🔹 Chemotherapy Classes ⭐
 
 ### 1. Alkylating agents
-- **Cyclophosphamide** — DNA cross-link · BSA dose · **sterile hemorrhagic cystitis** (cat ระวัง — ให้ furosemide ช่วย flush)
-- **Lomustine (CCNU)** — oral · cross BBB · **hepatotoxicity** (monitor ALT) + delayed thrombocytopenia
-- **Chlorambucil** — oral · gentle · MM, IBD, lymphoma (cat indolent)
+- **Cyclophosphamide** — DNA cross-link, BSA dose, **sterile hemorrhagic cystitis** (cat ระวัง — ให้ furosemide ช่วย flush)
+- **Lomustine (CCNU)** — oral, cross BBB, **hepatotoxicity** (monitor ALT) + delayed thrombocytopenia
+- **Chlorambucil** — oral, gentle, MM, IBD, lymphoma (cat indolent)
 - **Melphalan** — MM, MCT
 
 ### 2. Anti-tumor antibiotics
-- **Doxorubicin (Adriamycin)** — anthracycline · **cardiotoxicity** (cumulative > 180 mg/m² dog) · vesicant (extravasation = necrosis!)
-- **Mitoxantrone** — alternative · less cardiotoxicity · TCC (bladder)
+- **Doxorubicin (Adriamycin)** — anthracycline, **cardiotoxicity** (cumulative > 180 mg/m² dog), vesicant (extravasation = necrosis!)
+- **Mitoxantrone** — alternative, less cardiotoxicity, TCC (bladder)
 
 ### 3. Plant alkaloids
-- **Vincristine** — TVT first-line · CHOP · **vesicant**
+- **Vincristine** — TVT first-line, CHOP, **vesicant**
 - **Vinblastine** — MCT first-line
 - ⚠️ Both = severe extravasation injury
 
 ### 4. Antimetabolites
 - **Methotrexate** — folate antagonist
-- **Cytarabine (Ara-C)** — leukemia, CNS lymphoma · cross BBB
+- **Cytarabine (Ara-C)** — leukemia, CNS lymphoma, cross BBB
 - **Gemcitabine** — sarcoma, carcinoma
 
 ### 5. Platinum
-- **Carboplatin** — osteosarcoma · **less nephrotoxic** than cisplatin
-- **Cisplatin** — ❌ FATAL in cats (pulmonary edema) · careful renal in dogs
+- **Carboplatin** — osteosarcoma, **less nephrotoxic** than cisplatin
+- **Cisplatin** — ❌ FATAL in cats (pulmonary edema), careful renal in dogs
 
 ### 6. Targeted therapy ⭐ ใหม่
-- **Toceranib (Palladia)** — TKI · MCT (c-KIT+), STS
+- **Toceranib (Palladia)** — TKI, MCT (c-KIT+), STS
 - **Imatinib** — c-KIT
 - **Tigilanol tiglate (Stelfonta)** — intratumoral injection for MCT
 
@@ -4936,12 +4936,12 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 
 ### 6. Extravasation injury (vesicants)
 - **Vincristine, vinblastine, doxorubicin** — necrosis if leak
-- Use **central line** if possible · clean butterfly · flush with saline before/after
+- Use **central line** if possible, clean butterfly, flush with saline before/after
 
 ### 7. Sterile hemorrhagic cystitis (Cyclophosphamide)
 - Crystal damage urothelium
 - Give morning + furosemide + free water access
-- Severe = stop drug · switch to chlorambucil
+- Severe = stop drug, switch to chlorambucil
 
 ---
 
@@ -4967,10 +4967,10 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 
 ### Hypercalcemia of Malignancy (HCM)
 - ⭐ **Most common paraneoplastic in dog**
-- Mechanism: **PTHrP** secretion · IL-6, TNFα
+- Mechanism: **PTHrP** secretion, IL-6, TNFα
 - **Tumors**: T-cell lymphoma, **AGASACA (anal sac adenocarcinoma)**, multiple myeloma
 - Dx: **Total Ca > 12.5** + ionized Ca high + **PTH suppressed** + **PTHrP elevated**
-- Tx: 0.9% NaCl IV · furosemide · prednisolone · bisphosphonate (pamidronate)
+- Tx: 0.9% NaCl IV, furosemide, prednisolone, bisphosphonate (pamidronate)
 
 ### Hypoglycemia
 - **Insulinoma** (β-cell tumor of pancreas)
@@ -4980,23 +4980,23 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 
 ### Polycythemia
 - **Renal carcinoma** (EPO-secreting)
-- PCV > 65% · low EPO suppression
-- Tx: phlebotomy · hydroxyurea
+- PCV > 65%, low EPO suppression
+- Tx: phlebotomy, hydroxyurea
 
 ### Cancer cachexia
 - Multifactorial: TNF, IL-1, IL-6
 - **Muscle wasting** despite calorie intake
-- Nutrition: **omega-3 fish oil** · high-calorie diet · appetite stimulant (mirtazapine, capromorelin)
+- Nutrition: **omega-3 fish oil**, high-calorie diet, appetite stimulant (mirtazapine, capromorelin)
 
 ### Hypertrophic osteopathy
 - **Lung tumor** (or chronic pulmonary disease)
-- Periosteal new bone all 4 limbs · painful
-- Tx: treat primary tumor · NSAID
+- Periosteal new bone all 4 limbs, painful
+- Tx: treat primary tumor, NSAID
 
 ### DIC
-- **Hemangiosarcoma** classical · also adenocarcinoma
+- **Hemangiosarcoma** classical, also adenocarcinoma
 - **Schistocyte** + thrombocytopenia + prolonged PT/PTT + low fibrinogen + ↑ D-dimer
-- Tx: treat tumor · supportive (FFP, heparin)
+- Tx: treat tumor, supportive (FFP, heparin)
 
 ### Myasthenia gravis
 - **Thymoma**
@@ -5014,21 +5014,21 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 
 1. **6 chemo classes** + 1 example each
 2. **Cyclophosphamide → sterile hemorrhagic cystitis** + furosemide prophylaxis
-3. **Doxorubicin cardiotoxicity** — cumulative · echo monitor
+3. **Doxorubicin cardiotoxicity** — cumulative, echo monitor
 4. **Cisplatin = FATAL in cats** (pulmonary edema)
 5. **Vincristine, vinblastine, doxo = vesicants** — extravasation = necrosis
-6. **Toceranib (Palladia)** — TKI · MCT c-KIT
+6. **Toceranib (Palladia)** — TKI, MCT c-KIT
 7. **Don't start prednisolone before lymphoma Dx!**
 8. **Neutropenic fever = emergency** → IV antibiotic
 9. **PTHrP-secreting tumors** = T-cell lymphoma, AGASACA, MM
-10. **Insulinoma → hypoglycemia · Renal Ca → polycythemia · HSA → DIC**
+10. **Insulinoma → hypoglycemia, Renal Ca → polycythemia, HSA → DIC**
 11. **Myasthenia gravis ↔ thymoma**
 12. **MCT histamine → H1 + H2 blocker pre-surgery/Tx**
-13. **CHOP protocol** = Cyclo + Doxo + Vincristine + Pred · 19-25 wk
+13. **CHOP protocol** = Cyclo + Doxo + Vincristine + Pred, 19-25 wk
 
 ---
 
-> 💡 **Tip**: "Chemo ในสัตว์ — quality > quantity · ใช้ low dose intensity · เป้าหมายให้ remission แล้วใช้ชีวิตปกติ ไม่ใช่ aggressive cure แล้วทุกข์"`,
+> 💡 **Tip**: "Chemo ในสัตว์ — quality > quantity, ใช้ low dose intensity, เป้าหมายให้ remission แล้วใช้ชีวิตปกติ ไม่ใช่ aggressive cure แล้วทุกข์"`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -5045,14 +5045,14 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
     summary: `# Bacterial + Fungal Skin Diseases
 
 > 🎯 หัวใจของ approach ผิวหนังคัน: **ต้องเคลียร์ infection ก่อน** เสมอ (parasite/bacteria/fungus) ก่อนสงสัย allergy
-> Bacterial = **Staphylococcus pseudintermedius** (90-95%) · Fungal = **Microsporum canis** (cat 90-98%)
+> Bacterial = **Staphylococcus pseudintermedius** (90-95%), Fungal = **Microsporum canis** (cat 90-98%)
 
 ---
 
 ## 🔻 Part 1: Bacterial Skin Disease (Pyoderma)
 
 ### 90% เป็น Secondary
-> ⚠️ "Bacterial pyoderma คอมมอนสุดในไทย — แต่มักไม่ใช่ primary cause · ต้องหา **underlying disease**"
+> ⚠️ "Bacterial pyoderma คอมมอนสุดในไทย — แต่มักไม่ใช่ primary cause, ต้องหา **underlying disease**"
 
 ### Underlying Causes
 1. **Allergy** (atopy, food allergy) → skin barrier defect
@@ -5086,7 +5086,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 - ⚠️ Cytology can show **gram-negative** (saliva contamination) — not always actual cause
 
 ### Diagnosis
-1. **Cytology** ⭐ — first line · cocci pattern (Staph) → confirm bacterial
+1. **Cytology** ⭐ — first line, cocci pattern (Staph) → confirm bacterial
 2. **Culture + sensitivity** — for deep, recurrent, MRSP risk
 3. **Skin scrape + DTM** — rule out demodex/dermatophyte
 
@@ -5107,7 +5107,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 - **❌ Avoid**: amoxicillin alone, ampicillin, penicillin (β-lactamase!)
 
 #### Duration
-- **Superficial**: 4-6 wk · continue 1-2 wk **after clinical cure**
+- **Superficial**: 4-6 wk, continue 1-2 wk **after clinical cure**
 - **Deep**: **6-12 wk** + 3-4 wk after clinical cure
 - Re-culture if no improvement at 4 wk
 
@@ -5120,7 +5120,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 ### Common Pathogens (3 main)
 | Species | Source | Note |
 |---------|--------|------|
-| **Microsporum canis** | Cat-to-cat, infected animal | **90-98% of feline cases** · zoonotic |
+| **Microsporum canis** | Cat-to-cat, infected animal | **90-98% of feline cases**, zoonotic |
 | **Microsporum gypseum (Nannizzia gypsea)** | Soil | Outdoor dogs (Jack Russell, terrier) |
 | **Trichophyton mentagrophytes** | Rodent | Hunting dogs |
 
@@ -5136,13 +5136,13 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 - May involve **nail, nasal planum** (cat)
 
 ### Diagnosis (4 modalities)
-1. **Wood's lamp** — UV light · only **50% of M. canis** fluoresce apple-green · false-positive common (sebum, soap, bacteria)
+1. **Wood's lamp** — UV light, only **50% of M. canis** fluoresce apple-green, false-positive common (sebum, soap, bacteria)
 2. **Trichogram** — pluck hair → KOH 10% (old) or **Diff-Quik B solution** (modern) → look spores around hair shaft
 3. **DTM (Dermatophyte Test Medium)** ⭐ — gold standard
    - **Color change yellow → red** within 7-14 days
    - **Colony**: white fluffy (not green/black/colored)
    - **Macroconidia** ID under microscope (key — rule out non-pathogenic fungi)
-4. **PCR** — most sensitive · expensive
+4. **PCR** — most sensitive, expensive
 5. **Tape strip + cytology** for combined Dx
 
 ### M. canis Macroconidia
@@ -5178,18 +5178,18 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 - Treat: **systemic antifungal + surgery**
 
 ### Other Fungal
-- **Malassezia** (yeast) — common ที่หู, lip fold, intertrigo · greasy odor · treat with chlorhexidine + miconazole
+- **Malassezia** (yeast) — common ที่หู, lip fold, intertrigo, greasy odor, treat with chlorhexidine + miconazole
 
 ---
 
 ## 📝 Exam Hot Spots
 
-1. **Pyoderma 3 depths**: Surface · Superficial · Deep — Tx duration table
-2. **Staph pseudintermedius** = 90-95% · gram-positive cocci
+1. **Pyoderma 3 depths**: Surface, Superficial, Deep — Tx duration table
+2. **Staph pseudintermedius** = 90-95%, gram-positive cocci
 3. **Amoxicillin-clavulanate** = first-line empirical
 4. **❌ Plain amoxicillin/ampicillin/penicillin** — β-lactamase
-5. **Superficial 4-6 wk · Deep 6-12 wk** + 1-2/3-4 wk post-cure
-6. **Hot spot** = pyotraumatic = surface · topical only
+5. **Superficial 4-6 wk, Deep 6-12 wk** + 1-2/3-4 wk post-cure
+6. **Hot spot** = pyotraumatic = surface, topical only
 7. **Mucocutaneous pyoderma** ผลตรวจ gram-negative อาจ contamination
 8. **M. canis 90-98% in cat** + 50% Wood's lamp +
 9. **DTM color change + colony + macroconidia** = 3-step Dx
@@ -5199,7 +5199,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 
 ---
 
-> 💡 **Tip**: "Cytology + DTM + skin scrape — 3 ตัวที่ทำง่ายในคลินิก ก่อน refer · ครบ 80% ของ skin Dx"`,
+> 💡 **Tip**: "Cytology + DTM + skin scrape — 3 ตัวที่ทำง่ายในคลินิก ก่อน refer, ครบ 80% ของ skin Dx"`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -5248,10 +5248,10 @@ Pruritic dog/cat
 
 ## 🔹 2. Flea Allergy Dermatitis (FAD)
 
-- **Lumbosacral area** (dog) · neck/inguinal (cat)
+- **Lumbosacral area** (dog), neck/inguinal (cat)
 - Even **single bite** → severe reaction (saliva allergen)
 - Few visible fleas (animal scratches them off)
-- Tx: **strict flea control** all pets in house · environmental treatment
+- Tx: **strict flea control** all pets in house, environmental treatment
 
 ---
 
@@ -5261,7 +5261,7 @@ Pruritic dog/cat
 - **Identical to atopy clinically** — distinguish only by **Food Trial**
 - Multiple food allergens common (rarely single ingredient)
 - **Cross-reactivity** between similar species:
-  - Beef ↔ cow's milk · Cow ↔ lamb/goat (hoofed) ❌
+  - Beef ↔ cow's milk, Cow ↔ lamb/goat (hoofed) ❌
   - Chicken ↔ duck/turkey ❌
 
 ### Food Trial (Diet Elimination Trial)
@@ -5269,9 +5269,9 @@ Pruritic dog/cat
 #### Choose New Diet
 | Type | Pros | Cons |
 |------|------|------|
-| **Novel protein (homemade)** ⭐ | Best — single source protein + carb | Time-consuming · need taurine/Ca add'l for cat |
+| **Novel protein (homemade)** ⭐ | Best — single source protein + carb | Time-consuming, need taurine/Ca add'l for cat |
 | **Novel protein (commercial)** | Convenient | Other ingredients may cross-react |
-| **Hydrolyzed protein** | Best for unknown food history | Expensive · commercial only |
+| **Hydrolyzed protein** | Best for unknown food history | Expensive, commercial only |
 
 #### Protocol
 1. **8 weeks** strict trial — only the test diet + water
@@ -5320,8 +5320,8 @@ Pruritic dog/cat
 
 #### Tier 2 — Anti-pruritic (acute flare)
 - **Glucocorticoid** (prednisolone 0.5-1 mg/kg PO SID × 5-7 d → taper)
-- **Oclacitinib (Apoquel)** ⭐ — JAK inhibitor · 0.4-0.6 mg/kg BID × 14 d → SID
-- **Lokivetmab (Cytopoint)** ⭐ — anti-IL-31 mAb · SC monthly · super safe + effective
+- **Oclacitinib (Apoquel)** ⭐ — JAK inhibitor, 0.4-0.6 mg/kg BID × 14 d → SID
+- **Lokivetmab (Cytopoint)** ⭐ — anti-IL-31 mAb, SC monthly, super safe + effective
 - Antihistamine (CPM) — limited efficacy
 
 #### Tier 3 — Long-term
@@ -5346,13 +5346,13 @@ Pruritic dog/cat
 - Tx: vitamin A 10,000 IU PO SID
 
 ### 3. Essential Fatty Acid Deficiency
-- Dry, dull coat · scaling
+- Dry, dull coat, scaling
 - Tx: omega-3/6 supplement (fish oil)
 
 ### 4. Hepatocutaneous Syndrome (Superficial Necrolytic Dermatitis)
 - Liver disease (vacuolar hepatopathy) → AA deficiency
 - Lesion: **erythema, crust, ulcer footpads + mucocutaneous junction**
-- Poor prognosis · IV amino acid infusion + dietary support
+- Poor prognosis, IV amino acid infusion + dietary support
 
 ### 5. Generic Dog Food Disease
 - Cheap food → multi-nutrient deficiency
@@ -5364,21 +5364,21 @@ Pruritic dog/cat
 
 1. **4 allergies in approach order** — Contact, Flea, Food, Atopy
 2. **Contact = location-specific lesion**
-3. **FAD = lumbosacral · single bite enough**
+3. **FAD = lumbosacral, single bite enough**
 4. **Food trial 8 weeks** + strict + drug-free assess at 4 wk
 5. **Novel protein homemade > commercial > hydrolyzed**
 6. **Cross-reactivity**: beef-milk, chicken-duck, lamb-goat
 7. **❌ Serology unreliable for food allergy** — Food trial only
 8. **Atopy distribution**: face/ear/paw/axilla/ventral abdomen
 9. **Apoquel = JAK inhibitor 0.4-0.6 mg/kg BID**
-10. **Cytopoint = anti-IL-31 mAb · SC monthly**
-11. **Cyclosporine 5 mg/kg PO SID** · full effect 4-6 wk
+10. **Cytopoint = anti-IL-31 mAb, SC monthly**
+11. **Cyclosporine 5 mg/kg PO SID**, full effect 4-6 wk
 12. **Zinc-responsive = Husky/Malamute** — periocular crust
 13. **Hepatocutaneous syndrome** — footpad ulcer + liver disease
 
 ---
 
-> 💡 **Tip**: "อย่าตัด food allergy ออกแค่ดูรอยโรค — ต้อง Food trial เท่านั้น · ถ้าทำได้ดี ~30% เคส 'atopy' จริงๆ คือ food allergy"`,
+> 💡 **Tip**: "อย่าตัด food allergy ออกแค่ดูรอยโรค — ต้อง Food trial เท่านั้น, ถ้าทำได้ดี ~30% เคส 'atopy' จริงๆ คือ food allergy"`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -5395,7 +5395,7 @@ Pruritic dog/cat
     summary: `# Autoimmune Skin + Endocrine Skin Diseases
 
 > 🎯 บทสุดท้ายของ derm — **Autoimmune** (rare แต่ออกข้อสอบ) + **Endocrine** (Hypothyroid, Cushing, Alopecia X — case-based)
-> หลักการ: อย่ารีบเป็น autoimmune ก่อน · 95% ที่เห็นเป็น **bacterial pyoderma** มากกว่า
+> หลักการ: อย่ารีบเป็น autoimmune ก่อน, 95% ที่เห็นเป็น **bacterial pyoderma** มากกว่า
 
 ---
 
@@ -5457,10 +5457,10 @@ Pruritic dog/cat
 ---
 
 ### Other Autoimmune Skin Diseases (รู้ไว้)
-- **Discoid Lupus Erythematosus (DLE)** — face/nasal planum only · sun-induced · "facial lupoid dermatosis"
+- **Discoid Lupus Erythematosus (DLE)** — face/nasal planum only, sun-induced, "facial lupoid dermatosis"
 - **Systemic Lupus Erythematosus (SLE)** — multi-organ + ANA+ (อ.รัสมาสอน)
-- **Vasculitis** — paw/ear/tail tip ulcer · drug-induced common
-- **Sebaceous adenitis** — Akita, Standard Poodle · inflammation of sebaceous gland → alopecia + scale
+- **Vasculitis** — paw/ear/tail tip ulcer, drug-induced common
+- **Sebaceous adenitis** — Akita, Standard Poodle, inflammation of sebaceous gland → alopecia + scale
 
 ---
 
@@ -5495,7 +5495,7 @@ Pruritic dog/cat
 ### Alopecia X ⭐
 - Synonyms: **growth hormone-responsive dermatosis, castration-responsive, post-clipping alopecia, follicular dysplasia, Adrenal hyperplasia-like syndrome**
 - Theory: **hair cycle arrest** at telogen
-- **Pomeranian** ~95% of cases · Chow, Samoyed, Husky, Keeshond
+- **Pomeranian** ~95% of cases, Chow, Samoyed, Husky, Keeshond
 - **Body alopecia + head + legs spared** classic distribution
 - Hormones (T4, cortisol) **NORMAL** — that's why "X"
 - Diagnosis = **rule out** other endocrine + biopsy (telogen hair only)
@@ -5532,10 +5532,10 @@ Bilateral non-pruritic non-inflammatory alopecia
 ## 📝 Exam Hot Spots
 
 1. **Pemphigus foliaceus = most common autoimmune skin** + Akita predisposed
-2. **Desmoglein 1 = PF · Desmoglein 3 = PV/mucosa**
+2. **Desmoglein 1 = PF, Desmoglein 3 = PV/mucosa**
 3. **Acantholytic cells in cytology** = autoimmune clue
 4. **PF distribution**: face, ear, footpad
-5. **Pred 2-4 mg/kg PO SID** = induction · adjunct: **azathioprine (dog) / chlorambucil (cat)**
+5. **Pred 2-4 mg/kg PO SID** = induction, adjunct: **azathioprine (dog) / chlorambucil (cat)**
 6. **❌ Azathioprine in cat** = bone marrow suppression FATAL
 7. **Bilateral symmetric alopecia + non-pruritic** = endocrine
 8. **Easy epilated hair + tragic face** = hypothyroid
@@ -5547,11 +5547,11 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ---
 
-> 💡 **Closing**: "Autoimmune skin disease = rare แต่ต้องนึกถึงเมื่อ recurrent infection + treat antibiotic ไม่หาย · biopsy หาคำตอบเสมอ"`,
+> 💡 **Closing**: "Autoimmune skin disease = rare แต่ต้องนึกถึงเมื่อ recurrent infection + treat antibiotic ไม่หาย, biopsy หาคำตอบเสมอ"`,
   },
 
   // ═════════════════════════════════════════════════════════════
-  // 🆕 EXOTIC — Final scope (week 7-14) · ปลายภาค 2026
+  // 🆕 EXOTIC — Final scope (week 7-14), ปลายภาค 2026
   // 7 lectures by อ.ธวัช + อ.เสาวภางค์ (ZPOT) + อ.ไพศิลป์ + อ.ปัณณวัฒน์
   // Added 2026-04-30 from YouTube transcripts (ช่อง Dai @dai.1387)
   // ═════════════════════════════════════════════════════════════
@@ -5564,7 +5564,7 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '4 Mar 69',
     durationMin: 75,
     instructor: 'อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์',
-    examFormat: 'MCQ — clinical reasoning + technique steps · pitfall (เช่น "นกท้องเสีย" จริงหรือไม่ · NPO กี่ชม.)',
+    examFormat: 'MCQ — clinical reasoning + technique steps, pitfall (เช่น "นกท้องเสีย" จริงหรือไม่, NPO กี่ชม.)',
     summary: `# การรักษาสัตว์ปีกเบื้องต้น (Basic Avian Medicine)
 
 > 🦜 "นกป่วยถูกเอาไปหาหมอทีไร ตายทุกที" — ทำไมถึงเป็นภาพจำของเจ้าของ และเราจะแก้อย่างไร
@@ -5572,12 +5572,12 @@ Bilateral non-pruritic non-inflammatory alopecia
 ## ⏱️ Timeline
 | Time | Topic |
 |---|---|
-| 10-14 | ทำไมรักษานกยาก · prey species behavior |
+| 10-14 | ทำไมรักษานกยาก, prey species behavior |
 | 14-18 | Signalment + history |
-| 18-23 | Hands-off exam: respiratory · feather · droppings ⭐ |
-| 23-27 | Physical exam: ฟังปอด (ไม่แม่น!) · keel/BCS |
+| 18-23 | Hands-off exam: respiratory, feather, droppings ⭐ |
+| 23-27 | Physical exam: ฟังปอด (ไม่แม่น!), keel/BCS |
 | 27-37 | Restraint + bite warnings (African Grey, Macaw) |
-| 37-44 | Blood collection · DNA sexing · CBC volume |
+| 37-44 | Blood collection, DNA sexing, CBC volume |
 | 44-50 | Anesthesia: isoflurane, NPO 2-3 hr |
 | 50-55 | Drug administration (PO/IM/SC pitfalls) |
 | 55-60 | Fluid therapy + dehydration |
@@ -5594,8 +5594,8 @@ Bilateral non-pruritic non-inflammatory alopecia
 ### Triage by visual assessment ⭐⭐⭐
 | สภาพ | Prognosis |
 |---|---|
-| ยืนเกาะคอน · มี activity · จิกอาหาร | ปกติ → ตรวจได้ |
-| **นอนพื้นกรง · ขนพอง · ตาปิด** | เสี่ยงตายระหว่างจับ → emergency tx (O₂ + heat + fluid) ก่อน + เตือนเจ้าของ |
+| ยืนเกาะคอน, มี activity, จิกอาหาร | ปกติ → ตรวจได้ |
+| **นอนพื้นกรง, ขนพอง, ตาปิด** | เสี่ยงตายระหว่างจับ → emergency tx (O₂ + heat + fluid) ก่อน + เตือนเจ้าของ |
 
 > 💡 **อ.ธวัช:** "ถ้าคุณไม่แจ้งเจ้าของแล้วนกตายคามือ คุณจะโดนเบลม — ทั้งที่นกมันก็เห็นอยู่แล้วว่านอนพื้นกรงมา"
 
@@ -5609,17 +5609,17 @@ Bilateral non-pruritic non-inflammatory alopecia
 - ⚠️ ห้ามจับก่อนสังเกต — จับแล้ว pattern เปลี่ยน
 
 ### Droppings ⭐⭐⭐ (exam fav!)
-3 components: **Faeces** (อุจจาระ) + **Urate** (ขาว · ไม่ใช่ urea) + **Urine** (น้ำ)
+3 components: **Faeces** (อุจจาระ) + **Urate** (ขาว, ไม่ใช่ urea) + **Urine** (น้ำ)
 
 > ⚠️ **Pitfall**: เจ้าของบอก "นกท้องเสีย" — ไปดูเจอแค่ urate + น้ำ = **ไม่ใช่ diarrhea! นกไม่กิน** ต่างหาก
-> Hornbill กินผลไม้ → dropping เหลวปกติ · นกแก้วถ่ายเหลว = abnormal
+> Hornbill กินผลไม้ → dropping เหลวปกติ, นกแก้วถ่ายเหลว = abnormal
 
 ---
 
 ## 🩺 Hands-On Physical Exam
 
 > 💡 **อ.ธวัช (เด็ด!):** "ถ้านกหนัก 100 g แล้วเอา stetth ไปแปะแล้วบอก normal lung sound — รับประกันว่ามั่ว!"
-> ปอดนกฝังใน rib groove → auscultate ไม่แม่น · สงสัย respiratory → **X-ray**
+> ปอดนกฝังใน rib groove → auscultate ไม่แม่น, สงสัย respiratory → **X-ray**
 
 ### Keel/Pectoral muscle (BCS) ⭐⭐
 - กระดูก keel เด่น + กล้าม pectoral แฟบ = **chronic illness** (ไม่ใช่ acute)
@@ -5633,8 +5633,8 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ## 🤲 Restraint
 - ผ้าขนหนูคลุมหัว + จับ **mandibular joint** (TMJ) — กัดไม่ได้
-- ⚠️ African Grey 400-500g กัดขาดเหมือนกัดเนย · Macaw หนังหน้า → จับแรง = ช้ำแดง
-- Recovery check: ปล่อยกรง → 5 นาทีต้องหายใจปกติ + ขนเรียบ · ถ้านานกว่า = สงสัย respiratory/anemia
+- ⚠️ African Grey 400-500g กัดขาดเหมือนกัดเนย, Macaw หนังหน้า → จับแรง = ช้ำแดง
+- Recovery check: ปล่อยกรง → 5 นาทีต้องหายใจปกติ + ขนเรียบ, ถ้านานกว่า = สงสัย respiratory/anemia
 
 ---
 
@@ -5656,10 +5656,10 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ### NPO time ⭐⭐⭐ (HOT EXAM!)
 > ⚠️ **อย่า**ใช้ใบสั่งหมาแมว NPO 8-12 hr! นก metabolic สูง → อดนาน = ตาย
-- **2-3 ชั่วโมงพอ** · นกเล็กอดสั้น · นกใหญ่อดนานหน่อย
+- **2-3 ชั่วโมงพอ**, นกเล็กอดสั้น, นกใหญ่อดนานหน่อย
 
 ### Drug + Tube
-- **Isoflurane** = drug of choice · Sevoflurane แพง ไม่ใช้ routine
+- **Isoflurane** = drug of choice, Sevoflurane แพง ไม่ใช้ routine
 - ETT **uncuffed** เท่านั้น (trachea complete ring → cuff = แตก)
 - นกเล็กใช้ feeding tube ตัดเอง
 
@@ -5669,11 +5669,11 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ### IM ⭐
 - Pectoral muscle **ส่วนบน** เท่านั้น
-- ⚠️ ลึกข้าง = **ปอดทะลุ** · ลึกล่าง = **ตับฉีก** → bleed ตาย
+- ⚠️ ลึกข้าง = **ปอดทะลุ**, ลึกล่าง = **ตับฉีก** → bleed ตาย
 
 ### SC
 - Sites: **interscapular** > **inguinal** > axillary
-- ⚠️ หนังนกบาง → ต้องเห็น "ลูกโป่งน้ำ" ปูด · ไม่ปูด = ทะลุ
+- ⚠️ หนังนกบาง → ต้องเห็น "ลูกโป่งน้ำ" ปูด, ไม่ปูด = ทะลุ
 - **Max 5-10 mL/site** (vs หมา 100-200 mL — หนังนกไม่ย้วย)
 - ใช้เข็มเล็กสุด G26
 
@@ -5725,10 +5725,10 @@ Bilateral non-pruritic non-inflammatory alopecia
 4. ⭐⭐ **Lung auscultate ไม่แม่น** → confirm ด้วย X-ray
 5. ⭐⭐ **Keel wasting = chronic** ไม่ใช่ acute
 6. ⭐⭐ **ETT uncuffed** (trachea complete ring)
-7. ⭐⭐ **DNA sexing**: 1 drop บนกระดาษ · นก RBC มี nucleus
+7. ⭐⭐ **DNA sexing**: 1 drop บนกระดาษ, นก RBC มี nucleus
 8. ⭐⭐ **Nare flush ต้องจับกลับหัว**
 9. ⭐⭐ **IM pectoral upper** (ลึก = ทะลุปอด/ตับ)
-10. ⭐⭐ **Wing clip 2 ข้าง · primary feathers · 8-10 เส้น จากนอกมาใน**
+10. ⭐⭐ **Wing clip 2 ข้าง, primary feathers, 8-10 เส้น จากนอกมาใน**
 11. ⭐ **SC max 5-10 mL/site** + ลูกโป่งน้ำปูด
 12. ⭐ **Pin feather หัก → ถอนทั้งเส้น**
 13. ⭐ **Body temp 104-106°F**
@@ -5745,10 +5745,10 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '11 Mar 69',
     durationMin: 86,
     instructor: 'อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์',
-    examFormat: 'MCQ + case-based — sign → DDx · history → predisposing cause · Tx (Ca/Vit A/heavy metal/egg bind/crop stasis)',
+    examFormat: 'MCQ + case-based — sign → DDx, history → predisposing cause, Tx (Ca/Vit A/heavy metal/egg bind/crop stasis)',
     summary: `# โรคไม่ติดเชื้อในนก (Non-infectious Diseases)
 
-> 🎯 โรคไม่ติดเชื้อในนก = ผลจาก husbandry/management ผิด · diet+cage+environment ดี → ปัญหาส่วนใหญ่ไม่เกิด
+> 🎯 โรคไม่ติดเชื้อในนก = ผลจาก husbandry/management ผิด, diet+cage+environment ดี → ปัญหาส่วนใหญ่ไม่เกิด
 
 ## ⏱️ Timeline
 | Time | Topic |
@@ -5774,7 +5774,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 | Oropharynx | **ตุ่ม/ฝ้าสีขาวในปาก** ⭐ (squamous metaplasia) |
 | ผิวหนัง | hyperkeratosis → pododermatitis |
 
-**Tx**: ปรับอาหาร → ผัก/ผลไม้/pellet · เริ่ม Vit A ฉีด/กิน · ⚠️ ระวัง overdose (fat-soluble)
+**Tx**: ปรับอาหาร → ผัก/ผลไม้/pellet, เริ่ม Vit A ฉีด/กิน, ⚠️ ระวัง overdose (fat-soluble)
 
 ---
 
@@ -5821,7 +5821,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 - อ. **ไม่แยก Pb vs Zn** — Tx เหมือนกัน
 
 ### Tx
-- **CaEDTA** chelating (textbook) · หายากในไทย
+- **CaEDTA** chelating (textbook), หายากในไทย
 - **Activated charcoal** — อ.ใช้จริง
 - Endoscopic retrieval / surgery ถ้า particle ใหญ่
 
@@ -5883,7 +5883,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 ## 6. Crop Stasis ⭐
 
 ### Normal transit
-- Healthy chick: **< 2 hr** (max 3 hr) · ค้าง > 3 hr = pathologic
+- Healthy chick: **< 2 hr** (max 3 hr), ค้าง > 3 hr = pathologic
 
 ### Causes
 - อาหารร้อน/เย็นเกิน (**ต้องวัดด้วย thermometer** ⭐)
@@ -5908,12 +5908,12 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ### Shock
 - Mucous membrane ซีด (ดู choana — ปกติชมพูเข้ม → กลายเป็นจางเกือบขาว)
-- **O₂ + warmth + fluid** · ⚠️ Dexamethasone ไม่แนะนำแล้ว
+- **O₂ + warmth + fluid**, ⚠️ Dexamethasone ไม่แนะนำแล้ว
 
 ### Avian Abscess ⭐
 - **หนองแข็ง (caseous)** — เจาะไม่ออก!
 - **Infraorbital abscess** (รอบตา) — secondary to chronic URI พบบ่อย
-- **Tx = surgical opening + culture** · ยาเปล่าไม่หาย
+- **Tx = surgical opening + culture**, ยาเปล่าไม่หาย
 
 ### Bumblefoot
 - Cause: perch ขนาดเดียว/ผิดขนาด
@@ -5928,12 +5928,12 @@ Bilateral non-pruritic non-inflammatory alopecia
 4. **Pb sources**: ผ้าม่านถ่วงน้ำหนัก, ปลั๊กไฟถูก
 5. **Zn sources**: ลวดกาวไนซ์
 6. **Heavy metal Tx**: chelating + activated charcoal
-7. **Egg bind in นก < 100 g** → คลำได้ + Ca + warmth + manual · **Oxytocin ไม่ค่อยเวิร์ค**
+7. **Egg bind in นก < 100 g** → คลำได้ + Ca + warmth + manual, **Oxytocin ไม่ค่อยเวิร์ค**
 8. **Self-pluck pattern**: หัวสวย+คอ/อกโกร๋น (vs aggression = หัวเป็นแผล)
 9. **Cockatiel + feather plucking** ⭐ → screen Giardia
 10. **Crop transit < 2 hr** (chick) — > 3 hr = pathologic
 11. **Crop burn** ไมโครเวฟไม่คน → surgery แยกชั้น crop+skin
-12. **Avian abscess = caseous (แข็ง)** — ต้อง surgical opening · infraorbital พบบ่อย
+12. **Avian abscess = caseous (แข็ง)** — ต้อง surgical opening, infraorbital พบบ่อย
 13. **Cage prep**: galvanized wire ต้องขัด+น้ำส้มสายชู
 
 > 💡 อ.ธวัช: "โรคพวกนี้ส่วนใหญ่ป้องกันได้ถ้า diet+husbandry ถูก — ตอนซักประวัติต้องละเอียด"`,
@@ -5947,15 +5947,15 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '18 Mar 69',
     durationMin: 75,
     instructor: 'อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์',
-    examFormat: 'MCQ — viral disease ID จาก clinical sign + lesion · inclusion body location · vaccine availability · PCR certificate validity',
+    examFormat: 'MCQ — viral disease ID จาก clinical sign + lesion, inclusion body location, vaccine availability, PCR certificate validity',
     summary: `# โรคติดเชื้อในนก ตอน 1 — Viral (PBFD/Polyoma/Pacheco/Pox/Papilloma/PDD)
 
-> 🎯 5 โรคไวรัสหลัก + Cloacal papilloma · เน้น **3 โรคที่มี PCR certificate** (PBFD · Polyoma · PDD)
+> 🎯 5 โรคไวรัสหลัก + Cloacal papilloma, เน้น **3 โรคที่มี PCR certificate** (PBFD, Polyoma, PDD)
 
 ## ⏱️ Timeline
 | ช่วง | หัวข้อ |
 |---|---|
-| 13-18 | Intro · scope |
+| 13-18 | Intro, scope |
 | 18-37 | **PBFD** (Circovirus) ⭐⭐⭐ |
 | 37-46 | **Polyomavirus** ⭐⭐ |
 | 46-51 | **Avian Pox** |
@@ -5972,14 +5972,14 @@ Bilateral non-pruritic non-inflammatory alopecia
 |---|---|
 | **เชื้อ** | **Circovirus** (BFDV) |
 | **ความทนทาน** | ทนมากที่สุด → คอนโทรลยาก |
-| **Transmission** | ฝุ่นขน · อุจจาระ · feed/water · **vertical via egg** |
+| **Transmission** | ฝุ่นขน, อุจจาระ, feed/water, **vertical via egg** |
 | **Incubation** | **≥ 3 สัปดาห์** |
 | **Inclusion body** | **Intracytoplasmic** ⭐ (vs Polyoma = intranuclear) |
 
 ### 3 รูปแบบ
 1. Peracute — ลูกนกตายเลย
-2. Acute — feather dystrophy · บางตัวรอด
-3. **Chronic** ⭐ — ขนผิดรูป · จงอยปากผิดรูป/หัก/เป็นเงา · ขนหัวร่วงก่อน
+2. Acute — feather dystrophy, บางตัวรอด
+3. **Chronic** ⭐ — ขนผิดรูป, จงอยปากผิดรูป/หัก/เป็นเงา, ขนหัวร่วงก่อน
    - **ดึงขนเลือดมาดู: รากขนฝ่อ + จุดเลือดออกในก้านขน** → 99.999% PBFD
 
 ### Tx ⛔
@@ -5989,7 +5989,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ### Farm control
 - Negative farm = เป็นไปไม่ได้ (อ.: "ทุกฟาร์มใหญ่ในโลกมี")
-- **PCR certificate ไว้ใจไม่ได้** ⚠️ — โปรโตคอลจริง: **negative 2 ครั้ง × ห่าง ≥ 90 วัน** · ไม่มีใครทำ
+- **PCR certificate ไว้ใจไม่ได้** ⚠️ — โปรโตคอลจริง: **negative 2 ครั้ง × ห่าง ≥ 90 วัน**, ไม่มีใครทำ
 
 ---
 
@@ -6000,7 +6000,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 | **ความทน** | **ไม่ทนเท่า PBFD** → manage ง่ายกว่า |
 | **Incubation** | **7–10 วัน** ⭐ (vs PBFD ≥ 3 wks) |
 | **Inclusion body** | **Intranuclear** ⭐ |
-| **Sensitive species** | Lovebird · นกหงส์หยก · ลูกนก |
+| **Sensitive species** | Lovebird, นกหงส์หยก, ลูกนก |
 
 ### Clinical
 - **Acute death + subcutaneous hemorrhage** ⭐⭐ (ปื้นวงๆ ที่เท้า/ลำตัว)
@@ -6008,7 +6008,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ### Dx + Tx
 - **PCR** (รับตรวจคณะ)
-- Supportive only — ATB กัน secondary · vit K (ลด hemorrhage)
+- Supportive only — ATB กัน secondary, vit K (ลด hemorrhage)
 - ✅ มีวัคซีน recombinant (ไม่มีในไทย commercial)
 
 ---
@@ -6024,17 +6024,17 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ### Tx
 - Supportive + ATB กัน secondary + antiseptic → หายเอง ~1 เดือน
-- ✅ **Fowl pox vaccine** ในไก่/พิราบ · **parrot ไม่มี commercial vaccine**
+- ✅ **Fowl pox vaccine** ในไก่/พิราบ, **parrot ไม่มี commercial vaccine**
 
 ---
 
 ## 4️⃣ Pacheco's Disease (Psittacid Herpesvirus) ⭐
 
-> Herpes property: เคยติด → **latent** · shed ตอน immunosuppress
+> Herpes property: เคยติด → **latent**, shed ตอน immunosuppress
 
 ### Clinical (ไม่ specific!)
 - Liver dysfunction → urate เขียว-เหลือง
-- ขย่อนอาหาร · อาเจียน · conjunctivitis · sinusitis
+- ขย่อนอาหาร, อาเจียน, conjunctivitis, sinusitis
 - **Acute death**
 
 ### Necropsy ⭐
@@ -6082,7 +6082,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 - **Proventriculus ใหญ่จนเต็มช่องท้อง** (ตามชื่อโรค!)
 
 ### Dx + Tx
-- **PCR** (คณะรับ · accurate มาก — เคยมีเคสแลบอื่น negative 2 ครั้งแต่คณะ positive)
+- **PCR** (คณะรับ, accurate มาก — เคยมีเคสแลบอื่น negative 2 ครั้งแต่คณะ positive)
 - Diet ย่อยง่าย พลังงานสูง
 - มี protocol experimental ที่ดูดีขึ้น แต่ยังไม่ confirmed
 
@@ -6101,7 +6101,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ## 📝 Exam Hot Spots ⭐⭐
 1. **PBFD = Circovirus = intracytoplasmic** (vs Polyoma = intranuclear)
-2. **Incubation**: PBFD ≥ 3 wks · Polyoma 7-10 d
+2. **Incubation**: PBFD ≥ 3 wks, Polyoma 7-10 d
 3. **Polyoma signature**: acute death + **subcut hemorrhage** (ลูกนก/หงส์หยก/lovebird)
 4. **PBFD classical**: ขน+จงอยปากผิดรูป + รากขนฝ่อ
 5. **Pacheco = Herpes** → **Acyclovir** (ไวรัสตัวเดียวที่ Tx ได้!)
@@ -6109,9 +6109,9 @@ Bilateral non-pruritic non-inflammatory alopecia
 7. **PDD = Avian Bornavirus** → กินได้แต่ผอม + เม็ดธัญพืชย่อยไม่ได้
 8. **PCR cert ไม่ reliable** (ต้อง 2 ครั้ง × 90 วัน)
 9. **PBFD negative farm = เป็นไปไม่ได้**
-10. **Avian Pox**: เจอในนกทุกกลุ่ม · ติดผ่านยุง
+10. **Avian Pox**: เจอในนกทุกกลุ่ม, ติดผ่านยุง
 
-> 💡 "ใบ certificate negative — เชื่อได้แค่วันนั้น · 90 วันต่อมาอาจป่วย"`,
+> 💡 "ใบ certificate negative — เชื่อได้แค่วันนั้น, 90 วันต่อมาอาจป่วย"`,
   },
 
   // ─── V11 (อ.ธวัช) Bird Infectious Part 2 — Bact/Fungal/Proto ──
@@ -6122,7 +6122,7 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '25 Mar 69',
     durationMin: 61,
     instructor: 'อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์',
-    examFormat: 'MCQ — drug of choice + duration + zoonosis flag · จับคู่ pathogen ↔ sign ↔ Tx',
+    examFormat: 'MCQ — drug of choice + duration + zoonosis flag, จับคู่ pathogen ↔ sign ↔ Tx',
     summary: `# โรคติดเชื้อในนก ตอน 2 — Bacterial/Fungal/Protozoal/Parasitic
 
 > 🎯 หัวใจ Final scope — drug of choice + duration ออกข้อสอบทุกปี
@@ -6169,8 +6169,8 @@ Bilateral non-pruritic non-inflammatory alopecia
 ---
 
 ## Mycoplasma + Avian TB
-- **Mycoplasma**: ไม่มี cell wall → **β-lactam ใช้ไม่ได้!** · Tx = Tylosin/Doxy/Enrofloxacin
-- **Avian TB** (M. avium): granuloma · zoonotic ในคน immunocompromise · ไม่นิยมรักษา → euthanasia
+- **Mycoplasma**: ไม่มี cell wall → **β-lactam ใช้ไม่ได้!**, Tx = Tylosin/Doxy/Enrofloxacin
+- **Avian TB** (M. avium): granuloma, zoonotic ในคน immunocompromise, ไม่นิยมรักษา → euthanasia
 
 ---
 
@@ -6202,7 +6202,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 | Coccidiosis | Eimeria | Bloody/mucoid diarrhea | **Sulfa-TMP** | 5-7d |
 
 ### Trichomonas — "Canker / Frounce"
-- Host: **นกพิราบ · raptor (frounce) · finch** (frounce ในเหยี่ยวจากกินนกพิราบ)
+- Host: **นกพิราบ, raptor (frounce), finch** (frounce ในเหยี่ยวจากกินนกพิราบ)
 - **Yellow-white caseous plaque** oropharynx — คล้าย Candida แต่ใหญ่กว่า
 - Dx: **wet mount** → motile flagellate
 
@@ -6222,7 +6222,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ## 🪲 Knemidocoptes mites ⭐
 
-- **Burrowing mite** · **Budgerigar** ⭐ = signature species
+- **Burrowing mite**, **Budgerigar** ⭐ = signature species
 - **Scaly face** — honeycomb crust รอบจมูก/ตา/cere
 - **Scaly leg / tassel foot** — hyperkeratotic crust ขา
 - Beak deformity ถ้านาน
@@ -6260,7 +6260,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 11. **Trichomonas dx**: wet mount → motile flagellate
 12. **Canker vs Candida** — แยกด้วย cytology
 
-> 💡 อ.: "Psittacine ที่มี conjunctivitis + diarrhea → empirical doxy ก่อนผล PCR · zoonosis รอไม่ได้"`,
+> 💡 อ.: "Psittacine ที่มี conjunctivitis + diarrhea → empirical doxy ก่อนผล PCR, zoonosis รอไม่ได้"`,
   },
 
   // ─── V12 (อ.เสาวภางค์ ZPOT) Zoo Vet ───────────────────────────
@@ -6271,7 +6271,7 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '1 Apr 69',
     durationMin: 71,
     instructor: 'อ.สพ.ญ. เสาวภางค์ สนั่นหนู (ZPOT)',
-    examFormat: 'MCQ — zoo vet roles · quarantine protocol · IUCN/CITES status · 5 Domains welfare · disease surveillance',
+    examFormat: 'MCQ — zoo vet roles, quarantine protocol, IUCN/CITES status, 5 Domains welfare, disease surveillance',
     summary: `# Zoo Vet — สวนสัตว์ & การอนุรักษ์นอกถิ่นอาศัย
 
 > 🦒 อ.หมอใหญ่ จาก **ZPOT** (Zoological Park Organization of Thailand) — Animal Conservation and Research Institute
@@ -6290,7 +6290,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 | Type | Meaning | Who? |
 |---|---|---|
 | **In-situ** | ในถิ่นอาศัย | กรมอุทยาน (DNP) |
-| **Ex-situ** ⭐ | นอกถิ่นอาศัย | **Zoo · ZPOT** |
+| **Ex-situ** ⭐ | นอกถิ่นอาศัย | **Zoo, ZPOT** |
 
 > นิยาม "อนุรักษ์" ยุคใหม่ = **คงอยู่ + ใช้ประโยชน์ให้มากที่สุด** (ไม่ใช่แค่ห้ามแตะ)
 
@@ -6326,7 +6326,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 > Grazer (กินหญ้า) vs Browser (กินใบไม้ + fiber สูง)
 
 ### 2. Curator — collection plan + welfare design
-### 3. Researcher — Reproduction · Genetics · Forensics
+### 3. Researcher — Reproduction, Genetics, Forensics
 - **GRB (Genome Resource Bank / Frozen Zoo)** ⭐ — sperm/oocyte/embryo/fibroblast
 ### 4. Pathologist — Necropsy → feedback management
 
@@ -6335,7 +6335,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 ## Animal Health Management
 
 ### Quarantine ⭐⭐ (สำคัญสุด!)
-- **30 วัน** · **All in - all out** (เหมือนฟาร์ม)
+- **30 วัน**, **All in - all out** (เหมือนฟาร์ม)
 - ตรวจ 2 จุด: **ก่อนย้าย + ปลายทาง**
 - ใบเคลื่อนย้ายขอจาก **กรมปศุสัตว์** (พรบ.โรคระบาดใหม่ครอบสัตว์ป่า)
 
@@ -6358,7 +6358,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 |---|---|---|
 | **AHS** ⭐ | ม้า (ม้าลาย=carrier ไม่ตาย, ม้าแข่งตาย) | ก่อนย้ายต้องตรวจ |
 | **LSD** | วัวแดง | เคยระบาดในไทย |
-| **COVID-19** | Primates · Felidae · Canidae | ตรวจช่วง pandemic |
+| **COVID-19** | Primates, Felidae, Canidae | ตรวจช่วง pandemic |
 | **TB (Mycobacterium)** ⭐ | สมเสร็จ + apes + elephant | **ติดจากคนไปสัตว์มากกว่าสัตว์ไปคน** → จัดระยะ |
 | **Melioidosis** | อูฐ, จิงโจ้ (ไวมาก) | เชื้ออยู่ในดิน |
 | **Chytrid (Bd)** | กบ | ไทยยังไม่เจอ แต่เฝ้าระวัง |
@@ -6369,13 +6369,13 @@ Bilateral non-pruritic non-inflammatory alopecia
 ## Animal Welfare — 5 Domains ⭐⭐
 > เปลี่ยนจาก **5 Freedoms → 5 Domains** (ครอบคลุมขึ้น)
 
-**3C ของ welfare:** **C**omfort · **C**hoice · **C**ontrol
+**3C ของ welfare:** **C**omfort, **C**hoice, **C**ontrol
 
 > 💡 "ตู้โทรศัพท์ที่คนเดินรอบตลอดเวลา = สัตว์ใน 360° exhibit" → ต้องมีที่ให้ซ่อน!
 
 ### Enclosure Design ⭐
 - **2 ส่วน**: front (display) + back (holding/treatment)
-- Barriers: wet moat (หมี — ลึก) · dry moat · cage · **electric fence/popsicle cup สำหรับช้าง**
+- Barriers: wet moat (หมี — ลึก), dry moat, cage, **electric fence/popsicle cup สำหรับช้าง**
 
 ### Enrichment 🎯
 | Type | Pros | Cons |
@@ -6400,27 +6400,27 @@ Bilateral non-pruritic non-inflammatory alopecia
 |---|---|---|
 | ม้าป่า Przewalski | International success | EW → ปล่อยมองโกเลีย |
 | **ละมั่งพันธุ์พม่า** | ✅ 30 ปี | ฝูงเพาะพันธุ์ในป่า |
-| นกกระเรียนพันธุ์ไทย | สงวน · ปล่อยไป ~186 ตัว | นับนก มี.ค. ทุกปี |
-| **พญาแร้ง** ⭐ | EW Thailand (สูญพันธุ์ปี 2535 — ยาเบื่อ 30 ตัวพร้อม) | เริ่มเพาะ → ปล่อยห้วยขาแข้ง · ต้อง ≥10 ตัว |
+| นกกระเรียนพันธุ์ไทย | สงวน, ปล่อยไป ~186 ตัว | นับนก มี.ค. ทุกปี |
+| **พญาแร้ง** ⭐ | EW Thailand (สูญพันธุ์ปี 2535 — ยาเบื่อ 30 ตัวพร้อม) | เริ่มเพาะ → ปล่อยห้วยขาแข้ง, ต้อง ≥10 ตัว |
 | วัวแดง | ทำร่วมกรมอุทยาน | ย้ายจากสถานี→ป่า |
 
 ---
 
 ## 📝 Exam Hot Spots ⭐⭐⭐
-1. **Quarantine = 30 วัน · all in - all out**
+1. **Quarantine = 30 วัน, all in - all out**
 2. **In-situ (DNP) vs Ex-situ (Zoo/ZPOT)**
-3. **IUCN**: LC→NT→VU→EN→CR→**EW**→EX · ไทยมี EX = **สมัน**
+3. **IUCN**: LC→NT→VU→EN→CR→**EW**→EX, ไทยมี EX = **สมัน**
 4. **CITES App I/II/III** — ขึ้นกับประเทศ (เสือไทย ≠ เสืออินเดีย)
 5. **GRB** = frozen zoo (sperm/oocyte/embryo/fibroblast)
 6. **Vaccine = เชื้อตายเป็นหลัก** (กัน CDV ติดข้ามชนิด)
 7. **Hep B vaccine ใน great apes** ⭐
 8. **TB ในสมเสร็จ → คนติดสัตว์** (ไม่ใช่สัตว์ติดคน!)
-9. **AHS — ม้าลาย=carrier · ม้าแข่งตาย** → ก่อนย้ายต้องตรวจ
+9. **AHS — ม้าลาย=carrier, ม้าแข่งตาย** → ก่อนย้ายต้องตรวจ
 10. **5 Domains** (ไม่ใช่ 5 Freedoms) + **3C** (Comfort/Choice/Control)
 11. **Hippo = hindgut fermenter**
 12. **Grazer** (หญ้า) vs **Browser** (ใบไม้+fiber)
-13. **Microchip ช้าง = แทงลง · เพนกวิน = subQ** (ไม่ใช่ pectoral)
-14. **พญาแร้ง EW ปี 2535** (ยาเบื่อ) · **สมัน EX**
+13. **Microchip ช้าง = แทงลง, เพนกวิน = subQ** (ไม่ใช่ pectoral)
+14. **พญาแร้ง EW ปี 2535** (ยาเบื่อ), **สมัน EX**
 
 > 💡 อ.หมอใหญ่: "งานสวนสัตว์ใช้ DVM 6 ปีคุ้มมาก — รักษา + จัดการ + วิจัย + อนุรักษ์ ครบ loop"`,
   },
@@ -6433,13 +6433,13 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '8 Apr 69',
     durationMin: 70,
     instructor: 'อ. ไพศิลป์ เล็กเจริญ',
-    examFormat: 'MCQ concept-based · ecosystem services 4 · 5 vet roles · interface examples · case studies (Gaur/LSD/Rabies/HPAI/Mange/Malaria/Tiger poisoning) · surveillance vs research',
+    examFormat: 'MCQ concept-based, ecosystem services 4, 5 vet roles, interface examples, case studies (Gaur/LSD/Rabies/HPAI/Mange/Malaria/Tiger poisoning), surveillance vs research',
     summary: `# Role of Veterinarian in Conservation Medicine
 
-> **อ.ไพศิลป์ปิดท้าย:** "พี่ออกข้อสอบเอง · อยู่ในเลคเชอร์นี้หมดแหละ" → ฟังจบครบ คือ ครอบคลุมข้อสอบ ⭐
+> **อ.ไพศิลป์ปิดท้าย:** "พี่ออกข้อสอบเอง, อยู่ในเลคเชอร์นี้หมดแหละ" → ฟังจบครบ คือ ครอบคลุมข้อสอบ ⭐
 
 ## 🌍 Conservation Medicine คืออะไร?
-- **เวชศาสตร์เชิงอนุรักษ์** · interdisciplinary
+- **เวชศาสตร์เชิงอนุรักษ์**, interdisciplinary
 - ต้องทำงานร่วม นักชีววิทยาสัตว์ป่า / นิเวศวิทยา / public health
 - Core = **One Health** (คน+สัตว์+สิ่งแวดล้อม)
 - ต่างจาก zoo vet → เน้น **wildlife in nature** ไม่ใช่ captive
@@ -6460,9 +6460,9 @@ Bilateral non-pruritic non-inflammatory alopecia
 ## 🤝 4 Interfaces ⭐⭐
 | Type | ตัวอย่าง |
 |---|---|
-| **Ecological** | Species overlap · habitat fragmentation |
-| **Epidemiological** | Pathogen transmission · spillover |
-| **Human-wildlife** | Conflict · bushmeat · encroachment |
+| **Ecological** | Species overlap, habitat fragmentation |
+| **Epidemiological** | Pathogen transmission, spillover |
+| **Human-wildlife** | Conflict, bushmeat, encroachment |
 | **Governance** | Wildlife authority + health authority + community |
 
 > 💡 **กระทิง (wildlife) ออกมาใช้พื้นที่ทุ่งวัวเลี้ยง** → wildlife-livestock interface → **LSD spillover**
@@ -6472,10 +6472,10 @@ Bilateral non-pruritic non-inflammatory alopecia
 ## 🌱 Ecosystem Services 4 ⭐⭐⭐ (อ.ย้ำ "ท่องตาราง")
 | Service | ความหมาย | ตัวอย่าง |
 |---|---|---|
-| **Provisioning** | ผลิตทรัพยากร | อาหาร · น้ำ · ไม้ |
+| **Provisioning** | ผลิตทรัพยากร | อาหาร, น้ำ, ไม้ |
 | **Regulating** | ควบคุมกระบวนการ | **Predator regulate host → regulate disease risk** ⭐ |
 | **Cultural** | คุณค่าวัฒนธรรม | นกเงือก = flagship |
-| **Supporting** | ค้ำจุนระบบ | Forest habitat · soil formation |
+| **Supporting** | ค้ำจุนระบบ | Forest habitat, soil formation |
 
 > ⭐ **ออกข้อสอบบ่อย**: predator หาย → host เพิ่ม → disease ↑ = **Regulating** (ไม่ใช่ Supporting!)
 
@@ -6491,11 +6491,11 @@ Bilateral non-pruritic non-inflammatory alopecia
 ---
 
 ## 👨‍⚕️ 5 บทบาทสัตวแพทย์ Conservation ⭐⭐
-1. **Wildlife Health & Disease Intelligence** — surveillance · diagnosis · forensic
+1. **Wildlife Health & Disease Intelligence** — surveillance, diagnosis, forensic
 2. **Conservation Intervention & Mgmt** — population mgmt (translocation)
-3. **Human-Wildlife Interface Mgmt** — zoonosis · conflict mitigation
-4. **Welfare · Rescue · Rehab · Release** — 4R framework
-5. **Research · Policy · Innovation** — camera trap · GPS collar
+3. **Human-Wildlife Interface Mgmt** — zoonosis, conflict mitigation
+4. **Welfare, Rescue, Rehab, Release** — 4R framework
+5. **Research, Policy, Innovation** — camera trap, GPS collar
 
 ---
 
@@ -6508,8 +6508,8 @@ Bilateral non-pruritic non-inflammatory alopecia
 - ⚠️ Lesson: Clostridium = environmental contamination ≠ disease cause
 - Intervention: **บ่อจุ่มล้อ** (foot dip)
 
-### 2. LSD ใน Wild Bovids (กระทิง · วัวแดง · เลียงผา)
-- เริ่มในวัวเลี้ยง → spread ไปห้วยขาแข้ง · กุยบุรี
+### 2. LSD ใน Wild Bovids (กระทิง, วัวแดง, เลียงผา)
+- เริ่มในวัวเลี้ยง → spread ไปห้วยขาแข้ง, กุยบุรี
 - **Reverse spillover** — domestic → wildlife (ไม่ใช่ wild → human)
 
 ### 3. Rabies ใน Golden Jackals
@@ -6518,21 +6518,21 @@ Bilateral non-pruritic non-inflammatory alopecia
 - Intervention: GPS collar ตัวปกติ → home range overlap
 
 ### 4. HPAI ใน Captive Threatened Carnivores
-- เสือขาว Tiger Kingdom กิน **ไก่ดิบ** → ตาย · ปอด red hepatization
+- เสือขาว Tiger Kingdom กิน **ไก่ดิบ** → ตาย, ปอด red hepatization
 
 ### 5. Canine Distemper ใน Civet Farm
 - Promote breeding → ลด wildlife exploitation
 - เจอ CDV outbreak → linked เสือเชียงใหม่
 
-### 6. Mange ใน Social Carnivores (หมาใน · dhole)
+### 6. Mange ใน Social Carnivores (หมาใน, dhole)
 - Empirical: sarcoptic vs demodex
-- Trap ตัวปกติได้ · ตัวป่วยจับยาก → diagnostic gap
+- Trap ตัวปกติได้, ตัวป่วยจับยาก → diagnostic gap
 
 ### 7. Zoonotic Malaria — *P. knowlesi* ⭐
-- ราชบุรี · vector = **Anopheles dirus** (ก้นป่อง) · oviposit ในหลุมรากต้นบอนกระดาษ
+- ราชบุรี, vector = **Anopheles dirus** (ก้นป่อง), oviposit ในหลุมรากต้นบอนกระดาษ
 - Reservoir: ลิง (macaques)
 
-### 8. Tiger Poisoning (Forensic) — เขาแผง · ห้วยขาแข้ง
+### 8. Tiger Poisoning (Forensic) — เขาแผง, ห้วยขาแข้ง
 - เสือ 3 ตัวตายใกล้กัน → toxic intoxication
 - Toxin: **Furadan / Carbamate** ผสมในซากเหยื่อ → ล่าหนังโดยไม่เป็นรู
 
@@ -6559,26 +6559,26 @@ Bilateral non-pruritic non-inflammatory alopecia
 5. **Soft release** (กรงก่อน)
 6. **Post-release monitoring** (GPS)
 
-> ตัวอย่าง: **ละมั่ง · พญาแร้ง** กลับห้วยขาแข้ง (สูญพันธุ์ 2534 จาก **diclofenac** ในซากวัว)
+> ตัวอย่าง: **ละมั่ง, พญาแร้ง** กลับห้วยขาแข้ง (สูญพันธุ์ 2534 จาก **diclofenac** ในซากวัว)
 
 ---
 
 ## 🆘 4R Framework
-**Rescue · Rehabilitate · Release · Research**
+**Rescue, Rehabilitate, Release, Research**
 
 > ⚠️ **Individual welfare ≠ Population conservation benefit!**
 > นกพิราบบาดเจ็บ → ไม่ต้อง rehab (ประชากรอยู่สบาย)
 > ช้างสู้กันบาดเจ็บ → อาจไม่ต้องยุ่ง (natural process + ใช้ resource เยอะ)
 
 ### เกณฑ์ rehab
-- adult mortality เพิ่ม? · small declining population? · **K-selected** (ฟื้นช้า)?
+- adult mortality เพิ่ม?, small declining population?, **K-selected** (ฟื้นช้า)?
 - ห้ามเบียดบัง resource จาก conservation อื่น
 
 ---
 
 ## 🦠 Disease Spillover
 - Domestication → wildlife ↔ livestock ↔ human → **EID**
-- **Nipah**: ค้างคาวแม่ไก่ TH มี 20+ ปี · risk communication FAIL → คนพัทยาจะกำจัดค้างคาว
+- **Nipah**: ค้างคาวแม่ไก่ TH มี 20+ ปี, risk communication FAIL → คนพัทยาจะกำจัดค้างคาว
 
 ### Diclofenac → Rabies Cascade (Food Web!)
 - อินเดีย/บังคลาเทศ: diclofenac → แร้งตาย → ซากเยอะ → หมาจร↑ → **rabies↑**
@@ -6599,7 +6599,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 11. **Body↔Ecosystem analogy** (cell=species, organ=ecosystem)
 12. **4 Interfaces** (Ecological/Epidemiological/Human-wildlife/Governance)
 13. **Diclofenac → vulture die-off → rabies cascade**
-14. **4R Framework** (Rescue · Rehab · Release · Research)
+14. **4R Framework** (Rescue, Rehab, Release, Research)
 15. **Translocation ≠ ปล่อยเฉยๆ**
 
 > 💡 อ.ไพศิลป์: "อนาคตไปสายไหน — clinician, นักวิจัย, public health, ฟาร์ม — ก็เกี่ยวข้องกับ conservation medicine"`,
@@ -6613,10 +6613,10 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '22 Apr 69',
     durationMin: 53,
     instructor: 'อ. ปัณณวัฒน์ สุภาพรรณชาติ',
-    examFormat: 'MCQ 7 ข้อ × 5 choices · ออกจากสไลด์ ⭐ 5 สไลด์ · เน้นตารางเปรียบเทียบ + scope 4 + wildlife in nature vs captive + แหล่งทุน',
+    examFormat: 'MCQ 7 ข้อ × 5 choices, ออกจากสไลด์ ⭐ 5 สไลด์, เน้นตารางเปรียบเทียบ + scope 4 + wildlife in nature vs captive + แหล่งทุน',
     summary: `# Postgraduate Wildlife Course — เรียนต่อสายสัตว์ป่า
 
-> 💡 อ.ปัณณวัฒน์: "อ.บอกตรงๆเลยว่าออกอันที่มี ⭐ ในสไลด์ · ท่องตาราง 2 อัน + scope 4 อย่าง + ความต่าง wildlife in nature vs ในสวนสัตว์ + แหล่งทุน"
+> 💡 อ.ปัณณวัฒน์: "อ.บอกตรงๆเลยว่าออกอันที่มี ⭐ ในสไลด์, ท่องตาราง 2 อัน + scope 4 อย่าง + ความต่าง wildlife in nature vs ในสวนสัตว์ + แหล่งทุน"
 
 ---
 
@@ -6654,10 +6654,10 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 | Scope | เน้น |
 |---|---|
-| **1. Wildlife Medicine** | อายุรศาสตร์สัตว์ป่า · โรค + รักษา |
-| **2. One Health** ⭐ | คน-สัตว์-สิ่งแวดล้อม · zoonosis · บูมหลัง COVID |
-| **3. Conservation Medicine** ⭐ | อนุรักษ์ · ไม่จำเป็นต้องจบ vet |
-| **4. Wildlife Welfare** ⭐ | สวัสดิภาพ + husbandry · ฮิตในม้าแข่ง |
+| **1. Wildlife Medicine** | อายุรศาสตร์สัตว์ป่า, โรค + รักษา |
+| **2. One Health** ⭐ | คน-สัตว์-สิ่งแวดล้อม, zoonosis, บูมหลัง COVID |
+| **3. Conservation Medicine** ⭐ | อนุรักษ์, ไม่จำเป็นต้องจบ vet |
+| **4. Wildlife Welfare** ⭐ | สวัสดิภาพ + husbandry, ฮิตในม้าแข่ง |
 
 ### Conservation Medicine extras
 - ART (Assisted Reproductive Technologies): cloning, embryo transfer
@@ -6671,14 +6671,14 @@ Bilateral non-pruritic non-inflammatory alopecia
 | ประเด็น | **Wildlife in Nature** | **Captive (Zoo)** |
 |---|---|---|
 | **เป้าหมาย** | **ปล่อยคืนธรรมชาติ** ⭐ | อยู่ใน zoo ตลอดชีวิต / breeding |
-| **การรักษา** | Herd-based / **husbandry-focused** | จับวางยาสลบ · ฉีดยาเฉพาะตัว |
+| **การรักษา** | Herd-based / **husbandry-focused** | จับวางยาสลบ, ฉีดยาเฉพาะตัว |
 | **Vaccine** | ไม่ทำ ยกเว้นใกล้สูญพันธุ์ | **ต้องทำเสมอ** |
 | **Inbreeding** | ไม่มี | **มี** → vaccine บ่อย |
 | **Diet** | ธรรมชาติ | balance + complete diet |
 | **Rehab module** ⭐ | **มี** | ไม่ค่อยใช้ |
 
 ### Soft vs Hard Release ⭐
-- **Hard release** = ปล่อยเลย · ใช้กับสัตว์ที่อยู่ในธรรมชาติอยู่แล้ว (รถชน → รักษาเสร็จปล่อย)
+- **Hard release** = ปล่อยเลย, ใช้กับสัตว์ที่อยู่ในธรรมชาติอยู่แล้ว (รถชน → รักษาเสร็จปล่อย)
 - **Soft release** = monitor 2-6 เดือน + กรงเปิด + ให้อาหาร
   - ตัวอย่าง: ละมั่งพันธุ์พม่า รอบแรก hard release ตายหมด, รอบ 2 soft release รอด
 
@@ -6695,7 +6695,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ### USA — **ACZM**
 - ต้อง **สอบ license ใหม่** ที่ USA
-- 3 ปีขึ้นไป · **3 publications** (case report ก็ได้)
+- 3 ปีขึ้นไป, **3 publications** (case report ก็ได้)
 - เว็บไซต์บอก salary, benefit, vacation, case/day
 
 ### EU — **ECZM** ⭐⭐ (5 specialty boards)
@@ -6707,7 +6707,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 | **Small Mammal** ⭐ | Exotic + small primates |
 | **Zoo Health Management (ZHM)** ⭐ | บริหารซู |
 
-- **3 ปี · MAX 6 ปี → terminate**
+- **3 ปี, MAX 6 ปี → terminate**
 - **2 papers ใน 2 ปี** + **exam ใน 8 ปี** ⭐
 - **Driver's license REQUIRED** ⭐ (ขับเข้าป่า)
 - Final = written + practical
@@ -6719,9 +6719,9 @@ Bilateral non-pruritic non-inflammatory alopecia
 ### Domestic (ไทย)
 | ทุน | รายละเอียด |
 |---|---|
-| **กพ.** (OCSC) ⭐ | ทุกปี · สาขาขาดแคลน |
-| **อานันทมหิดล** (King's Scholarship) ⭐ | เกียรตินิยม 1 · 1 คน/ปี |
-| ทุนส่งเสริม ป.โท-เอก | ไม่ใช่ทุนเต็ม · ไป ตปท. 6 เดือน-1 ปี |
+| **กพ.** (OCSC) ⭐ | ทุกปี, สาขาขาดแคลน |
+| **อานันทมหิดล** (King's Scholarship) ⭐ | เกียรตินิยม 1, 1 คน/ปี |
+| ทุนส่งเสริม ป.โท-เอก | ไม่ใช่ทุนเต็ม, ไป ตปท. 6 เดือน-1 ปี |
 
 ### International ⭐⭐⭐ (ท่องคู่ประเทศ — ออกแน่!)
 | ทุน | ประเทศ |
@@ -6735,7 +6735,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 ---
 
 ## 📝 Exam Hot Spots ⭐⭐⭐ (อ.บอกตรงๆ)
-> **7 ข้อ × 5 choices · ออกจากสไลด์ ⭐ 5 สไลด์เท่านั้น**
+> **7 ข้อ × 5 choices, ออกจากสไลด์ ⭐ 5 สไลด์เท่านั้น**
 
 1. **USA = TOEFL + GRE/GMAT, EU/AUS = IELTS เท่านั้น**
 2. **PhD: USA จาก B.S. ตรง vs EU ต้องจบ Master's ก่อน**
@@ -6743,20 +6743,20 @@ Bilateral non-pruritic non-inflammatory alopecia
 4. **Master's: USA 2 ปี vs EU/AUS 1 ปี**
 5. **4 Scopes** = Wildlife Medicine, One Health, Conservation Medicine, Wildlife Welfare
 6. **ECZM 5 specialties** = Avian, Herpetological, WPH, Small Mammal, ZHM
-7. **ECZM** = 2 papers ใน 2 ปี + exam ใน 8 ปี · MAX 6 ปี · driving license required
+7. **ECZM** = 2 papers ใน 2 ปี + exam ใน 8 ปี, MAX 6 ปี, driving license required
 8. **ACZM** = สอบ license USA ใหม่ + 3 papers
 9. **Funding pairs** ⭐: Fulbright-USA, Chevening-UK, Erasmus-EU, Australia Awards-AUS, Monbukagakusho-Japan, OCSC/King's-Thai
-10. **Wildlife in nature** = release goal + husbandry-based · **Captive** = vaccine + treat individual
+10. **Wildlife in nature** = release goal + husbandry-based, **Captive** = vaccine + treat individual
 11. **Soft vs Hard release** — hard=สัตว์ป่าเดิม, soft=monitor 2-6 mo
 12. **Salt gland atrophy** ใน penguin captive → release → kidney/gout
 13. **Open Season seal** = กระบองเหล็ก only (วิธีอื่นผิดกฎหมาย)
 14. **Welfare frameworks**: 5 Freedoms → **Five Domains** (update ใหม่)
 
-> 💡 อ.: "search Google · พิมพ์ scope ที่สนใจ + 'wildlife' จะมี course suggest"`,
+> 💡 อ.: "search Google, พิมพ์ scope ที่สนใจ + 'wildlife' จะมี course suggest"`,
   },
 
   // ─────────────────────────────────────────────────────────────
-  // REPRO LECT — Final scope (Lect 15-24) · 5 May 2026 exam
+  // REPRO LECT — Final scope (Lect 15-24), 5 May 2026 exam
   // ─────────────────────────────────────────────────────────────
   '9piuvH_sdXc': {
     videoId: '9piuvH_sdXc',
@@ -6765,11 +6765,11 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '6 Mar 69',
     durationMin: 128,
     instructor: 'Aj. Suppawiwat Ponglowhapan (SP) — Theriogenology, Chula Vet',
-    examFormat: 'Case-based MCQ + drug class matching · "ออก 2 ล้านข้อ จำไป" Progestin AE',
+    examFormat: 'Case-based MCQ + drug class matching, "ออก 2 ล้านข้อ จำไป" Progestin AE',
     summary: `# 15. Hormonal Applications in Dogs and Cats
 
-> 🎯 อ.SP: "ฮอร์โมนในหมาแมวมันไม่เหมือนยาคุมคน · ใช้ผิดช่วง ผิดโดส ผิดสปีชีส์ → AE มหาศาล" · เน้น progestin (นางเอกของบท), aglepristone, deslorelin, PGF2α, cabergoline, oxytocin
-> ⚠️ "ยาคุมไม่ใช่ไซยาไนด์ · ใช้ถูกต้องเหมาะสมก็ปลอดภัย · แต่ถ้าไม่ใช่หมอใครจะรู้ว่าเหมาะสม"
+> 🎯 อ.SP: "ฮอร์โมนในหมาแมวมันไม่เหมือนยาคุมคน, ใช้ผิดช่วง ผิดโดส ผิดสปีชีส์ → AE มหาศาล", เน้น progestin (นางเอกของบท), aglepristone, deslorelin, PGF2α, cabergoline, oxytocin
+> ⚠️ "ยาคุมไม่ใช่ไซยาไนด์, ใช้ถูกต้องเหมาะสมก็ปลอดภัย, แต่ถ้าไม่ใช่หมอใครจะรู้ว่าเหมาะสม"
 
 ---
 
@@ -6788,30 +6788,30 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 | Drug | Form | Note |
 |---|---|---|
-| **MPA** (Medroxyprogesterone acetate) | IM injection · 50 mg/mL | ★ พระเอกในไทย · ราคาถูก |
+| **MPA** (Medroxyprogesterone acetate) | IM injection, 50 mg/mL | ★ พระเอกในไทย, ราคาถูก |
 | **Megestrol acetate** | tablet | หาได้ยาก |
-| **Proligestone** (Covinan) | injection | จดทะเบียนใช้ในหมาแมว · AE น้อยกว่า · เลิกขายในไทย |
+| **Proligestone** (Covinan) | injection | จดทะเบียนใช้ในหมาแมว, AE น้อยกว่า, เลิกขายในไทย |
 
 ## Clinical use #1: Prevention of estrus
 - ★★★ **ฉีดในระยะ anestrus เท่านั้น** — [21:18]
 - ⛔ ห้ามฉีดในระยะ estrus (estrogen สูง → CEH risk เพิ่ม)
-- Dose: **MPA 2.5 mg/kg IM** (สุนัข) · 2 mg/kg (แมว) · ทุก 4-6 เดือน
+- Dose: **MPA 2.5 mg/kg IM** (สุนัข), 2 mg/kg (แมว), ทุก 4-6 เดือน
 - ★ ไม่ควรให้ติดต่อกัน > 2 ปี หรือ > 3 injections
 
-> ⛔ **Overdose ที่เจอบ่อย**: 1 ขวด = 1 mL = 50 mg → ถ้าฉีด "1 ขวด/1 ตัว" เหมือนวัคซีน → overdose มาก! · หมา 10 kg dose 2.5 → ใช้แค่ 0.5 mL [33:49]
+> ⛔ **Overdose ที่เจอบ่อย**: 1 ขวด = 1 mL = 50 mg → ถ้าฉีด "1 ขวด/1 ตัว" เหมือนวัคซีน → overdose มาก!, หมา 10 kg dose 2.5 → ใช้แค่ 0.5 mL [33:49]
 
 ## ★★★ Progestin Adverse Effects (Q1886) [22:18]
 
-> 🎯 อ.SP: "ออก 2 ล้านข้อ จำไป" · AE จาก long-term/overdose progestin
+> 🎯 อ.SP: "ออก 2 ล้านข้อ จำไป", AE จาก long-term/overdose progestin
 
 | AE | Detail |
 |---|---|
 | **CEH/Pyometra** ★ | progestin กระตุ้น endometrial gland → cystic endometrial hyperplasia |
-| **Mammary mass / nodules** ★ | benign mammary mass · long-term use |
-| **Diabetes Mellitus** ★ | acromegaly-like effect · GH ↑ → insulin resistance |
-| **Mammary Fibroadenomatous Hyperplasia (MFH)** ★★ | ★ ใน cat! · prepubertal female + male cat · ฉีดยาคุมแล้วเต้านมตู้มทั้ง 2 ข้าง [32:15] |
+| **Mammary mass / nodules** ★ | benign mammary mass, long-term use |
+| **Diabetes Mellitus** ★ | acromegaly-like effect, GH ↑ → insulin resistance |
+| **Mammary Fibroadenomatous Hyperplasia (MFH)** ★★ | ★ ใน cat!, prepubertal female + male cat, ฉีดยาคุมแล้วเต้านมตู้มทั้ง 2 ข้าง [32:15] |
 | **Local hair loss + color change** | ฉีด SC → alopecia + เปลี่ยนสีขน → ★ ให้ฉีด IM only [52:06] |
-| **Polyphagia · weight gain** | ผลทั่วไป |
+| **Polyphagia, weight gain** | ผลทั่วไป |
 
 > ⛔ **Contraindications** [22:50]:
 > 1. ⛔ สัตว์ที่ตั้งท้อง
@@ -6826,7 +6826,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 2. ครบกำหนดคลอด → progesterone exogenous **ยังไม่หมดฤทธิ์** → cervix ไม่เปิด
 3. ลูกตาย → **emphysematous fetus** + sepsis → แม่ตาย
 
-> 💡 **ฉีดยาคุมก่อนต้อง pregnancy diagnosis** · U/S ที่ 21-28 วันหลังผสม
+> 💡 **ฉีดยาคุมก่อนต้อง pregnancy diagnosis**, U/S ที่ 21-28 วันหลังผสม
 
 # 2️⃣ Aglepristone (P4 Receptor Blocker) [57:19]
 
@@ -6868,7 +6868,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 # 6️⃣ GnRH Agonists (Deslorelin) [78:20]
 
-★ Drug: **Deslorelin (Suprelorin)** — implant SC · long-term release
+★ Drug: **Deslorelin (Suprelorin)** — implant SC, long-term release
 
 ## ★★★ Clinical applications
 
@@ -6896,27 +6896,27 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 | Drug | Country | Note |
 |---|---|---|
-| **Cabergoline** (Galastop) | ตปท. | ★ มี license · ยาน้ำ |
-| **Bromocriptine** | ★ มีในไทย | ยาคน Parkinson · 2.5 mg tablet |
+| **Cabergoline** (Galastop) | ตปท. | ★ มี license, ยาน้ำ |
+| **Bromocriptine** | ★ มีในไทย | ยาคน Parkinson, 2.5 mg tablet |
 
 ## Clinical uses
 - **Pseudopregnancy + galactostasis** ★★
 - **Lactation suppression**
 
 ## ⛔ Side effect
-- **★ Vomiting** — ภายใน 30 นาที · Bromocriptine vomit > Cabergoline
+- **★ Vomiting** — ภายใน 30 นาที, Bromocriptine vomit > Cabergoline
 
 # 🎯 ★★★ Exam Hot Spots
 
-1. ★★★ **Progestin AE** (Q1886) — CEH, MFH ในแมว, DM, mammary mass · "ออก 2 ล้านข้อ"
+1. ★★★ **Progestin AE** (Q1886) — CEH, MFH ในแมว, DM, mammary mass, "ออก 2 ล้านข้อ"
 2. ★★★ **Progestin contraindications** — pregnant, prepubertal cat, > 5 yr, DM, estrus
 3. ★★★ **Aglepristone 3 uses** — pyometra, abortion, FEH
-4. ★★ **MPA dose**: 2.5 mg/kg IM (dog) · 2 mg/kg (cat) · ทุก 4-6 เดือน
-5. ★★ **PGF2α**: 0.025 mg/kg **SC only** ⛔ ห้าม IM/IV · AE: mydriasis
-6. ★★ **Hypoluteoidism** [48:27]: P4 < 5 ng/mL → MPA 0.1 mg/kg PO sid · หยุด 2 วันก่อน due date
+4. ★★ **MPA dose**: 2.5 mg/kg IM (dog), 2 mg/kg (cat), ทุก 4-6 เดือน
+5. ★★ **PGF2α**: 0.025 mg/kg **SC only** ⛔ ห้าม IM/IV, AE: mydriasis
+6. ★★ **Hypoluteoidism** [48:27]: P4 < 5 ng/mL → MPA 0.1 mg/kg PO sid, หยุด 2 วันก่อน due date
 7. ★ **Deslorelin**: post-spay UI, BPH, tom-cat behavior
-8. ★ **Cat cryptorchid**: ปลิ้น penis ดู spines · 4 wks หลัง cast spines หายไป 90%
-9. ★ **Cabergoline > Bromocriptine** = pseudopregnancy · ★ side effect = vomit
+8. ★ **Cat cryptorchid**: ปลิ้น penis ดู spines, 4 wks หลัง cast spines หายไป 90%
+9. ★ **Cabergoline > Bromocriptine** = pseudopregnancy, ★ side effect = vomit
 10. ★ **Estrogen AE** = bone marrow suppression / pancytopenia
 11. ★★ **Oxytocin** ⛔ contraindicated in **obstructive dystocia**
 
@@ -6930,10 +6930,10 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '13 Mar 69',
     durationMin: 148,
     instructor: 'Aj. Theerawat Tharasanit (TT) — Theriogenology, Chula Vet',
-    examFormat: 'Cryobiology concepts + infertility differential dx · cross-refs Q1851-Q1859',
-    summary: `# Lect 17 + 18 รวมสองชม. · เน้น concept
+    examFormat: 'Cryobiology concepts + infertility differential dx, cross-refs Q1851-Q1859',
+    summary: `# Lect 17 + 18 รวมสองชม., เน้น concept
 
-อาจารย์ TT [0:35] ลุย 2 พาร์ท: preserve semen + infertility · บอกตรงๆว่า **infertility ยากและวุ่นวายมาก** [1:05] คนทำต้องรู้ basic + normality + abnormality เพราะ abnormality ทุกตัวใน repro = infertility
+อาจารย์ TT [0:35] ลุย 2 พาร์ท: preserve semen + infertility, บอกตรงๆว่า **infertility ยากและวุ่นวายมาก** [1:05] คนทำต้องรู้ basic + normality + abnormality เพราะ abnormality ทุกตัวใน repro = infertility
 
 > ⚠️ **จับ concept ให้ได้ ไม่ต้องจดทุกอย่าง**
 
@@ -6942,9 +6942,9 @@ Bilateral non-pruritic non-inflammatory alopecia
 ## 🧊 Part 1 — Semen Preservation [2:07]
 
 ### ทำไม sperm cryopreservation success ดีที่สุด?
-[3:39] sperm = reproductive cell **เล็กที่สุด** (หัว 3-4 µm) + cytoplasm น้อย · shed proximal droplet ทิ้งแล้ว
-- เซลล์ทั่วไปมี water 90% · sperm มีน้อยกว่า → **intracellular ice formation น้อย** → cell damage น้อย
-- **Chilled** ไม่เกิด ice (แช่เย็นเฉยๆ) · **Frozen** ถึงเกิด
+[3:39] sperm = reproductive cell **เล็กที่สุด** (หัว 3-4 µm) + cytoplasm น้อย, shed proximal droplet ทิ้งแล้ว
+- เซลล์ทั่วไปมี water 90%, sperm มีน้อยกว่า → **intracellular ice formation น้อย** → cell damage น้อย
+- **Chilled** ไม่เกิด ice (แช่เย็นเฉยๆ), **Frozen** ถึงเกิด
 
 ### Chilled (Short-term) [9:21]
 - Dog ~ 2-3 วัน (ใน reproductive tract อยู่ได้ 5-7 วัน)
@@ -6957,8 +6957,8 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ### Extender 1 และ 2 [13:26]
 **Uppsala extender** (สวีเดน)
-- **Extender 1 = glycerol 3%** · equilibrate **1 ชม. 4°C**
-- **Extender 2 = glycerol 7%** · final ~5%
+- **Extender 1 = glycerol 3%**, equilibrate **1 ชม. 4°C**
+- **Extender 2 = glycerol 7%**, final ~5%
 - **อัตราส่วน 1:1 ห้ามผิด** [28:04] — ถ้าใส่ extender 2 มาก → glycerol > 5% → toxic
 
 ### CPA — Cryoprotective Agent [12:55]
@@ -7032,7 +7032,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 
 ### Herpesvirus [111:48]
 - **Latent infection ตลอดชีพ** — eradicate ไม่ได้
-- Signs คล้าย Brucella · stress → reactivation
+- Signs คล้าย Brucella, stress → reactivation
 
 ### AMH [141:35]
 - **Female**: small antral follicles → indicator **ovarian reserve**
@@ -7060,12 +7060,12 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '20 Mar 69',
     durationMin: 207,
     instructor: 'Aj. Ampika Thongphakdee (AT) — ZPO Wildlife Repro Center',
-    examFormat: 'Wildlife conservation + ART pipeline · case-driven · cross-refs Q1820-Q1824, Q1870-Q1873',
+    examFormat: 'Wildlife conservation + ART pipeline, case-driven, cross-refs Q1820-Q1824, Q1870-Q1873',
     summary: `# Conservation × ART — เทคโนโลยีสืบพันธุ์ในสัตว์ป่า
 
 อาจารย์อัม (รุ่น 61) จาก **องค์การสวนสัตว์แห่งประเทศไทย** (ZPO) — ดูแล 6 สวนสัตว์ + ศูนย์ช้างสุรินทร์
 
-> 🌍 IUCN: **48,000+ species ถูกคุกคาม** · เป้า 2050 ฟื้นฟูความหลากหลายทางชีวภาพ
+> 🌍 IUCN: **48,000+ species ถูกคุกคาม**, เป้า 2050 ฟื้นฟูความหลากหลายทางชีวภาพ
 
 ---
 
@@ -7198,7 +7198,7 @@ Bilateral non-pruritic non-inflammatory alopecia
     date: '20 Mar 69',
     durationMin: 201,
     instructor: 'Aj. Chaowaphan Yinharnmingmongkol (CY) — Animal Space Exotic Hospital',
-    examFormat: 'Species-by-species clinical · rabbit + guinea pig + ferret + reptile + bird · cross-refs Q1825-Q1829',
+    examFormat: 'Species-by-species clinical, rabbit + guinea pig + ferret + reptile + bird, cross-refs Q1825-Q1829',
     summary: `# Exotic Repro Disease — species by species
 
 พี่อ้อย (Animal Space Exotic Hospital, รุ่น 61) [5:25] เน้น **rabbit + guinea pig** เพราะเจอเยอะที่สุด
@@ -7250,8 +7250,8 @@ Bilateral non-pruritic non-inflammatory alopecia
 ### Castration Approaches [122:21]
 | Approach | Pros | Cons |
 |---|---|---|
-| **Pre-scrotal** | sterile ดี · แผลไม่โดนพื้น | นานกว่า |
-| **Scrotal** | เร็วกว่า | แผล 2 จุด · sterile ยาก |
+| **Pre-scrotal** | sterile ดี, แผลไม่โดนพื้น | นานกว่า |
+| **Scrotal** | เร็วกว่า | แผล 2 จุด, sterile ยาก |
 | **Abdominal** | สำหรับ chinchilla | ลึกกว่า |
 
 ### Spay (OVH) Precautions [73:46]
@@ -7309,7 +7309,7 @@ Bilateral non-pruritic non-inflammatory alopecia
 - ligate base + transect
 
 ### Common causes
-breeding stress · dehydration · low calcium · parasites · substrate trauma
+breeding stress, dehydration, low calcium, parasites, substrate trauma
 
 ---
 
@@ -7328,7 +7328,7 @@ breeding stress · dehydration · low calcium · parasites · substrate trauma
 - **Q1828** — Ferret estrogen toxicity (BM suppression + alopecia)
 - **Q1829** — Reptile hemipenis prolapse (acute reduce, chronic amputate)
 
-> 💡 **Take-home**: exotic pets เจอบนคลินิก · basic biology + species-specific repro = "10-second answers" ที่เจ้าของคาดหวัง`,
+> 💡 **Take-home**: exotic pets เจอบนคลินิก, basic biology + species-specific repro = "10-second answers" ที่เจ้าของคาดหวัง`,
   },
 
   'jibDxn3Ajsk': {
@@ -7338,12 +7338,12 @@ breeding stress · dehydration · low calcium · parasites · substrate trauma
     date: '27 Mar 69',
     durationMin: 175,
     instructor: 'Aj. Nantapong Kamprasert (NK) — UNE Australia / Roslin Edinburgh',
-    examFormat: 'Quantitative genetics applied · concept-heavy · cross-refs Q1830-Q1834',
+    examFormat: 'Quantitative genetics applied, concept-heavy, cross-refs Q1830-Q1834',
     summary: `# Quantitative Genetics 101 → BLUP/GBLUP
 
 อาจารย์แบงค์ (นันทพงษ์ คำประเสริฐ) — Vet Sci สงขลาฯ → **MSc + PhD Quantitative Genetics @ University of New England (UNE) Australia** + Roslin Edinburgh, beef cattle breeding specialist
 
-> 💡 [13:30] **"Genetics foundation เหมือนกันหมด"** — ไวรัส, แบคทีเรีย, พืช, สัตว์ · ดีเทลต่าง · concept = ยีน → pass on → next generation
+> 💡 [13:30] **"Genetics foundation เหมือนกันหมด"** — ไวรัส, แบคทีเรีย, พืช, สัตว์, ดีเทลต่าง, concept = ยีน → pass on → next generation
 
 ---
 
@@ -7399,7 +7399,7 @@ range: 0 → 1
 | **Disruptive** | bimodal | **เพิ่ม** |
 
 ### By cause
-- **Natural selection** — Darwin · pressure จากสิ่งแวดล้อม
+- **Natural selection** — Darwin, pressure จากสิ่งแวดล้อม
 - **Artificial selection** = human-made = selective breeding
 
 [104:56] หลัง domestication → **dairy cow** vs **beef cow** แม้เริ่มจาก cattle ตัวเดียวกัน
@@ -7457,7 +7457,7 @@ GBLUP:   GEBV = f(phenotype, pedigree, SNP G-matrix)
 
 > 🛑 **Pure breeds เสี่ยง** — F สูง → recessive disease emerge:
 > - **HCM ใน Maine Coon** (MyBPC3 mutation) [7:53] — host professor intro example
-> - **Munchkin (MK) cat short-leg** [156:42] — ★ Aj. NK's lecture-specific example · single-allele · MKMK homozygous dominant = lethal in utero (25%)
+> - **Munchkin (MK) cat short-leg** [156:42] — ★ Aj. NK's lecture-specific example, single-allele, MKMK homozygous dominant = lethal in utero (25%)
 > - **Hip dysplasia** ใน large breed
 > - **PKD** ใน Persian cat
 
@@ -7471,11 +7471,11 @@ GBLUP:   GEBV = f(phenotype, pedigree, SNP G-matrix)
 3. **Show / private breeder** → breed standard + AKC certification
 
 ### Conformation Scoring [259:18]
-Scottish Fold มี ideal characteristics checklist · breeder certified ต้อง follow + pedigree ครบ
+Scottish Fold มี ideal characteristics checklist, breeder certified ต้อง follow + pedigree ครบ
 
 ### โรคทางพันธุกรรมที่ต้องตรวจก่อนผสม
 - **Maine Coon HCM** — MyBPC3 mutation test (intro example by host)
-- **★ Munchkin (MK) short-leg** — Aj. NK's lecture-specific [156:42] · single dominant allele · lethal homozygous
+- **★ Munchkin (MK) short-leg** — Aj. NK's lecture-specific [156:42], single dominant allele, lethal homozygous
 - **Hip dysplasia** — Labrador, GSD
 - **PKD** — Persian cat
 
@@ -7514,7 +7514,7 @@ Scottish Fold มี ideal characteristics checklist · breeder certified ต้
     date: '27 Mar 69',
     durationMin: 207,
     instructor: 'Aj. Sroisuda Chotimanukul (SC) — Theriogenology, Chula Vet',
-    examFormat: 'OHE/orchiectomy technique · ligation rules · ORS prevention · cryptorchid',
+    examFormat: 'OHE/orchiectomy technique, ligation rules, ORS prevention, cryptorchid',
     summary: `# 22. Surgical Neutering — เทคนิคผ่าตัดทำหมัน
 
 > เลค 3.5 ชม. โดย Aj. SC — เน้น **technique + ข้อควรระวัง** ที่เอาไปใช้จริงในคลินิก/สอบ VCA
@@ -7561,7 +7561,7 @@ Scottish Fold มี ideal characteristics checklist · breeder certified ต้
 
 ### 3.2 Anatomy [36:20]
 - **Ovary** อยู่ caudal to kidney
-- ★ **Ovarian bursa**: หมา **คลุม ovary มิด** (complete) · แมวคลุมบางส่วน
+- ★ **Ovarian bursa**: หมา **คลุม ovary มิด** (complete), แมวคลุมบางส่วน
 - → ในหมา **ต้องเปิด bursa เช็ค** ทุกครั้ง
 
 ### 3.3 Position & Incision [47:15]
@@ -7586,7 +7586,7 @@ Scottish Fold มี ideal characteristics checklist · breeder certified ต้
 6. ★★ **ห้ามตัดชิดปม** — ตัด ~5 mm ห่างจาก knot
 7. ★★ **Double ligation gap ≤ 5 mm** — ห่างเป็นกระเปาะ → **stump pyometra**
 8. ★ **เปิด bursa เช็ค ovary** ทั้ง 2 ข้าง — ป้องกัน ORS [80:55]
-9. **Cervix**: ตัวเล็ก = double ligation · ตัวใหญ่ = ★ **Transfixation ที่ cervix** (ห้าม transfix ที่ ovarian pedicle!) [65:22]
+9. **Cervix**: ตัวเล็ก = double ligation, ตัวใหญ่ = ★ **Transfixation ที่ cervix** (ห้าม transfix ที่ ovarian pedicle!) [65:22]
 10. Check bleeding ทั้ง 3 stumps ก่อนปิดแผล
 
 ### 3.5 Closure [73:36]
@@ -7673,7 +7673,7 @@ Scottish Fold มี ideal characteristics checklist · breeder certified ต้
 
 ## 8. Hydroureter — Cervix Ligation Complication [125:42]
 
-⛔ ผูก cervix ลึกเกิน → bite **ureter** → hydronephrosis · ค่าไตขึ้นหลังผ่า
+⛔ ผูก cervix ลึกเกิน → bite **ureter** → hydronephrosis, ค่าไตขึ้นหลังผ่า
 ✅ Prevention: ยก UB เช็ค ureter ก่อนผูก cervix ทุกครั้ง
 
 ---
@@ -7768,7 +7768,7 @@ Scottish Fold มี ideal characteristics checklist · breeder certified ต้
 **WSAVA**: 6-16 weeks (~6 wk - 4 mo)
 
 ### Pros
-✅ Technique ง่ายกว่า · Recovery เร็ว · Surgery time สั้น
+✅ Technique ง่ายกว่า, Recovery เร็ว, Surgery time สั้น
 
 ### Cautions
 ⛔ **NPO < 4 hrs** (hypoglycemia)
@@ -7785,7 +7785,7 @@ Scottish Fold มี ideal characteristics checklist · breeder certified ต้
 5. **เปิด ovarian bursa เช็ค** ทุกครั้ง (หมา)
 6. **Transfix = at cervix only**
 7. **Cat flank layers**: ext oblique → int oblique + **transversus** (ไม่ใช่ rectus!)
-8. **★★★ ORS predominant on right side** · Tx = caudal midline + AMH dx
+8. **★★★ ORS predominant on right side**, Tx = caudal midline + AMH dx
 9. **Dog = pre-scrotal**, **Cat = scrotal + no closure**
 10. **Cryptorchid abdominal = open technique** (ไม่มี tunica vaginalis)`,
   },
@@ -7797,7 +7797,7 @@ Scottish Fold มี ideal characteristics checklist · breeder certified ต้
     date: '4 Apr 69',
     durationMin: 172,
     instructor: 'Aj. Sroisuda Chotimanukul (SC) — Theriogenology, Chula Vet',
-    examFormat: 'MCQ + clinical scenario · breed/sex/age recall heavy',
+    examFormat: 'MCQ + clinical scenario, breed/sex/age recall heavy',
     summary: `# Lect 23 — Risk-Benefit Assessment of Gonadectomy
 
 > "การทำหมันไม่ใช่ขาวกับดำ" — Aj. SC ★
@@ -7847,7 +7847,7 @@ Timing:
 - **German Shepherd**
 - **Labrador Retriever**
 
-> ⚠️ **Lecture transcript variant** [61:51]: Aj. SC (4 Apr 2026) said "Doberman / Rottweiler / **Rhodesian Ridgeback** / Labrador" instead of GSD. May be year-specific update or auto-transcript mishearing of "Shepherd". **Stick with past paper for exam · know both for safety.**
+> ⚠️ **Lecture transcript variant** [61:51]: Aj. SC (4 Apr 2026) said "Doberman / Rottweiler / **Rhodesian Ridgeback** / Labrador" instead of GSD. May be year-specific update or auto-transcript mishearing of "Shepherd". **Stick with past paper for exam, know both for safety.**
 
 > สุนัข intact ♂ อายุ >5 → BPH risk **55-60%**
 > แนะนำ: U/S prostate ตรวจประจำปีในตัวผู้ที่ไม่ทำหมัน
@@ -7907,7 +7907,7 @@ Pathogenesis: post-neuter LH สูง → bind LH receptor ที่ urethral s
 
 > **Female ทำหมัน อายุ >12 เดือน** → risk ↑
 
-ตรงข้ามกับ lymphoma · HSA = late-age neuter ในตัวเมีย เพิ่ม
+ตรงข้ามกับ lymphoma, HSA = late-age neuter ในตัวเมีย เพิ่ม
 
 ### 2.6 Lymphoma [117:55]
 
@@ -8034,12 +8034,12 @@ Special: **Dachshund** — เล็ก แต่ neuter เร็ว → IVDD �
     date: '10 Apr 69',
     durationMin: 116,
     instructor: 'Aj. Suppawiwat Ponglowhapan (SP) — Theriogenology, Chula Vet',
-    examFormat: 'Image-based MCQ · day-by-day timeline · HR thresholds',
+    examFormat: 'Image-based MCQ, day-by-day timeline, HR thresholds',
     summary: `# Lect 24 — Ultrasound Reproductive in the Dog and Cat
 
 > "Imaging = ทำยังไงก็ได้ให้ตาเราเห็นข้างใน — สัตว์ยังไม่ตายตาเรามองไม่เห็น" — Aj. SP [03:04]
 
-U/S = **first-line tool** สำหรับระบบสืบพันธุ์ · safe (sound wave ≠ X-ray) · early detection (D14-18 หลังตกไข่)
+U/S = **first-line tool** สำหรับระบบสืบพันธุ์, safe (sound wave ≠ X-ray), early detection (D14-18 หลังตกไข่)
 
 ---
 
@@ -8121,7 +8121,7 @@ U/S = **first-line tool** สำหรับระบบสืบพันธุ
 
 † **<150 threshold** = textbook reference (Davidson/Lopate) — not stated in this lecture's audio. Lecture-grounded answer: rely on >220 + <180.
 
-> [67:26] "<180 ใน 6-7 wk → ไม่ผ่า ปล่อยให้ครบเทอม · <180 near term → ผ่าคลอด"
+> [67:26] "<180 ใน 6-7 wk → ไม่ผ่า ปล่อยให้ครบเทอม, <180 near term → ผ่าคลอด"
 
 ---
 
@@ -8261,8 +8261,8 @@ U/S = **first-line tool** สำหรับระบบสืบพันธุ
 ## 12. ★★★ Aj. SP Pearls (Quick Recall)
 
 1. **First U/S sign of pregnancy = gestational sac at D20-22**
-2. **Fetal HR**: >220 normal · <180 distress · <150 critical
-3. **Sex determination**: dog D55-58 · cat D38-43
+2. **Fetal HR**: >220 normal, <180 distress, <150 critical
+3. **Sex determination**: dog D55-58, cat D38-43
 4. **Mediastinum testis = hyperechoic line = NORMAL**
 5. **Cervix landmark** = ระหว่าง body of uterus กับ neck of UB
 6. **Full bladder helps locate prostate**
@@ -8272,7 +8272,7 @@ U/S = **first-line tool** สำหรับระบบสืบพันธุ
 10. **เขียนตามที่ตาเห็น — ไม่ด่วนสรุปโรค**`,
   },
 
-  // ═══ Poultry + Cliapprum Final scope (12 lectures · added 2026-05-03) ═══
+  // ═══ Poultry + Cliapprum Final scope (12 lectures, added 2026-05-03) ═══
   'jd9eTltQy8g': {
   videoId: 'jd9eTltQy8g',
   title: 'Avian Zoonosis (L10)',
@@ -8281,49 +8281,49 @@ U/S = **first-line tool** สำหรับระบบสืบพันธุ
   durationMin: 72,
   instructor: 'Aj. Kamonpan Charoenkul (Vet Public Health, CU) — L10',
   examFormat: 'fill-in / MCQ — table-based exam (Disease × Bird species × Bird signs × Human signs); ออกสอบทุกปี เติมคำง่ายๆ',
-  summary: `# L10 — Avian Zoonosis · Aj. Kamonpan Charoenkul
+  summary: `# L10 — Avian Zoonosis, Aj. Kamonpan Charoenkul
 
 ## Intro & Scope [4:22-7:01]
 
 Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเติมคำง่ายๆ ที่สุดถือว่าเป็นคะแนนช่วยของวิชานี้**" [4:22] — แต่ตอนท้ายย้ำอีกรอบว่า **"หน้าสุดท้ายเป็นข้อสอบทุกปี เติมคำ อาการในคน/อาการในสัตว์/เป็นเชื้ออะไร/โฮสตหลักคืออะไร"** [69:43-70:15] ★
 
-**ช่องทางแพร่ zoonosis (3 ทาง)** [5:26]: direct contact (สัมผัสสัตว์เลี้ยง นกแก้ว) · indirect (สิ่งคัดหลั่ง/ปนเปื้อนของเล่น) · **vector-borne** (ยุง·เห็บ·หมัด·ไร).
+**ช่องทางแพร่ zoonosis (3 ทาง)** [5:26]: direct contact (สัมผัสสัตว์เลี้ยง นกแก้ว), indirect (สิ่งคัดหลั่ง/ปนเปื้อนของเล่น), **vector-borne** (ยุง·เห็บ·หมัด·ไร).
 
 **Bird population 3 กลุ่ม** [5:57]: (1) **Pet birds** = นกแก้ว/หงส์หยก (2) **Backyard** = เป็ด·ไก่หลังบ้าน — Aj. แซวสว.นโยบายให้เลี้ยงไก่ 2 ตัวเอาไข่กิน [6:29] (3) **Wild bird** = นกอพยพ.
 
-โรคแบ่ง 3 กลุ่ม: **Bacteria · Fungi · Virus**. คาบนี้ครอบ ~11 โรค.
+โรคแบ่ง 3 กลุ่ม: **Bacteria, Fungi, Virus**. คาบนี้ครอบ ~11 โรค.
 
 ---
 
 ## 1. Chlamydiosis / Psittacosis (ไข้หวัดนกแก้ว) [7:01-20:32]
 
-- เชื้อ: ***Chlamydophila psittaci*** [7:31] · obligate **intracellular** bacteria [13:11]
-- โฮสตหลัก: **psittacine birds** (นกแก้ว · macaw · cockatiel) อาการรุนแรง / ในไก่อาการเบา [7:31]
+- เชื้อ: ***Chlamydophila psittaci*** [7:31], obligate **intracellular** bacteria [13:11]
+- โฮสตหลัก: **psittacine birds** (นกแก้ว, macaw, cockatiel) อาการรุนแรง / ในไก่อาการเบา [7:31]
 - แพร่ในนก: direct, **airborne** (ละอองขนฝุ่น) [8:33], oral, **vertical** (แม่→ลูก), vector
 - เชื้อทนสิ่งแวดล้อมได้นาน [9:34]
-- **2 strains**: low virulent (mortality 1-4% · ซึม·เบื่ออาหาร·อึเขียว) vs **virulent (~30% mortality)** [9:34-10:05]
-- อาการนก: respiratory + enteric · severe → systemic **pericarditis · airsacculitis** · ตาบวมเป็นถุงน้ำ · ตายใน 1-2 วัน · ★ **อึเขียวเหลือง** = typical sign [10:37]
+- **2 strains**: low virulent (mortality 1-4%, ซึม·เบื่ออาหาร·อึเขียว) vs **virulent (~30% mortality)** [9:34-10:05]
+- อาการนก: respiratory + enteric, severe → systemic **pericarditis, airsacculitis**, ตาบวมเป็นถุงน้ำ, ตายใน 1-2 วัน, ★ **อึเขียวเหลือง** = typical sign [10:37]
 - ไทยเจอ ~7.8% ในนก (PCR) [11:07]
-- **อาการคน** [12:09]: asymptomatic ก็ได้ → mild flu (ไข้·ปวดเมื่อย·conjunctivitis·arthritis) → severe **systemic pneumonia · endocarditis · myocarditis · encephalitis** · เคยมีรายงานเสียชีวิต ★
+- **อาการคน** [12:09]: asymptomatic ก็ได้ → mild flu (ไข้·ปวดเมื่อย·conjunctivitis·arthritis) → severe **systemic pneumonia, endocarditis, myocarditis, encephalitis**, เคยมีรายงานเสียชีวิต ★
 - IP ~2 weeks [13:11]
 - **Tx: tetracycline / doxycycline** [13:11] (intracellular)
-- **Human-to-human transmission ได้** ผ่านทางเดินหายใจ — เคยระบาดในรพ. (Scotland·Sweden) [14:46-15:46] · เคสจีนโรงเชือดเป็ด 8 คน + secondary/tertiary wave ในญาติ·บุคลากร [15:46-17:21] ★
+- **Human-to-human transmission ได้** ผ่านทางเดินหายใจ — เคยระบาดในรพ. (Scotland·Sweden) [14:46-15:46], เคสจีนโรงเชือดเป็ด 8 คน + secondary/tertiary wave ในญาติ·บุคลากร [15:46-17:21] ★
 - **ไทย ก.พ. ปีที่แล้ว มีเคสคนติดจากหงส์หยก** — เลี้ยง 19 ตัว ตาย 11 → คนปวดเมื่อย ไข้ [17:51-18:53]
-- คำแนะนำกรมควบคุมโรค: กักนกใหม่ 30 วัน · ใส่ถุงมือ·หน้ากากตอนล้างกรง · อากาศถ่ายเท · สังเกตอึ·ไข้เจ้าของ [19:28-20:32]
+- คำแนะนำกรมควบคุมโรค: กักนกใหม่ 30 วัน, ใส่ถุงมือ·หน้ากากตอนล้างกรง, อากาศถ่ายเท, สังเกตอึ·ไข้เจ้าของ [19:28-20:32]
 
 ---
 
 ## 2. Erysipelas [20:32-25:42]
 
-- เชื้อ: ***Erysipelothrix rhusiopathiae*** · **Gram-positive** [21:02]
+- เชื้อ: ***Erysipelothrix rhusiopathiae***, **Gram-positive** [21:02]
 - ★ **อยู่ในดิน** เป็นหลัก
-- **มีวัคซีน** (ไม่กันติด แต่ลดความรุนแรง · unvaccinated mortality 40-50%) [21:35]
-- โฮสต susceptible: **ไก่งวง · เป็ด · ห่าน** ★ — โดยเฉพาะไก่งวงอายุเยอะ [21:35-22:08]
-- แพร่: direct contact ผ่านบาดแผล · **insemination** · oral · vector [22:08-22:39]
-- เชื้อ shed ทุก secretion (อึ·ปัสสาวะ·nasal) · ทนสิ่งแวดล้อม [22:39-23:11]
-- อาการ: **ไก่งวง = peracute death** หงอน·งวงแดงบวม [23:11] · ไก่ทั่วไป = ซึม·ท้องเสีย·ตาย/chronic · ผ่าซากเจอ pericarditis · ตับโต [23:41]
-- Dx: impression smear (Gram+) · PCR [24:11]
-- Tx: **penicillin · erythromycin** + วัคซีน
+- **มีวัคซีน** (ไม่กันติด แต่ลดความรุนแรง, unvaccinated mortality 40-50%) [21:35]
+- โฮสต susceptible: **ไก่งวง, เป็ด, ห่าน** ★ — โดยเฉพาะไก่งวงอายุเยอะ [21:35-22:08]
+- แพร่: direct contact ผ่านบาดแผล, **insemination**, oral, vector [22:08-22:39]
+- เชื้อ shed ทุก secretion (อึ·ปัสสาวะ·nasal), ทนสิ่งแวดล้อม [22:39-23:11]
+- อาการ: **ไก่งวง = peracute death** หงอน·งวงแดงบวม [23:11], ไก่ทั่วไป = ซึม·ท้องเสีย·ตาย/chronic, ผ่าซากเจอ pericarditis, ตับโต [23:41]
+- Dx: impression smear (Gram+), PCR [24:11]
+- Tx: **penicillin, erythromycin** + วัคซีน
 - **อาการคน 3 แบบ** [24:11-25:12]: (1) **Localized cutaneous** = ติดที่บาดแผล รอยโรครูปวงตัว E ตรงกลางเข้ม ★ (2) **Diffuse cutaneous** กระจายผิวหนัง (3) **Septicemic / endocarditis** ในคนภูมิอ่อนแอ
 - กลุ่มเสี่ยง: สัตวแพทย์·คนงานโรงเชือด
 
@@ -8332,11 +8332,11 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 ## 3. Avian Tuberculosis [25:42-29:21]
 
 - เชื้อ: ***Mycobacterium avium complex (MAC)*** [25:42]
-- โฮสต: นกทุกชนิด · ติดได้ทุก mammal (W life ด้วย)
+- โฮสต: นกทุกชนิด, ติดได้ทุก mammal (W life ด้วย)
 - ★ **เจอในไก่หลังบ้าน·สัตว์อายุเยอะ** — **ไม่ค่อยเจอในฟาร์ม** เพราะฟาร์ม cycle เร็ว ไก่ไม่ได้อยู่นานพอที่ Mycobacterium ก่อโรค (chronic disease) [26:12-26:45]
-- อาการนก: chronic · น้ำหนักลด · ผอมแกร็น · ไข่รด · ตาย → ผ่าซากเจอ **granulomatous tubercles/ถุงหนอง** [27:16-27:48]
-- Dx: ผ่าซาก · **acid-fast stain อึ** · culture · PCR [27:48]
-- **คน = non-TB Mycobacterium** [27:48] · 3 อาการ: (1) internal organ infection (2) **chronic pulmonary** (3) **lymphadenitis** [28:20]
+- อาการนก: chronic, น้ำหนักลด, ผอมแกร็น, ไข่รด, ตาย → ผ่าซากเจอ **granulomatous tubercles/ถุงหนอง** [27:16-27:48]
+- Dx: ผ่าซาก, **acid-fast stain อึ**, culture, PCR [27:48]
+- **คน = non-TB Mycobacterium** [27:48], 3 อาการ: (1) internal organ infection (2) **chronic pulmonary** (3) **lymphadenitis** [28:20]
 - ★ **มัก dื้อยา TB ปกติ** [28:50]
 - **ไทยภาคอีสาน prevalence ~17%** [29:21]
 
@@ -8344,28 +8344,28 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 
 ## 4. Salmonellosis [29:21-35:06]
 
-- ***Salmonella*** spp. · Gram-negative [29:21]
+- ***Salmonella*** spp., Gram-negative [29:21]
 - โฮสต: หลาย species + **reptiles** (เน้นมาก)
-- ★ ก่อโรคในสัตว์ปีกอายุน้อย · adult เป็น **carrier** [29:53-30:25]
-- 2 serovar ก่อโรคในนกแต่ไม่ทำในคน: **S. Pullorum · S. Gallinarum** [30:25] (vertical transmission)
+- ★ ก่อโรคในสัตว์ปีกอายุน้อย, adult เป็น **carrier** [29:53-30:25]
+- 2 serovar ก่อโรคในนกแต่ไม่ทำในคน: **S. Pullorum, S. Gallinarum** [30:25] (vertical transmission)
 - ★ **2 serovar ก่อ foodborne ในคน: S. Enteritidis & S. Typhimurium** [30:58]
-- คน: foodborne · จะเรียนละเอียดปี 5
+- คน: foodborne, จะเรียนละเอียดปี 5
 - Cycle: ไก่ → egg/ลูก → environment → vector (หนู·แมลงวัน) → คน [31:28]
 - ★ **ปัญหาในไข่ดิบ** (US/EU) [31:59]
 - **Farm-to-table outbreak control** ทุก step [32:30] — เนื้อหารายละเอียดปี 5
 - ★ Salmonella ที่ไม่ทำให้คนป่วย ก็ยังสำคัญเพราะ **ส่งผ่าน AMR genes** สู่คน [33:32]
-- CDC guideline: **ล้าง · แยก · ผ่านความร้อน · แช่เย็น** [33:32-34:03]
+- CDC guideline: **ล้าง, แยก, ผ่านความร้อน, แช่เย็น** [33:32-34:03]
 - บทบาทสัตวแพทย์: ลำดับเข้าโรงเชือด — **ฟาร์ม Salmonella+ ต้องเข้าทีหลัง** เพื่อลด cross-contamination [34:33-35:06] ★
 
 ---
 
 ## 5. Campylobacteriosis [35:06-37:12]
 
-- ***Campylobacter jejuni*** · Gram-negative [35:38]
+- ***Campylobacter jejuni***, Gram-negative [35:38]
 - ★ **ในไก่/wild bird ไม่ก่อโรค** แต่ shed → คน
-- **คน: foodborne · ไข้·ท้องเสีย** [36:09]
+- **คน: foodborne, ไข้·ท้องเสีย** [36:09]
 - Cycle: shed อึ → ลูก → environment
-- Control: feed additives · vaccine · slaughter (water wash · UV light) [36:39-37:12]
+- Control: feed additives, vaccine, slaughter (water wash, UV light) [36:39-37:12]
 - เนื้อหาเรียนเยอะปี 5
 
 ---
@@ -8375,7 +8375,7 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 - เชื้อ ***Yersinia*** 2 ตัว [37:12]
 - ★ เจอใน **wild bird** > ฟาร์มไก่
 - สัตว์ปีกไม่แสดงอาการ
-- ★ **คน: ปวดท้องรุนแรง คล้ายไส้ติ่งอักเสบ (appendicitis-like)** [37:43] · faecal-oral
+- ★ **คน: ปวดท้องรุนแรง คล้ายไส้ติ่งอักเสบ (appendicitis-like)** [37:43], faecal-oral
 
 ---
 
@@ -8383,7 +8383,7 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 
 - ***Coxiella burnetii*** [38:14]
 - ★ **โฮสตหลัก = วัว** (น้ำนม·placenta) — สัตว์ปีก = secondary host (นกพิราบ·domestic birds) [38:47]
-- คน: asymptomatic / mild flu (ไข้·ไอ·จาม) → severe → **pneumonia · hepatitis** [39:19]
+- คน: asymptomatic / mild flu (ไข้·ไอ·จาม) → severe → **pneumonia, hepatitis** [39:19]
 - กลุ่มเสี่ยง: คนช่วยทำคลอดวัว/แมว/หมา (มือเปล่า) [39:49]
 
 ---
@@ -8393,33 +8393,33 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 - ***Cryptococcus neoformans*** [40:22]
 - ★ **ไม่ติดตรงจากนก** — ติดจาก **environmental contamination** (ดิน·เศษใบไม้ชื้น) [40:22]
 - ★ **กลุ่มนกพิราบเป็น carrier** อึออกมา → คนสูดสปอเข้าไป
-- ★ Aj. เน้นแยกกับ **Sporothrix** = ติดตรงจากแมว · Crypto **ไม่ติดตรงจากแมว** [40:52] (มัก confuse)
-- คน: ติดเข้าปอด · skin · CNS · ★ ติดเมื่อภูมิดรอป·เครียด
-- เจอ Southeast Asia · Africa
+- ★ Aj. เน้นแยกกับ **Sporothrix** = ติดตรงจากแมว, Crypto **ไม่ติดตรงจากแมว** [40:52] (มัก confuse)
+- คน: ติดเข้าปอด, skin, CNS, ★ ติดเมื่อภูมิดรอป·เครียด
+- เจอ Southeast Asia, Africa
 - Tx: ยาฆ่าเชื้อรา 6 เดือน+ (criteria ไม่ออกสอบ) [42:28]
 
 ---
 
 ## 9. Newcastle Disease (NDV) [42:28-45:34]
 
-- ★ **เป็น zoonosis ได้!** [44:02] · **ข้อสอบ VCA หลอกบ่อย** — คนมักติ๊ก "ไม่ติดคน" แต่จริง = ติดได้ ★★
-- 2 strains: low virulent (respiratory · ไข่รด) vs **velogenic** (mortality สูง · CNS·GIT) [43:31]
+- ★ **เป็น zoonosis ได้!** [44:02], **ข้อสอบ VCA หลอกบ่อย** — คนมักติ๊ก "ไม่ติดคน" แต่จริง = ติดได้ ★★
+- 2 strains: low virulent (respiratory, ไข่รด) vs **velogenic** (mortality สูง, CNS·GIT) [43:31]
 - คน: ★ **ส่วนใหญ่ทำให้เกิด conjunctivitis (เยื่อบุตาอักเสบ)** ไข้อ่อนๆ ~1 อาทิตย์ [44:32]
-- ★ **ติดตอนทำวัคซีน** = วัคซีนกระเด็นเข้าตา [44:32] · หรือ respiratory/contaminated food
-- ไม่มียาจำเพาะ · supportive
-- กลุ่มเสี่ยง: **คนทำวัคซีน** → ใส่ mask · ถุงมือ · eye protection [45:34]
+- ★ **ติดตอนทำวัคซีน** = วัคซีนกระเด็นเข้าตา [44:32], หรือ respiratory/contaminated food
+- ไม่มียาจำเพาะ, supportive
+- กลุ่มเสี่ยง: **คนทำวัคซีน** → ใส่ mask, ถุงมือ, eye protection [45:34]
 
 ---
 
 ## 10. West Nile Virus (WNV) [45:34-48:13]
 
-- กลุ่ม encephalitis virus · ★ **vector = ยุง** (Culex) [46:05]
+- กลุ่ม encephalitis virus, ★ **vector = ยุง** (Culex) [46:05]
 - **Susceptible host = อีกา (crow), terrestrial bird** [46:05]
-- อาการนก: อ่อนแรง · convulsion · ตัวสั่น · ★ **ตาบอด** [46:35]
+- อาการนก: อ่อนแรง, convulsion, ตัวสั่น, ★ **ตาบอด** [46:35]
 - Cycle: bird ↔ mosquito → **dead-end host = ม้า·คน** [47:11] (Aj. ถามนิยาม dead-end = ไม่แพร่ต่อ ไม่ได้แปลว่าตาย ★)
-- ★ ระบาด US·EU · ไม่มีวัคซีนคน
-- คน: 20% develop อาการ — ไข้·อาเจียน·ท้องเสีย · severe → **encephalitis/meningitis** [47:41]
-- ป้องกัน: surveillance ยุง · ป้องกันยุงกัด
+- ★ ระบาด US·EU, ไม่มีวัคซีนคน
+- คน: 20% develop อาการ — ไข้·อาเจียน·ท้องเสีย, severe → **encephalitis/meningitis** [47:41]
+- ป้องกัน: surveillance ยุง, ป้องกันยุงกัด
 
 ---
 
@@ -8427,8 +8427,8 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 
 ★ ส่วนยาวที่สุด — Aj. เน้นเป็นพิเศษ
 
-**Subtypes**: Influenza A · RNA virus · **HA 16 subtypes · NA 9 subtypes** [49:15-49:45]
-- ★ **Zoonotic subtypes**: H5, H7, H9 (จากสัตว์ปีก) · H1, H3 (จากหมู·สุนัข) [49:45-50:18]
+**Subtypes**: Influenza A, RNA virus, **HA 16 subtypes, NA 9 subtypes** [49:15-49:45]
+- ★ **Zoonotic subtypes**: H5, H7, H9 (จากสัตว์ปีก), H1, H3 (จากหมู·สุนัข) [49:45-50:18]
 - ★ **Aquatic birds = sentinel host** ติดได้ทุก subtype + แพร่ทั้งสัตว์เลี้ยงลูก/avian [52:25]
 
 **Genetic change** [52:56-53:28]:
@@ -8436,31 +8436,31 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 - **Antigenic drift** (copy error)
 
 **LPAI vs HPAI** [54:29-55:32]:
-- LPAI = mild · low zoonotic risk
-- ★ **HPAI = H5, H7** = high mortality · zoonotic ★
+- LPAI = mild, low zoonotic risk
+- ★ **HPAI = H5, H7** = high mortality, zoonotic ★
 
 **H5N1 history** [55:32-58:36]:
-- ระบาด ปี 2540 (2003) — ไก่ไทยตาย ~60 ล้านตัว · คนติด 17 ตาย 12 (~70% mortality) — ทั่วโลก ~300 case [57:04-58:06]
+- ระบาด ปี 2540 (2003) — ไก่ไทยตาย ~60 ล้านตัว, คนติด 17 ตาย 12 (~70% mortality) — ทั่วโลก ~300 case [57:04-58:06]
 - น่ากลัวพอกับโควิด แต่ human-to-human ติดยาก [58:36]
-- ★ **2024-25 กลับมา** — กัมพูชาต้นปีนี้ติด ~9 คน · เพื่อนบ้านลาว·เวียดนามเจอแล้ว [56:03]
-- 2003-2022: Egypt 359 · Vietnam 127 · Indonesia top เคส [60:14]
+- ★ **2024-25 กลับมา** — กัมพูชาต้นปีนี้ติด ~9 คน, เพื่อนบ้านลาว·เวียดนามเจอแล้ว [56:03]
+- 2003-2022: Egypt 359, Vietnam 127, Indonesia top เคส [60:14]
 - ไทยเป็น white spot บนแผนที่ — ไม่ใช่ไม่มี แต่ไม่รายงาน [59:09]
 
 **Subtypes มากกว่า H5N1**: H5N6, H5N8, H7N9, H9N2 — ทุกตัวเคยติดคน [60:45-61:15]
 
 **Zoo cats indicator** [61:15-63:24] ★:
-- ★ **ฟูล่า (felidae) ที่กินไก่ดิบ** = sentinel · ฟาร์มคัดไก่ไม่สวย → ส่งสวนสัตว์เลี้ยงเสือ → เสือตาย = warning sign HPAI
+- ★ **ฟูล่า (felidae) ที่กินไก่ดิบ** = sentinel, ฟาร์มคัดไก่ไม่สวย → ส่งสวนสัตว์เลี้ยงเสือ → เสือตาย = warning sign HPAI
 - ข่าวเสือตาย "Distemper" — เคยสงสัย AI [62:20] (ปกติ 2 ฟาร์มคนละที่ → กังวลเรื่องอาหาร)
 - ปรุงสุก = ปลอดภัย (RNA virus ตาย)
 
 **Live bird markets** [66:32-67:35] ★:
-- ตลาดคลองเตย / พม่าตลาดสด · มิกซ์ไก่หลายฟาร์ม → mixing vessel
+- ตลาดคลองเตย / พม่าตลาดสด, มิกซ์ไก่หลายฟาร์ม → mixing vessel
 - พม่ามี H9N2 report ล่าสุด
 
 **Triangle of disease control** [67:35-69:43] ★:
-1. **Host** — early detection · screening
-2. **Agent** — antigenic change → ลดเชื้อ · disinfectant · biosecurity
-3. **Environment** — farm management · vector control · quarantine new birds
+1. **Host** — early detection, screening
+2. **Agent** — antigenic change → ลดเชื้อ, disinfectant, biosecurity
+3. **Environment** — farm management, vector control, quarantine new birds
 
 ---
 
@@ -8475,13 +8475,13 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 ★ จุดเสี่ยงพลาดที่ Aj. เน้น:
 - ★ **NDV ติดคนได้** (ข้อสอบ VCA หลอก)
 - ★ **Crypto ไม่ติดตรงจากแมว** (สับสนกับ Sporothrix)
-- ★ Salmonella **S. Enteritidis + S. Typhimurium** = foodborne คน · **S. Pullorum + Gallinarum** = ในนก
+- ★ Salmonella **S. Enteritidis + S. Typhimurium** = foodborne คน, **S. Pullorum + Gallinarum** = ในนก
 - ★ Erysipelas **โฮสต = ไก่งวง·เป็ด·ห่าน** + รอยโรคคนรูปวงตัว E
 - ★ AI **HPAI = H5/H7** + dead-end host concept
 - ★ Q fever **โฮสตหลักวัว** (ไม่ใช่นก)
-- ★ Avian TB **non-TB · ดื้อยา TB ปกติ**
+- ★ Avian TB **non-TB, ดื้อยา TB ปกติ**
 - ★ Yersinia = ★ **appendicitis-like** ในคน
-- ★ WNV vector = **ยุง Culex** · sentinel = **อีกา**
+- ★ WNV vector = **ยุง Culex**, sentinel = **อีกา**
 
 Cross-ref VetMock Q1785-1790, Q1825-1826`
 },
@@ -8493,28 +8493,28 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
   durationMin: 117,
   instructor: 'Aj. Nataya/ณทยา เจริญวิศาล (ผศ.สพ.ญ.ดร.) — L11',
   examFormat: 'MCQ + fill-in — mortality threshold / Se-Sp / sample collection / HenHoused vs HenDay',
-  summary: `# L11 — Biosecurity & Surveillance · Aj. Nataya
+  summary: `# L11 — Biosecurity & Surveillance, Aj. Nataya
 
-วิชานี้รวบ 2 ครั้งเป็น 1 (เพราะวันอังคารตรงวันหยุด) → ครั้งแรก **Biosecurity + ป้องกัน/ควบคุม/กำจัดโรค** · ครั้งที่ 2 **การประเมิน + เฝ้าระวัง** [0:13–1:14]
+วิชานี้รวบ 2 ครั้งเป็น 1 (เพราะวันอังคารตรงวันหยุด) → ครั้งแรก **Biosecurity + ป้องกัน/ควบคุม/กำจัดโรค**, ครั้งที่ 2 **การประเมิน + เฝ้าระวัง** [0:13–1:14]
 
 ## 1. Epidemiology Triad — เน้น Environment [3:49–5:22]
-- Host · Agent · Environment — ปี 4 เน้น **Environment** (จัดสิ่งแวดล้อมยังไงให้เชื้อโรค-ไก่ไม่เจอกัน) ปี 5 (Avian Med) จะเน้น Agent
-- Environment factors: อุณหภูมิ · ความชื้น · อากาศ · วัสดุรองนอน · **ความหนาแน่น** · น้ำ/อาหาร · การจัดการ → ลด stress (cortisol↓ → immunity↑)
+- Host, Agent, Environment — ปี 4 เน้น **Environment** (จัดสิ่งแวดล้อมยังไงให้เชื้อโรค-ไก่ไม่เจอกัน) ปี 5 (Avian Med) จะเน้น Agent
+- Environment factors: อุณหภูมิ, ความชื้น, อากาศ, วัสดุรองนอน, **ความหนาแน่น**, น้ำ/อาหาร, การจัดการ → ลด stress (cortisol↓ → immunity↑)
 
 ## 2. ความรู้พื้นฐาน 5 ข้อก่อน Biosecurity [6:23–13:09]
 1. **Disease classification** — by organ / mode of transmission / shedding
-2. **Disease progression** — เชื้อสัมผัส≠ติดเชื้อ · ติด≠ป่วย · ป่วยช่วง clinical (สีฟ้า) อาจ shed มา 1 สัปดาห์แล้ว → diagnosis ขึ้นกับ timing
-3. **Disease transmission** — Horizontal Direct (contact/aerosol/droplet) · Horizontal Indirect (น้ำ-อาหาร-คน-รองเท้า-ยานพาหนะ-นกธรรมชาติ) · **Vertical** (พ่อแม่→ลูก)
-4. **Flock immunity** — ฝูงไม่มีภูมิ R0=2 → ระบาดทั้งฝูง · ฝูงมีภูมิ 50% → แพร่ 1/2 ตัวเท่านั้น · ขึ้นกับ contact rate (density · social structure · vector)
-5. **Prevalence vs Incidence** — Prevalence = เคสเก่า+ใหม่ในช่วงเวลา (ไม่นับตาย/หาย) · Incidence = **เคสใหม่เท่านั้น**
-6. **Prevention vs Eradication** — โรครุนแรง (HPAI · ND) ต้อง report กรมปศุสัตว์ → high morbidity · high mortality · production loss · public health · high communicability → depopulation · ↑biosecurity [13:39–14:41]
+2. **Disease progression** — เชื้อสัมผัส≠ติดเชื้อ, ติด≠ป่วย, ป่วยช่วง clinical (สีฟ้า) อาจ shed มา 1 สัปดาห์แล้ว → diagnosis ขึ้นกับ timing
+3. **Disease transmission** — Horizontal Direct (contact/aerosol/droplet), Horizontal Indirect (น้ำ-อาหาร-คน-รองเท้า-ยานพาหนะ-นกธรรมชาติ), **Vertical** (พ่อแม่→ลูก)
+4. **Flock immunity** — ฝูงไม่มีภูมิ R0=2 → ระบาดทั้งฝูง, ฝูงมีภูมิ 50% → แพร่ 1/2 ตัวเท่านั้น, ขึ้นกับ contact rate (density, social structure, vector)
+5. **Prevalence vs Incidence** — Prevalence = เคสเก่า+ใหม่ในช่วงเวลา (ไม่นับตาย/หาย), Incidence = **เคสใหม่เท่านั้น**
+6. **Prevention vs Eradication** — โรครุนแรง (HPAI, ND) ต้อง report กรมปศุสัตว์ → high morbidity, high mortality, production loss, public health, high communicability → depopulation, ↑biosecurity [13:39–14:41]
 
 ## 3. Bioscurity 3 Levels [15:43–20:24]
-**Concept** — ไม่ตั้งในแหล่งชุมชน · ไม่ติดถนนสายหลัก · ไม่ตั้งในแหล่งสัตว์หนาแน่น · **All-in-all-out** (broiler ได้ · layer ทำไม่ได้)
+**Concept** — ไม่ตั้งในแหล่งชุมชน, ไม่ติดถนนสายหลัก, ไม่ตั้งในแหล่งสัตว์หนาแน่น, **All-in-all-out** (broiler ได้, layer ทำไม่ได้)
 
-**Structural** — รั้วรอบขอบชิด · แยกบ้านพักคน-โรงเรือน · พื้นคอนกรีตรอบโรงเรือน (แสงส่อง · ทำความสะอาดง่าย · ไม่มีหญ้า/นกลง) · **ทาง one-way แยกสะอาด-สกปรก** · ลูกไก่เข้า-ซากออก คนละทาง · ป้อมน้ำยาฆ่าเชื้อ-อาบน้ำเข้าโรงเรือน
+**Structural** — รั้วรอบขอบชิด, แยกบ้านพักคน-โรงเรือน, พื้นคอนกรีตรอบโรงเรือน (แสงส่อง, ทำความสะอาดง่าย, ไม่มีหญ้า/นกลง), **ทาง one-way แยกสะอาด-สกปรก**, ลูกไก่เข้า-ซากออก คนละทาง, ป้อมน้ำยาฆ่าเชื้อ-อาบน้ำเข้าโรงเรือน
 
-**Procedural** — Down time **3-7 วัน** (ปัจจุบัน ~3 วัน) ก่อนสัมผัสไก่/นกธรรมชาติ · ล้อรถ spray · คนขับห้ามลง · อาบน้ำ-เปลี่ยนชุด-เปลี่ยนรองเท้า · มือถือ/สมุด-ปากกาผ่านตู้ **UV 10-20 นาที** (15 นาทีก็ได้) [26:33]
+**Procedural** — Down time **3-7 วัน** (ปัจจุบัน ~3 วัน) ก่อนสัมผัสไก่/นกธรรมชาติ, ล้อรถ spray, คนขับห้ามลง, อาบน้ำ-เปลี่ยนชุด-เปลี่ยนรองเท้า, มือถือ/สมุด-ปากกาผ่านตู้ **UV 10-20 นาที** (15 นาทีก็ได้) [26:33]
 
 ## 4. Bath Procedure (เข้าฟาร์ม) [21:54–25:31]
 - ห้องแรก เก็บรองเท้าจากบ้าน
@@ -8524,7 +8524,7 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
 - ใส่ชุดของฟาร์ม → ใส่บูทเดินทาง → ถึงโรงเรือน เปลี่ยนบูทอีกคู่ + จุ่มเท้า + spray + ล้างมือ
 
 ## 5. Cleaning + Disinfection [29:39–32:15]
-- ฟอร์มาลิน + ด่างทับทิม **2:1** (น้ำ:ผง) → แก๊สพิษ ต้องอยู่ใน container ปิด · รมควานไข่ก่อนเข้าฟัก
+- ฟอร์มาลิน + ด่างทับทิม **2:1** (น้ำ:ผง) → แก๊สพิษ ต้องอยู่ใน container ปิด, รมควานไข่ก่อนเข้าฟัก
 - ลำดับ: เอา bedding/อาหารออก → ล้างน้ำยาทำความสะอาด → ล้างน้ำสะอาด → น้ำยาฆ่าเชื้อ → **ปล่อยให้แห้งเอง** (contact time) ไม่ต้องล้างน้ำตาม
 - Foam disinfectant > liquid (เกาะผนังนาน → contact time มากกว่า)
 - ✅ Bacterial check ก่อน-หลังทำความสะอาด (เพื่อดูประสิทธิภาพ — แต่จริงๆไม่ค่อยทำ)
@@ -8536,8 +8536,8 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
 
 ## 7. Visit Order + Pest Control [27:34–34:19]
 - สัตวแพทย์เข้า: **โรงอายุน้อย → โรงอายุมาก → โรงเรือนป่วย** (ลำดับสุดท้าย)
-- กำจัดหนู (Salmonella!) · จิ้งจก · นก (ตาข่าย-ห้ามปลูกผลไม้-ไม่มีต้นไม้ใหญ่) · แมลงวัน (กระดาษเหลือง) · ไม่เลี้ยงสุนัข/แมว
-- เก็บไข่ ≥4 ครั้ง/วัน (บางที่ 6 ครั้ง) · ไข่พื้น = ไม่สะอาด
+- กำจัดหนู (Salmonella!), จิ้งจก, นก (ตาข่าย-ห้ามปลูกผลไม้-ไม่มีต้นไม้ใหญ่), แมลงวัน (กระดาษเหลือง), ไม่เลี้ยงสุนัข/แมว
+- เก็บไข่ ≥4 ครั้ง/วัน (บางที่ 6 ครั้ง), ไข่พื้น = ไม่สะอาด
 
 ## 8. Disease Control vs Eradication vs Elimination [41:33–43:43]
 - **Control** = ลดสัตว์ติดเชื้อ/ป่วย/ตาย (มีโรคแล้ว)
@@ -8545,79 +8545,79 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
 - **Elimination** = กำจัดในบริเวณใดบริเวณหนึ่ง (ฟาร์มเรา) — ใช้กับไก่ส่วนมาก
 
 ## 9. Monitoring vs Surveillance [46:22–47:55]
-- **Monitoring** — เก็บสถิติ prevalence/incidence ตามเวลา · ดูความรุนแรง
-- **Surveillance** — เก็บข้อมูลกลุ่มประชากรเพื่อ analyze + แปรผล + กำหนด action · Active surv. (เฝ้าระวังก่อนเกิด) · Detect outbreak ใหม่ · Public health action
-- เปรียบเทียบ COVID: monitoring=นับเคสรายเดือน · surveillance=ตรวจ cluster ใหม่
+- **Monitoring** — เก็บสถิติ prevalence/incidence ตามเวลา, ดูความรุนแรง
+- **Surveillance** — เก็บข้อมูลกลุ่มประชากรเพื่อ analyze + แปรผล + กำหนด action, Active surv. (เฝ้าระวังก่อนเกิด), Detect outbreak ใหม่, Public health action
+- เปรียบเทียบ COVID: monitoring=นับเคสรายเดือน, surveillance=ตรวจ cluster ใหม่
 
 ## 10. Sample Size + Sensitivity/Specificity [53:39–57:25]
-- โรค **transmission สูง + incubation สั้น** (HPAI · ND) → จำนวนน้อย (5-10 ตัว/โรงเรือนพอ)
+- โรค **transmission สูง + incubation สั้น** (HPAI, ND) → จำนวนน้อย (5-10 ตัว/โรงเรือนพอ)
 - โรค **transmission ต่ำ + incubation นาน** (Mycoplasma 5 wk) → ต้องเก็บเยอะ 30-40 ตัว
-- คำแนะนำกลาง: **20 ตัวอย่าง/โรงเรือน · 1 ไก่=1 sample** (ห้ามเก็บ 5 ml จากไก่ 5 ตัวมารวม!)
-- **Sensitivity** = True positive rate · ↑Se → ↑TP, ↓FN (หาผู้ป่วยจริง)
-- **Specificity** = True negative rate · ↑Sp → ↑TN, ↓FP
+- คำแนะนำกลาง: **20 ตัวอย่าง/โรงเรือน, 1 ไก่=1 sample** (ห้ามเก็บ 5 ml จากไก่ 5 ตัวมารวม!)
+- **Sensitivity** = True positive rate, ↑Se → ↑TP, ↓FN (หาผู้ป่วยจริง)
+- **Specificity** = True negative rate, ↑Sp → ↑TN, ↓FP
 - Test ที่ Sp ต่ำ → FP เยอะ → รักษาเกินจำเป็น
 
 ## 11. Sample Collection Table (★สอบ) [62:38–94:04]
 | ตัวอย่าง | ใช้ตรวจ | จำนวน | ส่ง |
 |---|---|---|---|
-| **Blood (1ml)** | Hi/ELISA · serology | **20 ตัว/โรงเรือน** (1ไก่=1 sample) · heart/jugular/brachial | 24h |
-| **Boot/Drag swab** | Salmonella | 2 คู่/โรงเรือน · เดินรอบ | แลบ |
-| **Choanal cleft / Tracheal swab** | ND · AI · Mycoplasma · respiratory | 10-20/โรงเรือน · แช่เย็น | 24-48h |
-| **Cloacal swab** | ND · IBD | 10-20/โรงเรือน | 24-48h |
-| **Tissue (formalin)** | histopath | ส่วนปกติ+ไม่ปกติ · หนา ≤1 cm | dorm |
-| **Tissue (PCR)** | molecular | เฉพาะ lesion · แช่แข็งได้ | 24h |
-| **Water (50ml/sample)** | bact · fungal · pH · heavy metals | nipple ปลายสุด · เช็ดแอลกอฮอล์ก่อน | RT 24h |
-| **Feed (200-500g)** | mycotoxin · bact · ฟังไจ | สุ่มจากโรงงาน/ไก่กิน | RT |
-| **Litter/Fecal** | Salmonella · พยาธิ · coccidia | 20 จุด รวม 1 sample | แช่เย็น 24-72h |
-| **Eggshell/Chick down** | Salm. · Pullorum | ทุก 500 ตัว | แช่เย็น 24h |
+| **Blood (1ml)** | Hi/ELISA, serology | **20 ตัว/โรงเรือน** (1ไก่=1 sample), heart/jugular/brachial | 24h |
+| **Boot/Drag swab** | Salmonella | 2 คู่/โรงเรือน, เดินรอบ | แลบ |
+| **Choanal cleft / Tracheal swab** | ND, AI, Mycoplasma, respiratory | 10-20/โรงเรือน, แช่เย็น | 24-48h |
+| **Cloacal swab** | ND, IBD | 10-20/โรงเรือน | 24-48h |
+| **Tissue (formalin)** | histopath | ส่วนปกติ+ไม่ปกติ, หนา ≤1 cm | dorm |
+| **Tissue (PCR)** | molecular | เฉพาะ lesion, แช่แข็งได้ | 24h |
+| **Water (50ml/sample)** | bact, fungal, pH, heavy metals | nipple ปลายสุด, เช็ดแอลกอฮอล์ก่อน | RT 24h |
+| **Feed (200-500g)** | mycotoxin, bact, ฟังไจ | สุ่มจากโรงงาน/ไก่กิน | RT |
+| **Litter/Fecal** | Salmonella, พยาธิ, coccidia | 20 จุด รวม 1 sample | แช่เย็น 24-72h |
+| **Eggshell/Chick down** | Salm., Pullorum | ทุก 500 ตัว | แช่เย็น 24h |
 
 ## 12. Serology — Antibody Window [60:29–70:59]
 - หลังวัคซีน/ติดเชื้อ ใช้ **7-14 วัน** สร้าง Ab ตรวจพบ
 - **Paired serum** = เจาะ 2 ครั้ง (วัน 0 + 14 วัน) → titer rise = ติดเชื้อจริง
 - ในไก่: IgG = **IgY** (โครงสร้างต่าง)
-- **HI (Hemagglutination Inhibition)** = gold standard สำหรับ HPAI + ND · เม็ดเลือดแดงตกก้นหลุม V-bottom = มี Ab จับไวรัสไว้แล้ว · titer 2² → 2³ → 2⁴...
+- **HI (Hemagglutination Inhibition)** = gold standard สำหรับ HPAI + ND, เม็ดเลือดแดงตกก้นหลุม V-bottom = มี Ab จับไวรัสไว้แล้ว, titer 2² → 2³ → 2⁴...
 - **HA** = ตรวจ titer ไวรัส
-- **ELISA** = ใช้บ่อย · auto-read · เลือก IgG/IgM ตามวัตถุประสงค์
+- **ELISA** = ใช้บ่อย, auto-read, เลือก IgG/IgM ตามวัตถุประสงค์
 - Geometric Mean Titer (GMT) > Average Mean (เพราะฝูงไม่ Normal distribution)
 - **%CV** = uniformity (ต่ำ = uniform = ดี)
 - ★ ตัวอย่าง IBD: titer ขึ้นถึง 6,000 หลังวัคซีน → **น่าจะติดเชื้อจริง** (วัคซีนกระตุ้นภูมิไม่ได้สูงขนาดนั้น)
 
 ## 13. Building Serological Program [81:59–85:37]
-- **Baseline**: 10-20 ตัว/ครั้ง/ฝูง · เก็บหลายอายุ · **ส่งแลบเดียวกัน**
+- **Baseline**: 10-20 ตัว/ครั้ง/ฝูง, เก็บหลายอายุ, **ส่งแลบเดียวกัน**
 - **Broiler (42 วัน)**: เจาะ 3 ครั้ง — day 1 (maternal Ab) → day 14 (ลดยัง?) → ก่อนจับ
 - **Layer/Breeder (1.5-2 ปี)**: maternal Ab (2-3 wk) → 10 wk (post-vacc response) → ก่อนไข่ (15-17 wk) → peak production
 - **Window of susceptibility** = ช่วง maternal Ab ลด + vaccine response ยังไม่ขึ้น → **biosecurity สำคัญสุด**
 - ไม่มี Universal guideline — ต้องปรับตามฟาร์ม + monitor ทุกครั้งที่เปลี่ยนยี่ห้อวัคซีน
 
 ## 14. Risk Assessment 4 Domains (จบบทเรียน) [113:51–114:21]
-- ทำเลที่ตั้ง · ลักษณะฟาร์ม · การจัดการฟาร์ม · สุขภาพสัตว์
+- ทำเลที่ตั้ง, ลักษณะฟาร์ม, การจัดการฟาร์ม, สุขภาพสัตว์
 - คะแนน **exponential** (ไม่ใช่ linear) → เห็น defect ชัด
-- มีการ audit จาก กรมปศุสัตว์ + ประเทศผู้ซื้อ (EU · ญี่ปุ่น)
+- มีการ audit จาก กรมปศุสัตว์ + ประเทศผู้ซื้อ (EU, ญี่ปุ่น)
 
 ## 15. Hen Housed vs Hen Day Production [99:46–101:48]
-- 1,000 แม่ไก่ · 5 wk ตาย 50 → เหลือ 950
+- 1,000 แม่ไก่, 5 wk ตาย 50 → เหลือ 950
 - ★ **Hen Housed** = ÷ จำนวนเริ่มต้น (1,000) → 85% (เจ้าของฟาร์มใช้ — ดูคุ้มทุนหรือไม่)
 - ★ **Hen Day** = ÷ จำนวนวันนั้น (950) → 89% (คนงาน/หมอใช้ — ดูประสิทธิภาพแม่ไก่)
 - ไก่ไข่ออกไข่ทุก 23-25 ชม./ฟอง
 
 ## 16. Day-1 Chick Health Check (★ออกข้อสอบ VCA ปีก่อน) [96:37–98:13]
 - ตรวจ **crop (ขอบ)** ภายใน 24h หลังลงไก่ — สุ่ม **100 ตัว/วงกบ**
-- จับเบาๆ: นิ่ม-ยืดหยุ่นกำลังดี = OK · แข็ง = น้ำไม่พอ → ตรวจคุณภาพน้ำ · บวมนิ่ม = น้ำเยอะ-อาหารน้อย → ตรวจอาหาร
+- จับเบาๆ: นิ่ม-ยืดหยุ่นกำลังดี = OK, แข็ง = น้ำไม่พอ → ตรวจคุณภาพน้ำ, บวมนิ่ม = น้ำเยอะ-อาหารน้อย → ตรวจอาหาร
 
 ## 17. Egg Break-out Analysis [101:48–112:17]
 - แยก **Infertile** (ปัญหาฟาร์มพ่อแม่พันธุ์) vs **Early Death** (ปัญหาโรงฟัก)
-- Stages: Early death (1-7d · เห็นเส้นเลือด 3d, ตา 5d, mouse 5d) · Mid death · Late death (มีขน-ปีก-ขา 7-8d+)
+- Stages: Early death (1-7d, เห็นเส้นเลือด 3d, ตา 5d, mouse 5d), Mid death, Late death (มีขน-ปีก-ขา 7-8d+)
 - ตู้ฟัก 1-18 วัน (candling แยกฟอง infertile) → ตู้เกิด 18-21 วัน
-- **Body Score 3-4 = ดี** (กระดูกอกไม่แหลม-ไม่ผอม) · Pelvic span ใหญ่ = ออกไข่สม่ำเสมอ
+- **Body Score 3-4 = ดี** (กระดูกอกไม่แหลม-ไม่ผอม), Pelvic span ใหญ่ = ออกไข่สม่ำเสมอ
 - Piping: **internal pip** (เจาะ air cell → หายใจ-ปอดทำงาน) → **external pip** (เจาะเปลือกตามเข็มนาฬิกา) → ดันด้วยปีกขวา
-- Normal position: หัวใต้ปีกขวา + เท้าล่าง · ผิดตำแหน่ง (ใต้ปีกซ้าย/เท้าบน) → ฟักไม่ออก
-- Malformation: หัวไม่ปิด · สะดือไม่ปิด · แขนขา >1 คู่ → คัดทิ้ง
-- ลูกไก่ดี: ขนแห้ง · ยืน-เดินได้ · alert · สะดือปิด
+- Normal position: หัวใต้ปีกขวา + เท้าล่าง, ผิดตำแหน่ง (ใต้ปีกซ้าย/เท้าบน) → ฟักไม่ออก
+- Malformation: หัวไม่ปิด, สะดือไม่ปิด, แขนขา >1 คู่ → คัดทิ้ง
+- ลูกไก่ดี: ขนแห้ง, ยืน-เดินได้, alert, สะดือปิด
 
 ## 18. Misc
-- รม **ฟอร์มาลิน:ด่างทับทิม 2:1** = แก๊สพิษ · ใช้รมไข่ก่อนเข้าฟัก [29:39]
+- รม **ฟอร์มาลิน:ด่างทับทิม 2:1** = แก๊สพิษ, ใช้รมไข่ก่อนเข้าฟัก [29:39]
 - Vertical transmission ในไข่ → ต้อง trace กลับโรงเรือนพ่อแม่
-- Trade barrier: ส่งออก EU/ญี่ปุ่น ต้อง monitor HPAI รายเดือน · ND รายสัปดาห์ [53:09]
+- Trade barrier: ส่งออก EU/ญี่ปุ่น ต้อง monitor HPAI รายเดือน, ND รายสัปดาห์ [53:09]
 
 ## ★ ปิดท้าย
 "ปี 4 ไม่ยาก แต่ปี 5 (Avian Med) ยากเพราะโรคเยอะ — วันละ 4-5 โรค ต้องจับกลุ่มติวเพื่อน (สอน 90% / อ่านเอง 10%) เจอกันใหม่ปี 5 ขอให้โชคดี" [114:53–115:26]`
@@ -8628,12 +8628,12 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
   subject: 'poultry',
   date: '24 Mar 69',
   durationMin: 118,
-  instructor: 'Prof. Niwat Chansiripornchai (DVM, MSc, PhD, DTBVM · CU Vet) — L13',
+  instructor: 'Prof. Niwat Chansiripornchai (DVM, MSc, PhD, DTBVM, CU Vet) — L13',
   examFormat: 'MCQ + essay (3 ตัวยาห้ามใช้)',
-  summary: `# L13 — Avian Drug · Prof. Niwat
+  summary: `# L13 — Avian Drug, Prof. Niwat
 
 ## 0. Mood ของห้อง [0:09–4:20]
-อ.นิวัต เปิดด้วย CV: รุ่นพี่ 30 ปีก่อน · ทุนสวีเดน → เนเธอร์แลนด์ → expert OIE ที่ฝรั่งเศส · 8 ปียุโรปติดต่อกัน · ปัจจุบัน Prof. CU Vet · ประธาน Thai Vet Lab Diagnosticians · เปิด lecture ด้วย macro-economic context: **ส่งออกสัตว์ปีกไทย 120,000 ลบ./ปี อันดับ 4 ของโลก, อาหารส่งออก 1 ล้านลบ./ปี อันดับ 9–10** → "หมอต้องเข้าใจเซ้นของตัวเลข" [3:19] · บอกว่าจะเจอจน Vet 86 จบ "หินมา-หินกลับ" mode ตลอด lecture (ถามตอบเร็ว, ตบสวมหัว figurative)
+อ.นิวัต เปิดด้วย CV: รุ่นพี่ 30 ปีก่อน, ทุนสวีเดน → เนเธอร์แลนด์ → expert OIE ที่ฝรั่งเศส, 8 ปียุโรปติดต่อกัน, ปัจจุบัน Prof. CU Vet, ประธาน Thai Vet Lab Diagnosticians, เปิด lecture ด้วย macro-economic context: **ส่งออกสัตว์ปีกไทย 120,000 ลบ./ปี อันดับ 4 ของโลก, อาหารส่งออก 1 ล้านลบ./ปี อันดับ 9–10** → "หมอต้องเข้าใจเซ้นของตัวเลข" [3:19], บอกว่าจะเจอจน Vet 86 จบ "หินมา-หินกลับ" mode ตลอด lecture (ถามตอบเร็ว, ตบสวมหัว figurative)
 
 ## 1. หลักการใช้ยาในไก่ [4:51–10:00] ⭐
 - ไก่ = สัตว์เพื่อการบริโภค → ใช้ยาต้องนึกถึง **คน** (consumer) + **สัตว์**
@@ -8652,16 +8652,16 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
 - Pet medicine = รักษาเต็มที่; Livestock medicine = **economic scale** "รักษาไม่คุ้มเข้าโรงเชือด" [12:37]
 - ปัจจุบันการใช้ยาในไก่ **น้อยลงทุกขณะ** → ไก่ = สัตว์ **ปลอดภัยที่สุด** สำหรับผู้บริโภค (เทียบหมู, กุ้ง) [13:38]
 - **ยาเดียวที่อนุญาตให้ผสมในอาหารสัตว์ = ยากันบิด (Anticoccidial)** [15:11–16:00]
-- AGP (Antibiotic Growth Promoter) = sub-optimal dose ฆ่า pathogenic GI bacteria → ไก่โตดี · **ห้ามใช้ในไทยตั้งแต่ ค.ศ. 2006** [16:43]
-- **Bactericidal** = single dose kills (ต้องเพิ่ม dose) · **Bacteriostatic** = inhibit growth · ยาบางตัว dose-dependent (เช่น **Tetracycline ส่วนมาก = static, Aminoglycoside = cidal**) [26:35]
-- Combination: เลี่ยงในปัจจุบัน · classic case = **Sulfa + Trimethoprim** (synergism) แต่ปัจจุบัน sulfa ดื้อมาก = ยาโบราณ [27:05]
+- AGP (Antibiotic Growth Promoter) = sub-optimal dose ฆ่า pathogenic GI bacteria → ไก่โตดี, **ห้ามใช้ในไทยตั้งแต่ ค.ศ. 2006** [16:43]
+- **Bactericidal** = single dose kills (ต้องเพิ่ม dose), **Bacteriostatic** = inhibit growth, ยาบางตัว dose-dependent (เช่น **Tetracycline ส่วนมาก = static, Aminoglycoside = cidal**) [26:35]
+- Combination: เลี่ยงในปัจจุบัน, classic case = **Sulfa + Trimethoprim** (synergism) แต่ปัจจุบัน sulfa ดื้อมาก = ยาโบราณ [27:05]
 - กลไกดื้อยาอยู่ที่ **plasmid** → หยุดใช้ยา ลดดื้อได้แต่ไม่หาย (gene ยังอยู่ ไม่ express) [28:05]
 - กลไก: ⭐ DNA gyrase (Quinolone), Folate inhibitor (Sulfa), Cell wall (β-lactam), Cytoplasmic membrane (Polymyxin/Colistin), Protein synthesis (Macrolide/Tetra/Amino), Drug ที่ไม่ค่อยใช้แล้ว = **Nitrofuran (Furazolidone)** [25:02]
 
 ## 4. Drug of Choice ตามโรค [32:14–37:23] ⭐
 - **Mycoplasmosis** (Mycoplasma gallisepticum/synoviae): **Tylosin, Tilmicosin, Lincomycin, Spectinomycin, Gitasamycin** [33:19]
-- **Colibacillosis (E. coli)**: **Quinolone** (แต่ระวัง enrofloxacin ห้ามในไก่ไข่ที่จะเข้า food chain) · Gentamicin ใช้ได้แต่ฉีดไม่ไหว [33:49]
-- **Salmonellosis**: Sulfonamide กลุ่ม · **ในไก่บ้านเรา isolate เชื้อ host-specific (S. Gallinarum, S. Pullorum) แทบไม่เจอแล้ว** เพราะ management ดี [34:50]
+- **Colibacillosis (E. coli)**: **Quinolone** (แต่ระวัง enrofloxacin ห้ามในไก่ไข่ที่จะเข้า food chain), Gentamicin ใช้ได้แต่ฉีดไม่ไหว [33:49]
+- **Salmonellosis**: Sulfonamide กลุ่ม, **ในไก่บ้านเรา isolate เชื้อ host-specific (S. Gallinarum, S. Pullorum) แทบไม่เจอแล้ว** เพราะ management ดี [34:50]
 - **5 Salmonella serovars ห้ามเจอใน export chain**: ⭐ **Typhimurium, Enteritidis, Infantis, Virchow, Hadar** [37:23] — เจอเชื้อตัวใดตัวหนึ่งใน 5 ตัวนี้ = **ห้ามส่งออกทันที**
 - **Infectious Coryza (หวัดหน้าบวม)**: Avibacterium paragallinarum (โบราณเรียก Haemophilus) [37:56]
 - หลักการ: ทำ **Sensitivity test** ก่อน → drug of choice อาจรักษาไม่ได้เพราะดื้อ [38:28]
@@ -8669,7 +8669,7 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
 ## 5. Antiparasitic [41:32–51:30]
 ### Endoparasite (Helminth)
 - ฟาร์มไก่เนื้อ commercial = "ศูนย์" พยาธิ (เลี้ยง 42 วัน + EVAP closed system 100%) [42:35–44:36]
-- เจอในไก่ไข่/ไก่พันธุ์ที่เลี้ยงนาน · ตัวเด่น: **Ascaridia, Capillaria, Cestode, Tetrameres** [45:06]
+- เจอในไก่ไข่/ไก่พันธุ์ที่เลี้ยงนาน, ตัวเด่น: **Ascaridia, Capillaria, Cestode, Tetrameres** [45:06]
 - **Heterakis gallinarum** → vector ของ **Histomonas (Blackhead disease)** [45:37]
 - **Antinematodal**: Benzimidazole (Albendazole, Fenbendazole), **Levamisole** (broad-spectrum, นิยมในปัจจุบัน), **Piperazine** (narrow), Phenothiazine (โบราณ) [48:45–51:00]
 - **Anticestodal**: ⭐ **Praziquantel = drug of choice ตัวตืด** [50:19]
@@ -8685,7 +8685,7 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
 - เจอบ่อยสุด: **เหา (chicken louse) สีขาว** ใต้ปีก
 - **Best method = จับจุ่ม (dipping)** เพราะขนไก่มีน้ำมันจาก uropygial gland (ก้น) → ฉีดไม่ค่อยเข้า [59:36]
 - Commercial: dip ไม่ไหว → **spray โซกทั้งตัว ทำให้ไก่ตื่น/กระพือปีก** [61:09]
-- ยา: **DDT ห้ามใช้แล้ว, Aldrin/Dieldrin ห้าม, ⭐ Pyrethroid = นิยมสุดในปัจจุบัน** เพราะ "สกัดจากดอกพายเรธรัม → consumer-friendly" (ส่งออกสำคัญ) [62:09–63:12] · Cypermethrin = synthetic pyrethroid
+- ยา: **DDT ห้ามใช้แล้ว, Aldrin/Dieldrin ห้าม, ⭐ Pyrethroid = นิยมสุดในปัจจุบัน** เพราะ "สกัดจากดอกพายเรธรัม → consumer-friendly" (ส่งออกสำคัญ) [62:09–63:12], Cypermethrin = synthetic pyrethroid
 
 ### Knemidocoptes mutans (นกแก้ว/นกหงส์ exotic)
 - **Scaly leg/face mite** → รักษาด้วย **Ivermectin** (ป้อนปาก หรือ ฉีด) recover เร็ว [110:23]
@@ -8699,15 +8699,15 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
 
 ## 7. ⭐ ยาห้ามใช้ในสัตว์ (Banned Drugs) [72:57–80:47] — "ข้อเขียนออกแน่ 3 ตัว"
 - **กลุ่มต้องห้ามตาม พ.ร.บ. ยาสัตว์**:
-  - ⭐ **β-agonist (Clenbuterol, Salbutamol)** — ใช้ใน fattening แต่ไก่โตเร็วอยู่แล้ว 42d/3kg → **ไม่ใช้ในไก่** · แต่ห้ามเด็ดขาด [73:29]
+  - ⭐ **β-agonist (Clenbuterol, Salbutamol)** — ใช้ใน fattening แต่ไก่โตเร็วอยู่แล้ว 42d/3kg → **ไม่ใช้ในไก่**, แต่ห้ามเด็ดขาด [73:29]
   - ⭐ **Diethylstilbestrol (DES)** — hormone, ใช้ในไก่ "3-สาย" (ไก่ไหว้เจ้าจีน, mix Rhode Island × Barred Plymouth Rock × ไก่ชนไทย 50%) → เนื้อตัวผู้กระด้าง/ดุ → **ลักลอบใช้ DES** ทำเนื้อนุ่ม **ผิดกฎหมาย** [76:05–80:15]
   - **Chloramphenicol, Nitrofuran (Furazolidone), Metronidazole, Vancomycin** — ห้าม (impl. โดย Codex/EU) [25:33 + 72:57]
-- **Extra-label Use**: ห้าม! ยาคน → ไม่เอามาใช้สัตว์ · ถ้าหมอตัดสินใจใช้ → **รับผิดชอบทางวิชาชีพ (ใบประกอบ-โดน fines/ระงับ)** [80:47]
+- **Extra-label Use**: ห้าม! ยาคน → ไม่เอามาใช้สัตว์, ถ้าหมอตัดสินใจใช้ → **รับผิดชอบทางวิชาชีพ (ใบประกอบ-โดน fines/ระงับ)** [80:47]
 
 ## 8. ⭐ Drug Application Techniques [81:49–107:46]
 ### Order of preference:
-1. **Water medication** ⭐ (1st choice, drug ของกรมปศุสัตว์ encourage) — ป่วยไก่กินอาหารน้อยแต่ยังกินน้ำ; absorb เร็ว · ระวังตกตะกอน + แคลเซียมในน้ำสูง (เช่น **สระบุรี = หินปูนเยอะ**) จับ tetracycline → ไม่ละลาย [88:55, 102:29]
-2. **Feed medication** (2nd) — กรมไม่ encourage (เหตุผลที่ อ.ไม่บอก แต่ implication: ขนาดต่ำกว่ากำหนด, กระจายไม่ทั่ว, batch ผสมขั้นต่ำ ~3 ตัน) [104:39] · **เฉพาะยากันบิดเท่านั้นที่ผสมอาหารถูกกฎหมาย** [105:10]
+1. **Water medication** ⭐ (1st choice, drug ของกรมปศุสัตว์ encourage) — ป่วยไก่กินอาหารน้อยแต่ยังกินน้ำ; absorb เร็ว, ระวังตกตะกอน + แคลเซียมในน้ำสูง (เช่น **สระบุรี = หินปูนเยอะ**) จับ tetracycline → ไม่ละลาย [88:55, 102:29]
+2. **Feed medication** (2nd) — กรมไม่ encourage (เหตุผลที่ อ.ไม่บอก แต่ implication: ขนาดต่ำกว่ากำหนด, กระจายไม่ทั่ว, batch ผสมขั้นต่ำ ~3 ตัน) [104:39], **เฉพาะยากันบิดเท่านั้นที่ผสมอาหารถูกกฎหมาย** [105:10]
 3. **Injection** (3rd) — onset เร็วสุด, withdrawal ยาวสุด, ฉีดไก่ทั้ง flock ไม่ไหว → ใช้เฉพาะ flock เล็กหรือ aminoglycoside (เช่น gentamicin) [106:45]
 - ปริมาณกิน: **ไก่กินน้ำ ≈ 1.7-2× กินอาหาร** [85:54]
 
@@ -8732,7 +8732,7 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
 ## 10. Key Exam Hooks (Niwat ย้ำชัด)
 - ⭐ **5 Salmonella serovar ห้ามส่งออก** (Typhimurium, Enteritidis, Infantis, Virchow, Hadar)
 - ⭐ **ยา 1 กลุ่มผสมอาหารถูกกฎหมาย = ยากันบิด**
-- ⭐ **Praziquantel = ตัวตืด · Pyrethroid = ectoparasite of choice · Levamisole = broad nematode**
+- ⭐ **Praziquantel = ตัวตืด, Pyrethroid = ectoparasite of choice, Levamisole = broad nematode**
 - ⭐ **Aminoglycoside (Colistin/Neomycin/Streptomycin) ไม่ดูดซึม → no withdrawal**
 - ⭐ **Aspergillus flavus → Aflatoxin → ทนความร้อน → carcinogen**
 - ⭐ **β-agonist & DES = ห้ามเด็ดขาด** (DES ลักลอบใช้ใน "ไก่ 3 สาย")
@@ -8749,12 +8749,12 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
   subject: 'poultry',
   date: '31 Mar 69',
   durationMin: 110,
-  instructor: 'Aj. Ekasingh Sareung (เอกสิงห์ สาเรือง · Betagro) — L14-15',
+  instructor: 'Aj. Ekasingh Sareung (เอกสิงห์ สาเรือง, Betagro) — L14-15',
   examFormat: 'T/F ~10 ข้อ + MCQ',
-  summary: `# L14-15 — Poultry Farm QA · Aj. Ekasingh
+  summary: `# L14-15 — Poultry Farm QA, Aj. Ekasingh
 
 > Lecturer: Aj. Ekasingh Sareung — Betagro Vet '52, ตำแหน่งผู้ช่วยกรรมการผู้จัดการใหญ่ ดูงาน **สัตวแพทย์ + ประกันคุณภาพฟาร์มสัตว์ปีกทั้งเครือ Betagro** [28:51]
-> Style: ลุยเร็ว · ใช้ตัวอย่างจากเชนจริง (ฟาร์มปู่ย่า → พ่อแม่พันธุ์ → โรงฟัก → ไก่เนื้อ/ไก่ไข่ → โรงเชือด/Further) · เน้น regulator + customer requirement · Cross-ref VetMock Q1751-1758, Q1806-1810, Q1819-1822
+> Style: ลุยเร็ว, ใช้ตัวอย่างจากเชนจริง (ฟาร์มปู่ย่า → พ่อแม่พันธุ์ → โรงฟัก → ไก่เนื้อ/ไก่ไข่ → โรงเชือด/Further), เน้น regulator + customer requirement, Cross-ref VetMock Q1751-1758, Q1806-1810, Q1819-1822
 
 ---
 
@@ -8773,21 +8773,21 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 
 ## 2) มาตรฐานที่ต้องศึกษา [36:47]
 
-**ในประเทศ**: กรมปศุสัตว์ · อบต. · มกอช.
-**ต่างประเทศ**: EU · ญี่ปุ่น · เกาหลี · จีน · ตะวันออกกลาง
-**องค์กรกลาง**: FAO · OIE · NGO อิสระ
-**Third Party**: LRQA · Genesis · Halal · NSF · **Sedex** (แรงงาน)
+**ในประเทศ**: กรมปศุสัตว์, อบต., มกอช.
+**ต่างประเทศ**: EU, ญี่ปุ่น, เกาหลี, จีน, ตะวันออกกลาง
+**องค์กรกลาง**: FAO, OIE, NGO อิสระ
+**Third Party**: LRQA, Genesis, Halal, NSF, **Sedex** (แรงงาน)
 
-**ลูกค้าเฉพาะกลุ่ม** [40:58]: ไก่โตช้า · ไก่เลี้ยงปล่อยอิสระ · Organic · **Better Chicken Commitment (BCC)** · **ESG**
+**ลูกค้าเฉพาะกลุ่ม** [40:58]: ไก่โตช้า, ไก่เลี้ยงปล่อยอิสระ, Organic, **Better Chicken Commitment (BCC)**, **ESG**
 
-**Standards**: ISO · GMP/HACCP · GLP · Global GAP · Genesis · LRQA Farm First [43:05]
-- **มาตรฐานฟาร์ม กรมปศุสัตว์**: ฟาร์มไก่ >3,000 ตัว ต้องมี · ฟาร์มส่งออก ต้องมี [44:37]
+**Standards**: ISO, GMP/HACCP, GLP, Global GAP, Genesis, LRQA Farm First [43:05]
+- **มาตรฐานฟาร์ม กรมปศุสัตว์**: ฟาร์มไก่ >3,000 ตัว ต้องมี, ฟาร์มส่งออก ต้องมี [44:37]
 - **RWA = Raised Without Antibiotics** [45:09]
 
 ## 3) Scope งาน QA — 6 หมวด [46:13]
 
 ### 3.1 Food Safety [46:43]
-**4 ด้าน**: Biological (Salmonella + AI ห้าม) · Chemical (antimicrobial · ยากันบิด · ยาฆ่าแมลง · โลหะหนัก · เมลามีน) · Physical (เข็ม · พลาสติก) · Allergen
+**4 ด้าน**: Biological (Salmonella + AI ห้าม), Chemical (antimicrobial, ยากันบิด, ยาฆ่าแมลง, โลหะหนัก, เมลามีน), Physical (เข็ม, พลาสติก), Allergen
 - หลัก: **GMP + HACCP**
 - AMR reduction levels [47:46]:
   - **RU = Reduce Use**
@@ -8798,28 +8798,28 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 1. ปราศจาก หิว/กระหาย — เข้าถึงน้ำตลอด
 2. ปราศจาก ความไม่สบาย — โรงเรือนเหมาะสม
 3. ปราศจาก โรค/บาดเจ็บ — dx + tx ทันท่วงที
-4. **แสดงพฤติกรรมธรรมชาติ** — มีคอน · ของเล่น (บอล/กระสอบ)
+4. **แสดงพฤติกรรมธรรมชาติ** — มีคอน, ของเล่น (บอล/กระสอบ)
 5. ปราศจาก ความหวาดกลัว/Stress
 
-ตัวอย่าง: เดินตรวจ ≥ **2-3 ครั้ง/วัน** · **ห้ามตัดปาก** (ban) [52:30] · **เครื่องปั่นไฟ + น้ำมันสำรอง** [53:00]
+ตัวอย่าง: เดินตรวจ ≥ **2-3 ครั้ง/วัน**, **ห้ามตัดปาก** (ban) [52:30], **เครื่องปั่นไฟ + น้ำมันสำรอง** [53:00]
 
 ### 3.3 Disease Control [53:32]
-- Veterinary Health Plan: vaccine · vitamin · disinfectant · monitoring · welfare · vet visit
-- Biosecurity: คุมทั้งโซน · ถนนแยก · รั้ว · **อาบน้ำ 2 ครั้ง** (เข้า+ออก) · พักตัวก่อนเข้า · พนักงานพักในฟาร์ม · ใช้ **โฟม** ฆ่าเชื้อรถ (ดีกว่าน้ำ) [58:41] · ตู้ UV
+- Veterinary Health Plan: vaccine, vitamin, disinfectant, monitoring, welfare, vet visit
+- Biosecurity: คุมทั้งโซน, ถนนแยก, รั้ว, **อาบน้ำ 2 ครั้ง** (เข้า+ออก), พักตัวก่อนเข้า, พนักงานพักในฟาร์ม, ใช้ **โฟม** ฆ่าเชื้อรถ (ดีกว่าน้ำ) [58:41], ตู้ UV
 - ยูนิฟอร์ม **แยกสีตามตำแหน่ง**
-- Pest control: หนู · แมลงวัน · นกป่า [60:16]
+- Pest control: หนู, แมลงวัน, นกป่า [60:16]
 - **Prescription ต้องเขียนโดยสัตวแพทย์เท่านั้น** [62:22] ★
 
 ### 3.4 Quality Control [63:27]
-**Documents**: Quality Manual · SOP · Work Instruction
-**Audit types** [63:57]: Internal Audit (รวม **Surprise Audit**) · Verification · Traceability · Training · 3rd Party Audit · Customer Audit
+**Documents**: Quality Manual, SOP, Work Instruction
+**Audit types** [63:57]: Internal Audit (รวม **Surprise Audit**), Verification, Traceability, Training, 3rd Party Audit, Customer Audit
 **Traceability** [64:58]: scan QR → ฟาร์มไก่เนื้อ/โรงฟัก/พ่อแม่พันธุ์ + ชื่อสัตวแพทย์
-**Training 9 ข้อ** [65:59]: พฤติกรรมไก่ปกติ · ความหวาดกลัว · ลักษณะสุขภาพ · จับ/บังคับ · humane culling · วัสดุรองพื้น · อุปกรณ์/สุขาภิบาล · ความเครียดจากร้อน · ใช้ยา/เวชภัณฑ์
+**Training 9 ข้อ** [65:59]: พฤติกรรมไก่ปกติ, ความหวาดกลัว, ลักษณะสุขภาพ, จับ/บังคับ, humane culling, วัสดุรองพื้น, อุปกรณ์/สุขาภิบาล, ความเครียดจากร้อน, ใช้ยา/เวชภัณฑ์
 
 ### 3.5 Labour Standard [67:05]
 - **GLP** = Good Labour Practice (กรมปศุสัตว์)
 - **BLS** = Betagro Labour Standard
-- **Sedex** · **NGO**
+- **Sedex**, **NGO**
 
 **4 หลักของ GLP** [68:09]:
 1. ไม่ใช้แรงงานเด็ก
@@ -8832,11 +8832,11 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 ### 3.6 Environment [69:11]
 - **ISO 14000** [69:43]
 - **ใบ อป.2** = ใบอนุญาตประกอบกิจการที่เป็นอันตรายต่อสุขภาพ → ทุกฟาร์มต้องมี + ต่ออายุตลอด [72:22] ★
-- **จัดการของเสีย**: ฝัง/เผา/ทำลาย · **Vcompost** ~4 อาทิตย์ → ผงป่น → ปุ๋ย · เปลือกไข่ บด+อบ → อาหารสัตว์ · Rendering
+- **จัดการของเสีย**: ฝัง/เผา/ทำลาย, **Vcompost** ~4 อาทิตย์ → ผงป่น → ปุ๋ย, เปลือกไข่ บด+อบ → อาหารสัตว์, Rendering
 
 ## 4) BQM = Betagro Quality Management [100:27] ★★
 
-**สโลแกน 24/7** = 24 ชม. · 7 วัน
+**สโลแกน 24/7** = 24 ชม., 7 วัน
 
 **5 หัวใจของ BQM** [102:04]:
 - **Food Safety** ★ (ตัวสำคัญสุด)
@@ -8846,15 +8846,15 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - Service Excellence
 
 **Checklist scoring**: Food Safety + Food Quality + Service
-- **≥ 60 = ผ่าน** · **≥ 80 = ดี (สีฟ้า)**
+- **≥ 60 = ผ่าน**, **≥ 80 = ดี (สีฟ้า)**
 - ต่ำกว่า → **PDCA** ปรับปรุง [104:05]
 
 **6 หมวดที่ตรวจ BQM** [106:09]:
-1. เอกสาร — Quality Manual · SOP · Work Instruction
+1. เอกสาร — Quality Manual, SOP, Work Instruction
 2. เวชภัณฑ์ — รับ/สั่ง/จัดเก็บ/ใช้/ทำลาย package
 3. ผู้จัดการฟาร์ม + พนักงานเลี้ยง
 4. สวัสดิภาพสัตว์
-5. ตรวจฟาร์ม — biosecurity · pest control
+5. ตรวจฟาร์ม — biosecurity, pest control
 6. บันทึก
 
 หัวเรือใหญ่ = **ทีมสัตวแพทย์** (ดู animal health + ระบบ + สื่อสาร ตปท.) [105:07]
@@ -8864,13 +8864,13 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 ## 5) Product Specs ตลอด chain
 
 ### 5.1 ไข่ฟัก (Hatching Egg) [76:29]
-- น้ำหนัก: ไก่ไข่ 45 ก. · ไก่เนื้อ 50 ก. · ผิวสะอาด · ไม่บาง
-- ปลอด: Mycoplasma · Salmonella · **ALV-J** · AI [77:29]
-- มีภูมิ: CAV · AE
+- น้ำหนัก: ไก่ไข่ 45 ก., ไก่เนื้อ 50 ก., ผิวสะอาด, ไม่บาง
+- ปลอด: Mycoplasma, Salmonella, **ALV-J**, AI [77:29]
+- มีภูมิ: CAV, AE
 
 ### 5.2 ลูกไก่ (Day-Old Chick) [80:34]
-- ไม่มีสะดือดำ/อักเสบ · ไม่ท้องบวม · ภูมิ: ND · IBD · Reo · CAV · AE
-- ปลอด: ALV-J · MG · MS
+- ไม่มีสะดือดำ/อักเสบ, ไม่ท้องบวม, ภูมิ: ND, IBD, Reo, CAV, AE
+- ปลอด: ALV-J, MG, MS
 
 ### 5.3 ★★ Salmonella 5 serovars (ไก่พ่อแม่พันธุ์) [84:47]
 1. **S. Enteritidis**
@@ -8885,12 +8885,12 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 
 ### 5.4 ไข่สด (Table Egg) [90:36] ★
 - **เบอร์ไข่**: เลขน้อย = ฟองใหญ่ (เบอร์ 0 > เบอร์ 1 > เบอร์ 2…)
-- **ค่า Haugh Unit (HU)** = วัดความสด · สเปคขั้นต่ำ **60-65** [91:38] ★
-- ความแข็งแรงเปลือก · สีไข่แดง
-- ปลอด: ยาปฏิชีวนะ · ฆ่าแมลง · โลหะหนัก · **Salmonella spp.**
+- **ค่า Haugh Unit (HU)** = วัดความสด, สเปคขั้นต่ำ **60-65** [91:38] ★
+- ความแข็งแรงเปลือก, สีไข่แดง
+- ปลอด: ยาปฏิชีวนะ, ฆ่าแมลง, โลหะหนัก, **Salmonella spp.**
 
 ### 5.5 ไก่เนื้อเข้าโรงงาน [87:59]
-- น้ำหนัก · uniformity · ปลอดสารตกค้าง · ปลอด AI/Newcastle/Salmonella
+- น้ำหนัก, uniformity, ปลอดสารตกค้าง, ปลอด AI/Newcastle/Salmonella
 
 ## 6) ยาที่ห้ามใช้ [98:22] ★★
 
@@ -8902,7 +8902,7 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 
 **Approve Vendor List**: Supplier ต้องผ่าน audit → ตรวจ **MRL** (Maximum Residue Limit)
 
-**Receiving control** [92:40]: ลูกไก่ · อาหาร · น้ำ (น้ำบาดาล + ผิวดิน → คลอรีน) · เวชภัณฑ์ · สารเคมี
+**Receiving control** [92:40]: ลูกไก่, อาหาร, น้ำ (น้ำบาดาล + ผิวดิน → คลอรีน), เวชภัณฑ์, สารเคมี
 
 ## 7) Aj. exam quirks (high-yield)
 - ★ **5 Salmonella serovars** ในไก่พันธุ์ vs **2 ตัว** ในไก่เนื้อ
@@ -8933,8 +8933,8 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
   date: '21 Apr 69',
   durationMin: 126,
   instructor: 'พี่อู๋ (Poultry course coordinator)',
-  examFormat: 'MCQ — Final L9 (~10+ ข้อ ถูก/ผิด · slides ที่มีดอกจัน ★ ออกสอบทั้งหมด · "ข้อสอบไม่ยาก แค่มีสติ" [124:34])',
-  summary: `# L9 — AHRA (ShineChick) First Week Mortality Concept · พี่อู๋
+  examFormat: 'MCQ — Final L9 (~10+ ข้อ ถูก/ผิด, slides ที่มีดอกจัน ★ ออกสอบทั้งหมด, "ข้อสอบไม่ยาก แค่มีสติ" [124:34])',
+  summary: `# L9 — AHRA (ShineChick) First Week Mortality Concept, พี่อู๋
 
 > Note: เน้นสอน First Week Mortality concept + Farm Management wrap-up
 
@@ -8951,10 +8951,10 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - ถ้า 7 วันแรกไก่ไม่กินอาหาร: น้ำหนักตามทันได้ใน week 2-6 แต่ **GI กับ immune จะเหลือแค่ ~60% ตลอดชีวิต** [14:33]
 - สิ่งที่ได้แทนคือ "โครงกระดูก" ซึ่งเราไม่ต้องการ [15:04]
 
-## 3. ★ สายพันธุ์ไก่ (likely exam · choice-based) [12:26–13:30, 78:42–82:17]
-- **ไก่เนื้อ broiler**: COBB **500** · Ross **308** · Arbor Acres · Hubbard [80:46]
+## 3. ★ สายพันธุ์ไก่ (likely exam, choice-based) [12:26–13:30, 78:42–82:17]
+- **ไก่เนื้อ broiler**: COBB **500**, Ross **308**, Arbor Acres, Hubbard [80:46]
   - ⛔ "COBB 400 ผิด — ใช้ที่อินเดีย ทนร้อน 40°C แต่ไม่โต" [80:15]
-- **ไก่ไข่ layer**: Hyline · ISA (white/brown — เปลือกขาว/น้ำตาล) [13:30, 81:16]
+- **ไก่ไข่ layer**: Hyline, ISA (white/brown — เปลือกขาว/น้ำตาล) [13:30, 81:16]
 - ⛔ ตอบสายพันธุ์สลับกัน = ผิดทันที [81:46]
 - เมืองไทยเป็นแค่ joint 50% (CP × COBB) — **ไม่มี GGP เป็นของตัวเอง** [82:47, 83:18]
 
@@ -8965,7 +8965,7 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 
 ## 5. ★★ Crop fill 24 ชม.แรก [18:08–19:41]
 - 24 ชม.แรก จับลูกไก่ 10 ตัว ต้องเจออาหารใน crop **100%** [19:10]
-- ไม่ 100% = error การจัดการน้ำ/อาหาร: อากาศร้อน · อาหารแข็ง · นิปเปิ้ลสูง/ต่ำเกิน
+- ไม่ 100% = error การจัดการน้ำ/อาหาร: อากาศร้อน, อาหารแข็ง, นิปเปิ้ลสูง/ต่ำเกิน
 - "ถ้าออกสอบจะให้ลองนึกตัวเรา ไปอยู่ฟาร์ม จะแนะนำคนฟาร์มยังไงเรื่องน้ำ/อาหาร 24 ชม.แรก" [19:41]
 
 ## 6. Immune system anatomy [20:12–22:13]
@@ -8982,10 +8982,10 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 | โรค | GI | Respi | Nervous | Bursa | Notes |
 |---|---|---|---|---|---|
 | **ND** | ✓ | ✓ | ✓ | — | ครบทุกระบบ; ไทย report ปลอด ND/AI [29:27] |
-| **IB** | — | ✓ | — | — | corona · ทรงเหมือน COVID; respiratory only [31:33] |
+| **IB** | — | ✓ | — | — | corona, ทรงเหมือน COVID; respiratory only [31:33] |
 | **AI** | ✓ | ✓ | ✓ | — | เหมือน ND; H9=LPAI; ไทยไม่มีวัคซีน [32:35] |
 | **IBD (Gumboro)** | ✓ | — | — | ✓ destroy | ★ โรค**เดียว**ที่ทำลาย bursa [34:10] |
-| **IBH** | — | — | — | ตับ | hepatitis · non-envelope · aldehyde/halogen [35:13–37:51] |
+| **IBH** | — | — | — | ตับ | hepatitis, non-envelope, aldehyde/halogen [35:13–37:51] |
 | **AE** | ✓ | — | ✓ "หัวสั่นๆ" | — | ปีนี้ถามแค่ระบบประสาท [37:51] |
 | **CAV** | — | — | — | thymus destroy | ปีกม่วง "blue wing" + Staph [40:54] |
 
@@ -8994,10 +8994,10 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - Yolk sac ดูดซึม 7-14 วัน — contaminate → bacteria เพิ่ม → ตาย
 
 ## 10. Hatchery factors [44:27–50:15]
-- ตู้ฟัก 300,000 ฟอง · เซตอุณหภูมิตาม %hatch
+- ตู้ฟัก 300,000 ฟอง, เซตอุณหภูมิตาม %hatch
 - **Heat stress ในตู้ฟัก** = ไก่โตเร็วเกิน → ใช้ yolk หมด → สลายกล้ามเนื้อ
-- **Humidity ต่ำ** = ไข่แห้ง · เปลือกแข็ง · ลูกไก่จิกออก ขาเป็นแผลตามข้อ → S. aureus/E. coli infection [49:44]
-- **Pasgar score** mentioned at [50:15] BUT 5 components partial: navel · beak · legs dryness · leg lesion · flip reflex (ไม่ใช้คำว่า "Pasgar" หรือ 0-2 scoring system)
+- **Humidity ต่ำ** = ไข่แห้ง, เปลือกแข็ง, ลูกไก่จิกออก ขาเป็นแผลตามข้อ → S. aureus/E. coli infection [49:44]
+- **Pasgar score** mentioned at [50:15] BUT 5 components partial: navel, beak, legs dryness, leg lesion, flip reflex (ไม่ใช้คำว่า "Pasgar" หรือ 0-2 scoring system)
 
 ## 11. New House Syndrome [54:55–55:27]
 - โรงเรือน slat ใหม่ + พลาสติกคม → ลูกไก่เหยียบขาเป็นแผล → Staph infection
@@ -9029,8 +9029,8 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 
 ## 18. FCR + Performance parameter [92:11–92:44]
 - FCR = Feed Conversion Ratio
-- ไก่เนื้อ commercial **FCR ~1.55** · ไก่พื้นเมือง **FCR ~2.4** [92:44]
-- Performance parameters: feed intake · ADG · mortality % · egg %
+- ไก่เนื้อ commercial **FCR ~1.55**, ไก่พื้นเมือง **FCR ~2.4** [92:44]
+- Performance parameters: feed intake, ADG, mortality %, egg %
 
 ## 19. Evaporative Cooling System [94:20–95:55]
 - Closed house: pad cooling + negative pressure suction fan
@@ -9051,7 +9051,7 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - **UVC** เท่านั้นที่ฆ่าเชื้อ (ไม่ใช่ UVA/UVB)
 - ⛔ "ไฟ FL + กระดาษแก้วม่วง" = หลอก auditor ได้ แต่**ฆ่าเชื้อไม่ได้** [120:46]
 - UV target = **99.99% reduction** (ไม่มี 100%) [117:19]
-- ระยะทางจากหลอด ↑ → ฤทธิ์ ↓ · ปกติ ~20 นาที
+- ระยะทางจากหลอด ↑ → ฤทธิ์ ↓, ปกติ ~20 นาที
 
 ## 23. Rodent control [119:23–121:26] — ⛔ ไม่ออกสอบ
 - **แมลง/หนู ไม่ออกสอบปีนี้** [121:57]
@@ -9078,37 +9078,37 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
   subject: 'cliapprum',
   date: '4 Mar 69',
   durationMin: 143,
-  instructor: 'verify (ไม่ได้ระบุชื่อ — เรียกตัวเองว่า "พี่" · อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น เป็นผู้พัฒนา KCF)',
-  examFormat: 'MCQ — Final scope · 15 ข้อต่อคาบ',
-  summary: `# Metabolic & Nutrition Disorders in Dairy Cattle · Aj. (verify)
+  instructor: 'verify (ไม่ได้ระบุชื่อ — เรียกตัวเองว่า "พี่", อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น เป็นผู้พัฒนา KCF)',
+  examFormat: 'MCQ — Final scope, 15 ข้อต่อคาบ',
+  summary: `# Metabolic & Nutrition Disorders in Dairy Cattle, Aj. (verify)
 
-> **Caveat สำคัญ**: lecture นี้เป็น **workshop-driven** (~143 นาที) เน้น **practical evaluation tools** สำหรับฟาร์มโคนม ไม่ใช่ disease deep-dive · NEB / BCS / R:C ratio / particle size / NRC requirement matching เป็นแกนหลัก
+> **Caveat สำคัญ**: lecture นี้เป็น **workshop-driven** (~143 นาที) เน้น **practical evaluation tools** สำหรับฟาร์มโคนม ไม่ใช่ disease deep-dive, NEB / BCS / R:C ratio / particle size / NRC requirement matching เป็นแกนหลัก
 
 ## ★ Big-picture framework [04:46–14:08]
 **Master diagram** (ออกสอบ):
 - แกน X = day in milk (DIM)
-- แกน Y ซ้าย = milk yield · DMI · energy balance
+- แกน Y ซ้าย = milk yield, DMI, energy balance
 - แกน Y ขวา = body weight (กก.)
 
 **Pattern:**
-1. Day 0 = วันคลอด BW ~630 กก. · energy req. พุ่งสูง
+1. Day 0 = วันคลอด BW ~630 กก., energy req. พุ่งสูง
 2. **Lactation curve**: peak ที่ **60–90 วัน** [06:23]
 3. **DMI**: หลังคลอดยังกินไม่เยอะ → physiology + hormone + เปลี่ยนคอก [07:26]
 4. ★ **NEB (Negative Energy Balance)** → ดึง fat reserve → BCS/BW loss ทุกตัว [07:57]
 5. ต้องเปลี่ยน negative → positive ก่อน 90 วัน
-6. Critical period [11:01]: 100 วันแรก · transition ก่อน-หลังคลอด 3 wk
+6. Critical period [11:01]: 100 วันแรก, transition ก่อน-หลังคลอด 3 wk
 
 ## ★ 2 Pillars ของการประเมินอาหาร [11:33]
 1. **Nutrient adequacy** — โคได้ requirement?
 2. **Rumen health** — เหมาะกับ rumen function?
 
 ## ★ Inputs (Side 1: Nutrient adequacy) [12:36]
-- DMI · คุณค่าโภชนะ · Requirement (BW + milk yield → NRC table)
-- **Evidence on cow**: BCS · lactation curve · reproductive performance
+- DMI, คุณค่าโภชนะ, Requirement (BW + milk yield → NRC table)
+- **Evidence on cow**: BCS, lactation curve, reproductive performance
 
 ## ★ Inputs (Side 2: Rumen health)
-- R:C ratio · Particle size
-- **Evidence on cow**: Rumination % (≥50% ฝูง) · manure score · milk fat % · locomotion score (laminitis %)
+- R:C ratio, Particle size
+- **Evidence on cow**: Rumination % (≥50% ฝูง), manure score, milk fat %, locomotion score (laminitis %)
 
 > **Take-home** [21:35]: ฟาร์มมีข้อมูลครบ → เข้าฟาร์มไม่เกิน 2 ชม. ตอบได้ว่าอาหารเหมาะมั้ย
 
@@ -9124,16 +9124,16 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - โคต้องการ ~1,000+ g/วัน (คน 70 kg ~140 g) [39:02]
 
 ## ★ Workshop 3: Energy NEL [44:27]
-- ใช้ **ADF** คำนวณ NEL · หน่วย Mcal/kg DM
+- ใช้ **ADF** คำนวณ NEL, หน่วย Mcal/kg DM
 - ★ **ADF↑ → energy↓** [54:52]
 - ฟาร์ม 9: 21.17 Mcal/วัน (สูงสุด)
 
-> **Take-home** [60:00]: เน้น DMI ก่อน · ค่อยปรับสูตร
+> **Take-home** [60:00]: เน้น DMI ก่อน, ค่อยปรับสูตร
 
 ## ★ Workshop 4: NRC requirement matching [60:32]
-**KCF program** (อ.วิโรธ + อ.มนชัย ม.ขอนแก่น · ฟรีบนเว็บกรมปศุสัตว์ตั้งแต่ปี 2020) [62:36]
+**KCF program** (อ.วิโรธ + อ.มนชัย ม.ขอนแก่น, ฟรีบนเว็บกรมปศุสัตว์ตั้งแต่ปี 2020) [62:36]
 
-**โจทย์**: BW 550 · นม 25 กก./วัน · milk fat 4%
+**โจทย์**: BW 550, นม 25 กก./วัน, milk fat 4%
 - DMI req = 15.4 กก./วัน
 - Energy req = 29.2 Mcal NEL/วัน
 - CP req = 2,660 g/วัน
@@ -9142,7 +9142,7 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 
 ## ★ Workshop 5: ปรับ DMI [68:28]
 หลังเปลี่ยน 2 มื้อ → 5 มื้อ + พัดลม + อาบน้ำ:
-- ฟาร์ม 4: DMI 19 กก. → CP บวก · energy ยังลบ
+- ฟาร์ม 4: DMI 19 กก. → CP บวก, energy ยังลบ
 - ฟาร์ม 0: DMI 12.68 → ยังลบทั้ง 2 (ความชื้น 70%)
 
 ## ★ DMI as % BW [82:26]
@@ -9153,7 +9153,7 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 **ห้ามคิดบนน้ำหนักสด** — ต้องคิดบน DM
 - R DM = 700 × 0.30 = 210 กก.
 - C DM = 300 × 0.88 = 264 กก.
-- R% = 210/474 = **44.3%** · C% = 55.7%
+- R% = 210/474 = **44.3%**, C% = 55.7%
 - → R:C = 44:56 ✅
 
 ## ★ R:C interpretation [105:36]
@@ -9179,9 +9179,9 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 
 วิธี: เขย่า ≥ 1.1 Hz (≥1 ครั้ง/60 sec)
 
-**Rumen mat anatomy** [114:33]: 3 ชั้น แก๊สบน · luminal mat กลาง · fluid ล่าง
+**Rumen mat anatomy** [114:33]: 3 ชั้น แก๊สบน, luminal mat กลาง, fluid ล่าง
 - 4 mm มาก = ไม่กระตุ้น rumination
-- 18 mm มาก = กระตุ้น rumination ดี · ย่อยยาก
+- 18 mm มาก = กระตุ้น rumination ดี, ย่อยยาก
 - ★ ต้องสมดุลทั้ง 3 size
 
 ## ★ Lactation curve interpretation [118:15]
@@ -9192,21 +9192,21 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - BCS loss ไม่เกิน 0.5–1 score/เดือน
 
 **Pathology**:
-- Early peak (<60 วัน) [122:53] = NEB รุนแรง · อาหารไม่พอ
+- Early peak (<60 วัน) [122:53] = NEB รุนแรง, อาหารไม่พอ
 
 **Real cases**:
-- โค 7916: Early peak · BW 525 → 450 ใน 1 เดือน (ลด 14% เกิน threshold) [122:53]
+- โค 7916: Early peak, BW 525 → 450 ใน 1 เดือน (ลด 14% เกิน threshold) [122:53]
 
 ## ★ Manure score (5 levels) [128:06]
 | Score | ลักษณะ |
 |---|---|
 | 1 | เหลวมาก (ไม่ควรเจอ — โรค) |
 | 2 | กระจายมีขอบ — acidosis indicator |
-| 3 | ซ้อนเป็นกอง · กลางหลุม (ปกติ lactating) |
+| 3 | ซ้อนเป็นกอง, กลางหลุม (ปกติ lactating) |
 | 4 | กองเป็นภูเขา |
 | 5 | ก้อนชัด (โครีด/แห้ง) |
 
-> mismatch กับ R:C = ผิดปกติ · acidosis = score 2 เยอะในฝูง
+> mismatch กับ R:C = ผิดปกติ, acidosis = score 2 เยอะในฝูง
 
 ## ★ Laminitis as evidence [131:42]
 - Locomotion score สูง = อาจมีปัญหาจากอาหาร
@@ -9214,26 +9214,26 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 
 ## ★ Final exam emphasis [132:44]
 1. Master diagram (DIM × milk × BW × DMI × NEB)
-2. Peak milk = 60–90 DIM · BW loss ≤10%
+2. Peak milk = 60–90 DIM, BW loss ≤10%
 3. DMI conversion (สด → DM)
 4. CP intake = DMI × CP%
-5. NEL · ADF↑ = energy↓
-6. DMI %BW: 3–3.2% เฉลี่ย · 4.5% หน้าหนาว
+5. NEL, ADF↑ = energy↓
+6. DMI %BW: 3–3.2% เฉลี่ย, 4.5% หน้าหนาว
 7. **R:C 40:60 บน DM basis (ไม่ใช่สด!)**
 8. Particle size Penn State 4-tier
 9. R:C 20:80 → acidosis → milk drop
 10. Laminitis hemorrhage → acidosis indicator
 
 ## ⚠️ ไม่ได้ครอบคลุมในคาบนี้
-- Ketosis (Type I/II) · BHB cutoff
+- Ketosis (Type I/II), BHB cutoff
 - Fatty liver syndrome
-- Hypocalcemia · milk fever · Ca cutoffs
-- Hypomagnesemia · grass tetany
+- Hypocalcemia, milk fever, Ca cutoffs
+- Hypomagnesemia, grass tetany
 - SARA pH cutoff (เฉพาะ "acidosis เป็นเหตุ" — ไม่ลง pH)
-- LDA · displaced abomasum
-- Retained placenta · endometritis
-- DCAD · anionic salts
-- Mycotoxicosis · aflatoxin
+- LDA, displaced abomasum
+- Retained placenta, endometritis
+- DCAD, anionic salts
+- Mycotoxicosis, aflatoxin
 
 → Disease topics น่าจะอยู่ในคาบอื่น (อาจ Lect 3 GI Disorder)`
 },
@@ -9243,33 +9243,33 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
   subject: 'cliapprum',
   date: '11 Mar 69',
   durationMin: 95,
-  instructor: 'Aj. (ไม่ระบุชื่อใน transcript — instructor หญิง สอนปีละครั้ง · กล่าวถึงทีม อ.สมิต อ.พล อ.แนน อ.อร อ.มน พี่มด พี่ลี่)',
+  instructor: 'Aj. (ไม่ระบุชื่อใน transcript — instructor หญิง สอนปีละครั้ง, กล่าวถึงทีม อ.สมิต อ.พล อ.แนน อ.อร อ.มน พี่มด พี่ลี่)',
   examFormat: 'MCQ — Final scope',
-  summary: `# Ruminant Anesthesia · Aj. (verify)
+  summary: `# Ruminant Anesthesia, Aj. (verify)
 
 > Lab focus: วันจันทร์ที่ 16 = Epidural + Proximal paravertebral [82:39][84:47]
 
 ## ★ ทำไมนิยม "Standing + Local"
-- 3 species: **Bovine · Caprine · Ovine** [1:51]
+- 3 species: **Bovine, Caprine, Ovine** [1:51]
 - กลัว GA complication ในสัตว์ใหญ่ [2:21]
-- Recovery สมูทกว่าม้า · ไม่ violent [4:24]
+- Recovery สมูทกว่าม้า, ไม่ violent [4:24]
 - GA ต้อง intubate + ventilator (bag ใหญ่มาก) [4:57]
 
 ## ★ NPO timing [10:40]
 - **ลูกเกิดใหม่**: ★ **ไม่ต้องงด** (กลัว hypoglycemia)
-- **ลูกวัว/Small ruminant**: น้ำ 8 ชม. · อาหาร 12 ชม.
+- **ลูกวัว/Small ruminant**: น้ำ 8 ชม., อาหาร 12 ชม.
 - **แม่วัวโต**: 12-24 ชม.
 - **พ่อวัวโต**: 24-36 ชม.
 - เหตุผล: ลด regurgitation + กดกระบังลม + กด vena cava
 
 ## ★ Pre-op checks [6:01]
-- HR · hydration · เลือดดูตับไต
+- HR, hydration, เลือดดูตับไต
 - ★ dehydrate → เลี่ยง acepromazine (vasodilate ซ้ำ)
 
 ## ★ Catheter [12:45]
 - **Cattle**: jugular vein (ขาไม่ได้ — วัวเตะ)
 - **Small ruminant**: cephalic / saphenous
-- Maintenance: 4-8 ml/kg/hr · hypotension bolus 10-25 ml/kg
+- Maintenance: 4-8 ml/kg/hr, hypotension bolus 10-25 ml/kg
 
 ## ★ GA Complications
 - **Active regurgitation** = วางตื้นไป (กล้ามดัน) [14:50]
@@ -9289,14 +9289,14 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - ★ ไม่กด CV + ลดโดส induction
 
 ### Acepromazine (Phenothiazines) [20:32]
-- Sedation moderate · ลด arrhythmia
+- Sedation moderate, ลด arrhythmia
 - ★ ข้อเสีย:
   - vasodilate (block α1) → hypotension
   - Relax esophagus → ★ เพิ่ม regurgitation [21:06]
   - **Penile prolapse** ในม้าพ่อพันธุ์ → เลี่ยงในม้าตัวผู้ + วัวพ่อพันธุ์ [21:37]
   - ลด thermoregulation
 - ★ ห้ามใช้: hypovolemic / ใกล้ตาย [23:11]
-- โดสวัว: 0.01-0.02 IV · 0.03-0.1 IM
+- โดสวัว: 0.01-0.02 IV, 0.03-0.1 IM
 
 ### α2-agonists (Xylazine) — ตัวหลักใน large animal [23:43]
 - Sedation + analgesia + muscle relaxation
@@ -9334,7 +9334,7 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 ### Propofol — ราคาสูง ไม่คุ้ม [30:33]
 
 ### Maintenance Inhalation [30:33]
-- ★ เหลือใช้ Isoflurane (Halothane ไม่มี · Sevo แพง 3 เท่า)
+- ★ เหลือใช้ Isoflurane (Halothane ไม่มี, Sevo แพง 3 เท่า)
 - Circuit สัตว์ใหญ่ (ถ้า <100-140 kg ใช้ circuit สัตว์เล็กได้)
 
 ### Guaifenesin [31:37]
@@ -9349,9 +9349,9 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - วัวโต: ★ ยื่นมือเข้าไปกด epiglottis เป็น guide → สอด blind
 
 ## ★ Monitoring [36:21]
-- ★ Eye position: ventro-medial = stage ที่ต้องการ · ดำกลาง = ตื้น/ลึกไป [36:51]
-- jaw tone · respiratory · MM color · BP · HR · CRT · temp
-- Fluid: balanced electrolyte · ลูกสัตว์เพิ่ม dextrose
+- ★ Eye position: ventro-medial = stage ที่ต้องการ, ดำกลาง = ตื้น/ลึกไป [36:51]
+- jaw tone, respiratory, MM color, BP, HR, CRT, temp
+- Fluid: balanced electrolyte, ลูกสัตว์เพิ่ม dextrose
 
 ## ★ Recovery [41:43]
 - ★ Extubate เมื่อกลืนเองสมบูรณ์
@@ -9361,13 +9361,13 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 ## ★★★ Local & Regional Anesthesia
 
 ### Lidocaine 2% [44:19]
-- 20 mg/ml · duration 1.5-3 ชม.
-- ★ Max safe: **วัว 10 mg/kg · แพะ-แกะ 4 mg/kg**
+- 20 mg/ml, duration 1.5-3 ชม.
+- ★ Max safe: **วัว 10 mg/kg, แพะ-แกะ 4 mg/kg**
 
 ### 1. Cornual Nerve Block [44:53]
 - ★ Innervation: **trigeminal CN V** (ophthalmic division)
 - **Cattle**: SC กึ่งกลาง lateral canthus ↔ base of horn (lateral ridge)
-- โดส 5-10 ml · รอ 10-15 นาที · ออก ~1 ชม.
+- โดส 5-10 ml, รอ 10-15 นาที, ออก ~1 ชม.
 - ★ **แพะ ต้อง 2 ตำแหน่ง**:
   - Cornual nerve (เหมือนวัว)
   - Infratrochlear nerve (กึ่งกลาง medial canthus-medial horn) [47:29]
@@ -9375,46 +9375,46 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 ### 2. Eye blocks (3 อัน)
 **a) Auriculopalpebral** [48:34]:
 - Sensory + motor → orbicularis oculi (กระพริบตา)
-- 5-7 cm caudal lateral end ของ zygomatic arch · 10-15 ml
+- 5-7 cm caudal lateral end ของ zygomatic arch, 10-15 ml
 
 **b) Retrobulbar / 4-point block** [50:10]:
 - ใช้: enucleation
-- ★ 4 ตำแหน่ง: 12, 3, 6, 9 นาฬิกา · 5-10 ml/ตำแหน่ง (~40 ml)
-- ★ Complications: globe penetration · hemorrhage · ★ optic nerve damage = ตาบอด [52:48]
+- ★ 4 ตำแหน่ง: 12, 3, 6, 9 นาฬิกา, 5-10 ml/ตำแหน่ง (~40 ml)
+- ★ Complications: globe penetration, hemorrhage, ★ optic nerve damage = ตาบอด [52:48]
 - ★ ถ้าจะเก็บตา → ใช้ Peterson แทน [52:15]
 
 **c) Peterson Eye Block** [53:48]:
-- Block CN II, III, IV, V (ophthalmic + maxillary), VI · ★ ยกเว้น CN VII [54:18]
+- Block CN II, III, IV, V (ophthalmic + maxillary), VI, ★ ยกเว้น CN VII [54:18]
 - ★ ปลอดภัยกว่า + effective + บวมน้อยกว่า retrobulbar [55:23]
-- 15-20 ml · aim foramen orbitorotundum
+- 15-20 ml, aim foramen orbitorotundum
 - ★ Eyelid ไม่กระพริบหลายชม. → ป้ายตา + เย็บ lid
 
 ### 3. Bier Block (IV Regional) [56:25]
-- ใช้: ตัดนิ้ว · กีบเน่า · laminitis
-- ★ Tourniquet → Lidocaine 2% IV ใต้ tourniquet · 10-30 ml
+- ใช้: ตัดนิ้ว, กีบเน่า, laminitis
+- ★ Tourniquet → Lidocaine 2% IV ใต้ tourniquet, 10-30 ml
 - ★ Tourniquet ห้ามเกิน 1 ชม. → necrosis [57:56]
 - ★★ Onset 5-10 นาที
 - เส้น:
-  - **ขาหน้า**: Common dorsal metacarpal v. · Palmar metacarpal v. · Radial v.
-  - **ขาหลัง**: Lateral saphenous v. · Lateral plantar digital v.
+  - **ขาหน้า**: Common dorsal metacarpal v., Palmar metacarpal v., Radial v.
+  - **ขาหลัง**: Lateral saphenous v., Lateral plantar digital v.
 - Small ruminant Bier: 3-4 ml [60:06]
 
 ### 4. Standing Laparotomy indications [60:40]
-- C-section · rumenotomy · abomasal impaction · displacement
+- C-section, rumenotomy, abomasal impaction, displacement
 
 ### 5. Line Block [62:15]
-- SC ตามแนวกรีด · max 250 ml · duration 60-80 นาที
+- SC ตามแนวกรีด, max 250 ml, duration 60-80 นาที
 - ★ ข้อเสีย: ขอบ SC โป่ง → เย็บปิดไม่สวย
 
 ### 6. Inverted L Block ★ [63:49]
-- รูป L กลับหัว · volume ~100 ml
+- รูป L กลับหัว, volume ~100 ml
 - ★ ข้อดี: ไม่มี bleb ขวางกรีด → หมอวัวชอบ
 - Duration ~60 นาที
 
 ### 7. Paravertebral Block [65:51]
 **a) Proximal Paravertebral (Farquharson)** ★ — Lab Mon 16!
 - ★ Landmark: anterior ของ transverse process L1 (block T13)
-- ห่าง midline 5 cm · ลึก 1-2 cm เลย TP ปล่อยยา
+- ห่าง midline 5 cm, ลึก 1-2 cm เลย TP ปล่อยยา
 - ★ โดส 6-8 ml/จุด
 - L1 block: caudal ของ L1 TP
 - L2 block: caudal ของ L2 TP [69:27]
@@ -9427,12 +9427,12 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 **b) Distal Paravertebral (Magda)** [66:22]
 - Landmark: TP ของ L1, L2, L4
 - Vertical fan-shape ใต้ + บน TP
-- ★ ข้อเสีย: เทคนิคยาก · วัวเตะ
-- ★ ข้อดี: ไม่เกิด scoliosis · หมอวัวมือโปรชอบ
-- เข็ม 18 G · 20 ml/ตำแหน่ง
+- ★ ข้อเสีย: เทคนิคยาก, วัวเตะ
+- ★ ข้อดี: ไม่เกิด scoliosis, หมอวัวมือโปรชอบ
+- เข็ม 18 G, 20 ml/ตำแหน่ง
 
 ### 8. Epidural Anesthesia [76:50]
-**Small ruminant**: lumbosacral space · 2% Lidocaine
+**Small ruminant**: lumbosacral space, 2% Lidocaine
 - ผ่าช่องท้อง: 1 ml/5 kg
 - ผ่า perineum: 1 ml/7 kg
 
@@ -9442,14 +9442,14 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 - ★ ไม่บล็อกสูง — block แค่ perineum + tail (กลัวล้ม)
 
 ### 9. Teat Blocks [79:31]
-- V-block: เย็บแผลหัวนม · 5 ml/ขอบ
-- Ring block: ตัดก้อน · วงกลมรอบ base
-- Teat cistern infusion: tourniquet base + lidocaine ใน cistern · ชา ~2 ชม.
+- V-block: เย็บแผลหัวนม, 5 ml/ขอบ
+- Ring block: ตัดก้อน, วงกลมรอบ base
+- Teat cistern infusion: tourniquet base + lidocaine ใน cistern, ชา ~2 ชม.
 - ★ ส่วนใหญ่ใช้ Ring block (versatile)
 
 ## ★ Approach to ruminants [39:36]
 - ห้ามกรี๊ด ถ้าวัวกระทืบ
-- ★ ขาหนึ่งพร้อมถอยหลังเสมอ · ห้ามยืน 2 ขาคู่
+- ★ ขาหนึ่งพร้อมถอยหลังเสมอ, ห้ามยืน 2 ขาคู่
 - มีรุ่นพี่ยืนระหว่างวัว 2 ตัว วัวกระทืบ → กรี๊ด → วัวเตะ
 
 ## ⚠️ ไม่ได้พูดถึงในคาบนี้
@@ -9461,8 +9461,8 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
 
 ## Lab focus วันจันทร์ 16 [82:39]
 - กลุ่มแรก: Epidural + Proximal paravertebral
-- ★ ก่อน lab: ทบทวน paravertebral · inverted L · approach
-- ★ คาถา อ.: "ทำต้องมั่นใจ · ปักไปเลย — จึ๊กๆจั๊กๆ วัวจะเตะ"`
+- ★ ก่อน lab: ทบทวน paravertebral, inverted L, approach
+- ★ คาถา อ.: "ทำต้องมั่นใจ, ปักไปเลย — จึ๊กๆจั๊กๆ วัวจะเตะ"`
 },
 '03mEa46Cg48': {
   videoId: '03mEa46Cg48',
@@ -9471,11 +9471,11 @@ QA = วิธีบริหาร **systematic problem solving + continuous im
   date: '18 Mar 69',
   durationMin: 125,
   instructor: 'อ.ธนศักดิ์ (Aj. Thanasak — verified [3:41]–[4:13])',
-  examFormat: 'MCQ — Final scope · LDA/Hardware/bloat high-yield',
-  summary: `# Ruminant GI Disorders (Medical) · อ.ธนศักดิ์
+  examFormat: 'MCQ — Final scope, LDA/Hardware/bloat high-yield',
+  summary: `# Ruminant GI Disorders (Medical), อ.ธนศักดิ์
 
 ## บทนำ [1:30]
-field practitioner ที่นครปฐม/กำแพงแสน เคยรอ 2 wk วัวก็ตาย → อ.ธนศักดิ์ (เมดิซีน) สอน dx GI · อ.ศัลย์สอน sx [4:13]
+field practitioner ที่นครปฐม/กำแพงแสน เคยรอ 2 wk วัวก็ตาย → อ.ธนศักดิ์ (เมดิซีน) สอน dx GI, อ.ศัลย์สอน sx [4:13]
 
 ## Anatomy Refresh [5:47]
 - ★ **ซ้าย** = Rumen (paralumbar fossa)
@@ -9487,35 +9487,35 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 1. Top: gas
 2. Middle: fiber/roughage
 3. Bottom: heavy/digested
-4. ★ **Ruminal Mat** (สีเขียว): ขย้อนเคี้ยว → buffer pH · ป้องกัน acidosis [9:55]
+4. ★ **Ruminal Mat** (สีเขียว): ขย้อนเคี้ยว → buffer pH, ป้องกัน acidosis [9:55]
 
 ## ★ Iatrogenic vs Symptomatic [12:00]
-- **Iatrogenic**: คนทำให้เกิด (F:C ผิด · อาหารชื้นย่อยเร็ว → acidosis)
-- **Symptomatic**: ป่วยระบบอื่นแล้ว GI หยุด (mastitis · respi)
+- **Iatrogenic**: คนทำให้เกิด (F:C ผิด, อาหารชื้นย่อยเร็ว → acidosis)
+- **Symptomatic**: ป่วยระบบอื่นแล้ว GI หยุด (mastitis, respi)
 
 ### Feeding management ที่ต้องถาม [13:40]
-- **F:C ratio**: ปกติ 60:40 · high producer 40:60
+- **F:C ratio**: ปกติ 60:40, high producer 40:60
 - กากมัน + กากถั่ว = **concentrate ทั้งคู่** [15:45]
 - ★ NaHCO₃ buffer ป้องกัน pH swing [17:19]
 
 ### ลูกวัว [17:19]
-- เกิดใหม่ = monogastric · rumen ค่อย develop
-- ★ ลูกวัวต้องมีน้ำตลอด · เคสบ้าน: ปล่อยทั้งวันไม่ได้น้ำ → bladder แตก ฉี่เหมือน Babesia/Anaplasma [19:22]
-- ★ **Esophageal groove**: เงยกินจากเต้านม → groove ปิด → นมเข้า abomasum · ก้มกินจากถัง → groove ไม่ปิด → bloat [20:28]
+- เกิดใหม่ = monogastric, rumen ค่อย develop
+- ★ ลูกวัวต้องมีน้ำตลอด, เคสบ้าน: ปล่อยทั้งวันไม่ได้น้ำ → bladder แตก ฉี่เหมือน Babesia/Anaplasma [19:22]
+- ★ **Esophageal groove**: เงยกินจากเต้านม → groove ปิด → นมเข้า abomasum, ก้มกินจากถัง → groove ไม่ปิด → bloat [20:28]
 
 ## ★ Clinical Signs สงสัย GI [21:02]
 1. ★ Anorexia / กินลำบาก [21:34]
 2. ไม่ regurgitate / ไม่เคี้ยวเอื้อง (ปกติ ≥8/10 นอนเคี้ยว) [22:08]
 3. Body contour ผิดปกติ
-4. ★ Paralumbar fossa ซ้าย: เรียบ=อิ่ม · บุ๋ม=ว่าง [23:17]
-5. ★ Rumen ballotment: นุ่ม=แป้งนวด · แข็ง=impaction · ลม=bloat · น้ำเยอะ=acidosis [23:48]
-6. Contraction: 3 นาทีไม่บีบ = atony · บีบถี่ = hypermotility [24:53]
-7. ★ Abdominal pain: หลังโก่ง · เตะท้อง · รอยขี้สองข้าง [26:29]
+4. ★ Paralumbar fossa ซ้าย: เรียบ=อิ่ม, บุ๋ม=ว่าง [23:17]
+5. ★ Rumen ballotment: นุ่ม=แป้งนวด, แข็ง=impaction, ลม=bloat, น้ำเยอะ=acidosis [23:48]
+6. Contraction: 3 นาทีไม่บีบ = atony, บีบถี่ = hypermotility [24:53]
+7. ★ Abdominal pain: หลังโก่ง, เตะท้อง, รอยขี้สองข้าง [26:29]
 
 ## ★ Stepwise Workup [27:33]
 - ตักอาหารทดลองให้กิน
 - General PE → focus GI: ปาก → esophagus → rumen → reticulum → omasum → abomasum → intestine
-- ขี้ปกติ: 10-20 ครั้ง/วัน · 30-50 kg/ตัว/วัน
+- ขี้ปกติ: 10-20 ครั้ง/วัน, 30-50 kg/ตัว/วัน
 
 ## ★★★ Oral Exam — FMD [30:47]
 - น้ำลายยืด = สงสัย FMD ทันที
@@ -9533,18 +9533,18 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ### Technique
 - ผู้ช่วยจับหางลอดใต้ขา ดึงไปข้างหน้า
 - ★ Landmark: last rib ⊥ × stifle ลากหน้า
-- ★ Spinal needle 18G ≥4 นิ้ว · แทงตั้งฉาก [41:05]
+- ★ Spinal needle 18G ≥4 นิ้ว, แทงตั้งฉาก [41:05]
 
 ### Tests on rumen fluid (★★★ exam-bait)
 | Parameter | Normal | Abnormal |
 |---|---|---|
-| Color | เขียว-น้ำตาล · concentrate สูง=เทา | — |
+| Color | เขียว-น้ำตาล, concentrate สูง=เทา | — |
 | Smell | ขี้วัวคุ้นจมูก | ★ **เปรี้ยว = grain engorgement** |
 | ★ **pH** | **5.5–7.5** (cutoff 6.5–7) | <5.5 = **acidosis** [44:21] |
 | Protozoa | หลาย species เคลื่อนไหว | acidosis → ตาย |
-| ★ **MBRT (Methylene Blue)** | สีหายใน **3–6 นาที** | <3 min = bacterial overgrowth (acidosis) · >6 / ไม่หาย = atony [46:46] |
+| ★ **MBRT (Methylene Blue)** | สีหายใน **3–6 นาที** | <3 min = bacterial overgrowth (acidosis), >6 / ไม่หาย = atony [46:46] |
 | ★ **Gram stain** | gram-neg > gram-pos | acidosis → gram+ เพิ่ม [48:54] |
-| Sedimentation | ตะกอนแยกใน **4–8 นาที** | เร็ว/ไม่มี = ไม่กิน · ช้า = frothy bloat (เพคติน surface tension สูง) [49:24] |
+| Sedimentation | ตะกอนแยกใน **4–8 นาที** | เร็ว/ไม่มี = ไม่กิน, ช้า = frothy bloat (เพคติน surface tension สูง) [49:24] |
 
 ★ ก่อนเปิดหลอด **liquid paraffin ปิดหน้า** เพื่อคง anaerobic [45:05]
 
@@ -9559,7 +9559,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 - ★ ถ้าเหล็กยาว → ทะลุ diaphragm → **pericarditis** → murmur + pericardial effusion
 
 ### ★ Pain tests [55:40]
-1. **Withers pinch**: ดึงหนังหัวไหล่ → ฟัง grunting (ตัวโก่ง · กลั้นหายใจ)
+1. **Withers pinch**: ดึงหนังหัวไหล่ → ฟัง grunting (ตัวโก่ง, กลั้นหายใจ)
 2. ★ **Bamboo/Pole test**: 2 คนสอดไม้ใต้ท้อง → กด pressure ที่ reticulum cartilage → ฟัง trachea
 3. ★ **Metal Detector**: sensitivity สูง — บอกแค่มีโลหะ
 4. ★ **Cattle Magnet**: ฟาร์มเสี่ยง กรอกแม่เหล็กป้องกัน → ★ **ต้องจดเลข**
@@ -9567,10 +9567,10 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 ## ★ Omasum [69:53]
 - หน้าที่: ดูดน้ำกลับ → content แห้ง → impaction
-- Location: ขวา ICS 7-9 · ขนาด ~10 นิ้ว
+- Location: ขวา ICS 7-9, ขนาด ~10 นิ้ว
 - ★ Dx: deep palp ICS 7-9 + omasum puncture (needle 15-18 cm)
-- ★ Pressure: ปกติ ≤2.6 kPa · obstruction = **8-12 kPa** [73:07]
-- เคสจริง: omasum โต 10 ซม. → 2 ฟุต · content ทรายแข็ง → ส่งโรงฆ่า
+- ★ Pressure: ปกติ ≤2.6 kPa, obstruction = **8-12 kPa** [73:07]
+- เคสจริง: omasum โต 10 ซม. → 2 ฟุต, content ทรายแข็ง → ส่งโรงฆ่า
 
 ## ★★★ Abomasum: LDA & RDA [78:32]
 
@@ -9578,11 +9578,11 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 - จาก position ปกติ (ขวาล่าง) → **ลอยขึ้นซ้ายบน**
 - ★ **Dx**: Auscultation + Percussion → **ping sound** (กังวานเหมือนกลอง)
 - Area: ปลายข้อศอก → หัวกระดูกเชิงกรานซ้าย
-- ★ **Rolling** = หายได้บ้าง · ไม่บิด
+- ★ **Rolling** = หายได้บ้าง, ไม่บิด
 
 ### RDA (Right Displaced Abomasum) ± Volvulus
-- ลอยขวา-บน · area ping ใหญ่ + ดังชัด
-- ★ **Volvulus = emergency** · area กังวาน
+- ลอยขวา-บน, area ping ใหญ่ + ดังชัด
+- ★ **Volvulus = emergency**, area กังวาน
 - ★ ทั้ง 2 = **ผ่าตัด**
 - ★ ★ Caveat: เป็นนาน → tissue necrosis ขั้วบิด → ผ่าสำเร็จแต่อาจตาย [83:48]
 
@@ -9597,7 +9597,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 - เคสจริง: ใยมะพร้าวจากกากมะพร้าวอุดลำไส้
 
 ### Cecal Dilatation/Torsion
-- ขวา · ตึงเหมือน **ลูกโป่งดัดดอกไม้**
+- ขวา, ตึงเหมือน **ลูกโป่งดัดดอกไม้**
 
 ## Peritonitis [92:46]
 - วัวสร้าง fibrinogen เร็ว → fibrin ล้อม → ★ rectal palp = peritoneum หนา + adhesion = confirm
@@ -9609,7 +9609,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 | น้ำตาล-เขียว, ball, mucus บาง, ★ เตะกับบูทไม่ติด | Normal [95:55] |
 | เทา-milky, เปรี้ยว | Acidosis |
 | เหลว, กลิ่นเหม็น **หัวกุ้ง**, มีเลือด | Infectious diarrhea |
-| ★ แห้งดำ, **cookie roll** | Constipation · **Babesia/Anaplasma** [97:48] |
+| ★ แห้งดำ, **cookie roll** | Constipation, **Babesia/Anaplasma** [97:48] |
 | Whole undigested fiber | ★ **Hardware disease** [99:25] |
 | Mucus เน่าเหม็น | Obstruction late |
 | เลือดสด | GI ส่วนปลาย |
@@ -9622,17 +9622,17 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   - ทั่วไป: ขวาสะดือ 1 ฝ่ามือ ventral
   - Hardware: หลัง xiphoid แกนกลาง
   - Uterine rupture: ระหว่างเต้านมกับขาหลัง
-- Normal: ไม่มีสี/เหลืองจาง · <5 mL · protein <3 g/dL · WBC <10,000
+- Normal: ไม่มีสี/เหลืองจาง, <5 mL, protein <3 g/dL, WBC <10,000
 
 ## ★ Exploratory Laparotomy [107:24]
 - ★ **เลือกผ่าซ้ายก่อน** — ถ้าไม่เจอ ยังเปิด rumen ตรวจต่อได้ (rumenotomy fallback)
 
 ## ★ Decision Algorithm: Distension [109:25]
-- หลัง: symmetry · ซ้าย/ขวา · ventral/dorsal
+- หลัง: symmetry, ซ้าย/ขวา, ventral/dorsal
 - กดดู: gas / fluid (splashing) / solid
 - Pain: เตะท้อง / รอย
 
-**ขวา**: LDA · cecal · intestinal torsion → rectal palp
+**ขวา**: LDA, cecal, intestinal torsion → rectal palp
 **ซ้าย ทั้ง 2 ข้าง ventral**: bloat
 **ทั้ง 2 ข้าง ventral**: twins / peritonitis with ascites
 
@@ -9647,7 +9647,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 - = diagnostic + therapeutic
 
 ### Frothy bloat
-- ★ แก๊สไม่ออก · มี content เป็นฟอง
+- ★ แก๊สไม่ออก, มี content เป็นฟอง
 - ดึง tube → fluid เหนียวฟอง
 
 ### ★★★ Trocharization [118:26]
@@ -9667,14 +9667,14 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ## ★★★ High-Yield Exam Predictions
 1. ★★★ LDA/RDA ping location & rolling vs surgery [80:37]
 2. ★★★ Hardware pain tests (5 อย่าง) [55:40]
-3. ★★★ Rumen fluid normals: pH 5.5-7.5 · MBRT 3-6 min · sed 4-8 min [44:21]
+3. ★★★ Rumen fluid normals: pH 5.5-7.5, MBRT 3-6 min, sed 4-8 min [44:21]
 4. ★★★ Free gas vs frothy bloat by stomach tube [113:40]
 5. ★★★ Trocharization technique [118:26]
-6. ★★ F:C 60:40 · กากมัน=concentrate
+6. ★★ F:C 60:40, กากมัน=concentrate
 7. ★★ Esophageal groove (เงย vs ก้ม) [20:28]
 8. ★★ Exploratory: ซ้ายก่อน [108:28]
 9. ★★ Abdominocentesis ตาม DDx [104:47]
-10. ★★ Fecal pattern: cookie roll · undigested fiber=hardware`
+10. ★★ Fecal pattern: cookie roll, undigested fiber=hardware`
 },
 'szG9lXVvqNo': {
   videoId: 'szG9lXVvqNo',
@@ -9682,17 +9682,17 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   subject: 'cliapprum',
   date: '25 Mar 69',
   durationMin: 125,
-  instructor: 'อ.แฮม (Surgery — สัตว์ใหญ่/ม้า · รับสอน ruminant year นี้) [10:05]',
-  examFormat: 'MCQ — Final scope · Standing field surgery · Rumenotomy/Rumenostomy/RDA omentopexy/Cecal typhlotomy high-yield',
-  summary: `# Ruminant GI Surgery I · อ.แฮม
+  instructor: 'อ.แฮม (Surgery — สัตว์ใหญ่/ม้า, รับสอน ruminant year นี้) [10:05]',
+  examFormat: 'MCQ — Final scope, Standing field surgery, Rumenotomy/Rumenostomy/RDA omentopexy/Cecal typhlotomy high-yield',
+  summary: `# Ruminant GI Surgery I, อ.แฮม
 
-> Week 1/3 ของ Surgery series · focus เฉพาะ **standing procedure** ทั้งหมด · week หน้าจะล้มวัวลงนอน [15:47]
+> Week 1/3 ของ Surgery series, focus เฉพาะ **standing procedure** ทั้งหมด, week หน้าจะล้มวัวลงนอน [15:47]
 > co-coordinator: "อาจารย์พีท" [13:42]
 
 ## 1. Pre-op Assessment [16:52]
-- PE → blood (PCV · biochem) → ★ **Electrolytes + UA** สำคัญสุด (ดู ketosis · imbalance) [17:54]
-- ตัดสินใจ: medicine vs surgery (ปกติ push medicine ก่อน · invasive น้อย · ค่าใช้จ่ายน้อย)
-- ★ Key questions: จำเป็น sx? · medicine ก่อนได้? · คุ้ม? · วัว weak? · ทีมพร้อม? · ส่ง referral?
+- PE → blood (PCV, biochem) → ★ **Electrolytes + UA** สำคัญสุด (ดู ketosis, imbalance) [17:54]
+- ตัดสินใจ: medicine vs surgery (ปกติ push medicine ก่อน, invasive น้อย, ค่าใช้จ่ายน้อย)
+- ★ Key questions: จำเป็น sx?, medicine ก่อนได้?, คุ้ม?, วัว weak?, ทีมพร้อม?, ส่ง referral?
 
 ## 2. Field vs Hospital-based [20:59]
 | | Field | Hospital |
@@ -9702,7 +9702,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 | Common drug (วัว) | ★ **Xylazine (α2)** | หลายตัวเลือก |
 
 ## 3. SSI Classification [24:39]
-- **Superficial** (skin/SubQ) · **Deep** (muscle) · **Organ/Space** (internal)
+- **Superficial** (skin/SubQ), **Deep** (muscle), **Organ/Space** (internal)
 - ★ ASEPTIC สำคัญใน field แม้ compete 100% ไม่ได้ก็ทำ maximum
 
 ## 4. Wound Classification [27:13]
@@ -9712,8 +9712,8 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 - งาน sx วัวส่วนมาก = contaminated → **antibiotic สำคัญใน field**
 
 ## 5. Why Standing? [33:55]
-- ล้มลงนอน → ★ **GI rupture** · **muscle/nerve paralysis** จาก compression · **hypomotility** · วัวอาจไม่ลุก
-- Standing → monitor ได้ · ไม่ต้อง GA ลึก
+- ล้มลงนอน → ★ **GI rupture**, **muscle/nerve paralysis** จาก compression, **hypomotility**, วัวอาจไม่ลุก
+- Standing → monitor ได้, ไม่ต้อง GA ลึก
 - GA ในวัว ต้อง stage 3 plane 2-3 → ไม่มี monitor → เสี่ยง
 
 ## 6. Restraint + Approach [29:50]
@@ -9723,27 +9723,27 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 - C-section → standing left flank ส่วนมาก
 
 ## 7. Drug Protocol [49:28]
-- **Xylazine** ให้เบาๆ ดู head drop · ataxia (วัว sensitive มาก)
+- **Xylazine** ให้เบาๆ ดู head drop, ataxia (วัว sensitive มาก)
 - **Regional anesthesia** สำคัญ — ไม่ต้อง spend dose กับ sedation อย่างเดียว
 
 ### Local block 3 ทางเลือก [46:24]
 1. **Proximal Paravertebral (T13, L1, L2)** ★ — ปัก L1 โดน TP แล้ว walk-off หาช่องด้านหน้า
 2. **Inverted L block** — ครอบคลุม incision line
 3. **Incision line block** — ใส่หรือไม่ก็ได้ (ทำเยอะ tissue บวม → เย็บยาก)
-4. ± **Epidural** — block แค่ perineal · กันวัวสะบัดหางมาโดน field
+4. ± **Epidural** — block แค่ perineal, กันวัวสะบัดหางมาโดน field
 
 ## 8. Skin Prep + Suture
 - ★ **Clean วัวก่อน** — อาบน้ำ ล้างขี้
 - ★ **โกนกว้าง** — เผื่อ paravertebral
 - Sterile scrub → drape (drape ปิดแค่ window ใน field — ค่าแพง)
 - ★ **Suture material**: เบอร์ 1 = minimum ในวัว (หมาใช้ 0-2)
-- Strong + ต้านเชื้อ ไม่อม ขี้/ฉี่ · ถ้าไม่พอ: เทป · สายน้ำเกลือ
+- Strong + ต้านเชื้อ ไม่อม ขี้/ฉี่, ถ้าไม่พอ: เทป, สายน้ำเกลือ
 
 ## 9. Common GI Surgery (Standing)
 
 ### A. RUMENOTOMY [54:37]
-**Indications**: hardware disease · foreign body · impaction · chronic bloat
-**Foreign body พบบ่อย**: ตะปู · ★ **เสื้อในผู้หญิง (bra)** ★ — ตากผ้าใกล้คอก · ถุงพลาสติก · ใบไม้
+**Indications**: hardware disease, foreign body, impaction, chronic bloat
+**Foreign body พบบ่อย**: ตะปู, ★ **เสื้อในผู้หญิง (bra)** ★ — ตากผ้าใกล้คอก, ถุงพลาสติก, ใบไม้
 
 ★ **Key step: Fix rumen ออกข้างนอกก่อนกรีดเปิด** กัน contamination [57:16]
 
@@ -9753,25 +9753,25 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 3. Stay suture 4 จุด (วัวเล็ก/แพะ-แกะ)
 
 **Procedure** [67:10]:
-- Vertical incision rumen wall (มีดเบอร์ 21 · ค่อยๆ กรีด)
-- ใส่ถุงมือล้วงทับ · manual evacuation · suction ไม่ทัน
+- Vertical incision rumen wall (มีดเบอร์ 21, ค่อยๆ กรีด)
+- ใส่ถุงมือล้วงทับ, manual evacuation, suction ไม่ทัน
 - หา foreign body ลึกถึง reticulum
 - Reticulum impaction → ★ **siphon (กาลักน้ำ)** ใส่น้ำดูดออก
 
 **Closure (2 layers)** [63:03]:
-- Layer 1: Absorbable monofilament · **Continuous**
+- Layer 1: Absorbable monofilament, **Continuous**
 - Layer 2: ★ **Inverting pattern** — Lembert หรือ **Cushing**
 
 ### B. RUMENOSTOMY [78:46]
-**Indication**: chronic dysfunction · research (เก็บ content)
-ในไทยยังไม่ค่อยทำ · ฝรั่งทำเยอะ
+**Indication**: chronic dysfunction, research (เก็บ content)
+ในไทยยังไม่ค่อยทำ, ฝรั่งทำเยอะ
 
 **Procedure** [80:52]:
 1. **Circular skin incision** ~4 cm
 2. External oblique — blunt dissect ถ้าได้
-3. ★ **Internal oblique + Transversus = ห้ามตัด · blunt dissect แหวกเป็น valve** (purse-string effect)
+3. ★ **Internal oblique + Transversus = ห้ามตัด, blunt dissect แหวกเป็น valve** (purse-string effect)
 4. Peritoneum → กรีด
-5. ดึง rumen เป็น cone · fix 4 corners (Horizontal mattress/Cushing)
+5. ดึง rumen เป็น cone, fix 4 corners (Horizontal mattress/Cushing)
 6. ★ **Quarter-by-quarter opening** — กรีด rumen ทีละ quarter → continuous suture
 7. ใส่ cannula (ถ้ามี)
 **Healing**: 7-14 days
@@ -9780,7 +9780,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 **Pathophysiology** [97:09]:
 - Abomasum normally ventral right
 - กิน concentrate → fermentation → gas → ลอยเป็นลูกโป่ง → มุดผ่านใต้ rumen → LDA
-- หนัก → torsion (volvulus) = emergency · acute
+- หนัก → torsion (volvulus) = emergency, acute
 - เกิดบ่อย **dairy postpartum ~1 เดือน**
 
 **Diagnosis intra-op** [102:17]:
@@ -9795,7 +9795,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
    - Gas: เข็ม 14/16 จิ้ม dorsal abomasum
    - Content: เจาะ + suction
 4. Catch pyloric region → ดึงมา incision line
-5. **Omentopexy**: Mattress suture omentum cranial→caudal · absorbable เบอร์ 1 · ทะลุ omentum → peritoneum → transversus
+5. **Omentopexy**: Mattress suture omentum cranial→caudal, absorbable เบอร์ 1, ทะลุ omentum → peritoneum → transversus
 6. ★ **Fix ventral → dorsal** เพื่อกัน omentum slip down
 
 **Variants**:
@@ -9807,11 +9807,11 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 1. Right flank incision (~20 cm)
 2. ดึง cecum apex/tip ออกมา
 3. **Typhlotomy at apex**:
-   - ★ Incision **3 cm** (content น้อย) · **6 cm** (เยอะ)
+   - ★ Incision **3 cm** (content น้อย), **6 cm** (เยอะ)
 4. **Closure (2 layers)**:
-   - Layer 1: Absorbable · simple continuous
+   - Layer 1: Absorbable, simple continuous
    - Layer 2: **Inverting** (Cushing/Lembert)
-5. Examine intestine (peristalsis · color · tortion check)
+5. Examine intestine (peristalsis, color, tortion check)
 
 ## 10. Closure Technique (Right Flank) [117:35]
 
@@ -9824,11 +9824,11 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 | 3 | **Skin** | Polymerized caprolactam | ★ **Ford interlocking** หรือ **Horizontal mattress** |
 
 ★ **Pro tip**: ปิด skin ทำ **simple interrupted 2-3 stitches สุดท้าย** เผื่อ SSI ต้องเปิด drain
-★ **เข็ม**: หนังวัว/ควายหนามาก → เคย break · ใช้เข็มเบอร์ 18 ร้อยเอง
+★ **เข็ม**: หนังวัว/ควายหนามาก → เคย break, ใช้เข็มเบอร์ 18 ร้อยเอง
 
 ## ★★★ Key High-Yield (Final)
 
-1. ★ **Left flank** → rumen sx · **Right flank** → abomasum/cecum/intestine
+1. ★ **Left flank** → rumen sx, **Right flank** → abomasum/cecum/intestine
 2. ★ Standing > GA ใน field
 3. ★ **Xylazine** = sedation หลักวัว
 4. ★ **Paravertebral (T13-L2) + Inverted L** standard ของ flank surgery
@@ -9836,11 +9836,11 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 6. ★ **Rumenostomy** → blunt dissect internal oblique + transversus = valve
 7. ★ **LDA postpartum dairy** ~1 เดือน
 8. ★ **Right flank omentopexy** vs **Left flank abomasopexy**
-9. ★ **Suture**: absorbable monofilament inner · nylon/caprolactam outer
+9. ★ **Suture**: absorbable monofilament inner, nylon/caprolactam outer
 10. ★ **Closure**: Continuous (muscle) → Inverting (GI) → **Ford interlocking** (skin)
 11. ★ Withdrawal time + antibiotic ใน contaminated wound
 12. ★ Healing **14 days** ในสัตว์ใหญ่
-13. ★ Cecal typhlotomy at apex 3-6 cm · 2-layer inverting
+13. ★ Cecal typhlotomy at apex 3-6 cm, 2-layer inverting
 14. ★ Foreign body: ตะปู (hardware) + bra/plastic
 15. ★ Roll-and-toggle = Aj. ไม่แนะนำ (มุดใต้วัว อันตราย)
 
@@ -9856,9 +9856,9 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   durationMin: 78,
   instructor: 'Sawita team (พี่เซฟ + พี่มด สอนภาคของคาบนี้)',
   examFormat: 'MCQ — Final scope',
-  summary: `# Ruminant GI Surgery II · Sawita team
+  summary: `# Ruminant GI Surgery II, Sawita team
 
-## Overview · ขอบเขตของเลคเชอร์
+## Overview, ขอบเขตของเลคเชอร์
 
 [0:16] อาจารย์เปิดด้วยการบอกว่าวันนี้เป็น **GI surgery ภาคต่อ** จากคราวที่แล้ว (Surgery I พูดเรื่อง standing surgery — เปิด left/right flank แก้ displacement) วันนี้จะ focus เฉพาะ **G** ก่อนเพราะเนื้อหาเยอะ ส่วนระบบอื่นจะไปรวบในคราวหน้า [0:46] หัวข้อหลักคือ **surgery ที่ทำแบบนอน** (recumbent) ที่เป็น common ใน field ต่อจาก standing flank approach
 
@@ -9878,14 +9878,14 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 **Principle**: ★ **ห้ามมี volvulus / torsion** — ใช้แค่กรณี simple displacement
 
-### วิธี A · Roll-and-Tack (เข็มเย็บ) [2:24 – 4:59]
+### วิธี A, Roll-and-Tack (เข็มเย็บ) [2:24 – 4:59]
 1. ล้มวัวลง **นอนตะแคงขวา** (right lateral recumbency) → abomasum ลอยขึ้นด้านบน
 2. **Roll** วัวกลับไปกลับมาประมาณ 45°
 3. หลัง roll ฟัง **ping sound** บริเวณ xiphoid process / anterior to umbilicus
 4. ใช้ **เข็มยาวใหญ่** ปักผ่าน skin → ทุก barrier layer → ถึง abomasum → เกี่ยวขึ้นมา
 5. เย็บประมาณ **3–4 sutures** ด้วย **non-absorbable suture** [4:29]
 
-### วิธี B · Roll-and-Toggle [4:59 – 6:31]
+### วิธี B, Roll-and-Toggle [4:59 – 6:31]
 1. ล้ม + roll + ฟัง ping
 2. ใช้ **trocar/cannula** เจาะผ่าน skin → abomasum
 3. ใส่ **toggle** (มี bar กั้น + ไหม/เชือกยาว) เข้า trocar
@@ -9905,7 +9905,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 ## 2. Right Paramedian Abomasopexy [14:29]
 
-**Indication**: ใช้ได้ทั้ง left และ right displacement · ใช้เมื่อ closed pexy ไม่สำเร็จ
+**Indication**: ใช้ได้ทั้ง left และ right displacement, ใช้เมื่อ closed pexy ไม่สำเร็จ
 
 ### Patient selection ★★ [14:59]
 **ห้ามทำ** ถ้าวัวมีภาวะที่ทำให้ลุกลำบาก:
@@ -9930,7 +9930,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ### Etiology [30:20]
 - ส่วนมาก **congenital** (incomplete development ของ umbilical ring)
 - ★ **Genetic predisposition** — พ่อแม่เคยเป็น ลูกมีโอกาส
-- เจอบ่อยใน **Holstein-Friesian** · ★ **เพศเมีย > เพศผู้**
+- เจอบ่อยใน **Holstein-Friesian**, ★ **เพศเมีย > เพศผู้**
 - มักเจอตอนวัว ★ **อายุ 1 เดือน** — แก้เล็กง่ายกว่ารอโต
 
 ### Classification [31:51]
@@ -9964,12 +9964,12 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 4. ตัดสินใจ: **closed** หรือ **open** technique
 
 ### Closed Technique [36:30]
-- ใช้กับ hernia เล็ก · no complication · reducible
+- ใช้กับ hernia เล็ก, no complication, reducible
 - ดัน content กลับ → เย็บปิด ring **โดยไม่เปิด sac**
 - ★ Aj. มด ถ่ายภาพให้ใน slide
 
 ### Open Technique [37:03]
-- ใช้กับ: non-reducible · adhesion · remnant · infection
+- ใช้กับ: non-reducible, adhesion, remnant, infection
 - เปิด sac → แก้ไข complication (เช่น **resect bowel ถ้า strangulation**) → ดันกลับ → เย็บปิด
 
 ### Suture Pattern [45:29, 50:05]
@@ -10003,7 +10003,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 ### Diagnosis ★ [53:41]
 - ★ Scrotal = **"hourglass shape"** — ไม่กลม แต่ shape ยาวลง
-- DDx: testicular edema · varicocele · orchitis (กลม) vs hernia (loop)
+- DDx: testicular edema, varicocele, orchitis (กลม) vs hernia (loop)
 - **Rectal palpation** — ดู internal inguinal ring เปิดหรือไม่
 - **Decreased borborygmus** ถ้า bowel ถูกบีบ
 - US ภายนอก → เห็น bowel loops
@@ -10011,7 +10011,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ### Surgical Approach [55:46]
 1. **Lateral recumbency** + sterile
 2. กรีด skin **15–20 cm**
-3. ★ **Castration testis ออก** (ปิด ring สนิท · ไม่ recur)
+3. ★ **Castration testis ออก** (ปิด ring สนิท, ไม่ recur)
 4. Reduce content → เย็บปิด
 
 ---
@@ -10019,11 +10019,11 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ## 5. Ventral Abdominal Hernia [57:18]
 
 ### Etiology
-- ★ **Trauma** (ขวิด · วิ่งชน · เตะ) — บางครั้งผิวภายนอกไม่มีแผลแต่ภายในฉีก
-- Content ใหญ่: rumen · abomasum · omentum · intestine · cecum
+- ★ **Trauma** (ขวิด, วิ่งชน, เตะ) — บางครั้งผิวภายนอกไม่มีแผลแต่ภายในฉีก
+- Content ใหญ่: rumen, abomasum, omentum, intestine, cecum
 
 ### Locations
-- ข้าง flank · pelvic · **prepubic rupture** (ในวัวท้อง)
+- ข้าง flank, pelvic, **prepubic rupture** (ในวัวท้อง)
 
 ### Treatment [58:19]
 - ล้มนอน → close หรือ open
@@ -10057,7 +10057,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 3. Approach: **midline / cyphoid laparotomy**
 4. ดึง content ออก → เย็บปิด diaphragm
 5. ใหญ่มาก → **mesh**
-6. Watch: pneumothorax · pleural effusion · chest tube
+6. Watch: pneumothorax, pleural effusion, chest tube
 
 #### Diaphragmatic-Reticular (วัวโต) — 2-Stage Surgery ★ [64:05]
 1. **Stage 1**: Standing **left flank rumenotomy** → ดึง body ของ reticulum กลับช่องท้อง
@@ -10065,7 +10065,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 3. (อาจารย์: "ไม่ซีเรียส" สอบ — รู้ concept พอ)
 
 ### Complications [65:06]
-- Suture abscess · pneumothorax · peritonitis
+- Suture abscess, pneumothorax, peritonitis
 - ★ พันช่องอก/ท้อง support หลัง surgery (content ใหญ่ดัน suture แตก)
 
 ### Demo clip (ควายอินเดีย 6 ขวบ) [66:07]
@@ -10079,17 +10079,17 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 1. ★ **Closed pexy** = simple displacement, no volvulus
 2. ★ **Right paramedian** = ห้ามใน ketosis / milk fever / muscle disorder
-3. ★ **Umbilical hernia** = แก้ตอน 1 เดือน · Holstein-Friesian + เพศเมีย
-4. ★ **< 2 cm conservative · > 5 cm herniorrhaphy · > 10-15 cm mesh**
+3. ★ **Umbilical hernia** = แก้ตอน 1 เดือน, Holstein-Friesian + เพศเมีย
+4. ★ **< 2 cm conservative, > 5 cm herniorrhaphy, > 10-15 cm mesh**
 5. ★ **Closed vs Open** ขึ้นกับ reducibility + complication
 6. ★ **Mattress + pre-place sutures** สำหรับ ventral hernia
-7. ★ **Scrotal hernia** = hourglass · ★ ต้อง castrate
+7. ★ **Scrotal hernia** = hourglass, ★ ต้อง castrate
 8. ★ **Diaphragmatic-reticular ในควาย** → 2-stage (rumenotomy → 2-3 วัน → diaphragm)
 9. ★ Diaphragmatic = **mechanical ventilator** (negative → positive)
 10. ★ **Reticulum** = อวัยวะทะลุเข้าช่องอกบ่อยสุด
 
 ## Out-of-Scope (อาจารย์ระบุ [72:43])
-- ไม่เน้น eye enucleation · จะลงในอนาคต urinary system + dehorning + ตัดนม`
+- ไม่เน้น eye enucleation, จะลงในอนาคต urinary system + dehorning + ตัดนม`
 },
 'OQIW6zyubcs': {
   videoId: 'OQIW6zyubcs',
@@ -10098,18 +10098,18 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   date: '8 Apr 69',
   durationMin: 95,
   instructor: 'Surgery staff (อ.ตั้ม + อ.ผึ้ง สอนภาคของคาบนี้)',
-  examFormat: 'MCQ — Final scope · เน้น **หลักการ** ของแต่ละ procedure · Aj. confirm [90:09] "ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล"',
-  summary: `# Ruminant Surgery (General + Selected) · 8 Apr 69 · ~95 min
+  examFormat: 'MCQ — Final scope, เน้น **หลักการ** ของแต่ละ procedure, Aj. confirm [90:09] "ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล"',
+  summary: `# Ruminant Surgery (General + Selected), 8 Apr 69, ~95 min
 
-> เก็บตก surgery จาก GI · common ที่เจอใน field · ไล่จากหัว → ท้าย → ขา · ★ เน้น **หลักการ** ไม่ลงดีเทล [6:11]
+> เก็บตก surgery จาก GI, common ที่เจอใน field, ไล่จากหัว → ท้าย → ขา, ★ เน้น **หลักการ** ไม่ลงดีเทล [6:11]
 > ⚠️ Lecture นี้ครอบเฉพาะ Head/Neck/Udder/Urinary/Stifle-patella/Digit (BSP + Tendon surgery ไม่ได้สอนในเทปนี้)
 
 ---
 
-## 🐄 PART 1 · Dehorning [6:43]
+## 🐄 PART 1, Dehorning [6:43]
 
 ### Why dehorn
-- เขา = อาวุธ · cosmetic · prevent trauma · fence space
+- เขา = อาวุธ, cosmetic, prevent trauma, fence space
 - ควาย ★ ไม่ค่อย dehorn (เขาสวย = มีราคา)
 
 ### Age windows [8:16]
@@ -10125,29 +10125,29 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ### Methods by age [11:21]
 | Age | Method |
 |---|---|
-| 0-3 mo | **Chemical** (KOH/NaOH/Ca(OH)₂ paste) — ป้าย bud · เทปพันกัน mom เลีย |
+| 0-3 mo | **Chemical** (KOH/NaOH/Ca(OH)₂ paste) — ป้าย bud, เทปพันกัน mom เลีย |
 | ~3 mo+ | **Thermal/cautery** |
 | Older | **Mechanical** — Tubing/Scoop/Electric saw/**Gigli wire** |
 | All | **Polled breeding** (genetic) |
 
 ### Cosmetic dehorning [18:18]
 - Block cornual → กรีด skin → เลาะลงโคนเขา → ตัด → ★ **primary closure**
-- Pro: หาย primary · สวย
-- Con: cost · ★ risk **frontal sinus fracture** ถ้าตัดแรง
+- Pro: หาย primary, สวย
+- Con: cost, ★ risk **frontal sinus fracture** ถ้าตัดแรง
 
 ---
 
-## 🦠 PART 2 · Sinusitis/Empyema [21:55]
+## 🦠 PART 2, Sinusitis/Empyema [21:55]
 
-- **Etiology**: post-horn infection · respi · fungal
+- **Etiology**: post-horn infection, respi, fungal
 - ★ ส่วนมาก **frontal sinus** (communicate กับ horn)
-- Maxillary rare · มาจาก oral problem
-- **Signs**: น้ำมูกเรื้อรัง · กลิ่น · หน้าบวม
-- **Dx**: PE · Xray (ปกติ air-filled · sinusitis = fluid/mass) · endoscopy
+- Maxillary rare, มาจาก oral problem
+- **Signs**: น้ำมูกเรื้อรัง, กลิ่น, หน้าบวม
+- **Dx**: PE, Xray (ปกติ air-filled, sinusitis = fluid/mass), endoscopy
 
 ### Trephination sites [25:02]
 1. Post-orbital diverticulum — 4 cm caudal lateral canthus
-2. Turbinate part — 2.5 cm lateral midline · caudal nasal bone
+2. Turbinate part — 2.5 cm lateral midline, caudal nasal bone
 3. Rostral frontal sinus
 4. Main frontal sinus — เจาะตรงไหนก็ได้
 5. Maxillary: บน facial tubercle [26:43]
@@ -10155,18 +10155,18 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ### Procedure [26:43]
 - ★ Standing
 - Local infiltration → กรีด skin ยาว → exposed bone (periosteal elevator) → trephine drill / อ.ตั้ม ใช้อุปกรณ์พิเศษ + ค้อนตอก
-- Flush 1-2 ครั้ง/วัน × 2 weeks · saline หรือ **povidone-iodine + saline**
+- Flush 1-2 ครั้ง/วัน × 2 weeks, saline หรือ **povidone-iodine + saline**
 - ★ ขณะ flush: **กดหน้าวัวลง** ไม่ให้เงย → ไหลออกทางจมูก
 - + systemic antibiotic
 - ★ **secondary intention** — ห้าม primary closure (anaerobic → เชื้อไม่ตาย)
 
 ---
 
-## 🌽 PART 3 · Esophageal Obstruction (Choke) [29:16]
+## 🌽 PART 3, Esophageal Obstruction (Choke) [29:16]
 
 - **Cause**: ผลไม้/อาหารแข็ง
-- **Signs**: salivation · dehydration · ไอ · bloat (complete obstruction) · ★ ยืดคอ + retching reflex
-- **Dx**: คลำคอ · Xray
+- **Signs**: salivation, dehydration, ไอ, bloat (complete obstruction), ★ ยืดคอ + retching reflex
+- **Dx**: คลำคอ, Xray
 - **Initial Tx (non-surgical)**:
   1. Stomach tube ดันลง rumen
   2. ล้วงด้วยมือ
@@ -10174,32 +10174,32 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   4. ★ Hand extraction ทางปาก (วัวไม่มีฟันหน้า)
 
 ### Cervical esophagotomy [32:26]
-- Lateral recumbency · ★ **ด้านซ้าย** (esophagus อยู่ left of trachea)
+- Lateral recumbency, ★ **ด้านซ้าย** (esophagus อยู่ left of trachea)
 - กรีด → เอา foreign body
-- ★ **Primary closure** (ทางผ่านอาหาร · secondary = infection)
+- ★ **Primary closure** (ทางผ่านอาหาร, secondary = infection)
 - **Suture (2 layers)**:
-  - Layer 1 (mucosa+submucosa): continuous/interrupted · long-lasting absorbable หรือ non-absorbable
-  - Layer 2 (muscular): interrupted/mattress · absorbable ก็ได้
+  - Layer 1 (mucosa+submucosa): continuous/interrupted, long-lasting absorbable หรือ non-absorbable
+  - Layer 2 (muscular): interrupted/mattress, absorbable ก็ได้
 
 ---
 
-## 👁️ PART 4 · Enucleation [34:28]
+## 👁️ PART 4, Enucleation [34:28]
 
-- **Indication**: trauma · perforated globe · severe ulcer
+- **Indication**: trauma, perforated globe, severe ulcer
 - ★ **2 nerve blocks**:
-  1. **Auriculopalpebral** — ใต้หู · 5-10 ml lidocaine
-  2. **Retrobulbar** — 4 จุด: dorsal · ventral · medial · lateral
+  1. **Auriculopalpebral** — ใต้หู, 5-10 ml lidocaine
+  2. **Retrobulbar** — 4 จุด: dorsal, ventral, medial, lateral
 - ★ ใหญ่ทำ **standing** ได้ → local แม่นสำคัญ
 - Procedure: clamp eyelid (Allis) → กรีด 0.5-1 cm รอบ skin margin → เลาะ extraocular muscles + nerves → ligate → ตัด → เย็บปิด
 
 ---
 
-## 🥛 PART 5 · Teat/Udder Laceration Repair [38:08]
+## 🥛 PART 5, Teat/Udder Laceration Repair [38:08]
 
 ### Anatomy [39:10]
 - Layers: mucosa → submucosa → muscular → skin
 - Gland sinus → annular ring → teat canal → orifice
-- Blood: pudendal + mammary artery (ด้านบน) · teat = capillary
+- Blood: pudendal + mammary artery (ด้านบน), teat = capillary
 
 ### Anesthesia [41:15]
 - Sedation: xylazine + butorphanol ถ้าปวดมาก
@@ -10208,36 +10208,36 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 - Epidural optional
 
 ### Repair [42:49]
-- Sterile prep · debride · hemostasis
+- Sterile prep, debride, hemostasis
 - ★ **Cannula technique**: สอด cannula ใน teat canal
-  - Locate canal · ป้องกันเย็บปิด canal · drain นมระหว่างหาย
-- Suture in layers: mucosa-submucosa interrupted/continuous (absorbable) · skin interrupted/vertical mattress
-- ★ **ห้าม "รีดด้วยมือ"** หลังผ่า → infection · ใช้ **เครื่องปั๊มนม**
-- ★ **Intramammary antibiotic** ผ่าน cannula · finger-trap suture เก็บ cannula
+  - Locate canal, ป้องกันเย็บปิด canal, drain นมระหว่างหาย
+- Suture in layers: mucosa-submucosa interrupted/continuous (absorbable), skin interrupted/vertical mattress
+- ★ **ห้าม "รีดด้วยมือ"** หลังผ่า → infection, ใช้ **เครื่องปั๊มนม**
+- ★ **Intramammary antibiotic** ผ่าน cannula, finger-trap suture เก็บ cannula
 
 ---
 
-## 💧 PART 6 · Urolithiasis & Urethrostomy [49:10]
+## 💧 PART 6, Urolithiasis & Urethrostomy [49:10]
 
 ### Anatomy [49:40]
 - ★ Male: **diverticulum at ischial arch** + **distal sigmoid flexure** (หลัง scrotum) — site แคบสุด
 - ★ **Stone ติด distal sigmoid flexure บ่อยสุด**
 - ★ **Steers (ทำหมันเร็ว)** เป็นบ่อย — urethra แคบ (คล้ายแมว)
-- Stones: silicate · phosphate
+- Stones: silicate, phosphate
 
 ### Approach [51:44]
-- Dorsal recumbency (ง่าย) · standing ถ้า bladder ใหญ่
+- Dorsal recumbency (ง่าย), standing ถ้า bladder ใหญ่
 - **Site options**:
-  - Perineal (high) — ไม่นิยม · ลึก
-  - ★ **Low urethrostomy** ★ — เปิดเหนือ scrotum (above sigmoid flexure) — drain ดี · นิยมสุด
+  - Perineal (high) — ไม่นิยม, ลึก
+  - ★ **Low urethrostomy** ★ — เปิดเหนือ scrotum (above sigmoid flexure) — drain ดี, นิยมสุด
 
 ### Procedure (uncomplicated) [53:48]
 1. Epidural
 2. กรีด skin เหนือ scrotum
 3. Blunt dissect → reach penis
-4. กรีด tunica → expose penis · disect retractor penis muscle
+4. กรีด tunica → expose penis, disect retractor penis muscle
 5. คลำหา stone → clamp + tourniquet
-6. **Urethrotomy ทาง ventral surface** ของ penis · เอา stone ออก
+6. **Urethrotomy ทาง ventral surface** ของ penis, เอา stone ออก
 7. เย็บปิด layer-by-layer
 
 ### Bladder rupture/uroperitoneum [58:08]
@@ -10249,55 +10249,55 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 ---
 
-## 🍼 PART 7 · Persistent Urachus [64:28]
+## 🍼 PART 7, Persistent Urachus [64:28]
 
 ### Pathology
 - Urachus fetus: ต่อ bladder → umbilical cord → drain urine
-- หลังเกิดควรปิด · ไม่ปิด = persistent → urine ไหลออกสะดือ
+- หลังเกิดควรปิด, ไม่ปิด = persistent → urine ไหลออกสะดือ
 
 ### Signs
 - ★ **Urine dripping ที่สะดือ** (pathognomonic)
 - คลำ tubular structure จากสะดือไป bladder
 - US confirm
-- Sequela: omphalitis · uroperitoneum
+- Sequela: omphalitis, uroperitoneum
 
 ### Procedure [67:37]
 1. Dorsal recumbency
 2. Elliptical incision รอบ umbilicus
 3. Blunt dissect → tubular structure → reach bladder apex
-4. Ligate urachus ที่ bladder · monofilament absorbable
+4. Ligate urachus ที่ bladder, monofilament absorbable
 5. ตัด urachus + สะดือ
-6. เย็บปิด bladder rim · continuous + Lembert (inverting) — กัน urine leak
+6. เย็บปิด bladder rim, continuous + Lembert (inverting) — กัน urine leak
 7. Close abdomen layer-by-layer
 - ★ Risk: **ventral hernia** ถ้า abdominal wall ปิดไม่ดี
 
 ---
 
-## 🦵 PART 8 · Upward Fixation of Patella (UFP/"ขาทก") [75:24]
+## 🦵 PART 8, Upward Fixation of Patella (UFP/"ขาทก") [75:24]
 
 ### Pathology
 - **Medial patellar ligament** ค้างเหนือ medial trochlear ridge → patella ล็อก extension
-- Predisposition: medial trochlea ใหญ่กว่า lateral · poor nutrition · over-exercise
-- Aj. confirm "ไม่เคยทำเอง · เล่าให้ฟัง"
+- Predisposition: medial trochlea ใหญ่กว่า lateral, poor nutrition, over-exercise
+- Aj. confirm "ไม่เคยทำเอง, เล่าให้ฟัง"
 
 ### Tx — Medial Patellar Desmotomy [77:25]
 **3 methods**:
 
-1. **Standing (Indian-style)** — เคียว/มีดวงพระจันทร์ สอดเข้า medial · ตัดทันที · ไม่เย็บ · พ่นยา
+1. **Standing (Indian-style)** — เคียว/มีดวงพระจันทร์ สอดเข้า medial, ตัดทันที, ไม่เย็บ, พ่นยา
 2. **Open desmotomy (textbook)**:
-   - Lateral recumbency · ขาที่เป็นด้านบน · ผูก 2 ขา
-   - Sedation: xylazine 0.1 mg/kg · local 8-10 ml
+   - Lateral recumbency, ขาที่เป็นด้านบน, ผูก 2 ขา
+   - Sedation: xylazine 0.1 mg/kg, local 8-10 ml
    - กรีด skin → locate ligament → dissect ตัด → เย็บปิด skin
    - ★ ปล่อยวัวลุก — ทำถูก = เดินปกติทันที
 3. **Wire/needle (advanced, hospital)** [83:23]:
    - เข็มชมพู (large gauge) เป็น guide
    - สอด wire/suture คล้องผ่าน ligament
    - ดึงตัด (Gigli-style)
-   - ★ Aj. แนะนำ: "วิธีนี้เวิร์คมาก — แผลเล็ก · infection น้อย"
+   - ★ Aj. แนะนำ: "วิธีนี้เวิร์คมาก — แผลเล็ก, infection น้อย"
 
 ---
 
-## 🐾 PART 9 · Digit/Claw Amputation [86:31]
+## 🐾 PART 9, Digit/Claw Amputation [86:31]
 
 - ★ วัว **compensate ด้วยกลีบที่เหลือ** ได้
 - **Procedure**:
@@ -10307,9 +10307,9 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   4. Dissect ผ่าน skin → bone → joint capsule
   5. หนาเกิน → ใช้ **embryotomy wire** ตัด joint capsule + bone
   6. Disect collateral ligament + joint capsule → digit หลุด
-  7. ★ **Pressure bandage แน่น × 3 วัน** (ระงับเลือด · กัน edema)
+  7. ★ **Pressure bandage แน่น × 3 วัน** (ระงับเลือด, กัน edema)
   8. ถอด → หาย **secondary intention**
-- **Risks**: pododermatitis · supporting limb laminitis · ascending infection · pathologic fracture
+- **Risks**: pododermatitis, supporting limb laminitis, ascending infection, pathologic fracture
 
 ---
 
@@ -10321,7 +10321,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 - Hernia repair แยก (touch ผ่านๆ ใน urachus context)
 
 ## 📝 Aj.'s exam emphasis [90:09]
-> "ข้อสอบง่าย เอาแค่หลักการ · ไม่ลงดีเทล"
+> "ข้อสอบง่าย เอาแค่หลักการ, ไม่ลงดีเทล"
 > สิ่งที่ต้องจำ:
 > - **Position** ของแต่ละ procedure
 > - **Suture pattern** ที่เหมาะกับ tissue
@@ -10335,10 +10335,10 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   date: '22 Apr 69',
   durationMin: 51,
   instructor: 'อ.ศวิตา (per syllabus)',
-  examFormat: 'MCQ — Final scope · ★★★ Locomotion scoring application · Foot rot/Laminitis/Sole ulcer/DD mentioned briefly',
-  summary: `# Hoof Health Assessment & Herd Management · อ. (likely อ.ศวิตา)
+  examFormat: 'MCQ — Final scope, ★★★ Locomotion scoring application, Foot rot/Laminitis/Sole ulcer/DD mentioned briefly',
+  summary: `# Hoof Health Assessment & Herd Management, อ. (likely อ.ศวิตา)
 
-> ⚠️ NOTE: lecture นี้ **ไม่ใช่** lecture สอน Foot rot/Laminitis/Sole ulcer/DD รายโรค — เป็น **applied locomotion scoring + management decision flow** ในฟาร์มจริง · โรคพวกนี้ถูก mention แค่สั้นๆ เป็น differential สาเหตุของวัวเลม
+> ⚠️ NOTE: lecture นี้ **ไม่ใช่** lecture สอน Foot rot/Laminitis/Sole ulcer/DD รายโรค — เป็น **applied locomotion scoring + management decision flow** ในฟาร์มจริง, โรคพวกนี้ถูก mention แค่สั้นๆ เป็น differential สาเหตุของวัวเลม
 
 ## 🎯 Scope [0:02]
 อ.บอกตรงๆ "ไม่ได้มาคุยเรื่องการประเมิน locomotion score รายตัว" (assume เรียนแล้วเทอมก่อน) — แต่จะคุยว่า **เอา locomotion scoring ไปใช้จริงในฟาร์มยังไง** [0:35]
@@ -10360,7 +10360,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 > "สัตวแพทย์ต้องเข้าไปในฟาร์มสักระยะ...เพื่อให้เห็น **workflow**" [4:46]
 
 ## 🏠 Farm example [5:48]
-- 50 ตัว · pipeline 12 (6 ฝั่ง)
+- 50 ตัว, pipeline 12 (6 ฝั่ง)
 - ขาไป (โรงเรือน → โรงรีด) = พื้นสโลปชัน
 - ขากลับ = พื้นเรียบ
 
@@ -10403,7 +10403,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ★★★ **Ideal targets** (ฟาร์มควบคุมดี):
 - **Score 1 (เขียว) = 70-80%**
 - **Score 2-3 (เหลือง) = 20-30%**
-- **Score 4-5 (แดง) = 0%** (อุดมคติ · จริงเจอได้)
+- **Score 4-5 (แดง) = 0%** (อุดมคติ, จริงเจอได้)
 
 **3 เงื่อนไขที่ต้องมีพร้อมกัน** [29:38]:
 1. Routine trimming **≥ 2 ครั้ง/ปี**
@@ -10438,7 +10438,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ### Case 1: ฟาร์มมี routine trimming + score 2-3 = 55%, score 4-5 = 3% [32:49]
 **ขึ้นกับ timing เทียบ trimming cycle**:
 - กลาง cycle → **ไม่น่ากังวล**
-- เพิ่งผ่าน trimming ~1 เดือน → **น่ากังวล · investigate**
+- เพิ่งผ่าน trimming ~1 เดือน → **น่ากังวล, investigate**
 
 **Investigation order**:
 1. Hygiene โรงเรือน
@@ -10460,7 +10460,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ### Step 1: เอา score 2-5 ทั้งหมดเข้า routine trimming [40:44]
 - Hoof Exam: ขา → กีบ (Coronary band + Interdigital + dimension) = 80% info
 - ★ **80% ที่เหลือ + final dx = ปาดกลีบบางๆ (routine trimming)**
-- ฟาร์ม 50 ตัว · score 2-5 รวม ~58% = **เกือบ 30 ตัว**
+- ฟาร์ม 50 ตัว, score 2-5 รวม ~58% = **เกือบ 30 ตัว**
 
 ### Step 2: Priority — ★ vet ต้อง educate
 - เกษตรกรอยากทำวัวแดงก่อน (เห็นชัด) [43:16]
@@ -10474,19 +10474,19 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 - Sole ulcer + ไม่มี routine trimming → trim + **เริ่ม routine trimming ป้องกัน**
 
 ## 🚐 Reality [46:55]
-ในไทย trimmer ไม่พอ → ทยอย ~10 ตัว/วัน · จดบันทึก track
+ในไทย trimmer ไม่พอ → ทยอย ~10 ตัว/วัน, จดบันทึก track
 
 ## ❓ Q&A [47:58]
 **Q**: รายย่อยประเมินไม่ได้ แต่มี routine trimming → ต้อง score มั้ย?
 **A**: **ไม่จำเป็น** — routine trimming ปีละ 2 ครั้ง **ดีกว่า** locomotion score (เห็นกีบโดยตรง)
 
 ## 📝 Exam [49:02]
-> "ข้อสอบของพี่ = วันนี้ + เรื่องอาหาร · เป็นช้อยส์ · ไม่ยาก"
+> "ข้อสอบของพี่ = วันนี้ + เรื่องอาหาร, เป็นช้อยส์, ไม่ยาก"
 
 ★★★ **Series เรื่องกีบทั้งหมดเก็บไว้ทบทวนตอนฝึกงานปี 5**
 
 ## ⚠️ ไม่ได้พูดในคาบนี้ (ตาม syllabus checklist)
-- **Foot rot pathogens** (Fusobacterium · Bacteroides) — ไม่ได้กล่าวถึง
+- **Foot rot pathogens** (Fusobacterium, Bacteroides) — ไม่ได้กล่าวถึง
 - **Foot rot Tx** specific drugs — ไม่ได้กล่าวถึง
 - **Sole ulcer** = "Rusterholz ulcer" — ไม่ได้กล่าวถึง (เรียก "ulcer" เฉยๆ)
 - **Sole ulcer typical location (zone 4)** — ไม่ได้กล่าวถึง
@@ -10502,7 +10502,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
   // ═════════════════════════════════════════════════════════════════
   // COM I (Y4 sem 1) — DekDokVet85 (Vet 85 cohort, recorded 2024)
   // ═════════════════════════════════════════════════════════════════
-  // 1.2 Oral Tumor (benign vs malignant + tx planning · pairs with 1.1)
+  // 1.2 Oral Tumor (benign vs malignant + tx planning, pairs with 1.1)
   CQIrJmz3APo: {
     videoId: 'CQIrJmz3APo',
     title: '1.2 : Oral Tumor',
@@ -10510,10 +10510,10 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
     date: '5 Aug 2024 (DekDokVet85 recording)',
     durationMin: 68,
     instructor: 'อาจารย์ COM I (small animal oncology / surgery)',
-    examFormat: 'Top-3 incidence + bone-vs-metastasis table + Tx planning by tumor type ออกบ่อย · stage I-IV criteria classic',
+    examFormat: 'Top-3 incidence + bone-vs-metastasis table + Tx planning by tumor type ออกบ่อย, stage I-IV criteria classic',
     summary: `# 1.2 Oral Tumor — Benign vs Malignant + Tx Planning
 
-> 🎯 Surgery = primary Tx for ALL oral tumors · combine with chemo/radiation/immuno depending on tumor type
+> 🎯 Surgery = primary Tx for ALL oral tumors, combine with chemo/radiation/immuno depending on tumor type
 > ⚠️ **2 critical features per tumor**: bone invasion + metastasis rate → drives Tx planning
 
 ---
@@ -10522,10 +10522,10 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 | Disease | Key feature | Cause | Tx |
 |---|---|---|---|
-| **Gingival hyperplasia** | เหงือกหนาเกิน CEJ | **Drug-induced** (cyclosporine, amlodipine, antiepileptics) · bacterial overgrowth | หยุดยา · scaling · excise if severe |
+| **Gingival hyperplasia** | เหงือกหนาเกิน CEJ | **Drug-induced** (cyclosporine, amlodipine, antiepileptics), bacterial overgrowth | หยุดยา, scaling, excise if severe |
 | **Dentigerous cyst** | บวมรอบ unerupted tooth | ฟันไม่โผล่พ้นเหงือก | Extract tooth + remove cyst |
-| **FCGS** (lymphoplasmacytic stomatitis) | แดงทั้งช่องปาก esp. fauces (cat) | Immune dysreg + bacteria · worse with FIV/FeLV | Biopsy first (DDx tumor) · steroids · extract all teeth |
-| **Eosinophilic granuloma** | Red ring/thickening at lip/palate (cat) | Food allergy (chicken) · immune | **Hypoallergenic diet first** · surgery if persists |
+| **FCGS** (lymphoplasmacytic stomatitis) | แดงทั้งช่องปาก esp. fauces (cat) | Immune dysreg + bacteria, worse with FIV/FeLV | Biopsy first (DDx tumor), steroids, extract all teeth |
+| **Eosinophilic granuloma** | Red ring/thickening at lip/palate (cat) | Food allergy (chicken), immune | **Hypoallergenic diet first**, surgery if persists |
 
 > 💡 ทุก oral mass ต้อง **biopsy/cytology** ก่อนตัดสินว่าเป็น tumor — บางอันเลียนแบบ cancer
 
@@ -10556,7 +10556,7 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 | **1** | **SCC** | **~80%** ⭐ |
 | **2** | Fibrosarcoma | — |
 
-> 💡 Cat oral cancer ≈ SCC (เกือบทั้งหมด) · prognosis แย่มาก
+> 💡 Cat oral cancer ≈ SCC (เกือบทั้งหมด), prognosis แย่มาก
 
 ---
 
@@ -10605,8 +10605,8 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 ## 4.4 SCC (Squamous Cell Carcinoma) — #2 dog, #1 cat
 ### Dog
-- **Tonsillar SCC** (rare): aggressive · high metastasis · poor prognosis
-- **Non-tonsillar SCC**: less metastasis, more bone invasion · better surgery response
+- **Tonsillar SCC** (rare): aggressive, high metastasis, poor prognosis
+- **Non-tonsillar SCC**: less metastasis, more bone invasion, better surgery response
 - หน้าตา: ก้อนแดงสด, ulcerative
 
 ### Cat
@@ -10651,20 +10651,20 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 ## Imaging
 | Tool | Use |
 |---|---|
-| **Skull radiograph** | First-line · Bone involvement (~40% bone destruction needed to be visible) |
-| **Thoracic radiograph** | Pulmonary mets · detects ≥7-9 mm lesions |
-| **CT scan** | Best for **maxillary tumors** (overlapping skull anatomy) · pulmonary mets ≥1 mm · bone destruction earlier |
+| **Skull radiograph** | First-line, Bone involvement (~40% bone destruction needed to be visible) |
+| **Thoracic radiograph** | Pulmonary mets, detects ≥7-9 mm lesions |
+| **CT scan** | Best for **maxillary tumors** (overlapping skull anatomy), pulmonary mets ≥1 mm, bone destruction earlier |
 | **MRI** | Soft tissue infiltration depth |
 | **Abdominal U/S** | Distant mets esp. melanoma → liver |
 
 ## Sampling (in order of preference)
 1. **FNA cytology** — first-line, often without sedation. รู้ว่า tumor vs non-tumor ได้
-2. **Tissue biopsy (incisional)** — blade or punch · avoid electrocautery (burns sample)
+2. **Tissue biopsy (incisional)** — blade or punch, avoid electrocautery (burns sample)
    - ⚠️ Electrocautery = ห้ามใช้เก็บตัวอย่าง (ใช้แค่ห้ามเลือดหลังเก็บ)
-   - เก็บใหญ่พอ · เลี่ยง infected/necrotic area
+   - เก็บใหญ่พอ, เลี่ยง infected/necrotic area
 
 ## Lymph Node Assessment
-- **Mandibular LN** at caudal mandible · normal <3-5 mm diameter
+- **Mandibular LN** at caudal mandible, normal <3-5 mm diameter
 - ⚠️ **40% of melanoma dogs have LN mets while LN size still normal** → palpation not enough
 - Best: **FNA cytology of LN** or **excisional biopsy + histopath**
 - True local control: **sentinel LN mapping** (inject dye → trace) — gold standard
@@ -10683,34 +10683,34 @@ field practitioner ที่นครปฐม/กำแพงแสน เค�
 
 ## Surgical Procedures
 - **Maxillectomy** (sub-types named by area):
-  - Rostral · Lateral · Caudal · Hemimaxillectomy · Bilateral · Total
+  - Rostral, Lateral, Caudal, Hemimaxillectomy, Bilateral, Total
 - **Mandibulectomy** (same naming):
-  - Rostral · Lateral · Hemimandibulectomy · Total
+  - Rostral, Lateral, Hemimandibulectomy, Total
   - Total mandibulectomy → tongue droops, may need feeding adjustment
 - **Cheiloplasty** (lip reconstruction) — for lip tumors
 - **Orbitectomy** — when tumor invades orbit
 - **Facial reconstruction** — restore appearance after wide excision
 
 ## Other Modalities
-- **Cryosurgery** (liquid N₂) — small benign masses · rarely used now
+- **Cryosurgery** (liquid N₂) — small benign masses, rarely used now
 - **Chemotherapy** — combine for melanoma, aggressive SCC
 - **Radiation therapy**:
   - Melanoma + SCC respond well
   - Fibrosarcoma + cat SCC = poor response
   - Pre-op for shrinking + post-op for residual disease
-  - ⚠️ Each session needs GA · facial mucositis side effect
+  - ⚠️ Each session needs GA, facial mucositis side effect
 - **Immunotherapy** — **Melanoma vaccine (Tyrosinase DNA plasmid)**:
-  - Indications: post-resection Stage 1-2 · prevent metastasis · slow distant disease
+  - Indications: post-resection Stage 1-2, prevent metastasis, slow distant disease
   - Course: ~4 doses, ~20,000 THB each (imported)
   - Some Stage 1-2 patients get >1 year extra survival
 
 ## Surgical Complications
 | Complication | Note |
 |---|---|
-| **Hemorrhage** (intra-op + post-op) | Cross-match + transfusion ready · ligate major vessels |
-| **Infection** | Pre-op dental scaling · clean OP field |
-| **Wound dehiscence** | Avoid electrocautery on oral tissue (burns) · proper suture |
-| **Functional deficits** | Tongue droop after total mandibulectomy · feeding tube post-op |
+| **Hemorrhage** (intra-op + post-op) | Cross-match + transfusion ready, ligate major vessels |
+| **Infection** | Pre-op dental scaling, clean OP field |
+| **Wound dehiscence** | Avoid electrocautery on oral tissue (burns), proper suture |
+| **Functional deficits** | Tongue droop after total mandibulectomy, feeding tube post-op |
 
 ---
 
@@ -10726,19 +10726,19 @@ When surgery isn't feasible:
 
 # 🎯 Exam High-Yield Recap
 
-1. **Dog top 3**: Melanoma > SCC > Fibrosarcoma · #4 benign = **AA (still invades bone!)**
-2. **Cat top**: **SCC ~80%** · MST <45 days
-3. **High metastasis**: Melanoma (only one) · 40% LN mets while LN normal-sized
+1. **Dog top 3**: Melanoma > SCC > Fibrosarcoma, #4 benign = **AA (still invades bone!)**
+2. **Cat top**: **SCC ~80%**, MST <45 days
+3. **High metastasis**: Melanoma (only one), 40% LN mets while LN normal-sized
 4. **Bone invasion**: SCC, Fibrosarcoma, **AA** (NOT PoF)
 5. **AA** vs **PoF**: both benign, AA invades bone (wider excision), PoF doesn't
 6. **Tonsillar SCC** = much worse than non-tonsillar
 7. **Amelanotic melanoma** = 1/3 of cases, more aggressive, IHC Melan-A confirms
 8. **Cat SCC risk factors**: canned food (tuna), passive smoke, white cat sun-exposure
 9. **TNM**: T1<2cm, T2 2-4cm, T3 >4cm OR LN+, M1=distant
-10. **Surgery margin**: 2 cm minimum + bone for malignant · marginal OK for PoF only
-11. **Melanoma vaccine** (Oncept) — Stage 1-2 post-op · ~4 doses ~80K THB
+10. **Surgery margin**: 2 cm minimum + bone for malignant, marginal OK for PoF only
+11. **Melanoma vaccine** (Oncept) — Stage 1-2 post-op, ~4 doses ~80K THB
 
-> 📚 อ่านควบ: 1.1 Oral cavity (anatomy + DDx of non-tumor masses) · 7.1 Hemolymph Sx (anemia from chronic bleeding tumor) · oncology surgery principles in Y3 com2`,
+> 📚 อ่านควบ: 1.1 Oral cavity (anatomy + DDx of non-tumor masses), 7.1 Hemolymph Sx (anemia from chronic bleeding tumor), oncology surgery principles in Y3 com2`,
   },
 
   // 8.1 Upper Urinary System (AKI vs CKD — diagnosis + management)
@@ -10749,10 +10749,10 @@ When surgery isn't feasible:
     date: '7 Oct 2024 (DekDokVet85, อ.วชิรา)',
     durationMin: 115,
     instructor: 'อ.วชิรา (Med II) — small animal urology',
-    examFormat: 'AKI vs CKD differentiation · IRIS staging · azotemia vs uremia distinction · Cr/BUN/SDMA interpretation ออกบ่อย',
+    examFormat: 'AKI vs CKD differentiation, IRIS staging, azotemia vs uremia distinction, Cr/BUN/SDMA interpretation ออกบ่อย',
     summary: `# 8.1 Upper Urinary System — AKI vs CKD
 
-> 🎯 Upper UT = kidney + ureter · Lower UT = bladder + urethra
+> 🎯 Upper UT = kidney + ureter, Lower UT = bladder + urethra
 > ⚠️ "โรคไต" คำเดียวยังไม่พอ — ต้องระบุว่า **AKI** หรือ **CKD** (Tx ต่างกัน)
 
 ---
@@ -10761,16 +10761,16 @@ When surgery isn't feasible:
 
 | Term | Meaning |
 |---|---|
-| **AKI** (Acute Kidney Injury) | Sudden, severe decrease in renal function · **reversible if caught early** |
-| **CKD** (Chronic Kidney Disease) | **Irreversible**, progressive loss · ≥3 months duration |
-| **Acute on top** (acute on chronic) | AKI in patient with pre-existing CKD · trigger event tips them over |
+| **AKI** (Acute Kidney Injury) | Sudden, severe decrease in renal function, **reversible if caught early** |
+| **CKD** (Chronic Kidney Disease) | **Irreversible**, progressive loss, ≥3 months duration |
+| **Acute on top** (acute on chronic) | AKI in patient with pre-existing CKD, trigger event tips them over |
 
 > 💡 Old terms (acute renal failure / chronic renal failure) replaced by AKI/CKD — current standard
 
 ## "โรคไต" Communication
 - Owner says "โรคไต" — covers both
 - ⚠️ As clinicians, ALWAYS distinguish AKI vs CKD — drives Tx + prognosis differently
-- AKI early → can fully recover · CKD → manage, never reverse
+- AKI early → can fully recover, CKD → manage, never reverse
 
 ---
 
@@ -10799,7 +10799,7 @@ When surgery isn't feasible:
 | **4. Recovery** | Residual repair | Some loss permanent → may → CKD |
 
 > 💡 **Phase timing unpredictable** — initiation can be hours; maintenance can be days
-> 💡 **Patient caught in 1-2 → full recovery possible · 3-4 → likely some permanent CKD**
+> 💡 **Patient caught in 1-2 → full recovery possible, 3-4 → likely some permanent CKD**
 
 ---
 
@@ -10810,14 +10810,14 @@ When surgery isn't feasible:
 |---|---|---|
 | **Creatinine (Cr)** ⭐ | Primary — produced by muscle, filtered by GFR | ⚠️ Low in emaciated/cachectic (BCS 1) — masked CKD |
 | **BUN** | Secondary | ↑ from high-protein diet, GI bleed (not kidney-specific) |
-| **SDMA** (Symmetric Dimethylarginine) | More sensitive than Cr · early CKD detection | Expensive (~400฿ vs 60฿) — not routine |
-| **Urinalysis (USG)** | Concentrating ability · isosthenuria (1.008-1.012) = lost concentration | Earliest functional change |
-| **UPC** (urine protein:creatinine) | Glomerular dysfunction · proteinuria = poor prognosis | |
+| **SDMA** (Symmetric Dimethylarginine) | More sensitive than Cr, early CKD detection | Expensive (~400฿ vs 60฿) — not routine |
+| **Urinalysis (USG)** | Concentrating ability, isosthenuria (1.008-1.012) = lost concentration | Earliest functional change |
+| **UPC** (urine protein:creatinine) | Glomerular dysfunction, proteinuria = poor prognosis | |
 
 ## Azotemia vs Uremia (semantic but important)
 - **Azotemia** = elevated BUN/Cr (lab finding only)
 - **Uremia** = azotemia + **clinical signs** (vomiting, anorexia, depression, oral ulcers)
-- Uremia → must have azotemia · azotemia → not always uremic
+- Uremia → must have azotemia, azotemia → not always uremic
 
 ---
 
@@ -10827,10 +10827,10 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
 
 | Stage | Cr (dog) | Cr (cat) | Description |
 |---|---|---|---|
-| **1** | <1.4 | <1.6 | Non-azotemic · subclinical · USG/UPC abnormal |
+| **1** | <1.4 | <1.6 | Non-azotemic, subclinical, USG/UPC abnormal |
 | **2** | 1.4–2.0 | 1.6–2.8 | Mild azotemia |
-| **3** | 2.1–5.0 | 2.9–5.0 | Moderate · clinical signs |
-| **4** | >5.0 | >5.0 | End-stage · severe uremia |
+| **3** | 2.1–5.0 | 2.9–5.0 | Moderate, clinical signs |
+| **4** | >5.0 | >5.0 | End-stage, severe uremia |
 
 ## Sub-staging
 - **UPC** (proteinuria): non- (<0.2), borderline (0.2-0.5), proteinuric (>0.5)
@@ -10842,7 +10842,7 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
 
 ## AKI (focus on cause + supportive)
 1. **Remove inciting cause** (stop toxin, treat infection)
-2. **IV fluids** — restore perfusion · 24-48h aggressive
+2. **IV fluids** — restore perfusion, 24-48h aggressive
 3. **Manage hyperkalemia, acidosis** (see 8.2)
 4. **Anti-emetics** (maropitant), GI protectants (omeprazole)
 5. **Diuretic challenge** (furosemide) if oliguric/anuric
@@ -10867,7 +10867,7 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
 - Sub-set of CKD only: depends on which kidney compartment damaged
   - Glomerulus + tubule disease without interstitial cell loss → no anemia
   - Diffuse interstitial damage → anemia + uremia together
-- Tx: erythropoietin (rhEPO) or darbepoetin · iron supplementation
+- Tx: erythropoietin (rhEPO) or darbepoetin, iron supplementation
 
 ---
 
@@ -10878,7 +10878,7 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
   - CKD: kidneys often **small + irregular** ("ขรุขระ") or sometimes normal
 - **Ultrasound**: cortex/medulla differentiation, infarct, abscess, hydronephrosis (= obstruction)
 - **CT**: ureteral obstruction localization (stones)
-- **Renal biopsy**: if cause unclear · pre/post bleeding risk
+- **Renal biopsy**: if cause unclear, pre/post bleeding risk
 
 ---
 
@@ -10899,8 +10899,8 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
 
 # 🎯 Exam High-Yield Recap
 
-1. **AKI** = reversible if caught in initiation/extension · **CKD** = always irreversible
-2. **Cr** = best marker · **BUN** affected by GI bleed/diet · **SDMA** = early sensitive
+1. **AKI** = reversible if caught in initiation/extension, **CKD** = always irreversible
+2. **Cr** = best marker, **BUN** affected by GI bleed/diet, **SDMA** = early sensitive
 3. **Azotemia ≠ Uremia**: uremia = azotemia + clinical signs (vomiting/anorexia/depression)
 4. **Emaciated patient** → low Cr can MASK true CKD (muscle mass = Cr source)
 5. **IRIS Stage** based on **stable** Cr (after rehydration, 2 measurements)
@@ -10909,9 +10909,9 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
 8. **Phases**: catch in initiation/extension for full recovery
 9. **Cat CKD prevalence 1:43** vs dog 1:285 — cat is the model
 10. **Anemia of CKD**: non-regenerative, EPO deficiency, depends on interstitial cell damage
-11. **CKD Tx pillars**: renal diet · P-binder · BP control · proteinuria control · anti-emetic · hydration
+11. **CKD Tx pillars**: renal diet, P-binder, BP control, proteinuria control, anti-emetic, hydration
 
-> 📚 อ่านควบ: 8.2 LUT 1 (z0Id0mmM4Fk · obstruction crisis) · 8.3 Stones (vLjnPuFgvj4 · post-renal AKI cause)`,
+> 📚 อ่านควบ: 8.2 LUT 1 (z0Id0mmM4Fk, obstruction crisis), 8.3 Stones (vLjnPuFgvj4, post-renal AKI cause)`,
   },
 
   // 8.3 Lower Urinary System 2 (urolithiasis — 5 stone types + Tx logic)
@@ -10922,10 +10922,10 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
     date: '7 Oct 2024 (DekDokVet85, อ.วชิรา)',
     durationMin: 63,
     instructor: 'อ.วชิรา (Med II) — small animal urology',
-    examFormat: 'Stone identification × species/age + dissolution vs surgery decision · struvite Tx (dog vs cat different!) ออกบ่อย',
+    examFormat: 'Stone identification × species/age + dissolution vs surgery decision, struvite Tx (dog vs cat different!) ออกบ่อย',
     summary: `# 8.3 Lower Urinary System II — Urolithiasis (Stones)
 
-> 🎯 5 main stone types · each with distinct etiology + Tx
+> 🎯 5 main stone types, each with distinct etiology + Tx
 > ⚠️ **Dissolvable vs surgery-only** — pred new from imaging + crystal + species before Tx
 
 ---
@@ -10945,7 +10945,7 @@ International Renal Interest Society stages CKD by **stable Cr** (after rehydrat
 4. **Cystine**
 5. **Silica**
 
-> 💡 New 2024: GS-441524 stones in cats treated for FIP (rare, USA/Brazil so far · not yet in Thailand)
+> 💡 New 2024: GS-441524 stones in cats treated for FIP (rare, USA/Brazil so far, not yet in Thailand)
 
 ---
 
@@ -11050,8 +11050,8 @@ Diet Ca + Diet Oxalate → absorbed independently → both excreted in urine
 
 # 🪨 Part 6: Silica Stones
 
-- Rare · sand/dirt ingestion
-- Surgery only · not dissolvable
+- Rare, sand/dirt ingestion
+- Surgery only, not dissolvable
 
 ---
 
@@ -11118,12 +11118,12 @@ Diet Ca + Diet Oxalate → absorbed independently → both excreted in urine
 6. **Calcium oxalate prevention**: citrate (the inhibitor) + reduce dietary Ca/Ox + alkalinize
 7. **Urate non-Dalmatian = PSS** (portosystemic shunt) — surgery for shunt
 8. **Cystine in male intact dog**: castrate (androgen-dependent form)
-9. **X-ray sees ≥3 mm stones** · all 5 types are visible (urate/cystine just less opaque)
-10. **Crystal shapes**: struvite=coffin lid · CaOx=envelope · cystine=hexagonal
+9. **X-ray sees ≥3 mm stones**, all 5 types are visible (urate/cystine just less opaque)
+10. **Crystal shapes**: struvite=coffin lid, CaOx=envelope, cystine=hexagonal
 11. **50% of stone cases**: no crystals on UA (joined existing stone)
 12. **Urine pH 7-9** = think struvite first
 
-> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk · obstruction stabilize) · 10.1 Imaging Urinary (Q0AGFF70m8M)`,
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA), 8.2 LUT 1 (z0Id0mmM4Fk, obstruction stabilize), 10.1 Imaging Urinary (Q0AGFF70m8M)`,
   },
 
   // 8.2 Lower Urinary System 1 (terminology + species patterns + obstruction)
@@ -11147,11 +11147,11 @@ Diet Ca + Diet Oxalate → absorbed independently → both excreted in urine
 | Term | Meaning |
 |---|---|
 | **Hematuria** | เลือดในปัสสาวะ |
-| **Stranguria** + **Dysuria** | ในคน = แสบ/ฉี่ขัด · **ในสัตว์รวมเป็นคำเดียว** (สัตว์บอกไม่ได้) → "เบ่งฉี่เหมือนฉี่ไม่ออก / ร้องดังตอนฉี่" |
+| **Stranguria** + **Dysuria** | ในคน = แสบ/ฉี่ขัด, **ในสัตว์รวมเป็นคำเดียว** (สัตว์บอกไม่ได้) → "เบ่งฉี่เหมือนฉี่ไม่ออก / ร้องดังตอนฉี่" |
 | **Pollakiuria** | **ฉี่บ่อย กองเล็ก ๆ** (เข้ากระบะทรายบ่อย ๆ) |
 | **Polyuria** | ฉี่ **เยอะ กองใหญ่** (ต่างจาก pollakiuria) |
-| **Incontinence** | คุมฉี่ไม่ได้ · **"ปัสสาวะเล็ด"** (นอนเสร็จลุกขึ้นมีคราบ) |
-| **Periuria** | **ฉี่นอกกระบะทราย** (cat) · "accidental in the house" |
+| **Incontinence** | คุมฉี่ไม่ได้, **"ปัสสาวะเล็ด"** (นอนเสร็จลุกขึ้นมีคราบ) |
+| **Periuria** | **ฉี่นอกกระบะทราย** (cat), "accidental in the house" |
 | **Excessive licking of perineum** | เลียอวัยวะเพศบ่อย ๆ — เจ็บ/แสบ |
 
 > 💡 **Pollakiuria vs Incontinence**: เจ้าของพูด "ฉี่กระปริบกระปอย" คลุมเครือ
@@ -11181,7 +11181,7 @@ Diet Ca + Diet Oxalate → absorbed independently → both excreted in urine
 - Confirm: **serum/plasma color**:
   - Plasma ใส → muscle (myoglobin from rhabdomyolysis) หรือ **intravesicular hemolysis**
   - Plasma แดง → **intravascular hemolysis** (IMHA)
-- ⚠️ **Intravesicular hemolysis** (RBC แตกในกระเพาะปัสสาวะ): hematuria จริง แต่ centrifuge เห็น hemoglobin ปนใน supernatant — เจอบ่อยใน cat ที่ฉี่ไม่ออกนาน · serum/plasma สีปกติ → confusing แต่จริง ๆ คือ hemorrhage in bladder
+- ⚠️ **Intravesicular hemolysis** (RBC แตกในกระเพาะปัสสาวะ): hematuria จริง แต่ centrifuge เห็น hemoglobin ปนใน supernatant — เจอบ่อยใน cat ที่ฉี่ไม่ออกนาน, serum/plasma สีปกติ → confusing แต่จริง ๆ คือ hemorrhage in bladder
 
 ---
 
@@ -11190,7 +11190,7 @@ Diet Ca + Diet Oxalate → absorbed independently → both excreted in urine
 ## ⚠️ ห้ามตอบ "FLUDI" — เขียน/พูด **FLUTD** (Feline Lower Urinary Tract Disease)
 
 FLUTD = **umbrella term** สำหรับ cat ที่มีอาการ LUT ใด ๆ:
-hematuria · stranguria/dysuria · pollakiuria · periuria · excessive licking
+hematuria, stranguria/dysuria, pollakiuria, periuria, excessive licking
 
 > 💡 ข้อสอบให้ 10 คะแนน ตอบ "FLUTD" ได้แค่ 4 — ต้องไปต่อ identify specific cause:
 
@@ -11206,7 +11206,7 @@ hematuria · stranguria/dysuria · pollakiuria · periuria · excessive licking
 2. **FIC** drops to bottom
 3. + **Neoplasia** (TCC) consideration
 
-> 💡 **FIC = idiopathic cystitis** — model ของ interstitial cystitis ในผู้หญิง · ผู้ชายไม่ค่อยรู้จัก · stress/environment-triggered
+> 💡 **FIC = idiopathic cystitis** — model ของ interstitial cystitis ในผู้หญิง, ผู้ชายไม่ค่อยรู้จัก, stress/environment-triggered
 
 ## Practical Use
 - 6yr Persian male, ฉี่ไม่ออก/ฉี่ปนเลือด → **FIC หรือ stones**
@@ -11297,9 +11297,9 @@ Obstruction (urethra/ureter) → back pressure UP toward Bowman's
    - Stabilize K+ + acidosis BEFORE unblocking
    - Ca gluconate + insulin/dextrose + bicarb
 8. **Megacolon mimics stranguria** — palpate abdomen first
-9. **Lower obstruction (urethra)** = easier · **upper (ureter)** mimics AKI
+9. **Lower obstruction (urethra)** = easier, **upper (ureter)** mimics AKI
 
-> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.3 Lower Urinary 2 (vLjnPuFgvj4) · 10.1 Imaging Urinary (Q0AGFF70m8M)`,
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA), 8.3 Lower Urinary 2 (vLjnPuFgvj4), 10.1 Imaging Urinary (Q0AGFF70m8M)`,
   },
 
   // 1.1 Oral cavity (foundational anatomy + exam + common diseases)
@@ -11314,7 +11314,7 @@ Obstruction (urethra/ureter) → back pressure UP toward Bowman's
     examFormat: 'Anatomy ID, Triadan numbering, normal occlusion criteria, FORL types, and PD complications ออกบ่อย',
     summary: `# 1.1 Oral Cavity — Anatomy + Exam + Common Diseases
 
-> 🎯 Foundation lecture สำหรับ COM I · ครอบคลุม oral anatomy → examination → tooth eruption → numbering → diseases (PD, FORL, malocclusion, stomatitis, cleft palate, salivary disorders)
+> 🎯 Foundation lecture สำหรับ COM I, ครอบคลุม oral anatomy → examination → tooth eruption → numbering → diseases (PD, FORL, malocclusion, stomatitis, cleft palate, salivary disorders)
 > ⚠️ **No radiograph, no dentistry** — dental work ต้อง GA + intra-oral X-ray เสมอ
 
 ---
@@ -11330,16 +11330,16 @@ Obstruction (urethra/ureter) → back pressure UP toward Bowman's
 ## Palate Anatomy
 | Region | Note |
 |---|---|
-| **Hard palate** | กระดูกข้างใต้ · มีรอยหยัก (rugae) |
-| **Soft palate** | ต่อจาก hard palate · ไม่มีกระดูก · พื้นผิวเรียบ |
+| **Hard palate** | กระดูกข้างใต้, มีรอยหยัก (rugae) |
+| **Soft palate** | ต่อจาก hard palate, ไม่มีกระดูก, พื้นผิวเรียบ |
 | **Caudal palate** | ส่วนโค้งหลัง soft palate |
-| **Fauces** | ลึกสุดต่อจาก soft palate · ⚠️ จุดที่เกิดโรค **stomatitis** ในแมวบ่อย |
+| **Fauces** | ลึกสุดต่อจาก soft palate, ⚠️ จุดที่เกิดโรค **stomatitis** ในแมวบ่อย |
 
 ## Mucosa Types (สำคัญตอนผ่าตัด)
 | Type | ตำแหน่ง | ลักษณะ | กรีด/เย็บ |
 |---|---|---|---|
-| **Masticatory mucosa** | gingiva (เหงือก) | Keratinized · เหนียว · หนา | กรีดยาก แต่เย็บแน่น |
-| **Lining mucosa** | labial · buccal | Non-keratinized · นุ่ม | กรีดง่าย · เป็นแผลง่าย |
+| **Masticatory mucosa** | gingiva (เหงือก) | Keratinized, เหนียว, หนา | กรีดยาก แต่เย็บแน่น |
+| **Lining mucosa** | labial, buccal | Non-keratinized, นุ่ม | กรีดง่าย, เป็นแผลง่าย |
 | **Specialized mucosa** | papillae บนลิ้น | — | — |
 
 > 💡 รอยต่อ masticatory→lining = **mucogingival junction** (สำคัญตอนทำ flap)
@@ -11347,7 +11347,7 @@ Obstruction (urethra/ureter) → back pressure UP toward Bowman's
 ## Salivary Glands (4 หลัก)
 - **Mandibular** (ใหญ่สุด, คลำเจอจาก PE) + **Sublingual** = ติดกัน → "submandibular complex"
 - **Parotid** (ป้ายปกหู)
-- **Zygomatic** (ใต้ตา · ค่อนข้างใหญ่)
+- **Zygomatic** (ใต้ตา, ค่อนข้างใหญ่)
 - **Minor salivary glands** = molar gland (cat, ใหญ่กว่าหมา) + sublingual ductule openings
 
 ## Tooth Anatomy
@@ -11377,7 +11377,7 @@ Obstruction (urethra/ureter) → back pressure UP toward Bowman's
 # 🔍 Part 2: Oral Examination (3 components)
 
 ## 1. Extra-oral exam
-- ดูภายนอก: ความสมมาตรของหน้า · facial swelling
+- ดูภายนอก: ความสมมาตรของหน้า, facial swelling
 - หน้าบวมข้างใดข้างหนึ่ง = มี issue ใน mouth/teeth/sinus
 
 ## 2. Intra-oral exam
@@ -11398,7 +11398,7 @@ Obstruction (urethra/ureter) → back pressure UP toward Bowman's
 |---|---|
 | **C1** | หินปูน 1/3 ของ crown |
 | **C2** | 2/3 ของ crown |
-| **C3** | คลุม crown ทั้งหมด · มองไม่เห็นเนื้อฟัน |
+| **C3** | คลุม crown ทั้งหมด, มองไม่เห็นเนื้อฟัน |
 
 ## Gingival Index
 | Grade | Inflammation |
@@ -11450,7 +11450,7 @@ Position (01–11):
    09–11 = molars (M1–M3)
 \`\`\`
 
-> ตัวอย่าง: **104** = upper right canine · **404** = lower right canine
+> ตัวอย่าง: **104** = upper right canine, **404** = lower right canine
 
 ---
 
@@ -11465,7 +11465,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 
 ## Treatment Cascade
 - Mild: **scaling + polishing** (dental scaling and prophylaxis)
-- Severe: **extraction** (gold standard ในหมา · มากกว่า root canal เพราะ practical)
+- Severe: **extraction** (gold standard ในหมา, มากกว่า root canal เพราะ practical)
 
 ## ⚠️ Complication: Oronasal Fistula
 - Upper teeth (canines → caudal molars) แชร์กับ nasal cavity
@@ -11495,12 +11495,12 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 | **Curette** | ขูดหินปูน subgingival (คมด้านเดียว, ด้านคมชิดฟัน) |
 | **Periosteal elevator** | แยก masticatory mucosa (gingiva) จาก root ก่อนถอน |
 | **Dental elevator** | ตัด periodontal ligament (ใช้คู่กับ luxator) |
-| **Luxator** | บาง+แบนกว่า · ตัด periodontal ligament ตรงๆ |
+| **Luxator** | บาง+แบนกว่า, ตัด periodontal ligament ตรงๆ |
 | **Extraction forceps** | ดึงฟันออก (หลัง elevator/luxator ตัด PDL) |
 | **Root tip pick** | ตามรากที่หักค้าง |
 
 ## Extraction Techniques
-- **Simple** = ฟันรากเดี่ยว/โยกแล้ว · ดึงตรงๆ
+- **Simple** = ฟันรากเดี่ยว/โยกแล้ว, ดึงตรงๆ
 - **Surgical** = เปิด gingival flap + buccal alveolar bone removal + section tooth + extract roots ทีละราก
 
 ---
@@ -11518,14 +11518,14 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 
 ## Fusion Teeth
 - 1 root + 2 crown (หรือ partially fused)
-- ปกติไม่มีปัญหา · แค่ทำความสะอาดดี
+- ปกติไม่มีปัญหา, แค่ทำความสะอาดดี
 
 ## Missing Teeth (Hypodontia / Oligodontia)
 - เปิดปากแล้วฟันน้อย
 - ต้อง X-ray เพื่อ DDx:
   - **True missing** (genetic)
   - **Unerupted tooth** → อาจ develop เป็น **dentigerous cyst** ได้
-- Tx: unerupted ที่อายุน้อย (<6mo or <1yr) → **operculectomy** (กรีดเหงือกให้ฟันขึ้นเอง) · cyst → extraction
+- Tx: unerupted ที่อายุน้อย (<6mo or <1yr) → **operculectomy** (กรีดเหงือกให้ฟันขึ้นเอง), cyst → extraction
 
 ---
 
@@ -11539,8 +11539,8 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ## Classes
 | Class | Name | Description |
 |---|---|---|
-| **1** | Individual tooth abnormality | ภาพรวม occlusion ปกติ · บางซี่บิด/เคลื่อน |
-| **2** | Brachygnathism (overshot) | ฟันบน > ฟันล่าง · upper jaw longer · canine บนทิ่ม fauces ↓ → แผลเรื้อรัง |
+| **1** | Individual tooth abnormality | ภาพรวม occlusion ปกติ, บางซี่บิด/เคลื่อน |
+| **2** | Brachygnathism (overshot) | ฟันบน > ฟันล่าง, upper jaw longer, canine บนทิ่ม fauces ↓ → แผลเรื้อรัง |
 | **3** | Prognathism (undershot) | ฟันล่าง > ฟันบน |
 | **4** | Wry mouth (ผิดปกติด้านข้าง) | จาว lateral asymmetry |
 
@@ -11596,7 +11596,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 - **Type 2** — gingivitis + caudal (palate, fauces)
 
 ## Diagnosis
-- **Biopsy + histopath** required (DDx eosinophilic granuloma · neoplasia)
+- **Biopsy + histopath** required (DDx eosinophilic granuloma, neoplasia)
 - Look for **chronic inflammatory infiltrate**
 
 ## Cat Exam Classic
@@ -11619,7 +11619,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 
 ## Surgery
 - **Double flap technique** (2 layers — oral + nasal mucosa)
-- ต้องวางยา GA · ทำตอนน้องโตพอที่ vital signs เสถียร
+- ต้องวางยา GA, ทำตอนน้องโตพอที่ vital signs เสถียร
 
 ---
 
@@ -11653,15 +11653,15 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 1. **No radiograph, no dentistry** (always GA + intra-oral X-ray)
 2. **Triadan numbering**: 3-digit code, quadrants 1-4 clockwise
 3. **Tooth eruption**: full permanent set by 6 months
-4. **Cat probe normal**: 0.5–1mm · **Dog**: 1–3mm
+4. **Cat probe normal**: 0.5–1mm, **Dog**: 1–3mm
 5. **Persistent deciduous**: ถอน **deciduous** ออก (NOT permanent)
 6. **FORL Type 2**: crown amputation only (roots can't be extracted)
 7. **Oronasal fistula**: signs from sneeze → nasal discharge → food out nose
-8. **FCGS**: caudal stomatitis ที่ fauces · biopsy + FIV/FeLV screen
+8. **FCGS**: caudal stomatitis ที่ fauces, biopsy + FIV/FeLV screen
 9. **Normal occlusion 3 criteria**: scissor bite + canine diastema + premolar pinking shear
-10. **Sialocele**: viscous fluid on aspiration · differentiate from neoplasia by fluctuance
+10. **Sialocele**: viscous fluid on aspiration, differentiate from neoplasia by fluctuance
 
-> 📚 อ่านควบ: 1.2 Oral Tumor (CQIrJmz3APo) · GI examination (4.1)`,
+> 📚 อ่านควบ: 1.2 Oral Tumor (CQIrJmz3APo), GI examination (4.1)`,
   },
 
   'dn_W-7eWQl0': {
@@ -11674,7 +11674,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
     examFormat: 'MCQ',
     summary: `# 13.1 Surgical Treatment in Heart Disease
 
-> 🎯 Surgery สำหรับ congenital cardiac defects ที่เจอบ่อยในสุนัข + การจัดการ pericardial effusion. เน้น **PDA · PRAA · sub-total pericardiectomy** — 3 หัตถการที่ผ่าน thoracotomy ทางซ้าย ที่ Vet 4-5 ต้องเข้าใจขั้นตอน + landmark anatomy
+> 🎯 Surgery สำหรับ congenital cardiac defects ที่เจอบ่อยในสุนัข + การจัดการ pericardial effusion. เน้น **PDA, PRAA, sub-total pericardiectomy** — 3 หัตถการที่ผ่าน thoracotomy ทางซ้าย ที่ Vet 4-5 ต้องเข้าใจขั้นตอน + landmark anatomy
 
 ---
 
@@ -11696,7 +11696,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 | วิธี | สิ่งที่เจอ |
 |---|---|
 | **Auscultation** | Continuous (machinery) murmur — ได้ยินทั้ง systolic + diastolic |
-| **Echocardiography** | gold standard · ดู shunt direction (left↔right) |
+| **Echocardiography** | gold standard, ดู shunt direction (left↔right) |
 | **CT angiography** | Lateral view: เห็น aorta + pulmonary artery + PDA bridge |
 | Thoracic radiograph | LA enlargement |
 
@@ -11711,12 +11711,12 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 | **Surgical ligation** | ทำได้ทุก type |
 
 ### Treatment options
-1. **Coil embolization** (เก่า · complication เยอะ — ไม่นิยม)
-2. **Amplatzer Canine Duct Occluder (ACDO)** — interventional via vascular access · candidate: type 2 + ขนาดตัวใหญ่พอใส่ catheter ได้
-3. **Surgical ligation** — ทุกขนาด · gold standard ปัจจุบันในเคสที่ทำ ACDO ไม่ได้
+1. **Coil embolization** (เก่า, complication เยอะ — ไม่นิยม)
+2. **Amplatzer Canine Duct Occluder (ACDO)** — interventional via vascular access, candidate: type 2 + ขนาดตัวใหญ่พอใส่ catheter ได้
+3. **Surgical ligation** — ทุกขนาด, gold standard ปัจจุบันในเคสที่ทำ ACDO ไม่ได้
 
 ### Surgical technique (left lateral thoracotomy)
-- **Approach**: dog → **4th intercostal space** · cat → 4th-5th
+- **Approach**: dog → **4th intercostal space**, cat → 4th-5th
 - ตัดผ่าน latissimus dorsi + scalenus + serratus + intercostal muscle
 - **Landmark for rib counting**: scalenus muscle insert ที่ rib 5 → หน้า rib 5 = ICS 4 (⚠️ "อันนี้ข้อสอบ")
 - ผ่าน intercostal — กรีดตรงกลาง intercostal space หรือใกล้ rib หลัง (อย่าใกล้ rib หน้า → vessel/nerve อยู่หลัง rib)
@@ -11737,7 +11737,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 - Evacuate air/exudate q2h × 8 hr → q4h × 16 hr → q12h. เอา tube ออกประมาณวันที่ 3
 
 ### Prognosis
-- ทำเร็ว (ก่อน irreversible remodeling) → **excellent · กลับมา normal life**
+- ทำเร็ว (ก่อน irreversible remodeling) → **excellent, กลับมา normal life**
 - ทำช้า + CHF + fibrosis → poor prognosis
 - Reverse shunt (R→L) → contraindicated for surgery
 
@@ -11746,7 +11746,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ## 2. Persistent Right Aortic Arch (PRAA)
 
 ### Pathophysiology
-- **Vascular ring anomaly** — มี 7 types · PRAA คือ type 1 (95% ของ vascular ring anomalies)
+- **Vascular ring anomaly** — มี 7 types, PRAA คือ type 1 (95% ของ vascular ring anomalies)
 - ปกติ aorta พัฒนาจาก left 4th aortic arch → ถ้า persist ทาง right แทน
 - Ligamentum arteriosum ยังอยู่ฝั่งซ้าย → **บีบรัด esophagus + trachea** (ที่อยู่ตรงกลาง) เป็นวงแหวน
 
@@ -11789,12 +11789,12 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ### Sub-total pericardiectomy
 - **ไม่สามารถตัด pericardium ทั้งหมด 100%** เพราะมี **phrenic nerve** วิ่งอยู่
 - ตัดใต้ phrenic nerve → ตัดเป็นรูป **T** ลงไปที่ apex of heart
-- ⚠️ Pericardium มี 2 ฝั่ง (ซ้าย + ขวา) — ผ่าน left ICS แล้วต้องให้ **assistant ควักหัวใจขึ้นมาพลิก** เพื่อตัดด้านขวา (heart เต้นในมือ ไม่บีบ → stroke volume คงเดิม · แค่ EKG หน้าตาประหลาด)
+- ⚠️ Pericardium มี 2 ฝั่ง (ซ้าย + ขวา) — ผ่าน left ICS แล้วต้องให้ **assistant ควักหัวใจขึ้นมาพลิก** เพื่อตัดด้านขวา (heart เต้นในมือ ไม่บีบ → stroke volume คงเดิม, แค่ EKG หน้าตาประหลาด)
 - ตัด **sterno-pericardial ligament** ที่ยึดด้านล่าง
 
 ### Outcome หลังเอา pericardium ออก
 - หัวใจยังทำงานได้ — แค่ contractility อาจลดลงเล็กน้อย
-- ถ้าน้ำเกิดต่อเนื่อง (e.g., neoplasia) → effusion ไหลออก thoracic cavity → ปลอดภัยกว่า cardiac tamponade · pleurocentesis ง่ายกว่า pericardiocentesis
+- ถ้าน้ำเกิดต่อเนื่อง (e.g., neoplasia) → effusion ไหลออก thoracic cavity → ปลอดภัยกว่า cardiac tamponade, pleurocentesis ง่ายกว่า pericardiocentesis
 
 ### Minimally invasive: Thoracoscopic pericardiectomy
 - **เจาะ port + กล้อง** — ไม่ต้องเปิด open thoracotomy
@@ -11814,18 +11814,18 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 
 ## 🎯 Exam recap (10 ข้อ)
 
-1. **PDA = most common congenital cardiac defect ในสุนัข** · เพศเมีย > เพศผู้
+1. **PDA = most common congenital cardiac defect ในสุนัข**, เพศเมีย > เพศผู้
 2. **Continuous (machinery) murmur** = pathognomonic auscultation finding
 3. **ต้อง confirm shunt direction ก่อนผ่า** — R→L = ห้ามผ่า
 4. **Type 2 PDA** = best for ACDO interventional (Type 1 + 3 ไม่เหมาะ)
 5. **Surgical approach** = left **4th** ICS in dogs (5th in cats)
 6. **Rib counting landmark** = scalenus muscle inserts ที่ rib 5 ⚠️ "อันนี้ข้อสอบ"
-7. **PDA technique**: ligate × 2 silk · **ไม่ตัด** · expose ผ่าน vagus nerve retraction
-8. **PRAA = vascular ring anomaly** · บีบรัด esophagus → regurgitation ตอนเปลี่ยนเป็นอาหารแข็ง 2-3 เดือน
+7. **PDA technique**: ligate × 2 silk, **ไม่ตัด**, expose ผ่าน vagus nerve retraction
+8. **PRAA = vascular ring anomaly**, บีบรัด esophagus → regurgitation ตอนเปลี่ยนเป็นอาหารแข็ง 2-3 เดือน
 9. **Bird beak sign** = positive contrast esophagram in PRAA
-10. **Sub-total pericardiectomy** — ตัดใต้ phrenic nerve · เก็บ phrenic ไว้
+10. **Sub-total pericardiectomy** — ตัดใต้ phrenic nerve, เก็บ phrenic ไว้
 
-> 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY) · 12.1 Acquired Cardiac Disease (SiLZIu-aWlY) · Anatomy of left thoracotomy approach`,
+> 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY), 12.1 Acquired Cardiac Disease (SiLZIu-aWlY), Anatomy of left thoracotomy approach`,
   },
 
   FlutqheRR6I: {
@@ -11838,15 +11838,15 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
     examFormat: 'MCQ',
     summary: `# 14.1 Common Respiratory Diseases II — Lower Airway/Lung/Pleural
 
-> 🎯 ครอบคลุม **lung parenchyma + pleural cavity diseases** ที่เจอบ่อย — bacterial/aspiration pneumonia · pulmonary neoplasia · PTE · pyothorax · chylothorax · hemothorax · pneumothorax. ออกสอบ pulmonary parenchyma + pleural cavity แทร์น ⚠️
+> 🎯 ครอบคลุม **lung parenchyma + pleural cavity diseases** ที่เจอบ่อย — bacterial/aspiration pneumonia, pulmonary neoplasia, PTE, pyothorax, chylothorax, hemothorax, pneumothorax. ออกสอบ pulmonary parenchyma + pleural cavity แทร์น ⚠️
 
 ---
 
 ## 1. Pulmonary parasites
 
 ### พยาธิที่ migrate ผ่านปอด
-- **Capillaria** (เก่า: Capillaria aerophila) — เจอทั้ง dog + cat · อยู่ที่ trachea/bronchi · diagnosis: fecal exam (Take wash) · Tx: **fenbendazole**
-- **Aelurostrongylus abstrusus** — เฉพาะแมว · L1 ใน feces · Intermediate host = หอยทาก/นก/หนู · ตรวจด้วย **Baermann technique** · Tx: fenbendazole หรือ spot-on ที่มี selamectin
+- **Capillaria** (เก่า: Capillaria aerophila) — เจอทั้ง dog + cat, อยู่ที่ trachea/bronchi, diagnosis: fecal exam (Take wash), Tx: **fenbendazole**
+- **Aelurostrongylus abstrusus** — เฉพาะแมว, L1 ใน feces, Intermediate host = หอยทาก/นก/หนู, ตรวจด้วย **Baermann technique**, Tx: fenbendazole หรือ spot-on ที่มี selamectin
 
 ### Heartworm (Dirofilaria) larva migration
 - ขณะ worm migrate ผ่าน lung → eosinophilic inflammation
@@ -11874,7 +11874,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 | Bacteria | Note |
 |---|---|
 | **Bordetella bronchiseptica** | Primary pathogen ของ respiratory tract |
-| **Mycoplasma** | Primary pathogen · ส่ง PCR confirm |
+| **Mycoplasma** | Primary pathogen, ส่ง PCR confirm |
 | E. coli, Klebsiella | Gut translocation (secondary) |
 | Pasteurella, Staph, Strep | URT flora — opportunistic |
 
@@ -11886,7 +11886,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 - Aspiration risk
 
 ### Clinical
-- **Productive cough** (mucus++) · dyspnea · tachypnea
+- **Productive cough** (mucus++), dyspnea, tachypnea
 - Auscultation: **crackles** (mucus), increased lung sounds, decreased lung sound (consolidation)
 - Wheezing if airway involvement
 - Fever, lethargy, anorexia
@@ -11895,7 +11895,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 - **X-ray = primary tool**:
   - **Alveolar pattern with air bronchogram** (เส้นๆ) — most common
   - Interstitial pattern (less common)
-  - Distribution clue: **ventral** (general) · **dorsocaudal** (hematogenous) · **cranio-ventral** (aspiration)
+  - Distribution clue: **ventral** (general), **dorsocaudal** (hematogenous), **cranio-ventral** (aspiration)
 - CBC: **neutrophilia ± left shift** + lymphopenia
 - Arterial blood gas: hypoxemia (severity-dependent)
 - **Airway sampling (BAL/Take wash)** — get cytology + **bacterial culture + sensitivity ก่อน start ATB**
@@ -11907,7 +11907,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 - **Severe**: parenteral combination — **NOT monotherapy**
   - Sutra 1: fluoroquinolone + β-lactam (ampicillin/amoxiclav/cephalosporin)
   - Sutra 2: fluoroquinolone + clindamycin (anaerobic coverage)
-- **Duration**: 4-6 weeks · re-evaluate q10-14 days
+- **Duration**: 4-6 weeks, re-evaluate q10-14 days
 - Supportive: O₂, fluids, **nebulization with normal saline 3-4×/day**, bronchodilators, **mucolytics**
 - ⛔ **ห้ามให้ antitussives (butorphanol, codeine, hydrocodone)** — productive cough ต้องเอา mucus ออก
 
@@ -11921,7 +11921,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ### Pathophysiology
 1. **Large particle aspiration** → acute airway obstruction → post-obstructive pneumonia
 2. **Liquid/small particle** → ER (endoplasmic reticulum) damage → lung injury → secondary bacterial colonization
-3. Eventually: **non-cardiogenic pulmonary edema** (↑ alveolar capillary permeability) → ARDS · bronchoconstriction · ↑ mucus
+3. Eventually: **non-cardiogenic pulmonary edema** (↑ alveolar capillary permeability) → ARDS, bronchoconstriction, ↑ mucus
 
 ### Predisposing
 - Anesthesia, seizures, coma → loss of airway protection
@@ -11957,13 +11957,13 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 | **Metastatic** | จาก primary elsewhere | More common (high blood flow) |
 
 ### Primary
-- Older animals · most: **adenocarcinoma**
-- X-ray: **single mass or few large masses** (caudal lobes) · usually solitary
+- Older animals, most: **adenocarcinoma**
+- X-ray: **single mass or few large masses** (caudal lobes), usually solitary
 - Exception: **histiocytic sarcoma** → diffuse nodular interstitial
 
 ### Metastatic
 - จาก mammary, OSA, melanoma, hemangiosarcoma
-- X-ray: **interstitial nodular pattern** (หลายโนด) · **need 4-view radiographs** (DV/VD + lat both sides)
+- X-ray: **interstitial nodular pattern** (หลายโนด), **need 4-view radiographs** (DV/VD + lat both sides)
 - **CT > X-ray** sensitivity for small mets
 
 ### Clinical
@@ -11989,13 +11989,13 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 - Hyperadrenocorticism (Cushing's), heartworm, **IMHA**, protein-losing nephropathy, neoplasia, sepsis, recent surgery
 
 ### Clinical
-- **Sudden onset** dyspnea + agitation · tachypnea
+- **Sudden onset** dyspnea + agitation, tachypnea
 - ± hemoptysis
 - Auscultation variable
 
 ### Diagnosis
 - ABG: hypoxemia + **hypocapnia** — but normal ABG ⛔ rule-out PTE
-- X-ray: variable · **small pulmonary vessels** · ↑ right heart silhouette · pleural effusion
+- X-ray: variable, **small pulmonary vessels**, ↑ right heart silhouette, pleural effusion
 - **D-dimer** — high sensitivity, low specificity
   - ⚠️ ตรวจภายใน **1-2 hr suspicion** — ระดับ peak แล้วกลับเข้า baseline ภายใน 24-48 hr
   - Normal D-dimer + acute dyspnea → can rule out PTE
@@ -12013,8 +12013,8 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ## 6. Pleural Cavity Diseases
 
 ### 3 patterns
-1. **Effusion** (water) — น้ำตกลงล่าง · muffled lung/heart sounds ด้านล่าง
-2. **Pneumothorax** (air) — ลมลอยขึ้นบน · muffled ด้านบน
+1. **Effusion** (water) — น้ำตกลงล่าง, muffled lung/heart sounds ด้านล่าง
+2. **Pneumothorax** (air) — ลมลอยขึ้นบน, muffled ด้านบน
 3. **Mass/organ displacement** (e.g., diaphragmatic hernia)
 
 ### Common: Restrictive breathing pattern + abdominal effort
@@ -12052,7 +12052,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 - Sign: **hypovolemic shock** > respiratory distress
 - Diagnosis: thoracocentesis fluid PCV >20% หรือ >50% ของ peripheral PCV
 - ⚠️ Check coagulation profile **before thoracocentesis**
-- Treatment: **autotransfusion ถ้าน้อย** · transfusion + IV fluids · surgery if severe
+- Treatment: **autotransfusion ถ้าน้อย**, transfusion + IV fluids, surgery if severe
 
 ### D. Pneumothorax
 
@@ -12084,20 +12084,20 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 
 ## 🎯 Exam recap (12 ข้อ)
 
-1. **Bacterial pneumonia** — dog > cat · combination ATB ใน severe cases · **NEVER monotherapy in severe**
+1. **Bacterial pneumonia** — dog > cat, combination ATB ใน severe cases, **NEVER monotherapy in severe**
 2. **อย่าให้ antitussive** ใน productive cough ของ pneumonia (จำเป็นต้อง expel mucus)
 3. **Aspiration distribution**: right middle + caudal part of left cranial lobe (ventral)
 4. **Bordetella + Mycoplasma** = primary pathogens of respiratory tract
-5. **Primary lung tumor** → solitary mass · most = adenocarcinoma · Tx = lobectomy
-6. **Metastatic** → multiple nodules · need 4-view radiograph
-7. **PTE D-dimer** — ตรวจภายใน 1-2 hr · normal = rule out
+5. **Primary lung tumor** → solitary mass, most = adenocarcinoma, Tx = lobectomy
+6. **Metastatic** → multiple nodules, need 4-view radiograph
+7. **PTE D-dimer** — ตรวจภายใน 1-2 hr, normal = rule out
 8. **CT angio** = gold standard for PTE
 9. **Pyothorax in cats** ส่วนใหญ่จาก bite wound
-10. **Chylothorax** — milky fluid · high TG · low-fat diet + rutin
+10. **Chylothorax** — milky fluid, high TG, low-fat diet + rutin
 11. **Pneumothorax pathognomonic radiographic sign** = **heart elevated off sternum**
 12. **Bleb (between pleura) vs Bulla (in parenchyma)** — anatomic distinction
 
-> 📚 อ่านควบ: 13.2 Resp Clinical Assessment (az6ZIjbDFwQ) · 13.3 Common Resp I (phyvefbYWqE) · 14.2 Surgical Resp (nzpDNtceKKk) · 14.3 Thoracic Sx (_azRwNxOJas)`,
+> 📚 อ่านควบ: 13.2 Resp Clinical Assessment (az6ZIjbDFwQ), 13.3 Common Resp I (phyvefbYWqE), 14.2 Surgical Resp (nzpDNtceKKk), 14.3 Thoracic Sx (_azRwNxOJas)`,
   },
 
   Q0AGFF70m8M: {
@@ -12117,8 +12117,8 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ## 1. Plain Radiograph (X-ray)
 
 ### Anatomy ที่เห็น
-- **Kidneys** — soft tissue opacity ใน retroperitoneal area · เห็นเพราะ retroperitoneal fat ทำ contrast
-- **Urinary bladder (UB)** — caudoventral abdomen · soft tissue opacity
+- **Kidneys** — soft tissue opacity ใน retroperitoneal area, เห็นเพราะ retroperitoneal fat ทำ contrast
+- **Urinary bladder (UB)** — caudoventral abdomen, soft tissue opacity
 - **Ureter + urethra** — **ปกติมองไม่เห็น** ใน plain film
 
 ### Kidney location
@@ -12148,14 +12148,14 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ⚠️ Male > female สำหรับ urethral obstruction (ยาว + แคบ)
 
 ### UB wall thickness
-- **Normal: ≤ 2 mm** (วัดที่ **kentral area** = caudoventral region of bladder · ตำแหน่งที่อักเสบก่อน เพราะ gravity-dependent)
+- **Normal: ≤ 2 mm** (วัดที่ **kentral area** = caudoventral region of bladder, ตำแหน่งที่อักเสบก่อน เพราะ gravity-dependent)
 - > 2 mm = **cystitis**
 
 ---
 
 ## 2. Contrast Media — สำคัญมาก
 
-### Positive contrast (radio-opaque · ขาว)
+### Positive contrast (radio-opaque, ขาว)
 | Type | Use in urinary? |
 |---|---|
 | **Iodine — non-ionic monomer (iohexol)** ✅ | ใช้ได้ทุก approach |
@@ -12172,7 +12172,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 - เสี่ยง: pre-existing kidney disease, diabetes, dehydration, geriatric, NSAID-using
 - ⚠️ ต้องประเมิน **renal function ก่อนฉีด** + ให้ adequate IV fluid
 
-### Negative contrast (radiolucent · ดำ)
+### Negative contrast (radiolucent, ดำ)
 - **Room air** ✅ (most common — free, accessible)
 - O₂, CO₂, N₂O (rarely used)
 - ⚠️ Room air = **non-water-soluble** → **air embolism risk** if over-inflated (มี report เสียชีวิต)
@@ -12185,7 +12185,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 |---|---|
 | **Positive contrast cystography** | **Bladder rupture** suspect (e.g., post-trauma, no urination) |
 | **Negative contrast** | Wall thickness (less common now) |
-| **Double contrast** ⭐ | **Wall pathology** — cystitis, stones, mass · gold standard for mucosal detail |
+| **Double contrast** ⭐ | **Wall pathology** — cystitis, stones, mass, gold standard for mucosal detail |
 
 ### Tip: ใส่ Negative ก่อน Positive → ลด air bubble artifact
 
@@ -12216,7 +12216,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ### Echogenicity comparison (จำให้แม่น)
 - **Spleen = whitest organ in abdomen** (hyperechoic)
 - **Renal cortex must be HYPOECHOIC to spleen** (left kidney comparison)
-- Right kidney → compare to **liver** (caudate lobe) · normal: similar/slightly hyperechoic
+- Right kidney → compare to **liver** (caudate lobe), normal: similar/slightly hyperechoic
 - ⛔ **Renal cortex HYPER-echoic to spleen = abnormal** → **nephropathy** (general term, not specific cause — could be nephritis, fibrosis, etc.)
 
 ### Renal pelvis (in transverse plane)
@@ -12261,14 +12261,14 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ### CT phases — สำคัญมาก
 | Phase | When to view? |
 |---|---|
-| **Pre-contrast** | ⭐ **Stones / mineralization** (จะเห็น hyperdense ชัดเจน · ถ้าดู post-contrast จะสับสนกับ contrast) |
+| **Pre-contrast** | ⭐ **Stones / mineralization** (จะเห็น hyperdense ชัดเจน, ถ้าดู post-contrast จะสับสนกับ contrast) |
 | **Post-contrast** | ⭐ **Cysts, masses, infarction, hydronephrosis, vasculature** |
 
-⚠️ จำง่ายๆ: **Stone = pre · ทุกอย่างอื่น = post**
+⚠️ จำง่ายๆ: **Stone = pre, ทุกอย่างอื่น = post**
 
 ### CT terminology
 - **Hyperattenuation** (ขาวขึ้น) — ทดแทน "hyperdense"
-- **Volume rendering** — 3D reconstruction · เลือก HU range ที่ต้องการ
+- **Volume rendering** — 3D reconstruction, เลือก HU range ที่ต้องการ
 
 ---
 
@@ -12280,18 +12280,18 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 | **Renal agenesis** | ไตข้างเดียว |
 | **Renal hypoplasia** | ไตข้างเล็ก + อีกข้าง = **compensatory hypertrophy** |
 | **Ectopic ureter** | IVP — ureter เปิดผิดที่ (urethra/vagina) |
-| **PKD (Polycystic kidney disease)** | Persian/British shorthair · multiple renal cysts (acoustic enhancement) · ⚠️ inherited — แนะนำงดเพาะพันธุ์ |
+| **PKD (Polycystic kidney disease)** | Persian/British shorthair, multiple renal cysts (acoustic enhancement), ⚠️ inherited — แนะนำงดเพาะพันธุ์ |
 
 ### Inflammation
 | Condition | Imaging finding |
 |---|---|
-| **Cystitis** | Wall > 2 mm at kentral area · ± irregular contour |
+| **Cystitis** | Wall > 2 mm at kentral area, ± irregular contour |
 | **Emphysematous cystitis** | Air in bladder wall + thickening — **diabetic** patients (gas-producing bacteria) |
 | **Nephritis** | Kidney bigger + hyperechoic cortex |
 | **Pyelonephritis** | Pyelectasis + thickened pelvic wall |
 
 ### Stones (Calculi)
-- Singular = **calculus** · Plural = **calculi**
+- Singular = **calculus**, Plural = **calculi**
 - **Sand/grit pattern** = micro-calculi
 - All show **acoustic shadow** in U/S
 - May or may not be radiopaque on plain film
@@ -12362,7 +12362,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 
 1. **Barium ห้ามใช้ใน urinary system** — irritant
 2. **Spay age affects kidney/L2 ratio** in cats → ซักประวัติเสมอ
-3. **CIN (Contrast-Induced Nephropathy)** — ประเมิน BUN/Cr ก่อนฉีด · stop NSAIDs
+3. **CIN (Contrast-Induced Nephropathy)** — ประเมิน BUN/Cr ก่อนฉีด, stop NSAIDs
 4. **Stone vs Contrast on CT** — view PRE-contrast for stones, POST for everything else
 5. **Renal cortex hyperechoic to spleen = ALWAYS abnormal**
 6. **Acoustic shadow ≠ acoustic enhancement** (stone vs cyst)
@@ -12374,15 +12374,15 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 ## 🎯 Exam recap (สำคัญ ออกสอบ)
 
 1. Iodine **only** for urinary contrast — never barium
-2. Plain X-ray ratio (kidney/L2): dog 2.5-3.5 · cat 2.4-3.0 (ทำหมันก่อน 7 เดือน → ratio false low)
-3. Positive cystography for **rupture** · double contrast for **wall pathology**
+2. Plain X-ray ratio (kidney/L2): dog 2.5-3.5, cat 2.4-3.0 (ทำหมันก่อน 7 เดือน → ratio false low)
+3. Positive cystography for **rupture**, double contrast for **wall pathology**
 4. Renal cortex must be hypoechoic to spleen (left side)
-5. Renal pelvis ≤ 2 mm normal · >13 mm = obstruction
-6. **Acoustic shadow = stone** · **Acoustic enhancement = cyst**
-7. CT pre-contrast for stones · post-contrast for everything else
+5. Renal pelvis ≤ 2 mm normal, >13 mm = obstruction
+6. **Acoustic shadow = stone**, **Acoustic enhancement = cyst**
+7. CT pre-contrast for stones, post-contrast for everything else
 8. Pelvic fracture → must rule-out urethral rupture with retrograde urethrography
 
-> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk) · 8.3 LUT 2 Stones (vLjnPuFgvj4) · 10.2 Surgical Tx Urinary (WtvWyniLMVE) · 10.3 LUT 3 (eBY8GTlcjiw)`,
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA), 8.2 LUT 1 (z0Id0mmM4Fk), 8.3 LUT 2 Stones (vLjnPuFgvj4), 10.2 Surgical Tx Urinary (WtvWyniLMVE), 10.3 LUT 3 (eBY8GTlcjiw)`,
   },
 
   nzpDNtceKKk: {
@@ -12395,7 +12395,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
     examFormat: 'MCQ + technique-based',
     summary: `# 14.2 Surgical Treatment of Respiratory System
 
-> 🎯 ครอบคลุม upper airway surgery: **nasal cavity · pharynx · larynx · trachea**. หัตถการสำคัญ: **rhinotomy · BAS correction · soft palate resection · laryngeal tieback · tracheal stent · tracheostomy**. ⚠️ Brachycephalic syndrome ออกแน่
+> 🎯 ครอบคลุม upper airway surgery: **nasal cavity, pharynx, larynx, trachea**. หัตถการสำคัญ: **rhinotomy, BAS correction, soft palate resection, laryngeal tieback, tracheal stent, tracheostomy**. ⚠️ Brachycephalic syndrome ออกแน่
 
 ---
 
@@ -12410,7 +12410,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 
 ### Nasal Tumors
 - Mean age: **~7 years+**
-- **Dogs > cats** · **males > females**
+- **Dogs > cats**, **males > females**
 - Origins:
   - **Epithelial** — squamous cell carcinoma
   - **Non-epithelial** — lymphoma (common!)
@@ -12418,9 +12418,9 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 
 ### Approach
 1. **Symmetry** — facial swelling? eye bulging?
-2. Discharge — unilateral vs bilateral · which side worse?
+2. Discharge — unilateral vs bilateral, which side worse?
 3. **Otoscope examination** of nasal cavity (under sedation in big dogs)
-4. ⚠️ **In cats** — facial wound = **don't assume tumor first** — ระบาดมาก rec recently · 1-2 cases/month minimum
+4. ⚠️ **In cats** — facial wound = **don't assume tumor first** — ระบาดมาก rec recently, 1-2 cases/month minimum
 
 ### Imaging
 - **2-view X-ray**: VD + lateral
@@ -12456,9 +12456,9 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 1. Patient ในท่า **prone** (นอนคว่ำ)
 2. กรีด skin จาก nose → between eyes
 3. Periosteum elevator strip down
-4. **Oscillating bone saw** ตัด rectangular flap (dog ใหญ่ทำซ้ายขวาแยก · dog เล็ก/cat ทำเป็นแผ่นเดียว)
+4. **Oscillating bone saw** ตัด rectangular flap (dog ใหญ่ทำซ้ายขวาแยก, dog เล็ก/cat ทำเป็นแผ่นเดียว)
 5. **Osteotome + mallet** — เคาะเบาๆ งัด flap ออก
-6. Curette ขูด tumor + masses · cotton swab roll out
+6. Curette ขูด tumor + masses, cotton swab roll out
 7. Hemostasis: **gauze + dilute epinephrine 1:5** — กดรอ 1-2 min
 8. ⚠️ Saline drip during sawing — กัน thermal necrosis
 9. ใส่ **antibiotic-soaked gauze** ใน cavity (โผล่ปลายจมูก ดึงออกภายหลัง)
@@ -12498,7 +12498,7 @@ Normal nostril = **dorsal cartilage + ventral cartilage + accessory cartilage**
 4. **Hypoplastic trachea**
 
 ### Severity
-- Mild · Moderate · Severe (CV — Critical/Vital)
+- Mild, Moderate, Severe (CV — Critical/Vital)
 
 ### Clinical findings
 - Stertor (snoring), exercise intolerance
@@ -12546,7 +12546,7 @@ Normal nostril = **dorsal cartilage + ventral cartilage + accessory cartilage**
 - **ตัดทีละครึ่ง** + เย็บเป็น **simple continuous** ก่อนตัดอีกครึ่ง
 - ⚠️ ห้ามตัดทั้งหมดก่อนเย็บ — palate retract เข้าไปใน pharynx → เย็บไม่ได้
 - Hemorrhage: ใช้ **vessel sealing device (Ligasure)** = น้อยมาก
-- Time: ด้วย scissors + suture ~30-45 min · ด้วย Ligasure ~10 min
+- Time: ด้วย scissors + suture ~30-45 min, ด้วย Ligasure ~10 min
 
 ---
 
@@ -12585,7 +12585,7 @@ Normal nostril = **dorsal cartilage + ventral cartilage + accessory cartilage**
 - Air rushing past flapping membrane = "**goose honking cough (Kong-Hong)**"
 
 ### Severity
-- 75% (Mild) · 50% (Moderate) · 25% (Severe — CV)
+- 75% (Mild), 50% (Moderate), 25% (Severe — CV)
 
 ### Clinical
 - **Goose honking cough** (pathognomonic!)
@@ -12622,7 +12622,7 @@ Normal nostril = **dorsal cartilage + ventral cartilage + accessory cartilage**
 - Risk: tissue fibrosis around mesh → re-stenosis
 
 ### Post-op
-- Antibiotics 7-10 days · pain control · bronchodilators
+- Antibiotics 7-10 days, pain control, bronchodilators
 - Limited exercise
 
 ---
@@ -12680,22 +12680,22 @@ Normal nostril = **dorsal cartilage + ventral cartilage + accessory cartilage**
 
 ## 🎯 Exam recap (10+ ข้อ)
 
-1. **Nasal tumor** — older dogs > cats · LSA + SCC + melanoma common · always X-ray thorax
+1. **Nasal tumor** — older dogs > cats, LSA + SCC + melanoma common, always X-ray thorax
 2. **CT > X-ray** for cribriform plate involvement
 3. **Rhinotomy** — Dorsal (prone, oscillating saw) vs Ventral (supine, dental burr through hard palate)
 4. **Saline drip during bone saw** — prevent thermal necrosis
 5. **BAS = Stenotic Nares + Elongated Soft Palate + Everted Saccules + Hypoplastic Trachea**
-6. **Brachycephalic breeds** = Pug · Pekingese · Bulldog · Boxer · Persian (cat)
+6. **Brachycephalic breeds** = Pug, Pekingese, Bulldog, Boxer, Persian (cat)
 7. **Soft palate cut too short** = aspiration risk (palate can't seal larynx)
 8. **Soft palate resection technique** — cut half + suture, then cut other half (palate retracts!)
 9. **Laser surgery** — ห้ามตัดผ่าน ET tube (ไฟไหม้), cover with wet gauze
-10. **Tracheal collapse** = Pomeranian (9.5/10) · "**goose honking cough**" pathognomonic
+10. **Tracheal collapse** = Pomeranian (9.5/10), "**goose honking cough**" pathognomonic
 11. **Tracheal stent permanent** — can't be removed
 12. **Tracheostomy site** = cartilage ring 3-4 or 4-5
 13. **Tracheal resection limit** = 20% length
 14. **Tracheostomy tube clean q12h** — mucus plugs from absent humidification
 
-> 📚 อ่านควบ: 14.1 Common Resp II (FlutqheRR6I) · 14.3 Thoracic Sx (_azRwNxOJas) · 13.2 Resp Clinical Assessment (az6ZIjbDFwQ)`,
+> 📚 อ่านควบ: 14.1 Common Resp II (FlutqheRR6I), 14.3 Thoracic Sx (_azRwNxOJas), 13.2 Resp Clinical Assessment (az6ZIjbDFwQ)`,
   },
 
   '9Fvz4J6dMCo': {
@@ -12706,7 +12706,7 @@ Normal nostril = **dorsal cartilage + ventral cartilage + accessory cartilage**
     duration: '82 min',
     instructor: 'DekDokVet85 — รุ่นพี่ (อายุรกรรม)',
     examFormat: 'MCQ + practical case',
-    summary: `# 7.2 Fluid Analysis — Thoracocentesis · Abdominocentesis · Effusion Workup
+    summary: `# 7.2 Fluid Analysis — Thoracocentesis, Abdominocentesis, Effusion Workup
 
 > 🎯 Two main procedures: **thoracocentesis (เจาะช่องอก) + abdominocentesis (เจาะช่องท้อง)**. Then classify fluid by **transudate / modified transudate / non-septic exudate / septic exudate / chylous / hemorrhagic / neoplastic**. Critical skill ก่อนจบอายุรศาสตร์
 
@@ -12715,8 +12715,8 @@ Normal nostril = **dorsal cartilage + ventral cartilage + accessory cartilage**
 ## Bigger picture
 
 Body cavities ที่เจาะได้:
-- **Thorax**: pleural cavity (thoracocentesis) ✅ · pericardial sac (US-guided only — specialist skill, not for general medicine vet)
-- **Abdomen**: peritoneal cavity (abdominocentesis) ✅ · urinary bladder (US-guided preferred)
+- **Thorax**: pleural cavity (thoracocentesis) ✅, pericardial sac (US-guided only — specialist skill, not for general medicine vet)
+- **Abdomen**: peritoneal cavity (abdominocentesis) ✅, urinary bladder (US-guided preferred)
 
 ⚠️ **Legal risk** — เจ้าของณปัจจุบันมีความรู้ + ฟ้องร้องได้ → ต้อง follow protocol
 
@@ -12749,7 +12749,7 @@ Body cavities ที่เจาะได้:
 ### Patient prep
 - **3 personnel**: 1 puncture + 1 restrain + 1 aspirate
 - Position: **sternal recumbency** (sitting)
-- Sedation: cats almost always · dogs PRN
+- Sedation: cats almost always, dogs PRN
 - aseptic prep + clipping
 
 ### Landmarks (ออกสอบ ⚠️)
@@ -12786,7 +12786,7 @@ Body cavities ที่เจาะได้:
 ## 2. Abdominocentesis
 
 ### Suspect when
-- X-ray: "**ground glass appearance**" (มัวๆ ฟุ้งๆ · organs unclear)
+- X-ray: "**ground glass appearance**" (มัวๆ ฟุ้งๆ, organs unclear)
 
 ### Equipment
 - **Larger needle** (e.g., 18-20G) — more peritoneum mesentery occlusion in abdomen
@@ -12819,7 +12819,7 @@ Body cavities ที่เจาะได้:
 ### Tubes
 | Tube | Use case |
 |---|---|
-| **EDTA (purple top)** | ⭐ Preferred for cytology · prevents clotting + preserves cells |
+| **EDTA (purple top)** | ⭐ Preferred for cytology, prevents clotting + preserves cells |
 | Heparin (green) | Bad for cytology — distorts cell morphology |
 
 ### Field smear
@@ -12833,9 +12833,9 @@ Body cavities ที่เจาะได้:
 | Parameter | What |
 |---|---|
 | **Gross appearance** | Color, clarity, viscosity (clear/cloudy/milky/blood) |
-| **Total Protein (TP)** | Refractometer · g/dL · serum reference 5-8 g/dL |
-| **Total Nucleated Cell Count (TNCC)** | Cells/μL · counted on hematocrit |
-| **Cytology** | Wright stain → cell types · 10×/40× scan, 100× ID |
+| **Total Protein (TP)** | Refractometer, g/dL, serum reference 5-8 g/dL |
+| **Total Nucleated Cell Count (TNCC)** | Cells/μL, counted on hematocrit |
+| **Cytology** | Wright stain → cell types, 10×/40× scan, 100× ID |
 
 ### Quick microscopy tips
 - **4× or 10×** to find cell clusters
@@ -12898,7 +12898,7 @@ Imbalance → fluid leak
 - **TP**: > 3 g/dL (HIGH)
 - **TNCC**: > 7,000 cells/μL (often 10,000-100,000+)
 - **Cells**: **degenerate neutrophils** (look "ghosting", chromatin loose) + **intracellular bacteria** in phagocytes
-- **Color**: cloudy/purulent · foul smell ✋
+- **Color**: cloudy/purulent, foul smell ✋
 - **Causes**: GI rupture, bile peritonitis, pancreatitis, foreign body, post-surgical contamination
 
 ### E. Chylous Effusion
@@ -12957,19 +12957,19 @@ Imbalance → fluid leak
 3. **Cranial aspect of rib 8** = safe (vessel runs caudal to rib)
 4. **Abdominocentesis site** = 1 inch caudal of umbilicus on linea alba
 5. **Skin-slide technique** for abdominocentesis only (not thoracic)
-6. **Drainage limit** = thoracic to dryness · abdominal max 1/3 to 1/2 (avoid hypovolemic shock)
+6. **Drainage limit** = thoracic to dryness, abdominal max 1/3 to 1/2 (avoid hypovolemic shock)
 7. **Always palpate UB** before abdominocentesis (avoid bladder puncture)
 8. **EDTA tube** for cytology (Heparin distorts cells)
 9. **Lidocaine** = wait **5 min** before procedure
-10. **Pure transudate** = TP < 2.5 + TNCC < 1.5K · cause = hypoalbuminemia
-11. **Modified transudate** = TP 2.5-5 + TNCC 1-7K · cause = heart/liver/FIP
+10. **Pure transudate** = TP < 2.5 + TNCC < 1.5K, cause = hypoalbuminemia
+11. **Modified transudate** = TP 2.5-5 + TNCC 1-7K, cause = heart/liver/FIP
 12. **Septic exudate** = degenerate neutrophils + intracellular bacteria
 13. **Rivalta test for FIP** — droplet persists in dilute acetic acid
 14. **Chylous** = milky + small lymphocytes + high TG
 15. **Hemorrhagic effusion**: distinguish active vs old vs iatrogenic by PCV/platelets/erythrophagocytes
 16. **NEVER diagnose mesothelioma** without pathologist (reactive mesothelial cells look identical)
 
-> 📚 อ่านควบ: 7.1 Anemia + Hemolym (FCRDICfyMlM) · 14.1 Common Resp II Pleural cavity (FlutqheRR6I) · imha video summary (existing)`,
+> 📚 อ่านควบ: 7.1 Anemia + Hemolym (FCRDICfyMlM), 14.1 Common Resp II Pleural cavity (FlutqheRR6I), imha video summary (existing)`,
   },
 
   phyvefbYWqE: {
@@ -12982,7 +12982,7 @@ Imbalance → fluid leak
     examFormat: 'MCQ',
     summary: `# 13.3 Common Respiratory Diseases I — Upper Airway / Trachea / Bronchi
 
-> 🎯 ครอบคลุม **upper airway → trachea → lower airway diseases**: nasal aspergillosis · sinonasal tumor · BAS · laryngeal paralysis · **tracheal collapse** ⭐ · chronic bronchitis · **feline asthma** ⭐
+> 🎯 ครอบคลุม **upper airway → trachea → lower airway diseases**: nasal aspergillosis, sinonasal tumor, BAS, laryngeal paralysis, **tracheal collapse** ⭐, chronic bronchitis, **feline asthma** ⭐
 
 ---
 
@@ -12996,7 +12996,7 @@ Imbalance → fluid leak
 - ⚠️ Inflammation + fungal enzymes → eventually erode **nasal turbinate bone**
 
 ### Predisposing
-- Outdoor dogs/long-faced breeds (German Shepherd, etc.) · ⚠️ Brachycephalic = LOW risk (different anatomy)
+- Outdoor dogs/long-faced breeds (German Shepherd, etc.), ⚠️ Brachycephalic = LOW risk (different anatomy)
 - Young to middle-age more common (more outdoor activity)
 
 ### Clinical signs
@@ -13034,8 +13034,8 @@ Imbalance → fluid leak
 ## 2. Sinonasal Tumor
 
 ### Demographics
-- **Older** (mean ~7 yr+) · dog > cat
-- Locally invasive · rare metastasis (regional LN if any)
+- **Older** (mean ~7 yr+), dog > cat
+- Locally invasive, rare metastasis (regional LN if any)
 - **Carcinomas** (adenocarcinoma) most common in dog
 - **Lymphoma** most common in cat (especially nasal)
 
@@ -13074,7 +13074,7 @@ Imbalance → fluid leak
 
 **Secondary** (develop from primary):
 5. **Everted laryngeal saccules**
-6. **Laryngeal collapse** (Stage 1: saccule eversion · Stage 2: cuneiform collapse · Stage 3: corniculate collapse)
+6. **Laryngeal collapse** (Stage 1: saccule eversion, Stage 2: cuneiform collapse, Stage 3: corniculate collapse)
 
 ### Clinical
 - **Stertor** (snoring) at rest, especially during sleep
@@ -13265,7 +13265,7 @@ Imbalance → fluid leak
 **Adjunct**:
 - **Bronchodilator** if dyspnea (terbutaline, theophylline)
 - ⚠️ Don't combine theophylline + fluoroquinolones (drug interaction)
-- **Cough suppressant** if dry cough · ⛔ NOT productive cough
+- **Cough suppressant** if dry cough, ⛔ NOT productive cough
 - **Nebulization with saline** + **coupage** (cup-hand percussion)
 - **Doxycycline** if concurrent infection suspected
 
@@ -13353,20 +13353,20 @@ Components:
 
 ## 🎯 Exam recap (12 ข้อ)
 
-1. **Aspergillosis** = depigmentation + epistaxis + turbinate destruction · Tx = topical clotrimazole
-2. **Sinonasal tumor** = old age + chronic unilateral discharge · Tx = radiation
+1. **Aspergillosis** = depigmentation + epistaxis + turbinate destruction, Tx = topical clotrimazole
+2. **Sinonasal tumor** = old age + chronic unilateral discharge, Tx = radiation
 3. **BAS** = stenotic nares + elongated soft palate + hypoplastic trachea + secondary saccule eversion
 4. **Tracheal collapse pathognomonic** = goose honking cough in toy breeds (Pomeranian)
-5. **Tracheal collapse worse**: cervical → inspiration · thoracic → expiration
-6. **Tracheal collapse Tx**: stent (intra-thoracic) · prosthetic ring (cervical) · medical first
+5. **Tracheal collapse worse**: cervical → inspiration, thoracic → expiration
+6. **Tracheal collapse Tx**: stent (intra-thoracic), prosthetic ring (cervical), medical first
 7. **Chronic bronchitis** = chronic cough >8 weeks + rule out others
 8. **Bronchial X-ray pattern** = donuts + tram lines
 9. **ICS onset** = 7-10 days for full effect (not 3 days)
-10. **Feline asthma** = eosinophilic + reversible · vs chronic bronchitis = neutrophilic + permanent
+10. **Feline asthma** = eosinophilic + reversible, vs chronic bronchitis = neutrophilic + permanent
 11. **Air trapping** = bronchoconstriction → lung hyperinflation + flat diaphragm
 12. **Status asthmaticus** = O₂ + bronchodilator + steroid + stress reduction
 
-> 📚 อ่านควบ: 14.1 Common Resp II Pleural cavity (FlutqheRR6I) · 14.2 Surgical Resp (nzpDNtceKKk) · 13.2 Resp Clinical Assessment (az6ZIjbDFwQ)`,
+> 📚 อ่านควบ: 14.1 Common Resp II Pleural cavity (FlutqheRR6I), 14.2 Surgical Resp (nzpDNtceKKk), 13.2 Resp Clinical Assessment (az6ZIjbDFwQ)`,
   },
 
   eBY8GTlcjiw: {
@@ -13377,9 +13377,9 @@ Components:
     duration: '84 min',
     instructor: 'DekDokVet85 — รุ่นพี่',
     examFormat: 'MCQ + clinical reasoning',
-    summary: `# 10.3 Lower Urinary System 3 — FIC · UTI · Incontinence · Nutrition
+    summary: `# 10.3 Lower Urinary System 3 — FIC, UTI, Incontinence, Nutrition
 
-> 🎯 ครอบคลุม **FIC (cat) ⭐ · UTI dx & ATB stewardship · USMI · ectopic ureter · feeding calculation**. FIC + UTI ออกสอบแน่ — case-based reasoning เน้น
+> 🎯 ครอบคลุม **FIC (cat) ⭐, UTI dx & ATB stewardship, USMI, ectopic ureter, feeding calculation**. FIC + UTI ออกสอบแน่ — case-based reasoning เน้น
 
 ---
 
@@ -13429,8 +13429,8 @@ Components:
 - **Hill's c/d Multicare Stress** — contains:
   - **Tryptophan** (serotonin precursor)
   - **Alpha-casozepine** (anxiolytic peptide)
-- ⚠️ **NEVER abrupt diet change** — cats hate change · gradual transition
-- Tip: place new food + small portion of old food side-by-side · let cat choose
+- ⚠️ **NEVER abrupt diet change** — cats hate change, gradual transition
+- Tip: place new food + small portion of old food side-by-side, let cat choose
 
 ### Water intake increase
 - Each cat unique preference: stainless bowl, ceramic, bowl height, fountain, drips
@@ -13494,7 +13494,7 @@ Components:
 | Agent | Use |
 |---|---|
 | **Amoxicillin-clavulanic acid** | First-line ⭐ |
-| **Sulfonamides (TMP-S)** | Alternative · ⚠️ caution renal toxicity |
+| **Sulfonamides (TMP-S)** | Alternative, ⚠️ caution renal toxicity |
 | **Fluoroquinolone** (high dose, short course 3-5 days) | Newer concept for severe cases |
 
 ### "We treat the patient, not the lab result"
@@ -13503,10 +13503,10 @@ Components:
 - Case-by-case — don't blindly follow lab
 
 ### Key principle
-- **Sporadic** = mild → empirical OK · don't necessarily need C&S confirmation
+- **Sporadic** = mild → empirical OK, don't necessarily need C&S confirmation
 - **Recurrent (Relapse)** = drug/dose/duration was inadequate → review regimen
 - **Recurrent (Re-infection)** = host factor → look for Cushing's, DM, anatomic abnormality (ectopic ureter)
-- **Subclinical bacteriuria** = leave alone if non-virulent · (paralysis cats often have this)
+- **Subclinical bacteriuria** = leave alone if non-virulent, (paralysis cats often have this)
 
 ### Prevention principles
 - Target **attachment phase** (most important)
@@ -13528,7 +13528,7 @@ Components:
 | **Storage** | RELAX | CONTRACT |
 | **Voiding** | CONTRACT | RELAX |
 
-Memory: "**ParaSym = Pee · Sym = Storage**"
+Memory: "**ParaSym = Pee, Sym = Storage**"
 - Sympathetic (alpha-receptor) → sphincter contracts
 - Parasympathetic → bladder contracts
 
@@ -13551,14 +13551,14 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 ### A. USMI (Urethral Sphincter Mechanism Incompetence)
 
-**Demographics**: middle-age **large-breed spayed female** (Labrador, Golden, etc.) · spayed at young age
+**Demographics**: middle-age **large-breed spayed female** (Labrador, Golden, etc.), spayed at young age
 
 **Pathophysiology**: ↓ estrogen → ↓ alpha-receptor expression on sphincter → sphincter weakness during Storage phase
 
 **Diagnosis**: based on signalment + rule out other causes (UTI, stones)
 
 **Treatment options**
-1. **Estrogen** — incomplete response · ⚠️ **risk: aplastic anemia** (estrogen toxicity in dogs)
+1. **Estrogen** — incomplete response, ⚠️ **risk: aplastic anemia** (estrogen toxicity in dogs)
 2. **Alpha-agonist** — Phenylpropanolamine (PPA) ⭐ works best
    - ⛔ **PPA banned in Thailand since 2001** — illegal as veterinary drug
    - Imported "underground" only — risk to clinic if found
@@ -13568,7 +13568,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 ### B. Ectopic Ureter
 
-**Demographics**: **Young female large breed** (often Labrador puppies 3 months) · ⚠️ owners notice "drip drip from birth"
+**Demographics**: **Young female large breed** (often Labrador puppies 3 months), ⚠️ owners notice "drip drip from birth"
 
 **Pathophysiology**: ureter opens at wrong location (urethra, vagina) instead of bladder neck
 
@@ -13630,24 +13630,24 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 ## 🎯 Exam recap (15 ข้อ)
 
 1. **FIC** = top diagnosis for **cat < 10 yr** with hematuria/dysuria after rule-outs
-2. **FIC etiology** = UNKNOWN · "stress-related belief" but NOT proven
+2. **FIC etiology** = UNKNOWN, "stress-related belief" but NOT proven
 3. **Pandora syndrome** — FIC is a part of it
 4. **FIC diet** = c/d Multicare **Stress** (tryptophan + alpha-casozepine)
-5. **FIC owner** = case-by-case · don't blindly follow N+1 rule
+5. **FIC owner** = case-by-case, don't blindly follow N+1 rule
 6. **UTI cats < 10 yr** = rare unless paralysis/spinal disease
 7. **UTI workup**: cystocentesis → urine **culture + drug sensitivity** (NOT "MIC")
 8. **Sporadic vs Recurrent UTI** = < 3 vs ≥ 3 episodes / 12 months
-9. **Relapse vs Re-infection** — same organism = drug/dose/duration issue · different = host factor
+9. **Relapse vs Re-infection** — same organism = drug/dose/duration issue, different = host factor
 10. **Subclinical bacteriuria** = leave alone (paralysis cats)
 11. **Empirical ATB**: amoxiclav OR sulfa
 12. **USMI** = older spayed female large breed (Lab, Golden)
-13. **PPA banned in Thailand** since 2001 — illegal · use diapers as cosmetic management
-14. **Ectopic ureter** = young female large breed · surgical only
+13. **PPA banned in Thailand** since 2001 — illegal, use diapers as cosmetic management
+14. **Ectopic ureter** = young female large breed, surgical only
 15. **Pudendal nerve (S1-S3)** controls external sphincter — test with anal reflex
 16. **RER formula** = 70 × BW^0.75
 17. **DER** = RER × Factor (1.0-3+ depending on state)
 
-> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk · obstruction stabilize) · 8.3 LUT 2 Stones (vLjnPuFgvj4) · 10.1 Imaging Urinary (Q0AGFF70m8M) · 10.2 Surgical Tx Urinary (WtvWyniLMVE)`,
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA), 8.2 LUT 1 (z0Id0mmM4Fk, obstruction stabilize), 8.3 LUT 2 Stones (vLjnPuFgvj4), 10.1 Imaging Urinary (Q0AGFF70m8M), 10.2 Surgical Tx Urinary (WtvWyniLMVE)`,
   },
 
   az6ZIjbDFwQ: {
@@ -13691,7 +13691,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 ### Clinical signs (key clues)
 - Nasal discharge (color, amount, side)
-- Sneeze · Reverse sneezing
+- Sneeze, Reverse sneezing
 - Stertor / Stridor
 - Cough (productive/non-productive)
 - Dyspnea / Respiratory distress
@@ -13725,7 +13725,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 ### Auscultation (ฟังให้ครบทุก lobe)
 - Imagine **9-grid pattern** on each chest side
-- **Bronchial sound** (red zone) — over trachea + main stem bronchi · loud
+- **Bronchial sound** (red zone) — over trachea + main stem bronchi, loud
 - **Bronchovesicular sound** (blue/middle) — between
 - **Vesicular sound** (peripheral) — soft "leaves rustling"
 
@@ -13757,9 +13757,9 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 ### Crackles
 - Air bubbling through fluid OR rapid opening of small airways
-- **Coarse crackles** — large airways · low-pitched · throughout breath
+- **Coarse crackles** — large airways, low-pitched, throughout breath
   - Causes: pneumonia, edema, fibrosis
-- **Fine crackles** — small airways · high-pitched · **end-inspiration only**
+- **Fine crackles** — small airways, high-pitched, **end-inspiration only**
   - Sound: rubbing hair near ear
   - Causes: edema, bronchitis, pneumonia, pulmonary fibrosis
 
@@ -13803,14 +13803,14 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 ### B. Sneezing (จาม)
 - Expel particles from cranial nasal cavity
 - ⚠️ Pawing at nose suggests intranasal pathology
-- Early disease = a lot of sneezing · later = less sneezing + more discharge
+- Early disease = a lot of sneezing, later = less sneezing + more discharge
 
 ### C. Reverse Sneezing (ดูดกลืน)
 - Inspiration of air rapidly + neck extension + elbow abduction
 - Caused by **nasopharyngeal irritation**
 - ✅ **Normal in dogs** if occasional
 - ⚠️ Frequent + severe = pathology
-- ⚠️ **Cats** — never normal · think **feline asthma**, fungal disease
+- ⚠️ **Cats** — never normal, think **feline asthma**, fungal disease
 
 ### D. Stertor (กรน)
 - **Low-pitched** snoring sound
@@ -13869,7 +13869,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 ### A. Obstructive
 - **Slow + deep** breathing
-- ⚠️ **Inspiratory effort + sound** = upper airway (Stertor → nasal/nasopharynx · Stridor → larynx/extra-thoracic trachea)
+- ⚠️ **Inspiratory effort + sound** = upper airway (Stertor → nasal/nasopharynx, Stridor → larynx/extra-thoracic trachea)
 - ⚠️ **Expiratory effort + abdominal push** = lower airway (intra-thoracic trachea, bronchi)
 - **Mixed** = both phases obstructed → think permanent stenosis
 
@@ -13892,7 +13892,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 - Chest + abdomen move out of sync
 - During inspiration → chest IN, abdomen OUT (instead of normal)
 - Causes:
-  - **Flail chest** — multiple rib fractures in same rib in 2+ places · floating segment moves opposite to chest wall
+  - **Flail chest** — multiple rib fractures in same rib in 2+ places, floating segment moves opposite to chest wall
   - Severe pleural disease
   - Diaphragmatic dysfunction
 
@@ -13976,16 +13976,16 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 7. **Fine crackles** = end-inspiration, alveoli
 8. **Pleural effusion** → muffled **ventral** auscultation
 9. **Pneumothorax** → muffled **dorsal** (air rises)
-10. **Reverse sneeze** = normal occasionally in dogs · NEVER normal in cats (think asthma)
+10. **Reverse sneeze** = normal occasionally in dogs, NEVER normal in cats (think asthma)
 11. **Inspiration:Expiration normal** = 1:1 to 1:2
 12. **Obstructive breathing** = slow, deep
 13. **Restrictive breathing** = fast, shallow
 14. **Flail chest** = multiple rib fractures in same rib in 2+ places → paradoxical movement
-15. **Dyspnea + cough** = bronchoalveolar location · **dyspnea alone** = larynx or intra-thoracic
-16. **Don't use nasal swab for culture** (normal flora) · use **biopsy** instead
+15. **Dyspnea + cough** = bronchoalveolar location, **dyspnea alone** = larynx or intra-thoracic
+16. **Don't use nasal swab for culture** (normal flora), use **biopsy** instead
 17. **T-FAST** = first-line for unstable patient with suspected effusion
 
-> 📚 อ่านควบ: 13.3 Common Resp I (phyvefbYWqE) · 14.1 Common Resp II (FlutqheRR6I) · 14.2 Surgical Resp (nzpDNtceKKk) · 14.3 Thoracic Sx (_azRwNxOJas) · 7.2 Fluid analysis (9Fvz4J6dMCo)`,
+> 📚 อ่านควบ: 13.3 Common Resp I (phyvefbYWqE), 14.1 Common Resp II (FlutqheRR6I), 14.2 Surgical Resp (nzpDNtceKKk), 14.3 Thoracic Sx (_azRwNxOJas), 7.2 Fluid analysis (9Fvz4J6dMCo)`,
   },
 
   '2SJ4M6IiJeU': {
@@ -14004,7 +14004,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 ## 1. Roentgen Signs (อ่านภาพต้องเรียงตามนี้)
 
-### Memorize: **Location · Size · Shape · Contour · Opacity · Motility**
+### Memorize: **Location, Size, Shape, Contour, Opacity, Motility**
 - เหมือน "5 colors" ของ X-ray
 - ⚠️ **Motility ต้องใช้ contrast study หรือ Ultrasound** — plain X-ray ไม่เห็น
 
@@ -14016,10 +14016,10 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 | Modality | Strength | Limitation | Cost |
 |---|---|---|---|
-| **X-ray (plain)** | Screening · GI dilatation · radio-opaque FB | Layer not visible · 2D | ~500 THB |
-| **X-ray + Contrast (UGI/BE)** | Mucosal pattern · motility · stricture | Long study (24-48 hr) · Ba aspiration risk | 5,000+ THB |
-| **Ultrasound** ⭐ | Real-time · layers visible · peripheral organs · vessels | Operator-dependent · **air poor through** | 1,000-2,000 THB |
-| **CT scan** | 3D volume · surgical planning · best resolution | Expensive · radiation · sedation | ~10,000 THB |
+| **X-ray (plain)** | Screening, GI dilatation, radio-opaque FB | Layer not visible, 2D | ~500 THB |
+| **X-ray + Contrast (UGI/BE)** | Mucosal pattern, motility, stricture | Long study (24-48 hr), Ba aspiration risk | 5,000+ THB |
+| **Ultrasound** ⭐ | Real-time, layers visible, peripheral organs, vessels | Operator-dependent, **air poor through** | 1,000-2,000 THB |
+| **CT scan** | 3D volume, surgical planning, best resolution | Expensive, radiation, sedation | ~10,000 THB |
 
 ⚠️ **Modality ladder**: X-ray → US → Contrast → CT (escalate as needed)
 
@@ -14028,8 +14028,8 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 ## 3. Contrast Media
 
 ### Barium Sulfate (suspension)
-- ✅ Coats mucosa well · stable · doesn't dilute
-- ✅ Cheap · accessible (Vitra Sam, etc., ~chocolate-box packaging)
+- ✅ Coats mucosa well, stable, doesn't dilute
+- ✅ Cheap, accessible (Vitra Sam, etc., ~chocolate-box packaging)
 - ⚠️ **Cannot use if perforation suspected** (causes severe granuloma in peritoneum)
 - ⚠️ Aspiration → severe pneumonitis
 - Mix ratio: **liquid for stomach/intestine** vs **paste for esophagus** (study muscle contraction)
@@ -14067,7 +14067,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 ### A. Esophageal Disease
 
 #### PRAA (Persistent Right Aortic Arch)
-- **Vascular ring anomaly** — most common type · 95%
+- **Vascular ring anomaly** — most common type, 95%
 - Compresses esophagus at **heart base** → megaesophagus
 - Clinical: regurgitation **starting when switching to solid food** (~2-3 mo)
 - X-ray: **dilated esophagus** with cranial bulging
@@ -14093,7 +14093,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
   - **Partition**: rotation creates internal wall
 
 #### Gastric Dilatation (GD only)
-- Stomach enlarged · **position normal** (pylorus still right)
+- Stomach enlarged, **position normal** (pylorus still right)
 - No partition seen
 - Causes: gastric outflow obstruction, paralytic ileus, aerophagia
 
@@ -14106,7 +14106,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 #### Helicobacter
 - Found in dog/cat stomach (controversial pathogen)
 - ⚠️ **Zoonotic** — handle with care
-- Can erode stomach wall → ulcer · perforation possible
+- Can erode stomach wall → ulcer, perforation possible
 
 ### C. Small Intestine
 
@@ -14126,7 +14126,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
   - **No focal severity**
   - **No "intermixed pattern"** seen in mechanical
 
-⚠️ Distinguish: mechanical = focal severe + normal · paralytic = uniform diffuse
+⚠️ Distinguish: mechanical = focal severe + normal, paralytic = uniform diffuse
 
 #### Linear Foreign Body ⭐ (cats!)
 - **Common in cats** (string, thread, ribbon, cloth)
@@ -14138,7 +14138,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 - **Image findings**:
   - **Folded/plicated bowel** with **comma-shaped gas bubbles**
   - On contrast: linear pattern with bowel wrinkled
-- **Risk**: bowel perforation along mesenteric border (linear cuts) → peritonitis · POOR prognosis
+- **Risk**: bowel perforation along mesenteric border (linear cuts) → peritonitis, POOR prognosis
 
 #### Intussusception
 - Bowel telescopes into another segment
@@ -14160,7 +14160,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 #### Anal Atresia (อิสเอ้)
 - Congenital — no anal opening
-- **Female (rectovaginal fistula)**: feces exit through vagina · animal can grow → presents later
+- **Female (rectovaginal fistula)**: feces exit through vagina, animal can grow → presents later
 - **Male**: no escape route → severe early presentation
 - **X-ray technique**: head-down, barium under tail → shows distance from skin to rectal pouch
 - Surgery technique varies based on rectal pouch position
@@ -14178,7 +14178,7 @@ Memory: "**ParaSym = Pee · Sym = Storage**"
 
 | Step | Action | If positive | If negative |
 |---|---|---|---|
-| 1 | **Plain X-ray (2 views)** | Free air? → ⚠️ surgical emergency · no barium | Continue |
+| 1 | **Plain X-ray (2 views)** | Free air? → ⚠️ surgical emergency, no barium | Continue |
 | 2 | Obvious FB / massive dilation? | Surgery / endoscopy | Continue |
 | 3 | **Ultrasound** | Sees lesion → FNA / biopsy → surgery | Continue |
 | 4 | **Contrast study (Ba UGI or BE)** | Motility, stricture, mucosal pattern detected | Continue if complex |
@@ -14229,8 +14229,8 @@ Disease patterns:
 1. **6 Roentgen Signs** — Location, Size, Shape, Contour, Opacity, Motility
 2. **Imaging ladder** — X-ray → US → Contrast → CT
 3. **Barium = NO if perforation** suspect (use iodine instead)
-4. **Gastric emptying** = dog 4 hr · cat 1 hr
-5. **PRAA** = vascular ring · regurgitation when switching to solid food (~2-3 mo)
+4. **Gastric emptying** = dog 4 hr, cat 1 hr
+5. **PRAA** = vascular ring, regurgitation when switching to solid food (~2-3 mo)
 6. **GDV pathognomonic** = Popeye sign + partition wall
 7. **GD vs GDV** = position (pylorus location)
 8. **Pyloric stenosis** = brachycephalic breeds, recurrent vomiting
@@ -14238,13 +14238,13 @@ Disease patterns:
 10. **Paralytic ileus** = uniform diffuse dilation
 11. **Linear FB** in cats = check under tongue, plicated bowel
 12. **Intussusception** = sausage palpation + bullseye US
-13. **Free abdominal air** = perforation = NO barium · surgical emergency
+13. **Free abdominal air** = perforation = NO barium, surgical emergency
 14. **Anal atresia female** = rectovaginal fistula (feces through vagina)
 15. **US can't see through air** — start with plain X-ray
 16. **CT** when you need surgical planning + 3D volume
 17. **Helicobacter** = zoonotic, handle stomach samples carefully
 
-> 📚 อ่านควบ: 4.2 Endoscope + Stomach (0C218gD_tZM) · 5.1 Intestine Sx (lS4wSGDKFrY) · 6 Hepato Pancreas Sx (5rcEK-3IW0M) · 10.1 Imaging Urinary (Q0AGFF70m8M)`,
+> 📚 อ่านควบ: 4.2 Endoscope + Stomach (0C218gD_tZM), 5.1 Intestine Sx (lS4wSGDKFrY), 6 Hepato Pancreas Sx (5rcEK-3IW0M), 10.1 Imaging Urinary (Q0AGFF70m8M)`,
   },
 
   '6mOoAWOWTDw': {
@@ -14257,7 +14257,7 @@ Disease patterns:
     examFormat: 'MCQ — ECG ID + drug class + ATE 5P + HT target organs',
     summary: `# 12.2 Cardiac Arrhythmia + Thromboembolism + Hypertension
 
-> 🎯 ครอบคลุม **3 หัวข้อใหญ่**: ECG arrhythmias (brady + tachy) · Anti-arrhythmic drugs (4 classes) · ATE (Arterial thromboembolism · 5P sign) · Systemic Hypertension. **ECG identification + drug selection** ออกสอบ ⭐
+> 🎯 ครอบคลุม **3 หัวข้อใหญ่**: ECG arrhythmias (brady + tachy), Anti-arrhythmic drugs (4 classes), ATE (Arterial thromboembolism, 5P sign), Systemic Hypertension. **ECG identification + drug selection** ออกสอบ ⭐
 
 ---
 
@@ -14267,11 +14267,11 @@ Disease patterns:
 1. **P upright** (lead II)
 2. Every P followed by **QRS complex**
 3. Every QRS preceded by **P**
-4. **PR interval < 0.12 sec** (dog) · < 0.09 (cat)
+4. **PR interval < 0.12 sec** (dog), < 0.09 (cat)
 5. Regular rhythm + appropriate rate
 
 ### Variations (still normal)
-- **Sinus arrhythmia** — irregular but each P→QRS still preserved · respiratory pattern (faster on inspiration, slower on expiration)
+- **Sinus arrhythmia** — irregular but each P→QRS still preserved, respiratory pattern (faster on inspiration, slower on expiration)
 - **Wandering pacemaker** — P morphology varies (different cells in SA node firing)
 
 ---
@@ -14369,7 +14369,7 @@ Disease patterns:
 
 ### Mechanisms of arrhythmia
 1. **Increased automaticity** — non-pacemaker cells acquire pacemaker properties (injury)
-2. **Re-entry** — circular conduction loop · requires **uni-directional block + slowed conduction**
+2. **Re-entry** — circular conduction loop, requires **uni-directional block + slowed conduction**
 
 ### Distinguishing automaticity vs re-entry
 | Pattern | Likely mechanism |
@@ -14491,12 +14491,12 @@ Disease patterns:
 ### Treatment
 
 **Goals**:
-1. Pain relief (acute) — **Fentanyl** CRI · usually only needed first 48 hr
+1. Pain relief (acute) — **Fentanyl** CRI, usually only needed first 48 hr
 2. **Prevent further clotting** (NOT lyse the existing clot!)
 3. Treat concurrent CHF
 4. Address shock
 
-⚠️ **Don't give thrombolytic (TPA, streptokinase)** — risk of **reperfusion injury** (sudden K+ release → cardiac arrest) · 50% mortality
+⚠️ **Don't give thrombolytic (TPA, streptokinase)** — risk of **reperfusion injury** (sudden K+ release → cardiac arrest), 50% mortality
 
 ⚠️ **Surgery feasible only within 4-6 hr golden period** — usually too late by presentation
 
@@ -14554,7 +14554,7 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 | BP | Action |
 |---|---|
 | < 140 mmHg | Normal |
-| 140-160 | Pre-hypertensive · monitor q3-6 mo |
+| 140-160 | Pre-hypertensive, monitor q3-6 mo |
 | 160-180 with TOD | **Treat now** |
 | 160-180 no TOD | Recheck in 2 mo |
 | > 180 with TOD | **Treat now** |
@@ -14589,11 +14589,11 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 
 ## 🎯 Exam recap (20 ข้อ)
 
-1. **Sinus rhythm** = P upright + every P→QRS + PR < 0.12 (dog) · 0.09 (cat)
-2. **Bradycardia threshold** = 60 (large dog) · 80 (small dog) · 130 (cat)
+1. **Sinus rhythm** = P upright + every P→QRS + PR < 0.12 (dog), 0.09 (cat)
+2. **Bradycardia threshold** = 60 (large dog), 80 (small dog), 130 (cat)
 3. **Atrial standstill = Hyperkalemia** until proven otherwise
 4. **Hyperkalemia order** = Calcium gluconate → Insulin/dextrose → bicarbonate → furosemide
-5. **Sick sinus syndrome** = Sinus pause + Syncope · Schnauzer breed
+5. **Sick sinus syndrome** = Sinus pause + Syncope, Schnauzer breed
 6. **Don't suppress escape beats** in 3rd degree AV block
 7. **Class I = Na blocker** (Lidocaine for VT)
 8. **Class II = Beta blocker** (suppress automaticity)
@@ -14602,15 +14602,15 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 11. **VT first-line** = Lidocaine
 12. **Atrial fibrillation 4 features** = tachycardia + narrow QRS + no P + irregularly irregular RR
 13. **AF treatment** = Rate control (Diltiazem + Digoxin) > Rhythm control
-14. **ATE = HCM cats** mostly · saddle thrombus most common
+14. **ATE = HCM cats** mostly, saddle thrombus most common
 15. **5 P's of ATE** = Pulselessness, Pale, Poikilothermia, Pain, Paralysis
 16. ⛔ **Don't lyse ATE clot** (reperfusion injury, 50% mortality)
 17. **ATE prognosis** = 72 hr no perfusion = amputation
 18. **HT 4 target organs** = Kidney, Eye, Brain, Heart
 19. **Doppler > oscillometric** in cats for BP
-20. **Cat HT first-line** = Amlodipine · **Dog HT first-line** = ACE-I or ARB
+20. **Cat HT first-line** = Amlodipine, **Dog HT first-line** = ACE-I or ARB
 
-> 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY) · 12.1 Acquired Cardiac Disease (SiLZIu-aWlY) · 13.1 Surgical Heart (dn_W-7eWQl0)`,
+> 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY), 12.1 Acquired Cardiac Disease (SiLZIu-aWlY), 13.1 Surgical Heart (dn_W-7eWQl0)`,
   },
 
   'SiLZIu-aWlY': {
@@ -14623,7 +14623,7 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
     examFormat: 'MCQ — disease ID by signalment + auscultation + imaging',
     summary: `# 12.1 Acquired + Congenital Cardiac Disease
 
-> 🎯 ครอบคลุม **3 acquired diseases** (MMVD · DCM · HCM) + **5 congenital defects** (PDA · VSD · SAS · PS · ToF). **Don't mix dog/cat/acquired/congenital** in answer ⚠️ ที่ออกสอบบ่อย: **breed + age + murmur location → disease**
+> 🎯 ครอบคลุม **3 acquired diseases** (MMVD, DCM, HCM) + **5 congenital defects** (PDA, VSD, SAS, PS, ToF). **Don't mix dog/cat/acquired/congenital** in answer ⚠️ ที่ออกสอบบ่อย: **breed + age + murmur location → disease**
 
 ---
 
@@ -14644,7 +14644,7 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 ### Demographics
 - **Most common cardiac disease in dogs** — small/toy breeds
 - **Older dogs** (>6-7 yr) — except **CKCS at 4 yr** (early onset breed)
-- **Males > females** · males have **worse prognosis**
+- **Males > females**, males have **worse prognosis**
 
 ### Pathophysiology
 - **Primary**: leaflet thickening, chordae tendineae elongation/rupture
@@ -14768,7 +14768,7 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 ### Demographics
 - **Cats only** ⭐ — most common cardiac disease in cats
 - Breeds: **Maine Coon** (genetic + early onset), Ragdoll, Sphynx, BSH, ASH, Persian
-- **Males > females** · usually 6-7 yr (Maine Coon as early as 1-2 yr)
+- **Males > females**, usually 6-7 yr (Maine Coon as early as 1-2 yr)
 
 ### Pathophysiology
 - **Primary**: genetic
@@ -14835,10 +14835,10 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 | Disease | Murmur | Breed |
 |---|---|---|
 | **PDA** ⭐ | Continuous, left base | Female small dog (Poodle, CKCS) — recently French Bulldog |
-| **VSD** | Right sternal border | Chihuahua, English Bulldog · also cats! |
+| **VSD** | Right sternal border | Chihuahua, English Bulldog, also cats! |
 | **SAS** | Left base | Large breed (Golden, Boxer, Newfoundland) |
 | **PS** ⭐ | Left base | English/French Bulldog (rising!), terriers |
-| **ToF** | Variable | English Bulldog, Chihuahua · cyanotic disease |
+| **ToF** | Variable | English Bulldog, Chihuahua, cyanotic disease |
 
 ---
 
@@ -14847,7 +14847,7 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 ### Demographics
 - **Most common congenital defect** worldwide
 - **Females > males**
-- Older popularity: Poodle → Pomeranian → CKCS · now French Bulldog rising
+- Older popularity: Poodle → Pomeranian → CKCS, now French Bulldog rising
 
 ### Pathophysiology
 - Ductus arteriosus connects pulmonary artery to descending aorta in fetus
@@ -14948,7 +14948,7 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 ## 7. PS (Pulmonic Stenosis) ⭐ Currently rising in popularity
 
 ### Demographics
-- Was Terriers (Poodle, Chihuahua) · **Now mostly French Bulldog** (90% of cases!)
+- Was Terriers (Poodle, Chihuahua), **Now mostly French Bulldog** (90% of cases!)
 - ⚠️ Often comorbid with VSD, SAS in same dog
 
 ### Pathophysiology
@@ -15018,9 +15018,9 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 
 ## 🎯 Exam recap (20 ข้อ)
 
-1. **MMVD** = small old dog · left apex systolic murmur
-2. **DCM** = large breed · check **diet** (taurine deficiency from BARF/exotic)
-3. **HCM** = cats only · LA enlargement + ATE risk
+1. **MMVD** = small old dog, left apex systolic murmur
+2. **DCM** = large breed, check **diet** (taurine deficiency from BARF/exotic)
+3. **HCM** = cats only, LA enlargement + ATE risk
 4. **HCM Valentine heart** = bilateral LA + RA enlargement on VD
 5. **Cat CHF** can be edema OR pleural effusion (or both)
 6. **MMVD murmur location** = left apex (ICS 4-5)
@@ -15028,18 +15028,18 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 8. **PDA pulse** = hyperkinetic (water hammer)
 9. **SAS pulse** = hypokinetic (weak)
 10. **VSD murmur** = right sternal border
-11. **PS** = English/French Bulldog rising · type A balloon-friendly · type B hard
+11. **PS** = English/French Bulldog rising, type A balloon-friendly, type B hard
 12. **ToF 4 components** = PS + RVH + VSD + overriding aorta
 13. **ToF lab** = polycythemia (Hct >65%) → phlebotomy
 14. **DCM treatment** must include **Pimobendan** (contractility issue)
 15. **MMVD Stage C** = 4-drug combo (Furosemide + Pimobendan + ACE-I + Spironolactone)
-16. **HCM treatment**: Clopidogrel for ATE prevention · Furosemide for CHF
+16. **HCM treatment**: Clopidogrel for ATE prevention, Furosemide for CHF
 17. **PDA prostaglandin inhibitor** doesn't work in dogs/cats (no smooth muscle in ductus)
 18. **Reverse shunt PDA** = differential cyanosis (cranial pink, caudal blue)
 19. **SAM (Systolic Anterior Motion)** in HCM = anterior MV leaflet displaced into LVOT
 20. **PS Type A vs B** distinction = annulus size (B = hypoplastic, poor outcome)
 
-> 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY) · 12.2 Arrhythmia + ATE + HT (6mOoAWOWTDw) · 13.1 Surgical Heart (dn_W-7eWQl0)`,
+> 📚 อ่านควบ: 11 Cardio Eval CHF (H5z8i1YOteY), 12.2 Arrhythmia + ATE + HT (6mOoAWOWTDw), 13.1 Surgical Heart (dn_W-7eWQl0)`,
   },
 
   H5z8i1YOteY: {
@@ -15052,7 +15052,7 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
     examFormat: 'MCQ — clinical eval + workup steps + CHF drug logic',
     summary: `# 11 Cardiac Evaluation + Diagnostic Methods + CHF
 
-> 🎯 Foundation lecture สำหรับ cardiology block — **3 parts**: clinical evaluation · diagnostic methods · congestive heart failure (CHF). 173 min ยาว แต่เนื้อสำคัญสุดคือ **CHF treatment 4 goals** + neurohormonal compensation
+> 🎯 Foundation lecture สำหรับ cardiology block — **3 parts**: clinical evaluation, diagnostic methods, congestive heart failure (CHF). 173 min ยาว แต่เนื้อสำคัญสุดคือ **CHF treatment 4 goals** + neurohormonal compensation
 
 ---
 
@@ -15196,7 +15196,7 @@ Other (any species): hyperaldosteronism, drugs (steroids, EPO, NSAIDs), hypothyr
 ## PART 3 — Diagnostic Methods
 
 ### Imaging
-- **Thoracic radiograph** ⭐ — first line · cardiac silhouette + pulmonary fields
+- **Thoracic radiograph** ⭐ — first line, cardiac silhouette + pulmonary fields
 - **Echocardiography (Echo)** — gold standard for cardiac structure
   - **B-mode (2D)**: structure
   - **M-mode**: chamber dimensions over time
@@ -15303,28 +15303,28 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 #### Loop Diuretics
 | Drug | Notes |
 |---|---|
-| **Furosemide (Lasix)** ⭐ | First-line · rapid onset · 1-2 mg/kg IV/PO |
-| **Torsemide** | Newer · 10-20× more potent · once daily · use when furosemide resistance |
+| **Furosemide (Lasix)** ⭐ | First-line, rapid onset, 1-2 mg/kg IV/PO |
+| **Torsemide** | Newer, 10-20× more potent, once daily, use when furosemide resistance |
 
 ⚠️ Furosemide loses **ALL electrolytes** → monitor K+, Na+, Cl-, Ca2+, Mg2+
 
 #### Thiazides
-- **Hydrochlorothiazide** — distal tubule · moderate potency
+- **Hydrochlorothiazide** — distal tubule, moderate potency
 - Often combined with amiloride (commercial: **Moducin**)
 
 #### Potassium-sparing
-- **Spironolactone** ⭐ — aldosterone antagonist · also has neurohormonal modulation effect
-- **Amiloride** — Na channel blocker · NOT neurohormonal modulator
+- **Spironolactone** ⭐ — aldosterone antagonist, also has neurohormonal modulation effect
+- **Amiloride** — Na channel blocker, NOT neurohormonal modulator
 
 ### Vasodilators
 
 #### Venodilators (preload reduction)
-- **Nitroglycerin patch** — applied to chest wall · 12-hr cycle on/off
+- **Nitroglycerin patch** — applied to chest wall, 12-hr cycle on/off
 - ⚠️ Less commonly used now (no strong studies)
 
 #### Mixed (preload + afterload)
-- **Sodium nitroprusside** — IV CRI · short acting
-- **Hydralazine** — arterial dilator · oral
+- **Sodium nitroprusside** — IV CRI, short acting
+- **Hydralazine** — arterial dilator, oral
 
 ### Diuretic monitoring
 1. **Body weight** (volume status)
@@ -15340,7 +15340,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
   - First-line for **DCM, MMVD Stage B2+**
   - Increases contractility WITHOUT increasing O₂ demand
   - 0.25 mg/kg PO BID
-- **Dobutamine** — IV CRI · acute decompensation only
+- **Dobutamine** — IV CRI, acute decompensation only
 
 ⚠️ Avoid in HCM (wrong physiology — diastolic problem, not contractility)
 
@@ -15413,7 +15413,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 
 1. **5 cardiovascular exam steps**: MM/CRT, jugular, pulse, abdomen, thoracic auscultation
 2. **Differential cyanosis** = reversed PDA shunt (cranial pink, caudal blue)
-3. **Hyperkinetic pulse** = PDA, anemia · **Hypokinetic** = SAS, low CO
+3. **Hyperkinetic pulse** = PDA, anemia, **Hypokinetic** = SAS, low CO
 4. **Pulse deficit** = arrhythmia (more heart sounds than pulses)
 5. **Murmur grade 5+** = palpable thrill
 6. **NT-proBNP** = differentiates cardiac vs respiratory dyspnea
@@ -15424,10 +15424,10 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 11. **Furosemide = first-line diuretic** for acute CHF
 12. **Pimobendan** = first inotrope for MMVD/DCM
 13. **MMVD Stage C 4-drug combo** = Furosemide + Pimobendan + ACE-I + Spironolactone
-14. **Cat HCM** = Furosemide is ONLY proven drug · Clopidogrel for ATE prevention
+14. **Cat HCM** = Furosemide is ONLY proven drug, Clopidogrel for ATE prevention
 15. **Owner home monitoring** = resting respiratory rate (cat <30, dog <25)
 
-> 📚 อ่านควบ: 12.1 Acquired + Congenital Cardiac (SiLZIu-aWlY) · 12.2 Arrhythmia (6mOoAWOWTDw) · 13.1 Surgical Heart (dn_W-7eWQl0)`,
+> 📚 อ่านควบ: 12.1 Acquired + Congenital Cardiac (SiLZIu-aWlY), 12.2 Arrhythmia (6mOoAWOWTDw), 13.1 Surgical Heart (dn_W-7eWQl0)`,
   },
 
   WtvWyniLMVE: {
@@ -15455,9 +15455,9 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 - **Urethra**
 
 ### Male vs Female differences
-**Male dog**: long urethra (prostatic + membranous + penile parts) · prostate adjacent
-**Male cat**: urethra exits straight + dorsally · much **smaller diameter** ⚠️
-**Female (both species)**: shorter, wider urethra · ⚠️ urinary tract close to **reproductive tract** (uterus, ovaries, vagina)
+**Male dog**: long urethra (prostatic + membranous + penile parts), prostate adjacent
+**Male cat**: urethra exits straight + dorsally, much **smaller diameter** ⚠️
+**Female (both species)**: shorter, wider urethra, ⚠️ urinary tract close to **reproductive tract** (uterus, ovaries, vagina)
 
 ⚠️ During spay/neuter, urinary tract injury risk!
 
@@ -15506,8 +15506,8 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 
 ### Bladder healing rate
 - **50% strength regained in 7-14 days** ⭐
-- Use **mid-term** for best balance · Short-term OK if tissue healthy
-- Long-term only if abnormal healing expected · ⚠️ avoid getting suture into lumen
+- Use **mid-term** for best balance, Short-term OK if tissue healthy
+- Long-term only if abnormal healing expected, ⚠️ avoid getting suture into lumen
 
 ---
 
@@ -15573,7 +15573,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 3. **Empty bladder** with cystocentesis or syringe before incising
 4. **Stay sutures** at apex
 5. Incision at **ventral surface** (avoid dorsal — ureteral entries) on **avascular line**
-6. Remove stones with spoon · check both sides + urethral entry
+6. Remove stones with spoon, check both sides + urethral entry
 7. **Pass urethral catheter** retrograde to confirm urethra patent (rule out urolith stuck in urethra!)
 8. Lavage UB lumen
 9. **Close in 2 layers**:
@@ -15621,8 +15621,8 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 - Cause: trauma, iatrogenic (catheter)
 - **Diagnosis**: positive contrast urethrography
 - **Management**:
-  - **Conservative** — indwelling catheter 7-10 days · small tears
-  - **Surgical** — primary anastomosis · large tears
+  - **Conservative** — indwelling catheter 7-10 days, small tears
+  - **Surgical** — primary anastomosis, large tears
 
 ---
 
@@ -15674,7 +15674,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 - **Urination** — must pee post-op (catheter if needed)
 - **Hydration** — IV fluids 24-48 hr
 - **Pain control** — opioid + NSAID (after renal function check)
-- **Antibiotics** — based on culture · 7-14 days
+- **Antibiotics** — based on culture, 7-14 days
 - **Activity restriction** — 7-14 days
 
 ### Indwelling Catheter (if used)
@@ -15695,7 +15695,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 
 ## 🎯 Exam recap (15 ข้อ)
 
-1. **Suture choice**: synthetic absorbable monofilament ⭐ · NEVER multifilament/braided/silk
+1. **Suture choice**: synthetic absorbable monofilament ⭐, NEVER multifilament/braided/silk
 2. **Bladder healing 50% in 7-14 days** → mid-term absorbable ideal
 3. **3 kidney procedures**: nephrotomy / pyelotomy / nephrectomy
 4. **Pyelotomy preferred when possible** (less parenchymal damage)
@@ -15706,12 +15706,12 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 9. **Pass urethral catheter** during cystotomy to rule out urethral stones
 10. **Submit ALL removed stones** for analysis
 11. **Cystocentesis sample only** for urine culture (sterile)
-12. **PU (Perineal Urethrostomy)** in cat — increased UTI risk · need e-collar 7-14 days
+12. **PU (Perineal Urethrostomy)** in cat — increased UTI risk, need e-collar 7-14 days
 13. **Scrotal urethrostomy** for recurrent dog urethral stones
 14. **Ureter close to broad ligament** — at risk during spay
 15. **Don't remove a kidney** without confirming contralateral function!
 
-> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA) · 8.2 LUT 1 (z0Id0mmM4Fk) · 8.3 LUT 2 Stones (vLjnPuFgvj4) · 10.1 Imaging Urinary (Q0AGFF70m8M) · 10.3 LUT 3 (eBY8GTlcjiw)`,
+> 📚 อ่านควบ: 8.1 Upper Urinary (a9cdFzIKIGA), 8.2 LUT 1 (z0Id0mmM4Fk), 8.3 LUT 2 Stones (vLjnPuFgvj4), 10.1 Imaging Urinary (Q0AGFF70m8M), 10.3 LUT 3 (eBY8GTlcjiw)`,
   },
 
   '_azRwNxOJas': {
@@ -15911,12 +15911,12 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 ### B. Hypotension
 - Causes: blood loss, pre-existing volume deficit, anesthetic-induced
 - Goal: maintain MAP > 60 mmHg
-- IV fluids + colloids · vasopressors if needed
+- IV fluids + colloids, vasopressors if needed
 - ⚠️ Hypotension during surgery = poor wound healing + organ injury
 
 ### C. Hypoxia
 **Multiple contributors**:
-1. **Hemoglobin** — pre-op anemia worsens · target Hct > 30%
+1. **Hemoglobin** — pre-op anemia worsens, target Hct > 30%
 2. **Body temperature** — hypothermia → Hb-O₂ curve **shift left** → O₂ stuck on Hb (won't release to tissues)
 3. **Acid-base** — acidosis → curve shifts right (releases O₂ in tissues)
 4. **Hypoventilation** (next)
@@ -15932,7 +15932,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
   1. **Opioid (Fentanyl CRI)** ⭐ first-line
   2. **Intercostal nerve block** (still effective post-op)
   3. **Intrapleural lidocaine** through chest tube
-     - ⚠️ Cardiotoxic in cattle/horses · safe in dogs/cats
+     - ⚠️ Cardiotoxic in cattle/horses, safe in dogs/cats
      - Bathes pleural surface — direct local anesthesia
 
 ---
@@ -16002,7 +16002,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 4. **Lift pleura before incising** (don't cut lung)
 5. **Always use IPPV ventilator** during open chest surgery
 6. **Pre-oxygenate** before induction
-7. **Median sternotomy** = bilateral access · dorsal recumbency
+7. **Median sternotomy** = bilateral access, dorsal recumbency
 8. **Leave 1 sternebra intact** for stability
 9. **Cut MIDLINE on sternum** (avoid internal thoracic arteries)
 10. **Wire closure figure-of-8** alternating directions
@@ -16011,9 +16011,9 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 13. **4 hypos post-op** = hypothermia + hypotension + hypoxia + hypoventilation
 14. **Hb-O₂ curve shift LEFT** = cold, alkalotic, low CO₂ → tissue hypoxia
 15. **Pain management** prevents hypoventilation
-16. **Tube removal criteria** = drainage <2-5 mL/kg/day · no air leak
+16. **Tube removal criteria** = drainage <2-5 mL/kg/day, no air leak
 
-> 📚 อ่านควบ: 13.1 Surgical Heart (dn_W-7eWQl0) · 14.1 Common Resp II (FlutqheRR6I) · 14.2 Surgical Resp (nzpDNtceKKk) · Anatomy of thoracic wall`,
+> 📚 อ่านควบ: 13.1 Surgical Heart (dn_W-7eWQl0), 14.1 Common Resp II (FlutqheRR6I), 14.2 Surgical Resp (nzpDNtceKKk), Anatomy of thoracic wall`,
   },
 
   '0C218gD_tZM': {
@@ -16026,7 +16026,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
     examFormat: 'MCQ — endoscope use + esophageal/gastric surgery',
     summary: `# 4.2 Endoscope + Stomach + Esophagus Surgery
 
-> 🎯 ครอบคลุม **Endoscopy** (flexible vs rigid · scope use cases) + **Esophageal disease + surgery** + **Gastric disease + surgery**. Big procedures: **GDV repair**, **Y-U pyloroplasty**, **gastrotomy**
+> 🎯 ครอบคลุม **Endoscopy** (flexible vs rigid, scope use cases) + **Esophageal disease + surgery** + **Gastric disease + surgery**. Big procedures: **GDV repair**, **Y-U pyloroplasty**, **gastrotomy**
 
 ---
 
@@ -16128,7 +16128,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 
 - ⚠️ Surgical emergency
 - Sources: bone perforation, iatrogenic, trauma
-- Treatment: NPO + nasogastric tube + IV fluids · or open surgery + repair if leak
+- Treatment: NPO + nasogastric tube + IV fluids, or open surgery + repair if leak
 - Antibiotic essential (mediastinitis risk!)
 
 ### D. Esophageal Diverticulum
@@ -16137,7 +16137,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 - **Traction diverticulum** — chronic inflammation pulls esophagus toward fixed structure (lung, etc.)
 - **Pulsion diverticulum** (true) — pressure inside bulges full thickness wall
 - **Diagnosis**: barium swallow + endoscopy
-- **Treatment**: small → conservative (G-tube feeding) · large → surgical excision + closure
+- **Treatment**: small → conservative (G-tube feeding), large → surgical excision + closure
 
 ### E. Esophago-tracheal Fistula
 
@@ -16317,7 +16317,7 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 
 ### E. Gastropexy (GDV prevention)
 
-**Indication**: After GDV repair · prophylactic in at-risk breed
+**Indication**: After GDV repair, prophylactic in at-risk breed
 
 **Technique** (most common = **incisional gastropexy**):
 1. Make 4-6 cm seromuscular incision on **right body wall** at level of pyloric antrum
@@ -16366,23 +16366,23 @@ Heart can't pump enough blood to meet tissue metabolic demand.
 
 ## 🎯 Exam recap (15 ข้อ)
 
-1. **Flexible scope** for curved tracts · **rigid scope** for straight/cavity
+1. **Flexible scope** for curved tracts, **rigid scope** for straight/cavity
 2. **Foreign body retrieval** = orient long-axis, careful with sharp objects
 3. **Push esophageal FB to stomach** (don't pull through esophagus)
 4. **Esophageal stricture cause** = ET cuff over-inflation (iatrogenic!)
-5. **Esophagus 4 layers** (no serosa) · **submucosa = strongest**
+5. **Esophagus 4 layers** (no serosa), **submucosa = strongest**
 6. **Don't lift stomach out of abdomen** — anchored by ligaments
 7. **GDV pathognomonic** = Popeye sign + partition on X-ray
 8. **GDV breeds** = large + deep-chested dogs
 9. **GDV surgery** = derotation + **gastropexy** ⭐ + splenectomy/gastrectomy if needed
 10. **Pyloroplasty Y-U** = Y incision, U suture, for pyloric stenosis
-11. **CHPG** = small breed older dog · vomiting 15-30 min post-meal
+11. **CHPG** = small breed older dog, vomiting 15-30 min post-meal
 12. **Gastrotomy incision midway** between greater/lesser curvature
 13. **Cut along muscle fibers** (cardia longitudinal, body transverse)
 14. **Suture in 2 layers** + must include submucosa
 15. **Helicobacter zoonotic** — wear gloves with samples
 
-> 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU) · 5.1 Intestine Sx (lS4wSGDKFrY) · 6 Hepato/pancreas Sx (5rcEK-3IW0M) · 3 Hepatobiliary (keqE30HxM7Y)`,
+> 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU), 5.1 Intestine Sx (lS4wSGDKFrY), 6 Hepato/pancreas Sx (5rcEK-3IW0M), 3 Hepatobiliary (keqE30HxM7Y)`,
   },
 
   lS4wSGDKFrY: {
@@ -16720,19 +16720,19 @@ When anastomosing **smaller bowel to larger bowel** (e.g., ileum to colon):
 2. **Jejunum = best target** for surgery (movable)
 3. **Ileum unique vessel** on anti-mesenteric side
 4. **Duodenum has 2 blood supplies** (preserve both)
-5. **Prophylactic antibiotics** = 30-60 min before incision · cephalosporin
+5. **Prophylactic antibiotics** = 30-60 min before incision, cephalosporin
 6. **Repeat antibiotics every 90 min** during long surgery
 7. **Intestinal forceps** — only first ratchet click, atraumatic
-8. **Synthetic absorbable monofilament** + mid-to-long term · NEVER multifilament
-9. **Simple continuous** = most common pattern · **Modified Gambee** = best apposition
+8. **Synthetic absorbable monofilament** + mid-to-long term, NEVER multifilament
+9. **Simple continuous** = most common pattern, **Modified Gambee** = best apposition
 10. **One layer only** for small intestine
 11. **Trim everted mucosa** before suturing
 12. **Cut at angle** for diameter mismatch (small to large bowel)
-13. **Omental patch** = healing acceleration · **Serosal patch** = true strength
+13. **Omental patch** = healing acceleration, **Serosal patch** = true strength
 14. **Bowel pack** = 4-6 layers around mesentery base
 15. **Linear FB in cats** = multiple enterotomies, never pull string!
 
-> 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU) · 4.2 Endoscope (0C218gD_tZM) · 6 Hepato Pancreas Sx (5rcEK-3IW0M) · 3 Hepatobiliary (keqE30HxM7Y)`,
+> 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU), 4.2 Endoscope (0C218gD_tZM), 6 Hepato Pancreas Sx (5rcEK-3IW0M), 3 Hepatobiliary (keqE30HxM7Y)`,
   },
 
   FCRDICfyMlM: {
@@ -16895,9 +16895,9 @@ When anastomosing **smaller bowel to larger bowel** (e.g., ileum to colon):
 ## Other Anemias (Brief)
 
 ### Babesiosis
-- Tick-borne · in Thailand: **B. canis vogeli, B. gibsoni**
+- Tick-borne, in Thailand: **B. canis vogeli, B. gibsoni**
 - Causes intra/extracellular RBC parasitism
-- Treatment: **Imidocarb diproprionate** (B. canis) · **Atovaquone + Azithromycin** (B. gibsoni)
+- Treatment: **Imidocarb diproprionate** (B. canis), **Atovaquone + Azithromycin** (B. gibsoni)
 
 ### Mycoplasma haemofelis (cat)
 - Causes feline infectious anemia
@@ -17037,7 +17037,7 @@ When anastomosing **smaller bowel to larger bowel** (e.g., ileum to colon):
 |---|---|
 | **FNA** ⭐ | First-line; cell type identification |
 | **Tru-Cut biopsy** | Architecture preservation |
-| **Excisional biopsy** | Definitive diagnosis · surgical removal |
+| **Excisional biopsy** | Definitive diagnosis, surgical removal |
 
 ### Excisional biopsy technique
 1. Aseptic prep
@@ -17099,7 +17099,7 @@ When anastomosing **smaller bowel to larger bowel** (e.g., ileum to colon):
 14. **Short gastric vessels** ⚠️ don't ligate stomach-side in partial spleen
 15. **5 palpable LN** for biopsy: submandibular, pre-scapular, axillary, inguinal, popliteal
 
-> 📚 อ่านควบ: 7.2 Fluid analysis (9Fvz4J6dMCo) · 4.2 Endoscope GI (0C218gD_tZM) · 6 Hepato/pancreas Sx (5rcEK-3IW0M) · IMHA disease summaries`,
+> 📚 อ่านควบ: 7.2 Fluid analysis (9Fvz4J6dMCo), 4.2 Endoscope GI (0C218gD_tZM), 6 Hepato/pancreas Sx (5rcEK-3IW0M), IMHA disease summaries`,
   },
 
   '5rcEK-3IW0M': {
@@ -17178,7 +17178,7 @@ Between quadrate + right medial = **Gallbladder**
 
 ## 3. Liver Imaging
 
-- **X-ray** = first line · liver size on lateral view (>13 ribs = enlarged)
+- **X-ray** = first line, liver size on lateral view (>13 ribs = enlarged)
 - Ultrasound = best for parenchyma + masses
 - **CT** for surgical planning
 
@@ -17399,7 +17399,7 @@ Between quadrate + right medial = **Gallbladder**
 
 ### A. Umbilical Hernia ⭐
 
-**Demographics**: puppies/kittens · congenital
+**Demographics**: puppies/kittens, congenital
 
 **Cause**: incomplete umbilical ring closure at birth
 
@@ -17413,7 +17413,7 @@ Between quadrate + right medial = **Gallbladder**
 - **Male puppies** + **Female adults** (especially intact post-pregnancy)
 - Some breed predisposition
 
-**Cause**: defect at inguinal canal · bowel/uterus protrudes
+**Cause**: defect at inguinal canal, bowel/uterus protrudes
 
 **Severity**: incarcerated (trapped) → strangulated (vascular compromise) = emergency!
 
@@ -17425,7 +17425,7 @@ Between quadrate + right medial = **Gallbladder**
 
 ### C. Diaphragmatic Hernia ⭐
 
-**Cause**: trauma (HBC) most common · congenital rare
+**Cause**: trauma (HBC) most common, congenital rare
 
 **Clinical**:
 - Dyspnea
@@ -17459,7 +17459,7 @@ Between quadrate + right medial = **Gallbladder**
 
 **Demographics**: **older intact male dogs** (Boston Terrier, Boxer, etc.)
 
-**Cause**: pelvic diaphragm muscle weakness · testosterone influence
+**Cause**: pelvic diaphragm muscle weakness, testosterone influence
 
 **Clinical**:
 - Tenesmus (straining to defecate)
@@ -17514,7 +17514,7 @@ Between quadrate + right medial = **Gallbladder**
 ### Hepatic disease
 - Reduce anesthetic doses by **50%**
 - Avoid drugs metabolized by liver (or extend recovery)
-- Ketamine OK · NSAIDs avoid
+- Ketamine OK, NSAIDs avoid
 
 ### Diaphragmatic hernia
 - **Pre-oxygenate**
@@ -17534,19 +17534,19 @@ Between quadrate + right medial = **Gallbladder**
 2. **Liver biopsy** = US-guided Tru-Cut OR surgical
 3. **Liver lobectomy** = triple ligation + cut between 2nd and 3rd
 4. **HCC** = most common primary liver tumor
-5. **Cholecystectomy** = gallbladder removal · indications: mucocele, stones, severe disease
+5. **Cholecystectomy** = gallbladder removal, indications: mucocele, stones, severe disease
 6. **Bile peritonitis** = abdominal fluid bilirubin >2× serum
 7. **Insulinoma** = functional pancreatic tumor → hypoglycemia
-8. **Pancreatitis surgery** = rare · only for abscess, necrosis with sepsis, duct obstruction
-9. **Diaphragmatic hernia** = trauma cause · stabilize first 24-48hr · then surgery
-10. **Diaphragmatic surgery** = cranial midline + paracostal · chest tube essential
-11. **Perineal hernia** = older intact male · castrate first
-12. **Umbilical hernia** = puppies/kittens · combine with spay/neuter
+8. **Pancreatitis surgery** = rare, only for abscess, necrosis with sepsis, duct obstruction
+9. **Diaphragmatic hernia** = trauma cause, stabilize first 24-48hr, then surgery
+10. **Diaphragmatic surgery** = cranial midline + paracostal, chest tube essential
+11. **Perineal hernia** = older intact male, castrate first
+12. **Umbilical hernia** = puppies/kittens, combine with spay/neuter
 13. **Inguinal hernia** = male puppies + female post-pregnancy
 14. **Hernia repair** = non-absorbable monofilament for ring
 15. **Pre-op liver disease** = check coagulation, reduce protein, lactulose
 
-> 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU) · 4.2 Endoscope (0C218gD_tZM) · 5.1 Intestine Sx (lS4wSGDKFrY) · 3 Hepatobiliary (keqE30HxM7Y)`,
+> 📚 อ่านควบ: 4.1 GI Diag (2SJ4M6IiJeU), 4.2 Endoscope (0C218gD_tZM), 5.1 Intestine Sx (lS4wSGDKFrY), 3 Hepatobiliary (keqE30HxM7Y)`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -17559,11 +17559,11 @@ Between quadrate + right medial = **Gallbladder**
     date: '19 Aug 67',
     durationMin: 227,
     instructor: 'อ. (Med II)',
-    examFormat: 'Case-based MCQ — bile acids · ALP/GGT · acetaminophen toxicity · PSS · TLI/PLI cut-offs · diet selection ออกบ่อย',
+    examFormat: 'Case-based MCQ — bile acids, ALP/GGT, acetaminophen toxicity, PSS, TLI/PLI cut-offs, diet selection ออกบ่อย',
     summary: `# Hepatobiliary System + Diet Management
 
-> 🎯 คลิป 3 ชม.ครึ่ง · ยาวสุดของ COM I · 2 ส่วน:
-> Part 1 = ตับ + ตับอ่อน (~2 ชม.) · Part 2 = Diet Management ของ GIS (~1 ชม.)
+> 🎯 คลิป 3 ชม.ครึ่ง, ยาวสุดของ COM I, 2 ส่วน:
+> Part 1 = ตับ + ตับอ่อน (~2 ชม.), Part 2 = Diet Management ของ GIS (~1 ชม.)
 > อ.บอกตอนเปิดคลิป: ถ้า completion rate ต่ำ (<30% ดูจบ) → ข้อสอบจะออกเอื้อคนดูคลิป
 
 ---
@@ -17579,10 +17579,10 @@ Between quadrate + right medial = **Gallbladder**
 **6 Functions ของตับ**
 | Function | รายละเอียด |
 |---|---|
-| **Metabolism** | CHO · Protein · Lipid · Nucleic acid · Heavy metal |
-| **Bile secretion** | Bile acid · Bile component (bilirubin) |
-| **Detoxification** | Xenobiotics · ammonia · endogenous hormones |
-| **Hemostasis** | Clotting factors · anticoagulants · fibrinolytic proteins |
+| **Metabolism** | CHO, Protein, Lipid, Nucleic acid, Heavy metal |
+| **Bile secretion** | Bile acid, Bile component (bilirubin) |
+| **Detoxification** | Xenobiotics, ammonia, endogenous hormones |
+| **Hemostasis** | Clotting factors, anticoagulants, fibrinolytic proteins |
 | **Immunosurveillance** | ผ่าน Kupffer cells (เม็ดเลือดขาวในตับ) |
 | **Regeneration** | ตับสามารถ regenerate ตัวเองได้ ถ้าเสียหายเล็กน้อย |
 
@@ -17593,19 +17593,19 @@ Between quadrate + right medial = **Gallbladder**
 | Sign | กลไก |
 |---|---|
 | **Jaundice (icterus)** | Pre-/Hepatic/Post-hepatic — แยกด้วย CBC + imaging |
-| **Abdominal distension** | "**7 F's**" → Fluid · Fat · Flatus · Feces · Fetus · Flabby · Foreign mass + Organomegaly |
-| **Hepatic encephalopathy (HE)** | NH3 ขึ้น → BBB → behavior change · head pressing · wandering · seizure · hypersalivation |
-| **Coagulopathy** | Petechia · ecchymosis · hemoabdomen · hematuria |
+| **Abdominal distension** | "**7 F's**" → Fluid, Fat, Flatus, Feces, Fetus, Flabby, Foreign mass + Organomegaly |
+| **Hepatic encephalopathy (HE)** | NH3 ขึ้น → BBB → behavior change, head pressing, wandering, seizure, hypersalivation |
+| **Coagulopathy** | Petechia, ecchymosis, hemoabdomen, hematuria |
 | **Acholic feces** | สีขาวเทา (no stercobilin) → bile duct obstruction |
-| **Steatorrhea** | สีเหลืองมัน → cholestasis · ต้องแยกกับ EPI |
+| **Steatorrhea** | สีเหลืองมัน → cholestasis, ต้องแยกกับ EPI |
 | **PUPD** | PSS, hepatic dysfunction (urea ↓ → osmotic gradient เสีย) |
 | **Small bowel diarrhea** | secondary GI involvement |
 
 **7F detail (Abdominal distension)**:
-- **F**luid (effusion) → albumin ↓ (oncotic ↓) · portal hypertension (hydrostatic ↑) · vascular permeability (FIP)
+- **F**luid (effusion) → albumin ↓ (oncotic ↓), portal hypertension (hydrostatic ↑), vascular permeability (FIP)
 - **F**at, **F**lapping (Cushing's, hormone), **F**lapin abdomen
 - **F**eces (constipation), **F**etus, **F**lapinant tumor (HCC, cholangiocarcinoma, lymphoma, hemangiosarcoma)
-- **O**rganomegaly: hepatomegaly · splenomegaly (portal hypertension)
+- **O**rganomegaly: hepatomegaly, splenomegaly (portal hypertension)
 
 ---
 
@@ -17614,7 +17614,7 @@ Between quadrate + right medial = **Gallbladder**
 ### Hepatocellular Injury Markers
 | Enzyme | Source | ขึ้นเมื่อ |
 |---|---|---|
-| **ALT** | Hepatocyte (mitochondria + cytosol) | Specific ตับ · ขึ้นเมื่อ cell injury |
+| **ALT** | Hepatocyte (mitochondria + cytosol) | Specific ตับ, ขึ้นเมื่อ cell injury |
 | **AST** | Hepatocyte + muscle | ถ้า AST >> ALT → muscle origin |
 
 ⚠️ **End-stage cirrhosis** → ALT/AST อาจ Normal เพราะไม่เหลือเซลล์ให้ leak
@@ -17622,13 +17622,13 @@ Between quadrate + right medial = **Gallbladder**
 ### Cholestasis Markers
 | Enzyme | Specifics |
 |---|---|
-| **ALP** | Bone form (ลูกสัตว์ขึ้นได้) · Cortico-induced form (สุนัขเท่านั้น · แมวไม่มี) · Liver form |
-| **GGT** | parallels ALP · ใน cat hepatic lipidosis: **ALP ↑↑ มาก แต่ GGT normal/mild** ⭐ |
+| **ALP** | Bone form (ลูกสัตว์ขึ้นได้), Cortico-induced form (สุนัขเท่านั้น, แมวไม่มี), Liver form |
+| **GGT** | parallels ALP, ใน cat hepatic lipidosis: **ALP ↑↑ มาก แต่ GGT normal/mild** ⭐ |
 
 ### Liver Function Tests
 | ลด ↓ (Decrease concentration) | เพิ่ม ↑ (Increase concentration) |
 |---|---|
-| Albumin · Glucose · Cholesterol · BUN | Bilirubin · Bile acids · Ammonia · Coagulation time |
+| Albumin, Glucose, Cholesterol, BUN | Bilirubin, Bile acids, Ammonia, Coagulation time |
 
 ⚠️ Markers ไม่ sensitive: ตับต้องเสีย **>70-80%** ก่อน function test จะผิดปกติ
 
@@ -17636,7 +17636,7 @@ Between quadrate + right medial = **Gallbladder**
 
 ## 4. Bile Acid Test
 
-ทำเฉพาะกรณี: ALP/ALT ขึ้น แต่ไม่มีตัวเหลืองชัด · สงสัย PSS หรือ hepatic disease · เก็บ pre-prandial + post-prandial (2 ชม.)
+ทำเฉพาะกรณี: ALP/ALT ขึ้น แต่ไม่มีตัวเหลืองชัด, สงสัย PSS หรือ hepatic disease, เก็บ pre-prandial + post-prandial (2 ชม.)
 
 | Bile acid | แปลผล |
 |---|---|
@@ -17646,27 +17646,27 @@ Between quadrate + right medial = **Gallbladder**
 
 ⚠️ Cholestasis (extra-hepatic) อาจ bile acid > 100 ได้เหมือน PSS — ไม่ specific 100%
 
-**Ammonia limitation**: ไม่คงตัว · เก็บในหลอดเฉพาะ · ตรวจภายใน 30 นาที · sample ต้องแช่เย็น
+**Ammonia limitation**: ไม่คงตัว, เก็บในหลอดเฉพาะ, ตรวจภายใน 30 นาที, sample ต้องแช่เย็น
 
 ---
 
 ## 5. Urinalysis ที่บ่งบอกโรคตับ
 
 - **USG ต่ำมาก** → urea ต่ำ → osmotic gradient เสีย (PSS, hepatic insufficiency)
-- **Bilirubinuria** — สุนัข 1+ ยังรับได้ · แมว 1+ = abnormal เลย (renal threshold cat สูงกว่าหมา)
-- **Ammonium biurate crystal** ⭐ — รูป "apple-puff" หรือ sarcoptic mite-like → สงสัย PSS / hyperammonemia · เคยพบในพันธุ์ Dalmatian
+- **Bilirubinuria** — สุนัข 1+ ยังรับได้, แมว 1+ = abnormal เลย (renal threshold cat สูงกว่าหมา)
+- **Ammonium biurate crystal** ⭐ — รูป "apple-puff" หรือ sarcoptic mite-like → สงสัย PSS / hyperammonemia, เคยพบในพันธุ์ Dalmatian
 
 ---
 
 ## 6. โรคที่เจอบ่อย (Top 8)
 
 ### 6.1 Acute Hepatitis
-**สาเหตุ**: toxin (aflatoxin · mushroom · xylitol · acetaminophen · carprofen · sulfonamide) · infection (ICH adenovirus · Leptospira) · ischemic disorder (lobe torsion)
+**สาเหตุ**: toxin (aflatoxin, mushroom, xylitol, acetaminophen, carprofen, sulfonamide), infection (ICH adenovirus, Leptospira), ischemic disorder (lobe torsion)
 
-**Lab**: ALT ↑↑↑ · ALP ↑ · GGT ↑ · บางทีเจอ hyperbilirubinemia + hyperammonemia + coagulopathy
+**Lab**: ALT ↑↑↑, ALP ↑, GGT ↑, บางทีเจอ hyperbilirubinemia + hyperammonemia + coagulopathy
 
 **Treatment**: หยุด exposure + supportive (fluid + electrolyte + liver supplement + nutrition)
-- Specific antidotes: Lepto → Penicillin G IV/Doxycycline · Acetaminophen → **N-acetylcysteine (NAC)**
+- Specific antidotes: Lepto → Penicillin G IV/Doxycycline, Acetaminophen → **N-acetylcysteine (NAC)**
 
 ⚠️ ต้อง follow-up เพราะอาจ progress สู่ chronic hepatitis ภายใน 4-6 wks
 
@@ -17674,18 +17674,18 @@ Between quadrate + right medial = **Gallbladder**
 
 ### 6.2 Acetaminophen Toxicity ⭐ (จำให้แม่น)
 
-**Mechanism**: 3 metabolic pathways = Glucuronidation (หลัก-ปลอดภัย) · Sulfation · Cytochrome P450
+**Mechanism**: 3 metabolic pathways = Glucuronidation (หลัก-ปลอดภัย), Sulfation, Cytochrome P450
 - แมวมี glucuronidation/sulfation จำกัด → วิ่งไป CYP450 → ได้ **NAPQI** (toxic metabolite)
 - NAPQI ทำลาย hepatocyte + RBC (methemoglobin formation)
 - Glutathione (GSH) จับ NAPQI ไปทิ้งในปัสสาวะ — แต่ stock จำกัด
 
 **Clinical signs**:
-- Depression · cyanosis · **brown/blueish mucous membrane** (methemoglobinemia)
-- Hypersalivation · vomiting · panting (hypoxia)
+- Depression, cyanosis, **brown/blueish mucous membrane** (methemoglobinemia)
+- Hypersalivation, vomiting, panting (hypoxia)
 - ⭐ **Facial edema, paw edema, leg edema** (เห็นแล้วต้องนึกถึง acetaminophen!)
 - Brown urine (hemoglobinuria)
 
-**Lab**: ALT/AST/ALP ↑ · hyperbilirubinemia · anemia · **Heinz bodies** บน blood smear
+**Lab**: ALT/AST/ALP ↑, hyperbilirubinemia, anemia, **Heinz bodies** บน blood smear
 
 **Treatment**:
 | Drug | Dose | Note |
@@ -17701,13 +17701,13 @@ Between quadrate + right medial = **Gallbladder**
 ---
 
 ### 6.3 Chronic Hepatitis
-**Causes**: Acute → chronic · long-term chemical (heavy metal — copper) · long-term drug (phenobarbital, glucocorticoid) · idiopathic
+**Causes**: Acute → chronic, long-term chemical (heavy metal — copper), long-term drug (phenobarbital, glucocorticoid), idiopathic
 
-**Lab**: ALT/AST ขึ้น · hypoalbuminemia · low cholesterol · hyperammonemia (severe case)
+**Lab**: ALT/AST ขึ้น, hypoalbuminemia, low cholesterol, hyperammonemia (severe case)
 
-**US**: เห็น irregular surface (fibrosis) · บางทีดู normal
+**US**: เห็น irregular surface (fibrosis), บางทีดู normal
 
-**Treatment**: SAMe · Ursodiol · low-protein diet (ถ้ามี HE) — antifibrotic agent ยังไม่มีที่ work 100%
+**Treatment**: SAMe, Ursodiol, low-protein diet (ถ้ามี HE) — antifibrotic agent ยังไม่มีที่ work 100%
 
 ---
 
@@ -17715,14 +17715,14 @@ Between quadrate + right medial = **Gallbladder**
 
 **Congenital** (vs acquired) = หลอดเลือดเชื่อม Portal vein กับ vena cava/azygous → bypass ตับ
 - **Intra-hepatic** vs **Extra-hepatic**
-- **Predisposing breeds (สุนัข)**: Yorkshire · Mini Schnauzer · Labrador Retriever ⭐ (แมวไม่มี)
+- **Predisposing breeds (สุนัข)**: Yorkshire, Mini Schnauzer, Labrador Retriever ⭐ (แมวไม่มี)
 - มักแสดงอาการช่วง > 6 เดือน
 
-**Clinical**: weakness · PUPD · neurological signs (HE) · **stunted growth** · ammonium biurate uroliths
+**Clinical**: weakness, PUPD, neurological signs (HE), **stunted growth**, ammonium biurate uroliths
 
-**Lab**: ↑ liver enzymes · hypoalbuminemia · hyperammonemia · ↑ post-prandial bile acid (↑↑↑) · ammonium biurate crystals in UA
+**Lab**: ↑ liver enzymes, hypoalbuminemia, hyperammonemia, ↑ post-prandial bile acid (↑↑↑), ammonium biurate crystals in UA
 
-**Diagnosis**: Ultrasound + Doppler · CT scan (gold standard for surgical planning)
+**Diagnosis**: Ultrasound + Doppler, CT scan (gold standard for surgical planning)
 
 **Treatment**:
 - **Surgical closure** (ของให้ดีที่สุด) — partial close → ค่อยๆ ปิด เพื่อไม่ให้ portal pressure ขึ้นเร็วเกิน
@@ -17734,10 +17734,10 @@ Between quadrate + right medial = **Gallbladder**
 
 | Tumor | Note |
 |---|---|
-| **HCC (Hepatocellular carcinoma)** | Common · 3 patterns: massive · nodular · diffuse |
+| **HCC (Hepatocellular carcinoma)** | Common, 3 patterns: massive, nodular, diffuse |
 | HCC adenoma | Benign |
-| **Cholangiocarcinoma** | More aggressive than HCC · spread เร็ว |
-| Mets: lymphoma · hemangiosarcoma · MCT | จาก primary อื่น |
+| **Cholangiocarcinoma** | More aggressive than HCC, spread เร็ว |
+| Mets: lymphoma, hemangiosarcoma, MCT | จาก primary อื่น |
 
 ⭐ **Insulin-like Growth Factor** จาก HCC → ดึงน้ำตาลเข้า → **hypoglycemia** → episodic weakness/UVD
 
@@ -17750,36 +17750,36 @@ Between quadrate + right medial = **Gallbladder**
 **Pathogenesis**: Negative energy balance → ดึง glycogen หมด → ดึง fat (lipid mobilization) → triglyceride สะสมใน hepatocyte
 
 **Types**:
-- **Primary** (idiopathic): ไม่อร่อย · เข้าถึงไม่ได้ · stress event
-- **Secondary**: GI disease · liver disease · pancreatitis · CKD · DM · cancer
+- **Primary** (idiopathic): ไม่อร่อย, เข้าถึงไม่ได้, stress event
+- **Secondary**: GI disease, liver disease, pancreatitis, CKD, DM, cancer
 
-**Clinical**: anorexia · jaundice · dehydration · vomiting · constipation · weakness · cervical ventroflexion (K+ ↓) · hypersalivation (HE)
+**Clinical**: anorexia, jaundice, dehydration, vomiting, constipation, weakness, cervical ventroflexion (K+ ↓), hypersalivation (HE)
 
 **Lab signature** ⭐:
 - **ALP ↑↑↑ มาก** (5–10x) แต่ **GGT normal/mild** (ขึ้นต่างจากโรคตับอื่น!)
-- ALT mild–moderate · hyperbilirubinemia · ↑ bile acid · hypoalbuminemia · hyperglycemia (stress)
-- Electrolytes: ↓ K · ↓ P · ↓ Mg
+- ALT mild–moderate, hyperbilirubinemia, ↑ bile acid, hypoalbuminemia, hyperglycemia (stress)
+- Electrolytes: ↓ K, ↓ P, ↓ Mg
 
-**Cytology**: hepatocyte บวมด้วย micro/macrovesicular lipid · confirm ด้วย **Oil Red O stain** → สีแดง
+**Cytology**: hepatocyte บวมด้วย micro/macrovesicular lipid, confirm ด้วย **Oil Red O stain** → สีแดง
 
 **Treatment** ⭐:
 - **Nutrition support** = หัวใจของการรักษา — **enteral feeding tube** (esophagostomy)
-- **High protein** (cat = obligate carnivore!) · moderate fat · **low CHO**
-- คำนวณจาก RER · ค่อยๆ ทยอยให้ 1/3 → 2/3 → 3/3 (refeeding syndrome prevention)
-- Fluid + electrolyte · ARG + Taurine + B12 supplement
+- **High protein** (cat = obligate carnivore!), moderate fat, **low CHO**
+- คำนวณจาก RER, ค่อยๆ ทยอยให้ 1/3 → 2/3 → 3/3 (refeeding syndrome prevention)
+- Fluid + electrolyte, ARG + Taurine + B12 supplement
 - Appetite stimulant: mirtazapine
 - NAC แรกๆ → switch SAMe เมื่อกินได้
 
 ---
 
 ### 6.7 Extra-hepatic Bile Duct Obstruction (EHBO)
-**สาเหตุ**: Stone · neoplasia · external compression · inflammation จากออร์แกนข้างๆ · **river fluke** (แมวที่กินปลาดิบ/หอยทาก)
+**สาเหตุ**: Stone, neoplasia, external compression, inflammation จากออร์แกนข้างๆ, **river fluke** (แมวที่กินปลาดิบ/หอยทาก)
 
-**Clinical**: jaundice · vomiting · weight loss · cranial abdominal pain · acholic feces
+**Clinical**: jaundice, vomiting, weight loss, cranial abdominal pain, acholic feces
 
-**Lab**: ALP ↑↑ · GGT ↑ · ALT mild · hyperbilirubinemia · ↑ bile acids
+**Lab**: ALP ↑↑, GGT ↑, ALT mild, hyperbilirubinemia, ↑ bile acids
 
-**US**: dilated common bile duct · gallbladder distension · thickened wall
+**US**: dilated common bile duct, gallbladder distension, thickened wall
 
 **Treatment**:
 - Surgical correction ถ้า complete obstruction — choledochojejunostomy
@@ -17788,11 +17788,11 @@ Between quadrate + right medial = **Gallbladder**
 ---
 
 ### 6.8 Cholecystitis (ถุงน้ำดีอักเสบ)
-**สาเหตุ**: Ascending bacterial (duodenal reflux) — **E. coli · Enterococcus · Streptococcus · Clostridium · Bacteroides**
+**สาเหตุ**: Ascending bacterial (duodenal reflux) — **E. coli, Enterococcus, Streptococcus, Clostridium, Bacteroides**
 
-**Lab**: leukocytosis (neutrophilic) · ALP ↑ · GGT ↑ · hyperbilirubinemia
+**Lab**: leukocytosis (neutrophilic), ALP ↑, GGT ↑, hyperbilirubinemia
 
-**US**: thickened gallbladder wall · gallstones · mucocele
+**US**: thickened gallbladder wall, gallstones, mucocele
 
 **Treatment**:
 - **Cholecystocentesis** + culture + cytology
@@ -17810,7 +17810,7 @@ Between quadrate + right medial = **Gallbladder**
 | **Neutrophilic (NC)** | Bacterial ascending | Amox-clav + Metro × หลาย wks–เดือน |
 | **Lymphocytic (LC)** | Immune-mediated | Immunosuppressive + AB cover |
 | **Chronic** | River fluke infection | Praziquantel 20 mg/kg × 3-5d |
-| **Destructive** | Idiosyncratic (sulfonamides · canine distemper) | Immune suppressive |
+| **Destructive** | Idiosyncratic (sulfonamides, canine distemper) | Immune suppressive |
 
 ⚠️ Course of treatment ยาว — สัปดาห์ถึง 2-3 เดือน
 
@@ -17818,7 +17818,7 @@ Between quadrate + right medial = **Gallbladder**
 
 ### 6.10 Gallbladder Mucocele ⭐ (เจอเยอะขึ้น)
 
-**Predisposing**: middle-aged dog · small-medium breed (Cocker spaniel · Mini Schnauzer · Pomeranian · Shih Tzu) · risk = endocrine disease · long-term steroid
+**Predisposing**: middle-aged dog, small-medium breed (Cocker spaniel, Mini Schnauzer, Pomeranian, Shih Tzu), risk = endocrine disease, long-term steroid
 
 **Pathogenesis**: bile หนืดข้น → ขยายถุงน้ำดี → bile duct obstruction → biliary peritonitis (rupture)
 
@@ -17844,9 +17844,9 @@ Between quadrate + right medial = **Gallbladder**
 | Drug | Dose | Mechanism | Tip |
 |---|---|---|---|
 | **Silymarin (Legalon)** | 20-50 mg/kg/day | Anti-oxidant + choleretic + inhibit hepatotoxin binding | **ห้ามให้พร้อมอาหาร** (bioavailability ต่ำ) |
-| **SAMe (S-adenosyl methionine)** | 20 mg/kg/day | Anti-oxidant + GSH precursor + anti-inflammatory + anti-fibrotic | **ก่อนอาหาร** · แพง · ดีกว่า silymarin |
+| **SAMe (S-adenosyl methionine)** | 20 mg/kg/day | Anti-oxidant + GSH precursor + anti-inflammatory + anti-fibrotic | **ก่อนอาหาร**, แพง, ดีกว่า silymarin |
 | **N-acetylcysteine (NAC)** | Load 140 → 70 mg/kg q6-8h × 7 doses | GSH precursor (acetaminophen antidote) | **Short course** เท่านั้น (long = pro-oxidant) |
-| **Ursodeoxycholic acid** | 10-15 mg/kg/day | Choleretic + cytoprotective + immunomodulating | **กับอาหารได้ดูดซึมดี** · ห้ามใช้ใน complete EHBO |
+| **Ursodeoxycholic acid** | 10-15 mg/kg/day | Choleretic + cytoprotective + immunomodulating | **กับอาหารได้ดูดซึมดี**, ห้ามใช้ใน complete EHBO |
 
 ---
 
@@ -17855,16 +17855,16 @@ Between quadrate + right medial = **Gallbladder**
 ## 8. Pancreatitis
 
 ### 8.1 Acute vs Chronic
-- **Acute**: neutrophilic + necrosis · **reversible** if treated
-- **Chronic**: lympho-plasmacytic + **fibrosis** · **permanent histo change** · atrophy
+- **Acute**: neutrophilic + necrosis, **reversible** if treated
+- **Chronic**: lympho-plasmacytic + **fibrosis**, **permanent histo change**, atrophy
 
 ### 8.2 Etiologies (สำคัญ)
-- Predisposing breeds: Mini Schnauzer · Boxer · Cocker Spaniel · Collie · Yorkie
+- Predisposing breeds: Mini Schnauzer, Boxer, Cocker Spaniel, Collie, Yorkie
 - **Obesity + hyperlipidemia + hypertriglyceridemia** ⭐ (เด่นในสุนัข)
 - High-fat diet (treats > 10% of caloric needs)
-- Hypoperfusion · trauma · obstruction · duodenal reflux
-- Drugs: phenobarbital · organophosphate · sulfonamide
-- Infection: bacterial · **FIP (cat)** · parvo (dog) · toxoplasma · river fluke
+- Hypoperfusion, trauma, obstruction, duodenal reflux
+- Drugs: phenobarbital, organophosphate, sulfonamide
+- Infection: bacterial, **FIP (cat)**, parvo (dog), toxoplasma, river fluke
 
 ### 8.3 Triaditis (cat ⭐) = Pancreatitis + IBD/cholangitis + cholangiohepatitis รวมกัน
 
@@ -17874,7 +17874,7 @@ Between quadrate + right medial = **Gallbladder**
 | Pancreatic necrosis | Electrolyte imbalance |
 | Pseudocyst | Acid-base imbalance |
 | Abscess | Acute kidney failure |
-| | Myocarditis · DIC · neurologic |
+| | Myocarditis, DIC, neurologic |
 
 ⭐ Severity → systemic = bad prognosis
 
@@ -17882,33 +17882,33 @@ Between quadrate + right medial = **Gallbladder**
 
 | Dog | Cat |
 |---|---|
-| Vomiting · anorexia · abdominal pain | Anorexia · lethargy · hypothermia · dehydration |
+| Vomiting, anorexia, abdominal pain | Anorexia, lethargy, hypothermia, dehydration |
 | **Prayer position** ⭐ (หมอบกราบ) | **Feline Grimace Scale** (หู ตา หนวด muzzle tension) |
-| Diarrhea · weakness · dehydration | Vague — access pain ยากกว่า |
+| Diarrhea, weakness, dehydration | Vague — access pain ยากกว่า |
 
 ### 8.6 Diagnosis
-- CBC: thrombocytopenia · anemia · neutrophilia (left shift)
-- Chemistry: ↑ liver enzymes · pre-renal azotemia · hypoalbuminemia · hypocalcemia · electrolyte imbalance
+- CBC: thrombocytopenia, anemia, neutrophilia (left shift)
+- Chemistry: ↑ liver enzymes, pre-renal azotemia, hypoalbuminemia, hypocalcemia, electrolyte imbalance
 - UA: ↑ USG (pre-renal)
 
 **Pancreatic Enzymes** ⭐:
 | Test | Note |
 |---|---|
 | Serum amylase/lipase | Low sens/spec — สร้างจากที่อื่นด้วย |
-| **Spec PLI (Pancreatic Lipase Immunoreactivity)** | Quantitative · gold standard |
+| **Spec PLI (Pancreatic Lipase Immunoreactivity)** | Quantitative, gold standard |
 | **Snap PLI** | Qualitative POC test |
-| **VCheck PLI** ⭐ | Korean device · ใช้กันใน Thailand · semi-quantitative |
+| **VCheck PLI** ⭐ | Korean device, ใช้กันใน Thailand, semi-quantitative |
 
 **cPLI cut-offs (dog)** ⭐:
 | Old | New | แปลผล |
 |---|---|---|
 | 0–2.5 normal | 0–5.5 normal | Normal |
-| 2.6–5.6 gray zone | 5.6–7.5 / 7.6–10.8 gray | ดู clinical · trial Tx |
+| 2.6–5.6 gray zone | 5.6–7.5 / 7.6–10.8 gray | ดู clinical, trial Tx |
 | > 4.0 (positive) | > 10.9 = definite | Pancreatitis |
 
-**fPLI cut-off (cat)**: > 5.4 = pancreatitis · gray 3.5–5.4
+**fPLI cut-off (cat)**: > 5.4 = pancreatitis, gray 3.5–5.4
 
-**Imaging**: US เห็น hypoechoic pancreas + hyperechoic peripancreatic fat (acute) · hyperechoic pancreas (chronic, fibrosis)
+**Imaging**: US เห็น hypoechoic pancreas + hyperechoic peripancreatic fat (acute), hyperechoic pancreas (chronic, fibrosis)
 
 ### 8.7 Treatment
 
@@ -17916,11 +17916,11 @@ Between quadrate + right medial = **Gallbladder**
 |---|---|
 | **Aggressive supportive** | Admit ถ้าได้ |
 | Fluid + electrolyte | IV crystalloid |
-| Anti-emetic | Maropitant · ondansetron |
-| **Analgesia** | **Opioids** (fentanyl drip/patch · methadone) · NSAIDs ห้ามใน pancreatitis! |
+| Anti-emetic | Maropitant, ondansetron |
+| **Analgesia** | **Opioids** (fentanyl drip/patch, methadone), NSAIDs ห้ามใน pancreatitis! |
 | Antibiotic | เฉพาะถ้า culture positive — ไม่ให้พร่ำเพรื่อ |
-| Anti-inflammatory | สเตียรอยด์ controversial ใน acute · ใน chronic อาจให้ cyclosporine |
-| **Nutrition support** | Enteral > parenteral · ใน dog = low-fat · ใน cat = ไม่ต้อง low-fat (carnivore) |
+| Anti-inflammatory | สเตียรอยด์ controversial ใน acute, ใน chronic อาจให้ cyclosporine |
+| **Nutrition support** | Enteral > parenteral, ใน dog = low-fat, ใน cat = ไม่ต้อง low-fat (carnivore) |
 | Monitoring | Repeat PLI + Inflammatory markers + US |
 
 ---
@@ -17928,7 +17928,7 @@ Between quadrate + right medial = **Gallbladder**
 ## 9. Exocrine Pancreatic Insufficiency (EPI) ⭐
 
 ### 9.1 Causes
-- **Pancreatic acinar atrophy (PAA)** — congenital, polygenic mode · breed: **German Shepherd** · Rough Collie
+- **Pancreatic acinar atrophy (PAA)** — congenital, polygenic mode, breed: **German Shepherd**, Rough Collie
 - **Chronic pancreatitis** → atrophy of acinar cells (middle-old age)
 - Pancreatic structural disorder (rare)
 
@@ -17939,15 +17939,15 @@ Acinar cells หาย → enzymes ↓ → maldigestion → **osmotic diarrhea**
 - Severe chronic → endocrine pancreas atrophy → **diabetes mellitus**
 
 ### 9.3 Classic Clinical Picture ⭐
-- Chronic small bowel diarrhea · **steatorrhea** (yellow greasy stool)
+- Chronic small bowel diarrhea, **steatorrhea** (yellow greasy stool)
 - **Severe weight loss** (BCS 1/9)
-- **Polyphagia** + **coprophagia** + pica (กินอึตัวเอง · กินสิ่งแปลกปลอม) ⭐
+- **Polyphagia** + **coprophagia** + pica (กินอึตัวเอง, กินสิ่งแปลกปลอม) ⭐
 - Cat: greasy soiling of tail
-- ขนเสีย · stunted growth (เด็ก)
+- ขนเสีย, stunted growth (เด็ก)
 
 ### 9.4 Diagnosis — TLI (Trypsin-like Immunoreactivity) ⭐⭐⭐
 
-**Key**: ต้อง **อดอาหาร 8-12 ชม.** ก่อนเก็บ · false ↑ ใน renal disease (TLI ขับทาง kidney)
+**Key**: ต้อง **อดอาหาร 8-12 ชม.** ก่อนเก็บ, false ↑ ใน renal disease (TLI ขับทาง kidney)
 
 **cTLI cut-off (dog)**:
 | Old | **New (in use abroad, TH รออัปเดต)** | แปลผล |
@@ -17958,26 +17958,26 @@ Acinar cells หาย → enzymes ↓ → maldigestion → **osmotic diarrhea**
 
 **fTLI (cat)**: < 8.0 = EPI ⚠️ ไม่มีในไทย → ต้อง try empirical enzyme replacement
 
-**Other tests**: fecal smear (Sudan III/Oil Red O for fat) · **proteolytic activity** (3-day test, falling out of use)
+**Other tests**: fecal smear (Sudan III/Oil Red O for fat), **proteolytic activity** (3-day test, falling out of use)
 
 ### 9.5 Treatment ⭐⭐⭐
 
 **Pancreatic Enzyme Replacement** = **lifelong therapy** (ไม่หาย!)
 - Bovine/porcine pancreas extract — powder (preferred) > capsule
-- **Mix กับอาหารทันที** (ไม่ต้องรอ) · ทุกมื้อ · ก่อนอาหาร
+- **Mix กับอาหารทันที** (ไม่ต้องรอ), ทุกมื้อ, ก่อนอาหาร
 - Dose: 0.5-1 tsp powder per 10 kg per meal
 
 ⚠️ Side effect: **oral bleeding** ในโดสสูง (mucosal irritation) → ลดโดส
 
 **Adjunct**:
 - **Cobalamin (B12) supplementation** (lifelong if low)
-- **Acid suppressant** (PPI / H2 antagonist) — ป้องกันกรดทำลาย enzyme · taper PPI ถ้าใช้ > 4 wks
-- **Manage dysbiosis**: prebiotic/probiotic/symbiotic · Metronidazole/tylosin if confirmed bacterial overgrowth
-- Diet: **highly digestible** · avoid high fiber · low-fat depends on individual
+- **Acid suppressant** (PPI / H2 antagonist) — ป้องกันกรดทำลาย enzyme, taper PPI ถ้าใช้ > 4 wks
+- **Manage dysbiosis**: prebiotic/probiotic/symbiotic, Metronidazole/tylosin if confirmed bacterial overgrowth
+- Diet: **highly digestible**, avoid high fiber, low-fat depends on individual
 
-⚠️ Counsel เจ้าของ: ห้ามให้อาหารอื่น/ขนม · ไม่ทิ้ง mixed food ไว้นานก่อนป้อน · enzyme **replace ไม่ใช่ regenerate**
+⚠️ Counsel เจ้าของ: ห้ามให้อาหารอื่น/ขนม, ไม่ทิ้ง mixed food ไว้นานก่อนป้อน, enzyme **replace ไม่ใช่ regenerate**
 
-**Prognosis**: ดีถ้าไม่มี concurrent disease (DM, chronic enteropathy) · controllable lifelong
+**Prognosis**: ดีถ้าไม่มี concurrent disease (DM, chronic enteropathy), controllable lifelong
 
 ---
 
@@ -17986,31 +17986,31 @@ Acinar cells หาย → enzymes ↓ → maldigestion → **osmotic diarrhea**
 ## 10. Macronutrient Basics
 
 ### 10.1 Carbohydrate
-- **Complex CHO** (starch) — main source · ย่อยโดยร่างกาย
+- **Complex CHO** (starch) — main source, ย่อยโดยร่างกาย
 - **Fiber** — แบคทีเรียย่อย → short chain fatty acids (SCFA) ↗ colon health
 - **Lactose** — แมว/หมาโตแล้ว enzyme ↓ → lactose intolerance → osmotic diarrhea (เลี่ยงนมวัว)
 
 ### 10.2 Protein
-- Essential amino acids · บางตัวกลายเป็น food allergen
+- Essential amino acids, บางตัวกลายเป็น food allergen
 - **Hydrolyzed protein** = peptide < 15 kDa (sometimes 1-3 kDa)
 - **Novel protein** = แหล่งใหม่ที่สัตว์ไม่เคยกิน (แกะ ปลา จิงโจ้)
 
 ### 10.3 Fat
 | Type | Note |
 |---|---|
-| Long-chain triglyceride (LCT) | ส่วนใหญ่ในอาหาร · absorb via lymphatic |
-| **Medium-chain triglyceride (MCT)** ⭐ | bypass lymphatic → portal vein direct · MCT oil/coconut oil · ใช้ใน lymphangiectasia |
-| Short-chain fatty acid (SCFA) | จาก fiber fermentation · colon energy |
+| Long-chain triglyceride (LCT) | ส่วนใหญ่ในอาหาร, absorb via lymphatic |
+| **Medium-chain triglyceride (MCT)** ⭐ | bypass lymphatic → portal vein direct, MCT oil/coconut oil, ใช้ใน lymphangiectasia |
+| Short-chain fatty acid (SCFA) | จาก fiber fermentation, colon energy |
 
 ⚠️ MCT = ketogenic potential (caution in acidosis/ketosis)
 
 ### 10.4 Fiber Classification
-- **Solubility**: Soluble (gel-forming, prebiotic) · Insoluble (bulk laxative)
-- **Fermentability**: High (SCFA + gas) · Moderate (preferred) · Low (blocking agent)
+- **Solubility**: Soluble (gel-forming, prebiotic), Insoluble (bulk laxative)
+- **Fermentability**: High (SCFA + gas), Moderate (preferred), Low (blocking agent)
 
 ### 10.5 Microbiota
 - **Prebiotic** = อาหารของแบคทีเรียดี (FOS, inulin, fiber)
-- **Probiotic** = เชื้อแบคทีเรียดี (Bifidobacterium, Lactobacillus) · CFU > 10⁸-⁹
+- **Probiotic** = เชื้อแบคทีเรียดี (Bifidobacterium, Lactobacillus), CFU > 10⁸-⁹
 - **Symbiotic** = pre + pro รวมกัน
 - **Postbiotic** ⭐ ใหม่ = bioactive compound จาก probiotic (SCFA + AMP + amino acid)
 
@@ -18022,12 +18022,12 @@ Acinar cells หาย → enzymes ↓ → maldigestion → **osmotic diarrhea**
 
 | Diet | Use | Key feature |
 |---|---|---|
-| **GI Diet (Highly Digestible)** | First-line ทั่วไป | Protein 87% · CHO 90% digestibility · low fiber |
-| **Hydrolyzed Protein** | Food allergy · IBD · acute enteritis | Protein < 15 kDa · low immunogenicity · expensive |
-| **Novel Protein** | Food allergy (later phase) | New protein source (lamb, fish) · check label for hidden ingredients |
-| **Home-cooked** | Custom (last resort) | Need nutritionist · risk of imbalance |
-| **Fiber Enhanced** | Colitis · constipation · diabetes · GDV recovery | Mix soluble + insoluble · ↓ digestibility (need ↑ vol) |
-| **Restricted Fat (low-fat)** | Pancreatitis · lymphangiectasia · GDV recovery · esophagitis | < 10% fat (low) · 10-15% (moderate) |
+| **GI Diet (Highly Digestible)** | First-line ทั่วไป | Protein 87%, CHO 90% digestibility, low fiber |
+| **Hydrolyzed Protein** | Food allergy, IBD, acute enteritis | Protein < 15 kDa, low immunogenicity, expensive |
+| **Novel Protein** | Food allergy (later phase) | New protein source (lamb, fish), check label for hidden ingredients |
+| **Home-cooked** | Custom (last resort) | Need nutritionist, risk of imbalance |
+| **Fiber Enhanced** | Colitis, constipation, diabetes, GDV recovery | Mix soluble + insoluble, ↓ digestibility (need ↑ vol) |
+| **Restricted Fat (low-fat)** | Pancreatitis, lymphangiectasia, GDV recovery, esophagitis | < 10% fat (low), 10-15% (moderate) |
 
 ### 11.1 Home-cooked rules
 - ปรึกษา nutritionist + ระบุ protein source
@@ -18057,7 +18057,7 @@ Acinar cells หาย → enzymes ↓ → maldigestion → **osmotic diarrhea**
 - Slow-feeder bowl
 
 ### 12.4 Enteritis
-- Highly digestible · small frequent meals
+- Highly digestible, small frequent meals
 - ± Hydrolyzed if suspect food allergy
 
 ### 12.5 Adverse Food Reaction
@@ -18066,7 +18066,7 @@ Acinar cells หาย → enzymes ↓ → maldigestion → **osmotic diarrhea**
   - Use hydrolyzed first (small molecule, less immunogenic, preserve gut healing)
   - Switch to novel protein later
   - Re-introduce to confirm (เจ้าของมัก decline)
-- Common allergens: beef · chicken · fish · dairy · wheat · soy · egg
+- Common allergens: beef, chicken, fish, dairy, wheat, soy, egg
 
 ⚠️ "Single protein" claim บนถุง = ดูฉลาก! บางทีมี chicken ปนอยู่จริง
 
@@ -18091,21 +18091,21 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ### 12.9 Hepatic Disease
 - **No protein restriction unless HE** (HE → low-protein + lactulose)
 - Avoid high-fat if cholestasis/cholecystitis
-- **Taurine + Arginine** (esp. cat hepatic lipidosis) · Zinc supplement
-- B-complex · Vitamin E + C
+- **Taurine + Arginine** (esp. cat hepatic lipidosis), Zinc supplement
+- B-complex, Vitamin E + C
 - Multiple small meals
 
 ### 12.10 Cat Hepatic Lipidosis ⭐
 - **High protein** (cat = obligate carnivore!)
 - **Moderate fat** (calorie-dense)
 - **Low CHO** (avoid hyperinsulinemia → electrolyte shift)
-- Energy distribution: Protein 30-40% · Fat 50% · CHO < 20%
+- Energy distribution: Protein 30-40%, Fat 50%, CHO < 20%
 - Refeeding protocol: 1/3 → 2/3 → 3/3 ของ RER
 
 ### 12.11 Pancreatitis Diet
 - **Dog**: low-fat diet (10-15%)
 - **Cat**: ไม่ต้อง low-fat (high fat tolerance)
-- Enteral feeding > parenteral · feeding tube ถ้าจำเป็น
+- Enteral feeding > parenteral, feeding tube ถ้าจำเป็น
 
 ---
 
@@ -18113,11 +18113,11 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 **Definition**: ภาวะ metabolic derangement ในการให้อาหาร patient ที่ prolong starvation/negative catabolic state
 
-**Pathogenesis**: Insulin surge ดึง K · P · Mg · water เข้าเซลล์ → severe electrolyte deficit
+**Pathogenesis**: Insulin surge ดึง K, P, Mg, water เข้าเซลล์ → severe electrolyte deficit
 
-**Clinical**: vomiting · diarrhea · weakness · ventroflexion (severe hypoK) · cardiac arrhythmia
+**Clinical**: vomiting, diarrhea, weakness, ventroflexion (severe hypoK), cardiac arrhythmia
 
-**Lab**: **Hypokalemia · Hypophosphatemia · Hypomagnesemia** (จำ K-P-Mg!)
+**Lab**: **Hypokalemia, Hypophosphatemia, Hypomagnesemia** (จำ K-P-Mg!)
 
 **Prevention**:
 - ค่อยๆทยอยให้: **1/3 → 2/3 → 3/3** ของ RER
@@ -18127,8 +18127,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 **Correction**:
 | Electrolyte | Dose |
 |---|---|
-| Hypokalemia (K < 2.5) | KCl ใน fluid · max 0.5 mEq/kg/hr |
-| Hypophosphatemia | K-phosphate · stop เมื่อ > 2 mg/dL |
+| Hypokalemia (K < 2.5) | KCl ใน fluid, max 0.5 mEq/kg/hr |
+| Hypophosphatemia | K-phosphate, stop เมื่อ > 2 mg/dL |
 | Hypomagnesemia | MgSO4 IV |
 
 ---
@@ -18136,28 +18136,28 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 📝 EXAM RECAP — 20 Key Points
 
 1. **Liver zones**: Zone 3 (centrilobular) = ตายก่อนเพราะขาดเลือด
-2. **7F mnemonic** for abdominal distension (Fluid · Fat · Flatus · Feces · Fetus · Flabby · Foreign mass)
-3. **AST > ALT** = muscle origin · isolated **ALT ↑** = liver
-4. **Cat hepatic lipidosis**: ALP ↑↑↑ · GGT normal/mild (unique pattern!)
+2. **7F mnemonic** for abdominal distension (Fluid, Fat, Flatus, Feces, Fetus, Flabby, Foreign mass)
+3. **AST > ALT** = muscle origin, isolated **ALT ↑** = liver
+4. **Cat hepatic lipidosis**: ALP ↑↑↑, GGT normal/mild (unique pattern!)
 5. **Bile acid > 100** = สงสัย PSS แต่ cholestasis ก็ขึ้นได้
 6. **Ammonium biurate crystals** ใน UA = PSS / hepatic insufficiency
-7. **Acetaminophen toxicity in cat**: NAPQI (CYP450) → methemoglobin · facial edema · brown mucus membrane → **NAC antidote 140 → 70 mg/kg**
-8. **PSS predisposing breeds**: Yorkshire · Mini Schnauzer · Lab Retriever (dog) · cat ไม่มี
-9. **Hepatic encephalopathy** = NH3 ขึ้น · low-protein diet + lactulose
+7. **Acetaminophen toxicity in cat**: NAPQI (CYP450) → methemoglobin, facial edema, brown mucus membrane → **NAC antidote 140 → 70 mg/kg**
+8. **PSS predisposing breeds**: Yorkshire, Mini Schnauzer, Lab Retriever (dog), cat ไม่มี
+9. **Hepatic encephalopathy** = NH3 ขึ้น, low-protein diet + lactulose
 10. **River fluke (cat)** → Praziquantel 20 mg/kg PO × 3-5 วัน
-11. **Cholangitis 4 types**: NC (bacterial) · LC (immune) · Chronic (fluke) · Destructive (idiosyncratic drug)
-12. **GB mucocele kiwi pattern** type 6 = surgical · type 1 = medical (Ursodiol + SAMe)
-13. **4 liver supplements**: Silymarin (no food) · SAMe (before food) · NAC (short course) · Ursodiol (with food)
-14. **Pancreatitis pain in dog = prayer position** · cat = Feline Grimace Scale
-15. **EPI breed = German Shepherd** · TLI < 2.5 (or new < 5.5) · classic = **diarrhea + weight loss + polyphagia + coprophagia**
+11. **Cholangitis 4 types**: NC (bacterial), LC (immune), Chronic (fluke), Destructive (idiosyncratic drug)
+12. **GB mucocele kiwi pattern** type 6 = surgical, type 1 = medical (Ursodiol + SAMe)
+13. **4 liver supplements**: Silymarin (no food), SAMe (before food), NAC (short course), Ursodiol (with food)
+14. **Pancreatitis pain in dog = prayer position**, cat = Feline Grimace Scale
+15. **EPI breed = German Shepherd**, TLI < 2.5 (or new < 5.5), classic = **diarrhea + weight loss + polyphagia + coprophagia**
 16. **EPI treatment = lifelong** enzyme + B12 supplement
 17. **MCT bypasses lymphatic** → use in lymphangiectasia PLE
-18. **Refeeding syndrome**: hypoK + hypoP + hypoMg · prevent with 1/3 → 2/3 → 3/3 protocol
-19. **Cat lipidosis diet**: high-protein · moderate-fat · **low-CHO** (NOT low-fat!)
+18. **Refeeding syndrome**: hypoK + hypoP + hypoMg, prevent with 1/3 → 2/3 → 3/3 protocol
+19. **Cat lipidosis diet**: high-protein, moderate-fat, **low-CHO** (NOT low-fat!)
 20. **Esophagitis feeding posture**: elevated + vertical post-meal × 30 min
 
-> 📚 อ่านควบ: 6 Hepato/Pancreas Sx (5rcEK-3IW0M) · 7.1 Anemia · 8.1-3 Renal · 12.1-2 Cardio · 14.1-3 Neuro
-> 🎬 วิดีโอยาวสุด 227 นาที · ดูจบแล้วเช็ค completion rate ในระบบเพื่อให้ได้ exam advantage`,
+> 📚 อ่านควบ: 6 Hepato/Pancreas Sx (5rcEK-3IW0M), 7.1 Anemia, 8.1-3 Renal, 12.1-2 Cardio, 14.1-3 Neuro
+> 🎬 วิดีโอยาวสุด 227 นาที, ดูจบแล้วเช็ค completion rate ในระบบเพื่อให้ได้ exam advantage`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -18170,10 +18170,10 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     date: '7 Aug 67',
     durationMin: 116,
     instructor: 'พี่พล (อาจารย์รุ่นพี่)',
-    examFormat: 'MCQ — biomechanics terms · fracture classification · Salter-Harris types · pre-op management ออกบ่อย',
+    examFormat: 'MCQ — biomechanics terms, fracture classification, Salter-Harris types, pre-op management ออกบ่อย',
     summary: `# Basic about Fracture
 
-> 🎯 บทเปิด ortho · 3 ส่วน:
+> 🎯 บทเปิด ortho, 3 ส่วน:
 > Part 1 = Biomechanics ของกระดูก (ฟิสิกส์เบสิก)
 > Part 2 = Fracture Classification (7 หมวด)
 > Part 3 = Pre-op Management + Basic Instruments
@@ -18192,10 +18192,10 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ⭐ จุดเด่นของกระดูก = **แข็ง + ยืดหยุ่น** (ไม่ใช่แค่แข็งเปราะ)
 
 **Functions**:
-- **Biological**: Mineral homeostasis (Ca · P · Mg)
+- **Biological**: Mineral homeostasis (Ca, P, Mg)
 - **Mechanical**: Skeletal support + organ protection
 
-**Bone Mineral Density (BMD)** = ความหนาแน่นมวลกระดูก · ลดลงได้จากแก่ · disease · low activity · ยาบางชนิด
+**Bone Mineral Density (BMD)** = ความหนาแน่นมวลกระดูก, ลดลงได้จากแก่, disease, low activity, ยาบางชนิด
 
 ---
 
@@ -18214,7 +18214,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Region | Behavior |
 |---|---|
-| **Elastic region** | คืนรูปได้ 100% · ไม่มี damage แม้ระดับ micro |
+| **Elastic region** | คืนรูปได้ 100%, ไม่มี damage แม้ระดับ micro |
 | **Yield Point / Yield Failure** | เริ่มมี structural damage แต่วัตถุยังคงรูปอยู่ |
 | **Plastic region** | คืนรูปไม่ได้ทั้งหมด — เริ่มเสียหาย |
 | **Ultimate Failure / Failure Point** | แตกหักจริง ๆ |
@@ -18232,8 +18232,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Bone cement | < 3 |
 
 **Ductile vs Brittle**:
-- **Ductile (เหนียว)** = plastic region กว้าง · ทนการ deform เยอะก่อนแตก (rubber, bone)
-- **Brittle (เปราะ)** = plastic region แคบ · พังตู้ม (glass, ceramic)
+- **Ductile (เหนียว)** = plastic region กว้าง, ทนการ deform เยอะก่อนแตก (rubber, bone)
+- **Brittle (เปราะ)** = plastic region แคบ, พังตู้ม (glass, ceramic)
 
 ---
 
@@ -18256,7 +18256,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Mode | กลไก | Common in |
 |---|---|---|
 | **Overload failure** ⭐ | แรงครั้งเดียวเกิน yield/ultimate | ตัวกระดูก + implant ขนาดเล็ก |
-| **Fatigue failure** ⭐ | แรงเล็ก ๆ ซ้ำ ๆ → micro damage สะสม | implant ใส่ค้างนาน · กระดูก healing ช้า |
+| **Fatigue failure** ⭐ | แรงเล็ก ๆ ซ้ำ ๆ → micro damage สะสม | implant ใส่ค้างนาน, กระดูก healing ช้า |
 
 ⚠️ Implant ใส่ใหญ่ไปก็ไม่ได้ — กระดูกรับไม่ไหว → **balance**
 
@@ -18266,7 +18266,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Factor | สัมพันธ์กับ |
 |---|---|
-| **Magnitude** | F = ma · ขนาดแรง |
+| **Magnitude** | F = ma, ขนาดแรง |
 | **Direction** | Anisotropic (ทิศทาง) |
 | **Duration** | Viscoelastic (ความเร็ว) |
 | **Number** | Fatigue (ความซ้ำ) |
@@ -18304,7 +18304,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 # 🟪 PART 2 — Fracture Classification (7 หมวด)
 
 ## 9. ทำไมต้อง classify?
-**Communication** — ส่งเคสต้องบอกได้ว่าเท่าไหน · ตรงไหน · แบบไหน
+**Communication** — ส่งเคสต้องบอกได้ว่าเท่าไหน, ตรงไหน, แบบไหน
 + สำหรับงานวิจัย/เก็บข้อมูล + การติดตามอาการ
 
 ---
@@ -18312,8 +18312,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 9.1 Degree (สภาพการแตกหัก)
 - **Complete** = แยกออกจากกัน
 - **Incomplete**:
-  - **Greenstick fracture** ⭐ — เด็ก · กระดูกหัก แต่ไม่แยก (เหมือนกิ่งไม้สด-เหนียว)
-  - **Fissure / Crack** — ผู้ใหญ่ · เห็นรอยร้าว แต่กระดูกไม่หัก
+  - **Greenstick fracture** ⭐ — เด็ก, กระดูกหัก แต่ไม่แยก (เหมือนกิ่งไม้สด-เหนียว)
+  - **Fissure / Crack** — ผู้ใหญ่, เห็นรอยร้าว แต่กระดูกไม่หัก
 
 ---
 
@@ -18332,18 +18332,18 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ⚠️ Short vs Long oblique → มีผลในการเลือกวิธี repair ต่างกัน!
 
 **Simple vs Multiple**:
-- Simple = หยิบ 2 ชิ้นต่อกันได้แบบจิ๊กซอ (transverse · oblique · spiral)
-- Multiple = ≥ 3 ชิ้น (segmental · comminuted)
+- Simple = หยิบ 2 ชิ้นต่อกันได้แบบจิ๊กซอ (transverse, oblique, spiral)
+- Multiple = ≥ 3 ชิ้น (segmental, comminuted)
 
-⭐ **Cat tip**: ในแมว ~95% เป็น **comminuted** (กระดูกเปราะแบบไม้ไผ่) · simple/spiral ไม่ค่อยเจอ
+⭐ **Cat tip**: ในแมว ~95% เป็น **comminuted** (กระดูกเปราะแบบไม้ไผ่), simple/spiral ไม่ค่อยเจอ
 
 ---
 
 ## 9.3 Displacement ⭐⭐⭐ (งงเยอะที่สุด)
 
-**Rule**: ดูแกนหลักจาก **proximal segment** (ส่วนติดกับตัว) แล้วลากเส้นลงมา · ชิ้น distal เอียงไปทางไหน = displace ไปทางนั้น
+**Rule**: ดูแกนหลักจาก **proximal segment** (ส่วนติดกับตัว) แล้วลากเส้นลงมา, ชิ้น distal เอียงไปทางไหน = displace ไปทางนั้น
 
-**Direction**: medial · lateral · cranial · caudal · proximal · distal · combined (เช่น caudolateral)
+**Direction**: medial, lateral, cranial, caudal, proximal, distal, combined (เช่น caudolateral)
 
 ⚠️ **ต้องดู 2 views** (VD + lateral) — ฟิล์มเดียวบอกได้แค่มุมเดียว!
 
@@ -18360,8 +18360,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 **Open Fracture Types** ⭐:
 | Type | Detail | Mechanism |
 |---|---|---|
-| **Type 1** | รู < 1 cm · "**inside-out**" | ปลายแหลมกระดูกจิ้มทะลุออก · สะอาด |
-| **Type 2** | รู ≥ 1 cm · "**outside-in**" | แรงกระแทกจากนอก · สกปรกขึ้น |
+| **Type 1** | รู < 1 cm, "**inside-out**" | ปลายแหลมกระดูกจิ้มทะลุออก, สะอาด |
+| **Type 2** | รู ≥ 1 cm, "**outside-in**" | แรงกระแทกจากนอก, สกปรกขึ้น |
 | **Type 3A** | รูใหญ่ + soft tissue เสียหาย แต่เย็บปิดได้ |
 | **Type 3B** | รูใหญ่ + soft tissue เสียหายเยอะ + ต้องทำ flap |
 | **Type 3C** ⭐ | + vascular/nerve injury → **มัก amputate** |
@@ -18374,15 +18374,15 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 |---|---|---|
 | **Epiphysis** | หัวกระดูก (proximal + distal) | — |
 | **Metaphysis** | รอยต่อระหว่าง epi-diaphysis | — |
-| **Diaphysis** | ตรงกลางกระดูก (shaft) | Proximal third · Mid-diaphyseal · Distal third |
+| **Diaphysis** | ตรงกลางกระดูก (shaft) | Proximal third, Mid-diaphyseal, Distal third |
 
 **Mixed-location names**:
-- Diaphyseal · proximal third diaphyseal · mid-diaphyseal · distal third diaphyseal
+- Diaphyseal, proximal third diaphyseal, mid-diaphyseal, distal third diaphyseal
 - **Distal/Proximal metadiaphyseal** = หักรอยต่อระหว่าง metaphysis + diaphysis
 
 ---
 
-## 9.6 Salter-Harris Classification ⭐⭐ (Physeal Fracture · เด็กเท่านั้น!)
+## 9.6 Salter-Harris Classification ⭐⭐ (Physeal Fracture, เด็กเท่านั้น!)
 
 ⚠️ **เกิดเฉพาะเด็ก** — physis (growth plate) closed ในหมาแมวที่ ~1 ปี (ผู้ใหญ่ไม่มี physis แล้ว)
 
@@ -18394,7 +18394,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | **Type 2** | Physis + **metaphysis** (กลาง+บน) ⭐ | Most common! |
 | **Type 3** | Physis + **epiphysis** (กลาง+ล่าง) | Common |
 | **Type 4** | Physis + meta- + epiphysis (ทั้ง 3 zone) | Less common |
-| **Type 5** | **Crush** (compression ของ physis) | Rare · hard to see |
+| **Type 5** | **Crush** (compression ของ physis) | Rare, hard to see |
 | **Type 6** | **Partial crush** (เฉียง) | Rare |
 
 ⭐ **ผลกระทบหลัก**: physeal damage → growth disturbance → ขาสั้น/ยืดบิด
@@ -18406,13 +18406,13 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 9.7 Cause (สาเหตุ)
 - **Traumatic** ⭐ — ที่เจอบ่อยสุด (รถชน ตกที่สูง ฯลฯ)
 - **Pathologic** — กระดูกผิดปกติอยู่แล้ว (มะเร็งกระดูก) → หักจากการเดินธรรมดา
-- **Developmental** — ลูกสัตว์ขาดสารอาหาร · กระดูกเปราะ
+- **Developmental** — ลูกสัตว์ขาดสารอาหาร, กระดูกเปราะ
 
 ---
 
 ## 10. Full Fracture Description ตัวอย่าง
 
-> "Complete · Closed · Long oblique · Mid-diaphyseal · Traumatic fracture of left femur with **caudo-medial displacement**"
+> "Complete, Closed, Long oblique, Mid-diaphyseal, Traumatic fracture of left femur with **caudo-medial displacement**"
 
 ---
 
@@ -18427,18 +18427,18 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 |---|---|
 | **A**llergy | แพ้ยาอะไรมั้ย |
 | **M**edications | กินยาประจำอะไร |
-| **P**ast illness | โรคประจำตัว · เคยผ่าตัด |
+| **P**ast illness | โรคประจำตัว, เคยผ่าตัด |
 | **L**ast meal | กินครั้งสุดท้ายเมื่อไหร่ (สำคัญสำหรับ anesthesia) |
 | **E**nvironment | ไปโดนอะไรมา |
 
 ### ABCDE Vital Assessment ⭐
 | Letter | System | Action |
 |---|---|---|
-| **A**irway | ทางเดินหายใจ | suction · intubate · emergency tracheostomy |
-| **B**reathing | RR · pattern · effort | O2 · re-cate |
-| **C**irculation | mucus · CRT · HR · BP | fluid · vasopressor |
-| **D**isability | consciousness · response | neurological assessment |
-| **E**xternal | external wound | bandage · pressure |
+| **A**irway | ทางเดินหายใจ | suction, intubate, emergency tracheostomy |
+| **B**reathing | RR, pattern, effort | O2, re-cate |
+| **C**irculation | mucus, CRT, HR, BP | fluid, vasopressor |
+| **D**isability | consciousness, response | neurological assessment |
+| **E**xternal | external wound | bandage, pressure |
 
 ---
 
@@ -18458,7 +18458,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ⭐ **Re-assessment เป็นระยะ** — อาการเปลี่ยนใน 15 นาทีได้!
 
-**Add labs**: CBC · chemistry · blood gas · X-ray ตามจำเป็น
+**Add labs**: CBC, chemistry, blood gas, X-ray ตามจำเป็น
 
 ---
 
@@ -18467,7 +18467,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 **Open fracture care** ⭐:
 1. ป้องกันไม่ให้กระดูกที่โผล่แห้ง — ทาน้ำเกลือ + ปิดผ้าชุ่ม
 2. **Lavage เยอะ ๆ** ล้างฝุ่น/ดิน
-3. **Antibiotics**: Amoxicillin-clavulanate · cefazolin · ทำ culture ก่อนเริ่มยา
+3. **Antibiotics**: Amoxicillin-clavulanate, cefazolin, ทำ culture ก่อนเริ่มยา
 4. **Sedation/anesthesia** ถ้าเจ็บไม่ยอมให้ทำแผล
 5. **Aseptic technique** เสมอ
 
@@ -18493,7 +18493,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 **Calibration Ball** ⭐ (เม็ดเหล็กกลม-ขาว):
 - ขนาดมาตรฐาน 2.5 cm
 - ใช้คำนวณ magnification ratio ของฟิล์ม
-- จำเป็นสำหรับ **TPLO · TTA · osteotomy** ที่ต้องวางแผนแม่นยำ
+- จำเป็นสำหรับ **TPLO, TTA, osteotomy** ที่ต้องวางแผนแม่นยำ
 
 **CT scan** — ใช้ใน complex/comminuted/pelvic fracture
 
@@ -18503,9 +18503,9 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Drug class | Examples |
 |---|---|
-| **Opioids** | Morphine · Fentanyl drip/patch · Methadone |
-| **NSAIDs** | Carprofen · meloxicam (caution if hypotension) |
-| **Local anesthesia** | Lidocaine block · epidural |
+| **Opioids** | Morphine, Fentanyl drip/patch, Methadone |
+| **NSAIDs** | Carprofen, meloxicam (caution if hypotension) |
+| **Local anesthesia** | Lidocaine block, epidural |
 
 **ข้อดีของ pain control**:
 - ลด stress → metabolism ดีขึ้น
@@ -18534,29 +18534,29 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | **Drill bit + Drill guide + Sleeve guide** | เจาะรู screw |
 | **Power drill (auto-clavable)** | สว่าน ortho เฉพาะ — แพง |
 
-⚠️ **Wire twister ≠ Needle holder** — needle holder คอบางกว่า · ใช้ผิดพังเร็ว
+⚠️ **Wire twister ≠ Needle holder** — needle holder คอบางกว่า, ใช้ผิดพังเร็ว
 
 ---
 
 ## 📝 EXAM RECAP — 15 Key Points
 
 1. **Bone composition**: 70% mineral (95% hydroxyapatite) + 30% organic (98% collagen) + 2% cells
-2. **Stress = แรง/พื้นที่ · Strain = การเปลี่ยนรูป** (อย่าสับสน!)
+2. **Stress = แรง/พื้นที่, Strain = การเปลี่ยนรูป** (อย่าสับสน!)
 3. **Stress-strain curve**: Elastic → Yield → Plastic → Ultimate Failure
-4. **Young's modulus**: SS 200 · Bone < 30 · Cancellous < 5 · Cement < 3 GPa
-5. **Anisotropic**: longitudinal แข็ง · transverse เปราะ
-6. **Viscoelastic**: เร็วแข็ง · ช้าหวัย
+4. **Young's modulus**: SS 200, Bone < 30, Cancellous < 5, Cement < 3 GPa
+5. **Anisotropic**: longitudinal แข็ง, transverse เปราะ
+6. **Viscoelastic**: เร็วแข็ง, ช้าหวัย
 7. **Bone strain tolerance < 2%** → ต้อง immobilize
-8. **Loading-Pattern map**: Tension→Transverse · Compression→Oblique · Bending→Wedge · Torsion→Spiral
+8. **Loading-Pattern map**: Tension→Transverse, Compression→Oblique, Bending→Wedge, Torsion→Spiral
 9. **Greenstick fracture** = pediatric incomplete (กิ่งไม้สด)
-10. **Open fracture types**: 1 (<1cm inside-out) · 2 (≥1cm outside-in) · 3A/B/C (severity by tissue damage)
-11. **Salter-Harris**: Type 1 (through physis) · 2 (most common, +metaphysis) · 3 (+epiphysis) · 4 (all 3) · 5 (crush) · 6 (partial)
+10. **Open fracture types**: 1 (<1cm inside-out), 2 (≥1cm outside-in), 3A/B/C (severity by tissue damage)
+11. **Salter-Harris**: Type 1 (through physis), 2 (most common, +metaphysis), 3 (+epiphysis), 4 (all 3), 5 (crush), 6 (partial)
 12. **Displacement** ดูจาก proximal segment เสมอ + ต้องดู 2 views
 13. **Cat fractures** ~95% เป็น comminuted (เปราะแบบไม้ไผ่)
 14. **AMPLE history + ABCDE vital + A CRASH PLAN** ทุกรายก่อนผ่า
 15. **Calibration ball 2.5 cm** จำเป็นสำหรับ planning ที่ต้องการความแม่นยำสูง
 
-> 📚 อ่านควบ: 5 Oral Sx (OzV5BJrJfDc) · 6.2 ESF (LwNNZYoCpZE) · 7 External Immobilization (9cXpZwgUAPI) · 9.3 Patella Luxation (CIUpw8GNtQ4) · 12 Cruciate (9U-Dgu0ouUk) · 14 Spinal fracture (C1Q5SHxSkGw)
+> 📚 อ่านควบ: 5 Oral Sx (OzV5BJrJfDc), 6.2 ESF (LwNNZYoCpZE), 7 External Immobilization (9cXpZwgUAPI), 9.3 Patella Luxation (CIUpw8GNtQ4), 12 Cruciate (9U-Dgu0ouUk), 14 Spinal fracture (C1Q5SHxSkGw)
 > 📐 ฟิสิกส์เบสิกแต่จำเป็น — ทุกหัวข้อ ortho ที่ตามมาในเทอม 1+2 จะใช้ความรู้นี้`,
   },
 
@@ -18570,13 +18570,13 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     date: '4 Sep 67',
     durationMin: 133,
     instructor: 'อ. (Dental/Maxillofacial Sx) — Sx ortho block',
-    examFormat: 'MCQ — tooth fracture types · TMJ luxation direction · Salter-Harris in maxilla · 30-min/48-hr time windows · plate placement rules ออกบ่อย',
+    examFormat: 'MCQ — tooth fracture types, TMJ luxation direction, Salter-Harris in maxilla, 30-min/48-hr time windows, plate placement rules ออกบ่อย',
     summary: `# Oral Surgical Treatment
 
 > 🎯 บทนี้แบ่ง 2 ส่วน:
-> Part 1 = **Oral Trauma** (ฟัน · ริมฝีปาก · TMJ)
+> Part 1 = **Oral Trauma** (ฟัน, ริมฝีปาก, TMJ)
 > Part 2 = **Maxilla + Mandibular Fracture**
-> ⚠️ Time-critical windows สำคัญ: 30 นาที (avulsion/luxation) · 48 ชม (vital pulp therapy)
+> ⚠️ Time-critical windows สำคัญ: 30 นาที (avulsion/luxation), 48 ชม (vital pulp therapy)
 
 ---
 
@@ -18586,23 +18586,23 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Type | Detail |
 |---|---|
-| **Non-maxillary/mandibular** | Dental · Lip · TMJ trauma |
+| **Non-maxillary/mandibular** | Dental, Lip, TMJ trauma |
 | **Maxillary/Mandibular** | กระดูกใหญ่หัก (ดู Part 2) |
 
-**Common causes**: รถชน · ตกที่สูง · สู้กับสัตว์อื่น · เคี้ยวของแข็ง · เบสบอล/กอล์ฟ (ต่างประเทศ)
+**Common causes**: รถชน, ตกที่สูง, สู้กับสัตว์อื่น, เคี้ยวของแข็ง, เบสบอล/กอล์ฟ (ต่างประเทศ)
 
 ---
 
 ## 2. Dental (Tooth) Trauma ⭐
 
 ### 2.1 Anatomy Recap
-**ฟันมีชีวิต** — สร้าง dentin ตลอด · primary dentin (ตอนเด็ก-pulp ใหญ่) → secondary dentin (โต) → **tertiary/reparative dentin** (เมื่อ damage)
+**ฟันมีชีวิต** — สร้าง dentin ตลอด, primary dentin (ตอนเด็ก-pulp ใหญ่) → secondary dentin (โต) → **tertiary/reparative dentin** (เมื่อ damage)
 
 ### 2.2 Tooth Fracture Types ⭐⭐⭐
 | Type | Visual | Detail |
 |---|---|---|
-| **Uncomplicated crown fracture** | รอยแตก · ไม่มีจุดแดง | ไม่ทะลุ pulp · อาจสร้าง reparative dentin (จุดน้ำตาล/ดำ) |
-| **Complicated crown fracture** | รอยแตก + **จุดแดงตรงกลาง** | ทะลุ pulp → bleeding · pulp exposure |
+| **Uncomplicated crown fracture** | รอยแตก, ไม่มีจุดแดง | ไม่ทะลุ pulp, อาจสร้าง reparative dentin (จุดน้ำตาล/ดำ) |
+| **Complicated crown fracture** | รอยแตก + **จุดแดงตรงกลาง** | ทะลุ pulp → bleeding, pulp exposure |
 
 ⚠️ **Pulp exposure** → bacterial infection → pulpitis → pulp necrosis → ฟันเปลี่ยนสี (น้ำตาล/ดำ/ชมพู)
 
@@ -18618,10 +18618,10 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 - เคี้ยวปาก/เลียฟันบ่อย
 - น้ำลายไหลเยอะ
 - กินข้าวแล้วปล่อยอาหารร่วง
-- เกาหน้า · ถูพื้น · หันหน้าหนีตอนถูก
-- เลือกอาหารเปียกแทนเม็ด · ไม่กัดของเล่น
+- เกาหน้า, ถูพื้น, หันหน้าหนีตอนถูก
+- เลือกอาหารเปียกแทนเม็ด, ไม่กัดของเล่น
 
-**Physical findings**: หน้าบวม (โดยเฉพาะใต้ตาฝั่งฟันบนติดเชื้อ) · sinus tract · submandibular LN โต
+**Physical findings**: หน้าบวม (โดยเฉพาะใต้ตาฝั่งฟันบนติดเชื้อ), sinus tract, submandibular LN โต
 
 ---
 
@@ -18645,11 +18645,11 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 4. Lip Trauma
 
 ### 4.1 Lip Laceration
-- เย็บปิด **full-thickness** (4 ชั้น): skin · subcutis · mucosa · oral mucosa
+- เย็บปิด **full-thickness** (4 ชั้น): skin, subcutis, mucosa, oral mucosa
 - ใช้ **flap closure**
 
 ### 4.2 Lip Avulsion ⭐ (พบในแมว)
-**Mechanism**: skin-mucosa ลอกออกจากกระดูกเหมือนถลอกถุงเท้า · มักทั้ง lower lip
+**Mechanism**: skin-mucosa ลอกออกจากกระดูกเหมือนถลอกถุงเท้า, มักทั้ง lower lip
 
 **Treatment** = **Suture + Wiring technique** ⭐:
 1. Stabilize vital signs ก่อน (อาจวางยาไม่ได้วันแรก)
@@ -18670,11 +18670,11 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ### 5.2 Differential Diagnosis (ปากเบี้ยว)
 | Dx | Clue |
 |---|---|
-| **TMJ luxation** ⭐ | เพิ่งเกิด · acute |
-| **TMJ subluxation** | mild · ปิดปากไม่สนิทแต่ไม่เบี้ยวมาก |
+| **TMJ luxation** ⭐ | เพิ่งเกิด, acute |
+| **TMJ subluxation** | mild, ปิดปากไม่สนิทแต่ไม่เบี้ยวมาก |
 | Mandibular fracture | กระดูกหัก-ยุบ |
 | TMJ dysplasia | developmental |
-| **TMJ ankylosis** ⭐ | chronic · เปิดปากแคบ < 1-2 cm |
+| **TMJ ankylosis** ⭐ | chronic, เปิดปากแคบ < 1-2 cm |
 | Foreign body | หินปูนหนาก็เบี้ยวได้! |
 | Periodontal disease | เรื้อรัง |
 | Trigeminal neuropathy | nerve issue |
@@ -18689,7 +18689,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | **Rostral** (มาด้านหน้า) | **ฝั่งตรงข้าม** ของฝั่งหลุด |
 | **Caudal** (ไปด้านหลัง) | **ฝั่งเดียวกัน** กับฝั่งหลุด |
 
-⭐ **Memorize**: rostral = opposite · caudal = same side
+⭐ **Memorize**: rostral = opposite, caudal = same side
 
 ### 5.4 Imaging
 **X-ray normal**: caudal process รูปรีวางอยู่บนเบ้า, symmetric
@@ -18702,8 +18702,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Approach | Indication |
 |---|---|
 | **Closed reduction** | TMJ luxation (no fracture) |
-| **Open reduction** | Reduction ไม่ได้ · มี soft tissue ขวาง · มี fracture ของ condyle |
-| **Condylectomy** ⭐ | Condylar fracture → ตัด condyle ออก · กล้ามเนื้อรอบ ๆ จะ support · risk = TMJ ankylosis ในอนาคต |
+| **Open reduction** | Reduction ไม่ได้, มี soft tissue ขวาง, มี fracture ของ condyle |
+| **Condylectomy** ⭐ | Condylar fracture → ตัด condyle ออก, กล้ามเนื้อรอบ ๆ จะ support, risk = TMJ ankylosis ในอนาคต |
 
 **Closed Reduction Technique**:
 - Anesthesia + sternal recumbency
@@ -18715,7 +18715,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ### 5.6 Post-reduction Restriction (6-8 สัปดาห์) ⭐
 | Method | Detail |
 |---|---|
-| **Tape muzzle** | เปิดช่อง 1-1.5 cm ให้เลียกินได้ · ไม่ใช้ใน mandibular Fx ที่ + maxilla (เพราะกด Mx) |
+| **Tape muzzle** | เปิดช่อง 1-1.5 cm ให้เลียกินได้, ไม่ใช้ใน mandibular Fx ที่ + maxilla (เพราะกด Mx) |
 | **Interdental composite splint** | acrylic เชื่อมเขี้ยวบน-ล่าง |
 | **Wiring** (interdental) | ลวดร้อยฟันกรามบน-ล่าง |
 | **Labial reverse suture to button** | กระดุมที่หน้า + suture ใต้คาง — ดีกว่า muzzle |
@@ -18728,7 +18728,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ### 6.1 Maxilla
 - เกือบเสมอ involve **incisive bone** + บางครั้ง zygomatic, lacrimal, frontal, nasal
-- **PR maxillary fracture** = หักก่อนถึง maxilla proper · มัก wiring repair
+- **PR maxillary fracture** = หักก่อนถึง maxilla proper, มัก wiring repair
 
 ### 6.2 Mandible — 7 Sections ⭐
 | Section | Description |
@@ -18745,7 +18745,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 - **2/3 dorsal** = ฟัน (รากฟัน)
 - **1/3 ventral** = **mandibular canal** = inferior alveolar artery + vein + nerve
 
-⚠️ **Plate ต้องวาง ventral surface** เพื่อหนีรากฟัน · ระวัง screws ไม่ให้โดนฟัน + canal
+⚠️ **Plate ต้องวาง ventral surface** เพื่อหนีรากฟัน, ระวัง screws ไม่ให้โดนฟัน + canal
 
 ---
 
@@ -18753,8 +18753,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Cause | Detail |
 |---|---|
-| **Traumatic** | รถชน · กัด · ตี · กระทบกระแทก |
-| **Pathologic** ⭐ | Severe periodontitis (สุนัขพันธุ์เล็ก!) · neoplasia · osteomyelitis · iatrogenic จาก extraction (หมอออกแรงมากเกิน!) |
+| **Traumatic** | รถชน, กัด, ตี, กระทบกระแทก |
+| **Pathologic** ⭐ | Severe periodontitis (สุนัขพันธุ์เล็ก!), neoplasia, osteomyelitis, iatrogenic จาก extraction (หมอออกแรงมากเกิน!) |
 
 ⭐ **Pathologic fracture** ในสุนัขพันธุ์เล็ก = mandible เล็ก-ฟันใหญ่ → cortical bone บาง → หักง่าย
 
@@ -18764,12 +18764,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ### 8.1 Signalment + History
 - อายุน้อย → traumatic เน้น
-- อายุเยอะ → คิดถึง pathologic (cancer · periodontitis)
+- อายุเยอะ → คิดถึง pathologic (cancer, periodontitis)
 - สุนัขพันธุ์เล็กแก่ → severe perio + pathologic Fx
 
 ### 8.2 Examination
 - คลำ symmetric เปรียบเทียบซ้าย-ขวา
-- เปิด-ปิดปาก · เสียง crepitus
+- เปิด-ปิดปาก, เสียง crepitus
 - ตรวจปากด้วยนิ้ว ดู gum tear (= bone exposed → infection risk!)
 - **GA จำเป็น** ในการ exam ละเอียด
 
@@ -18777,7 +18777,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Modality | Use |
 |---|---|
 | **Conventional X-ray** (DV/VD + open-mouth lateral) | First-line |
-| **CT scan** ⭐ | Maxilla · TMJ · condylar fx · complex fractures |
+| **CT scan** ⭐ | Maxilla, TMJ, condylar fx, complex fractures |
 | **Dental X-ray** | Concurrent dental trauma |
 
 ---
@@ -18786,14 +18786,14 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Score component | Detail |
 |---|---|
-| **Mechanical** | Pattern (simple > comminuted) · displacement |
-| **Biological** | Age · health · concurrent disease · time since injury |
-| **Clinical** | Owner compliance · home care |
+| **Mechanical** | Pattern (simple > comminuted), displacement |
+| **Biological** | Age, health, concurrent disease, time since injury |
+| **Clinical** | Owner compliance, home care |
 
 | Total Score | Treatment recommendation |
 |---|---|
-| **High** | Conservative — tape muzzle · interdental composite |
-| **Moderate** | Inter-fragmentary wiring · ESF · plate-and-screw |
+| **High** | Conservative — tape muzzle, interdental composite |
+| **Moderate** | Inter-fragmentary wiring, ESF, plate-and-screw |
 | **Low** | ESF only (last resort) |
 
 ---
@@ -18811,9 +18811,9 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Method | Indication |
 |---|---|
 | **Orthopedic wire / Cerclage wire** | Simple fx, low cost |
-| **Inter-fragmentary wiring** ⭐ | เจาะรูห่าง fx line 5-10 mm · ผ่าน wire mass |
+| **Inter-fragmentary wiring** ⭐ | เจาะรูห่าง fx line 5-10 mm, ผ่าน wire mass |
 | **Interdental wiring** | ร้อยลวดผ่านฟัน 2 ซี่ขึ้นไป (เหมือนจัดฟัน) |
-| **Plate and screw** ⭐⭐ | Strongest · "**mini plate**" 3-4 mm · vent surface ⭐ |
+| **Plate and screw** ⭐⭐ | Strongest, "**mini plate**" 3-4 mm, vent surface ⭐ |
 | **Locking plate** | Better stability than non-locking |
 
 ⚠️ **IM Pin ห้ามใช้ใน mandible** — โดนฟัน + canal (เคยมีในอดีต)
@@ -18829,7 +18829,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 **Why "separation" not "fracture"**: symphysis = fibrous tissue (ไม่ใช่กระดูก-กระดูก)
 
-**Treatment**: **Cerclage wire** รวบหลังเขี้ยว → ผูกปมใต้คาง · 6-8 สัปดาห์ → **ต้องเอาลวดออก** (ไม่งั้นเกิด osteomyelitis · เคยเจอเคส 2 ปี)
+**Treatment**: **Cerclage wire** รวบหลังเขี้ยว → ผูกปมใต้คาง, 6-8 สัปดาห์ → **ต้องเอาลวดออก** (ไม่งั้นเกิด osteomyelitis, เคยเจอเคส 2 ปี)
 
 ---
 
@@ -18860,12 +18860,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Action | When |
 |---|---|
-| **X-ray** | 1 เดือน = check alignment + device · > 1 เดือน = check healing |
+| **X-ray** | 1 เดือน = check alignment + device, > 1 เดือน = check healing |
 | **Dental occlusion check** | Every visit ⭐ |
 | **Suture removal** | 2 wks |
-| **Tape muzzle** | Add for extra immobilization (ระวัง skin infection · ทำใหม่ทุกวัน) |
+| **Tape muzzle** | Add for extra immobilization (ระวัง skin infection, ทำใหม่ทุกวัน) |
 | **Soft food only** + งดของเล่นกัดแทะ | จนกว่าจะ heal |
-| **Esophagostomy tube** | Severe case · ไม่ใช้ NG tube > 1 เดือน |
+| **Esophagostomy tube** | Severe case, ไม่ใช้ NG tube > 1 เดือน |
 | **Chlorhexidine oral rinse** | 2x/day ถ้ามี oral wound |
 
 ---
@@ -18874,8 +18874,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Complication | Detail |
 |---|---|
-| **Malocclusion** ⭐⭐ | **Most common serious** complication · ตามด้วย TMJ arthritis · fractured teeth · periodontitis · → **extraction หรือ ostectomy** แก้ |
-| **Osteomyelitis + Bone sequester** | Implant infected · comminuted fragment ตาย → remove implant + culture + antibiotics |
+| **Malocclusion** ⭐⭐ | **Most common serious** complication, ตามด้วย TMJ arthritis, fractured teeth, periodontitis, → **extraction หรือ ostectomy** แก้ |
+| **Osteomyelitis + Bone sequester** | Implant infected, comminuted fragment ตาย → remove implant + culture + antibiotics |
 | **Non-union** | Inappropriate stabilization OR pathologic Fx OR poor health → **bone graft** + growth factor |
 
 ---
@@ -18891,25 +18891,25 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 📝 EXAM RECAP — 18 Key Points
 
 1. **Tooth fracture**: Uncomplicated (no pulp) vs Complicated (red dot = pulp exposure)
-2. **Vital pulp therapy** = **48 ชม.** · Tooth avulsion/luxation reposition = **30 นาที** ⭐
+2. **Vital pulp therapy** = **48 ชม.**, Tooth avulsion/luxation reposition = **30 นาที** ⭐
 3. **Reparative dentin** = จุดน้ำตาล-ดำ ตรงกลางฟัน = ร่างกายซ่อมเอง
 4. **Lip avulsion** ในแมว → suture + wiring (เจาะรูกระดูกระหว่างฟัน, ห้ามโดนฟัน)
-5. **TMJ luxation direction**: rostral = ปากเบี้ยวฝั่งตรงข้าม · caudal = เบี้ยวฝั่งเดียวกัน
+5. **TMJ luxation direction**: rostral = ปากเบี้ยวฝั่งตรงข้าม, caudal = เบี้ยวฝั่งเดียวกัน
 6. **Bilateral TMJ luxation** = เลื่อนรอสตรัล (มาหน้า) ทั้งคู่
 7. **Closed reduction TMJ** = ใช้ดินสอ/ไม้เป็น fulcrum หลัง M1 ล่าง + P4 บน
 8. **ห้าม reduce** ถ้า condyle หัก → **condylectomy** แทน
 9. **Tape muzzle** = ห้ามใช้ใน maxilla + mandible Fx (กด maxilla)
 10. **Mandibular symphysis** = fibrous tissue → "separation" ไม่ใช่ "fracture"
-11. **Symphyseal cerclage** = 6-8 wks · **ต้องเอาออก** (ไม่งั้น osteomyelitis)
-12. **Plate placement** = ventral surface (หนีรากฟัน) · screws หลีกรากฟัน
+11. **Symphyseal cerclage** = 6-8 wks, **ต้องเอาออก** (ไม่งั้น osteomyelitis)
+12. **Plate placement** = ventral surface (หนีรากฟัน), screws หลีกรากฟัน
 13. **IM pin ห้ามใช้ใน mandible** (โดน canal + ฟัน)
-14. **Pathologic Fx** = สุนัขพันธุ์เล็กแก่ + perio · cancer · iatrogenic
-15. **Palatal Fx** = high-rise syndrome ในแมว · มักพ่วง symphyseal separation
+14. **Pathologic Fx** = สุนัขพันธุ์เล็กแก่ + perio, cancer, iatrogenic
+15. **Palatal Fx** = high-rise syndrome ในแมว, มักพ่วง symphyseal separation
 16. **Pharyngotomy intubation** = สอด ET ข้าม mandible เพื่อเช็ค occlusion ระหว่างผ่า
-17. **Most common complication** = **malocclusion** → arthritis · fracture · perio
-18. **Post-op X-ray timing**: 1 เดือน = device check · > 1 เดือน = healing check
+17. **Most common complication** = **malocclusion** → arthritis, fracture, perio
+18. **Post-op X-ray timing**: 1 เดือน = device check, > 1 เดือน = healing check
 
-> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 6.1 Muscle/tendon (BLk5OjwlduA) · 7 External immobilization (9cXpZwgUAPI) · 11 Common Joint (MMTtwT_7c94)
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc), 6.1 Muscle/tendon (BLk5OjwlduA), 7 External immobilization (9cXpZwgUAPI), 11 Common Joint (MMTtwT_7c94)
 > 🦷 หัวข้อนี้ overlap กับ COM 1 oral cavity (ปี 3) — ใช้ความรู้ dental anatomy เดิม`,
   },
 
@@ -18923,11 +18923,11 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     date: '11 Sep 67 (รุ่นพี่)',
     durationMin: 38,
     instructor: 'พี่ (อาจารย์รุ่นพี่)',
-    examFormat: 'MCQ — Quad contracture · Achilles plantigrade · suture choice for tendon · grade-based treatment',
+    examFormat: 'MCQ — Quad contracture, Achilles plantigrade, suture choice for tendon, grade-based treatment',
     summary: `# Muscle and Tendon Disorders
 
 > 🎯 บทเสริม ortho — soft tissue ที่อยู่รอบกระดูก (กล้ามเนื้อ + เส้นเอ็น) เสียหายได้พอกัน
-> ⚠️ Top 3 keywords ที่ออกสอบ: **Quadriceps contracture · Achilles tendon · Bicipital tendinosis**
+> ⚠️ Top 3 keywords ที่ออกสอบ: **Quadriceps contracture, Achilles tendon, Bicipital tendinosis**
 
 ---
 
@@ -18937,7 +18937,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Stage | กลไก | Detail |
 |---|---|---|
-| **Strain** | หด-เกร็ง | Office syndrome · ออกกำลังเบา ๆ |
+| **Strain** | หด-เกร็ง | Office syndrome, ออกกำลังเบา ๆ |
 | **Contusion** | กระแทก-ช้ำ | Blunt trauma |
 | **Rupture** | ฉีกขาดของ Muscle Fiber | บางส่วนของมัด |
 | **Laceration** | ฉีกขาดทั้งมัด | Severe |
@@ -18954,21 +18954,21 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ⭐ **48-hour rule**: cold pack first 48 hr → switch to **warm pack 50-60°C** (อย่าร้อนจนหนังลอก!)
 
 ## 3. Common Muscle Causes
-- **Blunt trauma** (รถชน · ตก) → กระดูกหัก + Muscle damage รอบ ๆ
-- **Overuse** (Office Syndrome · นักกีฬา · หมาวิ่งกีฬา)
+- **Blunt trauma** (รถชน, ตก) → กระดูกหัก + Muscle damage รอบ ๆ
+- **Overuse** (Office Syndrome, นักกีฬา, หมาวิ่งกีฬา)
 - **Iatrogenic** (จากการผ่าตัด)
 
 ---
 
 ## 4. Quadriceps Contracture ⭐⭐⭐ (KEY TOPIC!)
 
-> "**Quadriceps contracture**" — ภาวะกล้ามเนื้อหดเกร็งหลัง trauma · กลายเป็น fibrotic myopathy
+> "**Quadriceps contracture**" — ภาวะกล้ามเนื้อหดเกร็งหลัง trauma, กลายเป็น fibrotic myopathy
 
 ### 4.1 Pathogenesis
 1. **Trauma หรือ femoral fracture** (โดยเฉพาะ distal femoral / Salter-Harris ในเด็ก!)
 2. กล้ามเนื้อหดตัวพยายามรักษาตัวเอง
 3. หากปล่อย → **fibrosis + scar tissue** → กล้ามเนื้อหดถาวร
-4. เห็น **ขาเหยียดตรง · เกร็ง · ใช้งานไม่ได้**
+4. เห็น **ขาเหยียดตรง, เกร็ง, ใช้งานไม่ได้**
 
 ### 4.2 Predisposing Factors ⭐
 - **สุนัข/แมวเด็ก** (กระดูกยังพัฒนาอยู่)
@@ -18981,7 +18981,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 2. **Modified Robert Jones bandage** (NOT splint แข็ง) ในระหว่างรอผ่า
 3. **Early rehabilitation** — กระตุ้น Range of Motion + weight-bearing เร็ว
 
-### 4.4 Treatment (ถ้าเกิดแล้ว · ผลลัพธ์ไม่ 100%)
+### 4.4 Treatment (ถ้าเกิดแล้ว, ผลลัพธ์ไม่ 100%)
 - **Rehabilitation** — physical therapy
 - **Z-plasty** — กรีด fibrous tissue เป็นรูป Z เพื่อยืดออก (แต่บางตัว reaction → fibrosis กลับมาอีก!)
 - **Joint fixation** — fix joint ใน position ที่ functional ที่สุด
@@ -18994,8 +18994,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Disease | Detail |
 |---|---|
-| **Myositis ossificans** | Calcification ในกล้ามเนื้อหลัง severe trauma · von Willebrand · tumor-associated · Tx = palliative resection |
-| **Infectious myositis** | Parasites · bacterial — common in Thailand! |
+| **Myositis ossificans** | Calcification ในกล้ามเนื้อหลัง severe trauma, von Willebrand, tumor-associated, Tx = palliative resection |
+| **Infectious myositis** | Parasites, bacterial — common in Thailand! |
 | **Myasthenia gravis** | Muscle weakness — neurologic disease |
 
 ---
@@ -19004,7 +19004,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Phase | ทำอะไรได้ |
 |---|---|
-| **Inflammation** | Rest only · ultrasound therapy ลด inflammation ได้ |
+| **Inflammation** | Rest only, ultrasound therapy ลด inflammation ได้ |
 | **Repair** | Rest only |
 | **Remodelling** ⭐ | **เริ่ม weight-bearing rehab!** กระตุ้น remodelling |
 
@@ -19019,7 +19019,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Property | Choice |
 |---|---|
 | **Pattern** | **Mattress suture** (ทนแรงตึงดี) |
-| **Material** | **Long-term absorbable monofilament** (PDS/Maxon · Polydioxanone) |
+| **Material** | **Long-term absorbable monofilament** (PDS/Maxon, Polydioxanone) |
 | **Layer** | เย็บ **fascia ทับ** (Strength อยู่ที่ fascia) — ถ้าฟาเชียเสีย = เย็บ muscle ตรง ๆ |
 
 ---
@@ -19038,7 +19038,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ⭐ **Suture choice = Non-absorbable!**
 - **Polypropylene (Prolene)** ⭐ = **Truly non-absorbable** — ดีที่สุด
-- **Nylon** = น้อยกว่า Prolene · แต่ยังใช้ได้ในคลินิกเล็ก ๆ
+- **Nylon** = น้อยกว่า Prolene, แต่ยังใช้ได้ในคลินิกเล็ก ๆ
 - ❌ Absorbable — แม้ long-term ก็ยังเสีย tensile strength ก่อน 1 ปี
 
 ---
@@ -19052,36 +19052,36 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ### 10.2 Clinical Signs
 | Stage | Sign |
 |---|---|
-| **Acute** | เจ็บ · lameness |
-| **Chronic** ⭐ | **Plantigrade walk** — เดินเอาขาตรงแตะพื้นทั้งหมด · ไม่เจ็บแล้ว แต่เดินผิดรูปถาวร |
+| **Acute** | เจ็บ, lameness |
+| **Chronic** ⭐ | **Plantigrade walk** — เดินเอาขาตรงแตะพื้นทั้งหมด, ไม่เจ็บแล้ว แต่เดินผิดรูปถาวร |
 
 ### 10.3 Treatment
 | Severity | Tx |
 |---|---|
-| **Partial rupture** | Medical (rest · NSAIDs · splint) |
+| **Partial rupture** | Medical (rest, NSAIDs, splint) |
 | **Complete rupture** ⭐ | **Surgical repair** with non-absorbable suture |
 
 ### 10.4 Suture Patterns ⭐ (ต้องจำได้)
 | Pattern | Use |
 |---|---|
 | **Three-loop pulley** | High strength |
-| **Krackow suture** | High strength · locking |
+| **Krackow suture** | High strength, locking |
 | **Bunnell suture** | Old standby |
 | **Locking-loop (Kessler)** | Variation |
 
-⭐ **อาจารย์ใช้บ่อย**: ฟาเซียเย็บ + locking pattern · ข้อสอบอาจถามรูปแบบ
+⭐ **อาจารย์ใช้บ่อย**: ฟาเซียเย็บ + locking pattern, ข้อสอบอาจถามรูปแบบ
 
 ---
 
-## 11. Bicipital Tendinosis ⭐ (ขาหน้า · หัวไหล่)
+## 11. Bicipital Tendinosis ⭐ (ขาหน้า, หัวไหล่)
 
 ### 11.1 Pathology
 - **Bicipital tendon** ที่หัวไหล่ (origin ของ biceps brachii)
 - เกิด inflammation จาก **overuse**
-- เจอบ่อยใน: **Doberman · Golden · Labrador**
+- เจอบ่อยใน: **Doberman, Golden, Labrador**
 
 ### 11.2 Clinical Signs
-- เจ็บขาหน้า · bobbing gait (ยกหัวเวลาลงน้ำหนัก)
+- เจ็บขาหน้า, bobbing gait (ยกหัวเวลาลงน้ำหนัก)
 - เกร็งหัวเวลาลงน้ำหนักขานั้น
 - **Stretch test** — ยืดขา + กดเข้าที่ tendon = bicipital pain
 
@@ -19095,12 +19095,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ### 11.4 Treatment
 - **Medical**: NSAIDs + rest (most cases)
-- **Surgical**: **Tenotomy** (ตัด tendon) — ถ้า medical ไม่หาย · มีผลกระทบ ROM ในอนาคต
+- **Surgical**: **Tenotomy** (ตัด tendon) — ถ้า medical ไม่หาย, มีผลกระทบ ROM ในอนาคต
 
 ---
 
 ## 12. Other Tendon (Mention)
-- **Infraspinatus contracture** — ขาหน้า · เจอน้อย
+- **Infraspinatus contracture** — ขาหน้า, เจอน้อย
 
 ---
 
@@ -19114,7 +19114,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ## 📝 EXAM RECAP — 12 Key Points
 
-1. **Muscle damage 4 grades**: 1-2 = medical · 3-4 = surgical
+1. **Muscle damage 4 grades**: 1-2 = medical, 3-4 = surgical
 2. **48-hr rule**: cold pack 48 hr → warm pack 50-60°C
 3. **Quadriceps contracture** = สุนัขเด็ก + femoral Fx + delayed fixation → fibrotic myopathy
 4. **Quad contracture prevention** = early Sx + Modified Robert Jones (NOT cast) + early rehab ⭐
@@ -19124,11 +19124,11 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 8. **Tendon healing 21 d → 1 yr** → must use **non-absorbable suture**
 9. **Polypropylene > Nylon** for tendon (truly non-absorbable)
 10. **Achilles rupture** → **plantigrade walk** (chronic) ⭐
-11. **Suture patterns for tendon**: Three-loop pulley · Krackow · Bunnell · Kessler
-12. **Bicipital tendinosis** → predisposing breeds Dobermann/Golden/Lab · arthroscopy = Dx of choice
+11. **Suture patterns for tendon**: Three-loop pulley, Krackow, Bunnell, Kessler
+12. **Bicipital tendinosis** → predisposing breeds Dobermann/Golden/Lab, arthroscopy = Dx of choice
 
-> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 6.2 ESF (LwNNZYoCpZE) · 7 External Immobilization (9cXpZwgUAPI) · 12 Cruciate (9U-Dgu0ouUk)
-> 🩻 หมายเหตุ — บทนี้แค่ 38 นาที · เอาให้จำ Quad contracture + Achilles plantigrade + non-absorbable suture for tendon ก็ผ่าน`,
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc), 6.2 ESF (LwNNZYoCpZE), 7 External Immobilization (9cXpZwgUAPI), 12 Cruciate (9U-Dgu0ouUk)
+> 🩻 หมายเหตุ — บทนี้แค่ 38 นาที, เอาให้จำ Quad contracture + Achilles plantigrade + non-absorbable suture for tendon ก็ผ่าน`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -19141,12 +19141,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     date: '11 Sep 67',
     durationMin: 81,
     instructor: 'อ. (Internal/External fixation)',
-    examFormat: 'MCQ — ESF type 1A/1B/2/3 · pin sequence · indications/contraindications · post-op pin removal sequence ออกบ่อย',
+    examFormat: 'MCQ — ESF type 1A/1B/2/3, pin sequence, indications/contraindications, post-op pin removal sequence ออกบ่อย',
     summary: `# External Skeletal Fixation (ESF)
 
 > 🎯 **ESF = "ลูกครึ่ง"** ระหว่าง internal และ external fixation
 > ครึ่งนึงอยู่ในร่างกาย (pin), ครึ่งนึงอยู่นอก (bar + clamp)
-> ⚠️ Top exam: **Type 1/2/3 classification · pin insertion sequence · removal sequence**
+> ⚠️ Top exam: **Type 1/2/3 classification, pin insertion sequence, removal sequence**
 
 ---
 
@@ -19154,8 +19154,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Component | Function |
 |---|---|
-| **Fixation Pin** | เสียบทะลุกระดูก (cortex 2 ฝั่ง) · คล้าย IM pin |
-| **Connecting Bar** | "ไม้เท้า" — รับน้ำหนักแทนกระดูกหัก · ขนานกับ long bone |
+| **Fixation Pin** | เสียบทะลุกระดูก (cortex 2 ฝั่ง), คล้าย IM pin |
+| **Connecting Bar** | "ไม้เท้า" — รับน้ำหนักแทนกระดูกหัก, ขนานกับ long bone |
 | **Fixation Clamp** (Linkage Device) | น็อต-ยึดระหว่าง pin กับ bar |
 
 ---
@@ -19185,17 +19185,17 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Subtype | Configuration | Description |
 |---|---|---|
-| **Type 1A** | Unilateral · Uniplanar | 1 bar, 1 ระนาบ — half pin splintage 1 ชุด |
-| **Type 1B** | Unilateral · Biplanar | 2 bars, 2 ระนาบ (2 ทิศ) — เสริม stability |
+| **Type 1A** | Unilateral, Uniplanar | 1 bar, 1 ระนาบ — half pin splintage 1 ชุด |
+| **Type 1B** | Unilateral, Biplanar | 2 bars, 2 ระนาบ (2 ทิศ) — เสริม stability |
 
 ### 4.2 Type 2 (Full Pin Splintage = ทะลุ skin 2 ด้าน, cortex 2 ด้าน)
 
 | Subtype | Description |
 |---|---|
 | **Maximum Type 2** ⭐ | **ทุก pin** ทะลุทั้ง 2 ฝั่งของ skin + cortex |
-| **Minimal Type 2** | เฉพาะ pin บนสุด-ล่างสุดทะลุ 2 ฝั่ง · ที่เหลือทะลุด้านเดียว |
+| **Minimal Type 2** | เฉพาะ pin บนสุด-ล่างสุดทะลุ 2 ฝั่ง, ที่เหลือทะลุด้านเดียว |
 
-### 4.3 Type 3 (Bilateral · Biplanar/Multiplanar)
+### 4.3 Type 3 (Bilateral, Biplanar/Multiplanar)
 
 - **Mix ของ Type 1 + Type 2** = multiple planes
 - **Circular ESF** (วงกลม) — ใช้ใน complex fracture / limb lengthening
@@ -19223,7 +19223,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ---
 
 ## 6. Contraindications ⭐
-- ❌ **Articular fracture** — joint surface · ใช้ screw/plate แทน
+- ❌ **Articular fracture** — joint surface, ใช้ screw/plate แทน
 - ❌ **Femoral neck/condylar fracture** — ใช้ screw/locking plate
 - ❌ **Pelvis** — ใช้ wire/plate
 - ❌ **Spinal fracture** — ใช้ "**Pedicle screw**" (ดูเหมือน ESF แต่ฝังใน)
@@ -19263,7 +19263,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Step | Pin position | เหตุผล |
 |---|---|---|
-| **1st (pins 1, 6)** | **บนสุด + ล่างสุด** | Anchor ที่ spongy bone (epiphysis) — แน่นที่สุด · กำหนด **bone length** |
+| **1st (pins 1, 6)** | **บนสุด + ล่างสุด** | Anchor ที่ spongy bone (epiphysis) — แน่นที่สุด, กำหนด **bone length** |
 | **2nd (pins 3, 4)** | **ใกล้ Fx line** (ห่าง = ½ diameter) | ควบคุม fracture alignment ⭐ |
 | **3rd (pins 2, 5)** | **ตรงกลาง** (ถ้าใส่เพิ่ม) | ความยาวกระดูก + รับน้ำหนักเพิ่ม |
 
@@ -19285,7 +19285,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 5. **ถอด standard bar + clamp ออก** → คืนของแพง
 6. เหลือแค่ pin + acrylic bar ติดตัวสุนัข
 
-⭐ ของเมืองนอก = ใส่ standard bar ทิ้งไว้ → ถอดคืนได้เงิน · ของไทย = acrylic ถูกกว่า
+⭐ ของเมืองนอก = ใส่ standard bar ทิ้งไว้ → ถอดคืนได้เงิน, ของไทย = acrylic ถูกกว่า
 
 ---
 
@@ -19334,24 +19334,24 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ## 📝 EXAM RECAP — 16 Key Points
 
-1. **ESF = 3 components**: Pin · Connecting Bar · Fixation Clamp
+1. **ESF = 3 components**: Pin, Connecting Bar, Fixation Clamp
 2. **Pin diameter = 1/4 ของ bone diameter** (เล็กกว่า IM pin 65-80%)
 3. **Type 1A** = Unilateral Uniplanar (1 bar, 1 plane)
 4. **Type 1B** = Unilateral Biplanar (2 bars, 2 planes)
-5. **Type 2 Maximum** = ทุก pin ทะลุ 2 ด้าน · **Minimal** = เฉพาะ top + bottom
-6. **Type 3** = Bilateral Biplanar / multiplanar (Type 1 + 2 mix · Circular ESF)
+5. **Type 2 Maximum** = ทุก pin ทะลุ 2 ด้าน, **Minimal** = เฉพาะ top + bottom
+6. **Type 3** = Bilateral Biplanar / multiplanar (Type 1 + 2 mix, Circular ESF)
 7. **Tie-in** = ESF + IM pin combined
-8. **Indications**: Open Fx ⭐ · gunshot · bone recon · comminuted · delayed/non-union
-9. **Contraindications**: articular Fx · femoral neck · spine (use pedicle screws) · pelvis
+8. **Indications**: Open Fx ⭐, gunshot, bone recon, comminuted, delayed/non-union
+9. **Contraindications**: articular Fx, femoral neck, spine (use pedicle screws), pelvis
 10. **Close reduction within 5-7 days** = Golden period (preserve periosteum)
-11. **Pin insertion sequence**: 1st = top + bottom (anchor + bone length) · 2nd = near Fx (alignment) · 3rd = middle ⭐
-12. **Pin tips**: cortex 2 ฝั่งทะลุเสมอ · clamp อยู่ห่าง skin 1 cm · อย่างน้อย 2 pin/fragment · อย่าโยกตอนแทง
+11. **Pin insertion sequence**: 1st = top + bottom (anchor + bone length), 2nd = near Fx (alignment), 3rd = middle ⭐
+12. **Pin tips**: cortex 2 ฝั่งทะลุเสมอ, clamp อยู่ห่าง skin 1 cm, อย่างน้อย 2 pin/fragment, อย่าโยกตอนแทง
 13. **Acrylic bar** = ทดแทน standard bar (ลด cost ในไทย)
 14. **Pin removal REVERSE order**: 2,5 → 3,4 → 1,6 (top-bottom anchor ออกท้ายสุด)
 15. **Splint × 2 weeks หลังถอด pin** = ป้องกัน fracture ที่ pin holes
 16. **ESF heals via secondary bone union** (callus) — different from rigid plate (primary union)
 
-> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 7 External Immobilization (9cXpZwgUAPI) · 12 Cruciate (9U-Dgu0ouUk) · 14 Spinal Fracture (C1Q5SHxSkGw)
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc), 7 External Immobilization (9cXpZwgUAPI), 12 Cruciate (9U-Dgu0ouUk), 14 Spinal Fracture (C1Q5SHxSkGw)
 > 🦴 ESF เป็นเทคนิค flexible ที่สุด — ทุก fracture ตั้งแต่ open compound ถึง limb lengthening ใช้ได้
 > ⚠️ Pin removal sequence ออกสอบบ่อย — จำลำดับ "บน-ล่าง = ออกสุดท้าย"`,
   },
@@ -19366,12 +19366,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     date: '18 Sep 67',
     durationMin: 170,
     instructor: 'อ. (ortho team)',
-    examFormat: 'MCQ — bandage type · cast technique · digit 3-4 marker · sling indications · M/D/N union types ออกบ่อย',
+    examFormat: 'MCQ — bandage type, cast technique, digit 3-4 marker, sling indications, M/D/N union types ออกบ่อย',
     summary: `# External Immobilization + Fracture Complications
 
 > 🎯 บทที่ยาวสุดของ ortho block (170 นาที = 2 hours 50 mins)
-> 2 ส่วน: (A) **External immobilization** — Cast/Splint/Sling · (B) **Fracture complications** — Delayed/Non/Mal-Union
-> ⚠️ Top exam: **digit 3-4 visualization rule · cast indications · sling techniques · 3 union types**
+> 2 ส่วน: (A) **External immobilization** — Cast/Splint/Sling, (B) **Fracture complications** — Delayed/Non/Mal-Union
+> ⚠️ Top exam: **digit 3-4 visualization rule, cast indications, sling techniques, 3 union types**
 
 ---
 
@@ -19382,7 +19382,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Type | Duration | Examples |
 |---|---|---|
 | **Long Duration** (> 3 weeks) | จนกระดูกติด | **Cast/Cast** เท่านั้น (1 method) |
-| **Temporary** (≤ 3 weeks) | ระยะสั้น | Splint · Modified Thomas Splint · Modified Robert Jones · Ehmer Sling · Velpeau Sling · Spica Cast |
+| **Temporary** (≤ 3 weeks) | ระยะสั้น | Splint, Modified Thomas Splint, Modified Robert Jones, Ehmer Sling, Velpeau Sling, Spica Cast |
 
 ⭐ **Cast = self-complete tool** (ใช้ตัวเดียวจากหักจนติดได้)
 ⭐ **Temporary devices ≠ self-complete** — ต้องใช้ร่วมกับวิธีอื่น
@@ -19393,11 +19393,11 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Bone | Cast applicable? | Reason |
 |---|---|---|
-| **Radius/Ulna · Tibia/Fibula** | ✅ | ต่ำกว่า elbow/stifle → bracket joints ได้ |
-| **Carpus · Tarsus · MC/MT/Phalanges** | ✅ | ใช้ short cast |
+| **Radius/Ulna, Tibia/Fibula** | ✅ | ต่ำกว่า elbow/stifle → bracket joints ได้ |
+| **Carpus, Tarsus, MC/MT/Phalanges** | ✅ | ใช้ short cast |
 | **Humerus** | ❌ | ติดรักแร้ — bracket shoulder ไม่ได้ |
 | **Femur** | ❌ | ติดขาหนีบ — bracket hip ไม่ได้ |
-| **Pelvis · Spine** | ❌ | ใช้ pedicle screw แทน |
+| **Pelvis, Spine** | ❌ | ใช้ pedicle screw แทน |
 
 ⚠️ **Rule**: Cast ใช้ได้กับ fractures **distal to elbow/stifle เท่านั้น!**
 
@@ -19407,9 +19407,9 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Material | Setting time | Pros | Cons |
 |---|---|---|---|
-| **Plaster of Paris** | 5 นาที (จุ่มน้ำ) | ราคาถูก · ทำง่าย · ดัดง่าย | หนัก · เปียกน้ำไม่ได้ · ไม่ reusable |
-| **Thermoplastic (XL)** | กดความร้อนแล้วเย็น | Reusable · เบา | ไม่แนบขา · ไม่นิยมทำ full cast |
-| **Fiberglass (3M)** | 5-7 นาที (โดนอากาศ) | เบา · แข็งแรง | ราคาแพง 10× POP · ไม่ reusable |
+| **Plaster of Paris** | 5 นาที (จุ่มน้ำ) | ราคาถูก, ทำง่าย, ดัดง่าย | หนัก, เปียกน้ำไม่ได้, ไม่ reusable |
+| **Thermoplastic (XL)** | กดความร้อนแล้วเย็น | Reusable, เบา | ไม่แนบขา, ไม่นิยมทำ full cast |
+| **Fiberglass (3M)** | 5-7 นาที (โดนอากาศ) | เบา, แข็งแรง | ราคาแพง 10× POP, ไม่ reusable |
 
 ⭐ **Setting time 5 นาที ดีที่สุด** — เร็วไป = ไม่ทันโม / ช้าไป = สัตว์ขยับ
 
@@ -19442,14 +19442,14 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ### 5.3 Cast Padding (สำลีรองเฝือก)
 - **Bottom edge อยู่ระดับ digit 2-5** ⭐
 - **Digit 3-4 ต้องโผล่ออกมา** (visualization markers)
-- พัน 2 รอบ: ล่างขึ้นบน + บนลงล่าง · ซ้อนทับ 50%
+- พัน 2 รอบ: ล่างขึ้นบน + บนลงล่าง, ซ้อนทับ 50%
 - **ขาหน้า**: เสริมที่ olecranon หนา 4-6 ชั้น (จุดโดน cast บาด!)
 - **ขาหลัง**: ไม่ต้องเสริมที่ calcaneus (ไม่โดน)
 
 ### 5.4 Cast Material Application
 - Cut into strips (1.5 รอบ × ความยาว)
 - Overlap ที่ด้าน **caudal** (ขาหน้า) / **cranial** (ขาหลัง) = weight-bearing side
-- Width: 2 นิ้ว (สุนัข 5-15 kg) · 3 นิ้ว (> 20 kg)
+- Width: 2 นิ้ว (สุนัข 5-15 kg), 3 นิ้ว (> 20 kg)
 - 1 layer up + 1 layer down = standard
 - ⭐ **เสริมความแข็งแรง**: ใช้ extra layers เฉพาะ weight-bearing side
 
@@ -19491,7 +19491,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ## 8. Splints (Half Cast) ⭐
 
-⭐ Splint = **เฝือกครึ่ง** (half cast) — caudal สำหรับขาหน้า · cranial สำหรับขาหลัง
+⭐ Splint = **เฝือกครึ่ง** (half cast) — caudal สำหรับขาหน้า, cranial สำหรับขาหลัง
 
 | Indication | Detail |
 |---|---|
@@ -19500,7 +19500,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | **Open Fx** | สามารถจัดการแผลได้ (cast ปิดสนิท ทำไม่ได้) |
 | **Severe edema** | ใส่ cast ไม่ได้ |
 
-**Materials**: Plaster of Paris หรือ **Thermoplastic XL** (preferred — เบา · reusable · 1 sheet XL = 2 layers POP)
+**Materials**: Plaster of Paris หรือ **Thermoplastic XL** (preferred — เบา, reusable, 1 sheet XL = 2 layers POP)
 
 ---
 
@@ -19508,7 +19508,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 - ลวดดัดเป็น **ring** ที่ขาหนีบ/รักแร้ + bar ตามแนวขา + tape ยึด
 - ใช้ใน **fissure ที่ humerus/femur** (ไม่ displaced) + **fractures ต่ำกว่า elbow/stifle**
-- ปัจจุบันไม่ค่อยใช้ในสัตว์เล็ก · ยังใช้ใน **วัว · ม้า**
+- ปัจจุบันไม่ค่อยใช้ในสัตว์เล็ก, ยังใช้ใน **วัว, ม้า**
 
 ---
 
@@ -19517,7 +19517,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Indication | Detail |
 |---|---|
 | **Pre-op** | ประคองก่อนผ่า |
-| **Post-op** | ลด dead space · ลด swelling |
+| **Post-op** | ลด dead space, ลด swelling |
 | **Patellar tendon repair** | Support |
 | **Soft tissue trauma** | Compression dressing |
 
@@ -19539,7 +19539,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 4. **For short legs** (Shih Tzu, Pug, Mini, Pom, Chihuahua): + รอบ T-bia → รอบเอว → กลับ T-bia
 5. **ระวัง**: ตัวผู้ — ห้ามรัด penis (urinary obstruction!)
 
-**Duration**: **10 days** · check digits + X-ray confirm
+**Duration**: **10 days**, check digits + X-ray confirm
 
 ⚠️ **Hip dysplasia → ไม่ควร reduce** (เบาตื้น/หัวกระดูกแบน → จะหลุดอีก)
 
@@ -19551,10 +19551,10 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 **Method**: Tape เริ่มจาก metacarpus → over scapula → behind opposite axilla → repeat (figure-of-8)
 
 ### 11.3 Carpal Flexion (Shoulder) Sling
-**Indication**: Lameness · post-op · prevent weight-bearing
+**Indication**: Lameness, post-op, prevent weight-bearing
 
 **Method**: Tape เริ่ม distal radius → over scapula → behind opposite axilla → repeat
-- **Different from Velpeau**: เห็นปลายเท้า · ไม่ flex carpus
+- **Different from Velpeau**: เห็นปลายเท้า, ไม่ flex carpus
 - ⚠️ **Never overtighten**: chest expansion → respiratory compromise (esp. brachycephalic)
 
 ---
@@ -19587,7 +19587,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Type | Definition | X-ray |
 |---|---|---|
 | **Delayed Union** ⭐ | ติด แต่ช้ากว่าปกติ (เกิน 16-20 wk) | Healing visible แต่ incomplete |
-| **Non-Union** ⭐ | ไม่ติด · กระดูกอาจ resorb หรือกลายเป็น false joint | Sclerotic ends · Smooth contour · Possible "elephant foot" pattern |
+| **Non-Union** ⭐ | ไม่ติด, กระดูกอาจ resorb หรือกลายเป็น false joint | Sclerotic ends, Smooth contour, Possible "elephant foot" pattern |
 | **Mal-Union** ⭐ | ติด **แต่ผิดรูป** — ขาบิด/เอียง/สั้น | Fragment heal in displaced position |
 
 ⭐ **Goal**: ป้องกัน 3 ภาวะนี้ตั้งแต่ pre-op planning + intra-op + post-op care
@@ -19599,10 +19599,10 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Factor | Mechanism |
 |---|---|
 | **Fracture line movement** | Fragment unstable → callus เปราะ |
-| **Poor reduction** | Overlap < 50% · gap กว้าง |
-| **Lost blood supply** | ขัดเลือด from tight cast · Aggressive periosteal stripping · Trauma severity |
-| **Infection** ⭐ | Pre-op (open Fx · contaminated) · Intra-op (poor sterility) · Post-op (poor wound care) |
-| **Bone loss** | Comminuted Fx + missing fragments · Chronic infection |
+| **Poor reduction** | Overlap < 50%, gap กว้าง |
+| **Lost blood supply** | ขัดเลือด from tight cast, Aggressive periosteal stripping, Trauma severity |
+| **Infection** ⭐ | Pre-op (open Fx, contaminated), Intra-op (poor sterility), Post-op (poor wound care) |
+| **Bone loss** | Comminuted Fx + missing fragments, Chronic infection |
 | **Late repair** | Fibrous tissue + dead bone at Fx ends → must debride |
 
 ---
@@ -19611,27 +19611,27 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Factor | Impact |
 |---|---|
-| **Age** | Young = fast (< 3 mo: 2-3 wk) · Senior = slow |
-| **Breed** | Large + healthy = fast · Toy/small = slow |
+| **Age** | Young = fast (< 3 mo: 2-3 wk), Senior = slow |
+| **Breed** | Large + healthy = fast, Toy/small = slow |
 | **Health status** | Malnourished, hypothyroid, Cushing → poor healing |
 | **Bone location** | Long bone (rich BS) > Phalanges (poor BS) |
-| **Fracture pattern** | Stable > Unstable · Simple > Comminuted |
-| **Implant choice** | Plate (rigid) > IM pin · Tight > Loose |
+| **Fracture pattern** | Stable > Unstable, Simple > Comminuted |
+| **Implant choice** | Plate (rigid) > IM pin, Tight > Loose |
 | **Time to repair** | **5-7 days = Golden Period** ⭐ — preserve periosteum |
 
 ---
 
 ## 17. Non-Union Subclassification ⭐⭐
 
-### 17.1 Viable (Vascular) Non-Union — ยังมีเลือดมา · พร้อมจะสร้าง
+### 17.1 Viable (Vascular) Non-Union — ยังมีเลือดมา, พร้อมจะสร้าง
 
 | Subtype | Characteristic | Cause |
 |---|---|---|
-| **Hypertrophic** ⭐ | "**Elephant foot**" pattern · callus เยอะมาก · ไม่ติด | Fx unstable + ร่างกายพยายาม heal |
-| **Moderately hypertrophic** | "**Horse-hoof**" pattern · callus ปานกลาง | Same — แต่ less reactive |
-| **Oligotrophic** | Callus น้อย · ไม่เห็นชัด | Cerclage wire impingement on periosteum · Poor reduction |
+| **Hypertrophic** ⭐ | "**Elephant foot**" pattern, callus เยอะมาก, ไม่ติด | Fx unstable + ร่างกายพยายาม heal |
+| **Moderately hypertrophic** | "**Horse-hoof**" pattern, callus ปานกลาง | Same — แต่ less reactive |
+| **Oligotrophic** | Callus น้อย, ไม่เห็นชัด | Cerclage wire impingement on periosteum, Poor reduction |
 
-**Treatment**: Debride · Re-stabilize with **rigid fixation** (plate) · Bone graft
+**Treatment**: Debride, Re-stabilize with **rigid fixation** (plate), Bone graft
 
 ### 17.2 Non-Viable (Avascular) Non-Union — ขาดเลือด
 
@@ -19642,7 +19642,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | **Defect** | Large bone gap |
 | **Atrophic** | Bone resorption |
 
-**Treatment**: Aggressive debridement of dead bone · Bone graft (autologous from iliac crest / proximal femur / proximal tibia) · Rigid fixation
+**Treatment**: Aggressive debridement of dead bone, Bone graft (autologous from iliac crest / proximal femur / proximal tibia), Rigid fixation
 
 ---
 
@@ -19650,8 +19650,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Type | Mechanism | When |
 |---|---|---|
-| **Primary (1°) bone union** | Direct healing · NO callus | Rigid plate + screws · Compression at Fx site |
-| **Secondary (2°) bone union** | External callus → remodeling | IM pin · ESF · Cast/Splint |
+| **Primary (1°) bone union** | Direct healing, NO callus | Rigid plate + screws, Compression at Fx site |
+| **Secondary (2°) bone union** | External callus → remodeling | IM pin, ESF, Cast/Splint |
 
 ⭐ Primary union → **Fx line หายไปเอง** ไม่เห็นใน X-ray
 ⭐ Secondary union → **Callus formation** เห็นชัด
@@ -19683,7 +19683,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 20. Bone Graft Sources ⭐
 | Source | Type | Use |
 |---|---|---|
-| **Iliac crest** | Cancellous (best) | Most common · rich in osteogenic cells |
+| **Iliac crest** | Cancellous (best) | Most common, rich in osteogenic cells |
 | **Proximal femur** | Cancellous | Alternative |
 | **Proximal tibia** | Cancellous | Alternative |
 | **Cortical strut** | Cortical | Bridge defects |
@@ -19692,31 +19692,31 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ## 📝 EXAM RECAP — 22 Key Points
 
-1. **Cast = self-complete tool** · Temporary devices = adjuncts only
+1. **Cast = self-complete tool**, Temporary devices = adjuncts only
 2. **Cast applicable ONLY distal to elbow/stifle** ⭐ — not for humerus/femur (except spica for fissure)
-3. **3 cast materials**: POP (cheap, heavy) · XL/Thermoplastic (reusable) · Fiberglass (light, expensive)
+3. **3 cast materials**: POP (cheap, heavy), XL/Thermoplastic (reusable), Fiberglass (light, expensive)
 4. **Setting time 5 min ideal** for all
 5. **Stirrup tape** = 2 strips + 1 securing strip = MUST be intact (ถ้าหลุด = restart!)
-6. **Cast Padding edge ที่ digit 2-5** · digit 3-4 โผล่ = visualization markers ⭐⭐⭐
+6. **Cast Padding edge ที่ digit 2-5**, digit 3-4 โผล่ = visualization markers ⭐⭐⭐
 7. **Olecranon padding** = 4-6 layers extra (ป้องกัน cast bite)
 8. **Overlap 1.5x → caudal (forelimb) / cranial (hindlimb)** = weight-bearing side
-9. **Digit 3-4 monitor**: Swollen = tight · Hidden = loose · Both = redo!
+9. **Digit 3-4 monitor**: Swollen = tight, Hidden = loose, Both = redo!
 10. **NEVER wet cast** → Necrosis in 3-5 days → may amputate ⭐
-11. **Replace cast q 3-4 wks** (for puppies → growing!) · Mobilize joint
+11. **Replace cast q 3-4 wks** (for puppies → growing!), Mobilize joint
 12. **Post-cast X-ray mandatory** every application
 13. **Modified Thomas Splint** = ring at groin/axilla + bar — for fissure or low Fx
 14. **Modified Robert Jones** = soft compression dressing (no plaster)
-15. **Ehmer Sling** = hip luxation · figure-8 · **flexion + abduction + internal rotation** · 10 days
-16. **Velpeau Sling** = shoulder luxation · forelimb hidden in sling · 10 days
+15. **Ehmer Sling** = hip luxation, figure-8, **flexion + abduction + internal rotation**, 10 days
+16. **Velpeau Sling** = shoulder luxation, forelimb hidden in sling, 10 days
 17. **Tape technique**: stretch → re-roll loosely BEFORE applying ⭐
-18. **3 healing failures**: Delayed (slow) · Non (no heal) · Mal (heal wrong) ⭐
+18. **3 healing failures**: Delayed (slow), Non (no heal), Mal (heal wrong) ⭐
 19. **Hypertrophic non-union** = "elephant foot" — callus เยอะ but no union (Fx unstable + reactive bone)
-20. **Atrophic non-union** = avascular · need bone graft
-21. **Rigid fixation = primary union (no callus)** · IM/ESF/Cast = secondary union (callus)
-22. **Golden Period = 5-7 days** for fresh repair · After 2 wk = need debridement
+20. **Atrophic non-union** = avascular, need bone graft
+21. **Rigid fixation = primary union (no callus)**, IM/ESF/Cast = secondary union (callus)
+22. **Golden Period = 5-7 days** for fresh repair, After 2 wk = need debridement
 
-> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 6.2 ESF (LwNNZYoCpZE) · 9.2 Hip Dysplasia (hIlH1i845wI) · 9.3 Patella Luxation (CIUpw8GNtQ4)
-> ⚠️ **Top exam focus**: Digit 3-4 rule · Cast indications · Sling figure-8 (Ehmer/Velpeau) · 3 union types
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc), 6.2 ESF (LwNNZYoCpZE), 9.2 Hip Dysplasia (hIlH1i845wI), 9.3 Patella Luxation (CIUpw8GNtQ4)
+> ⚠️ **Top exam focus**: Digit 3-4 rule, Cast indications, Sling figure-8 (Ehmer/Velpeau), 3 union types
 > 🦴 **Practical**: Lab Sx 3 จะมี hands-on practice — ทุก technique ในนี้จะได้ทำจริง`,
   },
 
@@ -19729,13 +19729,13 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     subject: 'com2',
     date: '9 Oct 67 (รุ่นพี่)',
     durationMin: 59,
-    instructor: 'อ. (ortho specialist · 50+ international lectures on this topic)',
-    examFormat: 'MCQ — OA vs DJD terminology · primary vs secondary OA in cats vs dogs · pain types · multimodal approach ออกบ่อย',
+    instructor: 'อ. (ortho specialist, 50+ international lectures on this topic)',
+    examFormat: 'MCQ — OA vs DJD terminology, primary vs secondary OA in cats vs dogs, pain types, multimodal approach ออกบ่อย',
     summary: `# Degenerative Joint Disease (DJD / OA)
 
 > 🎯 **Most common ortho condition** ที่จะเจอใน clinical practice
-> ⚠️ "ยาแก้ปวด = ยาขายดีที่สุดในโลก · 99% ใช้กับโรคนี้!"
-> Top exam: **OA vs DJD definition · primary vs secondary · cat OA · multimodal Tx**
+> ⚠️ "ยาแก้ปวด = ยาขายดีที่สุดในโลก, 99% ใช้กับโรคนี้!"
+> Top exam: **OA vs DJD definition, primary vs secondary, cat OA, multimodal Tx**
 
 ---
 
@@ -19747,7 +19747,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | **DJD (Degenerative Joint Disease)** | American convention | **Umbrella term** — includes **spinal** as well |
 
 ⭐ **ทำไม Americans ปฏิเสธคำว่า OA**: cartilage มี **no blood supply** → strict inflammation (-itis) เกิดไม่ได้
-⭐ **Modern consensus**: DJD = umbrella · OA = peripheral joints subset
+⭐ **Modern consensus**: DJD = umbrella, OA = peripheral joints subset
 
 ---
 
@@ -19755,7 +19755,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Species | Type | Cause |
 |---|---|---|
-| **Dog** ⭐ | **Secondary OA** | Develops from underlying disease — Hip Dysplasia · Elbow Dysplasia · Patellar Luxation · OCD · trauma |
+| **Dog** ⭐ | **Secondary OA** | Develops from underlying disease — Hip Dysplasia, Elbow Dysplasia, Patellar Luxation, OCD, trauma |
 | **Cat** ⭐⭐ | **Primary OA** | **Idiopathic!** No underlying cause identified |
 
 ⭐ **Cat OA Reality** (last 10 years): "เจอเยอะมาก แต่หมอและเจ้าของไม่สังเกต!"
@@ -19768,7 +19768,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Component | Detail |
 |---|---|
-| **Articular cartilage** | Hyaline type · NO blood/nerve/lymph supply · เลี้ยงด้วย synovial fluid only |
+| **Articular cartilage** | Hyaline type, NO blood/nerve/lymph supply, เลี้ยงด้วย synovial fluid only |
 | **Synovial fluid** | สร้างจาก **pumping mechanism** — joint movement! |
 | **Synovial membrane (Capsule)** | นี่คือที่อยู่ของ **nociceptors** (ปวดจริงๆ มาจากที่นี่!) |
 | **Subchondral bone** | "เห็นจาก X-ray ก็ต่อเมื่อ cartilage damage แล้ว" |
@@ -19822,8 +19822,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ### 6.1 Acute vs Chronic
 | Type | Duration | Mechanism |
 |---|---|---|
-| **Acute Pain** | < 3 months | Adaptive · noise receptor + inflammation |
-| **Chronic Pain** ⭐ | > 3 months | **Maladaptive** · pathological — neuropathic + functional |
+| **Acute Pain** | < 3 months | Adaptive, noise receptor + inflammation |
+| **Chronic Pain** ⭐ | > 3 months | **Maladaptive**, pathological — neuropathic + functional |
 
 ⚠️ **OA = Always Chronic Pain** (after early stage)
 
@@ -19854,16 +19854,16 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Category | Examples |
 |---|---|
-| **Articular fractures** | Salter-Harris IV · Acetabular Fx · ทุก type |
-| **Joint luxation** | Hip · Shoulder · Elbow → **เกิด OA after reduction!** |
-| **Developmental** | Hip Dysplasia · Elbow Dysplasia · OCD · MPL/LPL · Premature physeal closure |
+| **Articular fractures** | Salter-Harris IV, Acetabular Fx, ทุก type |
+| **Joint luxation** | Hip, Shoulder, Elbow → **เกิด OA after reduction!** |
+| **Developmental** | Hip Dysplasia, Elbow Dysplasia, OCD, MPL/LPL, Premature physeal closure |
 | **Trauma** | Articular cartilage exposed to air = OA |
 | **Joint surgery** | Even tomy/arthrotomy! |
-| **Systemic disease** | Cushing · Hypothyroid · CKD (low protein) · Heart disease (exercise intolerance) |
+| **Systemic disease** | Cushing, Hypothyroid, CKD (low protein), Heart disease (exercise intolerance) |
 | **Long immobilization** | Cast > 3 wks → arthrosis (no synovial fluid) |
-| **Neurologic disease** | Cauda equina · Wobbler |
+| **Neurologic disease** | Cauda equina, Wobbler |
 
-⭐ **Conclusion**: หมาทุกตัวกำลังเข้าใกล้ OA · "End-up = OA" — แค่ **เร็ว vs ช้า**
+⭐ **Conclusion**: หมาทุกตัวกำลังเข้าใกล้ OA, "End-up = OA" — แค่ **เร็ว vs ช้า**
 
 ---
 
@@ -19892,12 +19892,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ## 10. Treatment Goals ⭐⭐⭐
 
-> **OA cannot be cured! · Goals = (1) Relieve Pain (2) Slow Progression**
+> **OA cannot be cured!, Goals = (1) Relieve Pain (2) Slow Progression**
 
 ### 10.1 Decision Framework
 | Approach | Goal |
 |---|---|
-| **Medical Treatment** | Pain release · ↓ inflammation · maintain function |
+| **Medical Treatment** | Pain release, ↓ inflammation, maintain function |
 | **Surgical Treatment** | (1) **Preventive** — fix early disease (OCD, FMP) before OA (2) **Pain release** — late stage (THR, FHO) |
 
 ---
@@ -19906,11 +19906,11 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ### 11.1 NSAIDs ⭐ (mainstay)
 - Top selling drug worldwide
-- Modern landscape: **Carprofen · Meloxicam · Robenacoxib · Firocoxib · Mavacoxib · Grapiprant**
+- Modern landscape: **Carprofen, Meloxicam, Robenacoxib, Firocoxib, Mavacoxib, Grapiprant**
 - ⚠️ **Each drug has different niche** — เลือกตาม situation
 
 ### 11.2 Opioids
-- For severe pain · spinal/CNS reach
+- For severe pain, spinal/CNS reach
 - Tramadol — ❌ "ในหมา NO evidence ลดปวด เมื่อใช้เดี่ยว!" ⭐
   - ใช้ฉีดร่วมกับยาอื่น OK
   - ในแมว — เซโรโทนิน-related pain OK
@@ -19918,7 +19918,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ### 11.3 Newer Options ⭐
 | Drug class | Note |
 |---|---|
-| **Anti-NGF monoclonal antibody** | "NGF = nerve growth factor" · revolutionary new option |
+| **Anti-NGF monoclonal antibody** | "NGF = nerve growth factor", revolutionary new option |
 | **PRP (Platelet-rich plasma)** | "ผมใช้เยอะมาก" — ลด inflammation + delay progression |
 | **Stem cell injection** | Investigational |
 | **Gene therapy** | Future |
@@ -19927,9 +19927,9 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Supplement | Status |
 |---|---|
 | **Glucosamine + Chondroitin** | "ผมเลิกใช้แล้ว!" — งานวิจัยไม่ confirm efficacy |
-| **PUFA (Omega-3, Omega-6)** | ลด inflammation · evidence-supported |
+| **PUFA (Omega-3, Omega-6)** | ลด inflammation, evidence-supported |
 | **Undenatured Collagen Type 2** | บล็อก T-cell at Peyer's patch → ↓ inflammation (NOT direct cartilage) |
-| **Hyaluronic acid** | Joint injection · variable efficacy |
+| **Hyaluronic acid** | Joint injection, variable efficacy |
 
 ⚠️ **Collagen ขายเป็นซองตามทีวี = ปัญญาอ่อน** — protein digested in stomach!
 
@@ -19943,7 +19943,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 ⭐ **2 Core Concepts**:
 1. **Pre-emptive analgesia** — ป้องกันก่อน pain เกิด
-2. **Multimodal treatment** — ใช้ทุกวิธีร่วมกัน · ไม่สนว่าใครเป็นพระเอก
+2. **Multimodal treatment** — ใช้ทุกวิธีร่วมกัน, ไม่สนว่าใครเป็นพระเอก
 
 ### 12.2 Pain Score Tools
 | Tool | Use |
@@ -19958,21 +19958,21 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 13. Non-Pharmacological Treatment ⭐
 
 ### 13.1 Weight Control = Fat Loss (NOT just weight loss!)
-- ⭐ **ลดไขมัน · เพิ่มกล้ามเนื้อ** = healthy
+- ⭐ **ลดไขมัน, เพิ่มกล้ามเนื้อ** = healthy
 - ลดน้ำหนัก = ลดทั้ง muscle + fat = unhealthy
 
 ### 13.2 Exercise Concepts
 | Type | Effect |
 |---|---|
 | **Vigorous + Repetitive Impact** ❌ | Damage cartilage (e.g., extreme running) |
-| **Moderate + Regular** ✅ ⭐ | Walking · light shocking · daily routine |
+| **Moderate + Regular** ✅ ⭐ | Walking, light shocking, daily routine |
 
 ⭐ **Walking research**: หมาเดิน regularly = pain reduction = NSAID effect (statistically equivalent)
 
 ### 13.3 Swimming ⭐ (Controversial!)
 - "Textbook 90% บอกว่าดี — ผม **against**!"
 - **เหมาะ**: บางสายพันธุ์ที่ชอบน้ำ + supervised
-- **ไม่เหมาะ**: หมาที่กลัวน้ำ · cats · brachycephalic
+- **ไม่เหมาะ**: หมาที่กลัวน้ำ, cats, brachycephalic
 - เคสจริง: Bernese Mountain Dog ตกน้ำ panic → วิ่งหนี → รถชนหน้าหัก
 
 ### 13.4 Rehabilitation Modalities
@@ -19989,8 +19989,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Procedure | Indication |
 |---|---|
-| **Preventive Sx**: OCD removal · FMP removal · MPL correction · CCL repair | Early disease — block OA development |
-| **Joint replacement** (THR · TER · TKR) | End-stage OA |
+| **Preventive Sx**: OCD removal, FMP removal, MPL correction, CCL repair | Early disease — block OA development |
+| **Joint replacement** (THR, TER, TKR) | End-stage OA |
 | **Arthrodesis** | Joint fusion — eliminate motion = pain |
 | **Femoral Head Ostectomy (FHO)** | Hip salvage |
 | **Amputation** | Last resort severe pain |
@@ -20000,7 +20000,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 15. Cat OA Recognition ⭐⭐⭐ (ตัว exam ตัวเด็ด!)
 
 ### 15.1 Behavioral Signs (ที่หมอ + เจ้าของไม่สังเกต!)
-- **Hesitates before jumping** — มองสูง/ต่ำก่อน · เคยกระโดดเลย!
+- **Hesitates before jumping** — มองสูง/ต่ำก่อน, เคยกระโดดเลย!
 - **Slides down instead of jumping**
 - **Reduced grooming**
 - **Sleeping in unusual positions**
@@ -20018,15 +20018,15 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 |---|---|
 | **1. Diagnosis** | X-ray + Pain score |
 | **2. Pharmacological** | NSAID (1st line) → + Opioid (severe) → + Adjunct (PUFA, Collagen Type 2) → Consider PRP, Anti-NGF, Stem cell |
-| **3. Non-pharmacological** | Weight management (fat loss) · Therapeutic exercise (regular walking) · Rehab (cold/warm, US, laser) |
-| **4. Surgical** (if appropriate) | Preventive Sx (early) · Salvage/Replacement (end-stage) |
+| **3. Non-pharmacological** | Weight management (fat loss), Therapeutic exercise (regular walking), Rehab (cold/warm, US, laser) |
+| **4. Surgical** (if appropriate) | Preventive Sx (early), Salvage/Replacement (end-stage) |
 | **5. Continuous monitoring** | Reassess + adjust |
 
 ---
 
 ## 📝 EXAM RECAP — 18 Key Points
 
-1. **OA vs DJD** — DJD = umbrella term · OA = peripheral joints
+1. **OA vs DJD** — DJD = umbrella term, OA = peripheral joints
 2. **Dog OA = Secondary** (from underlying disease) ⭐⭐⭐
 3. **Cat OA = Primary** (idiopathic) ⭐⭐
 4. **Cartilage has NO blood/nerve/lymph supply** — fed by synovial fluid only
@@ -20036,17 +20036,17 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 8. **OA pathogenesis**: ↑ stress on N cartilage OR N stress on ↓ cartilage
 9. **MMPs (matrix metalloproteinases)** = key enzymes (MMP-1, 9, 13)
 10. **Acute vs Chronic Pain**: 3 months cutoff
-11. **Pain reach**: NSAID = local · Opioid = brain · Alpha-2 = spinal
+11. **Pain reach**: NSAID = local, Opioid = brain, Alpha-2 = spinal
 12. **Tramadol useless alone in dogs** ⭐
 13. **Weight management = fat loss**, not just weight loss
 14. **Exercise**: Moderate-Regular > Vigorous-Repetitive
 15. **Glucosamine/Chondroitin = controversial** — many specialists abandoning
 16. **Multimodal Tx**: AAHA + WSAVA 2022 guidelines
 17. **Surgical**: Preventive (early) vs Salvage/Replacement (late)
-18. **Cat OA signs**: hesitation before jumping · skin twitch · sliding down
+18. **Cat OA signs**: hesitation before jumping, skin twitch, sliding down
 
-> 📚 อ่านควบ: 9.1 Dev Ortho (Spz38qa5upU) · 9.2 Hip Dysplasia (hIlH1i845wI) · 9.3 Patella Luxation (CIUpw8GNtQ4) · 11 Common Joint (MMTtwT_7c94) · 12 Cruciate (9U-Dgu0ouUk) · 15.1 Elbow (Os6MWLC8oso)
-> 🎬 หมายเหตุ: รุ่นพี่บันทึก · clip Mac มีผีหลอก! · video clips ไม่เล่น · slides มี details เพิ่มเติม
+> 📚 อ่านควบ: 9.1 Dev Ortho (Spz38qa5upU), 9.2 Hip Dysplasia (hIlH1i845wI), 9.3 Patella Luxation (CIUpw8GNtQ4), 11 Common Joint (MMTtwT_7c94), 12 Cruciate (9U-Dgu0ouUk), 15.1 Elbow (Os6MWLC8oso)
+> 🎬 หมายเหตุ: รุ่นพี่บันทึก, clip Mac มีผีหลอก!, video clips ไม่เล่น, slides มี details เพิ่มเติม
 > 💊 **Practice tip**: เจ้าของหลายคน "ลดน้ำหนัก" = ลดอาหาร → กินโปรตีนน้อย → กล้ามเนื้อลดด้วย → กลับมา OA ใหม่`,
   },
 
@@ -20060,12 +20060,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     date: '16 Oct 67 (รุ่นพี่)',
     durationMin: 24,
     instructor: 'อ. (รุ่นพี่ — แทน อ.วรพันธ์)',
-    examFormat: 'MCQ — DOD multifactorial concept · LCP signalment · pathogenesis (avascular necrosis) · FHO indication ออกบ่อย',
+    examFormat: 'MCQ — DOD multifactorial concept, LCP signalment, pathogenesis (avascular necrosis), FHO indication ออกบ่อย',
     summary: `# Developmental Orthopedic Disease (DOD) + Legg-Calvé-Perthes (LCP)
 
 > 🎯 บทสั้น (24 นาที) แนะนำ DOD + เจาะลึก LCP โรคแรก
 > 🟧 LCP = "**Avascular necrosis ของ femoral head**" ในสุนัขพันธุ์เล็กอายุ 4-12 เดือน
-> Top exam: **Predisposing breeds · 4-12 mo onset · FHO indication (< 20 kg)**
+> Top exam: **Predisposing breeds, 4-12 mo onset, FHO indication (< 20 kg)**
 
 ---
 
@@ -20090,10 +20090,10 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 **Modern idea** ⭐: **Multifactorial Disorder**
 - Multiple Genes (polygenic)
-- Environmental factors (อาหาร · เลี้ยงดู · hormone · sex)
+- Environmental factors (อาหาร, เลี้ยงดู, hormone, sex)
 - ไม่มี simple genetic test (ยกเว้น Doberman/von Willebrand)
 
-⭐ **Why "Disease" not just "Joint"**: ปัจจัยเด่นรวม muscle + bone + soft tissue · ไม่ใช่กระดูกอย่างเดียว!
+⭐ **Why "Disease" not just "Joint"**: ปัจจัยเด่นรวม muscle + bone + soft tissue, ไม่ใช่กระดูกอย่างเดียว!
 
 ---
 
@@ -20118,7 +20118,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 **Key concept**: **เลือดไม่มาเลี้ยงหัวกระดูก femoral** → bone death → fracture → OA
 
-⚠️ **เกิดได้ทั้งคน · หมู · สัตว์ทุก species** — แต่ในหมาเจอเยอะ!
+⚠️ **เกิดได้ทั้งคน, หมู, สัตว์ทุก species** — แต่ในหมาเจอเยอะ!
 
 ---
 
@@ -20126,11 +20126,11 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Feature | Detail |
 |---|---|
-| **Breeds (top)** | **West Highland White Terrier · Yorkshire Terrier · Cairn Terrier · Poodle · Pinscher · Pomeranian** |
+| **Breeds (top)** | **West Highland White Terrier, Yorkshire Terrier, Cairn Terrier, Poodle, Pinscher, Pomeranian** |
 | **Size** | **Small/Toy breeds** เท่านั้น! (ไม่เคยเป็นพันธุ์ใหญ่) |
 | **Age onset** | **4-12 months** (peak: **7 months**) ⭐ |
 | **Sex** | M = F (50/50) |
-| **Laterality** | Usually **Unilateral** · sometimes Bilateral |
+| **Laterality** | Usually **Unilateral**, sometimes Bilateral |
 
 ⚠️ **Breeding rule**: ห้ามเอาตัวที่เป็น LCP มา breed (genetic component)
 
@@ -20169,8 +20169,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Sign | Detail |
 |---|---|
-| **Hindlimb lameness** | Unilateral · progressive |
-| **Non-weight bearing (toe-touching)** | ยกขา · ไม่ยอมใช้ขา |
+| **Hindlimb lameness** | Unilateral, progressive |
+| **Non-weight bearing (toe-touching)** | ยกขา, ไม่ยอมใช้ขา |
 | **Self-mutilation** ⭐ | กัด/แทะที่บริเวณ hip / hind end |
 | **Muscle atrophy** ⭐ | **Hamstring atrophy เด่น** (extension ไม่ได้ → ฝ่อ) |
 | **Crepitus** | กึ๊บๆ ที่ hip joint (โดยเฉพาะ chronic) |
@@ -20203,7 +20203,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 9. Treatment ⭐⭐⭐
 
 ### 9.1 Conservative (Mild/Early Cases) ⭐
-**Indication**: Intermittent lameness · pain manageable · early stage
+**Indication**: Intermittent lameness, pain manageable, early stage
 
 **Plan**:
 1. **Cage rest** 1-2 weeks (NOT 3 months — short-term!)
@@ -20231,7 +20231,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 - Bone removed → space → **Pseudo-joint forms** (fibrous tissue)
 - Function via **fibrous union** + **muscle support**
 
-⭐ **Why it works**: Dog has 4 legs · weight distributed → can compensate when 1 hip is salvaged
+⭐ **Why it works**: Dog has 4 legs, weight distributed → can compensate when 1 hip is salvaged
 
 ### 9.3 Total Hip Replacement (THR) ⭐ (Modern Option)
 
@@ -20246,7 +20246,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 - Femoral stem (drilled into femoral shaft)
 - Femoral head (artificial ball)
 
-⭐ More popular abroad · expensive but excellent outcomes
+⭐ More popular abroad, expensive but excellent outcomes
 
 ### 9.4 FHO vs THR Comparison
 
@@ -20281,8 +20281,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Factor | Outcome |
 |---|---|
 | Small dog (< 15 kg) + FHO + good rehab | **Excellent** — return to near-normal function |
-| 15-20 kg + FHO | Good · slight gait abnormality may persist |
-| > 20 kg + FHO | Fair · noticeable gait change |
+| 15-20 kg + FHO | Good, slight gait abnormality may persist |
+| > 20 kg + FHO | Fair, noticeable gait change |
 | THR (any size) | **Excellent** if no complications |
 
 ---
@@ -20290,21 +20290,21 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ## 📝 EXAM RECAP — 12 Key Points
 
 1. **DOD = multifactorial** (genetic + environment), not simple Mendelian
-2. **DOD includes**: CHD · ED (FMP/UAP) · LCP · OCD · Patellar Luxation · Premature physeal closure
+2. **DOD includes**: CHD, ED (FMP/UAP), LCP, OCD, Patellar Luxation, Premature physeal closure
 3. **LCP = Avascular Necrosis** of femoral head ⭐
-4. **LCP signalment**: Small/Toy breeds (Westie, Yorkie, Pom, Pug, Poodle) · 4-12 mo · peak 7 mo
+4. **LCP signalment**: Small/Toy breeds (Westie, Yorkie, Pom, Pug, Poodle), 4-12 mo, peak 7 mo
 5. **Vascular anatomy**: Lateral + Medial Circumflex Femoral Artery
 6. **Self-mutilation** = LCP-specific behavior
 7. **Internal rotation pain** = sensitive sign
 8. **Hamstring atrophy** = signature finding
 9. **X-ray**: Flattened/mushroom femoral head + Joint space widening + Normal acetabulum
 10. **Conservative Tx**: 1-2 wk cage rest + NSAIDs + monitor (NOT 3 months!)
-11. **FHO** = primary surgical Tx · best for **dogs ≤ 20 kg**
-12. **THR** = modern alternative · best function · expensive
+11. **FHO** = primary surgical Tx, best for **dogs ≤ 20 kg**
+12. **THR** = modern alternative, best function, expensive
 
-> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.2 Hip Dysplasia (hIlH1i845wI) · 9.3 Patella Luxation (CIUpw8GNtQ4) · 11 Common Joint (MMTtwT_7c94)
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU), 9.2 Hip Dysplasia (hIlH1i845wI), 9.3 Patella Luxation (CIUpw8GNtQ4), 11 Common Joint (MMTtwT_7c94)
 > 🩻 LCP X-ray: รอผ่านอาทิตย์หน้าจะเรียน CHD — ตอนนั้นเปรียบเทียบ acetabular morphology
-> 💊 Conservative timeline: ขังกรง **1-2 wk** เท่านั้น · "ขังกรง 3 เดือน = wrong concept" — ทำให้ joint ankylosis แทน`,
+> 💊 Conservative timeline: ขังกรง **1-2 wk** เท่านั้น, "ขังกรง 3 เดือน = wrong concept" — ทำให้ joint ankylosis แทน`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -20317,12 +20317,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     date: '16 Oct 67 (รุ่นพี่)',
     durationMin: 68,
     instructor: 'อ. (รุ่นพี่ — แทน อ.วรพันธ์)',
-    examFormat: 'MCQ — Hip laxity primary cause · Predisposing breeds (Lab/Golden/GSD) · Norberg angle · Ortolani test · 6 surgical options · age cutoffs ออกบ่อย',
+    examFormat: 'MCQ — Hip laxity primary cause, Predisposing breeds (Lab/Golden/GSD), Norberg angle, Ortolani test, 6 surgical options, age cutoffs ออกบ่อย',
     summary: `# Canine Hip Dysplasia (CHD)
 
-> 🎯 บทยาว 68 นาที · second longest com2 lecture
+> 🎯 บทยาว 68 นาที, second longest com2 lecture
 > ⚠️ **#1 cause of secondary OA in dogs** + most common DOD
-> Top exam: **Hip laxity = root cause · Norberg ≥ 105 · Ortolani test · 6 Tx options + age cutoffs**
+> Top exam: **Hip laxity = root cause, Norberg ≥ 105, Ortolani test, 6 Tx options + age cutoffs**
 
 ---
 
@@ -20371,12 +20371,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Factor | Detail |
 |---|---|
-| **Genetic** | Polygenic · breed predisposition |
-| **Rapid growth** ⭐ | Body grows faster than bone develops · obesity |
+| **Genetic** | Polygenic, breed predisposition |
+| **Rapid growth** ⭐ | Body grows faster than bone develops, obesity |
 | **Calorie/protein excess** | Bigger pup = more stress on developing joints |
 | **Calcium/Phosphorus imbalance** | Excess Ca → poor bone strength |
 | **Ca-D-P imbalance** | Vitamin D malabsorption |
-| **Hormone factors** | Sex hormones · estrogen |
+| **Hormone factors** | Sex hormones, estrogen |
 | **Raw diet trends** | "ปัจจุบันเทรนด์ราว diet มาแรง — ทำให้ imbalance!" |
 
 ---
@@ -20405,13 +20405,13 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | Group | Age | Pattern |
 |---|---|---|
 | **Young dogs** ⭐ | 5-10 months | Active disease — laxity + acute pain |
-| **Mature dogs** | > 1 year | Chronic OA · stable rocky course |
+| **Mature dogs** | > 1 year | Chronic OA, stable rocky course |
 
 ### 5.2 Typical Signs
 | Sign | Detail |
 |---|---|
-| **Hindlimb lameness** | Bilateral or unilateral · intermittent |
-| **Bunny-hopping gait** ⭐ | กระโดดทั้ง 2 ขาหลังพร้อมกัน · ตามเพื่อนทันได้ |
+| **Hindlimb lameness** | Bilateral or unilateral, intermittent |
+| **Bunny-hopping gait** ⭐ | กระโดดทั้ง 2 ขาหลังพร้อมกัน, ตามเพื่อนทันได้ |
 | **Hip-sway gait** ⭐ | "เดินเหมือนนางแบบ" — ก้น swaying side-to-side |
 | **Short stride** (small steps) | Pain → ก้าวสั้น |
 | **Difficulty rising** | ยกขาลำบาก |
@@ -20439,7 +20439,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 **Position**:
 - **Lateral recumbency** (preferred) OR Dorsal recumbency
-- **Femur perpendicular to pelvis · parallel to floor**
+- **Femur perpendicular to pelvis, parallel to floor**
 
 **Technique**:
 1. ออกแรงกดที่ **stifle (knee)** ไปทาง pelvis
@@ -20507,9 +20507,9 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | DI Value | Interpretation |
 |---|---|
-| **< 0.3** | Tight hip · low CHD risk |
+| **< 0.3** | Tight hip, low CHD risk |
 | 0.3-0.7 | Moderate laxity |
-| **> 0.7** | High laxity · high CHD risk |
+| **> 0.7** | High laxity, high CHD risk |
 | > 1.0 | Severe |
 
 ⭐ **Advantages of PennHIP**:
@@ -20532,9 +20532,9 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Age Group | Available Options |
 |---|---|
-| **3-5 months** ⭐ (early) | JPS · DPO/TPO · THR · FHO (delayed best) |
-| **5-12 months** | DPO · TPO · THR · FHO |
-| **> 12 months** | THR · FHO only |
+| **3-5 months** ⭐ (early) | JPS, DPO/TPO, THR, FHO (delayed best) |
+| **5-12 months** | DPO, TPO, THR, FHO |
+| **> 12 months** | THR, FHO only |
 
 ### 8.2 Conservative Treatment (ALL ages)
 | Component | Detail |
@@ -20542,8 +20542,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | **Pain control** | NSAIDs (carprofen, meloxicam, etc.) |
 | **Weight management** | ⭐ Lifelong! Lean body composition |
 | **Diet adjustment** | Switch puppy → adult food earlier |
-| **Exercise** | Walking · NOT excessive jumping/running |
-| **Rehabilitation** | Hydrotherapy (selected) · TENS · LASER |
+| **Exercise** | Walking, NOT excessive jumping/running |
+| **Rehabilitation** | Hydrotherapy (selected), TENS, LASER |
 
 ⭐ Studies confirm: dogs on **calorie restriction** have **significantly less OA** vs ad-libitum-fed dogs
 
@@ -20582,7 +20582,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 **Special TPO plate**: Has **angle step** (20°, 25°, 30°) determined by laxity severity
 
-**Pros**: Long history · proven technique
+**Pros**: Long history, proven technique
 **Cons**: **35-70% complication rate** ⚠️
 - Screw loosening at sacroiliac
 - Pelvic narrowing
@@ -20620,8 +20620,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 **Cost (Thailand)**: ~150,000 baht/hip (one side)
 
-**Pros**: Best functional outcome · gold standard
-**Cons**: Very expensive · skilled surgeon required
+**Pros**: Best functional outcome, gold standard
+**Cons**: Very expensive, skilled surgeon required
 
 ### 9.6 FHO (Femoral Head Ostectomy) ⭐
 **See LCP video (9.1) for details**
@@ -20666,24 +20666,24 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 1. **Hip laxity = ROOT CAUSE** of CHD ⭐
 2. **Soft tissue origin first**, bone changes follow
-3. **Predisposing breeds (TOP 3)**: Labrador · Golden · GSD ⭐
-4. **Clinical signs**: bunny-hopping · hip-sway gait · short stride
+3. **Predisposing breeds (TOP 3)**: Labrador, Golden, GSD ⭐
+4. **Clinical signs**: bunny-hopping, hip-sway gait, short stride
 5. **Bimodal disease course**: peak pain 5-10 mo, may plateau by 1 yr
 6. **Ortolani test (+)** = laxity present; need GA for accurate result
 7. **Angle of Reduction** = larger = more laxity
-8. **Norberg angle ≥ 105° = normal · < 99° = abnormal** ⭐
-9. **PennHIP DI < 0.3 = tight · > 0.7 = loose** ⭐
+8. **Norberg angle ≥ 105° = normal, < 99° = abnormal** ⭐
+9. **PennHIP DI < 0.3 = tight, > 0.7 = loose** ⭐
 10. **PennHIP advantages**: predictive, age-independent, can do at 4 mo
 11. **Hip extension view** misses laxity (winching effect)
-12. **JPS** = 3-4 mo only · electrocautery 40W on pubic symphysis
-13. **TPO** = 3-cut osteotomy (ilium + pubis + ischium) · 35-70% complications!
-14. **DPO** = 2-cut · lower complications · modern preferred
+12. **JPS** = 3-4 mo only, electrocautery 40W on pubic symphysis
+13. **TPO** = 3-cut osteotomy (ilium + pubis + ischium), 35-70% complications!
+14. **DPO** = 2-cut, lower complications, modern preferred
 15. **THR** = best function but ~150K baht/side
 16. **FHO** = salvage, best in dogs < 20 kg
 17. **Conservative Tx** for ALL: weight management + NSAIDs + walking
 18. **Calorie restriction** scientifically reduces OA development
 
-> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.1 LCP (Spz38qa5upU) · 9.3 Patella Luxation (CIUpw8GNtQ4) · 11 Common Joint (MMTtwT_7c94) · 12 Cruciate (9U-Dgu0ouUk) · 15.1 Elbow (Os6MWLC8oso) · 15.3 Rehab (zj4go8swIgM)
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU), 9.1 LCP (Spz38qa5upU), 9.3 Patella Luxation (CIUpw8GNtQ4), 11 Common Joint (MMTtwT_7c94), 12 Cruciate (9U-Dgu0ouUk), 15.1 Elbow (Os6MWLC8oso), 15.3 Rehab (zj4go8swIgM)
 > 🩻 8 video clips ใน MyCRView สำหรับ Ortolani technique + osteotomy steps
 > 💊 Genetic counseling: ถ้าหมาเป็น CHD → **ไม่ควรเอามา breed!**`,
   },
@@ -20698,12 +20698,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     date: '16 Oct 67 (รุ่นพี่)',
     durationMin: 127,
     instructor: 'อ. (รุ่นพี่ — ปกติสอน 3 ชม. รวบ 2 ชม.)',
-    examFormat: 'MCQ — extensor mechanism · MPL > LPL · 4 grades · varus + external torsion · 6 surgical methods · concurrent CCL rupture (10-40%) ออกบ่อย',
+    examFormat: 'MCQ — extensor mechanism, MPL > LPL, 4 grades, varus + external torsion, 6 surgical methods, concurrent CCL rupture (10-40%) ออกบ่อย',
     summary: `# Patellar Luxation (MPL / LPL)
 
 > 🎯 บทยาวสุด 127 นาที (น้อยกว่า com1 video 3 แต่เป็น 2nd longest com2)
 > ⚠️ **#1 ortho disease in small breed dogs** — Pomeranian, Chihuahua, Yorkie, Pug...
-> Top exam: **Extensor mechanism · MPL = 95% in small dogs · 4 grades · Trochleoplasty types · CCL co-occurrence**
+> Top exam: **Extensor mechanism, MPL = 95% in small dogs, 4 grades, Trochleoplasty types, CCL co-occurrence**
 
 ---
 
@@ -20739,20 +20739,20 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 ### 2.1 Direction
 | Type | Direction | Frequency |
 |---|---|---|
-| **MPL (Medial Patellar Luxation)** ⭐⭐⭐ | Inward | **95% in small breeds** · 60% in large breeds |
+| **MPL (Medial Patellar Luxation)** ⭐⭐⭐ | Inward | **95% in small breeds**, 60% in large breeds |
 | **LPL (Lateral Patellar Luxation)** | Outward | More common in large breeds |
-| **Bidirectional / Bilateral** | Both ways | Rare · complex |
+| **Bidirectional / Bilateral** | Both ways | Rare, complex |
 
 ### 2.2 4 Grades ⭐⭐⭐ (จำให้แม่น!)
 
 | Grade | Behavior | Manipulation |
 |---|---|---|
-| **Grade 1** | Patella in groove · won't luxate during normal activity | Need induced (push) to luxate · self-reduces |
-| **Grade 2** | Luxates intermittently (during activity) | Easy to push out · self-reduces |
-| **Grade 3** ⭐ | **Permanent luxation** but **manually reducible** | Patella outside groove always · can push back |
-| **Grade 4** ⭐ | **Permanent luxation** + **NOT reducible** | Locked outside · fibrous tissue holds |
+| **Grade 1** | Patella in groove, won't luxate during normal activity | Need induced (push) to luxate, self-reduces |
+| **Grade 2** | Luxates intermittently (during activity) | Easy to push out, self-reduces |
+| **Grade 3** ⭐ | **Permanent luxation** but **manually reducible** | Patella outside groove always, can push back |
+| **Grade 4** ⭐ | **Permanent luxation** + **NOT reducible** | Locked outside, fibrous tissue holds |
 
-⭐ **Grade 1 = no clinical signs typically** · Grade 2-3 = skipping · Grade 4 = "praying position" gait
+⭐ **Grade 1 = no clinical signs typically**, Grade 2-3 = skipping, Grade 4 = "praying position" gait
 
 ---
 
@@ -20781,9 +20781,9 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Cause | Detail |
 |---|---|
-| **Developmental** ⭐ (most common) | Onset puppyhood (2-12 months) · grows into deformity |
+| **Developmental** ⭐ (most common) | Onset puppyhood (2-12 months), grows into deformity |
 | **Congenital** | Born luxated (rare) |
-| **Traumatic** | CCL rupture · acute injury (rare) |
+| **Traumatic** | CCL rupture, acute injury (rare) |
 
 ---
 
@@ -20827,11 +20827,11 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Sign | Detail |
 |---|---|
-| **Skipping gait** ⭐ | กระโดดสั้นๆ · ขาลอย-วาง สลับกัน · MPL Grade 2 typical |
+| **Skipping gait** ⭐ | กระโดดสั้นๆ, ขาลอย-วาง สลับกัน, MPL Grade 2 typical |
 | **Bunny hopping** | Both hindlimbs jump together |
-| **"Cowhock" stance** | LPL — แมวน้ำ position · ขาแบะ |
+| **"Cowhock" stance** | LPL — แมวน้ำ position, ขาแบะ |
 | **Praying position** ⭐ | MPL Grade 4 — เดินย่อขา (extension impossible) |
-| **Lameness** | Variable · intermittent or persistent |
+| **Lameness** | Variable, intermittent or persistent |
 | **Reluctance to exercise** | Pain |
 | **Quadriceps atrophy** | Chronic disuse |
 | **Limb shortening** | When measuring 2 legs together |
@@ -20899,7 +20899,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 | **A** = Angle | Always |
 
 **Examples**:
-- **mLDFA** = mechanical Lateral Distal Femoral Angle (~95° normal · key for MPL!)
+- **mLDFA** = mechanical Lateral Distal Femoral Angle (~95° normal, key for MPL!)
 - **mMPTA** = mechanical Medial Proximal Tibial Angle
 - **mMDTA** = mechanical Medial Distal Tibial Angle
 
@@ -20911,7 +20911,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 **Reach (Reichelt) Index** = Patellar tendon length / Patella length
 - **Normal**: 1.9-2.06
 - **Patella Alta** (high-riding): Index > 2.06 → **MPL recurrence risk!**
-- **Patella Baja**: low-riding · less common
+- **Patella Baja**: low-riding, less common
 
 ---
 
@@ -20949,8 +20949,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 #### 10.2.6 Anti-Rotational Sutures ⭐
 | Type | Detail |
 |---|---|
-| **Patella Anti-rotational suture** | Loop around lateral fabella + over patella · pulls it laterally |
-| **Tibial Anti-rotational suture** | Lateral fabella → tibial tuberosity · prevents internal rotation |
+| **Patella Anti-rotational suture** | Loop around lateral fabella + over patella, pulls it laterally |
+| **Tibial Anti-rotational suture** | Lateral fabella → tibial tuberosity, prevents internal rotation |
 
 ⚠️ **Best in puppies < 1 year** (sutures can guide bone growth)
 
@@ -21004,7 +21004,7 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 - 1 pin → bone can rotate around pin
 - 2 pins → **anti-rotation** lock
 
-⚠️ Pin direction: **upward parallel to bone axis** (resists quadriceps pull · NOT downward!)
+⚠️ Pin direction: **upward parallel to bone axis** (resists quadriceps pull, NOT downward!)
 
 #### 10.4.2 Distal Femoral Osteotomy (dFO) ⭐⭐⭐ (KEY for severe!)
 
@@ -21053,8 +21053,8 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Type | Rate | Examples |
 |---|---|---|
-| **Overall complications** | 18-43% | Swelling · seroma · wound dehiscence |
-| **Major complications** | 13-24% | Re-luxation · pin failure · implant failure |
+| **Overall complications** | 18-43% | Swelling, seroma, wound dehiscence |
+| **Major complications** | 13-24% | Re-luxation, pin failure, implant failure |
 | **Recurrent MPL** ⭐ | **6-20%** | Repeated luxation requiring 2nd surgery |
 
 ### Risk Factors for Complications
@@ -21069,12 +21069,12 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 | Action | Timing |
 |---|---|
-| **Pain control** | Multimodal · NSAIDs + opioids |
+| **Pain control** | Multimodal, NSAIDs + opioids |
 | **Cold packing** | First 3 days (bvomotsing) |
 | **Joint mobilization** | Early — **prevent ankylosis** |
 | **Confine** (cage rest) | 4-6 weeks |
 | **Restrict jumping** | Long-term |
-| **Rehab** | Hydrotherapy · TENS · LASER (covered in 15.3) |
+| **Rehab** | Hydrotherapy, TENS, LASER (covered in 15.3) |
 | **Re-luxation appears** | Within 1-2 weeks usually (early problem!) |
 
 ---
@@ -21097,28 +21097,28 @@ Steps: diet → microbiota → biopsy → immunosuppressive
 
 1. **Extensor mechanism** = quadriceps + patella + patellar tendon + tibial tuberosity
 2. **Rectus femoris** ≠ other 3 vasti — originates from **acetabular rim** (not femur!)
-3. **MPL = 95% in small breeds** ⭐ · LPL more common in large breeds
-4. **Predisposing**: Pomeranian · Chihuahua · Yorkie · Pug · Poodle · Shih Tzu · Westy
-5. **4 Grades**: 1 (induced only) · 2 (intermittent) · 3 (permanent reducible) · 4 (permanent irreducible)
+3. **MPL = 95% in small breeds** ⭐, LPL more common in large breeds
+4. **Predisposing**: Pomeranian, Chihuahua, Yorkie, Pug, Poodle, Shih Tzu, Westy
+5. **4 Grades**: 1 (induced only), 2 (intermittent), 3 (permanent reducible), 4 (permanent irreducible)
 6. **Pathogenesis**: soft tissue → bone (femoral varus + external torsion + tibial tuberosity shift)
 7. **Trochlear groove pathology**: shallow → flat → **convex** in severe cases
 8. **CCL rupture co-occurs in 10-40% of MPL** ⭐ — always check older MPL dogs
 9. **Skipping gait** = MPL Grade 2 typical
 10. **"Praying position"** = MPL Grade 4 (extension impossible)
 11. **Bone angle conventions**: m/aLDFA, mMPTA, mMDTA — letter codes for measurement
-12. **mLDFA normal ~95°** (breed-specific) · key for dFO planning
+12. **mLDFA normal ~95°** (breed-specific), key for dFO planning
 13. **Patella Alta** (Reichelt > 2.06) = MPL recurrence risk
 14. **Anti-rotational sutures** = best in **puppies < 1 yr** ⭐
-15. **Trochleoplasty types**: Chondroplasty (outdated) · Wedge · Block (standard) · Flap · Asymmetric
+15. **Trochleoplasty types**: Chondroplasty (outdated), Wedge, Block (standard), Flap, Asymmetric
 16. **Block trochleoplasty** = current standard ⭐
-17. **TTT** with **2 K-wires** for anti-rotation · upward direction
+17. **TTT** with **2 K-wires** for anti-rotation, upward direction
 18. **dFO** for severe femoral varus → wedge osteotomy + plate
 19. **PGR (Patellar Groove Replacement)** = salvage with titanium implant
 20. **Concurrent disease**: always check Hip Dysplasia, LCP, CCL in MPL cases
-21. **Complications**: 18-43% overall · 13-24% major · 6-20% recurrent
+21. **Complications**: 18-43% overall, 13-24% major, 6-20% recurrent
 22. **Re-luxation appears within 1-2 weeks** post-op typically
 
-> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.1 LCP (Spz38qa5upU) · 9.2 Hip Dysplasia (hIlH1i845wI) · 11 Common Joint (MMTtwT_7c94) · 12 Cruciate (9U-Dgu0ouUk) · 15.3 Rehab (zj4go8swIgM)
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU), 9.1 LCP (Spz38qa5upU), 9.2 Hip Dysplasia (hIlH1i845wI), 11 Common Joint (MMTtwT_7c94), 12 Cruciate (9U-Dgu0ouUk), 15.3 Rehab (zj4go8swIgM)
 > 📺 Supplementary clips: 9.3.1-9.3.5 (Normal articulation, MPL/LPL, Femoral torsion, Distal femoral osteotomy I-II)
 > 💊 **Practice tip**: เด็กๆ มี MPL Grade 1-2 → ผ่าตัดเร็วป้องกัน bone deformity progression`,
   },
@@ -21133,14 +21133,14 @@ Steps: diet → microbiota → biopsy → immunosuppressive
     date: '30 Oct 67 (รุ่นพี่)',
     durationMin: 73,
     instructor: 'อ. (รุ่นพี่)',
-    examFormat: 'MCQ — 3 traumatic joint luxations · Hip CDL most common · Shoulder MGHL · Elbow interlocking mechanism · Pelvic Triangle · Thumb test ออกบ่อย',
+    examFormat: 'MCQ — 3 traumatic joint luxations, Hip CDL most common, Shoulder MGHL, Elbow interlocking mechanism, Pelvic Triangle, Thumb test ออกบ่อย',
     summary: `# Common Joint Disease (Traumatic Joint Luxations)
 
 > 🎯 บทสำคัญ — 3 ข้อหลักที่หลุดจาก trauma:
 > 🟧 **Hip Joint Luxation** (เพิ่มเติมจาก CHD)
 > 🟪 **Shoulder Joint Instability/Luxation**
 > 🟦 **Elbow Joint Luxation**
-> Top exam: **CDL pattern in hip · Pelvic triangle · Thumb test · Shoulder abduction angle · Elbow interlocking mechanism**
+> Top exam: **CDL pattern in hip, Pelvic triangle, Thumb test, Shoulder abduction angle, Elbow interlocking mechanism**
 
 ---
 
@@ -21257,7 +21257,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 - **Femoral head fracture**
 - **Failed closed reduction**
 - **Recurrent luxation** after closed reduction
-- **Chronic luxation** (> 3 days · fibrous tissue formed)
+- **Chronic luxation** (> 3 days, fibrous tissue formed)
 - **Need for early weight-bearing** (e.g., other limb injured)
 
 ### 7.4 Surgical Methods (6 Techniques!) ⭐
@@ -21265,11 +21265,11 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 | Method | Detail |
 |---|---|
 | **Capsulorraphy** | Suture joint capsule (rarely used alone — fails) |
-| **Whacker Pin** ⭐ (Wacker pin / **Knowles pin**) | Pin from ischium → femoral neck → ilium wing · holds for 2-4 weeks · ⚠️ Risk: sciatic nerve injury! |
-| **Prosthetic Capsular Replacement** ⭐ | **Screw + washer** at acetabulum + greater trochanter · Suture in figure-8 · clock positions 11-2 (R hip) / 10-1 (L hip) |
-| **Extra-Capsular Iliofemoral Suture** | Drill holes in ilium + femur · suture loop |
+| **Whacker Pin** ⭐ (Wacker pin / **Knowles pin**) | Pin from ischium → femoral neck → ilium wing, holds for 2-4 weeks, ⚠️ Risk: sciatic nerve injury! |
+| **Prosthetic Capsular Replacement** ⭐ | **Screw + washer** at acetabulum + greater trochanter, Suture in figure-8, clock positions 11-2 (R hip) / 10-1 (L hip) |
+| **Extra-Capsular Iliofemoral Suture** | Drill holes in ilium + femur, suture loop |
 | **Talker Pin (Toggle Pin)** ⭐ | Drill through fovea → acetabulum → suture loop secured by clip |
-| **Trans-Articular Pinning** | Drive pin across joint · ⚠️ Risk of pin breakage |
+| **Trans-Articular Pinning** | Drive pin across joint, ⚠️ Risk of pin breakage |
 
 ---
 
@@ -21285,10 +21285,10 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ### 8.2 Stabilizers (Passive)
 | Structure | Detail |
 |---|---|
-| **Medial Glenohumeral Ligament (MGHL)** ⭐ | Fan-shaped on medial side · most important! |
+| **Medial Glenohumeral Ligament (MGHL)** ⭐ | Fan-shaped on medial side, most important! |
 | **Lateral Glenohumeral Ligament (LGHL)** | Bar-shaped on lateral side |
 | **Joint capsule** | Surrounds joint |
-| **Subscapularis tendon** | Medial · prevents medial luxation |
+| **Subscapularis tendon** | Medial, prevents medial luxation |
 | **Biceps brachii tendon** ⭐ | Across joint to bicipital groove |
 
 ### 8.3 Stabilizers (Active)
@@ -21301,8 +21301,8 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 | Group | Cause |
 |---|---|
-| **Small breeds** | **Congenital** — incomplete development · seen in Pomeranians, Chihuahuas |
-| **Large athletic dogs** | **Microtrauma** — repetitive overuse · jumping/landing · agility/sport dogs |
+| **Small breeds** | **Congenital** — incomplete development, seen in Pomeranians, Chihuahuas |
+| **Large athletic dogs** | **Microtrauma** — repetitive overuse, jumping/landing, agility/sport dogs |
 
 ---
 
@@ -21329,7 +21329,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 - **Abduction** = painful (most diagnostic!)
 
 ### 10.3 Imaging
-- **X-ray**: Late changes — osteophytes · subchondral sclerosis ("**stippling**") · joint space asymmetry
+- **X-ray**: Late changes — osteophytes, subchondral sclerosis ("**stippling**"), joint space asymmetry
 - **Ultrasound**: Soft tissue inflammation
 - **CT**: Limited soft tissue detail
 - **MRI** ⭐: Best for soft tissue (expensive)
@@ -21346,15 +21346,15 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ## 11. Treatment
 
 ### 11.1 Conservative (Mild laxity, no luxation)
-- NSAIDs · pain control
-- Cage rest · controlled exercise
-- Physical therapy · rehab
+- NSAIDs, pain control
+- Cage rest, controlled exercise
+- Physical therapy, rehab
 - Weight management
 
 ### 11.2 Regenerative Medicine ⭐ (Newer!)
 | Therapy | Detail |
 |---|---|
-| **Stem cell injection** | Reduces inflammation · promotes healing |
+| **Stem cell injection** | Reduces inflammation, promotes healing |
 | **PRP (Platelet-rich plasma)** | Growth factors for healing |
 
 ### 11.3 Surgical Options ⭐
@@ -21365,9 +21365,9 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 | **Synthetic Ligament Reconstruction** | Replace MGHL with synthetic suture |
 | **Radiofrequency Thermal Capsulorrhaphy** ⭐ | RF heating → fibrous tissue contracture (open or arthroscopic) |
 | **Prosthetic Joint Reconstruction** ⭐⭐ | Screw + washer + figure-8 suture (clock 11-2 or 10-1) — **Most popular!** |
-| **Biceps Tendon Transposition** | Move biceps origin to medial/lateral · for severe cases |
+| **Biceps Tendon Transposition** | Move biceps origin to medial/lateral, for severe cases |
 | **Arthrodesis** ⭐ | **Salvage** — fuse shoulder joint at standing angle |
-| **Total Shoulder Replacement** | Newer · expensive |
+| **Total Shoulder Replacement** | Newer, expensive |
 
 ⭐ **Suture button/Toggle button** technique — popular Japanese technique with metal clip + suture
 
@@ -21481,16 +21481,16 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 ### Hip
 1. **Hip CDL = most common** direction (cranio-dorsal) ⭐
-2. **Pelvic triangle** = greater trochanter · iliac tubercle · ischial tuberosity
+2. **Pelvic triangle** = greater trochanter, iliac tubercle, ischial tuberosity
 3. **Thumb (Tam) test**: negative = luxation
-4. **Ehmer sling for CDL** · **Hobble for ventral**
+4. **Ehmer sling for CDL**, **Hobble for ventral**
 5. **Closed reduction within 1-2 days** = best success
-6. **6 surgical methods**: capsulorraphy · Knowles pin · prosthetic capsular · extra-capsular iliofemoral · toggle (talker) pin · trans-articular pinning
+6. **6 surgical methods**: capsulorraphy, Knowles pin, prosthetic capsular, extra-capsular iliofemoral, toggle (talker) pin, trans-articular pinning
 7. **Sciatic nerve injury** = risk of Knowles pin (avoid!)
 
 ### Shoulder
 8. **Medial Glenohumeral Ligament (MGHL)** = key stabilizer ⭐
-9. **Predisposing**: small breed (congenital) · large athletic (microtrauma)
+9. **Predisposing**: small breed (congenital), large athletic (microtrauma)
 10. **Shoulder abduction angle > 49°** = instability ⭐
 11. **Arthroscopy** = gold standard diagnosis
 12. **Prosthetic joint reconstruction** + **screw + figure-8 suture** = most popular ⭐
@@ -21501,14 +21501,14 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 15. **3-bone joint**: humerus + radius + ulna
 16. **Anconeal process + olecranon fossa** = interlocking mechanism ⭐⭐
 17. **ROM 130°** (36° flexion to 165° extension)
-18. **Stability varies by position**: anconeal in extension · MCL in flexion
+18. **Stability varies by position**: anconeal in extension, MCL in flexion
 19. **Closed reduction**: flex < 90° + pronate + extend ⭐
 20. **Monteggia fracture** = elbow luxation + ulna fracture
 21. **Spica splint** × 2-3 weeks post-reduction
 22. **Best prognosis** of all 3 joints — interlock holds reduction
 
-> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.1 LCP (Spz38qa5upU) · 9.2 Hip Dysplasia (hIlH1i845wI) · 9.3 Patella (CIUpw8GNtQ4) · 12 Cruciate (9U-Dgu0ouUk) · 15.1 Elbow Disease (Os6MWLC8oso)
-> 🦴 Same instructor as 9.x videos · same vibe (รุ่นพี่ + casual style)
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU), 9.1 LCP (Spz38qa5upU), 9.2 Hip Dysplasia (hIlH1i845wI), 9.3 Patella (CIUpw8GNtQ4), 12 Cruciate (9U-Dgu0ouUk), 15.1 Elbow Disease (Os6MWLC8oso)
+> 🦴 Same instructor as 9.x videos, same vibe (รุ่นพี่ + casual style)
 > ⭐ **Practice tip**: หยิบกระดูก elbow + ulna จริง → ทำท่า reduction practice หลายรอบ`,
   },
 
@@ -21522,12 +21522,12 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
     date: '6 Nov 67 (รุ่นพี่)',
     durationMin: 120,
     instructor: 'อ. (รุ่นพี่)',
-    examFormat: 'MCQ — CrCL is degenerative (NOT trauma) · Cranial Drawer Test technique · Tibial Compression Test · TPLO concept · Tibial plateau slope · Sit Square sign ออกบ่อย',
+    examFormat: 'MCQ — CrCL is degenerative (NOT trauma), Cranial Drawer Test technique, Tibial Compression Test, TPLO concept, Tibial plateau slope, Sit Square sign ออกบ่อย',
     summary: `# Cranial Cruciate Ligament (CrCL/CCL) Disease
 
 > 🎯 **Most common orthopedic disease in dogs!** ⭐
 > ⚠️ ในหมา = **DEGENERATIVE** (ไม่ใช่ trauma แบบในคน!)
-> Top exam: **CrCL anatomy 2 bands · Cranial Drawer · Tibial Compression · TPLO concept · 18-24° tibial plateau angle**
+> Top exam: **CrCL anatomy 2 bands, Cranial Drawer, Tibial Compression, TPLO concept, 18-24° tibial plateau angle**
 
 ---
 
@@ -21542,7 +21542,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 | Band | Function | When tense? |
 |---|---|---|
 | **Craniomedial Band (CMB)** | Smaller | **Always tense** (extension + flexion) |
-| **Caudolateral Band (CLB)** | Larger | **Tense in extension only** · loose in flexion |
+| **Caudolateral Band (CLB)** | Larger | **Tense in extension only**, loose in flexion |
 
 ⭐ **Why it matters**: Partial tear of **CMB only** → drawer test (-) in extension but (+) in flexion!
 
@@ -21619,7 +21619,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 - Intermittent lameness
 - Worse after exercise
 - Progressive muscle atrophy
-- "**Medial Buttress**" ⭐⭐⭐ (KEY SIGN!) = thickened periarticular fibrosis on medial side · palpable medial swelling
+- "**Medial Buttress**" ⭐⭐⭐ (KEY SIGN!) = thickened periarticular fibrosis on medial side, palpable medial swelling
 
 ### 4.3 Sit Square Sign ⭐⭐⭐ (KEY EXAM!)
 **Normal dog**: Sits with both hindlimbs **symmetrically** (S-Square)
@@ -21627,7 +21627,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 **CrCL disease**: Sits with affected leg **abducted out to side** (cannot fully flex stifle due to pain)
 - **Sign POSITIVE in 99% of dogs with CrCL disease**
 
-⚠️ ไม่ใช่ทุกตัวที่นั่งแบบนี้ = CrCL · บางตัวก็แค่อารมณ์ — แต่ CrCL dog 99% นั่งแบบนี้!
+⚠️ ไม่ใช่ทุกตัวที่นั่งแบบนี้ = CrCL, บางตัวก็แค่อารมณ์ — แต่ CrCL dog 99% นั่งแบบนี้!
 
 ---
 
@@ -21646,7 +21646,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 **Interpretation**:
 | Translation | Significance |
 |---|---|
-| **0-3 mm** | Normal · "**puppy drawer**" up to 5 mm in young dogs |
+| **0-3 mm** | Normal, "**puppy drawer**" up to 5 mm in young dogs |
 | **8-10 mm or more** | **CrCL rupture** ⭐ |
 
 **Partial Tear Pattern** ⭐:
@@ -21663,7 +21663,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 **Purpose**: Dynamic test simulating weight-bearing
 
 **Technique** ⭐:
-1. **Hand 1** = grip femur · Place **index finger on tibial tuberosity**
+1. **Hand 1** = grip femur, Place **index finger on tibial tuberosity**
 2. **Hand 2** = grip metatarsus
 3. **Hold stifle in extension** (NO change in flexion angle)
 4. **Flex hock** (push paw upward)
@@ -21671,7 +21671,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
    - **Normal**: Finger doesn't move
    - **CrCL disease**: Finger pushed forward = "**Cranial Tibial Thrust**" detected ⭐
 
-⭐ "Static" test = Cranial Drawer · "**Dynamic**" test = Tibial Compression
+⭐ "Static" test = Cranial Drawer, "**Dynamic**" test = Tibial Compression
 
 ### 5.3 Pain on Manipulation
 - **Hyper-extension** = painful
@@ -21689,7 +21689,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 |---|---|
 | **Joint effusion (Fat pad sign)** ⭐ | Synovial fluid pushes intra-articular fat pad cranially |
 | **Caudal joint capsule distension** | Fluid bulging caudally |
-| **Subchondral bone changes** | Late OA · sclerosis |
+| **Subchondral bone changes** | Late OA, sclerosis |
 | **Periarticular osteophytes** | Cranial femoral condyle, popliteal sesamoid |
 | **Cranial tibial subluxation** | Tibia displaced forward |
 
@@ -21714,7 +21714,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ⭐ **Why dogs different**: Steep slope creates **cranial tibial thrust** force that puts CrCL under tension every step — humans don't have this!
 
 ### 6.3 Other Imaging
-- **MRI**: Direct ligament view (expensive · rarely used)
+- **MRI**: Direct ligament view (expensive, rarely used)
 - **Ultrasound**: Can see CrCL but limited
 - **Arthroscopy** ⭐: **Gold standard** — direct visualization + meniscal exam
 
@@ -21723,9 +21723,9 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ## 7. Treatment ⭐⭐⭐
 
 ### 7.1 Conservative
-**Indication**: Small dogs (< 15 kg) · partial tear · early disease · owner declined surgery
-- NSAIDs · weight management · controlled exercise
-- Joint supplements (PUFA · undenatured collagen)
+**Indication**: Small dogs (< 15 kg), partial tear, early disease, owner declined surgery
+- NSAIDs, weight management, controlled exercise
+- Joint supplements (PUFA, undenatured collagen)
 - ⚠️ Less effective in dogs > 15 kg
 
 ---
@@ -21771,7 +21771,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 - Mathematical: TPA reduced from 25° to 5°
 
 #### 8.3.2 TPLO (Tibial Plateau Leveling Osteotomy) ⭐⭐⭐ (GOLD STANDARD!)
-**Inventor**: Slocum (USA · saw human plateau is flat)
+**Inventor**: Slocum (USA, saw human plateau is flat)
 
 **Technique**:
 1. **Curved (radial) cut** of proximal tibia (using TPLO saw)
@@ -21789,7 +21789,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 - Less popular
 
 #### 8.3.4 TTA (Tibial Tuberosity Advancement) ⭐⭐
-**Inventor**: Swiss group (physicists!) · Maquet concept from human knee
+**Inventor**: Swiss group (physicists!), Maquet concept from human knee
 
 **Concept** (different from TPLO):
 - Don't change TPA
@@ -21816,11 +21816,11 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 | Method | Mechanism | Best for | Cost |
 |---|---|---|---|
 | **Conservative** | Pain control + rehab | Small dog (< 15 kg) | $ |
-| **Lateral Fabellar Suture** | Synthetic CrCL outside joint | Small dog · low budget | $$ |
+| **Lateral Fabellar Suture** | Synthetic CrCL outside joint | Small dog, low budget | $$ |
 | **Intra-capsular** | Graft replaces CrCL | ❌ Not recommended | $$$$ |
 | **CCWO** | Cuts wedge to flatten plateau | Older technique | $$$ |
 | **TPLO** ⭐ | Curved cut + rotate plateau | **Standard for large active dogs!** | $$$$ |
-| **TTA** | Advances tibial tuberosity | Alternative · physics-based | $$$$ |
+| **TTA** | Advances tibial tuberosity | Alternative, physics-based | $$$$ |
 | **TTA Rapid** | Simplified TTA | Less complex cases | $$$ |
 
 ---
@@ -21847,8 +21847,8 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 |---|---|
 | **Pain control** | NSAIDs + opioids |
 | **Cold packing** | First 3 days |
-| **Cage rest** | 4-6 weeks (TPLO/TTA) · 8 weeks (extracapsular) |
-| **Walking only** | Leash · graduated |
+| **Cage rest** | 4-6 weeks (TPLO/TTA), 8 weeks (extracapsular) |
+| **Walking only** | Leash, graduated |
 | **Rehabilitation** | Critical for recovery! |
 | **Recheck X-ray** | 6-8 weeks (osteotomy healing) |
 | **Return to activity** | 12-16 weeks |
@@ -21873,9 +21873,9 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 ### Anatomy/Etiology
 1. **CrCL = 2 bands**: CMB (always tense) + CLB (only in extension)
-2. **CrCL prevents**: Cranial tibial subluxation · stifle hyper-extension · excessive internal rotation
+2. **CrCL prevents**: Cranial tibial subluxation, stifle hyper-extension, excessive internal rotation
 3. **Dogs ≠ Humans**: Progressive degeneration vs trauma ⭐⭐⭐
-4. **Predisposing**: Lab · Rottweiler · Golden · Spayed females · Obesity
+4. **Predisposing**: Lab, Rottweiler, Golden, Spayed females, Obesity
 
 ### Diagnosis
 5. **Sit Square positive** = abducted leg = CrCL likely
@@ -21893,18 +21893,18 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 15. **TPLO goal**: Reduce TPA to **~5°** like humans
 
 ### Treatment
-16. **Lateral fabellar suture** = extracapsular · suture outside joint · for small dogs
-17. **TPLO** = curved cut + rotate · **gold standard** for large dogs ⭐
-18. **TTA** = advance tibial tuberosity · patellar tendon to tibial plateau = 90°
+16. **Lateral fabellar suture** = extracapsular, suture outside joint, for small dogs
+17. **TPLO** = curved cut + rotate, **gold standard** for large dogs ⭐
+18. **TTA** = advance tibial tuberosity, patellar tendon to tibial plateau = 90°
 19. **TTA Rapid (Modified Maquet)** = OrthoFoam + staples + pin
 20. **Intra-capsular graft** = ❌ NOT recommended in dogs (fails due to TPA)
 21. **Conservative Tx** = OK for small dogs (< 15 kg) only
 22. **Meniscectomy** at time of surgery if bucket-handle tear
 
-> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU) · 9.3 MPL (CIUpw8GNtQ4) · 11 Common Joint (MMTtwT_7c94) · 15.3 Rehab (zj4go8swIgM)
+> 📚 อ่านควบ: 8.2 OA (VJ8ixtXP9XU), 9.3 MPL (CIUpw8GNtQ4), 11 Common Joint (MMTtwT_7c94), 15.3 Rehab (zj4go8swIgM)
 > 🩺 **Practice tip**: Cranial Drawer Test ต้องวางมือถูกตำแหน่ง! mistake บ่อยที่สุดคือจับ tibia ผิด — ใช้ thumb on **fibular head**, index on **tibial tuberosity**
 > 🎬 Supplementary clip: 12.0.1 Cranial drawer sign demonstration (XsHdYvH4IOE)
-> 📐 **TPLO concept**: ฟิสิกส์เวกเตอร์! · ลด tibial plateau slope = ลด cranial tibial thrust = CrCL ไม่จำเป็น`,
+> 📐 **TPLO concept**: ฟิสิกส์เวกเตอร์!, ลด tibial plateau slope = ลด cranial tibial thrust = CrCL ไม่จำเป็น`,
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -21917,21 +21917,21 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
     date: '13 Nov 67',
     durationMin: 38,
     instructor: 'อ. (ortho block)',
-    examFormat: 'MCQ — salvage procedures · indications for amputation · cut levels · arthrodesis joints (which work, which don\'t) · post-op care ออกบ่อย',
+    examFormat: 'MCQ — salvage procedures, indications for amputation, cut levels, arthrodesis joints (which work, which don\'t), post-op care ออกบ่อย',
     summary: `# Limb Amputation + Arthrodesis
 
 > 🎯 บทเสริม — 2 หัตการสำคัญที่เป็น "**salvage procedures**" (ขยะ-ที่ทำเป็นทางเลือกสุดท้าย)
 > ⚠️ ทำแล้วกลับมาไม่ได้ — ต้องคิดดี ๆ ก่อนทำ
-> Top exam: **Cut level rules · which joints OK to fuse · which arthrodesis fail**
+> Top exam: **Cut level rules, which joints OK to fuse, which arthrodesis fail**
 
 ---
 
 # 🟧 PART 1 — Limb Amputation
 
 ## 1. Definition
-**Amputation** = ตัดอวัยวะออก (ตัดระยาง · limb)
+**Amputation** = ตัดอวัยวะออก (ตัดระยาง, limb)
 
-⚠️ **Salvage procedure** = หัตการขยะ · ทำเป็น **last resort**
+⚠️ **Salvage procedure** = หัตการขยะ, ทำเป็น **last resort**
 - ตัดแล้วกลับมาไม่ได้
 - เก็บไว้ก่อนถ้ายังมีทางอื่น
 
@@ -21941,10 +21941,10 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 | Indication | Detail |
 |---|---|
-| **Severe trauma** ⭐ | กระดูกแตกแหลก · ไม่มีเนื้อให้เย็บ · รถไฟทับ |
-| **Bone/Soft tissue cancer** | Salvage life · prevent metastasis |
-| **Chronic non-healing wound** | แมวลีย-แทะแผล · ไม่หาย 1-2 ปี |
-| **Severe neurologic deficits** | นิวโรไม่หาย · เดินไม่ได้ · self-mutilation |
+| **Severe trauma** ⭐ | กระดูกแตกแหลก, ไม่มีเนื้อให้เย็บ, รถไฟทับ |
+| **Bone/Soft tissue cancer** | Salvage life, prevent metastasis |
+| **Chronic non-healing wound** | แมวลีย-แทะแผล, ไม่หาย 1-2 ปี |
+| **Severe neurologic deficits** | นิวโรไม่หาย, เดินไม่ได้, self-mutilation |
 | **Severe infection (osteomyelitis)** | คุมไม่ได้ |
 | **Severe deformity** | (rare for amputation alone) |
 | **Financial issue** ⭐ | บางทีในไทย — กระดูกหักเงินรักษาไม่ไหว |
@@ -21960,7 +21960,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 - "Yank out shoulder blade entirely"
 - ⭐ **MOST POPULAR** today!
 - ⚠️ Some controversy — scapula offers chest wall protection
-- Pros: completely smooth · no bony protrusion to nibble
+- Pros: completely smooth, no bony protrusion to nibble
 - Cons: less cosmetic for some breeds
 
 ### 3.2 Scapulohumeral Disarticulation
@@ -21980,7 +21980,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 ⭐ **Exception**: If planning **prosthesis** ("ขาเทียม") — keep distal bone
 - Modern prosthesis = ~6,000-7,000 baht (similar cost to surgery)
-- ⚠️ Requires daily care · not yet popular in Thailand
+- ⚠️ Requires daily care, not yet popular in Thailand
 
 ---
 
@@ -22000,7 +22000,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ### 4.3 Hemipelvectomy ⭐ (RARE - aggressive!)
 - Remove **half of pelvis**
 - Used when **cancer involves pelvis**
-- ⚠️ Major surgery · ⚠️ poor quality of life often
+- ⚠️ Major surgery, ⚠️ poor quality of life often
 
 ---
 
@@ -22008,11 +22008,11 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 ### 5.1 Bilateral Forelimb (Both Front Legs)
 - ⭐ Patient walks on hindlimbs (kangaroo-style!)
-- Quality of life decent · need adapted environment
+- Quality of life decent, need adapted environment
 
 ### 5.2 Bilateral Hindlimb (Both Back Legs)
 - ⭐ ⚠️ **Harder** than forelimb bilateral
-- Patient drags front · uses **wheelchair (cart)**
+- Patient drags front, uses **wheelchair (cart)**
 - Wheelchair available — small dogs/cats adapt well
 
 ### 5.3 Diagonal (e.g., L-Front + R-Back)
@@ -22021,7 +22021,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 ### 5.4 Same-Side (e.g., Both Left)
 - ⚠️ **Hardest** — patient lops to one side
-- Bad balance · poor quality of life
+- Bad balance, poor quality of life
 - ⭐ "**Better to euthanize**" if both same side gone
 
 ---
@@ -22046,8 +22046,8 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 | Complication | Detail |
 |---|---|
-| **Hemorrhage** ⭐ | #1 risk — large blood vessels cut · pre-op cross-match if borderline |
-| **Seroma** | Common · drains usually resolve |
+| **Hemorrhage** ⭐ | #1 risk — large blood vessels cut, pre-op cross-match if borderline |
+| **Seroma** | Common, drains usually resolve |
 | **Infection** | Aseptic technique |
 | **Neuroma formation** (nerve tumor regrowth) | Rare |
 | **Phantom pain** | Hard to assess in animals |
@@ -22092,8 +22092,8 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 | **1. Pre-op planning** | Measure proper joint angle (use opposite normal limb) |
 | **2. Remove all cartilage** ⭐ | Burr/grind down to bleeding bone (must be bone-to-bone) |
 | **3. Optimal joint position** | Set in functional standing angle |
-| **4. RIGID fixation** ⭐ | Plate + screws · External skeletal fixation · NOT just pins |
-| **5. Bone graft optional** | Cancellous from ilium · proximal humerus · proximal tibia |
+| **4. RIGID fixation** ⭐ | Plate + screws, External skeletal fixation, NOT just pins |
+| **5. Bone graft optional** | Cancellous from ilium, proximal humerus, proximal tibia |
 
 ⭐ **Why rigid fixation**: Joint we make non-moving must be VERY stable — common cause of failure = micromotion
 
@@ -22133,20 +22133,20 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ### 13.3 Carpal Arthrodesis ⭐⭐ (2 Types!)
 **Pancarpal Arthrodesis**:
 - Fuse **all 4 carpal joints**
-- Easier · standard
+- Easier, standard
 
 **Partial Carpal Arthrodesis**:
 - Fuse all **except antebrachiocarpal joint** (highest ROM)
 - **Cannot fuse just one if surrounding joints would break!**
 - Surrounding joints face high stress
 
-⭐ Note: **Antebrachiocarpal joint** = main carpal motion (between radius and carpus) · **rarely fused alone**
+⭐ Note: **Antebrachiocarpal joint** = main carpal motion (between radius and carpus), **rarely fused alone**
 
 ### 13.4 Stifle Arthrodesis
 - **Joint angle**: 135° (functional)
 - Cut distal femur + proximal tibia
 - ⚠️ Patella + tibial tuberosity removed
-- **High failure** · technically demanding
+- **High failure**, technically demanding
 
 ### 13.5 Tarsal Arthrodesis ⭐
 - 6 joints in tarsus — most are tiny
@@ -22191,8 +22191,8 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 ### Amputation
 1. **Salvage procedure** — last resort
-2. **Forelimb cut levels**: Scapulectomy ⭐ · Scapulohumeral · Mid-humeral
-3. **Hindlimb cut levels**: Coxofemoral disarticulation ⭐ · Mid-femoral · Hemipelvectomy
+2. **Forelimb cut levels**: Scapulectomy ⭐, Scapulohumeral, Mid-humeral
+3. **Hindlimb cut levels**: Coxofemoral disarticulation ⭐, Mid-femoral, Hemipelvectomy
 4. **Cut HIGH, not LOW** — distal stump = chronic wound (will be used!)
 5. **Diagonal pattern (e.g., L-front + R-back)** = easiest bilateral
 6. **Same-side bilateral** = consider euthanasia
@@ -22207,7 +22207,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 13. **Joint angle** matched to other side for proper standing position
 14. **Rigid fixation** + **complete cartilage removal** = success keys
 
-> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc) · 6.2 ESF (LwNNZYoCpZE) · 13.2 Metabolic Bone Disease (u_T60WiAG4s) · 15.3 Rehab (zj4go8swIgM)
+> 📚 อ่านควบ: 1 Basic Fracture (xy6nxu6Sduc), 6.2 ESF (LwNNZYoCpZE), 13.2 Metabolic Bone Disease (u_T60WiAG4s), 15.3 Rehab (zj4go8swIgM)
 > 🦴 **Practice tip**: ทุก salvage = "ทำแล้วทำดี" — โอกาสเดียวเท่านั้น!
 > 🎬 Brief lecture (38 min) — short & decisive content`,
   },
@@ -22222,12 +22222,12 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
     date: '13 Nov 67',
     durationMin: 37,
     instructor: 'อ. (ortho block)',
-    examFormat: 'MCQ — Fibrous osteodystrophy 4 causes · Rickets/osteomalacia · LCP signalment · Panosteitis vs HOD ออกบ่อย',
+    examFormat: 'MCQ — Fibrous osteodystrophy 4 causes, Rickets/osteomalacia, LCP signalment, Panosteitis vs HOD ออกบ่อย',
     summary: `# Metabolic + Hereditary Bone Diseases
 
 > 🎯 **น้อยอยู่ในชีวิตจริง** แต่ออกสอบได้ — เรียนเพื่อ Dx differential
-> ⚠️ "เจอน้อย · DDx ยาก · มัก mis-Dx"
-> Top exam: **Fibrous Osteodystrophy 4 causes · Rubber Jaw · LCP key features · Panosteitis vs HOD**
+> ⚠️ "เจอน้อย, DDx ยาก, มัก mis-Dx"
+> Top exam: **Fibrous Osteodystrophy 4 causes, Rubber Jaw, LCP key features, Panosteitis vs HOD**
 
 ---
 
@@ -22251,15 +22251,15 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 | Hormone | Effect |
 |---|---|
-| **Parathyroid Hormone (PTH)** ⭐ | ↑ Ca · sources from bone, kidney, gut |
+| **Parathyroid Hormone (PTH)** ⭐ | ↑ Ca, sources from bone, kidney, gut |
 | **Vitamin D** | ↑ Ca absorption from gut |
 | **Calcitonin** | ↓ Ca |
 | **Fibroblast Growth Factor (FGF)** | Modulator |
 
 **Body sites involved**:
-- **Kidney**: filtration · reabsorption
+- **Kidney**: filtration, reabsorption
 - **Intestine**: absorption
-- **Bone**: storage · release
+- **Bone**: storage, release
 
 ---
 
@@ -22283,7 +22283,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ### 3.3 Clinical Signs
 - **Mandible (rubber jaw)** — palpable soft, flexible
 - **Tooth loosening / loss**
-- Difficulty closing mouth · drooling
+- Difficulty closing mouth, drooling
 - Pathologic fractures
 - Lethargy + ataxia (if hypercalcemia)
 - **PUPD** (in renal cause)
@@ -22301,7 +22301,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ### 3.5 X-ray Findings
 - **Generalized bone porosity**
 - Mandibular bone "moth-eaten" / fading
-- Loose teeth · empty alveolar sockets
+- Loose teeth, empty alveolar sockets
 - Pathologic fractures
 - Bone deformities
 
@@ -22309,8 +22309,8 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 | Cause | Treatment |
 |---|---|
 | **Primary** | Surgical tumor removal |
-| **Renal** | Treat CKD · phosphate binders |
-| **Nutritional** ⭐ | **Switch to balanced commercial diet!** Ca:P = 1:1 ratio · supplement Ca/Vit D · ⚠️ confine cage 1 month (prevent fractures!) |
+| **Renal** | Treat CKD, phosphate binders |
+| **Nutritional** ⭐ | **Switch to balanced commercial diet!** Ca:P = 1:1 ratio, supplement Ca/Vit D, ⚠️ confine cage 1 month (prevent fractures!) |
 | **Pseudo (cancer)** | Treat tumor |
 
 ⚠️ **Cage rest essential** to prevent pathologic fractures during recovery!
@@ -22341,7 +22341,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ⭐ **Vitamin D in dogs/cats**: Cannot synthesize from sunlight (unlike humans)! → must come from **diet**
 
 ### 4.4 Clinical Signs
-- Pain · lameness
+- Pain, lameness
 - **Swollen metaphyses** (esp. growth plates) ⭐
 - **Delayed dental eruption**
 - Pathologic fractures
@@ -22412,16 +22412,16 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 ### 8.4 **Craniomandibular Osteopathy (CMO)** ⭐
 - "Lion Jaw" / **Lion Jaw Syndrome**
-- Names: Mandibular periostitis · Temporomandibular osteodystrophy
+- Names: Mandibular periostitis, Temporomandibular osteodystrophy
 
 **Features**:
-- **Small breeds**: West Highland Terrier · Scottish Terrier · Boston Terrier · Cairn Terrier
+- **Small breeds**: West Highland Terrier, Scottish Terrier, Boston Terrier, Cairn Terrier
 - **Age**: Young dogs (3-8 months)
 - Excessive **bone formation** at mandibular ramus + TMJ
 - ⚠️ NOT seen in adults
 
 **Clinical**:
-- Painful mandible · "lion-like" wide jaw
+- Painful mandible, "lion-like" wide jaw
 - Drooling
 - Cannot open mouth
 - Pain on palpation
@@ -22468,7 +22468,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 **Treatment**:
 - ⭐ **Self-limiting** — eventually resolves!
-- NSAIDs · pain control
+- NSAIDs, pain control
 - Cage rest
 - Owner reassurance — "will go away in days/weeks"
 
@@ -22481,9 +22481,9 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 - **Large breeds**: GSD, Great Dane, Mastiff
 - **Young dogs**: 2-7 months ⭐
 - **Painful, swollen joints** (especially metaphyses)
-- Sudden onset · acute systemic illness
+- Sudden onset, acute systemic illness
 
-**Etiology**: Unclear · possibly related to:
+**Etiology**: Unclear, possibly related to:
 - Rapid growth + over-nutrition
 - Vitamin C imbalance theory
 - Distemper virus association (theoretical)
@@ -22532,11 +22532,11 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 
 | Clinical Pattern | Top DDx |
 |---|---|
-| **Young dog + sudden lameness** | Panosteitis · HOD · LCP |
+| **Young dog + sudden lameness** | Panosteitis, HOD, LCP |
 | **Small breed + 5-8 mo + hindlimb** | LCP |
 | **Young + jaw pain** | CMO |
-| **Stray + multiple deformities** | Rickets · Fibrous OD |
-| **Adult + multiple fractures** | Osteomalacia · Osteoporosis · neoplasia |
+| **Stray + multiple deformities** | Rickets, Fibrous OD |
+| **Adult + multiple fractures** | Osteomalacia, Osteoporosis, neoplasia |
 
 ---
 
@@ -22545,24 +22545,24 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 ### Metabolic
 1. **Dogs/cats can synthesize Vit C** — no scurvy!
 2. **Vitamin D in dogs**: from **diet only** — sunlight doesn't help (different from humans)
-3. **Fibrous Osteodystrophy 4 causes**: Primary HPT · Renal SHPT · Nutritional SHPT · Pseudo (PTHrP)
+3. **Fibrous Osteodystrophy 4 causes**: Primary HPT, Renal SHPT, Nutritional SHPT, Pseudo (PTHrP)
 4. **Renal SHPT mechanism**: ↑ P → binds Ca → ↓ ionized Ca → PTH ↑
 5. **Nutritional SHPT** = **BARF/all-meat diet** ⭐
 6. **Rubber Jaw** = pathognomonic for severe Fibrous OD
-7. **Primary HPT**: Ca ↑ · P ↓ · PTH ↑↑
-8. **Pseudo HPT**: Ca ↑ · PTH ↓ · **PTHrP +** (cancer)
+7. **Primary HPT**: Ca ↑, P ↓, PTH ↑↑
+8. **Pseudo HPT**: Ca ↑, PTH ↓, **PTHrP +** (cancer)
 9. **Rickets vs Osteomalacia**: pediatric vs adult (same disease)
 10. **Treatment principle**: balanced diet (Ca:P = 1:1) + cage rest to prevent fractures!
 
 ### Hereditary
-11. **CMO** = Lion Jaw · Westie/Scottie · 3-8 mo · *irreversible*
-12. **LCP** = Avascular necrosis · small breed · 5-8 mo · unilateral
-13. **Panosteitis** = "Growing pain" · large breed · 5-18 mo · diaphysis · self-limiting
-14. **HOD** = Saw-horse · large breed · 2-7 mo · **metaphysis** · trans-physeal line ⭐ · self-limiting
+11. **CMO** = Lion Jaw, Westie/Scottie, 3-8 mo, *irreversible*
+12. **LCP** = Avascular necrosis, small breed, 5-8 mo, unilateral
+13. **Panosteitis** = "Growing pain", large breed, 5-18 mo, diaphysis, self-limiting
+14. **HOD** = Saw-horse, large breed, 2-7 mo, **metaphysis**, trans-physeal line ⭐, self-limiting
 15. **Panosteitis vs HOD location**: dia vs meta
-16. **Both Pano + HOD**: NSAIDs + cage rest · resolve in 2-4 weeks
+16. **Both Pano + HOD**: NSAIDs + cage rest, resolve in 2-4 weeks
 
-> 📚 อ่านควบ: 9.1 LCP (Spz38qa5upU) · 9.2 CHD (hIlH1i845wI) · 13.1 Amputation (KqbNuuu8X90) · 15.2 Osteochondrosis (jo-p8MeAMXk)
+> 📚 อ่านควบ: 9.1 LCP (Spz38qa5upU), 9.2 CHD (hIlH1i845wI), 13.1 Amputation (KqbNuuu8X90), 15.2 Osteochondrosis (jo-p8MeAMXk)
 > 💊 **Practice tip**: เจอแมวจรเด็ก กระดูกแตกๆ บิดๆ → คิดถึง Nutritional SHPT/Rickets/Osteomalacia ก่อน!
 > 🩻 **Trans-physeal line** = HOD pathognomonic finding`,
   },
@@ -22576,13 +22576,13 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
     subject: 'com2',
     date: '20 Nov 67',
     durationMin: 116,
-    instructor: 'พี่ไอซ์ (neurosurgery specialist · expert clinician + lecturer)',
-    examFormat: 'MCQ — Localization 4 segments · Modified Frankel grading · Deep Pain test · 3-compartment theory · TL junction (T13-L1) most common · Surgical implant choice · Trans-iliac pin technique ออกบ่อย',
+    instructor: 'พี่ไอซ์ (neurosurgery specialist, expert clinician + lecturer)',
+    examFormat: 'MCQ — Localization 4 segments, Modified Frankel grading, Deep Pain test, 3-compartment theory, TL junction (T13-L1) most common, Surgical implant choice, Trans-iliac pin technique ออกบ่อย',
     summary: `# Vertebral Fracture / Luxation (VFL)
 
 > 🎯 **One of the longest com2 lectures (116 min)** by neurosurgery specialist
 > ⚠️ **Critical difference from long bone fracture**: spinal cord involvement!
-> Top exam: **4-segment localization · Frankel grading · Deep Pain · 3-compartment theory · TL junction · Implant choice**
+> Top exam: **4-segment localization, Frankel grading, Deep Pain, 3-compartment theory, TL junction, Implant choice**
 
 ---
 
@@ -22593,7 +22593,7 @@ When **Round Lig + Joint Capsule** tear → hip luxates due to **gluteal muscle 
 **Causes** (2 groups):
 | Type | Detail |
 |---|---|
-| **External Trauma** ⭐ (most common) | Vehicle accidents 40-60% · falls · bites · gunshot |
+| **External Trauma** ⭐ (most common) | Vehicle accidents 40-60%, falls, bites, gunshot |
 | **Pathologic Fracture** | Spinal tumors → bone weakening → spontaneous fracture |
 
 ⭐ **#3 cause of neurodeficit in pets** (after IVDD #1, vascular injury #2)
@@ -22651,8 +22651,8 @@ Every VFL patient must be localized to ONE of 4 segments:
 |---|---|---|
 | **Grade 1** | **Pain only** | Walks normally |
 | **Grade 2** | **Ambulatory paresis** | Walks but ataxic |
-| **Grade 3** | **Non-ambulatory paresis** | Cannot walk · still has motor |
-| **Grade 4** | **Paralysis (no motor)** + Deep Pain (+) | No voluntary motion · still has sensation |
+| **Grade 3** | **Non-ambulatory paresis** | Cannot walk, still has motor |
+| **Grade 4** | **Paralysis (no motor)** + Deep Pain (+) | No voluntary motion, still has sensation |
 | **Grade 5** ⭐ | **Paralysis** + **Deep Pain ABSENT** | No voluntary motion + no sensation |
 
 ⭐ **Grade 5 = WORST PROGNOSIS** — surgery has only **<10% success in VFL** (vs 50% in IVDD!)
@@ -22671,7 +22671,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 ### 6.1 Definition
 **Deep Pain** = patient must show **CONSCIOUS RESPONSE** to noxious stimulus
 - Turn head to bite
-- Vocalize · cry
+- Vocalize, cry
 - Clear awareness response
 
 ⚠️ **NOT just withdrawal reflex** (that's just spinal reflex)!
@@ -22687,7 +22687,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 ⚠️ **VFL Grade 5 vs IVDD Grade 5**:
 - IVDD G5 surgery = up to **50% recovery** in 48 hours
 - VFL G5 surgery = **<10% recovery** even with rapid surgery!
-- Why: VFL involves multidirectional cord damage during fracture · IVDD = unidirectional compression
+- Why: VFL involves multidirectional cord damage during fracture, IVDD = unidirectional compression
 
 ---
 
@@ -22752,7 +22752,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 
 ### 10.2 X-ray Limitations
 - ✅ Sees: Body fractures, alignment, "short body"
-- ❌ Cannot assess: 3 compartments precisely · cord function
+- ❌ Cannot assess: 3 compartments precisely, cord function
 
 ### 10.3 CT Scan ⭐⭐ (Gold standard for bone planning)
 **Best for**:
@@ -22807,7 +22807,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 
 ⭐ **Implant must resist 3 forces**:
 1. **Compression** (axial)
-2. **Flexion** (hyper-flexion · post-op critical!)
+2. **Flexion** (hyper-flexion, post-op critical!)
 3. **Rotation** (torsion)
 
 ### 12.3 Surgical Methods Hierarchy ⭐⭐⭐
@@ -22815,11 +22815,11 @@ Every VFL patient must be localized to ONE of 4 segments:
 | Method | Strength | Indication |
 |---|---|---|
 | **Dorsal Spinous Pinning + Cerclage** ⭐ | Lowest (single-axis only) | Cats / dogs < 5 kg only |
-| **Lumbar Spinal Plate** | Moderate | Lumbar only · clamps spinous processes · large incision |
+| **Lumbar Spinal Plate** | Moderate | Lumbar only, clamps spinous processes, large incision |
 | **SOP plate** | Moderate | Body screws |
-| **Standard LCP plate** | Good | Locking · but contour issues |
-| **Screws + PMMA Bone Cement** ⭐⭐ | **Excellent (Gold Standard 2000-2010)** | All locations · resists 3 forces |
-| **Pedicle Screw + Rod (Titanium)** ⭐⭐⭐ | **Excellent (Modern Standard!)** | Replaces PMMA · less infection · realignable |
+| **Standard LCP plate** | Good | Locking, but contour issues |
+| **Screws + PMMA Bone Cement** ⭐⭐ | **Excellent (Gold Standard 2000-2010)** | All locations, resists 3 forces |
+| **Pedicle Screw + Rod (Titanium)** ⭐⭐⭐ | **Excellent (Modern Standard!)** | Replaces PMMA, less infection, realignable |
 | **Trans-iliac Pin** ⭐ | Specific use | L7-S1 only |
 
 ### 12.4 PMMA Bone Cement Technique ⭐
@@ -22845,7 +22845,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 
 **Advantages**:
 - Titanium = less infection
-- Modular · adjustable
+- Modular, adjustable
 - Can correct alignment
 - No exothermic damage
 
@@ -22858,7 +22858,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 - **Cannot use dorsal**: large vessels (vertebral artery)
 - Screw type:
   - **Bicortical** (through both cortices) = stronger but risky (vessel)
-  - **Monocortical** (single cortex only) = safer · recommended ⭐
+  - **Monocortical** (single cortex only) = safer, recommended ⭐
 - Angle: **20-25° from midline (lateral)**
 
 ### 13.2 Locked Cervical Facet ⭐ (Special Case!)
@@ -22879,7 +22879,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 - **Lower line**: Above transverse process
 
 ⭐ **Safe Zone** = between these 2 lines!
-**Insertion**: At pedicle base · angle into vertebral body
+**Insertion**: At pedicle base, angle into vertebral body
 
 ### 13.5 Pedicle Angles by Region ⭐
 | Region | Angle from midline |
@@ -22921,11 +22921,11 @@ Every VFL patient must be localized to ONE of 4 segments:
 ### 15.1 Critical Items
 | Action | Detail |
 |---|---|
-| **Pain management** | Multimodal · NSAIDs + opioids |
+| **Pain management** | Multimodal, NSAIDs + opioids |
 | **Soft bedding** | Prevent decubitus ulcers |
 | **Reposition every 4 hours** | If non-ambulatory |
 | **Bladder management** ⭐⭐ | **Catheterize** all paraplegics! Prevents UTI + bladder rupture |
-| **Hair clipping/cleaning** | Around urinary area · prevent dermatitis |
+| **Hair clipping/cleaning** | Around urinary area, prevent dermatitis |
 | **Decubitus monitoring** | Coin-sized ulcer = 1 month healing time! |
 
 ⚠️ **Bladder care prevents lethal complications** — UTI ascending to kidney, bladder rupture
@@ -22941,7 +22941,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 - **Laser/ultrasound therapy**
 - **Electrostimulation**
 
-⚠️ Without rehab → recovery slower BUT possible · WITH rehab → faster + better outcome
+⚠️ Without rehab → recovery slower BUT possible, WITH rehab → faster + better outcome
 
 ---
 
@@ -22950,10 +22950,10 @@ Every VFL patient must be localized to ONE of 4 segments:
 | Issue | Action |
 |---|---|
 | **Cannot urinate** (UMN bladder = T3-L3) | Express bladder 4x/day OR catheterize |
-| **Urinary incontinence** (LMN bladder = L4-S3) | Diaper · keep clean |
-| **Catheter in place** | Closed system · sterile · check daily for blockage |
-| **UTI prevention** | Antimicrobials prophylactically · monitor urine |
-| **Bladder rupture** | Lethal! · Express bladder regularly |
+| **Urinary incontinence** (LMN bladder = L4-S3) | Diaper, keep clean |
+| **Catheter in place** | Closed system, sterile, check daily for blockage |
+| **UTI prevention** | Antimicrobials prophylactically, monitor urine |
+| **Bladder rupture** | Lethal!, Express bladder regularly |
 
 ---
 
@@ -22961,7 +22961,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 
 ### Localization
 1. **VFL ≠ Long bone fracture** — spinal cord matters most!
-2. **4 segments**: C1-C5 · C6-T2 · T3-L3 · L4-S3
+2. **4 segments**: C1-C5, C6-T2, T3-L3, L4-S3
 3. **2-Question localization**: which limbs + reflexes preserved?
 4. **ALWAYS localize before X-ray** — saves time + avoids missing remote fracture
 
@@ -22989,9 +22989,9 @@ Every VFL patient must be localized to ONE of 4 segments:
 19. **Surgical** = Grade 3-4 unstable (Grade 5 mostly palliative)
 20. **Post-op forces**: Compression + **Flexion (Dog sitting!)** + Rotation
 21. **Modern Implant**: Pedicle screw + rod (titanium) > PMMA cement
-22. **Trans-iliac pin** = L7-S1 specific · 2 pins to prevent rotation
+22. **Trans-iliac pin** = L7-S1 specific, 2 pins to prevent rotation
 
-> 📚 อ่านควบ: 13.1 Limb Amp/Arthrodesis (KqbNuuu8X90) · 13.2 Metabolic Bone (u_T60WiAG4s) · 15.3 Rehab (zj4go8swIgM)
+> 📚 อ่านควบ: 13.1 Limb Amp/Arthrodesis (KqbNuuu8X90), 13.2 Metabolic Bone (u_T60WiAG4s), 15.3 Rehab (zj4go8swIgM)
 > 🩻 **Practice tip**: Always assess **Deep Pain** by comparing forelimb vs hindlimb response
 > 💉 **Bladder care saves lives** — paraplegics need urinary management priority!
 > 🦴 Modern surgical trend: titanium pedicle screw + rod replaces older PMMA cement
@@ -23004,13 +23004,13 @@ Every VFL patient must be localized to ONE of 4 segments:
     subject: 'com2',
     date: '27 Nov 67',
     durationMin: 57,
-    instructor: 'อ.มาริสาก (orthopedic surgeon · CUVET)',
-    examFormat: 'MCQ — 4 pathologies of ED · UAP fusion timing per breed · OC vs OCD distinction · RUI step direction · FCP/MCD epidemiology · Surgical decision tree (SCo, BUR, PUO, BOUO, PAUL, SHO, TER) ออกบ่อย',
+    instructor: 'อ.มาริสาก (orthopedic surgeon, CUVET)',
+    examFormat: 'MCQ — 4 pathologies of ED, UAP fusion timing per breed, OC vs OCD distinction, RUI step direction, FCP/MCD epidemiology, Surgical decision tree (SCo, BUR, PUO, BOUO, PAUL, SHO, TER) ออกบ่อย',
     summary: `# Elbow Joint Disease / Elbow Dysplasia (ED)
 
 > 🎯 **Why this lecture is hard**: 4 pathologies in ONE complex joint — 3 bones articulating + 5 ligaments + multiple muscle insertions
-> ⚠️ **75% of weight loads through humeroradial joint** · 20-25% through medial coronoid (the failure point!)
-> Top exam: **4 pathologies of ED · UAP fusion timing · OC vs OCD · RUI direction · FCP/MCD treatment hierarchy**
+> ⚠️ **75% of weight loads through humeroradial joint**, 20-25% through medial coronoid (the failure point!)
+> Top exam: **4 pathologies of ED, UAP fusion timing, OC vs OCD, RUI direction, FCP/MCD treatment hierarchy**
 
 ---
 
@@ -23026,7 +23026,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 
 **Key landmarks**:
 - **Anconeal process** = "จะงอยของอุลน่า" — hooks into olecranon fossa
-- **Medial coronoid process (MCP)** = small bony tip on medial side of ulna · **THE failure point** in FCP
+- **Medial coronoid process (MCP)** = small bony tip on medial side of ulna, **THE failure point** in FCP
 - **Lateral coronoid process (LCP)** = on lateral side
 - **Radial head** articulates with capitulum of humerus
 
@@ -23039,7 +23039,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 ### A. Mechanical structures around joint
 | Structure | What it does | Force impact |
 |---|---|---|
-| **Biceps brachii + brachialis** | Cross cranial side · insert on radius + ulna | Pulls on MCP |
+| **Biceps brachii + brachialis** | Cross cranial side, insert on radius + ulna | Pulls on MCP |
 | **Triceps (long, lateral, medial heads)** | Cross caudal + lateral | Compresses joint |
 | **Anconeus muscle** | Covers caudo-lateral | Stress on anconeal process |
 
@@ -23065,10 +23065,10 @@ Every VFL patient must be localized to ONE of 4 segments:
 
 | # | Disease | Location | Mechanism | Common breeds |
 |---|---|---|---|---|
-| **1** | **UAP** (Ununited Anconeal Process) | Anconeal process | Failed fusion of growth plate | German Shepherd · Bernese · Mastiff |
-| **2** | **OC / OCD** | Medial humeral condyle | Cartilage cleft (OC) → fragment loose body (OCD) | Lab · Retriever · Rottweiler |
-| **3** | **RUI** (Radio-Ulnar Incongruity) | RU joint | Differential growth → step elbow | Bernese · Newfoundland |
-| **4** | **FCP / MCD** (Fragmented Coronoid Process / Medial Coronoid Disease) | Medial coronoid | Microcrack → fragment | **Lab · Golden · Rottweiler** ⭐ MOST COMMON |
+| **1** | **UAP** (Ununited Anconeal Process) | Anconeal process | Failed fusion of growth plate | German Shepherd, Bernese, Mastiff |
+| **2** | **OC / OCD** | Medial humeral condyle | Cartilage cleft (OC) → fragment loose body (OCD) | Lab, Retriever, Rottweiler |
+| **3** | **RUI** (Radio-Ulnar Incongruity) | RU joint | Differential growth → step elbow | Bernese, Newfoundland |
+| **4** | **FCP / MCD** (Fragmented Coronoid Process / Medial Coronoid Disease) | Medial coronoid | Microcrack → fragment | **Lab, Golden, Rottweiler** ⭐ MOST COMMON |
 
 > ⛔ Not every dog has all 4 — **อาจมี 1, 2, 3, หรือ 4 ก็ได้** depending on individual
 
@@ -23141,14 +23141,14 @@ Every VFL patient must be localized to ONE of 4 segments:
 
 ## 7. FCP / MCD — The Most Common ⭐⭐⭐
 
-**FCP** = Fragmented Coronoid Process · also known as **Medial Coronoid Disease (MCD)**
-**Studied since 1974** · Malaysian colleague's seminal study (sacrificed Labrador puppies q2wk)
+**FCP** = Fragmented Coronoid Process, also known as **Medial Coronoid Disease (MCD)**
+**Studied since 1974**, Malaysian colleague's seminal study (sacrificed Labrador puppies q2wk)
 
 ### Epidemiology
 - **11-50% of lame Labradors** have FCP/MCD
 - Onset: **4-8 months old**
-- **Males > Females** · **Bilateral often**
-- Predisposed: Lab · Golden · Rottweiler · Newfoundland · Bernese
+- **Males > Females**, **Bilateral often**
+- Predisposed: Lab, Golden, Rottweiler, Newfoundland, Bernese
 
 ### Etiology (genetic + environmental polygenic)
 - **Genetic**: polygenic, no single gene identified
@@ -23187,10 +23187,10 @@ Every VFL patient must be localized to ONE of 4 segments:
 ### Imaging hierarchy
 | Modality | Use | Sensitivity |
 |---|---|---|
-| **X-ray** (M-L + Cr-Cd + **Flexed** + Cr-Cd Oblique) | Screening · UAP detection · subchondral sclerosis sign | Low for FCP |
+| **X-ray** (M-L + Cr-Cd + **Flexed** + Cr-Cd Oblique) | Screening, UAP detection, subchondral sclerosis sign | Low for FCP |
 | **CT scan** ⭐ | **Best non-invasive for FCP** | High |
 | **MRI** | Cartilage detail | High but expensive |
-| **Arthroscopy** ⭐ | Gold standard · also therapeutic | Highest |
+| **Arthroscopy** ⭐ | Gold standard, also therapeutic | Highest |
 
 ### X-ray signs to look for
 1. **Subchondral sclerosis** at MCP (whitish bone) ⭐ earliest sign
@@ -23221,18 +23221,18 @@ Every VFL patient must be localized to ONE of 4 segments:
 |---|---|---|
 | **Biceps Ulnar Release (BUR)** | Cut biceps insertion at ulna | Reduces traction on MCP |
 | **Proximal Ulnar Osteotomy (PUO)** | Cut ulna + release interosseous ligament | RUI ulna-short |
-| **Bi-Oblique Ulnar Osteotomy (BOUO)** | Single cut at 45°/48° dual angle | Modern alternative to PUO · NO instability · NO pin needed |
+| **Bi-Oblique Ulnar Osteotomy (BOUO)** | Single cut at 45°/48° dual angle | Modern alternative to PUO, NO instability, NO pin needed |
 | **PAUL (Proximal Abducting Ulnar Osteotomy)** | Step-shaped plate tilts joint | Shifts load from medial to lateral |
 
 ### C. Joint resurfacing (advanced)
 | Procedure | When |
 |---|---|
-| **Sliding Humeral Osteotomy (SHO)** | Advanced medial compartment disease · cartilage gone · shifts humerus to off-load medial |
+| **Sliding Humeral Osteotomy (SHO)** | Advanced medial compartment disease, cartilage gone, shifts humerus to off-load medial |
 | **Unicompartmental Arthroplasty (CUE)** | Single compartment cartilage loss (off-the-shelf or customized implant) |
-| **Customized Medial Compartment Replacement** | Larger lesion · 3D-printed customized to lesion shape |
-| **Total Elbow Replacement (TER)** ⭐ | End-stage OA · cartilage GONE · salvage procedure (taught by อ.เอกพล) |
+| **Customized Medial Compartment Replacement** | Larger lesion, 3D-printed customized to lesion shape |
+| **Total Elbow Replacement (TER)** ⭐ | End-stage OA, cartilage GONE, salvage procedure (taught by อ.เอกพล) |
 
-> 💰 TER expensive + limited availability in Thailand · custom implants need design + import
+> 💰 TER expensive + limited availability in Thailand, custom implants need design + import
 
 ---
 
@@ -23241,11 +23241,11 @@ Every VFL patient must be localized to ONE of 4 segments:
 | Modality | Purpose |
 |---|---|
 | **NSAIDs** | Pain + inflammation |
-| **Joint protectants** (Chondroitin · Glucosamine · Cartrophen) | Slow OA |
+| **Joint protectants** (Chondroitin, Glucosamine, Cartrophen) | Slow OA |
 | **Weight control** | Reduce joint load (target = mildly underweight + muscular) |
 | **Omega-3 fatty acids** | Anti-inflammatory diet |
 | **Hydrotherapy** ⭐ | Low-impact exercise (อ.ฤทัยทิพย์ teaches this) |
-| **Regenerative medicine** | PRP · stem cells |
+| **Regenerative medicine** | PRP, stem cells |
 
 ---
 
@@ -23255,7 +23255,7 @@ Every VFL patient must be localized to ONE of 4 segments:
 |---|---|
 | **Early** (puppy 4-8 mo, surgical correction) | Good — slows OA |
 | **Mid** (subadult, fragment removal + osteotomy) | Fair |
-| **End-stage OA** | Manage chronic pain · NSAID + hydrotherapy · TER if salvage |
+| **End-stage OA** | Manage chronic pain, NSAID + hydrotherapy, TER if salvage |
 
 > ⚠️ OA will develop in EVERY ED case — surgery just slows it down + reduces pain
 > ⛔ Lifetime management required — client education is critical!
@@ -23264,22 +23264,22 @@ Every VFL patient must be localized to ONE of 4 segments:
 
 ## 12. Client Education ⭐ (predisposing prevention)
 
-For at-risk breeds (Lab · Golden · Rottweiler · German Shepherd · Bernese):
+For at-risk breeds (Lab, Golden, Rottweiler, German Shepherd, Bernese):
 1. **Avoid overfeeding** in 4-12 month rapid growth phase
 2. **Avoid excess Ca + Vit D supplements** (imbalance)
 3. **Delay neutering** until skeletal maturity in giant breeds
-4. **Avoid high-impact exercise** during growth (jumping · forced running)
+4. **Avoid high-impact exercise** during growth (jumping, forced running)
 5. **Screen at 6-12 mo** with X-ray + clinical exam if suspected
 
 ---
 
 ## 🎯 Exam Recap — top 22 testable points
 
-1. **Elbow = 3 bones articulating** (humerus · radius · ulna)
+1. **Elbow = 3 bones articulating** (humerus, radius, ulna)
 2. **75% load through humeroradial joint**
 3. **MCP receives 20-25% load** → failure point
 4. **5 ligaments** stress the joint constantly
-5. **4 pathologies of ED**: UAP · OC/OCD · RUI · FCP/MCD
+5. **4 pathologies of ED**: UAP, OC/OCD, RUI, FCP/MCD
 6. **UAP fuses at 14-15 wk Greyhound, 5 mo German Shepherd**
 7. **OC = lesion only**; **OCD = + fragment loose body**
 8. **OCD location = medial humeral condyle**
@@ -23298,7 +23298,7 @@ For at-risk breeds (Lab · Golden · Rottweiler · German Shepherd · Bernese):
 21. **TER = salvage** for end-stage OA (taught by อ.เอกพล)
 22. **OA WILL develop** — surgery slows it but doesn't prevent
 
-> 📚 อ่านควบ: 9.1 Dev Ortho/LCP (Spz38qa5upU) · 9.2 CHD (hIlH1i845wI) · 11 Common Joint (MMTtwT_7c94) · 15.2 Osteochondrosis (jo-p8MeAMXk) · 15.3 Rehab (zj4go8swIgM)
+> 📚 อ่านควบ: 9.1 Dev Ortho/LCP (Spz38qa5upU), 9.2 CHD (hIlH1i845wI), 11 Common Joint (MMTtwT_7c94), 15.2 Osteochondrosis (jo-p8MeAMXk), 15.3 Rehab (zj4go8swIgM)
 > 🩻 **Practice tip**: Always palpate elbow joint with **flexion + supination** combined
 > 💡 Look for **head bob on lameness** — easier than spotting forelimb gait subtly off
 > 🦴 **Modern trend**: Arthroscopic SCo + early diagnosis > delayed end-stage TER`,
@@ -23310,13 +23310,13 @@ For at-risk breeds (Lab · Golden · Rottweiler · German Shepherd · Bernese):
     subject: 'com2',
     date: '27 Nov 67',
     durationMin: 19,
-    instructor: 'อ.มาริสาก (orthopedic surgeon · CUVET)',
-    examFormat: 'MCQ — 3 OC stages (latens/manifesta/dissecans) · 4 predictable locations · Polygenic + nutritional etiology · 3 surgical groups (palliative/reparative/restorative) · Prognosis hierarchy (Shoulder best → Hock worst) ออกบ่อย',
+    instructor: 'อ.มาริสาก (orthopedic surgeon, CUVET)',
+    examFormat: 'MCQ — 3 OC stages (latens/manifesta/dissecans), 4 predictable locations, Polygenic + nutritional etiology, 3 surgical groups (palliative/reparative/restorative), Prognosis hierarchy (Shoulder best → Hock worst) ออกบ่อย',
     summary: `# Osteochondrosis (OC / OCD)
 
-> 🎯 **Bridges 15.1 Elbow** — OCD is the OC pathology in elbow's "OC component" of ED · but more common at OTHER joints
-> ⚠️ **Predictable joint sites**: Shoulder · Stifle · Tarsus · Elbow (medial coronoid)
-> Top exam: **3 OC stages · 4 sites · 3 surgical approaches · prognosis ranking by joint**
+> 🎯 **Bridges 15.1 Elbow** — OCD is the OC pathology in elbow's "OC component" of ED, but more common at OTHER joints
+> ⚠️ **Predictable joint sites**: Shoulder, Stifle, Tarsus, Elbow (medial coronoid)
+> Top exam: **3 OC stages, 4 sites, 3 surgical approaches, prognosis ranking by joint**
 
 ---
 
@@ -23326,7 +23326,7 @@ For at-risk breeds (Lab · Golden · Rottweiler · German Shepherd · Bernese):
 - Disrupts **endochondral ossification** at growth cartilage
 - Cartilage layer doesn't get blood supply → grows abnormally → weakens → cracks/flaps
 - All species affected — **horses most studied** (highest prevalence)
-- Dogs · pigs · humans · cats (rare)
+- Dogs, pigs, humans, cats (rare)
 
 > ⛔ Cats RARELY get OCD (unlike orthopedic counterparts)
 
@@ -23338,7 +23338,7 @@ OCD has "**predictable size locations**" = specific sites on each joint
 
 | Joint | Site | Frequency |
 |---|---|---|
-| **Shoulder** ⭐⭐ | Caudal aspect of medial humeral head | Most common · best prognosis |
+| **Shoulder** ⭐⭐ | Caudal aspect of medial humeral head | Most common, best prognosis |
 | **Elbow** | Medial humeral condyle (covered in 15.1) | Common in ED |
 | **Stifle** | Lateral OR medial femoral condyle | Less common |
 | **Tarsus / Hock** | Medial OR lateral trochlear ridge of talus | Worst prognosis |
@@ -23353,7 +23353,7 @@ OCD has "**predictable size locations**" = specific sites on each joint
 | # | Stage | Definition | Detectable how? |
 |---|---|---|---|
 | **1** | **Osteochondrosis Latens** | Microscopic histopathology only | NOT visible clinically — earliest |
-| **2** | **Osteochondrosis Manifesta (OC)** | Lesion visible · NO cartilage flap | X-ray subtle dimple |
+| **2** | **Osteochondrosis Manifesta (OC)** | Lesion visible, NO cartilage flap | X-ray subtle dimple |
 | **3** | **Osteochondritis Dissecans (OCD)** | Cartilage flap + joint mouse (loose body) | X-ray + arthroscopy clearly |
 
 > 💡 **OC vs OCD distinction** = central exam topic
@@ -23368,15 +23368,15 @@ OCD has "**predictable size locations**" = specific sites on each joint
 - ~100-150 genes implicated
 - NOT single-gene (unlike some hereditary diseases)
 - Cannot run "OCD gene panel" — can only identify risk
-- Predisposed breeds: **Newfoundland · Golden Retriever · German Shepherd** + other large/giant breeds
+- Predisposed breeds: **Newfoundland, Golden Retriever, German Shepherd** + other large/giant breeds
 
 ### B. Nutritional factors
 - **Rapid growth** (overfeeding) → sets up failure
 - **Calcium/Vit D imbalance** (excess) → disrupts cartilage differentiation
-- **Hormones**: IGF-1 · Insulin → modulate cartilage growth
+- **Hormones**: IGF-1, Insulin → modulate cartilage growth
 
 > ⛔ DO NOT supplement Ca/Vit D in growing puppies of large breeds — it WORSENS OCD risk
-> ✅ Feed balanced large-breed puppy food only · no extra supplements
+> ✅ Feed balanced large-breed puppy food only, no extra supplements
 
 ### C. Mechanical factors
 - **Overload** (heavy body weight)
@@ -23406,7 +23406,7 @@ OCD has "**predictable size locations**" = specific sites on each joint
 | **CT** ⭐ | Best non-invasive for all sites | Shows "rat-bitten" bone defect |
 | **MRI** | Cartilage detail | Expensive |
 | **Ultrasound** | Possible but expertise rare in vet med | Subchondral defect visible |
-| **Arthroscopy** ⭐⭐ | Gold standard · diagnostic + therapeutic | Direct flap visualization |
+| **Arthroscopy** ⭐⭐ | Gold standard, diagnostic + therapeutic | Direct flap visualization |
 
 ### X-ray signs
 - Subchondral dimple/lucency
@@ -23430,7 +23430,7 @@ OCD has "**predictable size locations**" = specific sites on each joint
 - Controlled exercise
 - Weight management
 - Rehabilitation (hydrotherapy)
-- Joint-supportive nutrition (omega-3 · glucosamine · chondroitin)
+- Joint-supportive nutrition (omega-3, glucosamine, chondroitin)
 
 ### B. Surgical — 3 approaches based on lesion size
 
@@ -23450,7 +23450,7 @@ OCD has "**predictable size locations**" = specific sites on each joint
   - Take bone-cartilage plug from **non-articular surface** (e.g., medial trochlear ridge of stifle)
   - Transplant to defect site
   - Used in stifle joint
-- **Synthetic implant** (SynACART · polycarbonate-urethane plug)
+- **Synthetic implant** (SynACART, polycarbonate-urethane plug)
   - Used when no donor site available (e.g., Shoulder)
   - Cup-shape implant fills defect
   - Expensive but effective
@@ -23466,10 +23466,10 @@ OCD has "**predictable size locations**" = specific sites on each joint
 ### Best → Worst prognosis by joint:
 | Rank | Joint | Why |
 |---|---|---|
-| 1 (Best) | **Shoulder** ⭐ | Caudal location → not main weight-bearing surface · easy access |
-| 2 | **Stifle** | Medium load · OATS available |
-| 3 | **Elbow** | Complex joint · OA inevitable |
-| 4 (Worst) | **Tarsus / Hock** | Small joint · multiple compartments · high load |
+| 1 (Best) | **Shoulder** ⭐ | Caudal location → not main weight-bearing surface, easy access |
+| 2 | **Stifle** | Medium load, OATS available |
+| 3 | **Elbow** | Complex joint, OA inevitable |
+| 4 (Worst) | **Tarsus / Hock** | Small joint, multiple compartments, high load |
 
 ### Lesion-size effect
 - **Larger lesion** → worse prognosis
@@ -23485,7 +23485,7 @@ OCD has "**predictable size locations**" = specific sites on each joint
 | Feature | OCD | FCP / MCD |
 |---|---|---|
 | Mechanism | Cartilage layer fails | Subchondral bone microcrack |
-| Location | Multiple joints (Shoulder · Stifle · Tarsus + Elbow medial humerus) | Elbow ONLY (medial coronoid) |
+| Location | Multiple joints (Shoulder, Stifle, Tarsus + Elbow medial humerus) | Elbow ONLY (medial coronoid) |
 | Bilateral | Often bilateral | Often bilateral |
 | Treatment | Remove flap + repair OR resurface | Remove fragment + curette |
 | OA outcome | Inevitable | Inevitable |
@@ -23495,19 +23495,19 @@ OCD has "**predictable size locations**" = specific sites on each joint
 ## 🎯 Exam Recap — top 12 testable points
 
 1. **OCD = developmental MSK disorder** of endochondral ossification
-2. **3 stages**: Latens (histo only) · Manifesta (OC) · Dissecans (OCD with flap)
-3. **4 predictable sites**: Shoulder · Elbow · Stifle · Tarsus
+2. **3 stages**: Latens (histo only), Manifesta (OC), Dissecans (OCD with flap)
+3. **4 predictable sites**: Shoulder, Elbow, Stifle, Tarsus
 4. **Polygenic genetic predisposition** — not single-gene
-5. **Predisposing breeds**: Newfoundland · Golden · German Shepherd
+5. **Predisposing breeds**: Newfoundland, Golden, German Shepherd
 6. **Don't supplement Ca/Vit D** in large breed puppies (WORSENS OCD)
 7. **CT is best non-invasive** for diagnosis
 8. **Arthroscopy = gold standard** + treatment
-9. **3 surgical approaches**: Palliative · Reparative · Restorative
+9. **3 surgical approaches**: Palliative, Reparative, Restorative
 10. **Microfracture promotes fibrocartilage** healing (key reparative concept)
 11. **OATS uses autograft** from non-articular trochlear ridge
 12. **Prognosis ranking: Shoulder > Stifle > Elbow > Hock**
 
-> 📚 อ่านควบ: 15.1 Elbow Disease (Os6MWLC8oso) · 9.1 LCP (Spz38qa5upU) · 8.2 OA (VJ8ixtXP9XU) · 11 Common Joint (MMTtwT_7c94)
+> 📚 อ่านควบ: 15.1 Elbow Disease (Os6MWLC8oso), 9.1 LCP (Spz38qa5upU), 8.2 OA (VJ8ixtXP9XU), 11 Common Joint (MMTtwT_7c94)
 > 🩻 **Practice tip**: Shoulder OCD is the FIRST site to suspect in a young large-breed dog with forelimb lameness
 > 💡 **OC vs OCD** = lesion alone vs lesion + detached fragment
 > 🦴 **Prognosis pearl**: Shoulder > Stifle > Elbow > Hock — remember this hierarchy!`,
@@ -23519,13 +23519,13 @@ OCD has "**predictable size locations**" = specific sites on each joint
     subject: 'com2',
     date: '27 Nov 67',
     durationMin: 46,
-    instructor: 'อ.ฤทัยทิพย์ อุปริพุทธิ (พี่หมอทิพย์ · animal physiotherapist · CUVET rehab center)',
-    examFormat: 'ไม่ออกสอบ — supplementary lecture · but useful clinical concepts: 7 rehab modalities · Gate Control Theory · Kinesio taping · Myofascial Kinetic Linkage',
+    instructor: 'อ.ฤทัยทิพย์ อุปริพุทธิ (พี่หมอทิพย์, animal physiotherapist, CUVET rehab center)',
+    examFormat: 'ไม่ออกสอบ — supplementary lecture, but useful clinical concepts: 7 rehab modalities, Gate Control Theory, Kinesio taping, Myofascial Kinetic Linkage',
     summary: `# Basic Animal Rehabilitation
 
 > 🎯 **NOT ON EXAM** but ESSENTIAL clinical concepts for orthopedic/neuro recovery
-> **Lecturer**: พี่หมอทิพย์ — runs CUVET small animal hospital rehab center (2nd floor · M/T/W)
-> Top concepts: **3 rehab assessments · 7 modalities · Gate Control Theory · 5-grade muscle strength · taping kinetic linkage**
+> **Lecturer**: พี่หมอทิพย์ — runs CUVET small animal hospital rehab center (2nd floor, M/T/W)
+> Top concepts: **3 rehab assessments, 7 modalities, Gate Control Theory, 5-grade muscle strength, taping kinetic linkage**
 
 ---
 
@@ -23533,21 +23533,21 @@ OCD has "**predictable size locations**" = specific sites on each joint
 
 ### A. Passive Range of Motion (PROM)
 - Tool: **Goniometer** ⭐ (protractor with movable arm)
-- Stationary arm = parallel to upper bone · pivot at joint center · moving arm tracks lower bone
-- Measure flexion + extension angles for shoulder · elbow · carpus · hip · stifle · tarsus
+- Stationary arm = parallel to upper bone, pivot at joint center, moving arm tracks lower bone
+- Measure flexion + extension angles for shoulder, elbow, carpus, hip, stifle, tarsus
 - Each joint has **normal ROM range** to compare against
 - **Decreased ROM** in OCD/OA = pain → reduced movement
 
 ### B. Muscle Mass measurement
 - Tape measure at **70% of leg length** (anatomical landmark)
-- Compare bilateral · check for atrophy
+- Compare bilateral, check for atrophy
 
 ### C. Muscle Strength grading (Standing test) ⭐
 | Grade | Test result |
 |---|---|
 | **5** | Normal — bears weight on 1 leg both flat AND inclined surface |
-| **4** | Stands on flat 1 leg · CANNOT on inclined |
-| **3** ⭐ | Stands on flat ground 1 leg · cannot on inclined (case in lecture) |
+| **4** | Stands on flat 1 leg, CANNOT on inclined |
+| **3** ⭐ | Stands on flat ground 1 leg, cannot on inclined (case in lecture) |
 | **2** | Stands with assistance only |
 | **1** | Cannot stand at all |
 
@@ -23571,14 +23571,14 @@ OCD has "**predictable size locations**" = specific sites on each joint
 
 ### A. Cryotherapy (Cold compress)
 - **Mechanism**: vasoconstriction → ↓ inflammation
-- **Indication**: Post-op (1-3 days) · acute injury · ongoing inflammation
+- **Indication**: Post-op (1-3 days), acute injury, ongoing inflammation
 - **Duration**: 15-20 min per session
-- **Contraindications**: DM (peripheral neuropathy → can burn) · senior dogs (poor feedback)
+- **Contraindications**: DM (peripheral neuropathy → can burn), senior dogs (poor feedback)
 
 ### B. Heat Therapy (Warm compress)
-- **Mechanism**: vasodilation → ↑ blood flow → flushes lactic acid · oxygenates muscle · loosens collagen
-- **Indication**: Muscle cramping · Hip OA · myofascial pain · Office Syndrome (humans!)
-- Increases collagen extensibility · relaxes nerves → pain relief
+- **Mechanism**: vasodilation → ↑ blood flow → flushes lactic acid, oxygenates muscle, loosens collagen
+- **Indication**: Muscle cramping, Hip OA, myofascial pain, Office Syndrome (humans!)
+- Increases collagen extensibility, relaxes nerves → pain relief
 
 ### C. Therapeutic Ultrasound ⭐
 - **Mechanism**: Piezoelectric crystal generates compression-rarefaction waves at high freq
@@ -23589,12 +23589,12 @@ OCD has "**predictable size locations**" = specific sites on each joint
   | **Thermal** | Heats deep muscle/joint capsule → ↑ extensibility |
   | **Non-thermal (cavitation)** | Cell membrane oscillates → opens → Ca²⁺ influx → ↑ ion exchange → ↑ fibroblast/angiogenesis/collagen synthesis → faster healing |
 - **Indications**: Post-op (e.g., FHNE — Femoral Head & Neck Excision) for pseudoarthrosis formation
-- **Contraindications**: ⛔ Cancer · ⛔ Growth plates (open epiphysis = burn cells → uneven growth) · ⛔ Recent post-op spinal cord (5cm depth might burn cord) · ⛔ Metal implants
+- **Contraindications**: ⛔ Cancer, ⛔ Growth plates (open epiphysis = burn cells → uneven growth), ⛔ Recent post-op spinal cord (5cm depth might burn cord), ⛔ Metal implants
 
 ### D. Electrical Stimulation ⭐⭐ (Most-discussed concept)
 
 #### History — Electric eel discovery
-> Ancient migraine sufferer accidentally caught electric eel · electric shock relieved migraine → started research
+> Ancient migraine sufferer accidentally caught electric eel, electric shock relieved migraine → started research
 
 #### Two types:
 | Type | Use |
@@ -23617,10 +23617,10 @@ OCD has "**predictable size locations**" = specific sites on each joint
 
 #### Evidence (research)
 - Hip OA dogs treated with E-stim → improved weight-bearing by **7%** vs baseline → confirms pain reduction
-- Used in disuse atrophy (paraplegic dogs · 1-2 wk post-op)
+- Used in disuse atrophy (paraplegic dogs, 1-2 wk post-op)
 
 #### Application
-- Shave fur · place electrodes along muscle alignment (e.g., hip flexor group)
+- Shave fur, place electrodes along muscle alignment (e.g., hip flexor group)
 - Adjust intensity until visible muscle contraction
 - ⛔ NEVER over heart or brain (can cause arrhythmia/seizure)
 
@@ -23629,15 +23629,15 @@ OCD has "**predictable size locations**" = specific sites on each joint
 - **Effects**:
   | Effect | Result |
   |---|---|
-  | ↑ Mitochondrial activity | ↑ ATP production (peaks 5 min post-Tx · sustained 6-12 hr · returns to baseline 24 hr) |
+  | ↑ Mitochondrial activity | ↑ ATP production (peaks 5 min post-Tx, sustained 6-12 hr, returns to baseline 24 hr) |
   | ↑ O₂ exchange | RBCs absorb/release O₂ faster |
-  | ↑ Vascularization | Angiogenesis · tissue healing |
+  | ↑ Vascularization | Angiogenesis, tissue healing |
   | Smooth muscle contraction | Releases actin/myosin lockup in cramped muscle |
   | ↑ Pain threshold | Acts at peripheral nerve endings |
-- **Indications**: Wound healing · OA · muscle pain · post-op recovery
+- **Indications**: Wound healing, OA, muscle pain, post-op recovery
 - **Contraindications**:
   - ⛔ **Cancer** (laser ↑ ATP → feeds cancer growth → metastasis risk!) ⭐⭐
-  - ⛔ Cyst · thyroid (alters endocrine function)
+  - ⛔ Cyst, thyroid (alters endocrine function)
   - ⛔ Dark-coated dogs need **half dose** (melanin absorbs light → burn risk)
 - ⚠️ Always wear protective glasses during treatment
 
@@ -23647,9 +23647,9 @@ OCD has "**predictable size locations**" = specific sites on each joint
   - ↑ Growth factors → ↑ collagen synthesis
   - **Revascularization / neovascularization** → blood flow to AVN bone (e.g., LCP, FCP)
   - Releases mechanotransduction signals → tendon/bone repair
-- **Indications**: Hip OA · LCP (avascular necrosis) · FCP · chronic pain
+- **Indications**: Hip OA, LCP (avascular necrosis), FCP, chronic pain
 - **Duration**: ~2 min per session (painful but brief!)
-- **Contraindications**: ⛔ Cancer · ⛔ Acute inflammation · ⛔ Immune-mediated joint disease (further destabilizes)
+- **Contraindications**: ⛔ Cancer, ⛔ Acute inflammation, ⛔ Immune-mediated joint disease (further destabilizes)
 
 ### G. Kinesio Taping ⭐⭐ (Newest concept — fascia-based!)
 
@@ -23668,8 +23668,8 @@ OCD has "**predictable size locations**" = specific sites on each joint
 - Tape on deltoid → enhances proprioception → better swing coordination
 
 #### Use in dogs/horses
-- Hip OA · sore back · cervical pain (conservative cases when surgery isn't possible)
-- Case study: FHNE dog · weight bearing pre-tape **85%** → post-tape **98%** ⭐
+- Hip OA, sore back, cervical pain (conservative cases when surgery isn't possible)
+- Case study: FHNE dog, weight bearing pre-tape **85%** → post-tape **98%** ⭐
 
 ---
 
@@ -23679,7 +23679,7 @@ OCD has "**predictable size locations**" = specific sites on each joint
 
 ### Tom Myers' "Anatomy Trains" research (Humans)
 - Dissected 1000s of cadavers
-- Found 12 named fascial lines (e.g., Superficial Back Line · Superficial Front Line · Spiral Line)
+- Found 12 named fascial lines (e.g., Superficial Back Line, Superficial Front Line, Spiral Line)
 - Pain at one site can originate from connected site (e.g., neck pain → flat foot)
 
 ### Clinical pearl
@@ -23689,7 +23689,7 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
 
 ### Veterinary application
 - **Dogs**: 11 mapped fascial lines (paper published 2024)
-- **Horses**: same concept · venal abdominal taping → improved gait
+- **Horses**: same concept, venal abdominal taping → improved gait
 - **Pigs**: same concept
 
 ### How to use
@@ -23704,8 +23704,8 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
 
 | Exercise | Targets | How |
 |---|---|---|
-| **Dancing** | Hip extensor strength | Hold dog's forepaws · walk forward + backward |
-| **Underwater treadmill** ⭐ | Disused muscle preservation · paraparesis recovery | Buoyancy reduces weight load · forces normal gait pattern |
+| **Dancing** | Hip extensor strength | Hold dog's forepaws, walk forward + backward |
+| **Underwater treadmill** ⭐ | Disused muscle preservation, paraparesis recovery | Buoyancy reduces weight load, forces normal gait pattern |
 | **Cavaletti rails** | Proprioception | Step over poles |
 | **Sit-to-stand** | Hindlimb strength | Repeated transitions |
 
@@ -23716,16 +23716,16 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
 | Step | Action | Tools/Examples |
 |---|---|---|
 | **1** | **Diagnose** | Identify pain source via rehab exam |
-| **2** | **Pain reduction** | E-stim (gate control) · Ultrasound (collagen extensibility) · Laser (ATP boost) · Cold/heat compress |
-| **3** | **Strengthening** | NMES (preserve) · Therapeutic exercise (active) |
+| **2** | **Pain reduction** | E-stim (gate control), Ultrasound (collagen extensibility), Laser (ATP boost), Cold/heat compress |
+| **3** | **Strengthening** | NMES (preserve), Therapeutic exercise (active) |
 | **4** | **Combine** | Multiple modalities — single tool rarely sufficient |
 
 ---
 
 ## 🎯 Key clinical pearls (NOT exam — but practical)
 
-1. **3-component rehab exam**: PROM · muscle mass · strength grade
-2. **7 modalities**: Cold · Heat · Ultrasound · E-stim · Laser · Shockwave · Tape
+1. **3-component rehab exam**: PROM, muscle mass, strength grade
+2. **7 modalities**: Cold, Heat, Ultrasound, E-stim, Laser, Shockwave, Tape
 3. **Gate Control Theory**: Aβ fiber blocks C fiber → pain reduction
 4. **Ultrasound has dual effect**: thermal (deep heat) + non-thermal (cell-level)
 5. **Laser BANNED in cancer** (feeds ATP)
@@ -23738,7 +23738,7 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
 > 📚 อ่านควบ: All com2 orthopedic videos (1, 5, 6.1-2, 7, 8.2, 9.1-3, 11, 12, 13.1-2, 14, 15.1-2)
 > 🩻 **Practice tip**: Visit CUVET rehab center 2nd floor (Mon/Tue/Wed) to see real cases
 > 💡 **Owner education**: Rehab > chronic NSAIDs for long-term joint disease management
-> 🦴 **Modern trend**: Tom Myers' fascial lines now applied to dogs · paper 2024`,
+> 🦴 **Modern trend**: Tom Myers' fascial lines now applied to dogs, paper 2024`,
   },
 
   NVFmvB9ZUSw: {
@@ -23748,7 +23748,7 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
     date: '7 Aug 67',
     durationMin: 1,
     instructor: 'Aj. Kongthit (CUVET)',
-    examFormat: 'Supplementary clip — anatomy demo · NOT exam-worthy alone',
+    examFormat: 'Supplementary clip — anatomy demo, NOT exam-worthy alone',
     summary: `# Normal Femoropatellar Articulation
 
 > 🎯 **Short anatomy demo** (~1 min) supplementing 9.3 Patella Luxation main lecture
@@ -23777,7 +23777,7 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
 
 ---
 
-> 📚 อ่านควบ: 9.3 Patella Luxation main lecture (CIUpw8GNtQ4) · 9.3.2 MPL/LPL (cd3VUI6K23A) · 9.3.3 Femoral torsion (L1-qPyZYjJk) · 9.3.4-5 Distal femoral osteotomy (5KOc0NTBZFI · 09hdZ-OBvnI)
+> 📚 อ่านควบ: 9.3 Patella Luxation main lecture (CIUpw8GNtQ4), 9.3.2 MPL/LPL (cd3VUI6K23A), 9.3.3 Femoral torsion (L1-qPyZYjJk), 9.3.4-5 Distal femoral osteotomy (5KOc0NTBZFI, 09hdZ-OBvnI)
 > 🩻 Anatomy reference: Always know orientation of medial vs lateral trochlear ridge before MPL surgery!`,
   },
 
@@ -23788,7 +23788,7 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
     date: '7 Aug 67',
     durationMin: 1,
     instructor: 'Aj. Kongthit (CUVET)',
-    examFormat: 'Supplementary — confusing direction concept · helps confirm MCQ on PL types',
+    examFormat: 'Supplementary — confusing direction concept, helps confirm MCQ on PL types',
     summary: `# MPL & LPL — Direction & Foot Position
 
 > 🎯 **Critical rotation concept** that confuses students!
@@ -23824,11 +23824,11 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
 ---
 
 ## Clinical implication
-- **MPL more common** in small breeds (Pomeranian · Chihuahua · Yorkie)
-- **LPL more common** in large breeds (Lab · Mastiff)
+- **MPL more common** in small breeds (Pomeranian, Chihuahua, Yorkie)
+- **LPL more common** in large breeds (Lab, Mastiff)
 - Foot rotation direction = important PE finding!
 
-> 📚 อ่านควบ: 9.3 Patella main (CIUpw8GNtQ4) · 9.3.1 Normal anatomy (NVFmvB9ZUSw)
+> 📚 อ่านควบ: 9.3 Patella main (CIUpw8GNtQ4), 9.3.1 Normal anatomy (NVFmvB9ZUSw)
 > 🩻 **Practice tip**: Watch foot rotation during gait — clue to PL direction before manipulation`,
   },
 
@@ -23839,7 +23839,7 @@ Example case: chronic neck pain unresponsive to local treatment → fixed flat f
     date: '7 Aug 67',
     durationMin: 1,
     instructor: 'Aj. Kongthit (CUVET)',
-    examFormat: 'Supplementary — math demo for surgical planning · concept understanding',
+    examFormat: 'Supplementary — math demo for surgical planning, concept understanding',
     summary: `# Femoral Torsion Correction — Math for Surgery
 
 > 🎯 **Pre-surgical calculation** for derotational osteotomy in MPL with femoral torsion
@@ -23889,8 +23889,8 @@ Often need BOTH:
 2. **Rotation** (torsion) — this clip
 3. = "Closing wedge with rotation" osteotomy
 
-> 📚 อ่านควบ: 9.3.4 Distal femoral osteotomy I (5KOc0NTBZFI) · 9.3.5 II (09hdZ-OBvnI) · 9.3 Patella main (CIUpw8GNtQ4)
-> 🩻 **Practice tip**: Always know x = arc length, calc x in mm before cutting · CT scan first`,
+> 📚 อ่านควบ: 9.3.4 Distal femoral osteotomy I (5KOc0NTBZFI), 9.3.5 II (09hdZ-OBvnI), 9.3 Patella main (CIUpw8GNtQ4)
+> 🩻 **Practice tip**: Always know x = arc length, calc x in mm before cutting, CT scan first`,
   },
 
   '5KOc0NTBZFI': {
@@ -23948,7 +23948,7 @@ Often need BOTH:
 | **aLDFA** | Quantifies valgus/varus angle |
 | **Closing wedge** | Surgical correction (cut + close) |
 
-> 📚 อ่านควบ: 9.3.5 DFO II — full calculation example (09hdZ-OBvnI) · 9.3.3 Torsion math (L1-qPyZYjJk) · 9.3 Patella main (CIUpw8GNtQ4)
+> 📚 อ่านควบ: 9.3.5 DFO II — full calculation example (09hdZ-OBvnI), 9.3.3 Torsion math (L1-qPyZYjJk), 9.3 Patella main (CIUpw8GNtQ4)
 > 🩻 **Practice tip**: aLDFA must be measured carefully on TRUE craniocaudal X-ray with limb extended`,
   },
 
@@ -24022,7 +24022,7 @@ Real patients often have:
 - Wait until growth plates close (at least 9-10 months in large breed)
 - Otherwise → growth disturbance
 
-> 📚 อ่านควบ: 9.3.4 DFO Reference Lines (5KOc0NTBZFI) · 9.3.3 Torsion math (L1-qPyZYjJk) · 9.3 Patella main (CIUpw8GNtQ4) · 9.1 Dev Ortho (Spz38qa5upU)
+> 📚 อ่านควบ: 9.3.4 DFO Reference Lines (5KOc0NTBZFI), 9.3.3 Torsion math (L1-qPyZYjJk), 9.3 Patella main (CIUpw8GNtQ4), 9.1 Dev Ortho (Spz38qa5upU)
 > 🩻 **Practice tip**: Always do **PRE-OP CT** for deformity quantification before DFO`,
   },
 
@@ -24033,7 +24033,7 @@ Real patients often have:
     date: '14 Nov 67',
     durationMin: 2,
     instructor: 'Aj. Kongthit (CUVET)',
-    examFormat: 'Supplementary — clock-face landmark for screw placement · ออกบ่อยแน่นอน',
+    examFormat: 'Supplementary — clock-face landmark for screw placement, ออกบ่อยแน่นอน',
     summary: `# Screw and Washer Technique — Clock-Face Landmark
 
 > 🎯 **Mnemonic for safe screw placement** in hip luxation toggle pin / extracapsular repair
@@ -24086,7 +24086,7 @@ Real patients often have:
 - **Capsulorrhaphy reinforcement screws**
 - **Femoral head ostectomy (FHO)** revision cases
 
-> 📚 อ่านควบ: 11 Common Joint Disorders (MMTtwT_7c94) · 9.2 CHD (hIlH1i845wI) · 8.2 OA (VJ8ixtXP9XU)
+> 📚 อ่านควบ: 11 Common Joint Disorders (MMTtwT_7c94), 9.2 CHD (hIlH1i845wI), 8.2 OA (VJ8ixtXP9XU)
 > 🩻 **Practice tip**: Always orient X-ray as if "looking at the clock from outside" before drilling
 > 💡 Easy way to remember: think of the dog standing — 12 = nose, 6 = tail`,
   },
@@ -24098,7 +24098,7 @@ Real patients often have:
     date: '14 Nov 67',
     durationMin: 1,
     instructor: 'Aj. Kongthit (CUVET)',
-    examFormat: 'Supplementary — manipulation technique · clinical procedure',
+    examFormat: 'Supplementary — manipulation technique, clinical procedure',
     summary: `# Closed Reduction of Elbow Luxation
 
 > 🎯 **Hands-on technique** for non-surgical reduction of elbow luxation
@@ -24156,7 +24156,7 @@ Real patients often have:
 - **Severe ligament damage** → unstable post-reduction
 - → All require **open surgical repair**
 
-> 📚 อ่านควบ: 11 Common Joint (MMTtwT_7c94) · 15.1 Elbow Disease (Os6MWLC8oso) · 14 Spinal Fracture (C1Q5SHxSkGw)
+> 📚 อ่านควบ: 11 Common Joint (MMTtwT_7c94), 15.1 Elbow Disease (Os6MWLC8oso), 14 Spinal Fracture (C1Q5SHxSkGw)
 > 🩻 **Practice tip**: Always sedate adequately — fighting/tensing prevents reduction
 > 💡 Listen for the "clunk" — that's confirmation of successful reduction`,
   },
@@ -24168,7 +24168,7 @@ Real patients often have:
     date: '14 Nov 67',
     durationMin: 1,
     instructor: 'Aj. Kongthit (CUVET)',
-    examFormat: 'Supplementary — hands-on technique demo · CRITICAL clinical skill',
+    examFormat: 'Supplementary — hands-on technique demo, CRITICAL clinical skill',
     summary: `# Cranial Drawer Sign — CCL Rupture Examination
 
 > 🎯 **THE primary test for CCL/Cranial Cruciate Ligament rupture**
@@ -24178,12 +24178,12 @@ Real patients often have:
 
 ## Hand Position ⭐⭐ (MUST get right!)
 
-### Femoral hand (proximal · holding hand)
+### Femoral hand (proximal, holding hand)
 - **Index finger** on patella (anterior)
 - **Thumb** on **lateral fabella** (posterior caudo-lateral)
 - Hand stays **STILL** — provides counterforce
 
-### Tibial hand (distal · pushing hand)
+### Tibial hand (distal, pushing hand)
 - **Index finger** on **tibial tuberosity** (anterior)
 - **Thumb** on **fibular head** (posterior)
 - This is the hand that pushes!
@@ -24229,8 +24229,8 @@ Real patients often have:
 
 | Drawer findings | Interpretation |
 |---|---|
-| **<2 mm anterior translation** | Normal · CCL intact |
-| **>3 mm anterior translation** | Positive · CCL rupture |
+| **<2 mm anterior translation** | Normal, CCL intact |
+| **>3 mm anterior translation** | Positive, CCL rupture |
 | **Both sides positive** | Bilateral CCL disease (common in some breeds) |
 | **Painful but no drawer** | Partial CCL tear (test under sedation) |
 
@@ -24248,9 +24248,9 @@ Real patients often have:
 - **X-ray**: cranial drawer position view, fat pad sign, joint effusion
 - **Definitive**: arthroscopy or surgical exploration
 
-> 📚 อ่านควบ: 12 Cruciate Ligament (9U-Dgu0ouUk) · 11 Common Joint (MMTtwT_7c94) · 9.3 Patella (CIUpw8GNtQ4) · 15.1 Elbow (Os6MWLC8oso)
+> 📚 อ่านควบ: 12 Cruciate Ligament (9U-Dgu0ouUk), 11 Common Joint (MMTtwT_7c94), 9.3 Patella (CIUpw8GNtQ4), 15.1 Elbow (Os6MWLC8oso)
 > 🩻 **Practice tip**: Sedate first → palpate quietly → assess from 4 sides
-> 💡 Drawer findings always ESTABLISH the diagnosis · X-ray rarely shows actual ligament tear`,
+> 💡 Drawer findings always ESTABLISH the diagnosis, X-ray rarely shows actual ligament tear`,
   },
 
   OmBvQyf_Sa4: {
@@ -24260,7 +24260,7 @@ Real patients often have:
     date: '20 Nov 67',
     durationMin: 1,
     instructor: 'พี่ไอซ์ (neurosurgery specialist)',
-    examFormat: 'Supplementary — biomechanics demonstration for L7-S1 fracture · ออกบ่อยมาก',
+    examFormat: 'Supplementary — biomechanics demonstration for L7-S1 fracture, ออกบ่อยมาก',
     summary: `# Trans-iliac Pin Technique — Lever and Prop Principle
 
 > 🎯 **Specific technique** for L7-S1 sacral fracture-luxation
@@ -24273,7 +24273,7 @@ Real patients often have:
 **L7-S1 fracture-luxation** = sacrum (S1) fractures and "**falls down**" relative to L7
 - Both ilial wings are connected to sacrum (sacroiliac joint)
 - Fracture causes sacrum to drop ventrally
-- This pinches cauda equina → bladder paralysis · paraplegia · pain
+- This pinches cauda equina → bladder paralysis, paraplegia, pain
 
 ---
 
@@ -24304,7 +24304,7 @@ Real patients often have:
 | 1 | Open dorsal approach to dorsal ilial wings |
 | 2 | Drill from one ilial wing → through sacrum/spinous process L7 region → out other ilial wing |
 | 3 | Repeat with second pin (parallel or crossed) |
-| 4 | Cut excess pin · bend ends or cap with PMMA |
+| 4 | Cut excess pin, bend ends or cap with PMMA |
 
 ### Modern alternative
 - **Lumbosacral plate + pedicle screws** (if equipment + skill available)
@@ -24328,8 +24328,8 @@ Real patients often have:
 - **Pelvic ring fractures with multiple sites** — may need full ORIF
 - **Severe comminution** at L7/S1 — pedicle screws better
 
-> 📚 อ่านควบ: 14 Spinal Fracture VFL main (C1Q5SHxSkGw) · 11 Common Joint (MMTtwT_7c94) · 13.1 Limb Amp (KqbNuuu8X90)
-> 🩻 **Practice tip**: Pin placement angle is 45-60° from horizontal · always confirm with intraop X-ray
+> 📚 อ่านควบ: 14 Spinal Fracture VFL main (C1Q5SHxSkGw), 11 Common Joint (MMTtwT_7c94), 13.1 Limb Amp (KqbNuuu8X90)
+> 🩻 **Practice tip**: Pin placement angle is 45-60° from horizontal, always confirm with intraop X-ray
 > 💡 **Lever-prop visualization**: imagine prying up a fallen book with a pencil from above`,
   },
 
@@ -24339,8 +24339,8 @@ Real patients often have:
     subject: 'com2',
     date: '27 Nov 67',
     durationMin: 1,
-    instructor: 'อ.มาริสาก (orthopedic surgeon · CUVET)',
-    examFormat: 'Supplementary — modern PUO alternative technique · ออกบ่อย',
+    instructor: 'อ.มาริสาก (orthopedic surgeon, CUVET)',
+    examFormat: 'Supplementary — modern PUO alternative technique, ออกบ่อย',
     summary: `# Bi-Oblique Proximal Ulnar Osteotomy (BOUO)
 
 > 🎯 **Modern alternative to PUO** for Radio-Ulnar Incongruity (RUI)
@@ -24419,7 +24419,7 @@ Real patients often have:
 - Skeletally immature dogs (use simpler PUO)
 - End-stage OA (need joint replacement)
 
-> 📚 อ่านควบ: 15.1 Elbow Disease main (Os6MWLC8oso) · 15.2 Osteochondrosis (jo-p8MeAMXk) · 15.3 Rehab (zj4go8swIgM)
+> 📚 อ่านควบ: 15.1 Elbow Disease main (Os6MWLC8oso), 15.2 Osteochondrosis (jo-p8MeAMXk), 15.3 Rehab (zj4go8swIgM)
 > 🩻 **Practice tip**: BOUO requires good 3D mental model — practice cutting paper cardboard before real bone
 > 💡 **Alternative**: PAUL osteotomy if BOUO not available — also load-altering`,
   },
@@ -24431,11 +24431,11 @@ Real patients often have:
     date: 'surg1 lab',
     durationMin: 41,
     instructor: 'Anesthesiology team (CUVET)',
-    examFormat: 'MCQ — Drug doses · volume formula · landmarks · contraindications · cat anatomy difference · ET tube parts · cuff inflation · laryngoscope blade selection ออกบ่อย',
+    examFormat: 'MCQ — Drug doses, volume formula, landmarks, contraindications, cat anatomy difference, ET tube parts, cuff inflation, laryngoscope blade selection ออกบ่อย',
     summary: `# Epidural Block + Endotracheal Intubation (Surgery Lab I)
 
 > 🎯 **Two MUST-MASTER procedural skills** for any vet doing surgery
-> Top exam: **Cat vs dog spinal cord level · 6mL volume cap · L7-S1 landmark · cuff inflation technique · Macintosh vs Miller blades**
+> Top exam: **Cat vs dog spinal cord level, 6mL volume cap, L7-S1 landmark, cuff inflation technique, Macintosh vs Miller blades**
 
 ---
 
@@ -24463,14 +24463,14 @@ Real patients often have:
 | **Coagulopathy** | Bleeding into epidural space if vessel punctured |
 | **Increased intracranial pressure** | Volume injection → ↑ ICP further → herniation risk |
 | **Hypovolemia** | Sympathetic block → vasodilation → worsens hypotension |
-| **Anatomical abnormality** | Can't locate landmarks (obesity · sacral fracture) |
+| **Anatomical abnormality** | Can't locate landmarks (obesity, sacral fracture) |
 
 ### D. Drugs ⭐⭐⭐
 | Drug | Dose | Notes |
 |---|---|---|
-| **Lidocaine 2%** | **3-5 mg/kg** | Fast onset · 1-2 hr duration |
-| **Bupivacaine 0.5%** | **1-2 mg/kg** | Slow onset · 4-6 hr duration · ⛔ CARDIOTOXIC if IV! |
-| **Morphine** | 0.1 mg/kg adjunct | Provides cranial migration analgesia (forelimb!) · NO motor block · NO sympathetic block · doesn't lower BP |
+| **Lidocaine 2%** | **3-5 mg/kg** | Fast onset, 1-2 hr duration |
+| **Bupivacaine 0.5%** | **1-2 mg/kg** | Slow onset, 4-6 hr duration, ⛔ CARDIOTOXIC if IV! |
+| **Morphine** | 0.1 mg/kg adjunct | Provides cranial migration analgesia (forelimb!), NO motor block, NO sympathetic block, doesn't lower BP |
 
 ### E. Volume Formula ⭐⭐⭐
 **Volume = 0.3 mL × kg**
@@ -24479,8 +24479,8 @@ Real patients often have:
 > ⚠️ Why 6 mL cap? Above this volume, drug spreads cranially → blocks **phrenic nerve** → diaphragm paralysis → respiratory arrest!
 
 ### F. Landmarks ⭐
-- **Iliac crest line** (left + right · use thumb + middle finger)
-- **L7 spinous process** (use index finger · feels like a bump)
+- **Iliac crest line** (left + right, use thumb + middle finger)
+- **L7 spinous process** (use index finger, feels like a bump)
 - **Injection site** = lumbosacral cleft = between L7 and S1
 
 ### G. Position
@@ -24493,7 +24493,7 @@ Real patients often have:
 | Technique | How it works |
 |---|---|
 | **Loss of Resistance** | Air bubble in syringe doesn't compress when pushing → epidural space reached |
-| **Hanging Drop** ⭐ | Saline drop hangs at hub · gets sucked in (negative pressure of epidural space) |
+| **Hanging Drop** ⭐ | Saline drop hangs at hub, gets sucked in (negative pressure of epidural space) |
 
 > ⚠️ Hanging drop ONLY works in sternal position + LARGE dogs
 
@@ -24501,9 +24501,9 @@ Real patients often have:
 | Sign | Means |
 |---|---|
 | **Blood in hub** | Hit vessel → ABORT, choose new site |
-| **CSF in hub** | Too deep · in subarachnoid → REDUCE dose to HALF |
+| **CSF in hub** | Too deep, in subarachnoid → REDUCE dose to HALF |
 | **Needle bouncy** | Hit bone → reposition |
-| **No fluid uptake** | Not in epidural space yet · advance carefully |
+| **No fluid uptake** | Not in epidural space yet, advance carefully |
 
 ### J. Injection Speed
 - **Slow** — 1-2 minutes for full volume
@@ -24513,8 +24513,8 @@ Real patients often have:
 1. **Infection** — meningitis, epidural abscess
 2. **Hypotension** (sympathetic block → vasodilation)
 3. **Respiratory depression** (drug migration to phrenic n.)
-4. **Patchy block / failure** (wrong space · technique error)
-5. **Permanent neurologic deficit** (rare · usually IV bupivacaine)
+4. **Patchy block / failure** (wrong space, technique error)
+5. **Permanent neurologic deficit** (rare, usually IV bupivacaine)
 
 ---
 
@@ -24530,8 +24530,8 @@ Real patients often have:
 ### B. ET Tube Anatomy ⭐
 | Part | Function |
 |---|---|
-| **Patient end (Distal)** | Beveled tip · main air opening |
-| **Murphy eye** ⭐ | Side hole · backup if main lumen blocked by secretions |
+| **Patient end (Distal)** | Beveled tip, main air opening |
+| **Murphy eye** ⭐ | Side hole, backup if main lumen blocked by secretions |
 | **Cuff** | Inflatable seal against tracheal wall |
 | **Pilot balloon** | Indicates cuff inflation status |
 | **ID number** | **Inner Diameter (e.g., ID 7.0)** — tube size labeled by ID |
@@ -24541,7 +24541,7 @@ Real patients often have:
 
 ### C. Equipment Checklist ⭐
 1. **Laryngoscope** (with battery + light test)
-2. **3 ET tube sizes** (estimated · ½ size larger · ½ size smaller)
+2. **3 ET tube sizes** (estimated, ½ size larger, ½ size smaller)
 3. **Tape/string** to secure
 4. **Gauze** to grip tongue
 5. **Lidocaine 2% drops (0.2 mL)** ⭐ for cats + brachycephalics
@@ -24551,15 +24551,15 @@ Real patients often have:
 ### D. Laryngoscope Blade Selection ⭐⭐
 | Blade type | Best for |
 |---|---|
-| **Macintosh blade** (broad/curved) | **Dogs · Cats** (wide-mouth species) |
-| **Miller blade** (narrow/straight) | Rabbits · Pigs · Ruminants · Brachycephalic dogs (narrow palate) |
+| **Macintosh blade** (broad/curved) | **Dogs, Cats** (wide-mouth species) |
+| **Miller blade** (narrow/straight) | Rabbits, Pigs, Ruminants, Brachycephalic dogs (narrow palate) |
 
 ### E. Procedure
 1. **Pre-oxygenate** patient
 2. **Induce GA** (e.g., propofol 4-6 mg/kg IV)
 3. **Check eye reflex** — when palpebral disappears → ready
 4. **Position** = sternal recumbency
-5. **Open mouth** · grasp tongue with gauze · pull forward + down
+5. **Open mouth**, grasp tongue with gauze, pull forward + down
 6. **Insert laryngoscope** at midline → press tongue base
 7. **See vocal folds** + arytenoids
 8. **CAT specific**: drop **0.2 mL lidocaine 2%** on arytenoids → wait 30-60 sec → desensitizes → cat's larynx OPENS (cats keep larynx CLOSED at rest)
@@ -24577,10 +24577,10 @@ Real patients often have:
 5. ⛔ Don't over-inflate → tracheal mucosal necrosis!
 
 ### G. Special Cases
-- **Cats**: ALWAYS use lidocaine drops · larynx closed at rest
-- **Brachycephalic** (Pug, Bulldog, Persian): use Miller blade · expect narrow airway
+- **Cats**: ALWAYS use lidocaine drops, larynx closed at rest
+- **Brachycephalic** (Pug, Bulldog, Persian): use Miller blade, expect narrow airway
 - **Small dogs (< 5 kg)**: drop lidocaine before intubation
-- **Rabbits**: blind technique (cannot visualize) · or otoscope-guided
+- **Rabbits**: blind technique (cannot visualize), or otoscope-guided
 
 ### H. Verification of Correct Placement
 | Sign | What it means |
@@ -24594,7 +24594,7 @@ Real patients often have:
 ### I. Extubation Timing ⭐
 - **Wait for swallow reflex** to return
 - Cat: deflate cuff → extubate when swallowing
-- Dog: same · plus monitor for cough reflex
+- Dog: same, plus monitor for cough reflex
 
 ---
 
@@ -24607,21 +24607,21 @@ Real patients often have:
 5. **Lidocaine 3-5 mg/kg, Bupivacaine 1-2 mg/kg**
 6. **Bupivacaine ⛔ NEVER IV** (cardiotoxic!)
 7. **Morphine adjunct** = analgesia without motor/sympathetic block
-8. **Contraindications**: infection · coag · ↑ICP · hypovolemia · anatomy
+8. **Contraindications**: infection, coag, ↑ICP, hypovolemia, anatomy
 9. **Sternal recumbency + hips flexed + head elevated** = correct position
 10. **Loss of resistance + Hanging drop** = epidural confirmation
 11. **Inject SLOW** (1-2 min)
 12. **CSF in hub → reduce dose to half**
 13. **ET tube size = INNER DIAMETER (ID)**
 14. **Murphy eye** = side hole backup
-15. **Macintosh blade for dogs/cats · Miller for narrow species**
+15. **Macintosh blade for dogs/cats, Miller for narrow species**
 16. **Cats need 0.2 mL lidocaine 2% drops** before intubation
-17. **ET tip = point of shoulder · external end = incisors**
+17. **ET tip = point of shoulder, external end = incisors**
 18. **Cuff inflate until NO leak** at airway pressure
 
-> 📚 อ่านควบ: 6 IV Catheterization (XeIUUxBt6Z0) · COM I anesthesia lectures · COM II surgical lectures
-> 🩻 **Practice tip**: Practice on cadavers FIRST · then live animals under supervision
-> 💡 **Cat trick**: lidocaine drops are MANDATORY · without them you'll fail to intubate
+> 📚 อ่านควบ: 6 IV Catheterization (XeIUUxBt6Z0), COM I anesthesia lectures, COM II surgical lectures
+> 🩻 **Practice tip**: Practice on cadavers FIRST, then live animals under supervision
+> 💡 **Cat trick**: lidocaine drops are MANDATORY, without them you'll fail to intubate
 > 🦴 **Volume rule**: Memorize "**0.3 × kg, max 6**" — most-tested calculation`,
   },
 
@@ -24632,11 +24632,11 @@ Real patients often have:
     date: 'surg1 lab',
     durationMin: 33,
     instructor: 'Anesthesiology team (CUVET)',
-    examFormat: 'MCQ — IV cat sizes · 3-tape securing · 20 vs 60 drop sets · drops/min calculation · induction sequence ออกบ่อย',
+    examFormat: 'MCQ — IV cat sizes, 3-tape securing, 20 vs 60 drop sets, drops/min calculation, induction sequence ออกบ่อย',
     summary: `# IV Catheterization + Fluid Calculation + Anesthetic Process (Surgery Lab I)
 
 > 🎯 **The 3 essentials of anesthesia setup**: vascular access, fluid math, full procedure sequence
-> Top exam: **IV cat size · 3-tape technique · drop set selection · drops/sec calculation · anesthetic monitoring**
+> Top exam: **IV cat size, 3-tape technique, drop set selection, drops/sec calculation, anesthetic monitoring**
 
 ---
 
@@ -24650,7 +24650,7 @@ Real patients often have:
 | **Very small (puppies < 2kg)** | 24G needle |
 
 ### B. Veins Used
-1. **Cephalic vein** ⭐ (forelimb · most common)
+1. **Cephalic vein** ⭐ (forelimb, most common)
 2. **Saphenous vein** (lateral hindlimb)
 3. **Femoral vein** (medial thigh, harder to access)
 
@@ -24712,7 +24712,7 @@ Real patients often have:
 3. **Drops/min** = total drops / 60
 4. **Sec/drop** = 60 / drops/min
 
-### Example 1: 9 kg dog · 10 mL/kg/hr · macroset
+### Example 1: 9 kg dog, 10 mL/kg/hr, macroset
 | Step | Math | Result |
 |---|---|---|
 | 1. Volume | 10 × 9 | **90 mL/hr** |
@@ -24720,7 +24720,7 @@ Real patients often have:
 | 3. Drops/min | 1,800 / 60 | 30 drops/min |
 | 4. Sec/drop | 60 / 30 | **2 sec/drop** ⭐ |
 
-### Example 2: 3 kg cat · 10 mL/kg/hr · microset
+### Example 2: 3 kg cat, 10 mL/kg/hr, microset
 | Step | Math | Result |
 |---|---|---|
 | 1. Volume | 10 × 3 | **30 mL/hr** |
@@ -24728,7 +24728,7 @@ Real patients often have:
 | 3. Drops/min | 1,800 / 60 | 30 drops/min |
 | 4. Sec/drop | 60 / 30 | **2 sec/drop** ⭐ |
 
-> 💡 **Coincidence**: Both examples = 2 sec/drop · but very different volumes!
+> 💡 **Coincidence**: Both examples = 2 sec/drop, but very different volumes!
 
 ---
 
@@ -24801,26 +24801,26 @@ Real patients often have:
 ## 🎯 Exam Recap — top 16 testable points
 
 1. **Smaller G = larger bore** (24G < 22G < 20G)
-2. **Dog: 16-20G · Cat: 20-24G**
+2. **Dog: 16-20G, Cat: 20-24G**
 3. **3 tapes** = under-over, on-hub-only, lock-back
-4. **Macroset = 20 drops/mL · for >4 kg**
-5. **Microset = 60 drops/mL · for ≤4 kg**
+4. **Macroset = 20 drops/mL, for >4 kg**
+5. **Microset = 60 drops/mL, for ≤4 kg**
 6. **Maintenance rate = 5-10 mL/kg/hr**
 7. **mL/hr → drops/hr → drops/min → sec/drop** (calculation chain)
 8. **Both example calc = 2 sec/drop** (coincidence!)
 9. **Pre-anes: 15-30 min wait** for sedation onset
 10. **Eye reflex (palpebral)** = main induction marker
-11. **3 ET tube sizes prepared** (estimated · ½ larger · ½ smaller)
+11. **3 ET tube sizes prepared** (estimated, ½ larger, ½ smaller)
 12. **ECG**: red = hind, black = L fore, white = R fore
 13. **Cuff inflated** until NO leak
 14. **Recovery**: flush O₂, deflate cuff, wait for swallow
 15. **ET between incisors** during recovery (dog won't bite cuff in half)
 16. **Monitor temperature** post-op — hypothermia common
 
-> 📚 อ่านควบ: 5 Epidural + ET Intubation (FxBAoD9i_nE) · COM I anesthesia lectures · 14 Spinal Fracture (C1Q5SHxSkGw) · 8.2 OA (VJ8ixtXP9XU)
+> 📚 อ่านควบ: 5 Epidural + ET Intubation (FxBAoD9i_nE), COM I anesthesia lectures, 14 Spinal Fracture (C1Q5SHxSkGw), 8.2 OA (VJ8ixtXP9XU)
 > 🩻 **Practice tip**: Master the 3-tape technique on training arm before real patients
 > 💡 **Mnemonic for ECG**: "**Smoke over Fire**" (Black over Red on left side)
-> 🦴 **Calculation tip**: Most patients = 2 sec/drop with 5-10 mL/kg/hr · use this as sanity check`,
+> 🦴 **Calculation tip**: Most patients = 2 sec/drop with 5-10 mL/kg/hr, use this as sanity check`,
   },
 
   '8zbE_NXPdVI': {
@@ -24830,11 +24830,11 @@ Real patients often have:
     date: '6 Aug 67',
     durationMin: 107,
     instructor: 'อ.รุ่งธรรม (อายุรศาสตร์) + อ.บุญฤทธิ์ (สัตวบาล) — co-coordinators',
-    examFormat: 'MCQ — Pig categorization · parity numbering · 117-day gestation · ~160 day cycle · One-site vs Multi-site · weekly batch system · all-in/all-out · gilt replacement strategies ออกบ่อย',
+    examFormat: 'MCQ — Pig categorization, parity numbering, 117-day gestation, ~160 day cycle, One-site vs Multi-site, weekly batch system, all-in/all-out, gilt replacement strategies ออกบ่อย',
     summary: `# Introduction of Swine Herd Health
 
 > 🎯 **Foundation lecture** for all subsequent swine herd content
-> Top exam: **Pig categorization · parity definition · breeding cycle math · production systems · weekly batch · disease hotspots (nursery)**
+> Top exam: **Pig categorization, parity definition, breeding cycle math, production systems, weekly batch, disease hotspots (nursery)**
 
 ---
 
@@ -24882,7 +24882,7 @@ Real patients often have:
 ### Cycle stages (memorize!)
 | Stage | Duration | Notes |
 |---|---|---|
-| **Service (AI)** | Day 0 | Artificial insemination · sow in estrus |
+| **Service (AI)** | Day 0 | Artificial insemination, sow in estrus |
 | **Gestation** | **117 days** ⭐ | Modern ~117 (older texts say 114-116) |
 | **Farrowing** | Birth event | P number changes |
 | **Lactation (Suckling)** | **21-28 days** | Wean target ~21 (early) or 28 (late) |
@@ -24904,14 +24904,14 @@ Real patients often have:
 
 ### Why we need replacements?
 1. **Aging out** — production peaks at P3-4 then declines (cull at P5-7 typical)
-2. **Mortality** — disease outbreaks · death · culling
+2. **Mortality** — disease outbreaks, death, culling
 3. **ASF wipeout** ⭐ NEW REASON since 2019! → forced internal sourcing from grower stock
 
 ### Two sources
 | Source | Pros | Cons |
 |---|---|---|
-| **Internal (self-replacement)** ⭐ | Same disease history · adapted to farm immunity · no new pathogens | Limited genetics · slow stock improvement |
-| **External (purchased gilts)** | Fresh genetics · faster genetic gain | **Disease introduction risk** · need quarantine |
+| **Internal (self-replacement)** ⭐ | Same disease history, adapted to farm immunity, no new pathogens | Limited genetics, slow stock improvement |
+| **External (purchased gilts)** | Fresh genetics, faster genetic gain | **Disease introduction risk**, need quarantine |
 
 ### ⚠️ ASF impact on inbreeding (modern issue!)
 - ASF caused massive sow losses
@@ -24923,13 +24923,13 @@ For external gilts:
 1. **Pre-purchase audit** of source farm health status
 2. **Quarantine in isolation** ~30 days minimum
 3. **Watch for clinical signs** (latent disease emerges)
-4. **Diagnostics** at end (serology · PCR for key pathogens)
+4. **Diagnostics** at end (serology, PCR for key pathogens)
 5. **Acclimatization** to farm pathogens before mixing with breeding herd
 
 ### Subclinical disease danger ⭐⭐
 **Parvovirus** (PPV) ⭐⭐ — exam favorite trap!
 - In non-pregnant pigs: NO clinical signs at all
-- In pregnant pigs: stillbirth · mummification · embryonic death
+- In pregnant pigs: stillbirth, mummification, embryonic death
 - VCI test trap: don't confuse with PPV in cats/dogs (different presentation!)
 
 ---
@@ -24941,9 +24941,9 @@ For external gilts:
 - Developed countries: increasing welfare focus → drives system changes
 
 ### **Gestation Crate vs Group Housing** ⭐
-- **Gestation crate (ขังซอง)**: traditional · 1 sow per stall · easier management · WELFARE concerns
-- **Group housing**: better welfare · more space · BUT harder feed management · aggression risk
-- Thailand currently mostly crate · few demonstration group-housed farms
+- **Gestation crate (ขังซอง)**: traditional, 1 sow per stall, easier management, WELFARE concerns
+- **Group housing**: better welfare, more space, BUT harder feed management, aggression risk
+- Thailand currently mostly crate, few demonstration group-housed farms
 
 ---
 
@@ -24953,8 +24953,8 @@ For external gilts:
 
 | System | Description | Disease control |
 |---|---|---|
-| **One-Site** | All stages in same farm (gestation + farrowing + nursery + grow-finish) | Easier logistics · WORSE biosecurity |
-| **Multi-Site** ⭐ | Each stage in separate farm | Better biosecurity · stops cascade · costs more |
+| **One-Site** | All stages in same farm (gestation + farrowing + nursery + grow-finish) | Easier logistics, WORSE biosecurity |
+| **Multi-Site** ⭐ | Each stage in separate farm | Better biosecurity, stops cascade, costs more |
 
 ### Multi-Site sub-types
 | Type | Stages |
@@ -24962,7 +24962,7 @@ For external gilts:
 | **Farrow-to-Wean** | Has sows + piglets till weaning |
 | **Farrow-to-Nursery** | Adds nursery stage |
 | **Farrow-to-Finish** | Complete one-site (= one-site!) |
-| **Wean-to-Finish** | Receives weaners · raises to slaughter |
+| **Wean-to-Finish** | Receives weaners, raises to slaughter |
 
 ### Why Multi-Site is better for disease ⭐
 - ASF outbreak example: hits one site → only depopulate that site, sows safe in another
@@ -25082,8 +25082,8 @@ For external gilts:
 6. **Parvovirus = no signs in non-pregnant; stillbirth in pregnant** ⭐ exam trap
 7. **ASF resurfaced inbreeding problem** post-2019
 8. **Quarantine ~30 days** for external gilts
-9. **One-site = traditional · Multi-site = better biosecurity**
-10. **Multi-site sub-types**: F2W · F2N · F2F · W2F
+9. **One-site = traditional, Multi-site = better biosecurity**
+10. **Multi-site sub-types**: F2W, F2N, F2F, W2F
 11. **Weekly batch** = 22-23 sow groups for continuous output
 12. **All-in/All-out** = best biosecurity practice
 13. **Continuous flow** = bad disease control
@@ -25093,9 +25093,9 @@ For external gilts:
 17. **Cull sows at P5-7** depending on production drop
 18. **Gestation crate vs group housing** = welfare debate
 
-> 📚 อ่านควบ: 2 Record analysis (80466NsBZSo) · 5 Inbreeding (I478HTK1kKY) · 8 Epidemiology (1mFans-0DNY) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY)
-> 🩻 **Practice tip**: Memorize the 117/24/7 numbers · they appear in EVERY swine MCQ
-> 💡 **PPV trap**: pregnant pigs only = stillbirth · don't confuse with cat/dog parvo (enteritis)
+> 📚 อ่านควบ: 2 Record analysis (80466NsBZSo), 5 Inbreeding (I478HTK1kKY), 8 Epidemiology (1mFans-0DNY), 11 Vaccination (75NLH3PfQ0Y), 12 Antimicrobials (b5AHszT1NXY)
+> 🩻 **Practice tip**: Memorize the 117/24/7 numbers, they appear in EVERY swine MCQ
+> 💡 **PPV trap**: pregnant pigs only = stillbirth, don't confuse with cat/dog parvo (enteritis)
 > 🦴 **Modern issue**: ASF + inbreeding + welfare are dominant 2020s themes`,
   },
 
@@ -25106,11 +25106,11 @@ For external gilts:
     date: '13 Aug 67',
     durationMin: 91,
     instructor: 'อาจารย์สัตวบาล (CUVET)',
-    examFormat: 'MCQ — PSY definition · target production calc · 2.3 cycles/year · production breakdown by KPI · what-to-record principle ออกบ่อย',
+    examFormat: 'MCQ — PSY definition, target production calc, 2.3 cycles/year, production breakdown by KPI, what-to-record principle ออกบ่อย',
     summary: `# Swine Farm Record Keeping & Data Analysis
 
 > 🎯 **The KPI lecture** — how to measure, analyze, and improve farm performance
-> Top exam: **PSY (Pigs per Sow per Year) · 2.3-3 cycles/year · production target calc · KPI breakdown · what-to-record principle**
+> Top exam: **PSY (Pigs per Sow per Year), 2.3-3 cycles/year, production target calc, KPI breakdown, what-to-record principle**
 
 ---
 
@@ -25178,15 +25178,15 @@ For external gilts:
 > ⭐ Update yourself every 5-10 years — KPI standards SHIFT upward over time
 
 ### PSY Drivers (what affects PSY?)
-**Increase PSY by maximizing:** ↑ Litter size · ↑ Cycles/year · ↑ Wean rate
-**Increase PSY by minimizing:** ↓ Stillbirths · ↓ Mummified · ↓ Pre-weaning mortality · ↓ NPD (Non-productive days)
+**Increase PSY by maximizing:** ↑ Litter size, ↑ Cycles/year, ↑ Wean rate
+**Increase PSY by minimizing:** ↓ Stillbirths, ↓ Mummified, ↓ Pre-weaning mortality, ↓ NPD (Non-productive days)
 
 ### Where vets work (clinical action zones)
 | Zone | Color | Examples |
 |---|---|---|
 | **Genetic ceiling** (cannot change) | Gray | Breed potential litter size limit |
-| **Husbandry-modifiable** | Orange | Feed quality · housing · biosecurity |
-| **NPD reducers** ⭐ | Orange | Treat infertility · improve heat detection · reduce returns |
+| **Husbandry-modifiable** | Orange | Feed quality, housing, biosecurity |
+| **NPD reducers** ⭐ | Orange | Treat infertility, improve heat detection, reduce returns |
 
 ---
 
@@ -25225,10 +25225,10 @@ For external gilts:
 | Pattern | Likely problem |
 |---|---|
 | Target met = ALL conception OK, weaned LOW | Pre-wean mortality issue |
-| Target met = conception LOW, rest OK | Heat detection · semen quality |
+| Target met = conception LOW, rest OK | Heat detection, semen quality |
 | Target met = litter LOW, conception OK | Genetics or sow nutrition |
 | Target met = NPD HIGH | Reproductive disease (Parvo, Lepto, PRRS) |
-| ALL metrics off | Systemic problem (housing · management) |
+| ALL metrics off | Systemic problem (housing, management) |
 
 ---
 
@@ -25274,7 +25274,7 @@ For external gilts:
 ## 8. Body Condition Score (BCS) ⭐
 
 ### Quick problem indicator
-- BCS too LOW → feeding inadequate · disease
+- BCS too LOW → feeding inadequate, disease
 - BCS too HIGH → over-feeding (fat sows = poor reproduction)
 
 ### Common Thai farm problems
@@ -25291,9 +25291,9 @@ For external gilts:
 ### Worker schedule discipline matters!
 - Worker's mood (e.g., fight with spouse) → arrives early/late → feeds at wrong time
 - Pigs trained to expect feeding at 8 AM → feeding at 6 AM = stress
-- **Cumulative stress** → reduced growth · reduced reproduction
+- **Cumulative stress** → reduced growth, reduced reproduction
 
-> 💡 Premium farms log feeding times explicitly · backyard farms don't
+> 💡 Premium farms log feeding times explicitly, backyard farms don't
 
 ---
 
@@ -25301,7 +25301,7 @@ For external gilts:
 
 1. **PSY = Pigs per Sow per Year** — primary KPI
 2. **Modern PSY = 24-30** (older texts say 18-24)
-3. **2.3 cycles/year = standard** · 2.6 = excellent · 2.9+ = suspicious
+3. **2.3 cycles/year = standard**, 2.6 = excellent, 2.9+ = suspicious
 4. **Cycle ~160 days** ideal (or **138 days** if record-keeping perfect)
 5. **PSY drivers**: ↑ litter, ↑ cycles, ↓ stillbirth, ↓ mummified, ↓ NPD
 6. **PSY 28 × 1000 sows ÷ 0.95 ≈ 29,500 born/year**
@@ -25314,7 +25314,7 @@ For external gilts:
 13. **Falsified records**: 2.9+ cycles/yr is red flag
 14. **Industrial farms** log fan times, AC settings, feed times
 
-> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 3 Feed problems (xasWlGj92Yk) · 6-7 Record analysis (AbDfu2y3oW0) · 8 Epidemiology (1mFans-0DNY)
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI), 3 Feed problems (xasWlGj92Yk), 6-7 Record analysis (AbDfu2y3oW0), 8 Epidemiology (1mFans-0DNY)
 > 🩻 **Practice tip**: Memorize PSY = 24-30 modern range
 > 💡 **Mycotoxin = false pregnancy** — exam classic
 > 🦴 **NPD = where vets earn their money** — focus on returns to estrus`,
@@ -25327,11 +25327,11 @@ For external gilts:
     date: '20 Aug 67',
     durationMin: 100,
     instructor: 'อาจารย์โภชนศาสตร์สุกร (CUVET)',
-    examFormat: 'MCQ — Lysine = #1 essential AA in pigs · Mycotoxins (Zearalenone, Aflatoxin) · symptom→cause reverse mapping · stage-specific feed needs ออกบ่อย',
+    examFormat: 'MCQ — Lysine = #1 essential AA in pigs, Mycotoxins (Zearalenone, Aflatoxin), symptom→cause reverse mapping, stage-specific feed needs ออกบ่อย',
     summary: `# Swine Health Problems from Feed & Feeding
 
 > 🎯 **Symptom → Feed cause** reverse-mapping for clinical work
-> Top exam: **Lysine #1 in pigs · Zearalenone abortion · Aflatoxin liver/anemia · stage-specific feed needs · excess protein causes diarrhea**
+> Top exam: **Lysine #1 in pigs, Zearalenone abortion, Aflatoxin liver/anemia, stage-specific feed needs, excess protein causes diarrhea**
 
 ---
 
@@ -25432,16 +25432,16 @@ For external gilts:
 
 | Symptom | Feed-related causes |
 |---|---|
-| **Abortion** | **Zearalenone** (mycotoxin) ⭐⭐ · energy deficiency |
-| **Anemia** | **Iron deficiency** ⭐⭐ · Aflatoxin · Coumarin · protein deficiency |
-| **Bone/skeletal problems** | **Calcium deficiency** ⭐ · Vitamin D · Phosphorus |
-| **Diarrhea** | **Excess protein** ⭐ · feed too rich · spoiled feed |
-| **Hemorrhage / coagulopathy** | **Vitamin K deficiency** ⭐ · coumarin |
-| **Neurological signs (incoordination · ataxia)** | **Cu, Mg, Mn deficiency** · vitamins · **water deprivation** ⭐ |
+| **Abortion** | **Zearalenone** (mycotoxin) ⭐⭐, energy deficiency |
+| **Anemia** | **Iron deficiency** ⭐⭐, Aflatoxin, Coumarin, protein deficiency |
+| **Bone/skeletal problems** | **Calcium deficiency** ⭐, Vitamin D, Phosphorus |
+| **Diarrhea** | **Excess protein** ⭐, feed too rich, spoiled feed |
+| **Hemorrhage / coagulopathy** | **Vitamin K deficiency** ⭐, coumarin |
+| **Neurological signs (incoordination, ataxia)** | **Cu, Mg, Mn deficiency**, vitamins, **water deprivation** ⭐ |
 | **Poor growth (runting)** | Energy + Protein deficiency |
-| **Small litter size** | Energy · **Folic acid** · **Lysine** |
-| **Reproductive failure** | Energy · **Zearalenone** · **Vitamins (E, A)** |
-| **Respiratory disease** | (Predisposing) energy + protein · vitamin A |
+| **Small litter size** | Energy, **Folic acid**, **Lysine** |
+| **Reproductive failure** | Energy, **Zearalenone**, **Vitamins (E, A)** |
+| **Respiratory disease** | (Predisposing) energy + protein, vitamin A |
 
 ---
 
@@ -25516,7 +25516,7 @@ For external gilts:
 | **Urine color** | Dark/red → kidney/UTI/feed pigment |
 | **Skin / coat** | Hair loss → fat deficiency |
 | **Eating behavior** | Refusal → mycotoxin (DON), feed spoilage |
-| **BCS** | Low → under-nutrition · high → over-feed |
+| **BCS** | Low → under-nutrition, high → over-feed |
 | **Respiratory rate** | High in heat → ventilation issue |
 | **Aggression** | Hungry pigs fight at feeder → feed restriction issue |
 
@@ -25535,7 +25535,7 @@ For external gilts:
 
 ## 🎯 Exam Recap — top 16 testable points
 
-1. **Under-nutrition = total cal deficit · Malnutrition = specific nutrient deficit**
+1. **Under-nutrition = total cal deficit, Malnutrition = specific nutrient deficit**
 2. **Lysine = #1 essential AA in pigs** (Methionine in poultry)
 3. **Suckling pigs need HIGHEST protein** (20-24%)
 4. **Gestating + lactating sows need HIGHEST energy** (3,800 kcal/kg)
@@ -25552,10 +25552,10 @@ For external gilts:
 15. **Boars need MORE protein than sows** (muscle building)
 16. **Folic acid + Lysine deficiency = small litter size**
 
-> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 2 Records (80466NsBZSo) · 13 Feed Management (ND2MrxWAsBI)
-> 🩻 **Practice tip**: Memorize symptom→cause reverse map · most exam Qs come from this
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI), 2 Records (80466NsBZSo), 13 Feed Management (ND2MrxWAsBI)
+> 🩻 **Practice tip**: Memorize symptom→cause reverse map, most exam Qs come from this
 > 💡 **Mycotoxin = Thai farm reality** — humid storage = inevitable problem
-> 🦴 **Lysine = pig · Methionine = poultry** (don't confuse!)`,
+> 🦴 **Lysine = pig, Methionine = poultry** (don't confuse!)`,
   },
 
   gdqDDbl74Yk: {
@@ -25565,11 +25565,11 @@ For external gilts:
     date: '27 Aug 67',
     durationMin: 128,
     instructor: 'อาจารย์สัตวบาล (CUVET)',
-    examFormat: 'MCQ — 5 Freedoms · 3 Rings of Welfare · gestation crate vs group housing · Snare technique · Mass euthanasia methods · Animal Welfare Act 2557 ออกบ่อย',
+    examFormat: 'MCQ — 5 Freedoms, 3 Rings of Welfare, gestation crate vs group housing, Snare technique, Mass euthanasia methods, Animal Welfare Act 2557 ออกบ่อย',
     summary: `# Animal Welfare + Restraint + Euthanasia in Swine
 
 > 🎯 **Three big themes** combined in one foundation lecture
-> Top exam: **5 Freedoms · Welfare assessment · Snare technique · Tail-docking compromise · Animal Welfare Act 2557**
+> Top exam: **5 Freedoms, Welfare assessment, Snare technique, Tail-docking compromise, Animal Welfare Act 2557**
 
 ---
 
@@ -25582,7 +25582,7 @@ For external gilts:
 | **Mental** | Yellow | Emotions, fear, stress, contentment |
 | **Natural** | Blue | Ability to express natural behaviors (rooting, social, etc.) |
 
-### B. The 5 Freedoms ⭐⭐⭐ (UK origin · MUST KNOW!)
+### B. The 5 Freedoms ⭐⭐⭐ (UK origin, MUST KNOW!)
 | # | Freedom from... | What it means |
 |---|---|---|
 | **1** | Hunger & Thirst | Adequate food + clean water |
@@ -25602,7 +25602,7 @@ For external gilts:
 |---|---|
 | **Premium pricing** | Welfare-certified meat sells higher (especially Europe export) |
 | **Sustainability** | Farms with good welfare last longer |
-| **Worker efficiency** | Calm pigs cooperate → faster work · less injury |
+| **Worker efficiency** | Calm pigs cooperate → faster work, less injury |
 | **Public perception** | Bad welfare news = consumer boycott |
 | **Disease reduction** | Stressed pigs = immunosuppressed = sick more |
 
@@ -25650,16 +25650,16 @@ For external gilts:
 ### A. Gestation Crates (ขังซอง)
 - **Old standard**: sows in individual stalls, can't turn around
 - **Modern trend**: group housing (better welfare)
-- **Thailand**: still mostly crate · few demonstration group farms
+- **Thailand**: still mostly crate, few demonstration group farms
 - **Compromise**: some farms allow brief turn-around or group at certain stages
 
 ### B. Tail Docking, Ear Notching, Tooth Clipping ⭐
 | Procedure | Reason | Welfare concern |
 |---|---|---|
 | **Tail docking** | Prevent tail biting in crowded pens | Pain at procedure |
-| **Ear notching** | ID system | Pain · stress |
+| **Ear notching** | ID system | Pain, stress |
 | **Tooth clipping (canines)** | Prevent injury to sow's teats | Pulpitis if done badly |
-| **Castration (male)** | Reduce boar taint odor | Pain · stress |
+| **Castration (male)** | Reduce boar taint odor | Pain, stress |
 
 ### Compromise approaches (research-supported)
 | Procedure | Better method |
@@ -25671,7 +25671,7 @@ For external gilts:
 
 > ⭐ As vet, you must JUSTIFY procedures with research + Animal Welfare Act 20(7)
 
-### C. Mass Euthanasia (Culling for ASF · TB · etc.)
+### C. Mass Euthanasia (Culling for ASF, TB, etc.)
 - Public reaction often negative ("they look healthy!")
 - Vet must explain disease control rationale
 - Method choice critical for welfare
@@ -25684,7 +25684,7 @@ For external gilts:
 | Tool | Use |
 |---|---|
 | **Sound** | Familiar voice → calm; unfamiliar → stress |
-| **Touch** | Stroking · physical contact for handling |
+| **Touch** | Stroking, physical contact for handling |
 | **Food** | THE biggest motivator — pigs LOVE eating ⭐ |
 
 ### Why same caretaker matters
@@ -25739,7 +25739,7 @@ For external gilts:
 | Letting pig face you | Risk of bite + face strike |
 
 > ⚠️ **Most dangerous moment**: when pig sideswings head with snare attached — pole can hit vet's face
-> ALWAYS keep snare TENSE + steady · use both hands
+> ALWAYS keep snare TENSE + steady, use both hands
 
 ### F. Restraining Piglets ⭐
 | WRONG method | RIGHT method |
@@ -25748,7 +25748,7 @@ For external gilts:
 | Hanging by tail | Support hindquarters |
 | Single hand grip | Both hands secure |
 
-> ⭐ Properly held piglet = silent · improperly held = screaming
+> ⭐ Properly held piglet = silent, improperly held = screaming
 > "Scream meter" = welfare indicator
 
 ---
@@ -25764,10 +25764,10 @@ For external gilts:
 ### Mass culling methods (e.g., for ASF outbreak)
 | Method | Use case |
 |---|---|
-| **CO₂ / inhaled gas** ⭐ | Smaller pigs · large groups · most humane |
-| **Captive bolt** | Adult sows · individual |
+| **CO₂ / inhaled gas** ⭐ | Smaller pigs, large groups, most humane |
+| **Captive bolt** | Adult sows, individual |
 | **Electrocution** | Industrial slaughter (in slaughterhouse) |
-| **Injection (barbiturate)** | Pet pigs · small numbers · meat NOT consumed after |
+| **Injection (barbiturate)** | Pet pigs, small numbers, meat NOT consumed after |
 
 ### Selection criteria
 - Animal size (piglet vs sow)
@@ -25802,8 +25802,8 @@ For external gilts:
 ## 🎯 Exam Recap — top 16 testable points
 
 1. **5 Freedoms = UK origin** (memorize names!)
-2. **3 Rings of Welfare** = Physical · Mental · Natural
-3. **Welfare assessed at 3 stages** = Farm · Transport · Slaughterhouse
+2. **3 Rings of Welfare** = Physical, Mental, Natural
+3. **Welfare assessed at 3 stages** = Farm, Transport, Slaughterhouse
 4. **Animal Welfare Act 2557** = Thai law, 4 intents
 5. **มาตรา 20(7)** = vet exemption clause
 6. **Gestation crate** = traditional, group housing = welfare trend
@@ -25816,11 +25816,11 @@ For external gilts:
 13. **Pig blind spot** = behind head (small)
 14. **Piglets**: cup like baby, NOT ears/tail
 15. **CO₂ for mass euthanasia** of small pigs
-16. **Captive bolt for adults** · injection for pets
+16. **Captive bolt for adults**, injection for pets
 
-> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 5 Breeds (I478HTK1kKY) · 8 Epidemiology (1mFans-0DNY)
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI), 5 Breeds (I478HTK1kKY), 8 Epidemiology (1mFans-0DNY)
 > 🩻 **Practice tip**: Always ASK before procedures — "is this for the animal's benefit?"
-> 💡 **Snare safety**: BOTH hands · TENSE always · expect head sideswings
+> 💡 **Snare safety**: BOTH hands, TENSE always, expect head sideswings
 > 🦴 **Welfare = profit** — modern farms cannot ignore welfare for premium markets`,
   },
 
@@ -25831,11 +25831,11 @@ For external gilts:
     date: '3 Sep 67',
     durationMin: 86,
     instructor: 'พี่เอ็ม (อาจารย์สัตวบาล CUVET)',
-    examFormat: 'MCQ — 5 main breeds (Yorkshire/Landrace/Duroc/Hampshire/Pietrain) · 3-way crossing · maternal vs paternal lines · selection vs mating · inbreeding depression · ASF impact ออกบ่อย',
+    examFormat: 'MCQ — 5 main breeds (Yorkshire/Landrace/Duroc/Hampshire/Pietrain), 3-way crossing, maternal vs paternal lines, selection vs mating, inbreeding depression, ASF impact ออกบ่อย',
     summary: `# Swine Breeds and Inbreeding Problems
 
-> 🎯 **Why does this matter?** Pig is #1 consumed meat globally · breed = revenue
-> Top exam: **5 main breeds · 3-way crossbreeding · maternal vs paternal line traits · inbreeding consequences · ASF-driven inbreeding crisis**
+> 🎯 **Why does this matter?** Pig is #1 consumed meat globally, breed = revenue
+> Top exam: **5 main breeds, 3-way crossbreeding, maternal vs paternal line traits, inbreeding consequences, ASF-driven inbreeding crisis**
 
 ---
 
@@ -25853,15 +25853,15 @@ For external gilts:
 ### Maternal lines (Sow-side breeds)
 | Breed | Origin | Color | Key traits |
 |---|---|---|---|
-| **Yorkshire / Large White** ⭐ | UK | White, prick ears | **Mothering ability** · large litter · prolific |
-| **Landrace** ⭐ | Denmark | White, **drop ears** · LONG body | **Long body** (more teats, more ribs!) · good mother · high carcass yield |
+| **Yorkshire / Large White** ⭐ | UK | White, prick ears | **Mothering ability**, large litter, prolific |
+| **Landrace** ⭐ | Denmark | White, **drop ears**, LONG body | **Long body** (more teats, more ribs!), good mother, high carcass yield |
 
 ### Paternal lines (Boar-side breeds)
 | Breed | Origin | Color | Key traits |
 |---|---|---|---|
-| **Duroc** ⭐ | USA | Red/brown | **Hardy** · strong legs · low backfat · good meat color |
+| **Duroc** ⭐ | USA | Red/brown | **Hardy**, strong legs, low backfat, good meat color |
 | **Hampshire** | USA | Black + white belt | Lean, muscular |
-| **Pietrain** | Belgium | Spotted | **HIGHEST muscle %** · highest dressing % · BUT stress-sensitive (PSS) |
+| **Pietrain** | Belgium | Spotted | **HIGHEST muscle %**, highest dressing %, BUT stress-sensitive (PSS) |
 
 ### Quick recognition mnemonic
 | Visual cue | Breed |
@@ -25916,7 +25916,7 @@ For external gilts:
 | **Parent Stock (PS)** | F1 sows + terminal sires | Produces commercial pigs |
 | **Commercial / Fattening** | Final 3-way cross | Slaughter for meat |
 
-> ⭐ Most farms work at **Commercial** level · few have nucleus
+> ⭐ Most farms work at **Commercial** level, few have nucleus
 
 ---
 
@@ -25953,7 +25953,7 @@ For external gilts:
 ## 7. INBREEDING ⭐⭐⭐ (Core topic!)
 
 ### What is inbreeding?
-**Mating closely related animals** (same family · grandparent → grandchild · siblings)
+**Mating closely related animals** (same family, grandparent → grandchild, siblings)
 
 ### Why does it occur?
 | Cause | Explanation |
@@ -25987,7 +25987,7 @@ For external gilts:
 | **Weaker piglets** | Low genetic vigor |
 | **Higher pre-weaning mortality** | Weak immune systems |
 | **Slower growth** | Less heterotic boost |
-| **Reduced fertility** | Hormonal imbalances · ovulation issues |
+| **Reduced fertility** | Hormonal imbalances, ovulation issues |
 | **Increased disease susceptibility** | Loss of MHC diversity |
 | **Congenital defects** | Recessive defects expressed |
 | **Poor semen quality** (boars) | Reduced motility, count |
@@ -26045,7 +26045,7 @@ For external gilts:
 | **Visual selection** | Conformation, body condition |
 | **Production records** | ADG, FCR, litter size |
 | **Estimated Breeding Value (EBV)** | Statistical estimate of genetic merit |
-| **Genomic selection** ⭐ | DNA markers · most modern |
+| **Genomic selection** ⭐ | DNA markers, most modern |
 | **Phenotypic selection** | Based on individual performance |
 
 ### Selection intensity
@@ -26069,7 +26069,7 @@ For external gilts:
 ## 🎯 Exam Recap — top 16 testable points
 
 1. **Pig = #1 consumed meat** globally
-2. **5 main commercial breeds**: Yorkshire · Landrace · Duroc · Hampshire · Pietrain
+2. **5 main commercial breeds**: Yorkshire, Landrace, Duroc, Hampshire, Pietrain
 3. **Yorkshire = mothering** (white, prick ears)
 4. **Landrace = LONG body, drop ears** (more teats, ribs)
 5. **Duroc = hardy, red/brown, low backfat**
@@ -26085,9 +26085,9 @@ For external gilts:
 15. **Outbreeding maximizes heterosis** (commercial advantage)
 16. **Maternal vs Paternal lines**: differ in selection priorities
 
-> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 6-7 Record analysis (AbDfu2y3oW0) · 8 Epidemiology (1mFans-0DNY)
-> 🩻 **Practice tip**: Memorize visual breed recognition · color + ear position
-> 💡 **ASF + inbreeding** = modern Thai farm reality · check sources
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI), 6-7 Record analysis (AbDfu2y3oW0), 8 Epidemiology (1mFans-0DNY)
+> 🩻 **Practice tip**: Memorize visual breed recognition, color + ear position
+> 💡 **ASF + inbreeding** = modern Thai farm reality, check sources
 > 🦴 **3-way cross** = backbone of Thai commercial swine industry`,
   },
 
@@ -26098,11 +26098,11 @@ For external gilts:
     date: '17 Sep 67',
     durationMin: 126,
     instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
-    examFormat: 'MCQ — 6 record analysis areas · Production tree fork (per litter vs per year) · NPD definition · Parity structure · symptom→disease reverse maps ออกบ่อย',
+    examFormat: 'MCQ — 6 record analysis areas, Production tree fork (per litter vs per year), NPD definition, Parity structure, symptom→disease reverse maps ออกบ่อย',
     summary: `# Record Analysis — Reproductive Performance Deep Dive
 
 > 🎯 **The KPI investigator's toolkit** — combine 6 records to find farm problems
-> Top exam: **6 essential records · Production Tree fork (per litter vs cycles/year) · NPD math · diagnose by record pattern · 8 key swine diseases**
+> Top exam: **6 essential records, Production Tree fork (per litter vs cycles/year), NPD math, diagnose by record pattern, 8 key swine diseases**
 
 ---
 
@@ -26113,7 +26113,7 @@ For external gilts:
 |---|---|
 | **Pre-visit data + Site visit** | Standard, classic |
 | **Site visit primary** | Limited pre-data |
-| **Remote consult only** | ASF era · biosecurity restricted |
+| **Remote consult only** | ASF era, biosecurity restricted |
 
 ### Steps
 1. **Pre-visit**: Get history + production data + lab results
@@ -26233,14 +26233,14 @@ For external gilts:
 
 | Clinical sign | Top differentials |
 |---|---|
-| **Reproductive failure (abortion/stillbirth)** | **Parvovirus** (silent in non-pregnant!) · **PRRS** · Lepto · Erysipelas · Mycotoxin (Zearalenone) |
-| **Diarrhea (suckling pigs)** | **PED** ⭐ · TGE · *E. coli* · *Clostridium perfringens* · Rotavirus |
-| **Diarrhea (post-wean)** | **Brachyspira (swine dysentery)** ⭐ · *Lawsonia (PIA)* · *E. coli* |
-| **Respiratory disease** | **PRRS** ⭐ · Mycoplasma hyopneumoniae (PIA) · APP (App pleuropneumonia) · Swine Influenza |
+| **Reproductive failure (abortion/stillbirth)** | **Parvovirus** (silent in non-pregnant!), **PRRS**, Lepto, Erysipelas, Mycotoxin (Zearalenone) |
+| **Diarrhea (suckling pigs)** | **PED** ⭐, TGE, *E. coli*, *Clostridium perfringens*, Rotavirus |
+| **Diarrhea (post-wean)** | **Brachyspira (swine dysentery)** ⭐, *Lawsonia (PIA)*, *E. coli* |
+| **Respiratory disease** | **PRRS** ⭐, Mycoplasma hyopneumoniae (PIA), APP (App pleuropneumonia), Swine Influenza |
 | **Joint swelling + neurological** | **Streptococcus suis** ⭐ (also zoonotic!) |
-| **Sudden death** | **ASF** · Hog cholera · *E. rhusiopathiae* · Streptococcus |
-| **Skin lesions** | Erysipelas (diamond skin) · Mange · Greasy pig disease |
-| **Anemia** | Iron deficiency · Aflatoxin · Mycotoxicosis |
+| **Sudden death** | **ASF**, Hog cholera, *E. rhusiopathiae*, Streptococcus |
+| **Skin lesions** | Erysipelas (diamond skin), Mange, Greasy pig disease |
+| **Anemia** | Iron deficiency, Aflatoxin, Mycotoxicosis |
 
 ---
 
@@ -26254,7 +26254,7 @@ For external gilts:
 | **Mycoplasma hyopneumoniae** | Atypical bact | Chronic dry cough |
 | **PRRS** (Porcine Reprod & Respir Syndrome) | Virus | Reproductive failure + respiratory in piglets |
 | **Parvovirus** ⭐ | Virus | **Stillbirth/mummified ONLY in pregnant pigs** (silent in others!) |
-| **Streptococcus suis** ⭐ | Bacteria | Joint swelling, meningitis · ZOONOTIC! |
+| **Streptococcus suis** ⭐ | Bacteria | Joint swelling, meningitis, ZOONOTIC! |
 | **PED (Porcine Epidemic Diarrhea)** ⭐ | Coronavirus | Catastrophic suckling piglet diarrhea (100% mortality if naïve) |
 | **Hog Cholera (Classical Swine Fever)** | Virus | Sudden death, fever, hemorrhages |
 
@@ -26270,9 +26270,9 @@ For external gilts:
 
 | Age | Most likely cause |
 |---|---|
-| **Suckling pig** | PED · TGE · *E. coli* · Rotavirus |
-| **Post-wean (3-8 wks)** | *E. coli* · *Lawsonia* (PIA) · Coccidia |
-| **Grower-finisher** | Brachyspira (swine dysentery) ⭐ · *Lawsonia* (older form) |
+| **Suckling pig** | PED, TGE, *E. coli*, Rotavirus |
+| **Post-wean (3-8 wks)** | *E. coli*, *Lawsonia* (PIA), Coccidia |
+| **Grower-finisher** | Brachyspira (swine dysentery) ⭐, *Lawsonia* (older form) |
 
 > ⭐ **Brachyspira RARELY in pre-wean** — exam favorite trap
 
@@ -26324,7 +26324,7 @@ For external gilts:
 ## 🎯 Exam Recap — top 16 testable points
 
 1. **Triangulate**: verbal + records + observation (don't trust just one)
-2. **6 essential records**: Trend · Parity · Mating · Farrow · Wean · Cull
+2. **6 essential records**: Trend, Parity, Mating, Farrow, Wean, Cull
 3. **Production Tree forks**: pigs/litter × litters/year
 4. **PSY target = 24-30** modern
 5. **2.3 cycles/year = standard**
@@ -26340,7 +26340,7 @@ For external gilts:
 15. **Mycotoxin (Zearalenone) = abortion** (feed-related!)
 16. **Records can be falsified** — verify always
 
-> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 2 Records (80466NsBZSo) · 3 Feed (xasWlGj92Yk) · 8 Epidemiology (1mFans-0DNY) · 11 Vaccination (75NLH3PfQ0Y)
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI), 2 Records (80466NsBZSo), 3 Feed (xasWlGj92Yk), 8 Epidemiology (1mFans-0DNY), 11 Vaccination (75NLH3PfQ0Y)
 > 🩻 **Practice tip**: Memorize 8 key diseases by clinical sign — diagnosis by exclusion is the test!
 > 💡 **Diagnosis trick**: Always ask "what age group?" before naming the differential
 > 🦴 **NPD = vet's #1 target** — every NPD reduction = direct PSY gain`,
@@ -26353,11 +26353,11 @@ For external gilts:
     date: '8 Oct 67',
     durationMin: 95,
     instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
-    examFormat: 'MCQ — Disease triangle (Agent/Host/Environment) · Endemic/Epidemic/Pandemic · ASF outbreak history · Pig flow biosecurity · Swine disease era timeline ออกบ่อย',
+    examFormat: 'MCQ — Disease triangle (Agent/Host/Environment), Endemic/Epidemic/Pandemic, ASF outbreak history, Pig flow biosecurity, Swine disease era timeline ออกบ่อย',
     summary: `# Epidemiology for Swine Disease & Prevention
 
 > 🎯 **Why epidemiology?** ASF taught everyone — knowing dynamics = surviving outbreaks
-> Top exam: **Swine disease era timeline · Disease Triangle · ASF transmission routes · Pig flow biosecurity · Endemic/Epidemic/Pandemic**
+> Top exam: **Swine disease era timeline, Disease Triangle, ASF transmission routes, Pig flow biosecurity, Endemic/Epidemic/Pandemic**
 
 ---
 
@@ -26540,7 +26540,7 @@ For external gilts:
 ## 10. ASF Severity Ranking ⭐ (Among all swine diseases)
 
 ### Top 3 most severe in textbook
-1. **ASF** ⭐⭐⭐ — sudden death · 100% mortality if naïve
+1. **ASF** ⭐⭐⭐ — sudden death, 100% mortality if naïve
 2. **CSF (Hog Cholera)** — high mortality but vaccine works
 3. **FMD** — devastating economically (depopulation)
 
@@ -26608,7 +26608,7 @@ For external gilts:
 15. **Sudden death differentials**: ASF, Strep, Erysipelas, mycotoxin
 16. **3 study designs**: Prospective, Retrospective, Cross-sectional
 
-> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 6-7 Records (AbDfu2y3oW0) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY) · 14 Disease control breeding (gBdwkFQLi28) · 15 Disease control nursery/fattening (PrPV1sMvX_8)
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI), 6-7 Records (AbDfu2y3oW0), 11 Vaccination (75NLH3PfQ0Y), 12 Antimicrobials (b5AHszT1NXY), 14 Disease control breeding (gBdwkFQLi28), 15 Disease control nursery/fattening (PrPV1sMvX_8)
 > 🩻 **Practice tip**: Always check "what era + what age + what region" before diagnosing
 > 💡 **Inguinal LN trap**: Year matters! 2005+ likely PCV2, not CSF
 > 🦴 **ASF reality**: Multi-route + no vaccine = will be with us for years`,
@@ -26621,11 +26621,11 @@ For external gilts:
     date: '29 Oct 67',
     durationMin: 108,
     instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
-    examFormat: 'MCQ — Live vs killed vaccine pros/cons · 3 live vaccines in swine · Acclimation · 2-shot rule for killed · Maternal antibody interference · PCV-2 vaccine reverted-virulence incident ออกบ่อย',
+    examFormat: 'MCQ — Live vs killed vaccine pros/cons, 3 live vaccines in swine, Acclimation, 2-shot rule for killed, Maternal antibody interference, PCV-2 vaccine reverted-virulence incident ออกบ่อย',
     summary: `# Vaccination Programs in Swine
 
 > 🎯 **Why this matters**: Most swine farm $$$ disease control = vaccines + biosecurity
-> Top exam: **Live vs killed pros/cons · 3 live vaccines in swine (PRRS · CSF · Pseudorabies) · Maternal antibody timing · PRRS vaccine limitation · Acclimation procedure**
+> Top exam: **Live vs killed pros/cons, 3 live vaccines in swine (PRRS, CSF, Pseudorabies), Maternal antibody timing, PRRS vaccine limitation, Acclimation procedure**
 
 ---
 
@@ -26634,8 +26634,8 @@ For external gilts:
 ### Two main categories
 | Type | Source | Pros | Cons |
 |---|---|---|---|
-| **LIVE (Modified Live Vaccine, MLV)** | Attenuated pathogen | Strong immunity · longer duration · cellular + humoral | Risk of reversion to virulence · contraindicated in pregnant |
-| **KILLED (Inactivated)** ⭐ | Whole or part of pathogen | Safe (cannot revert) · OK for pregnant | Weaker immunity · needs **booster** · adjuvants |
+| **LIVE (Modified Live Vaccine, MLV)** | Attenuated pathogen | Strong immunity, longer duration, cellular + humoral | Risk of reversion to virulence, contraindicated in pregnant |
+| **KILLED (Inactivated)** ⭐ | Whole or part of pathogen | Safe (cannot revert), OK for pregnant | Weaker immunity, needs **booster**, adjuvants |
 
 ### Why live vaccines work better
 - Closer to natural infection
@@ -26658,7 +26658,7 @@ For external gilts:
 | **CSF MLV (Hog Cholera)** | Classical Swine Fever | Highly effective, long history |
 | **Pseudorabies MLV** | Aujeszky's disease | Used in Europe |
 
-> ⭐ Almost ALL OTHER swine vaccines = killed (Mycoplasma · APP · Salmonella · Strep · PCV2 · etc.)
+> ⭐ Almost ALL OTHER swine vaccines = killed (Mycoplasma, APP, Salmonella, Strep, PCV2, etc.)
 
 ---
 
@@ -26800,7 +26800,7 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 ### Two main groups in farms
 | Group | Why susceptible |
 |---|---|
-| **Newborn piglets** | No immune system mature yet · maternal Ab declining |
+| **Newborn piglets** | No immune system mature yet, maternal Ab declining |
 | **Replacement gilts** | Naïve to farm pathogens |
 
 ### Why replacement gilts are dangerous
@@ -26857,7 +26857,7 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 |---|---|
 | 1-3 weeks | Iron + sometimes Mycoplasma |
 | 3-4 weeks | PCV-2 + Mycoplasma |
-| 6-8 weeks | PRRS · CSF |
+| 6-8 weeks | PRRS, CSF |
 | 10-12 weeks | Boosters as needed |
 
 > 💡 Modern trend: COMBINE vaccines into 1 syringe to reduce injections
@@ -26867,7 +26867,7 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 ## 🎯 Exam Recap — top 14 testable points
 
 1. **2 vaccine types**: Live (MLV) and Killed (Inactivated)
-2. **Live = stronger but riskier · Killed = safer but weaker**
+2. **Live = stronger but riskier, Killed = safer but weaker**
 3. **3 live vaccines in swine**: PRRS, CSF, Pseudorabies
 4. **PCV-2 reversion incident** = batch quality issue (~10 yrs ago)
 5. **2-shot rule for killed** = primary + booster
@@ -26881,7 +26881,7 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 13. **No ASF vaccine** exists yet
 14. **Vaccinate Mycoplasma + PCV-2 + PRRS** = standard program
 
-> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 4 Welfare (gdqDDbl74Yk) · 8 Epidemiology (1mFans-0DNY) · 12 Antimicrobials (b5AHszT1NXY)
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI), 4 Welfare (gdqDDbl74Yk), 8 Epidemiology (1mFans-0DNY), 12 Antimicrobials (b5AHszT1NXY)
 > 🩻 **Practice tip**: Always vaccinate gilts WITH parvo before breeding
 > 💡 **PRRS = combine vaccine + biosec + acclimation** (no single solution)
 > 🦴 **Modern trend = combination shots** for biosecurity + worker efficiency`,
@@ -26894,11 +26894,11 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
     date: '5 Nov 67',
     durationMin: 123,
     instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
-    examFormat: 'MCQ — MIC vs MBC · bacteriostatic vs bactericidal · Spectrum (broad vs narrow) · Synergism vs antagonism · β-lactamase · Mycoplasma vs cell-wall drugs · ppm calculation · ARM regulation ออกบ่อย',
+    examFormat: 'MCQ — MIC vs MBC, bacteriostatic vs bactericidal, Spectrum (broad vs narrow), Synergism vs antagonism, β-lactamase, Mycoplasma vs cell-wall drugs, ppm calculation, ARM regulation ออกบ่อย',
     summary: `# Principles of Antimicrobial Use in Swine
 
-> 🎯 **THE most-used drug class in swine** — but most-abused too · ARM = #1 modern concern
-> Top exam: **MIC/MBC · Cidal vs Static · Spectrum · Synergism · Mycoplasma cell-wall · ppm calc · Banned drugs**
+> 🎯 **THE most-used drug class in swine** — but most-abused too, ARM = #1 modern concern
+> Top exam: **MIC/MBC, Cidal vs Static, Spectrum, Synergism, Mycoplasma cell-wall, ppm calc, Banned drugs**
 
 ---
 
@@ -26933,9 +26933,9 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 ### How measured
 | Method | Description |
 |---|---|
-| **Broth dilution** ⭐ | Tubes with serial drug dilutions · find clearest tube = MIC; subculture to find MBC |
-| **Disk diffusion (Kirby-Bauer)** ⭐ | Paper disks on agar · clear zone = inhibition · qualitative |
-| **E-Test** | Strip with gradient · combines BOTH · gives MIC value |
+| **Broth dilution** ⭐ | Tubes with serial drug dilutions, find clearest tube = MIC; subculture to find MBC |
+| **Disk diffusion (Kirby-Bauer)** ⭐ | Paper disks on agar, clear zone = inhibition, qualitative |
+| **E-Test** | Strip with gradient, combines BOTH, gives MIC value |
 
 ---
 
@@ -26943,8 +26943,8 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 
 | Spectrum | Coverage | Pros | Cons |
 |---|---|---|---|
-| **Broad** | Gram+, Gram−, Anaerobes, Sometimes Protozoa | "All-in-one" | Disrupts normal flora · drives ARM |
-| **Narrow** | Specific group only | Preserves flora · lower ARM | Need accurate diagnosis |
+| **Broad** | Gram+, Gram−, Anaerobes, Sometimes Protozoa | "All-in-one" | Disrupts normal flora, drives ARM |
+| **Narrow** | Specific group only | Preserves flora, lower ARM | Need accurate diagnosis |
 
 ### Examples in swine
 | Drug | Spectrum |
@@ -26965,19 +26965,19 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 - **Animal develops natural antibody** during exposure
 - After stopping drug → animal has immunity
 - **No re-infection risk**
-- Examples: Tetracyclines · Tylosin · Macrolides
+- Examples: Tetracyclines, Tylosin, Macrolides
 
 ### Cidal drugs (preferred for acute/severe)
 - Drug eliminates bacteria
 - Animal stays NAÏVE (no antibody made)
 - After stopping drug → re-infection POSSIBLE
-- Examples: Penicillins · Aminoglycosides · Fluoroquinolones
+- Examples: Penicillins, Aminoglycosides, Fluoroquinolones
 
 ### When to use which
 | Situation | Choice |
 |---|---|
 | Severe acute infection | Cidal |
-| Chronic problem · build immunity | Static |
+| Chronic problem, build immunity | Static |
 | Carrier elimination (cleansing) | Cidal |
 | Long-term prevention | Static (low dose) |
 
@@ -26986,14 +26986,14 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 ## 5. Drug Selection Decision Tree ⭐
 
 ### Question hierarchy
-1. **Is it bacterial?** (vs viral · viral = no antibiotics)
+1. **Is it bacterial?** (vs viral, viral = no antibiotics)
 2. **Gram+ or Gram−?**
 3. **Aerobic or anaerobic?**
-4. **What organ?** (respiratory · gut · joint · etc.)
+4. **What organ?** (respiratory, gut, joint, etc.)
 5. **MIC of likely pathogen?**
 6. **Is the drug allowed?** (banned list)
 7. **Cost-effective?**
-8. **Easy to administer?** (in feed · water · injection)
+8. **Easy to administer?** (in feed, water, injection)
 
 ### Common errors
 | Error | Result |
@@ -27024,7 +27024,7 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 
 ### β-Lactamase ⭐ (KEY exam concept!)
 - Enzyme produced by bacteria to **destroy β-lactam antibiotics**
-- Affected drugs: **Penicillins · Cephalosporins**
+- Affected drugs: **Penicillins, Cephalosporins**
 - Bacteria with β-lactamase: *Staphylococcus* (especially *S. aureus*)
 - Solution: β-lactamase inhibitors (clavulanic acid, sulbactam) OR use non-β-lactam drugs
 
@@ -27035,21 +27035,21 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 ### Bacteria parts and which drugs target them
 | Target | Drug class |
 |---|---|
-| **Cell wall** | Penicillins · Cephalosporins · Vancomycin |
-| **30S ribosome** | Aminoglycosides · Tetracyclines |
-| **50S ribosome** | Macrolides · Lincosamides · Chloramphenicol · Tiamulin |
+| **Cell wall** | Penicillins, Cephalosporins, Vancomycin |
+| **30S ribosome** | Aminoglycosides, Tetracyclines |
+| **50S ribosome** | Macrolides, Lincosamides, Chloramphenicol, Tiamulin |
 | **DNA gyrase** | Quinolones (Enrofloxacin, Marbofloxacin) |
-| **Folate synthesis** | Sulfonamides · Trimethoprim |
-| **Cell membrane** | Polymyxin · Colistin |
+| **Folate synthesis** | Sulfonamides, Trimethoprim |
+| **Cell membrane** | Polymyxin, Colistin |
 
 ### Mycoplasma — special case ⭐⭐
 **Mycoplasma has NO cell wall!** → all cell-wall drugs FAIL
 | Drug | Works on Mycoplasma? |
 |---|---|
-| Penicillin · Cephalosporin · Amoxicillin | ❌ NO |
+| Penicillin, Cephalosporin, Amoxicillin | ❌ NO |
 | Macrolides (Tylosin, Tilmicosin) | ✅ YES |
 | Tetracyclines (Doxycycline, CTC) | ✅ YES |
-| Tiamulin · Valnemulin | ✅ YES (best) |
+| Tiamulin, Valnemulin | ✅ YES (best) |
 | Quinolones (Enrofloxacin) | ✅ YES |
 
 > ⛔ Common exam trap: "use penicillin for Mycoplasma" → FALSE!
@@ -27106,7 +27106,7 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 | Drug | Reason |
 |---|---|
 | **Chloramphenicol** | Aplastic anemia in humans (residue) |
-| **Colistin (in feed)** | mcr-1 gene resistance · last-line defender for human carbapenem-resistant infection |
+| **Colistin (in feed)** | mcr-1 gene resistance, last-line defender for human carbapenem-resistant infection |
 | **Nitrofurans** | Carcinogenic |
 | **Sulfa drugs (some)** | Residue concerns |
 
@@ -27159,25 +27159,25 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 
 ## 🎯 Exam Recap — top 16 testable points
 
-1. **MIC = inhibition · MBC = killing** (MBC always higher)
-2. **Static = inhibit · Cidal = kill** (different treatment philosophies)
+1. **MIC = inhibition, MBC = killing** (MBC always higher)
+2. **Static = inhibit, Cidal = kill** (different treatment philosophies)
 3. **Broad spectrum = wider coverage but ARM risk**
 4. **Synergism = different targets** (cell wall + ribosome)
 5. **β-Lactamase destroys penicillins** — used by Staph
 6. **Mycoplasma has NO cell wall** → penicillin DOESN'T work
-7. **Mycoplasma works**: Macrolides · Tetracyclines · Tiamulin · Quinolones
+7. **Mycoplasma works**: Macrolides, Tetracyclines, Tiamulin, Quinolones
 8. **1 ppm = 1 mg/kg** = 1 µg/g
 9. **Water dose = HALF feed dose** (pigs drink 2x feed weight)
 10. **Growth promoter use = BANNED** in Thailand + EU
 11. **Chloramphenicol = BANNED** (human aplastic anemia)
 12. **Colistin = BANNED in feed** (mcr-1 last-line)
 13. **CTC + Tiamulin 1:3** = classic synergy combo
-14. **Cidal animal stays naïve · Static builds immunity**
-15. **Disk diffusion = qualitative** · Broth dilution = quantitative · E-Test = both
+14. **Cidal animal stays naïve, Static builds immunity**
+15. **Disk diffusion = qualitative**, Broth dilution = quantitative, E-Test = both
 16. **Drug + dose + duration matters** for ARM prevention
 
-> 📚 อ่านควบ: 11 Vaccination (75NLH3PfQ0Y) · 8 Epidemiology (1mFans-0DNY) · 13 Feed Management (ND2MrxWAsBI)
-> 🩻 **Practice tip**: Memorize Mycoplasma + cell wall trick · ALWAYS gets tested
+> 📚 อ่านควบ: 11 Vaccination (75NLH3PfQ0Y), 8 Epidemiology (1mFans-0DNY), 13 Feed Management (ND2MrxWAsBI)
+> 🩻 **Practice tip**: Memorize Mycoplasma + cell wall trick, ALWAYS gets tested
 > 💡 **PPM math**: practice 100 ppm × 3kg feed = how many mg drug consumed
 > 🦴 **Modern reality**: banned list keeps growing — stay updated`,
   },
@@ -27189,11 +27189,11 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
     date: '12 Nov 67',
     durationMin: 96,
     instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
-    examFormat: 'MCQ — 4 feed criteria · ingredients categories · Edema disease (overfeed weaners) · 4 feed phases · cassava cyanogen toxicity · feed cost = 60-70% of pig cost ออกบ่อย',
+    examFormat: 'MCQ — 4 feed criteria, ingredients categories, Edema disease (overfeed weaners), 4 feed phases, cassava cyanogen toxicity, feed cost = 60-70% of pig cost ออกบ่อย',
     summary: `# Swine Feed Management
 
 > 🎯 **The biggest cost center** — 60-70% of pig production = feed
-> Top exam: **4 feed criteria · key ingredients pros/cons · Edema disease in over-fed weaners · Aflatoxin sources · Phase feeding · ppm calculations**
+> Top exam: **4 feed criteria, key ingredients pros/cons, Edema disease in over-fed weaners, Aflatoxin sources, Phase feeding, ppm calculations**
 
 ---
 
@@ -27218,10 +27218,10 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 
 | Ingredient | Protein % | Issues |
 |---|---|---|
-| **Soybean meal** ⭐ | ~44-48% | Trypsin inhibitor (anti-nutrient) · **Aflatoxin** risk |
-| **Cottonseed meal** | ~40-45% | **Gossypol** (anti-nutrient) · digestibility low |
+| **Soybean meal** ⭐ | ~44-48% | Trypsin inhibitor (anti-nutrient), **Aflatoxin** risk |
+| **Cottonseed meal** | ~40-45% | **Gossypol** (anti-nutrient), digestibility low |
 | **Coconut meal** | ~20% | Easily rancid (high lipid) |
-| **Kenaf / Castor meal** | Variable | Less common · used economically |
+| **Kenaf / Castor meal** | Variable | Less common, used economically |
 
 ### Aflatoxin risk pathway
 1. Soybeans grown in Brazil
@@ -27230,7 +27230,7 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 4. Arrives Thailand contaminated
 5. Pig eats → liver damage, anemia, cancer
 
-> ⭐ **Aflatoxin** = top exam mycotoxin · from *Aspergillus* species
+> ⭐ **Aflatoxin** = top exam mycotoxin, from *Aspergillus* species
 
 ---
 
@@ -27473,7 +27473,7 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
 13. **Premix** has vitamins + minerals + amino acids
 14. **Trypsin inhibitor in soybean** + **gossypol in cottonseed** = anti-nutrients
 
-> 📚 อ่านควบ: 3 Feed problems (xasWlGj92Yk) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY)
+> 📚 อ่านควบ: 3 Feed problems (xasWlGj92Yk), 11 Vaccination (75NLH3PfQ0Y), 12 Antimicrobials (b5AHszT1NXY)
 > 🩻 **Practice tip**: Memorize Edema disease (over-feed pattern often missed)
 > 💡 **Phase feeding rationale**: cost-saving in finisher (cheapest mix possible)
 > 🦴 **Modern trend**: insect/algae protein replacing imported soy (sustainability)`,
@@ -27486,18 +27486,18 @@ Vaccinate against **PARVOVIRUS** BEFORE breeding!
     date: '19 Nov 67',
     durationMin: 103,
     instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
-    examFormat: 'MCQ — KPI cascade · 2-Strategy framework (reduce agent + separate) · Depopulation · Sentinel pig · Early weaning rationale · Mummified body length aging · Lung scoring (Madec) · Endotoxemia mechanism ออกบ่อย',
+    examFormat: 'MCQ — KPI cascade, 2-Strategy framework (reduce agent + separate), Depopulation, Sentinel pig, Early weaning rationale, Mummified body length aging, Lung scoring (Madec), Endotoxemia mechanism ออกบ่อย',
     summary: `# Disease Control & Prevention in Swine Breeding Herd
 
 > 🎯 **The breeding herd is the engine** — diseases here cascade to all later stages
-> Top exam: **2-strategy framework · Depopulation methods · Sentinel pigs · Early weaning · Mummy aging · Lung scoring · Endotoxemia from MMA**
+> Top exam: **2-strategy framework, Depopulation methods, Sentinel pigs, Early weaning, Mummy aging, Lung scoring, Endotoxemia from MMA**
 
 ---
 
 ## 1. Production Capacity Calculation ⭐ (Always start here)
 
 ### Reverse-engineering farm size
-Example: 1,000 sows · LSY 2 cycles/year · target 500 weaned/week
+Example: 1,000 sows, LSY 2 cycles/year, target 500 weaned/week
 | Param | Value |
 |---|---|
 | Sows | 1,000 |
@@ -27521,13 +27521,13 @@ Example: 1,000 sows · LSY 2 cycles/year · target 500 weaned/week
 ### Sub-KPIs to investigate
 | KPI | Target | Issue if low |
 |---|---|---|
-| **Conception rate** | >90% | Heat detection · semen · sow nutrition |
-| **Farrowing rate** | >90% | Failed pregnancy · disease |
-| **Total born** | 12-18 | Nutrition · genetics · disease |
-| **Born alive** | 92-95% | Late-term issues · birthing problems |
-| **Stillbirth** | <2-5% | Disease · nutrition · sow age |
-| **Mummified** | <2% | Parvo · PRRS · Lepto |
-| **Pre-wean mortality** | <5-10% | MMA · crushing · disease |
+| **Conception rate** | >90% | Heat detection, semen, sow nutrition |
+| **Farrowing rate** | >90% | Failed pregnancy, disease |
+| **Total born** | 12-18 | Nutrition, genetics, disease |
+| **Born alive** | 92-95% | Late-term issues, birthing problems |
+| **Stillbirth** | <2-5% | Disease, nutrition, sow age |
+| **Mummified** | <2% | Parvo, PRRS, Lepto |
+| **Pre-wean mortality** | <5-10% | MMA, crushing, disease |
 | **Litter at wean** | >12 | Mortality + transfers |
 
 ### Modern targets (Denmark genetics)
@@ -27541,7 +27541,7 @@ Example: 1,000 sows · LSY 2 cycles/year · target 500 weaned/week
 
 ### Strategy 1: REDUCE AGENT
 Lower pathogen load on farm
-- Disinfection · cleaning
+- Disinfection, cleaning
 - Wash + dry + disinfect + dry
 - Pen pressure washing
 - Use of biosecurity
@@ -27749,8 +27749,8 @@ Fetal death in utero → dehydration + retention → "mummy"
 | Issue | Cause | Action |
 |---|---|---|
 | **Testicular swelling (epididymitis)** | *Brucella suis* | CULL (zoonotic + reproductive risk) |
-| **Reduced libido** | Heat · age · disease | Investigate, supplement, replace |
-| **Poor semen quality** | Heat · disease · stress | Test semen, manage environment |
+| **Reduced libido** | Heat, age, disease | Investigate, supplement, replace |
+| **Poor semen quality** | Heat, disease, stress | Test semen, manage environment |
 
 ### Brucella suis warning ⭐⭐
 - Causes **inguinal lymph node swelling** (similar to PCV2/CSF — diagnostic trap!)
@@ -27766,7 +27766,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 | Time | Vaccines |
 |---|---|
 | **Pre-breeding (gilts)** | Parvo + Lepto + Erysipelas + PRRS |
-| **Mid-gestation** | PRRS booster · CSF |
+| **Mid-gestation** | PRRS booster, CSF |
 | **Pre-farrowing** | E. coli + Clostridium (transferred via colostrum to piglets) |
 
 ### Critical: PARVO before breeding
@@ -27811,7 +27811,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 15. **Brucella suis** = inguinal LN swelling + zoonotic + cull boars
 16. **Parvo before breeding** = mandatory
 
-> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 8 Epidemiology (1mFans-0DNY) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY) · 15 Disease control nursery/fattening (PrPV1sMvX_8)
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI), 8 Epidemiology (1mFans-0DNY), 11 Vaccination (75NLH3PfQ0Y), 12 Antimicrobials (b5AHszT1NXY), 15 Disease control nursery/fattening (PrPV1sMvX_8)
 > 🩻 **Practice tip**: Mummy aging = use the formula at every farm visit
 > 💡 **MMA mnemonic**: Mum Made Agalactia (3 M's = no milk)
 > 🦴 **Sentinel = 3 weeks** = the safest way to confirm cleanout success`,
@@ -27824,11 +27824,11 @@ Fetal death in utero → dehydration + retention → "mummy"
     date: '26 Nov 67',
     durationMin: 97,
     instructor: 'อ.รุ่งธรรม (อายุรศาสตร์)',
-    examFormat: 'MCQ — Fair Test concept · ROI calculation · Disease transmission routes by physical size · Probiotics/Prebiotics/Postbiotics · Organic acid action · Diarrhea pathogens by age · Worm differential ออกบ่อย',
+    examFormat: 'MCQ — Fair Test concept, ROI calculation, Disease transmission routes by physical size, Probiotics/Prebiotics/Postbiotics, Organic acid action, Diarrhea pathogens by age, Worm differential ออกบ่อย',
     summary: `# Disease Control & Prevention in Nursery & Fattening Pig Herds
 
 > 🎯 **The growing pig is the income generator** — protect this stage = protect profit
-> Top exam: **Fair Test design · ROI math · Pathogen size vs spread distance · Anti-bacterial alternatives · Organic acids · Diarrhea by age · Pig parasites**
+> Top exam: **Fair Test design, ROI math, Pathogen size vs spread distance, Anti-bacterial alternatives, Organic acids, Diarrhea by age, Pig parasites**
 
 ---
 
@@ -28009,7 +28009,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 ### Other tools
 | Tool | Action |
 |---|---|
-| **Organic acids** ⭐⭐ | Lower gut pH → suppress pathogens · improve absorption |
+| **Organic acids** ⭐⭐ | Lower gut pH → suppress pathogens, improve absorption |
 | **Toxin binders** | Bind mycotoxins in gut |
 | **Enzymes** | Improve digestibility (xylanase, phytase) |
 | **Zinc oxide** | Antibacterial in gut, but environmental concerns |
@@ -28094,7 +28094,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 ## 11. Treatment Protocols ⭐ (Practical!)
 
 ### Diarrhea management
-1. **Fluid replacement** (oral electrolytes preferred · IV in severe cases)
+1. **Fluid replacement** (oral electrolytes preferred, IV in severe cases)
 2. **Soft, easily-digestible feed** (less milk, easier carbs, "porridge" form)
 3. **Stop new feeds** (revert to known-tolerated diet)
 4. **Antimicrobials if bacterial** confirmed
@@ -28120,7 +28120,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 ### Diagnostic toolkit balance
 | Old-school | New-school |
 |---|---|
-| CBC + blood smear | PCR · genomic |
+| CBC + blood smear | PCR, genomic |
 | Histopathology | Real-time PCR |
 | Culture | Multiplex panels |
 | Necropsy | NGS (next-gen sequencing) |
@@ -28150,8 +28150,8 @@ Fetal death in utero → dehydration + retention → "mummy"
 
 1. **Fair Test = ONE variable differs** between groups
 2. **ROI = Benefit ÷ Cost** (vaccine 14x typical)
-3. **Bacteria spread 0.5-2m · Virus up to 16 km**
-4. **Diarrhea by age**: suckling = PED/Coccidia · post-wean = Lawsonia/E.coli · adult = Brachyspira
+3. **Bacteria spread 0.5-2m, Virus up to 16 km**
+4. **Diarrhea by age**: suckling = PED/Coccidia, post-wean = Lawsonia/E.coli, adult = Brachyspira
 5. **Brachyspira = adult bloody mucohemorrhagic diarrhea**
 6. **Lawsonia = hosepipe ileum** at necropsy
 7. **PED = catastrophic suckling**
@@ -28165,7 +28165,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 15. **6-year DVM = practitioner training** (basics important)
 16. **PCR + histopathology** = optimal modern diagnostic combo
 
-> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI) · 8 Epidemiology (1mFans-0DNY) · 11 Vaccination (75NLH3PfQ0Y) · 12 Antimicrobials (b5AHszT1NXY) · 14 Disease control breeding (gBdwkFQLi28)
+> 📚 อ่านควบ: 1 Introduction (8zbE_NXPdVI), 8 Epidemiology (1mFans-0DNY), 11 Vaccination (75NLH3PfQ0Y), 12 Antimicrobials (b5AHszT1NXY), 14 Disease control breeding (gBdwkFQLi28)
 > 🩻 **Practice tip**: Always start with "what AGE is this pig?" before naming differentials
 > 💡 **Modern direction**: Reduce antibiotics with probiotics + acids + management
 > 🦴 **End-of-course mindset**: PSY + biosecurity + records = swine vet's toolbox`,
@@ -28178,11 +28178,11 @@ Fetal death in utero → dehydration + retention → "mummy"
     date: '6 Aug 67',
     durationMin: 117,
     instructor: 'อ.เผด็จ + อ.มรกต + อ.นัฐ',
-    examFormat: 'MCQ — 3 anatomical zones · scrotal Texture (Soft superficial Hard deep) · spermatogenesis temp (3-5°C below body) · Vas vs ductus deferens · ejaculate fractions · accessory glands ออกบ่อย',
+    examFormat: 'MCQ — 3 anatomical zones, scrotal Texture (Soft superficial Hard deep), spermatogenesis temp (3-5°C below body), Vas vs ductus deferens, ejaculate fractions, accessory glands ออกบ่อย',
     summary: `# Boar Anatomy
 
 > 🎯 **Foundation lecture** — boar anatomy guides all swine reproduction
-> Top exam: **3 anatomical zones · scrotal Texture rule · spermatogenesis temperature requirement · 3-fraction ejaculate · accessory gland functions**
+> Top exam: **3 anatomical zones, scrotal Texture rule, spermatogenesis temperature requirement, 3-fraction ejaculate, accessory gland functions**
 
 ---
 
@@ -28200,7 +28200,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 | **Primiparous (P1)** | After 1st farrowing |
 | **Multiparous (P2+)** | After 2nd farrowing onwards |
 
-### Mid + Final = 50/50 split · all multiple choice
+### Mid + Final = 50/50 split, all multiple choice
 
 ---
 
@@ -28235,7 +28235,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 ### Common clinical scenarios
 | Finding | Possible cause |
 |---|---|
-| Bilateral swelling | Bacterial epididymitis · *Brucella suis* |
+| Bilateral swelling | Bacterial epididymitis, *Brucella suis* |
 | Unilateral hot, painful | Acute orchitis |
 | Hard nodular | Tumor or chronic inflammation |
 | **NORMAL turgid** | Healthy testicles |
@@ -28340,7 +28340,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 ### Three glands in boar
 | Gland | Function | Contribution |
 |---|---|---|
-| **Bulbourethral (Cowper's)** ⭐ | LARGE in boar! | Pre-ejaculate fluid · forms gel plug |
+| **Bulbourethral (Cowper's)** ⭐ | LARGE in boar! | Pre-ejaculate fluid, forms gel plug |
 | **Prostate** | Surrounds urethra | Adds nutrients |
 | **Vesicular (Seminal vesicle)** | Largest by volume | Energy + buffering |
 
@@ -28462,9 +28462,9 @@ Fetal death in utero → dehydration + retention → "mummy"
 13. **Vasectomy → teaser boar** (for estrus detection)
 14. **Castration <7 days old** = routine in market pigs
 
-> 📚 อ่านควบ: 2 Spermatogenesis (piJq-n43sO8) · 3 Boar management (tGn3BDDIl9o) · 4 Reproductive problems (ABb7TdP98Zc) · 5 Semen collection (3cJC9Ymk1TI)
+> 📚 อ่านควบ: 2 Spermatogenesis (piJq-n43sO8), 3 Boar management (tGn3BDDIl9o), 4 Reproductive problems (ABb7TdP98Zc), 5 Semen collection (3cJC9Ymk1TI)
 > 🩻 **Practice tip**: Memorize 3-fraction ejaculate — it's THE collection guide
-> 💡 **Sigmoid flexure** = corkscrew shape · why AI catheter needs spiral
+> 💡 **Sigmoid flexure** = corkscrew shape, why AI catheter needs spiral
 > 🦴 **Modern reality**: AC barns for boars (high genetics worth protecting)`,
   },
 
@@ -28475,11 +28475,11 @@ Fetal death in utero → dehydration + retention → "mummy"
     date: '13 Aug 67',
     durationMin: 115,
     instructor: 'อ.นัฐ (CUVET)',
-    examFormat: 'MCQ — 3 key hormones (GnRH/FSH/LH) · Sertoli vs Leydig functions · spermatogenesis cycle days · puberty markers · 2-stage maturation ออกบ่อย',
+    examFormat: 'MCQ — 3 key hormones (GnRH/FSH/LH), Sertoli vs Leydig functions, spermatogenesis cycle days, puberty markers, 2-stage maturation ออกบ่อย',
     summary: `# Spermatogenesis & Puberty in Boars
 
 > 🎯 **The cellular factory of male reproduction** — drives all later breeding outcomes
-> Top exam: **Sertoli vs Leydig role · 3-hormone axis · spermatogenesis 3-stage · puberty markers · cycle duration**
+> Top exam: **Sertoli vs Leydig role, 3-hormone axis, spermatogenesis 3-stage, puberty markers, cycle duration**
 
 ---
 
@@ -28515,11 +28515,11 @@ Fetal death in utero → dehydration + retention → "mummy"
 ### Position rule
 | Cell | Location | Function |
 |---|---|---|
-| **Sertoli (Sustentacular)** | INSIDE seminiferous tubules | Nurse cells · support spermatogenesis |
+| **Sertoli (Sustentacular)** | INSIDE seminiferous tubules | Nurse cells, support spermatogenesis |
 | **Leydig (Interstitial)** | BETWEEN tubules | Produce testosterone |
 
 ### Memory aid
-> "Sertoli sits **inside** (S=inside) · Leydig **lounges between** (L=lateral)"
+> "Sertoli sits **inside** (S=inside), Leydig **lounges between** (L=lateral)"
 
 ### Sertoli cell functions (8 functions!) ⭐
 1. Nutritional support to germ cells
@@ -28648,7 +28648,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 
 | Gland | Function |
 |---|---|
-| **Bulbourethral (Cowper's)** ⭐⭐ | Pre-ejaculate · gel formation (huge in boar!) |
+| **Bulbourethral (Cowper's)** ⭐⭐ | Pre-ejaculate, gel formation (huge in boar!) |
 | **Prostate** | Adds nutrients to semen |
 | **Vesicular** | Bulk volume + buffering |
 
@@ -28695,7 +28695,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 13. **Optimal collection = 2-3x/week**
 14. **Heat stress recovery = 8 weeks**
 
-> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 3 Boar management (tGn3BDDIl9o) · 4 Reproductive problems (ABb7TdP98Zc) · 5 Semen collection (3cJC9Ymk1TI)
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw), 3 Boar management (tGn3BDDIl9o), 4 Reproductive problems (ABb7TdP98Zc), 5 Semen collection (3cJC9Ymk1TI)
 > 🩻 **Practice tip**: Memorize 8-week recovery timeline — clinical golden rule
 > 💡 **Sertoli vs Leydig**: position dictates function (in vs between)
 > 🦴 **Modern AI**: 1 boar produces enough for hundreds of sows weekly`,
@@ -28708,11 +28708,11 @@ Fetal death in utero → dehydration + retention → "mummy"
     date: '20 Aug 67',
     durationMin: 117,
     instructor: 'พี่ออย (CUVET)',
-    examFormat: 'MCQ — Boar housing requirements · feeding schedule · training methods (dummy) · libido scoring · fertility evaluation ออกบ่อย',
+    examFormat: 'MCQ — Boar housing requirements, feeding schedule, training methods (dummy), libido scoring, fertility evaluation ออกบ่อย',
     summary: `# Boar Management and Training
 
 > 🎯 **Practical hands-on lecture** — managing AI boar studs
-> Top exam: **Housing specs · Feeding rules · Training-on-dummy · Libido scoring · Collection frequency**
+> Top exam: **Housing specs, Feeding rules, Training-on-dummy, Libido scoring, Collection frequency**
 
 ---
 
@@ -28895,9 +28895,9 @@ Fetal death in utero → dehydration + retention → "mummy"
 11. **Hoof trim every 6-12 months**
 12. **Recovery from heat = 8 weeks** (re-emphasized)
 
-> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 2 Spermatogenesis (piJq-n43sO8) · 4 Reproductive problems (ABb7TdP98Zc) · 5 Semen collection (3cJC9Ymk1TI)
-> 🩻 **Practice tip**: Routine = key in boar care · same time, same handler
-> 💡 **Training is patience** — 2-4 weeks normal · don't rush
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw), 2 Spermatogenesis (piJq-n43sO8), 4 Reproductive problems (ABb7TdP98Zc), 5 Semen collection (3cJC9Ymk1TI)
+> 🩻 **Practice tip**: Routine = key in boar care, same time, same handler
+> 💡 **Training is patience** — 2-4 weeks normal, don't rush
 > 🦴 **Modern AI farm**: 10 boars feed 1000-sow farm with proper management`,
   },
 
@@ -28908,11 +28908,11 @@ Fetal death in utero → dehydration + retention → "mummy"
     date: '27 Aug 67',
     durationMin: 72,
     instructor: 'อ.มรกต (CUVET)',
-    examFormat: 'MCQ — Fertility/Subfertility/Infertility/Sterility · 4 sperm-defect terms (a-, hypo-, hyper-) · Cryptorchidism management · Hypoplasia types ออกบ่อย',
+    examFormat: 'MCQ — Fertility/Subfertility/Infertility/Sterility, 4 sperm-defect terms (a-, hypo-, hyper-), Cryptorchidism management, Hypoplasia types ออกบ่อย',
     summary: `# Reproductive Problems & Sterility in Boars
 
 > 🎯 **Critical exam: WRITTEN definitions!** Memorize 4 fertility levels + sperm-defect terminology
-> Top exam: **4-tier fertility scale · Aspermia/Hypospermia/Hyperspermia · Azoospermia · Oligospermia · Cryptorchidism (ทองแดง)**
+> Top exam: **4-tier fertility scale, Aspermia/Hypospermia/Hyperspermia, Azoospermia, Oligospermia, Cryptorchidism (ทองแดง)**
 
 ---
 
@@ -28956,7 +28956,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 | **Asthenozoospermia** | Low motility |
 
 ### Memory aid
-> "**A-** = none/absent · **Hypo-** = low · **Hyper-** = high · **Oligo-** = scant · **Tera-** = monster (defects)"
+> "**A-** = none/absent, **Hypo-** = low, **Hyper-** = high, **Oligo-** = scant, **Tera-** = monster (defects)"
 
 ---
 
@@ -29083,7 +29083,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 
 ## 🎯 Exam Recap — top 12 testable points
 
-1. **4-tier fertility**: Fertility · Subfertility · Infertility · Sterility
+1. **4-tier fertility**: Fertility, Subfertility, Infertility, Sterility
 2. **Aspermia = no ejaculate**
 3. **Azoospermia = no sperm**
 4. **Hypospermia vs Oligospermia** = volume vs count
@@ -29096,7 +29096,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 11. **Cull boars** with congenital defects
 12. **Boar taint** = reason to remove cryptorchid testis (unsold meat)
 
-> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 2 Spermatogenesis (piJq-n43sO8) · 3 Boar management (tGn3BDDIl9o) · 5 Semen collection (3cJC9Ymk1TI)
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw), 2 Spermatogenesis (piJq-n43sO8), 3 Boar management (tGn3BDDIl9o), 5 Semen collection (3cJC9Ymk1TI)
 > 🩻 **Practice tip**: Memorize 4 fertility tiers + 6 sperm defect terms — written exam favorites
 > 💡 **Cryptorchid surgery** = practice patience, finger sense, no random probing
 > 🦴 **Modern issue**: ASF era brings inbreeding-related cryptorchidism back`,
@@ -29109,11 +29109,11 @@ Fetal death in utero → dehydration + retention → "mummy"
     date: '3 Sep 67',
     durationMin: 118,
     instructor: 'อ.นัฐ (CUVET)',
-    examFormat: 'MCQ — Glove method · 5 boar history items · pre-collection assessment · 4 evaluation parameters · sperm motility scoring ออกบ่อย',
+    examFormat: 'MCQ — Glove method, 5 boar history items, pre-collection assessment, 4 evaluation parameters, sperm motility scoring ออกบ่อย',
     summary: `# Semen Collection & Evaluation
 
 > 🎯 **The hands-on exam topic** — Year 5 students MUST be able to do this!
-> Top exam: **Glove method only · 5 boar history items · Hand collection technique · 4 evaluation parameters · Sperm motility 5-grade**
+> Top exam: **Glove method only, 5 boar history items, Hand collection technique, 4 evaluation parameters, Sperm motility 5-grade**
 
 ---
 
@@ -29186,7 +29186,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 ## 4. Genital Examination ⭐
 
 ### What to check
-- **Scrotal Soft superficial · Hard deep** (turgid normal)
+- **Scrotal Soft superficial, Hard deep** (turgid normal)
 - Bilateral symmetry (asymmetry → tumor or atrophy)
 - Penile sigmoid flexure (extends correctly during arousal)
 - No discharge
@@ -29358,7 +29358,7 @@ Fetal death in utero → dehydration + retention → "mummy"
 ## 🎯 Exam Recap — top 14 testable points
 
 1. **Glove method ONLY** for pigs (no AV/EE)
-2. **5 history items**: Age · ID · ADG/FCR · BCS · Disease
+2. **5 history items**: Age, ID, ADG/FCR, BCS, Disease
 3. **Hindleg lameness = NO collection**
 4. **Scrotal turgidity check** = Soft superficial, Hard deep
 5. **3 fractions**: Pre-sperm (discard), Sperm-rich (keep), Post-sperm (partial)
@@ -29372,10 +29372,10 @@ Fetal death in utero → dehydration + retention → "mummy"
 13. **Pig semen doesn't freeze well** (cold shock)
 14. **Reject if motility <50%** or concentration <100M/mL
 
-> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 2 Spermatogenesis (piJq-n43sO8) · 3 Boar management (tGn3BDDIl9o) · 7.1 Artificial Insemination (0vUVH0tVcqw)
-> 🩻 **Practice tip**: Year 5 lab MANDATORY · don't skip
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw), 2 Spermatogenesis (piJq-n43sO8), 3 Boar management (tGn3BDDIl9o), 7.1 Artificial Insemination (0vUVH0tVcqw)
+> 🩻 **Practice tip**: Year 5 lab MANDATORY, don't skip
 > 💡 **17°C storage** — biggest mistake is using 4°C fridge
-> 🦴 **Modern AI**: 1 ejaculate = 16+ doses · single boar feeds 100s of sows`,
+> 🦴 **Modern AI**: 1 ejaculate = 16+ doses, single boar feeds 100s of sows`,
   },
 
   hzJKpe4SLyw: {
@@ -29385,11 +29385,11 @@ Fetal death in utero → dehydration + retention → "mummy"
     date: '10 Sep 67',
     durationMin: 145,
     instructor: 'อ.เผด็จ + อ.มรกต',
-    examFormat: 'MCQ — Skip 1st estrus rule (2 eggs/cycle gain) · Replacement rate 40-50% Thai · Cull reasons ranking · Parity at culling 4.4 vs 7.9 ideal · Boar effect ออกบ่อย',
+    examFormat: 'MCQ — Skip 1st estrus rule (2 eggs/cycle gain), Replacement rate 40-50% Thai, Cull reasons ranking, Parity at culling 4.4 vs 7.9 ideal, Boar effect ออกบ่อย',
     summary: `# Puberty in Gilt + Replacement Strategy
 
 > 🎯 **The female-side launching pad** — gilts that succeed = the future herd
-> Top exam: **First estrus skip rule · Replacement rates · Cull reasons ranking · Parity-at-culling targets · Boar effect**
+> Top exam: **First estrus skip rule, Replacement rates, Cull reasons ranking, Parity-at-culling targets, Boar effect**
 
 ---
 
@@ -29596,7 +29596,7 @@ Exposing gilt to **mature boar** triggers:
 ### What to look for
 | Factor | Why |
 |---|---|
-| **Body conformation** | Sound legs · adequate frame |
+| **Body conformation** | Sound legs, adequate frame |
 | **Teats** | At least 14, evenly spaced |
 | **BCS** | 3 ideal at puberty |
 | **Genetic background** | High maternal traits |
@@ -29640,7 +29640,7 @@ Exposing gilt to **mature boar** triggers:
 2. **Replacement rate** average 49.5% (target <40%)
 3. **#1 cull reason = reproductive disorders**
 4. **Parity at cull**: real 4.4 vs ideal 7-8
-5. **Parity 1-2 = lose money · Parity 4+ = profit**
+5. **Parity 1-2 = lose money, Parity 4+ = profit**
 6. **28% of sows never profitable** (Parity 0-1)
 7. **EU banned gestation crates 2013**
 8. **Boar effect** triggers + synchronizes estrus
@@ -29651,7 +29651,7 @@ Exposing gilt to **mature boar** triggers:
 13. **Pre-breed parvovirus mandatory**
 14. **Flushing pre-AI** boosts ovulation
 
-> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw) · 4 Reproductive problems (ABb7TdP98Zc) · 7.1 AI (0vUVH0tVcqw) · 7.2 Hormones (AWu12JovU0Q) · 8 Pregnancy (NSULhtJz_Oc)
+> 📚 อ่านควบ: 1 Boar Anatomy (NSY3v4IlXTw), 4 Reproductive problems (ABb7TdP98Zc), 7.1 AI (0vUVH0tVcqw), 7.2 Hormones (AWu12JovU0Q), 8 Pregnancy (NSULhtJz_Oc)
 > 🩻 **Practice tip**: SKIP-first-estrus rule = THE classical exam trap
 > 💡 **Boar effect**: cheapest, most natural fertility booster
 > 🦴 **Modern target**: 30 piglets/sow/year + 2 litters/year`,
@@ -29664,11 +29664,11 @@ Exposing gilt to **mature boar** triggers:
     date: '17 Sep 67',
     durationMin: 60,
     instructor: 'อ.มรกต (CUVET)',
-    examFormat: 'MCQ — AI history Leeuwenhoek discovery · 1:100 boar:sow ratio derivation · External vs On-farm semen pricing · AI advantages · Boar selection criteria ออกบ่อย',
+    examFormat: 'MCQ — AI history Leeuwenhoek discovery, 1:100 boar:sow ratio derivation, External vs On-farm semen pricing, AI advantages, Boar selection criteria ออกบ่อย',
     summary: `# Artificial Insemination in Swine
 
 > 🎯 **The pig industry's transformation tool** — AI changed everything
-> Top exam: **AI history (Leeuwenhoek 1677) · 1:100 ratio derivation · External vs Own semen economics · AI advantages · Boar selection**
+> Top exam: **AI history (Leeuwenhoek 1677), 1:100 ratio derivation, External vs Own semen economics, AI advantages, Boar selection**
 
 ---
 
@@ -29894,7 +29894,7 @@ Exposing gilt to **mature boar** triggers:
 11. **AI timing 24-30 hr** after standing onset
 12. **Two AIs per estrus** = standard for max conception
 
-> 📚 อ่านควบ: 5 Semen collection (3cJC9Ymk1TI) · 7.2 Hormones (AWu12JovU0Q) · 8 Pregnancy (NSULhtJz_Oc)
+> 📚 อ่านควบ: 5 Semen collection (3cJC9Ymk1TI), 7.2 Hormones (AWu12JovU0Q), 8 Pregnancy (NSULhtJz_Oc)
 > 🩻 **Practice tip**: Memorize 1:100 derivation — exam favorite math
 > 💡 **Imported worth it** if farm targets premium markets
 > 🦴 **AI center certification** = quality guarantee`,
@@ -29907,11 +29907,11 @@ Exposing gilt to **mature boar** triggers:
     date: '17 Sep 67',
     durationMin: 52,
     instructor: 'อ.เผด็จ (CUVET)',
-    examFormat: 'MCQ — PG600 (eCG+hCG) for puberty induction · GnRH for estrus synchronization · Prostaglandin parturition induction · Altrenogest for estrus suppression ออกบ่อย',
+    examFormat: 'MCQ — PG600 (eCG+hCG) for puberty induction, GnRH for estrus synchronization, Prostaglandin parturition induction, Altrenogest for estrus suppression ออกบ่อย',
     summary: `# Hormone Usage in Swine Reproduction
 
 > 🎯 **Pharmacological tools to fine-tune reproduction**
-> Top exam: **PG600 (eCG+hCG) puberty induction · GnRH synchronization · Prostaglandin parturition · Altrenogest cycle control**
+> Top exam: **PG600 (eCG+hCG) puberty induction, GnRH synchronization, Prostaglandin parturition, Altrenogest cycle control**
 
 ---
 
@@ -30081,7 +30081,7 @@ Exposing gilt to **mature boar** triggers:
 9. **Day 113 PGF2α** = farrow within 24-30h
 10. **Synchronization** + AI = high efficiency batch farms
 
-> 📚 อ่านควบ: 6 Puberty Gilt (hzJKpe4SLyw) · 7.1 AI (0vUVH0tVcqw) · 8 Pregnancy (NSULhtJz_Oc) · 10 Parturition (Oazp-JWIKhw)
+> 📚 อ่านควบ: 6 Puberty Gilt (hzJKpe4SLyw), 7.1 AI (0vUVH0tVcqw), 8 Pregnancy (NSULhtJz_Oc), 10 Parturition (Oazp-JWIKhw)
 > 🩻 **Practice tip**: PG600 = THE classic pig hormone — memorize uses
 > 💡 **Altrenogest = ALL gilts heat at same time** (great for batches)
 > 🦴 **PGF2α handler safety**: pregnant women ABSOLUTELY no handle`,
@@ -30094,11 +30094,11 @@ Exposing gilt to **mature boar** triggers:
     date: '8 Oct 67',
     durationMin: 122,
     instructor: 'อ.มรกต (CUVET)',
-    examFormat: 'MCQ — 114 day pregnancy (3-3-3 rule) · Maternal recognition Day 11-13 · Pregnancy detection methods · Highly Prolific Sow management · Lactation feed staging ออกบ่อย',
+    examFormat: 'MCQ — 114 day pregnancy (3-3-3 rule), Maternal recognition Day 11-13, Pregnancy detection methods, Highly Prolific Sow management, Lactation feed staging ออกบ่อย',
     summary: `# Pregnancy Development & Detection in Swine
 
 > 🎯 **The full pregnancy story** — from fertilization to near-term
-> Top exam: **3-3-3 rule (114 days) · Maternal Recognition Day 11-13 · 4 detection methods · Hyper-prolific sow trends · Embryonic vs Fetal stages**
+> Top exam: **3-3-3 rule (114 days), Maternal Recognition Day 11-13, 4 detection methods, Hyper-prolific sow trends, Embryonic vs Fetal stages**
 
 ---
 
@@ -30125,9 +30125,9 @@ Exposing gilt to **mature boar** triggers:
 ### Three time-based phases
 | Phase | Days | Activity |
 |---|---|---|
-| **Phase 1: Pregnancy detection (4 wks)** | Day 0-30 | Maternal recognition · embryo migration · implantation · early development |
-| **Phase 2: Fetal growth (8 wks)** | Day 30-90 | Embryo → fetus · organ development · ossification |
-| **Phase 3: Lactogenesis prep (last weeks)** | Day 90-114 | Mammary development · last fetal growth · prep for parturition |
+| **Phase 1: Pregnancy detection (4 wks)** | Day 0-30 | Maternal recognition, embryo migration, implantation, early development |
+| **Phase 2: Fetal growth (8 wks)** | Day 30-90 | Embryo → fetus, organ development, ossification |
+| **Phase 3: Lactogenesis prep (last weeks)** | Day 90-114 | Mammary development, last fetal growth, prep for parturition |
 
 ---
 
@@ -30336,7 +30336,7 @@ Exposing gilt to **mature boar** triggers:
 13. **Pseudopregnancy** = false signs, treatable with PGF2α
 14. **FSI ≤6 days** = excellent
 
-> 📚 อ่านควบ: 6 Puberty Gilt (hzJKpe4SLyw) · 7.1 AI (0vUVH0tVcqw) · 9 Pregnancy failure (pcytvk49Yc8) · 10 Parturition (Oazp-JWIKhw)
+> 📚 อ่านควบ: 6 Puberty Gilt (hzJKpe4SLyw), 7.1 AI (0vUVH0tVcqw), 9 Pregnancy failure (pcytvk49Yc8), 10 Parturition (Oazp-JWIKhw)
 > 🩻 **Practice tip**: Memorize 3-3-3 = THE classical answer
 > 💡 **Maternal recognition Day 11-13** = where most pregnancies fail
 > 🦴 **Modern target**: 18+ piglets per litter routine`,
@@ -30349,11 +30349,11 @@ Exposing gilt to **mature boar** triggers:
     date: '15 Oct 67',
     durationMin: 120,
     instructor: 'อ.มรกต (CUVET)',
-    examFormat: 'MCQ — Regular vs Irregular Return · Embryonic vs Fetal stages · Day 35 ossification cutoff · Abortion vs Stillbirth · Mummification body length aging ออกบ่อย',
+    examFormat: 'MCQ — Regular vs Irregular Return, Embryonic vs Fetal stages, Day 35 ossification cutoff, Abortion vs Stillbirth, Mummification body length aging ออกบ่อย',
     summary: `# Pregnancy Failure in Swine
 
 > 🎯 **The dark-side counterpart** — when 114-day pregnancy fails
-> Top exam: **Regular vs Irregular Return rule (Day 11) · Embryonic vs Fetal cutoff (Day 35) · Abortion vs Stillbirth · Mummy aging · 6 failure mechanisms**
+> Top exam: **Regular vs Irregular Return rule (Day 11), Embryonic vs Fetal cutoff (Day 35), Abortion vs Stillbirth, Mummy aging, 6 failure mechanisms**
 
 ---
 
@@ -30461,10 +30461,10 @@ Exposing gilt to **mature boar** triggers:
 ### Common causes
 | Type | Examples |
 |---|---|
-| **Infectious** | Parvovirus · Lepto · PRRS · Brucella |
-| **Mycotoxin** | Zearalenone · Aflatoxin |
-| **Stress** | Heat stress · transport · disease |
-| **Nutritional** | Severe malnutrition · vitamin deficiency |
+| **Infectious** | Parvovirus, Lepto, PRRS, Brucella |
+| **Mycotoxin** | Zearalenone, Aflatoxin |
+| **Stress** | Heat stress, transport, disease |
+| **Nutritional** | Severe malnutrition, vitamin deficiency |
 
 > ⭐ **Mass abortion** in a herd = INFECTIOUS until proven otherwise
 
@@ -30517,7 +30517,7 @@ Exposing gilt to **mature boar** triggers:
 ### Causes
 | Type | Examples |
 |---|---|
-| **Asphyxia** | Long birth · Birth canal compression |
+| **Asphyxia** | Long birth, Birth canal compression |
 | **Cord injury** | Twisted, snapped umbilicus |
 | **Infectious** | Lepto, PRRS at term |
 | **Nutritional** | Calcium deficiency at parturition |
@@ -30603,7 +30603,7 @@ Exposing gilt to **mature boar** triggers:
 13. **PRRS = late abortion + weak piglets**
 14. **PRRS, Lepto, Brucella, Parvo, Erysipelas** = top 5 abortion causes
 
-> 📚 อ่านควบ: 7.2 Hormones (AWu12JovU0Q) · 8 Pregnancy (NSULhtJz_Oc) · 10 Parturition (Oazp-JWIKhw) · 11 Female reproductive disorders (wCl4h_EhFuU) · 12.2 Reproductive diseases (i8D7FUq6nLM)
+> 📚 อ่านควบ: 7.2 Hormones (AWu12JovU0Q), 8 Pregnancy (NSULhtJz_Oc), 10 Parturition (Oazp-JWIKhw), 11 Female reproductive disorders (wCl4h_EhFuU), 12.2 Reproductive diseases (i8D7FUq6nLM)
 > 🩻 **Practice tip**: Memorize Day 11 + Day 35 = the two timeline cutoffs
 > 💡 **Mummy aging** = useful clinical skill
 > 🦴 **Modern reality**: most pregnancy failure preventable with vaccines + biosecurity`,
@@ -30616,11 +30616,11 @@ Exposing gilt to **mature boar** triggers:
     date: '22 Oct 67',
     durationMin: 131,
     instructor: 'อ.ออย (CUVET)',
-    examFormat: 'MCQ — 3 stages of parturition · Hormonal trigger · Farrowing duration · Dystocia management · Manual exam technique · Signs of impending farrowing ออกบ่อย',
+    examFormat: 'MCQ — 3 stages of parturition, Hormonal trigger, Farrowing duration, Dystocia management, Manual exam technique, Signs of impending farrowing ออกบ่อย',
     summary: `# Parturition (Farrowing) in Swine
 
 > 🎯 **The pregnancy finale** — managing successful birth
-> Top exam: **3 stages parturition · Hormonal cascade · Normal duration · Dystocia management · Pre-farrowing signs · Manual exam (assists technique)**
+> Top exam: **3 stages parturition, Hormonal cascade, Normal duration, Dystocia management, Pre-farrowing signs, Manual exam (assists technique)**
 
 ---
 
@@ -30710,8 +30710,8 @@ Exposing gilt to **mature boar** triggers:
 ### Classification
 | Type | Cause |
 |---|---|
-| **Maternal (sow-side)** | Uterine inertia · pelvic narrowing · obesity |
-| **Fetal (piglet-side)** | Oversized · malposition · twins lodged |
+| **Maternal (sow-side)** | Uterine inertia, pelvic narrowing, obesity |
+| **Fetal (piglet-side)** | Oversized, malposition, twins lodged |
 
 ### When to intervene? ⭐
 **Rule**: 1+ hour without progress = check
@@ -30836,7 +30836,7 @@ Exposing gilt to **mature boar** triggers:
 
 1. **Fetal cortisol triggers** parturition cascade
 2. **Progesterone DROP + Estrogen UP** = key
-3. **3 stages**: Dilation · Expulsion · Placental
+3. **3 stages**: Dilation, Expulsion, Placental
 4. **Stage 2 expulsion ~3-5 hours** total
 5. **15-30 min between piglets** normal
 6. **>8 hours total = consider intervention**
@@ -30849,7 +30849,7 @@ Exposing gilt to **mature boar** triggers:
 13. **Sow temp 18-22°C** (cooler)
 14. **Calcium supp** = late gestation prevention
 
-> 📚 อ่านควบ: 7.2 Hormones (AWu12JovU0Q) · 8 Pregnancy (NSULhtJz_Oc) · 9 Pregnancy failure (pcytvk49Yc8) · 14 Postpartum complications (yxrcr-gg8sQ)
+> 📚 อ่านควบ: 7.2 Hormones (AWu12JovU0Q), 8 Pregnancy (NSULhtJz_Oc), 9 Pregnancy failure (pcytvk49Yc8), 14 Postpartum complications (yxrcr-gg8sQ)
 > 🩻 **Practice tip**: Year 5 + 6 will practice manual exam — start with relaxed sow
 > 💡 **Crushing prevention** = the biggest piglet survival win
 > 🦴 **Modern induction**: Day 113 PGF2α + supervise = max live births`,
@@ -30862,11 +30862,11 @@ Exposing gilt to **mature boar** triggers:
     date: '29 Oct 67',
     durationMin: 122,
     instructor: 'อ.มรกต (CUVET)',
-    examFormat: 'MCQ — Cull rate 49.5% · 3 main reproductive disorders · Single vs Multiple ovarian cysts · Anestrus vs Silent estrus · Delayed ovulation · Sow teat memory ออกบ่อย',
+    examFormat: 'MCQ — Cull rate 49.5%, 3 main reproductive disorders, Single vs Multiple ovarian cysts, Anestrus vs Silent estrus, Delayed ovulation, Sow teat memory ออกบ่อย',
     summary: `# Female Reproductive Disorders in Swine I
 
 > 🎯 **The dark side of sow productivity** — what causes 49.5% cull rate
-> Top exam: **Cull rate 49.5% Sweden/Thai · 3 disorders · Cystic ovary (Single vs Multiple) · Anestrus vs Silent · Delayed ovulation · Teat memory phenomenon**
+> Top exam: **Cull rate 49.5% Sweden/Thai, 3 disorders, Cystic ovary (Single vs Multiple), Anestrus vs Silent, Delayed ovulation, Teat memory phenomenon**
 
 ---
 
@@ -31128,7 +31128,7 @@ Exposing gilt to **mature boar** triggers:
 13. **Piglets memorize teats by Day 3** (Tea memory)
 14. **Lost teat = lost piglet** (no swapping)
 
-> 📚 อ่านควบ: 4 Reproductive problems boar (ABb7TdP98Zc) · 9 Pregnancy failure (pcytvk49Yc8) · 14 Postpartum (yxrcr-gg8sQ)
+> 📚 อ่านควบ: 4 Reproductive problems boar (ABb7TdP98Zc), 9 Pregnancy failure (pcytvk49Yc8), 14 Postpartum (yxrcr-gg8sQ)
 > 🩻 **Practice tip**: Differentiate Anestrus vs Silent — different treatments!
 > 💡 **Mycotoxin**: causes cysts, infertility, abortion — feed quality critical
 > 🦴 **Modern target**: Reduce repro disorders to <20% of culls`,
@@ -31141,11 +31141,11 @@ Exposing gilt to **mature boar** triggers:
     date: '5 Nov 67',
     durationMin: 53,
     instructor: 'อ.สุมิตร (Anesthesiology)',
-    examFormat: 'MCQ — PSS (Porcine Stress Syndrome) · Halothane gene · Restraint difficulty · ET intubation challenges · Anatomical airway issues · Anesthetic protocols ออกบ่อย',
+    examFormat: 'MCQ — PSS (Porcine Stress Syndrome), Halothane gene, Restraint difficulty, ET intubation challenges, Anatomical airway issues, Anesthetic protocols ออกบ่อย',
     summary: `# Swine Anesthesia
 
 > 🎯 **Why swine anesthesia is challenging** — anatomy, behavior, and PSS make pigs uniquely tricky
-> Top exam: **PSS (Halothane gene) · Anatomical airway issues · Pre-anesthetic protocols · IV access challenges · Common anesthetic combos**
+> Top exam: **PSS (Halothane gene), Anatomical airway issues, Pre-anesthetic protocols, IV access challenges, Common anesthetic combos**
 
 ---
 
@@ -31388,7 +31388,7 @@ Exposing gilt to **mature boar** triggers:
 11. **Pre-op fast 12h food, 4h water**
 12. **Multimodal pain** = pre-emptive + post-op continuation
 
-> 📚 อ่านควบ: 12.2 Reproductive disease (i8D7FUq6nLM) · 13 Reproductive surgery (frFnnBQiyug) · 14 Postpartum complications (yxrcr-gg8sQ)
+> 📚 อ่านควบ: 12.2 Reproductive disease (i8D7FUq6nLM), 13 Reproductive surgery (frFnnBQiyug), 14 Postpartum complications (yxrcr-gg8sQ)
 > 🩻 **Practice tip**: Pre-medicate adequately — pigs WILL fight you
 > 💡 **PSS reality**: less common now thanks to genetic testing
 > 🦴 **Modern protocol**: Azaperone-Tiletamine combo for routine cases`,
@@ -31401,11 +31401,11 @@ Exposing gilt to **mature boar** triggers:
     date: '5 Nov 67',
     durationMin: 51,
     instructor: 'อ.มรกต / อ.เผด็จ (CUVET)',
-    examFormat: 'MCQ — Brucella suis · Leptospira pomona · PRRS · PED · Erysipelas reproductive forms · Aujeszky disease ออกบ่อย',
+    examFormat: 'MCQ — Brucella suis, Leptospira pomona, PRRS, PED, Erysipelas reproductive forms, Aujeszky disease ออกบ่อย',
     summary: `# Reproductive Diseases in Swine I
 
 > 🎯 **Specific pathogens** affecting reproduction
-> Top exam: **Brucella suis · Leptospira · PRRS · PED · Erysipelas · Aujeszky · Disease-specific signs vs prevention**
+> Top exam: **Brucella suis, Leptospira, PRRS, PED, Erysipelas, Aujeszky, Disease-specific signs vs prevention**
 
 ---
 
@@ -31420,8 +31420,8 @@ Exposing gilt to **mature boar** triggers:
 ### Clinical signs in pigs
 | Sex | Signs |
 |---|---|
-| **Boar** | Orchitis · epididymitis · scrotal swelling |
-| **Sow** | Abortion (any time) · mummification · stillbirth |
+| **Boar** | Orchitis, epididymitis, scrotal swelling |
+| **Sow** | Abortion (any time), mummification, stillbirth |
 | Both | Lymph node swelling (esp. inguinal!) |
 
 ### Diagnosis
@@ -31643,7 +31643,7 @@ Exposing gilt to **mature boar** triggers:
 13. **Mummification cluster** = think Parvo
 14. **Vaccination + biosecurity** = best prevention
 
-> 📚 อ่านควบ: 9 Pregnancy failure (pcytvk49Yc8) · 11 Female disorders I (wCl4h_EhFuU) · 14 Postpartum + Diseases II (yxrcr-gg8sQ)
+> 📚 อ่านควบ: 9 Pregnancy failure (pcytvk49Yc8), 11 Female disorders I (wCl4h_EhFuU), 14 Postpartum + Diseases II (yxrcr-gg8sQ)
 > 🩻 **Practice tip**: Submit fetus tissue + maternal serum for ALL abortions
 > 💡 **Brucella in boar** = inguinal LN swell + orchitis = CULL
 > 🦴 **Modern reality**: PRRS dominates daily clinical concerns`,
@@ -31656,11 +31656,11 @@ Exposing gilt to **mature boar** triggers:
     date: '12 Nov 67',
     durationMin: 106,
     instructor: 'อ.มรกต (CUVET)',
-    examFormat: 'MCQ — Castration · Vasectomy · Cryptorchidectomy · Hernia repair · Persistent frenulum · Caesarean section · Vaginal/Cervical prolapse · Tiletamine-zolazepam (Zoletil) protocol · Lumbosacral epidural ออกบ่อย',
+    examFormat: 'MCQ — Castration, Vasectomy, Cryptorchidectomy, Hernia repair, Persistent frenulum, Caesarean section, Vaginal/Cervical prolapse, Tiletamine-zolazepam (Zoletil) protocol, Lumbosacral epidural ออกบ่อย',
     summary: `# Reproductive Surgery in Pigs
 
 > 🎯 **The hands-on practical lecture** — Year 5 students will perform these
-> Top exam: **Boar surgeries (castration, vasectomy, cryptorchidectomy, persistent frenulum) · Sow surgeries (C-section, prolapse) · Anesthetic protocol · Lumbosacral epidural**
+> Top exam: **Boar surgeries (castration, vasectomy, cryptorchidectomy, persistent frenulum), Sow surgeries (C-section, prolapse), Anesthetic protocol, Lumbosacral epidural**
 
 ---
 
@@ -31696,7 +31696,7 @@ Exposing gilt to **mature boar** triggers:
 | Route | Dose | Use |
 |---|---|---|
 | **IM (intramuscular)** | **6 mg/kg** | Direct field anesthesia |
-| **IV (ear vein)** | **3 mg/kg** | If sow already sedated · max 3 doses (9 mg/kg total) |
+| **IV (ear vein)** | **3 mg/kg** | If sow already sedated, max 3 doses (9 mg/kg total) |
 
 ### Duration
 - ~15 minutes per IV dose
@@ -31708,7 +31708,7 @@ Exposing gilt to **mature boar** triggers:
 - Expensive BUT only option in Thailand
 - Procedures earn 10,000+ baht so ROI strong
 
-> ⭐ **Sernyl** = old "blue drug" pig sedative · gone from market
+> ⭐ **Sernyl** = old "blue drug" pig sedative, gone from market
 
 ---
 
@@ -31963,7 +31963,7 @@ Exposing gilt to **mature boar** triggers:
 13. **All surgery sites infection risk** — antibiotics mandatory
 14. **Post-op recovery alone** to prevent chewing
 
-> 📚 อ่านควบ: 4 Reproductive problems boar (ABb7TdP98Zc) · 12.1 Anesthesia (Gn6IhMqcNA4) · 14 Postpartum complications (yxrcr-gg8sQ)
+> 📚 อ่านควบ: 4 Reproductive problems boar (ABb7TdP98Zc), 12.1 Anesthesia (Gn6IhMqcNA4), 14 Postpartum complications (yxrcr-gg8sQ)
 > 🩻 **Practice tip**: Year 5 will practice these — start with castration before complex
 > 💡 **Lumbosacral epidural** = key swine skill differing from cattle
 > 🦴 **Modern surgical reality**: Zoletil + epidural = combination win`,
@@ -31976,11 +31976,11 @@ Exposing gilt to **mature boar** triggers:
     date: '19 Nov 67',
     durationMin: 116,
     instructor: 'อ.มรกต (CUVET)',
-    examFormat: 'MCQ — Parvovirus titer 512 cutoff · PCR detection window · PRRS apoptosis at implantation · Aujeszky G1 marker · Post-partum complications · MMA endotoxemia ออกบ่อย',
+    examFormat: 'MCQ — Parvovirus titer 512 cutoff, PCR detection window, PRRS apoptosis at implantation, Aujeszky G1 marker, Post-partum complications, MMA endotoxemia ออกบ่อย',
     summary: `# Reproductive Diseases II + Post-partum Complications
 
 > 🎯 **Course finale** — disease deep-dives + post-farrow management
-> Top exam: **Parvovirus titer 512 cutoff · PRRS apoptosis mechanism · PCR window · Aujeszky G1 marker (DIVA) · Post-partum complications · MMA endotoxemia**
+> Top exam: **Parvovirus titer 512 cutoff, PRRS apoptosis mechanism, PCR window, Aujeszky G1 marker (DIVA), Post-partum complications, MMA endotoxemia**
 
 ---
 
@@ -31989,8 +31989,8 @@ Exposing gilt to **mature boar** triggers:
 ### Antibody titer interpretation
 | Titer | Meaning |
 |---|---|
-| **<32** | Suspect, no protection · vaccinate! |
-| **32-256** | Cannot distinguish vaccine vs natural infection · ambiguous |
+| **<32** | Suspect, no protection, vaccinate! |
+| **32-256** | Cannot distinguish vaccine vs natural infection, ambiguous |
 | **>512** ⭐ | **Natural infection** (vaccine alone won't reach this!) |
 
 ### Clinical use
@@ -32221,7 +32221,7 @@ Survey high titer = MUST be field exposure
 13. **Crushing** = #1 piglet death cause
 14. **Submit fetus + placenta + maternal serum** for diagnosis
 
-> 📚 อ่านควบ: 9 Pregnancy failure (pcytvk49Yc8) · 11 Female disorders I (wCl4h_EhFuU) · 12.2 Diseases I (i8D7FUq6nLM) · 13 Surgery (frFnnBQiyug)
+> 📚 อ่านควบ: 9 Pregnancy failure (pcytvk49Yc8), 11 Female disorders I (wCl4h_EhFuU), 12.2 Diseases I (i8D7FUq6nLM), 13 Surgery (frFnnBQiyug)
 > 🩻 **Practice tip**: Memorize Parvo cutoff 512 + PCR window 10 days
 > 💡 **PRRS apoptosis** = why fetus looks normal
 > 🦴 **Aujeszky DIVA** = THE marker vaccine concept`,
@@ -32233,20 +32233,20 @@ Survey high titer = MUST be field exposure
     subject: 'vet-imaging',
     date: '8 Aug 67',
     durationMin: 63,
-    instructor: 'อ.แนน · อ.ชุติมนต์ · อ.สิรินัน · อ.อรพันธ์ · อ.ธีรพล · อ.เอกพล',
-    examFormat: 'MCQ — 6 imaging modalities · X-ray vs Gamma vs Ultrasound · 2D vs 3D imaging · Terminology by modality (opacity vs attenuation vs echogenicity) ออกบ่อย',
+    instructor: 'อ.แนน, อ.ชุติมนต์, อ.สิรินัน, อ.อรพันธ์, อ.ธีรพล, อ.เอกพล',
+    examFormat: 'MCQ — 6 imaging modalities, X-ray vs Gamma vs Ultrasound, 2D vs 3D imaging, Terminology by modality (opacity vs attenuation vs echogenicity) ออกบ่อย',
     summary: `# Introduction to Veterinary Diagnostic Imaging
 
 > 🎯 **Foundation for the entire course** — modalities, terminology, selection criteria
-> Top exam: **6 imaging modalities · Energy types · 2D vs 3D · Modality-specific terminology · Selection factors**
+> Top exam: **6 imaging modalities, Energy types, 2D vs 3D, Modality-specific terminology, Selection factors**
 
 ---
 
 ## 1. Course Structure ⭐ (15 weeks)
 
 ### Format
-- **Lecture**: 1 credit · 16 hours
-- **Lab**: 1 credit · 24 hours (3 hours × 8 sessions)
+- **Lecture**: 1 credit, 16 hours
+- **Lab**: 1 credit, 24 hours (3 hours × 8 sessions)
 - **Mid-exam**: Topics 1-8 (Sept 26)
 - **Final**: Topics 9-16
 
@@ -32500,7 +32500,7 @@ Survey high titer = MUST be field exposure
 11. **US** = most-used in primary practice
 12. **CT/MRI** = specialty referral
 
-> 📚 อ่านควบ: 1.2 Film and Digital Radio (gmultIaMHq4) · 1.3 Safety + Special Technique (_IVm9RZlyIg) · 2 Positioning (vbtkOXh1XPc)
+> 📚 อ่านควบ: 1.2 Film and Digital Radio (gmultIaMHq4), 1.3 Safety + Special Technique (_IVm9RZlyIg), 2 Positioning (vbtkOXh1XPc)
 > 🩻 **Practice tip**: Memorize 5 X-ray densities — they're EVERYTHING for X-ray reading
 > 💡 **Modality terminology** = memorize the chart!
 > 🦴 **Modern reality**: Most clinics have only X-ray + ultrasound`,
@@ -32513,11 +32513,11 @@ Survey high titer = MUST be field exposure
     date: '8 Aug 67',
     durationMin: 67,
     instructor: 'อ.ชุติมนต์ (CUVET)',
-    examFormat: 'MCQ — Film structure (4 layers) · Silver halide chemistry · Latent image · Intensifying screens · Film vs Digital · Storage conditions · Dark room · Cassette types ออกบ่อย',
+    examFormat: 'MCQ — Film structure (4 layers), Silver halide chemistry, Latent image, Intensifying screens, Film vs Digital, Storage conditions, Dark room, Cassette types ออกบ่อย',
     summary: `# Film and Digital Radiography
 
 > 🎯 **The technical foundation** — how X-ray images are physically formed
-> Top exam: **Film 4 layers · Silver halide → metallic silver chemistry · Latent image · Screen vs Non-screen · Storage conditions · Dark room red light**
+> Top exam: **Film 4 layers, Silver halide → metallic silver chemistry, Latent image, Screen vs Non-screen, Storage conditions, Dark room red light**
 
 ---
 
@@ -32771,11 +32771,11 @@ Survey high titer = MUST be field exposure
 9. **Storage 20°C, 30-50% humidity**
 10. **Too humid = gelatin swells**
 11. **Too dry = static electricity artifacts**
-12. **Digital DR** = direct flat panel · CR = phosphor plate
+12. **Digital DR** = direct flat panel, CR = phosphor plate
 13. **DICOM** = standard medical image format
 14. **Digital advantages**: instant + lower dose + easier storage
 
-> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 1.3 Safety (_IVm9RZlyIg) · 2 Positioning (vbtkOXh1XPc)
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc), 1.3 Safety (_IVm9RZlyIg), 2 Positioning (vbtkOXh1XPc)
 > 🩻 **Practice tip**: Memorize 3-step chemistry — exam classic
 > 💡 **Latent image** = the invisible step often tested
 > 🦴 **Modern reality**: Digital almost everywhere now in major facilities`,
@@ -32788,11 +32788,11 @@ Survey high titer = MUST be field exposure
     date: '8 Aug 67',
     durationMin: 116,
     instructor: 'อ.อรพันธ์ (CUVET)',
-    examFormat: 'MCQ — 4 dose types · Deterministic vs Stochastic effects · MPD 50 mSv/year · Pregnant fetus risk · Time/Distance/Shielding (TDS) · Contrast media · Special techniques ออกบ่อย',
+    examFormat: 'MCQ — 4 dose types, Deterministic vs Stochastic effects, MPD 50 mSv/year, Pregnant fetus risk, Time/Distance/Shielding (TDS), Contrast media, Special techniques ออกบ่อย',
     summary: `# Radiation Safety + Special Techniques
 
 > 🎯 **The safety lecture** — protect yourself, the patient, the public
-> Top exam: **4 dose types · Deterministic vs Stochastic · MPD 50 mSv · Pregnancy risk · TDS principle · Contrast media types**
+> Top exam: **4 dose types, Deterministic vs Stochastic, MPD 50 mSv, Pregnancy risk, TDS principle, Contrast media types**
 
 ---
 
@@ -33065,7 +33065,7 @@ Survey high titer = MUST be field exposure
 13. **Barium sulfate** GI tract (insoluble white)
 14. **Iodinated contrast** for IV/urinary (water-soluble)
 
-> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 1.2 Film and digital (gmultIaMHq4) · 2 Positioning (vbtkOXh1XPc)
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc), 1.2 Film and digital (gmultIaMHq4), 2 Positioning (vbtkOXh1XPc)
 > 🩻 **Practice tip**: ALWAYS wear PPE, even for "quick" X-ray
 > 💡 **TDS principle** = THE radiation safety mantra
 > 🦴 **Pregnancy + radiation** = NEVER mix unless absolutely essential`,
@@ -33078,11 +33078,11 @@ Survey high titer = MUST be field exposure
     date: '15 Aug 67',
     durationMin: 154,
     instructor: 'อ.อรพันธ์ + อ.ชุติมนต์ (CUVET)',
-    examFormat: 'MCQ — Standard 2-view positioning · Lateral vs Cd-Cr · Inspiration vs Expiration · Centering · Universal positioning · Image quality factors · Common artifacts ออกบ่อย',
+    examFormat: 'MCQ — Standard 2-view positioning, Lateral vs Cd-Cr, Inspiration vs Expiration, Centering, Universal positioning, Image quality factors, Common artifacts ออกบ่อย',
     summary: `# Radiographic Positioning + Quality Artifact
 
 > 🎯 **Practical positioning lecture** — universal standards for X-ray reading
-> Top exam: **Standard 2-view rule · Body region positioning · Inspiratory phase · Centering · Common artifacts · Image quality factors (kVp, mA, time, distance)**
+> Top exam: **Standard 2-view rule, Body region positioning, Inspiratory phase, Centering, Common artifacts, Image quality factors (kVp, mA, time, distance)**
 
 ---
 
@@ -33361,16 +33361,16 @@ Survey high titer = MUST be field exposure
 5. **Inspiration phase** for thorax
 6. **Expiration phase** for abdomen
 7. **Sternum + spine aligned** (no rotation)
-8. **kVp** = penetration · **mA** = quantity · **Time** · **Distance**
+8. **kVp** = penetration, **mA** = quantity, **Time**, **Distance**
 9. **Inverse square law** for distance
-10. **Underexposed = too white** · **Overexposed = too dark**
+10. **Underexposed = too white**, **Overexposed = too dark**
 11. **Motion artifact** = blurry, fix with faster time
 12. **Metal artifacts** bright white (remove items first)
 13. **Centering** matches anatomy of interest
 14. **Sedation** if painful/dangerous/precise positioning needed
 
-> 📚 อ่านควบ: 1.1-1.3 Introductory (9BKTe9spGGc, gmultIaMHq4, _IVm9RZlyIg) · 3 MSK Interpretation (3NNhQwnyNqY) · 4.2 Abdominal Lab (5RXoan8azRs) · 5.2 Thoracic Lab (yc88x669lIA)
-> 🩻 **Practice tip**: Year 5 lab will practice positioning · master 2-view rule
+> 📚 อ่านควบ: 1.1-1.3 Introductory (9BKTe9spGGc, gmultIaMHq4, _IVm9RZlyIg), 3 MSK Interpretation (3NNhQwnyNqY), 4.2 Abdominal Lab (5RXoan8azRs), 5.2 Thoracic Lab (yc88x669lIA)
+> 🩻 **Practice tip**: Year 5 lab will practice positioning, master 2-view rule
 > 💡 **Inspiration thorax, Expiration abdomen** — easy to mix up!
 > 🦴 **Universal positioning** = key to inter-vet communication`,
   },
@@ -33382,11 +33382,11 @@ Survey high titer = MUST be field exposure
     date: '22 Aug 67',
     durationMin: 224,
     instructor: 'อ.ชุติมนต์ + อ.อรพันธ์ + อ.สิรินัน',
-    examFormat: 'MCQ — 5 radiographic densities · Magnification + Distortion · Volumetric perception · Standard reading approach (location/extent/severity/etc.) · MSK lesion patterns · Bone reactions ออกบ่อย',
+    examFormat: 'MCQ — 5 radiographic densities, Magnification + Distortion, Volumetric perception, Standard reading approach (location/extent/severity/etc.), MSK lesion patterns, Bone reactions ออกบ่อย',
     summary: `# Radio Interpretation Principles + MSK Lab
 
 > 🎯 **The systematic reading approach** + musculoskeletal interpretation
-> Top exam: **5 densities · Magnification/Distortion · Standard report writing · MSK lesion descriptors (location/distribution/etc.) · Bone reactions (lytic/blastic/mixed)**
+> Top exam: **5 densities, Magnification/Distortion, Standard report writing, MSK lesion descriptors (location/distribution/etc.), Bone reactions (lytic/blastic/mixed)**
 
 ---
 
@@ -33472,14 +33472,14 @@ Survey high titer = MUST be field exposure
 
 ### Description elements (memorize order!)
 1. **Location** — Where is the lesion?
-2. **Distribution** — Focal · multifocal · diffuse?
-3. **Number** — Single · multiple?
+2. **Distribution** — Focal, multifocal, diffuse?
+3. **Number** — Single, multiple?
 4. **Size** — How large?
-5. **Shape** — Round · irregular · linear?
-6. **Margin** — Sharp · ill-defined · smooth?
-7. **Internal structure** — Homogeneous · heterogeneous?
-8. **Effect on surrounding** — Mass effect · displacement?
-9. **Severity** — Mild · moderate · severe?
+5. **Shape** — Round, irregular, linear?
+6. **Margin** — Sharp, ill-defined, smooth?
+7. **Internal structure** — Homogeneous, heterogeneous?
+8. **Effect on surrounding** — Mass effect, displacement?
+9. **Severity** — Mild, moderate, severe?
 
 ### Why systematic
 - Don't miss findings
@@ -33658,7 +33658,7 @@ Survey high titer = MUST be field exposure
 13. **Stress views** for ligament tears
 14. **Always describe before diagnosing**
 
-> 📚 อ่านควบ: 1.1-1.3 (9BKTe9spGGc, gmultIaMHq4, _IVm9RZlyIg) · 2 Positioning (vbtkOXh1XPc) · 4.2 Abdominal (5RXoan8azRs) · 5.2 Thoracic (yc88x669lIA)
+> 📚 อ่านควบ: 1.1-1.3 (9BKTe9spGGc, gmultIaMHq4, _IVm9RZlyIg), 2 Positioning (vbtkOXh1XPc), 4.2 Abdominal (5RXoan8azRs), 5.2 Thoracic (yc88x669lIA)
 > 🩻 **Practice tip**: Use the systematic 9-element description on EVERY image
 > 💡 **Bone reaction** = Lytic dark vs Blastic bright vs Mixed both
 > 🦴 **Year 5 lab**: practice MSK reading until pattern recognition is automatic`,
@@ -33671,11 +33671,11 @@ Survey high titer = MUST be field exposure
     date: '29 Aug 67',
     durationMin: 71,
     instructor: 'อ.ชุติมนต์ (CUVET)',
-    examFormat: 'MCQ — US frequency MHz · Wave properties · Acoustic impedance · Cannot pass air/bone · Echocardiography Gold Standard · 4 echogenicity levels (anechoic/hypo/iso/hyper) ออกบ่อย',
+    examFormat: 'MCQ — US frequency MHz, Wave properties, Acoustic impedance, Cannot pass air/bone, Echocardiography Gold Standard, 4 echogenicity levels (anechoic/hypo/iso/hyper) ออกบ่อย',
     summary: `# Basic Ultrasound
 
 > 🎯 **The non-radiation imaging tool** — real-time, motion, multi-organ
-> Top exam: **Sound waves vs X-ray · Frequency MHz range · Cannot penetrate air or bone · 4 echogenicity terms · Indications · Gold standard for heart**
+> Top exam: **Sound waves vs X-ray, Frequency MHz range, Cannot penetrate air or bone, 4 echogenicity terms, Indications, Gold standard for heart**
 
 ---
 
@@ -33923,7 +33923,7 @@ Survey high titer = MUST be field exposure
 13. **Operator-dependent** skill
 14. **Coupling gel** mandatory (air = blocker)
 
-> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 5.1 Clinical Ultrasound (FYjDUCYr0Eo) · 4.2 Abdominal Lab (5RXoan8azRs)
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc), 5.1 Clinical Ultrasound (FYjDUCYr0Eo), 4.2 Abdominal Lab (5RXoan8azRs)
 > 🩻 **Practice tip**: Memorize echogenicity terms — exam classics
 > 💡 **Air + bone = US blockers** — fundamental rule
 > 🦴 **Frequency trade-off**: high res vs deep penetration`,
@@ -33936,11 +33936,11 @@ Survey high titer = MUST be field exposure
     date: '29 Aug 67',
     durationMin: 178,
     instructor: 'อ.ชุติมนต์ (CUVET)',
-    examFormat: 'MCQ — Abdominal positioning · Cupula to greater trochanter coverage · 50-90 kVp short-scale · Liver/spleen/kidney/bladder/uterus interpretation · Common abdominal pathologies ออกบ่อย',
+    examFormat: 'MCQ — Abdominal positioning, Cupula to greater trochanter coverage, 50-90 kVp short-scale, Liver/spleen/kidney/bladder/uterus interpretation, Common abdominal pathologies ออกบ่อย',
     summary: `# Lab: Abdominal Radiograph Interpretation
 
 > 🎯 **The hands-on abdominal reading** — practice on actual films
-> Top exam: **Abdominal positioning · Coverage rules · 5 organs interpretation · Common pathologies · 50-90 kVp short-scale**
+> Top exam: **Abdominal positioning, Coverage rules, 5 organs interpretation, Common pathologies, 50-90 kVp short-scale**
 
 ---
 
@@ -34237,8 +34237,8 @@ Survey high titer = MUST be field exposure
 13. **Megacolon** = severe colon distension (mostly cats)
 14. **Ground glass + lost detail** = abdominal effusion
 
-> 📚 อ่านควบ: 2 Positioning (vbtkOXh1XPc) · 3 Interpretation (3NNhQwnyNqY) · 5.1 Clinical US (FYjDUCYr0Eo) · 5.2 Thoracic (yc88x669lIA)
-> 🩻 **Practice tip**: Year 5 lab will have many abdominal cases · master systematic approach
+> 📚 อ่านควบ: 2 Positioning (vbtkOXh1XPc), 3 Interpretation (3NNhQwnyNqY), 5.1 Clinical US (FYjDUCYr0Eo), 5.2 Thoracic (yc88x669lIA)
+> 🩻 **Practice tip**: Year 5 lab will have many abdominal cases, master systematic approach
 > 💡 **GDV** = emergency life-saving recognition
 > 🦴 **Coverage rule**: never crop important areas`,
   },
@@ -34250,11 +34250,11 @@ Survey high titer = MUST be field exposure
     date: '5 Sep 67',
     durationMin: 67,
     instructor: 'อ.ชุติมนต์ (CUVET)',
-    examFormat: 'MCQ — Indications · Patient prep · Probe selection · Systematic abdominal exam · Liver/spleen/kidney/bladder/uterus protocols · FAST scan · Common diseases ออกบ่อย',
+    examFormat: 'MCQ — Indications, Patient prep, Probe selection, Systematic abdominal exam, Liver/spleen/kidney/bladder/uterus protocols, FAST scan, Common diseases ออกบ่อย',
     summary: `# Clinical Ultrasound
 
 > 🎯 **The practical ultrasound lecture** — when, where, how to use US clinically
-> Top exam: **Indications by system · Hair shaving + gel · Systematic exam · Abdominal protocol · FAST scan emergency · Common findings**
+> Top exam: **Indications by system, Hair shaving + gel, Systematic exam, Abdominal protocol, FAST scan emergency, Common findings**
 
 ---
 
@@ -34526,8 +34526,8 @@ Survey high titer = MUST be field exposure
 13. **Bladder stones** = hyperechoic + shadowing
 14. **HSA spleen** = mass + free fluid (urgent)
 
-> 📚 อ่านควบ: 4.1 Basic US (rTLWWO65Rs8) · 4.2 Abdominal Lab (5RXoan8azRs) · 5.2 Thoracic Lab (yc88x669lIA)
-> 🩻 **Practice tip**: Year 5 will practice US · master systematic abdominal scan
+> 📚 อ่านควบ: 4.1 Basic US (rTLWWO65Rs8), 4.2 Abdominal Lab (5RXoan8azRs), 5.2 Thoracic Lab (yc88x669lIA)
+> 🩻 **Practice tip**: Year 5 will practice US, master systematic abdominal scan
 > 💡 **FAST scan** = life-saver in trauma
 > 🦴 **Cats vs dogs**: cat hepatic lipidosis is hyperechoic liver (classic exam)`,
   },
@@ -34555,21 +34555,21 @@ Survey high titer = MUST be field exposure
 ### Body conformation 3 แบบ
 | Type | ลักษณะ | หัวใจ |
 |------|---------|--------|
-| **Deep chest** | อกลึก (Doberman, Setter) | ดูผอม ในแล lateral · เล็กในนอนหงาย/คว่ำ |
-| **Barrel chest** | อกกว้าง (Bulldog) | กว้าง · มี chondrodystrophy ร่วม |
-| **Cat (block-shape)** | สี่เหลี่ยมคางหมู | uniform · estimate ง่ายกว่าหมา |
+| **Deep chest** | อกลึก (Doberman, Setter) | ดูผอม ในแล lateral, เล็กในนอนหงาย/คว่ำ |
+| **Barrel chest** | อกกว้าง (Bulldog) | กว้าง, มี chondrodystrophy ร่วม |
+| **Cat (block-shape)** | สี่เหลี่ยมคางหมู | uniform, estimate ง่ายกว่าหมา |
 
 ### Symmetry check
-**Lateral** = top of ribs ทั้ง 2 ข้างต้องอยู่ระดับเดียวกัน · ถ้าเอียงด้านใดด้านนึงสูง = rotation
+**Lateral** = top of ribs ทั้ง 2 ข้างต้องอยู่ระดับเดียวกัน, ถ้าเอียงด้านใดด้านนึงสูง = rotation
 - เกิดจากกดบังคับสุนัขดื้อ → หัวใจบิดดูใหญ่หลอกๆ
 - **ห้าม** วัด VHS รูปที่ rotated
 
-**VD/DV** = sternum + dorsal spinous process ต้องทับกันพอดี · DSP เป็นตุ่มสั้นบน vertebra
-- ถ้า DSP โผล่ออกข้าง = rotated · ถ้าทิป DSP หลุดนอก vertebra = rotate มากเกินไป
+**VD/DV** = sternum + dorsal spinous process ต้องทับกันพอดี, DSP เป็นตุ่มสั้นบน vertebra
+- ถ้า DSP โผล่ออกข้าง = rotated, ถ้าทิป DSP หลุดนอก vertebra = rotate มากเกินไป
 
 ### Inspiration check
 - **Lateral**: caudodorsal angle ของปอด expand เกิน T12
-- **VD/DV**: caudolateral angle expand เกิน T10 · cupola เกิน mid-T8
+- **VD/DV**: caudolateral angle expand เกิน T10, cupola เกิน mid-T8
 
 ⚠️ ถ่าย expiration → thoracic volume เล็ก → หัวใจดูใหญ่หลอกๆ + ปอดดูขาวขึ้น
 
@@ -34583,9 +34583,9 @@ Survey high titer = MUST be field exposure
 | **Right lateral** (standard) | หัวใจบิดน้อย | — |
 | **Left lateral** | — | หัวใจ rotated + external contact น้อย |
 | **VD** (นอนหงาย) | symmetry ง่ายกว่า | สัตว์เครียด |
-| **DV** (นอนคว่ำ) | สัตว์ไม่เครียด · ลมเข้าปอดดี · เห็น caudal lung | magnification น้อยกว่า VD |
+| **DV** (นอนคว่ำ) | สัตว์ไม่เครียด, ลมเข้าปอดดี, เห็น caudal lung | magnification น้อยกว่า VD |
 
-⭐ **โรคหัวใจ → DV** (วัดขนาดได้ใกล้เคียง actual size · object ใกล้ film = magnify น้อย)
+⭐ **โรคหัวใจ → DV** (วัดขนาดได้ใกล้เคียง actual size, object ใกล้ film = magnify น้อย)
 
 ## 2️⃣ Systematic Approach
 **อย่า jump เข้า diagnosis ทันที!** ดูเป็นระบบ → list differential → ใส่ที่ likely บนสุด
@@ -34600,7 +34600,7 @@ Survey high titer = MUST be field exposure
 > วันนี้อาจารย์เริ่ม **center → out** = หัวใจ + vessel ก่อน
 
 ## 3️⃣ Cardiac Size Evaluation
-> ⭐ Anatomy class สอน heart weight % BW = ใช้สำหรับ **dead** animal · class นี้ = **living** patient
+> ⭐ Anatomy class สอน heart weight % BW = ใช้สำหรับ **dead** animal, class นี้ = **living** patient
 
 ### Pre-measurement: แยกเงาหัวใจจากไขมัน
 - Pericardial fat → ลาก line วัดผิด → ค่า over → contrast adjust ก่อน
@@ -34620,7 +34620,7 @@ Survey high titer = MUST be field exposure
 - ลากจาก carina ลงปลาย apex = cardiac height
 - ห้องหัวใจโต → ดัน sternum ไม่ได้ → ปูดขึ้นด้านบน → height มากขึ้น
 - **ค่าปกติ < 70%** ของ thoracic height ระนาบเดียวกัน
-- ดูพื้นที่ trapezoid เหนือ trachea (จาก thoracic inlet ถึง carina) → ปกติ 4-เหลี่ยมคางหมู ฐานกว้างที่ carina · หัวใจโต → ดัน trachea สูง → กลับด้าน
+- ดูพื้นที่ trapezoid เหนือ trachea (จาก thoracic inlet ถึง carina) → ปกติ 4-เหลี่ยมคางหมู ฐานกว้างที่ carina, หัวใจโต → ดัน trachea สูง → กลับด้าน
 
 **C. Width (VD/DV)** - หัวใจกว้างไม่เกิน 2/3 ของ thoracic width ที่ T8
 - W(L) + W(R) ของ midline / max thoracic width
@@ -34628,11 +34628,11 @@ Survey high titer = MUST be field exposure
 ⚠️ **ข้อเสีย empirical**: rely on inspiration phase
 
 ### Method 2 — Vertebral Heart Score (VHS) ⭐
-> "จบ DVM ต้องวัดได้ทุกคน" · ปี 5-6 จะถูกสอบเดี่ยว
+> "จบ DVM ต้องวัดได้ทุกคน", ปี 5-6 จะถูกสอบเดี่ยว
 
 **Steps:**
 1. ลาก **long axis** = carina → apex
-2. ลาก **short axis** = ตั้งฉากกับ long axis · ระดับ caval vein (ตรงกลางก็ได้)
+2. ลาก **short axis** = ตั้งฉากกับ long axis, ระดับ caval vein (ตรงกลางก็ได้)
 3. ทาบ long axis บน vertebrae เริ่มจาก **anterior edge of T4**
 4. นับจำนวน vertebrae (รวม intervertebral disc)
 5. ทำเหมือนกันกับ short axis
@@ -34646,8 +34646,8 @@ Survey high titer = MUST be field exposure
 > Cat VHS เชื่อถือได้กว่าหมา (uniform conformation)
 
 **Caveats — VHS ไม่ใช้ใน:**
-- Spinal abnormalities: kyphosis · lordosis · scoliosis
-- Schol breeds: Bulldog (Eng/Fr) · Boston Terrier · Pug → spine สั้น
+- Spinal abnormalities: kyphosis, lordosis, scoliosis
+- Schol breeds: Bulldog (Eng/Fr), Boston Terrier, Pug → spine สั้น
 - Schnauzer → spine สั้น → VHS เกินค่าปกติเป็น norm
 - Whippet (sport athletic) → physiological hypertrophy → VHS โตปกติ
 - Nutritional hyperparathyroidism cat → bone soft + deformed
@@ -34662,7 +34662,7 @@ Survey high titer = MUST be field exposure
 
 ### Common findings
 **Thymus** — sail-shape on left side (cranial mediastinum)
-- ปกติ ≤ 2 yr · adult: gone (มีกลับมาถ้า immune stimulated หรือ thymoma)
+- ปกติ ≤ 2 yr, adult: gone (มีกลับมาถ้า immune stimulated หรือ thymoma)
 
 **Sternal LN** (lateral view) — ขยายใหญ่ → drain peritoneum + thoracic wall + abdominal cavity
 
@@ -34671,27 +34671,27 @@ Survey high titer = MUST be field exposure
 
 ⚠️ **Tracheal elevation ต้องดู expiration phase ด้วย!**
 - Expiration → diaphragm ดันหัวใจ → trachea สั้นลง → curve ดูเหมือน mass
-- จุดเริ่ม curve อยู่ที่ thoracic inlet · จุดสุดท้าย carina
+- จุดเริ่ม curve อยู่ที่ thoracic inlet, จุดสุดท้าย carina
 
 ### Pneumomediastinum
 - Air in mediastinum → reveal vessel/structure outline ปกติ ไม่เห็น
-- มักจาก trachea rupture · esophagus rupture
+- มักจาก trachea rupture, esophagus rupture
 
 ## 5️⃣ Esophagus
-- 2/3 cranial = skeletal muscle · 1/3 caudal = smooth (cat)
+- 2/3 cranial = skeletal muscle, 1/3 caudal = smooth (cat)
 - **Cat normal**: herringbone pattern (ลายเฉียงเหมือนกระดูกปลา) — ไม่ใช่ pathology!
 - **Pathology**:
-  - Megaesophagus (myasthenia gravis · idiopathic) → dilation cranial to heart
+  - Megaesophagus (myasthenia gravis, idiopathic) → dilation cranial to heart
   - Foreign body (bone stuck) — common เคสจากการกินกระดูกไก่
   - Esophageal diverticulum
   - Vascular ring anomaly (PRAA) → focal dilation cranial to heart base
 
 ### Mass localization rule
 > เจอก้อนกลางทรวงอก → ลำบากแยก esophagus vs accessory lobe?
-> → ดู VD: accessory lobe อยู่กลาง · esophagus mass dorsal/eccentric → **ดู 2 view เสมอ**
+> → ดู VD: accessory lobe อยู่กลาง, esophagus mass dorsal/eccentric → **ดู 2 view เสมอ**
 
 ## 6️⃣ Pleural Space
-**ปกติ** = negative pressure · invisible · ชุ่มชื้นเล็กน้อย ไม่มี fluid pool
+**ปกติ** = negative pressure, invisible, ชุ่มชื้นเล็กน้อย ไม่มี fluid pool
 
 ### Pneumothorax (PTX)
 - Air ใน pleural space → **ดำกว่า** lung air (ไม่มี parenchyma)
@@ -34702,21 +34702,21 @@ Survey high titer = MUST be field exposure
 | Feature | PTX | Hyperinflation |
 |---------|-----|-----------------|
 | Pulmonary parenchyma | ❌ ไม่เห็น vessel | ✅ เห็น vessel ฝอย |
-| ผลแปร | medical emergency · เจาะลม | medical management |
+| ผลแปร | medical emergency, เจาะลม | medical management |
 
 ⚠️ ถ้า misdiagnose hyperinflation เป็น PTX → ไปเจาะ → ปอดฉีก → ฟ้องร้องได้!
 
 ### Pleural Effusion (PE)
 - น้ำเข้า fissure ระหว่าง lobes
-- **Right lateral**: เห็น cranial fissure (KCM/KCP/middle/caudal) · accessory lobe
+- **Right lateral**: เห็น cranial fissure (KCM/KCP/middle/caudal), accessory lobe
 - **Fissure line** medial < peripheral (น้ำเข้ามาจาก peripheral)
 
 #### น้ำเยอะมาก
-- Heart ถูก fluid ปิดในระนาบ → ดูหัวใจไม่ออก → **ใช้ DV** (น้ำตกลงด้านล่าง · เห็นหัวใจชัดกว่า)
+- Heart ถูก fluid ปิดในระนาบ → ดูหัวใจไม่ออก → **ใช้ DV** (น้ำตกลงด้านล่าง, เห็นหัวใจชัดกว่า)
 - ตรวจปอด → ใช้ VD
 
 #### Horizontal beam radiograph
-- ยืน → น้ำตกลง · ลมลอยขึ้น → confirm small pleural effusion / pneumothorax
+- ยืน → น้ำตกลง, ลมลอยขึ้น → confirm small pleural effusion / pneumothorax
 - Useful: differentiate caudal mediastinal mass
 
 #### Fluid type identification
@@ -34724,8 +34724,8 @@ Survey high titer = MUST be field exposure
 - **ยกเว้น**: เจอ gas bubble + ไม่เคยเจาะมาก่อน → **pyothorax** (anaerobic bacteria fermentation)
 
 #### Pleuritis (no fluid)
-- Thickened pleural line · no fissure penetration
-- Pig: common (Glässer's, etc.) · Dog: rare
+- Thickened pleural line, no fissure penetration
+- Pig: common (Glässer's, etc.), Dog: rare
 
 ## 7️⃣ Diaphragm
 **Components:** 2 crura (R/L) + cupola (central dome)
@@ -34734,9 +34734,9 @@ Survey high titer = MUST be field exposure
 ### Position identification ⭐ ตอบสอบบ่อย
 | Position | Diaphragm appearance |
 |----------|---------------------|
-| **Right lateral** | R crus protrudes cranial · L crus + gastric fundus เคียงกัน (gas + food) |
-| **Left lateral** | L crus protrudes cranial · gastric fundus ใกล้ L crus มากกว่า R |
-| **DV (sternal)** | Cupola โดดเด่น · 1 dome |
+| **Right lateral** | R crus protrudes cranial, L crus + gastric fundus เคียงกัน (gas + food) |
+| **Left lateral** | L crus protrudes cranial, gastric fundus ใกล้ L crus มากกว่า R |
+| **DV (sternal)** | Cupola โดดเด่น, 1 dome |
 | **VD (dorsal)** | 2 "ears" ของ crura + cupola = "Mickey Mouse" pattern |
 
 ### Diaphragmatic Hernia (DH)
@@ -34755,24 +34755,24 @@ Survey high titer = MUST be field exposure
 
 ## 📋 Exam recap (15 จุดสำคัญ)
 1. ภาพดี = symmetry + full inspiration + cover inlet ถึง last rib
-2. Top of ribs ทั้ง 2 ข้างต้อง level (lateral) · DSP บน vertebra (VD/DV)
+2. Top of ribs ทั้ง 2 ข้างต้อง level (lateral), DSP บน vertebra (VD/DV)
 3. Caudodorsal lung angle expand เกิน T12 (lateral) / T10 (DV)
-4. Right lateral = standard · DV = ดีสุดสำหรับโรคหัวใจ
-5. Empirical method: 2.5 ICS deep chest · 3.5 ICS barrel · 2 ICS cat
+4. Right lateral = standard, DV = ดีสุดสำหรับโรคหัวใจ
+5. Empirical method: 2.5 ICS deep chest, 3.5 ICS barrel, 2 ICS cat
 6. Heart height < 70% thorax height
-7. **VHS dog 9.7±0.5** · **cat 7.5±0.3 (max 8)**
-8. VHS ไม่ใช้: schol breeds · schnauzer · whippet · spinal deformity
+7. **VHS dog 9.7±0.5**, **cat 7.5±0.3 (max 8)**
+8. VHS ไม่ใช้: schol breeds, schnauzer, whippet, spinal deformity
 9. Cat herringbone pattern = NORMAL (อย่า over-diagnose!)
 10. Pneumomediastinum = reveal mediastinal structures
-11. PTX vs hyperinflation = ดู vessel → PTX ไม่มี vessel · ⚠️ ผิดแล้วเจาะ = ปอดฉีก
+11. PTX vs hyperinflation = ดู vessel → PTX ไม่มี vessel, ⚠️ ผิดแล้วเจาะ = ปอดฉีก
 12. Pyothorax sign = gas bubble + ไม่เคยเจาะ
-13. R lateral: R crus protrudes · L lateral: L crus protrudes (+ gastric fundus)
+13. R lateral: R crus protrudes, L lateral: L crus protrudes (+ gastric fundus)
 14. VD = "Mickey Mouse" diaphragm
-15. DH report: tear location + organs herniated · stomach hernia = EMERGENCY
+15. DH report: tear location + organs herniated, stomach hernia = EMERGENCY
 
-> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 4.1 Abdominal Lecture (rTLWWO65Rs8) · 4.2 Abdominal Lab (5RXoan8azRs) · 5.1 Clinical US (FYjDUCYr0Eo)
-> 🩻 **Practice**: ปี 5 จะวัด VHS เป็น OSCE · ฝึกตอนนี้!
-> 💡 **Iron rule**: 2-view always · symmetry first · then VHS
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc), 4.1 Abdominal Lecture (rTLWWO65Rs8), 4.2 Abdominal Lab (5RXoan8azRs), 5.1 Clinical US (FYjDUCYr0Eo)
+> 🩻 **Practice**: ปี 5 จะวัด VHS เป็น OSCE, ฝึกตอนนี้!
+> 💡 **Iron rule**: 2-view always, symmetry first, then VHS
 > 🦴 **Emergency**: Stomach in DH = surgical emergency`,
   },
 
@@ -34786,7 +34786,7 @@ Survey high titer = MUST be field exposure
     examFormat: 'concept understanding',
     summary: `# 7. CT 1 — Computed Tomography Principles
 
-> ⚠️ Lecture สั้น 47 นาที · concept-heavy · เน้นความเข้าใจหลักการ + เทคโนโลยี
+> ⚠️ Lecture สั้น 47 นาที, concept-heavy, เน้นความเข้าใจหลักการ + เทคโนโลยี
 > ก่อน lab ภาคบ่ายของวันนั้น
 
 ## 🎯 ภาพรวมคาบ
@@ -34815,7 +34815,7 @@ Survey high titer = MUST be field exposure
 ### Comparison
 | Feature | Conventional CT | Cone-Beam CT |
 |---------|-----------------|---------------|
-| **เครื่อง** | ใหญ่ · ติดตั้งถาวร | เล็ก · เคลื่อนย้ายได้ |
+| **เครื่อง** | ใหญ่, ติดตั้งถาวร | เล็ก, เคลื่อนย้ายได้ |
 | **Cost** | สูง (ห้องตะกั่ว + setup) | ถูกกว่า |
 | **เหมาะกับ** | สัตว์ ≥ 5 kg ถึง medium-large | สัตว์ < 10 kg (exotic, นก, กระต่าย) |
 | **Speed** | เร็วมาก (ยิ่ง slice เยอะ) | ช้ากว่า |
@@ -34836,8 +34836,8 @@ Survey high titer = MUST be field exposure
 
 ### Detector — 2-step image creation
 **Step 1**: X-ray → light energy
-- **Xenon gas** (เก่า) — efficiency 60-70% · ภาพไม่คม · หายาก
-- **Solid state** (ปัจจุบัน) — Cadmium Tungstate / Gadolinium Oxide / GdOS · efficiency **95-97%** · ภาพคม
+- **Xenon gas** (เก่า) — efficiency 60-70%, ภาพไม่คม, หายาก
+- **Solid state** (ปัจจุบัน) — Cadmium Tungstate / Gadolinium Oxide / GdOS, efficiency **95-97%**, ภาพคม
 
 **Step 2**: light → electrical signal
 - **Photodetector** = silicon photodiode → ส่งเข้า computer
@@ -34859,7 +34859,7 @@ Survey high titer = MUST be field exposure
 - ✅ **High resolution** (สแกนเสถียร)
 - ❌ **ช้า + radiation สูง** + สัตว์/คนรับ dose มาก
 - ❌ ไม่เหมาะ moving organs (heart, lung)
-- ✅ เหมาะ: brain · ต้องการ detail สูงๆ
+- ✅ เหมาะ: brain, ต้องการ detail สูงๆ
 - ปัจจุบัน**ไม่ค่อยใช้**
 
 ### B. Helical Scan Mode ("Continuous scan") ⭐ Standard
@@ -34928,7 +34928,7 @@ Survey high titer = MUST be field exposure
 
 ### ประโยชน์ของ HU
 - วัด HU ของ mass → ประมาณได้ว่าเป็น tissue type ไหน
-- ตัวอย่าง: cyst content ~0 HU = น้ำใส · 30-50 = soft tissue · 80+ = blood
+- ตัวอย่าง: cyst content ~0 HU = น้ำใส, 30-50 = soft tissue, 80+ = blood
 
 ## 7️⃣ Window Width (WW) & Window Level (WL)
 
@@ -34939,7 +34939,7 @@ Survey high titer = MUST be field exposure
 | **Window Width (WW)** | ช่วง HU ที่เห็น shades ได้ (กว้าง = เห็นเยอะแต่ contrast ต่ำ) |
 | **Window Level (WL)** | ค่ากลางของ window |
 
-**Outside WW** → ภาพดำหรือขาวล้วน · แยก shades ไม่ได้
+**Outside WW** → ภาพดำหรือขาวล้วน, แยก shades ไม่ได้
 
 ### Standard Windows
 | Window | WW (HU) | WL (HU) | Show |
@@ -34969,14 +34969,14 @@ Survey high titer = MUST be field exposure
 7. Spatial resolution ≥ 512×512 pixels for medical use
 8. Resolution ขึ้นกับ FOV, focal spot, slice thickness, detector size
 9. Reduce noise: ↑ mAs, scan time, FOV, slice thickness
-10. **HU**: Air −1000 · Water **0** · Soft tissue +30-80 · Bone +1000+ · Metal +3000+
+10. **HU**: Air −1000, Water **0**, Soft tissue +30-80, Bone +1000+, Metal +3000+
 11. CT terminology: **Hyper/hypoattenuation** (NOT radioopaque/radiolucent)
-12. Window: ดูทั้ง bone + soft tissue + lung เสมอ · MPR = axial→sagittal→coronal
+12. Window: ดูทั้ง bone + soft tissue + lung เสมอ, MPR = axial→sagittal→coronal
 
-> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 8 CT 2 (5eTxpi37pG0) · 9 MRI 1 (vMRQ11km0RI)
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc), 8 CT 2 (5eTxpi37pG0), 9 MRI 1 (vMRQ11km0RI)
 > 🩻 **Memory aid**: HU scale ตามท่อง — Air-1000, Water 0, Bone +1000, Metal +3000
-> 💡 **Critical confusion**: CT = attenuation (NOT opacity) · ระวังสอบ
-> 🦴 **Cost reality**: 64-slice CT = ~10-20M baht · Lab tech รุ่นใหม่ขึ้น CT แทน X-ray มากขึ้น`,
+> 💡 **Critical confusion**: CT = attenuation (NOT opacity), ระวังสอบ
+> 🦴 **Cost reality**: 64-slice CT = ~10-20M baht, Lab tech รุ่นใหม่ขึ้น CT แทน X-ray มากขึ้น`,
   },
 
   '5eTxpi37pG0': {
@@ -34989,22 +34989,22 @@ Survey high titer = MUST be field exposure
     examFormat: 'application + artifact ID + case interpretation',
     summary: `# 8. CT 2 — Image Processing, Contrast Media, Artifacts & Cases
 
-> ⚠️ ต่อจาก CT 1 (หลังสอบ midterm) · post-processing tools + contrast + artifacts + case studies
+> ⚠️ ต่อจาก CT 1 (หลังสอบ midterm), post-processing tools + contrast + artifacts + case studies
 > Skill ใช้จริงตอน Year 5/6 — กดปุ่มในโปรแกรมเป็นโดยไม่ต้องจำตัวเลข
 
 ## 🎯 ภาพรวมคาบ
 **5 functional sections:**
-1. DICOM viewer software (OsiriX/Horos · RadiAnt)
-2. Image processing (MPR · MIP · MinIP · SSD · VR · Virtual Endoscopy · Biopsy guide)
-3. Contrast media (positive iodinated · negative CO2)
-4. Artifacts 4 categories (patient · physics · equipment · helical)
-5. Case studies (chest · abdomen · skeletal)
+1. DICOM viewer software (OsiriX/Horos, RadiAnt)
+2. Image processing (MPR, MIP, MinIP, SSD, VR, Virtual Endoscopy, Biopsy guide)
+3. Contrast media (positive iodinated, negative CO2)
+4. Artifacts 4 categories (patient, physics, equipment, helical)
+5. Case studies (chest, abdomen, skeletal)
 
 ## 1️⃣ DICOM Software
 - **DICOM** = Digital Imaging and Communication in Medicine
 - ทุก modality (CT/X-ray/US/MRI) export เป็น DICOM (ไม่ใช่ JPG!)
 - **Mac**: OsiriX, **Horos** (free)
-- **Windows**: **RadiAnt** (recommended) · MI-3DVS
+- **Windows**: **RadiAnt** (recommended), MI-3DVS
 
 ## 2️⃣ Image Processing Functions
 
@@ -35024,7 +35024,7 @@ Survey high titer = MUST be field exposure
 - **Bronchi, bronchiectasis** (lung)
 - **Biliary duct, pancreatic duct** (ไม่ใช่ vessel ปกติไม่มี contrast)
 
-> 📝 **MIP vs MinIP**: opposite functions · เลือกตามต้องการดูอะไร
+> 📝 **MIP vs MinIP**: opposite functions, เลือกตามต้องการดูอะไร
 
 ### D. SSD (Shaded Surface Display)
 - ภาพ 3D แค่ surface (พื้นผิว)
@@ -35052,7 +35052,7 @@ Survey high titer = MUST be field exposure
 **Drug**: nonionic monomer (iohexol = **Omnipaque®**)
 | Parameter | Value |
 |-----------|-------|
-| **Route** | IV (small animal: cephalic vein · horse: jugular) |
+| **Route** | IV (small animal: cephalic vein, horse: jugular) |
 | **Dose volume** | 2 mL/kg |
 | **Iodine dose** | 600-880 mg I/kg |
 | **MAX dose** | **900 mg I/kg** ⚠️ |
@@ -35065,16 +35065,16 @@ Survey high titer = MUST be field exposure
 ### Risks of iodinated contrast
 1. **Contrast-Induced Nephropathy (CIN)** — ⚠️ critical!
    - Mechanism: kidney excretion overload
-   - Risk factors: pre-existing kidney disease · dehydration
-   - Prep: hydrate first · check renal values · don't exceed 900 mg I/kg
+   - Risk factors: pre-existing kidney disease, dehydration
+   - Prep: hydrate first, check renal values, don't exceed 900 mg I/kg
 2. **Allergic reaction** — iodine sensitivity (cross-react ~ seafood allergy in human)
-   - Signs in animal: rash · เฝ้าสังเกต post-injection
+   - Signs in animal: rash, เฝ้าสังเกต post-injection
 
 ### B. Negative Contrast — CO2 / Air
 **Use**: hollow organ wall evaluation (intra/extra-luminal lesions)
 | Parameter | Value |
 |-----------|-------|
-| **Gas** | CO2 (preferred) · room air |
+| **Gas** | CO2 (preferred), room air |
 | **Dose** | 20 mL/kg |
 | **MAX pressure** | **20 mmHg** ⚠️ (avoid air embolism / barotrauma) |
 | **Position** | Sternal recumbency |
@@ -35114,7 +35114,7 @@ Survey high titer = MUST be field exposure
 ### Category C: Equipment-Based
 
 #### C1. Ring Artifact
-- **Concentric circles** กลางภาพ · ตำแหน่งเดิมหลายภาพ
+- **Concentric circles** กลางภาพ, ตำแหน่งเดิมหลายภาพ
 - = Detector calibration ผิด
 - → เรียกบริษัทมาซ่อม
 
@@ -35152,11 +35152,11 @@ Survey high titer = MUST be field exposure
 - Pre vs post-contrast: post = mass enhances (HU ↑)
 - Soft tissue window → mass ใน mediastinum
 - Pulmonary window → free air = pneumothorax (jet black, no vessels)
-- MPR → mass ดัน heart caudally · pleural effusion + PTX combined
+- MPR → mass ดัน heart caudally, pleural effusion + PTX combined
 
 ### Case 2: Pulmonary Metastases
 - **CT sensitivity > X-ray** — CT detects nodule **≥ 1 mm** vs X-ray ≥ 3 mm
-- ⭐ X-ray clean ≠ no metastasis · always CT for staging
+- ⭐ X-ray clean ≠ no metastasis, always CT for staging
 - MIP → all nodules light up
 
 ### Case 3: Abdomen
@@ -35168,7 +35168,7 @@ Survey high titer = MUST be field exposure
 | Lesion | View | Why |
 |--------|------|-----|
 | **Stones / mineralization** | **Pre-contrast** | Avoid confusion with contrast enhancement |
-| **Renal cysts** | **Post-contrast** | Cysts don't enhance · stand out on enhanced kidney |
+| **Renal cysts** | **Post-contrast** | Cysts don't enhance, stand out on enhanced kidney |
 
 ### Case 4: Splenic Tail Mass
 - Pedunculated mass at splenic tail
@@ -35181,26 +35181,26 @@ Survey high titer = MUST be field exposure
 - Can predict prognosis from invasion extent
 
 ## 📋 Exam recap (15 จุดสำคัญ)
-1. DICOM = standard format · NOT JPG · OsiriX/Horos/RadiAnt
+1. DICOM = standard format, NOT JPG, OsiriX/Horos/RadiAnt
 2. **MPR** = multi-plane (axial→sagittal→coronal)
-3. **MIP** = high HU (vessels, nodules) · **MinIP** = low HU (bronchi, ducts)
-4. **VR** = 3D selectable HU range · **SSD** = surface only · **Virtual endoscopy** hollow only
+3. **MIP** = high HU (vessels, nodules), **MinIP** = low HU (bronchi, ducts)
+4. **VR** = 3D selectable HU range, **SSD** = surface only, **Virtual endoscopy** hollow only
 5. CT-guided biopsy avoids critical structures + necrotic centers
-6. Iodinated contrast: **2 mL/kg** · MAX **900 mg I/kg** · IV
+6. Iodinated contrast: **2 mL/kg**, MAX **900 mg I/kg**, IV
 7. ⚠️ **CIN risk** = pre-existing renal disease + dehydration
-8. CO2 negative contrast: **20 mL/kg** · MAX **20 mmHg** pressure
+8. CO2 negative contrast: **20 mL/kg**, MAX **20 mmHg** pressure
 9. **TIC** mimics embolus — check venous phase to confirm
-10. **Beam hardening** = streaks from bone/barium · don't drink barium before CT
-11. **Ring artifact** = detector miscalibration · same position multiple slices
-12. **Stair-step** = slice too thick · scan thin (1mm) for MPR
+10. **Beam hardening** = streaks from bone/barium, don't drink barium before CT
+11. **Ring artifact** = detector miscalibration, same position multiple slices
+12. **Stair-step** = slice too thick, scan thin (1mm) for MPR
 13. CT sensitivity for pulmonary nodule **≥1mm** (X-ray ≥3mm) → CT for staging
-14. **Stones**: pre-contrast! · **Cysts**: post-contrast!
+14. **Stones**: pre-contrast!, **Cysts**: post-contrast!
 15. CT skull > X-ray (no superimposition)
 
-> 📚 อ่านควบ: 7 CT 1 (90jMK-YbOBw) · 9 MRI 1 (vMRQ11km0RI) · 5.2 Thoracic Lab (yc88x669lIA)
+> 📚 อ่านควบ: 7 CT 1 (90jMK-YbOBw), 9 MRI 1 (vMRQ11km0RI), 5.2 Thoracic Lab (yc88x669lIA)
 > 🩻 **Workflow**: scan → DICOM → MPR → ปรับ window → MIP/VR เพิ่มได้ตามต้องการ
 > 💡 **Trap**: TIC vs embolism — ดู phase อื่นเสมอก่อน diagnose
-> 🦴 **Liability**: CIN ในสัตว์ไตเสีย → ฟ้องร้องได้ · prep + dose monitor`,
+> 🦴 **Liability**: CIN ในสัตว์ไตเสีย → ฟ้องร้องได้, prep + dose monitor`,
   },
 
   vMRQ11km0RI: {
@@ -35214,7 +35214,7 @@ Survey high titer = MUST be field exposure
     summary: `# 9. MRI 1 — Principles, T1/T2 Sequences, Contrast
 
 > ⚠️ Hardest topic in vet-imaging — physics-heavy concept-load
-> First half · MRI 2 จะต่อ functional MRI (DWI, DTI, MR-spectroscopy)
+> First half, MRI 2 จะต่อ functional MRI (DWI, DTI, MR-spectroscopy)
 
 ## 🎯 ภาพรวมคาบ
 1. MRI principles (magnetic field + hydrogen atom + RF coil)
@@ -35234,16 +35234,16 @@ Survey high titer = MUST be field exposure
 | **Cost (CUVET)** | ~10-20M baht (64-slice) | **35M** baht (1.5T) |
 
 > ⭐ **MRI = closest to actual anatomy** ของทุก imaging modality
-> สวยที่สุด · soft tissue detail สุด
+> สวยที่สุด, soft tissue detail สุด
 
 ## 2️⃣ Magnetic Field Strength (Tesla)
-**1 Tesla = 10,000 Gauss · Earth = 0.5 Gauss**
+**1 Tesla = 10,000 Gauss, Earth = 0.5 Gauss**
 | Type | Strength | Notes |
 |------|----------|-------|
-| **Closed/Last MRI** | 1-10 T (CUVET = **1.5 T**) | Super-conductive magnet · best image |
+| **Closed/Last MRI** | 1-10 T (CUVET = **1.5 T**) | Super-conductive magnet, best image |
 | **Open MRI** | 0.2-0.5 T | smaller, sometimes used clinic |
 | **Low-field** | < 0.1 T | minimal use |
-| **Human research** | 3 T (~70M baht) · up to 7T | extreme detail |
+| **Human research** | 3 T (~70M baht), up to 7T | extreme detail |
 
 ## 3️⃣ MRI Principle (Simplified)
 **4 Steps:**
@@ -35272,7 +35272,7 @@ Survey high titer = MUST be field exposure
 
 ### 4.1 Primary Magnet (Super-conductive)
 - Generates B0 field (e.g., 1.5T at CUVET)
-- Always on · ห้ามนำของโลหะใกล้!
+- Always on, ห้ามนำของโลหะใกล้!
 
 ### 4.2 Gradient Coils
 - **เสียง knocking ติ๊กๆ** ของเครื่อง MRI = gradient coils ทำงาน
@@ -35311,7 +35311,7 @@ Survey high titer = MUST be field exposure
 | Water/CSF | **Hypointense** (dark) |
 | Soft tissue | Gray |
 
-**Use**: anatomical detail · post-contrast (Gd enhances T1)
+**Use**: anatomical detail, post-contrast (Gd enhances T1)
 
 ### B. T2-Weighted (T2W) ⭐
 **Mnemonic: "T2 น้ำขาว แฟตดำ"** (opposite of T1)
@@ -35351,7 +35351,7 @@ Survey high titer = MUST be field exposure
 | Sequence | Suppresses | Use |
 |----------|------------|-----|
 | **T1W** | — | Anatomy + post-contrast |
-| **T2W** | — | Pathology · fluid lesions |
+| **T2W** | — | Pathology, fluid lesions |
 | **FLAIR** | CSF only | Edema vs CSF |
 | **STIR** | Fat | Bone marrow / OCD |
 | **Fat Sat** | Fat | Combined w/ T1+contrast |
@@ -35381,7 +35381,7 @@ Survey high titer = MUST be field exposure
 - ⚠️ **Critical: NSF (Nephrogenic Systemic Fibrosis)**
   - Mechanism: Gd excreted via kidney; renal failure → Gd retained in body → deposits in joints → fibrotic tissue → joint contracture
   - Risk: pre-existing kidney disease
-  - Human practice: check **GFR** before injection · don't inject if low
+  - Human practice: check **GFR** before injection, don't inject if low
   - Vet: not yet reported but precaution warranted
 
 ### Brain Enhancement Pattern ⭐
@@ -35407,14 +35407,14 @@ Survey high titer = MUST be field exposure
 - **Pituitary tumor**: enhances + abnormal shape/size
 
 ## 📋 Exam recap (16 จุดสำคัญ)
-1. MRI = magnetic field + hydrogen atoms · NO radiation
-2. CUVET = **1.5 T** Closed MRI · 35M baht
-3. 1 Tesla = 10,000 Gauss · Earth = 0.5 Gauss
+1. MRI = magnetic field + hydrogen atoms, NO radiation
+2. CUVET = **1.5 T** Closed MRI, 35M baht
+3. 1 Tesla = 10,000 Gauss, Earth = 0.5 Gauss
 4. Components: Primary magnet + Gradient coils + RF coil + Computer
-5. Gradient coils = the loud knocking sound · enable multi-plane
+5. Gradient coils = the loud knocking sound, enable multi-plane
 6. RF coil excites hydrogen atoms in target region
-7. **T1**: น้ำดำ แฟตขาว · use for anatomy + post-contrast
-8. **T2**: น้ำขาว แฟตดำ · use for **pathology** (edema, fluid lesions)
+7. **T1**: น้ำดำ แฟตขาว, use for anatomy + post-contrast
+8. **T2**: น้ำขาว แฟตดำ, use for **pathology** (edema, fluid lesions)
 9. **FLAIR** suppresses CSF only — differentiates CSF vs edema
 10. **STIR** suppresses fat — OCD diagnosis
 11. **Fat Sat** with T1+Gd: distinguishes enhancement from fat
@@ -35424,9 +35424,9 @@ Survey high titer = MUST be field exposure
 15. Normal pituitary enhances (no BBB) = "pituitary blush"
 16. Post-contrast enhancement = damaged BBB (tumor / infection / etc — not just tumor)
 
-> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 7 CT 1 (90jMK-YbOBw) · 8 CT 2 (5eTxpi37pG0) · 10 MRI 2 (k-W75o6p-Kc)
-> 🩻 **Memory**: T1=น้ำดำแฟตขาว · T2=น้ำขาวแฟตดำ
-> 💡 **Sequence summary**: T1=anatomy · T2=pathology · FLAIR=CSF off · STIR=fat off
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc), 7 CT 1 (90jMK-YbOBw), 8 CT 2 (5eTxpi37pG0), 10 MRI 2 (k-W75o6p-Kc)
+> 🩻 **Memory**: T1=น้ำดำแฟตขาว, T2=น้ำขาวแฟตดำ
+> 💡 **Sequence summary**: T1=anatomy, T2=pathology, FLAIR=CSF off, STIR=fat off
 > 🦴 **Critical**: Gd safe? — check kidney first (NSF risk)`,
   },
 
@@ -35440,7 +35440,7 @@ Survey high titer = MUST be field exposure
     examFormat: 'sequence ID + functional application',
     summary: `# 10. MRI 2 — T2*/SWI, Heavy T2, MRA, Functional MRI
 
-> ⚠️ Final lecture ของ MRI series · ต่อ functional MRI ที่ MRI 1 เปิดท้ายไว้
+> ⚠️ Final lecture ของ MRI series, ต่อ functional MRI ที่ MRI 1 เปิดท้ายไว้
 > Last lecture จาก อ.พี่มน ใน vet-imaging course
 
 ## 🎯 ภาพรวมคาบ
@@ -35470,7 +35470,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 ### Clinical Use
 - **Microbleed detection** — small hemorrhages invisible on T1/T2
 - **Hemorrhagic mass** confirmation
-- Trauma · stroke · vascular malformation
+- Trauma, stroke, vascular malformation
 
 ### Case Example
 - T2W: hyperintense (white) ring suggests fluid
@@ -35491,14 +35491,14 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 - **Spondylomyelopathy** — generic term for spinal cord pathology
   - Cervical = **cervical spondylomyelopathy**
 - Detect:
-  - **Disc dehydration** (T2 normal disc = bright with water · degenerated = dark)
+  - **Disc dehydration** (T2 normal disc = bright with water, degenerated = dark)
   - **Disc protrusion/extrusion** compressing cord
   - CSF flow disruption around cord
 
 ### B. MRCP (Magnetic Resonance Cholangiopancreatography)
 - Visualize **biliary tree + pancreatic duct + common bile duct**
 - ⭐ **No contrast injection needed!** — uses native water signal
-- Detect: cholelithiasis · biliary obstruction · pancreatic duct disease
+- Detect: cholelithiasis, biliary obstruction, pancreatic duct disease
 - Common in human medicine; growing in vet
 
 ## 3️⃣ Vascular MRI
@@ -35513,7 +35513,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 1. RF saturation pulse → suppresses signal in vessel walls + static blood
 2. New blood (unsaturated) flows in → has signal → appears bright
 
-✅ **No contrast** · safe for renal failure
+✅ **No contrast**, safe for renal failure
 ❌ Image quality < contrast-enhanced
 
 #### B. Phase Contrast (PC) Imaging
@@ -35524,7 +35524,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 #### C. Contrast-Enhanced MRA (CE-MRA)
 - IV gadolinium → vessels light up (T1 hyperintense)
 - ✅ **Best image quality**
-- ❌ NSF risk · contrast cost
+- ❌ NSF risk, contrast cost
 
 ### Use Case
 - Brain AVM (arteriovenous malformation) — abnormal artery-vein fusion
@@ -35538,7 +35538,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 - Magnetically label blood entering brain
 - Compare labelled vs unlabelled images
 - ✅ No contrast
-- **Detect**: hypoperfusion (stroke side · vascular stenosis)
+- **Detect**: hypoperfusion (stroke side, vascular stenosis)
 
 ### B. DWI (Diffusion-Weighted Imaging) ⭐ Critical
 **THE most sensitive sequence for ACUTE stroke**
@@ -35551,7 +35551,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 
 **Mechanism**: dead/dying cells → cytotoxic edema → restricted water diffusion → hyperintense on DWI
 
-> ⭐ **In humans**: stroke window for thrombolytics = 4.5 hrs · DWI = lifesaver
+> ⭐ **In humans**: stroke window for thrombolytics = 4.5 hrs, DWI = lifesaver
 > Vet uses for stroke + ischemia detection
 
 ### C. DTI (Diffusion Tensor Imaging)
@@ -35621,25 +35621,25 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 | **Tissue enhancement / mass** | T1 + Gd + Fat Sat |
 
 ## 📋 Exam recap (15 จุดสำคัญ)
-1. **T2* / SWI** detects hemorrhage (Fe paramagnetic) · dots vs branched
+1. **T2* / SWI** detects hemorrhage (Fe paramagnetic), dots vs branched
 2. **Heavy T2 = MR myelography** for spinal cord pathology
 3. **MRCP** = Heavy T2 for biliary tree (NO contrast needed!)
-4. MRA = arteries · MRV = veins · 3 techniques
+4. MRA = arteries, MRV = veins, 3 techniques
 5. **TOF** = saturate then watch new blood (no contrast)
 6. **CE-MRA** = best image but NSF risk
 7. **DWI** = MOST sensitive for acute stroke (positive in 30 min!)
 8. DWI lesion = hyperintense (restricted diffusion)
-9. **DTI** = white matter fiber tracking · tumor surgical planning
-10. **MRS NAA**: neuron marker (HIGH normal) · **Choline**: HIGH = tumor
-11. **MRS prostate**: Citrate HIGH normal · Choline HIGH = cancer
-12. **fMRI / BOLD** = active brain regions during task · pre-surgical mapping
+9. **DTI** = white matter fiber tracking, tumor surgical planning
+10. **MRS NAA**: neuron marker (HIGH normal), **Choline**: HIGH = tumor
+11. **MRS prostate**: Citrate HIGH normal, Choline HIGH = cancer
+12. **fMRI / BOLD** = active brain regions during task, pre-surgical mapping
 13. **ASL** = perfusion imaging (no contrast)
 14. Vet currently uses MRI mostly for **brain/spine** — functional MRI growing
 15. Combination: T1+T2+FLAIR+STIR+T2*+DWI = standard brain protocol
 
-> 📚 อ่านควบ: 1.1 (9BKTe9spGGc) · 7 CT 1 (90jMK-YbOBw) · 8 CT 2 (5eTxpi37pG0) · 9 MRI 1 (vMRQ11km0RI) · 11 Equine (aA9ht3Lxn_k)
+> 📚 อ่านควบ: 1.1 (9BKTe9spGGc), 7 CT 1 (90jMK-YbOBw), 8 CT 2 (5eTxpi37pG0), 9 MRI 1 (vMRQ11km0RI), 11 Equine (aA9ht3Lxn_k)
 > 🩻 **Best sequence per goal**: เริ่มจาก task → เลือก sequence
-> 💡 **Critical for stroke**: DWI within 30 min · don't wait for T2 to show up
+> 💡 **Critical for stroke**: DWI within 30 min, don't wait for T2 to show up
 > 🦴 **Future**: vet MRI growing — ICU brain trauma + neuro-onc + spinal will use these protocols`,
   },
 
@@ -35654,8 +35654,8 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
     summary: `# 11. Equine Radiographic Positioning
 
 > ⚠️ **Goal of this lecture**: ไม่ใช่อ่านฟิล์ม แต่คือ "**ถ่ายให้ได้ diagnostic quality**"
-> ปัญหาในม้า: ไม่สามารถจับยึดเหมือนสัตวเล็ก · ต้องใช้ Approach แตกต่าง
-> Practical: ตอนบ่าย — แบ่ง 4 กลุ่ม · จัดท่า + อจารย์ให้โจทย์ตำแหน่งที่ต้องการ
+> ปัญหาในม้า: ไม่สามารถจับยึดเหมือนสัตวเล็ก, ต้องใช้ Approach แตกต่าง
+> Practical: ตอนบ่าย — แบ่ง 4 กลุ่ม, จัดท่า + อจารย์ให้โจทย์ตำแหน่งที่ต้องการ
 
 ## 🎯 ภาพรวมคาบ
 1. Equine X-ray principles + 2-view rule
@@ -35679,7 +35679,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 | Type | Wheels | Use |
 |------|--------|-----|
 | **Fix** | — | ติดตั้งใน hospital |
-| **Mobile** | ✅ มีล้อ | ห้องผ่าตัด/ICU · push around |
+| **Mobile** | ✅ มีล้อ | ห้องผ่าตัด/ICU, push around |
 | **Portable** ⭐ | ❌ ถือได้ | ใช้ในม้า — ออกไป field, สนามแข่ง |
 
 ⭐ **ม้าใช้ Portable เสมอ** เพราะต้องเอาไปคอกม้า / สนามม้า — ไม่มีล้อ
@@ -35703,7 +35703,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 
 1. **Best**: Chemical sedation (Alpha-2 ± opioid)
    - Standard: **Alpha-2 (xylazine/detomidine) + morphine**
-   - ม้ายืนนิ่ง · น้ำหนักลงขาทั้งหมด
+   - ม้ายืนนิ่ง, น้ำหนักลงขาทั้งหมด
    - ⚠️ **ปัญหา**: ม้าทิ้งน้ำหนักลงขาทั้งหมด → ยกขายาก
    - ⚠️ หัวตก → หาเก้าอี้/โต๊ะมารองพร้อม pad
 
@@ -35734,7 +35734,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 
 ### Lead Apron + Field
 - น้ำหนัก ~10 kg (รวมเครื่อง 14 kg → คนแบก 20-24 kg)
-- ปี 5 ฝึกงาน: ผู้หญิงตัวเล็กแบกเครื่อง · ผู้ชายเป็นกำลังใจ (joke)
+- ปี 5 ฝึกงาน: ผู้หญิงตัวเล็กแบกเครื่อง, ผู้ชายเป็นกำลังใจ (joke)
 
 ## 5️⃣ Focus Setup ⭐ (Portable specific)
 
@@ -35749,7 +35749,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 | Body part | Marker side |
 |-----------|-------------|
 | **Body / limb** | ⭐ Always **LATERAL** |
-| **Head** (only exception) | L stays L · R stays R |
+| **Head** (only exception) | L stays L, R stays R |
 
 ### Why Lateral?
 - All limb obliques shot from outside → marker on lateral side = consistent
@@ -35861,22 +35861,22 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 ## 📋 Exam recap (15 จุดสำคัญ)
 1. Equine X-ray = mostly extremities + head (body too thick)
 2. **Portable** > Mobile (no wheels) — used outdoor
-3. **DR** = clinical · **CR** = student lab (drop-resistant)
-4. Restraint: **chemical first** (alpha-2 + morphine) · physical minimum · GA only with surgery
+3. **DR** = clinical, **CR** = student lab (drop-resistant)
+4. Restraint: **chemical first** (alpha-2 + morphine), physical minimum, GA only with surgery
 5. **2m radiation clear zone** + behind machine = safest
 6. Personnel: 1 machine + 2 film + 3 handler (skip handler if sedated)
 7. Set focus on **cassette/film** (not patient) for portable
-8. Markers: body = **lateral always** · head = L→L, R→R
+8. Markers: body = **lateral always**, head = L→L, R→R
 9. Wrong marker = wrong-side surgery (real case!)
-10. Oblique nomenclature: DLPaMO etc · 45° default
-11. Memory: shoot DL → see L · shoot DM → see M
-12. **Lateral view** for sinus · **fluid line** = head UP
+10. Oblique nomenclature: DLPaMO etc, 45° default
+11. Memory: shoot DL → see L, shoot DM → see M
+12. **Lateral view** for sinus, **fluid line** = head UP
 13. **DV view trick**: shift mandible to expose one sinus
 14. **Ball marker** identifies floor in any rotation
 15. ⚠️ Always remove halter (head) + horseshoe (hoof)
 
-> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc) · 5.2 Thoracic Lab (yc88x669lIA) · 4.1 Abdominal (rTLWWO65Rs8)
-> 🩻 **Practical OSCE**: ปี 5 จะลงคอกม้า · จัดท่าจริง · ฝึก oblique nomenclature
+> 📚 อ่านควบ: 1.1 Introduction (9BKTe9spGGc), 5.2 Thoracic Lab (yc88x669lIA), 4.1 Abdominal (rTLWWO65Rs8)
+> 🩻 **Practical OSCE**: ปี 5 จะลงคอกม้า, จัดท่าจริง, ฝึก oblique nomenclature
 > 💡 **Mantra**: "Diagnostic quality first" — ถ้าภาพไม่สวย don't try to interpret
 > 🦴 **Career**: equine specialty needs CUVET-Sankamphaeng + horse exposure + HK modul edge`,
   },
@@ -35891,8 +35891,8 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
     examFormat: 'concept + reaction + preservation method',
     summary: `# 1. Food Deterioration + Preservation + Food Additive
 
-> ⚠️ คาบยาว 153 นาที · ครอบคลุมทั้งวิชา basics
-> Sections: 1) Food chemistry review · 2) Acceptable food · 3) Deterioration · 4) Preservation · 5) Additives
+> ⚠️ คาบยาว 153 นาที, ครอบคลุมทั้งวิชา basics
+> Sections: 1) Food chemistry review, 2) Acceptable food, 3) Deterioration, 4) Preservation, 5) Additives
 
 ## 🎯 Food Components Review
 
@@ -35910,7 +35910,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 **4 levels of structure:**
 | Level | Description |
 |-------|-------------|
-| **Primary** | Linear amino acid chain · peptide bonds |
+| **Primary** | Linear amino acid chain, peptide bonds |
 | **Secondary** | Alpha-helix or β-sheet (2D) |
 | **Tertiary** | 3D folded subunit (e.g., Hb subunit) |
 | **Quaternary** | ≥2 polypeptide subunits (e.g., hemoglobin) |
@@ -35918,8 +35918,8 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 ### Lipid (9 kcal/g)
 | Type | Bond | State at RT | Source |
 |------|------|--------------|--------|
-| **Saturated** | No double bond · stable | Solid | Animal (fat) |
-| **Unsaturated** | ≥1 double bond · reactive | Liquid | Plant (oil) |
+| **Saturated** | No double bond, stable | Solid | Animal (fat) |
+| **Unsaturated** | ≥1 double bond, reactive | Liquid | Plant (oil) |
 
 ## 🍴 Acceptable Food (4 criteria)
 1. Correct stage of harvest/age (not too young/old)
@@ -36049,14 +36049,14 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 |--------|-----------|
 | **Irradiation** | DNA damage to microbes |
 | **Vacuum packaging** | Anaerobic + low O2 |
-| **Pulsed Electric Field (PEF)** | Cell membrane disruption · minimal heat |
+| **Pulsed Electric Field (PEF)** | Cell membrane disruption, minimal heat |
 | **Ultrasound** | Cavitation shears cell |
 | **Cold plasma** | Ionized gas kills microbes |
-| **High Pressure Processing (HPP)** | 600 MPa kills microbes · preserves taste |
+| **High Pressure Processing (HPP)** | 600 MPa kills microbes, preserves taste |
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
-1. Carbs 4 kcal · Protein 4 · Fats 9 kcal/g
-2. Saturated FA = solid + animal · Unsaturated = liquid + plant
+1. Carbs 4 kcal, Protein 4, Fats 9 kcal/g
+2. Saturated FA = solid + animal, Unsaturated = liquid + plant
 3. Protein 4 levels: Primary/Secondary/Tertiary/Quaternary (Hb = quaternary)
 4. **Lipid oxidation** = rancidity from FA double bonds + O2
 5. **Lipolysis** = lipase + triglyceride → FFA → bitter
@@ -36065,13 +36065,13 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 8. **Maillard** = reducing sugar + amino acid + heat → melanoidin
 9. ⚠️ Maillard + asparagine → **acrylamide carcinogen**
 10. Myoglobin → Metmyoglobin (Fe²⁺→Fe³⁺) = meat browning
-11. **Canning pH 4.6 rule**: <4.6 water bath · >4.6 pressure (botulinum!)
-12. Water activity: < 0.6 dry · 0.6-0.85 IMF · > 0.85 fresh
+11. **Canning pH 4.6 rule**: <4.6 water bath, >4.6 pressure (botulinum!)
+12. Water activity: < 0.6 dry, 0.6-0.85 IMF, > 0.85 fresh
 13. **Freeze drying** preserves shape + nutrition (premium products)
 14. **Spray drying** = instant coffee/milk powder
 15. Smoking = heat + antimicrobial phenolic compounds
 
-> 📚 อ่านควบ: 2 Mycotoxins (zAXlmhPU1rg) · 3 Drug residues (R1-1wtoZ8-8) · 5 Food Chemical Risk (fs0TOM677as)
+> 📚 อ่านควบ: 2 Mycotoxins (zAXlmhPU1rg), 3 Drug residues (R1-1wtoZ8-8), 5 Food Chemical Risk (fs0TOM677as)
 > 🍞 **Daily life**: Maillard ทำขนมปัง grill อร่อยแต่ระวัง acrylamide
 > 💡 **Vet pearl**: เนื้อสด pH > 5.5 → mostly *Pseudomonas* spoilage`,
   },
@@ -36086,12 +36086,12 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
     examFormat: 'mycotoxin ID + organ target + plastic code',
     summary: `# 2. Mycotoxins + Carcinogens
 
-> ⚠️ Heavy content session · 5 mycotoxin groups + carcinogen review + plastic resin codes
+> ⚠️ Heavy content session, 5 mycotoxin groups + carcinogen review + plastic resin codes
 > Continue from week 1 food deterioration
 
 ## 🎯 ภาพรวมคาบ
 1. Mycotoxin definition + production factors
-2. **5 major mycotoxins** (aflatoxin · ochratoxin · trichothecene · zearalenone · fumonisin)
+2. **5 major mycotoxins** (aflatoxin, ochratoxin, trichothecene, zearalenone, fumonisin)
 3. Carcinogen classification + IARC update
 4. **Plastic Resin Identification Code (RIC)** + chemical leaching
 
@@ -36105,7 +36105,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 ### Production Factors
 | Factor | Detail |
 |--------|--------|
-| **Mold species** | Aspergillus · Fusarium · Penicillium (3 main) |
+| **Mold species** | Aspergillus, Fusarium, Penicillium (3 main) |
 | **Temperature** | Each mold species different optimum |
 | **Humidity** | Water activity dependent |
 | **Atmosphere** | O2 vs CO2 ratio |
@@ -36129,8 +36129,8 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 **Toxicity**:
 | Type | Effect |
 |------|--------|
-| Acute | Liver failure · brain edema · seizure · death (children high risk) |
-| **Chronic** ⭐ | Hepatitis · **hepatocellular carcinoma** · immune suppression |
+| Acute | Liver failure, brain edema, seizure, death (children high risk) |
+| **Chronic** ⭐ | Hepatitis, **hepatocellular carcinoma**, immune suppression |
 
 **Mechanism**: B1 → CYP450 (liver) → **AFB1-8,9-epoxide** → DNA binding → mutation → cancer
 
@@ -36146,7 +36146,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 
 ### B. Ochratoxin A (OTA)
 - From: Aspergillus, **Penicillium verrucosum**
-- Penicillium = temperate · Aspergillus = tropical (Thailand)
+- Penicillium = temperate, Aspergillus = tropical (Thailand)
 - Source: dried grapes, pork, coffee
 - Sensitivity: pig + poultry > cattle (rumen detoxifies!)
 
@@ -36163,7 +36163,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 - Source: corn, wheat, barley
 - Effect: **vomiting** in pig, GI irritation, anorexia
 - **1 ppm enough to cause pig toxicity**!
-- Pig most sensitive · cattle resistant
+- Pig most sensitive, cattle resistant
 - ❌ NOT excreted in milk
 
 #### T2 / HT2 / DAS
@@ -36183,8 +36183,8 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 **Toxicity** ⭐:
 | Sex | Effect |
 |-----|--------|
-| **Female** | Vulvar swelling · endometritis · cystic ovary · infertility · abortion |
-| **Male** | Testicular atrophy · low sperm · feminization → pseudo-castrate |
+| **Female** | Vulvar swelling, endometritis, cystic ovary, infertility, abortion |
+| **Male** | Testicular atrophy, low sperm, feminization → pseudo-castrate |
 
 **Historical link**: early puberty in Puerto Rican girls 1980s
 
@@ -36195,7 +36195,7 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 
 **Equine ELEM** (Equine LeukoEncephaloMalacia)
 - Synonyms: "**Moldy corn poisoning**" / "**Blind staggers**"
-- Neurologic: blindness · ataxia · seizure · death
+- Neurologic: blindness, ataxia, seizure, death
 - Pathognomonic: white matter softening in cerebral hemispheres
 
 ## 3️⃣ Carcinogens Review
@@ -36294,24 +36294,24 @@ Iron (Fe²⁺/Fe³⁺) in blood breakdown products = **paramagnetic** → distor
 ## 📋 Exam Recap (15 จุดสำคัญ)
 1. Mycotoxin = secondary metabolite of mold (toxic, antimicrobial)
 2. **3 main mold genera**: Aspergillus, Fusarium, Penicillium
-3. **Aflatoxin B1** = most potent · IARC Group 1 · liver cancer
-4. **M1** = milk metabolite of B1 · infant risk · Codex 0.5 ppb · EU infant 0.025
-5. **Ochratoxin** = kidney target · BEN link · cattle resistant (rumen detox)
-6. **DON** (vomitoxin) = pig vomiting at 1 ppm · NOT in milk
-7. **T2** = bone marrow + GI · yellow-black mouth lesions · IS in milk
-8. **Zearalenone** = estrogen mimic · pig vulvar swelling · male feminization
+3. **Aflatoxin B1** = most potent, IARC Group 1, liver cancer
+4. **M1** = milk metabolite of B1, infant risk, Codex 0.5 ppb, EU infant 0.025
+5. **Ochratoxin** = kidney target, BEN link, cattle resistant (rumen detox)
+6. **DON** (vomitoxin) = pig vomiting at 1 ppm, NOT in milk
+7. **T2** = bone marrow + GI, yellow-black mouth lesions, IS in milk
+8. **Zearalenone** = estrogen mimic, pig vulvar swelling, male feminization
 9. **Fumonisin** + horse = **ELEM** (moldy corn poisoning, blind staggers)
-10. Pig most sensitive to most mycotoxins · ruminants more resistant (rumen)
+10. Pig most sensitive to most mycotoxins, ruminants more resistant (rumen)
 11. Acrylamide upgraded to **IARC Group 1** (was 2B)
-12. **#1 PET** = single use only · don't microwave/reheat
-13. **#3 PVC** + heat = DEHP leaching · most toxic plastic
-14. **#5 PP** = safest reusable · up to 100°C
-15. EU migration limits: 10 mg/dm² general · 60 mg/kg infant
+12. **#1 PET** = single use only, don't microwave/reheat
+13. **#3 PVC** + heat = DEHP leaching, most toxic plastic
+14. **#5 PP** = safest reusable, up to 100°C
+15. EU migration limits: 10 mg/dm² general, 60 mg/kg infant
 
-> 📚 อ่านควบ: 1 Food Deterioration (o0rgzFHEcE0) · 3 Drug Residues (R1-1wtoZ8-8) · 5 Risk Assessment (fs0TOM677as)
+> 📚 อ่านควบ: 1 Food Deterioration (o0rgzFHEcE0), 3 Drug Residues (R1-1wtoZ8-8), 5 Risk Assessment (fs0TOM677as)
 > 🌽 **Tropical alert**: Aspergillus + Fusarium ในไทย → check corn + peanut + chili
-> 💡 **Practical**: ขวดน้ำเปล่าใช้ครั้งเดียว · ไม่เอาเข้า microwave
-> 🥛 **Milk safety**: AFM1 ใน infant formula = แต่ระวังที่สุด · WHO 0.025 ppb`,
+> 💡 **Practical**: ขวดน้ำเปล่าใช้ครั้งเดียว, ไม่เอาเข้า microwave
+> 🥛 **Milk safety**: AFM1 ใน infant formula = แต่ระวังที่สุด, WHO 0.025 ppb`,
   },
 
   'R1-1wtoZ8-8': {
@@ -36420,7 +36420,7 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 - Broad-spectrum antibiotics
 - Symptoms: nausea, diarrhea, constipation, abdominal pain
 - Especially: gut + skin microbiome disruption
-- Distinguish: **Antibiotic** = natural origin · **Antimicrobial agent** = broader (includes synthetic)
+- Distinguish: **Antibiotic** = natural origin, **Antimicrobial agent** = broader (includes synthetic)
 
 ### G. Antimicrobial Resistance Development ⭐ Critical
 **Mechanism:**
@@ -36470,7 +36470,7 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 ## 6️⃣ Specific Drug Groups
 
 ### A. Aminoglycosides
-**Source**: -mycin (from *Streptomyces*) · -micin (from *Micromonospora*)
+**Source**: -mycin (from *Streptomyces*), -micin (from *Micromonospora*)
 **Examples**: gentamicin, kanamycin, neomycin, streptomycin
 **Toxicity**: **Oto** + **Nephro** at high dose
 > Less concern as residue (low-dose effect minimal)
@@ -36553,23 +36553,23 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
 1. Drug residue = active drug + metabolites + bound forms
-2. Causes: PK variation · ELU · improper WT · management failure
+2. Causes: PK variation, ELU, improper WT, management failure
 3. **Mastitis IM**: dry ALL quarters (drug spreads)
-4. **Chloramphenicol** = aplastic anemia · banned globally for food animals
+4. **Chloramphenicol** = aplastic anemia, banned globally for food animals
 5. **Tetracycline** = yellow teeth + bone deposition (children <8)
 6. **Beta-agonist** = banned in Thailand all use
 7. **Penicillin** = #1 allergy concern in residue
 8. **EU Group A5**: chloramphenicol/nitrofurans/nitroimidazole — banned
-9. **Sulfa + G6PD** = hemolytic · **+ infant** = kernicterus
+9. **Sulfa + G6PD** = hemolytic, **+ infant** = kernicterus
 10. **Macrolide** binds 50S ribosome
 11. **mcr-1** = colistin resistance gene (livestock concern)
-12. **Phenylbutazone** = horse only · banned in cattle · 2013 EU horsemeat scandal
+12. **Phenylbutazone** = horse only, banned in cattle, 2013 EU horsemeat scandal
 13. **Aminoglycoside** = -mycin (Strep) vs -micin (Micromono)
 14. **WT** = until residue ≤ MRL (NOT zero)
 15. Detection sensitivity ↑ → WT ↓ (safe)
 
-> 📚 อ่านควบ: 4 International Standards (mKqT3c6qxOY) · 5 Risk Assessment (fs0TOM677as)
-> 💉 **Practical**: ลงบันทึกให้ชัด · เปลี่ยนเข็มทุกครั้ง · ตำแหน่งฉีด standard
+> 📚 อ่านควบ: 4 International Standards (mKqT3c6qxOY), 5 Risk Assessment (fs0TOM677as)
+> 💉 **Practical**: ลงบันทึกให้ชัด, เปลี่ยนเข็มทุกครั้ง, ตำแหน่งฉีด standard
 > ⚠️ **Banned Thailand**: Beta-agonist, chloramphenicol food animals, nitrofurans
 > 🥛 **WT trap**: dry-off treatment → ห้ามรีดทุกเต้า`,
   },
@@ -36585,7 +36585,7 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
     summary: `# 4. International Food Standards + Thai Regulations
 
 > ⚠️ Long lecture (159 min) — overview of standards architecture
-> Foundation for Year 5 detailed study · know "who governs what"
+> Foundation for Year 5 detailed study, know "who governs what"
 
 ## 🎯 ภาพรวมคาบ
 1. Why food standards exist
@@ -36612,7 +36612,7 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 ## 2️⃣ World Trade Organization (WTO)
 
 ### Background
-- Founded 1995 · Thailand member #59 (founding member!)
+- Founded 1995, Thailand member #59 (founding member!)
 - Goal: free, predictable, non-discriminatory trade
 - Members must comply with multiple agreements
 
@@ -36665,7 +36665,7 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 ### Codex Operating Principles (3)
 1. **Harmonization** — adapt to country context, follow Codex framework
 2. **Equivalence** — accept other members' assessments as equal
-3. **Transparency** — declare own standards · maintain Codex Contact Point
+3. **Transparency** — declare own standards, maintain Codex Contact Point
 
 ## 4️⃣ Codex Structure
 
@@ -36698,7 +36698,7 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 | North America + SW Pacific | rotates |
 
 ### Thailand Codex Contact Point
-**ACFS** (มกอช · Office of Agricultural Commodity and Food Standards)
+**ACFS** (มกอช, Office of Agricultural Commodity and Food Standards)
 - Coordinates with: Department of Livestock Development (DLD), FDA, academics
 
 ## 5️⃣ Thai Regulations Architecture
@@ -36722,7 +36722,7 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 | **Fisheries Act** | Fisheries Dept |
 
 ### Ministry Split — Master Rule ⭐
-**"Export → Agriculture · Domestic → Public Health"**
+**"Export → Agriculture, Domestic → Public Health"**
 
 | Function | Public Health (สาธา) | Agriculture (เกษตร) |
 |----------|----------------------|---------------------|
@@ -36736,9 +36736,9 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 
 ### Recent Mandatory Farm Standards
 **Were voluntary, NOW MANDATORY**:
-- ✅ **Broiler chicken farms** (first mandatory · we're #1 broiler exporter)
-- ✅ **Layer farms** (size-dependent · pushing away from cage systems)
-- 🆕 **Swine farms** (recent · Animal Welfare driven)
+- ✅ **Broiler chicken farms** (first mandatory, we're #1 broiler exporter)
+- ✅ **Layer farms** (size-dependent, pushing away from cage systems)
+- 🆕 **Swine farms** (recent, Animal Welfare driven)
 
 **Transition period given** for small farms
 
@@ -36770,32 +36770,32 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 **Standard** = document established by consensus, approved by recognized body, providing rules/guidelines/characteristics for activities, used commonly to achieve maximum efficiency
 
 ### 4 Benefits of Standards
-1. **Trade**: shared understanding · faster transactions
-2. **Production**: consistent quality · clear SOPs
-3. **Communication**: less ambiguity · documented procedures
+1. **Trade**: shared understanding, faster transactions
+2. **Production**: consistent quality, clear SOPs
+3. **Communication**: less ambiguity, documented procedures
 4. **Compliance**: meets export requirements (for SMEs especially)
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
 1. Standards needed because country differences cause unfair trade
 2. **SPS Agreement** = WTO sanitary/phyto-sanitary umbrella
-3. SPS measures must be scientific · doesn't cover welfare/environment
-4. **Codex** = food safety (FAO/WHO joint) · 189 members
+3. SPS measures must be scientific, doesn't cover welfare/environment
+4. **Codex** = food safety (FAO/WHO joint), 189 members
 5. **WOAH** (was OIE) = animal health
 6. **IPPC** = plant protection
 7. Codex committees: General Subject + Commodity + Ad Hoc + Regional
 8. Vet-relevant: Drug Residues Committee + Hygiene + Contaminants + Additives
 9. Thailand Codex Contact Point = **ACFS** (มกอช)
-10. **Rule**: Export = Agriculture · Domestic = Public Health
-11. **Drug registration** = Public Health · **drug use in farm** = Agriculture
+10. **Rule**: Export = Agriculture, Domestic = Public Health
+11. **Drug registration** = Public Health, **drug use in farm** = Agriculture
 12. **Broiler farm** = first mandatory standard (we're #1 exporter)
 13. Standard tiers: GAP (farm) → GMP (slaughter/processing)
 14. Mandatory: Acts published in Royal Gazette
 15. Voluntary: GHP/HACCP/ISO/Codex (but required for export markets)
 
-> 📚 อ่านควบ: 5 Risk Assessment (fs0TOM677as) · 9 Foodborne Disease (juDD-Hduw6I)
-> 🏢 **Career**: ACFS (มกอช) · DLD/FDA · ทำงานกับ standards
-> 💡 **Quick rule**: ส่งออก = เกษตร · ขายในประเทศ = สาธา · ยา = สาธา · ฟาร์ม = เกษตร
-> 🌍 **OneHealth**: Codex + WOAH + IPPC = three pillars · WTO over umbrella`,
+> 📚 อ่านควบ: 5 Risk Assessment (fs0TOM677as), 9 Foodborne Disease (juDD-Hduw6I)
+> 🏢 **Career**: ACFS (มกอช), DLD/FDA, ทำงานกับ standards
+> 💡 **Quick rule**: ส่งออก = เกษตร, ขายในประเทศ = สาธา, ยา = สาธา, ฟาร์ม = เกษตร
+> 🌍 **OneHealth**: Codex + WOAH + IPPC = three pillars, WTO over umbrella`,
   },
 
   fs0TOM677as: {
@@ -36808,9 +36808,9 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
     examFormat: 'calculation + concept (formulas given!)',
     summary: `# 5. Food Chemical Risk Assessment
 
-> ⚠️ **Calculation-heavy** lecture (186 min) · pre-midterm final
-> Sob exam: formulas + variable values **given** · only need to apply
-> Bring calculator (basic OK · scientific too) · know unit conversions ⚠️
+> ⚠️ **Calculation-heavy** lecture (186 min), pre-midterm final
+> Sob exam: formulas + variable values **given**, only need to apply
+> Bring calculator (basic OK, scientific too), know unit conversions ⚠️
 
 ## 🎯 ภาพรวมคาบ
 1. MRL definition + tissues + species
@@ -36845,7 +36845,7 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 
 ## 2️⃣ Risk Analysis Framework
 
-**Risk Analysis** = umbrella term · 3 components:
+**Risk Analysis** = umbrella term, 3 components:
 | Component | Function | Type |
 |-----------|----------|------|
 | **Risk Assessment** | What's the risk? | Science-based |
@@ -36858,8 +36858,8 @@ Per FAO: substance/mixture for diagnosis, treatment, alleviation, prevention of 
 - Slight model differences but same Risk Analysis structure
 
 ### 2 Critical Concepts
-- **State of the Art**: best current method · NOT a fixed recipe (e.g., disease has multiple valid treatment approaches)
-- **Dynamic**: methods + data evolve · evaluation must update
+- **State of the Art**: best current method, NOT a fixed recipe (e.g., disease has multiple valid treatment approaches)
+- **Dynamic**: methods + data evolve, evaluation must update
 
 ## 3️⃣ Hazard vs Risk
 
@@ -36969,7 +36969,7 @@ Where:
 ## 8️⃣ Worked Example (Lecture Practice)
 
 ### Formaldehyde rat study (US EPA)
-- 70 rats per dose × 24 months · 4 doses
+- 70 rats per dose × 24 months, 4 doses
 - Doses (mg/kg BW/day): 0 (control), 1.2, 15, 82 (M); 1.8, 21, 109 (F)
 - Findings:
   - Significant **weight loss** at high dose (M from week 1, F from week 24)
@@ -37038,23 +37038,23 @@ Per body weight: **EDI = (food intake × residue) / body weight**
 ## 📋 Exam Recap (15 จุดสำคัญ)
 1. **Risk Analysis** = Assessment + Management + Communication
 2. **Risk Assessment 4 steps**: Hazard ID → Characterization → Exposure → Risk Char
-3. **Hazard** = agent · **Risk** = probability × severity
+3. **Hazard** = agent, **Risk** = probability × severity
 4. Chemical categories: carcinogen (no threshold) vs non-carcinogen (threshold)
-5. **NOAEL** = highest dose NO effect · **LOAEL** = lowest dose WITH effect
+5. **NOAEL** = highest dose NO effect, **LOAEL** = lowest dose WITH effect
 6. NOAEL < threshold < LOAEL (always)
 7. ⭐ **Safe Dose = NOAEL / (UF × MF)**
-8. UF defaults: each = 10 · 5 sub-factors (H, A, S, L, D)
+8. UF defaults: each = 10, 5 sub-factors (H, A, S, L, D)
 9. Common UF total: animal chronic NOAEL = **100**
 10. MF default = **1** (unless specified)
 11. **EDI** = consumption × residue / BW
 12. Risk: EDI < Safe Dose = OK
-13. **TRV names**: Codex ADI/TDI · EPA RfD · ATSDR MRL · WHO TDI
+13. **TRV names**: Codex ADI/TDI, EPA RfD, ATSDR MRL, WHO TDI
 14. ATSDR MRL ≠ Codex Maximum Residue Limit (different concept!)
-15. Animal chronic ≥ 2 yr · Human chronic ≥ 7 yr
+15. Animal chronic ≥ 2 yr, Human chronic ≥ 7 yr
 
-> 📚 อ่านควบ: 3 Drug Residues (R1-1wtoZ8-8) · 4 Standards (mKqT3c6qxOY) · 8 QMRA (oy-ZkKZG_i8)
-> 🧮 **Sob practical**: เครื่องคิดเลขเข้าได้ · จำสูตร safe dose · ระวัง unit
-> 💡 **Default rule**: UF=100 (animal+chronic+NOAEL) · MF=1
+> 📚 อ่านควบ: 3 Drug Residues (R1-1wtoZ8-8), 4 Standards (mKqT3c6qxOY), 8 QMRA (oy-ZkKZG_i8)
+> 🧮 **Sob practical**: เครื่องคิดเลขเข้าได้, จำสูตร safe dose, ระวัง unit
+> 💡 **Default rule**: UF=100 (animal+chronic+NOAEL), MF=1
 > 🦴 **TRV naming pitfall**: ATSDR MRL ≠ Codex MRL — ดูบริบท`,
   },
 
@@ -37073,7 +37073,7 @@ Per body weight: **EDI = (food intake × residue) / body weight**
 
 ## 🎯 ภาพรวมคาบ
 1. Growth vs Survival concept
-2. **4 environmental factors**: Temperature · Water Activity · pH · Oxygen
+2. **4 environmental factors**: Temperature, Water Activity, pH, Oxygen
 3. Bacterial Growth Curve (Lag/Log/Stationary/Death)
 4. Microbe categories by tolerance (psychrophile/mesophile/thermophile)
 5. Critical numbers to memorize ⭐
@@ -37126,7 +37126,7 @@ Each microbe has **3 critical temperatures**:
 Temperature range where pathogens proliferate fastest in food
 
 **Rule for canteen/restaurant**:
-- ⭐ **Keep Hot Food Hot · Keep Cold Food Cold**
+- ⭐ **Keep Hot Food Hot, Keep Cold Food Cold**
 - Don't leave food in 5-60°C range
 
 ### Listeria — exception case ⚠️
@@ -37155,10 +37155,10 @@ Temperature range where pathogens proliferate fastest in food
 |-------|-------------|---------|
 | **Lag** | Adaptation, no division | "First semester adjusting to college" |
 | **Log (exponential)** | Rapid division, plenty of nutrients | "Year 2-3 productive period" |
-| **Stationary** | Death rate = birth rate · waste accumulates | "Equilibrium" |
-| **Death (decline)** | Death > birth · nutrients exhausted | "Old age" |
+| **Stationary** | Death rate = birth rate, waste accumulates | "Equilibrium" |
+| **Death (decline)** | Death > birth, nutrients exhausted | "Old age" |
 
-**X-axis**: time · **Y-axis**: log₁₀(cell number)
+**X-axis**: time, **Y-axis**: log₁₀(cell number)
 
 ### Practical implications
 - Long lag phase = food keeps longer
@@ -37268,7 +37268,7 @@ Range: **0 to 1** (pure water = 1)
 | Group | Pathogens |
 |-------|-----------|
 | **Obligate aerobe** | *Pseudomonas*, *Bacillus cereus* |
-| **Obligate anaerobe** | ⭐ ***Clostridium botulinum*** (botulism!) · *C. perfringens* · *C. difficile* |
+| **Obligate anaerobe** | ⭐ ***Clostridium botulinum*** (botulism!), *C. perfringens*, *C. difficile* |
 | **Facultative anaerobe** | ⭐ Most pathogens — *Salmonella*, *E. coli*, *Staphylococcus*, *Listeria*, *Vibrio* |
 | **Microaerophilic** | ⭐ ***Campylobacter***, *Helicobacter pylori* |
 
@@ -37282,9 +37282,9 @@ Range: **0 to 1** (pure water = 1)
 > ⚠️ Vacuum packaging selects FOR anaerobes (botulinum risk!)
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
-1. **Growth** = active multiplication · **Survival** = retention of viability
+1. **Growth** = active multiplication, **Survival** = retention of viability
 2. 90%+ foodborne illness = **bacteria**
-3. **4 factors**: Temperature · Water Activity · pH · Oxygen
+3. **4 factors**: Temperature, Water Activity, pH, Oxygen
 4. Mesophile (25-40°C) = most pathogens
 5. **Listeria** = psychrotrophic exception (grows in fridge!)
 6. Danger Zone: 5-60°C = "Keep Hot Food Hot, Cold Food Cold"
@@ -37298,9 +37298,9 @@ Range: **0 to 1** (pure water = 1)
 14. **Campylobacter = microaerophilic**
 15. Most pathogens = facultative anaerobes (flexible threat)
 
-> 📚 อ่านควบ: 8 QMRA (oy-ZkKZG_i8) · 9 Foodborne intro (juDD-Hduw6I) · 10-11 Foodborne infections (ihparzz9KJ8, e16wNH-zV6Q)
+> 📚 อ่านควบ: 8 QMRA (oy-ZkKZG_i8), 9 Foodborne intro (juDD-Hduw6I), 10-11 Foodborne infections (ihparzz9KJ8, e16wNH-zV6Q)
 > 🥶 **Practical**: ตู้เย็นไม่ปลอดภัย 100% — Listeria + ชีส
-> 💡 **Magic numbers**: a_w 0.85 · pH 4.5 · DZ 5-60°C — จำให้ได้
+> 💡 **Magic numbers**: a_w 0.85, pH 4.5, DZ 5-60°C — จำให้ได้
 > 🥫 **Botulinum trap**: vacuum + neutral pH = perfect storm`,
   },
 
@@ -37315,7 +37315,7 @@ Range: **0 to 1** (pure water = 1)
     summary: `# 8. QMRA — Quantitative Microbial Risk Assessment
 
 > ⚠️ Final risk assessment lecture for microbes (parallel to chemistry RA in lecture 5)
-> ⭐ Only taught at CUVET — extinct elsewhere · "ไม่ค่อยมีใครสอน"
+> ⭐ Only taught at CUVET — extinct elsewhere, "ไม่ค่อยมีใครสอน"
 > Key application: Salmonella in chicken (Thailand exports!)
 
 ## 🎯 ภาพรวมคาบ
@@ -37356,7 +37356,7 @@ Range: **0 to 1** (pure water = 1)
 
 ### Describe the organism
 **Salmonella enterica subsp. enterica** (only species we care about)
-- 2 species total in genus · S. enterica + S. bongori (rare)
+- 2 species total in genus, S. enterica + S. bongori (rare)
 - 2,000+ serovars (formerly serotypes)
 - Most famous: ⭐ ***S.* Typhimurium**
 
@@ -37425,7 +37425,7 @@ Where:
 - Bacterial concentration usually in log scale → 10^C converts back
 
 ### Salmonella standard (Thailand + global)
-- ⭐ **Not detected in 25 g** (zero tolerance · Codex/EU/Thailand)
+- ⭐ **Not detected in 25 g** (zero tolerance, Codex/EU/Thailand)
 - High-risk pathogen → no allowance
 
 ### Output of Step 3
@@ -37504,8 +37504,8 @@ Where:
 14. P_risk = P_E × P_D (multiply, independent events)
 15. CAN'T do QMRA for non-pathogens (Lactobacillus etc.)
 
-> 📚 อ่านควบ: 5 Risk Assessment chemical (fs0TOM677as) · 9 Foodborne intro (juDD-Hduw6I) · 10-11 Foodborne infections
-> 🧮 **Sob practical**: เครื่องคิดเลข + จำสูตร α, β · log convert
+> 📚 อ่านควบ: 5 Risk Assessment chemical (fs0TOM677as), 9 Foodborne intro (juDD-Hduw6I), 10-11 Foodborne infections
+> 🧮 **Sob practical**: เครื่องคิดเลข + จำสูตร α, β, log convert
 > 💡 **Common pitfall**: Salmonella vs serovar Typhimurium naming — italics matter!
 > 🦴 **Real-world**: Thailand chicken export = QMRA must validate to EU/Codex level`,
   },
@@ -37520,7 +37520,7 @@ Where:
     examFormat: 'concept + pathway + risk groups',
     summary: `# 9. Introduction to Foodborne Diseases
 
-> ⚠️ Pre-detailed pathogen series · sets up framework for lectures 10-15
+> ⚠️ Pre-detailed pathogen series, sets up framework for lectures 10-15
 > Foundation: definitions, terms, mechanisms, susceptible groups
 
 ## 🎯 ภาพรวมคาบ
@@ -37550,7 +37550,7 @@ Where:
 | **Protozoa** | *Cryptosporidium*, *Giardia*, *Toxoplasma* |
 | **Fungi/toxin** | Mycotoxins, mushroom toxins, Pufferfish toxin, **Prion** |
 
-> **>250 organisms** can cause foodborne disease · 90%+ are bacteria
+> **>250 organisms** can cause foodborne disease, 90%+ are bacteria
 > Vet course focuses on: bacteria + selected viruses + zoonotic parasites
 
 ## 3️⃣ Symptoms
@@ -37715,23 +37715,23 @@ Where:
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
 1. Foodborne disease = food poisoning = foodborne illness (synonyms)
-2. >250 causative organisms · bacteria 90%
-3. **Toxin** incubation 1-6 hr · **bacteria/virus** 12-72 hr
-4. **Listeria** = abortion · **Toxoplasma** = encephalitis · **C. botulinum** = paralysis
+2. >250 causative organisms, bacteria 90%
+3. **Toxin** incubation 1-6 hr, **bacteria/virus** 12-72 hr
+4. **Listeria** = abortion, **Toxoplasma** = encephalitis, **C. botulinum** = paralysis
 5. ⭐ **YOPI** = Young/Old/Pregnant/Immunocompromised
 6. **Invasive** vs **Toxico-infection** vs **Intoxication**
 7. *Shigella* needs only ~10 cells (very low ID)
 8. Pathogen does NOT change food's taste/smell ⚠️
-9. Self-limiting in normal adults · supportive treatment only
+9. Self-limiting in normal adults, supportive treatment only
 10. **Norfloxacin** first-line BUT Campylobacter resistance 80-90%
 11. Red flags: fever + bloody stool + >3 days + dehydration
-12. **Mishandling** = Danger Zone temp · Staph toxin heat-stable
+12. **Mishandling** = Danger Zone temp, Staph toxin heat-stable
 13. **Cross-contamination** = current #1 cause in developed countries
 14. **High-risk**: raw meat/oysters/eggs/unpasteurized milk/sprouts
 15. Contamination occurs along entire food chain (farm→fork)
 
-> 📚 อ่านควบ: 6-7 Factors (2JMEuvnHeok) · 10 Foodborne Infection (ihparzz9KJ8) · 11 Intoxication (e16wNH-zV6Q) · 12 Viral (RmoRw0wA1g4)
-> 🍴 **Practical**: ตู้เย็น 4°C ≠ 100% safe (Listeria!) · ห้องเก็บ 65°C+
+> 📚 อ่านควบ: 6-7 Factors (2JMEuvnHeok), 10 Foodborne Infection (ihparzz9KJ8), 11 Intoxication (e16wNH-zV6Q), 12 Viral (RmoRw0wA1g4)
+> 🍴 **Practical**: ตู้เย็น 4°C ≠ 100% safe (Listeria!), ห้องเก็บ 65°C+
 > 💡 **Outbreak detective**: incubation period = clue to causative agent
 > 🦠 **Memory aid**: YOPI = "yo-pee" = high-risk groups`,
   },
@@ -37746,7 +37746,7 @@ Where:
     examFormat: 'pathogen ID + mechanism + food source + disease',
     summary: `# 10. Foodborne Infection — Bacterial Pathogens
 
-> ⚠️ Long lecture (158 min) · covers major bacterial foodborne pathogens
+> ⚠️ Long lecture (158 min), covers major bacterial foodborne pathogens
 > Continues mechanism framework: Invasive vs Toxico-infection vs Intoxication
 
 ## 🎯 ภาพรวมคาบ
@@ -37966,25 +37966,25 @@ Where:
 | **EAEC** | Maybe | No (aggregate) | ✅ persistent | — | Low |
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
-1. **Foodborne Infection** = eat live bacteria · **Intoxication** = eat toxin
-2. Salmonella H₂S+ (TSI black) · facultative anaerobe
+1. **Foodborne Infection** = eat live bacteria, **Intoxication** = eat toxin
+2. Salmonella H₂S+ (TSI black), facultative anaerobe
 3. **3 Salmonella host categories**: human-only/animal-specific/non-specific
 4. *S.* Typhi has Vi capsule (severity)
 5. Thailand chicken export bans: Typhimurium + Enteritidis (broiler), +3 (breeder)
 6. *S.* Typhimurium DT104 = first MDR strain
-7. **Shigella = human-only** · 4 species · S. dysenteriae has Shiga toxin
+7. **Shigella = human-only**, 4 species, S. dysenteriae has Shiga toxin
 8. Shigella vs EHEC: bloody + **fever** = Shigella; bloody + **NO fever** = EHEC
-9. ETEC = traveler's diarrhea · LT toxin like cholera
-10. **EHEC = O157:H7** · cattle reservoir (no symptom in cattle!)
+9. ETEC = traveler's diarrhea, LT toxin like cholera
+10. **EHEC = O157:H7**, cattle reservoir (no symptom in cattle!)
 11. ⭐ **EHEC = #1 cause of acute renal failure in <4 yr children** (HUS)
 12. **HUS triad**: hemolytic anemia + thrombocytopenia + acute renal failure
 13. EHEC sorbitol-negative (cream colony on MacConkey)
 14. Hamburger + unpasteurized milk = key EHEC foods
-15. 2011 Germany O104:H4 = EAEC/EHEC hybrid · sprouts source · 42 deaths
+15. 2011 Germany O104:H4 = EAEC/EHEC hybrid, sprouts source, 42 deaths
 
-> 📚 อ่านควบ: 9 Foodborne Intro (juDD-Hduw6I) · 11 Intoxication (e16wNH-zV6Q) · 12 Viral (RmoRw0wA1g4)
+> 📚 อ่านควบ: 9 Foodborne Intro (juDD-Hduw6I), 11 Intoxication (e16wNH-zV6Q), 12 Viral (RmoRw0wA1g4)
 > 🍔 **Burger rule**: Cook thoroughly + handle separately = EHEC prevention
-> 💡 **Distinguishing rule**: Bloody + fever → Shigella · Bloody + NO fever → EHEC
+> 💡 **Distinguishing rule**: Bloody + fever → Shigella, Bloody + NO fever → EHEC
 > 🐄 **One Health**: Cattle = silent EHEC reservoir → public health control challenge`,
   },
 
@@ -37998,7 +37998,7 @@ Where:
     examFormat: 'pathogen ID + toxin mechanism + food source',
     summary: `# 11. Foodborne Infection II + Intoxication
 
-> ⚠️ Continuation of bacterial pathogens · adds 4 Vibrio + GR+ intoxication group
+> ⚠️ Continuation of bacterial pathogens, adds 4 Vibrio + GR+ intoxication group
 > Critical: Salt-loving (halophilic) bacteria + heat-stable toxins + botulinum
 
 ## 🎯 ภาพรวมคาบ
@@ -38264,22 +38264,22 @@ Where:
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
 1. **Vibrio** halophilic (most pathogenic species need salt)
-2. **TCBS**: V. cholerae yellow · V. para/vulnificus green
-3. **Cholera toxin**: A-B subunit · cAMP ↑ · "rice water stool"
+2. **TCBS**: V. cholerae yellow, V. para/vulnificus green
+3. **Cholera toxin**: A-B subunit, cAMP ↑, "rice water stool"
 4. **ORS Nobel prize** = saved millions
 5. **Kanagawa-positive** = pathogenic V. parahaemolyticus
 6. **V. vulnificus** = most lethal (50% mortality immunocompromised)
 7. ⭐ ***Staph aureus*** **enterotoxin = HEAT STABLE** (100°C × 30 min)
-8. Staph: 1-6 hr vomiting · NO fever · personal hygiene main control
-9. *B. cereus* **emetic = rice/pasta** · diarrheal = mixed foods
+8. Staph: 1-6 hr vomiting, NO fever, personal hygiene main control
+9. *B. cereus* **emetic = rice/pasta**, diarrheal = mixed foods
 10. *B. cereus* emetic toxin SUPER heat-stable (121°C × 90 min!)
-11. ***C. perfringens*** = "buffet bug" · large cooked meat held warm
+11. ***C. perfringens*** = "buffet bug", large cooked meat held warm
 12. ***C. botulinum*** = obligate anaerobe + most potent toxin known
 13. ⭐ **3 botulism forms**: foodborne / wound / **infant** (honey ⚠️)
 14. หน่อไม้ปี๊บ + Nan Province = recurrent botulism
-15. Botulism = descending flaccid paralysis · antitoxin treatment
+15. Botulism = descending flaccid paralysis, antitoxin treatment
 
-> 📚 อ่านควบ: 9 Foodborne Intro · 10 Foodborne Infection I · 12 Viral · 14 Parasitic
+> 📚 อ่านควบ: 9 Foodborne Intro, 10 Foodborne Infection I, 12 Viral, 14 Parasitic
 > 🍯 **Critical rule**: NO honey for infants <1 yr (botulism risk)
 > 🥡 **Catering trap**: Large warm meat = C. perfringens factory
 > 🍚 **Rice rule**: Cooked rice sitting out = B. cereus emetic time bomb
@@ -38302,8 +38302,8 @@ Where:
 
 ## 🎯 ภาพรวมคาบ
 1. Why viruses underdiagnosed
-2. **Norovirus** ⭐ (Cruise ship · raspberries · projectile vomiting)
-3. **Hepatitis A** ⭐ (food/water · long incubation)
+2. **Norovirus** ⭐ (Cruise ship, raspberries, projectile vomiting)
+3. **Hepatitis A** ⭐ (food/water, long incubation)
 4. Hepatitis E (zoonotic — pigs)
 5. Rotavirus (children diarrhea)
 6. Adenovirus, Astrovirus
@@ -38427,7 +38427,7 @@ Where:
   - **Dark urine**
   - **Pale/clay-colored stool**
   - **Liver tenderness** (RUQ)
-- Self-limiting · NO chronic disease
+- Self-limiting, NO chronic disease
 
 ### Shedding
 - ⭐ Virus shed in feces **2 weeks BEFORE + 2 weeks AFTER** symptoms
@@ -38496,7 +38496,7 @@ Where:
 |-------|--------|--------|---------|----------|
 | **Norovirus** | Caliciviridae | ssRNA | Cruise ship, raspberries | Mild adults |
 | **HAV** | Picornaviridae | ssRNA | Oysters, day care | **Adults > children** |
-| **HEV** | Hepeviridae | ssRNA | Pork (zoonotic!) | Mild · ⚠️ pregnant fatal |
+| **HEV** | Hepeviridae | ssRNA | Pork (zoonotic!) | Mild, ⚠️ pregnant fatal |
 | **Rotavirus** | Reoviridae | dsRNA | Daycare, water | **Children > adults** |
 | **Adenovirus 40/41** | Adenoviridae | dsDNA | Children | Mild |
 
@@ -38524,13 +38524,13 @@ Where:
 - "Projectile vomiting" keyword (Norovirus)
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
-1. Viruses = **>50%** estimated foodborne illness · only ~20% confirmed
-2. Viruses person-to-person · NOT from animals (mostly)
+1. Viruses = **>50%** estimated foodborne illness, only ~20% confirmed
+2. Viruses person-to-person, NOT from animals (mostly)
 3. Non-enveloped + small = highly stable
 4. **Norovirus** ⭐ = #1 viral foodborne (~80%)
-5. ⭐ **Cruise ship** = Norovirus clue · ⭐ **Raspberries** = Norovirus
+5. ⭐ **Cruise ship** = Norovirus clue, ⭐ **Raspberries** = Norovirus
 6. ⭐ **Projectile vomiting** = Norovirus keyword
-7. **HAV** = fecal-oral · NO chronic liver damage
+7. **HAV** = fecal-oral, NO chronic liver damage
 8. ⭐ **HBV/HCV** ≠ HAV (different transmission, chronic disease)
 9. **HAV incubation 2-6 weeks** (long! hard to investigate)
 10. HAV severe in **adults > children** (opposite Rotavirus!)
@@ -38540,7 +38540,7 @@ Where:
 14. ⚠️ HEV pregnant 3rd trimester: 25% mortality!
 15. Rotavirus severe in **children <5** (opposite HAV!)
 
-> 📚 อ่านควบ: 9 Foodborne Intro · 10-11 Bacterial · 14 Parasitic
+> 📚 อ่านควบ: 9 Foodborne Intro, 10-11 Bacterial, 14 Parasitic
 > 🚢 **Cruise rule**: Cruise + GI = Norovirus suspect
 > 🍓 **Berry warning**: Frozen imported berries = HAV/Norovirus risk
 > 🐷 **Vet pearl**: Pork undercooked = HEV (zoonotic — One Health)
@@ -38625,7 +38625,7 @@ Where:
 - Cook meat thoroughly (60°C × 5 min destroys cysts)
 - Freeze meat (-20°C × 24 hr destroys cysts)
 - Wash vegetables, garden gloves
-- Indoor cats only · feed cooked food
+- Indoor cats only, feed cooked food
 
 ## 2️⃣ Cryptosporidium parvum ⭐
 
@@ -38831,7 +38831,7 @@ Where:
 | **Giardia** | Humans + animals | Wild animals + water | Tear-drop trophozoite |
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
-1. **Toxoplasma**: cats = final host · others = intermediate
+1. **Toxoplasma**: cats = final host, others = intermediate
 2. Toxoplasma tachyzoites (organs) vs cysts (muscle/brain)
 3. ⭐ Toxoplasma **2nd trimester** = highest fetal risk
 4. Toxoplasma → **hydrocephalus + chorioretinitis** in fetus
@@ -38847,7 +38847,7 @@ Where:
 14. ⭐ ***Sarcocystis*** = **humans are FINAL host** (eat beef/pork)
 15. Cook meat + handwashing = key control for parasitic foodborne
 
-> 📚 อ่านควบ: 9 Foodborne Intro · 12 Viral · 15 Measurement Methods
+> 📚 อ่านควบ: 9 Foodborne Intro, 12 Viral, 15 Measurement Methods
 > 🐱 **Vet pearl**: Pregnant + cat = avoid litter cleaning (toxoplasmosis)
 > 🏊 **Pool rule**: Don't swim with diarrhea (chlorine doesn't kill Crypto!)
 > 💧 **Water rule**: Boil + filter (chlorine alone insufficient for Crypto/Balantidium)
@@ -38889,7 +38889,7 @@ Where:
 ### Conventional vs Rapid
 | Type | Speed | Examples |
 |------|-------|----------|
-| **Conventional** | 2-7 days | Culture on selective media · still gold standard! |
+| **Conventional** | 2-7 days | Culture on selective media, still gold standard! |
 | **Rapid** | Hours | PCR, ELISA, ATK-style strips |
 
 > ⭐ **Conventional = standard for export/regulation**
@@ -38918,7 +38918,7 @@ Microbe whose presence/level **indicates**:
 | **Fecal coliforms** | Fecal contamination |
 | ***E. coli*** ⭐ | Recent fecal contamination |
 | **Enterococcus** | Frozen food contamination (cold-tolerant!) |
-| **Bifidobacterium** ⭐ | Anaerobic foods · ONLY found if fecal contamination |
+| **Bifidobacterium** ⭐ | Anaerobic foods, ONLY found if fecal contamination |
 
 ### Coliforms — 4 Genera
 **E**scherichia + **K**lebsiella + **C**itrobacter + **E**nterobacter
@@ -38998,7 +38998,7 @@ Microbe whose presence/level **indicates**:
 - Beads coated with antibody
 - Mix with sample → if antigen present → clumping
 - ⭐ **Use**: confirm isolated colonies (NOT primary detection)
-- Result: 10-15 min · cheap kit but per-test cost
+- Result: 10-15 min, cheap kit but per-test cost
 - Can have **cross-reaction** issues
 
 ### B. Immunodiffusion Test (Ouchterlony)
@@ -39140,19 +39140,19 @@ Microbe whose presence/level **indicates**:
 9. ⭐ **International acceptance** — for export!
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
-1. Direct = pathogen · Indirect = metabolites
-2. Conventional = gold standard · Rapid = screening
+1. Direct = pathogen, Indirect = metabolites
+2. Conventional = gold standard, Rapid = screening
 3. **Coliforms** = E. coli + Klebsiella + Citrobacter + Enterobacter
 4. ⭐ Hierarchy: Enterobacteriaceae ⊃ Coliforms ⊃ Fecal Col ⊃ E. coli
 5. **Bifidobacterium** = anaerobic indicator (only if fecal)
 6. ⭐ **Gram stain** 4 steps: CV → Iodine → Decolorize → Safranin
-7. Gram-Pos = thick PG retains CV (purple) · Gram-Neg = thin + outer membrane (pink)
+7. Gram-Pos = thick PG retains CV (purple), Gram-Neg = thin + outer membrane (pink)
 8. **Petrifilm** = quick plating (8-24 hr)
 9. **Latex agglutination** = confirm colonies (NOT primary detect)
 10. **Immunodiffusion** = Staph enterotoxin gold standard
-11. **ELISA Sandwich** = quantitative · ~10⁶ sensitivity
-12. **Immunochromatography** = ATK-style · fastest · most convenient
-13. **PCR** = most sensitive · 3 steps (Denat/Anneal/Extend)
+11. **ELISA Sandwich** = quantitative, ~10⁶ sensitivity
+12. **Immunochromatography** = ATK-style, fastest, most convenient
+13. **PCR** = most sensitive, 3 steps (Denat/Anneal/Extend)
 14. ⚠️ PCR can't distinguish live vs dead cells
 15. **IMS** = magnetic beads + antibody for concentration
 
@@ -39174,7 +39174,7 @@ Microbe whose presence/level **indicates**:
     summary: `# 1. Vet Jurisprudence — พรบ. วิชาชีพการสัตว์แพทย์
 
 > ⚠️ Foundation lecture — establishes the core "Mother Law" of Thai vet profession
-> Critical for VCA exam · regulates who you are as a licensed vet
+> Critical for VCA exam, regulates who you are as a licensed vet
 
 ## 🎯 ภาพรวมคาบ
 1. พรบ. ประวัติศาสตร์ + การเปลี่ยนแปลงคำ
@@ -39265,7 +39265,7 @@ Microbe whose presence/level **indicates**:
 ### 13 สถาบันคณะสัตว์แพทย์ของไทย
 | 6 หลัก (ก่อตั้งเดิม — แข่ง "เวดเกม") | 7 เพิ่มเติม |
 |---------------------------------------|-------------|
-| จุฬา · เกษตร · มหิดล · ขอนแก่น · เชียงใหม่ · มหานคร | + ม.เทคโนโลยีมหานคร · ม.วลัยลักษณ์ · ม.มหาสารคาม · ฯลฯ + **แม่โจ้** (ล่าสุด) |
+| จุฬา, เกษตร, มหิดล, ขอนแก่น, เชียงใหม่, มหานคร | + ม.เทคโนโลยีมหานคร, ม.วลัยลักษณ์, ม.มหาสารคาม, ฯลฯ + **แม่โจ้** (ล่าสุด) |
 
 ### ตำแหน่งบริหาร
 **กรรมการเลือก**:
@@ -39280,11 +39280,11 @@ Microbe whose presence/level **indicates**:
 ### วาระและการพ้นตำแหน่ง
 | Position | วาระ |
 |----------|------|
-| กรรมการเลือกตั้ง | **3 ปี** · ติด 2 วาระไม่ได้ |
+| กรรมการเลือกตั้ง | **3 ปี**, ติด 2 วาระไม่ได้ |
 | กรรมการโดยตำแหน่ง | ตามตำแหน่ง |
 | กรรมการผู้แทน | 4 ปี |
 
-**พ้นตำแหน่ง**: ตาย · ลาออก · สมาชิกภาพสิ้นสุด · ถูกพักใบอนุญาต
+**พ้นตำแหน่ง**: ตาย, ลาออก, สมาชิกภาพสิ้นสุด, ถูกพักใบอนุญาต
 
 ## 5️⃣ Sub-Organizations (ภายใต้สภา)
 
@@ -39293,7 +39293,7 @@ Microbe whose presence/level **indicates**:
 |-----|-------|
 | **สปสพ.** (ศูนย์ประเมินความรู้ความสามารถขั้นพื้นฐาน) | จัดสอบ **VCA** ⭐ |
 | **สศสพ.** (ศูนย์การศึกษาต่อเนื่อง) | จัด CE สำหรับต่ออายุใบประกอบ |
-| **วิทยาลัย** (Residency) | 5 สาขา: พยาธิ · สูติ · ศัลย์ · เม็ด · VPH |
+| **วิทยาลัย** (Residency) | 5 สาขา: พยาธิ, สูติ, ศัลย์, เม็ด, VPH |
 
 > ⭐ **CE (Continuing Education)** = ต้องเก็บคะแนนต่ออายุใบประกอบทุก 5 ปี
 
@@ -39315,16 +39315,16 @@ Microbe whose presence/level **indicates**:
 2. ยกเลิกพรบ. ควบคุมการบำบัดโรคสัตว์ พ.ศ. 2505
 3. **"สัตว์"** = Animal Kingdom ทั้งหมด (ไม่ใช่แค่หมาแมว)
 4. **"โรค"** รวมถึงความผิดปกติทางจิตใจด้วย
-5. ใบอนุญาต = ใบประกอบ · ต้องสอบ **VCA** ผ่าน
+5. ใบอนุญาต = ใบประกอบ, ต้องสอบ **VCA** ผ่าน
 6. รัฐมนตรีผู้รักษาการ = **กระทรวงเกษตร**
-7. สัตว์แพทย์สภา = นิติบุคคล · สภานายกพิเศษ = รัฐมนตรี
+7. สัตว์แพทย์สภา = นิติบุคคล, สภานายกพิเศษ = รัฐมนตรี
 8. คณะกรรมการ 3 ประเภท: ตำแหน่ง + ผู้แทน + เลือกตั้ง
 9. **เลือกตั้ง = ตำแหน่ง + ผู้แทน** (จำนวนเท่ากัน)
 10. **13 สถาบันคณะสัตว์แพทย์** ในไทย (6 หลัก + 7 เพิ่มเติม)
-11. กรรมการเลือกตั้ง = **3 ปี** · ติดต่อกัน 2 วาระไม่ได้
-12. **สปสพ.** จัดสอบ VCA · **สศสพ.** จัด CE
+11. กรรมการเลือกตั้ง = **3 ปี**, ติดต่อกัน 2 วาระไม่ได้
+12. **สปสพ.** จัดสอบ VCA, **สศสพ.** จัด CE
 
-> 📚 อ่านควบ: 2 พรบ. ต่อ (LV4hu3ObA-0) · 4 Animal Welfare (F3Ngx-50Hlc) · 5 พรบ. สถานพยาบาล (dbHv3LpFSAg)
+> 📚 อ่านควบ: 2 พรบ. ต่อ (LV4hu3ObA-0), 4 Animal Welfare (F3Ngx-50Hlc), 5 พรบ. สถานพยาบาล (dbHv3LpFSAg)
 > 🎓 **VCA reality**: ต้องสอบผ่าน 2 หมวด → ขอใบประกอบ → ทำงานได้ถูกกฎหมาย
 > 💡 **Career**: เป็นกรรมการสัตว์แพทย์สภาก็เป็นทางเลือกได้ในอนาคต
 > 🦴 **Iron rule**: ใบอนุญาตเป็นเครื่องแบ่งคุณกับ "หมอเถื่อน" — ใส่ใจรักษาให้ดี`,
@@ -39340,7 +39340,7 @@ Microbe whose presence/level **indicates**:
     examFormat: 'rule application + scenario analysis',
     summary: `# 2. จรรยาบรรณ + จริยธรรมวิชาชีพการสัตว์แพทย์
 
-> ⚠️ **สำคัญที่สุด** — ถูกฟ้องร้องบ่อยที่สุด · ถูกถอนใบประกอบจริง
+> ⚠️ **สำคัญที่สุด** — ถูกฟ้องร้องบ่อยที่สุด, ถูกถอนใบประกอบจริง
 > Real cases: Beauty Doctor + Dental Spotlight + Dog DOA Surgery
 > Reference: ข้อบังคับสภาฯ ว่าด้วยจรรยาบรรณ 2546 (5 หมวด) + 2549 (เพิ่ม)
 
@@ -39357,7 +39357,7 @@ Microbe whose presence/level **indicates**:
 
 | Term | คำแปล |
 |------|--------|
-| **จริยธรรม (Ethics)** | นามธรรม · ข้อปฏิบัติศีลธรรม · ส่วนบุคคล |
+| **จริยธรรม (Ethics)** | นามธรรม, ข้อปฏิบัติศีลธรรม, ส่วนบุคคล |
 | **จรรยาบรรณ** | **รวบรวมจริยธรรม** เป็นกฎ ข้อบังคับ + ลายลักษณ์อักษร |
 
 > สังคมจริยธรรมที่ดี → ความน่าเชื่อถือ + ทุ่มเท + ภาพลักษณ์ + Brand Loyalty
@@ -39390,12 +39390,12 @@ Microbe whose presence/level **indicates**:
 
 ### Comparison: ระยะเวลา
 - **ทันตแพทยสภา**: คดีนายตู๊ดตู่ (เพื่อนบ้านเปิดสปอตไลท์) → ใช้ ~1 ปี
-- **สัตว์แพทย์สภา**: เร็วกว่า · เฉลี่ย ≈ 2 สัปดาห์
+- **สัตว์แพทย์สภา**: เร็วกว่า, เฉลี่ย ≈ 2 สัปดาห์
 
 ## 3️⃣ หมวด 2 — การประกอบวิชาชีพ (7 ข้อ) ⭐
 
 ### ข้อ 1 — ห้ามทำเสื่อมเสียเกียรติศักดิ์ศรี
-- กว้างมาก · เคสจริง: ขับรถเบนซ์ซิ่งทางด่วน → คดีอาญา → ฟ้องได้
+- กว้างมาก, เคสจริง: ขับรถเบนซ์ซิ่งทางด่วน → คดีอาญา → ฟ้องได้
 - เปิดสปอตไลท์ใส่เพื่อนบ้านอย่างทันตแพทย์ → โดน
 
 ### ข้อ 2 — ดำรงตนสมควรในสังคม + ช่วยเหลือสังคม
@@ -39435,7 +39435,7 @@ Microbe whose presence/level **indicates**:
 ### ข้อ 10 — ห้ามออกใบรับรองอันเป็นเท็จ
 **Real case**: ใบสุขภาพสัตว์ขนส่งต่างประเทศ
 - ตรวจไม่ดี → สัตว์ติดเชื้อหัด → ขนส่งแล้วป่วย → ฟ้องกลับ
-- ⭐ **กฎ**: ใบรับรองต้องระบุระยะเวลา · ห้ามเขียน "ตลอดไป"
+- ⭐ **กฎ**: ใบรับรองต้องระบุระยะเวลา, ห้ามเขียน "ตลอดไป"
 
 ### ข้อ 11 — ต้องช่วยสัตว์อันตราย
 - เหมือนรพ.คนคนป่วยฉุกเฉิน → ต้องช่วยก่อน
@@ -39508,26 +39508,26 @@ Microbe whose presence/level **indicates**:
 
 ### เทคนิคการแพทย์
 - ผู้ปฏิบัติงานไม่อยู่ + เซ็นชื่อใบรายงานผล 1 ครั้ง/6 เดือน
-- ศาลตัดสิน: **จำคุก 5 เดือน + ปรับ 11,000 บาท** (โทษอาญา · ส่วนใหญ่รอลงโทษถ้าทำผิดครั้งแรก)
+- ศาลตัดสิน: **จำคุก 5 เดือน + ปรับ 11,000 บาท** (โทษอาญา, ส่วนใหญ่รอลงโทษถ้าทำผิดครั้งแรก)
 
 ## 📋 Exam Recap (15 จุดสำคัญ)
-1. จริยธรรม = นามธรรม · จรรยาบรรณ = ข้อบังคับลายลักษณ์อักษร
+1. จริยธรรม = นามธรรม, จรรยาบรรณ = ข้อบังคับลายลักษณ์อักษร
 2. ข้อบังคับสภาฯ 2546 (5 หมวด) + 2549 (เพิ่ม)
-3. ⭐ **ข้อ 8** = ข้อสำคัญสุด · CPG = clinical practice guideline
+3. ⭐ **ข้อ 8** = ข้อสำคัญสุด, CPG = clinical practice guideline
 4. คดีฟ้องบ่อย: **วางยาตาย / ผ่าตัดทำหมันตาย / เลือดออกในช่องท้อง**
-5. ⭐ **CE 100 เครดิต/5 ปี** ต่อใบอนุญาต · ป.โท = 20 ครด/ปี
+5. ⭐ **CE 100 เครดิต/5 ปี** ต่อใบอนุญาต, ป.โท = 20 ครด/ปี
 6. ⭐ **ห้ามให้คนไม่มีใบประกอบทำแทน** + รับเงิน
 7. **ใบรับรองสุขภาพ** ต้องระบุระยะเวลา (ห้ามเขียน "ตลอดไป")
 8. ⭐ **ห้ามเปิดเผยความลับ** เจ้าของสัตว์ — โพสต์ยังผิด!
 9. ห้ามทับถมผู้ร่วมวิชาชีพ
 10. ห้ามชักจูงลูกค้าผู้อื่น
-11. **โฆษณา** ครอบคลุม social media · TikTok โชว์หน้าตัวเอง = ผิด
+11. **โฆษณา** ครอบคลุม social media, TikTok โชว์หน้าตัวเอง = ผิด
 12. ⭐ **ข้อยกเว้น**: ประชุมวิชาการ + ผลประโยชน์สาธารณะ + การศึกษามวลชน + คนอื่นยกย่อง
 13. ห้ามทรมานสัตว์ — ฉีดยาเข้าอันทะ = ผิด
 14. ⚠️ "ไม่รู้กฎหมาย" ใช้แก้ตัวไม่ได้
 15. รัก royalty ของวิชาชีพ = ดูแลภาพลักษณ์ตัวเอง + ทั้งวิชาชีพ
 
-> 📚 อ่านควบ: 1 พรบ. (RGmj3awzY5Q) · 3 จรรยาบรรณ ต่อ (2d7SZ4LMPz8) · 4 Animal Welfare (F3Ngx-50Hlc)
+> 📚 อ่านควบ: 1 พรบ. (RGmj3awzY5Q), 3 จรรยาบรรณ ต่อ (2d7SZ4LMPz8), 4 Animal Welfare (F3Ngx-50Hlc)
 > 💡 **Career advice**: CPG = ของไกด์ไลน์ที่ผู้ฟ้องใช้ฟ้องคุณ — ทำตามไว้เสมอ
 > 🐾 **Real-world**: เปิดคลินิก = ตื่นทำงาน + ทำ CE + ระวังโซเชียลตลอดเวลา
 > 🎓 **Recap**: ข้อ 8 + CE + Confidentiality = 3 ข้อที่โดนฟ้องร้องบ่อยสุดในชีวิตจริง`,
@@ -39543,14 +39543,14 @@ Microbe whose presence/level **indicates**:
     examFormat: 'concept + framework + species application',
     summary: `# 3. Animal Welfare (1) — Concept + 3-Pillar Framework
 
-> ⚠️ Critical concept · public concern is **rising** every year
+> ⚠️ Critical concept, public concern is **rising** every year
 > Foundation for understanding intensive farming, lab animals, wildlife policies
 > Continued in lecture 4 (Animal Welfare 2)
 
 ## 🎯 ภาพรวมคาบ
 1. Animal Welfare nationality
 2. Sentient Being concept ⭐
-3. **3-Pillar Framework**: Physical · Mental · Naturalness
+3. **3-Pillar Framework**: Physical, Mental, Naturalness
 4. ตัวอย่าง real-world (sow stall, battery cage, free-range)
 5. Animal Welfare ครอบคลุมสัตว์อะไรบ้าง
 
@@ -39608,7 +39608,7 @@ Microbe whose presence/level **indicates**:
 
 ### Lab Animals — Stricter Than General Welfare!
 - Specific Animal Welfare laws BEFORE general anti-cruelty laws
-- 3R: Replace · Reduce · Refine
+- 3R: Replace, Reduce, Refine
 
 ### Sentient Sentience Includes
 - Mammals, birds, fish, reptiles
@@ -39636,7 +39636,7 @@ Microbe whose presence/level **indicates**:
 - Cannot do "natural piggish" things (biting, rooting)
 
 > **Industry justification**: prevents sow from crushing piglets
-> **Counter-argument**: piglets still die · alternative housing exists
+> **Counter-argument**: piglets still die, alternative housing exists
 
 ### Example 2: Battery Cages (กรงตับ — Layer Hens)
 **Quote of caged hen** (imagined):
@@ -39678,8 +39678,8 @@ For food animals, welfare also includes:
 ### Animal Welfare vs Animal Rights
 | Concept | Stance |
 |---------|--------|
-| **Animal Welfare** | "Use animals well" · accepts farming/research with good conditions |
-| **Animal Rights** | "Don't use animals at all" · vegan position, no animal use ethically OK |
+| **Animal Welfare** | "Use animals well", accepts farming/research with good conditions |
+| **Animal Rights** | "Don't use animals at all", vegan position, no animal use ethically OK |
 
 > Lecture covers **welfare** (legal/scientific) primarily
 
@@ -39698,7 +39698,7 @@ For food animals, welfare also includes:
 3. 3 Pillars: **Physical + Mental + Naturalness**
 4. Old view = physical only (production focus)
 5. Modern view (1990s+) = added Mental + Naturalness
-6. Quote: "Run if legs · Swim if fins · Fly if wings"
+6. Quote: "Run if legs, Swim if fins, Fly if wings"
 7. Webster: "Natural Life + Fit/Healthy + Happy"
 8. Welfare covers: pets, zoo, farm, show, lab, wildlife
 9. **Sow stalls** = severe welfare violation (3 pillars all fail)
@@ -39706,10 +39706,10 @@ For food animals, welfare also includes:
 11. **Free-range** addresses all 3 pillars but costlier
 12. Welfare ≠ Rights (welfare allows ethical use)
 
-> 📚 อ่านควบ: 4 Animal Welfare 2 (F3Ngx-50Hlc) · 2 จรรยาบรรณ (LV4hu3ObA-0)
+> 📚 อ่านควบ: 4 Animal Welfare 2 (F3Ngx-50Hlc), 2 จรรยาบรรณ (LV4hu3ObA-0)
 > 🐷 **Vet pearl**: Practice = ดูทั้ง 3 pillars ก่อนตัดสินสุขภาพ
 > 💡 **Career path**: Animal Welfare science = growing field internationally
-> 🌍 **Global trend**: EU ban sow stalls + battery cages · Thailand 5-10 yr behind`,
+> 🌍 **Global trend**: EU ban sow stalls + battery cages, Thailand 5-10 yr behind`,
   },
 
   'F3Ngx-50Hlc': {
@@ -39747,7 +39747,7 @@ For food animals, welfare also includes:
 | Behavior | Indicator |
 |----------|-----------|
 | **Alertness** | Animal pays attention to changes (sheep example) |
-| **Curiosity** ⭐ | Animal investigates new objects/people · "curiosity killed the cat" |
+| **Curiosity** ⭐ | Animal investigates new objects/people, "curiosity killed the cat" |
 | **Range of activities** | Diverse behaviors in time budget (NOT just sleep+stand) |
 | **Social interaction** | Engages with herd members in herd species |
 | **Human interaction** | Friendly when had positive past experience |
@@ -39769,7 +39769,7 @@ For food animals, welfare also includes:
 **Causes**:
 - Insufficient space (intensive farming, lab housing)
 - Close tethering (chained)
-- Result: ⭐ Sleep dominates time budget · vicious cycle of more sleep + more disease
+- Result: ⭐ Sleep dominates time budget, vicious cycle of more sleep + more disease
 
 ### 2. Panting / Sweating
 **Causes** to investigate:
@@ -39826,8 +39826,8 @@ For food animals, welfare also includes:
 ### Famous Giraffe Study
 | Setting | Time Budget |
 |---------|--------------|
-| **Wild giraffe** | Walking/grazing dominant · NO stereotypy |
-| **Zoo giraffe** | Standing dominant · LITTLE walking · ⭐ **60% of NIGHT time = stereotypy** (wall licking, tongue play) |
+| **Wild giraffe** | Walking/grazing dominant, NO stereotypy |
+| **Zoo giraffe** | Standing dominant, LITTLE walking, ⭐ **60% of NIGHT time = stereotypy** (wall licking, tongue play) |
 
 ### Zoo Giraffe Stereotypies Observed
 - Licking walls/bars
@@ -39913,7 +39913,7 @@ For food animals, welfare also includes:
 11. **Anthropomorphism**: drove modern anesthesia/analgesia
 12. ⚠️ Don't anthropomorphize across all species (cat ≠ social like dog)
 
-> 📚 อ่านควบ: 3 Animal Welfare 1 (2d7SZ4LMPz8) · 5 พรบ. สถานพยาบาล (dbHv3LpFSAg)
+> 📚 อ่านควบ: 3 Animal Welfare 1 (2d7SZ4LMPz8), 5 พรบ. สถานพยาบาล (dbHv3LpFSAg)
 > 🦒 **Real-world**: Even big zoo enclosures may be insufficient
 > 💡 **Practice tip**: Watch behavior FIRST before diagnostic tests in welfare cases
 > 🌍 **Future**: Time budget assessment will become standard in farm audits`,
@@ -39929,7 +39929,7 @@ For food animals, welfare also includes:
     examFormat: 'regulations + clinic types + signage',
     summary: `# 5. พระราชบัญญัติสถานพยาบาลสัตว์
 
-> ⚠️ Critical for those opening clinics! · Sob VCA covers this
+> ⚠️ Critical for those opening clinics!, Sob VCA covers this
 > 2 Acts working together: **2533** (original) + **2557** (amendment)
 > Goal: protect both consumers + the veterinary profession
 
@@ -40046,7 +40046,7 @@ When opening a clinic, you need **BOTH**:
 - ⭐ **Refrigerator** for carcass storage
 
 > ⚠️ **NOT yet required by law** but increasingly standard:
-> - Ultrasound · MRI · CT · Endoscope · Laser · Real-time blood analyzer
+> - Ultrasound, MRI, CT, Endoscope, Laser, Real-time blood analyzer
 
 ## 7️⃣ Signage Rules ⭐ (สำคัญมาก!)
 
@@ -40125,8 +40125,8 @@ When opening a clinic, you need **BOTH**:
 ## 📋 Exam Recap (15 จุดสำคัญ)
 1. 2 Acts: **2533** + **2557** (read together)
 2. ⭐ 2 licenses: **ใบตั้ง + ใบดำเนินการ** (both required)
-3. **Type 1** = no hospitalization · **Green sign** · ≥20 m²
-4. **Type 2** = with hospitalization · **Blue sign** · ≥90 m²
+3. **Type 1** = no hospitalization, **Green sign**, ≥20 m²
+4. **Type 2** = with hospitalization, **Blue sign**, ≥90 m²
 5. Type 2 sub-types: small (≤10 cages) + large (>10 cages)
 6. Type 2 separate infectious vs non-infectious
 7. ⭐ Type 2 must have: **X-ray + anesthesia + breathing support + O2 + lab + refrigerator**
@@ -40135,11 +40135,11 @@ When opening a clinic, you need **BOTH**:
 10. Pet shop/grooming must be sectioned off from clinic
 11. Cannot claim "specialist" without **อวว/วว**
 12. 5 residencies: Internal Med, Surgery, Repro, Pathology, VPH
-13. Sign: 120×40 cm · color-coded · readable from outside
+13. Sign: 120×40 cm, color-coded, readable from outside
 14. Cannot open near slaughterhouse / disease sources
 15. Approval by **DLD director-general** or designee
 
-> 📚 อ่านควบ: 1 พรบ. วิชาชีพ (RGmj3awzY5Q) · 2 จรรยาบรรณ (LV4hu3ObA-0)
+> 📚 อ่านควบ: 1 พรบ. วิชาชีพ (RGmj3awzY5Q), 2 จรรยาบรรณ (LV4hu3ObA-0)
 > 💡 **Practical**: เปิดคลินิก = 2 ใบ + ป้าย + อุปกรณ์ครบ + ระวัง drug sale
 > 🚪 **Pre-launch**: ทำตาม checklist + ผ่าน inspection ก่อนเปิด
 > ⚠️ **Sting operation**: ห้ามขายยาให้คนแปลกหน้าที่ไม่มีประวัติเลย`,
@@ -40155,13 +40155,13 @@ When opening a clinic, you need **BOTH**:
     examFormat: 'category ID + species classification',
     summary: `# 7. กฎหมายคุ้มครองสัตว์ป่า
 
-> ⚠️ Critical for wildlife/conservation work · CITES compliance
+> ⚠️ Critical for wildlife/conservation work, CITES compliance
 > Latest version: **พ.ร.บ. สงวนและคุ้มครองสัตว์ป่า พ.ศ. 2562** (current)
 > Note: ไม่มี #6 ใน playlist (skipped)
 
 ## 🎯 ภาพรวมคาบ
 1. ประวัติศาสตร์การคุ้มครองสัตว์ป่า
-2. **4 categories of protected animals**: สงวน · คุ้มครอง · ควบคุม · อันตราย
+2. **4 categories of protected animals**: สงวน, คุ้มครอง, ควบคุม, อันตราย
 3. CITES alignment
 4. Vet roles in **กรมอุทยาน** (DNP)
 5. Real cases: confiscated wildlife management
@@ -40353,19 +40353,19 @@ When opening a clinic, you need **BOTH**:
 
 ## 📋 Exam Recap (12 จุดสำคัญ)
 1. **Latest Act**: พ.ร.บ. สงวนและคุ้มครองสัตว์ป่า พ.ศ. **2562**
-2. ⭐ **4 categories**: สงวน · คุ้มครอง · ควบคุม · อันตราย
+2. ⭐ **4 categories**: สงวน, คุ้มครอง, ควบคุม, อันตราย
 3. **สัตว์ป่าสงวน 20 species** (was 15)
 4. ⭐ Latest addition: **นกชนหิน** (Helmeted Hornbill)
 5. **คุ้มครอง** = native ecosystem species
 6. ⭐ **ควบคุม** = NEW category for foreign/CITES species (67 currently)
 7. Controlled-A1 = dangerous big cats/apes/snakes
 8. **อันตราย** = NEW category for harmful species
-9. **First national park**: Khao Yai 2505 · First sanctuary: Salakphra 2508
+9. **First national park**: Khao Yai 2505, First sanctuary: Salakphra 2508
 10. December 26 = Wildlife Protection Day (วันคุ้มครองสัตว์ป่าแห่งชาติ)
 11. CITES authority in Thailand: **กองคุ้มครองพันธุ์สัตว์ป่า** (DNP)
 12. Vet works at Wildlife Breeding Stations + Rescue Centers + Border posts
 
-> 📚 อ่านควบ: 1 พรบ. วิชาชีพ (RGmj3awzY5Q) · 4 Animal Welfare (F3Ngx-50Hlc) · 8 พรบ. โรคระบาดสัตว์ (MYyGov4_mC4)
+> 📚 อ่านควบ: 1 พรบ. วิชาชีพ (RGmj3awzY5Q), 4 Animal Welfare (F3Ngx-50Hlc), 8 พรบ. โรคระบาดสัตว์ (MYyGov4_mC4)
 > 🌳 **Career path**: Wildlife vet at DNP = niche but rewarding
 > 🦏 **Real-world**: Orangutan/tiger/pangolin cases = complex multi-agency work
 > ⚠️ **Mpox lesson**: Coordinated import suspension prevents panic`,
@@ -40643,40 +40643,40 @@ When opening a clinic, you need **BOTH**:
 12. ⭐ **สารวัตร** = Minister-appointed enforcement officer
 13. ด่านกักสัตว์ = quarantine posts at airports/borders
 14. **Beagle dogs** detect pork at airports → criminal charges
-15. ASF = #1 import concern · won FAO awards
+15. ASF = #1 import concern, won FAO awards
 
 > 📚 อ่านควบ: 1-7 (preceding vet-juris lectures)
 > 🛂 **Travel rule**: NEVER pack pork products when crossing borders
-> 💼 **Career**: DLD = government employment path · International Cooperation niche
+> 💼 **Career**: DLD = government employment path, International Cooperation niche
 > 🐕 **Practical**: VCA license alone ≠ official vet under Acts
 > 🎓 **Final lecture!** vet-juris course complete`,
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // herd-health-rum (DekDokVet85 · Y4 sem 1) — 13 videos
+  // herd-health-rum (DekDokVet85, Y4 sem 1) — 13 videos
   // ═══════════════════════════════════════════════════════════════
 
   'jIb4jZno-Lo': {
     videoId: 'jIb4jZno-Lo',
-    title: 'EBL · MCF · Rinderpest · BEF (4 cattle viral diseases)',
+    title: 'EBL, MCF, Rinderpest, BEF (4 cattle viral diseases)',
     subject: 'herd-health-rum',
     date: '2024-08-07',
     durationMin: 164,
-    instructor: 'อ.โน้ต (พี่หมอ ภาควิชาอายุรศาสตร์ ตึก 50 ปี · รุ่น 62)',
-    examFormat: 'Multiple choice (เปลี่ยนจากเขียน) · ออกเฉพาะที่สอน · เน้น keywords',
+    instructor: 'อ.โน้ต (พี่หมอ ภาควิชาอายุรศาสตร์ ตึก 50 ปี, รุ่น 62)',
+    examFormat: 'Multiple choice (เปลี่ยนจากเขียน), ออกเฉพาะที่สอน, เน้น keywords',
     summary: `## 🎯 Lead Summary
-**4 viral diseases of cattle/ruminants** · ไล่จาก EBL (chronic, persistent, มะเร็งเม็ดเลือดขาว) → MCF (acute, fatal, จากแพะแกะ res host) → Rinderpest (Global FREE since 2011 · 2nd disease eradicated after smallpox) → BEF (3-day fever, mosquito-borne, mortality <1% but secondary problem จาก downer cow). โน้ตคีย์เวิร์ดข้อสอบ VCA: **PRSP lymphocytosis · DLA-DR8/16 resistance · sheep-associated MCF · 5 phases of rinderpest · 3-day stiffness BEF**.
+**4 viral diseases of cattle/ruminants**, ไล่จาก EBL (chronic, persistent, มะเร็งเม็ดเลือดขาว) → MCF (acute, fatal, จากแพะแกะ res host) → Rinderpest (Global FREE since 2011, 2nd disease eradicated after smallpox) → BEF (3-day fever, mosquito-borne, mortality <1% but secondary problem จาก downer cow). โน้ตคีย์เวิร์ดข้อสอบ VCA: **PRSP lymphocytosis, DLA-DR8/16 resistance, sheep-associated MCF, 5 phases of rinderpest, 3-day stiffness BEF**.
 
 ## 📚 Course Intro (Ruminant track)
 
 ### โครงสร้างวิชา ruminant
-- **7 วิชา** จำเพาะกับสัตว์เคี้ยวเอื้อง · 2 ภาควิชาหลัก (อายุรศาสตร์ + สูตินิติศาสตร์)
+- **7 วิชา** จำเพาะกับสัตว์เคี้ยวเอื้อง, 2 ภาควิชาหลัก (อายุรศาสตร์ + สูตินิติศาสตร์)
 - **ปี 4**: 3 วิชา (เทอมนี้ 1 + เทอมหน้า 2)
-- **ปี 5**: 2 วิชา · ฝึกงานรวมเสมือนวิชาเดียว
+- **ปี 5**: 2 วิชา, ฝึกงานรวมเสมือนวิชาเดียว
 - **ปี 6**: 2 วิชา + module (ปีที่แล้วเปิดปีแรก 3 คนเลือก)
 
 ### Career paths
-- Vet practitioner · นักวิจัย · ทำฟาร์มเอง · ที่ปรึกษาฟาร์ม · งานเชิงรุก (improve farm efficiency)
+- Vet practitioner, นักวิจัย, ทำฟาร์มเอง, ที่ปรึกษาฟาร์ม, งานเชิงรุก (improve farm efficiency)
 - ผู้สอนเน้น dairy cow เป็น model (ประยุกต์ใช้ได้ในแกะ แพะ ควาย วัวเนื้อ)
 
 ### วงรอบการผลิตในอุดมคติ (Dairy)
@@ -40688,21 +40688,21 @@ When opening a clinic, you need **BOTH**:
 | Calving interval (ideal) | 365 วัน |
 | Reality | 400–500 วัน (ผสมล่าช้า, ไม่เป็นสัด) |
 
-> 📊 **Key**: 300 วันรีดนม + 60 วัน dry · ในงานวิจัยใช้ 305 วัน
+> 📊 **Key**: 300 วันรีดนม + 60 วัน dry, ในงานวิจัยใช้ 305 วัน
 
 ### งานเชิงรุก vs เชิงรับ
-- **เชิงรุก** (proactive · ก่อนป่วย): ตรวจตัวชี้วัดในคอกลูกโค (colostrum), BCS, น้ำนมคุณภาพ, post-calving genital tract
-- **เชิงรับ** (reactive · clinician work): on-call, downer cow, hoof trimming, lameness, abomasal hernia, eye enucleation, dystocia, GI prolapse
-- ⭐ **Iceberg model**: clinical = ส่วนน้อย · subclinical = ส่วนใหญ่ ต้องทำเชิงรุก
+- **เชิงรุก** (proactive, ก่อนป่วย): ตรวจตัวชี้วัดในคอกลูกโค (colostrum), BCS, น้ำนมคุณภาพ, post-calving genital tract
+- **เชิงรับ** (reactive, clinician work): on-call, downer cow, hoof trimming, lameness, abomasal hernia, eye enucleation, dystocia, GI prolapse
+- ⭐ **Iceberg model**: clinical = ส่วนน้อย, subclinical = ส่วนใหญ่ ต้องทำเชิงรุก
 
 ### Routes ของยาในวัวที่ไม่มีในสัตว์อื่น
 - **Intramammary** (เข้าเต้านม) — for mastitis
 - **Intrauterine** (เข้ามดลูก)
 
-## 1️⃣ EBL · Enzootic Bovine Leukosis (มะเร็งเม็ดเลือดขาวในโค)
+## 1️⃣ EBL, Enzootic Bovine Leukosis (มะเร็งเม็ดเลือดขาวในโค)
 
 ### Etiology
-- **Bovine leukemia virus (BLV)** · Retrovirus · Reverse transcriptase
+- **Bovine leukemia virus (BLV)**, Retrovirus, Reverse transcriptase
 - Genus: Deltaretrovirus
 
 ### Prevalence in Thailand
@@ -40718,8 +40718,8 @@ When opening a clinic, you need **BOTH**:
    - เข็มฉีดยาซ้ำ (ค่ายอาสาฉีด vaccine ลืมเปลี่ยนเข็ม!)
    - **Rectal palpation** (ล้วงตรวจ) — เลือดติดถุงมือ
    - ถุงมือล้วงไม่เปลี่ยน
-3. **Hematophagous insects** — บวกลบ · lab สร้างได้ · ในธรรมชาติยังไม่ confirm
-4. Vertical (in utero · colostrum)
+3. **Hematophagous insects** — บวกลบ, lab สร้างได้, ในธรรมชาติยังไม่ confirm
+4. Vertical (in utero, colostrum)
 
 ### Pathogenesis & DLA-DR Genotype ⭐⭐⭐
 | DLA-DR allele | Outcome |
@@ -40729,17 +40729,17 @@ When opening a clinic, you need **BOTH**:
 | Heterozygous | Intermediate |
 
 ### Disease progression (3 stages)
-1. **Aleukemic** (no clinical signs · normal blood)
-2. **PL — Persistent Lymphocytosis** (~30% ของ infected · lymphocyte สูง > 3 เดือน)
-3. **Lymphosarcoma (LS)** (1–5% · clinical disease!)
+1. **Aleukemic** (no clinical signs, normal blood)
+2. **PL — Persistent Lymphocytosis** (~30% ของ infected, lymphocyte สูง > 3 เดือน)
+3. **Lymphosarcoma (LS)** (1–5%, clinical disease!)
 
 ### Lymphosarcoma sites (5 จุดหลัก) ⭐
 | Site | Clinical sign |
 |---|---|
-| Abomasum | GI · weight loss · anorexia |
-| **Epidural space** | Paralysis · downer cow |
+| Abomasum | GI, weight loss, anorexia |
+| **Epidural space** | Paralysis, downer cow |
 | **Retrobulbar space** | **Tail-sign: ตาโปน** (exophthalmos) |
-| Heart/pericardium | Heart sounds abnormal · brisket edema |
+| Heart/pericardium | Heart sounds abnormal, brisket edema |
 | Liver/kidney/spleen | Variable |
 | Plus: Superficial lymph node enlargement (palpable!) |
 
@@ -40747,10 +40747,10 @@ When opening a clinic, you need **BOTH**:
 | Lymph node | Location |
 |---|---|
 | **Submandibular** | ใต้ขากรรไกรล่าง |
-| **Prescapular** | หน้า scapula · ตรง shoulder joint |
-| **Prefemoral** | หน้า femur · ตรง stifle joint |
+| **Prescapular** | หน้า scapula, ตรง shoulder joint |
+| **Prefemoral** | หน้า femur, ตรง stifle joint |
 
-> ⚡ When lymphosarcoma → ต่อมน้ำเหลืองโตใหญ่ 3-5 เท่า · เห็นชัด
+> ⚡ When lymphosarcoma → ต่อมน้ำเหลืองโตใหญ่ 3-5 เท่า, เห็นชัด
 
 ### Diagnosis
 1. **Clinical signs** (จาก lymphosarcoma site)
@@ -40758,8 +40758,8 @@ When opening a clinic, you need **BOTH**:
 3. **Blood test (PL confirm)**: lymphocyte > 3 เดือน
 4. **Antigen test (PCR)** — สำหรับ confirm
 5. **Serology**:
-   - **AGID** (agar gel immunodiffusion) — Gold std (OIE) · serum only · false-neg in low Ab + post-calving immune suppression
-   - **ELISA** — ปัจจุบันนิยม · serum/milk/tissue fluid · pooled milk for screening
+   - **AGID** (agar gel immunodiffusion) — Gold std (OIE), serum only, false-neg in low Ab + post-calving immune suppression
+   - **ELISA** — ปัจจุบันนิยม, serum/milk/tissue fluid, pooled milk for screening
 
 ### Hemogram pattern (Case examples shown)
 | Parameter | Normal | EBL case |
@@ -40771,9 +40771,9 @@ When opening a clinic, you need **BOTH**:
 ⚠️ Total WBC สูงมาก แต่ไม่มี clinical sign อื่น → suspect EBL
 
 ### Management
-- **No treatment** (no specific antiviral) · No vaccine
+- **No treatment** (no specific antiviral), No vaccine
 - **Live with the disease** — strict horizontal control:
-  - 1 needle/animal · 1 glove/animal
+  - 1 needle/animal, 1 glove/animal
   - Withhold/treatment colostrum (or feed-through)
   - Separate housing (or culling)
 - **Eradicate from farm**:
@@ -40786,28 +40786,28 @@ When opening a clinic, you need **BOTH**:
 - **Voluntary**: planned (e.g., 4 lactations max)
 - **Involuntary**: forced by disease/decreased performance ← EBL contributes here
 
-## 2️⃣ MCF · Malignant Catarrhal Fever (สัตว์ตื่น)
+## 2️⃣ MCF, Malignant Catarrhal Fever (สัตว์ตื่น)
 
 ### Etiology — 2 herpesviruses
 | Virus | Reservoir | Note |
 |---|---|---|
-| **AlHV-1** (alcelaphine HV-1) | **Wildebeest** (วิลเดอบีส) | "WA-MCF" Wildebeest-Associated · natural |
-| **OvHV-2** (ovine HV-2) | **Sheep + goats** (แพะแกะ) | "SA-MCF" Sheep-Associated · domestic |
+| **AlHV-1** (alcelaphine HV-1) | **Wildebeest** (วิลเดอบีส) | "WA-MCF" Wildebeest-Associated, natural |
+| **OvHV-2** (ovine HV-2) | **Sheep + goats** (แพะแกะ) | "SA-MCF" Sheep-Associated, domestic |
 
 ### Susceptibility
 | Status | Species |
 |---|---|
-| **Reservoir** (no clinical signs · carry virus) | Wildebeest, sheep, goats |
+| **Reservoir** (no clinical signs, carry virus) | Wildebeest, sheep, goats |
 | **Susceptible** (severe disease, high mortality) | Cattle, buffalo, deer, swine |
 
 ### Transmission ⭐ Key concept
 - **Direct contact** with ocular/nasal discharge of reservoir
 - ⭐ Almost ALL outbreaks → reservoir + susceptible เลี้ยงรวมกัน!
-- **Prevention**: ห้ามเลี้ยงแพะแกะ + วัวรวมกัน · ระยะห่าง ≥100 m
+- **Prevention**: ห้ามเลี้ยงแพะแกะ + วัวรวมกัน, ระยะห่าง ≥100 m
 
 ### Clinical Signs ⭐
 - High fever (very acute!)
-- Ocular & nasal discharge · lacrimation · conjunctivitis
+- Ocular & nasal discharge, lacrimation, conjunctivitis
 - ⭐ **Corneal opacity** — pneumonic region: เริ่มขุ่นจาก **ขอบนอก → เข้าด้านใน** (vs Pink Eye = ตรงกลางออกข้างนอก!)
 - Erosions ที่จมูก, oral mucosa (DDx: FMD!)
 - Mortality > 90%
@@ -40835,7 +40835,7 @@ When opening a clinic, you need **BOTH**:
 - Antigen/Ab testing
 - **Histopath confirms** (vasculitis at LN, kidney, eye)
 - **No treatment** — too acute, mortality near 100%
-- **Prevention**: separate species housing · pen rest 2 days–1 week between species
+- **Prevention**: separate species housing, pen rest 2 days–1 week between species
 
 ## 3️⃣ Rinderpest (โรคล้มควาย)
 
@@ -40871,7 +40871,7 @@ When opening a clinic, you need **BOTH**:
 - **Per-acute**: fever only → die <1 day
 - **Acute**: fever + erosions → die 4-5 days
 - **Sub-acute**: + diarrhea phase, may recover (lifelong immunity)
-- > 90% mortality in classic outbreaks · post-vaccine era → milder
+- > 90% mortality in classic outbreaks, post-vaccine era → milder
 
 ### Pathology — Tigroid striping ⭐
 - ⭐ **Zebra stripes** (longitudinal red bands) at colon/cecum mucosa
@@ -40887,7 +40887,7 @@ When opening a clinic, you need **BOTH**:
 ### ⭐ Why still wary despite Global FREE?
 - "**eradication ≠ elimination**"
 - Virus seed strains still kept in research labs (govt + universities worldwide)
-- ⚠️ Lab accident risk · bioterrorism risk
+- ⚠️ Lab accident risk, bioterrorism risk
 - After long absence → re-introduction = severe outbreak
 
 ### Outbreak control (3 options for infected zone)
@@ -40908,19 +40908,19 @@ When opening a clinic, you need **BOTH**:
 - Routine vax: only **FMD + LSD** in Thai dairy
 - Other diseases vaccinated only in endemic areas
 
-## 4️⃣ BEF · Bovine Ephemeral Fever (ไข้ 3 วัน · ไข้ขาแข็ง)
+## 4️⃣ BEF, Bovine Ephemeral Fever (ไข้ 3 วัน, ไข้ขาแข็ง)
 
 ### Names
 - BEF = Bovine Ephemeral Fever
 - Wabe (ญี่ปุ่น)
 - 3-Day Sickness
-- ไข้ 3 วัน · ไข้ขาแข็ง (Thai folk names)
+- ไข้ 3 วัน, ไข้ขาแข็ง (Thai folk names)
 
 ### Etiology
-- **Rhabdovirus** (bullet-shaped) · genus Ephemerovirus
+- **Rhabdovirus** (bullet-shaped), genus Ephemerovirus
 - ⭐ **Arbovirus** (arthropod-borne)
 - **Vector**: mosquitoes, biting midges (Culicoides), ticks
-- Outbreak season: **rainy season** (vector abundance) · also year-round if breeding sites near farm
+- Outbreak season: **rainy season** (vector abundance), also year-round if breeding sites near farm
 
 ### Susceptible hosts
 - Cattle (primary), buffalo
@@ -40938,8 +40938,8 @@ When opening a clinic, you need **BOTH**:
 - ⭐ **Endemic** — exposure happens regularly
 
 ### Clinical Signs ⭐
-- ⭐ **Acute fever** (sudden onset · normal in evening, sick by morning)
-- ⭐ **Acute lameness** (stiffness · "hard legs") — *pathognomonic*
+- ⭐ **Acute fever** (sudden onset, normal in evening, sick by morning)
+- ⭐ **Acute lameness** (stiffness, "hard legs") — *pathognomonic*
   - Polyarthritis pattern
   - **No** specific hoof lesion (hooves clear → not laminitis)
 - Milk drop (significant!)
@@ -40964,10 +40964,10 @@ When opening a clinic, you need **BOTH**:
 ### Treatment ⭐
 | Drug | Why |
 |---|---|
-| **NSAIDs** (key drug!) | Anti-inflammatory · pain · NOT antibiotics primary |
+| **NSAIDs** (key drug!) | Anti-inflammatory, pain, NOT antibiotics primary |
 | Calcium borogluconate | Hypocalcemia (SC route OK with boric acid) |
 | Calcium gluconate | Hypocalcemia (IV only) |
-| Antibiotics (long-acting) | Prevent 2° pneumonia · oxytetracycline LA |
+| Antibiotics (long-acting) | Prevent 2° pneumonia, oxytetracycline LA |
 
 > ⚠️ Avoid **steroids** in cattle:
 > - Can terminate pregnancy (induce parturition!)
@@ -40976,7 +40976,7 @@ When opening a clinic, you need **BOTH**:
 ### Why long-acting antibiotics over short-acting?
 | Type | Volume | Frequency | Animal stress |
 |---|---|---|---|
-| LA oxytetracycline | 50 mL · split 2 sites | q72h | Low (1 inj/3 days) |
+| LA oxytetracycline | 50 mL, split 2 sites | q72h | Low (1 inj/3 days) |
 | SA oxytetracycline | 120 mL | q24h | High (daily) |
 
 ### Vector control reality
@@ -40985,7 +40985,7 @@ When opening a clinic, you need **BOTH**:
 
 ### Vaccine
 - **Live attenuated** vaccine available in Thailand (~2 years)
-- 150-180 baht/dose · annual booster (initial 3-dose primer)
+- 150-180 baht/dose, annual booster (initial 3-dose primer)
 - Not widely used (low impact justifies passive treatment)
 - Cost-benefit model presented in slides (not exam material)
 
@@ -41011,34 +41011,34 @@ When opening a clinic, you need **BOTH**:
 
 ### Rinderpest ⭐
 13. ⭐ **Global FREE 28 June 2011** (2nd after smallpox)
-14. **Paramyxovirus** · large + fragile = controllable
+14. **Paramyxovirus**, large + fragile = controllable
 15. **Tigroid stripes** at colon/cecum (gross lesion)
 16. **5 phases**: incubation→fever→erosion→diarrhea→recovery/death
-17. ⚠️ Still wary: virus seeds in labs · lab accident risk
+17. ⚠️ Still wary: virus seeds in labs, lab accident risk
 
 ### BEF ⭐
 18. ⭐ **Mortality <1%** but secondary downer-cow risk huge
 19. **Acute lameness** without hoof lesion = key sign
-20. **NSAIDs primary** · NOT antibiotics primary · avoid steroids
+20. **NSAIDs primary**, NOT antibiotics primary, avoid steroids
 21. ⭐ **Calcium borogluconate** (SC route OK in cattle)
 22. **LA antibiotics** preferred over SA (welfare + practical)
 
-> 🎓 **First lecture of ruminant track** · sets vocabulary for entire course
-> 📚 **Cross-refs**: vet-juris (พ.ร.บ. โรคระบาด — these are listed diseases) · vet-imaging (ultrasound for downer cow workup)
+> 🎓 **First lecture of ruminant track**, sets vocabulary for entire course
+> 📚 **Cross-refs**: vet-juris (พ.ร.บ. โรคระบาด — these are listed diseases), vet-imaging (ultrasound for downer cow workup)
 > 🛡️ **Practical takeaway**: ALWAYS change needles + gloves between cattle (EBL prevention)
 > 🧬 **Genetic angle**: DLA-DR genotyping = future tool for breeding programs`,
   },
 
   fShVzkXP4tU: {
     videoId: 'fShVzkXP4tU',
-    title: 'โรคระบบทางเดินหายใจในวัว · BRD Complex (IBR · BVD · PI3 · BRSV + 2° bacteria)',
+    title: 'โรคระบบทางเดินหายใจในวัว, BRD Complex (IBR, BVD, PI3, BRSV + 2° bacteria)',
     subject: 'herd-health-rum',
     date: '2024-08-14',
     durationMin: 192,
-    instructor: 'อ.กิตติศักดิ์ (กำลังจะเกษียณ · รุ่นนี้น่าจะเป็นรุ่นสุดท้ายที่สอน)',
-    examFormat: 'Multiple choice + scenario · ออกตามวิดีโอ Mechanism + Early detection · 20 keywords paragraph exercise',
+    instructor: 'อ.กิตติศักดิ์ (กำลังจะเกษียณ, รุ่นนี้น่าจะเป็นรุ่นสุดท้ายที่สอน)',
+    examFormat: 'Multiple choice + scenario, ออกตามวิดีโอ Mechanism + Early detection, 20 keywords paragraph exercise',
     summary: `## 🎯 Lead Summary
-**Bovine Respiratory Disease (BRD) Complex** = #1 cause of morbidity/mortality in young cattle. Triangle: **Host (stress, weaning) + Environment (poor ventilation, mixing) + Pathogen (4 viruses → 2° bacteria)**. 4 viruses: **IBR · BVD · PI3 · BRSV** rarely fatal alone — but immune-suppress → bacterial complications (**Mannheimia haemolytica, Pasteurella multocida, Histophilus somni, Mycoplasma**) cause death. Key concepts: **Early detection = yellow flag · Late = red flag (irreversible damage) · BVD PI animal = "Time Bomb" · IBR marker vaccine = eradication tool**.
+**Bovine Respiratory Disease (BRD) Complex** = #1 cause of morbidity/mortality in young cattle. Triangle: **Host (stress, weaning) + Environment (poor ventilation, mixing) + Pathogen (4 viruses → 2° bacteria)**. 4 viruses: **IBR, BVD, PI3, BRSV** rarely fatal alone — but immune-suppress → bacterial complications (**Mannheimia haemolytica, Pasteurella multocida, Histophilus somni, Mycoplasma**) cause death. Key concepts: **Early detection = yellow flag, Late = red flag (irreversible damage), BVD PI animal = "Time Bomb", IBR marker vaccine = eradication tool**.
 
 ## 1️⃣ BRD Complex Concept (Triangle Model)
 
@@ -41056,15 +41056,15 @@ When opening a clinic, you need **BOTH**:
 
 ### Inflammation cascade — 20 Keywords (exam-style paragraph) ⭐
 Build paragraph from these terms:
-1. Stress · 2. Cortisol · 3. Inflammation · 4. Pro-inflammatory cytokines · 5. IL-1 · 6. TNF-α · 7. Macrophage · 8. Phagocytosis · 9. Nasal discharge · 10. Bacterial proliferation · 11. Antibiotics · 12. Restlessness · 13. Depression · 14. Anorexia/loss of appetite · 15. Vulnerable to infection · 16. Oxygen consumption ↑ · 17. Excessive bacterial growth (nasopharynx) · 18. Irreversible damage · 19. Economic loss · 20. Reduced ADG
+1. Stress, 2. Cortisol, 3. Inflammation, 4. Pro-inflammatory cytokines, 5. IL-1, 6. TNF-α, 7. Macrophage, 8. Phagocytosis, 9. Nasal discharge, 10. Bacterial proliferation, 11. Antibiotics, 12. Restlessness, 13. Depression, 14. Anorexia/loss of appetite, 15. Vulnerable to infection, 16. Oxygen consumption ↑, 17. Excessive bacterial growth (nasopharynx), 18. Irreversible damage, 19. Economic loss, 20. Reduced ADG
 
 ### Time Series of Disease (Critical clinical concept) ⭐
 | Phase | What you see | What you find |
 |---|---|---|
-| **Early** (0-24h) | Mild signs · ↑ RR, slight nasal | **Viruses isolatable** (yellow flag) |
+| **Early** (0-24h) | Mild signs, ↑ RR, slight nasal | **Viruses isolatable** (yellow flag) |
 | **Middle** (2-7d) | Fever, depression, cough | Mixed virus + bacteria |
 | **Late** (1-3 weeks) | Severe pneumonia | **Bacteria dominant**, viruses cleared (red flag) |
-| **End-stage** | Chronic pneumonia, atelectasis | Irreversible · poor prognosis |
+| **End-stage** | Chronic pneumonia, atelectasis | Irreversible, poor prognosis |
 
 ⭐ Doctor arriving late = miss virus identification window (can only treat bacteria)
 
@@ -41087,12 +41087,12 @@ Build paragraph from these terms:
 |---|---|---|---|---|
 | **IBR (BHV-1)** | Herpesvirus | **Upper** (rhinotrachea) | Moderate-high | **Latency** in nerve cells |
 | **BVD** | Pestivirus | Multi-system + immunosuppr | Variable | **Persistent Infection (PI)** = "Time Bomb" |
-| **PI3** | Paramyxovirus | Upper (rhinitis-like) | Mild | Like common cold · 87% of cattle exposed |
+| **PI3** | Paramyxovirus | Upper (rhinitis-like) | Mild | Like common cold, 87% of cattle exposed |
 | **BRSV** | Pneumovirus | **Lower** (alveolar/bronchiolar) | **Severe** | **Syncytia formation** in histopath |
 
-### A. IBR (Infectious Bovine Rhinotracheitis · BHV-1) ⭐⭐⭐
+### A. IBR (Infectious Bovine Rhinotracheitis, BHV-1) ⭐⭐⭐
 
-**Etiology**: Bovine Herpesvirus 1 (BHV-1) · 3 genotypes:
+**Etiology**: Bovine Herpesvirus 1 (BHV-1), 3 genotypes:
 | Genotype | Manifestation |
 |---|---|
 | **IBR-1.1** | Respiratory (rhinotracheitis) |
@@ -41107,7 +41107,7 @@ Build paragraph from these terms:
 - Lesions: nasal mucosa erosions, tracheal congestion, pulmonary involvement (severe forms)
 - Open-mouth breathing common (upper obstruction)
 
-**Prevalence in Thailand**: Endemic · zer+ farms common
+**Prevalence in Thailand**: Endemic, zer+ farms common
 
 **Eradication strategy** ⭐:
 - **Marker vaccine (gE-deleted)**: vaccinated animals lack gE Ab → can distinguish vaccinated from infected
@@ -41118,18 +41118,18 @@ Build paragraph from these terms:
 
 ### B. BVD (Bovine Viral Diarrhea) ⭐⭐⭐ "Time Bomb"
 
-**Etiology**: Pestivirus · 2 biotypes (cytopathic vs non-cytopathic) · 2 genotypes (BVDV-1, BVDV-2)
+**Etiology**: Pestivirus, 2 biotypes (cytopathic vs non-cytopathic), 2 genotypes (BVDV-1, BVDV-2)
 
 **Key concepts**:
 | Type | Mechanism |
 |---|---|
-| **Acute infection** | Most cattle, transient · clears in weeks · immunosuppressive |
-| **Persistent Infection (PI)** ⭐⭐ | Calf infected in utero (50-150 days gestation) → fetus develops immune tolerance → BORN PI · sheds virus FOR LIFE |
+| **Acute infection** | Most cattle, transient, clears in weeks, immunosuppressive |
+| **Persistent Infection (PI)** ⭐⭐ | Calf infected in utero (50-150 days gestation) → fetus develops immune tolerance → BORN PI, sheds virus FOR LIFE |
 
 **PI vs Latency** (don't confuse!) ⭐
 | | PI (BVD) | Latency (IBR/BHV) |
 |---|---|---|
-| Mechanism | Immune tolerance · "self" recognition fail | Virus hides in nerve cells |
+| Mechanism | Immune tolerance, "self" recognition fail | Virus hides in nerve cells |
 | Detection | ⚠️ **Ab-NEGATIVE** (can't detect by Ab!) | Ab-positive |
 | Antigen | Always present in blood | Hidden, sheds episodically |
 | Detection method | **Antigen ELISA, PCR** | Serology + clinical |
@@ -41149,7 +41149,7 @@ Build paragraph from these terms:
 - **Test-and-cull PI animals** = gold standard
 - Test all newborn calves at some farms (e.g., Europe)
 - ⚠️ **Test-and-cull works** — proven in many countries
-- Vaccine: Thailand allows **inactivated only** (live vaccine has higher risk · used elsewhere with caution)
+- Vaccine: Thailand allows **inactivated only** (live vaccine has higher risk, used elsewhere with caution)
 - Need **2 doses of inactivated** (1st = priming, 2nd at 1 month = "1st" effective dose)
 - ⭐ Some countries achieved BVD-FREE using test-and-cull WITHOUT vaccine
 
@@ -41166,7 +41166,7 @@ Build paragraph from these terms:
 - 86-87% Thai cattle exposed (essentially universal)
 - Exposes nasal/upper tract → predisposes 2° bacteria
 
-**Treatment**: Often self-resolving · supportive
+**Treatment**: Often self-resolving, supportive
 
 ### D. BRSV (Bovine Respiratory Syncytial Virus) ⭐⭐⭐ Most Severe!
 
@@ -41181,7 +41181,7 @@ Build paragraph from these terms:
 - ⚠️ Can be **fatal in <48h** without treatment
 
 **Pathognomonic**:
-- **Syncytial cells** in histopath (multinucleate giant cells from cell fusion · 1 cell with 2+ nuclei)
+- **Syncytial cells** in histopath (multinucleate giant cells from cell fusion, 1 cell with 2+ nuclei)
 - ⭐ Histopathologists love finding syncytia — diagnostic of BRSV
 - Lung: red, congested, doesn't deflate ("solid")
 - May see **subpleural emphysema** (air trapped in pleural mesothelium → severe respiratory effort sign)
@@ -41191,22 +41191,22 @@ Build paragraph from these terms:
 - Late (7-14d): neutrophils + pus = mixed bacterial infection now
 - ⭐ Neutrophil presence in histo = DELAYED visit (not early)
 
-**Why hard to isolate**: BRSV is highly cell-associated → needs fresh tissue + fast culture · most isolation attempts fail
+**Why hard to isolate**: BRSV is highly cell-associated → needs fresh tissue + fast culture, most isolation attempts fail
 
 **Cross-species note**:
 - Cattle BRSV ≠ Human RSV (different species)
 - Both cause severe disease in young (calves 6mo / human <6mo)
-- Both can be fatal · vaccines partially effective
+- Both can be fatal, vaccines partially effective
 
 ## 4️⃣ The 4 Secondary Bacteria ⭐⭐
 
 ### Compare Table
 | Bacterium | Niche | Notes |
 |---|---|---|
-| **Mannheimia haemolytica** | Lower respiratory · pneumonic pasteurellosis | Most common BRD bacterial · was P. haemolytica |
+| **Mannheimia haemolytica** | Lower respiratory, pneumonic pasteurellosis | Most common BRD bacterial, was P. haemolytica |
 | **Pasteurella multocida** | Various | More frequent in chronic cases |
-| **Histophilus somni** | Upper + lower · TEME (thromboembolic meningoencephalitis) | Polysystemic |
-| **Mycoplasma bovis** | Lower respiratory · arthritis | Cell-wall-less · resistant to β-lactams |
+| **Histophilus somni** | Upper + lower, TEME (thromboembolic meningoencephalitis) | Polysystemic |
+| **Mycoplasma bovis** | Lower respiratory, arthritis | Cell-wall-less, resistant to β-lactams |
 
 ### Primary vs Secondary
 - All 4 CAN be primary BUT need severely compromised host
@@ -41241,11 +41241,11 @@ Build paragraph from these terms:
 ### Treatment Drug Tree
 | Drug class | Why | Timing |
 |---|---|---|
-| **NSAIDs** ⭐ | Anti-inflammatory · pain relief · reduce cytokine cascade | First! Even before antibiotics |
+| **NSAIDs** ⭐ | Anti-inflammatory, pain relief, reduce cytokine cascade | First! Even before antibiotics |
 | **Antibiotics** (LA preferred) | Kill 2° bacterial pathogens | After/with NSAIDs |
-| **Fluid + electrolytes** | Dehydration support · NOT confused with pulmonary edema | Critical! |
-| **Antihistamines** | Mild benefit only · for some allergic component | Adjunct |
-| **B-complex vitamins** | Appetite stimulation · metabolism boost | Recovery |
+| **Fluid + electrolytes** | Dehydration support, NOT confused with pulmonary edema | Critical! |
+| **Antihistamines** | Mild benefit only, for some allergic component | Adjunct |
+| **B-complex vitamins** | Appetite stimulation, metabolism boost | Recovery |
 | **Steroids** | ⚠️ Generally avoid in cattle (abortion risk + milk drop) | Only specific cases |
 
 ### Antibiotic of Choice for BRD ⭐
@@ -41257,7 +41257,7 @@ Build paragraph from these terms:
   - Practical for farmers
 
 ### Fluid Therapy Concept ⭐ (Universal Science!)
-> **"Fluid therapy = ONE science · same in all species"**
+> **"Fluid therapy = ONE science, same in all species"**
 
 Calculation:
 - **5% dehydration**: 1 day not eating
@@ -41292,7 +41292,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Vaccine | Type | Indications |
 |---|---|---|
 | **IBR** (gE-marker) | Inactivated | Eradication tool |
-| **BVD** | Inactivated only (Thailand) | 2 doses · annual booster |
+| **BVD** | Inactivated only (Thailand) | 2 doses, annual booster |
 | **PI3** | Combined often | Less critical |
 | **BRSV** | Combined often | High-risk young stock |
 
@@ -41329,16 +41329,16 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. **Inflammation-first treatment principle**
 
 ### Viruses (6-12)
-6. **4 viruses**: IBR · BVD · PI3 · BRSV
+6. **4 viruses**: IBR, BVD, PI3, BRSV
 7. ⭐ **IBR = upper, BRSV = lower** tract
-8. ⭐ **IBR has 3 genotypes**: respiratory · IPV · neuro
+8. ⭐ **IBR has 3 genotypes**: respiratory, IPV, neuro
 9. ⭐ **PI vs Latency**: PI = Ab-NEG (immune tolerance!) vs Latency = Ab-POS (nerve hidden)
 10. ⭐ **BVD PI = "Time Bomb"** — born infected, sheds for life
-11. **PI3 = no fever (mild)** · **BRSV = high fever (severe)**
+11. **PI3 = no fever (mild)**, **BRSV = high fever (severe)**
 12. ⭐ **BRSV pathognomonic**: syncytial cells (multinucleate)
 
 ### Bacteria (13-15)
-13. **4 secondary bacteria**: Mannheimia · Pasteurella · Histophilus · Mycoplasma
+13. **4 secondary bacteria**: Mannheimia, Pasteurella, Histophilus, Mycoplasma
 14. ⭐ **Florfenicol = drug of choice** (covers all 4!)
 15. **LA preferred over SA** (welfare + practical)
 
@@ -41351,8 +41351,8 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 19. ⭐ **Inactivated 2-dose rule**: count 1 from SECOND injection
 20. ⭐ **Marker vaccine (gE-deleted)** = eradication tool for IBR
 
-> 📚 **Cross-refs**: EBL-MCF-Rinderpest-BEF (1st lecture · viral diseases context) · vet-juris (เคลื่อนย้ายสัตว์ controls)
-> 🎯 **Practical**: Be there EARLY for virus diagnosis · LATE = only bacterial culture possible
+> 📚 **Cross-refs**: EBL-MCF-Rinderpest-BEF (1st lecture, viral diseases context), vet-juris (เคลื่อนย้ายสัตว์ controls)
+> 🎯 **Practical**: Be there EARLY for virus diagnosis, LATE = only bacterial culture possible
 > 💊 **Drug priority**: NSAID + Florfenicol LA + Calcium borogluconate (if BEF-like signs) + Fluid
 > 🏥 **Most important farm factor**: VENTILATION (alone affects everything)`,
   },
@@ -41364,14 +41364,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2024-08-21',
     durationMin: 145,
     instructor: 'อ.ธนศักดิ์ (เน้น movement control + biosecurity philosophy)',
-    examFormat: 'Multiple choice + clinical scenario · ออกเรื่องการ surveillance + control measures + Carrier state',
+    examFormat: 'Multiple choice + clinical scenario, ออกเรื่องการ surveillance + control measures + Carrier state',
     summary: `## 🎯 Lead Summary
 **2 vesicular/cutaneous viral diseases** of cattle critical for Thai practice. **FMD** = endemic in SE Asia, highly contagious vesicular disease, no eradication realistic, sudden death in calves from myocarditis. **LSD** = emerging since April 2021 (entered Thailand via movement, NOT mosquitoes), Capripoxvirus skin lesions 1-5cm, devastating economic loss. ⭐ Both demonstrate Thailand's biosecurity failure: HPAI = won battle, ASF = fail #1, LSD = fail #2. **Movement control > vaccine** for emerging diseases.
 
-## 1️⃣ FMD (Foot-and-Mouth Disease · ปากเท้าเปื่อย) ⭐⭐⭐
+## 1️⃣ FMD (Foot-and-Mouth Disease, ปากเท้าเปื่อย) ⭐⭐⭐
 
 ### Etiology
-- **Picornavirus** (FMDV) · 7 serotypes globally (O, A, C, SAT 1, SAT 2, SAT 3, Asia 1)
+- **Picornavirus** (FMDV), 7 serotypes globally (O, A, C, SAT 1, SAT 2, SAT 3, Asia 1)
 - ⭐ Thailand strains: **O, A, Asia 1** (mostly O type)
 - Strain naming sometimes uses location: **O-Lopburi**, **O-Surin** (named after province where strain was isolated)
 
@@ -41381,7 +41381,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Transmission routes** (must control all):
   | Route | Examples |
   |---|---|
-  | **Aerosol/airborne** | Wind-borne · upwind farms at risk |
+  | **Aerosol/airborne** | Wind-borne, upwind farms at risk |
   | **Direct contact** | Infected → naive animal |
   | **Indirect/fomite** | People (clothes, hair ties, phones, shoes!) |
   | **Vehicles** | Trucks transporting animals/feed |
@@ -41398,7 +41398,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Viral Load & TCID50 Concept
 | Tissue/secretion | Viral load (TCID50) |
 |---|---|
-| Nasal discharge | **~6.09** (very high · airborne risk!) |
+| Nasal discharge | **~6.09** (very high, airborne risk!) |
 | Vesicle fluid | High |
 | Milk | Significant (Thailand legal debate over movement!) |
 | Semen | Yes |
@@ -41419,7 +41419,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Clinical Signs (Order of appearance!) ⭐
 1. ⭐ **Fever, depression** (FIRST — before vesicles!)
 2. **Drop in milk** (sudden, no other reason)
-3. **Calf sudden death** (myocarditis · "tigroid heart")
+3. **Calf sudden death** (myocarditis, "tigroid heart")
 4. ⭐ **Salivation** ("น้ำลายยืด"), abnormal cud chewing
 5. **Lameness** (interdigital + coronary band lesions)
 6. **Vesicles** on:
@@ -41462,7 +41462,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Stainless steel cup on rod
 - Inserted into pharynx → collects nasopharyngeal fluid
 - Detects carrier state (up to 180 days post-infection!)
-- ⚠️ Stressful procedure · 1-time use only
+- ⚠️ Stressful procedure, 1-time use only
 
 ### Why Eradication is Impossible (Thailand reality)
 1. **Endemic** in SE Asia (regional problem)
@@ -41479,7 +41479,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ Doesn't prevent INFECTION, but prevents/reduces clinical disease
 
 ### Treatment
-- **Supportive only** · no specific antiviral
+- **Supportive only**, no specific antiviral
 - Anti-inflammatory (NSAIDs)
 - Antibiotics for secondary bacterial infection (mastitis, foot rot)
 - Wound care for vesicle ulcers
@@ -41489,11 +41489,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Rabies** can mimic FMD! (salivation, recumbency, abnormal mouth)
   - ⭐ Story: students all got post-exposure prophylaxis after exposing to "FMD" cow that was actually rabid (bitten by stray dog)
 
-## 2️⃣ LSD (Lumpy Skin Disease · ลัมปี้สกิน) ⭐⭐⭐
+## 2️⃣ LSD (Lumpy Skin Disease, ลัมปี้สกิน) ⭐⭐⭐
 
 ### Etiology
 - **Capripoxvirus** family (with Sheep pox, Goat pox)
-- DNA virus · large · environmental persistence
+- DNA virus, large, environmental persistence
 - **LSDV** strain (specific to cattle/buffalo)
 - Cross-protection with sheep/goat pox (debated)
 
@@ -41554,7 +41554,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Serology less useful (lesions are diagnostic)
 
 ### Vaccine Strategy ⭐
-- ⭐ **Modified live vaccine** (Neethling strain · LSDV homologous)
+- ⭐ **Modified live vaccine** (Neethling strain, LSDV homologous)
 - **Foreign vaccines available**:
   - Sheep pox + Goat pox derived (cheaper, but Thailand refuses — don't want introducing new poxvirus)
   - Lumpy Skin specific (Neethling) — preferred but limited supply
@@ -41599,7 +41599,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ### Public Communication ⭐
 - ❓ Zoonotic? **NO** — humans NOT susceptible
-- ❓ Eat the meat? Yes (virus in skin only · lesion areas trimmed)
+- ❓ Eat the meat? Yes (virus in skin only, lesion areas trimmed)
 - ❓ Drink milk? Yes (cooked properly)
 - ⚠️ Consumer concern was huge → economic damage > biological damage
 
@@ -41629,27 +41629,27 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ### FMD (1-8)
 1. ⭐ **7 serotypes** (Thailand: O, A, Asia 1)
-2. **Picornavirus** · 7 antigenically distinct serotypes
+2. **Picornavirus**, 7 antigenically distinct serotypes
 3. ⭐ **Highly contagious** — entire pen affected within 24h
 4. **Order of clinical signs**: fever → milk drop → salivation → vesicles → lameness
 5. ⭐ **Calf sudden death** = myocarditis (white streaks in heart, NOT fat!)
 6. ⭐ **Carrier state** in cattle: up to **180 days** (probang test detects)
 7. **Sheep/goats subclinical** — easy to miss
-8. **Routine vaccination** in Thailand · Inactivated · 2 doses + annual
+8. **Routine vaccination** in Thailand, Inactivated, 2 doses + annual
 
 ### LSD (9-13)
 9. **First Thailand outbreak**: April 2021
 10. ⭐ **Capripoxvirus** family
 11. ⭐ **Skin nodules 1-5 cm** = pathognomonic
 12. ⭐ **Movement = #1 transmission** (NOT mosquitoes alone — disease "jumped" provinces)
-13. **Modified live vaccine** (Neethling) preferred · 25-dose bottles · cold chain
+13. **Modified live vaccine** (Neethling) preferred, 25-dose bottles, cold chain
 
 ### Control & Lessons (14-15)
 14. ⭐ **Movement control > vaccination** for emerging disease
 15. ⭐ **"The dirtiest thing humans carry is their HANDS"** (vet = vector!)
 
 > 🎯 **Practical**: ALWAYS change clothes + use hair cap + bag phone before farm visit
-> 📚 **Cross-refs**: BRD complex (1° viral · 2° bacterial principle applies here too) · vet-juris (เคลื่อนย้ายสัตว์ controls) · MCF (DDx for muzzle erosions)
+> 📚 **Cross-refs**: BRD complex (1° viral, 2° bacterial principle applies here too), vet-juris (เคลื่อนย้ายสัตว์ controls), MCF (DDx for muzzle erosions)
 > 🚨 **Reportable**: Both FMD + LSD must notify DLD immediately
 > 🌏 **Regional reality**: Thailand can't be FMD-free until SE Asia neighbors are
 > 💉 **Routine vaccines in Thai dairy**: ONLY 2 — FMD + LSD (everything else = endemic-zone only)`,
@@ -41661,10 +41661,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     subject: 'herd-health-rum',
     date: '2024-08-28',
     durationMin: 138,
-    instructor: 'อ.ธนศักดิ์ (โครงการกำจัดวัณโรคที่สหกรณ์โคนมกำแพงแสน · 600+ ฟาร์ม 100% screened)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่องการตรวจ Single Intradermal · DDx · F+/F- causes · 3-5 ปี incubation',
+    instructor: 'อ.ธนศักดิ์ (โครงการกำจัดวัณโรคที่สหกรณ์โคนมกำแพงแสน, 600+ ฟาร์ม 100% screened)',
+    examFormat: 'Multiple choice + scenario, ออกเรื่องการตรวจ Single Intradermal, DDx, F+/F- causes, 3-5 ปี incubation',
     summary: `## 🎯 Lead Summary
-**2 chronic mycobacterial diseases** of cattle. **Bovine TB** = M. bovis · re-emerging zoonotic disease · diagnosed by **Single Intradermal Tuberculin Test** at caudal fold or cervical · "test-and-cull only" — no treatment. **Paratuberculosis (Johne's)** = M. avium ssp. paratuberculosis · ⭐ **3-5 year incubation** (longest of any cattle disease!) · **Pea-soup green diarrhea**, no fever, animal eats normally but wastes away. Both diseases: **culture takes weeks to months**, screening tests imperfect, control strategy = test-and-segregate or cull.
+**2 chronic mycobacterial diseases** of cattle. **Bovine TB** = M. bovis, re-emerging zoonotic disease, diagnosed by **Single Intradermal Tuberculin Test** at caudal fold or cervical, "test-and-cull only" — no treatment. **Paratuberculosis (Johne's)** = M. avium ssp. paratuberculosis, ⭐ **3-5 year incubation** (longest of any cattle disease!), **Pea-soup green diarrhea**, no fever, animal eats normally but wastes away. Both diseases: **culture takes weeks to months**, screening tests imperfect, control strategy = test-and-segregate or cull.
 
 ## 1️⃣ Bovine Tuberculosis (วัณโรคโค) ⭐⭐⭐
 
@@ -41722,7 +41722,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 2. **Mediastinal LN**
 3. **Lung** (slice it open! "Slice like กั๊วะ" — multiple sections)
 4. **Mesenteric LN**
-5. **Liver** (slice it open · expensive organ — ask owner first!)
+5. **Liver** (slice it open, expensive organ — ask owner first!)
 6. **Supramammary LN**
 
 ### Special Lesions
@@ -41740,7 +41740,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 #### Locations
 | Location | Sensitivity | Notes |
 |---|---|---|
-| **Caudal fold** (skin under tail base) ⭐ | Lower | Easy access · most common |
+| **Caudal fold** (skin under tail base) ⭐ | Lower | Easy access, most common |
 | **Cervical** (neck) | Higher | Requires shaving + restraint |
 
 #### Procedure
@@ -41798,14 +41798,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 6. **Test < 6 weeks** post-infection
 
 ### CUVET Kamphaengsaen Cooperative Project (Real Story!) ⭐
-- **600+ farms · 20,000+ cattle**
+- **600+ farms, 20,000+ cattle**
 - **First Thai cooperative** to achieve 100% TB screening
-- 10 days to complete · 3 years (then ended)
+- 10 days to complete, 3 years (then ended)
 - ⭐ Dispute resolution: necropsy revealed truth (positive = real)
 
 ### Treatment & Control ⭐
 - ⛔ **NO TREATMENT** in Thailand
-- ⚠️ Drugs: 6+ months · expensive · zoonotic risk to caretakers · DRUG RESISTANCE!
+- ⚠️ Drugs: 6+ months, expensive, zoonotic risk to caretakers, DRUG RESISTANCE!
 - Strategy: **Test-and-cull** OR **Test-and-segregate**
 
 ### Famous Princess Sirindhorn Buffalo School Story
@@ -41821,7 +41821,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ### BCG Vaccine Question ⭐
 - **All Thai humans get BCG at birth** → can't use SIT for human screening
-- ⚠️ BCG in cattle: Low protection · Used only in endemic areas (e.g., UK badger management)
+- ⚠️ BCG in cattle: Low protection, Used only in endemic areas (e.g., UK badger management)
 - Thai law: ⚠️ BCG NOT used in Thai cattle (would invalidate SIT screening)
 
 ### Pregnant Cattle Decision ⭐
@@ -41842,7 +41842,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - No colostrum/milk to calves on positive side
 - Gradual culling over time
 
-## 2️⃣ Paratuberculosis (Johne's Disease · พาราทีบี) ⭐⭐⭐
+## 2️⃣ Paratuberculosis (Johne's Disease, พาราทีบี) ⭐⭐⭐
 
 ### Why It's Difficult
 - ⭐ **Diagnosis very hard** — screening tests poor
@@ -41884,7 +41884,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Clinical Signs (Triad!) ⭐⭐
 | Sign | Detail |
 |---|---|
-| **1. Chronic diarrhea** | ⭐ "Pea-soup green" · projectile · doesn't respond to antibiotics |
+| **1. Chronic diarrhea** | ⭐ "Pea-soup green", projectile, doesn't respond to antibiotics |
 | **2. Weight loss** | "Skin and bones" but cow eats normally! |
 | **3. NO fever** ⭐ | Distinguishes from most infectious diseases |
 
@@ -41946,7 +41946,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ## 📋 Exam Recap (15 จุดสำคัญ)
 
 ### TB (1-9)
-1. **M. bovis** = main · zoonotic · cross to/from humans
+1. **M. bovis** = main, zoonotic, cross to/from humans
 2. ⭐ **Acid-fast** staining + **Langhans giant cells**
 3. ⭐ **Tubercle** = granuloma + calcium deposition
 4. **Routes**: Inhalation > Ingestion (humans urinating in pasture!)
@@ -41962,12 +41962,12 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 12. ⭐ **Pea-soup diarrhea + weight loss + NO fever** = triad
 13. **Calves <6 months** infected (vertical transmission ~20%)
 14. ⭐ **Diagnosis very hard** — ELISA poor sensitivity, culture 6+ weeks
-15. ⛔ **No treatment** · cull-and-segregate
+15. ⛔ **No treatment**, cull-and-segregate
 
-> 🎓 **Cross-refs**: BRD complex (different respiratory pathogens) · vet-juris (reportable diseases under พ.ร.บ.)
-> 🛡️ **Practical**: ALWAYS pasteurize milk · 65°C × 30 min for safety
+> 🎓 **Cross-refs**: BRD complex (different respiratory pathogens), vet-juris (reportable diseases under พ.ร.บ.)
+> 🛡️ **Practical**: ALWAYS pasteurize milk, 65°C × 30 min for safety
 > 🏥 **Public health**: TB still zoonotic — protect farm workers + slaughter staff
-> 📊 **Reality check**: M. bovis still endemic in Thai cattle · Annual surveillance recommended
+> 📊 **Reality check**: M. bovis still endemic in Thai cattle, Annual surveillance recommended
 > 🎯 **Decision tree**: Diarrhea + 3-5yo + no fever + eats normally = SUSPECT JOHNE'S`,
   },
 
@@ -41978,18 +41978,18 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2024-09-04',
     durationMin: 164,
     instructor: 'อ.ธนศักดิ์ (เน้น zoonotic risk + brucellosis screening at coop level)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง 4 species ของ Brucella + abortion in last trimester + sudden death in buffalo + abortion storm Lepto',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง 4 species ของ Brucella + abortion in last trimester + sudden death in buffalo + abortion storm Lepto',
     summary: `## 🎯 Lead Summary
-**3 zoonotic bacterial diseases** of cattle/ruminants. **Brucellosis** = chronic abortion + retained placenta · **B. abortus** in cattle, **B. melitensis** in goats (most dangerous to humans!) · diagnosed by milk/serum agglutination tests. **Hemorrhagic Septicemia** = ⚠️ buffalo sudden death from Pasteurella multocida · "swollen neck" disease · stress + flooding precipitate · vaccinate annually with oil adjuvant. **Leptospirosis** = "rat-piss disease" · last-trimester **abortion storm** · 4 important serovars (Pomona, Hardjo, Hebdomadis, Canicola) · zoonotic via skin/mucous membrane.
+**3 zoonotic bacterial diseases** of cattle/ruminants. **Brucellosis** = chronic abortion + retained placenta, **B. abortus** in cattle, **B. melitensis** in goats (most dangerous to humans!), diagnosed by milk/serum agglutination tests. **Hemorrhagic Septicemia** = ⚠️ buffalo sudden death from Pasteurella multocida, "swollen neck" disease, stress + flooding precipitate, vaccinate annually with oil adjuvant. **Leptospirosis** = "rat-piss disease", last-trimester **abortion storm**, 4 important serovars (Pomona, Hardjo, Hebdomadis, Canicola), zoonotic via skin/mucous membrane.
 
 ## 1️⃣ Brucellosis (โรคแท้งติดต่อ) ⭐⭐⭐
 
 ### Etiology — 4 main species ⭐
 | Species | Primary host | Cross to humans | Risk level |
 |---|---|---|---|
-| **B. abortus** ⭐ | **Cattle** | YES | Moderate · undulant fever |
-| **B. melitensis** ⭐ | **Goats, sheep** | YES | ⚠️ **HIGHEST** · airborne strain · used for biowarfare |
-| **B. suis** | Pigs | YES | Moderate · controlled in industrial farms |
+| **B. abortus** ⭐ | **Cattle** | YES | Moderate, undulant fever |
+| **B. melitensis** ⭐ | **Goats, sheep** | YES | ⚠️ **HIGHEST**, airborne strain, used for biowarfare |
+| **B. suis** | Pigs | YES | Moderate, controlled in industrial farms |
 | **B. ovis** | Sheep | NO | Animal only |
 | B. canis | Dogs | YES (mild) | — |
 | B. ceti | Marine mammals | Rare | — |
@@ -42077,7 +42077,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Test | Detail |
 |---|---|
 | **Serum Agglutination** | Standard tube test |
-| **Plate agglutination** ⭐ | Old method · Thailand uses now (DLD-only antigen) |
+| **Plate agglutination** ⭐ | Old method, Thailand uses now (DLD-only antigen) |
 | ⭐ **Milk Ring Test (MRT)** | Pour milk + dyed antigen → ring at top = Positive |
 | ⭐ **Vaginal Swab/Culture** | From aborting animal |
 | **Abomasal fluid culture** ⭐ | Best for aborted fetus diagnosis |
@@ -42094,8 +42094,8 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Real Story: Pakchong Cooperative ⭐
 - 150 farms tested via milk ring test
 - 2 farms positive
-- One farm: 150-cow herd · 10 positive → ALL CULLED
-- Other farm: 30-cow herd · 3-4 positive → owner kicked out vets, refused to cull
+- One farm: 150-cow herd, 10 positive → ALL CULLED
+- Other farm: 30-cow herd, 3-4 positive → owner kicked out vets, refused to cull
 - Result: published in Sapporo conference + DLD reactivated brucellosis surveillance
 - ⭐ Lesson: **Same coop, opposite reactions** — communication matters!
 
@@ -42169,7 +42169,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ### Treatment ⭐⭐ (FIRST disease in this lecture that's TREATABLE!)
 - **Antibiotics** ASAP — gold standard:
-  - **Ceftiofur** ⭐ (preferred · narrow + effective)
+  - **Ceftiofur** ⭐ (preferred, narrow + effective)
   - **Penicillin** (still works)
   - Florfenicol (broader)
   - Avoid **tetracyclines alone** (resistance increasing)
@@ -42186,8 +42186,8 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Vaccine — Hemorrhagic Septicemia ⭐
 - **Bacterin** vaccine produced by DLD
 - 2 forms:
-  - **Aluminum hydroxide gel** (old) — protects 4-6 months · ⚠️ frequent **anaphylactic shock**
-  - ⭐ **Oil adjuvant** (new) — protects 9-12 months · less reactive · more practical
+  - **Aluminum hydroxide gel** (old) — protects 4-6 months, ⚠️ frequent **anaphylactic shock**
+  - ⭐ **Oil adjuvant** (new) — protects 9-12 months, less reactive, more practical
 - ⚠️ **Deep IM** required (1.5-inch needle, NOT 1-inch!)
 - ⚠️ If subcutaneous: → sterile abscess → no immunity!
 
@@ -42214,7 +42214,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ## 3️⃣ Leptospirosis (โรคฉี่หนู) ⭐⭐⭐
 
 ### Etiology
-- **Leptospira** spp. (Spirochete · 250 serovars total!)
+- **Leptospira** spp. (Spirochete, 250 serovars total!)
 - ⭐ **4 important serovars in ruminants**:
   | Serovar | Specificity | Disease pattern |
   |---|---|---|
@@ -42290,7 +42290,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Method | Notes |
 |---|---|
 | **Dark Field Microscopy** | ⭐ Direct visualization of spirochetes |
-| Sample: **Urine** | Best in carrier · spinning swim! |
+| Sample: **Urine** | Best in carrier, spinning swim! |
 | Sample: **Aborted fetus** | Kidney, lung |
 | **MAT (Microscopic Agglutination Test)** | Gold standard serology |
 | **PCR** | Rapid + specific |
@@ -42330,25 +42330,25 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 3. ⭐ **Predilection**: pregnant uterus, mammary gland, testes (erythritol-loving!)
 4. ⭐ **Abortion in LAST TRIMESTER** (5+ months)
 5. ⭐ **Milk Ring Test** = field screening for tank milk
-6. ⛔ **No treatment** · cull only · 60-day re-test interval
+6. ⛔ **No treatment**, cull only, 60-day re-test interval
 
 ### Hemorrhagic Septicemia (7-11)
 7. ⭐ **Pasteurella multocida B:2** in **buffalo**
 8. ⭐ **"Swollen neck"** (submental edema) = pathognomonic
-9. ⚠️ **Mortality 90-100%** in symptomatic buffalo · sudden death!
+9. ⚠️ **Mortality 90-100%** in symptomatic buffalo, sudden death!
 10. ⭐ **Methylene Blue → bipolar staining**
-11. ⭐ **TREATABLE** ⭐ Ceftiofur or Penicillin · vaccinate annually with Oil adjuvant
+11. ⭐ **TREATABLE** ⭐ Ceftiofur or Penicillin, vaccinate annually with Oil adjuvant
 
 ### Leptospirosis (12-15)
 12. ⭐ **4 serovars**: Pomona/Icterohaemorrhagiae/Hebdomadis (non-host) + **Hardjo (cattle-specific!)**
 13. ⭐ **Pomona = hemolysis + Coca-Cola urine** in calves (acute)
 14. ⭐ **Hardjo = ABORTION STORM** in last trimester + **wilted udder mastitis**
-15. ⚠️ **Carrier state for LIFE** in kidney → urine shedding · zoonotic!
+15. ⚠️ **Carrier state for LIFE** in kidney → urine shedding, zoonotic!
 
 > 📚 **Cross-refs**: TB+ParaTB (chronic infectious), FMD+LSD (other reportable diseases)
-> 🩺 **Practical**: Annual Hemorrhagic Septicemia vaccine in buffalo · MRT screening at coop level for Brucella · Boot rule for workers (Lepto)
+> 🩺 **Practical**: Annual Hemorrhagic Septicemia vaccine in buffalo, MRT screening at coop level for Brucella, Boot rule for workers (Lepto)
 > 🚨 **Reportable**: All 3 are zoonotic + listed under พรบ.โรคระบาดสัตว์
-> 🧪 **Diagnostic key**: MRT for Brucella · Methylene Blue bipolar for HS · Dark field microscopy for Lepto`,
+> 🧪 **Diagnostic key**: MRT for Brucella, Methylene Blue bipolar for HS, Dark field microscopy for Lepto`,
   },
 
   lswJpxUOFhY: {
@@ -42357,10 +42357,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     subject: 'herd-health-rum',
     date: '2024-09-11',
     durationMin: 54,
-    instructor: 'อ.ธนศักดิ์ (review · เน้น clinical practice + Haemonchus case study + ยา anthelmintic resistance)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง Haemonchus blood-sucker + FAMACHA + 500 epg threshold + anthelmintic resistance + combination therapy',
+    instructor: 'อ.ธนศักดิ์ (review, เน้น clinical practice + Haemonchus case study + ยา anthelmintic resistance)',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง Haemonchus blood-sucker + FAMACHA + 500 epg threshold + anthelmintic resistance + combination therapy',
     summary: `## 🎯 Lead Summary
-**GI parasites in ruminants** — practitioner-focused review (preclinical knowledge applied to field). ⭐ **Haemonchus contortus** = #1 problem in Thai goat farms · blood-sucking nematode causing **severe anemia** (PCV drops to 7-9%!) · ⚠️ **100% Thai goat farms have ivermectin resistance** (instructor's research). **Approach**: Clinical signs (diarrhea, anemia, edema) → fecal exam → FAMACHA color chart → ⭐ **500 epg threshold** for treatment → ⭐ **FECRT** to detect resistance → ⭐ **Combination therapy** (FBZ + Levamisole) revives old drugs.
+**GI parasites in ruminants** — practitioner-focused review (preclinical knowledge applied to field). ⭐ **Haemonchus contortus** = #1 problem in Thai goat farms, blood-sucking nematode causing **severe anemia** (PCV drops to 7-9%!), ⚠️ **100% Thai goat farms have ivermectin resistance** (instructor's research). **Approach**: Clinical signs (diarrhea, anemia, edema) → fecal exam → FAMACHA color chart → ⭐ **500 epg threshold** for treatment → ⭐ **FECRT** to detect resistance → ⭐ **Combination therapy** (FBZ + Levamisole) revives old drugs.
 
 ## 1️⃣ Why This Lecture Matters
 
@@ -42504,7 +42504,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   | 2 | Red-pink | No treatment |
   | 3 | Pink | Borderline (treat or monitor) |
   | 4 | ⭐ Pale pink | ⚠️ TREAT |
-  | 5 | White | ⚠️ Severe anemia · treat + supportive |
+  | 5 | White | ⚠️ Severe anemia, treat + supportive |
 
 ### FAMACHA Caveats ⭐
 - ⚠️ **Color reproduction varies by printer** (need certified version!)
@@ -42632,7 +42632,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Clinical Recognition (1-4)
 1. ⭐ **Diarrhea + anemia + bottle jaw + rough coat** = parasitism
 2. ⭐ **Hypoproteinemic edema = soft, fluid-filled** (vs. inflammatory = firm)
-3. ⭐ **Haemonchus** = blood-sucker · abomasum · most lethal in goats
+3. ⭐ **Haemonchus** = blood-sucker, abomasum, most lethal in goats
 4. ⭐ Always **open FULL GI tract** at necropsy (don't focus on suspect organ only)
 
 ### Diagnostic (5-7)
@@ -42649,23 +42649,23 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 11. ⭐ **Annual rotation** across drug families (NOT every 6 months)
 12. ⭐ **Pasture rotation** + 3-week rest interrupts life cycle
 
-> 📚 **Cross-refs**: Brucellosis (different infectious agent · same iceberg principle) · Imaging (Norberg-Olsson for liver fluke?)
-> 🩺 **Practical**: Always weigh animals before dosing · Combine drugs when resistance suspected · Use FAMACHA in field
+> 📚 **Cross-refs**: Brucellosis (different infectious agent, same iceberg principle), Imaging (Norberg-Olsson for liver fluke?)
+> 🩺 **Practical**: Always weigh animals before dosing, Combine drugs when resistance suspected, Use FAMACHA in field
 > 💉 **Key formula**: 3 weeks between treatments + 500 epg trigger + annual rotation across families
 > 🎯 **Field rule**: "If you wouldn't take it yourself for no symptoms, don't blanket-deworm the herd"
-> 💊 **Drug withdrawal time** for dairy: Ivermectin 28 days · Albendazole 6 days · check label always`,
+> 💊 **Drug withdrawal time** for dairy: Ivermectin 28 days, Albendazole 6 days, check label always`,
   },
 
   ez3VyARqzUQ: {
     videoId: 'ez3VyARqzUQ',
-    title: 'Mastitis in Cattle (Clinical + Subclinical · Contagious + Environmental)',
+    title: 'Mastitis in Cattle (Clinical + Subclinical, Contagious + Environmental)',
     subject: 'herd-health-rum',
     date: '2024-09-18',
     durationMin: 161,
-    instructor: 'อ.ธนศักดิ์ + หมอแนท (final lecture · Saraburi research center · vet career philosophy)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง 5 inflammation signs + clinical vs subclinical + contagious vs environmental + SCC threshold + CMT + dry cow therapy',
+    instructor: 'อ.ธนศักดิ์ + หมอแนท (final lecture, Saraburi research center, vet career philosophy)',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง 5 inflammation signs + clinical vs subclinical + contagious vs environmental + SCC threshold + CMT + dry cow therapy',
     summary: `## 🎯 Lead Summary
-**Mastitis = #1-3 disease in dairy cattle** by economic impact. Approach via **3 elements (Iceberg Triangle)**: ⭐ **People + Environment + Animal**. Two patterns: **Clinical** (visible signs · 5 inflammation criteria) vs **Subclinical** (no visible signs · detected by **SCC** + **CMT**). Two epidemiologies: **Contagious** (human-spread, S. aureus, Strep agalactiae) vs **Environmental** (housing-spread, E. coli, Strep uberis). Treatment philosophy: ⭐ **8 steps** including dry cow therapy + selective dry-off. ⭐ **80% of dairy business value** is keeping cows healthy (NOT treating sick) — the "iceberg insight" for vet career planning.
+**Mastitis = #1-3 disease in dairy cattle** by economic impact. Approach via **3 elements (Iceberg Triangle)**: ⭐ **People + Environment + Animal**. Two patterns: **Clinical** (visible signs, 5 inflammation criteria) vs **Subclinical** (no visible signs, detected by **SCC** + **CMT**). Two epidemiologies: **Contagious** (human-spread, S. aureus, Strep agalactiae) vs **Environmental** (housing-spread, E. coli, Strep uberis). Treatment philosophy: ⭐ **8 steps** including dry cow therapy + selective dry-off. ⭐ **80% of dairy business value** is keeping cows healthy (NOT treating sick) — the "iceberg insight" for vet career planning.
 
 ## 1️⃣ Vet Career Philosophy (Iceberg Insight!) ⭐⭐
 
@@ -42692,7 +42692,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Butter | High |
 | ⭐ **Cheese** (especially aged) | **Highest** (฿2,000/kg!) |
 
-> 💡 Thailand imports billions in cheese while producing milk · vet-led innovation opportunity!
+> 💡 Thailand imports billions in cheese while producing milk, vet-led innovation opportunity!
 
 ### Real Saraburi Research Center ⭐
 - **50-cow farm** with full dairy facility
@@ -42764,10 +42764,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Detection Methods ⭐
 | Method | Pros | Cons |
 |---|---|---|
-| ⭐ **SCC** (Somatic Cell Count) | Quantitative · gold standard | Lab needed |
-| ⭐ **CMT** (California Mastitis Test) | Field test · cheap · fast | Subjective |
+| ⭐ **SCC** (Somatic Cell Count) | Quantitative, gold standard | Lab needed |
+| ⭐ **CMT** (California Mastitis Test) | Field test, cheap, fast | Subjective |
 | **Bulk Tank SCC** | Whole-farm screen | No quarter info |
-| **Conductivity meters** | Inline · automated | Expensive |
+| **Conductivity meters** | Inline, automated | Expensive |
 | **PCR/culture** | ID specific pathogen | Slow |
 
 ### SCC Thresholds ⭐⭐⭐
@@ -42775,10 +42775,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 |---|---|
 | **<200,000 cells/mL** | ⭐ Healthy |
 | **200,000-500,000** | ⚠️ Subclinical mastitis |
-| **>500,000** | ⚠️ Severe subclinical · likely chronic |
-| **>1,000,000** | ⚠️ Very high · culling consideration |
+| **>500,000** | ⚠️ Severe subclinical, likely chronic |
+| **>1,000,000** | ⚠️ Very high, culling consideration |
 
-> ⭐ Bulk tank SCC <200,000 = farm doing well · >400,000 = penalty payment in Thailand
+> ⭐ Bulk tank SCC <200,000 = farm doing well, >400,000 = penalty payment in Thailand
 
 ### CMT (California Mastitis Test) ⭐
 **Procedure**:
@@ -42814,8 +42814,8 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Environmental Pathogens
 | Bacterium | Source | Key feature |
 |---|---|---|
-| ⭐ **E. coli** ⭐ | Bedding, manure | ⚠️ **Endotoxin shock** possible · sudden death! |
-| ⭐ **Streptococcus uberis** | Wet bedding | Common · summer mastitis |
+| ⭐ **E. coli** ⭐ | Bedding, manure | ⚠️ **Endotoxin shock** possible, sudden death! |
+| ⭐ **Streptococcus uberis** | Wet bedding | Common, summer mastitis |
 | **Klebsiella** | Sawdust bedding | Severe, hard to treat |
 | **Pseudomonas** | Water sources | Resistant to many drugs |
 | **Yeast/Fungi** | Damp environments | Misuse of antibiotics → opportunistic |
@@ -42877,10 +42877,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Acute vs Chronic Patterns ⭐
 | Pattern | Duration | Detection | Treatment |
 |---|---|---|---|
-| **Peracute** | Hours | E. coli mostly · sudden | Aggressive systemic + supportive |
+| **Peracute** | Hours | E. coli mostly, sudden | Aggressive systemic + supportive |
 | **Acute** | Days | Visible clinical signs | Standard antibiotics |
 | **Subclinical** | Months | SCC/CMT only | Prolonged or DCT |
-| **Chronic** | Months-years | Recurring · firm udder | Often cull |
+| **Chronic** | Months-years | Recurring, firm udder | Often cull |
 
 ## 8️⃣ Treatment Strategy (8-Step Protocol) ⭐⭐⭐
 
@@ -42905,7 +42905,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Step 5: Systemic antibiotics (selected cases)
 - **Severe/septic mastitis** (E. coli toxemia)
 - **Chronic with multi-quarter** spread
-- ⚠️ Must have milk withdrawal (28 days for Ivermectin · Penicillin 4 days)
+- ⚠️ Must have milk withdrawal (28 days for Ivermectin, Penicillin 4 days)
 
 ### Step 6: Anti-inflammatory ⭐
 - **NSAIDs** (Flunixin, Meloxicam)
@@ -42979,13 +42979,13 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Bulk Tank SCC (BTSCC)
 - ⭐ **Bulk tank** = mixed milk from all cows
 - Monthly SCC measurement
-- Threshold: **<200K = excellent · >400K = penalty**
+- Threshold: **<200K = excellent, >400K = penalty**
 
 ### Action Levels
 | BTSCC | Action |
 |---|---|
-| <200K | Excellent · maintain |
-| 200-400K | Investigate · CMT individual |
+| <200K | Excellent, maintain |
+| 200-400K | Investigate, CMT individual |
 | 400-750K | Review hygiene + culture |
 | >750K | Major intervention needed |
 
@@ -43036,20 +43036,20 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ## 📋 Exam Recap (15 จุดสำคัญ)
 
 ### Concepts (1-4)
-1. ⭐ **Iceberg model**: 20% clinical · 80% subclinical (or vice versa for vet career)
+1. ⭐ **Iceberg model**: 20% clinical, 80% subclinical (or vice versa for vet career)
 2. ⭐ **3 Elements**: People + Environment + Animal (key risk factor analysis)
 3. ⭐ **5 Inflammation Signs**: Calor, Rubor, Tumor, Dolor, Functio Laesa
 4. **Functio Laesa** in udder = abnormal milk = first detected sign
 
 ### Classification (5-7)
 5. ⭐ **Contagious vs Environmental** (different prevention strategies!)
-6. **Contagious**: S. aureus + Strep agalactiae · spread by people
-7. **Environmental**: E. coli + Strep uberis · from bedding/housing
+6. **Contagious**: S. aureus + Strep agalactiae, spread by people
+7. **Environmental**: E. coli + Strep uberis, from bedding/housing
 
 ### Diagnosis (8-10)
-8. ⭐ **SCC <200K = healthy · >500K = chronic concerning**
-9. ⭐ **CMT** = field test · 5-grade scoring
-10. **Bulk tank SCC** = farm-level monitoring · penalty above 400K
+8. ⭐ **SCC <200K = healthy, >500K = chronic concerning**
+9. ⭐ **CMT** = field test, 5-grade scoring
+10. **Bulk tank SCC** = farm-level monitoring, penalty above 400K
 
 ### Treatment & Prevention (11-15)
 11. ⭐ **Intramammary antibiotic** is primary treatment route
@@ -43058,23 +43058,23 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 14. **Premilking routine 5 steps**: Strip → Pre-dip → Wait → Dry → Attach
 15. ⭐ **Milking order**: Healthy first → Infected LAST
 
-> 📚 **Cross-refs**: BRD complex (similar inflammation principles) · Brucellosis (also udder disease) · Lepto Hardjo (atypical mastitis pattern) · GI parasites (uses similar data-driven prevention)
-> 🩺 **Practical**: Strip cup before EVERY milking · CMT monthly · DCT at every dry-off · Bulk tank SCC monthly trend
-> 💰 **Career insight**: Dairy industry = ฿3 billion+ market · vet roles in 80% prevention space largely vacant
+> 📚 **Cross-refs**: BRD complex (similar inflammation principles), Brucellosis (also udder disease), Lepto Hardjo (atypical mastitis pattern), GI parasites (uses similar data-driven prevention)
+> 🩺 **Practical**: Strip cup before EVERY milking, CMT monthly, DCT at every dry-off, Bulk tank SCC monthly trend
+> 💰 **Career insight**: Dairy industry = ฿3 billion+ market, vet roles in 80% prevention space largely vacant
 > 🥛 **Farm rule**: "If your hands aren't clean enough to drink milk from, they're not clean enough to milk a cow"
 > 🎯 **Decision tree**: SCC > 200K → CMT → Positive quarter → Culture → Treat per sensitivity → Re-test`,
   },
 
   VMoIqdaKgEc: {
     videoId: 'VMoIqdaKgEc',
-    title: 'Anthrax + Clostridium Infections (3 patterns: GI · Myositis · Neuro)',
+    title: 'Anthrax + Clostridium Infections (3 patterns: GI, Myositis, Neuro)',
     subject: 'herd-health-rum',
     date: '2024-10-09',
     durationMin: 113,
-    instructor: 'อ.ธนศักดิ์ (spore-forming bacteria · DLD reportable diseases)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง Anthrax 3 forms + spore environmental persistence + Clostridium myositis NSAID injection + tetanus + botulism',
+    instructor: 'อ.ธนศักดิ์ (spore-forming bacteria, DLD reportable diseases)',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง Anthrax 3 forms + spore environmental persistence + Clostridium myositis NSAID injection + tetanus + botulism',
     summary: `## 🎯 Lead Summary
-**4 spore-forming Gram(+) bacterial diseases** of cattle. ⭐ **Anthrax** = Bacillus anthracis · **3 clinical forms** (cutaneous, GI, inhalational) · ⚠️ **Sudden death + dark blood from orifices** · ⛔ NEVER open carcass! · ↑ to 100 years environmental survival via spores · zoonotic + biowarfare. ⭐ **Clostridium infections (3 syndromes)**: 1) **GI** (perfringens enterotoxemia in calves) · 2) **Myositis** (Black Leg, Malignant Edema · injection-site contamination!) · 3) **Neuro** (Tetanus, Botulism). Common theme: **Exotoxin damage** > antibiotic protection · prevention = vaccination + clean injection technique.
+**4 spore-forming Gram(+) bacterial diseases** of cattle. ⭐ **Anthrax** = Bacillus anthracis, **3 clinical forms** (cutaneous, GI, inhalational), ⚠️ **Sudden death + dark blood from orifices**, ⛔ NEVER open carcass!, ↑ to 100 years environmental survival via spores, zoonotic + biowarfare. ⭐ **Clostridium infections (3 syndromes)**: 1) **GI** (perfringens enterotoxemia in calves), 2) **Myositis** (Black Leg, Malignant Edema, injection-site contamination!), 3) **Neuro** (Tetanus, Botulism). Common theme: **Exotoxin damage** > antibiotic protection, prevention = vaccination + clean injection technique.
 
 ## 1️⃣ ⭐⭐⭐ Anthrax (โรคแอนแทรกซ์)
 
@@ -43086,8 +43086,8 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### 2 Forms of Bacterium ⭐
 | Form | Where | Behavior |
 |---|---|---|
-| **Vegetative form** | Inside body | Active, kills · easy to disinfect |
-| ⭐ **Spore form** | When exposed to oxygen (after death) | ⚠️ **Persists 100+ years** in soil · resistant to most disinfectants |
+| **Vegetative form** | Inside body | Active, kills, easy to disinfect |
+| ⭐ **Spore form** | When exposed to oxygen (after death) | ⚠️ **Persists 100+ years** in soil, resistant to most disinfectants |
 
 ### Why Spores Are So Dangerous
 - ⭐ **History**: London leather tannery cases (1800s)
@@ -43149,7 +43149,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ **100-year quiescence** — no anthrax in Siberian region
 - 2016: ⭐ **Climate change melted permafrost!**
 - 100-year-old infected reindeer carcass exposed → spores released
-- **2,300 reindeer died · child died · 90 humans hospitalized**
+- **2,300 reindeer died, child died, 90 humans hospitalized**
 - ⭐ Mass vaccination of 800,000 reindeer in response
 
 ### Treatment (Limited Success) ⭐
@@ -43165,7 +43165,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ Used **only in endemic areas** OR after outbreak
 - ⚠️ NOT routine in Thai dairy
 - ⭐ **Meat withdrawal**: 6 weeks post-vaccination!
-- Bury old animals quickly · burn if possible
+- Bury old animals quickly, burn if possible
 - ⚠️ DLD reportable disease!
 
 ### WOAH (formerly OIE) World Map ⭐
@@ -43261,7 +43261,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Treatment ⭐
 | Drug | Detail |
 |---|---|
-| ⭐ **Penicillin** | First-line · ⭐ **44,000 IU/kg IM** (DOUBLE normal dose!) · 2× daily for 3+ days |
+| ⭐ **Penicillin** | First-line, ⭐ **44,000 IU/kg IM** (DOUBLE normal dose!), 2× daily for 3+ days |
 | **Florfenicol or Ceftiofur** | Alternative |
 | ⭐ **Local infiltration**: Inject penicillin INTO swelling | Boost local concentration |
 | ⭐ **Surgical drainage**: Cut open swelling | Lets oxygen in → kills anaerobes! |
@@ -43344,7 +43344,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ **Trismus / Lockjaw** — can't open mouth!
 - ⭐ **Third eyelid prolapse** with fear/stimulation
 - Stiff tail, neck
-- Hyperreflexia · seizures with stimulation
+- Hyperreflexia, seizures with stimulation
 - ⚠️ Respiratory failure → death
 
 ### Treatment ⭐ (Urgent!)
@@ -43412,31 +43412,31 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ## 📋 Exam Recap (15 จุดสำคัญ)
 
 ### Anthrax (1-7)
-1. ⭐ **Bacillus anthracis** · Gram(+) rod · LARGE
-2. ⭐ **3 Clinical forms**: Cutaneous · GI · Pulmonary (+ injection 4th)
+1. ⭐ **Bacillus anthracis**, Gram(+) rod, LARGE
+2. ⭐ **3 Clinical forms**: Cutaneous, GI, Pulmonary (+ injection 4th)
 3. ⭐ **Spores 100+ years** in soil
 4. ⭐ **Capsule + 3-Toxin (PA + EF + LF)** virulence
 5. ⛔ **NEVER open carcass** if anthrax suspected
 6. ⭐ Diagnose by **blood smear from ear/coronary** (Methylene Blue)
-7. ⭐ Vaccine: 34F2 Sterne strain · meat withdrawal **6 weeks**
+7. ⭐ Vaccine: 34F2 Sterne strain, meat withdrawal **6 weeks**
 
 ### Clostridium myositis (8-11)
 8. ⭐ **Asymmetric edema + crepitus** = pathognomonic
-9. ⭐ **Iatrogenic injection** = #1 cause! · clean technique critical
-10. **Penicillin** at **44,000 IU/kg double dose** · IM ×2/day
+9. ⭐ **Iatrogenic injection** = #1 cause!, clean technique critical
+10. **Penicillin** at **44,000 IU/kg double dose**, IM ×2/day
 11. ⭐ **Surgical drainage** + **local penicillin** = adjunct treatment
 
 ### C. perfringens (12)
-12. ⭐ **Type C β-toxin** in calves with sudden diet change · "pulpy kidney"
+12. ⭐ **Type C β-toxin** in calves with sudden diet change, "pulpy kidney"
 
 ### Tetanus & Botulism (13-15)
 13. ⭐ **Tetanus = SPASTIC paralysis** (sawhorse stance, lockjaw)
 14. ⭐ **Botulism = FLACCID paralysis** (opposite of tetanus)
 15. ⭐ **Tetanus toxoid** = vet must keep boosters!
 
-> 📚 **Cross-refs**: Brucellosis + Hemorrhagic Septicemia + Lepto (other reportable bacterials) · Mastitis (similar inflammation principles)
-> 🩺 **Practical**: ALWAYS alcohol-swab before injection · Don't open suspected anthrax carcass · Phosphorus supplementation prevents botulism
-> 🚨 **Reportable**: Anthrax · Clostridial outbreaks
+> 📚 **Cross-refs**: Brucellosis + Hemorrhagic Septicemia + Lepto (other reportable bacterials), Mastitis (similar inflammation principles)
+> 🩺 **Practical**: ALWAYS alcohol-swab before injection, Don't open suspected anthrax carcass, Phosphorus supplementation prevents botulism
+> 🚨 **Reportable**: Anthrax, Clostridial outbreaks
 > 💉 **Cattle vaccines**: Combined 7/8-way Clostridial covers most species
 > 🎯 **Decision flowchart**:
 > - Sudden death + dark blood from orifices → ⛔ Anthrax suspect (don't open!)
@@ -43452,10 +43452,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     subject: 'herd-health-rum',
     date: '2024-10-16',
     durationMin: 187,
-    instructor: 'อ.อุตรา (ภาควิชาสรีรวิทยา · ขอไม่ให้อัดเสียง)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง Acidosis (SARA + acute) · Bloat · Ketosis · Hypocalcemia (Milk Fever) · Grass Tetany · Mineral imbalance',
+    instructor: 'อ.อุตรา (ภาควิชาสรีรวิทยา, ขอไม่ให้อัดเสียง)',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง Acidosis (SARA + acute), Bloat, Ketosis, Hypocalcemia (Milk Fever), Grass Tetany, Mineral imbalance',
     summary: `## 🎯 Lead Summary
-**Nutritional/Metabolic disorders** of dairy cattle = ⭐ **non-infectious disease cluster** caused by feed imbalance, transition stress, and physiological state mismatch. Group by macronutrient: ⭐ **Carbohydrate-related** (Acidosis SARA + acute, Bloat) · ⭐ **Lipid-related** (Ketosis, Fatty Liver, Pregnancy Toxemia, Milk Fat Depression) · ⭐ **Protein-related** (Urea toxicity, Negative Energy Balance) · ⭐ **Mineral-related** (Milk Fever Hypocalcemia, Grass Tetany Hypomagnesemia, Phosphorus deficiency). All share: **prevention via dietary balance + transition management** > treatment of established cases.
+**Nutritional/Metabolic disorders** of dairy cattle = ⭐ **non-infectious disease cluster** caused by feed imbalance, transition stress, and physiological state mismatch. Group by macronutrient: ⭐ **Carbohydrate-related** (Acidosis SARA + acute, Bloat), ⭐ **Lipid-related** (Ketosis, Fatty Liver, Pregnancy Toxemia, Milk Fat Depression), ⭐ **Protein-related** (Urea toxicity, Negative Energy Balance), ⭐ **Mineral-related** (Milk Fever Hypocalcemia, Grass Tetany Hypomagnesemia, Phosphorus deficiency). All share: **prevention via dietary balance + transition management** > treatment of established cases.
 
 ## 1️⃣ Conceptual Framework ⭐⭐
 
@@ -43473,10 +43473,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Some caused by physiological state (transition, lactation peak)
 
 ### Key Factors Affecting Rumen Health ⭐
-1. **Feed**: forage:concentrate ratio · feed quantity · feed quality
+1. **Feed**: forage:concentrate ratio, feed quantity, feed quality
 2. **Mycotoxin contamination** (drought stress)
-3. **Modern additives**: prebiotics · probiotics · postbiotics · ionophores
-4. **Physiology**: lactation stage · gestation · stress
+3. **Modern additives**: prebiotics, probiotics, postbiotics, ionophores
+4. **Physiology**: lactation stage, gestation, stress
 
 ### Optimal Forage:Concentrate Ratio ⭐
 - ⭐ Concentrate **NOT >45%**
@@ -43620,7 +43620,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Blood glucose** | ⭐ <40 mg/dL (low!) |
 | **Blood ketones** | ⭐ >30 mg/dL |
 | **Urine ketones** | >10 mg/dL |
-| ⭐ **BHB blood** (gold standard) | >1.4 mmol/L (subclinical) · >3.0 (clinical) |
+| ⭐ **BHB blood** (gold standard) | >1.4 mmol/L (subclinical), >3.0 (clinical) |
 | **Sodium nitroprusside test** | Strip → purple = positive |
 | **Milk strip** | Field test option |
 
@@ -43677,11 +43677,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - → Negative Energy Balance + ketosis
 
 **Clinical Signs**:
-- ⭐ Anorexia · uncoordinated
+- ⭐ Anorexia, uncoordinated
 - ⭐ **Leaning against objects** (walls, fences)
-- Recumbent · reluctant to rise
-- Muscle tremor · teeth grinding
-- ⚠️ Coma · death (⭐ **80% mortality!**)
+- Recumbent, reluctant to rise
+- Muscle tremor, teeth grinding
+- ⚠️ Coma, death (⭐ **80% mortality!**)
 
 **Treatment**:
 - ⭐ **IV 50% Dextrose**
@@ -43728,7 +43728,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 **Etiology**:
 - ⭐ **Calcium drops** at parturition (mass milk synthesis)
-- High-producing cows · multiparous
+- High-producing cows, multiparous
 - ⚠️ **Day 0-3 postpartum** typical
 - ⭐ Inadequate calcium homeostasis (parathyroid lag)
 
@@ -43822,7 +43822,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### G. Copper Toxicity (Sheep + Goats!) ⭐
 - ⚠️ **Sheep + goats VERY sensitive!**
 - Don't use cattle mineral mix in sheep!
-- Hemolytic crisis · jaundice · sudden death
+- Hemolytic crisis, jaundice, sudden death
 - Cattle can tolerate higher Cu
 - ⭐ **Real case from instructor**: Cu hoofbath drained into goat water → poisoning + Haemonchus DDx confusion!
 
@@ -43831,7 +43831,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### A. Vitamin A Deficiency
 - ⚠️ Night blindness, dry eyes
 - Stillborn calves, weak
-- ⭐ Vitamin A injection · green forage
+- ⭐ Vitamin A injection, green forage
 
 ### B. Vitamin D Deficiency
 - Rickets in calves
@@ -43854,8 +43854,8 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 **Clinical Signs** ⭐:
 - ⭐ Star-gazing posture
-- Blindness · circling · head pressing
-- Opisthotonos · convulsions
+- Blindness, circling, head pressing
+- Opisthotonos, convulsions
 - Muscle tremors
 - ⚠️ Death possible
 
@@ -43871,37 +43871,37 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ## 📋 Exam Recap (15 จุดสำคัญ)
 
 ### Carbohydrate (1-3)
-1. ⭐ **SARA** (sub-acute) = pH 5.5-5.8 · concentrate excess · low milk fat
-2. ⭐ **Acute Acidosis** = pH <5.0 · grain overload · death
-3. ⭐ **Frothy Bloat** = legumes/foam · LEFT flank distension · trocar emergency
+1. ⭐ **SARA** (sub-acute) = pH 5.5-5.8, concentrate excess, low milk fat
+2. ⭐ **Acute Acidosis** = pH <5.0, grain overload, death
+3. ⭐ **Frothy Bloat** = legumes/foam, LEFT flank distension, trocar emergency
 
 ### Lipid (4-7)
-4. ⭐ **Ketosis** = NEB · 6 weeks postpartum · BHB >3.0 mmol/L · sweet breath
-5. ⭐ **Pregnancy Toxemia** = ewe/doe with twins · 80% mortality · cesarean option
-6. ⭐ **Milk Fat Depression** = CLA-mediated · increase fiber
-7. ⭐ **3 Ketone bodies**: Acetone · Acetoacetate · BHB
+4. ⭐ **Ketosis** = NEB, 6 weeks postpartum, BHB >3.0 mmol/L, sweet breath
+5. ⭐ **Pregnancy Toxemia** = ewe/doe with twins, 80% mortality, cesarean option
+6. ⭐ **Milk Fat Depression** = CLA-mediated, increase fiber
+7. ⭐ **3 Ketone bodies**: Acetone, Acetoacetate, BHB
 
 ### Protein (8)
 8. ⭐ **Urea Toxicity** = vinegar (acetic acid) PO treatment
 
 ### Mineral (9-13)
-9. ⭐ **Milk Fever** (Hypocalcemia) = sternal recumbency · S-curve neck
+9. ⭐ **Milk Fever** (Hypocalcemia) = sternal recumbency, S-curve neck
 10. ⭐ **Calcium borogluconate IV slowly** = milk fever treatment
-11. ⭐ **Grass Tetany** (Hypomagnesemia) = hyperexcitability · convulsions
+11. ⭐ **Grass Tetany** (Hypomagnesemia) = hyperexcitability, convulsions
 12. ⭐ **Phosphorus deficiency** → bone-eating → botulism risk!
 13. ⚠️ **Copper toxicity** (sheep > cattle sensitive!)
 
 ### Other (14-15)
-14. ⭐ **PEM (Polioencephalomalacia)** = thiamine deficiency · blindness · star-gazing
+14. ⭐ **PEM (Polioencephalomalacia)** = thiamine deficiency, blindness, star-gazing
 15. ⭐ **Transition cow management** = #1 prevention strategy for all metabolic dz
 
-> 📚 **Cross-refs**: Mastitis (transition cow stress) · BRD complex (NEB predisposes) · Herd reproductive performance (NEB → poor fertility)
-> 🩺 **Practical**: BCS scoring at dry-off + calving · transition diet 3 weeks pre-calving · bicarb buffer in concentrate
-> 💉 **Field treatment kit**: Ca borogluconate · IV dextrose · propylene glycol · vinegar · thiamine · Mg sulfate
+> 📚 **Cross-refs**: Mastitis (transition cow stress), BRD complex (NEB predisposes), Herd reproductive performance (NEB → poor fertility)
+> 🩺 **Practical**: BCS scoring at dry-off + calving, transition diet 3 weeks pre-calving, bicarb buffer in concentrate
+> 💉 **Field treatment kit**: Ca borogluconate, IV dextrose, propylene glycol, vinegar, thiamine, Mg sulfate
 > 🎯 **Cow life cycle prevention map**:
-> - Late dry: low Ca diet · DCAD anionic salts
+> - Late dry: low Ca diet, DCAD anionic salts
 > - Transition (3 weeks pre-calving): TMR balanced
-> - Fresh cow (0-3 weeks postpartum): monitor BHB · Ca · feed intake
+> - Fresh cow (0-3 weeks postpartum): monitor BHB, Ca, feed intake
 > - Lactation peak: balanced concentrate:forage 45:55
 > - Late lactation: avoid overfeeding (BCS >4 = bad!)
 > 💡 **Disorder ≠ disease**: most are management issues, not infections!`,
@@ -43913,10 +43913,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     subject: 'herd-health-rum',
     date: '2024-10-30',
     durationMin: 165,
-    instructor: 'อ.ธนศักดิ์ (Saraburi research center · 5-yr improvement project)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง KPI calving interval · CTC/CTFS · biosecurity · sensor data · economic loss calculation',
+    instructor: 'อ.ธนศักดิ์ (Saraburi research center, 5-yr improvement project)',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง KPI calving interval, CTC/CTFS, biosecurity, sensor data, economic loss calculation',
     summary: `## 🎯 Lead Summary
-**Dairy farm performance management** = ⭐ data-driven approach. Thai dairy stuck at **4,000 kg/cow/year** (vs world top 11,000-12,000) — gap exists because of poor recording + no clear KPIs. Solution: ⭐ **Send vet + sensor technology** → reduces calving-to-conception (CTC) from 250+ days to <200 days → **economic gain ~2 million baht/year per 65-cow farm**. Critical concepts: ⭐ **Calving Interval (CI) target 365 days** · **CTC <100 days** = world-class · **Bio-security as new EU standard** for Thai vet schools · **Heat detection rate** (manual ~30% vs sensor ~70-80%).
+**Dairy farm performance management** = ⭐ data-driven approach. Thai dairy stuck at **4,000 kg/cow/year** (vs world top 11,000-12,000) — gap exists because of poor recording + no clear KPIs. Solution: ⭐ **Send vet + sensor technology** → reduces calving-to-conception (CTC) from 250+ days to <200 days → **economic gain ~2 million baht/year per 65-cow farm**. Critical concepts: ⭐ **Calving Interval (CI) target 365 days**, **CTC <100 days** = world-class, **Bio-security as new EU standard** for Thai vet schools, **Heat detection rate** (manual ~30% vs sensor ~70-80%).
 
 ## 1️⃣ Thailand Dairy Industry Context ⭐⭐
 
@@ -43960,9 +43960,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Assistants** | 8+ | Support |
 
 ### Projects
-- **Premium Milk** label (Saraburi · matches Hokkaido!)
+- **Premium Milk** label (Saraburi, matches Hokkaido!)
 - **VR Walk-Through** training platform (post-COVID)
-- **Cheese production** (cheddar, jersey · 2,000 baht/kg!)
+- **Cheese production** (cheddar, jersey, 2,000 baht/kg!)
 - ⭐ **Vet ID + cattle ID system** (unique cow tracking)
 
 ## 3️⃣ Biosecurity (New EU Standard!) ⭐⭐⭐
@@ -43977,8 +43977,8 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Key Diseases (Vet Risk!) ⭐
 | Disease | Risk |
 |---|---|
-| ⭐ **TB** | Cattle to vets · researchers · maids who wash gowns! |
-| ⭐ **Brucellosis** | Goat farm workers · samples |
+| ⭐ **TB** | Cattle to vets, researchers, maids who wash gowns! |
+| ⭐ **Brucellosis** | Goat farm workers, samples |
 | **FMD** | Carrier on clothes |
 | **Anthrax** | ⛔ Don't open carcasses! |
 | **Leptospirosis** | Water/urine contact |
@@ -44040,7 +44040,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Evolution of Recording in Thailand
 | Era | Method | Limitation |
 |---|---|---|
-| Old | Paper notebooks | Lost · no analysis |
+| Old | Paper notebooks | Lost, no analysis |
 | ⚠️ Common still | Wall chalkboards | One person knows |
 | Improving | Excel spreadsheets | Manual entry |
 | ⭐ Modern | Cloud apps + sensors | Real-time data |
@@ -44105,7 +44105,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Components of Farm Profit
 | Cost | % of revenue |
 |---|---|
-| ⭐ **Feed cost** | ⭐ **60% normal · 40% optimized · 80-85% crisis** |
+| ⭐ **Feed cost** | ⭐ **60% normal, 40% optimized, 80-85% crisis** |
 | Labor | ~10-15% |
 | Healthcare | ~5% |
 | Other (utilities, etc.) | ~10-15% |
@@ -44201,7 +44201,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ **Activity sensors** (collar/ankle band)
 - **Rumination sensors** (ear tag)
 - **Temperature sensors** (vaginal/intravaginal)
-- ⭐ **Robotic milking** (limited Thailand · 1+ million baht/unit)
+- ⭐ **Robotic milking** (limited Thailand, 1+ million baht/unit)
 - ⭐ **Robotic feeders** (12-meal automation)
 - **GPS for grazing** (open systems)
 
@@ -44233,23 +44233,23 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 6. ⭐ **Calving Interval (CI) target 365 days**
 7. ⭐ **Calving to Conception (CTC) target <100 days**
 8. ⭐ **Calving to First Service (CTFS) target <80 days**
-9. ⭐ **Gestation 280 days · Dry-off 220 days post-conception**
+9. ⭐ **Gestation 280 days, Dry-off 220 days post-conception**
 
 ### Heat Detection (10-11)
 10. ⭐ **Manual heat detection: 30-40%** vs ⭐ **Sensors: 70-80%**
-11. **Estrus only 12 hours · most visible dawn/dusk**
+11. **Estrus only 12 hours, most visible dawn/dusk**
 
 ### Economics (12-15)
-12. ⭐ **Feed cost normal 60% · optimized 40% · crisis 80%+**
+12. ⭐ **Feed cost normal 60%, optimized 40%, crisis 80%+**
 13. ⭐ **Heat stress loss 17,000 baht/cow/year** (3 kg/day reduction!)
 14. ⭐ **Premium milk: SCC + fat bonuses up to +2 baht/kg**
 15. ⭐ **Total potential improvement: 2 million baht/year per 65-cow farm**
 
-> 📚 **Cross-refs**: Mastitis (SCC threshold values applied here) · Nutritional disorders (transition cow concepts) · BRD complex (similar approach to herd management)
-> 🩺 **Practical**: Always quantify vet service ROI · use cloud-based recording · sensor adoption is win-win
+> 📚 **Cross-refs**: Mastitis (SCC threshold values applied here), Nutritional disorders (transition cow concepts), BRD complex (similar approach to herd management)
+> 🩺 **Practical**: Always quantify vet service ROI, use cloud-based recording, sensor adoption is win-win
 > 📱 **Modern stack**: Excel → Cloud app → Activity sensors → AI alerts → KPI dashboards
-> 🎯 **Career insight**: ⭐ Dairy vets = high-demand + well-paid · Saraburi area land prices ~1 million baht/rai · Farm owners often wealthy but humble lifestyle
-> 💡 **Key insight**: "Send a vet" alone ≠ profit · "Send a vet + sensors + records" = quantified business case
+> 🎯 **Career insight**: ⭐ Dairy vets = high-demand + well-paid, Saraburi area land prices ~1 million baht/rai, Farm owners often wealthy but humble lifestyle
+> 💡 **Key insight**: "Send a vet" alone ≠ profit, "Send a vet + sensors + records" = quantified business case
 > 🌍 **Global benchmark**: 1 calf/cow/year as productivity standard`,
   },
 
@@ -44259,10 +44259,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     subject: 'herd-health-rum',
     date: '2024-11-06',
     durationMin: 187,
-    instructor: 'อ.ธนศักดิ์ (final reproduction lecture · KPI calculation deep dive)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง KPI calculation · CI vs CTC · VWP · population proportions · 4-quadrant cattle classification',
+    instructor: 'อ.ธนศักดิ์ (final reproduction lecture, KPI calculation deep dive)',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง KPI calculation, CI vs CTC, VWP, population proportions, 4-quadrant cattle classification',
     summary: `## 🎯 Lead Summary
-**Reproductive index calculation** for dairy herd evaluation. Key concepts: ⭐ **Calving Interval (CI) target 365 days** is the gold standard but it's a **lagging indicator** (reflects 2 years past). Better leading indicators: **Calving to First Service (CTFS)** + **Calving to Conception (CTC)** which reflect current management. ⭐ **Voluntary Waiting Period (VWP) ~45 days** = don't breed too early! 4-quadrant cattle classification: ⭐ **Milking-Open · Milking-Pregnant · Dry-Open · Dry-Pregnant** with proportions ~24% · 41% · 17% · 17% in well-managed herd.
+**Reproductive index calculation** for dairy herd evaluation. Key concepts: ⭐ **Calving Interval (CI) target 365 days** is the gold standard but it's a **lagging indicator** (reflects 2 years past). Better leading indicators: **Calving to First Service (CTFS)** + **Calving to Conception (CTC)** which reflect current management. ⭐ **Voluntary Waiting Period (VWP) ~45 days** = don't breed too early! 4-quadrant cattle classification: ⭐ **Milking-Open, Milking-Pregnant, Dry-Open, Dry-Pregnant** with proportions ~24%, 41%, 17%, 17% in well-managed herd.
 
 ## 1️⃣ Industry Context (Recap from Previous Lecture) ⭐
 
@@ -44377,7 +44377,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - These cows = "free riders" eating but not producing
 
 ### Real Farm Example (Mismatched!) ⭐
-- Milking-Open: 53% (too high! · indicates poor PD program)
+- Milking-Open: 53% (too high!, indicates poor PD program)
 - Milking-Pregnant: 30% (low!)
 - Dry-Pregnant: 8%
 - Dry-Open: 9% (warning!)
@@ -44610,13 +44610,13 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Concepts (1-3)
 1. ⭐ **CI = Calving Interval target 365 days**, but lagging indicator (2 years!)
 2. ⭐ **CTC = Calving to Conception** target <100 days = best leading indicator
-3. ⭐ **VWP = Voluntary Waiting Period** ~45 days · don't breed too early!
+3. ⭐ **VWP = Voluntary Waiting Period** ~45 days, don't breed too early!
 
 ### Population Model (4-7)
-4. ⭐ **4-quadrant cattle states**: Milking-Open · Milking-Pregnant · Dry-Open · Dry-Pregnant
-5. ⭐ **Ideal proportions**: 24% · 40% · ~0% · 17%
+4. ⭐ **4-quadrant cattle states**: Milking-Open, Milking-Pregnant, Dry-Open, Dry-Pregnant
+5. ⭐ **Ideal proportions**: 24%, 40%, ~0%, 17%
 6. ⭐ **Dry-Open >5% = WARNING** (free riders!)
-7. ⭐ **DIM average ~160 days** = even calving · ⚠️ much higher = batch calving
+7. ⭐ **DIM average ~160 days** = even calving, ⚠️ much higher = batch calving
 
 ### Calculation KPIs (8-12)
 8. ⭐ **CTFS target 60-80 days** = current lactation, not lagging
@@ -44630,29 +44630,29 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 14. ⭐ **Cost of 1 open cow: 120,000 baht** for 300 extra days
 15. ⭐ **Cull threshold: when keeping costs > replacement value** (often 60,000+ baht)
 
-> 📚 **Cross-refs**: Mastitis (transition cow risks · part of CTFS calculations) · Nutritional disorders (NEB extends CTC) · Recording analytics (technology enables real KPI calculation)
-> 🩺 **Practical**: Run KPI dashboard monthly · educate owners with calculations · use sensors for HDR
+> 📚 **Cross-refs**: Mastitis (transition cow risks, part of CTFS calculations), Nutritional disorders (NEB extends CTC), Recording analytics (technology enables real KPI calculation)
+> 🩺 **Practical**: Run KPI dashboard monthly, educate owners with calculations, use sensors for HDR
 > 💰 **Career**: Reproductive specialist vets earn premium for KPI improvements
-> 📊 **Multi-indicator rule**: NEVER use one KPI alone · always 3-4 in combination
+> 📊 **Multi-indicator rule**: NEVER use one KPI alone, always 3-4 in combination
 > 🎯 **Decision tree**:
 > - Open cow >150 days → suspected fertility issue → exam + treat or cull
 > - VWP not respected → adjust farm protocol
 > - Heat Detection <50% → invest in sensors
 > - S/C >2 → semen quality or AI technique issue
 > 🐄 **Calculation order for new vet**: Population proportions → DIM avg → CI → CTFS → CTC → S/C
-> ⏰ **Historic vs current**: CI (history) · CTFS, CTC, S/C (current management) — use them together!`,
+> ⏰ **Historic vs current**: CI (history), CTFS, CTC, S/C (current management) — use them together!`,
   },
 
   '7NMNifb-Ebw': {
     videoId: '7NMNifb-Ebw',
-    title: 'Lameness in Cattle (Digital Lameness · Hoof Anatomy + Trimming + Common Diseases)',
+    title: 'Lameness in Cattle (Digital Lameness, Hoof Anatomy + Trimming + Common Diseases)',
     subject: 'herd-health-rum',
     date: '2024-11-13',
     durationMin: 140,
-    instructor: 'อ.ธนศักดิ์ (3rd most important dairy issue: mastitis · repro · LAMENESS)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง hoof anatomy · 3 layers (Horn/Corium/P3) · Footrot vs Sole Ulcer · Locomotion Score · 90% lameness from digital structures',
+    instructor: 'อ.ธนศักดิ์ (3rd most important dairy issue: mastitis, repro, LAMENESS)',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง hoof anatomy, 3 layers (Horn/Corium/P3), Footrot vs Sole Ulcer, Locomotion Score, 90% lameness from digital structures',
     summary: `## 🎯 Lead Summary
-**Lameness = #3 dairy disease** (after mastitis + reproduction). ⭐ **>90% of cattle lameness originates in the FOOT/HOOF/DIGIT** — hence "Digital Lameness". Critical concepts: ⭐ **Hoof = 3 layers** (Horn → Corium → P3 bone) · ⭐ **Hindlimb >> forelimb affected** (3 reasons: weight + manure + biomechanics) · ⭐ **Lateral claw > medial** (yawn faster) · ⭐ **Locomotion Score** for herd-level monitoring · Diseases divided into ⭐ **Infectious** (Footrot · Digital Dermatitis) and ⭐ **Non-infectious** (Sole Ulcer · White Line Disease · Laminitis).
+**Lameness = #3 dairy disease** (after mastitis + reproduction). ⭐ **>90% of cattle lameness originates in the FOOT/HOOF/DIGIT** — hence "Digital Lameness". Critical concepts: ⭐ **Hoof = 3 layers** (Horn → Corium → P3 bone), ⭐ **Hindlimb >> forelimb affected** (3 reasons: weight + manure + biomechanics), ⭐ **Lateral claw > medial** (yawn faster), ⭐ **Locomotion Score** for herd-level monitoring, Diseases divided into ⭐ **Infectious** (Footrot, Digital Dermatitis) and ⭐ **Non-infectious** (Sole Ulcer, White Line Disease, Laminitis).
 
 ## 1️⃣ Why Lameness Matters ⭐⭐
 
@@ -44679,19 +44679,19 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### External Structures (Lateral View)
 | Structure | Thai/English | Function |
 |---|---|---|
-| ⭐ **Coronary Band** ⭐ | ไรกีบ | White band between skin + hoof horn · ⭐ **CRITICAL diagnostic marker**: if swollen → infection ascending! |
+| ⭐ **Coronary Band** ⭐ | ไรกีบ | White band between skin + hoof horn, ⭐ **CRITICAL diagnostic marker**: if swollen → infection ascending! |
 | **Wall (Horn)** | วอ (กำแพง) | Lateral horn — strongest |
 | **Sole (Hown)** | โซ | Bottom horn — bears weight |
-| ⭐ **White Line** ⭐ | เส้นขาว | Junction Sole + Wall · ⭐ **Weakest point** of hoof |
-| **Inter-digital Space** | ง่ามกลีบ | Skin between two claws · ⭐ **Where infection lives** |
+| ⭐ **White Line** ⭐ | เส้นขาว | Junction Sole + Wall, ⭐ **Weakest point** of hoof |
+| **Inter-digital Space** | ง่ามกลีบ | Skin between two claws, ⭐ **Where infection lives** |
 | **Bulb (Heel)** | ส้น | Soft posterior horn |
 | Dewclaw | นิ้วติ่ง | Vestigial — minimal weight bearing |
 
 ### Internal Layers ⭐⭐⭐
 | Layer | Composition | Function |
 |---|---|---|
-| ⭐ **Horn (outer)** | Keratinized epithelium · NO blood vessels | Hard protective shell |
-| ⭐ **Corium (middle)** | Dermis · MANY blood vessels | Living, sensitive · grows hoof |
+| ⭐ **Horn (outer)** | Keratinized epithelium, NO blood vessels | Hard protective shell |
+| ⭐ **Corium (middle)** | Dermis, MANY blood vessels | Living, sensitive, grows hoof |
 | ⭐ **P3 (Distal Phalanx) bone** | Bone | Internal skeleton |
 
 ### Why It Matters
@@ -44720,7 +44720,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Reason | Mechanism |
 |---|---|
 | 1. ⭐ **Weight shifted back** | Pregnancy + heavy udder |
-| 2. ⭐ **More manure/urine contact** | Hindlimbs in slurry · ⚠️ Ammonia degrades hoof keratin! |
+| 2. ⭐ **More manure/urine contact** | Hindlimbs in slurry, ⚠️ Ammonia degrades hoof keratin! |
 | 3. ⭐ **Direct bone-bone shock** | Hindlimb action force → femoral head/acetabulum (bone-on-bone) vs forelimb where scapula floats on muscles (built-in shock absorber) |
 
 ### Lateral vs Medial Claw ⭐⭐
@@ -44734,7 +44734,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 |---|---|
 | **Wall growth rate** | ⭐ 5-6 mm/month |
 | **Wear rate** | ~50% of growth (varies by environment) |
-| **Surface effect** | Concrete = more growth + more wear · pasture = less of both |
+| **Surface effect** | Concrete = more growth + more wear, pasture = less of both |
 | **Net result** | Hoof generally lengthens over time → needs trimming! |
 
 ## 4️⃣ Locomotion Score ⭐⭐⭐
@@ -44748,11 +44748,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Score System (5-point scale) ⭐
 | Score | Description |
 |---|---|
-| **1** | Normal · flat back, even strides |
-| **2** | Slight asymmetry · arched standing back |
-| ⭐ **3** | Definite limp · limb favoring · arched walking back ⚠️ **TRIM NEEDED** |
-| **4** | Severe limp · 1 limb significantly affected |
-| **5** | Severe non-weight-bearing · stumbling |
+| **1** | Normal, flat back, even strides |
+| **2** | Slight asymmetry, arched standing back |
+| ⭐ **3** | Definite limp, limb favoring, arched walking back ⚠️ **TRIM NEEDED** |
+| **4** | Severe limp, 1 limb significantly affected |
+| **5** | Severe non-weight-bearing, stumbling |
 
 ### Cut-off Standards ⭐
 - ⭐ **<5% of herd at score 3+** = healthy farm
@@ -44803,7 +44803,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ## 6️⃣ Infectious Hoof Diseases ⭐⭐⭐
 
-### A. Footrot (Foul of the Foot · ฟลอ) ⭐⭐⭐
+### A. Footrot (Foul of the Foot, ฟลอ) ⭐⭐⭐
 
 **Etiology**:
 - ⭐ ⭐ **Fusobacterium necrophorum** + Bacteroides + Trueperella + Dichelobacter (mixed flora)
@@ -44844,7 +44844,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Cull repeat offenders
 - ⚠️ Vaccine (rare, limited efficacy)
 
-### B. Digital Dermatitis (Hairy Heel Wart · Mortellaro Disease) ⭐⭐
+### B. Digital Dermatitis (Hairy Heel Wart, Mortellaro Disease) ⭐⭐
 
 **Etiology**:
 - ⭐ **Treponema spp.** (anaerobic spirochetes)
@@ -44895,7 +44895,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ## 7️⃣ Non-Infectious Hoof Diseases ⭐⭐⭐
 
-### A. Sole Ulcer (Heel Sore · Pododermatitis Circumscripta) ⭐⭐⭐
+### A. Sole Ulcer (Heel Sore, Pododermatitis Circumscripta) ⭐⭐⭐
 
 **Pathogenesis**:
 - ⭐ ⭐ **P3 bone (flexor process)** presses on Corium under sole
@@ -45057,22 +45057,22 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 8. ⭐ **Concavity at axial sole** for ventilation
 
 ### Locomotion Score (9)
-9. ⭐ **5-point scale · Score 3+ = trim/treat needed · <5% of herd = healthy**
+9. ⭐ **5-point scale, Score 3+ = trim/treat needed, <5% of herd = healthy**
 
 ### Infectious Diseases (10-12)
-10. ⭐ **Footrot = inter-digital + acute + systemic + odor** · Fusobacterium
+10. ⭐ **Footrot = inter-digital + acute + systemic + odor**, Fusobacterium
 11. ⭐ **Digital Dermatitis (Mortellaro) = heel area + Treponema + chronic**
 12. ⭐ **Septic arthritis = WORST outcome** (cull)
 
 ### Non-Infectious (13-15)
-13. ⭐ **Sole Ulcer = P3 pressure on Corium** · trim + block on healthy claw
-14. ⭐ **White Line Disease = weakest junction crack** · pare + block
-15. ⭐ **Laminitis = SARA-related** · whole-herd issue · prevent with TMR
+13. ⭐ **Sole Ulcer = P3 pressure on Corium**, trim + block on healthy claw
+14. ⭐ **White Line Disease = weakest junction crack**, pare + block
+15. ⭐ **Laminitis = SARA-related**, whole-herd issue, prevent with TMR
 
-> 📚 **Cross-refs**: Mastitis (transition cow stress affects feet too) · Nutritional disorders (SARA causes laminitis!) · Reproductive index (lameness reduces fertility)
-> 🩺 **Practical**: Locomotion score monthly · trim quarterly · daily foot baths · CuSO4 5-10% · address SARA at herd level
-> 🔧 **Tool kit**: hoof knife · gauge · tester · tilting chute · blocks · CuSO4 solution
-> 💉 **Medication**: Penicillin LA · Florfenicol · NSAIDs · oxytetracycline spray
+> 📚 **Cross-refs**: Mastitis (transition cow stress affects feet too), Nutritional disorders (SARA causes laminitis!), Reproductive index (lameness reduces fertility)
+> 🩺 **Practical**: Locomotion score monthly, trim quarterly, daily foot baths, CuSO4 5-10%, address SARA at herd level
+> 🔧 **Tool kit**: hoof knife, gauge, tester, tilting chute, blocks, CuSO4 solution
+> 💉 **Medication**: Penicillin LA, Florfenicol, NSAIDs, oxytetracycline spray
 > 🎯 **Decision tree**:
 > - Inter-digital + acute + systemic → Footrot → Systemic Abx
 > - Heel granulation → Digital Dermatitis → Topical + foot bath
@@ -45087,10 +45087,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     subject: 'herd-health-rum',
     date: '2024-11-27',
     durationMin: 114,
-    instructor: 'อ.ธนศักดิ์ + อาจารย์อื่น (สรุปวิชา · Virtual Farm Saraburi tour · Year 5-6 preview)',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง 10-history checklist · clinical examination · drug routes · diagnostic approach · ภาพรวมงาน practitioner',
+    instructor: 'อ.ธนศักดิ์ + อาจารย์อื่น (สรุปวิชา, Virtual Farm Saraburi tour, Year 5-6 preview)',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง 10-history checklist, clinical examination, drug routes, diagnostic approach, ภาพรวมงาน practitioner',
     summary: `## 🎯 Lead Summary
-**Final lecture summary** of this herd-health-rum course. ⭐ **Practitioner skills** > disease knowledge alone! Covers: Virtual Farm tour at Saraburi research center · ⭐ **10-point History Checklist** for cattle (specific to dairy practice) · ⭐ **Clinical examination flow** (history → physical → diagnostics) · ⭐ **Drug administration routes** unique to cattle (intramammary, intrauterine) · ⭐ **Diagnostic approach** by syndrome. Goal: prepare students for **Year 5/6 fieldwork** + future practice. Key insight: ⭐ **80% of vet work is preventive/management, not treating sick animals**.
+**Final lecture summary** of this herd-health-rum course. ⭐ **Practitioner skills** > disease knowledge alone! Covers: Virtual Farm tour at Saraburi research center, ⭐ **10-point History Checklist** for cattle (specific to dairy practice), ⭐ **Clinical examination flow** (history → physical → diagnostics), ⭐ **Drug administration routes** unique to cattle (intramammary, intrauterine), ⭐ **Diagnostic approach** by syndrome. Goal: prepare students for **Year 5/6 fieldwork** + future practice. Key insight: ⭐ **80% of vet work is preventive/management, not treating sick animals**.
 
 ## 1️⃣ Course Overview & Final Lecture Goals ⭐
 
@@ -45149,7 +45149,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | # | Item | Why important |
 |---|---|---|
 | ⭐ **1** | New Case or Follow-up | Avoid duplicate work |
-| ⭐ **2** | Cow group: Milking · Dry · Heifer | Different physiology, different DDx |
+| ⭐ **2** | Cow group: Milking, Dry, Heifer | Different physiology, different DDx |
 | ⭐ **3** | DIM (Days In Milk) for milking cows | Lactation stage = key context |
 | ⭐ **4** | Pregnant? + Trimester (if yes) | Avoids drugs that abort |
 | ⭐ **5** | AI date + service number | Reproductive context |
@@ -45195,7 +45195,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Common Routes
 | Route | Use | Notes |
 |---|---|---|
-| **IV** | Emergency, fluid, hypocalcemia | Jugular common · slow infusion |
+| **IV** | Emergency, fluid, hypocalcemia | Jugular common, slow infusion |
 | **IM** | Long-acting antibiotics | Deep IM (1.5" needle!) |
 | **SC** | Long-acting, less reactive | Behind shoulder |
 | ⭐ **Intramammary** | Mastitis treatment | Specific dairy route! |
@@ -45220,13 +45220,13 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Syndrome | First DDx | Action |
 |---|---|---|
 | ⭐ **Sudden death** | Anthrax (don't open!) → HS → Botulism | Investigate before necropsy |
-| ⭐ **Acute lameness** | Footrot · BEF | Trim + inspect |
-| ⭐ **Down cow** | Milk fever · BEF · Botulism | Calcium first if periparturient |
-| ⭐ **Abortion storm** | Brucellosis · Lepto Hardjo | MRT + serology |
+| ⭐ **Acute lameness** | Footrot, BEF | Trim + inspect |
+| ⭐ **Down cow** | Milk fever, BEF, Botulism | Calcium first if periparturient |
+| ⭐ **Abortion storm** | Brucellosis, Lepto Hardjo | MRT + serology |
 | ⭐ **Bloody diarrhea + calf** | C. perfringens | Penicillin |
 | ⭐ **Pea-soup diarrhea + adult** | Johne's disease | Cull suggestion |
-| ⭐ **Fever + nasal discharge + drop in milk** | BRD complex · MCF · FMD | Multi-DDx workup |
-| ⭐ **Clinical mastitis** | Bacterial · Lepto Hardjo (atypical) | Strip cup + culture |
+| ⭐ **Fever + nasal discharge + drop in milk** | BRD complex, MCF, FMD | Multi-DDx workup |
+| ⭐ **Clinical mastitis** | Bacterial, Lepto Hardjo (atypical) | Strip cup + culture |
 
 ### Lab Tests Hierarchy
 1. ⭐ **Hematology + biochemistry** (basic)
@@ -45267,7 +45267,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 |---|---|
 | ⭐ **Activity collar** | Step count → estrus + sickness detection |
 | ⭐ **Rumination sensor** | Cud chewing minutes (welfare indicator) |
-| **Temperature sensor** | Body temp · sickness + heat stress |
+| **Temperature sensor** | Body temp, sickness + heat stress |
 | ⭐ **Auto-weighing system** | Weight on parlor entry/exit |
 | **Auto-detach milking** | Auto-detect milk flow drop, releases unit |
 | **Real-time milk meter** | Per-cow yield + composition |
@@ -45296,10 +45296,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### Challenge: Different Farm Types
 | Farm Type | Approach |
 |---|---|
-| ⭐ **Small holder (<20 cows)** | Single owner · personal relationship · simpler tools |
-| **Medium (20-100)** | Family + workers · mid-tech · written records |
-| ⭐ **Large (>100 cows)** | Manager + workers · high-tech · KPI dashboards |
-| **Cooperative** | Multiple farms · shared services · group purchasing |
+| ⭐ **Small holder (<20 cows)** | Single owner, personal relationship, simpler tools |
+| **Medium (20-100)** | Family + workers, mid-tech, written records |
+| ⭐ **Large (>100 cows)** | Manager + workers, high-tech, KPI dashboards |
+| **Cooperative** | Multiple farms, shared services, group purchasing |
 
 ## 1️⃣0️⃣ Year 5-6 Preview ⭐
 
@@ -45311,7 +45311,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ Don't skip class — limited cow access!
 
 ### Year 6: Specialization Module
-- ⭐ Choose track: Food Animal · Small Animal · Equine · Mixed
+- ⭐ Choose track: Food Animal, Small Animal, Equine, Mixed
 - Few students per group (deep focus)
 - Project-based
 - Field placement
@@ -45371,7 +45371,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 10. ⭐ **Mammary + reproductive + locomotion** = dairy-specific
 
 ### Drug Routes (11)
-11. ⭐ **Intramammary + Intrauterine** unique to cattle · Withdrawal time always check!
+11. ⭐ **Intramammary + Intrauterine** unique to cattle, Withdrawal time always check!
 
 ### Modern Practice (12-14)
 12. ⭐ **Precision Dairy Farming** = sensors + data + AI
@@ -45379,19 +45379,19 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 14. ⭐ **80% real value** in keeping cows healthy (preventive)
 
 ### Career (15)
-15. ⭐ **Cattle vet shortage** = high opportunity · 50K-100K+ baht/month potential
+15. ⭐ **Cattle vet shortage** = high opportunity, 50K-100K+ baht/month potential
 
-> 📚 **Cross-refs**: ALL previous lectures · This is the meta-summary
-> 🩺 **Year 5/6 prep**: Master 10-point history · Practice palpation · Read both reference books
-> 💉 **Drug rule**: ALWAYS check withdrawal time · ALWAYS swab with alcohol
+> 📚 **Cross-refs**: ALL previous lectures, This is the meta-summary
+> 🩺 **Year 5/6 prep**: Master 10-point history, Practice palpation, Read both reference books
+> 💉 **Drug rule**: ALWAYS check withdrawal time, ALWAYS swab with alcohol
 > 🎯 **Career insight**: Be the **vet who can quantify ROI** = stand out!
-> 📊 **Tools to master**: Hoof knife · Stethoscope · Strip cup · CMT paddle · Hoof tester · Palpation glove · Sensor app
+> 📊 **Tools to master**: Hoof knife, Stethoscope, Strip cup, CMT paddle, Hoof tester, Palpation glove, Sensor app
 > 🌟 **Final wisdom**: "Don't be a disease specialist — be a HERD HEALTH PARTNER for your farms"
-> 🎓 **Course complete!** herd-health-rum done · ready for Year 5 fieldwork`,
+> 🎓 **Course complete!** herd-health-rum done, ready for Year 5 fieldwork`,
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // epidemiology (DekDokVet85 · Y5 sem 1) — 15 videos
+  // epidemiology (DekDokVet85, Y5 sem 1) — 15 videos
   // ═══════════════════════════════════════════════════════════════
 
   JcwXAnIb5uM: {
@@ -45400,10 +45400,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     subject: 'epidemiology',
     date: '2025-08-07',
     durationMin: 90,
-    instructor: 'อ.ธนศักดิ์ (อดีตนายกฯ · 2 วาระหมด · ผู้สอนหลักคอร์สนี้)',
-    examFormat: 'Multiple choice + scenario · ออกตามคำพูด keywords (อ.บอกแล้ว) · เน้น concepts + study designs',
+    instructor: 'อ.ธนศักดิ์ (อดีตนายกฯ, 2 วาระหมด, ผู้สอนหลักคอร์สนี้)',
+    examFormat: 'Multiple choice + scenario, ออกตามคำพูด keywords (อ.บอกแล้ว), เน้น concepts + study designs',
     summary: `## 🎯 Lead Summary
-**Veterinary Epidemiology = first course in Y5 sem 1**. ⭐ **Definition**: study of disease distribution + frequency + determinants in animal populations. Covers BOTH infectious and non-infectious diseases. Connects to: ⭐ **Biostatistics + Public Health + Preventive Medicine + Herd Health**. Course goal: ⭐ **Disease Prevention + Control + Eradication** through data-driven decisions. Critical concepts intro'd: ⭐ **Sporadic · Endemic · Epidemic · Pandemic** · ⭐ **Reservoir host · Primary host · Intermediate host** · ⭐ **Active vs Passive Surveillance** · ⭐ **Test-kit metrics** (Sensitivity, Specificity, Accuracy).
+**Veterinary Epidemiology = first course in Y5 sem 1**. ⭐ **Definition**: study of disease distribution + frequency + determinants in animal populations. Covers BOTH infectious and non-infectious diseases. Connects to: ⭐ **Biostatistics + Public Health + Preventive Medicine + Herd Health**. Course goal: ⭐ **Disease Prevention + Control + Eradication** through data-driven decisions. Critical concepts intro'd: ⭐ **Sporadic, Endemic, Epidemic, Pandemic**, ⭐ **Reservoir host, Primary host, Intermediate host**, ⭐ **Active vs Passive Surveillance**, ⭐ **Test-kit metrics** (Sensitivity, Specificity, Accuracy).
 
 ## 1️⃣ Epidemiology Definition ⭐⭐⭐
 
@@ -45609,18 +45609,18 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ## 📋 Exam Recap (10 จุดสำคัญ)
 
 1. ⭐ **Epidemiology = study of disease distribution + frequency + determinants in populations**
-2. ⭐ **4 patterns**: Sporadic · Endemic · Epidemic · Pandemic
-3. ⭐ **3 host types**: Primary · Intermediate · Reservoir
+2. ⭐ **4 patterns**: Sporadic, Endemic, Epidemic, Pandemic
+3. ⭐ **3 host types**: Primary, Intermediate, Reservoir
 4. ⭐ **Eradication ≠ Elimination ≠ Control**
 5. ⭐ **Passive vs Active Surveillance** (cost vs targeting trade-off)
-6. ⭐ **3 Test-kit metrics**: Sensitivity · Specificity · Accuracy
+6. ⭐ **3 Test-kit metrics**: Sensitivity, Specificity, Accuracy
 7. ⭐ **Mixing vessel concept** (HPAI + swine flu in pigs)
 8. ⭐ **Resource constraints** drive disease priority decisions
-9. ⭐ **3 Study designs**: Cross-sectional · Prospective · Retrospective
+9. ⭐ **3 Study designs**: Cross-sectional, Prospective, Retrospective
 10. ⭐ **Thai HPAI success** = WOAH model country (no cases 20+ years)
 
-> 📚 **Cross-refs**: Herd-health-rum (KPI calculations) · Public health subjects · Preventive medicine
-> 🩺 **Practical**: Stats software is fine but MUST know which method · Read course before class
+> 📚 **Cross-refs**: Herd-health-rum (KPI calculations), Public health subjects, Preventive medicine
+> 🩺 **Practical**: Stats software is fine but MUST know which method, Read course before class
 > 📊 **Key formula**: Surveillance = Passive default + Active when triggered
 > 🎯 **Goal of all epidemiology**: Disease Prevention, Control, Eradication
 > 🌍 **Reality**: Thailand + Israel + similar tropic countries — different from temperate epidemiology
@@ -45634,9 +45634,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-07',
     durationMin: 79,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + scenario · ออกเรื่อง definition · qualitative vs quantitative · 3 study designs · etymology epi-demos-logos',
+    examFormat: 'Multiple choice + scenario, ออกเรื่อง definition, qualitative vs quantitative, 3 study designs, etymology epi-demos-logos',
     summary: `## 🎯 Lead Summary
-**Basic concepts in epidemiology** — building on the introduction. Core idea: ⭐ **Epidemiology = study of disease in POPULATIONS (not individuals)**. Differs from pathology because it works at HERD level. Etymology: ⭐ **Epi (upon) + Demos (people) + Logos (knowledge)** = "knowledge upon people". Modern split: ⭐ **Qualitative** (Natural History · Causation · Microbe characterization) vs ⭐ **Quantitative** (Disease Measuring · Observational Studies · Modelling · Clinical Trials · Economic Assessment · Risk Assessment). 3 study designs: ⭐ **Cross-sectional · Retrospective · Prospective**.
+**Basic concepts in epidemiology** — building on the introduction. Core idea: ⭐ **Epidemiology = study of disease in POPULATIONS (not individuals)**. Differs from pathology because it works at HERD level. Etymology: ⭐ **Epi (upon) + Demos (people) + Logos (knowledge)** = "knowledge upon people". Modern split: ⭐ **Qualitative** (Natural History, Causation, Microbe characterization) vs ⭐ **Quantitative** (Disease Measuring, Observational Studies, Modelling, Clinical Trials, Economic Assessment, Risk Assessment). 3 study designs: ⭐ **Cross-sectional, Retrospective, Prospective**.
 
 ## 1️⃣ Why Epidemiology Connects Everything ⭐⭐
 
@@ -45680,7 +45680,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### A. Qualitative Epidemiology
 | Topic | What it studies |
 |---|---|
-| ⭐ **Natural History of Disease** | How disease occurs naturally · "Pipithak Tham-machart Wittaya" connection (CU Natural History Museum) |
+| ⭐ **Natural History of Disease** | How disease occurs naturally, "Pipithak Tham-machart Wittaya" connection (CU Natural History Museum) |
 | ⭐ **Causal/Cause** | Disease causation factors |
 | ⭐ **Microbe characterization** | Pathogen properties, vectors, hosts |
 | **Disease distribution** | Where it occurs |
@@ -45833,9 +45833,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 1. ⭐ **Etymology**: Epi (upon) + Demos (people) + Logos (knowledge)
 2. ⭐ **Population focus** (NOT individual) = key difference from pathology
-3. ⭐ **Qualitative epi**: Natural History · Causation · Microbe characterization
-4. ⭐ **Quantitative epi**: Disease Measuring · Observational · Modelling · Clinical · Economic · Risk
-5. ⭐ **3 study designs**: Cross-sectional · Retrospective · Prospective
+3. ⭐ **Qualitative epi**: Natural History, Causation, Microbe characterization
+4. ⭐ **Quantitative epi**: Disease Measuring, Observational, Modelling, Clinical, Economic, Risk
+5. ⭐ **3 study designs**: Cross-sectional, Retrospective, Prospective
 6. ⭐ **Cross-sectional** = snapshot in time
 7. ⭐ **Retrospective** = disease → look back at exposure
 8. ⭐ **Prospective** = exposure → follow forward to disease
@@ -45844,7 +45844,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 11. ⭐ **Mixing vessel** concept (HPAI in pigs example)
 12. ⭐ **Decision-making support** = ultimate purpose of epidemiology
 
-> 📚 **Cross-refs**: 1.1 Introduction · Surveillance + Test-kits · Public Health
+> 📚 **Cross-refs**: 1.1 Introduction, Surveillance + Test-kits, Public Health
 > 🩺 **Practical**: Always think POPULATION not individual when doing epi
 > 📊 **Key skill**: Know which study design fits which question
 > 🎯 **Application**: All knowledge → DECISION MAKING for prevention/control`,
@@ -45857,9 +45857,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-07',
     durationMin: 41,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + scenario · ออก Iceberg Phenomenon · 4 disease patterns · Epidemic Curve · incubation/latent period definitions',
+    examFormat: 'Multiple choice + scenario, ออก Iceberg Phenomenon, 4 disease patterns, Epidemic Curve, incubation/latent period definitions',
     summary: `## 🎯 Lead Summary
-**Disease occurrence patterns in populations**. Key insight: ⭐ ⭐ **Iceberg Phenomenon** — most disease cases are **subclinical** (you don't see them) but only the tip is **clinical** (visible). Vets must understand: ⭐ exposed-not-infected → ⭐ infected-no-clinical-signs → ⭐ clinical-mild → ⭐ severe → ⭐ death pyramid. Critical Thai exam terms: ⭐ ⭐ **Sporadic · Endemic · Epidemic · Pandemic** (must know for exam!). Plus: ⭐ **Epidemic Curve** = bell-shaped graph for outbreak analysis · ⭐ **Latent vs Incubation period** distinction.
+**Disease occurrence patterns in populations**. Key insight: ⭐ ⭐ **Iceberg Phenomenon** — most disease cases are **subclinical** (you don't see them) but only the tip is **clinical** (visible). Vets must understand: ⭐ exposed-not-infected → ⭐ infected-no-clinical-signs → ⭐ clinical-mild → ⭐ severe → ⭐ death pyramid. Critical Thai exam terms: ⭐ ⭐ **Sporadic, Endemic, Epidemic, Pandemic** (must know for exam!). Plus: ⭐ **Epidemic Curve** = bell-shaped graph for outbreak analysis, ⭐ **Latent vs Incubation period** distinction.
 
 ## 1️⃣ Why "Subtle" Diseases Matter ⭐⭐⭐
 
@@ -46068,18 +46068,18 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 1. ⭐ ⭐ **Iceberg Phenomenon**: 5 levels with subclinical = vast majority
 2. ⭐ **"Know normal first to detect abnormal"** = key vet wisdom
-3. ⭐ ⭐ **4 Patterns**: Sporadic · Endemic · Epidemic · Pandemic (MUST KNOW!)
-4. ⭐ **Endemic Thai diseases**: FMD · ND · Pasteurellosis · Rabies
-5. ⭐ **Epidemic example**: HPAI · ASF · LSD entry to Thailand
-6. ⭐ **Pandemic example**: COVID-19 · FMD globally
+3. ⭐ ⭐ **4 Patterns**: Sporadic, Endemic, Epidemic, Pandemic (MUST KNOW!)
+4. ⭐ **Endemic Thai diseases**: FMD, ND, Pasteurellosis, Rabies
+5. ⭐ **Epidemic example**: HPAI, ASF, LSD entry to Thailand
+6. ⭐ **Pandemic example**: COVID-19, FMD globally
 7. ⭐ ⭐ **Epidemic Curve** = bell-shaped graph for outbreak analysis
-8. ⭐ **Single curve** = single source · **Multiple curves** = multi-source
+8. ⭐ **Single curve** = single source, **Multiple curves** = multi-source
 9. ⭐ **Latent Period** ≠ Incubation Period (lab detection vs clinical signs)
 10. ⭐ **Pasteurellosis** = same pathogen → different name per species
 11. ⭐ **Speed matters in flocks** (50 → 500 dead in 1 day!)
 12. ⭐ **Vet income** = ability to detect subclinical + decide fast
 
-> 📚 **Cross-refs**: 1.1 Intro · 1.2 Basic concepts · Future: outbreak investigation
+> 📚 **Cross-refs**: 1.1 Intro, 1.2 Basic concepts, Future: outbreak investigation
 > 🩺 **Practical**: Build farm-specific normal baselines BEFORE outbreaks
 > 📊 **Tool**: Always graph cases vs time for outbreak investigation
 > 🎯 **Memorize**: Sporadic / Endemic / Epidemic / Pandemic — definitely on exam!`,
@@ -46092,9 +46092,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-18',
     durationMin: 21,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + scenario · ออก agent factors · host classification · Vertical/Horizontal transmission · Infection Chain Model · vector types',
+    examFormat: 'Multiple choice + scenario, ออก agent factors, host classification, Vertical/Horizontal transmission, Infection Chain Model, vector types',
     summary: `## 🎯 Lead Summary
-**Continuation of disease concepts**. Focuses on: ⭐ **3-component disease triangle** (Agent + Host + Environment) · ⭐ **Host types** · ⭐ **Risk factors** · ⭐ **Agent properties** · ⭐ **Infection Chain Model** · ⭐ **Vertical vs Horizontal transmission**.
+**Continuation of disease concepts**. Focuses on: ⭐ **3-component disease triangle** (Agent + Host + Environment), ⭐ **Host types**, ⭐ **Risk factors**, ⭐ **Agent properties**, ⭐ **Infection Chain Model**, ⭐ **Vertical vs Horizontal transmission**.
 
 ## 1️⃣ Disease Triangle ⭐⭐⭐
 | Component | Meaning |
@@ -46127,14 +46127,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Yersinia**: 10 million cells
 
 ## 5️⃣ Host Factors ⭐
-- ⭐ Species · Breed · Sex (4 cats) · Age · Physiological state · Immunity
+- ⭐ Species, Breed, Sex (4 cats), Age, Physiological state, Immunity
 - ⭐ ⚠️ **Age trap**: Dengue worse in young adults (strong immune reaction)
 - **Gumboro**: 3-6 weeks chickens
 
 ## 6️⃣ Transmission Routes ⭐⭐⭐
 
 ### Vertical Transmission (Mother → Offspring) ⭐
-- Transplacental · Colostrum · Sperm/egg
+- Transplacental, Colostrum, Sperm/egg
 - Examples: BVD PI calves, Brucella
 
 ### Horizontal Transmission ⭐⭐
@@ -46159,27 +46159,27 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 6. ⭐ Reservoir
 
 ### Break the Chain (Vet's Tool)
-- ⭐ Reduce agent · Protect host · Block entry · Stop multiplication · Block exit · Remove reservoir
+- ⭐ Reduce agent, Protect host, Block entry, Stop multiplication, Block exit, Remove reservoir
 
 ## 8️⃣ Reservoir Types ⭐
 - ⭐ Active shedders (continuous low-level)
 - ⭐ Episodic shedders (burst — Rabies bite!)
 - ⭐ Asymptomatic carriers
-- Environmental: soil (anthrax) · water (lepto) · decaying matter (botulism)
+- Environmental: soil (anthrax), water (lepto), decaying matter (botulism)
 
 ## 📋 Exam Recap (10 จุดสำคัญ)
 1. ⭐ **Disease Triangle**: Agent + Host + Environment
 2. ⭐ **5 Host types** (Primary sexual, Intermediate asexual, Transport, Reservoir, Definitive)
 3. ⭐ **Mosquito = PRIMARY for malaria** (sexual stage)
 4. ⭐ **4 Agent properties**: Infectivity, Pathogenicity, Virulence, CFR
-5. ⭐ **ID50 = infection dose 50%** · LD50 = lethal dose 50%
+5. ⭐ **ID50 = infection dose 50%**, LD50 = lethal dose 50%
 6. ⭐ **Vertical transmission**: mother→offspring (3 routes)
 7. ⭐ **Mechanical vs Biological vector** (mechanical = no replication)
 8. ⭐ **6-Step Infection Chain Model** — break ANY link to control
 9. ⭐ **Listeria** = soil, cold country, EU export concern
 10. ⭐ **FMD aerosol** can cross English Channel!
 
-> 📚 **Cross-refs**: Disease patterns · Future: outbreak investigation · Vector control
+> 📚 **Cross-refs**: Disease patterns, Future: outbreak investigation, Vector control
 > 🎯 **Vet skill**: Use 6-step chain to design control strategy`,
   },
 
@@ -46190,9 +46190,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-18',
     durationMin: 50,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + scenario · ออก Risk Factor · Hill Criteria · Necessary vs Sufficient cause · Bias types',
+    examFormat: 'Multiple choice + scenario, ออก Risk Factor, Hill Criteria, Necessary vs Sufficient cause, Bias types',
     summary: `## 🎯 Lead Summary
-**Association vs Causation** — critical for distinguishing correlation from cause. ⭐ ⭐ Just because A is associated with B doesn't mean A causes B! Concepts: ⭐ **Risk Factor** definition · ⭐ **Confounding · Bias · Chance** as alternative explanations · ⭐ **Hill's Criteria** for causation (9 criteria) · ⭐ **Necessary vs Sufficient Cause** · ⭐ **Direct vs Indirect causation**.
+**Association vs Causation** — critical for distinguishing correlation from cause. ⭐ ⭐ Just because A is associated with B doesn't mean A causes B! Concepts: ⭐ **Risk Factor** definition, ⭐ **Confounding, Bias, Chance** as alternative explanations, ⭐ **Hill's Criteria** for causation (9 criteria), ⭐ **Necessary vs Sufficient Cause**, ⭐ **Direct vs Indirect causation**.
 
 ## 1️⃣ Why This Matters ⭐⭐
 - Epidemiology shows **associations** (statistical patterns)
@@ -46284,7 +46284,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ### 4 Combinations
 | Type | Definition | Example |
 |---|---|---|
-| ⭐ **Necessary + Sufficient** | Required AND alone causes disease | TB requires M. tuberculosis · M. tuberculosis alone causes TB |
+| ⭐ **Necessary + Sufficient** | Required AND alone causes disease | TB requires M. tuberculosis, M. tuberculosis alone causes TB |
 | ⭐ **Necessary, NOT Sufficient** | Required but needs others | HIV needed for AIDS but co-factors involved |
 | ⭐ **Sufficient, NOT Necessary** | Alone causes but not required | Smoking → lung cancer (one cause but not only) |
 | ⭐ **Neither Necessary nor Sufficient** | Risk factor only | Stress → many diseases (correlative) |
@@ -46351,7 +46351,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 9. ⭐ **RR/OR**: =1 no association, >1 risk, <1 protective
 10. ⭐ **Causal Web** = most diseases multifactorial
 
-> 📚 **Cross-refs**: Disease patterns · Future: Disease frequency measurement · Outbreak investigation
+> 📚 **Cross-refs**: Disease patterns, Future: Disease frequency measurement, Outbreak investigation
 > 🩺 **Practical**: Use Hill's criteria when investigating new disease outbreaks
 > 📊 **Calculation tip**: RR/OR > 2 generally meaningful association
 > 🎯 **Key skill**: Always ask "What else could explain this?"`,
@@ -46364,7 +46364,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-18',
     durationMin: 52,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + calculation · ออก Rate vs Ratio vs Proportion · Incidence vs Prevalence · Population at Risk · CFR · Mortality',
+    examFormat: 'Multiple choice + calculation, ออก Rate vs Ratio vs Proportion, Incidence vs Prevalence, Population at Risk, CFR, Mortality',
     summary: `## 🎯 Lead Summary
 **Disease frequency measurement** — quantifying how often disease occurs in populations. ⭐ ⭐ Critical: ⭐ **Rate vs Ratio vs Proportion** are different! ⭐ ⭐ **Incidence** (new cases) vs ⭐ ⭐ **Prevalence** (existing cases). All calculations require ⭐ **Population at Risk** as denominator (not total population!). Output values used to compare farms, time periods, interventions.
 
@@ -46527,7 +46527,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 9. ⭐ **Mortality vs Morbidity** distinction
 10. ⭐ **Compare rates** not raw numbers!
 
-> 📚 **Cross-refs**: Causation lecture · Future: Outbreak investigation · Surveillance
+> 📚 **Cross-refs**: Causation lecture, Future: Outbreak investigation, Surveillance
 > 🩺 **Practical**: Always ask "Who's the population at risk?"
 > 📊 **Calculation**: Memorize formulas — these will be on exam!
 > 🎯 **Memorize**: Cat cancer example shows population at risk = female cats only`,
@@ -46540,7 +46540,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-18',
     durationMin: 92,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + scenario · ออก 10 steps of outbreak investigation · case definition · Epidemic Curve interpretation',
+    examFormat: 'Multiple choice + scenario, ออก 10 steps of outbreak investigation, case definition, Epidemic Curve interpretation',
     summary: `## 🎯 Lead Summary
 **Outbreak Investigation** = systematic field response to disease outbreaks. ⭐ **10-step protocol** (case definition → control → report). Used by DLD, vets in field. Goal: ⭐ identify pathogen + source + transmission + risk factors → control before spread. ⭐ ⭐ **Epidemic Curve** is key analytical tool.
 
@@ -46698,8 +46698,8 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ## 📋 Exam Recap (10 จุดสำคัญ)
 1. ⭐ **10-step outbreak investigation protocol**
 2. ⭐ **Case definition** = critical first step
-3. ⭐ **3 categories**: Suspected · Probable · Confirmed
-4. ⭐ **Epidemic Curve types**: Common source · Continuous · Propagated · Mixed
+3. ⭐ **3 categories**: Suspected, Probable, Confirmed
+4. ⭐ **Epidemic Curve types**: Common source, Continuous, Propagated, Mixed
 5. ⭐ **Time-Place-Person** triangle for description
 6. ⭐ **Active case finding** beyond reported
 7. ⭐ **Hypothesis test** with case-control
@@ -46707,9 +46707,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 9. ⭐ **DLD = lead authority** in Thailand
 10. ⭐ **Communication + reporting** essential final step
 
-> 📚 **Cross-refs**: Disease patterns · Causation · Future: Surveillance
+> 📚 **Cross-refs**: Disease patterns, Causation, Future: Surveillance
 > 🩺 **Practical**: Be ready to lead investigation in field
-> 🎯 **Skills**: Map cases · build curves · test hypotheses · communicate clearly`,
+> 🎯 **Skills**: Map cases, build curves, test hypotheses, communicate clearly`,
   },
 
   WZWjg1DhDkQ: {
@@ -46719,9 +46719,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-25',
     durationMin: 55,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + calculation · ออก Sensitivity · Specificity · PPV · NPV · 2x2 table · screening vs diagnostic',
+    examFormat: 'Multiple choice + calculation, ออก Sensitivity, Specificity, PPV, NPV, 2x2 table, screening vs diagnostic',
     summary: `## 🎯 Lead Summary
-**Diagnostic test interpretation** — essential for clinical decisions + surveillance. ⭐ **Test metrics**: ⭐ ⭐ **Sensitivity** (true positive rate) · ⭐ ⭐ **Specificity** (true negative rate) · ⭐ **PPV** (positive predictive value) · ⭐ **NPV** (negative predictive value) · ⭐ **Accuracy**. Critical: ⭐ ⭐ **2x2 table** mastery for calculations.
+**Diagnostic test interpretation** — essential for clinical decisions + surveillance. ⭐ **Test metrics**: ⭐ ⭐ **Sensitivity** (true positive rate), ⭐ ⭐ **Specificity** (true negative rate), ⭐ **PPV** (positive predictive value), ⭐ **NPV** (negative predictive value), ⭐ **Accuracy**. Critical: ⭐ ⭐ **2x2 table** mastery for calculations.
 
 ## 1️⃣ Why It Matters ⭐⭐
 - ⭐ Choose right test for situation
@@ -46875,7 +46875,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 9. ⭐ **Strategy**: Screen sensitive → Confirm specific
 10. ⭐ Low prevalence + good specificity → many false positives still!
 
-> 📚 **Cross-refs**: Surveillance lecture · TB SIT testing (herd-health-rum)
+> 📚 **Cross-refs**: Surveillance lecture, TB SIT testing (herd-health-rum)
 > 🩺 **Practical**: Always check test characteristics before using!
 > 🧪 **Calculation tip**: Practice 2×2 tables until automatic
 > 🎯 **Decision rule**: Match test to clinical question (rule-in vs rule-out)`,
@@ -46888,15 +46888,15 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-25',
     durationMin: 81,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + scenario · ออก surveillance types · monitoring vs surveillance · syndromic surveillance · WAHIS reporting',
+    examFormat: 'Multiple choice + scenario, ออก surveillance types, monitoring vs surveillance, syndromic surveillance, WAHIS reporting',
     summary: `## 🎯 Lead Summary
-**Surveillance** = systematic collection + analysis + dissemination of disease data. ⭐ Distinguishes from monitoring. ⭐ ⭐ **Active vs Passive · Syndromic · Sentinel · Risk-Based · Targeted** surveillance types. Critical for: detection, control, trade, public health.
+**Surveillance** = systematic collection + analysis + dissemination of disease data. ⭐ Distinguishes from monitoring. ⭐ ⭐ **Active vs Passive, Syndromic, Sentinel, Risk-Based, Targeted** surveillance types. Critical for: detection, control, trade, public health.
 
 ## 1️⃣ Surveillance vs Monitoring ⭐⭐
 | Term | Purpose |
 |---|---|
-| ⭐ **Surveillance** | Continuous · ACTION-oriented |
-| ⭐ **Monitoring** | Tracking only · NO action required |
+| ⭐ **Surveillance** | Continuous, ACTION-oriented |
+| ⭐ **Monitoring** | Tracking only, NO action required |
 
 ## 2️⃣ Surveillance Types ⭐⭐⭐
 
@@ -46956,7 +46956,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ## 📋 Exam Recap (8 จุดสำคัญ)
 1. ⭐ **Surveillance ≠ Monitoring** (action vs tracking)
-2. ⭐ **5 surveillance types**: Passive · Active · Syndromic · Sentinel · Risk-based
+2. ⭐ **5 surveillance types**: Passive, Active, Syndromic, Sentinel, Risk-based
 3. ⭐ **Passive default**, Active for outbreaks
 4. ⭐ **WAHIS** (formerly OIE) reporting
 5. ⭐ **5 status colors** in WAHIS
@@ -46964,7 +46964,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 7. ⭐ **Disease freedom** = trade requirement
 8. ⭐ **Resource trade-off** drives surveillance choice
 
-> 📚 **Cross-refs**: Outbreak investigation · Test interpretation · Public Health
+> 📚 **Cross-refs**: Outbreak investigation, Test interpretation, Public Health
 > 🎯 **Practical**: Know reporting structure for your region`,
   },
 
@@ -46975,9 +46975,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-25',
     durationMin: 156,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + calculation · ออก Cohort · Case-Control · Cross-Sectional · OR · RR · Confounding · Selection bias',
+    examFormat: 'Multiple choice + calculation, ออก Cohort, Case-Control, Cross-Sectional, OR, RR, Confounding, Selection bias',
     summary: `## 🎯 Lead Summary
-**Observational study designs** = how epidemiologists collect data without experimental control. 3 main types: ⭐ ⭐ **Cohort · Case-Control · Cross-Sectional**. Each with strengths/weaknesses. ⭐ **Risk Ratio (RR)** for cohort, ⭐ **Odds Ratio (OR)** for case-control. Critical for vet research + clinical decisions.
+**Observational study designs** = how epidemiologists collect data without experimental control. 3 main types: ⭐ ⭐ **Cohort, Case-Control, Cross-Sectional**. Each with strengths/weaknesses. ⭐ **Risk Ratio (RR)** for cohort, ⭐ **Odds Ratio (OR)** for case-control. Critical for vet research + clinical decisions.
 
 ## 1️⃣ Why Observational? ⭐⭐
 - ⭐ Can't always do RCT (ethics, time, cost)
@@ -47094,18 +47094,18 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ Power calculation before study
 
 ## 📋 Exam Recap (10 จุดสำคัญ)
-1. ⭐ **3 designs**: Cohort · Case-Control · Cross-Sectional
+1. ⭐ **3 designs**: Cohort, Case-Control, Cross-Sectional
 2. ⭐ **Cohort** = exposure → outcome (forward)
 3. ⭐ **Case-Control** = outcome → exposure (backward)
 4. ⭐ **Cross-Sectional** = both at once (snapshot)
 5. ⭐ **RR** for Cohort (incidence ratio)
 6. ⭐ **OR** for Case-Control (= ad/bc)
 7. ⭐ **Rare diseases** → Case-Control
-8. ⭐ **Bias types**: Selection · Recall · Detection · Misclassification
-9. ⭐ **Confounding control**: Restriction · Matching · Stratification · Regression
+8. ⭐ **Bias types**: Selection, Recall, Detection, Misclassification
+9. ⭐ **Confounding control**: Restriction, Matching, Stratification, Regression
 10. ⭐ **Sample size** + Power calculation
 
-> 📚 **Cross-refs**: Causation lecture · Disease frequency · Future: Statistics
+> 📚 **Cross-refs**: Causation lecture, Disease frequency, Future: Statistics
 > 🎯 **Calc tip**: OR = ad/bc — memorize and practice!`,
   },
 
@@ -47116,9 +47116,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-09-01',
     durationMin: 282,
     instructor: 'อ.ธนศักดิ์ (รุ่นพี่)',
-    examFormat: 'Multiple choice + calculation · ออก descriptive vs inferential · t-test · chi-square · regression · sample size',
+    examFormat: 'Multiple choice + calculation, ออก descriptive vs inferential, t-test, chi-square, regression, sample size',
     summary: `## 🎯 Lead Summary
-**Applied Statistics for Veterinary Epidemiology** — practical statistics for analyzing animal health data. Covers: ⭐ **Descriptive statistics** (means, medians, distributions) · ⭐ **Inferential statistics** (hypothesis testing, p-values) · ⭐ **Common tests** (t-test, ANOVA, Chi-square, regression) · ⭐ **Sample size calculation**. Use software (R, SPSS, Python) — not hand calc — but MUST know which test fits.
+**Applied Statistics for Veterinary Epidemiology** — practical statistics for analyzing animal health data. Covers: ⭐ **Descriptive statistics** (means, medians, distributions), ⭐ **Inferential statistics** (hypothesis testing, p-values), ⭐ **Common tests** (t-test, ANOVA, Chi-square, regression), ⭐ **Sample size calculation**. Use software (R, SPSS, Python) — not hand calc — but MUST know which test fits.
 
 ## 1️⃣ Statistics Foundation ⭐⭐
 - ⭐ Quantitative analysis of data
@@ -47258,7 +47258,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 9. ⭐ **Sample size**: power × effect × significance × variance
 10. ⭐ **Use software** but understand the math
 
-> 📚 **Cross-refs**: All previous epi lectures · Required for research career
+> 📚 **Cross-refs**: All previous epi lectures, Required for research career
 > 🎯 **Practical**: Practice with real datasets in R or SPSS`,
   },
 
@@ -47269,9 +47269,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-09-08',
     durationMin: 67,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + scenario · ออก control vs prevention vs eradication · stamping out · vaccination strategy · zoning',
+    examFormat: 'Multiple choice + scenario, ออก control vs prevention vs eradication, stamping out, vaccination strategy, zoning',
     summary: `## 🎯 Lead Summary
-**Disease control hierarchy**: ⭐ ⭐ **Prevention < Control < Elimination < Eradication**. Each level requires more resources. Methods: ⭐ Quarantine · Vaccination · Movement Control · Stamping Out · Test-and-Cull · Vector Control. Real examples: Smallpox + Rinderpest = world eradicated.
+**Disease control hierarchy**: ⭐ ⭐ **Prevention < Control < Elimination < Eradication**. Each level requires more resources. Methods: ⭐ Quarantine, Vaccination, Movement Control, Stamping Out, Test-and-Cull, Vector Control. Real examples: Smallpox + Rinderpest = world eradicated.
 
 ## 1️⃣ Disease Control Levels ⭐⭐⭐
 
@@ -47408,16 +47408,16 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ## 📋 Exam Recap (10 จุดสำคัญ)
 1. ⭐ **4 levels**: Prevention < Control < Elimination < Eradication
 2. ⭐ **Smallpox + Rinderpest** = only diseases eradicated globally
-3. ⭐ **6 control methods**: Quarantine · Vaccine · Stamping out · Test-and-Cull · Vector · Sanitation
-4. ⭐ **3 zones**: Infected · Buffer · Free
-5. ⭐ **4 vaccination strategies**: Mass · Ring · Targeted · Marker
+3. ⭐ **6 control methods**: Quarantine, Vaccine, Stamping out, Test-and-Cull, Vector, Sanitation
+4. ⭐ **3 zones**: Infected, Buffer, Free
+5. ⭐ **4 vaccination strategies**: Mass, Ring, Targeted, Marker
 6. ⭐ **Marker vaccines** = trade requirement
 7. ⭐ **Wildlife reservoirs** complicate eradication
 8. ⭐ **HPAI Thailand** = success story
 9. ⭐ **ASF Thailand** = failure story
 10. ⭐ **Communication** = key to compliance
 
-> 📚 **Cross-refs**: All previous lectures · Surveillance · Public Health
+> 📚 **Cross-refs**: All previous lectures, Surveillance, Public Health
 > 🎯 **Application**: Match strategy to disease characteristics`,
   },
 
@@ -47428,9 +47428,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-09-08',
     durationMin: 7,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Brief topic · short multiple choice possible',
+    examFormat: 'Brief topic, short multiple choice possible',
     summary: `## 🎯 Lead Summary
-**Public-Private Partnerships (PPP)** in animal disease control. Essential for: ⭐ ⭐ tackling diseases government alone can't handle. Examples: ⭐ Vaccine development · ⭐ Surveillance systems · ⭐ Outbreak response · ⭐ Rural extension services.
+**Public-Private Partnerships (PPP)** in animal disease control. Essential for: ⭐ ⭐ tackling diseases government alone can't handle. Examples: ⭐ Vaccine development, ⭐ Surveillance systems, ⭐ Outbreak response, ⭐ Rural extension services.
 
 ## 1️⃣ Why PPP? ⭐⭐
 - ⭐ Government resources finite
@@ -47466,11 +47466,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 ## 📋 Exam Recap (5 จุดสำคัญ)
 1. ⭐ **PPP** = Public-Private Partnership
 2. ⭐ Combine gov + industry strengths
-3. ⭐ **Examples**: Vaccines · Surveillance · Outbreak · Extension
-4. ⭐ **Thailand examples**: FMD vaccine · Saraburi sensors
+3. ⭐ **Examples**: Vaccines, Surveillance, Outbreak, Extension
+4. ⭐ **Thailand examples**: FMD vaccine, Saraburi sensors
 5. ⭐ **Critical**: clear roles + trust + sustainable funding
 
-> 📚 **Cross-refs**: Disease control · Surveillance · One Health
+> 📚 **Cross-refs**: Disease control, Surveillance, One Health
 > 🎯 **Future**: Increasingly important in modern epidemiology`,
   },
 
@@ -47481,9 +47481,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-10-06',
     durationMin: 106,
     instructor: 'อ.ธนศักดิ์',
-    examFormat: 'Multiple choice + practical scenarios · ออก field application · clinical decision making · investigation steps',
+    examFormat: 'Multiple choice + practical scenarios, ออก field application, clinical decision making, investigation steps',
     summary: `## 🎯 Lead Summary
-**Practice-based epidemiology** = applying epi tools in clinical settings. Bridge theory → practice. Skills: ⭐ ⭐ recognize unusual patterns · investigate systematically · communicate findings · drive control.
+**Practice-based epidemiology** = applying epi tools in clinical settings. Bridge theory → practice. Skills: ⭐ ⭐ recognize unusual patterns, investigate systematically, communicate findings, drive control.
 
 ## 1️⃣ Practice Epidemiology Goals ⭐⭐
 - ⭐ Detect emerging diseases early
@@ -47548,12 +47548,12 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 2. ⭐ **10-step investigation protocol**
 3. ⭐ **Hill's criteria** for clinical decisions
 4. ⭐ **Communication** with farmers critical
-5. ⭐ **Career paths**: practitioner · government · industry · research
-6. ⭐ **Trends**: big data · AI · genomics · One Health
+5. ⭐ **Career paths**: practitioner, government, industry, research
+6. ⭐ **Trends**: big data, AI, genomics, One Health
 7. ⭐ **Records review** = first investigation step
 8. ⭐ **Documentation** essential
 
-> 📚 **Cross-refs**: All previous lectures · Career planning
+> 📚 **Cross-refs**: All previous lectures, Career planning
 > 🎯 **Skill**: Apply epidemiology tools daily, not just for outbreaks`,
   },
 
@@ -47566,7 +47566,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'NOT IN EXAM (ไม่ออกสอบ) — interesting research overview',
     summary: `## 🎯 Lead Summary
-⚠️ **NOT EXAMINED** — Aj. Tanasak said this lecture is for inspiration, NOT exam content. Overview of current epidemiology research applications. Examples: AI in disease prediction · genomic epi · One Health.
+⚠️ **NOT EXAMINED** — Aj. Tanasak said this lecture is for inspiration, NOT exam content. Overview of current epidemiology research applications. Examples: AI in disease prediction, genomic epi, One Health.
 
 ## 1️⃣ Why This Lecture? ⭐
 - ⭐ Show research career possibilities
@@ -47604,12 +47604,12 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ Future research directions
 - ⭐ Interdisciplinary work growing
 
-> 📚 **Cross-refs**: All previous lectures · Career planning
+> 📚 **Cross-refs**: All previous lectures, Career planning
 > 🎯 **Inspirational**: Consider research as a path!`,
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // poa-clinical (DekDokVet85 · Y5 sem 1) — 11 videos
+  // poa-clinical (DekDokVet85, Y5 sem 1) — 11 videos
   // POA = Problem-Oriented Approach to small animal clinical cases
   // ═══════════════════════════════════════════════════════════════
 
@@ -47620,9 +47620,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-20',
     durationMin: 61,
     instructor: 'CUVET small animal medicine team',
-    examFormat: 'Multiple choice + clinical scenarios · ออก differential diagnosis · workup approach · DDx vomiting vs regurgitation',
+    examFormat: 'Multiple choice + clinical scenarios, ออก differential diagnosis, workup approach, DDx vomiting vs regurgitation',
     summary: `## 🎯 Lead Summary
-**Vomiting vs Regurgitation** — distinguish for proper workup. ⭐ ⭐ **Vomiting**: active abdominal contraction · **Regurgitation**: passive, esophageal origin. Different DDx, different approach.
+**Vomiting vs Regurgitation** — distinguish for proper workup. ⭐ ⭐ **Vomiting**: active abdominal contraction, **Regurgitation**: passive, esophageal origin. Different DDx, different approach.
 
 ## 1️⃣ Vomiting vs Regurgitation ⭐⭐⭐
 | Feature | Vomiting | Regurgitation |
@@ -47635,7 +47635,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ## 2️⃣ Vomiting Causes ⭐⭐
 ### GI Causes
-- Gastritis · GI obstruction · Foreign body · Toxins · Parasites · IBD · Pancreatitis · Tumors
+- Gastritis, GI obstruction, Foreign body, Toxins, Parasites, IBD, Pancreatitis, Tumors
 
 ### Non-GI Causes ⭐
 - Renal failure (uremic vomiting)
@@ -47681,7 +47681,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-08-27',
     durationMin: 64,
     instructor: 'CUVET small animal medicine team',
-    examFormat: 'Multiple choice + clinical scenarios · ออก respiratory DDx · upper vs lower airway',
+    examFormat: 'Multiple choice + clinical scenarios, ออก respiratory DDx, upper vs lower airway',
     summary: `## 🎯 Lead Summary
 **Respiratory complaints** in small animals. Distinguish: ⭐ ⭐ **Upper airway** (nasal, pharyngeal) vs **Lower airway** (trachea, bronchi, lungs). Different DDx, different management.
 
@@ -47695,7 +47695,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Trauma
 
 ### Workup
-- ⭐ History · age · onset
+- ⭐ History, age, onset
 - ⭐ Discharge characterization (unilateral vs bilateral, type)
 - ⭐ Rhinoscopy
 - ⭐ CT scan (gold standard)
@@ -47748,9 +47748,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-09-03',
     durationMin: 60,
     instructor: 'CUVET small animal medicine team',
-    examFormat: 'Multiple choice + scenario · ออก mechanisms of edema · transudate vs exudate · effusion analysis',
+    examFormat: 'Multiple choice + scenario, ออก mechanisms of edema, transudate vs exudate, effusion analysis',
     summary: `## 🎯 Lead Summary
-**Edema + Effusion** = abnormal fluid accumulation. 4 mechanisms: ⭐ Increased hydrostatic · ⭐ Decreased oncotic · ⭐ Increased capillary permeability · ⭐ Lymphatic obstruction. Effusion classified: ⭐ **Transudate · Modified Transudate · Exudate**.
+**Edema + Effusion** = abnormal fluid accumulation. 4 mechanisms: ⭐ Increased hydrostatic, ⭐ Decreased oncotic, ⭐ Increased capillary permeability, ⭐ Lymphatic obstruction. Effusion classified: ⭐ **Transudate, Modified Transudate, Exudate**.
 
 ## 1️⃣ 4 Mechanisms ⭐⭐⭐
 | Mechanism | Examples |
@@ -47807,7 +47807,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ## 📋 Exam Recap
 1. ⭐ **4 mechanisms** of edema
-2. ⭐ **3 effusion types**: Transudate · Modified · Exudate
+2. ⭐ **3 effusion types**: Transudate, Modified, Exudate
 3. ⭐ **FIP** = cats with effusion (esp. yellow!)
 4. ⭐ **Pericardial effusion** → hemangiosarcoma DDx
 5. ⭐ **Albumin <2.0** → systemic edema risk`,
@@ -47820,9 +47820,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-09-10',
     durationMin: 56,
     instructor: 'CUVET exotic medicine team',
-    examFormat: 'Multiple choice · ออก species-specific anatomy · husbandry-related disease · common exotic pets in Thailand',
+    examFormat: 'Multiple choice, ออก species-specific anatomy, husbandry-related disease, common exotic pets in Thailand',
     summary: `## 🎯 Lead Summary
-**Exotic Animal POA Part I**: husbandry + clinical approach to common exotic pets in Thailand. Includes: ⭐ rabbits · guinea pigs · hamsters · sugar gliders · ferrets · hedgehogs.
+**Exotic Animal POA Part I**: husbandry + clinical approach to common exotic pets in Thailand. Includes: ⭐ rabbits, guinea pigs, hamsters, sugar gliders, ferrets, hedgehogs.
 
 ## 1️⃣ Why Husbandry First ⭐⭐
 - ⭐ Most exotic disease = husbandry-related
@@ -47873,9 +47873,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-09-17',
     durationMin: 68,
     instructor: 'CUVET exotic medicine team',
-    examFormat: 'Multiple choice · ออก reptile + bird approach · species-specific nutrition · UV light needs',
+    examFormat: 'Multiple choice, ออก reptile + bird approach, species-specific nutrition, UV light needs',
     summary: `## 🎯 Lead Summary
-**Exotic Animal POA Part II**: reptiles + birds. Critical: ⭐ ⭐ **UV light + temperature gradient** for reptiles · ⭐ ⭐ **Calcium requirements** · ⭐ Diet diversity · Species-specific medicine.
+**Exotic Animal POA Part II**: reptiles + birds. Critical: ⭐ ⭐ **UV light + temperature gradient** for reptiles, ⭐ ⭐ **Calcium requirements**, ⭐ Diet diversity, Species-specific medicine.
 
 ## 1️⃣ Reptile Care ⭐⭐⭐
 ### Critical Husbandry
@@ -47933,7 +47933,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-10-01',
     durationMin: 49,
     instructor: 'CUVET small animal medicine team (รุ่นพี่)',
-    examFormat: 'Multiple choice + calculation · ออก anemia classification · regenerative vs non · DDx',
+    examFormat: 'Multiple choice + calculation, ออก anemia classification, regenerative vs non, DDx',
     summary: `## 🎯 Lead Summary
 **Anemia in small animals** — quantitative + qualitative classification. ⭐ ⭐ **Regenerative** (responsive) vs **Non-regenerative**. Causes vary widely. Always: history, exam, CBC, blood smear.
 
@@ -47994,9 +47994,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-10-08',
     durationMin: 41,
     instructor: 'CUVET small animal medicine team',
-    examFormat: 'Multiple choice · ออก 3 types of jaundice · DDx · diagnostic approach',
+    examFormat: 'Multiple choice, ออก 3 types of jaundice, DDx, diagnostic approach',
     summary: `## 🎯 Lead Summary
-**Jaundice/Icterus** = yellow skin/sclera from bilirubin accumulation. ⭐ ⭐ **3 types**: Pre-hepatic (hemolysis) · Hepatic (liver disease) · Post-hepatic (biliary obstruction). Workup needed to distinguish.
+**Jaundice/Icterus** = yellow skin/sclera from bilirubin accumulation. ⭐ ⭐ **3 types**: Pre-hepatic (hemolysis), Hepatic (liver disease), Post-hepatic (biliary obstruction). Workup needed to distinguish.
 
 ## 1️⃣ Bilirubin Pathway ⭐⭐
 - ⭐ Hb breakdown → unconjugated bilirubin
@@ -48050,7 +48050,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-10-22',
     durationMin: 44,
     instructor: 'CUVET small animal medicine team',
-    examFormat: 'Multiple choice + clinical scenarios · ออก PU/PD differential · USG · water deprivation test',
+    examFormat: 'Multiple choice + clinical scenarios, ออก PU/PD differential, USG, water deprivation test',
     summary: `## 🎯 Lead Summary
 **PU/PD** = drinking + urinating excessively. Common chief complaint. ⭐ Multiple causes spanning endocrine, kidney, metabolic.
 
@@ -48096,9 +48096,9 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ Free water access always
 
 ## 📋 Exam Recap
-1. ⭐ PU >50 mL/kg/day · PD >100 mL/kg/day
+1. ⭐ PU >50 mL/kg/day, PD >100 mL/kg/day
 2. ⭐ USG = first diagnostic step
-3. ⭐ Top 4: DM · Cushing · Hyperthyroid (cats) · CKD
+3. ⭐ Top 4: DM, Cushing, Hyperthyroid (cats), CKD
 4. ⭐ Don't water-deprive without ruling out CKD!
 5. ⭐ Pyometra = surgical emergency`,
   },
@@ -48110,7 +48110,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-10-29',
     durationMin: 44,
     instructor: 'CUVET small animal medicine team',
-    examFormat: 'Multiple choice + clinical scenarios · ออก differentiate collapse types · seizure DDx',
+    examFormat: 'Multiple choice + clinical scenarios, ออก differentiate collapse types, seizure DDx',
     summary: `## 🎯 Lead Summary
 **Collapse syndromes**: ⭐ ⭐ Distinguish ⭐ **Seizure** (CNS) vs ⭐ **Syncope** (cardiac) vs ⭐ **Collapse** (other). Different DDx, different urgency.
 
@@ -48118,7 +48118,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ### Seizure
 - ⭐ CNS origin
-- ⭐ Pre-ictal · ictal · post-ictal phases
+- ⭐ Pre-ictal, ictal, post-ictal phases
 - ⭐ Loss of consciousness + motor activity
 
 ### Syncope
@@ -48171,7 +48171,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ Cardiac syncope: address arrhythmia
 
 ## 📋 Exam Recap
-1. ⭐ 3 distinct presentations: seizure · syncope · collapse
+1. ⭐ 3 distinct presentations: seizure, syncope, collapse
 2. ⭐ Status epilepticus = emergency (>5 min)
 3. ⭐ Diazepam IV first-line for active seizure
 4. ⭐ Cardiac syncope often DCM, AV block
@@ -48185,7 +48185,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-11-04',
     durationMin: 59,
     instructor: 'CUVET small animal medicine team',
-    examFormat: 'Multiple choice + clinical scenarios · ออก dermatology DDx · diagnostic approach',
+    examFormat: 'Multiple choice + clinical scenarios, ออก dermatology DDx, diagnostic approach',
     summary: `## 🎯 Lead Summary
 **Skin disease workup** focusing on alopecia + pruritus. ⭐ ⭐ Common but complex. Systematic approach: history, distribution, lesion type, lab tests.
 
@@ -48255,7 +48255,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     date: '2025-11-12',
     durationMin: 45,
     instructor: 'CUVET small animal medicine team',
-    examFormat: 'Multiple choice + scenario · ออก systematic workup · DDx anorexia',
+    examFormat: 'Multiple choice + scenario, ออก systematic workup, DDx anorexia',
     summary: `## 🎯 Lead Summary
 **Anorexia + Weight Loss** = nonspecific common complaint. Wide DDx requires systematic workup.
 
@@ -48317,13 +48317,13 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // aquatic-clinic (DekDokVet85 · Y5 sem 1) — 19 videos
+  // aquatic-clinic (DekDokVet85, Y5 sem 1) — 19 videos
   // ═══════════════════════════════════════════════════════════════
 
   '7z5EeUMqDXg': {
     videoId: '7z5EeUMqDXg', title: 'Aquatic Clinic — 0 Introduction', subject: 'aquatic-clinic',
     date: '2025-08-05', durationMin: 15, instructor: 'CUVET aquatic medicine team',
-    examFormat: 'Brief overview · course structure',
+    examFormat: 'Brief overview, course structure',
     summary: `## 🎯 Lead Summary
 Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians, reptiles, ornamental species. Thai aquaculture industry context.
 
@@ -48346,7 +48346,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   WBElJErmmj0: {
     videoId: 'WBElJErmmj0', title: 'Aquatic Clinic — 1.1 Aquaculture in Thailand', subject: 'aquatic-clinic',
     date: '2025-08-05', durationMin: 63, instructor: 'CUVET aquatic team',
-    examFormat: 'Multiple choice · ออก Thai aquaculture statistics · main species',
+    examFormat: 'Multiple choice, ออก Thai aquaculture statistics, main species',
     summary: `## 🎯 Lead Summary
 **Thai aquaculture industry**: ⭐ World's leading producer of shrimp + tilapia. Major species, geography, economics.
 
@@ -48354,7 +48354,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
 - ⭐ **Shrimp** (Penaeus vannamei, P. monodon)
 - ⭐ **Tilapia** (most farmed freshwater)
 - ⭐ **Catfish** (Pangasius, Clarias)
-- ⭐ Sea bass · Striped bass · Snapper
+- ⭐ Sea bass, Striped bass, Snapper
 - Ornamental: betta, goldfish, koi
 
 ## Economic Importance ⭐
@@ -48381,7 +48381,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   cYtkvs3oKNI: {
     videoId: 'cYtkvs3oKNI', title: 'Aquatic Clinic — 1.2 Aquaculture Industry & Technology', subject: 'aquatic-clinic',
     date: '2025-08-05', durationMin: 99, instructor: 'CUVET aquatic team',
-    examFormat: 'Multiple choice · ออก farming systems · technology · biofloc',
+    examFormat: 'Multiple choice, ออก farming systems, technology, biofloc',
     summary: `## 🎯 Lead Summary
 **Aquaculture systems + technology**. From traditional pond to modern intensive systems with biofloc, RAS (Recirculating Aquaculture Systems).
 
@@ -48395,7 +48395,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
 | ⭐ **RAS** | Recirculating, indoor |
 
 ## Modern Technology ⭐
-- ⭐ Aerators · feeding automation
+- ⭐ Aerators, feeding automation
 - ⭐ Water quality monitoring sensors
 - ⭐ DNA-based disease diagnosis
 - ⭐ Vaccine development
@@ -48418,7 +48418,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   '_kvFNpcCh5M': {
     videoId: '_kvFNpcCh5M', title: 'Aquatic Clinic — 2 Fish Biology', subject: 'aquatic-clinic',
     date: '2025-08-12', durationMin: 155, instructor: 'CUVET aquatic team',
-    examFormat: 'Multiple choice · ออก fish anatomy/physiology · gill function · osmoregulation',
+    examFormat: 'Multiple choice, ออก fish anatomy/physiology, gill function, osmoregulation',
     summary: `## 🎯 Lead Summary
 **Fish biology** — fundamentals for aquatic vet. Gills, scales, swim bladder, lateral line, osmoregulation. Different from mammals!
 
@@ -48461,7 +48461,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   YXlt_Me9d6Q: {
     videoId: 'YXlt_Me9d6Q', title: 'Aquatic Clinic — 3.0.1 Shrimp Biology and Immunology', subject: 'aquatic-clinic',
     date: '2025-08-19', durationMin: 132, instructor: 'CUVET shrimp team',
-    examFormat: 'Multiple choice · ออก shrimp anatomy · molting · immunology · disease susceptibility',
+    examFormat: 'Multiple choice, ออก shrimp anatomy, molting, immunology, disease susceptibility',
     summary: `## 🎯 Lead Summary
 **Shrimp biology** — Thailand's most economically important aquatic species. Unique: molting cycle, hemolymph, hepatopancreas. Innate-only immunity.
 
@@ -48500,7 +48500,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   rGCxK_2ivRs: {
     videoId: 'rGCxK_2ivRs', title: 'Aquatic Clinic — 3.0.2 Fish Immunity', subject: 'aquatic-clinic',
     date: '2025-08-26', durationMin: 32, instructor: 'CUVET aquatic team',
-    examFormat: 'Multiple choice · ออก fish immune system · vaccination · temperature effects',
+    examFormat: 'Multiple choice, ออก fish immune system, vaccination, temperature effects',
     summary: `## 🎯 Lead Summary
 **Fish immunity** = both innate + adaptive (unlike shrimp!). Vaccines work but with caveats.
 
@@ -48541,7 +48541,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   RkcMZy109vk: {
     videoId: 'RkcMZy109vk', title: 'Aquatic Clinic — 4.1 Water Quality in Aquaculture Pond', subject: 'aquatic-clinic',
     date: '2025-08-26', durationMin: 45, instructor: 'CUVET aquatic team',
-    examFormat: 'Multiple choice + calculation · ออก water parameters · monitoring · DO, pH, ammonia',
+    examFormat: 'Multiple choice + calculation, ออก water parameters, monitoring, DO, pH, ammonia',
     summary: `## 🎯 Lead Summary
 **Water quality** = fundamental to fish health. ⭐ ⭐ "Healthy water = healthy fish". Critical parameters: DO, temperature, pH, NH3, NO2, NO3, salinity, hardness.
 
@@ -48582,7 +48582,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   i37x85TXsUw: {
     videoId: 'i37x85TXsUw', title: 'Aquatic Clinic — 4.2 Life Supporting System', subject: 'aquatic-clinic',
     date: '2025-08-26', durationMin: 83, instructor: 'CUVET aquatic team',
-    examFormat: 'Multiple choice · ออก aeration systems · filtration · water exchange',
+    examFormat: 'Multiple choice, ออก aeration systems, filtration, water exchange',
     summary: `## 🎯 Lead Summary
 **Life support systems** for aquaculture. Aeration, filtration, water exchange - keep fish alive at high density.
 
@@ -48623,7 +48623,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   Ht4uH8mzYQ8: {
     videoId: 'Ht4uH8mzYQ8', title: 'Aquatic Clinic — 5 Ornamental Fish Medicine', subject: 'aquatic-clinic',
     date: '2025-09-02', durationMin: 165, instructor: 'CUVET aquatic team',
-    examFormat: 'Multiple choice · ออก ornamental fish DDx · betta diseases · koi',
+    examFormat: 'Multiple choice, ออก ornamental fish DDx, betta diseases, koi',
     summary: `## 🎯 Lead Summary
 **Ornamental fish medicine**. Thailand = world hub for ornamental fish exports. Common species + diseases.
 
@@ -48680,7 +48680,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   D5LZtcXUYso: {
     videoId: 'D5LZtcXUYso', title: 'Aquatic Clinic — 6.1 Basic Amphibian Medicine', subject: 'aquatic-clinic',
     date: '2025-09-09', durationMin: 82, instructor: 'CUVET amphibian team',
-    examFormat: 'Multiple choice · ออก amphibian anatomy · diseases · husbandry',
+    examFormat: 'Multiple choice, ออก amphibian anatomy, diseases, husbandry',
     summary: `## 🎯 Lead Summary
 **Amphibian medicine** — frogs, toads, salamanders. Bullfrog farming is Thai industry. Skin = critical organ.
 
@@ -48719,7 +48719,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   lcYOKEmEWb8: {
     videoId: 'lcYOKEmEWb8', title: 'Aquatic Clinic — 6.2 Diseases in Cultured Frogs', subject: 'aquatic-clinic',
     date: '2025-09-09', durationMin: 52, instructor: 'CUVET amphibian team',
-    examFormat: 'Multiple choice · ออก cultured frog diseases · Thai bullfrog industry',
+    examFormat: 'Multiple choice, ออก cultured frog diseases, Thai bullfrog industry',
     summary: `## 🎯 Lead Summary
 **Cultured frog diseases** — focus on Thai bullfrog (Rana catesbeiana, Rana rugulosa) industry. Major export.
 
@@ -48764,7 +48764,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   F8AvbK_6tyg: {
     videoId: 'F8AvbK_6tyg', title: 'Aquatic Clinic — 7 Chelonian (Turtles + Tortoises)', subject: 'aquatic-clinic',
     date: '2025-09-16', durationMin: 181, instructor: 'CUVET reptile team',
-    examFormat: 'Multiple choice · ออก turtle/tortoise anatomy · common diseases · husbandry',
+    examFormat: 'Multiple choice, ออก turtle/tortoise anatomy, common diseases, husbandry',
     summary: `## 🎯 Lead Summary
 **Chelonian medicine** — turtles + tortoises. Increasing popularity as pets in Thailand. Unique anatomy + special needs.
 
@@ -48814,9 +48814,9 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   fn03KM77X7Q: {
     videoId: 'fn03KM77X7Q', title: 'Aquatic Clinic — 9.1.1 Shrimp Diseases', subject: 'aquatic-clinic',
     date: '2025-10-07', durationMin: 32, instructor: 'CUVET shrimp team',
-    examFormat: 'Multiple choice · ออก major shrimp diseases · WSSV · EMS · EHP',
+    examFormat: 'Multiple choice, ออก major shrimp diseases, WSSV, EMS, EHP',
     summary: `## 🎯 Lead Summary
-**Shrimp diseases** = devastating for Thai industry. Top: ⭐ WSSV (white spot) · EMS/AHPND · EHP · IMNV · YHV.
+**Shrimp diseases** = devastating for Thai industry. Top: ⭐ WSSV (white spot), EMS/AHPND, EHP, IMNV, YHV.
 
 ## Major Viral Diseases ⭐⭐⭐
 - ⭐ ⭐ **WSSV** (White Spot Syndrome Virus) — most lethal
@@ -48857,7 +48857,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   '4nLqFMqASgg': {
     videoId: '4nLqFMqASgg', title: 'Aquatic Clinic — 9.1.2 Shrimp Diseases - Biosecurity Cases', subject: 'aquatic-clinic',
     date: '2025-10-14', durationMin: 123, instructor: 'CUVET shrimp team',
-    examFormat: 'Multiple choice + case studies · ออก biosecurity protocols · case investigations',
+    examFormat: 'Multiple choice + case studies, ออก biosecurity protocols, case investigations',
     summary: `## 🎯 Lead Summary
 **Shrimp biosecurity + case studies**. Real outbreak investigations. Prevention strategies for Thai farms.
 
@@ -48900,7 +48900,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   yVDdJKpws5A: {
     videoId: 'yVDdJKpws5A', title: 'Aquatic Clinic — 10 Conservation Aquatic Animals', subject: 'aquatic-clinic',
     date: '2025-10-21', durationMin: 187, instructor: 'CUVET conservation team',
-    examFormat: 'Multiple choice · ออก endangered aquatic species · conservation medicine',
+    examFormat: 'Multiple choice, ออก endangered aquatic species, conservation medicine',
     summary: `## 🎯 Lead Summary
 **Conservation aquatic medicine** — endangered species, wildlife. Different from production focus.
 
@@ -48943,7 +48943,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   bXHto5noX1A: {
     videoId: 'bXHto5noX1A', title: 'Aquatic Clinic — 11.1 Aquarium Management', subject: 'aquatic-clinic',
     date: '2025-10-28', durationMin: 86, instructor: 'CUVET aquarium team',
-    examFormat: 'Multiple choice · ออก aquarium setup · water management · stocking',
+    examFormat: 'Multiple choice, ออก aquarium setup, water management, stocking',
     summary: `## 🎯 Lead Summary
 **Aquarium management** — public/private aquariums. Water management, stocking, education, exhibit design.
 
@@ -48983,7 +48983,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   XXPMMegcGy8: {
     videoId: 'XXPMMegcGy8', title: 'Aquatic Clinic — 11.2 Aquarium Veterinarian', subject: 'aquatic-clinic',
     date: '2025-10-28', durationMin: 95, instructor: 'CUVET aquarium team',
-    examFormat: 'Multiple choice · ออก aquarium vet career · responsibilities',
+    examFormat: 'Multiple choice, ออก aquarium vet career, responsibilities',
     summary: `## 🎯 Lead Summary
 **Aquarium veterinarian career**. Public aquariums need vets for animal care, surgeries, education.
 
@@ -49024,7 +49024,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   '7m8K5kt4AS0': {
     videoId: '7m8K5kt4AS0', title: 'Aquatic Clinic — 12 Aquatic Toxicology', subject: 'aquatic-clinic',
     date: '2025-11-04', durationMin: 112, instructor: 'CUVET aquatic team',
-    examFormat: 'Multiple choice · ออก common toxins · LC50 · diagnostic approach',
+    examFormat: 'Multiple choice, ออก common toxins, LC50, diagnostic approach',
     summary: `## 🎯 Lead Summary
 **Aquatic toxicology** — toxin effects on fish, shellfish. Pollution, agricultural runoff, industrial discharge.
 
@@ -49072,7 +49072,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   '9fABd_2RhNw': {
     videoId: '9fABd_2RhNw', title: 'Aquatic Clinic — 13 Aquatic Disease Control Authorities', subject: 'aquatic-clinic',
     date: '2025-11-11', durationMin: 105, instructor: 'CUVET aquatic team',
-    examFormat: 'Multiple choice · ออก Thai authorities · DOF · OIE/WAHIS · trade',
+    examFormat: 'Multiple choice, ออก Thai authorities, DOF, OIE/WAHIS, trade',
     summary: `## 🎯 Lead Summary
 **Thai aquatic disease control authorities** — DOF (Department of Fisheries), OIE/WAHIS reporting.
 
@@ -49109,7 +49109,7 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // avian-medicine (DekDokVet85 · Y5 sem 1) — 32 videos
+  // avian-medicine (DekDokVet85, Y5 sem 1) — 32 videos
   // ═══════════════════════════════════════════════════════════════
 
   D7BZwM1JoVQ: {
@@ -49138,7 +49138,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   tG5VRKQuGhw: {
     videoId: 'tG5VRKQuGhw', title: 'Avian Medicine — 1.1 Newcastle Disease (ND)', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 43, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก ND virulence types · clinical signs · vaccination',
+    examFormat: 'Multiple choice, ออก ND virulence types, clinical signs, vaccination',
     summary: `## 🎯 Lead Summary
 **Newcastle Disease (ND)** = #1 viral concern in poultry. ⭐ Paramyxovirus (APMV-1). 5 pathotypes by virulence.
 
@@ -49195,7 +49195,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   Md1qQYAH5kU: {
     videoId: 'Md1qQYAH5kU', title: 'Avian Medicine — 1.2 Infectious Bronchitis (IB)', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 25, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก IB serotypes · clinical signs · vaccination',
+    examFormat: 'Multiple choice, ออก IB serotypes, clinical signs, vaccination',
     summary: `## 🎯 Lead Summary
 **Infectious Bronchitis (IB)** — Coronavirus respiratory disease in chickens. Multiple serotypes complicate vaccination.
 
@@ -49240,7 +49240,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   NVZopbDW4j8: {
     videoId: 'NVZopbDW4j8', title: 'Avian Medicine — 1.3 Infectious Laryngotracheitis (ILT)', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 15, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก ILT herpesvirus · clinical signs · vaccination',
+    examFormat: 'Multiple choice, ออก ILT herpesvirus, clinical signs, vaccination',
     summary: `## 🎯 Lead Summary
 **ILT** = Infectious Laryngotracheitis. Herpesvirus (latent infection!). Severe respiratory.
 
@@ -49282,7 +49282,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   'v2-VlxsTnsM': {
     videoId: 'v2-VlxsTnsM', title: 'Avian Medicine — 1.4 Avian Metapneumovirus (aMPV)', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 15, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก aMPV pathogenesis · clinical signs · TRT in chicken',
+    examFormat: 'Multiple choice, ออก aMPV pathogenesis, clinical signs, TRT in chicken',
     summary: `## 🎯 Lead Summary
 **Avian Metapneumovirus (aMPV)** — causes Turkey Rhinotracheitis (TRT) and Swollen Head Syndrome (SHS). Pneumovirus.
 
@@ -49321,7 +49321,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   zGDseeDV_Zk: {
     videoId: 'zGDseeDV_Zk', title: 'Avian Medicine — 1.5 Fowlpox', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 19, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก fowlpox 2 forms · vector · vaccination',
+    examFormat: 'Multiple choice, ออก fowlpox 2 forms, vector, vaccination',
     summary: `## 🎯 Lead Summary
 **Fowlpox** = DNA poxvirus, 2 forms: cutaneous (dry) + diphtheritic (wet). Mosquito-transmitted.
 
@@ -49363,7 +49363,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   JlF6YXZM490: {
     videoId: 'JlF6YXZM490', title: 'Avian Medicine — 2 Mycoplasmosis', subject: 'avian-medicine',
     date: '2025-08-19', durationMin: 97, instructor: 'CUVET avian team (รุ่นพี่)',
-    examFormat: 'Multiple choice · ออก MG · MS · vertical transmission · vaccination · monitoring',
+    examFormat: 'Multiple choice, ออก MG, MS, vertical transmission, vaccination, monitoring',
     summary: `## 🎯 Lead Summary
 **Mycoplasma** in poultry = MG (Mycoplasma gallisepticum) + MS (Mycoplasma synoviae). Vertical transmission. Major economic concern.
 
@@ -49412,7 +49412,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   Jp0fuXZfNmg: {
     videoId: 'Jp0fuXZfNmg', title: 'Avian Medicine — 3.1 Colibacillosis', subject: 'avian-medicine',
     date: '2025-08-26', durationMin: 58, instructor: 'CUVET avian team (รุ่นพี่)',
-    examFormat: 'Multiple choice · ออก E. coli APEC · clinical syndromes · APEC virulence factors',
+    examFormat: 'Multiple choice, ออก E. coli APEC, clinical syndromes, APEC virulence factors',
     summary: `## 🎯 Lead Summary
 **Colibacillosis** = E. coli infections in poultry. APEC (Avian Pathogenic E. coli). Often secondary to viruses.
 
@@ -49465,7 +49465,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   Uhe17jfgFD4: {
     videoId: 'Uhe17jfgFD4', title: 'Avian Medicine — 3.2 Fowl Cholera', subject: 'avian-medicine',
     date: '2025-08-26', durationMin: 25, instructor: 'CUVET avian team (รุ่นพี่)',
-    examFormat: 'Multiple choice · ออก Pasteurella multocida · acute vs chronic',
+    examFormat: 'Multiple choice, ออก Pasteurella multocida, acute vs chronic',
     summary: `## 🎯 Lead Summary
 **Fowl Cholera** = Pasteurella multocida in poultry. Acute septicemia or chronic localized disease.
 
@@ -49513,7 +49513,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   '9v-CfsIpxk0': {
     videoId: '9v-CfsIpxk0', title: 'Avian Medicine — 4.1 Introduction to Avian Medicine', subject: 'avian-medicine',
     date: '2025-09-02', durationMin: 76, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Thai poultry industry · disease overview · biosecurity',
+    examFormat: 'Multiple choice, ออก Thai poultry industry, disease overview, biosecurity',
     summary: `## 🎯 Lead Summary
 **Avian medicine introduction** — Thai poultry industry context, key diseases overview, biosecurity principles.
 
@@ -49555,7 +49555,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   'gelIUT2-jcA': {
     videoId: 'gelIUT2-jcA', title: 'Avian Medicine — 4.2 Avian Influenza (AI)', subject: 'avian-medicine',
     date: '2025-09-02', durationMin: 73, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก HPAI vs LPAI · H5N1 · pandemic potential · Thai 2547 outbreak',
+    examFormat: 'Multiple choice, ออก HPAI vs LPAI, H5N1, pandemic potential, Thai 2547 outbreak',
     summary: `## 🎯 Lead Summary
 **Avian Influenza (AI)** — Influenza A virus, multiple subtypes. ⭐ ⭐ HPAI (Highly Pathogenic) vs LPAI (Low Pathogenic). Thailand HPAI success story.
 
@@ -49613,7 +49613,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   SZnryRPaIuA: {
     videoId: 'SZnryRPaIuA', title: 'Avian Medicine — 5.1 Infectious Bursal Disease (IBD/Gumboro)', subject: 'avian-medicine',
     date: '2025-09-09', durationMin: 31, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก IBD · age-specific · immunosuppression · vaccination',
+    examFormat: 'Multiple choice, ออก IBD, age-specific, immunosuppression, vaccination',
     summary: `## 🎯 Lead Summary
 **IBD (Gumboro)** = Infectious Bursal Disease. ⭐ ⭐ Birnavirus targeting Bursa of Fabricius. ⭐ ⭐ Causes immunosuppression!
 
@@ -49661,7 +49661,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   eWlad6RyZf0: {
     videoId: 'eWlad6RyZf0', title: 'Avian Medicine — 5.2 Neoplastic Diseases (Marek\'s + Lymphoid Leukosis)', subject: 'avian-medicine',
     date: '2025-09-09', durationMin: 37, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Marek vs ALV · age · vaccination',
+    examFormat: 'Multiple choice, ออก Marek vs ALV, age, vaccination',
     summary: `## 🎯 Lead Summary
 **Avian Neoplastic Diseases**: Marek's (herpesvirus) + Lymphoid Leukosis (retrovirus). Both T-cell tumors but different.
 
@@ -49715,7 +49715,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   XQkik3El7es: {
     videoId: 'XQkik3El7es', title: 'Avian Medicine — 5.3 Chicken Infectious Anemia (CIA)', subject: 'avian-medicine',
     date: '2025-09-09', durationMin: 13, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก CIA virus · clinical signs · vertical transmission',
+    examFormat: 'Multiple choice, ออก CIA virus, clinical signs, vertical transmission',
     summary: `## 🎯 Lead Summary
 **Chicken Infectious Anemia (CIA)** — Circovirus. Causes anemia + immunosuppression in young chicks.
 
@@ -49754,7 +49754,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   COR6qWQJauo: {
     videoId: 'COR6qWQJauo', title: 'Avian Medicine — 5.4 Reovirus Infections', subject: 'avian-medicine',
     date: '2025-09-09', durationMin: 12, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก reovirus · viral arthritis · MAS',
+    examFormat: 'Multiple choice, ออก reovirus, viral arthritis, MAS',
     summary: `## 🎯 Lead Summary
 **Avian Reovirus** — causes viral arthritis/tenosynovitis (VAT). Also: MAS (Malabsorption Syndrome).
 
@@ -49797,7 +49797,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   uGvRYnq5gvw: {
     videoId: 'uGvRYnq5gvw', title: 'Avian Medicine — 6.1 Runting-Stunting Syndrome', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 15, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก RSS · multifactorial · differential diagnosis',
+    examFormat: 'Multiple choice, ออก RSS, multifactorial, differential diagnosis',
     summary: `## 🎯 Lead Summary
 **Runting-Stunting Syndrome (RSS)** = multifactorial growth disease in young chicks.
 
@@ -49834,7 +49834,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   fhVsp587xn8: {
     videoId: 'fhVsp587xn8', title: 'Avian Medicine — 6.2 Coccidiosis', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 40, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Eimeria species · location · ionophores · treatment',
+    examFormat: 'Multiple choice, ออก Eimeria species, location, ionophores, treatment',
     summary: `## 🎯 Lead Summary
 **Coccidiosis** = Eimeria spp. Most economically significant parasitic disease in poultry. Multiple species, each with specific intestinal location.
 
@@ -49892,7 +49892,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   ZxF5mCBb7nE: {
     videoId: 'ZxF5mCBb7nE', title: 'Avian Medicine — 6.3 Necrotic Enteritis', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 22, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Clostridium perfringens · NE · risk factors',
+    examFormat: 'Multiple choice, ออก Clostridium perfringens, NE, risk factors',
     summary: `## 🎯 Lead Summary
 **Necrotic Enteritis (NE)** = Clostridium perfringens type A. ⭐ ⭐ Especially common after AGP (Antimicrobial Growth Promoter) ban.
 
@@ -49940,7 +49940,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   'RQD-rP8AVFQ': {
     videoId: 'RQD-rP8AVFQ', title: 'Avian Medicine — 6.4 Leucocytozoonosis', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 12, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Leucocytozoon · vector · clinical signs',
+    examFormat: 'Multiple choice, ออก Leucocytozoon, vector, clinical signs',
     summary: `## 🎯 Lead Summary
 **Leucocytozoonosis** — protozoan blood parasite, vector-transmitted. Major issue in tropical Thailand.
 
@@ -49980,7 +49980,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   zqmN4NDEThs: {
     videoId: 'zqmN4NDEThs', title: 'Avian Medicine — 6.5 Avian Malaria (Plasmodium)', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 8, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Plasmodium juxtanucleare · vector',
+    examFormat: 'Multiple choice, ออก Plasmodium juxtanucleare, vector',
     summary: `## 🎯 Lead Summary
 **Avian Malaria** — Plasmodium spp. Mosquito-transmitted. Tropical concern.
 
@@ -50048,9 +50048,9 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   w5HjhQ2Dq64: {
     videoId: 'w5HjhQ2Dq64', title: 'Avian Medicine — 8 Omphalitis/Ascites/AE/Staph/Salm/Adeno', subject: 'avian-medicine',
     date: '2025-10-07', durationMin: 126, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก mixed bag of poultry diseases',
+    examFormat: 'Multiple choice, ออก mixed bag of poultry diseases',
     summary: `## 🎯 Lead Summary
-**Mixed poultry diseases**: Omphalitis (yolk sac infection) · Ascites Syndrome · Avian Encephalomyelitis · Staphylococcus · Salmonella · Adenovirus.
+**Mixed poultry diseases**: Omphalitis (yolk sac infection), Ascites Syndrome, Avian Encephalomyelitis, Staphylococcus, Salmonella, Adenovirus.
 
 ## Omphalitis ⭐⭐
 - ⭐ Yolk sac infection in chicks
@@ -50100,7 +50100,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   wIk7mL5kVMg: {
     videoId: 'wIk7mL5kVMg', title: 'Avian Medicine — 9.1 Mycotic Infection', subject: 'avian-medicine',
     date: '2025-10-20', durationMin: 54, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Aspergillosis · brooder pneumonia · diagnosis',
+    examFormat: 'Multiple choice, ออก Aspergillosis, brooder pneumonia, diagnosis',
     summary: `## 🎯 Lead Summary
 **Avian mycotic infections** — primarily Aspergillus + Candida.
 
@@ -50153,9 +50153,9 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   'aekeCV0a-Z4': {
     videoId: 'aekeCV0a-Z4', title: 'Avian Medicine — 9.2 Mycotoxicosis', subject: 'avian-medicine',
     date: '2025-10-27', durationMin: 108, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก aflatoxin · ochratoxin · trichothecenes · clinical signs',
+    examFormat: 'Multiple choice, ออก aflatoxin, ochratoxin, trichothecenes, clinical signs',
     summary: `## 🎯 Lead Summary
-**Mycotoxicosis** — toxins from feed-borne fungi. Major economic concern. ⭐ Aflatoxin · Ochratoxin · Trichothecenes · Fumonisins · Zearalenone.
+**Mycotoxicosis** — toxins from feed-borne fungi. Major economic concern. ⭐ Aflatoxin, Ochratoxin, Trichothecenes, Fumonisins, Zearalenone.
 
 ## Major Mycotoxins ⭐⭐⭐
 
@@ -50216,7 +50216,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   bUnUB3XMrww: {
     videoId: 'bUnUB3XMrww', title: 'Avian Medicine — 10+11 Duck and Goose Diseases', subject: 'avian-medicine',
     date: '2025-10-28', durationMin: 99, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก duck plague · DVH · waterfowl-specific diseases',
+    examFormat: 'Multiple choice, ออก duck plague, DVH, waterfowl-specific diseases',
     summary: `## 🎯 Lead Summary
 **Duck + Goose diseases** — major Thai industry. Specific waterfowl diseases.
 
@@ -50261,7 +50261,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   Ih7HFbP9oJU: {
     videoId: 'Ih7HFbP9oJU', title: 'Avian Medicine — 12.1 Ornithobacteriosis', subject: 'avian-medicine',
     date: '2025-11-04', durationMin: 49, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Ornithobacterium rhinotracheale · ORT',
+    examFormat: 'Multiple choice, ออก Ornithobacterium rhinotracheale, ORT',
     summary: `## 🎯 Lead Summary
 **Ornithobacteriosis (ORT)** = Ornithobacterium rhinotracheale. Respiratory disease, often combined with other agents.
 
@@ -50299,7 +50299,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   ciAa6ypG2A4: {
     videoId: 'ciAa6ypG2A4', title: 'Avian Medicine — 12.2 Campylobacter Infection', subject: 'avian-medicine',
     date: '2025-11-04', durationMin: 22, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Campylobacter zoonotic risk · food safety',
+    examFormat: 'Multiple choice, ออก Campylobacter zoonotic risk, food safety',
     summary: `## 🎯 Lead Summary
 **Campylobacter** — zoonotic concern, foodborne pathogen. Often subclinical in poultry but causes human disease.
 
@@ -50336,7 +50336,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   '6mL3tE_Xdy4': {
     videoId: '6mL3tE_Xdy4', title: 'Avian Medicine — 12.3 Listeriosis', subject: 'avian-medicine',
     date: '2025-11-04', durationMin: 8, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Listeria in poultry · zoonotic',
+    examFormat: 'Multiple choice, ออก Listeria in poultry, zoonotic',
     summary: `## 🎯 Lead Summary
 **Listeriosis in poultry** — Listeria monocytogenes. ⚠️ EU export concern. ⭐ Soil-dwelling, cold tolerant.
 
@@ -50371,7 +50371,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   'YZYg9-0oHWQ': {
     videoId: 'YZYg9-0oHWQ', title: 'Avian Medicine — 12.4 Histomoniasis (Blackhead)', subject: 'avian-medicine',
     date: '2025-11-04', durationMin: 8, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก Histomonas · turkey · blackhead',
+    examFormat: 'Multiple choice, ออก Histomonas, turkey, blackhead',
     summary: `## 🎯 Lead Summary
 **Histomoniasis (Blackhead)** = Histomonas meleagridis. Mainly turkeys. Heterakis gallinarum vector.
 
@@ -50412,7 +50412,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   XRnD2Y8DYBQ: {
     videoId: 'XRnD2Y8DYBQ', title: 'Avian Medicine — 13.1 Vaccines, Methods, Programs', subject: 'avian-medicine',
     date: '2025-11-11', durationMin: 86, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก vaccine types · routes · maternal Ab · poultry vaccination programs',
+    examFormat: 'Multiple choice, ออก vaccine types, routes, maternal Ab, poultry vaccination programs',
     summary: `## 🎯 Lead Summary
 **Vaccination programs** = backbone of poultry health. Routes, schedules, maternal antibody timing critical.
 
@@ -50465,7 +50465,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   qtH9lZN90hk: {
     videoId: 'qtH9lZN90hk', title: 'Avian Medicine — 13.2 Egg Breakout Analysis', subject: 'avian-medicine',
     date: '2025-11-11', durationMin: 31, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก egg breakout · embryo mortality · hatchery diagnostics',
+    examFormat: 'Multiple choice, ออก egg breakout, embryo mortality, hatchery diagnostics',
     summary: `## 🎯 Lead Summary
 **Egg breakout analysis** = systematic examination of unhatched eggs to identify hatchery problems.
 
@@ -50505,7 +50505,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   ux5PbQ7iOHo: {
     videoId: 'ux5PbQ7iOHo', title: 'Avian Medicine — 14 Serological Evaluation', subject: 'avian-medicine',
     date: '2025-11-11', durationMin: 137, instructor: 'CUVET avian team',
-    examFormat: 'Multiple choice · ออก ELISA · HI test · serology interpretation · vaccine monitoring',
+    examFormat: 'Multiple choice, ออก ELISA, HI test, serology interpretation, vaccine monitoring',
     summary: `## 🎯 Lead Summary
 **Serological evaluation** = monitoring antibody titers. Used for vaccination evaluation, disease diagnosis, surveillance.
 
@@ -50561,15 +50561,15 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // milk-meat-hygiene (DekDokVet85 · Y5 sem 1) — 23 videos
+  // milk-meat-hygiene (DekDokVet85, Y5 sem 1) — 23 videos
   // ═══════════════════════════════════════════════════════════════
 
   '5ExcMb--C34': {
     videoId: '5ExcMb--C34', title: 'Milk-Meat — 1.1 Composition and Quality of Raw Milk', subject: 'milk-meat-hygiene',
     date: '2025-08-06', durationMin: 68, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก milk composition · quality parameters',
+    examFormat: 'Multiple choice, ออก milk composition, quality parameters',
     summary: `## 🎯 Lead Summary
-**Raw milk composition + quality**: ⭐ Water 87% · Fat 3-5% · Protein 3.3% · Lactose 4.7% · Minerals 0.7%. Quality determined by composition + microbiology.
+**Raw milk composition + quality**: ⭐ Water 87%, Fat 3-5%, Protein 3.3%, Lactose 4.7%, Minerals 0.7%. Quality determined by composition + microbiology.
 
 ## Composition ⭐⭐⭐
 | Component | % |
@@ -50603,9 +50603,9 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   '7VJAcHzLwfg': {
     videoId: '7VJAcHzLwfg', title: 'Milk-Meat — 1.2 Standards of Raw Milk and Dairy Products', subject: 'milk-meat-hygiene',
     date: '2025-08-06', durationMin: 56, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก Thai standards · TIS · Codex',
+    examFormat: 'Multiple choice, ออก Thai standards, TIS, Codex',
     summary: `## 🎯 Lead Summary
-**Thai + International standards** for raw milk and dairy products. ⭐ ⭐ TIS (Thai Industrial Standards) · Codex Alimentarius.
+**Thai + International standards** for raw milk and dairy products. ⭐ ⭐ TIS (Thai Industrial Standards), Codex Alimentarius.
 
 ## Thai Standards ⭐⭐
 - ⭐ ⭐ **TIS** (Thai Industrial Standards)
@@ -50639,7 +50639,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   gWjJHkmTrHY: {
     videoId: 'gWjJHkmTrHY', title: 'Milk-Meat — 2.1 Milk Microbiology', subject: 'milk-meat-hygiene',
     date: '2025-08-13', durationMin: 49, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก milk microflora · spoilage organisms · pathogens',
+    examFormat: 'Multiple choice, ออก milk microflora, spoilage organisms, pathogens',
     summary: `## 🎯 Lead Summary
 **Milk microbiology** — natural flora + spoilage + pathogens. Multiple sources of contamination.
 
@@ -50683,7 +50683,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   K8Z36l4Uexc: {
     videoId: 'K8Z36l4Uexc', title: 'Milk-Meat — 2.2 Milk-borne Pathogens and Diseases', subject: 'milk-meat-hygiene',
     date: '2025-08-13', durationMin: 47, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก milk-borne diseases · zoonotic risks',
+    examFormat: 'Multiple choice, ออก milk-borne diseases, zoonotic risks',
     summary: `## 🎯 Lead Summary
 **Milk-borne diseases** — zoonotic pathogens transmitted via raw milk + improperly pasteurized products.
 
@@ -50726,7 +50726,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   AbSNPyYHexI: {
     videoId: 'AbSNPyYHexI', title: 'Milk-Meat — 3.1 Introduction of Milk Hygiene', subject: 'milk-meat-hygiene',
     date: '2025-08-20', durationMin: 41, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก milk hygiene principles · farm to table',
+    examFormat: 'Multiple choice, ออก milk hygiene principles, farm to table',
     summary: `## 🎯 Lead Summary
 **Milk hygiene principles** — farm to consumer. Multiple control points.
 
@@ -50763,7 +50763,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   xhtE4JH2uHY: {
     videoId: 'xhtE4JH2uHY', title: 'Milk-Meat — 3.2 Mastitis and Milk Quality', subject: 'milk-meat-hygiene',
     date: '2025-08-20', durationMin: 60, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก mastitis impact on quality · SCC · CMT',
+    examFormat: 'Multiple choice, ออก mastitis impact on quality, SCC, CMT',
     summary: `## 🎯 Lead Summary
 **Mastitis impact on milk quality** — major economic + safety concern. ⭐ ⭐ Direct connection: SCC ↑ = mastitis. (Cross-ref herd-health-rum mastitis lecture!)
 
@@ -50802,7 +50802,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   '7MF8myXGPKc': {
     videoId: '7MF8myXGPKc', title: 'Milk-Meat — 4.1 Storage of Raw Milk', subject: 'milk-meat-hygiene',
     date: '2025-08-27', durationMin: 36, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก raw milk storage · cold chain · quality maintenance',
+    examFormat: 'Multiple choice, ออก raw milk storage, cold chain, quality maintenance',
     summary: `## 🎯 Lead Summary
 **Raw milk storage** = cold chain critical. From farm to processor.
 
@@ -50840,7 +50840,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   COkWvKPk9uw: {
     videoId: 'COkWvKPk9uw', title: 'Milk-Meat — 4.2 Storage of Dairy Products', subject: 'milk-meat-hygiene',
     date: '2025-08-27', durationMin: 27, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก dairy product storage by type',
+    examFormat: 'Multiple choice, ออก dairy product storage by type',
     summary: `## 🎯 Lead Summary
 **Dairy product storage** — varies by product type. Specific conditions for each.
 
@@ -50872,7 +50872,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   wwVpRndiOGg: {
     videoId: 'wwVpRndiOGg', title: 'Milk-Meat — 4.3.1 Determination of Milk Quality I', subject: 'milk-meat-hygiene',
     date: '2025-08-27', durationMin: 97, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก quality testing methods · physical/chemical/microbiological',
+    examFormat: 'Multiple choice, ออก quality testing methods, physical/chemical/microbiological',
     summary: `## 🎯 Lead Summary
 **Milk quality testing** — physical, chemical, microbiological methods.
 
@@ -50917,7 +50917,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   'AVsA-jlkKeM': {
     videoId: 'AVsA-jlkKeM', title: 'Milk-Meat — 4.3.2 Determination of Milk Quality II', subject: 'milk-meat-hygiene',
     date: '2025-09-17', durationMin: 28, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก antibiotic residue testing · advanced methods',
+    examFormat: 'Multiple choice, ออก antibiotic residue testing, advanced methods',
     summary: `## 🎯 Lead Summary
 **Advanced milk quality testing** — antibiotic residues + sophisticated methods.
 
@@ -50954,7 +50954,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   '64pJ6PklAiE': {
     videoId: '64pJ6PklAiE', title: 'Milk-Meat — 5 GMP and HACCP Standards', subject: 'milk-meat-hygiene',
     date: '2025-09-03', durationMin: 90, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก GMP · HACCP · 7 principles · CCP',
+    examFormat: 'Multiple choice, ออก GMP, HACCP, 7 principles, CCP',
     summary: `## 🎯 Lead Summary
 **GMP + HACCP** = global food safety standards. ⭐ Required for export.
 
@@ -51001,7 +51001,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   EZjDaUeGQaM: {
     videoId: 'EZjDaUeGQaM', title: 'Milk-Meat — 6 Biosecurity for Quality Milk Production', subject: 'milk-meat-hygiene',
     date: '2025-09-10', durationMin: 117, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก biosecurity · dairy farm hygiene',
+    examFormat: 'Multiple choice, ออก biosecurity, dairy farm hygiene',
     summary: `## 🎯 Lead Summary
 **Biosecurity in dairy farms** = preventing disease entry + spread for quality milk production.
 
@@ -51043,7 +51043,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   Adtc6FyLqrg: {
     videoId: 'Adtc6FyLqrg', title: 'Milk-Meat — 7 Processing Technologies for Milk Products', subject: 'milk-meat-hygiene',
     date: '2025-09-17', durationMin: 99, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก pasteurization · UHT · cheese · yogurt processing',
+    examFormat: 'Multiple choice, ออก pasteurization, UHT, cheese, yogurt processing',
     summary: `## 🎯 Lead Summary
 **Milk processing technologies** — from raw to consumer products.
 
@@ -51090,7 +51090,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   ikNOlIazPoc: {
     videoId: 'ikNOlIazPoc', title: 'Milk-Meat — 9.1 Introduction to Meat Hygiene', subject: 'milk-meat-hygiene',
     date: '2025-10-08', durationMin: 39, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก meat hygiene principles · slaughter to consumer',
+    examFormat: 'Multiple choice, ออก meat hygiene principles, slaughter to consumer',
     summary: `## 🎯 Lead Summary
 **Meat hygiene** = ensuring safe meat from slaughter to consumer. Critical control points throughout chain.
 
@@ -51128,7 +51128,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   lvMbZF8uElA: {
     videoId: 'lvMbZF8uElA', title: 'Milk-Meat — 10 Microbiology of Meat', subject: 'milk-meat-hygiene',
     date: '2025-10-15', durationMin: 146, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก meat microbiology · spoilage · pathogens',
+    examFormat: 'Multiple choice, ออก meat microbiology, spoilage, pathogens',
     summary: `## 🎯 Lead Summary
 **Meat microbiology** — natural flora + spoilage organisms + pathogens. Critical for safety + shelf life.
 
@@ -51178,7 +51178,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   xJGeA7PHHO4: {
     videoId: 'xJGeA7PHHO4', title: 'Milk-Meat — 11.1 Storage of Meat and Meat Products', subject: 'milk-meat-hygiene',
     date: '2025-10-22', durationMin: 69, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก meat storage methods · shelf life',
+    examFormat: 'Multiple choice, ออก meat storage methods, shelf life',
     summary: `## 🎯 Lead Summary
 **Meat storage methods** — refrigeration, freezing, curing, drying, packaging.
 
@@ -51214,7 +51214,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   szE5NLhgs78: {
     videoId: 'szE5NLhgs78', title: 'Milk-Meat — 11.2 Meat Quality and Wholesomeness', subject: 'milk-meat-hygiene',
     date: '2025-10-22', durationMin: 36, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก meat quality factors · grading',
+    examFormat: 'Multiple choice, ออก meat quality factors, grading',
     summary: `## 🎯 Lead Summary
 **Meat quality + wholesomeness** — combined safety + quality assessment.
 
@@ -51252,7 +51252,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   RYK_n1_XWes: {
     videoId: 'RYK_n1-XWes', title: 'Milk-Meat — 11.3 Application of Molecular Biology in Meat Science', subject: 'milk-meat-hygiene',
     date: '2025-10-22', durationMin: 31, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก molecular techniques · DNA testing · species ID',
+    examFormat: 'Multiple choice, ออก molecular techniques, DNA testing, species ID',
     summary: `## 🎯 Lead Summary
 **Molecular biology in meat science** — DNA-based testing for species identification, pathogen detection, fraud prevention.
 
@@ -51292,7 +51292,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   PgNTcMmgVT8: {
     videoId: 'PgNTcMmgVT8', title: 'Milk-Meat — 12.1 Pest Control in Meat Hygiene', subject: 'milk-meat-hygiene',
     date: '2025-10-29', durationMin: 30, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก pest control · IPM · slaughter facility',
+    examFormat: 'Multiple choice, ออก pest control, IPM, slaughter facility',
     summary: `## 🎯 Lead Summary
 **Pest control in meat facilities** — IPM (Integrated Pest Management) approach.
 
@@ -51326,7 +51326,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   vryAe657soA: {
     videoId: 'vryAe657soA', title: 'Milk-Meat — 12.2 Microbiology of the Avian Egg', subject: 'milk-meat-hygiene',
     date: '2025-10-29', durationMin: 37, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก egg microbiology · Salmonella · contamination routes',
+    examFormat: 'Multiple choice, ออก egg microbiology, Salmonella, contamination routes',
     summary: `## 🎯 Lead Summary
 **Egg microbiology** — natural defenses + contamination + Salmonella concerns.
 
@@ -51369,7 +51369,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   '97fveYG5caY': {
     videoId: '97fveYG5caY', title: 'Milk-Meat — 13 Slaughterhouse and Sanitary Practices', subject: 'milk-meat-hygiene',
     date: '2025-11-05', durationMin: 152, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก slaughterhouse design · operations · vet roles',
+    examFormat: 'Multiple choice, ออก slaughterhouse design, operations, vet roles',
     summary: `## 🎯 Lead Summary
 **Slaughterhouse operations** — design, sanitary practices, vet supervision. Critical for food safety.
 
@@ -51422,7 +51422,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   mLj5N7jKVR0: {
     videoId: 'mLj5N7jKVR0', title: 'Milk-Meat — 14 Antemortem and Postmortem Inspection', subject: 'milk-meat-hygiene',
     date: '2025-11-12', durationMin: 95, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก inspection procedures · diseases identified · disposition',
+    examFormat: 'Multiple choice, ออก inspection procedures, diseases identified, disposition',
     summary: `## 🎯 Lead Summary
 **Vet inspections at slaughter** — antemortem (live) + postmortem (carcass). Diseases identified, disposition decisions made.
 
@@ -51475,7 +51475,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   Lo3e262VMXE: {
     videoId: 'Lo3e262VMXE', title: 'Milk-Meat — 15 Postmortem Changes & Meat Cutting/Grading', subject: 'milk-meat-hygiene',
     date: '2025-11-19', durationMin: 139, instructor: 'CUVET food hygiene team',
-    examFormat: 'Multiple choice · ออก postmortem chemistry · rigor mortis · cutting · grading',
+    examFormat: 'Multiple choice, ออก postmortem chemistry, rigor mortis, cutting, grading',
     summary: `## 🎯 Lead Summary
 **Postmortem changes + Meat cutting/grading**. Rigor mortis, aging, primal cuts, grading systems.
 
@@ -51537,13 +51537,13 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // food-industry (DekDokVet85 · Y5 sem 1) — 6 videos
+  // food-industry (DekDokVet85, Y5 sem 1) — 6 videos
   // ═══════════════════════════════════════════════════════════════
 
   '8rghO9wFZJ4': {
     videoId: '8rghO9wFZJ4', title: 'Food Industry — 1.1 Introduction', subject: 'food-industry',
     date: '2025-08-13', durationMin: 32, instructor: 'CUVET food industry team',
-    examFormat: 'Multiple choice · ออก Thai food industry · vet role',
+    examFormat: 'Multiple choice, ออก Thai food industry, vet role',
     summary: `## 🎯 Lead Summary
 **Thai food industry overview** — major export sector. Vet role in quality, safety, regulation.
 
@@ -51575,7 +51575,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   TlJLBRajUm4: {
     videoId: 'TlJLBRajUm4', title: 'Food Industry — 1.2 พระราชบัญญัติการสาธารณสุข (Public Health Act)', subject: 'food-industry',
     date: '2025-08-13', durationMin: 32, instructor: 'CUVET food industry team',
-    examFormat: 'Multiple choice · ออก พรบ. สาธารณสุข · food regulations',
+    examFormat: 'Multiple choice, ออก พรบ. สาธารณสุข, food regulations',
     summary: `## 🎯 Lead Summary
 **พรบ. การสาธารณสุข** — Public Health Act controlling food safety, hygiene, vendors.
 
@@ -51607,7 +51607,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   '7owfQF79jwU': {
     videoId: '7owfQF79jwU', title: 'Food Industry — 2 อุตสาหกรรมอาหารสัตว์และการควบคุมคุณภาพ', subject: 'food-industry',
     date: '2025-08-20', durationMin: 87, instructor: 'CUVET food industry team',
-    examFormat: 'Multiple choice · ออก animal feed industry · quality control',
+    examFormat: 'Multiple choice, ออก animal feed industry, quality control',
     summary: `## 🎯 Lead Summary
 **Animal feed industry + quality control** — major Thai industry supporting livestock production.
 
@@ -51650,7 +51650,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   j44XnjxUPFI: {
     videoId: 'j44XnjxUPFI', title: 'Food Industry — 3 การควบคุมกระบวนการฆ่าและจำหน่ายเนื้อสัตว์', subject: 'food-industry',
     date: '2025-08-27', durationMin: 106, instructor: 'CUVET food industry team',
-    examFormat: 'Multiple choice · ออก slaughter regulations · meat distribution control',
+    examFormat: 'Multiple choice, ออก slaughter regulations, meat distribution control',
     summary: `## 🎯 Lead Summary
 **Slaughter + meat distribution control** in Thailand — DLD oversight, vet inspection.
 
@@ -51688,7 +51688,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   CgGp2dEVgZg: {
     videoId: 'CgGp2dEVgZg', title: 'Food Industry — 4 มาตรฐานสินค้าเกษตรและผลิตภัณฑ์จากปสุสัตว์', subject: 'food-industry',
     date: '2025-09-03', durationMin: 90, instructor: 'CUVET food industry team',
-    examFormat: 'Multiple choice · ออก agricultural standards · livestock product standards',
+    examFormat: 'Multiple choice, ออก agricultural standards, livestock product standards',
     summary: `## 🎯 Lead Summary
 **Agricultural + livestock product standards** in Thailand. Quality, safety, certification systems.
 
@@ -51729,7 +51729,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   QwFDzP3_w58: {
     videoId: 'QwFDzP3_w58', title: 'Food Industry — 6 การควบคุมคุณภาพสัตว์น้ำและผลิตภัณฑ์สัตว์น้ำ', subject: 'food-industry',
     date: '2025-10-29', durationMin: 61, instructor: 'CUVET food industry team',
-    examFormat: 'Multiple choice · ออก aquatic product quality control · DOF',
+    examFormat: 'Multiple choice, ออก aquatic product quality control, DOF',
     summary: `## 🎯 Lead Summary
 **Aquatic product quality control** — DOF oversight. Major export industry (shrimp, tilapia, ornamental).
 
@@ -51766,13 +51766,13 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // one-health (DekDokVet85 · Y5 sem 1) — 16 videos
+  // one-health (DekDokVet85, Y5 sem 1) — 16 videos
   // ═══════════════════════════════════════════════════════════════
 
   VI5HY_RI3Rw: {
     videoId: 'VI5HY_RI3Rw', title: 'One Health — 1 Global One Health Activity Network', subject: 'one-health',
     date: '2025-08-06', durationMin: 40, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก global initiatives · WHO/FAO/WOAH/UNEP partnership',
+    examFormat: 'Multiple choice, ออก global initiatives, WHO/FAO/WOAH/UNEP partnership',
     summary: `## 🎯 Lead Summary
 **One Health = integrated approach** to human + animal + environmental health. Global initiatives by WHO + FAO + WOAH (formerly OIE) + UNEP (Quadripartite).
 
@@ -51804,7 +51804,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   'Vg0_6T-pVBs': {
     videoId: 'Vg0_6T-pVBs', title: 'One Health — 2 One World One Health Concept', subject: 'one-health',
     date: '2025-08-13', durationMin: 27, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก One Health concept · history · principles',
+    examFormat: 'Multiple choice, ออก One Health concept, history, principles',
     summary: `## 🎯 Lead Summary
 **"One World One Health" concept** — historical development, core principles.
 
@@ -51837,7 +51837,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   XFqckaz8TTQ: {
     videoId: 'XFqckaz8TTQ', title: 'One Health — 3 Collaboration and Partnership', subject: 'one-health',
     date: '2025-08-20', durationMin: 34, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก stakeholders · partnerships · networks',
+    examFormat: 'Multiple choice, ออก stakeholders, partnerships, networks',
     summary: `## 🎯 Lead Summary
 **Collaboration in One Health** — multi-stakeholder partnerships essential.
 
@@ -51871,7 +51871,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   d7q5YMsOdKg: {
     videoId: 'd7q5YMsOdKg', title: 'One Health — 4 Communication', subject: 'one-health',
     date: '2025-08-27', durationMin: 48, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก risk communication · public engagement',
+    examFormat: 'Multiple choice, ออก risk communication, public engagement',
     summary: `## 🎯 Lead Summary
 **One Health communication** — risk communication, public engagement, multi-disciplinary language.
 
@@ -51909,7 +51909,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   vHC_KauxjEI: {
     videoId: 'vHC_KauxjEI', title: 'One Health — 5 Role of Veterinary in One Health', subject: 'one-health',
     date: '2025-09-03', durationMin: 41, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก vet roles · zoonotic disease · public health',
+    examFormat: 'Multiple choice, ออก vet roles, zoonotic disease, public health',
     summary: `## 🎯 Lead Summary
 **Vet roles in One Health** — central to zoonotic disease control + public health.
 
@@ -51957,7 +51957,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   'WwKBcUH1-fM': {
     videoId: 'WwKBcUH1-fM', title: 'One Health — 6 Applications for Prevention and Control', subject: 'one-health',
     date: '2025-09-10', durationMin: 38, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก One Health prevention · case studies',
+    examFormat: 'Multiple choice, ออก One Health prevention, case studies',
     summary: `## 🎯 Lead Summary
 **One Health applications** in disease prevention + control. Real case studies.
 
@@ -52002,7 +52002,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   XYK1JJpMAv4: {
     videoId: 'XYK1JJpMAv4', title: 'One Health — 7 Integrating One Health into Epidemiology', subject: 'one-health',
     date: '2025-09-17', durationMin: 37, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก One Health epidemiology · cross-species data',
+    examFormat: 'Multiple choice, ออก One Health epidemiology, cross-species data',
     summary: `## 🎯 Lead Summary
 **One Health epidemiology** — integrating data across human, animal, environment.
 
@@ -52042,7 +52042,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   '06oB--5vSUQ': {
     videoId: '06oB--5vSUQ', title: 'One Health — 8 Combat Emerging and Re-emerging Diseases', subject: 'one-health',
     date: '2025-11-19', durationMin: 43, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก emerging diseases · spillover · prevention',
+    examFormat: 'Multiple choice, ออก emerging diseases, spillover, prevention',
     summary: `## 🎯 Lead Summary
 **Emerging + Re-emerging diseases** combated through One Health approach.
 
@@ -52086,7 +52086,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   YfbNcej_FwE: {
     videoId: 'YfbNcej_FwE', title: 'One Health — 9 Combat Foodborne Diseases', subject: 'one-health',
     date: '2025-10-08', durationMin: 40, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก foodborne diseases · One Health approach',
+    examFormat: 'Multiple choice, ออก foodborne diseases, One Health approach',
     summary: `## 🎯 Lead Summary
 **Foodborne diseases** combated via One Health: animal source → food production → consumer.
 
@@ -52128,7 +52128,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   cbW8ULkCM0k: {
     videoId: 'cbW8ULkCM0k', title: 'One Health — 10 Food and Feed GMOs', subject: 'one-health',
     date: '2025-10-15', durationMin: 45, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก GMO regulations · safety assessment · One Health',
+    examFormat: 'Multiple choice, ออก GMO regulations, safety assessment, One Health',
     summary: `## 🎯 Lead Summary
 **GMO food + feed** — controversial topic. One Health perspective on safety, environment, ethics.
 
@@ -52173,7 +52173,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   rnn97pswtSY: {
     videoId: 'rnn97pswtSY', title: 'One Health — 11 AMR from One Health Perspective', subject: 'one-health',
     date: '2025-10-22', durationMin: 55, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก AMR · animal antibiotic use · stewardship',
+    examFormat: 'Multiple choice, ออก AMR, animal antibiotic use, stewardship',
     summary: `## 🎯 Lead Summary
 **Antimicrobial Resistance (AMR)** — global crisis, One Health priority.
 
@@ -52218,7 +52218,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   Nm4TT8ny2RU: {
     videoId: 'Nm4TT8ny2RU', title: 'One Health — 12 Environmental Health Risks I', subject: 'one-health',
     date: '2025-10-29', durationMin: 59, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก environmental health · pollution · climate',
+    examFormat: 'Multiple choice, ออก environmental health, pollution, climate',
     summary: `## 🎯 Lead Summary
 **Environmental health risks I** — pollution, climate change, ecosystem disruption.
 
@@ -52259,7 +52259,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   xWwZt25M9L4: {
     videoId: 'xWwZt25M9L4', title: 'One Health — 13 Environmental Health Risks II', subject: 'one-health',
     date: '2025-11-05', durationMin: 39, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก environmental health continued · case studies',
+    examFormat: 'Multiple choice, ออก environmental health continued, case studies',
     summary: `## 🎯 Lead Summary
 **Environmental health risks II** — case studies + interventions.
 
@@ -52299,7 +52299,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   '6TieYPHlwhA': {
     videoId: '6TieYPHlwhA', title: 'One Health — 14 Livestock Waste Management', subject: 'one-health',
     date: '2025-11-12', durationMin: 54, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก waste management · environmental impact',
+    examFormat: 'Multiple choice, ออก waste management, environmental impact',
     summary: `## 🎯 Lead Summary
 **Livestock waste management** — environmental + One Health impact.
 
@@ -52343,7 +52343,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   REWwuQw0uBo: {
     videoId: 'REWwuQw0uBo', title: 'One Health — 15.1 Food Risk Analysis', subject: 'one-health',
     date: '2025-11-19', durationMin: 34, instructor: 'CUVET One Health team',
-    examFormat: 'Multiple choice · ออก risk analysis framework · risk assessment',
+    examFormat: 'Multiple choice, ออก risk analysis framework, risk assessment',
     summary: `## 🎯 Lead Summary
 **Food risk analysis** — systematic approach to food safety. 3 components: Assessment + Management + Communication.
 
@@ -52403,7 +52403,7 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // equine-medicine (DekDokVet85 · Y5 sem 1) — 18 videos
+  // equine-medicine (DekDokVet85, Y5 sem 1) — 18 videos
   // ═══════════════════════════════════════════════════════════════
 
   YieQkARFQcU: {
@@ -52433,7 +52433,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   oOxe_C3TuaU: {
     videoId: 'oOxe_C3TuaU', title: 'Equine — 1.1 Identification + Microchip', subject: 'equine-medicine',
     date: '2025-08-04', durationMin: 60, instructor: 'CUVET equine team',
-    examFormat: 'Multiple choice · ออก horse ID methods · microchip · passport',
+    examFormat: 'Multiple choice, ออก horse ID methods, microchip, passport',
     summary: `## 🎯 Lead Summary
 **Horse identification methods** — markings, microchip, passport. Critical for ownership, sales, racing, international trade.
 
@@ -52473,7 +52473,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   xDUSBVKAwDE: {
     videoId: 'xDUSBVKAwDE', title: 'Equine — 1.2 General Equine Practice', subject: 'equine-medicine',
     date: '2025-08-04', durationMin: 98, instructor: 'CUVET equine team',
-    examFormat: 'Multiple choice · ออก equine restraint · physical exam · vital signs',
+    examFormat: 'Multiple choice, ออก equine restraint, physical exam, vital signs',
     summary: `## 🎯 Lead Summary
 **General equine practice** — restraint, physical exam, vital signs.
 
@@ -52516,7 +52516,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   SwLxaBCfqXo: {
     videoId: 'SwLxaBCfqXo', title: 'Equine — 2 Basic Nutrition', subject: 'equine-medicine',
     date: '2025-08-14', durationMin: 134, instructor: 'CUVET equine nutrition team',
-    examFormat: 'Multiple choice · ออก equine nutrition · forage requirements · supplementation',
+    examFormat: 'Multiple choice, ออก equine nutrition, forage requirements, supplementation',
     summary: `## 🎯 Lead Summary
 **Equine nutrition** — herbivore with monogastric stomach + cecum. Forage-based diet essential.
 
@@ -52561,7 +52561,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   NP3HbcE9f8E: {
     videoId: 'NP3HbcE9f8E', title: 'Equine — 3 Equine Dentistry', subject: 'equine-medicine',
     date: '2025-08-21', durationMin: 188, instructor: 'CUVET equine dental team',
-    examFormat: 'Multiple choice · ออก equine dentition · dental issues · floating',
+    examFormat: 'Multiple choice, ออก equine dentition, dental issues, floating',
     summary: `## 🎯 Lead Summary
 **Equine dentistry** — hypsodont teeth (continuously erupting). Regular dental care essential.
 
@@ -52606,7 +52606,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   'BDnnySs-m2I': {
     videoId: 'BDnnySs-m2I', title: 'Equine — 4 GI System I+II', subject: 'equine-medicine',
     date: '2025-08-28', durationMin: 164, instructor: 'CUVET equine team',
-    examFormat: 'Multiple choice · ออก equine GI · colic types · diagnosis · management',
+    examFormat: 'Multiple choice, ออก equine GI, colic types, diagnosis, management',
     summary: `## 🎯 Lead Summary
 **Equine GI = colic central**. Multiple causes. Critical clinical condition.
 
@@ -52674,7 +52674,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   KtIZCqRAN48: {
     videoId: 'KtIZCqRAN48', title: 'Equine — 5 Equine Parasites in Thailand', subject: 'equine-medicine',
     date: '2025-09-11', durationMin: 77, instructor: 'CUVET equine parasitology',
-    examFormat: 'Multiple choice · ออก equine parasites · deworming · resistance',
+    examFormat: 'Multiple choice, ออก equine parasites, deworming, resistance',
     summary: `## 🎯 Lead Summary
 **Equine parasites in Thailand** — major health concern. Deworming + resistance issues.
 
@@ -52719,7 +52719,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   '6Gx958IjPLA': {
     videoId: '6Gx958IjPLA', title: 'Equine — 6 Respiratory Diseases', subject: 'equine-medicine',
     date: '2025-09-18', durationMin: 143, instructor: 'CUVET equine team',
-    examFormat: 'Multiple choice · ออก equine respiratory · viral · bacterial · RAO',
+    examFormat: 'Multiple choice, ออก equine respiratory, viral, bacterial, RAO',
     summary: `## 🎯 Lead Summary
 **Equine respiratory diseases** — viral, bacterial, allergic, neoplastic.
 
@@ -52784,7 +52784,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   LupUiAT2yT0: {
     videoId: 'LupUiAT2yT0', title: 'Equine — 7.1 Ophthalmology', subject: 'equine-medicine',
     date: '2025-10-02', durationMin: 82, instructor: 'CUVET equine ophthalmology',
-    examFormat: 'Multiple choice · ออก equine eye anatomy · common diseases · uveitis',
+    examFormat: 'Multiple choice, ออก equine eye anatomy, common diseases, uveitis',
     summary: `## 🎯 Lead Summary
 **Equine ophthalmology** — large eyes, prone to injury + uveitis.
 
@@ -52833,7 +52833,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   'Ck1NSnXl_-M': {
     videoId: 'Ck1NSnXl_-M', title: 'Equine — 7.2 Dermatology', subject: 'equine-medicine',
     date: '2025-10-02', durationMin: 85, instructor: 'CUVET equine dermatology',
-    examFormat: 'Multiple choice · ออก equine skin diseases · pruritus · sweet itch',
+    examFormat: 'Multiple choice, ออก equine skin diseases, pruritus, sweet itch',
     summary: `## 🎯 Lead Summary
 **Equine dermatology** — multiple skin conditions, often pruritic.
 
@@ -52886,7 +52886,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   'fNJZmO4-8Rw': {
     videoId: 'fNJZmO4-8Rw', title: 'Equine — 8 Infectious Disease and Vaccination', subject: 'equine-medicine',
     date: '2025-10-09', durationMin: 99, instructor: 'CUVET equine team (รุ่นพี่)',
-    examFormat: 'Multiple choice · ออก equine infectious diseases · vaccination programs',
+    examFormat: 'Multiple choice, ออก equine infectious diseases, vaccination programs',
     summary: `## 🎯 Lead Summary
 **Equine infectious diseases + vaccination** — comprehensive overview.
 
@@ -52943,7 +52943,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   '7fykOOyMKJQ': {
     videoId: '7fykOOyMKJQ', title: 'Equine — 9 Concept of Equine Surgery + Wound Management', subject: 'equine-medicine',
     date: '2025-10-16', durationMin: 158, instructor: 'CUVET equine surgery',
-    examFormat: 'Multiple choice · ออก surgical principles · wound management · proud flesh',
+    examFormat: 'Multiple choice, ออก surgical principles, wound management, proud flesh',
     summary: `## 🎯 Lead Summary
 **Equine surgery + wound management** — unique anatomy, healing patterns.
 
@@ -53001,7 +53001,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   '1YFpKE2ZmBE': {
     videoId: '1YFpKE2ZmBE', title: 'Equine — 10 Anesthesia', subject: 'equine-medicine',
     date: '2025-10-30', durationMin: 167, instructor: 'CUVET equine anesthesia',
-    examFormat: 'Multiple choice · ออก equine anesthesia · standing vs general · drugs',
+    examFormat: 'Multiple choice, ออก equine anesthesia, standing vs general, drugs',
     summary: `## 🎯 Lead Summary
 **Equine anesthesia** — challenging due to size + flight response. Recovery dangerous.
 
@@ -53062,7 +53062,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   '9XMg0lXQ8e8': {
     videoId: '9XMg0lXQ8e8', title: 'Equine — 11 Surgery and Pre/Post Surgery Management', subject: 'equine-medicine',
     date: '2025-11-06', durationMin: 132, instructor: 'CUVET equine surgery',
-    examFormat: 'Multiple choice · ออก specific surgeries · postoperative care',
+    examFormat: 'Multiple choice, ออก specific surgeries, postoperative care',
     summary: `## 🎯 Lead Summary
 **Specific equine surgeries + perioperative management**.
 
@@ -53114,7 +53114,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   TUpLUL2sTLM: {
     videoId: 'TUpLUL2sTLM', title: 'Equine — 12.1 Lameness Introduction', subject: 'equine-medicine',
     date: '2025-11-13', durationMin: 144, instructor: 'CUVET equine lameness',
-    examFormat: 'Multiple choice · ออก lameness exam · grading · localization',
+    examFormat: 'Multiple choice, ออก lameness exam, grading, localization',
     summary: `## 🎯 Lead Summary
 **Equine lameness introduction** — common, complex, often performance-limiting.
 
@@ -53167,7 +53167,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   'qg-7Zw6V_KA': {
     videoId: 'qg-7Zw6V_KA', title: 'Equine — 12.2 Diagnostic Analgesia', subject: 'equine-medicine',
     date: '2025-11-13', durationMin: 30, instructor: 'CUVET equine lameness',
-    examFormat: 'Multiple choice · ออก nerve blocks · joint blocks · diagnostic technique',
+    examFormat: 'Multiple choice, ออก nerve blocks, joint blocks, diagnostic technique',
     summary: `## 🎯 Lead Summary
 **Diagnostic analgesia (nerve + joint blocks)** = key tool for localizing lameness.
 
@@ -53214,7 +53214,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   fhUt28T2WnU: {
     videoId: 'fhUt28T2WnU', title: 'Equine — 13.1 Pathological Conditions of Foot', subject: 'equine-medicine',
     date: '2025-11-20', durationMin: 69, instructor: 'CUVET equine podiatry',
-    examFormat: 'Multiple choice · ออก hoof anatomy · navicular · laminitis · sole bruising',
+    examFormat: 'Multiple choice, ออก hoof anatomy, navicular, laminitis, sole bruising',
     summary: `## 🎯 Lead Summary
 **Equine foot pathology** — "no foot, no horse". Major source of lameness.
 
@@ -53268,7 +53268,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   '7kKzWMmbU3w': {
     videoId: '7kKzWMmbU3w', title: 'Equine — 13.2 Tendon/Ligament Injuries', subject: 'equine-medicine',
     date: '2025-11-20', durationMin: 64, instructor: 'CUVET equine team',
-    examFormat: 'Multiple choice · ออก SDFT · DDFT · suspensory · treatment · prognosis',
+    examFormat: 'Multiple choice, ออก SDFT, DDFT, suspensory, treatment, prognosis',
     summary: `## 🎯 Lead Summary
 **Equine tendon + ligament injuries** — major performance issues, slow healing.
 
@@ -53325,7 +53325,7 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // equine-repro (DekDokVet85 · Y5 sem 1) — 12 videos
+  // equine-repro (DekDokVet85, Y5 sem 1) — 12 videos
   // ═══════════════════════════════════════════════════════════════
 
   xO4ynKSf57I: {
@@ -53348,7 +53348,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   Nes36k3vb_0: {
     videoId: 'Nes36k3vb_0', title: 'Equine Repro — 1.1 Female Reproductive Anatomy + Estrous Cycle', subject: 'equine-repro',
     date: '2025-08-14', durationMin: 82, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก mare anatomy · estrous cycle · seasonality',
+    examFormat: 'Multiple choice, ออก mare anatomy, estrous cycle, seasonality',
     summary: `## 🎯 Lead Summary
 **Mare anatomy + estrous cycle**. ⭐ ⭐ Mare = SEASONAL polyestrous (long-day breeder).
 
@@ -53397,7 +53397,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   Cxuu_6N6hM4: {
     videoId: 'Cxuu_6N6hM4', title: 'Equine Repro — 1.2 Examination of Reproductive Organs in Mare', subject: 'equine-repro',
     date: '2025-08-14', durationMin: 51, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก mare repro exam · ultrasound · palpation',
+    examFormat: 'Multiple choice, ออก mare repro exam, ultrasound, palpation',
     summary: `## 🎯 Lead Summary
 **Mare reproductive exam** — visual, palpation, ultrasound, biopsy.
 
@@ -53445,7 +53445,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   'osl3u85-EQE': {
     videoId: 'osl3u85-EQE', title: 'Equine Repro — 2.1 Reproductive Biotechnology', subject: 'equine-repro',
     date: '2025-09-11', durationMin: 38, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก ET · OPU · ICSI · cloning',
+    examFormat: 'Multiple choice, ออก ET, OPU, ICSI, cloning',
     summary: `## 🎯 Lead Summary
 **Equine reproductive biotechnology** — ET (embryo transfer), OPU, ICSI, cloning.
 
@@ -53489,7 +53489,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   '004_oE5UliE': {
     videoId: '004_oE5UliE', title: 'Equine Repro — 2.2 Infertility/Subfertility in Mare', subject: 'equine-repro',
     date: '2025-09-11', durationMin: 56, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก mare infertility · differential · workup',
+    examFormat: 'Multiple choice, ออก mare infertility, differential, workup',
     summary: `## 🎯 Lead Summary
 **Mare infertility/subfertility** — multiple causes, requires systematic workup.
 
@@ -53548,7 +53548,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   '2wbuy6_58AU': {
     videoId: '2wbuy6_58AU', title: 'Equine Repro — 2.3 Recap + Quiz', subject: 'equine-repro',
     date: '2025-09-11', durationMin: 29, instructor: 'CUVET equine repro team',
-    examFormat: 'Recap session · self-assessment',
+    examFormat: 'Recap session, self-assessment',
     summary: `## 🎯 Lead Summary
 **Recap + Quiz session** — review of mare anatomy, estrous cycle, examination, biotechnology, infertility.
 
@@ -53574,7 +53574,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   MbDQl_nwsZ4: {
     videoId: 'MbDQl-nwsZ4', title: 'Equine Repro — 3 Male Reproductive Anatomy', subject: 'equine-repro',
     date: '2025-10-02', durationMin: 61, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก stallion anatomy · semen production',
+    examFormat: 'Multiple choice, ออก stallion anatomy, semen production',
     summary: `## 🎯 Lead Summary
 **Stallion reproductive anatomy + function**.
 
@@ -53618,7 +53618,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   FL4v85SwdXo: {
     videoId: 'FL4v85SwdXo', title: 'Equine Repro — 4 Endometritis in Mare', subject: 'equine-repro',
     date: '2025-10-09', durationMin: 80, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก endometritis types · diagnosis · treatment',
+    examFormat: 'Multiple choice, ออก endometritis types, diagnosis, treatment',
     summary: `## 🎯 Lead Summary
 **Endometritis** = #1 cause of mare infertility. Multiple types + treatments.
 
@@ -53675,7 +53675,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   hk5mce4iPDI: {
     videoId: 'hk5mce4iPDI', title: 'Equine Repro — 5 Semen Collection and AI', subject: 'equine-repro',
     date: '2025-10-16', durationMin: 58, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก semen collection · AI techniques · timing',
+    examFormat: 'Multiple choice, ออก semen collection, AI techniques, timing',
     summary: `## 🎯 Lead Summary
 **Semen collection + AI techniques** in horses.
 
@@ -53736,7 +53736,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   chRLDPkEJZY: {
     videoId: 'chRLDPkEJZY', title: 'Equine Repro — 6.1 Stallion Infertility', subject: 'equine-repro',
     date: '2025-10-30', durationMin: 35, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก stallion infertility · breeding soundness exam',
+    examFormat: 'Multiple choice, ออก stallion infertility, breeding soundness exam',
     summary: `## 🎯 Lead Summary
 **Stallion infertility/subfertility** — diagnosis + management.
 
@@ -53790,7 +53790,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   vPYMOYBMPtg: {
     videoId: 'vPYMOYBMPtg', title: 'Equine Repro — 6.2 Reproductive Surgery', subject: 'equine-repro',
     date: '2025-10-30', durationMin: 36, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก mare + stallion repro surgery',
+    examFormat: 'Multiple choice, ออก mare + stallion repro surgery',
     summary: `## 🎯 Lead Summary
 **Equine reproductive surgery** — mares + stallions.
 
@@ -53840,7 +53840,7 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
   uO07ZMVezSA: {
     videoId: 'uO07ZMVezSA', title: 'Equine Repro — 7+8 Pregnancy, Parturition + Foal Care', subject: 'equine-repro',
     date: '2025-11-06', durationMin: 84, instructor: 'CUVET equine repro team',
-    examFormat: 'Multiple choice · ออก gestation · parturition stages · foal care · IgG',
+    examFormat: 'Multiple choice, ออก gestation, parturition stages, foal care, IgG',
     summary: `## 🎯 Lead Summary
 **Equine pregnancy, foaling, neonatal foal care** — comprehensive coverage.
 

@@ -156,14 +156,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               <strong style={{ color: essayBarColor }}>{essayWords}</strong>
               <span> / target {target} words</span>
-              {essayWords > hardMax && <span style={{ color: 'var(--clr-rose)', marginLeft: 8 }}> · −2 pts (เกิน {hardMax})</span>}
-              {essayWords > softMax && essayWords <= hardMax && <span style={{ color: 'var(--clr-gold)', marginLeft: 8 }}> · −1 pt (เกิน {softMax})</span>}
+              {essayWords > hardMax && <span style={{ color: 'var(--clr-rose)', marginLeft: 8 }}>, −2 pts (เกิน {hardMax})</span>}
+              {essayWords > softMax && essayWords <= hardMax && <span style={{ color: 'var(--clr-gold)', marginLeft: 8 }}>, −1 pt (เกิน {softMax})</span>}
             </div>
           </div>
           <textarea
             value={essayText}
             onChange={(e) => answerCurrent(e.target.value.slice(0, 5000))}
-            placeholder={`เขียน summary ~${target} คำ — ใช้ paraphrasing techniques (เปลี่ยน synonyms, structure, ฯลฯ) · จับ main idea + key supporting details · ห้ามใส่ opinion`}
+            placeholder={`เขียน summary ~${target} คำ — ใช้ paraphrasing techniques (เปลี่ยน synonyms, structure, ฯลฯ), จับ main idea + key supporting details, ห้ามใส่ opinion`}
             rows={12}
             maxLength={5000}
             style={{
@@ -185,7 +185,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             />
           </div>
           <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
-            🎯 Target: <strong>{target}</strong> words · Soft cap: <strong>{softMax}</strong> (penalty −1) · Hard cap: <strong>{hardMax}</strong> (penalty −2)
+            🎯 Target: <strong>{target}</strong> words, Soft cap: <strong>{softMax}</strong> (penalty −1), Hard cap: <strong>{hardMax}</strong> (penalty −2)
           </div>
         </div>
       )}
@@ -213,8 +213,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
           return (
             <>
-              {' · '}{subj?.name || currentQ.subject}
-              {topic && <> · <span style={{ color: subj?.color || 'var(--clr-ink-soft)' }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></>}
+              {', '}{subj?.name || currentQ.subject}
+              {topic && <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)' }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></>}
             </>
           );
         })()}
@@ -228,7 +228,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {currentQ.image && (
         <img
           src={currentQ.image}
-          alt={`Question ${currentQ.id} image · ${currentQ.subject}/${currentQ.topic || 'general'}`}
+          alt={`Question ${currentQ.id} image, ${currentQ.subject}/${currentQ.topic || 'general'}`}
           loading="lazy"
           decoding="async"
           className="vmx-qimage"
@@ -312,7 +312,7 @@ function FlagChip({ flag }) {
         }}
         title="ข้อมูลขัดแย้ง — กดดูรายละเอียด"
       >
-        {palette.icon} ข้อมูลขัดแย้ง · {sev.toUpperCase()} {open ? '▾' : '▸'}
+        {palette.icon} ข้อมูลขัดแย้ง, {sev.toUpperCase()} {open ? '▾' : '▸'}
       </button>
 
       {open && (
@@ -334,7 +334,7 @@ function FlagChip({ flag }) {
               fontFamily: 'JetBrains Mono, monospace',
               color: 'var(--clr-ink-soft)',
             }}>
-              📚 Sources: {flag.sources.join(' · ')}
+              📚 Sources: {flag.sources.join(', ')}
             </div>
           )}
         </div>

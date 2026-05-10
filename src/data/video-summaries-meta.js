@@ -1,6 +1,6 @@
 // ============================================================
 // VIDEO_META — lightweight index of video summaries (no full text).
-// Auto-derived from video-summaries.js · used by CommandPalette /
+// Auto-derived from video-summaries.js, used by CommandPalette /
 // other consumers that only need {videoId, title, subject, date,
 // durationMin, instructor, examFormat} for search/list — NOT the
 // markdown body.
@@ -27,7 +27,7 @@ export const VIDEO_META = {
     "date": "5 Mar 69",
     "durationMin": 113,
     "instructor": "อาจารย์ Neuro",
-    "examFormat": "MCQ — exam findings → localization · CN deficit interpretation"
+    "examFormat": "MCQ — exam findings → localization, CN deficit interpretation"
   },
   'KiJyyUhIV6M': {
     "videoId": "KiJyyUhIV6M",
@@ -297,7 +297,7 @@ export const VIDEO_META = {
     "date": "4 Mar 69",
     "durationMin": 75,
     "instructor": "อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์",
-    "examFormat": "MCQ — clinical reasoning + technique steps · pitfall (เช่น \"นกท้องเสีย\" จริงหรือไม่ · NPO กี่ชม.)"
+    "examFormat": "MCQ — clinical reasoning + technique steps, pitfall (เช่น \"นกท้องเสีย\" จริงหรือไม่, NPO กี่ชม.)"
   },
   'izL_CBa697Q': {
     "videoId": "izL_CBa697Q",
@@ -306,7 +306,7 @@ export const VIDEO_META = {
     "date": "11 Mar 69",
     "durationMin": 86,
     "instructor": "อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์",
-    "examFormat": "MCQ + case-based — sign → DDx · history → predisposing cause · Tx (Ca/Vit A/heavy metal/egg bind/crop stasis)"
+    "examFormat": "MCQ + case-based — sign → DDx, history → predisposing cause, Tx (Ca/Vit A/heavy metal/egg bind/crop stasis)"
   },
   'AxpBGFGGdSg': {
     "videoId": "AxpBGFGGdSg",
@@ -315,7 +315,7 @@ export const VIDEO_META = {
     "date": "18 Mar 69",
     "durationMin": 75,
     "instructor": "อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์",
-    "examFormat": "MCQ — viral disease ID จาก clinical sign + lesion · inclusion body location · vaccine availability · PCR certificate validity"
+    "examFormat": "MCQ — viral disease ID จาก clinical sign + lesion, inclusion body location, vaccine availability, PCR certificate validity"
   },
   'YAVsi8g1VuY': {
     "videoId": "YAVsi8g1VuY",
@@ -324,7 +324,7 @@ export const VIDEO_META = {
     "date": "25 Mar 69",
     "durationMin": 61,
     "instructor": "อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์",
-    "examFormat": "MCQ — drug of choice + duration + zoonosis flag · จับคู่ pathogen ↔ sign ↔ Tx"
+    "examFormat": "MCQ — drug of choice + duration + zoonosis flag, จับคู่ pathogen ↔ sign ↔ Tx"
   },
   '4KKnxqEESB0': {
     "videoId": "4KKnxqEESB0",
@@ -333,7 +333,7 @@ export const VIDEO_META = {
     "date": "1 Apr 69",
     "durationMin": 71,
     "instructor": "อ.สพ.ญ. เสาวภางค์ สนั่นหนู (ZPOT)",
-    "examFormat": "MCQ — zoo vet roles · quarantine protocol · IUCN/CITES status · 5 Domains welfare · disease surveillance"
+    "examFormat": "MCQ — zoo vet roles, quarantine protocol, IUCN/CITES status, 5 Domains welfare, disease surveillance"
   },
   'KjBUKGa6-V4': {
     "videoId": "KjBUKGa6-V4",
@@ -342,7 +342,7 @@ export const VIDEO_META = {
     "date": "8 Apr 69",
     "durationMin": 70,
     "instructor": "อ. ไพศิลป์ เล็กเจริญ",
-    "examFormat": "MCQ concept-based · ecosystem services 4 · 5 vet roles · interface examples · case studies (Gaur/LSD/Rabies/HPAI/Mange/Malaria/Tiger poisoning) · surveillance vs research"
+    "examFormat": "MCQ concept-based, ecosystem services 4, 5 vet roles, interface examples, case studies (Gaur/LSD/Rabies/HPAI/Mange/Malaria/Tiger poisoning), surveillance vs research"
   },
   '-g_IvpY1lTA': {
     "videoId": "-g_IvpY1lTA",
@@ -351,7 +351,7 @@ export const VIDEO_META = {
     "date": "22 Apr 69",
     "durationMin": 53,
     "instructor": "อ. ปัณณวัฒน์ สุภาพรรณชาติ",
-    "examFormat": "MCQ 7 ข้อ × 5 choices · ออกจากสไลด์ ⭐ 5 สไลด์ · เน้นตารางเปรียบเทียบ + scope 4 + wildlife in nature vs captive + แหล่งทุน"
+    "examFormat": "MCQ 7 ข้อ × 5 choices, ออกจากสไลด์ ⭐ 5 สไลด์, เน้นตารางเปรียบเทียบ + scope 4 + wildlife in nature vs captive + แหล่งทุน"
   },
   '9piuvH_sdXc': {
     "videoId": "9piuvH_sdXc",
@@ -360,7 +360,7 @@ export const VIDEO_META = {
     "date": "6 Mar 69",
     "durationMin": 128,
     "instructor": "Aj. Suppawiwat Ponglowhapan (SP) — Theriogenology, Chula Vet",
-    "examFormat": "Case-based MCQ + drug class matching · \"ออก 2 ล้านข้อ จำไป\" Progestin AE"
+    "examFormat": "Case-based MCQ + drug class matching, \"ออก 2 ล้านข้อ จำไป\" Progestin AE"
   },
   'q44qQOIMTXk': {
     "videoId": "q44qQOIMTXk",
@@ -369,7 +369,7 @@ export const VIDEO_META = {
     "date": "13 Mar 69",
     "durationMin": 148,
     "instructor": "Aj. Theerawat Tharasanit (TT) — Theriogenology, Chula Vet",
-    "examFormat": "Cryobiology concepts + infertility differential dx · cross-refs Q1851-Q1859"
+    "examFormat": "Cryobiology concepts + infertility differential dx, cross-refs Q1851-Q1859"
   },
   'WF_eMCY5Pqs': {
     "videoId": "WF_eMCY5Pqs",
@@ -378,7 +378,7 @@ export const VIDEO_META = {
     "date": "20 Mar 69",
     "durationMin": 207,
     "instructor": "Aj. Ampika Thongphakdee (AT) — ZPO Wildlife Repro Center",
-    "examFormat": "Wildlife conservation + ART pipeline · case-driven · cross-refs Q1820-Q1824, Q1870-Q1873"
+    "examFormat": "Wildlife conservation + ART pipeline, case-driven, cross-refs Q1820-Q1824, Q1870-Q1873"
   },
   '6E8Z7p0ufVI': {
     "videoId": "6E8Z7p0ufVI",
@@ -387,7 +387,7 @@ export const VIDEO_META = {
     "date": "20 Mar 69",
     "durationMin": 201,
     "instructor": "Aj. Chaowaphan Yinharnmingmongkol (CY) — Animal Space Exotic Hospital",
-    "examFormat": "Species-by-species clinical · rabbit + guinea pig + ferret + reptile + bird · cross-refs Q1825-Q1829"
+    "examFormat": "Species-by-species clinical, rabbit + guinea pig + ferret + reptile + bird, cross-refs Q1825-Q1829"
   },
   'jibDxn3Ajsk': {
     "videoId": "jibDxn3Ajsk",
@@ -396,7 +396,7 @@ export const VIDEO_META = {
     "date": "27 Mar 69",
     "durationMin": 175,
     "instructor": "Aj. Nantapong Kamprasert (NK) — UNE Australia / Roslin Edinburgh",
-    "examFormat": "Quantitative genetics applied · concept-heavy · cross-refs Q1830-Q1834"
+    "examFormat": "Quantitative genetics applied, concept-heavy, cross-refs Q1830-Q1834"
   },
   'zq5assxVF74': {
     "videoId": "zq5assxVF74",
@@ -405,7 +405,7 @@ export const VIDEO_META = {
     "date": "27 Mar 69",
     "durationMin": 207,
     "instructor": "Aj. Sroisuda Chotimanukul (SC) — Theriogenology, Chula Vet",
-    "examFormat": "OHE/orchiectomy technique · ligation rules · ORS prevention · cryptorchid"
+    "examFormat": "OHE/orchiectomy technique, ligation rules, ORS prevention, cryptorchid"
   },
   'JSD9HlA4PRA': {
     "videoId": "JSD9HlA4PRA",
@@ -414,7 +414,7 @@ export const VIDEO_META = {
     "date": "4 Apr 69",
     "durationMin": 172,
     "instructor": "Aj. Sroisuda Chotimanukul (SC) — Theriogenology, Chula Vet",
-    "examFormat": "MCQ + clinical scenario · breed/sex/age recall heavy"
+    "examFormat": "MCQ + clinical scenario, breed/sex/age recall heavy"
   },
   'zPgMJzPumXk': {
     "videoId": "zPgMJzPumXk",
@@ -423,7 +423,7 @@ export const VIDEO_META = {
     "date": "10 Apr 69",
     "durationMin": 116,
     "instructor": "Aj. Suppawiwat Ponglowhapan (SP) — Theriogenology, Chula Vet",
-    "examFormat": "Image-based MCQ · day-by-day timeline · HR thresholds"
+    "examFormat": "Image-based MCQ, day-by-day timeline, HR thresholds"
   },
   'jd9eTltQy8g': {
     "videoId": "jd9eTltQy8g",
@@ -449,7 +449,7 @@ export const VIDEO_META = {
     "subject": "poultry",
     "date": "24 Mar 69",
     "durationMin": 118,
-    "instructor": "Prof. Niwat Chansiripornchai (DVM, MSc, PhD, DTBVM · CU Vet) — L13",
+    "instructor": "Prof. Niwat Chansiripornchai (DVM, MSc, PhD, DTBVM, CU Vet) — L13",
     "examFormat": "MCQ + essay (3 ตัวยาห้ามใช้)"
   },
   'ZRvrSjTlEgc': {
@@ -458,7 +458,7 @@ export const VIDEO_META = {
     "subject": "poultry",
     "date": "31 Mar 69",
     "durationMin": 110,
-    "instructor": "Aj. Ekasingh Sareung (เอกสิงห์ สาเรือง · Betagro) — L14-15",
+    "instructor": "Aj. Ekasingh Sareung (เอกสิงห์ สาเรือง, Betagro) — L14-15",
     "examFormat": "T/F ~10 ข้อ + MCQ"
   },
   'M64_XJhnZ-Y': {
@@ -468,7 +468,7 @@ export const VIDEO_META = {
     "date": "21 Apr 69",
     "durationMin": 126,
     "instructor": "พี่อู๋ (Poultry course coordinator)",
-    "examFormat": "MCQ — Final L9 (~10+ ข้อ ถูก/ผิด · slides ที่มีดอกจัน ★ ออกสอบทั้งหมด · \"ข้อสอบไม่ยาก แค่มีสติ\" [124:34])"
+    "examFormat": "MCQ — Final L9 (~10+ ข้อ ถูก/ผิด, slides ที่มีดอกจัน ★ ออกสอบทั้งหมด, \"ข้อสอบไม่ยาก แค่มีสติ\" [124:34])"
   },
   '91RNoNhi3gI': {
     "videoId": "91RNoNhi3gI",
@@ -476,8 +476,8 @@ export const VIDEO_META = {
     "subject": "cliapprum",
     "date": "4 Mar 69",
     "durationMin": 143,
-    "instructor": "ผศ.น.สพ. ปิยะณัฐ ประสมศรี (Piyanat Prasomsri, PP) · อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น ผู้พัฒนา KCF",
-    "examFormat": "MCQ — Final scope · 15 ข้อต่อคาบ"
+    "instructor": "ผศ.น.สพ. ปิยะณัฐ ประสมศรี (Piyanat Prasomsri, PP), อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น ผู้พัฒนา KCF",
+    "examFormat": "MCQ — Final scope, 15 ข้อต่อคาบ"
   },
   'HD0tbvDa-Cc': {
     "videoId": "HD0tbvDa-Cc",
@@ -485,7 +485,7 @@ export const VIDEO_META = {
     "subject": "cliapprum",
     "date": "11 Mar 69",
     "durationMin": 95,
-    "instructor": "อ.ภัทร์มนฉัตร บุนนาค (PB · สอนปีละครั้ง · ทีม อ.สมิต/พล/แนน/อร/มน + พี่มด/ลี่)",
+    "instructor": "อ.ภัทร์มนฉัตร บุนนาค (PB, สอนปีละครั้ง, ทีม อ.สมิต/พล/แนน/อร/มน + พี่มด/ลี่)",
     "examFormat": "MCQ — Final scope"
   },
   '03mEa46Cg48': {
@@ -495,7 +495,7 @@ export const VIDEO_META = {
     "date": "18 Mar 69",
     "durationMin": 125,
     "instructor": "อ.ธนศักดิ์ (Aj. Thanasak — verified [3:41]–[4:13])",
-    "examFormat": "MCQ — Final scope · LDA/Hardware/bloat high-yield"
+    "examFormat": "MCQ — Final scope, LDA/Hardware/bloat high-yield"
   },
   'szG9lXVvqNo': {
     "videoId": "szG9lXVvqNo",
@@ -503,8 +503,8 @@ export const VIDEO_META = {
     "subject": "cliapprum",
     "date": "25 Mar 69",
     "durationMin": 125,
-    "instructor": "อ.แฮม (Surgery — สัตว์ใหญ่/ม้า · รับสอน ruminant year นี้) [10:05]",
-    "examFormat": "MCQ — Final scope · Standing field surgery · Rumenotomy/Rumenostomy/RDA omentopexy/Cecal typhlotomy high-yield"
+    "instructor": "อ.แฮม (Surgery — สัตว์ใหญ่/ม้า, รับสอน ruminant year นี้) [10:05]",
+    "examFormat": "MCQ — Final scope, Standing field surgery, Rumenotomy/Rumenostomy/RDA omentopexy/Cecal typhlotomy high-yield"
   },
   '8n3oMcJXUiY': {
     "videoId": "8n3oMcJXUiY",
@@ -522,7 +522,7 @@ export const VIDEO_META = {
     "date": "8 Apr 69",
     "durationMin": 95,
     "instructor": "Surgery staff (อ.ตั้ม + อ.ผึ้ง สอนภาคของคาบนี้)",
-    "examFormat": "MCQ — Final scope · เน้น **หลักการ** ของแต่ละ procedure · Aj. confirm [90:09] \"ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล\""
+    "examFormat": "MCQ — Final scope, เน้น **หลักการ** ของแต่ละ procedure, Aj. confirm [90:09] \"ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล\""
   },
   'KAbtQmSMgQo': {
     "videoId": "KAbtQmSMgQo",
@@ -531,6 +531,6 @@ export const VIDEO_META = {
     "date": "22 Apr 69",
     "durationMin": 51,
     "instructor": "อ.ศวิตา (per syllabus)",
-    "examFormat": "MCQ — Final scope · ★★★ Locomotion scoring application · Foot rot/Laminitis/Sole ulcer/DD mentioned briefly"
+    "examFormat": "MCQ — Final scope, ★★★ Locomotion scoring application, Foot rot/Laminitis/Sole ulcer/DD mentioned briefly"
   },
 };
