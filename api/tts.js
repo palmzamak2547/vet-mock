@@ -69,21 +69,36 @@ export default async function handler(req, res) {
   }
 
   // ── Parse body ─────────────────────────────────────────────
-  // Read raw stream + decode UTF-8 explicitly. Vercel's auto body parser
-  // sometimes mangles non-Latin chars (Thai script came through as
-  // mojibake on first deploy → 502 "empty audio" when Edge TTS
-  // received the broken text). Reading raw bytes + JSON.parse preserves
-  // codepoints exactly.
+  // Vercel's automatic JSON body parser silently re-encodes non-Latin
+  // characters as "?" (U+003F). Confirmed via debug echo: "สวัสดี"
+  // (6 Thai codepoints) arrived as "??????" in req.body. So we MUST
+  // bypass it.
+  //
+  // The trick: read the raw bytes ourselves via `req.rawBody` (Vercel
+  // exposes the original Buffer alongside the parsed `req.body`) OR
+  // re-stream `req` if rawBody isn't available. Then JSON.parse with
+  // explicit UTF-8. Codepoints survive intact.
   let body;
   try {
-    if (req.body && typeof req.body === 'object' && !Buffer.isBuffer(req.body)) {
-      body = req.body;
-    } else {
+    let raw = '';
+    if (req.rawBody && Buffer.isBuffer(req.rawBody)) {
+      raw = req.rawBody.toString('utf8');
+    } else if (req.body && Buffer.isBuffer(req.body)) {
+      raw = req.body.toString('utf8');
+    } else if (req.readable) {
       const chunks = [];
       for await (const c of req) chunks.push(c);
-      const raw = Buffer.concat(chunks).toString('utf8');
-      body = raw ? JSON.parse(raw) : {};
+      raw = Buffer.concat(chunks).toString('utf8');
+    } else if (typeof req.body === 'string') {
+      raw = req.body;
+    } else {
+      // Last resort — req.body was auto-parsed to a mangled object.
+      // Better to fail loudly than silently process mojibake.
+      return res.status(415).json({
+        error: 'Use Content-Type: text/plain or application/octet-stream so Vercel does not mangle UTF-8',
+      });
     }
+    body = raw ? JSON.parse(raw) : {};
   } catch (e) {
     return res.status(400).json({ error: 'bad json', detail: String(e?.message).slice(0, 100) });
   }

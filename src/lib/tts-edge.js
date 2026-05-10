@@ -211,7 +211,11 @@ export async function getEdgeAudio({ text, lang, rate = 1.0 }, signal) {
   try {
     response = await fetch('/api/tts', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      // Use text/plain (NOT application/json) to opt out of Vercel's
+      // automatic body parser, which transcodes non-Latin chars to "?".
+      // Body content is still JSON — server reads raw bytes + parses
+      // with explicit UTF-8 (see api/tts.js).
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
       body: JSON.stringify({ text, lang, rate }),
       signal: ctrl.signal,
     });
