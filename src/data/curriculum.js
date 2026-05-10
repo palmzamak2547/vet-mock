@@ -918,12 +918,16 @@ export const SUBJECTS_BY_YEAR = {
       name_en: 'VCA Past Paper Practice — All Species',
       icon: '🩵', color: '#5db4d3', semester: 0, has_questions: true,
       examFormat: {
-        weight: 'ใบประกอบวิชาชีพ — ครอบคลุมทุกรายวิชาคลินิก',
-        choiceCount: '4-5',
+        weight: 'ใบประกอบวิชาชีพ — ครอบคลุมทุกรายวิชาคลินิก Y5',
+        perSession: 'รวม 316 ข้อ (cross-species)',
+        totalEstimate: 'หมาแมว 72 · ruminant 48 · poultry 44 · equine 40 · swine 39 · aquatic 38 · exotic 35',
+        choiceCount: 5,
         notes: [
-          '📌 Source: @Fukfangfluffy_channel — VCA ผ่านชัวร์ (แจกฟรี IG/Twitter)',
-          '✅ ทุกข้อ Claude verify คำตอบกับความรู้ vet medicine แล้ว · flag ถ้า source ผิด',
+          '📌 Source: VCA ผ่านชัวร์ series (แจกฟรี โดย @Fukfangfluffy)',
+          '✅ ทุกข้อ verify คำตอบกับความรู้ vet medicine ในการเขียน · flag ถ้า source ผิด',
           '🎯 ใช้เตรียมสอบ TVMC license + comprehensive Y5 final',
+          '🎥 อ่านสรุปคลิปที่เกี่ยวข้อง — ทุกชนิดสัตว์มี video summaries ใน "คลิปย้อนหลัง" (400 cover ทุก rotation)',
+          '💡 mode "สอบจริง 50 ข้อ" = simulate VCA mock exam · ใช้บ่อยๆ ก่อนสอบจริง',
         ],
       },
       topics: [
