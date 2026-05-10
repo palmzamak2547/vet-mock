@@ -209,14 +209,18 @@ export async function getEdgeAudio({ text, lang, rate = 1.0 }, signal) {
 
   let response;
   try {
+    // Vercel's edge HTTP layer mangles non-ASCII bytes (Thai chars all
+    // become "?" before reaching the function — confirmed via debug
+    // echo). Base64-encode the JSON to keep the payload pure ASCII.
+    // Server decodes via the "b64:" prefix (see api/tts.js).
+    const json = JSON.stringify({ text, lang, rate });
+    const b64 = typeof btoa === 'function'
+      ? btoa(unescape(encodeURIComponent(json)))
+      : Buffer.from(json, 'utf8').toString('base64');
     response = await fetch('/api/tts', {
       method: 'POST',
-      // Use text/plain (NOT application/json) to opt out of Vercel's
-      // automatic body parser, which transcodes non-Latin chars to "?".
-      // Body content is still JSON — server reads raw bytes + parses
-      // with explicit UTF-8 (see api/tts.js).
-      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-      body: JSON.stringify({ text, lang, rate }),
+      headers: { 'Content-Type': 'application/vmx-b64' },
+      body: 'b64:' + b64,
       signal: ctrl.signal,
     });
   } finally {

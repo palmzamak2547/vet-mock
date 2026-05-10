@@ -69,36 +69,36 @@ export default async function handler(req, res) {
   }
 
   // ── Parse body ─────────────────────────────────────────────
-  // Vercel's automatic JSON body parser silently re-encodes non-Latin
-  // characters as "?" (U+003F). Confirmed via debug echo: "สวัสดี"
-  // (6 Thai codepoints) arrived as "??????" in req.body. So we MUST
-  // bypass it.
+  // Vercel's HTTP edge layer mangles non-ASCII bytes BEFORE reaching
+  // the function — confirmed via debug echo: "สวัสดี" (18 UTF-8 bytes)
+  // arrives as "??????" (6 ASCII 0x3F) regardless of Content-Type or
+  // whether we read req.body or stream. The corruption is upstream
+  // of Vercel's bodyParser, so disabling auto-parse doesn't help.
   //
-  // The trick: read the raw bytes ourselves via `req.rawBody` (Vercel
-  // exposes the original Buffer alongside the parsed `req.body`) OR
-  // re-stream `req` if rawBody isn't available. Then JSON.parse with
-  // explicit UTF-8. Codepoints survive intact.
+  // Workaround: client base64-encodes the JSON body. Base64 is ASCII-
+  // only so it survives the edge layer intact. We decode here.
+  //
+  // Backward-compat: also accept plain JSON for ASCII-only clients.
   let body;
   try {
-    let raw = '';
-    if (req.rawBody && Buffer.isBuffer(req.rawBody)) {
-      raw = req.rawBody.toString('utf8');
-    } else if (req.body && Buffer.isBuffer(req.body)) {
-      raw = req.body.toString('utf8');
-    } else if (req.readable) {
+    let raw = typeof req.body === 'string' ? req.body : '';
+    if (!raw && req.rawBody && Buffer.isBuffer(req.rawBody)) raw = req.rawBody.toString('utf8');
+    if (!raw && req.readable) {
       const chunks = [];
       for await (const c of req) chunks.push(c);
       raw = Buffer.concat(chunks).toString('utf8');
-    } else if (typeof req.body === 'string') {
-      raw = req.body;
-    } else {
-      // Last resort — req.body was auto-parsed to a mangled object.
-      // Better to fail loudly than silently process mojibake.
-      return res.status(415).json({
-        error: 'Use Content-Type: text/plain or application/octet-stream so Vercel does not mangle UTF-8',
-      });
     }
-    body = raw ? JSON.parse(raw) : {};
+    if (!raw) return res.status(400).json({ error: 'empty body' });
+
+    // Detect base64-encoded payload via Content-Type: application/vmx-b64
+    // or by a leading "b64:" sentinel. Either decodes to UTF-8 JSON.
+    const ct = String(req.headers['content-type'] || '');
+    let payload = raw;
+    if (ct.includes('application/vmx-b64') || raw.startsWith('b64:')) {
+      const b64 = raw.startsWith('b64:') ? raw.slice(4) : raw;
+      payload = Buffer.from(b64, 'base64').toString('utf8');
+    }
+    body = payload ? JSON.parse(payload) : {};
   } catch (e) {
     return res.status(400).json({ error: 'bad json', detail: String(e?.message).slice(0, 100) });
   }
