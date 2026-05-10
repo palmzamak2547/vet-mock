@@ -69,11 +69,23 @@ export default async function handler(req, res) {
   }
 
   // ── Parse body ─────────────────────────────────────────────
+  // Read raw stream + decode UTF-8 explicitly. Vercel's auto body parser
+  // sometimes mangles non-Latin chars (Thai script came through as
+  // mojibake on first deploy → 502 "empty audio" when Edge TTS
+  // received the broken text). Reading raw bytes + JSON.parse preserves
+  // codepoints exactly.
   let body;
   try {
-    body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-  } catch {
-    return res.status(400).json({ error: 'bad json' });
+    if (req.body && typeof req.body === 'object' && !Buffer.isBuffer(req.body)) {
+      body = req.body;
+    } else {
+      const chunks = [];
+      for await (const c of req) chunks.push(c);
+      const raw = Buffer.concat(chunks).toString('utf8');
+      body = raw ? JSON.parse(raw) : {};
+    }
+  } catch (e) {
+    return res.status(400).json({ error: 'bad json', detail: String(e?.message).slice(0, 100) });
   }
   const { text, lang = 'th', rate = 1.0 } = body;
   if (!text || typeof text !== 'string') {
