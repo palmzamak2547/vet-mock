@@ -22,7 +22,7 @@ const SECONDS_PRESETS = [30, 60, 120];
 const CATEGORIES = [
   { id: 'all',     label: 'ทุกประเภท',          icon: '🎯', desc: 'รวมทุกแบบ — เหมือนสอบจริง' },
   { id: 'mcq',     label: 'MCQ + T/F + Fill',   icon: '📝', desc: 'ตรวจอัตโนมัติ — ฝึกความรู้เร็วๆ' },
-  { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน · จับเวลายาวขึ้นอัตโนมัติ' },
+  { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน, จับเวลายาวขึ้นอัตโนมัติ' },
 ];
 
 export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, startExam, goHome, mode }) {
@@ -65,13 +65,13 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             ✍️ Quick strategy ก่อนเริ่มเขียน
           </div>
           <ul style={{ margin: 0, paddingLeft: 20, fontSize: 12.5, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
-            <li><strong>อ่าน 2 รอบ:</strong> 1 = gist · 2 = ขีดเส้น main idea + 4-5 details</li>
+            <li><strong>อ่าน 2 รอบ:</strong> 1 = gist, 2 = ขีดเส้น main idea + 4-5 details</li>
             <li><strong>เปิดด้วย topic sentence</strong> — paraphrase main idea (อย่าก๊อปประโยคแรก)</li>
-            <li><strong>ใช้ transitions:</strong> However · Moreover · In addition · On the other hand</li>
+            <li><strong>ใช้ transitions:</strong> However, Moreover, In addition, On the other hand</li>
             <li><strong>Paraphrase = เปลี่ยน 2 อย่าง</strong> — synonyms <em>and</em> sentence structure</li>
             <li><strong>Cite source:</strong> "In the article by [Author]..." → score 3/3 paraphrasing</li>
-            <li><strong>Word count:</strong> target 150 · ≤ 180 ปลอดภัย · &gt; 200 = −2</li>
-            <li><strong>NO opinion · NO examples</strong> from original · NO invented info</li>
+            <li><strong>Word count:</strong> target 150, ≤ 180 ปลอดภัย, &gt; 200 = −2</li>
+            <li><strong>NO opinion, NO examples</strong> from original, NO invented info</li>
           </ul>
         </div>
       )}
@@ -171,10 +171,10 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             {/* Writing-time hint only relevant when subject = engprof */}
             {showCategoryPicker && (
               <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
-                💡 เวลานี้ใช้กับข้อ MCQ/T/F · ข้อ Writing จะได้เวลามากขึ้นอัตโนมัติ:
+                💡 เวลานี้ใช้กับข้อ MCQ/T/F, ข้อ Writing จะได้เวลามากขึ้นอัตโนมัติ:
                 <br/>
                 &nbsp;&nbsp;&nbsp;Short answer = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
-                · Essay = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
+               , Essay = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
               </div>
             )}
           </div>

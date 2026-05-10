@@ -92,6 +92,73 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     return () => clearInterval(id);
   }, [nextExam, countdown]);
 
+  // ─── Quick stats: study streak + today count + wrong Q pool ────
+  // Computed from history (date + correct flag). Streak counts
+  // consecutive days ending today (or yesterday if user hasn't
+  // studied yet today). Wrong pool = Q IDs the user answered wrong,
+  // grouped by frequency.
+  const quickStats = (() => {
+    if (!Array.isArray(history) || history.length === 0) {
+      return { streak: 0, todayCount: 0, wrongCount: 0, wrongIds: [] };
+    }
+    const ymd = (d) => new Date(d).toLocaleDateString('en-CA');
+    const todayKey = ymd(Date.now());
+    const days = new Set();
+    let todayCount = 0;
+    const wrongFreq = new Map();
+    for (const h of history) {
+      if (!h?.date) continue;
+      const dayKey = ymd(h.date);
+      days.add(dayKey);
+      if (dayKey === todayKey) todayCount++;
+      if (h.correct === false) {
+        const compoundId = (h.subject || '?') + ':' + h.questionId;
+        wrongFreq.set(compoundId, (wrongFreq.get(compoundId) || 0) + 1);
+      }
+    }
+    let streak = 0;
+    const cursor = new Date();
+    if (!days.has(todayKey)) cursor.setDate(cursor.getDate() - 1);
+    while (days.has(ymd(cursor))) {
+      streak++;
+      cursor.setDate(cursor.getDate() - 1);
+    }
+    const wrongIds = [...wrongFreq.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([k]) => k);
+    return { streak, todayCount, wrongCount: wrongIds.length, wrongIds };
+  })();
+
+  // Quick action: random 1 Q from full QB. Sets up a 1-question exam
+  // and routes straight into ExamView via 'config' → which we shortcut
+  // by setting numQuestions=1 and mode='quick'.
+  const allQuestionsPool = QB.length + (customQuestions?.length || 0);
+  const launchRandomQ = () => {
+    if (allQuestionsPool === 0) return;
+    if (setMode) setMode('quick');
+    if (setNumQuestions) setNumQuestions(1);
+    if (setUseTimer) setUseTimer(false);
+    if (setSubject) setSubject(null);
+    if (setTopic) setTopic(null);
+    if (setPracticeMode) setPracticeMode('all');
+    setView('config');
+  };
+
+  // Quick action: review questions answered wrong (cross-subject).
+  // Uses the same pattern as bookmarks practiceMode — just a different
+  // pool source. Sorted by wrong-frequency so the user sees their
+  // most-confused Qs first.
+  const launchWrongReview = () => {
+    if (quickStats.wrongCount === 0) return;
+    if (setMode) setMode('quick');
+    if (setNumQuestions) setNumQuestions(Math.min(quickStats.wrongCount, 50));
+    if (setUseTimer) setUseTimer(false);
+    if (setSubject) setSubject(null);
+    if (setTopic) setTopic(null);
+    if (setPracticeMode) setPracticeMode('wrong');
+    setView('config');
+  };
+
   return (
     <>
       {showOnboarding && (
@@ -109,8 +176,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </h1>
         <p>
           {isScaffoldYear
-            ? <>🚧 <strong>{yearMeta.label}</strong> · {yearMeta.desc} · พรีวิว — รอเติมเนื้อหา</>
-            : <>คลังข้อสอบ <strong>{totalQ}</strong> ข้อ · {yearMeta?.label || 'ปี 4'}</>}
+            ? <>🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc}, พรีวิว — รอเติมเนื้อหา</>
+            : <>คลังข้อสอบ <strong>{totalQ}</strong> ข้อ, {yearMeta?.label || 'ปี 4'}</>}
         </p>
         {/* Year-switcher pill removed from HomeView hero — moved to the
             global persistent App header (since 2026-05-08). One canonical
@@ -135,7 +202,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         }}>
           <span style={{ fontSize: 20 }}>📧</span>
           <span style={{ flex: 1, minWidth: 200, lineHeight: 1.5 }}>
-            <strong>ยืนยันอีเมล</strong> · ส่งไปที่ <code style={{ fontSize: 12 }}>{user.email}</code> แล้ว — กดลิงก์ในอีเมล (ดู junk/spam ด้วย)
+            <strong>ยืนยันอีเมล</strong>, ส่งไปที่ <code style={{ fontSize: 12 }}>{user.email}</code> แล้ว — กดลิงก์ในอีเมล (ดู junk/spam ด้วย)
           </span>
           <button
             type="button"
@@ -219,7 +286,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               {nextExam.title}
             </div>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-              {fmtThaiDate(nextExam.date)} · ⏰ {nextExam.time}
+              {fmtThaiDate(nextExam.date)}, ⏰ {nextExam.time}
             </div>
           </div>
           <div style={{ textAlign: 'right' }}>
@@ -257,7 +324,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             <div style={{ fontSize: 28, lineHeight: 1 }}>🎉</div>
             <div style={{ flex: 1, minWidth: 200 }}>
               <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                อัปเดตใหม่ · {LATEST_CHANGELOG.version} · {fmtThaiDate(LATEST_CHANGELOG.date)}
+                อัปเดตใหม่, {LATEST_CHANGELOG.version}, {fmtThaiDate(LATEST_CHANGELOG.date)}
               </div>
               <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, marginTop: 2, lineHeight: 1.3 }}>
                 {LATEST_CHANGELOG.headline}
@@ -343,12 +410,93 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
+      {/* Quick Actions — streak chip + random Q + wrong-answer review.
+          Cross-subject app-wide actions placed prominently above subject
+          grid so casual sessions ("just one Q while waiting") and review
+          loops ("show me what I got wrong") are 1 tap away. */}
+      {(quickStats.streak > 0 || allQuestionsPool > 0 || quickStats.wrongCount > 0) && (
+        <div style={{
+          display: 'flex',
+          gap: 10,
+          flexWrap: 'wrap',
+          marginBottom: 18,
+          alignItems: 'center',
+        }}>
+          {quickStats.streak > 0 && (
+            <div
+              title={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน · วันนี้ทำไปแล้ว ${quickStats.todayCount} ข้อ`}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '8px 14px',
+                borderRadius: 999,
+                background: 'rgba(231, 116, 68, 0.12)',
+                border: '1px solid #d97744',
+                fontSize: 13,
+                fontFamily: 'JetBrains Mono, monospace',
+                color: '#a85a30',
+              }}
+            >
+              🔥 streak {quickStats.streak} วัน
+              {quickStats.todayCount > 0 && <span style={{ color: 'var(--clr-ink-soft)' }}>, วันนี้ {quickStats.todayCount} ข้อ</span>}
+            </div>
+          )}
+
+          {allQuestionsPool > 0 && (
+            <button
+              onClick={launchRandomQ}
+              title={`สุ่ม 1 ข้อจากคลังทั้งหมด ${allQuestionsPool} ข้อ`}
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '8px 14px',
+                borderRadius: 999,
+                background: 'rgba(93, 180, 211, 0.12)',
+                border: '1px solid #5db4d3',
+                fontSize: 13,
+                fontFamily: 'JetBrains Mono, monospace',
+                color: '#3a8aa8',
+              }}
+            >
+              🎲 ฝึก 1 ข้อด่วน
+            </button>
+          )}
+
+          {quickStats.wrongCount > 0 && (
+            <button
+              onClick={launchWrongReview}
+              title={`ทบทวนข้อที่เคยตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)`}
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '8px 14px',
+                borderRadius: 999,
+                background: 'rgba(167, 61, 74, 0.12)',
+                border: '1px solid #a73d4a',
+                fontSize: 13,
+                fontFamily: 'JetBrains Mono, monospace',
+                color: '#8a3340',
+              }}
+            >
+              🎯 ทบทวนข้อที่ตอบผิด ({quickStats.wrongCount})
+            </button>
+          )}
+        </div>
+      )}
+
       {/* PRIMARY: Subject Grid — natural mental model is "I want to study X subject".
           Filtered to current phase (e.g. only sem 2 subjects when phase is '2-final'). */}
       <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 8 }}>
         <span>
           วิชาใน{yearMeta?.label || 'ปี 4'}
-          {phaseMeta && <span style={{ color: 'var(--clr-ink-soft)', fontWeight: 400 }}> · {phaseMeta.short}</span>}
+          {phaseMeta && <span style={{ color: 'var(--clr-ink-soft)', fontWeight: 400 }}>, {phaseMeta.short}</span>}
         </span>
         {phaseMeta && setSelectedPhase && (
           <button
@@ -388,8 +536,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 : 'วิชานี้ยังไม่มีข้อสอบ — มี slide/notes/ข้อสอบเก่าส่งมาช่วยได้ไหม';
               setFeedbackPrefill({
                 type: 'Content',
-                subject: `ขอเนื้อหา · ${s.name} (${s.code || 'TBD'}) · ปี ${selectedYear}`,
-                message: `${reason}\n\nวิชา: "${s.name}" (${s.name_en || ''}) · ปี ${selectedYear}\n\nรายละเอียด:\n- (แนบลิงก์ Google Drive หรือบรรยายตรงนี้ได้เลย)`,
+                subject: `ขอเนื้อหา, ${s.name} (${s.code || 'TBD'}), ปี ${selectedYear}`,
+                message: `${reason}\n\nวิชา: "${s.name}" (${s.name_en || ''}), ปี ${selectedYear}\n\nรายละเอียด:\n- (แนบลิงก์ Google Drive หรือบรรยายตรงนี้ได้เลย)`,
               });
             }
             setView('feedback');
@@ -483,7 +631,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                   {(() => {
                     const subjMeta = SUBJECTS.find((s) => s.id === nextExam.subject);
                     const label = subjMeta?.name || nextExam.subject;
-                    return `${label} · อีก ${nextExam.daysLeft} วันจะสอบ`;
+                    return `${label}, อีก ${nextExam.daysLeft} วันจะสอบ`;
                   })()}
                 </div>
                 <div className="badge" style={{ background: 'var(--clr-rose)' }}>SMART</div>
@@ -517,8 +665,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                   {weakTopicMeta ? (() => {
                     const cleaned = weakTopicMeta.label.replace(/^[\d\s.·\-]+/, '').trim();
                     const label = cleaned.length > 24 ? `${cleaned.slice(0, 24)}…` : cleaned;
-                    return `${weakSubjMeta.name} · ${label}`;
-                  })() : `${weakSubjMeta.name} · ${weakPct}% ถูก`}
+                    return `${weakSubjMeta.name}, ${label}`;
+                  })() : `${weakSubjMeta.name}, ${weakPct}% ถูก`}
                 </div>
                 <div className="badge" style={{ background: 'var(--clr-gold)' }}>SMART</div>
               </button>
@@ -559,7 +707,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 <div className="title">ทำซ้ำ</div>
                 <div className="sub">
                   {lastSubjMeta.name}
-                  {lastSession?.score && ` · ${lastSession.score.pct}% ครั้งก่อน`}
+                  {lastSession?.score && `, ${lastSession.score.pct}% ครั้งก่อน`}
                 </div>
                 <div className="badge" style={{ background: 'var(--clr-ocean)' }}>SMART</div>
               </button>
@@ -573,7 +721,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             }}>
               <div className="icon">📝</div>
               <div className="title">Quick Practice</div>
-              <div className="sub">สุ่มข้อทุกวิชา · 5-50 ข้อ</div>
+              <div className="sub">สุ่มข้อทุกวิชา, 5-50 ข้อ</div>
             </button>
 
             <button className="vmx-mode-card" onClick={() => {
@@ -587,7 +735,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             }}>
               <div className="icon">🎓</div>
               <div className="title">Exam Mode</div>
-              <div className="sub">50 ข้อ × 60 วิ · เลียนข้อสอบจริง</div>
+              <div className="sub">50 ข้อ × 60 วิ, เลียนข้อสอบจริง</div>
             </button>
 
             <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>
@@ -595,7 +743,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               <div className="title">Spaced Repetition</div>
               <div className="sub">
                 {cardStats.due > 0
-                  ? `${cardStats.due} ข้อทบทวนวันนี้ · ≈ ${Math.max(5, Math.ceil(cardStats.due / 5) * 5)} นาที`
+                  ? `${cardStats.due} ข้อทบทวนวันนี้, ≈ ${Math.max(5, Math.ceil(cardStats.due / 5) * 5)} นาที`
                   : 'ทบทวนแบบ Anki'}
               </div>
               {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
@@ -653,7 +801,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         >
           <div className="icon">💰</div>
           <div className="title">สัดส่วนคะแนน</div>
-          <div className="sub">{isScaffoldYear ? '🚧 ยังไม่มีข้อมูล' : 'Mid · Final · ฟรี · ทำงาน'}</div>
+          <div className="sub">{isScaffoldYear ? '🚧 ยังไม่มีข้อมูล' : 'Mid, Final, ฟรี, ทำงาน'}</div>
         </button>
 
         {/* คลิปย้อนหลัง card removed — Subject Detail's action panel
@@ -684,7 +832,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 <button className="vmx-mode-card" onClick={() => setView('groups')} style={{ borderColor: 'var(--clr-ocean)' }}>
                   <div className="icon">👥</div>
                   <div className="title">Study Groups</div>
-                  <div className="sub">สร้างกลุ่ม · invite เพื่อน · แชร์ข้อสอบ</div>
+                  <div className="sub">สร้างกลุ่ม, invite เพื่อน, แชร์ข้อสอบ</div>
                 </button>
                 <button className="vmx-mode-card" onClick={() => setView('leaderboard-global')} style={{ borderColor: 'var(--clr-gold)' }}>
                   <div className="icon">🏆</div>
@@ -911,7 +1059,7 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
             <div className="sub">{s.name_en}</div>
             <div className="count" style={{ color: isScaffold ? 'var(--clr-gold)' : (isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)') }}>
               {isScaffold
-                ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? ` · ${s.vault_lecturers.length} faculty` : ''}`
+                ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? `, ${s.vault_lecturers.length} faculty` : ''}`
                 : (isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} questions`)}
             </div>
 
@@ -974,7 +1122,7 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
                 letterSpacing: '0.05em',
               }}>
                 📝 {s.examFormat.weight}
-                {s.examFormat.choiceCount && ` · ${s.examFormat.choiceCount} ช้อยส์`}
+                {s.examFormat.choiceCount && `, ${s.examFormat.choiceCount} ช้อยส์`}
               </div>
             )}
           </button>

@@ -166,14 +166,14 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               💡 <strong>มี due {dueCount} ใบ — เยอะหน่อย</strong>
               <br />
               <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
-                Algorithm จะหยิบ "ใบที่ค้างนานสุด" มาก่อน · ทำ {sessionSize} วันนี้ + ทำต่อพรุ่งนี้ดีกว่ายัดทีเดียว · ทำต่อเนื่องสำคัญสุด
+                Algorithm จะหยิบ "ใบที่ค้างนานสุด" มาก่อน, ทำ {sessionSize} วันนี้ + ทำต่อพรุ่งนี้ดีกว่ายัดทีเดียว, ทำต่อเนื่องสำคัญสุด
               </span>
             </div>
           )}
 
           {excludedCount > 0 && (
             <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
-              💡 SR pool ตอนนี้มี <strong>{eligibleCount}</strong> ข้อ · ตัด <strong>{excludedCount}</strong> ข้อออกเพราะตอบไม่ได้แบบ flashcard (ข้อ "ข้อใดถูก..." + ข้อจับคู่ ที่ต้องเห็น choice/lefts ก่อน)
+              💡 SR pool ตอนนี้มี <strong>{eligibleCount}</strong> ข้อ, ตัด <strong>{excludedCount}</strong> ข้อออกเพราะตอบไม่ได้แบบ flashcard (ข้อ "ข้อใดถูก..." + ข้อจับคู่ ที่ต้องเห็น choice/lefts ก่อน)
             </div>
           )}
 
@@ -237,12 +237,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       <>
         <div className="vmx-hero">
           <h1>Session <em>Complete</em> 🎉</h1>
-          <p>ทบทวนเสร็จแล้ว · กลับมาทบทวนพรุ่งนี้นะ</p>
+          <p>ทบทวนเสร็จแล้ว, กลับมาทบทวนพรุ่งนี้นะ</p>
         </div>
         <div className="vmx-results-hero">
           <div className="vmx-score-big pass">{reviewedCount}</div>
           <div className="vmx-score-label">Cards Reviewed</div>
-          <div className="vmx-score-frac">{correctCount} ได้ · {reviewedCount - correctCount} ต้องทบทวน</div>
+          <div className="vmx-score-frac">{correctCount} ได้, {reviewedCount - correctCount} ต้องทบทวน</div>
         </div>
         <div className="vmx-stat-grid">
           <div className="vmx-stat-card"><div className="vmx-stat-num">{stats.total}</div><div className="vmx-stat-lbl">Total Cards</div></div>
@@ -287,7 +287,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     answerText = currentQ.answer ? 'True' : 'False';
   } else if (currentQ.type === 'fill') {
     answerText = currentQ.blanks.length > 1
-      ? currentQ.blanks.map((b, i) => `(${i + 1}) ${stripRichText(b)}`).join('  ·  ')
+      ? currentQ.blanks.map((b, i) => `(${i + 1}) ${stripRichText(b)}`).join(' ,  ')
       : stripRichText(currentQ.blanks[0] || '');
   } else if (currentQ.type === 'match') {
     answerText = currentQ.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('\n');
@@ -304,7 +304,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   return (
     <>
       <div className="vmx-exam-top">
-        <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length} · 🧠 SR</div>
+        <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, 🧠 SR</div>
         <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
           next: {fmtDate(currentCard.nextReview)}
         </div>
@@ -317,13 +317,13 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="front">
           <div className="vmx-qtype-badge">
             {SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}
-            {' · '}{typeLabel}
+            {', '}{typeLabel}
           </div>
           {currentQ.image && (
             <>
               <img
                 src={currentQ.image}
-                alt={`Question ${currentQ.id} image · ${currentQ.subject}/${currentQ.topic || 'general'}`}
+                alt={`Question ${currentQ.id} image, ${currentQ.subject}/${currentQ.topic || 'general'}`}
                 loading="lazy"
                 decoding="async"
                 className="vmx-qimage"

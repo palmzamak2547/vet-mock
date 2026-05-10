@@ -3,7 +3,7 @@ import { QB } from '../data/questions.js';
 
 // PhaseSelectView — second step of the year picker.
 // After user picks a year, they pick a 4-quadrant exam phase:
-//   เทอม 1 กลางภาค · เทอม 1 ปลายภาค · เทอม 2 กลางภาค · เทอม 2 ปลายภาค
+//   เทอม 1 กลางภาค, เทอม 1 ปลายภาค, เทอม 2 กลางภาค, เทอม 2 ปลายภาค
 //
 // Each card shows # subjects tagged with that semester + LIVE state.
 // Auto-suggests the most likely current phase via month heuristic
@@ -11,10 +11,10 @@ import { QB } from '../data/questions.js';
 // Y6 is block-based (no fixed semester) — bypasses this view in App routing.
 
 const PHASES = [
-  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'Sem 1 · Midterm',   icon: '📚', months: [8, 9, 10] },
-  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'Sem 1 · Final',     icon: '🎯', months: [11, 12] },
-  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'Sem 2 · Midterm',   icon: '📖', months: [2, 3] },
-  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'Sem 2 · Final',     icon: '🏁', months: [4, 5] },
+  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'Sem 1, Midterm',   icon: '📚', months: [8, 9, 10] },
+  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'Sem 1, Final',     icon: '🎯', months: [11, 12] },
+  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'Sem 2, Midterm',   icon: '📖', months: [2, 3] },
+  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'Sem 2, Final',     icon: '🏁', months: [4, 5] },
 ];
 
 export function detectCurrentPhase() {
@@ -34,7 +34,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
     <>
       <div className="vmx-hero">
         <h1>เลือก <em>ช่วงสอบ</em></h1>
-        <p>{yearMeta?.label || `ปี ${selectedYear}`} · {yearMeta?.desc || ''} — เลือกช่วงที่จะดูเนื้อหา</p>
+        <p>{yearMeta?.label || `ปี ${selectedYear}`}, {yearMeta?.desc || ''} — เลือกช่วงที่จะดูเนื้อหา</p>
       </div>
 
       <div className="vmx-mode-grid">
@@ -73,8 +73,8 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
                 {subjectsInPhase.length === 0
                   ? 'ไม่มีวิชา'
                   : liveCount > 0
-                    ? `${subjectsInPhase.length} วิชา · ${liveCount} เปิดเต็ม`
-                    : `${subjectsInPhase.length} วิชา · รอเติม`}
+                    ? `${subjectsInPhase.length} วิชา, ${liveCount} เปิดเต็ม`
+                    : `${subjectsInPhase.length} วิชา, รอเติม`}
               </div>
               {isCurrent && (
                 <div className="badge" style={{ background: 'var(--clr-rose)', fontSize: 9 }}>NOW</div>
@@ -94,7 +94,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
         textAlign: 'center',
         lineHeight: 1.6,
       }}>
-        💡 NOW = ช่วงปัจจุบันที่ระบบเดาจากเดือน · กดเลือก phase อื่นได้ตลอด<br/>
+        💡 NOW = ช่วงปัจจุบันที่ระบบเดาจากเดือน, กดเลือก phase อื่นได้ตลอด<br/>
         เปลี่ยนปีกด <strong>🎓 ปี ▾</strong> ที่ header ได้
       </div>
 

@@ -152,7 +152,7 @@ function TrendChart({ days }) {
               rx={2}
               opacity={d.total === 0 ? 0.3 : 0.7}
             >
-              <title>{d.label} · {d.total} ข้อ{d.total ? ` · ${d.pct}%` : ''}</title>
+              <title>{d.label}, {d.total} ข้อ{d.total ? `, ${d.pct}%` : ''}</title>
             </rect>
           );
         })}
@@ -175,7 +175,7 @@ function TrendChart({ days }) {
         ))}
       </div>
       <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-        แท่ง = จำนวนข้อ · สี = ความแม่น (เขียว ≥70% · ทอง 50-69% · ชมพู &lt;50%)
+        แท่ง = จำนวนข้อ, สี = ความแม่น (เขียว ≥70%, ทอง 50-69%, ชมพู &lt;50%)
       </div>
     </div>
   );
@@ -227,7 +227,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       <BackBar onBack={() => setView('home')} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>Analytics <em>Dashboard</em></h1>
-        <p>สถิติการฝึกของคุณ · 🔥 Streak: {streak || 0} วัน</p>
+        <p>สถิติการฝึกของคุณ, 🔥 Streak: {streak || 0} วัน</p>
       </div>
 
       {!analytics ? (
@@ -285,7 +285,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
                 ))}
               </div>
               <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-                เส้นแต่ละสีคือความแม่นยำต่อวันของแต่ละวิชา · เส้น 70% เป็น threshold เป้าหมาย · แตะจุดเพื่อดูจำนวนข้อ
+                เส้นแต่ละสีคือความแม่นยำต่อวันของแต่ละวิชา, เส้น 70% เป็น threshold เป้าหมาย, แตะจุดเพื่อดูจำนวนข้อ
               </div>
             </div>
           )}
@@ -318,7 +318,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                   {analytics.weakTags.map((t) => (
                     <span key={t.tag} className={`vmx-tag-pill ${t.pct < 60 ? 'weak' : ''}`}>
-                      #{t.tag} · {t.pct}% ({t.total})
+                      #{t.tag}, {t.pct}% ({t.total})
                     </span>
                   ))}
                 </div>

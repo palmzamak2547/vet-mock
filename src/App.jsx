@@ -27,8 +27,8 @@ const CommandPalette = lazy(() => import('./components/CommandPalette.jsx'));
 // from the palette or from a topic card.
 const InstructorModal = lazy(() => import('./components/InstructorModal.jsx'));
 
-// VetCalculator — floating widget for clinical math (RER · fluid ·
-// drug dose · transfusion · DKA insulin). Imported eagerly because
+// VetCalculator — floating widget for clinical math (RER, fluid ·
+// drug dose, transfusion, DKA insulin). Imported eagerly because
 // the FAB button needs to render on every page; modal contents only
 // run when the user opens it, so the runtime cost is just ~5KB
 // gzipped of inert UI code on first paint.
@@ -504,6 +504,16 @@ export default function App() {
     let pool;
     if (practiceMode === 'bookmarks') pool = allQuestions.filter((q) => bookmarks.includes(q.id));
     else if (practiceMode === 'weak') pool = allQuestions.filter((q) => analytics?.weakQuestions.includes(q.id));
+    else if (practiceMode === 'wrong') {
+      // Cross-subject "review wrong" — uses history with compound (subject:id)
+      // keying so dupe IDs across subjects don't leak. Pool is everything the
+      // user has answered incorrectly at least once. No grading ratio threshold.
+      const wrongSet = new Set();
+      for (const h of (history || [])) {
+        if (h && h.correct === false) wrongSet.add((h.subject || '') + ':' + h.questionId);
+      }
+      pool = allQuestions.filter((q) => wrongSet.has(q.subject + ':' + q.id));
+    }
     else {
       pool = subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === subject);
       if (topic) {
@@ -842,7 +852,7 @@ export default function App() {
                 <button
                   className="vmx-theme-btn"
                   onClick={() => setView('dashboard')}
-                  title="Analytics · ดูสถิติ + ประวัติ"
+                  title="Analytics, ดูสถิติ + ประวัติ"
                   aria-label="Analytics"
                 >📊</button>
                 <button
@@ -854,7 +864,7 @@ export default function App() {
                     setView('config');
                   }}
                   disabled={bookmarks.length === 0}
-                  title={bookmarks.length === 0 ? 'ยังไม่มีข้อที่บันทึก' : `Bookmarks · ทำ ${bookmarks.length} ข้อที่บันทึก`}
+                  title={bookmarks.length === 0 ? 'ยังไม่มีข้อที่บันทึก' : `Bookmarks, ทำ ${bookmarks.length} ข้อที่บันทึก`}
                   aria-label="Bookmarks"
                   style={{
                     position: 'relative',
@@ -933,12 +943,12 @@ export default function App() {
           )}
 
           <div className="vmx-footer">
-            VetMock v5.0 · made with ♡ by <strong>Vet 86</strong>
-            {' · '}<a onClick={() => setView('about')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>About</a>
-            {' · '}<a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
-            {' · '}<a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
-            {' · '}<a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
-            {' · '}<a onClick={() => setView('offline-game')} style={{ cursor: 'pointer', textDecoration: 'underline' }} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">🐤 มินิเกม</a>
+            VetMock v5.0, made with ♡ by <strong>Vet 86</strong>
+            {', '}<a onClick={() => setView('about')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>About</a>
+            {', '}<a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
+            {', '}<a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
+            {', '}<a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
+            {', '}<a onClick={() => setView('offline-game')} style={{ cursor: 'pointer', textDecoration: 'underline' }} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">🐤 มินิเกม</a>
           </div>
 
           {/* Floating clinical-math FAB — visible on every view except

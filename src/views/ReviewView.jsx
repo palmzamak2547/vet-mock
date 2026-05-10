@@ -146,11 +146,11 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           <div key={q.id} className={`vmx-review-item ${cls}`}>
             <div className="vmx-review-head">
               <span>
-                Q{idx + 1} · {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject}
+                Q{idx + 1}, {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject}
                 {(() => {
                   const subj = SUBJECTS.find((s) => s.id === q.subject);
                   const t = q.topic && subj?.topics?.find((tp) => tp.id === q.topic);
-                  return t ? <> · <span style={{ color: subj?.color || 'var(--clr-ink-soft)', fontWeight: 600 }}>{t.icon} {t.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></> : null;
+                  return t ? <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)', fontWeight: 600 }}>{t.icon} {t.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></> : null;
                 })()}
                 {q.examOrigin && (
                   <span title="คำถามนี้อ้างอิงจากข้อสอบเก่า" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
@@ -191,7 +191,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               <>
                 <img
                   src={q.image}
-                  alt={`Question ${q.id} image · ${q.subject}/${q.topic || 'general'}`}
+                  alt={`Question ${q.id} image, ${q.subject}/${q.topic || 'general'}`}
                   loading="lazy"
                   decoding="async"
                   className="vmx-qimage"
@@ -298,7 +298,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 ⚠️ <strong>{q.flag.severity === 'major' ? 'Major flag' : 'Note'}:</strong> {q.flag.note}
                 {q.flag.sources?.length > 0 && (
                   <div style={{ marginTop: 4, fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
-                    📖 {q.flag.sources.join(' · ')}
+                    📖 {q.flag.sources.join(', ')}
                   </div>
                 )}
               </div>

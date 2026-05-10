@@ -208,7 +208,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
       } else if (mode === 'magic-link') {
         if (!email.trim()) throw new Error('กรุณาใส่อีเมล');
         await signInWithMagicLink(email.trim());
-        setInfo(`✓ ส่งลิงก์ login ไปที่ ${email} แล้ว — กดลิงก์ในอีเมลเพื่อเข้าระบบ (ลิงก์ใช้ได้ 1 ครั้ง · 1 ชั่วโมง)`);
+        setInfo(`✓ ส่งลิงก์ login ไปที่ ${email} แล้ว — กดลิงก์ในอีเมลเพื่อเข้าระบบ (ลิงก์ใช้ได้ 1 ครั้ง, 1 ชั่วโมง)`);
       } else {
         // signin
         await signInWithEmail(email, password);
@@ -245,7 +245,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     try { await signInWithLine(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
-        setError('LINE login ยังไม่เปิด · ให้แอดมินเปิดในการตั้งค่า Supabase ก่อน · ใช้ Google หรือ email ก่อนได้ครับ');
+        setError('LINE login ยังไม่เปิด, ให้แอดมินเปิดในการตั้งค่า Supabase ก่อน, ใช้ Google หรือ email ก่อนได้ครับ');
       } else {
         setError(thaiAuthError(err));
       }
@@ -257,7 +257,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     try { await signInWithApple(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
-        setError('Apple Sign-in ยังไม่เปิด · ให้แอดมินเปิดในการตั้งค่า Supabase ก่อน');
+        setError('Apple Sign-in ยังไม่เปิด, ให้แอดมินเปิดในการตั้งค่า Supabase ก่อน');
       } else {
         setError(thaiAuthError(err));
       }
@@ -287,7 +287,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
           <div style={{ padding: 14, borderRadius: 12, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', marginBottom: 16, fontSize: 13, lineHeight: 1.6 }}>
             📧 <strong>ตรวจอีเมลของคุณ</strong><br/>
             <span style={{ color: 'var(--clr-ink-soft)' }}>
-              เราส่งลิงก์ยืนยันไปที่ <code>{emailVerifyPending.email}</code> · คลิกลิงก์นั้นเพื่อยืนยันก่อน Login (อาจอยู่ใน junk/spam)
+              เราส่งลิงก์ยืนยันไปที่ <code>{emailVerifyPending.email}</code>, คลิกลิงก์นั้นเพื่อยืนยันก่อน Login (อาจอยู่ใน junk/spam)
             </span>
           </div>
         )}
@@ -387,7 +387,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                   if (usernameStatus === 'taken') return '❌ ชื่อนี้ถูกใช้ไปแล้ว — ลองชื่ออื่น';
                   if (usernameStatus === 'available') return '✓ ชื่อนี้ใช้ได้';
                   if (usernameStatus === 'checking') return '… ตรวจอยู่';
-                  return 'ใช้ได้: a-z, A-Z, 0-9, _ · ความยาว 3-30';
+                  return 'ใช้ได้: a-z, A-Z, 0-9, _, ความยาว 3-30';
                 })()}
               </div>
             </div>

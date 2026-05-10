@@ -30,17 +30,17 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           เลือก <em>วิชา</em>
           {yearMeta && (
             <span style={{ fontSize: '0.55em', marginLeft: 12, color: 'var(--clr-ink-soft)', verticalAlign: 'middle' }}>
-              · {yearMeta.label}
+             , {yearMeta.label}
             </span>
           )}
         </h1>
         <p>
           {isScaffoldYear ? (
             <>
-              🚧 <strong>{yearMeta.label}</strong> · {yearMeta.desc} — โครงสร้างวิชาวางไว้แล้ว · รอเติมข้อสอบ/เนื้อหาทีละวิชา
+              🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc} — โครงสร้างวิชาวางไว้แล้ว, รอเติมข้อสอบ/เนื้อหาทีละวิชา
             </>
           ) : mode === 'exam' ? (
-            '🎓 Exam Mode — สอบจริงจัง · ตั้งค่าจำนวนข้อ/เวลาได้ในขั้นถัดไป'
+            '🎓 Exam Mode — สอบจริงจัง, ตั้งค่าจำนวนข้อ/เวลาได้ในขั้นถัดไป'
           ) : (
             '📝 Quick Practice — สุ่มข้อสอบตามจำนวนที่เลือก'
           )}
@@ -75,7 +75,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 opacity: isEmpty ? 0.5 : 1,
                 cursor: isEmpty ? 'not-allowed' : 'pointer',
               }}
-              title={isScaffold ? 'รอเติมเนื้อหา · ส่ง slide/notes มาช่วยได้' : (isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : '')}
+              title={isScaffold ? 'รอเติมเนื้อหา, ส่ง slide/notes มาช่วยได้' : (isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : '')}
             >
               <div className="accent" style={{ background: s.color }}></div>
               <div className="icon">{s.icon}</div>
@@ -106,7 +106,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   letterSpacing: '0.05em',
                 }}>
                   📝 {s.examFormat.weight}
-                  {s.examFormat.choiceCount && ` · ${s.examFormat.choiceCount} ช้อยส์`}
+                  {s.examFormat.choiceCount && `, ${s.examFormat.choiceCount} ช้อยส์`}
                 </div>
               )}
             </button>
@@ -117,7 +117,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
       {isScaffoldYear && (
         <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
           💡 <strong>ปีนี้กำลังวางโครงสร้าง</strong> — รายวิชา + course code + รายชื่ออาจารย์ มาจาก vault profiles ของ {yearSubjects.reduce((acc, s) => acc + (s.vault_lecturers?.length || 0), 0)} คนใน Chula Vet faculty<br/>
-          🤝 ช่วยกันได้: ถ้ามี slide เก่า · notes · ข้อสอบ past paper ปีนี้ ส่งมาทาง feedback ได้เลย<br/>
+          🤝 ช่วยกันได้: ถ้ามี slide เก่า, notes, ข้อสอบ past paper ปีนี้ ส่งมาทาง feedback ได้เลย<br/>
           📅 จะค่อย ๆ เปิดปีหลัง ปี 4 sem 2 จบ (ปิดเทอม พ.ค.–ก.ย. 2026)
         </div>
       )}

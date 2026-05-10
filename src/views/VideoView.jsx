@@ -172,7 +172,7 @@ export default function VideoView({ goHome }) {
         <h1>🎥 คลิป<em>ย้อนหลัง</em></h1>
         <p>
           คลิปจากช่อง <a href="https://www.youtube.com/@dai.1387" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage)' }}>Dai (@dai.1387)</a> และอื่นๆ — คลิกเข้าไปเพื่อเลือกคลิปใน playlist ได้
-          {watchedCount > 0 && <> · 👁 ดูแล้ว <strong>{watchedCount}</strong> คลิป</>}
+          {watchedCount > 0 && <>, 👁 ดูแล้ว <strong>{watchedCount}</strong> คลิป</>}
         </p>
       </div>
 
@@ -195,9 +195,9 @@ export default function VideoView({ goHome }) {
           const sem2 = yearSubjects.filter((s) => s.semester === 2);
           const sem0 = yearSubjects.filter((s) => !s.semester);
 
-          if (sem1.length) groups.push({ key: `${year.id}-1`, label: `${year.label} · เทอม 1`, subjects: sem1 });
-          if (sem2.length) groups.push({ key: `${year.id}-2`, label: `${year.label} · เทอม 2`, subjects: sem2 });
-          if (sem0.length) groups.push({ key: `${year.id}-block`, label: `${year.label} · บล็อก`, subjects: sem0 });
+          if (sem1.length) groups.push({ key: `${year.id}-1`, label: `${year.label}, เทอม 1`, subjects: sem1 });
+          if (sem2.length) groups.push({ key: `${year.id}-2`, label: `${year.label}, เทอม 2`, subjects: sem2 });
+          if (sem0.length) groups.push({ key: `${year.id}-block`, label: `${year.label}, บล็อก`, subjects: sem0 });
         }
 
         return (
@@ -363,7 +363,7 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
         {/* Playlist count badge (top-left ribbon) */}
         {playlist && playlistPreview && (
           <div style={{ position: 'absolute', top: 8, left: 8, padding: '3px 9px', background: 'rgba(0,0,0,0.78)', color: 'white', borderRadius: 6, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', fontWeight: 600, letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: 5 }}>
-            📋 PLAYLIST · {playlistPreview.count}
+            📋 PLAYLIST, {playlistPreview.count}
           </div>
         )}
       </div>
@@ -517,7 +517,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
             {playlistItems.length > 0 && (
               <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>
                 📋 {playlistItems.length} คลิป
-                {currentIdx >= 0 && <> · กำลังเล่น <strong>{currentIdx + 1} / {playlistItems.length}</strong></>}
+                {currentIdx >= 0 && <>, กำลังเล่น <strong>{currentIdx + 1} / {playlistItems.length}</strong></>}
               </div>
             )}
           </div>
@@ -562,7 +562,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goPrev} disabled={currentIdx <= 0} title="ก่อนหน้า (←)" style={{ padding: '6px 12px' }}>← Prev</button>
                 <div style={{ flex: 1, minWidth: 200 }}>
                   <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                    Now playing · #{currentIdx + 1}
+                    Now playing, #{currentIdx + 1}
                   </div>
                   <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--clr-ink)', marginTop: 2 }}>
                     {currentItem.title}
@@ -609,7 +609,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               )}
               <div style={{ flex: 1 }} />
               <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', opacity: 0.7 }}>
-                ⌨ ← → · / · Esc
+                ⌨ ← →, /, Esc
               </span>
             </div>
           </div>

@@ -14,7 +14,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
 
-  // Background gradient (warm cream → soft sage · matches app palette)
+  // Background gradient (warm cream → soft sage, matches app palette)
   const bg = ctx.createLinearGradient(0, 0, 0, H);
   bg.addColorStop(0, '#fdf6e9');
   bg.addColorStop(0.55, '#f5ead0');
@@ -77,11 +77,11 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
 
   // Encouragement line — short Thai
   let msg = '';
-  if (isWritingOnly) msg = 'เขียนไปแล้ว · ลองดู AI feedback ใน VetMock';
+  if (isWritingOnly) msg = 'เขียนไปแล้ว, ลองดู AI feedback ใน VetMock';
   else if (pct === 100) msg = 'เทพสุดๆ 🏆 อ่านต่อมาเรื่อยๆ';
-  else if (pct >= 80) msg = 'ใกล้แล้ว · อ่านอีกนิดเดียว';
-  else if (pct >= 60) msg = 'ผ่านครับ · ทบทวนข้อที่ผิด';
-  else if (pct >= 40) msg = 'สู้ๆ · กลับไปเปิดข้อสอบเก่า';
+  else if (pct >= 80) msg = 'ใกล้แล้ว, อ่านอีกนิดเดียว';
+  else if (pct >= 60) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
+  else if (pct >= 40) msg = 'สู้ๆ, กลับไปเปิดข้อสอบเก่า';
   else msg = 'เริ่มใหม่ได้เสมอ 💪';
   ctx.font = '400 44px "Fraunces", serif';
   ctx.fillStyle = '#3d342a';
@@ -165,12 +165,12 @@ export default function ResultsView({ score, questions, answers, goHome, setView
       <BackBar onBack={goHome} label="หน้าแรก" />
       {showPassFail && (
         <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
-          {passed ? '✓ PASSED' : '✗ FAILED'} · EXAM MODE
+          {passed ? '✓ PASSED' : '✗ FAILED'}, EXAM MODE
         </div>
       )}
       {isExam && autoQs.length === 0 && writingQs.length > 0 && (
         <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-gold)' }}>
-          ✍️ WRITING SESSION · GRADE IN REVIEW
+          ✍️ WRITING SESSION, GRADE IN REVIEW
         </div>
       )}
 
@@ -241,7 +241,7 @@ export default function ResultsView({ score, questions, answers, goHome, setView
 }
 
 // One-click share. We render the score card to a Blob, then prefer the
-// Web Share API (mobile · lets user pick IG Story / IG Direct / DM /
+// Web Share API (mobile, lets user pick IG Story / IG Direct / DM /
 // any installed app). On desktop or browsers without share-with-files,
 // we fall back to PNG download — user can airdrop / save and upload to
 // IG manually. Either way we add a footer link to the IG profile so
@@ -263,7 +263,7 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
         await navigator.share({
           files: [file],
           title: 'VetMock score',
-          text: `ทำข้อสอบ VetMock ได้ ${isWritingOnly ? 'writing ' + writingDone + '/' + writingTotal : pct + '% (' + correct + '/' + total + ')'} 📚 · ลองดูที่ vetmock.vercel.app · IG @vetmock.cu`,
+          text: `ทำข้อสอบ VetMock ได้ ${isWritingOnly ? 'writing ' + writingDone + '/' + writingTotal : pct + '% (' + correct + '/' + total + ')'} 📚, ลองดูที่ vetmock.vercel.app, IG @vetmock.cu`,
         });
         setHint('✓ แชร์เรียบร้อย — เลือก Instagram Story / Direct ได้เลย');
       } else {
@@ -273,10 +273,10 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
         a.href = url; a.download = `vetmock-score-${Date.now()}.png`;
         document.body.appendChild(a); a.click(); a.remove();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
-        setHint('✓ ดาวน์โหลดรูปแล้ว — อัพโหลดเข้า IG Story เอง · @vetmock.cu');
+        setHint('✓ ดาวน์โหลดรูปแล้ว — อัพโหลดเข้า IG Story เอง, @vetmock.cu');
       }
     } catch (e) {
-      setHint('⚠️ แชร์ไม่ได้ · ลองใหม่อีกครั้ง');
+      setHint('⚠️ แชร์ไม่ได้, ลองใหม่อีกครั้ง');
     } finally {
       setBusy(false);
     }
@@ -286,7 +286,7 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
     <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'linear-gradient(135deg, rgba(225,48,108,0.06), rgba(247,119,55,0.06))', border: '1px dashed rgba(225,48,108,0.35)' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ fontSize: 13, color: 'var(--clr-ink)', flex: '1 1 200px', lineHeight: 1.5 }}>
-          อยากแชร์คะแนนให้เพื่อน? · กดสร้าง score card สำหรับ <strong>IG Story</strong> ได้
+          อยากแชร์คะแนนให้เพื่อน?, กดสร้าง score card สำหรับ <strong>IG Story</strong> ได้
         </div>
         <button
           className="vmx-btn vmx-btn-primary"

@@ -2,7 +2,7 @@
 // AccountSettingsView — manage account (post-login)
 // ============================================================
 // Sections:
-//   • Profile info (email + username · read-only)
+//   • Profile info (email + username, read-only)
 //   • Change password
 //   • Change email (sends verify link to new email)
 //   • Logout all devices (security)
@@ -168,7 +168,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
     setLoading(true);
     try {
       await updateEmail(newEmail.trim());
-      setInfo(`✓ ส่งลิงก์ยืนยันไปที่ ${newEmail} แล้ว — กดลิงก์ในอีเมลใหม่เพื่อยืนยัน · อีเมลเก่ายังใช้ login ได้จนกว่าจะยืนยัน`);
+      setInfo(`✓ ส่งลิงก์ยืนยันไปที่ ${newEmail} แล้ว — กดลิงก์ในอีเมลใหม่เพื่อยืนยัน, อีเมลเก่ายังใช้ login ได้จนกว่าจะยืนยัน`);
       setNewEmail('');
       setTimeout(() => { setSection(null); setInfo(''); }, 4000);
     } catch (err) {
@@ -177,7 +177,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
   };
 
   const handleLogoutAll = async () => {
-    if (!confirm('Logout จากทุก device ที่คุณเคย login? · จำเป็นต้อง login ใหม่ทุกที่')) return;
+    if (!confirm('Logout จากทุก device ที่คุณเคย login?, จำเป็นต้อง login ใหม่ทุกที่')) return;
     reset();
     setLoading(true);
     try {
@@ -207,13 +207,13 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       setError('พิมพ์ "ลบ account" ให้ตรงเพื่อยืนยัน');
       return;
     }
-    if (!confirm('ลบ account จริงๆ? · ข้อมูลทั้งหมด (progress, scores, bookmarks) จะหาย · ไม่สามารถกู้คืนได้')) return;
+    if (!confirm('ลบ account จริงๆ?, ข้อมูลทั้งหมด (progress, scores, bookmarks) จะหาย, ไม่สามารถกู้คืนได้')) return;
     setLoading(true);
     try {
       const result = await deleteAccountData();
       if (result.errors.length > 0) {
         console.warn('Delete errors:', result.errors);
-        setInfo('✓ ลบข้อมูลแล้ว — บางส่วนอาจคงเหลือ · email vetmock เพื่อล้างถาวร');
+        setInfo('✓ ลบข้อมูลแล้ว — บางส่วนอาจคงเหลือ, email vetmock เพื่อล้างถาวร');
       } else {
         setInfo('✓ ลบ account สำเร็จ — Logout แล้ว');
       }
@@ -231,7 +231,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
 
       <div className="vmx-hero">
         <h1>⚙️ <em>Account</em> Settings</h1>
-        <p>จัดการ account · เปลี่ยนรหัสผ่าน อีเมล หรือลบ account</p>
+        <p>จัดการ account, เปลี่ยนรหัสผ่าน อีเมล หรือลบ account</p>
       </div>
 
       <div className="vmx-config-panel" style={{ maxWidth: 560, margin: '0 auto' }}>
@@ -251,7 +251,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
               {md.avatar_emoji || ''} {username}
             </>
           } />
-          {md.year && <KV label="ชั้นปี" value={`ปี ${md.year}${md.cohort ? ` · ${md.cohort}` : ''}`} />}
+          {md.year && <KV label="ชั้นปี" value={`ปี ${md.year}${md.cohort ? `, ${md.cohort}` : ''}`} />}
           {md.bio && <KV label="Bio" value={<span style={{ maxWidth: 280, textAlign: 'right' }}>{md.bio}</span>} />}
           {user.last_sign_in_at && (
             <KV label="Login ล่าสุด" value={
@@ -268,7 +268,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
           <h3 style={cardHeading}>✏️ แก้ไขโปรไฟล์</h3>
           {section !== 'profile' ? (
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('profile'); }}>
-              แก้ไข username · ชั้นปี · avatar · bio · privacy →
+              แก้ไข username, ชั้นปี, avatar, bio, privacy →
             </button>
           ) : (
             <form onSubmit={handleSaveProfile}>
@@ -283,7 +283,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
                   autoComplete="username"
                 />
                 <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)' }}>
-                  ใช้ได้: a-z, A-Z, 0-9, _ · 3-30 ตัว
+                  ใช้ได้: a-z, A-Z, 0-9, _, 3-30 ตัว
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
@@ -431,7 +431,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
         <Card>
           <h3 style={cardHeading}>📦 Export ข้อมูล</h3>
           <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
-            ดาวน์โหลด progress ทั้งหมด (bookmarks · history · notes · custom Q · streak) เป็น JSON
+            ดาวน์โหลด progress ทั้งหมด (bookmarks, history, notes, custom Q, streak) เป็น JSON
           </p>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleExportData} disabled={loading}>
             {loading ? '…' : '↓ ดาวน์โหลด JSON'}
@@ -460,7 +460,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
           {section !== 'delete' ? (
             <>
               <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
-                ลบ account + ข้อมูลทั้งหมด · ไม่สามารถกู้คืนได้
+                ลบ account + ข้อมูลทั้งหมด, ไม่สามารถกู้คืนได้
               </p>
               <button
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"

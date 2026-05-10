@@ -11,6 +11,7 @@
     "icons": "node scripts/generate-icons.mjs",
     "lint:questions": "node scripts/lint-questions.cjs",
     "lint:ids": "node scripts/lint-q-ids.mjs",
+    "lint:dupes": "node scripts/lint-q-dupes.mjs",
     "fix:questions": "node scripts/fix-question-bias.cjs",
     "fix:length": "node scripts/fix-length-bias.cjs",
     "fetch:videos": "node scripts/fetch-video-transcripts.mjs",

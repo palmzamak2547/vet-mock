@@ -84,7 +84,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       <BackBar onBack={goHome} label="หน้าแรก" subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
       <div className="vmx-hero">
         <h1>เลือก <em>หัวข้อ</em></h1>
-        <p>{subjectMeta?.icon} {subjectMeta?.name} · เลือกเฉพาะหัวข้อที่จะสอบ หรือทั้งหมดก็ได้</p>
+        <p>{subjectMeta?.icon} {subjectMeta?.name}, เลือกเฉพาะหัวข้อที่จะสอบ หรือทั้งหมดก็ได้</p>
         {topics.length > 0 && (
           <div
             onClick={() => setView('reading-checklist')}
@@ -125,7 +125,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         >
           <div className="icon">📝</div>
           <div className="title">ฝึกซ้อม</div>
-          <div className="sub">สุ่ม {countFor('all')} ข้อในวิชานี้ · ปรับจำนวน/เวลาได้</div>
+          <div className="sub">สุ่ม {countFor('all')} ข้อในวิชานี้, ปรับจำนวน/เวลาได้</div>
         </button>
 
         <button
@@ -142,7 +142,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         >
           <div className="icon">🎓</div>
           <div className="title">สอบจริง</div>
-          <div className="sub">50 ข้อ × 60 วิ · เลียนข้อสอบจริง</div>
+          <div className="sub">50 ข้อ × 60 วิ, เลียนข้อสอบจริง</div>
         </button>
 
         <button
@@ -151,7 +151,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         >
           <div className="icon">📖</div>
           <div className="title">Notes / สรุป</div>
-          <div className="sub">อ่าน slide สรุป · อ้างอิง slide จริง</div>
+          <div className="sub">อ่าน slide สรุป, อ้างอิง slide จริง</div>
         </button>
 
         <button
@@ -160,7 +160,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         >
           <div className="icon">🎥</div>
           <div className="title">คลิปย้อนหลัง</div>
-          <div className="sub">Video library · YouTube playlist</div>
+          <div className="sub">Video library, YouTube playlist</div>
         </button>
       </div>
 
@@ -188,7 +188,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             >
               <div className="icon">⚡</div>
               <div className="title">Quick 25</div>
-              <div className="sub">25 ข้อ × 60 วิ · ทำ 25 นาที</div>
+              <div className="sub">25 ข้อ × 60 วิ, ทำ 25 นาที</div>
             </button>
 
             <button
@@ -205,7 +205,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             >
               <div className="icon">🎯</div>
               <div className="title">Mock 100</div>
-              <div className="sub">100 ข้อ × 60 วิ · ~100 นาที</div>
+              <div className="sub">100 ข้อ × 60 วิ, ~100 นาที</div>
             </button>
 
             <button
@@ -222,7 +222,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             >
               <div className="icon">🏁</div>
               <div className="title">Marathon 200</div>
-              <div className="sub">200 ข้อ × 60 วิ · stamina training</div>
+              <div className="sub">200 ข้อ × 60 วิ, stamina training</div>
             </button>
 
             <button
@@ -238,7 +238,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             >
               <div className="icon">📚</div>
               <div className="title">All 316</div>
-              <div className="sub">ทุกข้อ · ไม่จับเวลา · ฝึกล้วน</div>
+              <div className="sub">ทุกข้อ, ไม่จับเวลา, ฝึกล้วน</div>
             </button>
           </div>
         </>
@@ -355,7 +355,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                     color: 'var(--clr-gold)',
                   }}
                 >
-                  📜 ข้อสอบเก่า {ppCount}/{count} · {ppPct}%
+                  📜 ข้อสอบเก่า {ppCount}/{count}, {ppPct}%
                 </div>
               )}
               {t.lecturerNote && !isEmpty && (
@@ -446,7 +446,7 @@ function ExamFormatBanner({ format, accent }) {
           {format.questionTypes.map((q, i) => (
             <li key={i}>
               {q.topic} — <code style={{ background: 'var(--clr-surface-2)', padding: '1px 6px', borderRadius: 4, fontSize: 11 }}>{q.type}</code>
-              {q.count && <span style={{ color: 'var(--clr-ink-soft)' }}> · {q.count}</span>}
+              {q.count && <span style={{ color: 'var(--clr-ink-soft)' }}>, {q.count}</span>}
             </li>
           ))}
         </ul>
