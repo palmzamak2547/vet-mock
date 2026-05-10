@@ -5,6 +5,7 @@ import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
+import { speakQuestion, cancelSpeech } from '../lib/tts.js';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
 // markers and HTML entities sound weird as speech.
@@ -38,35 +39,40 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // Reset flag display when navigating to a new Q
   useEffect(() => { setFlagState(readFlags()[compoundId] || null); }, [compoundId]);
 
-  // Stop speech when component unmounts or Q changes
+  // Stop speech + cleanup when component unmounts or Q changes. The
+  // controller flag lets in-flight `speakQuestion` bail between chunks
+  // even if a user mashes 🔊 on a new Q before the previous finished.
+  const speakControllerRef = useRef({ cancelled: false });
   useEffect(() => {
     return () => {
-      if (typeof window !== 'undefined' && window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
+      speakControllerRef.current.cancelled = true;
+      cancelSpeech();
       setIsSpeaking(false);
     };
   }, [currentQ?.id]);
 
   const speakQ = () => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return;
-    const synth = window.speechSynthesis;
-    if (synth.speaking) { synth.cancel(); setIsSpeaking(false); return; }
-    const text = stripForSpeech(currentQ.q) + '. '
-      + (Array.isArray(currentQ.options)
-        ? currentQ.options.map((o, i) => String.fromCharCode(65 + i) + '. ' + stripForSpeech(o)).join('. ')
-        : '');
-    const utter = new SpeechSynthesisUtterance(text);
-    // Pick a Thai or matching voice if available — fallback to default
-    const voices = synth.getVoices();
-    const thaiVoice = voices.find((v) => /th|thai/i.test(v.lang));
-    if (thaiVoice) utter.voice = thaiVoice;
-    utter.rate = 0.95;
-    utter.pitch = 1.0;
-    utter.onend = () => setIsSpeaking(false);
-    utter.onerror = () => setIsSpeaking(false);
-    synth.speak(utter);
-    setIsSpeaking(true);
+    if (isSpeaking) {
+      // Toggle off — abort the in-flight chain and cancel the queue
+      speakControllerRef.current.cancelled = true;
+      cancelSpeech();
+      setIsSpeaking(false);
+      return;
+    }
+    // Fresh controller per speak action
+    const controller = { cancelled: false };
+    speakControllerRef.current = controller;
+    const stem = stripForSpeech(currentQ.q || '');
+    const options = Array.isArray(currentQ.options)
+      ? currentQ.options.map((o) => stripForSpeech(o))
+      : [];
+    speakQuestion({
+      stem,
+      options,
+      controller,
+      onStart: () => setIsSpeaking(true),
+      onEnd: () => { if (!controller.cancelled) setIsSpeaking(false); },
+    });
   };
 
   const toggleFlag = () => {

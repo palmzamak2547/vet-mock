@@ -3,7 +3,7 @@ import QuestionComponent from '../components/Question.jsx';
 import { fmtTime } from '../hooks/utils.js';
 import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
 
-export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user }) {
+export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user, goHome }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   // Show the navigator opener for medium/long exams; short exams (≤10) just use prev/next
@@ -13,9 +13,33 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
   const qKey = currentQ ? `${currentQ.subject}:${currentQ.id}` : null;
   const buddiesHere = countBuddiesOnQ(buddies || {}, qKey, user?.id);
 
+  // Exit-exam handler — explicit confirm so a stray tap on the X
+  // doesn't lose progress. Auto-save + in-flight resume mean a refresh
+  // also recovers state, but the visible escape route is what reduces
+  // panic when a user mishits during a real session.
+  const exitExam = () => {
+    if (!goHome) return;
+    const msg = questions.length > 1
+      ? 'ออกจากการทำชุดนี้ใช่ไหม? คำตอบที่ตอบไปจะยังถูกเก็บไว้ — กลับมาทำต่อได้ผ่านแบนเนอร์ที่หน้าแรก'
+      : 'ออกจากชุดนี้ใช่ไหม?';
+    if (window.confirm(msg)) goHome();
+  };
+
   return (
     <>
       <div className="vmx-exam-top">
+        {goHome && (
+          <button
+            type="button"
+            onClick={exitExam}
+            title="ออกจากชุดนี้ — คำตอบยังถูกเก็บไว้ผ่าน auto-save"
+            aria-label="ออกจากชุดนี้"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            style={{ padding: '4px 10px', fontSize: 13, marginRight: 8 }}
+          >
+            ←
+          </button>
+        )}
         <div className="vmx-progress">
           <strong>{currentIdx + 1}</strong> / {questions.length}
           {(currentQ?.type === 'essay' || currentQ?.type === 'short') && (
