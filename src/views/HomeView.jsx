@@ -412,14 +412,18 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         // user is in sem 2 phase).
         const yearSubjectIds = new Set(yearSubjects.map((s) => s.id));
         const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
-        // Index Q→topic for history lookups (history doesn't store topic)
+        // Index Q→topic for history lookups (history doesn't store topic).
+        // Use compound key (subject + ':' + id) because Q IDs collide
+        // across subjects historically (e.g. com4 ↔ engprof both use
+        // 1100-1160). Without compound key, stats for one subject leak
+        // into another.
         const qIndex = new Map();
-        for (const q of QB) qIndex.set(q.id, q);
+        for (const q of QB) qIndex.set(q.subject + ':' + q.id, q);
         const topicAcc = {};
         for (const h of (history || [])) {
           if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
           if (h.date && h.date < cutoff) continue;
-          const q = qIndex.get(h.questionId);
+          const q = qIndex.get(h.subject + ':' + h.questionId);
           const topic = q?.topic;
           if (!topic) continue;
           const key = `${h.subject}::${topic}`;

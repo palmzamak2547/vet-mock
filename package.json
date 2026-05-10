@@ -10,6 +10,7 @@
     "analyze": "npx --yes vite-bundle-visualizer",
     "icons": "node scripts/generate-icons.mjs",
     "lint:questions": "node scripts/lint-questions.cjs",
+    "lint:ids": "node scripts/lint-q-ids.mjs",
     "fix:questions": "node scripts/fix-question-bias.cjs",
     "fix:length": "node scripts/fix-length-bias.cjs",
     "fetch:videos": "node scripts/fetch-video-transcripts.mjs",

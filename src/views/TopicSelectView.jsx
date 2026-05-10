@@ -168,6 +168,82 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         <ExamFormatBanner format={subjectMeta.examFormat} accent={subjectMeta.color} />
       )}
 
+      {/* VCA-only: extra mock exam preset row (Quick 25 / Mock 100 / Marathon 200).
+          The standard "สอบจริง 50" above already handles the 50-question case. */}
+      {subject === 'vca' && (
+        <>
+          <div className="vmx-section-label" style={{ marginTop: 24 }}>🩵 VCA Mock Exam Presets (cross-species)</div>
+          <div className="vmx-mode-grid" style={{ marginBottom: 20 }}>
+            <button
+              className="vmx-mode-card"
+              onClick={() => {
+                if (setMode) setMode('exam');
+                if (setNumQuestions) setNumQuestions(25);
+                if (setUseTimer) setUseTimer(true);
+                if (setTimePerQ) setTimePerQ(60);
+                setTopic(null);
+                setView('config');
+              }}
+              style={{ borderColor: '#5db4d3' }}
+            >
+              <div className="icon">⚡</div>
+              <div className="title">Quick 25</div>
+              <div className="sub">25 ข้อ × 60 วิ · ทำ 25 นาที</div>
+            </button>
+
+            <button
+              className="vmx-mode-card"
+              onClick={() => {
+                if (setMode) setMode('exam');
+                if (setNumQuestions) setNumQuestions(100);
+                if (setUseTimer) setUseTimer(true);
+                if (setTimePerQ) setTimePerQ(60);
+                setTopic(null);
+                setView('config');
+              }}
+              style={{ borderColor: '#5db4d3' }}
+            >
+              <div className="icon">🎯</div>
+              <div className="title">Mock 100</div>
+              <div className="sub">100 ข้อ × 60 วิ · ~100 นาที</div>
+            </button>
+
+            <button
+              className="vmx-mode-card"
+              onClick={() => {
+                if (setMode) setMode('exam');
+                if (setNumQuestions) setNumQuestions(200);
+                if (setUseTimer) setUseTimer(true);
+                if (setTimePerQ) setTimePerQ(60);
+                setTopic(null);
+                setView('config');
+              }}
+              style={{ borderColor: '#5db4d3' }}
+            >
+              <div className="icon">🏁</div>
+              <div className="title">Marathon 200</div>
+              <div className="sub">200 ข้อ × 60 วิ · stamina training</div>
+            </button>
+
+            <button
+              className="vmx-mode-card"
+              onClick={() => {
+                if (setMode) setMode('quick');
+                if (setNumQuestions) setNumQuestions(316);
+                if (setUseTimer) setUseTimer(false);
+                setTopic(null);
+                setView('config');
+              }}
+              style={{ borderColor: '#5db4d3' }}
+            >
+              <div className="icon">📚</div>
+              <div className="title">All 316</div>
+              <div className="sub">ทุกข้อ · ไม่จับเวลา · ฝึกล้วน</div>
+            </button>
+          </div>
+        </>
+      )}
+
       <div className="vmx-section-label">หรือเลือกหัวข้อเฉพาะ</div>
       <div className="vmx-subject-grid">
         {/* All-topics card */}
