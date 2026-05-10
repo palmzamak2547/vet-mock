@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import QuestionComponent from '../components/Question.jsx';
 import { fmtTime } from '../hooks/utils.js';
+import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
 
-export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks }) {
+export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   // Show the navigator opener for medium/long exams; short exams (≤10) just use prev/next
   const showNavOpener = questions.length >= 15;
+  // Live "X buddies on this Q" count — pulls from Supabase presence
+  // payload (qKey field). Hidden when 0 or no Supabase.
+  const qKey = currentQ ? `${currentQ.subject}:${currentQ.id}` : null;
+  const buddiesHere = countBuddiesOnQ(buddies || {}, qKey, user?.id);
 
   return (
     <>
@@ -38,6 +43,18 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
       <div className="vmx-progress-bar">
         <div className="vmx-progress-fill" style={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }}></div>
       </div>
+
+      {buddiesHere > 0 && (
+        <div style={{
+          marginTop: 8, padding: '4px 12px', borderRadius: 999,
+          background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
+          fontSize: 11, fontFamily: 'JetBrains Mono, monospace',
+          color: 'var(--clr-sage)',
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+        }}>
+          👥 {buddiesHere} คนกำลังทำข้อนี้
+        </div>
+      )}
 
       <QuestionComponent
         currentQ={currentQ}

@@ -7,6 +7,7 @@ import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
 import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
+import { copyShareUrl } from '../lib/share-link.js';
 
 // Annotator is heavy (canvas + image processing) and only mounts on
 // demand — lazy so the review view stays light.
@@ -409,9 +410,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         </div>
       )}
 
-      <div className="vmx-btn-row" style={{ marginTop: 30 }}>
+      <div className="vmx-btn-row" style={{ marginTop: 30, flexWrap: 'wrap' }}>
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('config')}>ทำชุดใหม่ →</button>
+        <ReviewShareButton questions={questions} />
       </div>
 
       {annotateSrc && (
@@ -420,6 +422,25 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         </Suspense>
       )}
     </>
+  );
+}
+
+function ReviewShareButton({ questions }) {
+  const [hint, setHint] = useState('');
+  if (!questions?.length) return null;
+  return (
+    <button
+      type="button"
+      className="vmx-btn vmx-btn-ghost"
+      onClick={async () => {
+        const res = await copyShareUrl(questions);
+        setHint(res.ok ? 'คัดลอกลิงก์แล้ว' : 'คัดลอกไม่ได้');
+        setTimeout(() => setHint(''), 3000);
+      }}
+      title="แชร์ชุดโจทย์นี้ให้เพื่อน"
+    >
+      📎 แชร์ชุดนี้{hint && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage)' }}>{hint}</span>}
+    </button>
   );
 }
 

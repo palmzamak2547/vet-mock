@@ -16,7 +16,7 @@ import { getSupabase, hasSupabase } from '../lib/supabase.js';
 
 const CHANNEL_NAME = 'vet-mock-buddies';
 
-export function useStudyBuddies({ user, profile, subject, view }) {
+export function useStudyBuddies({ user, profile, subject, view, qKey }) {
   const [buddies, setBuddies] = useState({});
   const channelRef = useRef(null);
 
@@ -53,6 +53,7 @@ export function useStudyBuddies({ user, profile, subject, view }) {
             avatar: profile?.avatar_emoji || '🐾',
             subject: subject || null,
             view: view || 'home',
+            qKey: qKey || null,
             joined_at: Date.now(),
           });
         }
@@ -70,7 +71,10 @@ export function useStudyBuddies({ user, profile, subject, view }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
-  // Update presence metadata when user navigates to a new subject/view
+  // Update presence metadata when user navigates to a new subject/view/Q.
+  // qKey changes most often (each Q in an exam) — debounced via the
+  // natural React batching since the underlying channel.track call is
+  // a no-op-on-no-change inside the SDK.
   useEffect(() => {
     const ch = channelRef.current;
     if (!ch || !user) return;
@@ -80,10 +84,22 @@ export function useStudyBuddies({ user, profile, subject, view }) {
         avatar: profile?.avatar_emoji || '🐾',
         subject: subject || null,
         view: view || 'home',
+        qKey: qKey || null,
         joined_at: Date.now(),
       });
     } catch {}
-  }, [subject, view, user, profile]);
+  }, [subject, view, qKey, user, profile]);
 
   return buddies;
+}
+
+// Helper: count buddies currently on the same question (excluding self).
+export function countBuddiesOnQ(buddies, qKey, selfUserId) {
+  if (!buddies || !qKey) return 0;
+  let n = 0;
+  for (const [k, b] of Object.entries(buddies)) {
+    if (k === selfUserId) continue;
+    if (b?.qKey === qKey) n++;
+  }
+  return n;
 }

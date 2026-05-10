@@ -104,21 +104,30 @@ export function questionCategory(q) {
   return (q.type === 'short' || q.type === 'essay' || q.type === 'fill') ? 'writing' : 'mcq';
 }
 
-// Check if today is a new study day (for streak)
-export function updateStreak(lastStudyDate, currentStreak) {
+// Check if today is a new study day (for streak).
+// Streak freeze (since v6 social): if the user misses ONE day but has a
+// streak of ≥ 5 days, we silently let them skip without breaking. The
+// freeze can be used at most once per active streak — tracked via
+// `freezeUsedAt` (timestamp of the day that was skipped). Reset when
+// the streak itself resets to 1.
+export function updateStreak(lastStudyDate, currentStreak, freezeUsedAt = null) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const todayTs = today.getTime();
 
-  if (!lastStudyDate) return { streak: 1, lastDate: todayTs };
+  if (!lastStudyDate) return { streak: 1, lastDate: todayTs, freezeUsedAt: null };
 
   const last = new Date(lastStudyDate);
   last.setHours(0, 0, 0, 0);
   const diff = Math.round((todayTs - last.getTime()) / (1000 * 60 * 60 * 24));
 
-  if (diff === 0) return { streak: currentStreak, lastDate: lastStudyDate }; // Same day
-  if (diff === 1) return { streak: currentStreak + 1, lastDate: todayTs }; // Next day
-  return { streak: 1, lastDate: todayTs }; // Gap — reset streak
+  if (diff === 0) return { streak: currentStreak, lastDate: lastStudyDate, freezeUsedAt }; // Same day
+  if (diff === 1) return { streak: currentStreak + 1, lastDate: todayTs, freezeUsedAt }; // Next day
+  // diff === 2 + streak ≥ 5 + freeze not yet used → consume freeze, keep streak
+  if (diff === 2 && currentStreak >= 5 && !freezeUsedAt) {
+    return { streak: currentStreak + 1, lastDate: todayTs, freezeUsedAt: todayTs, freezeJustUsed: true };
+  }
+  return { streak: 1, lastDate: todayTs, freezeUsedAt: null }; // Gap — reset streak
 }
 
 export function downloadJSON(data, filename) {

@@ -1,10 +1,11 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useMemo, useState, lazy, Suspense } from 'react';
 import { QB } from '../data/questions.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
+import { pickTodaysQ, readTodaysQStatus, dailyQStreak } from '../lib/daily-q.js';
 
 // DailyGoalCard is lazy-loaded — it only renders if there's history,
 // and most users will see it after some interaction. Keeps HomeView's
@@ -14,6 +15,11 @@ const DailyGoalCard = lazy(() => import('../components/DailyGoalCard.jsx'));
 // other users are online too. Lazy so its lookup table doesn't bloat
 // the cold home render.
 const StudyBuddiesPanel = lazy(() => import('../components/StudyBuddiesPanel.jsx'));
+// A2HS prompt chip — lazy because most users will dismiss or already
+// have it installed; no need to ship the iOS-tip modal HTML eagerly.
+const PWAInstallChip = lazy(() => import('../components/PWAInstallChip.jsx'));
+// Daily Q modal — single MCQ habit loop, deterministic per-date pick.
+const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
@@ -535,9 +541,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </Suspense>
       )}
 
-      {/* Race chip — entry to multiplayer race lobby (only when authenticated). */}
-      {user && (
-        <div style={{ marginBottom: 18 }}>
+      {/* Daily Q + Race + PWA install — entry points share one row */}
+      <DailyQRow user={user} setView={setView} />
+      <div style={{ marginBottom: 18, display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
+        {user && (
           <button
             type="button"
             onClick={() => setView('race')}
@@ -546,8 +553,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           >
             🏁 แข่งกับเพื่อน (Race mode)
           </button>
-        </div>
-      )}
+        )}
+        <Suspense fallback={null}>
+          <PWAInstallChip />
+        </Suspense>
+      </div>
 
       {/* PRIMARY: Subject Grid — natural mental model is "I want to study X subject".
           Filtered to current phase (e.g. only sem 2 subjects when phase is '2-final'). */}
@@ -1195,6 +1205,46 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
 // at any step (saves to localStorage so it never shows again on this
 // browser). Modal overlay; doesn't block JS but visually blocks clicks
 // behind it via backdrop.
+// DailyQRow — chip on the home screen that opens today's deterministic
+// Q in a modal. Shows ✓ once done; streak counter motivates daily return.
+function DailyQRow({ user, setView }) {
+  const [open, setOpen] = useState(false);
+  const todaysQ = useMemo(() => pickTodaysQ(QB), []);
+  const [status, setStatus] = useState(() => readTodaysQStatus());
+  const [streak, setStreak] = useState(() => dailyQStreak());
+  if (!todaysQ) return null;
+  const subj = SUBJECTS.find((s) => s.id === todaysQ.subject);
+  return (
+    <div style={{ marginBottom: 12, display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="vmx-btn vmx-btn-primary vmx-btn-sm"
+        style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
+      >
+        🌟 ข้อวันนี้ {status.completed ? '· ✓' : ''} · {subj?.icon || ''} {subj?.name || todaysQ.subject}
+      </button>
+      {streak >= 2 && (
+        <span style={{ fontSize: 12, color: 'var(--clr-gold, #b88940)', fontFamily: 'JetBrains Mono, monospace' }}>
+          🔥 daily streak {streak}
+        </span>
+      )}
+      {open && (
+        <Suspense fallback={null}>
+          <TodaysQModal
+            q={todaysQ}
+            onClose={() => setOpen(false)}
+            onDone={() => {
+              setStatus(readTodaysQStatus());
+              setStreak(dailyQStreak());
+            }}
+          />
+        </Suspense>
+      )}
+    </div>
+  );
+}
+
 function OnboardingTour({ step, onNext, onDismiss }) {
   const steps = [
     {

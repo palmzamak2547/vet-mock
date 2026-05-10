@@ -14,6 +14,7 @@ import { isFlashcardCompatible } from './hooks/sr-filter.js';
 import { STYLES } from './styles.js';
 import { hasSupabase, signOut } from './lib/supabase.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
+import { readShareUrlFromLocation } from './lib/share-link.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -234,6 +235,10 @@ export default function App() {
     try {
       const params = new URLSearchParams(window.location.search);
       if (params.get('auth') === 'reset') return 'auth';
+      // Shareable quiz link — if ?qset= is present, jump straight to the
+      // exam screen with the shared question set. Skip year-select gate
+      // since the receiver may not be Vet 86 — just respect the link.
+      if (params.get('qset')) return 'exam';
     } catch {}
     try {
       // Parse the stored value — `null` is a valid serialized state
@@ -281,13 +286,15 @@ export default function App() {
   }, []);
 
   // Study buddies — Supabase Realtime presence for "who's online + what
-  // subject they're in". Tracks the user's current subject (`null` when
-  // 'all' / browsing) so HomeView can show a grouped list.
+  // subject + which Q they're on". HomeView groups by subject; ExamView
+  // surfaces "X buddies on this Q" via countBuddiesOnQ.
+  const _qOnExam = (view === 'exam' || view === 'sr-session') ? questions[currentIdx] : null;
   const buddies = useStudyBuddies({
     user,
     profile,
     subject: subject === 'all' ? null : subject,
     view,
+    qKey: _qOnExam ? `${_qOnExam.subject}:${_qOnExam.id}` : null,
   });
 
   // Wrap setView in a View Transitions snapshot so navigating between
@@ -367,6 +374,21 @@ export default function App() {
   // session doesn't lose answers — restored when the user opens the
   // app again. Cleared on submit / goHome.
   const [questions, setQuestions] = useState(() => {
+    // Shareable quiz link — if URL contains ?qset=, look up the
+    // referenced questions in QB right away so the exam view has
+    // them on first paint. Falls through to in-flight resume on
+    // empty / missing share param.
+    try {
+      const shared = readShareUrlFromLocation();
+      if (shared.length > 0) {
+        const map = new Map();
+        for (const q of QB) map.set(q.subject + ':' + q.id, q);
+        const matched = shared
+          .map((k) => map.get(k.subject + ':' + k.id))
+          .filter(Boolean);
+        if (matched.length > 0) return matched;
+      }
+    } catch {}
     try {
       const raw = window.localStorage?.getItem('vmx-inflight-exam');
       if (raw) return JSON.parse(raw).questions || [];
@@ -417,13 +439,10 @@ export default function App() {
   const [streakData, setStreakData] = useLocalStorage('vmx-streak', { streak: 0, lastDate: null });
   const [readingChecklist, setReadingChecklist] = useLocalStorage('vmx-reading-checklist', {});
 
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap';
-    document.head.appendChild(link);
-    return () => { if (document.head.contains(link)) document.head.removeChild(link); };
-  }, []);
+  // Google Fonts moved to index.html with media=print + onload swap so
+  // they download in parallel with the HTML and don't block first paint.
+  // Previously injected from a useEffect here, which fired AFTER first
+  // paint and caused a brief unstyled flash on cold load.
 
   useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
   useEffect(() => {
@@ -725,8 +744,13 @@ export default function App() {
     setExamStartTime(Date.now());
     setView('exam');
 
-    const newStreak = updateStreak(streakData.lastDate, streakData.streak);
+    const newStreak = updateStreak(streakData.lastDate, streakData.streak, streakData.freezeUsedAt);
     setStreakData(newStreak);
+    // Streak-freeze used → flash a one-time toast so the user knows
+    // their streak survived a skipped day. (UI surface in HomeView.)
+    if (newStreak.freezeJustUsed) {
+      try { window.dispatchEvent(new CustomEvent('vmx-streak-freeze-used', { detail: newStreak.streak })); } catch {}
+    }
   };
 
   const finishExam = async () => {
@@ -1106,7 +1130,7 @@ export default function App() {
               {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode }} />}
-              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks, buddies, user }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions }} />}

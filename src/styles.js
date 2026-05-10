@@ -286,7 +286,7 @@ html, body { overscroll-behavior-y: contain; }
 
 .vmx-qtype-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
 .vmx-qtext { font-size: 17px; line-height: 1.55; margin-bottom: 24px; color: var(--clr-ink); }
-.vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; }
+.vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; aspect-ratio: 4 / 3; object-fit: contain; background: var(--clr-surface-2); }
 
 /* ── Reading-comprehension layout ───────────────────────────
    On desktop ≥1024px, render passage as a sticky LEFT pane next

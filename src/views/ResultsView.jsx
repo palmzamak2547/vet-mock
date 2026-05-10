@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { isCorrect, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
+import { copyShareUrl } from '../lib/share-link.js';
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
 // canvas and return a Blob. Pure-canvas, no external deps. Designed to
@@ -111,6 +112,10 @@ export default function ResultsView({ score, questions, answers, goHome, setView
   }, []);
 
   // mount in dev doesn't trigger the burst twice.
+  // Personal-best tracking — per-subject highest pct ever recorded in
+  // a 5+ Q session. Surfaced as a "🏆 NEW PERSONAL BEST" banner +
+  // independent confetti burst on top of the score-based celebration.
+  const [personalBest, setPersonalBest] = useState(null);
   const firedRef = useRef(false);
   useEffect(() => {
     if (firedRef.current) return;
@@ -119,10 +124,30 @@ export default function ResultsView({ score, questions, answers, goHome, setView
     // burst, 80%+ = small celebration. pct uses correct/total directly to
     // avoid the 99.5%→round-to-100% false-fire.
     const ratio = score.correct / score.total;
+    const pct = Math.round(ratio * 100);
     const isPerfect = score.correct === score.total;
     const isExcellent = !isPerfect && ratio >= 0.9 && score.total >= 5;
     const isGood = !isPerfect && !isExcellent && ratio >= 0.8 && score.total >= 5;
-    if (!isPerfect && !isExcellent && !isGood) return;
+
+    // ── Personal-best detection (only for sessions ≥5 Q in a single subject)
+    let isPB = false;
+    try {
+      const subj = questions[0]?.subject;
+      const allSameSubj = subj && questions.every((q) => q.subject === subj);
+      if (allSameSubj && score.total >= 5) {
+        const raw = window.localStorage.getItem('vmx-personal-best');
+        const map = raw ? JSON.parse(raw) : {};
+        const prev = map[subj] || 0;
+        if (pct > prev) {
+          map[subj] = pct;
+          window.localStorage.setItem('vmx-personal-best', JSON.stringify(map));
+          isPB = pct >= 60; // only celebrate meaningful PBs (skip 5/10 fluke wins)
+          setPersonalBest({ subj, pct, prev });
+        }
+      }
+    } catch {}
+
+    if (!isPerfect && !isExcellent && !isGood && !isPB) return;
     firedRef.current = true;
     import('../lib/confetti.js').then((m) => {
       if (isPerfect) {
@@ -134,8 +159,12 @@ export default function ResultsView({ score, questions, answers, goHome, setView
       } else if (isGood) {
         m.fireConfetti({ count: 50 });
       }
+      if (isPB) {
+        // Distinct PB burst (gold) — fires after the score burst
+        setTimeout(() => m.fireConfetti({ count: 60, originXRatio: 0.5 }), 700);
+      }
     }).catch(() => {});
-  }, [score.correct, score.total]);
+  }, [score.correct, score.total, questions]);
 
   // Split writing from auto-graded for the result counts so writing
   // questions don't show up as "wrong" — they need Self/AI grading.
@@ -181,6 +210,17 @@ export default function ResultsView({ score, questions, answers, goHome, setView
       {isExam && autoQs.length === 0 && writingQs.length > 0 && (
         <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-gold)' }}>
           ✍️ WRITING SESSION, GRADE IN REVIEW
+        </div>
+      )}
+      {personalBest && (
+        <div style={{
+          marginBottom: 16, padding: '10px 16px', borderRadius: 12,
+          background: 'linear-gradient(135deg, rgba(184,137,64,0.18), rgba(184,137,64,0.10))',
+          border: '1px solid var(--clr-gold)', textAlign: 'center',
+          fontFamily: 'JetBrains Mono, monospace', fontSize: 13, letterSpacing: '0.05em',
+          color: 'var(--clr-gold, #b88940)', fontWeight: 700,
+        }}>
+          🏆 NEW PERSONAL BEST · {personalBest.pct}% (เดิม {personalBest.prev}%)
         </div>
       )}
 
@@ -231,9 +271,10 @@ export default function ResultsView({ score, questions, answers, goHome, setView
         )}
       </div>
 
-      <div className="vmx-btn-row">
+      <div className="vmx-btn-row" style={{ flexWrap: 'wrap' }}>
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← กลับหน้าแรก</button>
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')}>ดูเฉลย →</button>
+        <ShareQuizButton questions={questions} />
       </div>
 
       <ShareToIGRow
@@ -256,6 +297,31 @@ export default function ResultsView({ score, questions, answers, goHome, setView
 // we fall back to PNG download — user can airdrop / save and upload to
 // IG manually. Either way we add a footer link to the IG profile so
 // the share has a destination beyond just the screenshot.
+// Compact button that copies a shareable quiz URL (`?qset=...`) so the
+// user can paste it in LINE/IG and a friend opens the same Q set.
+// Different from ShareToIGRow (which generates a screenshot for stories);
+// this is for "lets do this exact quiz together".
+function ShareQuizButton({ questions }) {
+  const [hint, setHint] = useState('');
+  if (!questions || questions.length === 0) return null;
+  return (
+    <button
+      type="button"
+      className="vmx-btn vmx-btn-ghost"
+      onClick={async () => {
+        const res = await copyShareUrl(questions);
+        if (res.ok) setHint('คัดลอกลิงก์แล้ว · วางส่งเพื่อนได้เลย');
+        else setHint('คัดลอกไม่ได้: ' + (res.url || ''));
+        setTimeout(() => setHint(''), 3500);
+      }}
+      title="แชร์ชุดโจทย์นี้ให้เพื่อน — เปิดลิงก์แล้วได้ข้อเดียวกัน เรียงเดียวกัน"
+    >
+      📎 แชร์ชุดนี้
+      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'JetBrains Mono, monospace' }}>{hint}</span>}
+    </button>
+  );
+}
+
 function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writingDone, writingTotal }) {
   const [busy, setBusy] = useState(false);
   const [hint, setHint] = useState('');

@@ -20,6 +20,32 @@
     <link rel="dns-prefetch" href="https://www.youtube.com" />
     <link rel="dns-prefetch" href="https://i.ytimg.com" />
 
+    <!-- Google Fonts — preconnect (warm TLS) + async load. Was previously
+         injected from App.jsx useEffect, which ran AFTER first paint and
+         caused a brief unstyled flash. Loading here with media=print +
+         onload swap means the stylesheet downloads in parallel with HTML
+         but doesn't block render. The <noscript> fallback covers the
+         (rare) case where JS is disabled. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
+      />
+    </noscript>
+
     <!-- Icons + PWA.
          Order matters: Safari (esp. older versions on iOS/macOS) walks
          the list and picks the first viable entry, falling back only

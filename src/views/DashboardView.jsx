@@ -7,6 +7,8 @@ import StreakHeatmap from '../components/StreakHeatmap.jsx';
 
 // OSCE drill is a heavier interactive modal — lazy load when launched.
 const OSCEDrill = lazy(() => import('../components/OSCEDrill.jsx'));
+// Diagram label exercise — anatomy hot-spot labeling (canvas-light SVG drill).
+const DiagramLabelDrill = lazy(() => import('../components/DiagramLabelDrill.jsx'));
 
 // Bucket history into per-subject daily accuracy over the last `daysBack`
 // days. Returns { dayLabels, subjects: [{id, name, icon, color, points,
@@ -252,6 +254,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
   const [curveDays, setCurveDays] = useState(14);
   const learningCurve = useMemo(() => buildLearningCurve(history, curveDays), [history, curveDays]);
   const [osceOpen, setOsceOpen] = useState(false);
+  const [diagramOpen, setDiagramOpen] = useState(false);
   const exportData = () => {
     const data = {
       exportDate: new Date().toISOString(),
@@ -434,6 +437,26 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       {osceOpen && (
         <Suspense fallback={null}>
           <OSCEDrill onClose={() => setOsceOpen(false)} />
+        </Suspense>
+      )}
+
+      <div className="vmx-dash-card">
+        <h3>🧠 Diagram label drill</h3>
+        <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
+          ฝึก label anatomy แบบ active recall — แตะจุดบน diagram → เลือก label · ตอนนี้มี 2 ชุด (Heart, Eye) เริ่มต้นไว้
+        </div>
+        <button
+          type="button"
+          className="vmx-btn vmx-btn-primary vmx-btn-sm"
+          onClick={() => setDiagramOpen(true)}
+        >
+          ▶️ เริ่ม Diagram drill
+        </button>
+      </div>
+
+      {diagramOpen && (
+        <Suspense fallback={null}>
+          <DiagramLabelDrill onClose={() => setDiagramOpen(false)} />
         </Suspense>
       )}
 
