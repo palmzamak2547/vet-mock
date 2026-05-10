@@ -725,7 +725,7 @@ function render(ctx, s) {
     ctx.fillText(o.type, o.x, o.y + PLAYER_SIZE);
   }
 
-  // ── Player (with squash/stretch + shield ring) ───────────────────
+  // ── Player (with squash/stretch + shield ring + horizontal flip) ─
   const p = s.player;
   if (p.shield) {
     // Shield ring — pulses
@@ -739,11 +739,17 @@ function render(ctx, s) {
     ctx.restore();
   }
   // Squash transform: -ve squash = stretched (taller, thinner), +ve = squashed (shorter, wider)
+  // Horizontal flip: 🐤 emoji faces LEFT/forward by default, but obstacles
+  // come from the RIGHT, so we mirror the chick to face into the run.
   const squash = p.squash;
   const fontSize = (p.ducking ? 24 : 30) - squash * 0.5;
-  ctx.font = `${fontSize}px "Apple Color Emoji","Segoe UI Emoji",sans-serif`;
   const yOffset = p.ducking ? 4 : 0;
-  ctx.fillText('🐤', p.x, p.y + PLAYER_SIZE - yOffset + (squash > 0 ? squash * 0.5 : 0));
+  ctx.save();
+  ctx.font = `${fontSize}px "Apple Color Emoji","Segoe UI Emoji",sans-serif`;
+  ctx.translate(p.x + PLAYER_SIZE, p.y + PLAYER_SIZE - yOffset + (squash > 0 ? squash * 0.5 : 0));
+  ctx.scale(-1, 1); // flip horizontal so chick faces right (forward)
+  ctx.fillText('🐤', 0, 0);
+  ctx.restore();
 
   // ── Overlays ─────────────────────────────────────────────────────
   if (s.state === 'ready') {
