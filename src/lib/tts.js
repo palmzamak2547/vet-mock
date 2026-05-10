@@ -47,6 +47,8 @@
 // token still works mid-chain.
 // ============================================================
 
+import { thaiPhoneticTranslit } from './tts-phonetic.js';
+
 const THAI_RE = /[฀-๿]/;
 const ENG_RE = /[A-Za-z]/;
 const SAFE_CHUNK_LIMIT = 240; // chars — under Chrome's reported hang threshold
@@ -247,12 +249,40 @@ function injectBreathCommas(text, lang) {
 }
 
 // Full preprocessing pipeline applied per (text, lang).
+//
+// Order matters:
+//   1. Symbol normalization first — turns "→ / × / %" into language
+//      words, BEFORE phonetic translit walks the string.
+//   2. Unit smoothing next — "5 mg/kg" becomes
+//      "5 milligrams per kilogram" (English) or
+//      "5 มิลลิกรัมต่อกิโลกรัม" (Thai). Translit step would otherwise
+//      tag "mg" / "kg" as unknown abbreviations.
+//   3. Acronym expansion — turns "GDV" → "G D V" letter form. For
+//      Thai voice, the next translit step rewrites those letters into
+//      Thai phonetic letter names.
+//   4. PHONETIC TRANSLIT (Thai voice only) — turns remaining English
+//      medical terms ("Doberman", "mastectomy") into Thai phonetic
+//      spellings the Thai voice can read smoothly. Includes a fallback
+//      that spells unmapped 2-5-letter all-caps words as Thai letters.
+//   5. Breath commas last — visual whitespace is final, so we don't
+//      mess up boundary regexes earlier in the pipeline.
 function preprocess(text, lang) {
   if (!text) return '';
   let t = text;
-  t = expandAcronyms(t);
   t = normalizeSymbols(t, lang);
   t = expandUnits(t, lang);
+  if (lang === 'th') {
+    // Thai voice path: phonetic translit FIRST so "IV"/"PO"/"GDV"
+    // hit the dict's intact form before the generic acronym expander
+    // would split them into spaced letters (which then wouldn't match
+    // dict entries). The translit's spell-letter fallback at the end
+    // covers any remaining unmapped 2-5 char ALL-CAPS abbreviations.
+    t = thaiPhoneticTranslit(t);
+  } else {
+    // English voice path: spell out acronyms with spaces so Zira
+    // reads them letter-by-letter ("D K A") instead of guessing.
+    t = expandAcronyms(t);
+  }
   t = injectBreathCommas(t, lang);
   return t.replace(/\s+/g, ' ').trim();
 }
@@ -340,19 +370,21 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
   // differ from option voice). Even with each piece internally
   // consistent, the inter-piece swap landed as comedy ("ตลก" — Palm).
   //
-  // The user's strong preference is unambiguous: prefer ONE voice
-  // throughout, even if minority-language tokens get phonetically
-  // approximated (Pattara reading "Doberman" sounds odd, but the
-  // listener's brain auto-corrects medical terminology — vastly
-  // better than two robots dueting).
+  // Rule: voice is decided by the STEM language, with a strong bias
+  // toward Thai. If Thai chars are ≥ 25 % of the detected chars in
+  // the stem, the whole Q reads with the Thai voice — which then
+  // pipes English medical terms through the phonetic-translit dict
+  // (tts-phonetic.js). The dict is comprehensive enough that
+  // "Doberman" / "Mastectomy" / "Fenbendazole" all read as smooth
+  // Thai phonetics. Only Q where the stem is essentially-no-Thai
+  // (engprof research papers, all-English drills) get Zira.
   //
-  // Rule: dominance is decided by the STEM language, not whole-Q.
-  // Reason: stems carry the bulk of cognitive content; options are
-  // usually short labels. A Thai stem with English-only short options
-  // would otherwise tip the whole-Q count to English (since 4 short
-  // options collectively outweigh a long Thai stem in raw chars), and
-  // Zira would silently skip the Thai stem chars — the worst outcome.
-  // If stem is empty (rare), fall back to combined-text dominance.
+  // Why 25 % and not 50 %: typical Thai vet stems are 60-70 % Thai
+  // prose with embedded English drug/disease names. At 50 % the
+  // Drug-Q-with-Aj.-attribution style ("Antibiotic combination
+  // แนวทาง parenteral ที่ Aj. X แนะนำใน CPV …") tips to English
+  // and the Thai context words get silently skipped by Zira. 25 %
+  // captures these correctly.
   const stemText = (stem || '').trim();
   let th = 0, en = 0;
   const target = stemText || ((stem || '') + ' ' + safeOptions.join(' '));
@@ -360,8 +392,10 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
     if (THAI_RE.test(ch)) th++;
     else if (ENG_RE.test(ch)) en++;
   }
-  // Default Thai when no detected chars (digit-only / empty edge case)
-  const qLang = (en > th) ? 'en' : 'th';
+  const total = th + en;
+  // Default Thai when no detected chars (digit-only / empty edge case).
+  // English wins ONLY when Thai content is < 25 % AND English exists.
+  const qLang = (total > 0 && th / total < 0.25 && en > 0) ? 'en' : 'th';
 
   // Audiobook-standard pauses (ms)
   const PAUSE_END_OF_STEM = 600;
