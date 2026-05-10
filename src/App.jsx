@@ -285,17 +285,11 @@ export default function App() {
     return () => window.removeEventListener('vmx-sw-update', handler);
   }, []);
 
-  // Study buddies — Supabase Realtime presence for "who's online + what
-  // subject + which Q they're on". HomeView groups by subject; ExamView
-  // surfaces "X buddies on this Q" via countBuddiesOnQ.
-  const _qOnExam = (view === 'exam' || view === 'sr-session') ? questions[currentIdx] : null;
-  const buddies = useStudyBuddies({
-    user,
-    profile,
-    subject: subject === 'all' ? null : subject,
-    view,
-    qKey: _qOnExam ? `${_qOnExam.subject}:${_qOnExam.id}` : null,
-  });
+  // Study buddies hook is called LATER in the component body, after
+  // `questions` + `currentIdx` state are declared, so the qKey can read
+  // them without a temporal-dead-zone error. See the actual call site
+  // tagged with "// — Study buddies". Hooks may be called in any order
+  // as long as it's consistent across renders.
 
   // Wrap setView in a View Transitions snapshot so navigating between
   // views fades smoothly (Chrome/Edge/Safari TP). No-op on Firefox.
@@ -409,6 +403,21 @@ export default function App() {
     } catch {}
     return 0;
   });
+
+  // — Study buddies — Supabase Realtime presence for "who's online +
+  // what subject + which Q they're on". Placed here (not at top of
+  // component) because qKey depends on `questions` + `currentIdx`
+  // which were declared just above. HomeView groups by subject;
+  // ExamView surfaces "X buddies on this Q" via countBuddiesOnQ.
+  const _qOnExam = (view === 'exam' || view === 'sr-session') ? questions[currentIdx] : null;
+  const buddies = useStudyBuddies({
+    user,
+    profile,
+    subject: subject === 'all' ? null : subject,
+    view,
+    qKey: _qOnExam ? `${_qOnExam.subject}:${_qOnExam.id}` : null,
+  });
+
   const [numQuestions, setNumQuestions] = useState(10);
   const [useTimer, setUseTimer] = useState(true);
   const [timePerQ, setTimePerQ] = useState(60);
