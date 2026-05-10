@@ -3,6 +3,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
+import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
 import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
@@ -187,10 +188,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 </span>
               </div>
             </div>
-            {q.image && (
+            {q.image && safeImageUrl(q.image) && (
               <>
                 <img
-                  src={q.image}
+                  src={safeImageUrl(q.image)}
                   alt={`Question ${q.id} image, ${q.subject}/${q.topic || 'general'}`}
                   loading="lazy"
                   decoding="async"

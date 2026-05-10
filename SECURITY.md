@@ -3,6 +3,38 @@
 This file documents the security posture of vet-mock and is meant for the
 maintainer (Vet 86). Not user-facing.
 
+## Hardening pass — 2026-05-10
+
+Applied with zero UX impact:
+
+**Vercel headers** (`vercel.json`):
+- `X-Frame-Options: DENY` (was SAMEORIGIN)
+- `Content-Security-Policy` enforced (was Report-Only) — `frame-ancestors 'none'`
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload` (2 yr + preload)
+- `Cross-Origin-Opener-Policy: same-origin`
+- `Cross-Origin-Resource-Policy: same-origin`
+- `Origin-Agent-Cluster: ?1`
+- `Permissions-Policy` — disabled all dangerous features (camera/mic/USB/payment/etc)
+
+**Supabase** (migration `security_harden_function_search_path_and_execute_grants`):
+- All 5 SECURITY DEFINER functions: `SET search_path = public, pg_temp;` (prevents schema-shadowing)
+- Trigger functions `handle_new_user` + `handle_new_user_data`: `REVOKE EXECUTE FROM PUBLIC, anon, authenticated;` (no longer RPC-callable)
+- RLS-helper functions (`is_group_member`, `get_user_group_ids`, `ensure_profile`): revoked anon EXECUTE; authenticated kept (used by app + RLS)
+- Result: 14 advisor warnings → 4 (3 intentional · 1 admin-only)
+
+**Frontend** — tracking-pixel defense:
+- New `src/lib/safe-url.js` — `safeImageUrl()` with allow-list of trusted hosts + `sanitizeSharedQuestionData()` for shared Q payloads
+- Applied at SOURCE: `lib/api.js shareQuestion()` strips bad URLs before Supabase write
+- Applied at SINK: 3 image render sites (Question · ReviewView · SRSessionView) re-check via `safeImageUrl` before render
+- Defense in depth — group member tracking-pixel attack neutralized
+
+**Manual steps remaining** (Supabase dashboard, NOT code):
+- Enable Auth → Settings → "Leaked password protection" (HaveIBeenPwned check). Reduces account-takeover risk for shared passwords.
+- (Optional) Enable Auth → Settings → MFA / TOTP for admin-tier users
+- (Optional) Auth → Email → Set rate limits per email/IP
+
+**npm audit** state: 2 moderate (esbuild + vite, dev-only). Production bundle unaffected (esbuild is build-time). Dependabot already configured.
+
 ## Threat model
 
 VetMock is a study app, not a banking app. We're protecting against:

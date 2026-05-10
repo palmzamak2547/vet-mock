@@ -75,8 +75,14 @@ export async function getGroupMembers(groupId) {
 // ==========================================================
 export async function shareQuestion(groupId, questionData, authorId, authorName) {
   const supabase = await getSupabase();
+  // Sanitize image URLs at the source — group members rendering shared
+  // content would leak IP/UA via tracking pixels otherwise. Allow-list
+  // logic in src/lib/safe-url.js. Defense-in-depth: same check also runs
+  // at every <img src> sink (Question.jsx, ReviewView, SRSessionView).
+  const { sanitizeSharedQuestionData } = await import('./safe-url.js');
+  const safeData = sanitizeSharedQuestionData(questionData);
   const { data, error } = await supabase.from('shared_questions')
-    .insert({ group_id: groupId, author_id: authorId, author_name: authorName, data: questionData })
+    .insert({ group_id: groupId, author_id: authorId, author_name: authorName, data: safeData })
     .select().single();
   if (error) throw error;
   return data;

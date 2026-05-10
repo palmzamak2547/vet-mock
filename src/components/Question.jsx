@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
+import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 
@@ -325,9 +326,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         )}
       </div>
 
-      {currentQ.image && (
+      {currentQ.image && safeImageUrl(currentQ.image) && (
         <img
-          src={currentQ.image}
+          src={safeImageUrl(currentQ.image)}
           alt={`Question ${currentQ.id} image, ${currentQ.subject}/${currentQ.topic || 'general'}`}
           loading="lazy"
           decoding="async"
@@ -342,7 +343,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           }}
         />
       )}
-      {currentQ.image && (
+      {currentQ.image && safeImageUrl(currentQ.image) && (
         <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', margin: '8px 0' }}>
           ⚠️ ภาพประกอบโหลดไม่ได้ — ลองรีเฟรชหรือเช็คเน็ต
         </div>

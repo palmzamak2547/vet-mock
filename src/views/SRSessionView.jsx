@@ -3,6 +3,7 @@ import { QB, SUBJECTS } from '../data/questions.js';
 import { updateCard, initCard, getDueCards, getCardStats } from '../hooks/sm2.js';
 import { isFlashcardCompatible } from '../hooks/sr-filter.js';
 import { fmtDate } from '../hooks/utils.js';
+import { safeImageUrl } from '../lib/safe-url.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
@@ -319,10 +320,10 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             {SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}
             {', '}{typeLabel}
           </div>
-          {currentQ.image && (
+          {currentQ.image && safeImageUrl(currentQ.image) && (
             <>
               <img
-                src={currentQ.image}
+                src={safeImageUrl(currentQ.image)}
                 alt={`Question ${currentQ.id} image, ${currentQ.subject}/${currentQ.topic || 'general'}`}
                 loading="lazy"
                 decoding="async"
