@@ -108,6 +108,18 @@ export const STYLES = `
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+/* Eliminate the 300ms tap-delay iOS Safari adds when it's waiting to
+   see if a tap is the start of a double-tap-to-zoom gesture. Applied
+   to every interactive element so every button, link, card, chip and
+   option feels instant. Without this, the app feels noticeably laggy
+   on iPhone even when JS work is microseconds. */
+button, a, [role="button"], input[type="button"], input[type="submit"], label, summary,
+.vmx-btn, .vmx-option, .vmx-tf-btn, .vmx-chip, .vmx-nav-btn,
+.vmx-mode-card, .vmx-subject-card, .vmx-bookmark-btn, .vmx-note-btn,
+.vmx-theme-btn, .vmx-cmdk-btn, .vmx-passage-fab {
+  touch-action: manipulation;
+}
+
 html, body { overscroll-behavior-y: contain; }
 
 /* Better keyboard focus, but no outline on mouse click */
