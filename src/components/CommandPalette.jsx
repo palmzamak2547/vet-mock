@@ -28,77 +28,104 @@ import { ALL_INSTRUCTORS } from '../data/instructors.js';
 // fuzzy-filter cost bounded (~1999 Qs × short stem = manageable).
 import { QB } from '../data/questions.js';
 
-// Build the searchable item index. Memoized below — items don't
-// change between renders so this only runs once per mount.
-function buildIndex({ goView, setSubject, setPracticeMode, openInstructor }) {
+// Cap on how many results we render at once. The full index has
+// ~1700 items (mostly question stems). Rendering all of them as
+// <button>s on every keystroke turned the palette into a noticeable
+// freeze on slower phones. 80 fills the visible list comfortably and
+// the user almost never scrolls past the top of the result set
+// anyway — they refine the query instead.
+const MAX_RESULTS = 80;
+
+// ── Module-level cache for the static parts of the index ─────────
+// The actual run() handlers depend on App.jsx's setState refs (fresh
+// identity on every render of App), but the rest — label, hint, icon,
+// keyword bag, pre-lowered haystack — is fully deterministic from
+// imported data modules. Build that part ONCE per session and stash
+// it. Opening the palette re-uses the same array; we only re-attach
+// the run() closures per open.
+let _staticItemsCache = null;
+
+// Each cached entry has shape:
+//   { type, label, hint, icon, kw, payload, _labelLc, _hayLc }
+//
+//   type      'action' | 'subject' | 'summary' | 'instructor' | 'question'
+//   payload   data needed by the dispatcher (action key, subject id,
+//             Q ref, instructor object, …) — keeps the cached entry
+//             pure data so it can outlive any component instance.
+//   _labelLc  label.toLowerCase() — used by fuzzyFilter so we don't
+//             re-lowercase 1700 strings per keystroke
+//   _hayLc    (label + ' ' + kw).toLowerCase() — same idea
+function buildStaticItems() {
+  if (_staticItemsCache) return _staticItemsCache;
   const items = [];
 
-  // Quick actions / views
-  const actions = [
-    { label: 'หน้าแรก', hint: 'Home', icon: '🏠', kw: 'home หน้าแรก main', run: () => goView('home') },
-    { label: 'Dashboard / สถิติ', hint: 'Dashboard', icon: '📊', kw: 'dashboard stats สถิติ analytics', run: () => goView('dashboard') },
-    { label: 'ตารางสอบ', hint: 'Schedule', icon: '📅', kw: 'schedule exam ตาราง สอบ', run: () => goView('schedule') },
-    { label: 'คลิปย้อนหลัง', hint: 'Videos', icon: '🎬', kw: 'video clip คลิป ย้อนหลัง summary', run: () => goView('videos') },
-    { label: 'Reading Checklist', hint: 'Checklist', icon: '📖', kw: 'reading checklist อ่าน หัวข้อ', run: () => goView('reading-checklist') },
-    { label: 'Bookmarks', hint: 'Saved questions', icon: '⭐', kw: 'bookmark saved star ⭐ ข้อ', run: () => { setPracticeMode?.('bookmarks'); goView('config'); } },
-    { label: 'Question Manager', hint: 'Custom Q', icon: '✏️', kw: 'manage edit custom question จัดการ', run: () => goView('question-manager') },
-    { label: 'Spaced Repetition', hint: 'SR review', icon: '🧠', kw: 'sr spaced repetition review flashcard ทบทวน', run: () => goView('sr-session') },
-    { label: 'คะแนนล่าสุด', hint: 'Scores', icon: '🏆', kw: 'score คะแนน history ประวัติ', run: () => goView('scores') },
-    { label: 'About', hint: 'เกี่ยวกับ', icon: 'ℹ️', kw: 'about info เกี่ยวกับ', run: () => goView('about') },
-    { label: 'แจ้งปัญหา / Feedback', hint: 'Feedback', icon: '🐛', kw: 'feedback bug แจ้ง ปัญหา ติชม', run: () => goView('feedback') },
-    { label: 'IG Card Studio', hint: 'Generate posts for @vetmock.cu', icon: '📷', kw: 'ig instagram card studio post daily admin export', run: () => goView('ig-cards') },
-    { label: 'อาจารย์ผู้สอนทั้งหมด', hint: 'Faculty index', icon: '👨‍🏫', kw: 'faculty instructor อาจารย์ ผู้สอน lecturer professor', run: () => goView('faculty') },
-    { label: 'Account Settings', hint: 'จัดการ account', icon: '⚙️', kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ', run: () => goView('account-settings') },
-  ];
-  actions.forEach((a) => items.push({ ...a, type: 'action' }));
-
-  // Subjects — jump straight to topic-select for that subject
-  SUBJECTS.filter((s) => s.id !== 'all').forEach((s) => {
+  const push = (it) => {
+    const labelLc = (it.label || '').toLowerCase();
     items.push({
+      ...it,
+      _labelLc: labelLc,
+      _hayLc: labelLc + ' ' + (it.kw || '').toLowerCase(),
+    });
+  };
+
+  // Quick actions — payload is the action key the dispatcher knows.
+  const actions = [
+    { key: 'home',              label: 'หน้าแรก',                 hint: 'Home',                            icon: '🏠',  kw: 'home หน้าแรก main' },
+    { key: 'dashboard',         label: 'Dashboard / สถิติ',        hint: 'Dashboard',                       icon: '📊',  kw: 'dashboard stats สถิติ analytics' },
+    { key: 'schedule',          label: 'ตารางสอบ',                 hint: 'Schedule',                        icon: '📅',  kw: 'schedule exam ตาราง สอบ' },
+    { key: 'videos',            label: 'คลิปย้อนหลัง',              hint: 'Videos',                          icon: '🎬',  kw: 'video clip คลิป ย้อนหลัง summary' },
+    { key: 'reading-checklist', label: 'Reading Checklist',        hint: 'Checklist',                       icon: '📖',  kw: 'reading checklist อ่าน หัวข้อ' },
+    { key: 'bookmarks',         label: 'Bookmarks',                hint: 'Saved questions',                 icon: '⭐',  kw: 'bookmark saved star ⭐ ข้อ' },
+    { key: 'question-manager',  label: 'Question Manager',         hint: 'Custom Q',                        icon: '✏️',  kw: 'manage edit custom question จัดการ' },
+    { key: 'sr-session',        label: 'Spaced Repetition',        hint: 'SR review',                       icon: '🧠',  kw: 'sr spaced repetition review flashcard ทบทวน' },
+    { key: 'scores',            label: 'คะแนนล่าสุด',                hint: 'Scores',                          icon: '🏆',  kw: 'score คะแนน history ประวัติ' },
+    { key: 'about',             label: 'About',                    hint: 'เกี่ยวกับ',                         icon: 'ℹ️',  kw: 'about info เกี่ยวกับ' },
+    { key: 'feedback',          label: 'แจ้งปัญหา / Feedback',       hint: 'Feedback',                        icon: '🐛',  kw: 'feedback bug แจ้ง ปัญหา ติชม' },
+    { key: 'ig-cards',          label: 'IG Card Studio',           hint: 'Generate posts for @vetmock.cu',  icon: '📷',  kw: 'ig instagram card studio post daily admin export' },
+    { key: 'faculty',           label: 'อาจารย์ผู้สอนทั้งหมด',         hint: 'Faculty index',                   icon: '👨‍🏫', kw: 'faculty instructor อาจารย์ ผู้สอน lecturer professor' },
+    { key: 'account-settings',  label: 'Account Settings',         hint: 'จัดการ account',                   icon: '⚙️',  kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ' },
+  ];
+  for (const a of actions) push({ type: 'action', payload: a.key, label: a.label, hint: a.hint, icon: a.icon, kw: a.kw });
+
+  // Subjects
+  for (const s of SUBJECTS) {
+    if (s.id === 'all') continue;
+    push({
       type: 'subject',
+      payload: s.id,
       label: s.name,
       hint: s.name_en || s.code || '',
       icon: s.icon || '📚',
       kw: `${s.id} ${s.name} ${s.name_en || ''} ${s.code || ''}`,
-      run: () => { setSubject?.(s.id); goView('topic-select'); },
     });
-  });
+  }
 
-  // Video summaries — title-indexed so users can jump straight
-  // to a clip's summary modal. Routes to videos view (user opens
-  // the matching clip from there for now).
-  Object.values(VIDEO_SUMMARIES || {}).forEach((s) => {
-    if (!s?.title) return;
-    items.push({
+  // Video summaries
+  for (const s of Object.values(VIDEO_SUMMARIES || {})) {
+    if (!s?.title) continue;
+    push({
       type: 'summary',
+      payload: null,
       label: s.title,
       hint: `📝 สรุปคลิป, ${(s.subject || '').toUpperCase()}`,
       icon: '📝',
       kw: `${s.title} ${s.subject || ''} ${s.instructor || ''} summary สรุป คลิป`,
-      run: () => goView('videos'),
-    });
-  });
-
-  // Instructors — search by Thai or English name; opens profile modal
-  if (openInstructor) {
-    (ALL_INSTRUCTORS || []).forEach((ins) => {
-      items.push({
-        type: 'instructor',
-        label: `Aj. ${ins.nameEn}`,
-        hint: `👨‍🏫 ${ins.nameTh || ''}, ${(ins.subjects || []).join('/').toUpperCase()}`,
-        icon: '👨‍🏫',
-        kw: `${ins.nameEn} ${ins.nameTh || ''} ${ins.position || ''} ${(ins.areas || []).join(' ')} instructor faculty อาจารย์`,
-        run: () => openInstructor(ins),
-      });
     });
   }
 
-  // Question text search — lets users find a specific Q by remembered
-  // keyword (drug name, condition, lab finding). Click jumps into a
-  // single-Q exam scoped to that subject so the user can answer +
-  // see the explain. Only first 60 chars of q.q in keyword string for
-  // perf; full text searched via the .label still shows in dropdown.
-  // We sample up to 1500 Qs (skip duplicates) to bound the index size.
+  // Instructors
+  for (const ins of (ALL_INSTRUCTORS || [])) {
+    push({
+      type: 'instructor',
+      payload: ins,
+      label: `Aj. ${ins.nameEn}`,
+      hint: `👨‍🏫 ${ins.nameTh || ''}, ${(ins.subjects || []).join('/').toUpperCase()}`,
+      icon: '👨‍🏫',
+      kw: `${ins.nameEn} ${ins.nameTh || ''} ${ins.position || ''} ${(ins.areas || []).join(' ')} instructor faculty อาจารย์`,
+    });
+  }
+
+  // Question stems
   const seenQText = new Set();
   for (const q of (QB || [])) {
     if (!q?.q || typeof q.q !== 'string') continue;
@@ -106,68 +133,102 @@ function buildIndex({ goView, setSubject, setPracticeMode, openInstructor }) {
     const dedupeKey = q.subject + ':' + stem.slice(0, 50);
     if (seenQText.has(dedupeKey)) continue;
     seenQText.add(dedupeKey);
-    items.push({
+    push({
       type: 'question',
+      payload: { subject: q.subject, id: q.id },
       label: stem.length < q.q.length ? stem + '…' : stem,
       hint: `${q.subject?.toUpperCase() || 'Q'}, Q${q.id}${q.tags?.length ? ' · ' + q.tags.slice(0, 2).join(', ') : ''}`,
       icon: '❓',
-      kw: stem.toLowerCase() + ' ' + (q.tags || []).join(' '),
-      run: () => {
-        // Jump to a 1-Q exam scoped to this Q's subject. Same shortcut
-        // as HomeView's "🎲 Quick Q" but pre-filtered.
-        setSubject?.(q.subject);
-        setPracticeMode?.('all');
-        goView('config');
-      },
+      kw: stem + ' ' + (q.tags || []).join(' '),
     });
   }
 
+  _staticItemsCache = items;
   return items;
 }
 
-// Lightweight fuzzy match: tokenizes query by whitespace and
-// requires every token to appear (substring) in the item's
-// searchable string. Order doesn't matter. Score = sum of
-// (1 / token_position_in_string + 1) so earlier matches rank
-// higher. Empty query returns all items in original order.
+// Dispatch table — translates a cached item back into an action.
+// Keeps the item array pure data so we don't have to rebuild closures.
+function runItem(item, handlers) {
+  const { goView, setSubject, setPracticeMode, openInstructor } = handlers;
+  switch (item.type) {
+    case 'action': {
+      if (item.payload === 'bookmarks') { setPracticeMode?.('bookmarks'); goView?.('config'); return; }
+      goView?.(item.payload);
+      return;
+    }
+    case 'subject':    setSubject?.(item.payload); goView?.('topic-select'); return;
+    case 'summary':    goView?.('videos'); return;
+    case 'instructor': openInstructor?.(item.payload); return;
+    case 'question':   setSubject?.(item.payload.subject); setPracticeMode?.('all'); goView?.('config'); return;
+    default: return;
+  }
+}
+
+// Lightweight fuzzy match against pre-lowered haystacks. The empty
+// query returns the top MAX_RESULTS items in original (action-first)
+// order so the open-state list isn't 1700 <button>s long.
 function fuzzyFilter(items, query) {
   const q = query.trim().toLowerCase();
-  if (!q) return items;
+  if (!q) return items.slice(0, MAX_RESULTS);
   const tokens = q.split(/\s+/).filter(Boolean);
 
   const scored = [];
-  for (const item of items) {
-    const hay = `${item.label} ${item.kw}`.toLowerCase();
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
     let score = 0;
     let allMatch = true;
     for (const t of tokens) {
-      const pos = hay.indexOf(t);
+      const pos = item._hayLc.indexOf(t);
       if (pos < 0) { allMatch = false; break; }
-      // Earlier matches in label get bonus
-      const labelPos = item.label.toLowerCase().indexOf(t);
+      const labelPos = item._labelLc.indexOf(t);
       score += labelPos >= 0 ? (100 - labelPos) : (50 - Math.min(50, pos));
-      // Exact label-start match = big bonus
-      if (item.label.toLowerCase().startsWith(t)) score += 200;
+      if (item._labelLc.startsWith(t)) score += 200;
     }
     if (allMatch) scored.push({ item, score });
   }
   scored.sort((a, b) => b.score - a.score);
-  return scored.map((s) => s.item);
+  // Cap render — anything past MAX_RESULTS won't fit on screen anyway
+  // and the user refines the query if they need more specific hits.
+  const out = new Array(Math.min(scored.length, MAX_RESULTS));
+  for (let i = 0; i < out.length; i++) out[i] = scored[i].item;
+  return out;
 }
 
 export default function CommandPalette({ open, onClose, ...handlers }) {
   const [query, setQuery] = useState('');
+  // Debounced version drives the filter — keeps the heavy work off
+  // the input keystroke. 60ms is below the human-perceivable threshold
+  // for input echo but long enough to coalesce a burst of fast typing
+  // into one filter pass.
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
-  const items = useMemo(() => buildIndex(handlers), [handlers]);
-  const filtered = useMemo(() => fuzzyFilter(items, query), [items, query]);
+  // Static index lives at module scope — first call builds it (lazy),
+  // subsequent opens reuse it. Handlers attach via runItem() at fire
+  // time, so re-renders that produce new handler identities don't
+  // invalidate the index.
+  const items = useMemo(() => buildStaticItems(), []);
+  // Pre-stringify handlers into a stable ref — runItem reads from it.
+  const handlersRef = useRef(handlers);
+  handlersRef.current = handlers;
+
+  // Debounce the query → filter pipeline
+  useEffect(() => {
+    if (query === debouncedQuery) return;
+    const t = setTimeout(() => setDebouncedQuery(query), 60);
+    return () => clearTimeout(t);
+  }, [query, debouncedQuery]);
+
+  const filtered = useMemo(() => fuzzyFilter(items, debouncedQuery), [items, debouncedQuery]);
 
   // Reset on open / close
   useEffect(() => {
     if (open) {
       setQuery('');
+      setDebouncedQuery('');
       setActiveIdx(0);
       // Defer focus until modal is in DOM
       const t = setTimeout(() => inputRef.current?.focus(), 0);
@@ -176,7 +237,7 @@ export default function CommandPalette({ open, onClose, ...handlers }) {
   }, [open]);
 
   // Reset active index when filter changes
-  useEffect(() => { setActiveIdx(0); }, [query]);
+  useEffect(() => { setActiveIdx(0); }, [debouncedQuery]);
 
   // Keep active item in view when navigating with arrows
   useEffect(() => {
@@ -200,7 +261,7 @@ export default function CommandPalette({ open, onClose, ...handlers }) {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       const item = filtered[activeIdx];
-      if (item) { item.run(); onClose(); }
+      if (item) { runItem(item, handlersRef.current); onClose(); }
     }
   };
 
@@ -302,7 +363,7 @@ export default function CommandPalette({ open, onClose, ...handlers }) {
                 )}
               <button
                 key={`${item.type}-${item.label}-${i}`}
-                onClick={() => { item.run(); onClose(); }}
+                onClick={() => { runItem(item, handlersRef.current); onClose(); }}
                 onMouseEnter={() => setActiveIdx(i)}
                 style={{
                   all: 'unset',

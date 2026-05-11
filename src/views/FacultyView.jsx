@@ -16,7 +16,7 @@
 //   • setView('faculty') from anywhere
 // ============================================================
 
-import { lazy, Suspense, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { ALL_INSTRUCTORS } from '../data/instructors.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
@@ -59,18 +59,41 @@ const DEPT_META = DEPT_RULES.reduce((acc, r) => { acc[r.id] = r; return acc; }, 
 export default function FacultyView({ goHome }) {
   const [openInstructor, setOpenInstructor] = useState(null);
   const [filter, setFilter] = useState('');
+  // Debounced version drives the actual filter — typing fast no longer
+  // recomputes the haystack 135× per keystroke.
+  const [debouncedFilter, setDebouncedFilter] = useState('');
   const [subjectFilter, setSubjectFilter] = useState('all');
   const [deptFilter, setDeptFilter] = useState('all');
+
+  useEffect(() => {
+    if (filter === debouncedFilter) return;
+    const t = setTimeout(() => setDebouncedFilter(filter), 80);
+    return () => clearTimeout(t);
+  }, [filter, debouncedFilter]);
+
+  // Pre-lower-cased searchable haystack per instructor — computed ONCE
+  // per mount (or when ALL_INSTRUCTORS changes, which never happens in
+  // practice). Without this, every keystroke re-built and lowered 135
+  // haystack strings from scratch.
+  const instructorIndex = useMemo(() => {
+    return (ALL_INSTRUCTORS || []).map((ins) => ({
+      ins,
+      _deptId: classifyDept(ins.department),
+      _hayLc: [
+        ins.nameEn, ins.nameTh, ins.position, ins.department,
+        ...(ins.areas || []),
+      ].filter(Boolean).join(' ').toLowerCase(),
+    }));
+  }, []);
 
   // Compute department counts (for chip labels)
   const departmentCounts = useMemo(() => {
     const counts = {};
-    for (const ins of ALL_INSTRUCTORS) {
-      const id = classifyDept(ins.department);
-      counts[id] = (counts[id] || 0) + 1;
+    for (const entry of instructorIndex) {
+      counts[entry._deptId] = (counts[entry._deptId] || 0) + 1;
     }
     return counts;
-  }, []);
+  }, [instructorIndex]);
 
   // Department chips: sort by count desc
   const departmentChips = useMemo(() => {
@@ -81,27 +104,18 @@ export default function FacultyView({ goHome }) {
   }, [departmentCounts]);
 
   const filtered = useMemo(() => {
-    const q = filter.trim().toLowerCase();
-    return (ALL_INSTRUCTORS || []).filter((ins) => {
-      // Subject filter
-      if (subjectFilter !== 'all') {
-        if (!(ins.subjects || []).includes(subjectFilter)) return false;
-      }
-      // Department filter
-      if (deptFilter !== 'all') {
-        if (classifyDept(ins.department) !== deptFilter) return false;
-      }
-      // Text filter
-      if (q) {
-        const hay = [
-          ins.nameEn, ins.nameTh, ins.position, ins.department,
-          ...(ins.areas || []),
-        ].filter(Boolean).join(' ').toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
-      return true;
-    }).sort((a, b) => (a.nameEn || '').localeCompare(b.nameEn || ''));
-  }, [filter, subjectFilter, deptFilter]);
+    const q = debouncedFilter.trim().toLowerCase();
+    const out = [];
+    for (const entry of instructorIndex) {
+      const { ins } = entry;
+      if (subjectFilter !== 'all' && !(ins.subjects || []).includes(subjectFilter)) continue;
+      if (deptFilter !== 'all' && entry._deptId !== deptFilter) continue;
+      if (q && !entry._hayLc.includes(q)) continue;
+      out.push(ins);
+    }
+    out.sort((a, b) => (a.nameEn || '').localeCompare(b.nameEn || ''));
+    return out;
+  }, [instructorIndex, debouncedFilter, subjectFilter, deptFilter]);
 
   const subjectFilters = [
     { id: 'all', label: 'ทุกวิชา', icon: '👥' },
