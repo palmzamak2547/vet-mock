@@ -898,7 +898,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'aquatic-clinic', code: '3107520', name: 'คลินิกสัตว์น้ำ',
       name_en: 'Aquatic Animal Medicine',
-      icon: '🐟', color: '#3d6b82', semester: 1, has_questions: false, scaffold: true,
+      icon: '🐟', color: '#3d6b82', semester: 1, has_questions: true, scaffold: true,
       vault_lecturers: ['aranya-ponpornpisit', 'patharapol-piamsomboon', 'charnnarong-rodkhum', 'thanida-haetrakul', 'nopadon-pirarat'],
       examFormat: {
         weight: 'TBD',
@@ -926,7 +926,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'avian-medicine', code: '3107507', name: 'อายุรศาสตร์สัตว์ปีก',
       name_en: 'Avian Medicine',
-      icon: '🦅', color: '#d97744', semester: 1, has_questions: false, scaffold: true,
+      icon: '🦅', color: '#d97744', semester: 1, has_questions: true, scaffold: true,
       vault_lecturers: ['jiroj-sasipreeyajan', 'somsak-pakpinyo', 'nataya-charoenvisal', 'niwat-chansiripornchai', 'kriengwich-limpavithayakul'],
       examFormat: {
         weight: 'Mid + Final separate · midterm + final past papers ครบ',
@@ -963,7 +963,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'poa-clinical', code: '3107530', name: 'POA, การแก้ปัญหาคลินิกสัตว์เล็ก',
       name_en: 'POA — Clinical Problem Solving (Companion Animals)',
-      icon: '🩺', color: '#5d8b8b', semester: 1, has_questions: false, scaffold: true,
+      icon: '🩺', color: '#5d8b8b', semester: 1, has_questions: true, scaffold: true,
       vault_lecturers: ['chutirat-torsahakul', 'punyamanee-yamkate', 'krissda-boonaramrueng'],
       examFormat: {
         weight: 'TBD — folder มี assignment "รายงานวิชา_การแก้ปัญหาฯ"',
@@ -1142,7 +1142,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'zoonoses', code: '3109504', name: 'โรคติดต่อระหว่างสัตว์-คน',
       name_en: 'Zoonoses',
-      icon: '🦠', color: '#7d5a8b', semester: 1, has_questions: false, scaffold: true, has_notes: true,
+      icon: '🦠', color: '#7d5a8b', semester: 1, has_questions: true, scaffold: true, has_notes: true,
       vault_lecturers: ['alongkorn-amonsin', 'taradon-luangtongkum', 'saharuetai-jeamsripong', 'woraporn-sukhumavasi', 'paisin-lekcharoen'],
       examFormat: {
         weight: 'Final',
@@ -1173,7 +1173,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'swine-clinic', code: '3107516', name: 'อายุรศาสตร์สุกร',
       name_en: 'Swine Medicine',
-      icon: '🐖', color: '#c26d8e', semester: 1, has_questions: false, scaffold: true,
+      icon: '🐖', color: '#c26d8e', semester: 1, has_questions: true, scaffold: true,
       vault_lecturers: ['athipoo-nuntaprasert', 'pornchalit-assavacheep', 'roongtham-kedkovid', 'suphot-wattanaphansak'],
       examFormat: {
         weight: 'Mid (อธิภู) + Final (พรชลิต separate exam)',
@@ -1233,7 +1233,7 @@ export const SUBJECTS_BY_YEAR = {
     // lecture content จริง (ruminant-clinical + livestock-pathology).
     { id: 'rec-adv-bioscience', code: '3100-508', name: 'Recent Advances in Vet Biosciences',
       name_en: 'Recent Advances in Veterinary Biosciences (RAVB)',
-      icon: '🔬', color: '#5d7d8b', semester: 2, has_questions: false, scaffold: true,
+      icon: '🔬', color: '#5d7d8b', semester: 2, has_questions: true, scaffold: true,
       vault_lecturers: ['nuvee-prapasarakul', 'sirakarnt-dhitavat', 'prapruddee-piyaviriyakul', 'sariya-asawakarn', 'kannaporn-suriyaphol', 'charnnarong-rodkhum', 'navapon-techakriengkrai', 'woraporn-sukhumavasi', 'morakot-kaewthamasorn', 'piyanan-taweethavonsawat', 'sonthaya-tiawsirisup', 'pattrarat-chanchaithong'],
       examFormat: {
         weight: '2 credit · ภาคปลาย 2567',
@@ -1263,7 +1263,7 @@ export const SUBJECTS_BY_YEAR = {
     // ── Sem 2 — NEW subjects extracted from cache (2026-05-12) ──
     { id: 'ruminant-clinical', code: '3107525', name: 'คลินิกปฏิบัติโค',
       name_en: 'Ruminant Clinical Practice I',
-      icon: '🐄', color: '#7d5a3d', semester: 2, has_questions: false, scaffold: true,
+      icon: '🐄', color: '#7d5a3d', semester: 2, has_questions: true, scaffold: true,
       vault_lecturers: ['sirirat-wataradee', 'chaidate-inchaisri'],
       examFormat: {
         weight: 'OSCE-based · official briefing 14 May 2025',
@@ -1284,9 +1284,33 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'rum-reproduction', label: 'Reproduction (lactation curve, calving interval, peak yield)', icon: '🐄', lecturer: 'TBD', lecturer_year: 2026 },
       ] },
 
+    { id: 'comp-repro-clinic', code: 'TBD-comp-repro-clinic', name: 'คลินิกสูติกรรมสัตว์เลก',
+      name_en: 'Companion Animal Reproductive Clinic',
+      icon: '🐶', color: '#c26d8e', semester: 2, has_questions: true, scaffold: true, has_notes: false,
+      vault_lecturers: [],
+      examFormat: {
+        weight: 'TBD',
+        notes: [
+          '📚 มี past papers: 7. ข้อสอบ 81 Anl Repro Clin (canine/feline content), 9. ข้อสอบฝึกงานคลินิกสูติกรรม ปี 5',
+          '🐕 Subject ครอบคลุม small animal repro: vaginal cytology · pyometra · TVT · OVH · BPH · mammary tumor · pregnancy dx',
+          '⚠️ Q seed จาก Vet 81 (ตรง 30% per Vet 83 commentary) — สอนเป็น concept-testing, ไม่ใช่ year-bound trivia',
+        ],
+      },
+      topics: [
+        { id: 'comp-repro-cytology',      label: 'Vaginal cytology + reproductive exam (สุนัข/แมว)', icon: '🔬', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'comp-repro-anatomy-cycle', label: 'Anatomy + estrous cycle (สุนัข/แมว)',             icon: '🐕', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'comp-repro-art',           label: 'ART (artificial reproduction)',                    icon: '🧪', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'comp-repro-infertility',   label: 'Infertility problems',                             icon: '⚠️', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'comp-repro-male',          label: 'Male reproductive — BPH, prostate, cryptorchid', icon: '🐕', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'comp-repro-postpartum',    label: 'Postpartum complications',                         icon: '🩹', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'comp-repro-pregnancy',     label: 'Pregnancy / parturition / dystocia',               icon: '🤰', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'comp-repro-infect',        label: 'Reproductive infection — pyometra, TVT, metritis', icon: '🦠', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'comp-repro-surgery',       label: 'Repro surgery — OVH, mastectomy, C-section',       icon: '🔪', lecturer: 'TBD', lecturer_year: 2026 },
+      ] },
+
     { id: 'livestock-pathology', code: 'TBD-livestock-path', name: 'พยาธิวิทยาปศุสัตว์',
       name_en: 'Livestock Pathology / Slaughter-house Pathology',
-      icon: '🔬', color: '#8b3d3d', semester: 2, has_questions: false, scaffold: true,
+      icon: '🔬', color: '#8b3d3d', semester: 2, has_questions: true, scaffold: true,
       vault_lecturers: ['roongroje-thanawongnuwech', 'sawang-kesdangsakonwut'],
       examFormat: {
         weight: 'TBD',

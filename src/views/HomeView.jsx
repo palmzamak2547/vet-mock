@@ -1199,12 +1199,14 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
             {s.name_en && s.name_en.toLowerCase() !== s.name.toLowerCase() && (
               <div className="sub">{s.name_en}</div>
             )}
-            <div className="count" style={{ color: s.has_notes && count === 0 ? 'var(--clr-sage)' : (isScaffold ? 'var(--clr-gold)' : (isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)')) }}>
-              {s.has_notes && count === 0
-                ? `📖 มี Notes${s.vault_lecturers?.length ? ` · ${s.vault_lecturers.length} faculty` : ''}`
-                : isScaffold
-                  ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? `, ${s.vault_lecturers.length} faculty` : ''}`
-                  : (isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} ข้อ`)}
+            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes ? 'var(--clr-sage)' : (isScaffold ? 'var(--clr-gold)' : 'var(--clr-rose)')) }}>
+              {count > 0
+                ? `${count} ข้อ${s.scaffold ? ' · PREVIEW' : ''}`
+                : s.has_notes
+                  ? `📖 มี Notes${s.vault_lecturers?.length ? ` · ${s.vault_lecturers.length} faculty` : ''}`
+                  : isScaffold
+                    ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? `, ${s.vault_lecturers.length} faculty` : ''}`
+                    : '🚧 รอข้อสอบเพิ่ม'}
             </div>
 
             {/* Per-subject progress chips — only when LIVE + has data.
