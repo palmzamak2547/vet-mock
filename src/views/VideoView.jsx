@@ -3,6 +3,7 @@ import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, isPlaylistUrl, 
 import { VIDEO_SUMMARIES, getSummaryForVideo } from '../data/video-summaries.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
+import { copyText } from '../lib/clipboard.js';
 import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
 
@@ -602,9 +603,13 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 เปิดใน YouTube ↗
               </a>
               {currentVideoId && (
-                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => {
-                  navigator.clipboard?.writeText(currentVideoId ? `https://www.youtube.com/watch?v=${currentVideoId}${playlistId ? `&list=${playlistId}` : ''}` : video.url);
-                  alert('คัดลอกลิงก์แล้ว');
+                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
+                  // Centralised copy helper — handles in-app webview fallback
+                  const link = currentVideoId
+                    ? `https://www.youtube.com/watch?v=${currentVideoId}${playlistId ? `&list=${playlistId}` : ''}`
+                    : video.url;
+                  const r = await copyText(link);
+                  alert(r.ok ? 'คัดลอกลิงก์แล้ว' : `คัดลอกอัตโนมัติไม่ได้ — กดค้างลิงก์นี้:\n${link}`);
                 }}>📋 Copy link</button>
               )}
               <div style={{ flex: 1 }} />

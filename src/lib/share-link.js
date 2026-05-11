@@ -76,27 +76,14 @@ export function readShareUrlFromLocation() {
   }
 }
 
-// Copy URL to clipboard, with fallback for older browsers
+// Copy URL to clipboard, with fallback for older browsers + in-app webviews.
+// Routes through src/lib/clipboard.js which detects the Clipboard API
+// properly (so LINE/Facebook in-app browsers fall through to the
+// document.execCommand path instead of silently "succeeding").
 export async function copyShareUrl(questions) {
   const url = buildShareUrl(questions);
   if (!url) return { ok: false, reason: 'empty' };
-  try {
-    await navigator.clipboard?.writeText(url);
-    return { ok: true, url };
-  } catch {
-    // Fallback — older Safari
-    try {
-      const ta = document.createElement('textarea');
-      ta.value = url;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      return { ok: true, url, fallback: true };
-    } catch {
-      return { ok: false, reason: 'no-clipboard', url };
-    }
-  }
+  const { copyText } = await import('./clipboard.js');
+  const result = await copyText(url);
+  return result.ok ? { ok: true, url, method: result.method } : { ...result, url };
 }

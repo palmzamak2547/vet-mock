@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getGroupMembers, getSharedQuestions, getLeaderboard, deleteSharedQuestion } from '../lib/api.js';
+import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/questions.js';
 
 export default function GroupDetailView({ group, user, goBack }) {
@@ -23,9 +24,16 @@ export default function GroupDetailView({ group, user, goBack }) {
 
   useEffect(() => { load(); }, [group.id]);
 
-  const copyCode = () => {
-    navigator.clipboard.writeText(group.code);
-    alert(`คัดลอกรหัส ${group.code} แล้ว ส่งให้เพื่อนได้เลย!`);
+  // Robust copy: Clipboard API → execCommand fallback for in-app browsers
+  // (LINE / FB WebView) where navigator.clipboard is absent or rejects.
+  const copyCode = async () => {
+    const r = await copyText(group.code);
+    if (r.ok) {
+      alert(`คัดลอกรหัส ${group.code} แล้ว ส่งให้เพื่อนได้เลย!`);
+    } else {
+      // Surface the code so the user can long-press to copy manually
+      alert(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ — กดค้าง code นี้แล้วเลือก Copy:\n\n${group.code}`);
+    }
   };
 
   return (
