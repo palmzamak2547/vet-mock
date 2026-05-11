@@ -112,7 +112,13 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // consecutive days ending today (or yesterday if user hasn't
   // studied yet today). Wrong pool = Q IDs the user answered wrong,
   // grouped by frequency.
-  const quickStats = (() => {
+  //
+  // Memoised on `history` — without this, the 60s tick interval
+  // re-ran the entire scan + Map build + sort on every tick.
+  // For a power user with 1000+ history rows that was ~5-20ms of
+  // synchronous work every minute, plus the same cost on every
+  // unrelated re-render (subject swap, modal open, etc.).
+  const quickStats = useMemo(() => {
     if (!Array.isArray(history) || history.length === 0) {
       return { streak: 0, todayCount: 0, wrongCount: 0, wrongIds: [] };
     }
@@ -142,7 +148,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       .sort((a, b) => b[1] - a[1])
       .map(([k]) => k);
     return { streak, todayCount, wrongCount: wrongIds.length, wrongIds };
-  })();
+  }, [history]);
 
   // Quick action: random 1 Q from full QB. Sets up a 1-question exam
   // and routes straight into ExamView via 'config' → which we shortcut

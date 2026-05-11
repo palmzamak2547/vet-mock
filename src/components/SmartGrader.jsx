@@ -141,10 +141,17 @@ export default function SmartGrader({ q, userAnswer }) {
     }
   }, [storageKey]);
 
+  // Debounced autosave — 400ms so a fast-typing prediction field
+  // doesn't trigger a synchronous JSON.stringify + setItem on every
+  // keystroke. The rubric checkbox toggles still feel instant because
+  // the state update + visual feedback is unrelated to the write.
   useEffect(() => {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify({ checks, shortGrade, predicted, predictedSubmitted }));
-    } catch {}
+    const id = setTimeout(() => {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({ checks, shortGrade, predicted, predictedSubmitted }));
+      } catch {}
+    }, 400);
+    return () => clearTimeout(id);
   }, [storageKey, checks, shortGrade, predicted, predictedSubmitted]);
 
   // Build a flat list of rubric items so totals are easy to compute.
@@ -204,18 +211,34 @@ export default function SmartGrader({ q, userAnswer }) {
     } catch {}
   }, [predictedSubmitted, checks, shortGrade, total, predicted, q.id, maxScore]);
 
+  // Calibration is a small derived stat. The previous version did
+  // JSON.parse(localStorage.getItem(...)) inside a useMemo whose deps
+  // included `total` — i.e. every rubric checkbox toggle re-parsed
+  // the calibration history from localStorage. We only really care
+  // about the value when the user submits a fresh prediction; the
+  // running rubric edits don't change it. Gate the parse so it runs
+  // only when `predictedSubmitted` flips true → recompute, and stays
+  // stable otherwise. Sync read of <50-entry JSON is cheap (~0.5ms),
+  // just stop calling it on every checkbox click.
   const calibration = useMemo(() => {
+    if (!predictedSubmitted) return null;
     try {
       const arr = JSON.parse(localStorage.getItem('vmx-grade-calibration') || '[]');
       if (arr.length < 2) return null;
-      const diffs = arr.map((e) => e.predicted - e.actual);
-      const mean = diffs.reduce((s, x) => s + x, 0) / diffs.length;
-      const absMean = diffs.reduce((s, x) => s + Math.abs(x), 0) / diffs.length;
-      return { count: arr.length, bias: mean, mae: absMean };
+      let bias = 0; let mae = 0;
+      for (const e of arr) {
+        const d = e.predicted - e.actual;
+        bias += d;
+        mae += Math.abs(d);
+      }
+      return { count: arr.length, bias: bias / arr.length, mae: mae / arr.length };
     } catch {
       return null;
     }
-  }, [predictedSubmitted, total]);
+    // `total` deliberately omitted — calibration history is only
+    // updated by the persistence effect above, not by rubric edits.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [predictedSubmitted]);
 
   // ── Render ──
   return (

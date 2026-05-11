@@ -13,6 +13,12 @@ import { copyShareUrl } from '../lib/share-link.js';
 // demand — lazy so the review view stays light.
 const ImageAnnotator = lazy(() => import('../components/ImageAnnotator.jsx'));
 
+// Subject lookup map built once at module load. Replaces
+// SUBJECTS.find() calls that were running ~2-3× per visible question
+// on every render — for a 200-Q review with filter chip toggles, the
+// .find() loop was the dominant render cost.
+const SUBJECT_BY_ID = new Map(SUBJECTS.map((s) => [s.id, s]));
+
 // QComments only mounts when the user expands the comment thread for
 // a question. Comments need Supabase, so the component is gated by
 // hasSupabase internally and renders a sign-in CTA otherwise.
@@ -191,16 +197,18 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           correctDisplay = q.model_answer || '(no model answer)';
         }
 
+        // Resolve subject + topic once per row (was running .find()
+        // twice in the JSX below — for 200 items that's 400 linear
+        // scans of the 7-element SUBJECTS array per render).
+        const subj = SUBJECT_BY_ID.get(q.subject);
+        const topicMeta = q.topic && subj?.topics?.find((tp) => tp.id === q.topic);
+
         return (
           <div key={q.id} className={`vmx-review-item ${cls}`}>
             <div className="vmx-review-head">
               <span>
-                Q{idx + 1}, {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject}
-                {(() => {
-                  const subj = SUBJECTS.find((s) => s.id === q.subject);
-                  const t = q.topic && subj?.topics?.find((tp) => tp.id === q.topic);
-                  return t ? <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)', fontWeight: 600 }}>{t.icon} {t.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></> : null;
-                })()}
+                Q{idx + 1}, {subj?.name || q.subject}
+                {topicMeta ? <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)', fontWeight: 600 }}>{topicMeta.icon} {topicMeta.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></> : null}
                 {q.examOrigin && (
                   <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
                     📚 อิงแนวเดิม

@@ -35,20 +35,58 @@ const NOTES_BY_SUBJECT = {
   cliapprum: NOTES_CLIAPPRUM,
 };
 
+// Walk a section's structured body and collect all searchable text
+// into a single lower-cased string. Done once per (topic, section)
+// pair via a WeakMap cache, so the filter never re-stringifies the
+// 5-20KB section tree on every keystroke.
+//
+// Previous implementation did `JSON.stringify(sec).toLowerCase()` per
+// section per keystroke — for a 50-section topic that's ~500KB of
+// string ops on every typed letter.
+const _sectionHaystackCache = new WeakMap();
+function getSectionHaystack(sec) {
+  if (!sec || typeof sec !== 'object') return '';
+  const cached = _sectionHaystackCache.get(sec);
+  if (cached !== undefined) return cached;
+  const buf = [];
+  const walk = (v) => {
+    if (v == null) return;
+    if (typeof v === 'string') { buf.push(v); return; }
+    if (typeof v === 'number' || typeof v === 'boolean') { buf.push(String(v)); return; }
+    if (Array.isArray(v)) { for (const it of v) walk(it); return; }
+    if (typeof v === 'object') {
+      for (const k in v) walk(v[k]);
+    }
+  };
+  walk(sec);
+  const out = buf.join(' ').toLowerCase();
+  _sectionHaystackCache.set(sec, out);
+  return out;
+}
+
 export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, goHome }) {
   const [activeSubject, setActiveSubjectLocal] = useState(subjectProp);
   const subject = activeSubject;
-  const notes = NOTES_BY_SUBJECT[subject] || {};
-  const subjectMeta = SUBJECTS.find((s) => s.id === subject);
-  // Order topics by curriculum.js (canonical lecture-date order),
-  // not by note-file insertion order. Filter to topics that have notes.
-  const topicIds = (subjectMeta?.topics || [])
-    .map((t) => t.id)
-    .filter((id) => notes[id]);
-  // Append any orphan note topics (notes exist but not declared in curriculum)
-  Object.keys(notes).forEach((id) => { if (!topicIds.includes(id)) topicIds.push(id); });
+  // Memoised — only re-derives when subject changes. The previous
+  // version recomputed topicIds + subjectMeta on every render
+  // (including every keystroke in the search box).
+  const { notes, subjectMeta, topicIds } = useMemo(() => {
+    const n = NOTES_BY_SUBJECT[subject] || {};
+    const sm = SUBJECTS.find((s) => s.id === subject);
+    const ids = (sm?.topics || []).map((t) => t.id).filter((id) => n[id]);
+    Object.keys(n).forEach((id) => { if (!ids.includes(id)) ids.push(id); });
+    return { notes: n, subjectMeta: sm, topicIds: ids };
+  }, [subject]);
   const [activeTopic, setActiveTopic] = useState(() => initialTopic && notes[initialTopic] ? initialTopic : topicIds[0]);
   const [search, setSearch] = useState('');
+  // Debounced version drives the filter — 80ms below input-echo threshold
+  // but plenty to coalesce a burst of fast typing.
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  useEffect(() => {
+    if (search === debouncedSearch) return;
+    const t = setTimeout(() => setDebouncedSearch(search), 80);
+    return () => clearTimeout(t);
+  }, [search, debouncedSearch]);
 
   // ✅ Derive a guaranteed-valid topic for the current subject. Using the
   //    activeTopic state directly leaves a render cycle with the previous
@@ -90,15 +128,14 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
     );
   }
 
-  // Filter sections by search
+  // Filter sections by search. Each section's haystack is cached in
+  // a module-scope WeakMap (see getSectionHaystack) so a 50-section
+  // topic doesn't re-stringify ~500KB of JSON on every keystroke.
   const filteredSections = useMemo(() => {
-    if (!search.trim()) return topic.sections;
-    const q = search.toLowerCase();
-    return topic.sections.filter((sec) => {
-      const blob = JSON.stringify(sec).toLowerCase();
-      return blob.includes(q);
-    });
-  }, [topic.sections, search]);
+    const q = debouncedSearch.trim().toLowerCase();
+    if (!q) return topic.sections;
+    return topic.sections.filter((sec) => getSectionHaystack(sec).includes(q));
+  }, [topic.sections, debouncedSearch]);
 
   return (
     <>
@@ -214,8 +251,11 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
             <div className="vmx-empty">ไม่พบ section ที่ตรงกับ "{search}"</div>
           )}
 
+          {/* highlight prop uses the debounced value so RichText doesn't
+              re-walk every text node on every keystroke. The visible
+              <input> still reads `search` for instant feedback. */}
           {filteredSections.map((section, idx) => (
-            <SectionBlock key={idx} section={section} idx={idx} highlight={search} />
+            <SectionBlock key={idx} section={section} idx={idx} highlight={debouncedSearch} />
           ))}
         </div>
       </div>

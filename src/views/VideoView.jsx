@@ -404,6 +404,17 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   const [listError, setListError] = useState('');
   const [listNote, setListNote] = useState('');
   const [search, setSearch] = useState('');
+  // Debounced version drives the filter — keeps fast typing in the
+  // playlist search input snappy. The pre-lowered _titleLc on each
+  // item means filtering is pure indexOf, but debouncing also stops
+  // React from re-rendering the (up to 130-item) sidebar list on
+  // every keystroke.
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  useEffect(() => {
+    if (search === debouncedSearch) return;
+    const t = setTimeout(() => setDebouncedSearch(search), 60);
+    return () => clearTimeout(t);
+  }, [search, debouncedSearch]);
   const [openSummary, setOpenSummary] = useState(null); // VIDEO_SUMMARIES entry
   const sidebarRef = useRef(null);
   const activeItemRef = useRef(null);
@@ -448,12 +459,21 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
     return () => clearTimeout(t);
   }, [currentVideoId]);
 
-  // Filtered items for search
+  // Pre-lower-cased title cache. Built once per playlist load (or when
+  // playlistItems identity changes — every fresh playlist fetch). Without
+  // this, the search useMemo below was calling `it.title.toLowerCase()`
+  // on every playlist item per keystroke (30-130 items typical).
+  const indexedItems = useMemo(
+    () => playlistItems.map((it) => ({ ...it, _titleLc: (it.title || '').toLowerCase() })),
+    [playlistItems]
+  );
+
+  // Filtered items for search — uses debouncedSearch + pre-lowered haystack.
   const filteredItems = useMemo(() => {
-    if (!search.trim()) return playlistItems;
-    const q = search.toLowerCase();
-    return playlistItems.filter((it) => it.title.toLowerCase().includes(q));
-  }, [playlistItems, search]);
+    const q = debouncedSearch.trim().toLowerCase();
+    if (!q) return indexedItems;
+    return indexedItems.filter((it) => it._titleLc.includes(q));
+  }, [indexedItems, debouncedSearch]);
 
   const currentIdx = playlistItems.findIndex((p) => p.id === currentVideoId);
   const goPrev = () => { if (currentIdx > 0) setCurrentVideoId(playlistItems[currentIdx - 1].id); };
