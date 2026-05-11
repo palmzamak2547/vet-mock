@@ -6,6 +6,7 @@ import SmartPassage from './SmartPassage.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
 import { speakQuestion, cancelSpeech } from '../lib/tts.js';
+import { unlockAudio } from '../lib/audio-unlock.js';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
 // markers and HTML entities sound weird as speech.
@@ -52,6 +53,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   }, [currentQ?.id]);
 
   const speakQ = () => {
+    // CRITICAL: prime audio synchronously BEFORE any await. iOS Safari
+    // (and stricter browsers) require .play() to happen inside a user
+    // gesture; speakQuestion() crosses an `await` boundary which would
+    // otherwise lose the gesture context and silently block playback.
+    unlockAudio();
+
     if (isSpeaking) {
       // Toggle off — abort the in-flight chain and cancel the queue
       speakControllerRef.current.cancelled = true;

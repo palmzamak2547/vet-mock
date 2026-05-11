@@ -90,6 +90,33 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
     } catch {}
   }, [subject, view, qKey, user, profile]);
 
+  // iOS Safari (and aggressive battery managers on Android) kill
+  // background WebSocket connections. When the tab returns to
+  // foreground, the channel is dead — presence count goes stale.
+  // Force a re-track on visibilitychange so we re-announce ourselves
+  // + Supabase's auto-reconnect kicks in for incoming events.
+  useEffect(() => {
+    if (!user) return;
+    const onVis = () => {
+      if (document.visibilityState !== 'visible') return;
+      const ch = channelRef.current;
+      if (!ch) return;
+      // Re-track our presence — idempotent + triggers a fresh sync
+      try {
+        ch.track({
+          username: profile?.username || user.email?.split('@')[0] || 'guest',
+          avatar: profile?.avatar_emoji || '🐾',
+          subject: subject || null,
+          view: view || 'home',
+          qKey: qKey || null,
+          joined_at: Date.now(),
+        });
+      } catch {}
+    };
+    document.addEventListener('visibilitychange', onVis);
+    return () => document.removeEventListener('visibilitychange', onVis);
+  }, [user, profile, subject, view, qKey]);
+
   return buddies;
 }
 

@@ -74,6 +74,21 @@ export default function QComments({ qSubject, qId, user, setView }) {
     };
   }, [qSubject, qId]);
 
+  // iOS Safari kills background WebSockets — when the tab returns,
+  // the CDC channel is dead. Re-fetch comments so we sync any posts
+  // we missed while backgrounded. (Subscribe-again would also work
+  // but a one-shot list refresh is cheaper + safer.)
+  useEffect(() => {
+    if (!hasSupabase) return;
+    const onVis = () => {
+      if (document.visibilityState === 'visible') {
+        listQComments(qSubject, qId).then((rows) => setComments(rows));
+      }
+    };
+    document.addEventListener('visibilitychange', onVis);
+    return () => document.removeEventListener('visibilitychange', onVis);
+  }, [qSubject, qId]);
+
   async function submit() {
     if (!user) {
       setView?.('auth');

@@ -130,6 +130,28 @@ export default function RaceView({ goHome, setView, user, profile }) {
     return () => { active = false; cleanupFn(); };
   }, [code, phase, user, profile]);
 
+  // Reconnect race-channel presence when tab returns to foreground.
+  // iOS Safari kills background WebSockets; without this the race
+  // partner sees us as "left" and we miss broadcast events. Re-tracking
+  // re-announces presence and Supabase's reconnect handles the rest.
+  useEffect(() => {
+    if (!user || !code) return;
+    const onVis = () => {
+      if (document.visibilityState !== 'visible') return;
+      const ch = channelRef.current;
+      if (!ch) return;
+      try {
+        ch.track({
+          username: profile?.username || user.email?.split('@')[0] || 'guest',
+          avatar: profile?.avatar_emoji || '🐾',
+          joined_at: Date.now(),
+        });
+      } catch {}
+    };
+    document.addEventListener('visibilitychange', onVis);
+    return () => document.removeEventListener('visibilitychange', onVis);
+  }, [user, profile, code]);
+
   // ── Lobby actions ────────────────────────────────────────────
   function createRace() {
     setIsHost(true);
