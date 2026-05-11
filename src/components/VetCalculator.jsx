@@ -450,7 +450,11 @@ function ChipRow({ label, options, value, onChange }) {
 }
 
 // ── Main component ─────────────────────────────────────────────
-export default function VetCalculator() {
+// `showFab` (default true) controls whether this component renders
+// its own floating button. Set to `false` when an external unified
+// tools FAB drives opening — the parent dispatches a window event
+// `vmx-open-vetcalc` to trigger the modal.
+export default function VetCalculator({ showFab = true } = {}) {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('rer');
 
@@ -463,10 +467,22 @@ export default function VetCalculator() {
     return () => document.removeEventListener('keydown', handle);
   }, [open]);
 
+  // External open trigger — lets a unified ToolsFAB (or any other
+  // surface) open the calculator without depending on this component's
+  // internal FAB or React state lifting. Listener stays light-weight
+  // and idempotent.
+  useEffect(() => {
+    const onOpen = () => setOpen(true);
+    window.addEventListener('vmx-open-vetcalc', onOpen);
+    return () => window.removeEventListener('vmx-open-vetcalc', onOpen);
+  }, []);
+
   return (
     <>
       {/* Floating button — fixed bottom-right. Hidden on print so the
-          icon doesn't appear on printed quizzes/notes. */}
+          icon doesn't appear on printed quizzes/notes. Suppressed when
+          an external ToolsFAB owns the launching surface. */}
+      {showFab && (
       <button
         onClick={() => setOpen(true)}
         title="เครื่องคิดเลขสำหรับสัตวแพทย์ (RER, Fluid, Dose, Transfusion, DKA)"
@@ -503,6 +519,7 @@ export default function VetCalculator() {
       >
         🧮
       </button>
+      )}
 
       {open && (
         <div className="vmx-modal-overlay" onClick={() => setOpen(false)}>

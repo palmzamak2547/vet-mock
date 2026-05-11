@@ -66,12 +66,21 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const [expanded, setExpanded] = useState(false);
   const showAnnouncement = LATEST_CHANGELOG && lastSeenChangelog !== LATEST_CHANGELOG.version;
 
-  // Onboarding tour — shown once on first home visit (after year-pick).
-  // 3-step explanation of subject grid + smart presets + persistent header.
-  // Suppressed forever after dismiss via vmx-onboarding-seen flag.
-  const [onboardingSeen, setOnboardingSeen] = useLocalStorage('vmx-onboarding-seen', false);
+  // Onboarding tour — opt-in via a friendly banner.
+  //
+  // Old design: auto-modal on first visit. Problem — new users landed
+  // on the page, hit a blocker, had to read 4 slides before they could
+  // even SEE the home screen. Conversion-killer.
+  // New design: a small dismissible banner ("👋 มาทัวร์ก่อนไหม?") with
+  // a "ลองทัวร์" CTA that opens the tour modal on demand. First impression
+  // is now the actual home page; tour is opt-in.
+  const [welcomeDismissed, setWelcomeDismissed] = useLocalStorage('vmx-welcome-dismissed', false);
+  const [tourOpen, setTourOpen] = useState(false);
   const [tourStep, setTourStep] = useState(0);
-  const showOnboarding = !onboardingSeen;
+  // Legacy flag — once true, hide the welcome banner too (users who
+  // already saw + dismissed the old auto-modal don't need the banner).
+  const [legacyOnboardingSeen] = useLocalStorage('vmx-onboarding-seen', false);
+  const showWelcome = !welcomeDismissed && !legacyOnboardingSeen;
 
   // Email-verify banner dismiss — session-only state. We don't persist
   // because we WANT a gentle re-nag if they ignore it across sessions
@@ -182,28 +191,69 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
   return (
     <>
-      {showOnboarding && (
+      {tourOpen && (
         <OnboardingTour
           step={tourStep}
           onNext={() => setTourStep((s) => s + 1)}
-          onDismiss={() => { setOnboardingSeen(true); setTourStep(0); }}
+          onDismiss={() => { setTourOpen(false); setTourStep(0); setWelcomeDismissed(true); }}
         />
       )}
       <div className="vmx-hero">
         <h1>
           {user
             ? <>สวัสดี <em>{profile?.username || 'เพื่อน'}</em></>
-            : <>อ่านแล้ว ลอง <em>ฝึกโจทย์</em> กันเถอะ</>}
+            : <>เริ่ม <em>ฝึกโจทย์</em> กันเลย</>}
         </h1>
         <p>
           {isScaffoldYear
             ? <>🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc}, พรีวิว — รอเติมเนื้อหา</>
             : <>คลังโจทย์ฝึก <strong>{totalQ}</strong> ข้อ, {yearMeta?.label || 'ปี 4'}</>}
         </p>
-        {/* Year-switcher pill removed from HomeView hero — moved to the
-            global persistent App header (since 2026-05-08). One canonical
-            place for year context = no duplication, no confusion. */}
       </div>
+
+      {/* Welcome banner — first-time users see this instead of a
+          blocking modal. One-tap to start the tour, X to dismiss. */}
+      {showWelcome && (
+        <div style={{
+          marginBottom: 16,
+          padding: '12px 14px',
+          borderRadius: 12,
+          background: 'var(--clr-surface)',
+          border: '1px dashed var(--clr-sage)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          flexWrap: 'wrap',
+        }}>
+          <div style={{ fontSize: 24, lineHeight: 1 }}>👋</div>
+          <div style={{ flex: 1, minWidth: 180, fontSize: 13, lineHeight: 1.5 }}>
+            <strong>ยินดีต้อนรับสู่ VetMock</strong> · ทัวร์ 4 จุดสำคัญใช้เวลา 30 วินาที
+          </div>
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            onClick={() => { setTourOpen(true); setTourStep(0); }}
+          >
+            🚀 ลองทัวร์
+          </button>
+          <button
+            type="button"
+            aria-label="ปิดข้อความต้อนรับ"
+            onClick={() => setWelcomeDismissed(true)}
+            style={{
+              all: 'unset',
+              cursor: 'pointer',
+              padding: '4px 8px',
+              fontSize: 14,
+              color: 'var(--clr-ink-soft)',
+              fontFamily: 'inherit',
+            }}
+            title="ข้าม"
+          >
+            ×
+          </button>
+        </div>
+      )}
 
       {/* Email verification reminder — for users who signed up but
           haven't clicked the link yet. Dismissible per-session via
@@ -344,8 +394,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap' }}>
             <div style={{ fontSize: 28, lineHeight: 1 }}>🎉</div>
             <div style={{ flex: 1, minWidth: 200 }}>
+              {/* Hide the raw version string (5.22.7) — it's developer
+                  metadata; users only care that there's a new update
+                  and when. Version stays accessible in About + via the
+                  detail expander below for users who want it. */}
               <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                อัปเดตใหม่, {LATEST_CHANGELOG.version}, {fmtThaiDate(LATEST_CHANGELOG.date)}
+                อัปเดตใหม่ · {fmtThaiDate(LATEST_CHANGELOG.date)}
               </div>
               <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, marginTop: 2, lineHeight: 1.3 }}>
                 {LATEST_CHANGELOG.headline}
@@ -816,9 +870,15 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               <div className="icon">🧠</div>
               <div className="title">Spaced Repetition</div>
               <div className="sub">
+                {/* Time estimate: SR is rapid — most users finish a card
+                    in ~15 sec. Old math was 1 min/card which made 1600+
+                    decks look like "1635 นาที" (27 hours) and panicked
+                    new users. New math: 4 cards/min, capped at 30 min
+                    so the suggestion always feels achievable. The full
+                    due count still shows so users see real scope. */}
                 {cardStats.due > 0
-                  ? `${cardStats.due} ข้อทบทวนวันนี้, ≈ ${Math.max(5, Math.ceil(cardStats.due / 5) * 5)} นาที`
-                  : 'ทบทวนแบบ Anki'}
+                  ? `${cardStats.due} ข้อค้างทบทวน · แนะนำวันละ ~${Math.min(30, Math.max(5, Math.ceil(cardStats.due / 4 / 5) * 5))} นาที`
+                  : 'ทบทวนแบบ Anki, ยังไม่มีข้อค้าง'}
               </div>
               {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
             </button>
@@ -925,11 +985,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </>
       )}
 
-      {/* Tips footer — only for first-time users (pre-onboarding-dismiss).
+      {/* Tips footer — only for first-time users (pre-welcome-dismiss).
           Returning users have absorbed these already; hiding declutters
-          the home view. Onboarding tour now covers the keyboard shortcuts
-          + dark mode tips on first visit. */}
-      {!onboardingSeen && (
+          the home view. The welcome tour covers the same shortcuts. */}
+      {showWelcome && (
         <div style={{ marginTop: 30, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
           💡 ใช้ Spaced Repetition ทุกวัน วันละ 15-30 นาที จะได้ผลดีที่สุด<br/>
           ⌨️ กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
@@ -1130,11 +1189,16 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
             <div className="accent" style={{ background: s.color }}></div>
             <div className="icon">{s.icon}</div>
             <div className="title">{s.name}</div>
-            <div className="sub">{s.name_en}</div>
+            {/* Only show English subtitle when it adds info beyond the
+                Thai title. Avoids "COM III / C ANI CLI SCI III, Companion
+                Animal" double-line on small cards. */}
+            {s.name_en && s.name_en.toLowerCase() !== s.name.toLowerCase() && (
+              <div className="sub">{s.name_en}</div>
+            )}
             <div className="count" style={{ color: isScaffold ? 'var(--clr-gold)' : (isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)') }}>
               {isScaffold
                 ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? `, ${s.vault_lecturers.length} faculty` : ''}`
-                : (isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} questions`)}
+                : (isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} ข้อ`)}
             </div>
 
             {/* Per-subject progress chips — only when LIVE + has data.
@@ -1178,12 +1242,16 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
               );
             })()}
 
-            {s.code && (
-              <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
-                {s.code}
-              </div>
-            )}
-            {s.examFormat && !isScaffold && (
+            {/* Removed: 7-digit course code (3106417…). It's already
+                searchable via the command palette and adds visual noise
+                without helping users decide which card to tap.
+                Removed: long examFormat detail chip ("Mid 105/200 (52.5%),
+                Final 90/200 (45%), Class 5/200 (2.5%), Letter Grade A-F").
+                The full breakdown lives on the subject detail / config
+                page; on the card we only show the "choice count" hint
+                because that materially changes how the user studies
+                (4 vs 5 choices = different elimination math). */}
+            {s.examFormat?.choiceCount && !isScaffold && (
               <div style={{
                 marginTop: 6,
                 padding: '3px 8px',
@@ -1195,8 +1263,7 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
                 display: 'inline-block',
                 letterSpacing: '0.05em',
               }}>
-                📝 {s.examFormat.weight}
-                {s.examFormat.choiceCount && `, ${s.examFormat.choiceCount} ช้อยส์`}
+                📝 {s.examFormat.choiceCount} ช้อยส์
               </div>
             )}
           </button>

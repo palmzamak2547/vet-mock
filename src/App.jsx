@@ -39,6 +39,9 @@ const InstructorModal = lazy(() => import('./components/InstructorModal.jsx'));
 // run when the user opens it, so the runtime cost is just ~5KB
 // gzipped of inert UI code on first paint.
 import VetCalculator from './components/VetCalculator.jsx';
+// Unified bottom-right FAB — single button fans out to 🧮 + 🎨. Tiny
+// component (~3 KB) and used on nearly every view, so import eagerly.
+import ToolsFAB from './components/ToolsFAB.jsx';
 
 // Sketchpad — opens a blank canvas for free-form drawing/diagrams.
 // Lazy because it includes canvas + image processing only used when
@@ -1221,37 +1224,16 @@ export default function App() {
               first) and during an active exam (don't tempt them with the
               calculator UI mid-question — exam already shows wake lock).
               Rendered eagerly so the button is on first paint. */}
-          {view !== 'auth' && view !== 'exam' && <VetCalculator />}
+          {/* VetCalculator lives in the tree (modal + listener) but
+              renders no FAB of its own — ToolsFAB drives opening via
+              a window event. */}
+          {view !== 'auth' && view !== 'exam' && <VetCalculator showFab={false} />}
 
-          {/* Sketchpad FAB — sits 64px above the calculator FAB so the
-              two don't overlap on mobile. Hidden during exam/auth. */}
+          {/* Unified ToolsFAB — one button bottom-right that fans out
+              into the calculator + sketchpad. Replaces what used to be
+              two stacked floats. Hidden during exam/auth like before. */}
           {view !== 'auth' && view !== 'exam' && (
-            <button
-              onClick={() => setSketchOpen(true)}
-              title="กระดานวาด — สรุป diagram, anatomy"
-              aria-label="เปิดกระดานวาด"
-              style={{
-                position: 'fixed',
-                right: 16,
-                bottom: 'calc(76px + env(safe-area-inset-bottom))',
-                zIndex: 900,
-                width: 44,
-                height: 44,
-                borderRadius: '50%',
-                border: '1px solid var(--clr-border)',
-                background: 'var(--clr-surface)',
-                fontSize: 18,
-                cursor: 'pointer',
-                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--clr-ink)',
-                fontFamily: 'inherit',
-              }}
-            >
-              🎨
-            </button>
+            <ToolsFAB onSketch={() => setSketchOpen(true)} />
           )}
           {sketchOpen && (
             <Suspense fallback={null}>
