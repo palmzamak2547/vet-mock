@@ -651,13 +651,14 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         bookmarks={bookmarks}
         history={history}
         onPick={(s) => {
-          // Both scaffold AND empty-LIVE subjects route to feedback with
-          // subject prefilled. Difference is just messaging: scaffold =
-          // "expected to be empty" (early stage), empty-LIVE = "this should
-          // have content but doesn't, please tell us why or contribute."
+          // Routing precedence:
+          //   1. has_notes (scaffold or empty-LIVE but Notes available) →
+          //      topic-select. Notes button works; Exam/SR buttons disabled.
+          //   2. otherwise scaffold/empty → feedback (request content).
+          //   3. has_questions → topic-select normally.
           const totalQ = visibleQuestionCount(s.id, [...QB, ...(customQuestions || [])]);
-          const isEmptyOrScaffold = s.scaffold || totalQ === 0;
-          if (isEmptyOrScaffold) {
+          const hasUsableContent = totalQ > 0 || s.has_notes === true;
+          if (!hasUsableContent) {
             if (setFeedbackPrefill) {
               const reason = s.scaffold
                 ? 'อยากให้เพิ่มเนื้อหา'
@@ -1158,10 +1159,12 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
       {subjects.map((s) => {
         const count = visibleQuestionCount(s.id, questions);
         // `scaffold: true` is an explicit flag for placeholder subjects.
-        // Use that as the source of truth — `count === 0` alone could
-        // misclassify a real subject that we just haven't filled with Qs.
         const isScaffold = !!s.scaffold;
         const isEmpty = count === 0 && !isScaffold;
+        // Scaffold subjects that have notes available are still useful —
+        // user can read 📖 Notes even though Q bank is empty. Render
+        // them at normal opacity so they don't look "abandoned".
+        const hasUsableContent = count > 0 || s.has_notes === true;
 
         // Per-subject progress (Phase 3) — readingChecklist + bookmarks
         // are local-storage backed and cheap to compute.
@@ -1177,11 +1180,12 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
             className="vmx-subject-card"
             onClick={() => onPick && onPick(s)}
             style={{
-              opacity: isEmpty ? 0.6 : (isScaffold ? 0.7 : 1),
+              opacity: hasUsableContent ? 1 : (isEmpty ? 0.6 : 0.7),
               cursor: 'pointer',
             }}
             title={
-              isScaffold ? 'คลิกเพื่อช่วยเติมเนื้อหา (ส่ง slide/notes/past paper)'
+              s.has_notes && count === 0 ? '📖 มี Notes — คลิกอ่านสรุปได้, ข้อสอบยังไม่มี'
+              : isScaffold ? 'คลิกเพื่อช่วยเติมเนื้อหา (ส่ง slide/notes/past paper)'
               : isEmpty ? 'ยังไม่มีข้อสอบ — คลิกเพื่อขอเพิ่มเนื้อหา'
               : ''
             }
@@ -1195,10 +1199,12 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
             {s.name_en && s.name_en.toLowerCase() !== s.name.toLowerCase() && (
               <div className="sub">{s.name_en}</div>
             )}
-            <div className="count" style={{ color: isScaffold ? 'var(--clr-gold)' : (isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)') }}>
-              {isScaffold
-                ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? `, ${s.vault_lecturers.length} faculty` : ''}`
-                : (isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} ข้อ`)}
+            <div className="count" style={{ color: s.has_notes && count === 0 ? 'var(--clr-sage)' : (isScaffold ? 'var(--clr-gold)' : (isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)')) }}>
+              {s.has_notes && count === 0
+                ? `📖 มี Notes${s.vault_lecturers?.length ? ` · ${s.vault_lecturers.length} faculty` : ''}`
+                : isScaffold
+                  ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? `, ${s.vault_lecturers.length} faculty` : ''}`
+                  : (isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} ข้อ`)}
             </div>
 
             {/* Per-subject progress chips — only when LIVE + has data.

@@ -990,8 +990,8 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'milk-meat-hygiene', code: '3107518', name: 'สุขศาสตร์น้ำนม + เนื้อ',
       name_en: 'Milk Hygiene & Meat Inspection',
-      icon: '🥩', color: '#a73d4a', semester: 1, has_questions: false, scaffold: true,
-      vault_lecturers: ['saharuetai-jeamsripong', 'sirawit-pagdepanichkit', 'rungtip-chuanchuen', 'suphachai-nuanualsuwan'],
+      icon: '🥩', color: '#a73d4a', semester: 1, has_questions: false, scaffold: true, has_notes: true,
+      vault_lecturers: ['saharuetai-jeamsripong', 'sirawit-pagdepanichkit', 'rungtip-chuanchuen', 'suphachai-nuanualsuwan', 'taradon-luangtongkum'],
       examFormat: {
         weight: 'Mid + Final separate · มี past-paper folders ทั้ง 2 halves',
         notes: [
@@ -1005,7 +1005,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'milk-overview', label: 'Milk hygiene & meat inspection overview', icon: '📖', lecturer: 'TBD', lecturer_year: 2026 },
         { id: 'milk-quality-composition', label: 'Milk quality & composition', icon: '🥛', lecturer: 'Rungtip Chuanchuen', lecturer_year: 2026 },
         { id: 'milk-raw-std', label: 'Raw milk & milk products standard', icon: '📜', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026 },
-        { id: 'milk-biosec-dairy', label: 'Biosecurity on dairy farms', icon: '🐄', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'milk-biosec-dairy', label: 'Biosecurity on dairy farms', icon: '🐄', lecturer: 'จักรกริศน์ เนื่องจำนงค์ (CN)', lecturer_year: 2026, lecturerNote: 'ภาควิชาสัตวบาล (ไม่ใช่ SJ/RC/SP)' },
         { id: 'milk-mastitis', label: 'Mastitis', icon: '🐄', lecturer: 'Rungtip Chuanchuen', lecturer_year: 2026 },
         { id: 'milk-raw-storage', label: 'Storage of raw milk', icon: '🧊', lecturer: 'Rungtip Chuanchuen', lecturer_year: 2026 },
         { id: 'milk-products-storage', label: 'Storage of milk products', icon: '🧊', lecturer: 'TBD', lecturer_year: 2026 },
@@ -1017,15 +1017,15 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'milk-cleaning', label: 'Cleaning & disinfectants in MCC', icon: '🧼', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026 },
         { id: 'meat-hygiene-intro', label: 'Meat hygiene intro', icon: '🥩', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
         { id: 'meat-seafood', label: 'Seafood hygiene', icon: '🐟', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
-        { id: 'meat-microbiology', label: 'Microbiology of meat & meat hygiene', icon: '🦠', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
-        { id: 'meat-storage', label: 'Storage of meat', icon: '🧊', lecturer: 'TBD', lecturer_year: 2026 },
-        { id: 'meat-quality', label: 'Meat quality & wholesomeness', icon: '✅', lecturer: 'TBD', lecturer_year: 2026 },
-        { id: 'meat-molecular', label: 'Molecular meat science', icon: '🧬', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'Revised 2023 section' },
+        { id: 'meat-microbiology', label: 'Microbiology of meat & meat hygiene', icon: '🦠', lecturer: 'Taradon Luangtongkum (TL)', lecturer_year: 2026, lecturerNote: 'Corrected 2026-05-12 — slide cover names TL (ผศ.ธราดล), not SP' },
+        { id: 'meat-storage', label: 'Storage of meat', icon: '🧊', lecturer: 'Rungtip Chuanchuen (RC)', lecturer_year: 2026 },
+        { id: 'meat-quality', label: 'Meat quality & wholesomeness', icon: '✅', lecturer: 'Rungtip Chuanchuen (RC)', lecturer_year: 2026 },
+        { id: 'meat-molecular', label: 'Molecular meat science', icon: '🧬', lecturer: 'Rungtip Chuanchuen (RC)', lecturer_year: 2026, lecturerNote: 'Revised 2023 section · slide cover names RC' },
         { id: 'meat-slaughter', label: 'Slaughter hygiene design', icon: '🏭', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
         { id: 'meat-ante-post-mortem', label: 'Ante / post-mortem inspection', icon: '🔍', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
         { id: 'meat-cutting-grading', label: 'Postmortem cutting & grading', icon: '🔪', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
-        { id: 'meat-pest-control', label: 'Pest control', icon: '🪲', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
-        { id: 'meat-egg-micro', label: 'Microbiology of egg', icon: '🥚', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
+        { id: 'meat-pest-control', label: 'Pest control', icon: '🪲', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026, lecturerNote: 'Per course schedule (รศ.น.สพ.ดร. ศุภชัย เนื้อนวลสุวรรณ), not SP' },
+        { id: 'meat-egg-micro', label: 'Microbiology of egg', icon: '🥚', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026 },
       ] },
 
     { id: 'one-health', code: '3107529', name: 'One Health',
@@ -1079,7 +1079,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'equine-medicine', code: '3106510', name: 'เวชปฏิบัติม้า + ศัลย์',
       name_en: 'Equine Medicine & Surgery',
-      icon: '🐎', color: '#8b5a3d', semester: 1, has_questions: false, scaffold: true,
+      icon: '🐎', color: '#8b5a3d', semester: 1, has_questions: false, scaffold: true, has_notes: true,
       vault_lecturers: ['teerapol-chinkangsadarn', 'piyanan-taweethavonsawat', 'weerapongse-tangjitjaroen', 'theerawat-tharasanit', 'sumit-durongphongtorn'],
       examFormat: {
         weight: 'TBD',
@@ -1142,7 +1142,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'zoonoses', code: '3109504', name: 'โรคติดต่อระหว่างสัตว์-คน',
       name_en: 'Zoonoses',
-      icon: '🦠', color: '#7d5a8b', semester: 1, has_questions: false, scaffold: true,
+      icon: '🦠', color: '#7d5a8b', semester: 1, has_questions: false, scaffold: true, has_notes: true,
       vault_lecturers: ['alongkorn-amonsin', 'taradon-luangtongkum', 'saharuetai-jeamsripong', 'woraporn-sukhumavasi', 'paisin-lekcharoen'],
       examFormat: {
         weight: 'Final',

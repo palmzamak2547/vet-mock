@@ -8,6 +8,12 @@ import { NOTES_REPRO_LECT } from '../data/notes-repro-lect.js';
 import { NOTES_PRACTRUM } from '../data/notes-practrum.js';
 import { NOTES_POULTRY } from '../data/notes-poultry.js';
 import { NOTES_CLIAPPRUM } from '../data/notes-cliapprum.js';
+// ── Y5 scaffolded notes (2026-05-12) — outlines from senior cache,
+// sections source-cited to slide pages 1-3. Deep body content marked
+// 🚧 รอเติม per IRON RULE 0 (no fabrication of medicine).
+import { NOTES_Y5_ZOONOSES } from '../data/notes-y5-zoonoses.js';
+import { NOTES_Y5_MILK_MEAT_HYGIENE } from '../data/notes-y5-milk-meat-hygiene.js';
+import { NOTES_Y5_EQUINE_MEDICINE } from '../data/notes-y5-equine-medicine.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
@@ -33,6 +39,10 @@ const NOTES_BY_SUBJECT = {
   practrum: NOTES_PRACTRUM,
   poultry: NOTES_POULTRY,
   cliapprum: NOTES_CLIAPPRUM,
+  // Y5 scaffolded notes (top-3 priority subjects from cache inventory)
+  zoonoses: NOTES_Y5_ZOONOSES,
+  'milk-meat-hygiene': NOTES_Y5_MILK_MEAT_HYGIENE,
+  'equine-medicine': NOTES_Y5_EQUINE_MEDICINE,
 };
 
 // Walk a section's structured body and collect all searchable text
