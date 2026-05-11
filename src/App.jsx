@@ -1210,13 +1210,22 @@ export default function App() {
             </ErrorBoundary>
           )}
 
+          {/* Footer — two visual rows on mobile so a single long line
+              doesn't wrap mid-link. Row 1: brand line. Row 2: utility
+              links separated by ·, gap-flexed so they wrap as chips
+              rather than a comma-soup. Dropped raw version "v5.0"
+              (dev metadata; not user-facing). */}
           <div className="vmx-footer">
-            VetMock v5.0, made with ♡ by <strong>Vet 86</strong>
-            {', '}<a onClick={() => setView('about')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>About</a>
-            {', '}<a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
-            {', '}<a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
-            {', '}<a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
-            {', '}<a onClick={() => setView('offline-game')} style={{ cursor: 'pointer', textDecoration: 'underline' }} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">🐤 มินิเกม</a>
+            <div style={{ marginBottom: 6 }}>
+              made with ♡ by <strong>Vet 86</strong>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 12px', justifyContent: 'center' }}>
+              <a onClick={() => setView('about')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>About</a>
+              <a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
+              <a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
+              <a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
+              <a onClick={() => setView('offline-game')} style={{ cursor: 'pointer', textDecoration: 'underline' }} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">🐤 มินิเกม</a>
+            </div>
           </div>
 
           {/* Floating clinical-math FAB — visible on every view except

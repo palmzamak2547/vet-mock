@@ -86,9 +86,11 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   ? '📋 รอเติมเนื้อหา'
                   : isEmpty
                     ? '🚧 รอข้อสอบเพิ่ม'
-                    : `${count} questions`}
+                    : `${count} ข้อ`}
               </div>
-              {s.code && s.id !== 'all' && (
+              {/* Drop the 7-digit course code on the card — already
+                  searchable via ⌘K; redundant visual noise here. */}
+              {false && s.code && s.id !== 'all' && (
                 <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
                   {s.code}
                 </div>

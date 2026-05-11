@@ -256,7 +256,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           <div className="icon">📚</div>
           <div className="title">รวมทุกหัวข้อ</div>
           <div className="sub">All topics in {subjectMeta?.name}</div>
-          <div className="count">{countFor('all')} questions</div>
+          <div className="count">{countFor('all')} ข้อ</div>
         </button>
 
         {/* Collection cards — virtual "ทำรวม" bundles for grouped topic blocks */}
@@ -274,7 +274,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               <div className="icon">{c.label.match(/^\p{Emoji}/u)?.[0] || '📦'}</div>
               <div className="title">{c.label.replace(/^\p{Emoji}\s*/u, '')}</div>
               <div className="sub">{c.sub}</div>
-              <div className="count">{cnt} questions</div>
+              <div className="count">{cnt} ข้อ</div>
             </button>
           );
         })}
@@ -336,7 +336,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 </div>
               )}
               <div className="count" style={{ color: isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)' }}>
-                {isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} questions`}
+                {isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} ข้อ`}
               </div>
               {ppCount > 0 && !isEmpty && (
                 <div
