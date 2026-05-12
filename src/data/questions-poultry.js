@@ -1800,22 +1800,22 @@ export const QB_POULTRY = [
 
   // ════════════════════════════════════════════════════════════════════
   // ── 🐺 NEW Vet 85 confirmed Q's from สรุปรวมไก่ (สรุปรวม 82 หน้า)
-  // 'ออกตามนี้ ⭐' markers + content in compilation page 1-82 by [students]
+  // 'อิงแนวสอบรอบเดียวกัน ⭐' markers + content in compilation page 1-82 by [students]
   // Spread across all 6 final-scope topics
   // ════════════════════════════════════════════════════════════════════
 
-  // ── L10-11 Drugs additions (Vet 85 explicit "ออกตามนี้") ──
+  // ── L10-11 Drugs additions (Vet 85 explicit "อิงแนวสอบรอบเดียวกัน") ──
   { id: 4046, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
-    source: 'สรุปรวมไก่ p32 (Vet 85 "ออกตามนี้" marker)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p32 (Vet 85 "อิงแนวสอบรอบเดียวกัน" marker)', sourceType: 'student-compilation',
     tags: ['enrofloxacin', 'banned-broiler', 'banned-layer', 'fluoroquinolone'], type: 'mcq',
     q: 'ยาที่ห้ามใช้ทั้งในไก่เนื้อและไก่ไข่ (Vet 85 ออกตรงๆ — มี 2 ข้อตอบ enrofloxacin ทั้งคู่)',
     options: ['Enrofloxacin', 'Penicillin', 'Tylosin', 'Doxycycline'],
     answer: 0,
     explain: 'Enrofloxacin = Fluoroquinolones, กรมปศุสัตว์ห้ามใช้ในไก่ไข่และไก่เนื้อเด็ดขาด เพราะ EU ห้ามใช้ในสัตว์อาหาร (50% ส่งออก EU), เป็น Extra-label use ที่ห้าม, ไทยส่งออก EU 50% + JP 40% → ระเบียบยึด EU เป็นหลัก\n\n💡 กลุ่ม Fluoroquinolones',
-    verified: 'สรุปรวมไก่ p32 (Vet 85 "ออกตามนี้") + p36-39 by praewpsr' },
+    verified: 'สรุปรวมไก่ p32 (Vet 85 "อิงแนวสอบรอบเดียวกัน") + p36-39 by praewpsr' },
 
   { id: 4047, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
-    source: 'สรุปรวมไก่ p32 (Vet 85 "ออกตามนี้") + p1361 detail', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p32 (Vet 85 "อิงแนวสอบรอบเดียวกัน") + p1361 detail', sourceType: 'student-compilation',
     tags: ['ionophores', 'anticoccidial', 'salinomycin', 'monensin'], type: 'mcq',
     q: 'ยาในกลุ่ม Ionophores (Anticoccidial drugs ที่อนุญาตให้ผสมในอาหารสัตว์ปีก) ได้แก่',
     options: ['Amprolium, Diclazuril, Toltrazuril', 'Piperazine, Levamisole, Benzimidazole', 'Sulfa, Trimethoprim, Doxycycline', 'Salinomycin, Monensin'],

@@ -752,7 +752,7 @@ export const NOTES_Y5_ZOONOSES = {
             'อาจารย์: **Taradon Luangtongkum**, DVM, PhD',
             'Dept. of Veterinary Public Health, Faculty of Veterinary Science, Chulalongkorn University',
             '⭐ **ข้อสอบ Vet 84 "ออก ซซดาว"** — สำคัญสุดในกลุ่ม final',
-            '📝 ดูใน "สรุป มีพาร์ทbact ซซดาวที่ออก84.pdf" + "2 Bacterial zoonoses ซซดาวที่ออก84.pdf"',
+            '📝 ดูใน "สรุป มีพาร์ทbact ซซดาวบันทึก84.pdf" + "2 Bacterial zoonoses ซซดาวบันทึก84.pdf"',
           ] },
         ],
       },
@@ -808,7 +808,7 @@ export const NOTES_Y5_ZOONOSES = {
           { bullets: [
             '🚧 รอเติม — per-disease: agent + reservoir + transmission + clinical sign (human/animal) + dx + Tx + prevention',
             'Priority diseases (Vet 84 ออก ซซดาว): Anthrax · Brucellosis · TB · Leptospirosis · Salmonellosis · Streptococcus suis · Lyme · Q fever',
-            '📝 Cross-check กับสรุป: "2 Bacterial zoonoses ซซดาวที่ออก84.pdf"',
+            '📝 Cross-check กับสรุป: "2 Bacterial zoonoses ซซดาวบันทึก84.pdf"',
           ] },
         ],
       },

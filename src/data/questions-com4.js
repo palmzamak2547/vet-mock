@@ -1822,7 +1822,7 @@ export const QB_COM4 = [
   // ═══════════════════════════════════════════════════════════
   // อ.รสมา + อ.ชัยยศ original PDF batch (Fangfuay vet81 source)
   // - อ.รสมา 50 T/F items (3 colors: T/F/ไม่ออก)
-  // - อ.ชัยยศ 50 5-choice MCQs (ตรงข้อสอบเก่ามาก)
+  // - อ.ชัยยศ 50 5-choice MCQs (ตรงตามแนวสอบเก่ามาก)
   // Net-new content + concept-corrections only (skip TJ86 dupes)
   // ═══════════════════════════════════════════════════════════
 
@@ -1881,7 +1881,7 @@ export const QB_COM4 = [
     tags: ['hair-cycle', 'extrinsic-factors', 'chayot'], type: 'mcq',
     q: 'ข้อใด "ไม่ใช่" extrinsic factor ที่มีผลต่อการเจริญของขน',
     options: ['Thyroid hormones', 'Glucocorticoids', 'Genetics', 'Ambient temperature', 'Oestrogen'],
-    answer: 3, explain: 'Ambient temperature = External factor (ภายนอกตัว) ไม่ใช่ extrinsic factor ในความหมาย "ภายในร่างกายแต่มาจากภายนอก hair follicle"\n\n💡 Extrinsic factors of hair growth (ภายในร่างกาย แต่มาจากภายนอก hair follicle):\n— Hormones: Thyroid (stimulator), GH/IGF-1, Estrogen + Glucocorticoids + Cortisol (inhibitors), Prolactin\n— Genetics: breed-specific patterns (Chow Chow plush, Greyhound short)\n— Immunological status: autoimmune attack (alopecia areata), hypersensitivity\n— Nutritional status: protein, EFA, zinc, biotin, vitamin A/E\n— Disease: systemic illness, neoplasia\n— Drugs: chemotherapy → effluvium\n\n💡 External factors (ภายนอกร่างกาย, environmental):\n— Ambient temperature ✓ (this Q)\n— Photoperiod / day length (seasonal coat change in some breeds)\n— UV exposure\n— Humidity\n\n💡 Intrinsic factors (within hair follicle itself):\n— Local growth factors\n— Cytokines\n— Local hormones\n— Cell-cell signaling\n\nโจทย์ใช้คำ "extrinsic" → external factor (temperature) ไม่ใช่คำตอบที่ตรงเป๊ะ → answer = Ambient temperature\n\n💡 อุณหภูมิรอบตัว',
+    answer: 3, explain: 'Ambient temperature = External factor (ภายนอกตัว) ไม่ใช่ extrinsic factor ในความหมาย "ภายในร่างกายแต่มาจากภายนอก hair follicle"\n\n💡 Extrinsic factors of hair growth (ภายในร่างกาย แต่มาจากภายนอก hair follicle):\n— Hormones: Thyroid (stimulator), GH/IGF-1, Estrogen + Glucocorticoids + Cortisol (inhibitors), Prolactin\n— Genetics: breed-specific patterns (Chow Chow plush, Greyhound short)\n— Immunological status: autoimmune attack (alopecia areata), hypersensitivity\n— Nutritional status: protein, EFA, zinc, biotin, vitamin A/E\n— Disease: systemic illness, neoplasia\n— Drugs: chemotherapy → effluvium\n\n💡 External factors (ภายนอกร่างกาย, environmental):\n— Ambient temperature ✓ (this Q)\n— Photoperiod / day length (seasonal coat change in some breeds)\n— UV exposure\n— Humidity\n\n💡 Intrinsic factors (within hair follicle itself):\n— Local growth factors\n— Cytokines\n— Local hormones\n— Cell-cell signaling\n\nโจทย์ใช้คำ "extrinsic" → external factor (temperature) ไม่ใช่คำตอบที่ใกล้เคียง → answer = Ambient temperature\n\n💡 อุณหภูมิรอบตัว',
     verified: 'อ.ชัยยศ Fangfuay vet81 #4' },
 
   { id: 1134, subject: 'com4', topic: 'derm-intro', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #6',

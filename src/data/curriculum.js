@@ -1084,8 +1084,8 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'TBD',
         notes: [
-          '📚 มี past papers: 13 - รวมพวกจดไม่ทัน + ข้อสอบรั่ว, K1-4 Final พี่อ๋อง, สรุปม้าอัพเดต',
-          '⚠️ "ข้อสอบรั่ว" doc — ใช้ examOrigin: "อิงแนวเดิม" + paraphrase + verify medicine',
+          '📚 มี past papers: 13 - รวมพวกจดไม่ทัน + เอกสารบันทึกหลังสอบ, K1-4 Final พี่อ๋อง, สรุปม้าอัพเดต',
+          '⚠️ "เอกสารบันทึกหลังสอบ" doc — ใช้ examOrigin: "อิงแนวเดิม" + paraphrase + verify medicine',
           '📌 ข้อสอบเก่า Vet 80-83 ช่วง bridge สมัย อ.เธียรวุฒิ/อ.สุเมท → ปัจจุบัน อ.Teerapol เป็น lead',
         ],
       },
@@ -1147,7 +1147,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'Final',
         notes: [
-          '📚 มี past papers หนาแน่นที่สุดใน Y5: Zoonosis Final Vet 82 Myco/Protozoa "ตรงมาก", Zoonosis Final 82 อ่านสรุปนี้ตรง, 2 Bacterial zoonoses ซซดาวที่ออก 84, สรุปข้อสอบพาร์ทพี่เอิน, จดข้อสอบพี่ซุป Mycozoonosis',
+          '📚 มี past papers หนาแน่นที่สุดใน Y5: Zoonosis Final Vet 82 Myco/Protozoa "ตรงมาก", Zoonosis Final 82 อ่านสรุปนี้ตรง, 2 Bacterial zoonoses ซซดาวบันทึก Vet 84, สรุปข้อสอบพาร์ทพี่เอิน, จดข้อสอบพี่ซุป Mycozoonosis',
           '🏛 Course code อาจเป็น 3109504 หรือ 3109517 — slide เก่าใช้ 504, set ใหม่ใช้ 517',
           '👨‍🏫 Alongkorn = VPH dept head, anchored',
         ],
@@ -1179,7 +1179,7 @@ export const SUBJECTS_BY_YEAR = {
         weight: 'Mid (อธิภู) + Final (พรชลิต separate exam)',
         notes: [
           '📚 มี past papers: แบบทดสอบอธิภู, [final] SWINE MEDICINE bynandgate (+ จดเพิ่ม Vet 81), เฉลย swine med by p run',
-          '⚠️ "ข้อสอบจานพรชลิต 84 ไม่ใช่คำตอบ" — leaked exam, ใช้ examOrigin "อิงแนวเดิม" + paraphrase',
+          '⚠️ "ข้อสอบจานพรชลิต 84 ไม่ใช่คำตอบ" — past-paper note, ใช้ examOrigin "อิงแนวเดิม" + paraphrase',
           '📌 Trichinosis section ใน slide แต่ "ไม่ออกสอบ"',
         ],
       },

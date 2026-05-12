@@ -139,9 +139,9 @@ export const CHANGELOG = [
   {
     version: '5.20.5',
     date: '2026-05-07',
-    headline: '🐺 Poultry — เพิ่ม 15 ข้อใหม่จาก "สรุปรวมไก่ 82 หน้า" (Vet 85 ออกตามนี้ ⭐ + cross-ref TJ)',
+    headline: '🐺 Poultry — เพิ่ม 15 ข้อใหม่จาก "สรุปรวมไก่ 82 หน้า" (อิงแนวสอบ Vet 85 ⭐ + cross-ref TJ)',
     changes: [
-      { scope: 'multi', kind: 'content', icon: '🐺', title: 'เพิ่ม 15 ข้อหมาหอน Poultry — ทุกข้อมี marker "85 ออกตามนี้" หรือเนื้อหาตรงกับสไลด์',
+      { scope: 'multi', kind: 'content', icon: '🐺', title: 'เพิ่ม 15 ข้อหมาหอน Poultry — ทุกข้อมี marker "อิงแนวสอบ Vet 85" หรือเนื้อหาตรงกับสไลด์',
         desc: 'ดึงจาก "สรุปรวมไก่.pdf" (สรุปรวมจากเพื่อน 82 หน้า ครอบคลุม 6 อาจารย์) — หมวด Drug 3 ข้อ (Enrofloxacin ห้ามใช้ทั้งไก่เนื้อ/ไข่, Ionophores list, Eimeria ตำแหน่งในลำไส้), Biosecurity 2 (Mortality benchmark พ่อแม่พันธุ์ vs ไก่เนื้อ, Crop fill 24h), First-week 2 (6 acute death viruses, แกลบ 4 kg/m²), QA 3 (Salmonella sp. 5 vs 2, Beak trim Infrared, Light intensity 50/20 lux), Nutrition 3 (Maillard 135°C, Aflatoxin limit 100 vs 30 μg/kg, Antinutritionals Glucosinolates/Mimosine), Zoonosis 2 (Erysipelas vaccine 2 doses, LPAI vs HPAI IVPI 1.2)' },
     ],
   },
@@ -259,7 +259,7 @@ export const CHANGELOG = [
     headline: '🐾 Repro Lecture +41 ข้อจาก past-paper screenshot, ลด length bias ทั่วคลัง',
     changes: [
       { scope: 'repro-lect', kind: 'content', icon: '📜', title: '+41 ข้อสอบเก่า Kimchii85 (Repro Lecture)',
-        desc: 'ดึงข้อจาก screenshot Blackboard exam ที่ "ตรงข้อสอบเก่า ★=85" (รุ่นพี่ flag ออกซ้ำเดิม), ครบทุก Lect 15-24, รวม 91 ข้อแล้ว, มาด้วย sourceType "past-paper" 31 ข้อ + student-compilation 55 ข้อ + lecture-verified-draft 5 ข้อ' },
+        desc: 'ดึงข้อจาก screenshot Blackboard exam ที่ "ตรงตามแนวสอบเก่า ★=85" (รุ่นพี่ flag ออกซ้ำเดิม), ครบทุก Lect 15-24, รวม 91 ข้อแล้ว, มาด้วย sourceType "past-paper" 31 ข้อ + student-compilation 55 ข้อ + lecture-verified-draft 5 ข้อ' },
       { scope: 'multi', kind: 'fix', icon: '📏', title: 'ทำความสะอาด question quality ทั่วคลัง', fromFeedback: true,
         desc: 'ใช้ npm run fix:length + fix:questions ของ project, ลบ ★/** จาก option + Q stem (892 markers), ปรับ length-bias ของ correct option ให้ใกล้เคียง wrong (52 ข้อ trimmed), rebalance answer position bias (26 swaps), ผู้ทำข้อสอบไม่สามารถเดาคำตอบจาก visual cue ได้แล้ว' },
     ],
