@@ -5,20 +5,30 @@ import {
   WindowLevelTool,
   PanTool,
   ZoomTool,
+  LengthTool,
+  AngleTool,
+  annotation,
   Enums as ToolEnums,
 } from '@cornerstonejs/tools';
 import { ensureCornerstoneInit, getDicomImageLoader } from '../../lib/dicom/cornerstone-init.js';
 
-// Rough W/L presets calibrated for 12-bit vet DR (raw pixel range
-// 0–4095, rescale slope/intercept of 1/0). These are starting points,
-// not clinical presets — Phase 3 will compute histogram-based ranges
-// from the actual image so the presets adapt to vendor differences.
 const PRESETS = [
   { id: 'default', label: 'Default', voi: 'reset' },
   { id: 'soft',    label: 'Soft tissue', voi: { lower: 1000, upper: 3000 } },
   { id: 'bone',    label: 'Bone',        voi: { lower: 2200, upper: 3800 } },
   { id: 'lung',    label: 'Lung',        voi: { lower: 200,  upper: 1500 } },
 ];
+
+// Tool registry — id → { class, label }. The id is what
+// activeTool state holds; class.toolName is what Cornerstone
+// stores in its tool group registry.
+const TOOLS = {
+  wl:     { cls: WindowLevelTool, label: '🌓 W/L',    kind: 'nav' },
+  pan:    { cls: PanTool,         label: '✋ Pan',     kind: 'nav' },
+  zoom:   { cls: ZoomTool,        label: '🔍 Zoom',    kind: 'nav' },
+  length: { cls: LengthTool,      label: '📏 Length',  kind: 'measure' },
+  angle:  { cls: AngleTool,       label: '📐 Angle',   kind: 'measure' },
+};
 
 let engineSeq = 0;
 
@@ -62,13 +72,8 @@ export default function DicomViewport({ file }) {
         await viewport.setStack([imageId]);
 
         const tg = ToolGroupManager.createToolGroup(toolGroupId);
-        tg.addTool(WindowLevelTool.toolName);
-        tg.addTool(PanTool.toolName);
-        tg.addTool(ZoomTool.toolName);
+        Object.values(TOOLS).forEach(({ cls }) => tg.addTool(cls.toolName));
         tg.addViewport(viewportId, engineId);
-        // Primary (left-click/single-tap) is the user-selectable active
-        // tool; middle and right keep their conventional bindings so
-        // mouse-based PACS users feel at home.
         tg.setToolActive(WindowLevelTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Primary }] });
         tg.setToolActive(PanTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Auxiliary }] });
         tg.setToolActive(ZoomTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Secondary }] });
@@ -78,7 +83,14 @@ export default function DicomViewport({ file }) {
         if (cancelled) return;
         const img = viewport.csImage || null;
         const dims = img?.dimensions || [img?.width, img?.height];
-        setMeta({ width: dims?.[0] ?? '?', height: dims?.[1] ?? '?' });
+        // PixelSpacing for mm-calibrated measurements. Cornerstone reads
+        // it from the DICOM tag; we just surface it in the status line.
+        const spacing = img?.rowPixelSpacing || img?.columnPixelSpacing || null;
+        setMeta({
+          width: dims?.[0] ?? '?',
+          height: dims?.[1] ?? '?',
+          mmPerPx: spacing,
+        });
         setStatus('ready');
         setActiveTool('wl');
       } catch (err) {
@@ -101,15 +113,20 @@ export default function DicomViewport({ file }) {
   }, [file]);
 
   const selectTool = useCallback((tool) => {
+    setActiveTool(tool);
     const tg = ToolGroupManager.getToolGroup(toolGroupIdRef.current);
     if (!tg) return;
-    const map = { wl: WindowLevelTool, pan: PanTool, zoom: ZoomTool };
-    Object.values(map).forEach((T) => tg.setToolPassive(T.toolName));
-    tg.setToolActive(map[tool].toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Primary }] });
-    // Keep middle and right bindings consistent regardless of left choice
-    tg.setToolActive(PanTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Auxiliary }] });
-    tg.setToolActive(ZoomTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Secondary }] });
-    setActiveTool(tool);
+    try {
+      // Set every tool passive first so only the chosen one is on Primary.
+      Object.values(TOOLS).forEach(({ cls }) => tg.setToolPassive(cls.toolName));
+      tg.setToolActive(TOOLS[tool].cls.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Primary }] });
+      // Always-on bindings for middle/right buttons regardless of left choice.
+      tg.setToolActive(PanTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Auxiliary }] });
+      tg.setToolActive(ZoomTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Secondary }] });
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('[selectTool] bind error:', err);
+    }
   }, []);
 
   const applyPreset = useCallback((preset) => {
@@ -135,25 +152,43 @@ export default function DicomViewport({ file }) {
     viewport.render();
   }, []);
 
+  const clearMeasurements = useCallback(() => {
+    try {
+      const all = annotation.state.getAllAnnotations();
+      all.forEach((a) => annotation.state.removeAnnotation(a.annotationUID));
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('[clearMeasurements] error:', err);
+    }
+    const engine = engineRef.current;
+    const viewport = engine?.getViewport(viewportIdRef.current);
+    viewport?.render();
+  }, []);
+
+  const navTools = ['wl', 'pan', 'zoom'];
+  const measureTools = ['length', 'angle'];
+
   return (
     <div>
       {status === 'ready' && (
         <div style={toolbarStyle}>
-          <span style={labelStyle}>Tool:</span>
-          <TBtn active={activeTool === 'wl'}   onClick={() => selectTool('wl')}>🌓 W/L</TBtn>
-          <TBtn active={activeTool === 'pan'}  onClick={() => selectTool('pan')}>✋ Pan</TBtn>
-          <TBtn active={activeTool === 'zoom'} onClick={() => selectTool('zoom')}>🔍 Zoom</TBtn>
+          <span style={labelStyle}>Nav:</span>
+          {navTools.map((t) => (
+            <TBtn key={t} active={activeTool === t} onClick={() => selectTool(t)}>{TOOLS[t].label}</TBtn>
+          ))}
           <Divider />
-          <span style={labelStyle}>Preset:</span>
+          <span style={labelStyle}>Measure:</span>
+          {measureTools.map((t) => (
+            <TBtn key={t} active={activeTool === t} onClick={() => selectTool(t)}>{TOOLS[t].label}</TBtn>
+          ))}
+          <TBtn onClick={clearMeasurements}>🗑 Clear</TBtn>
+          <Divider />
+          <span style={labelStyle}>W/L:</span>
           {PRESETS.map((p) => (
             <TBtn key={p.id} onClick={() => applyPreset(p)}>{p.label}</TBtn>
           ))}
           <Divider />
-          <TBtn onClick={resetView}>↺ Reset</TBtn>
-          <span style={{ flex: 1 }} />
-          <span style={{ color: '#888', fontSize: '0.7rem', whiteSpace: 'nowrap' }}>
-            ลากซ้าย = active · กลาง = pan · ขวา = zoom
-          </span>
+          <TBtn onClick={resetView}>↺ Reset view</TBtn>
         </div>
       )}
       <div
@@ -179,7 +214,16 @@ export default function DicomViewport({ file }) {
       </div>
       {meta && status === 'ready' && (
         <div style={{ fontSize: '0.8rem', color: '#666', marginTop: 8 }}>
-          📐 {meta.width} × {meta.height} pixels · Phase 2 · เครื่องมือวัด length/angle จะเพิ่ม Phase 3
+          📐 {meta.width} × {meta.height} pixels
+          {meta.mmPerPx && (
+            <> · calibrated at <strong>{meta.mmPerPx.toFixed(3)} mm/pixel</strong> (PixelSpacing tag)</>
+          )}
+          · Phase 3 · Norberg angle tool will arrive Phase 4
+        </div>
+      )}
+      {meta && status === 'ready' && (
+        <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 4 }}>
+          เลือก 📏 Length หรือ 📐 Angle จาก toolbar แล้วลากบนภาพ — ผลแสดงเป็น mm จาก PixelSpacing tag · ลากซ้าย = active tool · กลาง = pan · ขวา = zoom
         </div>
       )}
     </div>

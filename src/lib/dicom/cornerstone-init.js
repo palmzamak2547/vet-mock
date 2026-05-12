@@ -11,6 +11,8 @@ import {
   WindowLevelTool,
   PanTool,
   ZoomTool,
+  LengthTool,
+  AngleTool,
 } from '@cornerstonejs/tools';
 
 let initPromise = null;
@@ -22,11 +24,13 @@ export function ensureCornerstoneInit() {
     await dicomImageLoaderInit({ maxWebWorkers: 1 });
     await toolsInit();
     // addTool() is global and idempotent — registers tool classes so
-    // any ToolGroup can later attach them. Registering all base
-    // navigation tools up front keeps the per-viewport setup simple.
+    // any ToolGroup can later attach them. Registering navigation +
+    // measurement tools up front keeps per-viewport setup simple.
     addTool(WindowLevelTool);
     addTool(PanTool);
     addTool(ZoomTool);
+    addTool(LengthTool);
+    addTool(AngleTool);
   })();
   return initPromise;
 }
