@@ -7,6 +7,7 @@ import ZoomableImage from './ZoomableImage.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
 import { speakQuestion, cancelSpeech } from '../lib/tts.js';
 import { unlockAudio } from '../lib/audio-unlock.js';
+import QSourceChip from './QSourceChip.jsx';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
 // markers and HTML entities sound weird as speech.
@@ -311,6 +312,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           </div>
         </div>
       )}
+
+      {/* Trust layer — source / verified / examOrigin / flag.
+          Collapsed by default to keep the card clean; tap to expand. */}
+      <QSourceChip q={currentQ} />
     </div>
   );
 
