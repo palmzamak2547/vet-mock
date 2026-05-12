@@ -58,7 +58,7 @@ export default function LabView({ goHome }) {
         <div>
           <h1 style={{ fontSize: '1.4rem', margin: 0 }}>🔬 Imaging Practice Lab</h1>
           <p style={{ fontSize: '0.85rem', color: '#666', margin: '4px 0 0' }}>
-            ฝึกอ่านภาพ + DICOM viewer · <span style={{ color: '#c66' }}>Experimental · Phase 1</span>
+            ฝึกอ่านภาพ + DICOM viewer · <span style={{ color: '#c66' }}>Experimental</span>
           </p>
         </div>
         <button onClick={handleBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← Home</button>
