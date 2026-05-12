@@ -248,7 +248,7 @@ export const QB_ENGPROF = [
   // ═══════════════════════════════════════════════════════════
   // WARM-UP — Concept questions (1100-1119)
   // ═══════════════════════════════════════════════════════════
-  { id: 1100, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51000, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.99', tags: ['warmup', 'imrd'], type: 'mcq',
     q: 'A veterinary research paper conventionally consists of which 4 sections, in order?',
     options: [
@@ -260,27 +260,27 @@ export const QB_ENGPROF = [
     answer: 1, explain: 'IMRD format = Introduction → Methodology → Results → Discussion / Conclusion',
     verified: 'Textbook p.99' },
 
-  { id: 1101, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51001, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.100', tags: ['warmup', 'introduction'], type: 'mcq',
     q: 'In which section would you find the purpose / aim of the study?',
     options: ['Introduction', 'Methodology', 'Results', 'References'],
     answer: 0, explain: 'Purpose / aim / objective อยู่ใน Introduction มักประโยคสุดท้ายของ section\n\n💡 often last paragraph',
     verified: 'Textbook p.100' },
 
-  { id: 1102, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51002, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.103', tags: ['warmup', 'methodology'], type: 'mcq',
     q: 'Information about statistical tests used to analyze the data goes in which section?',
     options: ['Introduction', 'Methodology', 'Results', 'Conclusion'],
     answer: 1, explain: 'Methodology บอก data analysis method (เช่น t-test, chi-square, Wilcoxon, ฯลฯ)',
     verified: 'Textbook p.103' },
 
-  { id: 1103, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51003, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.107', tags: ['warmup', 'results'], type: 'tf',
     q: 'The Results section is the appropriate place to interpret the meaning of the findings.',
     answer: false, explain: 'False — Results เพียงแค่รายงานข้อมูล (ตัวเลข, tables, figures), การ interpret meaning อยู่ใน Discussion',
     verified: 'Textbook p.107' },
 
-  { id: 1104, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51004, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.110', tags: ['warmup', 'discussion'], type: 'mcq',
     q: 'Which of the following is typically found in the Discussion section?',
     options: [
@@ -292,41 +292,41 @@ export const QB_ENGPROF = [
     answer: 2, explain: 'Discussion = interpret + compare to prior literature + state limitations + recommend further research',
     verified: 'Textbook p.110' },
 
-  { id: 1105, subject: 'engprof', topic: 'research-design', year: 4,
+  { id: 51005, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.104', tags: ['warmup'], type: 'mcq',
     q: 'A study follows 500 dogs over 5 years to see who develops cancer. This is a:',
     options: ['Case report', 'Case-control study', 'Cohort study', 'Cross-sectional study'],
     answer: 2, explain: 'Cohort = ตามกลุ่มผ่านเวลา (prospective) → ดี incidence + risk',
     verified: 'Textbook p.104' },
 
-  { id: 1106, subject: 'engprof', topic: 'research-design', year: 4,
+  { id: 51006, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.104', tags: ['warmup'], type: 'mcq',
     q: 'A study compares dogs with lymphoma (cases) to dogs without lymphoma (controls) by looking back at their dietary history. This is a:',
     options: ['Cohort study', 'Case-control study', 'Cross-sectional study', 'Randomized controlled trial'],
     answer: 1, explain: 'Case-control = compare มีโรค vs ไม่มีโรค ย้อนหลัง (retrospective) — ดีสำหรับ rare diseases',
     verified: 'Textbook p.104' },
 
-  { id: 1107, subject: 'engprof', topic: 'research-design', year: 4,
+  { id: 51007, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.105', tags: ['warmup', 'rct'], type: 'mcq',
     q: 'Which design is the gold standard for testing the effect of a new treatment?',
     options: ['Case series', 'Cross-sectional', 'Cohort', 'Randomized Controlled Trial'],
     answer: 3, explain: 'RCT = randomization + control group → minimizes selection & confounding bias, gold standard for causal inference of treatment effect',
     verified: 'Textbook p.104-105' },
 
-  { id: 1108, subject: 'engprof', topic: 'research-design', year: 4,
+  { id: 51008, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.105', tags: ['warmup'], type: 'tf',
     q: 'Coin tosses or odd/even number assignment counts as true randomization in an RCT.',
     answer: false, explain: 'False — coin toss / odd-even = pseudo-randomization, ต้องใช้ machine-generated random tables',
     verified: 'Textbook p.105' },
 
-  { id: 1109, subject: 'engprof', topic: 'research-design', year: 4,
+  { id: 51009, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.104', tags: ['warmup', 'cross-sectional'], type: 'mcq',
     q: 'A descriptive study that counts how many dogs in Bangkok have obesity in 2024 (one point in time) is a:',
     options: ['Cohort study', 'Case-control study', 'Cross-sectional study', 'Clinical trial'],
     answer: 2, explain: 'Cross-sectional = snapshot ณ จุดเวลาเดียว, ดี prevalence',
     verified: 'Textbook p.104' },
 
-  { id: 1110, subject: 'engprof', topic: 'paraphrasing', year: 4,
+  { id: 51010, subject: 'engprof', topic: 'paraphrasing', year: 4,
     source: 'Textbook p.149', tags: ['warmup'], type: 'mcq',
     q: 'Which is NOT one of the 5 paraphrasing techniques?',
     options: [
@@ -338,7 +338,7 @@ export const QB_ENGPROF = [
     answer: 2, explain: '5 techniques = synonyms / active↔passive / parts of speech / sentence markers / sentence structures, NEVER invent material',
     verified: 'Textbook p.149' },
 
-  { id: 1111, subject: 'engprof', topic: 'paraphrasing', year: 4,
+  { id: 51011, subject: 'engprof', topic: 'paraphrasing', year: 4,
     source: 'Textbook p.147-148', tags: ['warmup', 'acceptable'], type: 'mcq',
     q: 'Original: *"If the existence of a signing ape was unsettling for linguists, it was also startling news for animal behaviorists."* Which is the acceptable paraphrase?',
     options: [
@@ -350,27 +350,27 @@ export const QB_ENGPROF = [
     answer: 2, explain: 'Acceptable = เปลี่ยน word choice + structure → own words. Option 0 = borrow phrases. Option 1 = borrow structure (if X, also Y). Option 3 = no citation + incomplete',
     verified: 'Textbook p.147-148' },
 
-  { id: 1112, subject: 'engprof', topic: 'paraphrasing', year: 4,
+  { id: 51012, subject: 'engprof', topic: 'paraphrasing', year: 4,
     source: 'Textbook p.149', tags: ['warmup', 'markers'], type: 'mcq',
     q: 'Which marker is a valid replacement for "however"?',
     options: ['Therefore', 'Because', 'Nevertheless', 'For example'],
     answer: 2, explain: 'However ↔ nevertheless / nonetheless / on the other hand (contrast). Therefore = consequence; Because = reason; For example = illustration',
     verified: 'Textbook p.149' },
 
-  { id: 1113, subject: 'engprof', topic: 'paraphrasing', year: 4,
+  { id: 51013, subject: 'engprof', topic: 'paraphrasing', year: 4,
     source: 'Textbook p.147', tags: ['warmup', 'plagiarism'], type: 'tf',
     q: 'When you paraphrase, you must always cite the source to avoid plagiarism.',
     answer: true, explain: 'True — paraphrase ≠ excuse to skip citation, เปลี่ยนคำเฉยๆ ไม่ทำให้กลายเป็น original idea ของเรา',
     verified: 'Textbook p.147' },
 
-  { id: 1114, subject: 'engprof', topic: 'summary-writing', year: 4,
+  { id: 51014, subject: 'engprof', topic: 'summary-writing', year: 4,
     source: 'Final Exam Spec', tags: ['warmup', 'word-count'], type: 'mcq',
     q: 'In Final Part II, the target summary length is 150 words. What penalty applies if your summary is 205 words?',
     options: ['No penalty', '−1 point (over 180)', '−2 points (over 200)', '−5 points'],
     answer: 2, explain: '205 > 200 → −2 points. The penalty zones: ≤ 180 = OK, 181-200 = −1, > 200 = −2',
     verified: 'Final Exam Spec p.2' },
 
-  { id: 1115, subject: 'engprof', topic: 'summary-writing', year: 4,
+  { id: 51015, subject: 'engprof', topic: 'summary-writing', year: 4,
     source: 'Final Exam Spec', tags: ['warmup', 'rubric'], type: 'mcq',
     q: 'Final Part II (Summary, 15 points) is divided into:',
     options: [
@@ -382,14 +382,14 @@ export const QB_ENGPROF = [
     answer: 1, explain: '15 pts = Content 7 (main idea 1-2 + key details 1 each) + Org & Grammar 5 + Paraphrasing 3',
     verified: 'Final Exam Spec p.2' },
 
-  { id: 1116, subject: 'engprof', topic: 'summary-writing', year: 4,
+  { id: 51016, subject: 'engprof', topic: 'summary-writing', year: 4,
     source: 'Textbook p.152', tags: ['warmup', 'rules'], type: 'mcq',
     q: 'Which should you NOT include in a summary?',
     options: ['The main idea of the original', 'Major supporting details', 'Your own opinion or judgement on the original', 'A clear opening statement'],
     answer: 2, explain: 'Summary = objective condensation, ห้ามใส่ opinion/judgement, ห้าม invent material',
     verified: 'Textbook p.152' },
 
-  { id: 1117, subject: 'engprof', topic: 'academic-writing', year: 4,
+  { id: 51017, subject: 'engprof', topic: 'academic-writing', year: 4,
     source: 'Textbook p.122', tags: ['warmup', 'review'], type: 'mcq',
     q: 'Which sequence describes the structure of a review article?',
     options: [
@@ -401,14 +401,14 @@ export const QB_ENGPROF = [
     answer: 2, explain: 'Review article: Intro (problem + scope) → Body with subheadings → Conclusion',
     verified: 'Textbook p.122-123' },
 
-  { id: 1118, subject: 'engprof', topic: 'academic-writing', year: 4,
+  { id: 51018, subject: 'engprof', topic: 'academic-writing', year: 4,
     source: 'Textbook p.132', tags: ['warmup', 'ama'], type: 'mcq',
     q: 'In AMA citation style, in-text citations are formatted as:',
     options: ['(Author, Year)', 'Author (Year)', 'Superscript Arabic numbers', '[Author] [Page]'],
     answer: 2, explain: 'AMA = superscript Arabic numbers, ordered by appearance in paper\n\n💡 ¹ ² ³',
     verified: 'Textbook p.132' },
 
-  { id: 1119, subject: 'engprof', topic: 'academic-writing', year: 4,
+  { id: 51019, subject: 'engprof', topic: 'academic-writing', year: 4,
     source: 'Textbook p.144', tags: ['warmup', 'plagiarism'], type: 'tf',
     q: 'Common knowledge must always be cited in an academic paper.',
     answer: false, explain: 'False — common knowledge ไม่ต้อง cite, เฉพาะ ideas/info ที่ไม่ใช่ของเรา + ไม่ใช่ common knowledge ต้อง cite',
@@ -419,7 +419,7 @@ export const QB_ENGPROF = [
   // Part I (1120-1133) → Part II Summary (1135)
   // ═══════════════════════════════════════════════════════════
   // ── Mock 1 Part I — Introduction ──────────────────────────
-  { id: 1120, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51020, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.100-112 (MDORS/CORS)',
     tags: ['mock-1', 'part-1', 'introduction'], type: 'short',
     examOrigin: 'Mock 1 Part I',
@@ -430,7 +430,7 @@ export const QB_ENGPROF = [
     model_answer: 'The aim of the study was to compare the dog-owner relationship with the cat-owner relationship based on the perceptions of people living with both dogs and cats, considering interaction, emotional closeness, and perceived cost.',
     explain: 'Purpose ตรงๆ จาก Introduction ย่อหน้าสุดท้าย (always last paragraph of Intro)' },
 
-  { id: 1121, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51021, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.101', tags: ['mock-1', 'part-1', 'introduction'], type: 'short',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
@@ -440,7 +440,7 @@ export const QB_ENGPROF = [
     explain: '"the most robust scale to measure quality of dog-owner relationship, from the owner\'s perception" + 3 subscales' },
 
   // ── Mock 1 Part I — Methods ───────────────────────────────
-  { id: 1122, subject: 'engprof', topic: 'research-design', year: 4,
+  { id: 51022, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.105', tags: ['mock-1', 'part-1', 'methods', 'sampling'], type: 'short',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
@@ -449,7 +449,7 @@ export const QB_ENGPROF = [
     model_answer: 'Snowball sampling was used. The survey was administered through an online system (SurveyMonkey.com), and the survey link was posted on the author\'s Facebook wall. Contacts were asked to share it.',
     explain: 'Methods: "Snowball sampling was used... The survey link was posted on the author\'s wall on Facebook"' },
 
-  { id: 1123, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51023, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.105', tags: ['mock-1', 'part-1', 'methods', 'sample'], type: 'short',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
@@ -458,7 +458,7 @@ export const QB_ENGPROF = [
     model_answer: 'A total of 132 people participated. The mean age was 35.6 years (SD 11.9). 86.4% (n=114) were women, and 13.6% (n=18) were men.',
     explain: '"In total, 132 people who had at least one dog and one cat as pets participated... 86.4% were women"' },
 
-  { id: 1124, subject: 'engprof', topic: 'research-design', year: 4,
+  { id: 51024, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Textbook p.106', tags: ['mock-1', 'part-1', 'methods', 'statistics'], type: 'short',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
@@ -468,7 +468,7 @@ export const QB_ENGPROF = [
     explain: '"the Wilcoxon signed-rank statistical test was used; because they are paired groups... Nonparametric tests were used because the scores did not fit a normal distribution"' },
 
   // ── Mock 1 Part I — Results ───────────────────────────────
-  { id: 1125, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51025, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.108', tags: ['mock-1', 'part-1', 'results'], type: 'short',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
@@ -478,7 +478,7 @@ export const QB_ENGPROF = [
     explain: 'Results: "owners reported greater interaction and lower perceived cost with their cats and greater emotional closeness with their dogs"' },
 
   // ── Mock 1 Part I — Discussion ────────────────────────────
-  { id: 1126, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51026, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.112', tags: ['mock-1', 'part-1', 'discussion'], type: 'short',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
@@ -487,7 +487,7 @@ export const QB_ENGPROF = [
     model_answer: 'The main limitation was that most participants were women — only 18 men responded. Female bias in survey participation is widely reported in studies on dog/cat relationships, which limits generalizability.',
     explain: '"Among the limitations of the study is the fact that most of the participants were women: only 18 men responded"' },
 
-  { id: 1127, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51027, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.112', tags: ['mock-1', 'part-1', 'discussion', 'recommendations'], type: 'short',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
@@ -497,28 +497,28 @@ export const QB_ENGPROF = [
     explain: '"Future studies should include questions that can help identify where dogs and cats spend most of their time (indoors/outdoors)... Knowing MDORS and CORS differences between neuter/spay status..."' },
 
   // ── Mock 1 Part I — True/False ────────────────────────────
-  { id: 1130, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51028, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.108', tags: ['mock-1', 'part-1', 'tf'], type: 'tf',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
     q: 'Owners reported greater emotional closeness with their cats than with their dogs.',
     answer: false, explain: 'False — กลับกัน: greater emotional closeness with dogs. Cats higher in interaction + lower perceived cost' },
 
-  { id: 1131, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51029, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.108', tags: ['mock-1', 'part-1', 'tf'], type: 'tf',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
     q: 'Overall, the total CORS/MDORS score indicated that relationships with cats were better than with dogs.',
     answer: true, explain: 'True — "the total score indicates that relationships with cats are better than relationships with dogs"' },
 
-  { id: 1132, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51030, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.109', tags: ['mock-1', 'part-1', 'tf'], type: 'tf',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
     q: 'The age of the companion animal correlated positively with perceived cost (i.e., older pets cost more).',
     answer: false, explain: 'False — correlation was negative (rs = −0.263 cats, −0.349 dogs). Younger pets imply higher perceived cost' },
 
-  { id: 1133, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51031, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Textbook p.105', tags: ['mock-1', 'part-1', 'tf'], type: 'tf',
     examOrigin: 'Mock 1 Part I',
     passage: PASSAGE_PETS, passage_title: 'Article: Pet-Human Relationships — Dogs versus Cats',
@@ -526,7 +526,7 @@ export const QB_ENGPROF = [
     answer: false, explain: 'False — Methods note "the number of items differs between the MDORS and the CORS" — that\'s why they used mean scores for comparison' },
 
   // ── Mock 1 Part II — Summary writing ──────────────────────
-  { id: 1135, subject: 'engprof', topic: 'summary-writing', year: 4,
+  { id: 51032, subject: 'engprof', topic: 'summary-writing', year: 4,
     source: 'Textbook p.154-155 ("Bats" by Debbie Dean) + Final Exam Spec',
     tags: ['mock-1', 'part-2', 'essay', 'summary'], type: 'essay',
     examOrigin: 'Mock 1 Part II',
@@ -565,7 +565,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
   // pairs it; we use a different summary text for variety)
   // ═══════════════════════════════════════════════════════════
   // ── Mock 2 Part I — Introduction ──────────────────────────
-  { id: 1140, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51033, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.23)',
     tags: ['mock-2', 'part-1', 'introduction'], type: 'short',
     examOrigin: 'Mock 2 Part I',
@@ -575,7 +575,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     model_answer: 'The purpose of the study was to test the hypothesis that older male and female baboons experience bone loss with age severe enough to be termed osteopenia and osteoporosis.',
     explain: 'Per Exercise 2 KEY: study aim → test hypothesis that older baboons of both sexes experience meaningful bone loss meeting human-comparable osteopenia/osteoporosis definitions' },
 
-  { id: 1141, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51034, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.23)',
     tags: ['mock-2', 'part-1', 'introduction', 'background'], type: 'short',
     examOrigin: 'Mock 2 Part I',
@@ -586,7 +586,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     explain: 'Multiple similarities listed in Intro — answer can mention any 2+ for credit' },
 
   // ── Mock 2 Part I — Methods ───────────────────────────────
-  { id: 1142, subject: 'engprof', topic: 'research-design', year: 4,
+  { id: 51035, subject: 'engprof', topic: 'research-design', year: 4,
     source: 'Exercise 2 Article I (KEY p.23)',
     tags: ['mock-2', 'part-1', 'methods', 'design'], type: 'short',
     examOrigin: 'Mock 2 Part I',
@@ -596,7 +596,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     model_answer: 'Quantitative research design (observational study). The researchers measured bone density data without intervening on the animals.',
     explain: 'Per Exercise 2 KEY: "Quantitative research design (Observational study)" — no intervention, just measurement' },
 
-  { id: 1143, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51036, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.23)',
     tags: ['mock-2', 'part-1', 'methods', 'sample'], type: 'short',
     examOrigin: 'Mock 2 Part I',
@@ -606,7 +606,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     model_answer: 'Two sets of samples were used. The primary sample contained 460 females and 207 males ranging in age from 5 to 30 years; subjects were olive baboons (Papio hamadryas anubis), yellow baboons (Papio hamadryas cynocephalus), and their hybrids. A second focused subsample of 54 females over the age of 19 years was also used.',
     explain: 'Per Exercise 2 KEY: "2 sets of samples — 1) The sample (460 females, 207 males) ranging in age from 5 to 30 years... 2) 54 females over the age of 19.0 years"' },
 
-  { id: 1144, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51037, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.23-24)',
     tags: ['mock-2', 'part-1', 'methods', 'setting'], type: 'short',
     examOrigin: 'Mock 2 Part I',
@@ -616,7 +616,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     model_answer: 'All animals were part of the breeding colony at the Southwest National Primate Research Center / Southwest Foundation for Biomedical Research (SNPRC/SFBR). The baboons were originally captured from Kenya for biomedical research. They were housed outdoors in social group cages and maintained on commercial monkey chow with ad libitum access.',
     explain: 'Per Exercise 2 KEY: "All animals were a part of the breeding colony at the SNPRC/SFBR. The baboons were captured from Kenya for biomedical research..."' },
 
-  { id: 1145, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51038, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.24)',
     tags: ['mock-2', 'part-1', 'methods', 'statistics'], type: 'short',
     examOrigin: 'Mock 2 Part I',
@@ -627,7 +627,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     explain: 'Per Exercise 2 KEY: Descriptive statistics: T-score, Qualitative comparisons of inter-site correspondence and bivariate correlations' },
 
   // ── Mock 2 Part I — True/False (Results) ──────────────────
-  { id: 1148, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51039, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.24)',
     tags: ['mock-2', 'part-1', 'tf', 'results'], type: 'tf',
     examOrigin: 'Mock 2 Part I',
@@ -635,7 +635,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     q: 'It is likely that one-fourth of older females have osteopenia or osteoporosis at any skeletal sites.',
     answer: false, explain: 'False — per Exercise 2 KEY this statement is marked F. The Results show variable prevalence by skeletal site, not a single one-fourth figure across "any" sites' },
 
-  { id: 1149, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51040, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.24)',
     tags: ['mock-2', 'part-1', 'tf', 'results'], type: 'tf',
     examOrigin: 'Mock 2 Part I',
@@ -643,7 +643,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     q: 'According to Figure 1, there was a significant relationship between the baboons with osteopenia and the normal group when classified by their ages.',
     answer: false, explain: 'False — per Exercise 2 KEY: Figure 1 showed NO statistically significant relationship between osteopenic vs normal groups when classified by age' },
 
-  { id: 1150, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51041, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.24)',
     tags: ['mock-2', 'part-1', 'tf', 'results'], type: 'tf',
     examOrigin: 'Mock 2 Part I',
@@ -652,7 +652,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     answer: true, explain: 'True — per Exercise 2 KEY: when osteopenia was identified at one skeletal site, it was likely to also occur at other bones of the same anatomical region (regional patterning)' },
 
   // ── Mock 2 Part I — Discussion ────────────────────────────
-  { id: 1151, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51042, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.24)',
     tags: ['mock-2', 'part-1', 'discussion', 'conclusion'], type: 'short',
     examOrigin: 'Mock 2 Part I',
@@ -662,7 +662,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     model_answer: 'The baboon and related species experience bone loss with age, particularly in females. The degree to which bone loss reaches a magnitude substantial enough to be termed osteopenia or osteoporosis using definitions comparable to those applied to humans has only rarely been assessed previously, but this study confirms the pattern.',
     explain: 'Per Exercise 2 KEY: "The baboon and related species experience bone loss with age, particularly in females..."' },
 
-  { id: 1152, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51043, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.24)',
     tags: ['mock-2', 'part-1', 'discussion', 'limitations'], type: 'short',
     examOrigin: 'Mock 2 Part I',
@@ -672,7 +672,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     model_answer: 'The colony management could result in artificial selection for healthier animals into the oldest age ranges (survivorship bias). This could explain the high incidence of osteopenia but the relative absence of frank osteoporosis observed in the data.',
     explain: 'Per Exercise 2 KEY: "This would result in artificial selection for healthier animals in the oldest age ranges, and could explain our high incidence of osteopenia, but absence of osteoporosis"' },
 
-  { id: 1153, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51044, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.24)',
     tags: ['mock-2', 'part-1', 'discussion', 'implications'], type: 'short',
     examOrigin: 'Mock 2 Part I',
@@ -683,7 +683,7 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     explain: 'Per Exercise 2 KEY: "Ultimately our results validate the use of the baboon as an appropriate and valuable animal model of human bone maintenance and turnover"' },
 
   // ── Mock 2 Part II — Summary writing (Atopic dermatitis) ──
-  { id: 1155, subject: 'engprof', topic: 'summary-writing', year: 4,
+  { id: 51045, subject: 'engprof', topic: 'summary-writing', year: 4,
     source: 'Exercise 1 Text 1 (Atopic Dermatitis) + Final Exam Spec',
     tags: ['mock-2', 'part-2', 'essay', 'summary'], type: 'essay',
     examOrigin: 'Mock 2 Part II',
@@ -716,7 +716,7 @@ Word-count Penalty: > 180 → −1 / > 200 → −2`,
   // Part I (1160-1173) → Part II (1175)
   // ═══════════════════════════════════════════════════════════
   // ── Mock 3 Part I — Introduction ──────────────────────────
-  { id: 1160, subject: 'engprof', topic: 'research-paper-structure', year: 4,
+  { id: 51046, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article II (KEY p.25)',
     tags: ['mock-3', 'part-1', 'introduction'], type: 'short',
     examOrigin: 'Mock 3 Part I',

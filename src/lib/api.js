@@ -145,6 +145,14 @@ export async function pullUserData(userId) {
   const { data, error } = await supabase.from('user_data')
     .select('*').eq('user_id', userId).maybeSingle();
   if (error) throw error;
+  if (!data) return null;
+  // Apply ID-migration v1 to cloud history on restore (mirrors the
+  // local-storage migration in src/lib/id-migration.js). Idempotent —
+  // already-migrated entries are no-ops.
+  if (Array.isArray(data.history)) {
+    const { migrateHistoryArray } = await import('./id-migration.js');
+    data.history = migrateHistoryArray(data.history);
+  }
   return data;
 }
 

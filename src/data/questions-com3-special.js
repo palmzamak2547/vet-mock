@@ -93,13 +93,6 @@ export const QB_COM3_SPECIAL = [
     explain: 'Paradoxical = head tilt **ตรงข้าม** ฝั่ง lesion — เกิดที่ caudal cerebellar peduncle / flocculonodular lobe (cerebellar component ของ vestibular pathway)',
     verified: 'neuro_localised 1 hr.pdf 2026 + DC3final 2019' },
 
-  { id: 1507, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
-    examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['seizure', 'aed'], type: 'mcq',
-    q: 'ยาในข้อใดเป็น antiepileptic drug **first-line** สำหรับ maintenance phase ในสุนัข',
-    options: ['Pentobarbital', 'Phenobarbital', 'Levetiracetam', 'Gabapentin', 'Diazepam'],
-    answer: 1,
-    explain: 'Phenobarbital = first-line maintenance AED ในสุนัข (long t½, ราคาถูก, evidence มากที่สุด), Levetiracetam = 2nd line / add-on, Diazepam = emergency, Pentobarbital = anesthesia, Gabapentin = neuropathic pain',
-    verified: 'seizure 1 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1508, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
     examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['neuro-er', 'imaging'], type: 'mcq',
@@ -295,19 +288,6 @@ export const QB_COM3_SPECIAL = [
     explain: 'Intention tremor = tremor เพิ่มขึ้นเมื่อ approach target → cerebellar dysmetria, พบใน cerebellar hypoplasia (kitten FPV), abiotrophy, infarction',
     verified: 'neuro_ataxia_tremor 1 hr.pdf 2026 + DC3final 2019' },
 
-  { id: 1527, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
-    examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['spinal', 'wobbler'], type: 'mcq',
-    q: 'ชื่ออีกชื่อหนึ่งของโรค Wobbler syndrome คือ',
-    options: [
-      'Caudal Cervical Spondylopathy',
-      'Osteochondritis dissecans of Lumbosacral junction',
-      'Cranial Cruciate Ligament Rupture',
-      'Degenerative Lumbosacral Stenosis',
-      'Caudal Equine Syndrome',
-    ],
-    answer: 0,
-    explain: 'Wobbler = Cervical Spondylomyelopathy (CSM) / Caudal Cervical Spondylopathy, พบใน Doberman + Great Dane, cervical IVDD compression, ataxia ขาหลังเด่นกว่าหน้า',
-    verified: 'Spinal disorder 2 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1528, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
     examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['flutd', 'cause'], type: 'mcq',
@@ -353,19 +333,6 @@ export const QB_COM3_SPECIAL = [
     explain: 'Posterior paraplegia = ขาหลังอ่อนแรง 2 ข้าง — ทรงตัวด้วยขาหลังไม่ได้ (ขาหน้าปกติ ยังเดินด้วย "wheel-barrow" gait ได้), "เดินวน เมา" = vestibular, "คอเอียง" = vestibular',
     verified: 'Spinal disorder 2 hr.pdf 2026 + DC3final 2019' },
 
-  { id: 1532, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
-    examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['spinal', 'cauda-equina'], type: 'mcq',
-    q: 'ชื่ออีกชื่อหนึ่งของโรค Cauda Equina Syndrome คือ',
-    options: [
-      'Caudal Cervical Spondylopathy',
-      'Degenerative Lumbosacral Stenosis',
-      'Cranial Cruciate Ligament Rupture',
-      'Osteochondritis dissecans of Lumbosacral junction',
-      'Caudal Equine Syndrome',
-    ],
-    answer: 1,
-    explain: 'Cauda Equina = Degenerative Lumbosacral Stenosis (DLSS), L7-S1 disc + facet OA + ligamentum flavum hypertrophy, GSD predisposed, LMN ขาหลัง + tail/anal tone ลดลง',
-    verified: 'Spinal disorder 2 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1533, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
     examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['nutrition', 'starvation'], type: 'mcq',
@@ -779,13 +746,6 @@ export const QB_COM3_SPECIAL = [
     explain: 'Alpha-2 (medetomidine, dexmed, xylazine) = profound vasoconstriction + bradycardia + ↓ CO → ห้ามใน hypovolemic shock, Mu agonist (fentanyl) = OK, benzodiazepine = OK adjunct',
     verified: 'Animal_Emerg_Anes 1 hr.pdf 2026 + DC3final 2019' },
 
-  { id: 1568, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
-    examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['triage', 'data-source'], type: 'mcq',
-    q: 'การทำ triage ต้องอาศัยข้อมูลจากขั้นตอนใดในกระบวนการเวชศาสตร์ฉุกเฉิน',
-    options: ['Secondary survey', 'Definitive care', 'Brief history taking', 'Primary survey', 'Resuscitation'],
-    answer: 3,
-    explain: 'Triage ใช้ข้อมูลจาก primary survey (ABCD) → จัดกลุ่ม stable/unstable, secondary survey/history-taking ทีหลัง, resuscitation = ทำให้สัตว์ที่ unstable หลัง triage',
-    verified: 'triage 1 hr.pdf 2026 + DC3final 2019' },
 
   { id: 1569, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',
     examOrigin: 'COM III Final 2019 (Special Prep)', tags: ['shock', 'fluid-min'], type: 'mcq',

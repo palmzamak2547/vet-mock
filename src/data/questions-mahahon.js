@@ -38,7 +38,7 @@ export const QB_MAHAHON = [
   // 1) HORMONE — Blackboard 10/10 (p6-10 of Repro Final 86 master)
   //    Lecturer: Suppawiwat Ponglowhapan / Sroisuda Chotimanukul
   // ═══════════════════════════════════════════════════════════
-  { id: 2000, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52004, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard quiz "Progestins to control feline reproduction" Q1', sourceType: 'past-paper',
     tags: ['progestin', 'precautions'], type: 'mcq',
     q: 'หากมีความจำเป็นต้องใช้ progestins เพื่อคุมกำเนิดชั่วคราวในสุนัขและแมว ข้อใดต้องคำนึงถึงเพื่อให้เกิดผลข้างเคียงต่อสัตว์น้อยที่สุด',
@@ -52,7 +52,7 @@ export const QB_MAHAHON = [
     explain: 'การใช้ progestin ต้องคำนึงทุกข้อเพื่อลด CEH/pyometra, mammary tumor, diabetes mellitus, adrenocortical suppression. Blackboard auto-grade ยืนยัน A.',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2001, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52005, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard Q2', sourceType: 'past-paper',
     tags: ['pseudopregnancy', 'pseudocyesis', 'prolactin'], type: 'mcq',
     q: 'ชนิดยาฮอร์โมนเดียวคงที่ใช้รักษา pseudocyesis (pseudopregnancy)',
@@ -61,7 +61,7 @@ export const QB_MAHAHON = [
     explain: 'Bromocriptine และ cabergoline เป็น dopamine agonist ยับยั้ง prolactin → ใช้รักษา pseudopregnancy (Feldman & Nelson, Canine and Feline Endocrinology 4th ed.)',
     verified: 'Blackboard auto-grade 10/10, cross-checked Feldman & Nelson' },
 
-  { id: 2002, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52006, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard Q3', sourceType: 'past-paper',
     tags: ['progestin', 'side-effects'], type: 'mcq',
     q: 'ข้อใดไม่ใช่ผลข้างเคียงจากการใช้ progestins อย่างต่อเนื่อง',
@@ -70,7 +70,7 @@ export const QB_MAHAHON = [
     explain: 'Progestin → CEH/pyometra, mammary tumor, diabetes mellitus. Pseudopregnancy เกิดจาก prolactin เด่น (luteal phase decline) ไม่ใช่จาก progestin treatment',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2003, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52007, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard Q4', sourceType: 'past-paper',
     tags: ['USMI', 'urinary-incontinence', 'deslorelin'], type: 'mcq',
     q: 'ชนิดยาฮอร์โมนคงที่ใช้รักษาภาวะปัสสาวะเล็ดในสุนัขหลังทำหมัน (urinary incontinence post-spaying)',
@@ -79,7 +79,7 @@ export const QB_MAHAHON = [
     explain: 'Reichler et al. (2003) + Wynne (2018): deslorelin GnRH agonist implant ลด FSH/LH ที่มีผลต่อ urethral sphincter dysfunction, ใช้ใน USMI ที่ไม่ตอบสนอง phenylpropanolamine (PPA)',
     verified: 'Blackboard auto-grade 10/10, Reichler 2003' },
 
-  { id: 2004, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52008, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard Q5', sourceType: 'past-paper',
     tags: ['progestin', 'cat', 'mammary-hyperplasia'], type: 'mcq',
     q: 'การจัด progestins เพื่อคุมกำเนิดชั่วคราวใน prepubertal cats จะก่อให้เกิดปัญหาที่สำคัญ คือ',
@@ -88,7 +88,7 @@ export const QB_MAHAHON = [
     explain: 'FAMH (fibroepithelial hyperplasia) เป็น classic side effect ของ progestin ใน young/prepubertal cats — ก้อนนมโตเร็ว เป็นไปได้ทั้งสองข้าง, รักษาด้วย OE/aglepristone',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2005, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52009, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard Q6', sourceType: 'past-paper',
     tags: ['ultrasound', 'landmark'], type: 'mcq',
     q: 'ในการอัลตร้าซาวด์ landmark ที่ช่วยสัตวแพทย์ ในการระบุตำแหน่งของอวัยวะในระบบสืบพันธุ์ คือ',
@@ -97,7 +97,7 @@ export const QB_MAHAHON = [
     explain: 'Urinary bladder เป็น acoustic window มาตรฐานสำหรับ pelvic reproductive organs — ของเหลวให้ภาพชัด ไม่บัง gas',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2006, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52010, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard Q7', sourceType: 'past-paper',
     tags: ['progestin', 'cycle-stage', 'anestrus'], type: 'mcq',
     q: 'หากมีความจำเป็นต้องใช้ progestins เพื่อคุมกำเนิดชั่วคราวในสุนัข ระยะใดของ estrus cycle ที่เกิดผลข้างเคียงต่อสัตว์น้อยที่สุด',
@@ -106,7 +106,7 @@ export const QB_MAHAHON = [
     explain: 'Anestrus → ovary inactive, ไม่มี HPG activity → ใช้ progestin ตอนนี้ side effect น้อยสุด, Diestrus มี endogenous P4 สูงอยู่แล้ว ใช้ซ้ำเสริม CEH risk',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2007, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52011, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard Q8', sourceType: 'past-paper',
     tags: ['progestin', 'mechanism'], type: 'mcq',
     q: 'กลไกของ progestins เพื่อ estrus prevention ในแมว ข้อใดถูกต้องที่สุด',
@@ -120,7 +120,7 @@ export const QB_MAHAHON = [
     explain: 'Progestin negative feedback ที่ hypothalamus-pituitary → ลด GnRH → ลด LH/FSH → ไม่ ovulate (Senger Pathways to Pregnancy and Parturition)',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2008, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52012, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard Q9', sourceType: 'past-paper',
     tags: ['progestin', 'considerations'], type: 'mcq',
     q: 'หากมีความจำเป็นต้องใช้ progestins เพื่อคุมกำเนิดชั่วคราว ข้อควรคำนึงถึงคือ',
@@ -134,7 +134,7 @@ export const QB_MAHAHON = [
     explain: 'ทุกปัจจัย (vaginal discharge อาจเป็น CEH/pyometra แล้ว, อายุ, DM ที่ progestin ทำให้แย่ลง) ต้องประเมิน',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2009, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
+  { id: 52013, subject: 'repro-lect', topic: 'mahahon-hormone', year: 4,
     source: 'Repro Final 86 master, Blackboard Q10', sourceType: 'past-paper',
     tags: ['dystocia', 'oxytocin'], type: 'mcq',
     q: 'ชนิดยาฮอร์โมนเดียวคงที่ใช้รักษาภาวะ obstructive dystocia',
@@ -148,7 +148,7 @@ export const QB_MAHAHON = [
   //    Lecturer: Suppawiwat Ponglowhapan
   //    Q4-7, Q10 มี U/S image (imagePath ระบุไฟล์ที่ crop แล้ว)
   // ═══════════════════════════════════════════════════════════
-  { id: 2010, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52014, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard "diencephalon-telencephalic" Q1', sourceType: 'past-paper',
     tags: ['prostate', 'ultrasound'], type: 'mcq',
     q: 'ข้อใดถูกเกี่ยวกับ prostate ultrasonography',
@@ -162,7 +162,7 @@ export const QB_MAHAHON = [
     explain: 'Full bladder = acoustic window มาตรฐาน, BPH จะ extend cranial out of pelvic canal (ไม่ใช่เข้าลึก), sagittal/transverse ทั้งคู่ต้องดู',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2011, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52015, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard Q2', sourceType: 'past-paper',
     tags: ['fetal-biometry', 'ultrasound'], type: 'mcq',
     q: 'ข้อใดไม่สามารถใช้คำนวณวันคลอดจาก fetal biometric measurements ด้วยอัลตร้าซาวด์',
@@ -171,7 +171,7 @@ export const QB_MAHAHON = [
     explain: 'มาตรฐาน fetal biometry ในสุนัข/แมว ใช้ ICC (early), BPD (mid-late), DTV/CRL (late). Cardiac diameter ไม่ใช่ standard biometric (England et al. 2018)',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2012, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52016, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard Q3', sourceType: 'past-paper',
     tags: ['testis', 'mediastinum-testis'], type: 'mcq',
     q: 'mediastinum testis หรือ hyperechoic central linear structure บ่งชี้ถึง',
@@ -180,7 +180,7 @@ export const QB_MAHAHON = [
     explain: 'Mediastinum testis = anatomic landmark ปกติ, เห็นเป็น hyperechoic line ตามแนวยาว testis (Penninck & d\'Anjou Atlas of Small Animal Ultrasonography)',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2013, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52017, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard Q4 (with U/S image)', sourceType: 'past-paper',
     tags: ['CEH', 'pyometra', 'image'], type: 'mcq',
     q: 'ภาพอัลตร้าซาวด์ uterus (sagittal plane) แปลผลคือ (ดูภาพประกอบ)',
@@ -190,7 +190,7 @@ export const QB_MAHAHON = [
     explain: 'Multiple anechoic cystic dilations ในผนัง uterus = classic CEH pattern, ไม่มี debris (echogenic content) แยกจาก pyometra',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2014, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52018, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard Q5 (with U/S image)', sourceType: 'past-paper',
     tags: ['doppler', 'image', 'bladder'], type: 'mcq',
     q: 'ภาพอัลตร้าซาวด์กระเพาะปัสสาวะสุนัข (sagittal plane) อวัยวะที่ติดดีเป็นอวัยวะใด (ดูภาพประกอบ Color Doppler)',
@@ -200,7 +200,7 @@ export const QB_MAHAHON = [
     explain: 'Color Doppler แสดง flow ใน vessel (น่าจะเป็น iliac artery/branch) ติดกับ bladder, Uterus จะไม่มี flow แบบนี้',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2015, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52019, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard Q6 (with U/S image)', sourceType: 'past-paper',
     tags: ['fluid-filled-uterus', 'image'], type: 'mcq',
     q: 'ภาพอัลตร้าซาวด์ uterus (sagittal plane) แปลผลจากภาพ คือ (ดูภาพประกอบ)',
@@ -210,7 +210,7 @@ export const QB_MAHAHON = [
     explain: 'U/S เพียงอย่างเดียวแยก pyo/muco/hydrometra ไม่ได้ — ต้อง cytology/culture, "fluid-filled uterus" เป็น descriptor ที่ถูกต้องที่สุด',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2016, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52020, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard Q7 (with U/S image)', sourceType: 'past-paper',
     tags: ['ovary', 'estrus', 'follicle', 'image'], type: 'mcq',
     q: 'ภาพ canine ovarian ultrasonography (sagittal plane) บ่งชี้ระยะใด (ดูภาพประกอบ — เห็น follicle 1.73 + 0.69 cm)',
@@ -220,7 +220,7 @@ export const QB_MAHAHON = [
     explain: 'Multiple anechoic round structures (mature follicles 4-9 mm, preovulatory ~1-2 cm) = estrus, CL ของ diestrus จะ echogenic กว่า',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2017, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52021, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard Q8', sourceType: 'past-paper',
     tags: ['fetal-sex', 'gestation'], type: 'mcq',
     q: 'ในการอัลตร้าซาวด์ sex determination in dog fetuses ทำได้เมื่อใด',
@@ -234,7 +234,7 @@ export const QB_MAHAHON = [
     explain: 'Sex determination ทำได้วันที่ 55-58 (close to parturition) เมื่อ external genitalia differentiate, ดู genital tubercle relative to umbilical cord (Davidson et al.)',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2018, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52022, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard Q9', sourceType: 'past-paper',
     tags: ['ovary', 'CL', 'limitations'], type: 'mcq',
     q: 'ข้อใดไม่สามารถบอกได้จาก ovarian ultrasonography ในสุนัข',
@@ -243,7 +243,7 @@ export const QB_MAHAHON = [
     explain: 'CL regression เป็น dynamic process ต้อง serial scan, single snapshot ไม่บอกได้ว่ากำลัง regress, Follicles/cyst/neoplasia ดูได้จาก echogenicity/size',
     verified: 'Blackboard auto-grade 10/10' },
 
-  { id: 2019, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
+  { id: 52023, subject: 'repro-lect', topic: 'mahahon-ultrasound', year: 4,
     source: 'Repro Final 86 master, Blackboard Q10 (with U/S image)', sourceType: 'past-paper',
     tags: ['fetal', 'hydrocephalus', 'image'], type: 'mcq',
     q: 'ภาพอัลตร้าซาวด์ตรวจท้องสุนัขชี้วาวว fetal head (sagittal plane) ที่พบบ่งชี้ถึง (ดูภาพประกอบ)',
@@ -257,7 +257,7 @@ export const QB_MAHAHON = [
   // 3) SEMEN FREEZING + INFERTILITY — Blackboard p14
   //    Lecturer: Theerawat Tharasanit
   // ═══════════════════════════════════════════════════════════
-  { id: 2020, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52024, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q1', sourceType: 'past-paper',
     tags: ['semen-morphology', 'teratospermia'], type: 'mcq',
     q: 'การเพิ่มขึ้นของจำนวนอสุจิที่มีรูปร่างผิดปกติ (sperm morphological defects) เรียกว่า',
@@ -266,7 +266,7 @@ export const QB_MAHAHON = [
     explain: 'Tera- = monster/abnormal, teratospermia = ↑ % abnormal morphology, azoo = ไม่มีอสุจิ, oligo = น้อย, astheno = motility ต่ำ, hypo = volume น้อย',
     verified: 'Blackboard p14 highlight' },
 
-  { id: 2021, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52025, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q2', sourceType: 'past-paper',
     tags: ['hemospermia', 'beagle'], type: 'mcq',
     q: 'การวินิจฉัยเชื้อสุนัขพันธุ์ Beagle อายุ 5 ปี พบเลือดในอสุจิ (hemospermia) ข้อใดไม่น่าจะเป็นสาเหตุ',
@@ -275,7 +275,7 @@ export const QB_MAHAHON = [
     explain: 'Cystitis = การอักเสบของกระเพาะปัสสาวะ → blood in urine ไม่ใช่ semen โดยตรง, 4 ข้อแรกอยู่ใน reproductive tract → blood เข้า semen ตรงๆ',
     verified: 'Blackboard p14 highlight' },
 
-  { id: 2022, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52026, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q3', sourceType: 'past-paper',
     tags: ['primary-anestrus', 'estrous-disorder'], type: 'mcq',
     q: 'Primary anestrus คือสุนัขที่ไม่แสดงอาการเป็นสัดจนถึงอายุเท่าไร',
@@ -284,7 +284,7 @@ export const QB_MAHAHON = [
     explain: 'Primary anestrus = bitch ไม่ cycle เลยจนอายุ 24 เดือน (Concannon 2011, Kustritz 2005), แตกต่างจาก secondary anestrus (เคยเป็นสัดแต่หยุด)',
     verified: 'Blackboard p14 highlight + textbook' },
 
-  { id: 2023, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52027, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q4', sourceType: 'past-paper',
     tags: ['canine-infertility', 'infectious'], type: 'mcq',
     q: 'ข้อใดไม่ใช่ infectious cause of canine infertility',
@@ -293,7 +293,7 @@ export const QB_MAHAHON = [
     explain: 'Toxoplasma gondii — แมวเป็น definitive host, ในสุนัขก่อโรคได้แต่ไม่ใช่ infectious infertility cause หลัก, Brucella + CHV เป็น classic canine repro pathogen',
     verified: 'Blackboard p14 highlight' },
 
-  { id: 2024, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52028, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q5', sourceType: 'past-paper',
     tags: ['siberian-husky', 'progesterone', 'mating-refusal'], type: 'mcq',
     q: 'สุนัขเพศเมีย Siberian Husky อายุ 18 เดือน serum progesterone = 10.2 ng/mL ข้อใดไม่ใช่สาเหตุของการที่สุนัขไม่ยอมให้ผสม',
@@ -308,7 +308,7 @@ export const QB_MAHAHON = [
     explain: 'P4 10 ng/mL = post-LH surge / luteal phase แล้ว — ปกติแม่จะเริ่ม refuse mating ใน diestrus, Bloody discharge เป็น proestrus ไม่ใช่สาเหตุของการ refuse, ส่วน A/B/D/E เป็น anatomic/genetic causes ของ unable to mate',
     verified: 'Blackboard p14 highlight' },
 
-  { id: 2025, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52029, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q6 (English bulldog 2yo)', sourceType: 'past-paper',
     tags: ['teratospermia', 'bulldog', 'young-dog'], type: 'mcq',
     q: 'สุนัขพันธุ์ English bulldog อายุ 2 ปี พบ teratospermia ข้อใดไม่น่าจะเป็นสาเหตุ',
@@ -317,7 +317,7 @@ export const QB_MAHAHON = [
     explain: 'อายุ 2 ปี = ยังไม่เก่า → aging ไม่ใช่สาเหตุ, 4 ข้ออื่นเป็น cause ที่เกิดได้ในวัยหนุ่ม, Bulldog มี genetic predisposition (close-knit gene pool)',
     verified: 'Blackboard p14 highlight (case-context based)' },
 
-  { id: 2026, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52030, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q7 (American Bully 4yo)', sourceType: 'past-paper',
     tags: ['oligospermia', 'libido', 'retrograde'], type: 'mcq',
     q: 'สุนัขพันธุ์ American Bully อายุ 4 ปี libido ดี แต่มีตัวอสุจิน้อย (oligozoospermia <300×10⁶) สาเหตุน่าจะเป็น',
@@ -332,7 +332,7 @@ export const QB_MAHAHON = [
     explain: 'Libido ดี + oligospermia → ejaculation ออกมาแต่ไม่ใช่ปกติ → retrograde ejaculation (ไป bladder) หรือ hormonal suppression ลด spermatogenesis, ทดสอบด้วย post-ejaculation urine analysis',
     verified: 'Blackboard p14 highlight' },
 
-  { id: 2027, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52031, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q8', sourceType: 'past-paper',
     tags: ['ovulation-timing', 'AI', 'breeding-management'], type: 'mcq',
     q: 'ในสุนัขเพศเมีย เพื่อ AI ที่ผสมติดสูงสุด ovulation timing คือวันที่เท่าไรหลัง LH surge',
@@ -341,7 +341,7 @@ export const QB_MAHAHON = [
     explain: 'Dog ovulation วันที่ 2-3 หลัง LH surge → mature oocyte day 4-5 → fertile window day 9-11 (proestrus + 9-11 days) หรือ day 11-13 หลัง LH, ผสมก่อน ovulation ด้วยเพราะ sperm capacitate ใน female tract',
     verified: 'Blackboard p14 highlight' },
 
-  { id: 2028, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52032, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q9', sourceType: 'past-paper',
     tags: ['feline-infertility', 'infectious'], type: 'mcq',
     q: 'ข้อใดไม่ใช่ infectious cause of feline infertility',
@@ -350,7 +350,7 @@ export const QB_MAHAHON = [
     explain: 'Brucella canis = สุนัขล้วน ไม่ใช่แมว, 4 ข้ออื่นเป็น feline pathogen ที่กระทบ fertility (FeLV/FIV immunosuppression, Toxo ทำ abortion, FHV neonatal mortality)',
     verified: 'Blackboard p14 highlight' },
 
-  { id: 2029, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
+  { id: 52033, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q10', sourceType: 'past-paper',
     tags: ['estrus-duration', 'factors'], type: 'mcq',
     q: 'ปัจจัยที่ส่งผลต่อ duration of estrus ในแมว ข้อใดถูกต้อง (สามารถมีหลายข้อ)',
@@ -369,7 +369,7 @@ export const QB_MAHAHON = [
   // 4) SEMEN EVALUATION — Synthesized (Palm requested 2026-05-04)
   //    Lecturer: Theerawat Tharasanit, Slide 2026 Lect 16
   // ═══════════════════════════════════════════════════════════
-  { id: 2030, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52034, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 16 + Theerawat lecture', sourceType: 'lecture-verified-draft',
     tags: ['ejaculate-fraction', 'dog'], type: 'mcq',
     q: 'ใน dog ejaculate การเก็บ semen แบบ manual collection ทั่วไปได้กี่ fraction และ sperm-rich มาจาก fraction ไหน',
@@ -383,7 +383,7 @@ export const QB_MAHAHON = [
     explain: 'Dog ejaculate 3 fractions: F1 (clear, urethral, ~0.5 ml), F2 (sperm-rich, opaque, 0.5-2 ml), F3 (prostatic, clear, > 5 ml), เก็บแยกถ้าจะ AI โดยใช้แค่ F1+F2',
     verified: 'Slide 2026 Lect 16 (ด้านล่าง)' },
 
-  { id: 2031, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52035, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 16', sourceType: 'lecture-verified-draft',
     tags: ['UrCaPI', 'cat', 'semen-collection'], type: 'mcq',
     q: 'UrCaPI (Urethral Catheterization Post-Injection) ในแมวเพศผู้ ใช้ยาอะไรกระตุ้น',
@@ -397,7 +397,7 @@ export const QB_MAHAHON = [
     explain: 'Medetomidine (alpha-2 agonist) สูง dose → sympathetic spike → seminal emission ที่ urethra → catheter เก็บ, ทำได้ทุกแมว ต่างจาก electroejaculation ที่ต้อง deep anesthesia',
     verified: 'Slide 2026 Lect 16 + Zambelli 2008' },
 
-  { id: 2032, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52036, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 16', sourceType: 'lecture-verified-draft',
     tags: ['microscopic-evaluation'], type: 'mcq',
     q: 'ข้อใดอยู่ใน microscopic semen evaluation (ไม่ใช่ macroscopic)',
@@ -411,7 +411,7 @@ export const QB_MAHAHON = [
     explain: 'Macroscopic = volume, color, pH, viscosity. Microscopic = motility (% + grade), concentration (hemocytometer), morphology (eosin-nigrosin), viability (live/dead stain)',
     verified: 'Slide 2026 Lect 16' },
 
-  { id: 2033, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52037, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 16', sourceType: 'lecture-verified-draft',
     tags: ['progesterone', 'LH-surge', 'breeding-management'], type: 'mcq',
     q: 'ค่า serum progesterone ที่บ่งชี้ LH surge ในสุนัขประมาณเท่าไร',
@@ -420,7 +420,7 @@ export const QB_MAHAHON = [
     explain: 'Day 0 = baseline (<1 ng/mL), LH surge day → P4 ≈ 2-3 ng/mL, Ovulation day +2 → P4 ≈ 4-10 ng/mL, Mature oocyte +4 day → P4 >15 ng/mL, ใช้ track AI timing',
     verified: 'Slide 2026 Lect 16 + Concannon 2011' },
 
-  { id: 2034, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52038, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 16', sourceType: 'lecture-verified-draft',
     tags: ['progesterone', 'ovulation'], type: 'mcq',
     q: 'ค่า serum progesterone ที่บ่งชี้ ovulation ในสุนัขประมาณเท่าไร',
@@ -429,7 +429,7 @@ export const QB_MAHAHON = [
     explain: 'P4 4-10 ng/mL = ovulation day, oocyte ปล่อยออกแล้วรอ mature 2 วัน, ผสมตอน P4 15-25 ng/mL (mature oocyte ready)',
     verified: 'Slide 2026 Lect 16' },
 
-  { id: 2035, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52039, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 17 + Lect 16', sourceType: 'lecture-verified-draft',
     tags: ['frozen-semen', 'fertility'], type: 'mcq',
     q: 'Frozen-thawed dog semen เปรียบเทียบกับ fresh semen ในการ AI ข้อใดถูกต้อง',
@@ -443,7 +443,7 @@ export const QB_MAHAHON = [
     explain: 'Freeze-thaw ทำลาย membrane integrity + acrosome → motility/longevity ลด → ต้องวาง close to oocyte (intrauterine) เพื่อชดเชย, vaginal AI ใน frozen → conception rate ต่ำมาก',
     verified: 'Slide 2026 Lect 17' },
 
-  { id: 2036, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52040, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 16', sourceType: 'lecture-verified-draft',
     tags: ['AI-route', 'poor-quality'], type: 'mcq',
     q: 'Semen ที่มี motility ต่ำ (poor quality) ควรใช้ AI route ใด',
@@ -457,7 +457,7 @@ export const QB_MAHAHON = [
     explain: 'Poor motility → ต้อง deposit ใกล้ oviduct ที่สุด → IUAI (TCI = transcervical insemination ผ่าน scope) หรือ surgical IU, ลด distance ที่ sperm ต้องว่าย',
     verified: 'Slide 2026 Lect 16' },
 
-  { id: 2037, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52041, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 16', sourceType: 'lecture-verified-draft',
     tags: ['CASA', 'computer-analysis'], type: 'mcq',
     q: 'CASA (Computer-Assisted Sperm Analysis) ประเมินค่าอะไรเป็นหลัก',
@@ -471,7 +471,7 @@ export const QB_MAHAHON = [
     explain: 'CASA tracking individual sperm → คำนวณ Velocity (VAP=avg path, VSL=straight-line, VCL=curvilinear), ALH, BCF, linearity, % motile/progressive, มาตรฐานกว่า manual estimation',
     verified: 'Slide 2026 Lect 16' },
 
-  { id: 2038, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52042, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 16', sourceType: 'lecture-verified-draft',
     tags: ['sperm-quality-criteria'], type: 'mcq',
     q: 'เกณฑ์ minimum sperm quality สำหรับ AI ใน dog ข้อใดถูกต้องที่สุด',
@@ -485,7 +485,7 @@ export const QB_MAHAHON = [
     explain: 'Quality benchmark: progressive motility ≥70%, normal morphology ≥80%, concentration ≥200×10⁶/mL, pH 6.3-6.7, ถ้าต่ำกว่าให้พิจารณา IU AI (Senger 2012)',
     verified: 'Slide 2026 Lect 16 + Senger 2012' },
 
-  { id: 2039, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
+  { id: 52043, subject: 'repro-lect', topic: 'mahahon-semen-eval', year: 4,
     source: 'Synthesized from Slide 2026 Lect 16', sourceType: 'lecture-verified-draft',
     tags: ['fertilization-window', 'oocyte-maturation'], type: 'mcq',
     q: 'ในสุนัข oocyte ออกจาก ovary แต่ยังไม่ mature — ต้องใช้เวลาประมาณกี่วัน mature ใน oviduct จึง fertilize ได้',
@@ -497,7 +497,7 @@ export const QB_MAHAHON = [
   // ═══════════════════════════════════════════════════════════
   // 5) ART — Blackboard p17 (พี่อิม Ampika)
   // ═══════════════════════════════════════════════════════════
-  { id: 2040, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52044, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Repro Final 86 master, p17 Blackboard ART quiz', sourceType: 'past-paper',
     tags: ['ART', 'definition'], type: 'mcq',
     q: 'ART ย่อมาจากอะไร และตัวอย่างเทคนิคในกลุ่มนี้คือข้อใด',
@@ -512,7 +512,7 @@ export const QB_MAHAHON = [
     explain: 'ART = Assisted Reproductive Technology, เทคนิคหลัก: IVF (in vitro fertilization), ICSI (intracytoplasmic sperm injection), ET (embryo transfer), SCNT (cloning), cryopreservation',
     verified: 'Blackboard p17 highlight' },
 
-  { id: 2041, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52045, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Repro Final 86 master, p17 Q (OAT case)', sourceType: 'past-paper',
     tags: ['ICSI', 'oligoasthenoteratozoospermia'], type: 'mcq',
     q: 'เทคนิคใดช่วยให้สามารถผสมตัวอ่อนสัตว์จากพ่อพันธุ์ที่มีปัญหา oligoasthenoteratozoospermia (OAT) ได้',
@@ -526,7 +526,7 @@ export const QB_MAHAHON = [
     explain: 'ICSI bypass ทุก barrier — เลือก sperm 1 ตัวฉีดเข้า oocyte โดยตรง, ใช้กรณี OAT, azoospermia (เก็บจาก epididymis), animal conservation',
     verified: 'Blackboard p17 highlight' },
 
-  { id: 2042, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52046, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Repro Final 86 master, p17 Q (oocyte stage)', sourceType: 'past-paper',
     tags: ['oocyte-maturation', 'metaphase-II'], type: 'mcq',
     q: 'ระยะใดของ oocyte พร้อมที่จะปฏิสนธิ',
@@ -540,7 +540,7 @@ export const QB_MAHAHON = [
     explain: 'Meiosis I เสร็จ → arrest ที่ Metaphase II = ready for fertilization, sperm penetrate → resume meiosis II → second polar body extrusion → pronuclei',
     verified: 'Blackboard p17 highlight + ART textbook' },
 
-  { id: 2043, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52047, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Repro Final 86 master, p17 Q (embryo transfer site)', sourceType: 'past-paper',
     tags: ['embryo-transfer', 'cleavage', 'oviduct'], type: 'mcq',
     q: 'ตำแหน่งใดเหมาะสมในการย้ายฝากตัวอ่อนระยะ cleavage (2-8 cell)',
@@ -549,7 +549,7 @@ export const QB_MAHAHON = [
     explain: 'Cleavage stage embryo (2-8 cell, day 2-3) ยังไม่ implant → ต้องอยู่ใน oviduct ตามธรรมชาติ, Blastocyst (day 6-7) ลงไป uterus เพื่อ implant',
     verified: 'Blackboard p17 highlight + Hyttel et al. 2010' },
 
-  { id: 2044, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52048, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Repro Final 86 master, p17 Q (cryo benefit)', sourceType: 'past-paper',
     tags: ['cryopreservation', 'genetic-diversity'], type: 'mcq',
     q: 'ข้อใดไม่ใช่ประโยชน์ของการแช่แข็ง (gamete/embryo cryopreservation)',
@@ -563,7 +563,7 @@ export const QB_MAHAHON = [
     explain: 'Cryopreservation = "Preserve" ความหลากหลายเดิม, ไม่ได้ "Create" diversity ใหม่, ต้องเอาตัวอย่างจาก wild population/new founders เพื่อเพิ่ม diversity',
     verified: 'Blackboard p17 highlight' },
 
-  { id: 2045, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52049, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Repro Final 86 master, p17 Q (day 7 embryo)', sourceType: 'past-paper',
     tags: ['embryo-development', 'blastocyst'], type: 'mcq',
     q: 'ตัวอ่อนสุนัขในวันที่ 7 หลังปฏิสนธิ อยู่ในระยะใด',
@@ -572,7 +572,7 @@ export const QB_MAHAHON = [
     explain: 'Day 2 = cleavage (2-4 cell), Day 5 = morula, Day 7 = blastocyst (มี ICM + trophoblast + blastocoel), Day 9-10 → uterine implantation',
     verified: 'Blackboard p17 highlight' },
 
-  { id: 2046, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52050, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Repro Final 86 master, p17 Q (SCNT)', sourceType: 'past-paper',
     tags: ['SCNT', 'cloning', 'nuclear-transfer'], type: 'mcq',
     q: 'ข้อใดเกี่ยวข้องกับการย้ายฝาก nuclear (Somatic Cell Nuclear Transfer; SCNT)',
@@ -587,7 +587,7 @@ export const QB_MAHAHON = [
     explain: 'SCNT: นำ somatic cell nucleus → enucleated oocyte → activate → blastocyst → ET, Dolly the sheep (1996) ใช้เทคนิคนี้, ใช้ cloning + endangered species rescue',
     verified: 'Blackboard p17 highlight' },
 
-  { id: 2047, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52051, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Synthesized from Slide 2026 Lect 19 (Ampika)', sourceType: 'lecture-verified-draft',
     tags: ['IVF', 'oocyte-maturation', 'IVM'], type: 'mcq',
     q: 'ในการทำ IVF ขั้นตอน In Vitro Maturation (IVM) ใช้เวลาประมาณกี่ชั่วโมงสำหรับ canine oocyte',
@@ -596,7 +596,7 @@ export const QB_MAHAHON = [
     explain: 'Canine oocyte unique — ovulate ในระยะ GV → ต้อง IVM 48-72 ชม. ก่อน fertilize, ต่างจาก cow/cat ที่ ovulate ระยะ MII แล้ว IVM แค่ 24 ชม.',
     verified: 'Slide 2026 Lect 19 + Tsutsui 2009' },
 
-  { id: 2048, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52052, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Synthesized from Slide 2026 Lect 19', sourceType: 'lecture-verified-draft',
     tags: ['conservation', 'wildlife-ART'], type: 'mcq',
     q: 'พี่อิม (Ampika Thongphakdee) ทำ ART กับสัตว์ใดเป็นหลักที่ Zoological Park Organization of Thailand',
@@ -610,7 +610,7 @@ export const QB_MAHAHON = [
     explain: 'Ampika เชี่ยวชาญ wildlife ART — endangered cats: clouded leopard (เสือลายเมฆ), fishing cat (เสือปลา), uses ICSI/AI/SCNT/embryo cryopreservation เพื่อ rescue genetics',
     verified: 'Slide 2026 Lect 19 (พี่อิม opener)' },
 
-  { id: 2049, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
+  { id: 52053, subject: 'repro-lect', topic: 'mahahon-art', year: 4,
     source: 'Synthesized from Slide 2026 Lect 19', sourceType: 'lecture-verified-draft',
     tags: ['vitrification', 'cryopreservation-method'], type: 'mcq',
     q: 'การแช่แข็ง oocyte/embryo ด้วย vitrification แตกต่างจาก slow freezing อย่างไร',
@@ -628,7 +628,7 @@ export const QB_MAHAHON = [
   // 6) EXOTIC — Blackboard p22
   //    Lecturer: Chaowaphan Yinharnmingmongkol
   // ═══════════════════════════════════════════════════════════
-  { id: 2050, subject: 'repro-lect', topic: 'mahahon-exotic', year: 4,
+  { id: 52054, subject: 'repro-lect', topic: 'mahahon-exotic', year: 4,
     source: 'Repro Final 86 master, p22 Q1', sourceType: 'past-paper',
     tags: ['rabbit', 'uterine-cancer'], type: 'mcq',
     q: 'มะเร็งชนิดใดในกระต่ายที่พบได้มากที่สุด',
@@ -637,7 +637,7 @@ export const QB_MAHAHON = [
     explain: 'Uterine adenocarcinoma เป็น #1 malignant neoplasm ใน intact female rabbit อายุ >3 ปี (incidence 50-80%), spay ก่อน 2 ปีป้องกันได้ (Quesenberry & Carpenter)',
     verified: 'Blackboard p22 highlight' },
 
-  { id: 2051, subject: 'repro-lect', topic: 'mahahon-exotic', year: 4,
+  { id: 52055, subject: 'repro-lect', topic: 'mahahon-exotic', year: 4,
     source: 'Repro Final 86 master, p22 Q2', sourceType: 'past-paper',
     tags: ['gestation-length', 'chinchilla'], type: 'mcq',
     q: 'สัตว์ชนิดใดมีช่วงตั้งท้องนานที่สุด',
@@ -646,7 +646,7 @@ export const QB_MAHAHON = [
     explain: 'Chinchilla gestation 111-119 วัน — ลูกออกมา precocial (มีขน, ตาเปิด), เปรียบเทียบกับ guinea pig 59-72d, rabbit ~31d, hamster 16-22d (Quesenberry & Carpenter)',
     verified: 'Blackboard p22 highlight' },
 
-  { id: 2052, subject: 'repro-lect', topic: 'mahahon-exotic', year: 4,
+  { id: 52056, subject: 'repro-lect', topic: 'mahahon-exotic', year: 4,
     source: 'Repro Final 86 master, p22 Q3', sourceType: 'past-paper',
     tags: ['rabbit', 'congenital'], type: 'mcq',
     q: 'โรคใดไม่ใช่ Reproductive Congenital disease ในกระต่าย',

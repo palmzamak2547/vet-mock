@@ -715,29 +715,7 @@ export const QB_PRACTRUM = [
   // ═══════════════════════════════════════════════════════════
 
   // ── ภาคศัลย์ — Past paper Q1-10 (verified by TJ red answers) ──
-  { id: 3000, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
-    source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ + พี่พล Q1', sourceType: 'past-paper',
-    tags: ['past-paper', 'rumen', 'anatomy', 'magnet'], type: 'mcq',
-    q: 'ข้อใดผิดเกี่ยวกับ rumen',
-    options: [
-      'ประกอบด้วย dorsal sac and ventral sac',
-      'ทำหน้าที่ในการหมัก',
-      'มีสันแยกระหว่าง reticulum',
-      'กระเพาะที่ใหญ่ที่สุดของวัว',
-      'เวลาป้อนแม่เหล็กคือแม่เหล็กอยู่ส่วนนี้',
-    ],
-    answer: 4,
-    explain: 'แม่เหล็กที่ป้อนเข้าไปจะลงไปอยู่ที่ reticulum (กระเพาะส่วนหน้า, หนักที่สุด, gravity-dependent) ไม่ใช่ rumen, เป้าหมายคือดูดเหล็กแหลมที่ก่อ Hardware disease (traumatic reticuloperitonitis)',
-    verified: 'TJ p3 + พี่พล/sunsun84 highlighted E' },
 
-  { id: 3001, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
-    source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q2', sourceType: 'past-paper',
-    tags: ['past-paper', 'rumenotomy', 'indications'], type: 'mcq',
-    q: 'ข้อไหนไม่ใช่ indications ในการทำ rumenotomy',
-    options: ['Hardware disease', 'Frothy bloat', 'Software disease', 'Choke', 'Impaction'],
-    answer: 2,
-    explain: 'Software disease ไม่มีอยู่จริง, เป็น distractor, indications จริง: Hardware disease, frothy bloat (severe), choke (rumen-side), impaction, foreign body, rumen wash',
-    verified: 'TJ p3 highlighted C' },
 
   { id: 3002, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q3', sourceType: 'past-paper',
@@ -748,38 +726,8 @@ export const QB_PRACTRUM = [
     explain: 'ลูกวัวยังเป็น monogastric functional (rumen ไม่ทำงานเต็มที่ก่อน 6 สัปดาห์), ระบบเสี่ยง hypoglycemia + hypothermia ถ้าอดอาหาร, จึงไม่ต้องอด ต่างจากวัวโตที่อด 24-36 ชม.',
     verified: 'TJ p3 highlighted A' },
 
-  { id: 3003, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
-    source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q4', sourceType: 'past-paper',
-    tags: ['past-paper', 'xylazine', 'dose-calculation', 'standing'], type: 'mcq',
-    q: 'จะต้องใช้ xylazine กี่ ml ในวัวที่มีน้ำหนัก 500 kg ในการทำ rumenotomy (standing position) โดยใช้ความเข้มข้น 20 mg/ml',
-    options: ['0.01', '0.05', '0.1', '0.5', '1.0'],
-    answer: 3,
-    explain: 'Standing rumenotomy xylazine dose ~0.02 mg/kg (low to maintain standing), 500 kg × 0.02 = 10 mg ÷ 20 mg/ml = 0.5 ml, Dose recumbent จะสูงกว่า (0.1 mg/kg) แต่ standing ต้องน้อยเพื่อไม่ให้ล้ม',
-    verified: 'TJ p3 highlighted D' },
 
-  { id: 3004, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
-    source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q5', sourceType: 'past-paper',
-    tags: ['past-paper', 'lidocaine', 'duration'], type: 'mcq',
-    q: 'ถ้าใช้ lidocaine จะต้องทำหัตถการภายในกี่นาที',
-    options: ['15 นาที', '30 นาที', '90 นาที', '180 นาที', '360 นาที'],
-    answer: 2,
-    explain: 'Lidocaine onset 5-10 นาที, duration ~ 60-90 นาที, ต้องทำหัตถการเสร็จภายใน 90 นาทีก่อน block หมดฤทธิ์, Bupivacaine จะนานกว่า ~ 4-8 ชม. แต่ onset ช้ากว่า',
-    verified: 'TJ p3 highlighted C' },
 
-  { id: 3005, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
-    source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q6', sourceType: 'past-paper',
-    tags: ['past-paper', 'paravertebral', 'landmark'], type: 'mcq',
-    q: 'ถ้าต้องการจะทำ paravertebral nerve block ที่ L1 spinal nerve จะต้องมีอะไรเป็น landmark',
-    options: [
-      'Transverse process of T13',
-      'Transverse process of L1',
-      'Transverse process of L2',
-      'Transverse process of L3',
-      'Transverse process of L4',
-    ],
-    answer: 2,
-    explain: 'L1 spinal nerve ออกมาทาง caudal ของ TP L1 → ใช้ TP L2 (ตัวที่อยู่ caudal กว่า) เป็น landmark, หลัก "block n nerve → use TP n+1 as landmark" สำหรับ proximal paravertebral block',
-    verified: 'TJ p4 highlighted C' },
 
   { id: 3006, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q7', sourceType: 'past-paper',
@@ -790,20 +738,6 @@ export const QB_PRACTRUM = [
     explain: 'Caudal epidural ในวัว 2 ตำแหน่งมาตรฐาน: (1) S5-Co1 = sacrococcygeal junction (high caudal, ตำแหน่งในข้อสอบ) (2) Co1-Co2 = 1st intercoccygeal space (low caudal, ใช้บ่อยกว่าใน routine), คลำหา joint โดยยกหางขึ้น-ลง, block tail + perineum + posterior vagina, ปริมาณ 5-7 ml lidocaine 2%',
     verified: 'TJ p4 highlighted E + Roberts Veterinary Obstetrics' },
 
-  { id: 3007, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
-    source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q8', sourceType: 'past-paper',
-    tags: ['past-paper', 'paravertebral', 'success-indicator'], type: 'mcq',
-    q: 'ข้อใดเป็นสิ่งที่สำคัญที่สุดที่จะบอกได้ว่าทำ paravertebral nerve block สำเร็จแล้ว',
-    options: [
-      'อุณหภูมิสูงขึ้น',
-      'ความเจ็บปวด (ทดสอบด้วยเข็ม)',
-      'ท่าเดินผิดปกติ',
-      'ระยะเวลาที่ออกฤทธิ์',
-      'สีผิวหนังเปลี่ยนไป',
-    ],
-    answer: 1,
-    explain: 'Test ด้วยเข็มจิ้ม (pin-prick test) ที่บริเวณที่ block ครอบคลุม, ถ้าวัวไม่ตอบสนองต่อความเจ็บปวด = block สำเร็จ, อาการอื่น (skin warm, scoliosis curve toward block side) เป็น secondary signs',
-    verified: 'TJ p4 highlighted B' },
 
   { id: 3008, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
     source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q9', sourceType: 'past-paper',
@@ -814,20 +748,6 @@ export const QB_PRACTRUM = [
     explain: 'Propofol = IV induction agent สำหรับสัตว์เล็ก, ในวัวต้อง IV access ใหญ่ + เสี่ยง regurgitation + bloat, standing rumenotomy ใช้ local (lidocaine) + sedation (xylazine) + post-op analgesia (flunixin) + antibiotic (procaine penicillin), หมายเหตุ: บางเวอร์ชั่นข้อสอบเปลี่ยน Propofol เป็น Cefazolin (sunsun84 marked B5-on propofol) — Cefazolin (1st gen ceph) ก็ไม่ได้ใช้ใน food animal เพราะ withdrawal time ปัญหา ตอบเหมือนกัน',
     verified: 'TJ p5 highlighted D' },
 
-  { id: 3009, subject: 'practrum', topic: 'mahahon-practrum-surgery', year: 4,
-    source: '(Final) Prac Rum 🐄📍.pdf p3 + TJ Q10', sourceType: 'past-paper',
-    tags: ['past-paper', 'rumenotomy', 'closure', 'suture-pattern'], type: 'mcq',
-    q: 'ข้อใดถูกต้องเกี่ยวกับการเย็บปิด rumen',
-    options: [
-      'เย็บ simple continuous 1 ชั้น',
-      'เย็บ simple continuous 2 ชั้น',
-      'เย็บ simple continuous และ continuous Lembert รวมทั้งหมดเป็น 2 ชั้น',
-      'เย็บ simple continuous และ horizontal mattress รวมทั้งหมดเป็น 2 ชั้น',
-      'เย็บ simple continuous และ vertical mattress รวมทั้งหมดเป็น 2 ชั้น',
-    ],
-    answer: 2,
-    explain: 'Rumen closure: ชั้นใน Cushing (simple continuous inverting) ที่ mucosa-submucosa + ชั้นนอก continuous Lembert (inverting) ที่ seromuscular = 2 ชั้น invert ป้องกัน leak, ใช้ absorbable suture (Vicryl 0/2-0)',
-    verified: 'TJ p5 highlighted C' },
 
   // ── อ.น้ำ Silage / Feed Management (ภาคสัตวบาล, 10 ข้อปรนัย) ──
   { id: 3010, subject: 'practrum', topic: 'mahahon-practrum-silage', year: 4,

@@ -17,7 +17,7 @@
 
 export const QB_TERMPAPER = [
   // ── Group 1: Nutritional management for neutered dogs ────────
-  { id: 2200, subject: 'repro-lect', topic: 'group01-nutrition-neutered', year: 4,
+  { id: 52057, subject: 'repro-lect', topic: 'group01-nutrition-neutered', year: 4,
     source: 'Repro Final 86 master p41 Term Paper Group 1',
     sourceType: 'student-compilation',
     tags: ['nutrition', 'neutered', 'obesity-prevention'], type: 'mcq',
@@ -34,7 +34,7 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 1 (PDF p41 highlight + เฉลย)' },
 
   // ── Group 2: Pharmacological Management of BPH ────────────
-  { id: 2201, subject: 'repro-lect', topic: 'group02-bph-pharmacology', year: 4,
+  { id: 52058, subject: 'repro-lect', topic: 'group02-bph-pharmacology', year: 4,
     source: 'Repro Final 86 master p41 Term Paper Group 2',
     sourceType: 'student-compilation',
     tags: ['BPH', 'deslorelin', 'GnRH-agonist', 'cardiac-patient'], type: 'mcq',
@@ -51,7 +51,7 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 2 (PDF p41 highlight + เฉลย)' },
 
   // ── Group 3: Gene Editing Technologies ────────────────────
-  { id: 2202, subject: 'repro-lect', topic: 'group03-gene-editing', year: 4,
+  { id: 52059, subject: 'repro-lect', topic: 'group03-gene-editing', year: 4,
     source: 'Repro Final 86 master p41-42 Term Paper Group 3',
     sourceType: 'student-compilation',
     tags: ['gene-editing', 'ZFN', 'TALEN', 'CRISPR', 'specificity'], type: 'mcq',
@@ -68,7 +68,7 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 3 (PDF p42 highlight + เฉลย)' },
 
   // ── Group 4: Dermato-Reproductive Diseases ────────────────
-  { id: 2203, subject: 'repro-lect', topic: 'group04-dermato-repro', year: 4,
+  { id: 52060, subject: 'repro-lect', topic: 'group04-dermato-repro', year: 4,
     source: 'Repro Final 86 master p42 Term Paper Group 4',
     sourceType: 'student-compilation',
     tags: ['Alopecia-X', 'Pomeranian', 'melatonin', 'deslorelin'], type: 'mcq',
@@ -187,7 +187,7 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 10 (PDF p44 highlight + เฉลย)' },
 
   // ── Group 11: GnRH Agonists in Pig ─────────────────────────
-  { id: 2210, subject: 'repro-lect', topic: 'group11-buserelin-pig', year: 4,
+  { id: 52061, subject: 'repro-lect', topic: 'group11-buserelin-pig', year: 4,
     source: 'Repro Final 86 master p44 Term Paper Group 11',
     sourceType: 'student-compilation',
     tags: ['buserelin', 'GnRH-agonist', 'pituitary', 'pig'], type: 'mcq',
@@ -198,7 +198,7 @@ export const QB_TERMPAPER = [
     verified: 'Term Paper Group 11 (PDF p44 highlight + เฉลย)' },
 
   // ── Group 12: NEB in Postpartum Dairy Cow ─────────────────
-  { id: 2211, subject: 'repro-lect', topic: 'group12-NEB-dairy', year: 4,
+  { id: 52062, subject: 'repro-lect', topic: 'group12-NEB-dairy', year: 4,
     source: 'Repro Final 86 master p45 Term Paper Group 12',
     sourceType: 'student-compilation',
     tags: ['NEB', 'negative-energy-balance', 'dairy-cow', 'postpartum'], type: 'mcq',

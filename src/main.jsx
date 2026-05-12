@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { startWebVitals } from './lib/web-vitals.js'
 import { unlockAudio } from './lib/audio-unlock.js'
+import { applyIdMigration } from './lib/id-migration.js'
+
+// One-time migration of user-stored Q IDs after the 2026-05-13 renumber
+// of 165 cross-subject ID collisions. Runs once per browser (gated by
+// `vmx-id-migration-v1` flag). No-op for users who never had history.
+applyIdMigration()
 
 // Begin Core Web Vitals monitoring before React mounts so we capture
 // FCP / LCP from the very first paint. Zero deps, zero UI impact —
