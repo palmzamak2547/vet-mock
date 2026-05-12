@@ -673,7 +673,7 @@ export const QB_POULTRY = [
 
   // ════════════════════════════════════════════════════════════════════
   // Kim85 Poultry Final Vet 83 (Kimchii85's compilation) — added 2026-05-03
-  // Source: 🌻โพย 🐓 (final) Kim85.pdf, pages 3-9 (Aj. Somsak + zoonoses
+  // Source: 🌻สรุป 🐓 (final) Kim85.pdf, pages 3-9 (Aj. Somsak + zoonoses
   // + Aj. Nakcha sections only — Drug + QA in other source files)
   // ════════════════════════════════════════════════════════════════════
 
@@ -1799,42 +1799,42 @@ export const QB_POULTRY = [
     verified: 'TJ p2 #16' },
 
   // ════════════════════════════════════════════════════════════════════
-  // ── 🐺 NEW Vet 85 confirmed Q's from รวมโพยไก่ (รวมโพย 82 หน้า)
+  // ── 🐺 NEW Vet 85 confirmed Q's from สรุปรวมไก่ (สรุปรวม 82 หน้า)
   // 'ออกตามนี้ ⭐' markers + content in compilation page 1-82 by [students]
   // Spread across all 6 final-scope topics
   // ════════════════════════════════════════════════════════════════════
 
   // ── L10-11 Drugs additions (Vet 85 explicit "ออกตามนี้") ──
   { id: 4046, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
-    source: 'รวมโพยไก่ p32 (Vet 85 "ออกตามนี้" marker)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p32 (Vet 85 "ออกตามนี้" marker)', sourceType: 'student-compilation',
     tags: ['enrofloxacin', 'banned-broiler', 'banned-layer', 'fluoroquinolone'], type: 'mcq',
     q: 'ยาที่ห้ามใช้ทั้งในไก่เนื้อและไก่ไข่ (Vet 85 ออกตรงๆ — มี 2 ข้อตอบ enrofloxacin ทั้งคู่)',
     options: ['Enrofloxacin', 'Penicillin', 'Tylosin', 'Doxycycline'],
     answer: 0,
     explain: 'Enrofloxacin = Fluoroquinolones, กรมปศุสัตว์ห้ามใช้ในไก่ไข่และไก่เนื้อเด็ดขาด เพราะ EU ห้ามใช้ในสัตว์อาหาร (50% ส่งออก EU), เป็น Extra-label use ที่ห้าม, ไทยส่งออก EU 50% + JP 40% → ระเบียบยึด EU เป็นหลัก\n\n💡 กลุ่ม Fluoroquinolones',
-    verified: 'รวมโพยไก่ p32 (Vet 85 "ออกตามนี้") + p36-39 by praewpsr' },
+    verified: 'สรุปรวมไก่ p32 (Vet 85 "ออกตามนี้") + p36-39 by praewpsr' },
 
   { id: 4047, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
-    source: 'รวมโพยไก่ p32 (Vet 85 "ออกตามนี้") + p1361 detail', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p32 (Vet 85 "ออกตามนี้") + p1361 detail', sourceType: 'student-compilation',
     tags: ['ionophores', 'anticoccidial', 'salinomycin', 'monensin'], type: 'mcq',
     q: 'ยาในกลุ่ม Ionophores (Anticoccidial drugs ที่อนุญาตให้ผสมในอาหารสัตว์ปีก) ได้แก่',
     options: ['Amprolium, Diclazuril, Toltrazuril', 'Piperazine, Levamisole, Benzimidazole', 'Sulfa, Trimethoprim, Doxycycline', 'Salinomycin, Monensin'],
     answer: 3,
     explain: 'Ionophores = Salinomycin, Monensin, Lasalocid, Narasin, Maduramicin, Semduramicin, ทำงานโดยรบกวน ion transport ใน Eimeria, เป็น Anticoccidial ที่อนุญาตให้ผสมในอาหาร (preventive), Amprolium = thiamine analog, Nicarbazine = bind receptor (ใช้ใน wild bird control นกพิราบ)',
-    verified: 'รวมโพยไก่ p32 + p36' },
+    verified: 'สรุปรวมไก่ p32 + p36' },
 
   { id: 4048, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
-    source: 'รวมโพยไก่ p37-39 (Antiparasitic drugs)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p37-39 (Antiparasitic drugs)', sourceType: 'student-compilation',
     tags: ['eimeria', 'coccidia', 'cecum', 'jejunum', 'duodenum'], type: 'mcq',
     q: 'ตำแหน่งเฉพาะของ Eimeria แต่ละสายพันธุ์ในลำไส้ไก่',
     options: ['E. tenella = cecum (ถ่ายเป็นเลือด), E. necatrix = jejunum, E. acervulina = duodenum', 'E. tenella = duodenum, E. acervulina = cecum, E. necatrix = jejunum', 'ทุกสายพันธุ์อยู่ที่ duodenum', 'E. tenella = jejunum, E. necatrix = cecum'],
     answer: 0,
     explain: 'E. tenella → cecum (ถ่ายเป็นเลือดเด่น), E. necatrix → jejunum, E. acervulina → duodenum (เจอหลักในไทย), Treatment = Toltrazuril, Amprolium, Clopidol, Prevention = Nicarbazine, Ionophores (Narasin), Rotation/Shuttle programs ต้องเปลี่ยนยาทุก 2 crops',
-    verified: 'รวมโพยไก่ p37 (slide ของ อ.นิวัตร)' },
+    verified: 'สรุปรวมไก่ p37 (slide ของ อ.นิวัตร)' },
 
   // ── L9 Biosecurity additions ──
   { id: 4049, subject: 'poultry', topic: 'mahahon-poultry-biosec', year: 4,
-    source: 'รวมโพยไก่ p13 (Aj.ณทยา dead bird disposal)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p13 (Aj.ณทยา dead bird disposal)', sourceType: 'student-compilation',
     tags: ['mortality-benchmark', 'parent-broiler', 'dead-bird'], type: 'mcq',
     q: 'อัตราการตายปกติในแต่ละประเภทฝูง — เมื่อเกินค่าใดต้องตรวจสอบเพิ่ม',
     options: [
@@ -1845,46 +1845,46 @@ export const QB_POULTRY = [
     ],
     answer: 0,
     explain: 'Parent breeder: >0.3/1,000/day = ผิดปกติ (ฟาร์ม 10,000 ตัว = >3 ตัว/วัน ผิดปกติ), Broiler: >1/1,000/day = ผิดปกติ (10,000 ตัว = >10 ตัว/วัน), ตัวเลขเหล่านี้คือ trigger ให้สำรวจเพิ่ม + ผ่าซากในฝูงเพื่อหาสาเหตุ',
-    verified: 'รวมโพยไก่ p13 (Aj.ณทยา slide)' },
+    verified: 'สรุปรวมไก่ p13 (Aj.ณทยา slide)' },
 
   { id: 4050, subject: 'poultry', topic: 'mahahon-poultry-biosec', year: 4,
-    source: 'รวมโพยไก่ p27 (Crop fill 24h)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p27 (Crop fill 24h)', sourceType: 'student-compilation',
     tags: ['crop-fill', '24-hour', 'first-week'], type: 'fill',
     q: 'การประเมิน Crop full filling ของลูกไก่หลังเข้าโรงเรือน 24 ชม. — ต้องมีอาหารใน crop ไม่ต่ำกว่า ____ % (สุ่ม 100 ตัว/วงกก), ถ้าพบ crop แข็ง >15% = น้ำไม่พอ, crop บวมขยาย >15% = อาหารไม่พอ',
     blanks: ['80-100'],
     explain: 'Crop fulfilling 24-hour rule: 80-100% ของลูกไก่ต้องมี crop ที่นิ่ม ยืดหยุ่น มีทั้งอาหารและน้ำ, ถ้า >15% crop แข็ง → ไปตรวจน้ำดื่ม, ถ้า >15% crop ใหญ่บวม → ตรวจอาหาร, ตรวจที่ 8 hr หลังเข้าโรงเรือน + ช่วงเช้าวันถัดมา',
-    verified: 'รวมโพยไก่ p27 (Aj.ณทยา) + Aj.เกรียงวิทย์ first-week' },
+    verified: 'สรุปรวมไก่ p27 (Aj.ณทยา) + Aj.เกรียงวิทย์ first-week' },
 
   // ── L14 First-week additions (Pasgar + Bedding + acute death viruses) ──
   { id: 4051, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
-    source: 'รวมโพยไก่ p79-80 (Aj.เกรียงวิทย์ + Pasgar score detail)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p79-80 (Aj.เกรียงวิทย์ + Pasgar score detail)', sourceType: 'student-compilation',
     tags: ['acute-death', 'viruses', 'list', 'CAV', 'IBD', 'AE'], type: 'mcq',
     q: 'ไวรัสในลูกไก่สัปดาห์แรกที่ทำให้เกิด acute death ได้ มีกี่ชนิดและคืออะไร',
     options: ['ND, IB, AI, IBD, AE, CAV', 'มีแค่ AI ตัวเดียว', 'ND และ IB เท่านั้น', 'มี Mycoplasma เป็นไวรัสที่ก่อ acute death'],
     answer: 0,
     explain: 'Acute death viruses ในไก่สัปดาห์แรก: ND (GI+neuro+respi), IB (respi only), AI (Hbg), IBD (GI bursa+Pro+gizzard), AE (GI+neuro), CAV (Chicken Anemia Virus → Blue Wing Disease), ทำลาย Bone Marrow + Thymus + Bursa\n\n💡 6 ชนิด — ทุกตัวสามารถก่อ acute death ได้',
-    verified: 'รวมโพยไก่ p79' },
+    verified: 'สรุปรวมไก่ p79' },
 
   { id: 4052, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
-    source: 'รวมโพยไก่ p78 (Bedding WHC/WRC)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p78 (Bedding WHC/WRC)', sourceType: 'student-compilation',
     tags: ['bedding', 'rice-husk', 'WHC', 'WRC'], type: 'fill',
     q: 'วัสดุรองพื้น (bedding) ใช้แกลบในอัตรา ____ kg/m² (พิจารณาคุณสมบัติ Water Holding Capacity + Water Releasing Capacity)',
     blanks: ['4'],
     explain: 'แกลบ 4 kg/m², WHC = Water Holding Capacity (อุ้มน้ำ), WRC = Water Releasing Capacity (ปล่อยน้ำ), แกลบปล่อยน้ำได้เองในระยะเวลาที่เหมาะสม → แห้งเองได้, ป้องกัน wet litter + Vent pasting',
-    verified: 'รวมโพยไก่ p78 (Aj.เกรียงวิทย์)' },
+    verified: 'สรุปรวมไก่ p78 (Aj.เกรียงวิทย์)' },
 
   // ── L12 QA additions (5 species + Salmonella vs lecturer) ──
   { id: 4053, subject: 'poultry', topic: 'mahahon-poultry-qa', year: 4,
-    source: 'รวมโพยไก่ p2807 (เนื้อหา Betagro food safety)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p2807 (เนื้อหา Betagro food safety)', sourceType: 'student-compilation',
     tags: ['salmonella', 'parent', 'broiler', 'monitoring'], type: 'mcq',
     q: 'Salmonella สายพันธุ์ที่ต้องเฝ้าระวังในฟาร์มไก่ — สำหรับไก่เนื้อ vs ไก่พ่อแม่พันธุ์',
     options: ['มีแค่ S. Pullorum ตัวเดียว', 'ไก่เนื้อ 5 spp, ไก่พ่อแม่พันธุ์ 2 spp', 'ใช้สายพันธุ์เดียวกันทุกแบบ', 'ไก่เนื้อ 2 spp: S. Enteritidis + S. Typhimurium'],
     answer: 3,
     explain: 'Broiler 2 spp: S. Enteritidis + S. Typhimurium (food-borne ในคน), Parent breeder 5 spp: + S. Virchow + S. Infantis + S. Hadar (host adaptation + vertical transmission concern), Monitoring: parent breeder ทุก 2 wk, broiler ทุก 21 d, ป้องกันโดย VC ในพ่อแม่พันธุ์ + ฆ่าเชื้ออาหาร/น้ำ\n\n💡 ไก่พ่อแม่พันธุ์ 5 spp: + S. Virchow + S. Infantis + S. Hadar',
-    verified: 'รวมโพยไก่ p2807 (Betagro QA)' },
+    verified: 'สรุปรวมไก่ p2807 (Betagro QA)' },
 
   { id: 4054, subject: 'poultry', topic: 'mahahon-poultry-qa', year: 4,
-    source: 'รวมโพยไก่ p2832 (Welfare beak trimming)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p2832 (Welfare beak trimming)', sourceType: 'student-compilation',
     tags: ['beak-trimming', 'infrared', 'hatchery', 'welfare'], type: 'mcq',
     q: 'ปัจจุบันการตัดปาก (beak trimming) ในไก่ทำอย่างไรเพื่อให้สอดคล้องกับ animal welfare',
     options: [
@@ -1895,61 +1895,61 @@ export const QB_POULTRY = [
     ],
     answer: 2,
     explain: 'ปัจจุบันห้ามตัดปาก + หงอนด้วยใบมีดร้อนแล้ว, ใช้ Infrared ที่โรงฟักทำให้ปลายปากเป็นเนื้อตาย แล้วหลุดออกเอง → ลด pain + welfare ดีกว่า, ไม่ตัดปากในไก่พ่อแม่พันธุ์เลย',
-    verified: 'รวมโพยไก่ p2832-2836 (Betagro)' },
+    verified: 'สรุปรวมไก่ p2832-2836 (Betagro)' },
 
   { id: 4055, subject: 'poultry', topic: 'mahahon-poultry-qa', year: 4,
-    source: 'รวมโพยไก่ p2832 (Welfare standards)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p2832 (Welfare standards)', sourceType: 'student-compilation',
     tags: ['light-intensity', 'lux', 'pullet', 'production'], type: 'mcq',
     q: 'ความเข้มแสง (Light intensity) ที่แนะนำในไก่ไข่ — ระยะ pullet vs ระยะให้ไข่ (production)',
     options: ['Pullet 5 lux, Production 100 lux', 'Pullet 50 lux, Production 20 lux', 'Pullet 100 lux, Production 200 lux', 'ใช้แสงเท่ากันตลอด'],
     answer: 1,
     explain: 'Pullet 50 lux (ระยะเด็ก ส่งเสริม activity + feed intake), Production 20 lux (ลดความเครียด + ลด pecking behavior + ป้องกันไข่ออกเร็วเกิน), Density: 33 หรือ 39 หรือ 30 kg/m² (ขึ้นกับมาตรฐาน Betagro vs สากล)',
-    verified: 'รวมโพยไก่ p2832 (Betagro)' },
+    verified: 'สรุปรวมไก่ p2832 (Betagro)' },
 
   // ── L8 Nutrition additions (antinutritional + Maillard) ──
   { id: 4056, subject: 'poultry', topic: 'mahahon-poultry-nutrition', year: 4,
-    source: 'รวมโพยไก่ p3 (Aj.หทัยรัตน์ Maillard reaction)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p3 (Aj.หทัยรัตน์ Maillard reaction)', sourceType: 'student-compilation',
     tags: ['maillard', 'lysine', 'heat-treatment', 'soybean'], type: 'fill',
     q: 'การให้ความร้อนกับกากถั่วเหลืองสูงเกินไป (>____ °C) → เกิด Maillard reaction → Lysine จับกับน้ำตาล → ใช้ประโยชน์ไม่ได้ ลดลง > ____ %',
     blanks: ['135', '50'],
     explain: 'Maillard reaction = Lysine (กรดอะมิโนหมายเลข 1) จับกับน้ำตาล reducing sugar ที่ความร้อน >135°C, ทำให้ไก่ใช้ประโยชน์ Lysine ไม่ได้, Lysine availability ลดลง >50%, จึงต้อง heat treat ถั่วเหลืองในระดับที่เหมาะสมแค่ทำลาย trypsin inhibitor (~110-120°C)',
-    verified: 'รวมโพยไก่ p3 (Aj.หทัยรัตน์)' },
+    verified: 'สรุปรวมไก่ p3 (Aj.หทัยรัตน์)' },
 
   { id: 4057, subject: 'poultry', topic: 'mahahon-poultry-nutrition', year: 4,
-    source: 'รวมโพยไก่ p3 (Aj.หทัยรัตน์ Mycotoxin contamination)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p3 (Aj.หทัยรัตน์ Mycotoxin contamination)', sourceType: 'student-compilation',
     tags: ['mycotoxin', 'aflatoxin', 'limit', 'broiler-layer'], type: 'mcq',
     q: 'ค่ามาตรฐาน Aflatoxin สูงสุดในอาหารไก่สำเร็จรูป — ระหว่างไก่ไข่ vs ไก่เนื้อ',
     options: ['ไก่ไข่ >100 μg/kg, ไก่เนื้อ >30 μg/kg', 'ไก่ไข่ >30 μg/kg, ไก่เนื้อ >100 μg/kg', 'เท่ากัน 100 μg/kg ทั้งคู่', 'ไม่มีค่ามาตรฐาน'],
     answer: 0,
     explain: 'อาหารไก่สำเร็จรูปไก่ไข่ >100 μg/kg = ไม่ผ่าน, ไก่เนื้อ >30 μg/kg = ไม่ผ่าน (sensitive กว่า เพราะไก่เด็กกินไวกว่า + กินอาหารปริมาณมาก), ใช้ HSCAS, Zeolite, Clay เป็น mycotoxin binder, Bacterial limit >8x10⁶ CFU/g, Fungal limit >1x10⁶ CFU/g\n\n💡 ไก่เนื้อ sensitive กว่า',
-    verified: 'รวมโพยไก่ p3 (Aj.หทัยรัตน์)' },
+    verified: 'สรุปรวมไก่ p3 (Aj.หทัยรัตน์)' },
 
   { id: 4058, subject: 'poultry', topic: 'mahahon-poultry-nutrition', year: 4,
-    source: 'รวมโพยไก่ p3 (สารต่อต้านในวัตถุดิบ Aj.หทัยรัตน์)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p3 (สารต่อต้านในวัตถุดิบ Aj.หทัยรัตน์)', sourceType: 'student-compilation',
     tags: ['antinutritional', 'rapeseed', 'cottonseed', 'sunflower'], type: 'mcq',
     q: 'จับคู่ "วัตถุดิบทดแทนกากถั่วเหลือง" กับ "สารต่อต้าน/ข้อจำกัด" — ข้อใดถูกต้อง',
     options: ['Rapeseed meal → Glucosinolates', 'Cottonseed meal → Trypsin inhibitor', 'Sunflower meal → Mimosine', 'Palm kernel meal → Aflatoxin'],
     answer: 0,
     explain: 'Rapeseed (กากผักกาด) → Glucosinolates ยับยั้ง thyroxine synthesis → hypothyroidism, Cottonseed → Gossypol (ผูกโปรตีน + เป็นพิษต่อ heart), Sunflower meal → fiber สูง แต่ Methionine ดี, Palm kernel → fiber สูง, Leucaena (ใบกระถิน) → Mimosine (กระทบ thyroid → แก้โดย heat 70%) + Xanthophyll x30 ของข้าวโพด, Sorghum → Tannin (ลดย่อย protein)\n\n💡 ยับยั้งสังเคราะห์ Thyroxine',
-    verified: 'รวมโพยไก่ p3 (Aj.หทัยรัตน์)' },
+    verified: 'สรุปรวมไก่ p3 (Aj.หทัยรัตน์)' },
 
   // ── L13 Zoonosis additions (Erysipelas vaccination + WNV + AI HPAI) ──
   { id: 4059, subject: 'poultry', topic: 'mahahon-poultry-zoonosis', year: 4,
-    source: 'รวมโพยไก่ p64-65 (Erysipelas detail)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p64-65 (Erysipelas detail)', sourceType: 'student-compilation',
     tags: ['erysipelas', 'erysipeloid', 'vaccine', 'turkey'], type: 'mcq',
     q: 'Erysipelas (Erysipelothrix rhusiopathiae) ในไก่ — โปรแกรมวัคซีน + อาการเด่น + สัตว์เสี่ยงสูง',
     options: ['วัคซีน 1 เข็มเท่านั้น, อาการ = neuro signs, เสี่ยงสูง = chicken broiler', 'ฉีดวัคซีนทุกสัปดาห์', 'ไม่มีวัคซีน, ต้องใช้ antibiotic ตลอดชีวิต', 'วัคซีน 2 เข็ม ห่างกัน 2-4 wk, อาการเด่น = sudden death + skin darkening, เสี่ยงสูง = Turkey + Cage-free layer'],
     answer: 3,
     explain: 'Erysipelas vaccine: 2 doses ห่างกัน 2-4 wk, ในฝูงไม่ฉีด morbidity+mortality >40-50%, อาการ = sudden death (vegetative endocarditis) + skin darkening + spleen/liver enlargement, Treatment = Penicillin / Erythromycin, ในคน = Erysipeloid (เจ็บ บวม สีเข้ม) จาก wound infection, Turkey + Cage-free layer = highest risk, ตัวผู้ในไก่งวงไวต่อโรคมากกว่า + อายุมาก',
-    verified: 'รวมโพยไก่ p64-65' },
+    verified: 'สรุปรวมไก่ p64-65' },
 
   { id: 4060, subject: 'poultry', topic: 'mahahon-poultry-zoonosis', year: 4,
-    source: 'รวมโพยไก่ p66 (HPAI vs LPAI)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p66 (HPAI vs LPAI)', sourceType: 'student-compilation',
     tags: ['avian-influenza', 'HPAI', 'LPAI', 'IVPI', 'cleavage-site'], type: 'mcq',
     q: 'ความแตกต่างระหว่าง LPAI vs HPAI (Avian Influenza)',
     options: ['LPAI = ทุก subtype, IVPI ≤ 1.2, ไม่มี multiple basic AAs', 'LPAI = H5/H7 เท่านั้น, HPAI = ไม่มีในธรรมชาติ', 'ไม่มีความแตกต่าง — เป็นโรคเดียวกัน', 'LPAI = high mortality, HPAI = no mortality'],
     answer: 0,
     explain: 'LPAI = Low Pathogenic AI, ทุก subtype, IVPI (Intravenous Pathogenicity Index) ≤ 1.2, ก่อโรคเฉพาะที่ทางเดินหายใจ + GI, ไม่มี multiple basic AAs ที่ HA cleavage site, HPAI = H5, H7 subtypes, IVPI > 1.2, มี multiple basic AAs (HA cleavage by ubiquitous proteases) → ทำให้ไวรัสกระจายไปทุกอวัยวะได้, H5N1 = ไทย 2004 = 17 human cases/12 deaths, LBMs = Live Bird Markets เสี่ยง\n\n💡 HPAI = H5/H7, IVPI > 1.2, มี multiple basic AAs ที่ cleavage site',
-    verified: 'รวมโพยไก่ p66 (Aj.กมลพรรณ)' },
+    verified: 'สรุปรวมไก่ p66 (Aj.กมลพรรณ)' },
 
 ];

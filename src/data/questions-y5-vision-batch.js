@@ -3,10 +3,10 @@
 // ──────────────────────────────────────────────────────────────────
 // Extracted: 2026-05-12 · ID range 8550-8699 (150-slot, used: 8550-8579)
 //
-// Source PDFs (all in Year5/extracted/term 2/รวมโพย final/):
+// Source PDFs (all in Year5/extracted/term 2/สรุปรวม final/):
 //   File A — "4. ข้อสอบพยาธิชีววิทยาปฏิบัติ ปี 5.pdf" (32p · cid:xxx Thai garble · English+answer-key recoverable)
 //   File B — "9. ข้อสอบฝึกงานคลินิกสูติกรรม ปี 5.pdf" (4p · same cid:xxx · abbreviation list recoverable)
-//   File C — "โพย Swine Med 84 จากผุ้ใหย่ใจดี.pdf" (11p · image-only handwriting · BAILED 2026-05-12)
+//   File C — "สรุป Swine Med 84 จากผุ้ใหย่ใจดี.pdf" (11p · image-only handwriting · BAILED 2026-05-12)
 //   File D — "รวมๆข้อมูลไฟนอล เยอะมาก.pdf" (12p · clean Thai OSCE prep doc · highest yield)
 //
 // Extraction method:

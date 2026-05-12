@@ -1,7 +1,7 @@
 // ──────────────────────────────────────────────────────────────────
 // Y5 Swine Clinical Practice — Past-paper SAQ bank
 // ──────────────────────────────────────────────────────────────────
-// Source: [swine clin prac] รวมโพยเท่าที่เจอมา.pdf (รวมโพย swine clin prac)
+// Source: [swine clin prac] สรุปรวมเท่าที่เจอมา.pdf (สรุปรวม swine clin prac)
 // 1 page dense · 10 SAQ items · year unknown
 // Converted to MCQ where a clean answer frame exists;
 // kept as type:'short' for open-ended "yk 2 clinical signs" / list questions.
@@ -10,7 +10,7 @@
 
 export const QB_Y5_SWINE_CLINIC = [
   { id: 8350, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #1',
     tags: ['herd observation', 'sick pig identification'], type: 'mcq',
     q: 'ในคอกสุกรที่อยู่รวมกัน วิธีสังเกตหาตัวที่ป่วยเบื้องต้น ข้อใดถูกต้องที่สุด',
@@ -26,7 +26,7 @@ export const QB_Y5_SWINE_CLINIC = [
     verified: 'swine clin prac p.1 Q1' },
 
   { id: 8351, subject: 'swine-clinic', topic: 'swine-ileitis-bacti', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #2',
     tags: ['swine dysentery', 'Brachyspira hyodysenteriae', 'mucohaemorrhagic'], type: 'mcq',
     q: 'Clinical signs ของ swine dysentery (Brachyspira hyodysenteriae) ในช่วงแรกของการติดเชื้อ มีลักษณะอย่างไร',
@@ -42,7 +42,7 @@ export const QB_Y5_SWINE_CLINIC = [
     verified: 'swine clin prac p.1 Q2' },
 
   { id: 8352, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #3',
     tags: ['vaginal discharge', 'sow reproduction', 'physiological vs pathological'], type: 'mcq',
     q: 'ข้อควรระวังในการตรวจพบ vaginal discharge ในแม่สุกรเพื่อทำ diagnosis ข้อใดถูกต้อง',
@@ -58,7 +58,7 @@ export const QB_Y5_SWINE_CLINIC = [
     verified: 'swine clin prac p.1 Q3' },
 
   { id: 8353, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #4',
     tags: ['atrophic rhinitis', 'Bordetella', 'Pasteurella multocida type D', 'twisted snout'], type: 'mcq',
     q: 'สุกรที่มาด้วยลักษณะ "จมูกบิดเบี้ยว" (twisted/distorted snout) จากโรคติดเชื้อ น่าจะเป็นโรคใด และเชื้อก่อโรคหลักคืออะไร',
@@ -74,7 +74,7 @@ export const QB_Y5_SWINE_CLINIC = [
     verified: 'swine clin prac p.1 Q4 (annotated "type D")' },
 
   { id: 8354, subject: 'swine-clinic', topic: 'swine-gi-viral', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #5',
     tags: ['PED', 'TGE', 'differentiation', 'coronavirus'], type: 'mcq',
     q: 'การแยก clinical signs ระหว่าง PED และ TGE — ข้อความใดถูกต้อง',
@@ -90,7 +90,7 @@ export const QB_Y5_SWINE_CLINIC = [
     verified: 'swine clin prac p.1 Q5 (note: "clinical sign คล้ายกัน ตรวจเพิ่ม PCR")' },
 
   { id: 8355, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #6',
     tags: ['MMA', 'mastitis-metritis-agalactia', 'postpartum sow'], type: 'short',
     q: 'จงยกตัวอย่าง clinical signs 2 แบบ ที่สามารถพบได้ในสุกรแม่พันธุ์ที่เป็น MMA (mastitis-metritis-agalactia) syndrome',
@@ -99,7 +99,7 @@ export const QB_Y5_SWINE_CLINIC = [
     verified: 'swine clin prac p.1 Q6' },
 
   { id: 8356, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #7',
     tags: ['septicemia', 'cyanosis', 'haemorrhage'], type: 'short',
     q: 'จงยกตัวอย่าง clinical signs 2 แบบ ที่สามารถพบได้ในสุกรที่เกิดภาวะ septicemia',
@@ -108,7 +108,7 @@ export const QB_Y5_SWINE_CLINIC = [
     verified: 'swine clin prac p.1 Q7 (annotated "cyanosis / haemorrhage")' },
 
   { id: 8357, subject: 'swine-clinic', topic: 'swine-cns', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #8',
     tags: ['Pseudorabies', 'Aujeszky', 'age-specific signs'], type: 'mcq',
     q: 'Pseudorabies (Aujeszky\'s disease) ในสุกร นอกจากอาการทาง CNS แล้ว สามารถพบ clinical signs แบบใดได้อีก',
@@ -124,7 +124,7 @@ export const QB_Y5_SWINE_CLINIC = [
     verified: 'swine clin prac p.1 Q8' },
 
   { id: 8358, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #9',
     tags: ['arthritis', 'swollen joints', 'Mycoplasma', 'Glässer', 'Streptococcus suis'], type: 'short',
     q: 'จงยกตัวอย่างเชื้อก่อโรค 2 ชนิด ที่สามารถทำให้เกิดข้อบวม (swollen joints / arthritis) ในสุกรได้',
@@ -133,7 +133,7 @@ export const QB_Y5_SWINE_CLINIC = [
     verified: 'swine clin prac p.1 Q9 (annotated "Glässer")' },
 
   { id: 8359, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
-    source: '[swine clin prac] รวมโพยเท่าที่เจอมา.pdf',
+    source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #10',
     tags: ['Sarcoptes scabiei', 'aural hematoma', 'mange'], type: 'mcq',
     q: 'Sarcoptes scabiei เกี่ยวข้องกับการเกิด aural hematoma ในสุกรอย่างไร',

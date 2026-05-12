@@ -6,7 +6,7 @@
 //
 // Two PDFs in /COM III/ยังไม่ได้เช็คว่าเนื้อหาตรงกับที่เรียน2026ไหม/:
 //   • DC3final read!!!.pdf — student copy with red-ink answer marks
-//   • com ani III โพย.pdf  — clean Schoology screenshots (mind maps + same exam)
+//   • com ani III สรุป.pdf  — clean Schoology screenshots (mind maps + same exam)
 //
 // Both PDFs contain the SAME exam. Answers below are taken from the
 // student's red-ink markings on DC3final (cross-verified against the

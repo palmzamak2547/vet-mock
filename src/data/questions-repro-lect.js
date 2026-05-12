@@ -9,7 +9,7 @@
 //   lecture-derived items as "ข้อสอบเก่า".
 //
 // Sources:
-//   - Repro final ค่ดโพย by Kimchii85.pdf
+//   - Repro final คัดสรุป by Kimchii85.pdf
 //   - sunsun84 summaries and mindmaps
 //   - Slide 2026/Lect PDFs only as current-year verification and topic matching
 //

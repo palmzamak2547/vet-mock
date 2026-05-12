@@ -557,13 +557,13 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         ],
       },
       {
-        heading: 'แหล่งอ่านสำรอง — โพย Equine Med (mid) + โพย Anes พี่อันนา',
-        source: 'midterm/โพย + สรุป/ + final/โพย + สรุป/Equine Med โพยนี้Anes.pdf',
+        heading: 'แหล่งอ่านสำรอง — สรุป Equine Med (mid) + สรุป Anes พี่อันนา',
+        source: 'midterm/สรุป + สรุป/ + final/สรุป + สรุป/Equine Med สรุปนี้Anes.pdf',
         body: [
           { bullets: [
             'PDF 6 - 2024 Equine Anesthesia .pdf >100MB → ไม่สามารถ extract pages ได้',
-            'มี **"โพย Anes พี่อันนา ตรงมากแบบเป็นไม้บรรทัด"** ใน final/โพย + สรุป/ → ใช้อ่านเสริม',
-            'มี **"Equine Med โพยนี้Anes.pdf"** เพิ่มเติม',
+            'มี **"สรุป Anes พี่อันนา ตรงมากแบบเป็นไม้บรรทัด"** ใน final/สรุป + สรุป/ → ใช้อ่านเสริม',
+            'มี **"Equine Med สรุปนี้Anes.pdf"** เพิ่มเติม',
           ] },
         ],
       },
@@ -1304,7 +1304,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           { bullets: [
             'Title: **Neonatal & Foal management**',
             'Speaker: **Suphannika Phutthachalee** · Faculty of Veterinary Medicine · Khon Kaen University (KKU), Thailand',
-            'Note: ⭐ มีโพยรุ่นพี่ไว้ (จาก filename)',
+            'Note: ⭐ มีสรุปจากรุ่นพี่ไว้ (จาก filename)',
           ] },
         ],
       },

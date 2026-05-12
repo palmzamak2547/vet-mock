@@ -4,7 +4,7 @@
 // Source:
 //   - "7. ข้อสอบ 81 Anl Repro Clin.pdf" (5 pages · MCQ answer key
 //     + commentary · Vet 81 final · พี่นุ่น = main examiner)
-//   - Vet 83 cover note: "ตรงโพย 30%" — only ~30% of items still
+//   - Vet 83 cover note: "ตรงเฉลย 30%" — only ~30% of items still
 //     reflect current syllabus. Curated to concept-testing Qs over
 //     year-bound trivia.
 //
@@ -548,7 +548,7 @@ export const QB_Y5_REPRO_CLINIC = [
     q: 'สภาวะใดที่จัดเป็น "ฉุกเฉิน" ที่ควรรีบผ่าตัดแก้ไขทันที',
     options: ['Vaginal bleeding (mild)', 'Mummified fetus (no clinical sign)', 'Dystocia (obstructive, fetal distress)', 'Pyometra with peritonitis'],
     answer: 2,
-    explain: 'Dystocia = "true emergency" — fetal hypoxia/death + maternal exhaustion + uterine rupture risk — golden window ~ 2-4 hr\n\n⚠️ Pyometra with peritonitis = ก็ฉุกเฉินจริงๆ + sepsis risk · Vet 81 answer ตามคีย์โพยคือ "dystocia" แต่ทั้ง 2 ข้อ acceptable depending on stability — exam context = single best answer = dystocia\n\nMummified fetus = chronic, non-urgent · Vaginal bleeding mild = workup ไม่ใช่ stat surgery',
+    explain: 'Dystocia = "true emergency" — fetal hypoxia/death + maternal exhaustion + uterine rupture risk — golden window ~ 2-4 hr\n\n⚠️ Pyometra with peritonitis = ก็ฉุกเฉินจริงๆ + sepsis risk · Vet 81 answer ตามคีย์เฉลยคือ "dystocia" แต่ทั้ง 2 ข้อ acceptable depending on stability — exam context = single best answer = dystocia\n\nMummified fetus = chronic, non-urgent · Vaginal bleeding mild = workup ไม่ใช่ stat surgery',
     verified: '7. Anl Repro Clin.pdf p.5 Q48',
     flag: { note: 'Past paper key marks 2 answers (dystocia + pyometra peritonitis). Single best answer = dystocia (more time-sensitive for fetal survival).', severity: 'minor' } },
 ];

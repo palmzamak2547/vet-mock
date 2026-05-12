@@ -2,7 +2,7 @@
 // Y5 Patho Questions — พยาธิวิทยาปศุสัตว์ (Livestock Pathology)
 // ============================================================
 // Source:
-//   - "1. Final Patho prac.pdf" — Vet 81 รวมโพย final (Tangmay,
+//   - "1. Final Patho prac.pdf" — Vet 81 สรุปรวม final (Tangmay,
 //     Zinzin, Bombam compilation) · cross-validated with พี่ใหม่ Vet 81
 //   - 70 ข้อ MCQ · 2 hr exam · Y5 term 2 livestock pathology final
 //

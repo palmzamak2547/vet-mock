@@ -1,13 +1,13 @@
 // ============================================================
 // Y5 OSCE Ruminant — Postpartum Program + Repro Hormones + Mastitis + Milk Fever
 // ============================================================
-// Source: 16. โพย OSCE วัวมอมอ.pdf (past-paper)
+// Source: 16. สรุป OSCE วัวมอมอ.pdf (past-paper)
 // Exam: OSCE 26 พฤษภาคม พ.ศ. 2566 · course 3108517 ฐานสูติกรรม I (08:00-17:00)
 //
 // Course context (per OSCE briefing 14 May 2025 รายละเอียดการสอบ):
 //   - 4 OSCE stations: Mastitis CMT · Penn State Particle Separator (PSPS) ·
 //     Postpartum Hormone Selection · PE evaluation + Drug administration
-//   - ในไฟล์โพยปี 2566 มี: HHM postpartum program selection (5 datasets, p.1-5),
+//   - ในไฟล์สรุปปี 2566 มี: HHM postpartum program selection (5 datasets, p.1-5),
 //     5 cases hormone selection (p.6-7), Milk fever (p.8), Acute/Chronic mastitis (p.9)
 //
 // HHM Postpartum Program selection rules (synthesized from answer key in p.1 + p.4):
@@ -31,7 +31,7 @@
 // Topics used: rum-hhm, rum-reproduction, rum-mastitis, rum-hattakan
 // ============================================================
 
-const SRC = '16. โพย OSCE วัวมอมอ.pdf';
+const SRC = '16. สรุป OSCE วัวมอมอ.pdf';
 const ORIGIN = 'OSCE 26 May 2023 · course 3108517 ฐานสูติกรรม I';
 
 export const QB_Y5_OSCE_RUMINANT = [

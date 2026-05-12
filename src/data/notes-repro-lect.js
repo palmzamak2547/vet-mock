@@ -5,7 +5,7 @@
 // สอบ: อังคาร 5 พ.ค. 2569 13:00-16:00
 //
 // Source priority (เรียงจาก primary → verify):
-//   1) Repro final ค่ดโพย by Kimchii85.pdf + sunsun84 mindmap/summaries
+//   1) Repro final คัดสรุป by Kimchii85.pdf + sunsun84 mindmap/summaries
 //      → senior recall + ตรงข้อสอบเก่า ★=85 (high yield exam-prediction)
 //   2) Slide 2026/Lect/*.pdf — current-year verification + topic mapping
 //   3) schedule course syllabus C Ani Repro.pdf — lecturer/lab structure

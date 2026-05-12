@@ -871,7 +871,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'TBD — รอ syllabus official',
         notes: [
-          '📚 มี past papers: key mid 5.1, EPIDEMIOLOGY-all ซซดาวโพย, epidem โพย',
+          '📚 มี past papers: key mid 5.1, EPIDEMIOLOGY-all ซซดาวสรุป, epidem สรุป',
           '🏛 มี DLD guest lectures: ASF policy, FMD strategy, Lumpy Skin action plan',
           '📌 พรบ.โรคระบาด 2558 + AHSCU67 + Big Data appear in deck list',
         ],
@@ -931,7 +931,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'Mid + Final separate · midterm + final past papers ครบ',
         notes: [
-          '📚 มี past papers: key mid 5.1, avian med final โพยรุ่นพี่ (เอิร์น/กั่ย), [mid] AVIAN MEDICINE bynandgate',
+          '📚 มี past papers: key mid 5.1, avian med final สรุปจากรุ่นพี่ (เอิร์น/กั่ย), [mid] AVIAN MEDICINE bynandgate',
           '🏥 Guest lecture: Aj. Kriengwich Limpavithayakul (AHRA / Shine-Chic) — Adeno/Salmonella/Omphalitis/Ascites/Staph',
         ],
       },
@@ -968,7 +968,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'TBD — folder มี assignment "รายงานวิชา_การแก้ปัญหาฯ"',
         notes: [
-          '📌 ไม่มี past-paper โพย ใน cache (อาจมีในเทอม) — Q seed ต้องอาศัย POA Y4 (COM III) pattern · Chutirat + Krissda สอนทั้งสองชั้นปี',
+          '📌 ไม่มี past-paper สรุป ใน cache (อาจมีในเทอม) — Q seed ต้องอาศัย POA Y4 (COM III) pattern · Chutirat + Krissda สอนทั้งสองชั้นปี',
           '🩺 Format: case-based POA per chief complaint',
         ],
       },
@@ -995,7 +995,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'Mid + Final separate · มี past-paper folders ทั้ง 2 halves',
         notes: [
-          '📚 มี โพย+สรุป folders ทั้ง mid และ final',
+          '📚 มี สรุป+บันทึก folders ทั้ง mid และ final',
           '🥛 Milk half: SJ (microbiology/pathogens/standards/processing), RC (intro/mastitis/storage/quality)',
           '🥩 Meat half: SP (intro/seafood/slaughter/ante-postmortem/grading/pest/egg/micro)',
           '📅 Molecular meat sci section revised 2023',
@@ -1035,7 +1035,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'TBD',
         notes: [
-          '📚 มี past papers: เขียนโพยข้อสอบพี่ปั้ก, -OH final, --ไฟนอลวันเฮ้ว',
+          '📚 มี past papers: เขียนสรุปข้อสอบพี่ปั้ก, -OH final, --ไฟนอลวันเฮ้ว',
           '🐘 มี handout เรื่อง elephant ที่ไม่แจกในห้อง (referenced in สรุป)',
         ],
       },
@@ -1084,7 +1084,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'TBD',
         notes: [
-          '📚 มี past papers: 13 - รวมพวกจดไม่ทัน + ข้อสอบรั่ว, K1-4 Final พี่อ๋อง, โพยม้าอัพเดต',
+          '📚 มี past papers: 13 - รวมพวกจดไม่ทัน + ข้อสอบรั่ว, K1-4 Final พี่อ๋อง, สรุปม้าอัพเดต',
           '⚠️ "ข้อสอบรั่ว" doc — ใช้ examOrigin: "อิงแนวเดิม" + paraphrase + verify medicine',
           '📌 ข้อสอบเก่า Vet 80-83 ช่วง bridge สมัย อ.เธียรวุฒิ/อ.สุเมท → ปัจจุบัน อ.Teerapol เป็น lead',
         ],
@@ -1122,7 +1122,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'Mid + Final separate',
         notes: [
-          '📚 มี past papers: [final] REPROD HORSE bynandgate, K5,6 โพยพี่ผึ้ง, K1-4 Final พี่อ๋อง, Mid Horse Repro exam',
+          '📚 มี past papers: [final] REPROD HORSE bynandgate, K5,6 สรุปพี่ผึ้ง, K1-4 Final พี่อ๋อง, Mid Horse Repro exam',
           '📌 ข้อสอบเก่ามีทั้ง mid + final scope',
         ],
       },
@@ -1147,7 +1147,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'Final',
         notes: [
-          '📚 มี past papers หนาแน่นที่สุดใน Y5: Zoonosis Final Vet 82 Myco/Protozoa "ตรงมาก", Zoonosis Final 82 อ่านโพยนี้ตรง, 2 Bacterial zoonoses ซซดาวที่ออก 84, โพยข้อสอบพาร์ทพี่เอิน, จดข้อสอบพี่ซุป Mycozoonosis',
+          '📚 มี past papers หนาแน่นที่สุดใน Y5: Zoonosis Final Vet 82 Myco/Protozoa "ตรงมาก", Zoonosis Final 82 อ่านสรุปนี้ตรง, 2 Bacterial zoonoses ซซดาวที่ออก 84, สรุปข้อสอบพาร์ทพี่เอิน, จดข้อสอบพี่ซุป Mycozoonosis',
           '🏛 Course code อาจเป็น 3109504 หรือ 3109517 — slide เก่าใช้ 504, set ใหม่ใช้ 517',
           '👨‍🏫 Alongkorn = VPH dept head, anchored',
         ],
@@ -1178,7 +1178,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'Mid (อธิภู) + Final (พรชลิต separate exam)',
         notes: [
-          '📚 มี past papers: แบบทดสอบอธิภู, [final] SWINE MEDICINE bynandgate (+ จดเพิ่ม Vet 81), เฉลยโพย swine med by p run',
+          '📚 มี past papers: แบบทดสอบอธิภู, [final] SWINE MEDICINE bynandgate (+ จดเพิ่ม Vet 81), เฉลย swine med by p run',
           '⚠️ "ข้อสอบจานพรชลิต 84 ไม่ใช่คำตอบ" — leaked exam, ใช้ examOrigin "อิงแนวเดิม" + paraphrase',
           '📌 Trichinosis section ใน slide แต่ "ไม่ออกสอบ"',
         ],
