@@ -20,6 +20,11 @@ const StudyBuddiesPanel = lazy(() => import('../components/StudyBuddiesPanel.jsx
 const PWAInstallChip = lazy(() => import('../components/PWAInstallChip.jsx'));
 // Daily Q modal — single MCQ habit loop, deterministic per-date pick.
 const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
+// NextActionCard — "study coach" surface (one primary action card with
+// up to 3 personalised picks: exam-soon · SR due · wrong streak · weak
+// subject · random fallback). Replaces the "menu of tools" feel called
+// out in Palm's friend's review.
+import NextActionCard from '../components/NextActionCard.jsx';
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
@@ -179,6 +184,25 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     setView('config');
   };
 
+  // Subject accuracy in the last 90 days — used by NextActionCard
+  // to pick the weakest subject + by SubjectGrid card chips. Lifted
+  // here so we only iterate `history` once. ≥5 attempts gating handled
+  // by consumers (avoids "100% (1/1)" misleading display).
+  const accBySubject = useMemo(() => {
+    const acc = {};
+    const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
+    if (!Array.isArray(history)) return acc;
+    for (const h of history) {
+      if (!h?.subject || h.date == null) continue;
+      const ts = new Date(h.date).getTime();
+      if (ts < cutoff) continue;
+      if (!acc[h.subject]) acc[h.subject] = { total: 0, correct: 0 };
+      acc[h.subject].total++;
+      if (h.correct) acc[h.subject].correct++;
+    }
+    return acc;
+  }, [history]);
+
   // Quick action: review questions answered wrong (cross-subject).
   // Uses the same pattern as bookmarks practiceMode — just a different
   // pool source. Sorted by wrong-frequency so the user sees their
@@ -215,6 +239,36 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             : <>คลังโจทย์ฝึก <strong>{totalQ}</strong> ข้อ, {yearMeta?.label || 'ปี 4'}</>}
         </p>
       </div>
+
+      {/* Study coach surface — primary "วันนี้ทำอะไรดี" card. Picks 1-3
+          personalised actions from real history/SR/exam data. See
+          components/NextActionCard.jsx for the priority algorithm.
+          Hidden on scaffold years (no Qs to coach against). */}
+      {!isScaffoldYear && (
+        <NextActionCard
+          nextExam={nextExam}
+          quickStats={quickStats}
+          cardStats={cardStats}
+          accBySubject={accBySubject}
+          subjects={yearSubjects}
+          history={history}
+          onPickExamPrep={(exam) => {
+            if (exam?.subject) {
+              setSubject && setSubject(exam.subject);
+              setView('topic-select');
+            } else {
+              setView('schedule');
+            }
+          }}
+          onPickSR={() => { setMode && setMode('sr'); setView('sr-session'); }}
+          onPickWrong={launchWrongReview}
+          onPickWeakSubject={(subjectId) => {
+            setSubject && setSubject(subjectId);
+            setView('topic-select');
+          }}
+          onPickRandom={launchRandomQ}
+        />
+      )}
 
       {/* Welcome banner — first-time users see this instead of a
           blocking modal. One-tap to start the tour, X to dismiss. */}
@@ -655,6 +709,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         readingChecklist={readingChecklist}
         bookmarks={bookmarks}
         history={history}
+        accBySubject={accBySubject}
         onPick={(s) => {
           // Routing precedence:
           //   1. has_notes (scaffold or empty-LIVE but Notes available) →
@@ -1112,7 +1167,7 @@ function FeedbackChip() {
 // or PREVIEW state (faculty count from vault_lecturers, course code).
 // LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
 // are visually distinct + non-interactive (subjects without Qs yet).
-function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [], history = [], onPick }) {
+function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [], history = [], accBySubject = {}, onPick }) {
   if (!subjects?.length) {
     return (
       <div style={{
@@ -1142,22 +1197,8 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
     }
   }
 
-  // Compute per-subject accuracy from history. History entries are
-  // {date, questionId, correct, subject} — same fields the finishExam
-  // path writes. We use the LAST 90 days of attempts to keep the
-  // accuracy current (a 50% from 6 months ago shouldn't drag down a
-  // recently-mastered subject's display). Min 5 attempts to avoid
-  // misleading "100% (1/1)" displays.
-  const accBySubject = {};
-  if (Array.isArray(history) && history.length > 0) {
-    const cutoffMs = Date.now() - 90 * 24 * 60 * 60 * 1000;
-    for (const h of history) {
-      if (!h?.subject || (h.date && h.date < cutoffMs)) continue;
-      if (!accBySubject[h.subject]) accBySubject[h.subject] = { total: 0, correct: 0 };
-      accBySubject[h.subject].total++;
-      if (h.correct) accBySubject[h.subject].correct++;
-    }
-  }
+  // accBySubject computed at parent (HomeView) level — passed in via
+  // props so NextActionCard + SubjectGrid share one iteration.
 
   return (
     <div className="vmx-subject-grid">
