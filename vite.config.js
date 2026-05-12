@@ -34,6 +34,14 @@ export default defineConfig({
           if (id.includes('questions-part1')) return 'data-q-part1'
           if (id.includes('questions-part2')) return 'data-q-part2'
           if (id.includes('questions-part3')) return 'data-q-part3'
+          // Y5 banks — split per file so users only pay for what they study
+          if (id.includes('questions-y5-final-mixed')) return 'data-q-y5-mixed'
+          if (id.includes('questions-y5-patho')) return 'data-q-y5-patho'
+          if (id.includes('questions-y5-osce-ruminant')) return 'data-q-y5-osce-rum'
+          if (id.includes('questions-y5-osce-med')) return 'data-q-y5-osce-med'
+          if (id.includes('questions-y5-swine-clinic')) return 'data-q-y5-swine'
+          if (id.includes('questions-y5-repro-clinic')) return 'data-q-y5-repro'
+          if (id.includes('questions-y5-vision-batch')) return 'data-q-y5-vision'
           if (id.includes('data/instructors')) return 'data-instructors'
           // video-summaries.js is ~60k lines / ~2MB and only loaded inside
           // VideoView (lazy). Splitting it from VideoView's component code
@@ -49,6 +57,10 @@ export default defineConfig({
           if (id.includes('notes-poultry')) return 'data-notes-poultry'
           if (id.includes('notes-cliapprum')) return 'data-notes-cliapprum'
           if (id.includes('notes-practrum')) return 'data-notes-practrum'
+          // Y5 notes — split per subject (top-3 added 2026-05-12)
+          if (id.includes('notes-y5-zoonoses')) return 'data-notes-y5-zoonoses'
+          if (id.includes('notes-y5-milk-meat-hygiene')) return 'data-notes-y5-milk-meat'
+          if (id.includes('notes-y5-equine-medicine')) return 'data-notes-y5-equine'
         },
       },
     },

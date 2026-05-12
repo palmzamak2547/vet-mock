@@ -48,11 +48,16 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     ? allYearSubjects.filter((s) => s.semester === phaseMeta.semester || s.semester === 0)
     : allYearSubjects;
 
-  // Question count — show year-filtered count so PREVIEW years don't
-  // mislead users with the global total.
-  const totalQ = isScaffoldYear
-    ? QB.filter((q) => q.year === selectedYear).length
-    : QB.length + (customQuestions?.length || 0);
+  // Question count — must match what YearSelectView shows for the same year:
+  // strict `year === N` Qs + cross-rotation VCA Qs + user custom Qs.
+  // Previously this was `QB.length` (everything-everywhere) which mismatched
+  // the year-pick card and made users wonder if the count was real.
+  const totalQ = (() => {
+    const yearQ = QB.filter((q) => q.year === selectedYear).length;
+    const vcaQ = QB.filter((q) => q.subject === 'vca').length;
+    const customQ = (customQuestions?.length || 0);
+    return yearQ + vcaQ + customQ;
+  })();
 
   // Reading checklist progress — scoped to the active year + phase.
   const checklistTopics = yearSubjects

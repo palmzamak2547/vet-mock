@@ -48,7 +48,13 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
         {liveYears.map((y) => {
           const subjectCount = (SUBJECTS_BY_YEAR[y.id] || []).length;
+          // Show STRICT year count + breakdown of cross-rotation Qs so the
+          // year-pick count matches what HomeView shows when the user lands.
+          // Counting `q.year === y.id` alone misses VCA (cross-species) +
+          // any subject not strictly year-tagged. Each shown explicitly.
           const qCount = QB.filter((q) => q.year === y.id).length;
+          const vcaCount = QB.filter((q) => q.subject === 'vca').length;
+          const totalCount = qCount + vcaCount;
           const isPicked = selectedYear === y.id && !firstTime;
           return (
             <button
@@ -74,7 +80,12 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                     {y.desc}
                   </div>
                   <div style={{ marginTop: 8, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', letterSpacing: '0.04em' }}>
-                    {qCount.toLocaleString()} ข้อ · {subjectCount} วิชา
+                    {totalCount.toLocaleString()} ข้อ · {subjectCount} วิชา
+                    {vcaCount > 0 && (
+                      <span style={{ marginLeft: 6, opacity: 0.7 }}>
+                        ({qCount.toLocaleString()} ปี {y.id} + {vcaCount} VCA)
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
