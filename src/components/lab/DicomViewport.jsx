@@ -12,6 +12,7 @@ import {
 } from '@cornerstonejs/tools';
 import { ensureCornerstoneInit, getDicomImageLoader } from '../../lib/dicom/cornerstone-init.js';
 import NorbergOverlay from './NorbergOverlay.jsx';
+import VHSOverlay from './VHSOverlay.jsx';
 
 const PRESETS = [
   { id: 'default', label: 'Default', voi: 'reset' },
@@ -199,6 +200,7 @@ export default function DicomViewport({ file }) {
           <Divider />
           <span style={labelStyle}>Vet:</span>
           <TBtn active={activeTool === 'norberg'} onClick={() => selectTool('norberg')}>🦴 Norberg</TBtn>
+          <TBtn active={activeTool === 'vhs'} onClick={() => selectTool('vhs')}>📐 VHS</TBtn>
           <Divider />
           <TBtn onClick={resetView}>↺ Reset view</TBtn>
         </div>
@@ -226,6 +228,9 @@ export default function DicomViewport({ file }) {
         {status === 'ready' && (
           <NorbergOverlay active={activeTool === 'norberg'} viewportRef={getViewport} />
         )}
+        {status === 'ready' && (
+          <VHSOverlay active={activeTool === 'vhs'} viewportRef={getViewport} />
+        )}
       </div>
       {meta && status === 'ready' && (
         <div style={{ fontSize: '0.8rem', color: '#666', marginTop: 8 }}>
@@ -233,7 +238,7 @@ export default function DicomViewport({ file }) {
           {meta.mmPerPx && (
             <> · calibrated at <strong>{meta.mmPerPx.toFixed(3)} mm/pixel</strong> (PixelSpacing tag)</>
           )}
-          · Phase 4 · 🦴 Norberg ใน toolbar = senior project hook
+          · Phase 6 · 🦴 Norberg + 📐 VHS ใน toolbar
         </div>
       )}
       {meta && status === 'ready' && (
