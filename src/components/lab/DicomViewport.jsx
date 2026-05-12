@@ -11,6 +11,7 @@ import {
   Enums as ToolEnums,
 } from '@cornerstonejs/tools';
 import { ensureCornerstoneInit, getDicomImageLoader } from '../../lib/dicom/cornerstone-init.js';
+import NorbergOverlay from './NorbergOverlay.jsx';
 
 const PRESETS = [
   { id: 'default', label: 'Default', voi: 'reset' },
@@ -112,15 +113,23 @@ export default function DicomViewport({ file }) {
     };
   }, [file]);
 
+  const getViewport = useCallback(() => {
+    return engineRef.current?.getViewport(viewportIdRef.current);
+  }, []);
+
   const selectTool = useCallback((tool) => {
     setActiveTool(tool);
     const tg = ToolGroupManager.getToolGroup(toolGroupIdRef.current);
     if (!tg) return;
     try {
-      // Set every tool passive first so only the chosen one is on Primary.
+      // Set every Cornerstone tool passive first so only the chosen one
+      // is on Primary. Vet-specific modes (e.g. 'norberg') aren't in the
+      // TOOLS map — they're handled by React overlays, and Primary stays
+      // un-bound so the overlay's click handler receives events first.
       Object.values(TOOLS).forEach(({ cls }) => tg.setToolPassive(cls.toolName));
-      tg.setToolActive(TOOLS[tool].cls.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Primary }] });
-      // Always-on bindings for middle/right buttons regardless of left choice.
+      if (TOOLS[tool]) {
+        tg.setToolActive(TOOLS[tool].cls.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Primary }] });
+      }
       tg.setToolActive(PanTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Auxiliary }] });
       tg.setToolActive(ZoomTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Secondary }] });
     } catch (err) {
@@ -188,6 +197,9 @@ export default function DicomViewport({ file }) {
             <TBtn key={p.id} onClick={() => applyPreset(p)}>{p.label}</TBtn>
           ))}
           <Divider />
+          <span style={labelStyle}>Vet:</span>
+          <TBtn active={activeTool === 'norberg'} onClick={() => selectTool('norberg')}>🦴 Norberg</TBtn>
+          <Divider />
           <TBtn onClick={resetView}>↺ Reset view</TBtn>
         </div>
       )}
@@ -211,6 +223,9 @@ export default function DicomViewport({ file }) {
             <span style={{ fontSize: '0.8rem', opacity: 0.8 }}>{errorMsg}</span>
           </div>
         )}
+        {status === 'ready' && (
+          <NorbergOverlay active={activeTool === 'norberg'} viewportRef={getViewport} />
+        )}
       </div>
       {meta && status === 'ready' && (
         <div style={{ fontSize: '0.8rem', color: '#666', marginTop: 8 }}>
@@ -218,7 +233,7 @@ export default function DicomViewport({ file }) {
           {meta.mmPerPx && (
             <> · calibrated at <strong>{meta.mmPerPx.toFixed(3)} mm/pixel</strong> (PixelSpacing tag)</>
           )}
-          · Phase 3 · Norberg angle tool will arrive Phase 4
+          · Phase 4 · 🦴 Norberg ใน toolbar = senior project hook
         </div>
       )}
       {meta && status === 'ready' && (
