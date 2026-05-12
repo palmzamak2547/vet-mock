@@ -35,9 +35,10 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
             title="ออกจากชุดนี้ — คำตอบยังถูกเก็บไว้ผ่าน auto-save"
             aria-label="ออกจากชุดนี้"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-            style={{ padding: '4px 10px', fontSize: 13, marginRight: 8 }}
+            style={{ padding: '4px 10px', fontSize: 13, marginRight: 8, display: 'inline-flex', alignItems: 'center', gap: 4 }}
           >
-            ←
+            <span aria-hidden="true">✕</span>
+            <span>ออก</span>
           </button>
         )}
         <div className="vmx-progress">
