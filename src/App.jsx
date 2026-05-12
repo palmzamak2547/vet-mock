@@ -48,6 +48,11 @@ import ToolsFAB from './components/ToolsFAB.jsx';
 // the user opens the pad.
 const ImageAnnotator = lazy(() => import('./components/ImageAnnotator.jsx'));
 
+// LabView — Imaging Practice Lab (Phase 1: DICOM viewer). Hidden
+// behind the URL hash #lab so it doesn't appear in nav. Lazy import
+// pulls Cornerstone3D into its own chunk only when a user opens it.
+const LabView = lazy(() => import('./views/LabView.jsx'));
+
 // View Transitions API helper — wraps a state update so the browser
 // snapshots the DOM before/after and crossfades automatically. Falls
 // back to a plain call when the API isn't available (Firefox, older
@@ -251,6 +256,9 @@ export default function App() {
           if (valid) return 'exam';
         }
       }
+      // Hidden Imaging Practice Lab entry — #lab in the URL fragment.
+      // Not surfaced in nav; only opens if someone knows the hash.
+      if (window.location.hash === '#lab') return 'lab';
     } catch {}
     try {
       // Parse the stored value — `null` is a valid serialized state
@@ -308,6 +316,18 @@ export default function App() {
   const setView = useCallback((next) => {
     withTransition(() => setViewRaw(next));
   }, []);
+
+  // Imaging Practice Lab — open when the user navigates to #lab at
+  // runtime (e.g. pastes the link in an already-open tab). The
+  // initial-mount case is handled by the initialView IIFE above.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const onHash = () => {
+      if (window.location.hash === '#lab') setView('lab');
+    };
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, [setView]);
 
   // Scroll to top when view changes — without this, navigating to a
   // long page (e.g. NotesView) keeps you scrolled at the previous
@@ -1206,6 +1226,7 @@ export default function App() {
               {view === 'account-settings' && user && <AccountSettingsView {...{ user, goHome, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
               {view === 'race' && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
+              {view === 'lab' && <LabView goHome={goHome} />}
             </Suspense>
             </ErrorBoundary>
           )}
