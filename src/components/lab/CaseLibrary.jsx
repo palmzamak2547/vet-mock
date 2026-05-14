@@ -16,7 +16,9 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
     (async () => {
       try {
         const { hasSupabase, getSupabase } = await import('../../lib/supabase.js');
-        if (!hasSupabase()) {
+        // hasSupabase is a boolean constant (not a function) — VetMock's
+        // existing convention. False when env vars are missing.
+        if (!hasSupabase) {
           if (!cancelled) setLoading(false);
           return;
         }
@@ -29,7 +31,20 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
         if (err) throw err;
         if (!cancelled) setCases(data || []);
       } catch (e) {
-        if (!cancelled) setError(e?.message || String(e));
+        // Pre-migration state — table doesn't exist yet — looks the
+        // same to the user as "no public cases". Surface as empty
+        // state, not as an error.
+        const msg = e?.message || String(e);
+        const isPreMigration = /schema cache|imaging_cases|does not exist|relation .* does not exist/i.test(msg);
+        if (!cancelled) {
+          if (isPreMigration) {
+            // eslint-disable-next-line no-console
+            console.info('[CaseLibrary] imaging_cases table not yet migrated — showing empty state');
+            setCases([]);
+          } else {
+            setError(msg);
+          }
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }
