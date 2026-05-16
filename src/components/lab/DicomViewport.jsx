@@ -17,11 +17,40 @@ import AIOverlay from './AIOverlay.jsx';
 import { useMediaQuery } from '../../lib/dicom/use-media-query.js';
 
 const PRESETS = [
-  { id: 'default', label: 'Default', voi: 'reset' },
-  { id: 'soft',    label: 'Soft tissue', voi: { lower: 1000, upper: 3000 } },
-  { id: 'bone',    label: 'Bone',        voi: { lower: 2200, upper: 3800 } },
-  { id: 'lung',    label: 'Lung',        voi: { lower: 200,  upper: 1500 } },
+  { id: 'smart',   label: '🪄 Auto',  voi: 'compute' },
+  { id: 'default', label: 'DICOM',    voi: 'reset' },
+  { id: 'soft',    label: 'Soft',     voi: { lower: 1000, upper: 3000 } },
+  { id: 'bone',    label: 'Bone',     voi: { lower: 2200, upper: 3800 } },
+  { id: 'lung',    label: 'Lung',     voi: { lower: 200,  upper: 1500 } },
 ];
+
+// Sample the pixel histogram + set voiRange from P1–P99. Way more
+// reliable than the DICOM-tag default (which is often the full bit
+// range = washed out). Sampled (~20 k) not full-image, so it's cheap
+// even on 4k DR images.
+function applySmartContrast(viewport) {
+  try {
+    const img = viewport?.csImage;
+    if (!img?.getPixelData) return false;
+    const pixels = img.getPixelData();
+    const N = pixels.length;
+    if (N === 0) return false;
+    const sampleSize = Math.min(20000, N);
+    const stride = Math.max(1, Math.floor(N / sampleSize));
+    const samples = [];
+    for (let i = 0; i < N; i += stride) samples.push(pixels[i]);
+    if (samples.length < 10) return false;
+    samples.sort((a, b) => a - b);
+    const p1 = samples[Math.floor(samples.length * 0.01)];
+    const p99 = samples[Math.floor(samples.length * 0.99)];
+    if (p99 <= p1) return false;
+    viewport.setProperties({ voiRange: { lower: p1, upper: p99 } });
+    viewport.render();
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 // Tool registry — id → { class, label, sk (keyboard shortcut letter) }.
 // The id is what activeTool state holds; class.toolName is what
@@ -85,6 +114,13 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         tg.setToolActive(ZoomTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Secondary }] });
 
         viewport.render();
+
+        // Try smart auto-contrast as the default presentation. Falls
+        // back silently to the DICOM-tag default if csImage isn't
+        // ready yet (rare; happens with stack-loader race conditions).
+        requestAnimationFrame(() => {
+          if (!cancelled) applySmartContrast(viewport);
+        });
 
         if (cancelled) return;
         const img = viewport.csImage || null;
@@ -150,10 +186,13 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
     if (!viewport) return;
     if (preset.voi === 'reset') {
       viewport.resetProperties();
+      viewport.render();
+    } else if (preset.voi === 'compute') {
+      applySmartContrast(viewport);
     } else {
       viewport.setProperties({ voiRange: { lower: preset.voi.lower, upper: preset.voi.upper } });
+      viewport.render();
     }
-    viewport.render();
   }, []);
 
   const resetView = useCallback(() => {
@@ -306,10 +345,11 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
           // The overlay's own `active` check filters out stale instances.
           try { window.dispatchEvent(new CustomEvent('vmx-lab-undo-point')); } catch { /* noop */ }
         },
-        '1': () => applyPreset(PRESETS[0]),
-        '2': () => applyPreset(PRESETS[1]),
-        '3': () => applyPreset(PRESETS[2]),
-        '4': () => applyPreset(PRESETS[3]),
+        '1': () => applyPreset(PRESETS[0]),  // 🪄 Auto
+        '2': () => applyPreset(PRESETS[1]),  // DICOM
+        '3': () => applyPreset(PRESETS[2]),  // Soft
+        '4': () => applyPreset(PRESETS[3]),  // Bone
+        '5': () => applyPreset(PRESETS[4]),  // Lung
         '?': () => setShowShortcuts((s) => !s),
         '/': () => sk && setShowShortcuts((s) => !s),
         escape: () => setShowShortcuts(false),
@@ -396,7 +436,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
                 <SC k="A" desc="Angle measurement" />
                 <SC k="N" desc="🦴 Norberg angle" />
                 <SC k="V" desc="📐 VHS" />
-                <SC k="1 – 4" desc="W/L presets (Default / Soft / Bone / Lung)" />
+                <SC k="1 – 5" desc="W/L presets (Auto · DICOM · Soft · Bone · Lung)" />
                 <SC k="R" desc="Reset view (zoom/pan/window)" />
                 <SC k="C" desc="Clear all measurements" />
                 <SC k="U" desc="Undo last Norberg/VHS point" />
@@ -416,7 +456,12 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         onContextMenu={(e) => e.preventDefault()}
         style={{
           width: '100%',
-          height: 600,
+          // Adaptive: at least 400 px, at most 900 px, prefer viewport
+          // minus chrome (~260 px = page header + toolbar + status
+          // footer). Solves the "viewport hidden under fold on a
+          // small laptop" complaint without overflowing on tall
+          // monitors. Cornerstone3D resizes canvas to match.
+          height: 'clamp(380px, calc(100vh - 260px), 900px)',
           background: '#000',
           borderRadius: status === 'ready' ? '0 0 8px 8px' : 8,
           position: 'relative',
@@ -424,7 +469,15 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
           touchAction: 'none',
         }}
       >
-        {status === 'init' && <div style={overlay}>กำลังโหลด DICOM...</div>}
+        {status === 'init' && (
+          <div style={overlay}>
+            <div style={spinnerStyle}>🔬</div>
+            <div>กำลังโหลด DICOM...</div>
+            <div style={{ fontSize: '0.72rem', marginTop: 6, opacity: 0.6 }}>
+              {file?.name} · {(file?.size / 1024 | 0)} KB
+            </div>
+          </div>
+        )}
         {status === 'error' && (
           <div style={{ ...overlay, color: '#fbb', textAlign: 'center', padding: 20 }}>
             ❌ โหลดไม่สำเร็จ<br />
@@ -584,9 +637,26 @@ const overlay = {
   position: 'absolute',
   inset: 0,
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   color: '#aaa',
   fontSize: '0.95rem',
   pointerEvents: 'none',
 };
+
+const spinnerStyle = {
+  fontSize: 44,
+  marginBottom: 14,
+  animation: 'vmx-lab-spin-pulse 1.4s ease-in-out infinite',
+  display: 'inline-block',
+};
+
+// CSS keyframes injected once at module level so each viewport
+// doesn't duplicate a <style> tag.
+if (typeof document !== 'undefined' && !document.getElementById('vmx-lab-spin-pulse-keyframes')) {
+  const s = document.createElement('style');
+  s.id = 'vmx-lab-spin-pulse-keyframes';
+  s.textContent = `@keyframes vmx-lab-spin-pulse { 0%,100% { opacity:0.35; transform: scale(0.92); } 50% { opacity: 1; transform: scale(1.05); } }`;
+  document.head.appendChild(s);
+}

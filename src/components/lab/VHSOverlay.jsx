@@ -124,7 +124,19 @@ export default function VHSOverlay({ active, viewportRef, caseId = null }) {
     }
   }, [active, worldPoints.length, viewportRef]);
 
-  const reset = useCallback(() => setWorldPoints([]), []);
+  const [confirmingReset, setConfirmingReset] = useState(false);
+  const reset = useCallback(() => {
+    setWorldPoints((prev) => {
+      if (prev.length === 0) return prev;
+      if (!confirmingReset) {
+        setConfirmingReset(true);
+        setTimeout(() => setConfirmingReset(false), 3000);
+        return prev;
+      }
+      setConfirmingReset(false);
+      return [];
+    });
+  }, [confirmingReset]);
 
   const [saveState, setSaveState] = useState({ status: 'idle', msg: null });
   const handleSave = useCallback(async () => {
@@ -236,7 +248,13 @@ export default function VHSOverlay({ active, viewportRef, caseId = null }) {
           </div>
           <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
             <button onClick={undo} disabled={worldPoints.length === 0} style={resetBtnStyle}>↶ Undo</button>
-            <button onClick={reset} style={resetBtnStyle}>↺ Reset</button>
+            <button
+              onClick={reset}
+              style={{ ...resetBtnStyle, background: confirmingReset ? '#b85450' : '#444' }}
+              title={confirmingReset ? 'คลิกอีกครั้งใน 3 วินาทีเพื่อยืนยันลบทั้งหมด' : 'ลบ VHS points ทั้งหมด'}
+            >
+              {confirmingReset ? '⚠️ ยืนยัน Reset?' : '↺ Reset'}
+            </button>
             <button onClick={exportStateJson} style={resetBtnStyle} title="ดาวน์โหลด JSON ของ VHS points · re-drop via 🤖 Load AI เพื่อ replay">
               📥 JSON
             </button>

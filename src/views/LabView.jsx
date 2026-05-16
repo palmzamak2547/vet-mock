@@ -35,6 +35,8 @@ export default function LabView({ goHome }) {
   const [recent, setRecent] = useState([]);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [syncEnabled, setSyncEnabled] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(false);
+  const [demoError, setDemoError] = useState(null);
 
   useEffect(() => {
     try {
@@ -137,6 +139,54 @@ export default function LabView({ goHome }) {
     setShowCases(false);
   }, []);
 
+  // One-click open of the most-recently-created public case. Skips
+  // the Case Library list UI so first-time users go straight from
+  // "I just opened /lab" → "I'm measuring on a real X-ray" in 1 tap.
+  const tryDemo = useCallback(async () => {
+    setDemoLoading(true);
+    setDemoError(null);
+    try {
+      const { hasSupabase, getSupabase } = await import('../lib/supabase.js');
+      if (!hasSupabase) throw new Error('Supabase ยังไม่ตั้งค่า');
+      const sb = await getSupabase();
+      const { data: cases, error: cErr } = await sb
+        .from('imaging_cases')
+        .select('id, slug, title, species, signalment, history, body_part, learning_objectives, difficulty')
+        .eq('status', 'public')
+        .order('created_at', { ascending: false })
+        .limit(1);
+      if (cErr) {
+        const msg = cErr.message || String(cErr);
+        if (/schema cache|imaging_cases|does not exist/i.test(msg)) throw new Error('Migration ยังไม่ apply');
+        throw cErr;
+      }
+      if (!cases || cases.length === 0) throw new Error('ยังไม่มี public case');
+      const c = cases[0];
+      const { data: caseFiles, error: fErr } = await sb
+        .from('imaging_case_files')
+        .select('id, view_name, storage_path')
+        .eq('case_id', c.id)
+        .order('display_order');
+      if (fErr) throw fErr;
+      if (!caseFiles?.length) throw new Error('Case ไม่มี DICOM file');
+      const fetched = await Promise.all(caseFiles.slice(0, MAX_FILES).map(async (row) => {
+        const { data: signed, error: sErr } = await sb.storage.from('lab-dicom').createSignedUrl(row.storage_path, 600);
+        if (sErr) throw sErr;
+        const res = await fetch(signed.signedUrl);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const buf = await res.arrayBuffer();
+        return new File([buf], `${c.slug}_${row.view_name}.dcm`, { type: 'application/dicom' });
+      }));
+      handleOpenCase(fetched, c);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('[tryDemo]', e);
+      setDemoError(e?.message || String(e));
+    } finally {
+      setDemoLoading(false);
+    }
+  }, [handleOpenCase]);
+
   const subView = files.length > 0 ? 'viewer' : (showCases ? 'cases' : 'home');
   const firstFile = files[0];  // for header label
 
@@ -176,6 +226,22 @@ export default function LabView({ goHome }) {
 
       {subView === 'home' && (
         <>
+          <div style={demoCtaWrapStyle}>
+            <button
+              onClick={tryDemo}
+              disabled={demoLoading}
+              style={demoCtaBtnStyle}
+              title="โหลด demo case (น้องคอฟฟี่) 2-up viewer ทันที"
+            >
+              {demoLoading ? '⏳ กำลังโหลด demo case...' : '▶️ ลอง demo case ทันที (น้องคอฟฟี่ · 2-view X-ray)'}
+            </button>
+            {demoError && (
+              <p style={{ color: '#c00', fontSize: '0.82rem', margin: '8px 0 0', textAlign: 'center' }}>
+                โหลด demo ไม่สำเร็จ: {demoError}
+              </p>
+            )}
+          </div>
+
           <div style={modeButtonsStyle}>
             <button
               className="vmx-btn vmx-btn-ghost"
@@ -491,6 +557,24 @@ const loadingFallbackStyle = {
   padding: 40,
   textAlign: 'center',
   color: '#888',
+};
+
+const demoCtaWrapStyle = {
+  marginBottom: 16,
+};
+
+const demoCtaBtnStyle = {
+  width: '100%',
+  padding: '16px 20px',
+  background: 'linear-gradient(135deg, #4a6b4a 0%, #6b8a5a 100%)',
+  color: '#fff',
+  border: 'none',
+  borderRadius: 10,
+  cursor: 'pointer',
+  fontSize: '1rem',
+  fontWeight: 600,
+  boxShadow: '0 2px 8px rgba(74,107,74,0.25)',
+  transition: 'transform 100ms, box-shadow 100ms',
 };
 
 const recentBoxStyle = {
