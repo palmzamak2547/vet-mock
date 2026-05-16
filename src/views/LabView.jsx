@@ -34,6 +34,7 @@ export default function LabView({ goHome }) {
   const [error, setError] = useState(null);
   const [recent, setRecent] = useState([]);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [syncEnabled, setSyncEnabled] = useState(false);
 
   useEffect(() => {
     try {
@@ -275,7 +276,18 @@ export default function LabView({ goHome }) {
                 </>
               )}
             </div>
-            <div style={{ display: 'flex', gap: 6 }}>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+              {files.length >= 2 && (
+                <label style={syncToggleStyle} title="Sync zoom + pan + W/L across both viewports">
+                  <input
+                    type="checkbox"
+                    checked={syncEnabled}
+                    onChange={(e) => setSyncEnabled(e.target.checked)}
+                    style={{ marginRight: 5 }}
+                  />
+                  🔗 Sync views
+                </label>
+              )}
               {files.length === 1 && <AnonymizeButton file={firstFile} />}
               <button onClick={reset} className="vmx-btn vmx-btn-ghost vmx-btn-sm">
                 {files.length > 1 ? 'รีเซ็ตทั้งหมด' : 'เปลี่ยนไฟล์'}
@@ -299,6 +311,7 @@ export default function LabView({ goHome }) {
                 canRemove={files.length > 1}
                 onRemove={() => removeFileAt(idx)}
                 caseId={currentCase?.id || null}
+                syncEnabled={syncEnabled && files.length > 1}
               />
             ))}
           </div>
@@ -321,7 +334,7 @@ export default function LabView({ goHome }) {
 // the Cornerstone-backed DicomViewport itself. Each pane operates an
 // independent engine + tool group — there's no cross-pane sync yet,
 // each toolbar controls only its own viewport.
-function ViewerPane({ file, index, canRemove, onRemove, caseId }) {
+function ViewerPane({ file, index, canRemove, onRemove, caseId, syncEnabled }) {
   const [showTags, setShowTags] = useState(false);
   return (
     <div style={paneStyle}>
@@ -352,7 +365,7 @@ function ViewerPane({ file, index, canRemove, onRemove, caseId }) {
         </div>
       </div>
       <Suspense fallback={<div style={loadingFallbackStyle}>กำลังโหลด viewer...</div>}>
-        <DicomViewport file={file} caseId={caseId} />
+        <DicomViewport file={file} caseId={caseId} syncEnabled={syncEnabled} />
       </Suspense>
       {showTags && (
         <Suspense fallback={null}>
@@ -506,6 +519,21 @@ const onboardingCloseStyle = {
   fontSize: '0.85rem',
   color: '#456',
   flexShrink: 0,
+};
+
+const syncToggleStyle = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  padding: '6px 11px',
+  background: '#fff',
+  border: '1px solid #ccc',
+  borderRadius: 4,
+  cursor: 'pointer',
+  fontSize: '0.82rem',
+  color: '#333',
+  whiteSpace: 'nowrap',
+  minHeight: 36,
+  boxSizing: 'border-box',
 };
 
 const kbdInlineStyle = {

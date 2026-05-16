@@ -37,7 +37,7 @@ const TOOLS = {
 
 let engineSeq = 0;
 
-export default function DicomViewport({ file, caseId = null }) {
+export default function DicomViewport({ file, caseId = null, syncEnabled = false }) {
   const isMobile = useMediaQuery('(max-width: 600px)');
   const elRef = useRef(null);
   const engineRef = useRef(null);
@@ -225,6 +225,56 @@ export default function DicomViewport({ file, caseId = null }) {
 
   const navTools = ['wl', 'pan', 'zoom'];
   const measureTools = ['length', 'angle'];
+
+  // Camera-sync for 2-up compare. When LabView turns sync on, each
+  // viewport emits its own camera changes via window events and
+  // applies remote ones (skipping its own ID to avoid feedback).
+  // The `isApplying` flag suppresses the bounce — without it, an
+  // incoming setCamera() would trigger CAMERA_MODIFIED locally which
+  // would emit again → infinite loop. requestAnimationFrame resets
+  // the flag AFTER the local CAMERA_MODIFIED bounce arrives.
+  useEffect(() => {
+    if (!syncEnabled || status !== 'ready') return;
+    const element = elRef.current;
+    if (!element) return;
+    const myId = viewportIdRef.current;
+    let isApplying = false;
+
+    const onCameraChange = () => {
+      if (isApplying) return;
+      const vp = engineRef.current?.getViewport(myId);
+      if (!vp) return;
+      try {
+        const cam = vp.getCamera();
+        window.dispatchEvent(new CustomEvent('vmx-lab-sync-camera', {
+          detail: { sourceId: myId, camera: cam },
+        }));
+      } catch { /* viewport torn down mid-event */ }
+    };
+
+    const onRemoteCamera = (evt) => {
+      if (!evt?.detail || evt.detail.sourceId === myId) return;
+      const vp = engineRef.current?.getViewport(myId);
+      if (!vp) return;
+      try {
+        isApplying = true;
+        vp.setCamera(evt.detail.camera);
+        vp.render();
+        requestAnimationFrame(() => { isApplying = false; });
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('[viewport-sync] apply error:', err);
+        isApplying = false;
+      }
+    };
+
+    element.addEventListener(Enums.Events.CAMERA_MODIFIED, onCameraChange);
+    window.addEventListener('vmx-lab-sync-camera', onRemoteCamera);
+    return () => {
+      element.removeEventListener(Enums.Events.CAMERA_MODIFIED, onCameraChange);
+      window.removeEventListener('vmx-lab-sync-camera', onRemoteCamera);
+    };
+  }, [syncEnabled, status]);
 
   // Keyboard shortcuts. Bound at the window level but skip when the
   // user is typing in a form input (so VetMock's other views aren't
