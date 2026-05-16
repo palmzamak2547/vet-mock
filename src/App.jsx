@@ -251,7 +251,8 @@ const RaceView = lazy(() => import('./views/RaceView.jsx'));
 const PdfAnnotateView = lazy(() => import('./views/PdfAnnotateView.jsx'));
 const ImageOcclusionView = lazy(() => import('./views/ImageOcclusionView.jsx'));
 // PhaseWrappedView — end-of-phase recap (Spotify-Wrapped style).
-// Only shown after a phase ends, so lazy-load is appropriate.
+// Only shown after a phase ends or opened via command palette,
+// so lazy-load is appropriate.
 const PhaseWrappedView = lazy(() => import('./views/PhaseWrappedView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
