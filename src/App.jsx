@@ -1,6 +1,10 @@
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense, lazy } from 'react';
 import { flushSync } from 'react-dom';
-import { QB } from './data/questions.js';
+// Phase 3 perf: QB is now lazy. The static export here is the SAME
+// array reference forever, but it's empty until `loadQB()` resolves.
+// App.jsx kicks off loadQB() in a top-level effect (background load
+// after first paint) and gates exam-start paths on the populated QB.
+import { QB, loadQB, isQBLoaded } from './data/questions.js';
 import { SUBJECTS, CURRENT_YEAR, hiddenTopicIdsFor } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
@@ -228,6 +232,54 @@ const SpeedInsights = lazy(() =>
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
 
+  // Phase 3 perf: QB lazy-load tracker. `qbReady` flips true on first
+  // successful loadQB() resolution; we use it to (a) trigger a single
+  // re-render across the tree so closures over QB pick up the freshly-
+  // populated array, and (b) gate exam-start UI to await the load if
+  // the user clicks before background-load finishes.
+  const [qbReady, setQbReady] = useState(isQBLoaded());
+  useEffect(() => {
+    if (qbReady) return;
+    // Background load — non-blocking, fires once per page life. Errors
+    // are swallowed at this layer; explicit awaits in startExam() will
+    // surface real failures via alert().
+    loadQB().then(() => setQbReady(true)).catch(() => {});
+  }, [qbReady]);
+
+  // Share-link (`?qset=`) resolution effect. Runs once after QB loads.
+  // Initial render shows ExamView with empty questions[] — this effect
+  // materializes the matched Qs (or falls back to home if none).
+  // Lives at App level so it fires regardless of which view is active.
+  const sharedResolvedRef = useRef(false);
+  useEffect(() => {
+    if (sharedResolvedRef.current) return;
+    if (!qbReady) return;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (!params.get('qset')) return;
+      const shared = readShareUrlFromLocation();
+      if (shared.length === 0) return;
+      const map = new Map();
+      for (const q of QB) map.set(q.subject + ':' + q.id, q);
+      const matched = shared
+        .map((k) => map.get(k.subject + ':' + k.id))
+        .filter(Boolean);
+      sharedResolvedRef.current = true;
+      if (matched.length > 0) {
+        setQuestions(matched);
+        setAnswers({});
+        setCurrentIdx(0);
+        setView('exam');
+      } else {
+        // URL referenced Q IDs that no longer exist — drop to home
+        // gracefully instead of leaving the user staring at empty exam.
+        setView('home');
+      }
+    } catch {
+      sharedResolvedRef.current = true;
+    }
+  }, [qbReady]);
+
   // Realtime presence — mounted at App level so the WebSocket survives
   // every view navigation. (Was in HomeView previously, which caused
   // users to drop out of the count whenever they clicked into a topic /
@@ -264,10 +316,12 @@ export default function App() {
       // dangling text in the URL bar.
       if (params.get('qset')) {
         const shared = readShareUrlFromLocation();
-        if (shared.length > 0) {
-          const valid = shared.some((k) => QB.some((q) => q.subject === k.subject && q.id === k.id));
-          if (valid) return 'exam';
-        }
+        // Phase 3: QB is lazy, so we can't synchronously validate that
+        // any of the shared Q IDs still exist at this point. Trust the
+        // URL has at least one ID — the in-flight effect below will
+        // await loadQB() then either materialize the questions OR
+        // bail to home if none resolve.
+        if (shared.length > 0) return 'exam';
       }
       // Hidden Imaging Practice Lab entry — #lab in the URL fragment.
       // Not surfaced in nav; only opens if someone knows the hash.
@@ -435,21 +489,10 @@ export default function App() {
   // session doesn't lose answers — restored when the user opens the
   // app again. Cleared on submit / goHome.
   const [questions, setQuestions] = useState(() => {
-    // Shareable quiz link — if URL contains ?qset=, look up the
-    // referenced questions in QB right away so the exam view has
-    // them on first paint. Falls through to in-flight resume on
-    // empty / missing share param.
-    try {
-      const shared = readShareUrlFromLocation();
-      if (shared.length > 0) {
-        const map = new Map();
-        for (const q of QB) map.set(q.subject + ':' + q.id, q);
-        const matched = shared
-          .map((k) => map.get(k.subject + ':' + k.id))
-          .filter(Boolean);
-        if (matched.length > 0) return matched;
-      }
-    } catch {}
+    // Phase 3: QB is lazy — share-link resolution moves to a useEffect
+    // below that awaits loadQB(). Initial state falls through to the
+    // in-flight resume path if present. The share-link case shows a
+    // brief "กำลังเตรียมโจทย์..." in ExamView until the effect populates.
     try {
       const raw = window.localStorage?.getItem('vmx-inflight-exam');
       if (raw) return JSON.parse(raw).questions || [];
@@ -561,7 +604,11 @@ export default function App() {
     });
   }, [user, bookmarks, history, notes, srCards, customQuestions, streakData]);
 
-  const allQuestions = useMemo(() => [...QB, ...customQuestions], [customQuestions]);
+  // QB is mutated in place when loadQB() resolves, so the same reference
+  // grows from [] → 2,227 entries. Depend on `qbReady` so the memo
+  // re-runs after the populate completes — without this, every consumer
+  // closing over allQuestions would see the stale empty snapshot.
+  const allQuestions = useMemo(() => [...QB, ...customQuestions], [customQuestions, qbReady]);
 
   // Auto-save in-flight exam state to localStorage. Runs on every
   // answer/navigation so accidental tab-close during a 25-minute
@@ -773,7 +820,7 @@ export default function App() {
   // Use `'key' in overrides` so callers can explicitly pass null (e.g.,
   // topic: null means "no topic filter"); `??` would default null back
   // to the state value.
-  const startExam = (overrides = {}) => {
+  const startExam = async (overrides = {}) => {
     const _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
@@ -781,6 +828,21 @@ export default function App() {
     const _numQuestions = 'numQuestions' in overrides ? overrides.numQuestions : numQuestions;
     const _useTimer = 'useTimer' in overrides ? overrides.useTimer : useTimer;
     const _timePerQ = 'timePerQ' in overrides ? overrides.timePerQ : timePerQ;
+
+    // Phase 3: QB lazy. App.jsx kicks off background load on mount so
+    // by the time the user clicks "Start" this usually resolves
+    // instantly. The await is here as a safety net — if the user is
+    // very quick OR background-load is slow (cold cache, slow network)
+    // we hold here until QB is populated rather than starting an exam
+    // against an empty pool.
+    if (!isQBLoaded()) {
+      try {
+        await loadQB();
+      } catch (err) {
+        alert('โหลดคลังโจทย์ไม่ได้ — ตรวจการเชื่อมต่อแล้วลองใหม่');
+        return;
+      }
+    }
 
     let pool;
     if (_practiceMode === 'bookmarks') pool = allQuestions.filter((q) => bookmarks.includes(q.id));

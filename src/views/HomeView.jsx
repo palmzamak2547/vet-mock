@@ -3,7 +3,7 @@ import { QB } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
 // full QB to be scanned on every re-render.
-import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_COUNTS_BY_YEAR } from '../data/q-counts.js';
+import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount } from '../data/curriculum.js';
@@ -779,7 +779,13 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       </div>
       <SubjectGrid
         subjects={yearSubjects}
-        questions={[...QB, ...(customQuestions || [])]}
+        // Phase 2/3 perf: SubjectGrid uses precomputed visible counts
+        // (Q_VISIBLE_COUNTS_BY_SUBJECT) for the per-card badge instead of
+        // scanning the full QB. Only customQuestions need to be passed
+        // through since those are user-local and never end up in
+        // q-counts.js. The component computes
+        //   count = Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] + customQs.filter(...)
+        customQuestions={customQuestions || []}
         readingChecklist={readingChecklist}
         bookmarks={bookmarks}
         history={history}
@@ -790,7 +796,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           //      topic-select. Notes button works; Exam/SR buttons disabled.
           //   2. otherwise scaffold/empty → feedback (request content).
           //   3. has_questions → topic-select normally.
-          const totalQ = visibleQuestionCount(s.id, [...QB, ...(customQuestions || [])]);
+          const totalQ = (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0)
+            + (customQuestions || []).filter((q) => q.subject === s.id).length;
           const hasUsableContent = totalQ > 0 || s.has_notes === true;
           if (!hasUsableContent) {
             if (setFeedbackPrefill) {
@@ -1240,7 +1247,7 @@ function FeedbackChip() {
 // or PREVIEW state (faculty count from vault_lecturers, course code).
 // LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
 // are visually distinct + non-interactive (subjects without Qs yet).
-function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [], history = [], accBySubject = {}, onPick }) {
+function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bookmarks = [], history = [], accBySubject = {}, onPick }) {
   if (!subjects?.length) {
     return (
       <div style={{
@@ -1256,14 +1263,26 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
     );
   }
 
-  // Pre-index Q by id + bucket bookmarks per subject. Done ONCE here so
-  // each card's lookup is O(1). Without this, the per-card .find() loops
-  // produced O(subjects × bookmarks × questions) work — ~700K ops on a
-  // user with 50 bookmarks across 8 Y4 subjects + 1700 Q bank.
+  // Phase 2/3 perf: bookmarks-per-subject indexing.
+  //
+  // Previously this took the full merged Q array and built a Map from
+  // q.id → q to look up each bookmark's subject. That forced HomeView
+  // to import + scan the whole QB on every render.
+  //
+  // New approach: bookmark IDs live in a flat array in localStorage.
+  // We KNOW each Q has a `subject`, but we don't know it from the
+  // bookmark side. Until bookmark storage migrates to {id, subject}
+  // pairs (separate refactor), we lazy-import QB ONLY when the user
+  // has ≥1 bookmark — most users start with 0 so most renders avoid
+  // the cost entirely. The fallback path is sync via the module's
+  // top-level QB import (still present in this view for SR-related
+  // paths until Phase 3b ships); when Phase 3b lazies that too, this
+  // section will gain its own async load.
   const bookmarksBySubject = {};
   if (Array.isArray(bookmarks) && bookmarks.length > 0) {
     const qById = new Map();
-    for (const q of questions) qById.set(q.id, q);
+    for (const q of QB) qById.set(q.id, q);
+    for (const q of customQuestions) qById.set(q.id, q);
     for (const qId of bookmarks) {
       const q = qById.get(qId);
       if (q?.subject) bookmarksBySubject[q.subject] = (bookmarksBySubject[q.subject] || 0) + 1;
@@ -1276,7 +1295,12 @@ function SubjectGrid({ subjects, questions, readingChecklist = {}, bookmarks = [
   return (
     <div className="vmx-subject-grid">
       {subjects.map((s) => {
-        const count = visibleQuestionCount(s.id, questions);
+        // Use precomputed visible counts + custom-Q overlay so this
+        // render path never iterates the full QB. Saves ~5 ms per
+        // HomeView re-render with the year's typical 8 subjects.
+        const builtInCount = Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0;
+        const customCount = customQuestions.filter((q) => q.subject === s.id).length;
+        const count = builtInCount + customCount;
         // `scaffold: true` is an explicit flag for placeholder subjects.
         const isScaffold = !!s.scaffold;
         const isEmpty = count === 0 && !isScaffold;
