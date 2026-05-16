@@ -37,9 +37,38 @@ export const Q_COUNTS_BY_SUBJECT = {
   'zoonoses': 2,
 };
 
+// Visible counts exclude hidden-topic Qs (midterm leftovers,
+// uncertain-scope items flagged via topic.hidden in curriculum.js).
+// HomeView SubjectGrid renders these for the per-card Q badges so
+// the page doesn't need to scan the full QB at render time.
+export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
+  'aquatic-clinic': 5,
+  'avian-medicine': 4,
+  'cliapprum': 134,
+  'com3': 329,
+  'com4': 291,
+  'com5': 129,
+  'comp-repro-clinic': 48,
+  'engprof': 71,
+  'exotic': 104,
+  'livestock-pathology': 77,
+  'poa-clinical': 26,
+  'poultry': 134,
+  'practrum': 114,
+  'rec-adv-bioscience': 5,
+  'repro': 32,
+  'repro-lect': 208,
+  'ruminant-clinical': 22,
+  'surg2': 20,
+  'surg3': 40,
+  'swine-clinic': 26,
+  'vca': 340,
+  'zoonoses': 2,
+};
+
 export const Q_COUNTS_BY_YEAR = {
   4: 1672,
   5: 555,
 };
 
-// Built: 2026-05-16T17:08:39.337Z
+// Built: 2026-05-16T17:13:42.762Z

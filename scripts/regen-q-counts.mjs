@@ -33,17 +33,36 @@ const root = path.join(here, '..');
 // every consumer sees today. Importing through file:// URL because
 // Windows ESM rejects bare absolute paths.
 const m = await import(pathToFileURL(path.join(root, 'src/data/questions.js')).href);
+const curM = await import(pathToFileURL(path.join(root, 'src/data/curriculum.js')).href);
 const { QB } = m;
+const { SUBJECTS } = curM;
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 
-// Count by subject + year. SUBJECTS_BY_YEAR is the metadata
-// authority, so we also report any subject in QB that has no
-// curriculum entry (drift detection).
+// Build a hidden-topic set per subject from the curriculum metadata —
+// matches the `hiddenTopicIdsFor()` runtime behaviour so the
+// precomputed "visible" counts stay in sync with what HomeView's
+// SubjectGrid expects.
+const hiddenBySubject = {};
+for (const s of SUBJECTS) {
+  if (!s?.id || !Array.isArray(s.topics)) continue;
+  const set = new Set();
+  for (const t of s.topics) if (t.hidden) set.add(t.id);
+  if (set.size) hiddenBySubject[s.id] = set;
+}
+
+// Count by subject + year. Separately track "visible" counts that
+// exclude hidden-topic Qs so HomeView can render subject cards
+// without scanning the full QB.
 const bySubject = {};
+const byVisibleSubject = {};
 const byYear = {};
 for (const q of QB) {
   const subj = q.subject || '__unknown__';
   bySubject[subj] = (bySubject[subj] || 0) + 1;
+  const hidden = hiddenBySubject[subj];
+  if (!hidden || !hidden.has(q.topic)) {
+    byVisibleSubject[subj] = (byVisibleSubject[subj] || 0) + 1;
+  }
   if (Number.isFinite(q.year)) {
     byYear[q.year] = (byYear[q.year] || 0) + 1;
   }
@@ -67,6 +86,16 @@ lines.push('');
 lines.push('export const Q_COUNTS_BY_SUBJECT = {');
 for (const k of Object.keys(bySubject).sort()) {
   lines.push(`  '${k}': ${bySubject[k]},`);
+}
+lines.push('};');
+lines.push('');
+lines.push('// Visible counts exclude hidden-topic Qs (midterm leftovers,');
+lines.push('// uncertain-scope items flagged via topic.hidden in curriculum.js).');
+lines.push('// HomeView SubjectGrid renders these for the per-card Q badges so');
+lines.push('// the page doesn\'t need to scan the full QB at render time.');
+lines.push('export const Q_VISIBLE_COUNTS_BY_SUBJECT = {');
+for (const k of Object.keys(byVisibleSubject).sort()) {
+  lines.push(`  '${k}': ${byVisibleSubject[k]},`);
 }
 lines.push('};');
 lines.push('');
