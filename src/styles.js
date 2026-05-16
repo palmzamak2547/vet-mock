@@ -647,6 +647,30 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   font-size: 0.92em;
   border: 1px solid var(--clr-border);
 }
+.vmx-summary-body .vmx-md-pre {
+  /* Used for ASCII diagrams in Y5 video summaries (nitrogen cycle,
+     biosynthesis pathways). Keep whitespace, monospace font, and let
+     long lines scroll horizontally rather than wrap (preserves diagram
+     alignment). */
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 12px 0;
+  font-size: 0.9em;
+  line-height: 1.55;
+  overflow-x: auto;
+  white-space: pre;
+}
+.vmx-summary-body .vmx-md-pre code {
+  /* Override the inline-code styling inherited from generic <code> */
+  font-family: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
 .vmx-summary-body .vmx-md-hr {
   border: 0;
   border-top: 1px dashed var(--clr-border);

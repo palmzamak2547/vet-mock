@@ -47,6 +47,26 @@ function renderMarkdown(md) {
   while (i < lines.length) {
     const line = lines[i];
 
+    // Code fence ``` (optional language tag). Captures everything until
+    // the matching closing fence; content rendered verbatim inside
+    // <pre><code> with HTML escaped so backticks/brackets don't leak
+    // into surrounding flow. Used by ~7 video summaries for ASCII
+    // diagrams (e.g. nitrogen cycle pathway). Without this block, the
+    // backtick lines render as plain text and the diagram collapses.
+    if (/^```/.test(line)) {
+      const lang = line.slice(3).trim();
+      i++;
+      const codeLines = [];
+      while (i < lines.length && !/^```/.test(lines[i])) {
+        codeLines.push(lines[i]);
+        i++;
+      }
+      if (i < lines.length) i++; // consume closing fence
+      const langAttr = lang ? ` data-lang="${escapeHtml(lang)}"` : '';
+      out.push(`<pre class="vmx-md-pre"${langAttr}><code>${escapeHtml(codeLines.join('\n'))}</code></pre>`);
+      continue;
+    }
+
     // Heading
     if (/^### /.test(line)) { out.push(`<h3 class="vmx-md-h3">${renderInline(line.slice(4))}</h3>`); i++; continue; }
     if (/^## /.test(line))  { out.push(`<h2 class="vmx-md-h2">${renderInline(line.slice(3))}</h2>`);  i++; continue; }
