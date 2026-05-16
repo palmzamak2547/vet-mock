@@ -335,6 +335,25 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHash);
   }, [setView]);
 
+  // Universal hash cleanup: whenever the active view moves AWAY from
+  // 'lab', strip #lab from the URL bar so it doesn't lie to the user
+  // about where they are. Earlier we only cleared hash on LabView's
+  // own back button — but FAB→Lab→browser-back, Home logo click,
+  // or any other setView('home') path was leaving #lab stuck in the
+  // URL. This effect catches every such transition in one place.
+  // replaceState doesn't fire hashchange so it won't loop back into
+  // the onHash listener above.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (view !== 'lab' && window.location.hash === '#lab') {
+      window.history.replaceState(
+        null,
+        '',
+        window.location.pathname + window.location.search,
+      );
+    }
+  }, [view]);
+
   // Scroll to top when view changes — without this, navigating to a
   // long page (e.g. NotesView) keeps you scrolled at the previous
   // view's offset, which feels broken. 'instant' avoids fighting the
