@@ -387,6 +387,8 @@ export default function LabView({ goHome }) {
             </p>
           </div>
 
+          <AdvancedToolsRow />
+
           {recent.length > 0 && (
             <div style={recentBoxStyle}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
@@ -502,6 +504,98 @@ export default function LabView({ goHome }) {
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+// "🧪 Advanced / senior-project tools" row at the bottom of Lab home.
+// Kept quiet (one ghost-text line) so first-time learners aren't
+// distracted; power users can find:
+//   • CSV export of own saved imaging_attempts (for AI training data)
+//   • Sample AI JSON download (shows the AI overlay schema)
+//   • Link to the AI integration spec
+function AdvancedToolsRow() {
+  const [busy, setBusy] = useState(null);  // 'csv' | 'ai-sample' | null
+  const [msg, setMsg] = useState(null);
+
+  const exportCsv = async () => {
+    setBusy('csv');
+    setMsg(null);
+    try {
+      const mod = await import('../lib/dicom/export-attempts.js');
+      const res = await mod.fetchAndExportAttemptsCsv();
+      if (res.ok) {
+        setMsg({ kind: 'ok', text: `✅ ดาวน์โหลด ${res.count} attempt(s)` });
+      } else {
+        const labels = {
+          'no-supabase': 'Supabase ไม่ตั้งค่า',
+          'no-auth': 'ต้อง sign in ก่อน export',
+          'no-table': 'Migration ยังไม่ apply',
+          'no-data': 'ยังไม่มี attempt ที่บันทึก',
+        };
+        setMsg({ kind: 'err', text: labels[res.reason] || res.reason });
+      }
+    } catch (e) {
+      setMsg({ kind: 'err', text: e?.message || String(e) });
+    } finally {
+      setBusy(null);
+      setTimeout(() => setMsg(null), 5000);
+    }
+  };
+
+  const downloadSample = async () => {
+    setBusy('ai-sample');
+    try {
+      const mod = await import('../lib/dicom/export-attempts.js');
+      mod.downloadSampleAiJson();
+      setMsg({ kind: 'ok', text: '✅ Downloaded vmx-lab-ai-sample.json — drop it on viewer via 🤖 Load AI' });
+    } catch (e) {
+      setMsg({ kind: 'err', text: e?.message || String(e) });
+    } finally {
+      setBusy(null);
+      setTimeout(() => setMsg(null), 5000);
+    }
+  };
+
+  return (
+    <div style={advancedRowStyle}>
+      <details style={{ width: '100%' }}>
+        <summary style={advancedSummaryStyle}>
+          🧪 Advanced — senior project tools (CSV · AI sample · spec)
+        </summary>
+        <div style={{ marginTop: 8, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button
+            onClick={exportCsv}
+            disabled={busy === 'csv'}
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            title="Export your saved imaging_attempts as CSV (RLS-scoped to you)"
+          >
+            {busy === 'csv' ? '⏳ exporting...' : '📊 Export my attempts (CSV)'}
+          </button>
+          <button
+            onClick={downloadSample}
+            disabled={busy === 'ai-sample'}
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            title="ดาวน์โหลด AI prediction JSON sample · drop ผ่าน 🤖 Load AI เพื่อดู overlay"
+          >
+            📋 Sample AI JSON
+          </button>
+          <a
+            href="https://github.com/palmzamak2547/vet-mock/blob/main/src/lib/dicom/AI-INTEGRATION.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            style={{ textDecoration: 'none' }}
+          >
+            📖 AI integration spec ↗
+          </a>
+        </div>
+        {msg && (
+          <div style={{ marginTop: 6, fontSize: '0.78rem', color: msg.kind === 'err' ? '#c33' : '#3a7' }}>
+            {msg.text}
+          </div>
+        )}
+      </details>
     </div>
   );
 }
@@ -695,6 +789,22 @@ const demoCtaBtnStyle = {
   fontWeight: 600,
   boxShadow: '0 2px 8px rgba(74,107,74,0.25)',
   transition: 'transform 100ms, box-shadow 100ms',
+};
+
+const advancedRowStyle = {
+  marginTop: 16,
+  padding: '8px 14px',
+  background: '#f6f4ef',
+  border: '1px solid #e5dfd0',
+  borderRadius: 6,
+  fontSize: '0.82rem',
+};
+
+const advancedSummaryStyle = {
+  cursor: 'pointer',
+  color: '#666',
+  fontSize: '0.82rem',
+  userSelect: 'none',
 };
 
 const recentBoxStyle = {
