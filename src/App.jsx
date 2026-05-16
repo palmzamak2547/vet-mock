@@ -1271,6 +1271,13 @@ export default function App() {
               <span>เครือข่าย Vet 86:</span>
               <a href="https://cuvetsmo.com" target="_blank" rel="noopener noreferrer" title="สโมสรนิสิตสัตวแพทย์ จุฬาฯ" style={{ textDecoration: 'underline', color: '#666' }}>🐾 CUVETSMO · สโมสรนิสิตสัตวแพทย์ จุฬาฯ</a>
               <a href="https://hanong.vercel.app" target="_blank" rel="noopener noreferrer" title="Hanong — stray welfare platform" style={{ textDecoration: 'underline', color: '#666' }}>🐕 Hanong · หาน้อง</a>
+              {/* Internal link — same-origin hash route. Same window. */}
+              <a
+                onClick={(e) => { e.preventDefault(); setView('lab'); if (window.location.hash !== '#lab') window.location.hash = '#lab'; }}
+                href="#lab"
+                title="Imaging Practice Lab — ฝึกอ่าน X-ray + DICOM viewer (Experimental)"
+                style={{ textDecoration: 'underline', color: '#666', cursor: 'pointer' }}
+              >🔬 Imaging Lab · ฝึกอ่าน X-ray (Experimental)</a>
             </div>
           </div>
 
@@ -1288,7 +1295,13 @@ export default function App() {
               into the calculator + sketchpad. Replaces what used to be
               two stacked floats. Hidden during exam/auth like before. */}
           {view !== 'auth' && view !== 'exam' && (
-            <ToolsFAB onSketch={() => setSketchOpen(true)} />
+            <ToolsFAB
+              onSketch={() => setSketchOpen(true)}
+              onLab={() => {
+                if (window.location.hash !== '#lab') window.location.hash = '#lab';
+                setView('lab');
+              }}
+            />
           )}
           {sketchOpen && (
             <Suspense fallback={null}>

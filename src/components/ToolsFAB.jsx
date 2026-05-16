@@ -21,7 +21,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export default function ToolsFAB({ onSketch }) {
+export default function ToolsFAB({ onSketch, onLab }) {
   const [open, setOpen] = useState(false);
   const popRef = useRef(null);
   const btnRef = useRef(null);
@@ -54,6 +54,10 @@ export default function ToolsFAB({ onSketch }) {
     setOpen(false);
     onSketch?.();
   };
+  const handleLab = () => {
+    setOpen(false);
+    onLab?.();
+  };
 
   return (
     <>
@@ -83,6 +87,14 @@ export default function ToolsFAB({ onSketch }) {
         >
           <FabMenuItem icon="🧮" label="เครื่องคิดเลข" hint="RER · Fluid · CRI" onClick={handleCalc} />
           <FabMenuItem icon="🎨" label="กระดานวาด"     hint="sketch · diagram"    onClick={handleSketch} />
+          {onLab && (
+            <FabMenuItem
+              icon="🔬"
+              label="Imaging Lab"
+              hint="DICOM · Norberg · VHS · NEW"
+              onClick={handleLab}
+            />
+          )}
         </div>
       )}
 
