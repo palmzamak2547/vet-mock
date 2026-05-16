@@ -10,6 +10,7 @@ import {
   annotation,
   Enums as ToolEnums,
 } from '@cornerstonejs/tools';
+import dicomParser from 'dicom-parser';
 import { ensureCornerstoneInit, getDicomImageLoader } from '../../lib/dicom/cornerstone-init.js';
 import NorbergOverlay from './NorbergOverlay.jsx';
 import VHSOverlay from './VHSOverlay.jsx';
@@ -133,6 +134,15 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
           height: dims?.[1] ?? '?',
           mmPerPx: spacing,
         });
+        // Parse PatientSpeciesDescription (0010,2201) once, in parallel
+        // with the Cornerstone load. Used by VHS overlay to pick the
+        // right reference range (canine 8.5–10.5 vs feline 6.7–8.1).
+        try {
+          const buf = await file.arrayBuffer();
+          const ds = dicomParser.parseDicom(new Uint8Array(buf));
+          const sp = ds.string('x00102201') || '';
+          if (!cancelled && sp) setSpecies(sp);
+        } catch { /* dicom-parser failed; species stays empty */ }
         setStatus('ready');
         setActiveTool('wl');
       } catch (err) {
@@ -208,6 +218,25 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [aiPrediction, setAiPrediction] = useState(null);
   const [aiError, setAiError] = useState(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [species, setSpecies] = useState('');
+
+  // Track browser fullscreen so the toolbar button label flips.
+  useEffect(() => {
+    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    const el = elRef.current;
+    if (!el) return;
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => { /* user rejected */ });
+    } else {
+      el.requestFullscreen?.().catch(() => { /* unsupported */ });
+    }
+  }, []);
 
   const loadAiJson = useCallback(async (file) => {
     if (!file) return;
@@ -340,6 +369,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         r: () => resetView(),
         c: () => clearMeasurements(),
         e: () => exportPng(),
+        f: () => toggleFullscreen(),
         u: () => {
           // Send to whichever overlay is currently active (Norberg or VHS).
           // The overlay's own `active` check filters out stale instances.
@@ -361,7 +391,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [status, selectTool, resetView, clearMeasurements, exportPng, applyPreset]);
+  }, [status, selectTool, resetView, clearMeasurements, exportPng, applyPreset, toggleFullscreen]);
 
   return (
     <div>
@@ -410,6 +440,9 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
           {aiPrediction && <TBtn onClick={clearAi} title="Clear AI overlay">{isMobile ? '✕' : '✕ Clear AI'}</TBtn>}
           <Divider />
           <TBtn onClick={exportPng} title="Export annotated PNG (E)">{isMobile ? '📤' : '📤 Export PNG'}</TBtn>
+          <TBtn onClick={toggleFullscreen} title={isFullscreen ? 'ออก fullscreen (F or Esc)' : 'เปิด fullscreen (F)'}>
+            {isFullscreen ? '⤢ Exit FS' : '⛶ Fullscreen'}
+          </TBtn>
           <TBtn onClick={resetView} title="Reset view (R)">{isMobile ? '↺' : '↺ Reset view'}</TBtn>
           <TBtn onClick={() => setShowShortcuts((s) => !s)} title="Keyboard shortcuts (?)">⌨</TBtn>
         </div>
@@ -441,6 +474,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
                 <SC k="C" desc="Clear all measurements" />
                 <SC k="U" desc="Undo last Norberg/VHS point" />
                 <SC k="E" desc="Export annotated PNG" />
+                <SC k="F" desc="Toggle fullscreen" />
                 <SC k="?" desc="Show / hide this help" />
                 <SC k="Esc" desc="Close this help" />
               </tbody>
@@ -454,6 +488,22 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
       <div
         ref={elRef}
         onContextMenu={(e) => e.preventDefault()}
+        onDragOver={(e) => {
+          // Allow JSON drops without intercepting Cornerstone's
+          // pointer/measurement events (which use pointerdown/move).
+          if (e.dataTransfer?.types?.includes('Files')) e.preventDefault();
+        }}
+        onDrop={(e) => {
+          const f = e.dataTransfer?.files?.[0];
+          if (!f) return;
+          if (/\.json$/i.test(f.name) || f.type === 'application/json') {
+            e.preventDefault();
+            loadAiJson(f);
+          }
+          // Drop of non-JSON file = ignored. New DICOMs must use the
+          // home drop zone (we don't want to silently replace the
+          // currently-rendered image).
+        }}
         style={{
           width: '100%',
           // Adaptive: at least 400 px, at most 900 px, prefer viewport
@@ -506,6 +556,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
             active={activeTool === 'vhs'}
             viewportRef={getViewport}
             caseId={caseId}
+            species={species}
           />
         )}
       </div>

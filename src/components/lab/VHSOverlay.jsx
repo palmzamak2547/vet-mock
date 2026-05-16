@@ -26,8 +26,20 @@ const STEPS = [
 const COLORS = ['#ff6b6b', '#ff6b6b', '#6bb6ff', '#6bb6ff', '#ffd93d', '#ffd93d'];
 const PAIR_LABELS = ['L', 'L', 'S', 'S', 'V', 'V'];
 
-export default function VHSOverlay({ active, viewportRef, caseId = null }) {
+// Species-adapted reference ranges (Buchanan & Bücheler · Litster &
+// Buchanan). Returns null if species can't be matched — UI then shows
+// the generic both-ranges note.
+function refRangeForSpecies(species) {
+  if (!species) return null;
+  const s = species.toLowerCase();
+  if (/feline|cat|felis/.test(s)) return { label: 'feline', lo: 6.7, hi: 8.1 };
+  if (/canine|dog|canis/.test(s)) return { label: 'canine', lo: 8.5, hi: 10.5 };
+  return null;
+}
+
+export default function VHSOverlay({ active, viewportRef, caseId = null, species = '' }) {
   const isMobile = useMediaQuery('(max-width: 600px)');
+  const ref = refRangeForSpecies(species);
   const [worldPoints, setWorldPoints] = useState([]);
   const [, setTick] = useState(0);
 
@@ -242,8 +254,23 @@ export default function VHSOverlay({ active, viewportRef, caseId = null }) {
             VHS = <strong>{result.vhs.toFixed(2)} v</strong>
           </div>
           <div style={{ marginTop: 6, fontSize: '0.72rem', color: '#aaa' }}>
-            ค่าอ้างอิงทั่วไป · canine 8.5–10.5 · feline 6.7–8.1
-            <br />breed-specific มี · breed ใหญ่บางพันธุ์ค่าปกติสูงกว่านี้
+            {ref ? (
+              <>
+                ค่าอ้างอิง · <strong>{ref.label}</strong> {ref.lo}–{ref.hi}
+                {' · '}
+                <span style={{ color: result.vhs > ref.hi ? '#fbb' : result.vhs < ref.lo ? '#bbf' : '#cfc' }}>
+                  {result.vhs > ref.hi ? `↑ +${(result.vhs - ref.hi).toFixed(1)} above`
+                    : result.vhs < ref.lo ? `↓ -${(ref.lo - result.vhs).toFixed(1)} below`
+                    : 'within range'}
+                </span>
+                <br />Species จาก DICOM tag · breed-specific ranges อาจต่างจากนี้
+              </>
+            ) : (
+              <>
+                ค่าอ้างอิงทั่วไป · canine 8.5–10.5 · feline 6.7–8.1
+                <br />Species ไม่ระบุใน DICOM tag — แสดงทั้ง 2 ช่วง
+              </>
+            )}
             <br />เครื่องมือเพื่อการเรียนรู้ · ไม่ใช้แทนการ workup ผู้ป่วยจริง
           </div>
           <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
