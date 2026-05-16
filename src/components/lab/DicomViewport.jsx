@@ -34,7 +34,7 @@ const TOOLS = {
 
 let engineSeq = 0;
 
-export default function DicomViewport({ file }) {
+export default function DicomViewport({ file, caseId = null }) {
   const elRef = useRef(null);
   const engineRef = useRef(null);
   const viewportIdRef = useRef(null);
@@ -242,6 +242,7 @@ export default function DicomViewport({ file }) {
             key={`norberg-${file?.name}-${file?.size}-${file?.lastModified || 0}`}
             active={activeTool === 'norberg'}
             viewportRef={getViewport}
+            caseId={caseId}
           />
         )}
         {status === 'ready' && (
@@ -249,6 +250,7 @@ export default function DicomViewport({ file }) {
             key={`vhs-${file?.name}-${file?.size}-${file?.lastModified || 0}`}
             active={activeTool === 'vhs'}
             viewportRef={getViewport}
+            caseId={caseId}
           />
         )}
       </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { saveAttempt, reasonLabel } from '../../lib/dicom/save-attempt.js';
 
 // Buchanan & Bücheler 1995 vertebral heart score on a right-lateral
 // thoracic radiograph. Six clicks define three measurements:
@@ -24,7 +25,7 @@ const STEPS = [
 const COLORS = ['#ff6b6b', '#ff6b6b', '#6bb6ff', '#6bb6ff', '#ffd93d', '#ffd93d'];
 const PAIR_LABELS = ['L', 'L', 'S', 'S', 'V', 'V'];
 
-export default function VHSOverlay({ active, viewportRef }) {
+export default function VHSOverlay({ active, viewportRef, caseId = null }) {
   const [worldPoints, setWorldPoints] = useState([]);
   const [, setTick] = useState(0);
 
@@ -73,6 +74,32 @@ export default function VHSOverlay({ active, viewportRef }) {
   }, [active, worldPoints.length, viewportRef]);
 
   const reset = useCallback(() => setWorldPoints([]), []);
+
+  const [saveState, setSaveState] = useState({ status: 'idle', msg: null });
+  const handleSave = useCallback(async () => {
+    if (worldPoints.length < 6) return;
+    const d = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+    const L = d(worldPoints[0], worldPoints[1]);
+    const S = d(worldPoints[2], worldPoints[3]);
+    const V = d(worldPoints[4], worldPoints[5]);
+    if (V === 0) return;
+    const Lv = L / V, Sv = S / V, vhs = Lv + Sv;
+    setSaveState({ status: 'saving', msg: null });
+    const res = await saveAttempt({
+      tool: 'vhs',
+      caseId,
+      measurement_json: { worldPoints, Lv, Sv, vhs },
+      numeric_result: vhs,
+      secondary_result: Lv,
+      classification: null,
+    });
+    if (res.ok) {
+      setSaveState({ status: 'saved', msg: null });
+      setTimeout(() => setSaveState({ status: 'idle', msg: null }), 4000);
+    } else {
+      setSaveState({ status: 'error', msg: reasonLabel(res.reason) });
+    }
+  }, [worldPoints, caseId]);
 
   const result = useMemo(() => {
     if (worldPoints.length < 6) return null;
@@ -156,7 +183,21 @@ export default function VHSOverlay({ active, viewportRef }) {
             <br />breed-specific มี · breed ใหญ่บางพันธุ์ค่าปกติสูงกว่านี้
             <br />เครื่องมือเพื่อการเรียนรู้ · ไม่ใช้แทนการ workup ผู้ป่วยจริง
           </div>
-          <button onClick={reset} style={resetBtnStyle}>↺ Reset VHS points</button>
+          <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
+            <button onClick={reset} style={resetBtnStyle}>↺ Reset</button>
+            <button
+              onClick={handleSave}
+              disabled={saveState.status === 'saving'}
+              style={{ ...resetBtnStyle, background: saveState.status === 'saved' ? '#4a6b4a' : '#3a5a8a' }}
+            >
+              {saveState.status === 'saving' ? '⏳ saving...' : saveState.status === 'saved' ? '✅ Saved' : '💾 Save attempt'}
+            </button>
+          </div>
+          {saveState.msg && (
+            <div style={{ marginTop: 6, fontSize: '0.7rem', color: saveState.status === 'error' ? '#fbb' : '#9c9' }}>
+              {saveState.msg}
+            </div>
+          )}
         </div>
       )}
     </div>

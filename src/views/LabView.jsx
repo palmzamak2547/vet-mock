@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 
 const DicomViewport = lazy(() => import('../components/lab/DicomViewport.jsx'));
 const CaseLibrary = lazy(() => import('../components/lab/CaseLibrary.jsx'));
+const TagInspector = lazy(() => import('../components/lab/TagInspector.jsx'));
 
 const RECENT_KEY = 'vmx-lab-recent-files';
 const RECENT_MAX = 5;
@@ -268,6 +269,7 @@ export default function LabView({ goHome }) {
                 index={idx}
                 canRemove={files.length > 1}
                 onRemove={() => removeFileAt(idx)}
+                caseId={currentCase?.id || null}
               />
             ))}
           </div>
@@ -290,7 +292,8 @@ export default function LabView({ goHome }) {
 // the Cornerstone-backed DicomViewport itself. Each pane operates an
 // independent engine + tool group — there's no cross-pane sync yet,
 // each toolbar controls only its own viewport.
-function ViewerPane({ file, index, canRemove, onRemove }) {
+function ViewerPane({ file, index, canRemove, onRemove, caseId }) {
+  const [showTags, setShowTags] = useState(false);
   return (
     <div style={paneStyle}>
       <div style={paneHeaderStyle}>
@@ -299,6 +302,13 @@ function ViewerPane({ file, index, canRemove, onRemove }) {
           <span style={{ color: '#888', fontSize: '0.75rem' }}>{file.name}</span>
         </span>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <button
+            onClick={() => setShowTags((s) => !s)}
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            title="ดู DICOM tags ทั้งหมด"
+          >
+            🔍 Info
+          </button>
           <AnonymizeButton file={file} />
           {canRemove && (
             <button
@@ -313,8 +323,13 @@ function ViewerPane({ file, index, canRemove, onRemove }) {
         </div>
       </div>
       <Suspense fallback={<div style={loadingFallbackStyle}>กำลังโหลด viewer...</div>}>
-        <DicomViewport file={file} />
+        <DicomViewport file={file} caseId={caseId} />
       </Suspense>
+      {showTags && (
+        <Suspense fallback={null}>
+          <TagInspector file={file} onClose={() => setShowTags(false)} />
+        </Suspense>
+      )}
     </div>
   );
 }

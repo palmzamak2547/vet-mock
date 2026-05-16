@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { saveAttempt, reasonLabel } from '../../lib/dicom/save-attempt.js';
 
 // Norberg angle workflow on a VD pelvis radiograph:
 //   1) center of the left femoral head
@@ -22,7 +23,7 @@ const STEPS = [
 const COLORS = ['#ff6b6b', '#6bb6ff', '#ffaa6b', '#6bffaa'];
 const LABELS = ['L♀', 'R♀', 'L⌃', 'R⌃'];
 
-export default function NorbergOverlay({ active, viewportRef }) {
+export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
   // World-space points (3D). Persist across tool toggles until Reset.
   const [worldPoints, setWorldPoints] = useState([]);
   // Tick re-renders SVG positions when the camera moves (zoom/pan).
@@ -79,6 +80,30 @@ export default function NorbergOverlay({ active, viewportRef }) {
   }, [active, worldPoints.length, viewportRef]);
 
   const reset = useCallback(() => setWorldPoints([]), []);
+
+  const [saveState, setSaveState] = useState({ status: 'idle', msg: null });
+  const handleSave = useCallback(async () => {
+    if (worldPoints.length < 4) return;
+    const [lf, rf, lac, rac] = worldPoints;
+    const left = angleAtVertex(lf, rf, lac);
+    const right = angleAtVertex(rf, lf, rac);
+    const cls = classify(Math.min(left, right));
+    setSaveState({ status: 'saving', msg: null });
+    const res = await saveAttempt({
+      tool: 'norberg',
+      caseId,
+      measurement_json: { worldPoints, left, right },
+      numeric_result: left,
+      secondary_result: right,
+      classification: cls,
+    });
+    if (res.ok) {
+      setSaveState({ status: 'saved', msg: null });
+      setTimeout(() => setSaveState({ status: 'idle', msg: null }), 4000);
+    } else {
+      setSaveState({ status: 'error', msg: reasonLabel(res.reason) });
+    }
+  }, [worldPoints, caseId]);
 
   const angles = useMemo(() => {
     if (worldPoints.length < 4) return null;
@@ -158,7 +183,21 @@ export default function NorbergOverlay({ active, viewportRef }) {
           <div style={{ marginTop: 6, fontSize: '0.7rem', color: '#aaa' }}>
             เครื่องมือเพื่อการเรียนรู้ · ไม่ใช้แทนการ workup ผู้ป่วยจริง
           </div>
-          <button onClick={reset} style={resetBtnStyle}>↺ Reset Norberg points</button>
+          <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
+            <button onClick={reset} style={resetBtnStyle}>↺ Reset</button>
+            <button
+              onClick={handleSave}
+              disabled={saveState.status === 'saving'}
+              style={{ ...resetBtnStyle, background: saveState.status === 'saved' ? '#4a6b4a' : '#3a5a8a' }}
+            >
+              {saveState.status === 'saving' ? '⏳ saving...' : saveState.status === 'saved' ? '✅ Saved' : '💾 Save attempt'}
+            </button>
+          </div>
+          {saveState.msg && (
+            <div style={{ marginTop: 6, fontSize: '0.7rem', color: saveState.status === 'error' ? '#fbb' : '#9c9' }}>
+              {saveState.msg}
+            </div>
+          )}
         </div>
       )}
     </div>
