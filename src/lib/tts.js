@@ -66,6 +66,16 @@ const THAI_RE = /[฀-๿]/;
 const ENG_RE = /[A-Za-z]/;
 const SAFE_CHUNK_LIMIT = 240; // chars — under Chrome's reported hang threshold
 
+// Eager voice enumeration on module load. The first call to
+// ensureVoices() races a `voiceschanged` event listener that can fire
+// late (Chrome desktop often takes 200-1000 ms). Kicking it off here
+// (no await — fire and forget) means by the time the user taps 🔊
+// for the first time, `_voicesPromise` is usually already resolved
+// and the speakQuestion path proceeds without waiting. The 30 ms
+// Promise.race cap inside speakQuestion is a safety net for the
+// extreme cold-boot case where the user taps within a few hundred
+// ms of page load.
+
 // Voice cache + readiness — getVoices() may return [] on Chrome until
 // the 'voiceschanged' event fires.
 let _voicesPromise = null;
@@ -454,28 +464,54 @@ async function speakSentence(text, lang, voices, controller) {
   }
 }
 
+// Public — prefetch a Q's stem audio so tap-to-play is near-instant.
+// Designed for fire-and-forget call when a Q renders (Question.jsx
+// mount effect with a short idle delay). Throws are swallowed since
+// this is a perf optimisation, not a correctness path — failed
+// prefetch just means the speakQuestion() call will pay the round-trip
+// like it used to.
+//
+// Cost note: each prefetch burns one upstream call (~1 IC for iApp,
+// free for Edge). To bound waste from never-spoken Qs we ONLY prefetch
+// the stem segment (not options), and we skip the call entirely when
+// the audio is already cached — getIAppAudio / getEdgeAudio short-
+// circuit on cache hit so no IC is wasted on the second prefetch of
+// the same Q across reloads.
+export async function prefetchQuestion({ stem }) {
+  try {
+    if (!stem || typeof stem !== 'string' || !stem.trim()) return;
+    const qLang = dominantLang(stem);
+    const text = preprocess(stem, qLang);
+    const sentence = /[.!?]$/.test(text) ? text : text + '.';
+    const { speed: userRate } = getTtsPrefs();
+    // Pick the same provider that speakQuestion() would, so the cache
+    // entry written here is the one the real tap will hit. If iApp is
+    // available + Thai, use iApp; else Edge.
+    if (qLang === 'th' && isIAppAvailable()) {
+      await getIAppAudio({ text: sentence, lang: qLang, rate: userRate });
+    } else {
+      await getEdgeAudio({ text: sentence, lang: qLang, rate: userRate });
+    }
+  } catch { /* prefetch is best-effort */ }
+}
+
 // Public — speak a Q stem + options sequence.
 export async function speakQuestion({ stem, options, onStart, onEnd, controller }) {
   if (typeof window === 'undefined' || !window.speechSynthesis) return;
   const synth = window.speechSynthesis;
   synth.cancel();
 
-  // 2026-05-16: don't block tap-to-audio on voice enumeration. Cloud
-  // path (iApp/Edge) doesn't NEED Web Speech voices — those are only
-  // for the Web Speech fallback path. ensureVoices() can wait up to
-  // 1500 ms on a cold browser session (Chrome fires `voiceschanged`
-  // late), so previously every first tap of a session paid for that
-  // entire window even when we were going straight to cloud anyway.
-  //
-  // Race with a 100 ms cap: if voices are already enumerated (typical
-  // mid-session), pickVoice still finds the right one and the premium-
-  // local skip-cloud branch still triggers. If voices aren't ready
-  // within 100 ms we treat the tier as 'standard' (cloud path) — which
-  // is correct for ~all Windows/desktop sessions anyway.
+  // Don't block tap-to-audio on voice enumeration. Cloud path (iApp/
+  // Edge) doesn't NEED Web Speech voices — those are only for the Web
+  // Speech fallback path. Cut the race cap from 100 → 30 ms (round 3,
+  // Palm "ตอนกดยังช้า"): if voices were already enumerated by a
+  // previous tap or page-warm effect, the read is synchronous; this
+  // cap only bites on the very first tap of a fresh session. 30 ms is
+  // below the human reaction-threshold ceiling for "instant" feel.
   const voicesPromise = ensureVoices();
   const voices = await Promise.race([
     voicesPromise,
-    new Promise((res) => setTimeout(() => res([]), 100)),
+    new Promise((res) => setTimeout(() => res([]), 30)),
   ]);
   if (controller?.cancelled) return;
   onStart?.();
@@ -698,6 +734,12 @@ export function cancelSpeech() {
   if (typeof window === 'undefined' || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   stopAllEdgeAudio();
+}
+
+// Eager voice enumeration on module load (see comment above THAI_RE).
+// Wrapped in a guard so SSR builds don't crash on `window`.
+if (typeof window !== 'undefined') {
+  ensureVoices().catch(() => { /* prewarm best-effort */ });
 }
 
 // Exposed for tests / debugging — checks an installed voice setup

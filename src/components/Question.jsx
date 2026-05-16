@@ -5,7 +5,7 @@ import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
-import { speakQuestion, cancelSpeech } from '../lib/tts.js';
+import { speakQuestion, prefetchQuestion, cancelSpeech } from '../lib/tts.js';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
 
@@ -52,6 +52,24 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       setIsSpeaking(false);
     };
   }, [currentQ?.id]);
+
+  // Prefetch the STEM audio in the background as soon as the Q renders.
+  // Cost: 1 IC (~1.25 ฿) per never-spoken Q on iApp tier. Benefit: when
+  // the user actually taps 🔊, the audio is already in IndexedDB cache
+  // and `speakQuestion` skips the network round-trip → first word lands
+  // within ~100 ms of the tap.
+  //
+  // 400 ms idle delay before kicking off: avoids burning the credit
+  // when the user immediately swipes/jumps to another Q (TopicSelect →
+  // exam jumps the index a lot during first-time exploration).
+  useEffect(() => {
+    const stem = (currentQ?.q || '').trim();
+    if (!stem) return;
+    const t = setTimeout(() => {
+      prefetchQuestion({ stem });
+    }, 400);
+    return () => clearTimeout(t);
+  }, [currentQ?.id, currentQ?.q]);
 
   const speakQ = () => {
     // CRITICAL: prime audio synchronously BEFORE any await. iOS Safari
