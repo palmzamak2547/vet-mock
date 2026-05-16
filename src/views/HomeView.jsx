@@ -225,16 +225,27 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // Quick action: review questions answered wrong (cross-subject).
   // Uses the same pattern as bookmarks practiceMode — just a different
   // pool source. Sorted by wrong-frequency so the user sees their
-  // most-confused Qs first.
+  // most-confused Qs first. Goes 1-click direct to ExamView via
+  // startExam overrides (matches the random-Q fix 2026-05-16).
   const launchWrongReview = () => {
     if (quickStats.wrongCount === 0) return;
+    const n = Math.min(quickStats.wrongCount, 50);
     if (setMode) setMode('quick');
-    if (setNumQuestions) setNumQuestions(Math.min(quickStats.wrongCount, 50));
-    if (setUseTimer) setUseTimer(false);
-    if (setSubject) setSubject(null);
+    if (setSubject) setSubject('all');
     if (setTopic) setTopic(null);
     if (setPracticeMode) setPracticeMode('wrong');
-    setView('config');
+    if (setNumQuestions) setNumQuestions(n);
+    if (setUseTimer) setUseTimer(false);
+    if (startExam) {
+      startExam({
+        practiceMode: 'wrong',
+        subject: 'all',
+        topic: null,
+        questionCategory: 'all',
+        numQuestions: n,
+        useTimer: false,
+      });
+    }
   };
 
   return (
