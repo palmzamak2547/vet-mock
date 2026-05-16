@@ -13,12 +13,15 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(here, '..');
 
-const m = await import(path.join(root, 'src/data/video-summaries.js'));
+// Node's ESM loader on Windows rejects bare absolute paths (`c:\...`
+// reads as a URL with scheme `c:`). Wrap in file:// via pathToFileURL
+// so the script works on both POSIX and Windows.
+const m = await import(pathToFileURL(path.join(root, 'src/data/video-summaries.js')).href);
 
 const entries = Object.entries(m.VIDEO_SUMMARIES).map(([id, v]) => {
   const { summary, ...meta } = v;
