@@ -11,7 +11,7 @@
 // daily-Q UI is a quick "tap the right answer" loop.
 // ============================================================
 
-const TODAY_KEY_PREFIX = 'vmx-todays-q-';
+export const TODAY_KEY_PREFIX = 'vmx-todays-q-';
 
 export function todayKey() {
   const d = new Date();
@@ -58,6 +58,22 @@ export function recordTodaysQAnswer({ qSubject, qId, choice, correct, dateStr = 
     const payload = JSON.stringify({ qSubject, qId, choice, correct, ts: Date.now() });
     window.localStorage.setItem(TODAY_KEY_PREFIX + dateStr, payload);
   } catch {}
+}
+
+// Read the recorded result for a specific date — returns 'correct',
+// 'wrong', or null (no record / parse error). Used by the daily-q
+// history layer to build the emoji-grid share card. Reads the SAME
+// per-day key that recordTodaysQAnswer writes, so no migration needed.
+export function getDailyQResultForDate(dateStr) {
+  try {
+    const raw = window.localStorage.getItem(TODAY_KEY_PREFIX + dateStr);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (typeof parsed?.correct !== 'boolean') return null;
+    return parsed.correct ? 'correct' : 'wrong';
+  } catch {
+    return null;
+  }
 }
 
 // Streak across consecutive days that the user actually answered.

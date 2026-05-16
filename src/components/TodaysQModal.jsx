@@ -12,15 +12,22 @@
 //   • Single modal = less context switching, easier to do in waiting rooms
 // ============================================================
 
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
 import { isCorrect } from '../hooks/utils.js';
 import { recordTodaysQAnswer } from '../lib/daily-q.js';
 import { SUBJECTS } from '../data/curriculum.js';
 
+// Lazy-load the share card — it pulls a 1080×1920 canvas helper and
+// isn't needed until the user actually picks an answer + taps share.
+// Keeps the daily-Q modal opening fast on slow networks.
+const DailyQShareCard = lazy(() => import('./DailyQShareCard.jsx'));
+
 export default function TodaysQModal({ q, onClose, onDone }) {
   const [picked, setPicked] = useState(null);
   const [revealed, setRevealed] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [todayResult, setTodayResult] = useState(null);
 
   if (!q) return null;
   const correctIdx = q.answer;
@@ -31,6 +38,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
     setPicked(idx);
     const wasCorrect = isCorrect(q, idx);
     setRevealed(true);
+    setTodayResult(wasCorrect ? 'correct' : 'wrong');
     recordTodaysQAnswer({
       qSubject: q.subject,
       qId: q.id,
@@ -100,12 +108,32 @@ export default function TodaysQModal({ q, onClose, onDone }) {
           </div>
         )}
 
-        <div className="vmx-btn-row" style={{ marginTop: 14 }}>
-          <button className="vmx-btn vmx-btn-ghost" onClick={onClose} type="button">
+        <div className="vmx-btn-row" style={{ marginTop: 14, flexWrap: 'wrap', gap: 8 }}>
+          <button className="vmx-btn vmx-btn-ghost" onClick={onClose} type="button" style={{ minHeight: 44 }}>
             {revealed ? 'ปิด · เจอกันพรุ่งนี้' : 'ปิด'}
           </button>
+          {revealed && (
+            <button
+              className="vmx-btn vmx-btn-primary"
+              onClick={() => setShareOpen(true)}
+              type="button"
+              style={{ minHeight: 44 }}
+              title="แชร์ history 7 วันแบบ Wordle ให้เพื่อน"
+            >
+              📤 แชร์ผลลัพธ์
+            </button>
+          )}
         </div>
       </div>
+
+      {shareOpen && (
+        <Suspense fallback={null}>
+          <DailyQShareCard
+            todayResult={todayResult}
+            onClose={() => setShareOpen(false)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }
