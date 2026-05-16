@@ -162,6 +162,8 @@ export default function DicomViewport({ file, caseId = null }) {
     viewport.render();
   }, []);
 
+  const [showShortcuts, setShowShortcuts] = useState(false);
+
   const exportPng = useCallback(async () => {
     try {
       const mod = await import('../../lib/dicom/export-image.js');
@@ -196,6 +198,48 @@ export default function DicomViewport({ file, caseId = null }) {
   const navTools = ['wl', 'pan', 'zoom'];
   const measureTools = ['length', 'angle'];
 
+  // Keyboard shortcuts. Bound at the window level but skip when the
+  // user is typing in a form input (so VetMock's other views aren't
+  // hijacked by single letters). Each viewport mounts its own listener
+  // — with 2 viewports they both respond to a keypress, which gives
+  // pseudo-sync tool switching for free.
+  useEffect(() => {
+    if (status !== 'ready') return;
+    const onKey = (e) => {
+      const t = e.target;
+      if (!t) return;
+      if (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable) return;
+      if (e.altKey || e.ctrlKey || e.metaKey) return;
+      const k = e.key.toLowerCase();
+      const sk = e.shiftKey;
+      const map = {
+        w: () => selectTool('wl'),
+        p: () => selectTool('pan'),
+        z: () => selectTool('zoom'),
+        l: () => selectTool('length'),
+        a: () => selectTool('angle'),
+        n: () => selectTool('norberg'),
+        v: () => selectTool('vhs'),
+        r: () => resetView(),
+        c: () => clearMeasurements(),
+        e: () => exportPng(),
+        '1': () => applyPreset(PRESETS[0]),
+        '2': () => applyPreset(PRESETS[1]),
+        '3': () => applyPreset(PRESETS[2]),
+        '4': () => applyPreset(PRESETS[3]),
+        '?': () => setShowShortcuts((s) => !s),
+        '/': () => sk && setShowShortcuts((s) => !s),
+        escape: () => setShowShortcuts(false),
+      };
+      const fn = map[k];
+      if (!fn) return;
+      fn();
+      e.preventDefault();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [status, selectTool, resetView, clearMeasurements, exportPng, applyPreset]);
+
   return (
     <div>
       {status === 'ready' && (
@@ -222,6 +266,38 @@ export default function DicomViewport({ file, caseId = null }) {
           <Divider />
           <TBtn onClick={exportPng}>📤 Export PNG</TBtn>
           <TBtn onClick={resetView}>↺ Reset view</TBtn>
+          <TBtn onClick={() => setShowShortcuts((s) => !s)} title="Keyboard shortcuts (?)">⌨</TBtn>
+        </div>
+      )}
+
+      {showShortcuts && (
+        <div style={shortcutsModalStyle} onClick={() => setShowShortcuts(false)}>
+          <div style={shortcutsContentStyle} onClick={(e) => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+              <strong>⌨ Keyboard shortcuts</strong>
+              <button onClick={() => setShowShortcuts(false)} style={{ width: 26, height: 26, border: '1px solid #ccc', background: '#fff', borderRadius: 4, cursor: 'pointer' }}>✕</button>
+            </div>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
+              <tbody>
+                <SC k="W" desc="Window/Level tool" />
+                <SC k="P" desc="Pan tool" />
+                <SC k="Z" desc="Zoom tool" />
+                <SC k="L" desc="Length measurement" />
+                <SC k="A" desc="Angle measurement" />
+                <SC k="N" desc="🦴 Norberg angle" />
+                <SC k="V" desc="📐 VHS" />
+                <SC k="1 – 4" desc="W/L presets (Default / Soft / Bone / Lung)" />
+                <SC k="R" desc="Reset view (zoom/pan/window)" />
+                <SC k="C" desc="Clear all measurements" />
+                <SC k="E" desc="Export annotated PNG" />
+                <SC k="?" desc="Show / hide this help" />
+                <SC k="Esc" desc="Close this help" />
+              </tbody>
+            </table>
+            <div style={{ fontSize: '0.7rem', color: '#888', marginTop: 10 }}>
+              Shortcuts ทำงานเมื่อโฟกัสไม่ได้อยู่ใน input/textarea · ใน study mode (2 viewports) shortcut จะ apply กับทั้งสองอันพร้อมกัน
+            </div>
+          </div>
         </div>
       )}
       <div
@@ -284,26 +360,74 @@ export default function DicomViewport({ file, caseId = null }) {
   );
 }
 
-function TBtn({ active, onClick, children }) {
+function TBtn({ active, onClick, children, title }) {
   return (
     <button
       onClick={onClick}
+      title={title}
       style={{
-        padding: '4px 10px',
+        // Min-height 36 keeps it tappable on mobile per WCAG 2.5.5
+        // (Target Size 44×44 is AAA; AA is 24×24 — we land in between
+        // because the toolbar would explode at full AAA).
+        minHeight: 36,
+        padding: '6px 11px',
         background: active ? '#4a6b4a' : '#fff',
         color: active ? '#fff' : '#333',
         border: '1px solid #ccc',
         borderRadius: 4,
         cursor: 'pointer',
-        fontSize: '0.8rem',
+        fontSize: '0.82rem',
         whiteSpace: 'nowrap',
-        lineHeight: 1.4,
+        lineHeight: 1.3,
       }}
     >
       {children}
     </button>
   );
 }
+
+function SC({ k, desc }) {
+  return (
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '6px 8px', width: 110 }}>
+        <kbd style={kbdStyle}>{k}</kbd>
+      </td>
+      <td style={{ padding: '6px 8px', color: '#444' }}>{desc}</td>
+    </tr>
+  );
+}
+
+const kbdStyle = {
+  display: 'inline-block',
+  padding: '2px 8px',
+  background: '#f4f4f4',
+  border: '1px solid #ccc',
+  borderRadius: 3,
+  fontFamily: 'monospace',
+  fontSize: '0.75rem',
+  color: '#333',
+};
+
+const shortcutsModalStyle = {
+  position: 'fixed',
+  inset: 0,
+  background: 'rgba(0,0,0,0.4)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 2000,
+};
+
+const shortcutsContentStyle = {
+  background: '#fff',
+  borderRadius: 8,
+  padding: '16px 18px',
+  minWidth: 320,
+  maxWidth: '90vw',
+  maxHeight: '85vh',
+  overflow: 'auto',
+  boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+};
 
 function Divider() {
   return <span style={{ width: 1, height: 22, background: '#ccc', margin: '0 4px' }} />;
