@@ -13,6 +13,7 @@ import {
 import { ensureCornerstoneInit, getDicomImageLoader } from '../../lib/dicom/cornerstone-init.js';
 import NorbergOverlay from './NorbergOverlay.jsx';
 import VHSOverlay from './VHSOverlay.jsx';
+import AIOverlay from './AIOverlay.jsx';
 
 const PRESETS = [
   { id: 'default', label: 'Default', voi: 'reset' },
@@ -163,6 +164,30 @@ export default function DicomViewport({ file, caseId = null }) {
   }, []);
 
   const [showShortcuts, setShowShortcuts] = useState(false);
+  const [aiPrediction, setAiPrediction] = useState(null);
+  const [aiError, setAiError] = useState(null);
+
+  const loadAiJson = useCallback(async (file) => {
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      // Light validation — require predictions object somewhere
+      if (!data || typeof data !== 'object' || !data.predictions) {
+        throw new Error('JSON missing "predictions" key');
+      }
+      setAiPrediction(data);
+      setAiError(null);
+    } catch (err) {
+      setAiError(err?.message || String(err));
+      setAiPrediction(null);
+    }
+  }, []);
+
+  const clearAi = useCallback(() => {
+    setAiPrediction(null);
+    setAiError(null);
+  }, []);
 
   const exportPng = useCallback(async () => {
     try {
@@ -264,9 +289,26 @@ export default function DicomViewport({ file, caseId = null }) {
           <TBtn active={activeTool === 'norberg'} onClick={() => selectTool('norberg')}>🦴 Norberg</TBtn>
           <TBtn active={activeTool === 'vhs'} onClick={() => selectTool('vhs')}>📐 VHS</TBtn>
           <Divider />
+          <span style={labelStyle}>AI:</span>
+          <label className="vmx-btn" style={aiBtnLabelStyle} title="Load AI prediction JSON for this image">
+            🤖 Load AI
+            <input
+              type="file"
+              accept=".json,application/json"
+              onChange={(e) => loadAiJson(e.target.files?.[0])}
+              style={{ display: 'none' }}
+            />
+          </label>
+          {aiPrediction && <TBtn onClick={clearAi}>✕ Clear AI</TBtn>}
+          <Divider />
           <TBtn onClick={exportPng}>📤 Export PNG</TBtn>
           <TBtn onClick={resetView}>↺ Reset view</TBtn>
           <TBtn onClick={() => setShowShortcuts((s) => !s)} title="Keyboard shortcuts (?)">⌨</TBtn>
+        </div>
+      )}
+      {aiError && (
+        <div style={{ background: '#fff5f5', border: '1px solid #fcc', color: '#a33', padding: '4px 10px', fontSize: '0.78rem', borderRadius: 4, marginBottom: 4 }}>
+          ⚠️ AI JSON parse error: {aiError}
         </div>
       )}
 
@@ -325,6 +367,9 @@ export default function DicomViewport({ file, caseId = null }) {
             this, world-space points from the previous image stay
             in state and would render at nonsense positions over
             the new image's anatomy. */}
+        {status === 'ready' && aiPrediction && (
+          <AIOverlay prediction={aiPrediction} viewportRef={getViewport} />
+        )}
         {status === 'ready' && (
           <NorbergOverlay
             key={`norberg-${file?.name}-${file?.size}-${file?.lastModified || 0}`}
@@ -396,6 +441,21 @@ function SC({ k, desc }) {
     </tr>
   );
 }
+
+const aiBtnLabelStyle = {
+  minHeight: 36,
+  padding: '6px 11px',
+  background: '#fff',
+  color: '#333',
+  border: '1px solid #ccc',
+  borderRadius: 4,
+  cursor: 'pointer',
+  fontSize: '0.82rem',
+  whiteSpace: 'nowrap',
+  lineHeight: 1.3,
+  display: 'inline-flex',
+  alignItems: 'center',
+};
 
 const kbdStyle = {
   display: 'inline-block',
