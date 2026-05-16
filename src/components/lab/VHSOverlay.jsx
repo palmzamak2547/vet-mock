@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { saveAttempt, reasonLabel } from '../../lib/dicom/save-attempt.js';
+import { useMediaQuery } from '../../lib/dicom/use-media-query.js';
 
 // Buchanan & Bücheler 1995 vertebral heart score on a right-lateral
 // thoracic radiograph. Six clicks define three measurements:
@@ -26,6 +27,7 @@ const COLORS = ['#ff6b6b', '#ff6b6b', '#6bb6ff', '#6bb6ff', '#ffd93d', '#ffd93d'
 const PAIR_LABELS = ['L', 'L', 'S', 'S', 'V', 'V'];
 
 export default function VHSOverlay({ active, viewportRef, caseId = null }) {
+  const isMobile = useMediaQuery('(max-width: 600px)');
   const [worldPoints, setWorldPoints] = useState([]);
   const [, setTick] = useState(0);
 
@@ -39,6 +41,17 @@ export default function VHSOverlay({ active, viewportRef, caseId = null }) {
     const onClear = () => setWorldPoints([]);
     window.addEventListener('vmx-lab-clear-overlays', onClear);
     return () => window.removeEventListener('vmx-lab-clear-overlays', onClear);
+  }, []);
+
+  useEffect(() => {
+    if (!active) return;
+    const onUndo = () => setWorldPoints((prev) => prev.slice(0, -1));
+    window.addEventListener('vmx-lab-undo-point', onUndo);
+    return () => window.removeEventListener('vmx-lab-undo-point', onUndo);
+  }, [active]);
+
+  const undo = useCallback(() => {
+    setWorldPoints((prev) => prev.slice(0, -1));
   }, []);
 
   const screenPoints = useMemo(() => {
@@ -166,12 +179,12 @@ export default function VHSOverlay({ active, viewportRef, caseId = null }) {
 
       <div style={topBannerStyle}>
         {nextLabel
-          ? `📐 VHS · ${nextLabel} (${worldPoints.length + 1}/6)`
+          ? `📐 VHS · ${nextLabel} (${worldPoints.length + 1}/6) · กด U เพื่อ undo`
           : '📐 VHS · ครบ 6 จุด — ดูผลด้านล่าง'}
       </div>
 
       {result && (
-        <div style={resultCardStyle}>
+        <div style={isMobile ? mobileSheetStyle : resultCardStyle}>
           <div style={{ fontWeight: 'bold', marginBottom: 6 }}>Vertebral Heart Score</div>
           <div>L (long axis) = <strong>{result.Lv.toFixed(2)} v</strong></div>
           <div>S (short axis) = <strong>{result.Sv.toFixed(2)} v</strong></div>
@@ -184,6 +197,7 @@ export default function VHSOverlay({ active, viewportRef, caseId = null }) {
             <br />เครื่องมือเพื่อการเรียนรู้ · ไม่ใช้แทนการ workup ผู้ป่วยจริง
           </div>
           <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
+            <button onClick={undo} disabled={worldPoints.length === 0} style={resetBtnStyle}>↶ Undo</button>
             <button onClick={reset} style={resetBtnStyle}>↺ Reset</button>
             <button
               onClick={handleSave}
@@ -234,6 +248,20 @@ const resultCardStyle = {
   fontSize: '0.85rem',
   minWidth: 240,
   pointerEvents: 'auto',
+};
+
+const mobileSheetStyle = {
+  position: 'absolute',
+  bottom: 0, left: 0, right: 0,
+  background: 'rgba(0,0,0,0.94)',
+  color: '#fff',
+  padding: '12px 16px',
+  borderRadius: '12px 12px 0 0',
+  fontSize: '0.9rem',
+  pointerEvents: 'auto',
+  maxHeight: '50%',
+  overflowY: 'auto',
+  boxShadow: '0 -2px 10px rgba(0,0,0,0.3)',
 };
 
 const resetBtnStyle = {

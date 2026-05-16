@@ -14,6 +14,7 @@ import { ensureCornerstoneInit, getDicomImageLoader } from '../../lib/dicom/corn
 import NorbergOverlay from './NorbergOverlay.jsx';
 import VHSOverlay from './VHSOverlay.jsx';
 import AIOverlay from './AIOverlay.jsx';
+import { useMediaQuery } from '../../lib/dicom/use-media-query.js';
 
 const PRESETS = [
   { id: 'default', label: 'Default', voi: 'reset' },
@@ -22,20 +23,22 @@ const PRESETS = [
   { id: 'lung',    label: 'Lung',        voi: { lower: 200,  upper: 1500 } },
 ];
 
-// Tool registry — id → { class, label }. The id is what
-// activeTool state holds; class.toolName is what Cornerstone
-// stores in its tool group registry.
+// Tool registry — id → { class, label, sk (keyboard shortcut letter) }.
+// The id is what activeTool state holds; class.toolName is what
+// Cornerstone stores in its tool group registry. `short` is used as
+// the abbreviated label on narrow viewports.
 const TOOLS = {
-  wl:     { cls: WindowLevelTool, label: '🌓 W/L',    kind: 'nav' },
-  pan:    { cls: PanTool,         label: '✋ Pan',     kind: 'nav' },
-  zoom:   { cls: ZoomTool,        label: '🔍 Zoom',    kind: 'nav' },
-  length: { cls: LengthTool,      label: '📏 Length',  kind: 'measure' },
-  angle:  { cls: AngleTool,       label: '📐 Angle',   kind: 'measure' },
+  wl:     { cls: WindowLevelTool, label: '🌓 W/L',    short: '🌓 W', sk: 'W' },
+  pan:    { cls: PanTool,         label: '✋ Pan',     short: '✋ P', sk: 'P' },
+  zoom:   { cls: ZoomTool,        label: '🔍 Zoom',    short: '🔍 Z', sk: 'Z' },
+  length: { cls: LengthTool,      label: '📏 Length',  short: '📏 L', sk: 'L' },
+  angle:  { cls: AngleTool,       label: '📐 Angle',   short: '📐 A', sk: 'A' },
 };
 
 let engineSeq = 0;
 
 export default function DicomViewport({ file, caseId = null }) {
+  const isMobile = useMediaQuery('(max-width: 600px)');
   const elRef = useRef(null);
   const engineRef = useRef(null);
   const viewportIdRef = useRef(null);
@@ -248,6 +251,11 @@ export default function DicomViewport({ file, caseId = null }) {
         r: () => resetView(),
         c: () => clearMeasurements(),
         e: () => exportPng(),
+        u: () => {
+          // Send to whichever overlay is currently active (Norberg or VHS).
+          // The overlay's own `active` check filters out stale instances.
+          try { window.dispatchEvent(new CustomEvent('vmx-lab-undo-point')); } catch { /* noop */ }
+        },
         '1': () => applyPreset(PRESETS[0]),
         '2': () => applyPreset(PRESETS[1]),
         '3': () => applyPreset(PRESETS[2]),
@@ -269,29 +277,39 @@ export default function DicomViewport({ file, caseId = null }) {
     <div>
       {status === 'ready' && (
         <div style={toolbarStyle}>
-          <span style={labelStyle}>Nav:</span>
+          {!isMobile && <span style={labelStyle}>Nav:</span>}
           {navTools.map((t) => (
-            <TBtn key={t} active={activeTool === t} onClick={() => selectTool(t)}>{TOOLS[t].label}</TBtn>
+            <TBtn key={t} active={activeTool === t} onClick={() => selectTool(t)} title={`${TOOLS[t].label} — shortcut (${TOOLS[t].sk})`}>
+              {isMobile ? TOOLS[t].short : TOOLS[t].label}
+            </TBtn>
           ))}
           <Divider />
-          <span style={labelStyle}>Measure:</span>
+          {!isMobile && <span style={labelStyle}>Measure:</span>}
           {measureTools.map((t) => (
-            <TBtn key={t} active={activeTool === t} onClick={() => selectTool(t)}>{TOOLS[t].label}</TBtn>
+            <TBtn key={t} active={activeTool === t} onClick={() => selectTool(t)} title={`${TOOLS[t].label} — shortcut (${TOOLS[t].sk})`}>
+              {isMobile ? TOOLS[t].short : TOOLS[t].label}
+            </TBtn>
           ))}
-          <TBtn onClick={clearMeasurements}>🗑 Clear</TBtn>
+          <TBtn onClick={clearMeasurements} title="Clear all measurements (C)">{isMobile ? '🗑' : '🗑 Clear'}</TBtn>
           <Divider />
-          <span style={labelStyle}>W/L:</span>
-          {PRESETS.map((p) => (
-            <TBtn key={p.id} onClick={() => applyPreset(p)}>{p.label}</TBtn>
+          {!isMobile && <span style={labelStyle}>W/L:</span>}
+          {PRESETS.map((p, i) => (
+            <TBtn key={p.id} onClick={() => applyPreset(p)} title={`${p.label} preset — shortcut (${i + 1})`}>
+              {p.label}
+            </TBtn>
           ))}
           <Divider />
-          <span style={labelStyle}>Vet:</span>
-          <TBtn active={activeTool === 'norberg'} onClick={() => selectTool('norberg')}>🦴 Norberg</TBtn>
-          <TBtn active={activeTool === 'vhs'} onClick={() => selectTool('vhs')}>📐 VHS</TBtn>
+          {!isMobile && <span style={labelStyle}>Vet:</span>}
+          <TBtn active={activeTool === 'norberg'} onClick={() => selectTool('norberg')} title="Norberg angle (N) — 4-click">
+            {isMobile ? '🦴 N' : '🦴 Norberg'}
+          </TBtn>
+          <TBtn active={activeTool === 'vhs'} onClick={() => selectTool('vhs')} title="Vertebral Heart Score (V) — 6-click">
+            {isMobile ? '💗 V' : '💗 VHS'}
+          </TBtn>
           <Divider />
-          <span style={labelStyle}>AI:</span>
+          {!isMobile && <span style={labelStyle}>AI:</span>}
           <label className="vmx-btn" style={aiBtnLabelStyle} title="Load AI prediction JSON for this image">
-            🤖 Load AI
+            {isMobile ? '🤖' : '🤖 Load AI'}
             <input
               type="file"
               accept=".json,application/json"
@@ -299,10 +317,10 @@ export default function DicomViewport({ file, caseId = null }) {
               style={{ display: 'none' }}
             />
           </label>
-          {aiPrediction && <TBtn onClick={clearAi}>✕ Clear AI</TBtn>}
+          {aiPrediction && <TBtn onClick={clearAi} title="Clear AI overlay">{isMobile ? '✕' : '✕ Clear AI'}</TBtn>}
           <Divider />
-          <TBtn onClick={exportPng}>📤 Export PNG</TBtn>
-          <TBtn onClick={resetView}>↺ Reset view</TBtn>
+          <TBtn onClick={exportPng} title="Export annotated PNG (E)">{isMobile ? '📤' : '📤 Export PNG'}</TBtn>
+          <TBtn onClick={resetView} title="Reset view (R)">{isMobile ? '↺' : '↺ Reset view'}</TBtn>
           <TBtn onClick={() => setShowShortcuts((s) => !s)} title="Keyboard shortcuts (?)">⌨</TBtn>
         </div>
       )}
@@ -331,6 +349,7 @@ export default function DicomViewport({ file, caseId = null }) {
                 <SC k="1 – 4" desc="W/L presets (Default / Soft / Bone / Lung)" />
                 <SC k="R" desc="Reset view (zoom/pan/window)" />
                 <SC k="C" desc="Clear all measurements" />
+                <SC k="U" desc="Undo last Norberg/VHS point" />
                 <SC k="E" desc="Export annotated PNG" />
                 <SC k="?" desc="Show / hide this help" />
                 <SC k="Esc" desc="Close this help" />

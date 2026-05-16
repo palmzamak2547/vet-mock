@@ -33,12 +33,23 @@ export default function LabView({ goHome }) {
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState(null);
   const [recent, setRecent] = useState([]);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
     try {
       const raw = localStorage.getItem(RECENT_KEY);
       if (raw) setRecent(JSON.parse(raw));
     } catch { /* corrupt JSON; ignore */ }
+    try {
+      // One-time first-visit hint. Suppressed forever once dismissed.
+      const seen = localStorage.getItem('vmx-lab-onboarded');
+      if (!seen) setShowOnboarding(true);
+    } catch { /* ignore */ }
+  }, []);
+
+  const dismissOnboarding = useCallback(() => {
+    setShowOnboarding(false);
+    try { localStorage.setItem('vmx-lab-onboarded', '1'); } catch { /* noop */ }
   }, []);
 
   const addToRecent = useCallback((f) => {
@@ -143,6 +154,24 @@ export default function LabView({ goHome }) {
       <div style={disclaimerStyle}>
         ⚠️ เครื่องมือเพื่อการเรียนรู้ · ฝึกอ่านภาพ + วัด practice · <strong>ไม่ใช้แทนการ workup ผู้ป่วยจริง</strong>
       </div>
+
+      {showOnboarding && subView === 'home' && (
+        <div style={onboardingStyle}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
+            <div style={{ flex: 1 }}>
+              <strong style={{ fontSize: '0.95rem' }}>👋 ยินดีต้อนรับ Imaging Practice Lab</strong>
+              <ul style={{ margin: '8px 0 0', paddingLeft: 22, fontSize: '0.85rem', lineHeight: 1.6, color: '#555' }}>
+                <li>ลาก DICOM (<code>.dcm</code>) ลงด้านล่าง — ลากครั้งละ 2 ไฟล์ได้ (เปิด side-by-side)</li>
+                <li>เปิด viewer แล้วกด <kbd style={kbdInlineStyle}>?</kbd> ดู 16 keyboard shortcuts</li>
+                <li>มี Norberg + VHS + Length/Angle ครบ · 🔒 Anonymize ก่อน share ภาพออก</li>
+                <li>ไฟล์ render ใน browser ล้วน — ไม่ขึ้น server</li>
+                <li>เข้าครั้งหน้า bookmark URL <code>#lab</code> ตรงๆ ได้เลย</li>
+              </ul>
+            </div>
+            <button onClick={dismissOnboarding} style={onboardingCloseStyle} aria-label="ปิดคำแนะนำ">✕</button>
+          </div>
+        </div>
+      )}
 
       {subView === 'home' && (
         <>
@@ -457,6 +486,36 @@ const recentBoxStyle = {
   background: '#fafafa',
   border: '1px solid #e8e8e8',
   borderRadius: 6,
+};
+
+const onboardingStyle = {
+  padding: '12px 16px',
+  background: '#eef5ff',
+  border: '1px solid #b8d4ff',
+  borderRadius: 8,
+  marginBottom: 16,
+};
+
+const onboardingCloseStyle = {
+  width: 28,
+  height: 28,
+  border: '1px solid #b8d4ff',
+  background: '#fff',
+  borderRadius: 4,
+  cursor: 'pointer',
+  fontSize: '0.85rem',
+  color: '#456',
+  flexShrink: 0,
+};
+
+const kbdInlineStyle = {
+  display: 'inline-block',
+  padding: '1px 6px',
+  background: '#fff',
+  border: '1px solid #ccc',
+  borderRadius: 3,
+  fontFamily: 'monospace',
+  fontSize: '0.78rem',
 };
 
 const studyGridStyle = {
