@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <rect width="800" height="1000" fill="#ffffff"/>
+  <g fill="none" stroke="#555" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Skull -->
+    <path d="M105 360 Q70 360 60 380 Q50 405 80 420 L130 422 Q175 420 195 405 Q215 388 200 372 Q175 354 150 354 Z"/>
+    <!-- Mandible -->
+    <path d="M85 422 Q105 440 165 438 Q190 436 200 422"/>
+    <circle cx="95" cy="385" r="3" fill="#555"/>
+    <!-- Cervical vertebrae (7) -->
+    <g>
+      <rect x="205" y="375" width="22" height="28" rx="3"/>
+      <rect x="230" y="372" width="22" height="30" rx="3"/>
+      <rect x="255" y="370" width="22" height="32" rx="3"/>
+      <rect x="280" y="370" width="22" height="32" rx="3"/>
+      <rect x="305" y="372" width="22" height="32" rx="3"/>
+      <rect x="330" y="375" width="22" height="32" rx="3"/>
+      <rect x="355" y="378" width="22" height="32" rx="3"/>
+    </g>
+    <!-- Thoracic (13) with rib outlines -->
+    <g>
+      <rect x="385" y="382" width="20" height="30" rx="2"/>
+      <rect x="408" y="382" width="20" height="30" rx="2"/>
+      <rect x="431" y="382" width="20" height="30" rx="2"/>
+      <rect x="454" y="382" width="20" height="30" rx="2"/>
+      <rect x="477" y="382" width="20" height="30" rx="2"/>
+      <rect x="500" y="382" width="20" height="30" rx="2"/>
+      <rect x="523" y="382" width="20" height="30" rx="2"/>
+      <rect x="546" y="382" width="20" height="30" rx="2"/>
+      <rect x="569" y="382" width="20" height="30" rx="2"/>
+      <rect x="592" y="382" width="20" height="30" rx="2"/>
+      <rect x="615" y="382" width="20" height="30" rx="2"/>
+      <rect x="638" y="382" width="20" height="30" rx="2"/>
+      <rect x="661" y="382" width="20" height="30" rx="2"/>
+    </g>
+    <!-- Ribs (curved lines under thoracic) -->
+    <g stroke-width="1.5">
+      <path d="M395 412 Q380 500 410 580"/>
+      <path d="M420 412 Q408 510 440 590"/>
+      <path d="M445 412 Q435 515 470 595"/>
+      <path d="M470 412 Q460 520 500 600"/>
+      <path d="M495 412 Q488 525 525 600"/>
+      <path d="M520 412 Q515 525 550 600"/>
+      <path d="M545 412 Q545 525 575 600"/>
+      <path d="M570 412 Q575 520 600 595"/>
+      <path d="M595 412 Q600 515 620 590"/>
+      <path d="M620 412 Q625 510 640 580"/>
+      <path d="M645 412 Q650 500 660 570"/>
+    </g>
+    <!-- Lumbar (7) -->
+    <g>
+      <rect x="688" y="382" width="20" height="32" rx="2"/>
+      <rect x="710" y="382" width="20" height="32" rx="2"/>
+      <rect x="732" y="382" width="20" height="32" rx="2"/>
+      <rect x="610" y="382" width="0" height="0"/>
+    </g>
+    <g transform="translate(0,0)">
+      <rect x="688" y="382" width="20" height="32" rx="2"/>
+      <rect x="709" y="383" width="20" height="32" rx="2"/>
+      <rect x="730" y="384" width="20" height="32" rx="2"/>
+    </g>
+    <!-- Sacrum -->
+    <path d="M754 384 Q775 388 776 410 L772 422 Q758 422 752 416 Z"/>
+    <!-- Tail (caudal vertebrae) -->
+    <g>
+      <circle cx="785" cy="405" r="6"/>
+      <circle cx="780" cy="430" r="5"/>
+      <circle cx="772" cy="455" r="4"/>
+      <circle cx="763" cy="478" r="4"/>
+      <circle cx="755" cy="498" r="3"/>
+    </g>
+    <!-- Scapula -->
+    <path d="M340 410 L380 475 L395 470 L355 405 Z"/>
+    <!-- Humerus (forelimb) -->
+    <path d="M390 470 L380 580" stroke-width="4"/>
+    <circle cx="380" cy="585" r="6"/>
+    <!-- Radius/Ulna -->
+    <path d="M380 590 L385 720" stroke-width="3"/>
+    <path d="M388 590 L392 720" stroke-width="2"/>
+    <!-- Carpals (forelimb) -->
+    <g>
+      <ellipse cx="385" cy="730" rx="10" ry="5"/>
+      <rect x="378" y="740" width="14" height="8"/>
+      <rect x="375" y="752" width="20" height="32"/>
+    </g>
+    <!-- Pelvis (ilium) -->
+    <path d="M695 410 Q710 470 690 530 Q665 540 655 510 Q655 470 670 425 Z"/>
+    <!-- Femur (hindlimb) -->
+    <circle cx="675" cy="540" r="7"/>
+    <path d="M675 545 L670 680" stroke-width="4"/>
+    <circle cx="670" cy="685" r="6"/>
+    <!-- Tibia / Fibula -->
+    <path d="M670 690 L680 820" stroke-width="3"/>
+    <path d="M675 690 L688 820" stroke-width="1.5"/>
+    <!-- Tarsals -->
+    <g>
+      <ellipse cx="680" cy="828" rx="10" ry="5"/>
+      <rect x="673" y="838" width="14" height="8"/>
+      <rect x="670" y="850" width="22" height="32"/>
+    </g>
+  </g>
+  <!-- Labels -->
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif" font-size="14">
+    <text x="60" y="345">กะโหลก / Skull</text>
+    <text x="220" y="365">Cervical C1–C7</text>
+    <text x="430" y="370">Thoracic T1–T13</text>
+    <text x="690" y="370">Lumbar L1–L7</text>
+    <text x="755" y="370">Sacrum</text>
+    <text x="765" y="515">Tail (Caudal)</text>
+    <text x="320" y="425">Scapula</text>
+    <text x="320" y="555">Humerus</text>
+    <text x="320" y="650">Radius / Ulna</text>
+    <text x="318" y="775">Carpals</text>
+    <text x="700" y="500">Pelvis</text>
+    <text x="700" y="615">Femur</text>
+    <text x="700" y="755">Tibia / Fibula</text>
+    <text x="700" y="870">Tarsals</text>
+  </g>
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif">
+    <text x="400" y="60" text-anchor="middle" font-size="22" font-weight="600">โครงกระดูกสุนัข (lateral)</text>
+    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">Canine skeleton — outline only, label and mark up freely</text>
+  </g>
+</svg>

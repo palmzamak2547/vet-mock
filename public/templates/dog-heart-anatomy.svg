@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <rect width="800" height="1000" fill="#ffffff"/>
+  <g fill="none" stroke="#555" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Aorta -->
+    <path d="M380 130 L380 200 Q380 240 420 240 L500 240 Q540 240 540 280 L540 360"/>
+    <!-- Pulmonary artery -->
+    <path d="M320 130 L320 200 Q320 240 290 240 L240 240 Q210 240 210 280 L210 360"/>
+    <!-- Cranial vena cava -->
+    <path d="M450 100 L450 200 Q450 240 480 240 L505 240 L505 290"/>
+    <!-- Caudal vena cava -->
+    <path d="M490 800 L490 750 Q490 720 500 710 L520 695 L520 600"/>
+
+    <!-- Heart outer outline (rounded rectangle with bottom apex) -->
+    <path d="M170 360 L630 360 Q650 360 650 380 L650 700 Q650 740 600 770 L450 850 Q400 880 350 850 L200 770 Q150 740 150 700 L150 380 Q150 360 170 360 Z"/>
+
+    <!-- Septum (vertical divider) -->
+    <line x1="400" y1="360" x2="400" y2="780"/>
+
+    <!-- Atrioventricular divider (horizontal) -->
+    <line x1="155" y1="500" x2="645" y2="500"/>
+
+    <!-- Tricuspid valve marker (right AV) -->
+    <line x1="200" y1="498" x2="370" y2="502" stroke-dasharray="4 4"/>
+    <!-- Mitral valve marker (left AV) -->
+    <line x1="430" y1="502" x2="610" y2="498" stroke-dasharray="4 4"/>
+
+    <!-- Right atrium label box -->
+    <rect x="200" y="395" width="170" height="80" rx="8" stroke="#999"/>
+    <!-- Right ventricle box -->
+    <rect x="180" y="540" width="200" height="230" rx="10" stroke="#999"/>
+    <!-- Left atrium box -->
+    <rect x="430" y="395" width="170" height="80" rx="8" stroke="#999"/>
+    <!-- Left ventricle box (thicker wall implied by inset) -->
+    <rect x="420" y="540" width="210" height="230" rx="10" stroke="#999"/>
+    <rect x="438" y="558" width="174" height="194" rx="6" stroke="#bbb" stroke-dasharray="3 3"/>
+  </g>
+
+  <!-- Big chamber letters -->
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif" font-weight="700">
+    <text x="285" y="445" text-anchor="middle" font-size="32">RA</text>
+    <text x="280" y="665" text-anchor="middle" font-size="38">RV</text>
+    <text x="515" y="445" text-anchor="middle" font-size="32">LA</text>
+    <text x="525" y="665" text-anchor="middle" font-size="38">LV</text>
+  </g>
+
+  <!-- Vessel labels and pointers -->
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif" font-size="15">
+    <text x="305" y="120">Pulmonary artery</text>
+    <text x="380" y="120">Aorta</text>
+    <text x="455" y="90">Cranial vena cava</text>
+    <text x="500" y="830">Caudal vena cava</text>
+    <text x="285" y="490" font-size="12" fill="#888">tricuspid valve</text>
+    <text x="455" y="490" font-size="12" fill="#888">mitral valve</text>
+    <text x="285" y="395" font-size="12" fill="#888">RA — รับเลือด deox</text>
+    <text x="455" y="395" font-size="12" fill="#888">LA — รับเลือด ox</text>
+    <text x="183" y="538" font-size="12" fill="#888">RV → pulmonary</text>
+    <text x="425" y="538" font-size="12" fill="#888">LV → systemic (ผนังหนา)</text>
+  </g>
+
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif">
+    <text x="400" y="60" text-anchor="middle" font-size="22" font-weight="600">หัวใจสุนัข 4 ห้อง (box-and-line)</text>
+    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">Canine heart — RA · RV · LA · LV with valves and great vessels</text>
+    <text x="400" y="940" text-anchor="middle" font-size="12" fill="#888">วาด flow ของเลือดเองได้ (ลูกศร) · เพิ่ม pressure ค่าได้ในแต่ละห้อง</text>
+  </g>
+</svg>

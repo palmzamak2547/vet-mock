@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <rect width="800" height="1000" fill="#ffffff"/>
+  <!-- Header -->
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif">
+    <text x="400" y="60" text-anchor="middle" font-size="22" font-weight="600">ECG strip — กระดาษเปล่า</text>
+    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">25 mm/s · 10 mm/mV — 1 small box = 0.04 s × 0.1 mV · 1 large box = 0.2 s × 0.5 mV</text>
+  </g>
+
+  <!-- ECG grid: 6 large × 4 large rows, each large = 120 px = 5 small (24 px each).
+       Drawing area: x = 40..760 (720 wide = 6 large × 120), y = 130..610 (480 = 4 rows). -->
+
+  <!-- Light pink small grid (vertical) -->
+  <g stroke="#f5c4cc" stroke-width="0.6" fill="none">
+    <line x1="40" y1="130" x2="40" y2="610"/><line x1="64" y1="130" x2="64" y2="610"/>
+    <line x1="88" y1="130" x2="88" y2="610"/><line x1="112" y1="130" x2="112" y2="610"/>
+    <line x1="136" y1="130" x2="136" y2="610"/>
+    <line x1="184" y1="130" x2="184" y2="610"/><line x1="208" y1="130" x2="208" y2="610"/>
+    <line x1="232" y1="130" x2="232" y2="610"/><line x1="256" y1="130" x2="256" y2="610"/>
+    <line x1="304" y1="130" x2="304" y2="610"/><line x1="328" y1="130" x2="328" y2="610"/>
+    <line x1="352" y1="130" x2="352" y2="610"/><line x1="376" y1="130" x2="376" y2="610"/>
+    <line x1="424" y1="130" x2="424" y2="610"/><line x1="448" y1="130" x2="448" y2="610"/>
+    <line x1="472" y1="130" x2="472" y2="610"/><line x1="496" y1="130" x2="496" y2="610"/>
+    <line x1="544" y1="130" x2="544" y2="610"/><line x1="568" y1="130" x2="568" y2="610"/>
+    <line x1="592" y1="130" x2="592" y2="610"/><line x1="616" y1="130" x2="616" y2="610"/>
+    <line x1="664" y1="130" x2="664" y2="610"/><line x1="688" y1="130" x2="688" y2="610"/>
+    <line x1="712" y1="130" x2="712" y2="610"/><line x1="736" y1="130" x2="736" y2="610"/>
+  </g>
+  <!-- Light pink small grid (horizontal) -->
+  <g stroke="#f5c4cc" stroke-width="0.6" fill="none">
+    <line x1="40" y1="154" x2="760" y2="154"/><line x1="40" y1="178" x2="760" y2="178"/>
+    <line x1="40" y1="202" x2="760" y2="202"/><line x1="40" y1="226" x2="760" y2="226"/>
+    <line x1="40" y1="274" x2="760" y2="274"/><line x1="40" y1="298" x2="760" y2="298"/>
+    <line x1="40" y1="322" x2="760" y2="322"/><line x1="40" y1="346" x2="760" y2="346"/>
+    <line x1="40" y1="394" x2="760" y2="394"/><line x1="40" y1="418" x2="760" y2="418"/>
+    <line x1="40" y1="442" x2="760" y2="442"/><line x1="40" y1="466" x2="760" y2="466"/>
+    <line x1="40" y1="514" x2="760" y2="514"/><line x1="40" y1="538" x2="760" y2="538"/>
+    <line x1="40" y1="562" x2="760" y2="562"/><line x1="40" y1="586" x2="760" y2="586"/>
+  </g>
+
+  <!-- Darker pink large grid (vertical) -->
+  <g stroke="#e88aa0" stroke-width="1.2" fill="none">
+    <line x1="40" y1="130" x2="40" y2="610"/>
+    <line x1="160" y1="130" x2="160" y2="610"/>
+    <line x1="280" y1="130" x2="280" y2="610"/>
+    <line x1="400" y1="130" x2="400" y2="610"/>
+    <line x1="520" y1="130" x2="520" y2="610"/>
+    <line x1="640" y1="130" x2="640" y2="610"/>
+    <line x1="760" y1="130" x2="760" y2="610"/>
+  </g>
+  <!-- Darker pink large grid (horizontal) -->
+  <g stroke="#e88aa0" stroke-width="1.2" fill="none">
+    <line x1="40" y1="130" x2="760" y2="130"/>
+    <line x1="40" y1="250" x2="760" y2="250"/>
+    <line x1="40" y1="370" x2="760" y2="370"/>
+    <line x1="40" y1="490" x2="760" y2="490"/>
+    <line x1="40" y1="610" x2="760" y2="610"/>
+  </g>
+
+  <!-- Baseline guide (midline) -->
+  <line x1="40" y1="370" x2="760" y2="370" stroke="#c66" stroke-width="0.8" stroke-dasharray="6 6"/>
+
+  <!-- Time markers under the strip -->
+  <g stroke="#555" stroke-width="1.5" fill="none">
+    <line x1="40" y1="625" x2="40" y2="645"/>
+    <line x1="160" y1="625" x2="160" y2="645"/>
+    <line x1="280" y1="625" x2="280" y2="645"/>
+    <line x1="400" y1="625" x2="400" y2="645"/>
+    <line x1="520" y1="625" x2="520" y2="645"/>
+    <line x1="640" y1="625" x2="640" y2="645"/>
+    <line x1="760" y1="625" x2="760" y2="645"/>
+  </g>
+  <g fill="#555" font-family="JetBrains Mono, monospace" font-size="12">
+    <text x="40" y="665" text-anchor="middle">0 s</text>
+    <text x="160" y="665" text-anchor="middle">0.2</text>
+    <text x="280" y="665" text-anchor="middle">0.4</text>
+    <text x="400" y="665" text-anchor="middle">0.6</text>
+    <text x="520" y="665" text-anchor="middle">0.8</text>
+    <text x="640" y="665" text-anchor="middle">1.0</text>
+    <text x="760" y="665" text-anchor="middle">1.2 s</text>
+  </g>
+
+  <!-- Lead label slot + measurement table outline -->
+  <g fill="none" stroke="#999" stroke-width="1">
+    <rect x="40" y="710" width="720" height="220" rx="8"/>
+    <line x1="40" y1="750" x2="760" y2="750"/>
+    <line x1="220" y1="710" x2="220" y2="930"/>
+    <line x1="400" y1="710" x2="400" y2="930"/>
+    <line x1="580" y1="710" x2="580" y2="930"/>
+    <line x1="40" y1="790" x2="760" y2="790"/>
+    <line x1="40" y1="830" x2="760" y2="830"/>
+    <line x1="40" y1="870" x2="760" y2="870"/>
+  </g>
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif" font-size="13">
+    <text x="50" y="735" font-weight="600">Measurement</text>
+    <text x="230" y="735" font-weight="600">Lead I</text>
+    <text x="410" y="735" font-weight="600">Lead II</text>
+    <text x="590" y="735" font-weight="600">Lead III</text>
+    <text x="50" y="775">HR (bpm)</text>
+    <text x="50" y="815">P wave</text>
+    <text x="50" y="855">PR interval</text>
+    <text x="50" y="895">QRS duration</text>
+  </g>
+
+  <text x="400" y="970" text-anchor="middle" fill="#888" font-family="system-ui, sans-serif" font-size="12">วาด tracing แล้วกรอกค่า · 6 sec rhythm strip ทำได้ใน 1.2 s × 5 grid</text>
+</svg>

@@ -26,8 +26,13 @@ const PEN_COLORS = [
 ];
 const HIGHLIGHTER = '#f1c40f';
 
-export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate' }) {
-  // mode='annotate' → image background. mode='sketch' → blank pad.
+export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', templateUrl = null }) {
+  // mode='annotate' → image background (from src prop, e.g. Q image).
+  // mode='sketch'   → blank white pad.
+  // mode='template' → SVG template (from templateUrl) drawn as canvas
+  //                   background; same code path as 'annotate' but the
+  //                   source is a same-origin /templates/*.svg file.
+  const effectiveSrc = mode === 'template' ? templateUrl : src;
   const wrapRef = useRef(null);
   const baseRef = useRef(null);
   const drawRef = useRef(null);
@@ -41,8 +46,10 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate' })
   // Load image + size canvas to image's natural dimensions (clamped to
   // a reasonable max so giant radiographs don't blow up the modal).
   // In sketch mode (no src), use a fixed-size blank canvas instead.
+  // Template mode reuses the image-loading path with a same-origin
+  // /templates/*.svg URL so the canvas isn't tainted on export.
   useEffect(() => {
-    if (!src || mode === 'sketch') {
+    if (!effectiveSrc || mode === 'sketch') {
       // Blank sketch pad — fixed size keeps proportions sane and
       // avoids re-flow if the user resizes the modal.
       const base = baseRef.current, draw = drawRef.current;
@@ -61,24 +68,35 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate' })
     const img = new Image();
     img.crossOrigin = 'anonymous'; // best effort — works for same-origin/Supabase
     img.onload = () => {
-      const max = 900;
-      const w = img.naturalWidth, h = img.naturalHeight;
-      const scale = Math.min(1, max / Math.max(w, h));
-      const cw = Math.round(w * scale);
-      const ch = Math.round(h * scale);
+      // SVG templates declare 800×1000 in their viewBox; rasterise at
+      // that size (or scale down if needed). For uploaded images we
+      // clamp to 900 px on the long edge so the modal doesn't blow up.
+      const max = mode === 'template' ? 1000 : 900;
+      const naturalW = img.naturalWidth || 800;
+      const naturalH = img.naturalHeight || 1000;
+      const scale = Math.min(1, max / Math.max(naturalW, naturalH));
+      const cw = Math.round(naturalW * scale);
+      const ch = Math.round(naturalH * scale);
       const base = baseRef.current, draw = drawRef.current;
       if (!base || !draw) return;
       base.width = cw; base.height = ch;
       draw.width = cw; draw.height = ch;
       const bctx = base.getContext('2d');
+      // Template SVGs already declare a white background, but paint
+      // white first as a safety net (the SVG could be partially
+      // transparent if a future template forgets the bg rect).
+      if (mode === 'template') {
+        bctx.fillStyle = '#ffffff';
+        bctx.fillRect(0, 0, cw, ch);
+      }
       bctx.drawImage(img, 0, 0, cw, ch);
       setImgReady(true);
       pushHistory(); // initial blank-overlay snapshot
     };
     img.onerror = () => setImgReady(true); // still allow drawing on blank canvas
-    img.src = src;
+    img.src = effectiveSrc;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src, mode]);
+  }, [effectiveSrc, mode]);
 
   function pushHistory() {
     const c = drawRef.current;
@@ -211,9 +229,9 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate' })
       <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 960, maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
         <div style={{ marginBottom: 10 }}>
           <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            ✏️ {mode === 'sketch' ? 'กระดานวาด' : 'ภาพ + วาดทับ'}
+            ✏️ {mode === 'sketch' ? 'กระดานวาด' : mode === 'template' ? 'Template + วาดทับ' : 'ภาพ + วาดทับ'}
           </div>
-          <h2 style={{ margin: '4px 0 0', fontSize: 20 }}>{mode === 'sketch' ? 'วาดสรุป / แผนภาพ' : 'วาดทับภาพ'}</h2>
+          <h2 style={{ margin: '4px 0 0', fontSize: 20 }}>{mode === 'sketch' ? 'วาดสรุป / แผนภาพ' : mode === 'template' ? 'วาดบน template' : 'วาดทับภาพ'}</h2>
         </div>
 
         {/* Toolbar */}

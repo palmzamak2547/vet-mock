@@ -17,6 +17,8 @@ import { NOTES_Y5_EQUINE_MEDICINE } from '../data/notes-y5-equine-medicine.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
+import ImageAnnotator from '../components/ImageAnnotator.jsx';
+import TemplateLibrary from '../components/TemplateLibrary.jsx';
 
 // ============================================================
 // NotesView — ทวนเนื้อหา (study notes per topic)
@@ -118,6 +120,14 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   const topic = notes[validTopic];
   const mainRef = useRef(null);
   const sectionRefs = useRef({});
+
+  // Template picker → ImageAnnotator (in 'template' mode) bridge.
+  // showTemplateLibrary controls the picker modal; activeTemplate (set
+  // from the picker's onPick) opens the annotator with that SVG as the
+  // canvas background. Closing either resets that piece of state only,
+  // so the user can open the picker again without re-entering Notes.
+  const [showTemplateLibrary, setShowTemplateLibrary] = useState(false);
+  const [activeTemplate, setActiveTemplate] = useState(null);
 
   // Reset scroll + search when topic changes
   useEffect(() => {
@@ -248,6 +258,17 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 💡 <strong>TL;DR —</strong> {topic.summary}
               </div>
             )}
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
+              <button
+                type="button"
+                onClick={() => setShowTemplateLibrary(true)}
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                style={{ minHeight: 44 }}
+                title="เปิดคลัง template (skeleton, ECG, dental, lab values…)"
+              >
+                🩻 วาดบน template
+              </button>
+            </div>
             <input
               type="search"
               placeholder="🔍 ค้นหาใน notes ของหัวข้อนี้..."
@@ -270,6 +291,20 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         </div>
       </div>
 
+      {showTemplateLibrary && (
+        <TemplateLibrary
+          onPick={(url) => setActiveTemplate(url)}
+          onClose={() => setShowTemplateLibrary(false)}
+        />
+      )}
+      {activeTemplate && (
+        <ImageAnnotator
+          mode="template"
+          templateUrl={activeTemplate}
+          alt="anatomy template"
+          onClose={() => setActiveTemplate(null)}
+        />
+      )}
     </>
   );
 }

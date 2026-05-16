@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <rect width="800" height="1000" fill="#ffffff"/>
+  <g fill="none" stroke="#555" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Outer kidney capsule (bean shape, sagittal cut) -->
+    <path d="M310 200 Q200 220 180 380 Q160 540 200 700 Q260 850 400 850 Q480 850 520 800 Q495 760 470 720 L450 540 L470 360 Q495 300 520 260 Q480 200 400 200 Z"/>
+
+    <!-- Cortex inner boundary (thin band) -->
+    <path d="M340 250 Q260 270 250 380 Q235 530 265 680 Q310 800 410 800 Q470 800 500 770 L455 540 L480 360 Q470 320 460 290 Q435 250 400 250 Z" stroke="#777" stroke-dasharray="6 4"/>
+
+    <!-- Medulla (pyramids) -->
+    <g stroke="#777">
+      <path d="M310 360 L450 420 L320 460 Z"/>
+      <path d="M295 470 L450 510 L300 555 Z"/>
+      <path d="M305 565 L450 600 L315 645 Z"/>
+      <path d="M330 660 L450 690 L345 725 Z"/>
+    </g>
+
+    <!-- Renal pelvis -->
+    <path d="M450 380 Q500 460 500 540 Q500 620 460 700"/>
+    <path d="M460 410 Q490 460 490 540 Q490 615 470 680" stroke="#999"/>
+
+    <!-- Ureter -->
+    <path d="M495 700 Q540 780 580 880" stroke-width="2.5"/>
+
+    <!-- Renal artery -->
+    <path d="M515 470 Q580 460 660 440" stroke-width="2.5"/>
+    <!-- Renal vein -->
+    <path d="M515 550 Q580 565 660 580" stroke-width="2.5"/>
+
+    <!-- Hilum opening -->
+    <path d="M460 480 Q485 520 460 580" stroke="#999"/>
+  </g>
+
+  <!-- Labels with leader lines -->
+  <g stroke="#888" stroke-width="1" stroke-dasharray="3 3" fill="none">
+    <line x1="170" y1="320" x2="220" y2="320"/>
+    <line x1="220" y1="450" x2="265" y2="430"/>
+    <line x1="440" y1="500" x2="500" y2="500"/>
+    <line x1="660" y1="440" x2="710" y2="430"/>
+    <line x1="660" y1="580" x2="710" y2="590"/>
+    <line x1="580" y1="860" x2="620" y2="880"/>
+  </g>
+
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif" font-size="15">
+    <text x="60" y="316">Cortex / cortex</text>
+    <text x="60" y="335" font-size="12" fill="#888">เปลือกไต — glomeruli</text>
+
+    <text x="60" y="450">Medulla / medulla</text>
+    <text x="60" y="468" font-size="12" fill="#888">pyramids — collecting tubules</text>
+
+    <text x="540" y="495">Renal pelvis</text>
+    <text x="540" y="513" font-size="12" fill="#888">กรวยไต — รวมปัสสาวะ</text>
+
+    <text x="720" y="435">Renal artery</text>
+    <text x="720" y="590">Renal vein</text>
+    <text x="625" y="895">Ureter — ท่อไต</text>
+  </g>
+
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif">
+    <text x="400" y="60" text-anchor="middle" font-size="22" font-weight="600">ไต — sagittal section</text>
+    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">Kidney anatomy — cortex / medulla / pelvis / vessels / ureter</text>
+    <text x="400" y="940" text-anchor="middle" font-size="12" fill="#888">เพิ่ม nephron / loop of Henle / collecting duct ได้ตามต้องการ</text>
+  </g>
+</svg>
