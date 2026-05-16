@@ -215,6 +215,16 @@ const RaceView = lazy(() => import('./views/RaceView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 
+// Vercel Analytics + Speed Insights — lazy-loaded so the home page
+// payload doesn't grow on existing users. Both are no-op in dev mode
+// and on non-Vercel deploys, so safe to render unconditionally.
+const Analytics = lazy(() =>
+  import('@vercel/analytics/react').then((m) => ({ default: m.Analytics })),
+);
+const SpeedInsights = lazy(() =>
+  import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights })),
+);
+
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
 
@@ -1366,6 +1376,14 @@ export default function App() {
           <VoiceSettings onClose={() => setVoiceSettingsOpen(false)} />
         </Suspense>
       )}
+
+      {/* Anonymous, privacy-preserving usage signal so Palm can see
+          if Imaging Lab is getting organic visits + which views people
+          stay on. No PII; Vercel-side aggregation. Both no-op in dev. */}
+      <Suspense fallback={null}>
+        <Analytics />
+        <SpeedInsights />
+      </Suspense>
     </>
   );
 }
