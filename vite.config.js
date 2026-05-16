@@ -76,8 +76,19 @@ export default defineConfig({
           if (id.includes('questions-com3')) return 'data-q-com3'
           if (id.includes('questions-com4')) return 'data-q-com4'
           if (id.includes('questions-com5')) return 'data-q-com5'
+          // ⚠️ engprof1 (Y4 Sem 1) must match BEFORE engprof (Y4 Sem 2) —
+          // both share the 'engprof' prefix; specific rule wins.
+          if (id.includes('questions-engprof1')) return 'data-q-engprof1'
           if (id.includes('questions-engprof')) return 'data-q-engprof'
           if (id.includes('questions-exotic')) return 'data-q-exotic'
+          // Y4 Sem 1 banks (added 2026-05-17)
+          if (id.includes('questions-com1')) return 'data-q-com1'
+          if (id.includes('questions-com2')) return 'data-q-com2'
+          if (id.includes('questions-vet-imaging')) return 'data-q-vet-imaging'
+          if (id.includes('questions-swine-repro')) return 'data-q-swine-repro'
+          if (id.includes('questions-swine-herd')) return 'data-q-swine-herd'
+          if (id.includes('questions-food-safety-y4')) return 'data-q-food-safety-y4'
+          if (id.includes('questions-vet-juris')) return 'data-q-vet-juris'
           if (id.includes('questions-repro-lect')) return 'data-q-repro-lect'
           if (id.includes('questions-poultry')) return 'data-q-poultry'
           if (id.includes('questions-cliapprum')) return 'data-q-cliapprum'

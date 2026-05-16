@@ -10,18 +10,22 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 2227;
+export const QB_TOTAL = 2582;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 5,
   'avian-medicine': 4,
   'cliapprum': 136,
-  'com3': 329,
+  'com1': 31,
+  'com2': 42,
+  'com3': 359,
   'com4': 291,
   'com5': 129,
   'comp-repro-clinic': 48,
   'engprof': 71,
-  'exotic': 107,
+  'engprof1': 30,
+  'exotic': 151,
+  'food-safety-y4': 31,
   'livestock-pathology': 77,
   'poa-clinical': 26,
   'poultry': 191,
@@ -33,7 +37,11 @@ export const Q_COUNTS_BY_SUBJECT = {
   'surg2': 20,
   'surg3': 40,
   'swine-clinic': 26,
+  'swine-herd': 36,
+  'swine-repro': 29,
   'vca': 340,
+  'vet-imaging': 35,
+  'vet-juris': 47,
   'zoonoses': 2,
 };
 
@@ -45,12 +53,16 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 5,
   'avian-medicine': 4,
   'cliapprum': 134,
-  'com3': 329,
+  'com1': 31,
+  'com2': 42,
+  'com3': 359,
   'com4': 291,
   'com5': 129,
   'comp-repro-clinic': 48,
   'engprof': 71,
-  'exotic': 104,
+  'engprof1': 30,
+  'exotic': 108,
+  'food-safety-y4': 31,
   'livestock-pathology': 77,
   'poa-clinical': 26,
   'poultry': 134,
@@ -62,13 +74,17 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'surg2': 20,
   'surg3': 40,
   'swine-clinic': 26,
+  'swine-herd': 36,
+  'swine-repro': 29,
   'vca': 340,
+  'vet-imaging': 35,
+  'vet-juris': 47,
   'zoonoses': 2,
 };
 
 export const Q_COUNTS_BY_YEAR = {
-  4: 1672,
+  4: 2027,
   5: 555,
 };
 
-// Built: 2026-05-16T17:13:42.762Z
+// Built: 2026-05-16T21:17:47.726Z

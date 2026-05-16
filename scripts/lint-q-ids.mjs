@@ -23,7 +23,11 @@
 //   9000-9999       → reserved for Y6 / Y4 sem 1 / Y1-Y3 scaffold years
 // ============================================================
 
-import { QB } from '../src/data/questions.js';
+import { QB, loadQB } from '../src/data/questions.js';
+
+// Phase 3 lazy QB rework (2026-05-17): QB exports as empty array until
+// loadQB() resolves. Linters must await before scanning.
+await loadQB();
 
 const byId = new Map();
 const byCompound = new Map();

@@ -62,6 +62,17 @@ const LOADERS = [
   () => import('./questions-y5-repro-clinic.js').then((m) => m.QB_Y5_REPRO_CLINIC),
   () => import('./questions-y5-osce-med.js').then((m) => m.QB_Y5_OSCE_MED),
   () => import('./questions-y5-vision-batch.js').then((m) => m.QB_Y5_VISION_BATCH),
+  // ── Y4 Sem 1 banks (Vet 86 past-paper extraction · 2026-05-17) ──
+  // Loaded same way as other banks; subject gating via curriculum.js
+  // (has_questions/scaffold flags) controls whether ExamView surfaces them.
+  () => import('./questions-com1.js').then((m) => m.QB_COM1),
+  () => import('./questions-com2.js').then((m) => m.QB_COM2),
+  () => import('./questions-vet-imaging.js').then((m) => m.QB_VET_IMAGING),
+  () => import('./questions-swine-repro.js').then((m) => m.QB_SWINE_REPRO),
+  () => import('./questions-swine-herd.js').then((m) => m.QB_SWINE_HERD),
+  () => import('./questions-food-safety-y4.js').then((m) => m.QB_FOOD_SAFETY_Y4),
+  () => import('./questions-vet-juris.js').then((m) => m.QB_VET_JURIS),
+  () => import('./questions-engprof1.js').then((m) => m.QB_ENGPROF1),
 ];
 
 // SAME reference forever — mutated when loadQB() resolves so closures

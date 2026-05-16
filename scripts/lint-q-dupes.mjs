@@ -33,7 +33,10 @@
 // Mirrors the style of scripts/lint-q-ids.mjs.
 // ============================================================
 
-import { QB } from '../src/data/questions.js';
+import { QB, loadQB } from '../src/data/questions.js';
+
+// Phase 3 lazy QB rework (2026-05-17): QB starts empty; must await load.
+await loadQB();
 
 function normalizeText(text) {
   if (!text || typeof text !== 'string') return '';

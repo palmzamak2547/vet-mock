@@ -34,9 +34,13 @@ const root = path.join(here, '..');
 // Windows ESM rejects bare absolute paths.
 const m = await import(pathToFileURL(path.join(root, 'src/data/questions.js')).href);
 const curM = await import(pathToFileURL(path.join(root, 'src/data/curriculum.js')).href);
-const { QB } = m;
+const { QB, loadQB } = m;
 const { SUBJECTS } = curM;
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
+
+// Phase 3 lazy QB rework (2026-05-17): QB exports empty until loadQB()
+// resolves. Without this await the regen would emit zero counts.
+await loadQB();
 
 // Build a hidden-topic set per subject from the curriculum metadata —
 // matches the `hiddenTopicIdsFor()` runtime behaviour so the
