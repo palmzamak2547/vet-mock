@@ -30,6 +30,10 @@ export default function LabView({ goHome }) {
   const [files, setFiles] = useState([]);  // 0–MAX_FILES DICOMs
   const [currentCase, setCurrentCase] = useState(null);
   const [showCases, setShowCases] = useState(false);
+  // Tracks WHERE the current files came from so the viewer's Back
+  // button can return to the right step (library vs drop zone)
+  // instead of always dropping the user back at lab-home.
+  const [fileSource, setFileSource] = useState(null);  // 'drag' | 'library' | null
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState(null);
   const [recent, setRecent] = useState([]);
@@ -117,6 +121,7 @@ export default function LabView({ goHome }) {
     setError(msg);
     setFiles(validated);
     setCurrentCase(null);
+    setFileSource('drag');
   }, [addToRecent]);
 
   const onDrop = useCallback((e) => {
@@ -157,7 +162,24 @@ export default function LabView({ goHome }) {
     setFiles([]);
     setCurrentCase(null);
     setError(null);
+    setFileSource(null);
   }, []);
+
+  // Context-aware Back from viewer: if user came from the case library,
+  // return to the library list (keeps their browse state mental model);
+  // if from drag-drop, fall back to the drop zone. Either way, files
+  // are cleared so the next pick is a clean state.
+  const backFromViewer = useCallback(() => {
+    setFiles([]);
+    setCurrentCase(null);
+    setError(null);
+    if (fileSource === 'library') {
+      setShowCases(true);  // → back to case grid
+    } else {
+      setShowCases(false); // → back to drop zone
+    }
+    setFileSource(null);
+  }, [fileSource]);
 
   const removeFileAt = useCallback((idx) => {
     setFiles((prev) => prev.filter((_, i) => i !== idx));
@@ -176,6 +198,7 @@ export default function LabView({ goHome }) {
     setFiles(arr.slice(0, MAX_FILES));
     setCurrentCase(caseMeta);
     setShowCases(false);
+    setFileSource('library');
   }, []);
 
   // Threaded into the viewer header to show "Source: ... License: ..."
@@ -432,8 +455,12 @@ export default function LabView({ goHome }) {
                 </label>
               )}
               {files.length === 1 && <AnonymizeButton file={firstFile} />}
-              <button onClick={reset} className="vmx-btn vmx-btn-ghost vmx-btn-sm">
-                {files.length > 1 ? 'รีเซ็ตทั้งหมด' : 'เปลี่ยนไฟล์'}
+              <button
+                onClick={backFromViewer}
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                title={fileSource === 'library' ? 'กลับไปหน้า Case Library' : 'กลับไปหน้าเลือกไฟล์'}
+              >
+                {fileSource === 'library' ? '← Back to library' : '← Back to drop zone'}
               </button>
             </div>
           </div>
