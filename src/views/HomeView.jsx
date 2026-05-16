@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useState, lazy, Suspense } from 'react';
 import { QB } from '../data/questions.js';
+// Phase 2 perf: lightweight precomputed Q counts for header/total
+// displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
+// full QB to be scanned on every re-render.
+import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount } from '../data/curriculum.js';
@@ -55,11 +59,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
   // Question count — must match what YearSelectView shows for the same year:
   // strict `year === N` Qs + cross-rotation VCA Qs + user custom Qs.
-  // Previously this was `QB.length` (everything-everywhere) which mismatched
-  // the year-pick card and made users wonder if the count was real.
+  // Reads from precomputed q-counts.js (Phase 2 perf) instead of
+  // scanning the full QB — keeps this count cheap on every re-render
+  // and doesn't depend on the full Q-bank being loaded.
   const totalQ = (() => {
-    const yearQ = QB.filter((q) => q.year === selectedYear).length;
-    const vcaQ = QB.filter((q) => q.subject === 'vca').length;
+    const yearQ = Q_COUNTS_BY_YEAR[selectedYear] || 0;
+    const vcaQ = Q_COUNTS_BY_SUBJECT['vca'] || 0;
     const customQ = (customQuestions?.length || 0);
     return yearQ + vcaQ + customQ;
   })();
@@ -194,7 +199,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // subject=null → pool filter `q.subject === null` returned empty →
   // "ไม่มีข้อสอบในหมวดนี้" alert. Now uses startExam overrides so
   // there's no async state-batching gap.
-  const allQuestionsPool = QB.length + (customQuestions?.length || 0);
+  const allQuestionsPool = QB_TOTAL + (customQuestions?.length || 0);
   const launchRandomQ = () => {
     if (allQuestionsPool === 0) return;
     // We do BOTH: setState to update React state for downstream effects

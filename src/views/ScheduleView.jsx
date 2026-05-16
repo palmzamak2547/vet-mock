@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { EXAM_SCHEDULE, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
 import { SUBJECTS } from '../data/curriculum.js';
-import { QB } from '../data/questions.js';
+// Phase 2 perf: use precomputed counts instead of QB. ScheduleView
+// only asks "does subject X have any Qs?" — a boolean lookup against
+// the tiny q-counts.js file. Saves dragging the full QB into this
+// view's load graph.
+import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import BackBar from '../components/BackBar.jsx';
 
 export default function ScheduleView({ goHome, setSubject, setMode, setView, setPracticeMode }) {
@@ -24,7 +28,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
     setView('config');
   };
 
-  const hasQuestions = (subjId) => QB.some((q) => q.subject === subjId);
+  const hasQuestions = (subjId) => (Q_COUNTS_BY_SUBJECT[subjId] || 0) > 0;
 
   return (
     <>

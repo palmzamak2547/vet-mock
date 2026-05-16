@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
-import { QB } from '../data/questions.js';
+// Use precomputed counts (Phase 2 perf) — this view never reads Q
+// content, only renders "ปี 4 · 2,012 ข้อ" style labels. The lightweight
+// q-counts.js (~1 KB) replaces a static QB import that would have
+// dragged every per-subject Q chunk into this view's load graph.
+import { Q_COUNTS_BY_SUBJECT, Q_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { detectCurrentPhase } from './PhaseSelectView.jsx';
 
 // ──────────────────────────────────────────────────────────────
@@ -19,7 +23,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
   const [showAll, setShowAll] = useState(false);
   const liveYears = YEARS.filter((y) => !y.scaffold);
   const scaffoldYears = YEARS.filter((y) => y.scaffold);
-  const liveQCount = QB.filter((q) => liveYears.some((y) => y.id === q.year)).length;
+  const liveQCount = liveYears.reduce((s, y) => s + (Q_COUNTS_BY_YEAR[y.id] || 0), 0);
 
   const goToYear = (y) => {
     setSelectedYear(y.id);
@@ -52,8 +56,9 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
           // year-pick count matches what HomeView shows when the user lands.
           // Counting `q.year === y.id` alone misses VCA (cross-species) +
           // any subject not strictly year-tagged. Each shown explicitly.
-          const qCount = QB.filter((q) => q.year === y.id).length;
-          const vcaCount = QB.filter((q) => q.subject === 'vca').length;
+          // (Q_COUNTS_BY_YEAR is precomputed by regen-q-counts.mjs.)
+          const qCount = Q_COUNTS_BY_YEAR[y.id] || 0;
+          const vcaCount = Q_COUNTS_BY_SUBJECT['vca'] || 0;
           const totalCount = qCount + vcaCount;
           const isPicked = selectedYear === y.id && !firstTime;
           return (
