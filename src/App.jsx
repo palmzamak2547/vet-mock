@@ -60,6 +60,12 @@ const ImageAnnotator = lazy(() => import('./components/ImageAnnotator.jsx'));
 // pulls Cornerstone3D into its own chunk only when a user opens it.
 const LabView = lazy(() => import('./views/LabView.jsx'));
 
+// HighlightToCard — listens for text selections inside
+// .vmx-summary-body (SummaryModal content) and offers a floating
+// "✨ ทำ flashcard" button that opens a save modal. Lazy because
+// users only need it when reading a video summary.
+const HighlightToCard = lazy(() => import('./components/HighlightToCard.jsx'));
+
 // View Transitions API helper — wraps a state update so the browser
 // snapshots the DOM before/after and crossfades automatically. Falls
 // back to a plain call when the API isn't available (Firefox, older
@@ -1438,6 +1444,14 @@ export default function App() {
           <VoiceSettings onClose={() => setVoiceSettingsOpen(false)} />
         </Suspense>
       )}
+
+      {/* HighlightToCard — global listener for text selections inside
+          SummaryModal (.vmx-summary-body). Self-contained state; no
+          props. Mounted always so the listener catches selections
+          made on any SummaryModal that opens, regardless of view. */}
+      <Suspense fallback={null}>
+        <HighlightToCard />
+      </Suspense>
 
       {/* Anonymous, privacy-preserving usage signal so Palm can see
           if Imaging Lab is getting organic visits + which views people

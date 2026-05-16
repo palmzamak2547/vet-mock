@@ -7,6 +7,7 @@ import { safeImageUrl } from '../lib/safe-url.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
+import { loadUserFlashcards } from '../lib/user-flashcards.js';
 
 // ============================================================
 // SRSessionView — Spaced Repetition flashcard session
@@ -23,7 +24,14 @@ import ZoomableImage from '../components/ZoomableImage.jsx';
 const SIZE_PRESETS = [25, 50, 100, 200];
 
 export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [] }) {
-  const allQuestions = useMemo(() => [...QB, ...customQuestions], [customQuestions]);
+  // Merge in user-authored flashcards (from "Highlight → Flashcard"
+  // in SummaryModal). They live in localStorage and don't trigger
+  // React updates by themselves — we read on mount and let the
+  // session refresh on the next planning step.
+  const allQuestions = useMemo(
+    () => [...QB, ...customQuestions, ...loadUserFlashcards()],
+    [customQuestions],
+  );
 
   // Persist last-used preferences
   const [sessionSize, setSessionSize] = useLocalStorage('vmx-sr-session-size', 25);
@@ -326,6 +334,11 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       : stripRichText(currentQ.blanks[0] || '');
   } else if (currentQ.type === 'match') {
     answerText = currentQ.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('\n');
+  } else if (currentQ.type === 'flashcard') {
+    // User-authored card from "Highlight → Flashcard" — back side
+    // is plain text the user typed; fall back to `answer` for any
+    // legacy/imported shape that uses the generic field name.
+    answerText = stripRichText(currentQ.back || currentQ.answer || '');
   }
 
   // Friendly Thai label for the question type — shows up in the SR badge
@@ -334,6 +347,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     tf: 'True/False',
     fill: 'เติมคำ',
     match: 'จับคู่',
+    flashcard: '⚡ Flashcard',
   }[currentQ.type] || currentQ.type;
 
   return (

@@ -15,6 +15,9 @@ const SR_INCOMPATIBLE_STEM = /ข้อใด|ข้อไหน|อันใด
 
 export function isFlashcardCompatible(q) {
   if (!q || !q.type) return false;
+  // User-authored flashcards (Highlight → Flashcard) always pass —
+  // they were created by the user specifically for SR review.
+  if (q.type === 'flashcard') return true;
   if (q.type === 'match') return false;
   // 'short' (free-form text) and 'essay' (writing) require self-assessment
   // and don't have a single right answer that fits the flashcard model
