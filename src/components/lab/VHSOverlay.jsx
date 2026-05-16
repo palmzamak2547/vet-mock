@@ -40,6 +40,7 @@ function refRangeForSpecies(species) {
 export default function VHSOverlay({ active, viewportRef, caseId = null, species = '' }) {
   const isMobile = useMediaQuery('(max-width: 600px)');
   const ref = refRangeForSpecies(species);
+  const [cardCollapsed, setCardCollapsed] = useState(false);
   const [worldPoints, setWorldPoints] = useState([]);
   const [, setTick] = useState(0);
 
@@ -301,8 +302,34 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
       </div>
 
       {result && (
-        <div style={isMobile ? mobileSheetStyle : resultCardStyle}>
-          <div style={{ fontWeight: 'bold', marginBottom: 6 }}>Vertebral Heart Score</div>
+        <div style={isMobile ? (cardCollapsed ? mobileSheetCollapsedStyle : mobileSheetStyle) : resultCardStyle}>
+          <div
+            onClick={isMobile ? () => setCardCollapsed((c) => !c) : undefined}
+            style={{
+              fontWeight: 'bold',
+              marginBottom: cardCollapsed ? 0 : 6,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              cursor: isMobile ? 'pointer' : 'default',
+              userSelect: 'none',
+            }}
+          >
+            <span>
+              Vertebral Heart Score
+              {isMobile && cardCollapsed && (
+                <span style={{ marginLeft: 8, fontWeight: 400, opacity: 0.8, fontSize: '0.82em', color: '#ffd93d' }}>
+                  VHS = {result.vhs.toFixed(2)} v
+                </span>
+              )}
+            </span>
+            {isMobile && (
+              <span aria-label={cardCollapsed ? 'ขยาย' : 'ย่อ'} style={{ fontSize: '0.85em', color: '#bbb' }}>
+                {cardCollapsed ? '▲' : '▼'}
+              </span>
+            )}
+          </div>
+          {!cardCollapsed && <>
           <div>L (long axis) = <strong>{result.Lv.toFixed(2)} v</strong></div>
           <div>S (short axis) = <strong>{result.Sv.toFixed(2)} v</strong></div>
           <div style={{ marginTop: 6, fontSize: '1rem', color: '#ffd93d' }}>
@@ -353,6 +380,7 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
               {saveState.msg}
             </div>
           )}
+          </>}
         </div>
       )}
     </div>
@@ -403,6 +431,18 @@ const mobileSheetStyle = {
   maxHeight: '50%',
   overflowY: 'auto',
   boxShadow: '0 -2px 10px rgba(0,0,0,0.3)',
+};
+
+const mobileSheetCollapsedStyle = {
+  position: 'absolute',
+  bottom: 0, left: 0, right: 0,
+  background: 'rgba(0,0,0,0.85)',
+  color: '#fff',
+  padding: '8px 14px',
+  borderRadius: '10px 10px 0 0',
+  fontSize: '0.82rem',
+  pointerEvents: 'auto',
+  boxShadow: '0 -2px 8px rgba(0,0,0,0.25)',
 };
 
 const resetBtnStyle = {

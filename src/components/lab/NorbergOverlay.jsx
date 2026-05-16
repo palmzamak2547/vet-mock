@@ -26,6 +26,10 @@ const LABELS = ['L♀', 'R♀', 'L⌃', 'R⌃'];
 
 export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
   const isMobile = useMediaQuery('(max-width: 600px)');
+  // On mobile the result card eats half the canvas; let user collapse
+  // it to a thin header bar so they can still see the image. Restored
+  // when they tap the header again.
+  const [cardCollapsed, setCardCollapsed] = useState(false);
   // World-space points (3D). Persist across tool toggles until Reset.
   const [worldPoints, setWorldPoints] = useState([]);
   // Tick re-renders SVG positions when the camera moves (zoom/pan).
@@ -304,8 +308,34 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
       </div>
 
       {angles && (
-        <div style={isMobile ? mobileSheetStyle : resultCardStyle}>
-          <div style={{ fontWeight: 'bold', marginBottom: 6 }}>Norberg angle result</div>
+        <div style={isMobile ? (cardCollapsed ? mobileSheetCollapsedStyle : mobileSheetStyle) : resultCardStyle}>
+          <div
+            onClick={isMobile ? () => setCardCollapsed((c) => !c) : undefined}
+            style={{
+              fontWeight: 'bold',
+              marginBottom: cardCollapsed ? 0 : 6,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              cursor: isMobile ? 'pointer' : 'default',
+              userSelect: 'none',
+            }}
+          >
+            <span>
+              Norberg angle result
+              {isMobile && cardCollapsed && (
+                <span style={{ marginLeft: 8, fontWeight: 400, opacity: 0.8, fontSize: '0.82em' }}>
+                  L {angles.left.toFixed(1)}° · R {angles.right.toFixed(1)}°
+                </span>
+              )}
+            </span>
+            {isMobile && (
+              <span aria-label={cardCollapsed ? 'ขยาย' : 'ย่อ'} style={{ fontSize: '0.85em', color: '#bbb' }}>
+                {cardCollapsed ? '▲' : '▼'}
+              </span>
+            )}
+          </div>
+          {!cardCollapsed && <>
           <div style={{ color: '#ff9b9b' }}>
             Left: <strong>{angles.left.toFixed(1)}°</strong> — {classify(angles.left)}
           </div>
@@ -340,6 +370,7 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
               {saveState.msg}
             </div>
           )}
+          </>}
         </div>
       )}
     </div>
@@ -407,6 +438,18 @@ const mobileSheetStyle = {
   maxHeight: '50%',
   overflowY: 'auto',
   boxShadow: '0 -2px 10px rgba(0,0,0,0.3)',
+};
+
+const mobileSheetCollapsedStyle = {
+  position: 'absolute',
+  bottom: 0, left: 0, right: 0,
+  background: 'rgba(0,0,0,0.85)',
+  color: '#fff',
+  padding: '8px 14px',
+  borderRadius: '10px 10px 0 0',
+  fontSize: '0.82rem',
+  pointerEvents: 'auto',
+  boxShadow: '0 -2px 8px rgba(0,0,0,0.25)',
 };
 
 const resetBtnStyle = {

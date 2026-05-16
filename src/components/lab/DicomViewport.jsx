@@ -110,9 +110,29 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         const tg = ToolGroupManager.createToolGroup(toolGroupId);
         Object.values(TOOLS).forEach(({ cls }) => tg.addTool(cls.toolName));
         tg.addViewport(viewportId, engineId);
-        tg.setToolActive(WindowLevelTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Primary }] });
-        tg.setToolActive(PanTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Auxiliary }] });
-        tg.setToolActive(ZoomTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Secondary }] });
+        // Bindings include explicit numTouchPoints so single-finger
+        // tap-and-drag on tablet/phone behaves the same as left-mouse-
+        // drag — same gesture pipes through Cornerstone's normalized
+        // pointer events. Pan also accepts 2-finger drag (the natural
+        // touch gesture). Zoom keeps Secondary mouse only; pinch on
+        // touch is suppressed by `touch-action: none` on the wrapper
+        // and re-enabled implicitly when the user selects Zoom in the
+        // toolbar (becomes single-tap-drag via the Primary binding).
+        tg.setToolActive(WindowLevelTool.toolName, {
+          bindings: [
+            { mouseButton: ToolEnums.MouseBindings.Primary },
+            { numTouchPoints: 1 },
+          ],
+        });
+        tg.setToolActive(PanTool.toolName, {
+          bindings: [
+            { mouseButton: ToolEnums.MouseBindings.Auxiliary },
+            { numTouchPoints: 2 },
+          ],
+        });
+        tg.setToolActive(ZoomTool.toolName, {
+          bindings: [{ mouseButton: ToolEnums.MouseBindings.Secondary }],
+        });
 
         viewport.render();
 
@@ -179,10 +199,24 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
       // un-bound so the overlay's click handler receives events first.
       Object.values(TOOLS).forEach(({ cls }) => tg.setToolPassive(cls.toolName));
       if (TOOLS[tool]) {
-        tg.setToolActive(TOOLS[tool].cls.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Primary }] });
+        // Same dual binding pattern as initial setup — keeps touch
+        // tap-and-drag working after the user switches active tools.
+        tg.setToolActive(TOOLS[tool].cls.toolName, {
+          bindings: [
+            { mouseButton: ToolEnums.MouseBindings.Primary },
+            { numTouchPoints: 1 },
+          ],
+        });
       }
-      tg.setToolActive(PanTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Auxiliary }] });
-      tg.setToolActive(ZoomTool.toolName, { bindings: [{ mouseButton: ToolEnums.MouseBindings.Secondary }] });
+      tg.setToolActive(PanTool.toolName, {
+        bindings: [
+          { mouseButton: ToolEnums.MouseBindings.Auxiliary },
+          { numTouchPoints: 2 },
+        ],
+      });
+      tg.setToolActive(ZoomTool.toolName, {
+        bindings: [{ mouseButton: ToolEnums.MouseBindings.Secondary }],
+      });
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('[selectTool] bind error:', err);
@@ -396,7 +430,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
   return (
     <div>
       {status === 'ready' && (
-        <div style={toolbarStyle}>
+        <div style={isMobile ? toolbarMobileStyle : toolbarStyle}>
           {!isMobile && <span style={labelStyle}>Nav:</span>}
           {navTools.map((t) => (
             <TBtn key={t} active={activeTool === t} onClick={() => selectTool(t)} title={`${TOOLS[t].label} — shortcut (${TOOLS[t].sk})`}>
@@ -676,6 +710,27 @@ const toolbarStyle = {
   borderRadius: '8px 8px 0 0',
   alignItems: 'center',
   fontSize: '0.85rem',
+};
+
+// Mobile toolbar — no wrap, horizontal scroll. Keeps the canvas
+// from being squished by a 4-row toolbar on phone portrait.
+// `touch-action: pan-x` lets horizontal swipe scroll the toolbar
+// without the browser also trying to navigate. Momentum scroll on
+// iOS via -webkit-overflow-scrolling.
+const toolbarMobileStyle = {
+  display: 'flex',
+  gap: 6,
+  flexWrap: 'nowrap',
+  overflowX: 'auto',
+  overflowY: 'hidden',
+  padding: '6px 8px',
+  background: '#f5f5f5',
+  borderRadius: '8px 8px 0 0',
+  alignItems: 'center',
+  fontSize: '0.85rem',
+  WebkitOverflowScrolling: 'touch',
+  touchAction: 'pan-x',
+  scrollbarWidth: 'thin',
 };
 
 const labelStyle = {

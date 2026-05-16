@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, Suspense, lazy } from 'react';
+import { useMediaQuery } from '../lib/dicom/use-media-query.js';
 
 const DicomViewport = lazy(() => import('../components/lab/DicomViewport.jsx'));
 const CaseLibrary = lazy(() => import('../components/lab/CaseLibrary.jsx'));
@@ -27,6 +28,7 @@ async function isDicomFile(file) {
 }
 
 export default function LabView({ goHome }) {
+  const isMobile = useMediaQuery('(max-width: 600px)');
   const [files, setFiles] = useState([]);  // 0–MAX_FILES DICOMs
   const [currentCase, setCurrentCase] = useState(null);
   const [showCases, setShowCases] = useState(false);
@@ -261,7 +263,7 @@ export default function LabView({ goHome }) {
   const firstFile = files[0];  // for header label
 
   return (
-    <div style={{ padding: 20, maxWidth: 1400, margin: '0 auto' }}>
+    <div style={{ padding: isMobile ? 10 : 20, maxWidth: 1400, margin: '0 auto' }}>
       <header style={headerStyle}>
         <div>
           <h1 style={{ fontSize: '1.4rem', margin: 0 }}>🔬 Imaging Practice Lab</h1>
@@ -302,6 +304,8 @@ export default function LabView({ goHome }) {
               disabled={demoLoading || demoCases.length === 0}
               style={{
                 ...demoCtaBtnStyle,
+                padding: isMobile ? '12px 14px' : '16px 20px',
+                fontSize: isMobile ? '0.92rem' : '1rem',
                 opacity: demoCases.length === 0 ? 0.5 : 1,
                 cursor: demoCases.length === 0 ? 'not-allowed' : 'pointer',
               }}
@@ -355,7 +359,7 @@ export default function LabView({ goHome }) {
             style={{
               border: `2px dashed ${dragging ? '#4a6b4a' : '#bbb'}`,
               borderRadius: 12,
-              padding: '60px 20px',
+              padding: isMobile ? '32px 16px' : '60px 20px',
               textAlign: 'center',
               background: dragging ? '#f0f8f0' : '#fafafa',
               transition: 'all 0.2s',
