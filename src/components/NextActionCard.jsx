@@ -49,9 +49,10 @@ export default function NextActionCard({
     }
 
     // Priority 2: SR cards due — gated on real history.
-    // Without history, cardStats.due defaults to ALL Qs (~2000 "due")
-    // which is meaningless for new users. Require ≥10 history entries
-    // AND a realistic daily due band (5-100) before recommending SR.
+    // cardStats.due is reviewed-only (sm2.js fix 2026-05-16) so this
+    // already excludes unseen cards. We additionally gate on ≥10
+    // history entries + realistic daily band (5-100) so a user with
+    // 3 cards reviewed yesterday doesn't get an SR push today.
     if (
       cardStats?.due >= 5
       && cardStats.due <= 100

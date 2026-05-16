@@ -1,9 +1,19 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), viteCommonjs()],
+  // Cornerstone3D's dicom-image-loader ships its own web workers and
+  // must NOT be pre-bundled by Vite; dicom-parser is CJS and needs
+  // explicit inclusion so esbuild rewrites it cleanly.
+  optimizeDeps: {
+    exclude: ['@cornerstonejs/dicom-image-loader'],
+    include: ['dicom-parser'],
+  },
+  worker: { format: 'es' },
   build: {
+    target: 'esnext',
     chunkSizeWarningLimit: 700,
     rollupOptions: {
       output: {
@@ -11,6 +21,17 @@ export default defineConfig({
           if (id.includes('node_modules')) {
             if (id.includes('react')) return 'vendor-react'
             if (id.includes('@supabase')) return 'vendor-supabase'
+            // Cornerstone3D + its dep tree (vtk.js, gl-matrix, comlink,
+            // dicom-parser) all funnel into a single lab-only chunk so
+            // they never ship with the main bundle. LabView lazy-loads
+            // this chunk on first /lab visit.
+            if (
+              id.includes('@cornerstonejs') ||
+              id.includes('@kitware/vtk.js') ||
+              id.includes('dicom-parser') ||
+              id.includes('gl-matrix') ||
+              id.includes('comlink')
+            ) return 'vendor-cornerstone'
             return 'vendor'
           }
           // Question banks are heavy + only needed once user starts a quiz.
