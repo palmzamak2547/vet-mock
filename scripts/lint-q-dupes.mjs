@@ -21,7 +21,12 @@
 //      multiple-choice options or the exact final phrase — comparing
 //      the lead-in catches the duplicates without false-flagging
 //      legitimately-different questions.)
-//   4. Group Qs sharing a key. Anything with >1 entry is a dupe set.
+//   4. When the Q has a `passage`/`passage_title` (research-reading
+//      mocks share generic stems like "What was the purpose of the
+//      study?" applied to DIFFERENT passages — Mock 1 PASSAGE_PETS vs
+//      Mock 4 PASSAGE_AMR), prefix the key with the passage_title or
+//      passage hash so each passage-Q pair gets its own dupe bucket.
+//   5. Group Qs sharing a key. Anything with >1 entry is a dupe set.
 //
 // Exit code 0 if no dupes, 1 otherwise (CI-friendly).
 //
@@ -39,13 +44,30 @@ function normalizeText(text) {
     .trim();
 }
 
+// Passage fingerprint: prefer the BODY over title because mock-exam
+// passage_titles are intentionally generic ("Read this article and
+// write a summary" appears on every Part II Q across all mocks). The
+// first 80 normalized chars of the body discriminate cleanly between
+// PASSAGE_BATS / PASSAGE_ATOPIC / PASSAGE_EARABSCESS without false
+// flags. Falls back to title when body absent (rare).
+function passageKey(item) {
+  if (item.passage) return normalizeText(item.passage).slice(0, 80);
+  if (item.passage_title) return normalizeText(item.passage_title).slice(0, 60);
+  return '';
+}
+
 const byKey = new Map();
 
 for (const item of QB) {
   const text = item.q || '';
   const norm = normalizeText(text);
   if (norm.length < 10) continue;     // skip near-empty stems
-  const key = norm.slice(0, 80);
+  // Passage-aware key: when present, a generic stem like "What was
+  // the purpose of the study?" applied to two distinct passages should
+  // NOT be flagged as a dupe (they're different exam items by design).
+  const stemKey = norm.slice(0, 80);
+  const passage = passageKey(item);
+  const key = passage ? `${passage}|${stemKey}` : stemKey;
   if (!byKey.has(key)) byKey.set(key, []);
   byKey.get(key).push(item);
 }
