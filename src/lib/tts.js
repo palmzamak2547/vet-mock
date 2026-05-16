@@ -128,18 +128,55 @@ function rateFor(lang, tier) {
   return lang === 'en' ? 0.85 : 0.88;
 }
 
-// Single pause schedule — was tier-adaptive but the extra SAPI pauses
-// felt chopped rather than natural. Treat all voices the same and let
-// the voice's own punctuation prosody do most of the work.
-//
-// 2026-05-16 (Palm feedback "เว้นช่วงนานเกินไป"): cut pauses ~55%.
-// Previous values (550/380/180) were tuned for Edge MP3 which had
-// audible click/silence padding at clip boundaries. iApp Kaitom PCM
-// has cleaner edges + the cloud round-trip ALREADY adds ~200-400 ms
-// of natural gap between segments, so scripted pauses on top felt
-// like double-spacing.
+// Pause schedule — defaults from Palm 2026-05-16 round 2 ("ตัวเลือก
+// แอบช้า"). Cut further from 220/140/60 → 90/40/20. User can override
+// via window.localStorage 'vmx-tts-prefs' = JSON {afterStem, betweenOpts,
+// afterLast, speed}. The settings UI surfaces this; this function is
+// the single read-point so every code path uses the live prefs.
+const DEFAULT_PAUSES = { afterStem: 90, betweenOpts: 40, afterLast: 20 };
+export const DEFAULT_TTS_PREFS = { ...DEFAULT_PAUSES, speed: 1.0 };
+const PAUSE_BOUNDS = { min: 0, max: 800 };
+const SPEED_BOUNDS = { min: 0.8, max: 1.2 };
+
+function clampPause(v, fb) {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return fb;
+  return Math.max(PAUSE_BOUNDS.min, Math.min(PAUSE_BOUNDS.max, n));
+}
+
+export function getTtsPrefs() {
+  if (typeof window === 'undefined') return { ...DEFAULT_TTS_PREFS };
+  try {
+    const raw = window.localStorage.getItem('vmx-tts-prefs');
+    if (!raw) return { ...DEFAULT_TTS_PREFS };
+    const parsed = JSON.parse(raw);
+    return {
+      afterStem: clampPause(parsed.afterStem, DEFAULT_PAUSES.afterStem),
+      betweenOpts: clampPause(parsed.betweenOpts, DEFAULT_PAUSES.betweenOpts),
+      afterLast: clampPause(parsed.afterLast, DEFAULT_PAUSES.afterLast),
+      speed: (() => {
+        const s = Number(parsed.speed);
+        if (!Number.isFinite(s)) return 1.0;
+        return Math.max(SPEED_BOUNDS.min, Math.min(SPEED_BOUNDS.max, s));
+      })(),
+    };
+  } catch {
+    return { ...DEFAULT_TTS_PREFS };
+  }
+}
+
+export function setTtsPrefs(patch) {
+  if (typeof window === 'undefined') return;
+  try {
+    const current = getTtsPrefs();
+    const next = { ...current, ...patch };
+    window.localStorage.setItem('vmx-tts-prefs', JSON.stringify(next));
+  } catch { /* ignore quota */ }
+}
+
 function pausesFor() {
-  return { afterStem: 220, betweenOpts: 140, afterLast: 60 };
+  const p = getTtsPrefs();
+  return { afterStem: p.afterStem, betweenOpts: p.betweenOpts, afterLast: p.afterLast };
 }
 
 function pickVoice(voices, lang) {
@@ -423,7 +460,23 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
   const synth = window.speechSynthesis;
   synth.cancel();
 
-  const voices = await ensureVoices();
+  // 2026-05-16: don't block tap-to-audio on voice enumeration. Cloud
+  // path (iApp/Edge) doesn't NEED Web Speech voices — those are only
+  // for the Web Speech fallback path. ensureVoices() can wait up to
+  // 1500 ms on a cold browser session (Chrome fires `voiceschanged`
+  // late), so previously every first tap of a session paid for that
+  // entire window even when we were going straight to cloud anyway.
+  //
+  // Race with a 100 ms cap: if voices are already enumerated (typical
+  // mid-session), pickVoice still finds the right one and the premium-
+  // local skip-cloud branch still triggers. If voices aren't ready
+  // within 100 ms we treat the tier as 'standard' (cloud path) — which
+  // is correct for ~all Windows/desktop sessions anyway.
+  const voicesPromise = ensureVoices();
+  const voices = await Promise.race([
+    voicesPromise,
+    new Promise((res) => setTimeout(() => res([]), 100)),
+  ]);
   if (controller?.cancelled) return;
   onStart?.();
 
@@ -513,6 +566,13 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
     if (qLang === 'th' && isIAppAvailable()) providers.push('iapp');
     providers.push('edge');
 
+    // User-configurable playback speed (default 1.0). iApp accepts
+    // 0.8-1.2, Edge accepts arbitrary (we clamp). Reading prefs once
+    // here so all sentences in this Q use the same rate — changing
+    // the slider mid-Q only affects the NEXT speak action.
+    const userPrefs = getTtsPrefs();
+    const userRate = userPrefs.speed;
+
     // 2026-05-16 perf rework (Palm "ดีเลย์เริ่มพูดนาน"): kick off
     // ALL sentence fetches in parallel, then play them sequentially.
     // Previous version awaited fetch+play per sentence — sentence 2
@@ -545,11 +605,12 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
         // direct array of promises and await them ONE-AT-A-TIME in
         // order: the rest keep downloading in the background.
         const fetcher = provider === 'iapp' ? getIAppAudio : getEdgeAudio;
-        const fetchArgs = provider === 'iapp'
-          ? (text) => ({ text, lang: qLang, rate: 1.0 })
-          : (text) => ({ text, lang: qLang, rate: 1.0 });
+        // Both providers take {text, lang, rate}; rate maps to iApp's
+        // `speed` (clamped 0.8-1.2 server-side) and to Edge's SSML
+        // rate percentage. Same userRate passes through to both so
+        // ladder failure preserves the user's pace preference.
         const audioPromises = sentences.map((text) =>
-          fetcher(fetchArgs(text), fetchAbort.signal)
+          fetcher({ text, lang: qLang, rate: userRate }, fetchAbort.signal)
         );
         const mimeType = provider === 'iapp' ? 'audio/wav' : 'audio/mpeg';
 
