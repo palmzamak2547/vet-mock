@@ -357,6 +357,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               className="vmx-btn vmx-btn-primary"
               style={{ background: 'var(--clr-gold, #b88940)', borderColor: 'var(--clr-gold, #b88940)', minHeight: 44, fontSize: 13 }}
               onClick={() => setView('phase-wrapped')}
+              aria-label="ดูสรุปการเรียนของเทอมที่จบ"
             >
               ✨ ดูสรุป →
             </button>
