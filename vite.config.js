@@ -15,6 +15,40 @@ export default defineConfig({
   build: {
     target: 'esnext',
     chunkSizeWarningLimit: 700,
+    // ── Phase 1 perf rework (2026-05-17) ─────────────────────────
+    // Vite's default behaviour is to emit <link rel="modulepreload">
+    // for EVERY chunk in the entry's transitive load graph, including
+    // chunks only reachable through React.lazy() dynamic imports.
+    // That bloated first-paint preload to 3.88 MB even though the home
+    // screen only needs ~500 KB of code.
+    //
+    // resolveDependencies trims the preload list per-entry. Filter out
+    // chunks that only run on routes the average user never visits
+    // (vendor-cornerstone for /lab) or load on demand later in the
+    // session (Q banks fetch when the user actually starts a quiz —
+    // currently they're statically imported via data/questions.js
+    // barrel but Phase 2+3 will lazy them; preload-trim is harmless
+    // in the interim because the static imports still work — just
+    // without the eager-prefetch hint).
+    //
+    // Excluded chunks still ship + chunk-split as before; the browser
+    // just fetches them when actually imported, not as a speculative
+    // pre-warm. For lazy-loaded chunks (cornerstone) this is a pure
+    // win. For statically-imported chunks (Q banks) it's neutral
+    // until Phase 3 ships.
+    modulePreload: {
+      polyfill: true,
+      resolveDependencies(_filename, deps) {
+        const SKIP_PRELOAD_PATTERNS = [
+          /vendor-cornerstone/,        // /lab only · 1.69 MB
+          /data-q-/,                   // Q banks · 16 chunks · ~2 MB (Phase 2+3 will lazy them)
+          /data-video-summaries/,      // VideoView only · 2 MB
+          /data-notes-/,               // NotesView only · per-subject
+          /data-instructors/,          // FacultyView only · 135 KB
+        ];
+        return deps.filter((dep) => !SKIP_PRELOAD_PATTERNS.some((re) => re.test(dep)));
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {
