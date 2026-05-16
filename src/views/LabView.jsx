@@ -3,82 +3,13 @@ import { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 const DicomViewport = lazy(() => import('../components/lab/DicomViewport.jsx'));
 const CaseLibrary = lazy(() => import('../components/lab/CaseLibrary.jsx'));
 
-// Lazy-loads the anonymizer module + dicom-parser only when needed.
-// Keeps the lab home page light for users who never anonymize.
-function AnonymizeButton({ file }) {
-  const [status, setStatus] = useState('idle');
-  const [summary, setSummary] = useState(null);
-
-  const run = async () => {
-    setStatus('working');
-    setSummary(null);
-    try {
-      const mod = await import('../lib/dicom/anonymizer.js');
-      const { file: anon, stripped } = await mod.anonymizeDicom(file);
-      mod.downloadFile(anon);
-      setSummary({ count: stripped.length, names: stripped.map(s => s.label) });
-      setStatus('done');
-      setTimeout(() => setStatus('idle'), 6000);
-    } catch (e) {
-      setStatus('error');
-      setSummary({ error: e?.message || String(e) });
-    }
-  };
-
-  return (
-    <div style={{ position: 'relative' }}>
-      <button
-        onClick={run}
-        disabled={status === 'working'}
-        className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-        title="Strip PII tags + download anonymized copy"
-      >
-        {status === 'working' ? '⏳ กำลัง anonymize...' : status === 'done' ? '✅ Downloaded' : '🔒 Anonymize'}
-      </button>
-      {summary && status !== 'working' && (
-        <div style={anonSummaryStyle}>
-          {summary.error ? (
-            <span style={{ color: '#c33' }}>❌ {summary.error}</span>
-          ) : (
-            <>
-              <strong>Stripped {summary.count} tags</strong>
-              <ul style={{ margin: '4px 0 0', paddingLeft: 18, fontSize: '0.7rem' }}>
-                {summary.names.slice(0, 6).map((n) => <li key={n}>{n}</li>)}
-                {summary.names.length > 6 && <li>… +{summary.names.length - 6} more</li>}
-              </ul>
-              <div style={{ fontSize: '0.65rem', color: '#888', marginTop: 4 }}>
-                Saved as <code>{file.name.replace(/\.dcm$/i, '')}_anon.dcm</code>
-              </div>
-            </>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-const anonSummaryStyle = {
-  position: 'absolute',
-  top: '100%',
-  right: 0,
-  marginTop: 4,
-  padding: '8px 10px',
-  background: '#fff',
-  border: '1px solid #ccc',
-  borderRadius: 6,
-  fontSize: '0.78rem',
-  minWidth: 220,
-  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-  zIndex: 100,
-};
-
 const RECENT_KEY = 'vmx-lab-recent-files';
 const RECENT_MAX = 5;
+const MAX_FILES = 2;  // Phase 9 — 2-up compare. Future phases may raise this.
 
-// Check the DICOM magic-byte signature "DICM" at offset 128. This
-// catches files exported without a .dcm extension (common when PACS
-// dumps SOP-Instance-UID as filename). Reads only the first 200
-// bytes — cheap.
+// Check the DICOM magic-byte signature "DICM" at offset 128. Catches
+// files exported without a .dcm extension (common when PACS dumps the
+// SOP-Instance-UID as filename).
 async function isDicomFile(file) {
   if (!file) return false;
   const lower = file.name.toLowerCase();
@@ -87,25 +18,21 @@ async function isDicomFile(file) {
   if (file.size < 132) return false;
   try {
     const head = await file.slice(0, 200).arrayBuffer();
-    const view = new Uint8Array(head);
-    return view[128] === 0x44 && view[129] === 0x49 && view[130] === 0x43 && view[131] === 0x4D;
+    const v = new Uint8Array(head);
+    return v[128] === 0x44 && v[129] === 0x49 && v[130] === 0x43 && v[131] === 0x4D;
   } catch {
     return false;
   }
 }
 
 export default function LabView({ goHome }) {
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);  // 0–MAX_FILES DICOMs
   const [currentCase, setCurrentCase] = useState(null);
   const [showCases, setShowCases] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState(null);
   const [recent, setRecent] = useState([]);
 
-  // Recent files history. Stored as {name,size,lastModified} so we
-  // can recognize files dragged from disk again. Actual File blobs
-  // can't be persisted — the user must re-drag, but the list nudges
-  // them toward "the file I used yesterday".
   useEffect(() => {
     try {
       const raw = localStorage.getItem(RECENT_KEY);
@@ -123,24 +50,37 @@ export default function LabView({ goHome }) {
     });
   }, []);
 
-  const handleFile = useCallback(async (f) => {
-    if (!f) return;
-    const ok = await isDicomFile(f);
-    if (!ok) {
-      setError('ไฟล์ไม่ใช่ DICOM (magic bytes "DICM" ไม่ตรง · ลองไฟล์อื่น)');
+  const handleFiles = useCallback(async (fileList) => {
+    if (!fileList || fileList.length === 0) return;
+    const arr = Array.from(fileList).slice(0, MAX_FILES);
+    const validated = [];
+    const bad = [];
+    for (const f of arr) {
+      if (await isDicomFile(f)) {
+        validated.push(f);
+        addToRecent(f);
+      } else {
+        bad.push(f.name);
+      }
+    }
+    if (validated.length === 0) {
+      setError(`ไฟล์ไม่ใช่ DICOM: ${bad.join(', ')}`);
       return;
     }
-    setError(null);
-    setFile(f);
+    const skippedExtras = fileList.length > MAX_FILES ? fileList.length - MAX_FILES : 0;
+    let msg = null;
+    if (bad.length > 0) msg = `บางไฟล์ไม่ใช่ DICOM (ข้าม): ${bad.join(', ')}`;
+    if (skippedExtras > 0) msg = `${msg ? msg + ' · ' : ''}ตอนนี้รองรับสูงสุด ${MAX_FILES} ไฟล์ (ข้าม ${skippedExtras})`;
+    setError(msg);
+    setFiles(validated);
     setCurrentCase(null);
-    addToRecent(f);
   }, [addToRecent]);
 
   const onDrop = useCallback((e) => {
     e.preventDefault();
     setDragging(false);
-    handleFile(e.dataTransfer?.files?.[0]);
-  }, [handleFile]);
+    handleFiles(e.dataTransfer?.files);
+  }, [handleFiles]);
 
   const onDragOver = useCallback((e) => {
     e.preventDefault();
@@ -152,7 +92,7 @@ export default function LabView({ goHome }) {
     setDragging(false);
   }, []);
 
-  const onFileInput = useCallback((e) => handleFile(e.target.files?.[0]), [handleFile]);
+  const onFileInput = useCallback((e) => handleFiles(e.target.files), [handleFiles]);
 
   const clearRecent = useCallback(() => {
     setRecent([]);
@@ -160,9 +100,13 @@ export default function LabView({ goHome }) {
   }, []);
 
   const reset = useCallback(() => {
-    setFile(null);
+    setFiles([]);
     setCurrentCase(null);
     setError(null);
+  }, []);
+
+  const removeFileAt = useCallback((idx) => {
+    setFiles((prev) => prev.filter((_, i) => i !== idx));
   }, []);
 
   const handleBack = useCallback(() => {
@@ -172,20 +116,19 @@ export default function LabView({ goHome }) {
     goHome?.();
   }, [goHome]);
 
-  const handleOpenCase = useCallback((openedFile, caseMeta) => {
-    setFile(openedFile);
+  const handleOpenCase = useCallback((openedFiles, caseMeta) => {
+    // CaseLibrary may pass a single File or an array of Files.
+    const arr = Array.isArray(openedFiles) ? openedFiles : [openedFiles];
+    setFiles(arr.slice(0, MAX_FILES));
     setCurrentCase(caseMeta);
     setShowCases(false);
   }, []);
 
-  // Decide which sub-view to render:
-  // file → viewer (top priority; covers both drag-drop and case-opened)
-  // showCases → case library
-  // else → home (drag-drop entry)
-  const subView = file ? 'viewer' : (showCases ? 'cases' : 'home');
+  const subView = files.length > 0 ? 'viewer' : (showCases ? 'cases' : 'home');
+  const firstFile = files[0];  // for header label
 
   return (
-    <div style={{ padding: 20, maxWidth: 1200, margin: '0 auto' }}>
+    <div style={{ padding: 20, maxWidth: 1400, margin: '0 auto' }}>
       <header style={headerStyle}>
         <div>
           <h1 style={{ fontSize: '1.4rem', margin: 0 }}>🔬 Imaging Practice Lab</h1>
@@ -231,12 +174,16 @@ export default function LabView({ goHome }) {
           >
             <div style={{ fontSize: '3rem', marginBottom: 12 }}>📁</div>
             <p style={{ fontSize: '1.05rem', margin: '0 0 8px' }}>ลาก DICOM (.dcm) มาวางที่นี่</p>
-            <p style={{ fontSize: '0.85rem', color: '#888', margin: '0 0 16px' }}>หรือ</p>
+            <p style={{ fontSize: '0.78rem', color: '#999', margin: '0 0 4px' }}>
+              ลากได้ครั้งละ {MAX_FILES} ไฟล์ — เปิด side-by-side อัตโนมัติ (เช่น VD + Lateral)
+            </p>
+            <p style={{ fontSize: '0.85rem', color: '#888', margin: '12px 0 16px' }}>หรือ</p>
             <label className="vmx-btn vmx-btn-primary" style={{ cursor: 'pointer', display: 'inline-block' }}>
               เลือกไฟล์
               <input
                 type="file"
                 accept=".dcm,application/dicom"
+                multiple
                 onChange={onFileInput}
                 style={{ display: 'none' }}
               />
@@ -279,7 +226,7 @@ export default function LabView({ goHome }) {
         </Suspense>
       )}
 
-      {subView === 'viewer' && file && (
+      {subView === 'viewer' && files.length > 0 && (
         <div>
           <div style={viewerHeaderStyle}>
             <div style={{ fontSize: '0.88rem', color: '#555' }}>
@@ -291,12 +238,18 @@ export default function LabView({ goHome }) {
                   </span>
                 </>
               ) : (
-                <>📄 {file.name} · {(file.size / 1024).toFixed(0)} KB</>
+                <>
+                  📄 {files.length === 1
+                    ? `${firstFile.name} · ${(firstFile.size / 1024).toFixed(0)} KB`
+                    : `Study (${files.length} views): ${files.map(f => f.name).join(' + ')}`}
+                </>
               )}
             </div>
             <div style={{ display: 'flex', gap: 6 }}>
-              <AnonymizeButton file={file} />
-              <button onClick={reset} className="vmx-btn vmx-btn-ghost vmx-btn-sm">เปลี่ยนไฟล์</button>
+              {files.length === 1 && <AnonymizeButton file={firstFile} />}
+              <button onClick={reset} className="vmx-btn vmx-btn-ghost vmx-btn-sm">
+                {files.length > 1 ? 'รีเซ็ตทั้งหมด' : 'เปลี่ยนไฟล์'}
+              </button>
             </div>
           </div>
 
@@ -306,9 +259,18 @@ export default function LabView({ goHome }) {
             </div>
           )}
 
-          <Suspense fallback={<div style={loadingFallbackStyle}>กำลังโหลด viewer...</div>}>
-            <DicomViewport file={file} />
-          </Suspense>
+          {/* Single viewport or 2-up grid depending on file count */}
+          <div style={files.length >= 2 ? studyGridStyle : undefined}>
+            {files.map((f, idx) => (
+              <ViewerPane
+                key={`${f.name}-${f.size}-${f.lastModified || 0}`}
+                file={f}
+                index={idx}
+                canRemove={files.length > 1}
+                onRemove={() => removeFileAt(idx)}
+              />
+            ))}
+          </div>
 
           {currentCase?.learning_objectives?.length > 0 && (
             <div style={objectivesCardStyle}>
@@ -323,6 +285,94 @@ export default function LabView({ goHome }) {
     </div>
   );
 }
+
+// One viewport's wrapper: filename header + optional remove button +
+// the Cornerstone-backed DicomViewport itself. Each pane operates an
+// independent engine + tool group — there's no cross-pane sync yet,
+// each toolbar controls only its own viewport.
+function ViewerPane({ file, index, canRemove, onRemove }) {
+  return (
+    <div style={paneStyle}>
+      <div style={paneHeaderStyle}>
+        <span>
+          <strong>View {index + 1}:</strong>{' '}
+          <span style={{ color: '#888', fontSize: '0.75rem' }}>{file.name}</span>
+        </span>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <AnonymizeButton file={file} />
+          {canRemove && (
+            <button
+              onClick={onRemove}
+              aria-label="Remove this view"
+              style={removePaneBtnStyle}
+              title="ปิด view นี้"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+      </div>
+      <Suspense fallback={<div style={loadingFallbackStyle}>กำลังโหลด viewer...</div>}>
+        <DicomViewport file={file} />
+      </Suspense>
+    </div>
+  );
+}
+
+// Lazy-loads the anonymizer module + dicom-parser only when needed.
+function AnonymizeButton({ file }) {
+  const [status, setStatus] = useState('idle');
+  const [summary, setSummary] = useState(null);
+
+  const run = async () => {
+    setStatus('working');
+    setSummary(null);
+    try {
+      const mod = await import('../lib/dicom/anonymizer.js');
+      const { file: anon, stripped } = await mod.anonymizeDicom(file);
+      mod.downloadFile(anon);
+      setSummary({ count: stripped.length, names: stripped.map(s => s.label) });
+      setStatus('done');
+      setTimeout(() => setStatus('idle'), 6000);
+    } catch (e) {
+      setStatus('error');
+      setSummary({ error: e?.message || String(e) });
+    }
+  };
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <button
+        onClick={run}
+        disabled={status === 'working'}
+        className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+        title="Strip PII tags + download anonymized copy"
+      >
+        {status === 'working' ? '⏳ anon...' : status === 'done' ? '✅ Downloaded' : '🔒 Anonymize'}
+      </button>
+      {summary && status !== 'working' && (
+        <div style={anonSummaryStyle}>
+          {summary.error ? (
+            <span style={{ color: '#c33' }}>❌ {summary.error}</span>
+          ) : (
+            <>
+              <strong>Stripped {summary.count} tags</strong>
+              <ul style={{ margin: '4px 0 0', paddingLeft: 18, fontSize: '0.7rem' }}>
+                {summary.names.slice(0, 6).map((n) => <li key={n}>{n}</li>)}
+                {summary.names.length > 6 && <li>… +{summary.names.length - 6} more</li>}
+              </ul>
+              <div style={{ fontSize: '0.65rem', color: '#888', marginTop: 4 }}>
+                Saved as <code>{file.name.replace(/\.dcm$/i, '')}_anon.dcm</code>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── styles ───────────────────────────────────────────────────
 
 const headerStyle = {
   display: 'flex',
@@ -392,4 +442,57 @@ const recentBoxStyle = {
   background: '#fafafa',
   border: '1px solid #e8e8e8',
   borderRadius: 6,
+};
+
+const studyGridStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))',
+  gap: 12,
+};
+
+const paneStyle = {
+  border: '1px solid #ddd',
+  borderRadius: 8,
+  background: '#fff',
+  padding: 8,
+};
+
+const paneHeaderStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: 8,
+  padding: '4px 6px',
+  fontSize: '0.85rem',
+  color: '#555',
+  flexWrap: 'wrap',
+  gap: 6,
+};
+
+const removePaneBtnStyle = {
+  width: 24,
+  height: 24,
+  borderRadius: 4,
+  border: '1px solid #ccc',
+  background: '#fff',
+  cursor: 'pointer',
+  color: '#666',
+  fontSize: '0.85rem',
+  lineHeight: 1,
+  padding: 0,
+};
+
+const anonSummaryStyle = {
+  position: 'absolute',
+  top: '100%',
+  right: 0,
+  marginTop: 4,
+  padding: '8px 10px',
+  background: '#fff',
+  border: '1px solid #ccc',
+  borderRadius: 6,
+  fontSize: '0.78rem',
+  minWidth: 220,
+  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+  zIndex: 100,
 };

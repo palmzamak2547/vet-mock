@@ -66,16 +66,21 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
       if (!files || files.length === 0) {
         throw new Error('Case has no DICOM files yet');
       }
-      const first = files[0];
-      const { data: signed, error: signedErr } = await sb.storage
-        .from('lab-dicom')
-        .createSignedUrl(first.storage_path, 600);
-      if (signedErr) throw signedErr;
-      const res = await fetch(signed.signedUrl);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const buf = await res.arrayBuffer();
-      const file = new File([buf], `${c.slug}_${first.view_name}.dcm`, { type: 'application/dicom' });
-      onOpenCase(file, c);
+      // Fetch up to 2 files for the side-by-side study viewer.
+      // Each gets its own signed URL (10 min) and is downloaded in
+      // parallel via Promise.all to minimize wall time.
+      const filesToFetch = files.slice(0, 2);
+      const fetched = await Promise.all(filesToFetch.map(async (row) => {
+        const { data: signed, error: signedErr } = await sb.storage
+          .from('lab-dicom')
+          .createSignedUrl(row.storage_path, 600);
+        if (signedErr) throw new Error(`Sign URL failed (${row.view_name}): ${signedErr.message}`);
+        const res = await fetch(signed.signedUrl);
+        if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${row.view_name}`);
+        const buf = await res.arrayBuffer();
+        return new File([buf], `${c.slug}_${row.view_name}.dcm`, { type: 'application/dicom' });
+      }));
+      onOpenCase(fetched, c);  // array — LabView now accepts File[]
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('[CaseLibrary] open case error:', e);
