@@ -7,6 +7,74 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState(initForm());
 
+  // Bulk-select / lasso state — checkbox-based UX (cross-platform safe vs canvas lasso)
+  const [selectMode, setSelectMode] = useState(false);
+  const [selectedIds, setSelectedIds] = useState(() => new Set());
+  const [lastSelectedId, setLastSelectedId] = useState(null); // for shift-click range
+  const [showSubjectPicker, setShowSubjectPicker] = useState(false);
+
+  const clearSelection = () => { setSelectedIds(new Set()); setLastSelectedId(null); };
+  const exitSelectMode = () => { setSelectMode(false); clearSelection(); setShowSubjectPicker(false); };
+
+  // Toggle a single id, supporting shift-click range from lastSelectedId.
+  // Uses functional setState so scroll position never resets and we don't
+  // depend on a possibly-stale selectedIds reference inside event handlers.
+  const toggleId = (id, shiftKey = false) => {
+    if (shiftKey && lastSelectedId != null && lastSelectedId !== id) {
+      const ids = customQuestions.map((q) => q.id);
+      const a = ids.indexOf(lastSelectedId);
+      const b = ids.indexOf(id);
+      if (a !== -1 && b !== -1) {
+        const [lo, hi] = a < b ? [a, b] : [b, a];
+        const range = ids.slice(lo, hi + 1);
+        setSelectedIds((prev) => {
+          const next = new Set(prev);
+          range.forEach((r) => next.add(r));
+          return next;
+        });
+        setLastSelectedId(id);
+        return;
+      }
+    }
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+    setLastSelectedId(id);
+  };
+
+  const bulkDelete = () => {
+    const n = selectedIds.size;
+    if (n === 0) return;
+    if (!confirm(`ลบ ${n} ข้อใช่ไหม? ลบไม่ได้คืน`)) return;
+    setCustomQuestions((prev) => prev.filter((q) => !selectedIds.has(q.id)));
+    clearSelection();
+  };
+
+  const bulkAddTag = () => {
+    if (selectedIds.size === 0) return;
+    const raw = prompt('ใส่ tag ที่จะเพิ่มให้ทุกข้อที่เลือก');
+    if (raw == null) return;
+    const tag = raw.trim();
+    if (!tag) { alert('tag ว่างไม่ได้'); return; }
+    if (tag.length >= 30) { alert('tag ยาวเกินไป (< 30 ตัวอักษร)'); return; }
+    setCustomQuestions((prev) => prev.map((q) => {
+      if (!selectedIds.has(q.id)) return q;
+      const existing = Array.isArray(q.tags) ? q.tags : [];
+      if (existing.includes(tag)) return q; // de-dup
+      return { ...q, tags: [...existing, tag] };
+    }));
+    clearSelection();
+  };
+
+  const bulkChangeSubject = (subjectId) => {
+    if (selectedIds.size === 0) return;
+    setCustomQuestions((prev) => prev.map((q) => selectedIds.has(q.id) ? { ...q, subject: subjectId } : q));
+    setShowSubjectPicker(false);
+    clearSelection();
+  };
+
   function initForm() {
     return {
       subject: 'surg2',
@@ -269,33 +337,191 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
         <p>เพิ่ม แก้ไข หรือ import ข้อสอบของตัวเอง · มี {customQuestions.length} ข้อ custom</p>
       </div>
 
-      <div className="vmx-btn-row" style={{ marginBottom: 24, justifyContent: 'flex-start' }}>
+      <div className="vmx-btn-row" style={{ marginBottom: 12, justifyContent: 'flex-start', flexWrap: 'wrap' }}>
         <button className="vmx-btn vmx-btn-primary" onClick={startAdd}>➕ เพิ่มข้อสอบ</button>
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportCustom}>📥 Export JSON</button>
         <label className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ cursor: 'pointer' }}>
           📤 Import JSON
           <input type="file" accept=".json" onChange={importCustom} style={{ display: 'none' }} />
         </label>
+        {customQuestions.length > 0 && (
+          <button
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            onClick={() => selectMode ? exitSelectMode() : setSelectMode(true)}
+            style={{ minHeight: 44 }}
+          >
+            {selectMode ? '✕ ปิดการเลือก' : '☑ เลือกหลายข้อ'}
+          </button>
+        )}
       </div>
+      {selectMode && (
+        <div style={{ fontSize: 13, color: '#888', marginBottom: 16, padding: '8px 12px', background: 'rgba(255,255,255,0.04)', borderRadius: 6 }}>
+          คลิกที่ข้อเพื่อเลือก, แล้วแถบจะขึ้นด้านล่าง (กด Shift + คลิก เพื่อเลือกหลายข้อพร้อมกัน)
+        </div>
+      )}
 
       {customQuestions.length === 0 ? (
         <div className="vmx-empty">ยังไม่มีข้อสอบ custom — กด "เพิ่มข้อสอบ" เพื่อสร้าง</div>
       ) : (
-        <div>
-          {customQuestions.map((q) => (
-            <div key={q.id} className="vmx-review-item">
-              <div className="vmx-review-head">
-                <span>#{q.id} · {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject} · {q.type.toUpperCase()}</span>
-                <div style={{ display: 'flex', gap: 6 }}>
-                  <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => startEdit(q)}>✏️ แก้</button>
-                  <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => deleteQ(q.id)}>🗑</button>
+        <div style={{ paddingBottom: selectedIds.size > 0 ? 96 : 0 }}>
+          {customQuestions.map((q) => {
+            const checked = selectedIds.has(q.id);
+            return (
+              <div
+                key={q.id}
+                className="vmx-review-item"
+                onClick={selectMode ? (e) => {
+                  // Don't hijack clicks on action buttons inside the row
+                  if (e.target.closest('button') || e.target.closest('input')) return;
+                  toggleId(q.id, e.shiftKey);
+                } : undefined}
+                style={selectMode ? {
+                  cursor: 'pointer',
+                  outline: checked ? '2px solid #4ade80' : 'none',
+                  outlineOffset: -2,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 0,
+                } : undefined}
+              >
+                {selectMode && (
+                  <label
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      flexShrink: 0,
+                      width: 44,
+                      minHeight: 44,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      marginRight: 4,
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={(e) => toggleId(q.id, e.nativeEvent.shiftKey)}
+                      style={{ width: 24, height: 24, cursor: 'pointer' }}
+                      aria-label={`เลือกข้อ ${q.id}`}
+                    />
+                  </label>
+                )}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div className="vmx-review-head">
+                    <span>#{q.id} · {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject} · {q.type.toUpperCase()}</span>
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={(e) => { e.stopPropagation(); startEdit(q); }}>✏️ แก้</button>
+                      <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={(e) => { e.stopPropagation(); deleteQ(q.id); }}>🗑</button>
+                    </div>
+                  </div>
+                  <div className="vmx-review-q">{q.q}</div>
+                  {q.tags && q.tags.length > 0 && (
+                    <div>{q.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}</div>
+                  )}
                 </div>
               </div>
-              <div className="vmx-review-q">{q.q}</div>
-              {q.tags && q.tags.length > 0 && (
-                <div>{q.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}</div>
-              )}
-            </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Sticky floating bulk-action bar (a.k.a. "lasso" action pill) */}
+      {selectedIds.size > 0 && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 'max(16px, env(safe-area-inset-bottom))',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 800,
+            background: 'rgba(20,20,24,0.96)',
+            color: '#fff',
+            borderRadius: 999,
+            padding: '8px 12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            boxShadow: '0 10px 30px rgba(0,0,0,0.45)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            maxWidth: 'calc(100vw - 24px)',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+          }}
+        >
+          <span style={{
+            background: '#4ade80',
+            color: '#0a0a0a',
+            fontWeight: 700,
+            borderRadius: 999,
+            padding: '4px 10px',
+            fontSize: 13,
+            minHeight: 28,
+            display: 'inline-flex',
+            alignItems: 'center',
+          }}>
+            {selectedIds.size} ข้อ
+          </span>
+          <button
+            onClick={bulkDelete}
+            style={bulkBtn}
+          >🗑 ลบทั้งหมด</button>
+          <button
+            onClick={bulkAddTag}
+            style={bulkBtn}
+          >🏷 เปลี่ยน tag</button>
+          <button
+            onClick={() => setShowSubjectPicker((v) => !v)}
+            style={bulkBtn}
+          >📂 ย้ายวิชา</button>
+          <button
+            onClick={clearSelection}
+            style={{ ...bulkBtn, opacity: 0.7 }}
+          >ยกเลิก</button>
+        </div>
+      )}
+
+      {/* Subject picker popover — sits above the floating bar */}
+      {showSubjectPicker && selectedIds.size > 0 && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 'calc(max(16px, env(safe-area-inset-bottom)) + 64px)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 801,
+            background: 'rgba(20,20,24,0.98)',
+            color: '#fff',
+            borderRadius: 12,
+            padding: 12,
+            border: '1px solid rgba(255,255,255,0.15)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+            maxWidth: 'calc(100vw - 24px)',
+            maxHeight: '60vh',
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 6,
+            minWidth: 240,
+          }}
+        >
+          <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 4 }}>เลือกวิชาใหม่สำหรับ {selectedIds.size} ข้อ</div>
+          {SUBJECTS.filter((s) => s.id !== 'all').map((s) => (
+            <button
+              key={s.id}
+              onClick={() => bulkChangeSubject(s.id)}
+              style={{
+                textAlign: 'left',
+                background: 'rgba(255,255,255,0.06)',
+                color: '#fff',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 8,
+                padding: '10px 12px',
+                minHeight: 44,
+                fontSize: 14,
+                cursor: 'pointer',
+              }}
+            >{s.icon} {s.name}</button>
           ))}
         </div>
       )}
@@ -306,3 +532,18 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     </>
   );
 }
+
+// Bulk-action pill button style — touch-friendly (≥44px height),
+// no hover dependency, uses :active feel via inline opacity tweak.
+const bulkBtn = {
+  background: 'rgba(255,255,255,0.1)',
+  color: '#fff',
+  border: '1px solid rgba(255,255,255,0.18)',
+  borderRadius: 999,
+  padding: '8px 14px',
+  minHeight: 44,
+  fontSize: 14,
+  cursor: 'pointer',
+  fontWeight: 500,
+  whiteSpace: 'nowrap',
+};
