@@ -84,6 +84,7 @@ function buildStaticItems() {
     { key: 'ig-cards',          label: 'IG Card Studio',           hint: 'Generate posts for @vetmock.cu',  icon: '📷',  kw: 'ig instagram card studio post daily admin export' },
     { key: 'faculty',           label: 'อาจารย์ผู้สอนทั้งหมด',         hint: 'Faculty index',                   icon: '👨‍🏫', kw: 'faculty instructor อาจารย์ ผู้สอน lecturer professor' },
     { key: 'account-settings',  label: 'Account Settings',         hint: 'จัดการ account',                   icon: '⚙️',  kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ' },
+    { key: 'voice-settings',    label: 'Voice Settings',           hint: 'ปรับเสียงพูดข้อสอบ',                icon: '🎚',  kw: 'voice tts settings pause speed เสียง อ่าน เสียงพูด พูด ความเร็ว pace tempo iapp kaitom' },
   ];
   for (const a of actions) push({ type: 'action', payload: a.key, label: a.label, hint: a.hint, icon: a.icon, kw: a.kw });
 
@@ -150,10 +151,13 @@ function buildStaticItems() {
 // Dispatch table — translates a cached item back into an action.
 // Keeps the item array pure data so we don't have to rebuild closures.
 function runItem(item, handlers) {
-  const { goView, setSubject, setPracticeMode, openInstructor } = handlers;
+  const { goView, setSubject, setPracticeMode, openInstructor, openVoiceSettings } = handlers;
   switch (item.type) {
     case 'action': {
       if (item.payload === 'bookmarks') { setPracticeMode?.('bookmarks'); goView?.('config'); return; }
+      // voice-settings opens an overlay instead of navigating — keeps
+      // the user on the current Q if they triggered from ExamView.
+      if (item.payload === 'voice-settings') { openVoiceSettings?.(); return; }
       goView?.(item.payload);
       return;
     }

@@ -32,6 +32,9 @@ const CommandPalette = lazy(() => import('./components/CommandPalette.jsx'));
 // InstructorModal — also lazy. Opens when an instructor is selected
 // from the palette or from a topic card.
 const InstructorModal = lazy(() => import('./components/InstructorModal.jsx'));
+// VoiceSettings — sliders for TTS pace + pause defaults. Lazy because
+// most sessions never tweak voice — keep the main bundle slim.
+const VoiceSettings = lazy(() => import('./components/VoiceSettings.jsx'));
 
 // VetCalculator — floating widget for clinical math (RER, fluid ·
 // drug dose, transfusion, DKA insulin). Imported eagerly because
@@ -292,6 +295,9 @@ export default function App() {
   const [selectedPhase, setSelectedPhase] = useLocalStorage('vmx-selected-phase', null);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [openInstructor, setOpenInstructor] = useState(null);
+  // Voice-settings modal — triggered from CommandPalette "Voice Settings"
+  // or anywhere else that wants to expose the TTS pace/pause/speed sliders.
+  const [voiceSettingsOpen, setVoiceSettingsOpen] = useState(false);
   // Sketchpad open state — opens the ImageAnnotator in 'sketch' mode
   // (blank canvas) when the user taps the 🎨 FAB.
   const [sketchOpen, setSketchOpen] = useState(false);
@@ -1325,6 +1331,7 @@ export default function App() {
             setSubject={setSubject}
             setPracticeMode={setPracticeMode}
             openInstructor={(ins) => setOpenInstructor(ins)}
+            openVoiceSettings={() => setVoiceSettingsOpen(true)}
           />
         </Suspense>
       )}
@@ -1332,6 +1339,12 @@ export default function App() {
       {openInstructor && (
         <Suspense fallback={null}>
           <InstructorModal instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
+        </Suspense>
+      )}
+
+      {voiceSettingsOpen && (
+        <Suspense fallback={null}>
+          <VoiceSettings onClose={() => setVoiceSettingsOpen(false)} />
         </Suspense>
       )}
     </>
