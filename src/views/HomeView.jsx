@@ -10,6 +10,9 @@ import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount }
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { pickTodaysQ, readTodaysQStatus, dailyQStreak } from '../lib/daily-q.js';
+// Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap once
+// a phase ends. Cheap helpers; the heavy canvas + card UI is lazy.
+import { getCompletedPhase, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
 
 // DailyGoalCard is lazy-loaded — it only renders if there's history,
 // and most users will see it after some interaction. Keeps HomeView's
@@ -29,6 +32,10 @@ const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
 // subject · random fallback). Replaces the "menu of tools" feel called
 // out in Palm's friend's review.
 import NextActionCard from '../components/NextActionCard.jsx';
+// QuestsPanel — Duolingo-style daily quests. Lazy because most users
+// won't need it on first paint, and it pulls in quests + xp libs
+// (~15KB combined). Mounted under the streak chip row.
+const QuestsPanel = lazy(() => import('../components/QuestsPanel.jsx'));
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
@@ -271,6 +278,22 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     }
   };
 
+  // ─── Phase Wrapped banner state ───────────────────────────
+  // `getCompletedPhase` returns the most recently completed phase
+  // (and reads its dismissed-state via localStorage internally).
+  // We re-read on `wrappedTick` so dismissing the banner removes
+  // it without a full page reload. Hidden on scaffold years.
+  const [wrappedTick, setWrappedTick] = useState(0);
+  const completedPhase = useMemo(() => {
+    if (isScaffoldYear) return null;
+    try { return getCompletedPhase(); } catch { return null; }
+    // wrappedTick is read implicitly via the dismiss-state check —
+    // include it as a dep so the memo invalidates when the user
+    // clicks "ปิด" below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isScaffoldYear, wrappedTick]);
+  const showWrappedBanner = completedPhase && !isWrappedDismissed(completedPhase.id);
+
   return (
     <>
       {tourOpen && (
@@ -292,6 +315,83 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             : <>คลังโจทย์ฝึก <strong>{totalQ}</strong> ข้อ, {yearMeta?.label || 'ปี 4'}</>}
         </p>
       </div>
+
+      {/* Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap
+          once the most recent exam phase has finished. Self-contained:
+          dismiss writes to localStorage via markWrappedDismissed and
+          we bump `wrappedTick` to invalidate the memo. */}
+      {showWrappedBanner && (
+        <div
+          style={{
+            marginBottom: 18,
+            padding: '14px 16px',
+            borderRadius: 16,
+            background: 'linear-gradient(135deg, rgba(184,137,64,0.18), rgba(184,137,64,0.08))',
+            border: '1px solid var(--clr-gold, #b88940)',
+            display: 'flex',
+            gap: 14,
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <div
+            style={{
+              fontSize: 30,
+              animation: 'vmx-wrapped-pulse 2.6s ease-in-out infinite',
+            }}
+            aria-hidden="true"
+          >
+            🎉
+          </div>
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.10em' }}>
+              📊 Phase Wrapped
+            </div>
+            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, marginTop: 2, lineHeight: 1.4 }}>
+              {completedPhase.label} จบแล้ว! ดูสรุปการเรียนของคุณ
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-primary"
+              style={{ background: 'var(--clr-gold, #b88940)', borderColor: 'var(--clr-gold, #b88940)', minHeight: 44, fontSize: 13 }}
+              onClick={() => {
+                // TODO(orchestrator): App.jsx needs a render branch
+                //   {view === 'phase-wrapped' && <PhaseWrappedView ... />}
+                // The wave-coordinator owns the App.jsx edit so this
+                // call only routes when that branch lands.
+                setView('phase-wrapped');
+              }}
+            >
+              ✨ ดูสรุป →
+            </button>
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost"
+              style={{ minHeight: 44, fontSize: 13 }}
+              onClick={() => {
+                markWrappedDismissed(completedPhase.id);
+                setWrappedTick((n) => n + 1);
+              }}
+              aria-label="ปิดประกาศ Phase Wrapped"
+            >
+              ปิด
+            </button>
+          </div>
+          {/* Keyframe lives inline so we don't depend on a global stylesheet
+              edit. Respects prefers-reduced-motion via media query. */}
+          <style>{`
+            @keyframes vmx-wrapped-pulse {
+              0%, 100% { transform: scale(1); }
+              50%      { transform: scale(1.18); }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              [aria-hidden="true"] { animation: none !important; }
+            }
+          `}</style>
+        </div>
+      )}
 
       {/* Study coach surface — primary "วันนี้ทำอะไรดี" card. Picks 1-3
           personalised actions from real history/SR/exam data. See
@@ -706,6 +806,15 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             </button>
           )}
         </div>
+      )}
+
+      {/* Daily Quests panel — 3 randomized quests resets at local
+          midnight. Hidden on scaffold years (no Q bank to act against)
+          so empty quests don't taunt users on Y1–Y3 / Y5–Y6 shells. */}
+      {!isScaffoldYear && (
+        <Suspense fallback={null}>
+          <QuestsPanel />
+        </Suspense>
       )}
 
       {/* Daily goal card — only mount once user has history. Avoids

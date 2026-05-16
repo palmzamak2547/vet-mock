@@ -1,0 +1,308 @@
+// QuestsPanel — daily quest dashboard on HomeView.
+// 3 quest cards + a bonus card when all 3 are claimed.
+// Subscribes to vmx-quests-changed and vmx-xp-changed so any path
+// (exam finish, SR grade, notes read, flashcard create) updates the
+// progress + claim availability live.
+
+import { useEffect, useState } from 'react';
+import {
+  getTodaysQuests,
+  getBonusState,
+  claimQuestReward,
+  claimBonusReward,
+  getQuestStreak,
+  QUEST_EVENT,
+} from '../lib/quests.js';
+import { XP_EVENT } from '../lib/xp.js';
+
+function useQuestState() {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const refresh = () => setTick((t) => t + 1);
+    window.addEventListener(QUEST_EVENT, refresh);
+    window.addEventListener(XP_EVENT, refresh);
+    window.addEventListener('focus', refresh);
+    return () => {
+      window.removeEventListener(QUEST_EVENT, refresh);
+      window.removeEventListener(XP_EVENT, refresh);
+      window.removeEventListener('focus', refresh);
+    };
+  }, []);
+  // tick keeps this fresh; reads pull directly from quests.js so we
+  // don't have to mirror state in React.
+  return {
+    quests: getTodaysQuests(),
+    bonus: getBonusState(),
+    streak: getQuestStreak(),
+    _tick: tick,
+  };
+}
+
+function QuestCard({ quest, compact }) {
+  const claimable = quest.complete && !quest.claimed;
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: compact ? 10 : 14,
+        padding: compact ? '10px 12px' : '12px 14px',
+        borderRadius: 12,
+        background: 'var(--clr-surface)',
+        border: `1px solid ${claimable ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-border)'}`,
+        boxShadow: claimable ? '0 0 0 2px rgba(74,107,74,0.10)' : 'none',
+        minHeight: compact ? 56 : 64,
+        transition: 'border-color 200ms ease, box-shadow 200ms ease',
+        opacity: quest.claimed ? 0.62 : 1,
+      }}
+    >
+      <div
+        aria-hidden
+        style={{
+          fontSize: compact ? 22 : 26,
+          width: compact ? 36 : 40,
+          textAlign: 'center',
+          flexShrink: 0,
+        }}
+      >
+        {quest.icon}
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div
+          style={{
+            fontSize: compact ? 13 : 14,
+            fontWeight: 600,
+            color: 'var(--clr-ink)',
+            marginBottom: 6,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+            gap: 8,
+          }}
+        >
+          <span
+            style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {quest.label}
+          </span>
+          <span
+            style={{
+              fontSize: 11,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-sage, #4a6b4a)',
+              flexShrink: 0,
+            }}
+          >
+            +{quest.xp} XP
+          </span>
+        </div>
+        <div
+          aria-hidden
+          style={{
+            position: 'relative',
+            height: 6,
+            borderRadius: 3,
+            background: 'rgba(0,0,0,0.06)',
+            overflow: 'hidden',
+          }}
+        >
+          <span
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: `${quest.pct}%`,
+              background: quest.claimed
+                ? 'var(--clr-ink-soft, #888)'
+                : 'var(--clr-sage, #4a6b4a)',
+              transition: 'width 400ms ease',
+            }}
+          />
+        </div>
+        <div
+          style={{
+            fontSize: 11,
+            color: 'var(--clr-ink-soft)',
+            marginTop: 4,
+            fontFamily: 'JetBrains Mono, monospace',
+          }}
+        >
+          {quest.progress} / {quest.target}
+        </div>
+      </div>
+      {claimable && (
+        <button
+          type="button"
+          onClick={() => claimQuestReward(quest.id)}
+          className="vmx-pop-in"
+          style={{
+            all: 'unset',
+            cursor: 'pointer',
+            padding: '10px 14px',
+            minHeight: 44,
+            borderRadius: 999,
+            background: 'var(--clr-sage, #4a6b4a)',
+            color: 'white',
+            fontSize: 13,
+            fontWeight: 700,
+            fontFamily: 'JetBrains Mono, monospace',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+          aria-label={`รับ ${quest.xp} XP`}
+        >
+          🎁 รับ
+        </button>
+      )}
+      {quest.claimed && (
+        <span
+          aria-hidden
+          style={{
+            padding: '6px 10px',
+            fontSize: 11,
+            color: 'var(--clr-ink-soft)',
+            fontFamily: 'JetBrains Mono, monospace',
+            flexShrink: 0,
+          }}
+        >
+          ✓ รับแล้ว
+        </span>
+      )}
+    </div>
+  );
+}
+
+function BonusCard({ bonus, compact }) {
+  // Respect prefers-reduced-motion — skip the entrance bounce.
+  const prefersReduce =
+    typeof window !== 'undefined' &&
+    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  return (
+    <div
+      className={prefersReduce ? undefined : 'vmx-pop-in'}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        padding: compact ? '10px 12px' : '12px 14px',
+        borderRadius: 12,
+        background:
+          'linear-gradient(135deg, rgba(217, 119, 68, 0.10), rgba(74, 107, 74, 0.10))',
+        border: '1px solid var(--clr-sage, #4a6b4a)',
+        minHeight: compact ? 52 : 60,
+      }}
+    >
+      <div style={{ fontSize: 24, flexShrink: 0 }} aria-hidden>
+        🎉
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--clr-ink)' }}>
+          ครบทุก quest วันนี้!
+        </div>
+        <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+          โบนัส +{bonus.xp} XP
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={() => claimBonusReward()}
+        style={{
+          all: 'unset',
+          cursor: 'pointer',
+          padding: '10px 14px',
+          minHeight: 44,
+          borderRadius: 999,
+          background: 'var(--clr-sage, #4a6b4a)',
+          color: 'white',
+          fontSize: 13,
+          fontWeight: 700,
+          fontFamily: 'JetBrains Mono, monospace',
+          flexShrink: 0,
+        }}
+      >
+        🎁 รับโบนัส
+      </button>
+    </div>
+  );
+}
+
+export default function QuestsPanel({ compact = false }) {
+  const { quests, bonus, streak } = useQuestState();
+  if (!quests || quests.length === 0) return null;
+  const claimedCount = quests.filter((q) => q.claimed).length;
+
+  return (
+    <section
+      aria-label="ภารกิจประจำวัน"
+      style={{
+        marginBottom: 18,
+        padding: 'env(safe-area-inset-top, 0) 0 0 0',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'baseline',
+          justifyContent: 'space-between',
+          marginBottom: 10,
+          flexWrap: 'wrap',
+          gap: 6,
+        }}
+      >
+        <h3
+          style={{
+            margin: 0,
+            fontSize: 14,
+            fontFamily: 'JetBrains Mono, monospace',
+            color: 'var(--clr-ink)',
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+          }}
+        >
+          🗓️ ภารกิจประจำวัน
+        </h3>
+        <div
+          style={{
+            fontSize: 11,
+            color: 'var(--clr-ink-soft)',
+            fontFamily: 'JetBrains Mono, monospace',
+          }}
+        >
+          {claimedCount}/{quests.length} เสร็จ
+          {streak > 0 && <span> · 🔥 streak {streak} วัน</span>}
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gap: 8,
+          gridTemplateColumns: '1fr',
+          paddingBottom: 'env(safe-area-inset-bottom, 0)',
+        }}
+      >
+        {quests.map((q) => (
+          <QuestCard key={q.id} quest={q} compact={compact} />
+        ))}
+        {bonus.available && <BonusCard bonus={bonus} compact={compact} />}
+        {bonus.claimed && (
+          <div
+            style={{
+              fontSize: 11,
+              color: 'var(--clr-ink-soft)',
+              textAlign: 'center',
+              fontFamily: 'JetBrains Mono, monospace',
+              padding: '6px 0',
+            }}
+          >
+            ✓ รับโบนัสวันนี้แล้ว — กลับมาพรุ่งนี้
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}

@@ -19,6 +19,9 @@ import { STYLES } from './styles.js';
 import { hasSupabase, signOut } from './lib/supabase.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
 import { readShareUrlFromLocation } from './lib/share-link.js';
+import { awardXp, XP_AWARDS } from './lib/xp.js';
+import { recordQuestEvent } from './lib/quests.js';
+import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -69,6 +72,19 @@ const PinboardView = lazy(() => import('./views/PinboardView.jsx'));
 // "✨ ทำ flashcard" button that opens a save modal. Lazy because
 // users only need it when reading a video summary.
 const HighlightToCard = lazy(() => import('./components/HighlightToCard.jsx'));
+
+// XpChip + QuestsPanel — Duolingo-style daily quests + XP/level
+// system. XpChip lives in the header next to 🔥 streak. QuestsPanel
+// renders on HomeView under the streak chip row. Both are lazy
+// because they're tiny but only useful after first interaction —
+// keeps the cold-paint bundle slim.
+const XpChip = lazy(() => import('./components/XpChip.jsx'));
+const QuestsPanel = lazy(() => import('./components/QuestsPanel.jsx'));
+
+// ShortcutSheet — Linear-style "press ? for keyboard help" modal.
+// Tiny, but only opened on `?` press from exam/review, so lazy keeps
+// it out of the first-paint bundle.
+const ShortcutSheet = lazy(() => import('./components/ShortcutSheet.jsx'));
 
 // View Transitions API helper — wraps a state update so the browser
 // snapshots the DOM before/after and crossfades automatically. Falls
@@ -225,6 +241,9 @@ const ReadingChecklistView = lazy(() => import('./views/ReadingChecklistView.jsx
 const FacultyView = lazy(() => import('./views/FacultyView.jsx'));
 const AccountSettingsView = lazy(() => import('./views/AccountSettingsView.jsx'));
 const OfflineGameView = lazy(() => import('./views/OfflineGameView.jsx'));
+// PomodoroView — Forest-style focus timer with a hatching-chick companion.
+// Lazy: only loaded when the user opens it from the command palette.
+const PomodoroView = lazy(() => import('./views/PomodoroView.jsx'));
 const RaceView = lazy(() => import('./views/RaceView.jsx'));
 // PdfAnnotateView — lazy because pdfjs-dist is heavy (~1 MB) and only
 // needed when the user opens "PDF + annotate" from the command palette.
@@ -380,6 +399,10 @@ export default function App() {
   // Sketchpad open state — opens the ImageAnnotator in 'sketch' mode
   // (blank canvas) when the user taps the 🎨 FAB.
   const [sketchOpen, setSketchOpen] = useState(false);
+  // Linear-style keyboard shortcut sheet — opened by pressing '?' while
+  // in exam or review. Closed by Esc / overlay click. State lives here
+  // so the global keydown handler can trigger it from any view-scope.
+  const [shortcutSheetOpen, setShortcutSheetOpen] = useState(false);
   // Service worker update available — true after a new SW finishes
   // installing while an old one is still controlling the page. We show
   // a small toast (NOT during exam) with a "Refresh" button.
@@ -388,6 +411,27 @@ export default function App() {
     const handler = () => setSwUpdateReady(true);
     window.addEventListener('vmx-sw-update', handler);
     return () => window.removeEventListener('vmx-sw-update', handler);
+  }, []);
+
+  // SR-card graded — listen defensively at App level so XP/quest credit
+  // applies no matter which surface dispatches it (SRSessionView today,
+  // maybe DashboardView "quick grade" later). Idempotency: each emit is
+  // one grade, so the dispatcher controls dedup. We just translate the
+  // event into the existing XP + quest event vocabulary.
+  //
+  // Event detail shape: { quality: 0..3 } (matches sm2.js grade scale).
+  useEffect(() => {
+    const handler = (e) => {
+      try {
+        const quality = Number(e?.detail?.quality);
+        const safeQ = Number.isFinite(quality) ? Math.max(0, Math.min(3, quality)) : 0;
+        if (safeQ < 1) return; // "Again" (0) — no XP, no quest credit
+        awardXp(XP_AWARDS.srGrade, 'sr');
+        recordQuestEvent('sr-graded', { quality: safeQ });
+      } catch {}
+    };
+    window.addEventListener('vmx-sr-card-graded', handler);
+    return () => window.removeEventListener('vmx-sr-card-graded', handler);
   }, []);
 
   // Study buddies hook is called LATER in the component body, after
@@ -780,6 +824,98 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, currentIdx, questions, paletteOpen]);
 
+  // Linear-style power-user shortcuts — J/K/B/P/F/?. Gated to exam +
+  // review views so they don't interfere with HomeView/Notes typing.
+  // Skipped on INPUT/TEXTAREA/CONTENTEDITABLE targets so users typing
+  // a note or answer don't trigger navigation. Also yields to the
+  // command palette + shortcut sheet (so '?' inside the sheet closes
+  // it through Esc, not double-toggles).
+  //
+  // Exam-only collisions handled:
+  //   - B already toggles bookmark in the exam-only handler above, so
+  //     here we only fire B in 'review' to avoid double-toggle.
+  //   - F doubles as the True/False "False" key in exam (q.type==='tf'),
+  //     so we only treat F as flag in 'review'.
+  // P, J, K, ? have no collisions and fire in both views.
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (view !== 'exam' && view !== 'review') return;
+      if (paletteOpen || shortcutSheetOpen) {
+        // Allow '?' to act as a toggle even when sheet is open — closes it
+        if (shortcutSheetOpen && e.key === '?') {
+          e.preventDefault();
+          setShortcutSheetOpen(false);
+        }
+        return;
+      }
+      const t = e.target;
+      if (!t) return;
+      // Skip when user is typing — INPUT, TEXTAREA, or contenteditable.
+      // Reuse the same guard pattern as the existing exam handler.
+      if (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA') return;
+      if (t.isContentEditable) return;
+      // Modifier keys → let the OS / palette handle them
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const k = e.key;
+      const q = questions[currentIdx];
+
+      if (k === '?' || (e.shiftKey && k === '/')) {
+        e.preventDefault();
+        setShortcutSheetOpen((v) => !v);
+        return;
+      }
+      if (k === 'j' || k === 'J') {
+        e.preventDefault();
+        if (view === 'exam') nextQ();
+        else if (view === 'review') {
+          // ReviewView owns its own navigation. Emit an event so it can
+          // listen and step forward without us reaching into its state.
+          try { window.dispatchEvent(new CustomEvent('vmx-review-next')); } catch {}
+        }
+        return;
+      }
+      if (k === 'k' || k === 'K') {
+        e.preventDefault();
+        if (view === 'exam') prevQ();
+        else if (view === 'review') {
+          try { window.dispatchEvent(new CustomEvent('vmx-review-prev')); } catch {}
+        }
+        return;
+      }
+      if (k === 'p' || k === 'P') {
+        // Pin — Question.jsx owns PinButton state; dispatch event with the
+        // current questionId so it can pick up the right card.
+        try {
+          window.dispatchEvent(new CustomEvent('vmx-q-pin-toggle', {
+            detail: { questionId: q?.id ?? null },
+          }));
+        } catch {}
+        return;
+      }
+      if (view === 'review' && (k === 'b' || k === 'B')) {
+        // Bookmark in review — exam handler covers exam view.
+        if (q?.id != null) toggleBookmark(q.id);
+        return;
+      }
+      if (view === 'review' && (k === 'f' || k === 'F')) {
+        // Flag — emit event; whoever listens (Question.jsx flag UI) opens
+        // its own prompt. Exam handler treats F as TF answer so we skip.
+        try {
+          window.dispatchEvent(new CustomEvent('vmx-q-flag-toggle', {
+            detail: { questionId: q?.id ?? null },
+          }));
+        } catch {}
+        return;
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+    // Same TDZ caveat as the exam handler above — nextQ/prevQ/toggleBookmark
+    // are declared later in this component. Closure read at fire time is OK.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view, currentIdx, questions, paletteOpen, shortcutSheetOpen]);
+
   const cardStats = useMemo(() => {
     // Only count SR-eligible questions so the Home dashboard "X due"
     // badge matches what SRSessionView will actually serve.
@@ -955,6 +1091,40 @@ export default function App() {
       date: Date.now(), questionId: q.id, correct: isCorrect(q, answers[q.id]), subject: q.subject,
     }));
     setHistory((h) => [...h, ...newEntries]);
+
+    // XP + Daily Quests + Auto-promote wrong → SR. Wrapped in try/catch
+    // so a single throw can't block the navigate-to-results path that
+    // follows — gamification must never break the core exam loop.
+    try {
+      for (const entry of newEntries) {
+        const xpAmount = entry.correct ? XP_AWARDS.correctAnswer : XP_AWARDS.wrongAnswer;
+        awardXp(xpAmount, 'exam');
+        recordQuestEvent('answered', { subject: entry.subject, correct: entry.correct });
+      }
+    } catch {}
+
+    // Auto-promote — find Qs the user has gotten wrong ≥ 2 times across
+    // ALL history (including these fresh entries) and inject a low-ease
+    // SR card so they resurface tomorrow. Skips Qs that already have a
+    // pending review so the queue doesn't grow unboundedly.
+    try {
+      const combinedHistory = [...history, ...newEntries];
+      const candidates = findAutoPromoteCandidates({ history: combinedHistory, srCards, threshold: 2 });
+      if (candidates.length > 0) {
+        setSrCards((prev) => {
+          const next = { ...prev };
+          for (const cand of candidates) {
+            // Don't clobber a card the user has already reviewed once —
+            // findAutoPromoteCandidates already filtered pending ones,
+            // but the totalReviews>0 guard catches edge cases.
+            const existing = next[cand.questionId];
+            if (existing && (existing.totalReviews || 0) > 0) continue;
+            next[cand.questionId] = makeLowEaseCard(cand.questionId, { ease: 1.5 });
+          }
+          return next;
+        });
+      }
+    } catch {}
 
     // Snapshot the session config so the '🔁 ทำซ้ำ' preset on HomeView
     // can replay the exact same exam shape (mode + subject + topic +
@@ -1310,6 +1480,11 @@ export default function App() {
                   )}
                 </button>
                 {streakData.streak > 0 && <div className="vmx-streak">🔥 {streakData.streak}</div>}
+                {/* XP chip — Lv N · XXX XP · thin progress bar. Lazy because
+                    the gamification isn't critical for first paint. */}
+                <Suspense fallback={null}>
+                  <XpChip />
+                </Suspense>
                 {user && profile && (
                   <UserMenu profile={profile} onLogout={handleSignOut} onGroups={() => setView('groups')} onLeaderboard={() => setView('leaderboard-global')} />
                 )}
@@ -1352,6 +1527,7 @@ export default function App() {
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView {...{ user, goHome, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
+              {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'race' && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={goHome} />}
               {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
@@ -1454,6 +1630,14 @@ export default function App() {
       {voiceSettingsOpen && (
         <Suspense fallback={null}>
           <VoiceSettings onClose={() => setVoiceSettingsOpen(false)} />
+        </Suspense>
+      )}
+
+      {/* ShortcutSheet — Linear-style "?" help. Mounted only when open
+          (lazy chunk loads on first '?' press from exam/review). */}
+      {shortcutSheetOpen && (
+        <Suspense fallback={null}>
+          <ShortcutSheet open={shortcutSheetOpen} onClose={() => setShortcutSheetOpen(false)} />
         </Suspense>
       )}
 

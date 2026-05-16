@@ -140,6 +140,8 @@ function buildStaticItems() {
     { key: 'voice-settings',    label: 'Voice Settings',           hint: 'ปรับเสียงพูดข้อสอบ',                icon: '🎚',  kw: 'voice tts settings pause speed เสียง อ่าน เสียงพูด พูด ความเร็ว pace tempo iapp kaitom' },
     { key: 'pdf-annotate',      label: 'PDF + annotate',           hint: 'อัปโหลด lecture PDF แล้วเขียนทับ',  icon: '📑',  kw: 'pdf annotate annotation lecture slide สไลด์ เขียนทับ' },
     { key: 'image-occlusion',   label: 'Image Occlusion',          hint: 'ทำ flashcard จากรูป',              icon: '🖼',  kw: 'image occlusion mask anatomy รูปภาพ ปกปิด anki' },
+    { key: 'pomodoro',          label: 'Pomodoro · 🐤',            hint: 'จับเวลา focus 25 นาที + ลูกไก่ฟัก', icon: '🍅',  kw: 'pomodoro focus timer 25 minute chick ลูกไก่ ฟัก จับเวลา โฟกัส' },
+    { key: 'phase-wrapped',     label: 'Phase Wrapped',            hint: 'สรุปการเรียน',                     icon: '📊',  kw: 'wrapped phase summary สรุป recap spotify year-in-review เทอม สอบจบ' },
   ];
   for (const a of actions) push({ type: 'action', payload: a.key, label: a.label, hint: a.hint, icon: a.icon, kw: a.kw });
 

@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
+import TermLinkedRichText from './TermLinkedRichText.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
@@ -167,7 +168,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   const contentBlock = (
     <div className="vmx-q-content-pane">
-      <div className="vmx-qtext"><RichText text={currentQ.q} /></div>
+      <div className="vmx-qtext"><TermLinkedRichText text={currentQ.q} /></div>
 
       {/* Image rendering — used for U/S sonograms in หมาหอน bank.
           Tap to enlarge in lightbox modal (close: tap outside / × / Esc). */}
