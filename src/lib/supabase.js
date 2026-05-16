@@ -120,13 +120,38 @@ export async function signInWithEmail(email, password) {
 export async function signInWithGoogle() {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
+
+  // Prefer GIS (Google Identity Services) popup flow when configured —
+  // it bypasses Supabase's OAuth callback URL, so users no longer see
+  // the raw "<project>.supabase.co" flash mid-flow. Falls back to the
+  // redirect flow if (a) VITE_GOOGLE_CLIENT_ID isn't set, (b) GIS
+  // script fails to load (offline / strict CSP), or (c) GIS one-tap
+  // is suppressed by the browser (recent dismiss, ITP, etc.).
+  try {
+    const { isGoogleGisAvailable, signInWithGoogleGis } = await import('./google-gis.js');
+    if (isGoogleGisAvailable()) {
+      const data = await signInWithGoogleGis({ supabase });
+      notifyAuthChanged();
+      return data;
+    }
+  } catch (err) {
+    // Don't surface GIS-specific errors — they have a redirect-flow
+    // fallback. Only log so we can debug if GIS-only sites break.
+    const msg = err?.message || '';
+    if (msg === 'GIS_PROMPT_SUPPRESSED' || msg === 'NO_GOOGLE_CLIENT_ID') {
+      // Expected suppressions — fall through to redirect flow silently.
+    } else {
+      console.warn('[auth] GIS sign-in failed, falling back to redirect:', msg);
+    }
+  }
+
+  // Redirect-based fallback. Visible Supabase URL flash here is
+  // unavoidable without GIS or a custom-domain Pro Supabase plan.
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: { redirectTo: window.location.origin },
   });
   if (error) throw error;
-  // OAuth redirects away — the post-redirect bootstrap path picks
-  // up the session via hasSavedSession()
   return data;
 }
 
@@ -294,7 +319,14 @@ export async function updateUsername(newUsername) {
 // ─── LINE OAuth (Thailand-specific provider) ────────────────────
 // Requires Supabase Dashboard → Auth → Providers → LINE setup with a
 // LINE Developer app's channel ID + secret. Until that's configured,
-// this throws a helpful error instead of failing silently.
+// this throws a tagged error that AuthView catches and turns into a
+// setup-help modal with exact callback URL + checklist.
+//
+// CALLBACK URL to whitelist in LINE Developer Console:
+//   https://<your-supabase-project>.supabase.co/auth/v1/callback
+// Plus in Supabase Dashboard → Auth → URL Configuration →
+//   Site URL: https://vetmock.vercel.app
+//   Redirect URLs: https://vetmock.vercel.app, http://localhost:5173
 export async function signInWithLine() {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
@@ -303,10 +335,14 @@ export async function signInWithLine() {
     options: { redirectTo: window.location.origin },
   });
   if (error) {
-    // Surface "provider not enabled" cleanly so AuthView can render
-    // a Thai message pointing to the Supabase setup checklist.
-    if (/provider/i.test(error.message)) {
-      throw new Error('PROVIDER_NOT_CONFIGURED:line');
+    const msg = (error.message || '').toLowerCase();
+    // Expand detection: "Provider is not enabled" + "validation failed"
+    // + "OAuth provider error" + "redirect URL not allowed" all map to
+    // the same user-facing fix (open the setup checklist).
+    if (/provider|enabled|oauth|validation|redirect|invalid|not.*allowed/i.test(error.message)) {
+      const e = new Error('PROVIDER_NOT_CONFIGURED:line');
+      e.rawMessage = error.message;
+      throw e;
     }
     throw error;
   }
@@ -314,9 +350,14 @@ export async function signInWithLine() {
 }
 
 // ─── Apple Sign-in (iOS PWA users) ──────────────────────────────
-// Requires Apple Developer account + Services ID + private key
-// configured in Supabase Dashboard. Frontend code is identical to
-// Google; the heavy lifting is at the dashboard level.
+// Requires Apple Developer account ($99/yr) + Services ID + private
+// key configured in Supabase Dashboard. Frontend code is identical
+// to Google; the heavy lifting is dashboard-side.
+//
+// CALLBACK URL for Apple Developer console:
+//   https://<your-supabase-project>.supabase.co/auth/v1/callback
+// Plus the Services ID + Key ID + Team ID + .p8 key contents go into
+// Supabase Dashboard → Auth → Providers → Apple.
 export async function signInWithApple() {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
@@ -325,12 +366,27 @@ export async function signInWithApple() {
     options: { redirectTo: window.location.origin },
   });
   if (error) {
-    if (/provider/i.test(error.message)) {
-      throw new Error('PROVIDER_NOT_CONFIGURED:apple');
+    if (/provider|enabled|oauth|validation|redirect|invalid|not.*allowed/i.test(error.message)) {
+      const e = new Error('PROVIDER_NOT_CONFIGURED:apple');
+      e.rawMessage = error.message;
+      throw e;
     }
     throw error;
   }
   return data;
+}
+
+// Get the Supabase project URL so the OAuth setup help modal can show
+// the exact callback URL the user needs to paste into LINE / Apple
+// Developer Console. Reads from the env that supabase.js already
+// resolves at module load; doesn't require a live session.
+export function getSupabaseProjectUrl() {
+  return url || null;
+}
+export function getOAuthCallbackUrl() {
+  if (!url) return null;
+  // Trim trailing slash if present, then append the canonical callback path
+  return url.replace(/\/+$/, '') + '/auth/v1/callback';
 }
 
 // ─── Anonymous → Registered migration ───────────────────────────

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import {
   signUpWithEmail,
   signInWithEmail,
@@ -12,6 +12,11 @@ import {
   migrateLocalToCloud,
   getSupabase,
 } from '../lib/supabase.js';
+
+// OAuth setup help — opens when LINE/Apple errors with
+// PROVIDER_NOT_CONFIGURED. Lazy so the main signin path doesn't
+// pay the bundle cost.
+const OAuthSetupHelp = lazy(() => import('../components/OAuthSetupHelp.jsx'));
 import { thaiAuthError } from '../lib/auth-errors.js';
 import {
   deriveUsernameFromEmail,
@@ -238,14 +243,18 @@ export default function AuthView({ onBack, onSuccess, user }) {
   };
 
   // OAuth providers that may not be configured in Supabase yet (LINE,
-  // Apple). Surface a friendly message instead of the raw error so a
-  // student trying LINE on a non-configured project knows what to do.
+  // Apple). Surface a friendly Thai inline message PLUS open a setup-
+  // help modal that walks through every dashboard step with the exact
+  // callback URL to paste. The modal is reusable across both providers.
+  const [oauthHelp, setOauthHelp] = useState(null); // null | {provider, rawError}
+
   const lineLogin = async () => {
     setError(''); setInfo(''); setLoading(true);
     try { await signInWithLine(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
-        setError('LINE login ยังไม่เปิด, ให้แอดมินเปิดในการตั้งค่า Supabase ก่อน, ใช้ Google หรือ email ก่อนได้ครับ');
+        setError('LINE login ยังไม่เปิด — ดูขั้นตอนตั้งค่าด้านล่าง 👇');
+        setOauthHelp({ provider: 'line', rawError: err.rawMessage || err.message });
       } else {
         setError(thaiAuthError(err));
       }
@@ -257,7 +266,8 @@ export default function AuthView({ onBack, onSuccess, user }) {
     try { await signInWithApple(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
-        setError('Apple Sign-in ยังไม่เปิด, ให้แอดมินเปิดในการตั้งค่า Supabase ก่อน');
+        setError('Apple Sign-in ยังไม่เปิด — ดูขั้นตอนตั้งค่าด้านล่าง 👇');
+        setOauthHelp({ provider: 'apple', rawError: err.rawMessage || err.message });
       } else {
         setError(thaiAuthError(err));
       }
@@ -560,6 +570,19 @@ export default function AuthView({ onBack, onSuccess, user }) {
           ← ใช้งานแบบไม่ login (single-player)
         </button>
       </div>
+
+      {/* OAuth setup help modal — opens when LINE/Apple errors with
+          PROVIDER_NOT_CONFIGURED. Shows exact callback URL + dashboard
+          steps so Palm (or any admin) can fix it inline. */}
+      {oauthHelp && (
+        <Suspense fallback={null}>
+          <OAuthSetupHelp
+            provider={oauthHelp.provider}
+            rawError={oauthHelp.rawError}
+            onClose={() => setOauthHelp(null)}
+          />
+        </Suspense>
+      )}
     </>
   );
 }
