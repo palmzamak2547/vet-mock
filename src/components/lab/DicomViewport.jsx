@@ -162,6 +162,17 @@ export default function DicomViewport({ file, caseId = null }) {
     viewport.render();
   }, []);
 
+  const exportPng = useCallback(async () => {
+    try {
+      const mod = await import('../../lib/dicom/export-image.js');
+      const baseFilename = (file?.name || 'dicom').replace(/\.dcm$/i, '').replace(/\.dicom$/i, '') + '_annotated';
+      await mod.exportAnnotatedPng({ containerEl: elRef.current, baseFilename });
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('[exportPng] error:', err);
+    }
+  }, [file]);
+
   const clearMeasurements = useCallback(() => {
     // Clear both Cornerstone annotations (Length/Angle) and any custom
     // overlays (Norberg/VHS) by dispatching a custom event that the
@@ -209,6 +220,7 @@ export default function DicomViewport({ file, caseId = null }) {
           <TBtn active={activeTool === 'norberg'} onClick={() => selectTool('norberg')}>🦴 Norberg</TBtn>
           <TBtn active={activeTool === 'vhs'} onClick={() => selectTool('vhs')}>📐 VHS</TBtn>
           <Divider />
+          <TBtn onClick={exportPng}>📤 Export PNG</TBtn>
           <TBtn onClick={resetView}>↺ Reset view</TBtn>
         </div>
       )}
