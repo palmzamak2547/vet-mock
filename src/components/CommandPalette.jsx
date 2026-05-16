@@ -139,6 +139,7 @@ function buildStaticItems() {
     { key: 'account-settings',  label: 'Account Settings',         hint: 'จัดการ account',                   icon: '⚙️',  kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ' },
     { key: 'voice-settings',    label: 'Voice Settings',           hint: 'ปรับเสียงพูดข้อสอบ',                icon: '🎚',  kw: 'voice tts settings pause speed เสียง อ่าน เสียงพูด พูด ความเร็ว pace tempo iapp kaitom' },
     { key: 'pdf-annotate',      label: 'PDF + annotate',           hint: 'อัปโหลด lecture PDF แล้วเขียนทับ',  icon: '📑',  kw: 'pdf annotate annotation lecture slide สไลด์ เขียนทับ' },
+    { key: 'image-occlusion',   label: 'Image Occlusion',          hint: 'ทำ flashcard จากรูป',              icon: '🖼',  kw: 'image occlusion mask anatomy รูปภาพ ปกปิด anki' },
   ];
   for (const a of actions) push({ type: 'action', payload: a.key, label: a.label, hint: a.hint, icon: a.icon, kw: a.kw });
 

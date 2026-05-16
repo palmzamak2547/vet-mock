@@ -230,6 +230,7 @@ const RaceView = lazy(() => import('./views/RaceView.jsx'));
 // needed when the user opens "PDF + annotate" from the command palette.
 // Worker chunk is dynamically imported inside the view itself.
 const PdfAnnotateView = lazy(() => import('./views/PdfAnnotateView.jsx'));
+const ImageOcclusionView = lazy(() => import('./views/ImageOcclusionView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 
@@ -1355,6 +1356,7 @@ export default function App() {
               {view === 'lab' && <LabView goHome={goHome} />}
               {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode }} />}
+              {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
             </Suspense>
             </ErrorBoundary>
           )}

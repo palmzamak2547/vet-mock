@@ -8,6 +8,15 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import { loadUserFlashcards } from '../lib/user-flashcards.js';
+// Wave-4 card types — each lib produces Q-shaped objects with a
+// distinct `type` so the renderer below can dispatch to the right
+// React component. Storage + ID ranges are owned by the libs (cloze
+// piggybacks on user-flashcards; image-occlusion has its own deck
+// store). Both surface as flashcard-compatible (sr-filter.js passes
+// any non-mcq/match/short/essay/fill type by default).
+import { loadOcclusionCards } from '../lib/image-occlusion.js';
+import ImageOcclusionCard from '../components/ImageOcclusionCard.jsx';
+import ClozeCard from '../components/ClozeCard.jsx';
 
 // ============================================================
 // SRSessionView — Spaced Repetition flashcard session
@@ -29,7 +38,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // React updates by themselves — we read on mount and let the
   // session refresh on the next planning step.
   const allQuestions = useMemo(
-    () => [...QB, ...customQuestions, ...loadUserFlashcards()],
+    () => [
+      ...QB,
+      ...customQuestions,
+      ...loadUserFlashcards(),       // 'flashcard' + 'cloze' (mixed)
+      ...loadOcclusionCards(),       // 'image-occlusion' (one per mask)
+    ],
     [customQuestions],
   );
 
@@ -348,7 +362,65 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     fill: 'เติมคำ',
     match: 'จับคู่',
     flashcard: '⚡ Flashcard',
+    cloze: '✨ Cloze',
+    'image-occlusion': '🖼 Image Occlusion',
   }[currentQ.type] || currentQ.type;
+
+  // Wave-4 dispatch: Image Occlusion + Cloze cards have rich
+  // front/back renderings that don't fit the linear "stem + answer
+  // text" layout below. Hand them off to their own components which
+  // own the grading buttons too. The main SR shell still owns
+  // progress/next-review/type badge above; the component returns
+  // null when not its turn so React can re-mount cleanly.
+  if (currentQ.type === 'image-occlusion') {
+    return (
+      <>
+        <div className="vmx-exam-top">
+          <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, 🧠 SR</div>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            next: {fmtDate(currentCard.nextReview)}
+          </div>
+        </div>
+        <div className="vmx-progress-bar">
+          <div className="vmx-progress-fill" style={{ width: `${((currentIdx + 1) / sessionCards.length) * 100}%` }}></div>
+        </div>
+        <ImageOcclusionCard q={currentQ} showAnswer={showAnswer} onReveal={() => setShowAnswer(true)} />
+        {showAnswer && (
+          <div className="vmx-grade-row">
+            <button className="vmx-btn vmx-btn-rose" onClick={() => handleGrade(0)}>0, Again</button>
+            <button className="vmx-btn vmx-btn-gold" onClick={() => handleGrade(1)}>1, Hard</button>
+            <button className="vmx-btn vmx-btn-sage" onClick={() => handleGrade(2)}>2, Good</button>
+            <button className="vmx-btn vmx-btn-primary" onClick={() => handleGrade(3)}>3, Easy</button>
+          </div>
+        )}
+      </>
+    );
+  }
+
+  if (currentQ.type === 'cloze') {
+    return (
+      <>
+        <div className="vmx-exam-top">
+          <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, 🧠 SR</div>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            next: {fmtDate(currentCard.nextReview)}
+          </div>
+        </div>
+        <div className="vmx-progress-bar">
+          <div className="vmx-progress-fill" style={{ width: `${((currentIdx + 1) / sessionCards.length) * 100}%` }}></div>
+        </div>
+        <ClozeCard q={currentQ} showAnswer={showAnswer} onReveal={() => setShowAnswer(true)} />
+        {showAnswer && (
+          <div className="vmx-grade-row">
+            <button className="vmx-btn vmx-btn-rose" onClick={() => handleGrade(0)}>0, Again</button>
+            <button className="vmx-btn vmx-btn-gold" onClick={() => handleGrade(1)}>1, Hard</button>
+            <button className="vmx-btn vmx-btn-sage" onClick={() => handleGrade(2)}>2, Good</button>
+            <button className="vmx-btn vmx-btn-primary" onClick={() => handleGrade(3)}>3, Easy</button>
+          </div>
+        )}
+      </>
+    );
+  }
 
   return (
     <>

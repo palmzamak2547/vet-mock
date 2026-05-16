@@ -21,6 +21,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { saveUserFlashcard } from '../lib/user-flashcards.js';
+import ClozeEditor from './ClozeEditor.jsx';
 
 const MIN_CHARS = 10;
 const DEBOUNCE_MS = 200;
@@ -82,6 +83,8 @@ export default function HighlightToCard() {
   const [back, setBack] = useState('');
   const [subject, setSubject] = useState('');
   const [toast, setToast] = useState('');
+  // 'manual' = existing front/back flashcard, 'cloze' = Anki-style cloze deletion
+  const [mode, setMode] = useState('manual');
 
   const debounceRef = useRef(null);
   const backRef = useRef(null);
@@ -147,15 +150,16 @@ export default function HighlightToCard() {
     return () => window.removeEventListener('keydown', onKey);
   }, [modalOpen]);
 
-  // Autofocus the back textarea when modal opens
+  // Autofocus the back textarea when modal opens (manual mode only —
+  // ClozeEditor handles its own focus).
   useEffect(() => {
-    if (modalOpen && backRef.current) {
+    if (modalOpen && mode === 'manual' && backRef.current) {
       // Defer one frame so the textarea is mounted + paintable
       const id = requestAnimationFrame(() => { backRef.current?.focus(); });
       return () => cancelAnimationFrame(id);
     }
     return undefined;
-  }, [modalOpen]);
+  }, [modalOpen, mode]);
 
   // Toast auto-dismiss
   useEffect(() => {
@@ -170,6 +174,7 @@ export default function HighlightToCard() {
     setFront(anchor.text);
     setBack('');
     setSubject('');
+    setMode('manual');
     setModalOpen(true);
     // Clear the floating button — modal owns the flow now
     setAnchor(null);
@@ -180,6 +185,13 @@ export default function HighlightToCard() {
     setFront('');
     setBack('');
     setSubject('');
+    setMode('manual');
+  }
+
+  function handleClozeSaved(cards) {
+    const n = Array.isArray(cards) ? cards.length : 0;
+    setToast(n > 1 ? `✓ เพิ่ม ${n} cloze cards แล้ว` : '✓ เพิ่ม cloze card แล้ว');
+    closeModal();
   }
 
   function handleSave() {
@@ -282,104 +294,152 @@ export default function HighlightToCard() {
               </button>
             </div>
 
-            <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
-                ด้านหน้า (คำถาม)
-              </span>
-              <textarea
-                value={front}
-                onChange={(e) => setFront(e.target.value)}
-                rows={3}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: 10,
-                  border: '1px solid var(--clr-border)',
-                  background: 'var(--clr-surface-2, #f7f6f1)',
-                  color: 'var(--clr-ink)',
-                  fontSize: 15,
-                  fontFamily: 'inherit',
-                  lineHeight: 1.5,
-                  resize: 'vertical',
-                  minHeight: 60,
-                  boxSizing: 'border-box',
-                }}
-              />
-            </label>
-
-            <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
-                ด้านหลัง (คำตอบ)
-              </span>
-              <textarea
-                ref={backRef}
-                value={back}
-                onChange={(e) => setBack(e.target.value)}
-                rows={4}
-                placeholder="พิมพ์คำตอบ / คำอธิบายที่อยากจำ…"
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: 10,
-                  border: '1px solid var(--clr-border)',
-                  background: 'var(--clr-surface-2, #f7f6f1)',
-                  color: 'var(--clr-ink)',
-                  fontSize: 15,
-                  fontFamily: 'inherit',
-                  lineHeight: 1.5,
-                  resize: 'vertical',
-                  minHeight: 80,
-                  boxSizing: 'border-box',
-                }}
-              />
-            </label>
-
-            <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
-                วิชา (ไม่บังคับ)
-              </span>
-              <select
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 12px',
-                  borderRadius: 10,
-                  border: '1px solid var(--clr-border)',
-                  background: 'var(--clr-surface, #fff)',
-                  color: 'var(--clr-ink)',
-                  fontSize: 15,
-                  fontFamily: 'inherit',
-                  boxSizing: 'border-box',
-                }}
-              >
-                <option value="">— ไม่ระบุ —</option>
-                {subjectOptions.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.icon ? `${s.icon} ` : ''}{s.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <div className="vmx-btn-row" style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 4 }}>
+            {/* Mode tabs — manual vs cloze */}
+            <div
+              role="tablist"
+              aria-label="ประเภท flashcard"
+              style={{
+                display: 'flex',
+                gap: 6,
+                padding: 4,
+                borderRadius: 10,
+                background: 'var(--clr-surface-2, #f7f6f1)',
+                border: '1px solid var(--clr-border)',
+              }}
+            >
               <button
                 type="button"
-                className="vmx-btn vmx-btn-ghost"
-                onClick={closeModal}
+                role="tab"
+                aria-selected={mode === 'manual'}
+                onClick={() => setMode('manual')}
+                className={`vmx-btn vmx-btn-sm ${mode === 'manual' ? 'vmx-btn-primary' : 'vmx-btn-ghost'}`}
+                style={{ flex: 1, minHeight: 36, fontWeight: 600 }}
               >
-                ยกเลิก
+                ✍️ Manual back
               </button>
               <button
                 type="button"
-                className="vmx-btn vmx-btn-primary"
-                onClick={handleSave}
-                disabled={!front.trim()}
-                style={{ opacity: front.trim() ? 1 : 0.55 }}
+                role="tab"
+                aria-selected={mode === 'cloze'}
+                onClick={() => setMode('cloze')}
+                className={`vmx-btn vmx-btn-sm ${mode === 'cloze' ? 'vmx-btn-primary' : 'vmx-btn-ghost'}`}
+                style={{ flex: 1, minHeight: 36, fontWeight: 600 }}
               >
-                💾 บันทึก
+                ✨ Cloze deletion
               </button>
             </div>
+
+            {mode === 'manual' && (
+              <>
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+                    ด้านหน้า (คำถาม)
+                  </span>
+                  <textarea
+                    value={front}
+                    onChange={(e) => setFront(e.target.value)}
+                    rows={3}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: 10,
+                      border: '1px solid var(--clr-border)',
+                      background: 'var(--clr-surface-2, #f7f6f1)',
+                      color: 'var(--clr-ink)',
+                      fontSize: 15,
+                      fontFamily: 'inherit',
+                      lineHeight: 1.5,
+                      resize: 'vertical',
+                      minHeight: 60,
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </label>
+
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+                    ด้านหลัง (คำตอบ)
+                  </span>
+                  <textarea
+                    ref={backRef}
+                    value={back}
+                    onChange={(e) => setBack(e.target.value)}
+                    rows={4}
+                    placeholder="พิมพ์คำตอบ / คำอธิบายที่อยากจำ…"
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: 10,
+                      border: '1px solid var(--clr-border)',
+                      background: 'var(--clr-surface-2, #f7f6f1)',
+                      color: 'var(--clr-ink)',
+                      fontSize: 15,
+                      fontFamily: 'inherit',
+                      lineHeight: 1.5,
+                      resize: 'vertical',
+                      minHeight: 80,
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </label>
+
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+                    วิชา (ไม่บังคับ)
+                  </span>
+                  <select
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: 10,
+                      border: '1px solid var(--clr-border)',
+                      background: 'var(--clr-surface, #fff)',
+                      color: 'var(--clr-ink)',
+                      fontSize: 15,
+                      fontFamily: 'inherit',
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    <option value="">— ไม่ระบุ —</option>
+                    {subjectOptions.map((s) => (
+                      <option key={s.id} value={s.id}>
+                        {s.icon ? `${s.icon} ` : ''}{s.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <div className="vmx-btn-row" style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 4 }}>
+                  <button
+                    type="button"
+                    className="vmx-btn vmx-btn-ghost"
+                    onClick={closeModal}
+                  >
+                    ยกเลิก
+                  </button>
+                  <button
+                    type="button"
+                    className="vmx-btn vmx-btn-primary"
+                    onClick={handleSave}
+                    disabled={!front.trim()}
+                    style={{ opacity: front.trim() ? 1 : 0.55 }}
+                  >
+                    💾 บันทึก
+                  </button>
+                </div>
+              </>
+            )}
+
+            {mode === 'cloze' && (
+              <ClozeEditor
+                initialText={front}
+                subject={subject}
+                onSave={handleClozeSaved}
+                onCancel={closeModal}
+              />
+            )}
           </div>
         </div>
       )}
