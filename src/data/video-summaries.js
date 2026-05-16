@@ -40664,22 +40664,26 @@ When opening a clinic, you need **BOTH**:
     durationMin: 164,
     instructor: 'อ.โน้ต (พี่หมอ ภาควิชาอายุรศาสตร์ ตึก 50 ปี, รุ่น 62)',
     examFormat: 'Multiple choice (เปลี่ยนจากเขียน), ออกเฉพาะที่สอน, เน้น keywords',
-    summary: `## 🎯 Lead Summary
-**4 viral diseases of cattle/ruminants**, ไล่จาก EBL (chronic, persistent, มะเร็งเม็ดเลือดขาว) → MCF (acute, fatal, จากแพะแกะ res host) → Rinderpest (Global FREE since 2011, 2nd disease eradicated after smallpox) → BEF (3-day fever, mosquito-borne, mortality <1% but secondary problem จาก downer cow). โน้ตคีย์เวิร์ดข้อสอบ VCA: **PRSP lymphocytosis, DLA-DR8/16 resistance, sheep-associated MCF, 5 phases of rinderpest, 3-day stiffness BEF**.
+    summary: `# EBL, MCF, Rinderpest, BEF (4 cattle viral diseases)
 
-## 📚 Course Intro (Ruminant track)
+> 🎯 **4 viral diseases of cattle/ruminants** ไล่จาก chronic → acute → eradicated → endemic. **EBL** (chronic, persistent, มะเร็งเม็ดเลือดขาว) → **MCF** (acute, fatal, จากแพะแกะ reservoir) → **Rinderpest** (Global FREE since 2011, 2nd disease eradicated after smallpox) → **BEF** (3-day fever, mosquito-borne, mortality <1% แต่ secondary problem จาก downer cow) ⭐⭐⭐
+> ⚠️ Iatrogenic spread (เข็มฉีดยาซ้ำ, rectal palpation) = #1 ที่ต้องคุม EBL
 
-### โครงสร้างวิชา ruminant
+---
+
+# 📚 Course Intro (Ruminant track)
+
+## โครงสร้างวิชา ruminant
 - **7 วิชา** จำเพาะกับสัตว์เคี้ยวเอื้อง, 2 ภาควิชาหลัก (อายุรศาสตร์ + สูตินิติศาสตร์)
 - **ปี 4**: 3 วิชา (เทอมนี้ 1 + เทอมหน้า 2)
 - **ปี 5**: 2 วิชา, ฝึกงานรวมเสมือนวิชาเดียว
 - **ปี 6**: 2 วิชา + module (ปีที่แล้วเปิดปีแรก 3 คนเลือก)
 
-### Career paths
+## Career paths
 - Vet practitioner, นักวิจัย, ทำฟาร์มเอง, ที่ปรึกษาฟาร์ม, งานเชิงรุก (improve farm efficiency)
 - ผู้สอนเน้น dairy cow เป็น model (ประยุกต์ใช้ได้ในแกะ แพะ ควาย วัวเนื้อ)
 
-### วงรอบการผลิตในอุดมคติ (Dairy)
+## วงรอบการผลิตในอุดมคติ (Dairy)
 | Stage | Months |
 |---|---|
 | Calving (start) | 0 |
@@ -40690,29 +40694,31 @@ When opening a clinic, you need **BOTH**:
 
 > 📊 **Key**: 300 วันรีดนม + 60 วัน dry, ในงานวิจัยใช้ 305 วัน
 
-### งานเชิงรุก vs เชิงรับ
+## งานเชิงรุก vs เชิงรับ
 - **เชิงรุก** (proactive, ก่อนป่วย): ตรวจตัวชี้วัดในคอกลูกโค (colostrum), BCS, น้ำนมคุณภาพ, post-calving genital tract
 - **เชิงรับ** (reactive, clinician work): on-call, downer cow, hoof trimming, lameness, abomasal hernia, eye enucleation, dystocia, GI prolapse
 - ⭐ **Iceberg model**: clinical = ส่วนน้อย, subclinical = ส่วนใหญ่ ต้องทำเชิงรุก
 
-### Routes ของยาในวัวที่ไม่มีในสัตว์อื่น
+## Routes ของยาในวัวที่ไม่มีในสัตว์อื่น
 - **Intramammary** (เข้าเต้านม) — for mastitis
 - **Intrauterine** (เข้ามดลูก)
 
-## 1️⃣ EBL, Enzootic Bovine Leukosis (มะเร็งเม็ดเลือดขาวในโค)
+---
 
-### Etiology
+# 🔻 Part 1: EBL — Enzootic Bovine Leukosis (มะเร็งเม็ดเลือดขาวในโค) ⭐⭐⭐
+
+## Etiology
 - **Bovine leukemia virus (BLV)**, Retrovirus, Reverse transcriptase
 - Genus: Deltaretrovirus
 
-### Prevalence in Thailand
+## Prevalence in Thailand
 | Year | Herd zer+ | Animal zer+ |
 |---|---|---|
 | 2009 | 61% | ~40% |
 | 2016 | สูงขึ้น | สูงขึ้น |
 | Trend | ⚠️ เพิ่มขึ้นทุกปี | ⚠️ เพิ่มขึ้นทุกปี |
 
-### Modes of Transmission ⭐
+## Modes of Transmission ⭐
 1. **Infected lymphocytes** — 0.1 mL เลือดติดได้!
 2. **Iatrogenic** (สำคัญมาก!):
    - เข็มฉีดยาซ้ำ (ค่ายอาสาฉีด vaccine ลืมเปลี่ยนเข็ม!)
@@ -40721,19 +40727,19 @@ When opening a clinic, you need **BOTH**:
 3. **Hematophagous insects** — บวกลบ, lab สร้างได้, ในธรรมชาติยังไม่ confirm
 4. Vertical (in utero, colostrum)
 
-### Pathogenesis & DLA-DR Genotype ⭐⭐⭐
+## Pathogenesis & DLA-DR Genotype ⭐⭐⭐
 | DLA-DR allele | Outcome |
 |---|---|
 | DLA-DR8 | **Resistant** (resistance allele) |
 | DLA-DR16 | **Susceptible** (susceptible allele) |
 | Heterozygous | Intermediate |
 
-### Disease progression (3 stages)
+## Disease Progression (3 stages)
 1. **Aleukemic** (no clinical signs, normal blood)
 2. **PL — Persistent Lymphocytosis** (~30% ของ infected, lymphocyte สูง > 3 เดือน)
 3. **Lymphosarcoma (LS)** (1–5%, clinical disease!)
 
-### Lymphosarcoma sites (5 จุดหลัก) ⭐
+## Lymphosarcoma sites (5 จุดหลัก) ⭐
 | Site | Clinical sign |
 |---|---|
 | Abomasum | GI, weight loss, anorexia |
@@ -40743,7 +40749,7 @@ When opening a clinic, you need **BOTH**:
 | Liver/kidney/spleen | Variable |
 | Plus: Superficial lymph node enlargement (palpable!) |
 
-### Palpable Lymph Nodes ⭐ (ต้องคลำเป็น)
+## Palpable Lymph Nodes ⭐ (ต้องคลำเป็น)
 | Lymph node | Location |
 |---|---|
 | **Submandibular** | ใต้ขากรรไกรล่าง |
@@ -40752,7 +40758,7 @@ When opening a clinic, you need **BOTH**:
 
 > ⚡ When lymphosarcoma → ต่อมน้ำเหลืองโตใหญ่ 3-5 เท่า, เห็นชัด
 
-### Diagnosis
+## Diagnosis
 1. **Clinical signs** (จาก lymphosarcoma site)
 2. **Incidental finding** — hemogram → lymphocyte ↑ + lymphocyte = dominant
 3. **Blood test (PL confirm)**: lymphocyte > 3 เดือน
@@ -40761,16 +40767,16 @@ When opening a clinic, you need **BOTH**:
    - **AGID** (agar gel immunodiffusion) — Gold std (OIE), serum only, false-neg in low Ab + post-calving immune suppression
    - **ELISA** — ปัจจุบันนิยม, serum/milk/tissue fluid, pooled milk for screening
 
-### Hemogram pattern (Case examples shown)
+## Hemogram pattern
 | Parameter | Normal | EBL case |
 |---|---|---|
 | Lymphocyte% | 18-28% | 86% (dominant!) |
 | WBC count | High normal 12,000 | 170,000 (case 1) |
 | WBC count | High normal 12,000 | 80,000+ (case 2-3) |
 
-⚠️ Total WBC สูงมาก แต่ไม่มี clinical sign อื่น → suspect EBL
+> ⚠️ Total WBC สูงมาก แต่ไม่มี clinical sign อื่น → suspect EBL
 
-### Management
+## Management
 - **No treatment** (no specific antiviral), No vaccine
 - **Live with the disease** — strict horizontal control:
   - 1 needle/animal, 1 glove/animal
@@ -40782,64 +40788,68 @@ When opening a clinic, you need **BOTH**:
   - Test-and-control transmission
 - **International trade** — affected status
 
-### Voluntary vs Involuntary Culling
+## Voluntary vs Involuntary Culling
 - **Voluntary**: planned (e.g., 4 lactations max)
 - **Involuntary**: forced by disease/decreased performance ← EBL contributes here
 
-## 2️⃣ MCF, Malignant Catarrhal Fever (สัตว์ตื่น)
+---
 
-### Etiology — 2 herpesviruses
+# 🔻 Part 2: MCF — Malignant Catarrhal Fever (สัตว์ตื่น) ⭐⭐
+
+## Etiology — 2 herpesviruses
 | Virus | Reservoir | Note |
 |---|---|---|
 | **AlHV-1** (alcelaphine HV-1) | **Wildebeest** (วิลเดอบีส) | "WA-MCF" Wildebeest-Associated, natural |
 | **OvHV-2** (ovine HV-2) | **Sheep + goats** (แพะแกะ) | "SA-MCF" Sheep-Associated, domestic |
 
-### Susceptibility
+## Susceptibility
 | Status | Species |
 |---|---|
 | **Reservoir** (no clinical signs, carry virus) | Wildebeest, sheep, goats |
 | **Susceptible** (severe disease, high mortality) | Cattle, buffalo, deer, swine |
 
-### Transmission ⭐ Key concept
+## Transmission ⭐ Key concept
 - **Direct contact** with ocular/nasal discharge of reservoir
 - ⭐ Almost ALL outbreaks → reservoir + susceptible เลี้ยงรวมกัน!
 - **Prevention**: ห้ามเลี้ยงแพะแกะ + วัวรวมกัน, ระยะห่าง ≥100 m
 
-### Clinical Signs ⭐
+## Clinical Signs ⭐
 - High fever (very acute!)
 - Ocular & nasal discharge, lacrimation, conjunctivitis
 - ⭐ **Corneal opacity** — pneumonic region: เริ่มขุ่นจาก **ขอบนอก → เข้าด้านใน** (vs Pink Eye = ตรงกลางออกข้างนอก!)
 - Erosions ที่จมูก, oral mucosa (DDx: FMD!)
 - Mortality > 90%
 
-### Pathogenesis (Pneumonic Lesion) ⭐
+## Pathogenesis (Pneumonic Lesion) ⭐
 - ⭐ **Vasculitis** with **lymphocytic infiltrate** ในหลอดเลือดทุกอวัยวะ
 - Especially: ตา (corneal vasculature), ไต (renal medulla), gut
 - HistoPath = **Gold Standard** (OIE)
 - Gross: petechiae, ecchymoses, multifocal hemorrhages
 
-### CUVET case ⭐ (ที่ศูนย์ฝึก by อ.คมกิจ)
+## CUVET case ⭐ (ที่ศูนย์ฝึก by อ.คมกิจ)
 - ควาย die from MCF
 - Investigation: เลี้ยงรวมกับแกะ in same field
 - Histopath confirmed vasculitis pattern
 
-### Differential ⭐⭐
+## Differential ⭐⭐
 | Lesion | First DDx |
 |---|---|
 | Erosions on muzzle/oral mucosa | **FMD** (foot-and-mouth) ก่อน MCF |
 | Corneal opacity from outer rim → in | **MCF** |
 | Corneal opacity from center → out | **Pink Eye** (Moraxella bovis) |
 
-### Diagnosis & Management
+## Diagnosis & Management
 - Clinical signs + outbreak pattern
 - Antigen/Ab testing
 - **Histopath confirms** (vasculitis at LN, kidney, eye)
 - **No treatment** — too acute, mortality near 100%
 - **Prevention**: separate species housing, pen rest 2 days–1 week between species
 
-## 3️⃣ Rinderpest (โรคล้มควาย)
+---
 
-### History ⭐
+# 🔻 Part 3: Rinderpest (โรคล้มควาย) ⭐⭐⭐
+
+## History
 - **Caused founding of 1st vet school** (Lyon, France 1762)
 - Pandemic in Europe → food security threat → animal transport
 - Thailand last outbreak: **1959**
@@ -40847,18 +40857,18 @@ When opening a clinic, you need **BOTH**:
 - ⭐ **Global FREE: 28 June 2011** (FAO + OIE/WOAH announcement)
 - **2nd disease eradicated globally** (after smallpox in humans)
 
-### Etiology
+## Etiology
 - **Paramyxovirus** (Morbillivirus genus, family Paramyxoviridae)
 - **Large virus** + **environmentally fragile** = easy to control
 - Susceptible: cattle, buffalo, sheep, goats, swine, wild ruminants
 
-### Transmission
+## Transmission
 - **Droplets** (respiratory route + ingestion)
 - Comes out in secretions (nasal, ocular, oral)
 - ⚠️ **Requires direct contact** (large virus + fragile = poor airborne)
 - Different from FMD which can spread between adjacent farms!
 
-### 5 Phases of Disease ⭐⭐⭐ (Classic exam pattern)
+## 5 Phases of Disease ⭐⭐⭐ (Classic exam pattern)
 | Phase | Days | Features |
 |---|---|---|
 | 1. **Incubation** | varies | normal temp |
@@ -40867,77 +40877,79 @@ When opening a clinic, you need **BOTH**:
 | 4. **Diarrhea phase** | 5-6 | dysentery, dehydration |
 | 5. **Recovery/Death** | 7+ | usually death in per-acute/acute |
 
-### Clinical patterns
+## Clinical patterns
 - **Per-acute**: fever only → die <1 day
 - **Acute**: fever + erosions → die 4-5 days
 - **Sub-acute**: + diarrhea phase, may recover (lifelong immunity)
 - > 90% mortality in classic outbreaks, post-vaccine era → milder
 
-### Pathology — Tigroid striping ⭐
+## Pathology — Tigroid striping ⭐
 - ⭐ **Zebra stripes** (longitudinal red bands) at colon/cecum mucosa
 - Pathognomonic gross lesion!
 
-### Clinical diagnosis criteria (OIE surveillance) ⭐
+## Clinical diagnosis criteria (OIE surveillance) ⭐
 > If cattle has Ocular + Nasal discharge **PLUS ≥2 of**:
 > - High fever
 > - Erosion
 > - Diarrhea
 > - Death
 
-### ⭐ Why still wary despite Global FREE?
+## ⭐ Why still wary despite Global FREE?
 - "**eradication ≠ elimination**"
 - Virus seed strains still kept in research labs (govt + universities worldwide)
 - ⚠️ Lab accident risk, bioterrorism risk
 - After long absence → re-introduction = severe outbreak
 
-### Outbreak control (3 options for infected zone)
+## Outbreak control (3 options for infected zone)
 | Option | Cost | Speed | When |
 |---|---|---|---|
 | 1. **Stamping out all** | High | Fastest | Free country (Japan FMD 2010+) |
 | 2. **Stamp affected + vaccinate rest** | Mid | Medium | Mixed status |
 | 3. **Stamp clinical only + vaccinate all** | Low | Slowest | Endemic country |
 
-### Surveillance zone (after infected zone defined)
+## Surveillance zone (after infected zone defined)
 - Live vaccination + monitoring
 - Animal movement control
 - Post-outbreak: cull vaccinated animals if free-status restoration desired (need Ab-free)
 
-### Vaccine notes
+## Vaccine notes
 - Cross-protection across all strains
 - Maternal immunity ~11 months
 - Routine vax: only **FMD + LSD** in Thai dairy
 - Other diseases vaccinated only in endemic areas
 
-## 4️⃣ BEF, Bovine Ephemeral Fever (ไข้ 3 วัน, ไข้ขาแข็ง)
+---
 
-### Names
+# 🔻 Part 4: BEF — Bovine Ephemeral Fever (ไข้ 3 วัน, ไข้ขาแข็ง) ⭐⭐
+
+## Names
 - BEF = Bovine Ephemeral Fever
 - Wabe (ญี่ปุ่น)
 - 3-Day Sickness
 - ไข้ 3 วัน, ไข้ขาแข็ง (Thai folk names)
 
-### Etiology
+## Etiology
 - **Rhabdovirus** (bullet-shaped), genus Ephemerovirus
 - ⭐ **Arbovirus** (arthropod-borne)
 - **Vector**: mosquitoes, biting midges (Culicoides), ticks
 - Outbreak season: **rainy season** (vector abundance), also year-round if breeding sites near farm
 
-### Susceptible hosts
+## Susceptible hosts
 - Cattle (primary), buffalo
 - Sheep/goats: zer-positive but no clinical disease
 
-### Geographic distribution
+## Geographic distribution
 - Tropical/subtropical only (no Europe/Americas)
 - ⚠️ Textbooks from western countries lack info on tropical cattle diseases
 
-### Prevalence in Thailand
+## Prevalence in Thailand
 | Year | Cattle zer+ |
 |---|---|
 | 2027 | 70% |
 | 2031 | ~100% |
 - ⭐ **Endemic** — exposure happens regularly
 
-### Clinical Signs ⭐
+## Clinical Signs ⭐
 - ⭐ **Acute fever** (sudden onset, normal in evening, sick by morning)
 - ⭐ **Acute lameness** (stiffness, "hard legs") — *pathognomonic*
   - Polyarthritis pattern
@@ -40949,19 +40961,19 @@ When opening a clinic, you need **BOTH**:
 - Some abortion (~5% during high fever)
 - Temporary infertility in bulls
 
-### Mortality
+## Mortality
 - ⭐ **<1%** from primary cause
 - BUT secondary problems drive losses:
   - **Permanent paralysis** (downer cow → muscle/nerve damage from prolonged recumbency in 500-600 kg cow!)
   - Pneumonia (secondary bacterial)
   - Mastitis from prolonged dry-off
 
-### Pathophysiology
+## Pathophysiology
 - **Hyperthyremia + arthritis**
 - Joint inflammation → stiffness clinical sign
 - **Hypocalcemia** secondary
 
-### Treatment ⭐
+## Treatment ⭐
 | Drug | Why |
 |---|---|
 | **NSAIDs** (key drug!) | Anti-inflammatory, pain, NOT antibiotics primary |
@@ -40973,55 +40985,53 @@ When opening a clinic, you need **BOTH**:
 > - Can terminate pregnancy (induce parturition!)
 > - Reduces milk production via mammary epithelial glucose uptake suppression
 
-### Why long-acting antibiotics over short-acting?
+## Why long-acting antibiotics over short-acting?
 | Type | Volume | Frequency | Animal stress |
 |---|---|---|---|
 | LA oxytetracycline | 50 mL, split 2 sites | q72h | Low (1 inj/3 days) |
 | SA oxytetracycline | 120 mL | q24h | High (daily) |
 
-### Vector control reality
+## Vector control reality
 - Hard to do 100% (mosquito nets reduce ventilation)
 - Useful only if obvious breeding source nearby
 
-### Vaccine
+## Vaccine
 - **Live attenuated** vaccine available in Thailand (~2 years)
 - 150-180 baht/dose, annual booster (initial 3-dose primer)
 - Not widely used (low impact justifies passive treatment)
 - Cost-benefit model presented in slides (not exam material)
 
-### Take-Home: 3-day pattern + acute lameness without hoof lesion + endemic = BEF
+> 🎯 **Take-Home**: 3-day pattern + acute lameness without hoof lesion + endemic = BEF
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### EBL ⭐
-1. **Retrovirus** with reverse transcriptase
-2. ⭐ **DLA-DR8 = Resistance, DLA-DR16 = Susceptibility**
-3. **3 stages**: Aleukemic → PL (30%) → Lymphosarcoma (1-5%)
-4. **5 LS sites**: Abomasum, Epidural, Retrobulbar, Heart, GI/parenchymal
-5. **3 palpable LNs**: Submandibular, Prescapular, Prefemoral
-6. **Hemogram**: WBC ↑↑, lymphocyte dominant 86%
-7. **Iatrogenic transmission** = #1 control target (needles, gloves, palpation)
+## 📋 Exam Recap
 
-### MCF ⭐
-8. **Reservoir**: wildebeest (AlHV-1) + sheep/goats (OvHV-2)
-9. **Susceptible**: cattle, buffalo (severe!)
-10. ⭐ **Pathognomonic**: vasculitis + lymphocytic infiltrate (kidney, eye)
-11. **Corneal opacity** outer→in (vs Pink Eye center→out)
-12. **First DDx for muzzle erosions**: FMD before MCF!
+### EBL
+- ⭐⭐⭐ **Retrovirus** with reverse transcriptase
+- ⭐⭐⭐ **DLA-DR8 = Resistance, DLA-DR16 = Susceptibility**
+- ⭐⭐ **3 stages**: Aleukemic → PL (30%) → Lymphosarcoma (1-5%)
+- ⭐⭐ **5 LS sites**: Abomasum, Epidural, Retrobulbar, Heart, GI/parenchymal
+- ⭐ **3 palpable LNs**: Submandibular, Prescapular, Prefemoral
+- ⭐⭐ **Iatrogenic transmission** = #1 control target
 
-### Rinderpest ⭐
-13. ⭐ **Global FREE 28 June 2011** (2nd after smallpox)
-14. **Paramyxovirus**, large + fragile = controllable
-15. **Tigroid stripes** at colon/cecum (gross lesion)
-16. **5 phases**: incubation→fever→erosion→diarrhea→recovery/death
-17. ⚠️ Still wary: virus seeds in labs, lab accident risk
+### MCF
+- ⭐⭐⭐ **Reservoir**: wildebeest (AlHV-1) + sheep/goats (OvHV-2)
+- ⭐⭐ **Pathognomonic**: vasculitis + lymphocytic infiltrate
+- ⭐⭐ **Corneal opacity** outer→in (vs Pink Eye center→out)
+- ⭐ **First DDx for muzzle erosions**: FMD before MCF!
 
-### BEF ⭐
-18. ⭐ **Mortality <1%** but secondary downer-cow risk huge
-19. **Acute lameness** without hoof lesion = key sign
-20. **NSAIDs primary**, NOT antibiotics primary, avoid steroids
-21. ⭐ **Calcium borogluconate** (SC route OK in cattle)
-22. **LA antibiotics** preferred over SA (welfare + practical)
+### Rinderpest
+- ⭐⭐⭐ **Global FREE 28 June 2011** (2nd after smallpox)
+- ⭐⭐ **Paramyxovirus**, large + fragile = controllable
+- ⭐ **Tigroid stripes** at colon/cecum
+- ⭐⭐ **5 phases**: incubation→fever→erosion→diarrhea→recovery/death
+
+### BEF
+- ⭐⭐⭐ **Mortality <1%** but secondary downer-cow risk huge
+- ⭐⭐ **Acute lameness without hoof lesion** = key sign
+- ⭐⭐ **NSAIDs primary**, NOT antibiotics primary, avoid steroids
+- ⭐ **Calcium borogluconate** (SC route OK in cattle)
 
 > 🎓 **First lecture of ruminant track**, sets vocabulary for entire course
 > 📚 **Cross-refs**: vet-juris (พ.ร.บ. โรคระบาด — these are listed diseases), vet-imaging (ultrasound for downer cow workup)
@@ -41037,28 +41047,34 @@ When opening a clinic, you need **BOTH**:
     durationMin: 192,
     instructor: 'อ.กิตติศักดิ์ (กำลังจะเกษียณ, รุ่นนี้น่าจะเป็นรุ่นสุดท้ายที่สอน)',
     examFormat: 'Multiple choice + scenario, ออกตามวิดีโอ Mechanism + Early detection, 20 keywords paragraph exercise',
-    summary: `## 🎯 Lead Summary
-**Bovine Respiratory Disease (BRD) Complex** = #1 cause of morbidity/mortality in young cattle. Triangle: **Host (stress, weaning) + Environment (poor ventilation, mixing) + Pathogen (4 viruses → 2° bacteria)**. 4 viruses: **IBR, BVD, PI3, BRSV** rarely fatal alone — but immune-suppress → bacterial complications (**Mannheimia haemolytica, Pasteurella multocida, Histophilus somni, Mycoplasma**) cause death. Key concepts: **Early detection = yellow flag, Late = red flag (irreversible damage), BVD PI animal = "Time Bomb", IBR marker vaccine = eradication tool**.
+    summary: `# โรคระบบทางเดินหายใจในวัว — BRD Complex (IBR, BVD, PI3, BRSV + 2° bacteria)
 
-## 1️⃣ BRD Complex Concept (Triangle Model)
+> 🎯 **BRD Complex** = #1 cause of morbidity/mortality in young cattle. Triangle: **Host (stress, weaning) + Environment (poor ventilation, mixing) + Pathogen (4 viruses → 2° bacteria)**. ⭐⭐⭐
+> ⚠️ Early = virus catchable (yellow flag) · Late = bacteria dominant (red flag, irreversible damage)
 
-### Etiologic Triangle
+4 viruses: **IBR, BVD, PI3, BRSV** rarely fatal alone — แต่ immune-suppress → bacterial complications (**Mannheimia haemolytica, Pasteurella multocida, Histophilus somni, Mycoplasma**) cause death. Key concepts: **Early detection = yellow flag, Late = red flag (irreversible damage), BVD PI animal = "Time Bomb", IBR marker vaccine = eradication tool**.
+
+---
+
+# 🔻 Part 1: BRD Complex Concept (Triangle Model) ⭐⭐⭐
+
+## Etiologic Triangle
 | Factor | Examples |
 |---|---|
 | **Host** | Weaning stress, age <6 months, low maternal Ab, poor BCS, immune suppression |
 | **Environment** | Poor ventilation, dust, ammonia, mixing groups, transport, weather change, overcrowding, weaning + relocation simultaneously |
 | **Pathogen** | Viral primary (IBR, BVD, PI3, BRSV) → bacterial secondary (Mannheimia, Pasteurella, Histophilus, Mycoplasma) |
 
-### Stress Cascade (Key concept!)
+## Stress Cascade (Key concept!)
 - **Weaning** = #1 stress event (diet change + maternal separation + crowding)
 - ⚠️ **Worst combo**: Weaning + relocation in same day (avoid!)
 - Stress → **Cortisol ↑** → suppresses immune cells (esp. macrophage activity) → 1° viral attack → epithelial damage → 2° bacterial colonization
 
-### Inflammation cascade — 20 Keywords (exam-style paragraph) ⭐
+## Inflammation cascade — 20 Keywords (exam-style paragraph) ⭐
 Build paragraph from these terms:
 1. Stress, 2. Cortisol, 3. Inflammation, 4. Pro-inflammatory cytokines, 5. IL-1, 6. TNF-α, 7. Macrophage, 8. Phagocytosis, 9. Nasal discharge, 10. Bacterial proliferation, 11. Antibiotics, 12. Restlessness, 13. Depression, 14. Anorexia/loss of appetite, 15. Vulnerable to infection, 16. Oxygen consumption ↑, 17. Excessive bacterial growth (nasopharynx), 18. Irreversible damage, 19. Economic loss, 20. Reduced ADG
 
-### Time Series of Disease (Critical clinical concept) ⭐
+## Time Series of Disease ⭐⭐ (Critical clinical concept)
 | Phase | What you see | What you find |
 |---|---|---|
 | **Early** (0-24h) | Mild signs, ↑ RR, slight nasal | **Viruses isolatable** (yellow flag) |
@@ -41066,23 +41082,27 @@ Build paragraph from these terms:
 | **Late** (1-3 weeks) | Severe pneumonia | **Bacteria dominant**, viruses cleared (red flag) |
 | **End-stage** | Chronic pneumonia, atelectasis | Irreversible, poor prognosis |
 
-⭐ Doctor arriving late = miss virus identification window (can only treat bacteria)
+> ⭐ Doctor arriving late = miss virus identification window (can only treat bacteria)
 
-## 2️⃣ Anatomy Review
+---
 
-### Upper vs Lower Respiratory Tract
+# 🔻 Part 2: Anatomy Review
+
+## Upper vs Lower Respiratory Tract
 - ⭐ **Boundary**: trachea entering thoracic cavity (bifurcates into bronchi)
 - Above = Upper (nasal, pharyngeal, laryngeal, tracheal)
 - Below = Lower (bronchial, bronchiolar, alveolar)
 
-### Why this matters
+## Why this matters
 - **Nasal discharge** → upper tract issue
 - **Dyspnea / open-mouth breathing** → lower tract or severe upper
 - ⭐ Each pathogen targets specific level (e.g., IBR = upper, BRSV = lower)
 
-## 3️⃣ The 4 Primary Viruses ⭐⭐⭐
+---
 
-### Quick Compare Table
+# 🔻 Part 3: The 4 Primary Viruses ⭐⭐⭐
+
+## Quick Compare Table
 | Virus | Family | Tropism | Severity | Key feature |
 |---|---|---|---|---|
 | **IBR (BHV-1)** | Herpesvirus | **Upper** (rhinotrachea) | Moderate-high | **Latency** in nerve cells |
@@ -41090,7 +41110,7 @@ Build paragraph from these terms:
 | **PI3** | Paramyxovirus | Upper (rhinitis-like) | Mild | Like common cold, 87% of cattle exposed |
 | **BRSV** | Pneumovirus | **Lower** (alveolar/bronchiolar) | **Severe** | **Syncytia formation** in histopath |
 
-### A. IBR (Infectious Bovine Rhinotracheitis, BHV-1) ⭐⭐⭐
+## A. IBR (Infectious Bovine Rhinotracheitis, BHV-1) ⭐⭐⭐
 
 **Etiology**: Bovine Herpesvirus 1 (BHV-1), 3 genotypes:
 | Genotype | Manifestation |
@@ -41116,7 +41136,7 @@ Build paragraph from these terms:
 
 **Detect strategy**: Easier than BVD because Ab-positive = clear evidence (no PI confusion)
 
-### B. BVD (Bovine Viral Diarrhea) ⭐⭐⭐ "Time Bomb"
+## B. BVD (Bovine Viral Diarrhea) ⭐⭐⭐ "Time Bomb"
 
 **Etiology**: Pestivirus, 2 biotypes (cytopathic vs non-cytopathic), 2 genotypes (BVDV-1, BVDV-2)
 
@@ -41155,7 +41175,7 @@ Build paragraph from these terms:
 
 **International trade**: Europe → Thailand semen + livestock must be **BVD-free + IBR-free** certified
 
-### C. PI3 (Parainfluenza-3) — The "Common Cold" Virus
+## C. PI3 (Parainfluenza-3) — The "Common Cold" Virus
 
 **Etiology**: Paramyxovirus
 
@@ -41168,7 +41188,7 @@ Build paragraph from these terms:
 
 **Treatment**: Often self-resolving, supportive
 
-### D. BRSV (Bovine Respiratory Syncytial Virus) ⭐⭐⭐ Most Severe!
+## D. BRSV (Bovine Respiratory Syncytial Virus) ⭐⭐⭐ Most Severe!
 
 **Etiology**: Paramyxovirus (Pneumovirus genus)
 
@@ -41198,9 +41218,11 @@ Build paragraph from these terms:
 - Both cause severe disease in young (calves 6mo / human <6mo)
 - Both can be fatal, vaccines partially effective
 
-## 4️⃣ The 4 Secondary Bacteria ⭐⭐
+---
 
-### Compare Table
+# 🔻 Part 4: The 4 Secondary Bacteria ⭐⭐
+
+## Compare Table
 | Bacterium | Niche | Notes |
 |---|---|---|
 | **Mannheimia haemolytica** | Lower respiratory, pneumonic pasteurellosis | Most common BRD bacterial, was P. haemolytica |
@@ -41208,13 +41230,15 @@ Build paragraph from these terms:
 | **Histophilus somni** | Upper + lower, TEME (thromboembolic meningoencephalitis) | Polysystemic |
 | **Mycoplasma bovis** | Lower respiratory, arthritis | Cell-wall-less, resistant to β-lactams |
 
-### Primary vs Secondary
+## Primary vs Secondary
 - All 4 CAN be primary BUT need severely compromised host
 - **Usually secondary** to viral primary (yellow → red flag transition)
 
-## 5️⃣ Diagnosis Approach
+---
 
-### Field clinical
+# 🔻 Part 5: Diagnosis Approach
+
+## Field clinical
 - Time-series mindset: when did doctor arrive?
 - Clinical signs + history (mortality pattern, age, season)
 - **Hematology**: WBC pattern, lymphocytes
@@ -41226,19 +41250,21 @@ Build paragraph from these terms:
   - IBR: inclusion bodies (Cowdry type A)
   - Vasculitis: BVD mucosal disease
 
-### Pneumonic Pattern at Necropsy
+## Pneumonic Pattern at Necropsy
 | Color/texture | Stage |
 |---|---|
 | Red, congested, swollen, doesn't deflate | Acute (≤7 days) |
 | Gray/dark gray, firm | Chronic (≥1 month) — prevention failure! |
 
-## 6️⃣ Treatment ⭐
+---
 
-### The Inflammation-First Principle ⭐⭐
+# 🔻 Part 6: Treatment ⭐
+
+## The Inflammation-First Principle ⭐⭐
 > "**Antibiotics alone CANNOT stop irreversible damage**"
 > Must address **inflammation** first → then antibiotics for bacterial component → fluid + supportive
 
-### Treatment Drug Tree
+## Treatment Drug Tree
 | Drug class | Why | Timing |
 |---|---|---|
 | **NSAIDs** ⭐ | Anti-inflammatory, pain relief, reduce cytokine cascade | First! Even before antibiotics |
@@ -41248,7 +41274,7 @@ Build paragraph from these terms:
 | **B-complex vitamins** | Appetite stimulation, metabolism boost | Recovery |
 | **Steroids** | ⚠️ Generally avoid in cattle (abortion risk + milk drop) | Only specific cases |
 
-### Antibiotic of Choice for BRD ⭐
+## Antibiotic of Choice for BRD ⭐
 - **Florfenicol (F type)** — covers Mannheimia, Pasteurella, Histophilus, Mycoplasma!
 - Long-acting form preferred (1 inj q72h vs SA daily)
 - ⭐ Why LA over SA in cattle:
@@ -41256,7 +41282,7 @@ Build paragraph from these terms:
   - More animal welfare
   - Practical for farmers
 
-### Fluid Therapy Concept ⭐ (Universal Science!)
+## Fluid Therapy Concept ⭐ (Universal Science!)
 > **"Fluid therapy = ONE science, same in all species"**
 
 Calculation:
@@ -41267,28 +41293,30 @@ Calculation:
 
 Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over 24h
 
-### Why Fluid Critical
+## Why Fluid Critical
 - **NOT same as pulmonary edema** (different compartments!):
   - Dehydration = intravascular volume loss
   - Pulmonary edema = interstitial lung fluid
 - ⭐ Fluid → restores circulation → drugs can reach tissues
 - Without fluid → drugs don't penetrate → poor outcome
 
-### Acid-Base Balance
+## Acid-Base Balance
 - Vomiting → loss of HCl → **alkalosis**
 - Diarrhea → loss of HCO3⁻ → **acidosis**
 - Each dictates fluid choice!
 
-## 7️⃣ Prevention & Vaccination ⭐
+---
 
-### General Prevention
+# 🔻 Part 7: Prevention & Vaccination ⭐
+
+## General Prevention
 1. **Avoid weaning + relocation** in same day (split by 1-2 weeks)
 2. **Ventilation** > everything (most critical farm factor)
 3. Reduce stocking density
 4. Proper colostrum (passive immunity)
 5. Quarantine new animals (incubation periods)
 
-### Vaccine Strategy
+## Vaccine Strategy
 | Vaccine | Type | Indications |
 |---|---|---|
 | **IBR** (gE-marker) | Inactivated | Eradication tool |
@@ -41296,60 +41324,59 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **PI3** | Combined often | Less critical |
 | **BRSV** | Combined often | High-risk young stock |
 
-### ⭐ The 2-Dose Rule for Inactivated Vaccines
+## ⭐ The 2-Dose Rule for Inactivated Vaccines
 > "**Count 1 from the SECOND injection**"
 > 1st dose = priming (1 month before)
 > 2nd dose = "Dose 1" of effective immunity
 > Annual booster after = continuation
 
-### Maternal Immunity
+## Maternal Immunity
 - Calves get Ab via colostrum
 - ⭐ Lasts ~11 months for some viruses
 - Then enters vaccination program
 
-### Marker Vaccine Concept ⭐⭐
+## Marker Vaccine Concept ⭐⭐
 - gE-deleted IBR vaccine
 - Vaccinated cattle = Ab-positive but **gE-Ab negative**
 - Naturally infected = Ab-positive AND **gE-Ab positive**
 - → Can DIFFERENTIATE → eradication possible!
 
-## 8️⃣ Evidence-Based Medicine Concept ⭐
+---
+
+# 🔻 Part 8: Evidence-Based Medicine Concept ⭐
 - Decision: vaccinate or not?
 - Use **Meta-analysis + Systematic Review**
 - Outcome measures: **Morbidity rate + Mortality rate**
 - ⭐ "If a treatment doesn't reduce these → not worth the cost"
 
-## 📋 Exam Recap (20 จุดสำคัญ)
+---
 
-### Concepts (1-5)
-1. ⭐ **BRD = Triangle**: Host + Environment + Pathogen
-2. ⭐ **Stress cascade**: Cortisol ↑ → IL-1, TNF-α ↑ → immune drop
-3. **Worst stress combo**: Weaning + relocation same day
-4. ⭐ **Time series matters**: Early = virus, Late = bacteria + irreversible
-5. **Inflammation-first treatment principle**
+## 📋 Exam Recap
 
-### Viruses (6-12)
-6. **4 viruses**: IBR, BVD, PI3, BRSV
-7. ⭐ **IBR = upper, BRSV = lower** tract
-8. ⭐ **IBR has 3 genotypes**: respiratory, IPV, neuro
-9. ⭐ **PI vs Latency**: PI = Ab-NEG (immune tolerance!) vs Latency = Ab-POS (nerve hidden)
-10. ⭐ **BVD PI = "Time Bomb"** — born infected, sheds for life
-11. **PI3 = no fever (mild)**, **BRSV = high fever (severe)**
-12. ⭐ **BRSV pathognomonic**: syncytial cells (multinucleate)
+### Concepts
+- ⭐⭐⭐ **BRD = Triangle**: Host + Environment + Pathogen
+- ⭐⭐ **Stress cascade**: Cortisol ↑ → IL-1, TNF-α ↑ → immune drop
+- ⭐⭐ **Time series matters**: Early = virus, Late = bacteria + irreversible
+- ⭐ **Worst stress combo**: Weaning + relocation same day
 
-### Bacteria (13-15)
-13. **4 secondary bacteria**: Mannheimia, Pasteurella, Histophilus, Mycoplasma
-14. ⭐ **Florfenicol = drug of choice** (covers all 4!)
-15. **LA preferred over SA** (welfare + practical)
+### Viruses
+- ⭐⭐⭐ **IBR = upper, BRSV = lower** tract
+- ⭐⭐⭐ **IBR has 3 genotypes**: respiratory, IPV, neuro
+- ⭐⭐⭐ **PI vs Latency**: PI = Ab-NEG (immune tolerance!) vs Latency = Ab-POS (nerve hidden)
+- ⭐⭐ **BVD PI = "Time Bomb"** — born infected, sheds for life
+- ⭐⭐ **BRSV pathognomonic**: syncytial cells (multinucleate)
+- ⭐ **PI3 = no fever (mild)**, **BRSV = high fever (severe)**
 
-### Treatment (16-18)
-16. ⭐ **NSAIDs first**, antibiotics second
-17. ⭐ **Fluid therapy is universal science** — same calc all species
-18. ⚠️ **Avoid steroids** in cattle (abortion + milk drop)
+### Bacteria & Treatment
+- ⭐⭐ **Florfenicol = drug of choice** (covers all 4!)
+- ⭐⭐ **NSAIDs first**, antibiotics second
+- ⭐ **LA preferred over SA** (welfare + practical)
+- ⭐ **Fluid therapy** is universal science
+- ⚠️ **Avoid steroids** in cattle
 
-### Vaccines & Control (19-20)
-19. ⭐ **Inactivated 2-dose rule**: count 1 from SECOND injection
-20. ⭐ **Marker vaccine (gE-deleted)** = eradication tool for IBR
+### Vaccines
+- ⭐⭐ **Inactivated 2-dose rule**: count 1 from SECOND injection
+- ⭐⭐ **Marker vaccine (gE-deleted)** = eradication tool for IBR
 
 > 📚 **Cross-refs**: EBL-MCF-Rinderpest-BEF (1st lecture, viral diseases context), vet-juris (เคลื่อนย้ายสัตว์ controls)
 > 🎯 **Practical**: Be there EARLY for virus diagnosis, LATE = only bacterial culture possible
@@ -41365,29 +41392,36 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 145,
     instructor: 'อ.ธนศักดิ์ (เน้น movement control + biosecurity philosophy)',
     examFormat: 'Multiple choice + clinical scenario, ออกเรื่องการ surveillance + control measures + Carrier state',
-    summary: `## 🎯 Lead Summary
-**2 vesicular/cutaneous viral diseases** of cattle critical for Thai practice. **FMD** = endemic in SE Asia, highly contagious vesicular disease, no eradication realistic, sudden death in calves from myocarditis. **LSD** = emerging since April 2021 (entered Thailand via movement, NOT mosquitoes), Capripoxvirus skin lesions 1-5cm, devastating economic loss. ⭐ Both demonstrate Thailand's biosecurity failure: HPAI = won battle, ASF = fail #1, LSD = fail #2. **Movement control > vaccine** for emerging diseases.
+    summary: `# FMD (ปากเท้าเปื่อย) + LSD (ลัมปี้สกิน) — Endemic vs Emerging Viral Diseases
 
-## 1️⃣ FMD (Foot-and-Mouth Disease, ปากเท้าเปื่อย) ⭐⭐⭐
+> 🎯 **2 vesicular/cutaneous viral diseases** สำคัญต่อ Thai practice. **FMD** = endemic ใน SE Asia, highly contagious, no eradication realistic, sudden death ใน calves จาก myocarditis. **LSD** = emerging since April 2021 (เข้าไทยทาง movement, NOT mosquitoes), Capripoxvirus skin lesions 1–5 cm, devastating economic loss ⭐⭐⭐
+> ⚠️ Both demonstrate Thailand's biosecurity failure — HPAI = won, ASF + LSD = failed
 
-### Etiology
+Movement control > vaccine สำหรับ emerging diseases.
+
+---
+
+# 🔻 Part 1: FMD (Foot-and-Mouth Disease, ปากเท้าเปื่อย) ⭐⭐⭐
+
+## Etiology
 - **Picornavirus** (FMDV), 7 serotypes globally (O, A, C, SAT 1, SAT 2, SAT 3, Asia 1)
 - ⭐ Thailand strains: **O, A, Asia 1** (mostly O type)
-- Strain naming sometimes uses location: **O-Lopburi**, **O-Surin** (named after province where strain was isolated)
+- Strain naming sometimes uses location: **O-Lopburi**, **O-Surin**
 
-### Highly Contagious (key concept!)
+## Highly Contagious (key concept!)
 - ⭐ "หากตัวหนึ่งเป็น ตัวอื่นในคอกจะเป็นหมดภายในบ่ายวันรุ่งขึ้น"
 - All cloven-hoofed animals susceptible: cattle, buffalo, swine, sheep, goats
 - **Transmission routes** (must control all):
-  | Route | Examples |
-  |---|---|
-  | **Aerosol/airborne** | Wind-borne, upwind farms at risk |
-  | **Direct contact** | Infected → naive animal |
-  | **Indirect/fomite** | People (clothes, hair ties, phones, shoes!) |
-  | **Vehicles** | Trucks transporting animals/feed |
-  | **Products** | Meat, milk, hides, slaughterhouse waste |
 
-### Why Veterinarians = Biggest Vector ⭐
+| Route | Examples |
+|---|---|
+| **Aerosol/airborne** | Wind-borne, upwind farms at risk |
+| **Direct contact** | Infected → naive animal |
+| **Indirect/fomite** | People (clothes, hair ties, phones, shoes!) |
+| **Vehicles** | Trucks transporting animals/feed |
+| **Products** | Meat, milk, hides, slaughterhouse waste |
+
+## Why Veterinarians = Biggest Vector ⭐
 > "เราเป็นพาหะตัวใหญ่เลยสำหรับปากเท้าเปื่อย"
 - ⭐ **Hair ties** — cannot disinfect! (use hair caps)
 - **Mobile phones** — UV doesn't kill on contact (need bag + wipe)
@@ -41395,7 +41429,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Clothing** — must change before/after farm visits
 - ⚠️ Spoons in restaurant UV ≈ false security
 
-### Viral Load & TCID50 Concept
+## Viral Load & TCID50 Concept
 | Tissue/secretion | Viral load (TCID50) |
 |---|---|
 | Nasal discharge | **~6.09** (very high, airborne risk!) |
@@ -41405,7 +41439,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Blood | Moderate |
 | Urine, feces | Lower but still infectious |
 
-### ⭐ Disease Phases (Time Series)
+## Disease Phases (Time Series) ⭐
 | Phase | Time | What you see |
 |---|---|---|
 | Exposure | Day 0 | Nothing |
@@ -41416,7 +41450,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Recovery** | ~20+ days | Carrier state begins |
 | **Carrier** | Up to **180 days** in cattle! | Pharyngeal virus persistence |
 
-### Clinical Signs (Order of appearance!) ⭐
+## Clinical Signs (Order of appearance!) ⭐
 1. ⭐ **Fever, depression** (FIRST — before vesicles!)
 2. **Drop in milk** (sudden, no other reason)
 3. **Calf sudden death** (myocarditis, "tigroid heart")
@@ -41428,23 +41462,23 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
    - Teats (mastitis follows!)
    - Muzzle, dental pad
 
-### Calf Mortality (Multifocal Myocarditis) ⭐
+## Calf Mortality (Multifocal Myocarditis) ⭐
 - ⚠️ Calves <3-5 months → **sudden death** (no vesicles)
 - Necropsy: ⭐ **white streaks in heart muscle** (NOT fat!) = pathognomonic
 - Often missed by farmers ("just one calf died")
 
-### Sheep/Goat (Different Pattern!) ⭐
+## Sheep/Goat (Different Pattern!) ⭐
 - ⚠️ **SUBCLINICAL** to mild signs in small ruminants
 - Watch for: ↓ activity, lagging in flock, hesitation
 - Coronary band lesions (must lift hooves to find)
 - Whole flock infected even if you only spot 1-2 sick
 
-### Outbreak 2016 (Thailand)
+## Outbreak 2016 (Thailand)
 - Mass outbreak from vaccine strain mismatch
 - Calves died in large numbers (myocarditis)
 - Lesson: **strain monitoring critical for vaccine efficacy**
 
-### Diagnosis (OIE Method Selection Table) ⭐
+## Diagnosis (OIE Method Selection Table) ⭐
 **Purpose-driven selection:**
 | Purpose | Method |
 |---|---|
@@ -41458,53 +41492,55 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Late (vesicle resolved): pharyngeal probang sampling (carrier!)
 - Always: blood (PCR + serology)
 
-### ⭐ Probang Test (Carrier Detection)
+## Probang Test (Carrier Detection) ⭐
 - Stainless steel cup on rod
 - Inserted into pharynx → collects nasopharyngeal fluid
 - Detects carrier state (up to 180 days post-infection!)
 - ⚠️ Stressful procedure, 1-time use only
 
-### Why Eradication is Impossible (Thailand reality)
+## Why Eradication is Impossible (Thailand reality)
 1. **Endemic** in SE Asia (regional problem)
 2. ⚠️ Need **regional cooperation** (Thailand alone can't)
 3. Vaccine strain monitoring needs constant updating
 4. Farmer behavior + economics complicate control
 5. ⭐ "Free from FMD" status would require ALL neighbors to also be free
 
-### Vaccination Strategy (Thai Routine!)
+## Vaccination Strategy (Thai Routine!)
 - ⭐ **FMD = ROUTINE vaccine** for ALL Thai cattle (with LSD now)
 - **Inactivated** vaccine (Thailand only allows inactivated)
 - **2 doses** initially, then annual booster
 - Strain selection updated based on circulating strains
 - ⚠️ Doesn't prevent INFECTION, but prevents/reduces clinical disease
 
-### Treatment
+## Treatment
 - **Supportive only**, no specific antiviral
 - Anti-inflammatory (NSAIDs)
 - Antibiotics for secondary bacterial infection (mastitis, foot rot)
 - Wound care for vesicle ulcers
 - ⚠️ **Reportable disease** — must notify DLD!
 
-### Clinical Pearls (Differential)
+## Clinical Pearls (Differential)
 - **Rabies** can mimic FMD! (salivation, recumbency, abnormal mouth)
   - ⭐ Story: students all got post-exposure prophylaxis after exposing to "FMD" cow that was actually rabid (bitten by stray dog)
 
-## 2️⃣ LSD (Lumpy Skin Disease, ลัมปี้สกิน) ⭐⭐⭐
+---
 
-### Etiology
+# 🔻 Part 2: LSD (Lumpy Skin Disease, ลัมปี้สกิน) ⭐⭐⭐
+
+## Etiology
 - **Capripoxvirus** family (with Sheep pox, Goat pox)
 - DNA virus, large, environmental persistence
 - **LSDV** strain (specific to cattle/buffalo)
 - Cross-protection with sheep/goat pox (debated)
 
-### Thailand Outbreak — April 2021 ⭐
+## Thailand Outbreak — April 2021 ⭐
 - ⚠️ **First detected: 5 April 2021**
 - Initial reported provinces: ร้อยเอ็ด, ศรีสะเกษ, เพชรบุรี, ขอนแก่น
 - ⭐ **Suspicious pattern**: simultaneous appearance in distant provinces!
 - Mosquitoes can't fly that far → **MOVEMENT was the cause** (not vector)
 - Likely earlier index case in กาฬสินธุ์ (not reported in time)
 
-### Geographic Spread Logic ⭐
+## Geographic Spread Logic ⭐
 - Africa → SE Europe → Asia (2015-2019)
 - Walking distance: virus spread 4-5 years
 - **Only explanation**: **HUMAN TRANSPORT** (animals + vehicles)
@@ -41512,13 +41548,13 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Thailand should have caught at border (didn't!)
 - **6 million Thai cattle** out of 10 million affected
 
-### Why Did Europe Avoid It? ⭐
+## Why Did Europe Avoid It? ⭐
 - ⭐ **SE Europe Vaccination Project** (Balkan countries)
 - Donors funded 100% vaccine coverage
 - **Buffer zone** strategy at borders
 - Disease "turned right" to Asia where no buffer existed
 
-### Clinical Signs ⭐
+## Clinical Signs ⭐
 - ⭐ **Skin nodules 1-5 cm** (cardinal sign)
   - Round, raised, firm
   - Multiple sites: head, neck, body, limbs, perineum
@@ -41531,12 +41567,12 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ **Abortion**, infertility post-recovery
 - **Dairy cattle** also affected (denied initially!)
 
-### Pathology
+## Pathology
 - Lesions extend through full skin thickness
 - May involve respiratory mucosa, GI tract
 - Histopath: epithelial hyperplasia, ballooning degeneration, eosinophilic inclusions
 
-### Transmission Vectors ⭐
+## Transmission Vectors ⭐
 | Vector | Mobility | Importance |
 |---|---|---|
 | **Mosquitoes** (Culex, Aedes) | Local | Major in season |
@@ -41546,14 +41582,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **Animal movement** | Long-range | **#1 mechanism!** |
 | Needles (iatrogenic) | Farm-level | Important |
 
-### ⭐ Diagnosis
+## Diagnosis ⭐
 - **Clinical signs** = obvious in primary outbreak (less so years later)
 - Biopsy → histopath
 - **PCR** on skin lesions (very high viral load!)
 - Electron microscopy
 - Serology less useful (lesions are diagnostic)
 
-### Vaccine Strategy ⭐
+## Vaccine Strategy ⭐
 - ⭐ **Modified live vaccine** (Neethling strain, LSDV homologous)
 - **Foreign vaccines available**:
   - Sheep pox + Goat pox derived (cheaper, but Thailand refuses — don't want introducing new poxvirus)
@@ -41561,7 +41597,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - World production: only **2-3 million doses/year** (not enough!)
 - Thailand has 2 brands registered
 
-### Vaccine Practical Issues
+## Vaccine Practical Issues
 - ⭐ **Modified live** = same handling as small animal vaccines
   - Diluent + lyophilized
   - Heat + light sensitive!
@@ -41570,12 +41606,12 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **80% efficacy target** (not 100%)
 - Side effects: mild swelling, occasional pseudo-disease
 
-### ⭐ The Famous Wrong Picture (Thai biosecurity meme!)
+## The Famous Wrong Picture (Thai biosecurity meme!) ⭐
 - Picture in official poster: man in PPE spraying disinfectant **into the SKY** (hoping for airborne)
 - Instructor's response: "Hoping to disinfect angels?"
 - ⭐ Real lesson: **The dirtiest thing humans carry on a farm is THEIR HANDS** (not air!)
 
-### Outbreak Control (What Should Have Happened) ⭐
+## Outbreak Control (What Should Have Happened) ⭐
 1. ⭐ **STOP MOVEMENT** immediately at first detection
 2. Quarantine affected farms (incubation = ~28 days)
 3. Stamping out (if possible)
@@ -41583,27 +41619,29 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. Vector control (limited efficacy alone)
 6. Trace contacts (vehicles, semen, etc.)
 
-### What Actually Happened ❌
+## What Actually Happened ❌
 - Disease report DELAYED (COVID distraction)
 - Movement NOT stopped → spread nationwide in 6 weeks
 - Vaccine arrived months late + insufficient supply
 - Sprayed sky for "airborne" (waste)
 - Sub-standard biosecurity at multiple farms
 
-### Treatment (Supportive)
+## Treatment (Supportive)
 - **Anti-inflammatory** (NSAIDs)
 - **Antibiotics** for secondary bacterial infection (skin ulcers, mastitis)
 - **Fluid + vitamins** for anorexic cases
 - Wound care for ulcers
 - ⚠️ **No specific antiviral**
 
-### Public Communication ⭐
+## Public Communication ⭐
 - ❓ Zoonotic? **NO** — humans NOT susceptible
 - ❓ Eat the meat? Yes (virus in skin only, lesion areas trimmed)
 - ❓ Drink milk? Yes (cooked properly)
 - ⚠️ Consumer concern was huge → economic damage > biological damage
 
-## 3️⃣ Thailand's Disease Battle Record ⭐
+---
+
+# 🔻 Part 3: Thailand's Disease Battle Record ⭐
 > "ในช่วงอายุ 30 ปีของอาจารย์ทำงานเนี่ย เราเฟลวิชาชีพไป 3 ครั้งแล้ว"
 
 | # | Year | Disease | Outcome |
@@ -41613,40 +41651,41 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | 3 | 2564 (2021) | **LSD** | ❌ FAILED — endemic now |
 | 4 | (next?) | TBD | ⚠️ Watch this space |
 
-### What HPAI Did Right
+## What HPAI Did Right
 - Quick movement stop
 - Mass culling with compensation
 - Industry coordinated (CP, Betagro impacted = political will)
 - Public messaging clear
 
-### What ASF/LSD Did Wrong
+## What ASF/LSD Did Wrong
 - Slow reporting
 - No movement control
 - Individual farmers paid the cost
 - No coordinated cull
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### FMD (1-8)
-1. ⭐ **7 serotypes** (Thailand: O, A, Asia 1)
-2. **Picornavirus**, 7 antigenically distinct serotypes
-3. ⭐ **Highly contagious** — entire pen affected within 24h
-4. **Order of clinical signs**: fever → milk drop → salivation → vesicles → lameness
-5. ⭐ **Calf sudden death** = myocarditis (white streaks in heart, NOT fat!)
-6. ⭐ **Carrier state** in cattle: up to **180 days** (probang test detects)
-7. **Sheep/goats subclinical** — easy to miss
-8. **Routine vaccination** in Thailand, Inactivated, 2 doses + annual
+## 📋 Exam Recap
 
-### LSD (9-13)
-9. **First Thailand outbreak**: April 2021
-10. ⭐ **Capripoxvirus** family
-11. ⭐ **Skin nodules 1-5 cm** = pathognomonic
-12. ⭐ **Movement = #1 transmission** (NOT mosquitoes alone — disease "jumped" provinces)
-13. **Modified live vaccine** (Neethling) preferred, 25-dose bottles, cold chain
+### FMD
+- ⭐⭐⭐ **7 serotypes** (Thailand: O, A, Asia 1)
+- ⭐⭐⭐ **Highly contagious** — entire pen affected within 24h
+- ⭐⭐ **Order of clinical signs**: fever → milk drop → salivation → vesicles → lameness
+- ⭐⭐ **Calf sudden death** = myocarditis (white streaks in heart, NOT fat!)
+- ⭐⭐ **Carrier state** in cattle: up to **180 days** (probang test detects)
+- ⭐ **Sheep/goats subclinical** — easy to miss
+- ⭐ **Routine vaccination** in Thailand, Inactivated, 2 doses + annual
 
-### Control & Lessons (14-15)
-14. ⭐ **Movement control > vaccination** for emerging disease
-15. ⭐ **"The dirtiest thing humans carry is their HANDS"** (vet = vector!)
+### LSD
+- ⭐⭐⭐ **First Thailand outbreak**: April 2021
+- ⭐⭐⭐ **Skin nodules 1-5 cm** = pathognomonic
+- ⭐⭐⭐ **Movement = #1 transmission** (NOT mosquitoes alone)
+- ⭐⭐ **Capripoxvirus** family
+- ⭐ **Modified live vaccine** (Neethling) preferred, 25-dose bottles, cold chain
+
+### Control & Lessons
+- ⭐⭐⭐ **Movement control > vaccination** for emerging disease
+- ⭐⭐ **"The dirtiest thing humans carry is their HANDS"** (vet = vector!)
 
 > 🎯 **Practical**: ALWAYS change clothes + use hair cap + bag phone before farm visit
 > 📚 **Cross-refs**: BRD complex (1° viral, 2° bacterial principle applies here too), vet-juris (เคลื่อนย้ายสัตว์ controls), MCF (DDx for muzzle erosions)
@@ -41663,17 +41702,21 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 138,
     instructor: 'อ.ธนศักดิ์ (โครงการกำจัดวัณโรคที่สหกรณ์โคนมกำแพงแสน, 600+ ฟาร์ม 100% screened)',
     examFormat: 'Multiple choice + scenario, ออกเรื่องการตรวจ Single Intradermal, DDx, F+/F- causes, 3-5 ปี incubation',
-    summary: `## 🎯 Lead Summary
-**2 chronic mycobacterial diseases** of cattle. **Bovine TB** = M. bovis, re-emerging zoonotic disease, diagnosed by **Single Intradermal Tuberculin Test** at caudal fold or cervical, "test-and-cull only" — no treatment. **Paratuberculosis (Johne's)** = M. avium ssp. paratuberculosis, ⭐ **3-5 year incubation** (longest of any cattle disease!), **Pea-soup green diarrhea**, no fever, animal eats normally but wastes away. Both diseases: **culture takes weeks to months**, screening tests imperfect, control strategy = test-and-segregate or cull.
+    summary: `# Bovine Tuberculosis (วัณโรคโค) + Paratuberculosis (Johne's Disease)
 
-## 1️⃣ Bovine Tuberculosis (วัณโรคโค) ⭐⭐⭐
+> 🎯 **2 chronic mycobacterial diseases** ของวัว · **Bovine TB** = *M. bovis*, re-emerging zoonotic disease, diagnosed by **Single Intradermal Tuberculin Test** at caudal fold or cervical, "test-and-cull only" — no treatment. **Paratuberculosis (Johne's)** = MAP, ⭐ **3-5 year incubation** (longest of any cattle disease!), **Pea-soup green diarrhea**, no fever, animal eats normally but wastes away ⭐⭐⭐
+> ⚠️ Both: culture takes weeks-months · screening tests imperfect · control = test-and-segregate or cull
 
-### Why It's Re-emerging
+---
+
+# 🔻 Part 1: Bovine Tuberculosis (วัณโรคโค) ⭐⭐⭐
+
+## Why It's Re-emerging
 - ⭐ **Old disease**, increasing recently — should have been eradicated by now
 - Re-emerging = increasing detection in modern Thai dairy farms
 - Fundamentally a **zoonotic disease**
 
-### Etiology — Mycobacterium spp.
+## Etiology — Mycobacterium spp.
 | Species | Niche | Notes |
 |---|---|---|
 | **M. bovis** ⭐ | Cattle (primary) | Crosses to humans! |
@@ -41681,18 +41724,18 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **M. avium** | Birds (primary) | HIV-AIDS opportunistic in humans |
 | **M. avium ssp. paratuberculosis** | Cattle (Johne's) | Cross-reaction with TB tests! |
 
-### Microbiology
+## Microbiology
 - ⭐ **Acid-fast staining** (Ziehl-Neelsen) — pathognomonic
 - Slow-growing on culture
 - ⭐ **Intracellular + extracellular** survival
 - Pathognomonic histology: **Langhans giant cells** (multinucleate from macrophage fusion)
 
-### Pathogenesis
+## Pathogenesis
 - ⭐ **Tubercle formation**: granuloma with calcium deposition
 - "Crunchy" sound when knife cuts (calcium content!)
 - ⚠️ Macrophages fail to kill organism → bacteria proliferate inside
 
-### Routes of Infection ⭐
+## Routes of Infection ⭐
 | Route | Lesion Location |
 |---|---|
 | **Inhalation** ⭐ Most common in adults | Lungs, **mediastinal LN**, pulmonary LN (head LN at early) |
@@ -41701,14 +41744,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Genital (semen, urine) | Reproductive tract |
 | ⚠️ Worker case (Thailand!) | Worker's TB → urinated on grass → cattle infected! |
 
-### Disease Progression
+## Disease Progression
 | Stage | Findings |
 |---|---|
 | **Early Infection** | Local LN involvement only (hidden) |
 | **Advanced** | Hematogenous + lymphatic spread → multiorgan |
 | **Generalized** | Visible at necropsy throughout body |
 
-### Clinical Signs (Highly Variable!)
+## Clinical Signs (Highly Variable!)
 - ⚠️ **Most cattle: subclinical** (especially early)
 - Chronic cough, weight loss (when advanced lung)
 - Lameness (joint TB rare)
@@ -41717,7 +41760,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ Mastitis (intramammary lesions = ⚠️ very advanced!)
 - ⭐ **Chronic wasting syndrome** — main pattern
 
-### Target Organs at Necropsy ⭐ (Must check!)
+## Target Organs at Necropsy ⭐
 1. **Tracheobronchial LN**
 2. **Mediastinal LN**
 3. **Lung** (slice it open! "Slice like กั๊วะ" — multiple sections)
@@ -41725,25 +41768,25 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. **Liver** (slice it open, expensive organ — ask owner first!)
 6. **Supramammary LN**
 
-### Special Lesions
+## Special Lesions
 - ⭐ **Pearl Disease** (Pearl-like lesions in pleural cavity) = TB pathognomonic
 - "Sand in the kidney" feel (calcium)
 - Reproductive: uterus, ovaries with multiple tubercles (looks like pregnancy!)
 
-### Diagnosis: Single Intradermal Tuberculin Test (SIT) ⭐⭐⭐
+## Diagnosis: Single Intradermal Tuberculin Test (SIT) ⭐⭐⭐
 
-#### Principle
+### Principle
 - **Delayed-type hypersensitivity** (DTH) reaction
 - Inject **PPD tuberculin** (purified protein derivative) into intradermal layer
 - Wait 72 hours → measure swelling
 
-#### Locations
+### Locations
 | Location | Sensitivity | Notes |
 |---|---|---|
 | **Caudal fold** (skin under tail base) ⭐ | Lower | Easy access, most common |
 | **Cervical** (neck) | Higher | Requires shaving + restraint |
 
-#### Procedure
+### Procedure
 1. **Dose**: 0.1 mL PPD bovis (max 0.2 mL if 1st injection failed)
 2. **Needle**: Tuberculin needle 26-G (very fine!)
 3. **Pre-injection**: measure skin thickness with vernier caliper
@@ -41753,12 +41796,12 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 7. **Wait 72 hours**
 8. **Re-measure**: if **≥ 4 mm increase** → **Positive**
 
-#### Why 72 Hours?
+### Why 72 Hours?
 - DTH peaks at 72h (not earlier inflammation)
 - Earlier = false swelling from injection trauma
 - Must palpate firmness too — pure edema = not real DTH
 
-### Comparative Intradermal Test (CIT) ⭐
+## Comparative Intradermal Test (CIT) ⭐
 - **Increases specificity** — distinguishes M. bovis vs M. avium reactions
 - 2 PPD injections: bovis + avium
 - Distance: 12 cm apart
@@ -41766,30 +41809,30 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ **Bovis swelling > Avium swelling by 4 mm = True Positive M. bovis**
 - ⚠️ M. avium PPD rarely available now
 
-### Stormont Test (Alternative)
+## Stormont Test (Alternative)
 - Similar to SIT but **2 injections at 7 days apart**
 - Read 72h after 2nd injection
 - ⭐ **5 mm threshold** instead of 4 mm
 - **Best for buffalo** (Surin study) and deer
 
-### Short Thermal Test (Old method)
+## Short Thermal Test (Old method)
 - Inject 4 mL PPD subcutaneously at neck
 - Measure rectal temp at 4, 6, 8 hours
 - ⭐ **>104°F = Positive**
 - ⚠️ Risk: anaphylactic shock from large dose
 - Expensive: 4 mL @ 1,600 Baht/mL
 
-### Other Diagnostics
+## Other Diagnostics
 - **Interferon-gamma (γ-IFN) ELISA** — stimulates blood with PPD, measure cytokine
 - **PCR** for M. bovis DNA
 - **Culture** (slow! 6 weeks - 6 months)
 
-### False Positive Causes ⭐
+## False Positive Causes ⭐
 1. ⭐ **Non-tuberculous mycobacteria** (cross-reactivity)
 2. ⭐ **Paratuberculosis** infection (M. avium ssp. paratuberculosis cross-reacts!)
 3. ⭐ **Corynebacterium** (esp. C. pseudotuberculosis) infection in lungs
 
-### False Negative Causes ⭐
+## False Negative Causes ⭐
 1. ⭐ **Anergy** (advanced disease — animal can't mount immune response)
 2. ⭐ **Desensitization** (test < 60 days from previous test → 6-month suppression!)
 3. ⭐ **Postpartum** (4 weeks) — colostrum production diverts immune cells
@@ -41797,34 +41840,34 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. **Anti-inflammatory steroids** within 1 week of test
 6. **Test < 6 weeks** post-infection
 
-### CUVET Kamphaengsaen Cooperative Project (Real Story!) ⭐
+## CUVET Kamphaengsaen Cooperative Project (Real Story!) ⭐
 - **600+ farms, 20,000+ cattle**
 - **First Thai cooperative** to achieve 100% TB screening
 - 10 days to complete, 3 years (then ended)
 - ⭐ Dispute resolution: necropsy revealed truth (positive = real)
 
-### Treatment & Control ⭐
+## Treatment & Control ⭐
 - ⛔ **NO TREATMENT** in Thailand
 - ⚠️ Drugs: 6+ months, expensive, zoonotic risk to caretakers, DRUG RESISTANCE!
 - Strategy: **Test-and-cull** OR **Test-and-segregate**
 
-### Famous Princess Sirindhorn Buffalo School Story
+## Famous Princess Sirindhorn Buffalo School Story
 - โรงเรียนกาสรกสีวิตย์ (Buffalo school for plowing rice)
 - ⚠️ TB outbreak in royal buffalo herd
 - Decision: cull all (despite genetic value)
 - Reason: Worker exposure risk + drug resistance + 6-month tx infeasibility
 
-### Pasteurization Note ⭐
+## Pasteurization Note ⭐
 - ⭐ M. bovis killed by pasteurization (65°C × 30 min, 72°C × 15 sec)
 - ⚠️ Raw milk (organic markets) = consumer risk
 - Pasteurized milk = 100% safe for TB
 
-### BCG Vaccine Question ⭐
+## BCG Vaccine Question ⭐
 - **All Thai humans get BCG at birth** → can't use SIT for human screening
 - ⚠️ BCG in cattle: Low protection, Used only in endemic areas (e.g., UK badger management)
 - Thai law: ⚠️ BCG NOT used in Thai cattle (would invalidate SIT screening)
 
-### Pregnant Cattle Decision ⭐
+## Pregnant Cattle Decision ⭐
 - ⚠️ Owner request: "wait for calf, then cull"
 - Issues:
   - Calf may get TB transplacentally (~6 months old confirmed cases)
@@ -41832,7 +41875,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   - Colostrum from positive cow = NEVER feed!
 - Final solution often: cull pregnant cow when farm-policy requires
 
-### Real Farm Case (300-cow herd) ⭐
+## Real Farm Case (300-cow herd) ⭐
 - 30% Positive on combined SIT + γ-IFN
 - Owner won't cull all → economic devastation
 - ⭐ **Solution**: split herd into Negative + Positive groups
@@ -41842,60 +41885,62 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - No colostrum/milk to calves on positive side
 - Gradual culling over time
 
-## 2️⃣ Paratuberculosis (Johne's Disease, พาราทีบี) ⭐⭐⭐
+---
 
-### Why It's Difficult
+# 🔻 Part 2: Paratuberculosis (Johne's Disease, พาราทีบี) ⭐⭐⭐
+
+## Why It's Difficult
 - ⭐ **Diagnosis very hard** — screening tests poor
 - Disease process slow (3-5 years)
 - ⚠️ Possibly zoonotic (Crohn's disease association — debated, 50/50 evidence!)
 
-### Etiology
+## Etiology
 - **Mycobacterium avium subspecies paratuberculosis** (MAP)
 - Aka "Johne's bacillus"
 - Genetically very close to M. avium
 - ⭐ **Acid-fast** stain
 - ⚠️ Culture: **6 weeks to 6 months!**
 
-### Survival in Environment ⭐
+## Survival in Environment ⭐
 - Survives months in feces, water, soil
 - ⭐ Resistant to most disinfectants
 - Need: ⭐ **Phenol 1:40 OR 5% concentration** to kill
 - Boots from infected farm = vector!
 
-### Hosts
+## Hosts
 - Cattle (primary in dairy)
 - Buffalo, sheep, goats (small ruminants get severe form!)
 - Pigs, rabbits, deer, primates
 - ⚠️ **Humans** (chronic diarrhea cases) — Crohn's link debated
 
-### Pathogenesis ⭐
+## Pathogenesis ⭐
 - Enters via **ingestion** (calves <6 months susceptible!)
 - Targets ⭐ **Peyer's patches** in distal jejunum/ileum
 - ⭐ **Intracellular only** (in macrophages)
 - Forms **granulomas** in intestinal wall → thickens it
 - ⚠️ Even pasteurized milk may have residual MAP (0.3 colonies — but below ID50)
 
-### Incubation: 3-5 YEARS! ⭐⭐⭐
+## Incubation: 3-5 YEARS! ⭐⭐⭐
 - ⭐ **Longest incubation of any cattle disease!**
 - ⚠️ Infection happens in calves <6 months
 - Clinical disease appears at 2-5 years old
 - ⚠️ **Calves with diarrhea ≠ Johne's** (incubation too short!)
 
-### Clinical Signs (Triad!) ⭐⭐
+## Clinical Signs (Triad!) ⭐⭐
 | Sign | Detail |
 |---|---|
 | **1. Chronic diarrhea** | ⭐ "Pea-soup green", projectile, doesn't respond to antibiotics |
 | **2. Weight loss** | "Skin and bones" but cow eats normally! |
 | **3. NO fever** ⭐ | Distinguishes from most infectious diseases |
 
-### Other Signs
+## Other Signs
 - Hypoproteinemia → bottle-jaw edema (chin, brisket)
 - Hypocalcemia
 - Reduced milk yield, infertility
 - Vertical transmission (~20% of pregnancies)
 - Possible semen transmission
 
-### Differential Diagnosis ⭐
+## Differential Diagnosis ⭐
 | Disease | Diarrhea | Weight loss | Fever | Eat normally |
 |---|---|---|---|---|
 | **Paratuberculosis** | Chronic, projectile | Marked | **NO** | YES |
@@ -41906,63 +41951,64 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Parasitism** | Yes | Yes | NO | Maybe |
 | **Salmonellosis (chronic)** | Foul-smelling, foul | Yes | Yes | No |
 
-### Pathology
+## Pathology
 - Intestinal wall **markedly thickened** (corrugated appearance)
 - Mesenteric LN enlarged
 - Histopath: granulomas, giant cells, MAP organisms in macrophages
 
-### Diagnosis Challenges ⭐
+## Diagnosis Challenges ⭐
 1. **ELISA**: ⚠️ Only 30-40% sensitive in early stages (high false negatives!)
 2. **Fecal culture**: takes 6 weeks - 6 months
 3. **Fecal PCR**: more practical but still slow + low shedding hides positives
 4. **Necropsy + histopath**: gold standard but post-mortem
 
-### "Iceberg Effect" ⭐
+## "Iceberg Effect" ⭐
 - 1 clinical case = many subclinical infected animals
 - 1:5 to 1:10 ratio
 - ⚠️ By time clinical seen, herd already heavily infected
 
-### Treatment
+## Treatment
 - ⛔ **No treatment** that works
 - Cull, cull, cull
 - Prevention: clean colostrum, separate calves from positive cows
 
-### Vaccine
+## Vaccine
 - ⚠️ Vaccines exist but interfere with TB testing
 - Thailand: not approved
 - Limited use in some countries
 
-### Why "Why does no one care about Para TB?" ⭐
+## Why "Why does no one care about Para TB?" ⭐
 > Sapporo World Congress: Researcher complained about field neglect
 - Diagnosis too hard
 - Slow disease = farmers don't connect dots
 - No specific treatment options
 - Economic impact slow to manifest
 
-### Pregnancy Question ⭐
+## Pregnancy Question ⭐
 - ⚠️ Vertical transmission proven (~20%)
 - Cull pregnant cow (or never feed calf colostrum from positive dam)
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### TB (1-9)
-1. **M. bovis** = main, zoonotic, cross to/from humans
-2. ⭐ **Acid-fast** staining + **Langhans giant cells**
-3. ⭐ **Tubercle** = granuloma + calcium deposition
-4. **Routes**: Inhalation > Ingestion (humans urinating in pasture!)
-5. ⭐ **SIT @ 4 mm** swelling = Positive (caudal fold or cervical, 0.1 mL × 72h)
-6. ⭐ **F+ causes**: NTM, M. avium, Corynebacterium
-7. ⭐ **F- causes**: Anergy, desensitization (60 days+!), postpartum, malnutrition
-8. ⭐ **Pearl Disease** = TB pleural lesions
-9. ⛔ **No treatment** (drug resistance + zoonotic risk + cost)
+## 📋 Exam Recap
 
-### ParaTB (10-15)
-10. **MAP** = M. avium ssp. paratuberculosis
-11. ⭐ **3-5 year incubation** (longest in cattle!)
-12. ⭐ **Pea-soup diarrhea + weight loss + NO fever** = triad
-13. **Calves <6 months** infected (vertical transmission ~20%)
-14. ⭐ **Diagnosis very hard** — ELISA poor sensitivity, culture 6+ weeks
-15. ⛔ **No treatment**, cull-and-segregate
+### TB
+- ⭐⭐⭐ ***M. bovis*** = main, zoonotic, cross to/from humans
+- ⭐⭐⭐ **Acid-fast** staining + **Langhans giant cells**
+- ⭐⭐⭐ **SIT @ 4 mm** swelling = Positive (caudal fold or cervical, 0.1 mL × 72h)
+- ⭐⭐ **Tubercle** = granuloma + calcium deposition
+- ⭐⭐ **F+ causes**: NTM, M. avium, Corynebacterium
+- ⭐⭐ **F- causes**: Anergy, desensitization (60 days+!), postpartum, malnutrition
+- ⭐ **Pearl Disease** = TB pleural lesions
+- ⛔ **No treatment** (drug resistance + zoonotic risk + cost)
+
+### ParaTB
+- ⭐⭐⭐ **MAP** = M. avium ssp. paratuberculosis
+- ⭐⭐⭐ **3-5 year incubation** (longest in cattle!)
+- ⭐⭐⭐ **Pea-soup diarrhea + weight loss + NO fever** = triad
+- ⭐⭐ **Calves <6 months** infected (vertical transmission ~20%)
+- ⭐⭐ **Diagnosis very hard** — ELISA poor sensitivity, culture 6+ weeks
+- ⛔ **No treatment**, cull-and-segregate
 
 > 🎓 **Cross-refs**: BRD complex (different respiratory pathogens), vet-juris (reportable diseases under พ.ร.บ.)
 > 🛡️ **Practical**: ALWAYS pasteurize milk, 65°C × 30 min for safety
@@ -41979,12 +42025,19 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 164,
     instructor: 'อ.ธนศักดิ์ (เน้น zoonotic risk + brucellosis screening at coop level)',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง 4 species ของ Brucella + abortion in last trimester + sudden death in buffalo + abortion storm Lepto',
-    summary: `## 🎯 Lead Summary
-**3 zoonotic bacterial diseases** of cattle/ruminants. **Brucellosis** = chronic abortion + retained placenta, **B. abortus** in cattle, **B. melitensis** in goats (most dangerous to humans!), diagnosed by milk/serum agglutination tests. **Hemorrhagic Septicemia** = ⚠️ buffalo sudden death from Pasteurella multocida, "swollen neck" disease, stress + flooding precipitate, vaccinate annually with oil adjuvant. **Leptospirosis** = "rat-piss disease", last-trimester **abortion storm**, 4 important serovars (Pomona, Hardjo, Hebdomadis, Canicola), zoonotic via skin/mucous membrane.
+    summary: `# Brucellosis + Hemorrhagic Septicemia + Leptospirosis (3 zoonotic bacterial diseases)
 
-## 1️⃣ Brucellosis (โรคแท้งติดต่อ) ⭐⭐⭐
+> 🎯 **3 zoonotic bacterial diseases** ของวัว/ruminants. ⭐⭐⭐
+> - **Brucellosis** = chronic abortion + retained placenta, *B. abortus* ในวัว, *B. melitensis* ในแพะ (dangerous to humans!), diagnosed by milk/serum agglutination tests
+> - **Hemorrhagic Septicemia** = buffalo sudden death from *Pasteurella multocida*, "swollen neck" disease, vaccinate annually with oil adjuvant
+> - **Leptospirosis** = "rat-piss disease", last-trimester abortion storm, 4 important serovars
+> ⚠️ ทั้ง 3 = reportable + zoonotic
 
-### Etiology — 4 main species ⭐
+---
+
+# 🔻 Part 1: Brucellosis (โรคแท้งติดต่อ) ⭐⭐⭐
+
+## Etiology — 4 main species ⭐
 | Species | Primary host | Cross to humans | Risk level |
 |---|---|---|---|
 | **B. abortus** ⭐ | **Cattle** | YES | Moderate, undulant fever |
@@ -41994,7 +42047,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | B. canis | Dogs | YES (mild) | — |
 | B. ceti | Marine mammals | Rare | — |
 
-### Why B. melitensis is Most Feared ⭐
+## Why B. melitensis is Most Feared ⭐
 - ⭐ **Airborne pathogen** (only Brucella species that aerosolizes!)
 - 1st airborne case: **lab worker** isolating B. melitensis (encephalitis after exposure)
 - Used as **biological warfare agent** historically
@@ -42003,17 +42056,17 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   - Agricultural professor + farm worker (goat handler) + worker's wife (handled goat milk distribution)
   - All became symptomatic after handling positive goats
 
-### Microbiology
+## Microbiology
 - ⭐ **Gram-negative coccobacilli** (small)
 - Slow-growing
 - ⭐ **Intracellular pathogen** (in macrophages, neutrophils)
 
-### Survival in Environment
+## Survival in Environment
 - Survives weeks in feces, urine, water, soil
 - ⭐ Sun + heat = kills it (Thailand favorable!)
 - Cold/cold-dairy products = preserves it!
 
-### Survival in Dairy Products ⭐
+## Survival in Dairy Products ⭐
 | Product | Storage | Survival |
 |---|---|---|
 | Milk (whole) | 8°C | 48 hours |
@@ -42026,14 +42079,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 > ⚠️ **Beware**: "Premium artisan unpasteurized cheese" sold in Thailand — explicit risk!
 
-### Pathogenesis
+## Pathogenesis
 - ⭐ **Predilection sites** ("ที่ชอบที่ชอบของมัน"):
   - Pregnant uterus (placenta)
   - Mammary gland + supramammary LN
   - Testes
   - ⚠️ All contain **erythritol** — substance Brucella loves to grow on!
 
-### Routes of Infection ⭐
+## Routes of Infection ⭐
 | Route | Why important |
 |---|---|
 | **Ingestion** ⭐ MAIN! | Direct/indirect via contaminated environment |
@@ -42043,12 +42096,12 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Vertical | Rare in true sense |
 | Semen (artificial insemination) | Rare with proper screening |
 
-### Why Cows Lick Each Other in Estrus ⭐
+## Why Cows Lick Each Other in Estrus ⭐
 - ⭐ **Pre-mating behavior**: female in heat → other cows mount + lick genitalia
 - This is how B. abortus spreads even in 100% AI farms!
 - Reduces but doesn't eliminate horizontal transmission
 
-### Disease Course
+## Disease Course
 1. **Septicemia phase** (1-2 weeks)
    - Fever, depression
    - Brucella in blood, lymphatic spread
@@ -42057,7 +42110,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
    - Mammary gland → contaminated milk
    - Testes → orchitis + epididymitis
 
-### Clinical Signs in Cattle ⭐⭐⭐
+## Clinical Signs in Cattle ⭐⭐⭐
 - ⭐ **Abortion in LAST TRIMESTER** (after 5-6 months gestation)
 - Calf comes out fully developed, with hair coat — but stillborn or weak
 - Retained placenta (4-6+ hours)
@@ -42066,14 +42119,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ **Not all positive cows abort** — 20% during pregnancy when first infected
 - Subsequent pregnancies: may go to term but contaminated
 
-### Important Diagnostic Concepts ⭐
+## Important Diagnostic Concepts ⭐
 1. ⭐ **incubation period 60 days** → seroconversion
    - If today screening Negative → re-test in 60 days minimum!
 2. ⭐ **Latent infection** in calf born from infected dam
    - Calf considers Brucella "self" → never seroconverts
    - Continues spreading silently in herd
 
-### Diagnosis ⭐
+## Diagnosis ⭐
 | Test | Detail |
 |---|---|
 | **Serum Agglutination** | Standard tube test |
@@ -42084,14 +42137,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **PCR** | Available |
 | **Histopath** | Granulomas in placenta, testes |
 
-### Milk Ring Test Pros & Cons ⭐
+## Milk Ring Test Pros & Cons ⭐
 - ✅ **Cheap** (no needles, no centrifuge)
 - ✅ **Easy to scale** (test pooled tank milk = whole farm screen)
 - ✅ Field-deployable
 - ⚠️ **Dilution effect** in large herds (>100 cows) reduces sensitivity
 - ⚠️ Best for confirming farms before individual testing
 
-### Real Story: Pakchong Cooperative ⭐
+## Real Story: Pakchong Cooperative ⭐
 - 150 farms tested via milk ring test
 - 2 farms positive
 - One farm: 150-cow herd, 10 positive → ALL CULLED
@@ -42099,7 +42152,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Result: published in Sapporo conference + DLD reactivated brucellosis surveillance
 - ⭐ Lesson: **Same coop, opposite reactions** — communication matters!
 
-### Treatment & Control ⭐
+## Treatment & Control ⭐
 - ⛔ **NO TREATMENT** in Thailand
 - Cull all positive animals
 - Quarantine farm 60+ days after last positive
@@ -42108,39 +42161,41 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   - Side effect: vaccinated cattle may abort if given during pregnancy
   - Not a routine Thai practice
 
-### Public Health Communication ⭐
+## Public Health Communication ⭐
 - ⚠️ Aborted material is highly infectious!
 - Wear PPE: gloves, mask, eye protection
 - N95 masks recommended for goat farms
 - ⚠️ ⛔ **AI semen** must be from certified Brucella-free centers
 
-## 2️⃣ Hemorrhagic Septicemia (โรคคอบวม / โรคคอตีบ) ⭐⭐⭐
+---
 
-### Etiology
-- ⭐ **Pasteurella multocida** (serotype B:2 in Asia)
+# 🔻 Part 2: Hemorrhagic Septicemia (โรคคอบวม / โรคคอตีบ) ⭐⭐⭐
+
+## Etiology
+- ⭐ ***Pasteurella multocida*** (serotype B:2 in Asia)
 - ⚠️ Same bacterium that's secondary in BRD complex — but in **buffalo** = primary disease!
 - Bipolar staining (dark ends, light middle) when Methylene Blue stained ⭐
 
-### Why Buffalo > Cattle ⭐
+## Why Buffalo > Cattle ⭐
 - ⭐ **Buffalo wallowing behavior** (water buffalos love water/mud)
 - Stagnant water = bacterial reservoir
 - 1 dead buffalo in pond → bacteria contaminate → other buffalo drink → outbreak!
 - ⭐ **Mortality 90-100%** in symptomatic buffalo (vs ~5-10% in cattle)
 - Listed under พรบ.โรคระบาดสัตว์
 
-### Real Story: Sakhonnakhon Outbreak ⭐
+## Real Story: Sakhonnakhon Outbreak ⭐
 - 2541-2542 (1998-1999): outbreak in Sakhon Nakhon
 - 1 buffalo died in communal pond → 30 buffalos died in following weeks (news inflated to "300")
 - ⭐ Classic Hemorrhagic Septicemia presentation
 - Survivor: 1 elderly woman's only buffalo — first photographed case of "swollen neck"
 
-### Pathogenesis
+## Pathogenesis
 - ⭐ Almost always: **secondary** to viral respiratory infection + stress
 - Pre-disposing: BRD viruses (BHV-1, BVD, etc.)
 - Stress (transport, feed change, weather)
 - Pasteurella multiplies → septicemia → toxemia → death
 
-### Clinical Signs (Sudden Death!) ⭐
+## Clinical Signs (Sudden Death!) ⭐
 - ⭐ **Incubation 2-3 days** — rapid!
 - High fever
 - Depression, anorexia, salivation
@@ -42152,7 +42207,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Diarrhea
 - ⚠️ **Death within 24 hours** in buffalo!
 
-### Pathology at Necropsy
+## Pathology at Necropsy
 - Submental edema with **gelatinous appearance** (jelly-like!)
 - Pleural cavity: petechial hemorrhages
 - Lung: pneumonia, **consolidation**
@@ -42160,14 +42215,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Pericarditis
 - ⚠️ **Pathology widespread** = septicemia evidence
 
-### Diagnosis ⭐
+## Diagnosis ⭐
 - **Clinical signs** + species (buffalo!) + sudden death pattern
 - **Methylene Blue stain** of blood smear → bipolar bacilli
 - Blood culture (during septicemia)
 - ⭐ **Bone marrow culture** if internal organs autolyzed (key!)
 - Impression smear on heart blood, liver, lung
 
-### Treatment ⭐⭐ (FIRST disease in this lecture that's TREATABLE!)
+## Treatment ⭐⭐ (FIRST disease in this lecture that's TREATABLE!)
 - **Antibiotics** ASAP — gold standard:
   - **Ceftiofur** ⭐ (preferred, narrow + effective)
   - **Penicillin** (still works)
@@ -42176,14 +42231,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ **Time-concentration** principle: complete the course!
 - ⚠️ **No bacteriostatic + bactericidal mix** (concept!)
 
-### Drug Selection in Cattle ⭐
+## Drug Selection in Cattle ⭐
 1. ⭐ **Susceptibility data**: Thailand lacks national Pasteurella resistance survey (instructor collecting)
 2. ⭐ **Food Animal approved**: must have **withdrawal time** for milk on label!
 3. ⚠️ Extra-label use = veterinarian liability
 4. **Penalty for milk residue**: 20× milk price + vet personal liability
 5. **Time-concentration** of drug: complete course = no resistance
 
-### Vaccine — Hemorrhagic Septicemia ⭐
+## Vaccine — Hemorrhagic Septicemia ⭐
 - **Bacterin** vaccine produced by DLD
 - 2 forms:
   - **Aluminum hydroxide gel** (old) — protects 4-6 months, ⚠️ frequent **anaphylactic shock**
@@ -42191,14 +42246,14 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ **Deep IM** required (1.5-inch needle, NOT 1-inch!)
 - ⚠️ If subcutaneous: → sterile abscess → no immunity!
 
-### Vaccination Story ⭐ (Lesson learned!)
+## Vaccination Story ⭐ (Lesson learned!)
 - ⚠️ Old method needed instant rescue kit:
   - Adrenaline + Dexamethasone + Caffeine in EVERY vaccination team's bag
   - "Dig 2 holes — 1 for buffalo, 1 for vet who collapses!"
 - ⭐ Lesson: ALWAYS keep buffalo at vaccination site for 30 minutes post-injection — watch for anaphylaxis
 - Real story: Instructor's team had vaccine but FORGOT syringes (in cookie box!) — buffalo died staring at unused medicine!
 
-### Outbreak Control ⭐ (Sakhon Nakhon Strategy!)
+## Outbreak Control ⭐ (Sakhon Nakhon Strategy!)
 | Zone | Action |
 |---|---|
 | **Hotspot** | Antibiotics ONLY (no vaccine) — to break shedding |
@@ -42206,60 +42261,63 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Reasoning | Vaccine in active outbreak → late effect; antibiotic = immediate |
 | Recovery criterion | ⭐ **No new cases for 1 incubation period (2-3 days)** = outbreak over |
 
-### Why NOT vaccinate in active outbreak
+## Why NOT vaccinate in active outbreak
 - Animal already exposed → vaccine immunity too late
 - Antibiotic gives immediate protection
 - Vaccinate ONLY uninfected ring + after recovery
 
-## 3️⃣ Leptospirosis (โรคฉี่หนู) ⭐⭐⭐
+---
 
-### Etiology
-- **Leptospira** spp. (Spirochete, 250 serovars total!)
+# 🔻 Part 3: Leptospirosis (โรคฉี่หนู) ⭐⭐⭐
+
+## Etiology
+- ***Leptospira* spp.** (Spirochete, 250 serovars total!)
 - ⭐ **4 important serovars in ruminants**:
-  | Serovar | Specificity | Disease pattern |
-  |---|---|---|
-  | **Pomona** | Non-host-specific | Hemolysis, nephritis (CALVES) |
-  | **Icterohaemorrhagiae** | Non-host-specific | Severe icterus |
-  | **Hebdomadis** | Non-host-specific | Mild |
-  | ⭐ **Hardjo** | **Host-specific** (cattle/buffalo) | ⚠️ **Abortion storm + mastitis!** |
 
-### Naming Etymology ⭐
+| Serovar | Specificity | Disease pattern |
+|---|---|---|
+| **Pomona** | Non-host-specific | Hemolysis, nephritis (CALVES) |
+| **Icterohaemorrhagiae** | Non-host-specific | Severe icterus |
+| **Hebdomadis** | Non-host-specific | Mild |
+| ⭐ **Hardjo** | **Host-specific** (cattle/buffalo) | ⚠️ **Abortion storm + mastitis!** |
+
+## Naming Etymology ⭐
 - "Lepto" = thin
 - "Spira" = spiral
 - "Hardjo" = species-specific Greek root
 - โรคฉี่หนู = "rat piss disease" (rats are reservoirs!)
 
-### Survival
+## Survival
 - Loves: warm, humid, neutral pH (6-8)
 - ⭐ Survives months in water (paddy fields!)
 - ⚠️ Inactivated by extreme pH (<6 or >8)
 
-### Reservoirs (Important for prevention!) ⭐
+## Reservoirs (Important for prevention!) ⭐
 - ⭐ **Rats, mice, rodents** — primary reservoir (worldwide)
 - ⚠️ **Cattle, buffalo** can be reservoir (chronic shedders)
 - ⚠️ **Carrier state for LIFE** in kidney → urine shedding
 - Pigs, dogs
 
-### Routes of Infection ⭐
+## Routes of Infection ⭐
 1. **Skin penetration** (between toes, abrasions)
 2. **Mucous membranes** (eyes, mouth, nose)
 3. **Open wounds** (especially feet during rainy season)
 4. ⚠️ **Drinking contaminated water**
 5. ⚠️ **Wading in rice paddies** (workers!)
 
-### Public Health (Why "Rat Piss Disease") ⭐
+## Public Health (Why "Rat Piss Disease") ⭐
 - Thai farmers in rainy season working in flooded paddies
 - Buffalo + rats = both reservoirs
 - ⚠️ **Boots** = simple protection (gov distribution program in flood season)
 - ⭐ Workers' #1 protection!
 
-### Pathogenesis
+## Pathogenesis
 - ⭐ Penetrates skin/mucosa → blood (leptospiremia, days 1-7)
 - Body temp ↑ acutely
 - Settles in **kidney tubules** → carrier state for life
 - ⚠️ **Continuous urinary shedding** even after clinical recovery!
 
-### Disease Patterns ⭐
+## Disease Patterns ⭐
 | Form | Animal age | Causative serovar | Manifestation |
 |---|---|---|---|
 | **Acute (severe)** | **Calves** | **Pomona, Icterohaemorrhagiae** | ⚠️ Severe! Hemolysis, jaundice, hemoglobinuria, fever, death |
@@ -42267,26 +42325,26 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Chronic** | Adults | **Hardjo** ⭐ | ⭐ **Abortion storm** in last trimester |
 | **Mastitis variant** | Adults | **Hardjo** ⭐ | "Wilted udder" — pale, yellow milk, no swelling, NO heat |
 
-### Pomona-specific Pathology ⭐
+## Pomona-specific Pathology ⭐
 - ⭐ **Intravascular hemolysis** — RBC lysis
 - ⭐ **Hemoglobinuria** — "Coca-Cola colored urine"
 - ⭐ **Interstitial nephritis** — kidney inflammation
 - → Anemia → tachycardia (heart rate ↑ to compensate)
 - May die from uremia
 
-### Hardjo-specific Pathology ⭐
+## Hardjo-specific Pathology ⭐
 - ⚠️ **Reproductive only** (no hemolysis, no nephritis)
 - ⭐ **Abortion in last trimester** (3 last months)
 - ⭐ **Abortion STORM** — multiple cows abort simultaneously over 2-3 weeks
 - ⭐ **Atypical mastitis** ⭐⭐:
-  - Compare with bacterial mastitis:
+
   | Feature | Bacterial mastitis | Leptospira (Hardjo) mastitis |
   |---|---|---|
   | Udder | Hot, swollen, red, painful | **Wilted, soft, NOT inflamed** |
   | Milk | Curd, abnormal, blood | **Yellow water or no milk!** |
   | Recovery | Treatment needed | **Self-resolves** |
 
-### Diagnosis ⭐
+## Diagnosis ⭐
 | Method | Notes |
 |---|---|
 | **Dark Field Microscopy** | ⭐ Direct visualization of spirochetes |
@@ -42296,19 +42354,19 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **PCR** | Rapid + specific |
 | **Culture** (Fletcher medium) | Slow-growing |
 
-### Urine Collection in Cattle ⭐
+## Urine Collection in Cattle ⭐
 - ⭐ Cows pee when **strangers enter the pen** (alarm response!)
 - "Catheterize urine" — possible but rare in field
 - Easier: wait for pee, catch in container
 - Best fresh sample (pH neutral)
 
-### Treatment
+## Treatment
 - **Streptomycin + Penicillin** combination = traditional
 - **Tetracyclines** (oxytetracycline, doxycycline)
 - ⚠️ **Multi-week course** required (clear kidney shedding)
 - ⚠️ Chronic carriers may not fully clear
 
-### Prevention & Control
+## Prevention & Control
 - **Vaccine** (combined polyvalent)
 - ⚠️ Available worldwide but only modest efficacy (esp. Hardjo)
 - **Rodent control**
@@ -42316,34 +42374,36 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Boot protocols** for workers
 - ⚠️ **Cull persistent carriers** in test-and-cull herds
 
-### Public Health (Zoonotic Acute Syndrome) ⭐
+## Public Health (Zoonotic Acute Syndrome) ⭐
 - Workers exposed → flu-like illness
 - ⚠️ Severe form: **Weil's disease** (hepatorenal failure, jaundice)
 - Can be fatal in humans!
 - ICU treatment: penicillin G + supportive
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### Brucellosis (1-6)
-1. ⭐ **4 species**: B. abortus (cattle), B. melitensis (goat — most dangerous!), B. suis, B. ovis
-2. ⭐ **B. melitensis = airborne, biowarfare-grade**
-3. ⭐ **Predilection**: pregnant uterus, mammary gland, testes (erythritol-loving!)
-4. ⭐ **Abortion in LAST TRIMESTER** (5+ months)
-5. ⭐ **Milk Ring Test** = field screening for tank milk
-6. ⛔ **No treatment**, cull only, 60-day re-test interval
+## 📋 Exam Recap
 
-### Hemorrhagic Septicemia (7-11)
-7. ⭐ **Pasteurella multocida B:2** in **buffalo**
-8. ⭐ **"Swollen neck"** (submental edema) = pathognomonic
-9. ⚠️ **Mortality 90-100%** in symptomatic buffalo, sudden death!
-10. ⭐ **Methylene Blue → bipolar staining**
-11. ⭐ **TREATABLE** ⭐ Ceftiofur or Penicillin, vaccinate annually with Oil adjuvant
+### Brucellosis
+- ⭐⭐⭐ **4 species**: B. abortus (cattle), B. melitensis (goat — most dangerous!), B. suis, B. ovis
+- ⭐⭐⭐ **Abortion in LAST TRIMESTER** (5+ months)
+- ⭐⭐ **B. melitensis = airborne, biowarfare-grade**
+- ⭐⭐ **Predilection**: pregnant uterus, mammary gland, testes (erythritol-loving!)
+- ⭐ **Milk Ring Test** = field screening for tank milk
+- ⛔ **No treatment**, cull only, 60-day re-test interval
 
-### Leptospirosis (12-15)
-12. ⭐ **4 serovars**: Pomona/Icterohaemorrhagiae/Hebdomadis (non-host) + **Hardjo (cattle-specific!)**
-13. ⭐ **Pomona = hemolysis + Coca-Cola urine** in calves (acute)
-14. ⭐ **Hardjo = ABORTION STORM** in last trimester + **wilted udder mastitis**
-15. ⚠️ **Carrier state for LIFE** in kidney → urine shedding, zoonotic!
+### Hemorrhagic Septicemia
+- ⭐⭐⭐ ***Pasteurella multocida* B:2** in **buffalo**
+- ⭐⭐⭐ **"Swollen neck"** (submental edema) = pathognomonic
+- ⭐⭐ **Mortality 90-100%** in symptomatic buffalo, sudden death!
+- ⭐⭐ **TREATABLE** — Ceftiofur or Penicillin, vaccinate annually with Oil adjuvant
+- ⭐ **Methylene Blue → bipolar staining**
+
+### Leptospirosis
+- ⭐⭐⭐ **4 serovars**: Pomona/Icterohaemorrhagiae/Hebdomadis (non-host) + **Hardjo (cattle-specific!)**
+- ⭐⭐⭐ **Hardjo = ABORTION STORM** in last trimester + **wilted udder mastitis**
+- ⭐⭐ **Pomona = hemolysis + Coca-Cola urine** in calves (acute)
+- ⭐ **Carrier state for LIFE** in kidney → urine shedding, zoonotic!
 
 > 📚 **Cross-refs**: TB+ParaTB (chronic infectious), FMD+LSD (other reportable diseases)
 > 🩺 **Practical**: Annual Hemorrhagic Septicemia vaccine in buffalo, MRT screening at coop level for Brucella, Boot rule for workers (Lepto)
@@ -42359,27 +42419,35 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 54,
     instructor: 'อ.ธนศักดิ์ (review, เน้น clinical practice + Haemonchus case study + ยา anthelmintic resistance)',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง Haemonchus blood-sucker + FAMACHA + 500 epg threshold + anthelmintic resistance + combination therapy',
-    summary: `## 🎯 Lead Summary
-**GI parasites in ruminants** — practitioner-focused review (preclinical knowledge applied to field). ⭐ **Haemonchus contortus** = #1 problem in Thai goat farms, blood-sucking nematode causing **severe anemia** (PCV drops to 7-9%!), ⚠️ **100% Thai goat farms have ivermectin resistance** (instructor's research). **Approach**: Clinical signs (diarrhea, anemia, edema) → fecal exam → FAMACHA color chart → ⭐ **500 epg threshold** for treatment → ⭐ **FECRT** to detect resistance → ⭐ **Combination therapy** (FBZ + Levamisole) revives old drugs.
+    summary: `# Gastrointestinal Parasites in Ruminant (Haemonchus + Anthelmintic Resistance)
 
-## 1️⃣ Why This Lecture Matters
+> 🎯 **GI parasites in ruminants** — practitioner-focused review. ⭐⭐⭐ ***Haemonchus contortus*** = #1 problem ใน Thai goat farms, blood-sucking nematode → severe anemia (PCV 7-9%!)
+> ⚠️ **100% Thai goat farms have ivermectin resistance** (instructor's research)
 
-### Practitioner Mindset (vs. Lab Mindset) ⭐
+Approach: Clinical signs → fecal exam → FAMACHA → **500 epg threshold** → **FECRT** เพื่อ detect resistance → **Combination therapy** (FBZ + Levamisole) revives old drugs.
+
+---
+
+# 🔻 Part 1: Why This Lecture Matters
+
+## Practitioner Mindset (vs. Lab Mindset) ⭐
 > "ทุกอย่างที่เรียนมาสามารถจบด้วย Ivermectin จริงไหม?"
 - ⭐ Preclinical: detailed life cycles, identification, lab work
 - Practitioner: **focus on clinical decision-making**
 - Updates and field-relevant only in this review
 
-### Why Parasites Cause Disease
+## Why Parasites Cause Disease
 1. **Blood loss** (Haemonchus) → anemia, hypoproteinemia
 2. **Mucosal damage** → diarrhea, malabsorption
 3. **Direct organ invasion** (Fasciola → liver) → tissue damage
 4. **Allergic reactions** → eosinophilia
 5. **Competition for nutrients** → emaciation
 
-## 2️⃣ Clinical Signs of Parasitism ⭐⭐⭐
+---
 
-### Cardinal Signs
+# 🔻 Part 2: Clinical Signs of Parasitism ⭐⭐⭐
+
+## Cardinal Signs
 | Sign | Mechanism | Note |
 |---|---|---|
 | **Diarrhea** | Mucosal damage → mucus + fluid | Distinguishable from infectious diarrhea (no foul smell, no blood usually) |
@@ -42389,33 +42457,35 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Rough hair coat** | Poor nutritional status | "ขนหยอง หยาบ" |
 | **Bottle jaw** ⭐ | Hypoproteinemia → fluid pooling | ⭐ Soft, fluid-filled (NOT inflammatory edema!) |
 
-### ⭐ Edema Distinction (critical clinical skill!)
+## Edema Distinction (critical clinical skill!) ⭐
 | Type | Texture | Cause |
 |---|---|---|
 | **Hypoproteinemic** (parasitic, ParaTB, Johne's) | ⭐ **Soft, fluid-filled, like a balloon** | Low oncotic pressure |
 | **Inflammatory** (HS, infection) | Firm, pitting | Vascular leak from inflammation |
 
-### Special Pattern Recognition ⭐
+## Special Pattern Recognition ⭐
 - ⚠️ **Pale + Lethargic + Bottle jaw = Haemonchus until proven otherwise** in goats
 - **Jaundice + No fever** in cattle → ⭐ DDx: **Fascioliasis** (NOT just Anaplasmosis!)
   - Real case: cow at student camp, pale-jaundiced, no fever, on free-range pasture → Fascioliasis with intermediate host exposure
 - **Cough + weight loss + no fever** → ⭐ Lung worms (Dictyocaulus)
 
-## 3️⃣ ⭐⭐⭐ Haemonchus contortus (พยาธิตัวองคุ / Barber Pole Worm)
+---
 
-### Why It's #1 in Thai Goats
+# 🔻 Part 3: Haemonchus contortus (พยาธิตัวองคุ / Barber Pole Worm) ⭐⭐⭐
+
+## Why It's #1 in Thai Goats
 - ⭐ **Blood-sucking nematode** in **abomasum** (true stomach)
 - Mouth has **lancets** (cutting blades) → punctures mucosa → drinks blood
 - ⚠️ Can ingest 10,000+ worms per goat!
 - 1 goat necropsied → 3 jars of worms (instructor's case)
 
-### Pathophysiology
+## Pathophysiology
 - ⭐ Each worm consumes ~0.05 mL blood/day
 - 5,000 worms × 0.05 mL = 250 mL/day = ~1/4 of goat's blood volume!
 - → Severe anemia, hypoproteinemia
 - → ⚠️ Death without treatment
 
-### Real Case Story ⭐ (Pivotal lesson!)
+## Real Case Story ⭐ (Pivotal lesson!)
 - Dairy farm with goats imported, suddenly dying
 - 1st pathologist: "Anemia, gelatinous bone marrow, parasites Negative"
 - ⚠️ Initial thought: **Copper toxicity** (cow farm dipping hooves in CuSO4)
@@ -42424,13 +42494,13 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   - Found: **massive Haemonchus infestation** (worms = "barber pole" pattern)
   - ⭐ Lesson: ALWAYS open the FULL GI tract during necropsy!
 
-### Pathology
+## Pathology
 - ⭐ **Severe anemia** (PCV 7-9% in survivors!)
 - Pale mucous membranes
 - Reduced milk yield
 - Death possible at PCV <5%
 
-### Diagnosis ⭐
+## Diagnosis ⭐
 | Method | Detail |
 |---|---|
 | **Clinical signs** | Pallor, bottle jaw, weight loss |
@@ -42439,21 +42509,23 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Larval culture** | ⭐ ID confirms Haemonchus (vs Trichostrongylus) |
 | **Necropsy** | Direct visualization in abomasum |
 
-### Life Cycle ⭐
+## Life Cycle ⭐
 - ⭐ Direct life cycle (no intermediate host!)
 - Eggs in feces → Larvae (L3) on pasture
 - ⚠️ L3 climbs grass blades → ingested by grazing animal
 - Pre-patent period: ~3 weeks (3 weeks egg-to-egg)
 - ⭐ **Hatches at >60°F** — Thailand has year-round transmission!
 
-### Why Mostly in Goats (not Cattle) in Thailand
+## Why Mostly in Goats (not Cattle) in Thailand
 - Goat browsing behavior + grass blade climbing of L3
 - Cattle on pasture also affected but tend to ingest from soil more
 - Buffalo grazing = mixed risk
 
-## 4️⃣ Other Important GI Parasites
+---
 
-### Compare Table
+# 🔻 Part 4: Other Important GI Parasites
+
+## Compare Table
 | Parasite | Type | Location | Key feature |
 |---|---|---|---|
 | **Haemonchus** ⭐ | Nematode (Strongyle) | Abomasum | Blood-sucker |
@@ -42464,7 +42536,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Moniezia** | Cestode (tapeworm) | Small intestine | ⚠️ 1 egg = significant! |
 | **Coccidia** | Protozoa | Small intestine | Lambs/calves |
 
-### ⭐ Special Significance Rule
+## Special Significance Rule ⭐
 | Finding | Action |
 |---|---|
 | **2-3 strongyle eggs** alone | ⚠️ Don't treat blindly — could be normal flora |
@@ -42472,13 +42544,15 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **1 fluke egg** | ⭐ TREAT immediately (organ damage!) |
 | **>500 epg in goat** ⭐ | TREATMENT THRESHOLD |
 
-### Tapeworm vs Rectal Prolapse ⭐
+## Tapeworm vs Rectal Prolapse ⭐
 - ⚠️ Some farmers mistake **proglottid trains** (segments out anus) for **rectal prolapse**!
 - Distinguish: prolapse comes from anus; proglottids dangle/fall off
 
-## 5️⃣ Diagnostic Methods ⭐
+---
 
-### 1. Fecal Examination (Field Screening)
+# 🔻 Part 5: Diagnostic Methods ⭐
+
+## 1. Fecal Examination (Field Screening)
 | Method | Use |
 |---|---|
 | **Direct smear** | Quick check for protozoa |
@@ -42487,17 +42561,18 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Larval culture** | ID by larval morphology |
 | **Necropsy** | Gold standard — open FULL GI tract |
 
-### 2. Fecal Egg Count (FEC) ⭐
+## 2. Fecal Egg Count (FEC) ⭐
 - ⭐ **Quantitative method** (eggs per gram = epg)
 - Uses **McMaster Chamber** (slide with grids)
 - ⭐ **Treatment threshold**: **500 epg** in goats
 - Below 500: monitor, no treatment needed
 - Above 500: treat with appropriate anthelmintic
 
-### 3. ⭐ FAMACHA Color Chart (Field-Practical!)
+## 3. FAMACHA Color Chart (Field-Practical!) ⭐
 - ⭐ **Color chart for conjunctival pallor** (anemia score)
 - Lift goat's eyelid → match red intensity to chart
 - 5 categories:
+
   | Score | Color | Action |
   |---|---|---|
   | 1 | Bright red | No treatment |
@@ -42506,12 +42581,12 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   | 4 | ⭐ Pale pink | ⚠️ TREAT |
   | 5 | White | ⚠️ Severe anemia, treat + supportive |
 
-### FAMACHA Caveats ⭐
+## FAMACHA Caveats ⭐
 - ⚠️ **Color reproduction varies by printer** (need certified version!)
 - ⚠️ Sun fading destroys colors → unusable
 - Best to laminate + keep in clean dry place
 
-### 4. ⭐⭐ FECRT (Fecal Egg Count Reduction Test)
+## 4. FECRT (Fecal Egg Count Reduction Test) ⭐⭐
 **Purpose**: Detect anthelmintic resistance!
 
 **Procedure**:
@@ -42524,15 +42599,17 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
    - 90-95% = Borderline
    - **<90% reduction** = ⚠️ RESISTANCE detected!
 
-## 6️⃣ ⭐ Anthelmintic Resistance (Major Crisis!)
+---
 
-### Thailand Survey Results ⭐
+# 🔻 Part 6: Anthelmintic Resistance (Major Crisis!) ⭐
+
+## Thailand Survey Results ⭐
 - 28 goat farms surveyed (instructor's research)
 - ⭐ **77% had GI parasites despite routine deworming**
 - **6% had heavy infection**
 - ⚠️ 100% farms used Ivermectin or Albendazole
 
-### Causes of Resistance ⭐
+## Causes of Resistance ⭐
 1. ⭐ **OVERUSE** — deworm "for peace of mind" without diagnosis
 2. ⭐ **UNDERDOSE** — eyeballed body weight estimation
    - Test: experienced goat farmer estimates ±2 kg accuracy (good for selling, bad for dosing!)
@@ -42542,7 +42619,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 4. **LACK OF ROTATION** — same drug class for years
 5. **POOR FARM MANAGEMENT** — pasture rotation neglected
 
-### Drug Classes & Status (Thailand) ⭐
+## Drug Classes & Status (Thailand) ⭐
 | Class | Examples | Status |
 |---|---|---|
 | **Macrocyclic Lactones** ⭐ | Ivermectin, Doramectin | ⚠️ **100% Thai goat farms RESISTANT!** |
@@ -42551,27 +42628,29 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Closantel** | Closantel | Active vs Haemonchus |
 | **Monepantel** | New class | Limited availability |
 
-### Instructor's FECRT Results (16 Goat Farms) ⭐
+## Instructor's FECRT Results (16 Goat Farms) ⭐
 - ⚠️ Only **3/16 farms** showed any reduction with Ivermectin
 - ⚠️ **0/16 farms** had >90% reduction
 - ⚠️ Some farms: **+900% increase** in egg count after Ivermectin (drug failed completely!)
 - ⭐ Conclusion: **Ivermectin alone NO LONGER WORKS in Thai goats**
 
-### ⭐ Combination Therapy Solution ⭐⭐
+## Combination Therapy Solution ⭐⭐
 **Best results**: ⭐ **Fenbendazole + Levamisole** combination
 - Each at full dose (don't mix in syringe — give same day, separate)
 - ⭐ **99.8% reduction** in egg count
 - Synergistic: 2 different mechanisms attack worms
 - Revives older drugs!
 
-### Other Combinations
+## Other Combinations
 - Fenbendazole + Triclabendazole (also effective)
 - DON'T use Ivermectin or Doramectin (resistance!)
 - Reserve newer drugs (Monepantel) for rotation
 
-## 7️⃣ Treatment Decision Algorithm ⭐
+---
 
-### Standard Practitioner Workflow
+# 🔻 Part 7: Treatment Decision Algorithm ⭐
+
+## Standard Practitioner Workflow
 1. **Clinical signs** → suspicious for parasites
 2. **FAMACHA score** (or PCV) → confirms anemia
 3. **Fecal exam** → confirms parasites
@@ -42581,7 +42660,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
    - OR rotated single agent
 6. **FECRT** at intervals to detect resistance
 
-### Treatment Drug Selection ⭐
+## Treatment Drug Selection ⭐
 | Factor | Consider |
 |---|---|
 | **Species** | Cattle vs goat — different products! |
@@ -42590,7 +42669,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Pregnant?** | Some drugs contraindicated |
 | **Weight** | ⭐ Weigh accurately, calculate dose, don't eyeball |
 
-### Supportive Treatment for Severe Cases
+## Supportive Treatment for Severe Cases
 - ⭐ **Blood transfusion** in goats (PCV <10%):
   - No cross-matching needed in ruminants
   - Give full dose (350-450 mL/transfusion)
@@ -42598,21 +42677,23 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Fluid therapy** for dehydration
 - ⭐ **Iron + B12** to support new RBC production
 
-### Real Goat Transfusion Case ⭐
+## Real Goat Transfusion Case ⭐
 - 2 goats imported, severe Haemonchus
 - PCV: 7% and 9%
 - Transfused 350 mL + 100 mL respectively
 - ⭐ Both recovered!
 - Lesson: Aggressive supportive care = saves lives
 
-## 8️⃣ Prevention Programs ⭐
+---
 
-### Pasture Management
+# 🔻 Part 8: Prevention Programs ⭐
+
+## Pasture Management
 - ⭐ **Rotate paddocks** (pasture rest = larvae die)
 - ⭐ **3-week rest minimum** (parasite life cycle break)
 - ⚠️ **Raised housing** = ideal (no pasture transmission)
 
-### Deworming Program Design
+## Deworming Program Design
 - ⭐ Treat at **strategic timing**:
   - 3 weeks between treatments (cycle interruption)
   - Avoid blanket treatment
@@ -42621,33 +42702,35 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   - Right: Combination this year → Different combination next year
 - Base on **FECRT results** for evidence-based selection
 
-### Farm-Level Best Practices
+## Farm-Level Best Practices
 - ⭐ Quarantine + treat new animals before introduction
 - ⭐ Maintain pasture rotation schedule
 - ⭐ Don't deworm "in advance" or "preventively"
 - Keep records: FEC trends + treatment outcomes
 
-## 📋 Exam Recap (12 จุดสำคัญ)
+---
 
-### Clinical Recognition (1-4)
-1. ⭐ **Diarrhea + anemia + bottle jaw + rough coat** = parasitism
-2. ⭐ **Hypoproteinemic edema = soft, fluid-filled** (vs. inflammatory = firm)
-3. ⭐ **Haemonchus** = blood-sucker, abomasum, most lethal in goats
-4. ⭐ Always **open FULL GI tract** at necropsy (don't focus on suspect organ only)
+## 📋 Exam Recap
 
-### Diagnostic (5-7)
-5. ⭐ **FEC threshold for goats: 500 epg**
-6. ⭐ **FAMACHA score 4-5 = treat** (color chart for conjunctiva)
-7. ⭐ **FECRT** = 15 animals, Day 0/14, >95% reduction = no resistance
+### Clinical Recognition
+- ⭐⭐⭐ **Diarrhea + anemia + bottle jaw + rough coat** = parasitism
+- ⭐⭐ **Hypoproteinemic edema = soft, fluid-filled** (vs. inflammatory = firm)
+- ⭐⭐ ***Haemonchus*** = blood-sucker, abomasum, most lethal in goats
+- ⭐ Always **open FULL GI tract** at necropsy
 
-### Drugs (8-10)
-8. ⚠️ **Ivermectin RESISTANCE = 100%** in Thai goat farms
-9. ⭐ **Combination therapy**: Fenbendazole + Levamisole = 99.8% reduction
-10. ⭐ **Blanket dosing + underdose + no rotation = creates resistance**
+### Diagnostic
+- ⭐⭐⭐ **FEC threshold for goats: 500 epg**
+- ⭐⭐ **FAMACHA score 4-5 = treat** (color chart for conjunctiva)
+- ⭐⭐ **FECRT** = 15 animals, Day 0/14, >95% reduction = no resistance
 
-### Prevention (11-12)
-11. ⭐ **Annual rotation** across drug families (NOT every 6 months)
-12. ⭐ **Pasture rotation** + 3-week rest interrupts life cycle
+### Drugs
+- ⭐⭐⭐ **Ivermectin RESISTANCE = 100%** in Thai goat farms
+- ⭐⭐⭐ **Combination therapy**: Fenbendazole + Levamisole = 99.8% reduction
+- ⭐⭐ **Blanket dosing + underdose + no rotation = creates resistance**
+
+### Prevention
+- ⭐⭐ **Annual rotation** across drug families (NOT every 6 months)
+- ⭐ **Pasture rotation** + 3-week rest interrupts life cycle
 
 > 📚 **Cross-refs**: Brucellosis (different infectious agent, same iceberg principle), Imaging (Norberg-Olsson for liver fluke?)
 > 🩺 **Practical**: Always weigh animals before dosing, Combine drugs when resistance suspected, Use FAMACHA in field
@@ -42664,12 +42747,18 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 161,
     instructor: 'อ.ธนศักดิ์ + หมอแนท (final lecture, Saraburi research center, vet career philosophy)',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง 5 inflammation signs + clinical vs subclinical + contagious vs environmental + SCC threshold + CMT + dry cow therapy',
-    summary: `## 🎯 Lead Summary
-**Mastitis = #1-3 disease in dairy cattle** by economic impact. Approach via **3 elements (Iceberg Triangle)**: ⭐ **People + Environment + Animal**. Two patterns: **Clinical** (visible signs, 5 inflammation criteria) vs **Subclinical** (no visible signs, detected by **SCC** + **CMT**). Two epidemiologies: **Contagious** (human-spread, S. aureus, Strep agalactiae) vs **Environmental** (housing-spread, E. coli, Strep uberis). Treatment philosophy: ⭐ **8 steps** including dry cow therapy + selective dry-off. ⭐ **80% of dairy business value** is keeping cows healthy (NOT treating sick) — the "iceberg insight" for vet career planning.
+    summary: `# Mastitis in Cattle (Clinical + Subclinical, Contagious + Environmental)
 
-## 1️⃣ Vet Career Philosophy (Iceberg Insight!) ⭐⭐
+> 🎯 **Mastitis = #1-3 disease ใน dairy cattle** by economic impact. Approach via **3 elements (Iceberg Triangle)**: People + Environment + Animal ⭐⭐⭐
+> 💡 **80% of dairy business value** is keeping cows healthy (NOT treating sick) — "iceberg insight" สำหรับ vet career planning
 
-### The 10-20% vs 80-90% Rule ⭐
+2 patterns: **Clinical** (visible signs, 5 inflammation criteria) vs **Subclinical** (no visible signs, detected by SCC + CMT). 2 epidemiologies: **Contagious** (human-spread) vs **Environmental** (housing-spread).
+
+---
+
+# 🔻 Part 1: Vet Career Philosophy (Iceberg Insight!) ⭐⭐
+
+## The 10-20% vs 80-90% Rule ⭐
 > "Vets focus on 10-20% (sick animals) but 80-90% of dairy business value is **keeping cows healthy**"
 
 **Sick animal business** (10-20%):
@@ -42682,7 +42771,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Pet food market: ฿50-60 billion/year (10× dairy!)
 - ⚠️ Often dominated by non-vets
 
-### Dairy Product Value Chain ⭐
+## Dairy Product Value Chain ⭐
 | Product | Value tier |
 |---|---|
 | **Raw milk dairy farm** | ⭐ Lowest (฿20/L) |
@@ -42694,43 +42783,47 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 > 💡 Thailand imports billions in cheese while producing milk, vet-led innovation opportunity!
 
-### Real Saraburi Research Center ⭐
+## Real Saraburi Research Center ⭐
 - **50-cow farm** with full dairy facility
 - Built during COVID (instructor had to milk personally!)
 - 800 m² compact training site
 - 4 different dairy products (cheddar, jersey cream, ice cream, yogurt)
 - VR training platform (Walk-Through VR for pandemic restrictions)
 
-### Career Decision at Year 4 ⭐
+## Career Decision at Year 4 ⭐
 > "Year 4 = turning point — if you decide what to do, life becomes easier; if not, you suffer 2 more years"
 - ⚠️ Don't be afraid to admit interests
 - ⚠️ Don't hide ambition — let mentors notice you
 - ⭐ **Reject every opportunity** = career suicide
 
-## 2️⃣ Mastitis Definition & Classification ⭐⭐⭐
+---
 
-### Etymology
+# 🔻 Part 2: Mastitis Definition & Classification ⭐⭐⭐
+
+## Etymology
 - **"Mastitis"** = inflammation of mammary gland
 - **"Mast-"** Greek = breast/udder
 - **"-itis"** = inflammation
 
-### Two Pattern Classifications
+## Two Pattern Classifications
 
-#### A. By Clinical Signs (Visible vs Hidden) ⭐
+### A. By Clinical Signs (Visible vs Hidden) ⭐
 | Pattern | Detection | Action |
 |---|---|---|
 | **Clinical Mastitis** ⭐ | Visible 5 inflammation signs | Treat individual cow |
 | **Subclinical Mastitis** ⭐ | Detected by SCC, CMT | Often missed but causes biggest economic loss |
 
-#### B. By Epidemiology (How spread) ⭐⭐
+### B. By Epidemiology (How spread) ⭐⭐
 | Pattern | Spread | Pathogens | Strategy |
 |---|---|---|---|
 | **Contagious** ⭐ | Human/equipment to cow | **S. aureus**, **Strep agalactiae**, Mycoplasma | Hygiene + milking order |
 | **Environmental** ⭐ | Housing/bedding to cow | **E. coli**, **Strep uberis**, Klebsiella | Bedding + housing |
 
-## 3️⃣ Clinical Mastitis ⭐⭐⭐
+---
 
-### 5 Cardinal Signs of Inflammation (Latin: Calor, Rubor, Tumor, Dolor, Functio Laesa)
+# 🔻 Part 3: Clinical Mastitis ⭐⭐⭐
+
+## 5 Cardinal Signs of Inflammation (Latin: Calor, Rubor, Tumor, Dolor, Functio Laesa)
 1. ⭐ **Calor (Heat)** — udder feels warm to hot
 2. ⭐ **Rubor (Redness)** — udder is reddish
 3. ⭐ **Tumor (Swelling)** — udder is swollen
@@ -42740,11 +42833,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
    - Yellow, off-color
    - Reduced volume
 
-### Diagnosis Criteria
+## Diagnosis Criteria
 - ⭐ **1 of 5 signs = clinical mastitis** (don't need all 5!)
 - Most common: **Functio Laesa first** (abnormal milk in strip cup)
 
-### Detection Methods (Clinical)
+## Detection Methods (Clinical)
 | Method | Detail |
 |---|---|
 | **Visual inspection** | Udder symmetry, swelling |
@@ -42752,16 +42845,18 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Palpation** | Heat, hardness comparison |
 | **Routine pre-milking inspection** | Critical farm SOP! |
 
-## 4️⃣ Subclinical Mastitis ⭐⭐⭐
+---
 
-### Why It's More Important Than Clinical
+# 🔻 Part 4: Subclinical Mastitis ⭐⭐⭐
+
+## Why It's More Important Than Clinical
 - ⚠️ **Subclinical = ICEBERG** — 80% hidden, 20% visible (clinical)
 - ⭐ **More economic loss** than clinical (more cows affected, longer)
 - Reduced milk yield (5-25% per quarter)
 - Reduced milk quality (high SCC = penalty/discount)
 - Sets up future clinical cases
 
-### Detection Methods ⭐
+## Detection Methods ⭐
 | Method | Pros | Cons |
 |---|---|---|
 | ⭐ **SCC** (Somatic Cell Count) | Quantitative, gold standard | Lab needed |
@@ -42770,7 +42865,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Conductivity meters** | Inline, automated | Expensive |
 | **PCR/culture** | ID specific pathogen | Slow |
 
-### SCC Thresholds ⭐⭐⭐
+## SCC Thresholds ⭐⭐⭐
 | SCC level | Status |
 |---|---|
 | **<200,000 cells/mL** | ⭐ Healthy |
@@ -42780,7 +42875,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 > ⭐ Bulk tank SCC <200,000 = farm doing well, >400,000 = penalty payment in Thailand
 
-### CMT (California Mastitis Test) ⭐
+## CMT (California Mastitis Test) ⭐
 **Procedure**:
 1. Squirt milk from each quarter into paddle
 2. Add CMT reagent (alkyl-aryl sulfonate)
@@ -42796,37 +42891,41 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | 2+ | Gel formation | 1,200-5,000K |
 | 3+ | Solid gel | >5,000,000 |
 
-### Why CMT Works
+## Why CMT Works
 - Reagent **lyses leukocytes**
 - Released DNA forms gel/precipitate
 - More cells = more gel = positive
 
-## 5️⃣ Pathogens by Pattern ⭐⭐
+---
 
-### Contagious Pathogens
+# 🔻 Part 5: Pathogens by Pattern ⭐⭐
+
+## Contagious Pathogens
 | Bacterium | Source | Key feature |
 |---|---|---|
-| ⭐ **Staphylococcus aureus** | Cow-cow via hands/cluster | ⚠️ Forms abscesses, often chronic |
-| ⭐ **Streptococcus agalactiae** | Cow-cow via udder | ⚠️ HIGHLY contagious, but easy to treat |
-| **Mycoplasma bovis** | Cow-cow | Multi-quarter, severe, no treatment |
-| **Corynebacterium bovis** | Cow-cow | Mild, opportunistic |
+| ⭐ ***Staphylococcus aureus*** | Cow-cow via hands/cluster | ⚠️ Forms abscesses, often chronic |
+| ⭐ ***Streptococcus agalactiae*** | Cow-cow via udder | ⚠️ HIGHLY contagious, but easy to treat |
+| ***Mycoplasma bovis*** | Cow-cow | Multi-quarter, severe, no treatment |
+| ***Corynebacterium bovis*** | Cow-cow | Mild, opportunistic |
 
-### Environmental Pathogens
+## Environmental Pathogens
 | Bacterium | Source | Key feature |
 |---|---|---|
-| ⭐ **E. coli** ⭐ | Bedding, manure | ⚠️ **Endotoxin shock** possible, sudden death! |
-| ⭐ **Streptococcus uberis** | Wet bedding | Common, summer mastitis |
+| ⭐ ***E. coli*** | Bedding, manure | ⚠️ **Endotoxin shock** possible, sudden death! |
+| ⭐ ***Streptococcus uberis*** | Wet bedding | Common, summer mastitis |
 | **Klebsiella** | Sawdust bedding | Severe, hard to treat |
 | **Pseudomonas** | Water sources | Resistant to many drugs |
 | **Yeast/Fungi** | Damp environments | Misuse of antibiotics → opportunistic |
 
-### Color Coding (Educational shortcut!) ⭐
+## Color Coding (Educational shortcut!) ⭐
 - **Contagious**: control via **PEOPLE/EQUIPMENT** discipline
 - **Environmental**: control via **HOUSING/BEDDING** quality
 
-## 6️⃣ Risk Factors (3-Element Iceberg) ⭐⭐
+---
 
-### People Factors ⭐ (Often #1 problem!)
+# 🔻 Part 6: Risk Factors (3-Element Iceberg) ⭐⭐
+
+## People Factors ⭐ (Often #1 problem!)
 - ⭐ **Hand hygiene** before milking
 - ⭐ **Gloves usage** (no skin contact)
 - **Pre-dipping** with disinfectant
@@ -42837,7 +42936,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ **Cluster (milking machine) cleaning** between cows
 - Technique: no over-milking, proper claw position
 
-### Environment Factors ⭐
+## Environment Factors ⭐
 - **Bedding quality** (clean, dry, comfortable)
 - **Stall hygiene** (manure removed)
 - **Ventilation** (no humidity buildup)
@@ -42845,7 +42944,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Cubicle dimensions** (correct sizing)
 - **Walking surface** (prevents teat injuries)
 
-### Animal (Cow) Factors ⭐
+## Animal (Cow) Factors ⭐
 - **Genetics** (selectable for udder shape!)
   - ⭐ Teat length, diameter affects mastitis risk
 - **Lactation stage** (early lactation = high risk)
@@ -42853,20 +42952,22 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Body condition** (thin = poor immunity)
 - **Concurrent disease** (BVD immune suppression)
 
-### Equipment Factors
+## Equipment Factors
 - ⭐ **Milking machine maintenance** (vacuum levels, pulsation)
 - **Worn liners** (rubber teat cups)
 - **Cluster fall-off** (re-attached without cleaning)
 
-## 7️⃣ Pathogenesis ⭐
+---
 
-### Infection Route
+# 🔻 Part 7: Pathogenesis ⭐
+
+## Infection Route
 - Bacteria enter via **teat canal opening**
 - ⭐ Milk = perfect growth medium (warm, nutrient-rich)
 - ⭐ Lactose → bacterial fermentation
 - Initial colonization → multiplication
 
-### Inflammation Cascade
+## Inflammation Cascade
 1. **Bacterial entry** through streak canal
 2. **Toxin release** → damage epithelium
 3. **Immune response** → leukocyte infiltration → ⭐ **SCC ↑**
@@ -42874,7 +42975,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. **Pain** from edema + inflammatory mediators
 6. ⚠️ **Septicemia** (E. coli) → endotoxin shock (peracute)
 
-### Acute vs Chronic Patterns ⭐
+## Acute vs Chronic Patterns ⭐
 | Pattern | Duration | Detection | Treatment |
 |---|---|---|---|
 | **Peracute** | Hours | E. coli mostly, sudden | Aggressive systemic + supportive |
@@ -42882,54 +42983,58 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Subclinical** | Months | SCC/CMT only | Prolonged or DCT |
 | **Chronic** | Months-years | Recurring, firm udder | Often cull |
 
-## 8️⃣ Treatment Strategy (8-Step Protocol) ⭐⭐⭐
+---
 
-### Step 1: Identify the cow + quarter
+# 🔻 Part 8: Treatment Strategy (8-Step Protocol) ⭐⭐⭐
+
+## Step 1: Identify the cow + quarter
 - Strip cup → which quarter?
 - CMT → which quarter is positive?
 
-### Step 2: Sample for culture (BEFORE treatment!)
+## Step 2: Sample for culture (BEFORE treatment!)
 - ⭐ Sterile sampling (clean teat end with alcohol)
 - Submit for culture + antibiotic sensitivity
 - Critical for chronic/recurring cases
 
-### Step 3: Express milk (Strip out infected quarter)
+## Step 3: Express milk (Strip out infected quarter)
 - Reduces bacterial load
 - Removes inflammatory mediators
 
-### Step 4: ⭐ Intramammary antibiotics ⭐
+## Step 4: Intramammary antibiotics ⭐
 - ⭐ Specific drug for cattle udder (NOT extra-label!)
 - Match pathogen sensitivity
 - Common: Cloxacillin, Amoxicillin, Cephapirin
 
-### Step 5: Systemic antibiotics (selected cases)
+## Step 5: Systemic antibiotics (selected cases)
 - **Severe/septic mastitis** (E. coli toxemia)
 - **Chronic with multi-quarter** spread
 - ⚠️ Must have milk withdrawal (28 days for Ivermectin, Penicillin 4 days)
 
-### Step 6: Anti-inflammatory ⭐
+## Step 6: Anti-inflammatory ⭐
 - **NSAIDs** (Flunixin, Meloxicam)
 - Reduces pain, edema, fever
 - ⭐ Critical in peracute septic cases
 
-### Step 7: Fluid + supportive
+## Step 7: Fluid + supportive
 - IV fluids if shock/dehydration
 - Calcium for downer cows
 
-### Step 8: Follow-up
+## Step 8: Follow-up
 - Re-examine 3-7 days post
 - Repeat CMT/SCC
 - Decide: cure vs cull
 
-## 9️⃣ Dry Cow Therapy (DCT) ⭐⭐⭐
+---
 
-### Why DCT?
+# 🔻 Part 9: Dry Cow Therapy (DCT) ⭐⭐⭐
+
+## Why DCT?
 - ⭐ **Drying-off period** = vulnerable
 - Last milking → no milk flushing
 - Bacteria can colonize without resistance
 - Without DCT: clinical mastitis ↑ in next lactation
 
-### Approaches
+## Approaches
 | Strategy | Detail |
 |---|---|
 | **Blanket DCT** ⭐ | Treat ALL quarters of ALL drying cows |
@@ -42937,51 +43042,55 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **Internal teat sealant** | Block teat canal physically (no antibiotic) |
 | **Combined** | DCT + sealant (best protection) |
 
-### When to Apply DCT ⭐
+## When to Apply DCT ⭐
 - ⭐ Last milking (drying off)
 - 1 tube per quarter of approved DCT product
 - ⭐ Wait full dry period (~60 days)
 - Withdrawal: 30 days post-calving for milk
 
-### DCT Antibiotics (Approved)
+## DCT Antibiotics (Approved)
 - Cloxacillin LA
 - Cephapirin
 - Penicillin G procaine
 - ⚠️ **Different formulation** from lactating cow products!
 
-## 🔟 Prevention Programs ⭐
+---
 
-### Premilking Routine ⭐ (5 essential steps)
+# 🔻 Part 10: Prevention Programs ⭐
+
+## Premilking Routine ⭐ (5 essential steps)
 1. ⭐ **Forestripping** (3 squirts) → strip cup → check
 2. ⭐ **Pre-dip** (disinfectant on teat)
 3. **Wait 30 sec** for kill time
 4. ⭐ **Dry with individual paper towels** (NOT shared cloth!)
 5. **Attach milking unit** within 60 seconds (let-down reflex)
 
-### Postmilking Routine
+## Postmilking Routine
 1. ⭐ **Post-dip** ALL teats (covers teat canal until closed)
 2. **Don't return** to stall immediately (cow stays standing while teat canal closes)
 3. **Walk to feeding** prevents lying in dirty bedding
 
-### Milking Order ⭐
+## Milking Order ⭐
 1. **Fresh cows** (1st calving)
 2. **Healthy cows** (low SCC)
 3. **High SCC cows**
 4. **Clinically sick** (LAST!)
 
-### Equipment Maintenance
+## Equipment Maintenance
 - ⭐ Annual vacuum + pulsation check
 - Replace liners by manufacturer schedule
 - Cluster cleaning between cows (esp. clinical)
 
-## 1️⃣1️⃣ Bulk Tank Monitoring ⭐
+---
 
-### Bulk Tank SCC (BTSCC)
+# 🔻 Part 11: Bulk Tank Monitoring ⭐
+
+## Bulk Tank SCC (BTSCC)
 - ⭐ **Bulk tank** = mixed milk from all cows
 - Monthly SCC measurement
 - Threshold: **<200K = excellent, >400K = penalty**
 
-### Action Levels
+## Action Levels
 | BTSCC | Action |
 |---|---|
 | <200K | Excellent, maintain |
@@ -42989,43 +43098,47 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | 400-750K | Review hygiene + culture |
 | >750K | Major intervention needed |
 
-### Differential Costs
+## Differential Costs
 - **Pasteurized fluid milk price**: ~฿20/L
 - ⭐ **Premium milk** (low SCC, low bacteria): ฿28-30/L
 - Saraburi Premium milk program — proves Thailand can match Hokkaido!
 
-## 1️⃣2️⃣ Special Mastitis Forms
+---
 
-### Summer Mastitis
+# 🔻 Part 12: Special Mastitis Forms
+
+## Summer Mastitis
 - Common in dry cows + heifers
 - ⭐ Hot, humid weather
 - Causes: T. pyogenes, P. indolicus
 - Severe abscessation
 - Often quarter loss
 
-### Mastitis from Brucellosis ⭐ (Cross-ref!)
+## Mastitis from Brucellosis ⭐ (Cross-ref!)
 - B. abortus localizes in udder
 - ⚠️ Chronic, low-grade
 - ⚠️ Zoonotic risk!
 
-### Leptospira Mastitis (Hardjo)
+## Leptospira Mastitis (Hardjo)
 - ⭐ Wilted udder, NO inflammation
 - Yellow watery milk
 - ⭐ Self-resolving (no treatment needed)
 
-### Actinomyces mastitis
+## Actinomyces mastitis
 - "Wooden" or hard udder
 - Granulomatous reaction
 - Often quarter loss
 
-## 1️⃣3️⃣ Economic Impact ⭐
+---
 
-### Cost Per Case
+# 🔻 Part 13: Economic Impact ⭐
+
+## Cost Per Case
 - **Clinical mastitis**: ฿3,000-10,000/case
 - **Subclinical chronic**: ฿15,000+ over lactation
 - **Culling losses**: ฿30,000-50,000 per cow
 
-### Farm-Level Losses
+## Farm-Level Losses
 - ⭐ Reduced milk yield (5-25% drop)
 - Discarded milk (treatment withdrawal)
 - Drug cost
@@ -43033,30 +43146,32 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Replacement costs
 - **Bulk tank SCC penalty** payments
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### Concepts (1-4)
-1. ⭐ **Iceberg model**: 20% clinical, 80% subclinical (or vice versa for vet career)
-2. ⭐ **3 Elements**: People + Environment + Animal (key risk factor analysis)
-3. ⭐ **5 Inflammation Signs**: Calor, Rubor, Tumor, Dolor, Functio Laesa
-4. **Functio Laesa** in udder = abnormal milk = first detected sign
+## 📋 Exam Recap
 
-### Classification (5-7)
-5. ⭐ **Contagious vs Environmental** (different prevention strategies!)
-6. **Contagious**: S. aureus + Strep agalactiae, spread by people
-7. **Environmental**: E. coli + Strep uberis, from bedding/housing
+### Concepts
+- ⭐⭐⭐ **Iceberg model**: 20% clinical, 80% subclinical (or vice versa for vet career)
+- ⭐⭐⭐ **3 Elements**: People + Environment + Animal
+- ⭐⭐⭐ **5 Inflammation Signs**: Calor, Rubor, Tumor, Dolor, Functio Laesa
+- ⭐ **Functio Laesa** in udder = abnormal milk = first detected sign
 
-### Diagnosis (8-10)
-8. ⭐ **SCC <200K = healthy, >500K = chronic concerning**
-9. ⭐ **CMT** = field test, 5-grade scoring
-10. **Bulk tank SCC** = farm-level monitoring, penalty above 400K
+### Classification
+- ⭐⭐⭐ **Contagious vs Environmental** (different prevention strategies!)
+- ⭐⭐ **Contagious**: S. aureus + Strep agalactiae, spread by people
+- ⭐⭐ **Environmental**: E. coli + Strep uberis, from bedding/housing
 
-### Treatment & Prevention (11-15)
-11. ⭐ **Intramammary antibiotic** is primary treatment route
-12. ⭐ **DCT** (Dry Cow Therapy) = critical prevention strategy
-13. ⭐ **Internal teat sealant** = antibiotic-free option
-14. **Premilking routine 5 steps**: Strip → Pre-dip → Wait → Dry → Attach
-15. ⭐ **Milking order**: Healthy first → Infected LAST
+### Diagnosis
+- ⭐⭐⭐ **SCC <200K = healthy, >500K = chronic concerning**
+- ⭐⭐ **CMT** = field test, 5-grade scoring
+- ⭐ **Bulk tank SCC** = farm-level monitoring, penalty above 400K
+
+### Treatment & Prevention
+- ⭐⭐⭐ **Intramammary antibiotic** is primary treatment route
+- ⭐⭐ **DCT** (Dry Cow Therapy) = critical prevention strategy
+- ⭐⭐ **Internal teat sealant** = antibiotic-free option
+- ⭐ **Premilking routine 5 steps**: Strip → Pre-dip → Wait → Dry → Attach
+- ⭐ **Milking order**: Healthy first → Infected LAST
 
 > 📚 **Cross-refs**: BRD complex (similar inflammation principles), Brucellosis (also udder disease), Lepto Hardjo (atypical mastitis pattern), GI parasites (uses similar data-driven prevention)
 > 🩺 **Practical**: Strip cup before EVERY milking, CMT monthly, DCT at every dry-off, Bulk tank SCC monthly trend
@@ -43073,29 +43188,38 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 113,
     instructor: 'อ.ธนศักดิ์ (spore-forming bacteria, DLD reportable diseases)',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง Anthrax 3 forms + spore environmental persistence + Clostridium myositis NSAID injection + tetanus + botulism',
-    summary: `## 🎯 Lead Summary
-**4 spore-forming Gram(+) bacterial diseases** of cattle. ⭐ **Anthrax** = Bacillus anthracis, **3 clinical forms** (cutaneous, GI, inhalational), ⚠️ **Sudden death + dark blood from orifices**, ⛔ NEVER open carcass!, ↑ to 100 years environmental survival via spores, zoonotic + biowarfare. ⭐ **Clostridium infections (3 syndromes)**: 1) **GI** (perfringens enterotoxemia in calves), 2) **Myositis** (Black Leg, Malignant Edema, injection-site contamination!), 3) **Neuro** (Tetanus, Botulism). Common theme: **Exotoxin damage** > antibiotic protection, prevention = vaccination + clean injection technique.
+    summary: `# Anthrax + Clostridium Infections (3 patterns: GI, Myositis, Neuro)
 
-## 1️⃣ ⭐⭐⭐ Anthrax (โรคแอนแทรกซ์)
+> 🎯 **4 spore-forming Gram(+) bacterial diseases** ของวัว ⭐⭐⭐
+> - **Anthrax** = *Bacillus anthracis*, 3 clinical forms, ⚠️ sudden death + dark blood from orifices, ⛔ NEVER open carcass!
+> - **Clostridium myositis** (Black Leg) = injection-site contamination!
+> - ***C. perfringens*** = calf pulpy kidney
+> - **Tetanus** + **Botulism** = neuro extremes (spastic vs flaccid)
 
-### Etiology
-- ⭐ **Bacillus anthracis** — Gram(+), large rod-shape, spore-forming
+Common theme: **Exotoxin damage > antibiotic protection** · prevention = vaccination + clean injection technique.
+
+---
+
+# 🔻 Part 1: Anthrax (โรคแอนแทรกซ์) ⭐⭐⭐
+
+## Etiology
+- ⭐ ***Bacillus anthracis*** — Gram(+), large rod-shape, spore-forming
 - "Anthrax" = Greek for "coal" (black skin lesions in cutaneous form)
 - ⚠️ **Spores persist >100 years** in soil!
 
-### 2 Forms of Bacterium ⭐
+## 2 Forms of Bacterium ⭐
 | Form | Where | Behavior |
 |---|---|---|
 | **Vegetative form** | Inside body | Active, kills, easy to disinfect |
 | ⭐ **Spore form** | When exposed to oxygen (after death) | ⚠️ **Persists 100+ years** in soil, resistant to most disinfectants |
 
-### Why Spores Are So Dangerous
+## Why Spores Are So Dangerous
 - ⭐ **History**: London leather tannery cases (1800s)
   - Disease: "Wool sorters' disease" — workers handling imported wool/hides
   - ⚠️ Even processed leather contained viable spores!
   - Today: Imported animal products = bioterror concern
 
-### Virulence Factors ⭐
+## Virulence Factors ⭐
 1. ⭐ **Capsule** (poly-D-glutamic acid)
    - **Anti-phagocytic** — protects from macrophages
 2. ⭐ **3-toxin Complex** (synergistic)
@@ -43103,7 +43227,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
    - **EF** (Edema Factor) — enters cell, causes fluid loss
    - **LF** (Lethal Factor) — enters cell, kills it
 
-### 3 Clinical Forms ⭐⭐⭐ (Route-determined!)
+## 3 Clinical Forms ⭐⭐⭐ (Route-determined!)
 | Form | Route | Most affected | Key signs |
 |---|---|---|---|
 | **GI Anthrax** ⭐ | Ingestion (contaminated grass) | **Cattle, ruminants** | Fever → sudden death |
@@ -43111,48 +43235,48 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Inhalational (Pulmonary)** | Aerosol | Humans (rare) | Severe respiratory failure |
 | **Injection** ⭐ NEW | Iatrogenic injection | Drug users (heroin) | Local + systemic |
 
-### ⭐ Pathognomonic Death Signs
+## Pathognomonic Death Signs ⭐
 - ⭐ **Sudden Death** (per-acute) — cow alive in morning, dead by afternoon
 - ⭐ **Dark unclotted blood from natural orifices**:
   - Mouth, nostrils, anus, vagina (in cows)
 - ⚠️ **Body bloats rapidly**, rigor mortis incomplete
 - Why: bacterium kills endothelial cells → mass apoptosis → vascular leak
 
-### ⭐⭐⭐ DO NOT OPEN THE CARCASS! ⭐⭐⭐
+## ⛔⛔⛔ DO NOT OPEN THE CARCASS! ⛔⛔⛔
 > "เมื่อสงสัยแอนแทรกซ์ → ⛔ ห้ามเปิดผ่าซากเด็ดขาด!"
 - ⚠️ Inside body = vegetative form (will die from putrefaction)
 - ⚠️ If opened → spores form on contact with air → 100-year contamination!
 - ⚠️ **Vet at risk** of inhalation/cutaneous anthrax!
 
-### Diagnosis (Without Necropsy!) ⭐
+## Diagnosis (Without Necropsy!) ⭐
 - **Clinical pattern + epidemiology**
 - ⭐ **Blood smear** from cut ear or coronary band (skin) → Methylene Blue stain → giant rod-shaped bacilli
 - 10⁷-10⁸ bacteria/mL blood = easy to find!
 - PCR/ELISA backup
 - ⛔ Don't culture without BSL-3 facility!
 
-### Carcass Disposal ⭐
+## Carcass Disposal ⭐
 - ⭐ **Burn or deep bury** with quicklime
 - 2 m+ depth recommended
 - Site permanently quarantined
 - ⚠️ Avoid contaminating water sources
 
-### High-Risk Groups for Anthrax (Humans) ⭐
+## High-Risk Groups for Anthrax (Humans) ⭐
 1. ⭐ **Farmers + livestock workers** (contact)
 2. **Slaughterhouse workers** (skin)
 3. **Tannery/wool workers** (inhalation)
-4. ⭐ **Military personnel** ⭐ (biowarfare protection)
+4. ⭐ **Military personnel** (biowarfare protection)
 5. ⭐ **Lab workers** (research access)
 6. **NGO/Vet workers in outbreak zones**
 
-### Russia 2016 Reindeer Outbreak ⭐ (Real Case!)
+## Russia 2016 Reindeer Outbreak ⭐ (Real Case!)
 - ⚠️ **100-year quiescence** — no anthrax in Siberian region
 - 2016: ⭐ **Climate change melted permafrost!**
 - 100-year-old infected reindeer carcass exposed → spores released
 - **2,300 reindeer died, child died, 90 humans hospitalized**
 - ⭐ Mass vaccination of 800,000 reindeer in response
 
-### Treatment (Limited Success) ⭐
+## Treatment (Limited Success) ⭐
 - **Penicillin** = first-line (high dose, IV preferred)
   - ⚠️ IV preparation rare in Thailand for cattle
   - Long-acting penicillin → IM only
@@ -43160,7 +43284,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ Once toxemia established → very poor prognosis
 - Most cattle die before treatment can be given
 
-### Prevention ⭐
+## Prevention ⭐
 - ⭐ **Vaccine** (live attenuated 34F2 Sterne strain spore vaccine)
 - ⭐ Used **only in endemic areas** OR after outbreak
 - ⚠️ NOT routine in Thai dairy
@@ -43168,7 +43292,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Bury old animals quickly, burn if possible
 - ⚠️ DLD reportable disease!
 
-### WOAH (formerly OIE) World Map ⭐
+## WOAH (formerly OIE) World Map ⭐
 - **WAHIS** database (World Animal Health Information System)
 - 5 status colors:
   - 🔴 Red — Confirmed disease in selected period
@@ -43177,9 +43301,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   - ⚫ Gray — ⚠️ **NO DATA** (often most concerning!)
 - Thailand: not reported in past 2 years (varies)
 
-## 2️⃣ ⭐ Clostridial Infections (Common Concept)
+---
 
-### Common Features (All 4 syndromes)
+# 🔻 Part 2: Clostridial Infections (Common Concept) ⭐
+
+## Common Features (All 4 syndromes)
 - ⭐ **Gram(+), Anaerobic** rod
 - ⭐ **Spore-forming** (terminal "drumstick" appearance)
 - ⭐ **Exotoxin** is main pathogenic mechanism (NOT bacterium itself!)
@@ -43187,32 +43313,35 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ Penicillin = treatment of choice for active infection
 - ⚠️ Antibiotics don't neutralize already-produced toxin!
 
-### Anatomical Distinction from Anthrax
+## Anatomical Distinction from Anthrax
 - ⭐ **Anthrax**: bulge in MIDDLE (capsule)
 - ⭐ **Clostridium**: bulge at END (terminal spore = "drumstick")
 - Stain: ⭐ Anthrax = MacFadyen | Clostridium = Gram
 
-### 3 Disease Patterns ⭐⭐⭐
+## 3 Disease Patterns ⭐⭐⭐
 | Pattern | Location | Causative species |
 |---|---|---|
 | **GI Form** | Intestinal | C. perfringens (mostly Type C) |
 | ⭐ **Myositis** | Muscle | C. chauvoei, C. septicum, C. novyi, C. sordellii |
 | **Neuro** | CNS | C. tetani, C. botulinum |
 
-## 3️⃣ ⭐ Clostridial Myositis (Black Leg + Malignant Edema)
+---
 
-### Why "Don't Need to Distinguish Species"
+# 🔻 Part 3: Clostridial Myositis (Black Leg + Malignant Edema) ⭐
+
+## Why "Don't Need to Distinguish Species"
 > "ในความเป็นจริง ไม่จำเป็นต้องแยก species — clinical = treatment เหมือนกันหมด"
 - ⭐ Group: **Clostridial Myositis**
 - 4 main bacteria can cause:
-  | Bacterium | Old name | Species |
-  |---|---|---|
-  | **C. chauvoei** ⭐ | Black Leg | Cattle |
-  | **C. septicum** ⭐ | Edema disease | Cattle, sheep |
-  | **C. novyi** | Black disease | Sheep, cattle |
-  | **C. sordellii** | — | Cattle |
 
-### Causes (Routes of Infection) ⭐⭐
+| Bacterium | Old name | Species |
+|---|---|---|
+| ***C. chauvoei*** ⭐ | Black Leg | Cattle |
+| ***C. septicum*** ⭐ | Edema disease | Cattle, sheep |
+| ***C. novyi*** | Black disease | Sheep, cattle |
+| ***C. sordellii*** | — | Cattle |
+
+## Causes (Routes of Infection) ⭐⭐
 | Route | Mechanism | Example |
 |---|---|---|
 | ⭐ **Iatrogenic injection** | Dirty needles → bacteria in muscle | Vaccine without alcohol swab! |
@@ -43220,20 +43349,20 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **Endogenous** (rare) | Latent spores in muscle activate | C. novyi, C. sordellii after fluke damage |
 | **Trampling/bruising** | Repeated trauma | Crowded chutes |
 
-### ⭐ The Iatrogenic Lesson ⭐
+## The Iatrogenic Lesson ⭐
 > "Most cases = vet/farmer fault from dirty injection"
 - ⚠️ ALWAYS swab with alcohol before injection!
 - ⚠️ Don't inject in feces-stained skin areas
 - ⭐ **Common cause = vaccination day** (mass injections, careless technique)
 
-### Pathogenesis
+## Pathogenesis
 1. **Bacteria enters muscle** (anaerobic environment ideal!)
 2. Spores germinate → vegetative form
 3. ⭐ **Exotoxin production** → muscle necrosis + gas formation
 4. Toxin worsens local hypoxia → more bacterial growth
 5. Vicious cycle → systemic toxemia → death
 
-### Clinical Signs ⭐
+## Clinical Signs ⭐
 - ⭐ **ASYMMETRIC swelling** (one limb > other)
 - ⭐ **Pitting edema** that holds the indent (NOT typical inflammation!)
 - ⭐ **Crepitus** — feel "crunchy gas" under skin (palpation!)
@@ -43242,23 +43371,23 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ Sudden death possible
 - "Sweetish" smell from necrotic tissue
 
-### Why Crepitus? ⭐
+## Why Crepitus? ⭐
 - ⭐ Bacteria produce **gas** (CO2, H2) in muscle
 - Crackling sound when palpated
 - "Black leg" name from gas bubbles in dark muscle
 
-### Sites Most Affected
+## Sites Most Affected
 - Hind quarters (gluteal muscle)
 - ⭐ Where injections were given
 - Bruise areas after trauma
 
-### Diagnosis
+## Diagnosis
 - **Clinical signs** sufficient in most cases
 - Asymmetric edema + crepitus = pathognomonic combination
 - History of injection or trauma
 - Confirmation: bacterial culture (anaerobic) + PCR
 
-### Treatment ⭐
+## Treatment ⭐
 | Drug | Detail |
 |---|---|
 | ⭐ **Penicillin** | First-line, ⭐ **44,000 IU/kg IM** (DOUBLE normal dose!), 2× daily for 3+ days |
@@ -43267,26 +43396,28 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **Surgical drainage**: Cut open swelling | Lets oxygen in → kills anaerobes! |
 | **NSAIDs** | Reduce pain, edema |
 
-### When to Cull
+## When to Cull
 - Toxemia + multi-quarter spread → poor prognosis
 - ⚠️ Even survivors often need limb amputation
 - ⭐ Owner decision, with vet education
 
-### Prevention ⭐
+## Prevention ⭐
 1. ⭐ **Strict aseptic injection technique** (alcohol swab!)
 2. **Single-use needles** when possible
 3. **Clean injection site** (no manure)
 4. **Vaccine** (combined Clostridial 7 or 8) in endemic areas
 5. ⭐ ⛔ Don't inject through wet/dirty skin
 
-## 4️⃣ ⭐ Clostridium perfringens Enterotoxemia (Calf "Pulpy Kidney")
+---
 
-### Etiology
-- ⭐ **C. perfringens Type C** (also Type A, B, D rare)
+# 🔻 Part 4: *C. perfringens* Enterotoxemia (Calf "Pulpy Kidney") ⭐
+
+## Etiology
+- ⭐ ***C. perfringens* Type C** (also Type A, B, D rare)
 - Type C produces **β-toxin** (most pathogenic)
 - ⭐ **Type A** = normal flora (asymptomatic)
 
-### Pathogenesis ⭐
+## Pathogenesis ⭐
 1. ⭐ **Bacterium normally in gut** (Type C in low numbers)
 2. **Trigger**: Sudden carbohydrate or protein influx (overfeed, fast diet change)
 3. → ⭐ **Super-infection** in small intestine
@@ -43295,26 +43426,26 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 6. ⚠️ **In calves**: trypsin levels low + colostrum has trypsin inhibitor → toxin survives!
 7. → Hemorrhagic enteritis → death
 
-### Why Calves Most Affected ⭐
+## Why Calves Most Affected ⭐
 - ⚠️ **Low pancreatic trypsin** in young
 - ⚠️ **Colostrum trypsin inhibitor** further blocks
 - Sudden milk volume increase
 - Stomach pH changes during transition
 
-### Clinical Signs (Sudden!) ⭐
+## Clinical Signs (Sudden!) ⭐
 - ⭐ **Acute onset** (hours)
 - **Bloody diarrhea** with mucus
 - Abdominal pain
 - Fever (mild) or hypothermia (terminal)
 - ⚠️ **Sudden death** in untreated cases
 
-### Diagnosis
+## Diagnosis
 - Clinical signs + history of dietary change
 - Necropsy: hemorrhagic enteritis, mucosal sloughing
 - PCR for toxin gene
 - Histopath confirms
 
-### Treatment & Prevention
+## Treatment & Prevention
 - ⭐ **Penicillin** + supportive (fluid, anti-inflammatory)
 - ⚠️ **Anti-toxin antibodies**: limited availability in Thailand
 - ⭐ **Vaccine**: Clostridium 7-way or 8-way for calves
@@ -43322,15 +43453,17 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   - Combined with myositis protection!
 - ⭐ Prevention: gradual diet change, no overfeeding
 
-## 5️⃣ ⭐ Tetanus (โรคบาดทะยัก) ⭐⭐
+---
 
-### Etiology
-- ⭐ **Clostridium tetani**
+# 🔻 Part 5: Tetanus (โรคบาดทะยัก) ⭐⭐
+
+## Etiology
+- ⭐ ***Clostridium tetani***
 - Spores in soil, animal feces
 - ⭐ Enters via wound (often deep puncture)
 - ⚠️ Anaerobic = needs deep wound to germinate
 
-### Pathogenesis ⭐
+## Pathogenesis ⭐
 1. **Wound** (deep, contaminated)
 2. **Anaerobic environment** — perfect for C. tetani
 3. ⭐ **Tetanospasmin** (potent neurotoxin) produced
@@ -43338,7 +43471,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. Blocks **inhibitory neurotransmitters** (glycine, GABA)
 6. → **Spastic muscle contraction** (no relaxation!)
 
-### Clinical Signs (Pathognomonic!) ⭐
+## Clinical Signs (Pathognomonic!) ⭐
 - ⭐ **"Sawhorse stance"** — legs rigid, splayed
 - ⭐ **Risus sardonicus** — wrinkled forehead, ears erect
 - ⭐ **Trismus / Lockjaw** — can't open mouth!
@@ -43347,7 +43480,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Hyperreflexia, seizures with stimulation
 - ⚠️ Respiratory failure → death
 
-### Treatment ⭐ (Urgent!)
+## Treatment ⭐ (Urgent!)
 1. ⭐ **Tetanus antitoxin** (TAT) — best given EARLY
 2. **Penicillin G** high dose
 3. **Wound debridement** (surgical opening + cleaning)
@@ -43356,35 +43489,37 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 6. **Tracheotomy** if needed
 7. **Supportive**: fluids, soft food
 
-### Prevention ⭐
+## Prevention ⭐
 - ⭐ **Tetanus toxoid vaccine**
 - Routine in horses (most susceptible!)
 - Cattle: in endemic areas or after wound
 - ⭐ Combined with Clostridial 7-way
 
-### Human Risk Group
+## Human Risk Group
 - ⭐ Vets, farmers — KEEP UP TETANUS BOOSTERS!
 
-## 6️⃣ ⭐ Botulism (โรคโบทูลิซึม)
+---
 
-### Etiology
-- ⭐ **Clostridium botulinum** — produces **botulinum toxin**
+# 🔻 Part 6: Botulism (โรคโบทูลิซึม) ⭐
+
+## Etiology
+- ⭐ ***Clostridium botulinum*** — produces **botulinum toxin**
 - ⚠️ **Most potent toxin known** (1 g could kill 1 million people)
 - Spores in soil, decomposing organic matter
 
-### Sources for Cattle ⭐
+## Sources for Cattle ⭐
 - ⭐ **Decomposing carcasses** in feed (silage, hay)
 - ⚠️ ⭐ **Phosphorus deficiency** → cattle eat bones → bones contain spores!
 - Spoiled silage (poor packing)
 - Dead chickens in pasture (cattle nibble)
 
-### Pathogenesis ⭐
+## Pathogenesis ⭐
 - ⭐ **Pre-formed toxin in feed** (not infection!)
 - Toxin absorbed in intestine → bloodstream
 - Blocks **acetylcholine release** at neuromuscular junctions
 - → **Flaccid paralysis** (opposite of tetanus!)
 
-### Clinical Signs ⭐⭐ (Opposite of Tetanus!)
+## Clinical Signs ⭐⭐ (Opposite of Tetanus!)
 - ⭐ **Generalized weakness** (down cow)
 - ⭐ **Tongue paralysis** — can't eat, drinks fall back
 - ⭐ **Difficulty swallowing** (dysphagia)
@@ -43392,13 +43527,13 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Mydriasis (dilated pupils)
 - ⚠️ **Respiratory paralysis** → death
 
-### Diagnosis
+## Diagnosis
 - Clinical signs (flaccid paralysis pattern)
 - Toxin detection in blood, feces, feed
 - Mouse bioassay (gold standard)
 - ⚠️ Difficult — most diagnosis from history
 
-### Treatment & Prevention
+## Treatment & Prevention
 - ⛔ **No specific antibiotic helps** (toxin already in body)
 - **Antitoxin** if available
 - ⭐ Supportive: feeding tube, IV fluids
@@ -43409,30 +43544,32 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
   - ⭐ Quality silage management
   - ⭐ Vaccine (in endemic regions)
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### Anthrax (1-7)
-1. ⭐ **Bacillus anthracis**, Gram(+) rod, LARGE
-2. ⭐ **3 Clinical forms**: Cutaneous, GI, Pulmonary (+ injection 4th)
-3. ⭐ **Spores 100+ years** in soil
-4. ⭐ **Capsule + 3-Toxin (PA + EF + LF)** virulence
-5. ⛔ **NEVER open carcass** if anthrax suspected
-6. ⭐ Diagnose by **blood smear from ear/coronary** (Methylene Blue)
-7. ⭐ Vaccine: 34F2 Sterne strain, meat withdrawal **6 weeks**
+## 📋 Exam Recap
 
-### Clostridium myositis (8-11)
-8. ⭐ **Asymmetric edema + crepitus** = pathognomonic
-9. ⭐ **Iatrogenic injection** = #1 cause!, clean technique critical
-10. **Penicillin** at **44,000 IU/kg double dose**, IM ×2/day
-11. ⭐ **Surgical drainage** + **local penicillin** = adjunct treatment
+### Anthrax
+- ⭐⭐⭐ ***Bacillus anthracis***, Gram(+) rod, LARGE
+- ⭐⭐⭐ **3 Clinical forms**: Cutaneous, GI, Pulmonary (+ injection 4th)
+- ⭐⭐⭐ ⛔ **NEVER open carcass** if anthrax suspected
+- ⭐⭐ **Spores 100+ years** in soil
+- ⭐⭐ **Capsule + 3-Toxin (PA + EF + LF)** virulence
+- ⭐ Diagnose by **blood smear from ear/coronary** (Methylene Blue)
+- ⭐ Vaccine: 34F2 Sterne strain, meat withdrawal **6 weeks**
 
-### C. perfringens (12)
-12. ⭐ **Type C β-toxin** in calves with sudden diet change, "pulpy kidney"
+### Clostridium myositis
+- ⭐⭐⭐ **Asymmetric edema + crepitus** = pathognomonic
+- ⭐⭐⭐ **Iatrogenic injection** = #1 cause!, clean technique critical
+- ⭐⭐ **Penicillin** at **44,000 IU/kg double dose**, IM ×2/day
+- ⭐ **Surgical drainage** + **local penicillin** = adjunct treatment
 
-### Tetanus & Botulism (13-15)
-13. ⭐ **Tetanus = SPASTIC paralysis** (sawhorse stance, lockjaw)
-14. ⭐ **Botulism = FLACCID paralysis** (opposite of tetanus)
-15. ⭐ **Tetanus toxoid** = vet must keep boosters!
+### C. perfringens
+- ⭐⭐ **Type C β-toxin** in calves with sudden diet change, "pulpy kidney"
+
+### Tetanus & Botulism
+- ⭐⭐⭐ **Tetanus = SPASTIC paralysis** (sawhorse stance, lockjaw)
+- ⭐⭐⭐ **Botulism = FLACCID paralysis** (opposite of tetanus)
+- ⭐⭐ **Tetanus toxoid** = vet must keep boosters!
 
 > 📚 **Cross-refs**: Brucellosis + Hemorrhagic Septicemia + Lepto (other reportable bacterials), Mastitis (similar inflammation principles)
 > 🩺 **Practical**: ALWAYS alcohol-swab before injection, Don't open suspected anthrax carcass, Phosphorus supplementation prevents botulism
@@ -43454,12 +43591,17 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 187,
     instructor: 'อ.อุตรา (ภาควิชาสรีรวิทยา, ขอไม่ให้อัดเสียง)',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง Acidosis (SARA + acute), Bloat, Ketosis, Hypocalcemia (Milk Fever), Grass Tetany, Mineral imbalance',
-    summary: `## 🎯 Lead Summary
-**Nutritional/Metabolic disorders** of dairy cattle = ⭐ **non-infectious disease cluster** caused by feed imbalance, transition stress, and physiological state mismatch. Group by macronutrient: ⭐ **Carbohydrate-related** (Acidosis SARA + acute, Bloat), ⭐ **Lipid-related** (Ketosis, Fatty Liver, Pregnancy Toxemia, Milk Fat Depression), ⭐ **Protein-related** (Urea toxicity, Negative Energy Balance), ⭐ **Mineral-related** (Milk Fever Hypocalcemia, Grass Tetany Hypomagnesemia, Phosphorus deficiency). All share: **prevention via dietary balance + transition management** > treatment of established cases.
+    summary: `# Nutritional & Metabolic Disorders in Ruminants
 
-## 1️⃣ Conceptual Framework ⭐⭐
+> 🎯 **Nutritional/Metabolic disorders** = **non-infectious disease cluster** caused by feed imbalance, transition stress, physiological state mismatch ⭐⭐⭐
+> 💡 Group by macronutrient: Carb (Acidosis, Bloat) · Lipid (Ketosis, Pregnancy Toxemia) · Protein (Urea toxicity) · Mineral (Milk Fever, Grass Tetany)
+> ⚠️ Prevention via dietary balance + transition management > treatment of established cases
 
-### Microbial Ecology System (Microbiome) ⭐
+---
+
+# 🔻 Part 1: Conceptual Framework ⭐⭐
+
+## Microbial Ecology System (Microbiome) ⭐
 > "ในกระเพาะรูเมน = โลกใบหนึ่ง"
 - ⭐ **Bacteria, Fungi, Viruses, Protozoa** all coexist
 - Modern term: **Rumen Microbiome**
@@ -43467,26 +43609,28 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ **Balance = healthy cow**
 - ⚠️ Imbalance → metabolic disease
 
-### Disease vs Disorder ⭐
+## Disease vs Disorder ⭐
 - ⭐ Instructor uses "disorder" not "disease" for nutritional issues
 - Often: secondary effect of feeding mismatch
 - Some caused by physiological state (transition, lactation peak)
 
-### Key Factors Affecting Rumen Health ⭐
+## Key Factors Affecting Rumen Health ⭐
 1. **Feed**: forage:concentrate ratio, feed quantity, feed quality
 2. **Mycotoxin contamination** (drought stress)
 3. **Modern additives**: prebiotics, probiotics, postbiotics, ionophores
 4. **Physiology**: lactation stage, gestation, stress
 
-### Optimal Forage:Concentrate Ratio ⭐
+## Optimal Forage:Concentrate Ratio ⭐
 - ⭐ Concentrate **NOT >45%**
 - Forage ⭐ **>55% minimum**
 - ⚠️ Too much concentrate → acidosis
 - ⚠️ Too much forage → energy deficit
 
-## 2️⃣ Carbohydrate Disorders ⭐⭐⭐
+---
 
-### A. Sub-Acute Ruminal Acidosis (SARA) ⭐⭐⭐
+# 🔻 Part 2: Carbohydrate Disorders ⭐⭐⭐
+
+## A. Sub-Acute Ruminal Acidosis (SARA) ⭐⭐⭐
 
 **Etiology**:
 - ⭐ Excessive **digestible CHO** (corn, grains, high-starch feed)
@@ -43495,7 +43639,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - "Subclinical" — most common form!
 
 **Pathogenesis**:
-1. ⭐ **Lactic acid producers** (Streptococcus bovis) outcompete normal flora
+1. ⭐ **Lactic acid producers** (*Streptococcus bovis*) outcompete normal flora
 2. ⭐ **Lactate accumulation** → pH drop
 3. Ruminal motility decreases
 4. ⚠️ **Inflammation** of rumen wall
@@ -43522,7 +43666,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ Slow feed transitions (TMR vs PMR)
 - Limit concentrate feeding episodes
 
-### B. Acute Ruminal Acidosis ⭐⭐ (Grain Overload)
+## B. Acute Ruminal Acidosis ⭐⭐ (Grain Overload)
 
 **Etiology**:
 - ⭐ **Sudden grain consumption** (escaped cattle, accidental access)
@@ -43533,7 +43677,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 1. ⭐ **Massive lactate** production
 2. **Severe acidosis** + dehydration
 3. ⭐ **Rumen wall damage** → bacterial translocation
-4. **Liver abscesses** (Fusobacterium necrophorum)
+4. **Liver abscesses** (*Fusobacterium necrophorum*)
 5. ⚠️ **Death** in untreated severe cases
 
 **Clinical Signs**:
@@ -43551,7 +43695,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Yogurt/transfaunation** to restore flora
 - Cull severe survivors (chronic problems)
 
-### C. Bloat (Frothy + Free Gas) ⭐⭐⭐
+## C. Bloat (Frothy + Free Gas) ⭐⭐⭐
 
 **2 Types**:
 | Type | Cause | Clinical |
@@ -43585,9 +43729,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Add anti-foam to water (Poloxalene blocks)
 - ⭐ Mixed grass-legume pastures preferred
 
-## 3️⃣ Lipid/Energy Disorders ⭐⭐⭐
+---
 
-### A. Ketosis (Acetonemia) ⭐⭐⭐
+# 🔻 Part 3: Lipid/Energy Disorders ⭐⭐⭐
+
+## A. Ketosis (Acetonemia) ⭐⭐⭐
 
 **Multiple Names**:
 - ⭐ **Ketosis** (general)
@@ -43638,7 +43784,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ **Niacin + protected choline** in late dry diet
 - BCS at calving: 3.0-3.5 ideal (not >4.0!)
 
-### B. Fatty Liver Syndrome (Hepatic Lipidosis) ⭐
+## B. Fatty Liver Syndrome (Hepatic Lipidosis) ⭐
 
 **Etiology**:
 - ⭐ Excessive fat mobilization from adipose
@@ -43665,7 +43811,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 **Prevention** = SAME as ketosis (transition management)
 
-### C. Pregnancy Toxemia (Twin Lamb Disease) ⭐⭐
+## C. Pregnancy Toxemia (Twin Lamb Disease) ⭐⭐
 
 **Affected**: ⭐ **Pregnant ewes/does** (NOT cows!)
 - Late gestation (last 4-6 weeks)
@@ -43695,7 +43841,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Twin lambs scan + extra feed
 - Monitor BCS
 
-### D. Milk Fat Depression (Low-Fat Milk Syndrome) ⭐
+## D. Milk Fat Depression (Low-Fat Milk Syndrome) ⭐
 
 **Cause**:
 - ⭐ Excess **concentrate + unsaturated FA**
@@ -43711,20 +43857,24 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Adjust forage:concentrate ratio
 - May take 2-4 weeks for milk fat to recover
 
-## 4️⃣ Protein Disorders ⭐
+---
 
-### A. Urea Toxicity ⭐
+# 🔻 Part 4: Protein Disorders ⭐
+
+## A. Urea Toxicity ⭐
 - ⚠️ Too much urea/NPN (Non-Protein Nitrogen) in feed
 - Rumen NH3 ↑↑ → systemic alkalemia
 - ⭐ Tremors, salivation, recumbency, death
 - Treatment: ⭐ **Vinegar (acetic acid)** PO + IV fluids
 - Prevention: gradual urea introduction, max 1% diet
 
-### B. Negative Energy Balance Concept (See Ketosis above)
+## B. Negative Energy Balance Concept (See Ketosis above)
 
-## 5️⃣ Mineral Disorders ⭐⭐⭐
+---
 
-### A. Milk Fever (Parturient Hypocalcemia) ⭐⭐⭐
+# 🔻 Part 5: Mineral Disorders ⭐⭐⭐
+
+## A. Milk Fever (Parturient Hypocalcemia) ⭐⭐⭐
 
 **Etiology**:
 - ⭐ **Calcium drops** at parturition (mass milk synthesis)
@@ -43765,7 +43915,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Magnesium supplementation
 - ⚠️ **Avoid alfalfa** in dry cows (high Ca)
 
-### B. Grass Tetany (Hypomagnesemia) ⭐⭐
+## B. Grass Tetany (Hypomagnesemia) ⭐⭐
 
 **Etiology**:
 - ⭐ **Low magnesium** in lush spring grass
@@ -43793,59 +43943,63 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Provide hay before turnout
 - Mineral lick blocks with Mg
 
-### C. Phosphorus Deficiency (Pica) ⭐
+## C. Phosphorus Deficiency (Pica) ⭐
 - ⚠️ Cattle eat ⭐ **bones, plastic, weird objects**
 - Reduced fertility
 - ⚠️ ⭐ Connects to **Botulism risk** (bones may have Clostridium spores!)
 - Treatment: P supplementation in feed
 - Prevention: balanced minerals year-round
 
-### D. Selenium Deficiency (White Muscle Disease) ⭐
+## D. Selenium Deficiency (White Muscle Disease) ⭐
 - Calves: stiff gait, weak, sudden death
 - Cardiac muscle damage
 - Affected: ⭐ **Pasture-raised in Se-deficient soil**
 - Treatment: Vitamin E + Se injection
 - Prevention: Se in mineral mix
 
-### E. Iodine Deficiency (Goiter)
+## E. Iodine Deficiency (Goiter)
 - Enlarged thyroid in calves
 - Stillborns or weak
 - Treatment: KI in mineral
 - Prevention: iodized salt block
 
-### F. Cobalt Deficiency (Wasting)
+## F. Cobalt Deficiency (Wasting)
 - Cobalt = essential for B12 synthesis by rumen flora
 - Pining, anemia
 - Treatment: Co-fortified mineral
 - Prevention: salt block with Co
 
-### G. Copper Toxicity (Sheep + Goats!) ⭐
+## G. Copper Toxicity (Sheep + Goats!) ⭐
 - ⚠️ **Sheep + goats VERY sensitive!**
 - Don't use cattle mineral mix in sheep!
 - Hemolytic crisis, jaundice, sudden death
 - Cattle can tolerate higher Cu
 - ⭐ **Real case from instructor**: Cu hoofbath drained into goat water → poisoning + Haemonchus DDx confusion!
 
-## 6️⃣ Vitamin Deficiencies (Less Common in Ruminants) ⭐
+---
 
-### A. Vitamin A Deficiency
+# 🔻 Part 6: Vitamin Deficiencies (Less Common in Ruminants) ⭐
+
+## A. Vitamin A Deficiency
 - ⚠️ Night blindness, dry eyes
 - Stillborn calves, weak
 - ⭐ Vitamin A injection, green forage
 
-### B. Vitamin D Deficiency
+## B. Vitamin D Deficiency
 - Rickets in calves
 - Combined Ca-P-D problems
 
-### C. Vitamin E Deficiency
+## C. Vitamin E Deficiency
 - Combined with Se → White Muscle Disease
 
-### D. B-Vitamins
+## D. B-Vitamins
 - ⭐ ⭐ Normally produced by rumen bacteria!
 - Not usually deficient unless rumen flora disturbed
 - Exception: **Polioencephalomalacia** — Thiamine deficiency in young
 
-## 7️⃣ Polioencephalomalacia (PEM) ⭐⭐
+---
+
+# 🔻 Part 7: Polioencephalomalacia (PEM) ⭐⭐
 
 **Etiology**:
 - ⭐ **Thiamine deficiency** (Vitamin B1)
@@ -43868,32 +44022,34 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ Avoid high-sulfate water
 - Limit thiaminase plants (bracken fern)
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### Carbohydrate (1-3)
-1. ⭐ **SARA** (sub-acute) = pH 5.5-5.8, concentrate excess, low milk fat
-2. ⭐ **Acute Acidosis** = pH <5.0, grain overload, death
-3. ⭐ **Frothy Bloat** = legumes/foam, LEFT flank distension, trocar emergency
+## 📋 Exam Recap
 
-### Lipid (4-7)
-4. ⭐ **Ketosis** = NEB, 6 weeks postpartum, BHB >3.0 mmol/L, sweet breath
-5. ⭐ **Pregnancy Toxemia** = ewe/doe with twins, 80% mortality, cesarean option
-6. ⭐ **Milk Fat Depression** = CLA-mediated, increase fiber
-7. ⭐ **3 Ketone bodies**: Acetone, Acetoacetate, BHB
+### Carbohydrate
+- ⭐⭐⭐ **SARA** (sub-acute) = pH 5.5-5.8, concentrate excess, low milk fat
+- ⭐⭐ **Acute Acidosis** = pH <5.0, grain overload, death
+- ⭐⭐ **Frothy Bloat** = legumes/foam, LEFT flank distension, trocar emergency
 
-### Protein (8)
-8. ⭐ **Urea Toxicity** = vinegar (acetic acid) PO treatment
+### Lipid
+- ⭐⭐⭐ **Ketosis** = NEB, 6 weeks postpartum, BHB >3.0 mmol/L, sweet breath
+- ⭐⭐ **Pregnancy Toxemia** = ewe/doe with twins, 80% mortality, cesarean option
+- ⭐ **Milk Fat Depression** = CLA-mediated, increase fiber
+- ⭐ **3 Ketone bodies**: Acetone, Acetoacetate, BHB
 
-### Mineral (9-13)
-9. ⭐ **Milk Fever** (Hypocalcemia) = sternal recumbency, S-curve neck
-10. ⭐ **Calcium borogluconate IV slowly** = milk fever treatment
-11. ⭐ **Grass Tetany** (Hypomagnesemia) = hyperexcitability, convulsions
-12. ⭐ **Phosphorus deficiency** → bone-eating → botulism risk!
-13. ⚠️ **Copper toxicity** (sheep > cattle sensitive!)
+### Protein
+- ⭐ **Urea Toxicity** = vinegar (acetic acid) PO treatment
 
-### Other (14-15)
-14. ⭐ **PEM (Polioencephalomalacia)** = thiamine deficiency, blindness, star-gazing
-15. ⭐ **Transition cow management** = #1 prevention strategy for all metabolic dz
+### Mineral
+- ⭐⭐⭐ **Milk Fever** (Hypocalcemia) = sternal recumbency, S-curve neck
+- ⭐⭐⭐ **Calcium borogluconate IV slowly** = milk fever treatment
+- ⭐⭐ **Grass Tetany** (Hypomagnesemia) = hyperexcitability, convulsions
+- ⭐ **Phosphorus deficiency** → bone-eating → botulism risk!
+- ⚠️ **Copper toxicity** (sheep > cattle sensitive!)
+
+### Other
+- ⭐⭐ **PEM (Polioencephalomalacia)** = thiamine deficiency, blindness, star-gazing
+- ⭐⭐⭐ **Transition cow management** = #1 prevention strategy for all metabolic dz
 
 > 📚 **Cross-refs**: Mastitis (transition cow stress), BRD complex (NEB predisposes), Herd reproductive performance (NEB → poor fertility)
 > 🩺 **Practical**: BCS scoring at dry-off + calving, transition diet 3 weeks pre-calving, bicarb buffer in concentrate
@@ -43915,12 +44071,17 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 165,
     instructor: 'อ.ธนศักดิ์ (Saraburi research center, 5-yr improvement project)',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง KPI calving interval, CTC/CTFS, biosecurity, sensor data, economic loss calculation',
-    summary: `## 🎯 Lead Summary
-**Dairy farm performance management** = ⭐ data-driven approach. Thai dairy stuck at **4,000 kg/cow/year** (vs world top 11,000-12,000) — gap exists because of poor recording + no clear KPIs. Solution: ⭐ **Send vet + sensor technology** → reduces calving-to-conception (CTC) from 250+ days to <200 days → **economic gain ~2 million baht/year per 65-cow farm**. Critical concepts: ⭐ **Calving Interval (CI) target 365 days**, **CTC <100 days** = world-class, **Bio-security as new EU standard** for Thai vet schools, **Heat detection rate** (manual ~30% vs sensor ~70-80%).
+    summary: `# Recording & Data Analytics for Dairy Herd Health Management
 
-## 1️⃣ Thailand Dairy Industry Context ⭐⭐
+> 🎯 **Dairy farm performance management** = data-driven approach. ⭐⭐⭐ Thai dairy stuck at 4,000 kg/cow/year (vs world top 11,000-12,000)
+> 💡 Solution: send vet + sensor technology → reduce CTC from 250+ days to <200 days → economic gain ~2 million baht/year per 65-cow farm
+> ⚠️ Bio-security = new EU standard for Thai vet schools
 
-### Production Reality Check
+---
+
+# 🔻 Part 1: Thailand Dairy Industry Context ⭐⭐
+
+## Production Reality Check
 | Country | Average milk yield | Notes |
 |---|---|---|
 | **Thailand** | ⚠️ 4,000 kg/cow/year | Stuck since 2010 |
@@ -43928,7 +44089,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **World top tier** | ⭐ 11,000-12,000 kg | Israel, USA, Netherlands |
 | Israel ⭐ | 11,000 kg | ⚠️ DESERT country yet world leader! |
 
-### Why Thailand Lags Behind ⭐
+## Why Thailand Lags Behind ⭐
 1. ⭐ **Poor recording systems** (paper, scattered data)
 2. **No clear performance targets** (no KPI culture)
 3. **Mixed-quality feed** (using cheap byproducts without standards)
@@ -43936,22 +44097,24 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. ⚠️ **Vet shortage** in dairy (most vets prefer small animal)
 6. **Low farm size** (avg 20-30 cows, 50% area in Saraburi-Lopburi-Pakchong)
 
-### Major Production Areas
+## Major Production Areas
 - **Saraburi-Lopburi-Pakchong**: 50%+ Thai dairy
 - **Ratchaburi-Nongpoh**: large secondary
 - **Nakhon Pathom-Kamphaengsaen**: CUVET research
 - **Kanchanaburi-Tha Muang**: regional cluster
 - **Prachuap, Chiang Mai, Khon Kaen**: smaller clusters
 
-## 2️⃣ Saraburi Research Center (CUVET) ⭐
+---
 
-### Mission
+# 🔻 Part 2: Saraburi Research Center (CUVET) ⭐
+
+## Mission
 - ⭐ **Real working dairy farm** (50 cows!)
 - ⭐ **Integrated technology testing**: sensors, AI, premium milk
 - Train mobile vet teams
 - Improve regional farms (proven model)
 
-### Vet Team Structure ⭐
+## Vet Team Structure ⭐
 | Role | Count | Focus |
 |---|---|---|
 | **Hospital vet (Nakhon Pathom)** | 2 | Center coordination |
@@ -43959,22 +44122,24 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **Field vets** | 8 | Mobile clinic farms |
 | **Assistants** | 8+ | Support |
 
-### Projects
+## Projects
 - **Premium Milk** label (Saraburi, matches Hokkaido!)
 - **VR Walk-Through** training platform (post-COVID)
 - **Cheese production** (cheddar, jersey, 2,000 baht/kg!)
 - ⭐ **Vet ID + cattle ID system** (unique cow tracking)
 
-## 3️⃣ Biosecurity (New EU Standard!) ⭐⭐⭐
+---
 
-### Why Bio-Security Matters
+# 🔻 Part 3: Biosecurity (New EU Standard!) ⭐⭐⭐
+
+## Why Bio-Security Matters
 > "Thailand จะเข้าสู่มาตรฐาน EU ได้ต้องมี biosecurity!"
 - ⭐ **EU requirement** for vet school accreditation
 - Protect veterinary students + workers
 - Prevent disease spread between farms
 - ⭐ **Vet = often biggest disease vector** (clothes, hair, phone, shoes!)
 
-### Key Diseases (Vet Risk!) ⭐
+## Key Diseases (Vet Risk!) ⭐
 | Disease | Risk |
 |---|---|
 | ⭐ **TB** | Cattle to vets, researchers, maids who wash gowns! |
@@ -43984,7 +44149,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Leptospirosis** | Water/urine contact |
 | **Rabies** | Stray dogs in cattle areas |
 
-### Biosecurity SOPs (Standard Operating Procedures)
+## Biosecurity SOPs (Standard Operating Procedures)
 1. ⭐ Change clothes before/after farm visit
 2. ⭐ Hair caps (hair ties can't be disinfected!)
 3. ⭐ Mobile phone in plastic bag
@@ -43993,15 +44158,17 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 6. ⭐ Handwashing stations at farm entry
 7. **High-risk visitors** = no animal contact (perimeter only)
 
-### CCTV Monitoring
+## CCTV Monitoring
 > "ที่ฟาร์มมีกล้อง CCTV หมด — บันทึกทุกอย่างยกเว้น 'วินัย'"
 - Real concern at training centers
 - Students often skip protocols thinking "just this time"
 - Permanent loss = farm contamination
 
-## 4️⃣ Critical KPIs (Key Performance Indicators) ⭐⭐⭐
+---
 
-### Primary Reproduction KPIs ⭐
+# 🔻 Part 4: Critical KPIs (Key Performance Indicators) ⭐⭐⭐
+
+## Primary Reproduction KPIs ⭐
 | KPI | Definition | World class | Thailand current |
 |---|---|---|---|
 | ⭐ **Calving Interval (CI)** | Time between births | **365 days** | 430+ days |
@@ -44011,21 +44178,23 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Conception Rate** | % AI that result in pregnancy | >50% | <30% |
 | **Pregnancy Rate** | Composite metric | >25% | low |
 
-### Pregnancy Diagnosis Timeline
+## Pregnancy Diagnosis Timeline
 - ⭐ Calf gestation: ⭐ **270-280 days** (avg 280)
 - Dry-off: ⭐ **2 months before calving** (60 days)
 - Conception → Dry-off interval: ⭐ **220 days**
 
-### Why CI 365 Matters ⭐
+## Why CI 365 Matters ⭐
 - ⭐ "1 calf per cow per year" = ideal
 - 365 days = 1 calf annually
 - 430 days = ~10 months "lost" lactation per year
 - Each lost month = ~30 kg milk × 23 baht = ~700 baht
 - Per cow per year: ⚠️ **15,000-25,000 baht in lost milk!**
 
-## 5️⃣ Recording Systems ⭐⭐
+---
 
-### Data Required for Each Cow
+# 🔻 Part 5: Recording Systems ⭐⭐
+
+## Data Required for Each Cow
 1. ⭐ **Cow ID** (unique tracking number)
 2. ⭐ **Farm ID** (when vet covers multiple farms)
 3. ⭐ **Calving date** (key reference)
@@ -44037,7 +44206,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 9. **Milk yield** (daily/monthly average)
 10. **Treatment records** (drug + withdrawal time!)
 
-### Evolution of Recording in Thailand
+## Evolution of Recording in Thailand
 | Era | Method | Limitation |
 |---|---|---|
 | Old | Paper notebooks | Lost, no analysis |
@@ -44045,16 +44214,18 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Improving | Excel spreadsheets | Manual entry |
 | ⭐ Modern | Cloud apps + sensors | Real-time data |
 
-### Vet Workflow Triggers (App-based) ⭐
+## Vet Workflow Triggers (App-based) ⭐
 - ⭐ **30 days post-calving** → schedule postpartum check
 - ⭐ **30 days post-AI** → pregnancy diagnosis
 - ⭐ **220 days pregnancy** → dry-off list
 - ⭐ **270-280 days pregnancy** → calving prep
 - ⭐ **Mastitis cases** → SCC monitoring
 
-## 6️⃣ Heat Detection (Estrus) — The Sensor Revolution! ⭐⭐⭐
+---
 
-### Manual Detection Failure Rate ⭐
+# 🔻 Part 6: Heat Detection (Estrus) — The Sensor Revolution! ⭐⭐⭐
+
+## Manual Detection Failure Rate ⭐
 | Method | Detection rate |
 |---|---|
 | ⭐ **Visual observation only** | ⚠️ **30-40%** |
@@ -44062,47 +44233,49 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Vasectomized bull** | ~70% (older method) |
 | ⭐ **Wearable sensors** | ⭐ **70-80%** |
 
-### Why Manual Fails ⭐
+## Why Manual Fails ⭐
 - Estrus signs **most visible at dawn/dusk** (when farmers off duty)
 - Cows show estrus **only ~12 hours**
 - Workers may miss subtle signs
 - Cows can be silent (esp. heat stress)
 
-### Sensor Detection Mechanism ⭐
+## Sensor Detection Mechanism ⭐
 - ⭐ **Activity tracking** — estrus cows walk much more
 - **Mounting behavior** — repeated standing/sitting
 - **Restlessness** patterns
 - ⭐ Compare baseline vs current activity → flag heat
 - Cloud → app notification
 
-### What Sensors Also Detect
+## What Sensors Also Detect
 1. ⭐ **Heat stress** (less rest, less rumination)
 2. ⭐ **Calving onset** (specific behavior pattern)
 3. ⭐ **Sickness early** (reduced eating, lethargy)
 4. ⭐ **Lameness** (uneven gait)
 5. **Rumination minutes** (welfare indicator)
 
-## 7️⃣ Economic Impact Analysis ⭐⭐⭐
+---
 
-### Heat Stress Loss Calculation Example ⭐
+# 🔻 Part 7: Economic Impact Analysis ⭐⭐⭐
+
+## Heat Stress Loss Calculation Example ⭐
 - 1 cow on hot day → ⭐ -3 kg milk/day (or -10%)
 - × 365 days × 23 baht = ⭐ **~17,000 baht/cow/year LOSS**
 - × 65 cows = ⭐ **~1 million baht/year**!
 
-### Feed Frequency Impact ⭐
+## Feed Frequency Impact ⭐
 - ⭐ Cows can eat ⭐ **12 times/day** (rumen physiology)
 - Most farms: 2-3 feedings → cow eats less
 - Why: rumen heat from fermentation reduces appetite
 - Solution: TMR (Total Mixed Ration) feeders + 12-meal pattern
 - Net gain: ⭐ ~1 million baht/year per 65-cow farm
 
-### Veterinary Service ROI ⭐
+## Veterinary Service ROI ⭐
 - ⭐ Vet visit fee: 2,500-10,000 baht
 - Returns: 2,000,000+ baht annual gain
 - ⭐ Owners willing to pay for QUANTIFIED improvement
 - ⚠️ ⭐ Without records → no proof of value
 
-### Components of Farm Profit
+## Components of Farm Profit
 | Cost | % of revenue |
 |---|---|
 | ⭐ **Feed cost** | ⭐ **60% normal, 40% optimized, 80-85% crisis** |
@@ -44111,9 +44284,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Other (utilities, etc.) | ~10-15% |
 | ⭐ **Profit margin** | 5-15% |
 
-## 8️⃣ Premium Milk Programs ⭐
+---
 
-### Bonus Pricing Mechanism ⭐ (Real prices!)
+# 🔻 Part 8: Premium Milk Programs ⭐
+
+## Bonus Pricing Mechanism ⭐ (Real prices!)
 **Base price**: 23 baht/kg
 
 **Quality bonuses (+/- per kg)**:
@@ -44126,20 +44301,22 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Milk fat >4.0%** | very high fat | +0.50 |
 | ⭐ **Total premium** | combined | up to **+2 baht/kg!** |
 
-### Per-Farm Math ⭐
+## Per-Farm Math ⭐
 - 1 ton milk/day × 2 baht premium = ⭐ **+2,000 baht/day**
 - × 365 days = ⭐ **+730,000 baht/year**!
 
-## 9️⃣ Feed Cost Optimization ⭐
+---
 
-### Stock Management ⭐
+# 🔻 Part 9: Feed Cost Optimization ⭐
+
+## Stock Management ⭐
 - **Rice straw price** (post-harvest):
   - Cheap season: 25-35 baht/bale
   - Rainy season: 70-80 baht/bale
 - ⭐ **Buy in cheap season** + storage = save thousands
 - ⭐ Need physical storage capacity
 
-### Yield Improvement ⭐
+## Yield Improvement ⭐
 | Crop | Thailand current | World best |
 |---|---|---|
 | ⭐ **Corn** | 3 tons/rai | 12 tons (USA), 9 tons (Sweden) |
@@ -44151,9 +44328,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Smart irrigation
 - Variety selection
 
-## 1️⃣0️⃣ Real Improvement Case Study (CUVET) ⭐
+---
 
-### MK Farm (Mid-size 65 cows)
+# 🔻 Part 10: Real Improvement Case Study (CUVET) ⭐
+
+## MK Farm (Mid-size 65 cows)
 **Before vet/sensor intervention**:
 - CTC > 200 days
 - ⚠️ Pregnancy rate within 200 days: 20%
@@ -44164,40 +44343,44 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ **3.12× improvement** in calving-to-first-service
 - ⚠️ Statistical: P-value <0.001 (highly significant)
 
-### NF Farm
+## NF Farm
 - Calving to conception within 200 days: ⭐ **17× improvement**!
 - Demonstrates: sensor effect varies by farm baseline
 
-### Lactation Pattern
+## Lactation Pattern
 | Lactation | Reproductive efficiency |
 |---|---|
 | ⭐ **2nd lactation** ⭐ | Best (1.9× vs heifer) |
 | 1st (heifer) | Slowest |
 | 3rd+ | Mixed |
 
-## 1️⃣1️⃣ Mastitis KPI Tracking ⭐
+---
 
-### Monthly Monitoring Indicators
+# 🔻 Part 11: Mastitis KPI Tracking ⭐
+
+## Monthly Monitoring Indicators
 - ⭐ **Clinical mastitis cases** per month
 - ⭐ **Sub-clinical mastitis** (SCC >300K or 500K)
 - New cases vs chronic
 - Antibiotic usage
 - Discarded milk volume
 
-### Index Calculation Issues
+## Index Calculation Issues
 - ⚠️ Raw count misleading (population changes!)
 - Account for: dry cows, fresh cows, exits
 - ⭐ **Use rate per population**, not absolute numbers
 - Annual seasonality patterns important
 
-### Risk Periods
+## Risk Periods
 - ⭐ **First 100 days postpartum** = highest risk
 - **Dry-off transition** = critical
 - **Hot season** (clinical mastitis spikes)
 
-## 1️⃣2️⃣ Modern Tools Summary ⭐
+---
 
-### Hardware
+# 🔻 Part 12: Modern Tools Summary ⭐
+
+## Hardware
 - ⭐ **Activity sensors** (collar/ankle band)
 - **Rumination sensors** (ear tag)
 - **Temperature sensors** (vaginal/intravaginal)
@@ -44205,50 +44388,52 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ **Robotic feeders** (12-meal automation)
 - **GPS for grazing** (open systems)
 
-### Software
+## Software
 - ⭐ **Cloud-based herd management** (Dairy Comp, custom Thai apps)
 - ⭐ **Mobile apps** for farmers + vets
 - ⭐ **Heat detection algorithms**
 - **Decision support** (AI-augmented)
 - **Financial accounting** (separate from personal!)
 
-### Integration Benefits
+## Integration Benefits
 - Real-time alerts for vet
 - Quality control automation
 - ⭐ **Data-driven KPI tracking**
 - Predictive analytics (mastitis risk, etc.)
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### Industry Context (1-3)
-1. ⭐ **Thailand 4,000 kg/cow/year vs World 11,000+ kg/cow/year** (3× gap!)
-2. **Saraburi-Lopburi-Pakchong** = 50%+ Thai dairy
-3. **Israel = desert + world top dairy** (proves technology > climate)
+## 📋 Exam Recap
 
-### Biosecurity (4-5)
-4. ⭐ **Vet = biggest disease vector** (clothes, hair, phone, shoes)
-5. **EU standard biosecurity** = new requirement for Thai vet schools
+### Industry Context
+- ⭐⭐⭐ **Thailand 4,000 kg/cow/year vs World 11,000+ kg/cow/year** (3× gap!)
+- ⭐⭐ **Saraburi-Lopburi-Pakchong** = 50%+ Thai dairy
+- ⭐ **Israel = desert + world top dairy** (proves technology > climate)
 
-### KPIs (6-9)
-6. ⭐ **Calving Interval (CI) target 365 days**
-7. ⭐ **Calving to Conception (CTC) target <100 days**
-8. ⭐ **Calving to First Service (CTFS) target <80 days**
-9. ⭐ **Gestation 280 days, Dry-off 220 days post-conception**
+### Biosecurity
+- ⭐⭐⭐ **Vet = biggest disease vector** (clothes, hair, phone, shoes)
+- ⭐⭐ **EU standard biosecurity** = new requirement for Thai vet schools
 
-### Heat Detection (10-11)
-10. ⭐ **Manual heat detection: 30-40%** vs ⭐ **Sensors: 70-80%**
-11. **Estrus only 12 hours, most visible dawn/dusk**
+### KPIs
+- ⭐⭐⭐ **Calving Interval (CI) target 365 days**
+- ⭐⭐⭐ **Calving to Conception (CTC) target <100 days**
+- ⭐⭐ **Calving to First Service (CTFS) target <80 days**
+- ⭐ **Gestation 280 days, Dry-off 220 days post-conception**
 
-### Economics (12-15)
-12. ⭐ **Feed cost normal 60%, optimized 40%, crisis 80%+**
-13. ⭐ **Heat stress loss 17,000 baht/cow/year** (3 kg/day reduction!)
-14. ⭐ **Premium milk: SCC + fat bonuses up to +2 baht/kg**
-15. ⭐ **Total potential improvement: 2 million baht/year per 65-cow farm**
+### Heat Detection
+- ⭐⭐⭐ **Manual heat detection: 30-40%** vs ⭐ **Sensors: 70-80%**
+- ⭐ **Estrus only 12 hours, most visible dawn/dusk**
+
+### Economics
+- ⭐⭐⭐ **Feed cost normal 60%, optimized 40%, crisis 80%+**
+- ⭐⭐⭐ **Heat stress loss 17,000 baht/cow/year** (3 kg/day reduction!)
+- ⭐⭐ **Premium milk: SCC + fat bonuses up to +2 baht/kg**
+- ⭐⭐⭐ **Total potential improvement: 2 million baht/year per 65-cow farm**
 
 > 📚 **Cross-refs**: Mastitis (SCC threshold values applied here), Nutritional disorders (transition cow concepts), BRD complex (similar approach to herd management)
 > 🩺 **Practical**: Always quantify vet service ROI, use cloud-based recording, sensor adoption is win-win
 > 📱 **Modern stack**: Excel → Cloud app → Activity sensors → AI alerts → KPI dashboards
-> 🎯 **Career insight**: ⭐ Dairy vets = high-demand + well-paid, Saraburi area land prices ~1 million baht/rai, Farm owners often wealthy but humble lifestyle
+> 🎯 **Career insight**: Dairy vets = high-demand + well-paid, Saraburi area land prices ~1 million baht/rai
 > 💡 **Key insight**: "Send a vet" alone ≠ profit, "Send a vet + sensors + records" = quantified business case
 > 🌍 **Global benchmark**: 1 calf/cow/year as productivity standard`,
   },
@@ -44261,18 +44446,25 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 187,
     instructor: 'อ.ธนศักดิ์ (final reproduction lecture, KPI calculation deep dive)',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง KPI calculation, CI vs CTC, VWP, population proportions, 4-quadrant cattle classification',
-    summary: `## 🎯 Lead Summary
-**Reproductive index calculation** for dairy herd evaluation. Key concepts: ⭐ **Calving Interval (CI) target 365 days** is the gold standard but it's a **lagging indicator** (reflects 2 years past). Better leading indicators: **Calving to First Service (CTFS)** + **Calving to Conception (CTC)** which reflect current management. ⭐ **Voluntary Waiting Period (VWP) ~45 days** = don't breed too early! 4-quadrant cattle classification: ⭐ **Milking-Open, Milking-Pregnant, Dry-Open, Dry-Pregnant** with proportions ~24%, 41%, 17%, 17% in well-managed herd.
+    summary: `# Reproductive Performance Index for Dairy Herd Management
 
-## 1️⃣ Industry Context (Recap from Previous Lecture) ⭐
+> 🎯 **Reproductive index calculation** สำหรับ dairy herd evaluation ⭐⭐⭐
+> 💡 CI (365 days target) = **lagging indicator** (2 years past) · CTFS + CTC = **leading indicators** (current management)
+> ⚠️ VWP ~45 days — don't breed too early!
 
-### Thailand Dairy Production Reality
+4-quadrant cattle classification: **Milking-Open, Milking-Pregnant, Dry-Open, Dry-Pregnant** with proportions ~24%, 41%, 17%, 17% in well-managed herd.
+
+---
+
+# 🔻 Part 1: Industry Context (Recap from Previous Lecture) ⭐
+
+## Thailand Dairy Production Reality
 - **Stuck**: 4,000 kg/cow/year for decades
 - **World top**: 11,000-12,000 kg
 - **Vietnam catching up**: started recently, used Israeli tech
 - **Israel record**: desert country yet 11,000+ kg/cow!
 
-### Farm Trends (2565-2567)
+## Farm Trends (2565-2567)
 | Year | Number of dairy farms | Total cows |
 |---|---|---|
 | 2565 | 24,000 | ~700,000 |
@@ -44280,32 +44472,34 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | 2567 | ⚠️ **15,000** | ~700,000 |
 - ⚠️ **Farm closures > cow loss** = farms consolidating into bigger sizes
 
-### Production Areas
+## Production Areas
 1. **Saraburi-Lopburi-Pakchong**: 50%+ Thai dairy
 2. Ratchaburi-Nongpoh, Nakhon Pathom-Kamphaengsaen secondary
 3. Trend: ⭐ small farms (<20 cows) shrinking, mid-large stable
 
-### Free Trade Agreement (FTA) Impact
+## Free Trade Agreement (FTA) Impact
 - ⚠️ **Thailand has FTA with Australia + New Zealand**
 - Allows tariff-free milk powder import
 - ⭐ **Imported milk powder = 14 baht/L** (reconstituted) vs Thai fresh milk = 21 baht/L
 - ⚠️ Pressures Thai farmers
 - Factories now sign **MOU contracts** with cooperatives to lock supply
 
-### Milk Demand vs Supply
+## Milk Demand vs Supply
 - Production: ~3,000 tons/day
 - Consumption: ~5,000+ tons/day demand
 - Average Thai consumption: ⭐ **80 mL/person/day** (low!)
 - Gap filled by imported powder
 
-### Market Structure
+## Market Structure
 - Total Thai dairy market: ~60 billion baht
 - ⭐ **School milk program: 14 billion baht/year!**
 - Commercial market: rest
 
-## 2️⃣ Recording System Basics (ผท.1 Card) ⭐
+---
 
-### Standard Cow Card (ผท.1)
+# 🔻 Part 2: Recording System Basics (ผท.1 Card) ⭐
+
+## Standard Cow Card (ผท.1)
 **Required for DLD AI service** (Department of Livestock Development):
 - ⭐ Cow ID + name
 - Cow drawing (color-able for distinguishing!)
@@ -44313,7 +44507,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⭐ **Insemination history**: dates of services 1-10
 - ⭐ **Calving dates** for each lactation
 
-### Key Records Needed
+## Key Records Needed
 | Record | Purpose |
 |---|---|
 | ⭐ **Cow ID** | Unique tracking |
@@ -44323,18 +44517,20 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **Pregnancy confirmation date** | Status update |
 | **Voluntary status changes** | Health, treatment events |
 
-### Why Status Matters ⭐
+## Why Status Matters ⭐
 - ⭐ Cow doesn't change status until **confirmed pregnant**
 - Field PD (palpation): minimum **50 days post-AI**
 - Until then: ⚠️ "Not pregnant" status persists (statistically!)
 - Affects population proportions used for KPI calc
 
-## 3️⃣ Population Distribution (4-Quadrant Model) ⭐⭐⭐
+---
 
-### Conceptual Foundation
+# 🔻 Part 3: Population Distribution (4-Quadrant Model) ⭐⭐⭐
+
+## Conceptual Foundation
 > "If we want **steady milk supply year-round**, calving must be **distributed evenly**"
 
-### The 4 Cattle States ⭐
+## The 4 Cattle States ⭐
 **2 axes**: Lactation × Reproduction status
 | State | Definition | Ideal % |
 |---|---|---|
@@ -44343,12 +44539,12 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **Dry-Open** | Not milking, not pregnant ⚠️ | ⚠️ <5% (problem indicator!) |
 | ⭐ **Dry-Pregnant** | Drying off before next calving | ~17% |
 
-### Why These Numbers ⭐
+## Why These Numbers ⭐
 - Production cycle: **305 days milking + 60 days dry**
 - Calving interval: **365 days ideal**
 - Distribution should mirror this ratio
 
-### Calculation: 100-Cow Herd Example ⭐
+## Calculation: 100-Cow Herd Example ⭐
 **Assumption**: Even calving = 8.3 cows/month
 
 **Lactation distribution** (10 months × 8.3 = ~83% milking):
@@ -44361,7 +44557,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Cows in last 2 months pre-calving: 17 cows
 - **Total dry**: 17 cows (17%)
 
-### Reproductive Distribution
+## Reproductive Distribution
 **Milking-Open** (recently calved, not yet PD-confirmed):
 - ⭐ ~3 month-cohorts = 24%
 
@@ -44376,7 +44572,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ Indicates serious management failure if >5%
 - These cows = "free riders" eating but not producing
 
-### Real Farm Example (Mismatched!) ⭐
+## Real Farm Example (Mismatched!) ⭐
 - Milking-Open: 53% (too high!, indicates poor PD program)
 - Milking-Pregnant: 30% (low!)
 - Dry-Pregnant: 8%
@@ -44384,55 +44580,61 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ⭐ **Action**: Add palpation/ultrasound program → reclassify cows
 
-## 4️⃣ Days In Milk (DIM) ⭐
+---
 
-### What It Is
+# 🔻 Part 4: Days In Milk (DIM) ⭐
+
+## What It Is
 - ⭐ Days since calving (per cow)
 - Average DIM across herd = key snapshot indicator
 
-### Ideal Average DIM ⭐
+## Ideal Average DIM ⭐
 - Lactation length: 305 days
 - Half = ⭐ **~160 days** ideal average
 - ⭐ Means even calving distribution
 - ⚠️ **Higher** than 160 = batch calving (seasonal)
 - ⚠️ Much higher = many cows late lactation (not getting bred back)
 
-### Why It Matters
+## Why It Matters
 - ⭐ **Snapshot indicator** of herd reproductive health
 - Easy to calculate from any farm software
 - Compare month-to-month for trends
 
-## 5️⃣ Calving Interval (CI) ⭐⭐⭐
+---
 
-### Definition
+# 🔻 Part 5: Calving Interval (CI) ⭐⭐⭐
+
+## Definition
 - ⭐ Days between two consecutive calvings (same cow)
 - ⭐ **Target: 365 days** ("1 calf/cow/year")
 - ⭐ Reality in Thailand: **400-500 days** common
 
-### Why It's the Gold Standard
+## Why It's the Gold Standard
 - ⭐ Easy to measure (just need calving dates!)
 - Universal language for dairy comparison
 - Drives milk yield over lifetime
 
-### ⚠️ Critical Limitation ⭐
+## Critical Limitation ⭐
 - ⭐ **CI is a LAGGING indicator**
 - Reflects **management 2 years ago** (full lactation cycle)
 - ⚠️ Can't change CI today, won't see effect for 18+ months
 - → Need **leading indicators** for management
 
-## 6️⃣ Calving to First Service (CTFS) ⭐⭐⭐
+---
 
-### Definition
+# 🔻 Part 6: Calving to First Service (CTFS) ⭐⭐⭐
+
+## Definition
 - ⭐ Days from calving to FIRST AI of current lactation
 - ⭐ **Target: 60-80 days**
 - Better world-class: <70 days
 
-### Why It's a Better Indicator
+## Why It's a Better Indicator
 - ⭐ **Current lactation** data (not lagging)
 - ⭐ Reflects current heat detection + management
 - ⭐ Can react quickly to changes
 
-### Voluntary Waiting Period (VWP) ⭐⭐⭐ NEW concept!
+## Voluntary Waiting Period (VWP) ⭐⭐⭐ NEW concept!
 - ⭐ **Don't breed too early!**
 - Default VWP = ~**45 days postpartum**
 - Why: uterine involution takes time
@@ -44444,85 +44646,93 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
      - ⚠️ Lost milk production!
 - Solution: **Set VWP** at 45-60 days, only breed AFTER that
 
-### How to Calculate Optimal VWP
+## How to Calculate Optimal VWP
 - Goal: maximum lifetime milk yield × cow productivity
 - Most farms: 45-60 days
 - Some high-producers: 75-90 days (let cow rest more)
 
-## 7️⃣ Calving to Conception (CTC / Days Open) ⭐⭐⭐
+---
 
-### Definition
+# 🔻 Part 7: Calving to Conception (CTC / Days Open) ⭐⭐⭐
+
+## Definition
 - ⭐ Days from calving to **successful conception** (not just AI!)
 - ⭐ Target: <100 days (world-class), <150 days (acceptable)
 
-### Why It's the BEST Indicator ⭐
+## Why It's the BEST Indicator ⭐
 - ⭐ **Captures everything**:
   - Time to first service (CTFS)
   - Conception success
   - Estrus detection
   - All combined!
 
-### How to Calculate
+## How to Calculate
 - ⭐ Use date of LAST service that resulted in confirmed pregnancy
 - Subtract calving date
 - Per cow → average across herd
 
-### Why "Conception" Not "Pregnancy"
+## Why "Conception" Not "Pregnancy"
 - ⭐ Conceptus may form but be lost early
 - Pregnancy = confirmed live, established
 - ⭐ Use last service date for accuracy
 
-## 8️⃣ Service per Conception (S/C) ⭐⭐
+---
 
-### Definition
+# 🔻 Part 8: Service per Conception (S/C) ⭐⭐
+
+## Definition
 - ⭐ Average AI services per pregnancy in herd
 - ⭐ **Target: 1.2-1.5** (most cows pregnant in <2 services)
 
-### Calculation
+## Calculation
 > **S/C = Total services in herd ÷ Total cows confirmed pregnant**
 
-### Real Calculation Example
+## Real Calculation Example
 - Cow A: 1 service → conceived → S/C = 1.0
 - Cow B: 2 services → conceived → S/C = 2.0
 - Cow C: 3 services → conceived → S/C = 3.0
 - Herd average: (1+2+3) services / 3 cows = ⭐ **2.0**
 
-### ⭐ ⚠️ Trap of S/C Alone (Important!)
+## ⚠️ Trap of S/C Alone (Important!) ⭐
 - ⚠️ Can be GAMED by selective breeding!
 - Strategy: only breed perfect cows → 100% conception
 - ⭐ But ignores poor cows = total herd suffers
 - ⭐ Reason: Need MULTIPLE indicators (CTC + S/C + others!)
 
-### Selective Breeding Trap (Real Story) ⭐
+## Selective Breeding Trap (Real Story) ⭐
 - Vet wanting bonus on S/C improvement
 - Strategy: cull "non-pregnant after 30 days" cows
 - Don't breed thin cows, those with infections, etc.
 - Result: S/C = 1.0 ⭐ (perfect on paper)
 - ⚠️ But many cows stop being bred → economic disaster!
 
-## 9️⃣ Conception Rate ⭐
+---
 
-### Definition
+# 🔻 Part 9: Conception Rate ⭐
+
+## Definition
 - ⭐ % of services that result in pregnancy
 - ⭐ Target: ⭐ **57-60%** (world-class), 30-40% (Thai average)
 
-### Calculation
+## Calculation
 > **CR% = (Pregnant from this service / Total services this cycle) × 100**
 
-### Why It's Useful
+## Why It's Useful
 - ⭐ Indicates breeding success per attempt
 - Reflects: semen quality + cow status + AI technique + timing
 
-## 1️⃣0️⃣ Heat Detection Rate ⭐
+---
 
-### Definition
+# 🔻 Part 10: Heat Detection Rate ⭐
+
+## Definition
 - ⭐ % of cows in heat that are detected
 - Target: ⭐ **70%** (world-class), 30-40% (manual only)
 
-### Calculation
+## Calculation
 > **HDR% = (Heats detected / Heats actually occurring) × 100**
 
-### Manual vs Sensor ⭐ (KEY!)
+## Manual vs Sensor ⭐ (KEY!)
 | Method | Detection rate |
 |---|---|
 | ⭐ **Visual only** | 30-40% |
@@ -44530,22 +44740,26 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 
 ⭐ This is why sensor adoption transforms dairy!
 
-## 1️⃣1️⃣ % Pregnant by Day ⭐⭐
+---
 
-### Multiple Indicators
+# 🔻 Part 11: % Pregnant by Day ⭐⭐
+
+## Multiple Indicators
 | Metric | Definition | Target |
 |---|---|---|
 | ⭐ **% Pregnant within 100 days** | Quick conception | >65% |
 | ⭐ **% Pregnant within 200 days** | Catch slow ones | >85% |
 | ⭐ **% Not pregnant >200 days** | Problem cows | <6% |
 
-### Why Useful
+## Why Useful
 - ⭐ Combines RATE (proportion pregnant) with TIME constraint
 - Indirect: management quality
 
-## 1️⃣2️⃣ Decision Framework ⭐
+---
 
-### Choosing Indicators (Per Question)
+# 🔻 Part 12: Decision Framework ⭐
+
+## Choosing Indicators (Per Question)
 | Question | Best Indicator |
 |---|---|
 | Overall herd health | CI |
@@ -44555,14 +44769,16 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | Time to next milk? | CTC |
 | Identify problem cows | % not pregnant 200+ days |
 
-### Multi-Indicator Approach ⭐
+## Multi-Indicator Approach ⭐
 - ⭐ ⚠️ NO single indicator tells full story
 - ⭐ Need ⭐ **3-4 indicators minimum**
 - Combine: CI (lifetime) + CTC (recent) + S/C (efficiency) + Population proportions
 
-## 1️⃣3️⃣ Comparison: Thailand vs World ⭐
+---
 
-### KPI Comparison Table
+# 🔻 Part 13: Comparison — Thailand vs World ⭐
+
+## KPI Comparison Table
 | KPI | UK Standard | Thai Reality |
 |---|---|---|
 | Day To First Service | **61-75 days** | 100+ days |
@@ -44574,61 +44790,65 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | % Not Pregnant >200 days | **<6%** | varies |
 | Lactation Yield | ⭐ **8,000 kg/305 days** | 3,600 kg/305 days |
 
-### ⚠️ The Reality Check
+## Reality Check ⚠️
 - Thai cows produce ⭐ **45% less milk per lactation**
 - ⚠️ Different KPI scale needed for Thailand
 - Goals adjusted to local context (5,000-6,000 kg target)
 
-## 1️⃣4️⃣ Economic Impact of Reproductive Failures ⭐⭐
+---
 
-### Cost of Open Cow Calculation ⭐
+# 🔻 Part 14: Economic Impact of Reproductive Failures ⭐⭐
+
+## Cost of Open Cow Calculation ⭐
 **Scenario**: 1 cow not pregnant + Vet finds out today
 - Add 9 months = 270 days to next pregnancy
 - + 1 month current = 300 days
 - Daily cost: 400 baht/day (feed + management)
 - ⭐ **Total cost: 300 × 400 = 120,000 baht!**
 
-### Cull-Replace Decision
+## Cull-Replace Decision
 - ⭐ Buy young heifer: 60,000 baht
 - ⭐ Cost of keeping open cow: 120,000 baht
 - ⭐ Cull = save 60,000+ baht!
 
-### Why Some Owners Don't Cull ⭐ (Cultural)
+## Why Some Owners Don't Cull ⭐ (Cultural)
 1. ⭐ **Cow as collateral** for loans
 2. ⭐ **Sentimental attachment** ("She's my first cow!")
 3. ⭐ **Hope** ("Maybe next month she'll get pregnant")
 4. **Religion** ("Buddhist not to slaughter")
 
-### Vet's Role
+## Vet's Role
 - ⚠️ Provide DATA + RECOMMENDATIONS
 - ⚠️ Don't force decision — owner's call
 - ⭐ Education: show calculations clearly
 - Build long-term trust
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### Concepts (1-3)
-1. ⭐ **CI = Calving Interval target 365 days**, but lagging indicator (2 years!)
-2. ⭐ **CTC = Calving to Conception** target <100 days = best leading indicator
-3. ⭐ **VWP = Voluntary Waiting Period** ~45 days, don't breed too early!
+## 📋 Exam Recap
 
-### Population Model (4-7)
-4. ⭐ **4-quadrant cattle states**: Milking-Open, Milking-Pregnant, Dry-Open, Dry-Pregnant
-5. ⭐ **Ideal proportions**: 24%, 40%, ~0%, 17%
-6. ⭐ **Dry-Open >5% = WARNING** (free riders!)
-7. ⭐ **DIM average ~160 days** = even calving, ⚠️ much higher = batch calving
+### Concepts
+- ⭐⭐⭐ **CI = Calving Interval target 365 days**, but lagging indicator (2 years!)
+- ⭐⭐⭐ **CTC = Calving to Conception** target <100 days = best leading indicator
+- ⭐⭐⭐ **VWP = Voluntary Waiting Period** ~45 days, don't breed too early!
 
-### Calculation KPIs (8-12)
-8. ⭐ **CTFS target 60-80 days** = current lactation, not lagging
-9. ⭐ **S/C target 1.2-1.5** services per pregnancy
-10. ⭐ **Conception Rate target 57%+** (world-class), 30-40% Thai
-11. ⭐ **Heat Detection Rate**: visual 30-40% vs sensor 70-80%
-12. ⭐ **% Pregnant <100 days target >65%**, **% Not Pregnant >200 days <6%**
+### Population Model
+- ⭐⭐⭐ **4-quadrant cattle states**: Milking-Open, Milking-Pregnant, Dry-Open, Dry-Pregnant
+- ⭐⭐ **Ideal proportions**: 24%, 40%, ~0%, 17%
+- ⭐⭐ **Dry-Open >5% = WARNING** (free riders!)
+- ⭐ **DIM average ~160 days** = even calving
 
-### Reality (13-15)
-13. ⭐ **Thailand stuck at 3,600 kg/305 days** vs UK 8,000 kg
-14. ⭐ **Cost of 1 open cow: 120,000 baht** for 300 extra days
-15. ⭐ **Cull threshold: when keeping costs > replacement value** (often 60,000+ baht)
+### Calculation KPIs
+- ⭐⭐⭐ **CTFS target 60-80 days**
+- ⭐⭐ **S/C target 1.2-1.5** services per pregnancy
+- ⭐⭐ **Conception Rate target 57%+** (world-class), 30-40% Thai
+- ⭐⭐ **Heat Detection Rate**: visual 30-40% vs sensor 70-80%
+- ⭐ **% Pregnant <100 days target >65%**, **% Not Pregnant >200 days <6%**
+
+### Reality
+- ⭐⭐ **Thailand stuck at 3,600 kg/305 days** vs UK 8,000 kg
+- ⭐⭐⭐ **Cost of 1 open cow: 120,000 baht** for 300 extra days
+- ⭐ **Cull threshold**: when keeping costs > replacement value (often 60,000+ baht)
 
 > 📚 **Cross-refs**: Mastitis (transition cow risks, part of CTFS calculations), Nutritional disorders (NEB extends CTC), Recording analytics (technology enables real KPI calculation)
 > 🩺 **Practical**: Run KPI dashboard monthly, educate owners with calculations, use sensors for HDR
@@ -44651,22 +44871,29 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 140,
     instructor: 'อ.ธนศักดิ์ (3rd most important dairy issue: mastitis, repro, LAMENESS)',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง hoof anatomy, 3 layers (Horn/Corium/P3), Footrot vs Sole Ulcer, Locomotion Score, 90% lameness from digital structures',
-    summary: `## 🎯 Lead Summary
-**Lameness = #3 dairy disease** (after mastitis + reproduction). ⭐ **>90% of cattle lameness originates in the FOOT/HOOF/DIGIT** — hence "Digital Lameness". Critical concepts: ⭐ **Hoof = 3 layers** (Horn → Corium → P3 bone), ⭐ **Hindlimb >> forelimb affected** (3 reasons: weight + manure + biomechanics), ⭐ **Lateral claw > medial** (yawn faster), ⭐ **Locomotion Score** for herd-level monitoring, Diseases divided into ⭐ **Infectious** (Footrot, Digital Dermatitis) and ⭐ **Non-infectious** (Sole Ulcer, White Line Disease, Laminitis).
+    summary: `# Lameness in Cattle (Digital Lameness, Hoof Anatomy + Trimming + Common Diseases)
 
-## 1️⃣ Why Lameness Matters ⭐⭐
+> 🎯 **Lameness = #3 dairy disease** (after mastitis + reproduction). ⭐⭐⭐ **>90% of cattle lameness originates in the FOOT/HOOF/DIGIT** — hence "Digital Lameness"
+> 💡 Hindlimb >> forelimb (3 reasons) · Lateral claw > medial (grows ~10% faster)
+> ⚠️ Locomotion Score 3+ <5% herd = healthy farm
 
-### Top 3 Dairy Issues (Economic Impact)
+Diseases divided into **Infectious** (Footrot, Digital Dermatitis) and **Non-infectious** (Sole Ulcer, White Line Disease, Laminitis).
+
+---
+
+# 🔻 Part 1: Why Lameness Matters ⭐⭐
+
+## Top 3 Dairy Issues (Economic Impact)
 1. ⭐ **Mastitis** (#1)
 2. ⭐ **Reproductive failure** (#2)
 3. ⭐ **Lameness** (#3) ⭐
 
-### Why ">Digital Lameness"?
+## Why ">Digital Lameness"?
 - ⭐ **>90% of lameness** originates in the **foot/hoof/digit**
 - Other causes (joint, tendon, etc.) <10%
 - Term "Digital" = referring to digit (toe), not "electronic"!
 
-### Lameness Costs ⭐
+## Lameness Costs ⭐
 - Reduced milk yield
 - Reduced feed intake (cow doesn't walk to feed)
 - Reduced reproductive performance
@@ -44674,9 +44901,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Treatment + labor costs
 - ⚠️ Welfare = ethical concern
 
-## 2️⃣ Hoof Anatomy ⭐⭐⭐
+---
 
-### External Structures (Lateral View)
+# 🔻 Part 2: Hoof Anatomy ⭐⭐⭐
+
+## External Structures (Lateral View)
 | Structure | Thai/English | Function |
 |---|---|---|
 | ⭐ **Coronary Band** ⭐ | ไรกีบ | White band between skin + hoof horn, ⭐ **CRITICAL diagnostic marker**: if swollen → infection ascending! |
@@ -44687,27 +44916,29 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Bulb (Heel)** | ส้น | Soft posterior horn |
 | Dewclaw | นิ้วติ่ง | Vestigial — minimal weight bearing |
 
-### Internal Layers ⭐⭐⭐
+## Internal Layers ⭐⭐⭐
 | Layer | Composition | Function |
 |---|---|---|
 | ⭐ **Horn (outer)** | Keratinized epithelium, NO blood vessels | Hard protective shell |
 | ⭐ **Corium (middle)** | Dermis, MANY blood vessels | Living, sensitive, grows hoof |
 | ⭐ **P3 (Distal Phalanx) bone** | Bone | Internal skeleton |
 
-### Why It Matters
+## Why It Matters
 - ⭐ **Horn** = trim safely (no pain!)
 - ⭐ **Corium exposed** = bleed + pain
 - ⭐ **P3 contact** = lameness emergency
 
-### Histology Notes
+## Histology Notes
 - Hoof = same origin as skin (epidermis + dermis)
 - ⭐ **Stratum basale (basal layer)** = where new horn cells form
 - ⭐ Pressure stimulates horn growth (more pressure → more horn!)
 - Bath/topical chemicals affect ⭐ **only outer keratinized layer**
 
-## 3️⃣ Hoof Biomechanics ⭐⭐
+---
 
-### Weight Distribution Reality ⭐
+# 🔻 Part 3: Hoof Biomechanics ⭐⭐
+
+## Weight Distribution Reality ⭐
 **Normal cattle**:
 - ⭐ **Forelimb: 2/3 weight**
 - **Hindlimb: 1/3 weight**
@@ -44716,20 +44947,20 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Pregnant uterus + lactating udder = ⭐ **shifts weight BACK** (toward hindlimbs)
 - During pregnancy + lactation = high hindlimb load
 
-### 3 Reasons Hindlimb Lameness Dominates ⭐
+## 3 Reasons Hindlimb Lameness Dominates ⭐
 | Reason | Mechanism |
 |---|---|
 | 1. ⭐ **Weight shifted back** | Pregnancy + heavy udder |
 | 2. ⭐ **More manure/urine contact** | Hindlimbs in slurry, ⚠️ Ammonia degrades hoof keratin! |
 | 3. ⭐ **Direct bone-bone shock** | Hindlimb action force → femoral head/acetabulum (bone-on-bone) vs forelimb where scapula floats on muscles (built-in shock absorber) |
 
-### Lateral vs Medial Claw ⭐⭐
+## Lateral vs Medial Claw ⭐⭐
 - ⭐ **Lateral claw grows ~10% faster** than medial
 - → More pressure on lateral
 - → ⭐ **Lateral claw 90%+ of lameness**!
 - Cow stance: when lateral hurts → "toes-out" (cow-hocked posture)
 
-### Hoof Growth Rate ⭐
+## Hoof Growth Rate ⭐
 | Factor | Detail |
 |---|---|
 | **Wall growth rate** | ⭐ 5-6 mm/month |
@@ -44737,15 +44968,17 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Surface effect** | Concrete = more growth + more wear, pasture = less of both |
 | **Net result** | Hoof generally lengthens over time → needs trimming! |
 
-## 4️⃣ Locomotion Score ⭐⭐⭐
+---
 
-### Why Score?
+# 🔻 Part 4: Locomotion Score ⭐⭐⭐
+
+## Why Score?
 - ⭐ Herd-level lameness monitoring
 - Compare against benchmarks (cut-off)
 - Track changes over time
 - Decide intervention timing
 
-### Score System (5-point scale) ⭐
+## Score System (5-point scale) ⭐
 | Score | Description |
 |---|---|
 | **1** | Normal, flat back, even strides |
@@ -44754,59 +44987,63 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **4** | Severe limp, 1 limb significantly affected |
 | **5** | Severe non-weight-bearing, stumbling |
 
-### Cut-off Standards ⭐
+## Cut-off Standards ⭐
 - ⭐ **<5% of herd at score 3+** = healthy farm
 - 5-15% = monitor closely
 - ⚠️ >15% = serious problem, intervene!
 
-### Implementation
+## Implementation
 - Record monthly
 - Score in walking line (after milking exit)
 - Need clean, even surface to assess properly
 
-## 5️⃣ Hoof Trimming (Foot Trimming / Hoof Rasping) ⭐⭐⭐
+---
 
-### Why Trim?
+# 🔻 Part 5: Hoof Trimming ⭐⭐⭐
+
+## Why Trim?
 1. ⭐ Restore normal weight distribution
 2. ⭐ Prevent sole ulcer (P3 pressure on sole!)
 3. ⭐ Identify hidden lesions
 4. ⭐ Improve overall comfort + production
 
-### Frequency
+## Frequency
 - ⭐ Routine: every 6 months (dairy adult)
 - After lameness cases: as needed
 - ⭐ Just before drying off (dry-off period for healing)
 
-### Tools
+## Tools
 - Hoof knife
 - Hoof gauge (depth)
 - ⭐ Hoof tester (find painful spots)
 - Tilting chute (for restraint!) ⭐ critical
 - Modern hydraulic chutes
 
-### Trimming Principle (5 Steps) ⭐
+## Trimming Principle (5 Steps) ⭐
 1. ⭐ **Lateral claw to standard length** (~7.5 cm wall)
 2. ⭐ **Match medial claw** to lateral (DON'T trim if shorter!)
 3. ⭐ **Pare flat sole** uniformly
 4. ⭐ **Remove sole concavity** (cup) toward axial side
 5. ⭐ **Smooth heel** (bulb)
 
-### What To Avoid
+## What To Avoid
 - ⚠️ **Don't trim too deep** (avoid Corium exposure!)
 - ⚠️ **Don't make medial > lateral** (creates new problems)
 - ⚠️ **Don't ignore inflammation** (treat first!)
 
-### Why Concavity at Axial?
+## Why Concavity at Axial?
 - ⭐ Reduces inter-digital pressure
 - ⭐ Less moisture trap → less infection
 - ⭐ Allows natural ventilation
 
-## 6️⃣ Infectious Hoof Diseases ⭐⭐⭐
+---
 
-### A. Footrot (Foul of the Foot, ฟลอ) ⭐⭐⭐
+# 🔻 Part 6: Infectious Hoof Diseases ⭐⭐⭐
+
+## A. Footrot (Foul of the Foot, ฟลอ) ⭐⭐⭐
 
 **Etiology**:
-- ⭐ ⭐ **Fusobacterium necrophorum** + Bacteroides + Trueperella + Dichelobacter (mixed flora)
+- ⭐ ⭐ ***Fusobacterium necrophorum*** + Bacteroides + Trueperella + Dichelobacter (mixed flora)
 - Anaerobic, in soil + manure
 - Foul, distinctive odor!
 
@@ -44844,10 +45081,10 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Cull repeat offenders
 - ⚠️ Vaccine (rare, limited efficacy)
 
-### B. Digital Dermatitis (Hairy Heel Wart, Mortellaro Disease) ⭐⭐
+## B. Digital Dermatitis (Hairy Heel Wart, Mortellaro Disease) ⭐⭐
 
 **Etiology**:
-- ⭐ **Treponema spp.** (anaerobic spirochetes)
+- ⭐ ***Treponema* spp.** (anaerobic spirochetes)
 - Often mixed with other bacteria
 - Endemic in many farms
 
@@ -44882,20 +45119,22 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Manage flooring + bedding hygiene
 - Identify M-stage lesions early
 
-### C. Inter-digital Hyperplasia (Corn Type) ⭐
+## C. Inter-digital Hyperplasia (Corn Type) ⭐
 - Mass of inflamed tissue in inter-digital space
 - Chronic mechanical irritation
 - May need surgical excision
 
-### D. Septic Pedal Arthritis ⭐
+## D. Septic Pedal Arthritis ⭐
 - ⚠️ ⚠️ Most severe form — infection has reached joint!
 - Result of untreated footrot or chronic infection
 - Joint is destroyed
 - ⛔ Often requires CULLING (poor prognosis)
 
-## 7️⃣ Non-Infectious Hoof Diseases ⭐⭐⭐
+---
 
-### A. Sole Ulcer (Heel Sore, Pododermatitis Circumscripta) ⭐⭐⭐
+# 🔻 Part 7: Non-Infectious Hoof Diseases ⭐⭐⭐
+
+## A. Sole Ulcer (Heel Sore, Pododermatitis Circumscripta) ⭐⭐⭐
 
 **Pathogenesis**:
 - ⭐ ⭐ **P3 bone (flexor process)** presses on Corium under sole
@@ -44928,7 +45167,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Mat flooring or rubber walkways
 - Avoid thin soles
 
-### B. White Line Disease ⭐⭐
+## B. White Line Disease ⭐⭐
 
 **Pathogenesis**:
 - ⭐ ⭐ **White Line = junction of Sole + Wall** = weakest point
@@ -44954,7 +45193,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - NSAIDs
 - Heal over weeks
 
-### C. Laminitis ⭐⭐
+## C. Laminitis ⭐⭐
 
 **Pathogenesis** (Complex!):
 - ⭐ Inflammation of **sub-clinical** Corium (laminae)
@@ -44995,36 +45234,40 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - Bicarbonate buffer in feed
 - Cooling in summer (heat → less rumination)
 
-### D. Other Common Lesions
+## D. Other Common Lesions
 - **Sand Cracks** (Wall): vertical wall cracks
 - **Horizontal Cracks**: indicate previous laminitis episode
 - **Heel Erosion**: chronic moisture damage
 - **Toe Necrosis**: severe deep infection
 
-## 8️⃣ Treatment Approach Summary ⭐
+---
 
-### Decision Tree
+# 🔻 Part 8: Treatment Approach Summary ⭐
+
+## Decision Tree
 **Workflow**: Lame cow → Trim → Inspect → Categorize lesion location → Treat accordingly:
 - Inter-digital → Footrot or Digital Dermatitis
 - Sole → Sole Ulcer or White Line Disease
 - Wall → Sand Crack or Wall problem
 - No visible lesion → Re-evaluate higher up (joints, tendons)
 
-### Block (Wooden/Plastic Block) ⭐
+## Block (Wooden/Plastic Block) ⭐
 - ⭐ ⭐ **Healthy claw** gets the block (off-loads injured)
 - Adheres with adhesive
 - Wears off naturally over weeks
 - ⭐ Critical for sole ulcer + white line healing
 
-### Universal Footbath Recipe ⭐
+## Universal Footbath Recipe ⭐
 - ⭐ **5-10% CuSO4 (Copper Sulfate)** = standard
 - Or 3-5% Formalin
 - Walk-through 5+ times/day if lameness high
 - Replace solution daily
 
-## 9️⃣ Farm-Level Management ⭐
+---
 
-### Risk Reduction Strategies
+# 🔻 Part 9: Farm-Level Management ⭐
+
+## Risk Reduction Strategies
 | Strategy | Action |
 |---|---|
 | ⭐ **Trim quarterly** | Consistent care |
@@ -45036,38 +45279,40 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Locomotion scoring** | Monthly tracking |
 | **Cull repeat offenders** | Quality of life + economic |
 
-### Records ⭐
+## Records ⭐
 - ⭐ Track lameness incidents per cow
 - Identify chronic problem cows
 - Calculate herd lameness rate
 - Use for benchmarking
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### Anatomy & Function (1-5)
-1. ⭐ **Coronary Band swollen = ascending infection** → systemic Tx needed
-2. ⭐ **3 layers**: Horn (no nerves) → Corium (vessels + nerves) → P3 bone
-3. ⭐ **White Line = weakest point** of hoof
-4. ⭐ **Lateral claw 10% > medial growth** → most lameness here
-5. ⭐ **Hindlimb >> forelimb** lameness (3 reasons explained)
+## 📋 Exam Recap
 
-### Trimming (6-8)
-6. ⭐ **Routine trim every 6 months**
-7. ⭐ **Match medial to lateral length** (don't shorten medial!)
-8. ⭐ **Concavity at axial sole** for ventilation
+### Anatomy & Function
+- ⭐⭐⭐ **Coronary Band swollen = ascending infection** → systemic Tx needed
+- ⭐⭐⭐ **3 layers**: Horn (no nerves) → Corium (vessels + nerves) → P3 bone
+- ⭐⭐ **White Line = weakest point** of hoof
+- ⭐⭐ **Lateral claw 10% > medial growth** → most lameness here
+- ⭐ **Hindlimb >> forelimb** lameness (3 reasons explained)
 
-### Locomotion Score (9)
-9. ⭐ **5-point scale, Score 3+ = trim/treat needed, <5% of herd = healthy**
+### Trimming
+- ⭐⭐ **Routine trim every 6 months**
+- ⭐⭐ **Match medial to lateral length** (don't shorten medial!)
+- ⭐ **Concavity at axial sole** for ventilation
 
-### Infectious Diseases (10-12)
-10. ⭐ **Footrot = inter-digital + acute + systemic + odor**, Fusobacterium
-11. ⭐ **Digital Dermatitis (Mortellaro) = heel area + Treponema + chronic**
-12. ⭐ **Septic arthritis = WORST outcome** (cull)
+### Locomotion Score
+- ⭐⭐⭐ **5-point scale**, Score 3+ = trim/treat needed, <5% of herd = healthy
 
-### Non-Infectious (13-15)
-13. ⭐ **Sole Ulcer = P3 pressure on Corium**, trim + block on healthy claw
-14. ⭐ **White Line Disease = weakest junction crack**, pare + block
-15. ⭐ **Laminitis = SARA-related**, whole-herd issue, prevent with TMR
+### Infectious Diseases
+- ⭐⭐⭐ **Footrot** = inter-digital + acute + systemic + odor, Fusobacterium
+- ⭐⭐ **Digital Dermatitis (Mortellaro)** = heel area + Treponema + chronic
+- ⭐ **Septic arthritis** = WORST outcome (cull)
+
+### Non-Infectious
+- ⭐⭐⭐ **Sole Ulcer** = P3 pressure on Corium, trim + block on healthy claw
+- ⭐⭐ **White Line Disease** = weakest junction crack, pare + block
+- ⭐⭐ **Laminitis** = SARA-related, whole-herd issue, prevent with TMR
 
 > 📚 **Cross-refs**: Mastitis (transition cow stress affects feet too), Nutritional disorders (SARA causes laminitis!), Reproductive index (lameness reduces fertility)
 > 🩺 **Practical**: Locomotion score monthly, trim quarterly, daily foot baths, CuSO4 5-10%, address SARA at herd level
@@ -45089,19 +45334,26 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 114,
     instructor: 'อ.ธนศักดิ์ + อาจารย์อื่น (สรุปวิชา, Virtual Farm Saraburi tour, Year 5-6 preview)',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง 10-history checklist, clinical examination, drug routes, diagnostic approach, ภาพรวมงาน practitioner',
-    summary: `## 🎯 Lead Summary
-**Final lecture summary** of this herd-health-rum course. ⭐ **Practitioner skills** > disease knowledge alone! Covers: Virtual Farm tour at Saraburi research center, ⭐ **10-point History Checklist** for cattle (specific to dairy practice), ⭐ **Clinical examination flow** (history → physical → diagnostics), ⭐ **Drug administration routes** unique to cattle (intramammary, intrauterine), ⭐ **Diagnostic approach** by syndrome. Goal: prepare students for **Year 5/6 fieldwork** + future practice. Key insight: ⭐ **80% of vet work is preventive/management, not treating sick animals**.
+    summary: `# Practitioner Skills Summary (สรุปทักษะที่จำเป็นในการทำงานเป็น Practitioner)
 
-## 1️⃣ Course Overview & Final Lecture Goals ⭐
+> 🎯 **Final lecture summary** ของ herd-health-rum. ⭐⭐⭐ **Practitioner skills > disease knowledge alone!**
+> 💡 **80% of vet work is preventive/management, not treating sick animals**
+> ⚠️ Master 10-point history checklist + biosecurity + drug withdrawal
 
-### Why This Final Lecture
+Goal: prepare students for **Year 5/6 fieldwork** + future practice.
+
+---
+
+# 🔻 Part 1: Course Overview & Final Lecture Goals ⭐
+
+## Why This Final Lecture
 - Course covered **diseases primarily** (13 lectures)
 - ⭐ **Real practice = much more than diseases**
 - Need: ⭐ **Skills + Understanding + Communication**
 - ⭐ Preview Year 5/6 + practice prep
 - Some via **Virtual Farm tour** (CUVET Saraburi research center)
 
-### Course Structure Reflection
+## Course Structure Reflection
 1. EBL/MCF/Rinderpest/BEF
 2. Respiratory disease BRD
 3. FMD + LSD
@@ -45116,9 +45368,11 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 12. Lameness
 13. ⭐ **THIS: Practitioner skills summary**
 
-## 2️⃣ Virtual Farm Tour (Saraburi Research Center) ⭐⭐
+---
 
-### Site Layout
+# 🔻 Part 2: Virtual Farm Tour (Saraburi Research Center) ⭐⭐
+
+## Site Layout
 - **Front area**: office, biosecurity station
 - **Milking parlor** (1 side)
 - **Feed bunker** (other side)
@@ -45127,25 +45381,27 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - **Auto cleaning system**: scraper drains slurry every 4-6 hours
 - **TMR feed mixer**: red wagon delivers feed automatically
 
-### Biosecurity Demo ⭐⭐
+## Biosecurity Demo ⭐⭐
 - ⭐ Boots changes for visitors
 - ⭐ **Disinfection station** at entry
-- ⭐ Targeted at: ⭐ ⭐ **Vet = biggest disease vector** (clothes, hair, phone, shoes)
+- ⭐ Targeted at: ⭐⭐ **Vet = biggest disease vector** (clothes, hair, phone, shoes)
 - Communication style for farmers (less technical, "ภาษาเกษตรกร")
 
-### Mobile Clinic Concept
+## Mobile Clinic Concept
 - Vet drives between farms
 - Must adapt biosecurity to each farm's standards
 - Bare minimum: clean boots + disinfectant for shared boots
 
-## 3️⃣ ⭐⭐⭐ 10-Point History Checklist (Cattle-Specific!)
+---
 
-### Why Cattle History is Unique
+# 🔻 Part 3: 10-Point History Checklist (Cattle-Specific!) ⭐⭐⭐
+
+## Why Cattle History is Unique
 - ⭐ Plus farm-level data (NOT just patient-level)
 - Population context affects diagnosis
 - Management info crucial for diagnosis + control
 
-### The 10 Items ⭐⭐⭐
+## The 10 Items ⭐⭐⭐
 | # | Item | Why important |
 |---|---|---|
 | ⭐ **1** | New Case or Follow-up | Avoid duplicate work |
@@ -45159,23 +45415,25 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **9** | Individual or Herd problem? | Treatment scale changes |
 | ⭐ **10** | Vaccine history (FMD + LSD routine; others) | Rules out vaccine-preventable |
 
-### How To Use This
+## How To Use This
 - ⭐ Ask BEFORE physical exam
 - Some items volunteered by owner; others need explicit asking
 - Build into routine farm visit SOP
 
-## 4️⃣ Clinical Examination Flow ⭐⭐
+---
 
-### Definition
+# 🔻 Part 4: Clinical Examination Flow ⭐⭐
+
+## Definition
 - ⭐ Clinical examination = **History + Physical examination**
 - Don't conflate with "physical examination" alone
 - Physical = subset of clinical
 
-### 2 Reference Books
+## 2 Reference Books
 1. ⭐ **"Clinical Examination of Farm Animal"**
 2. ⭐ **"Diseases of Dairy Cattle"** (digital + library)
 
-### Physical Examination Order
+## Physical Examination Order
 1. **General observation** (BCS, posture, eye, skin)
 2. **TPR**: Temperature, Pulse, Respiration
 3. **Thorax + abdomen** (auscultation)
@@ -45185,14 +45443,16 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 7. **Locomotion + hooves**
 8. **Lab samples** (blood, milk, urine, feces)
 
-### Communication Note ⭐
+## Communication Note ⭐
 - ⭐ **Use simple, non-technical language** with farmers
 - Watch for "nodding pretend understanding" syndrome
 - ⭐ Build trust through clarity
 
-## 5️⃣ Drug Administration Routes (Cattle-Specific!) ⭐⭐
+---
 
-### Common Routes
+# 🔻 Part 5: Drug Administration Routes (Cattle-Specific!) ⭐⭐
+
+## Common Routes
 | Route | Use | Notes |
 |---|---|---|
 | **IV** | Emergency, fluid, hypocalcemia | Jugular common, slow infusion |
@@ -45203,20 +45463,22 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **PO** | Oral drugs, propylene glycol | Drench gun |
 | **Topical** | Skin lesions, foot baths | CuSO4, etc. |
 
-### Withdrawal Times ⭐
+## Withdrawal Times ⭐
 - ⭐ ⭐ **CRITICAL**: each drug has milk + meat withdrawal time
 - ⚠️ Penalty: 20× milk price + vet liability
 - ⭐ Always check label before injection
 - ⚠️ Extra-label use = vet's personal responsibility
 
-### Practical Tips
+## Practical Tips
 - ⭐ Always **alcohol-swab** before injection (Clostridium prevention!)
 - ⭐ Use **right needle size** (deep IM = 1.5" min)
 - ⭐ Avoid manure-stained skin areas
 
-## 6️⃣ Diagnostic Approach by Syndrome ⭐⭐
+---
 
-### Common Cattle Syndromes
+# 🔻 Part 6: Diagnostic Approach by Syndrome ⭐⭐
+
+## Common Cattle Syndromes
 | Syndrome | First DDx | Action |
 |---|---|---|
 | ⭐ **Sudden death** | Anthrax (don't open!) → HS → Botulism | Investigate before necropsy |
@@ -45228,22 +45490,24 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **Fever + nasal discharge + drop in milk** | BRD complex, MCF, FMD | Multi-DDx workup |
 | ⭐ **Clinical mastitis** | Bacterial, Lepto Hardjo (atypical) | Strip cup + culture |
 
-### Lab Tests Hierarchy
+## Lab Tests Hierarchy
 1. ⭐ **Hematology + biochemistry** (basic)
 2. **Microbiology** (culture, PCR)
 3. **Serology** (ELISA, MAT, MRT)
 4. **Histopathology** (necropsy/biopsy)
 5. **Imaging** (ultrasound, X-ray)
 
-### When to Refer/Consult
+## When to Refer/Consult
 - ⭐ Beyond your skill level
 - Unknown disease
 - ⭐ ⚠️ Anthrax suspicion (DON'T open!)
 - Outbreak investigation
 
-## 7️⃣ Reproductive Veterinarian Skills ⭐
+---
 
-### Core Reproductive Tasks
+# 🔻 Part 7: Reproductive Veterinarian Skills ⭐
+
+## Core Reproductive Tasks
 1. ⭐ **Estrus detection** (AI timing)
 2. ⭐ **Pregnancy diagnosis** (rectal palpation, ultrasound)
 3. ⭐ **Postpartum check** (uterine involution)
@@ -45251,18 +45515,20 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. ⭐ **AI/embryo transfer** (advanced)
 6. **Cull-keep decisions**
 
-### Year 5-6 Skill Targets
+## Year 5-6 Skill Targets
 - Master rectal palpation
 - Field ultrasound interpretation
 - KPI dashboard usage
 - Sensor data interpretation
 
-## 8️⃣ Modern Technologies in Practice ⭐⭐
+---
 
-### "Precision Dairy Farming" Concept ⭐
+# 🔻 Part 8: Modern Technologies in Practice ⭐⭐
+
+## "Precision Dairy Farming" Concept ⭐
 **Definition**: Using sensors + data to monitor individual cow health/production
 
-### Available Sensors at Saraburi
+## Available Sensors at Saraburi
 | Sensor | Function |
 |---|---|
 | ⭐ **Activity collar** | Step count → estrus + sickness detection |
@@ -45273,19 +45539,21 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | **Real-time milk meter** | Per-cow yield + composition |
 | **TMR load cell** | Feed delivered per pen |
 
-### Software Integration
+## Software Integration
 - ⭐ All data → cloud → mobile app
 - AI alerts for: heat, fever, lameness onset, calving prediction
 - ⭐ **Vet uses dashboard** to triage which cows to visit
 - Replaces guesswork with data
 
-## 9️⃣ Real-World Practice Reality Check ⭐⭐
+---
 
-### What Vets Actually Do (Time Distribution)
+# 🔻 Part 9: Real-World Practice Reality Check ⭐⭐
+
+## What Vets Actually Do (Time Distribution)
 - ⭐ **80% Prevention/management** (rounds, programs, training, records)
 - **20% Treatment** of sick animals
 
-### Skills Beyond Disease Knowledge ⭐
+## Skills Beyond Disease Knowledge ⭐
 1. ⭐ **Communication** (with farmers, workers, owners)
 2. ⭐ **Economic analysis** (cost-benefit of interventions)
 3. ⭐ **Records management** (data → decisions)
@@ -45293,7 +45561,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 5. ⭐ **Diplomatic skills** (cultural sensitivities, family hierarchy)
 6. ⭐ **Adaptability** (small farm vs large farm vs cooperative)
 
-### Challenge: Different Farm Types
+## Challenge: Different Farm Types
 | Farm Type | Approach |
 |---|---|
 | ⭐ **Small holder (<20 cows)** | Single owner, personal relationship, simpler tools |
@@ -45301,24 +45569,28 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 | ⭐ **Large (>100 cows)** | Manager + workers, high-tech, KPI dashboards |
 | **Cooperative** | Multiple farms, shared services, group purchasing |
 
-## 1️⃣0️⃣ Year 5-6 Preview ⭐
+---
 
-### Year 5: Practical Externship
+# 🔻 Part 10: Year 5-6 Preview ⭐
+
+## Year 5: Practical Externship
 - ⭐ Hands-on at Saraburi research center
 - 2-week intensive training
 - Skills check: AI, palpation, drug admin, hoof trimming
 - Real cow handling
 - ⭐ Don't skip class — limited cow access!
 
-### Year 6: Specialization Module
+## Year 6: Specialization Module
 - ⭐ Choose track: Food Animal, Small Animal, Equine, Mixed
 - Few students per group (deep focus)
 - Project-based
 - Field placement
 
-## 1️⃣1️⃣ Career Paths in Cattle Practice ⭐
+---
 
-### Job Options
+# 🔻 Part 11: Career Paths in Cattle Practice ⭐
+
+## Job Options
 1. ⭐ **Mobile clinic** (private practice, multiple farms)
 2. **Cooperative vet** (employed by Coop)
 3. **Government** (DLD: regulation, surveillance)
@@ -45327,15 +45599,17 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 6. ⭐ **Farm-employed** (large farms hire dedicated vets)
 7. **Consulting** (advisor to multiple farms)
 
-### Income Potential ⭐
+## Income Potential ⭐
 - ⭐ Saraburi area cattle vets: 50,000-100,000+ baht/month
 - Land prices ~1 million baht/rai (modest farms = 200-300 rai owners!)
 - ⭐ Owners often wealthy + humble lifestyle
 - ⭐ ⚠️ **Vet shortage** in cattle = high opportunity
 
-## 1️⃣2️⃣ Final Reminders for Future Practitioners ⭐
+---
 
-### What to Remember
+# 🔻 Part 12: Final Reminders for Future Practitioners ⭐
+
+## What to Remember
 1. ⭐ ⭐ **Use 10-point history every visit** (build muscle memory!)
 2. ⭐ **Communication > technical knowledge** (with farmers)
 3. ⭐ **Withdrawal times** = vet's personal liability
@@ -45344,7 +45618,7 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 6. ⭐ **80% prevention, 20% treatment** (mind frame shift)
 7. ⭐ **Yes you can quantify ROI** (2 million baht/year case study)
 
-### Common Mistakes to Avoid
+## Common Mistakes to Avoid
 - ⚠️ Not asking lactation status
 - ⚠️ Forgetting pregnancy in drug selection
 - ⚠️ Skipping withdrawal time check
@@ -45352,34 +45626,36 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
 - ⚠️ Not following biosecurity protocols
 - ⚠️ Treating individuals when herd-level intervention needed
 
-## 📋 Exam Recap (15 จุดสำคัญ)
+---
 
-### Practitioner Mindset (1-3)
-1. ⭐ **Vet work = 80% prevention + 20% treatment**
-2. ⭐ **Skills > disease knowledge** for real practice
-3. ⭐ **Communication critical** (use farmer-friendly language!)
+## 📋 Exam Recap
 
-### History Taking (4-7)
-4. ⭐ **10-point cattle history checklist** (mandatory!)
-5. ⭐ **Cow group + DIM + lactation #** sets context
-6. ⭐ **Pregnancy + AI history** affects drug choice
-7. ⭐ **Feed history + 7-day window** for metabolic DDx
+### Practitioner Mindset
+- ⭐⭐⭐ **Vet work = 80% prevention + 20% treatment**
+- ⭐⭐ **Skills > disease knowledge** for real practice
+- ⭐⭐ **Communication critical** (use farmer-friendly language!)
 
-### Clinical Examination (8-10)
-8. ⭐ **Clinical exam = History + Physical**
-9. ⭐ **TPR + general observation first**
-10. ⭐ **Mammary + reproductive + locomotion** = dairy-specific
+### History Taking
+- ⭐⭐⭐ **10-point cattle history checklist** (mandatory!)
+- ⭐⭐ **Cow group + DIM + lactation #** sets context
+- ⭐ **Pregnancy + AI history** affects drug choice
+- ⭐ **Feed history + 7-day window** for metabolic DDx
 
-### Drug Routes (11)
-11. ⭐ **Intramammary + Intrauterine** unique to cattle, Withdrawal time always check!
+### Clinical Examination
+- ⭐⭐⭐ **Clinical exam = History + Physical**
+- ⭐⭐ **TPR + general observation first**
+- ⭐ **Mammary + reproductive + locomotion** = dairy-specific
 
-### Modern Practice (12-14)
-12. ⭐ **Precision Dairy Farming** = sensors + data + AI
-13. ⭐ **Activity collar** = main multi-purpose sensor
-14. ⭐ **80% real value** in keeping cows healthy (preventive)
+### Drug Routes
+- ⭐⭐⭐ **Intramammary + Intrauterine** unique to cattle, Withdrawal time always check!
 
-### Career (15)
-15. ⭐ **Cattle vet shortage** = high opportunity, 50K-100K+ baht/month potential
+### Modern Practice
+- ⭐⭐ **Precision Dairy Farming** = sensors + data + AI
+- ⭐⭐ **Activity collar** = main multi-purpose sensor
+- ⭐⭐⭐ **80% real value** in keeping cows healthy (preventive)
+
+### Career
+- ⭐ **Cattle vet shortage** = high opportunity, 50K-100K+ baht/month potential
 
 > 📚 **Cross-refs**: ALL previous lectures, This is the meta-summary
 > 🩺 **Year 5/6 prep**: Master 10-point history, Practice palpation, Read both reference books
@@ -45402,229 +45678,178 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 90,
     instructor: 'อ.ธนศักดิ์ (อดีตนายกฯ, 2 วาระหมด, ผู้สอนหลักคอร์สนี้)',
     examFormat: 'Multiple choice + scenario, ออกตามคำพูด keywords (อ.บอกแล้ว), เน้น concepts + study designs',
-    summary: `## 🎯 Lead Summary
-**Veterinary Epidemiology = first course in Y5 sem 1**. ⭐ **Definition**: study of disease distribution + frequency + determinants in animal populations. Covers BOTH infectious and non-infectious diseases. Connects to: ⭐ **Biostatistics + Public Health + Preventive Medicine + Herd Health**. Course goal: ⭐ **Disease Prevention + Control + Eradication** through data-driven decisions. Critical concepts intro'd: ⭐ **Sporadic, Endemic, Epidemic, Pandemic**, ⭐ **Reservoir host, Primary host, Intermediate host**, ⭐ **Active vs Passive Surveillance**, ⭐ **Test-kit metrics** (Sensitivity, Specificity, Accuracy).
+    summary: `# Veterinary Epidemiology — 1.1 Introduction
 
-## 1️⃣ Epidemiology Definition ⭐⭐⭐
+> 🎯 Epidemiology = study **disease distribution + frequency + determinants** ใน **populations** (ไม่ใช่รายตัว) — เป็น CONNECTOR ระหว่าง biostat + public health + preventive med + herd health ⭐⭐⭐
+> ⚠️ ออกแน่: 4 disease patterns, 3 host types, Sensitivity/Specificity, Passive vs Active surveillance
 
-### What Epidemiology IS
-- ⭐ Study of **disease distribution** in populations
-- ⭐ Study of **disease frequency** (how often)
-- ⭐ Study of **determinants** (what causes/contributes)
-- ⭐ Population-level (NOT individual)
+---
 
-### What Epidemiology IS NOT
-- Just biostatistics
-- Just public health
-- Just preventive medicine
-- It's the **CONNECTOR** between all of these
+# 🔻 Part 1: Epidemiology คืออะไร ⭐⭐⭐
 
-### Real-World Examples ⭐
+## What Epidemiology IS
+- ศึกษา **disease distribution** ใน populations
+- ศึกษา **disease frequency** (เกิดบ่อยแค่ไหน)
+- ศึกษา **determinants** (อะไรเป็นเหตุ/ปัจจัย)
+- **Population-level** — ไม่ใช่ individual
+
+## What Epidemiology IS NOT
+- ไม่ใช่แค่ biostatistics
+- ไม่ใช่แค่ public health
+- ไม่ใช่แค่ preventive medicine
+- เป็น **CONNECTOR** เชื่อมทุกตัวข้างบนเข้าด้วยกัน
+
+## Real-World Examples
 | Example | Epidemiology aspect |
 |---|---|
-| ⭐ **COVID-19 case curves** | Frequency tracking → predict resources |
-| ⭐ **HPAI cases by year/country** | Distribution mapping → preparedness |
-| **Mortality from H7N7 in Netherlands (2003)** | First human death from avian flu (a vet!) |
-| **H5N1 in Thailand 2547** | Different strain, same family |
+| **COVID-19 case curves** | Frequency tracking → predict resources |
+| **HPAI cases by year/country** | Distribution mapping → preparedness |
+| **H7N7 Netherlands (2003)** | First human death from avian flu (a vet!) |
+| **H5N1 Thailand 2547** | Different strain, same family |
 
-## 2️⃣ Course Topics (Roadmap) ⭐⭐
+---
 
-### Sequence
-1. ⭐ **Introduction** (today)
-2. ⭐ **Basic concepts** in epidemiology
-3. ⭐ **Disease in populations I & II**
-4. ⭐ **Association vs Causation**
-5. ⭐ **Measurement of disease frequency**
-6. ⭐ **Outbreak Investigation**
-7. ⭐ **Screening + Diagnostic tests** (Test-kits)
-8. ⭐ **Animal disease surveillance + monitoring**
-9. ⭐ **Observation studies** (Study Design)
-10. ⭐ **Applied Statistics** in Epidemiology
-11. ⭐ **Disease Control, Prevention, Eradication**
-12. **Public Private Partnerships**
-13. **Practice + Application** in research
+# 🔻 Part 2: Course Roadmap ⭐⭐
 
-### Why It Matters
-- ⭐ **Statistics needed!** Review your stats!
-- ⭐ Will use software (not hand calculations)
-- BUT must know which method to choose
-- Career: surveillance, research, drug development, public health
+## ลำดับเนื้อหา
+1. Introduction (today)
+2. Basic concepts in epidemiology
+3. Disease in populations I & II
+4. Association vs Causation
+5. Measurement of disease frequency
+6. Outbreak Investigation
+7. Screening + Diagnostic tests (Test-kits)
+8. Animal disease surveillance + monitoring
+9. Observation studies (Study Design)
+10. Applied Statistics in Epidemiology
+11. Disease Control, Prevention, Eradication
+12. Public Private Partnerships
+13. Practice + Application in research
 
-## 3️⃣ Key Concepts Introduced ⭐⭐⭐
+> 💡 **ทำไมต้องเรียน**: ใช้ software (R/SPSS/STATA) ไม่ใช่คำนวณมือ — แต่ต้อง **รู้ว่าจะเลือก method ไหน** กับคำถามแบบไหน
 
-### Disease Patterns (4 key terms!)
+---
+
+# 🔻 Part 3: Key Concepts ⭐⭐⭐
+
+## 4 Disease Patterns (จำให้ได้!)
 | Term | Definition | Example |
 |---|---|---|
-| ⭐ **Sporadic** | Occasional, irregular cases | Anthrax in Thailand |
-| ⭐ **Endemic** | Constantly present in population | FMD in Thailand |
-| ⭐ **Epidemic** | Sudden increase above expected | LSD outbreak 2021 |
-| ⭐ **Pandemic** | Global spread | COVID-19, Spanish Flu |
+| **Sporadic** | Occasional, irregular cases | Anthrax in Thailand |
+| **Endemic** | Constantly present in population | FMD in Thailand |
+| **Epidemic** | Sudden increase above expected | LSD outbreak 2021 |
+| **Pandemic** | Global spread | COVID-19, Spanish Flu |
 
-### Host Types ⭐
+## Host Types ⭐
 | Term | Role | Example |
 |---|---|---|
-| ⭐ **Primary Host** | Disease completes life cycle here | Cattle for FMD |
-| ⭐ **Intermediate Host** | Larval/asexual stage | Snail for Fasciola |
-| ⭐ **Reservoir Host** | Maintains disease, may not be sick | Wildebeest for MCF, Sheep for OvHV-2 |
+| **Primary Host** | Disease completes life cycle here | Cattle for FMD |
+| **Intermediate Host** | Larval/asexual stage | Snail for Fasciola |
+| **Reservoir Host** | Maintains disease, may not be sick | Wildebeest for MCF, Sheep for OvHV-2 |
 | **Vector** | Transmits agent | Mosquito for malaria |
 
-### Disease Eradication Hierarchy ⭐
-- ⭐ **Eradication** = no virus exists anywhere (Smallpox, Rinderpest)
+## Disease Eradication Hierarchy
+- **Eradication** = no virus exists anywhere (Smallpox, Rinderpest)
 - **Elimination** = no disease in specific area
 - **Control** = reducing burden
 
-## 4️⃣ Surveillance Types ⭐⭐⭐
+---
 
-### Passive Surveillance ⭐
-- ⭐ **Routine** disease reporting
-- ⭐ **Cheaper** (uses existing infrastructure)
-- Example: Lab tests on samples already submitted
-- ⭐ Default approach when no outbreak
+# 🔻 Part 4: Surveillance ⭐⭐⭐
 
-### Active Surveillance ⭐
-- ⭐ **Targeted** investigation
-- ⭐ **More expensive** (need teams + travel)
-- Triggered by: outbreak alerts, high-risk events
-- Example: HPAI X-ray (door-to-door investigation)
+## Passive vs Active
+| Type | Cost | Trigger |
+|---|---|---|
+| **Passive** ⭐ | Cheaper — uses existing infrastructure | Default approach, ไม่มี outbreak |
+| **Active** ⭐ | Expensive — ต้อง team + travel | Outbreak alerts, high-risk events |
 
-### Why Mostly Passive? ⭐
-- ⭐ **Cost** (limited budgets)
-- ⭐ Resources better targeted
-- Active reserved for emergencies
+> 💡 **ทำไม default Passive**: budget limited → save active สำหรับ emergency
 
-### When to Switch to Active
-- ⚠️ Notify-able disease detected
+## เมื่อไรต้อง Switch เป็น Active
+- Notifiable disease detected
 - Mortality cluster
 - Public health concern
 - Trade barrier triggered
 
-## 5️⃣ Test-Kit Metrics (Critical for Future Practice!) ⭐⭐⭐
+---
 
-### 3 Key Metrics
+# 🔻 Part 5: Test-Kit Metrics ⭐⭐⭐
+
 | Metric | Definition | Question Answered |
 |---|---|---|
-| ⭐ **Sensitivity** | True Positive rate | ⭐ Does it detect SICK? |
-| ⭐ **Specificity** | True Negative rate | ⭐ Does it confirm HEALTHY? |
-| ⭐ **Accuracy** | Overall correctness | ⭐ How reliable overall? |
+| **Sensitivity** | True Positive rate | Does it detect SICK? |
+| **Specificity** | True Negative rate | Does it confirm HEALTHY? |
+| **Accuracy** | Overall correctness | How reliable overall? |
 
-### Why It Matters in Practice
-- ⭐ When choosing diagnostic kits
-- COVID test comparison: 99% Sens / 90% Spec vs 90/85
-- Influences clinical decisions
-- ⭐ Different kits for different purposes
+## Application: Surveillance Test Selection
+- **Screening tool** → high SENSITIVITY (catch all positives)
+- **Confirmatory test** → high SPECIFICITY (rule out false +)
+- COVID test comparison: 99/90 vs 90/85 → คนละจุดประสงค์
 
-### Application: Surveillance Test Selection
-- Screening tool → high SENSITIVITY (catch all positives)
-- Confirmatory test → high SPECIFICITY (rule out false +)
+---
 
-## 6️⃣ Bird Flu Case Study ⭐⭐ (Excellent Example!)
+# 🔻 Part 6: Bird Flu Case Study ⭐⭐
 
-### Why It's a Great Example
-- ⭐ **Long history** but didn't infect humans for 100 years
+## ทำไมเป็น example ที่ดี
+- Long history แต่ไม่ติดคนมา 100 ปี
 - 2003: First human death (Netherlands, vet, H7N7)
 - 2547 (2004): Thailand outbreak (H5N1)
 
-### How Did Bird Flu Become Human-Lethal? ⭐
-- ⭐ **Retrospective study** revealed:
-  - Avian flu + Swine flu BOTH infected pigs simultaneously
-  - ⭐ **Mixing vessel** (pigs) → genetic reassortment
-  - New strain → infectious to humans!
-- Lessons:
-  - Co-circulation between species = danger
-  - Surveillance critical at pig-poultry interfaces
+## How Did Bird Flu Become Human-Lethal?
+Retrospective study revealed:
+- Avian flu + Swine flu ติด pig พร้อมกัน
+- **Mixing vessel** (pigs) → genetic reassortment
+- New strain → infectious to humans!
 
-### Thailand's HPAI Success Story ⭐
-- ⭐ **Model country** for HPAI control
-- Recognition by: FAO, WOAH (formerly OIE)
+> ⚠️ **Lesson**: Co-circulation between species = danger zone — surveillance critical ที่ pig-poultry interfaces
+
+## Thailand's HPAI Success Story
+- Model country for HPAI control
+- Recognition by FAO, WOAH (formerly OIE)
 - Strategy: Stamping out + movement control + biosecurity
-- ⭐ **Result**: No HPAI in Thailand for 20+ years!
-- Currently only Low Pathogenic strains detected
+- **Result**: No HPAI in Thailand for 20+ years!
 
-## 7️⃣ Public Health × Veterinary Epidemiology ⭐
+---
 
-### Why It's Inseparable
-- ⭐ Many animal diseases are zoonotic
-- ⭐ Trade impacts → economic public health
-- ⭐ Food safety
-- One Health approach (more in later lectures)
+# 🔻 Part 7: Economics + Decision Making ⭐⭐
 
-### Examples
-| Disease | Animal | Human impact |
-|---|---|---|
-| Avian Influenza | Birds, pigs | Pandemic risk |
-| Brucellosis | Cattle, goats | Undulant fever |
-| Salmonella | Multiple | Food poisoning |
-| Rabies | Mammals | Always fatal |
-
-## 8️⃣ Economics + Decision Making ⭐⭐
-
-### Resources Are Finite
-- ⭐ Thai government budget: **3 trillion baht/year**
+## Resources Are Finite
+- Thai government budget: 3 trillion baht/year
 - BUT diseases are MANY
 - ⚠️ Can't control all diseases simultaneously
 
-### Selection Criteria for Disease Priorities ⭐
-1. ⭐ **Economic impact**: Major export disease (FMD, ASF) = priority
-2. ⭐ **Public health impact**: Zoonotic risk
+## Selection Criteria for Disease Priorities
+1. **Economic impact**: Major export disease (FMD, ASF)
+2. **Public health impact**: Zoonotic risk
 3. **Trade impact**: WTO/SPS barriers
 4. **Welfare concern**: Severe animal suffering
 
-### Government Surveillance Priorities ⭐
-- Routine: FMD, LSD (vaccine programs)
-- Targeted: HPAI, ASF, Brucellosis
-- Emerging: New diseases via wildlife
+---
 
-## 9️⃣ Study Design Types ⭐⭐
+# 🔻 Part 8: Study Design Types (intro) ⭐⭐
 
-### Briefly Introduced (More in later lectures)
 | Design | Direction | Example |
 |---|---|---|
-| **Cross-sectional** | Snapshot | Prevalence survey |
-| ⭐ **Prospective** | Follow forward in time | Cohort study |
-| ⭐ **Retrospective** | Look back at past | Case-control study |
+| Cross-sectional | Snapshot | Prevalence survey |
+| Prospective | Follow forward in time | Cohort study |
+| Retrospective | Look back at past | Case-control study |
 
-### Quick Quiz from Class ⭐
-**Q1**: Studying cattle morbidity in Nakhon Pathom = ?
-- Answer: ⭐ Epidemiology
+## Quiz from Class
+- **Q1**: Studying cattle morbidity in Nakhon Pathom = Epidemiology
+- **Q2**: H5N1 transmission between birds + humans = Epidemiology + Public Health
+- **Q3**: Reducing piglet mortality in farrowing = Vet medicine + Herd health
 
-**Q2**: H5N1 transmission between birds + humans = ?
-- Answer: ⭐ Epidemiology + Public Health
+---
 
-**Q3**: Reducing piglet mortality in farrowing = ?
-- Answer: ⭐ Veterinary medicine + Herd health
-
-## 1️⃣0️⃣ Connection to Other Subjects ⭐
-
-### How Epidemiology Connects
-| Subject | Connection |
-|---|---|
-| ⭐ **Biostatistics** | Calculations + analysis |
-| ⭐ **Public Health** | Population-level interventions |
-| ⭐ **Preventive Medicine** | Disease prevention strategies |
-| ⭐ **Herd Health** | Animal population management |
-| **Microbiology** | Pathogen identification |
-| **Pharmacology** | Treatment efficacy studies |
-| **Toxicology** | Environmental disease |
-
-## 📋 Exam Recap (10 จุดสำคัญ)
-
-1. ⭐ **Epidemiology = study of disease distribution + frequency + determinants in populations**
-2. ⭐ **4 patterns**: Sporadic, Endemic, Epidemic, Pandemic
-3. ⭐ **3 host types**: Primary, Intermediate, Reservoir
-4. ⭐ **Eradication ≠ Elimination ≠ Control**
-5. ⭐ **Passive vs Active Surveillance** (cost vs targeting trade-off)
-6. ⭐ **3 Test-kit metrics**: Sensitivity, Specificity, Accuracy
-7. ⭐ **Mixing vessel concept** (HPAI + swine flu in pigs)
-8. ⭐ **Resource constraints** drive disease priority decisions
-9. ⭐ **3 Study designs**: Cross-sectional, Prospective, Retrospective
-10. ⭐ **Thai HPAI success** = WOAH model country (no cases 20+ years)
-
-> 📚 **Cross-refs**: Herd-health-rum (KPI calculations), Public health subjects, Preventive medicine
-> 🩺 **Practical**: Stats software is fine but MUST know which method, Read course before class
-> 📊 **Key formula**: Surveillance = Passive default + Active when triggered
-> 🎯 **Goal of all epidemiology**: Disease Prevention, Control, Eradication
-> 🌍 **Reality**: Thailand + Israel + similar tropic countries — different from temperate epidemiology
-> 💡 **First lecture takeaway**: This subject CONNECTS biostatistics + public health + clinical practice`,
+## 📋 Exam Recap
+- ⭐⭐⭐ **Epidemiology = study of disease distribution + frequency + determinants in populations**
+- ⭐⭐⭐ **4 patterns**: Sporadic, Endemic, Epidemic, Pandemic
+- ⭐⭐⭐ **3 host types**: Primary, Intermediate, Reservoir
+- ⭐⭐ **Eradication ≠ Elimination ≠ Control**
+- ⭐⭐ **Passive vs Active Surveillance** (cost vs targeting trade-off)
+- ⭐⭐ **3 Test-kit metrics**: Sensitivity, Specificity, Accuracy
+- ⭐ **Mixing vessel concept** (HPAI + swine flu in pigs)
+- ⭐ **Thai HPAI success** = WOAH model country (no cases 20+ years)`,
   },
 
   oH3iSvwMdYY: {
@@ -45635,219 +45860,158 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 79,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + scenario, ออกเรื่อง definition, qualitative vs quantitative, 3 study designs, etymology epi-demos-logos',
-    summary: `## 🎯 Lead Summary
-**Basic concepts in epidemiology** — building on the introduction. Core idea: ⭐ **Epidemiology = study of disease in POPULATIONS (not individuals)**. Differs from pathology because it works at HERD level. Etymology: ⭐ **Epi (upon) + Demos (people) + Logos (knowledge)** = "knowledge upon people". Modern split: ⭐ **Qualitative** (Natural History, Causation, Microbe characterization) vs ⭐ **Quantitative** (Disease Measuring, Observational Studies, Modelling, Clinical Trials, Economic Assessment, Risk Assessment). 3 study designs: ⭐ **Cross-sectional, Retrospective, Prospective**.
+    summary: `# Veterinary Epidemiology — 1.2 Basic Concepts in Epidemiology
 
-## 1️⃣ Why Epidemiology Connects Everything ⭐⭐
+> 🎯 Epidemiology = study disease ใน **POPULATIONS** ไม่ใช่ individual (= แตกต่างจาก pathology) ⭐⭐⭐
+> 💡 Etymology = **Epi (upon) + Demos (people) + Logos (knowledge)** = "knowledge upon the people"
 
-### Vet Career Foundation
+---
+
+# 🔻 Part 1: ทำไม Epi เชื่อมทุกอย่าง ⭐⭐
+
+## Vet Career Foundation
 > "อายุรศาสตร์ = core of vet career"
-- ⭐ Surgery? Can refer if can't do
-- ⭐ Reproduction? Can refer
-- ⚠️ ⭐ **Diagnosis/Treatment skills?** = ⭐ MUST HAVE (= core)
-- ⭐ Epidemiology supports = better Decision Making
+- Surgery? Can refer ถ้าทำไม่ได้
+- Reproduction? Can refer
+- ⚠️ **Diagnosis/Treatment skills** = MUST HAVE (= core)
+- Epidemiology supports = better Decision Making
 
-### Where Epidemiology Lives in Universities
+## Where Epidemiology Lives in Universities
 - Some: Department of **Public Health** (focus on infectious + zoonotic)
 - Some: Department of **Medicine** (focus on herd health)
-- ⭐ Both correct — depends on focus
+- ทั้งคู่ถูก — ขึ้นกับ focus ของหลักสูตร
 
-### Career Wisdom from Instructor ⭐
-- ⭐ "Vet jobs ↑ when you can DECISION-MAKE quickly + correctly"
-- ⭐ Real practice: not as ideal as student life
-- ⭐ Decisions affected by: colleagues, society, finances, politics
-- ⭐ "If you're the vet they think of when crisis hits → you'll be wealthy"
+> 💡 **Career wisdom จาก อ.**: "Vet jobs ↑ when you can DECISION-MAKE quickly + correctly" — vet ที่คนนึกถึงตอน crisis = vet ที่รวย
 
-## 2️⃣ Definition Distinctions ⭐⭐⭐
+---
 
-### Etymology
-> ⭐ **Epi** (upon) + **Demos** (people) + **Logos** (knowledge)
+# 🔻 Part 2: Definition Distinctions ⭐⭐⭐
+
+## Etymology
+> **Epi** (upon) + **Demos** (people) + **Logos** (knowledge)
 > = "Study of what is UPON THE PEOPLE"
 
-### Pathology vs Epidemiology
+## Pathology vs Epidemiology
 | Pathology | Epidemiology |
 |---|---|
-| ⭐ Studies INDIVIDUAL animal | ⭐ Studies POPULATION |
+| Studies INDIVIDUAL animal | Studies POPULATION |
 | Cellular, tissue level | Herd, farm, country level |
 | Lab-based | Field + data |
 | One case → diagnosis | Many cases → trends |
 
-### WHO Definition (Translated)
-> ⭐ "Epidemiology = study of distribution and determinants of disease frequency in populations"
+## WHO Definition
+> "Epidemiology = study of distribution and determinants of disease frequency in populations"
 
-## 3️⃣ Epidemiology Study Areas ⭐⭐⭐
+---
 
-### A. Qualitative Epidemiology
+# 🔻 Part 3: Qualitative vs Quantitative Epidemiology ⭐⭐⭐
+
+## A. Qualitative
 | Topic | What it studies |
 |---|---|
-| ⭐ **Natural History of Disease** | How disease occurs naturally, "Pipithak Tham-machart Wittaya" connection (CU Natural History Museum) |
-| ⭐ **Causal/Cause** | Disease causation factors |
-| ⭐ **Microbe characterization** | Pathogen properties, vectors, hosts |
-| **Disease distribution** | Where it occurs |
+| **Natural History of Disease** | How disease occurs naturally |
+| **Causal/Cause** | Disease causation factors |
+| **Microbe characterization** | Pathogen properties, vectors, hosts |
+| Disease distribution | Where it occurs |
 
-### B. Quantitative Epidemiology ⭐⭐
+## B. Quantitative ⭐⭐
 | Topic | What it studies |
 |---|---|
-| ⭐ **Disease Measuring** | Count cases, calculate rates |
-| ⭐ **Observational study** | Compare groups (with/without exposure) |
-| ⭐ **Modelling** | Predict spread (e.g., COVID R-value!) |
-| **Clinical Trial** | Test interventions |
-| **Economic Assessment** | Cost-benefit of programs |
-| **Risk Assessment** | (Mainly in VPH course) |
+| **Disease Measuring** | Count cases, calculate rates |
+| **Observational study** | Compare groups (with/without exposure) |
+| **Modelling** | Predict spread (เช่น COVID R-value) |
+| Clinical Trial | Test interventions |
+| Economic Assessment | Cost-benefit of programs |
+| Risk Assessment | (Mainly in VPH course) |
 
-## 4️⃣ Disease Causation Concept ⭐
+---
 
-### Single vs Multiple Causes
-- ⭐ Most diseases = ⭐ **MULTIPLE causes** (multifactorial)
-- Single cause examples:
-  - Trauma (one event)
-  - Burns
-  - Toxic ingestion (specific)
+# 🔻 Part 4: Disease Causation Concept ⭐
 
-### Multifactorial Disease ⭐
-- ⭐ Pathogen + Host susceptibility = disease
+## Single vs Multiple Causes
+- โรคส่วนใหญ่ = **MULTIPLE causes** (multifactorial)
+- Single cause examples: trauma, burns, toxic ingestion เฉพาะ
+
+## Multifactorial Disease
+- Pathogen + Host susceptibility = disease
 - Example: Cold virus + low immunity → cold
-- Vet practice: ⭐ Manage multiple risk factors
+- Vet practice: manage multiple risk factors
 
-## 5️⃣ Cross-Sectional Study (CS) ⭐⭐
+---
 
-### Definition
-- ⭐ "Snapshot in time"
-- ⭐ Measure disease + exposure SIMULTANEOUSLY
-- Single point of data collection
+# 🔻 Part 5: 3 Study Designs ⭐⭐⭐
 
-### Use Case
-- Prevalence surveys
-- Quick farm health snapshot
-- ⭐ When time is limited
+## A. Cross-Sectional (CS)
+- "Snapshot in time"
+- Measure disease + exposure SIMULTANEOUSLY
+- ใช้สำหรับ prevalence surveys
+- ⚠️ Cannot establish causation order ("Chicken vs egg")
 
-### Limitations
-- Can't establish causation order
-- "Chicken vs egg" problem
-- Just associations
+## B. Retrospective ⭐⭐
+- "Look BACKWARD in time"
+- Start with disease, search for past exposures = case-control studies
+- Direction: Disease (now) → Exposure (past) = **ศึกษาโรคกลับไปหาปัจจัย**
 
-## 6️⃣ Retrospective Study ⭐⭐⭐
-
-### Definition
-- ⭐ ⭐ "Look BACKWARD in time"
-- Start with disease, search for past exposures
-- Case-control studies
-
-### Direction
-- Disease (now) → Exposure (past)
-- ⭐ "ศึกษาโรคกลับไปหาปัจจัย"
+### Pros/Cons
+- ✅ Faster, cheaper, ดีสำหรับ rare diseases
+- ⚠️ Recall bias + Selection bias
 
 ### Example: HPAI
-- ⭐ Real story from class!
 - Birds got new virus → look back
-- Found: avian flu + swine flu both infected pigs
-- Pigs = ⭐ **mixing vessel**
-- Genetic reassortment created human-infectious strain
+- พบ avian flu + swine flu ติด pig พร้อมกัน
+- Pigs = **mixing vessel** → genetic reassortment
+
+## C. Prospective
+- "Look FORWARD in time"
+- Start with exposure, follow for disease = cohort studies
+- Direction: Exposure (now) → Disease (future) = **ศึกษาปัจจัยไปหาโรค**
 
 ### Pros/Cons
-- ✅ Faster
-- ✅ Cheaper
-- ✅ Good for rare diseases
-- ⚠️ Recall bias
-- ⚠️ Selection bias
+- ✅ Strong causation evidence, multiple outcomes
+- ⚠️ Expensive, slow (years), loss to follow-up
 
-## 7️⃣ Prospective Study ⭐⭐
+---
 
-### Definition
-- ⭐ "Look FORWARD in time"
-- Start with exposure, follow for disease
-- Cohort studies
+# 🔻 Part 6: Modelling ⭐
 
-### Direction
-- Exposure (now) → Disease (future)
-- ⭐ "ศึกษาปัจจัยไปหาโรค"
+## R-value (Reproduction Number)
+- "How many new cases each infected person creates"
+- HPAI: ~1 → 4
+- COVID early: **1 → 16!**
+- COVID later strains: 1 → 1
 
-### Pros/Cons
-- ✅ Strong causation evidence
-- ✅ Multiple outcomes per exposure
-- ⚠️ Expensive
-- ⚠️ Slow (years)
-- ⚠️ Loss to follow-up
+> 💡 ใช้ R-value → resource allocation (hospitals, vaccines) + policy decisions (lockdowns)
 
-## 8️⃣ Modelling in Epidemiology ⭐
+---
 
-### Predictive Power
-- ⭐ Mathematical models predict spread
-- Government uses these for COVID decisions!
+# 🔻 Part 7: Real-World Application ⭐
 
-### Key Concept: ⭐ R-value (Reproduction Number)
-- ⭐ "How many new cases each infected person creates"
-- Example values:
-  - HPAI: ~1 → 4
-  - COVID early: ⭐ 1 → 16!
-  - COVID later strains: 1 → 1
+## Risk-Factor Investigation Workflow
+1. Detect disease in farm
+2. Compare with similar farms (Farm A vs Farm B)
+3. Identify risk factor differences
+4. Calculate statistical significance
+5. Implement control measures
 
-### Application
-- Resource allocation (hospitals, vaccines)
-- Policy decisions (lockdowns, schools)
-- Public communication
+## Diseases Thailand Doesn't Have (Yet)
+- **BSE** = Mad Cow Disease — ไม่มีใน Thailand
+- ⚠️ อาจมาถ้า import rules fail
 
-## 9️⃣ Real-World Application ⭐
+## Recent NEW Diseases
+- **African Swine Fever** (ASF, last ~6 years)
+- **Lumpy Skin Disease** (LSD, since 2021)
 
-### Risk-Factor Investigation Workflow
-1. ⭐ Detect disease in farm
-2. ⭐ Compare with similar farms (Farm A vs Farm B)
-3. ⭐ Identify risk factor differences
-4. ⭐ Calculate statistical significance
-5. ⭐ Implement control measures
+---
 
-### Example: HPAI Study
-- Why didn't it infect humans for 100 years?
-- ⭐ Retrospective study revealed:
-  - Co-infection mechanism
-  - Mixing vessel pigs
-  - Reassortment events
-- Result: ⭐ Better surveillance in mixed-species farms
-
-## 1️⃣0️⃣ Diseases Thailand Doesn't Have (Yet) ⭐
-
-### Examples Mentioned
-- ⭐ **BSE (Bovine Spongiform Encephalopathy)** = Mad Cow Disease
-- ⭐ Not in Thailand yet
-- ⚠️ Could come if importation rules fail
-- Need surveillance even for absent diseases
-
-### Recent NEW Diseases (during course)
-- ⭐ ⭐ **African Swine Fever** (ASF, in last ~6 years)
-- ⭐ ⭐ **Lumpy Skin Disease** (LSD, since 2021)
-- ⭐ Lesson: Can have new disease anytime!
-
-## 1️⃣1️⃣ Surveillance Importance ⭐
-
-### Why Knowledge Matters
-- ⭐ HPAI 2003: **Couldn't control because didn't know it**
-- ⭐ One outbreak → spread nationwide
-- ⭐ As knowledge grew → control improved
-
-### Modern Status
-- HPAI: 20+ years no Thai cases
-- ASF: Endemic now
-- LSD: Slowly being controlled
-
-## 📋 Exam Recap (12 จุดสำคัญ)
-
-1. ⭐ **Etymology**: Epi (upon) + Demos (people) + Logos (knowledge)
-2. ⭐ **Population focus** (NOT individual) = key difference from pathology
-3. ⭐ **Qualitative epi**: Natural History, Causation, Microbe characterization
-4. ⭐ **Quantitative epi**: Disease Measuring, Observational, Modelling, Clinical, Economic, Risk
-5. ⭐ **3 study designs**: Cross-sectional, Retrospective, Prospective
-6. ⭐ **Cross-sectional** = snapshot in time
-7. ⭐ **Retrospective** = disease → look back at exposure
-8. ⭐ **Prospective** = exposure → follow forward to disease
-9. ⭐ **Multiple causation** = norm (not single causes)
-10. ⭐ **R-value** = reproduction number for disease spread
-11. ⭐ **Mixing vessel** concept (HPAI in pigs example)
-12. ⭐ **Decision-making support** = ultimate purpose of epidemiology
-
-> 📚 **Cross-refs**: 1.1 Introduction, Surveillance + Test-kits, Public Health
-> 🩺 **Practical**: Always think POPULATION not individual when doing epi
-> 📊 **Key skill**: Know which study design fits which question
-> 🎯 **Application**: All knowledge → DECISION MAKING for prevention/control`,
+## 📋 Exam Recap
+- ⭐⭐⭐ **Etymology**: Epi + Demos + Logos
+- ⭐⭐⭐ **Population focus** = key difference from pathology
+- ⭐⭐ **Qualitative**: Natural History, Causation, Microbe characterization
+- ⭐⭐ **Quantitative**: Disease Measuring, Observational, Modelling, Clinical, Economic
+- ⭐⭐⭐ **3 study designs**: Cross-sectional (snapshot) · Retrospective (disease→exposure) · Prospective (exposure→disease)
+- ⭐⭐ **Multiple causation** = norm (not single causes)
+- ⭐ **R-value** = reproduction number for disease spread
+- ⭐ **Mixing vessel** concept (HPAI in pigs example)`,
   },
 
   '48mvLLg_m_4': {
@@ -45858,231 +46022,205 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 41,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + scenario, ออก Iceberg Phenomenon, 4 disease patterns, Epidemic Curve, incubation/latent period definitions',
-    summary: `## 🎯 Lead Summary
-**Disease occurrence patterns in populations**. Key insight: ⭐ ⭐ **Iceberg Phenomenon** — most disease cases are **subclinical** (you don't see them) but only the tip is **clinical** (visible). Vets must understand: ⭐ exposed-not-infected → ⭐ infected-no-clinical-signs → ⭐ clinical-mild → ⭐ severe → ⭐ death pyramid. Critical Thai exam terms: ⭐ ⭐ **Sporadic, Endemic, Epidemic, Pandemic** (must know for exam!). Plus: ⭐ **Epidemic Curve** = bell-shaped graph for outbreak analysis, ⭐ **Latent vs Incubation period** distinction.
+    summary: `# Veterinary Epidemiology — 1.3.1 Disease Concepts in Populations I
 
-## 1️⃣ Why "Subtle" Diseases Matter ⭐⭐⭐
+> 🎯 **Iceberg Phenomenon** — เคสที่เห็น clinical คือยอด tip เท่านั้น, **subclinical** ใหญ่กว่าเยอะ ⭐⭐⭐
+> ⚠️ ออกแน่: 4 disease patterns (Sporadic/Endemic/Epidemic/Pandemic), Epidemic Curve, Latent vs Incubation period
 
-### Reality Check
-- ⭐ Diseases are RARELY textbook-clear in practice
+---
+
+# 🔻 Part 1: ทำไม Subtle Disease สำคัญ ⭐⭐⭐
+
+## Reality Check
+- โรคใน practice มัก **ไม่ใช่ textbook-clear**
 - Real farms: signs are subtle, ambiguous
-- Vets must read between lines
+- Vet ต้องอ่าน "between the lines"
 
-### Common Subtle Indicators (vs Clinical)
+## Subtle vs Clinical Indicators
 | Subtle | Clinical |
 |---|---|
-| ⭐ Reduced feed intake | Visible weight loss |
-| ⭐ Production drop (eggs, milk) | Visible illness |
-| ⭐ Behavior change | Death |
-| ⭐ Reproductive failure | Lameness |
+| Reduced feed intake | Visible weight loss |
+| Production drop (eggs, milk) | Visible illness |
+| Behavior change | Death |
+| Reproductive failure | Lameness |
 
-### "ต้องรู้ปกติก่อน → ถึงจะรู้ผิดปกติ" ⭐
-- ⭐ Must know normal first to recognize abnormal!
-- Examples:
-  - Layer hen feed: 100-110 g/day
-  - Peak egg production: ~90-95%
-  - Ducks normal water consumption
-- ⚠️ Without baseline = can't spot disease!
+> 💡 **กฎทอง**: "ต้องรู้ปกติก่อน → ถึงจะรู้ผิดปกติ"
+> ตัวอย่าง baseline: Layer hen feed 100-110 g/day · peak egg production ~90-95% · ducks normal water consumption
 
-## 2️⃣ Iceberg Phenomenon ⭐⭐⭐ (CRITICAL CONCEPT!)
+---
 
-### The 5-Level Pyramid (bottom to top)
+# 🔻 Part 2: Iceberg Phenomenon ⭐⭐⭐
 
-**Top (smallest, visible)**: Death → Severe Clinical → Mild Clinical (My Illness) → Subclinical (Infection without clinical) → **Bottom (largest base!)**: Exposed without Infection
+## 5-Level Pyramid (top→bottom)
+1. **Death** — smallest, most visible
+2. **Severe Clinical** — down, lame, ill
+3. **Mild Clinical** — cough, slight signs
+4. **Subclinical Infection** — subtle changes
+5. **Exposed without Infection** — largest base, สิ่งที่เห็นไม่ออก
 
-
-### Population View ⭐
 | Level | What you see | What's actually there |
 |---|---|---|
-| ⭐ **Exposed without infection** | Nothing | Most animals (90%+ in mild outbreaks) |
-| ⭐ **Subclinical infection** | Subtle changes | Many animals |
-| ⭐ **Mild clinical** | Cough, slight signs | Some animals |
-| ⭐ **Severe clinical** | Down, lame, ill | Few animals |
-| ⭐ **Death** | Carcasses | Smallest fraction |
+| **Exposed without infection** | Nothing | Most animals (90%+ in mild outbreaks) |
+| **Subclinical infection** | Subtle changes | Many animals |
+| **Mild clinical** | Cough, slight signs | Some animals |
+| **Severe clinical** | Down, lame, ill | Few animals |
+| **Death** | Carcasses | Smallest fraction |
 
-### Why It Matters
-- ⭐ Vet income depends on ⭐ **detecting subclinical cases EARLY**
-- ⭐ Can't wait for clinical death (too late!)
-- ⭐ Use: numbers, behavior, production data
+> 💡 **Vet income** ขึ้นกับการ **detect subclinical EARLY** — รอ clinical/death = สาย
 
-## 3️⃣ Career Wisdom from Lecture ⭐
+---
 
-### Vet Reality Check
-- ⭐ "ใครเก่งวินิจฉัยก็รวยกว่า" — diagnostic skill = income
-- ⚠️ "อาจารย์ปกป้องในมหาลัย แต่ออกไปแล้วตัวใครตัวมัน"
-- ⭐ Real practice: data-driven decisions, not guessing
-- ⭐ Vet who's first thought of in crisis = wealthy
+# 🔻 Part 3: Subjective → Objective ⭐
 
-### Key Skill
-- ⭐ Convert ⭐ **subjective** (feeling, qualitative) → ⭐ **objective** (numbers, quantitative)
-- Numbers can be analyzed, calculated, used
-- Subjective opinions can't drive decisions
+- **Subjective** (feeling, qualitative) → **Objective** (numbers, quantitative)
+- Numbers สามารถ analyze, calculate, ใช้ขับเคลื่อน decisions
+- Subjective opinions ตัดสินใจไม่ได้
 
-## 4️⃣ 4 Disease Patterns (MUST KNOW!) ⭐⭐⭐
+---
 
-### A. Sporadic ⭐
-- ⭐ Disease occurs OCCASIONALLY, irregular
+# 🔻 Part 4: 4 Disease Patterns (MUST KNOW!) ⭐⭐⭐
+
+## A. Sporadic
+- Disease occurs OCCASIONALLY, irregular
 - Random cases, no pattern
-- ⭐ Examples: Anthrax in Thailand, rare exotic diseases
+- Examples: Anthrax in Thailand, rare exotic diseases
 
-### B. Endemic ⭐
-- ⭐ Disease CONSTANTLY PRESENT in population
+## B. Endemic
+- Disease CONSTANTLY PRESENT in population
 - Always there, but at low/manageable levels
-- ⭐ Thai examples:
+- **Thai examples**:
   - **FMD** (endemic)
   - **Newcastle Disease (ND)**
-  - **Pasteurellosis** (Hemorrhagic Septicemia in cattle, called "คอบวม")
+  - **Pasteurellosis** (Hemorrhagic Septicemia in cattle = "คอบวม")
   - **Rabies**
 
-### C. Epidemic ⭐
-- ⭐ SUDDEN INCREASE above expected level
+## C. Epidemic
+- SUDDEN INCREASE above expected level
 - Outbreak situation
-- ⭐ Examples:
-  - **HPAI 2547** (came, now controlled but watching)
-  - **ASF** entry
-  - **LSD 2021** outbreak
+- Examples: HPAI 2547 · ASF entry · LSD 2021 outbreak
 
-### D. Pandemic ⭐
-- ⭐ GLOBAL spread (worldwide)
+## D. Pandemic
+- GLOBAL spread (worldwide)
 - Multiple countries simultaneously
-- ⭐ Examples:
-  - ⭐ **COVID-19** (recent, classic pandemic)
-  - **FMD 2566** (was pandemic-level worldwide)
-  - **HPAI** when it spread globally
-  - **ND** can be pandemic
+- Examples: **COVID-19** (classic) · FMD 2566 · HPAI globally
 
-### Memorize Trick
+> 💡 **Memorize Trick**:
 > Sporadic = **occasional** (sometimes)
 > Endemic = **EN** stays IN
 > Epidemic = **EPI** = upon (outbreak)
 > Pandemic = **PAN** = ALL (everywhere)
 
-## 5️⃣ Why Pasteurellosis ("Cobuam") Connects ⭐
+---
 
-### One Pathogen, Multiple Diseases
+# 🔻 Part 5: Pasteurellosis ("คอบวม") — One Pathogen, Multiple Names ⭐
+
 | Species | Disease name |
 |---|---|
-| Cattle | ⭐ "คอบวม" (Hemorrhagic Septicemia) |
-| Chicken | ⭐ "อหิวาต์ไก่" (Fowl cholera) |
-| Pig | ⭐ Pasteurellosis swine |
+| Cattle | "คอบวม" (Hemorrhagic Septicemia) |
+| Chicken | "อหิวาต์ไก่" (Fowl cholera) |
+| Pig | Pasteurellosis swine |
 
-### Pattern
-- ⭐ All caused by **Pasteurella multocida**
+- All caused by **Pasteurella multocida**
 - Endemic when conditions favor (rainy season!)
 - Thai DLD vaccinates BEFORE rainy season (preventive)
 
-## 6️⃣ Epidemic Curve ⭐⭐⭐
+---
 
-### What It Is
-- ⭐ ⭐ **Graph of cases over time**
+# 🔻 Part 6: Epidemic Curve ⭐⭐⭐
+
+## What It Is
+- Graph of cases over time
 - Bell-shaped (rises then falls)
-- ⭐ Critical tool for outbreak investigation
+- Critical tool for outbreak investigation
 
-### Single Source Outbreak Pattern
-- ⭐ Single bell curve
-- One source of infection
-- Clear rise-peak-fall
-- Example: All cattle infected at one feed
+## Patterns
+| Pattern | Description | Example |
+|---|---|---|
+| **Single Source** | One bell curve, clear rise-peak-fall | All cattle infected at one feed |
+| **Multi-Source** | Multiple overlapping curves | COVID-19 (multiple cities, dates) |
 
-### Multi-Source Pattern
-- ⭐ Multiple overlapping curves
-- ⭐ ⭐ COVID-19 example (multiple cities, dates)
-- Suggests: spread between locations
-- ⭐ Different prevention strategy needed
+## What to Read from Curve
+1. **Origin** — single or multiple sources?
+2. Peak — when most cases occurred
+3. Spread — how fast?
+4. Duration — when does it end?
+5. **Incubation period** — first cases timing
 
-### What to Read from Curve ⭐
-1. ⭐ **Origin** — single or multiple sources?
-2. **Peak** — when most cases occurred
-3. **Spread** — how fast did it move?
-4. **Duration** — when does it end?
-5. ⭐ **Incubation period** — first cases timing
+---
 
-## 7️⃣ Period Definitions ⭐⭐ (Must memorize!)
+# 🔻 Part 7: Period Definitions ⭐⭐
 
-### Latent Period vs Incubation Period
 | Term | Definition |
 |---|---|
-| ⭐ **Latent Period** | Time from exposure → biochemical changes detectable in lab |
-| ⭐ **Incubation Period** | Time from exposure → clinical signs visible |
-| ⭐ **Recovery (Convalescence)** | Period after acute phase, immune developing |
+| **Latent Period** | Exposure → biochemical changes detectable in lab |
+| **Incubation Period** | Exposure → clinical signs visible |
+| **Recovery (Convalescence)** | After acute phase, immune developing |
 
-### Why It Matters
-- ⭐ Lab can detect BEFORE clinical signs
-- Critical for outbreak control
-- Quarantine timing depends on these
+## Real Application
+- COVID timeline (เรียนรู้ในช่วง pandemic)
+- FMD: short incubation (2-14 days)
+- TB: very long incubation (months-years)
+- **Johne's: 3-5 YEARS!**
 
-### Real Application
-- ⭐ COVID timeline visualization (everyone learned during pandemic!)
-- ⭐ FMD: short incubation (2-14 days)
-- ⭐ TB: very long incubation (months-years)
-- ⭐ Johne's: 3-5 YEARS!
+> 💡 Lab ตรวจเจอได้ BEFORE clinical signs → quarantine timing ขึ้นกับช่วงนี้
 
-## 8️⃣ Population-Level Thinking ⭐
+---
 
-### Why Speed Matters in Flocks ⭐
-- ⭐ ⭐ Chicken: 50 dead today → ⭐ **500 tomorrow if no action!**
-- ⭐ Single visit → can't go home and "look it up"
-- ⚠️ Flock dynamics demand fast decisions
-- Compare with dog: can wait until tomorrow
+# 🔻 Part 8: Population-Level Thinking ⭐
 
-### Vet Pay Justification
-- ⭐ Owners pay if vet adds value
-- ⭐ Performance must justify salary
-- ⭐ Failure → "go change profession" message
+## ทำไมความเร็วสำคัญใน flocks
+- Chicken: **50 dead today → 500 tomorrow if no action!**
+- Single visit → ไม่สามารถ "กลับบ้านไปค้นคว้า"
+- Flock dynamics demand fast decisions
+- เทียบกับสุนัข: รอพรุ่งนี้ได้
 
-## 9️⃣ Diagnosing Disease (Workflow) ⭐
+---
 
-### What Vet Does in Population Setting
-1. ⭐ Compare to baseline (must know normal!)
-2. ⭐ Check production data
-3. ⭐ Look for behavioral changes
-4. ⭐ Examine subset of animals clinically
-5. ⭐ Run lab tests
-6. ⭐ Build epidemic curve
-7. ⭐ Identify source/cause
-8. ⭐ Implement control
+# 🔻 Part 9: Diagnosing Workflow ⭐
 
-### Tools
-- ⭐ ⭐ Records (recording from previous lecture!)
-- ⭐ Sensors (Precision Dairy Farming)
+1. Compare to baseline (must know normal!)
+2. Check production data
+3. Look for behavioral changes
+4. Examine subset of animals clinically
+5. Run lab tests
+6. Build epidemic curve
+7. Identify source/cause
+8. Implement control
+
+## Tools
+- **Records** (recording from previous lecture!)
+- Sensors (Precision Dairy Farming)
 - Production logs
 - Health history
 
-## 1️⃣0️⃣ Naming Diseases ⭐
+---
 
-### How Diseases Get Their Names
-1. ⭐ **By cause**: TB (Tuberculosis), Brucellosis
-2. ⭐ **By specific lesion**: Bovine spongiform encephalopathy (BSE)
-3. ⭐ **By signs**: Hemorrhagic Septicemia
-4. ⭐ **By location of first occurrence**: Lyme disease
-5. ⭐ **By discoverer**: Brucellosis (Brucе)
+# 🔻 Part 10: Naming Diseases ⭐
 
-### Thai Folk Names
+## How Diseases Get Their Names
+1. **By cause**: TB (Tuberculosis), Brucellosis
+2. **By specific lesion**: BSE (Bovine spongiform encephalopathy)
+3. **By signs**: Hemorrhagic Septicemia
+4. **By location of first occurrence**: Lyme disease
+5. **By discoverer**: Brucellosis (Bruce)
+
+## Thai Folk Names
 - คอบวม = Hemorrhagic Septicemia
 - หัวบวม = Coryza
 - ปากเท้าเปื่อย = FMD
 - โรคล้มควาย = Rinderpest
 - ไข้ขาแข็ง = BEF
 
-## 📋 Exam Recap (12 จุดสำคัญ)
+---
 
-1. ⭐ ⭐ **Iceberg Phenomenon**: 5 levels with subclinical = vast majority
-2. ⭐ **"Know normal first to detect abnormal"** = key vet wisdom
-3. ⭐ ⭐ **4 Patterns**: Sporadic, Endemic, Epidemic, Pandemic (MUST KNOW!)
-4. ⭐ **Endemic Thai diseases**: FMD, ND, Pasteurellosis, Rabies
-5. ⭐ **Epidemic example**: HPAI, ASF, LSD entry to Thailand
-6. ⭐ **Pandemic example**: COVID-19, FMD globally
-7. ⭐ ⭐ **Epidemic Curve** = bell-shaped graph for outbreak analysis
-8. ⭐ **Single curve** = single source, **Multiple curves** = multi-source
-9. ⭐ **Latent Period** ≠ Incubation Period (lab detection vs clinical signs)
-10. ⭐ **Pasteurellosis** = same pathogen → different name per species
-11. ⭐ **Speed matters in flocks** (50 → 500 dead in 1 day!)
-12. ⭐ **Vet income** = ability to detect subclinical + decide fast
-
-> 📚 **Cross-refs**: 1.1 Intro, 1.2 Basic concepts, Future: outbreak investigation
-> 🩺 **Practical**: Build farm-specific normal baselines BEFORE outbreaks
-> 📊 **Tool**: Always graph cases vs time for outbreak investigation
-> 🎯 **Memorize**: Sporadic / Endemic / Epidemic / Pandemic — definitely on exam!`,
+## 📋 Exam Recap
+- ⭐⭐⭐ **Iceberg Phenomenon**: 5 levels, subclinical = vast majority
+- ⭐⭐⭐ **4 Patterns**: Sporadic, Endemic, Epidemic, Pandemic
+- ⭐⭐ **Endemic Thai diseases**: FMD, ND, Pasteurellosis, Rabies
+- ⭐⭐ **Epidemic Curve** — single curve = single source, multiple curves = multi-source
+- ⭐⭐ **Latent Period** ≠ Incubation Period (lab detection vs clinical signs)
+- ⭐ **Pasteurellosis** = same pathogen → different name per species
+- ⭐ **Know normal first to detect abnormal** = key vet wisdom`,
   },
 
   uvdjbAGvMnQ: {
@@ -46093,94 +46231,125 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 21,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + scenario, ออก agent factors, host classification, Vertical/Horizontal transmission, Infection Chain Model, vector types',
-    summary: `## 🎯 Lead Summary
-**Continuation of disease concepts**. Focuses on: ⭐ **3-component disease triangle** (Agent + Host + Environment), ⭐ **Host types**, ⭐ **Risk factors**, ⭐ **Agent properties**, ⭐ **Infection Chain Model**, ⭐ **Vertical vs Horizontal transmission**.
+    summary: `# Veterinary Epidemiology — 1.3.2 Disease Concepts II
 
-## 1️⃣ Disease Triangle ⭐⭐⭐
+> 🎯 **Disease Triangle** = Agent + Host + Environment — กรอบคิดในการเข้าใจการเกิดโรค ⭐⭐⭐
+> ⚠️ ออกแน่: Infection Chain Model (6 steps), Vertical vs Horizontal transmission, Vector types
+
+---
+
+# 🔻 Part 1: Disease Triangle ⭐⭐⭐
+
 | Component | Meaning |
 |---|---|
-| ⭐ **Agent** | Infectious or non-infectious cause |
-| ⭐ **Host** | Animal at risk |
-| ⭐ **Environment** | Surrounding conditions |
+| **Agent** | Infectious or non-infectious cause |
+| **Host** | Animal at risk |
+| **Environment** | Surrounding conditions |
 
-## 2️⃣ Host Classification ⭐⭐⭐
+---
+
+# 🔻 Part 2: Host Classification ⭐⭐⭐
+
 | Type | Definition | Example |
 |---|---|---|
-| ⭐ **Primary Host** | Has SEXUAL state | ⭐ Mosquito for Plasmodium! |
-| ⭐ **Intermediate Host** | ASEXUAL state only | Human for Plasmodium |
-| ⭐ **Transport Host** | Carries but no infection | Vet's hands |
-| ⭐ **Reservoir Host** | Maintains pathogen | Wildebeest for MCF |
-| **Definitive Host** | Adult worms live | Cat for Toxoplasma |
+| **Primary Host** | Has SEXUAL state | **Mosquito for Plasmodium!** |
+| **Intermediate Host** | ASEXUAL state only | Human for Plasmodium |
+| **Transport Host** | Carries but no infection | Vet's hands |
+| **Reservoir Host** | Maintains pathogen | Wildebeest for MCF |
+| Definitive Host | Adult worms live | Cat for Toxoplasma |
 
-## 3️⃣ Agent Properties ⭐⭐⭐
+> 💡 **Trick**: Primary = where SEXUAL reproduction occurs — สำหรับ malaria mosquito เป็น primary ไม่ใช่ human
+
+---
+
+# 🔻 Part 3: Agent Properties ⭐⭐⭐
+
 | Term | Definition |
 |---|---|
-| ⭐ **Infectivity** | Ability to cause infection |
-| ⭐ **Pathogenicity** | Ability to cause pathology |
-| ⭐ **Virulence** | Severity of disease |
-| ⭐ **CFR** | % of cases that die |
+| **Infectivity** | Ability to cause infection |
+| **Pathogenicity** | Ability to cause pathology |
+| **Virulence** | Severity of disease |
+| **CFR** | % of cases that die |
 
-## 4️⃣ ID50 / LD50 ⭐⭐
-- **Salmonella** ID50: 10,000 cells
-- ⭐ **Shigella**: 10-500 cells (very infectious!)
-- ⭐ **Listeria**: 100-1,000 cells (cold country danger)
-- **Yersinia**: 10 million cells
+## ID50 / LD50 ⭐⭐
+| Organism | ID50 |
+|---|---|
+| Salmonella | 10,000 cells |
+| **Shigella** | **10-500 cells (very infectious!)** |
+| **Listeria** | **100-1,000 cells (cold country danger)** |
+| Yersinia | 10 million cells |
 
-## 5️⃣ Host Factors ⭐
-- ⭐ Species, Breed, Sex (4 cats), Age, Physiological state, Immunity
-- ⭐ ⚠️ **Age trap**: Dengue worse in young adults (strong immune reaction)
+---
+
+# 🔻 Part 4: Host Factors ⭐
+
+- Species, Breed, Sex (เช่น 4 cats), Age, Physiological state, Immunity
+- ⚠️ **Age trap**: Dengue worse in young adults (strong immune reaction)
 - **Gumboro**: 3-6 weeks chickens
 
-## 6️⃣ Transmission Routes ⭐⭐⭐
+---
 
-### Vertical Transmission (Mother → Offspring) ⭐
+# 🔻 Part 5: Transmission Routes ⭐⭐⭐
+
+## Vertical Transmission (Mother → Offspring)
 - Transplacental, Colostrum, Sperm/egg
 - Examples: BVD PI calves, Brucella
 
-### Horizontal Transmission ⭐⭐
+## Horizontal Transmission ⭐⭐
 | Type | Example |
 |---|---|
-| ⭐ **Fomites** | Clothes, equipment |
-| ⭐ **Mechanical Vector** | Stable flies (NO replication) |
-| ⭐ **Biological Vector** | Mosquito (replication) |
-| ⭐ **Airborne** | FMD, ND, TB, B. melitensis |
-| ⭐ **Foodborne / Waterborne** | Contaminated food/water |
+| **Fomites** | Clothes, equipment |
+| **Mechanical Vector** | Stable flies (NO replication) |
+| **Biological Vector** | Mosquito (replication) |
+| **Airborne** | FMD, ND, TB, B. melitensis |
+| **Foodborne / Waterborne** | Contaminated food/water |
 
-⭐ ⭐ **UK Example**: FMD aerosol FROM France ACROSS English Channel!
+> ⚠️ **UK Example**: FMD aerosol FROM France ACROSS English Channel!
 
-## 7️⃣ Infection Chain Model ⭐⭐⭐ (CRITICAL!)
+---
 
-### 6 Steps
-1. ⭐ Infective Agent
-2. ⭐ Susceptible Host
-3. ⭐ Portal of Entry
-4. ⭐ Multiplication in Host
-5. ⭐ Portal of Exit
-6. ⭐ Reservoir
+# 🔻 Part 6: Infection Chain Model ⭐⭐⭐
 
-### Break the Chain (Vet's Tool)
-- ⭐ Reduce agent, Protect host, Block entry, Stop multiplication, Block exit, Remove reservoir
+## 6 Steps
+1. **Infective Agent**
+2. **Susceptible Host**
+3. **Portal of Entry**
+4. **Multiplication in Host**
+5. **Portal of Exit**
+6. **Reservoir**
 
-## 8️⃣ Reservoir Types ⭐
-- ⭐ Active shedders (continuous low-level)
-- ⭐ Episodic shedders (burst — Rabies bite!)
-- ⭐ Asymptomatic carriers
-- Environmental: soil (anthrax), water (lepto), decaying matter (botulism)
+## Break the Chain (Vet's Tool)
+- Reduce agent
+- Protect host
+- Block entry
+- Stop multiplication
+- Block exit
+- Remove reservoir
 
-## 📋 Exam Recap (10 จุดสำคัญ)
-1. ⭐ **Disease Triangle**: Agent + Host + Environment
-2. ⭐ **5 Host types** (Primary sexual, Intermediate asexual, Transport, Reservoir, Definitive)
-3. ⭐ **Mosquito = PRIMARY for malaria** (sexual stage)
-4. ⭐ **4 Agent properties**: Infectivity, Pathogenicity, Virulence, CFR
-5. ⭐ **ID50 = infection dose 50%**, LD50 = lethal dose 50%
-6. ⭐ **Vertical transmission**: mother→offspring (3 routes)
-7. ⭐ **Mechanical vs Biological vector** (mechanical = no replication)
-8. ⭐ **6-Step Infection Chain Model** — break ANY link to control
-9. ⭐ **Listeria** = soil, cold country, EU export concern
-10. ⭐ **FMD aerosol** can cross English Channel!
+> 💡 **Key insight**: ตัด chain ที่ link ไหนก็ control ได้ — เลือกที่ practical + cost-effective ที่สุด
 
-> 📚 **Cross-refs**: Disease patterns, Future: outbreak investigation, Vector control
-> 🎯 **Vet skill**: Use 6-step chain to design control strategy`,
+---
+
+# 🔻 Part 7: Reservoir Types ⭐
+
+- **Active shedders** (continuous low-level)
+- **Episodic shedders** (burst — Rabies bite!)
+- **Asymptomatic carriers**
+- **Environmental**: soil (anthrax), water (lepto), decaying matter (botulism)
+
+---
+
+## 📋 Exam Recap
+- ⭐⭐⭐ **Disease Triangle**: Agent + Host + Environment
+- ⭐⭐⭐ **5 Host types** — Primary (sexual stage) · Intermediate (asexual) · Transport · Reservoir · Definitive
+- ⭐⭐⭐ **Mosquito = PRIMARY for malaria** (sexual stage occurs there)
+- ⭐⭐ **4 Agent properties**: Infectivity, Pathogenicity, Virulence, CFR
+- ⭐⭐ **ID50 = infection dose 50%**, LD50 = lethal dose 50%
+- ⭐⭐ **Vertical transmission**: mother→offspring (3 routes)
+- ⭐⭐ **Mechanical vs Biological vector** (mechanical = no replication)
+- ⭐⭐⭐ **6-Step Infection Chain Model** — break ANY link to control
+- ⭐ **Listeria** = soil, cold country, EU export concern
+- ⭐ **FMD aerosol** can cross English Channel!`,
   },
 
   Vg3lcZMrjOk: {
@@ -46191,170 +46360,164 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 50,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + scenario, ออก Risk Factor, Hill Criteria, Necessary vs Sufficient cause, Bias types',
-    summary: `## 🎯 Lead Summary
-**Association vs Causation** — critical for distinguishing correlation from cause. ⭐ ⭐ Just because A is associated with B doesn't mean A causes B! Concepts: ⭐ **Risk Factor** definition, ⭐ **Confounding, Bias, Chance** as alternative explanations, ⭐ **Hill's Criteria** for causation (9 criteria), ⭐ **Necessary vs Sufficient Cause**, ⭐ **Direct vs Indirect causation**.
+    summary: `# Veterinary Epidemiology — 2.1 Association vs Causation
 
-## 1️⃣ Why This Matters ⭐⭐
+> 🎯 **Association ≠ Causation** — A สัมพันธ์กับ B ไม่ได้แปลว่า A เป็นสาเหตุของ B ⭐⭐⭐
+> ⚠️ ออกแน่: Hill's 9 criteria, Necessary vs Sufficient cause, Confounding/Bias/Chance
+
+---
+
+# 🔻 Part 1: ทำไมต้องแยก ⭐⭐
+
 - Epidemiology shows **associations** (statistical patterns)
-- ⭐ NOT necessarily causation
-- Vets MUST distinguish to design correct interventions
-- ⭐ Treating wrong cause = waste resources
+- NOT necessarily causation
+- Vet ต้องแยกให้ออก → design correct interventions
+- ⚠️ Treating wrong cause = waste resources
 
-## 2️⃣ Risk Factor Definition ⭐⭐⭐
-- ⭐ **Risk Factor** = factor associated with INCREASED probability of disease/death
-- ⭐ **Exposure to Risk Factor** = animal coming in contact with it
+---
+
+# 🔻 Part 2: Risk Factor Concept ⭐⭐⭐
+
+## Definition
+- **Risk Factor** = factor associated with INCREASED probability of disease/death
+- **Exposure to Risk Factor** = animal coming in contact with it
 - Used to: design control strategies, predict outbreaks
 
-## 3️⃣ Concept of Risk ⭐⭐
-- ⭐ **Risk** = probability of event in time period
+## Concept of Risk
+- **Risk** = probability of event in time period
 - Range: 0 (impossible) to 1 (certain)
-- ⭐ Calculated from observation studies
+- Calculated from observation studies
 - Example: 60% of cattle exposed to FMD develop disease → Risk = 0.6
 
-## 4️⃣ Association Types ⭐⭐⭐
+---
 
-### Statistical Association
-- ⭐ Two variables move together
-- Could be cause, could be coincidence, could be confounder
-- Need additional analysis!
+# 🔻 Part 3: Association Types ⭐⭐⭐
 
-### Causal Association
-- ⭐ A truly causes B
-- Removing A reduces B
-- Hill's criteria help establish
+| Type | Meaning |
+|---|---|
+| **Statistical Association** | Two variables move together — could be cause, coincidence, or confounder |
+| **Causal Association** | A truly causes B — removing A reduces B |
+| **Spurious Association** | False association from Chance / Bias / Confounding |
 
-### Spurious Association ⭐
-- ⭐ False association from:
-  - **Chance** (random coincidence)
-  - **Bias** (study design flaw)
-  - **Confounding** (third variable explains)
+---
 
-## 5️⃣ Confounding ⭐⭐⭐ (CRITICAL!)
+# 🔻 Part 4: Confounding ⭐⭐⭐
 
-### Definition
-- ⭐ Third variable that affects BOTH exposure and outcome
+## Definition
+- Third variable that affects BOTH exposure and outcome
 - Creates illusion of association
 
-### Classic Example
-- ⭐ Coffee drinking ↔ Lung cancer
-- ⭐ Confounder: Smoking (smokers drink coffee + get cancer)
-- Without controlling for smoking → false association
+## Classic Example
+- Coffee drinking ↔ Lung cancer
+- **Confounder: Smoking** (smokers drink coffee + get cancer)
+- ไม่ control for smoking → false association
 
-### Veterinary Examples
-- Old cows + mastitis: ⭐ confounder = parity (multiple lactations damage)
-- Breed + disease: ⭐ confounder = management practices
-- Season + outbreak: ⭐ confounder = animal movement patterns
+## Veterinary Examples
+- Old cows + mastitis: **confounder = parity** (multiple lactations damage)
+- Breed + disease: **confounder = management practices**
+- Season + outbreak: **confounder = animal movement patterns**
 
-## 6️⃣ Bias Types ⭐⭐
+---
 
-### Selection Bias
-- ⭐ How subjects were chosen affects results
+# 🔻 Part 5: Bias Types ⭐⭐
+
+## Selection Bias
+- How subjects were chosen affects results
 - Example: Only severely ill animals brought to vet
 - Fix: Random sampling, well-defined population
 
-### Information Bias
-- ⭐ How data was collected creates errors
-- ⭐ **Recall bias**: owners forget past exposure
-- ⭐ **Observer bias**: vet expects to find what they think
+## Information Bias
+- How data was collected creates errors
+- **Recall bias**: owners forget past exposure
+- **Observer bias**: vet expects to find what they think
 
-### Misclassification
-- ⭐ Animals categorized incorrectly
+## Misclassification
+- Animals categorized incorrectly
 - Differential vs non-differential
 
-## 7️⃣ Hill's Criteria for Causation ⭐⭐⭐ (9 Criteria!)
+---
 
-### The 9 Criteria
-1. ⭐ **Strength of association** — bigger effect = more likely causal
-2. ⭐ **Consistency** — replicated in multiple studies
-3. ⭐ **Specificity** — one cause → one outcome (rare in real world)
-4. ⭐ **Temporality** — cause MUST precede effect (most important!)
-5. ⭐ **Biological gradient** — dose-response relationship
-6. ⭐ **Plausibility** — biological mechanism makes sense
-7. ⭐ **Coherence** — fits with existing knowledge
-8. ⭐ **Experimental evidence** — controlled studies confirm
-9. ⭐ **Analogy** — similar known causes
+# 🔻 Part 6: Hill's Criteria for Causation ⭐⭐⭐
 
-### Most Important: Temporality ⭐
-- ⭐ Cause must come BEFORE effect
-- Vaccination must precede protection
-- ⚠️ Common error: showing correlation but not direction
+## The 9 Criteria
+1. **Strength of association** — bigger effect = more likely causal
+2. **Consistency** — replicated in multiple studies
+3. **Specificity** — one cause → one outcome (rare in real world)
+4. **Temporality** — cause MUST precede effect (**most important!**)
+5. **Biological gradient** — dose-response relationship
+6. **Plausibility** — biological mechanism makes sense
+7. **Coherence** — fits with existing knowledge
+8. **Experimental evidence** — controlled studies confirm
+9. **Analogy** — similar known causes
 
-## 8️⃣ Necessary vs Sufficient Cause ⭐⭐⭐
+> 💡 **Most Important: Temporality** — cause ต้องมาก่อน effect · vaccination ต้องมาก่อน protection · common error คือ correlation แต่ไม่ระบุ direction
 
-### 4 Combinations
+---
+
+# 🔻 Part 7: Necessary vs Sufficient Cause ⭐⭐⭐
+
 | Type | Definition | Example |
 |---|---|---|
-| ⭐ **Necessary + Sufficient** | Required AND alone causes disease | TB requires M. tuberculosis, M. tuberculosis alone causes TB |
-| ⭐ **Necessary, NOT Sufficient** | Required but needs others | HIV needed for AIDS but co-factors involved |
-| ⭐ **Sufficient, NOT Necessary** | Alone causes but not required | Smoking → lung cancer (one cause but not only) |
-| ⭐ **Neither Necessary nor Sufficient** | Risk factor only | Stress → many diseases (correlative) |
+| **Necessary + Sufficient** | Required AND alone causes disease | TB requires M. tuberculosis, M. tuberculosis alone causes TB |
+| **Necessary, NOT Sufficient** | Required but needs others | HIV needed for AIDS but co-factors involved |
+| **Sufficient, NOT Necessary** | Alone causes but not required | Smoking → lung cancer (one cause but not only) |
+| **Neither** | Risk factor only | Stress → many diseases (correlative) |
 
-### Application
-- ⭐ Vet treats Necessary cause if known
+## Application
+- Vet treats Necessary cause if known
 - For multifactorial: address sufficient combination
 
-## 9️⃣ Direct vs Indirect Causation ⭐
+---
 
-### Direct
-- A → Disease
-- ⭐ Single mechanism, no intermediary
-- Example: virus directly infects cells
+# 🔻 Part 8: Direct vs Indirect Causation ⭐
 
-### Indirect
-- A → B → Disease
-- ⭐ Through intermediate steps
-- Example: Stress → cortisol ↑ → immune drop → infection
+| Type | Pathway | Example |
+|---|---|---|
+| **Direct** | A → Disease | Virus directly infects cells |
+| **Indirect** | A → B → Disease | Stress → cortisol ↑ → immune drop → infection |
 
-### Why Distinguish
-- ⭐ Direct = treat at primary cause
-- ⭐ Indirect = can intervene at any chain step
+## ทำไมต้องแยก
+- **Direct** = treat at primary cause
+- **Indirect** = can intervene at any chain step
 
-## 1️⃣0️⃣ Strength of Association Measures ⭐⭐
+---
 
-### Common Metrics (More in next lecture!)
+# 🔻 Part 9: Strength of Association Measures ⭐⭐
+
 | Metric | Use |
 |---|---|
-| ⭐ **Risk Ratio (RR)** | Cohort studies |
-| ⭐ **Odds Ratio (OR)** | Case-control studies |
-| ⭐ **Attributable Risk** | Public health planning |
+| **Risk Ratio (RR)** | Cohort studies |
+| **Odds Ratio (OR)** | Case-control studies |
+| **Attributable Risk** | Public health planning |
 
-### Interpretation
-- ⭐ RR/OR = 1: no association
-- ⭐ RR/OR > 1: positive association (risk factor)
-- ⭐ RR/OR < 1: negative association (protective factor)
+## Interpretation
+- RR/OR = 1: no association
+- RR/OR > 1: positive association (risk factor)
+- RR/OR < 1: negative association (protective factor)
 
-### Practical Application
-- ⭐ Vet finds OR=5 for stress + mastitis → focus on stress reduction
-- ⭐ Calculate effect size = drives intervention
+> 💡 Vet พบ OR=5 ระหว่าง stress + mastitis → focus on stress reduction · effect size drives intervention
 
-## 1️⃣1️⃣ Causal Web Concept ⭐
+---
 
-### Multifactorial Reality
-- ⭐ Most diseases have **web of causes**
+# 🔻 Part 10: Causal Web Concept ⭐
+
+- โรคส่วนใหญ่มี **web of causes** — multifactorial
 - Each factor contributes
 - Removing key node disrupts web
+- Vet's job: identify weakest links + combine multiple interventions
 
-### Vet's Job
-- ⭐ Identify weakest links in web
-- Most cost-effective intervention
-- ⭐ Combine multiple interventions
+---
 
-## 📋 Exam Recap (10 จุดสำคัญ)
-1. ⭐ **Association ≠ Causation** (correlation isn't cause!)
-2. ⭐ **Risk Factor** = increases disease probability
-3. ⭐ **Confounding** = 3rd variable explains apparent association
-4. ⭐ **Bias types**: Selection, Information, Recall, Observer
-5. ⭐ ⭐ **Hill's 9 Criteria** for establishing causation
-6. ⭐ **Temporality** = MOST IMPORTANT criterion (cause before effect!)
-7. ⭐ **Necessary vs Sufficient cause** (4 combinations)
-8. ⭐ **Direct vs Indirect causation** (with intermediary steps)
-9. ⭐ **RR/OR**: =1 no association, >1 risk, <1 protective
-10. ⭐ **Causal Web** = most diseases multifactorial
-
-> 📚 **Cross-refs**: Disease patterns, Future: Disease frequency measurement, Outbreak investigation
-> 🩺 **Practical**: Use Hill's criteria when investigating new disease outbreaks
-> 📊 **Calculation tip**: RR/OR > 2 generally meaningful association
-> 🎯 **Key skill**: Always ask "What else could explain this?"`,
+## 📋 Exam Recap
+- ⭐⭐⭐ **Association ≠ Causation**
+- ⭐⭐⭐ **Hill's 9 Criteria** for establishing causation
+- ⭐⭐⭐ **Temporality** = MOST IMPORTANT criterion (cause before effect!)
+- ⭐⭐⭐ **Necessary vs Sufficient cause** (4 combinations)
+- ⭐⭐ **Confounding** = 3rd variable explains apparent association
+- ⭐⭐ **Bias types**: Selection, Information, Recall, Observer
+- ⭐⭐ **RR/OR**: =1 no association, >1 risk, <1 protective
+- ⭐ **Direct vs Indirect causation** (with intermediary steps)
+- ⭐ **Causal Web** = most diseases multifactorial`,
   },
 
   WrMlmkEYtQA: {
@@ -46365,172 +46528,180 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 52,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + calculation, ออก Rate vs Ratio vs Proportion, Incidence vs Prevalence, Population at Risk, CFR, Mortality',
-    summary: `## 🎯 Lead Summary
-**Disease frequency measurement** — quantifying how often disease occurs in populations. ⭐ ⭐ Critical: ⭐ **Rate vs Ratio vs Proportion** are different! ⭐ ⭐ **Incidence** (new cases) vs ⭐ ⭐ **Prevalence** (existing cases). All calculations require ⭐ **Population at Risk** as denominator (not total population!). Output values used to compare farms, time periods, interventions.
+    summary: `# Veterinary Epidemiology — 2.2 Measurement of Disease Frequency
 
-## 1️⃣ Why We Measure ⭐⭐
-- ⭐ Compare disease severity between groups
-- ⭐ Track outbreak progression
-- ⭐ Evaluate control programs
-- ⭐ Calculate economic impact
+> 🎯 **Rate vs Ratio vs Proportion** เป็นคนละสิ่ง — และต้องใช้ **Population at Risk** เป็น denominator (ไม่ใช่ total population) ⭐⭐⭐
+> ⚠️ ออกแน่: Incidence vs Prevalence, CFR, Cat mammary cancer denominator trap
+
+---
+
+# 🔻 Part 1: ทำไมต้องวัด ⭐⭐
+
+- Compare disease severity between groups
+- Track outbreak progression
+- Evaluate control programs
+- Calculate economic impact
 - ⚠️ "10 cases in farm A vs 50 in farm B" = MEANINGLESS without total population!
 
-## 2️⃣ 3 Measurement Types ⭐⭐⭐
+---
 
-### Rate (อัตรา)
-- ⭐ a / (a + b) × constant K
-- ⭐ ⭐ **DYNAMIC** measure — includes time component
+# 🔻 Part 2: 3 Measurement Types ⭐⭐⭐
+
+## Rate (อัตรา)
+- Formula: **a / (a + b) × constant K**
+- **DYNAMIC** measure — includes time component
 - Has units (per year, per 1000)
 - Example: Mortality rate
 
-### Ratio (อัตราส่วน)
-- ⭐ a : b directly
-- ⭐ **STATIC** measure
+## Ratio (อัตราส่วน)
+- Formula: **a : b** directly
+- **STATIC** measure
 - Compare two values
 - Example: Male:Female ratio = 1:2
 
-### Proportion (สัดส่วน)
-- ⭐ x / (x + y + z)
-- ⭐ **STATIC** measure
+## Proportion (สัดส่วน)
+- Formula: **x / (x + y + z)**
+- **STATIC** measure
 - Part of whole, expressed as %
 - Example: % of deaths from cause A
 
-### Constant K
-- ⭐ Multiplier to make numbers readable
+## Constant K
+- Multiplier to make numbers readable
 - Human population: K = million
 - Animal population: K = 100 / 1000 / 10,000
-- ⭐ Always check K in papers!
+- Always check K in papers!
 
-## 3️⃣ Population at Risk ⭐⭐⭐ (CRITICAL!)
+---
 
-### Definition
-- ⭐ Animals that COULD develop disease
+# 🔻 Part 3: Population at Risk ⭐⭐⭐
+
+## Definition
+- Animals that COULD develop disease
 - NOT total population
 - Excludes immune, vaccinated, already sick
 
-### Cat Mammary Cancer Example ⭐
+## Cat Mammary Cancer Example
 - Numerator: Cats with mammary cancer
-- ⭐ Denominator: ⭐ **FEMALE cats only** (population at risk!)
+- **Denominator: FEMALE cats only** (population at risk!)
 - ⚠️ NOT all cats (males don't get this!)
 
-### Why Important
-- ⭐ Wrong denominator → wrong rate
-- Always think: "Who could really get this?"
+> 💡 **Wrong denominator → wrong rate** — ถามตัวเองตลอด: "Who could really get this?"
 
-## 4️⃣ Incidence ⭐⭐⭐ (NEW Cases)
+---
 
-### Definition
-- ⭐ ⭐ **New cases occurring in time period**
+# 🔻 Part 4: Incidence ⭐⭐⭐ (NEW Cases)
+
+## Definition
+- **New cases occurring in time period**
 - Usually 1 year unless specified
 - Units: cases per year per population
 
-### Incidence Rate
-- ⭐ Cases / Population at Risk × K
-- Reflects ⭐ **risk of acquiring disease**
+## Incidence Rate
+- Formula: **Cases / Population at Risk × K**
+- Reflects **risk of acquiring disease**
 
-### Cumulative Incidence
-- ⭐ Total new cases / Initial population at risk
+## Cumulative Incidence
+- Total new cases / Initial population at risk
 - Long-term risk over study period
 
-### Example Calculation
+## Example Calculation
 - 17 cats developed FIV in 1 week from 212 cats
 - Incidence = 17/212 = 0.08
-- ⭐ At 3 weeks: 1 - (1-0.08)³ = 0.22
+- At 3 weeks: **1 - (1-0.08)³ = 0.22**
 
-## 5️⃣ Attack Rate ⭐
-- ⭐ Used for short-time-frame outbreaks
+---
+
+# 🔻 Part 5: Attack Rate ⭐
+
+- Used for short-time-frame outbreaks
 - Common in foodborne, accidents
 - Usually used in HUMAN epi (rare in vet)
 - Calculation: cases / exposed × 100
 
-## 6️⃣ Prevalence ⭐⭐⭐ (EXISTING Cases)
+---
 
-### Definition
-- ⭐ ⭐ **All cases (new + old) at point in time**
+# 🔻 Part 6: Prevalence ⭐⭐⭐ (EXISTING Cases)
+
+## Definition
+- **All cases (new + old) at point in time**
 - "Snapshot of disease burden"
 
-### Point Prevalence
-- ⭐ At specific time
-- Most common usage
+## Types
+| Type | Description |
+|---|---|
+| **Point Prevalence** | At specific time (most common) |
+| **Period Prevalence** | During time interval (includes new cases) |
 
-### Period Prevalence
-- During time interval
-- Includes new cases during period
+## Calculation
+- **Existing cases / Total population × K**
 
-### Calculation
-- ⭐ Existing cases / Total population × K
-
-### Why Prevalence ≠ Incidence
-- ⭐ Prevalence = Incidence × Duration
+## Prevalence ≠ Incidence
+> 💡 **Key formula**: Prevalence ≈ Incidence × Duration
 - Long-duration disease → high prevalence
 - Short-duration disease → low prevalence
-- Example: Diabetes (chronic) = high prevalence
-- FMD (acute, fast resolution) = low prevalence
+- Example: Diabetes (chronic) = high prevalence vs FMD (acute, fast resolution) = low prevalence
 
-## 7️⃣ Other Important Rates ⭐⭐
+---
 
-### Mortality Rate
-- ⭐ Deaths / Population × K
+# 🔻 Part 7: Other Important Rates ⭐⭐
+
+## Mortality Rate
+- Deaths / Population × K
 - Different from CFR!
 
-### Case Fatality Rate (CFR) ⭐⭐
-- ⭐ Deaths / Cases × 100
+## Case Fatality Rate (CFR)
+- **Deaths / Cases × 100**
 - Reflects disease severity
 - Examples:
-  - Rabies: 100% CFR
+  - **Rabies: 100% CFR**
   - HPAI: ~70% CFR (humans)
   - COVID: ~1-3% CFR
 
-### Crude vs Specific Rates
-- ⭐ Crude: whole population
-- ⭐ Specific: subset (age, sex, breed)
-- ⭐ Specific is more meaningful
+## Crude vs Specific Rates
+- **Crude**: whole population
+- **Specific**: subset (age, sex, breed)
+- Specific is more meaningful
 
-## 8️⃣ Mortality vs Morbidity ⭐⭐
+---
+
+# 🔻 Part 8: Mortality vs Morbidity ⭐⭐
+
 | Term | Meaning |
 |---|---|
-| ⭐ **Mortality** | Death rate |
-| ⭐ **Morbidity** | Sickness rate (any disease) |
+| **Mortality** | Death rate |
+| **Morbidity** | Sickness rate (any disease) |
 
-### Example: HPAI
+## Example: HPAI
 - Morbidity: 80% (most birds get sick)
 - Mortality: 70-80% (high deaths)
-- Different from rabies: 100% CFR but very low morbidity (rare)
+- เทียบกับ rabies: 100% CFR แต่ very low morbidity (rare)
 
-## 9️⃣ Comparing Rates ⭐⭐
+---
 
-### When Comparing Farms
-- ⭐ Use specific rates for population at risk
+# 🔻 Part 9: Comparing Rates ⭐⭐
+
+## When Comparing Farms
+- Use specific rates for population at risk
 - Adjust for confounders (age structure, etc.)
 - Statistical tests for significance
 
-### Example
-- Farm A: 10 cases / 100 cattle = 10% rate
-- Farm B: 50 cases / 1000 cattle = 5% rate
-- ⭐ Farm A has HIGHER rate despite fewer cases!
+## Example
+- Farm A: 10 cases / 100 cattle = **10% rate**
+- Farm B: 50 cases / 1000 cattle = **5% rate**
+- Farm A has HIGHER rate despite fewer cases!
 
-## 1️⃣0️⃣ Practical Applications ⭐
-- ⭐ Annual incidence track over years
-- ⭐ Vaccination campaign evaluation (incidence ↓?)
-- ⭐ Antimicrobial resistance trends
-- ⭐ Welfare program impact
+---
 
-## 📋 Exam Recap (10 จุดสำคัญ)
-1. ⭐ **Rate / Ratio / Proportion** — different things!
-2. ⭐ **Rate has time** (dynamic), Ratio + Proportion static
-3. ⭐ **Population at Risk** = correct denominator (NOT total!)
-4. ⭐ **Incidence** = new cases in time period
-5. ⭐ **Prevalence** = existing cases at point in time
-6. ⭐ **Prevalence ≈ Incidence × Duration**
-7. ⭐ **CFR** = deaths/cases (rabies = 100%)
-8. ⭐ **Attack rate** for short-term outbreaks
-9. ⭐ **Mortality vs Morbidity** distinction
-10. ⭐ **Compare rates** not raw numbers!
-
-> 📚 **Cross-refs**: Causation lecture, Future: Outbreak investigation, Surveillance
-> 🩺 **Practical**: Always ask "Who's the population at risk?"
-> 📊 **Calculation**: Memorize formulas — these will be on exam!
-> 🎯 **Memorize**: Cat cancer example shows population at risk = female cats only`,
+## 📋 Exam Recap
+- ⭐⭐⭐ **Rate / Ratio / Proportion** — different things!
+- ⭐⭐⭐ **Population at Risk** = correct denominator (NOT total!)
+- ⭐⭐⭐ **Incidence** = new cases in time period
+- ⭐⭐⭐ **Prevalence** = existing cases at point in time
+- ⭐⭐ **Prevalence ≈ Incidence × Duration**
+- ⭐⭐ **CFR** = deaths/cases (rabies = 100%)
+- ⭐ **Rate has time** (dynamic), Ratio + Proportion static
+- ⭐ **Cat cancer example**: population at risk = female cats only
+- ⭐ **Mortality vs Morbidity** distinction`,
   },
 
   KZkTw81bFmY: {
@@ -46541,175 +46712,147 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 92,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + scenario, ออก 10 steps of outbreak investigation, case definition, Epidemic Curve interpretation',
-    summary: `## 🎯 Lead Summary
-**Outbreak Investigation** = systematic field response to disease outbreaks. ⭐ **10-step protocol** (case definition → control → report). Used by DLD, vets in field. Goal: ⭐ identify pathogen + source + transmission + risk factors → control before spread. ⭐ ⭐ **Epidemic Curve** is key analytical tool.
+    summary: `# Veterinary Epidemiology — 2.3 Outbreak Investigation
 
-## 1️⃣ When to Investigate ⭐⭐
-- ⭐ Sudden case increase
-- ⭐ New disease appearance
-- ⭐ Unusual pattern
-- ⭐ Public health concern
-- ⭐ Trade-related disease
+> 🎯 **Outbreak Investigation** = systematic field response — มี 10-step protocol ที่ DLD + vets ใช้จริง ⭐⭐⭐
+> ⚠️ ออกแน่: Case definition, Epidemic Curve patterns, Time-Place-Person triangle, 10 steps
 
-## 2️⃣ 10-Step Protocol ⭐⭐⭐
+---
 
-### Step 1: Verify Outbreak Exists
-- ⭐ Confirm cases real (not lab error)
-- Check baseline rates
-- Compare to historic data
+# 🔻 Part 1: เมื่อไรต้อง Investigate ⭐⭐
 
-### Step 2: Establish Case Definition
-- ⭐ ⭐ **CRITICAL!**
-- Clinical signs + lab confirmation + temporal/geographic bounds
-- ⭐ Specific (avoid over-counting)
+- Sudden case increase
+- New disease appearance
+- Unusual pattern
+- Public health concern
+- Trade-related disease
 
-### Step 3: Active Case Finding
-- ⭐ Search beyond reported cases
-- Door-to-door sometimes (HPAI X-ray)
-- Define population at risk
+---
 
-### Step 4: Descriptive Analysis ⭐⭐
-- ⭐ **Time** (when?), **Place** (where?), **Person/Animal** (who?)
-- ⭐ Build Epidemic Curve
-- Map cases geographically
+# 🔻 Part 2: 10-Step Protocol ⭐⭐⭐
 
-### Step 5: Generate Hypotheses
-- ⭐ What's the source?
-- What's the route?
-- What are risk factors?
+## Steps 1-3: Verify + Define
+1. **Verify Outbreak Exists** — confirm cases real (not lab error), check baseline, compare to historic data
+2. **Establish Case Definition** — Clinical signs + lab confirmation + temporal/geographic bounds (specific to avoid over-counting)
+3. **Active Case Finding** — search beyond reported cases, door-to-door (HPAI X-ray), define population at risk
 
-### Step 6: Test Hypotheses
-- ⭐ Case-control study
-- Cohort study
-- Statistical significance
+## Steps 4-7: Describe + Hypothesize
+4. **Descriptive Analysis** — Time (when?), Place (where?), Person/Animal (who?) → build Epidemic Curve, map cases
+5. **Generate Hypotheses** — What's the source? Route? Risk factors?
+6. **Test Hypotheses** — Case-control study, cohort study, statistical significance
+7. **Refine + Re-test if Needed** — new data may emerge
 
-### Step 7: Refine + Re-test if Needed
-- ⭐ New data may emerge
-- Refine hypotheses
+## Steps 8-10: Control + Report
+8. **Implement Control Measures** — Quarantine, vaccinate, cull, disinfect
+9. **Communicate Findings** — Report to authorities, educate stakeholders, public communication
+10. **Follow-up + Documentation** — Final report, lessons learned, update protocols
 
-### Step 8: Implement Control Measures
-- ⭐ Quarantine
-- Vaccinate
-- Cull
-- Disinfect
+---
 
-### Step 9: Communicate Findings
-- ⭐ Report to authorities
-- Educate stakeholders
-- Public communication
+# 🔻 Part 3: Case Definition ⭐⭐⭐
 
-### Step 10: Follow-up + Documentation
-- ⭐ Final report
-- Lessons learned
-- Update protocols
+## Components
+- Clinical criteria (signs)
+- Laboratory criteria (test results)
+- Time bounds (when occurred)
+- Place bounds (geographic)
+- Population (species, age)
 
-## 3️⃣ Case Definition ⭐⭐⭐
+## Categories
+| Level | Criteria |
+|---|---|
+| **Suspected** | Clinical only |
+| **Probable** | Clinical + epidemiologic link |
+| **Confirmed** | Laboratory positive |
 
-### Components
-- ⭐ Clinical criteria (signs)
-- ⭐ Laboratory criteria (test results)
-- ⭐ Time bounds (when occurred)
-- ⭐ Place bounds (geographic)
-- ⭐ Population (species, age)
+---
 
-### Categories
-- ⭐ **Suspected**: clinical only
-- ⭐ **Probable**: clinical + epidemiologic link
-- ⭐ **Confirmed**: laboratory positive
+# 🔻 Part 4: Epidemic Curve Analysis ⭐⭐⭐
 
-## 4️⃣ Epidemic Curve Analysis ⭐⭐⭐
+| Pattern | Curve Shape | Example |
+|---|---|---|
+| **Single Source (Common Source)** | Sharp peak, single bell | Salmonella from contaminated feed |
+| **Continuous Source** | Plateau pattern | Contaminated water |
+| **Propagated (Person-to-Person)** | Multiple peaks (each = generation) | COVID waves |
+| **Mixed** | Common features combined | Real outbreaks often complex |
 
-### Single Source (Common Source)
-- ⭐ Sharp peak, single bell
-- All cases exposed at one event
-- Example: Salmonella from contaminated feed
+---
 
-### Continuous Source
-- ⭐ Plateau pattern
-- Ongoing exposure
-- Example: contaminated water
+# 🔻 Part 5: Time-Place-Person Triangle ⭐⭐
 
-### Propagated (Person-to-Person)
-- ⭐ Multiple peaks
-- Each peak = generation of transmission
-- Example: COVID waves
+## Time Analysis
+- When did first case occur?
+- Onset patterns (rapid vs slow)
+- Incubation period clues
 
-### Mixed
-- ⭐ Common features
-- Real outbreaks often complex
+## Place Analysis
+- Where are cases concentrated?
+- Spread pattern (geographic)
+- Spot maps reveal clusters
 
-## 5️⃣ Time-Place-Person Triangle ⭐⭐
+## Person/Animal Analysis
+- Demographics (age, sex, breed)
+- Risk factors common to cases
+- Exposure history
 
-### Time Analysis
-- ⭐ When did first case occur?
-- ⭐ Onset patterns (rapid vs slow)
-- ⭐ Incubation period clues
+---
 
-### Place Analysis
-- ⭐ Where are cases concentrated?
-- ⭐ Spread pattern (geographic)
-- ⭐ Spot maps reveal clusters
+# 🔻 Part 6: Hypothesis Testing ⭐⭐
 
-### Person/Animal Analysis
-- ⭐ Demographics (age, sex, breed)
-- ⭐ Risk factors common to cases
-- ⭐ Exposure history
-
-## 6️⃣ Hypothesis Testing ⭐⭐
-
-### Comparison Approach
+## Comparison Approach
 - Cases vs Controls
-- ⭐ Look for differences in exposure history
+- Look for differences in exposure history
 - Calculate Odds Ratios
 
-### Example
+## Example
 - 100 affected dogs vs 100 healthy
 - 80% sick ate brand X feed
 - 20% healthy ate brand X feed
-- ⭐ Strong association → investigate brand X
+- Strong association → investigate brand X
 
-## 7️⃣ Source Identification Tools ⭐
-- ⭐ Trace-back investigation
+---
+
+# 🔻 Part 7: Source Identification Tools ⭐
+
+- Trace-back investigation
 - Sample collection (food, water, environment)
 - Lab testing for pathogen
 - Pathogen genotyping
 - Contact tracing
 
-## 8️⃣ Real-World Examples ⭐
+---
 
-### HPAI Outbreak Thailand 2547
-- ⭐ Initial cases identified
-- ⭐ Door-to-door active surveillance
-- ⭐ Massive culling response
-- ⭐ Trade restrictions
-- ⭐ Successful control (still no recurrence!)
+# 🔻 Part 8: Real-World Examples ⭐
 
-### COVID-19 Investigation
-- ⭐ Wuhan source identified
-- ⭐ Contact tracing globally
-- ⭐ Genome sequencing of variants
-- ⭐ Continuous monitoring
+## HPAI Outbreak Thailand 2547
+- Initial cases identified
+- Door-to-door active surveillance
+- Massive culling response
+- Trade restrictions
+- **Successful control (still no recurrence!)**
 
-### LSD Thailand 2021
-- ⭐ Multiple simultaneous foci suggested movement
+## COVID-19 Investigation
+- Wuhan source identified
+- Contact tracing globally
+- Genome sequencing of variants
+- Continuous monitoring
+
+## LSD Thailand 2021
+- Multiple simultaneous foci suggested movement
 - Vaccine deployment
 - Quarantine zones
 
-## 📋 Exam Recap (10 จุดสำคัญ)
-1. ⭐ **10-step outbreak investigation protocol**
-2. ⭐ **Case definition** = critical first step
-3. ⭐ **3 categories**: Suspected, Probable, Confirmed
-4. ⭐ **Epidemic Curve types**: Common source, Continuous, Propagated, Mixed
-5. ⭐ **Time-Place-Person** triangle for description
-6. ⭐ **Active case finding** beyond reported
-7. ⭐ **Hypothesis test** with case-control
-8. ⭐ **HPAI Thailand 2547** = success story example
-9. ⭐ **DLD = lead authority** in Thailand
-10. ⭐ **Communication + reporting** essential final step
+---
 
-> 📚 **Cross-refs**: Disease patterns, Causation, Future: Surveillance
-> 🩺 **Practical**: Be ready to lead investigation in field
-> 🎯 **Skills**: Map cases, build curves, test hypotheses, communicate clearly`,
+## 📋 Exam Recap
+- ⭐⭐⭐ **10-step outbreak investigation protocol**
+- ⭐⭐⭐ **Case definition** = critical first step
+- ⭐⭐⭐ **3 categories**: Suspected, Probable, Confirmed
+- ⭐⭐ **Epidemic Curve types**: Common source, Continuous, Propagated, Mixed
+- ⭐⭐ **Time-Place-Person** triangle for description
+- ⭐ **Active case finding** beyond reported
+- ⭐ **HPAI Thailand 2547** = success story example
+- ⭐ **DLD = lead authority** in Thailand`,
   },
 
   WZWjg1DhDkQ: {
@@ -46720,165 +46863,179 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 55,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + calculation, ออก Sensitivity, Specificity, PPV, NPV, 2x2 table, screening vs diagnostic',
-    summary: `## 🎯 Lead Summary
-**Diagnostic test interpretation** — essential for clinical decisions + surveillance. ⭐ **Test metrics**: ⭐ ⭐ **Sensitivity** (true positive rate), ⭐ ⭐ **Specificity** (true negative rate), ⭐ **PPV** (positive predictive value), ⭐ **NPV** (negative predictive value), ⭐ **Accuracy**. Critical: ⭐ ⭐ **2x2 table** mastery for calculations.
+    summary: `# Veterinary Epidemiology — 3.1 Screening and Diagnostic Tests
 
-## 1️⃣ Why It Matters ⭐⭐
-- ⭐ Choose right test for situation
-- ⭐ Interpret results correctly
-- ⭐ Avoid false positives/negatives
-- ⭐ Make informed clinical decisions
-- ⭐ Surveillance design
+> 🎯 **Sensitivity** หา sick · **Specificity** confirm healthy · **PPV** depends on prevalence ⭐⭐⭐
+> ⚠️ ออกแน่: 2x2 table, formulas, screening vs diagnostic, prevalence trap
 
-## 2️⃣ The 2×2 Table ⭐⭐⭐
+---
 
-### Standard Layout
+# 🔻 Part 1: ทำไมต้องเข้าใจ ⭐⭐
+
+- Choose right test for situation
+- Interpret results correctly
+- Avoid false positives/negatives
+- Make informed clinical decisions
+- Surveillance design
+
+---
+
+# 🔻 Part 2: 2×2 Table ⭐⭐⭐
+
 | | Disease + | Disease - |
 |---|---|---|
 | **Test +** | TP (a) | FP (b) |
 | **Test -** | FN (c) | TN (d) |
 
-### Key Cells
-- ⭐ **TP** = True Positive
-- ⭐ **FP** = False Positive
-- ⭐ **FN** = False Negative
-- ⭐ **TN** = True Negative
+## Key Cells
+- **TP** = True Positive
+- **FP** = False Positive
+- **FN** = False Negative
+- **TN** = True Negative
 
-## 3️⃣ Sensitivity ⭐⭐⭐
+---
 
-### Definition
-- ⭐ ⭐ **TP / (TP + FN)** = TP / All Diseased
-- ⭐ ⭐ **"Does it find the SICK?"**
+# 🔻 Part 3: Sensitivity ⭐⭐⭐
+
+## Definition
+- **Formula: TP / (TP + FN)** = TP / All Diseased
+- **"Does it find the SICK?"**
 - High sensitivity = few false negatives
 
-### When You Want HIGH Sensitivity
-- ⭐ Screening (don't miss cases!)
+## When You Want HIGH Sensitivity
+- **Screening** (don't miss cases!)
 - Serious diseases (rabies, HIV)
 - Early detection programs
 
-### Example
+## Example
 - 90% sensitivity = catches 90% of truly sick
 
-## 4️⃣ Specificity ⭐⭐⭐
+---
 
-### Definition
-- ⭐ ⭐ **TN / (TN + FP)** = TN / All Healthy
-- ⭐ ⭐ **"Does it confirm HEALTHY?"**
+# 🔻 Part 4: Specificity ⭐⭐⭐
+
+## Definition
+- **Formula: TN / (TN + FP)** = TN / All Healthy
+- **"Does it confirm HEALTHY?"**
 - High specificity = few false positives
 
-### When You Want HIGH Specificity
-- ⭐ Confirmatory tests
+## When You Want HIGH Specificity
+- **Confirmatory tests**
 - Costly treatment decisions
 - Avoid unnecessary culling
 
-### Example
+## Example
 - 95% specificity = correctly identifies 95% of truly healthy
 
-## 5️⃣ PPV (Positive Predictive Value) ⭐⭐
+---
 
-### Definition
-- ⭐ **TP / (TP + FP)** = TP / All Positive Tests
-- ⭐ "If positive, what's chance of disease?"
+# 🔻 Part 5: PPV (Positive Predictive Value) ⭐⭐
 
-### Critical Insight
-- ⭐ ⭐ **PPV depends on prevalence!**
+## Definition
+- **Formula: TP / (TP + FP)** = TP / All Positive Tests
+- "If positive, what's chance of disease?"
+
+## Critical Insight
+> ⚠️ **PPV depends on prevalence!**
 - High prevalence → high PPV
 - Low prevalence → LOW PPV (even with great test!)
 
-### Example
+## Example
 - Disease prevalence 1%, test 95% specific
-- → ⭐ Positive result still likely false positive!
-- Why screening rare diseases is hard
+- → Positive result still likely false positive!
+- ทำไม screening rare diseases ถึงยาก
 
-## 6️⃣ NPV (Negative Predictive Value) ⭐⭐
+---
 
-### Definition
-- ⭐ **TN / (TN + FN)** = TN / All Negative Tests
-- ⭐ "If negative, what's chance of no disease?"
+# 🔻 Part 6: NPV (Negative Predictive Value) ⭐⭐
 
-### Application
+## Definition
+- **Formula: TN / (TN + FN)** = TN / All Negative Tests
+- "If negative, what's chance of no disease?"
+
+## Application
 - High prevalence → low NPV
 - Low prevalence → high NPV
 
-## 7️⃣ Accuracy ⭐
+---
 
-### Definition
-- ⭐ **(TP + TN) / Total**
+# 🔻 Part 7: Accuracy ⭐
+
+## Definition
+- **Formula: (TP + TN) / Total**
 - Overall test performance
 
-### Limitations
-- ⭐ Misleading at extreme prevalences
-- Use sensitivity + specificity instead
+## Limitations
+- ⚠️ Misleading at extreme prevalences
+- ใช้ sensitivity + specificity แทน
 
-## 8️⃣ Screening vs Diagnostic ⭐⭐
+---
 
-### Screening Test
-- ⭐ Apparently healthy population
-- ⭐ Want HIGH sensitivity
-- Low cost, easy to administer
-- ⭐ Examples: ELISA mass screening
+# 🔻 Part 8: Screening vs Diagnostic ⭐⭐
 
-### Diagnostic Test
-- ⭐ Suspected sick population
-- ⭐ Want HIGH specificity
-- More expensive, definitive
-- ⭐ Examples: PCR confirmation
+| Type | Population | Want | Example |
+|---|---|---|---|
+| **Screening** | Apparently healthy | HIGH sensitivity | ELISA mass screening |
+| **Diagnostic** | Suspected sick | HIGH specificity | PCR confirmation |
 
-### Combined Strategy
-- ⭐ Screen with sensitive test
-- Confirm with specific test
-- ⭐ Standard workflow!
+## Combined Strategy ⭐
+- **Screen with sensitive test** → **Confirm with specific test**
+- Standard workflow!
 
-## 9️⃣ Cut-off Values ⭐⭐
+---
 
-### Concept
-- ⭐ Test result above/below threshold
-- ⭐ ROC curve helps choose cutoff
+# 🔻 Part 9: Cut-off Values ⭐⭐
+
+## Concept
+- Test result above/below threshold
+- **ROC curve** helps choose cutoff
 - Trade-off: sensitivity vs specificity
 
-### Trade-off
-- ⭐ Lower cutoff → higher sensitivity, lower specificity
-- ⭐ Higher cutoff → lower sensitivity, higher specificity
+## Trade-off
+- Lower cutoff → higher sensitivity, lower specificity
+- Higher cutoff → lower sensitivity, higher specificity
 
-## 1️⃣0️⃣ Real-World Test Examples ⭐
+---
 
-### TB SIT Test
+# 🔻 Part 10: Real-World Test Examples ⭐
+
+## TB SIT Test
 - 4mm cutoff
 - Sensitivity ~80%
 - Specificity ~95%
 
-### COVID Tests
-- ⭐ ATK home tests: ~80% sensitive
-- ⭐ PCR: ~95% sensitive
+## COVID Tests
+- **ATK home tests**: ~80% sensitive
+- **PCR**: ~95% sensitive
 - Antibody tests: variable
 
-### Brucella MRT
-- ⭐ Bulk tank screening
+## Brucella MRT
+- Bulk tank screening
 - High sensitivity for herd
 - Followed by individual confirmation
 
-## 1️⃣1️⃣ Common Pitfalls ⭐
-- ⭐ Confusing sensitivity with PPV
-- ⭐ Ignoring prevalence effect
-- ⭐ Using single test for everything
-- ⭐ Not knowing test characteristics
+---
 
-## 📋 Exam Recap (10 จุดสำคัญ)
-1. ⭐ ⭐ **Sensitivity** = TP/(TP+FN) — finds sick
-2. ⭐ ⭐ **Specificity** = TN/(TN+FP) — confirms healthy
-3. ⭐ **PPV** = TP/(TP+FP) — depends on prevalence!
-4. ⭐ **NPV** = TN/(TN+FN)
-5. ⭐ **2×2 table** — must master!
-6. ⭐ **Screening** wants HIGH sensitivity
-7. ⭐ **Diagnostic** wants HIGH specificity
-8. ⭐ **Cut-off** trades sensitivity vs specificity
-9. ⭐ **Strategy**: Screen sensitive → Confirm specific
-10. ⭐ Low prevalence + good specificity → many false positives still!
+# 🔻 Part 11: Common Pitfalls ⭐
 
-> 📚 **Cross-refs**: Surveillance lecture, TB SIT testing (herd-health-rum)
-> 🩺 **Practical**: Always check test characteristics before using!
-> 🧪 **Calculation tip**: Practice 2×2 tables until automatic
-> 🎯 **Decision rule**: Match test to clinical question (rule-in vs rule-out)`,
+- Confusing sensitivity with PPV
+- Ignoring prevalence effect
+- Using single test for everything
+- Not knowing test characteristics
+
+---
+
+## 📋 Exam Recap
+- ⭐⭐⭐ **Sensitivity** = TP/(TP+FN) — finds sick
+- ⭐⭐⭐ **Specificity** = TN/(TN+FP) — confirms healthy
+- ⭐⭐⭐ **2×2 table** — must master!
+- ⭐⭐ **PPV** = TP/(TP+FP) — depends on prevalence!
+- ⭐⭐ **NPV** = TN/(TN+FN)
+- ⭐⭐ **Screening** wants HIGH sensitivity
+- ⭐⭐ **Diagnostic** wants HIGH specificity
+- ⭐ **Cut-off** trades sensitivity vs specificity
+- ⭐ **Strategy**: Screen sensitive → Confirm specific
+- ⭐ Low prevalence + good specificity → many false positives still!`,
   },
 
   PkN1k8LI_w0: {
@@ -46889,83 +47046,104 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 81,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + scenario, ออก surveillance types, monitoring vs surveillance, syndromic surveillance, WAHIS reporting',
-    summary: `## 🎯 Lead Summary
-**Surveillance** = systematic collection + analysis + dissemination of disease data. ⭐ Distinguishes from monitoring. ⭐ ⭐ **Active vs Passive, Syndromic, Sentinel, Risk-Based, Targeted** surveillance types. Critical for: detection, control, trade, public health.
+    summary: `# Veterinary Epidemiology — 3.2 Animal Disease Surveillance and Monitoring
 
-## 1️⃣ Surveillance vs Monitoring ⭐⭐
+> 🎯 **Surveillance ≠ Monitoring** — surveillance = action-oriented · monitoring = tracking only ⭐⭐⭐
+> ⚠️ ออกแน่: 5 surveillance types, WAHIS reporting, DLD role
+
+---
+
+# 🔻 Part 1: Surveillance vs Monitoring ⭐⭐
+
 | Term | Purpose |
 |---|---|
-| ⭐ **Surveillance** | Continuous, ACTION-oriented |
-| ⭐ **Monitoring** | Tracking only, NO action required |
+| **Surveillance** | Continuous, ACTION-oriented |
+| **Monitoring** | Tracking only, NO action required |
 
-## 2️⃣ Surveillance Types ⭐⭐⭐
+---
 
-### Passive Surveillance
-- ⭐ Routine reporting from veterinarians/farms
-- ⭐ Cheaper, less labor
+# 🔻 Part 2: 5 Surveillance Types ⭐⭐⭐
+
+## Passive Surveillance
+- Routine reporting from veterinarians/farms
+- **Cheaper, less labor**
 - Default approach
 
-### Active Surveillance ⭐
-- ⭐ Targeted investigation
+## Active Surveillance
+- **Targeted investigation**
 - More expensive
 - Used during outbreaks
 
-### Syndromic Surveillance
-- ⭐ Track signs, not specific diseases
-- Early warning system
+## Syndromic Surveillance
+- Track signs, not specific diseases
+- **Early warning system**
 - Used pre-diagnosis
 
-### Sentinel Surveillance
-- ⭐ Selected farms/animals as indicators
+## Sentinel Surveillance
+- Selected farms/animals as indicators
 - Cost-effective
 - Statistical sampling
 
-### Risk-Based Surveillance
-- ⭐ Focus high-risk areas/populations
+## Risk-Based Surveillance
+- Focus high-risk areas/populations
 - Efficient use of resources
 
-## 3️⃣ Surveillance Goals ⭐
-- ⭐ Early disease detection
-- ⭐ Track spread + trends
-- ⭐ Evaluate control programs
-- ⭐ Demonstrate disease freedom (trade!)
-- ⭐ Identify emerging threats
+---
 
-## 4️⃣ International Reporting ⭐⭐
+# 🔻 Part 3: Surveillance Goals ⭐
 
-### WAHIS (formerly OIE)
-- ⭐ World Animal Health Information System
-- ⭐ All countries must report
-- 5 status colors: Red (confirmed), Yellow (suspected), Green (free), Gray (no data!)
+- Early disease detection
+- Track spread + trends
+- Evaluate control programs
+- **Demonstrate disease freedom** (trade!)
+- Identify emerging threats
 
-### List of Reportable Diseases
-- ⭐ FMD, HPAI, ASF, Anthrax, etc.
+---
+
+# 🔻 Part 4: International Reporting ⭐⭐
+
+## WAHIS (formerly OIE)
+- **World Animal Health Information System**
+- All countries must report
+- **5 status colors**:
+  - Red (confirmed)
+  - Yellow (suspected)
+  - Green (free)
+  - Gray (no data!)
+
+## List of Reportable Diseases
+- FMD, HPAI, ASF, Anthrax, etc.
 - Mandatory immediate reporting
 
-## 5️⃣ Thai Surveillance System ⭐
-- ⭐ DLD = Department of Livestock Development
-- ⭐ Provincial, district, sub-district structure
-- Lab network (Reference labs)
-- ⭐ X-ray system (HPAI active surveillance)
+---
 
-## 6️⃣ Data Collection ⭐
-- ⭐ Standardized forms
+# 🔻 Part 5: Thai Surveillance System ⭐
+
+- **DLD = Department of Livestock Development**
+- Provincial, district, sub-district structure
+- Lab network (Reference labs)
+- **X-ray system** (HPAI active surveillance)
+
+---
+
+# 🔻 Part 6: Data Collection ⭐
+
+- Standardized forms
 - Electronic systems (cloud-based)
 - Mobile reporting apps
 - Lab integration
 
-## 📋 Exam Recap (8 จุดสำคัญ)
-1. ⭐ **Surveillance ≠ Monitoring** (action vs tracking)
-2. ⭐ **5 surveillance types**: Passive, Active, Syndromic, Sentinel, Risk-based
-3. ⭐ **Passive default**, Active for outbreaks
-4. ⭐ **WAHIS** (formerly OIE) reporting
-5. ⭐ **5 status colors** in WAHIS
-6. ⭐ **DLD** = Thai authority
-7. ⭐ **Disease freedom** = trade requirement
-8. ⭐ **Resource trade-off** drives surveillance choice
+---
 
-> 📚 **Cross-refs**: Outbreak investigation, Test interpretation, Public Health
-> 🎯 **Practical**: Know reporting structure for your region`,
+## 📋 Exam Recap
+- ⭐⭐⭐ **Surveillance ≠ Monitoring** (action vs tracking)
+- ⭐⭐⭐ **5 surveillance types**: Passive, Active, Syndromic, Sentinel, Risk-based
+- ⭐⭐ **Passive default**, Active for outbreaks
+- ⭐⭐ **WAHIS** (formerly OIE) reporting
+- ⭐⭐ **5 status colors** in WAHIS
+- ⭐ **DLD** = Thai authority
+- ⭐ **Disease freedom** = trade requirement
+- ⭐ **Resource trade-off** drives surveillance choice`,
   },
 
   '2_ekqdW_d7w': {
@@ -46976,137 +47154,158 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 156,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + calculation, ออก Cohort, Case-Control, Cross-Sectional, OR, RR, Confounding, Selection bias',
-    summary: `## 🎯 Lead Summary
-**Observational study designs** = how epidemiologists collect data without experimental control. 3 main types: ⭐ ⭐ **Cohort, Case-Control, Cross-Sectional**. Each with strengths/weaknesses. ⭐ **Risk Ratio (RR)** for cohort, ⭐ **Odds Ratio (OR)** for case-control. Critical for vet research + clinical decisions.
+    summary: `# Veterinary Epidemiology — 3.3 Observation Study Designs
 
-## 1️⃣ Why Observational? ⭐⭐
-- ⭐ Can't always do RCT (ethics, time, cost)
-- ⭐ Real-world data
-- ⭐ Larger samples possible
+> 🎯 3 main observational designs — **Cohort** (exposure→outcome) · **Case-Control** (outcome→exposure) · **Cross-Sectional** (both at once) ⭐⭐⭐
+> ⚠️ ออกแน่: RR (cohort), OR = ad/bc (case-control), bias types, confounding control
+
+---
+
+# 🔻 Part 1: ทำไม Observational ⭐⭐
+
+- Can't always do RCT (ethics, time, cost)
+- Real-world data
+- Larger samples possible
 - ⚠️ Cannot prove causation alone
 
-## 2️⃣ Cohort Study ⭐⭐⭐
+---
 
-### Design
-- ⭐ Start with EXPOSED + UNEXPOSED groups
-- ⭐ Follow forward in time
-- ⭐ Compare disease incidence
+# 🔻 Part 2: Cohort Study ⭐⭐⭐
 
-### Types
+## Design
+- Start with **EXPOSED + UNEXPOSED groups**
+- Follow forward in time
+- Compare disease incidence
+
+## Types
 - **Prospective**: Follow into future
 - **Retrospective**: Use past records
 
-### Calculation: Risk Ratio (RR)
-- ⭐ ⭐ **RR = Incidence in Exposed / Incidence in Unexposed**
+## Risk Ratio (RR)
+> **RR = Incidence in Exposed / Incidence in Unexposed**
 - RR = 1: no association
 - RR > 1: risk factor
 - RR < 1: protective
 
-### Strengths
-- ⭐ Direct measure of incidence
-- ⭐ Multiple outcomes per exposure
-- ⭐ Establish temporality
+## Strengths
+- Direct measure of incidence
+- Multiple outcomes per exposure
+- Establish temporality
 
-### Weaknesses
+## Weaknesses
 - ⚠️ Expensive, slow
 - ⚠️ Loss to follow-up
 - ⚠️ Not for rare diseases
 
-## 3️⃣ Case-Control Study ⭐⭐⭐
+---
 
-### Design
-- ⭐ Start with CASES + CONTROLS
-- ⭐ Look BACK at exposure history
-- ⭐ Compare exposure rates
+# 🔻 Part 3: Case-Control Study ⭐⭐⭐
 
-### Calculation: Odds Ratio (OR)
-- ⭐ ⭐ **OR = (a×d) / (b×c)** from 2×2 table
-- a=Exposed Cases, b=Exposed Controls, c=Unexposed Cases, d=Unexposed Controls
+## Design
+- Start with **CASES + CONTROLS**
+- Look BACK at exposure history
+- Compare exposure rates
 
-### Strengths
-- ⭐ Fast, cheap
-- ⭐ Good for rare diseases
-- ⭐ Multiple exposures per outcome
+## Odds Ratio (OR)
+> **OR = (a×d) / (b×c)** from 2×2 table
+> - a = Exposed Cases
+> - b = Exposed Controls
+> - c = Unexposed Cases
+> - d = Unexposed Controls
 
-### Weaknesses
+## Strengths
+- Fast, cheap
+- **Good for rare diseases**
+- Multiple exposures per outcome
+
+## Weaknesses
 - ⚠️ Recall bias
 - ⚠️ Selection bias
 - ⚠️ Cannot calculate true incidence
 
-## 4️⃣ Cross-Sectional Study ⭐⭐
+---
 
-### Design
-- ⭐ "Snapshot" — measure exposure + outcome simultaneously
+# 🔻 Part 4: Cross-Sectional Study ⭐⭐
+
+## Design
+- "Snapshot" — measure exposure + outcome simultaneously
 - Single point in time
-- ⭐ Calculates PREVALENCE not incidence
+- **Calculates PREVALENCE not incidence**
 
-### Strengths
-- ⭐ Quick, cheap
-- ⭐ Good for prevalence surveys
+## Strengths
+- Quick, cheap
+- Good for prevalence surveys
 
-### Weaknesses
+## Weaknesses
 - ⚠️ Cannot establish temporality (chicken-egg!)
 - ⚠️ Survivor bias
 
-## 5️⃣ Real-World Veterinary Examples ⭐
+---
 
-### Cohort: BVD PI Animals
+# 🔻 Part 5: Real-World Veterinary Examples ⭐
+
+## Cohort: BVD PI Animals
 - Follow PI calves vs non-PI from birth
 - Measure: BRD incidence
-- ⭐ PI calves higher BRD = strong evidence
+- PI calves higher BRD = strong evidence
 
-### Case-Control: Mastitis Outbreak
+## Case-Control: Mastitis Outbreak
 - Cases: cows with mastitis
 - Controls: healthy cows
-- ⭐ Look back at risk factors
+- Look back at risk factors
 
-### Cross-Sectional: Brucella Survey
+## Cross-Sectional: Brucella Survey
 - Random farm selection
 - Test all + record management
-- ⭐ Calculate herd prevalence
+- Calculate herd prevalence
 
-## 6️⃣ Selecting Right Design ⭐
+---
 
-### Decision Tree
-- ⭐ Rare disease → Case-Control
-- ⭐ Common disease → Cohort
-- ⭐ Prevalence needed → Cross-Sectional
-- ⭐ Multiple outcomes → Cohort
-- ⭐ Multiple exposures → Case-Control
+# 🔻 Part 6: Selecting Right Design ⭐
 
-## 7️⃣ Bias + Confounding ⭐⭐
+## Decision Tree
+- **Rare disease** → Case-Control
+- **Common disease** → Cohort
+- **Prevalence needed** → Cross-Sectional
+- **Multiple outcomes** → Cohort
+- **Multiple exposures** → Case-Control
 
-### Types of Bias
-- ⭐ Selection bias
-- ⭐ Information/Recall bias
-- ⭐ Detection bias
-- ⭐ Misclassification
+---
 
-### Confounding Control
-- ⭐ Restriction (study one group)
-- ⭐ Matching (case-control)
-- ⭐ Stratification (analyze separately)
-- ⭐ Multivariable regression
+# 🔻 Part 7: Bias + Confounding ⭐⭐
 
-## 8️⃣ Sample Size Concepts ⭐
-- ⭐ Larger samples → more power
-- ⭐ Effect size affects need
-- ⭐ Power calculation before study
+## Types of Bias
+- Selection bias
+- Information/Recall bias
+- Detection bias
+- Misclassification
 
-## 📋 Exam Recap (10 จุดสำคัญ)
-1. ⭐ **3 designs**: Cohort, Case-Control, Cross-Sectional
-2. ⭐ **Cohort** = exposure → outcome (forward)
-3. ⭐ **Case-Control** = outcome → exposure (backward)
-4. ⭐ **Cross-Sectional** = both at once (snapshot)
-5. ⭐ **RR** for Cohort (incidence ratio)
-6. ⭐ **OR** for Case-Control (= ad/bc)
-7. ⭐ **Rare diseases** → Case-Control
-8. ⭐ **Bias types**: Selection, Recall, Detection, Misclassification
-9. ⭐ **Confounding control**: Restriction, Matching, Stratification, Regression
-10. ⭐ **Sample size** + Power calculation
+## Confounding Control
+- **Restriction** (study one group)
+- **Matching** (case-control)
+- **Stratification** (analyze separately)
+- **Multivariable regression**
 
-> 📚 **Cross-refs**: Causation lecture, Disease frequency, Future: Statistics
-> 🎯 **Calc tip**: OR = ad/bc — memorize and practice!`,
+---
+
+# 🔻 Part 8: Sample Size Concepts ⭐
+
+- Larger samples → more power
+- Effect size affects need
+- Power calculation before study
+
+---
+
+## 📋 Exam Recap
+- ⭐⭐⭐ **3 designs**: Cohort, Case-Control, Cross-Sectional
+- ⭐⭐⭐ **Cohort** = exposure → outcome (forward)
+- ⭐⭐⭐ **Case-Control** = outcome → exposure (backward)
+- ⭐⭐⭐ **OR = ad/bc** — memorize!
+- ⭐⭐ **Cross-Sectional** = both at once (snapshot)
+- ⭐⭐ **RR** for Cohort (incidence ratio)
+- ⭐⭐ **Rare diseases** → Case-Control
+- ⭐ **Bias types**: Selection, Recall, Detection, Misclassification
+- ⭐ **Confounding control**: Restriction, Matching, Stratification, Regression`,
   },
 
   bNB5K2zbKbY: {
@@ -47117,149 +47316,161 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 282,
     instructor: 'อ.ธนศักดิ์ (รุ่นพี่)',
     examFormat: 'Multiple choice + calculation, ออก descriptive vs inferential, t-test, chi-square, regression, sample size',
-    summary: `## 🎯 Lead Summary
-**Applied Statistics for Veterinary Epidemiology** — practical statistics for analyzing animal health data. Covers: ⭐ **Descriptive statistics** (means, medians, distributions), ⭐ **Inferential statistics** (hypothesis testing, p-values), ⭐ **Common tests** (t-test, ANOVA, Chi-square, regression), ⭐ **Sample size calculation**. Use software (R, SPSS, Python) — not hand calc — but MUST know which test fits.
+    summary: `# Veterinary Epidemiology — 4+6 Applied Statistics
 
-## 1️⃣ Statistics Foundation ⭐⭐
-- ⭐ Quantitative analysis of data
-- ⭐ Tests hypotheses
-- ⭐ Quantifies uncertainty
-- ⭐ Drives decisions
+> 🎯 Statistics ใน vet epidemiology — ใช้ software (R/SPSS/STATA/Python) แต่ **ต้องรู้ว่าเลือก test ไหน** กับ variable แบบไหน ⭐⭐
+> ⚠️ ออกแน่: variable types, descriptive vs inferential, t-test/ANOVA/Chi-square, regression
 
-## 2️⃣ Variable Types ⭐
+---
+
+# 🔻 Part 1: Statistics Foundation ⭐⭐
+
+- Quantitative analysis of data
+- Tests hypotheses
+- Quantifies uncertainty
+- Drives decisions
+
+---
+
+# 🔻 Part 2: Variable Types ⭐
+
 | Type | Examples |
 |---|---|
-| ⭐ **Continuous** | Weight, milk yield, temp |
-| ⭐ **Discrete** | Number of cases, count |
-| ⭐ **Nominal categorical** | Breed, sex |
-| ⭐ **Ordinal categorical** | Disease severity (mild/severe) |
-| ⭐ **Binary** | Yes/No, Sick/Healthy |
+| **Continuous** | Weight, milk yield, temp |
+| **Discrete** | Number of cases, count |
+| **Nominal categorical** | Breed, sex |
+| **Ordinal categorical** | Disease severity (mild/severe) |
+| **Binary** | Yes/No, Sick/Healthy |
 
-## 3️⃣ Descriptive Statistics ⭐⭐⭐
+> 💡 **Variable type drives test choice** — เลือก test ผิด → ผลผิด
 
-### Central Tendency
-- ⭐ Mean (average)
-- ⭐ Median (middle value)
-- ⭐ Mode (most frequent)
+---
 
-### Spread/Dispersion
-- ⭐ Range (max - min)
-- ⭐ Standard Deviation (SD)
-- ⭐ Variance
-- ⭐ IQR (interquartile range)
+# 🔻 Part 3: Descriptive Statistics ⭐⭐⭐
 
-### Distribution Shapes
-- ⭐ Normal (bell curve)
-- ⭐ Skewed (left/right)
-- ⭐ Bimodal
+## Central Tendency
+- **Mean** (average)
+- **Median** (middle value)
+- **Mode** (most frequent)
 
-## 4️⃣ Inferential Statistics ⭐⭐⭐
+## Spread/Dispersion
+- **Range** (max - min)
+- **Standard Deviation (SD)**
+- **Variance**
+- **IQR** (interquartile range)
 
-### Hypothesis Testing
-- ⭐ ⭐ **Null Hypothesis (H0)**: no difference
-- ⭐ ⭐ **Alternative (H1)**: difference exists
-- ⭐ p-value < 0.05 → reject H0
+## Distribution Shapes
+- Normal (bell curve)
+- Skewed (left/right)
+- Bimodal
 
-### p-value Interpretation
-- ⭐ Probability of observing data IF H0 true
-- ⭐ Small p = unlikely H0 = reject
-- ⚠️ p < 0.05 = arbitrary convention
+---
 
-### Confidence Intervals
-- ⭐ Range likely to contain true value
-- ⭐ 95% CI most common
+# 🔻 Part 4: Inferential Statistics ⭐⭐⭐
+
+## Hypothesis Testing
+- **Null Hypothesis (H0)**: no difference
+- **Alternative (H1)**: difference exists
+- **p-value < 0.05** → reject H0
+
+## p-value Interpretation
+- Probability of observing data IF H0 true
+- Small p = unlikely H0 = reject
+- ⚠️ **p < 0.05 = arbitrary convention** (ไม่ใช่กฎ!)
+
+## Confidence Intervals
+- Range likely to contain true value
+- **95% CI** most common
 - More informative than just p-value
 
-## 5️⃣ Common Statistical Tests ⭐⭐⭐
+---
 
-### t-test
-- ⭐ Compare 2 means
-- Independent or paired
+# 🔻 Part 5: Common Statistical Tests ⭐⭐⭐
 
-### ANOVA
-- ⭐ Compare 3+ means
-- One-way or two-way
+| Test | Use |
+|---|---|
+| **t-test** | Compare 2 means (independent or paired) |
+| **ANOVA** | Compare 3+ means (one-way or two-way) |
+| **Chi-Square (χ²)** | Categorical data, 2×2 tables |
+| **Fisher's Exact Test** | Small samples, alt to Chi-square |
+| **Mann-Whitney U** | Non-parametric (when not normal) |
+| **Wilcoxon** | Paired non-parametric |
 
-### Chi-Square (χ²)
-- ⭐ ⭐ Categorical data
-- ⭐ Test associations in 2×2 tables
+---
 
-### Fisher's Exact Test
-- ⭐ Small samples
-- Alternative to Chi-square
+# 🔻 Part 6: Regression Analysis ⭐⭐
 
-### Mann-Whitney U
-- ⭐ Non-parametric
-- When data not normal
+## Linear Regression
+- Continuous outcome
+- **Y = a + bX + error**
+- Predict + identify factors
 
-### Wilcoxon
-- ⭐ Paired non-parametric
-
-## 6️⃣ Regression Analysis ⭐⭐
-
-### Linear Regression
-- ⭐ Continuous outcome
-- Y = a + bX + error
-- ⭐ Predict + identify factors
-
-### Logistic Regression
-- ⭐ Binary outcome (yes/no)
-- ⭐ Calculate Odds Ratios
+## Logistic Regression
+- **Binary outcome (yes/no)**
+- Calculate Odds Ratios
 - Multivariable possible
 
-### Multivariable Models
-- ⭐ Control for confounders
-- ⭐ Multiple predictors
-- ⭐ Critical for epi research
+## Multivariable Models
+- Control for confounders
+- Multiple predictors
+- Critical for epi research
 
-## 7️⃣ Sample Size Calculation ⭐⭐
+---
 
-### Why Calculate?
-- ⭐ Avoid underpowered studies
-- ⭐ Cost-effective
-- ⭐ Required for ethics approval
+# 🔻 Part 7: Sample Size Calculation ⭐⭐
 
-### Components
-- ⭐ Effect size (expected difference)
-- ⭐ Power (usually 80%)
-- ⭐ Significance level (α = 0.05)
-- ⭐ Variance/proportions
+## Why Calculate?
+- Avoid underpowered studies
+- Cost-effective
+- Required for ethics approval
 
-## 8️⃣ Software Tools ⭐
-- ⭐ R (free, powerful)
-- ⭐ SPSS (commercial)
-- ⭐ STATA (epidemiology)
-- ⭐ Python (programming)
-- ⭐ Excel (basic)
+## Components
+- **Effect size** (expected difference)
+- **Power** (usually 80%)
+- **Significance level** (α = 0.05)
+- **Variance/proportions**
 
-## 9️⃣ Common Errors ⭐
-- ⭐ p-hacking
-- ⭐ Multiple testing
-- ⭐ Wrong test selection
-- ⭐ Ignoring confounders
-- ⭐ Misinterpreting CI
+---
 
-## 1️⃣0️⃣ Reading Papers Critically ⭐
-- ⭐ Was sample size justified?
-- ⭐ Was right test used?
-- ⭐ Was confounding addressed?
-- ⭐ Are CIs reported?
-- ⭐ Is effect size meaningful (not just p)?
+# 🔻 Part 8: Software Tools ⭐
 
-## 📋 Exam Recap (10 จุดสำคัญ)
-1. ⭐ **Variable types** drive test choice
-2. ⭐ **Mean, Median, Mode** + SD
-3. ⭐ **p-value < 0.05** convention (not law!)
-4. ⭐ **CI** more informative than p-value alone
-5. ⭐ **t-test** for 2 means
-6. ⭐ **ANOVA** for 3+ means
-7. ⭐ **Chi-square** for categorical data
-8. ⭐ **Linear vs Logistic regression**
-9. ⭐ **Sample size**: power × effect × significance × variance
-10. ⭐ **Use software** but understand the math
+- **R** (free, powerful)
+- **SPSS** (commercial)
+- **STATA** (epidemiology)
+- **Python** (programming)
+- **Excel** (basic)
 
-> 📚 **Cross-refs**: All previous epi lectures, Required for research career
-> 🎯 **Practical**: Practice with real datasets in R or SPSS`,
+---
+
+# 🔻 Part 9: Common Errors ⭐
+
+- p-hacking
+- Multiple testing
+- Wrong test selection
+- Ignoring confounders
+- Misinterpreting CI
+
+---
+
+# 🔻 Part 10: Reading Papers Critically ⭐
+
+- Was sample size justified?
+- Was right test used?
+- Was confounding addressed?
+- Are CIs reported?
+- Is effect size meaningful (not just p)?
+
+---
+
+## 📋 Exam Recap
+- ⭐⭐⭐ **Variable types** drive test choice
+- ⭐⭐⭐ **t-test** for 2 means · **ANOVA** for 3+ · **Chi-square** for categorical
+- ⭐⭐ **Mean, Median, Mode** + SD
+- ⭐⭐ **p-value < 0.05** convention (not law!)
+- ⭐⭐ **CI** more informative than p-value alone
+- ⭐ **Linear vs Logistic regression**
+- ⭐ **Sample size**: power × effect × significance × variance
+- ⭐ **Use software** but understand the math`,
   },
 
   '19nuIoprxC8': {
@@ -47270,155 +47481,166 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 67,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + scenario, ออก control vs prevention vs eradication, stamping out, vaccination strategy, zoning',
-    summary: `## 🎯 Lead Summary
-**Disease control hierarchy**: ⭐ ⭐ **Prevention < Control < Elimination < Eradication**. Each level requires more resources. Methods: ⭐ Quarantine, Vaccination, Movement Control, Stamping Out, Test-and-Cull, Vector Control. Real examples: Smallpox + Rinderpest = world eradicated.
+    summary: `# Veterinary Epidemiology — 5.1 Disease Control, Prevention and Eradication
 
-## 1️⃣ Disease Control Levels ⭐⭐⭐
+> 🎯 Disease control hierarchy: **Prevention < Control < Elimination < Eradication** — ทุกขั้น require more resources ⭐⭐⭐
+> ⚠️ ออกแน่: Smallpox + Rinderpest eradicated, 6 control methods, 3 zones, marker vaccines
 
-### Hierarchy (Increasing Difficulty)
-1. ⭐ **Prevention**: Stop disease occurring
-2. ⭐ **Control**: Reduce burden to acceptable level
-3. ⭐ **Elimination**: No disease in specific area
-4. ⭐ **Eradication**: NO virus exists anywhere
+---
 
-### Real Examples
-- ⭐ ⭐ **Smallpox**: ERADICATED (1980, only human disease)
-- ⭐ ⭐ **Rinderpest**: ERADICATED (2011, animal disease)
-- ⭐ HPAI Thailand: ELIMINATED (no cases 20+ years)
-- ⭐ FMD Thailand: CONTROL (still endemic)
+# 🔻 Part 1: Disease Control Levels ⭐⭐⭐
 
-## 2️⃣ Prevention Strategies ⭐⭐
+## Hierarchy (Increasing Difficulty)
+1. **Prevention**: Stop disease occurring
+2. **Control**: Reduce burden to acceptable level
+3. **Elimination**: No disease in specific area
+4. **Eradication**: NO virus exists anywhere
 
-### Primary Prevention
-- ⭐ Stop infection occurring
-- Vaccination, biosecurity, hygiene
+## Real Examples
+| Disease | Outcome |
+|---|---|
+| **Smallpox** | **ERADICATED** (1980, only human disease) |
+| **Rinderpest** | **ERADICATED** (2011, animal disease) |
+| HPAI Thailand | ELIMINATED (no cases 20+ years) |
+| FMD Thailand | CONTROL (still endemic) |
 
-### Secondary Prevention
-- ⭐ Early detection + treatment
-- Screening programs
+---
 
-### Tertiary Prevention
-- ⭐ Limit damage from established disease
-- Treatment optimization
+# 🔻 Part 2: Prevention Strategies ⭐⭐
 
-## 3️⃣ Control Methods ⭐⭐⭐
+| Level | Description |
+|---|---|
+| **Primary** | Stop infection occurring (vaccination, biosecurity, hygiene) |
+| **Secondary** | Early detection + treatment (screening programs) |
+| **Tertiary** | Limit damage from established disease (treatment optimization) |
 
-### A. Quarantine + Movement Control
-- ⭐ Isolate affected animals
-- ⭐ Stop spread to new areas
-- ⭐ International + national borders
+---
 
-### B. Vaccination ⭐
-- ⭐ Routine (FMD, LSD in Thailand)
-- ⭐ Ring vaccination (around outbreak)
-- ⭐ Targeted high-risk
+# 🔻 Part 3: Control Methods ⭐⭐⭐
 
-### C. Stamping Out ⭐⭐
-- ⭐ Cull affected + contact animals
-- ⭐ Most aggressive
-- ⭐ Used for serious diseases (HPAI, FMD outbreak)
+## A. Quarantine + Movement Control
+- Isolate affected animals
+- Stop spread to new areas
+- International + national borders
 
-### D. Test-and-Cull
-- ⭐ Test population
-- ⭐ Cull positive only
-- ⭐ Used for chronic diseases (TB, Brucella)
+## B. Vaccination
+- **Routine** (FMD, LSD in Thailand)
+- **Ring vaccination** (around outbreak)
+- **Targeted high-risk**
 
-### E. Vector Control
-- ⭐ Reduce vector populations
+## C. Stamping Out ⭐⭐
+- **Cull affected + contact animals**
+- Most aggressive
+- Used for serious diseases (HPAI, FMD outbreak)
+
+## D. Test-and-Cull
+- Test population
+- Cull positive only
+- Used for chronic diseases (TB, Brucella)
+
+## E. Vector Control
+- Reduce vector populations
 - Insecticides, environmental management
-- ⭐ Important for arbovirus, mosquito-borne
+- Important for arbovirus, mosquito-borne
 
-### F. Disinfection + Sanitation
-- ⭐ Break transmission chains
-- ⭐ Foot baths, equipment cleaning
-- ⭐ Critical post-outbreak
+## F. Disinfection + Sanitation
+- Break transmission chains
+- Foot baths, equipment cleaning
+- Critical post-outbreak
 
-## 4️⃣ Zoning Concept ⭐⭐
+---
 
-### 3 Zones
-- ⭐ **Infected Zone**: Active outbreak
-- ⭐ **Buffer/Surveillance Zone**: Around infected
-- ⭐ **Free Zone**: Clean area
+# 🔻 Part 4: Zoning Concept ⭐⭐
 
-### Movement Restrictions
-- ⭐ No movement OUT of infected
-- ⭐ Restricted IN/OUT of buffer
+## 3 Zones
+| Zone | Description |
+|---|---|
+| **Infected Zone** | Active outbreak |
+| **Buffer/Surveillance Zone** | Around infected |
+| **Free Zone** | Clean area |
+
+## Movement Restrictions
+- No movement OUT of infected
+- Restricted IN/OUT of buffer
 - Free zone = normal
 
-## 5️⃣ Vaccination Strategy Types ⭐⭐
+---
 
-### Mass Vaccination
-- ⭐ All animals
-- High coverage
-- ⭐ Used for endemic disease
+# 🔻 Part 5: Vaccination Strategy Types ⭐⭐
 
-### Ring Vaccination
-- ⭐ Around outbreak focus
-- ⭐ Prevent spread
+| Strategy | Approach |
+|---|---|
+| **Mass Vaccination** | All animals, high coverage, used for endemic disease |
+| **Ring Vaccination** | Around outbreak focus, prevent spread |
+| **Targeted** | High-risk groups only, cost-effective |
+| **Marker Vaccines** | Distinguish vaccinated from infected — **critical for trade!** (used for IBR eradication) |
 
-### Targeted Vaccination
-- ⭐ High-risk groups only
-- Cost-effective
+---
 
-### Marker Vaccines
-- ⭐ Distinguish vaccinated from infected
-- ⭐ Critical for trade
-- ⭐ Used for IBR eradication
+# 🔻 Part 6: Eradication Requirements ⭐⭐
 
-## 6️⃣ Eradication Requirements ⭐⭐
-- ⭐ Effective intervention available
-- ⭐ Disease in narrow host range
-- ⭐ Easily diagnosed
-- ⭐ Political will + resources
-- ⭐ International cooperation
+- Effective intervention available
+- Disease in narrow host range
+- Easily diagnosed
+- Political will + resources
+- International cooperation
 
-### Why Smallpox Worked
+## Why Smallpox Worked
 - Single host (humans)
 - Effective vaccine
 - No animal reservoir
 - Visible disease
 - WHO-led global effort
 
-## 7️⃣ Why Some Diseases Hard to Eradicate ⭐
-- ⭐ **Wildlife reservoirs** (rabies, brucella)
-- ⭐ **Multiple species** (FMD)
-- ⭐ **Carrier states** (Brucella, BLV)
-- ⭐ **Vector-borne** (BEF, Lepto)
-- ⭐ **Subclinical infections**
+---
 
-## 8️⃣ Thailand's Disease Battle Record ⭐⭐
+# 🔻 Part 7: ทำไม Some Diseases Hard to Eradicate ⭐
+
+- **Wildlife reservoirs** (rabies, brucella)
+- **Multiple species** (FMD)
+- **Carrier states** (Brucella, BLV)
+- **Vector-borne** (BEF, Lepto)
+- **Subclinical infections**
+
+---
+
+# 🔻 Part 8: Thailand's Disease Battle Record ⭐⭐
+
 | Disease | Outcome |
 |---|---|
-| ⭐ **HPAI** | ⭐ ELIMINATED (success!) |
-| ⭐ **FMD** | Control (still endemic) |
-| ⭐ **ASF** | ⚠️ Now endemic (failed control) |
-| ⭐ **LSD** | Control (vaccine works) |
+| **HPAI** | **ELIMINATED** (success!) |
+| **FMD** | Control (still endemic) |
+| **ASF** | ⚠️ Now endemic (failed control) |
+| **LSD** | Control (vaccine works) |
 
-## 9️⃣ Economic Cost-Benefit ⭐
-- ⭐ Eradication = high upfront, low long-term
-- ⭐ Control = ongoing cost
-- ⭐ Decision based on: prevalence, severity, cost, public health
+---
 
-## 1️⃣0️⃣ Communication + Compliance ⭐
-- ⭐ Farmer education critical
-- ⭐ Compensation programs
-- ⭐ Trust between vet + farmer
-- ⭐ Cultural/religious considerations
+# 🔻 Part 9: Economic Cost-Benefit ⭐
 
-## 📋 Exam Recap (10 จุดสำคัญ)
-1. ⭐ **4 levels**: Prevention < Control < Elimination < Eradication
-2. ⭐ **Smallpox + Rinderpest** = only diseases eradicated globally
-3. ⭐ **6 control methods**: Quarantine, Vaccine, Stamping out, Test-and-Cull, Vector, Sanitation
-4. ⭐ **3 zones**: Infected, Buffer, Free
-5. ⭐ **4 vaccination strategies**: Mass, Ring, Targeted, Marker
-6. ⭐ **Marker vaccines** = trade requirement
-7. ⭐ **Wildlife reservoirs** complicate eradication
-8. ⭐ **HPAI Thailand** = success story
-9. ⭐ **ASF Thailand** = failure story
-10. ⭐ **Communication** = key to compliance
+- Eradication = high upfront, low long-term
+- Control = ongoing cost
+- Decision based on: prevalence, severity, cost, public health
 
-> 📚 **Cross-refs**: All previous lectures, Surveillance, Public Health
-> 🎯 **Application**: Match strategy to disease characteristics`,
+---
+
+# 🔻 Part 10: Communication + Compliance ⭐
+
+- Farmer education critical
+- Compensation programs
+- Trust between vet + farmer
+- Cultural/religious considerations
+
+---
+
+## 📋 Exam Recap
+- ⭐⭐⭐ **4 levels**: Prevention < Control < Elimination < Eradication
+- ⭐⭐⭐ **Smallpox + Rinderpest** = only diseases eradicated globally
+- ⭐⭐⭐ **6 control methods**: Quarantine, Vaccine, Stamping out, Test-and-Cull, Vector, Sanitation
+- ⭐⭐ **3 zones**: Infected, Buffer, Free
+- ⭐⭐ **4 vaccination strategies**: Mass, Ring, Targeted, Marker
+- ⭐⭐ **Marker vaccines** = trade requirement
+- ⭐ **Wildlife reservoirs** complicate eradication
+- ⭐ **HPAI Thailand** = success story · **ASF Thailand** = failure story`,
   },
 
   pE66KLSuspY: {
@@ -47429,49 +47651,67 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 7,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Brief topic, short multiple choice possible',
-    summary: `## 🎯 Lead Summary
-**Public-Private Partnerships (PPP)** in animal disease control. Essential for: ⭐ ⭐ tackling diseases government alone can't handle. Examples: ⭐ Vaccine development, ⭐ Surveillance systems, ⭐ Outbreak response, ⭐ Rural extension services.
+    summary: `# Veterinary Epidemiology — 5.6 Public Private Partnerships
 
-## 1️⃣ Why PPP? ⭐⭐
-- ⭐ Government resources finite
-- ⭐ Private sector innovation + scale
-- ⭐ Combined expertise
-- ⭐ Industry has assets gov lacks
+> 🎯 **Public-Private Partnerships (PPP)** ใน animal disease control — รัฐบาลทำคนเดียวไม่ได้ ต้องร่วมกับ private sector ⭐⭐
+> ⚠️ Brief lecture — short multiple choice possible
 
-## 2️⃣ Common PPP Models ⭐⭐
-- ⭐ **Vaccine development**: Pharma + DLD
-- ⭐ **Surveillance**: Industry data → public DB
-- ⭐ **Outbreak response**: Joint task forces
-- ⭐ **Rural extension**: Veterinary services
-- ⭐ **Technology transfer**: ICT, sensors
+---
 
-## 3️⃣ Examples in Thailand ⭐
-- ⭐ FMD vaccine production (DLD + private)
-- ⭐ Sensor adoption in dairy (Saraburi research)
-- ⭐ One Health (multi-sector)
-- ⭐ Rabies elimination (multi-stakeholder)
+# 🔻 Part 1: ทำไมต้อง PPP ⭐⭐
 
-## 4️⃣ Success Factors ⭐
-- ⭐ Clear roles + responsibilities
-- ⭐ Trust between partners
-- ⭐ Data sharing protocols
-- ⭐ Sustainable funding
+- Government resources finite
+- Private sector innovation + scale
+- Combined expertise
+- Industry has assets gov lacks
 
-## 5️⃣ Challenges ⭐
-- ⭐ Conflict of interest
-- ⭐ Data ownership
-- ⭐ Profit motives
-- ⭐ Bureaucracy mismatch
+---
 
-## 📋 Exam Recap (5 จุดสำคัญ)
-1. ⭐ **PPP** = Public-Private Partnership
-2. ⭐ Combine gov + industry strengths
-3. ⭐ **Examples**: Vaccines, Surveillance, Outbreak, Extension
-4. ⭐ **Thailand examples**: FMD vaccine, Saraburi sensors
-5. ⭐ **Critical**: clear roles + trust + sustainable funding
+# 🔻 Part 2: Common PPP Models ⭐⭐
 
-> 📚 **Cross-refs**: Disease control, Surveillance, One Health
-> 🎯 **Future**: Increasingly important in modern epidemiology`,
+| Model | Example |
+|---|---|
+| **Vaccine development** | Pharma + DLD |
+| **Surveillance** | Industry data → public DB |
+| **Outbreak response** | Joint task forces |
+| **Rural extension** | Veterinary services |
+| **Technology transfer** | ICT, sensors |
+
+---
+
+# 🔻 Part 3: Examples in Thailand ⭐
+
+- FMD vaccine production (DLD + private)
+- Sensor adoption in dairy (Saraburi research)
+- One Health (multi-sector)
+- Rabies elimination (multi-stakeholder)
+
+---
+
+# 🔻 Part 4: Success Factors ⭐
+
+- Clear roles + responsibilities
+- Trust between partners
+- Data sharing protocols
+- Sustainable funding
+
+---
+
+# 🔻 Part 5: Challenges ⭐
+
+- Conflict of interest
+- Data ownership
+- Profit motives
+- Bureaucracy mismatch
+
+---
+
+## 📋 Exam Recap
+- ⭐⭐ **PPP** = Public-Private Partnership
+- ⭐⭐ Combine gov + industry strengths
+- ⭐ **Examples**: Vaccines, Surveillance, Outbreak, Extension
+- ⭐ **Thailand examples**: FMD vaccine, Saraburi sensors
+- ⭐ **Critical**: clear roles + trust + sustainable funding`,
   },
 
   l0PNCPnuuns: {
@@ -47482,79 +47722,103 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 106,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'Multiple choice + practical scenarios, ออก field application, clinical decision making, investigation steps',
-    summary: `## 🎯 Lead Summary
-**Practice-based epidemiology** = applying epi tools in clinical settings. Bridge theory → practice. Skills: ⭐ ⭐ recognize unusual patterns, investigate systematically, communicate findings, drive control.
+    summary: `# Veterinary Epidemiology — 7.1 Introduction to Practice Epidemiology
 
-## 1️⃣ Practice Epidemiology Goals ⭐⭐
-- ⭐ Detect emerging diseases early
-- ⭐ Investigate outbreaks
-- ⭐ Evaluate interventions
-- ⭐ Quality improvement
-- ⭐ Evidence-based vet medicine
+> 🎯 **Practice-based epidemiology** = นำ epi tools ไปใช้ใน clinical setting → bridge theory→practice ⭐⭐
+> ⚠️ ออกแน่: 10 investigation steps, Hill's criteria application, communication skills
 
-## 2️⃣ When to Use Epi Skills ⭐
-- ⭐ Sudden case clusters
-- ⭐ Unusual patterns
-- ⭐ Therapeutic failure
-- ⭐ Vaccine effectiveness questions
-- ⭐ Farm performance issues
+---
 
-## 3️⃣ Practice Investigation Steps ⭐⭐⭐
-1. ⭐ Define problem
-2. ⭐ Define case (case definition)
-3. ⭐ Confirm outbreak
-4. ⭐ Describe T-P-P
-5. ⭐ Generate hypotheses
-6. ⭐ Test hypotheses
-7. ⭐ Implement controls
-8. ⭐ Communicate
-9. ⭐ Follow-up
-10. ⭐ Document
+# 🔻 Part 1: Goals ⭐⭐
 
-## 4️⃣ Practical Tools ⭐⭐
-- ⭐ **Records review**: farm history
-- ⭐ **Walking the farm**: visual assessment
-- ⭐ **Sample collection**: blood, milk, swabs
-- ⭐ **Lab integration**: rapid PCR, ELISA
-- ⭐ **Software**: herd management, sensors
+- Detect emerging diseases early
+- Investigate outbreaks
+- Evaluate interventions
+- Quality improvement
+- Evidence-based vet medicine
 
-## 5️⃣ Clinical Decision Making ⭐⭐
-- ⭐ Use Hill's criteria for causation
-- ⭐ Consider differential diagnosis
-- ⭐ Risk assessment
-- ⭐ Cost-benefit analysis
+---
 
-## 6️⃣ Communication Skills ⭐
-- ⭐ Use farmer-friendly language
-- ⭐ Visual aids (graphs, maps)
-- ⭐ Clear action steps
-- ⭐ Document for records
+# 🔻 Part 2: When to Use Epi Skills ⭐
 
-## 7️⃣ Career Paths ⭐
-- ⭐ Field practitioner
-- ⭐ Government surveillance
-- ⭐ Industry quality control
-- ⭐ Research epidemiologist
-- ⭐ Public health advisor
+- Sudden case clusters
+- Unusual patterns
+- Therapeutic failure
+- Vaccine effectiveness questions
+- Farm performance issues
 
-## 8️⃣ Modern Trends ⭐
-- ⭐ Big data + analytics
-- ⭐ AI-assisted diagnosis
-- ⭐ Genomic epidemiology
-- ⭐ One Health integration
+---
 
-## 📋 Exam Recap (8 จุดสำคัญ)
-1. ⭐ **Practice epidemiology** = applied epi tools
-2. ⭐ **10-step investigation protocol**
-3. ⭐ **Hill's criteria** for clinical decisions
-4. ⭐ **Communication** with farmers critical
-5. ⭐ **Career paths**: practitioner, government, industry, research
-6. ⭐ **Trends**: big data, AI, genomics, One Health
-7. ⭐ **Records review** = first investigation step
-8. ⭐ **Documentation** essential
+# 🔻 Part 3: Practice Investigation Steps ⭐⭐⭐
 
-> 📚 **Cross-refs**: All previous lectures, Career planning
-> 🎯 **Skill**: Apply epidemiology tools daily, not just for outbreaks`,
+1. Define problem
+2. Define case (case definition)
+3. Confirm outbreak
+4. Describe T-P-P
+5. Generate hypotheses
+6. Test hypotheses
+7. Implement controls
+8. Communicate
+9. Follow-up
+10. Document
+
+---
+
+# 🔻 Part 4: Practical Tools ⭐⭐
+
+- **Records review**: farm history
+- **Walking the farm**: visual assessment
+- **Sample collection**: blood, milk, swabs
+- **Lab integration**: rapid PCR, ELISA
+- **Software**: herd management, sensors
+
+---
+
+# 🔻 Part 5: Clinical Decision Making ⭐⭐
+
+- Use **Hill's criteria** for causation
+- Consider differential diagnosis
+- Risk assessment
+- Cost-benefit analysis
+
+---
+
+# 🔻 Part 6: Communication Skills ⭐
+
+- Use farmer-friendly language
+- Visual aids (graphs, maps)
+- Clear action steps
+- Document for records
+
+---
+
+# 🔻 Part 7: Career Paths ⭐
+
+- Field practitioner
+- Government surveillance
+- Industry quality control
+- Research epidemiologist
+- Public health advisor
+
+---
+
+# 🔻 Part 8: Modern Trends ⭐
+
+- Big data + analytics
+- AI-assisted diagnosis
+- Genomic epidemiology
+- One Health integration
+
+---
+
+## 📋 Exam Recap
+- ⭐⭐⭐ **Practice epidemiology** = applied epi tools
+- ⭐⭐⭐ **10-step investigation protocol**
+- ⭐⭐ **Hill's criteria** for clinical decisions
+- ⭐⭐ **Communication** with farmers critical
+- ⭐ **Career paths**: practitioner, government, industry, research
+- ⭐ **Trends**: big data, AI, genomics, One Health
+- ⭐ **Records review** = first investigation step`,
   },
 
   XTDvx2Bym1w: {
@@ -47565,47 +47829,65 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 64,
     instructor: 'อ.ธนศักดิ์',
     examFormat: 'NOT IN EXAM (ไม่ออกสอบ) — interesting research overview',
-    summary: `## 🎯 Lead Summary
-⚠️ **NOT EXAMINED** — Aj. Tanasak said this lecture is for inspiration, NOT exam content. Overview of current epidemiology research applications. Examples: AI in disease prediction, genomic epi, One Health.
+    summary: `# Veterinary Epidemiology — 7.2 Epidemiology Application in Current Research
 
-## 1️⃣ Why This Lecture? ⭐
-- ⭐ Show research career possibilities
-- ⭐ Inspire continuing education
-- ⭐ Modern technology integration
+> 🎯 ⚠️ **NOT EXAMINED** — อ.ธนศักดิ์บอกชัดเจน lecture นี้เพื่อ inspiration ไม่ออกสอบ
+> 💡 ใช้ดูว่า research career possibilities เป็นยังไง — โดยเฉพาะ AI + genomics + One Health
 
-## 2️⃣ Modern Research Topics ⭐
-- ⭐ **Big data analytics**: massive datasets
-- ⭐ **Machine learning**: predict outbreaks
-- ⭐ **Genomic epidemiology**: pathogen tracking
-- ⭐ **Geographic Information Systems (GIS)**: spatial analysis
-- ⭐ **Mobile/sensor data**: real-time
-- ⭐ **One Health**: human-animal-environment
+---
 
-## 3️⃣ Thai Research Examples ⭐
-- ⭐ HPAI surveillance + early warning
-- ⭐ ASF spread modeling
-- ⭐ Rabies elimination strategies
-- ⭐ Dairy efficiency improvement (Saraburi center)
-- ⭐ Climate change × disease
+# 🔻 Part 1: ทำไม lecture นี้ ⭐
 
-## 4️⃣ International Collaborations ⭐
-- ⭐ FAO + WAHIS
-- ⭐ One Health initiatives
-- ⭐ Vaccine development consortiums
-- ⭐ Disease elimination programs
+- Show research career possibilities
+- Inspire continuing education
+- Modern technology integration
 
-## 5️⃣ Career Outlook ⭐
-- ⭐ Research epidemiologist demand
-- ⭐ International opportunities
-- ⭐ Multidisciplinary collaboration
+---
+
+# 🔻 Part 2: Modern Research Topics ⭐
+
+- **Big data analytics**: massive datasets
+- **Machine learning**: predict outbreaks
+- **Genomic epidemiology**: pathogen tracking
+- **Geographic Information Systems (GIS)**: spatial analysis
+- **Mobile/sensor data**: real-time
+- **One Health**: human-animal-environment
+
+---
+
+# 🔻 Part 3: Thai Research Examples ⭐
+
+- HPAI surveillance + early warning
+- ASF spread modeling
+- Rabies elimination strategies
+- Dairy efficiency improvement (Saraburi center)
+- Climate change × disease
+
+---
+
+# 🔻 Part 4: International Collaborations ⭐
+
+- FAO + WAHIS
+- One Health initiatives
+- Vaccine development consortiums
+- Disease elimination programs
+
+---
+
+# 🔻 Part 5: Career Outlook ⭐
+
+- Research epidemiologist demand
+- International opportunities
+- Multidisciplinary collaboration
+
+---
 
 ## 📋 Recap
 - ⚠️ **NOT EXAMINED** but valuable for career thinking
 - ⭐ Future research directions
 - ⭐ Interdisciplinary work growing
 
-> 📚 **Cross-refs**: All previous lectures, Career planning
-> 🎯 **Inspirational**: Consider research as a path!`,
+> 💡 Consider research as a path — esp. AI + genomic + One Health intersection`,
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -47682,63 +47964,83 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 64,
     instructor: 'CUVET small animal medicine team',
     examFormat: 'Multiple choice + clinical scenarios, ออก respiratory DDx, upper vs lower airway',
-    summary: `## 🎯 Lead Summary
-**Respiratory complaints** in small animals. Distinguish: ⭐ ⭐ **Upper airway** (nasal, pharyngeal) vs **Lower airway** (trachea, bronchi, lungs). Different DDx, different management.
+    summary: `# POA — 4 Sneezing/Nasal Discharge + Coughing/Dyspnea
 
-## 1️⃣ Upper Airway: Sneezing/Nasal Discharge ⭐⭐
-### Causes
-- ⭐ Foreign body (most common in dogs!)
-- ⭐ Infections (URI, Bordetella)
-- ⭐ Nasal tumor (older animals)
-- Allergic rhinitis
-- Dental disease (oronasal fistula)
-- Trauma
+> 🎯 Respiratory complaint ในหมาแมว — แยกให้ออกก่อน workup: **Upper airway** (nasal, pharyngeal) vs **Lower airway** (trachea, bronchi, lungs). DDx + management คนละชุดเลย ⭐⭐⭐
+> ⚠️ ถ้าแยกผิด → สั่ง imaging ผิดจุด, miss heartworm ในเคสไทย
 
-### Workup
+---
+
+# 🔻 Part 1: Upper Airway — Sneezing/Nasal Discharge ⭐⭐
+
+## Causes (เรียงตามความถี่)
+- ⭐ **Foreign body** — most common ในหมา (หญ้า, เมล็ดพืช, ฯลฯ)
+- ⭐ **Infections** — URI, Bordetella
+- ⭐ **Nasal tumor** — สัตว์แก่
+- **Allergic rhinitis**
+- **Dental disease** — oronasal fistula
+- **Trauma**
+
+## Workup
 - ⭐ History, age, onset
-- ⭐ Discharge characterization (unilateral vs bilateral, type)
-- ⭐ Rhinoscopy
-- ⭐ CT scan (gold standard)
+- ⭐ Discharge characterization — **unilateral vs bilateral**, type ของ discharge
+- ⭐ **Rhinoscopy**
+- ⭐ **CT scan** = gold standard
 
-## 2️⃣ Lower Airway: Cough/Dyspnea ⭐⭐⭐
-### Causes
-- ⭐ Bronchitis (chronic, asthma)
-- ⭐ Pneumonia (bacterial, viral, aspiration)
-- ⭐ Heartworm (esp. Thailand!)
-- ⭐ Lung tumors
-- ⭐ Pulmonary edema (CHF)
-- Tracheal collapse (small breeds!)
+> 💡 **Unilateral** discharge → คิด foreign body หรือ tumor ก่อน · **Bilateral** → คิด infection, allergic
 
-### Workup
-- ⭐ Auscultation (crackles, wheezes)
-- ⭐ Thoracic radiograph
+---
+
+# 🔻 Part 2: Lower Airway — Cough/Dyspnea ⭐⭐⭐
+
+## Causes
+- ⭐ **Bronchitis** — chronic, asthma (cat!)
+- ⭐ **Pneumonia** — bacterial, viral, aspiration
+- ⭐ **Heartworm** — โดยเฉพาะในไทย ⚠️
+- ⭐ **Lung tumors**
+- ⭐ **Pulmonary edema** — CHF
+- **Tracheal collapse** — พันธุ์เล็ก (Yorkie, Poodle, Pom)
+
+## Workup
+- ⭐ **Auscultation** — crackles, wheezes
+- ⭐ **Thoracic radiograph**
 - ⭐ CBC, biochem
-- ⭐ Echocardiogram (if cardiac suspected)
-- ⭐ Bronchoalveolar lavage
+- ⭐ **Echocardiogram** ถ้า suspect cardiac
+- ⭐ **Bronchoalveolar lavage**
 
-## 3️⃣ Distinguishing Features ⭐
-| Sign | Likely Origin |
+---
+
+# 🔻 Part 3: Distinguishing Features ⭐
+
+| Sign | Likely origin |
 |---|---|
-| Stertor | Upper |
-| Stridor | Upper (laryngeal) |
-| Cough | Lower |
-| Wheezing | Lower (bronchial) |
-| Crackles | Lower (alveolar) |
-| Cyanosis | Severe lower or cardiac |
+| **Stertor** | Upper (snoring sound) |
+| **Stridor** | Upper — laryngeal |
+| **Cough** | Lower |
+| **Wheezing** | Lower — bronchial |
+| **Crackles** | Lower — alveolar |
+| **Cyanosis** | Severe lower หรือ cardiac |
 
-## 4️⃣ Treatment ⭐
-- ⭐ Cause-specific
-- O2 therapy if hypoxic
-- Antibiotics for bacterial
-- Bronchodilators for asthma
-- Diuretics for CHF
+> 💡 **Trick**: stertor + stridor มาจากบน · wheeze + crackle มาจากล่าง
+
+---
+
+# 🔻 Part 4: Treatment ⭐
+
+- ⭐ **Cause-specific** — รักษาที่ต้นเหตุ
+- **O2 therapy** ถ้า hypoxic
+- **Antibiotics** สำหรับ bacterial
+- **Bronchodilators** สำหรับ asthma
+- **Diuretics** (furosemide) สำหรับ CHF
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Upper vs Lower airway distinction
-2. ⭐ Sneezing → nasal foreign body, tumor, infection
-3. ⭐ Cough → bronchitis, pneumonia, CHF, heartworm
-4. ⭐ Heartworm = Thai concern
-5. ⭐ Tracheal collapse = small breeds`,
+- ⭐⭐⭐ **Upper vs Lower airway** = จุดแรกที่ต้องแยก
+- ⭐⭐ **Sneezing** → nasal foreign body, tumor, infection
+- ⭐⭐ **Cough** → bronchitis, pneumonia, CHF, heartworm
+- ⭐ **Heartworm** = Thai concern (ไม่ลืม!)
+- ⭐ **Tracheal collapse** = พันธุ์เล็ก`,
   },
 
   Wb9F3GbBDaY: {
@@ -47749,68 +48051,88 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 60,
     instructor: 'CUVET small animal medicine team',
     examFormat: 'Multiple choice + scenario, ออก mechanisms of edema, transudate vs exudate, effusion analysis',
-    summary: `## 🎯 Lead Summary
-**Edema + Effusion** = abnormal fluid accumulation. 4 mechanisms: ⭐ Increased hydrostatic, ⭐ Decreased oncotic, ⭐ Increased capillary permeability, ⭐ Lymphatic obstruction. Effusion classified: ⭐ **Transudate, Modified Transudate, Exudate**.
+    summary: `# POA — 5 Edema and Effusion
 
-## 1️⃣ 4 Mechanisms ⭐⭐⭐
+> 🎯 **Edema + Effusion** = abnormal fluid accumulation. แยกตาม **4 mechanisms** + **3 effusion types** (Transudate/Modified Transudate/Exudate) ⭐⭐⭐
+> ⚠️ ในแมวที่ effusion สีเหลือง → คิด FIP ก่อน
+
+---
+
+# 🔻 Part 1: 4 Mechanisms ของ Edema ⭐⭐⭐
+
 | Mechanism | Examples |
 |---|---|
-| ⭐ ↑ Hydrostatic pressure | CHF, portal hypertension |
-| ⭐ ↓ Oncotic pressure | Hypoalbuminemia (PLE, PLN, liver) |
-| ⭐ ↑ Capillary permeability | Inflammation, sepsis |
-| ⭐ Lymphatic obstruction | Tumor, surgery, congenital |
+| ⭐ **↑ Hydrostatic pressure** | CHF, portal hypertension |
+| ⭐ **↓ Oncotic pressure** | Hypoalbuminemia (PLE, PLN, liver) |
+| ⭐ **↑ Capillary permeability** | Inflammation, sepsis |
+| ⭐ **Lymphatic obstruction** | Tumor, surgery, congenital |
 
-## 2️⃣ Effusion Types ⭐⭐⭐
-| Type | Protein | Cells | Cause |
+> 💡 **Albumin <2.0** = สูตรขนมหวานสำหรับ systemic edema
+
+---
+
+# 🔻 Part 2: Effusion Classification ⭐⭐⭐
+
+| Type | Protein (g/dL) | Cells (/μL) | Cause |
 |---|---|---|---|
-| ⭐ **Transudate** | <2.5 | <1500 | Hydrostatic, oncotic |
-| ⭐ **Modified Transudate** | 2.5-3.5 | 1500-5000 | CHF, portal HTN |
-| ⭐ **Exudate** | >3.5 | >5000 | Inflammation, FIP, neoplasia |
+| ⭐ **Transudate** | <2.5 | <1,500 | Hydrostatic, oncotic |
+| ⭐ **Modified Transudate** | 2.5–3.5 | 1,500–5,000 | CHF, portal HTN |
+| ⭐ **Exudate** | >3.5 | >5,000 | Inflammation, FIP, neoplasia |
 
-## 3️⃣ Common Causes by Location ⭐
-### Subcutaneous Edema
+---
+
+# 🔻 Part 3: Common Causes by Location ⭐
+
+## Subcutaneous Edema
 - Hypoalbuminemia
 - Heart failure
 - Vasculitis
 
-### Ascites
-- ⭐ CHF (right-sided)
+## Ascites
+- ⭐ **CHF** (right-sided)
 - Liver failure
 - Hypoalbuminemia
-- ⭐ FIP (cats!)
+- ⭐ **FIP** (cats!) ⚠️
 - Neoplasia
 
-### Pleural Effusion
-- ⭐ CHF (cats)
-- ⭐ FIP
+## Pleural Effusion
+- ⭐ **CHF** (โดยเฉพาะแมว)
+- ⭐ **FIP**
 - Pyothorax
 - Chylothorax
 - Neoplasia
 
-### Pericardial Effusion
-- ⭐ Hemangiosarcoma
+## Pericardial Effusion
+- ⭐ **Hemangiosarcoma**
 - Idiopathic
 - Heart base tumor
 
-## 4️⃣ Diagnostic Approach ⭐⭐
-1. ⭐ Identify location
-2. ⭐ Centesis + fluid analysis
-3. ⭐ TP, cells, cytology
-4. ⭐ Imaging (US essential!)
-5. ⭐ CBC, biochem, urinalysis
+---
 
-## 5️⃣ Treatment ⭐
-- ⭐ Address underlying cause!
-- Diuretics (furosemide for CHF)
-- Pericardiocentesis if tamponade
-- Albumin support (rare in vet)
+# 🔻 Part 4: Diagnostic Approach ⭐⭐
+
+1. ⭐ **Identify location** — SC vs ascites vs pleural vs pericardial
+2. ⭐ **Centesis + fluid analysis** — TP, cells, cytology
+3. ⭐ **Imaging** — US เป็น essential!
+4. ⭐ CBC, biochem, urinalysis
+
+---
+
+# 🔻 Part 5: Treatment ⭐
+
+- ⭐ **Address underlying cause!**
+- **Diuretics** (furosemide) สำหรับ CHF
+- **Pericardiocentesis** ถ้า tamponade
+- **Albumin support** (rare in vet)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ **4 mechanisms** of edema
-2. ⭐ **3 effusion types**: Transudate, Modified, Exudate
-3. ⭐ **FIP** = cats with effusion (esp. yellow!)
-4. ⭐ **Pericardial effusion** → hemangiosarcoma DDx
-5. ⭐ **Albumin <2.0** → systemic edema risk`,
+- ⭐⭐⭐ **4 mechanisms** ของ edema (hydrostatic/oncotic/permeability/lymphatic)
+- ⭐⭐⭐ **3 effusion types** — Transudate, Modified, Exudate (protein + cell criteria)
+- ⭐⭐ **FIP** = cats with yellow effusion
+- ⭐ **Pericardial effusion** → คิด hemangiosarcoma
+- ⭐ **Albumin <2.0** → systemic edema risk`,
   },
 
   BHEBIjQLm8g: {
@@ -47821,49 +48143,77 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 56,
     instructor: 'CUVET exotic medicine team',
     examFormat: 'Multiple choice, ออก species-specific anatomy, husbandry-related disease, common exotic pets in Thailand',
-    summary: `## 🎯 Lead Summary
-**Exotic Animal POA Part I**: husbandry + clinical approach to common exotic pets in Thailand. Includes: ⭐ rabbits, guinea pigs, hamsters, sugar gliders, ferrets, hedgehogs.
+    summary: `# POA — 6.1.1 Exotic Animal Approach I
 
-## 1️⃣ Why Husbandry First ⭐⭐
-- ⭐ Most exotic disease = husbandry-related
-- Improper diet, housing, temperature, humidity
+> 🎯 **Exotic Animal Part I** — รพ. หมาแมวเลี้ยง: rabbits, guinea pigs, hamsters, sugar gliders, ferrets, hedgehogs ⭐⭐
+> ⚠️ Most exotic disease = **husbandry-related** → แก้ husbandry คือแก้โรค
+
+---
+
+# 🔻 Part 1: Why Husbandry First ⭐⭐
+
+- ⭐ **Most exotic disease = husbandry-related**
+- Improper: diet, housing, temperature, humidity
 - ⭐ Fix husbandry → fix disease
 
-## 2️⃣ Rabbit Common Issues ⭐⭐
-- ⭐ **GI stasis** (most common emergency!)
-- ⭐ **Dental disease** (overgrown teeth)
-- ⭐ **E. cuniculi** infection
+> 💡 ถามเจ้าของก่อนเสมอ: **อาหาร · กรง · อุณหภูมิ · ความชื้น** เป็นยังไง
+
+---
+
+# 🔻 Part 2: Rabbit ⭐⭐
+
+- ⭐ **GI stasis** — most common emergency!
+- ⭐ **Dental disease** — overgrown teeth
+- ⭐ ***E. cuniculi*** infection
 - ⭐ **Snuffles** (Pasteurella)
 - Calcium issues
 
-## 3️⃣ Guinea Pig Issues ⭐
-- ⭐ **Vitamin C deficiency** (must supplement!)
+---
+
+# 🔻 Part 3: Guinea Pig ⭐
+
+- ⭐ **Vitamin C deficiency** — must supplement! ⚠️
 - Dental issues
 - Respiratory infections
 - Bumblefoot
 
-## 4️⃣ Small Mammals ⭐
-- ⭐ Hamster: wet tail (Lawsonia)
-- ⭐ Hedgehog: WHS, mites, obesity
-- ⭐ Sugar glider: protein deficiency, social needs
+---
 
-## 5️⃣ Diagnostic Approach ⭐
-- ⭐ Stress reduces immunity → handle gently
+# 🔻 Part 4: Small Mammals ⭐
+
+| Species | Key issue |
+|---|---|
+| ⭐ **Hamster** | Wet tail (*Lawsonia*) |
+| ⭐ **Hedgehog** | WHS (wobbly hedgehog syndrome), mites, obesity |
+| ⭐ **Sugar glider** | Protein deficiency, social needs |
+
+---
+
+# 🔻 Part 5: Diagnostic Approach ⭐
+
+- ⭐ **Stress reduces immunity** → handle gently
 - Small body size → tiny doses
-- ⭐ Reverse stress: warm environment, oxygen
+- ⭐ **Reverse stress**: warm environment, oxygen
 - Imaging often needed
 
-## 6️⃣ Treatment Principles ⭐
+---
+
+# 🔻 Part 6: Treatment Principles ⭐
+
 - ⭐ Use exotic-friendly drugs
-- ⚠️ Avoid certain antibiotics (rabbit fluoroquinolones safe; penicillins TOXIC!)
-- ⭐ Supportive care priority
+- ⚠️ Avoid certain antibiotics:
+  - Rabbit fluoroquinolones — safe
+  - Rabbit **penicillins** — ⛔ TOXIC!
+- ⭐ **Supportive care priority**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Husbandry assessment first
-2. ⭐ Rabbit GI stasis = emergency
-3. ⭐ Guinea pig needs vitamin C
-4. ⭐ Avoid certain antibiotics in rabbits
-5. ⭐ Supportive care critical for small body size`,
+- ⭐⭐⭐ **Husbandry assessment first** — most exotic disease = management issue
+- ⭐⭐ **Rabbit GI stasis** = emergency
+- ⭐⭐ **Guinea pig needs vitamin C**
+- ⭐ **Avoid penicillins in rabbits** (toxic!)
+- ⭐ **Supportive care critical** สำหรับ small body size`,
   },
 
   tCPuvbytmK4: {
@@ -47874,56 +48224,74 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 68,
     instructor: 'CUVET exotic medicine team',
     examFormat: 'Multiple choice, ออก reptile + bird approach, species-specific nutrition, UV light needs',
-    summary: `## 🎯 Lead Summary
-**Exotic Animal POA Part II**: reptiles + birds. Critical: ⭐ ⭐ **UV light + temperature gradient** for reptiles, ⭐ ⭐ **Calcium requirements**, ⭐ Diet diversity, Species-specific medicine.
+    summary: `# POA — 6.1.2 Exotic Animal Approach II
 
-## 1️⃣ Reptile Care ⭐⭐⭐
-### Critical Husbandry
-- ⭐ **Temperature gradient** (cool + warm zones)
-- ⭐ **UV-B light** (calcium metabolism!)
+> 🎯 **Exotic Animal Part II** — reptiles + birds. ⭐⭐⭐ Critical: **UV light + temperature gradient** สำหรับ reptiles, **Calcium** + Diet diversity
+> ⚠️ Stress = exotic animal killer
+
+---
+
+# 🔻 Part 1: Reptile Care ⭐⭐⭐
+
+## Critical Husbandry
+- ⭐ **Temperature gradient** — cool + warm zones
+- ⭐ **UV-B light** — calcium metabolism!
 - ⭐ **Humidity** species-specific
 - ⭐ **Hide spots**
 
-### Common Diseases
+## Common Diseases
 - ⭐ **MBD (Metabolic Bone Disease)** = #1 problem
 - ⭐ **Respiratory infections** (URI)
 - ⭐ **Stomatitis** (mouth rot)
 - ⭐ **Egg binding**
 - Parasites
 
-## 2️⃣ Bird Care ⭐⭐
-### Husbandry
-- ⭐ Diet diversity (not just seeds!)
+> 💡 **MBD** = poor UV + low calcium · ป้องกันด้วย UV-B + calcium supplement
+
+---
+
+# 🔻 Part 2: Bird Care ⭐⭐
+
+## Husbandry
+- ⭐ **Diet diversity** — ไม่ใช่แค่เมล็ดอย่างเดียว!
 - ⭐ Cage size + perches
 - ⭐ Behavioral enrichment
 - Vitamin A supplementation
 
-### Common Diseases
-- ⭐ Respiratory (chlamydophila!)
-- ⭐ Egg binding
+## Common Diseases
+- ⭐ **Respiratory** — *Chlamydophila*! (zoonotic ⚠️)
+- ⭐ **Egg binding**
 - Crop stasis
 - Self-mutilation
-- ⭐ PBFD virus
+- ⭐ **PBFD virus**
 
-## 3️⃣ Diagnostic Approach ⭐
-- ⭐ Quick exam (stress!)
+---
+
+# 🔻 Part 3: Diagnostic Approach ⭐
+
+- ⭐ **Quick exam** — เน้น stress!
 - ⭐ Crop sampling
 - ⭐ Fecal exam
 - Radiograph
 - Blood (small volume)
 
-## 4️⃣ Treatment ⭐
-- ⭐ Supplement calcium for MBD
-- ⭐ Antibiotics: doxycycline for chlamydophila
-- ⭐ Supportive: heat, fluids, gavage feeding
-- ⭐ Surgical for egg binding
+---
+
+# 🔻 Part 4: Treatment ⭐
+
+- ⭐ **Supplement calcium** for MBD
+- ⭐ **Doxycycline** for chlamydophila
+- ⭐ **Supportive**: heat, fluids, gavage feeding
+- ⭐ **Surgical** for egg binding
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Reptile MBD from poor UV/calcium
-2. ⭐ Bird diet diversity prevents many issues
-3. ⭐ Chlamydophila zoonotic from birds
-4. ⭐ Egg binding common in both
-5. ⭐ Stress = exotic animal killer`,
+- ⭐⭐⭐ **Reptile MBD** = poor UV/calcium combo
+- ⭐⭐ **Bird diet diversity** prevents many issues
+- ⭐⭐ **Chlamydophila** = zoonotic from birds!
+- ⭐ **Egg binding** common ในทั้ง 2 กลุ่ม
+- ⭐ **Stress** = exotic animal killer`,
   },
 
   IJDT6exmPV4: {
@@ -47934,57 +48302,76 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 49,
     instructor: 'CUVET small animal medicine team (รุ่นพี่)',
     examFormat: 'Multiple choice + calculation, ออก anemia classification, regenerative vs non, DDx',
-    summary: `## 🎯 Lead Summary
-**Anemia in small animals** — quantitative + qualitative classification. ⭐ ⭐ **Regenerative** (responsive) vs **Non-regenerative**. Causes vary widely. Always: history, exam, CBC, blood smear.
+    summary: `# POA — 7 Approach to Pale Mucous Membranes and Anemia
 
-## 1️⃣ Anemia Definition ⭐
-- ⭐ Decreased RBC, Hb, or PCV
+> 🎯 **Anemia in small animals** — classify ทั้งสาเหตุ (blood loss/hemolysis/decreased production) + การตอบสนอง (Regenerative vs Non-regenerative) ⭐⭐⭐
+> ⚠️ ไทย: **Babesia + Mycoplasma haemofelis** ต้องคิดเสมอ
+
+---
+
+# 🔻 Part 1: Anemia Definition ⭐
+
+- ⭐ **Decreased RBC, Hb, หรือ PCV**
 - Pale mucous membranes
 - ⭐ Tachycardia, weakness, exercise intolerance
 
-## 2️⃣ Classification ⭐⭐⭐
-### By Cause
-- ⭐ **Blood loss** (acute or chronic)
-- ⭐ **Hemolysis** (immune-mediated, parasitic, toxin)
-- ⭐ **Decreased production** (bone marrow disorders)
+---
 
-### By Response (Reticulocyte count)
-- ⭐ **Regenerative**: > 60,000/μL retics
-- ⭐ **Non-regenerative**: < 60,000/μL
+# 🔻 Part 2: Classification ⭐⭐⭐
 
-## 3️⃣ Common Causes ⭐⭐
-### Regenerative
-- ⭐ Hemorrhage (trauma, ulcer, parasites)
-- ⭐ IMHA (Immune-Mediated Hemolytic Anemia)
-- ⭐ Babesia, Mycoplasma haemofelis (Thailand!)
+## By Cause
+- ⭐ **Blood loss** — acute หรือ chronic
+- ⭐ **Hemolysis** — immune-mediated, parasitic, toxin
+- ⭐ **Decreased production** — bone marrow disorders
+
+## By Response (Reticulocyte count)
+- ⭐ **Regenerative**: >60,000/μL retics
+- ⭐ **Non-regenerative**: <60,000/μL
+
+---
+
+# 🔻 Part 3: Common Causes ⭐⭐
+
+## Regenerative
+- ⭐ **Hemorrhage** — trauma, ulcer, parasites
+- ⭐ **IMHA** (Immune-Mediated Hemolytic Anemia)
+- ⭐ **Babesia, *Mycoplasma haemofelis*** — Thailand!
 - Onion/garlic toxicity
 
-### Non-regenerative
-- ⭐ Chronic kidney disease (no EPO)
-- ⭐ Bone marrow failure
-- ⭐ FeLV/FIV (cats)
+## Non-regenerative
+- ⭐ **Chronic kidney disease** — no EPO
+- ⭐ **Bone marrow failure**
+- ⭐ **FeLV/FIV** (cats)
 - Iron deficiency
 
-## 4️⃣ Diagnostic Approach ⭐⭐
-1. ⭐ Confirm anemia (CBC)
-2. ⭐ Reticulocyte count
-3. ⭐ Blood smear (parasites, morphology)
-4. ⭐ Coombs test (IMHA)
-5. ⭐ Biochem (kidney, liver)
-6. ⭐ Imaging if mass suspected
+---
 
-## 5️⃣ Treatment ⭐
-- ⭐ **Acute severe**: blood transfusion
-- ⭐ **IMHA**: prednisolone, immunosuppressants
-- ⭐ **Babesia**: imidocarb
-- ⭐ **Iron def**: iron supplementation
+# 🔻 Part 4: Diagnostic Approach ⭐⭐
+
+1. ⭐ **Confirm anemia** — CBC
+2. ⭐ **Reticulocyte count** — regenerative vs not
+3. ⭐ **Blood smear** — parasites, morphology
+4. ⭐ **Coombs test** — IMHA
+5. ⭐ Biochem — kidney, liver
+6. ⭐ Imaging ถ้า mass suspected
+
+---
+
+# 🔻 Part 5: Treatment ⭐
+
+- ⭐ **Acute severe** → blood transfusion
+- ⭐ **IMHA** → prednisolone, immunosuppressants
+- ⭐ **Babesia** → imidocarb
+- ⭐ **Iron deficiency** → iron supplementation
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Regenerative vs Non-regenerative split
-2. ⭐ Reticulocyte count >60K = regenerative
-3. ⭐ IMHA (most common immune anemia)
-4. ⭐ Babesia in Thailand (tick-borne)
-5. ⭐ CKD = non-regenerative anemia (low EPO)`,
+- ⭐⭐⭐ **Regenerative vs Non-regenerative** = key split
+- ⭐⭐ **Reticulocyte count >60K** = regenerative
+- ⭐⭐ **IMHA** = immune anemia ที่ common ที่สุด
+- ⭐ **Babesia** = tick-borne, ไทยต้องคิดเสมอ
+- ⭐ **CKD = non-regenerative** (low EPO)`,
   },
 
   dFllSW7gHAE: {
@@ -47995,52 +48382,67 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 41,
     instructor: 'CUVET small animal medicine team',
     examFormat: 'Multiple choice, ออก 3 types of jaundice, DDx, diagnostic approach',
-    summary: `## 🎯 Lead Summary
-**Jaundice/Icterus** = yellow skin/sclera from bilirubin accumulation. ⭐ ⭐ **3 types**: Pre-hepatic (hemolysis), Hepatic (liver disease), Post-hepatic (biliary obstruction). Workup needed to distinguish.
+    summary: `# POA — 8 Jaundice (Icterus)
 
-## 1️⃣ Bilirubin Pathway ⭐⭐
-- ⭐ Hb breakdown → unconjugated bilirubin
-- Liver conjugates → conjugated bilirubin
+> 🎯 **Jaundice/Icterus** = ตัวเหลือง/sclera เหลืองจาก bilirubin สะสม. ⭐⭐⭐ 3 types: **Pre-hepatic** (hemolysis), **Hepatic** (liver disease), **Post-hepatic** (biliary obstruction)
+> ⚠️ Cat hepatic lipidosis = nutritional emergency
+
+---
+
+# 🔻 Part 1: Bilirubin Pathway ⭐⭐
+
+- ⭐ Hb breakdown → **unconjugated bilirubin**
+- Liver conjugates → **conjugated bilirubin**
 - Bile excretes
-- ⭐ Failure at any step = jaundice
+- ⭐ **Failure at any step = jaundice**
 
-## 2️⃣ 3 Types of Jaundice ⭐⭐⭐
+---
 
-### Pre-Hepatic
-- ⭐ Hemolysis overwhelms liver
-- ⭐ ↑ Unconjugated bilirubin
+# 🔻 Part 2: 3 Types of Jaundice ⭐⭐⭐
+
+## Pre-Hepatic
+- ⭐ **Hemolysis** overwhelms liver
+- ⭐ ↑ **Unconjugated bilirubin**
 - Causes: IMHA, Babesia, toxins
 
-### Hepatic
-- ⭐ Liver dysfunction
-- ⭐ Both unconjugated + conjugated ↑
-- Causes: hepatitis, lipidosis (cats), toxic, neoplastic
+## Hepatic
+- ⭐ **Liver dysfunction**
+- ⭐ **Both unconjugated + conjugated ↑**
+- Causes: hepatitis, **lipidosis (cats)**, toxic, neoplastic
 
-### Post-Hepatic
-- ⭐ Biliary obstruction
-- ⭐ ↑ Conjugated bilirubin (regurgitation)
+## Post-Hepatic
+- ⭐ **Biliary obstruction**
+- ⭐ ↑ **Conjugated bilirubin** (regurgitation)
 - Causes: gallstones, pancreatitis, neoplasia
 
-## 3️⃣ Diagnostic Approach ⭐⭐
-1. ⭐ Confirm jaundice (sclera, gum)
-2. ⭐ CBC + reticulocyte (anemia type)
-3. ⭐ Biochem (ALT, AST, ALP, GGT, bilirubin direct/indirect)
-4. ⭐ Coombs test for IMHA
-5. ⭐ Ultrasound (gallbladder, biliary tract)
-6. Liver biopsy if needed
+---
 
-## 4️⃣ Treatment ⭐
-- ⭐ Address underlying cause
-- ⭐ IMHA: immunosuppression
-- ⭐ Hepatic lipidosis (cats): aggressive nutrition!
-- ⭐ Biliary obstruction: surgery
+# 🔻 Part 3: Diagnostic Approach ⭐⭐
+
+1. ⭐ **Confirm jaundice** — sclera, gum
+2. ⭐ CBC + reticulocyte → anemia type
+3. ⭐ Biochem — ALT, AST, ALP, GGT, bilirubin direct/indirect
+4. ⭐ **Coombs test** for IMHA
+5. ⭐ **Ultrasound** — gallbladder, biliary tract
+6. Liver biopsy ถ้าจำเป็น
+
+---
+
+# 🔻 Part 4: Treatment ⭐
+
+- ⭐ **Address underlying cause**
+- ⭐ **IMHA** → immunosuppression
+- ⭐ **Hepatic lipidosis (cats)** → **aggressive nutrition!** ⚠️
+- ⭐ **Biliary obstruction** → surgery
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ 3 types of jaundice (pre/hepatic/post)
-2. ⭐ Hemolysis = pre-hepatic (unconjugated)
-3. ⭐ Cat hepatic lipidosis = nutritional emergency
-4. ⭐ Biliary obstruction may need surgery
-5. ⭐ Bilirubin >0.5 mg/dL = abnormal in dog/cat`,
+- ⭐⭐⭐ **3 types of jaundice** (pre/hepatic/post)
+- ⭐⭐ **Hemolysis** = pre-hepatic (unconjugated)
+- ⭐⭐ **Cat hepatic lipidosis** = nutritional emergency
+- ⭐ **Biliary obstruction** อาจต้อง surgery
+- ⭐ **Bilirubin >0.5 mg/dL** = abnormal in dog/cat`,
   },
 
   'q9--iRJffoA': {
@@ -48051,56 +48453,77 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 44,
     instructor: 'CUVET small animal medicine team',
     examFormat: 'Multiple choice + clinical scenarios, ออก PU/PD differential, USG, water deprivation test',
-    summary: `## 🎯 Lead Summary
-**PU/PD** = drinking + urinating excessively. Common chief complaint. ⭐ Multiple causes spanning endocrine, kidney, metabolic.
+    summary: `# POA — 10 Polyuria and Polydipsia (PU/PD)
 
-## 1️⃣ Definition ⭐
-- ⭐ **Polyuria**: >50 mL/kg/day
+> 🎯 **PU/PD** = chief complaint ที่พบบ่อย — drinking + urinating excessively. DDx ครอบคลุม endocrine + kidney + metabolic ⭐⭐⭐
+> ⚠️ อย่า water-deprive ก่อน rule out CKD!
+
+---
+
+# 🔻 Part 1: Definition ⭐
+
+- ⭐ **Polyuria**: >50 mL/kg/day urine
 - ⭐ **Polydipsia**: >100 mL/kg/day water intake
 
-## 2️⃣ DDx ⭐⭐⭐
-### Endocrine
+---
+
+# 🔻 Part 2: DDx ⭐⭐⭐
+
+## Endocrine
 - ⭐ **Diabetes mellitus**
 - ⭐ **Hyperadrenocorticism (Cushing)**
-- ⭐ **Hyperthyroidism (cats)**
+- ⭐ **Hyperthyroidism** (cats)
 - ⭐ Diabetes insipidus
 
-### Kidney
+## Kidney
 - ⭐ **Chronic kidney disease**
 - Pyelonephritis
 - Glomerular disease
 
-### Other
+## Other
 - ⭐ Liver disease
 - Hypercalcemia
 - Pyometra
-- Drug-induced (steroids, diuretics)
+- Drug-induced — steroids, diuretics
 - Psychogenic polydipsia
 
-## 3️⃣ Diagnostic Approach ⭐⭐
-1. ⭐ Confirm PU/PD (history)
-2. ⭐ ⭐ **USG (Urine Specific Gravity)** ← key first test!
+---
+
+# 🔻 Part 3: Diagnostic Approach ⭐⭐
+
+1. ⭐ **Confirm PU/PD** — history
+2. ⭐⭐ **USG (Urine Specific Gravity)** ← key first test!
    - <1.012 = isosthenuric
    - >1.030 (dog), >1.035 (cat) = concentrated
 3. ⭐ CBC, biochem, electrolytes
 4. ⭐ Specific tests by suspected cause
-5. ⭐ Water deprivation test (last resort)
+5. ⭐ **Water deprivation test** — last resort
 
-## 4️⃣ USG Interpretation ⭐⭐
-- ⭐ **Concentrated + PU/PD** = consider primary polydipsia
-- ⭐ **Isosthenuric + azotemia** = renal failure
-- ⭐ **Dilute + glucose+** = diabetes mellitus
+---
 
-## 5️⃣ Treatment ⭐
-- ⭐ Treat underlying cause
-- ⭐ Free water access always
+# 🔻 Part 4: USG Interpretation ⭐⭐
+
+| USG pattern | Interpretation |
+|---|---|
+| ⭐ **Concentrated + PU/PD** | คิด primary polydipsia |
+| ⭐ **Isosthenuric + azotemia** | Renal failure |
+| ⭐ **Dilute + glucose+** | Diabetes mellitus |
+
+---
+
+# 🔻 Part 5: Treatment ⭐
+
+- ⭐ **Treat underlying cause**
+- ⭐ **Free water access always** — ห้าม withhold!
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ PU >50 mL/kg/day, PD >100 mL/kg/day
-2. ⭐ USG = first diagnostic step
-3. ⭐ Top 4: DM, Cushing, Hyperthyroid (cats), CKD
-4. ⭐ Don't water-deprive without ruling out CKD!
-5. ⭐ Pyometra = surgical emergency`,
+- ⭐⭐⭐ **PU >50 mL/kg/day, PD >100 mL/kg/day**
+- ⭐⭐ **USG** = first diagnostic step
+- ⭐⭐ **Top 4**: DM, Cushing, Hyperthyroid (cats), CKD
+- ⭐ **อย่า water-deprive** ก่อน rule out CKD!
+- ⭐ **Pyometra** = surgical emergency`,
   },
 
   wOvbK5pJU58: {
@@ -48111,71 +48534,94 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 44,
     instructor: 'CUVET small animal medicine team',
     examFormat: 'Multiple choice + clinical scenarios, ออก differentiate collapse types, seizure DDx',
-    summary: `## 🎯 Lead Summary
-**Collapse syndromes**: ⭐ ⭐ Distinguish ⭐ **Seizure** (CNS) vs ⭐ **Syncope** (cardiac) vs ⭐ **Collapse** (other). Different DDx, different urgency.
+    summary: `# POA — 11 Collapse, Seizure, Syncope
 
-## 1️⃣ 3 Distinct Conditions ⭐⭐⭐
+> 🎯 **Collapse syndromes** — แยก **Seizure** (CNS) vs **Syncope** (cardiac) vs **Collapse** (other). DDx + urgency คนละแบบ ⭐⭐⭐
+> ⚠️ Status epilepticus = emergency (>5 min)
 
-### Seizure
-- ⭐ CNS origin
+---
+
+# 🔻 Part 1: 3 Distinct Conditions ⭐⭐⭐
+
+## Seizure
+- ⭐ **CNS origin**
 - ⭐ Pre-ictal, ictal, post-ictal phases
-- ⭐ Loss of consciousness + motor activity
+- ⭐ Loss of consciousness + **motor activity**
 
-### Syncope
-- ⭐ Cardiovascular origin
-- ⭐ Brief LOC, no motor activity
+## Syncope
+- ⭐ **Cardiovascular origin**
+- ⭐ Brief LOC, **no motor activity**
 - ⭐ Recovery rapid + complete
 
-### Collapse
+## Collapse
 - ⭐ Heterogeneous causes
 - Weakness, ataxia, intermittent
 
-## 2️⃣ Seizure Causes ⭐⭐
-### Intracranial
-- ⭐ Idiopathic epilepsy
-- ⭐ Brain tumor
-- ⭐ Encephalitis
+> 💡 **Pre/ictal/post-ictal pattern** = seizure จนกว่าจะพิสูจน์ได้ว่าไม่ใช่
+
+---
+
+# 🔻 Part 2: Seizure Causes ⭐⭐
+
+## Intracranial
+- ⭐ **Idiopathic epilepsy**
+- ⭐ **Brain tumor**
+- ⭐ **Encephalitis**
 - Trauma
 
-### Extracranial
-- ⭐ Hypoglycemia
-- ⭐ Hepatic encephalopathy
-- ⭐ Toxin (lead, chocolate, etc.)
-- Electrolyte (hypocalcemia)
+## Extracranial
+- ⭐ **Hypoglycemia**
+- ⭐ **Hepatic encephalopathy**
+- ⭐ **Toxin** — lead, chocolate, etc.
+- Electrolyte — hypocalcemia
 
-## 3️⃣ Syncope Causes ⭐⭐
-- ⭐ Cardiac arrhythmia
-- ⭐ Heart failure
+---
+
+# 🔻 Part 3: Syncope Causes ⭐⭐
+
+- ⭐ **Cardiac arrhythmia**
+- ⭐ **Heart failure**
 - Pulmonary disease
 - Vasovagal
 
-## 4️⃣ Other Collapse Causes ⭐
+---
+
+# 🔻 Part 4: Other Collapse Causes ⭐
+
 - ⭐ Hypoglycemia
 - ⭐ Anemia
 - Addison's disease
 - Heat stroke
 - Trauma
 
-## 5️⃣ Workup ⭐⭐
-1. ⭐ History (witness account!)
-2. ⭐ ECG, blood pressure
-3. ⭐ CBC, biochem, glucose
-4. ⭐ Imaging (echo, X-ray)
-5. ⭐ MRI/CT if seizure
-6. CSF analysis if encephalitis
+---
 
-## 6️⃣ Treatment ⭐
-- ⭐ Status epilepticus: diazepam IV
-- ⭐ Hypoglycemia: dextrose IV
-- ⭐ Long-term: phenobarbital, levetiracetam
-- ⭐ Cardiac syncope: address arrhythmia
+# 🔻 Part 5: Workup ⭐⭐
+
+1. ⭐ **History** — witness account!
+2. ⭐ ECG, blood pressure
+3. ⭐ CBC, biochem, **glucose**
+4. ⭐ Imaging — echo, X-ray
+5. ⭐ **MRI/CT** ถ้า seizure
+6. CSF analysis ถ้า encephalitis
+
+---
+
+# 🔻 Part 6: Treatment ⭐
+
+- ⭐ **Status epilepticus** → **diazepam IV**
+- ⭐ **Hypoglycemia** → dextrose IV
+- ⭐ **Long-term seizure** → phenobarbital, levetiracetam
+- ⭐ **Cardiac syncope** → address arrhythmia
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ 3 distinct presentations: seizure, syncope, collapse
-2. ⭐ Status epilepticus = emergency (>5 min)
-3. ⭐ Diazepam IV first-line for active seizure
-4. ⭐ Cardiac syncope often DCM, AV block
-5. ⭐ Pre/ictal/post-ictal pattern = seizure`,
+- ⭐⭐⭐ **3 distinct presentations**: seizure, syncope, collapse
+- ⭐⭐ **Status epilepticus** = emergency (>5 min)
+- ⭐⭐ **Diazepam IV** = first-line สำหรับ active seizure
+- ⭐ **Cardiac syncope** มัก DCM, AV block
+- ⭐ **Pre/ictal/post-ictal pattern** = seizure`,
   },
 
   'vTSK9ti--XM': {
@@ -48186,66 +48632,85 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 59,
     instructor: 'CUVET small animal medicine team',
     examFormat: 'Multiple choice + clinical scenarios, ออก dermatology DDx, diagnostic approach',
-    summary: `## 🎯 Lead Summary
-**Skin disease workup** focusing on alopecia + pruritus. ⭐ ⭐ Common but complex. Systematic approach: history, distribution, lesion type, lab tests.
+    summary: `# POA — 12 Alopecia and Pruritus
 
-## 1️⃣ Pruritus DDx ⭐⭐⭐
-### Top Causes (Thailand!)
+> 🎯 **Skin disease workup** — alopecia + pruritus. Common but complex → systematic approach ⭐⭐⭐
+> ⚠️ Atopic dermatitis = diagnosis of exclusion · rule out other causes ก่อน
+
+---
+
+# 🔻 Part 1: Pruritus DDx ⭐⭐⭐
+
+## Top Causes (Thailand!)
 - ⭐ **Atopic dermatitis** (allergy)
 - ⭐ **Flea allergy dermatitis**
 - ⭐ **Food allergy**
-- ⭐ **Demodex mites**
-- ⭐ **Sarcoptes** (highly pruritic!)
+- ⭐ **Demodex** mites
+- ⭐ **Sarcoptes** — highly pruritic! ⚠️
 - ⭐ **Malassezia** (yeast)
 - Dermatophytosis (ringworm)
 - Bacterial pyoderma
 
-## 2️⃣ Alopecia Categories ⭐⭐
-### Pruritic Alopecia
+---
+
+# 🔻 Part 2: Alopecia Categories ⭐⭐
+
+## Pruritic Alopecia
 - ⭐ Self-trauma from itch
 - Patchy, irregular
 
-### Non-Pruritic Alopecia
-- ⭐ ⭐ Endocrine (Cushing, hypothyroid)
+## Non-Pruritic Alopecia
+- ⭐⭐ **Endocrine** — Cushing, hypothyroid
 - ⭐ Pattern alopecia (genetic)
 - Telogen effluvium
 - Color dilution alopecia
 
-## 3️⃣ Diagnostic Approach ⭐⭐⭐
-1. ⭐ History + signalment
-2. ⭐ Skin scraping (microscopy)
-3. ⭐ Cytology (impression smear)
-4. ⭐ Wood's lamp + DTM (fungal)
-5. ⭐ CBC, biochem (endocrine workup)
-6. ⭐ Allergy testing (IDT, serology)
-7. ⭐ Food trial (8 weeks!)
-8. Biopsy if needed
+---
 
-## 4️⃣ Treatment ⭐
-### Pruritus
+# 🔻 Part 3: Diagnostic Approach ⭐⭐⭐
+
+1. ⭐ **History + signalment**
+2. ⭐ **Skin scraping** (microscopy)
+3. ⭐ **Cytology** — impression smear
+4. ⭐ **Wood's lamp + DTM** (fungal)
+5. ⭐ CBC, biochem — endocrine workup
+6. ⭐ **Allergy testing** — IDT, serology
+7. ⭐ **Food trial — 8 weeks!** ⚠️
+8. Biopsy ถ้าจำเป็น
+
+---
+
+# 🔻 Part 4: Treatment ⭐
+
+## Pruritus
 - ⭐ **Apoquel** (oclacitinib)
 - ⭐ **Cytopoint** (lokivetmab)
 - Antihistamines
 - Glucocorticoids
 
-### Specific Causes
-- ⭐ Demodex: Bravecto (afoxolaner) etc.
-- ⭐ Sarcoptes: Selamectin
-- ⭐ Malassezia: ketoconazole
-- ⭐ Dermatophyte: itraconazole
+## Specific Causes
+- ⭐ **Demodex** → Bravecto (afoxolaner), etc.
+- ⭐ **Sarcoptes** → Selamectin
+- ⭐ **Malassezia** → ketoconazole
+- ⭐ **Dermatophyte** → itraconazole
 
-## 5️⃣ Atopic Dermatitis ⭐⭐
-- ⭐ Cornerstone diagnosis: rule out other causes
-- ⭐ Multi-modal therapy
+---
+
+# 🔻 Part 5: Atopic Dermatitis ⭐⭐
+
+- ⭐ **Cornerstone diagnosis**: rule out other causes
+- ⭐ **Multi-modal therapy**
 - Lifelong management
-- ⭐ Apoquel/Cytopoint changed treatment landscape
+- ⭐ **Apoquel/Cytopoint** เปลี่ยน treatment landscape
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Pruritic vs non-pruritic alopecia
-2. ⭐ Skin scraping = first test
-3. ⭐ 8-week food trial for food allergy
-4. ⭐ Apoquel/Cytopoint = modern atopic therapy
-5. ⭐ Demodex demands long-term ectoparasiticide`,
+- ⭐⭐⭐ **Pruritic vs non-pruritic alopecia** = first split
+- ⭐⭐ **Skin scraping** = first test
+- ⭐⭐ **8-week food trial** for food allergy
+- ⭐ **Apoquel/Cytopoint** = modern atopic therapy
+- ⭐ **Demodex** demands long-term ectoparasiticide`,
   },
 
   sHxPuM0ZRlc: {
@@ -48256,64 +48721,80 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     durationMin: 45,
     instructor: 'CUVET small animal medicine team',
     examFormat: 'Multiple choice + scenario, ออก systematic workup, DDx anorexia',
-    summary: `## 🎯 Lead Summary
-**Anorexia + Weight Loss** = nonspecific common complaint. Wide DDx requires systematic workup.
+    summary: `# POA — 13 Anorexia and Weight Loss
 
-## 1️⃣ Definitions ⭐
+> 🎯 **Anorexia + Weight Loss** = nonspecific common complaint. DDx กว้าง ต้อง systematic workup ⭐⭐⭐
+> ⚠️ Cat 2-day fast → hepatic lipidosis risk!
+
+---
+
+# 🔻 Part 1: Definitions ⭐
+
 - ⭐ **Anorexia**: complete loss of appetite
 - ⭐ **Hyporexia**: reduced appetite
 - ⭐ **Cachexia**: muscle wasting + weight loss
 
-## 2️⃣ Major DDx Categories ⭐⭐⭐
-### Systemic Disease
-- ⭐ Renal failure
-- ⭐ Liver disease
-- ⭐ Pancreatitis
-- Heart failure
-- Endocrine (Addison, hyperT cats)
+---
 
-### GI Disease
-- ⭐ IBD
-- ⭐ Gastric ulcer
+# 🔻 Part 2: Major DDx Categories ⭐⭐⭐
+
+## Systemic Disease
+- ⭐ **Renal failure**
+- ⭐ **Liver disease**
+- ⭐ **Pancreatitis**
+- Heart failure
+- Endocrine — Addison, hyperT cats
+
+## GI Disease
+- ⭐ **IBD**
+- ⭐ **Gastric ulcer**
 - Foreign body
 - Neoplasia
 
-### Neoplasia
+## Neoplasia
 - ⭐ Many types
-- ⭐ Cachexia common late-stage
+- ⭐ **Cachexia** common late-stage
 
-### Infectious/Inflammatory
-- ⭐ FIP (cats)
-- ⭐ Pyometra
+## Infectious/Inflammatory
+- ⭐ **FIP** (cats)
+- ⭐ **Pyometra**
 - Sepsis
 
-### Other
-- ⭐ Pain (oral, dental, joint)
+## Other
+- ⭐ **Pain** — oral, dental, joint
 - Stress, anxiety
 - Drugs
 
-## 3️⃣ Workup ⭐⭐
-1. ⭐ Full history + diet
-2. ⭐ Physical exam (oral cavity!)
+---
+
+# 🔻 Part 3: Workup ⭐⭐
+
+1. ⭐ **Full history + diet**
+2. ⭐ **Physical exam** — oral cavity! ⚠️
 3. ⭐ CBC, biochem, UA
-4. ⭐ T4 (cats - hyperthyroid)
-5. ⭐ Imaging (X-ray + ultrasound)
+4. ⭐ **T4** (cats — hyperthyroid)
+5. ⭐ Imaging — X-ray + ultrasound
 6. ⭐ Specific tests by suspect
 
-## 4️⃣ Treatment Principles ⭐
-- ⭐ Address underlying cause
-- ⭐ Support nutrition (esophagostomy tube if severe)
-- ⭐ Appetite stimulants: ⭐ Mirtazapine, Capromorelin
-- ⭐ Anti-nausea: Maropitant
+---
+
+# 🔻 Part 4: Treatment Principles ⭐
+
+- ⭐ **Address underlying cause**
+- ⭐ **Support nutrition** — esophagostomy tube ถ้า severe
+- ⭐ **Appetite stimulants**: ⭐ **Mirtazapine**, Capromorelin
+- ⭐ **Anti-nausea**: Maropitant
 - ⭐ Pain management
-- ⚠️ Cats can't fast >2 days (lipidosis!)
+- ⚠️ **Cats can't fast >2 days** → lipidosis!
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Anorexia is symptom, not diagnosis
-2. ⭐ Cat 2-day fast → hepatic lipidosis risk
-3. ⭐ Mirtazapine = appetite stimulant
-4. ⭐ Cachexia = late neoplasia sign
-5. ⭐ Always check oral cavity for hidden cause`,
+- ⭐⭐⭐ **Anorexia is symptom**, not diagnosis
+- ⭐⭐ **Cat 2-day fast** → hepatic lipidosis risk
+- ⭐⭐ **Mirtazapine** = appetite stimulant
+- ⭐ **Cachexia** = late neoplasia sign
+- ⭐ **Always check oral cavity** for hidden cause`,
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -48324,675 +48805,998 @@ Example: 50 kg calf at 7% = 3.5 L deficit → give half (1.75 L) fast, rest over
     videoId: '7z5EeUMqDXg', title: 'Aquatic Clinic — 0 Introduction', subject: 'aquatic-clinic',
     date: '2025-08-05', durationMin: 15, instructor: 'CUVET aquatic medicine team',
     examFormat: 'Brief overview, course structure',
-    summary: `## 🎯 Lead Summary
-Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians, reptiles, ornamental species. Thai aquaculture industry context.
+    summary: `# Aquatic Clinic — 0 Introduction
 
-## Topics Covered ⭐
-- Course structure
-- Aquatic species range
-- Career opportunities
-- Thailand's role as major producer
+> 🎯 Intro course สัตวแพทย์สัตว์น้ำ — ปลา · กุ้ง · amphibian · reptile · ornamental fish. ไทยเป็น **#1 ผู้ส่งออก ornamental fish โลก** + ผู้นำกุ้ง/ปลานิล
 
-## Key Career Areas ⭐
-- Shrimp farming (major export!)
-- Tilapia/catfish farming
-- Ornamental fish (Bangkok hub)
+---
+
+# 🔻 Part 1: Course Scope
+
+- โครงสร้าง course
+- ครอบคลุม aquatic species ทั้งหมด (ปลา · shellfish · amphibian · reptile)
+- บริบทอุตสาหกรรมไทย
+
+---
+
+# 🔻 Part 2: Career Areas ⭐
+
+- ⭐ **Shrimp farming** — สินค้าส่งออกหลัก
+- ⭐ **Tilapia/catfish** farming
+- ⭐ **Ornamental fish** — Bangkok hub
 - Public aquariums
 - Wild + conservation
 
-> 📚 Cross-refs: All aquatic-clinic lectures
-> 🎯 Thailand = #1 ornamental fish exporter`,
+> 💡 ไทยเป็น hub ของ ornamental fish โลก — งานเยอะ ตลาดมั่นคง
+
+---
+
+## 📋 Exam Recap
+- ⭐⭐ Thailand = #1 ornamental fish exporter
+- ⭐ Course ครอบคลุม fish / shellfish / amphibian / reptile
+- ⭐ Career: shrimp · ornamental · aquarium · conservation`,
   },
   WBElJErmmj0: {
     videoId: 'WBElJErmmj0', title: 'Aquatic Clinic — 1.1 Aquaculture in Thailand', subject: 'aquatic-clinic',
     date: '2025-08-05', durationMin: 63, instructor: 'CUVET aquatic team',
     examFormat: 'Multiple choice, ออก Thai aquaculture statistics, main species',
-    summary: `## 🎯 Lead Summary
-**Thai aquaculture industry**: ⭐ World's leading producer of shrimp + tilapia. Major species, geography, economics.
+    summary: `# Aquatic Clinic — 1.1 Aquaculture in Thailand
 
-## Main Thai Species ⭐⭐
-- ⭐ **Shrimp** (Penaeus vannamei, P. monodon)
-- ⭐ **Tilapia** (most farmed freshwater)
-- ⭐ **Catfish** (Pangasius, Clarias)
-- ⭐ Sea bass, Striped bass, Snapper
-- Ornamental: betta, goldfish, koi
+> 🎯 ไทย = ผู้ผลิต shrimp + tilapia ระดับโลก. รู้ species หลัก · พื้นที่ผลิต · มูลค่าเศรษฐกิจ + ภัยคุกคามหลักของอุตสาหกรรม
 
-## Economic Importance ⭐
-- ⭐ Major export (~$2 billion+/yr)
-- Employment: 100,000s
-- Food security
-- Foreign exchange earnings
+---
 
-## Geography ⭐
-- ⭐ South: marine + brackish (shrimp)
-- ⭐ Central: freshwater
-- ⭐ North/NE: tilapia, catfish
-- Coastal: marine cages
+# 🔻 Part 1: Main Thai Species ⭐⭐
 
-## Challenges ⭐
-- ⭐ Disease outbreaks (EMS, EHP, WSSV)
+| Group | Species |
+|---|---|
+| ⭐ **Shrimp** | *Penaeus vannamei*, *P. monodon* |
+| ⭐ **Tilapia** | freshwater ที่เลี้ยงมากที่สุด |
+| ⭐ **Catfish** | *Pangasius*, *Clarias* |
+| Marine | Sea bass · Striped bass · Snapper |
+| Ornamental | Betta · goldfish · koi |
+
+---
+
+# 🔻 Part 2: เศรษฐกิจ ⭐
+
+- ⭐ Export ~**$2 billion+/ปี**
+- จ้างงานหลักแสนคน
+- ส่วนหนึ่งของ food security
+- รายได้ foreign exchange
+
+---
+
+# 🔻 Part 3: Geography of Production ⭐
+
+- ⭐ **ใต้** — marine + brackish (กุ้ง)
+- ⭐ **กลาง** — freshwater
+- ⭐ **เหนือ/อีสาน** — ปลานิล · catfish
+- ชายฝั่ง — marine cages
+
+---
+
+# 🔻 Part 4: Challenges ⭐
+
+- ⭐ **Disease outbreaks** — EMS, EHP, WSSV
 - ⭐ Climate change
 - ⭐ Antibiotic resistance
 - Trade restrictions
 - Water quality
 
-> 🎯 Thailand = top global producer multiple species`,
+> ⚠️ โรคระบาดในกุ้ง (WSSV/EMS/EHP) เคยทำอุตสาหกรรมไทยล่มเป็นรอบๆ — เรียนรู้ biosecurity จำเป็น
+
+---
+
+## 📋 Exam Recap
+- ⭐⭐⭐ ไทย = top global producer หลาย species (shrimp · tilapia · ornamental)
+- ⭐⭐ 3 species หลัก: *P. vannamei* · tilapia · *Pangasius/Clarias*
+- ⭐ Geography: ใต้-marine, กลาง-freshwater, เหนือ/อีสาน-tilapia
+- ⭐ Disease + climate + AMR = 3 ภัยคุกคามหลัก`,
   },
   cYtkvs3oKNI: {
     videoId: 'cYtkvs3oKNI', title: 'Aquatic Clinic — 1.2 Aquaculture Industry & Technology', subject: 'aquatic-clinic',
     date: '2025-08-05', durationMin: 99, instructor: 'CUVET aquatic team',
     examFormat: 'Multiple choice, ออก farming systems, technology, biofloc',
-    summary: `## 🎯 Lead Summary
-**Aquaculture systems + technology**. From traditional pond to modern intensive systems with biofloc, RAS (Recirculating Aquaculture Systems).
+    summary: `# Aquatic Clinic — 1.2 Aquaculture Industry & Technology
 
-## Farming Systems ⭐⭐⭐
+> 🎯 ระบบเลี้ยงจาก **extensive → intensive** · เทคโนโลยีสมัยใหม่: **Biofloc** + **RAS** ลด water exchange / เพิ่ม density / คุม disease ได้ดีขึ้น
+
+---
+
+# 🔻 Part 1: Farming Systems ⭐⭐⭐
+
 | System | Description |
 |---|---|
-| ⭐ Extensive | Low density, natural feed |
-| ⭐ Semi-intensive | Mixed natural + supplementary |
-| ⭐ Intensive | High density, complete feed |
-| ⭐ ⭐ **Biofloc** | Bacteria-based system |
+| ⭐ **Extensive** | Low density, อาหารธรรมชาติ |
+| ⭐ **Semi-intensive** | ผสม natural + supplementary |
+| ⭐ **Intensive** | High density, complete feed |
+| ⭐⭐ **Biofloc** | ระบบ bacteria-based |
 | ⭐ **RAS** | Recirculating, indoor |
 
-## Modern Technology ⭐
+---
+
+# 🔻 Part 2: Biofloc Concept ⭐⭐
+
+- ⭐ **Heterotrophic bacteria** ช่วย recycle nitrogen ในระบบ
+- ⭐ **No water exchange** (หรือใช้น้อยมาก)
+- ⭐ High density เลี้ยงได้
+- ⭐ Bacteria เป็น supplemental feed ในตัว
+
+> 💡 Biofloc = แปลง waste (NH3) เป็น microbial protein → กุ้งกินกลับ → ลดต้นทุนอาหาร
+
+---
+
+# 🔻 Part 3: RAS Benefits ⭐
+
+- ⭐ **99% water reuse**
+- ⭐ Disease control ดี (closed system)
+- ⭐ Year-round production
+- ⚠️ **High capital cost** — ลงทุนเริ่มต้นแพง
+
+---
+
+# 🔻 Part 4: Modern Technology ⭐
+
 - ⭐ Aerators, feeding automation
 - ⭐ Water quality monitoring sensors
 - ⭐ DNA-based disease diagnosis
 - ⭐ Vaccine development
 - Genetic improvement
 
-## Biofloc Concept ⭐⭐
-- ⭐ Heterotrophic bacteria recycle nitrogen
-- ⭐ No water exchange
-- ⭐ High density possible
-- ⭐ Bacteria as supplemental feed
+---
 
-## RAS Benefits ⭐
-- ⭐ 99% water reuse
-- ⭐ Disease control
-- ⭐ Year-round production
-- ⚠️ High capital cost
-
-> 🎯 Future: precision aquaculture + AI`,
+## 📋 Exam Recap
+- ⭐⭐⭐ **5 farming systems** จาก extensive → RAS
+- ⭐⭐ **Biofloc** = no water exchange · bacteria recycle N · เป็น feed ในตัว
+- ⭐ **RAS** = 99% water reuse แต่ capital สูง
+- ⭐ Future: precision aquaculture + AI`,
   },
   '_kvFNpcCh5M': {
     videoId: '_kvFNpcCh5M', title: 'Aquatic Clinic — 2 Fish Biology', subject: 'aquatic-clinic',
     date: '2025-08-12', durationMin: 155, instructor: 'CUVET aquatic team',
     examFormat: 'Multiple choice, ออก fish anatomy/physiology, gill function, osmoregulation',
-    summary: `## 🎯 Lead Summary
-**Fish biology** — fundamentals for aquatic vet. Gills, scales, swim bladder, lateral line, osmoregulation. Different from mammals!
+    summary: `# Aquatic Clinic — 2 Fish Biology
 
-## Anatomy Highlights ⭐⭐
-- ⭐ **Gills**: respiration + gas exchange
-- ⭐ **Operculum**: protects gills
-- ⭐ **Lateral line**: detects vibrations
-- ⭐ **Swim bladder**: buoyancy
-- ⭐ **Scales**: 4 types (cycloid, ctenoid, etc.)
+> 🎯 ปลาไม่ใช่หมา/แมวเล็ก — gills · osmoregulation · innate-dominant immunity ต่างจาก mammal ทั้งหมด
+> ⚠️ ถ้าเข้าใจ osmoregulation ผิด → ทำการ transport / treatment พลาด
 
-## Physiology Key Points ⭐⭐⭐
-### Osmoregulation ⭐
-- ⭐ **Freshwater fish**: hyperosmotic to environment, dilute urine
-- ⭐ **Saltwater fish**: hypoosmotic, drink water, concentrated urine
-- ⭐ Critical for transport, treatment
+---
 
-### Respiration ⭐
-- ⭐ Counter-current exchange in gills (efficient O2)
-- ⭐ Rate increases with stress, low O2
-- ⚠️ Gill damage = often fatal
+# 🔻 Part 1: Anatomy Highlights ⭐⭐
 
-### Immune System ⭐
-- ⭐ Innate immunity dominant
-- ⭐ Adaptive immunity slower than mammals
-- ⭐ Mucous = first defense
-- Temperature affects immunity!
+| Structure | Function |
+|---|---|
+| ⭐ **Gills** | respiration + gas exchange |
+| ⭐ **Operculum** | ปก protect gills |
+| ⭐ **Lateral line** | ตรวจจับ vibration |
+| ⭐ **Swim bladder** | buoyancy |
+| ⭐ **Scales** | 4 types (cycloid, ctenoid, etc.) |
 
-## Reproduction ⭐
-- ⭐ Most external (broadcast spawning)
-- Some internal (livebearers)
-- Hormonal manipulation common in farms
+---
+
+# 🔻 Part 2: Osmoregulation ⭐⭐⭐
+
+| Type | Relative to environment | Behavior |
+|---|---|---|
+| ⭐ **Freshwater fish** | **Hyperosmotic** (เข้มข้นกว่าน้ำ) | ปัสสาวะเจือจาง · ดูดเกลือเข้า |
+| ⭐ **Saltwater fish** | **Hypoosmotic** (เจือจางกว่าน้ำ) | ดื่มน้ำ · ปัสสาวะเข้มข้น |
+
+> 💡 **Critical for transport + treatment** — ใส่ปลาน้ำจืดในน้ำเค็มหรือกลับกัน = osmotic shock
+
+---
+
+# 🔻 Part 3: Respiration ⭐
+
+- ⭐ **Counter-current exchange** ใน gills → ดูด O₂ ได้เกือบ 100%
+- ⭐ Rate ↑ เมื่อ stress / low O₂
+- ⚠️ **Gill damage = มักถึงตาย** เพราะไม่มี surface area สำรอง
+
+---
+
+# 🔻 Part 4: Immune System ⭐
+
+- ⭐ **Innate immunity dominant** (mammal = adaptive dominant)
+- ⭐ Adaptive immunity ช้ากว่า mammal
+- ⭐ **Mucous = first defense** (Ig + AMP)
+- Temperature affects immunity — เย็น = ภูมิตก
+
+---
+
+# 🔻 Part 5: Reproduction ⭐
+
+- ⭐ Most external — broadcast spawning
+- Some internal — livebearers
+- Hormonal manipulation ทำในฟาร์มทั่วไป
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Counter-current gas exchange in gills
-2. ⭐ Freshwater vs saltwater osmoregulation reverse
-3. ⭐ Mucous = first immune defense
-4. ⭐ Temperature affects fish immunity
-5. ⭐ Lateral line = unique fish sense organ`,
+- ⭐⭐⭐ **Counter-current gas exchange** ใน gills
+- ⭐⭐ **Freshwater vs saltwater osmoregulation** กลับกัน
+- ⭐⭐ **Mucous = first immune defense**
+- ⭐ Temperature affects fish immunity
+- ⭐ **Lateral line** = sensory organ เฉพาะปลา`,
   },
   YXlt_Me9d6Q: {
     videoId: 'YXlt_Me9d6Q', title: 'Aquatic Clinic — 3.0.1 Shrimp Biology and Immunology', subject: 'aquatic-clinic',
     date: '2025-08-19', durationMin: 132, instructor: 'CUVET shrimp team',
     examFormat: 'Multiple choice, ออก shrimp anatomy, molting, immunology, disease susceptibility',
-    summary: `## 🎯 Lead Summary
-**Shrimp biology** — Thailand's most economically important aquatic species. Unique: molting cycle, hemolymph, hepatopancreas. Innate-only immunity.
+    summary: `# Aquatic Clinic — 3.0.1 Shrimp Biology and Immunology
 
-## Anatomy ⭐⭐
-- ⭐ Hepatopancreas (liver + pancreas combined)
-- ⭐ Hemolymph (open circulatory system)
-- ⭐ Gut anatomy (foregut + midgut + hindgut)
+> 🎯 กุ้งคือสัตว์เศรษฐกิจอันดับ 1 ของไทย — แต่ **ไม่มี adaptive immunity** → **vaccines ใช้ไม่ได้** ต้องพึ่ง biosecurity ล้วน
+> ⚠️ ช่วง molting = phase อ่อนแอที่สุด — โรคมักเข้าตอนนี้
+
+---
+
+# 🔻 Part 1: Anatomy ⭐⭐
+
+- ⭐ **Hepatopancreas** — รวม liver + pancreas เป็นอวัยวะเดียว
+- ⭐ **Hemolymph** — open circulatory system
+- ⭐ Gut anatomy — foregut + midgut + hindgut
 - ⭐ Gills (lateral)
 - ⭐ Antennae, eyestalks
 
-## Molting Cycle ⭐⭐⭐
-- ⭐ ⭐ **Molting = vulnerable phase**
-- ⭐ Premolt → Postmolt phases
-- ⭐ Hormone-controlled (ecdysone)
-- ⚠️ Disease risk highest during molt
+> 💡 **Hepatopancreas** = target organ ของหลายโรค (EMS · EHP) — ดูสี/ขนาดตอน necropsy บอกโรคได้
 
-## Immunology ⭐⭐⭐
-- ⭐ ⭐ **NO adaptive immunity**
-- ⭐ Innate only (PAMPs/PRRs)
-- ⭐ Hemocytes = main effectors
+---
+
+# 🔻 Part 2: Molting Cycle ⭐⭐
+
+- ⭐⭐ **Molting = vulnerable phase** — เปลือกเก่าหลุด เปลือกใหม่ยังนิ่ม
+- ⭐ Premolt → Postmolt phases
+- ⭐ Hormone-controlled (**ecdysone**)
+- ⚠️ Disease risk สูงสุดช่วง molt
+
+---
+
+# 🔻 Part 3: Immunology ⭐⭐⭐
+
+- ⭐⭐⭐ **NO adaptive immunity** — มีแต่ innate
+- ⭐ Recognition ผ่าน PAMPs / PRRs
+- ⭐ **Hemocytes** = main effectors
 - ⭐ Phagocytosis, encapsulation
 - ⭐ Antimicrobial peptides
 
-### Implications
-- ⭐ ⭐ ⭐ **VACCINES DON'T WORK in shrimp!**
-- ⭐ Prevention via biosecurity, immune stimulants
-- ⭐ Probiotic/prebiotic strategies
+## Implications ⭐⭐⭐
+
+- ⭐⭐⭐ **VACCINES ไม่ work ในกุ้ง!**
+- ⭐ Prevention ต้องผ่าน **biosecurity + immune stimulants**
+- ⭐ Probiotic / prebiotic strategies
+
+> ⚠️ ต่างจากปลา (มี adaptive · vaccine ได้) — กุ้งทำ vaccine ไม่ได้เด็ดขาด อย่าสอบสับ
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Hepatopancreas = vital organ
-2. ⭐ Molting = vulnerable phase
-3. ⭐ NO adaptive immunity in shrimp
-4. ⭐ NO vaccines work
-5. ⭐ Biosecurity = primary defense`,
+- ⭐⭐⭐ **NO adaptive immunity in shrimp** → vaccines ไม่ work
+- ⭐⭐⭐ **Biosecurity = primary defense**
+- ⭐⭐ **Molting** = vulnerable phase, controlled by ecdysone
+- ⭐ **Hepatopancreas** = vital organ, target ของหลายโรค
+- ⭐ **Hemocytes** = main immune effectors`,
   },
   rGCxK_2ivRs: {
     videoId: 'rGCxK_2ivRs', title: 'Aquatic Clinic — 3.0.2 Fish Immunity', subject: 'aquatic-clinic',
     date: '2025-08-26', durationMin: 32, instructor: 'CUVET aquatic team',
     examFormat: 'Multiple choice, ออก fish immune system, vaccination, temperature effects',
-    summary: `## 🎯 Lead Summary
-**Fish immunity** = both innate + adaptive (unlike shrimp!). Vaccines work but with caveats.
+    summary: `# Aquatic Clinic — 3.0.2 Fish Immunity
 
-## Innate Immunity ⭐⭐
-- ⭐ Mucous (Ig + AMPs)
-- ⭐ Skin/scales physical barrier
+> 🎯 ปลามีทั้ง innate + adaptive (ต่างจากกุ้ง!) — **vaccines ใช้ได้** แต่ต้องคำนึงเรื่อง temperature
+
+---
+
+# 🔻 Part 1: Innate Immunity ⭐⭐
+
+- ⭐ **Mucous** — มี Ig + AMP
+- ⭐ Skin / scales — physical barrier
 - ⭐ Macrophages, neutrophils
 - ⭐ Complement, lysozyme
 - ⭐ Antimicrobial peptides
 
-## Adaptive Immunity ⭐⭐
-- ⭐ B + T cells exist
-- ⭐ Antibodies (IgM dominant)
-- ⭐ Memory cells (limited)
-- ⚠️ Slower than mammals
+---
 
-## Vaccination ⭐⭐
-- ⭐ Works! (vs shrimp)
-- ⭐ Routes: injection, immersion, oral
-- ⭐ Common diseases vaccinated:
+# 🔻 Part 2: Adaptive Immunity ⭐⭐
+
+- ⭐ มี **B + T cells**
+- ⭐ Antibodies — **IgM dominant** (ไม่ใช่ IgG เหมือน mammal)
+- ⭐ Memory cells (จำกัด ไม่เก่งเท่า mammal)
+- ⚠️ ช้ากว่า mammal — ใช้เวลานานกว่าจะตอบสนอง
+
+---
+
+# 🔻 Part 3: Vaccination ⭐⭐
+
+- ⭐ **Works ในปลา!** (ต่างจากกุ้ง)
+- ⭐ Routes: injection · immersion · oral
+- ⭐ Common diseases ที่ vaccinate:
   - Streptococcus
   - Edwardsiella
   - Aeromonas
   - VHS, IHN (cold-water)
 
-## Temperature Effects ⭐
-- ⭐ Cold = ↓ immune function
+> 💡 Routes เลือกตามขนาดปลา — injection สำหรับปลาใหญ่, immersion สำหรับลูกปลา, oral ผสมอาหาร
+
+---
+
+# 🔻 Part 4: Temperature Effects ⭐
+
+- ⭐ **Cold = ↓ immune function**
 - ⭐ Stress reduces immunity
-- ⭐ Optimal temperature for vaccine response
+- ⭐ ต้อง vaccinate ที่ optimal temperature
+
+> ⚠️ Vaccine ลูกปลาตอนน้ำเย็น = response แย่ — เลือกฤดู
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Fish DO have adaptive immunity
-2. ⭐ IgM dominant (not IgG)
-3. ⭐ Vaccines work in fish
-4. ⭐ Temperature affects immunity
-5. ⭐ Streptococcus + Aeromonas common targets`,
+- ⭐⭐⭐ **Fish DO have adaptive immunity** (ต่างจากกุ้ง)
+- ⭐⭐ **IgM dominant** (ไม่ใช่ IgG)
+- ⭐⭐ **Vaccines work in fish** — Streptococcus + Aeromonas common targets
+- ⭐ Temperature affects immunity (cold = ภูมิตก)`,
   },
   RkcMZy109vk: {
     videoId: 'RkcMZy109vk', title: 'Aquatic Clinic — 4.1 Water Quality in Aquaculture Pond', subject: 'aquatic-clinic',
     date: '2025-08-26', durationMin: 45, instructor: 'CUVET aquatic team',
     examFormat: 'Multiple choice + calculation, ออก water parameters, monitoring, DO, pH, ammonia',
-    summary: `## 🎯 Lead Summary
-**Water quality** = fundamental to fish health. ⭐ ⭐ "Healthy water = healthy fish". Critical parameters: DO, temperature, pH, NH3, NO2, NO3, salinity, hardness.
+    summary: `# Aquatic Clinic — 4.1 Water Quality in Aquaculture Pond
 
-## Critical Parameters ⭐⭐⭐
+> 🎯 "**Healthy water = healthy fish**" — น้ำผิด ปลาตายก่อนจะหาเชื้อเจอ. รู้ critical parameters + nitrogen cycle ให้คล่อง
+> ⚠️ Acute mortality หลายครั้ง = water quality crash ไม่ใช่ pathogen
+
+---
+
+# 🔻 Part 1: Critical Parameters ⭐⭐⭐
+
 | Parameter | Acceptable Range |
 |---|---|
-| ⭐ Dissolved O2 | >5 mg/L |
-| ⭐ Temperature | Species-specific |
-| ⭐ pH | 6.5-8.5 |
-| ⭐ Ammonia (NH3) | <0.05 mg/L |
-| ⭐ Nitrite (NO2) | <0.5 mg/L |
-| Nitrate (NO3) | <50 mg/L |
-| Salinity | Species-specific |
+| ⭐ **Dissolved O₂** | **>5 mg/L** |
+| ⭐ **Temperature** | species-specific |
+| ⭐ **pH** | **6.5-8.5** |
+| ⭐ **Ammonia (NH₃)** | **<0.05 mg/L** |
+| ⭐ **Nitrite (NO₂)** | **<0.5 mg/L** |
+| Nitrate (NO₃) | <50 mg/L |
+| Salinity | species-specific |
 
-## Nitrogen Cycle ⭐⭐
-- ⭐ Fish waste → NH3 (toxic)
-- ⭐ Nitrosomonas → NO2 (toxic)
-- ⭐ Nitrobacter → NO3 (less toxic)
-- ⭐ Plants/water change remove NO3
+---
 
-## Toxic at Different Stages ⭐
-- ⭐ NH3 → gill damage, neurologic
-- ⭐ NO2 → "brown blood" (methemoglobinemia)
-- ⭐ Low DO → suffocation
+# 🔻 Part 2: Nitrogen Cycle ⭐⭐
 
-## Monitoring ⭐
-- ⭐ Daily DO check
-- ⭐ Weekly pH, NH3, NO2
-- ⭐ Test kits or electronic sensors
+\`\`\`
+Fish waste → NH₃ (toxic)
+   ↓ Nitrosomonas
+NO₂ (toxic)
+   ↓ Nitrobacter
+NO₃ (less toxic)
+   ↓ Plants / water change
+Removed
+\`\`\`
+
+- ⭐ Fish waste → **NH₃** (toxic)
+- ⭐ **Nitrosomonas** → NO₂ (toxic)
+- ⭐ **Nitrobacter** → NO₃ (less toxic)
+- ⭐ Plants / water change remove NO₃
+
+> 💡 **Biofilter** ต้องผ่าน maturation ~4-6 สัปดาห์ ให้ Nitrosomonas + Nitrobacter ตั้งตัวก่อน
+
+---
+
+# 🔻 Part 3: Toxicity at Each Stage ⭐
+
+| Toxin | กลไก |
+|---|---|
+| ⭐ **NH₃** | gill damage, neurologic |
+| ⭐ **NO₂** | "**brown blood**" (methemoglobinemia) |
+| ⭐ **Low DO** | suffocation |
+
+> ⚠️ Brown blood ใน fish → คิด nitrite poisoning ทันที
+
+---
+
+# 🔻 Part 4: Monitoring ⭐
+
+- ⭐ **Daily DO** check
+- ⭐ Weekly pH, NH₃, NO₂
+- ⭐ Test kits หรือ electronic sensors
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ DO > 5 mg/L minimum
-2. ⭐ pH 6.5-8.5
-3. ⭐ Ammonia toxicity → gills
-4. ⭐ NO2 → brown blood
-5. ⭐ Nitrogen cycle important to understand`,
+- ⭐⭐⭐ **DO > 5 mg/L · pH 6.5-8.5 · NH₃ <0.05 · NO₂ <0.5**
+- ⭐⭐ **Nitrogen cycle**: NH₃ → NO₂ → NO₃ (Nitrosomonas → Nitrobacter)
+- ⭐⭐ **NO₂ → brown blood** (methemoglobinemia)
+- ⭐ NH₃ → gill damage + neurologic
+- ⭐ Daily DO check บังคับ`,
   },
   i37x85TXsUw: {
     videoId: 'i37x85TXsUw', title: 'Aquatic Clinic — 4.2 Life Supporting System', subject: 'aquatic-clinic',
     date: '2025-08-26', durationMin: 83, instructor: 'CUVET aquatic team',
     examFormat: 'Multiple choice, ออก aeration systems, filtration, water exchange',
-    summary: `## 🎯 Lead Summary
-**Life support systems** for aquaculture. Aeration, filtration, water exchange - keep fish alive at high density.
+    summary: `# Aquatic Clinic — 4.2 Life Supporting System
 
-## Aeration Methods ⭐⭐
-- ⭐ Paddle wheels (most common Thailand!)
+> 🎯 Aeration + filtration + water exchange = 3 ขาของ life support ที่ทำให้เลี้ยงสัตว์น้ำที่ density สูงได้
+
+---
+
+# 🔻 Part 1: Aeration Methods ⭐⭐
+
+- ⭐ **Paddle wheels** — Thai standard, common ที่สุดในไทย
 - ⭐ Air diffusers
 - ⭐ Aspirator pumps
 - Surface agitators
-- Liquid O2 (intensive)
+- Liquid O₂ (intensive systems)
 
-## Filtration ⭐⭐
-### Mechanical
+> 💡 Paddle wheel = เลือกเพราะถูก + ทนทาน + ทำในไทย
+
+---
+
+# 🔻 Part 2: Filtration ⭐⭐
+
+## Mechanical
 - ⭐ Sand filters
 - Foam fractionators
 
-### Biological ⭐⭐
-- ⭐ Bacterial colonies on media
-- Convert NH3 → NO3
-- ⭐ Need maturation (4-6 weeks)
+## Biological ⭐⭐
+- ⭐ **Bacterial colonies on media**
+- Convert NH₃ → NO₃
+- ⭐ ต้อง **maturation 4-6 weeks** ก่อนใช้
 
-### Chemical
+## Chemical
 - ⭐ Activated carbon
 - Zeolite
 - UV sterilization
 
-## Water Exchange ⭐
-- ⭐ Traditional: 30% daily
-- ⭐ Biofloc: minimal exchange
-- ⭐ RAS: 1-5% daily
+> ⚠️ Biological filter ใหม่ที่ไม่ผ่าน maturation → NH₃ จะสะสม → ปลาตาย
+
+---
+
+# 🔻 Part 3: Water Exchange ⭐
+
+| System | Daily Exchange |
+|---|---|
+| ⭐ Traditional | **30% daily** |
+| ⭐ Biofloc | minimal |
+| ⭐ RAS | **1-5% daily** |
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Paddle wheel = Thai standard
-2. ⭐ Biological filter needs 4-6 weeks
-3. ⭐ Mechanical → biological → chemical filtration order
-4. ⭐ UV sterilization for pathogens
-5. ⭐ RAS minimizes water use`,
+- ⭐⭐ **Paddle wheel** = Thai standard aeration
+- ⭐⭐ **Biological filter ต้องการ 4-6 weeks maturation**
+- ⭐ Filtration order: mechanical → biological → chemical
+- ⭐ **UV sterilization** สำหรับ pathogens
+- ⭐ **RAS** ลดการเปลี่ยนน้ำเหลือ 1-5%`,
   },
   Ht4uH8mzYQ8: {
     videoId: 'Ht4uH8mzYQ8', title: 'Aquatic Clinic — 5 Ornamental Fish Medicine', subject: 'aquatic-clinic',
     date: '2025-09-02', durationMin: 165, instructor: 'CUVET aquatic team',
     examFormat: 'Multiple choice, ออก ornamental fish DDx, betta diseases, koi',
-    summary: `## 🎯 Lead Summary
-**Ornamental fish medicine**. Thailand = world hub for ornamental fish exports. Common species + diseases.
+    summary: `# Aquatic Clinic — 5 Ornamental Fish Medicine
 
-## Major Thai Ornamental Species ⭐⭐
-- ⭐ Betta (Siamese fighting fish) — Thai national fish!
+> 🎯 ไทยเป็น hub ส่งออก ornamental fish ของโลก — เจอบ่อยใน clinic: betta · goldfish · koi · discus
+> ⚠️ **Always check water quality FIRST** — โรคหลายอย่างเกิดจากน้ำ ไม่ใช่ pathogen
+
+---
+
+# 🔻 Part 1: Major Thai Ornamental Species ⭐⭐
+
+- ⭐ **Betta** (Siamese fighting fish) — Thai national fish!
 - ⭐ Goldfish
 - ⭐ Koi
 - ⭐ Discus
 - Cichlids
 - Tetras, guppies
 
-## Common Diseases ⭐⭐⭐
-### Bacterial
+---
+
+# 🔻 Part 2: Common Diseases ⭐⭐⭐
+
+## Bacterial
 - ⭐ Aeromonas
 - ⭐ Pseudomonas
 - ⭐ Mycobacterium
 - Vibrio (marine)
 
-### Parasitic
-- ⭐ Ich/White Spot (Ichthyophthirius)
+## Parasitic ⭐⭐
+- ⭐ **Ich / White Spot** (*Ichthyophthirius*)
 - ⭐ Trichodina
 - ⭐ Gyrodactylus
 - ⭐ Argulus (fish lice)
 
-### Viral
-- ⭐ KHV (Koi Herpesvirus) ← devastating!
+## Viral ⭐
+- ⭐ **KHV (Koi Herpesvirus)** — devastating สำหรับ koi!
 - ⭐ Spring Viremia of Carp
 - Lymphocystis
 
-### Fungal
+## Fungal
 - ⭐ Saprolegnia (water mold)
 
-## Diagnostic Approach ⭐
-1. ⭐ Water quality FIRST!
+> 💡 **Ich** = parasitic disease ที่พบบ่อยที่สุด · **KHV** = catastrophic ในฟาร์ม koi
+
+---
+
+# 🔻 Part 3: Diagnostic Approach ⭐
+
+1. ⭐⭐ **Water quality FIRST!**
 2. ⭐ Skin scraping → microscopy
 3. Gill biopsy
 4. Histopathology
 5. Culture
 
-## Treatment ⭐
-- ⭐ Salt baths (parasites)
+---
+
+# 🔻 Part 4: Treatment ⭐
+
+- ⭐ **Salt baths** — parasites
 - ⭐ Formalin baths
 - ⭐ Methylene blue
 - ⭐ Antibiotics (in feed)
 - ⭐ Improve water quality
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Thailand = ornamental fish export hub
-2. ⭐ Always check water quality first
-3. ⭐ Ich = most common parasitic disease
-4. ⭐ KHV = catastrophic for koi
-5. ⭐ Salt baths effective for many parasites`,
+- ⭐⭐⭐ **Always check water quality first**
+- ⭐⭐ **Ich** = most common parasitic disease
+- ⭐⭐ **KHV** = catastrophic for koi
+- ⭐ Thailand = ornamental fish export hub
+- ⭐ Salt baths effective สำหรับ parasites หลายชนิด`,
   },
   D5LZtcXUYso: {
     videoId: 'D5LZtcXUYso', title: 'Aquatic Clinic — 6.1 Basic Amphibian Medicine', subject: 'aquatic-clinic',
     date: '2025-09-09', durationMin: 82, instructor: 'CUVET amphibian team',
     examFormat: 'Multiple choice, ออก amphibian anatomy, diseases, husbandry',
-    summary: `## 🎯 Lead Summary
-**Amphibian medicine** — frogs, toads, salamanders. Bullfrog farming is Thai industry. Skin = critical organ.
+    summary: `# Aquatic Clinic — 6.1 Basic Amphibian Medicine
 
-## Unique Anatomy ⭐⭐
-- ⭐ Permeable skin (drug absorption)
-- ⭐ Cutaneous respiration
-- Lungs simple
-- ⭐ Mucus protective barrier
+> 🎯 Amphibian medicine — frog · toad · salamander. Thai industry หลัก = bullfrog farming
+> ⚠️ **Skin = critical organ** — permeable มาก → drug ดูดซึมเข้าทันที + chlorine ฆ่าได้
 
-## Common Diseases ⭐⭐⭐
-- ⭐ ⭐ **Chytridiomycosis** (Batrachochytrium) — global concern
-- ⭐ Red-leg syndrome (Aeromonas)
+---
+
+# 🔻 Part 1: Unique Anatomy ⭐⭐
+
+- ⭐ **Permeable skin** → drug absorption ทาง skin
+- ⭐ **Cutaneous respiration** — หายใจทาง skin
+- ⭐ Lungs simple
+- ⭐ **Mucus** = protective barrier
+
+> 💡 Drug dose ต้องลดลงเพราะ skin absorption เร็ว — ใช้ mammal dose = overdose
+
+---
+
+# 🔻 Part 2: Common Diseases ⭐⭐⭐
+
+- ⭐⭐ **Chytridiomycosis** (*Batrachochytrium*) — global concern
+- ⭐ **Red-leg syndrome** (Aeromonas)
 - ⭐ Mycobacterium (chronic)
 - ⭐ Saprolegnia
 - Parasites
 - Toxin exposure
 
-## Husbandry Issues ⭐
-- ⭐ Temperature/humidity range
-- ⭐ Water quality (chlorine kills!)
-- ⭐ UV-B for some species
+---
+
+# 🔻 Part 3: Husbandry Issues ⭐
+
+- ⭐ Temperature / humidity range
+- ⭐ **Water quality** — chlorine kills!
+- ⭐ UV-B สำหรับบาง species
 - ⭐ Diet (live insects)
 
-## Treatment Considerations ⭐
+> ⚠️ น้ำประปาที่มี chlorine = ฆ่า amphibian ได้ ต้องตั้งทิ้งหรือใช้ dechlorinator
+
+---
+
+# 🔻 Part 4: Treatment Considerations ⭐
+
 - ⭐ Skin absorbs medications
-- ⭐ Reduced doses
+- ⭐ **Reduced doses**
 - ⭐ Avoid water contamination
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Skin = critical (permeable, respiration)
-2. ⭐ Chytridiomycosis = global amphibian threat
-3. ⭐ Chlorine kills amphibians
-4. ⭐ Drug doses reduced for absorption
-5. ⭐ Bullfrog farming Thai industry`,
+- ⭐⭐⭐ **Skin = critical** (permeable, respiration, drug absorption)
+- ⭐⭐ **Chytridiomycosis** = global amphibian threat
+- ⭐⭐ **Chlorine kills amphibians**
+- ⭐ Drug doses ลดลงเพราะ skin absorption
+- ⭐ Bullfrog farming = Thai industry`,
   },
   lcYOKEmEWb8: {
     videoId: 'lcYOKEmEWb8', title: 'Aquatic Clinic — 6.2 Diseases in Cultured Frogs', subject: 'aquatic-clinic',
     date: '2025-09-09', durationMin: 52, instructor: 'CUVET amphibian team',
     examFormat: 'Multiple choice, ออก cultured frog diseases, Thai bullfrog industry',
-    summary: `## 🎯 Lead Summary
-**Cultured frog diseases** — focus on Thai bullfrog (Rana catesbeiana, Rana rugulosa) industry. Major export.
+    summary: `# Aquatic Clinic — 6.2 Diseases in Cultured Frogs
 
-## Thai Bullfrog Industry ⭐
-- ⭐ Major export to China
+> 🎯 Thai bullfrog (*Rana catesbeiana*, *Rana rugulosa*) = export industry หลักของ amphibian ไทย
+> ⚠️ Red-leg syndrome (Aeromonas) = bacterial ที่พบบ่อยสุด · Chytridiomycosis = global threat
+
+---
+
+# 🔻 Part 1: Thai Bullfrog Industry ⭐
+
+- ⭐ **Major export to China**
 - ⭐ Intensive culture systems
 - ⭐ Disease outbreaks common
 - Thailand = top global producer
 
-## Common Diseases ⭐⭐
-### Bacterial
-- ⭐ Red-leg syndrome (Aeromonas hydrophila)
+---
+
+# 🔻 Part 2: Common Diseases ⭐⭐
+
+## Bacterial
+- ⭐ **Red-leg syndrome** (*Aeromonas hydrophila*) — most common
 - ⭐ Edwardsiella
 - ⭐ Streptococcus
 - ⭐ Mycobacterium
 
-### Viral
-- ⭐ Ranavirus (FV3)
+## Viral
+- ⭐ **Ranavirus (FV3)**
 - ⭐ Iridovirus
 
-### Fungal
+## Fungal
 - ⭐ Saprolegniasis
-- ⭐ Chytridiomycosis (B. dendrobatidis)
+- ⭐ **Chytridiomycosis** (*B. dendrobatidis*)
 
-### Parasitic
+## Parasitic
 - ⭐ Trematodes
 - ⭐ Nematodes
 
-## Management ⭐
+---
+
+# 🔻 Part 3: Management ⭐
+
 - ⭐ Stocking density control
 - ⭐ Water quality monitoring
 - ⭐ Disinfection between batches
 - ⭐ Vaccination research ongoing
 
+> 💡 Stocking density สูง = stress → disease outbreak — biosecurity คุมง่ายกว่ารักษา
+
+---
+
 ## 📋 Exam Recap
-1. ⭐ Bullfrog = Thai export
-2. ⭐ Red-leg = most common bacterial
-3. ⭐ Ranavirus = viral concern
-4. ⭐ Chytridiomycosis = global issue
-5. ⭐ Stocking density critical`,
+- ⭐⭐ **Red-leg (Aeromonas)** = most common bacterial
+- ⭐⭐ **Ranavirus** = viral concern หลัก
+- ⭐ Bullfrog = Thai export industry
+- ⭐ Chytridiomycosis = global issue
+- ⭐ Stocking density = critical management`,
   },
   F8AvbK_6tyg: {
     videoId: 'F8AvbK_6tyg', title: 'Aquatic Clinic — 7 Chelonian (Turtles + Tortoises)', subject: 'aquatic-clinic',
     date: '2025-09-16', durationMin: 181, instructor: 'CUVET reptile team',
     examFormat: 'Multiple choice, ออก turtle/tortoise anatomy, common diseases, husbandry',
-    summary: `## 🎯 Lead Summary
-**Chelonian medicine** — turtles + tortoises. Increasing popularity as pets in Thailand. Unique anatomy + special needs.
+    summary: `# Aquatic Clinic — 7 Chelonian (Turtles + Tortoises)
 
-## Categories ⭐
-- ⭐ **Aquatic** (Red-eared slider, snapping)
-- ⭐ **Semi-aquatic** (box turtle)
-- ⭐ **Terrestrial** (sulcata, leopard tortoise)
+> 🎯 เต่า/ตะพาบ — pet ที่ได้รับความนิยมขึ้นในไทย — unique anatomy + special husbandry needs
+> ⚠️ **MBD = #1 husbandry disease** — UV-B + calcium deficiency · **Salmonella = zoonotic risk** สำคัญ
 
-## Anatomy ⭐⭐
-- ⭐ Carapace (top) + plastron (bottom)
+---
+
+# 🔻 Part 1: Categories ⭐
+
+| Type | Examples |
+|---|---|
+| ⭐ **Aquatic** | Red-eared slider, snapping |
+| ⭐ **Semi-aquatic** | box turtle |
+| ⭐ **Terrestrial** | sulcata, leopard tortoise |
+
+> 💡 husbandry ต่าง type ต่างกันโดยสิ้นเชิง — อย่ารักษาแบบเดียว
+
+---
+
+# 🔻 Part 2: Anatomy ⭐⭐
+
+- ⭐ **Carapace** (top) + **plastron** (bottom)
 - ⭐ Bony shell with scutes
 - ⭐ Lung anatomy unique
 - Cloaca
 
-## Common Diseases ⭐⭐⭐
-### Husbandry-related
-- ⭐ ⭐ MBD (calcium/UV deficiency)
-- ⭐ Hypovitaminosis A (eye disease)
-- ⭐ Shell rot (bacterial/fungal)
-- ⭐ Pyramiding (poor diet/UV)
+---
 
-### Infectious
+# 🔻 Part 3: Common Diseases ⭐⭐⭐
+
+## Husbandry-related ⭐⭐
+- ⭐⭐ **MBD** (calcium / UV deficiency)
+- ⭐ **Hypovitaminosis A** (eye disease)
+- ⭐ **Shell rot** (bacterial / fungal)
+- ⭐ **Pyramiding** (poor diet / UV)
+
+## Infectious ⭐
 - ⭐ Mycoplasma URTD (tortoise)
 - ⭐ Chelonid Herpesvirus
-- ⭐ Salmonella (zoonotic!)
+- ⭐ **Salmonella** (zoonotic!)
 - ⭐ Ranavirus
 
-### Other
+## Other
 - ⭐ Egg binding
 - Trauma, fracture
 - Drowning (terrestrial in water)
 
-## Husbandry ⭐
-- ⭐ Species-specific UVB
-- ⭐ Temperature gradient
+> ⚠️ **Salmonella** — เจ้าของต้องล้างมือทุกครั้งหลังจับ โดยเฉพาะถ้าบ้านมีเด็กเล็ก/คนภูมิคุ้มกันต่ำ
+
+---
+
+# 🔻 Part 4: Husbandry ⭐
+
+- ⭐ **Species-specific UVB**
+- ⭐ **Temperature gradient**
 - ⭐ Diet diversity
 - ⭐ Water for hydration
 - Calcium supplementation
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Aquatic vs semi vs terrestrial care different
-2. ⭐ MBD = #1 husbandry disease
-3. ⭐ UVB essential for terrestrial
-4. ⭐ Salmonella zoonotic risk
-5. ⭐ Pyramiding = chronic poor husbandry`,
+- ⭐⭐⭐ **MBD = #1 husbandry disease**
+- ⭐⭐ **UVB essential** สำหรับ terrestrial
+- ⭐⭐ **Salmonella = zoonotic risk**
+- ⭐ Aquatic vs semi vs terrestrial care ต่างกัน
+- ⭐ **Pyramiding** = chronic poor husbandry`,
   },
   fn03KM77X7Q: {
     videoId: 'fn03KM77X7Q', title: 'Aquatic Clinic — 9.1.1 Shrimp Diseases', subject: 'aquatic-clinic',
     date: '2025-10-07', durationMin: 32, instructor: 'CUVET shrimp team',
     examFormat: 'Multiple choice, ออก major shrimp diseases, WSSV, EMS, EHP',
-    summary: `## 🎯 Lead Summary
-**Shrimp diseases** = devastating for Thai industry. Top: ⭐ WSSV (white spot), EMS/AHPND, EHP, IMNV, YHV.
+    summary: `# Aquatic Clinic — 9.1.1 Shrimp Diseases
 
-## Major Viral Diseases ⭐⭐⭐
-- ⭐ ⭐ **WSSV** (White Spot Syndrome Virus) — most lethal
-- ⭐ ⭐ **YHV** (Yellow Head Virus)
-- ⭐ **IHHNV** (Infectious Hypodermal & Hematopoietic Necrosis)
-- ⭐ **TSV** (Taura Syndrome)
-- ⭐ **IMNV** (Infectious Myonecrosis)
+> 🎯 โรคกุ้ง = ภัยคุกคามอันดับ 1 ของอุตสาหกรรมไทย — Top: **WSSV** · **EMS/AHPND** · **EHP**
+> ⚠️ **ไม่มี vaccine** สำหรับโรคกุ้ง → biosecurity ทุกขั้นตอน
 
-## Bacterial ⭐⭐
-- ⭐ ⭐ **EMS / AHPND** (Acute Hepatopancreatic Necrosis - Vibrio parahaemolyticus)
+---
+
+# 🔻 Part 1: Major Viral Diseases ⭐⭐⭐
+
+| Virus | Full Name |
+|---|---|
+| ⭐⭐ **WSSV** | White Spot Syndrome Virus — most lethal |
+| ⭐⭐ **YHV** | Yellow Head Virus |
+| ⭐ **IHHNV** | Infectious Hypodermal & Hematopoietic Necrosis |
+| ⭐ **TSV** | Taura Syndrome Virus |
+| ⭐ **IMNV** | Infectious Myonecrosis Virus |
+
+---
+
+# 🔻 Part 2: Bacterial ⭐⭐
+
+- ⭐⭐ **EMS / AHPND** (Acute Hepatopancreatic Necrosis Disease) — *Vibrio parahaemolyticus*
 - ⭐ Vibriosis (multiple species)
 - Necrotizing hepatopancreatitis
 
-## Parasitic ⭐⭐
-- ⭐ ⭐ **EHP** (Enterocytozoon hepatopenaei) — microsporidian
+> 💡 **EMS pathognomonic**: pale + atrophic hepatopancreas — เห็นได้ด้วยตา
+
+---
+
+# 🔻 Part 3: Parasitic ⭐⭐
+
+- ⭐⭐ **EHP** (*Enterocytozoon hepatopenaei*) — microsporidian
 - White feces syndrome (Vermiform-Gregarine?)
 
-## Diagnostic Approach ⭐
-- ⭐ ⭐ Real-time PCR (gold standard)
+> ⚠️ **EHP** ไม่ทำให้กุ้งตาย แต่ทำให้โตช้า → กระทบกำไรเงียบๆ ตรวจ PCR อย่างเดียวที่เจอ
+
+---
+
+# 🔻 Part 4: Diagnostic Approach ⭐
+
+- ⭐⭐ **Real-time PCR** — gold standard
 - ⭐ Histology
 - Visual inspection (clinical signs)
 - Microscopy (gross examination of hepatopancreas)
 
-## Control ⭐
-- ⭐ ⭐ **Biosecurity is everything!** (no vaccines!)
-- ⭐ SPF (Specific Pathogen Free) post-larvae
+---
+
+# 🔻 Part 5: Control ⭐
+
+- ⭐⭐ **Biosecurity is everything!** (no vaccines!)
+- ⭐ **SPF** (Specific Pathogen Free) post-larvae
 - ⭐ Disinfection
 - ⭐ Water filtration
-- ⭐ Limit movement
+- ⭐ Limit movement (vehicle, personnel)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ WSSV = #1 shrimp killer
-2. ⭐ EMS = bacterial (Vibrio)
-3. ⭐ EHP = microsporidian
-4. ⭐ NO vaccines work
-5. ⭐ Biosecurity = primary defense`,
+- ⭐⭐⭐ **WSSV** = #1 shrimp killer (viral)
+- ⭐⭐⭐ **EMS** = bacterial (*V. parahaemolyticus*) · hepatopancreas pale/atrophic
+- ⭐⭐ **EHP** = microsporidian, growth retardation
+- ⭐⭐ **NO vaccines work** → biosecurity primary
+- ⭐ **Real-time PCR** = gold standard diagnostic`,
   },
   '4nLqFMqASgg': {
     videoId: '4nLqFMqASgg', title: 'Aquatic Clinic — 9.1.2 Shrimp Diseases - Biosecurity Cases', subject: 'aquatic-clinic',
     date: '2025-10-14', durationMin: 123, instructor: 'CUVET shrimp team',
     examFormat: 'Multiple choice + case studies, ออก biosecurity protocols, case investigations',
-    summary: `## 🎯 Lead Summary
-**Shrimp biosecurity + case studies**. Real outbreak investigations. Prevention strategies for Thai farms.
+    summary: `# Aquatic Clinic — 9.1.2 Shrimp Diseases — Biosecurity Cases
 
-## Biosecurity Pillars ⭐⭐⭐
-- ⭐ ⭐ **SPF post-larvae** sourcing
-- ⭐ ⭐ **Disinfection** (between cycles)
-- ⭐ ⭐ **Water inlet** filtration + treatment
-- ⭐ ⭐ **Predator control**
-- ⭐ ⭐ **Personnel hygiene**
+> 🎯 Real outbreak case studies + biosecurity protocols สำหรับฟาร์มไทย — ต้องคุมทุก pillar พร้อมกัน
+> ⚠️ Biosecurity = chain — อ่อนจุดเดียว = แตกทั้งระบบ
+
+---
+
+# 🔻 Part 1: Biosecurity Pillars ⭐⭐⭐
+
+- ⭐⭐ **SPF post-larvae** sourcing
+- ⭐⭐ **Disinfection** (between cycles)
+- ⭐⭐ **Water inlet** filtration + treatment
+- ⭐⭐ **Predator control**
+- ⭐⭐ **Personnel hygiene**
 - ⭐ Footbaths, vehicle disinfection
 
-## Case Studies ⭐⭐
-### EMS Outbreak
-- ⭐ Hepatopancreas pale + small
-- ⭐ Vibrio parahaemolyticus carrying toxin gene
-- Control: pond drying, lime, biosecurity
+---
 
-### WSSV Outbreak
-- ⭐ White spots on cuticle
-- ⭐ High mortality 100%
-- ⭐ Stop pond, disinfect, restart with SPF
+# 🔻 Part 2: Case Studies ⭐⭐
 
-### EHP Issue
+## EMS Outbreak
+- ⭐ Hepatopancreas — pale + small
+- ⭐ *Vibrio parahaemolyticus* carrying toxin gene (Pir-A/B)
+- **Control**: pond drying, lime, biosecurity reset
+
+## WSSV Outbreak
+- ⭐ **White spots on cuticle**
+- ⭐ **Mortality 100%**
+- **Control**: หยุด pond, disinfect, restart with SPF
+
+## EHP Issue
 - ⭐ Slow growth, no death
-- ⭐ White muscle spores
-- ⭐ Control: pond cleaning, alkaline treatment
+- ⭐ White muscle spores (microsporidian)
+- **Control**: pond cleaning, alkaline treatment
 
-## Modern Approaches ⭐
+> 💡 อาการ 3 โรคต่างกันชัด — WSSV เห็นจุดขาว · EMS เห็น HP ซีด · EHP โตช้าเฉยๆ
+
+---
+
+# 🔻 Part 3: Modern Approaches ⭐
+
 - ⭐ DNA-based screening
 - ⭐ Probiotics
 - ⭐ Phage therapy research
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ SPF source post-larvae
-2. ⭐ EMS pathognomonic: pale hepatopancreas
-3. ⭐ WSSV cuticle white spots
-4. ⭐ EHP causes growth retardation
-5. ⭐ Biosecurity pillars must all be in place`,
+- ⭐⭐⭐ **Biosecurity pillars** ต้อง in place ทุกข้อ
+- ⭐⭐ **EMS pathognomonic**: pale hepatopancreas
+- ⭐⭐ **WSSV**: white spots on cuticle, 100% mortality
+- ⭐ **EHP**: growth retardation only, no death
+- ⭐ **SPF post-larvae** sourcing critical`,
   },
   yVDdJKpws5A: {
     videoId: 'yVDdJKpws5A', title: 'Aquatic Clinic — 10 Conservation Aquatic Animals', subject: 'aquatic-clinic',
     date: '2025-10-21', durationMin: 187, instructor: 'CUVET conservation team',
     examFormat: 'Multiple choice, ออก endangered aquatic species, conservation medicine',
-    summary: `## 🎯 Lead Summary
-**Conservation aquatic medicine** — endangered species, wildlife. Different from production focus.
+    summary: `# Aquatic Clinic — 10 Conservation Aquatic Animals
 
-## Thai Endangered Aquatic Animals ⭐
-- ⭐ Mekong giant catfish (Pangasianodon gigas)
-- ⭐ Siamese giant carp
-- ⭐ Irrawaddy dolphin (Mae Khong)
-- ⭐ Sea turtles (multiple species)
+> 🎯 Conservation medicine ≠ production medicine — endangered species + wildlife · One Health approach
+> ⚠️ Translocation = bring disease + genetic issue — ต้องคิดให้รอบคอบ
+
+---
+
+# 🔻 Part 1: Thai Endangered Aquatic Animals ⭐
+
+- ⭐ **Mekong giant catfish** (*Pangasianodon gigas*)
+- ⭐ **Siamese giant carp**
+- ⭐ **Irrawaddy dolphin** (Mae Khong)
+- ⭐ **Sea turtles** (multiple species)
 - Whale sharks
 - Dugong
 
-## Conservation Medicine Principles ⭐⭐
-- ⭐ Ecosystem health connection
-- ⭐ Wild animal capture/release
+---
+
+# 🔻 Part 2: Conservation Medicine Principles ⭐⭐
+
+- ⭐ **Ecosystem health connection** — สัตว์ป่วยมัก = ecosystem ป่วย
+- ⭐ Wild animal capture / release
 - ⭐ Disease surveillance in wild
 - ⭐ Translocation issues
 - ⭐ Genetic considerations
 
-## Common Health Issues ⭐
-- ⭐ Pollution effects
-- ⭐ Climate change
+> 💡 One Health = สัตว์ + คน + สิ่งแวดล้อมเชื่อมโยงกัน — สำคัญสำหรับงาน conservation
+
+---
+
+# 🔻 Part 3: Common Health Issues ⭐
+
+- ⭐ **Pollution effects**
+- ⭐ **Climate change**
 - ⭐ Parasites
 - Plastic ingestion (sea turtles)
 - Ship strikes (large mammals)
 
-## Conservation Strategy ⭐
+---
+
+# 🔻 Part 4: Conservation Strategy ⭐
+
 - ⭐ Habitat protection
 - ⭐ Anti-poaching
 - ⭐ Captive breeding
 - ⭐ Reintroduction programs
 - One Health approach
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multiple endangered Thai aquatic species
-2. ⭐ Pollution = major threat
-3. ⭐ Climate change concerns
-4. ⭐ One Health approach
-5. ⭐ Captive breeding programs`,
+- ⭐⭐ Multiple Thai endangered aquatic species
+- ⭐⭐ **Pollution + climate change** = major threats
+- ⭐ One Health approach สำคัญ
+- ⭐ Captive breeding + reintroduction
+- ⭐ Plastic ingestion = sea turtle threat`,
   },
   bXHto5noX1A: {
     videoId: 'bXHto5noX1A', title: 'Aquatic Clinic — 11.1 Aquarium Management', subject: 'aquatic-clinic',
     date: '2025-10-28', durationMin: 86, instructor: 'CUVET aquarium team',
     examFormat: 'Multiple choice, ออก aquarium setup, water management, stocking',
-    summary: `## 🎯 Lead Summary
-**Aquarium management** — public/private aquariums. Water management, stocking, education, exhibit design.
+    summary: `# Aquatic Clinic — 11.1 Aquarium Management
 
-## Aquarium Types ⭐
-- ⭐ Public aquariums (Siam Ocean World, Phuket Aquarium)
+> 🎯 Aquarium management = balancing water quality + stocking + monitoring · public vs hobby ต่างขนาดแต่หลักเดียวกัน
+> ⚠️ **Quarantine all new arrivals** — pathogen introduction ทำให้ entire system พังได้
+
+---
+
+# 🔻 Part 1: Aquarium Types ⭐
+
+- ⭐ **Public aquariums** — Siam Ocean World, Phuket Aquarium
 - ⭐ Research aquariums
-- ⭐ Home/hobby aquariums
+- ⭐ Home / hobby aquariums
 
-## Setup Components ⭐⭐
-- ⭐ Tank/exhibit design
-- ⭐ Filtration (sized to bioload)
-- ⭐ Lighting (UV, day/night)
+---
+
+# 🔻 Part 2: Setup Components ⭐⭐
+
+- ⭐ Tank / exhibit design
+- ⭐ **Filtration** (sized to bioload)
+- ⭐ Lighting (UV, day / night)
 - ⭐ Water source treatment
-- ⭐ Quarantine system
+- ⭐ **Quarantine system**
 - Backup life support
 
-## Management ⭐
+> 💡 **Backup life support** = essential สำหรับ public aquarium — ไฟดับ 1 ชม. = สัตว์ตายเป็นล็อต
+
+---
+
+# 🔻 Part 3: Management ⭐
+
 - ⭐ Daily monitoring
 - ⭐ Water testing protocols
 - ⭐ Feeding schedules
 - ⭐ Health surveillance
 - Record keeping
 
-## Stocking Considerations ⭐
+---
+
+# 🔻 Part 4: Stocking Considerations ⭐
+
 - ⭐ Compatibility (predator-prey)
 - ⭐ Density (oxygen demand)
-- ⭐ Quarantine new arrivals
-- ⭐ Genetic/age diversity
+- ⭐ **Quarantine new arrivals**
+- ⭐ Genetic / age diversity
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Quarantine all new arrivals
-2. ⭐ Multiple filtration types
-3. ⭐ Backup life support critical
-4. ⭐ Daily monitoring SOPs
-5. ⭐ Compatibility before stocking`,
+- ⭐⭐ **Quarantine all new arrivals**
+- ⭐⭐ **Backup life support critical**
+- ⭐ Multiple filtration types
+- ⭐ Daily monitoring SOPs
+- ⭐ Compatibility check ก่อน stock`,
   },
   XXPMMegcGy8: {
     videoId: 'XXPMMegcGy8', title: 'Aquatic Clinic — 11.2 Aquarium Veterinarian', subject: 'aquatic-clinic',
     date: '2025-10-28', durationMin: 95, instructor: 'CUVET aquarium team',
     examFormat: 'Multiple choice, ออก aquarium vet career, responsibilities',
-    summary: `## 🎯 Lead Summary
-**Aquarium veterinarian career**. Public aquariums need vets for animal care, surgeries, education.
+    summary: `# Aquatic Clinic — 11.2 Aquarium Veterinarian
 
-## Career Path ⭐
+> 🎯 Aquarium vet = niche career แต่กำลังโต — multi-species expertise + public education role
+
+---
+
+# 🔻 Part 1: Career Path ⭐
+
 - ⭐ Aquatic medicine + animal husbandry
 - ⭐ Continuing education + certification
 - ⭐ Practical experience essential
 
-## Responsibilities ⭐⭐
+---
+
+# 🔻 Part 2: Responsibilities ⭐⭐
+
 - ⭐ Routine health surveillance
 - ⭐ Quarantine management
 - ⭐ Disease investigation
@@ -49001,111 +49805,156 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
 - ⭐ Public education
 - ⭐ Husbandry consultation
 
-## Common Procedures ⭐
-- ⭐ Anesthesia (MS-222 most common)
-- ⭐ Blood sampling
-- ⭐ Imaging (X-ray, US)
-- ⭐ Endoscopy
-- ⭐ Surgery (tumor removal, sex change!)
+---
 
-## Special Considerations ⭐
+# 🔻 Part 3: Common Procedures ⭐
+
+- ⭐ **Anesthesia — MS-222 most common**
+- ⭐ Blood sampling
+- ⭐ Imaging (X-ray, ultrasound)
+- ⭐ Endoscopy
+- ⭐ Surgery — tumor removal, sex change (!)
+
+> 💡 **MS-222** (tricaine) = anesthetic มาตรฐานสำหรับปลา · ทำให้หมดสติด้วยการ immersion
+
+---
+
+# 🔻 Part 4: Special Considerations ⭐
+
 - ⭐ Multi-species facility
 - ⭐ Public viewing
 - ⭐ Educational role
 - ⭐ Conservation contribution
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Aquarium vet = niche but growing
-2. ⭐ MS-222 = standard anesthetic
-3. ⭐ Multi-species expertise needed
-4. ⭐ Public + education role
-5. ⭐ Quarantine management critical`,
+- ⭐⭐ **MS-222** = standard fish anesthetic
+- ⭐ Aquarium vet = niche แต่กำลังโต
+- ⭐ Multi-species expertise needed
+- ⭐ Public + education role
+- ⭐ Quarantine management critical`,
   },
   '7m8K5kt4AS0': {
     videoId: '7m8K5kt4AS0', title: 'Aquatic Clinic — 12 Aquatic Toxicology', subject: 'aquatic-clinic',
     date: '2025-11-04', durationMin: 112, instructor: 'CUVET aquatic team',
     examFormat: 'Multiple choice, ออก common toxins, LC50, diagnostic approach',
-    summary: `## 🎯 Lead Summary
-**Aquatic toxicology** — toxin effects on fish, shellfish. Pollution, agricultural runoff, industrial discharge.
+    summary: `# Aquatic Clinic — 12 Aquatic Toxicology
 
-## Common Toxins ⭐⭐
-### Pesticides
-- ⭐ Organophosphates (cholinesterase inhibitor)
+> 🎯 Toxicology ทาง aquatic = pollution + agricultural runoff + industrial discharge — สาเหตุของ acute mass mortality
+> ⚠️ **Algal toxins (red tide)** = zoonotic — กระทบทั้งสัตว์น้ำและคน
+
+---
+
+# 🔻 Part 1: Common Toxins ⭐⭐
+
+## Pesticides
+- ⭐ **Organophosphates** (cholinesterase inhibitor)
 - ⭐ Carbamates
 - Pyrethroids
 
-### Heavy Metals
+## Heavy Metals
 - ⭐ Lead, Mercury, Cadmium, Copper
-- ⭐ Bioaccumulation
-- ⭐ Bioconcentration
+- ⭐ **Bioaccumulation**
+- ⭐ **Bioconcentration**
 
-### Industrial
+## Industrial
 - ⭐ Cyanide
 - ⭐ Ammonia (point source)
 - Hydrocarbons
 
-### Algal Toxins ⭐⭐
-- ⭐ Dinoflagellates (red tide)
+## Algal Toxins ⭐⭐
+- ⭐ Dinoflagellates (**red tide**)
 - ⭐ Cyanobacteria toxins
-- ⭐ Saxitoxin (PSP), domoic acid
+- ⭐ **Saxitoxin (PSP)** · domoic acid
 
-## Diagnostic Approach ⭐
-1. ⭐ History (recent activities, water source)
-2. ⭐ Water analysis
+> 💡 **Bioaccumulation vs bioconcentration**: 
+> - bioaccumulation = สะสมในตัวสัตว์ตลอดชีวิต
+> - bioconcentration = ความเข้มข้นในตัว > ในน้ำ
+
+---
+
+# 🔻 Part 2: Diagnostic Approach ⭐
+
+1. ⭐ **History** — recent activities, water source
+2. ⭐ **Water analysis**
 3. ⭐ Tissue sampling
 4. ⭐ Sentinel species
-5. ⭐ LC50 reference data
+5. ⭐ **LC₅₀** reference data
 
-## Treatment ⭐
-- ⭐ Remove from contaminated water
-- ⭐ Activated carbon if oral
+---
+
+# 🔻 Part 3: Treatment ⭐
+
+- ⭐ **Remove from contaminated water**
+- ⭐ Activated carbon ถ้ากินเข้าไป
 - ⭐ Symptomatic care
-- ⚠️ Prevention better than treatment
+- ⚠️ **Prevention better than treatment** — ส่วนใหญ่รักษาไม่ได้
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Heavy metals bioaccumulate
-2. ⭐ Algal toxins (red tide) zoonotic
-3. ⭐ Cholinesterase inhibitors common
-4. ⭐ Water analysis essential
-5. ⭐ Prevention > treatment`,
+- ⭐⭐ **Heavy metals bioaccumulate** + bioconcentration
+- ⭐⭐ **Algal toxins (red tide)** zoonotic
+- ⭐ Cholinesterase inhibitors common (OP, carbamate)
+- ⭐ Water analysis essential
+- ⭐ **Prevention > treatment**`,
   },
   '9fABd_2RhNw': {
     videoId: '9fABd_2RhNw', title: 'Aquatic Clinic — 13 Aquatic Disease Control Authorities', subject: 'aquatic-clinic',
     date: '2025-11-11', durationMin: 105, instructor: 'CUVET aquatic team',
     examFormat: 'Multiple choice, ออก Thai authorities, DOF, OIE/WAHIS, trade',
-    summary: `## 🎯 Lead Summary
-**Thai aquatic disease control authorities** — DOF (Department of Fisheries), OIE/WAHIS reporting.
+    summary: `# Aquatic Clinic — 13 Aquatic Disease Control Authorities
 
-## Thai Authorities ⭐⭐
-- ⭐ ⭐ **Department of Fisheries (DOF)** = lead authority
+> 🎯 Thai authority = **DOF (Department of Fisheries)** · International = **WOAH (formerly OIE) WAHIS**
+> ⚠️ Reportable disease = ส่งออกไม่ได้ถ้าตรวจเจอ — กระทบเศรษฐกิจรายประเทศ
+
+---
+
+# 🔻 Part 1: Thai Authorities ⭐⭐
+
+- ⭐⭐ **Department of Fisheries (DOF)** = lead authority
 - ⭐ Ministry of Agriculture
 - DLD (livestock part)
 - DEPA (aquaculture promotion)
 
-## International ⭐
-- ⭐ ⭐ **WOAH (formerly OIE) WAHIS**
+---
+
+# 🔻 Part 2: International ⭐
+
+- ⭐⭐ **WOAH (formerly OIE) WAHIS**
 - ⭐ FAO
 - ⭐ Trade partners' regulations
 
-## Reportable Aquatic Diseases ⭐⭐
-- ⭐ WSSV
-- ⭐ AHPND (EMS)
-- ⭐ EHP
-- ⭐ KHV
+---
+
+# 🔻 Part 3: Reportable Aquatic Diseases ⭐⭐
+
+- ⭐ **WSSV**
+- ⭐ **AHPND (EMS)**
+- ⭐ **EHP**
+- ⭐ **KHV**
 - ⭐ Many others
 
-## Trade Restrictions ⭐
+> 💡 Reportable list อัปเดตทุกปี — ตรวจ WOAH list ก่อนส่งออกทุกครั้ง
+
+---
+
+# 🔻 Part 4: Trade Restrictions ⭐
+
 - ⭐ Mandatory disease testing
-- ⭐ Health certificates
+- ⭐ **Health certificates**
 - ⭐ Quarantine requirements
-- ⭐ Country/zone status
+- ⭐ Country / zone status
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ DOF = Thai aquatic authority
-2. ⭐ WOAH/WAHIS international reporting
-3. ⭐ Multiple shrimp diseases reportable
-4. ⭐ Trade depends on disease-free status
-5. ⭐ Health certificates for export`,
+- ⭐⭐⭐ **DOF** = Thai aquatic authority
+- ⭐⭐ **WOAH/WAHIS** = international reporting
+- ⭐ WSSV, AHPND, EHP, KHV = reportable
+- ⭐ Trade depends on disease-free status
+- ⭐ Health certificates required for export`,
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -49116,1448 +49965,2064 @@ Course intro for aquatic veterinary medicine. Covers fish, shellfish, amphibians
     videoId: 'D7BZwM1JoVQ', title: 'Avian Medicine — 0 Introduction', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 3, instructor: 'CUVET avian team',
     examFormat: 'Brief intro',
-    summary: `## 🎯 Lead Summary
-Course intro for avian medicine. Thailand = major poultry producer + exporter. Course covers viral, bacterial, parasitic, mycotic diseases.
+    summary: `# Avian Medicine 0 — Introduction
 
-## Course Coverage ⭐
-- Major viral diseases (ND, IB, ILT, AI)
-- Bacterial diseases
-- Parasitic + mycotic
-- Vaccination programs
-- Egg analysis
+> 🎯 Course intro รวบยอด — ไทย = ผู้ผลิต+ส่งออกสัตว์ปีกระดับโลก (อันดับ 4 ของไก่เนื้อ) → vet มีบทบาทตั้งแต่ฟาร์ม → diagnostic → ราชการ → industry
+> 💡 Lecture สั้น 3 นาที — ใช้เป็น roadmap ก่อนเข้าโรค ND/IB/AI/Mycoplasma ในบทถัดไป
 
-## Career Paths ⭐
-- Poultry industry (CP, Betagro)
-- Pet bird practice
-- Wildlife/zoo
-- Government surveillance
+---
 
-> 📚 Cross-refs: All 31 avian lectures
-> 🎯 Thailand = #4 chicken meat producer globally`,
+# 🔻 Part 1: Course Coverage ⭐⭐
+
+- **Viral diseases หลัก** — ND, IB, ILT, AI (เน้น 4 ตัวนี้)
+- **Bacterial** — Salmonella, E. coli, Mycoplasma, Pasteurella
+- **Parasitic + Mycotic** — coccidia, helminths, Aspergillus, Candida
+- **Vaccination programs** — broiler vs layer schedule
+- **Egg breakout analysis** — hatchery troubleshooting
+
+---
+
+# 🔻 Part 2: Career Paths ⭐
+
+| Path | ตัวอย่าง |
+|---|---|
+| **Poultry industry** | CP, Betagro, Sun Group |
+| **Pet bird practice** | โรงพยาบาลสัตว์เลี้ยงพิเศษ |
+| **Wildlife/zoo** | สวนสัตว์, ZPOT |
+| **Government surveillance** | DLD, DOF |
+
+> 🎯 Thailand = #4 global chicken meat producer — บริบทอุตสาหกรรมต้องเข้าใจก่อนเรียนโรค
+
+---
+
+## 📋 Exam Recap
+- ⭐ **Thai industry context** — #4 ผู้ผลิตไก่โลก = ทำไม vet ปีกสำคัญ
+- ⭐ **Disease scope** — viral / bacterial / parasitic / mycotic
+- ⭐ **Career diversity** — industry / pet / wildlife / government`,
   },
   tG5VRKQuGhw: {
     videoId: 'tG5VRKQuGhw', title: 'Avian Medicine — 1.1 Newcastle Disease (ND)', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 43, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก ND virulence types, clinical signs, vaccination',
-    summary: `## 🎯 Lead Summary
-**Newcastle Disease (ND)** = #1 viral concern in poultry. ⭐ Paramyxovirus (APMV-1). 5 pathotypes by virulence.
+    summary: `# Avian Medicine 1.1 — Newcastle Disease (ND)
 
-## Etiology ⭐⭐
-- ⭐ APMV-1 (Avian Paramyxovirus type 1)
-- ⭐ Genotypes I-XXI
-- ⭐ Single-stranded RNA virus
+> 🎯 **ND = อันดับ 1 viral concern** ของไก่ — APMV-1 (Avian Paramyxovirus type 1) มี **5 pathotypes** จาก velogenic (lethal) → asymptomatic
+> ⚠️ Endemic ในไทย — เลี่ยงไม่ได้ ต้อง vaccinate ตลอดอายุ
 
-## Pathotypes ⭐⭐⭐ (5 types!)
-1. ⭐ **Velogenic viscerotropic** (lethal, GI signs)
-2. ⭐ **Velogenic neurotropic** (lethal, neuro)
-3. ⭐ **Mesogenic** (moderate)
-4. ⭐ **Lentogenic** (mild, vaccine strain)
-5. ⭐ **Asymptomatic enteric**
+---
 
-## Transmission ⭐
-- ⭐ Respiratory + fecal-oral
-- ⭐ Highly contagious
-- ⭐ Wild birds = reservoir
+# 🔻 Part 1: Etiology ⭐⭐
 
-## Clinical Signs ⭐⭐
-- ⭐ Sudden death
-- ⭐ Respiratory: gasping, sneezing
-- ⭐ Neurological: tremors, paralysis
-- ⭐ Drop in egg production
-- Greenish diarrhea
+- **APMV-1** (Avian Paramyxovirus type 1) — single-stranded RNA
+- **Genotypes I–XXI** (หลาย genotype circulate)
+- Wild birds = reservoir → eradication เป็นไปไม่ได้
 
-## Diagnosis ⭐
-- ⭐ Clinical signs + history
-- ⭐ Virus isolation in eggs
-- ⭐ RT-PCR
-- ⭐ HI test (serology)
-- ⭐ Histopathology
+---
+
+# 🔻 Part 2: 5 Pathotypes ⭐⭐⭐
+
+| Pathotype | ลักษณะ | อาการเด่น |
+|---|---|---|
+| **Velogenic viscerotropic** | Lethal | GI signs, hemorrhage |
+| **Velogenic neurotropic** | Lethal | neuro: tremor, paralysis |
+| **Mesogenic** | Moderate | resp + drop egg |
+| **Lentogenic** | Mild | vaccine strain (LaSota, B1) |
+| **Asymptomatic enteric** | None | subclinical |
+
+> 💡 จำง่าย: **Velogenic = ฆ่า · Lentogenic = วัคซีน · Mesogenic = อยู่กลาง**
+
+---
+
+# 🔻 Part 3: Clinical Signs ⭐⭐
+
+- **Sudden death** (velogenic forms)
+- **Respiratory**: gasping, sneezing
+- **Neurological**: tremors, paralysis, torticollis
+- **Drop ในไข่** (layers) — egg production ↓
+- **Greenish diarrhea**
+
+---
+
+# 🔻 Part 4: Diagnosis & Vaccination ⭐⭐
+
+## Diagnosis
+- Clinical signs + history
+- **Virus isolation in eggs** (embryonated chicken eggs)
+- **RT-PCR** (genotyping)
+- **HI test** — serology + vaccine monitoring
+- Histopathology
 
 ## Vaccination ⭐⭐⭐
-- ⭐ Live vaccines (B1, LaSota)
-- ⭐ Inactivated vaccines
-- ⭐ Programs vary by farm
-- ⭐ Maternal antibodies interfere
+- ⭐ **Live vaccines**: B1, LaSota (lentogenic strains)
+- **Inactivated vaccines** — pre-lay boost
+- Programs vary by farm + region
+- ⚠️ **Maternal antibody interferes** กับ live vaccine → timing สำคัญ
 
-## Control ⭐
-- ⭐ Biosecurity essential
-- Vaccination rigorous
-- ⭐ Eradication impossible (wild birds)
-- Endemic in Thailand
+---
 
 ## 📋 Exam Recap
-1. ⭐ APMV-1 paramyxovirus
-2. ⭐ 5 pathotypes by virulence
-3. ⭐ Velogenic = most dangerous
-4. ⭐ LaSota vaccine common
-5. ⭐ Endemic in Thailand`,
+- ⭐⭐⭐ **5 pathotypes** — velogenic / mesogenic / lentogenic / asymptomatic
+- ⭐⭐ **APMV-1 paramyxovirus** ssRNA
+- ⭐⭐ **LaSota / B1** = vaccine strains (lentogenic)
+- ⭐ **HI test** standard serology
+- ⭐ Endemic ในไทย — stamping out ทำไม่ได้`,
   },
   Md1qQYAH5kU: {
     videoId: 'Md1qQYAH5kU', title: 'Avian Medicine — 1.2 Infectious Bronchitis (IB)', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 25, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก IB serotypes, clinical signs, vaccination',
-    summary: `## 🎯 Lead Summary
-**Infectious Bronchitis (IB)** — Coronavirus respiratory disease in chickens. Multiple serotypes complicate vaccination.
+    summary: `# Avian Medicine 1.2 — Infectious Bronchitis (IB)
 
-## Etiology ⭐⭐
-- ⭐ ⭐ **Avian Coronavirus** (IBV)
-- ⭐ Multiple serotypes (Mass, Conn, Ark, etc.)
-- ⭐ ⭐ Cross-protection LIMITED between serotypes
-- Spike protein critical
+> 🎯 **IB = Avian Coronavirus** — respiratory + reproductive disease ในไก่ · key challenge = **multiple serotypes** ที่ cross-protection LIMITED
+> ⚠️ Vaccine ต้อง match กับ field serotype — strain ผิด = protection ไม่พอ
 
-## Clinical Signs ⭐⭐
-- ⭐ Respiratory: rales, sneezing, gasping
-- ⭐ Egg production drop + abnormal eggs
-- ⭐ Misshapen eggshells
-- ⭐ Wrinkled, soft-shelled eggs
-- ⚠️ Some strains nephropathogenic (kidney damage!)
-- Pullet syndrome ("false layer")
+---
 
-## Diagnosis ⭐
-- ⭐ Clinical signs (respiratory + egg)
-- ⭐ RT-PCR for genotyping
-- ⭐ Virus isolation
-- ⭐ HI test
+# 🔻 Part 1: Etiology ⭐⭐
 
-## Vaccination ⭐⭐
-- ⭐ MUST match circulating serotype!
-- ⭐ Live + inactivated programs
-- ⭐ Mass + variant strains common
-- ⭐ Maternal antibodies short-lived
+- **Avian Coronavirus (IBV)** — single-stranded RNA
+- **Multiple serotypes**: Mass, Conn, Ark, variant strains
+- **Spike (S) protein** = key antigen + immunity determinant
+- ⚠️ Cross-protection ระหว่าง serotype **จำกัด**
 
-## Control ⭐
-- ⭐ Multi-serotype vaccination
-- ⭐ Biosecurity
-- All-in-all-out
+---
+
+# 🔻 Part 2: Clinical Signs ⭐⭐
+
+## Respiratory
+- Rales, sneezing, gasping
+- Tracheal lesions
+
+## Reproductive (Layers)
+- **Egg production drop**
+- ⭐ **Abnormal eggshells** — misshapen, wrinkled, soft
+- **"False layer" syndrome** — pullet infection ทำให้ oviduct ไม่พัฒนา ออกไข่ไม่ได้ทั้งชีวิต
+
+## Renal (some strains)
+- ⚠️ **Nephropathogenic strains** — kidney damage, mortality ↑
+
+---
+
+# 🔻 Part 3: Diagnosis ⭐
+
+- Clinical signs (resp + egg quality combo คือเบาะแสใหญ่)
+- **RT-PCR for genotyping** — บอก serotype ได้
+- Virus isolation
+- **HI test** — serology
+
+---
+
+# 🔻 Part 4: Vaccination & Control ⭐⭐
+
+- ⭐ **MUST match circulating serotype**
+- Live + inactivated programs ร่วมกัน
+- Mass + variant strains ที่ใช้บ่อยในไทย
+- Maternal antibodies short-lived (~2 weeks)
+- Biosecurity + all-in-all-out
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ IB = Coronavirus
-2. ⭐ Multiple serotypes (no cross-protection)
-3. ⭐ Egg production drop + shell quality
-4. ⭐ Vaccine must match field strain
-5. ⭐ Some strains affect kidneys`,
+- ⭐⭐⭐ **Multiple serotypes** = cross-protection limited → vaccine ต้อง match
+- ⭐⭐ **Egg quality + drop production** = signature ใน layers
+- ⭐⭐ **Coronavirus** ssRNA, spike protein
+- ⭐ **Nephropathogenic strains** มี kidney damage
+- ⭐ Live + inactivated combo program`,
   },
   NVZopbDW4j8: {
     videoId: 'NVZopbDW4j8', title: 'Avian Medicine — 1.3 Infectious Laryngotracheitis (ILT)', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 15, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก ILT herpesvirus, clinical signs, vaccination',
-    summary: `## 🎯 Lead Summary
-**ILT** = Infectious Laryngotracheitis. Herpesvirus (latent infection!). Severe respiratory.
+    summary: `# Avian Medicine 1.3 — Infectious Laryngotracheitis (ILT)
 
-## Etiology ⭐⭐
-- ⭐ ⭐ **Avian Herpesvirus 1 (ILTV)**
-- ⭐ Latent in trigeminal ganglion
-- ⭐ Reactivation during stress
+> 🎯 **ILT = Avian Herpesvirus 1** — severe respiratory ที่ **latent ใน trigeminal ganglion** เหมือน HSV คน → reactivation จาก stress
+> ⚠️ **Bloody mucus + neck extension = pathognomonic** สำหรับ severe form
 
-## Clinical Signs ⭐⭐
-- ⭐ Severe gasping
-- ⭐ ⭐ **Bloody mucus + neck extension** (pathognomonic!)
-- ⭐ High mortality (severe form)
-- ⭐ Drop in egg production
-- ⚠️ Hyperemia of trachea
+---
 
-## Diagnosis ⭐
-- ⭐ Clinical signs (bloody mucus!)
-- ⭐ Tracheal histopath: ⭐ ⭐ syncytial cells + intranuclear inclusion bodies
-- ⭐ Virus isolation
-- ⭐ PCR
+# 🔻 Part 1: Etiology ⭐⭐
 
-## Vaccination ⭐⭐
-- ⭐ Live (CEO, TCO strains)
-- ⚠️ Carrier state from vaccine
-- ⭐ Strict programs
-- ⭐ Some areas no vaccination
+- **Avian Herpesvirus 1 (ILTV)** — DNA virus
+- ⭐ **Latent infection in trigeminal ganglion**
+- Reactivation จาก stress (transport, crowding, illness)
+- Vaccinated birds เป็น carriers ได้
 
-## Control ⭐
-- ⭐ Biosecurity
-- ⭐ Vaccine carriers can spread virus
+---
+
+# 🔻 Part 2: Clinical Signs ⭐⭐
+
+## Severe Form ⭐⭐⭐
+- ⭐ **Bloody mucus + neck extension** (pathognomonic!)
+- Severe gasping
+- High mortality
+
+## Mild Form
+- Conjunctivitis, sinusitis
+- Mild respiratory signs
+- Egg production drop
+
+> 💡 ภาพคลาสสิก: ไก่ยืดคอ + อ้าปาก + เลือดออกมาจากปาก — **เห็นปุ๊บนึก ILT ก่อน**
+
+---
+
+# 🔻 Part 3: Diagnosis ⭐
+
+- Clinical signs (bloody mucus!)
+- **Tracheal histopathology**:
+  - ⭐ **Syncytial cells** (multinucleated giant cells)
+  - ⭐ **Intranuclear inclusion bodies** (Cowdry type A — herpesvirus signature)
+- Virus isolation
+- PCR
+
+---
+
+# 🔻 Part 4: Vaccination & Control ⭐⭐
+
+- **Live vaccines**: CEO (chicken embryo origin), TCO (tissue culture origin)
+- ⚠️ **Vaccine-induced carrier state** — vaccinated birds shed virus
+- ⚠️ Some areas เลิกฉีดเพราะ vaccine spread ทำให้ disease vicious cycle
+- Biosecurity essential
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Herpesvirus = latent infection
-2. ⭐ Bloody mucus = pathognomonic
-3. ⭐ Syncytial cells + inclusion bodies in histopath
-4. ⭐ Vaccinated birds can be carriers
-5. ⭐ Stress reactivates infection`,
+- ⭐⭐⭐ **Bloody mucus + neck extension** = pathognomonic
+- ⭐⭐⭐ **Herpesvirus** → latent in trigeminal ganglion
+- ⭐⭐ **Syncytial cells + intranuclear inclusion bodies** ใน histopath
+- ⭐ Vaccine = live (CEO, TCO) แต่ทำให้เป็น carrier
+- ⭐ Stress reactivates`,
   },
   'v2-VlxsTnsM': {
     videoId: 'v2-VlxsTnsM', title: 'Avian Medicine — 1.4 Avian Metapneumovirus (aMPV)', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 15, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก aMPV pathogenesis, clinical signs, TRT in chicken',
-    summary: `## 🎯 Lead Summary
-**Avian Metapneumovirus (aMPV)** — causes Turkey Rhinotracheitis (TRT) and Swollen Head Syndrome (SHS). Pneumovirus.
+    summary: `# Avian Medicine 1.4 — Avian Metapneumovirus (aMPV)
 
-## Etiology ⭐
-- ⭐ Avian Pneumovirus (aMPV)
-- ⭐ Subtypes A, B, C, D
-- ⭐ Single-stranded RNA
+> 🎯 **aMPV = Pneumovirus** ทำให้เกิด **Turkey Rhinotracheitis (TRT)** ในไก่งวง และ **Swollen Head Syndrome (SHS)** ในไก่
+> ⚠️ ทำลาย cilia → predispose to secondary E. coli (= ไม่ตายเพราะ aMPV แต่ตายเพราะ E. coli ตาม)
 
-## Clinical Signs ⭐⭐
-- ⭐ ⭐ **Swollen head + face** (in chickens) — SHS
-- ⭐ Sneezing, coryza
-- ⭐ Drop in egg production
-- ⭐ Secondary bacterial infection common
+---
 
-## Pathogenesis ⭐
-- ⭐ Upper respiratory tropism
-- ⭐ Damage cilia
-- ⭐ Predispose to secondary infections (E. coli)
+# 🔻 Part 1: Etiology ⭐
 
-## Diagnosis ⭐
-- ⭐ Clinical signs
-- ⭐ RT-PCR
-- ⭐ Serology (ELISA)
+- **Avian Pneumovirus (aMPV)** — single-stranded RNA
+- **Subtypes A, B, C, D**
+- Subtype-specific vaccination needed
 
-## Vaccination ⭐
-- ⭐ Live + inactivated
-- ⭐ Subtype-specific
+---
+
+# 🔻 Part 2: Clinical Signs ⭐⭐
+
+## In Chickens — SHS (Swollen Head Syndrome)
+- ⭐ **Swollen head + face** (signature sign)
+- Sneezing, coryza
+- Drop in egg production
+- Secondary E. coli infection common
+
+## In Turkeys — TRT
+- Severe rhinotracheitis
+- Mortality variable
+
+---
+
+# 🔻 Part 3: Pathogenesis ⭐
+
+- **Upper respiratory tropism**
+- ⭐ **Cilia damage** → mucociliary escalator พัง
+- ⭐ **Predispose to secondary bacterial infection** (E. coli ที่พบบ่อยที่สุด)
+
+> 💡 "aMPV ทำประตูเปิด → E. coli วิ่งเข้า" — ภาพคลินิกที่เจอจริงคือ colisepticemia + airsacculitis ตาม
+
+---
+
+# 🔻 Part 4: Diagnosis & Vaccination ⭐
+
+## Diagnosis
+- Clinical signs (swollen head)
+- RT-PCR
+- Serology (ELISA)
+
+## Vaccination
+- Live + inactivated
+- Subtype-specific
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ aMPV = Pneumovirus
-2. ⭐ Swollen Head Syndrome (SHS)
-3. ⭐ Subtypes A, B, C, D
-4. ⭐ Cilia damage = secondary infection risk
-5. ⭐ E. coli often follows`,
+- ⭐⭐ **SHS in chickens · TRT in turkeys** = same virus, different host
+- ⭐⭐ **Cilia damage → secondary E. coli** (key pathogenesis)
+- ⭐ **Subtypes A/B/C/D** — vaccine ต้อง match
+- ⭐ Pneumovirus ssRNA`,
   },
   zGDseeDV_Zk: {
     videoId: 'zGDseeDV_Zk', title: 'Avian Medicine — 1.5 Fowlpox', subject: 'avian-medicine',
     date: '2025-08-05', durationMin: 19, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก fowlpox 2 forms, vector, vaccination',
-    summary: `## 🎯 Lead Summary
-**Fowlpox** = DNA poxvirus, 2 forms: cutaneous (dry) + diphtheritic (wet). Mosquito-transmitted.
+    summary: `# Avian Medicine 1.5 — Fowlpox
 
-## Etiology ⭐
-- ⭐ Fowlpox virus (Avipoxvirus)
-- ⭐ DNA virus
+> 🎯 **Fowlpox = DNA poxvirus** มี 2 forms: **cutaneous (dry)** + **diphtheritic (wet)** · transmission สำคัญ = **mosquito vector**
+> ⚠️ Wet form ตายจาก suffocation เพราะ plaques อุดทางเดินหายใจ
 
-## 2 Clinical Forms ⭐⭐⭐
-### Cutaneous (Dry Pox) ⭐
-- ⭐ Lesions on featherless areas (face, comb, wattle)
-- ⭐ Nodules → scabs
-- ⭐ Mild course
+---
 
-### Diphtheritic (Wet Pox) ⭐
-- ⭐ Lesions in respiratory/digestive tract
-- ⭐ Yellow plaques in mouth, esophagus
-- ⚠️ Can cause death (suffocation)
+# 🔻 Part 1: Etiology ⭐
 
-## Transmission ⭐⭐
-- ⭐ ⭐ **Mosquito vector** (mechanical)
-- ⭐ Bird-to-bird via wounds
+- **Fowlpox virus** (Avipoxvirus genus)
+- DNA virus, large
+- Inclusion bodies = **Bollinger bodies** (intracytoplasmic)
 
-## Diagnosis ⭐
-- ⭐ Clinical signs
-- ⭐ Histology: Bollinger bodies (intracytoplasmic inclusions)
+---
 
-## Vaccination ⭐
-- ⭐ Wing-web stab vaccine
-- ⭐ Pigeon pox or fowlpox attenuated
-- ⭐ Lifelong immunity after vaccination
+# 🔻 Part 2: Two Clinical Forms ⭐⭐⭐
+
+## Cutaneous (Dry Pox) ⭐
+- Lesions บน **featherless areas** — face, comb, wattle
+- Nodules → scabs
+- Mild course, recover เอง
+
+## Diphtheritic (Wet Pox) ⭐
+- ⭐ **Yellow plaques** in mouth, esophagus, trachea
+- Respiratory + digestive tract
+- ⚠️ Can cause death (**suffocation** จาก plaques)
+
+> 💡 **Dry = ดูตามผิว · Wet = ในปาก/คอ · Wet = ตาย**
+
+---
+
+# 🔻 Part 3: Transmission ⭐⭐
+
+- ⭐ **Mosquito vector** (mechanical — virus ไม่ replicate ในยุง)
+- Bird-to-bird ผ่านแผล/wounds
+
+---
+
+# 🔻 Part 4: Diagnosis & Vaccination ⭐
+
+## Diagnosis
+- Clinical signs (typical lesions)
+- Histology: **Bollinger bodies** (intracytoplasmic inclusion)
+
+## Vaccination
+- ⭐ **Wing-web stab** technique
+- Pigeon pox หรือ fowlpox attenuated
+- Lifelong immunity after vaccination
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Two forms: dry (cutaneous) + wet (diphtheritic)
-2. ⭐ Wet form deadly (suffocation)
-3. ⭐ Mosquito-transmitted
-4. ⭐ Bollinger bodies on histology
-5. ⭐ Wing-web stab vaccination`,
+- ⭐⭐⭐ **2 forms: dry (cutaneous) + wet (diphtheritic)**
+- ⭐⭐ **Mosquito vector** (mechanical)
+- ⭐⭐ **Wet form ตายจาก suffocation**
+- ⭐ **Bollinger bodies** = intracytoplasmic inclusions
+- ⭐ **Wing-web stab** vaccination`,
   },
   JlF6YXZM490: {
     videoId: 'JlF6YXZM490', title: 'Avian Medicine — 2 Mycoplasmosis', subject: 'avian-medicine',
     date: '2025-08-19', durationMin: 97, instructor: 'CUVET avian team (รุ่นพี่)',
     examFormat: 'Multiple choice, ออก MG, MS, vertical transmission, vaccination, monitoring',
-    summary: `## 🎯 Lead Summary
-**Mycoplasma** in poultry = MG (Mycoplasma gallisepticum) + MS (Mycoplasma synoviae). Vertical transmission. Major economic concern.
+    summary: `# Avian Medicine 2 — Mycoplasmosis (MG + MS)
 
-## Important Species ⭐⭐⭐
-- ⭐ ⭐ **MG (Mycoplasma gallisepticum)** = Chronic Respiratory Disease (CRD)
-- ⭐ ⭐ **MS (Mycoplasma synoviae)** = synovitis (joint disease)
-- ⭐ M. meleagridis (turkeys)
-- M. iowae (turkeys)
+> 🎯 **2 ตัวหลักของไก่** — **MG (M. gallisepticum)** = CRD (Chronic Respiratory Disease) · **MS (M. synoviae)** = synovitis + eggshell apex abnormality
+> ⚠️ **Vertical transmission (egg-borne)** = key challenge → Mycoplasma-free breeders เท่านั้นที่ตัดวงจรได้
 
-## MG Clinical Signs ⭐⭐
-- ⭐ Chronic respiratory disease
-- ⭐ Sinusitis, swollen face
-- ⭐ ⭐ ⭐ Compounded with E. coli = severe
-- ⭐ Egg production drop
+---
+
+# 🔻 Part 1: Important Species ⭐⭐⭐
+
+| Species | โรค | Host |
+|---|---|---|
+| ⭐ **MG** (Mycoplasma gallisepticum) | **CRD** — chronic respiratory | ไก่ |
+| ⭐ **MS** (Mycoplasma synoviae) | **Synovitis** + eggshell defect | ไก่ |
+| M. meleagridis | airsacculitis | ไก่งวง |
+| M. iowae | embryo mortality | ไก่งวง |
+
+---
+
+# 🔻 Part 2: MG Clinical Signs ⭐⭐
+
+- **Chronic respiratory disease (CRD)**
+- Sinusitis, swollen face
+- ⭐ **Compounded with E. coli = severe** — เดี่ยวๆ ไม่ค่อยตาย แต่ co-infect → mortality พุ่ง
+- Egg production drop
 - Mortality usually low alone
 
-## MS Clinical Signs ⭐⭐
-- ⭐ Synovitis (lameness)
-- ⭐ Air sac affected
-- ⭐ Chronic course
-- ⭐ Egg shell quality issues (top apex abnormality)
+---
 
-## Transmission ⭐⭐⭐
-- ⭐ ⭐ **Vertical (egg-borne)** = critical!
-- Horizontal (respiratory)
+# 🔻 Part 3: MS Clinical Signs ⭐⭐
+
+- **Synovitis** (lameness — swollen hock, foot pads)
+- Air sac affected
+- Chronic course
+- ⭐ **Eggshell apex abnormality** — เปลือกไข่บางบริเวณปลาย
+
+---
+
+# 🔻 Part 4: Transmission ⭐⭐⭐
+
+- ⭐⭐⭐ **Vertical (egg-borne)** — แม่ → ลูก ผ่านไข่ (critical!)
+- Horizontal (respiratory) — bird-to-bird
 - Stress reactivates
 
-## Diagnosis ⭐
-- ⭐ ⭐ **Serology** (RPA, ELISA, HI)
-- ⭐ PCR
-- ⭐ Culture (slow, fastidious)
+---
 
-## Control ⭐⭐
-- ⭐ ⭐ **Mycoplasma-free breeders** = critical!
-- ⭐ All-in-all-out
-- ⭐ Vaccination (F-strain MG, ts-11)
+# 🔻 Part 5: Diagnosis ⭐
+
+- ⭐ **Serology** — RPA (Rapid Plate Agglutination), ELISA, HI
+- PCR
+- Culture (slow, fastidious — Mycoplasma เลี้ยงยาก)
+
+---
+
+# 🔻 Part 6: Control ⭐⭐
+
+- ⭐⭐ **Mycoplasma-free breeders** = the key strategy
+- All-in-all-out
+- Vaccination: **F-strain MG** (live), **ts-11** (temperature-sensitive)
 - Biosecurity
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ MG + MS = main concerns
-2. ⭐ Vertical transmission (egg-borne)
-3. ⭐ MG → respiratory + facial swelling
-4. ⭐ MS → synovitis (lameness)
-5. ⭐ Mycoplasma-free breeders essential`,
+- ⭐⭐⭐ **Vertical transmission** = critical → breeder-level control
+- ⭐⭐ **MG → CRD (respiratory + facial swelling)** + bad with E. coli
+- ⭐⭐ **MS → synovitis + eggshell apex defect**
+- ⭐ **F-strain + ts-11** = MG vaccines
+- ⭐ Serology (RPA/ELISA) = primary diagnosis`,
   },
   Jp0fuXZfNmg: {
     videoId: 'Jp0fuXZfNmg', title: 'Avian Medicine — 3.1 Colibacillosis', subject: 'avian-medicine',
     date: '2025-08-26', durationMin: 58, instructor: 'CUVET avian team (รุ่นพี่)',
     examFormat: 'Multiple choice, ออก E. coli APEC, clinical syndromes, APEC virulence factors',
-    summary: `## 🎯 Lead Summary
-**Colibacillosis** = E. coli infections in poultry. APEC (Avian Pathogenic E. coli). Often secondary to viruses.
+    summary: `# Avian Medicine 3.1 — Colibacillosis (APEC)
 
-## Etiology ⭐
-- ⭐ ⭐ APEC (Avian Pathogenic E. coli)
-- ⭐ Multiple serotypes (O1, O2, O78 most common)
-- ⭐ Various virulence factors
+> 🎯 **Colibacillosis = E. coli ในสัตว์ปีก** — เกือบทั้งหมดเป็น **APEC (Avian Pathogenic E. coli)** · มัก secondary to viral/MG infection
+> ⚠️ **Pericarditis + perihepatitis = classic triad** ที่เจอบน necropsy
 
-## Clinical Syndromes ⭐⭐⭐
-- ⭐ ⭐ **Airsacculitis** (most common!)
-- ⭐ ⭐ **Colisepticemia** (acute systemic)
-- ⭐ Pericarditis + perihepatitis (classic triad)
-- ⭐ Yolk sac infection (chicks!)
-- ⭐ Salpingitis (laying hens)
-- Cellulitis
-- Coligranuloma
+---
 
-## Predisposing Factors ⭐
-- ⭐ Stress + immunosuppression
-- ⭐ Previous viral infection (ND, IB, MG)
-- ⭐ Poor ventilation (ammonia)
-- ⭐ Poor hatching practices
+# 🔻 Part 1: Etiology ⭐
+
+- ⭐ **APEC** (Avian Pathogenic E. coli)
+- Serotypes พบบ่อย: **O1, O2, O78**
+- Multiple virulence factors (adhesins, iron acquisition, capsule)
+
+---
+
+# 🔻 Part 2: Clinical Syndromes ⭐⭐⭐
+
+| Syndrome | ลักษณะ |
+|---|---|
+| ⭐ **Airsacculitis** | most common — air sac thickening + caseous exudate |
+| ⭐ **Colisepticemia** | acute systemic, สูงในลูกไก่ |
+| ⭐ **Pericarditis + perihepatitis** | classic triad on PM |
+| ⭐ **Yolk sac infection** | chicks (omphalitis) |
+| ⭐ **Salpingitis** | laying hens (oviduct infection) |
+| Cellulitis | subcutaneous lesions |
+| Coligranuloma | localized granulomas |
+
+---
+
+# 🔻 Part 3: Predisposing Factors ⭐
+
+- Stress + immunosuppression
+- ⭐ **Previous viral infection** (ND, IB, MG, IBD, aMPV)
+- Poor ventilation → ammonia → mucosal damage
+- Poor hatchery hygiene
 - Trauma
 
-## Diagnosis ⭐
-- ⭐ Clinical signs
-- ⭐ Bacterial culture from heart blood, liver, air sacs
-- ⭐ PCR for virulence genes
-- ⭐ Antibiotic sensitivity!
+> 💡 "E. coli ไม่ใช่ primary บ่อย" — เกือบทุก case มี trigger upstream (virus/MG/management)
 
-## Treatment ⭐⭐
-- ⭐ ⭐ Antibiotics (sensitivity-guided!)
-- ⭐ Address underlying cause
-- ⚠️ AMR concerns (multidrug resistance!)
+---
+
+# 🔻 Part 4: Diagnosis & Treatment ⭐⭐
+
+## Diagnosis
+- Clinical + necropsy (pericarditis + perihepatitis)
+- **Bacterial culture** from heart blood, liver, air sacs
+- PCR for virulence genes
+- ⭐ **Antibiotic sensitivity testing** (critical!)
+
+## Treatment
+- ⭐ **Antibiotics — sensitivity-guided!**
 - Common: enrofloxacin, amoxicillin
+- ⚠️ **AMR concerns** — multidrug resistance ทั่วโลก
+- Address underlying cause (primary virus/MG)
 
-## Control ⭐
-- ⭐ Biosecurity
-- ⭐ Hatchery hygiene
-- ⭐ Vaccinate primary infections
-- ⭐ Vaccine for E. coli available
+---
+
+# 🔻 Part 5: Control ⭐
+
+- Biosecurity
+- Hatchery hygiene
+- Vaccinate primary infections (ND, IB, MG)
+- **E. coli vaccine available** (autogenous + commercial)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ APEC = avian pathogenic E. coli
-2. ⭐ Pericarditis + perihepatitis triad
-3. ⭐ Often secondary to MG, viruses
-4. ⭐ AMR major concern
-5. ⭐ E. coli vaccine available`,
+- ⭐⭐⭐ **Pericarditis + perihepatitis triad** = APEC signature on PM
+- ⭐⭐ **APEC O1/O2/O78** serotypes พบบ่อย
+- ⭐⭐ **Secondary to virus/MG** — หา trigger primary
+- ⭐ **AMR major concern** → sensitivity-guided treatment
+- ⭐ **E. coli vaccine** available`,
   },
   Uhe17jfgFD4: {
     videoId: 'Uhe17jfgFD4', title: 'Avian Medicine — 3.2 Fowl Cholera', subject: 'avian-medicine',
     date: '2025-08-26', durationMin: 25, instructor: 'CUVET avian team (รุ่นพี่)',
     examFormat: 'Multiple choice, ออก Pasteurella multocida, acute vs chronic',
-    summary: `## 🎯 Lead Summary
-**Fowl Cholera** = Pasteurella multocida in poultry. Acute septicemia or chronic localized disease.
+    summary: `# Avian Medicine 3.2 — Fowl Cholera (Pasteurella multocida)
 
-## Etiology ⭐
-- ⭐ Pasteurella multocida
-- ⭐ Multiple serotypes (1, 3, 4)
-- ⭐ Not host-restricted (cattle pasteurellosis = same!)
+> 🎯 **Fowl Cholera = Pasteurella multocida** ในสัตว์ปีก — 2 forms: **acute septicemia** (sudden death) หรือ **chronic localized** (lameness, wattle abscess)
+> ⚠️ ไม่ host-restricted — สาเหตุ pasteurellosis ของวัว/หมูได้ด้วย
 
-## Clinical Forms ⭐⭐⭐
-### Peracute/Acute ⭐
-- ⭐ Sudden death (often layers)
-- ⭐ Septicemia
-- ⭐ Swollen wattles
-- ⭐ Bloody discharge
+---
 
-### Chronic ⭐
-- ⭐ Lameness (joint infection)
-- ⭐ Wattle abscesses
-- ⭐ Twisted neck (otitis interna)
-- ⭐ Localized infections
+# 🔻 Part 1: Etiology ⭐
 
-## Diagnosis ⭐
-- ⭐ Bipolar staining (Methylene blue)
-- ⭐ Culture from heart blood
-- ⭐ PCR
+- **Pasteurella multocida**
+- Multiple serotypes (1, 3, 4 พบบ่อยใน poultry)
+- Gram-negative coccobacillus
+- ⭐ **Bipolar staining** (Methylene blue) — signature
 
-## Treatment ⭐
-- ⭐ Antibiotics (sulfa, tetracycline, ceftiofur)
-- Acute: rapid response
-- Chronic: surgery + antibiotics
+---
 
-## Control ⭐
-- ⭐ Vaccination available
-- ⭐ Biosecurity
-- ⭐ Wild bird control (carriers)
+# 🔻 Part 2: Clinical Forms ⭐⭐⭐
+
+## Peracute / Acute
+- ⭐ **Sudden death** (often layers, well-fed birds)
+- **Septicemia**
+- Swollen wattles
+- Bloody discharge from mouth/nostril
+- Cyanotic comb
+
+## Chronic
+- ⭐ **Lameness** (joint infection)
+- **Wattle abscesses**
+- **Twisted neck** (otitis interna affecting balance)
+- Localized infections (sinus, foot)
+
+---
+
+# 🔻 Part 3: Diagnosis ⭐
+
+- ⭐ **Bipolar staining** (Methylene blue) — bacteria ติดสีหัว-ท้าย ตรงกลางใส
+- Culture from heart blood (acute) or abscess (chronic)
+- PCR
+
+---
+
+# 🔻 Part 4: Treatment & Control ⭐
+
+## Treatment
+- Antibiotics: **sulfa, tetracycline, ceftiofur**
+- Acute: rapid response needed (early treatment = survive)
+- Chronic: surgery + antibiotics for abscesses
+
+## Control
+- **Vaccination available** (bacterin)
+- Biosecurity
+- ⭐ **Wild bird control** — carriers (rodents + wild birds reservoir)
 - Stress reduction
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Pasteurella multocida
-2. ⭐ Acute = sudden death
-3. ⭐ Chronic = wattle/joint
-4. ⭐ Bipolar staining diagnostic
-5. ⭐ Vaccine available`,
+- ⭐⭐⭐ **2 forms: acute septicemia + chronic localized**
+- ⭐⭐ **Bipolar staining** = diagnostic clue
+- ⭐ **Pasteurella multocida** — same agent across species
+- ⭐ **Vaccine + wild bird control**`,
   },
   '9v-CfsIpxk0': {
     videoId: '9v-CfsIpxk0', title: 'Avian Medicine — 4.1 Introduction to Avian Medicine', subject: 'avian-medicine',
     date: '2025-09-02', durationMin: 76, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Thai poultry industry, disease overview, biosecurity',
-    summary: `## 🎯 Lead Summary
-**Avian medicine introduction** — Thai poultry industry context, key diseases overview, biosecurity principles.
+    summary: `# Avian Medicine 4.1 — Introduction to Avian Medicine
 
-## Thai Poultry Industry ⭐⭐
-- ⭐ Major export country
-- ⭐ CP, Betagro, Sun Group dominate
-- ⭐ Broilers, layers, parent stock
-- ⭐ Modern intensive production
+> 🎯 ภาพรวมอุตสาหกรรมไก่ไทย + disease categories + **biosecurity = primary defense** ของฟาร์ม industrial
+> 💡 Lecture นี้คือ frame กลางก่อนเข้าโรค specific — ใช้ map career path + scope ทั้งหมด
 
-## Key Disease Categories ⭐
-- ⭐ Viral (ND, IB, ILT, AI)
-- ⭐ Bacterial (Salmonella, E. coli, Mycoplasma)
-- ⭐ Parasitic (Coccidia, helminths)
-- ⭐ Mycotic
-- ⭐ Toxin-related
+---
 
-## Biosecurity Principles ⭐⭐⭐
-- ⭐ All-in-all-out
-- ⭐ Pest control
-- ⭐ Footbaths/showers
-- ⭐ Vehicle disinfection
-- ⭐ Restricted access
-- ⭐ Mortality disposal
+# 🔻 Part 1: Thai Poultry Industry ⭐⭐
 
-## Vet Career in Poultry ⭐
-- ⭐ Field veterinarian
-- ⭐ Hatchery management
-- ⭐ Lab/diagnostics
-- ⭐ Government surveillance
-- ⭐ Drug/vaccine industry
+- Major export country (#4 ไก่เนื้อโลก)
+- **Big players**: CP, Betagro, Sun Group
+- Production types: **broilers** (เนื้อ), **layers** (ไข่), **parent stock** (พ่อแม่พันธุ์)
+- Modern intensive production
+
+---
+
+# 🔻 Part 2: Key Disease Categories ⭐
+
+| Category | ตัวอย่าง |
+|---|---|
+| **Viral** | ND, IB, ILT, AI, IBD, Marek's |
+| **Bacterial** | Salmonella, E. coli, Mycoplasma |
+| **Parasitic** | Coccidia, helminths, blood parasites |
+| **Mycotic** | Aspergillosis, candidiasis |
+| **Toxin-related** | mycotoxins, lead, ascites |
+
+---
+
+# 🔻 Part 3: Biosecurity Principles ⭐⭐⭐
+
+- ⭐ **All-in-all-out** (single-age flocks, complete clean-out)
+- **Pest control** (rodents, wild birds, insects)
+- **Footbaths + showers** (entry control)
+- **Vehicle disinfection**
+- **Restricted access**
+- **Mortality disposal** (composting, incineration)
+
+> 💡 "Biosecurity > vaccine" — vaccine ช่วยได้แต่ถ้า biosecurity แย่ก็ไม่รอด
+
+---
+
+# 🔻 Part 4: Vet Career in Poultry ⭐
+
+- **Field veterinarian** (ทีม technical ของ CP/Betagro)
+- **Hatchery management**
+- **Lab / diagnostics** (Bluestone, university labs)
+- **Government surveillance** (DLD, DOF)
+- **Drug/vaccine industry**
+- **Research** (academic, R&D)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Thai industry massive scale
-2. ⭐ Multiple disease categories
-3. ⭐ Biosecurity = primary defense
-4. ⭐ All-in-all-out essential
-5. ⭐ Multiple vet career paths`,
+- ⭐⭐⭐ **Biosecurity = primary defense** (all-in-all-out หัวใจ)
+- ⭐⭐ **Thai industry scale + key players** (CP, Betagro, Sun)
+- ⭐ **5 disease categories**: viral / bact / paras / mycotic / toxin
+- ⭐ Multiple vet career paths`,
   },
   'gelIUT2-jcA': {
     videoId: 'gelIUT2-jcA', title: 'Avian Medicine — 4.2 Avian Influenza (AI)', subject: 'avian-medicine',
     date: '2025-09-02', durationMin: 73, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก HPAI vs LPAI, H5N1, pandemic potential, Thai 2547 outbreak',
-    summary: `## 🎯 Lead Summary
-**Avian Influenza (AI)** — Influenza A virus, multiple subtypes. ⭐ ⭐ HPAI (Highly Pathogenic) vs LPAI (Low Pathogenic). Thailand HPAI success story.
+    summary: `# Avian Medicine 4.2 — Avian Influenza (AI)
 
-## Etiology ⭐⭐⭐
-- ⭐ ⭐ Influenza A virus
-- ⭐ HA + NA subtypes (H1-H18, N1-N11)
-- ⭐ ⭐ HPAI: H5, H7 (most concerning)
-- ⭐ LPAI: lower pathogenicity but can mutate!
+> 🎯 **AI = Influenza A virus** — แบ่งเป็น **HPAI (High Pathogenic)** vs **LPAI (Low Pathogenic)** · subtypes ที่กลัวสุด = **H5, H7**
+> ⚠️ **Thailand 2547 (2004) H5N1 outbreak** = success story ระดับโลก — stamping out + NO HPAI ตั้งแต่นั้น 20+ ปี
 
-## HPAI vs LPAI ⭐⭐⭐
+---
+
+# 🔻 Part 1: Etiology ⭐⭐⭐
+
+- **Influenza A virus** — segmented RNA (ทำให้ reassortment ได้ง่าย)
+- **HA + NA subtypes** — H1-H18, N1-N11
+- ⭐ **HPAI subtypes**: H5, H7 (most concerning)
+- **LPAI**: lower pathogenicity แต่สามารถ **mutate → HPAI** ได้!
+
+---
+
+# 🔻 Part 2: HPAI vs LPAI ⭐⭐⭐
+
 | Type | Mortality | Examples |
 |---|---|---|
-| HPAI | High (70-100%) | H5N1, H5N6, H7N9 |
-| LPAI | Low | H9N2, others |
+| **HPAI** | High (70–100%) | H5N1, H5N6, H7N9 |
+| **LPAI** | Low | H9N2, others |
 
-## Clinical Signs ⭐⭐
-- ⭐ Sudden death (HPAI)
-- ⭐ Drop in egg production
-- ⭐ Respiratory + neurological
-- ⭐ Cyanotic comb/wattle
-- ⭐ Hemorrhages on legs
+> 💡 LPAI H5/H7 ต้อง report ตาม WOAH ด้วย เพราะกลัว mutate เป็น HPAI
 
-## Thai 2547 Outbreak ⭐⭐⭐
-- ⭐ ⭐ ⭐ H5N1 outbreak 2004
-- ⭐ ⭐ Massive culling response
-- ⭐ ⭐ Global model country
-- ⭐ ⭐ NO HPAI cases since 20+ years!
-- LPAI still detected occasionally
+---
 
-## Zoonotic Risk ⭐⭐
-- ⭐ ⭐ H5N1 fatal in humans
-- ⭐ Direct bird contact
-- ⭐ Pandemic potential
-- ⭐ Deaths in Thailand 2547 (vet death case)
+# 🔻 Part 3: Clinical Signs ⭐⭐
 
-## Diagnosis ⭐
-- ⭐ Clinical signs (mass death)
-- ⭐ ⭐ Real-time PCR (gold standard)
-- ⭐ Virus isolation
-- ⭐ HI test (subtyping)
+- **Sudden death** (HPAI — mortality พุ่ง 100% ในไม่กี่วัน)
+- Drop in egg production
+- Respiratory + neurological
+- ⭐ **Cyanotic comb / wattle**
+- **Hemorrhages on legs** (shank hemorrhage)
 
-## Control ⭐⭐
-- ⭐ ⭐ ⭐ **Stamping out** (no vaccination Thailand)
-- ⭐ Strict biosecurity
-- ⭐ Movement control
-- ⭐ Surveillance (active + passive)
+---
+
+# 🔻 Part 4: Thailand 2547 (2004) Outbreak ⭐⭐⭐
+
+- ⭐⭐⭐ **H5N1 outbreak 2004**
+- ⭐⭐ **Massive culling response** (stamping out, ไม่ vaccinate)
+- ⭐⭐ **Global model country** for HPAI control
+- ⭐⭐ **NO HPAI cases since 20+ years!**
+- LPAI ยังตรวจเจอ occasionally
+
+---
+
+# 🔻 Part 5: Zoonotic Risk ⭐⭐
+
+- ⭐ **H5N1 fatal in humans** (case fatality ~50%)
+- Direct bird contact = main route
+- **Pandemic potential** (reassortment กับ human flu)
+- ⚠️ มี vet death case ใน Thailand 2547
+
+---
+
+# 🔻 Part 6: Diagnosis & Control ⭐
+
+## Diagnosis
+- Clinical signs (mass death + cyanosis)
+- ⭐ **Real-time PCR** (gold standard)
+- Virus isolation (BSL-3 only)
+- HI test (subtyping)
+
+## Control
+- ⭐⭐⭐ **Stamping out** (no vaccination in Thailand)
+- Strict biosecurity
+- Movement control
+- Active + passive surveillance
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ HPAI H5/H7 = most lethal
-2. ⭐ Thailand 2547 success story (model country)
-3. ⭐ Zoonotic + pandemic potential
-4. ⭐ NO vaccination in Thailand (stamping out)
-5. ⭐ Active surveillance ongoing`,
+- ⭐⭐⭐ **HPAI H5/H7 = most lethal · Thailand 2547 stamping out success**
+- ⭐⭐⭐ **NO HPAI in Thailand 20+ years**
+- ⭐⭐ **Zoonotic + pandemic potential** (H5N1 case fatality สูง)
+- ⭐ **No vaccination in Thailand** (stamping out policy)
+- ⭐ Real-time PCR = diagnostic gold standard`,
   },
   SZnryRPaIuA: {
     videoId: 'SZnryRPaIuA', title: 'Avian Medicine — 5.1 Infectious Bursal Disease (IBD/Gumboro)', subject: 'avian-medicine',
     date: '2025-09-09', durationMin: 31, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก IBD, age-specific, immunosuppression, vaccination',
-    summary: `## 🎯 Lead Summary
-**IBD (Gumboro)** = Infectious Bursal Disease. ⭐ ⭐ Birnavirus targeting Bursa of Fabricius. ⭐ ⭐ Causes immunosuppression!
+    summary: `# Avian Medicine 5.1 — Infectious Bursal Disease (IBD / Gumboro)
 
-## Etiology ⭐⭐
-- ⭐ IBD virus (Birnavirus)
-- ⭐ Classical, variant, very virulent strains
+> 🎯 **IBD = Birnavirus** ที่ทำลาย **B-cells ใน Bursa of Fabricius** → **immunosuppression** ที่ทำให้ vaccine response แย่ + secondary infection เพียบ
+> ⚠️ **3–6 weeks = peak susceptibility** — ก่อน 3 wk subclinical (อันตรายกว่า เพราะ immunosuppression เงียบ)
 
-## Pathogenesis ⭐⭐⭐
-- ⭐ ⭐ Targets B-cells in Bursa of Fabricius
-- ⭐ ⭐ Causes IMMUNOSUPPRESSION
-- ⭐ Predisposes to other infections!
-- Different from BVD/PI!
+---
 
-## Age Susceptibility ⭐⭐
-- ⭐ ⭐ ⭐ **3-6 weeks** = peak susceptibility
-- ⭐ Earlier than 3 weeks: subclinical (more dangerous!)
-- ⭐ After 6 weeks: less severe
+# 🔻 Part 1: Etiology ⭐⭐
 
-## Clinical Signs ⭐⭐
-- ⭐ Sudden onset
-- ⭐ Watery diarrhea
-- ⭐ Depression, ruffled feathers
-- ⭐ Picking at vent
-- ⚠️ Mortality 5-50%
-- ⚠️ Chronic immunosuppression survivors
+- **IBD virus** (Birnavirus — double-stranded segmented RNA)
+- **Classical, variant, very virulent (vvIBD)** strains
+- Non-enveloped, environmentally stable
 
-## Diagnosis ⭐
-- ⭐ Bursal atrophy at necropsy
-- ⭐ Histopath (B-cell depletion)
-- ⭐ ELISA, PCR
+---
 
-## Vaccination ⭐⭐
-- ⭐ Live + inactivated
-- ⭐ Maternal antibody timing critical
-- ⭐ Various strains available
-- ⭐ Programs vary by farm
+# 🔻 Part 2: Pathogenesis ⭐⭐⭐
+
+- ⭐ **Targets B-cells in Bursa of Fabricius**
+- ⭐⭐ **Causes IMMUNOSUPPRESSION**
+- Predisposes to: E. coli, Marek's, IBH, ND vaccine failure
+- ⚠️ Bursa = nursery ของ B-cells ในไก่ (เทียบกับ thymus ของ T-cells)
+
+---
+
+# 🔻 Part 3: Age Susceptibility ⭐⭐
+
+| Age | Course |
+|---|---|
+| < 3 wk | ⚠️ **Subclinical** — more dangerous (silent immunosuppression) |
+| ⭐ **3–6 wk** | Peak — clinical disease |
+| > 6 wk | Less severe |
+
+---
+
+# 🔻 Part 4: Clinical Signs ⭐⭐
+
+- Sudden onset
+- Watery diarrhea
+- Depression, ruffled feathers
+- **Picking at vent**
+- ⚠️ Mortality 5–50% (vvIBD ถึง 60–100%)
+- ⚠️ Chronic immunosuppression in survivors
+
+---
+
+# 🔻 Part 5: Diagnosis ⭐
+
+- **Bursal atrophy at necropsy** (signature)
+- Histopath: **B-cell depletion** in bursal follicles
+- ELISA, PCR
+
+---
+
+# 🔻 Part 6: Vaccination ⭐⭐
+
+- Live + inactivated vaccines
+- ⭐ **Maternal antibody timing critical** — vaccinate when MDA drops to non-interfering level
+- Various strains (mild → intermediate → intermediate plus → hot strains)
+- Programs vary by farm + MDA levels
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Birnavirus targets Bursa of Fabricius
-2. ⭐ Immunosuppression = major impact
-3. ⭐ 3-6 weeks peak age
-4. ⭐ Maternal antibody timing for vaccine
-5. ⭐ Predisposes to other infections`,
+- ⭐⭐⭐ **Birnavirus → B-cell depletion ใน Bursa → immunosuppression**
+- ⭐⭐⭐ **3–6 weeks** peak age · < 3 wk subclinical
+- ⭐⭐ **Maternal antibody timing** = vaccine success key
+- ⭐ **Bursal atrophy** ที่ necropsy
+- ⭐ vvIBD strain mortality สูงมาก`,
   },
   eWlad6RyZf0: {
     videoId: 'eWlad6RyZf0', title: 'Avian Medicine — 5.2 Neoplastic Diseases (Marek\'s + Lymphoid Leukosis)', subject: 'avian-medicine',
     date: '2025-09-09', durationMin: 37, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Marek vs ALV, age, vaccination',
-    summary: `## 🎯 Lead Summary
-**Avian Neoplastic Diseases**: Marek's (herpesvirus) + Lymphoid Leukosis (retrovirus). Both T-cell tumors but different.
+    summary: `# Avian Medicine 5.2 — Neoplastic Diseases (Marek's + Lymphoid Leukosis)
 
-## Marek's Disease ⭐⭐⭐
-### Etiology
-- ⭐ ⭐ Marek's Disease Virus (alphaherpesvirus)
-- ⭐ T-cell oncogenic
+> 🎯 **2 tumor diseases หลัก**: **Marek's (alphaherpesvirus)** vs **Lymphoid Leukosis (retrovirus / ALV)** — มาเทียบให้แม่นเพราะข้อสอบชอบหลอก
+> ⚠️ Marek's มี vaccine (in ovo / day 1) · ALV ไม่มี vaccine ต้อง eradicate ที่ breeder
 
-### Clinical Signs
-- ⭐ Lymphoid tumors (visceral, neural, ocular)
-- ⭐ Paralysis (legs, wings)
-- ⭐ Iridocyclitis (gray eye)
-- ⭐ ⭐ Age: 6-30 weeks (younger than ALV)
+---
 
-### Vaccination ⭐⭐⭐
-- ⭐ ⭐ ⭐ **MD vaccine at hatch** = standard
-- ⭐ HVT (Herpesvirus Turkey) most common
-- ⭐ Doesn't prevent infection but prevents tumors
+# 🔻 Part 1: Marek's Disease ⭐⭐⭐
 
-## Lymphoid Leukosis (ALV) ⭐⭐
-### Etiology
-- ⭐ ⭐ Avian Leukosis Virus (Retrovirus)
-- ⭐ Vertical transmission!
+## Etiology
+- ⭐ **Marek's Disease Virus** — alphaherpesvirus (DNA)
+- T-cell oncogenic
 
-### Clinical Signs
-- ⭐ Tumors
-- ⭐ Older birds (>14 weeks)
-- ⭐ Slow course
+## Clinical Signs
+- Lymphoid tumors (visceral, neural, ocular)
+- **Paralysis** — legs, wings (asymmetric)
+- **Iridocyclitis (gray eye)** — pupil ผิดรูป, สีเทา
+- ⭐ **Age: 6–30 weeks** (younger than ALV)
 
-### Control
-- ⭐ Eradication: ALV-free breeders
-- ⭐ NO vaccine
-- ⭐ Cull positives
+## Vaccination ⭐⭐⭐
+- ⭐⭐⭐ **MD vaccine at hatch (in ovo day 18 or SC day 1)** = standard
+- **HVT (Herpesvirus of Turkey)** strain ที่ใช้บ่อยที่สุด
+- ⚠️ Vaccine doesn't prevent infection — **prevents tumor formation** เท่านั้น
 
-## Comparison ⭐⭐
-| Feature | Marek's | ALV |
+---
+
+# 🔻 Part 2: Lymphoid Leukosis (ALV) ⭐⭐
+
+## Etiology
+- ⭐ **Avian Leukosis Virus** — retrovirus (RNA + reverse transcriptase)
+- B-cell tumors
+- ⭐ **Vertical transmission!**
+
+## Clinical Signs
+- Tumors (bursa-derived, visceral)
+- ⭐ **Older birds (> 14 weeks)**
+- Slow course
+
+## Control
+- ⭐ **Eradication** = ALV-free breeders
+- ⭐ **NO vaccine available**
+- Cull positives
+
+---
+
+# 🔻 Part 3: Comparison Table ⭐⭐
+
+| Feature | **Marek's** | **ALV** |
 |---|---|---|
-| Virus | Herpes | Retro |
-| Age | 6-30 wks | >14 wks |
-| Vaccine | YES | NO |
-| Vertical | NO | YES |
-| Common | Very | Less |
+| Virus | Alphaherpesvirus (DNA) | Retrovirus (RNA) |
+| **Cell origin** | T-cell tumor | B-cell tumor |
+| Age | 6–30 wk | > 14 wk |
+| **Vaccine** | ✅ YES (HVT) | ❌ NO |
+| **Vertical** | ❌ NO | ✅ YES |
+| Special signs | Paralysis, iridocyclitis | Tumors only |
+| Common | Very common | Less common |
+
+> 💡 จำง่าย: **Marek's = young, T-cell, vaccine · ALV = old, B-cell, eradicate**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Marek's = herpesvirus, vaccinated at hatch
-2. ⭐ ALV = retrovirus, vertical transmission
-3. ⭐ Marek's age 6-30 weeks
-4. ⭐ ALV control = eradication
-5. ⭐ HVT vaccine standard for Marek's`,
+- ⭐⭐⭐ **Marek's vs ALV comparison table** — must know
+- ⭐⭐ **Marek's = HVT vaccine at hatch · prevents tumor not infection**
+- ⭐⭐ **ALV = vertical transmission → eradicate at breeder level**
+- ⭐ **Iridocyclitis (gray eye)** = Marek's signature
+- ⭐ Different cell origin (Marek's T / ALV B)`,
   },
   XQkik3El7es: {
     videoId: 'XQkik3El7es', title: 'Avian Medicine — 5.3 Chicken Infectious Anemia (CIA)', subject: 'avian-medicine',
     date: '2025-09-09', durationMin: 13, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก CIA virus, clinical signs, vertical transmission',
-    summary: `## 🎯 Lead Summary
-**Chicken Infectious Anemia (CIA)** — Circovirus. Causes anemia + immunosuppression in young chicks.
+    summary: `# Avian Medicine 5.3 — Chicken Infectious Anemia (CIA)
 
-## Etiology ⭐
-- ⭐ Chicken Anemia Virus (CAV) - Circovirus
-- ⭐ Single-stranded DNA
+> 🎯 **CIA = Chicken Anemia Virus (Circovirus, ssDNA)** ทำให้เกิด **anemia + immunosuppression** ในลูกไก่ — vertical transmission
+> 💡 "Anemia + immunosuppression" คือ pattern ที่ overlap กับ IBD/aMPV — แยกได้จาก age + bone marrow finding
 
-## Pathogenesis ⭐⭐
-- ⭐ Targets bone marrow + thymus
-- ⭐ ⭐ Causes anemia + immunosuppression
-- ⭐ Vertical transmission to chicks
+---
 
-## Clinical Signs ⭐
-- ⭐ Pale chicks (anemia)
-- ⭐ Stunted growth
-- ⭐ Increased mortality
-- ⭐ Hemorrhages
-- ⭐ Bone marrow yellow/fatty
+# 🔻 Part 1: Etiology ⭐
 
-## Diagnosis ⭐
-- ⭐ Histopath (bone marrow, thymus depletion)
-- ⭐ PCR
-- ⭐ ELISA serology
+- **Chicken Anemia Virus (CAV)** — Circovirus family
+- **Single-stranded DNA virus**
+- Highly resistant to disinfection
 
-## Control ⭐
-- ⭐ Vaccinate breeders (maternal Ab protects chicks)
-- ⭐ Some commercial vaccines
+---
+
+# 🔻 Part 2: Pathogenesis ⭐⭐
+
+- Targets **bone marrow + thymus**
+- ⭐ **Anemia** (bone marrow depletion of erythroid precursors)
+- ⭐ **Immunosuppression** (thymic T-cell depletion)
+- **Vertical transmission** to chicks (egg-borne)
+
+---
+
+# 🔻 Part 3: Clinical Signs ⭐
+
+- ⭐ **Pale chicks** (anemia — pale comb, wattle, beak)
+- Stunted growth
+- Increased mortality
+- Hemorrhages (subcutaneous, skeletal muscle)
+- ⭐ **Bone marrow yellow / fatty** (replaces normal red marrow)
+
+---
+
+# 🔻 Part 4: Diagnosis ⭐
+
+- **Histopath**: bone marrow + thymus depletion
+- PCR
+- ELISA serology
+
+---
+
+# 🔻 Part 5: Control ⭐
+
+- ⭐ **Vaccinate breeders** → maternal antibody protects chicks
+- Some commercial vaccines available
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Circovirus
-2. ⭐ Anemia + immunosuppression
-3. ⭐ Vertical transmission
-4. ⭐ Bone marrow + thymus depletion
-5. ⭐ Vaccinate breeders for maternal protection`,
+- ⭐⭐ **Circovirus, ssDNA** — vertical transmission
+- ⭐⭐ **Anemia + immunosuppression** combo
+- ⭐ **Bone marrow yellow/fatty** + thymus depletion
+- ⭐ **Vaccinate breeders** (maternal antibody = primary defense)`,
   },
   COR6qWQJauo: {
     videoId: 'COR6qWQJauo', title: 'Avian Medicine — 5.4 Reovirus Infections', subject: 'avian-medicine',
     date: '2025-09-09', durationMin: 12, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก reovirus, viral arthritis, MAS',
-    summary: `## 🎯 Lead Summary
-**Avian Reovirus** — causes viral arthritis/tenosynovitis (VAT). Also: MAS (Malabsorption Syndrome).
+    summary: `# Avian Medicine 5.4 — Reovirus Infections
 
-## Etiology ⭐
-- ⭐ Avian Reovirus (Orthoreovirus)
-- ⭐ Multiple serotypes
+> 🎯 **Avian Reovirus (Orthoreovirus)** ทำให้เกิด **2 syndromes หลัก**: **Viral Arthritis/Tenosynovitis (VAT)** + **Malabsorption Syndrome (MAS)**
+> ⚠️ VAT มี complication ใหญ่ = **gastrocnemius tendon rupture** (เจ็บ + ค้างขา)
 
-## Clinical Syndromes ⭐⭐⭐
-### Viral Arthritis/Tenosynovitis (VAT) ⭐
-- ⭐ Lameness
-- ⭐ Swollen hocks
-- ⭐ Tendon rupture (catastrophic!)
-- ⭐ Broilers especially
+---
 
-### Malabsorption Syndrome (MAS) ⭐
-- ⭐ Stunted growth
-- ⭐ Pale chicks
-- ⭐ Femoral head necrosis
+# 🔻 Part 1: Etiology ⭐
 
-### Other
-- ⭐ Runting-stunting syndrome
-- Respiratory disease
+- **Avian Reovirus** (Orthoreovirus genus)
+- Multiple serotypes
+- Double-stranded RNA, segmented
 
-## Diagnosis ⭐
-- ⭐ Clinical + histopath
-- ⭐ PCR
-- ⭐ Virus isolation
+---
 
-## Vaccination ⭐
-- ⭐ Live + inactivated
-- ⭐ Programs in breeders for maternal protection
+# 🔻 Part 2: Clinical Syndromes ⭐⭐⭐
+
+## Viral Arthritis / Tenosynovitis (VAT)
+- Lameness
+- **Swollen hocks**
+- ⭐ **Tendon rupture** (gastrocnemius) — catastrophic, ไก่ลุกไม่ได้
+- Broilers especially affected
+
+## Malabsorption Syndrome (MAS)
+- Stunted growth
+- Pale chicks
+- **Femoral head necrosis**
+- Diarrhea + poor feed conversion
+
+## Other
+- Runting-stunting syndrome (overlap)
+- Respiratory disease (rare)
+
+---
+
+# 🔻 Part 3: Diagnosis ⭐
+
+- Clinical + histopath (synovial + tendon lesions)
+- PCR
+- Virus isolation
+
+---
+
+# 🔻 Part 4: Vaccination ⭐
+
+- Live + inactivated vaccines
+- ⭐ **Vaccinate breeders** for maternal protection (chicks ไม่ตอบสนองดี)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Reovirus = Orthoreovirus
-2. ⭐ VAT = viral arthritis/tenosynovitis
-3. ⭐ Tendon rupture catastrophic
-4. ⭐ MAS = stunted growth
-5. ⭐ Vaccinate breeders`,
+- ⭐⭐ **VAT + MAS** = 2 main syndromes
+- ⭐⭐ **Gastrocnemius tendon rupture** = signature complication
+- ⭐ **Orthoreovirus** dsRNA segmented
+- ⭐ Vaccinate breeders (maternal antibody)`,
   },
   uGvRYnq5gvw: {
     videoId: 'uGvRYnq5gvw', title: 'Avian Medicine — 6.1 Runting-Stunting Syndrome', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 15, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก RSS, multifactorial, differential diagnosis',
-    summary: `## 🎯 Lead Summary
-**Runting-Stunting Syndrome (RSS)** = multifactorial growth disease in young chicks.
+    summary: `# Avian Medicine 6.1 — Runting-Stunting Syndrome (RSS)
 
-## Etiology ⭐⭐
-- ⭐ Multifactorial!
-- ⭐ Suspected: Astrovirus, Reovirus, Rotavirus
-- ⭐ Combined with management factors
+> 🎯 **RSS = multifactorial growth disease** ในลูกไก่ — ไม่มี single etiology · vaccine ไม่ค่อยตอบ · ต้อง manage รวมๆ
+> 💡 Diagnose by exclusion — เอาโรคชัดๆ ออกก่อน เหลือ RSS ในตอนท้าย
 
-## Clinical Signs ⭐
-- ⭐ Stunted growth
-- ⭐ Pale chicks
-- ⭐ Diarrhea
-- ⭐ "Broken wing" appearance
-- ⭐ Increased culls
+---
 
-## Diagnosis ⭐
-- ⭐ Often by exclusion
-- ⭐ Histopath (intestinal)
-- PCR for various viruses
+# 🔻 Part 1: Etiology ⭐⭐
 
-## Control ⭐
-- ⭐ Hatchery hygiene
-- ⭐ Maternal antibody
-- ⭐ Manage stocking density
-- ⭐ Quality feed/water
+- **Multifactorial!** — ไม่ใช่โรคจากเชื้อตัวเดียว
+- Suspected viral agents: **Astrovirus, Reovirus, Rotavirus** (combo)
+- Combined with management factors (hatchery, nutrition, gut health)
+
+---
+
+# 🔻 Part 2: Clinical Signs ⭐
+
+- **Stunted growth** (uneven flock — ไก่ขนาดต่างกันมาก)
+- Pale chicks
+- Diarrhea
+- "Broken wing" appearance (wing feather abnormality)
+- Increased culls
+
+---
+
+# 🔻 Part 3: Diagnosis ⭐
+
+- Often by exclusion (rule out IBD, Marek's, coccidiosis, NE)
+- Histopath (intestinal villus atrophy)
+- PCR for various candidate viruses
+
+---
+
+# 🔻 Part 4: Control ⭐
+
+- Hatchery hygiene (early gut health)
+- **Maternal antibody** for candidate viruses (vaccinate breeders)
+- Manage stocking density
+- Quality feed + water
+- **Probiotics** (gut microbiome support)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Multifactorial syndrome
-2. ⭐ Multiple viruses suspected
-3. ⭐ Stunted, pale chicks
-4. ⭐ Diagnose by exclusion
-5. ⭐ Management = key control`,
+- ⭐⭐ **Multifactorial — no single cause**
+- ⭐ **Multiple suspected viruses** (Astro/Reo/Rota)
+- ⭐ **Diagnose by exclusion**
+- ⭐ Management + breeder vaccine = key control`,
   },
   fhVsp587xn8: {
     videoId: 'fhVsp587xn8', title: 'Avian Medicine — 6.2 Coccidiosis', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 40, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Eimeria species, location, ionophores, treatment',
-    summary: `## 🎯 Lead Summary
-**Coccidiosis** = Eimeria spp. Most economically significant parasitic disease in poultry. Multiple species, each with specific intestinal location.
+    summary: `# Avian Medicine 6.2 — Coccidiosis (Eimeria spp.)
 
-## Etiology ⭐⭐⭐
-- ⭐ ⭐ Eimeria species
-- ⭐ Each species → specific intestinal site
-- ⭐ 7 important species:
-  - E. tenella (cecum)
-  - E. maxima (mid-intestine)
-  - E. acervulina (duodenum)
-  - E. necatrix (small intestine)
-  - E. brunetti (cloaca/distal)
+> 🎯 **Coccidiosis = #1 parasitic disease ทางเศรษฐกิจ** ของ poultry · **Eimeria spp.** แต่ละ species ลง **specific intestinal site**
+> ⚠️ **E. tenella = bloody diarrhea + cecum** (จำให้แม่น — ออกข้อสอบบ่อย)
 
-## Clinical Signs ⭐⭐
-- ⭐ Bloody diarrhea (E. tenella!)
-- ⭐ Weight loss
-- ⭐ Dehydration
-- ⭐ Pale chicks
-- ⭐ Mortality up to 50%
+---
 
-## Pathogenesis ⭐
-- ⭐ Sporulated oocysts ingested
-- ⭐ Multiplication in intestine
-- ⭐ Massive sporulation in environment
-- ⭐ Cycle 5-7 days
+# 🔻 Part 1: Etiology ⭐⭐⭐
 
-## Diagnosis ⭐
-- ⭐ Bloody droppings (E. tenella!)
-- ⭐ Postmortem examination (lesion scoring)
-- ⭐ Oocyst counts
-- ⭐ Histopath
+- **Eimeria species** — apicomplexan protozoan
+- ⭐ **แต่ละ species → specific gut location** (site-specific)
+- 7 important species in chicken:
 
-## Control ⭐⭐⭐
-### Prevention
-- ⭐ ⭐ Anti-coccidial feed (ionophores)
-- ⭐ ⭐ Vaccination (live oocysts)
-- ⭐ Litter management
-- ⭐ Rotation programs
+| Species | Location | Signature |
+|---|---|---|
+| ⭐ **E. tenella** | **Cecum** | bloody diarrhea |
+| **E. maxima** | Mid-intestine | hemorrhage + mucus |
+| **E. acervulina** | Duodenum | ladder lesions |
+| **E. necatrix** | Small intestine | severe mortality |
+| **E. brunetti** | Cloaca / distal | hemorrhagic |
 
-### Treatment
-- ⭐ Toltrazuril, sulfaquinoxaline
-- ⭐ Address dehydration
+---
+
+# 🔻 Part 2: Clinical Signs ⭐⭐
+
+- ⭐ **Bloody diarrhea** (E. tenella!)
+- Weight loss
+- Dehydration
+- Pale chicks (anemia)
+- ⚠️ Mortality up to 50%
+
+---
+
+# 🔻 Part 3: Pathogenesis ⭐
+
+- Sporulated oocysts ingested
+- Multiplication ใน intestinal epithelium
+- Massive sporulation back into environment (litter)
+- ⭐ **Cycle 5–7 days** (asexual + sexual phases)
+
+---
+
+# 🔻 Part 4: Diagnosis ⭐
+
+- ⭐ **Bloody droppings** (E. tenella!)
+- **Postmortem lesion scoring** (Johnson & Reid scale 0–4 per species)
+- Oocyst counts (McMaster, fecal flotation)
+- Histopath
+
+---
+
+# 🔻 Part 5: Control ⭐⭐⭐
+
+## Prevention
+- ⭐ **Anti-coccidial in feed (ionophores)** — monensin, salinomycin
+- ⭐ **Vaccination (live oocysts)** — controlled exposure for immunity
+- Litter management (keep dry)
+- ⭐ **Rotation programs** (shuttle / rotation ของ anticoccidial)
+
+## Treatment (when outbreak)
+- **Toltrazuril** (Baycox)
+- **Sulfaquinoxaline**
+- Address dehydration (electrolytes)
 
 ## Resistance ⭐
-- ⭐ Major issue with overuse
-- ⭐ Rotation strategies needed
+- Major issue with overuse
+- Rotation strategies needed
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Eimeria species, each with specific gut location
-2. ⭐ E. tenella = bloody diarrhea (cecal)
-3. ⭐ Lesion scoring at postmortem
-4. ⭐ Ionophores in feed prevention
-5. ⭐ Vaccination (live oocysts)`,
+- ⭐⭐⭐ **Eimeria species + specific gut location** — site-specific
+- ⭐⭐⭐ **E. tenella = bloody diarrhea + cecum**
+- ⭐⭐ **Lesion scoring at postmortem** — Johnson & Reid 0–4
+- ⭐ **Ionophores in feed** (prevention) + **toltrazuril** (treatment)
+- ⭐ **Vaccination (live oocysts)** = alternative to drugs`,
   },
   ZxF5mCBb7nE: {
     videoId: 'ZxF5mCBb7nE', title: 'Avian Medicine — 6.3 Necrotic Enteritis', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 22, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Clostridium perfringens, NE, risk factors',
-    summary: `## 🎯 Lead Summary
-**Necrotic Enteritis (NE)** = Clostridium perfringens type A. ⭐ ⭐ Especially common after AGP (Antimicrobial Growth Promoter) ban.
+    summary: `# Avian Medicine 6.3 — Necrotic Enteritis (NE)
 
-## Etiology ⭐⭐
-- ⭐ ⭐ Clostridium perfringens type A (or C)
-- ⭐ NetB toxin = key virulence factor
-- ⭐ Anaerobic, spore-forming
+> 🎯 **NE = Clostridium perfringens type A** · ปัญหาขึ้นโดดเด่นหลัง **AGP (Antimicrobial Growth Promoter) ban**
+> ⚠️ **Coccidiosis predisposes** — มัก co-infect → manage coccidia ก่อน NE จะหายตาม
 
-## Clinical Signs ⭐⭐
-- ⭐ Sudden death
-- ⭐ Bloody/watery diarrhea
-- ⭐ Wet litter
-- ⭐ ⭐ Postmortem: distended small intestine with gas + necrotic membrane
+---
 
-## Risk Factors ⭐⭐⭐
-- ⭐ ⭐ **Coccidiosis predisposes!**
-- ⭐ ⭐ AGP ban created problem
-- ⭐ Sudden diet changes
-- ⭐ High stocking density
-- ⭐ Wet litter
+# 🔻 Part 1: Etiology ⭐⭐
 
-## Diagnosis ⭐
-- ⭐ Postmortem (necrotic membrane)
-- ⭐ Culture + toxin detection
-- ⭐ Histology
+- ⭐ **Clostridium perfringens type A** (บางครั้ง type C)
+- ⭐ **NetB toxin** = key virulence factor (poultry-specific)
+- Anaerobic, spore-forming, Gram-positive
 
-## Treatment ⭐
-- ⭐ Antibiotics (amoxicillin, lincomycin, BMD)
-- ⭐ Address coccidiosis
-- ⭐ Improve management
+---
 
-## Prevention ⭐
-- ⭐ Probiotics
-- ⭐ Manage coccidiosis
-- ⭐ Limit dietary changes
-- Vaccination research
+# 🔻 Part 2: Clinical Signs ⭐⭐
+
+- **Sudden death** (often the only sign)
+- Bloody / watery diarrhea
+- Wet litter
+- ⭐ **Postmortem**: distended small intestine + gas + **necrotic membrane** (pseudomembrane)
+
+> 💡 ภาพคลาสสิก: เปิดท้องไก่แล้วเห็น SI พองเหมือนถุงพลาสติก + เยื่อสีน้ำตาลแกะออกจากลำไส้
+
+---
+
+# 🔻 Part 3: Risk Factors ⭐⭐⭐
+
+- ⭐⭐ **Coccidiosis predisposes!** (damaged mucosa = Clostridium ลงง่าย)
+- ⭐⭐ **AGP ban created the problem** — เมื่อก่อนใช้ antibiotic ผสมอาหาร NE ไม่เป็นปัญหา
+- Sudden diet changes (high protein, fish meal)
+- High stocking density
+- Wet litter
+
+---
+
+# 🔻 Part 4: Diagnosis ⭐
+
+- Postmortem (necrotic membrane in SI)
+- Culture + toxin detection (NetB)
+- Histology (necrotic enteritis lesions)
+
+---
+
+# 🔻 Part 5: Treatment & Prevention ⭐
+
+## Treatment
+- **Antibiotics**: amoxicillin, lincomycin, BMD (bacitracin methylene disalicylate)
+- Address coccidiosis (upstream)
+- Improve management
+
+## Prevention
+- ⭐ **Probiotics** (compete with Clostridium)
+- **Manage coccidiosis** (key upstream control)
+- Limit dietary changes
+- Vaccination research ongoing
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Clostridium perfringens (NetB toxin)
-2. ⭐ Coccidiosis predisposes
-3. ⭐ Postmortem: necrotic membrane in SI
-4. ⭐ AGP ban created NE problem
-5. ⭐ Probiotics + coccidiosis management`,
+- ⭐⭐⭐ **Clostridium perfringens type A + NetB toxin**
+- ⭐⭐⭐ **Coccidiosis predisposes** — manage coccidia ก่อน
+- ⭐⭐ **AGP ban → NE problem rise**
+- ⭐ **Necrotic membrane in SI** = signature PM finding
+- ⭐ **Probiotics + coccidiosis management** = prevention`,
   },
   'RQD-rP8AVFQ': {
     videoId: 'RQD-rP8AVFQ', title: 'Avian Medicine — 6.4 Leucocytozoonosis', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 12, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Leucocytozoon, vector, clinical signs',
-    summary: `## 🎯 Lead Summary
-**Leucocytozoonosis** — protozoan blood parasite, vector-transmitted. Major issue in tropical Thailand.
+    summary: `# Avian Medicine 6.4 — Leucocytozoonosis
 
-## Etiology ⭐
-- ⭐ Leucocytozoon caulleryi (chickens)
-- ⭐ L. simondi (waterfowl)
-- ⭐ Sporozoan parasite
+> 🎯 **Leucocytozoonosis = blood protozoan ที่ vector-transmitted** · ไทยร้อนชื้น = endemic · ⭐ **Black fly (Simulium) = vector**
+> ⚠️ Outdoor / free-range = high risk
 
-## Vector ⭐⭐
-- ⭐ ⭐ **Black flies (Simulium)**
-- ⭐ Outdoor exposure key
+---
 
-## Clinical Signs ⭐
-- ⭐ Anemia (pale combs)
-- ⭐ Sudden death (acute)
-- ⭐ Drop in egg production
-- ⭐ Hemorrhages
+# 🔻 Part 1: Etiology ⭐
 
-## Diagnosis ⭐
-- ⭐ Blood smears (parasites in WBCs)
-- ⭐ Histopath
-- ⭐ PCR
+- **Leucocytozoon caulleryi** (chickens)
+- **L. simondi** (waterfowl)
+- Sporozoan parasite (apicomplexan)
 
-## Control ⭐
-- ⭐ ⭐ Vector control (insecticides)
-- ⭐ Indoor housing
-- ⭐ Sulphonamides (treatment)
-- ⭐ Clopidol prophylaxis
+---
+
+# 🔻 Part 2: Vector ⭐⭐
+
+- ⭐ **Black flies (Simulium spp.)**
+- ⭐ **Outdoor exposure** = main risk
+- Vector active ในช่วงเช้า/เย็น + ใกล้แหล่งน้ำไหล
+
+---
+
+# 🔻 Part 3: Clinical Signs ⭐
+
+- **Anemia** (pale combs)
+- **Sudden death** (acute form)
+- Drop in egg production
+- Hemorrhages (subcutaneous, internal)
+
+---
+
+# 🔻 Part 4: Diagnosis ⭐
+
+- ⭐ **Blood smears** — parasites visible **inside WBCs** (leuco-cyto-zoon = white cell parasite)
+- Histopath
+- PCR
+
+---
+
+# 🔻 Part 5: Control ⭐
+
+- ⭐ **Vector control** (insecticides, screening)
+- **Indoor housing** (lift outdoor risk)
+- **Sulphonamides** (treatment — sulfadimethoxine)
+- **Clopidol** prophylaxis
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Leucocytozoon = blood parasite
-2. ⭐ Black fly vector
-3. ⭐ Outdoor risk factor
-4. ⭐ Anemia + sudden death
-5. ⭐ Vector control + sulphonamides`,
+- ⭐⭐ **Black fly (Simulium) vector**
+- ⭐ **Parasites in WBCs** (blood smear signature)
+- ⭐ **Outdoor risk** + tropical endemic
+- ⭐ Vector control + sulphonamides treatment`,
   },
   zqmN4NDEThs: {
     videoId: 'zqmN4NDEThs', title: 'Avian Medicine — 6.5 Avian Malaria (Plasmodium)', subject: 'avian-medicine',
     date: '2025-09-16', durationMin: 8, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Plasmodium juxtanucleare, vector',
-    summary: `## 🎯 Lead Summary
-**Avian Malaria** — Plasmodium spp. Mosquito-transmitted. Tropical concern.
+    summary: `# Avian Medicine 6.5 — Avian Malaria (Plasmodium)
 
-## Etiology ⭐
-- ⭐ Plasmodium juxtanucleare (chickens, Thailand)
-- ⭐ P. relictum (waterfowl/wild birds)
-- ⭐ Mosquito vector (similar to human malaria)
+> 🎯 **Avian Malaria = Plasmodium spp.** · vector = **mosquito** (similar to human malaria) · ⭐ ในไทย = **P. juxtanucleare** ในไก่
+> 💡 RBC-stage parasite (vs Leucocytozoon ที่อยู่ใน WBC) — แยกได้จาก blood smear
 
-## Clinical Signs ⭐
-- ⭐ Anemia (pale comb/wattles)
-- ⭐ Acute death (severe)
-- ⭐ Drop in egg production
-- ⭐ Splenomegaly, hepatomegaly
+---
 
-## Diagnosis ⭐
-- ⭐ Blood smears (parasites in RBCs)
-- ⭐ PCR
+# 🔻 Part 1: Etiology ⭐
 
-## Treatment ⭐
-- ⭐ Chloroquine
-- ⭐ Pyrimethamine + sulfa
-- ⭐ Vector control (mosquito)
+- ⭐ **Plasmodium juxtanucleare** (chickens, Thailand endemic)
+- **P. relictum** (waterfowl, wild birds)
+- **Mosquito vector** (Culex, Aedes — similar to human malaria)
+
+---
+
+# 🔻 Part 2: Clinical Signs ⭐
+
+- **Anemia** (pale comb / wattle)
+- Acute death (severe cases)
+- Drop in egg production
+- **Splenomegaly, hepatomegaly** (necropsy)
+
+---
+
+# 🔻 Part 3: Diagnosis ⭐
+
+- ⭐ **Blood smears** — parasites visible **inside RBCs** (vs Leucocytozoon ใน WBC)
+- PCR
+
+---
+
+# 🔻 Part 4: Treatment ⭐
+
+- **Chloroquine** (เหมือนคน)
+- **Pyrimethamine + sulfa** combo
+- **Vector control** (mosquito reduction)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Plasmodium juxtanucleare in Thai chickens
-2. ⭐ Mosquito vector
-3. ⭐ Parasites in RBCs
-4. ⭐ Chloroquine treatment
-5. ⭐ Vector control essential`,
+- ⭐⭐ **P. juxtanucleare ในไทย chickens**
+- ⭐⭐ **Mosquito vector** (Culex/Aedes)
+- ⭐ **Parasites in RBCs** (vs Leucocytozoon ใน WBC — แยกข้อสอบ!)
+- ⭐ Chloroquine treatment + vector control`,
   },
   pQ3y5Ki_DmQ: {
     videoId: 'pQ3y5Ki_DmQ', title: 'Avian Medicine — 7 Poultry Vet Career (NOT IN EXAM)', subject: 'avian-medicine',
     date: '2025-09-30', durationMin: 116, instructor: 'CUVET avian team',
     examFormat: 'NOT IN EXAM (ไม่ออกสอบ) — career discussion',
-    summary: `## 🎯 Lead Summary
-⚠️ **NOT EXAMINED** — Career discussion for poultry veterinarian path.
+    summary: `# Avian Medicine 7 — Poultry Vet Career (NOT IN EXAM)
 
-## Career Paths ⭐
-- ⭐ **Field veterinarian** (CP, Betagro)
-- ⭐ **Hatchery manager**
-- ⭐ **Lab/diagnostics** (Bluestone, etc.)
-- ⭐ **Government** (DLD)
-- ⭐ **Drug/vaccine industry**
-- ⭐ **Research**
+> 🎯 **⚠️ Lecture นี้ไม่ออกสอบ** — career discussion สำหรับสาย poultry vet
+> 💡 ฟังเล่นเป็นแนวทางอนาคต ไม่ต้องท่อง
 
-## Skills Needed ⭐
-- ⭐ Industry knowledge
-- ⭐ Disease understanding
-- ⭐ Management consultation
-- ⭐ Communication
-- ⭐ Data analysis
+---
 
-## Income Potential ⭐
-- ⭐ Industry: 50K-150K+/month
-- ⭐ Senior positions: leadership
-- ⭐ International opportunities
+# 🔻 Part 1: Career Paths ⭐
+
+| Path | ลักษณะงาน |
+|---|---|
+| **Field veterinarian** | technical service ของ CP / Betagro / Sun Group |
+| **Hatchery manager** | ดูแลโรงฟัก, breeder flock health |
+| **Lab / diagnostics** | Bluestone, mahidol labs, university |
+| **Government** | DLD (Department of Livestock Development) |
+| **Drug/vaccine industry** | Boehringer, Zoetis, Ceva |
+| **Research** | academic, R&D ในบริษัท |
+
+---
+
+# 🔻 Part 2: Skills Needed ⭐
+
+- Industry knowledge (production economics)
+- Disease understanding (multi-system)
+- Management consultation
+- Communication (พูดกับเจ้าของฟาร์ม)
+- Data analysis
+
+---
+
+# 🔻 Part 3: Income Potential ⭐
+
+- Industry: ~50K–150K+/month (มี variation ตาม seniority)
+- Senior positions: leadership track
+- International opportunities (ภูมิภาค ASEAN, China)
+
+---
 
 ## 📋 Recap
-- ⚠️ NOT EXAMINED but career-relevant
-- ⭐ Multiple paths available
-- ⭐ Industry needs vet expertise
-
-> 🎯 Consider as career option!`,
+- ⚠️ **NOT EXAMINED** — career awareness only
+- ⭐ Multiple paths (field / hatchery / lab / gov / industry / research)
+- ⭐ Income competitive vs companion animal practice`,
   },
   w5HjhQ2Dq64: {
     videoId: 'w5HjhQ2Dq64', title: 'Avian Medicine — 8 Omphalitis/Ascites/AE/Staph/Salm/Adeno', subject: 'avian-medicine',
     date: '2025-10-07', durationMin: 126, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก mixed bag of poultry diseases',
-    summary: `## 🎯 Lead Summary
-**Mixed poultry diseases**: Omphalitis (yolk sac infection), Ascites Syndrome, Avian Encephalomyelitis, Staphylococcus, Salmonella, Adenovirus.
+    summary: `# Avian Medicine 8 — Mixed Bag: Omphalitis · Ascites · AE · Staph · Salmonella · Adenovirus
 
-## Omphalitis ⭐⭐
-- ⭐ Yolk sac infection in chicks
-- ⭐ E. coli, other bacteria
-- ⭐ Hatchery-related
-- ⭐ Cull affected chicks
+> 🎯 Lecture **มัดรวม 6 โรค** ที่เหลือ — ไม่มี theme เดียวแต่ออกสอบทุกตัว · เน้น **Salmonella** (zoonotic + Pullorum/Gallinarum) และ **Ascites Syndrome** (water belly)
 
-## Ascites Syndrome ⭐⭐
-- ⭐ ⭐ "Water belly" in broilers
-- ⭐ Right-sided heart failure
-- ⭐ ⭐ Pulmonary hypertension (rapid growth!)
-- ⭐ High altitude or O2 issues
-- ⭐ Common in fast-growing broilers
+---
 
-## Avian Encephalomyelitis (AE) ⭐
-- ⭐ Picornavirus
-- ⭐ Tremors, ataxia in young chicks
-- ⭐ Vertical transmission
-- ⭐ Vaccinate breeders
+# 🔻 Part 1: Omphalitis ⭐⭐
 
-## Staphylococcus ⭐
-- ⭐ S. aureus = bumblefoot, septic arthritis
-- ⭐ Wound entry
-- ⭐ Surgical drainage + antibiotics
+- **Yolk sac infection** ในลูกไก่
+- Bacteria: **E. coli** (most common), Staph, Pseudomonas
+- ⭐ **Hatchery-related** (egg contamination)
+- Cull affected chicks (treatment ไม่คุ้ม)
 
-## Salmonella ⭐⭐⭐
-- ⭐ ⭐ S. Pullorum (Pullorum disease)
-- ⭐ ⭐ S. Gallinarum (fowl typhoid)
-- ⭐ S. Enteritidis (zoonotic, eggs!)
-- ⭐ S. Typhimurium (zoonotic)
-- ⭐ Vertical transmission
-- ⭐ Eradicated by RSAT (Rapid Slide Agglutination Test)
+---
 
-## Avian Adenovirus ⭐⭐
-- ⭐ ⭐ Inclusion Body Hepatitis (IBH)
-- ⭐ Hydropericardium Syndrome
-- ⭐ Multiple serotypes
-- ⭐ Vertical + horizontal
+# 🔻 Part 2: Ascites Syndrome ⭐⭐
+
+- ⭐ **"Water belly"** ใน broilers
+- **Right-sided heart failure** + abdominal fluid
+- ⭐ **Pulmonary hypertension** จาก rapid growth (oxygen demand > supply)
+- High altitude or low O2 = risk
+- พบบ่อยใน fast-growing broilers (genetic selection trade-off)
+
+---
+
+# 🔻 Part 3: Avian Encephalomyelitis (AE) ⭐
+
+- **Picornavirus** (small RNA virus)
+- **Tremors, ataxia** ในลูกไก่อายุน้อย (epidemic tremor)
+- **Vertical transmission**
+- Vaccinate breeders → maternal antibody
+
+---
+
+# 🔻 Part 4: Staphylococcus ⭐
+
+- **S. aureus** = bumblefoot, septic arthritis
+- Wound entry
+- Treatment: **surgical drainage + antibiotics**
+
+---
+
+# 🔻 Part 5: Salmonella ⭐⭐⭐
+
+| Serovar | โรค | Notes |
+|---|---|---|
+| ⭐ **S. Pullorum** | **Pullorum disease** | vertical transmission |
+| ⭐ **S. Gallinarum** | **Fowl typhoid** | vertical transmission |
+| **S. Enteritidis** | zoonotic — eggs! | foodborne |
+| **S. Typhimurium** | zoonotic | foodborne |
+
+- ⭐ **Eradicated by RSAT** (Rapid Slide Agglutination Test) — Pullorum-free programs
+- Vertical transmission สำคัญสำหรับ Pullorum + Gallinarum
+- Enteritidis + Typhimurium = food safety + zoonotic risk
+
+---
+
+# 🔻 Part 6: Avian Adenovirus ⭐⭐
+
+- ⭐ **Inclusion Body Hepatitis (IBH)** — sudden mortality + hepatic necrosis
+- **Hydropericardium Syndrome (HPS)** — fluid in pericardium
+- Multiple serotypes
+- Vertical + horizontal transmission
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Omphalitis = hatchery yolk sac infection
-2. ⭐ Ascites = water belly in broilers (PH)
-3. ⭐ AE Picornavirus tremors in chicks
-4. ⭐ S. Pullorum/Gallinarum = vertical transmission
-5. ⭐ Adenovirus IBH + Hydropericardium`,
+- ⭐⭐⭐ **Salmonella serovars** — Pullorum / Gallinarum vertical, Enteritidis / Typhimurium zoonotic
+- ⭐⭐ **Ascites = water belly** จาก pulmonary hypertension ใน fast-growing broilers
+- ⭐⭐ **Adenovirus IBH + HPS**
+- ⭐ **AE Picornavirus** tremors ในลูกไก่
+- ⭐ **Omphalitis** = hatchery yolk sac infection`,
   },
   wIk7mL5kVMg: {
     videoId: 'wIk7mL5kVMg', title: 'Avian Medicine — 9.1 Mycotic Infection', subject: 'avian-medicine',
     date: '2025-10-20', durationMin: 54, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Aspergillosis, brooder pneumonia, diagnosis',
-    summary: `## 🎯 Lead Summary
-**Avian mycotic infections** — primarily Aspergillus + Candida.
+    summary: `# Avian Medicine 9.1 — Mycotic Infections (Aspergillosis + Candidiasis)
 
-## Aspergillosis ⭐⭐⭐
-### Etiology
-- ⭐ ⭐ Aspergillus fumigatus (most common)
-- ⭐ Spores in environment
+> 🎯 **2 mycotic หลัก**: **Aspergillus fumigatus** (lung — brooder pneumonia) + **Candida albicans** (crop — sour crop)
+> ⚠️ Aspergillosis **prevention > treatment** — clinical แล้ว fatal บ่อย
 
-### Forms ⭐
-- ⭐ ⭐ **Brooder pneumonia** (chicks)
-- ⭐ Acute (mass mortality)
-- ⭐ Chronic granulomas
-- ⭐ Chicks <2 weeks most affected
+---
 
-### Clinical Signs ⭐
-- ⭐ Gasping, difficult breathing
-- ⭐ Air sacculitis
-- ⭐ Nodules in lungs
-- ⭐ Mortality variable
+# 🔻 Part 1: Aspergillosis ⭐⭐⭐
 
-### Diagnosis ⭐
-- ⭐ Postmortem (yellow nodules in lungs)
-- ⭐ Histopath (fungal hyphae)
-- ⭐ Culture (Sabouraud agar)
+## Etiology
+- ⭐ **Aspergillus fumigatus** (most common)
+- Spores ในสภาพแวดล้อม (litter, feed)
 
-### Treatment ⭐
-- ⭐ Itraconazole, voriconazole (limited effectiveness)
+## Forms
+- ⭐ **Brooder pneumonia** (chicks < 2 weeks)
+- Acute (mass mortality)
+- Chronic granulomas
+
+## Clinical Signs
+- Gasping, difficult breathing
+- **Airsacculitis**
+- ⭐ **Yellow nodules in lungs** (PM finding)
+- Mortality variable
+
+## Diagnosis
+- Postmortem (yellow nodules in lungs)
+- Histopath: **fungal hyphae** (45° branching, septate)
+- Culture (Sabouraud agar)
+
+## Treatment
+- **Itraconazole, voriconazole** (limited effectiveness)
 - ⚠️ Often fatal once clinical
-- ⭐ ⭐ Prevention > treatment
+- ⭐ **Prevention > treatment**
 
-## Candidiasis ⭐⭐
-- ⭐ Candida albicans
-- ⭐ Crop, oral cavity affected
-- ⭐ "Sour crop"
-- ⭐ Treatment: nystatin
+---
 
-## Prevention ⭐
-- ⭐ Clean dry feed (no moldy!)
-- ⭐ Hatchery hygiene
-- ⭐ Ventilation
-- ⭐ Litter management
+# 🔻 Part 2: Candidiasis ⭐⭐
+
+- **Candida albicans**
+- Crop, oral cavity
+- ⭐ **"Sour crop"** — distended crop + sour smell + thrush-like white plaques
+- Treatment: **nystatin** (oral)
+
+---
+
+# 🔻 Part 3: Prevention ⭐
+
+- **Clean dry feed** (ไม่มี mold)
+- Hatchery hygiene
+- Ventilation (reduce spore concentration)
+- Litter management (dry)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Aspergillus fumigatus most common
-2. ⭐ Brooder pneumonia in chicks
-3. ⭐ Yellow lung nodules at PM
-4. ⭐ Prevention > treatment (often fatal)
-5. ⭐ Hygiene + ventilation key`,
+- ⭐⭐⭐ **Aspergillus fumigatus → brooder pneumonia** (chicks < 2 wk)
+- ⭐⭐ **Yellow lung nodules** = PM signature
+- ⭐⭐ **Candida → sour crop** (treat with nystatin)
+- ⭐ **Prevention > treatment** (Aspergillosis often fatal)
+- ⭐ **Fungal hyphae 45° branching septate** = histopath clue`,
   },
   'aekeCV0a-Z4': {
     videoId: 'aekeCV0a-Z4', title: 'Avian Medicine — 9.2 Mycotoxicosis', subject: 'avian-medicine',
     date: '2025-10-27', durationMin: 108, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก aflatoxin, ochratoxin, trichothecenes, clinical signs',
-    summary: `## 🎯 Lead Summary
-**Mycotoxicosis** — toxins from feed-borne fungi. Major economic concern. ⭐ Aflatoxin, Ochratoxin, Trichothecenes, Fumonisins, Zearalenone.
+    summary: `# Avian Medicine 9.2 — Mycotoxicosis
 
-## Major Mycotoxins ⭐⭐⭐
+> 🎯 **Mycotoxins = secondary metabolites ของเชื้อรา ใน feed** · major economic concern · 5 groups หลัก: **Aflatoxin, Ochratoxin, Trichothecenes, Fumonisins, Zearalenone**
+> ⚠️ **Aflatoxin B1 = most carcinogenic** (hepatocellular carcinoma) — ออกสอบบ่อยสุด
 
-### Aflatoxin (Aspergillus) ⭐⭐⭐
-- ⭐ B1 most carcinogenic
-- ⭐ Liver toxicity
-- ⭐ Immunosuppression
-- ⭐ Reduced productivity
-- ⭐ ⭐ **Hepatocellular carcinoma**
+---
 
-### Ochratoxin (Aspergillus, Penicillium) ⭐
-- ⭐ Kidney damage
-- ⭐ Reduced egg production
+# 🔻 Part 1: Aflatoxin (Aspergillus) ⭐⭐⭐
 
-### Trichothecenes (Fusarium) ⭐⭐
-- ⭐ T-2 toxin
-- ⭐ Oral lesions
-- ⭐ Immunosuppression
-- ⭐ Hemorrhage
+- ⭐ **B1 = most carcinogenic**
+- **Liver toxicity** (hepatocellular damage)
+- **Immunosuppression**
+- Reduced productivity
+- ⭐ **Hepatocellular carcinoma** (chronic exposure)
+- Source: contaminated **corn, peanuts**
 
-### Fumonisins (Fusarium) ⭐
-- ⭐ Hepatotoxic
-- ⭐ Pulmonary edema (less in poultry)
+---
 
-### Zearalenone (Fusarium) ⭐
-- ⭐ Estrogenic effects
-- ⭐ Reproductive impacts
+# 🔻 Part 2: Ochratoxin (Aspergillus + Penicillium) ⭐
 
-## Source ⭐
-- ⭐ ⭐ Contaminated feed (corn, peanuts, soybean)
-- ⭐ Storage conditions (humidity!)
-- ⭐ Climate change increasing risk
+- **Kidney damage** (nephrotoxic)
+- Reduced egg production
 
-## Clinical Signs ⭐
-- ⭐ Reduced growth/production
-- ⭐ Liver/kidney damage
-- ⭐ Immunosuppression (predispose to other diseases!)
-- ⭐ Sudden death (severe)
+---
 
-## Diagnosis ⭐
-- ⭐ Feed analysis (HPLC, ELISA)
-- ⭐ Histopath
-- ⭐ Liver/kidney biochem
+# 🔻 Part 3: Trichothecenes (Fusarium) ⭐⭐
 
-## Control ⭐⭐
-- ⭐ ⭐ Mycotoxin binders in feed
-- ⭐ Quality control of feed ingredients
-- ⭐ Storage conditions (dry, cool)
-- ⭐ Discard moldy feed
+- **T-2 toxin** ที่อันตราย
+- ⭐ **Oral lesions** (necrosis at beak commissures)
+- Immunosuppression
+- Hemorrhage
+
+---
+
+# 🔻 Part 4: Fumonisins (Fusarium) ⭐
+
+- Hepatotoxic
+- Pulmonary edema (น้อยใน poultry, มากใน pig/horse)
+
+---
+
+# 🔻 Part 5: Zearalenone (Fusarium) ⭐
+
+- ⭐ **Estrogenic effects** (binds estrogen receptor)
+- Reproductive impacts (turkey hens, breeders)
+
+---
+
+# 🔻 Part 6: Source ⭐
+
+- ⭐ **Contaminated feed** — corn, peanuts, soybean
+- Storage conditions (humidity > 14% = mold risk)
+- Climate change increasing risk
+
+---
+
+# 🔻 Part 7: Clinical Signs ⭐
+
+- Reduced growth / production
+- Liver / kidney damage
+- ⭐ **Immunosuppression** → predispose to other diseases
+- Sudden death (severe acute)
+
+---
+
+# 🔻 Part 8: Diagnosis & Control ⭐⭐
+
+## Diagnosis
+- **Feed analysis** — HPLC, ELISA, LC-MS
+- Histopath
+- Liver / kidney biochem
+
+## Control
+- ⭐ **Mycotoxin binders in feed** (clay, yeast cell wall)
+- Quality control of feed ingredients
+- Storage conditions (dry, cool, < 14% moisture)
+- Discard moldy feed
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ 5 major mycotoxin groups
-2. ⭐ Aflatoxin B1 = most concerning (liver cancer)
-3. ⭐ Trichothecenes = oral lesions + immunosuppression
-4. ⭐ Source = moldy feed
-5. ⭐ Mycotoxin binders in feed`,
+- ⭐⭐⭐ **Aflatoxin B1 = liver carcinoma** (most concerning)
+- ⭐⭐ **5 groups**: Aflatoxin / Ochratoxin / Trichothecenes / Fumonisins / Zearalenone
+- ⭐⭐ **Source = moldy feed** (corn / peanut / soybean)
+- ⭐ **Mycotoxin binders** in feed = primary control
+- ⭐ **Zearalenone = estrogenic effect**`,
   },
   bUnUB3XMrww: {
     videoId: 'bUnUB3XMrww', title: 'Avian Medicine — 10+11 Duck and Goose Diseases', subject: 'avian-medicine',
     date: '2025-10-28', durationMin: 99, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก duck plague, DVH, waterfowl-specific diseases',
-    summary: `## 🎯 Lead Summary
-**Duck + Goose diseases** — major Thai industry. Specific waterfowl diseases.
+    summary: `# Avian Medicine 10+11 — Duck and Goose Diseases
 
-## Duck Diseases ⭐⭐⭐
+> 🎯 **Waterfowl-specific diseases** สำหรับอุตสาหกรรมเป็ด/ห่านไทย · 3 ตัวหลักของเป็ด: **DVH (Picornavirus) · Duck Plague (Herpesvirus) · Riemerella**
+> 💡 AI = zoonotic risk สูงมากในเป็ด/ห่าน (เป็น natural reservoir)
 
-### Duck Virus Hepatitis (DVH) ⭐
-- ⭐ Picornavirus
-- ⭐ Ducklings (1-3 weeks)
-- ⭐ High mortality
-- ⭐ Liver hemorrhages
-- ⭐ Vaccination available
+---
 
-### Duck Plague (DEV) ⭐⭐
-- ⭐ Herpesvirus (Anatid herpesvirus)
-- ⭐ All ages affected
-- ⭐ Acute death
-- ⭐ Hemorrhages throughout
-- ⭐ Vaccination
+# 🔻 Part 1: Duck Virus Hepatitis (DVH) ⭐⭐
 
-### Riemerella anatipestifer ⭐
-- ⭐ Bacterial septicemia
-- ⭐ Ducks especially susceptible
-- ⭐ Antibiotics
+- **Picornavirus**
+- ⭐ **Ducklings (1–3 weeks)** — age-restricted
+- High mortality
+- ⭐ **Liver hemorrhages** (PM signature)
+- Vaccination available (live vaccine)
 
-## Goose Diseases ⭐
-- ⭐ Goose parvovirus (Derzsy's disease)
-- ⭐ Goose hemorrhagic polyomavirus
-- ⭐ Cholera (similar to chickens)
+---
 
-## Common to Both ⭐
-- ⭐ Avian Influenza (zoonotic risk!)
-- ⭐ Pasteurella
-- ⭐ Salmonella
+# 🔻 Part 2: Duck Plague (DEV) ⭐⭐
+
+- **Herpesvirus** (Anatid herpesvirus 1)
+- ⭐ **All ages affected** (vs DVH ที่ duckling เท่านั้น)
+- Acute death
+- **Hemorrhages throughout** body
+- Vaccination available
+
+---
+
+# 🔻 Part 3: Riemerella anatipestifer ⭐
+
+- **Bacterial septicemia**
+- ⭐ Ducks especially susceptible (species-specific)
+- Polyserositis (pericarditis, perihepatitis, airsacculitis)
+- Treatment: antibiotics (sensitivity-guided)
+
+---
+
+# 🔻 Part 4: Goose-Specific Diseases ⭐
+
+- **Goose parvovirus (Derzsy's disease)** — goslings + Muscovy ducklings
+- **Goose hemorrhagic polyomavirus**
+- Cholera (similar to chickens)
+
+---
+
+# 🔻 Part 5: Common to Both ⭐
+
+- ⭐ **Avian Influenza** — zoonotic risk + natural reservoir
+- Pasteurella
+- Salmonella
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ DVH Picornavirus in ducklings
-2. ⭐ Duck Plague Herpesvirus all ages
-3. ⭐ Riemerella anatipestifer specific to ducks
-4. ⭐ Geese: Derzsy's parvovirus
-5. ⭐ AI zoonotic concern in both`,
+- ⭐⭐ **DVH = Picornavirus · ducklings 1–3 wk · liver hemorrhage**
+- ⭐⭐ **Duck Plague = Herpesvirus · all ages**
+- ⭐ **Riemerella anatipestifer** = duck-specific bacterial septicemia
+- ⭐ **Derzsy's = goose parvovirus**
+- ⭐ **AI zoonotic** + waterfowl reservoir`,
   },
   Ih7HFbP9oJU: {
     videoId: 'Ih7HFbP9oJU', title: 'Avian Medicine — 12.1 Ornithobacteriosis', subject: 'avian-medicine',
     date: '2025-11-04', durationMin: 49, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Ornithobacterium rhinotracheale, ORT',
-    summary: `## 🎯 Lead Summary
-**Ornithobacteriosis (ORT)** = Ornithobacterium rhinotracheale. Respiratory disease, often combined with other agents.
+    summary: `# Avian Medicine 12.1 — Ornithobacteriosis (ORT)
 
-## Etiology ⭐
-- ⭐ Ornithobacterium rhinotracheale
-- ⭐ Gram-negative pleomorphic
-- ⭐ Multiple serotypes
+> 🎯 **ORT = Ornithobacterium rhinotracheale** · respiratory disease ที่มัก **complicated กับ MG/IB/aMPV**
+> ⚠️ **Antibiotic resistance พุ่ง** — sensitivity testing สำคัญ
 
-## Clinical Signs ⭐
-- ⭐ Respiratory: cough, sneeze
-- ⭐ Drop in egg production
-- ⭐ Reduced growth
-- ⭐ Often complicated with other agents
+---
 
-## Diagnosis ⭐
-- ⭐ Culture
-- ⭐ PCR
-- ⭐ Serology
+# 🔻 Part 1: Etiology ⭐
 
-## Treatment ⭐
-- ⭐ Antibiotics (sensitivity testing)
-- ⭐ Often resistant!
+- **Ornithobacterium rhinotracheale**
+- Gram-negative, pleomorphic
+- Multiple serotypes (A–R, A most common)
 
-## Control ⭐
-- ⭐ Biosecurity
-- ⭐ Vaccination available
+---
+
+# 🔻 Part 2: Clinical Signs ⭐
+
+- Respiratory: cough, sneeze, rales
+- Drop in egg production
+- Reduced growth
+- ⭐ **Often complicated with other agents** (MG, IB, aMPV, E. coli)
+
+---
+
+# 🔻 Part 3: Diagnosis ⭐
+
+- Culture (slow, fastidious)
+- PCR
+- Serology
+
+---
+
+# 🔻 Part 4: Treatment ⭐
+
+- Antibiotics — **sensitivity testing essential**
+- ⚠️ **Often resistant** (multidrug)
+
+---
+
+# 🔻 Part 5: Control ⭐
+
+- Biosecurity
+- Vaccination available (autogenous bacterin)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ ORT respiratory disease
-2. ⭐ Often combined with other agents
-3. ⭐ Antibiotic resistance growing
-4. ⭐ Vaccine available
-5. ⭐ Biosecurity essential`,
+- ⭐ **ORT respiratory disease** + co-infect บ่อย
+- ⭐ **Antibiotic resistance** growing problem
+- ⭐ Vaccine available
+- ⭐ Biosecurity essential`,
   },
   ciAa6ypG2A4: {
     videoId: 'ciAa6ypG2A4', title: 'Avian Medicine — 12.2 Campylobacter Infection', subject: 'avian-medicine',
     date: '2025-11-04', durationMin: 22, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Campylobacter zoonotic risk, food safety',
-    summary: `## 🎯 Lead Summary
-**Campylobacter** — zoonotic concern, foodborne pathogen. Often subclinical in poultry but causes human disease.
+    summary: `# Avian Medicine 12.2 — Campylobacter Infection
 
-## Etiology ⭐
-- ⭐ ⭐ C. jejuni (most common)
-- ⭐ C. coli
-- ⭐ Gram-negative spiral
+> 🎯 **Campylobacter = zoonotic foodborne pathogen** · ⭐ **OFTEN ASYMPTOMATIC ในไก่** แต่ทำให้คนเป็น gastroenteritis
+> ⚠️ **C. jejuni = #1 cause ของ human bacterial gastroenteritis** ทั่วโลก
 
-## Clinical Signs in Poultry ⭐
-- ⭐ ⭐ ⭐ **OFTEN ASYMPTOMATIC in chickens**
-- ⭐ Carrier state common
-- ⭐ Major food safety issue!
+---
 
-## Zoonotic Risk ⭐⭐⭐
-- ⭐ ⭐ ⭐ Major cause of human gastroenteritis
-- ⭐ Cross-contamination during processing
-- ⭐ Undercooked chicken
-- ⭐ Contaminated water
+# 🔻 Part 1: Etiology ⭐
 
-## Control ⭐⭐
-- ⭐ Biosecurity
-- ⭐ Hatchery hygiene
-- ⭐ Slaughter hygiene
-- ⭐ Public health education
-- ⭐ Vaccination research
+- ⭐ **C. jejuni** (most common)
+- C. coli
+- Gram-negative spiral / curved rod
+- Microaerophilic
+
+---
+
+# 🔻 Part 2: Clinical Signs in Poultry ⭐
+
+- ⭐⭐⭐ **OFTEN ASYMPTOMATIC ในไก่!**
+- **Carrier state common** (intestinal colonization)
+- ⭐ **Major food safety issue** (ไก่ไม่ป่วย แต่คนกินป่วย)
+
+---
+
+# 🔻 Part 3: Zoonotic Risk ⭐⭐⭐
+
+- ⭐⭐⭐ **#1 cause of human bacterial gastroenteritis**
+- **Cross-contamination during processing**
+- **Undercooked chicken** = main exposure
+- Contaminated water (private wells)
+
+---
+
+# 🔻 Part 4: Control ⭐⭐
+
+- Biosecurity
+- Hatchery hygiene
+- **Slaughter hygiene** (key intervention point)
+- Public health education (cook chicken properly)
+- Vaccination research ongoing
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ C. jejuni = #1 foodborne human gastroenteritis
-2. ⭐ Asymptomatic in poultry
-3. ⭐ Cross-contamination at slaughter
-4. ⭐ Undercooked chicken risk
-5. ⭐ Public health priority`,
+- ⭐⭐⭐ **C. jejuni = #1 foodborne gastroenteritis ในคน**
+- ⭐⭐ **Asymptomatic ในไก่** — carrier without disease
+- ⭐⭐ **Cross-contamination at slaughter** = main intervention
+- ⭐ Undercooked chicken risk
+- ⭐ Public health priority`,
   },
   '6mL3tE_Xdy4': {
     videoId: '6mL3tE_Xdy4', title: 'Avian Medicine — 12.3 Listeriosis', subject: 'avian-medicine',
     date: '2025-11-04', durationMin: 8, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Listeria in poultry, zoonotic',
-    summary: `## 🎯 Lead Summary
-**Listeriosis in poultry** — Listeria monocytogenes. ⚠️ EU export concern. ⭐ Soil-dwelling, cold tolerant.
+    summary: `# Avian Medicine 12.3 — Listeriosis
 
-## Etiology ⭐
-- ⭐ Listeria monocytogenes
-- ⭐ Soil organism, cold-tolerant
-- ⭐ Multiple serotypes
+> 🎯 **Listeria monocytogenes** · ⚠️ **EU export concern** — testing mandatory · soil-dwelling, **cold-tolerant** (survive ตู้เย็น)
+> 💡 Often asymptomatic ในไก่แต่ zoonotic ระดับสูง (pregnant women, immunocompromised)
 
-## Clinical Signs ⭐
-- ⭐ Often asymptomatic in poultry
-- ⭐ Septicemia possible
-- ⭐ CNS signs
+---
 
-## Importance ⭐⭐
-- ⭐ ⭐ ⭐ ZOONOTIC - serious in pregnant women
-- ⭐ ⭐ EU EXPORT REQUIREMENT for testing!
-- ⭐ Survives in cold storage
-- ⭐ Food safety concern
+# 🔻 Part 1: Etiology ⭐
 
-## Control ⭐
-- ⭐ Mandatory testing for EU export
-- ⭐ Slaughter + processing hygiene
-- ⭐ Cold chain monitoring
+- **Listeria monocytogenes**
+- Soil organism
+- ⭐ **Cold-tolerant** (psychrotrophic — grow at 4°C)
+- Multiple serotypes
+
+---
+
+# 🔻 Part 2: Clinical Signs ⭐
+
+- Often asymptomatic ในไก่
+- Septicemia possible
+- CNS signs (rare in poultry, more in ruminants)
+
+---
+
+# 🔻 Part 3: Importance ⭐⭐
+
+- ⭐⭐⭐ **Zoonotic** — serious in **pregnant women** (placental crossing → abortion, neonatal sepsis)
+- ⭐⭐ **EU EXPORT REQUIREMENT** — mandatory testing
+- **Survives in cold storage** (refrigeration ไม่ฆ่า)
+- Food safety concern (ready-to-eat foods)
+
+---
+
+# 🔻 Part 4: Control ⭐
+
+- Mandatory testing for EU export
+- Slaughter + processing hygiene
+- Cold chain monitoring
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Listeria monocytogenes
-2. ⭐ Often asymptomatic in poultry
-3. ⭐ Zoonotic - dangerous in pregnant
-4. ⭐ EU export mandatory testing
-5. ⭐ Cold-tolerant organism`,
+- ⭐⭐⭐ **Zoonotic — dangerous in pregnant women**
+- ⭐⭐ **EU export mandatory testing**
+- ⭐ **Cold-tolerant** (psychrotrophic)
+- ⭐ Often asymptomatic ในไก่`,
   },
   'YZYg9-0oHWQ': {
     videoId: 'YZYg9-0oHWQ', title: 'Avian Medicine — 12.4 Histomoniasis (Blackhead)', subject: 'avian-medicine',
     date: '2025-11-04', durationMin: 8, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก Histomonas, turkey, blackhead',
-    summary: `## 🎯 Lead Summary
-**Histomoniasis (Blackhead)** = Histomonas meleagridis. Mainly turkeys. Heterakis gallinarum vector.
+    summary: `# Avian Medicine 12.4 — Histomoniasis (Blackhead)
 
-## Etiology ⭐
-- ⭐ Histomonas meleagridis (protozoan)
-- ⭐ Heterakis gallinarum (cecal worm) carrier!
-- ⭐ Earthworm intermediate
+> 🎯 **Histomoniasis = Histomonas meleagridis (protozoan)** · ⭐ **Heterakis gallinarum (cecal worm) = vector** + earthworm intermediate
+> ⚠️ **Turkeys = most susceptible** (มัก fatal) · chickens = mild carriers
 
-## Clinical Signs ⭐⭐
-- ⭐ ⭐ Cyanosis of head (BLACKHEAD)
-- ⭐ Watery diarrhea
-- ⭐ Mortality high in turkeys
-- ⭐ Liver lesions (yellowish circular)
-- ⭐ Cecal core/lesions
+---
 
-## Hosts ⭐
-- ⭐ ⭐ Turkeys most susceptible (severe)
-- ⭐ Chickens (mild, often asymptomatic carriers)
-- ⭐ Pheasants, peafowl
+# 🔻 Part 1: Etiology ⭐
 
-## Treatment ⭐
-- ⭐ Few options (metronidazole banned)
-- ⭐ Nitarsone removed
-- ⚠️ Limited modern treatments
+- **Histomonas meleagridis** (protozoan)
+- ⭐ **Heterakis gallinarum (cecal worm)** = vector/carrier
+- **Earthworm** = transport host (eats Heterakis eggs ที่มี Histomonas)
 
-## Control ⭐
-- ⭐ Heterakis control (deworming)
-- ⭐ Avoid mixing chickens + turkeys
-- ⭐ Soil management
+---
+
+# 🔻 Part 2: Clinical Signs ⭐⭐
+
+- ⭐ **Cyanosis of head** ("blackhead" — แม้ในไก่งวงก็ไม่ดำสนิทเสมอ)
+- Watery diarrhea (sulfur-yellow)
+- Mortality high in turkeys
+- ⭐ **Liver lesions** — yellowish circular target-like
+- ⭐ **Cecal cores / ulcerative typhlitis**
+
+---
+
+# 🔻 Part 3: Hosts ⭐
+
+- ⭐ **Turkeys most susceptible** (severe, fatal บ่อย)
+- Chickens (mild, often asymptomatic carriers)
+- Pheasants, peafowl
+
+---
+
+# 🔻 Part 4: Treatment ⭐
+
+- ⚠️ **Few options** — metronidazole banned ในหลายประเทศ
+- Nitarsone removed from market
+- ⚠️ **Limited modern treatments**
+
+---
+
+# 🔻 Part 5: Control ⭐
+
+- **Heterakis control** (deworming — ตัดวงจร vector)
+- ⭐ **Avoid mixing chickens + turkeys** (chickens = silent carriers)
+- Soil management (earthworm reservoir)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Histomonas meleagridis
-2. ⭐ Heterakis gallinarum vector
-3. ⭐ Turkeys most affected
-4. ⭐ Cyanotic head (blackhead)
-5. ⭐ Limited modern treatment options`,
+- ⭐⭐ **Histomonas meleagridis + Heterakis vector + earthworm transport host**
+- ⭐⭐ **Turkeys = severe · chickens = carriers**
+- ⭐ **Liver target lesions + cecal cores** = PM signature
+- ⭐ Limited treatment (metronidazole/nitarsone unavailable)
+- ⭐ Don't mix chickens + turkeys`,
   },
   XRnD2Y8DYBQ: {
     videoId: 'XRnD2Y8DYBQ', title: 'Avian Medicine — 13.1 Vaccines, Methods, Programs', subject: 'avian-medicine',
     date: '2025-11-11', durationMin: 86, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก vaccine types, routes, maternal Ab, poultry vaccination programs',
-    summary: `## 🎯 Lead Summary
-**Vaccination programs** = backbone of poultry health. Routes, schedules, maternal antibody timing critical.
+    summary: `# Avian Medicine 13.1 — Vaccines, Methods, Programs
 
-## Vaccine Types ⭐⭐
-- ⭐ ⭐ **Live vaccines** (replicating, longer immunity)
-- ⭐ ⭐ **Inactivated** (killed, longer-lasting Ab)
-- ⭐ Recombinant (HVT vector)
-- ⭐ DNA vaccines (research)
+> 🎯 **Vaccination = backbone ของ poultry health** · vaccine types + administration routes + **maternal antibody timing** = หัวใจของ program
+> ⚠️ Live vaccine + high MDA = neutralized → vaccinate ตอน MDA drop พอดี
 
-## Administration Routes ⭐⭐⭐
-| Route | Use |
-|---|---|
-| ⭐ **In ovo** | Day 18 incubation (Marek's) |
-| ⭐ **Subcutaneous** | Day-old chicks |
-| ⭐ **Intramuscular** | Older birds |
-| ⭐ **Eye drop** | Live respiratory |
-| ⭐ **Drinking water** | Mass administration |
-| ⭐ **Spray (coarse)** | Respiratory diseases |
+---
 
-## Maternal Antibody ⭐⭐⭐
-- ⭐ ⭐ ⭐ Critical concept!
-- ⭐ Protects chicks first 2-3 weeks
-- ⚠️ Interferes with live vaccines if too high
-- ⭐ Programs designed to vaccinate when MDA dropping
+# 🔻 Part 1: Vaccine Types ⭐⭐
 
-## Standard Programs ⭐
-### Broilers
-- Day 1: Marek's (in ovo or SC)
-- Week 1: ND, IB
-- Week 2-3: IBD
-- Week 3: ND boost
+- ⭐ **Live vaccines** — replicating, longer immunity, cheap
+- ⭐ **Inactivated** — killed, longer-lasting Ab, no replication risk
+- **Recombinant (HVT vector)** — Marek's + insert (ND, IBD, ILT)
+- DNA vaccines (research)
 
-### Layers
-- Pullet: NDD, IB, IBD, IL T, AI, fowlpox, salmonella
-- Pre-lay: Inactivated vaccine boost
-- Production: regular boosters
+---
 
-## Programs ⭐
-- ⭐ Vary by farm + region
-- ⭐ Disease pressure dependent
-- ⭐ Cost-benefit analysis
+# 🔻 Part 2: Administration Routes ⭐⭐⭐
+
+| Route | ใช้เมื่อไหร่ | ตัวอย่าง |
+|---|---|---|
+| ⭐ **In ovo** | Day 18 incubation | Marek's |
+| ⭐ **Subcutaneous** | Day-old chicks | Marek's, ND |
+| **Intramuscular** | Older birds | inactivated |
+| **Eye drop** | Live respiratory | ND LaSota |
+| **Drinking water** | Mass administration | ND, IB, IBD |
+| **Spray (coarse)** | Respiratory diseases | ND, IB |
+
+---
+
+# 🔻 Part 3: Maternal Antibody ⭐⭐⭐
+
+- ⭐⭐⭐ Critical concept!
+- ⭐ **Protects chicks first 2–3 weeks**
+- ⚠️ **Interferes with live vaccines** if too high (neutralized)
+- ⭐ Programs designed to vaccinate **when MDA dropping**
+- ELISA monitoring ของ MDA levels = best practice
+
+---
+
+# 🔻 Part 4: Standard Programs ⭐
+
+## Broilers (short cycle ~40 days)
+- **Day 1**: Marek's (in ovo or SC)
+- **Week 1**: ND, IB
+- **Week 2–3**: IBD
+- **Week 3**: ND boost
+
+## Layers (long cycle, ~80 weeks)
+- **Pullet**: ND, IB, IBD, ILT, AI, fowlpox, Salmonella
+- **Pre-lay**: Inactivated vaccine boost
+- **Production**: regular boosters
+
+---
+
+# 🔻 Part 5: Programs Vary ⭐
+
+- Disease pressure dependent (regional)
+- Cost-benefit analysis
+- Field strain ที่ circulate (vaccine ต้อง match)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Live vs Inactivated vaccines
-2. ⭐ 6+ administration routes
-3. ⭐ Maternal antibody timing critical
-4. ⭐ Marek's = in ovo or day 1
-5. ⭐ Programs vary by farm/region`,
+- ⭐⭐⭐ **Maternal antibody timing critical** for live vaccine response
+- ⭐⭐⭐ **6+ administration routes** — in ovo, SC, IM, eye drop, water, spray
+- ⭐⭐ **Live vs inactivated** trade-offs
+- ⭐ **Marek's = in ovo or day 1** (standard)
+- ⭐ Programs vary by farm + region + field strain`,
   },
   qtH9lZN90hk: {
     videoId: 'qtH9lZN90hk', title: 'Avian Medicine — 13.2 Egg Breakout Analysis', subject: 'avian-medicine',
     date: '2025-11-11', durationMin: 31, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก egg breakout, embryo mortality, hatchery diagnostics',
-    summary: `## 🎯 Lead Summary
-**Egg breakout analysis** = systematic examination of unhatched eggs to identify hatchery problems.
+    summary: `# Avian Medicine 13.2 — Egg Breakout Analysis
 
-## Categories Examined ⭐⭐⭐
-- ⭐ Infertile eggs
-- ⭐ Early embryonic death
-- ⭐ Mid-incubation death
-- ⭐ Late embryonic death (pipping)
-- ⭐ Dead-in-shell
-- ⭐ Cracked/contaminated
+> 🎯 **Egg breakout = systematic examination ของไข่ที่ฟักไม่ออก** เพื่อ identify hatchery problems
+> 💡 "Why didn't this egg hatch?" — แต่ละ stage ของการตายบอก root cause ต่างกัน
 
-## Systematic Approach ⭐⭐
-1. ⭐ Open eggs at end of incubation
-2. ⭐ Categorize each
-3. ⭐ Look for specific lesions
-4. ⭐ Calculate percentages
+---
 
-## Interpretation ⭐
-- ⭐ ⭐ High infertility = breeder issue
-- ⭐ Early death = nutrition, breeders
-- ⭐ Late death = hatchery conditions (humidity, turning)
-- ⭐ Contamination = hatchery hygiene
+# 🔻 Part 1: Categories Examined ⭐⭐⭐
 
-## Importance ⭐
-- ⭐ ⭐ Hatchery management tool
-- ⭐ Track problems
-- ⭐ Identify specific issues
-- ⭐ Optimize hatch percentage
+- **Infertile eggs** — ไม่มีตัวอ่อนตั้งแต่ start
+- **Early embryonic death** (day 1–7)
+- **Mid-incubation death** (day 8–14)
+- **Late embryonic death** (day 15–18, ก่อน pipping)
+- **Pipping deaths** — เริ่มเจาะเปลือกแต่ไม่ออก
+- **Dead-in-shell** (fully developed, ไม่ pip)
+- Cracked / contaminated
+
+---
+
+# 🔻 Part 2: Systematic Approach ⭐⭐
+
+1. Open eggs at end of incubation
+2. **Categorize each** by stage
+3. Look for specific lesions
+4. **Calculate percentages**
+
+---
+
+# 🔻 Part 3: Interpretation ⭐
+
+| Pattern | Likely Cause |
+|---|---|
+| ⭐ **High infertility** | breeder issue (male fertility, ratio) |
+| **Early death** | nutrition, breeder health, storage |
+| ⭐ **Late death** | hatchery conditions (humidity, turning, ventilation) |
+| **Contamination** | hatchery hygiene |
+
+---
+
+# 🔻 Part 4: Importance ⭐
+
+- ⭐ **Hatchery management tool** (data-driven QC)
+- Track problems over time
+- Identify specific issues (stage-specific)
+- Optimize hatch percentage
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Systematic approach to egg analysis
-2. ⭐ Categories of mortality
-3. ⭐ High infertility = breeder issue
-4. ⭐ Late mortality = hatchery conditions
-5. ⭐ Critical hatchery management tool`,
+- ⭐⭐ **Categorize by stage of death** (early / mid / late / pip / dead-in-shell)
+- ⭐⭐ **High infertility = breeder issue**
+- ⭐ **Late mortality = hatchery conditions** (humidity, turning)
+- ⭐ Systematic approach = data-driven hatchery QC`,
   },
   ux5PbQ7iOHo: {
     videoId: 'ux5PbQ7iOHo', title: 'Avian Medicine — 14 Serological Evaluation', subject: 'avian-medicine',
     date: '2025-11-11', durationMin: 137, instructor: 'CUVET avian team',
     examFormat: 'Multiple choice, ออก ELISA, HI test, serology interpretation, vaccine monitoring',
-    summary: `## 🎯 Lead Summary
-**Serological evaluation** = monitoring antibody titers. Used for vaccination evaluation, disease diagnosis, surveillance.
+    summary: `# Avian Medicine 14 — Serological Evaluation
 
-## Common Tests ⭐⭐⭐
-### ELISA ⭐⭐
-- ⭐ Most common
-- ⭐ Multiple antigens
-- ⭐ Quantitative titers
-- ⭐ Commercial kits
+> 🎯 **Serology = monitoring antibody titers** สำหรับ vaccination evaluation, disease diagnosis, surveillance
+> 💡 ELISA + HI = 2 tests หลักที่ field vet ใช้ตลอด
 
-### HI (Hemagglutination Inhibition) ⭐⭐
-- ⭐ ⭐ Standard for ND, IB, AI
-- ⭐ Functional antibody test
-- ⭐ Inhibits virus-RBC binding
-- ⭐ Titers in dilutions (log2)
+---
 
-### AGID (Agar Gel Immunodiffusion) ⭐
-- ⭐ Used for AI, EDS, REV
-- ⭐ Qualitative
-- ⭐ Slow but reliable
+# 🔻 Part 1: Common Tests ⭐⭐⭐
 
-### IFA (Immunofluorescence)
-- ⭐ Some specialized uses
+## ELISA
+- ⭐ **Most common test**
+- Multiple antigens (panel ทำได้)
+- Quantitative titers
+- Commercial kits ใช้ง่าย
 
-## Interpretation ⭐⭐
-### Vaccine Response
-- ⭐ ⭐ Higher titers = better protection (usually)
-- ⭐ Coefficient of Variation (CV) — uniformity
-- ⭐ HI ≥ 8 generally protective for ND
-- ⭐ Low CV = uniform vaccination
+## HI (Hemagglutination Inhibition)
+- ⭐⭐ **Standard for ND, IB, AI**
+- Functional antibody test (จับ + neutralize HA)
+- Inhibits virus-RBC binding
+- Titers reported in **log2 dilutions**
 
-### Disease Diagnosis
-- ⭐ ⭐ Paired sera (acute + convalescent)
-- ⭐ 4-fold increase = active infection
-- ⭐ Combined with clinical signs
+## AGID (Agar Gel Immunodiffusion)
+- Used for AI, EDS, REV
+- Qualitative (precipitation line)
+- Slow but reliable
 
-### Surveillance
-- ⭐ Sampling protocols
-- ⭐ Statistical interpretation
-- ⭐ Population-level decisions
+## IFA (Immunofluorescence)
+- Some specialized uses
 
-## Sampling ⭐
-- ⭐ Random selection
-- ⭐ Adequate sample size
-- ⭐ Proper sample handling
+---
+
+# 🔻 Part 2: Interpretation — Vaccine Response ⭐⭐
+
+- ⭐ **Higher titers = better protection** (usually correlated)
+- ⭐ **Coefficient of Variation (CV)** — uniformity ของ flock
+  - **Low CV = uniform vaccination** (good)
+  - High CV = uneven response (problem)
+- ⭐ **HI ≥ 8** generally protective for ND
+
+---
+
+# 🔻 Part 3: Interpretation — Disease Diagnosis ⭐⭐
+
+- ⭐ **Paired sera** (acute + convalescent 2–3 weeks apart)
+- ⭐ **4-fold increase** = active infection
+- Combined with clinical signs
+
+---
+
+# 🔻 Part 4: Surveillance ⭐
+
+- Sampling protocols (representative)
+- Statistical interpretation
+- Population-level decisions
+
+---
+
+# 🔻 Part 5: Sampling ⭐
+
+- Random selection
+- Adequate sample size
+- Proper sample handling (cold chain)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ ELISA most common test
-2. ⭐ HI for ND, IB, AI standard
-3. ⭐ Paired sera for diagnosis
-4. ⭐ HI ≥ 8 protective for ND
-5. ⭐ CV measures vaccination uniformity`,
+- ⭐⭐⭐ **ELISA most common · HI standard for ND/IB/AI**
+- ⭐⭐ **HI ≥ 8 = protective for ND**
+- ⭐⭐ **Paired sera + 4-fold rise = active infection**
+- ⭐ **CV measures vaccination uniformity** (low CV = good)
+- ⭐ Surveillance = population-level`,
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -50568,940 +52033,1364 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
     videoId: '5ExcMb--C34', title: 'Milk-Meat — 1.1 Composition and Quality of Raw Milk', subject: 'milk-meat-hygiene',
     date: '2025-08-06', durationMin: 68, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก milk composition, quality parameters',
-    summary: `## 🎯 Lead Summary
-**Raw milk composition + quality**: ⭐ Water 87%, Fat 3-5%, Protein 3.3%, Lactose 4.7%, Minerals 0.7%. Quality determined by composition + microbiology.
+    summary: `# Milk-Meat — 1.1 Composition and Quality of Raw Milk
 
-## Composition ⭐⭐⭐
+> 🎯 Raw milk = **น้ำ 87%** เป็นหลัก · fat 3-5% · protein 3.3% (casein 80%) · lactose 4.7% · minerals 0.7%
+> ⚠️ Quality = composition + microbiology — SCC + TPC คือ 2 ตัวบ่งชี้หลัก
+
+---
+
+# 🔻 Part 1: Composition ⭐⭐⭐
+
 | Component | % |
 |---|---|
-| ⭐ Water | 87% |
+| ⭐ **Water** | **87%** |
 | ⭐ Fat (butterfat) | 3-5% |
-| ⭐ Protein (casein 80% + whey 20%) | 3.3% |
+| ⭐ **Protein** (casein 80% + whey 20%) | 3.3% |
 | ⭐ Lactose | 4.7% |
 | ⭐ Minerals (Ca, P) | 0.7% |
 | Vitamins | trace |
 
-## Quality Parameters ⭐⭐
-- ⭐ ⭐ **SCC** (somatic cell count) — health indicator
-- ⭐ ⭐ **TPC** (total plate count) — bacteria
+> 💡 **Casein 80%** ของ milk protein — เป็นตัวที่ตกตะกอนที่ pH 4.6 → ใช้ทำชีส
+
+---
+
+# 🔻 Part 2: Quality Parameters ⭐⭐
+
+- ⭐⭐ **SCC** (somatic cell count) — health indicator (sub-clinical mastitis screen)
+- ⭐⭐ **TPC** (total plate count) — bacterial load
 - ⭐ Fat % + Protein %
 - ⭐ Adulteration tests
 
-## Standards Thai ⭐
-- ⭐ SCC <500K (premium <200K)
-- ⭐ TPC <100K
-- ⭐ Fat ≥3.25%
-- ⭐ Protein ≥3.0%
+---
+
+# 🔻 Part 3: Thai Standards ⭐
+
+| Parameter | Standard |
+|---|---|
+| ⭐ SCC | **<500K** (premium <200K) |
+| ⭐ TPC | **<100K** |
+| ⭐ Fat | **≥3.25%** |
+| ⭐ Protein | **≥3.0%** |
+
+> 💡 Bonus pricing สำหรับเกษตรกรที่ทำ premium quality (SCC <200K)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Water 87% main component
-2. ⭐ Casein = 80% of milk protein
-3. ⭐ SCC + TPC = quality markers
-4. ⭐ Premium: SCC <200K
-5. ⭐ Bonus pricing for quality`,
+- ⭐⭐⭐ **Water 87% · fat 3-5% · protein 3.3% · lactose 4.7%**
+- ⭐⭐ **Casein = 80%** ของ milk protein
+- ⭐⭐ **SCC + TPC** = quality markers หลัก
+- ⭐ Premium: SCC <200K
+- ⭐ Bonus pricing for quality`,
   },
   '7VJAcHzLwfg': {
     videoId: '7VJAcHzLwfg', title: 'Milk-Meat — 1.2 Standards of Raw Milk and Dairy Products', subject: 'milk-meat-hygiene',
     date: '2025-08-06', durationMin: 56, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก Thai standards, TIS, Codex',
-    summary: `## 🎯 Lead Summary
-**Thai + International standards** for raw milk and dairy products. ⭐ ⭐ TIS (Thai Industrial Standards), Codex Alimentarius.
+    summary: `# Milk-Meat — 1.2 Standards of Raw Milk and Dairy Products
 
-## Thai Standards ⭐⭐
-- ⭐ ⭐ **TIS** (Thai Industrial Standards)
-- ⭐ Ministry of Public Health
-- ⭐ Specific microbiological + chemical limits
+> 🎯 มี Thai (**TIS**) + International (**Codex** · EU · ISO) — มาตรฐานบังคับใช้ต่างกันตามผลิตภัณฑ์
+> ⚠️ Trade ระดับ international = ต้อง certify ครบ
 
-## International ⭐
-- ⭐ ⭐ **Codex Alimentarius** (FAO/WHO)
+---
+
+# 🔻 Part 1: Thai Standards ⭐⭐
+
+- ⭐⭐ **TIS** (Thai Industrial Standards)
+- ⭐ **Ministry of Public Health**
+- ⭐ Microbiological + chemical limits เฉพาะแต่ละผลิตภัณฑ์
+
+---
+
+# 🔻 Part 2: International ⭐
+
+- ⭐⭐ **Codex Alimentarius** (FAO/WHO)
 - ⭐ EU regulations
 - ⭐ ISO standards
 
-## Key Standards ⭐⭐
-### Pasteurized milk
-- ⭐ Coliforms <10/mL
-- ⭐ TPC <50K/mL
+> 💡 **Codex** = international reference — country อื่นๆ มัก align มาตรฐานตามนี้
 
-### Sterilized
+---
+
+# 🔻 Part 3: Key Standards ⭐⭐
+
+## Pasteurized milk
+- ⭐ **Coliforms <10/mL**
+- ⭐ **TPC <50K/mL**
+
+## Sterilized
 - ⭐ Commercial sterility
 - ⭐ Long shelf life
 
-### Cheese, Yogurt
-- ⭐ Specific microbiological criteria
+## Cheese, Yogurt
+- ⭐ Specific microbiological criteria per product
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ TIS = Thai standards
-2. ⭐ Codex = international
-3. ⭐ Microbiological + chemical limits
-4. ⭐ Pasteurization standards
-5. ⭐ Trade requires certification`,
+- ⭐⭐⭐ **TIS** = Thai standards · **Codex** = international
+- ⭐⭐ Pasteurized milk: coliforms <10/mL · TPC <50K/mL
+- ⭐ Microbiological + chemical limits
+- ⭐ Trade requires certification
+- ⭐ Sterilized = commercial sterility (long shelf life)`,
   },
   gWjJHkmTrHY: {
     videoId: 'gWjJHkmTrHY', title: 'Milk-Meat — 2.1 Milk Microbiology', subject: 'milk-meat-hygiene',
     date: '2025-08-13', durationMin: 49, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก milk microflora, spoilage organisms, pathogens',
-    summary: `## 🎯 Lead Summary
-**Milk microbiology** — natural flora + spoilage + pathogens. Multiple sources of contamination.
+    summary: `# Milk-Meat — 2.1 Milk Microbiology
 
-## Sources of Contamination ⭐⭐
-- ⭐ Udder (mastitis, environment)
-- ⭐ Equipment (milking, cooling)
-- ⭐ Personnel (hands, clothes)
-- ⭐ Environment (air, water)
+> 🎯 น้ำนมไม่ปลอด microbe — มี natural flora · spoilage · และ pathogen ปนได้
+> ⚠️ **Psychrotrophs โต 4°C ได้** — refrigeration อย่างเดียวไม่หยุด spoilage
 
-## Major Groups ⭐⭐
-### Lactic Acid Bacteria (LAB) ⭐
+---
+
+# 🔻 Part 1: Sources of Contamination ⭐⭐
+
+- ⭐ **Udder** — mastitis · environment
+- ⭐ **Equipment** — milking · cooling
+- ⭐ **Personnel** — hands · clothes
+- ⭐ **Environment** — air · water
+
+---
+
+# 🔻 Part 2: Major Groups ⭐⭐
+
+## Lactic Acid Bacteria (LAB) ⭐
 - ⭐ Lactobacillus
 - ⭐ Streptococcus
 - ⭐ Lactococcus
-- ⭐ Beneficial (yogurt, cheese)
+- ⭐ **Beneficial** — ใช้ทำ yogurt · cheese
 
-### Spoilage ⭐
-- ⭐ Pseudomonas (cold tolerant!)
+## Spoilage ⭐
+- ⭐ **Pseudomonas** — cold-tolerant!
 - ⭐ Coliforms
 
-### Pathogens ⭐⭐⭐
+## Pathogens ⭐⭐⭐
 - ⭐ Salmonella
-- ⭐ E. coli O157:H7
-- ⭐ Listeria monocytogenes
+- ⭐ *E. coli* O157:H7
+- ⭐ *Listeria monocytogenes*
 - ⭐ Campylobacter
 - ⭐ Brucella
-- ⭐ M. tuberculosis/bovis
-- ⭐ Staph aureus (toxin!)
+- ⭐ *M. tuberculosis / bovis*
+- ⭐ *Staph aureus* (toxin!)
 
-## Cold Tolerance ⭐
-- ⭐ ⭐ Psychrotrophs grow at 4°C!
-- ⭐ Spoilage in refrigerated milk
+> 💡 **Listeria + Brucella** = zoonotic ที่กระทบสตรีตั้งครรภ์ + immunocompromised หนัก
+
+---
+
+# 🔻 Part 3: Cold Tolerance ⭐
+
+- ⭐⭐ **Psychrotrophs โตที่ 4°C ได้!**
+- ⭐ Spoilage ใน refrigerated milk แม้เก็บเย็น
+
+> ⚠️ Cooler = ชะลอเท่านั้น ไม่ใช่หยุด — pasteurization จำเป็น
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Multiple contamination sources
-2. ⭐ LAB beneficial
-3. ⭐ Pseudomonas cold-tolerant spoilage
-4. ⭐ Listeria + Brucella zoonotic
-5. ⭐ Pasteurization needed`,
+- ⭐⭐⭐ 4 sources: udder · equipment · personnel · environment
+- ⭐⭐ **Pseudomonas** = cold-tolerant spoilage
+- ⭐⭐ **Listeria + Brucella** zoonotic
+- ⭐ LAB = beneficial (yogurt/cheese)
+- ⭐ Pasteurization needed`,
   },
   K8Z36l4Uexc: {
     videoId: 'K8Z36l4Uexc', title: 'Milk-Meat — 2.2 Milk-borne Pathogens and Diseases', subject: 'milk-meat-hygiene',
     date: '2025-08-13', durationMin: 47, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก milk-borne diseases, zoonotic risks',
-    summary: `## 🎯 Lead Summary
-**Milk-borne diseases** — zoonotic pathogens transmitted via raw milk + improperly pasteurized products.
+    summary: `# Milk-Meat — 2.2 Milk-borne Pathogens and Diseases
 
-## Major Pathogens ⭐⭐⭐
+> 🎯 Raw milk เสี่ยงสูง — มี zoonotic pathogen หลายชนิด · **Pasteurization (HTST 72°C × 15s)** = หัวใจของ public health
+> ⚠️ **สตรีตั้งครรภ์ + immunocompromised ห้ามดื่ม raw milk** — Listeria fatal สูง
+
+---
+
+# 🔻 Part 1: Major Pathogens ⭐⭐⭐
+
 | Pathogen | Disease |
 |---|---|
-| ⭐ M. bovis | Bovine TB → Human TB |
-| ⭐ Brucella abortus | Brucellosis (undulant fever) |
+| ⭐ *M. bovis* | Bovine TB → Human TB |
+| ⭐ *Brucella abortus* | Brucellosis (undulant fever) |
 | ⭐ Salmonella | Salmonellosis |
-| ⭐ E. coli O157:H7 | HUS, bloody diarrhea |
-| ⭐ Listeria monocytogenes | Listeriosis (pregnant!) |
+| ⭐ *E. coli* O157:H7 | **HUS**, bloody diarrhea |
+| ⭐ *Listeria monocytogenes* | Listeriosis (pregnant!) |
 | ⭐ Campylobacter | Gastroenteritis |
-| Coxiella burnetii | Q fever |
-| Mycobacterium paratuberculosis | Crohn's link debated |
+| *Coxiella burnetii* | Q fever |
+| *Mycobacterium paratuberculosis* | Crohn's link debated |
 
-## Critical Concept ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Pasteurization kills most pathogens**
-- ⭐ Raw milk = HIGH risk
+---
+
+# 🔻 Part 2: Critical Concept ⭐⭐⭐
+
+- ⭐⭐⭐ **Pasteurization kills most pathogens**
+- ⭐ **Raw milk = HIGH risk**
 - ⭐ TB + Brucella eliminated by pasteurization
 
-## High-Risk Groups ⭐
-- ⭐ ⭐ Pregnant women (Listeria!)
+> 💡 Pasteurization developed คุม TB + Brucella เป็นหลัก — public health win ที่ใหญ่ที่สุดของ dairy industry
+
+---
+
+# 🔻 Part 3: High-Risk Groups ⭐
+
+- ⭐⭐ **Pregnant women** (Listeria!)
 - ⭐ Immunocompromised
 - ⭐ Children
 - ⭐ Elderly
 
-## Prevention ⭐
-- ⭐ ⭐ ⭐ Pasteurization (HTST 72°C × 15s)
+---
+
+# 🔻 Part 4: Prevention ⭐
+
+- ⭐⭐⭐ **Pasteurization (HTST 72°C × 15s)**
 - ⭐ Test cattle (TB, Brucella)
 - ⭐ Mastitis control
 - ⭐ Hygiene at milking
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multiple zoonotic pathogens in raw milk
-2. ⭐ Pasteurization is critical
-3. ⭐ Pregnant women avoid raw milk
-4. ⭐ HTST 72°C × 15 seconds standard
-5. ⭐ TB + Brucella eradicated by pasteurization`,
+- ⭐⭐⭐ **HTST 72°C × 15 sec** standard
+- ⭐⭐⭐ **Pasteurization kills most pathogens**
+- ⭐⭐ **Pregnant women** avoid raw milk (Listeria)
+- ⭐ TB + Brucella เคยเป็น public health crisis ก่อน pasteurization
+- ⭐ Multiple zoonotic pathogens in raw milk`,
   },
   AbSNPyYHexI: {
     videoId: 'AbSNPyYHexI', title: 'Milk-Meat — 3.1 Introduction of Milk Hygiene', subject: 'milk-meat-hygiene',
     date: '2025-08-20', durationMin: 41, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก milk hygiene principles, farm to table',
-    summary: `## 🎯 Lead Summary
-**Milk hygiene principles** — farm to consumer. Multiple control points.
+    summary: `# Milk-Meat — 3.1 Introduction of Milk Hygiene
 
-## Critical Control Points ⭐⭐
+> 🎯 Hygiene = chain ตั้งแต่ farm → consumer · อ่อนจุดเดียวพังทั้งระบบ
+> ⚠️ ⛓️ Cold chain break = bacterial growth + spoilage
+
+---
+
+# 🔻 Part 1: Critical Control Points ⭐⭐
+
 - ⭐ Cow health (mastitis-free)
 - ⭐ Hygienic milking (clean udder, equipment)
-- ⭐ Cooling (≤4°C ASAP)
+- ⭐ **Cooling (≤4°C ASAP)**
 - ⭐ Transport (cold chain)
 - ⭐ Processing (pasteurization)
 - ⭐ Storage (refrigerated)
 - ⭐ Distribution
 - ⭐ Consumer handling
 
-## Hygiene at Farm ⭐⭐
+---
+
+# 🔻 Part 2: Hygiene at Farm ⭐⭐
+
 - ⭐ Pre-milking udder cleaning
-- ⭐ Strip cup screening
-- ⭐ Pre + post-dipping
-- ⭐ Single-use towels
+- ⭐ **Strip cup screening** (early mastitis detect)
+- ⭐ **Pre + post-dipping** — บังคับทั้ง 2 step
+- ⭐ **Single-use towels** (อย่าใช้ผ้าซ้ำ → ติดระหว่างเต้า)
 - ⭐ Equipment cleaning + sanitization
 - ⭐ Bulk tank temperature monitoring
 
-## Personnel Hygiene ⭐
+> 💡 **Single-use towels** = หลักการ infection control — ผ้าผืนเดียวเช็ดหลายเต้า = mastitis ระบาดในฝูง
+
+---
+
+# 🔻 Part 3: Personnel Hygiene ⭐
+
 - ⭐ Hand washing
 - ⭐ Health screening
 - ⭐ Training
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Farm to consumer hygiene chain
-2. ⭐ Pre + post dipping mandatory
-3. ⭐ Cooling to ≤4°C
-4. ⭐ Single-use towels
-5. ⭐ Personnel training`,
+- ⭐⭐⭐ **Pre + post dipping mandatory**
+- ⭐⭐ **Single-use towels** ใน milking
+- ⭐⭐ **Cooling to ≤4°C** ASAP
+- ⭐ Farm to consumer hygiene chain
+- ⭐ Personnel training สำคัญ`,
   },
   xhtE4JH2uHY: {
     videoId: 'xhtE4JH2uHY', title: 'Milk-Meat — 3.2 Mastitis and Milk Quality', subject: 'milk-meat-hygiene',
     date: '2025-08-20', durationMin: 60, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก mastitis impact on quality, SCC, CMT',
-    summary: `## 🎯 Lead Summary
-**Mastitis impact on milk quality** — major economic + safety concern. ⭐ ⭐ Direct connection: SCC ↑ = mastitis. (Cross-ref herd-health-rum mastitis lecture!)
+    summary: `# Milk-Meat — 3.2 Mastitis and Milk Quality
 
-## Impact on Quality ⭐⭐⭐
-- ⭐ ⭐ Increased SCC (somatic cells)
-- ⭐ ⭐ Increased TPC (bacteria)
-- ⭐ Reduced shelf life
-- ⭐ Reduced cheese yield
+> 🎯 **Mastitis ↑ → SCC ↑** = quality ตก · economic loss · public health risk จาก antibiotic residue
+> ⚠️ Cross-ref: [[herd-health-rum mastitis lecture]] — ลึกเรื่อง pathogen + treatment
+
+---
+
+# 🔻 Part 1: Impact on Quality ⭐⭐⭐
+
+- ⭐⭐ **Increased SCC** (somatic cells)
+- ⭐⭐ **Increased TPC** (bacteria)
+- ⭐ **Reduced shelf life**
+- ⭐ **Reduced cheese yield**
 - ⭐ Off-flavors
-- ⭐ Antibiotic residues (treatment!)
+- ⭐ **Antibiotic residues** (จากการรักษา!)
 
-## SCC Thresholds ⭐⭐
-- ⭐ <200K = healthy
-- ⭐ 200-500K = subclinical mastitis
-- ⭐ >500K = clinical mastitis likely
-- ⭐ >1M = severe
+---
 
-## Detection ⭐⭐
-- ⭐ ⭐ **CMT** (California Mastitis Test) — field test
+# 🔻 Part 2: SCC Thresholds ⭐⭐
+
+| SCC Range | Interpretation |
+|---|---|
+| ⭐ **<200K** | Healthy |
+| ⭐ **200-500K** | Subclinical mastitis |
+| ⭐ **>500K** | Clinical mastitis likely |
+| ⭐ **>1M** | Severe |
+
+---
+
+# 🔻 Part 3: Detection ⭐⭐
+
+- ⭐⭐ **CMT** (California Mastitis Test) — **field test**
 - ⭐ Bulk tank SCC
 - ⭐ Strip cup
 - ⭐ Conductivity meters
 
-## Antibiotic Residues ⭐⭐⭐
-- ⭐ ⭐ ⭐ MUST observe withdrawal time!
-- ⭐ Fines for residue detection
-- ⭐ Public health concern
+> 💡 **CMT** = cow-side test ที่ใช้ทุกฟาร์ม — ผสมน้ำยา CMT กับ milk เห็น gel formation = SCC สูง
+
+---
+
+# 🔻 Part 4: Antibiotic Residues ⭐⭐⭐
+
+- ⭐⭐⭐ **MUST observe withdrawal time!**
+- ⭐ Fines ถ้าตรวจเจอ residue
+- ⭐ Public health concern (AMR)
+
+> ⚠️ ฟาร์มลืม withdrawal time = น้ำนมทั้ง bulk tank ถูก reject + ปรับ
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Mastitis → quality issues
-2. ⭐ SCC <200K = healthy
-3. ⭐ CMT field test
-4. ⭐ Antibiotic withdrawal critical
-5. ⭐ Cross-ref: herd-health-rum mastitis lecture`,
+- ⭐⭐⭐ **Antibiotic withdrawal critical**
+- ⭐⭐ **SCC <200K = healthy** · 200-500K subclinical · >500K clinical
+- ⭐⭐ **CMT** = field mastitis test
+- ⭐ Mastitis → quality issues + economic loss
+- ⭐ Cross-ref: herd-health-rum mastitis lecture`,
   },
   '7MF8myXGPKc': {
     videoId: '7MF8myXGPKc', title: 'Milk-Meat — 4.1 Storage of Raw Milk', subject: 'milk-meat-hygiene',
     date: '2025-08-27', durationMin: 36, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก raw milk storage, cold chain, quality maintenance',
-    summary: `## 🎯 Lead Summary
-**Raw milk storage** = cold chain critical. From farm to processor.
+    summary: `# Milk-Meat — 4.1 Storage of Raw Milk
 
-## Storage Principles ⭐⭐
-- ⭐ ⭐ Cool to 4°C ASAP after milking (within 2 hours)
+> 🎯 **Cool to 4°C within 2 hours** + cold chain ไม่ขาด = หัวใจของ raw milk storage
+> ⚠️ Psychrotrophs ยังโตที่ 4°C — เก็บได้ไม่เกิน 48 ชม.
+
+---
+
+# 🔻 Part 1: Storage Principles ⭐⭐
+
+- ⭐⭐ **Cool to 4°C ASAP** (within 2 hours)
 - ⭐ Bulk tank cooling
 - ⭐ Refrigerated transport
 - ⭐ Storage at processor
 - ⭐ Maintain cold chain
 
-## Storage Temperatures ⭐
-- ⭐ ⭐ ≤4°C raw milk
-- ⭐ Maximum 48 hours
+---
+
+# 🔻 Part 2: Storage Temperatures ⭐
+
+- ⭐⭐ **≤4°C raw milk**
+- ⭐ **Maximum 48 hours**
 - ⭐ Avoid temperature fluctuations
 
-## Quality Changes ⭐
+---
+
+# 🔻 Part 3: Quality Changes ⭐
+
 - ⭐ Bacterial growth (psychrotrophs)
-- ⭐ Lipase action (rancidity)
+- ⭐ **Lipase action** (rancidity)
 - ⭐ Protein changes
 - ⭐ Fat oxidation (light exposure)
 
-## Cold Chain Breaks ⭐⭐
+> 💡 Fat oxidation = light-induced → ทำไมขวด milk เป็น opaque/dark สีน้ำตาล
+
+---
+
+# 🔻 Part 4: Cold Chain Breaks ⭐⭐
+
 - ⚠️ Power outages
 - ⚠️ Transport delays
 - ⚠️ Bulk tank failures
-- ⭐ Monitoring required
+- ⭐ **Monitoring** required (data logger)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Cool to 4°C within 2 hours
-2. ⭐ Maximum 48 hours storage
-3. ⭐ Cold chain integrity essential
-4. ⭐ Psychrotrophs grow at 4°C still
-5. ⭐ Avoid light + temperature fluctuations`,
+- ⭐⭐⭐ **Cool to 4°C within 2 hours**
+- ⭐⭐ **Max 48 hours** storage of raw milk
+- ⭐ Cold chain integrity essential
+- ⭐ Psychrotrophs โตที่ 4°C still
+- ⭐ Light + temperature fluctuations → quality loss`,
   },
   COkWvKPk9uw: {
     videoId: 'COkWvKPk9uw', title: 'Milk-Meat — 4.2 Storage of Dairy Products', subject: 'milk-meat-hygiene',
     date: '2025-08-27', durationMin: 27, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก dairy product storage by type',
-    summary: `## 🎯 Lead Summary
-**Dairy product storage** — varies by product type. Specific conditions for each.
+    summary: `# Milk-Meat — 4.2 Storage of Dairy Products
 
-## Product-Specific Storage ⭐⭐
+> 🎯 ผลิตภัณฑ์ dairy แต่ละชนิดมีเงื่อนไขเก็บต่างกัน — รู้ table นี้ใส่หัวให้ได้
+
+---
+
+# 🔻 Part 1: Product-Specific Storage ⭐⭐
+
 | Product | Storage |
 |---|---|
-| ⭐ Pasteurized milk | 4°C, 7-14 days |
-| ⭐ UHT milk | Room temp, 6-9 months unopened |
-| ⭐ Yogurt | 4°C, 3-4 weeks |
-| ⭐ Hard cheese | 4°C, months-years |
-| ⭐ Soft cheese | 4°C, weeks |
-| ⭐ Butter | 4°C, weeks |
-| ⭐ Ice cream | -18°C |
-| ⭐ Milk powder | Room temp, sealed |
+| ⭐ **Pasteurized milk** | 4°C, **7-14 days** |
+| ⭐ **UHT milk** | Room temp, **6-9 months** unopened |
+| ⭐ **Yogurt** | 4°C, 3-4 weeks |
+| ⭐ **Hard cheese** | 4°C, months-years |
+| ⭐ **Soft cheese** | 4°C, weeks |
+| ⭐ **Butter** | 4°C, weeks |
+| ⭐ **Ice cream** | **-18°C** |
+| ⭐ **Milk powder** | Room temp, sealed |
 
-## Quality Maintenance ⭐
+> 💡 UHT room temp ได้เพราะ commercial sterility — แต่เปิดแล้วเก็บ 4°C เหมือน pasteurized
+
+---
+
+# 🔻 Part 2: Quality Maintenance ⭐
+
 - ⭐ Temperature logging
-- ⭐ FIFO (First In First Out)
+- ⭐ **FIFO** (First In First Out)
 - ⭐ Hygienic handling
 - ⭐ Avoid contamination
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Each product different storage
-2. ⭐ UHT room temp (sealed)
-3. ⭐ Hard cheese long shelf life
-4. ⭐ FIFO inventory
-5. ⭐ Temperature logging required`,
+- ⭐⭐⭐ แต่ละผลิตภัณฑ์ storage ต่างกัน
+- ⭐⭐ **UHT room temp** (sealed) · 6-9 months
+- ⭐ **Hard cheese** long shelf life
+- ⭐ **FIFO** inventory rule
+- ⭐ Temperature logging required`,
   },
   wwVpRndiOGg: {
     videoId: 'wwVpRndiOGg', title: 'Milk-Meat — 4.3.1 Determination of Milk Quality I', subject: 'milk-meat-hygiene',
     date: '2025-08-27', durationMin: 97, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก quality testing methods, physical/chemical/microbiological',
-    summary: `## 🎯 Lead Summary
-**Milk quality testing** — physical, chemical, microbiological methods.
+    summary: `# Milk-Meat — 4.3.1 Determination of Milk Quality I
 
-## Physical Tests ⭐⭐
+> 🎯 Quality testing 3 หมวด: **Physical · Chemical · Microbiological** — รู้ method ตัวแทนของแต่ละหมวด
+
+---
+
+# 🔻 Part 1: Physical Tests ⭐⭐
+
 - ⭐ Temperature
 - ⭐ Color
 - ⭐ Odor
-- ⭐ Specific gravity (lactometer)
+- ⭐ **Specific gravity** (lactometer)
 - ⭐ Sediment test (visible debris)
 
-## Chemical Tests ⭐⭐⭐
-- ⭐ ⭐ **Fat content** (Gerber, Babcock methods)
-- ⭐ **Protein** (Kjeldahl, Bradford)
-- ⭐ **Lactose**
-- ⭐ **pH** (4.6 = casein precipitates)
-- ⭐ **Acidity** (titratable)
-- ⭐ **Adulteration tests**:
-  - Water (lactometer)
-  - Starch (iodine)
-  - Sugar (resorcinol)
-  - Urea (urease)
+---
 
-## Microbiological Tests ⭐⭐⭐
-- ⭐ ⭐ **TPC** (Total Plate Count)
+# 🔻 Part 2: Chemical Tests ⭐⭐⭐
+
+## Main Components
+- ⭐⭐ **Fat content** — Gerber, Babcock methods
+- ⭐ **Protein** — Kjeldahl, Bradford
+- ⭐ **Lactose**
+- ⭐ **pH** — **4.6 = casein precipitates**
+- ⭐ **Acidity** (titratable)
+
+## Adulteration Tests ⭐
+| Adulterant | Test |
+|---|---|
+| Water | Lactometer |
+| Starch | Iodine |
+| Sugar | Resorcinol |
+| Urea | Urease |
+
+> 💡 **pH 4.6** = isoelectric point ของ casein → ใช้ทำ cheese (acid coagulation)
+
+---
+
+# 🔻 Part 3: Microbiological Tests ⭐⭐⭐
+
+- ⭐⭐ **TPC** (Total Plate Count)
 - ⭐ **Coliform count**
-- ⭐ **MBRT** (Methylene Blue Reduction Test) — quick quality
-- ⭐ **Resazurin test** — similar
+- ⭐ **MBRT** (Methylene Blue Reduction Test) — quick quality screen
+- ⭐ **Resazurin test** — similar to MBRT
 - ⭐ Specific pathogens (Salmonella, Listeria)
 
-## Modern Methods ⭐
-- ⭐ ⭐ MilkoScan (FT-IR for composition)
-- ⭐ Bactoscan (rapid TPC)
+> 💡 **MBRT** = methylene blue หาย → bacteria เยอะ — quick test ที่ใช้ใน field
+
+---
+
+# 🔻 Part 4: Modern Methods ⭐
+
+- ⭐⭐ **MilkoScan** (FT-IR for composition)
+- ⭐ **Bactoscan** (rapid TPC)
 - ⭐ PCR for pathogens
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ 3 categories: physical/chemical/micro
-2. ⭐ Fat: Gerber method standard
-3. ⭐ Adulteration tests important
-4. ⭐ MBRT quick quality screen
-5. ⭐ Modern: MilkoScan, Bactoscan`,
+- ⭐⭐⭐ **3 categories**: physical / chemical / microbiological
+- ⭐⭐ **Fat: Gerber method** standard
+- ⭐⭐ **MBRT** = quick quality screen
+- ⭐ Adulteration tests (water/starch/sugar/urea)
+- ⭐ Modern: MilkoScan + Bactoscan + PCR`,
   },
   'AVsA-jlkKeM': {
     videoId: 'AVsA-jlkKeM', title: 'Milk-Meat — 4.3.2 Determination of Milk Quality II', subject: 'milk-meat-hygiene',
     date: '2025-09-17', durationMin: 28, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก antibiotic residue testing, advanced methods',
-    summary: `## 🎯 Lead Summary
-**Advanced milk quality testing** — antibiotic residues + sophisticated methods.
+    summary: `# Milk-Meat — 4.3.2 Determination of Milk Quality II
 
-## Antibiotic Residue Testing ⭐⭐⭐
-### Screening Tests
-- ⭐ ⭐ Charm SafeLevel (rapid)
-- ⭐ Delvotest (microbial inhibition)
+> 🎯 Advanced: **antibiotic residue testing** — mandatory ก่อนเข้าสายการผลิต
+> ⚠️ Residue ปน → public health (AMR) + ส่งออกไม่ได้
+
+---
+
+# 🔻 Part 1: Antibiotic Residue Testing ⭐⭐⭐
+
+## Screening Tests
+- ⭐⭐ **Charm SafeLevel** (rapid)
+- ⭐ **Delvotest** (microbial inhibition)
 - ⭐ SNAP test
 - ⭐ Petrifilm
 
-### Confirmatory ⭐
-- ⭐ HPLC
-- ⭐ LC-MS/MS
+## Confirmatory ⭐
+- ⭐ **HPLC**
+- ⭐ **LC-MS/MS**
 - ⭐ ELISA-based
 
-## Importance ⭐⭐⭐
-- ⭐ ⭐ ⭐ MANDATORY before processing
-- ⭐ Withdrawal times must be observed
-- ⭐ Penalties for residues
+> 💡 Workflow ปกติ: screening (Charm/Delvotest) → ถ้า positive → confirm ด้วย HPLC/LC-MS/MS
+
+---
+
+# 🔻 Part 2: ความสำคัญ ⭐⭐⭐
+
+- ⭐⭐⭐ **MANDATORY before processing**
+- ⭐ Withdrawal times บังคับ
+- ⭐ Penalties สำหรับ residue
 - ⭐ Public health (antibiotic resistance)
 
-## Other Modern Tests ⭐
-- ⭐ Aflatoxin M1 (mycotoxin)
+---
+
+# 🔻 Part 3: Other Modern Tests ⭐
+
+- ⭐ **Aflatoxin M1** (mycotoxin จาก feed)
 - ⭐ Heavy metals
 - ⭐ Specific allergens
 
+> ⚠️ **Aflatoxin M1** มาจาก Aflatoxin B1 ใน feed → metabolize เป็น M1 ในนม
+
+---
+
 ## 📋 Exam Recap
-1. ⭐ Antibiotic residue testing mandatory
-2. ⭐ Charm/Delvotest = screening
-3. ⭐ HPLC = confirmatory
-4. ⭐ Aflatoxin M1 monitored
-5. ⭐ Withdrawal times critical`,
+- ⭐⭐⭐ **Antibiotic residue testing mandatory**
+- ⭐⭐ **Charm / Delvotest** = screening · **HPLC / LC-MS/MS** = confirmatory
+- ⭐ **Aflatoxin M1** monitored
+- ⭐ Withdrawal times critical
+- ⭐ Public health concern (AMR)`,
   },
   '64pJ6PklAiE': {
     videoId: '64pJ6PklAiE', title: 'Milk-Meat — 5 GMP and HACCP Standards', subject: 'milk-meat-hygiene',
     date: '2025-09-03', durationMin: 90, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก GMP, HACCP, 7 principles, CCP',
-    summary: `## 🎯 Lead Summary
-**GMP + HACCP** = global food safety standards. ⭐ Required for export.
+    summary: `# Milk-Meat — 5 GMP and HACCP Standards
 
-## GMP (Good Manufacturing Practices) ⭐⭐
-- ⭐ Pre-requisite to HACCP
+> 🎯 **GMP = pre-requisite · HACCP = systematic hazard control** — ทั้งคู่บังคับสำหรับ export
+> ⚠️ HACCP = **7 principles** ต้องจำให้ครบ
+
+---
+
+# 🔻 Part 1: GMP (Good Manufacturing Practices) ⭐⭐
+
+- ⭐ **Pre-requisite to HACCP** — ต้องมี GMP ก่อนถึงจะ implement HACCP ได้
 - ⭐ Building, equipment, hygiene
 - ⭐ Personnel hygiene
 - ⭐ Pest control
 - ⭐ Sanitation programs
 
-## HACCP ⭐⭐⭐ (7 Principles!)
-1. ⭐ Hazard analysis
-2. ⭐ Identify Critical Control Points (CCPs)
-3. ⭐ Establish critical limits
-4. ⭐ Monitor CCPs
-5. ⭐ Corrective actions
-6. ⭐ Verification
-7. ⭐ Documentation/records
+---
 
-## Hazards Categories ⭐
-- ⭐ ⭐ **Biological** (pathogens)
-- ⭐ ⭐ **Chemical** (pesticides, antibiotics, mycotoxins)
-- ⭐ ⭐ **Physical** (metal, glass)
+# 🔻 Part 2: HACCP — 7 Principles ⭐⭐⭐
 
-## CCPs in Dairy ⭐
-- ⭐ Pasteurization (temperature, time)
+1. ⭐ **Hazard analysis**
+2. ⭐ **Identify CCPs** (Critical Control Points)
+3. ⭐ **Establish critical limits**
+4. ⭐ **Monitor CCPs**
+5. ⭐ **Corrective actions**
+6. ⭐ **Verification**
+7. ⭐ **Documentation / records**
+
+> 💡 Mnemonic: **HCEMCVD** — Hazard, CCP, Critical limits, Monitor, Corrective, Verify, Document
+
+---
+
+# 🔻 Part 3: Hazard Categories ⭐
+
+| Category | ตัวอย่าง |
+|---|---|
+| ⭐⭐ **Biological** | pathogens |
+| ⭐⭐ **Chemical** | pesticides, antibiotics, mycotoxins |
+| ⭐⭐ **Physical** | metal, glass |
+
+---
+
+# 🔻 Part 4: CCPs in Dairy ⭐
+
+- ⭐ **Pasteurization** (temperature, time)
 - ⭐ Cooling
 - ⭐ Storage temperature
 - ⭐ Acidity (cheese)
 
-## Implementation ⭐
+---
+
+# 🔻 Part 5: Implementation ⭐
+
 - ⭐ HACCP team
 - ⭐ Plant-specific plan
 - ⭐ Training
 - ⭐ Audits
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ GMP precedes HACCP
-2. ⭐ HACCP = 7 principles
-3. ⭐ 3 hazard types: bio/chem/phys
-4. ⭐ Pasteurization = key dairy CCP
-5. ⭐ Required for international trade`,
+- ⭐⭐⭐ **HACCP = 7 principles** (ต้องจำได้ทั้งหมด)
+- ⭐⭐ **GMP precedes HACCP**
+- ⭐⭐ **3 hazard types**: biological / chemical / physical
+- ⭐ **Pasteurization** = key dairy CCP
+- ⭐ Required for international trade`,
   },
   EZjDaUeGQaM: {
     videoId: 'EZjDaUeGQaM', title: 'Milk-Meat — 6 Biosecurity for Quality Milk Production', subject: 'milk-meat-hygiene',
     date: '2025-09-10', durationMin: 117, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก biosecurity, dairy farm hygiene',
-    summary: `## 🎯 Lead Summary
-**Biosecurity in dairy farms** = preventing disease entry + spread for quality milk production.
+    summary: `# Milk-Meat — 6 Biosecurity for Quality Milk Production
 
-## Biosecurity Levels ⭐⭐
-- ⭐ External: prevent entry
-- ⭐ Internal: prevent spread within
+> 🎯 Biosecurity 2 ขั้น: **External** (กัน pathogen เข้า) + **Internal** (กัน spread ในฟาร์ม)
+> ⚠️ Test new animals + quarantine 30+ days ก่อน introduce — ห้ามข้าม
+
+---
+
+# 🔻 Part 1: Biosecurity Levels ⭐⭐
+
+- ⭐ **External**: prevent entry
+- ⭐ **Internal**: prevent spread within
 - ⭐ Personnel hygiene
 - ⭐ Vehicle disinfection
-- ⭐ Pest/wildlife control
+- ⭐ Pest / wildlife control
 - ⭐ Mortality disposal
 
-## Direct Impact on Milk Quality ⭐
+---
+
+# 🔻 Part 2: Direct Impact on Milk Quality ⭐
+
 - ⭐ Pathogen-free environment
 - ⭐ Reduced antibiotic use
 - ⭐ Lower SCC
-- ⭐ Premium pricing eligibility
+- ⭐ **Premium pricing eligibility**
 
-## Common Disease Concerns ⭐
-- ⭐ TB
-- ⭐ Brucellosis
+> 💡 ฟาร์มที่ biosecurity ดี → mastitis น้อย → SCC ต่ำ → ได้ราคา premium
+
+---
+
+# 🔻 Part 3: Common Disease Concerns ⭐
+
+- ⭐ **TB**
+- ⭐ **Brucellosis**
 - ⭐ Mastitis pathogens
-- ⭐ FMD
-- ⭐ LSD
+- ⭐ **FMD**
+- ⭐ **LSD** (Lumpy Skin Disease)
 
-## Key Practices ⭐
-- ⭐ ⭐ Test new animals before introduction
-- ⭐ Quarantine 30+ days
+---
+
+# 🔻 Part 4: Key Practices ⭐
+
+- ⭐⭐ **Test new animals** before introduction
+- ⭐ **Quarantine 30+ days**
 - ⭐ Visitor restrictions
 - ⭐ Footbaths
 - ⭐ Vehicle washing
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ External + internal biosecurity
-2. ⭐ Test before introduction
-3. ⭐ Footbaths + vehicle hygiene
-4. ⭐ Quarantine 30+ days
-5. ⭐ Premium milk requires biosecurity`,
+- ⭐⭐⭐ **Test before introduction + quarantine 30+ days**
+- ⭐⭐ External + internal biosecurity
+- ⭐⭐ Footbaths + vehicle hygiene
+- ⭐ TB + Brucella + FMD + LSD = main concerns
+- ⭐ Premium milk requires biosecurity`,
   },
   Adtc6FyLqrg: {
     videoId: 'Adtc6FyLqrg', title: 'Milk-Meat — 7 Processing Technologies for Milk Products', subject: 'milk-meat-hygiene',
     date: '2025-09-17', durationMin: 99, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก pasteurization, UHT, cheese, yogurt processing',
-    summary: `## 🎯 Lead Summary
-**Milk processing technologies** — from raw to consumer products.
+    summary: `# Milk-Meat — 7 Processing Technologies for Milk Products
 
-## Pasteurization ⭐⭐⭐
+> 🎯 Pasteurization 3 styles (HTST · LTLT · UHT) + processing อื่น (homogenization · standardization · fermentation)
+> ⚠️ HTST 72°C × 15s = standard ที่ต้องจำให้ขึ้นใจ
+
+---
+
+# 🔻 Part 1: Pasteurization ⭐⭐⭐
+
 | Method | Temperature × Time |
 |---|---|
-| ⭐ ⭐ **HTST** | 72°C × 15 sec |
+| ⭐⭐ **HTST** | **72°C × 15 sec** |
 | ⭐ **LTLT** | 63°C × 30 min |
 | ⭐ **UHT** | 135-150°C × 1-2 sec |
 
-## Other Processing ⭐⭐
-### Homogenization
-- ⭐ Reduce fat globule size
-- ⭐ Stable emulsion
+> 💡 **HTST** = High Temperature Short Time, **LTLT** = Low Temp Long Time, **UHT** = Ultra-High Temp
 
-### Standardization
+---
+
+# 🔻 Part 2: Homogenization ⭐
+
+- ⭐ Reduce fat globule size
+- ⭐ Stable emulsion — ไม่เห็นชั้นไขมันแยก
+
+---
+
+# 🔻 Part 3: Standardization ⭐
+
 - ⭐ Adjust fat %
 - ⭐ Skim, semi-skim, whole
 
-### Concentration
-- ⭐ Evaporation (concentrated milk)
-- ⭐ Spray drying (milk powder)
+---
 
-### Fermentation ⭐
-- ⭐ Yogurt: Lactobacillus + Streptococcus
-- ⭐ Cheese: lactic acid bacteria + rennet
-- ⭐ Butter: cream churning
+# 🔻 Part 4: Concentration ⭐
 
-## Cheese Process ⭐
-- ⭐ Coagulation (rennet/acid)
-- ⭐ Cutting curd
-- ⭐ Cooking
-- ⭐ Pressing
-- ⭐ Salting
-- ⭐ Aging
+- ⭐ **Evaporation** — concentrated milk
+- ⭐ **Spray drying** — milk powder
+
+---
+
+# 🔻 Part 5: Fermentation ⭐
+
+- ⭐ **Yogurt** — *Lactobacillus* + *Streptococcus*
+- ⭐ **Cheese** — lactic acid bacteria + rennet
+- ⭐ **Butter** — cream churning
+
+---
+
+# 🔻 Part 6: Cheese Process ⭐
+
+1. ⭐ **Coagulation** (rennet / acid)
+2. ⭐ Cutting curd
+3. ⭐ Cooking
+4. ⭐ Pressing
+5. ⭐ Salting
+6. ⭐ **Aging**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ HTST 72°C × 15s standard
-2. ⭐ UHT for long shelf life
-3. ⭐ Homogenization stabilizes
-4. ⭐ Yogurt = LAB fermentation
-5. ⭐ Cheese = coagulation + aging`,
+- ⭐⭐⭐ **HTST 72°C × 15s** = standard pasteurization
+- ⭐⭐ **UHT** สำหรับ long shelf life
+- ⭐ **Homogenization** stabilizes emulsion
+- ⭐ **Yogurt** = LAB fermentation
+- ⭐ **Cheese** = coagulation + aging`,
   },
   ikNOlIazPoc: {
     videoId: 'ikNOlIazPoc', title: 'Milk-Meat — 9.1 Introduction to Meat Hygiene', subject: 'milk-meat-hygiene',
     date: '2025-10-08', durationMin: 39, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก meat hygiene principles, slaughter to consumer',
-    summary: `## 🎯 Lead Summary
-**Meat hygiene** = ensuring safe meat from slaughter to consumer. Critical control points throughout chain.
+    summary: `# Milk-Meat — 9.1 Introduction to Meat Hygiene
 
-## Meat Production Chain ⭐⭐
-- ⭐ Live animal (farm)
-- ⭐ Transport to slaughter
-- ⭐ Antemortem inspection
-- ⭐ Slaughter (humane)
-- ⭐ Postmortem inspection
-- ⭐ Processing
-- ⭐ Distribution
-- ⭐ Retail/consumer
+> 🎯 Meat hygiene = chain ตั้งแต่ farm → slaughter → processing → consumer · **vet ต้อง supervise ตลอด**
+> ⚠️ Antemortem + postmortem inspection = vet duty หลัก
 
-## Hygiene Principles ⭐
+---
+
+# 🔻 Part 1: Meat Production Chain ⭐⭐
+
+1. ⭐ Live animal (farm)
+2. ⭐ Transport to slaughter
+3. ⭐ **Antemortem inspection**
+4. ⭐ Slaughter (humane)
+5. ⭐ **Postmortem inspection**
+6. ⭐ Processing
+7. ⭐ Distribution
+8. ⭐ Retail / consumer
+
+---
+
+# 🔻 Part 2: Hygiene Principles ⭐
+
 - ⭐ Cleanliness throughout
-- ⭐ Cold chain (≤4°C)
+- ⭐ **Cold chain (≤4°C)**
 - ⭐ Trained personnel
 - ⭐ Veterinary supervision
 - ⭐ Quality assurance
 
-## Control Points ⭐⭐
-- ⭐ Antemortem inspection (vet)
-- ⭐ Postmortem inspection (vet)
+---
+
+# 🔻 Part 3: Control Points ⭐⭐
+
+- ⭐ **Antemortem inspection** (vet)
+- ⭐ **Postmortem inspection** (vet)
 - ⭐ Sanitation
 - ⭐ Temperature control
 - ⭐ Cross-contamination prevention
 
+> 💡 Vet supervision = legal requirement ที่ขาดไม่ได้ — รับผิดชอบ public health
+
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multi-step chain control
-2. ⭐ Antemortem + postmortem inspection by vet
-3. ⭐ Cold chain ≤4°C
-4. ⭐ Cross-contamination prevention
-5. ⭐ Vet supervision required`,
+- ⭐⭐⭐ **Antemortem + postmortem inspection by vet**
+- ⭐⭐ **Cold chain ≤4°C**
+- ⭐ Multi-step chain control
+- ⭐ Cross-contamination prevention
+- ⭐ Vet supervision required`,
   },
   lvMbZF8uElA: {
     videoId: 'lvMbZF8uElA', title: 'Milk-Meat — 10 Microbiology of Meat', subject: 'milk-meat-hygiene',
     date: '2025-10-15', durationMin: 146, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก meat microbiology, spoilage, pathogens',
-    summary: `## 🎯 Lead Summary
-**Meat microbiology** — natural flora + spoilage organisms + pathogens. Critical for safety + shelf life.
+    summary: `# Milk-Meat — 10 Microbiology of Meat
 
-## Sources of Contamination ⭐⭐
-- ⭐ Hide/skin
-- ⭐ GI tract spillage
+> 🎯 Meat microbiology = natural flora + spoilage + pathogen · cold storage ชะลอแต่ไม่หยุด
+> ⚠️ E. coli O157:H7 → HUS · Trichinella ใน pork · Salmonella + Campylobacter ในไก่
+
+---
+
+# 🔻 Part 1: Sources of Contamination ⭐⭐
+
+- ⭐ **Hide / skin**
+- ⭐ **GI tract spillage** (evisceration)
 - ⭐ Equipment
 - ⭐ Personnel
 - ⭐ Environment
 
-## Spoilage Organisms ⭐⭐
-- ⭐ Pseudomonas (cold-tolerant!)
-- ⭐ Lactobacillus
-- ⭐ Clostridium (anaerobic, vacuum)
-- ⭐ Brochothrix
-- ⭐ Yeasts/Molds (refrigerated)
+---
 
-## Pathogenic Bacteria ⭐⭐⭐
+# 🔻 Part 2: Spoilage Organisms ⭐⭐
+
+- ⭐ **Pseudomonas** — cold-tolerant!
+- ⭐ Lactobacillus
+- ⭐ **Clostridium** — anaerobic, vacuum-packed meat
+- ⭐ Brochothrix
+- ⭐ Yeasts / Molds (refrigerated)
+
+---
+
+# 🔻 Part 3: Pathogenic Bacteria ⭐⭐⭐
+
 - ⭐ Salmonella spp.
-- ⭐ E. coli O157:H7 (HUS!)
+- ⭐ **E. coli O157:H7** (HUS!)
 - ⭐ Campylobacter
 - ⭐ Listeria monocytogenes
 - ⭐ Clostridium perfringens
 - ⭐ Staph aureus
 - ⭐ Yersinia enterocolitica
 
-## Parasites ⭐
-- ⭐ Trichinella
-- ⭐ Toxoplasma
-- ⭐ Taenia (cysticerci)
+> ⚠️ **E. coli O157:H7** → **HUS** (Hemolytic Uremic Syndrome) ในเด็ก — undercooked ground beef เป็น vehicle หลัก
 
-## Viruses ⭐
-- ⭐ Hepatitis E (pork!)
+---
+
+# 🔻 Part 4: Parasites ⭐
+
+- ⭐ **Trichinella** (pork)
+- ⭐ **Toxoplasma**
+- ⭐ **Taenia** (cysticerci)
+
+---
+
+# 🔻 Part 5: Viruses ⭐
+
+- ⭐ **Hepatitis E** (pork!)
 - ⭐ Norovirus
 
-## Mycotoxins ⭐
+---
+
+# 🔻 Part 6: Mycotoxins ⭐
+
 - ⭐ Aflatoxin
 - ⭐ Other fungal toxins
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Pseudomonas = cold-tolerant spoilage
-2. ⭐ Salmonella + E. coli O157:H7 major pathogens
-3. ⭐ Cysticercosis = pork tapeworm risk
-4. ⭐ Trichinella in pork
-5. ⭐ Cold storage limits but doesn't eliminate`,
+- ⭐⭐⭐ **Salmonella + E. coli O157:H7** = major pathogens
+- ⭐⭐ **Pseudomonas** = cold-tolerant spoilage
+- ⭐ **Cysticercosis** = pork tapeworm risk
+- ⭐ **Trichinella** in pork
+- ⭐ Cold storage limits but doesn't eliminate`,
   },
   xJGeA7PHHO4: {
     videoId: 'xJGeA7PHHO4', title: 'Milk-Meat — 11.1 Storage of Meat and Meat Products', subject: 'milk-meat-hygiene',
     date: '2025-10-22', durationMin: 69, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก meat storage methods, shelf life',
-    summary: `## 🎯 Lead Summary
-**Meat storage methods** — refrigeration, freezing, curing, drying, packaging.
+    summary: `# Milk-Meat — 11.1 Storage of Meat and Meat Products
 
-## Storage Methods ⭐⭐⭐
-| Method | Temperature/Conditions | Shelf Life |
+> 🎯 Storage methods 8 แบบ ตั้งแต่ refrigeration → canning · เลือกตามเงื่อนไข + shelf life ที่ต้องการ
+
+---
+
+# 🔻 Part 1: Storage Methods ⭐⭐⭐
+
+| Method | Conditions | Shelf Life |
 |---|---|---|
-| ⭐ Refrigeration | 0-4°C | Days |
-| ⭐ Freezing | -18°C | Months |
-| ⭐ Vacuum | 0-4°C | 2-3 weeks |
-| ⭐ MAP | 0-4°C | 2-4 weeks |
-| ⭐ Curing | Salt + nitrite | Long |
-| ⭐ Drying | Low moisture | Long |
-| ⭐ Smoking | Smoke + heat | Variable |
-| ⭐ Canning | Heat sterilized | Years |
+| ⭐ **Refrigeration** | 0-4°C | Days |
+| ⭐ **Freezing** | **-18°C** | Months |
+| ⭐ **Vacuum** | 0-4°C | 2-3 weeks |
+| ⭐ **MAP** | 0-4°C | 2-4 weeks |
+| ⭐ **Curing** | Salt + nitrite | Long |
+| ⭐ **Drying** | Low moisture | Long |
+| ⭐ **Smoking** | Smoke + heat | Variable |
+| ⭐ **Canning** | Heat sterilized | Years |
 
-## Cold Storage Considerations ⭐
-- ⭐ Hide humidity high
+> 💡 **MAP** = Modified Atmosphere Packaging — ปรับ O₂/CO₂/N₂ ในซอง · ยืด shelf life
+
+---
+
+# 🔻 Part 2: Cold Storage Considerations ⭐
+
+- ⭐ High humidity
 - ⭐ Temperature stability
-- ⭐ FIFO inventory
+- ⭐ **FIFO** inventory
 
-## Freezing Effects ⭐
+---
+
+# 🔻 Part 3: Freezing Effects ⭐
+
 - ⭐ Ice crystals damage tissue
-- ⭐ Slow freezing more damage
-- ⭐ Quick freezing better
+- ⭐ **Slow freezing = more damage**
+- ⭐ **Quick freezing = better quality**
+
+> ⚠️ Slow freezing = large ice crystals → texture เสีย — บางทีเรียก "freezer burn"
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Refrigeration 0-4°C
-2. ⭐ Freezing -18°C
-3. ⭐ Vacuum/MAP extends shelf life
-4. ⭐ Curing/drying historical methods
-5. ⭐ Quick freezing preserves quality`,
+- ⭐⭐⭐ **Refrigeration 0-4°C · Freezing -18°C**
+- ⭐⭐ **Vacuum / MAP** extends shelf life
+- ⭐ **Curing / drying** = historical methods
+- ⭐ **Quick freezing** preserves quality
+- ⭐ 8 storage methods มี trade-off ต่างกัน`,
   },
   szE5NLhgs78: {
     videoId: 'szE5NLhgs78', title: 'Milk-Meat — 11.2 Meat Quality and Wholesomeness', subject: 'milk-meat-hygiene',
     date: '2025-10-22', durationMin: 36, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก meat quality factors, grading',
-    summary: `## 🎯 Lead Summary
-**Meat quality + wholesomeness** — combined safety + quality assessment.
+    summary: `# Milk-Meat — 11.2 Meat Quality and Wholesomeness
 
-## Quality Factors ⭐⭐
-- ⭐ Color (pH-dependent)
-- ⭐ Tenderness (aging effect)
-- ⭐ Juiciness (water-holding)
-- ⭐ Flavor
-- ⭐ Marbling (fat)
+> 🎯 **Quality** (sensory + appearance) ≠ **Wholesomeness** (safety) — ทั้งคู่ต้องผ่าน · stress = ตัวการของ DFD / PSE
+
+---
+
+# 🔻 Part 1: Quality Factors ⭐⭐
+
+- ⭐ **Color** (pH-dependent)
+- ⭐ **Tenderness** (aging effect)
+- ⭐ **Juiciness** (water-holding)
+- ⭐ **Flavor**
+- ⭐ **Marbling** (fat)
 - ⭐ Cleanliness
 
-## pH and Color ⭐⭐
-- ⭐ Normal pH 5.3-5.6 (24h post-slaughter)
-- ⭐ ⭐ DFD (Dark Firm Dry) — high pH (stress!)
-- ⭐ ⭐ PSE (Pale Soft Exudative) — low pH (stress!)
+---
 
-## Wholesomeness ⭐⭐
-- ⭐ Free of pathogens
-- ⭐ Free of residues
-- ⭐ Free of parasites
+# 🔻 Part 2: pH and Color ⭐⭐
+
+| Type | pH | สาเหตุ |
+|---|---|---|
+| **Normal** | 5.3-5.6 (24h post-slaughter) | – |
+| ⭐⭐ **DFD** (Dark Firm Dry) | **High pH** | stress **ก่อน** slaughter (long-term) |
+| ⭐⭐ **PSE** (Pale Soft Exudative) | **Low pH** | stress **ที่** slaughter (acute) |
+
+> 💡 **DFD** = ม้า/วัว/หมูที่ stress นานก่อนตาย → glycogen หมด → lactic acid น้อย → pH สูง · เนื้อแห้ง คล้ำ
+> **PSE** = หมูที่ acute stress (genetic Halothane gene) → glycolysis เร็วเกิน → pH ตกเร็ว ที่อุณหภูมิยังสูง → เนื้อขาวซีด แฉะ
+
+---
+
+# 🔻 Part 3: Wholesomeness ⭐⭐
+
+- ⭐ Free of **pathogens**
+- ⭐ Free of **residues**
+- ⭐ Free of **parasites**
 - ⭐ Free of foreign material
 
-## Grading ⭐
+---
+
+# 🔻 Part 4: Grading ⭐
+
 - ⭐ USDA grading
 - ⭐ Thai standards
-- ⭐ Marbling, age, fat color
+- ⭐ Factors: marbling, age, fat color
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Quality vs Wholesomeness
-2. ⭐ DFD = stressed before slaughter
-3. ⭐ PSE = stressed at slaughter
-4. ⭐ Normal pH 5.3-5.6
-5. ⭐ Multiple grading systems`,
+- ⭐⭐⭐ **Quality vs Wholesomeness** — concept ต่างกัน
+- ⭐⭐ **DFD** = stress ก่อน slaughter (long-term) · pH สูง
+- ⭐⭐ **PSE** = stress ที่ slaughter (acute) · pH ต่ำ
+- ⭐ Normal pH 5.3-5.6
+- ⭐ Multiple grading systems`,
   },
   RYK_n1_XWes: {
     videoId: 'RYK_n1-XWes', title: 'Milk-Meat — 11.3 Application of Molecular Biology in Meat Science', subject: 'milk-meat-hygiene',
     date: '2025-10-22', durationMin: 31, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก molecular techniques, DNA testing, species ID',
-    summary: `## 🎯 Lead Summary
-**Molecular biology in meat science** — DNA-based testing for species identification, pathogen detection, fraud prevention.
+    summary: `# Milk-Meat — 11.3 Application of Molecular Biology in Meat Science
 
-## Applications ⭐⭐⭐
-- ⭐ ⭐ **Species identification** (fraud detection!)
-- ⭐ ⭐ **Pathogen detection** (PCR)
+> 🎯 PCR + DNA-based methods = ทุกเรื่อง: species ID · pathogen detection · halal cert · fraud detection
+> ⚠️ "Horse meat scandal" Europe 2013 → ผลักดัน DNA testing ระดับสากล
+
+---
+
+# 🔻 Part 1: Applications ⭐⭐⭐
+
+- ⭐⭐ **Species identification** (fraud detection!)
+- ⭐⭐ **Pathogen detection** (PCR)
 - ⭐ Allergen detection
 - ⭐ GMO testing
 - ⭐ Adulteration testing
 
-## Species ID Importance ⭐
-- ⭐ ⭐ Halal certification
-- ⭐ Religious/cultural concerns
-- ⭐ Fraud (cheaper meats substituted)
-- ⭐ "Horse meat scandal" Europe 2013
+---
 
-## Methods ⭐⭐
-- ⭐ ⭐ PCR (Polymerase Chain Reaction)
+# 🔻 Part 2: Species ID Importance ⭐
+
+- ⭐⭐ **Halal certification**
+- ⭐ Religious / cultural concerns
+- ⭐ Fraud (cheaper meats substituted)
+- ⭐ **"Horse meat scandal" Europe 2013**
+
+> 💡 Horse meat scandal 2013 — beef products ทั่ว EU พบ horse DNA → กระตุ้นให้ทุกประเทศบังคับ DNA testing
+
+---
+
+# 🔻 Part 3: Methods ⭐⭐
+
+- ⭐⭐ **PCR** (Polymerase Chain Reaction)
 - ⭐ Real-time PCR
 - ⭐ Multiplex PCR
-- ⭐ DNA barcoding (cytochrome b)
+- ⭐ **DNA barcoding** — cytochrome b gene
 - ⭐ Mitochondrial DNA analysis
 
-## Pathogen Detection ⭐
+---
+
+# 🔻 Part 4: Pathogen Detection ⭐
+
 - ⭐ Salmonella PCR
 - ⭐ E. coli O157:H7 detection
 - ⭐ Listeria
-- ⭐ Faster than culture
+- ⭐ **Faster than culture**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ PCR for species ID
-2. ⭐ Halal certification benefits
-3. ⭐ DNA barcoding (cytochrome b)
-4. ⭐ Pathogen PCR faster than culture
-5. ⭐ Anti-fraud applications`,
+- ⭐⭐⭐ **PCR for species ID** + pathogen detection
+- ⭐⭐ **Halal certification** = main driver in Muslim countries
+- ⭐⭐ **DNA barcoding** uses cytochrome b
+- ⭐ Pathogen PCR faster than culture
+- ⭐ Anti-fraud (horse meat scandal lesson)`,
   },
   PgNTcMmgVT8: {
     videoId: 'PgNTcMmgVT8', title: 'Milk-Meat — 12.1 Pest Control in Meat Hygiene', subject: 'milk-meat-hygiene',
     date: '2025-10-29', durationMin: 30, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก pest control, IPM, slaughter facility',
-    summary: `## 🎯 Lead Summary
-**Pest control in meat facilities** — IPM (Integrated Pest Management) approach.
+    summary: `# Milk-Meat — 12.1 Pest Control in Meat Hygiene
 
-## Common Pests ⭐
-- ⭐ Rodents (rats, mice)
-- ⭐ Flies
+> 🎯 **IPM (Integrated Pest Management)** = approach หลัก: **Exclusion → Sanitation → Monitoring → Control**
+> ⚠️ Rodents = pathogen vector หลัก (Salmonella) + ทำลายอาคาร
+
+---
+
+# 🔻 Part 1: Common Pests ⭐
+
+- ⭐ **Rodents** (rats, mice)
+- ⭐ **Flies**
 - ⭐ Cockroaches
 - ⭐ Ants
 - ⭐ Birds (perimeter)
 
-## IPM Approach ⭐⭐⭐
-- ⭐ ⭐ **Exclusion** (physical barriers)
-- ⭐ ⭐ **Sanitation** (food/water removal)
-- ⭐ ⭐ **Monitoring** (traps, inspection)
-- ⭐ ⭐ **Control** (last resort, targeted)
-- ⭐ Documentation
+---
 
-## Why Important ⭐
-- ⭐ Pathogen vectors (Salmonella, etc.)
+# 🔻 Part 2: IPM Approach ⭐⭐⭐
+
+| Step | คำอธิบาย |
+|---|---|
+| ⭐⭐ **Exclusion** | physical barriers (กันเข้า) |
+| ⭐⭐ **Sanitation** | food / water removal |
+| ⭐⭐ **Monitoring** | traps, inspection |
+| ⭐⭐ **Control** | last resort, targeted |
+| ⭐ **Documentation** | record everything |
+
+> 💡 IPM order = **prevent → detect → control** — ไม่ใช่พ่นยาก่อน
+
+---
+
+# 🔻 Part 3: Why Important ⭐
+
+- ⭐ **Pathogen vectors** (Salmonella, etc.)
 - ⭐ Damage to facilities
 - ⭐ Regulatory compliance
 - ⭐ Customer perception
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ IPM = best approach
-2. ⭐ Exclusion → Sanitation → Monitoring → Control
-3. ⭐ Rodents = main concern
-4. ⭐ Documentation required
-5. ⭐ Pathogen vectors`,
+- ⭐⭐⭐ **IPM = best approach** (not pesticide-first)
+- ⭐⭐ **Exclusion → Sanitation → Monitoring → Control**
+- ⭐⭐ **Rodents** = main concern (pathogen vector)
+- ⭐ Documentation required
+- ⭐ Pathogen vectors`,
   },
   vryAe657soA: {
     videoId: 'vryAe657soA', title: 'Milk-Meat — 12.2 Microbiology of the Avian Egg', subject: 'milk-meat-hygiene',
     date: '2025-10-29', durationMin: 37, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก egg microbiology, Salmonella, contamination routes',
-    summary: `## 🎯 Lead Summary
-**Egg microbiology** — natural defenses + contamination + Salmonella concerns.
+    summary: `# Milk-Meat — 12.2 Microbiology of the Avian Egg
 
-## Egg Defenses ⭐⭐
-- ⭐ Cuticle (outer layer)
-- ⭐ Shell (porous but barrier)
-- ⭐ ⭐ Inner membranes
-- ⭐ ⭐ Egg white (albumin) — antimicrobial proteins
+> 🎯 ไข่มี natural defenses (cuticle · shell · membranes · antimicrobial proteins) — แต่ Salmonella Enteritidis เจาะเข้าได้ทั้ง vertical + horizontal
+> ⚠️ **ห้ามล้างไข่** — ล้าง = ลอก cuticle → bacterial entry ง่ายขึ้น
+
+---
+
+# 🔻 Part 1: Egg Defenses ⭐⭐
+
+- ⭐ **Cuticle** (outer layer)
+- ⭐ **Shell** (porous but barrier)
+- ⭐⭐ **Inner membranes**
+- ⭐⭐ **Egg white (albumin)** — antimicrobial proteins
 - ⭐ Yolk membrane
 
-## Antimicrobial Proteins ⭐
-- ⭐ Lysozyme
-- ⭐ Conalbumin (binds iron)
-- ⭐ Avidin (binds biotin)
+---
+
+# 🔻 Part 2: Antimicrobial Proteins ⭐
+
+- ⭐ **Lysozyme**
+- ⭐ **Conalbumin** (binds iron — starves bacteria)
+- ⭐ **Avidin** (binds biotin)
 - ⭐ Ovomucin
 
-## Contamination Routes ⭐⭐⭐
-### Vertical (in ovo) ⭐
-- ⭐ ⭐ Salmonella Enteritidis
+> 💡 **Conalbumin** = iron sequestration → bacterial growth ถูก inhibit เพราะขาด iron
+
+---
+
+# 🔻 Part 3: Contamination Routes ⭐⭐⭐
+
+## Vertical (in ovo) ⭐
+- ⭐⭐ **Salmonella Enteritidis**
 - ⭐ Mycoplasma
-- ⭐ Through ovary/oviduct
+- ⭐ Through ovary / oviduct
 
-### Horizontal (penetration) ⭐
-- ⭐ Through shell pores
+## Horizontal (penetration) ⭐
+- ⭐ Through **shell pores**
 - ⭐ Salmonella, E. coli
-- ⭐ Wet shells especially
+- ⭐ **Wet shells especially**
 
-## Storage ⭐
+> ⚠️ **Wet shells** → bacteria เจาะ pores ง่ายขึ้น — เก็บไข่ในที่แห้ง
+
+---
+
+# 🔻 Part 4: Storage ⭐
+
 - ⭐ Cool storage
-- ⭐ Don't wash (removes cuticle!)
+- ⭐ **Don't wash** (removes cuticle!)
 - ⭐ FIFO
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multiple natural defenses
-2. ⭐ Lysozyme + conalbumin antimicrobial
-3. ⭐ Salmonella Enteritidis vertical transmission
-4. ⭐ Wet shells = penetration risk
-5. ⭐ Don't wash eggs (cuticle protection)`,
+- ⭐⭐⭐ **Salmonella Enteritidis** = vertical transmission ใน ovary
+- ⭐⭐ **Don't wash eggs** (cuticle protection)
+- ⭐⭐ **Lysozyme + conalbumin** = antimicrobial
+- ⭐ Wet shells = penetration risk
+- ⭐ Multiple natural defenses`,
   },
   '97fveYG5caY': {
     videoId: '97fveYG5caY', title: 'Milk-Meat — 13 Slaughterhouse and Sanitary Practices', subject: 'milk-meat-hygiene',
     date: '2025-11-05', durationMin: 152, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก slaughterhouse design, operations, vet roles',
-    summary: `## 🎯 Lead Summary
-**Slaughterhouse operations** — design, sanitary practices, vet supervision. Critical for food safety.
+    summary: `# Milk-Meat — 13 Slaughterhouse and Sanitary Practices
 
-## Design Principles ⭐⭐
-- ⭐ Linear flow (clean → dirty)
+> 🎯 Slaughterhouse = ระบบ linear flow (clean → dirty) + vet supervise antemortem + postmortem
+> ⚠️ Stress ก่อน slaughter = PSE/DFD · humane stunning เป็นทั้งจริยธรรมและ quality
+
+---
+
+# 🔻 Part 1: Design Principles ⭐⭐
+
+- ⭐ **Linear flow (clean → dirty)**
 - ⭐ Antemortem area
 - ⭐ Stunning area
 - ⭐ Bleeding
-- ⭐ Skinning/scalding
+- ⭐ Skinning / scalding
 - ⭐ Evisceration
 - ⭐ Splitting
 - ⭐ Inspection
 - ⭐ Cooling
 - ⭐ Cutting
 
-## Antemortem Inspection ⭐⭐⭐
-- ⭐ ⭐ ⭐ VET RESPONSIBILITY
+> 💡 **Linear flow** = clean เริ่มต้น → dirty ปลายทาง · ไม่ให้ cross-contamination
+
+---
+
+# 🔻 Part 2: Antemortem Inspection ⭐⭐⭐
+
+- ⭐⭐⭐ **VET RESPONSIBILITY**
 - ⭐ Live animal exam
 - ⭐ Identify diseases
 - ⭐ Reject unfit
 - ⭐ Direct fit animals to slaughter
 
-## Slaughter Practices ⭐⭐
-- ⭐ ⭐ Humane stunning (electric, captive bolt)
+---
+
+# 🔻 Part 3: Slaughter Practices ⭐⭐
+
+- ⭐⭐ **Humane stunning** — electric, captive bolt
 - ⭐ Religious considerations (halal, kosher)
 - ⭐ Bleeding
-- ⭐ Avoid stress (PSE/DFD!)
+- ⭐ **Avoid stress** (PSE / DFD!)
 
-## Sanitation ⭐
+> ⚠️ Halal/Kosher = ไม่ stun (บางสำนัก) → ต้องมี vet supervision ที่ specialize
+
+---
+
+# 🔻 Part 4: Sanitation ⭐
+
 - ⭐ Hot water, sanitizers
-- ⭐ Equipment cleaning between species/batches
+- ⭐ Equipment cleaning between species / batches
 - ⭐ Personnel hygiene
 - ⭐ Pest control
 - ⭐ Waste management
 
-## Veterinary Roles ⭐⭐⭐
-- ⭐ ⭐ Antemortem inspection
-- ⭐ ⭐ Postmortem inspection
+---
+
+# 🔻 Part 5: Veterinary Roles ⭐⭐
+
+- ⭐⭐ **Antemortem inspection**
+- ⭐⭐ **Postmortem inspection**
 - ⭐ Quality control
 - ⭐ Compliance with regulations
 - ⭐ Documentation
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Linear flow design
-2. ⭐ Antemortem = vet duty
-3. ⭐ Humane stunning required
-4. ⭐ Religious slaughter accommodations
-5. ⭐ Detailed sanitation programs`,
+- ⭐⭐⭐ **Antemortem + postmortem = vet duty**
+- ⭐⭐ **Linear flow** design (clean → dirty)
+- ⭐⭐ **Humane stunning** required
+- ⭐ Religious slaughter accommodations
+- ⭐ Detailed sanitation programs`,
   },
   mLj5N7jKVR0: {
     videoId: 'mLj5N7jKVR0', title: 'Milk-Meat — 14 Antemortem and Postmortem Inspection', subject: 'milk-meat-hygiene',
     date: '2025-11-12', durationMin: 95, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก inspection procedures, diseases identified, disposition',
-    summary: `## 🎯 Lead Summary
-**Vet inspections at slaughter** — antemortem (live) + postmortem (carcass). Diseases identified, disposition decisions made.
+    summary: `# Milk-Meat — 14 Antemortem and Postmortem Inspection
 
-## Antemortem ⭐⭐
-### Procedures
+> 🎯 Vet มี 2 inspection: **antemortem** (live animal) + **postmortem** (carcass) · ตัดสินใจ disposition ทุกตัว
+> ⚠️ 5 antemortem dispositions: Pass · Hold · Suspect · Condemned · Emergency slaughter
+
+---
+
+# 🔻 Part 1: Antemortem ⭐⭐
+
+## Procedures
 - ⭐ Visual exam in pens
 - ⭐ Detect: lameness, respiratory, neuro, fever
 - ⭐ Identify suspect animals
 
-### Disposition Decisions ⭐
-- ⭐ ⭐ **Pass to slaughter** (healthy)
-- ⭐ ⭐ **Hold for re-inspection** (mild)
-- ⭐ ⭐ **Suspect** (slaughter separately)
-- ⭐ ⭐ **Condemned** (don't slaughter)
-- ⭐ ⭐ **Emergency slaughter** (welfare)
+## Disposition Decisions ⭐⭐
+| Decision | คำอธิบาย |
+|---|---|
+| ⭐⭐ **Pass to slaughter** | healthy |
+| ⭐⭐ **Hold for re-inspection** | mild signs |
+| ⭐⭐ **Suspect** | slaughter separately |
+| ⭐⭐ **Condemned** | don't slaughter |
+| ⭐⭐ **Emergency slaughter** | welfare |
 
-## Postmortem ⭐⭐⭐
-### Examination Order
-- ⭐ ⭐ Head + tongue
-- ⭐ Lungs + pleura
-- ⭐ Heart + pericardium
-- ⭐ Liver + diaphragm
-- ⭐ Spleen
-- ⭐ Kidneys
-- ⭐ GI tract
-- ⭐ Muscle
-- ⭐ Lymph nodes
-- ⭐ Carcass
+> 💡 **Suspect** ≠ Condemned — Suspect ยังเข้า slaughter ได้ แต่ใน lane แยก + extra inspection
 
-### Common Findings ⭐
-- ⭐ TB lesions (granulomas)
-- ⭐ Cysticercosis (tapeworm cysts)
+---
+
+# 🔻 Part 2: Postmortem ⭐⭐⭐
+
+## Examination Order
+1. ⭐⭐ Head + tongue
+2. ⭐ Lungs + pleura
+3. ⭐ Heart + pericardium
+4. ⭐ Liver + diaphragm
+5. ⭐ Spleen
+6. ⭐ Kidneys
+7. ⭐ GI tract
+8. ⭐ Muscle
+9. ⭐ Lymph nodes
+10. ⭐ Carcass
+
+## Common Findings ⭐
+- ⭐ **TB lesions** (granulomas)
+- ⭐ **Cysticercosis** (tapeworm cysts)
 - ⭐ Liver abscesses
 - ⭐ Pneumonia
 - ⭐ Mastitis (udder)
 
-### Disposition ⭐⭐
-- ⭐ ⭐ Pass for human consumption
-- ⭐ Reduced grade (trim affected)
-- ⭐ Total condemnation
-- ⭐ Process for animal feed/rendering
+## Disposition ⭐⭐
+| Decision | คำอธิบาย |
+|---|---|
+| ⭐⭐ **Pass** | for human consumption |
+| ⭐ **Reduced grade** | trim affected |
+| ⭐ **Total condemnation** | discard |
+| ⭐ **Animal feed / rendering** | process for non-human use |
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Antemortem + postmortem mandatory
-2. ⭐ 5 antemortem dispositions
-3. ⭐ Systematic postmortem order
-4. ⭐ TB granulomas common finding
-5. ⭐ Vet decision drives disposition`,
+- ⭐⭐⭐ **5 antemortem dispositions** ต้องจำให้ครบ
+- ⭐⭐⭐ **Systematic postmortem order** (head → carcass)
+- ⭐⭐ **TB granulomas** common finding
+- ⭐ Antemortem + postmortem mandatory
+- ⭐ Vet decision drives disposition`,
   },
   Lo3e262VMXE: {
     videoId: 'Lo3e262VMXE', title: 'Milk-Meat — 15 Postmortem Changes & Meat Cutting/Grading', subject: 'milk-meat-hygiene',
     date: '2025-11-19', durationMin: 139, instructor: 'CUVET food hygiene team',
     examFormat: 'Multiple choice, ออก postmortem chemistry, rigor mortis, cutting, grading',
-    summary: `## 🎯 Lead Summary
-**Postmortem changes + Meat cutting/grading**. Rigor mortis, aging, primal cuts, grading systems.
+    summary: `# Milk-Meat — 15 Postmortem Changes & Meat Cutting/Grading
 
-## Postmortem Phases ⭐⭐⭐
+> 🎯 Postmortem 4 phases: **Pre-rigor → Rigor mortis → Resolution → Aging** · pH ตก 7.2 → 5.5 · aging 7-21 วันสำหรับ beef
+> ⚠️ Rigor mortis ที่ตัดเนื้อผิด phase = เนื้อเหนียวเกินกิน
+
+---
+
+# 🔻 Part 1: Postmortem Phases ⭐⭐⭐
+
 | Phase | Time | Changes |
 |---|---|---|
 | ⭐ **Pre-rigor** | 0-1h | Glycolysis active |
-| ⭐ ⭐ **Rigor mortis** | 1-12h | Muscle stiff |
+| ⭐⭐ **Rigor mortis** | 1-12h | Muscle stiff |
 | ⭐ **Resolution** | 12-24h | Tenderizing begins |
 | ⭐ **Aging** | days | Enzymatic tenderization |
 
-## Rigor Mortis ⭐⭐
-- ⭐ ATP depletion
-- ⭐ Actomyosin formation
-- ⭐ pH falls 7.2 → 5.5
+---
+
+# 🔻 Part 2: Rigor Mortis ⭐⭐
+
+- ⭐ **ATP depletion**
+- ⭐ **Actomyosin formation**
+- ⭐ pH falls **7.2 → 5.5**
 - ⭐ Muscle becomes firm
 
-## Aging Process ⭐⭐
-- ⭐ Cathepsin enzymes break down proteins
-- ⭐ Calpain enzymes
+> 💡 pH ตก = lactic acid สะสมจาก anaerobic glycolysis หลังตาย — ใช้ pH ที่ 24h เป็น quality marker (DFD vs PSE)
+
+---
+
+# 🔻 Part 3: Aging Process ⭐⭐
+
+- ⭐ **Cathepsin enzymes** break down proteins
+- ⭐ **Calpain enzymes**
 - ⭐ Tenderization
 - ⭐ Flavor development
-- ⭐ 7-21 days standard for beef
+- ⭐ **7-21 days standard for beef**
 
-## Cutting ⭐
-### Primal Cuts (beef)
+---
+
+# 🔻 Part 4: Cutting ⭐
+
+## Primal Cuts (beef)
 - ⭐ Round
 - ⭐ Loin
 - ⭐ Rib
@@ -51509,31 +53398,36 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
 - ⭐ Brisket
 - ⭐ Plate, flank
 
-## Grading ⭐⭐
-### USDA Beef
-- ⭐ Prime (best)
-- ⭐ Choice
-- ⭐ Select
-- ⭐ Standard
+---
+
+# 🔻 Part 5: Grading ⭐⭐
+
+## USDA Beef
+- ⭐ **Prime** (best)
+- ⭐ **Choice**
+- ⭐ **Select**
+- ⭐ **Standard**
 - Lower grades
 
-### Factors
-- ⭐ Marbling
+## Factors
+- ⭐ **Marbling**
 - ⭐ Maturity
 - ⭐ Color
 - ⭐ Yield
 
-## Thai Standards ⭐
+## Thai Standards
 - ⭐ TIS specifications
 - ⭐ Halal grading
 - ⭐ Export requirements
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Rigor mortis 1-12 hours
-2. ⭐ pH 7.2 → 5.5 normal
-3. ⭐ Aging 7-21 days for beef
-4. ⭐ Cathepsin + Calpain tenderize
-5. ⭐ USDA Prime/Choice/Select grading`,
+- ⭐⭐⭐ **4 postmortem phases** + **pH 7.2 → 5.5**
+- ⭐⭐ **Rigor mortis 1-12 hours** · ATP depletion + actomyosin
+- ⭐⭐ **Aging 7-21 days** for beef · cathepsin + calpain
+- ⭐ USDA Prime / Choice / Select grading
+- ⭐ Marbling = main grading factor`,
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -51544,225 +53438,332 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
     videoId: '8rghO9wFZJ4', title: 'Food Industry — 1.1 Introduction', subject: 'food-industry',
     date: '2025-08-13', durationMin: 32, instructor: 'CUVET food industry team',
     examFormat: 'Multiple choice, ออก Thai food industry, vet role',
-    summary: `## 🎯 Lead Summary
-**Thai food industry overview** — major export sector. Vet role in quality, safety, regulation.
+    summary: `# Food Industry 1.1 — Introduction
 
-## Thai Food Industry ⭐⭐
-- ⭐ Major export sector ($30+ billion/year)
-- ⭐ Rice, sugar, processed foods
-- ⭐ Animal products: poultry, seafood, dairy
-- ⭐ World's "kitchen of the world"
+> 🎯 **อุตสาหกรรมอาหารไทย = export sector ใหญ่ ~$30+ billion/ปี** · ไทย = "kitchen of the world" · vet มีบทบาทตั้งแต่ farm → factory → border
+> 💡 Frame lecture สำหรับเข้าใจ scope ก่อนเข้า regulation + standards
 
-## Vet Roles ⭐
-- ⭐ Quality control
-- ⭐ Food safety
-- ⭐ Regulatory compliance
-- ⭐ R&D
-- ⭐ Production management
+---
 
-## Key Regulations ⭐
-- ⭐ FDA Thailand
-- ⭐ DLD (livestock)
-- ⭐ DOF (fisheries)
-- ⭐ International trade requirements
+# 🔻 Part 1: Thai Food Industry ⭐⭐
+
+- ⭐ **Major export sector** (~$30+ billion/year)
+- **Product categories**:
+  - Rice, sugar, processed foods
+  - Animal products: poultry, seafood, dairy
+- ⭐ **"Kitchen of the world"** branding
+
+---
+
+# 🔻 Part 2: Vet Roles ⭐
+
+| Role | งานที่ทำ |
+|---|---|
+| **Quality control** | spec compliance, testing |
+| **Food safety** | HACCP, hazard analysis |
+| **Regulatory compliance** | FDA, export certification |
+| **R&D** | product development |
+| **Production management** | line vet, slaughter line |
+
+---
+
+# 🔻 Part 3: Key Regulatory Bodies ⭐
+
+- **FDA Thailand** — consumer products
+- **DLD (Department of Livestock Development)** — livestock + slaughter
+- **DOF (Department of Fisheries)** — aquatic products
+- ⭐ **International trade requirements** — EU, Japan, US specific
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Major export sector
-2. ⭐ Multiple vet roles
-3. ⭐ Multiple regulatory bodies
-4. ⭐ International trade requirements`,
+- ⭐⭐ **Major export sector** ("kitchen of the world")
+- ⭐ **Multiple vet roles** (QC / safety / regulatory / R&D / production)
+- ⭐ **Multiple regulators** (FDA / DLD / DOF + international)
+- ⭐ International trade requirements`,
   },
   TlJLBRajUm4: {
     videoId: 'TlJLBRajUm4', title: 'Food Industry — 1.2 พระราชบัญญัติการสาธารณสุข (Public Health Act)', subject: 'food-industry',
     date: '2025-08-13', durationMin: 32, instructor: 'CUVET food industry team',
     examFormat: 'Multiple choice, ออก พรบ. สาธารณสุข, food regulations',
-    summary: `## 🎯 Lead Summary
-**พรบ. การสาธารณสุข** — Public Health Act controlling food safety, hygiene, vendors.
+    summary: `# Food Industry 1.2 — พระราชบัญญัติการสาธารณสุข (Public Health Act)
 
-## Key Provisions ⭐⭐
-- ⭐ ⭐ Food vendor licensing
-- ⭐ ⭐ Hygiene standards
-- ⭐ Penalty system
-- ⭐ Local government enforcement
-- ⭐ Inspections
+> 🎯 **พรบ. การสาธารณสุข** = กฎหมายหลักควบคุม food safety, hygiene, vendors ในไทย · enforcement ระดับ local government
+> 💡 Vet มี role indirect — สนับสนุน zoonotic disease control + sanitary inspection
 
-## Areas Covered ⭐
-- ⭐ Food vendors (restaurants, street food)
-- ⭐ Markets
-- ⭐ Slaughterhouses (with DLD)
-- ⭐ Sanitation services
+---
 
-## Vet Connection ⭐
-- ⭐ Animal-derived foods
-- ⭐ Zoonotic disease control
-- ⭐ Sanitary inspection support
+# 🔻 Part 1: Key Provisions ⭐⭐
+
+- ⭐ **Food vendor licensing** (ร้านอาหาร, แผงลอย)
+- ⭐ **Hygiene standards**
+- **Penalty system** (เปรียบเทียบ + ปรับ + เพิกถอนใบอนุญาต)
+- **Local government enforcement** (เทศบาล, อบต., กทม.)
+- Inspections
+
+---
+
+# 🔻 Part 2: Areas Covered ⭐
+
+| Area | ตัวอย่าง |
+|---|---|
+| **Food vendors** | ร้านอาหาร, street food |
+| **Markets** | ตลาดสด, ตลาดนัด |
+| **Slaughterhouses** | (joint enforcement กับ DLD) |
+| **Sanitation services** | ขยะ, น้ำเสีย |
+
+---
+
+# 🔻 Part 3: Vet Connection ⭐
+
+- **Animal-derived foods** (เนื้อ, ไข่, นม)
+- **Zoonotic disease control** (Salmonella, Campylobacter)
+- **Sanitary inspection support**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ พรบ. สาธารณสุข
-2. ⭐ Vendor licensing required
-3. ⭐ Local government enforcement
-4. ⭐ Hygiene standards
-5. ⭐ Vet supports zoonotic control`,
+- ⭐⭐ **พรบ. สาธารณสุข** = กฎหมายหลัก food safety
+- ⭐ **Vendor licensing required**
+- ⭐ **Local government enforcement**
+- ⭐ **Vet supports zoonotic control + sanitary inspection**`,
   },
   '7owfQF79jwU': {
     videoId: '7owfQF79jwU', title: 'Food Industry — 2 อุตสาหกรรมอาหารสัตว์และการควบคุมคุณภาพ', subject: 'food-industry',
     date: '2025-08-20', durationMin: 87, instructor: 'CUVET food industry team',
     examFormat: 'Multiple choice, ออก animal feed industry, quality control',
-    summary: `## 🎯 Lead Summary
-**Animal feed industry + quality control** — major Thai industry supporting livestock production.
+    summary: `# Food Industry 2 — อุตสาหกรรมอาหารสัตว์และการควบคุมคุณภาพ
 
-## Industry Overview ⭐
-- ⭐ Major suppliers: CP, Betagro, etc.
-- ⭐ Multi-billion baht industry
-- ⭐ Export + domestic
+> 🎯 **Feed industry = backbone ของ livestock production** · ไทย = ผู้ผลิต feed ระดับ multi-billion baht · **NIR (Near Infrared) = QC technology หลัก**
+> ⚠️ Mycotoxin + antibiotic residue = 2 issues ใหญ่ที่ regulator + buyer ดูตลอด
 
-## Feed Components ⭐
-- ⭐ Energy: corn, sorghum, cassava
-- ⭐ Protein: soybean, fish meal, MBM
-- ⭐ Vitamins, minerals
-- ⭐ Additives
+---
 
-## Quality Control ⭐⭐
-- ⭐ ⭐ NIR (Near Infrared) analysis
-- ⭐ Mycotoxin testing
-- ⭐ Bacterial testing
-- ⭐ Heavy metals
-- ⭐ Antibiotic residues
+# 🔻 Part 1: Industry Overview ⭐
 
-## Regulations ⭐
-- ⭐ DLD oversight
-- ⭐ Feed registration
-- ⭐ Manufacturing standards
-- ⭐ Labeling requirements
+- **Major suppliers**: CP, Betagro, etc.
+- **Multi-billion baht industry**
+- Export + domestic
 
-## Issues ⭐
-- ⭐ Mycotoxin contamination
-- ⭐ Antibiotic in feed (banned/restricted)
-- ⭐ Cost fluctuations
+---
+
+# 🔻 Part 2: Feed Components ⭐
+
+| Category | ตัวอย่าง |
+|---|---|
+| **Energy** | corn, sorghum, cassava |
+| **Protein** | soybean, fish meal, MBM (meat & bone meal) |
+| **Vitamins / minerals** | premix |
+| **Additives** | enzymes, probiotics, mycotoxin binders |
+
+---
+
+# 🔻 Part 3: Quality Control ⭐⭐
+
+- ⭐ **NIR (Near Infrared) analysis** — rapid nutrient profiling
+- **Mycotoxin testing** (aflatoxin, etc.)
+- **Bacterial testing** (Salmonella, total count)
+- **Heavy metals** (Pb, Cd, As, Hg)
+- **Antibiotic residues**
+
+---
+
+# 🔻 Part 4: Regulations ⭐
+
+- **DLD oversight**
+- Feed registration
+- Manufacturing standards (GMP)
+- Labeling requirements
+
+---
+
+# 🔻 Part 5: Issues ⭐
+
+- ⭐ **Mycotoxin contamination**
+- ⭐ **Antibiotic in feed** (banned/restricted post-AGP ban)
+- **Cost fluctuations** (corn, soybean prices)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Major Thai industry
-2. ⭐ Multiple ingredient sources
-3. ⭐ NIR for quality
-4. ⭐ Mycotoxin major concern
-5. ⭐ Antibiotic restrictions`,
+- ⭐⭐ **NIR = QC technology หลัก**
+- ⭐⭐ **Mycotoxin major concern** (aflatoxin primary)
+- ⭐ **Antibiotic restrictions** (post-AGP ban era)
+- ⭐ **DLD oversight + GMP** for feed mills`,
   },
   j44XnjxUPFI: {
     videoId: 'j44XnjxUPFI', title: 'Food Industry — 3 การควบคุมกระบวนการฆ่าและจำหน่ายเนื้อสัตว์', subject: 'food-industry',
     date: '2025-08-27', durationMin: 106, instructor: 'CUVET food industry team',
     examFormat: 'Multiple choice, ออก slaughter regulations, meat distribution control',
-    summary: `## 🎯 Lead Summary
-**Slaughter + meat distribution control** in Thailand — DLD oversight, vet inspection.
+    summary: `# Food Industry 3 — การควบคุมกระบวนการฆ่าและจำหน่ายเนื้อสัตว์
 
-## Regulatory Framework ⭐⭐
-- ⭐ DLD (Department of Livestock Development) lead
-- ⭐ Slaughterhouse licensing
-- ⭐ Vet inspection mandatory
-- ⭐ Meat hygiene standards
+> 🎯 **DLD = lead regulator ของ slaughter + meat distribution ในไทย** · vet inspection mandatory · ตั้งแต่ antemortem → postmortem → cold chain
+> ⚠️ Illegal / unregistered slaughterhouses = ปัญหา public health ที่ยังแก้ไม่จบ
 
-## Slaughter Categories ⭐
-- ⭐ Modern slaughterhouses (export grade)
-- ⭐ Local slaughterhouses
-- ⚠️ Illegal/unregistered (problem!)
+---
 
-## Distribution ⭐
-- ⭐ Cold chain requirements
-- ⭐ Permit for transport
-- ⭐ Market regulations
-- ⭐ Retail standards
+# 🔻 Part 1: Regulatory Framework ⭐⭐
 
-## Vet Roles ⭐⭐
-- ⭐ Antemortem inspection
-- ⭐ Postmortem inspection
-- ⭐ Disposition decisions
-- ⭐ Documentation
-- ⭐ Public health protection
+- ⭐ **DLD (Department of Livestock Development) lead**
+- Slaughterhouse licensing
+- ⭐ **Vet inspection mandatory**
+- Meat hygiene standards
+
+---
+
+# 🔻 Part 2: Slaughter Categories ⭐
+
+| Category | Notes |
+|---|---|
+| **Modern slaughterhouses** | export grade, HACCP |
+| **Local slaughterhouses** | domestic market |
+| ⚠️ **Illegal / unregistered** | ongoing problem |
+
+---
+
+# 🔻 Part 3: Distribution ⭐
+
+- ⭐ **Cold chain requirements** (≤ 4°C for fresh meat)
+- Permit for transport
+- Market regulations
+- Retail standards
+
+---
+
+# 🔻 Part 4: Vet Roles ⭐⭐
+
+| Stage | Role |
+|---|---|
+| ⭐ **Antemortem inspection** | ดูสัตว์ก่อนฆ่า (zoonotic, welfare) |
+| ⭐ **Postmortem inspection** | ดู carcass + organs |
+| ⭐ **Disposition decisions** | pass / conditional / condemn |
+| **Documentation** | inspection records |
+| **Public health protection** | zoonotic, residue |
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ DLD oversight
-2. ⭐ Vet inspection mandatory
-3. ⭐ Cold chain critical
-4. ⭐ Multiple slaughter categories
-5. ⭐ Public health protection role`,
+- ⭐⭐ **DLD lead oversight + vet inspection mandatory**
+- ⭐⭐ **Antemortem + postmortem + disposition** = 3-step vet process
+- ⭐ **Cold chain critical** for fresh meat
+- ⭐ **Illegal slaughterhouses** = ongoing public health issue`,
   },
   CgGp2dEVgZg: {
     videoId: 'CgGp2dEVgZg', title: 'Food Industry — 4 มาตรฐานสินค้าเกษตรและผลิตภัณฑ์จากปสุสัตว์', subject: 'food-industry',
     date: '2025-09-03', durationMin: 90, instructor: 'CUVET food industry team',
     examFormat: 'Multiple choice, ออก agricultural standards, livestock product standards',
-    summary: `## 🎯 Lead Summary
-**Agricultural + livestock product standards** in Thailand. Quality, safety, certification systems.
+    summary: `# Food Industry 4 — มาตรฐานสินค้าเกษตรและผลิตภัณฑ์จากปศุสัตว์
 
-## Standards Bodies ⭐⭐
-- ⭐ ⭐ TIS (Thai Industrial Standards)
-- ⭐ ⭐ MAS (Ministry of Agriculture Standards)
-- ⭐ Q Mark (Q ปลอดภัย)
-- ⭐ Organic certifications
-- ⭐ Halal standards
+> 🎯 **มาตรฐาน + certification ของอาหารไทย** — multiple bodies (TIS, MAS, Q Mark, organic, Halal) · international standards = key สำหรับ export
+> 💡 Certification = ใบเบิกทางสู่ตลาด — แต่ละ trading partner ต้องการ standard ต่างกัน
 
-## Product Categories ⭐
-- ⭐ Fresh meat
-- ⭐ Processed meat
-- ⭐ Dairy products
-- ⭐ Eggs
-- ⭐ Aquaculture products
+---
 
-## International Standards ⭐
-- ⭐ Codex Alimentarius
-- ⭐ EU regulations
-- ⭐ US standards
-- ⭐ Trading partner requirements
+# 🔻 Part 1: Standards Bodies ⭐⭐
 
-## Certification Process ⭐
-- ⭐ Application
-- ⭐ Audit/inspection
-- ⭐ Compliance verification
-- ⭐ Certification
-- ⭐ Renewal/surveillance
+| Body | Scope |
+|---|---|
+| ⭐ **TIS** (Thai Industrial Standards) | industrial products |
+| ⭐ **MAS** (Ministry of Agriculture Standards) | agriculture / livestock |
+| **Q Mark** (Q ปลอดภัย) | safety certification |
+| **Organic certifications** | Organic Thailand, EU organic |
+| **Halal standards** | religious + Muslim export market |
+
+---
+
+# 🔻 Part 2: Product Categories ⭐
+
+- Fresh meat
+- Processed meat
+- Dairy products
+- Eggs
+- Aquaculture products
+
+---
+
+# 🔻 Part 3: International Standards ⭐
+
+- **Codex Alimentarius** (WHO/FAO global reference)
+- **EU regulations** (rigorous — residue, microbio)
+- **US standards** (FDA, USDA)
+- Trading partner-specific requirements
+
+---
+
+# 🔻 Part 4: Certification Process ⭐
+
+1. Application
+2. Audit / inspection
+3. Compliance verification
+4. Certification issued
+5. Renewal / surveillance audits
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Multiple Thai standards bodies
-2. ⭐ TIS = industrial standards
-3. ⭐ Q mark = safety
-4. ⭐ Halal certification
-5. ⭐ International compliance for export`,
+- ⭐⭐ **TIS + MAS** = 2 main Thai bodies
+- ⭐ **Q Mark** = safety certification
+- ⭐ **Halal certification** = Muslim export market
+- ⭐ **Codex / EU / US** = international standards
+- ⭐ Audit + compliance + renewal cycle`,
   },
   QwFDzP3_w58: {
     videoId: 'QwFDzP3_w58', title: 'Food Industry — 6 การควบคุมคุณภาพสัตว์น้ำและผลิตภัณฑ์สัตว์น้ำ', subject: 'food-industry',
     date: '2025-10-29', durationMin: 61, instructor: 'CUVET food industry team',
     examFormat: 'Multiple choice, ออก aquatic product quality control, DOF',
-    summary: `## 🎯 Lead Summary
-**Aquatic product quality control** — DOF oversight. Major export industry (shrimp, tilapia, ornamental).
+    summary: `# Food Industry 6 — การควบคุมคุณภาพสัตว์น้ำและผลิตภัณฑ์สัตว์น้ำ
 
-## Regulatory Framework ⭐⭐
-- ⭐ ⭐ DOF (Department of Fisheries) lead
-- ⭐ Aquaculture certification (GAP)
-- ⭐ Processing standards
-- ⭐ Export requirements
+> 🎯 **DOF (Department of Fisheries) = lead authority** สำหรับ aquatic products · ไทย = major exporter (กุ้ง, ปลานิล, ornamental) · **HACCP + cold chain = backbone**
+> ⚠️ **Chloramphenicol = banned** สำหรับสัตว์ที่ใช้เป็นอาหาร (carcinogen + aplastic anemia ในคน)
 
-## Quality Control Points ⭐
-- ⭐ ⭐ Farm level (drug residue, pathogens)
-- ⭐ ⭐ Processing (HACCP)
-- ⭐ ⭐ Cold chain
-- ⭐ ⭐ Final product testing
+---
 
-## Major Concerns ⭐⭐
-- ⭐ Antibiotic residues (chloramphenicol banned!)
-- ⭐ Heavy metals
-- ⭐ Pathogenic bacteria
-- ⭐ Mycotoxins (in feed)
+# 🔻 Part 1: Regulatory Framework ⭐⭐
 
-## Trade ⭐
-- ⭐ EU certification rigorous
-- ⭐ Japan standards
-- ⭐ US FDA requirements
-- ⭐ Country-specific testing
+- ⭐ **DOF (Department of Fisheries) lead**
+- **Aquaculture certification (GAP — Good Aquaculture Practice)**
+- Processing standards
+- Export requirements
+
+---
+
+# 🔻 Part 2: Quality Control Points ⭐
+
+| Stage | What to control |
+|---|---|
+| ⭐ **Farm level** | drug residue, pathogens, water quality |
+| ⭐ **Processing** | HACCP-based controls |
+| ⭐ **Cold chain** | -18°C frozen, 0–4°C chilled |
+| ⭐ **Final product testing** | microbiological, chemical |
+
+---
+
+# 🔻 Part 3: Major Concerns ⭐⭐
+
+- ⭐ **Antibiotic residues** — chloramphenicol **banned!**, nitrofurans banned
+- **Heavy metals** (Pb, Cd, Hg)
+- **Pathogenic bacteria** (Salmonella, Vibrio, Listeria)
+- **Mycotoxins** (in feed → carry-over)
+
+---
+
+# 🔻 Part 4: Trade ⭐
+
+| Market | Requirement |
+|---|---|
+| **EU** | rigorous (residue limits, traceability) |
+| **Japan** | specific standards (positive list system) |
+| **US FDA** | seafood HACCP rule |
+| Other | country-specific testing |
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ DOF lead authority
-2. ⭐ GAP certification
-3. ⭐ Chloramphenicol banned
-4. ⭐ Heavy metals concern
-5. ⭐ International trade compliance`,
+- ⭐⭐ **DOF lead authority + GAP certification**
+- ⭐⭐ **Chloramphenicol banned** (aplastic anemia risk in humans)
+- ⭐ **HACCP + cold chain** = QC backbone
+- ⭐ **Heavy metals + pathogens** = primary safety concerns
+- ⭐ International trade compliance (EU / Japan / US)`,
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -51773,285 +53774,390 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
     videoId: 'VI5HY_RI3Rw', title: 'One Health — 1 Global One Health Activity Network', subject: 'one-health',
     date: '2025-08-06', durationMin: 40, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก global initiatives, WHO/FAO/WOAH/UNEP partnership',
-    summary: `## 🎯 Lead Summary
-**One Health = integrated approach** to human + animal + environmental health. Global initiatives by WHO + FAO + WOAH (formerly OIE) + UNEP (Quadripartite).
+    summary: `# One Health — 1 Global One Health Activity Network
 
-## Quadripartite ⭐⭐⭐
-- ⭐ ⭐ WHO (Human health)
-- ⭐ ⭐ FAO (Food + agriculture)
-- ⭐ ⭐ WOAH (Animal health, formerly OIE)
-- ⭐ ⭐ UNEP (Environment)
+> 🎯 **One Health** = integrated approach รวม human + animal + environmental health · ผ่าน Quadripartite (WHO + FAO + WOAH + UNEP) ⭐⭐⭐
+> ⚠️ 75% emerging diseases zoonotic — One Health = ตัวเชื่อม
 
-## Key Initiatives ⭐
-- ⭐ AMR (Antimicrobial Resistance) action plan
+---
+
+# 🔻 Part 1: Quadripartite ⭐⭐⭐
+
+| Organization | Domain |
+|---|---|
+| ⭐⭐ **WHO** | Human health |
+| ⭐⭐ **FAO** | Food + agriculture |
+| ⭐⭐ **WOAH** | Animal health (formerly OIE) |
+| ⭐⭐ **UNEP** | Environment |
+
+---
+
+# 🔻 Part 2: Key Initiatives ⭐
+
+- ⭐ **AMR (Antimicrobial Resistance)** action plan
 - ⭐ Pandemic preparedness
 - ⭐ Zoonotic disease control
 - ⭐ Climate change response
 
-## Why Important ⭐⭐
-- ⭐ 75% emerging diseases zoonotic
-- ⭐ AMR threatens medicine
+---
+
+# 🔻 Part 3: Why Important ⭐⭐
+
+- ⭐ **75% emerging diseases zoonotic**
+- ⭐ **AMR threatens medicine**
 - ⭐ Climate impacts disease
 - ⭐ Food security global concern
 
+> 💡 จำตัวย่อ Quadripartite — เป็นโครงสร้างที่ออกข้อสอบบ่อย
+
+---
+
 ## 📋 Exam Recap
-1. ⭐ Quadripartite (WHO/FAO/WOAH/UNEP)
-2. ⭐ One Health = integrated approach
-3. ⭐ 75% emerging diseases zoonotic
-4. ⭐ AMR major focus
-5. ⭐ Climate change connection`,
+- ⭐⭐⭐ **Quadripartite**: WHO / FAO / WOAH / UNEP
+- ⭐⭐ **One Health** = integrated approach
+- ⭐⭐ **75% emerging diseases zoonotic**
+- ⭐ **AMR** = major focus
+- ⭐ **Climate change** connection`,
   },
   'Vg0_6T-pVBs': {
     videoId: 'Vg0_6T-pVBs', title: 'One Health — 2 One World One Health Concept', subject: 'one-health',
     date: '2025-08-13', durationMin: 27, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก One Health concept, history, principles',
-    summary: `## 🎯 Lead Summary
-**"One World One Health" concept** — historical development, core principles.
+    summary: `# One Health — 2 One World One Health Concept
 
-## History ⭐
-- ⭐ Concept since Roman times (Galen)
-- ⭐ "One Medicine" Schwabe 1980s
-- ⭐ Manhattan Principles 2004
+> 🎯 **"One World One Health"** — historical development + core principles ของ integrated health approach ⭐⭐
+
+---
+
+# 🔻 Part 1: History ⭐
+
+- ⭐ Concept since **Roman times** (Galen)
+- ⭐ **"One Medicine"** — Schwabe 1980s
+- ⭐ **Manhattan Principles 2004**
 - ⭐ Modern formalization
 
-## Core Principles ⭐⭐⭐
-- ⭐ ⭐ Integrated approach (no silos)
-- ⭐ ⭐ Multi-disciplinary
+---
+
+# 🔻 Part 2: Core Principles ⭐⭐⭐
+
+- ⭐⭐ **Integrated approach** — no silos
+- ⭐⭐ **Multi-disciplinary**
 - ⭐ Cross-sector collaboration
 - ⭐ Local-to-global scale
 - ⭐ Equity in health
 
-## Examples ⭐
-- ⭐ Rabies elimination
+---
+
+# 🔻 Part 3: Examples ⭐
+
+- ⭐ **Rabies elimination**
 - ⭐ AMR action
 - ⭐ Avian influenza response
-- ⭐ COVID-19 (zoonotic origin debated)
+- ⭐ COVID-19 — zoonotic origin debated
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Historic concept (Galen, 1980s formal)
-2. ⭐ Manhattan Principles 2004
-3. ⭐ Integrated multi-disciplinary
-4. ⭐ Local to global scale
-5. ⭐ Equity emphasis`,
+- ⭐⭐⭐ **Manhattan Principles 2004**
+- ⭐⭐ **Historic concept** — Galen, 1980s formal
+- ⭐⭐ **Integrated + multi-disciplinary**
+- ⭐ Local to global scale
+- ⭐ Equity emphasis`,
   },
   XFqckaz8TTQ: {
     videoId: 'XFqckaz8TTQ', title: 'One Health — 3 Collaboration and Partnership', subject: 'one-health',
     date: '2025-08-20', durationMin: 34, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก stakeholders, partnerships, networks',
-    summary: `## 🎯 Lead Summary
-**Collaboration in One Health** — multi-stakeholder partnerships essential.
+    summary: `# One Health — 3 Collaboration and Partnership
 
-## Stakeholders ⭐⭐
-- ⭐ Government (multiple ministries)
-- ⭐ Universities/research
-- ⭐ Private sector
-- ⭐ NGOs
-- ⭐ Communities
-- ⭐ International orgs
+> 🎯 **Collaboration in One Health** — multi-stakeholder partnerships essential. ⭐⭐ Rabies = success story
 
-## Thailand One Health ⭐
-- ⭐ Multiple ministries (Public Health, Agriculture, Environment)
+---
+
+# 🔻 Part 1: Stakeholders ⭐⭐
+
+- ⭐ **Government** — multiple ministries
+- ⭐ **Universities/research**
+- ⭐ **Private sector**
+- ⭐ **NGOs**
+- ⭐ **Communities**
+- ⭐ **International orgs**
+
+---
+
+# 🔻 Part 2: Thailand One Health ⭐
+
+- ⭐ Multiple ministries — Public Health, Agriculture, Environment
 - ⭐ Academic networks
 - ⭐ Industry partnerships
 - ⭐ International collaborations
 
-## Successful Examples ⭐
-- ⭐ Rabies control
-- ⭐ HPAI 2547 response
-- ⭐ AMR national action plan
+---
+
+# 🔻 Part 3: Successful Examples ⭐
+
+- ⭐ **Rabies control**
+- ⭐ **HPAI 2547 response**
+- ⭐ **AMR national action plan**
 - ⭐ COVID-19 response
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multi-stakeholder essential
-2. ⭐ Multiple Thai ministries
-3. ⭐ Academic + industry + NGO
-4. ⭐ International collaboration
-5. ⭐ Rabies = success story`,
+- ⭐⭐⭐ **Multi-stakeholder essential**
+- ⭐⭐ Multiple Thai ministries
+- ⭐⭐ Academic + industry + NGO
+- ⭐ International collaboration
+- ⭐ **Rabies** = success story`,
   },
   d7q5YMsOdKg: {
     videoId: 'd7q5YMsOdKg', title: 'One Health — 4 Communication', subject: 'one-health',
     date: '2025-08-27', durationMin: 48, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก risk communication, public engagement',
-    summary: `## 🎯 Lead Summary
-**One Health communication** — risk communication, public engagement, multi-disciplinary language.
+    summary: `# One Health — 4 Communication
 
-## Communication Levels ⭐
+> 🎯 **One Health communication** — risk communication, public engagement, multi-disciplinary language ⭐⭐
+> ⚠️ Misinformation/social media = major challenge
+
+---
+
+# 🔻 Part 1: Communication Levels ⭐
+
 - ⭐ Within scientific community
 - ⭐ With policymakers
 - ⭐ With public
 - ⭐ With media
 
-## Risk Communication ⭐⭐
-- ⭐ Pre-crisis preparation
-- ⭐ During crisis (timely, accurate)
-- ⭐ Post-crisis lessons
-- ⭐ Trust building
+---
 
-## Challenges ⭐
+# 🔻 Part 2: Risk Communication ⭐⭐
+
+- ⭐ **Pre-crisis** preparation
+- ⭐ **During crisis** — timely, accurate
+- ⭐ **Post-crisis** lessons
+- ⭐ **Trust building**
+
+---
+
+# 🔻 Part 3: Challenges ⭐
+
 - ⭐ Different terminology between fields
 - ⭐ Misinformation/social media
 - ⭐ Cultural sensitivity
 - ⭐ Translation accuracy
 
-## Best Practices ⭐
-- ⭐ Clear, simple language
-- ⭐ Trusted spokespersons
-- ⭐ Multi-channel approach
+---
+
+# 🔻 Part 4: Best Practices ⭐
+
+- ⭐ **Clear, simple language**
+- ⭐ **Trusted spokespersons**
+- ⭐ **Multi-channel approach**
 - ⭐ Evidence-based messaging
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multiple audience levels
-2. ⭐ Pre/during/post crisis phases
-3. ⭐ Trust building essential
-4. ⭐ Misinformation challenge
-5. ⭐ Multi-channel approach`,
+- ⭐⭐⭐ **Multiple audience levels**
+- ⭐⭐ Pre/during/post crisis phases
+- ⭐⭐ **Trust building** essential
+- ⭐ Misinformation challenge
+- ⭐ Multi-channel approach`,
   },
   vHC_KauxjEI: {
     videoId: 'vHC_KauxjEI', title: 'One Health — 5 Role of Veterinary in One Health', subject: 'one-health',
     date: '2025-09-03', durationMin: 41, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก vet roles, zoonotic disease, public health',
-    summary: `## 🎯 Lead Summary
-**Vet roles in One Health** — central to zoonotic disease control + public health.
+    summary: `# One Health — 5 Role of Veterinary in One Health
 
-## Vet One Health Roles ⭐⭐⭐
-- ⭐ ⭐ **Zoonotic disease surveillance**
-- ⭐ ⭐ **Animal health for human food safety**
-- ⭐ ⭐ **AMR stewardship**
+> 🎯 **Vet roles in One Health** — central to zoonotic disease control + public health ⭐⭐⭐
+
+---
+
+# 🔻 Part 1: Vet One Health Roles ⭐⭐⭐
+
+- ⭐⭐ **Zoonotic disease surveillance**
+- ⭐⭐ **Animal health for human food safety**
+- ⭐⭐ **AMR stewardship**
 - ⭐ Wildlife disease monitoring
 - ⭐ Environmental health
 - ⭐ Pandemic preparedness
 
-## Specific Areas ⭐
-### Public Health Vets
+---
+
+# 🔻 Part 2: Specific Areas ⭐
+
+## Public Health Vets
 - ⭐ Government surveillance
 - ⭐ Outbreak response
 - ⭐ Policy development
 
-### Industry Vets
+## Industry Vets
 - ⭐ Food safety
 - ⭐ AMR responsible use
 - ⭐ Production health
 
-### Wildlife Vets
+## Wildlife Vets
 - ⭐ Conservation medicine
 - ⭐ Spillover monitoring
 
-### Companion Animal Vets ⭐
+## Companion Animal Vets ⭐
 - ⭐ Educate clients on zoonotic risk
 - ⭐ Vaccination programs
 - ⭐ Bridge to public health
 
-## Career Opportunities ⭐
+---
+
+# 🔻 Part 3: Career Opportunities ⭐
+
 - ⭐ Government health
-- ⭐ International orgs (FAO, WOAH)
+- ⭐ International orgs — FAO, WOAH
 - ⭐ Research institutions
 - ⭐ NGOs
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Vets central to One Health
-2. ⭐ Multiple role categories
-3. ⭐ Zoonotic surveillance key
-4. ⭐ AMR stewardship
-5. ⭐ Multiple career paths`,
+- ⭐⭐⭐ **Vets central** to One Health
+- ⭐⭐ Multiple role categories
+- ⭐⭐ **Zoonotic surveillance** key
+- ⭐ AMR stewardship
+- ⭐ Multiple career paths`,
   },
   'WwKBcUH1-fM': {
     videoId: 'WwKBcUH1-fM', title: 'One Health — 6 Applications for Prevention and Control', subject: 'one-health',
     date: '2025-09-10', durationMin: 38, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก One Health prevention, case studies',
-    summary: `## 🎯 Lead Summary
-**One Health applications** in disease prevention + control. Real case studies.
+    summary: `# One Health — 6 Applications for Prevention and Control
 
-## Application Areas ⭐⭐
+> 🎯 **One Health applications** in disease prevention + control · ผ่าน real case studies ⭐⭐
+> 💡 Rabies = success story
+
+---
+
+# 🔻 Part 1: Application Areas ⭐⭐
+
 - ⭐ Zoonotic disease control
 - ⭐ AMR
 - ⭐ Food safety
 - ⭐ Environmental health
 - ⭐ Vector-borne diseases
 
-## Case Studies ⭐⭐
-### Rabies Elimination
+---
+
+# 🔻 Part 2: Case Studies ⭐⭐
+
+## Rabies Elimination
 - ⭐ Mass dog vaccination
 - ⭐ Public education
 - ⭐ Surveillance
 - ⭐ Multi-sector collaboration
 
-### Avian Influenza
+## Avian Influenza
 - ⭐ Wildlife monitoring
 - ⭐ Poultry control
 - ⭐ Human surveillance
 
-### Brucellosis Control
+## Brucellosis Control
 - ⭐ Livestock testing
 - ⭐ Worker health
 - ⭐ Pasteurization
 
-## Implementation Steps ⭐
+---
+
+# 🔻 Part 3: Implementation Steps ⭐
+
 - ⭐ Stakeholder mapping
 - ⭐ Joint planning
 - ⭐ Coordinated execution
 - ⭐ Shared data systems
 - ⭐ Joint evaluation
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multiple application areas
-2. ⭐ Rabies = success story
-3. ⭐ Joint planning essential
-4. ⭐ Shared data systems
-5. ⭐ Multi-sector implementation`,
+- ⭐⭐⭐ Multiple application areas
+- ⭐⭐ **Rabies** = success story
+- ⭐⭐ **Joint planning** essential
+- ⭐ Shared data systems
+- ⭐ Multi-sector implementation`,
   },
   XYK1JJpMAv4: {
     videoId: 'XYK1JJpMAv4', title: 'One Health — 7 Integrating One Health into Epidemiology', subject: 'one-health',
     date: '2025-09-17', durationMin: 37, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก One Health epidemiology, cross-species data',
-    summary: `## 🎯 Lead Summary
-**One Health epidemiology** — integrating data across human, animal, environment.
+    summary: `# One Health — 7 Integrating One Health into Epidemiology
 
-## Integrated Surveillance ⭐⭐
+> 🎯 **One Health epidemiology** — integrating data across human + animal + environment ⭐⭐
+
+---
+
+# 🔻 Part 1: Integrated Surveillance ⭐⭐
+
 - ⭐ Cross-species data
 - ⭐ Joint analysis
 - ⭐ Geographic correlation
 - ⭐ Temporal correlation
 - ⭐ Risk factor identification
 
-## Data Sources ⭐
+---
+
+# 🔻 Part 2: Data Sources ⭐
+
 - ⭐ Human disease surveillance
 - ⭐ Veterinary surveillance
 - ⭐ Wildlife monitoring
 - ⭐ Environmental data
 - ⭐ Genomic data
 
-## Tools ⭐
-- ⭐ Joint databases
-- ⭐ GIS mapping
+---
+
+# 🔻 Part 3: Tools ⭐
+
+- ⭐ **Joint databases**
+- ⭐ **GIS mapping**
 - ⭐ Statistical models
 - ⭐ Predictive analytics
 
-## Examples ⭐
-- ⭐ Influenza tracking (human + bird + swine)
+---
+
+# 🔻 Part 4: Examples ⭐
+
+- ⭐ Influenza tracking — human + bird + swine
 - ⭐ Rabies surveillance
 - ⭐ AMR patterns
 - ⭐ Vector-borne diseases
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Cross-species data integration
-2. ⭐ Joint analysis approach
-3. ⭐ GIS + temporal correlation
-4. ⭐ Multiple data sources
-5. ⭐ Predictive analytics emerging`,
+- ⭐⭐⭐ **Cross-species data integration**
+- ⭐⭐ Joint analysis approach
+- ⭐⭐ GIS + temporal correlation
+- ⭐ Multiple data sources
+- ⭐ **Predictive analytics** emerging`,
   },
   '06oB--5vSUQ': {
     videoId: '06oB--5vSUQ', title: 'One Health — 8 Combat Emerging and Re-emerging Diseases', subject: 'one-health',
     date: '2025-11-19', durationMin: 43, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก emerging diseases, spillover, prevention',
-    summary: `## 🎯 Lead Summary
-**Emerging + Re-emerging diseases** combated through One Health approach.
+    summary: `# One Health — 8 Combat Emerging and Re-emerging Diseases
 
-## Emerging Diseases Concepts ⭐⭐
-- ⭐ ⭐ **Spillover** events (animal → human)
-- ⭐ ⭐ **75% zoonotic** of emerging
+> 🎯 **Emerging + Re-emerging diseases** ผ่าน One Health approach ⭐⭐⭐
+> ⚠️ 75% emerging = zoonotic · spillover จาก wildlife (bats เป็น reservoir บ่อยที่สุด)
+
+---
+
+# 🔻 Part 1: Emerging Disease Concepts ⭐⭐
+
+- ⭐⭐ **Spillover events** — animal → human
+- ⭐⭐ **75% zoonotic** of emerging
 - ⭐ Examples: COVID-19, Ebola, Nipah, MERS
 
-## Drivers of Emergence ⭐
+---
+
+# 🔻 Part 2: Drivers of Emergence ⭐
+
 - ⭐ Population growth
 - ⭐ Land use change
 - ⭐ Climate change
@@ -52059,251 +54165,349 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
 - ⭐ Wildlife trade
 - ⭐ Antimicrobial resistance
 
-## Examples ⭐⭐
+---
+
+# 🔻 Part 3: Examples ⭐⭐
+
 | Disease | Origin |
 |---|---|
-| COVID-19 | Bats (suspected) |
-| Ebola | Bats |
-| Nipah | Bats |
-| MERS | Camels |
-| HIV | Primates |
-| Avian Influenza | Birds |
+| **COVID-19** | Bats (suspected) |
+| **Ebola** | Bats |
+| **Nipah** | Bats |
+| **MERS** | Camels |
+| **HIV** | Primates |
+| **Avian Influenza** | Birds |
 
-## Prevention Strategies ⭐
+> 💡 **Bats** = reservoir ของหลายโรคสำคัญ
+
+---
+
+# 🔻 Part 4: Prevention Strategies ⭐
+
 - ⭐ Wildlife monitoring
 - ⭐ Habitat preservation
 - ⭐ Trade controls
 - ⭐ Spillover risk reduction
 - ⭐ Pandemic preparedness
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ 75% emerging zoonotic
-2. ⭐ Spillover from wildlife
-3. ⭐ Bats common reservoirs
-4. ⭐ Multiple drivers
-5. ⭐ Prevention > response`,
+- ⭐⭐⭐ **75% emerging zoonotic**
+- ⭐⭐ **Spillover** from wildlife
+- ⭐⭐ **Bats** common reservoirs
+- ⭐ Multiple drivers
+- ⭐ **Prevention > response**`,
   },
   YfbNcej_FwE: {
     videoId: 'YfbNcej_FwE', title: 'One Health — 9 Combat Foodborne Diseases', subject: 'one-health',
     date: '2025-10-08', durationMin: 40, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก foodborne diseases, One Health approach',
-    summary: `## 🎯 Lead Summary
-**Foodborne diseases** combated via One Health: animal source → food production → consumer.
+    summary: `# One Health — 9 Combat Foodborne Diseases
 
-## Major Foodborne Pathogens ⭐⭐
-- ⭐ Salmonella (eggs, poultry, meat)
-- ⭐ Campylobacter (poultry main)
-- ⭐ E. coli O157:H7 (beef, vegetables)
-- ⭐ Listeria (dairy, deli)
-- ⭐ Norovirus (oysters, food handlers)
-- ⭐ Trichinella (pork)
-- ⭐ Toxoplasma (multiple)
+> 🎯 **Foodborne diseases** combated via One Health: animal source → food production → consumer ⭐⭐⭐
+> 💡 Farm-to-Fork = framework สำคัญ
 
-## Farm-to-Fork Approach ⭐⭐⭐
-- ⭐ Animal health (reduce shedding)
-- ⭐ Slaughter hygiene
-- ⭐ Processing controls
-- ⭐ Cold chain
-- ⭐ Retail handling
-- ⭐ Consumer education
+---
 
-## One Health Synergies ⭐
-- ⭐ Vet detects animal health issues
-- ⭐ Public health monitors human cases
-- ⭐ Food regulators ensure safety
-- ⭐ Environmental health monitors water/sanitation
+# 🔻 Part 1: Major Foodborne Pathogens ⭐⭐
 
-## Statistics ⭐
-- ⭐ ⭐ Millions of cases globally annually
+- ⭐ **Salmonella** — eggs, poultry, meat
+- ⭐ **Campylobacter** — poultry main
+- ⭐ ***E. coli* O157:H7** — beef, vegetables
+- ⭐ **Listeria** — dairy, deli
+- ⭐ **Norovirus** — oysters, food handlers
+- ⭐ **Trichinella** — pork
+- ⭐ **Toxoplasma** — multiple
+
+---
+
+# 🔻 Part 2: Farm-to-Fork Approach ⭐⭐⭐
+
+- ⭐ **Animal health** — reduce shedding
+- ⭐ **Slaughter hygiene**
+- ⭐ **Processing controls**
+- ⭐ **Cold chain**
+- ⭐ **Retail handling**
+- ⭐ **Consumer education**
+
+---
+
+# 🔻 Part 3: One Health Synergies ⭐
+
+- ⭐ **Vet** detects animal health issues
+- ⭐ **Public health** monitors human cases
+- ⭐ **Food regulators** ensure safety
+- ⭐ **Environmental health** monitors water/sanitation
+
+---
+
+# 🔻 Part 4: Statistics ⭐
+
+- ⭐⭐ **Millions of cases globally annually**
 - ⭐ Significant economic loss
 - ⭐ Particularly affects developing countries
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multiple foodborne pathogens
-2. ⭐ Salmonella + Campylobacter common
-3. ⭐ Farm-to-Fork approach
-4. ⭐ Multi-sector collaboration
-5. ⭐ Major global health burden`,
+- ⭐⭐⭐ Multiple foodborne pathogens
+- ⭐⭐ **Salmonella + Campylobacter** common
+- ⭐⭐ **Farm-to-Fork** approach
+- ⭐ Multi-sector collaboration
+- ⭐ Major global health burden`,
   },
   cbW8ULkCM0k: {
     videoId: 'cbW8ULkCM0k', title: 'One Health — 10 Food and Feed GMOs', subject: 'one-health',
     date: '2025-10-15', durationMin: 45, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก GMO regulations, safety assessment, One Health',
-    summary: `## 🎯 Lead Summary
-**GMO food + feed** — controversial topic. One Health perspective on safety, environment, ethics.
+    summary: `# One Health — 10 Food and Feed GMOs
 
-## GMO Definitions ⭐
-- ⭐ Genetically Modified Organisms
-- ⭐ Transgenic = genes from other species
-- ⭐ Cisgenic = same species genes
-- ⭐ Gene editing (CRISPR) — may differ legally
+> 🎯 **GMO food + feed** — controversial topic. One Health perspective on safety + environment + ethics ⭐⭐
 
-## Common GMOs ⭐
-- ⭐ ⭐ Soybean (Roundup Ready)
-- ⭐ ⭐ Corn (Bt corn)
+---
+
+# 🔻 Part 1: GMO Definitions ⭐
+
+- ⭐ **GMO** = Genetically Modified Organisms
+- ⭐ **Transgenic** — genes from other species
+- ⭐ **Cisgenic** — same species genes
+- ⭐ **Gene editing (CRISPR)** — อาจ differ legally
+
+---
+
+# 🔻 Part 2: Common GMOs ⭐
+
+- ⭐⭐ **Soybean** (Roundup Ready)
+- ⭐⭐ **Corn** (Bt corn)
 - ⭐ Cotton (Bt)
 - ⭐ Canola
 - ⭐ Salmon (AquAdvantage)
 
-## Safety Assessment ⭐⭐
+---
+
+# 🔻 Part 3: Safety Assessment ⭐⭐
+
 - ⭐ Toxicology
 - ⭐ Allergenicity
 - ⭐ Nutritional equivalence
 - ⭐ Environmental impact
 - ⭐ Animal feeding studies
 
-## Thailand Stance ⭐
-- ⭐ ⭐ Restrictive on GMO crop production
+---
+
+# 🔻 Part 4: Thailand Stance ⭐
+
+- ⭐⭐ **Restrictive** on GMO crop production
 - ⭐ Allows GMO feed import
 - ⭐ Labeling requirements
 
-## One Health Perspective ⭐
-- ⭐ Animal health (feed safety)
-- ⭐ Human health (food safety)
-- ⭐ Environment (cross-pollination, biodiversity)
-- ⭐ Economic (farmer livelihood)
+---
+
+# 🔻 Part 5: One Health Perspective ⭐
+
+- ⭐ **Animal health** — feed safety
+- ⭐ **Human health** — food safety
+- ⭐ **Environment** — cross-pollination, biodiversity
+- ⭐ **Economic** — farmer livelihood
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ GMO categories (transgenic, cisgenic, edited)
-2. ⭐ Common GMOs: soy, corn, cotton
-3. ⭐ Safety assessment multi-faceted
-4. ⭐ Thailand restrictive on production
-5. ⭐ One Health considers all aspects`,
+- ⭐⭐⭐ **GMO categories** — transgenic, cisgenic, edited
+- ⭐⭐ **Common GMOs**: soy, corn, cotton
+- ⭐⭐ **Safety assessment** multi-faceted
+- ⭐ Thailand restrictive on production
+- ⭐ One Health considers all aspects`,
   },
   rnn97pswtSY: {
     videoId: 'rnn97pswtSY', title: 'One Health — 11 AMR from One Health Perspective', subject: 'one-health',
     date: '2025-10-22', durationMin: 55, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก AMR, animal antibiotic use, stewardship',
-    summary: `## 🎯 Lead Summary
-**Antimicrobial Resistance (AMR)** — global crisis, One Health priority.
+    summary: `# One Health — 11 AMR from One Health Perspective
 
-## AMR Crisis ⭐⭐⭐
-- ⭐ ⭐ ⭐ Global threat (10 million deaths/year by 2050 projected)
+> 🎯 **Antimicrobial Resistance (AMR)** = global crisis + One Health priority ⭐⭐⭐
+> ⚠️ ~70% of global antibiotic use is in animals!
+
+---
+
+# 🔻 Part 1: AMR Crisis ⭐⭐⭐
+
+- ⭐⭐⭐ **Global threat** — 10 million deaths/year by 2050 projected
 - ⭐ Loss of antibiotic effectiveness
 - ⭐ Common procedures becoming risky
 - ⭐ Economic devastation
 
-## Animal Antibiotic Use ⭐⭐
-- ⭐ ⭐ ⭐ ⭐ ~70% of global antibiotic use is in animals!
-- ⭐ Growth promotion (banned/restricted now)
+---
+
+# 🔻 Part 2: Animal Antibiotic Use ⭐⭐
+
+- ⭐⭐⭐⭐ **~70% of global antibiotic use is in animals!**
+- ⭐ Growth promotion — banned/restricted now
 - ⭐ Disease prevention
 - ⭐ Disease treatment
 
-## Resistance Mechanisms ⭐
+---
+
+# 🔻 Part 3: Resistance Mechanisms ⭐
+
 - ⭐ Genetic mutations
-- ⭐ Horizontal gene transfer
+- ⭐ **Horizontal gene transfer**
 - ⭐ Plasmid spread
 - ⭐ Selection pressure
 
-## One Health Action ⭐⭐⭐
-- ⭐ ⭐ Reduce animal antibiotic use
-- ⭐ ⭐ Surveillance (animal + human)
-- ⭐ ⭐ Stewardship programs
+---
+
+# 🔻 Part 4: One Health Action ⭐⭐⭐
+
+- ⭐⭐ **Reduce animal antibiotic use**
+- ⭐⭐ **Surveillance** — animal + human
+- ⭐⭐ **Stewardship programs**
 - ⭐ Research alternatives
 - ⭐ Public education
 
-## Thailand AMR ⭐
-- ⭐ National Action Plan
-- ⭐ Banned colistin in feed (2019)
+---
+
+# 🔻 Part 5: Thailand AMR ⭐
+
+- ⭐ **National Action Plan**
+- ⭐ **Banned colistin in feed (2019)**
 - ⭐ Ongoing surveillance
 - ⭐ One Health committee
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ ⭐ AMR = global crisis
-2. ⭐ ~70% antibiotic use in animals
-3. ⭐ Multiple resistance mechanisms
-4. ⭐ Stewardship critical
-5. ⭐ Thailand National Action Plan`,
+- ⭐⭐⭐ **AMR = global crisis**
+- ⭐⭐ **~70% antibiotic use in animals**
+- ⭐⭐ Multiple resistance mechanisms
+- ⭐ **Stewardship critical**
+- ⭐ Thailand National Action Plan`,
   },
   Nm4TT8ny2RU: {
     videoId: 'Nm4TT8ny2RU', title: 'One Health — 12 Environmental Health Risks I', subject: 'one-health',
     date: '2025-10-29', durationMin: 59, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก environmental health, pollution, climate',
-    summary: `## 🎯 Lead Summary
-**Environmental health risks I** — pollution, climate change, ecosystem disruption.
+    summary: `# One Health — 12 Environmental Health Risks I
 
-## Environmental Risks ⭐⭐
-- ⭐ Air pollution (PM 2.5)
-- ⭐ Water pollution
-- ⭐ Soil contamination
-- ⭐ Climate change
-- ⭐ Heavy metals
-- ⭐ Pesticides
-- ⭐ Endocrine disruptors
+> 🎯 **Environmental health risks I** — pollution, climate change, ecosystem disruption ⭐⭐
 
-## Animal Health Impacts ⭐
+---
+
+# 🔻 Part 1: Environmental Risks ⭐⭐
+
+- ⭐ **Air pollution** (PM 2.5)
+- ⭐ **Water pollution**
+- ⭐ **Soil contamination**
+- ⭐ **Climate change**
+- ⭐ **Heavy metals**
+- ⭐ **Pesticides**
+- ⭐ **Endocrine disruptors**
+
+---
+
+# 🔻 Part 2: Animal Health Impacts ⭐
+
 - ⭐ Pesticide poisoning (wildlife)
 - ⭐ Heavy metal accumulation (fish)
 - ⭐ Plastic ingestion (marine)
 - ⭐ Habitat loss
 
-## Human Health Connections ⭐
+---
+
+# 🔻 Part 3: Human Health Connections ⭐
+
 - ⭐ Foodborne contamination
 - ⭐ Waterborne diseases
-- ⭐ Respiratory disease (PM 2.5)
+- ⭐ **Respiratory disease** (PM 2.5)
 - ⭐ Cancer (chemicals)
 
-## Climate Change ⭐⭐
-- ⭐ Vector range expansion
+---
+
+# 🔻 Part 4: Climate Change ⭐⭐
+
+- ⭐ **Vector range expansion**
 - ⭐ New disease emergence
 - ⭐ Extreme weather effects
 - ⭐ Food security
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multiple environmental risks
-2. ⭐ Pesticides + heavy metals concerning
-3. ⭐ Climate change major driver
-4. ⭐ Vector range expansion
-5. ⭐ Human + animal interconnected`,
+- ⭐⭐⭐ Multiple environmental risks
+- ⭐⭐ **Pesticides + heavy metals** concerning
+- ⭐⭐ **Climate change** major driver
+- ⭐ **Vector range expansion**
+- ⭐ Human + animal interconnected`,
   },
   xWwZt25M9L4: {
     videoId: 'xWwZt25M9L4', title: 'One Health — 13 Environmental Health Risks II', subject: 'one-health',
     date: '2025-11-05', durationMin: 39, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก environmental health continued, case studies',
-    summary: `## 🎯 Lead Summary
-**Environmental health risks II** — case studies + interventions.
+    summary: `# One Health — 13 Environmental Health Risks II
 
-## Case Studies ⭐⭐
-- ⭐ Mercury in fish (Minamata legacy)
-- ⭐ DDT historic
-- ⭐ Endosulfan banned
-- ⭐ Lead poisoning (waterfowl)
-- ⭐ Plastic in marine animals
+> 🎯 **Environmental health risks II** — case studies + interventions ⭐⭐
 
-## Interventions ⭐
-- ⭐ International conventions (Stockholm, Basel)
+---
+
+# 🔻 Part 1: Case Studies ⭐⭐
+
+- ⭐ **Mercury in fish** — Minamata legacy
+- ⭐ **DDT** historic
+- ⭐ **Endosulfan** banned
+- ⭐ **Lead poisoning** (waterfowl)
+- ⭐ **Plastic** in marine animals
+
+---
+
+# 🔻 Part 2: Interventions ⭐
+
+- ⭐ **International conventions** — Stockholm, Basel
 - ⭐ Chemical regulations
 - ⭐ Pollution monitoring
 - ⭐ Citizen science
 - ⭐ Education
 
-## Climate Adaptation ⭐
+---
+
+# 🔻 Part 3: Climate Adaptation ⭐
+
 - ⭐ Heat stress in livestock
 - ⭐ Disease range shifts
 - ⭐ Water management
 - ⭐ Sustainable farming
 
-## Vet Roles ⭐
+---
+
+# 🔻 Part 4: Vet Roles ⭐
+
 - ⭐ Wildlife monitoring
 - ⭐ Toxicology cases
 - ⭐ Conservation medicine
 - ⭐ Public health bridge
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Mercury, DDT, lead historic concerns
-2. ⭐ Plastic = current crisis
-3. ⭐ International conventions
-4. ⭐ Climate adaptation needed
-5. ⭐ Vets contribute to monitoring`,
+- ⭐⭐⭐ **Mercury, DDT, lead** historic concerns
+- ⭐⭐ **Plastic** = current crisis
+- ⭐⭐ International conventions
+- ⭐ Climate adaptation needed
+- ⭐ Vets contribute to monitoring`,
   },
   '6TieYPHlwhA': {
     videoId: '6TieYPHlwhA', title: 'One Health — 14 Livestock Waste Management', subject: 'one-health',
     date: '2025-11-12', durationMin: 54, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก waste management, environmental impact',
-    summary: `## 🎯 Lead Summary
-**Livestock waste management** — environmental + One Health impact.
+    summary: `# One Health — 14 Livestock Waste Management
 
-## Waste Types ⭐
+> 🎯 **Livestock waste management** — environmental + One Health impact ⭐⭐
+> 💡 Biogas = energy + waste solution
+
+---
+
+# 🔻 Part 1: Waste Types ⭐
+
 - ⭐ Manure (solid)
 - ⭐ Urine (liquid)
 - ⭐ Feed waste
@@ -52312,92 +54516,127 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
 - ⭐ Bedding
 - ⭐ Antibiotics in waste
 
-## Environmental Impact ⭐⭐
-- ⭐ ⭐ **Water pollution** (runoff to streams)
-- ⭐ ⭐ Eutrophication (algae blooms)
-- ⭐ Greenhouse gases (methane!)
+---
+
+# 🔻 Part 2: Environmental Impact ⭐⭐
+
+- ⭐⭐ **Water pollution** — runoff to streams
+- ⭐⭐ **Eutrophication** — algae blooms
+- ⭐ **Greenhouse gases** — methane!
 - ⭐ Pathogen spread
 - ⭐ Antibiotic in environment
-- ⭐ Odor (community impact)
+- ⭐ Odor — community impact
 
-## Management Strategies ⭐⭐
-- ⭐ ⭐ **Biogas** (methane capture, energy)
+---
+
+# 🔻 Part 3: Management Strategies ⭐⭐
+
+- ⭐⭐ **Biogas** — methane capture, energy
 - ⭐ Composting
 - ⭐ Aerobic + anaerobic treatment
 - ⭐ Land application (controlled)
 - ⭐ Sand filtration
 
-## Thai Context ⭐
-- ⭐ Pig farms major concern
+---
+
+# 🔻 Part 4: Thai Context ⭐
+
+- ⭐ **Pig farms** major concern
 - ⭐ DLD regulations
 - ⭐ Environmental impact assessments
 - ⭐ Biogas adoption
 
+---
+
 ## 📋 Exam Recap
-1. ⭐ Multiple waste types
-2. ⭐ Water pollution major concern
-3. ⭐ Biogas = energy + waste solution
-4. ⭐ Thai pig farms regulated
-5. ⭐ One Health connection`,
+- ⭐⭐⭐ Multiple waste types
+- ⭐⭐ **Water pollution** major concern
+- ⭐⭐ **Biogas** = energy + waste solution
+- ⭐ Thai pig farms regulated
+- ⭐ One Health connection`,
   },
   REWwuQw0uBo: {
     videoId: 'REWwuQw0uBo', title: 'One Health — 15.1 Food Risk Analysis', subject: 'one-health',
     date: '2025-11-19', durationMin: 34, instructor: 'CUVET One Health team',
     examFormat: 'Multiple choice, ออก risk analysis framework, risk assessment',
-    summary: `## 🎯 Lead Summary
-**Food risk analysis** — systematic approach to food safety. 3 components: Assessment + Management + Communication.
+    summary: `# One Health — 15.1 Food Risk Analysis
 
-## Risk Analysis Framework ⭐⭐⭐
-1. ⭐ ⭐ **Risk Assessment** (scientific evaluation)
-2. ⭐ ⭐ **Risk Management** (decisions, regulations)
-3. ⭐ ⭐ **Risk Communication** (stakeholder engagement)
+> 🎯 **Food risk analysis** — systematic approach to food safety. ⭐⭐⭐ 3 components: **Assessment + Management + Communication**
 
-## Risk Assessment Steps ⭐⭐
+---
+
+# 🔻 Part 1: Risk Analysis Framework ⭐⭐⭐
+
+1. ⭐⭐ **Risk Assessment** — scientific evaluation
+2. ⭐⭐ **Risk Management** — decisions, regulations
+3. ⭐⭐ **Risk Communication** — stakeholder engagement
+
+---
+
+# 🔻 Part 2: Risk Assessment Steps ⭐⭐
+
 1. ⭐ Hazard identification
 2. ⭐ Hazard characterization
 3. ⭐ Exposure assessment
-4. ⭐ Risk characterization
+4. ⭐ **Risk characterization**
 
-## Risk Management ⭐
+---
+
+# 🔻 Part 3: Risk Management ⭐
+
 - ⭐ Set acceptable risk level
 - ⭐ Implement controls
 - ⭐ Monitor effectiveness
 - ⭐ Adapt as needed
 
-## Examples ⭐
-- ⭐ Salmonella in eggs
-- ⭐ Aflatoxin in feed
-- ⭐ AMR risk
-- ⭐ Pesticide residues
+---
+
+# 🔻 Part 4: Examples ⭐
+
+- ⭐ **Salmonella in eggs**
+- ⭐ **Aflatoxin in feed**
+- ⭐ **AMR risk**
+- ⭐ **Pesticide residues**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ ⭐ 3 components: Assess/Manage/Communicate
-2. ⭐ Hazard ID + characterization first
-3. ⭐ Exposure assessment
-4. ⭐ Risk characterization integrates
-5. ⭐ Iterative process`,
+- ⭐⭐⭐ **3 components**: Assess / Manage / Communicate
+- ⭐⭐ **Hazard ID + characterization** first
+- ⭐⭐ Exposure assessment
+- ⭐ **Risk characterization** integrates
+- ⭐ Iterative process`,
   },
   YWlclk9v6cE: {
     videoId: 'YWlclk9v6cE', title: 'One Health — 15.2 Import Risk Assessment for Prawn Products (NOT IN EXAM)', subject: 'one-health',
     date: '2025-11-19', durationMin: 47, instructor: 'CUVET One Health team',
     examFormat: 'NOT IN EXAM (ไม่ออกสอบ) — case study application',
-    summary: `## 🎯 Lead Summary
-⚠️ **NOT EXAMINED** — Case study: Import risk assessment for prawn products. Practical application of risk analysis framework.
+    summary: `# One Health — 15.2 Import Risk Assessment for Prawn Products (NOT IN EXAM)
 
-## Case Study ⭐
+> 🎯 ⚠️ **NOT EXAMINED** — Case study: Import risk assessment for prawn products. Practical application of risk analysis framework
+
+---
+
+# 🔻 Part 1: Case Study ⭐
+
 - ⭐ Importing shrimp/prawn products
-- ⭐ Disease risks (WSSV, EHP, EMS)
+- ⭐ Disease risks — **WSSV, EHP, EMS**
 - ⭐ Risk assessment process
 - ⭐ Mitigation strategies
 
-## Application of Framework ⭐
+---
+
+# 🔻 Part 2: Application of Framework ⭐
+
 - ⭐ Hazard identification
 - ⭐ Pathway analysis
 - ⭐ Probability calculations
 - ⭐ Risk-benefit analysis
 
+---
+
 ## 📋 Recap
-- ⚠️ NOT EXAMINED but practical
+- ⚠️ **NOT EXAMINED** but practical
 - ⭐ Real-world application
 - ⭐ Prawn industry critical Thailand`,
   },
@@ -52410,10 +54649,15 @@ Course intro for avian medicine. Thailand = major poultry producer + exporter. C
     videoId: 'YieQkARFQcU', title: 'Equine Medicine — 0 Introduction', subject: 'equine-medicine',
     date: '2025-08-04', durationMin: 7, instructor: 'CUVET equine team',
     examFormat: 'Brief intro',
-    summary: `## 🎯 Lead Summary
-Course intro for equine medicine. Thailand: small but growing horse industry (sport, racing, leisure).
+    summary: `# Equine Medicine — 0 Introduction
 
-## Course Coverage ⭐
+> 🎯 Course intro สำหรับ equine medicine — Thailand horse industry เล็กแต่กำลังโต (sport, racing, leisure) ⭐
+> ⚠️ Brief intro — overview เฉยๆ ไม่มี core exam content
+
+---
+
+# 🔻 Part 1: Course Coverage
+
 - ID + general practice
 - Nutrition, dentistry
 - GI, respiratory, parasites
@@ -52421,907 +54665,1242 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
 - Surgery, anesthesia
 - Lameness, foot
 
-## Career Areas ⭐
+---
+
+# 🔻 Part 2: Career Areas
+
 - Racetrack practice
 - Sport horses
 - Leisure/private
 - Royal Thai Army horses
 
-> 📚 Cross-refs: All equine lectures
-> 🎯 Specialty practice in Thailand`,
+---
+
+## 📋 Exam Recap
+- ⭐ Specialty practice ใน Thailand — small but growing market`,
   },
   oOxe_C3TuaU: {
     videoId: 'oOxe_C3TuaU', title: 'Equine — 1.1 Identification + Microchip', subject: 'equine-medicine',
     date: '2025-08-04', durationMin: 60, instructor: 'CUVET equine team',
     examFormat: 'Multiple choice, ออก horse ID methods, microchip, passport',
-    summary: `## 🎯 Lead Summary
-**Horse identification methods** — markings, microchip, passport. Critical for ownership, sales, racing, international trade.
+    summary: `# Equine — 1.1 Identification + Microchip
 
-## ID Methods ⭐⭐
-- ⭐ ⭐ Microchip (ISO 11784/11785) — gold standard
-- ⭐ Brand marks (historical)
-- ⭐ Tattoos (racing)
-- ⭐ Markings descriptions (whorls, stars, etc.)
-- ⭐ Photographs
+> 🎯 Horse ID methods — microchip = gold standard · ตำแหน่งฝัง = left mid-third of neck (nuchal ligament area) ⭐⭐
+> ⚠️ ออกแน่: microchip standard, passport requirement, markings vocab
 
-## Microchip Implantation ⭐⭐
-- ⭐ Subcutaneous, left side neck
-- ⭐ Mid-third of neck (nuchal ligament area)
-- ⭐ Sterile technique
-- ⭐ Verify with scanner before/after
+---
 
-## Horse Passport ⭐
-- ⭐ ⭐ International document
-- ⭐ Required for movement
-- ⭐ Includes microchip + markings
-- ⭐ Vaccination history
-- ⭐ Medication records
+# 🔻 Part 1: ID Methods ⭐⭐
 
-## Markings ⭐
-- ⭐ White markings on legs (sock, stocking)
-- ⭐ Face (star, blaze, snip)
-- ⭐ Whorls
-- ⭐ Color described per breed
+| Method | Note |
+|---|---|
+| **Microchip** (ISO 11784/11785) | **Gold standard** |
+| Brand marks | Historical |
+| Tattoos | Racing |
+| Markings descriptions | Whorls, stars, etc. |
+| Photographs | Supplementary |
+
+---
+
+# 🔻 Part 2: Microchip Implantation ⭐⭐
+
+- **Subcutaneous, left side neck**
+- **Mid-third of neck** (nuchal ligament area)
+- Sterile technique
+- Verify with scanner before/after
+
+---
+
+# 🔻 Part 3: Horse Passport ⭐
+
+- **International document**
+- Required for movement
+- Includes microchip + markings
+- Vaccination history
+- Medication records
+
+---
+
+# 🔻 Part 4: Markings ⭐
+
+- White markings on legs (sock, stocking)
+- Face (star, blaze, snip)
+- Whorls
+- Color described per breed
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Microchip = gold standard
-2. ⭐ Implant left mid-third of neck
-3. ⭐ Passport required for travel
-4. ⭐ Markings + whorls described
-5. ⭐ Multiple methods combined`,
+- ⭐⭐ **Microchip = gold standard** (ISO 11784/11785)
+- ⭐⭐ **Implant left mid-third of neck** (nuchal ligament area)
+- ⭐ **Passport required for international travel**
+- ⭐ Markings + whorls described in records
+- ⭐ Multiple methods combined for robust ID`,
   },
   xDUSBVKAwDE: {
     videoId: 'xDUSBVKAwDE', title: 'Equine — 1.2 General Equine Practice', subject: 'equine-medicine',
     date: '2025-08-04', durationMin: 98, instructor: 'CUVET equine team',
     examFormat: 'Multiple choice, ออก equine restraint, physical exam, vital signs',
-    summary: `## 🎯 Lead Summary
-**General equine practice** — restraint, physical exam, vital signs.
+    summary: `# Equine — 1.2 General Equine Practice
 
-## Restraint ⭐⭐⭐
-- ⭐ Halter + lead rope
-- ⭐ Twitch (lip)
-- ⭐ Stocks
-- ⭐ Sedation (xylazine, detomidine)
-- ⚠️ Safety paramount!
+> 🎯 Restraint, physical exam, vital signs — safety paramount ตลอด ⭐⭐⭐
+> ⚠️ ออกแน่: HR 28-44 bpm, Temp 37.5-38.5°C, twitch + stocks + sedation
 
-## Vital Signs (Adult) ⭐⭐
-- ⭐ ⭐ Heart rate: 28-44 bpm
-- ⭐ Respiratory: 8-16/min
-- ⭐ ⭐ Temperature: 37.5-38.5°C
-- ⭐ MM color: pink moist
-- ⭐ CRT <2 sec
+---
 
-## Physical Exam ⭐⭐
-- ⭐ Distance observation
-- ⭐ Hand-on exam systematic
-- ⭐ Heart auscultation
-- ⭐ Lung auscultation (trachea + thorax)
-- ⭐ GI sounds (4 quadrants)
-- ⭐ Limbs, hooves
-- ⭐ Eyes, mouth, nostrils
+# 🔻 Part 1: Restraint ⭐⭐⭐
 
-## Routine Care ⭐
-- ⭐ Hoof trimming/shoeing every 4-6 weeks
-- ⭐ Dental every 6-12 months
-- ⭐ Deworming program
-- ⭐ Vaccinations
+| Method | Note |
+|---|---|
+| **Halter + lead rope** | Basic |
+| **Twitch** (lip) | Mechanical restraint |
+| **Stocks** | Physical confinement |
+| **Sedation** | Xylazine, detomidine |
+
+> ⚠️ **Safety paramount!** ม้าตัวใหญ่ kick + bite ทำให้เกิดอันตรายได้รุนแรง
+
+---
+
+# 🔻 Part 2: Vital Signs (Adult) ⭐⭐⭐
+
+| Parameter | Normal Range |
+|---|---|
+| **Heart rate** | **28-44 bpm** |
+| **Respiratory** | **8-16/min** |
+| **Temperature** | **37.5-38.5°C** |
+| MM color | Pink moist |
+| CRT | <2 sec |
+
+---
+
+# 🔻 Part 3: Physical Exam ⭐⭐
+
+## Systematic Approach
+1. **Distance observation** — gait, posture, conformation
+2. **Hand-on exam** — systematic head to tail
+3. **Heart auscultation**
+4. **Lung auscultation** — trachea + thorax
+5. **GI sounds** — 4 quadrants
+6. **Limbs, hooves**
+7. **Eyes, mouth, nostrils**
+
+---
+
+# 🔻 Part 4: Routine Care ⭐
+
+- **Hoof trimming/shoeing** every 4-6 weeks
+- **Dental** every 6-12 months
+- **Deworming program**
+- **Vaccinations**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Multiple restraint methods
-2. ⭐ HR 28-44 bpm
-3. ⭐ Temp 37.5-38.5°C
-4. ⭐ Systematic exam
-5. ⭐ Routine farrier + dental`,
+- ⭐⭐⭐ **HR 28-44 bpm** (adult horse)
+- ⭐⭐⭐ **Temp 37.5-38.5°C**
+- ⭐⭐ Multiple restraint methods — twitch/stocks/sedation
+- ⭐⭐ Systematic exam — distance → hands-on
+- ⭐ Routine farrier 4-6 wk · dental 6-12 mo`,
   },
   SwLxaBCfqXo: {
     videoId: 'SwLxaBCfqXo', title: 'Equine — 2 Basic Nutrition', subject: 'equine-medicine',
     date: '2025-08-14', durationMin: 134, instructor: 'CUVET equine nutrition team',
     examFormat: 'Multiple choice, ออก equine nutrition, forage requirements, supplementation',
-    summary: `## 🎯 Lead Summary
-**Equine nutrition** — herbivore with monogastric stomach + cecum. Forage-based diet essential.
+    summary: `# Equine — 2 Basic Nutrition
 
-## Anatomy Considerations ⭐⭐
-- ⭐ ⭐ Hindgut fermenter (cecum)
-- ⭐ Small stomach (~10% of GI)
-- ⭐ Long small intestine
-- ⭐ ⭐ Cannot vomit!
+> 🎯 ม้า = **hindgut fermenter** (cecum) ที่มี monogastric stomach เล็ก · **CANNOT VOMIT** = colic risk ⭐⭐⭐
+> ⚠️ ออกแน่: forage 1-3% body weight, BCS 1-9 Henneke, EMS/PPID, laminitis
 
-## Diet Composition ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Forage = base diet** (1-3% body weight/day)
-- ⭐ Grass, hay, alfalfa
-- ⭐ Concentrate (grain, pellets)
-- ⭐ Water (>20-50L/day)
-- ⭐ Salt + minerals
+---
 
-## Energy Requirements ⭐
-- ⭐ Maintenance: ~16 Mcal/day (500kg horse)
-- ⭐ Light work: ~20% increase
-- ⭐ Heavy work: ~50%+ increase
-- ⭐ Pregnant/lactating: significant increase
+# 🔻 Part 1: Anatomy Considerations ⭐⭐
 
-## Body Condition Score ⭐
-- ⭐ ⭐ 1-9 scale (Henneke)
-- ⭐ Ideal 5
-- ⭐ Below 4 = underweight
-- ⭐ Above 6 = overweight
+- **Hindgut fermenter** (cecum)
+- Small stomach (~10% of GI)
+- Long small intestine
+- **CANNOT VOMIT** ⚠️
 
-## Common Issues ⭐
-- ⭐ Colic (multifactorial)
-- ⭐ Laminitis (overweight, sudden grain)
-- ⭐ Equine Metabolic Syndrome (EMS)
-- ⭐ Cushing's (PPID)
+> ⚠️ **CANNOT VOMIT** = ทุกอย่างที่กินเข้าไปต้องผ่าน GI ทั้งหมด → sudden diet change/toxin → colic risk สูง
+
+---
+
+# 🔻 Part 2: Diet Composition ⭐⭐⭐
+
+| Component | Amount/Note |
+|---|---|
+| **Forage = base diet** | **1-3% body weight/day** |
+| Grass, hay, alfalfa | Forage sources |
+| Concentrate | Grain, pellets |
+| **Water** | **>20-50L/day** |
+| Salt + minerals | Supplementation |
+
+---
+
+# 🔻 Part 3: Energy Requirements ⭐
+
+| State | Mcal/day (500kg horse) |
+|---|---|
+| Maintenance | ~16 |
+| Light work | +20% |
+| Heavy work | +50%+ |
+| Pregnant/lactating | Significant increase |
+
+---
+
+# 🔻 Part 4: Body Condition Score ⭐
+
+## Henneke Scale (1-9)
+- **Ideal: 5**
+- Below 4 = underweight
+- Above 6 = overweight
+
+---
+
+# 🔻 Part 5: Common Nutritional Issues ⭐
+
+- **Colic** (multifactorial — diet change, lack of water, sand impaction)
+- **Laminitis** (overweight, sudden grain)
+- **Equine Metabolic Syndrome (EMS)**
+- **Cushing's (PPID)** — pituitary pars intermedia dysfunction
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Hindgut fermenter
-2. ⭐ Cannot vomit
-3. ⭐ Forage = 1-3% body weight
-4. ⭐ BCS 5/9 ideal
-5. ⭐ Sudden diet change = colic risk`,
+- ⭐⭐⭐ **Hindgut fermenter** + **CANNOT VOMIT**
+- ⭐⭐⭐ **Forage = 1-3% body weight/day**
+- ⭐⭐ **BCS 5/9 ideal** (Henneke scale)
+- ⭐⭐ **Sudden diet change = colic risk**
+- ⭐ EMS + PPID/Cushing's = metabolic concerns`,
   },
   NP3HbcE9f8E: {
     videoId: 'NP3HbcE9f8E', title: 'Equine — 3 Equine Dentistry', subject: 'equine-medicine',
     date: '2025-08-21', durationMin: 188, instructor: 'CUVET equine dental team',
     examFormat: 'Multiple choice, ออก equine dentition, dental issues, floating',
-    summary: `## 🎯 Lead Summary
-**Equine dentistry** — hypsodont teeth (continuously erupting). Regular dental care essential.
+    summary: `# Equine — 3 Equine Dentistry
 
-## Equine Dentition ⭐⭐⭐
-- ⭐ ⭐ **Hypsodont** (continuously erupt)
-- ⭐ ⭐ Adult: 36-44 teeth
-- ⭐ Incisors (12)
-- ⭐ Canines (4 in males, 0-2 females)
-- ⭐ Wolf teeth (4, often removed)
-- ⭐ Premolars (12)
-- ⭐ Molars (12)
+> 🎯 ม้า = **hypsodont** teeth (continuously erupting) · regular floating ทุก 6-12 เดือน ⭐⭐⭐
+> ⚠️ ออกแน่: 36-44 teeth adult, sharp enamel points, EOTRH, aging by teeth
 
-## Common Issues ⭐⭐⭐
-- ⭐ ⭐ **Sharp enamel points** (require floating)
-- ⭐ ⭐ Hooks (1st upper PM, last lower M)
-- ⭐ Wave mouth
-- ⭐ Step mouth
-- ⭐ Diastema
-- ⭐ Caps (retained baby teeth)
-- ⭐ EOTRH (Equine Odontoclastic Tooth Resorption)
+---
 
-## Floating ⭐⭐
-- ⭐ ⭐ Removing sharp points
-- ⭐ Power tools or hand floats
-- ⭐ Sedation usually required
-- ⭐ Speculum opens mouth
-- ⭐ Routine every 6-12 months
+# 🔻 Part 1: Equine Dentition ⭐⭐⭐
 
-## Aging by Teeth ⭐
-- ⭐ Galvayne's groove (15+ years)
-- ⭐ Cup wear
-- ⭐ Star markings
-- ⭐ Hook on 7s
+## Key Features
+- **Hypsodont** (continuously erupt)
+- **Adult: 36-44 teeth**
+
+## Tooth Count
+| Type | Count |
+|---|---|
+| Incisors | 12 |
+| Canines | 4 in males, 0-2 females |
+| **Wolf teeth** | 4 (often removed) |
+| Premolars | 12 |
+| Molars | 12 |
+
+---
+
+# 🔻 Part 2: Common Dental Issues ⭐⭐⭐
+
+| Issue | Description |
+|---|---|
+| **Sharp enamel points** | **Require floating** |
+| **Hooks** | 1st upper PM, last lower M |
+| **Wave mouth** | Uneven wear pattern |
+| **Step mouth** | Missing tooth → opposing overgrowth |
+| **Diastema** | Gap between teeth, food packing |
+| **Caps** | Retained baby teeth |
+| **EOTRH** | Equine Odontoclastic Tooth Resorption |
+
+---
+
+# 🔻 Part 3: Floating ⭐⭐
+
+## Procedure
+- **Removing sharp points**
+- Power tools or hand floats
+- **Sedation usually required**
+- Speculum opens mouth
+- **Routine every 6-12 months**
+
+---
+
+# 🔻 Part 4: Aging by Teeth ⭐
+
+## Key Markers
+- **Galvayne's groove** (15+ years)
+- Cup wear
+- Star markings
+- Hook on 7s
+
+> 💡 **Aging by teeth** = traditional skill — accuracy decreases with age (after ~10 years markers overlap)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Hypsodont continuous eruption
-2. ⭐ 36-44 teeth adults
-3. ⭐ Sharp points require floating
-4. ⭐ Routine 6-12 months
-5. ⭐ Aging by teeth markers`,
+- ⭐⭐⭐ **Hypsodont** continuous eruption
+- ⭐⭐⭐ **36-44 teeth adults**
+- ⭐⭐ **Sharp points require floating** every 6-12 months
+- ⭐⭐ **EOTRH** = resorption disease
+- ⭐ Aging by teeth markers (Galvayne's groove, cups, stars)`,
   },
   'BDnnySs-m2I': {
     videoId: 'BDnnySs-m2I', title: 'Equine — 4 GI System I+II', subject: 'equine-medicine',
     date: '2025-08-28', durationMin: 164, instructor: 'CUVET equine team',
     examFormat: 'Multiple choice, ออก equine GI, colic types, diagnosis, management',
-    summary: `## 🎯 Lead Summary
-**Equine GI = colic central**. Multiple causes. Critical clinical condition.
+    summary: `# Equine — 4 GI System I+II
 
-## GI Anatomy ⭐⭐⭐
-- ⭐ Stomach (small, ~10% capacity)
-- ⭐ Small intestine (long)
-- ⭐ ⭐ Cecum (large, fermentation)
-- ⭐ ⭐ Large colon (multiple flexures!)
-- ⭐ Small colon
-- ⭐ Rectum
+> 🎯 Equine GI = **colic central** — ม้าไม่อ้วก → ทุก GI insult = serious ⭐⭐⭐
+> ⚠️ ออกแน่: 4 colic types, HR>60 = serious, pelvic flexure impaction, strangulating = surgery
 
-## Colic Types ⭐⭐⭐
-### Spasmodic (Gas)
-- ⭐ Most common
-- ⭐ Painful but resolves
-- ⭐ Spasm of GI
-- ⭐ Buscopan helps
+---
 
-### Impaction ⭐
-- ⭐ ⭐ Pelvic flexure most common
-- ⭐ Cecal impaction
-- ⭐ Colon impaction
-- ⭐ Treatment: fluids, laxatives
+# 🔻 Part 1: GI Anatomy ⭐⭐⭐
 
-### Strangulating ⭐⭐
-- ⭐ Twisting/torsion
-- ⭐ ⭐ Surgical emergency!
-- ⭐ Examples: epiploic foramen entrapment, large colon volvulus
-- ⭐ High mortality
+- Stomach (small, ~10% capacity)
+- Small intestine (long)
+- **Cecum** (large, fermentation)
+- **Large colon** (multiple flexures!)
+- Small colon
+- Rectum
 
-### Inflammatory ⭐
-- ⭐ Enteritis, colitis
-- ⭐ Anterior enteritis (proximal SI)
-- ⭐ Right dorsal colitis (NSAIDs!)
+---
 
-## Diagnosis ⭐⭐
-- ⭐ ⭐ Pain assessment (mild/severe/violent)
-- ⭐ Vital signs (HR > 60 = serious!)
-- ⭐ Rectal exam
-- ⭐ Nasogastric tube (reflux?)
-- ⭐ Abdominal ultrasound
-- ⭐ Abdominocentesis
+# 🔻 Part 2: Colic Types ⭐⭐⭐
 
-## Treatment ⭐
-- ⭐ Pain management (Banamine)
-- ⭐ Fluid therapy
-- ⭐ NG tube decompression
-- ⭐ Laxatives
-- ⭐ ⚠️ Surgery if strangulating
+## A. Spasmodic (Gas)
+- **Most common**
+- Painful but resolves
+- Spasm of GI
+- **Buscopan helps**
 
-## Prevention ⭐
-- ⭐ Consistent diet
-- ⭐ Adequate water
-- ⭐ Regular exercise
-- ⭐ Good dental care
-- ⭐ Parasite control
+## B. Impaction ⭐
+- **Pelvic flexure most common**
+- Cecal impaction
+- Colon impaction
+- Treatment: fluids, laxatives
+
+## C. Strangulating ⭐⭐
+- **Twisting/torsion**
+- **Surgical emergency!**
+- Examples: epiploic foramen entrapment, large colon volvulus
+- **High mortality**
+
+## D. Inflammatory ⭐
+- Enteritis, colitis
+- Anterior enteritis (proximal SI)
+- **Right dorsal colitis (NSAIDs!)**
+
+---
+
+# 🔻 Part 3: Diagnosis ⭐⭐
+
+## Key Indicators
+- **Pain assessment** (mild/severe/violent)
+- **Vital signs** — **HR > 60 = serious!**
+- **Rectal exam**
+- **Nasogastric tube** (reflux?)
+- Abdominal ultrasound
+- Abdominocentesis
+
+> ⚠️ **HR > 60 = serious sign** — ต้องเตรียม referral + IV fluids + reassess for surgical lesion
+
+---
+
+# 🔻 Part 4: Treatment ⭐
+
+- **Pain management** (Banamine)
+- **Fluid therapy**
+- **NG tube decompression**
+- Laxatives
+- ⚠️ **Surgery if strangulating**
+
+---
+
+# 🔻 Part 5: Prevention ⭐
+
+- Consistent diet
+- Adequate water
+- Regular exercise
+- Good dental care
+- Parasite control
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Cannot vomit
-2. ⭐ Pelvic flexure impaction common
-3. ⭐ Strangulating = surgery
-4. ⭐ HR > 60 = serious sign
-5. ⭐ Prevention via management`,
+- ⭐⭐⭐ **Cannot vomit** = all insults serious
+- ⭐⭐⭐ **4 colic types**: Spasmodic, Impaction, Strangulating, Inflammatory
+- ⭐⭐⭐ **Pelvic flexure impaction** = most common impaction site
+- ⭐⭐ **Strangulating = surgical emergency**
+- ⭐⭐ **HR > 60 = serious sign**
+- ⭐ **NSAIDs → Right dorsal colitis** risk
+- ⭐ Prevention via management (diet, water, exercise)`,
   },
   KtIZCqRAN48: {
     videoId: 'KtIZCqRAN48', title: 'Equine — 5 Equine Parasites in Thailand', subject: 'equine-medicine',
     date: '2025-09-11', durationMin: 77, instructor: 'CUVET equine parasitology',
     examFormat: 'Multiple choice, ออก equine parasites, deworming, resistance',
-    summary: `## 🎯 Lead Summary
-**Equine parasites in Thailand** — major health concern. Deworming + resistance issues.
+    summary: `# Equine — 5 Equine Parasites in Thailand
 
-## Major Parasites ⭐⭐⭐
-### Strongyles
-- ⭐ Large strongyles (Strongylus vulgaris) — DANGEROUS!
-- ⭐ Small strongyles (cyathostomins) — most common, encysted larvae
+> 🎯 Equine parasites = **targeted/selective deworming** (FEC-guided) ไม่ใช่ blanket dose ⭐⭐⭐
+> ⚠️ ออกแน่: small strongyles dominant, ivermectin still works, FECRT essential, drug classes
 
-### Other
-- ⭐ Roundworms (Parascaris equorum) — foals!
-- ⭐ Tapeworms (Anoplocephala perfoliata)
-- ⭐ Pinworms (Oxyuris equi)
-- ⭐ Bots (Gasterophilus)
-- ⭐ Habronema (skin/stomach)
+---
 
-## Resistance ⭐⭐
-- ⭐ ⭐ Major problem
-- ⭐ Ivermectin still works for small strongyles
-- ⭐ Resistance to benzimidazoles widespread
-- ⭐ FECRT essential
+# 🔻 Part 1: Major Parasites ⭐⭐⭐
 
-## Deworming Strategy ⭐⭐⭐
-- ⭐ ⭐ **Targeted/selective** (not blanket!)
-- ⭐ FEC threshold: >200 epg
-- ⭐ Test, then treat
-- ⭐ Rotate drug classes
-- ⭐ Pasture management
+## Strongyles
+- **Large strongyles** (Strongylus vulgaris) — **DANGEROUS!**
+- **Small strongyles** (cyathostomins) — **most common**, encysted larvae
 
-## Drug Classes ⭐
-- ⭐ Macrocyclic lactones (ivermectin, moxidectin)
-- ⭐ Benzimidazoles (fenbendazole)
-- ⭐ Pyrimidines (pyrantel)
-- ⭐ Praziquantel (tapeworms)
+## Other Major
+- **Roundworms** (Parascaris equorum) — **foals!**
+- **Tapeworms** (Anoplocephala perfoliata)
+- **Pinworms** (Oxyuris equi)
+- **Bots** (Gasterophilus)
+- **Habronema** (skin/stomach)
+
+---
+
+# 🔻 Part 2: Resistance ⭐⭐
+
+- **Major problem globally + Thailand**
+- **Ivermectin** still works for small strongyles
+- **Resistance to benzimidazoles widespread**
+- **FECRT essential** (Faecal Egg Count Reduction Test)
+
+---
+
+# 🔻 Part 3: Deworming Strategy ⭐⭐⭐
+
+## Targeted/Selective Approach
+- **NOT blanket treatment!**
+- **FEC threshold: >200 epg** (eggs per gram)
+- Test, then treat
+- Rotate drug classes
+- Pasture management
+
+> 💡 **ทำไม selective**: blanket deworming → resistance ในระดับสูง · selective = ไม่เกิด selection pressure
+
+---
+
+# 🔻 Part 4: Drug Classes ⭐
+
+| Class | Drug | Note |
+|---|---|---|
+| **Macrocyclic lactones** | Ivermectin, Moxidectin | Most effective remaining |
+| **Benzimidazoles** | Fenbendazole | Widespread resistance |
+| **Pyrimidines** | Pyrantel | Limited use |
+| **Praziquantel** | — | **Tapeworms** |
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Small strongyles most common
-2. ⭐ Resistance major issue
-3. ⭐ Targeted deworming preferred
-4. ⭐ Praziquantel for tapeworms
-5. ⭐ FECRT to monitor`,
+- ⭐⭐⭐ **Small strongyles most common** (cyathostomins)
+- ⭐⭐⭐ **Resistance major issue** — benzimidazoles widespread
+- ⭐⭐⭐ **Targeted/selective deworming** (FEC >200 epg)
+- ⭐⭐ **Praziquantel** for tapeworms
+- ⭐⭐ **FECRT to monitor** drug efficacy
+- ⭐ **Parascaris** = foal-specific concern
+- ⭐ Ivermectin still works for small strongyles`,
   },
   '6Gx958IjPLA': {
     videoId: '6Gx958IjPLA', title: 'Equine — 6 Respiratory Diseases', subject: 'equine-medicine',
     date: '2025-09-18', durationMin: 143, instructor: 'CUVET equine team',
     examFormat: 'Multiple choice, ออก equine respiratory, viral, bacterial, RAO',
-    summary: `## 🎯 Lead Summary
-**Equine respiratory diseases** — viral, bacterial, allergic, neoplastic.
+    summary: `# Equine — 6 Respiratory Diseases
 
-## Major Diseases ⭐⭐⭐
+> 🎯 Equine respiratory = viral (Influenza/EHV) · bacterial (Strangles) · allergic (RAO/equine asthma) ⭐⭐⭐
+> ⚠️ ออกแน่: Strangles management, EHV-1 neurologic, RAO, Rhodococcus in foals
 
-### Viral
-- ⭐ ⭐ **Equine Influenza** (highly contagious)
-- ⭐ ⭐ **Equine Herpesvirus (EHV-1, EHV-4)**
-- ⭐ ⭐ EHV-1 neurologic (EHM!) emerging
-- ⭐ Equine Viral Arteritis (EVA)
+---
 
-### Bacterial
-- ⭐ ⭐ **Strangles** (Streptococcus equi)
-- ⭐ Streptococcus zooepidemicus
-- ⭐ Pneumonia (Rhodococcus equi in foals!)
-- ⭐ Pleuropneumonia (shipping fever)
+# 🔻 Part 1: Major Diseases by Category ⭐⭐⭐
 
-### Allergic
-- ⭐ ⭐ ⭐ **RAO (Recurrent Airway Obstruction)** — equine asthma!
-- ⭐ Inflammatory Airway Disease (IAD)
-- ⭐ Summer Pasture-Associated RAO
+## Viral
+- **Equine Influenza** (highly contagious)
+- **Equine Herpesvirus (EHV-1, EHV-4)**
+- **EHV-1 neurologic (EHM)** — emerging concern
+- Equine Viral Arteritis (EVA)
 
-### Neoplastic
-- ⭐ Squamous cell carcinoma
-- ⭐ Lymphoma (rare)
+## Bacterial
+- **Strangles** (Streptococcus equi)
+- Streptococcus zooepidemicus
+- Pneumonia (**Rhodococcus equi** in foals!)
+- Pleuropneumonia (shipping fever)
 
-## Strangles ⭐⭐⭐
-- ⭐ Streptococcus equi subsp equi
-- ⭐ Highly contagious
-- ⭐ Lymph node abscesses (face, throat)
-- ⭐ Submandibular swelling
-- ⭐ Bastard strangles (internal abscess) = severe!
-- ⭐ Penicillin treatment
-- ⭐ Quarantine essential
+## Allergic
+- **RAO (Recurrent Airway Obstruction)** = **equine asthma!**
+- Inflammatory Airway Disease (IAD)
+- Summer Pasture-Associated RAO
 
-## RAO/Equine Asthma ⭐⭐
-- ⭐ Hay/dust allergy
-- ⭐ Coughing, exercise intolerance
-- ⭐ "Heaves line" abdominal muscle
-- ⭐ Treatment: low-dust environment, bronchodilators, corticosteroids
+## Neoplastic
+- Squamous cell carcinoma
+- Lymphoma (rare)
 
-## Diagnosis ⭐
-- ⭐ Clinical signs + history
-- ⭐ Endoscopy
-- ⭐ Bronchoalveolar lavage
-- ⭐ PCR for pathogens
-- ⭐ Serology
+---
 
-## Vaccination ⭐
-- ⭐ Equine Influenza routine
-- ⭐ EHV
-- ⭐ Strangles available
-- ⭐ Tetanus
+# 🔻 Part 2: Strangles ⭐⭐⭐
+
+## Key Features
+- **Streptococcus equi subsp equi**
+- **Highly contagious**
+- **Lymph node abscesses** (face, throat)
+- **Submandibular swelling**
+- **Bastard strangles** (internal abscess) = severe!
+- **Penicillin treatment**
+- **Quarantine essential**
+
+---
+
+# 🔻 Part 3: RAO / Equine Asthma ⭐⭐
+
+- **Hay/dust allergy**
+- **Coughing, exercise intolerance**
+- **"Heaves line"** abdominal muscle development
+- Treatment: **low-dust environment** + bronchodilators + corticosteroids
+
+---
+
+# 🔻 Part 4: Diagnosis ⭐
+
+- Clinical signs + history
+- **Endoscopy**
+- **Bronchoalveolar lavage**
+- PCR for pathogens
+- Serology
+
+---
+
+# 🔻 Part 5: Vaccination ⭐
+
+- **Equine Influenza** routine
+- **EHV** twice yearly
+- **Strangles** available
+- **Tetanus** essential
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Equine Influenza routine vaccinate
-2. ⭐ EHV-1 neurologic emerging
-3. ⭐ Strangles = highly contagious
-4. ⭐ RAO = equine asthma
-5. ⭐ Rhodococcus in foals`,
+- ⭐⭐⭐ **Strangles** = highly contagious, lymph node abscess, quarantine + penicillin
+- ⭐⭐⭐ **EHV-1 neurologic (EHM)** = emerging
+- ⭐⭐⭐ **RAO = equine asthma** (hay/dust allergy)
+- ⭐⭐ **Equine Influenza** routine vaccinate
+- ⭐⭐ **Rhodococcus equi** = foal pneumonia
+- ⭐ Endoscopy + BAL for lower airway diagnosis`,
   },
   LupUiAT2yT0: {
     videoId: 'LupUiAT2yT0', title: 'Equine — 7.1 Ophthalmology', subject: 'equine-medicine',
     date: '2025-10-02', durationMin: 82, instructor: 'CUVET equine ophthalmology',
     examFormat: 'Multiple choice, ออก equine eye anatomy, common diseases, uveitis',
-    summary: `## 🎯 Lead Summary
-**Equine ophthalmology** — large eyes, prone to injury + uveitis.
+    summary: `# Equine — 7.1 Ophthalmology
 
-## Anatomy Notes ⭐⭐
-- ⭐ Large globe
-- ⭐ Lateral position (panoramic vision)
-- ⭐ Tapetum (night vision)
-- ⭐ Persistent hyaloid
+> 🎯 ม้าตาใหญ่ + lateral → prone to injury + uveitis · **ERU = #1 cause of blindness** ⭐⭐⭐
+> ⚠️ ออกแน่: ERU + Leptospira link, fluorescein for ulcer, atropine for pain, SCC at limbus
 
-## Common Conditions ⭐⭐⭐
-### Uveitis ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Equine Recurrent Uveitis (ERU)** = most common cause of blindness!
-- ⭐ Leptospira link
-- ⭐ Painful, photophobic
-- ⭐ Aqueous flare
-- ⭐ Treatment: atropine, NSAIDs, steroids
+---
 
-### Corneal Ulcer ⭐
-- ⭐ Trauma common
-- ⭐ Fluorescein staining
-- ⭐ Antibiotics topical
-- ⭐ Atropine for comfort
+# 🔻 Part 1: Anatomy Notes ⭐⭐
 
-### Squamous Cell Carcinoma ⭐
-- ⭐ Limbus, third eyelid
-- ⭐ UV exposure
-- ⭐ Surgery + radiation
+- **Large globe**
+- **Lateral position** (panoramic vision)
+- Tapetum (night vision)
+- Persistent hyaloid
 
-### Cataracts
-- ⭐ Congenital or acquired
-- ⭐ Surgical removal possible
+---
 
-## Examination ⭐
-- ⭐ Schirmer tear test
-- ⭐ Fluorescein
-- ⭐ Pupil function
-- ⭐ Ophthalmoscopy
+# 🔻 Part 2: Common Conditions ⭐⭐⭐
+
+## Uveitis ⭐⭐⭐
+### Equine Recurrent Uveitis (ERU)
+- **Most common cause of blindness in horses!**
+- **Leptospira link**
+- Painful, photophobic
+- Aqueous flare
+- Treatment: **atropine, NSAIDs, steroids**
+
+## Corneal Ulcer ⭐
+- Trauma common
+- **Fluorescein staining**
+- Antibiotics topical
+- **Atropine for comfort**
+
+## Squamous Cell Carcinoma ⭐
+- **Limbus, third eyelid**
+- **UV exposure**
+- Surgery + radiation
+
+## Cataracts
+- Congenital or acquired
+- Surgical removal possible
+
+---
+
+# 🔻 Part 3: Examination ⭐
+
+- Schirmer tear test
+- **Fluorescein** (for ulcers)
+- Pupil function
+- Ophthalmoscopy
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ ERU = equine recurrent uveitis (#1 blindness)
-2. ⭐ Leptospira link
-3. ⭐ Atropine for pain
-4. ⭐ Squamous cell carcinoma at limbus
-5. ⭐ Fluorescein for ulcers`,
+- ⭐⭐⭐ **ERU = #1 cause of blindness** (Equine Recurrent Uveitis)
+- ⭐⭐⭐ **Leptospira link** with ERU
+- ⭐⭐ **Atropine for pain** + NSAIDs + steroids
+- ⭐⭐ **Squamous cell carcinoma** at limbus (UV)
+- ⭐ **Fluorescein staining** for corneal ulcers`,
   },
   'Ck1NSnXl_-M': {
     videoId: 'Ck1NSnXl_-M', title: 'Equine — 7.2 Dermatology', subject: 'equine-medicine',
     date: '2025-10-02', durationMin: 85, instructor: 'CUVET equine dermatology',
     examFormat: 'Multiple choice, ออก equine skin diseases, pruritus, sweet itch',
-    summary: `## 🎯 Lead Summary
-**Equine dermatology** — multiple skin conditions, often pruritic.
+    summary: `# Equine — 7.2 Dermatology
 
-## Common Conditions ⭐⭐⭐
+> 🎯 ม้าผิวมีหลายโรค — pruritic + non-pruritic · **Sarcoid = most common skin tumor** ⭐⭐⭐
+> ⚠️ ออกแน่: Sweet itch (Culicoides), Sarcoid (BPV), Habronema, Ringworm zoonotic
 
-### Sweet Itch (IBH) ⭐⭐
-- ⭐ ⭐ Insect Bite Hypersensitivity
-- ⭐ ⭐ Culicoides (biting midges)
-- ⭐ Mane, tail, midline
-- ⭐ Self-trauma
-- ⭐ Treatment: insect control, steroids
+---
 
-### Dermatophytosis (Ringworm) ⭐
-- ⭐ Trichophyton, Microsporum
-- ⭐ Circular alopecia
-- ⭐ Zoonotic!
-- ⭐ Treatment: topical antifungals
+# 🔻 Part 1: Common Conditions ⭐⭐⭐
 
-### Sarcoids ⭐⭐
-- ⭐ ⭐ ⭐ **Most common skin tumor!**
-- ⭐ Bovine papillomavirus link
-- ⭐ Various forms (occult to fibroblastic)
-- ⭐ Recurrence common
-- ⭐ Multiple treatments (cryo, BCG, excision)
+## Sweet Itch (IBH) ⭐⭐
+### Key Features
+- **Insect Bite Hypersensitivity**
+- **Culicoides** (biting midges)
+- **Mane, tail, midline** distribution
+- Self-trauma
+- Treatment: **insect control, steroids**
 
-### Habronema (Summer Sores) ⭐
-- ⭐ Larvae in wounds
-- ⭐ Granulomatous response
-- ⭐ Ivermectin systemic + topical
+## Dermatophytosis (Ringworm) ⭐
+- **Trichophyton, Microsporum**
+- Circular alopecia
+- ⚠️ **Zoonotic!**
+- Treatment: topical antifungals
 
-### Other
-- ⭐ Pemphigus foliaceus
-- ⭐ Photosensitization
-- ⭐ Equine sarcoidosis
+## Sarcoids ⭐⭐
+### Key Features
+- **Most common skin tumor!**
+- **Bovine papillomavirus (BPV) link**
+- Various forms (occult to fibroblastic)
+- **Recurrence common**
+- Multiple treatments (cryo, BCG, excision)
 
-## Diagnosis ⭐
-- ⭐ Skin scraping
-- ⭐ Cytology
-- ⭐ Biopsy
-- ⭐ Culture
-- ⭐ Allergy testing
+## Habronema (Summer Sores) ⭐
+- **Larvae in wounds**
+- Granulomatous response
+- **Ivermectin systemic + topical**
+
+## Other
+- Pemphigus foliaceus
+- Photosensitization
+- Equine sarcoidosis
+
+---
+
+# 🔻 Part 2: Diagnosis ⭐
+
+- Skin scraping
+- Cytology
+- Biopsy
+- Culture
+- Allergy testing
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Sweet itch = Culicoides allergy
-2. ⭐ Sarcoid = most common skin tumor
-3. ⭐ Habronema = summer sores
-4. ⭐ Ringworm zoonotic
-5. ⭐ Multiple treatment modalities`,
+- ⭐⭐⭐ **Sarcoid = most common skin tumor** (BPV link)
+- ⭐⭐⭐ **Sweet itch = Culicoides allergy** (mane/tail/midline)
+- ⭐⭐ **Habronema = summer sores** (larvae in wounds)
+- ⭐⭐ **Ringworm zoonotic!**
+- ⭐ Multiple treatment modalities for sarcoid (cryo/BCG/excision)`,
   },
   'fNJZmO4-8Rw': {
     videoId: 'fNJZmO4-8Rw', title: 'Equine — 8 Infectious Disease and Vaccination', subject: 'equine-medicine',
     date: '2025-10-09', durationMin: 99, instructor: 'CUVET equine team (รุ่นพี่)',
     examFormat: 'Multiple choice, ออก equine infectious diseases, vaccination programs',
-    summary: `## 🎯 Lead Summary
-**Equine infectious diseases + vaccination** — comprehensive overview.
+    summary: `# Equine — 8 Infectious Disease and Vaccination
 
-## Core Vaccines (Thailand) ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Tetanus** (essential!)
-- ⭐ ⭐ Equine Influenza
-- ⭐ ⭐ EHV-1 + 4
-- ⭐ Rabies
-- ⭐ Strangles (where appropriate)
+> 🎯 **Tetanus = essential** ทุกตัว · Coggins test สำหรับ EIA · EHV-1 > EHV-4 ในความรุนแรง ⭐⭐⭐
+> ⚠️ ออกแน่: core vaccines, EIA = no treatment + reportable, vaccination schedule
 
-## Disease Overview ⭐⭐
-### Tetanus
-- ⭐ Clostridium tetani
-- ⭐ Wound contamination
-- ⭐ ⭐ ⭐ ALWAYS vaccinate horses!
-- ⭐ Annual booster
+---
 
-### Equine Influenza
-- ⭐ Highly contagious
-- ⭐ Annual vaccination
-- ⭐ Multiple strains in vaccine
+# 🔻 Part 1: Core Vaccines (Thailand) ⭐⭐⭐
 
-### Equine Herpesvirus
-- ⭐ EHV-1: respiratory, abortion, neurologic
-- ⭐ EHV-4: respiratory only
-- ⭐ Vaccinate twice yearly
+| Vaccine | Priority |
+|---|---|
+| **Tetanus** | **Essential!** |
+| **Equine Influenza** | High priority |
+| **EHV-1 + 4** | High priority |
+| **Rabies** | Standard |
+| **Strangles** | Where appropriate |
 
-### Equine Infectious Anemia (EIA) ⭐⭐
-- ⭐ ⭐ Coggins test required
-- ⭐ Lifelong carrier if positive
-- ⭐ NO treatment, NO vaccine
-- ⭐ Reportable disease
+---
 
-### Other ⭐
-- ⭐ Equine Viral Arteritis
-- ⭐ West Nile Virus (regional)
-- ⭐ Eastern/Western Equine Encephalitis
-- ⭐ Anaplasmosis
-- ⭐ Babesiosis (piroplasmosis)
+# 🔻 Part 2: Disease Overview ⭐⭐
 
-## Vaccination Schedule ⭐
-- ⭐ Foal: start 4-6 months
-- ⭐ Booster regimens
-- ⭐ Annual maintenance
-- ⭐ Pre-event additional
+## Tetanus
+- **Clostridium tetani**
+- **Wound contamination**
+- **ALWAYS vaccinate horses!**
+- **Annual booster**
+
+## Equine Influenza
+- Highly contagious
+- **Annual vaccination**
+- Multiple strains in vaccine
+
+## Equine Herpesvirus
+- **EHV-1**: respiratory, abortion, **neurologic**
+- **EHV-4**: respiratory only
+- **Vaccinate twice yearly**
+
+## Equine Infectious Anemia (EIA) ⭐⭐
+- **Coggins test required**
+- **Lifelong carrier if positive**
+- **NO treatment, NO vaccine**
+- **Reportable disease**
+
+## Other ⭐
+- Equine Viral Arteritis
+- **West Nile Virus** (regional)
+- Eastern/Western Equine Encephalitis
+- Anaplasmosis
+- Babesiosis (piroplasmosis)
+
+---
+
+# 🔻 Part 3: Vaccination Schedule ⭐
+
+- **Foal**: start 4-6 months
+- Booster regimens
+- Annual maintenance
+- Pre-event additional
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Tetanus = essential vaccination
-2. ⭐ EHV-1 vs EHV-4 (EHV-1 more dangerous)
-3. ⭐ EIA = Coggins test, no treatment
-4. ⭐ Annual influenza vaccination
-5. ⭐ Schedule based on age + risk`,
+- ⭐⭐⭐ **Tetanus = essential vaccination** annual booster
+- ⭐⭐⭐ **EHV-1 > EHV-4** in severity (EHV-1 neurologic)
+- ⭐⭐⭐ **EIA = Coggins test, no treatment, reportable**
+- ⭐⭐ **Annual influenza vaccination**
+- ⭐ **Foal**: start at 4-6 months
+- ⭐ Schedule based on age + risk`,
   },
   '7fykOOyMKJQ': {
     videoId: '7fykOOyMKJQ', title: 'Equine — 9 Concept of Equine Surgery + Wound Management', subject: 'equine-medicine',
     date: '2025-10-16', durationMin: 158, instructor: 'CUVET equine surgery',
     examFormat: 'Multiple choice, ออก surgical principles, wound management, proud flesh',
-    summary: `## 🎯 Lead Summary
-**Equine surgery + wound management** — unique anatomy, healing patterns.
+    summary: `# Equine — 9 Concept of Equine Surgery + Wound Management
 
-## Surgical Considerations ⭐⭐
-- ⭐ Large size = anesthesia challenges
-- ⭐ Long bones healing
-- ⭐ Skin healing varies (slower legs)
-- ⭐ Prone to proud flesh
+> 🎯 ม้าตัวใหญ่ → anesthesia challenges · **Proud flesh** common บน lower legs · tetanus status ก่อน surgery ⭐⭐⭐
+> ⚠️ ออกแน่: wound closure decisions, proud flesh management, castration most common
 
-## Wound Management ⭐⭐⭐
-### Initial Assessment
-- ⭐ Hemostasis
-- ⭐ Wound classification
-- ⭐ Tetanus status
-- ⭐ Antibiotic indication
+---
 
-### Cleaning ⭐
-- ⭐ Saline irrigation
-- ⭐ Debridement
-- ⭐ Foreign body removal
-- ⭐ Avoid harsh disinfectants
+# 🔻 Part 1: Surgical Considerations ⭐⭐
 
-### Closure Decisions ⭐
-- ⭐ Primary closure (clean wounds <6h)
-- ⭐ Delayed primary
-- ⭐ Secondary intention (lower legs!)
-- ⭐ Skin grafts
+- **Large size** = anesthesia challenges
+- Long bones healing
+- Skin healing varies (slower legs)
+- **Prone to proud flesh**
 
-### Proud Flesh ⭐⭐
-- ⭐ ⭐ Excessive granulation tissue
-- ⭐ ⭐ Common on lower legs
-- ⭐ Multiple treatments (caustic, surgical, bandage)
-- ⭐ ⚠️ Prevention better than cure
+---
 
-## Common Surgeries ⭐
-- ⭐ Castration (most common)
-- ⭐ Colic surgery
-- ⭐ Wound repair
-- ⭐ Sarcoid removal
-- ⭐ Joint surgery
+# 🔻 Part 2: Wound Management ⭐⭐⭐
 
-## Anesthesia Considerations ⭐
-- ⭐ Standing sedation when possible
-- ⭐ General: induction → maintenance → recovery (challenging!)
-- ⭐ Recovery facilities essential
-- ⭐ See lecture 10 for details
+## Initial Assessment
+- **Hemostasis**
+- Wound classification
+- **Tetanus status**
+- Antibiotic indication
+
+## Cleaning
+- **Saline irrigation**
+- Debridement
+- Foreign body removal
+- **Avoid harsh disinfectants**
+
+## Closure Decisions
+| Type | When |
+|---|---|
+| **Primary closure** | Clean wounds <6h |
+| **Delayed primary** | Contaminated but resolves |
+| **Secondary intention** | **Lower legs!** |
+| Skin grafts | Large defects |
+
+## Proud Flesh ⭐⭐
+- **Excessive granulation tissue**
+- **Common on lower legs**
+- Multiple treatments (caustic, surgical, bandage)
+- ⚠️ **Prevention better than cure**
+
+---
+
+# 🔻 Part 3: Common Surgeries ⭐
+
+- **Castration** (most common)
+- Colic surgery
+- Wound repair
+- Sarcoid removal
+- Joint surgery
+
+---
+
+# 🔻 Part 4: Anesthesia Considerations ⭐
+
+- **Standing sedation** when possible
+- General: induction → maintenance → recovery (challenging!)
+- Recovery facilities essential
+- See lecture 10 for details
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Lower leg wounds heal slowly
-2. ⭐ Proud flesh = common complication
-3. ⭐ Tetanus status before surgery
-4. ⭐ Standing sedation when possible
-5. ⭐ Castration most common surgery`,
+- ⭐⭐⭐ **Lower leg wounds heal slowly** (secondary intention)
+- ⭐⭐⭐ **Proud flesh = common complication** on lower legs
+- ⭐⭐ **Tetanus status before surgery**
+- ⭐⭐ **Standing sedation when possible**
+- ⭐ **Castration most common surgery**`,
   },
   '1YFpKE2ZmBE': {
     videoId: '1YFpKE2ZmBE', title: 'Equine — 10 Anesthesia', subject: 'equine-medicine',
     date: '2025-10-30', durationMin: 167, instructor: 'CUVET equine anesthesia',
     examFormat: 'Multiple choice, ออก equine anesthesia, standing vs general, drugs',
-    summary: `## 🎯 Lead Summary
-**Equine anesthesia** — challenging due to size + flight response. Recovery dangerous.
+    summary: `# Equine — 10 Anesthesia
 
-## Sedation Options ⭐⭐
-- ⭐ ⭐ **Xylazine** (alpha-2 agonist) - common
-- ⭐ ⭐ **Detomidine** (longer)
-- ⭐ Romifidine
-- ⭐ + opioids (butorphanol, morphine)
+> 🎯 Equine anesthesia = challenging — **Recovery = riskiest phase** · death rate ~1% ⭐⭐⭐
+> ⚠️ ออกแน่: xylazine standard, standing > general when possible, ketamine+diazepam induction, recovery dangers
 
-## Standing Sedation ⭐⭐⭐
-- ⭐ ⭐ Preferred when possible
-- ⭐ Many procedures done standing
-- ⭐ Combine with local block
-- ⭐ Lower risk than general
+---
 
-## General Anesthesia ⭐⭐⭐
-### Phases
-1. ⭐ Pre-medication (sedation)
-2. ⭐ Induction
-3. ⭐ Maintenance
-4. ⭐ Recovery (riskiest!)
+# 🔻 Part 1: Sedation Options ⭐⭐
 
-### Induction Drugs ⭐
-- ⭐ Ketamine + diazepam combo
-- ⭐ Triple drip (xylazine + ketamine + guaifenesin)
-- ⭐ Propofol (less common)
+| Drug | Class | Note |
+|---|---|---|
+| **Xylazine** | Alpha-2 agonist | **Common** |
+| **Detomidine** | Alpha-2 agonist | Longer-acting |
+| Romifidine | Alpha-2 agonist | Alternative |
+| **+ opioids** | — | Butorphanol, morphine |
 
-### Maintenance ⭐
-- ⭐ Inhalation: isoflurane, sevoflurane
-- ⭐ TIVA (Total IV Anesthesia)
+---
 
-### Recovery ⭐⭐⭐
-- ⭐ ⭐ ⭐ Most dangerous phase!
-- ⭐ Padded recovery box
-- ⭐ Sedation tapering
-- ⭐ Risk of fractures, myopathy
+# 🔻 Part 2: Standing Sedation ⭐⭐⭐
 
-## Complications ⭐
-- ⭐ Hypotension
-- ⭐ Hypoxemia
-- ⭐ Myopathy (post-anesthetic muscle damage)
-- ⭐ Fractures during recovery
-- ⭐ Death rate ~1%
+## Why Preferred
+- **Preferred when possible**
+- Many procedures done standing
+- Combine with **local block**
+- **Lower risk than general**
 
-## Field Anesthesia ⭐
-- ⭐ Short procedures
-- ⭐ Sedation + ketamine
-- ⭐ Local blocks
-- ⭐ Castration commonly done in field
+---
+
+# 🔻 Part 3: General Anesthesia ⭐⭐⭐
+
+## Phases
+1. **Pre-medication** (sedation)
+2. **Induction**
+3. **Maintenance**
+4. **Recovery (riskiest!)**
+
+## Induction Drugs
+- **Ketamine + diazepam combo**
+- **Triple drip** (xylazine + ketamine + guaifenesin)
+- Propofol (less common)
+
+## Maintenance
+- **Inhalation**: isoflurane, sevoflurane
+- **TIVA** (Total IV Anesthesia)
+
+## Recovery ⭐⭐⭐
+> ⚠️ **Most dangerous phase!**
+- **Padded recovery box**
+- Sedation tapering
+- **Risk of fractures, myopathy**
+
+---
+
+# 🔻 Part 4: Complications ⭐
+
+- **Hypotension**
+- **Hypoxemia**
+- **Myopathy** (post-anesthetic muscle damage)
+- **Fractures during recovery**
+- **Death rate ~1%**
+
+---
+
+# 🔻 Part 5: Field Anesthesia ⭐
+
+- Short procedures
+- Sedation + ketamine
+- Local blocks
+- **Castration commonly done in field**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Xylazine = standard sedation
-2. ⭐ Standing preferred over general
-3. ⭐ Recovery = riskiest phase
-4. ⭐ Ketamine + diazepam induction
-5. ⭐ Death rate ~1%`,
+- ⭐⭐⭐ **Xylazine = standard sedation** (alpha-2 agonist)
+- ⭐⭐⭐ **Standing preferred over general**
+- ⭐⭐⭐ **Recovery = riskiest phase** (fractures, myopathy)
+- ⭐⭐ **Ketamine + diazepam** induction
+- ⭐⭐ **Death rate ~1%** (significant!)
+- ⭐ Triple drip = xylazine + ketamine + guaifenesin`,
   },
   '9XMg0lXQ8e8': {
     videoId: '9XMg0lXQ8e8', title: 'Equine — 11 Surgery and Pre/Post Surgery Management', subject: 'equine-medicine',
     date: '2025-11-06', durationMin: 132, instructor: 'CUVET equine surgery',
     examFormat: 'Multiple choice, ออก specific surgeries, postoperative care',
-    summary: `## 🎯 Lead Summary
-**Specific equine surgeries + perioperative management**.
+    summary: `# Equine — 11 Surgery and Pre/Post Surgery Management
 
-## Common Surgeries ⭐⭐
-### Castration ⭐⭐⭐
-- ⭐ Most common equine surgery
-- ⭐ Open or closed technique
-- ⭐ Standing or recumbent
-- ⭐ Complications: hemorrhage, evisceration, infection
+> 🎯 Common equine surgeries — **Castration #1** · colic surgery via ventral midline · post-op pain mgmt essential ⭐⭐
+> ⚠️ ออกแน่: castration techniques, colic surgery approach, perioperative care
 
-### Colic Surgery ⭐
-- ⭐ Ventral midline approach
-- ⭐ Identify lesion
-- ⭐ Resection if needed
-- ⭐ Anastomosis
-- ⭐ Survival depends on cause
+---
 
-### Joint Surgery ⭐
-- ⭐ Arthroscopy common
-- ⭐ Chip removal
-- ⭐ OCD (osteochondrosis) treatment
+# 🔻 Part 1: Common Surgeries ⭐⭐
 
-### Tumor Removal ⭐
-- ⭐ Sarcoid excision
-- ⭐ Eye tumors
+## A. Castration ⭐⭐⭐
+- **Most common equine surgery**
+- Open or closed technique
+- Standing or recumbent
+- **Complications**: hemorrhage, evisceration, infection
 
-## Pre-Surgical Care ⭐
-- ⭐ Fasting (varies)
-- ⭐ Lab work
-- ⭐ Tetanus current
-- ⭐ Antibiotic prophylaxis
-- ⭐ Owner consent
+## B. Colic Surgery ⭐
+- **Ventral midline approach**
+- Identify lesion
+- Resection if needed
+- Anastomosis
+- **Survival depends on cause**
 
-## Post-Surgical Care ⭐⭐
-- ⭐ Recovery monitoring
-- ⭐ Pain management (NSAIDs, opioids)
-- ⭐ Wound care
-- ⭐ Antibiotic continuation if indicated
-- ⭐ Activity restriction
-- ⭐ Follow-up exams
+## C. Joint Surgery ⭐
+- **Arthroscopy common**
+- Chip removal
+- **OCD (osteochondrosis)** treatment
+
+## D. Tumor Removal ⭐
+- Sarcoid excision
+- Eye tumors
+
+---
+
+# 🔻 Part 2: Pre-Surgical Care ⭐
+
+- **Fasting** (varies)
+- **Lab work**
+- **Tetanus current**
+- **Antibiotic prophylaxis**
+- Owner consent
+
+---
+
+# 🔻 Part 3: Post-Surgical Care ⭐⭐
+
+## Critical Components
+- **Recovery monitoring**
+- **Pain management** (NSAIDs, opioids)
+- **Wound care**
+- Antibiotic continuation if indicated
+- **Activity restriction**
+- **Follow-up exams**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Castration most common surgery
-2. ⭐ Colic surgery = ventral midline
-3. ⭐ Arthroscopy for joints
-4. ⭐ Tetanus current required
-5. ⭐ Pain management essential`,
+- ⭐⭐⭐ **Castration most common surgery**
+- ⭐⭐ **Colic surgery = ventral midline approach**
+- ⭐⭐ **Arthroscopy for joint surgery**
+- ⭐⭐ **Tetanus current required** pre-surgery
+- ⭐ **Pain management essential** post-op (NSAIDs, opioids)`,
   },
   TUpLUL2sTLM: {
     videoId: 'TUpLUL2sTLM', title: 'Equine — 12.1 Lameness Introduction', subject: 'equine-medicine',
     date: '2025-11-13', durationMin: 144, instructor: 'CUVET equine lameness',
     examFormat: 'Multiple choice, ออก lameness exam, grading, localization',
-    summary: `## 🎯 Lead Summary
-**Equine lameness introduction** — common, complex, often performance-limiting.
+    summary: `# Equine — 12.1 Lameness Introduction
 
-## Lameness Defined ⭐
-- ⭐ Abnormal gait/stance from pain or mechanical
-- ⭐ Major performance issue
-- ⭐ Common reason for vet visits
+> 🎯 Lameness = common + complex · **Trot = most diagnostic gait** · head bob = forelimb · hip hike = hindlimb ⭐⭐⭐
+> ⚠️ ออกแน่: AAEP 0-5 grading, head bob/hip hike rule, diagnostic analgesia
 
-## Examination ⭐⭐⭐
-### Static Exam
-- ⭐ Conformation
-- ⭐ Stance
-- ⭐ Limb examination
-- ⭐ Hoof testers
+---
 
-### Dynamic Exam ⭐⭐
-- ⭐ Walk
-- ⭐ Trot (most useful)
-- ⭐ Canter
-- ⭐ Circles
-- ⭐ Different surfaces
+# 🔻 Part 1: Lameness Defined ⭐
 
-## Lameness Grading ⭐⭐⭐
+- Abnormal gait/stance from **pain or mechanical**
+- Major performance issue
+- Common reason for vet visits
+
+---
+
+# 🔻 Part 2: Examination ⭐⭐⭐
+
+## Static Exam
+- **Conformation**
+- **Stance**
+- **Limb examination**
+- **Hoof testers**
+
+## Dynamic Exam ⭐⭐
+- Walk
+- **Trot (most useful!)**
+- Canter
+- **Circles**
+- Different surfaces
+
+---
+
+# 🔻 Part 3: Lameness Grading (AAEP) ⭐⭐⭐
+
 | Grade | Description |
 |---|---|
-| 0 | Normal |
-| 1 | Inconsistent, subtle |
-| 2 | Consistent at trot, not walk |
-| 3 | Consistent at walk and trot |
-| 4 | Severe, weight-bearing reduced |
-| 5 | Non-weight-bearing |
+| **0** | Normal |
+| **1** | Inconsistent, subtle |
+| **2** | Consistent at trot, not walk |
+| **3** | Consistent at walk and trot |
+| **4** | Severe, weight-bearing reduced |
+| **5** | Non-weight-bearing |
 
-## Forelimb vs Hindlimb ⭐⭐
-- ⭐ ⭐ **"Head bob"** = forelimb (head goes UP when SOUND limb lands)
-- ⭐ ⭐ **"Hip hike"** = hindlimb (hip rises when LAME limb lands)
+---
 
-## Localization ⭐⭐⭐
-- ⭐ Hoof testers (sole pain)
-- ⭐ Flexion tests
-- ⭐ ⭐ ⭐ **Diagnostic analgesia** (nerve blocks!) — see 12.2
-- ⭐ Imaging (radiograph, ultrasound, MRI)
+# 🔻 Part 4: Forelimb vs Hindlimb ⭐⭐
+
+> 💡 **Memorize this rule!**
+> - **"Head bob"** = **forelimb** (head goes UP when SOUND limb lands)
+> - **"Hip hike"** = **hindlimb** (hip rises when LAME limb lands)
+
+---
+
+# 🔻 Part 5: Localization ⭐⭐⭐
+
+- **Hoof testers** (sole pain)
+- **Flexion tests**
+- **Diagnostic analgesia (nerve blocks!)** — see 12.2
+- **Imaging** (radiograph, ultrasound, MRI)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Lameness grading 0-5 scale
-2. ⭐ Trot most diagnostic
-3. ⭐ Head bob = forelimb
-4. ⭐ Hip hike = hindlimb
-5. ⭐ Diagnostic analgesia for localization`,
+- ⭐⭐⭐ **Lameness grading 0-5 scale (AAEP)**
+- ⭐⭐⭐ **Trot most diagnostic gait**
+- ⭐⭐⭐ **Head bob = forelimb** (sound limb lands → head up)
+- ⭐⭐⭐ **Hip hike = hindlimb** (lame limb lands → hip rises)
+- ⭐⭐ **Diagnostic analgesia** for localization (see 12.2)`,
   },
   'qg-7Zw6V_KA': {
     videoId: 'qg-7Zw6V_KA', title: 'Equine — 12.2 Diagnostic Analgesia', subject: 'equine-medicine',
     date: '2025-11-13', durationMin: 30, instructor: 'CUVET equine lameness',
     examFormat: 'Multiple choice, ออก nerve blocks, joint blocks, diagnostic technique',
-    summary: `## 🎯 Lead Summary
-**Diagnostic analgesia (nerve + joint blocks)** = key tool for localizing lameness.
+    summary: `# Equine — 12.2 Diagnostic Analgesia
 
-## Principle ⭐⭐
-- ⭐ Block specific area
-- ⭐ Re-evaluate lameness
-- ⭐ If improves → pain source localized
-- ⭐ Distal to proximal approach
+> 🎯 **Nerve + joint blocks = key tool** สำหรับ localizing lameness · distal → proximal approach ⭐⭐⭐
+> ⚠️ ออกแน่: PD block = hoof, ASN = pastern/fetlock, lidocaine 2%, joint blocks
 
-## Common Nerve Blocks ⭐⭐⭐
-### Forelimb
-- ⭐ ⭐ **Palmar Digital (PD) block** — hoof
-- ⭐ ⭐ **Abaxial Sesamoid (ASN) block** — pastern, fetlock
-- ⭐ ⭐ **Low Palmar (4-point) block** — fetlock area
-- ⭐ ⭐ **High Palmar block** — knee/cannon area
-- ⭐ Median + Ulnar blocks (forearm)
+---
 
-### Hindlimb
-- ⭐ Similar progression
-- ⭐ Plantar nerve blocks
-- ⭐ Tibial + Peroneal
+# 🔻 Part 1: Principle ⭐⭐
 
-## Joint Blocks ⭐⭐
-- ⭐ Coffin joint (DIP)
-- ⭐ Pastern joint (PIP)
-- ⭐ Fetlock joint (MCP)
-- ⭐ Carpus
-- ⭐ Hock (tarsus)
-- ⭐ Stifle
+- **Block specific area**
+- **Re-evaluate lameness**
+- If improves → pain source localized
+- **Distal to proximal approach**
 
-## Technique ⭐
-- ⭐ Aseptic technique
-- ⭐ Lidocaine 2% commonly used
-- ⭐ Wait 5-15 min for effect
-- ⭐ Safety paramount
+---
+
+# 🔻 Part 2: Common Nerve Blocks ⭐⭐⭐
+
+## Forelimb
+| Block | Area Anesthetized |
+|---|---|
+| **Palmar Digital (PD) block** | **Hoof** |
+| **Abaxial Sesamoid (ASN) block** | Pastern, fetlock |
+| **Low Palmar (4-point) block** | Fetlock area |
+| **High Palmar block** | Knee/cannon area |
+| Median + Ulnar blocks | Forearm |
+
+## Hindlimb
+- Similar progression
+- **Plantar nerve blocks**
+- Tibial + Peroneal
+
+---
+
+# 🔻 Part 3: Joint Blocks ⭐⭐
+
+| Joint | Note |
+|---|---|
+| **Coffin joint (DIP)** | Most distal |
+| Pastern joint (PIP) | Middle |
+| **Fetlock joint (MCP)** | Common site |
+| **Carpus** | Knee |
+| **Hock (tarsus)** | Common hindlimb |
+| **Stifle** | Proximal hindlimb |
+
+---
+
+# 🔻 Part 4: Technique ⭐
+
+- **Aseptic technique**
+- **Lidocaine 2%** commonly used
+- Wait **5-15 min** for effect
+- Safety paramount
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ PD block = hoof
-2. ⭐ ASN = pastern/fetlock area
-3. ⭐ Distal to proximal approach
-4. ⭐ Lidocaine 2% standard
-5. ⭐ Joint blocks for specific articulation`,
+- ⭐⭐⭐ **PD block = hoof**
+- ⭐⭐⭐ **ASN = pastern/fetlock area**
+- ⭐⭐⭐ **Distal to proximal approach**
+- ⭐⭐ **Lidocaine 2% standard**
+- ⭐⭐ **Joint blocks** for specific articulation
+- ⭐ Wait 5-15 min for effect`,
   },
   fhUt28T2WnU: {
     videoId: 'fhUt28T2WnU', title: 'Equine — 13.1 Pathological Conditions of Foot', subject: 'equine-medicine',
     date: '2025-11-20', durationMin: 69, instructor: 'CUVET equine podiatry',
     examFormat: 'Multiple choice, ออก hoof anatomy, navicular, laminitis, sole bruising',
-    summary: `## 🎯 Lead Summary
-**Equine foot pathology** — "no foot, no horse". Major source of lameness.
+    summary: `# Equine — 13.1 Pathological Conditions of Foot
 
-## Hoof Anatomy ⭐⭐
-- ⭐ Hoof wall, sole, frog
-- ⭐ White line (sole-wall junction)
-- ⭐ Coronary band
-- ⭐ P3 (coffin bone)
-- ⭐ Navicular bone
-- ⭐ Deep digital flexor tendon
-- ⭐ Lamina (sensitive + insensitive)
+> 🎯 **"No foot, no horse"** — foot pathology = major source of lameness · **Laminitis = inflammation of laminae** ⭐⭐⭐
+> ⚠️ ออกแน่: laminitis causes + rotation, navicular = heel pain forelimb, sole abscess drainage
 
-## Major Conditions ⭐⭐⭐
-### Laminitis ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Inflammation of laminae**
-- ⭐ ⭐ Multiple causes (carbohydrate, sepsis, EMS)
-- ⭐ ⭐ Coffin bone rotation/sinking (severe!)
-- ⭐ ⭐ Treatment: cause-specific + supportive
-- ⭐ Prognosis variable
+---
 
-### Navicular Syndrome ⭐⭐
-- ⭐ Heel pain
-- ⭐ Forelimbs predominantly
-- ⭐ Multiple causes (vascular, mechanical)
-- ⭐ Diagnosis: PD block + radiograph
-- ⭐ Treatment: shoeing, NSAIDs, joint injection
+# 🔻 Part 1: Hoof Anatomy ⭐⭐
 
-### Sole Bruising/Abscess ⭐
-- ⭐ Common cause of lameness
-- ⭐ Hoof testers locate
-- ⭐ Drainage = relief
-- ⭐ Soaking in epsom salts
+- **Hoof wall, sole, frog**
+- **White line** (sole-wall junction)
+- Coronary band
+- **P3 (coffin bone)**
+- **Navicular bone**
+- **Deep digital flexor tendon**
+- **Lamina** (sensitive + insensitive)
 
-### White Line Disease ⭐
-- ⭐ Bacterial/fungal of white line
-- ⭐ Resect affected wall
-- ⭐ Topical treatment
+---
 
-### Other
-- ⭐ Quarter cracks
-- ⭐ Thrush (frog infection)
-- ⭐ Canker (chronic)
+# 🔻 Part 2: Major Conditions ⭐⭐⭐
+
+## A. Laminitis ⭐⭐⭐
+### Key Features
+- **Inflammation of laminae**
+- **Multiple causes**: carbohydrate overload, sepsis, EMS
+- ⚠️ **Coffin bone rotation/sinking** (severe!)
+- Treatment: **cause-specific + supportive**
+- **Prognosis variable**
+
+## B. Navicular Syndrome ⭐⭐
+### Key Features
+- **Heel pain**
+- **Forelimbs predominantly**
+- Multiple causes (vascular, mechanical)
+- **Diagnosis**: PD block + radiograph
+- Treatment: **shoeing, NSAIDs, joint injection**
+
+## C. Sole Bruising/Abscess ⭐
+- **Common cause of lameness**
+- **Hoof testers locate**
+- **Drainage = relief**
+- Soaking in epsom salts
+
+## D. White Line Disease ⭐
+- Bacterial/fungal of white line
+- **Resect affected wall**
+- Topical treatment
+
+## Other
+- Quarter cracks
+- Thrush (frog infection)
+- Canker (chronic)
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Laminitis = inflamed laminae, possible rotation
-2. ⭐ Navicular = heel pain forelimb
-3. ⭐ Sole abscess = drainage
-4. ⭐ Hoof tester for localization
-5. ⭐ "No foot, no horse"`,
+- ⭐⭐⭐ **Laminitis = inflamed laminae** + possible coffin bone rotation
+- ⭐⭐⭐ **Navicular = heel pain forelimb**
+- ⭐⭐ **Sole abscess = drainage** = relief
+- ⭐⭐ **Hoof tester** for localization
+- ⭐ **"No foot, no horse"** — foot = major lameness source`,
   },
   '7kKzWMmbU3w': {
     videoId: '7kKzWMmbU3w', title: 'Equine — 13.2 Tendon/Ligament Injuries', subject: 'equine-medicine',
     date: '2025-11-20', durationMin: 64, instructor: 'CUVET equine team',
     examFormat: 'Multiple choice, ออก SDFT, DDFT, suspensory, treatment, prognosis',
-    summary: `## 🎯 Lead Summary
-**Equine tendon + ligament injuries** — major performance issues, slow healing.
+    summary: `# Equine — 13.2 Tendon/Ligament Injuries
 
-## Anatomy ⭐⭐
-- ⭐ ⭐ **Superficial Digital Flexor Tendon (SDFT)**
-- ⭐ ⭐ **Deep Digital Flexor Tendon (DDFT)**
-- ⭐ ⭐ **Suspensory Ligament**
-- ⭐ Inferior check ligament
-- ⭐ Distal sesamoidean ligaments
+> 🎯 **SDFT most commonly injured** ("bowed tendon") · **Ultrasound = gold standard** diagnosis · slow healing months→year ⭐⭐⭐
+> ⚠️ ออกแน่: SDFT vs DDFT vs Suspensory, US diagnosis, stem cells/PRP, re-injury common
 
-## Common Injuries ⭐⭐⭐
-### SDFT Injury (Bowed Tendon) ⭐⭐
-- ⭐ ⭐ Most common
-- ⭐ Front legs predominantly
-- ⭐ Race horses
-- ⭐ "Bowed" appearance
-- ⭐ Painful, hot, swollen
+---
 
-### DDFT Injury ⭐
-- ⭐ Less common
-- ⭐ Often affects deep heel/sole
+# 🔻 Part 1: Anatomy ⭐⭐
 
-### Suspensory Desmitis ⭐⭐
-- ⭐ Common
-- ⭐ Hindlimb often
-- ⭐ Proximal vs body vs branch
+- **Superficial Digital Flexor Tendon (SDFT)**
+- **Deep Digital Flexor Tendon (DDFT)**
+- **Suspensory Ligament**
+- Inferior check ligament
+- Distal sesamoidean ligaments
 
-## Diagnosis ⭐⭐
-- ⭐ ⭐ Ultrasound (gold standard!)
-- ⭐ Clinical exam
-- ⭐ MRI (advanced cases)
-- ⭐ Diagnostic analgesia
+---
 
-## Treatment ⭐⭐
-- ⭐ ⭐ **Cold therapy + bandaging** (acute)
-- ⭐ NSAIDs
-- ⭐ Rest (controlled exercise!)
-- ⭐ ⭐ Stem cell therapy (modern)
-- ⭐ ⭐ PRP (Platelet-Rich Plasma)
-- ⭐ Shockwave therapy
-- ⭐ Surgical: tendon splitting
+# 🔻 Part 2: Common Injuries ⭐⭐⭐
 
-## Prognosis ⭐
-- ⭐ ⭐ Slow healing (months-year+)
-- ⭐ Re-injury common
-- ⭐ Career-ending often
+## SDFT Injury (Bowed Tendon) ⭐⭐
+- **Most common**
+- **Front legs predominantly**
+- **Race horses**
+- **"Bowed" appearance**
+- Painful, hot, swollen
+
+## DDFT Injury ⭐
+- Less common
+- Often affects deep heel/sole
+
+## Suspensory Desmitis ⭐⭐
+- **Common**
+- **Hindlimb often**
+- **Proximal vs body vs branch**
+
+---
+
+# 🔻 Part 3: Diagnosis ⭐⭐
+
+- **Ultrasound (gold standard!)**
+- Clinical exam
+- **MRI** (advanced cases)
+- Diagnostic analgesia
+
+---
+
+# 🔻 Part 4: Treatment ⭐⭐
+
+## Acute
+- **Cold therapy + bandaging**
+- **NSAIDs**
+- **Rest (controlled exercise!)**
+
+## Modern Therapies
+- **Stem cell therapy**
+- **PRP (Platelet-Rich Plasma)**
+- **Shockwave therapy**
+- Surgical: tendon splitting
+
+---
+
+# 🔻 Part 5: Prognosis ⭐
+
+- **Slow healing (months-year+)**
+- **Re-injury common**
+- **Career-ending often**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ SDFT most commonly injured
-2. ⭐ Ultrasound = gold standard diagnosis
-3. ⭐ Bowed tendon = SDFT
-4. ⭐ Stem cells + PRP modern therapy
-5. ⭐ Slow healing, re-injury common`,
+- ⭐⭐⭐ **SDFT most commonly injured** ("bowed tendon")
+- ⭐⭐⭐ **Ultrasound = gold standard diagnosis**
+- ⭐⭐ **Stem cells + PRP** modern therapy
+- ⭐⭐ **Slow healing, re-injury common**
+- ⭐ Suspensory desmitis common in hindlimb`,
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -53332,227 +55911,317 @@ Course intro for equine medicine. Thailand: small but growing horse industry (sp
     videoId: 'xO4ynKSf57I', title: 'Equine Repro — 0 Introduction', subject: 'equine-repro',
     date: '2025-08-14', durationMin: 4, instructor: 'CUVET equine repro team',
     examFormat: 'Brief intro',
-    summary: `## 🎯 Lead Summary
-Course intro for equine reproduction. Important for breeding industry, racing, sport horses.
+    summary: `# Equine Repro — 0 Introduction
 
-## Coverage ⭐
+> 🎯 Course intro สำหรับ equine reproduction — important for breeding industry, racing, sport horses ⭐
+> ⚠️ Brief intro — overview เฉยๆ
+
+---
+
+# 🔻 Part 1: Coverage
+
 - Mare reproduction
 - Stallion reproduction
 - AI/embryo transfer
 - Pregnancy + foaling
 - Reproductive disorders
 
-> 📚 Cross-refs: Equine medicine course
-> 🎯 Specialized practice area`,
+---
+
+## 📋 Exam Recap
+- ⭐ Specialized practice area in equine medicine`,
   },
   Nes36k3vb_0: {
     videoId: 'Nes36k3vb_0', title: 'Equine Repro — 1.1 Female Reproductive Anatomy + Estrous Cycle', subject: 'equine-repro',
     date: '2025-08-14', durationMin: 82, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก mare anatomy, estrous cycle, seasonality',
-    summary: `## 🎯 Lead Summary
-**Mare anatomy + estrous cycle**. ⭐ ⭐ Mare = SEASONAL polyestrous (long-day breeder).
+    summary: `# Equine Repro — 1.1 Female Reproductive Anatomy + Estrous Cycle
 
-## Anatomy ⭐⭐
-- ⭐ Vulva, vestibule, vagina
-- ⭐ ⭐ Cervix (3 structures: longitudinal folds)
-- ⭐ Uterus (T-shaped, bicornuate)
-- ⭐ Oviducts (Fallopian tubes)
-- ⭐ Ovaries (large, ovulation fossa unique!)
+> 🎯 ม้าตัวเมีย = **SEASONAL polyestrous** (long-day breeder) · cycle ~21 days · ovulation 24-48h ก่อน estrus end ⭐⭐⭐
+> ⚠️ ออกแน่: seasonal polyestrous, cycle phases, ovulation timing, ovulation fossa
 
-## Estrous Cycle ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Seasonal polyestrous** (long-day breeder)
-- ⭐ Cycle length: ~21 days
-- ⭐ Estrus duration: ~5-7 days
-- ⭐ Diestrus: ~14-15 days
-- ⭐ Ovulation: ~24-48h before end of estrus
-- ⭐ ⭐ Anestrus: winter (Thailand less seasonal)
+---
 
-## Cycle Phases ⭐⭐
+# 🔻 Part 1: Anatomy ⭐⭐
+
+- **Vulva, vestibule, vagina**
+- **Cervix** (3 structures: longitudinal folds)
+- **Uterus** (T-shaped, bicornuate)
+- Oviducts (Fallopian tubes)
+- **Ovaries** (large, **ovulation fossa unique!**)
+
+---
+
+# 🔻 Part 2: Estrous Cycle ⭐⭐⭐
+
+## Key Features
+- **Seasonal polyestrous** (long-day breeder)
+- **Cycle length: ~21 days**
+- **Estrus duration: ~5-7 days**
+- **Diestrus: ~14-15 days**
+- **Ovulation: ~24-48h before end of estrus**
+- **Anestrus**: winter (Thailand less seasonal)
+
+---
+
+# 🔻 Part 3: Cycle Phases ⭐⭐
+
 | Phase | Days | Hormones |
 |---|---|---|
-| ⭐ Estrus | 5-7 | Estrogen ↑, FSH/LH peak |
-| ⭐ Diestrus | 14-15 | Progesterone ↑ |
-| ⭐ Anestrus | seasonal | Low all |
+| **Estrus** | 5-7 | Estrogen ↑, FSH/LH peak |
+| **Diestrus** | 14-15 | Progesterone ↑ |
+| **Anestrus** | Seasonal | Low all |
 
-## Behavior in Estrus ⭐
-- ⭐ Receptive to stallion
-- ⭐ Tail raising
-- ⭐ Frequent urination
-- ⭐ "Winking" of vulva
+---
 
-## Endocrinology ⭐
-- ⭐ FSH → follicle development
-- ⭐ Estrogen → behavioral signs
-- ⭐ LH surge → ovulation
-- ⭐ Progesterone → diestrus
-- ⭐ PGF2α → luteolysis
+# 🔻 Part 4: Behavior in Estrus ⭐
+
+- **Receptive to stallion**
+- **Tail raising**
+- **Frequent urination**
+- **"Winking" of vulva**
+
+---
+
+# 🔻 Part 5: Endocrinology ⭐
+
+- **FSH** → follicle development
+- **Estrogen** → behavioral signs
+- **LH surge** → ovulation
+- **Progesterone** → diestrus
+- **PGF2α** → luteolysis
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Seasonal polyestrous (long-day)
-2. ⭐ ~21 day cycle
-3. ⭐ 5-7 day estrus
-4. ⭐ Ovulation 24-48h before estrus end
-5. ⭐ Long winter anestrus (less in Thailand)`,
+- ⭐⭐⭐ **Seasonal polyestrous (long-day breeder)**
+- ⭐⭐⭐ **~21 day cycle**
+- ⭐⭐⭐ **Ovulation 24-48h before estrus end**
+- ⭐⭐ **5-7 day estrus**, 14-15 day diestrus
+- ⭐⭐ **Ovulation fossa** unique to mare ovary
+- ⭐ Long winter anestrus (less in Thailand)`,
   },
   Cxuu_6N6hM4: {
     videoId: 'Cxuu_6N6hM4', title: 'Equine Repro — 1.2 Examination of Reproductive Organs in Mare', subject: 'equine-repro',
     date: '2025-08-14', durationMin: 51, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก mare repro exam, ultrasound, palpation',
-    summary: `## 🎯 Lead Summary
-**Mare reproductive exam** — visual, palpation, ultrasound, biopsy.
+    summary: `# Equine Repro — 1.2 Examination of Reproductive Organs in Mare
 
-## Visual Exam ⭐
-- ⭐ Vulvar conformation
-- ⭐ Discharge
-- ⭐ Mammary gland
-- ⭐ Body condition
+> 🎯 **Ultrasound (transrectal) = gold standard** สำหรับ mare repro · pregnancy detection จาก 12+ days ⭐⭐⭐
+> ⚠️ ออกแน่: rectal palpation, US gold standard, Kenney's biopsy grading
 
-## Rectal Palpation ⭐⭐
-- ⭐ ⭐ Foundation skill
-- ⭐ Cervix tone (open in estrus, closed diestrus)
-- ⭐ Uterine tone
-- ⭐ Ovary palpation (follicles, CL)
+---
 
-## Vaginal Speculum ⭐
-- ⭐ Cervix appearance
-- ⭐ Mucosal color/discharge
-- ⭐ Sterile technique
+# 🔻 Part 1: Visual Exam ⭐
 
-## Ultrasound (Transrectal) ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Gold standard for mare repro**
-- ⭐ Follicle measurement
-- ⭐ Pregnancy diagnosis (12+ days)
-- ⭐ Twin detection
-- ⭐ Cyst identification
-- ⭐ Endometrial assessment
+- **Vulvar conformation**
+- Discharge
+- Mammary gland
+- Body condition
 
-## Endometrial Biopsy ⭐
-- ⭐ Categorizes endometrial health
-- ⭐ Kenney's grading (I-III)
-- ⭐ Predicts fertility
+---
 
-## Cytology ⭐
-- ⭐ Detect inflammation
-- ⭐ Bacterial culture
+# 🔻 Part 2: Rectal Palpation ⭐⭐
+
+- **Foundation skill**
+- **Cervix tone** (open in estrus, closed diestrus)
+- **Uterine tone**
+- **Ovary palpation** (follicles, CL)
+
+---
+
+# 🔻 Part 3: Vaginal Speculum ⭐
+
+- Cervix appearance
+- Mucosal color/discharge
+- Sterile technique
+
+---
+
+# 🔻 Part 4: Ultrasound (Transrectal) ⭐⭐⭐
+
+## Why Gold Standard
+- **Follicle measurement**
+- **Pregnancy diagnosis (12+ days)**
+- **Twin detection**
+- Cyst identification
+- **Endometrial assessment**
+
+---
+
+# 🔻 Part 5: Endometrial Biopsy ⭐
+
+- Categorizes endometrial health
+- **Kenney's grading (I-III)**
+- **Predicts fertility**
+
+---
+
+# 🔻 Part 6: Cytology ⭐
+
+- Detect inflammation
+- Bacterial culture
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Ultrasound = gold standard
-2. ⭐ Pregnancy detection from 12+ days
-3. ⭐ Endometrial biopsy grading
-4. ⭐ Multi-modal exam approach
-5. ⭐ Rectal palpation foundation skill`,
+- ⭐⭐⭐ **Ultrasound = gold standard**
+- ⭐⭐⭐ **Pregnancy detection from 12+ days**
+- ⭐⭐ **Endometrial biopsy** with Kenney's grading
+- ⭐⭐ **Rectal palpation** foundation skill
+- ⭐ Multi-modal exam approach`,
   },
   'osl3u85-EQE': {
     videoId: 'osl3u85-EQE', title: 'Equine Repro — 2.1 Reproductive Biotechnology', subject: 'equine-repro',
     date: '2025-09-11', durationMin: 38, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก ET, OPU, ICSI, cloning',
-    summary: `## 🎯 Lead Summary
-**Equine reproductive biotechnology** — ET (embryo transfer), OPU, ICSI, cloning.
+    summary: `# Equine Repro — 2.1 Reproductive Biotechnology
 
-## Embryo Transfer (ET) ⭐⭐⭐
-- ⭐ ⭐ Most common ART
-- ⭐ Donor + recipient mares
-- ⭐ Day 6-8 collection
-- ⭐ Non-surgical transfer
-- ⭐ Multiple foals per donor per year
+> 🎯 **ET (embryo transfer) = most common ART** ในม้า · OPU + ICSI + cloning + frozen semen ⭐⭐⭐
+> ⚠️ ออกแน่: ET timing (D6-8), OPU+ICSI for poor mares, frozen semen lower fertility
 
-## Oocyte Pickup (OPU) ⭐⭐
-- ⭐ Transvaginal aspiration
-- ⭐ Sedated, standing
-- ⭐ Collect immature oocytes
-- ⭐ Use with ICSI
+---
 
-## ICSI (Intracytoplasmic Sperm Injection) ⭐
-- ⭐ Single sperm injection
-- ⭐ Use with limited semen
-- ⭐ Success rates moderate
-- ⭐ Lab-intensive
+# 🔻 Part 1: Embryo Transfer (ET) ⭐⭐⭐
 
-## Cloning ⭐
-- ⭐ ⭐ Somatic cell nuclear transfer
-- ⭐ Available commercially
-- ⭐ FEI/Jockey Club rules vary
-- ⭐ Significant costs
+## Key Features
+- **Most common ART** in equine
+- **Donor + recipient mares**
+- **Day 6-8 collection**
+- **Non-surgical transfer**
+- **Multiple foals per donor per year**
 
-## Frozen Semen ⭐
-- ⭐ Available for many stallions
-- ⭐ Lower fertility than chilled
-- ⭐ Critical timing of insemination
+---
+
+# 🔻 Part 2: Oocyte Pickup (OPU) ⭐⭐
+
+- **Transvaginal aspiration**
+- **Sedated, standing**
+- Collect immature oocytes
+- Use with ICSI
+
+---
+
+# 🔻 Part 3: ICSI (Intracytoplasmic Sperm Injection) ⭐
+
+- **Single sperm injection**
+- **Use with limited semen**
+- Success rates moderate
+- Lab-intensive
+
+---
+
+# 🔻 Part 4: Cloning ⭐
+
+- **Somatic cell nuclear transfer**
+- Available commercially
+- **FEI/Jockey Club rules vary**
+- Significant costs
+
+---
+
+# 🔻 Part 5: Frozen Semen ⭐
+
+- Available for many stallions
+- ⚠️ **Lower fertility than chilled**
+- **Critical timing of insemination**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ ET = most common ART
-2. ⭐ Day 6-8 embryo collection
-3. ⭐ OPU + ICSI for poor mares
-4. ⭐ Cloning available
-5. ⭐ Frozen semen lower fertility`,
+- ⭐⭐⭐ **ET = most common ART**
+- ⭐⭐⭐ **Day 6-8 embryo collection**
+- ⭐⭐ **OPU + ICSI** for poor mares
+- ⭐⭐ **Cloning** available commercially
+- ⭐ Frozen semen = lower fertility than chilled`,
   },
   '004_oE5UliE': {
     videoId: '004_oE5UliE', title: 'Equine Repro — 2.2 Infertility/Subfertility in Mare', subject: 'equine-repro',
     date: '2025-09-11', durationMin: 56, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก mare infertility, differential, workup',
-    summary: `## 🎯 Lead Summary
-**Mare infertility/subfertility** — multiple causes, requires systematic workup.
+    summary: `# Equine Repro — 2.2 Infertility/Subfertility in Mare
 
-## Causes ⭐⭐⭐
-### Anatomic
-- ⭐ Poor vulvar conformation
-- ⭐ Cervical incompetence
-- ⭐ Uterine adhesions
+> 🎯 **Endometritis = #1 cause of mare infertility** · multiple categories require systematic workup ⭐⭐⭐
+> ⚠️ ออกแน่: endometritis #1, PMIE, granulosa cell tumor, workup order
 
-### Endometrial ⭐
-- ⭐ ⭐ Endometritis (#1!)
-- ⭐ Endometriosis
-- ⭐ Cysts
-- ⭐ Lymphangitis
+---
 
-### Hormonal
-- ⭐ Anestrus (seasonal vs pathologic)
-- ⭐ Persistent CL
-- ⭐ Progesterone disorders
+# 🔻 Part 1: Causes ⭐⭐⭐
 
-### Uterine
-- ⭐ Persistent fluid (PMIE)
-- ⭐ Bacterial infection
-- ⭐ Fungal infection
-- ⭐ STDs (CEM, EVA)
+## Anatomic
+- Poor vulvar conformation
+- Cervical incompetence
+- Uterine adhesions
 
-### Ovarian
-- ⭐ Granulosa cell tumor
-- ⭐ Anovulation
+## Endometrial ⭐
+- **Endometritis (#1!)**
+- Endometriosis
+- Cysts
+- Lymphangitis
 
-### Age-related
-- ⭐ Older mare reduced fertility
+## Hormonal
+- Anestrus (seasonal vs pathologic)
+- Persistent CL
+- Progesterone disorders
 
-## Workup ⭐⭐
-1. ⭐ History (foaling history)
-2. ⭐ Physical + reproductive exam
-3. ⭐ Ultrasound
-4. ⭐ Cytology + culture
-5. ⭐ Biopsy if needed
-6. ⭐ Hormonal evaluation
+## Uterine
+- **Persistent fluid (PMIE)**
+- Bacterial infection
+- Fungal infection
+- **STDs (CEM, EVA)**
 
-## Treatment ⭐
-- ⭐ Cause-specific
-- ⭐ Lavage for fluid retention
-- ⭐ Antibiotics for infection
-- ⭐ Surgery for anatomic
-- ⭐ Hormonal management
+## Ovarian
+- **Granulosa cell tumor**
+- Anovulation
+
+## Age-related
+- Older mare reduced fertility
+
+---
+
+# 🔻 Part 2: Workup ⭐⭐
+
+## Systematic Order
+1. **History** (foaling history)
+2. **Physical + reproductive exam**
+3. **Ultrasound**
+4. **Cytology + culture**
+5. **Biopsy if needed**
+6. **Hormonal evaluation**
+
+---
+
+# 🔻 Part 3: Treatment ⭐
+
+- **Cause-specific**
+- **Lavage for fluid retention**
+- **Antibiotics for infection**
+- Surgery for anatomic
+- Hormonal management
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Endometritis = #1 cause
-2. ⭐ Multiple categories
-3. ⭐ Systematic workup
-4. ⭐ Persistent fluid common
-5. ⭐ Age affects fertility`,
+- ⭐⭐⭐ **Endometritis = #1 cause** of mare infertility
+- ⭐⭐ **Multiple categories** (anatomic, endometrial, hormonal, uterine, ovarian, age)
+- ⭐⭐ **Systematic workup** order
+- ⭐⭐ **Persistent fluid (PMIE)** common
+- ⭐ **Granulosa cell tumor** = ovarian cause
+- ⭐ Age affects fertility`,
   },
   '2wbuy6_58AU': {
     videoId: '2wbuy6_58AU', title: 'Equine Repro — 2.3 Recap + Quiz', subject: 'equine-repro',
     date: '2025-09-11', durationMin: 29, instructor: 'CUVET equine repro team',
     examFormat: 'Recap session, self-assessment',
-    summary: `## 🎯 Lead Summary
-**Recap + Quiz session** — review of mare anatomy, estrous cycle, examination, biotechnology, infertility.
+    summary: `# Equine Repro — 2.3 Recap + Quiz
 
-## Key Topics Reviewed ⭐
+> 🎯 **Recap + Quiz session** — review mare anatomy, estrous cycle, examination, biotechnology, infertility ⭐
+> ⚠️ Self-assessment lecture
+
+---
+
+# 🔻 Part 1: Key Topics Reviewed
+
 - Mare anatomy
 - Seasonal polyestrous cycle
 - Reproductive examination
@@ -53560,349 +56229,469 @@ Course intro for equine reproduction. Important for breeding industry, racing, s
 - Common infertility causes
 - Diagnostic approach
 
-## Self-Assessment Tips ⭐
-- ⭐ Master estrous cycle phases
-- ⭐ Know hormone changes
-- ⭐ Practice recognizing common conditions
-- ⭐ Understand workup order
+---
+
+# 🔻 Part 2: Self-Assessment Tips ⭐
+
+- **Master estrous cycle phases**
+- **Know hormone changes**
+- Practice recognizing common conditions
+- **Understand workup order**
+
+---
 
 ## 📋 Recap
-- ⭐ Foundational knowledge
-- ⭐ Practice identifying patterns
+- ⭐ Foundational knowledge — practice identifying patterns
 - ⭐ Build clinical reasoning`,
   },
   MbDQl_nwsZ4: {
     videoId: 'MbDQl-nwsZ4', title: 'Equine Repro — 3 Male Reproductive Anatomy', subject: 'equine-repro',
     date: '2025-10-02', durationMin: 61, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก stallion anatomy, semen production',
-    summary: `## 🎯 Lead Summary
-**Stallion reproductive anatomy + function**.
+    summary: `# Equine Repro — 3 Male Reproductive Anatomy
 
-## Anatomy ⭐⭐
-- ⭐ Testes (in scrotum)
-- ⭐ Epididymis (head, body, tail)
-- ⭐ Vas deferens
-- ⭐ Accessory glands (vesicular, prostate, bulbourethral)
-- ⭐ Penis (musculocavernous)
-- ⭐ Prepuce
+> 🎯 Stallion anatomy + function — **spermatogenesis 57 days** · year-round vs mare seasonal ⭐⭐
+> ⚠️ ออกแน่: spermatogenesis timing, semen parameters, hormones (high estrogen!)
 
-## Spermatogenesis ⭐⭐
-- ⭐ ~57 days complete cycle
-- ⭐ Continuous (year-round)
-- ⭐ Temperature sensitive (testes outside body)
+---
 
-## Semen Characteristics ⭐
-- ⭐ Volume: 60-100 mL
-- ⭐ Concentration: 100-500 million/mL
-- ⭐ Motility: >70% progressive
-- ⭐ Morphology: <30% abnormalities
+# 🔻 Part 1: Anatomy ⭐⭐
 
-## Hormones ⭐
-- ⭐ Testosterone (Leydig cells)
-- ⭐ Estrogen (high in stallions!)
-- ⭐ FSH/LH from pituitary
-- ⭐ Inhibin from Sertoli cells
+- **Testes** (in scrotum)
+- **Epididymis** (head, body, tail)
+- **Vas deferens**
+- **Accessory glands** (vesicular, prostate, bulbourethral)
+- **Penis** (musculocavernous)
+- Prepuce
 
-## Sexual Behavior ⭐
-- ⭐ Year-round but better spring-summer
-- ⭐ Seasonal libido fluctuation
-- ⭐ Influenced by management
+---
+
+# 🔻 Part 2: Spermatogenesis ⭐⭐
+
+## Key Features
+- **~57 days complete cycle**
+- **Continuous (year-round)**
+- **Temperature sensitive** (testes outside body)
+
+---
+
+# 🔻 Part 3: Semen Characteristics ⭐
+
+| Parameter | Normal |
+|---|---|
+| **Volume** | 60-100 mL |
+| **Concentration** | 100-500 million/mL |
+| **Motility** | >70% progressive |
+| **Morphology** | <30% abnormalities |
+
+---
+
+# 🔻 Part 4: Hormones ⭐
+
+- **Testosterone** (Leydig cells)
+- **Estrogen (HIGH in stallions!)**
+- **FSH/LH** from pituitary
+- **Inhibin** from Sertoli cells
+
+> 💡 **Unique to stallion**: high estrogen levels (vs other males) — used as marker for testicular function
+
+---
+
+# 🔻 Part 5: Sexual Behavior ⭐
+
+- **Year-round** but better spring-summer
+- Seasonal libido fluctuation
+- Influenced by management
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Spermatogenesis 57 days
-2. ⭐ Year-round (vs mare seasonal)
-3. ⭐ Stallions have high estrogen!
-4. ⭐ Multiple accessory glands
-5. ⭐ Temperature-sensitive`,
+- ⭐⭐⭐ **Spermatogenesis 57 days**
+- ⭐⭐ **Year-round** (vs mare seasonal)
+- ⭐⭐ **Stallions have HIGH estrogen!**
+- ⭐ Multiple accessory glands (vesicular, prostate, bulbourethral)
+- ⭐ **Temperature-sensitive** spermatogenesis`,
   },
   FL4v85SwdXo: {
     videoId: 'FL4v85SwdXo', title: 'Equine Repro — 4 Endometritis in Mare', subject: 'equine-repro',
     date: '2025-10-09', durationMin: 80, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก endometritis types, diagnosis, treatment',
-    summary: `## 🎯 Lead Summary
-**Endometritis** = #1 cause of mare infertility. Multiple types + treatments.
+    summary: `# Equine Repro — 4 Endometritis in Mare
 
-## Types ⭐⭐⭐
-### Acute Bacterial ⭐
-- ⭐ Most common after breeding
-- ⭐ E. coli, Strep zooepidemicus
-- ⭐ Cloudy uterine fluid
+> 🎯 **Endometritis = #1 cause of mare infertility** — Acute, PMIE, Chronic, STI types ⭐⭐⭐
+> ⚠️ ออกแน่: PMIE in older mares, CEM = Taylorella, lavage + oxytocin treatment
 
-### Persistent Mating-Induced Endometritis (PMIE) ⭐⭐
-- ⭐ ⭐ Excessive inflammation post-breeding
-- ⭐ Fluid retention >24h
-- ⭐ Older + multiparous mares
-- ⭐ Ultrasound diagnosis
+---
 
-### Chronic Bacterial ⭐
-- ⭐ Persistent infection
-- ⭐ Discharge often
-- ⭐ Multiple organisms
+# 🔻 Part 1: Types ⭐⭐⭐
 
-### Sexually Transmitted ⭐⭐
-- ⭐ ⭐ **CEM (Contagious Equine Metritis)** = Taylorella equigenitalis
-- ⭐ Pseudomonas aeruginosa
-- ⭐ Klebsiella pneumoniae
+## A. Acute Bacterial ⭐
+- **Most common after breeding**
+- **E. coli, Strep zooepidemicus**
+- Cloudy uterine fluid
 
-## Diagnosis ⭐⭐
-- ⭐ Ultrasound (fluid retention)
-- ⭐ Cytology
-- ⭐ Culture
-- ⭐ Biopsy
-- ⭐ Pre-breeding exam
+## B. Persistent Mating-Induced Endometritis (PMIE) ⭐⭐
+- **Excessive inflammation post-breeding**
+- **Fluid retention >24h**
+- **Older + multiparous mares**
+- **Ultrasound diagnosis**
 
-## Treatment ⭐⭐
-- ⭐ ⭐ Uterine lavage (saline)
-- ⭐ Oxytocin (uterine clearance)
-- ⭐ Intrauterine antibiotics
-- ⭐ Systemic antibiotics if severe
-- ⭐ NSAIDs
-- ⭐ Hormonal management
+## C. Chronic Bacterial ⭐
+- Persistent infection
+- Discharge often
+- Multiple organisms
 
-## Breeding Management ⭐
-- ⭐ Pre-breeding exam essential
-- ⭐ Treat before breeding
-- ⭐ Lavage post-breeding (PMIE)
-- ⭐ Oxytocin post-breeding
+## D. Sexually Transmitted ⭐⭐
+- **CEM (Contagious Equine Metritis) = Taylorella equigenitalis**
+- **Pseudomonas aeruginosa**
+- **Klebsiella pneumoniae**
+
+---
+
+# 🔻 Part 2: Diagnosis ⭐⭐
+
+- **Ultrasound** (fluid retention)
+- **Cytology**
+- **Culture**
+- **Biopsy**
+- **Pre-breeding exam**
+
+---
+
+# 🔻 Part 3: Treatment ⭐⭐
+
+## Standard Approach
+- **Uterine lavage (saline)**
+- **Oxytocin** (uterine clearance)
+- **Intrauterine antibiotics**
+- Systemic antibiotics if severe
+- NSAIDs
+- Hormonal management
+
+---
+
+# 🔻 Part 4: Breeding Management ⭐
+
+- **Pre-breeding exam essential**
+- **Treat before breeding**
+- **Lavage post-breeding (PMIE)**
+- **Oxytocin post-breeding**
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Endometritis = #1 infertility cause
-2. ⭐ PMIE = post-breeding fluid retention
-3. ⭐ CEM = STI, Taylorella
-4. ⭐ Lavage + oxytocin treatment
-5. ⭐ Pre-breeding exam essential`,
+- ⭐⭐⭐ **Endometritis = #1 infertility cause**
+- ⭐⭐⭐ **PMIE = post-breeding fluid retention** in older mares
+- ⭐⭐⭐ **CEM = STI, Taylorella equigenitalis**
+- ⭐⭐ **Lavage + oxytocin** treatment
+- ⭐ **Pre-breeding exam essential** to detect`,
   },
   hk5mce4iPDI: {
     videoId: 'hk5mce4iPDI', title: 'Equine Repro — 5 Semen Collection and AI', subject: 'equine-repro',
     date: '2025-10-16', durationMin: 58, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก semen collection, AI techniques, timing',
-    summary: `## 🎯 Lead Summary
-**Semen collection + AI techniques** in horses.
+    summary: `# Equine Repro — 5 Semen Collection and AI
 
-## Collection Methods ⭐⭐
-### Artificial Vagina (AV) ⭐
-- ⭐ ⭐ Most common
-- ⭐ Stallion mounts mare/dummy
-- ⭐ Heated chamber
-- ⭐ Sterile collection
+> 🎯 AV = most common collection · **Conventional AI standard** · timing within 24h before ovulation ⭐⭐⭐
+> ⚠️ ออกแน่: AV technique, conventional vs deep horn AI, timing critical
 
-### Phantom (Dummy)
-- ⭐ Replaces mare
-- ⭐ Sturdy structure
-- ⭐ Stallion training required
+---
 
-## Semen Evaluation ⭐⭐
-- ⭐ Volume
-- ⭐ Concentration (hemocytometer, density meter)
-- ⭐ Motility (% progressive)
-- ⭐ Morphology
-- ⭐ pH
-- ⭐ Bacterial culture
+# 🔻 Part 1: Collection Methods ⭐⭐
 
-## Semen Processing ⭐
-- ⭐ Extender (semen extender)
-- ⭐ Cooled (4°C, 24-48h)
-- ⭐ Frozen (LN2, lifetime)
-- ⭐ Specific protocols
+## A. Artificial Vagina (AV)
+- **Most common**
+- **Stallion mounts mare/dummy**
+- **Heated chamber**
+- Sterile collection
 
-## AI Techniques ⭐⭐⭐
-### Conventional AI ⭐
-- ⭐ ⭐ Catheter through cervix
-- ⭐ Deposit in uterine body
-- ⭐ Most common
+## B. Phantom (Dummy)
+- Replaces mare
+- Sturdy structure
+- **Stallion training required**
 
-### Deep Horn AI ⭐
-- ⭐ Catheter to uterine horn
-- ⭐ Closer to oviduct
-- ⭐ Used with frozen semen
+---
 
-### Hysteroscopic AI ⭐
-- ⭐ Endoscope-guided
-- ⭐ Direct deposit at uterotubal junction
-- ⭐ For poor-quality semen
+# 🔻 Part 2: Semen Evaluation ⭐⭐
 
-## Timing ⭐⭐
-- ⭐ ⭐ Within 24h before ovulation ideal
-- ⭐ Frozen: closer to ovulation
-- ⭐ Daily ultrasound during estrus
+- **Volume**
+- **Concentration** (hemocytometer, density meter)
+- **Motility** (% progressive)
+- **Morphology**
+- pH
+- Bacterial culture
+
+---
+
+# 🔻 Part 3: Semen Processing ⭐
+
+| Type | Storage |
+|---|---|
+| **Cooled** | 4°C, 24-48h |
+| **Frozen** | LN2, lifetime |
+| **Extender** | Semen extender added |
+
+---
+
+# 🔻 Part 4: AI Techniques ⭐⭐⭐
+
+## Conventional AI ⭐
+- **Catheter through cervix**
+- **Deposit in uterine body**
+- **Most common**
+
+## Deep Horn AI ⭐
+- **Catheter to uterine horn**
+- **Closer to oviduct**
+- **Used with frozen semen**
+
+## Hysteroscopic AI ⭐
+- **Endoscope-guided**
+- **Direct deposit at uterotubal junction**
+- **For poor-quality semen**
+
+---
+
+# 🔻 Part 5: Timing ⭐⭐
+
+## Key Rules
+- **Within 24h before ovulation ideal**
+- **Frozen**: closer to ovulation
+- **Daily ultrasound** during estrus
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ AV most common collection
-2. ⭐ Conventional AI standard
-3. ⭐ Deep horn for frozen
-4. ⭐ Timing critical
-5. ⭐ Daily ultrasound during estrus`,
+- ⭐⭐⭐ **AV most common** collection method
+- ⭐⭐⭐ **Conventional AI standard** (catheter through cervix)
+- ⭐⭐⭐ **Within 24h before ovulation** ideal
+- ⭐⭐ **Deep horn** for frozen semen
+- ⭐ **Daily ultrasound** during estrus to monitor`,
   },
   chRLDPkEJZY: {
     videoId: 'chRLDPkEJZY', title: 'Equine Repro — 6.1 Stallion Infertility', subject: 'equine-repro',
     date: '2025-10-30', durationMin: 35, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก stallion infertility, breeding soundness exam',
-    summary: `## 🎯 Lead Summary
-**Stallion infertility/subfertility** — diagnosis + management.
+    summary: `# Equine Repro — 6.1 Stallion Infertility
 
-## Causes ⭐⭐
-### Behavioral
-- ⭐ Inadequate libido
-- ⭐ Aggression
-- ⭐ Inexperience
+> 🎯 **Breeding Soundness Examination (BSE) essential** · ⚠️ Anabolic steroids = sterile! ⭐⭐⭐
+> ⚠️ ออกแน่: BSE components, anabolic steroids effect, cryptorchid, multiple ejaculates
 
-### Anatomic
-- ⭐ Penile lesions (squamous cell carcinoma)
-- ⭐ Inguinal hernia
-- ⭐ Testicular abnormality
+---
 
-### Spermatogenesis
-- ⭐ Oligospermia
-- ⭐ Azoospermia
-- ⭐ Seasonal influence
-- ⭐ Heat stress
+# 🔻 Part 1: Causes ⭐⭐
 
-### Hormonal
-- ⭐ Cushing's syndrome
-- ⭐ Anabolic steroid use!
-- ⭐ Cryptorchid
+## A. Behavioral
+- Inadequate libido
+- Aggression
+- Inexperience
 
-### Infectious
-- ⭐ EVA, EHV
-- ⭐ Bacterial in semen
-- ⭐ STIs
+## B. Anatomic
+- **Penile lesions** (squamous cell carcinoma)
+- Inguinal hernia
+- Testicular abnormality
 
-## Breeding Soundness Examination ⭐⭐⭐
-- ⭐ ⭐ History (libido, fertility)
-- ⭐ ⭐ Physical exam (testes, penis)
-- ⭐ ⭐ Semen evaluation (multiple ejaculates)
-- ⭐ ⭐ Test breeding (ideal)
-- ⭐ Disease testing (CEM, EIA)
+## C. Spermatogenesis
+- **Oligospermia**
+- **Azoospermia**
+- Seasonal influence
+- **Heat stress**
 
-## Treatment ⭐
-- ⭐ Address underlying cause
-- ⭐ Improve management
-- ⭐ Manage diseases
-- ⭐ Some unable to be corrected
+## D. Hormonal
+- Cushing's syndrome
+- ⚠️ **Anabolic steroid use!**
+- **Cryptorchid**
+
+## E. Infectious
+- EVA, EHV
+- Bacterial in semen
+- STIs
+
+---
+
+# 🔻 Part 2: Breeding Soundness Examination ⭐⭐⭐
+
+## Components
+1. **History** (libido, fertility)
+2. **Physical exam** (testes, penis)
+3. **Semen evaluation** (multiple ejaculates)
+4. **Test breeding** (ideal)
+5. **Disease testing** (CEM, EIA)
+
+---
+
+# 🔻 Part 3: Treatment ⭐
+
+- **Address underlying cause**
+- Improve management
+- Manage diseases
+- ⚠️ Some unable to be corrected
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Multiple causes
-2. ⭐ Breeding Soundness Exam essential
-3. ⭐ Anabolic steroids = sterile!
-4. ⭐ Cryptorchid = poor fertility
-5. ⭐ Multiple ejaculates evaluated`,
+- ⭐⭐⭐ **BSE essential** for stallion fertility
+- ⭐⭐⭐ **Anabolic steroids = sterile!**
+- ⭐⭐ **Cryptorchid = poor fertility**
+- ⭐⭐ **Multiple ejaculates** evaluated
+- ⭐ Multiple causes (behavioral, anatomic, spermatogenesis, hormonal, infectious)`,
   },
   vPYMOYBMPtg: {
     videoId: 'vPYMOYBMPtg', title: 'Equine Repro — 6.2 Reproductive Surgery', subject: 'equine-repro',
     date: '2025-10-30', durationMin: 36, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก mare + stallion repro surgery',
-    summary: `## 🎯 Lead Summary
-**Equine reproductive surgery** — mares + stallions.
+    summary: `# Equine Repro — 6.2 Reproductive Surgery
 
-## Mare Surgery ⭐⭐
-### Caslick's Procedure ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Most common!**
-- ⭐ Vulvar lip suturing
-- ⭐ Prevents pneumovagina
-- ⭐ Open before breeding/foaling
+> 🎯 **Caslick's = most common mare procedure** · **Castration = most common stallion surgery** · cryptorchid = always remove ⭐⭐⭐
+> ⚠️ ออกแน่: Caslick's purpose, castration techniques, cryptorchid cancer risk, C-section emergency only
 
-### Cervical Repair ⭐
-- ⭐ Cervical lacerations
-- ⭐ Difficult repair
+---
 
-### Ovariectomy
-- ⭐ Granulosa cell tumor
-- ⭐ Behavioral problems
-- ⭐ Standing surgery
+# 🔻 Part 1: Mare Surgery ⭐⭐
 
-### C-Section
-- ⭐ Dystocia
-- ⭐ Emergency only
+## A. Caslick's Procedure ⭐⭐⭐
+- **Most common!**
+- **Vulvar lip suturing**
+- **Prevents pneumovagina**
+- **Open before breeding/foaling**
 
-## Stallion Surgery ⭐⭐
-### Castration ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Most common surgery**
-- ⭐ Open or closed
-- ⭐ Standing or recumbent
-- ⭐ Behavioral + medical reasons
+## B. Cervical Repair ⭐
+- **Cervical lacerations**
+- Difficult repair
 
-### Cryptorchid Surgery ⭐
-- ⭐ Inguinal or abdominal
-- ⭐ Always remove (testicular cancer risk)
-- ⭐ Surgical approach varies
+## C. Ovariectomy
+- **Granulosa cell tumor**
+- **Behavioral problems**
+- **Standing surgery**
 
-### Penile Procedures
-- ⭐ Tumor removal (SCC)
-- ⭐ Penile retraction issues
+## D. C-Section
+- **Dystocia**
+- **Emergency only**
+
+---
+
+# 🔻 Part 2: Stallion Surgery ⭐⭐
+
+## A. Castration ⭐⭐⭐
+- **Most common surgery**
+- **Open or closed**
+- **Standing or recumbent**
+- **Behavioral + medical reasons**
+
+## B. Cryptorchid Surgery ⭐
+- **Inguinal or abdominal**
+- ⚠️ **Always remove (testicular cancer risk)**
+- Surgical approach varies
+
+## C. Penile Procedures
+- **Tumor removal (SCC)**
+- Penile retraction issues
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Caslick's = most common mare procedure
-2. ⭐ Castration = most common stallion surgery
-3. ⭐ Cryptorchid removal essential
-4. ⭐ Standing surgery often possible
-5. ⭐ C-section emergency only`,
+- ⭐⭐⭐ **Caslick's = most common mare procedure** (prevents pneumovagina)
+- ⭐⭐⭐ **Castration = most common stallion surgery**
+- ⭐⭐⭐ **Cryptorchid removal essential** (cancer risk)
+- ⭐⭐ **Standing surgery often possible**
+- ⭐ **C-section emergency only** (dystocia)`,
   },
   uO07ZMVezSA: {
     videoId: 'uO07ZMVezSA', title: 'Equine Repro — 7+8 Pregnancy, Parturition + Foal Care', subject: 'equine-repro',
     date: '2025-11-06', durationMin: 84, instructor: 'CUVET equine repro team',
     examFormat: 'Multiple choice, ออก gestation, parturition stages, foal care, IgG',
-    summary: `## 🎯 Lead Summary
-**Equine pregnancy, foaling, neonatal foal care** — comprehensive coverage.
+    summary: `# Equine Repro — 7+8 Pregnancy, Parturition + Foal Care
 
-## Gestation ⭐⭐⭐
-- ⭐ ⭐ ~340 days (range 320-360)
-- ⭐ Twin reduction at 14-16 days (manual)
-- ⭐ Pregnancy detection: ultrasound 12-14 days
-- ⭐ Heart beat: 25 days
-- ⭐ Sexing: 60-70 days
+> 🎯 Gestation **~340 days** · **Stage 2 = 15-30 min FAST** · **IgG <400 = failure** ต้องให้ plasma ⭐⭐⭐
+> ⚠️ ออกแน่: gestation length, stage 2 fast, retained placenta = emergency, IgG cutoffs
 
-## Foaling Stages ⭐⭐⭐
-### Stage 1 ⭐
-- ⭐ ⭐ 1-4 hours
-- ⭐ Restlessness
-- ⭐ Sweating
-- ⭐ Cervical dilation
+---
 
-### Stage 2 ⭐⭐
-- ⭐ ⭐ ⭐ **15-30 minutes** (FAST!)
-- ⭐ Active labor
-- ⭐ Foal expelled
-- ⭐ ⚠️ Stage 2 prolonged = emergency!
+# 🔻 Part 1: Gestation ⭐⭐⭐
 
-### Stage 3 ⭐
-- ⭐ Placenta expelled <3 hours
-- ⭐ ⚠️ Retained placenta = emergency in mare!
+## Key Numbers
+- **~340 days** (range 320-360)
+- **Twin reduction at 14-16 days** (manual)
+- **Pregnancy detection**: ultrasound 12-14 days
+- **Heart beat**: 25 days
+- **Sexing**: 60-70 days
 
-## Neonatal Foal Care ⭐⭐⭐
-### IgG (Failure of Passive Transfer) ⭐⭐⭐
-- ⭐ ⭐ ⭐ **Critical!**
-- ⭐ Foal needs colostrum within 12-24h
-- ⭐ Test IgG at 12-24h
-- ⭐ <400 mg/dL = failure (need plasma!)
-- ⭐ 400-800 = partial
-- ⭐ >800 = adequate
+---
 
-### Vital Signs ⭐
-- ⭐ HR 80-100 bpm
-- ⭐ Resp 24-36/min
-- ⭐ Temp 37.5-38.6°C
+# 🔻 Part 2: Foaling Stages ⭐⭐⭐
 
-### Common Problems ⭐
-- ⭐ ⭐ FPT (Failure of Passive Transfer)
-- ⭐ Sepsis
-- ⭐ Meconium impaction
-- ⭐ NMS (Neonatal Maladjustment Syndrome)
-- ⭐ Rhodococcus equi (later)
-- ⭐ Umbilical infection
-- ⭐ Limb deformities
+## Stage 1
+- **1-4 hours**
+- Restlessness
+- Sweating
+- Cervical dilation
 
-## Foal Milestones ⭐
-- ⭐ Stand: 1-2 hours
-- ⭐ Nurse: <2 hours
-- ⭐ Pass meconium: <12h
-- ⭐ Urinate: variable
+## Stage 2 ⭐⭐
+- ⚠️ **15-30 minutes (FAST!)**
+- **Active labor**
+- Foal expelled
+- ⚠️ **Stage 2 prolonged = emergency!**
+
+## Stage 3 ⭐
+- **Placenta expelled <3 hours**
+- ⚠️ **Retained placenta = emergency in mare!**
+
+---
+
+# 🔻 Part 3: Neonatal Foal Care ⭐⭐⭐
+
+## IgG (Failure of Passive Transfer) ⭐⭐⭐
+
+### Key Rules
+- **Critical!**
+- **Foal needs colostrum within 12-24h**
+- **Test IgG at 12-24h**
+
+### Cutoffs
+| IgG Level | Interpretation |
+|---|---|
+| **<400 mg/dL** | **Failure (need plasma!)** |
+| 400-800 mg/dL | Partial |
+| **>800 mg/dL** | Adequate |
+
+## Vital Signs (Foal)
+- **HR 80-100 bpm**
+- **Resp 24-36/min**
+- **Temp 37.5-38.6°C**
+
+---
+
+# 🔻 Part 4: Common Foal Problems ⭐
+
+- **FPT (Failure of Passive Transfer)**
+- **Sepsis**
+- **Meconium impaction**
+- **NMS (Neonatal Maladjustment Syndrome)**
+- **Rhodococcus equi** (later, 1-6 months)
+- Umbilical infection
+- Limb deformities
+
+---
+
+# 🔻 Part 5: Foal Milestones ⭐
+
+| Milestone | Timing |
+|---|---|
+| **Stand** | 1-2 hours |
+| **Nurse** | <2 hours |
+| **Pass meconium** | <12h |
+| Urinate | Variable |
+
+---
 
 ## 📋 Exam Recap
-1. ⭐ Gestation 340 days
-2. ⭐ Stage 2 = 15-30 min (fast!)
-3. ⭐ Retained placenta = emergency
-4. ⭐ IgG <400 = failure (plasma needed)
-5. ⭐ Foal stand <2 hours, nurse <2 hours`,
+- ⭐⭐⭐ **Gestation 340 days**
+- ⭐⭐⭐ **Stage 2 = 15-30 min (FAST!)** — prolonged = emergency
+- ⭐⭐⭐ **Retained placenta = emergency** in mare
+- ⭐⭐⭐ **IgG <400 = failure** (plasma needed)
+- ⭐⭐ **Foal stand <2 hours, nurse <2 hours**
+- ⭐ **Twin reduction at 14-16 days** (manual)
+- ⭐ FPT + sepsis + meconium = top neonatal problems`,
   },
 
   // ─────────────────────────────────────────────────────────────

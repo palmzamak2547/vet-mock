@@ -37,7 +37,14 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
   // Build filtered pool of due cards (most overdue first — getDueCards already sorts)
   // Also track how many questions were excluded for transparency.
-  const { duePool, excludedCount, eligibleCount } = useMemo(() => {
+  //
+  // Split "true due" (already reviewed, time to see again) from "new"
+  // (never reviewed). Both go into the session pool — SR sessions need
+  // new cards to grow the deck — but the planning UI labels them
+  // separately so a fresh user doesn't see misleading "Due 1842 ใบ"
+  // when in reality every card is unseen. Mirrors the cardStats fix in
+  // sm2.js + HomeView SR mode-card (2026-05-16).
+  const { duePool, dueReviewedCount, newCount, excludedCount, eligibleCount } = useMemo(() => {
     const inSubject = subjectFilter === 'all'
       ? allQuestions
       : allQuestions.filter((q) => q.subject === subjectFilter);
@@ -51,8 +58,11 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       const card = srCards[q.id] || initCard(q.id);
       pool[q.id] = { ...card, subject: q.subject };
     });
+    const due = getDueCards(pool);
     return {
-      duePool: getDueCards(pool),
+      duePool: due,
+      dueReviewedCount: due.filter((c) => c.totalReviews > 0).length,
+      newCount: due.filter((c) => c.totalReviews === 0).length,
       excludedCount: inSubject.length - eligible.length,
       eligibleCount: eligible.length,
     };
@@ -141,16 +151,31 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </div>
           </div>
 
-          {/* Status */}
+          {/* Status — separate "Due" (reviewed before, time to revisit)
+              from "New" (unseen). Fresh user sees Due 0 + New 1842
+              instead of misleading "Due 1842". Both feed the session. */}
           <div style={{ marginTop: 8, padding: '14px 16px', borderRadius: 12, background: 'var(--clr-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-            <div>
-              <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Due ตอนนี้
+            <div style={{ display: 'flex', gap: 18 }}>
+              <div>
+                <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  Due ทบทวน
+                </div>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: dueReviewedCount > 100 ? 'var(--clr-rose)' : 'var(--clr-ink)' }}>
+                  {dueReviewedCount}
+                  <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 6 }}>ใบ</span>
+                </div>
               </div>
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: dueCount > 100 ? 'var(--clr-rose)' : 'var(--clr-ink)' }}>
-                {dueCount}
-                <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 8 }}>ใบ</span>
-              </div>
+              {newCount > 0 && (
+                <div>
+                  <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    ใหม่
+                  </div>
+                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-gold)' }}>
+                    {newCount}
+                    <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 6 }}>ใบ</span>
+                  </div>
+                </div>
+              )}
             </div>
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
@@ -162,12 +187,21 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </div>
           </div>
 
-          {dueCount > 100 && sessionSize !== 'all' && (
+          {dueReviewedCount > 100 && sessionSize !== 'all' && (
             <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold)', fontSize: 12, lineHeight: 1.6 }}>
-              💡 <strong>มี due {dueCount} ใบ — เยอะหน่อย</strong>
+              💡 <strong>มีใบค้างทบทวน {dueReviewedCount} ใบ — เยอะหน่อย</strong>
               <br />
               <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
                 Algorithm จะหยิบ "ใบที่ค้างนานสุด" มาก่อน, ทำ {sessionSize} วันนี้ + ทำต่อพรุ่งนี้ดีกว่ายัดทีเดียว, ทำต่อเนื่องสำคัญสุด
+              </span>
+            </div>
+          )}
+          {stats.total === 0 && newCount > 0 && (
+            <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)', fontSize: 12, lineHeight: 1.6 }}>
+              🌱 <strong>เริ่มจาก 0 — มี {newCount} ใบใหม่รอเปิด</strong>
+              <br />
+              <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+                ทำ {Math.min(sessionSize === 'all' ? 25 : sessionSize, 25)} ใบวันนี้ก่อน, พรุ่งนี้ค่อยกลับมา review ใบเดิม + เปิดใบใหม่อีก, ติดต่อกันทุกวันสำคัญสุด
               </span>
             </div>
           )}

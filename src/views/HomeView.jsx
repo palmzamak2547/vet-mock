@@ -931,15 +931,14 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               <div className="icon">🧠</div>
               <div className="title">Spaced Repetition</div>
               <div className="sub">
-                {/* Time estimate: SR is rapid — most users finish a card
-                    in ~15 sec. Old math was 1 min/card which made 1600+
-                    decks look like "1635 นาที" (27 hours) and panicked
-                    new users. New math: 4 cards/min, capped at 30 min
-                    so the suggestion always feels achievable. The full
-                    due count still shows so users see real scope. */}
+                {/* `cardStats.due` is now reviewed-only (sm2.js fix on
+                    2026-05-13) so fresh users see "0 ข้อค้าง" instead
+                    of the entire QB. SR is rapid — most users finish a
+                    card in ~15 sec, so 4 cards/min budget, suggestion
+                    capped at 30 min/day so users feel they can hit it. */}
                 {cardStats.due > 0
                   ? `${cardStats.due} ข้อค้างทบทวน · แนะนำวันละ ~${Math.min(30, Math.max(5, Math.ceil(cardStats.due / 4 / 5) * 5))} นาที`
-                  : 'ทบทวนแบบ Anki, ยังไม่มีข้อค้าง'}
+                  : 'ทบทวนแบบ Anki — ตอบผิด/ลังเลแล้วระบบจะนำมา review ในรอบถัดไป'}
               </div>
               {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
             </button>

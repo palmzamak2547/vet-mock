@@ -58,15 +58,23 @@ export function getDueCards(cards, limit = 0) {
   return limit && limit > 0 ? due.slice(0, limit) : due;
 }
 
-// Get cards due count breakdown
+// Get cards due count breakdown.
+//
+// "due" is intentionally restricted to cards the user has actually
+// reviewed at least once (totalReviews > 0). Unseen cards have
+// nextReview = Date.now() by default (see initCard), which would
+// otherwise inflate "due" by the entire question bank for a fresh
+// user (~1800 "due" cards on first visit — friend's review 2026-05-12
+// + Palm's friend's review 2026-05-13). Truly new cards go into the
+// `new` bucket; the home/coach surfaces choose what to surface.
 export function getCardStats(cards) {
   const now = Date.now();
   const tomorrow = now + MS_PER_DAY;
   const values = Object.values(cards);
   return {
     total: values.length,
-    due: values.filter((c) => c.nextReview <= now).length,
-    dueTomorrow: values.filter((c) => c.nextReview > now && c.nextReview <= tomorrow).length,
+    due: values.filter((c) => c.nextReview <= now && c.totalReviews > 0).length,
+    dueTomorrow: values.filter((c) => c.nextReview > now && c.nextReview <= tomorrow && c.totalReviews > 0).length,
     new: values.filter((c) => c.totalReviews === 0).length,
     mastered: values.filter((c) => c.repetitions >= 5 && c.interval >= 21).length,
   };

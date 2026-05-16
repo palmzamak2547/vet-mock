@@ -16,3 +16,7 @@ OVERNIGHT-SUMMARY.md
 
 # Local MCP config · contains secret PATs · per-machine
 .mcp.json
+
+# Transient agent artifacts (video-summary patches, DICOM scratch, etc.)
+# Apply scripts read from here; the JSON patches themselves don't ship.
+tmp/
