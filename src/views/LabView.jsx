@@ -150,6 +150,23 @@ export default function LabView({ goHome }) {
     setShowCases(false);
   }, []);
 
+  // Threaded into the viewer header to show "Source: ... License: ..."
+  // for any public case we display. Attribution is REQUIRED by CC-BY
+  // and CC-BY-SA so it's not optional polish — it's compliance.
+  const caseAttributionLine = (
+    currentCase?.attribution || currentCase?.license || currentCase?.source_url
+  ) ? (
+    <div style={attributionRowStyle}>
+      {currentCase?.license && <span>📜 <strong>{currentCase.license}</strong></span>}
+      {currentCase?.source_url && currentCase.source_url !== 'internal' && (
+        <span> · <a href={currentCase.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#3a5a8a' }}>source ↗</a></span>
+      )}
+      {currentCase?.attribution && (
+        <div style={{ marginTop: 3, fontSize: '0.7rem', color: '#777' }}>{currentCase.attribution}</div>
+      )}
+    </div>
+  ) : null;
+
   // One-click open of the most-recently-created public case. Skips
   // the Case Library list UI so first-time users go straight from
   // "I just opened /lab" → "I'm measuring on a real X-ray" in 1 tap.
@@ -386,6 +403,8 @@ export default function LabView({ goHome }) {
             </div>
           )}
 
+          {caseAttributionLine}
+
           {/* Single viewport or 2-up grid depending on file count */}
           <div style={files.length >= 2 ? studyGridStyle : undefined}>
             {files.map((f, idx) => (
@@ -550,6 +569,16 @@ const viewerHeaderStyle = {
   marginBottom: 12,
   gap: 8,
   flexWrap: 'wrap',
+};
+
+const attributionRowStyle = {
+  marginBottom: 12,
+  padding: '8px 12px',
+  background: '#f0f4f8',
+  border: '1px solid #d0dce8',
+  borderRadius: 6,
+  fontSize: '0.78rem',
+  color: '#456',
 };
 
 const historyCardStyle = {

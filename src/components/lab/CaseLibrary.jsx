@@ -25,7 +25,7 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
         const sb = await getSupabase();
         const { data, error: err } = await sb
           .from('imaging_cases')
-          .select('id, slug, title, species, signalment, history, body_part, learning_objectives, difficulty')
+          .select('id, slug, title, species, signalment, history, body_part, learning_objectives, difficulty, license, source_url, attribution, credibility')
           .eq('status', 'public')
           .order('created_at', { ascending: false });
         if (err) throw err;
@@ -145,18 +145,21 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
 function CaseCard({ caseData, onOpen, opening }) {
   return (
     <div style={cardStyle}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
-        <h3 style={{ margin: '0 0 4px', fontSize: '0.98rem' }}>{caseData.title}</h3>
-        {caseData.difficulty && (
-          <span style={{
-            fontSize: '0.68rem',
-            padding: '2px 6px',
-            background: difficultyColor(caseData.difficulty),
-            color: '#fff',
-            borderRadius: 3,
-            whiteSpace: 'nowrap',
-          }}>{caseData.difficulty}</span>
-        )}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 6, flexWrap: 'wrap' }}>
+        <h3 style={{ margin: '0 0 4px', fontSize: '0.95rem', flex: '1 1 60%', minWidth: 0 }}>{caseData.title}</h3>
+        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+          {caseData.difficulty && (
+            <span style={{ ...badgeBase, background: difficultyColor(caseData.difficulty) }}>{caseData.difficulty}</span>
+          )}
+          {caseData.credibility && (
+            <span
+              style={{ ...badgeBase, background: credibilityColor(caseData.credibility) }}
+              title={credibilityHint(caseData.credibility)}
+            >
+              {credibilityShort(caseData.credibility)}
+            </span>
+          )}
+        </div>
       </div>
       <p style={{ margin: '4px 0', fontSize: '0.78rem', color: '#666' }}>
         {[caseData.species, caseData.signalment, caseData.body_part].filter(Boolean).join(' · ')}
@@ -168,6 +171,14 @@ function CaseCard({ caseData, onOpen, opening }) {
         <ul style={{ margin: '6px 0 8px', paddingLeft: 18, fontSize: '0.75rem', color: '#666' }}>
           {caseData.learning_objectives.slice(0, 3).map((obj, i) => <li key={i}>{obj}</li>)}
         </ul>
+      )}
+      {(caseData.license || caseData.source_url) && (
+        <div style={licenseRowStyle}>
+          {caseData.license && <span title="License">📜 {caseData.license}</span>}
+          {caseData.source_url && caseData.source_url !== 'internal' && (
+            <> · <a href={caseData.source_url} target="_blank" rel="noopener noreferrer" style={sourceLinkStyle}>source ↗</a></>
+          )}
+        </div>
       )}
       <button
         onClick={onOpen}
@@ -185,6 +196,33 @@ function difficultyColor(d) {
   if (d === 'intro') return '#4a6b4a';
   if (d === 'advanced') return '#c0392b';
   return '#888';
+}
+
+function credibilityShort(c) {
+  if (c === 'peer-reviewed') return '🏛 peer-reviewed';
+  if (c === 'open-textbook') return '📖 open-textbook';
+  if (c === 'community') return '👥 community';
+  if (c === 'cuvet-internal') return '🐾 CUVET';
+  if (c === 'sample-demo') return '🧪 demo';
+  return c;
+}
+
+function credibilityColor(c) {
+  if (c === 'peer-reviewed') return '#3a5a8a';
+  if (c === 'open-textbook') return '#5a8a5a';
+  if (c === 'community') return '#8a7a3a';
+  if (c === 'cuvet-internal') return '#8a3a5a';
+  if (c === 'sample-demo') return '#888';
+  return '#999';
+}
+
+function credibilityHint(c) {
+  if (c === 'peer-reviewed') return 'จาก peer-reviewed publication หรือ academic dataset';
+  if (c === 'open-textbook') return 'จาก textbook ที่เปิด open license';
+  if (c === 'community') return 'จาก community contribution (เช่น Radiopaedia)';
+  if (c === 'cuvet-internal') return 'จาก CUVET hospital · anonymized + consent';
+  if (c === 'sample-demo') return 'Sample DICOM สำหรับทดลอง viewer · ไม่ใช่ clinical case';
+  return '';
 }
 
 // Skeleton-pulse keyframes for Case Library loading state — injected once
@@ -222,4 +260,31 @@ const cardStyle = {
   borderRadius: 8,
   padding: 14,
   background: '#fff',
+};
+
+const badgeBase = {
+  fontSize: '0.65rem',
+  padding: '2px 6px',
+  color: '#fff',
+  borderRadius: 3,
+  whiteSpace: 'nowrap',
+  fontWeight: 600,
+};
+
+const licenseRowStyle = {
+  margin: '6px 0',
+  padding: '6px 8px',
+  background: '#f8f8f8',
+  borderRadius: 4,
+  fontSize: '0.7rem',
+  color: '#666',
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+  gap: 4,
+};
+
+const sourceLinkStyle = {
+  color: '#3a5a8a',
+  textDecoration: 'underline',
 };
