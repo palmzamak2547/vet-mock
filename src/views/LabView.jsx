@@ -37,6 +37,11 @@ export default function LabView({ goHome }) {
   const [syncEnabled, setSyncEnabled] = useState(false);
   const [demoLoading, setDemoLoading] = useState(false);
   const [demoError, setDemoError] = useState(null);
+  // Public cases for the demo CTA. Fetched once on mount so the CTA's
+  // label matches what would actually open — was previously hard-coded
+  // "น้องคอฟฟี่" but the underlying query used createdAt DESC so it
+  // would open whichever case was newest. Now: label === action target.
+  const [demoCases, setDemoCases] = useState([]);
 
   useEffect(() => {
     try {
@@ -48,6 +53,29 @@ export default function LabView({ goHome }) {
       const seen = localStorage.getItem('vmx-lab-onboarded');
       if (!seen) setShowOnboarding(true);
     } catch { /* ignore */ }
+
+    // Fetch public cases ONCE on mount so the demo CTA label is in
+    // sync with the actual data — sorts oldest-first (ASC) so the
+    // "founding" CUVET case stays as the demo and new cases get
+    // discovered through Browse instead.
+    (async () => {
+      try {
+        const { hasSupabase, getSupabase } = await import('../lib/supabase.js');
+        if (!hasSupabase) return;
+        const sb = await getSupabase();
+        const { data, error } = await sb
+          .from('imaging_cases')
+          .select('id, slug, title, species, signalment, history, body_part, learning_objectives, difficulty, license, source_url, attribution, credibility')
+          .eq('status', 'public')
+          .order('created_at', { ascending: true });
+        if (error) {
+          // Pre-migration or RLS issue — silently skip; CTA falls back
+          // to disabled / fetch-on-click failure message.
+          return;
+        }
+        if (data) setDemoCases(data);
+      } catch { /* network/Supabase down — CTA still works via on-click fetch */ }
+    })();
   }, []);
 
   const dismissOnboarding = useCallback(() => {
@@ -167,29 +195,20 @@ export default function LabView({ goHome }) {
     </div>
   ) : null;
 
-  // One-click open of the most-recently-created public case. Skips
-  // the Case Library list UI so first-time users go straight from
-  // "I just opened /lab" → "I'm measuring on a real X-ray" in 1 tap.
+  // Open the EXACT case shown in the demo CTA's label. The button
+  // disables itself if demoCases is empty so this should never be
+  // called without a target — but we guard anyway.
   const tryDemo = useCallback(async () => {
+    if (demoCases.length === 0) {
+      setDemoError('ยังไม่มี public case');
+      return;
+    }
     setDemoLoading(true);
     setDemoError(null);
     try {
-      const { hasSupabase, getSupabase } = await import('../lib/supabase.js');
-      if (!hasSupabase) throw new Error('Supabase ยังไม่ตั้งค่า');
+      const { getSupabase } = await import('../lib/supabase.js');
       const sb = await getSupabase();
-      const { data: cases, error: cErr } = await sb
-        .from('imaging_cases')
-        .select('id, slug, title, species, signalment, history, body_part, learning_objectives, difficulty')
-        .eq('status', 'public')
-        .order('created_at', { ascending: false })
-        .limit(1);
-      if (cErr) {
-        const msg = cErr.message || String(cErr);
-        if (/schema cache|imaging_cases|does not exist/i.test(msg)) throw new Error('Migration ยังไม่ apply');
-        throw cErr;
-      }
-      if (!cases || cases.length === 0) throw new Error('ยังไม่มี public case');
-      const c = cases[0];
+      const c = demoCases[0];  // same as displayed in CTA
       const { data: caseFiles, error: fErr } = await sb
         .from('imaging_case_files')
         .select('id, view_name, storage_path')
@@ -213,7 +232,7 @@ export default function LabView({ goHome }) {
     } finally {
       setDemoLoading(false);
     }
-  }, [handleOpenCase]);
+  }, [demoCases, handleOpenCase]);
 
   const subView = files.length > 0 ? 'viewer' : (showCases ? 'cases' : 'home');
   const firstFile = files[0];  // for header label
@@ -257,11 +276,33 @@ export default function LabView({ goHome }) {
           <div style={demoCtaWrapStyle}>
             <button
               onClick={tryDemo}
-              disabled={demoLoading}
-              style={demoCtaBtnStyle}
-              title="โหลด demo case (น้องคอฟฟี่) 2-up viewer ทันที"
+              disabled={demoLoading || demoCases.length === 0}
+              style={{
+                ...demoCtaBtnStyle,
+                opacity: demoCases.length === 0 ? 0.5 : 1,
+                cursor: demoCases.length === 0 ? 'not-allowed' : 'pointer',
+              }}
+              title={
+                demoCases.length === 0
+                  ? 'ยังไม่มี public case · ลาก DICOM ของตัวเองด้านล่างแทน'
+                  : `เปิด: ${demoCases[0].title}`
+              }
             >
-              {demoLoading ? '⏳ กำลังโหลด demo case...' : '▶️ ลอง demo case ทันที (น้องคอฟฟี่ · 2-view X-ray)'}
+              {demoLoading
+                ? '⏳ กำลังโหลด...'
+                : demoCases.length === 0
+                  ? '⚠️ ยังไม่มี public case (ลาก DICOM ของตัวเองแทน)'
+                  : (
+                    <>
+                      ▶️ ลอง demo: <strong>{demoCases[0].title}</strong>
+                      {demoCases.length > 1 && (
+                        <span style={{ fontWeight: 400, fontSize: '0.85em', opacity: 0.85 }}>
+                          {' '}· (case แรกจาก {demoCases.length} cases · กด 📚 Browse ดูทั้งหมด)
+                        </span>
+                      )}
+                    </>
+                  )
+              }
             </button>
             {demoError && (
               <p style={{ color: '#c00', fontSize: '0.82rem', margin: '8px 0 0', textAlign: 'center' }}>
@@ -276,7 +317,7 @@ export default function LabView({ goHome }) {
               onClick={() => setShowCases(true)}
               style={{ flex: 1 }}
             >
-              📚 Browse case library
+              📚 Browse case library{demoCases.length > 0 ? ` (${demoCases.length})` : ''}
             </button>
             <span style={{ color: '#aaa', fontSize: '0.8rem', alignSelf: 'center' }}>หรือ</span>
             <span style={{ color: '#666', fontSize: '0.85rem', alignSelf: 'center' }}>
