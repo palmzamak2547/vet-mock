@@ -49,6 +49,7 @@
 
 import { thaiPhoneticTranslit } from './tts-phonetic.js';
 import { speakViaEdge, stopAllEdgeAudio, stopControllerEdge } from './tts-edge.js';
+import { speakViaIApp, isIAppAvailable, markIAppUnavailable } from './tts-iapp.js';
 
 const THAI_RE = /[฀-๿]/;
 const ENG_RE = /[A-Za-z]/;
@@ -467,36 +468,66 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
       : `Option ${String.fromCharCode(65 + i)}. ${opt}.`);
   }
 
-  // ── Try Edge TTS first (neural quality on EVERY platform) ────
-  // Bypass when 'standard' tier voices give us free neural elsewhere
-  // (Apple iOS/macOS premium / Edge browser online voices) since local
-  // playback is faster + offline. Edge proxy only kicks in when the
-  // local voice is SAPI-tier robotic.
+  // ── Provider ladder: iApp (Thai-native) → Edge (multilingual neural)
+  //    → Web Speech (last-resort SAPI/built-in).
+  //
+  // Bypass cloud entirely when 'premium' tier local voices exist (Apple
+  // iOS premium / Edge browser online voices) — they're free, offline,
+  // and already neural. We only escalate to cloud when the local voice
+  // is SAPI-tier robotic.
+  //
+  // iApp is preferred when speaking Thai because it was trained natively
+  // on Thai and preserves tone marks + Thai-English code-switch better
+  // than Microsoft's multilingual Premwadee. For English-dominant text
+  // we go straight to Edge (Aria) since iApp's English isn't its strength.
   const chosenVoice = pickVoice(voices, qLang);
   const tier = voiceTier(chosenVoice);
-  const useEdge = tier === 'standard' || !chosenVoice;
+  const useCloud = tier === 'standard' || !chosenVoice;
 
-  let edgeFallback = false;
-  if (useEdge) {
-    try {
-      for (let i = 0; i < sentences.length; i++) {
-        if (controller?.cancelled) { stopControllerEdge(controller); break; }
-        await speakViaEdge({ text: sentences[i], lang: qLang, rate: 1.0, controller });
-        if (controller?.cancelled) break;
-        // Inter-segment pause — Edge audio has no built-in gap between calls
-        const isStem = i === 0 && stem && stem.trim();
-        const isLast = i === sentences.length - 1;
-        await pause(isStem ? P.afterStem : (isLast ? P.afterLast : P.betweenOpts));
+  let cloudFailed = false;
+  if (useCloud) {
+    // Order: iApp first iff text is Thai-dominant AND provider is
+    // marked available for this session. After a 503 (no API key set
+    // in Vercel env) we flip the flag and skip iApp for the rest of
+    // the session — keeps the per-utterance latency from doubling on
+    // every Q for a misconfigured deploy.
+    const providers = [];
+    if (qLang === 'th' && isIAppAvailable()) providers.push('iapp');
+    providers.push('edge');
+
+    let played = false;
+    for (const provider of providers) {
+      if (played) break;
+      try {
+        for (let i = 0; i < sentences.length; i++) {
+          if (controller?.cancelled) { stopControllerEdge(controller); break; }
+          if (provider === 'iapp') {
+            await speakViaIApp({ text: sentences[i], lang: qLang, controller });
+          } else {
+            await speakViaEdge({ text: sentences[i], lang: qLang, rate: 1.0, controller });
+          }
+          if (controller?.cancelled) break;
+          // Inter-segment pause — cloud audio has no built-in gap between calls
+          const isStem = i === 0 && stem && stem.trim();
+          const isLast = i === sentences.length - 1;
+          await pause(isStem ? P.afterStem : (isLast ? P.afterLast : P.betweenOpts));
+        }
+        played = true;
+        onEnd?.();
+        return;
+      } catch (err) {
+        // Provider failed — clear half-played audio + try next provider
+        // (or fall through to Web Speech if this was the last one).
+        console.warn(`[tts] ${provider} provider failed:`, err?.message);
+        stopControllerEdge(controller);
+        stopAllEdgeAudio();
+        // If iApp said 503 it has already self-marked unavailable;
+        // belt+suspenders mark here too so a buggy server response that
+        // doesn't 503 cleanly still pulls iApp out of the rotation.
+        if (provider === 'iapp') markIAppUnavailable();
       }
-      onEnd?.();
-      return;
-    } catch (err) {
-      // Edge failed — clear any half-played audio + fall back to Web Speech
-      console.warn('[tts] edge proxy failed, falling back to Web Speech:', err?.message);
-      stopControllerEdge(controller);
-      stopAllEdgeAudio();
-      edgeFallback = true;
     }
+    if (!played) cloudFailed = true;
   }
 
   // ── Web Speech fallback / direct path ────────────────────────
@@ -516,9 +547,9 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
   } finally {
     onEnd?.();
   }
-  // edgeFallback is set when we deliberately fell through; keeps lint
+  // cloudFailed is set when we deliberately fell through; keeps lint
   // happy and could surface a UI hint later if desired.
-  void edgeFallback;
+  void cloudFailed;
 }
 
 export function cancelSpeech() {
