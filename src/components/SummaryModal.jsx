@@ -12,6 +12,7 @@
 // dependency, summary content เราเขียนเองทั้งหมด ไม่ห่วง XSS
 
 import { useMemo, useEffect } from 'react';
+import PinButton from './PinButton.jsx';
 
 // ─────────────────────────────────────────────────────────────
 // Mini markdown → HTML renderer
@@ -212,6 +213,13 @@ export default function SummaryModal({ summary, onClose }) {
               {summary.instructor && <>, {summary.instructor}</>}
             </div>
           </div>
+          <PinButton
+            type="summary"
+            payload={{ videoId: summary.videoId, title: summary.title, subject: summary.subject, instructor: summary.instructor, date: summary.date }}
+            label={summary.title}
+            compact
+            style={{ flexShrink: 0 }}
+          />
           <button
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={downloadMd}

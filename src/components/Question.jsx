@@ -8,6 +8,7 @@ import VoiceInputButton from './VoiceInputButton.jsx';
 import { speakQuestion, prefetchQuestion, cancelSpeech } from '../lib/tts.js';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
+import PinButton from './PinButton.jsx';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
 // markers and HTML entities sound weird as speech.
@@ -367,6 +368,17 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       >
         {flagState ? '🚩' : '🏳️'}
       </button>
+      {/* Pin → adds this Q to the personal Pinboard so the user can
+          revisit it across the app via 📌 Pinboard view / command
+          palette. Aligned with the existing button chain (top:20 right
+          offsets +44 each). */}
+      <PinButton
+        type="question"
+        payload={{ subject: currentQ?.subject, id: currentQ?.id, stem: (currentQ?.q || '').slice(0, 80) }}
+        label={(currentQ?.q || '').slice(0, 60)}
+        compact
+        style={{ position: 'absolute', top: 20, right: 196, width: 36, height: 36, minWidth: 36, minHeight: 36, borderRadius: '50%' }}
+      />
 
       <div className="vmx-qtype-badge">
         {currentQ.type === 'mcq' && 'Multiple Choice'}

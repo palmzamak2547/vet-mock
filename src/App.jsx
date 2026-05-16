@@ -60,6 +60,10 @@ const ImageAnnotator = lazy(() => import('./components/ImageAnnotator.jsx'));
 // pulls Cornerstone3D into its own chunk only when a user opens it.
 const LabView = lazy(() => import('./views/LabView.jsx'));
 
+// PinboardView — personal pin grid (Qs / summaries / flashcards /
+// notes). Lazy because most sessions never open it.
+const PinboardView = lazy(() => import('./views/PinboardView.jsx'));
+
 // HighlightToCard — listens for text selections inside
 // .vmx-summary-body (SummaryModal content) and offers a floating
 // "✨ ทำ flashcard" button that opens a save modal. Lazy because
@@ -1350,6 +1354,7 @@ export default function App() {
               {view === 'race' && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={goHome} />}
               {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
+              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode }} />}
             </Suspense>
             </ErrorBoundary>
           )}

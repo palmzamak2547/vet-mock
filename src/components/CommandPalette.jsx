@@ -128,6 +128,7 @@ function buildStaticItems() {
     { key: 'videos',            label: 'คลิปย้อนหลัง',              hint: 'Videos',                          icon: '🎬',  kw: 'video clip คลิป ย้อนหลัง summary' },
     { key: 'reading-checklist', label: 'Reading Checklist',        hint: 'Checklist',                       icon: '📖',  kw: 'reading checklist อ่าน หัวข้อ' },
     { key: 'bookmarks',         label: 'Bookmarks',                hint: 'Saved questions',                 icon: '⭐',  kw: 'bookmark saved star ⭐ ข้อ' },
+    { key: 'pinboard',          label: 'Pinboard',                 hint: 'รายการ pin',                       icon: '📌',  kw: 'pinboard pin หมุด รวบรวม board collect saved' },
     { key: 'question-manager',  label: 'Question Manager',         hint: 'Custom Q',                        icon: '✏️',  kw: 'manage edit custom question จัดการ' },
     { key: 'sr-session',        label: 'Spaced Repetition',        hint: 'SR review',                       icon: '🧠',  kw: 'sr spaced repetition review flashcard ทบทวน' },
     { key: 'scores',            label: 'คะแนนล่าสุด',                hint: 'Scores',                          icon: '🏆',  kw: 'score คะแนน history ประวัติ' },
