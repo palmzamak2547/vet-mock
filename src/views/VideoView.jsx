@@ -6,6 +6,36 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 import { copyText } from '../lib/clipboard.js';
 import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
+import VideoNotePanel from '../components/VideoNotePanel.jsx';
+
+// ── YouTube IFrame API loader ─────────────────────────────────────
+// Loads https://www.youtube.com/iframe_api once per page-load and
+// resolves when window.YT is ready. Multiple player instances share
+// the same script + the same readiness promise.
+let __ytApiPromise = null;
+function loadYouTubeIframeAPI() {
+  if (typeof window === 'undefined') return Promise.reject(new Error('no window'));
+  if (window.YT && typeof window.YT.Player === 'function') return Promise.resolve(window.YT);
+  if (__ytApiPromise) return __ytApiPromise;
+  __ytApiPromise = new Promise((resolve, reject) => {
+    // Preserve any previously installed callback (shouldn't be any in this app,
+    // but the API insists on a single global hook).
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      if (typeof prev === 'function') { try { prev(); } catch {} }
+      resolve(window.YT);
+    };
+    const existing = document.querySelector('script[data-vmx-yt-api]');
+    if (existing) return; // someone else queued it; we'll get the callback
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    tag.async = true;
+    tag.dataset.vmxYtApi = '1';
+    tag.onerror = () => reject(new Error('failed to load YT iframe API'));
+    document.head.appendChild(tag);
+  });
+  return __ytApiPromise;
+}
 
 // ── Playlist preview cache (first video thumbnail + count) ──────────
 // Single in-memory map shared across cards so 6 cards in the grid don't
@@ -509,6 +539,81 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
     embedUrl = `https://www.youtube.com/embed/videoseries?list=${playlistId}&rel=0&modestbranding=1`;
   }
 
+  // ── YT.Player wrapper (replaces raw <iframe>) ───────────────────
+  // Owned here so VideoNotePanel can read currentTime + seek via ref.
+  const ytContainerRef = useRef(null);
+  const playerRef = useRef(null);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  // Mount one YT.Player per (currentVideoId, playlistId) tuple. Recreating
+  // the player on video change is simpler than juggling loadVideoById() —
+  // and it matches the previous iframe behavior (full reload on switch).
+  useEffect(() => {
+    if (!currentVideoId) return undefined;
+    const container = ytContainerRef.current;
+    if (!container) return undefined;
+
+    let cancelled = false;
+    let player = null;
+
+    loadYouTubeIframeAPI().then((YT) => {
+      if (cancelled || !ytContainerRef.current) return;
+      try {
+        // YT.Player replaces the target node with its own iframe. We render
+        // a fresh inner <div> each time (keyed below) so this is safe.
+        player = new YT.Player(ytContainerRef.current, {
+          videoId: currentVideoId,
+          playerVars: {
+            autoplay: 1,
+            rel: 0,
+            modestbranding: 1,
+            playsinline: 1,
+            ...(playlistId ? { list: playlistId } : {}),
+          },
+        });
+        playerRef.current = player;
+      } catch (err) {
+        console.warn('YT.Player init failed:', err?.message);
+      }
+    }).catch((err) => {
+      console.warn('YT iframe API load failed:', err?.message);
+    });
+
+    return () => {
+      cancelled = true;
+      try { player?.destroy?.(); } catch {}
+      try { playerRef.current?.destroy?.(); } catch {}
+      playerRef.current = null;
+    };
+  }, [currentVideoId, playlistId]);
+
+  // Poll currentTime every 500ms while the tab is visible. Pauses when
+  // the document is hidden to save battery on mobile.
+  useEffect(() => {
+    if (!currentVideoId) return undefined;
+    let id = null;
+    const start = () => {
+      if (id != null) return;
+      id = window.setInterval(() => {
+        try {
+          const p = playerRef.current;
+          if (p && typeof p.getCurrentTime === 'function') {
+            const t = p.getCurrentTime();
+            if (typeof t === 'number' && !Number.isNaN(t)) setCurrentTime(t);
+          }
+        } catch {}
+      }, 500);
+    };
+    const stop = () => { if (id != null) { clearInterval(id); id = null; } };
+    const onVis = () => { if (document.hidden) stop(); else start(); };
+    if (!document.hidden) start();
+    document.addEventListener('visibilitychange', onVis);
+    return () => {
+      stop();
+      document.removeEventListener('visibilitychange', onVis);
+    };
+  }, [currentVideoId]);
+
   const currentItem = playlistItems[currentIdx];
   const currentSummary = currentVideoId ? VIDEO_SUMMARIES[currentVideoId] : null;
 
@@ -560,13 +665,28 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           <div style={{ padding: 18, paddingRight: showList && playlistItems.length > 0 ? 12 : 18 }}>
             {embedUrl ? (
               <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: 12, overflow: 'hidden', background: '#000', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}>
-                <iframe
-                  src={embedUrl}
-                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  title={video.topic}
-                />
+                {currentVideoId ? (
+                  // YT.Player replaces this node with its own iframe — key by
+                  // (videoId, playlistId) so React unmounts/remounts when the
+                  // tuple changes, giving us a clean slate every time.
+                  <div
+                    key={`yt-${currentVideoId}-${playlistId || 'solo'}`}
+                    ref={ytContainerRef}
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    title={video.topic}
+                  />
+                ) : (
+                  // Playlist-only embed (no specific video chosen yet) —
+                  // fall back to the videoseries iframe; the API wrapper
+                  // only kicks in once we have a concrete videoId.
+                  <iframe
+                    src={embedUrl}
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title={video.topic}
+                  />
+                )}
               </div>
             ) : isChannel ? (
               <div style={{ padding: 30, background: 'var(--clr-surface-2)', borderRadius: 12, textAlign: 'center' }}>
@@ -605,6 +725,15 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage)', marginLeft: 4, textDecoration: 'underline' }}>เปิดใน YouTube →</a>
                 </span>
               </div>
+            )}
+
+            {/* Audio-synced notes — only when we have a concrete video id */}
+            {currentVideoId && (
+              <VideoNotePanel
+                videoId={currentVideoId}
+                playerRef={playerRef}
+                currentTime={currentTime}
+              />
             )}
 
             {/* Footer actions */}
