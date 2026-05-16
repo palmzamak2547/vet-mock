@@ -731,11 +731,26 @@ export default function App() {
     return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, overallPct };
   }, [history, allQuestions]);
 
-  const startExam = () => {
+  // startExam accepts an optional `overrides` object so a caller (like the
+  // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state
+  // batching. Without overrides, the function reads from current React
+  // state — preserves the original ConfigView "click เริ่มฝึก" flow.
+  // Use `'key' in overrides` so callers can explicitly pass null (e.g.,
+  // topic: null means "no topic filter"); `??` would default null back
+  // to the state value.
+  const startExam = (overrides = {}) => {
+    const _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
+    const _subject = 'subject' in overrides ? overrides.subject : subject;
+    const _topic = 'topic' in overrides ? overrides.topic : topic;
+    const _questionCategory = 'questionCategory' in overrides ? overrides.questionCategory : questionCategory;
+    const _numQuestions = 'numQuestions' in overrides ? overrides.numQuestions : numQuestions;
+    const _useTimer = 'useTimer' in overrides ? overrides.useTimer : useTimer;
+    const _timePerQ = 'timePerQ' in overrides ? overrides.timePerQ : timePerQ;
+
     let pool;
-    if (practiceMode === 'bookmarks') pool = allQuestions.filter((q) => bookmarks.includes(q.id));
-    else if (practiceMode === 'weak') pool = allQuestions.filter((q) => analytics?.weakQuestions.includes(q.id));
-    else if (practiceMode === 'wrong') {
+    if (_practiceMode === 'bookmarks') pool = allQuestions.filter((q) => bookmarks.includes(q.id));
+    else if (_practiceMode === 'weak') pool = allQuestions.filter((q) => analytics?.weakQuestions.includes(q.id));
+    else if (_practiceMode === 'wrong') {
       // Cross-subject "review wrong" — uses history with compound (subject:id)
       // keying so dupe IDs across subjects don't leak. Pool is everything the
       // user has answered incorrectly at least once. No grading ratio threshold.
@@ -746,15 +761,15 @@ export default function App() {
       pool = allQuestions.filter((q) => wrongSet.has(q.subject + ':' + q.id));
     }
     else {
-      pool = subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === subject);
-      if (topic) {
+      pool = _subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === _subject);
+      if (_topic) {
         // Collection IDs (prefix `_<name>-all`) bundle multiple topics by
         // a shared topic prefix — used for "รวมหมาหอน" / "รวม Term Paper"
         // in repro-lect. Resolved here before exact-match filtering.
-        if (topic.startsWith('_') && topic.endsWith('-all')) {
-          const collectionId = topic.slice(1, -4); // '_mahahon-all' -> 'mahahon'
-          const subj = SUBJECTS.find((s) => s.id === subject);
-          const coll = subj?.collections?.find((c) => c.id === topic);
+        if (_topic.startsWith('_') && _topic.endsWith('-all')) {
+          const collectionId = _topic.slice(1, -4); // '_mahahon-all' -> 'mahahon'
+          const subj = SUBJECTS.find((s) => s.id === _subject);
+          const coll = subj?.collections?.find((c) => c.id === _topic);
           if (coll?.topicPrefix) {
             pool = pool.filter((q) => q.topic?.startsWith(coll.topicPrefix));
           } else {
@@ -763,12 +778,12 @@ export default function App() {
         } else {
           // Specific topic chosen — show all Qs of that topic (incl. hidden topics
           // are reachable only via direct deep link, never auto-suggested).
-          pool = pool.filter((q) => q.topic === topic);
+          pool = pool.filter((q) => q.topic === _topic);
         }
-      } else if (subject !== 'all') {
+      } else if (_subject !== 'all') {
         // "ทำรวม" mode for one subject: exclude hidden-topic Qs (uncertain-scope,
         // midterm leftovers, etc.) so users get only Final-scope content.
-        const hidden = hiddenTopicIdsFor(subject);
+        const hidden = hiddenTopicIdsFor(_subject);
         if (hidden.size) pool = pool.filter((q) => !hidden.has(q.topic));
       } else {
         // subject === 'all': filter hidden across every subject.
@@ -780,18 +795,18 @@ export default function App() {
     }
 
     // Apply question-category filter so users can split MCQ vs Writing
-    if (questionCategory === 'mcq') pool = pool.filter((q) => catOf(q) === 'mcq');
-    else if (questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
+    if (_questionCategory === 'mcq') pool = pool.filter((q) => catOf(q) === 'mcq');
+    else if (_questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
 
     if (!pool.length) {
-      alert(questionCategory === 'writing'
+      alert(_questionCategory === 'writing'
         ? 'ยังไม่มีข้อ Writing ในหมวดนี้ — ลองเปลี่ยนเป็น MCQ หรือ "ทุกประเภท"'
         : 'ไม่มีข้อสอบในหมวดนี้');
       return;
     }
 
-    const qCount = Math.max(1, numQuestions);
-    const baseTime = useTimer ? Math.max(5, timePerQ) : 0;
+    const qCount = Math.max(1, _numQuestions);
+    const baseTime = _useTimer ? Math.max(5, _timePerQ) : 0;
 
     let picked = shuffle(pool).slice(0, Math.min(qCount, pool.length));
     // Mock-tagged questions (examOrigin set) belong to a structured
@@ -1198,7 +1213,7 @@ export default function App() {
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill, buddies }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill, buddies }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}

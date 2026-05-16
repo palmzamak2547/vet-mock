@@ -36,7 +36,7 @@ const PHASE_LABELS = {
   '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2, icon: '🏁' },
 };
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {} }) {
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {} }) {
   // Year context — determines hero copy + reading checklist scope.
   // Only Y4 has actual exam schedule entries today; for scaffold years
   // we hide the countdown banner since `getNextExam('y5')` returns null.
@@ -169,19 +169,38 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     return { streak, todayCount, wrongCount: wrongIds.length, wrongIds };
   }, [history]);
 
-  // Quick action: random 1 Q from full QB. Sets up a 1-question exam
-  // and routes straight into ExamView via 'config' → which we shortcut
-  // by setting numQuestions=1 and mode='quick'.
+  // Quick action: random 1 Q from full QB. Goes STRAIGHT into ExamView
+  // via startExam({overrides}) — bypasses ConfigView so the user gets
+  // the question in 1 click instead of 2. Bug fixed 2026-05-16: was
+  // routing to 'config' with setSubject(null), which made startExam see
+  // subject=null → pool filter `q.subject === null` returned empty →
+  // "ไม่มีข้อสอบในหมวดนี้" alert. Now uses startExam overrides so
+  // there's no async state-batching gap.
   const allQuestionsPool = QB.length + (customQuestions?.length || 0);
   const launchRandomQ = () => {
     if (allQuestionsPool === 0) return;
+    // We do BOTH: setState to update React state for downstream effects
+    // (the timer useEffect in App.jsx reads useTimer from state — if we
+    // don't setUseTimer(false), it sees the default `true` and auto-fires
+    // finishExam on a 1-Q exam with timeLeft=0 → user lands on results
+    // 0/1 without ever seeing the question). Plus overrides to startExam
+    // so its pool/time calc doesn't race React's async state batching.
     if (setMode) setMode('quick');
-    if (setNumQuestions) setNumQuestions(1);
-    if (setUseTimer) setUseTimer(false);
-    if (setSubject) setSubject(null);
+    if (setSubject) setSubject('all');
     if (setTopic) setTopic(null);
     if (setPracticeMode) setPracticeMode('all');
-    setView('config');
+    if (setNumQuestions) setNumQuestions(1);
+    if (setUseTimer) setUseTimer(false);
+    if (startExam) {
+      startExam({
+        practiceMode: 'all',
+        subject: 'all',
+        topic: null,
+        questionCategory: 'all',
+        numQuestions: 1,
+        useTimer: false,
+      });
+    }
   };
 
   // Subject accuracy in the last 90 days — used by NextActionCard
