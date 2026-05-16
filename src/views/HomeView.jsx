@@ -98,6 +98,24 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // permanently because user.email_confirmed_at flips truthy.
   const [verifyDismissed, setVerifyDismissed] = useState(false);
 
+  // Streak-freeze toast: when updateStreak in App.jsx consumes the
+  // one-time freeze (user missed a day but kept streak ≥5), it fires
+  // a 'vmx-streak-freeze-used' window event with the new streak as
+  // detail. We surface a small banner so the user understands why
+  // their streak survived — without it the save is silent and the
+  // user might assume the streak system is broken.
+  const [freezeNotice, setFreezeNotice] = useState(null);
+  useEffect(() => {
+    const onFreeze = (e) => {
+      setFreezeNotice({ streak: e.detail || 0, ts: Date.now() });
+      // Auto-dismiss after 12s. Persistent enough to read but doesn't
+      // linger across views.
+      setTimeout(() => setFreezeNotice(null), 12_000);
+    };
+    window.addEventListener('vmx-streak-freeze-used', onFreeze);
+    return () => window.removeEventListener('vmx-streak-freeze-used', onFreeze);
+  }, []);
+
   // (Removed dedicated IG banner from HomeView — Palm flagged the
   // home page had too many announcements. IG launch already lives in:
   //   1. Footer (every page)
@@ -586,6 +604,27 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           marginBottom: 18,
           alignItems: 'center',
         }}>
+          {freezeNotice && (
+            <div
+              className="vmx-pop-in"
+              role="status"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 14px',
+                borderRadius: 999,
+                background: 'rgba(74, 107, 74, 0.12)',
+                border: '1px solid var(--clr-sage)',
+                fontSize: 13,
+                fontFamily: 'JetBrains Mono, monospace',
+                color: 'var(--clr-sage)',
+              }}
+              title="ระบบใช้ Streak Freeze 1 ครั้ง — streak ของคุณรอด"
+            >
+              ❄️ Streak Freeze ใช้แล้ว · streak {freezeNotice.streak} วันรอด
+            </div>
+          )}
           {quickStats.streak > 0 && (
             <div
               className={quickStats.streak >= 3 ? 'vmx-streak-active vmx-pop-in' : 'vmx-pop-in'}
