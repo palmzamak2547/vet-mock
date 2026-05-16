@@ -22,6 +22,24 @@
 const STORAGE_KEY = 'vmx-user-flashcards';
 const ID_START = 70000;
 
+// Belt-and-suspenders: notify the ⌘K palette that its static index
+// is now stale (user just added/removed a flashcard). Two channels:
+//   1. Window event 'vmx-palette-invalidate' — any listener (the
+//      palette module installs one) clears its module-level cache.
+//   2. Direct ESM import of `invalidateCommandPaletteCache` — works
+//      even if the listener is somehow missed (e.g. palette chunk
+//      not yet loaded in this tab).
+// Failure of either path is silent: stale index is a UX glitch, not
+// a data-loss event, so we never let it crash the save.
+function notifyPaletteInvalidate() {
+  if (typeof window === 'undefined') return;
+  try {
+    window.dispatchEvent(new Event('vmx-palette-invalidate'));
+  } catch {
+    /* no-op */
+  }
+}
+
 function safeParse(raw) {
   if (!raw) return [];
   try {
@@ -90,6 +108,15 @@ export function saveUserFlashcard({ front, back, subject = null, source = null }
   const list = readRaw();
   list.push(card);
   writeRaw(list);
+  // ⌘K palette caches the static index at module scope; bust it now
+  // so the new card shows up in the next search session.
+  notifyPaletteInvalidate();
+  // Direct module poke (works even if the palette chunk hasn't
+  // attached its window listener yet). Dynamic import keeps this
+  // module free of a circular static dep on the palette.
+  import('../components/CommandPalette.jsx')
+    .then((m) => m?.invalidateCommandPaletteCache?.())
+    .catch(() => { /* palette chunk not loaded yet — fine */ });
   return card;
 }
 
@@ -97,5 +124,11 @@ export function saveUserFlashcard({ front, back, subject = null, source = null }
 export function deleteUserFlashcard(id) {
   const list = readRaw();
   const next = list.filter((c) => c.id !== id);
-  if (next.length !== list.length) writeRaw(next);
+  if (next.length !== list.length) {
+    writeRaw(next);
+    notifyPaletteInvalidate();
+    import('../components/CommandPalette.jsx')
+      .then((m) => m?.invalidateCommandPaletteCache?.())
+      .catch(() => { /* no-op */ });
+  }
 }

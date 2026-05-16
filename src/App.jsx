@@ -222,6 +222,10 @@ const FacultyView = lazy(() => import('./views/FacultyView.jsx'));
 const AccountSettingsView = lazy(() => import('./views/AccountSettingsView.jsx'));
 const OfflineGameView = lazy(() => import('./views/OfflineGameView.jsx'));
 const RaceView = lazy(() => import('./views/RaceView.jsx'));
+// PdfAnnotateView — lazy because pdfjs-dist is heavy (~1 MB) and only
+// needed when the user opens "PDF + annotate" from the command palette.
+// Worker chunk is dynamically imported inside the view itself.
+const PdfAnnotateView = lazy(() => import('./views/PdfAnnotateView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 
@@ -1345,6 +1349,7 @@ export default function App() {
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
               {view === 'race' && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={goHome} />}
+              {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
             </Suspense>
             </ErrorBoundary>
           )}

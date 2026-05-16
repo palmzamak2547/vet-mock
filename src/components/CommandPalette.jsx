@@ -27,6 +27,15 @@ import { ALL_INSTRUCTORS } from '../data/instructors.js';
 // Only the first 80 chars of q.q are added to the keyword string to keep
 // fuzzy-filter cost bounded (~1999 Qs × short stem = manageable).
 import { QB } from '../data/questions.js';
+// User-authored flashcards (Highlight → Flashcard feature). Same
+// module that owns the localStorage key, so we don't re-parse here.
+import { loadUserFlashcards } from '../lib/user-flashcards.js';
+
+// localStorage keys for user-authored content surfaced in the palette.
+// Keeping the literals here mirrors the convention used by NotesView
+// (the writer) — a single rename would touch both files, which is
+// acceptable for two strings.
+const NOTES_LS_KEY = 'vmx-notes';
 
 // Cap on how many results we render at once. The full index has
 // ~1700 items (mostly question stems). Rendering all of them as
@@ -44,6 +53,49 @@ const MAX_RESULTS = 80;
 // it. Opening the palette re-uses the same array; we only re-attach
 // the run() closures per open.
 let _staticItemsCache = null;
+
+/**
+ * Bust the module-level static index. Call this whenever
+ * user-authored content (flashcards, per-Q notes, bookmarks) changes
+ * outside the palette — the next open() rebuilds the index lazily.
+ * Cheap and idempotent.
+ */
+export function invalidateCommandPaletteCache() {
+  _staticItemsCache = null;
+}
+
+// Global hook: any code path can fire this event without importing
+// us. user-flashcards.js dispatches it after save/delete; NotesView
+// (or any future writer) can opt-in by dispatching the same event.
+if (typeof window !== 'undefined') {
+  window.addEventListener('vmx-palette-invalidate', () => {
+    _staticItemsCache = null;
+  });
+}
+
+// Truncate a label for the result row. The result button is a single
+// line with ellipsis CSS, but we still cap at the source so the
+// pre-lowered haystack stays small and tooltips don't blow up either.
+const MAX_LABEL_LEN = 60;
+function trunc(s) {
+  const str = (s || '').toString().replace(/\s+/g, ' ').trim();
+  return str.length > MAX_LABEL_LEN ? str.slice(0, MAX_LABEL_LEN - 1) + '…' : str;
+}
+
+// Safely read & JSON-parse a localStorage key. Returns fallback on
+// any failure (corrupted JSON, disabled storage, SSR, …). Palette
+// should never crash because the user's localStorage is dirty.
+function safeReadLS(key, fallback) {
+  if (typeof window === 'undefined' || !window.localStorage) return fallback;
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return fallback;
+    const parsed = JSON.parse(raw);
+    return parsed == null ? fallback : parsed;
+  } catch {
+    return fallback;
+  }
+}
 
 // Each cached entry has shape:
 //   { type, label, hint, icon, kw, payload, _labelLc, _hayLc }
@@ -85,6 +137,7 @@ function buildStaticItems() {
     { key: 'faculty',           label: 'อาจารย์ผู้สอนทั้งหมด',         hint: 'Faculty index',                   icon: '👨‍🏫', kw: 'faculty instructor อาจารย์ ผู้สอน lecturer professor' },
     { key: 'account-settings',  label: 'Account Settings',         hint: 'จัดการ account',                   icon: '⚙️',  kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ' },
     { key: 'voice-settings',    label: 'Voice Settings',           hint: 'ปรับเสียงพูดข้อสอบ',                icon: '🎚',  kw: 'voice tts settings pause speed เสียง อ่าน เสียงพูด พูด ความเร็ว pace tempo iapp kaitom' },
+    { key: 'pdf-annotate',      label: 'PDF + annotate',           hint: 'อัปโหลด lecture PDF แล้วเขียนทับ',  icon: '📑',  kw: 'pdf annotate annotation lecture slide สไลด์ เขียนทับ' },
   ];
   for (const a of actions) push({ type: 'action', payload: a.key, label: a.label, hint: a.hint, icon: a.icon, kw: a.kw });
 
@@ -144,6 +197,50 @@ function buildStaticItems() {
     });
   }
 
+  // User-authored flashcards (Highlight → Flashcard). Reads localStorage
+  // via the dedicated module so a corrupted blob or quota-exceeded
+  // state can't bring the palette down. front+back together become
+  // the searchable haystack so even back-of-card terms hit.
+  let flashcards = [];
+  try {
+    flashcards = loadUserFlashcards() || [];
+  } catch {
+    flashcards = [];
+  }
+  for (const card of flashcards) {
+    if (!card || typeof card.front !== 'string' || !card.front.trim()) continue;
+    const back = (card.back || '').toString();
+    push({
+      type: 'flashcard',
+      payload: card,
+      label: trunc(card.front),
+      hint: 'Flashcard',
+      icon: '⚡',
+      kw: (card.front + ' ' + back).toLowerCase(),
+    });
+  }
+
+  // Per-Q notes — stored as { [qIdOrCompoundKey]: noteText } under
+  // 'vmx-notes'. We surface each non-empty note as its own row so the
+  // user can fuzzy-search their own annotations and jump back to the
+  // Q. Key shape is opaque to us; we pass it through as the payload.
+  const notesMap = safeReadLS(NOTES_LS_KEY, null);
+  if (notesMap && typeof notesMap === 'object' && !Array.isArray(notesMap)) {
+    for (const [key, raw] of Object.entries(notesMap)) {
+      const text = typeof raw === 'string' ? raw : (raw && typeof raw === 'object' ? (raw.text || raw.note || '') : '');
+      const trimmed = (text || '').toString().trim();
+      if (!trimmed) continue;
+      push({
+        type: 'q-note',
+        payload: key,
+        label: trunc(trimmed),
+        hint: 'โน้ต Q ' + key,
+        icon: '📝',
+        kw: trimmed.toLowerCase(),
+      });
+    }
+  }
+
   _staticItemsCache = items;
   return items;
 }
@@ -165,6 +262,13 @@ function runItem(item, handlers) {
     case 'summary':    goView?.('videos'); return;
     case 'instructor': openInstructor?.(item.payload); return;
     case 'question':   setSubject?.(item.payload.subject); setPracticeMode?.('all'); goView?.('config'); return;
+    // User flashcard → jump into SR review. v1 doesn't scroll to the
+    // specific card; the user can rip through the deck from the top.
+    case 'flashcard':  goView?.('sr-session'); return;
+    // Per-Q note → open Bookmarks practice so the user can fuzzy-find
+    // their noted Q in a quick-review set. Cheapest navigation that
+    // gets them into a context where the note matters.
+    case 'q-note':     setPracticeMode?.('bookmarks'); goView?.('config'); return;
     default: return;
   }
 }
@@ -227,6 +331,19 @@ export default function CommandPalette({ open, onClose, ...handlers }) {
   }, [query, debouncedQuery]);
 
   const filtered = useMemo(() => fuzzyFilter(items, debouncedQuery), [items, debouncedQuery]);
+
+  // Index totals — informational chip shown when the query is empty
+  // so the user knows what's actually searchable. Cheap reduce over
+  // the static index; memoized so it doesn't run per keystroke.
+  const indexTotals = useMemo(() => {
+    let questions = 0, flashcards = 0, notes = 0;
+    for (const it of items) {
+      if (it.type === 'question') questions++;
+      else if (it.type === 'flashcard') flashcards++;
+      else if (it.type === 'q-note') notes++;
+    }
+    return { questions, flashcards, notes };
+  }, [items]);
 
   // Reset on open / close
   useEffect(() => {
@@ -319,6 +436,45 @@ export default function CommandPalette({ open, onClose, ...handlers }) {
           }}>esc</span>
         </div>
 
+        {/* Index totals — helps the user understand what's searchable
+            without typing anything. Hidden once they start filtering
+            so it doesn't compete with the result count in the footer. */}
+        {!query.trim() && (
+          <div style={{
+            padding: '8px 20px',
+            display: 'flex',
+            gap: 8,
+            flexWrap: 'wrap',
+            borderBottom: '1px solid var(--clr-border)',
+            background: 'var(--clr-bg)',
+          }}>
+            <span style={{
+              fontFamily: 'JetBrains Mono, monospace',
+              fontSize: 10,
+              color: 'var(--clr-ink-soft)',
+              padding: '2px 8px',
+              border: '1px solid var(--clr-border)',
+              borderRadius: 10,
+            }}>{indexTotals.questions} ข้อ</span>
+            <span style={{
+              fontFamily: 'JetBrains Mono, monospace',
+              fontSize: 10,
+              color: 'var(--clr-ink-soft)',
+              padding: '2px 8px',
+              border: '1px solid var(--clr-border)',
+              borderRadius: 10,
+            }}>{indexTotals.flashcards} flashcards</span>
+            <span style={{
+              fontFamily: 'JetBrains Mono, monospace',
+              fontSize: 10,
+              color: 'var(--clr-ink-soft)',
+              padding: '2px 8px',
+              border: '1px solid var(--clr-border)',
+              borderRadius: 10,
+            }}>{indexTotals.notes} notes</span>
+          </div>
+        )}
+
         {/* Results list */}
         <div
           ref={listRef}
@@ -348,6 +504,8 @@ export default function CommandPalette({ open, onClose, ...handlers }) {
               subject: '📚 Subjects',
               summary: '📝 Video Summaries',
               instructor: '👨‍🏫 Faculty',
+              flashcard: '⚡ Flashcards',
+              'q-note': '📝 โน้ต Q',
             };
             const showHeader = !query.trim() && (i === 0 || filtered[i - 1].type !== item.type);
             return (
