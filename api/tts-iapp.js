@@ -35,7 +35,37 @@ export const config = {
   maxDuration: 10,
 };
 
-const IAPP_ENDPOINT = 'https://api.iapp.co.th/v3/store/audio/tts/generate';
+// V3 endpoint — docs as of 2026-05-16:
+// https://iapp.co.th/docs/speech/text-to-speech/text-to-speech-v3
+// Returns raw signed 16-bit LE PCM @ 24kHz mono (NOT WAV) — we wrap
+// in a WAV header before forwarding so the browser <audio> element
+// can play it directly without client-side ffmpeg-style assembly.
+const IAPP_ENDPOINT = 'https://api.iapp.co.th/v3/store/audio/tts';
+const IAPP_SAMPLE_RATE = 24000;
+const IAPP_CHANNELS = 1;
+const IAPP_BITS_PER_SAMPLE = 16;
+
+// Build a 44-byte RIFF/WAVE header for raw 16-bit LE PCM data.
+// All fields are little-endian unsigned ints (per WAV spec).
+function wavHeader(pcmByteLen) {
+  const byteRate = (IAPP_SAMPLE_RATE * IAPP_CHANNELS * IAPP_BITS_PER_SAMPLE) / 8;
+  const blockAlign = (IAPP_CHANNELS * IAPP_BITS_PER_SAMPLE) / 8;
+  const header = Buffer.alloc(44);
+  header.write('RIFF', 0);
+  header.writeUInt32LE(36 + pcmByteLen, 4);           // file size − 8
+  header.write('WAVE', 8);
+  header.write('fmt ', 12);
+  header.writeUInt32LE(16, 16);                        // PCM fmt chunk size
+  header.writeUInt16LE(1, 20);                         // format = PCM
+  header.writeUInt16LE(IAPP_CHANNELS, 22);
+  header.writeUInt32LE(IAPP_SAMPLE_RATE, 24);
+  header.writeUInt32LE(byteRate, 28);
+  header.writeUInt16LE(blockAlign, 32);
+  header.writeUInt16LE(IAPP_BITS_PER_SAMPLE, 34);
+  header.write('data', 36);
+  header.writeUInt32LE(pcmByteLen, 40);
+  return header;
+}
 
 export default async function handler(req, res) {
   // ── CORS — same pattern as /api/tts ────────────────────────
@@ -106,18 +136,31 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'bad json', detail: String(e?.message).slice(0, 100) });
   }
 
-  const { text } = body;
+  const { text, speed } = body;
   if (!text || typeof text !== 'string') {
     return res.status(400).json({ error: 'missing text' });
   }
-  if (text.length > 3000) {
-    return res.status(400).json({ error: 'text too long (max 3000 chars)' });
+  // iApp V3 docs cap at ~1,000 Thai chars per call; we cap at 1000 to
+  // stay well clear. The dispatcher already chunks on sentence
+  // boundaries before calling.
+  if (text.length > 1000) {
+    return res.status(400).json({ error: 'text too long (max 1000 chars for iApp v3)' });
   }
+  // Clamp speed to iApp's documented range so an upstream 400 doesn't
+  // burn a request that we could have rejected locally for free.
+  let speedNum = Number(speed);
+  if (!Number.isFinite(speedNum)) speedNum = 1.0;
+  speedNum = Math.max(0.8, Math.min(1.2, speedNum));
 
   // ── Forward to iApp ────────────────────────────────────────
-  // V3 contract: POST JSON {text} with Bearer auth, get WAV bytes.
+  // V3 contract: POST JSON {text, speed} with `apikey:` custom header
+  // (NOT `Authorization: Bearer`). Response is raw 16-bit LE PCM at
+  // 24kHz mono with Content-Type: application/octet-stream — we wrap
+  // it in a WAV header so the browser <audio> element can play the
+  // result like any other WAV.
+  //
   // The 9-second AbortController matches the function timeout so the
-  // client gets a clean 502 instead of Vercel's generic 504 when iApp
+  // client gets a clean 504 instead of Vercel's generic 504 when iApp
   // is slow.
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 9_000);
@@ -126,35 +169,44 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`,
-        'Accept': 'audio/wav, audio/*',
+        'apikey': API_KEY,
+        'Accept': 'application/octet-stream, audio/*',
       },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text, speed: speedNum }),
       signal: ctrl.signal,
     });
 
     if (!upstream.ok) {
       const errText = await upstream.text().catch(() => '');
-      // Surface 401/403 distinctly so the client can show a config hint.
-      return res.status(upstream.status === 401 || upstream.status === 403 ? upstream.status : 502).json({
-        error: 'iapp upstream error',
+      // Map iApp's documented error codes (400/402/413/429/503) to
+      // sensible client responses. 402 (insufficient credits) is
+      // worth surfacing distinctly so the operator gets a clear
+      // signal — not "the TTS just stopped working".
+      const passthrough = [401, 402, 403, 429];
+      const status = passthrough.includes(upstream.status) ? upstream.status : 502;
+      return res.status(status).json({
+        error: upstream.status === 402
+          ? 'iapp insufficient credits — top up at iapp.co.th'
+          : 'iapp upstream error',
         status: upstream.status,
         detail: errText.slice(0, 200),
       });
     }
 
-    const audio = Buffer.from(await upstream.arrayBuffer());
-    if (audio.length === 0) {
+    const pcm = Buffer.from(await upstream.arrayBuffer());
+    if (pcm.length === 0) {
       return res.status(502).json({ error: 'empty audio' });
     }
 
-    // Preserve iApp's Content-Type if it gave one (audio/wav typically);
-    // fall back to audio/wav since v3 docs guarantee WAV bytes.
-    const upstreamCt = upstream.headers.get('content-type') || 'audio/wav';
-    res.setHeader('Content-Type', upstreamCt);
+    // Wrap PCM in a WAV header so the browser audio element gets a
+    // self-describing format. Header is 44 bytes; the body is the PCM
+    // we already have.
+    const wav = Buffer.concat([wavHeader(pcm.length), pcm]);
+
+    res.setHeader('Content-Type', 'audio/wav');
     res.setHeader('Cache-Control', 'public, max-age=86400, immutable');
-    res.setHeader('Content-Length', String(audio.length));
-    return res.send(audio);
+    res.setHeader('Content-Length', String(wav.length));
+    return res.send(wav);
   } catch (err) {
     const aborted = err?.name === 'AbortError';
     console.error('[tts-iapp] error:', err?.message || err);

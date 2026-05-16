@@ -253,8 +253,12 @@ const _liveAudios = new Set();
  * finishes (or errors out or is cancelled). The returned controller can
  * stop playback explicitly.
  */
-export function playArrayBuffer(arrayBuffer) {
-  const blob = new Blob([arrayBuffer], { type: 'audio/mpeg' });
+export function playArrayBuffer(arrayBuffer, mimeType = 'audio/mpeg') {
+  // mimeType hints the decoder. Browsers ALSO content-sniff so WAV
+  // bytes in an audio/mpeg-typed blob still play (Chrome/Safari/Firefox
+  // tested), but passing the real type keeps things tidy when multiple
+  // providers feed different formats: Edge → MP3, iApp → WAV.
+  const blob = new Blob([arrayBuffer], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const audio = new Audio(url);
   _liveAudios.add(audio);

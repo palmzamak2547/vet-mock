@@ -150,13 +150,14 @@ async function evictStale(force = false) {
   }
 }
 
-// iApp's v3 endpoint accepts text only (no rate/lang knobs). We still
-// take a `lang` param in the signature for API parity with getEdgeAudio
-// so the dispatcher can pass the same args to either provider — `lang`
-// just folds into the cache key here (Thai vs English text with the
-// same body would otherwise collide).
-async function hashKey({ text, lang }) {
-  const data = new TextEncoder().encode(`${lang}|${text}`);
+// iApp's v3 endpoint accepts {text, speed} (speed 0.8–1.2). `lang` is
+// inferred from the text itself by iApp, but we still take it as a
+// param for API parity with getEdgeAudio and to disambiguate the
+// cache key (Thai vs English text with identical content can otherwise
+// collide; speed feeds the key too since different rates produce
+// different audio).
+async function hashKey({ text, lang, speed }) {
+  const data = new TextEncoder().encode(`${lang}|${Number(speed).toFixed(2)}|${text}`);
   if (typeof crypto?.subtle?.digest !== 'function') {
     let h = 2166136261;
     for (let i = 0; i < data.length; i++) {
@@ -177,15 +178,21 @@ async function hashKey({ text, lang }) {
  * Throws on any failure; caller decides whether to fall back.
  *
  * @param {{text: string, lang?: string, rate?: number}} args
- *   rate is ignored — iApp v3 has no rate knob — but accepted for
- *   API parity with getEdgeAudio.
+ *   `rate` is mapped to iApp's `speed` param (clamped to 0.8–1.2
+ *   server-side). Default 1.0 = normal pace.
  * @param {AbortSignal} [signal]
- * @returns {Promise<ArrayBuffer>} audio bytes (WAV / 24kHz mono)
+ * @returns {Promise<ArrayBuffer>} audio bytes (WAV / 24kHz mono, with
+ *   header already wrapped by the proxy so <audio> can play directly).
  */
-export async function getIAppAudio({ text, lang = 'th' }, signal) {
+export async function getIAppAudio({ text, lang = 'th', rate = 1.0 }, signal) {
   if (_unavailable) throw new Error('iapp unavailable for session');
 
-  const key = await hashKey({ text, lang });
+  // iApp's "speed" maps 1:1 onto our "rate" semantic (1.0 = normal,
+  // 0.8 = slower, 1.2 = faster). We pass through unchanged; the proxy
+  // clamps to the supported range so we don't waste a request on a
+  // user-typed 2.0.
+  const speed = Number(rate);
+  const key = await hashKey({ text, lang, speed });
 
   const cached = await dbGet(key);
   if (cached?.audio) {
@@ -208,7 +215,7 @@ export async function getIAppAudio({ text, lang = 'th' }, signal) {
   try {
     // Same Vercel-edge-byte-mangle workaround as /api/tts: client
     // base64-encodes the JSON so Thai bytes survive intact.
-    const json = JSON.stringify({ text, lang });
+    const json = JSON.stringify({ text, lang, speed });
     const b64 = typeof btoa === 'function'
       ? btoa(unescape(encodeURIComponent(json)))
       : Buffer.from(json, 'utf8').toString('base64');
@@ -258,7 +265,9 @@ export async function speakViaIApp({ text, lang, controller }) {
   const audio = await getIAppAudio({ text, lang }, controller?.signal);
   if (controller?.cancelled) return;
 
-  const player = playArrayBuffer(audio);
+  // Proxy wraps iApp's raw PCM in a WAV header server-side, so this
+  // ArrayBuffer is a valid audio/wav stream.
+  const player = playArrayBuffer(audio, 'audio/wav');
   if (controller) {
     if (!controller._players) controller._players = new Set();
     controller._players.add(player);
