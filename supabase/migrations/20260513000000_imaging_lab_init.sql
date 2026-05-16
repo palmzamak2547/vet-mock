@@ -111,12 +111,19 @@ create policy "imaging_attempts own all"
 -- ─────────────────────────────────────────────────────────
 -- updated_at trigger for imaging_cases
 -- ─────────────────────────────────────────────────────────
-create or replace function public.touch_updated_at() returns trigger as $$
+create or replace function public.touch_updated_at()
+returns trigger
+language plpgsql
+-- Explicit empty search_path so search_path-injection can't poison
+-- a future schema added between public + pg_temp. Addresses Supabase
+-- lint 0011_function_search_path_mutable.
+set search_path = ''
+as $$
 begin
   new.updated_at = now();
   return new;
 end;
-$$ language plpgsql;
+$$;
 
 drop trigger if exists imaging_cases_touch_updated_at on public.imaging_cases;
 create trigger imaging_cases_touch_updated_at
