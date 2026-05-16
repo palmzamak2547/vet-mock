@@ -91,12 +91,12 @@ export default function TodaysQModal({ q, onClose, onDone }) {
           })}
         </div>
 
-        {revealed && q.explanation && (
+        {revealed && q.explain && (
           <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-sage)', fontSize: 13, lineHeight: 1.6 }}>
             <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 4 }}>
               เฉลย
             </div>
-            <RichText text={q.explanation} />
+            <RichText text={q.explain} />
           </div>
         )}
 
