@@ -163,6 +163,10 @@ export default function DicomViewport({ file }) {
   }, []);
 
   const clearMeasurements = useCallback(() => {
+    // Clear both Cornerstone annotations (Length/Angle) and any custom
+    // overlays (Norberg/VHS) by dispatching a custom event that the
+    // overlay components listen for. Simpler than threading a callback
+    // through every overlay child.
     try {
       const all = annotation.state.getAllAnnotations();
       all.forEach((a) => annotation.state.removeAnnotation(a.annotationUID));
@@ -170,6 +174,9 @@ export default function DicomViewport({ file }) {
       // eslint-disable-next-line no-console
       console.error('[clearMeasurements] error:', err);
     }
+    try {
+      window.dispatchEvent(new CustomEvent('vmx-lab-clear-overlays'));
+    } catch { /* noop */ }
     const engine = engineRef.current;
     const viewport = engine?.getViewport(viewportIdRef.current);
     viewport?.render();
@@ -225,11 +232,24 @@ export default function DicomViewport({ file }) {
             <span style={{ fontSize: '0.8rem', opacity: 0.8 }}>{errorMsg}</span>
           </div>
         )}
+        {/* `key` includes file identity so the overlay component
+            unmounts + re-mounts when the user switches DICOM. Without
+            this, world-space points from the previous image stay
+            in state and would render at nonsense positions over
+            the new image's anatomy. */}
         {status === 'ready' && (
-          <NorbergOverlay active={activeTool === 'norberg'} viewportRef={getViewport} />
+          <NorbergOverlay
+            key={`norberg-${file?.name}-${file?.size}-${file?.lastModified || 0}`}
+            active={activeTool === 'norberg'}
+            viewportRef={getViewport}
+          />
         )}
         {status === 'ready' && (
-          <VHSOverlay active={activeTool === 'vhs'} viewportRef={getViewport} />
+          <VHSOverlay
+            key={`vhs-${file?.name}-${file?.size}-${file?.lastModified || 0}`}
+            active={activeTool === 'vhs'}
+            viewportRef={getViewport}
+          />
         )}
       </div>
       {meta && status === 'ready' && (

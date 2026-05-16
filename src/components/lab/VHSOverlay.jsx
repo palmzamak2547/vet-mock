@@ -34,6 +34,12 @@ export default function VHSOverlay({ active, viewportRef }) {
     return () => clearInterval(id);
   }, [active, worldPoints.length]);
 
+  useEffect(() => {
+    const onClear = () => setWorldPoints([]);
+    window.addEventListener('vmx-lab-clear-overlays', onClear);
+    return () => window.removeEventListener('vmx-lab-clear-overlays', onClear);
+  }, []);
+
   const screenPoints = useMemo(() => {
     const vp = viewportRef?.();
     if (!vp) return [];

@@ -1,7 +1,98 @@
-import { useState, useCallback, Suspense, lazy } from 'react';
+import { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 
 const DicomViewport = lazy(() => import('../components/lab/DicomViewport.jsx'));
 const CaseLibrary = lazy(() => import('../components/lab/CaseLibrary.jsx'));
+
+// Lazy-loads the anonymizer module + dicom-parser only when needed.
+// Keeps the lab home page light for users who never anonymize.
+function AnonymizeButton({ file }) {
+  const [status, setStatus] = useState('idle');
+  const [summary, setSummary] = useState(null);
+
+  const run = async () => {
+    setStatus('working');
+    setSummary(null);
+    try {
+      const mod = await import('../lib/dicom/anonymizer.js');
+      const { file: anon, stripped } = await mod.anonymizeDicom(file);
+      mod.downloadFile(anon);
+      setSummary({ count: stripped.length, names: stripped.map(s => s.label) });
+      setStatus('done');
+      setTimeout(() => setStatus('idle'), 6000);
+    } catch (e) {
+      setStatus('error');
+      setSummary({ error: e?.message || String(e) });
+    }
+  };
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <button
+        onClick={run}
+        disabled={status === 'working'}
+        className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+        title="Strip PII tags + download anonymized copy"
+      >
+        {status === 'working' ? '⏳ กำลัง anonymize...' : status === 'done' ? '✅ Downloaded' : '🔒 Anonymize'}
+      </button>
+      {summary && status !== 'working' && (
+        <div style={anonSummaryStyle}>
+          {summary.error ? (
+            <span style={{ color: '#c33' }}>❌ {summary.error}</span>
+          ) : (
+            <>
+              <strong>Stripped {summary.count} tags</strong>
+              <ul style={{ margin: '4px 0 0', paddingLeft: 18, fontSize: '0.7rem' }}>
+                {summary.names.slice(0, 6).map((n) => <li key={n}>{n}</li>)}
+                {summary.names.length > 6 && <li>… +{summary.names.length - 6} more</li>}
+              </ul>
+              <div style={{ fontSize: '0.65rem', color: '#888', marginTop: 4 }}>
+                Saved as <code>{file.name.replace(/\.dcm$/i, '')}_anon.dcm</code>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const anonSummaryStyle = {
+  position: 'absolute',
+  top: '100%',
+  right: 0,
+  marginTop: 4,
+  padding: '8px 10px',
+  background: '#fff',
+  border: '1px solid #ccc',
+  borderRadius: 6,
+  fontSize: '0.78rem',
+  minWidth: 220,
+  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+  zIndex: 100,
+};
+
+const RECENT_KEY = 'vmx-lab-recent-files';
+const RECENT_MAX = 5;
+
+// Check the DICOM magic-byte signature "DICM" at offset 128. This
+// catches files exported without a .dcm extension (common when PACS
+// dumps SOP-Instance-UID as filename). Reads only the first 200
+// bytes — cheap.
+async function isDicomFile(file) {
+  if (!file) return false;
+  const lower = file.name.toLowerCase();
+  if (lower.endsWith('.dcm') || lower.endsWith('.dicom')) return true;
+  if (file.type === 'application/dicom') return true;
+  if (file.size < 132) return false;
+  try {
+    const head = await file.slice(0, 200).arrayBuffer();
+    const view = new Uint8Array(head);
+    return view[128] === 0x44 && view[129] === 0x49 && view[130] === 0x43 && view[131] === 0x4D;
+  } catch {
+    return false;
+  }
+}
 
 export default function LabView({ goHome }) {
   const [file, setFile] = useState(null);
@@ -9,20 +100,41 @@ export default function LabView({ goHome }) {
   const [showCases, setShowCases] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState(null);
+  const [recent, setRecent] = useState([]);
 
-  const handleFile = useCallback((f) => {
+  // Recent files history. Stored as {name,size,lastModified} so we
+  // can recognize files dragged from disk again. Actual File blobs
+  // can't be persisted — the user must re-drag, but the list nudges
+  // them toward "the file I used yesterday".
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(RECENT_KEY);
+      if (raw) setRecent(JSON.parse(raw));
+    } catch { /* corrupt JSON; ignore */ }
+  }, []);
+
+  const addToRecent = useCallback((f) => {
     if (!f) return;
-    const lower = f.name.toLowerCase();
-    const okExt = lower.endsWith('.dcm') || lower.endsWith('.dicom');
-    if (!okExt && f.type !== 'application/dicom') {
-      setError('โปรดเลือกไฟล์ .dcm (DICOM)');
+    const entry = { name: f.name, size: f.size, lastModified: f.lastModified || Date.now() };
+    setRecent((prev) => {
+      const next = [entry, ...prev.filter((p) => !(p.name === entry.name && p.size === entry.size))].slice(0, RECENT_MAX);
+      try { localStorage.setItem(RECENT_KEY, JSON.stringify(next)); } catch { /* quota or private mode */ }
+      return next;
+    });
+  }, []);
+
+  const handleFile = useCallback(async (f) => {
+    if (!f) return;
+    const ok = await isDicomFile(f);
+    if (!ok) {
+      setError('ไฟล์ไม่ใช่ DICOM (magic bytes "DICM" ไม่ตรง · ลองไฟล์อื่น)');
       return;
     }
     setError(null);
     setFile(f);
-    // Local drag-drop clears any active case
     setCurrentCase(null);
-  }, []);
+    addToRecent(f);
+  }, [addToRecent]);
 
   const onDrop = useCallback((e) => {
     e.preventDefault();
@@ -41,6 +153,11 @@ export default function LabView({ goHome }) {
   }, []);
 
   const onFileInput = useCallback((e) => handleFile(e.target.files?.[0]), [handleFile]);
+
+  const clearRecent = useCallback(() => {
+    setRecent([]);
+    try { localStorage.removeItem(RECENT_KEY); } catch { /* noop */ }
+  }, []);
 
   const reset = useCallback(() => {
     setFile(null);
@@ -129,6 +246,30 @@ export default function LabView({ goHome }) {
               ไฟล์ไม่ถูกอัพโหลด — render ใน browser ล้วน
             </p>
           </div>
+
+          {recent.length > 0 && (
+            <div style={recentBoxStyle}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <strong style={{ fontSize: '0.85rem', color: '#555' }}>🕘 Recent files</strong>
+                <button
+                  onClick={clearRecent}
+                  style={{ fontSize: '0.7rem', color: '#888', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
+                >
+                  ล้าง
+                </button>
+              </div>
+              <div style={{ fontSize: '0.75rem', color: '#777', marginBottom: 6 }}>
+                File blobs ไม่ persist ข้าม session · เห็นรายการที่นี่แล้วลากไฟล์เดิมจาก disk เพื่อ re-open
+              </div>
+              <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                {recent.map((r, i) => (
+                  <li key={i} style={{ fontSize: '0.8rem', color: '#666', padding: '4px 0', borderTop: i > 0 ? '1px solid #eee' : 'none' }}>
+                    📄 <span style={{ color: '#333' }}>{r.name}</span> · {(r.size / 1024).toFixed(0)} KB · {new Date(r.lastModified).toLocaleString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </>
       )}
 
@@ -153,7 +294,10 @@ export default function LabView({ goHome }) {
                 <>📄 {file.name} · {(file.size / 1024).toFixed(0)} KB</>
               )}
             </div>
-            <button onClick={reset} className="vmx-btn vmx-btn-ghost vmx-btn-sm">เปลี่ยนไฟล์</button>
+            <div style={{ display: 'flex', gap: 6 }}>
+              <AnonymizeButton file={file} />
+              <button onClick={reset} className="vmx-btn vmx-btn-ghost vmx-btn-sm">เปลี่ยนไฟล์</button>
+            </div>
           </div>
 
           {currentCase?.history && (
@@ -240,4 +384,12 @@ const loadingFallbackStyle = {
   padding: 40,
   textAlign: 'center',
   color: '#888',
+};
+
+const recentBoxStyle = {
+  marginTop: 16,
+  padding: '10px 14px',
+  background: '#fafafa',
+  border: '1px solid #e8e8e8',
+  borderRadius: 6,
 };
