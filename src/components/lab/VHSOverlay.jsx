@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { saveAttempt, reasonLabel } from '../../lib/dicom/save-attempt.js';
 import { useMediaQuery } from '../../lib/dicom/use-media-query.js';
 
@@ -118,8 +118,12 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [worldPoints, viewportRef]);
 
+  const HIT_RADIUS_PX = 16;
+  const [draggingIdx, setDraggingIdx] = useState(null);
+  const dragCanvasRef = useRef(null);
+
   const onPointerDown = useCallback((e) => {
-    if (!active || worldPoints.length >= 6) return;
+    if (!active) return;
     const vp = viewportRef?.();
     if (!vp) return;
     const container = e.currentTarget.parentElement;
@@ -127,6 +131,20 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
     const rect = canvas.getBoundingClientRect();
     const cx = e.clientX - rect.left;
     const cy = e.clientY - rect.top;
+
+    for (let i = 0; i < worldPoints.length; i++) {
+      try {
+        const [sx, sy] = vp.worldToCanvas(worldPoints[i]);
+        if (Math.hypot(sx - cx, sy - cy) < HIT_RADIUS_PX) {
+          dragCanvasRef.current = canvas;
+          setDraggingIdx(i);
+          e.stopPropagation();
+          return;
+        }
+      } catch { /* projection failed */ }
+    }
+
+    if (worldPoints.length >= 6) return;
     try {
       const world = vp.canvasToWorld([cx, cy]);
       setWorldPoints((prev) => [...prev, world]);
@@ -134,7 +152,36 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
       // eslint-disable-next-line no-console
       console.error('[VHSOverlay] canvasToWorld error:', err);
     }
-  }, [active, worldPoints.length, viewportRef]);
+  }, [active, worldPoints, viewportRef]);
+
+  useEffect(() => {
+    if (draggingIdx == null) return;
+    const vp = viewportRef?.();
+    if (!vp) return;
+    const onMove = (e) => {
+      const canvas = dragCanvasRef.current;
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+      try {
+        const world = vp.canvasToWorld([cx, cy]);
+        setWorldPoints((prev) => prev.map((p, i) => (i === draggingIdx ? world : p)));
+      } catch { /* canvasToWorld failed */ }
+    };
+    const onUp = () => {
+      setDraggingIdx(null);
+      dragCanvasRef.current = null;
+    };
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
+  }, [draggingIdx, viewportRef]);
 
   const [confirmingReset, setConfirmingReset] = useState(false);
   const reset = useCallback(() => {
@@ -199,8 +246,9 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
         position: 'absolute',
         inset: 0,
         zIndex: 10,
-        cursor: worldPoints.length < 6 ? 'crosshair' : 'default',
+        cursor: draggingIdx != null ? 'grabbing' : (worldPoints.length < 6 ? 'crosshair' : 'default'),
         userSelect: 'none',
+        touchAction: 'none',
       }}
     >
       <svg style={svgStyle}>
@@ -227,7 +275,14 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
         )}
         {screenPoints.map((p, i) => (
           <g key={i}>
-            <circle cx={p.x} cy={p.y} r={6} fill={COLORS[i]} stroke="#fff" strokeWidth={2} />
+            <circle cx={p.x} cy={p.y} r={HIT_RADIUS_PX} fill="transparent" />
+            <circle
+              cx={p.x} cy={p.y}
+              r={draggingIdx === i ? 8 : 6}
+              fill={COLORS[i]}
+              stroke="#fff"
+              strokeWidth={draggingIdx === i ? 3 : 2}
+            />
             <text
               x={p.x + 10} y={p.y - 8}
               fill="#fff" fontSize="11" fontWeight="bold"
@@ -242,7 +297,7 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
       <div style={topBannerStyle}>
         {nextLabel
           ? `📐 VHS · จุดที่ ${worldPoints.length + 1} จาก 6 → ${nextLabel.replace(/^จุด \d+: /, '')} · กด U เพื่อ undo`
-          : '📐 VHS · ครบ 6 จุด — ดูผลด้านล่าง'}
+          : '📐 VHS · ครบ 6 จุด · ลากจุดเพื่อปรับ · ดูผลด้านล่าง'}
       </div>
 
       {result && (

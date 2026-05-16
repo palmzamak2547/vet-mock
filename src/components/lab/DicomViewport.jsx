@@ -473,6 +473,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
                 <SC k="R" desc="Reset view (zoom/pan/window)" />
                 <SC k="C" desc="Clear all measurements" />
                 <SC k="U" desc="Undo last Norberg/VHS point" />
+                <SC k="(drag)" desc="ลากจุด Norberg/VHS ที่วางแล้ว = ปรับตำแหน่ง" />
                 <SC k="E" desc="Export annotated PNG" />
                 <SC k="F" desc="Toggle fullscreen" />
                 <SC k="?" desc="Show / hide this help" />

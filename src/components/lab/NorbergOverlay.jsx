@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { saveAttempt, reasonLabel } from '../../lib/dicom/save-attempt.js';
 import { useMediaQuery } from '../../lib/dicom/use-media-query.js';
 
@@ -114,8 +114,14 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [worldPoints, viewportRef, setTick]);
 
+  // Hit-test radius for grabbing existing points (in CSS pixels).
+  // Slightly bigger than the visible 7 px circle so it's tappable.
+  const HIT_RADIUS_PX = 16;
+  const [draggingIdx, setDraggingIdx] = useState(null);
+  const dragCanvasRef = useRef(null);
+
   const onPointerDown = useCallback((e) => {
-    if (!active || worldPoints.length >= 4) return;
+    if (!active) return;
     const vp = viewportRef?.();
     if (!vp) return;
     const container = e.currentTarget.parentElement;
@@ -123,6 +129,22 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
     const rect = canvas.getBoundingClientRect();
     const cx = e.clientX - rect.left;
     const cy = e.clientY - rect.top;
+
+    // First try to hit an existing point → start drag-refine mode.
+    for (let i = 0; i < worldPoints.length; i++) {
+      try {
+        const [sx, sy] = vp.worldToCanvas(worldPoints[i]);
+        if (Math.hypot(sx - cx, sy - cy) < HIT_RADIUS_PX) {
+          dragCanvasRef.current = canvas;
+          setDraggingIdx(i);
+          e.stopPropagation();
+          return;
+        }
+      } catch { /* projection failed, fall through */ }
+    }
+
+    // No hit — add a new point if there's room.
+    if (worldPoints.length >= 4) return;
     try {
       const world = vp.canvasToWorld([cx, cy]);
       setWorldPoints((prev) => [...prev, world]);
@@ -130,7 +152,39 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
       // eslint-disable-next-line no-console
       console.error('[NorbergOverlay] canvasToWorld error:', err);
     }
-  }, [active, worldPoints.length, viewportRef]);
+  }, [active, worldPoints, viewportRef]);
+
+  // While dragging a point, listen on window so the pointer can
+  // leave the overlay without losing the drag.
+  useEffect(() => {
+    if (draggingIdx == null) return;
+    const vp = viewportRef?.();
+    if (!vp) return;
+
+    const onMove = (e) => {
+      const canvas = dragCanvasRef.current;
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+      try {
+        const world = vp.canvasToWorld([cx, cy]);
+        setWorldPoints((prev) => prev.map((p, i) => (i === draggingIdx ? world : p)));
+      } catch { /* canvasToWorld failed mid-drag */ }
+    };
+    const onUp = () => {
+      setDraggingIdx(null);
+      dragCanvasRef.current = null;
+    };
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
+  }, [draggingIdx, viewportRef]);
 
   // 2-step reset confirm to prevent accidentally wiping 4-click work.
   // First click → "ยืนยัน Reset?" for 3 s. Second click within window
@@ -193,8 +247,9 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
         position: 'absolute',
         inset: 0,
         zIndex: 10,
-        cursor: worldPoints.length < 4 ? 'crosshair' : 'default',
+        cursor: draggingIdx != null ? 'grabbing' : (worldPoints.length < 4 ? 'crosshair' : 'default'),
         userSelect: 'none',
+        touchAction: 'none',
       }}
     >
       <svg style={svgStyle}>
@@ -221,7 +276,16 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
         )}
         {screenPoints.map((p, i) => (
           <g key={i}>
-            <circle cx={p.x} cy={p.y} r={7} fill={COLORS[i]} stroke="#fff" strokeWidth={2} />
+            {/* Larger transparent grab area so touch users can hit it
+                even though the visible circle is 7 px. */}
+            <circle cx={p.x} cy={p.y} r={HIT_RADIUS_PX} fill="transparent" />
+            <circle
+              cx={p.x} cy={p.y}
+              r={draggingIdx === i ? 9 : 7}
+              fill={COLORS[i]}
+              stroke="#fff"
+              strokeWidth={draggingIdx === i ? 3 : 2}
+            />
             <text
               x={p.x + 12} y={p.y + 4}
               fill="#fff" fontSize="13" fontWeight="bold"
@@ -236,7 +300,7 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
       <div style={topBannerStyle}>
         {nextLabel
           ? `🦴 Norberg · จุดที่ ${worldPoints.length + 1} จาก 4 → ${nextLabel.replace(/^จุดที่ \d+: /, '')} · กด U เพื่อ undo`
-          : '🦴 Norberg · ครบ 4 จุด — ดูผลด้านล่าง'}
+          : '🦴 Norberg · ครบ 4 จุด · ลากจุดเพื่อปรับ · ดูผลด้านล่าง'}
       </div>
 
       {angles && (
