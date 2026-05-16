@@ -97,7 +97,18 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
         <button onClick={onBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← back to drag-drop</button>
       </div>
 
-      {loading && <div style={loadingStyle}>กำลังโหลด cases...</div>}
+      {loading && (
+        <div style={gridStyle}>
+          {[0, 1, 2].map((i) => (
+            <div key={i} style={{ ...cardStyle, height: 180, animation: `vmx-lab-skeleton-pulse 1.4s ease-in-out infinite`, animationDelay: `${i * 0.12}s` }}>
+              <div style={{ height: 14, width: '60%', background: '#e8e8e8', borderRadius: 3, marginBottom: 8 }} />
+              <div style={{ height: 10, width: '85%', background: '#eee', borderRadius: 3, marginBottom: 6 }} />
+              <div style={{ height: 10, width: '70%', background: '#eee', borderRadius: 3, marginBottom: 16 }} />
+              <div style={{ height: 32, width: '100%', background: '#e8e8e8', borderRadius: 4 }} />
+            </div>
+          ))}
+        </div>
+      )}
 
       {error && (
         <div style={errorStyle}>โหลดไม่สำเร็จ: {error}</div>
@@ -174,6 +185,14 @@ function difficultyColor(d) {
   if (d === 'intro') return '#4a6b4a';
   if (d === 'advanced') return '#c0392b';
   return '#888';
+}
+
+// Skeleton-pulse keyframes for Case Library loading state — injected once
+if (typeof document !== 'undefined' && !document.getElementById('vmx-lab-skeleton-keyframes')) {
+  const s = document.createElement('style');
+  s.id = 'vmx-lab-skeleton-keyframes';
+  s.textContent = `@keyframes vmx-lab-skeleton-pulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }`;
+  document.head.appendChild(s);
 }
 
 const loadingStyle = { padding: 40, textAlign: 'center', color: '#888' };

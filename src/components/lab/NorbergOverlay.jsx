@@ -235,8 +235,8 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
 
       <div style={topBannerStyle}>
         {nextLabel
-          ? `🦴 Norberg · ${nextLabel} (${worldPoints.length + 1}/4) · กด U เพื่อ undo`
-          : '🦴 Norberg · ครบ 4 จุด — ดูผลทางด้านล่าง'}
+          ? `🦴 Norberg · จุดที่ ${worldPoints.length + 1} จาก 4 → ${nextLabel.replace(/^จุดที่ \d+: /, '')} · กด U เพื่อ undo`
+          : '🦴 Norberg · ครบ 4 จุด — ดูผลด้านล่าง'}
       </div>
 
       {angles && (

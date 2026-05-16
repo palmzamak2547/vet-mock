@@ -114,6 +114,17 @@ export default function LabView({ goHome }) {
     try { localStorage.removeItem(RECENT_KEY); } catch { /* noop */ }
   }, []);
 
+  const removeRecentAt = useCallback((idx) => {
+    setRecent((prev) => {
+      const next = prev.filter((_, i) => i !== idx);
+      try {
+        if (next.length === 0) localStorage.removeItem(RECENT_KEY);
+        else localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+      } catch { /* noop */ }
+      return next;
+    });
+  }, []);
+
   const reset = useCallback(() => {
     setFiles([]);
     setCurrentCase(null);
@@ -307,8 +318,16 @@ export default function LabView({ goHome }) {
               </div>
               <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
                 {recent.map((r, i) => (
-                  <li key={i} style={{ fontSize: '0.8rem', color: '#666', padding: '4px 0', borderTop: i > 0 ? '1px solid #eee' : 'none' }}>
-                    📄 <span style={{ color: '#333' }}>{r.name}</span> · {(r.size / 1024).toFixed(0)} KB · {new Date(r.lastModified).toLocaleString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}
+                  <li key={i} style={{ fontSize: '0.8rem', color: '#666', padding: '4px 0', borderTop: i > 0 ? '1px solid #eee' : 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                    <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      📄 <span style={{ color: '#333' }}>{r.name}</span> · {(r.size / 1024).toFixed(0)} KB · {new Date(r.lastModified).toLocaleString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}
+                    </span>
+                    <button
+                      onClick={() => removeRecentAt(i)}
+                      title="ลบจากประวัติ"
+                      aria-label="ลบไฟล์นี้จากประวัติ"
+                      style={{ width: 20, height: 20, padding: 0, border: 'none', background: 'none', color: '#aaa', cursor: 'pointer', fontSize: '0.85rem', flexShrink: 0 }}
+                    >×</button>
                   </li>
                 ))}
               </ul>

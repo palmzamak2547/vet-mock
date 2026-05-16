@@ -241,7 +241,7 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
 
       <div style={topBannerStyle}>
         {nextLabel
-          ? `📐 VHS · ${nextLabel} (${worldPoints.length + 1}/6) · กด U เพื่อ undo`
+          ? `📐 VHS · จุดที่ ${worldPoints.length + 1} จาก 6 → ${nextLabel.replace(/^จุด \d+: /, '')} · กด U เพื่อ undo`
           : '📐 VHS · ครบ 6 จุด — ดูผลด้านล่าง'}
       </div>
 
