@@ -48,8 +48,19 @@
 // ============================================================
 
 import { thaiPhoneticTranslit } from './tts-phonetic.js';
-import { speakViaEdge, stopAllEdgeAudio, stopControllerEdge } from './tts-edge.js';
-import { speakViaIApp, isIAppAvailable, markIAppUnavailable } from './tts-iapp.js';
+import {
+  speakViaEdge,
+  stopAllEdgeAudio,
+  stopControllerEdge,
+  getEdgeAudio,
+  playArrayBuffer,
+} from './tts-edge.js';
+import {
+  speakViaIApp,
+  isIAppAvailable,
+  markIAppUnavailable,
+  getIAppAudio,
+} from './tts-iapp.js';
 
 const THAI_RE = /[฀-๿]/;
 const ENG_RE = /[A-Za-z]/;
@@ -120,8 +131,15 @@ function rateFor(lang, tier) {
 // Single pause schedule — was tier-adaptive but the extra SAPI pauses
 // felt chopped rather than natural. Treat all voices the same and let
 // the voice's own punctuation prosody do most of the work.
+//
+// 2026-05-16 (Palm feedback "เว้นช่วงนานเกินไป"): cut pauses ~55%.
+// Previous values (550/380/180) were tuned for Edge MP3 which had
+// audible click/silence padding at clip boundaries. iApp Kaitom PCM
+// has cleaner edges + the cloud round-trip ALREADY adds ~200-400 ms
+// of natural gap between segments, so scripted pauses on top felt
+// like double-spacing.
 function pausesFor() {
-  return { afterStem: 550, betweenOpts: 380, afterLast: 180 };
+  return { afterStem: 220, betweenOpts: 140, afterLast: 60 };
 }
 
 function pickVoice(voices, lang) {
@@ -495,36 +513,99 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
     if (qLang === 'th' && isIAppAvailable()) providers.push('iapp');
     providers.push('edge');
 
+    // 2026-05-16 perf rework (Palm "ดีเลย์เริ่มพูดนาน"): kick off
+    // ALL sentence fetches in parallel, then play them sequentially.
+    // Previous version awaited fetch+play per sentence — sentence 2
+    // didn't start downloading until sentence 1 finished playing, so
+    // every inter-segment gap included another full round-trip.
+    //
+    // With parallel prefetch:
+    //   t=0      → fetch[0..N-1] kick off concurrently
+    //   t=fetch  → audio[0] resolves, playback starts
+    //   t=...    → while [0] plays, [1] and [2] are typically already
+    //              cached/resolved, so the gap is just the scripted
+    //              pause (no second network wait).
+    //
+    // Cancellation: we share ONE AbortController across all fetches so
+    // a stopSpeech() mid-flight cancels pending downloads, not just
+    // playback. The controller param from the caller (used for
+    // cancelled flag + player registry) is separate.
     let played = false;
     for (const provider of providers) {
       if (played) break;
+      // Per-attempt abort signal — independent so iApp-fail → Edge-retry
+      // doesn't carry stale "aborted" state from the failed attempt.
+      const fetchAbort = new AbortController();
+      const onCancel = () => fetchAbort.abort();
+      controller?.signal?.addEventListener('abort', onCancel, { once: true });
+
       try {
-        for (let i = 0; i < sentences.length; i++) {
-          if (controller?.cancelled) { stopControllerEdge(controller); break; }
-          if (provider === 'iapp') {
-            await speakViaIApp({ text: sentences[i], lang: qLang, controller });
-          } else {
-            await speakViaEdge({ text: sentences[i], lang: qLang, rate: 1.0, controller });
+        // Kick off every fetch immediately. Promise.allSettled would
+        // wait for all to resolve before we start playback — bad. Use
+        // direct array of promises and await them ONE-AT-A-TIME in
+        // order: the rest keep downloading in the background.
+        const fetcher = provider === 'iapp' ? getIAppAudio : getEdgeAudio;
+        const fetchArgs = provider === 'iapp'
+          ? (text) => ({ text, lang: qLang, rate: 1.0 })
+          : (text) => ({ text, lang: qLang, rate: 1.0 });
+        const audioPromises = sentences.map((text) =>
+          fetcher(fetchArgs(text), fetchAbort.signal)
+        );
+        const mimeType = provider === 'iapp' ? 'audio/wav' : 'audio/mpeg';
+
+        // Caller's `controller.cancelled` is the user-tap flag. Pre-
+        // existing callers pass a plain object (no AbortSignal), so we
+        // poll the flag at each iteration AND abort pending fetches
+        // proactively when we see it flip — otherwise sentence 5's
+        // download keeps running in the background after the user
+        // tapped Stop, burning an IC for audio that will never play.
+        const abortIfCancelled = () => {
+          if (controller?.cancelled) {
+            try { fetchAbort.abort(); } catch { /* noop */ }
+            return true;
           }
-          if (controller?.cancelled) break;
-          // Inter-segment pause — cloud audio has no built-in gap between calls
+          return false;
+        };
+
+        for (let i = 0; i < sentences.length; i++) {
+          if (abortIfCancelled()) { stopControllerEdge(controller); break; }
+          // Awaiting the i-th promise: if its fetch is already done
+          // (prefetched while previous sentence played), this resolves
+          // instantly. Otherwise it's the actual remaining wait time.
+          const audioBuf = await audioPromises[i];
+          if (abortIfCancelled()) break;
+          const player = playArrayBuffer(audioBuf, mimeType);
+          if (controller) {
+            if (!controller._players) controller._players = new Set();
+            controller._players.add(player);
+          }
+          await player.finished;
+          if (controller?._players) controller._players.delete(player);
+          if (abortIfCancelled()) break;
+          // Inter-segment pause — much shorter now that the network
+          // wait is overlapped with playback (see pausesFor comment).
           const isStem = i === 0 && stem && stem.trim();
           const isLast = i === sentences.length - 1;
-          await pause(isStem ? P.afterStem : (isLast ? P.afterLast : P.betweenOpts));
+          if (!isLast) {
+            await pause(isStem ? P.afterStem : P.betweenOpts);
+          } else {
+            await pause(P.afterLast);
+          }
         }
         played = true;
         onEnd?.();
         return;
       } catch (err) {
-        // Provider failed — clear half-played audio + try next provider
-        // (or fall through to Web Speech if this was the last one).
+        // Provider failed (one of the parallel fetches rejected, or
+        // playback errored). Clear half-played audio + abort any
+        // pending fetches + try next provider.
         console.warn(`[tts] ${provider} provider failed:`, err?.message);
+        try { fetchAbort.abort(); } catch { /* ignore */ }
         stopControllerEdge(controller);
         stopAllEdgeAudio();
-        // If iApp said 503 it has already self-marked unavailable;
-        // belt+suspenders mark here too so a buggy server response that
-        // doesn't 503 cleanly still pulls iApp out of the rotation.
         if (provider === 'iapp') markIAppUnavailable();
+      } finally {
+        controller?.signal?.removeEventListener('abort', onCancel);
       }
     }
     if (!played) cloudFailed = true;
