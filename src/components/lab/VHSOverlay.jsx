@@ -54,6 +54,44 @@ export default function VHSOverlay({ active, viewportRef, caseId = null }) {
     setWorldPoints((prev) => prev.slice(0, -1));
   }, []);
 
+  const exportStateJson = useCallback(() => {
+    if (worldPoints.length < 6) return;
+    const d = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+    const L = d(worldPoints[0], worldPoints[1]);
+    const S = d(worldPoints[2], worldPoints[3]);
+    const V = d(worldPoints[4], worldPoints[5]);
+    if (V === 0) return;
+    const Lv = L / V, Sv = S / V, vhs = Lv + Sv;
+    const data = {
+      type: 'vmx-lab-measurement',
+      version: 1,
+      model: 'manual-vhs',
+      created_at: new Date().toISOString(),
+      predictions: {
+        vhs: {
+          points: {
+            long_axis_start:  { world: worldPoints[0] },
+            long_axis_end:    { world: worldPoints[1] },
+            short_axis_start: { world: worldPoints[2] },
+            short_axis_end:   { world: worldPoints[3] },
+            vertebra_start:   { world: worldPoints[4] },
+            vertebra_end:     { world: worldPoints[5] },
+          },
+          Lv, Sv, vhs,
+        },
+      },
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `vhs_${new Date().toISOString().slice(0, 19).replace(/[:.]/g, '-')}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  }, [worldPoints]);
+
   const screenPoints = useMemo(() => {
     const vp = viewportRef?.();
     if (!vp) return [];
@@ -199,6 +237,9 @@ export default function VHSOverlay({ active, viewportRef, caseId = null }) {
           <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
             <button onClick={undo} disabled={worldPoints.length === 0} style={resetBtnStyle}>↶ Undo</button>
             <button onClick={reset} style={resetBtnStyle}>↺ Reset</button>
+            <button onClick={exportStateJson} style={resetBtnStyle} title="ดาวน์โหลด JSON ของ VHS points · re-drop via 🤖 Load AI เพื่อ replay">
+              📥 JSON
+            </button>
             <button
               onClick={handleSave}
               disabled={saveState.status === 'saving'}

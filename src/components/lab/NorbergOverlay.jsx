@@ -61,6 +61,44 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
     setWorldPoints((prev) => prev.slice(0, -1));
   }, []);
 
+  const exportStateJson = useCallback(() => {
+    if (worldPoints.length < 4) return;
+    const [lf, rf, lac, rac] = worldPoints;
+    const left = angleAtVertex(lf, rf, lac);
+    const right = angleAtVertex(rf, lf, rac);
+    const cls = classify(Math.min(left, right));
+    // Same schema as AI prediction overlay, so the JSON round-trips:
+    // download → re-drop via 🤖 Load AI to re-render on a fresh image.
+    const data = {
+      type: 'vmx-lab-measurement',
+      version: 1,
+      model: 'manual-norberg',
+      created_at: new Date().toISOString(),
+      predictions: {
+        norberg: {
+          points: {
+            left_femoral_head:   { world: lf },
+            right_femoral_head:  { world: rf },
+            left_acetabular_rim: { world: lac },
+            right_acetabular_rim:{ world: rac },
+          },
+          left_angle: left,
+          right_angle: right,
+          classification: cls,
+        },
+      },
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `norberg_${new Date().toISOString().slice(0, 19).replace(/[:.]/g, '-')}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  }, [worldPoints]);
+
   const screenPoints = useMemo(() => {
     const vp = viewportRef?.();
     if (!vp) return [];
@@ -201,6 +239,9 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
           <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
             <button onClick={undo} disabled={worldPoints.length === 0} style={resetBtnStyle}>↶ Undo</button>
             <button onClick={reset} style={resetBtnStyle}>↺ Reset</button>
+            <button onClick={exportStateJson} style={resetBtnStyle} title="ดาวน์โหลด JSON ของ Norberg points · re-drop via 🤖 Load AI เพื่อ replay ภายหลัง">
+              📥 JSON
+            </button>
             <button
               onClick={handleSave}
               disabled={saveState.status === 'saving'}
