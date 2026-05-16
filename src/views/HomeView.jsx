@@ -356,13 +356,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               type="button"
               className="vmx-btn vmx-btn-primary"
               style={{ background: 'var(--clr-gold, #b88940)', borderColor: 'var(--clr-gold, #b88940)', minHeight: 44, fontSize: 13 }}
-              onClick={() => {
-                // TODO(orchestrator): App.jsx needs a render branch
-                //   {view === 'phase-wrapped' && <PhaseWrappedView ... />}
-                // The wave-coordinator owns the App.jsx edit so this
-                // call only routes when that branch lands.
-                setView('phase-wrapped');
-              }}
+              onClick={() => setView('phase-wrapped')}
             >
               ✨ ดูสรุป →
             </button>

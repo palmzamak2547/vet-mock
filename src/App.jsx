@@ -250,6 +250,9 @@ const RaceView = lazy(() => import('./views/RaceView.jsx'));
 // Worker chunk is dynamically imported inside the view itself.
 const PdfAnnotateView = lazy(() => import('./views/PdfAnnotateView.jsx'));
 const ImageOcclusionView = lazy(() => import('./views/ImageOcclusionView.jsx'));
+// PhaseWrappedView — end-of-phase recap (Spotify-Wrapped style).
+// Only shown after a phase ends, so lazy-load is appropriate.
+const PhaseWrappedView = lazy(() => import('./views/PhaseWrappedView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 
@@ -1533,6 +1536,7 @@ export default function App() {
               {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
+              {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions }} />}
             </Suspense>
             </ErrorBoundary>
           )}
