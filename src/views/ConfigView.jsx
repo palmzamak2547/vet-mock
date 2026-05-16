@@ -124,6 +124,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             ))}
             <input
               type="number"
+              inputMode="numeric"
               min={1}
               value={numQuestions}
               onChange={(e) => {
@@ -159,6 +160,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
               ))}
               <input
                 type="number"
+                inputMode="numeric"
                 min={5}
                 value={timePerQ}
                 onChange={(e) => {

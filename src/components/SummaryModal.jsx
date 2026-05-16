@@ -33,7 +33,9 @@ function renderInline(text) {
   // *italic*  (skip if it's inside ** already — handled above)
   s = s.replace(/(^|[\s>])\*([^*\s][^*]*)\*(?=$|[\s.,;:?!])/g, '$1<em>$2</em>');
   // [text](url)
-  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  // Add both `noopener` (block window.opener tabnabbing) and `noreferrer`
+  // (strip Referer — content domains may not want us referring).
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   return s;
 }
 
