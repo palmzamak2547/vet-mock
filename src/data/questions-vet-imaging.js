@@ -4,7 +4,7 @@
 //
 // AUTO-MERGED from tmp/y4-patches/vet-imaging.json via
 // scripts/apply-y4-patches.mjs.
-// Built: 2026-05-16
+// Built: 2026-05-17
 //
 // Subject slug: vet-imaging
 // ID range: 91000–91034 (35 Qs)
@@ -544,7 +544,7 @@ export const QB_VET_IMAGING = [
       "Otitis media"
     ],
     "answer": 0,
-    "explain": "✓ Gadolinium ขับออกทาง kidney → ถ้า renal impairment หรือ dehydration (Cushing's มี polyuria → dehydration ง่าย, Hepatitis อาจมี hepatorenal syndrome) → ตกค้างในร่างกาย → **Nephrogenic Systemic Fibrosis (NSF)** = ผิวยึดติด, ขยับลำบาก\n✓ ตรวจ renal function ก่อนทุกครั้ง · hydrate ดีก่อนฉีด\n💡 NSF เป็น delayed-onset complication — เห็นจริงในคน เคสในสัตว์รายงานน้อย แต่ระวังไว้",
+    "explain": "✓ Gadolinium ขับออกทาง kidney → ถ้า renal impairment หรือ dehydration (Cushing's มี polyuria → dehydration ง่าย, Hepatitis อาจมี hepatorenal syndrome) → ตกค้างในร่างกาย → Nephrogenic Systemic Fibrosis (NSF) = ผิวยึดติด, ขยับลำบาก\n✓ ตรวจ renal function ก่อนทุกครั้ง · hydrate ดีก่อนฉีด\n💡 NSF เป็น delayed-onset complication — เห็นจริงในคน เคสในสัตว์รายงานน้อย แต่ระวังไว้",
     "verified": "Imaging final TJ.pdf, Pin สรุป vet 83"
   },
   {

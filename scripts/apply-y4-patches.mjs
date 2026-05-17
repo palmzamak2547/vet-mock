@@ -62,6 +62,17 @@ const TARGETS = {
   // ── Y4 Sem 2 Mid APPENDS ──
   'exotic-mid':     { kind: 'append', file: 'questions-exotic.js', exp: 'QB_EXOTIC', desc: 'Exotic (Y4 Sem 2 Mid 86 additions)' },
   'com3-mid':       { kind: 'append', file: 'questions-com3.js',   exp: 'QB_COM3',   desc: 'COM III (Y4 Sem 2 Mid 86 additions)' },
+
+  // ── Wave 3 (Y4 Sem 1): NEW subjects ──
+  'surg1':           { kind: 'new', file: 'questions-surg1.js',           exp: 'QB_SURG1',           desc: 'Veterinary Surgery Laboratory I (Y4 Sem 1)' },
+  'herd-health-rum': { kind: 'new', file: 'questions-herd-health-rum.js', exp: 'QB_HERD_HEALTH_RUM', desc: 'Herd Health Management in Ruminants (Y4 Sem 1)' },
+
+  // ── Wave 3 (Y4 Sem 1): Midterm APPENDS (Final-Term1 already in NEW files above) ──
+  'com1-mid':        { kind: 'append', file: 'questions-com1.js',         exp: 'QB_COM1',         desc: 'COM I (Y4 Sem 1 Mid additions)' },
+  'com2-mid':        { kind: 'append', file: 'questions-com2.js',         exp: 'QB_COM2',         desc: 'COM II (Y4 Sem 1 Mid additions)' },
+  'vet-imaging-mid': { kind: 'append', file: 'questions-vet-imaging.js',  exp: 'QB_VET_IMAGING',  desc: 'Vet Imaging (Y4 Sem 1 Mid additions)' },
+  'vet-juris-mid':   { kind: 'append', file: 'questions-vet-juris.js',    exp: 'QB_VET_JURIS',    desc: 'Vet Juris (Y4 Sem 1 Mid additions)' },
+  'swine-repro-mid': { kind: 'append', file: 'questions-swine-repro.js',  exp: 'QB_SWINE_REPRO',  desc: 'Swine Repro (Y4 Sem 1 Mid additions)' },
 };
 
 // ── "โพย" sanitization (defensive — agents should have done this) ──
@@ -84,6 +95,18 @@ function sanitizeStr(s) {
   return out;
 }
 
+// Strip markdown emphasis that agents sometimes inject into options
+// as "key fact emphasis". Caught by lint as visible-answer-tell.
+// Keep the inner text; remove the wrappers.
+function stripMarkdownEmphasis(s) {
+  if (typeof s !== 'string') return s;
+  return s
+    .replace(/\*\*([^*]+?)\*\*/g, '$1')   // **bold** → bold
+    .replace(/__([^_]+?)__/g, '$1')        // __bold__ → bold
+    .replace(/\*([^*\s][^*]*?)\*/g, '$1')  // *italic* → italic (require non-space after *)
+    .replace(/_([^_\s][^_]*?)_/g, '$1');    // _italic_ → italic
+}
+
 // `source` is shown in the verified panel — must also be sanitized.
 const SAN_USER_FIELDS = ['q', 'explain', 'verified', 'examOrigin', 'source'];
 function sanitizeQ(q) {
@@ -92,7 +115,14 @@ function sanitizeQ(q) {
     if (typeof out[f] === 'string') out[f] = sanitizeStr(out[f]);
   }
   if (Array.isArray(out.options)) {
-    out.options = out.options.map(sanitizeStr);
+    // Strip markdown emphasis FIRST (caught by lint as answer-tell),
+    // then run the vocab sanitizer.
+    out.options = out.options.map((o) => sanitizeStr(stripMarkdownEmphasis(o)));
+  }
+  // Apply the same emphasis-strip to user-visible string fields so
+  // any inline ** that leaked into q/explain/etc. is also cleaned.
+  for (const f of SAN_USER_FIELDS) {
+    if (typeof out[f] === 'string') out[f] = stripMarkdownEmphasis(out[f]);
   }
   // Clean up tags — if any tag accidentally contains "โพย", drop it
   if (Array.isArray(out.tags)) {
@@ -182,22 +212,26 @@ function buildNewFile(meta, subject, qs) {
 }
 
 // ── Append-into-existing builder ────────────────────────────
-const APPEND_MARKER_START = '  // ─── Y4 Sem 2 Mid 86 additions (auto-injected) ───';
-const APPEND_MARKER_END   = '  // ─── End Y4 Sem 2 Mid 86 additions ───';
+// Each patch gets its OWN named marker so multiple patches can
+// append to the same file without overwriting each other's block.
+function markerStart(subject) { return `  // ─── ${subject} additions (auto-injected) ───`; }
+function markerEnd(subject)   { return `  // ─── End ${subject} additions ───`; }
 
 function appendToFile(meta, subject, existingSrc, qs) {
+  const mStart = markerStart(subject);
+  const mEnd   = markerEnd(subject);
   const blockLines = [
-    APPEND_MARKER_START,
+    mStart,
     `  // Source: tmp/y4-patches/${subject}.json — built ${new Date().toISOString().slice(0, 10)}`,
     `  // ${qs.length} Qs · IDs ${Math.min(...qs.map((q) => q.id))}-${Math.max(...qs.map((q) => q.id))}`,
     ...qs.map((q, i) => '  ' + JSON.stringify(q) + (i < qs.length - 1 ? ',' : ',')),
-    APPEND_MARKER_END,
+    mEnd,
   ];
   const block = blockLines.join('\n');
 
-  // Replace existing auto-injected block if present
-  const escStart = APPEND_MARKER_START.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const escEnd   = APPEND_MARKER_END.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  // Replace existing auto-injected block if present (idempotent re-runs)
+  const escStart = mStart.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const escEnd   = mEnd.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const reBlock  = new RegExp(escStart + '[\\s\\S]*?' + escEnd, 'm');
 
   if (reBlock.test(existingSrc)) {
@@ -253,11 +287,14 @@ function main() {
       continue;
     }
 
-    // Validate + sanitize
+    // Sanitize FIRST (strips ** markdown, "โพย", etc.) then validate
+    // the cleaned Q. Otherwise validation catches markdown emphasis
+    // that the sanitizer would have removed anyway.
     const errs = [];
     const qs = rawQs.map((q, i) => {
-      errs.push(...validateQ(q, i, patch.subject || key));
-      return sanitizeQ(q);
+      const cleaned = sanitizeQ(q);
+      errs.push(...validateQ(cleaned, i, patch.subject || key));
+      return cleaned;
     });
     if (errs.length) {
       console.error(`✗ ${pf}: ${errs.length} validation errors:`);

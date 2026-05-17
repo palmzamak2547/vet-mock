@@ -10,7 +10,7 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 2582;
+export const QB_TOTAL = 2650;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 5,
@@ -26,6 +26,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'engprof1': 30,
   'exotic': 151,
   'food-safety-y4': 31,
+  'herd-health-rum': 39,
   'livestock-pathology': 77,
   'poa-clinical': 26,
   'poultry': 191,
@@ -34,6 +35,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'repro': 32,
   'repro-lect': 208,
   'ruminant-clinical': 22,
+  'surg1': 29,
   'surg2': 20,
   'surg3': 40,
   'swine-clinic': 26,
@@ -63,6 +65,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'engprof1': 30,
   'exotic': 108,
   'food-safety-y4': 31,
+  'herd-health-rum': 39,
   'livestock-pathology': 77,
   'poa-clinical': 26,
   'poultry': 134,
@@ -71,6 +74,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'repro': 32,
   'repro-lect': 208,
   'ruminant-clinical': 22,
+  'surg1': 29,
   'surg2': 20,
   'surg3': 40,
   'swine-clinic': 26,
@@ -83,8 +87,8 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 };
 
 export const Q_COUNTS_BY_YEAR = {
-  4: 2027,
+  4: 2095,
   5: 555,
 };
 
-// Built: 2026-05-16T21:17:47.726Z
+// Built: 2026-05-17T08:38:35.439Z

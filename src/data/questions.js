@@ -73,6 +73,9 @@ const LOADERS = [
   () => import('./questions-food-safety-y4.js').then((m) => m.QB_FOOD_SAFETY_Y4),
   () => import('./questions-vet-juris.js').then((m) => m.QB_VET_JURIS),
   () => import('./questions-engprof1.js').then((m) => m.QB_ENGPROF1),
+  // Wave 3 (2026-05-17) — 2 newly-populated Y4 Sem 1 subjects
+  () => import('./questions-surg1.js').then((m) => m.QB_SURG1),
+  () => import('./questions-herd-health-rum.js').then((m) => m.QB_HERD_HEALTH_RUM),
 ];
 
 // SAME reference forever — mutated when loadQB() resolves so closures

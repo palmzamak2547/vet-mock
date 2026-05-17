@@ -4,7 +4,7 @@
 //
 // AUTO-MERGED from tmp/y4-patches/swine-repro.json via
 // scripts/apply-y4-patches.mjs.
-// Built: 2026-05-16
+// Built: 2026-05-17
 //
 // Subject slug: swine-repro
 // ID range: 91500–91528 (29 Qs)

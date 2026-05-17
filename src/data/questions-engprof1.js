@@ -4,7 +4,7 @@
 //
 // AUTO-MERGED from tmp/y4-patches/engprof1.json via
 // scripts/apply-y4-patches.mjs.
-// Built: 2026-05-16
+// Built: 2026-05-17
 //
 // Subject slug: engprof1
 // ID range: 93500–93529 (30 Qs)

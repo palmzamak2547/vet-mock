@@ -4,7 +4,7 @@
 //
 // AUTO-MERGED from tmp/y4-patches/vet-juris.json via
 // scripts/apply-y4-patches.mjs.
-// Built: 2026-05-16
+// Built: 2026-05-17
 //
 // Subject slug: vet-juris
 // ID range: 93000–93046 (47 Qs)

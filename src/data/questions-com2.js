@@ -4,7 +4,7 @@
 //
 // AUTO-MERGED from tmp/y4-patches/com2.json via
 // scripts/apply-y4-patches.mjs.
-// Built: 2026-05-16
+// Built: 2026-05-17
 //
 // Subject slug: com2
 // ID range: 90500–90541 (42 Qs)

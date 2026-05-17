@@ -4,7 +4,7 @@
 //
 // AUTO-MERGED from tmp/y4-patches/food-safety-y4.json via
 // scripts/apply-y4-patches.mjs.
-// Built: 2026-05-16
+// Built: 2026-05-17
 //
 // Subject slug: food-safety-y4
 // ID range: 92500–92530 (31 Qs)
@@ -89,7 +89,7 @@ export const QB_FOOD_SAFETY_Y4 = [
       "ความเข้มข้นของอันตรายในอาหาร (concentration) เท่านั้น"
     ],
     "answer": 2,
-    "explain": "Exposure assessment ใน QMRA ต้องการ 3 ข้อมูลรวมกัน:\n- P (prevalence) = ความชุกของเชื้อในอาหาร\n- C (concentration) = ปริมาณเชื้อต่อหน่วยอาหาร (log MPN/g)\n- m (mass) = ปริมาณการบริโภค (g)\n\nสูตร: P_E = P × (1 - e^(-m × 10^C))\nDose = 10^C × m\n\nครบทั้ง 3 ตัวจึงจะคำนวณ P_E และ Dose ได้",
+    "explain": "Exposure assessment ใน QMRA ต้องการ 3 ข้อมูลรวมกัน:\n- P (prevalence) = ความชุกของเชื้อในอาหาร\n- C (concentration) = ปริมาณเชื้อต่อหน่วยอาหาร (log MPN/g)\n- m (mass) = ปริมาณการบริโภค (g)\n\nสูตร: PE = P × (1 - e^(-m × 10^C))\nDose = 10^C × m\n\nครบทั้ง 3 ตัวจึงจะคำนวณ PE และ Dose ได้",
     "verified": "QMRA slides 31-34, Food Safety Final 86 Q7"
   },
   {

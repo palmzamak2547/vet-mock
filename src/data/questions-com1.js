@@ -4,7 +4,7 @@
 //
 // AUTO-MERGED from tmp/y4-patches/com1.json via
 // scripts/apply-y4-patches.mjs.
-// Built: 2026-05-16
+// Built: 2026-05-17
 //
 // Subject slug: com1
 // ID range: 90000–90030 (31 Qs)
@@ -593,7 +593,7 @@ export const QB_COM1 = [
       "ไม่ต้องเริ่ม diet — รักษาด้วยยาเท่านั้นทุก stage"
     ],
     "answer": 1,
-    "explain": "IRIS staging CKD (creatinine):\n• Stage 1: < 1.4 (dog) / < 1.6 (cat) — เริ่ม monitor, treat underlying\n• Stage 2: 1.4-2.0 (dog) / 1.6-2.8 (cat) — **เริ่ม renal diet** (สำคัญที่สุด) + phosphate binder ถ้า PO4 สูง\n• Stage 3: 2.1-5.0 (dog) / 2.9-5.0 (cat) — full renal management (diet + phosphate binder + ACEi/ARB ถ้า proteinuric + antihypertensive + erythropoietin ถ้า anemic)\n• Stage 4: > 5.0 — palliative/dialysis discussion\n\n✓ Substaging: proteinuria (UPC), BP (target < 160 mmHg)\n\n💡 IRIS 1 + ไม่มี proteinuria + ความดันปกติ → monitor 3-6 เดือน, ยังไม่ต้องทำอะไรเร่งด่วน",
+    "explain": "IRIS staging CKD (creatinine):\n• Stage 1: < 1.4 (dog) / < 1.6 (cat) — เริ่ม monitor, treat underlying\n• Stage 2: 1.4-2.0 (dog) / 1.6-2.8 (cat) — เริ่ม renal diet (สำคัญที่สุด) + phosphate binder ถ้า PO4 สูง\n• Stage 3: 2.1-5.0 (dog) / 2.9-5.0 (cat) — full renal management (diet + phosphate binder + ACEi/ARB ถ้า proteinuric + antihypertensive + erythropoietin ถ้า anemic)\n• Stage 4: > 5.0 — palliative/dialysis discussion\n\n✓ Substaging: proteinuria (UPC), BP (target < 160 mmHg)\n\n💡 IRIS 1 + ไม่มี proteinuria + ความดันปกติ → monitor 3-6 เดือน, ยังไม่ต้องทำอะไรเร่งด่วน",
     "verified": "Modified Com1 final TJ (Renal Q5-6) + COM I Final 86 Q35-36, lecturer วชิรา"
   },
   {
@@ -618,7 +618,7 @@ export const QB_COM1 = [
       "ไม่มี phase ใดที่ reversible"
     ],
     "answer": 0,
-    "explain": "AKI 4 phases (sequential):\n1. **Initiation** — initial injury (ischemia/toxin) → renal blood flow ลด, GFR ลด, tubular cell stress (reversible — intervene ได้)\n2. **Extension** — continued ischemia + inflammation, tubular damage progress (reversible if catch early, last chance to intervene)\n3. **Maintenance** — established tubular necrosis, GFR ต่ำคงที่ 1-2 wk (irreversible structurally แต่ supportive care)\n4. **Recovery** — tubular regeneration, polyuric phase, function ค่อยกลับมาบางส่วน\n\n✓ Goal: catch ระยะ 1-2 → fluid therapy, remove toxin, treat underlying = save function\n\n💡 IRIS AKI grade I-V (different from CKD staging) ใช้ creatinine + clinical status\n💡 Pre-renal AKI (dehydration) reverses with fluid; intrinsic AKI (NSAIDs, ethylene glycol, lepto) อาจ progress ถ้าช้า",
+    "explain": "AKI 4 phases (sequential):\n1. Initiation — initial injury (ischemia/toxin) → renal blood flow ลด, GFR ลด, tubular cell stress (reversible — intervene ได้)\n2. Extension — continued ischemia + inflammation, tubular damage progress (reversible if catch early, last chance to intervene)\n3. Maintenance — established tubular necrosis, GFR ต่ำคงที่ 1-2 wk (irreversible structurally แต่ supportive care)\n4. Recovery — tubular regeneration, polyuric phase, function ค่อยกลับมาบางส่วน\n\n✓ Goal: catch ระยะ 1-2 → fluid therapy, remove toxin, treat underlying = save function\n\n💡 IRIS AKI grade I-V (different from CKD staging) ใช้ creatinine + clinical status\n💡 Pre-renal AKI (dehydration) reverses with fluid; intrinsic AKI (NSAIDs, ethylene glycol, lepto) อาจ progress ถ้าช้า",
     "verified": "Modified Com1 final TJ (Renal Q1) + COM I Final 86 Q31"
   },
   {
@@ -722,7 +722,7 @@ export const QB_COM1 = [
       "Urethral plug จาก crystalluria เดี่ยวๆ"
     ],
     "answer": 1,
-    "explain": "FLUTD etiology by age:\n• Cats < 10 yr: **FIC (~65%)** > urolithiasis (15-20%) > urethral plug (10-20%) > UTI (rare < 1-2%)\n• Cats > 10 yr: UTI proportion เพิ่ม (เพราะ CKD ลด USG → bacterial colonization), urolithiasis ยังพบ\n\n✓ FIC characteristics:\n• Self-limiting episode (~5-7 days)\n• Triggered by stress (multi-cat household, environment change)\n• Diagnosis of exclusion (rule out stone, UTI, neoplasia ก่อน)\n• Treatment = MEMO (Multimodal Environmental MOdification) + diet stress reduction (c/d Multicare Stress) + analgesic + pheromone\n\n✗ Bacterial UTI ในแมวอายุน้อย rare (USG > 1.040 = bactericidal)\n\n💡 Pandora syndrome = FIC + comorbid behavior/GI/endocrine = systemic stress-related",
+    "explain": "FLUTD etiology by age:\n• Cats < 10 yr: FIC (~65%) > urolithiasis (15-20%) > urethral plug (10-20%) > UTI (rare < 1-2%)\n• Cats > 10 yr: UTI proportion เพิ่ม (เพราะ CKD ลด USG → bacterial colonization), urolithiasis ยังพบ\n\n✓ FIC characteristics:\n• Self-limiting episode (~5-7 days)\n• Triggered by stress (multi-cat household, environment change)\n• Diagnosis of exclusion (rule out stone, UTI, neoplasia ก่อน)\n• Treatment = MEMO (Multimodal Environmental MOdification) + diet stress reduction (c/d Multicare Stress) + analgesic + pheromone\n\n✗ Bacterial UTI ในแมวอายุน้อย rare (USG > 1.040 = bactericidal)\n\n💡 Pandora syndrome = FIC + comorbid behavior/GI/endocrine = systemic stress-related",
     "verified": "Modified Com1 final TJ (Renal Q12) + COM I Final 86 Q43"
   },
   {
@@ -797,7 +797,7 @@ export const QB_COM1 = [
       "Perineal urethrostomy"
     ],
     "answer": 1,
-    "explain": "Young female dog + continuous urine dribbling + still attempting normal urination = classic **ectopic ureter** (congenital — ureter เปิดเข้า urethra/vagina แทน trigone กระเพาะ)\n\n✓ Diagnosis:\n• Best imaging = CT excretory urography (gold-standard) หรือ retrograde vagino-urethrography\n• Cystoscopy ทั้ง Dx + treatment (laser ablation ใน intramural type)\n\n✓ Treatment:\n• Surgical: Ureteroneocystostomy / Neoureterostomy (transect + re-implant) — extramural type\n• Cystoscopic laser ablation — intramural type (less invasive)\n• Concurrent USMI ~50% → add PPA หรือ urethral bulking agent post-op\n\n✗ OVH/urethral occluder/cystotomy = ไม่แก้ root cause anatomical\n\n💡 Predispose breed: Labrador, golden, Siberian husky (female > male)",
+    "explain": "Young female dog + continuous urine dribbling + still attempting normal urination = classic ectopic ureter (congenital — ureter เปิดเข้า urethra/vagina แทน trigone กระเพาะ)\n\n✓ Diagnosis:\n• Best imaging = CT excretory urography (gold-standard) หรือ retrograde vagino-urethrography\n• Cystoscopy ทั้ง Dx + treatment (laser ablation ใน intramural type)\n\n✓ Treatment:\n• Surgical: Ureteroneocystostomy / Neoureterostomy (transect + re-implant) — extramural type\n• Cystoscopic laser ablation — intramural type (less invasive)\n• Concurrent USMI ~50% → add PPA หรือ urethral bulking agent post-op\n\n✗ OVH/urethral occluder/cystotomy = ไม่แก้ root cause anatomical\n\n💡 Predispose breed: Labrador, golden, Siberian husky (female > male)",
     "verified": "Modified Com1 final TJ (Renal Q25) + COM I Final 86 Q49"
   }
 ];

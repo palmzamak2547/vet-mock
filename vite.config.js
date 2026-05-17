@@ -89,6 +89,9 @@ export default defineConfig({
           if (id.includes('questions-swine-herd')) return 'data-q-swine-herd'
           if (id.includes('questions-food-safety-y4')) return 'data-q-food-safety-y4'
           if (id.includes('questions-vet-juris')) return 'data-q-vet-juris'
+          // Wave 3 (2026-05-17) — 2 new Y4 Sem 1 subjects flipped from scaffold
+          if (id.includes('questions-surg1')) return 'data-q-surg1'
+          if (id.includes('questions-herd-health-rum')) return 'data-q-herd-health-rum'
           if (id.includes('questions-repro-lect')) return 'data-q-repro-lect'
           if (id.includes('questions-poultry')) return 'data-q-poultry'
           if (id.includes('questions-cliapprum')) return 'data-q-cliapprum'
