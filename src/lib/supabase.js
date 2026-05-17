@@ -354,35 +354,33 @@ async function checkProviderEnabled(providerKey) {
   }
 }
 
+// LINE login — Supabase Auth does NOT natively support LINE provider,
+// so we bridge via LINE LIFF SDK + a Supabase Edge Function. See
+// src/lib/line-liff.js for the full flow; this wrapper just delegates
+// while preserving the existing signature (callers don't need to know).
+//
+// If VITE_LINE_LIFF_ID isn't set, throw PROVIDER_NOT_CONFIGURED:line so
+// AuthView's existing handler still surfaces the setup help modal.
 export async function signInWithLine() {
-  const supabase = await getSupabase();
-  if (!supabase) throw new Error('Supabase not configured');
-
-  // Short-circuit BEFORE signInWithOAuth's auto-redirect: if Supabase
-  // reports LINE provider disabled, surface the setup helper inline
-  // so the user never sees the raw JSON from a redirected error page.
-  const enabled = await checkProviderEnabled('line');
-  if (enabled === false) {
+  const { isLiffAvailable, signInWithLineViaLiff } = await import('./line-liff.js');
+  if (!isLiffAvailable()) {
     const e = new Error('PROVIDER_NOT_CONFIGURED:line');
-    e.rawMessage = 'Provider "line" is disabled in Supabase Auth settings (check Dashboard → Authentication → Providers).';
+    e.rawMessage = 'VITE_LINE_LIFF_ID not set. LINE login requires a LIFF channel + Edge Function — see src/lib/line-liff.js header comment for setup steps.';
     throw e;
   }
-
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'line',
-    options: { redirectTo: window.location.origin },
-  });
-  if (error) {
-    // Fallback for the case where settings check was inconclusive but
-    // the OAuth call itself returned an error.
-    if (/provider|enabled|oauth|validation|redirect|invalid|not.*allowed|unsupported/i.test(error.message)) {
-      const e = new Error('PROVIDER_NOT_CONFIGURED:line');
-      e.rawMessage = error.message;
-      throw e;
-    }
-    throw error;
+  try {
+    return await signInWithLineViaLiff();
+  } catch (err) {
+    // Surface bridge-level failures (network, JWT verify, Supabase admin
+    // error) under the same PROVIDER_NOT_CONFIGURED umbrella so AuthView
+    // opens the setup help modal with the raw detail visible. Genuine
+    // user-cancelled flows (liff.login() didn't return an id_token) get
+    // the same treatment — surfacing the dev modal is harmless.
+    const msg = err?.message || String(err);
+    const e = new Error('PROVIDER_NOT_CONFIGURED:line');
+    e.rawMessage = err?.rawMessage || msg;
+    throw e;
   }
-  return data;
 }
 
 // ─── Apple Sign-in (iOS PWA users) ──────────────────────────────

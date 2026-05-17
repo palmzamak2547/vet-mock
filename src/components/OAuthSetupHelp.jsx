@@ -21,33 +21,39 @@ import { copyText } from '../lib/clipboard.js';
 
 const CHECKLISTS = {
   line: {
-    title: '🟢 ตั้งค่า LINE Login',
+    title: '🟢 ตั้งค่า LINE Login (LIFF + Edge Function)',
+    intro: 'Supabase ไม่ support LINE provider native — bridge ผ่าน LINE LIFF SDK + Supabase Edge Function ที่ verify LINE JWT แล้ว mint Supabase magic link. setup ครั้งเดียว ใช้ตลอด.',
     steps: [
       {
         n: 1,
         label: 'สร้าง LINE Login Channel',
-        body: 'เปิด LINE Developer Console → สร้าง Provider ใหม่ (ถ้ายังไม่มี) → "Create a new channel" → เลือก **LINE Login**',
+        body: 'LINE Developers Console → สร้าง Provider (ถ้ายังไม่มี) → "Create a new channel" → **LINE Login** → ตั้งชื่อ "VetMock" → Region: Japan → Scope ติ๊ก openid + profile + email',
         link: { url: 'https://developers.line.biz/console/', text: 'เปิด LINE Developers' },
       },
       {
         n: 2,
-        label: 'Whitelist callback URL ใน LINE Channel',
-        body: 'ในหน้า LINE Login Channel → tab "LINE Login" → Callback URL → วาง URL ด้านล่าง',
-        copyable: 'CALLBACK_URL',
+        label: 'สร้าง LIFF app ใน Channel',
+        body: 'หน้า Channel → tab "LIFF" → "Add" →\n• Endpoint URL: https://vetmock.vercel.app\n• Size: Full\n• Scope: openid profile email\nคัดลอก LIFF ID (รูปแบบ 1234567890-abcdefgh)',
       },
       {
         n: 3,
-        label: 'Copy Channel ID + Channel Secret',
-        body: 'ใน LINE Channel → tab "Basic settings" → คัดลอก Channel ID และ Channel Secret',
+        label: 'คัดลอก Channel ID',
+        body: 'tab "Basic settings" → คัดลอก Channel ID (เลขล้วน) — ไม่ต้องใช้ Channel Secret',
       },
       {
         n: 4,
-        label: 'เปิด LINE provider ใน Supabase',
-        body: 'Supabase Dashboard → Authentication → Providers → LINE → toggle ON → วาง Channel ID + Channel Secret → Save',
-        link: { url: 'https://supabase.com/dashboard/project/_/auth/providers', text: 'เปิด Supabase Auth Providers' },
+        label: 'Deploy Supabase Edge Function (line-auth)',
+        body: 'CLI:\n  supabase secrets set LINE_CHANNEL_ID=<channel_id>\n  supabase functions deploy line-auth --no-verify-jwt\nโค้ดอยู่ที่ supabase/functions/line-auth/index.ts',
+        link: { url: 'https://supabase.com/dashboard/project/_/functions', text: 'เปิด Edge Functions' },
       },
       {
         n: 5,
+        label: 'เพิ่ม Vercel env var',
+        body: 'Vercel → Project Settings → Environment Variables → เพิ่ม:\n• VITE_LINE_LIFF_ID = <liff_id>\nแล้ว redeploy (push commit ใหม่หรือคลิก Redeploy)',
+        link: { url: 'https://vercel.com/dashboard', text: 'เปิด Vercel Dashboard' },
+      },
+      {
+        n: 6,
         label: 'Whitelist redirect URL ใน Supabase',
         body: 'Supabase Dashboard → Authentication → URL Configuration → เพิ่ม Redirect URLs:\n• https://vetmock.vercel.app\n• http://localhost:5173',
         link: { url: 'https://supabase.com/dashboard/project/_/auth/url-configuration', text: 'เปิด URL Configuration' },
