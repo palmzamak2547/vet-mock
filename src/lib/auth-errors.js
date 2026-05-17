@@ -19,6 +19,13 @@ const PATTERNS = [
   // Sign-up failures
   { match: /already registered|user already|email.*exists/i, th: 'อีเมลนี้มีบัญชีอยู่แล้ว — Login แทนการสมัคร' },
   { match: /password.*at least|password.*6|weak.password/i, th: 'รหัสผ่านสั้นเกินไป — ต้องยาวอย่างน้อย 6 ตัว' },
+  // Magic-link-specific: vetmock sets shouldCreateUser:false so OTP
+  // signup is intentionally blocked — but Supabase's generic
+  // "Signups not allowed for otp" reads as "the whole site is closed",
+  // which scares users. Detect the OTP suffix and rewrite to actionable
+  // direction (sign up first via email/password or Google).
+  { match: /signups? not allowed for otp|otp signups? (disabled|blocked|not allowed)/i,
+    th: 'ไม่พบ account นี้ — สมัครก่อน (ผ่าน email + รหัสผ่าน หรือ Google) แล้วค่อยใช้ Magic Link ครั้งต่อไป' },
   { match: /signup.*disabled|signups.*not allowed/i, th: 'การสมัครถูกปิดชั่วคราว' },
   { match: /unable to validate email|invalid email/i, th: 'รูปแบบอีเมลไม่ถูกต้อง' },
 
