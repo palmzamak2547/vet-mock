@@ -190,6 +190,8 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
 
   const selectTool = useCallback((tool) => {
     setActiveTool(tool);
+    // First user action dismisses the hint
+    setShowFirstHint(false);
     const tg = ToolGroupManager.getToolGroup(toolGroupIdRef.current);
     if (!tg) return;
     try {
@@ -254,6 +256,16 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
   const [aiError, setAiError] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [species, setSpecies] = useState('');
+  // First-load nudge — small floating tip near the canvas that hints
+  // the measurement workflow. Auto-fades after 6 s or on any tool
+  // selection (other than the default W/L which is auto-active).
+  const [showFirstHint, setShowFirstHint] = useState(false);
+  useEffect(() => {
+    if (status !== 'ready') return;
+    setShowFirstHint(true);
+    const t = setTimeout(() => setShowFirstHint(false), 6500);
+    return () => clearTimeout(t);
+  }, [status, file]);
 
   // Track browser fullscreen so the toolbar button label flips.
   useEffect(() => {
@@ -577,6 +589,20 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         {status === 'ready' && aiPrediction && (
           <AIOverlay prediction={aiPrediction} viewportRef={getViewport} />
         )}
+        {status === 'ready' && showFirstHint && (
+          <div
+            style={firstHintStyle}
+            onClick={() => setShowFirstHint(false)}
+            title="คลิกเพื่อปิด"
+            role="status"
+          >
+            💡 <strong>ลองวัด:</strong>{' '}
+            กด <kbd style={kbdInlineStyle}>N</kbd> Norberg ·{' '}
+            <kbd style={kbdInlineStyle}>V</kbd> VHS ·{' '}
+            <kbd style={kbdInlineStyle}>L</kbd> Length{' '}
+            <span style={{ opacity: 0.7, fontSize: '0.78em' }}> · กด <kbd style={kbdInlineStyle}>?</kbd> ดูทั้งหมด</span>
+          </div>
+        )}
         {status === 'ready' && (
           <NorbergOverlay
             key={`norberg-${file?.name}-${file?.size}-${file?.lastModified || 0}`}
@@ -664,6 +690,45 @@ const aiBtnLabelStyle = {
   display: 'inline-flex',
   alignItems: 'center',
 };
+
+// First-load hint near the canvas, fades after 6.5 s.
+const firstHintStyle = {
+  position: 'absolute',
+  top: 10,
+  left: '50%',
+  transform: 'translateX(-50%)',
+  zIndex: 11,
+  background: 'rgba(0,0,0,0.78)',
+  color: '#fff',
+  padding: '8px 14px',
+  borderRadius: 999,
+  fontSize: '0.82rem',
+  pointerEvents: 'auto',
+  cursor: 'pointer',
+  maxWidth: '92%',
+  textAlign: 'center',
+  animation: 'vmx-lab-hint-fade 6.5s ease-in-out forwards',
+};
+
+const kbdInlineStyle = {
+  display: 'inline-block',
+  padding: '0 5px',
+  background: '#fff',
+  color: '#333',
+  border: '1px solid #ccc',
+  borderRadius: 3,
+  fontFamily: 'monospace',
+  fontSize: '0.78rem',
+  lineHeight: 1.3,
+};
+
+// Keyframes for first-hint fade
+if (typeof document !== 'undefined' && !document.getElementById('vmx-lab-hint-keyframes')) {
+  const s = document.createElement('style');
+  s.id = 'vmx-lab-hint-keyframes';
+  s.textContent = '@keyframes vmx-lab-hint-fade { 0% { opacity: 0; transform: translateX(-50%) translateY(-4px); } 8% { opacity: 1; transform: translateX(-50%) translateY(0); } 85% { opacity: 1; } 100% { opacity: 0; transform: translateX(-50%) translateY(-2px); } }';
+  document.head.appendChild(s);
+}
 
 const kbdStyle = {
   display: 'inline-block',

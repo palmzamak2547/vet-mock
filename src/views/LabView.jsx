@@ -267,16 +267,17 @@ export default function LabView({ goHome }) {
       <header style={headerStyle}>
         <div>
           <h1 style={{ fontSize: '1.4rem', margin: 0 }}>🔬 Imaging Practice Lab</h1>
-          <p style={{ fontSize: '0.85rem', color: '#666', margin: '4px 0 0' }}>
+          {/* Consolidated subtitle — replaces the old standalone yellow
+              disclaimer banner. Liability stays visible on every visit
+              (always rendered, not dismissible) but takes a single line
+              instead of 50 px of vertical clutter. */}
+          <p style={{ fontSize: '0.78rem', color: '#666', margin: '4px 0 0', lineHeight: 1.4 }}>
             ฝึกอ่านภาพ + DICOM viewer · <span style={{ color: '#c66' }}>Experimental</span>
+            <span style={{ color: '#888' }}> · ⚠️ เพื่อการเรียนรู้ · ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
           </p>
         </div>
         <button onClick={handleBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← Home</button>
       </header>
-
-      <div style={disclaimerStyle}>
-        ⚠️ เครื่องมือเพื่อการเรียนรู้ · ฝึกอ่านภาพ + วัด practice · <strong>ไม่ใช้แทนการ workup ผู้ป่วยจริง</strong>
-      </div>
 
       {showOnboarding && subView === 'home' && (
         <div style={onboardingStyle}>
@@ -298,81 +299,80 @@ export default function LabView({ goHome }) {
 
       {subView === 'home' && (
         <>
-          <div style={demoCtaWrapStyle}>
-            <button
-              onClick={tryDemo}
-              disabled={demoLoading || demoCases.length === 0}
-              style={{
-                ...demoCtaBtnStyle,
-                padding: isMobile ? '12px 14px' : '16px 20px',
-                fontSize: isMobile ? '0.92rem' : '1rem',
-                opacity: demoCases.length === 0 ? 0.5 : 1,
-                cursor: demoCases.length === 0 ? 'not-allowed' : 'pointer',
-              }}
-              title={
-                demoCases.length === 0
-                  ? 'ยังไม่มี public case · ลาก DICOM ของตัวเองด้านล่างแทน'
-                  : `เปิด: ${demoCases[0].title}`
-              }
-            >
-              {demoLoading
-                ? '⏳ กำลังโหลด...'
-                : demoCases.length === 0
-                  ? '⚠️ ยังไม่มี public case (ลาก DICOM ของตัวเองแทน)'
-                  : (
-                    <>
-                      ▶️ ลอง demo: <strong>{demoCases[0].title}</strong>
-                      {demoCases.length > 1 && (
-                        <span style={{ fontWeight: 400, fontSize: '0.85em', opacity: 0.85 }}>
-                          {' '}· (case แรกจาก {demoCases.length} cases · กด 📚 Browse ดูทั้งหมด)
-                        </span>
-                      )}
-                    </>
-                  )
-              }
-            </button>
-            {demoError && (
-              <p style={{ color: '#c00', fontSize: '0.82rem', margin: '8px 0 0', textAlign: 'center' }}>
-                โหลด demo ไม่สำเร็จ: {demoError}
-              </p>
-            )}
-          </div>
-
-          <div style={modeButtonsStyle}>
-            <button
-              className="vmx-btn vmx-btn-ghost"
-              onClick={() => setShowCases(true)}
-              style={{ flex: 1 }}
-            >
-              📚 Browse case library{demoCases.length > 0 ? ` (${demoCases.length})` : ''}
-            </button>
-            <span style={{ color: '#aaa', fontSize: '0.8rem', alignSelf: 'center' }}>หรือ</span>
-            <span style={{ color: '#666', fontSize: '0.85rem', alignSelf: 'center' }}>
-              ใส่ DICOM ของคุณเองด้านล่าง
-            </span>
-          </div>
-
-          <div
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onDragLeave={onDragLeave}
+          {/* ── HERO — primary action: try a curated case in 1 click ── */}
+          <button
+            onClick={tryDemo}
+            disabled={demoLoading || demoCases.length === 0}
             style={{
-              border: `2px dashed ${dragging ? '#4a6b4a' : '#bbb'}`,
-              borderRadius: 12,
-              padding: isMobile ? '32px 16px' : '60px 20px',
-              textAlign: 'center',
-              background: dragging ? '#f0f8f0' : '#fafafa',
-              transition: 'all 0.2s',
+              ...heroDemoBtnStyle,
+              padding: isMobile ? '14px 16px' : '18px 22px',
+              opacity: demoCases.length === 0 ? 0.5 : 1,
+              cursor: demoCases.length === 0 ? 'not-allowed' : 'pointer',
             }}
+            title={
+              demoCases.length === 0
+                ? 'ยังไม่มี public case · ลาก DICOM ของตัวเองด้านล่างแทน'
+                : `เปิด: ${demoCases[0].title}`
+            }
           >
-            <div style={{ fontSize: '3rem', marginBottom: 12 }}>📁</div>
-            <p style={{ fontSize: '1.05rem', margin: '0 0 8px' }}>ลาก DICOM (.dcm) มาวางที่นี่</p>
-            <p style={{ fontSize: '0.78rem', color: '#999', margin: '0 0 4px' }}>
-              ลากได้ครั้งละ {MAX_FILES} ไฟล์ — เปิด side-by-side อัตโนมัติ (เช่น VD + Lateral)
+            {demoLoading ? (
+              '⏳ กำลังโหลด demo case...'
+            ) : demoCases.length === 0 ? (
+              '⚠️ ยังไม่มี public case · ลาก DICOM ด้านล่างแทน'
+            ) : (
+              <>
+                <span style={{ fontSize: isMobile ? '1.05rem' : '1.15rem' }}>
+                  ▶️ ลอง demo: <strong>{demoCases[0].title}</strong>
+                </span>
+                {demoCases.length > 1 && (
+                  <span style={{ display: 'block', fontWeight: 400, fontSize: '0.78rem', opacity: 0.85, marginTop: 4 }}>
+                    case แรกจาก {demoCases.length} cases · กด Browse ด้านล่างดูทั้งหมด
+                  </span>
+                )}
+              </>
+            )}
+          </button>
+          {demoError && (
+            <p style={{ color: '#c00', fontSize: '0.82rem', margin: '8px 0 0', textAlign: 'center' }}>
+              โหลด demo ไม่สำเร็จ: {demoError}
             </p>
-            <p style={{ fontSize: '0.85rem', color: '#888', margin: '12px 0 16px' }}>หรือ</p>
-            <label className="vmx-btn vmx-btn-primary" style={{ cursor: 'pointer', display: 'inline-block' }}>
-              เลือกไฟล์
+          )}
+
+          {/* ── SECONDARY actions — Browse + Upload side-by-side ── */}
+          <div style={secondaryGridStyle(isMobile)}>
+            <button
+              onClick={() => setShowCases(true)}
+              style={secondaryCardStyle}
+              title="ดู 17 cases ทั้งหมด — filter ตาม modality (X-ray/CT/MRI/US)"
+            >
+              <div style={{ fontSize: '1.6rem', marginBottom: 4 }}>📚</div>
+              <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>
+                Browse case library
+              </div>
+              <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 2 }}>
+                {demoCases.length > 0 ? `${demoCases.length} cases · X-ray / CT / MRI / US` : 'ดู cases ทั้งหมด'}
+              </div>
+            </button>
+
+            <label
+              onDrop={onDrop}
+              onDragOver={onDragOver}
+              onDragLeave={onDragLeave}
+              style={{
+                ...secondaryCardStyle,
+                ...(dragging ? secondaryCardDraggingStyle : {}),
+                cursor: 'pointer',
+                display: 'block',
+              }}
+              title="Drag .dcm ลงตรงนี้ หรือคลิกเลือกไฟล์ · render ใน browser ล้วน · ไม่ upload"
+            >
+              <div style={{ fontSize: '1.6rem', marginBottom: 4 }}>📁</div>
+              <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>
+                Upload DICOM ของคุณ
+              </div>
+              <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 2 }}>
+                Drag .dcm · ครั้งละ {MAX_FILES} ไฟล์ · ไม่ขึ้น server
+              </div>
               <input
                 type="file"
                 accept=".dcm,application/dicom"
@@ -381,11 +381,13 @@ export default function LabView({ goHome }) {
                 style={{ display: 'none' }}
               />
             </label>
-            {error && <p style={{ color: '#c00', fontSize: '0.85rem', marginTop: 16 }}>{error}</p>}
-            <p style={{ fontSize: '0.75rem', color: '#aaa', marginTop: 24 }}>
-              ไฟล์ไม่ถูกอัพโหลด — render ใน browser ล้วน
-            </p>
           </div>
+
+          {error && (
+            <p style={{ color: '#c00', fontSize: '0.82rem', margin: '4px 0 0', textAlign: 'center' }}>
+              {error}
+            </p>
+          )}
 
           <AdvancedToolsRow />
 
@@ -710,6 +712,8 @@ const headerStyle = {
   flexWrap: 'wrap',
 };
 
+// Kept for any view that still references it (none after Wave UX —
+// disclaimer is now inlined in the page subtitle).
 const disclaimerStyle = {
   fontSize: '0.8rem',
   color: '#7a5a00',
@@ -789,6 +793,49 @@ const demoCtaBtnStyle = {
   fontWeight: 600,
   boxShadow: '0 2px 8px rgba(74,107,74,0.25)',
   transition: 'transform 100ms, box-shadow 100ms',
+};
+
+// Hero (Phase Wave UX) — same sage gradient as old CTA but stretches
+// to fill width + slightly bigger padding. Removed the wrapping div
+// since the button is now the hero itself.
+const heroDemoBtnStyle = {
+  display: 'block',
+  width: '100%',
+  background: 'linear-gradient(135deg, #4a6b4a 0%, #6b8a5a 100%)',
+  color: '#fff',
+  border: 'none',
+  borderRadius: 12,
+  fontWeight: 600,
+  boxShadow: '0 3px 10px rgba(74,107,74,0.28)',
+  transition: 'transform 100ms, box-shadow 100ms',
+  marginBottom: 12,
+  textAlign: 'center',
+};
+
+const secondaryGridStyle = (isMobile) => ({
+  display: 'grid',
+  gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+  gap: 10,
+  marginBottom: 12,
+});
+
+const secondaryCardStyle = {
+  padding: '14px 16px',
+  background: '#fafafa',
+  border: '1px solid #e0e0e0',
+  borderRadius: 10,
+  textAlign: 'center',
+  cursor: 'pointer',
+  transition: 'background 120ms, border-color 120ms',
+  fontFamily: 'inherit',
+  color: '#333',
+};
+
+const secondaryCardDraggingStyle = {
+  background: '#f0f8f0',
+  borderColor: '#4a6b4a',
+  borderWidth: 2,
+  borderStyle: 'dashed',
 };
 
 const advancedRowStyle = {
