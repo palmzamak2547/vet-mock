@@ -327,19 +327,55 @@ export async function updateUsername(newUsername) {
 // Plus in Supabase Dashboard → Auth → URL Configuration →
 //   Site URL: https://vetmock.vercel.app
 //   Redirect URLs: https://vetmock.vercel.app, http://localhost:5173
+// Pre-flight check: query Supabase's public auth settings endpoint to
+// see which external providers are enabled BEFORE asking the SDK to
+// build an authorize URL. The SDK's signInWithOAuth redirects the
+// browser to `<project>.supabase.co/auth/v1/authorize?provider=line`
+// regardless of whether that provider is actually configured — so a
+// disabled provider lands the user on a raw JSON error page (the
+// "Unsupported provider: Provider line could not be found" body Palm
+// hit). Settings endpoint is public (no key required for the GET) so
+// the check is essentially free.
+//
+// Returns null on network failure (don't block — let signInWithOAuth
+// proceed and surface whatever error it gets).
+async function checkProviderEnabled(providerKey) {
+  if (!url) return null;
+  try {
+    const resp = await fetch(`${url}/auth/v1/settings`, {
+      headers: key ? { apikey: key } : {},
+    });
+    if (!resp.ok) return null;
+    const json = await resp.json();
+    const external = json?.external || {};
+    return Boolean(external[providerKey]);
+  } catch {
+    return null;
+  }
+}
+
 export async function signInWithLine() {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
+
+  // Short-circuit BEFORE signInWithOAuth's auto-redirect: if Supabase
+  // reports LINE provider disabled, surface the setup helper inline
+  // so the user never sees the raw JSON from a redirected error page.
+  const enabled = await checkProviderEnabled('line');
+  if (enabled === false) {
+    const e = new Error('PROVIDER_NOT_CONFIGURED:line');
+    e.rawMessage = 'Provider "line" is disabled in Supabase Auth settings (check Dashboard → Authentication → Providers).';
+    throw e;
+  }
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'line',
     options: { redirectTo: window.location.origin },
   });
   if (error) {
-    const msg = (error.message || '').toLowerCase();
-    // Expand detection: "Provider is not enabled" + "validation failed"
-    // + "OAuth provider error" + "redirect URL not allowed" all map to
-    // the same user-facing fix (open the setup checklist).
-    if (/provider|enabled|oauth|validation|redirect|invalid|not.*allowed/i.test(error.message)) {
+    // Fallback for the case where settings check was inconclusive but
+    // the OAuth call itself returned an error.
+    if (/provider|enabled|oauth|validation|redirect|invalid|not.*allowed|unsupported/i.test(error.message)) {
       const e = new Error('PROVIDER_NOT_CONFIGURED:line');
       e.rawMessage = error.message;
       throw e;
@@ -361,12 +397,23 @@ export async function signInWithLine() {
 export async function signInWithApple() {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
+
+  // Same pre-flight as LINE — Apple Sign-in requires Apple Developer
+  // setup ($99/yr) so it's commonly disabled. Catch upfront before the
+  // SDK redirects to a JSON error page.
+  const enabled = await checkProviderEnabled('apple');
+  if (enabled === false) {
+    const e = new Error('PROVIDER_NOT_CONFIGURED:apple');
+    e.rawMessage = 'Provider "apple" is disabled in Supabase Auth settings (Apple needs Services ID + .p8 key configured).';
+    throw e;
+  }
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'apple',
     options: { redirectTo: window.location.origin },
   });
   if (error) {
-    if (/provider|enabled|oauth|validation|redirect|invalid|not.*allowed/i.test(error.message)) {
+    if (/provider|enabled|oauth|validation|redirect|invalid|not.*allowed|unsupported/i.test(error.message)) {
       const e = new Error('PROVIDER_NOT_CONFIGURED:apple');
       e.rawMessage = error.message;
       throw e;
