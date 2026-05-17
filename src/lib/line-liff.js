@@ -42,6 +42,8 @@
 // AuthView can fall back to "LINE coming soon" UI gracefully.
 // ============================================================
 
+// Build marker: 2026-05-17 — bumped to force a fresh Vercel build
+// that picks up VITE_LINE_LIFF_ID env (previous redeploy used cache).
 let _liffPromise = null;
 
 /**
