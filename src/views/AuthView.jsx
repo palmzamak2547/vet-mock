@@ -78,9 +78,12 @@ export default function AuthView({ onBack, onSuccess, user }) {
   // BUG 7 — already signed in → bounce to home immediately, EXCEPT
   // when we landed here via a password-reset link (in which case the
   // existing session is the recovery session and we want to stay).
+  // Hide the form during the bounce so users don't see a 100-500ms
+  // flash of the signin UI before the redirect fires.
+  const shouldAutoRedirect = !!user && mode !== 'update-password';
   useEffect(() => {
-    if (user && mode !== 'update-password' && onSuccess) onSuccess();
-  }, [user, mode, onSuccess]);
+    if (shouldAutoRedirect && onSuccess) onSuccess();
+  }, [shouldAutoRedirect, onSuccess]);
 
   // Preload Supabase SDK as soon as the auth screen is open. The SDK
   // is a 190KB chunk, lazy by default; without preload, the user pays
@@ -160,9 +163,12 @@ export default function AuthView({ onBack, onSuccess, user }) {
   const [usernameStatus, setUsernameStatus] = useState('idle');
   const usernameDebounceRef = useRef(null);
 
-  // Reset banners when switching modes
+  // Reset banners + transient state when switching modes. attemptCount
+  // belongs to the signin form specifically (the "ลองผิด N ครั้ง"
+  // banner); leaking it into magic-link / reset modes is confusing.
   useEffect(() => {
     setError(''); setInfo(''); setEmailVerifyPending(null);
+    setAttemptCount(0);
   }, [mode]);
 
   // ── OAuth cancel/error detection ──
@@ -278,6 +284,8 @@ export default function AuthView({ onBack, onSuccess, user }) {
     setLoading(true);
     try {
       if (mode === 'signup') {
+        if (!email.trim()) throw new Error('กรุณาใส่อีเมล');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) throw new Error('รูปแบบอีเมลไม่ถูกต้อง');
         if (!username.trim()) throw new Error('กรุณาใส่ชื่อ username');
         if (password.length < 6) throw new Error('รหัสผ่านต้องยาว 6 ตัวขึ้นไป');
         const result = await signUpWithEmail(email, password, username.trim());
@@ -424,6 +432,18 @@ export default function AuthView({ onBack, onSuccess, user }) {
     'update-password':{ title: 'ตั้งรหัสผ่านใหม่', sub: 'ใส่รหัสผ่านใหม่ที่อยากใช้',                          cta: 'บันทึกรหัสผ่าน' },
     'magic-link':     { title: 'Login ผ่านอีเมล',  sub: 'ไม่ต้องจำรหัสผ่าน — เราจะส่งลิงก์ login ไปที่อีเมลคุณ',  cta: '✨ ส่งลิงก์ login' },
   }[mode];
+
+  // Avoid 100-500ms flash of the signin form when AuthView remounts
+  // while a valid session is loading (e.g., after OAuth redirect back).
+  // shouldAutoRedirect drives the useEffect that triggers onSuccess;
+  // here we just render a quiet placeholder while the bounce fires.
+  if (shouldAutoRedirect) {
+    return (
+      <div style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14, fontFamily: 'JetBrains Mono, monospace' }}>
+        ⏳ Login เรียบร้อย — กำลังเด้งไปหน้าแรก...
+      </div>
+    );
+  }
 
   return (
     <>
@@ -747,16 +767,16 @@ export default function AuthView({ onBack, onSuccess, user }) {
         {/* Mode switch links */}
         <div style={{ textAlign: 'center', marginTop: 16, fontSize: 13, color: 'var(--clr-ink-soft)' }}>
           {mode === 'signin' && (
-            <>ยังไม่มี account? <a onClick={() => setMode('signup')} style={linkStyle}>สมัครเลย</a></>
+            <>ยังไม่มี account? <a onClick={() => setMode('signup')} style={{ ...linkStyle, cursor: 'pointer' }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } }}>สมัครเลย</a></>
           )}
           {mode === 'signup' && (
-            <>มี account แล้ว? <a onClick={() => setMode('signin')} style={linkStyle}>Login</a></>
+            <>มี account แล้ว? <a onClick={() => setMode('signin')} style={{ ...linkStyle, cursor: 'pointer' }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } }}>Login</a></>
           )}
           {mode === 'reset' && (
-            <>จำได้แล้ว? <a onClick={() => setMode('signin')} style={linkStyle}>กลับไป Login</a></>
+            <>จำได้แล้ว? <a onClick={() => setMode('signin')} style={{ ...linkStyle, cursor: 'pointer' }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } }}>กลับไป Login</a></>
           )}
           {mode === 'magic-link' && (
-            <>อยากใช้รหัสผ่าน? <a onClick={() => setMode('signin')} style={linkStyle}>กลับไป Login ปกติ</a></>
+            <>อยากใช้รหัสผ่าน? <a onClick={() => setMode('signin')} style={{ ...linkStyle, cursor: 'pointer' }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } }}>กลับไป Login ปกติ</a></>
           )}
         </div>
       </div>

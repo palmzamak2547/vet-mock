@@ -49,16 +49,27 @@ const LINE_ISSUER = 'https://access.line.me';
 
 const JWKS = createRemoteJWKSet(new URL(LINE_JWKS_URL));
 
-// CORS — allow the vetmock origins to call this function. Add more
-// origins here if you have preview deploys.
+// CORS — allow the vetmock origins to call this function. Hard-coded
+// production + localhost, plus a pattern allowance for Vercel preview
+// deploys (vetmock-xxxx-palmzamak2547s-projects.vercel.app) so Palm
+// can exercise the LINE flow on preview branches without redeploying
+// this function each time.
 const ALLOWED_ORIGINS = new Set([
   'https://vetmock.vercel.app',
   'http://localhost:5173',
   'http://localhost:4174',
 ]);
+// Matches preview-deployment origins on the palmzamak2547 team.
+const PREVIEW_ORIGIN_RE = /^https:\/\/vetmock-[a-z0-9-]+-palmzamak2547s-projects\.vercel\.app$/i;
+
+function isOriginAllowed(origin: string | null): boolean {
+  if (!origin) return false;
+  if (ALLOWED_ORIGINS.has(origin)) return true;
+  return PREVIEW_ORIGIN_RE.test(origin);
+}
 
 function corsHeaders(origin: string | null) {
-  const allow = origin && ALLOWED_ORIGINS.has(origin) ? origin : 'https://vetmock.vercel.app';
+  const allow = isOriginAllowed(origin) ? origin! : 'https://vetmock.vercel.app';
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -148,7 +159,7 @@ serve(async (req) => {
   // creation so first-time logins land with their LINE profile filled.
   const redirectTo = (typeof body?.redirect_to === 'string' && body.redirect_to)
     ? body.redirect_to
-    : (origin && ALLOWED_ORIGINS.has(origin) ? origin : 'https://vetmock.vercel.app');
+    : (isOriginAllowed(origin) ? origin! : 'https://vetmock.vercel.app');
 
   const { data, error } = await supabase.auth.admin.generateLink({
     type: 'magiclink',
