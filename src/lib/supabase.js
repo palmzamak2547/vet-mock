@@ -200,6 +200,23 @@ export async function signInWithMagicLink(email) {
   return data;
 }
 
+// ─── Resend signup verification email ───────────────────────────
+// Used by the email-verify-pending banner so users who missed/lost
+// the original confirmation mail can request a fresh link without
+// re-running the whole signup. Supabase rate-limits at ~60s/email
+// by default; on hit returns a "rate limit" error that the UI maps
+// to a Thai cooldown message.
+export async function resendVerificationEmail(email) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const { error } = await supabase.auth.resend({
+    type: 'signup',
+    email,
+    options: { emailRedirectTo: window.location.origin },
+  });
+  if (error) throw error;
+}
+
 // ─── Sign out from ALL devices (security action) ────────────────
 // Used when user suspects credential leak or wants fresh start.
 // Supabase scope='global' invalidates all refresh tokens for this user.

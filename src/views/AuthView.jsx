@@ -6,6 +6,7 @@ import {
   signInWithLine,
   signInWithDiscord,
   signInWithMagicLink,
+  resendVerificationEmail,
   sendPasswordReset,
   updatePassword,
   isUsernameAvailable,
@@ -164,6 +165,76 @@ export default function AuthView({ onBack, onSuccess, user }) {
     setError(''); setInfo(''); setEmailVerifyPending(null);
   }, [mode]);
 
+  // ── OAuth cancel/error detection ──
+  // When a user clicks an OAuth button and then cancels/back-navigates
+  // on the provider screen, the provider redirects us back with an
+  // error fragment in the URL (#error=access_denied / ?error=...).
+  // Without this guard, the user lands on AuthView again with no
+  // context — they re-click the same button and feel like the system
+  // is broken. We parse, show a friendly Thai message, and clean the
+  // URL so refreshing doesn't re-trigger.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash || '';
+    const search = window.location.search || '';
+    const re = /(?:^|[#?&])error=([^&]+)/;
+    const errMatch = hash.match(re) || search.match(re);
+    if (!errMatch) return;
+    const errCode = decodeURIComponent(errMatch[1] || '');
+    const descMatch = (hash + search).match(/error_description=([^&]+)/);
+    const desc = descMatch ? decodeURIComponent(descMatch[1].replace(/\+/g, ' ')) : '';
+    if (/access_denied|user.*denied|cancel/i.test(errCode + desc)) {
+      setError('🚪 การ Login ถูกยกเลิก — ลองอีกครั้งหรือเลือก provider อื่น');
+    } else if (/server_error|temporarily_unavailable/i.test(errCode)) {
+      setError('⚠️ Provider login มีปัญหาชั่วคราว — ลองอีกครั้งใน 1-2 นาที');
+    } else {
+      setError(`⚠️ Login ไม่สำเร็จ${desc ? ': ' + desc : ''} — ลองอีกครั้ง`);
+    }
+    // Clean URL so refresh doesn't re-trigger this banner
+    try {
+      window.history.replaceState(null, '', window.location.pathname);
+    } catch { /* noop */ }
+  }, []);
+
+  // ── Resend verification email — 60s cooldown ──
+  const [resendCooldown, setResendCooldown] = useState(0);
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const id = setInterval(() => setResendCooldown((n) => Math.max(0, n - 1)), 1000);
+    return () => clearInterval(id);
+  }, [resendCooldown]);
+  const handleResendVerify = async () => {
+    if (!emailVerifyPending?.email || resendCooldown > 0) return;
+    setError(''); setInfo('');
+    try {
+      await resendVerificationEmail(emailVerifyPending.email);
+      setInfo('✓ ส่งอีเมลยืนยันใหม่แล้ว — เช็ค inbox + junk folder');
+      setResendCooldown(60);
+    } catch (err) {
+      const msg = err?.message || '';
+      // Supabase often returns "Email rate limit exceeded" with no
+      // explicit duration — default to 60s in that case.
+      if (/rate|too many|429/i.test(msg)) {
+        setError('⏱ ส่งใหม่บ่อยเกินไป — รอ 60 วินาทีแล้วลอง');
+        setResendCooldown(60);
+      } else {
+        setError(thaiAuthError(err));
+      }
+    }
+  };
+
+  // ── Rate-limit countdown for submit ──
+  // When Supabase returns 429 on signin/signup, the helpful UX is a
+  // visible "try again in N seconds" timer instead of a vague
+  // "ลองมากเกินไป" string. Parse the wait hint from Supabase's error
+  // message when present, else default to 60s.
+  const [rateLimitCountdown, setRateLimitCountdown] = useState(0);
+  useEffect(() => {
+    if (rateLimitCountdown <= 0) return;
+    const id = setInterval(() => setRateLimitCountdown((n) => Math.max(0, n - 1)), 1000);
+    return () => clearInterval(id);
+  }, [rateLimitCountdown]);
+
   // ── Smart: auto-suggest username from email (signup only) ──
   // Only fires when the user hasn't manually edited the username yet.
   // Once they touch it, we stop auto-overwriting their choice.
@@ -273,7 +344,12 @@ export default function AuthView({ onBack, onSuccess, user }) {
         setAttemptCount((n) => n + 1);
       }
       if (isRateLimit) {
-        setError('⏱️ ลองมากเกินไป — รอ 30-60 วินาทีแล้วลองใหม่ (Supabase rate limit)');
+        // Try to extract the wait hint from the message; Supabase
+        // sometimes includes "after N seconds" or similar. Default 60s.
+        const m = (err?.message || '').match(/(\d+)\s*(seconds?|วินาที)/i);
+        const wait = m ? Math.min(120, Math.max(5, parseInt(m[1], 10))) : 60;
+        setRateLimitCountdown(wait);
+        setError(`⏱ ลองมากเกินไป — รอ ${wait} วินาทีแล้วลองใหม่`);
       } else {
         setError(thaiAuthError(err));
       }
@@ -364,6 +440,25 @@ export default function AuthView({ onBack, onSuccess, user }) {
             <span style={{ color: 'var(--clr-ink-soft)' }}>
               เราส่งลิงก์ยืนยันไปที่ <code>{emailVerifyPending.email}</code>, คลิกลิงก์นั้นเพื่อยืนยันก่อน Login (อาจอยู่ใน junk/spam)
             </span>
+            <div style={{ marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+              <button
+                type="button"
+                onClick={handleResendVerify}
+                disabled={resendCooldown > 0}
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                style={{ minHeight: 32, fontSize: 12 }}
+              >
+                {resendCooldown > 0 ? `รอ ${resendCooldown}s` : '↻ ส่งใหม่'}
+              </button>
+              <button
+                type="button"
+                onClick={() => { setEmailVerifyPending(null); setMode('signin'); }}
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                style={{ minHeight: 32, fontSize: 12 }}
+              >
+                ✓ ยืนยันแล้ว — ไป Login
+              </button>
+            </div>
           </div>
         )}
 
@@ -636,11 +731,16 @@ export default function AuthView({ onBack, onSuccess, user }) {
             style={{ width: '100%', justifyContent: 'center', padding: '14px' }}
             disabled={
               loading
+              || rateLimitCountdown > 0
               // Block signup if username is known-bad (don't waste a round-trip)
               || (mode === 'signup' && (usernameStatus === 'taken' || usernameStatus === 'invalid'))
             }
           >
-            {loading ? '⏳ ...' : heading.cta}
+            {loading
+              ? '⏳ ...'
+              : rateLimitCountdown > 0
+                ? `⏱ รอ ${rateLimitCountdown}s แล้วลองใหม่`
+                : heading.cta}
           </button>
         </form>
 
