@@ -31,7 +31,16 @@ const QComments = lazy(() => import('../components/QComments.jsx'));
 // code (src/lib/ai-grade.js + api/grade-summary.js) remains in place
 // so re-enabling the feature is a one-line UI change later.
 
-export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user }) {
+// Phase label map — mirrors header pill in App.jsx
+const PHASE_LABEL_REV = {
+  '1-mid':   'ทม.1 กลาง',
+  '1-final': 'ทม.1 ปลาย',
+  '2-mid':   'ทม.2 กลาง',
+  '2-final': 'ทม.2 ปลาย',
+};
+
+export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user, selectedYear = 4, selectedPhase }) {
+  const phaseLabel = selectedPhase ? PHASE_LABEL_REV[selectedPhase] : null;
   // Filter tabs let users zoom into the slice they care about — when
   // reviewing a 200-Q exam, scrolling linearly to find the 30 wrong
   // ones is brutal. 'all' is the default. Cached counts shown in tabs.
@@ -118,6 +127,17 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
       <div className="vmx-hero">
         <h1>เฉลย <em>ข้อสอบ</em></h1>
         <p>กด ★ เพื่อ bookmark ข้อที่อยากกลับมาทำซ้ำ</p>
+        {(phaseLabel || selectedYear) && (
+          <div style={{
+            marginTop: 8, display: 'inline-block',
+            padding: '3px 10px', borderRadius: 999,
+            background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)',
+            fontFamily: 'JetBrains Mono, monospace', fontSize: 11,
+            letterSpacing: '0.08em', color: 'var(--clr-ink-soft)',
+          }}>
+            🎓 ปี {selectedYear}{phaseLabel ? ` · ${phaseLabel}` : ''}
+          </div>
+        )}
       </div>
 
       {/* Filter tabs — only render if there's variety to filter (>1 unique

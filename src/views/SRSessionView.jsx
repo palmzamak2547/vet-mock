@@ -32,7 +32,7 @@ import ClozeCard from '../components/ClozeCard.jsx';
 
 const SIZE_PRESETS = [25, 50, 100, 200];
 
-export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [] }) {
+export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase }) {
   // Merge in user-authored flashcards (from "Highlight → Flashcard"
   // in SummaryModal). They live in localStorage and don't trigger
   // React updates by themselves — we read on mount and let the
@@ -66,10 +66,23 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // separately so a fresh user doesn't see misleading "Due 1842 ใบ"
   // when in reality every card is unseen. Mirrors the cardStats fix in
   // sm2.js + HomeView SR mode-card (2026-05-16).
+  // Year-scope toggle: ON by default — surface only cards from the
+  // year the user is currently studying so Y5 surprises don't leak
+  // into a Y4 review session. User can toggle OFF when they want
+  // cross-year ("ทุกปี").
+  const [yearScope, setYearScope] = useLocalStorage('vmx-sr-year-scope', 'current');
+
   const { duePool, dueReviewedCount, newCount, excludedCount, eligibleCount } = useMemo(() => {
-    const inSubject = subjectFilter === 'all'
+    let inSubject = subjectFilter === 'all'
       ? allQuestions
       : allQuestions.filter((q) => q.subject === subjectFilter);
+    // Year-scope: when 'current', restrict cross-subject pool to selectedYear.
+    // User-authored flashcards / cloze / image-occlusion typically lack q.year —
+    // we keep those (year-agnostic content). Only filter Qs that explicitly
+    // carry a year field that doesn't match.
+    if (yearScope === 'current' && subjectFilter === 'all') {
+      inSubject = inSubject.filter((q) => q.year == null || q.year === selectedYear);
+    }
     const eligible = inSubject.filter(isFlashcardCompatible);
     const pool = {};
     // Attach `subject` to each card runtime so the currentQ lookup below
@@ -88,21 +101,24 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       excludedCount: inSubject.length - eligible.length,
       eligibleCount: eligible.length,
     };
-  }, [allQuestions, srCards, subjectFilter]);
+  }, [allQuestions, srCards, subjectFilter, yearScope, selectedYear]);
 
   // Stats only for cards belonging to SR-eligible questions in the
   // current subject filter — keeps Total/Mastered consistent with what
   // the user can actually see in SR.
   const stats = useMemo(() => {
     const eligibleIds = new Set();
-    const inSubject = subjectFilter === 'all'
+    let inSubject = subjectFilter === 'all'
       ? allQuestions
       : allQuestions.filter((q) => q.subject === subjectFilter);
+    if (yearScope === 'current' && subjectFilter === 'all') {
+      inSubject = inSubject.filter((q) => q.year == null || q.year === selectedYear);
+    }
     inSubject.filter(isFlashcardCompatible).forEach((q) => eligibleIds.add(q.id));
     const filtered = {};
     for (const id of eligibleIds) if (srCards[id]) filtered[id] = srCards[id];
     return getCardStats(filtered);
-  }, [srCards, allQuestions, subjectFilter]);
+  }, [srCards, allQuestions, subjectFilter, yearScope, selectedYear]);
 
   // Subjects that actually have at least one card in the bank
   const subjectsWithCards = useMemo(() => {
@@ -131,6 +147,28 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         </div>
 
         <div className="vmx-config-panel">
+          {/* Year scope toggle — default to current year so cross-year
+              cards don't leak into focused review sessions */}
+          {subjectFilter === 'all' && (
+            <div className="vmx-config-row">
+              <label className="vmx-label">ขอบเขตปี</label>
+              <div className="vmx-chip-row">
+                <button
+                  className={`vmx-chip ${yearScope === 'current' ? 'active' : ''}`}
+                  onClick={() => setYearScope('current')}
+                >
+                  🎓 ปี {selectedYear} เท่านั้น
+                </button>
+                <button
+                  className={`vmx-chip ${yearScope === 'all' ? 'active' : ''}`}
+                  onClick={() => setYearScope('all')}
+                >
+                  🌐 ทุกปี
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Subject filter */}
           {subjectsWithCards.length > 2 && (
             <div className="vmx-config-row">

@@ -15,6 +15,7 @@
 
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { loadPins, removePin, clearPinboard, PINBOARD_EVENT, PINBOARD_MAX } from '../lib/pinboard.js';
+import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 
 const TYPE_META = {
   question:  { label: 'ข้อสอบ',     icon: '❓', color: '#c26d6d' },
@@ -55,9 +56,27 @@ function snippetFor(pin) {
   }
 }
 
-export default function PinboardView({ goHome, setView, setSubject, setPracticeMode }) {
+export default function PinboardView({ goHome, setView, setSubject, setPracticeMode, selectedYear = 4, selectedPhase }) {
   const [pins, setPins] = useState(() => loadPins());
   const [filter, setFilter] = useState('all');
+  // Year scope — 'current' shows only pins whose source subject lives in
+  // the user's selected year. 'all' is the lifetime view.
+  const [yearScope, setYearScope] = useState(() => {
+    try { return localStorage.getItem('vmx-pinboard-year-scope') || 'current'; }
+    catch { return 'current'; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('vmx-pinboard-year-scope', yearScope); } catch { /* noop */ }
+  }, [yearScope]);
+
+  // Build subject → year map once.
+  const subjectYear = useMemo(() => {
+    const m = {};
+    for (const [yr, subjects] of Object.entries(SUBJECTS_BY_YEAR || {})) {
+      for (const s of subjects || []) m[s.id] = Number(yr);
+    }
+    return m;
+  }, []);
 
   // Re-load when another component (PinButton in Question.jsx,
   // SummaryModal) mutates the store.
@@ -67,16 +86,30 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
     return () => window.removeEventListener(PINBOARD_EVENT, onChange);
   }, []);
 
+  // Year filter is applied FIRST so type counts (below) reflect what
+  // the user actually sees with their year scope.
+  const yearFilteredPins = useMemo(() => {
+    if (yearScope === 'all') return pins;
+    return pins.filter((p) => {
+      const subj = p?.payload?.subject;
+      if (!subj) return true; // year-agnostic pins (summaries without subject, etc.) stay visible
+      const yr = subjectYear[subj];
+      return yr == null || yr === selectedYear;
+    });
+  }, [pins, yearScope, subjectYear, selectedYear]);
+
   const filtered = useMemo(() => {
-    if (filter === 'all') return pins;
-    return pins.filter((p) => p.type === filter);
-  }, [pins, filter]);
+    if (filter === 'all') return yearFilteredPins;
+    return yearFilteredPins.filter((p) => p.type === filter);
+  }, [yearFilteredPins, filter]);
 
   const counts = useMemo(() => {
-    const c = { all: pins.length, question: 0, summary: 0, flashcard: 0, note: 0 };
-    for (const p of pins) c[p.type] = (c[p.type] || 0) + 1;
+    const c = { all: yearFilteredPins.length, question: 0, summary: 0, flashcard: 0, note: 0 };
+    for (const p of yearFilteredPins) c[p.type] = (c[p.type] || 0) + 1;
     return c;
-  }, [pins]);
+  }, [yearFilteredPins]);
+
+  const hiddenByYearScope = pins.length - yearFilteredPins.length;
 
   const onOpen = useCallback((pin) => {
     const p = pin.payload || {};
@@ -147,6 +180,44 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
           >
             🗑 ล้างทั้งหมด
           </button>
+        )}
+      </div>
+
+      {/* Year-scope chips */}
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 10 }}>
+        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          📅
+        </span>
+        <button
+          type="button"
+          onClick={() => setYearScope('current')}
+          style={{
+            minHeight: 32, padding: '4px 10px', borderRadius: 999,
+            border: '1px solid ' + (yearScope === 'current' ? 'var(--clr-ink)' : 'var(--clr-border)'),
+            background: yearScope === 'current' ? 'var(--clr-ink)' : 'transparent',
+            color: yearScope === 'current' ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',
+            fontSize: 12, cursor: 'pointer',
+          }}
+        >
+          🎓 ปี {selectedYear}
+        </button>
+        <button
+          type="button"
+          onClick={() => setYearScope('all')}
+          style={{
+            minHeight: 32, padding: '4px 10px', borderRadius: 999,
+            border: '1px solid ' + (yearScope === 'all' ? 'var(--clr-ink)' : 'var(--clr-border)'),
+            background: yearScope === 'all' ? 'var(--clr-ink)' : 'transparent',
+            color: yearScope === 'all' ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',
+            fontSize: 12, cursor: 'pointer',
+          }}
+        >
+          🌐 ทุกปี
+        </button>
+        {hiddenByYearScope > 0 && (
+          <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+            +{hiddenByYearScope} ปีอื่น
+          </span>
         )}
       </div>
 

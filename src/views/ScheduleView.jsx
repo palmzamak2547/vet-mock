@@ -8,10 +8,11 @@ import { SUBJECTS } from '../data/curriculum.js';
 import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import BackBar from '../components/BackBar.jsx';
 
-export default function ScheduleView({ goHome, setSubject, setMode, setView, setPracticeMode }) {
+export default function ScheduleView({ goHome, setSubject, setMode, setView, setPracticeMode, selectedYear = 4, selectedPhase }) {
   const [showPast, setShowPast] = useState(false);
   const [, setTick] = useState(0);
-  const allExams = getUpcomingExams('y4');
+  const yearKey = `y${selectedYear}`;
+  const allExams = getUpcomingExams(yearKey);
   const hasImminent = allExams.some((e) => e.daysLeft <= 1 && e.daysLeft >= 0 && shortCountdown(e));
   useEffect(() => {
     if (!hasImminent) return;
@@ -39,7 +40,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
       </div>
 
       <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
-        <span>ปี 4 · Final Exams ({exams.length})</span>
+        <span>ปี {selectedYear} · Final Exams ({exams.length})</span>
         {pastCount > 0 && (
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowPast(!showPast)}>
             {showPast ? `🙈 ซ่อนสอบที่ผ่านแล้ว (${pastCount})` : `👁 แสดงสอบที่ผ่านแล้ว (${pastCount})`}

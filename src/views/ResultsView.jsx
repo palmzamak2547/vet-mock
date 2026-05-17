@@ -99,7 +99,16 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 0.95));
 }
 
-export default function ResultsView({ score, questions, answers, goHome, setView, mode }) {
+// Phase label map — mirrors header pill in App.jsx
+const PHASE_LABEL_RES = {
+  '1-mid':   'ทม.1 กลาง',
+  '1-final': 'ทม.1 ปลาย',
+  '2-mid':   'ทม.2 กลาง',
+  '2-final': 'ทม.2 ปลาย',
+};
+
+export default function ResultsView({ score, questions, answers, goHome, setView, mode, selectedYear = 4, selectedPhase }) {
+  const phaseLabel = selectedPhase ? PHASE_LABEL_RES[selectedPhase] : null;
   // Fire confetti once on mount for a perfect auto-graded score.
   // Lazy-imported so the canvas/animation code never hits the
   // main bundle. Guarded by useRef so React StrictMode's double
@@ -208,6 +217,20 @@ export default function ResultsView({ score, questions, answers, goHome, setView
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
+      {(phaseLabel || selectedYear) && (
+        <div style={{
+          marginBottom: 12, display: 'flex', gap: 6, justifyContent: 'center',
+          fontFamily: 'JetBrains Mono, monospace', fontSize: 11,
+          letterSpacing: '0.08em', color: 'var(--clr-ink-soft)',
+        }}>
+          <span style={{
+            padding: '3px 10px', borderRadius: 999,
+            background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)',
+          }}>
+            🎓 ปี {selectedYear}{phaseLabel ? ` · ${phaseLabel}` : ''}
+          </span>
+        </div>
+      )}
       {showPassFail && (
         <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
           {passed ? '✓ PASSED' : '✗ FAILED'}, EXAM MODE

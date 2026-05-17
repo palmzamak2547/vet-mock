@@ -249,10 +249,41 @@ function WebVitalsPanel() {
   );
 }
 
-export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, customQuestions }) {
-  const trend = useMemo(() => build7DayTrend(history), [history]);
+export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, customQuestions, selectedYear = 4, selectedPhase }) {
+  // Year-scope toggle: 'current' restricts charts/heatmap/learning-curve
+  // to the user's current year context; 'all' shows the lifetime view.
+  // Persist user preference so they don't have to re-pick every visit.
+  const [yearScope, setYearScope] = useState(() => {
+    try { return localStorage.getItem('vmx-dash-year-scope') || 'current'; }
+    catch { return 'current'; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('vmx-dash-year-scope', yearScope); } catch { /* noop */ }
+  }, [yearScope]);
+
+  // Build subject → year map once so we can filter history without
+  // joining against QB on every render (history doesn't store q.year).
+  const subjectYear = useMemo(() => {
+    const m = {};
+    for (const q of QB) {
+      if (q.subject && q.year != null && !(q.subject in m)) m[q.subject] = q.year;
+    }
+    return m;
+  }, []);
+
+  const scopedHistory = useMemo(() => {
+    if (yearScope === 'all') return history;
+    return (history || []).filter((h) => {
+      // If we can map subject→year, use that. Otherwise keep the row
+      // (defensive — don't drop legacy rows missing subject metadata).
+      const y = subjectYear[h?.subject];
+      return y == null || y === selectedYear;
+    });
+  }, [history, yearScope, subjectYear, selectedYear]);
+
+  const trend = useMemo(() => build7DayTrend(scopedHistory), [scopedHistory]);
   const [curveDays, setCurveDays] = useState(14);
-  const learningCurve = useMemo(() => buildLearningCurve(history, curveDays), [history, curveDays]);
+  const learningCurve = useMemo(() => buildLearningCurve(scopedHistory, curveDays), [scopedHistory, curveDays]);
   const [osceOpen, setOsceOpen] = useState(false);
   const [diagramOpen, setDiagramOpen] = useState(false);
   const exportData = () => {
@@ -300,6 +331,34 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         <p>สถิติการฝึกของคุณ, 🔥 Streak: {streak || 0} วัน</p>
       </div>
 
+      {/* Year-scope toggle — sets context for trend chart, heatmap,
+          and learning curve. Stat cards above still show lifetime
+          totals (from `analytics` which is computed cross-year). */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 14 }}>
+        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          📅 ขอบเขต:
+        </span>
+        <button
+          className={`vmx-chip ${yearScope === 'current' ? 'active' : ''}`}
+          onClick={() => setYearScope('current')}
+          style={{ minHeight: 32, fontSize: 12 }}
+        >
+          🎓 ปี {selectedYear} เท่านั้น
+        </button>
+        <button
+          className={`vmx-chip ${yearScope === 'all' ? 'active' : ''}`}
+          onClick={() => setYearScope('all')}
+          style={{ minHeight: 32, fontSize: 12 }}
+        >
+          🌐 ทุกปี (lifetime)
+        </button>
+        {yearScope === 'current' && (
+          <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+            {scopedHistory.length}/{history?.length || 0} attempts
+          </span>
+        )}
+      </div>
+
       {!analytics ? (
         <div className="vmx-empty">ยังไม่มีข้อมูลสถิติ — ลองทำข้อสอบสักชุดก่อน 📈</div>
       ) : (
@@ -331,8 +390,8 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           )}
 
           <div className="vmx-dash-card" style={{ marginTop: 16 }}>
-            <h3>🗓 ความหนาแน่น 12 เดือน</h3>
-            <StreakHeatmap history={history} />
+            <h3>🗓 ความหนาแน่น 12 เดือน{yearScope === 'current' ? ` · ปี ${selectedYear}` : ''}</h3>
+            <StreakHeatmap history={scopedHistory} />
           </div>
 
           {learningCurve && (
