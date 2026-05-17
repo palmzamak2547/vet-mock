@@ -282,20 +282,39 @@ export default function AuthView({ onBack, onSuccess, user }) {
     }
   };
 
-  const google = async () => {
-    setError(''); setInfo(''); setLoading(true);
-    try { await signInWithGoogle(); }
-    catch (err) { setError(thaiAuthError(err)); setLoading(false); }
-  };
-
   // OAuth providers that may not be configured in Supabase yet (LINE,
-  // Apple). Surface a friendly Thai inline message PLUS open a setup-
+  // Discord). Surface a friendly Thai inline message PLUS open a setup-
   // help modal that walks through every dashboard step with the exact
-  // callback URL to paste. The modal is reusable across both providers.
+  // callback URL to paste. The modal is reusable across all providers.
   const [oauthHelp, setOauthHelp] = useState(null); // null | {provider, rawError}
 
-  const lineLogin = async () => {
+  // OAuth click → safety timeout. signInWithOAuth normally redirects
+  // the browser away (so this state doesn't matter), but if the SDK
+  // throws synchronously OR the popup is silently cancelled, the
+  // loading=true persists and locks every other button incl. submit.
+  // The 12s timeout is a backstop — way longer than any reasonable
+  // redirect, way shorter than the user's patience.
+  const oauthTimeoutRef = useRef(null);
+  const beginOauth = () => {
     setError(''); setInfo(''); setLoading(true);
+    if (oauthTimeoutRef.current) clearTimeout(oauthTimeoutRef.current);
+    oauthTimeoutRef.current = setTimeout(() => setLoading(false), 12_000);
+  };
+  const endOauth = () => {
+    if (oauthTimeoutRef.current) { clearTimeout(oauthTimeoutRef.current); oauthTimeoutRef.current = null; }
+    setLoading(false);
+  };
+  useEffect(() => () => { if (oauthTimeoutRef.current) clearTimeout(oauthTimeoutRef.current); }, []);
+
+  const google = async () => {
+    beginOauth();
+    try { await signInWithGoogle(); }
+    catch (err) { setError(thaiAuthError(err)); }
+    finally { endOauth(); }
+  };
+
+  const lineLogin = async () => {
+    beginOauth();
     try { await signInWithLine(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
@@ -304,11 +323,11 @@ export default function AuthView({ onBack, onSuccess, user }) {
       } else {
         setError(thaiAuthError(err));
       }
-      setLoading(false);
     }
+    finally { endOauth(); }
   };
   const discordLogin = async () => {
-    setError(''); setInfo(''); setLoading(true);
+    beginOauth();
     try { await signInWithDiscord(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
@@ -317,8 +336,8 @@ export default function AuthView({ onBack, onSuccess, user }) {
       } else {
         setError(thaiAuthError(err));
       }
-      setLoading(false);
     }
+    finally { endOauth(); }
   };
 
   // ── Heading text per mode ──
