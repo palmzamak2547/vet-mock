@@ -392,6 +392,43 @@ export async function signInWithLine() {
 //   https://<your-supabase-project>.supabase.co/auth/v1/callback
 // Plus the Services ID + Key ID + Team ID + .p8 key contents go into
 // Supabase Dashboard → Auth → Providers → Apple.
+// Discord OAuth — free alternative to Apple Sign-in for VetMock.
+// Supabase supports Discord as a native external provider, so the
+// flow is identical to Google: signInWithOAuth + browser redirect.
+//
+// CALLBACK URL to whitelist in Discord Developer Portal:
+//   https://<your-supabase-project>.supabase.co/auth/v1/callback
+// Plus enable Discord in Supabase Dashboard → Authentication →
+// Providers → Discord and paste Client ID + Client Secret from the
+// Discord Developer Portal application.
+export async function signInWithDiscord() {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+
+  // Pre-flight settings check so a disabled provider surfaces our
+  // friendly setup-help modal rather than dumping a JSON error.
+  const enabled = await checkProviderEnabled('discord');
+  if (enabled === false) {
+    const e = new Error('PROVIDER_NOT_CONFIGURED:discord');
+    e.rawMessage = 'Provider "discord" is disabled in Supabase Auth settings (Dashboard → Authentication → Providers → Discord).';
+    throw e;
+  }
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'discord',
+    options: { redirectTo: window.location.origin },
+  });
+  if (error) {
+    if (/provider|enabled|oauth|validation|redirect|invalid|not.*allowed|unsupported/i.test(error.message)) {
+      const e = new Error('PROVIDER_NOT_CONFIGURED:discord');
+      e.rawMessage = error.message;
+      throw e;
+    }
+    throw error;
+  }
+  return data;
+}
+
 export async function signInWithApple() {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
