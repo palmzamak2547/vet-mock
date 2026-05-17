@@ -104,6 +104,52 @@ export default function AuthView({ onBack, onSuccess, user }) {
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
   const [emailVerifyPending, setEmailVerifyPending] = useState(null); // null | { email }
+
+  // ── Google GIS button mount (inline, no Supabase URL flash) ──
+  // When VITE_GOOGLE_CLIENT_ID is configured, render the official
+  // Google Identity Services button into gisButtonRef. The button
+  // triggers a Google-hosted popup that returns an ID token directly
+  // to this page → supabase.signInWithIdToken → session established.
+  // No browser redirect through <project>.supabase.co/auth/v1/callback,
+  // so the user never sees the raw Supabase URL.
+  const gisButtonRef = useRef(null);
+  const [gisReady, setGisReady] = useState(false);
+  useEffect(() => {
+    if (mode === 'reset' || mode === 'update-password' || mode === 'magic-link') return;
+    if (!gisButtonRef.current) return;
+    let cleanup = null;
+    (async () => {
+      try {
+        const supabase = await getSupabase();
+        if (!supabase) return;
+        const { isGoogleGisAvailable, renderGoogleGisButton } = await import('../lib/google-gis.js');
+        if (!isGoogleGisAvailable()) return;
+        const teardown = await renderGoogleGisButton(gisButtonRef.current, {
+          supabase,
+          theme: 'filled_blue',
+          onSuccess: () => { onSuccess?.(); },
+          onError: (err) => {
+            // Surface as inline error — covers cancelled popup, network,
+            // ID token mismatch (rare). Keep the rendered button so the
+            // user can retry without re-rendering the whole form.
+            setError(thaiAuthError(err));
+            setLoading(false);
+          },
+        });
+        cleanup = teardown;
+        setGisReady(true);
+      } catch (err) {
+        // GIS unavailable (offline, CSP, env missing) — keep fallback
+        // custom button visible. Silent — the fallback path still works.
+        if (err?.message !== 'NO_GOOGLE_CLIENT_ID') {
+          console.warn('[auth] GIS button render failed', err);
+        }
+      }
+    })();
+    return () => { try { cleanup?.(); } catch { /* noop */ } };
+    // mode is in deps so the button re-mounts when user switches back
+    // to signin from a hidden mode. onSuccess is stable from App.jsx.
+  }, [mode, onSuccess]);
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
 
@@ -305,17 +351,40 @@ export default function AuthView({ onBack, onSuccess, user }) {
         {/* Google OAuth + Magic Link — hide on reset / update / magic-link itself */}
         {mode !== 'reset' && mode !== 'update-password' && mode !== 'magic-link' && (
           <>
-            <button className="vmx-btn vmx-btn-ghost" style={{ width: '100%', justifyContent: 'center', padding: '14px', marginBottom: 8 }} onClick={google} disabled={loading}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                </svg>
-                เข้าสู่ระบบด้วย Google
-              </span>
-            </button>
+            {/* Official Google Identity Services button — renders inline
+                when VITE_GOOGLE_CLIENT_ID is configured. Triggers a
+                Google-hosted popup that returns an ID token directly to
+                this page, so the user never sees the "<project>.supabase.co"
+                URL flash that the redirect-based fallback exposes.
+                Mounted as a useEffect below; this div is the container. */}
+            <div
+              ref={gisButtonRef}
+              style={{
+                width: '100%',
+                minHeight: gisReady ? 44 : 0,
+                marginBottom: gisReady ? 8 : 0,
+                display: gisReady ? 'flex' : 'none',
+                justifyContent: 'center',
+              }}
+              aria-label="เข้าสู่ระบบด้วย Google"
+            />
+            {/* Fallback custom-styled button — only shown when GIS isn't
+                available (no env var, script load failure, etc.). Uses
+                signInWithOAuth redirect which DOES flash the Supabase URL
+                briefly; acceptable as fallback only. */}
+            {!gisReady && (
+              <button className="vmx-btn vmx-btn-ghost" style={{ width: '100%', justifyContent: 'center', padding: '14px', marginBottom: 8 }} onClick={google} disabled={loading}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                  </svg>
+                  เข้าสู่ระบบด้วย Google
+                </span>
+              </button>
+            )}
 
             {/* LINE OAuth — Thailand-popular. Provider config in Supabase
                 Dashboard → Auth → Providers → Line; until then the click
@@ -328,7 +397,11 @@ export default function AuthView({ onBack, onSuccess, user }) {
               disabled={loading}
             >
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 600 }}>
-                <span style={{ fontSize: 16 }}>💚</span> เข้าสู่ระบบด้วย LINE
+                <svg width="20" height="20" viewBox="0 0 36 36" aria-hidden="true">
+                  <path fill="#fff" d="M18 1.5C9.4 1.5 2.5 7.4 2.5 14.6c0 6.5 5.5 11.9 12.9 12.9.5.1 1.2.3 1.4.7.2.4.1 1 .1 1.4l-.2 1.4c-.1.4-.3 1.5 1.4.8 1.7-.7 9.1-5.4 12.4-9.2 2.3-2.5 3.4-5.1 3.4-8 0-7.2-6.9-13.1-15.5-13.1z"/>
+                  <path fill="#06C755" d="M9.5 11.3h-1c-.2 0-.3.1-.3.3v6.3c0 .2.1.3.3.3h1c.2 0 .3-.1.3-.3v-6.3c0-.2-.1-.3-.3-.3zm6.5 0h-1c-.2 0-.3.1-.3.3v3.7L11.8 11.4l-.1-.1h-1.2c-.2 0-.3.1-.3.3v6.3c0 .2.1.3.3.3h1c.2 0 .3-.1.3-.3v-3.7l2.9 3.9c.1.1.1.1.2.1h1c.2 0 .3-.1.3-.3v-6.3c.1-.2 0-.3-.2-.3zm-9.6 5.4H4v-5.1c0-.2-.1-.3-.3-.3h-1c-.2 0-.3.1-.3.3v6.3c0 .1 0 .2.1.2 0 0 .1.1.2.1h4c.2 0 .3-.1.3-.3v-1c0-.1-.1-.2-.3-.2zm14.6-3.5c.2 0 .3-.1.3-.3v-1c0-.2-.1-.3-.3-.3h-4c-.1 0-.2 0-.2.1l-.1.2v6.3c0 .1 0 .2.1.2 0 0 .1.1.2.1h4c.2 0 .3-.1.3-.3v-1c0-.2-.1-.3-.3-.3h-2.7v-1.1H21c.2 0 .3-.1.3-.3v-1c0-.2-.1-.3-.3-.3h-2.7v-1z"/>
+                </svg>
+                เข้าสู่ระบบด้วย LINE
               </span>
             </button>
 
