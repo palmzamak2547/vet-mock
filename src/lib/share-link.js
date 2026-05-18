@@ -77,6 +77,13 @@ export function buildShareUrl(questions, opts = {}) {
     const safe = opts.senderName.trim().slice(0, 24);
     url += `&by=${encodeURIComponent(safe)}`;
   }
+  // Sender elapsed time in seconds — Phase 5 spec "เทียบคะแนน/เวลา".
+  // Capped at 9999s (~2h 46m) to bound URL size + reject pathological
+  // tab-left-open-overnight sessions that aren't meaningful comparisons.
+  if (Number.isFinite(opts.senderTimeSec) && opts.senderTimeSec > 0) {
+    const t = Math.min(9999, Math.max(1, Math.round(opts.senderTimeSec)));
+    url += `&t=${t}`;
+  }
   return url;
 }
 
@@ -100,8 +107,14 @@ export function readSenderInfoFromLocation() {
       }
     }
     const senderName = by ? decodeURIComponent(by).slice(0, 24) : null;
-    if (!senderScore && !senderName) return null;
-    return { senderScore, senderName };
+    const tRaw = params.get('t');
+    let senderTimeSec = null;
+    if (tRaw) {
+      const n = Number(tRaw);
+      if (Number.isFinite(n) && n > 0 && n <= 9999) senderTimeSec = Math.round(n);
+    }
+    if (!senderScore && !senderName && !senderTimeSec) return null;
+    return { senderScore, senderName, senderTimeSec };
   } catch {
     return null;
   }

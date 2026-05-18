@@ -1268,7 +1268,12 @@ export default function App() {
     // Strip share-link query so a refresh from home doesn't bounce
     // back into the shared exam.
     try {
-      if (window.location.search.includes('qset=') || window.location.search.includes('sc=') || window.location.search.includes('by=')) {
+      if (
+        window.location.search.includes('qset=')
+        || window.location.search.includes('sc=')
+        || window.location.search.includes('by=')
+        || window.location.search.includes('t=')
+      ) {
         window.history.replaceState({}, '', window.location.pathname);
       }
     } catch {}
@@ -1565,7 +1570,11 @@ export default function App() {
                 <strong>{challengeSender.senderName ? `${challengeSender.senderName}` : 'เพื่อน'}</strong>{' '}
                 ท้าคุณ
                 {challengeSender.senderScore
-                  ? <> · ผู้ส่งได้ <strong>{challengeSender.senderScore.correct}/{challengeSender.senderScore.total}</strong> — ลองว่าคุณได้เท่าไหร่</>
+                  ? <> · ผู้ส่งได้ <strong>{challengeSender.senderScore.correct}/{challengeSender.senderScore.total}</strong>
+                    {Number.isFinite(challengeSender.senderTimeSec) && challengeSender.senderTimeSec > 0
+                      ? <> ใน <strong>{Math.floor(challengeSender.senderTimeSec / 60)}:{String(Math.floor(challengeSender.senderTimeSec % 60)).padStart(2, '0')}</strong></>
+                      : null}
+                    {' '}— ลองว่าคุณได้เท่าไหร่</>
                   : <> · ลองทำชุดเดียวกัน</>}
               </div>
             </div>
@@ -1583,7 +1592,7 @@ export default function App() {
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode, selectedYear, selectedPhase }} />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
-              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user, selectedYear, selectedPhase }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions, selectedYear, selectedPhase }} />}

@@ -134,7 +134,20 @@ export default function ResultsView({
   // app parses `?sc=…&by=…` and passes the parsed payload. Drives the
   // post-exam comparison panel + win/lose framing.
   challengeSender,
+  // Round 3 2026-05-18: examStartTime → compute receiver elapsed time
+  // for "เทียบคะแนน/เวลา" (Phase 5 spec). When this user later shares
+  // the same set, their own time goes into the URL for THEIR receiver.
+  examStartTime,
 }) {
+  // Receiver's elapsed time (seconds since exam started). Round to int
+  // because URL/display granularity is per-second. Null when start time
+  // is missing (e.g. legacy session).
+  const receiverDurationSec = useMemo(() => {
+    if (!Number.isFinite(examStartTime) || examStartTime <= 0) return null;
+    const ms = Date.now() - examStartTime;
+    if (ms <= 0) return null;
+    return Math.max(1, Math.min(9999, Math.round(ms / 1000)));
+  }, [examStartTime]);
   const phaseLabel = selectedPhase ? PHASE_LABEL_RES[selectedPhase] : null;
   // Fire confetti once on mount for a perfect auto-graded score.
   // Lazy-imported so the canvas/animation code never hits the
@@ -328,11 +341,15 @@ export default function ResultsView({
       </div>
 
       {/* Challenge comparison — shown ONLY when receiver finishes a
-          challenge link with sender's score embedded. Round 2B 2026-05-18. */}
+          challenge link with sender's score embedded. Round 2B 2026-05-18.
+          Round 3 (Phase 5 "เทียบคะแนน/เวลา"): also passes the receiver's
+          elapsed time when available so the box can show side-by-side
+          score AND time. */}
       {challengeSender?.senderScore && autoQs.length > 0 && (
         <ChallengeComparisonBox
           sender={challengeSender}
           receiverScore={{ correct: score.correct, total: autoQs.length }}
+          receiverTimeSec={receiverDurationSec}
         />
       )}
 
@@ -594,7 +611,7 @@ function NextPlayPanel({
               📚 ทำ{ctx.topic ? 'หัวข้อ' : 'วิชา'}นี้อีก 5 ข้อ
             </button>
           )}
-          <ChallengeQuizButton questions={questions} score={score} />
+          <ChallengeQuizButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
           {/* Round 2B 2026-05-18: race-room shortcut. Skips the Race
               entry page — just routes to RaceView (it handles its own
               flow). Future enhancement: pass current questions[] as
@@ -611,7 +628,7 @@ function NextPlayPanel({
           {/* Round 2B 2026-05-18: "send to group" — same primitive as
               ChallengeQuizButton but explicitly invokes navigator.share
               first (mobile system picker → LINE/IG group chat target). */}
-          <SendToGroupButton questions={questions} score={score} />
+          <SendToGroupButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
           <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>
             🏠 หน้าแรก
           </button>
@@ -754,7 +771,7 @@ function ShareQuizButton({ questions }) {
 // Round 2B (2026-05-18): when `score` is provided we embed the sender
 // score in BOTH the URL (?sc=12_15) and the share text ("เราได้ 12/15")
 // — Palm spec wants the bragging-rights framing + per-message comparison.
-function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อนทำชุดนี้', score, senderName }) {
+function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อนทำชุดนี้', score, senderName, senderTimeSec }) {
   const [hint, setHint] = useState('');
   if (!questions || questions.length === 0) return null;
 
@@ -763,7 +780,7 @@ function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อ
     const senderScore = score && Number.isFinite(score.correct) && Number.isFinite(score.total)
       ? { correct: score.correct, total: score.total }
       : null;
-    const url = buildShareUrl(questions, { senderScore, senderName });
+    const url = buildShareUrl(questions, { senderScore, senderName, senderTimeSec });
     if (!url) return null;
     // Sender-score baked into the text body so the message preview
     // (LINE/IG inline link card) carries the challenge framing even
@@ -815,7 +832,7 @@ function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อ
 // sheet (no clipboard fallback) so on mobile the user lands on the
 // LINE/IG/Telegram group picker directly. On desktop, falls back to
 // clipboard with a hint to paste into the group chat.
-function SendToGroupButton({ questions, score }) {
+function SendToGroupButton({ questions, score, senderTimeSec }) {
   const [hint, setHint] = useState('');
   if (!questions || questions.length === 0) return null;
 
@@ -823,7 +840,7 @@ function SendToGroupButton({ questions, score }) {
     const senderScore = score && Number.isFinite(score.correct) && Number.isFinite(score.total)
       ? { correct: score.correct, total: score.total }
       : null;
-    const url = buildShareUrl(questions, { senderScore });
+    const url = buildShareUrl(questions, { senderScore, senderTimeSec });
     if (!url) {
       setHint('สร้างลิงก์ไม่ได้');
       setTimeout(() => setHint(''), 3000);
@@ -862,11 +879,20 @@ function SendToGroupButton({ questions, score }) {
   );
 }
 
-// ─── ChallengeComparisonBox — Round 2B (2026-05-18) ──────────────
+// Format seconds → "M:SS" for human-readable elapsed time.
+function fmtTimeSec(n) {
+  if (!Number.isFinite(n) || n <= 0) return '—';
+  const m = Math.floor(n / 60);
+  const s = Math.floor(n % 60);
+  return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+// ─── ChallengeComparisonBox — Round 2B/3 (2026-05-18) ────────────
 // Visible only when receiver finishes a challenge that included
-// sender score in the URL. Shows side-by-side score + win/lose
-// framing + a 1-tap "rematch" button (re-share back to sender).
-function ChallengeComparisonBox({ sender, receiverScore }) {
+// sender score in the URL. Round 3 adds elapsed-time comparison
+// per Palm spec "เทียบคะแนน/เวลา". Layout: verdict header → 2-col
+// score+time table (sender · receiver) → 1-line summary.
+function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
   if (!sender?.senderScore || !receiverScore) return null;
   const s = sender.senderScore;
   const r = receiverScore;
@@ -880,6 +906,15 @@ function ChallengeComparisonBox({ sender, receiverScore }) {
     lose: { icon: '💭', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total} · คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, color: '#a73d4a' },
     tie:  { icon: '🤝', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, color: '#b88940' },
   }[verdict];
+
+  // Time race: only render when BOTH sides have a valid duration. With
+  // the same score, faster wins. Otherwise time is informational only
+  // (we don't override the score-based verdict — score is the canonical
+  // win/lose, time is the bragging-rights tiebreaker shown alongside).
+  const hasTimes = Number.isFinite(sender.senderTimeSec) && sender.senderTimeSec > 0
+    && Number.isFinite(receiverTimeSec) && receiverTimeSec > 0;
+  const fasterReceiver = hasTimes && receiverTimeSec < sender.senderTimeSec;
+  const fasterSender = hasTimes && receiverTimeSec > sender.senderTimeSec;
 
   return (
     <div style={{
@@ -900,7 +935,7 @@ function ChallengeComparisonBox({ sender, receiverScore }) {
       }}>
         📨 ผลการท้า {sender.senderName ? `จาก ${sender.senderName}` : 'จากเพื่อน'}
       </div>
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: hasTimes ? 12 : 0 }}>
         <div style={{ fontSize: 36, lineHeight: 1, flexShrink: 0 }} aria-hidden>{verdictMeta.icon}</div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 18, color: 'var(--clr-ink)' }}>
@@ -911,6 +946,41 @@ function ChallengeComparisonBox({ sender, receiverScore }) {
           </div>
         </div>
       </div>
+
+      {/* Round 3 "เทียบเวลา" side-by-side row. Only when both sides
+          carry a time payload — keeps legacy links (sc but no t)
+          rendering cleanly. */}
+      {hasTimes && (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 10,
+          padding: 10,
+          borderRadius: 10,
+          background: 'rgba(0,0,0,0.04)',
+          fontFamily: 'JetBrains Mono, monospace',
+          fontSize: 12,
+        }}>
+          <div>
+            <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+              ผู้ส่ง{sender.senderName ? ` · ${sender.senderName}` : ''}
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
+              {s.correct}/{s.total} · ⏱ {fmtTimeSec(sender.senderTimeSec)}
+              {fasterSender && <span style={{ marginLeft: 6, fontSize: 10, color: 'var(--clr-gold, #b88940)' }}>เร็วกว่า</span>}
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+              คุณ
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
+              {r.correct}/{r.total} · ⏱ {fmtTimeSec(receiverTimeSec)}
+              {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 10, color: 'var(--clr-sage, #4a6b4a)' }}>เร็วกว่า</span>}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
