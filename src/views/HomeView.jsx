@@ -172,12 +172,32 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     const days = new Set();
     let todayCount = 0;
     const wrongFreq = new Map();
+    // Year scoping — Palm directive 2026-05-19 data-layer audit round 3.
+    //   • streak  → CROSS-YEAR (habit counter, intentional, all years count)
+    //   • todayCount → year-scoped (only counts current-year Qs · so user
+    //                  in Y5 doesn't see "วันนี้ 5 ข้อ" if those 5 were Y4)
+    //   • wrongCount/wrongIds → year-scoped · feeds chip "🎯 ทบทวนข้อผิด N"
+    //                  + NextActionCard Priority 3. Mismatch with the
+    //                  actual pool that startExam would assemble (which
+    //                  year-filters via yearScope()) created UI/behavior
+    //                  divergence: chip promised 50 but only 30 in pool.
+    const yearSubjectIdSet = new Set((yearSubjects || []).map((s) => s.id));
+    const inYear = (h) => {
+      if (yearSubjectIdSet.size === 0) return true;
+      // Prefer explicit year tag if entry has it (data-layer audit
+      // backfilled this), else fall back to subject→year via the set.
+      if (typeof h?.year === 'number') return h.year === selectedYear;
+      return yearSubjectIdSet.has(h?.subject);
+    };
     for (const h of history) {
       if (!h?.date) continue;
       const dayKey = ymd(h.date);
       days.add(dayKey);
-      if (dayKey === todayKey) todayCount++;
-      if (h.correct === false) {
+      // Streak counts a day if ANY answer occurred (any year — habit).
+      // todayCount is year-scoped per the rule above.
+      if (dayKey === todayKey && inYear(h)) todayCount++;
+      // Wrong tally is year-scoped to match the year-filtered pool.
+      if (h.correct === false && inYear(h)) {
         const compoundId = (h.subject || '?') + ':' + h.questionId;
         wrongFreq.set(compoundId, (wrongFreq.get(compoundId) || 0) + 1);
       }
@@ -193,7 +213,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       .sort((a, b) => b[1] - a[1])
       .map(([k]) => k);
     return { streak, todayCount, wrongCount: wrongIds.length, wrongIds };
-  }, [history]);
+  }, [history, yearSubjects, selectedYear]);
 
   // Quick action: random 1 Q from full QB. Goes STRAIGHT into ExamView
   // via startExam({overrides}) — bypasses ConfigView so the user gets
@@ -1338,7 +1358,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {history.length > 0 && (
         <Suspense fallback={null}>
           <div style={{ marginBottom: 18 }}>
-            <DailyGoalCard history={history} />
+            <DailyGoalCard history={history} selectedYear={selectedYear} />
           </div>
         </Suspense>
       )}

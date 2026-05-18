@@ -274,8 +274,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
   const scopedHistory = useMemo(() => {
     if (yearScope === 'all') return history;
     return (history || []).filter((h) => {
-      // If we can map subject→year, use that. Otherwise keep the row
-      // (defensive — don't drop legacy rows missing subject metadata).
+      // Prefer entry's explicit `year` field (set by App.jsx finishExam
+      // post-data-layer-audit AND by the one-time backfill effect).
+      if (typeof h?.year === 'number') return h.year === selectedYear;
+      // Fallback for legacy rows the backfill missed: map subject→year.
+      // Keep rows without subject (defensive — don't drop unknown).
       const y = subjectYear[h?.subject];
       return y == null || y === selectedYear;
     });
@@ -284,6 +287,42 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
   const trend = useMemo(() => build7DayTrend(scopedHistory), [scopedHistory]);
   const [curveDays, setCurveDays] = useState(14);
   const learningCurve = useMemo(() => buildLearningCurve(scopedHistory, curveDays), [scopedHistory, curveDays]);
+
+  // Year-scoped analytics override — data-layer audit 2026-05-19 round 3.
+  // The `analytics` prop is computed cross-year in App.jsx (used by other
+  // surfaces too). When DashboardView's yearScope toggle is 'current',
+  // the stat cards (Total / Overall / Weak Qs count) need to reflect
+  // the SCOPED history, not lifetime. We derive lightweight scoped
+  // versions here so we don't have to thread the year filter through
+  // App.jsx's analytics useMemo.
+  const scopedAnalytics = useMemo(() => {
+    if (!analytics) return null;
+    if (yearScope === 'all') return analytics;
+    let correct = 0;
+    const wrongIdSet = new Set();
+    // Per-subject scoped accuracy — rebuild from scopedHistory so the
+    // "ความแม่นยำตามวิชา" card respects the year toggle.
+    const bySubject = {};
+    for (const h of scopedHistory) {
+      if (h?.correct === true) correct++;
+      else if (h && h.correct === false) wrongIdSet.add(h.questionId);
+      const sid = h?.subject;
+      if (!sid) continue;
+      if (!bySubject[sid]) bySubject[sid] = { correct: 0, total: 0 };
+      bySubject[sid].total++;
+      if (h.correct) bySubject[sid].correct++;
+    }
+    const total = scopedHistory.length;
+    return {
+      ...analytics,
+      totalAttempts: total,
+      overallPct: total ? Math.round((correct / total) * 100) : 0,
+      bySubject,
+      // Filter the precomputed weakQuestions list to IDs that also
+      // appear in scoped history (proxy for "weak in current year").
+      weakQuestions: analytics.weakQuestions.filter((id) => wrongIdSet.has(id)),
+    };
+  }, [analytics, scopedHistory, yearScope]);
   const [osceOpen, setOsceOpen] = useState(false);
   const [diagramOpen, setDiagramOpen] = useState(false);
   const exportData = () => {
@@ -359,17 +398,20 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         )}
       </div>
 
-      {!analytics ? (
+      {!scopedAnalytics ? (
         <div className="vmx-empty">ยังไม่มีข้อมูลสถิติ — ลองทำข้อสอบสักชุดก่อน 📈</div>
       ) : (
         <>
+          {/* Stat cards now reflect yearScope toggle (Palm round 3
+              audit). 'current' → year-scoped totals/accuracy/weak-Q
+              count. 'all' → lifetime (passed through unchanged). */}
           <div className="vmx-stat-grid">
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num">{analytics.totalAttempts}</div>
+              <div className="vmx-stat-num">{scopedAnalytics.totalAttempts}</div>
               <div className="vmx-stat-lbl">Total Attempts</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage)' }}>{analytics.overallPct}%</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage)' }}>{scopedAnalytics.overallPct}%</div>
               <div className="vmx-stat-lbl">Overall Accuracy</div>
             </div>
             <div className="vmx-stat-card">
@@ -377,7 +419,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <div className="vmx-stat-lbl">Day Streak</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-rose)' }}>{analytics.weakQuestions.length}</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-rose)' }}>{scopedAnalytics.weakQuestions.length}</div>
               <div className="vmx-stat-lbl">Weak Questions</div>
             </div>
           </div>
@@ -428,7 +470,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             <div className="vmx-dash-card">
               <h3>ความแม่นยำตามวิชา</h3>
               {SUBJECTS.filter((s) => s.id !== 'all').map((s) => {
-                const stat = analytics.bySubject[s.id];
+                const stat = scopedAnalytics.bySubject[s.id];
                 if (!stat || stat.total === 0) return null;
                 const pct = Math.round((stat.correct / stat.total) * 100);
                 const cls = pct >= 70 ? '' : pct >= 50 ? 'mid' : 'low';
@@ -463,9 +505,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           <div className="vmx-dash-card">
             <h3>Quick Actions</h3>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
-              {analytics.weakQuestions.length > 0 && (
+              {scopedAnalytics.weakQuestions.length > 0 && (
                 <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setPracticeMode('weak'); setMode('quick'); setView('config'); }}>
-                  🎯 ทำข้อที่อ่อน ({analytics.weakQuestions.length})
+                  🎯 ทำข้อที่อ่อน ({scopedAnalytics.weakQuestions.length})
                 </button>
               )}
               {bookmarks.length > 0 && (

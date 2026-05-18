@@ -178,6 +178,23 @@ export async function pullUserData(userId) {
   if (Array.isArray(data.history)) {
     const { migrateHistoryArray } = await import('./id-migration.js');
     data.history = migrateHistoryArray(data.history);
+
+    // Year-enrich legacy cloud history rows (data-layer audit 2026-05-19).
+    // Cloud may hold rows written before App.jsx finishExam started
+    // tagging entries with `year`. Without enrichment, these rows
+    // would bypass DashboardView scopedHistory's year filter and
+    // appear in cross-year cards. Local-storage backfill runs once
+    // on mount but only against the local copy; cloud data restored
+    // later needs the same treatment.
+    const needs = data.history.some((h) => h && typeof h.year === 'undefined');
+    if (needs) {
+      const { yearForSubject } = await import('../data/curriculum.js');
+      data.history = data.history.map((h) =>
+        h && typeof h.year === 'undefined'
+          ? { ...h, year: yearForSubject(h.subject) ?? null, phase: h.phase ?? null }
+          : h
+      );
+    }
   }
   return data;
 }

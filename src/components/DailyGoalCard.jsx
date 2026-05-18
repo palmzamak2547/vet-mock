@@ -23,7 +23,7 @@ const todayKey = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 };
 
-export default function DailyGoalCard({ history = [] }) {
+export default function DailyGoalCard({ history = [], selectedYear }) {
   const [goal, setGoal] = useLocalStorage('vmx-daily-goal', 25);
   const [editing, setEditing] = useState(false);
   const [inputGoal, setInputGoal] = useState(String(goal));
@@ -33,12 +33,30 @@ export default function DailyGoalCard({ history = [] }) {
 
   // Q count for today — counts non-skipped history entries (i.e., the
   // user actually committed an answer). One entry per Q in an exam.
+  //
+  // Year-scope — Palm directive 2026-05-19 data-layer audit round 3.
+  // When selectedYear is set, only count today's Qs that belong to the
+  // user's current year. Prevents "วันนี้ทำไป 7/25" inflated by a Y4
+  // session done earlier today while user is now in Y5 context.
+  // Falls back to all-history count when selectedYear is null.
   const todayCount = useMemo(() => {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
     const t = startOfDay.getTime();
-    return history.filter((h) => h.date >= t && h.userAnswer !== undefined).length;
-  }, [history]);
+    const yearMatch = (h) => {
+      if (!Number.isFinite(selectedYear)) return true;
+      // Prefer explicit year tag. Fall back to allowing entries that
+      // lack year (unmigrated rows · don't penalize the user for our
+      // schema gap).
+      if (typeof h.year === 'number') return h.year === selectedYear;
+      return true;
+    };
+    return history.filter((h) =>
+      h.date >= t
+      && h.userAnswer !== undefined
+      && yearMatch(h)
+    ).length;
+  }, [history, selectedYear]);
 
   // Auto-rollover — if tasks for "yesterday" exist, archive them
   // (kept for 7 days under YYYY-MM-DD keys). Today's bucket created lazily.
