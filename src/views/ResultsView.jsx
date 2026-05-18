@@ -369,6 +369,7 @@ export default function ResultsView({
         setNumQuestions={setNumQuestions}
         setUseTimer={setUseTimer}
         replayQuestions={replayQuestions}
+        receiverDurationSec={receiverDurationSec}
       />
 
       <RecommendationsBox
@@ -422,6 +423,12 @@ function NextPlayPanel({
   setNumQuestions,
   setUseTimer,
   replayQuestions,
+  // Round 4 hotfix 2026-05-18: receiverDurationSec lives in parent
+  // ResultsView scope. Sub-component (this one) was referencing it
+  // unresolved → ReferenceError at runtime crashed every Results view.
+  // Pass through as prop so the ChallengeQuizButton + SendToGroupButton
+  // calls below get the correct elapsed time for sender-side URL.
+  receiverDurationSec,
 }) {
   // Detect single-subject + single-topic context so we can offer
   // "continue this topic" buttons rather than generic "random".
