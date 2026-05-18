@@ -1,35 +1,96 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getLeaderboard } from '../lib/api.js';
 import { SUBJECTS } from '../data/questions.js';
 
-export default function LeaderboardView({ user, goHome }) {
+export default function LeaderboardView({ user, goHome, selectedYear }) {
   const [scores, setScores] = useState([]);
   const [loading, setLoading] = useState(true);
   // Distinguish "API failed" from "no scores yet" — silent fallback
   // to [] gaslights the user about what's wrong. Track the failure
   // explicitly and surface it with a retry button.
   const [error, setError] = useState(null);
+  // Year-scope toggle — Palm directive 2026-05-18 Q2=C: user picks
+  // between current-year leaderboard and lifetime cross-year ranking.
+  // Default = current year (most relevant context). Survives view
+  // re-mount via localStorage so the choice sticks across sessions.
+  const [yearScope, setYearScope] = useState(() => {
+    try {
+      const saved = window.localStorage?.getItem('vmx-leaderboard-year-scope');
+      return saved === 'all' ? 'all' : 'current';
+    } catch { return 'current'; }
+  });
+  useEffect(() => {
+    try { window.localStorage?.setItem('vmx-leaderboard-year-scope', yearScope); } catch {}
+  }, [yearScope]);
 
-  const load = () => {
+  const load = useCallback(() => {
     setLoading(true);
     setError(null);
-    getLeaderboard()
+    const yearArg = yearScope === 'current' && Number.isFinite(selectedYear)
+      ? selectedYear
+      : null;
+    getLeaderboard({ year: yearArg })
       .then(setScores)
       .catch((err) => {
         setScores([]);
         setError(err?.message || 'โหลดข้อมูลไม่สำเร็จ');
       })
       .finally(() => setLoading(false));
-  };
+  }, [yearScope, selectedYear]);
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, [load]);
 
   return (
     <>
       <div className="vmx-hero">
         <h1>🏆 Global <em>Leaderboard</em></h1>
-        <p>คะแนนสูงสุดจากผู้ใช้ VetMock ทั้งหมด — สู้ๆ นะ 💪</p>
+        <p>
+          {yearScope === 'current' && Number.isFinite(selectedYear)
+            ? <>เฉพาะปี {selectedYear} — สู้กับ cohort เดียวกัน 💪</>
+            : <>คะแนนสูงสุดจากผู้ใช้ทุกปี · cross-year ranking 🏅</>}
+        </p>
       </div>
+
+      {/* Year-scope toggle — Palm directive Q2=C. Defaults to current
+          year (sticky via localStorage). Hidden when selectedYear is
+          null (no year context · just show lifetime). */}
+      {Number.isFinite(selectedYear) && (
+        <div style={{
+          display: 'flex',
+          gap: 8,
+          marginBottom: 18,
+          padding: 4,
+          borderRadius: 999,
+          background: 'var(--clr-surface)',
+          border: '1px solid var(--clr-border)',
+          width: 'fit-content',
+          margin: '0 auto 18px',
+        }}>
+          {[
+            { id: 'current', label: `🎓 ปี ${selectedYear}` },
+            { id: 'all', label: '🌐 ทั้งหมด' },
+          ].map((opt) => (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => setYearScope(opt.id)}
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                padding: '6px 14px',
+                borderRadius: 999,
+                fontSize: 12,
+                fontFamily: 'JetBrains Mono, monospace',
+                fontWeight: yearScope === opt.id ? 700 : 500,
+                background: yearScope === opt.id ? 'var(--clr-sage)' : 'transparent',
+                color: yearScope === opt.id ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
+              }}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {loading ? (
         <div className="vmx-empty">กำลังโหลด...</div>

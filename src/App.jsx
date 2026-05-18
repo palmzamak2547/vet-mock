@@ -5,7 +5,7 @@ import { flushSync } from 'react-dom';
 // App.jsx kicks off loadQB() in a top-level effect (background load
 // after first paint) and gates exam-start paths on the populated QB.
 import { QB, loadQB, isQBLoaded } from './data/questions.js';
-import { SUBJECTS, CURRENT_YEAR, hiddenTopicIdsFor } from './data/curriculum.js';
+import { SUBJECTS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
@@ -642,6 +642,30 @@ export default function App() {
     }
   }, [palette]);
 
+  // ── Year/phase backfill for legacy history entries ─────────────
+  // Data-layer audit 2026-05-18: history entries written before this
+  // commit lack `year` + `phase` fields. Without them, NextActionCard
+  // weak-subject + DashboardView year filter fall back to subject→
+  // curriculum lookup on every read (slow + fragile).
+  // One-time enrich on mount: scan history, derive year from subject
+  // via yearForSubject(), write back. Idempotent — entries that
+  // already have year are no-ops.
+  useEffect(() => {
+    if (!Array.isArray(history) || history.length === 0) return;
+    const needsBackfill = history.some((h) => h && typeof h.year === 'undefined');
+    if (!needsBackfill) return;
+    const enriched = history.map((h) => {
+      if (!h || typeof h.year !== 'undefined') return h;
+      const y = yearForSubject(h.subject);
+      // selectedYear is the user's current context — for entries with
+      // unknown subject (e.g. legacy "all" mode), fall back to the
+      // user's chosen year (better than null for filter purposes).
+      return { ...h, year: y ?? selectedYear ?? null, phase: h.phase ?? null };
+    });
+    setHistory(enriched);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run-once on mount
+
   useEffect(() => {
     if (!user) return;
     pullUserData(user.id).then((data) => {
@@ -1112,8 +1136,20 @@ export default function App() {
     // correctness percentage by always being marked wrong.
     const autoQs = questions.filter((q) => !isWritingType(q));
     const correct = autoQs.filter((q) => isCorrect(q, answers[q.id])).length;
+    // Year/phase scoping (data-layer audit 2026-05-18):
+    //   Each history entry now carries `year` + `phase` so downstream
+    //   analytics (NextActionCard weakest-subject, leaderboard filter,
+    //   dashboard scopedHistory) can year-filter without going through
+    //   the subject→year curriculum map on every read.
+    //   Q's own `year` is preferred (set in q-bank source); falls back
+    //   to selectedYear when missing (legacy Qs / custom Qs).
     const newEntries = autoQs.map((q) => ({
-      date: Date.now(), questionId: q.id, correct: isCorrect(q, answers[q.id]), subject: q.subject,
+      date: Date.now(),
+      questionId: q.id,
+      correct: isCorrect(q, answers[q.id]),
+      subject: q.subject,
+      year: q.year ?? selectedYear ?? null,
+      phase: selectedPhase ?? null,
     }));
     setHistory((h) => [...h, ...newEntries]);
 
@@ -1167,7 +1203,31 @@ export default function App() {
     if (user) {
       const pct = autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0;
       const duration = examStartTime ? Math.round((Date.now() - examStartTime) / 1000) : 0;
-      saveExamResult({ user_id: user.id, mode, subject, total: autoQs.length, correct, pct, duration_sec: duration }).catch(() => {});
+      // Year/phase from selectedYear/Phase (data-layer audit 2026-05-18).
+      // Mock that crosses years (subject='all' or mixed) sends year=null
+      // so the leaderboard can show it under "ทั้งหมด" tab but not in
+      // year-specific tabs. saveExamResult RPC accepts these as nullable.
+      const resolvedYear = (() => {
+        // If single-subject mock, prefer the subject's curriculum year
+        // for correctness even when selectedYear differs (e.g. user
+        // browsing Y5 but exam is from Y4 VCA add-on).
+        if (subject && subject !== 'all') {
+          const ySubj = yearForSubject(subject);
+          if (Number.isFinite(ySubj)) return ySubj;
+        }
+        return selectedYear ?? null;
+      })();
+      saveExamResult({
+        user_id: user.id,
+        mode,
+        subject,
+        total: autoQs.length,
+        correct,
+        pct,
+        duration_sec: duration,
+        year: resolvedYear,
+        phase: selectedPhase ?? null,
+      }).catch(() => {});
     }
     // We used to clear `vmx-inflight-exam` here, but that left
     // submitted exams unrecoverable if the ResultsView chunk failed
@@ -1588,7 +1648,7 @@ export default function App() {
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
-              {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome }} />}
+              {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear }} />}
               {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}

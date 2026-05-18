@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { QB, SUBJECTS } from '../data/questions.js';
+import { yearForSubject } from '../data/curriculum.js';
 import { downloadJSON } from '../hooks/utils.js';
 
 export default function QuestionManagerView({ customQuestions, setCustomQuestions, goHome }) {
@@ -110,8 +111,16 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
 
   const save = () => {
     if (!formData.q.trim()) { alert('กรุณาใส่คำถาม'); return; }
+    // Year auto-derived from subject (data-layer audit 2026-05-18).
+    // Custom Qs inherit the curriculum year of their subject. Without
+    // this tag, SR session + Pinboard year-toggles couldn't filter
+    // custom Qs and they'd leak into other-year views.
+    // SUBJECTS_BY_YEAR is the source of truth; falls back to 4 (the
+    // current dominant year) when the subject is unmapped.
+    const yearTag = yearForSubject(formData.subject) ?? 4;
     const base = {
       subject: formData.subject,
+      year: yearTag,
       tags: formData.tags.split(',').map((t) => t.trim()).filter(Boolean),
       type: formData.type,
       q: formData.q,

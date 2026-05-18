@@ -253,12 +253,20 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // to pick the weakest subject + by SubjectGrid card chips. Lifted
   // here so we only iterate `history` once. ≥5 attempts gating handled
   // by consumers (avoids "100% (1/1)" misleading display).
+  //
+  // Year-scoping — Palm directive 2026-05-18 Q3=C: weakness signal is
+  // computed from lifetime history (long-term pattern) BUT restricted
+  // to subjects in the user's current year. Prevents a Y5 user from
+  // being told to "ลุย com3" (a Y4 subject they already finished).
   const accBySubject = useMemo(() => {
     const acc = {};
     const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
     if (!Array.isArray(history)) return acc;
+    const yearSubjectIdSet = new Set((yearSubjects || []).map((s) => s.id));
     for (const h of history) {
       if (!h?.subject || h.date == null) continue;
+      // Q3=C: drop entries whose subject isn't in current year's pool.
+      if (yearSubjectIdSet.size > 0 && !yearSubjectIdSet.has(h.subject)) continue;
       const ts = new Date(h.date).getTime();
       if (ts < cutoff) continue;
       if (!acc[h.subject]) acc[h.subject] = { total: 0, correct: 0 };
@@ -266,7 +274,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       if (h.correct) acc[h.subject].correct++;
     }
     return acc;
-  }, [history]);
+  }, [history, yearSubjects]);
 
   // Quick action: review questions answered wrong (cross-subject).
   // Uses the same pattern as bookmarks practiceMode — just a different

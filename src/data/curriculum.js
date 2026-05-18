@@ -1686,3 +1686,49 @@ export function visibleQuestionCount(subjectId, allQuestions) {
   const hidden = hiddenTopicIdsFor(subjectId);
   return allQuestions.filter((q) => q.subject === subjectId && !hidden.has(q.topic)).length;
 }
+
+// ──────────────────────────────────────────────────────────────────
+// Subject → year lookup — Palm directive 2026-05-18 data-layer audit
+// ──────────────────────────────────────────────────────────────────
+// Built once at module-load from SUBJECTS_BY_YEAR. Used everywhere
+// we need to tag a Q / history entry / exam result with the year it
+// belongs to, without threading selectedYear through every call site.
+//
+// Returns null when subject is 'all' (cross-year aggregate) or unknown.
+// Callers default to selectedYear when null.
+
+const _SUBJECT_TO_YEAR = (() => {
+  const map = new Map();
+  for (const [yearKey, list] of Object.entries(SUBJECTS_BY_YEAR)) {
+    const year = Number(yearKey);
+    if (!Number.isFinite(year)) continue;
+    for (const subj of (list || [])) {
+      if (subj?.id && !map.has(subj.id)) {
+        map.set(subj.id, year);
+      }
+    }
+  }
+  return map;
+})();
+
+/** Returns the curriculum year (1-6) for a subject id, or null when
+ *  unknown / 'all'. */
+export function yearForSubject(subjectId) {
+  if (!subjectId || subjectId === 'all') return null;
+  return _SUBJECT_TO_YEAR.get(subjectId) ?? null;
+}
+
+/** Same lookup but with a fallback. Useful for write paths that have
+ *  `selectedYear` in scope — pass it so 'all' / unknown becomes the
+ *  current user-context year instead of null. */
+export function yearForSubjectOr(subjectId, fallback) {
+  return yearForSubject(subjectId) ?? fallback ?? null;
+}
+
+/** True iff `subjectId` belongs to the given year. Cheap predicate for
+ *  filter() calls. 'all' / unknown subjects return false (they don't
+ *  belong to any specific year). */
+export function isSubjectInYear(subjectId, year) {
+  if (!subjectId || !Number.isFinite(year)) return false;
+  return _SUBJECT_TO_YEAR.get(subjectId) === year;
+}

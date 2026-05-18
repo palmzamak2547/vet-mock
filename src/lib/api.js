@@ -105,6 +105,12 @@ export async function deleteSharedQuestion(id) {
 // ==========================================================
 // EXAM RESULTS (Leaderboard)
 // ==========================================================
+// Year/phase scoping — Palm directive 2026-05-18 data-layer audit.
+// exam_results table got year+phase columns + backfill (migration
+// year_phase_columns_and_backfill). Writes go through here so the
+// columns get populated; reads optionally filter by year (per Palm
+// Q2=C, user-toggle).
+
 export async function saveExamResult(result) {
   const supabase = await getSupabase();
   if (!supabase) return;
@@ -112,25 +118,45 @@ export async function saveExamResult(result) {
   if (error) console.error('Save result error:', error);
 }
 
-export async function getLeaderboard(groupId = null, limit = 200) {
+/** Leaderboard query.
+ *  @param opts.groupId — restrict to a group (existing behavior).
+ *  @param opts.year — when set (1-6), filter to that curriculum year.
+ *                     Null/undefined = lifetime (cross-year).
+ *  @param opts.phase — optional phase tag (1-mid / 2-final / etc.)
+ *  @param opts.limit — row cap, default 200.
+ */
+export async function getLeaderboard(opts = {}) {
+  // Back-compat: older callers passed (groupId, limit) positionally.
+  if (typeof opts === 'string' || opts === null) {
+    opts = { groupId: opts, limit: arguments[1] };
+  }
+  const { groupId = null, year = null, phase = null, limit = 200 } = opts;
   const supabase = await getSupabase();
   let query = supabase.from('exam_results')
-    .select('id, user_id, mode, subject, total, correct, pct, created_at, profiles(username, avatar_emoji)')
+    .select('id, user_id, mode, subject, total, correct, pct, year, phase, created_at, profiles(username, avatar_emoji)')
     .order('pct', { ascending: false }).order('correct', { ascending: false });
   if (limit && limit > 0) query = query.limit(limit);
   if (groupId) query = query.eq('group_id', groupId);
+  if (Number.isFinite(year)) query = query.eq('year', year);
+  if (phase) query = query.eq('phase', phase);
   const { data, error } = await query;
   if (error) throw error;
   return data;
 }
 
-export async function getUserStats(userId, limit = 1000) {
+/** Per-user stats. Optional year filter scopes to a single curriculum
+ *  year (Q2=C: user toggles "ปี 4 / ทั้งหมด"). */
+export async function getUserStats(userId, opts = {}) {
+  // Back-compat: older callers passed (userId, limit) positionally.
+  if (typeof opts === 'number') opts = { limit: opts };
+  const { year = null, limit = 1000 } = opts;
   const supabase = await getSupabase();
   let query = supabase.from('exam_results')
-    .select('pct, correct, total, mode, created_at')
+    .select('pct, correct, total, mode, year, phase, created_at')
     .eq('user_id', userId)
     .order('created_at', { ascending: false });
   if (limit && limit > 0) query = query.limit(limit);
+  if (Number.isFinite(year)) query = query.eq('year', year);
   const { data, error } = await query;
   if (error) throw error;
   return data;
