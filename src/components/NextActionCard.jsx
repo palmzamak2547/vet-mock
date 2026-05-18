@@ -27,6 +27,11 @@ export default function NextActionCard({
   accBySubject,
   subjects,
   history,
+  // Round 2A 2026-05-18: consolidate "resume in-flight exam" into the
+  // priority-0 slot of the coach card (was a separate banner). Palm
+  // spec wanted "ทำชุดเดิมต่อ" as part of the primary action card.
+  pendingResume,
+  onPickResume,
   onPickExamPrep,
   onPickSR,
   onPickWrong,
@@ -35,6 +40,23 @@ export default function NextActionCard({
 }) {
   const actions = useMemo(() => {
     const out = [];
+
+    // Priority 0: resume in-flight exam — Palm spec 2026-05-18 round 2.
+    // Beats every other action because the user already started this;
+    // bringing them back finishes a session they were mid-way through.
+    if (pendingResume) {
+      const timeAgo = pendingResume.ageMin < 60
+        ? `${pendingResume.ageMin} นาทีที่แล้ว`
+        : `${Math.round(pendingResume.ageMin / 60)} ชม. ที่แล้ว`;
+      out.push({
+        icon: '▶️',
+        title: 'ทำชุดเดิมต่อ',
+        sub: `ตอบไปแล้ว ${pendingResume.answered}/${pendingResume.qCount} · ${timeAgo}`,
+        cta: 'ทำต่อ',
+        kind: 'resume',
+        onClick: () => onPickResume?.(),
+      });
+    }
 
     // Priority 1: imminent exam (≤7 days)
     if (nextExam && nextExam.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 7) {
@@ -105,22 +127,27 @@ export default function NextActionCard({
       }
     }
 
-    // Fallback: random Q if nothing else applies
+    // Fallback: random Q if nothing else applies.
+    // New users (history empty) get an aggressive "20 วินาที" CTA
+    // — Palm spec 2026-05-18 round 2: turn the empty fallback into a
+    // commitment-low first action ("just 20 seconds, just 1 Q").
     if (out.length === 0) {
       out.push({
         icon: '🎲',
-        title: 'ฝึก 1 ข้อด่วน',
+        title: history?.length === 0
+          ? 'ลอง 1 ข้อ — ใช้เวลา ~20 วินาที'
+          : 'ฝึก 1 ข้อด่วน',
         sub: history?.length === 0
-          ? 'เริ่มทำข้อแรก — ระบบจะเริ่มทำสถิติให้'
+          ? 'ทำข้อแรกของคุณวันนี้ — ระบบจะเริ่มเก็บสถิติให้'
           : 'สุ่มจากทุกวิชาในปีนี้',
-        cta: 'ลุย',
+        cta: history?.length === 0 ? 'เริ่มเลย' : 'ลุย',
         kind: 'random',
         onClick: () => onPickRandom?.(),
       });
     }
 
     return out.slice(0, 3);
-  }, [nextExam, quickStats, cardStats, accBySubject, subjects, history, onPickExamPrep, onPickSR, onPickWrong, onPickWeakSubject, onPickRandom]);
+  }, [nextExam, quickStats, cardStats, accBySubject, subjects, history, pendingResume, onPickResume, onPickExamPrep, onPickSR, onPickWrong, onPickWeakSubject, onPickRandom]);
 
   if (actions.length === 0) return null;
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, lazy, Suspense } from 'react';
+import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react';
 import { QB } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
@@ -47,7 +47,7 @@ const PHASE_LABELS = {
   '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2, icon: '🏁' },
 };
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {} }) {
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {} }) {
   // Year context — determines hero copy + reading checklist scope.
   // Only Y4 has actual exam schedule entries today; for scaffold years
   // we hide the countdown banner since `getNextExam('y5')` returns null.
@@ -207,20 +207,36 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // "ไม่มีข้อสอบในหมวดนี้" alert. Now uses startExam overrides so
   // there's no async state-batching gap.
   const allQuestionsPool = QB_TOTAL + (customQuestions?.length || 0);
+  // Round 2B 2026-05-18: transient "กำลังเตรียมข้อแรก..." copy when
+  // user clicks the random-Q chip but ExamView hasn't mounted yet.
+  // Cleared by component unmount + a safety timeout.
+  const [quickActionPending, setQuickActionPending] = useState(false);
+  useEffect(() => {
+    if (!quickActionPending) return;
+    const t = setTimeout(() => setQuickActionPending(false), 1500);
+    return () => clearTimeout(t);
+  }, [quickActionPending]);
   const launchRandomQ = () => {
     if (allQuestionsPool === 0) return;
-    // We do BOTH: setState to update React state for downstream effects
-    // (the timer useEffect in App.jsx reads useTimer from state — if we
-    // don't setUseTimer(false), it sees the default `true` and auto-fires
-    // finishExam on a 1-Q exam with timeLeft=0 → user lands on results
-    // 0/1 without ever seeing the question). Plus overrides to startExam
-    // so its pool/time calc doesn't race React's async state batching.
+    setQuickActionPending(true);
+    // Round 2B 2026-05-18: prefer the pre-cached Q if available —
+    // bypasses startExam's pool assembly (which awaits loadQB on cold
+    // start). replayQuestions sets state in one shot, view='exam', no
+    // batching gap. Side-effect: still call setMode/setSubject/etc.
+    // so downstream resume + analytics see consistent state.
     if (setMode) setMode('quick');
     if (setSubject) setSubject('all');
     if (setTopic) setTopic(null);
     if (setPracticeMode) setPracticeMode('all');
     if (setNumQuestions) setNumQuestions(1);
     if (setUseTimer) setUseTimer(false);
+    const cachedQ = prefetchedRandomQRef.current;
+    if (cachedQ && typeof replayQuestions === 'function') {
+      prefetchedRandomQRef.current = null; // consume; next idle re-pick
+      replayQuestions([cachedQ]);
+      return;
+    }
+    // Fallback: original startExam pool-assembly path.
     if (startExam) {
       startExam({
         practiceMode: 'all',
@@ -301,18 +317,20 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   //  surfaces "ติว <subject>" when an exam is within 7 days.)
   // NextActionCard renders regardless of bannerWinner; it's the always-on
   // coach surface, not a "banner".
+  // pendingResume now lives INSIDE NextActionCard (priority 0) per
+  // Palm round-2 spec — the dedicated banner is removed. NextActionCard
+  // always renders, so resume always wins when it exists. The banner
+  // priority list is for "secondary cards" that need 1 of 5 slots.
   const _emailUnverified = user && !user.email_confirmed_at && !verifyDismissed;
-  const bannerWinner = pendingResume
-    ? 'pendingResume'
-    : showWrappedBanner
-      ? 'wrapped'
-      : showWelcome
-        ? 'welcome'
-        : _emailUnverified
-          ? 'verify'
-          : showAnnouncement
-            ? 'announcement'
-            : null;
+  const bannerWinner = showWrappedBanner
+    ? 'wrapped'
+    : showWelcome
+      ? 'welcome'
+      : _emailUnverified
+        ? 'verify'
+        : showAnnouncement
+          ? 'announcement'
+          : null;
   // Compact changelog chip shown in the quick-action row when there's
   // an unread changelog AND the announcement banner lost the priority
   // race (e.g. resume/wrapped won). Click → expand banner ("force show").
@@ -344,6 +362,45 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       }
     };
   }, []);
+
+  // ─── Round 2B (2026-05-18) — random-Q MEMORY prefetch ───────────
+  // Different from the chunk prefetch above: this picks one random Q
+  // from QB on idle and caches it in a ref so the click → ExamView
+  // path doesn't have to await pool assembly on first tap. The Q is
+  // year-scoped (only from yearSubjects + customQuestions). After a
+  // click consumes the cached Q, we re-pick the next one in the
+  // background so the cache is always ready for the NEXT click.
+  const prefetchedRandomQRef = useRef(null);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    let cancelled = false;
+    const pickRandom = () => {
+      if (cancelled) return;
+      try {
+        const yearIds = new Set((yearSubjects || []).map((s) => s.id));
+        // Combine QB (lazy-loaded, mutates in place) + customQuestions.
+        // QB.length === 0 until loadQB() resolves; in that case we just
+        // skip — the next idle tick will catch it.
+        const pool = [];
+        for (const q of QB) if (yearIds.has(q.subject)) pool.push(q);
+        for (const q of (customQuestions || [])) if (yearIds.has(q.subject)) pool.push(q);
+        if (pool.length === 0) return;
+        const pick = pool[Math.floor(Math.random() * pool.length)];
+        prefetchedRandomQRef.current = pick;
+      } catch {}
+    };
+    const idle = window.requestIdleCallback
+      || ((cb) => setTimeout(cb, 1800));
+    const id = idle(pickRandom, { timeout: 3500 });
+    return () => {
+      cancelled = true;
+      if (window.cancelIdleCallback && typeof id === 'number') {
+        try { window.cancelIdleCallback(id); } catch {}
+      }
+    };
+    // Re-pick when year changes (different pool) or customQuestions add
+    // — pickRandom is cheap so don't worry about churn.
+  }, [yearSubjects, customQuestions]);
 
   // ─── Phase 4 (2026-05-18) — QuestsPanel inline action routing ───
   // QuestsPanel passes back an { kind, subject? } action when user
@@ -380,17 +437,25 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           onDismiss={() => { setTourOpen(false); setTourStep(0); setWelcomeDismissed(true); }}
         />
       )}
+      {/* Hero — Phase 1 round 2 (2026-05-18): compact for first-action
+          speed. Returning users see name + minimal sub-line; new users
+          see a CTA-ish hint right under the title. The big "คลังโจทย์
+          ฝึก X ข้อ" stat was demoted because the SubjectGrid below
+          already shows the visible Q count per subject, making the
+          aggregated stat redundant in the prime real-estate. */}
       <div className="vmx-hero">
         <h1>
           {user
             ? <>สวัสดี <em>{profile?.username || 'เพื่อน'}</em></>
             : <>เริ่ม <em>ฝึกโจทย์</em> กันเลย</>}
         </h1>
-        <p>
-          {isScaffoldYear
-            ? <>🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc}, พรีวิว — รอเติมเนื้อหา</>
-            : <>คลังโจทย์ฝึก <strong>{totalQ}</strong> ข้อ, {yearMeta?.label || 'ปี 4'}</>}
-        </p>
+        {isScaffoldYear ? (
+          <p>🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc}, พรีวิว — รอเติมเนื้อหา</p>
+        ) : (history.length === 0 ? (
+          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+            ลอง <strong>1 ข้อ</strong> ใช้เวลา ~20 วินาที — เริ่มจากการ์ดด้านล่าง
+          </p>
+        ) : null)}
       </div>
 
       {/* Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap
@@ -477,6 +542,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           accBySubject={accBySubject}
           subjects={yearSubjects}
           history={history}
+          // Round 2A: resume in-flight folds into NextActionCard's
+          // priority 0 — eliminates the dedicated resume banner so
+          // there's exactly ONE "what to do now" surface.
+          pendingResume={pendingResume}
+          onPickResume={() => resumePendingExam && resumePendingExam()}
           onPickExamPrep={(exam) => {
             if (exam?.subject) {
               setSubject && setSubject(exam.subject);
@@ -570,10 +640,15 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* Resume in-flight exam — top priority. Shown when App detected a
-          stale exam state in localStorage (< 6h old). Replaces the old
-          jarring window.confirm prompt with an actionable banner. */}
-      {bannerWinner === 'pendingResume' && (() => {
+      {/* Resume in-flight exam — Round 2A 2026-05-18: NEVER shown as
+          a standalone banner now. NextActionCard absorbs this as
+          priority 0. The block is kept gated to `false` so the JSX
+          structure stays intact for future re-enable, but it never
+          renders. (Dismiss button is preserved via NextActionCard's
+          row dismiss — see onPickResume + the existing
+          dismissPendingExam handler stays accessible from the year
+          tools menu if user wants to force-clear.) */}
+      {false && (() => {
         // Search all years (the in-flight exam may not match selectedYear).
         const subjMeta = SUBJECTS.find((s) => s.id === pendingResume.subjectId);
         const subjLabel = subjMeta ? `${subjMeta.icon || ''} ${subjMeta.name || ''}` : 'ข้อสอบที่ค้างอยู่';
@@ -834,10 +909,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             <button
               className="vmx-chip-quick vmx-pop-in"
               onClick={launchRandomQ}
-              title={`สุ่ม 1 ข้อจากคลังทั้งหมด ${allQuestionsPool} ข้อ`}
+              disabled={quickActionPending}
+              title={quickActionPending ? 'กำลังเตรียมข้อแรก...' : `สุ่ม 1 ข้อจากคลังทั้งหมด ${allQuestionsPool} ข้อ`}
               style={{
                 all: 'unset',
-                cursor: 'pointer',
+                cursor: quickActionPending ? 'wait' : 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 6,
@@ -848,13 +924,31 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 fontSize: 13,
                 fontFamily: 'JetBrains Mono, monospace',
                 color: '#3a8aa8',
-                transition: 'transform 0.12s, background 0.15s',
+                opacity: quickActionPending ? 0.65 : 1,
+                transition: 'transform 0.12s, background 0.15s, opacity 0.15s',
               }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(93, 180, 211, 0.20)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(93, 180, 211, 0.12)'}
+              onMouseEnter={(e) => { if (!quickActionPending) e.currentTarget.style.background = 'rgba(93, 180, 211, 0.20)'; }}
+              onMouseLeave={(e) => { if (!quickActionPending) e.currentTarget.style.background = 'rgba(93, 180, 211, 0.12)'; }}
             >
-              🎲 ฝึก 1 ข้อด่วน
+              {quickActionPending ? '⏳ กำลังเตรียมข้อแรก...' : '🎲 ฝึก 1 ข้อด่วน'}
             </button>
+          )}
+          {/* First-load microcopy — Palm round 2 spec 2026-05-18: when
+              QB is loading for the first time (history empty), let the
+              user know "first load is slower, future loads cached". */}
+          {history.length === 0 && quickActionPending && (
+            <span
+              role="status"
+              aria-live="polite"
+              style={{
+                fontSize: 11,
+                color: 'var(--clr-ink-soft)',
+                fontFamily: 'JetBrains Mono, monospace',
+                marginLeft: 6,
+              }}
+            >
+              โหลดคลังโจทย์ครั้งแรก · ครั้งต่อไปจะเร็วขึ้น
+            </span>
           )}
 
           {quickStats.wrongCount > 0 && (

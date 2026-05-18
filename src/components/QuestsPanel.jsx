@@ -165,7 +165,16 @@ function QuestCard({ quest, compact, onStart }) {
       {claimable && (
         <button
           type="button"
-          onClick={() => claimQuestReward(quest.id)}
+          onClick={() => {
+            claimQuestReward(quest.id);
+            // Round 2A 2026-05-18: emit a custom event the panel
+            // listens to so it can surface "ทำต่อ quest ถัดไป" —
+            // Palm spec wants the claim flow to chain into the next
+            // incomplete quest instead of stopping at "รับแล้ว".
+            try {
+              window.dispatchEvent(new CustomEvent('vmx-quest-claimed', { detail: { id: quest.id } }));
+            } catch {}
+          }}
           className="vmx-pop-in"
           style={{
             all: 'unset',
@@ -290,6 +299,29 @@ function BonusCard({ bonus, compact }) {
 
 export default function QuestsPanel({ compact = false, onStart }) {
   const { quests, bonus, streak } = useQuestState();
+  // Round 2A 2026-05-18: "หลัง claim → เสนอ quest ถัดไป" — ephemeral
+  // suggestion banner shown for ~6s after a claim, pointing to the
+  // first incomplete + actionable next quest. Auto-dismisses so it
+  // doesn't accumulate noise across multiple claims in a session.
+  const [recentClaim, setRecentClaim] = useState(null);
+  useEffect(() => {
+    const handler = () => {
+      // Pick the next non-claimed, non-complete quest that has an
+      // action mapping. Re-read from getTodaysQuests inside the
+      // handler so we see the just-claimed state.
+      const fresh = getTodaysQuests();
+      const next = fresh.find((q) => !q.claimed && !q.complete && questActionFor(q));
+      if (next) setRecentClaim({ next, t: Date.now() });
+    };
+    window.addEventListener('vmx-quest-claimed', handler);
+    return () => window.removeEventListener('vmx-quest-claimed', handler);
+  }, []);
+  useEffect(() => {
+    if (!recentClaim) return;
+    const t = setTimeout(() => setRecentClaim(null), 6500);
+    return () => clearTimeout(t);
+  }, [recentClaim]);
+
   if (!quests || quests.length === 0) return null;
   const claimedCount = quests.filter((q) => q.claimed).length;
 
@@ -345,6 +377,55 @@ export default function QuestsPanel({ compact = false, onStart }) {
         {quests.map((q) => (
           <QuestCard key={q.id} quest={q} compact={compact} onStart={onStart} />
         ))}
+        {recentClaim?.next && onStart && (
+          <div
+            className="vmx-pop-in"
+            role="status"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              padding: '10px 14px',
+              borderRadius: 12,
+              background: 'linear-gradient(135deg, rgba(74, 107, 74, 0.10), rgba(184, 137, 64, 0.08))',
+              border: '1px dashed var(--clr-sage, #4a6b4a)',
+              minHeight: 52,
+            }}
+          >
+            <div style={{ fontSize: 20, flexShrink: 0 }} aria-hidden>👉</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage, #4a6b4a)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+                ทำต่อ quest ถัดไป
+              </div>
+              <div style={{ fontSize: 13, fontWeight: 600, marginTop: 2, color: 'var(--clr-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {recentClaim.next.label.replace('{N}', recentClaim.next.target)}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                const action = questActionFor(recentClaim.next);
+                if (action) onStart(action, recentClaim.next);
+                setRecentClaim(null);
+              }}
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                padding: '8px 12px',
+                minHeight: 40,
+                borderRadius: 999,
+                background: 'var(--clr-sage, #4a6b4a)',
+                color: 'white',
+                fontSize: 12,
+                fontWeight: 700,
+                fontFamily: 'JetBrains Mono, monospace',
+                flexShrink: 0,
+              }}
+            >
+              ▶️ ลุย
+            </button>
+          </div>
+        )}
         {bonus.available && <BonusCard bonus={bonus} compact={compact} />}
         {bonus.claimed && (
           <div

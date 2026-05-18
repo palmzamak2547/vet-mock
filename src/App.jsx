@@ -18,7 +18,7 @@ import { isFlashcardCompatible } from './hooks/sr-filter.js';
 import { STYLES } from './styles.js';
 import { hasSupabase, signOut } from './lib/supabase.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
-import { readShareUrlFromLocation } from './lib/share-link.js';
+import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
 import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
@@ -289,6 +289,10 @@ export default function App() {
   // materializes the matched Qs (or falls back to home if none).
   // Lives at App level so it fires regardless of which view is active.
   const sharedResolvedRef = useRef(false);
+  // Round 2B 2026-05-18: sender score/name parsed from URL (`?sc=...&by=...`)
+  // — Palm spec wants async challenge to surface a "📨 ผู้ส่งได้ X/Y ·
+  // ดูว่าคุณได้เท่าไหร่" banner so the receiver knows what to beat.
+  const [challengeSender, setChallengeSender] = useState(() => readSenderInfoFromLocation());
   useEffect(() => {
     if (sharedResolvedRef.current) return;
     if (!qbReady) return;
@@ -312,6 +316,7 @@ export default function App() {
         // URL referenced Q IDs that no longer exist — drop to home
         // gracefully instead of leaving the user staring at empty exam.
         setView('home');
+        setChallengeSender(null);
       }
     } catch {
       sharedResolvedRef.current = true;
@@ -1263,10 +1268,12 @@ export default function App() {
     // Strip share-link query so a refresh from home doesn't bounce
     // back into the shared exam.
     try {
-      if (window.location.search.includes('qset=')) {
+      if (window.location.search.includes('qset=') || window.location.search.includes('sc=') || window.location.search.includes('by=')) {
         window.history.replaceState({}, '', window.location.pathname);
       }
     } catch {}
+    // Round 2B: clear challenge sender info — user left the challenge.
+    setChallengeSender(null);
   };
 
   const handleSignOut = async () => { if (confirm('Logout?')) { await signOut(); goHome(); } };
@@ -1534,10 +1541,39 @@ export default function App() {
             </div>
           )}
 
+          {/* Async-challenge sender banner — Round 2B 2026-05-18.
+              Visible during exam + results so the receiver knows what
+              score to beat. Survives view changes within the same
+              shared-link session; cleared by goHome or new session. */}
+          {challengeSender && (view === 'exam' || view === 'results' || view === 'review') && (
+            <div
+              role="status"
+              style={{
+                marginBottom: 12,
+                padding: '10px 14px',
+                borderRadius: 12,
+                background: 'linear-gradient(135deg, rgba(184, 137, 64, 0.10), rgba(217, 119, 68, 0.08))',
+                border: '1px solid var(--clr-gold, #b88940)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                flexWrap: 'wrap',
+              }}
+            >
+              <div style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }} aria-hidden>📨</div>
+              <div style={{ flex: 1, minWidth: 0, fontSize: 13, lineHeight: 1.5, color: 'var(--clr-ink)' }}>
+                <strong>{challengeSender.senderName ? `${challengeSender.senderName}` : 'เพื่อน'}</strong>{' '}
+                ท้าคุณ
+                {challengeSender.senderScore
+                  ? <> · ผู้ส่งได้ <strong>{challengeSender.senderScore.correct}/{challengeSender.senderScore.total}</strong> — ลองว่าคุณได้เท่าไหร่</>
+                  : <> · ลองทำชุดเดียวกัน</>}
+              </div>
+            </div>
+          )}
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill, buddies }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill, buddies }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
@@ -1547,7 +1583,7 @@ export default function App() {
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode, selectedYear, selectedPhase }} />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
-              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user, selectedYear, selectedPhase }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions, selectedYear, selectedPhase }} />}

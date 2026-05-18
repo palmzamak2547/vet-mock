@@ -130,6 +130,10 @@ export default function ResultsView({
   setNumQuestions,
   setUseTimer,
   replayQuestions,
+  // Round 2B 2026-05-18: when this session came from a challenge link,
+  // app parses `?sc=…&by=…` and passes the parsed payload. Drives the
+  // post-exam comparison panel + win/lose framing.
+  challengeSender,
 }) {
   const phaseLabel = selectedPhase ? PHASE_LABEL_RES[selectedPhase] : null;
   // Fire confetti once on mount for a perfect auto-graded score.
@@ -322,6 +326,15 @@ export default function ResultsView({
           </div>
         )}
       </div>
+
+      {/* Challenge comparison — shown ONLY when receiver finishes a
+          challenge link with sender's score embedded. Round 2B 2026-05-18. */}
+      {challengeSender?.senderScore && autoQs.length > 0 && (
+        <ChallengeComparisonBox
+          sender={challengeSender}
+          receiverScore={{ correct: score.correct, total: autoQs.length }}
+        />
+      )}
 
       <NextPlayPanel
         autoQs={autoQs}
@@ -581,7 +594,24 @@ function NextPlayPanel({
               📚 ทำ{ctx.topic ? 'หัวข้อ' : 'วิชา'}นี้อีก 5 ข้อ
             </button>
           )}
-          <ChallengeQuizButton questions={questions} />
+          <ChallengeQuizButton questions={questions} score={score} />
+          {/* Round 2B 2026-05-18: race-room shortcut. Skips the Race
+              entry page — just routes to RaceView (it handles its own
+              flow). Future enhancement: pass current questions[] as
+              seed when RaceView accepts a seed prop. */}
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-ghost"
+            onClick={() => setView('race')}
+            style={{ minHeight: 44 }}
+            title="ไปหน้า Race mode — สร้างห้องแข่งกับเพื่อนแบบ realtime"
+          >
+            🏁 สร้างห้องแข่ง
+          </button>
+          {/* Round 2B 2026-05-18: "send to group" — same primitive as
+              ChallengeQuizButton but explicitly invokes navigator.share
+              first (mobile system picker → LINE/IG group chat target). */}
+          <SendToGroupButton questions={questions} score={score} />
           <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>
             🏠 หน้าแรก
           </button>
@@ -716,15 +746,28 @@ function ShareQuizButton({ questions }) {
 // (low embarrassment) more readily than they share bad scores.
 // We use the Web Share API where available (mobile native share sheet)
 // with a copy-paste fallback to clipboard so LINE/IG webviews work too.
-function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อนทำชุดนี้' }) {
+//
+// Round 2B (2026-05-18): when `score` is provided we embed the sender
+// score in BOTH the URL (?sc=12_15) and the share text ("เราได้ 12/15")
+// — Palm spec wants the bragging-rights framing + per-message comparison.
+function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อนทำชุดนี้', score, senderName }) {
   const [hint, setHint] = useState('');
   if (!questions || questions.length === 0) return null;
 
   const buildChallengeText = () => {
     const n = questions.length;
-    const url = buildShareUrl(questions);
+    const senderScore = score && Number.isFinite(score.correct) && Number.isFinite(score.total)
+      ? { correct: score.correct, total: score.total }
+      : null;
+    const url = buildShareUrl(questions, { senderScore, senderName });
     if (!url) return null;
-    return `ลองทำข้อนี้ดิ 📚 ${n} ข้อจาก VetMock — ใครตอบถูกมากกว่ากัน?\n${url}`;
+    // Sender-score baked into the text body so the message preview
+    // (LINE/IG inline link card) carries the challenge framing even
+    // when the receiver doesn't open the URL right away.
+    const fragment = senderScore
+      ? `เราได้ ${senderScore.correct}/${senderScore.total} 📚 ลองทำดู — ตอบถูกมากกว่ามั้ย?`
+      : `ลองทำข้อนี้ดิ 📚 ${n} ข้อจาก VetMock — ใครตอบถูกมากกว่ากัน?`;
+    return `${fragment}\n${url}`;
   };
 
   const handleClick = async () => {
@@ -764,6 +807,110 @@ function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อ
   );
 }
 
+// Send-to-group variant — Round 2B 2026-05-18. Forces the native share
+// sheet (no clipboard fallback) so on mobile the user lands on the
+// LINE/IG/Telegram group picker directly. On desktop, falls back to
+// clipboard with a hint to paste into the group chat.
+function SendToGroupButton({ questions, score }) {
+  const [hint, setHint] = useState('');
+  if (!questions || questions.length === 0) return null;
+
+  const handleClick = async () => {
+    const senderScore = score && Number.isFinite(score.correct) && Number.isFinite(score.total)
+      ? { correct: score.correct, total: score.total }
+      : null;
+    const url = buildShareUrl(questions, { senderScore });
+    if (!url) {
+      setHint('สร้างลิงก์ไม่ได้');
+      setTimeout(() => setHint(''), 3000);
+      return;
+    }
+    const fragment = senderScore
+      ? `เราได้ ${senderScore.correct}/${senderScore.total} ใครได้มากกว่ามั้ย 📚`
+      : `ลองทำชุดนี้กัน 📚 VetMock`;
+    const text = `${fragment}\n${url}`;
+    try {
+      if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+        await navigator.share({ title: 'VetMock challenge', text });
+        setHint('✓ เลือกกลุ่ม / แชทได้เลย');
+        setTimeout(() => setHint(''), 3000);
+        return;
+      }
+    } catch (err) {
+      if (err?.name === 'AbortError') return;
+    }
+    const res = await copyText(text);
+    setHint(res.ok ? '✓ คัดลอกแล้ว · วางในกลุ่มได้เลย' : '⚠️ ส่งไม่ได้');
+    setTimeout(() => setHint(''), 3500);
+  };
+
+  return (
+    <button
+      type="button"
+      className="vmx-btn vmx-btn-ghost"
+      onClick={handleClick}
+      style={{ minHeight: 44 }}
+      title="ส่งลิงก์ชุดโจทย์เข้ากลุ่ม LINE / IG / chat"
+    >
+      📨 ส่งเข้ากลุ่ม
+      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'JetBrains Mono, monospace' }}>{hint}</span>}
+    </button>
+  );
+}
+
+// ─── ChallengeComparisonBox — Round 2B (2026-05-18) ──────────────
+// Visible only when receiver finishes a challenge that included
+// sender score in the URL. Shows side-by-side score + win/lose
+// framing + a 1-tap "rematch" button (re-share back to sender).
+function ChallengeComparisonBox({ sender, receiverScore }) {
+  if (!sender?.senderScore || !receiverScore) return null;
+  const s = sender.senderScore;
+  const r = receiverScore;
+  // Compare by accuracy %; same total in practice (same Q set), but
+  // we don't strictly assume so. Win/lose/tie at the rounded-pct level.
+  const sPct = s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0;
+  const rPct = r.total > 0 ? Math.round((r.correct / r.total) * 100) : 0;
+  const verdict = rPct > sPct ? 'win' : rPct < sPct ? 'lose' : 'tie';
+  const verdictMeta = {
+    win:  { icon: '🥇', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง · ขอบราเดอร์`, color: '#4a6b4a' },
+    lose: { icon: '💭', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total} · คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, color: '#a73d4a' },
+    tie:  { icon: '🤝', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, color: '#b88940' },
+  }[verdict];
+
+  return (
+    <div style={{
+      marginTop: 18,
+      padding: '14px 16px',
+      borderRadius: 14,
+      background: `linear-gradient(135deg, ${verdictMeta.color}1f, ${verdictMeta.color}0d)`,
+      border: `2px solid ${verdictMeta.color}`,
+    }}>
+      <div style={{
+        fontSize: 11,
+        fontFamily: 'JetBrains Mono, monospace',
+        color: verdictMeta.color,
+        textTransform: 'uppercase',
+        letterSpacing: '0.08em',
+        fontWeight: 700,
+        marginBottom: 6,
+      }}>
+        📨 ผลการท้า {sender.senderName ? `จาก ${sender.senderName}` : 'จากเพื่อน'}
+      </div>
+      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+        <div style={{ fontSize: 36, lineHeight: 1, flexShrink: 0 }} aria-hidden>{verdictMeta.icon}</div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 18, color: 'var(--clr-ink)' }}>
+            {verdictMeta.label}
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginTop: 2, lineHeight: 1.45 }}>
+            {verdictMeta.copy}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Wraps the challenge-friend share as a callout row (replaces ShareToIGRow
 // on low/mid scores). Communicates the "this is what people DO share"
 // proposition vs awkwardly showing IG-Story-share with a 30% score.
@@ -780,7 +927,7 @@ function ChallengeFriendRow({ questions, score }) {
         <div style={{ fontSize: 13, color: 'var(--clr-ink)', flex: '1 1 200px', lineHeight: 1.5 }}>
           ส่งให้เพื่อนลอง — <strong>เพื่อนตอบถูกมากกว่าเรามั้ย</strong>? วัดดวงเล่นๆ
         </div>
-        <ChallengeQuizButton questions={questions} label="🎯 ท้าเพื่อนทำชุดนี้" />
+        <ChallengeQuizButton questions={questions} score={score} label="🎯 ท้าเพื่อนทำชุดนี้" />
       </div>
     </div>
   );

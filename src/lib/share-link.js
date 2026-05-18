@@ -57,12 +57,54 @@ export function decodeQuizSet(qsetParam) {
   }
 }
 
-// Build the full URL the user can copy + paste
-export function buildShareUrl(questions) {
+// Build the full URL the user can copy + paste.
+// Round 2B (2026-05-18): optional sender-score + sender-name params
+// so the receiver lands with a "📨 ผู้ส่งได้ X/Y · ดูว่าคุณได้เท่าไหร่"
+// banner — Palm spec calls for score comparison after async challenge.
+//
+// opts: { senderScore: {correct: number, total: number}, senderName: string }
+// Both keys are optional; passing nothing produces the legacy URL shape.
+export function buildShareUrl(questions, opts = {}) {
   const qset = encodeQuizSet(questions);
   if (!qset) return null;
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://vetmock.vercel.app';
-  return `${origin}/?qset=${qset}`;
+  let url = `${origin}/?qset=${qset}`;
+  if (opts.senderScore && Number.isFinite(opts.senderScore.correct) && Number.isFinite(opts.senderScore.total)) {
+    url += `&sc=${opts.senderScore.correct}_${opts.senderScore.total}`;
+  }
+  if (typeof opts.senderName === 'string' && opts.senderName.trim()) {
+    // Trim aggressive — 24 chars max keeps URL+chat preview reasonable.
+    const safe = opts.senderName.trim().slice(0, 24);
+    url += `&by=${encodeURIComponent(safe)}`;
+  }
+  return url;
+}
+
+// Parse sender-score + sender-name from current location. Returns null
+// when missing/malformed so callers can branch without try/catch.
+export function readSenderInfoFromLocation() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const sc = params.get('sc');
+    const by = params.get('by');
+    let senderScore = null;
+    if (sc) {
+      const m = sc.match(/^(\d{1,3})_(\d{1,3})$/);
+      if (m) {
+        const correct = Number(m[1]);
+        const total = Number(m[2]);
+        if (Number.isFinite(correct) && Number.isFinite(total) && total > 0 && correct <= total) {
+          senderScore = { correct, total };
+        }
+      }
+    }
+    const senderName = by ? decodeURIComponent(by).slice(0, 24) : null;
+    if (!senderScore && !senderName) return null;
+    return { senderScore, senderName };
+  } catch {
+    return null;
+  }
 }
 
 // Read current URL → { keys: [{subject,id}, ...] } or empty
