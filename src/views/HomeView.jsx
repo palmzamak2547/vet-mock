@@ -6,7 +6,7 @@ import { QB } from '../data/questions.js';
 import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
-import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';
@@ -65,16 +65,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     : allYearSubjects;
 
   // Question count — must match what YearSelectView shows for the same year:
-  // strict `year === N` Qs + cross-rotation VCA Qs + user custom Qs.
-  // Reads from precomputed q-counts.js (Phase 2 perf) instead of
-  // scanning the full QB — keeps this count cheap on every re-render
-  // and doesn't depend on the full Q-bank being loaded.
-  const totalQ = (() => {
-    const yearQ = Q_COUNTS_BY_YEAR[selectedYear] || 0;
-    const vcaQ = Q_COUNTS_BY_SUBJECT['vca'] || 0;
-    const customQ = (customQuestions?.length || 0);
-    return yearQ + vcaQ + customQ;
-  })();
+  // Note: hero stat `totalQ` (year + vca + custom) was removed in
+  // Round 2 retention overhaul (2026-05-18). Now `allQuestionsPool`
+  // (defined below) handles the year-scoped count for the random-Q
+  // chip — that's the only surface that still wants a top-level "X ข้อ
+  // ในปีนี้" number. Subject grid uses Q_VISIBLE_COUNTS_BY_SUBJECT
+  // directly (per-subject) so no aggregate needed there.
 
   // Reading checklist progress — scoped to the active year + phase.
   const checklistTopics = yearSubjects
@@ -206,7 +202,24 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // subject=null → pool filter `q.subject === null` returned empty →
   // "ไม่มีข้อสอบในหมวดนี้" alert. Now uses startExam overrides so
   // there's no async state-batching gap.
-  const allQuestionsPool = QB_TOTAL + (customQuestions?.length || 0);
+  // Year-scoped pool size — Palm directive 2026-05-19 data-layer audit
+  // round 2. Was `QB_TOTAL` (cross-year 2,650) → user in Y4 saw 2,650
+  // ข้อ but only 2,095 were actually their year. Same bug nudged
+  // "🎲 ฝึก 1 ข้อด่วน" into the cross-year fallback path in App.startExam.
+  // Custom Qs filtered by `q.year === selectedYear` (auto-tagged via
+  // QuestionManagerView.save). Subjects without year (legacy custom Qs
+  // pre-data-layer-audit) fall through `yearForSubject` lookup.
+  const allQuestionsPool = useMemo(() => {
+    const yearQ = Q_COUNTS_BY_YEAR[selectedYear] || 0;
+    const customForYear = (customQuestions || []).filter((q) => {
+      // Prefer explicit year tag (custom Qs created after data-layer audit).
+      if (typeof q?.year === 'number') return q.year === selectedYear;
+      // Legacy custom Q without year tag → derive from subject via
+      // shared utility. Conservative — under-include rather than leak.
+      return yearForSubject(q?.subject) === selectedYear;
+    }).length;
+    return yearQ + customForYear;
+  }, [selectedYear, customQuestions]);
   // Round 2B 2026-05-18: transient "กำลังเตรียมข้อแรก..." copy when
   // user clicks the random-Q chip but ExamView hasn't mounted yet.
   // Cleared by component unmount + a safety timeout.
