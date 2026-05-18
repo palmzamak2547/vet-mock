@@ -634,7 +634,11 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
     if (wrongCount > 0) {
       out.push({
         icon: '🧠',
-        text: `ข้อที่ผิด ${wrongCount} ข้อถูกบันทึกในประวัติ — ระบบจะดันให้ทบทวนซ้ำใน SR`,
+        text: `ข้อที่ผิด ${wrongCount} ข้อถูกเพิ่มเข้า SR queue แล้ว`,
+      });
+      out.push({
+        icon: '🕒',
+        text: 'ทำซ้ำอีก ~3 วันจะจำติด — ระบบจะปล่อยมาให้ทบทวนตาม spacing-repetition',
       });
     }
     // Topic-level pattern: ≥2 wrong in same topic → flag it

@@ -97,10 +97,21 @@ export default function TopLoadingBar() {
 // Renders shimmer skeletons that resemble a typical view layout
 // (hero block + 2-3 content cards). Far less jarring than a
 // blank screen when a chunk takes >150ms (NotesView is ~96KB).
+//
+// Round 3 (2026-05-18) — Palm spec: skeleton ควรมี progress text ไม่ใช่
+// เงียบ ๆ. After 1.5s of "still loading" we surface microcopy explaining
+// that the first load is the heavy one (subsequent loads are cached
+// by the service worker / bfcache). Avoids the silent-skeleton feeling
+// on slow networks that scared Palm's tester ("เหมือนค้าง").
 export function ViewFallback() {
+  const [showLongHint, setShowLongHint] = useState(false);
   useEffect(() => {
     window.dispatchEvent(new Event('vmx-loading-start'));
-    return () => window.dispatchEvent(new Event('vmx-loading-end'));
+    const t = setTimeout(() => setShowLongHint(true), 1500);
+    return () => {
+      window.dispatchEvent(new Event('vmx-loading-end'));
+      clearTimeout(t);
+    };
   }, []);
   return (
     <div
@@ -108,6 +119,27 @@ export function ViewFallback() {
       aria-live="polite"
       style={{ padding: '16px 0', minHeight: '60vh' }}
     >
+      <div
+        role="status"
+        style={{
+          fontSize: 12,
+          fontFamily: 'JetBrains Mono, monospace',
+          color: 'var(--clr-ink-soft)',
+          marginBottom: 14,
+          letterSpacing: '0.04em',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <span aria-hidden style={{ fontSize: 14 }}>⏳</span>
+        <span>กำลังโหลด…</span>
+        {showLongHint && (
+          <span style={{ color: 'var(--clr-gold, #b88940)', marginLeft: 4 }}>
+            · โหลดครั้งแรก ครั้งต่อไปจะเร็วขึ้น
+          </span>
+        )}
+      </div>
       <div className="vmx-skeleton vmx-skeleton-line" style={{ width: '50%', height: 28, marginBottom: 12 }} />
       <div className="vmx-skeleton vmx-skeleton-line" style={{ width: '85%', height: 14 }} />
       <div className="vmx-skeleton vmx-skeleton-line" style={{ width: '70%', height: 14, marginBottom: 24 }} />

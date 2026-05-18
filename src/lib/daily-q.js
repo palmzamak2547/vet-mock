@@ -58,6 +58,65 @@ export function recordTodaysQAnswer({ qSubject, qId, choice, correct, dateStr = 
     const payload = JSON.stringify({ qSubject, qId, choice, correct, ts: Date.now() });
     window.localStorage.setItem(TODAY_KEY_PREFIX + dateStr, payload);
   } catch {}
+  // Fire-and-forget class-pulse increment — Palm spec 2026-05-18 round 2.
+  // Deduped per device per day (localStorage flag) so refreshing the
+  // page or revisiting the daily-Q modal doesn't double-count.
+  recordDailyQClassPulse(correct, dateStr);
+}
+
+// ─── Class pulse (Supabase aggregate) ───────────────────────────────
+// Calls the public.record_daily_q_pulse(was_correct) RPC. Anonymous-
+// callable. The aggregate row is keyed by date so the load on Postgres
+// is one UPSERT per user per day, not per attempt. Client-side guard
+// dedupes per device per day.
+//
+// Privacy: no userId, no IP, no fingerprint — just an integer counter.
+
+export async function recordDailyQClassPulse(wasCorrect, dateStr = todayKey()) {
+  if (typeof window === 'undefined') return;
+  const flagKey = `vmx-daily-q-pulse-fired-${dateStr}`;
+  try {
+    if (window.localStorage.getItem(flagKey)) return; // already fired today
+  } catch {}
+  try {
+    const mod = await import('./supabase.js');
+    if (!mod.hasSupabase) return;
+    const supabase = await mod.getSupabase();
+    if (!supabase) return;
+    const { error } = await supabase.rpc('record_daily_q_pulse', {
+      was_correct: !!wasCorrect,
+    });
+    if (error) return;
+    try { window.localStorage.setItem(flagKey, '1'); } catch {}
+  } catch {
+    // Silent — class pulse is decorative; never block daily-Q flow.
+  }
+}
+
+// Fetch today's class-pulse aggregate. Returns { total, correct, pct }
+// or null when unavailable / no rows yet. Used by HomeView to render
+// "🌐 X คนทำ Daily Q วันนี้ · Y% ตอบถูก" chip.
+export async function fetchTodaysClassPulse() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const mod = await import('./supabase.js');
+    if (!mod.hasSupabase) return null;
+    const supabase = await mod.getSupabase();
+    if (!supabase) return null;
+    const today = todayKey();
+    const { data, error } = await supabase
+      .from('daily_q_pulse')
+      .select('total_attempts, correct_attempts')
+      .eq('pulse_date', today)
+      .maybeSingle();
+    if (error || !data) return null;
+    const total = Number(data.total_attempts || 0);
+    const correct = Number(data.correct_attempts || 0);
+    if (total <= 0) return null;
+    return { total, correct, pct: Math.round((correct / total) * 100) };
+  } catch {
+    return null;
+  }
 }
 
 // Read the recorded result for a specific date — returns 'correct',

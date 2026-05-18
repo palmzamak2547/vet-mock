@@ -9,7 +9,7 @@ import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
-import { pickTodaysQ, readTodaysQStatus, dailyQStreak } from '../lib/daily-q.js';
+import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';
 // Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap once
 // a phase ends. Cheap helpers; the heavy canvas + card UI is lazy.
 import { getCompletedPhase, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
@@ -1356,6 +1356,67 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </Suspense>
       </div>
 
+      {/* Group preview — Round 3 (2026-05-18). When the user isn't
+          logged in, show a value-proposition card describing what
+          groups unlock: room leaderboard, shared Q sets, daily
+          challenge. Tapping → AuthView. Hides for signed-in users
+          (they already have direct entry via UserMenu → groups). */}
+      {!user && hasSupabase && (
+        <div
+          style={{
+            marginBottom: 22,
+            padding: '14px 16px',
+            borderRadius: 14,
+            background: 'linear-gradient(135deg, rgba(74, 107, 74, 0.06), rgba(184, 137, 64, 0.05))',
+            border: '1px dashed var(--clr-sage, #4a6b4a)',
+            display: 'flex',
+            gap: 14,
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <div style={{ fontSize: 32, lineHeight: 1, flexShrink: 0 }} aria-hidden>👥</div>
+          <div style={{ flex: 1, minWidth: 180 }}>
+            <div style={{
+              fontSize: 11,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-sage, #4a6b4a)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              fontWeight: 700,
+            }}>
+              สร้างกลุ่มกับเพื่อน
+            </div>
+            <div style={{
+              fontFamily: 'Fraunces, serif',
+              fontWeight: 600,
+              fontSize: 15,
+              marginTop: 2,
+              lineHeight: 1.4,
+              color: 'var(--clr-ink)',
+            }}>
+              แชร์ leaderboard ห้อง · แชร์โจทย์ · challenge รายวัน
+            </div>
+            <div style={{
+              fontSize: 12,
+              color: 'var(--clr-ink-soft)',
+              marginTop: 4,
+              lineHeight: 1.45,
+            }}>
+              login เพื่อสร้างกลุ่ม — ใช้ติว Y4 / Y5 / Sec กับเพื่อน
+            </div>
+          </div>
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-primary vmx-btn-sm"
+            onClick={() => setView('auth')}
+            style={{ minHeight: 40, flexShrink: 0 }}
+          >
+            🔓 Login เพื่อเริ่ม
+          </button>
+        </div>
+      )}
+
       {/* TERTIARY: Year tools — schedule/scores/reading/videos disabled on
           scaffold years (data is year-scoped + empty). Analytics stays
           since it's cross-year. Adds a contribute CTA on scaffold years. */}
@@ -1763,6 +1824,17 @@ function DailyQRow({ user, setView }) {
   const todaysQ = useMemo(() => pickTodaysQ(QB), []);
   const [status, setStatus] = useState(() => readTodaysQStatus());
   const [streak, setStreak] = useState(() => dailyQStreak());
+  // Class pulse — Round 3 (2026-05-18). Fetches the public aggregate
+  // (anonymous read · pure count, no PII) so HomeView can show "X คน
+  // ทำ Daily Q วันนี้ · Y% ตอบถูก". Re-fetches after user completes
+  // their own Daily Q so the count reflects them immediately. Silent
+  // null when offline / not configured — chip just hides.
+  const [pulse, setPulse] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetchTodaysClassPulse().then((p) => { if (!cancelled) setPulse(p); });
+    return () => { cancelled = true; };
+  }, []);
   if (!todaysQ) return null;
   const subj = SUBJECTS.find((s) => s.id === todaysQ.subject);
   return (
@@ -1780,6 +1852,25 @@ function DailyQRow({ user, setView }) {
           🔥 daily streak {streak}
         </span>
       )}
+      {pulse && pulse.total >= 3 && (
+        <span
+          title={`${pulse.correct}/${pulse.total} ตอบถูกใน Daily Q วันนี้`}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 4,
+            padding: '4px 10px',
+            borderRadius: 999,
+            background: 'rgba(93, 180, 211, 0.10)',
+            border: '1px solid rgba(93, 180, 211, 0.5)',
+            fontSize: 11,
+            fontFamily: 'JetBrains Mono, monospace',
+            color: '#3a8aa8',
+          }}
+        >
+          🌐 {pulse.total} คนทำแล้ว · {pulse.pct}% ถูก
+        </span>
+      )}
       {open && (
         <Suspense fallback={null}>
           <TodaysQModal
@@ -1788,6 +1879,10 @@ function DailyQRow({ user, setView }) {
             onDone={() => {
               setStatus(readTodaysQStatus());
               setStreak(dailyQStreak());
+              // After the user records, the RPC fires inside
+              // recordTodaysQAnswer. Re-fetch the pulse so the chip
+              // reflects the post-attempt count without a reload.
+              fetchTodaysClassPulse().then(setPulse).catch(() => {});
             }}
           />
         </Suspense>
