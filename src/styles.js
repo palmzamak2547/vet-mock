@@ -176,6 +176,11 @@ html, body { overscroll-behavior-y: contain; }
   .vmx-theme-btn { width: 32px; height: 32px; font-size: 14px; }
   .vmx-streak { display: none; } /* free up space; visible on Analytics */
   .vmx-logo { font-size: 19px; }
+  /* Phase 1 (2026-05-18): compact-header rule — hide secondary tools
+     (📊 Analytics, 🔖 Bookmarks) on mobile. Both are still reachable
+     via Cmd/Ctrl-K + bookmarks practiceMode in ConfigView. Saves
+     ~2 button-widths so year/phase pills + theme/login don't wrap. */
+  .vmx-header-secondary { display: none; }
 }
 
 /* View Transitions API — smooth fade between views (Chrome/Edge/Safari TP).

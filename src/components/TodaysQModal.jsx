@@ -17,6 +17,8 @@ import { RichText } from '../lib/richtext.jsx';
 import { isCorrect } from '../hooks/utils.js';
 import { recordTodaysQAnswer } from '../lib/daily-q.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import { buildShareUrl } from '../lib/share-link.js';
+import { copyText } from '../lib/clipboard.js';
 
 // Lazy-load the share card — it pulls a 1080×1920 canvas helper and
 // isn't needed until the user actually picks an answer + taps share.
@@ -28,6 +30,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
   const [revealed, setRevealed] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [todayResult, setTodayResult] = useState(null);
+  const [challengeHint, setChallengeHint] = useState('');
 
   if (!q) return null;
   const correctIdx = q.answer;
@@ -113,17 +116,60 @@ export default function TodaysQModal({ q, onClose, onDone }) {
             {revealed ? 'ปิด · เจอกันพรุ่งนี้' : 'ปิด'}
           </button>
           {revealed && (
-            <button
-              className="vmx-btn vmx-btn-primary"
-              onClick={() => setShareOpen(true)}
-              type="button"
-              style={{ minHeight: 44 }}
-              title="แชร์ history 7 วันแบบ Wordle ให้เพื่อน"
-            >
-              📤 แชร์ผลลัพธ์
-            </button>
+            <>
+              <button
+                className="vmx-btn vmx-btn-primary"
+                onClick={() => setShareOpen(true)}
+                type="button"
+                style={{ minHeight: 44 }}
+                title="แชร์ history 7 วันแบบ Wordle ให้เพื่อน"
+              >
+                📤 แชร์ผลลัพธ์
+              </button>
+              <button
+                className="vmx-btn vmx-btn-ghost"
+                type="button"
+                style={{ minHeight: 44 }}
+                title="ส่งลิงก์ให้เพื่อนลองทำข้อเดียวกัน (เปิดลิงก์แล้วเข้าข้อทันที ไม่ผ่านหน้าแรก)"
+                onClick={async () => {
+                  const url = buildShareUrl([q]);
+                  if (!url) {
+                    setChallengeHint('สร้างลิงก์ไม่ได้');
+                    setTimeout(() => setChallengeHint(''), 3000);
+                    return;
+                  }
+                  const text = `ลองทำข้อนี้ดิ 📚 VetMock daily Q — ตอบถูกไหม?\n${url}`;
+                  try {
+                    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+                      await navigator.share({ title: 'VetMock challenge', text });
+                      setChallengeHint('✓ ส่งให้เพื่อนแล้ว');
+                      setTimeout(() => setChallengeHint(''), 3000);
+                      return;
+                    }
+                  } catch (err) {
+                    if (err?.name === 'AbortError') return;
+                  }
+                  const res = await copyText(text);
+                  setChallengeHint(res.ok ? '✓ คัดลอกแล้ว · วางใน LINE / IG ได้เลย' : '⚠️ คัดลอกไม่ได้');
+                  setTimeout(() => setChallengeHint(''), 3500);
+                }}
+              >
+                🎯 ท้าเพื่อนทำข้อนี้
+              </button>
+            </>
           )}
         </div>
+        {challengeHint && (
+          <div role="status" aria-live="polite" style={{
+            marginTop: 8,
+            fontSize: 12,
+            color: 'var(--clr-sage, #4a6b4a)',
+            fontFamily: 'JetBrains Mono, monospace',
+            textAlign: 'center',
+          }}>
+            {challengeHint}
+          </div>
+        )}
       </div>
 
       {shareOpen && (

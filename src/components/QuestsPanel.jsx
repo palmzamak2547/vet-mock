@@ -38,8 +38,37 @@ function useQuestState() {
   };
 }
 
-function QuestCard({ quest, compact }) {
+// Map quest IDs to action types — Phase 4 (2026-05-18) needs per-quest
+// "▶️ ลุย" routing without HomeView having to know the schema. Returns
+// null when no obvious entry point exists (e.g. quest is bonus-tier).
+//
+// Patterns:
+//   answer-N-any / answer-N-correct / answer-N-mixed  → random Q
+//   answer-N-<subject>                                → that subject
+//   review-N-sr / sr-easy-N                           → SR session
+//   read-N-topic*                                     → subject grid (notes)
+//   flashcard-*                                       → subject grid
+function questActionFor(quest) {
+  if (!quest || quest.claimed || quest.complete) return null;
+  const id = String(quest.id || '');
+  if (id.startsWith('review-') && id.endsWith('-sr')) return { kind: 'sr' };
+  if (id.startsWith('sr-')) return { kind: 'sr' };
+  if (id.startsWith('flashcard-')) return { kind: 'subject-select', hint: 'flashcard' };
+  if (id.startsWith('read-')) return { kind: 'subject-select', hint: 'notes' };
+  if (id.startsWith('answer-')) {
+    // answer-10-com3 / answer-8-repro / answer-N-any|correct|mixed
+    const m = id.match(/^answer-\d+-(\w+)$/);
+    const tail = m?.[1];
+    if (!tail) return { kind: 'random' };
+    if (tail === 'any' || tail === 'correct' || tail === 'mixed') return { kind: 'random' };
+    return { kind: 'subject', subject: tail };
+  }
+  return null;
+}
+
+function QuestCard({ quest, compact, onStart }) {
   const claimable = quest.complete && !quest.claimed;
+  const action = onStart ? questActionFor(quest) : null;
   return (
     <div
       style={{
@@ -159,6 +188,34 @@ function QuestCard({ quest, compact }) {
           🎁 รับ
         </button>
       )}
+      {!claimable && action && (
+        <button
+          type="button"
+          onClick={() => onStart?.(action, quest)}
+          style={{
+            all: 'unset',
+            cursor: 'pointer',
+            padding: '8px 12px',
+            minHeight: 40,
+            borderRadius: 999,
+            background: 'transparent',
+            border: '1px solid var(--clr-sage, #4a6b4a)',
+            color: 'var(--clr-sage, #4a6b4a)',
+            fontSize: 12,
+            fontWeight: 600,
+            fontFamily: 'JetBrains Mono, monospace',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            whiteSpace: 'nowrap',
+          }}
+          aria-label={`เริ่มภารกิจ ${quest.label}`}
+          title="กดเริ่มภารกิจนี้ทันที"
+        >
+          ▶️ ลุย
+        </button>
+      )}
       {quest.claimed && (
         <span
           aria-hidden
@@ -231,7 +288,7 @@ function BonusCard({ bonus, compact }) {
   );
 }
 
-export default function QuestsPanel({ compact = false }) {
+export default function QuestsPanel({ compact = false, onStart }) {
   const { quests, bonus, streak } = useQuestState();
   if (!quests || quests.length === 0) return null;
   const claimedCount = quests.filter((q) => q.claimed).length;
@@ -286,7 +343,7 @@ export default function QuestsPanel({ compact = false }) {
         }}
       >
         {quests.map((q) => (
-          <QuestCard key={q.id} quest={q} compact={compact} />
+          <QuestCard key={q.id} quest={q} compact={compact} onStart={onStart} />
         ))}
         {bonus.available && <BonusCard bonus={bonus} compact={compact} />}
         {bonus.claimed && (

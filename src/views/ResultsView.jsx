@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { isCorrect, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
-import { copyShareUrl } from '../lib/share-link.js';
+import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
+import { copyText } from '../lib/clipboard.js';
+import { SUBJECTS } from '../data/curriculum.js';
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
 // canvas and return a Blob. Pure-canvas, no external deps. Designed to
@@ -107,7 +109,28 @@ const PHASE_LABEL_RES = {
   '2-final': 'ทม.2 ปลาย',
 };
 
-export default function ResultsView({ score, questions, answers, goHome, setView, mode, selectedYear = 4, selectedPhase }) {
+export default function ResultsView({
+  score,
+  questions,
+  answers,
+  goHome,
+  setView,
+  mode,
+  selectedYear = 4,
+  selectedPhase,
+  // Phase 2 (2026-05-18): "next play" CTAs need to relaunch exam
+  // rounds without the user manually navigating Subject → Config.
+  // App.jsx passes startExam + state setters so we can fire 1-tap
+  // continue / redo flows.
+  startExam,
+  setSubject,
+  setTopic,
+  setPracticeMode,
+  setMode,
+  setNumQuestions,
+  setUseTimer,
+  replayQuestions,
+}) {
   const phaseLabel = selectedPhase ? PHASE_LABEL_RES[selectedPhase] : null;
   // Fire confetti once on mount for a perfect auto-graded score.
   // Lazy-imported so the canvas/animation code never hits the
@@ -300,23 +323,359 @@ export default function ResultsView({ score, questions, answers, goHome, setView
         )}
       </div>
 
-      <div className="vmx-btn-row" style={{ flexWrap: 'wrap' }}>
-        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← กลับหน้าแรก</button>
-        <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')}>ดูเฉลย →</button>
+      <NextPlayPanel
+        autoQs={autoQs}
+        wrongCount={wrongCount}
+        score={score}
+        goHome={goHome}
+        setView={setView}
+        questions={questions}
+        answers={answers}
+        startExam={startExam}
+        setSubject={setSubject}
+        setTopic={setTopic}
+        setPracticeMode={setPracticeMode}
+        setMode={setMode}
+        setNumQuestions={setNumQuestions}
+        setUseTimer={setUseTimer}
+        replayQuestions={replayQuestions}
+      />
+
+      <RecommendationsBox
+        autoQs={autoQs}
+        wrongCount={wrongCount}
+        questions={questions}
+        answers={answers}
+        score={score}
+      />
+
+      {/* Share tier — high scores get IG Story share (people share wins);
+          low/mid scores get challenge framing (people share questions, not
+          bad scores). Pure-writing always sees share since there's no
+          embarrassing score. Threshold 70% per Palm spec 2026-05-18. */}
+      {(autoQs.length === 0 || score.pct >= 70) ? (
+        <ShareToIGRow
+          pct={score.pct}
+          correct={score.correct}
+          total={autoQs.length}
+          subject={questions[0]?.subject || 'all'}
+          mode={mode}
+          isWritingOnly={autoQs.length === 0}
+          writingDone={writingAttempted}
+          writingTotal={writingQs.length}
+        />
+      ) : (
+        <ChallengeFriendRow questions={questions} score={score} />
+      )}
+    </>
+  );
+}
+
+// ─── NextPlayPanel — Phase 2 (2026-05-18) ──────────────────────────
+// Priority-ordered CTAs based on (a) did they get any wrong? (b) was
+// this a single-subject set? Goal: turn ResultsView from a dead-end
+// ("← กลับหน้าแรก") into a 1-tap continuation that compounds the
+// study session. Mirrors NextActionCard's priority pattern.
+function NextPlayPanel({
+  autoQs,
+  wrongCount,
+  score,
+  goHome,
+  setView,
+  questions,
+  answers,
+  startExam,
+  setSubject,
+  setTopic,
+  setPracticeMode,
+  setMode,
+  setNumQuestions,
+  setUseTimer,
+  replayQuestions,
+}) {
+  // Detect single-subject + single-topic context so we can offer
+  // "continue this topic" buttons rather than generic "random".
+  const ctx = useMemo(() => {
+    if (!questions || questions.length === 0) return { subj: null, topic: null };
+    const subj = questions[0]?.subject || null;
+    const topic = questions[0]?.topic || null;
+    const allSameSubj = subj && questions.every((q) => q.subject === subj);
+    const allSameTopic = topic && questions.every((q) => q.topic === topic);
+    return {
+      subj: allSameSubj ? subj : null,
+      topic: allSameSubj && allSameTopic ? topic : null,
+    };
+  }, [questions]);
+
+  const subjMeta = ctx.subj ? SUBJECTS.find((s) => s.id === ctx.subj) : null;
+  const subjLabel = subjMeta?.name || ctx.subj || '';
+  // Truncate long topic labels (Thai labels often have leading number/dot)
+  const topicLabel = ctx.topic
+    ? (questions[0]?.topic_label || ctx.topic).replace(/^[\d\s.·\-]+/, '').trim().slice(0, 28)
+    : '';
+
+  // Pure-writing → keep classic flow (review needed for AI grade)
+  if (autoQs.length === 0) {
+    return (
+      <div className="vmx-btn-row" style={{ flexWrap: 'wrap', marginTop: 16 }}>
+        <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>← กลับหน้าแรก</button>
+        <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>📖 ดูเฉลย + AI grade →</button>
         <ShareQuizButton questions={questions} />
       </div>
+    );
+  }
 
-      <ShareToIGRow
-        pct={score.pct}
-        correct={score.correct}
-        total={autoQs.length}
-        subject={questions[0]?.subject || 'all'}
-        mode={mode}
-        isWritingOnly={autoQs.length === 0}
-        writingDone={writingAttempted}
-        writingTotal={writingQs.length}
-      />
-    </>
+  // Build the wrong-Qs sub-array from THIS session (not history).
+  // We hand the slice to App via replayQuestions so the new round is
+  // a precise redo, not a cross-history scan.
+  const wrongQs = useMemo(
+    () => autoQs.filter((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id])),
+    [autoQs, answers],
+  );
+
+  const handleRedoWrong = () => {
+    if (wrongQs.length === 0) return;
+    if (typeof replayQuestions === 'function') {
+      replayQuestions(wrongQs);
+    } else {
+      // Fallback: cross-history wrong via practiceMode='wrong'
+      startExam?.({
+        practiceMode: 'wrong',
+        subject: 'all',
+        topic: null,
+        questionCategory: 'all',
+        numQuestions: Math.max(5, Math.min(wrongQs.length, 20)),
+        useTimer: false,
+      });
+    }
+  };
+
+  const handleContinueMore = (n) => {
+    if (!startExam) return;
+    setMode?.('quick');
+    setSubject?.(ctx.subj || 'all');
+    setTopic?.(ctx.topic || null);
+    setPracticeMode?.('all');
+    setNumQuestions?.(n);
+    setUseTimer?.(false);
+    startExam({
+      practiceMode: 'all',
+      subject: ctx.subj || 'all',
+      topic: ctx.topic || null,
+      questionCategory: 'all',
+      numQuestions: n,
+      useTimer: false,
+    });
+  };
+
+  // hasWrong → primary = fix wrong · noWrong → primary = continue
+  const hasWrong = wrongQs.length > 0;
+  const continueLabel = ctx.topic
+    ? `🚀 ทำหัวข้อนี้ต่ออีก 5 ข้อ`
+    : ctx.subj
+      ? `🚀 ทำ${subjLabel}ต่ออีก 5 ข้อ`
+      : `🚀 ทำต่ออีก 5 ข้อ`;
+  const continueSub = ctx.topic
+    ? topicLabel
+    : ctx.subj
+      ? subjLabel
+      : 'สุ่มจากทุกวิชาในปีนี้';
+
+  return (
+    <div style={{ marginTop: 18 }}>
+      {/* Action stack — primary card on top, secondary row below. */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {hasWrong ? (
+          <button
+            type="button"
+            onClick={handleRedoWrong}
+            style={{
+              all: 'unset',
+              cursor: 'pointer',
+              padding: '14px 16px',
+              borderRadius: 14,
+              background: 'linear-gradient(135deg, rgba(167, 61, 74, 0.12), rgba(167, 61, 74, 0.04))',
+              border: '2px solid var(--clr-rose, #a73d4a)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              minHeight: 56,
+            }}
+            aria-label={`ทำซ้ำ ${wrongQs.length} ข้อที่ตอบผิดในรอบนี้`}
+          >
+            <div style={{ fontSize: 28, lineHeight: 1 }}>🎯</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
+                แก้ข้อที่ผิด {wrongQs.length} ข้อ ทันที
+              </div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+                ทำซ้ำเฉพาะข้อในรอบนี้ที่ตอบผิด
+              </div>
+            </div>
+            <div style={{
+              padding: '6px 12px',
+              borderRadius: 999,
+              background: 'var(--clr-rose, #a73d4a)',
+              color: 'white',
+              fontSize: 12,
+              fontWeight: 700,
+              flexShrink: 0,
+            }}>
+              ลุย →
+            </div>
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => handleContinueMore(5)}
+            style={{
+              all: 'unset',
+              cursor: 'pointer',
+              padding: '14px 16px',
+              borderRadius: 14,
+              background: 'linear-gradient(135deg, rgba(74, 107, 74, 0.12), rgba(74, 107, 74, 0.04))',
+              border: '2px solid var(--clr-sage, #4a6b4a)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              minHeight: 56,
+            }}
+            aria-label={continueLabel}
+          >
+            <div style={{ fontSize: 28, lineHeight: 1 }}>🚀</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
+                {continueLabel.replace('🚀 ', '')}
+              </div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+                {continueSub}
+              </div>
+            </div>
+            <div style={{
+              padding: '6px 12px',
+              borderRadius: 999,
+              background: 'var(--clr-sage, #4a6b4a)',
+              color: 'white',
+              fontSize: 12,
+              fontWeight: 700,
+              flexShrink: 0,
+            }}>
+              ลุย →
+            </div>
+          </button>
+        )}
+
+        {/* Secondary row — ดูเฉลย + ทำหัวข้อนี้ต่อ (when hasWrong) */}
+        <div className="vmx-btn-row" style={{ flexWrap: 'wrap', gap: 8 }}>
+          <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('review')} style={{ minHeight: 44 }}>
+            📖 ดูเฉลย
+          </button>
+          {hasWrong && ctx.subj && (
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost"
+              onClick={() => handleContinueMore(5)}
+              style={{ minHeight: 44 }}
+              title={ctx.topic ? `สุ่ม 5 ข้อใหม่ในหัวข้อ ${topicLabel}` : `สุ่ม 5 ข้อใหม่ในวิชา ${subjLabel}`}
+            >
+              📚 ทำ{ctx.topic ? 'หัวข้อ' : 'วิชา'}นี้อีก 5 ข้อ
+            </button>
+          )}
+          <ChallengeQuizButton questions={questions} />
+          <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>
+            🏠 หน้าแรก
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── RecommendationsBox — Phase 2 (2026-05-18) ──────────────────────
+// Short "ต่อจากนี้แนะนำ" panel under the action stack. Tells the user
+// what the system is doing in the background (SR queue, weak-topic
+// signal) so the loop feels intelligent rather than opaque.
+function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
+  // Compute a couple of structured hints. Only render box if we have
+  // at least one substantive hint — never render an empty card.
+  const hints = useMemo(() => {
+    const out = [];
+    if (autoQs.length === 0) return out;
+    if (wrongCount > 0) {
+      out.push({
+        icon: '🧠',
+        text: `ข้อที่ผิด ${wrongCount} ข้อถูกบันทึกในประวัติ — ระบบจะดันให้ทบทวนซ้ำใน SR`,
+      });
+    }
+    // Topic-level pattern: ≥2 wrong in same topic → flag it
+    if (wrongCount >= 2) {
+      const topicTally = {};
+      for (const q of autoQs) {
+        if (answers[q.id] === undefined) continue;
+        if (isCorrect(q, answers[q.id])) continue;
+        const key = q.topic;
+        if (!key) continue;
+        topicTally[key] = (topicTally[key] || 0) + 1;
+      }
+      const entries = Object.entries(topicTally).sort((a, b) => b[1] - a[1]);
+      if (entries.length > 0 && entries[0][1] >= 2) {
+        const [topic, count] = entries[0];
+        const cleaned = String(topic).replace(/^[\d\s.·\-]+/, '').trim().slice(0, 40);
+        out.push({
+          icon: '🎯',
+          text: `คุณพลาด ${count} ข้อในหัวข้อ "${cleaned}" — ลองทบทวนเนื้อหานี้ก่อน`,
+        });
+      }
+    }
+    if (score.pct >= 90 && autoQs.length >= 5) {
+      out.push({
+        icon: '🔥',
+        text: 'คะแนนสูงในรอบนี้ ลองเพิ่มจำนวนข้อรอบหน้าเพื่อท้าทายตัวเองดู',
+      });
+    }
+    return out.slice(0, 3);
+  }, [autoQs, answers, wrongCount, score.pct]);
+
+  if (hints.length === 0) return null;
+
+  return (
+    <div style={{
+      marginTop: 18,
+      padding: '12px 14px',
+      borderRadius: 12,
+      background: 'rgba(184, 137, 64, 0.06)',
+      border: '1px dashed var(--clr-gold, #b88940)',
+    }}>
+      <div style={{
+        fontSize: 11,
+        fontFamily: 'JetBrains Mono, monospace',
+        color: 'var(--clr-gold, #b88940)',
+        textTransform: 'uppercase',
+        letterSpacing: '0.08em',
+        fontWeight: 700,
+        marginBottom: 8,
+      }}>
+        💡 ต่อจากนี้แนะนำ
+      </div>
+      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {hints.map((h, i) => (
+          <li
+            key={i}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 10,
+              fontSize: 13,
+              lineHeight: 1.5,
+              color: 'var(--clr-ink)',
+            }}
+          >
+            <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }} aria-hidden>{h.icon}</span>
+            <span style={{ flex: 1 }}>{h.text}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -337,6 +696,7 @@ function ShareQuizButton({ questions }) {
     <button
       type="button"
       className="vmx-btn vmx-btn-ghost"
+      style={{ minHeight: 44 }}
       onClick={async () => {
         const res = await copyShareUrl(questions);
         if (res.ok) setHint('คัดลอกลิงก์แล้ว · วางส่งเพื่อนได้เลย');
@@ -348,6 +708,81 @@ function ShareQuizButton({ questions }) {
       📎 แชร์ชุดนี้
       {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'JetBrains Mono, monospace' }}>{hint}</span>}
     </button>
+  );
+}
+
+// Same primitive as ShareQuizButton but reframes the action as
+// "challenge friend" — Palm spec 2026-05-18: people share questions
+// (low embarrassment) more readily than they share bad scores.
+// We use the Web Share API where available (mobile native share sheet)
+// with a copy-paste fallback to clipboard so LINE/IG webviews work too.
+function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อนทำชุดนี้' }) {
+  const [hint, setHint] = useState('');
+  if (!questions || questions.length === 0) return null;
+
+  const buildChallengeText = () => {
+    const n = questions.length;
+    const url = buildShareUrl(questions);
+    if (!url) return null;
+    return `ลองทำข้อนี้ดิ 📚 ${n} ข้อจาก VetMock — ใครตอบถูกมากกว่ากัน?\n${url}`;
+  };
+
+  const handleClick = async () => {
+    const text = buildChallengeText();
+    if (!text) {
+      setHint('สร้างลิงก์ไม่ได้');
+      setTimeout(() => setHint(''), 3000);
+      return;
+    }
+    try {
+      if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+        await navigator.share({ title: 'VetMock challenge', text });
+        setHint('✓ ส่งให้เพื่อนแล้ว');
+        setTimeout(() => setHint(''), 3000);
+        return;
+      }
+    } catch (err) {
+      if (err?.name === 'AbortError') return; // user cancelled
+    }
+    // Fallback: copy text (URL embedded)
+    const res = await copyText(text);
+    setHint(res.ok ? '✓ คัดลอกแล้ว · วางใน LINE / IG ได้เลย' : '⚠️ คัดลอกไม่ได้');
+    setTimeout(() => setHint(''), 3500);
+  };
+
+  return (
+    <button
+      type="button"
+      className="vmx-btn vmx-btn-ghost"
+      onClick={handleClick}
+      style={{ minHeight: 44 }}
+      title="แชร์ลิงก์ชุดโจทย์ + ข้อความท้าทาย — เพื่อนเปิดลิงก์แล้วทำชุดเดียวกัน"
+    >
+      {label}
+      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'JetBrains Mono, monospace' }}>{hint}</span>}
+    </button>
+  );
+}
+
+// Wraps the challenge-friend share as a callout row (replaces ShareToIGRow
+// on low/mid scores). Communicates the "this is what people DO share"
+// proposition vs awkwardly showing IG-Story-share with a 30% score.
+function ChallengeFriendRow({ questions, score }) {
+  return (
+    <div style={{
+      marginTop: 24,
+      padding: 16,
+      borderRadius: 12,
+      background: 'linear-gradient(135deg, rgba(74, 107, 74, 0.06), rgba(217, 119, 68, 0.06))',
+      border: '1px dashed var(--clr-sage, #4a6b4a)',
+    }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ fontSize: 13, color: 'var(--clr-ink)', flex: '1 1 200px', lineHeight: 1.5 }}>
+          ส่งให้เพื่อนลอง — <strong>เพื่อนตอบถูกมากกว่าเรามั้ย</strong>? วัดดวงเล่นๆ
+        </div>
+        <ChallengeQuizButton questions={questions} label="🎯 ท้าเพื่อนทำชุดนี้" />
+      </div>
+    </div>
   );
 }
 

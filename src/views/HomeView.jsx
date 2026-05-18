@@ -294,6 +294,83 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   }, [isScaffoldYear, wrappedTick]);
   const showWrappedBanner = completedPhase && !isWrappedDismissed(completedPhase.id);
 
+  // ─── Banner priority winner — Phase 1 (2026-05-18) ─────────────
+  // Palm spec: "Banner priority rule — แสดงได้ครั้งละ 1 banner เท่านั้น".
+  // Priority: pendingResume > wrapped > welcome > verify-email > announcement.
+  // (Standalone exam countdown is REMOVED — NextActionCard already
+  //  surfaces "ติว <subject>" when an exam is within 7 days.)
+  // NextActionCard renders regardless of bannerWinner; it's the always-on
+  // coach surface, not a "banner".
+  const _emailUnverified = user && !user.email_confirmed_at && !verifyDismissed;
+  const bannerWinner = pendingResume
+    ? 'pendingResume'
+    : showWrappedBanner
+      ? 'wrapped'
+      : showWelcome
+        ? 'welcome'
+        : _emailUnverified
+          ? 'verify'
+          : showAnnouncement
+            ? 'announcement'
+            : null;
+  // Compact changelog chip shown in the quick-action row when there's
+  // an unread changelog AND the announcement banner lost the priority
+  // race (e.g. resume/wrapped won). Click → expand banner ("force show").
+  const showChangelogChip = showAnnouncement && bannerWinner !== 'announcement';
+  const [forceChangelogOpen, setForceChangelogOpen] = useState(false);
+
+  // ─── Phase 6 (2026-05-18) — eager-prefetch downstream chunks ────
+  // ExamView, ResultsView, ReviewView are lazy-loaded. On first click
+  // of "ฝึก 1 ข้อด่วน" we hit a chunk-fetch round trip (~50-500ms cold).
+  // Prefetching on idle after HomeView mounts puts the chunks in the
+  // browser cache so click → mount feels instant. Cheap (browser can
+  // throttle), safe (catch errors), zero UX cost.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    let cancelled = false;
+    const prefetch = () => {
+      if (cancelled) return;
+      import('./ExamView.jsx').catch(() => {});
+      import('./ResultsView.jsx').catch(() => {});
+      import('./ReviewView.jsx').catch(() => {});
+    };
+    const idle = window.requestIdleCallback
+      || ((cb) => setTimeout(cb, 1500));
+    const id = idle(prefetch, { timeout: 3000 });
+    return () => {
+      cancelled = true;
+      if (window.cancelIdleCallback && typeof id === 'number') {
+        try { window.cancelIdleCallback(id); } catch {}
+      }
+    };
+  }, []);
+
+  // ─── Phase 4 (2026-05-18) — QuestsPanel inline action routing ───
+  // QuestsPanel passes back an { kind, subject? } action when user
+  // clicks "▶️ ลุย" on an incomplete quest. Map to existing handlers
+  // so quests are 1-tap actionable instead of just progress bars.
+  const handleQuestStart = (action /*, quest */) => {
+    if (!action) return;
+    if (action.kind === 'random') {
+      launchRandomQ();
+      return;
+    }
+    if (action.kind === 'sr') {
+      setMode && setMode('sr');
+      setView('sr-session');
+      return;
+    }
+    if (action.kind === 'subject' && action.subject) {
+      setSubject && setSubject(action.subject);
+      setView('topic-select');
+      return;
+    }
+    if (action.kind === 'subject-select') {
+      setView('subject-select');
+      return;
+    }
+  };
+
   return (
     <>
       {tourOpen && (
@@ -320,7 +397,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           once the most recent exam phase has finished. Self-contained:
           dismiss writes to localStorage via markWrappedDismissed and
           we bump `wrappedTick` to invalidate the memo. */}
-      {showWrappedBanner && (
+      {bannerWinner === 'wrapped' && (
         <div
           style={{
             marginBottom: 18,
@@ -420,7 +497,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
       {/* Welcome banner — first-time users see this instead of a
           blocking modal. One-tap to start the tour, X to dismiss. */}
-      {showWelcome && (
+      {bannerWinner === 'welcome' && (
         <div style={{
           marginBottom: 16,
           padding: '12px 14px',
@@ -465,7 +542,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {/* Email verification reminder — for users who signed up but
           haven't clicked the link yet. Dismissible per-session via
           state (not localStorage — gentle re-nag on next visit). */}
-      {user && !user.email_confirmed_at && !verifyDismissed && (
+      {bannerWinner === 'verify' && (
         <div style={{
           padding: 12,
           borderRadius: 12,
@@ -496,7 +573,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {/* Resume in-flight exam — top priority. Shown when App detected a
           stale exam state in localStorage (< 6h old). Replaces the old
           jarring window.confirm prompt with an actionable banner. */}
-      {pendingResume && (() => {
+      {bannerWinner === 'pendingResume' && (() => {
         // Search all years (the in-flight exam may not match selectedYear).
         const subjMeta = SUBJECTS.find((s) => s.id === pendingResume.subjectId);
         const subjLabel = subjMeta ? `${subjMeta.icon || ''} ${subjMeta.name || ''}` : 'ข้อสอบที่ค้างอยู่';
@@ -547,8 +624,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         );
       })()}
 
-      {/* Next exam countdown banner */}
-      {nextExam && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 30 && (
+      {/* Next exam countdown banner — only show for 8-30 day window.
+          When ≤7 days, NextActionCard already surfaces "ติว <subject>"
+          as its top action, so the dedicated banner is redundant and
+          steals real-estate from the subject grid. */}
+      {nextExam && nextExam.daysLeft > 7 && nextExam.daysLeft <= 30 && (
         <div onClick={() => setView('schedule')} style={{
           padding: 16, borderRadius: 16, marginBottom: 24, cursor: 'pointer',
           background: countdown ? 'var(--clr-rose-soft)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose-soft)' : 'var(--clr-surface)'),
@@ -586,8 +666,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* What's-new announcement — auto-dismissed once seen */}
-      {showAnnouncement && (
+      {/* What's-new announcement — auto-dismissed once seen.
+          Only renders as a banner when it wins the priority race; if it
+          lost (e.g. resume/wrapped won), the changelog appears as a
+          dismissible chip in the quick-action row below instead. */}
+      {(bannerWinner === 'announcement' || forceChangelogOpen) && (
         <div
           style={{
             padding: 16,
@@ -803,58 +886,42 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* Daily Quests panel — 3 randomized quests resets at local
-          midnight. Hidden on scaffold years (no Q bank to act against)
-          so empty quests don't taunt users on Y1–Y3 / Y5–Y6 shells. */}
-      {!isScaffoldYear && (
-        <Suspense fallback={null}>
-          <QuestsPanel />
-        </Suspense>
-      )}
-
-      {/* Daily goal card — only mount once user has history. Avoids
-          showing an empty quota widget to brand-new visitors. */}
-      {history.length > 0 && (
-        <Suspense fallback={null}>
-          <div style={{ marginBottom: 18 }}>
-            <DailyGoalCard history={history} />
-          </div>
-        </Suspense>
-      )}
-
-      {/* Study buddies — Supabase presence list. Hidden when no buddies
-          are present (StudyBuddiesPanel returns null). */}
-      {user && Object.keys(buddies || {}).length > 1 && (
-        <Suspense fallback={null}>
-          <StudyBuddiesPanel
-            buddies={buddies}
-            selfUserId={user?.id}
-            onJumpToSubject={(subjectId) => {
-              setSubject?.(subjectId);
-              setMode?.('quick');
-              setView('subject-select');
-            }}
-          />
-        </Suspense>
-      )}
-
-      {/* Daily Q + Race + PWA install — entry points share one row */}
-      <DailyQRow user={user} setView={setView} />
-      <div style={{ marginBottom: 18, display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
-        {user && (
+      {/* Changelog chip — Phase 1 (2026-05-18): when the announcement
+          banner lost the priority race, surface "📰 อัปเดตใหม่ {N}" as
+          a 1-tap chip in this row instead of a full card. Clicking it
+          force-opens the banner below for users who want details. */}
+      {showChangelogChip && (
+        <div style={{ marginBottom: 14 }}>
           <button
             type="button"
-            onClick={() => setView('race')}
-            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
+            onClick={() => setForceChangelogOpen(true)}
+            className="vmx-chip-quick"
+            style={{
+              all: 'unset',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '6px 12px',
+              borderRadius: 999,
+              background: 'rgba(184, 137, 64, 0.10)',
+              border: '1px solid var(--clr-gold, #b88940)',
+              fontSize: 12,
+              fontFamily: 'JetBrains Mono, monospace',
+              color: 'var(--clr-gold, #b88940)',
+            }}
+            title="ดูรายละเอียดอัปเดตล่าสุด"
           >
-            🏁 แข่งกับเพื่อน (Race mode)
+            📰 อัปเดตใหม่{LATEST_CHANGELOG?.changes?.length ? ` ${LATEST_CHANGELOG.changes.length} รายการ` : ''}
           </button>
-        )}
-        <Suspense fallback={null}>
-          <PWAInstallChip />
-        </Suspense>
-      </div>
+        </div>
+      )}
+
+      {/* Gamification + community block (QuestsPanel + DailyGoal + Daily Q
+          + Race + StudyBuddies + PWA install) — Phase 1 (2026-05-18):
+          moved BELOW the Subject Grid + Practice modes so the core
+          "วิชาใน[ปี X]" + smart presets get the prime mobile real-estate.
+          Per Palm: "Subject list ต้องโผล่ในจอแรกหรือเกือบจอแรก". */}
 
       {/* PRIMARY: Subject Grid — natural mental model is "I want to study X subject".
           Filtered to current phase (e.g. only sem 2 subjects when phase is '2-final'). */}
@@ -1132,6 +1199,68 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </>
         );
       })()}
+
+      {/* ─── Gamification + community block — Phase 1 (2026-05-18) ────
+          Quests + DailyGoal + StudyBuddies + DailyQ + Race + PWA install.
+          Lives BELOW the core Subject + Practice mode grids so first-
+          paint mobile real-estate goes to studying, not gamification.
+          Quests now have per-quest "▶️ ลุย" action buttons (Phase 4)
+          wired to handleQuestStart. */}
+
+      {/* Daily Quests panel — 3 randomized quests resets at local
+          midnight. Hidden on scaffold years (no Q bank to act against)
+          so empty quests don't taunt users on Y1–Y3 / Y5–Y6 shells. */}
+      {!isScaffoldYear && (
+        <Suspense fallback={null}>
+          <div style={{ marginTop: 28 }}>
+            <QuestsPanel onStart={handleQuestStart} />
+          </div>
+        </Suspense>
+      )}
+
+      {/* Daily goal card — only mount once user has history. Avoids
+          showing an empty quota widget to brand-new visitors. */}
+      {history.length > 0 && (
+        <Suspense fallback={null}>
+          <div style={{ marginBottom: 18 }}>
+            <DailyGoalCard history={history} />
+          </div>
+        </Suspense>
+      )}
+
+      {/* Study buddies — Supabase presence list. Hidden when no buddies
+          are present (StudyBuddiesPanel returns null). */}
+      {user && Object.keys(buddies || {}).length > 1 && (
+        <Suspense fallback={null}>
+          <StudyBuddiesPanel
+            buddies={buddies}
+            selfUserId={user?.id}
+            onJumpToSubject={(subjectId) => {
+              setSubject?.(subjectId);
+              setMode?.('quick');
+              setView('subject-select');
+            }}
+          />
+        </Suspense>
+      )}
+
+      {/* Daily Q + Race + PWA install — entry points share one row */}
+      <DailyQRow user={user} setView={setView} />
+      <div style={{ marginBottom: 18, display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
+        {user && (
+          <button
+            type="button"
+            onClick={() => setView('race')}
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
+          >
+            🏁 แข่งกับเพื่อน (Race mode)
+          </button>
+        )}
+        <Suspense fallback={null}>
+          <PWAInstallChip />
+        </Suspense>
+      </div>
 
       {/* TERTIARY: Year tools — schedule/scores/reading/videos disabled on
           scaffold years (data is year-scoped + empty). Analytics stays

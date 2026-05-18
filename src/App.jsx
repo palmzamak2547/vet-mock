@@ -1271,6 +1271,25 @@ export default function App() {
 
   const handleSignOut = async () => { if (confirm('Logout?')) { await signOut(); goHome(); } };
 
+  // Replay an arbitrary slice of questions as a fresh exam round.
+  // Used by ResultsView "redo wrong" — passes the wrong-only subset
+  // back into setQuestions without going through startExam's pool
+  // assembly. Mirrors the post-startExam state shape (answers={},
+  // idx=0, view='exam', timer cleared) so ExamView mounts clean.
+  const replayQuestions = useCallback((qs) => {
+    if (!Array.isArray(qs) || qs.length === 0) return;
+    // Same hygiene as goHome — drop in-flight markers + qset URL
+    // before starting a new round so reload behaves predictably.
+    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+    setQuestions(qs);
+    setAnswers({});
+    setCurrentIdx(0);
+    setUseTimer(false); // redo rounds never on a clock — focused review
+    setExamStartTime(Date.now());
+    setTimeLeft(0);
+    setView('exam');
+  }, []);
+
   const currentQ = questions[currentIdx];
   const currentAnswer = currentQ ? answers[currentQ.id] : null;
   const isBookmarked = currentQ ? bookmarks.includes(currentQ.id) : false;
@@ -1453,13 +1472,13 @@ export default function App() {
                     small screens via inline @media query won't work in JSX,
                     so just rely on flex-wrap to drop them to next row. */}
                 <button
-                  className="vmx-theme-btn"
+                  className="vmx-theme-btn vmx-header-secondary"
                   onClick={() => setView('dashboard')}
                   title="Analytics, ดูสถิติ + ประวัติ"
                   aria-label="Analytics"
                 >📊</button>
                 <button
-                  className="vmx-theme-btn"
+                  className="vmx-theme-btn vmx-header-secondary"
                   onClick={() => {
                     if (bookmarks.length === 0) return;
                     setPracticeMode('bookmarks');
@@ -1528,7 +1547,7 @@ export default function App() {
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode, selectedYear, selectedPhase }} />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
-              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user, selectedYear, selectedPhase }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions, selectedYear, selectedPhase }} />}
