@@ -38,6 +38,19 @@
 const GIS_SRC = 'https://accounts.google.com/gsi/client';
 let _gisPromise = null;
 
+// Fire the same vmx-auth-changed event that lib/supabase.js helpers
+// dispatch after a successful sign-in. useAuth.js subscribes to this
+// event and uses it to load the SDK + attach onAuthStateChange
+// (Path B). Without this dispatch on the GIS path, useAuth never
+// hydrates after Google sign-in → user is "signed in" inside Supabase
+// but the React UI still shows logged-out state until manual refresh.
+// Bug Palm reported 2026-05-18: "พอล็อคอินสำเร็จแล้วต้องรีเฟรช".
+function notifyAuthChanged() {
+  if (typeof window !== 'undefined') {
+    try { window.dispatchEvent(new CustomEvent('vmx-auth-changed')); } catch { /* noop */ }
+  }
+}
+
 /** Lazy-load the GIS script. Idempotent. */
 function loadGisScript() {
   if (_gisPromise) return _gisPromise;
@@ -133,8 +146,12 @@ export async function signInWithGoogleGis({ supabase }) {
               token: response.credential,
               nonce: rawNonce,
             });
-            if (error) finish(error);
-            else finish(null, data);
+            if (error) {
+              finish(error);
+            } else {
+              notifyAuthChanged();
+              finish(null, data);
+            }
           } catch (e) {
             finish(e);
           }
@@ -197,8 +214,12 @@ export async function renderGoogleGisButton(container, opts = {}) {
           token: response.credential,
           nonce: rawNonce,
         });
-        if (error) opts.onError?.(error);
-        else opts.onSuccess?.(data);
+        if (error) {
+          opts.onError?.(error);
+        } else {
+          notifyAuthChanged();
+          opts.onSuccess?.(data);
+        }
       } catch (e) {
         opts.onError?.(e);
       }
