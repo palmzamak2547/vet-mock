@@ -36,6 +36,14 @@ export function useAuth() {
     if (!hasSupabase) return;
     if (setupRunning.current) return;
     setupRunning.current = true;
+    // Show loading state while SDK fetches the session — covers the
+    // ~50-300ms gap between vmx-auth-changed firing (Path B) and user
+    // being populated. Without this, App.jsx renders briefly with
+    // user=null after a successful Google GIS sign-in, flashing the
+    // "logged out" UI before the user state hydrates. Path A already
+    // bootstrapped loading=true via useState init, so this is mostly
+    // for Path B; idempotent for both paths.
+    setLoading(true);
     try {
       const supabase = await getSupabase();
       if (cancelledRef.current || !supabase) return;
