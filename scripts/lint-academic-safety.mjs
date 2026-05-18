@@ -92,6 +92,13 @@ const REPLACEMENTS = [
 ];
 
 // ── File walker ───────────────────────────────────────────────
+// Files that LEGITIMATELY contain banned-pattern strings — they're
+// the lint enumeration files themselves. Without this allow-list,
+// the lint catches itself in an infinite chicken-and-egg loop.
+const ALLOW_LIST_FILENAMES = new Set([
+  'contributions.js',  // src/lib/contributions.js — Tier 0 banned-pattern detector
+]);
+
 function walk(dir) {
   const out = [];
   for (const name of readdirSync(dir)) {
@@ -101,6 +108,7 @@ function walk(dir) {
       if (name === 'node_modules' || name === 'dist' || name.startsWith('.')) continue;
       out.push(...walk(path));
     } else if (/\.(js|jsx|mjs|md|json)$/.test(name)) {
+      if (ALLOW_LIST_FILENAMES.has(name)) continue;
       out.push(path);
     }
   }

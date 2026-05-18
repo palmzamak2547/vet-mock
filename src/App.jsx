@@ -66,6 +66,8 @@ const LabView = lazy(() => import('./views/LabView.jsx'));
 // PinboardView — personal pin grid (Qs / summaries / flashcards /
 // notes). Lazy because most sessions never open it.
 const PinboardView = lazy(() => import('./views/PinboardView.jsx'));
+const ContributeView = lazy(() => import('./views/ContributeView.jsx'));
+const ReviewQueueView = lazy(() => import('./views/ReviewQueueView.jsx'));
 
 // HighlightToCard — listens for text selections inside
 // .vmx-summary-body (SummaryModal content) and offers a floating
@@ -1616,6 +1618,8 @@ export default function App() {
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions }} />}
+              {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}
+              {view === 'review-queue' && <ReviewQueueView {...{ goHome, setView, user }} />}
             </Suspense>
             </ErrorBoundary>
           )}
