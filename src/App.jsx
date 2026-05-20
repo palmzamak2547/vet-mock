@@ -1063,10 +1063,26 @@ export default function App() {
     // with the year/phase pill in the header. Subject-specific picks are
     // implicitly year-scoped via the subject's curriculum entry, so no
     // additional filter needed for those. Bookmarks/weak/wrong are user-
-    // curated pools and stay cross-year on purpose (user's saved list).
+    // curated pools — the user *chose* those Qs, so they stay cross-year
+    // (matches the original intent in the comment, NOT the previous code
+    // which over-filtered all modes through yearScope unconditionally).
+    //
+    // Palm bug 2026-05-20: "ไม่มีข้อสอบในหมวดนี้" was firing on
+    // "🎯 ทบทวนข้อที่ตอบผิด" because the user's wrong-answer history
+    // could be from a year other than `selectedYear` (e.g. VCA year=5
+    // wrongs while studying Y4), so yearScope evicted everything.
+    const isUserCuratedPool = (
+      _practiceMode === 'bookmarks' ||
+      _practiceMode === 'weak' ||
+      _practiceMode === 'wrong'
+    );
     const yearScope = (qs) => {
+      if (isUserCuratedPool) return qs; // user-curated, cross-year on purpose
       if (_subject && _subject !== 'all') return qs; // subject implies year
-      return qs.filter((q) => q.year === selectedYear);
+      // Lenient: keep Qs with no year tag (treat as belonging to whatever
+      // year the user is in). Hardens against legacy/custom Qs that
+      // pre-date the year-tagging migration.
+      return qs.filter((q) => q.year == null || q.year === selectedYear);
     };
 
     let pool;
