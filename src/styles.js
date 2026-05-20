@@ -120,6 +120,19 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
   touch-action: manipulation;
 }
 
+/* WCAG 2.5.5 — minimum 44x44px touch target on interactive elements.
+   Was: many surfaces below the 44px floor (.vmx-chip ~30px, .vmx-theme-btn
+   36 then 32 on mobile, .vmx-cmdk-btn ~28px). Palm a11y audit 2026-05-20.
+   Implementation note: we use min-height (not height) so existing
+   padding/borders still control visual density — only the hit area floor
+   is enforced. The :where(...) zero-specificity wrapper means later
+   rules can override IF a specific component really needs to opt out. */
+:where(button, a[role="button"], [role="button"], .vmx-btn, .vmx-option,
+       .vmx-tf-btn, .vmx-chip, .vmx-nav-btn, .vmx-bookmark-btn,
+       .vmx-note-btn, .vmx-theme-btn, .vmx-cmdk-btn, .vmx-passage-fab) {
+  min-height: 44px;
+}
+
 html, body { overscroll-behavior-y: contain; }
 
 /* Better keyboard focus, but no outline on mouse click */
@@ -155,7 +168,7 @@ html, body { overscroll-behavior-y: contain; }
 .vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .vmx-subtitle { font-size: 12px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
 .vmx-streak { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--clr-gold); }
-.vmx-theme-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--clr-ink); }
+.vmx-theme-btn { width: 44px; height: 44px; min-width: 44px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-theme-btn:hover { border-color: var(--clr-ink); }
 .vmx-theme-btn:disabled { cursor: not-allowed; }
 .vmx-theme-btn:disabled:hover { border-color: var(--clr-border); }
@@ -173,7 +186,11 @@ html, body { overscroll-behavior-y: contain; }
   .vmx-cmdk-btn { padding: 5px 8px; font-size: 12px; }
   .vmx-header { padding-bottom: 14px; margin-bottom: 18px; gap: 8px; }
   .vmx-header-right { gap: 6px; }
-  .vmx-theme-btn { width: 32px; height: 32px; font-size: 14px; }
+  /* WCAG 2.5.5 floor — don't shrink below 44×44 on mobile. Was 32×32
+     pre-2026-05-20 audit; sub-44 hit targets cause mis-taps on
+     thumb-reach scenarios. Slightly smaller font compensates for
+     the bigger circle taking visual weight. */
+  .vmx-theme-btn { width: 44px; height: 44px; min-width: 44px; font-size: 16px; }
   .vmx-streak { display: none; } /* free up space; visible on Analytics */
   .vmx-logo { font-size: 19px; }
   /* Phase 1 (2026-05-18): compact-header rule — hide secondary tools
@@ -234,7 +251,7 @@ html, body { overscroll-behavior-y: contain; }
 .vmx-config-row:last-child { margin-bottom: 0; }
 .vmx-label { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: block; color: var(--clr-ink); }
 .vmx-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.vmx-chip { padding: 8px 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); border-radius: 999px; cursor: pointer; font-size: 13px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; color: var(--clr-ink-soft); }
+.vmx-chip { padding: 10px 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); border-radius: 999px; cursor: pointer; font-size: 13px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; color: var(--clr-ink-soft); display: inline-flex; align-items: center; }
 .vmx-chip:hover { border-color: var(--clr-ink); }
 .vmx-chip.active { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
 

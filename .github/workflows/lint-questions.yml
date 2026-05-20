@@ -6,10 +6,14 @@
 # (existing errors documented in the baseline below). Warnings
 # show up in the PR conversation but don't block merging.
 #
-# The baseline `MAX_ERRORS` is the count we ship with v5.7.0
-# after the auto-trim pass: 78 length-bias errors. Lower this
-# whenever you actually rewrite distractors so future regressions
-# are caught.
+# Baseline ratchet (only goes DOWN, never up):
+#   • 2026-05-12  v5.7.0   78 (8 files only · pre-Wave-3)
+#   • 2026-05-20 recal    295 (34 files · all questions-*.js banks
+#                              discovered after Palm audit)
+#
+# When you rewrite biased distractors locally + lint count drops,
+# update MAX_ERRORS to the new lower number. CI will fail any PR
+# that introduces a regression past the current ceiling.
 # ============================================================
 name: Lint questions
 
@@ -46,12 +50,18 @@ jobs:
 
       - name: Enforce baseline
         env:
-          MAX_ERRORS: 78
+          # Baseline recalibrated 2026-05-20 after extending lint scope
+          # from 8 hardcoded files → all 34 questions-*.js banks via
+          # auto-discovery. Current count = 291 errors; ceiling 295
+          # leaves a tiny buffer for incidental drift but blocks any
+          # meaningful regression. Lower this whenever fix:questions
+          # actually reduces the count.
+          MAX_ERRORS: 295
         run: |
           ERRORS=${{ steps.lint.outputs.errors }}
           echo "Errors: $ERRORS / baseline $MAX_ERRORS"
           if [ "$ERRORS" -gt "$MAX_ERRORS" ]; then
-            echo "::error::Question lint introduced $((ERRORS - MAX_ERRORS)) new error(s) over the v5.7.0 baseline ($MAX_ERRORS)."
-            echo "::error::Run \`npm run fix:questions\` and \`npm run lint:questions\` locally before pushing."
+            echo "::error::Question lint introduced $((ERRORS - MAX_ERRORS)) new error(s) over the current baseline ($MAX_ERRORS)."
+            echo "::error::Run \`npm run fix:questions\` and \`npm run lint:questions\` locally before pushing, or rewrite the offending distractors."
             exit 1
           fi

@@ -4,7 +4,7 @@ import { flushSync } from 'react-dom';
 // array reference forever, but it's empty until `loadQB()` resolves.
 // App.jsx kicks off loadQB() in a top-level effect (background load
 // after first paint) and gates exam-start paths on the populated QB.
-import { QB, loadQB, isQBLoaded } from './data/questions.js';
+import { QB, loadQB, loadQBForYear, isQBLoaded } from './data/questions.js';
 import { SUBJECTS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
@@ -283,8 +283,23 @@ export default function App() {
     // Background load — non-blocking, fires once per page life. Errors
     // are swallowed at this layer; explicit awaits in startExam() will
     // surface real failures via alert().
-    loadQB().then(() => setQbReady(true)).catch(() => {});
-  }, [qbReady]);
+    //
+    // Year-scoped (Palm audit 2026-05-20): pull only the current year's
+    // chunks instead of all 34. Y4-only users skip the ~7 Y5 banks
+    // (~250 KB savings on slow networks). Cross-year banks (vca/short/
+    // mahahon/termpaper) still load. If the user later switches year,
+    // loadQBForYear() is re-called by the year-watcher effect below.
+    loadQBForYear(selectedYear).then(() => setQbReady(true)).catch(() => {});
+  }, [qbReady, selectedYear]);
+
+  // When user switches year (e.g. Y4 → Y5), pull the new year's chunks
+  // in the background. `loadQBForYear` is idempotent — already-loaded
+  // scopes are no-ops. New chunks merge into the same `_qbArr` so
+  // existing closures over QB get the union next render.
+  useEffect(() => {
+    if (!qbReady) return;
+    loadQBForYear(selectedYear).catch(() => {});
+  }, [selectedYear, qbReady]);
 
   // Share-link (`?qset=`) resolution effect. Runs once after QB loads.
   // Initial render shows ExamView with empty questions[] — this effect

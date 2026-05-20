@@ -27,16 +27,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const FILES = [
-  'src/data/questions-com3.js',
-  'src/data/questions-com4.js',
-  'src/data/questions-com5.js',
-  'src/data/questions-engprof.js',
-  'src/data/questions-exotic.js',
-  'src/data/questions-poultry.js',
-  'src/data/questions-repro-lect.js',
-  'src/data/questions-vca.js',
-];
+// Auto-discover all questions-*.js banks under src/data/ so newly-
+// added Q banks (Y4 Sem 1 wave, Y5 banks, future faculties) get linted
+// without an editor having to remember updating this list.
+// Was: hardcoded 8 files · stale once Wave 3 (surg1, herd-health-rum)
+// + Y5 wave shipped. Palm audit 2026-05-20 flagged the scope gap.
+const FILES = (() => {
+  const dataDir = path.resolve(__dirname, '..', 'src/data');
+  return fs.readdirSync(dataDir)
+    .filter((f) => /^questions-.+\.js$/.test(f))
+    .map((f) => path.posix.join('src/data', f))
+    .sort();
+})();
 
 // Thresholds. Tunable — these are calibrated from the v5.2.0 disaster
 // (94% at B) so even a much milder version of the same problem trips.
