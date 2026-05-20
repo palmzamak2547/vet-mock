@@ -278,28 +278,9 @@ export default function App() {
   // populated array, and (b) gate exam-start UI to await the load if
   // the user clicks before background-load finishes.
   const [qbReady, setQbReady] = useState(isQBLoaded());
-  useEffect(() => {
-    if (qbReady) return;
-    // Background load — non-blocking, fires once per page life. Errors
-    // are swallowed at this layer; explicit awaits in startExam() will
-    // surface real failures via alert().
-    //
-    // Year-scoped (Palm audit 2026-05-20): pull only the current year's
-    // chunks instead of all 34. Y4-only users skip the ~7 Y5 banks
-    // (~250 KB savings on slow networks). Cross-year banks (vca/short/
-    // mahahon/termpaper) still load. If the user later switches year,
-    // loadQBForYear() is re-called by the year-watcher effect below.
-    loadQBForYear(selectedYear).then(() => setQbReady(true)).catch(() => {});
-  }, [qbReady, selectedYear]);
-
-  // When user switches year (e.g. Y4 → Y5), pull the new year's chunks
-  // in the background. `loadQBForYear` is idempotent — already-loaded
-  // scopes are no-ops. New chunks merge into the same `_qbArr` so
-  // existing closures over QB get the union next render.
-  useEffect(() => {
-    if (!qbReady) return;
-    loadQBForYear(selectedYear).catch(() => {});
-  }, [selectedYear, qbReady]);
+  // The QB lazy-load effects that key off `selectedYear` are declared
+  // AFTER `selectedYear` (line ~415) so they don't trip TDZ on the
+  // const before it's initialized. See "QB year-scoped loaders" below.
 
   // Share-link (`?qset=`) resolution effect. Runs once after QB loads.
   // Initial render shows ExamView with empty questions[] — this effect
@@ -413,6 +394,38 @@ export default function App() {
   // Components expect a number — fall back to CURRENT_YEAR when null so
   // HomeView/etc. don't crash if the user somehow lands there pre-pick.
   const selectedYear = selectedYearStored ?? CURRENT_YEAR;
+
+  // ── QB year-scoped loaders ─────────────────────────────────────
+  // CRITICAL: these effects MUST live AFTER `selectedYear` is
+  // declared (above) — they were originally up near `qbReady` and
+  // caused a production TDZ ("Cannot access 'P' before initialization"
+  // at <App>) because the dep array `[selectedYear, ...]` got
+  // evaluated synchronously at render BEFORE the const above existed.
+  // Build hash `index-CXPDEjJ3.js` reproduced this — left the entire
+  // site blank. Don't move them back up.
+  useEffect(() => {
+    if (qbReady) return;
+    // Background load — non-blocking, fires once per page life. Errors
+    // are swallowed at this layer; explicit awaits in startExam() will
+    // surface real failures via alert().
+    //
+    // Year-scoped (Palm audit 2026-05-20): pull only the current year's
+    // chunks instead of all 34. Y4-only users skip the ~7 Y5 banks
+    // (~250 KB savings on slow networks). Cross-year banks (vca/short/
+    // mahahon/termpaper) still load. If the user later switches year,
+    // loadQBForYear() is re-called by the year-watcher effect below.
+    loadQBForYear(selectedYear).then(() => setQbReady(true)).catch(() => {});
+  }, [qbReady, selectedYear]);
+
+  // When user switches year (e.g. Y4 → Y5), pull the new year's chunks
+  // in the background. `loadQBForYear` is idempotent — already-loaded
+  // scopes are no-ops. New chunks merge into the same `_qbArr` so
+  // existing closures over QB get the union next render.
+  useEffect(() => {
+    if (!qbReady) return;
+    loadQBForYear(selectedYear).catch(() => {});
+  }, [selectedYear, qbReady]);
+
   // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
   // null means "no phase scoping" — show all subjects across both
   // semesters of the year (used as fallback for Y6 which is block-based).
