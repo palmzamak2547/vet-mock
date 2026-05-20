@@ -237,44 +237,63 @@ export async function updateEmail(newEmail) {
   if (error) throw error;
 }
 
-// ─── Delete account (best-effort, client-side) ──────────────────
-// Without a server-side service-role key, we can't fully delete from
-// auth.users via the public API. Closest we can do client-side:
-//   1) Delete the user's profile + progress rows (RLS allows self-delete)
-//   2) Sign out everywhere
-// The auth.users row remains as a "tombstone" until a future cron/edge
-// function reaps it. From the user's perspective: data is gone, login
-// no longer works on their email until support manually clears.
+// ─── Delete account (atomic via Edge Function) ──────────────────
+// Palm audit 2026-05-20 P1: was a best-effort client-side multi-table
+// delete that hit hardcoded table names (`attempts` / `flashcards` /
+// `feedback`) that DON'T exist in the canonical schema, AND the
+// `profiles` table had no DELETE RLS policy so the rows were silently
+// not deleted (RLS-deny default).
 //
-// If you want true deletion, deploy a Supabase Edge Function with
-// service_role and call it here instead.
+// Now: posts to the `delete-account` Edge Function which uses
+// service_role to purge across all user-scoped tables in the right
+// order, then admin.deleteUser to clear auth.users. Returns an
+// audit report `{ok, deleted: {table: count}, errors}`. The Edge
+// Function source lives in supabase/functions/delete-account/.
+//
+// If ANY table delete fails, the Edge Function skips the auth.users
+// step so the account stays recoverable instead of leaving a tombstone.
 export async function deleteAccountData() {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
   const { data: sess } = await supabase.auth.getSession();
   const userId = sess?.session?.user?.id;
-  if (!userId) throw new Error('ไม่ได้ login อยู่');
+  const accessToken = sess?.session?.access_token;
+  if (!userId || !accessToken) throw new Error('ไม่ได้ login อยู่');
 
-  // Delete known tables that store user-specific data. Each call is
-  // best-effort — failures are logged but don't block the others.
-  const tables = ['profiles', 'attempts', 'flashcards', 'group_members', 'feedback'];
-  const errors = [];
-  for (const t of tables) {
-    try {
-      const { error } = await supabase.from(t).delete().eq('user_id', userId);
-      if (error && !/no rows/i.test(error.message)) errors.push({ table: t, error });
-    } catch (e) {
-      errors.push({ table: t, error: e });
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  if (!supabaseUrl) throw new Error('Supabase URL not configured');
+
+  let report;
+  try {
+    const res = await fetch(`${supabaseUrl}/functions/v1/delete-account`, {
+      method: 'POST',
+      headers: {
+        'authorization': `Bearer ${accessToken}`,
+        'content-type': 'application/json',
+      },
+    });
+    report = await res.json().catch(() => null);
+    if (!res.ok) {
+      throw new Error(report?.error || `delete-account returned ${res.status}`);
     }
+  } catch (e) {
+    // Network failure / function error → return diagnostic so the UI
+    // can show the user something actionable. Don't silently signOut
+    // in this case because their data is still intact + recoverable.
+    return { ok: false, errors: [{ table: '__network__', error: e?.message || String(e) }] };
   }
-  // Profile uses 'id' not 'user_id' on some schemas
-  try { await supabase.from('profiles').delete().eq('id', userId); } catch {}
 
-  // Sign out everywhere as the final step
-  await supabase.auth.signOut({ scope: 'global' });
+  // Edge Function already deleted auth.users (on success), so the
+  // existing session is invalidated server-side. signOut clears the
+  // client-side session cache + dispatches the auth-changed event.
+  try { await supabase.auth.signOut({ scope: 'global' }); } catch {}
   notifyAuthChanged();
 
-  return { ok: errors.length === 0, errors };
+  return {
+    ok: !!report?.ok,
+    deleted: report?.deleted || {},
+    errors: report?.errors || [],
+  };
 }
 
 // ─── Username availability check (for real-time validation) ─────

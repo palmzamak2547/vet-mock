@@ -1,12 +1,38 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, isPlaylistUrl, isChannelUrl } from '../data/videos.js';
-import { VIDEO_SUMMARIES, getSummaryForVideo } from '../data/video-summaries.js';
+// Palm audit 2026-05-20 P0: VIDEO_SUMMARIES file is ~2 MB (62k lines of
+// markdown). Importing it statically pulled the whole chunk on every
+// /videos visit even when user just browses the playlist. Now:
+//   • VIDEO_META (small · ~50 KB) — sync · drives "has summary?" badges
+//   • Full bodies — lazy-imported ONCE the user clicks "📝 อ่านสรุปคลิป",
+//     cached at module scope so subsequent opens are instant.
+import { VIDEO_META } from '../data/video-summaries-meta.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { copyText } from '../lib/clipboard.js';
 import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
 import VideoNotePanel from '../components/VideoNotePanel.jsx';
+
+// ── Lazy video-summaries body loader ─────────────────────────────
+// Imports the 2 MB VIDEO_SUMMARIES module on first demand. Cached at
+// module scope — multiple "open summary" clicks share one network
+// fetch + one parse. Returns the full entry (with markdown body)
+// for the given videoId or null when none exists.
+let __videoSummariesPromise = null;
+function loadAllVideoSummaries() {
+  if (!__videoSummariesPromise) {
+    __videoSummariesPromise = import('../data/video-summaries.js')
+      .then((m) => m.VIDEO_SUMMARIES)
+      .catch((err) => {
+        // Drop the promise so retries are possible after a transient
+        // failure (network · build hash mismatch · CSP).
+        __videoSummariesPromise = null;
+        throw err;
+      });
+  }
+  return __videoSummariesPromise;
+}
 
 // ── YouTube IFrame API loader ─────────────────────────────────────
 // Loads https://www.youtube.com/iframe_api once per page-load and
@@ -615,7 +641,29 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   }, [currentVideoId]);
 
   const currentItem = playlistItems[currentIdx];
-  const currentSummary = currentVideoId ? VIDEO_SUMMARIES[currentVideoId] : null;
+  // hasSummary uses VIDEO_META (sync · ~50 KB) so we don't pay the
+  // 2 MB cost just to render a button. Body is lazy-loaded on click.
+  const hasSummary = currentVideoId && !!VIDEO_META[currentVideoId];
+  const [summaryLoading, setSummaryLoading] = useState(false);
+  const handleOpenSummary = async () => {
+    if (!currentVideoId || summaryLoading) return;
+    setSummaryLoading(true);
+    try {
+      const all = await loadAllVideoSummaries();
+      setOpenSummary(all[currentVideoId] || null);
+    } catch (err) {
+      console.warn('[VideoView] failed to load video-summaries body:', err);
+      // Surface a tiny fallback so the user knows the click registered
+      // and isn't a silent UX dead-end.
+      setOpenSummary({
+        videoId: currentVideoId,
+        title: VIDEO_META[currentVideoId]?.title || 'สรุปคลิป',
+        summary: '⚠️ โหลดสรุปคลิปไม่สำเร็จ — ลองรีโหลดหน้าเว็บแล้วลองใหม่',
+      });
+    } finally {
+      setSummaryLoading(false);
+    }
+  };
 
   return (
     <>
@@ -738,14 +786,15 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
             {/* Footer actions */}
             <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-              {currentSummary && (
+              {hasSummary && (
                 <button
                   className="vmx-btn vmx-btn-primary vmx-btn-sm"
-                  onClick={() => setOpenSummary(currentSummary)}
+                  onClick={handleOpenSummary}
+                  disabled={summaryLoading}
                   title="อ่านสรุปคลิป (มีปุ่ม download .md ด้วย)"
                   style={{ fontWeight: 600 }}
                 >
-                  📝 อ่านสรุปคลิป
+                  {summaryLoading ? '⏳ กำลังโหลด…' : '📝 อ่านสรุปคลิป'}
                 </button>
               )}
               <a className="vmx-btn vmx-btn-ghost vmx-btn-sm" href={currentVideoId ? `https://www.youtube.com/watch?v=${currentVideoId}${playlistId ? `&list=${playlistId}` : ''}` : video.url} target="_blank" rel="noopener noreferrer">
@@ -798,7 +847,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   const realIdx = playlistItems.findIndex((p) => p.id === item.id);
                   const active = item.id === currentVideoId;
                   const isWatched = watched && watched[item.id];
-                  const hasSummary = !!VIDEO_SUMMARIES[item.id];
+                  const hasSummary = !!VIDEO_META[item.id];
                   return (
                     <button
                       key={item.id}
