@@ -21,6 +21,11 @@ const VCA_NOTES_MAP = {
 
 export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {} }) {
   const [openInstructor, setOpenInstructor] = useState(null);
+  // Palm bug 2026-05-20: subjects with 50+ topics in curriculum but only
+  // ~30 with Qs (e.g. COM I has 31 filled + 26 empty) flooded the view
+  // with disabled "🚧 รอข้อสอบเพิ่ม" cards. Collapse empties behind a
+  // toggle so the default view focuses on what users can actually do.
+  const [showEmptyTopics, setShowEmptyTopics] = useState(false);
 
   // Open instructor profile by lecturer string. Looks up via the
   // helper in instructors.js which handles "(KB)" tag stripping +
@@ -279,8 +284,16 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           );
         })}
 
-        {topics.map((t) => {
-          const count = countFor(t.id);
+        {/* Split topics into filled (have Qs) vs empty (curriculum
+            placeholder, no Qs yet). Empty topics are hidden behind a
+            disclosure so subjects with long planning scaffolds don't
+            look broken. */}
+        {(() => {
+          const topicEntries = topics.map((t) => ({ t, count: countFor(t.id) }));
+          const filled = topicEntries.filter((x) => x.count > 0);
+          const empty = topicEntries.filter((x) => x.count === 0);
+          const visible = showEmptyTopics ? topicEntries : filled;
+          return visible.map(({ t, count }) => {
           const ppCount = pastPaperCountFor(t.id);
           const ppPct = count > 0 ? Math.round((ppCount / count) * 100) : 0;
           const isEmpty = count === 0;
@@ -393,8 +406,52 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               )}
             </button>
           );
-        })}
+        });
+        })()}
       </div>
+
+      {/* Empty-topic disclosure — only render the toggle when there ARE
+          empties to hide. Shows count + 💡 call-to-action so users know
+          they can request content. */}
+      {(() => {
+        const emptyCount = topics.filter((t) => countFor(t.id) === 0).length;
+        if (emptyCount === 0) return null;
+        return (
+          <div style={{
+            marginTop: 12,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 6,
+            padding: '12px 14px',
+            borderRadius: 10,
+            background: 'var(--clr-surface-2)',
+            border: '1px dashed var(--clr-border)',
+            fontSize: 13,
+            color: 'var(--clr-ink-soft)',
+          }}>
+            <button
+              type="button"
+              onClick={() => setShowEmptyTopics((v) => !v)}
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                fontWeight: 600,
+                color: 'var(--clr-ink)',
+              }}
+              aria-expanded={showEmptyTopics}
+            >
+              <span aria-hidden="true">{showEmptyTopics ? '▾' : '▸'}</span>
+              {showEmptyTopics ? 'ซ่อนหัวข้อที่ยังไม่มีข้อสอบ' : `แสดงหัวข้อที่ยังไม่มีข้อสอบ (${emptyCount} หัวข้อ)`}
+            </button>
+            <div style={{ fontSize: 12, lineHeight: 1.5 }}>
+              💡 หัวข้อในแผนการสอนที่ยังไม่ได้เติมข้อสอบ — ขอเพิ่มได้ที่ปุ่ม "ส่งคำถามเข้า Q bank" หน้าแรก
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Bottom-row buttons removed — Notes/Videos moved to top action
           panel; "หน้าแรก" available via BackBar. Saves vertical space
