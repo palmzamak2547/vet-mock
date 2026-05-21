@@ -3,6 +3,9 @@
 คลังข้อสอบ + ตารางสอบ + คลิปย้อนหลัง สำหรับสัตวแพทย์ จุฬา
 Made with ♡ by **Vet 86**
 
+🌐 **Live:** [vetmock.vercel.app](https://vetmock.vercel.app)
+🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (student council) · [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
+
 ---
 
 ## ⚡ Quick Start
