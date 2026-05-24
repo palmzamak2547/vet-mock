@@ -1593,13 +1593,13 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         fontFamily: 'JetBrains Mono, monospace',
         color: 'var(--clr-ink-soft)',
       }}>
-        <button type="button" onClick={() => setView('about')} style={linkStyle}>
+        <button type="button" className="vmx-link-btn" onClick={() => setView('about')} style={linkStyle}>
           ℹ️ เกี่ยวกับ
         </button>
-        <button type="button" onClick={() => setView('feedback')} style={linkStyle}>
+        <button type="button" className="vmx-link-btn" onClick={() => setView('feedback')} style={linkStyle}>
           💌 แจ้งปัญหา / ขอเนื้อหา
         </button>
-        <button type="button" onClick={() => setView('question-manager')} style={linkStyle}>
+        <button type="button" className="vmx-link-btn" onClick={() => setView('question-manager')} style={linkStyle}>
           ➕ เพิ่ม/แก้ข้อสอบเอง
         </button>
         {/* Round 5 (2026-05-18) — open contribution + review queue.
@@ -1607,16 +1607,16 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             Review queue is reviewer-gated (verified+ role required —
             ReviewQueueView shows a friendly "not yet authorized" copy
             for contributors). */}
-        <button type="button" onClick={() => setView('contribute')} style={linkStyle}>
+        <button type="button" className="vmx-link-btn" onClick={() => setView('contribute')} style={linkStyle}>
           💡 ส่งคำถามเข้า Q bank
         </button>
         {user && (
-          <button type="button" onClick={() => setView('review-queue')} style={linkStyle}>
+          <button type="button" className="vmx-link-btn" onClick={() => setView('review-queue')} style={linkStyle}>
             🎯 รีวิวคำถาม (ตรวจ Q)
           </button>
         )}
         {!showAnnouncement && LATEST_CHANGELOG && (
-          <button type="button" onClick={() => setLastSeenChangelog(null)} style={linkStyle}>
+          <button type="button" className="vmx-link-btn" onClick={() => setLastSeenChangelog(null)} style={linkStyle}>
             🔔 อัปเดตล่าสุด ({LATEST_CHANGELOG.version})
           </button>
         )}
