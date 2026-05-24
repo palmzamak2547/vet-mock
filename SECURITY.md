@@ -35,6 +35,23 @@ Applied with zero UX impact:
 
 **npm audit** state: 2 moderate (esbuild + vite, dev-only). Production bundle unaffected (esbuild is build-time). Dependabot already configured.
 
+## Hardening pass — 2026-05-20 (Palm 10/10 audit)
+
+**npm audit** state (post `npm audit fix`):
+- 7 moderate (was 10 before fix) — ALL in the Cornerstone3D dependency chain (`@kitware/vtk.js` → `xmlbuilder2` → `js-yaml`; plus `uuid <11.1.1` in dicom-image-loader). No upstream fixes available yet.
+- **Containment**: Cornerstone is loaded ONLY on `/lab` (Imaging Lab, accessed via `#lab` hash — not surfaced in nav). The `vendor-cornerstone` chunk is excluded from `modulePreload` (see `vite.config.js`) so unaffected users never download the vulnerable code.
+- **Usage**: lab opens user-provided local DICOM files in-browser; no network exfil from cornerstone.
+- **Action**: monitor for `@cornerstonejs/core` upgrade that bumps vtk/uuid. Set Dependabot to watch the cornerstone meta-package.
+
+**A11y**:
+- WCAG 2.4.1 — `<main id="main">` landmark + visible-on-focus skip link added to App.jsx
+- WCAG 2.5.5 — touch targets ≥44px enforced via `:where()` rule on all interactive surfaces incl. footer anchors
+- A11y review: keyboard nav now bypasses header chrome cleanly
+
+**Lint hardening**:
+- Position bias mitigated structurally via render-time option shuffle in `Question.jsx::MCQOptions` (per-Q + per-session seeded Fisher-Yates; honors `noShuffle` flag and pins "All of the above"-style tail options). Linter rule downgraded to warn (data-level nudge for authors).
+- Markdown ** check removed: `RichText` renders `**bold**` correctly and `stripForSpeech` / `stripRichText` handle it for non-markdown sinks.
+
 ## Threat model
 
 VetMock is a study app, not a banking app. We're protecting against:

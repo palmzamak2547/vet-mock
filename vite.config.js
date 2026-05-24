@@ -14,7 +14,15 @@ export default defineConfig({
   worker: { format: 'es' },
   build: {
     target: 'esnext',
-    chunkSizeWarningLimit: 700,
+    // Palm perf audit 2026-05-20: two chunks legitimately exceed 700KB
+    // and we KNOW they're lazy:
+    //   • data-video-summaries (~2.2MB) — only loaded after user clicks
+    //     "📝 อ่านสรุปคลิป" inside VideoView's PlayerModal
+    //   • vendor-cornerstone (~1.7MB) — only loaded on /lab visit
+    // Both are excluded from modulePreload (below) so they don't bloat
+    // first-paint. 2300KB cap silences the warning without disabling
+    // visibility for accidental regressions in the main bundle.
+    chunkSizeWarningLimit: 2300,
     // ── Phase 1 perf rework (2026-05-17) ─────────────────────────
     // Vite's default behaviour is to emit <link rel="modulepreload">
     // for EVERY chunk in the entry's transitive load graph, including
@@ -53,7 +61,15 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react')) return 'vendor-react'
+            // Be SPECIFIC about react packaging — `includes('react')` was
+            // too broad and matched any path containing the substring
+            // (e.g. `use-sync-external-store`, `cmdk`, things that
+            // *use* react). That created a circular dep where vendor →
+            // vendor-react → vendor. Pin to react itself + reconciler +
+            // scheduler only. Palm perf audit 2026-05-20.
+            if (
+              /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)
+            ) return 'vendor-react'
             if (id.includes('@supabase')) return 'vendor-supabase'
             // Cornerstone3D + its dep tree (vtk.js, gl-matrix, comlink,
             // dicom-parser) all funnel into a single lab-only chunk so
