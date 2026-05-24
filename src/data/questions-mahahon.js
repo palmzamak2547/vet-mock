@@ -404,7 +404,7 @@ export const QB_MAHAHON = [
     options: [
       'Volume',
       'Color',
-      'Progressive motility, concentration, morphology',
+      'Motility / concentration',
       'pH paper test',
     ],
     answer: 2,
@@ -986,7 +986,7 @@ export const QB_MAHAHON = [
     q: 'การ screen pedigree dog เพื่อ hereditary disease ก่อน breed ใช้เครื่องมือใดเป็นหลัก',
     options: [
       'CT scan',
-      'DNA test (mutation-specific PCR/sequencing) + radiograph สำหรับ structural conditions เช่น hip dysplasia',
+      'DNA test + radiograph',
       'Stool analysis',
       'Blood smear อย่างเดียว',
     ],
@@ -999,7 +999,7 @@ export const QB_MAHAHON = [
     tags: ['popular-sire', 'breeding-strategy'], type: 'mcq',
     q: 'Popular Sire Effect คืออะไร',
     options: [
-      'การที่ stud ตัวหนึ่งใช้ผสมเยอะมาก → genes ของมันแพร่ไปทั่ว breed → ลด genetic diversity + แพร่ deleterious recessive ถ้ามี',
+      'Stud ใช้ผสมมากเกิน → ลด genetic diversity',
       'การ promote sire ที่ดีที่สุด',
       'การห้าม sire ที่อายุมากผสม',
       'การ vaccinate sire ก่อน breed',
@@ -1129,7 +1129,7 @@ export const QB_MAHAHON = [
     q: 'Multimodal analgesia ที่แนะนำสำหรับ OVH ในสุนัข',
     options: [
       'Morphine alone',
-      'Pre-op opioid + intra-op CRI/local block (incisional bupivacaine) + post-op NSAID',
+      'Pre-op opioid + local block + post-op NSAID',
       'NSAID alone',
       'Paracetamol อย่างเดียว',
     ],
@@ -1143,7 +1143,7 @@ export const QB_MAHAHON = [
     q: 'Major complication ของ OVH ที่ต้องระวังที่สุดคือ',
     options: [
       'Wound dehiscence',
-      'Hemorrhage (จาก ovarian/uterine pedicle ligature เลื่อน) → hypovolemia',
+      'Hemorrhage',
       'Vomiting',
       'Diarrhea',
     ],

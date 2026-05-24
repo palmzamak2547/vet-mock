@@ -235,7 +235,7 @@ export const QB_Y5_OSCE_MED = [
     tags: ['OSCE', 'vaccination', 'feline', 'FeLV', 'pre-vaccine test', 'VPAT'], type: 'mcq',
     q: 'VPAT feline — ก่อนฉีดวัคซีน FeLV เข็มแรกในลูกแมว/แมวที่ไม่เคยตรวจมาก่อน ต้องทำสิ่งใด',
     options: [
-      'ตรวจการติดเชื้อ FeLV (FeLV antigen test kit หรือ PCR) ก่อนฉีดเข็มแรก และก่อนการกระตุ้นภูมิคุ้มกันครั้งถัดไปทุกครั้ง',
+      'ตรวจ FeLV antigen ก่อนฉีดเข็มแรก',
       'ฉีดได้ทันทีโดยไม่ต้องตรวจ',
       'ตรวจ FIV เท่านั้น',
       'ตรวจเลือดทั่วไป (CBC) อย่างเดียว',

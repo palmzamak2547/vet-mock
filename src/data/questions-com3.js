@@ -624,7 +624,7 @@ export const QB_COM3 = [
   { id: 812, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder 2 hr.pdf',
     tags: ['atlantoaxial-instability'], type: 'mcq',
     q: 'Atlantoaxial instability — concern ที่อันตรายที่สุดคืออะไร',
-    options: ['หัวคอแฉลบ', 'ตามองไม่เห็น', 'C1-C2 มี medulla oblongata → respiratory failure → death', 'ขาเป๋'],
+    options: ['หัวคอแฉลบ', 'ตามองไม่เห็น', 'Respiratory failure', 'ขาเป๋'],
     answer: 2, explain: 'C1-C2 ใกล้ medulla oblongata → severe compression → respiratory arrest\nพบใน toy breed (Chihuahua)\nUMN 4 ขา\nจัดเป็น emergency\n\n❌ ทำไมข้ออื่นผิด\n— หัวคอแฉลบ = symptom ทั่วไป\n— ตามองไม่เห็น = unrelated\n— ขาเป๋ = secondary ไม่ใช่ life-threat',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 

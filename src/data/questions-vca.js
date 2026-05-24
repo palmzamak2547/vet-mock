@@ -538,7 +538,7 @@ export const QB_VCA = [
   { id: 6153, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
     tags: ['wildlife', 'anesthesia', 'xylazine'], type: 'mcq',
     q: 'side effect หลักของ α2-agonist (xylazine, medetomidine) ในสัตว์ป่า ที่ต้องเฝ้าระวัง',
-    options: ['Apnea', 'Seizure', 'Hyperthermia', 'Bradycardia + initial hypertension followed by hypotension', 'Hypothermia'],
+    options: ['Apnea', 'Seizure', 'Hyperthermia', 'Bradycardia + biphasic BP', 'Hypothermia'],
     answer: 3,
     explain: 'α2-agonist: bradycardia + biphasic BP (initial hyper → late hypo) + respiratory depression + hypothermia, reversal: atipamezole (medetomidine) / yohimbine (xylazine)' },
 
@@ -1114,7 +1114,7 @@ export const QB_VCA = [
   { id: 6481, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['mgmt', 'wean', 'PWSI'], type: 'mcq',
     q: 'PWSI (Prolonged Wean to first Service Interval) สาเหตุที่พบบ่อยที่สุด',
-    options: ['Body Condition Score (BCS) too low at weaning', 'PRRS', 'Mycotoxin', 'Parvovirus', 'Erysipelas'],
+    options: ['BCS too low at weaning', 'PRRS', 'Mycotoxin', 'Parvovirus', 'Erysipelas'],
     answer: 0,
     explain: 'BCS <2.5 at weaning → energy deficit → delay return to estrus, target BCS 3-3.5 throughout cycle, PWSI affect annual productivity (litters/sow/year)' },
 
@@ -1279,7 +1279,7 @@ export const QB_VCA = [
   { id: 6642, subject: 'vca', topic: 'equine', year: 5, source: SRC,
     tags: ['gi', 'choke', 'muscle-relaxant'], type: 'mcq',
     q: 'ม้าได้กินเลี้ยงรา หญ้าแห้ง ไม่ดื่มน้ำ + bloating, suspect choke (esophageal obstruction), first line treatment',
-    options: ['Endoscopy', 'Muscle relaxant (e.g., buscopan, oxytocin) + sedation', 'Forced fluid', 'Antibiotics first', 'Fluid only'],
+    options: ['Endoscopy', 'Buscopan + sedation', 'Forced fluid', 'Antibiotics first', 'Fluid only'],
     answer: 1,
     explain: 'Choke = esophageal obstruction, sedate (xylazine) + buscopan (smooth muscle relaxant) → ลด spasm รอ food bolus หลุดเอง, ถ้าไม่ดี → nasogastric tube + warm water lavage, complication: aspiration pneumonia' },
 
@@ -1547,7 +1547,7 @@ export const QB_VCA = [
   { id: 6820, subject: 'vca', topic: 'ruminant', year: 5, source: SRC,
     tags: ['lab', 'tuberculosis', 'SID'], type: 'mcq',
     q: 'การตรวจ bovine tuberculosis ที่ใช้ใน routine surveillance ของกรมปศุสัตว์',
-    options: ['Acid-fast stain', 'PCR', 'ELISA', 'Single Intradermal Test (SID, caudal fold tuberculin test) อ่าน 72 ชม.', 'Culture'],
+    options: ['Acid-fast stain', 'PCR', 'ELISA', 'Single Intradermal Test (SID)', 'Culture'],
     answer: 3,
     explain: 'SID/CFT = caudal fold tuberculin test, 0.1 mL bovine PPD intradermal at caudal fold, อ่าน 72 ชม., positive >2 mm or any swelling, screening test, confirm with comparative cervical or IFN-γ' },
 
@@ -1830,7 +1830,7 @@ export const QB_VCA = [
   { id: 6922, subject: 'vca', topic: 'ruminant', year: 5, source: SRC,
     tags: ['calc', 'milk', 'BHBA'], type: 'mcq',
     q: 'ตรวจ ketosis ในแม่โคนม early lactation ที่ field ใช้ test',
-    options: ['Glucose', 'BHBA (β-hydroxybutyrate) blood test (Cowside, hand-held meter) >1.2 mmol/L = subclinical', 'Cortisol', 'Insulin', 'Vit B'],
+    options: ['Glucose', 'BHBA blood test', 'Cortisol', 'Insulin', 'Vit B'],
     answer: 1,
     explain: 'BHBA blood test (cowside/precision meter) >1.2 mmol/L = subclinical ketosis, >2.6 = clinical, screen 3-14 DIM (days in milk), urine ketone less sensitive, milk ketone strip alternative' },
 
@@ -1907,7 +1907,7 @@ export const QB_VCA = [
   { id: 7020, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['vaccine', 'cat-core'], type: 'mcq',
     q: 'core vaccine สำหรับแมวตาม WSAVA 2016 ประกอบด้วย',
-    options: ['FIP', 'FIV', 'FHV-1 + FCV + FPV (panleukopenia) + Rabies', 'Chlamydia', 'FeLV'],
+    options: ['FIP', 'FIV', 'FVRCP + Rabies', 'Chlamydia', 'FeLV'],
     answer: 2,
     explain: 'WSAVA cat core: FHV-1 + FCV + FPV (panleukopenia) + Rabies, "FVRCP" = standard panel, FeLV = non-core (recommend for outdoor cat), FIV no good vaccine, FIP vaccine controversial\n\n💡 in endemic areas' },
 
@@ -1979,7 +1979,7 @@ export const QB_VCA = [
   { id: 7043, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['toxicology', 'rodenticide-warfarin'], type: 'mcq',
     q: 'สุนัขกิน warfarin rodenticide, antidote',
-    options: ['Phytomenadione (Vitamin K1) 2.5-5 mg/kg PO q24h', 'Calcium gluconate', 'NAC', 'Atropine', 'Glucagon'],
+    options: ['Vitamin K1', 'Calcium gluconate', 'NAC', 'Atropine', 'Glucagon'],
     answer: 0,
     explain: 'Anticoagulant rodenticide (warfarin, brodifacoum) → block VitK epoxide reductase → inhibit clotting factors II, VII, IX, X, Tx: VitK1 PO/SC × 4 wk for long-acting, plasma if active bleed, monitor PT/aPTT' },
 
@@ -2130,7 +2130,7 @@ export const QB_VCA = [
   { id: 7081, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['ortho', 'patella-luxation'], type: 'mcq',
     q: 'สุนัข Pomeranian "skip" lameness intermittent, stifle medial patella luxation grade II, primary muscle ที่ทำให้ luxate medial',
-    options: ['Quadriceps (vastus medialis pulls patella medially) + abnormal trochlear groove', 'Sartorius', 'Pectineus', 'Biceps femoris', 'Semimembranosus'],
+    options: ['Quadriceps (vastus medialis)', 'Sartorius', 'Pectineus', 'Biceps femoris', 'Semimembranosus'],
     answer: 0,
     explain: 'Medial patella luxation: shallow trochlear groove + medial bowing of distal femur + tight medial retinaculum + quadriceps malalignment, grade I-IV, surgical: trochleoplasty + tibial tuberosity transposition + retinacular imbrication' },
 
@@ -2159,7 +2159,7 @@ export const QB_VCA = [
   { id: 7090, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['imaging', 'megaesophagus'], type: 'mcq',
     q: 'สุนัขพันธุ์ Bulldog puppy 3 mo, regurgitation post-feeding, radiograph: dilated esophagus cervico-thoracic, DDx ที่ต้องคิด',
-    options: ['Persistent right aortic arch (PRAA, vascular ring anomaly) + esophageal foreign body', 'Pneumonia', 'Pulmonary edema', 'Pleural effusion', 'Heart base tumor'],
+    options: ['PRAA + esophageal FB', 'Pneumonia', 'Pulmonary edema', 'Pleural effusion', 'Heart base tumor'],
     answer: 0,
     explain: 'Megaesophagus puppy: vascular ring anomaly (PRAA) most common congenital, esophagus dilate cranial to heart base ~6-8 wk wean, esophageal FB acquired, Tx: surgery transection of ligamentum arteriosum' },
 
@@ -2247,7 +2247,7 @@ export const QB_VCA = [
   { id: 7130, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['ophth', 'cataract-DM'], type: 'mcq',
     q: 'สุนัข DM 2 yr, ตา bilateral cataract develop ภายใน 1 yr, cause',
-    options: ['Hypertension', 'Aldose reductase pathway → sorbitol accumulation in lens', 'Dehydration', 'UV exposure', 'Genetic'],
+    options: ['Hypertension', 'Sorbitol accumulation', 'Dehydration', 'UV exposure', 'Genetic'],
     answer: 1,
     explain: 'Diabetic cataract = sorbitol osmotic damage ใน lens, ~75% diabetic dog develop within 1 yr of DM diagnosis, Tx: phacoemulsification (cataract surgery), DDx cat (less prone to cataract)' },
 
@@ -2311,7 +2311,7 @@ export const QB_VCA = [
   { id: 7142, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['lab', 'pancreatitis'], type: 'mcq',
     q: 'สุนัข vomit acute + cranial abdominal pain + lipemic serum, best diagnostic',
-    options: ['Amylase only', 'Lipase only', 'Spec cPL (specific canine pancreatic lipase) + abdominal ultrasound', 'CBC only', 'Radiograph'],
+    options: ['Amylase only', 'Lipase only', 'Spec cPL + ultrasound', 'CBC only', 'Radiograph'],
     answer: 2,
     explain: 'Pancreatitis Dx: cPLI/SNAP cPL = pancreas-specific (amylase + lipase nonspecific), US shows enlarged hypoechoic pancreas + free fluid, Tx: NPO 24h → low-fat diet + antiemetic + IV fluid + analgesia' },
 
@@ -2341,7 +2341,7 @@ export const QB_VCA = [
   { id: 7160, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['emerg', 'hyperK'], type: 'mcq',
     q: 'แมว PU obstruction + K+ 8.5 mEq/L + bradycardia, acute Tx hyperkalemia',
-    options: ['Diltiazem alone', 'Furosemide', 'Amiodarone', 'Calcium gluconate IV (cardioprotective) + dextrose ± insulin', 'Magnesium phosphate'],
+    options: ['Diltiazem alone', 'Furosemide', 'Amiodarone', 'Ca gluconate + dextrose', 'Magnesium phosphate'],
     answer: 3,
     explain: 'Hyperkalemia >7-8: 1) Ca gluconate 10% 0.5-1 mL/kg slow IV (membrane stabilize) 2) Dextrose ± regular insulin (K shift in) 3) NaHCO3 if acidotic 4) relieve obstruction + IV fluid, ECG: tall T + small P + wide QRS\n\n💡 shift K intracellular' },
 

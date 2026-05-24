@@ -25,7 +25,7 @@ export const QB_PART3 = [
     explain: 'Schirmer tear test (STT); normal > 15 mm/min' },
   { id: 205, subject: 'surg2', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['dental'], type: 'mcq',
     q: 'ฟันซี่ใดที่พบ periodontal disease บ่อยที่สุดในสุนัข',
-    options: ['Incisor', 'Canine', 'Upper 4th premolar (carnassial tooth)', 'Molar'],
+    options: ['Incisor', 'Canine', 'Upper P4 (carnassial)', 'Molar'],
     answer: 2, explain: 'Upper P4 (carnassial) เนื่องจากเป็นฟันเคี้ยวอาหาร' },
   { id: 206, subject: 'surg3', year: 4, source: 'surg_lab_3_final_VET_84.pdf / sos_รวมข้อสอบเก่า_Lab_ortho.pdf', tags: ['ortho', 'FHNE'], type: 'mcq',
     q: 'FHNE (Femoral Head & Neck Excision) เหมาะกับเคสใด',

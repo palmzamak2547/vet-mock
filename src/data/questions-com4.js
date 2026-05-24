@@ -158,7 +158,7 @@ export const QB_COM4 = [
   { id: 919, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
     tags: ['antibiotic', 'pyoderma'], type: 'mcq',
     q: 'Antibiotics ตัวใด ไม่เหมาะ สำหรับรักษา pyoderma เพราะ achieve therapeutic conc. ในผิวหนังไม่ดี',
-    options: ['Cephalexin', 'Doxycycline', 'Amoxicillin (เดี่ยว) / Penicillin / Ampicillin / Streptomycin', 'Clindamycin'],
+    options: ['Cephalexin', 'Doxycycline', 'Amoxicillin / Penicillin', 'Clindamycin'],
     answer: 2, explain: 'ATB ที่ไม่เข้าผิวหนังพอ: Amoxicillin (ใช้ amoxi-clav แทน), Penicillin, Ampicillin, Streptomycin, ATB ที่เข้าผิวหนังดี: Cephalexin (1st choice), Amoxi-clav, Cefadroxil, Cefovecin, Doxycycline, Clindamycin, FQ (enrofloxacin/marbofloxacin), ต้องเลือกตาม C&S เพราะ MRSP บ่อย\n\n❌ ทำไมข้ออื่นผิด\n— Cephalexin = first-line (เข้าผิวดี)\n— Doxycycline = เข้าผิวดี (ใช้ใน MRSP บางครั้ง)\n— Clindamycin = เข้าผิวดี (alternate cephalexin)',
     verified: 'Derm__4_Bacterial_skin_diseases.pdf p.11' },
 
@@ -530,7 +530,7 @@ export const QB_COM4 = [
   { id: 970, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
     tags: ['bullous-pemphigoid'], type: 'mcq',
     q: 'Bullous pemphigoid ต่างจาก pemphigus อย่างไร',
-    options: ['Autoantibody ต่อ basement membrane → subepidermal blister', 'ไม่ต่างกัน', 'BP = bacterial', 'BP = parasitic'],
+    options: ['Subepidermal blister', 'ไม่ต่างกัน', 'BP = bacterial', 'BP = parasitic'],
     answer: 0, explain: 'Bullous pemphigoid: IgG ต่อ hemidesmosome proteins (BP180/BPAG2, BP230/BPAG1) ที่ basement membrane → subepidermal split → tense bullae (ไม่แตกง่าย เพราะลึกกว่า pemphigus), severity ≥ pemphigus, oral, mucocutaneous, skin, less common than PF\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต่างกัน" = ผิด, mechanism + level ต่าง\n— BP bacterial/parasitic = ผิด (autoimmune)\n\n💡 deeper than pemphigus',
     verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.3' },
 
@@ -1050,7 +1050,7 @@ export const QB_COM4 = [
     q: 'Intravascular hemolysis ใน IMHA — ลักษณะใดถูกต้อง',
     options: [
       'IgG-mediated, RBC ถูก phagocytose ที่ spleen, เห็น spherocyte',
-      'IgM-mediated, RBC โดน complement cascade (Classical pathway) → MAC (Membrane Attack Complex) → cell lysis ในหลอดเลือด → hemoglobinemia + hemoglobinuria + hyperbilirubinemia',
+      'IgM-mediated → MAC → intravascular lysis',
       'Eosinophilic infiltration in tissue',
       'No anemia, แค่ thrombocytopenia',
       'IgA-mediated เป็นหลัก',
@@ -1399,7 +1399,7 @@ export const QB_COM4 = [
     q: 'Fading Puppy/Kitten Syndrome — common infectious causes รวมถึง',
     options: [
       'Only one virus',
-      'Multifactorial: virus + bacteria + rickettsia + parasites + maternal/environmental',
+      'Multifactorial',
       'Just genetic',
       'Only nutrition',
       'Always trauma',
@@ -1552,7 +1552,7 @@ export const QB_COM4 = [
     q: 'Slide Autoagglutination test (screening) ใน IMHA — ผสม blood : NSS อัตราส่วนใด',
     options: [
       '1:1',
-      '1:4 (1 หยด blood + 4 หยด NSS)',
+      '1:4',
       '1:10',
       '1:20',
       '1:100',
@@ -1572,7 +1572,7 @@ export const QB_COM4 = [
     q: 'Clinical signs ของ canine IMHA ที่พบได้รวมถึง',
     options: [
       'แค่ pale MM เท่านั้น',
-      'Hemoglobinuria + jaundice + pica + hepatosplenomegaly + pale MM + tachycardia',
+      'Pale MM + jaundice + hemoglobinuria',
       'แค่ vomit',
       'Hyperglycemia',
       'แค่ ascites',
@@ -1735,7 +1735,7 @@ export const QB_COM4 = [
   { id: 1114, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'TJ86 Aj. Chayot Drugs III ออกใหม่ 100%',
     tags: ['lokivetmab', 'cytopoint', 'il-31', 'tj86', 'new'], type: 'mcq',
     q: 'Lokivetmab (Cytopoint®) คืออะไร และทำงานอย่างไร',
-    options: ['Antibiotic', 'Steroid', 'Caninized anti-IL-31 mAb → block itch cytokine', 'Antihistamine', 'NSAID'],
+    options: ['Antibiotic', 'Steroid', 'Anti-IL-31 mAb', 'Antihistamine', 'NSAID'],
     answer: 2, explain: 'Lokivetmab (Cytopoint®, Zoetis):\n• Class: Caninized anti-IL-31 mAb (biologic therapy)\n• MOA: Binds and neutralizes circulating IL-31 — the "itch cytokine" produced by activated Th2 cells in atopy\n• IL-31 normally signals to: nerve endings (DRG, skin) → pruritus; keratinocytes → barrier dysfunction; Th2 axis amplification\n\nUse: Canine Atopic Dermatitis (CAD) pruritus management\n\nDosing:\n— 2 mg/kg SC ทุก 4-8 สัปดาห์ (variable response duration)\n— No oral form (Apoquel = oral version of different mech — JAK inhibitor)\n— Onset: 1-3 days, peak 7-14 days\n\nPros:\n— Highly safe (few systemic AE — minimal immunosuppression)\n— Suitable for puppies (≥ 1 mo old) — no age restriction\n— Compatible with vaccines, other meds\n— Long-lasting effect\n\nCons:\n— $$$ (expensive)\n— Doesn\'t treat underlying allergy (just blocks itch signal)\n— Some dogs become "non-responders" over time\n— Not effective for non-IL-31-driven pruritus\n\nCompare to Oclacitinib (Apoquel):\n— Apoquel = JAK1 inhibitor (oral, daily) — broader effect, faster onset (4 hr) but more AE\n— Cytopoint = anti-IL-31 (injection q4-8 wk) — narrower target, safer, fewer AE\n\n💡 CAD pruritus',
     verified: 'TJ86 Aj. Chayot Drugs III #10 (ออกใหม่ 100% ★★)' },
 
@@ -1785,7 +1785,7 @@ export const QB_COM4 = [
   { id: 1121, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Peds (85≠84)',
     tags: ['neonate', 'drugs-avoid', 'tj86', 'classic'], type: 'mcq',
     q: 'ยาที่ "ไม่แนะนำ" ใน lukpup/kitten อายุน้อย (< 6-8 wks) ตาม Aj. Punyamanee คือ',
-    options: ['Penicillin', 'Amoxicillin', 'Tetracycline + Gentamicin + Metronidazole + TMS + Enrofloxacin', 'Clindamycin', 'Cephalexin'],
+    options: ['Penicillin', 'Amoxicillin', 'Tetracycline + Gentamicin + TMS', 'Clindamycin', 'Cephalexin'],
     answer: 2, explain: 'Drugs to AVOID in neonate/pediatric (< 6-8 wks):\n\n1. Tetracyclines (Tetracycline, Doxycycline)\n— Chelate Ca²⁺ → deposits in bones + teeth\n— Permanent yellow-brown tooth staining\n— Slow bone growth\n— Use only > 6 mo if possible\n\n2. Gentamicin / Aminoglycosides (Amikacin, Tobramycin, Streptomycin)\n— Nephrotoxic (immature kidney)\n— Ototoxic (cochlear + vestibular)\n— Neurotoxicity (high dose)\n— Use only ถ้าจำเป็นจริงๆ + therapeutic drug monitoring\n\n3. Metronidazole\n— Neurotoxicity in high dose / prolonged use (> 50 mg/kg/d)\n— Vestibular signs, ataxia, seizure\n— BM effects (mild)\n\n4. TMP-Sulfa (Trimethoprim-sulfonamide)\n— BM suppression\n— Hepatotoxicity\n— Keratoconjunctivitis Sicca (KCS) in dog (esp. Doberman, sulfa-sensitive breeds)\n— Hypersensitivity\n\n5. Enrofloxacin / Fluoroquinolones\n— Cartilage damage in growing animals (arthropathy)\n— Avoid in dogs < 12 mo (small breed) or < 18 mo (large breed)\n— Especially avoid in giant breeds during growth plate closure\n— Cat: retinal degeneration (high dose)\n\n💡 Note: NSAIDs also avoided in < 6-8 wks (immature liver + kidney)\n\n💡 Safe choices ใน puppy/kitten:\n— β-lactam (penicillin, amoxicillin, cephalexin)\n— Clindamycin (with caution)\n— Erythromycin (with caution, GI AE)\n\n💡 ทั้งกลุ่ม',
     verified: 'TJ86 Aj. Punyamanee Peds #18 (แต่งคำถามรวม)' },
 
