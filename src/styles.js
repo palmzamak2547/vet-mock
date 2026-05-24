@@ -135,14 +135,18 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
    should stay compact. Only HEIGHT is the safety floor.
    Opt-out: add class .vmx-no-target-floor if a button must stay
    smaller (none in the codebase today; reserved for future). */
+button:not(.vmx-no-target-floor):not(.vmx-link-btn),
+[role="button"]:not(.vmx-no-target-floor):not(.vmx-link-btn),
 .vmx-btn, .vmx-btn-sm, .vmx-option, .vmx-tf-btn,
 .vmx-chip, .vmx-chip-quick, .vmx-nav-btn,
 .vmx-bookmark-btn, .vmx-note-btn, .vmx-theme-btn,
 .vmx-cmdk-btn, .vmx-passage-fab,
-.vmx-footer a, .vmx-footer .vmx-link, .vmx-tools-fab,
-.vmx-link-btn {
+.vmx-footer a, .vmx-footer .vmx-link, .vmx-tools-fab {
   min-height: 44px !important;
 }
+/* .vmx-link-btn opts out of the height floor (its ::before pseudo
+   creates the invisible 44px touch zone instead, preserving the
+   inline visual size). Excluded above to avoid double-application. */
 /* Inline link-style buttons (e.g. "เปลี่ยน phase", "ปิด", inline icon
    chips) use all:unset which collapses them to display:inline,
    losing min-height. Add an invisible touch-target expansion via
