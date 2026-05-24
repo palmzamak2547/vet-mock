@@ -672,9 +672,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           </span>
           <button
             type="button"
+            className="vmx-link-btn"
             onClick={() => setVerifyDismissed(true)}
             style={{ all: 'unset', cursor: 'pointer', fontSize: 12, color: 'var(--clr-ink-soft)', padding: '4px 8px' }}
             title="ปิดประกาศ (รอบนี้)"
+            aria-label="ปิดประกาศยืนยันอีเมล"
           >
             ปิด
           </button>
@@ -1068,7 +1070,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         {phaseMeta && setSelectedPhase && (
           <button
             type="button"
+            className="vmx-link-btn"
             onClick={() => setView('phase-select')}
+            aria-label="เปลี่ยนช่วงสอบ (Phase)"
             style={{
               all: 'unset',
               cursor: 'pointer',
