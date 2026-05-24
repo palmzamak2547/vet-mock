@@ -18,7 +18,7 @@
 // version that calls clients.claim().
 // ============================================================
 
-const SW_VERSION = 'v9-2026-05-24';
+const SW_VERSION = 'v10-2026-05-24';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = `vmx-assets-${SW_VERSION}`;
 const NAV_TIMEOUT_MS = 4000;

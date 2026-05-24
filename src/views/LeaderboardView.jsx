@@ -1,9 +1,40 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getLeaderboard } from '../lib/api.js';
 import { SUBJECTS } from '../data/questions.js';
 
 export default function LeaderboardView({ user, goHome, selectedYear }) {
-  const [scores, setScores] = useState([]);
+  // Raw rows from the API — 1 row per exam attempt. The display below
+  // aggregates per-user so the same student doesn't appear N times.
+  const [rawScores, setRawScores] = useState([]);
+  // Aggregated leaderboard (BEST attempt per user_id). Computed below.
+  // Palm bug 2026-05-24: without dedupe, a user with 5 attempts shows
+  // 5 times in the leaderboard; if any 2 attempts have identical pct
+  // they appear back-to-back which looks like a UI bug.
+  const scores = useMemo(() => {
+    const byUser = new Map();
+    for (const r of rawScores) {
+      if (!r?.user_id) continue;
+      const prev = byUser.get(r.user_id);
+      if (!prev) {
+        byUser.set(r.user_id, { ...r, attempts: 1 });
+        continue;
+      }
+      // Keep the higher pct; tie-break on correct count; tie-break on
+      // most recent. Also count attempts for a "5×" badge in the row.
+      const keepNew =
+        r.pct > prev.pct ||
+        (r.pct === prev.pct && r.correct > prev.correct) ||
+        (r.pct === prev.pct && r.correct === prev.correct
+          && new Date(r.created_at) > new Date(prev.created_at));
+      const attempts = prev.attempts + 1;
+      byUser.set(r.user_id, keepNew ? { ...r, attempts } : { ...prev, attempts });
+    }
+    return Array.from(byUser.values()).sort((a, b) => {
+      if (b.pct !== a.pct) return b.pct - a.pct;
+      if (b.correct !== a.correct) return b.correct - a.correct;
+      return new Date(b.created_at) - new Date(a.created_at);
+    });
+  }, [rawScores]);
   const [loading, setLoading] = useState(true);
   // Distinguish "API failed" from "no scores yet" — silent fallback
   // to [] gaslights the user about what's wrong. Track the failure
@@ -30,9 +61,9 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
       ? selectedYear
       : null;
     getLeaderboard({ year: yearArg })
-      .then(setScores)
+      .then((rows) => setRawScores(Array.isArray(rows) ? rows : []))
       .catch((err) => {
-        setScores([]);
+        setRawScores([]);
         setError(err?.message || 'โหลดข้อมูลไม่สำเร็จ');
       })
       .finally(() => setLoading(false));
@@ -122,6 +153,11 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>
                     {r.mode === 'exam' ? '🎓 Exam' : '📝 Practice'} · {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
+                    {r.attempts > 1 && (
+                      <span title={`ทำ ${r.attempts} ครั้ง · แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 10 }}>
+                        × {r.attempts}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
