@@ -1120,6 +1120,14 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             return;
           }
           setSubject && setSubject(s.id);
+          // Palm bug 2026-05-20: practiceMode is sticky across views.
+          // If user previously hit "ทบทวนข้อที่ตอบผิด" (sets mode='wrong')
+          // then clicked a subject card, startExam would still filter to
+          // wrong-history pool ignoring the subject pick → looked like
+          // "no questions in this category". Reset to 'all' explicitly
+          // whenever a fresh subject pick starts.
+          setPracticeMode && setPracticeMode('all');
+          if (setTopic) setTopic(null);
           setView('topic-select');
         }}
       />

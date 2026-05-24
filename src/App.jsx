@@ -1035,13 +1035,26 @@ export default function App() {
   // topic: null means "no topic filter"); `??` would default null back
   // to the state value.
   const startExam = async (overrides = {}) => {
-    const _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
+    let _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
     const _questionCategory = 'questionCategory' in overrides ? overrides.questionCategory : questionCategory;
     const _numQuestions = 'numQuestions' in overrides ? overrides.numQuestions : numQuestions;
     const _useTimer = 'useTimer' in overrides ? overrides.useTimer : useTimer;
     const _timePerQ = 'timePerQ' in overrides ? overrides.timePerQ : timePerQ;
+
+    // Palm bug 2026-05-20: practiceMode='wrong'/'weak'/'bookmarks' gets
+    // sticky from HomeView shortcuts ("ทบทวนข้อที่ตอบผิด" etc.) and
+    // bleeds into the SubjectSelect → TopicSelect → ConfigView flow.
+    // If the caller didn't explicitly pass `practiceMode` AND they did
+    // pick a specific subject (not 'all'), the more recent + more
+    // specific signal wins — force 'all' so the subject filter actually
+    // applies. Without this, the user picks COM I, clicks 🚀, and gets
+    // the 3 wrong-history Qs (or empty pool → alert) instead.
+    const explicitMode = 'practiceMode' in overrides;
+    if (!explicitMode && _subject && _subject !== 'all' && (_practiceMode === 'wrong' || _practiceMode === 'weak' || _practiceMode === 'bookmarks')) {
+      _practiceMode = 'all';
+    }
 
     // Phase 3: QB lazy. App.jsx kicks off background load on mount so
     // by the time the user clicks "Start" this usually resolves
