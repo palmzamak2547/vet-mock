@@ -105,6 +105,7 @@ export default function PWAInstallChip() {
       }}>
         <button
           type="button"
+          className="vmx-link-btn"
           onClick={handleClick}
           style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 4 }}
           aria-label="ติดตั้ง VetMock เป็นแอปบนเครื่อง"
@@ -113,6 +114,7 @@ export default function PWAInstallChip() {
         </button>
         <button
           type="button"
+          className="vmx-link-btn"
           onClick={dismiss}
           aria-label="ปิดข้อความนี้"
           title="ไม่แสดงอีก"
