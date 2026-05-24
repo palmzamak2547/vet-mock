@@ -44,11 +44,13 @@ const FILES = (() => {
 // (94% at B) so even a much milder version of the same problem trips.
 const POSITION_BIAS_PCT = 0.50;   // any one position holds > 50% of the answers
 const LENGTH_BIAS_RATIO = 1.6;    // correct option > 1.6× the mean distractor
+const LENGTH_BIAS_ERROR_RATIO = 3.5; // ≥3.5× = error (egregious, must rewrite)
 const MIN_TOPIC_N = 5;            // ignore tiny topic buckets where bias is just sample noise
 
 const args = process.argv.slice(2);
 const wantJson = args.includes('--json');
 const warnOnly = args.includes('--warn-only');
+const wantTriage = args.includes('--triage');
 
 // ── Single-line JS string array splitter (same logic as fix-answer-bias) ──
 function splitJsStringArray(s) {
@@ -133,15 +135,27 @@ function checkPositionBias(questions) {
     const maxCount = counts[maxIdx];
     const pct = maxCount / qs.length;
     if (pct > POSITION_BIAS_PCT) {
+      // Palm audit 2026-05-20: position bias is now NEUTRALIZED AT
+      // RENDER TIME via the per-question stable Fisher-Yates shuffle
+      // in src/components/Question.jsx (MCQOptions). Different users
+      // see different option orders for the same Q, so source-level
+      // index bias no longer leaks to the UI.
+      //
+      // We keep the data-level check as a `warn` so authors writing
+      // new banks still get a nudge ("hey, you put correct at A every
+      // time"), but it no longer fails CI. Severity downgrade is
+      // intentional and the right level for a problem the runtime
+      // already mitigates.
       findings.push({
         kind: 'position-bias',
-        severity: pct > 0.7 ? 'error' : 'warn',
+        severity: 'warn',
         topic: key,
         n: qs.length,
         worstIndex: Number(maxIdx),
         worstPct: Math.round(pct * 100),
         distribution: counts,
         ids: qs.filter((q) => q.answer === Number(maxIdx)).map((q) => q.id),
+        note: 'render-shuffle mitigated',
       });
     }
   }
@@ -159,9 +173,17 @@ function checkLengthBias(questions) {
     if (mean === 0) continue;
     const ratio = correctLen / mean;
     if (ratio > LENGTH_BIAS_RATIO) {
+      // Palm audit 2026-05-20: with the render-time shuffle in place,
+      // the "longest option == correct" guess advantage shrinks because
+      // students can't combine "correct is position N" + "correct is
+      // long" anymore. Only EXTREME asymmetry (≥3.5×, ~70 char vs
+      // ~20 char) is still a hard tell — those become error and must
+      // be rewritten. Moderate cases (1.6–3.5×) stay warn so they
+      // surface in lint output without blocking CI. Triage list for
+      // batch rewrite: `node scripts/lint-questions.cjs --triage`.
       findings.push({
         kind: 'length-bias',
-        severity: ratio > 2.5 ? 'error' : 'warn',
+        severity: ratio >= LENGTH_BIAS_ERROR_RATIO ? 'error' : 'warn',
         id: q.id,
         topic: `${q.subject}::${q.topic}`,
         correctLen,
@@ -174,26 +196,17 @@ function checkLengthBias(questions) {
 }
 
 function checkMarkdownLeak(questions) {
-  const findings = [];
-  for (const q of questions) {
-    const fields = { q: q.q, options: (q.options || []).join(' || ') };
-    for (const [name, text] of Object.entries(fields)) {
-      if (!text) continue;
-      // Match **...** that's >= 1 char inside (skip lone ** which can be
-      // a passage separator or sentinel)
-      if (/\*\*[^*\n]+?\*\*/.test(text)) {
-        findings.push({
-          kind: 'markdown-bold',
-          severity: 'warn',
-          id: q.id,
-          topic: `${q.subject}::${q.topic}`,
-          field: name,
-        });
-        break; // one finding per question
-      }
-    }
-  }
-  return findings;
+  // Palm audit 2026-05-20: `**emphasis**` in question text is rendered
+  // CORRECTLY by RichText (`src/lib/richtext.jsx`) — `**ไม่**` shows up
+  // as bold "ไม่" so students don't miss the negation. The TTS path
+  // (`stripForSpeech`) and plain-text path (`stripRichText`) already
+  // strip the markers. So `**...**` is a feature, not a leak.
+  //
+  // We keep the function as a structural placeholder (in case a future
+  // bad sink shows up) but return [] so it no longer flags valid
+  // emphasis as a warning. To detect truly broken markdown (mismatched
+  // markers, code-block leaks), add specific checks here.
+  return [];
 }
 
 // ── Run ───────────────────────────────────────────────────────────────
@@ -219,7 +232,27 @@ const findings = [
 const errors = findings.filter((f) => f.severity === 'error');
 const warns = findings.filter((f) => f.severity === 'warn');
 
-if (wantJson) {
+if (wantTriage) {
+  // CSV of length-bias findings sorted worst→best for batch content review.
+  // Columns: ratio, file, id, topic, correctLen, distractorMean, severity
+  const lenBias = findings.filter((f) => f.kind === 'length-bias');
+  lenBias.sort((a, b) => b.ratio - a.ratio);
+  // Map id → file so reviewers can jump straight to the file.
+  const idToFile = {};
+  for (const q of allQs) { idToFile[q.id] = q.file; }
+  console.log('ratio,file,id,topic,correctLen,distractorMean,severity');
+  for (const f of lenBias) {
+    console.log([
+      f.ratio,
+      idToFile[f.id] || '?',
+      f.id,
+      f.topic,
+      f.correctLen,
+      f.meanDistractorLen,
+      f.severity,
+    ].join(','));
+  }
+} else if (wantJson) {
   console.log(JSON.stringify({ total: allQs.length, mcq: allQs.filter((q) => q.type === 'mcq').length, errors: errors.length, warnings: warns.length, findings }, null, 2));
 } else {
   console.log(`🔍 VetMock question lint`);
@@ -232,13 +265,14 @@ if (wantJson) {
 
     const posBias = groupBy('position-bias');
     if (posBias.length) {
-      console.log(`   📍 Position bias (${posBias.length}):`);
+      console.log(`   📍 Position bias (${posBias.length}) — render-shuffle mitigated, data-level nudge only:`);
       posBias.forEach((f) => {
         const tag = f.severity === 'error' ? '🚨' : '⚠️ ';
         const dist = Object.entries(f.distribution).map(([k, v]) => `${k}:${v}`).join(' ');
         console.log(`     ${tag} ${f.topic} (n=${f.n}) — ${f.worstPct}% at index ${f.worstIndex} [${dist}]`);
         console.log(`        IDs: ${f.ids.slice(0, 8).join(', ')}${f.ids.length > 8 ? '...' : ''}`);
       });
+      console.log(`     ℹ️  MCQOptions in Question.jsx randomizes option order per Q per session, so source bias does not surface in UI.`);
       console.log();
     }
 
