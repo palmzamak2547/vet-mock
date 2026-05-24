@@ -218,6 +218,54 @@ answer: 2,  // ← changing this would re-key history + break replay
 
 ---
 
+## 11. Trigger-anchored popovers — use `useDropdownAnchor` hook
+
+**Rule:** Any `position: absolute` dropdown anchored to a trigger
+button (theme picker, user menu, XP chip, etc.) MUST use the
+`useDropdownAnchor(wrapRef, open, minWidth)` hook from
+`src/hooks/useDropdownAnchor.js`. Never hardcode `right: 0` or
+`left: 0` without considering where the trigger lands on mobile.
+
+**Bug it caused (2026-05-24):** ThemePicker hardcoded `right: 0`.
+On desktop the theme button is on the right of the header → drop
+extends leftward, fits fine. On mobile the same button is at x=16
+from the LEFT viewport edge → dropdown extends 220px LEFTWARD →
+160px goes OFF the left side of the viewport. Palm: "กดเปลี่ยน
+theme กลายเป็นว่าตัวเลือกที่ให้เปลี่ยนโดนบังเพราะอยู่ขอบจอซ้าย".
+
+Same hardcoded pattern in 3 places (ThemePicker, UserMenu, XpChip).
+ToolsFAB was safe because it uses `position: fixed; right: 16`
+(viewport-anchored, not button-anchored).
+
+**Correct usage:**
+```jsx
+import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
+
+const wrapRef = useRef(null);
+const MIN_WIDTH = 220;
+const anchorSide = useDropdownAnchor(wrapRef, open, MIN_WIDTH);
+// ...
+<div ref={wrapRef} style={{ position: 'relative' }}>
+  <button onClick={() => setOpen(o => !o)}>...</button>
+  {open && (
+    <div role="menu" style={{
+      position: 'absolute', top: 'calc(100% + 6px)',
+      ...(anchorSide === 'left' ? { left: 0 } : { right: 0 }),
+      minWidth: MIN_WIDTH,
+      maxWidth: 'calc(100vw - 24px)',  // viewport safety net
+    }}>...</div>
+  )}
+</div>
+```
+
+The `maxWidth: 'calc(100vw - 24px)'` is a defense-in-depth — even
+if a future redesign pushes minWidth past viewport-24, the dropdown
+shrinks rather than clipping. The hook handles the LEFT vs RIGHT
+anchor decision; the maxWidth handles the "minWidth is too wide
+for viewport" edge case.
+
+---
+
 ## Process checklist before any commit touching UI / data layer
 
 - [ ] Did this change `src/styles.js`? → Run `npm run build` locally.
@@ -233,6 +281,8 @@ answer: 2,  // ← changing this would re-key history + break replay
       → Keep `target: 'es2020'` (or older); never `esnext`.
 - [ ] Did this change a Q-bank file?
       → Run `npm run lint:all` and confirm error count didn't regress.
+- [ ] Did this add a position: absolute dropdown anchored to a button?
+      → Use `useDropdownAnchor` hook (rule 11) — never hardcode left/right.
 
 ---
 
