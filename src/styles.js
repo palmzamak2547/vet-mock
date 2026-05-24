@@ -153,6 +153,8 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 .vmx-link-btn::before {
   content: '';
   position: absolute;
+  /* Longhand first for Safari < 14.1 (inset shorthand added 14.1). */
+  top: -10px; right: -10px; bottom: -10px; left: -10px;
   inset: -10px;
   /* Transparent — invisible touch zone */
 }
@@ -173,6 +175,8 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 :where(.vmx-footer a)::before {
   content: '';
   position: absolute;
+  /* Longhand for older Safari (inset shorthand requires 14.1+) */
+  top: -6px; right: -2px; bottom: -6px; left: -2px;
   inset: -6px -2px;
 }
 
@@ -212,8 +216,15 @@ html, body { overscroll-behavior-y: contain; }
   color: var(--clr-ink);
   background: var(--clr-bg);
   min-height: 100vh;
-  min-height: 100dvh;  /* dynamic viewport (excludes URL bar on iOS) */
+  min-height: 100dvh;  /* dynamic viewport (excludes URL bar on iOS 15.4+) */
   padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(48px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  /* Palm compat audit 2026-05-24: safety net against horizontal
+     overflow at narrow viewports (iPhone SE 320px, narrow Android).
+     overflow-x: clip is preferred over hidden (no scroll containment
+     side-effect) but hidden is the universal fallback for older
+     browsers (Safari < 16). Both prevent body-level scroll. */
+  overflow-x: hidden;
+  overflow-x: clip;
   background-image:
     radial-gradient(at 12% 8%, rgba(168, 192, 168, 0.15) 0px, transparent 50%),
     radial-gradient(at 88% 92%, rgba(232, 184, 184, 0.12) 0px, transparent 50%);

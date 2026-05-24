@@ -13,7 +13,16 @@ export default defineConfig({
   },
   worker: { format: 'es' },
   build: {
-    target: 'esnext',
+    // Palm compat audit 2026-05-24: was 'esnext' which emits whatever
+    // the latest spec supports — could include features iOS 14-15
+    // doesn't parse (top-level await, logical assignment, etc.).
+    // 'es2020' is the safest baseline that covers:
+    //   • iOS Safari 14+ (~98% of iOS market)
+    //   • Android Chrome 87+ (~99% of Android market)
+    //   • Desktop Chrome/Edge/Firefox/Safari last 4 years
+    // Keeps optional chaining / nullish coalescing native (no transpile
+    // weight) but transpiles anything newer down to ES2020 syntax.
+    target: 'es2020',
     // Palm perf audit 2026-05-20: two chunks legitimately exceed 700KB
     // and we KNOW they're lazy:
     //   • data-video-summaries (~2.2MB) — only loaded after user clicks

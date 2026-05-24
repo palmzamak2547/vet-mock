@@ -23,6 +23,13 @@
     "flat:transcript": "node scripts/flatten-transcript.mjs",
     "ping:indexnow": "node scripts/ping-indexnow.mjs"
   },
+  "browserslist": [
+    "defaults",
+    "ios >= 14",
+    "android >= 7",
+    "not dead",
+    "not op_mini all"
+  ],
   "dependencies": {
     "@cornerstonejs/core": "4.22.4",
     "@cornerstonejs/dicom-image-loader": "4.22.4",

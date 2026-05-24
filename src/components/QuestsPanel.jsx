@@ -83,6 +83,14 @@ function QuestCard({ quest, compact, onStart }) {
         minHeight: compact ? 56 : 64,
         transition: 'border-color 200ms ease, box-shadow 200ms ease',
         opacity: quest.claimed ? 0.62 : 1,
+        // Palm compat audit 2026-05-24: at narrow viewports (320px
+        // iPhone SE), icon + label + button row exceeds container
+        // width. flex-wrap lets the button drop below the label so
+        // we never trigger horizontal overflow.
+        flexWrap: 'wrap',
+        // Prevent the flex line from forcing parent wider than
+        // its allotted grid cell.
+        minWidth: 0,
       }}
     >
       <div
@@ -142,6 +150,7 @@ function QuestCard({ quest, compact, onStart }) {
           <span
             style={{
               position: 'absolute',
+              top: 0, right: 0, bottom: 0, left: 0,
               inset: 0,
               width: `${quest.pct}%`,
               background: quest.claimed
