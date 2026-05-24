@@ -295,8 +295,13 @@ html, body { overscroll-behavior-y: contain; }
 .vmx-nav-btn.active { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
 
 .vmx-hero { margin-bottom: 40px; }
-.vmx-hero h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(32px, 5.5vw, 52px); line-height: 0.95; letter-spacing: -0.03em; margin: 0 0 12px; color: var(--clr-ink); }
-.vmx-hero h1 em { font-style: italic; color: var(--clr-sage); font-weight: 500; }
+/* Hero typography refresh (Palm design-learnings 2026-05-24, ref
+   ElevenLabs 48px/weight 300 + Airtable 40px/weight 400). Lighter
+   weight reads as premium-editorial rather than startup-bold. Tighter
+   letter-spacing (-0.035em vs -0.03em) tightens the Fraunces ligatures
+   at large display sizes. See DESIGN-NOTES.md for the source review. */
+.vmx-hero h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(32px, 5.5vw, 52px); line-height: 0.95; letter-spacing: -0.035em; margin: 0 0 12px; color: var(--clr-ink); }
+.vmx-hero h1 em { font-style: italic; color: var(--clr-sage); font-weight: 400; }
 .vmx-hero p { font-size: 15px; color: var(--clr-ink-soft); max-width: 520px; line-height: 1.6; }
 
 .vmx-section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--clr-ink-soft); margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
