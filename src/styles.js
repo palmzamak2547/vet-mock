@@ -123,14 +123,57 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 /* WCAG 2.5.5 — minimum 44x44px touch target on interactive elements.
    Was: many surfaces below the 44px floor (.vmx-chip ~30px, .vmx-theme-btn
    36 then 32 on mobile, .vmx-cmdk-btn ~28px). Palm a11y audit 2026-05-20.
+   Round 2 (2026-05-20): extended to .vmx-btn-sm, .vmx-chip-quick, footer
+   anchor chips, and any header pill — Palm round-2 audit found 14 spots
+   still below the floor (Login, footer links, "+" todo, "เปลี่ยน phase",
+   sw-update / network "เล่นเกม" / "🔄 รีเฟรช" pills).
    Implementation note: we use min-height (not height) so existing
    padding/borders still control visual density — only the hit area floor
    is enforced. The :where(...) zero-specificity wrapper means later
    rules can override IF a specific component really needs to opt out. */
-:where(button, a[role="button"], [role="button"], .vmx-btn, .vmx-option,
-       .vmx-tf-btn, .vmx-chip, .vmx-nav-btn, .vmx-bookmark-btn,
-       .vmx-note-btn, .vmx-theme-btn, .vmx-cmdk-btn, .vmx-passage-fab) {
+:where(button, a[role="button"], [role="button"], .vmx-btn, .vmx-btn-sm,
+       .vmx-option, .vmx-tf-btn, .vmx-chip, .vmx-chip-quick,
+       .vmx-nav-btn, .vmx-bookmark-btn,
+       .vmx-note-btn, .vmx-theme-btn, .vmx-cmdk-btn, .vmx-passage-fab,
+       .vmx-footer a, .vmx-footer .vmx-link,
+       .vmx-tools-fab) {
   min-height: 44px;
+  min-width: 44px;
+}
+
+/* Footer-row links act as separator-delimited chips. Inline-flex centers
+   the text vertically inside the enforced 44px box so they don't look
+   stretched into tall rectangles. */
+:where(.vmx-footer a, .vmx-footer .vmx-link) {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* WCAG 2.4.1 — Skip link, visible on focus only. Position fixed so it
+   floats over the header without shifting layout. Palm a11y audit
+   2026-05-20: was missing entirely. */
+.vmx-skip-link {
+  position: fixed;
+  top: -100px;
+  left: 12px;
+  z-index: 9999;
+  padding: 10px 16px;
+  background: var(--clr-ink);
+  color: var(--clr-bg);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+.vmx-skip-link:focus,
+.vmx-skip-link:focus-visible {
+  top: 12px;
+  outline: 2px solid var(--clr-gold, #b88940);
+  outline-offset: 2px;
 }
 
 html, body { overscroll-behavior-y: contain; }

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
@@ -28,6 +28,101 @@ function stripForSpeech(s) {
 // Q-flag persistence — stored in localStorage as { 'subject:id': { reason, ts } }.
 // Cross-machine sync needs Supabase schema; deferred to a future session.
 const FLAGS_KEY = 'vmx-q-flags';
+// ─── Per-question stable option shuffle ────────────────────────────
+// Palm lint audit 2026-05-20: `npm run lint:questions` flagged 17 topic
+// groups with severe position bias (e.g. comp-repro-pregnancy 100% at
+// index 0). Rather than rewrite every Q manually, we shuffle option
+// order at render time so the correct-answer position is randomized.
+//
+// Requirements:
+//  • Stable per Q — same shuffle every render so the user doesn't see
+//    options jump after re-render / re-mount.
+//  • Stable across navigation — answer index is mapped through the
+//    permutation so `answers[q.id]` still stores the ORIGINAL index
+//    (compatible with isCorrect / ResultsView / ReviewView untouched).
+//  • Pure of q.id — same Q always gets same display order for a given
+//    page-load (no jitter), but DIFFERENT users on DIFFERENT loads see
+//    different orders (mulberry32 seeded by `(q.id ^ session-seed)`).
+//
+// Session seed = once per page-load in module scope, so a user revisiting
+// the same Q within a session sees the same order; a new tab reseeds.
+const SESSION_SEED = (() => {
+  try {
+    if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+      const buf = new Uint32Array(1);
+      crypto.getRandomValues(buf);
+      return buf[0];
+    }
+  } catch {}
+  return ((Date.now() & 0xffffffff) ^ (Math.random() * 0xffffffff)) >>> 0;
+})();
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
+ * Derives a stable display permutation for the given question.
+ * Returns { displayOptions, displayToOriginal, originalToDisplay }
+ * where displayOptions is the rendered array and the two index maps
+ * translate between visual-order and source-order indices.
+ *
+ * Honors `q.noShuffle === true` for questions whose options have a
+ * meaningful order (e.g. "All of the above" / chronological steps /
+ * Likert scales). Caller can opt out per-question without disabling
+ * the global behavior.
+ */
+function getShuffledOptions(q) {
+  const options = Array.isArray(q?.options) ? q.options : [];
+  if (options.length <= 1 || q?.noShuffle === true) {
+    const identity = options.map((_, i) => i);
+    return {
+      displayOptions: options.slice(),
+      displayToOriginal: identity,
+      originalToDisplay: identity,
+    };
+  }
+  // Detect "All/None of the above" by text — keep those pinned to the
+  // bottom even when shuffling the rest.
+  const TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|ทั้ง[ก-ฮa-z]+|ข้อ\s*[a-zก-ฮ]\s*และ)/i;
+  const tailIndices = [];
+  const headIndices = [];
+  for (let i = 0; i < options.length; i++) {
+    const txt = String(options[i] || '').trim();
+    if (TAIL_RE.test(txt)) tailIndices.push(i);
+    else headIndices.push(i);
+  }
+  // Seed: (q.id ^ session) so a given user sees consistent order for a
+  // question across a session, but two users on the same Q see different
+  // orders. Falls back to subject:id hash if id is missing.
+  const idNum = Number.isFinite(q?.id)
+    ? q.id
+    : Array.from(String((q?.subject || '') + ':' + (q?.id || ''))).reduce(
+        (h, ch) => ((h * 31) + ch.charCodeAt(0)) >>> 0,
+        0
+      );
+  const rand = mulberry32((idNum ^ SESSION_SEED) >>> 0);
+  // Fisher-Yates on the HEAD only; tails preserved.
+  const shuffledHead = headIndices.slice();
+  for (let i = shuffledHead.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [shuffledHead[i], shuffledHead[j]] = [shuffledHead[j], shuffledHead[i]];
+  }
+  const displayToOriginal = shuffledHead.concat(tailIndices);
+  const originalToDisplay = new Array(options.length);
+  for (let d = 0; d < displayToOriginal.length; d++) {
+    originalToDisplay[displayToOriginal[d]] = d;
+  }
+  const displayOptions = displayToOriginal.map((origIdx) => options[origIdx]);
+  return { displayOptions, displayToOriginal, originalToDisplay };
+}
+
 function readFlags() {
   try { return JSON.parse(window.localStorage.getItem(FLAGS_KEY) || '{}'); } catch { return {}; }
 }
@@ -197,16 +292,11 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
 
       {currentQ.type === 'mcq' && (
-        <div className="vmx-options">
-          {currentQ.options?.length > 0 ? currentQ.options.map((opt, i) => (
-            <button key={i} className={`vmx-option ${currentAnswer === i ? 'selected' : ''}`} onClick={() => answerCurrent(i)}>
-              <div className="vmx-option-letter">{String.fromCharCode(65 + i)}</div>
-              <div className="vmx-option-text"><RichText text={opt} /></div>
-            </button>
-          )) : (
-            <div className="vmx-empty">⚠️ ข้อนี้ไม่มี options — ข้อมูลผิดรูปแบบ</div>
-          )}
-        </div>
+        <MCQOptions
+          currentQ={currentQ}
+          currentAnswer={currentAnswer}
+          answerCurrent={answerCurrent}
+        />
       )}
 
       {currentQ.type === 'tf' && (
@@ -519,6 +609,43 @@ function FlagChip({ flag }) {
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+// ─── MCQ option renderer with stable per-Q shuffle ─────────────────
+function MCQOptions({ currentQ, currentAnswer, answerCurrent }) {
+  // Recompute permutation only when the question id changes — `useMemo`
+  // keeps option order stable across re-renders triggered by note
+  // typing, bookmark toggles, timer ticks, etc.
+  const { displayOptions, displayToOriginal, originalToDisplay } = useMemo(
+    () => getShuffledOptions(currentQ),
+    [currentQ?.id, currentQ?.subject, currentQ?.options]
+  );
+  if (!displayOptions.length) {
+    return <div className="vmx-empty">⚠️ ข้อนี้ไม่มี options — ข้อมูลผิดรูปแบบ</div>;
+  }
+  // `currentAnswer` is the ORIGINAL index (the source-of-truth stored
+  // in `answers[q.id]`). Map to display index for "selected" styling.
+  const selectedDisplayIdx = typeof currentAnswer === 'number'
+    ? originalToDisplay[currentAnswer]
+    : undefined;
+  return (
+    <div className="vmx-options">
+      {displayOptions.map((opt, displayIdx) => {
+        const originalIdx = displayToOriginal[displayIdx];
+        const isSelected = selectedDisplayIdx === displayIdx;
+        return (
+          <button
+            key={originalIdx}
+            className={`vmx-option ${isSelected ? 'selected' : ''}`}
+            onClick={() => answerCurrent(originalIdx)}
+          >
+            <div className="vmx-option-letter">{String.fromCharCode(65 + displayIdx)}</div>
+            <div className="vmx-option-text"><RichText text={opt} /></div>
+          </button>
+        );
+      })}
     </div>
   );
 }

@@ -201,8 +201,14 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         if (q.type === 'mcq') {
           const userOpt = answered && userAns >= 0 && userAns < (q.options?.length || 0) ? q.options[userAns] : null;
           const corrOpt = q.options?.[q.answer];
-          userDisplay = userOpt ? `${String.fromCharCode(65 + userAns)}. ${stripRichText(userOpt)}` : 'ไม่ได้ตอบ';
-          correctDisplay = corrOpt ? `${String.fromCharCode(65 + q.answer)}. ${stripRichText(corrOpt)}` : '⚠️ คำตอบของข้อนี้ผิดรูปแบบ';
+          // No letter prefix (e.g. "A.", "B.") — Palm audit 2026-05-20
+          // added a per-question option shuffle in Question.jsx, so the
+          // letter the user actually saw during the exam doesn't match
+          // the source-order letter anymore. Showing source letters here
+          // would mislead users ("I picked B but it says C"). The TEXT
+          // is the authoritative pick + answer.
+          userDisplay = userOpt ? stripRichText(userOpt) : 'ไม่ได้ตอบ';
+          correctDisplay = corrOpt ? stripRichText(corrOpt) : '⚠️ คำตอบของข้อนี้ผิดรูปแบบ';
         } else if (q.type === 'tf') {
           userDisplay = answered ? (userAns ? 'True' : 'False') : 'ไม่ได้ตอบ';
           correctDisplay = q.answer ? 'True' : 'False';

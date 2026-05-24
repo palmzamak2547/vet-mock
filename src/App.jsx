@@ -1418,6 +1418,10 @@ export default function App() {
       <TopLoadingBar />
       <div className="vmx-app">
         <div className="vmx-container">
+          {/* Skip-to-main link — keyboard/screen-reader only, visible on
+              focus so sighted users don't see it. Lets users bypass the
+              header chrome straight to the active view's content. */}
+          <a href="#main" className="vmx-skip-link">ข้ามไปเนื้อหาหลัก</a>
           {/* Network-status banner — shown when offline OR briefly after
               regaining connectivity. The "Play game" action lives on a
               dedicated button so a stray tap on the banner text doesn't
@@ -1685,6 +1689,10 @@ export default function App() {
               </div>
             </div>
           )}
+          {/* Palm a11y audit 2026-05-20: add `<main>` landmark so screen
+              readers can jump past the header chrome to the active view.
+              Skip-link below the header lets keyboard users do the same. */}
+          <main id="main" tabIndex={-1} style={{ outline: 'none' }}>
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
@@ -1727,6 +1735,7 @@ export default function App() {
             </Suspense>
             </ErrorBoundary>
           )}
+          </main>
 
           {/* Footer — two visual rows on mobile so a single long line
               doesn't wrap mid-link. Row 1: brand line. Row 2: utility
