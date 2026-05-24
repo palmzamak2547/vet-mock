@@ -121,42 +121,23 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 }
 
 /* WCAG 2.5.5 — minimum 44x44px touch target on interactive elements.
-   Round 3 (2026-05-20): the previous :where(...) rule had ZERO
-   specificity (by design — easy to override) but the codebase has
-   49 inline style all:unset patterns whose specificity
-   (inline = 1,0,0,0) ALWAYS won, leaving those buttons at their
-   bare visual size (font height). And several explicit .vmx-btn-sm
-   min-height:36px rules later in this file silently overrode the
-   :where(). Net: ~10 spots stayed sub-44px.
-   This round drops :where, uses a non-:where selector with !important
-   on min-height so even inline all:unset cannot escape the floor.
-   Width is NOT forced to 44px — many text-link buttons (footer chips,
-   "เปลี่ยน phase", inline icon buttons) are legitimately narrow and
-   should stay compact. Only HEIGHT is the safety floor.
+   Round 5 (2026-05-24): r4 forced min-height:44px on bare buttons
+   universally, which BROKE the compact pill design (header year/phase
+   pills, footer link chips became huge boxes with tiny text).
+   Visual regression > a11y win.
+   New rule: 44px floor is enforced ONLY on PROPER button classes
+   (.vmx-btn / .vmx-option / .vmx-chip / etc.) that are visually
+   intended to be 44px+. Bare <button> elements (no class) typically
+   come from inline-styled compact pills — those get the invisible
+   ::before hit-zone expansion via .vmx-link-btn instead.
    Opt-out: add class .vmx-no-target-floor if a button must stay
-   smaller (none in the codebase today; reserved for future). */
-button:not(.vmx-no-target-floor):not(.vmx-link-btn),
-[role="button"]:not(.vmx-no-target-floor):not(.vmx-link-btn),
+   smaller (reserved for future). */
 .vmx-btn, .vmx-btn-sm, .vmx-option, .vmx-tf-btn,
 .vmx-chip, .vmx-chip-quick, .vmx-nav-btn,
 .vmx-bookmark-btn, .vmx-note-btn, .vmx-theme-btn,
 .vmx-cmdk-btn, .vmx-passage-fab,
-.vmx-footer a, .vmx-footer .vmx-link, .vmx-tools-fab {
+.vmx-tools-fab {
   min-height: 44px !important;
-}
-/* .vmx-link-btn opts out of the height floor (its ::before pseudo
-   creates the invisible 44px touch zone instead, preserving the
-   inline visual size). Excluded above to avoid double-application. */
-/* Inline link-style buttons (e.g. "เปลี่ยน phase", "ปิด", inline icon
-   chips) use all:unset which collapses them to display:inline,
-   losing min-height. Add an invisible touch-target expansion via
-   pseudo-element — visual size stays compact, hit area grows. */
-.vmx-link-btn { position: relative; }
-.vmx-link-btn::before {
-  content: '';
-  position: absolute;
-  inset: -10px;
-  /* Transparent — invisible touch zone */
 }
 /* Square-ish buttons (icons, theme, FAB) get width floor too */
 .vmx-theme-btn, .vmx-bookmark-btn, .vmx-note-btn,
@@ -164,14 +145,35 @@ button:not(.vmx-no-target-floor):not(.vmx-link-btn),
   min-width: 44px !important;
 }
 
-/* Footer-row links act as separator-delimited chips. Inline-flex centers
-   the text vertically inside the enforced 44px box so they don't look
-   stretched into tall rectangles. */
-:where(.vmx-footer a, .vmx-footer .vmx-link) {
+/* .vmx-link-btn — pattern for inline-styled compact buttons (header
+   pills, footer chips, "เปลี่ยน phase"). Visual stays compact, hit
+   area expanded via invisible ::before pseudo. WCAG 2.5.5 satisfied
+   via hit-zone expansion without inflating the visual box. */
+.vmx-link-btn { position: relative; }
+.vmx-link-btn::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  /* Transparent — invisible touch zone */
+}
+
+/* Footer anchors: render as compact inline chips with hit-zone
+   expansion. Padding bumped 4px → 8px gives ~28-32px visual height
+   per chip — still compact but no longer the original 25px which
+   was too small to tap reliably. */
+:where(.vmx-footer a) {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: 8px 10px;
   border-radius: 6px;
+  position: relative;
+  /* Stretch the hit area to cover the gap between chips so taps
+     between two chips still land on something. */
+}
+:where(.vmx-footer a)::before {
+  content: '';
+  position: absolute;
+  inset: -6px -2px;
 }
 
 /* WCAG 2.4.1 — Skip link, visible on focus only. Position fixed so it

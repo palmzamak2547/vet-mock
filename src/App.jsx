@@ -1541,8 +1541,10 @@ export default function App() {
                 {selectedYearStored !== null && view !== 'year-select' && (
                   <button
                     type="button"
+                    className="vmx-link-btn"
                     onClick={() => setView('year-select')}
                     title="สลับชั้นปี"
+                    aria-label={`สลับชั้นปี — ปัจจุบันปี ${selectedYear}`}
                     style={{
                       padding: '4px 12px',
                       borderRadius: 999,
@@ -1568,8 +1570,10 @@ export default function App() {
                 {selectedPhase && view !== 'phase-select' && view !== 'year-select' && (
                   <button
                     type="button"
+                    className="vmx-link-btn"
                     onClick={() => setView('phase-select')}
                     title="สลับ phase สอบ"
+                    aria-label="สลับช่วงสอบ (Phase)"
                     style={{
                       padding: '4px 12px',
                       borderRadius: 999,
