@@ -11,6 +11,7 @@ import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
 import { useOnlineStatus } from './hooks/useOnlineStatus.js';
+import { useDropdownAnchor } from './hooks/useDropdownAnchor.js';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
@@ -130,7 +131,14 @@ const PALETTES = [
 
 function ThemePicker({ theme, setTheme, palette, setPalette }) {
   const [open, setOpen] = useState(false);
+  // Palm mobile-clipping bug 2026-05-24: theme button can land on
+  // either side of the header depending on viewport. Hardcoded
+  // `right: 0` clipped the 220px dropdown 160px off-screen-left on
+  // mobile (button at x=16). The useDropdownAnchor hook flips
+  // anchor side based on available viewport space.
   const wrapRef = useRef(null);
+  const DROPDOWN_MIN_W = 220;
+  const anchorSide = useDropdownAnchor(wrapRef, open, DROPDOWN_MIN_W);
   useEffect(() => {
     if (!open) return;
     const onDoc = (e) => {
@@ -164,14 +172,19 @@ function ThemePicker({ theme, setTheme, palette, setPalette }) {
           style={{
             position: 'absolute',
             top: 'calc(100% + 6px)',
-            right: 0,
+            // Anchor flips based on available room (see effect above).
+            ...(anchorSide === 'left' ? { left: 0 } : { right: 0 }),
             zIndex: 950,
             background: 'var(--clr-surface)',
             border: '1px solid var(--clr-border)',
             borderRadius: 10,
             padding: 10,
             boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
-            minWidth: 220,
+            minWidth: DROPDOWN_MIN_W,
+            // Final safety net: never wider than the viewport minus 24px
+            // gutters. If a future redesign bumps minWidth past
+            // viewport-24, the dropdown shrinks instead of clipping.
+            maxWidth: 'calc(100vw - 24px)',
           }}
         >
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 6 }}>
@@ -1883,6 +1896,10 @@ export default function App() {
 function UserMenu({ profile, onLogout, onGroups, onLeaderboard }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  // Same viewport-aware anchor logic as ThemePicker — see useDropdownAnchor
+  // docstring + STABILITY.md rule for the dropdown-clipping bug class.
+  const USER_MENU_W = 200;
+  const anchorSide = useDropdownAnchor(ref, open, USER_MENU_W);
 
   useEffect(() => {
     if (!open) return;
@@ -1923,10 +1940,12 @@ function UserMenu({ profile, onLogout, onGroups, onLeaderboard }) {
 
       {open && (
         <div role="menu" style={{
-          position: 'absolute', top: 'calc(100% + 6px)', right: 0,
+          position: 'absolute', top: 'calc(100% + 6px)',
+          ...(anchorSide === 'left' ? { left: 0 } : { right: 0 }),
           background: 'var(--clr-surface)', border: '1px solid var(--clr-border)',
           borderRadius: 12, boxShadow: 'var(--shadow-md)',
-          minWidth: 200, padding: 6, zIndex: 20,
+          minWidth: USER_MENU_W, maxWidth: 'calc(100vw - 24px)',
+          padding: 6, zIndex: 20,
         }}>
           <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4 }}>
             <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>

@@ -8,11 +8,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { getXpState, levelFor, xpForNextLevel, XP_EVENT } from '../lib/xp.js';
+import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 
 export default function XpChip() {
   const [state, setState] = useState(() => getXpState());
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
+  const DROPDOWN_MIN_W = 200;
+  // Same viewport-aware anchor logic — see useDropdownAnchor + STABILITY.md.
+  const anchorSide = useDropdownAnchor(wrapRef, open, DROPDOWN_MIN_W);
 
   useEffect(() => {
     const refresh = () => setState(getXpState());
@@ -101,14 +105,15 @@ export default function XpChip() {
           style={{
             position: 'absolute',
             top: 'calc(100% + 6px)',
-            right: 0,
+            ...(anchorSide === 'left' ? { left: 0 } : { right: 0 }),
             zIndex: 950,
             background: 'var(--clr-surface)',
             border: '1px solid var(--clr-border)',
             borderRadius: 10,
             padding: 12,
             boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
-            minWidth: 200,
+            minWidth: DROPDOWN_MIN_W,
+            maxWidth: 'calc(100vw - 24px)',
             fontFamily: 'JetBrains Mono, monospace',
             fontSize: 12,
             color: 'var(--clr-ink)',
