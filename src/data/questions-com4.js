@@ -172,7 +172,7 @@ export const QB_COM4 = [
   { id: 921, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
     tags: ['treatment', 'duration'], type: 'mcq',
     q: 'Duration ในการรักษา superficial pyoderma',
-    options: ['3-5 วัน', '1-2 สัปดาห์', 'Minimum 4-6 wk + ต่อ ≥ 2 wk หลัง clinical cure', 'ตลอดชีวิต'],
+    options: ['3-5 วัน', '1-2 สัปดาห์', '≥4-6 สัปดาห์', 'ตลอดชีวิต'],
     answer: 2, explain: 'Superficial pyoderma: minimum 4-6 wk, ให้ต่อ ≥ 2 wk หลัง lesions หาย, prevent recurrence, check at 2-3 weekly intervals\n\n❌ ทำไมข้ออื่นผิด\n— "3-5 วัน" = สั้นเกิน, recurrence แน่\n— "1-2 wk" = สั้นเกิน\n— "ตลอดชีวิต" = ผิด (ต้องหาและแก้ underlying cause)',
     verified: 'Derm__4_Bacterial_skin_diseases.pdf p.12' },
 
@@ -245,7 +245,7 @@ export const QB_COM4 = [
   { id: 931, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
     tags: ['dermatophyte', 'transmission'], type: 'mcq',
     q: 'Dermatophytosis transmission หลักคือ',
-    options: ['Bite ของแมลง', 'หายใจเข้าทางอากาศ', 'Direct contact + fomites + contaminated environment', 'อาหาร'],
+    options: ['Bite ของแมลง', 'หายใจเข้าทางอากาศ', 'Direct contact + fomites', 'อาหาร'],
     answer: 2, explain: 'Direct contact (cat-cat, dog-cat, cat-human) + fomites (combs, brushes, bedding) + environment (spores ทนนานหลายเดือน), zoonotic (โดยเฉพาะ M. canis ที่ติดง่ายในเด็ก/ภูมิต่ำ)\n\n❌ ทำไมข้ออื่นผิด\n— Bite แมลง = vector-borne diseases (Babesia, Lyme)\n— หายใจ = systemic mycoses (Histoplasma, Cryptococcus)\n— อาหาร = enteric pathogens',
     verified: 'Derm__5_Fungal_skin_diseases.pdf p.2' },
 
@@ -1050,7 +1050,7 @@ export const QB_COM4 = [
     q: 'Intravascular hemolysis ใน IMHA — ลักษณะใดถูกต้อง',
     options: [
       'IgG-mediated, RBC ถูก phagocytose ที่ spleen, เห็น spherocyte',
-      'IgM-mediated → MAC → intravascular lysis',
+      'IgM → MAC → lysis',
       'Eosinophilic infiltration in tissue',
       'No anemia, แค่ thrombocytopenia',
       'IgA-mediated เป็นหลัก',
@@ -1450,7 +1450,7 @@ export const QB_COM4 = [
   { id: 1079, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
     tags: ['neonate', 'common-illness', 'pathogens-gi'], type: 'mcq',
     q: 'Common GI pathogens ใน neonatal puppy/kitten ที่ทำให้เกิด neonatal gastroenteritis คือ',
-    options: ['Only viruses', 'E. coli + Campylobacter + Streptococcus + Clostridium perfringens', 'Only Giardia', 'Only Salmonella', 'No pathogens'],
+    options: ['Only viruses', 'E. coli + Campylobacter + Streptococcus', 'Only Giardia', 'Only Salmonella', 'No pathogens'],
     answer: 1, explain: 'Neonatal GI flora & pathogens:\n\nAt birth: GI tract is sterile (meconium = sterile mix of bile + epithelial cells + amniotic fluid)\nDevelops: normal flora from environment + diet (mother grooming, colostrum)\nVulnerability: low HCl secretion (vs adult) → poor barrier → bacterial overgrowth → GI infection\n\nCommon GI pathogens:\n— E. coli (toxigenic strains) — septicemia in low-birth-weight\n— Campylobacter jejuni — diarrhea\n— Streptococcus — septicemia, navel infection\n— Clostridium perfringens — gas, diarrhea, sudden death\n— Salmonella (less common in pet, more in livestock)\n\nViruses: CPV-2 (parvovirus), CDV, FPV, Coronavirus\nProtozoa: Giardia, Cryptosporidium, Coccidia (Cystoisospora)\nHelminths: Toxocara canis/cati (transmammary, transplacental), Ancylostoma\n\n💡 multi-pathogen',
     verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.62' },
 
@@ -1742,7 +1742,7 @@ export const QB_COM4 = [
   { id: 1115, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Chayot Drugs III ออกใหม่ 100%',
     tags: ['bedinvetmab', 'librela', 'ngf', 'tj86', 'new'], type: 'mcq',
     q: 'Bedinvetmab (Librela®) เป็นยาประเภทใด และใช้รักษาอะไร',
-    options: ['Antibiotic', 'Sedative', 'Anti-flea', 'Antihistamine', 'Recombinant K9 anti-NGF mAb → ลด OA pain ในสุนัข'],
+    options: ['Antibiotic', 'Sedative', 'Anti-flea', 'Antihistamine', 'Anti-NGF mAb for OA pain'],
     answer: 4, explain: 'Bedinvetmab (Librela®, Zoetis):\n• Class: Caninized anti-NGF (Nerve Growth Factor) monoclonal antibody\n• MOA: Binds and neutralizes circulating NGF — pivotal cytokine in OA pain pathway\n  - NGF → activates TrkA + p75NTR receptors on nociceptive neurons\n  - Sensitizes peripheral + central pain pathways\n  - Drives chronic pain in OA\n— Blocking NGF → ↓ pain transmission → improved mobility\n\nApproved indication: Canine Osteoarthritis (OA) chronic pain management\n\nDose: 0.5-1 mg/kg SC monthly (q4 wks)\n\nPros:\n— Long-acting injection (monthly)\n— Excellent safety profile in dogs\n— No GI/renal/hepatic AE (unlike NSAIDs)\n— Suitable for elderly with comorbidities\n— Compatible with NSAIDs in some protocols\n\nCons:\n— $$$\n— Slow onset (1-2 wks)\n— Some dogs non-responders\n— Concerns about rapidly progressive OA in human studies (monitor)\n\n💡 Aj. Chayot ระบุ ออกใหม่ 100% → high-yield exam item ★\n\n💡 Cat equivalent = Frunevetmab (Solensia®) — felinized anti-NGF mAb (next Q)',
     verified: 'TJ86 Aj. Chayot Drugs III #11 (ออกใหม่ 100% ★★)' },
 

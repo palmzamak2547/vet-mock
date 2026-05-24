@@ -181,7 +181,7 @@ export const QB_Y5_OSCE_MED = [
     tags: ['OSCE', 'vaccination', 'canine', 'CPiV', 'Bordetella', 'VPAT'], type: 'mcq',
     q: 'VPAT canine non-core (วัคซีนทางเลือก สำหรับสัตว์ที่มีความเสี่ยง) — ข้อใดเป็นวัคซีน non-core ในโปรแกรมสุนัข',
     options: [
-      'CPiV (Canine parainfluenza virus) และ Bordetella bronchiseptica',
+      'CPiV และ Bordetella',
       'CDV และ CPV',
       'Rabies และ CAV-2',
       'FPV และ FHV',
@@ -217,7 +217,7 @@ export const QB_Y5_OSCE_MED = [
     tags: ['OSCE', 'vaccination', 'feline', 'FPV', 'FHV', 'FCV', 'VPAT'], type: 'mcq',
     q: 'VPAT feline — วัคซีนหลัก FPV/FHV/FCV (3-in-1) เริ่มเข็มแรกที่อายุเท่าไหร่',
     options: [
-      'อายุ 8 สัปดาห์ จากนั้นใช้ทุก 2–4 wk จนถึงอายุไม่ต่ำกว่า 16 สัปดาห์ (พื้นที่ระบาดสูง: extra booster ที่ 26 wk)',
+      'อายุ 8 สัปดาห์ ฉีดทุก 2-4 wk จนถึง ≥16 wk',
       'อายุ 1 สัปดาห์ ครั้งเดียวพอ',
       'อายุ 1 ปี ฉีดทุก 6 เดือน',
       'อายุ 4 ปี เริ่มเข็มแรก',

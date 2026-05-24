@@ -67,10 +67,11 @@ jobs:
           # this whenever distractor rewrites land. Use
           # `node scripts/lint-questions.cjs --triage` to dump a
           # sorted CSV of remaining offenders for batch review.
-          # Ratcheted 2026-05-20 Palm 9.x audit: rewrote top-30 length-bias
-          # Qs (≥4× ratio) — trimmed correct options to match distractor
-          # length while preserving meaning. 124 → 88 errors.
-          MAX_ERRORS: 90
+          # Ratcheted 2026-05-24 Palm 8.3 audit round-2:
+          #   • 88 → 50 errors after 60 more Q rewrites
+          #   • 27 per-subject video chunks (was 1×2.2MB monolith)
+          #   • Bare-button touch-target floor enforced via CSS
+          MAX_ERRORS: 55
         run: |
           ERRORS=${{ steps.lint.outputs.errors }}
           echo "Errors: $ERRORS / baseline $MAX_ERRORS"

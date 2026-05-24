@@ -640,7 +640,7 @@ export const QB_REPRO_LECT = [
     source: 'Kimchii85 final p.32 — Progestin section',
     sourceType: 'student-compilation', tags: ['progestin', 'adverse-effects', 'classic'], type: 'mcq',
     q: 'Adverse effects ของ Progestins (MPA) ในสุนัขเพศเมียที่ Aj. SP เน้น "ออก 2 ล้านข้อ จำไป" คือ',
-    options: ['ไม่มี adverse effect', 'แค่ลด appetite', 'Weight gain + mammary enlargement + acromegaly/DM + CEH/pyometra', 'แค่ทำให้ขนตก', 'แค่ทำให้คลื่นไส้'],
+    options: ['ไม่มี adverse effect', 'แค่ลด appetite', 'Weight gain + CEH/pyometra + DM', 'แค่ทำให้ขนตก', 'แค่ทำให้คลื่นไส้'],
     answer: 2, explain: 'Progestin adverse effects (★ "ออก 2 ล้านข้อ จำไป" per Aj. SP):\n\n💡 General adverse effects:\n1. Increased appetite + weight gain ★\n2. Mammary enlargement + benign nodules\n3. Hair and coat changes at injection site (hair color change, alopecia)\n4. Stimulate growth hormone production → Acromegaly + Diabetes Mellitus ★\n\n💡 Female-specific adverse effects:\n1. CEH (Cystic Endometrial Hyperplasia) → Pyometra ★ critical\n2. Mammary fibroadenomatous hyperplasia (MFH) in cats ★\n3. Benign mammary nodules\n4. Pseudopregnancy (when stopping)\n\n💡 Male-specific adverse effects:\n— High doses → impaired semen quality\n— Testosterone suppression → behavioral changes\n\n💡 Specific Progestins:\n— MPA (Medroxyprogesterone acetate) — Thai standard\n— Proligestone — better safety profile (less adverse effects)\n— Megestrol acetate — oral, used in cats\n— Delmadinone acetate — anti-androgen, used in male dogs\n\n💡 Use indications (Aj. SP):\n\n1. Control of estrus / Prevention of estrus:\n— Use during anestrus ★\n— Temporary prevention\n— Long-term: ↑ risk of mammary mass, CEH, DM\n— DO NOT USE in pregnant (P4 already high)\n— DO NOT USE in prepubertal cats (MFH risk)\n— No more than 3 injections, 5-6 mo apart\n— Not continuously > 2 years\n\n2. Hypoluteoidism (Luteal dysfunction) ★:\n— Low P4 in pregnant bitch (< 5 ng/mL around wk 4-5 of pregnancy)\n— Clinical: bloody vaginal discharge\n— MPA 0.1 mg/kg PO sid ★\n— Stop 2 days before expected parturition (allow normal P4 drop for labor)\n\n3. SIPs (Subinvolution of Placental Sites):\n— Persistent bloody discharge post-partum\n— Low oral doses of P4 ± oxytocin/PGF2α\n\n💡 Critical warnings:\n- ฉีดครั้งเดียวในระยะ anestrous ด้วย dose ที่เหมาะสม → ลดความเสี่ยง pyometra\n- การฉีดไม่ได้ทำให้เสี่ยงต่อ pyometra เพิ่มมากเกินไป (ถ้าเหมาะสม)\n\n💡 multi-system', verified: 'Kimchii85 final p.32 — annotated "ออก 2 ล้านข้อ จำไป ★"' },
 
   { id: 1887, subject: 'repro-lect', topic: 'hormonal-applications', year: 4,
@@ -797,7 +797,7 @@ export const QB_REPRO_LECT = [
     source: 'Com Reprod Final TJ.pdf p4 Q16 (female ferret diseases)',
     sourceType: 'student-compilation', tags: ['ferret', 'female', 'reproductive-disease'], type: 'mcq',
     q: 'โรคของระบบสืบพันธุ์ในเฟอเรทเพศเมียที่พบบ่อย ข้อใดถูก',
-    options: ['Pyometra เท่านั้น', 'Cryptorchidism', 'Pseudopregnancy + mammary tumor/mastitis + ovarian tumor + endometrial hyperplasia', 'Hemipenis prolapse'],
+    options: ['Pyometra เท่านั้น', 'Cryptorchidism', 'Pseudopregnancy + mammary tumor', 'Hemipenis prolapse'],
     answer: 2,
     explain: 'Jill (เฟอเรทเพศเมีย) เสี่ยงหลายโรคของระบบสืบพันธุ์ที่ relate กัน — pseudopregnancy (จาก induced ovulation ที่ไม่ติด), mammary tumor/mastitis (เกิดจาก hyperestrogenism), ovarian tumor, endometrial hyperplasia, spay ก่อนป้องกันได้',
     verified: 'TJ p4 Q16 + Quesenberry & Carpenter' },

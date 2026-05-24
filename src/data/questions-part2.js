@@ -78,7 +78,7 @@ export const QB_PART2 = [
   // ═════════════════════════════════════════════════════
   { id: 130, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4, source: 'รวมข้อสอบเก่า_84_clin_App_Rum.pdf', tags: ['foot'], type: 'mcq',
     q: 'Foot rot ในโคเกิดจาก',
-    options: ['Treponema spp.', 'Fusobacterium necrophorum + Dichelobacter nodosus', 'E. coli', 'Staphylococcus'],
+    options: ['Treponema spp.', 'Fusobacterium + Dichelobacter', 'E. coli', 'Staphylococcus'],
     answer: 1, explain: 'F. necrophorum + D. nodosus' },
   { id: 131, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4, source: 'รวมข้อสอบเก่า_84_clin_App_Rum.pdf', tags: ['foot'], type: 'mcq',
     q: 'Sole ulcer มักเกิดที่',

@@ -387,7 +387,7 @@ export const QB_VCA = [
   { id: 6115, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
     tags: ['rabbit', 'nutrition', 'gi-stasis'], type: 'mcq',
     q: 'อาหารหลักสำหรับกระต่ายโตเต็มวัยที่ป้องกัน GI stasis + dental disease ดีที่สุดคือ',
-    options: ['Pellets ad libitum', 'Rabbit welfare assoc + fund 80% Timothy hay (long fiber) + เสริมผัก + dental abrasion', 'High protein commercial mix', 'Sprouted seeds + carrots', 'Alfalfa hay only'],
+    options: ['Pellets ad libitum', '80% Timothy hay + ผัก', 'High protein commercial mix', 'Sprouted seeds + carrots', 'Alfalfa hay only'],
     answer: 1,
     explain: 'Standard: 80% grass hay (Timothy/oat — high fiber long stems) + 10-15% leafy veg + 5% pellets, alfalfa = adult กระต่ายไม่ควรกิน (Ca สูง → uroliths)' },
 
@@ -924,7 +924,7 @@ export const QB_VCA = [
   { id: 6404, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['parasite', 'isospora', 'piglet'], type: 'mcq',
     q: 'ลูกหมู 5-15 วัน ถ่ายเหลวสีเหลือง, histopath jejunum: villous atrophy + intracytoplasmic schizonts, Tx ที่เลือก',
-    options: ['Toltrazuril (Baycox) oral 20 mg/kg single dose D4-D5', 'Amoxicillin', 'Ivermectin', 'Praziquantel', 'Albendazole'],
+    options: ['Toltrazuril oral D4-D5', 'Amoxicillin', 'Ivermectin', 'Praziquantel', 'Albendazole'],
     answer: 0,
     explain: 'Isospora suis = neonatal swine coccidiosis, suckling 5-15 d, Tx: toltrazuril 20 mg/kg single oral dose at 4-5 days = standard prevention/early treatment' },
 
@@ -1496,7 +1496,7 @@ export const QB_VCA = [
   { id: 6802, subject: 'vca', topic: 'ruminant', year: 5, source: SRC,
     tags: ['vaccine', 'FMD'], type: 'mcq',
     q: 'FMD vaccine ในโคที่ DLD แนะนำ ฉีด booster ทุก',
-    options: ['1 เดือน', '3 เดือน', '6 เดือน (ในเขต endemic) ทุก 4 เดือน', '8 เดือน', '12 เดือน'],
+    options: ['1 เดือน', '3 เดือน', '4-6 เดือน', '8 เดือน', '12 เดือน'],
     answer: 2,
     explain: 'FMD vaccine ในโคไทย: prime 2 doses 4 wk apart → booster ทุก 4-6 เดือน (TH endemic O+A+Asia1), DLD policy bi-annual mass vaccination, ในประเทศปลอดโรค ไม่ vaccine' },
 
@@ -1525,7 +1525,7 @@ export const QB_VCA = [
   { id: 6812, subject: 'vca', topic: 'ruminant', year: 5, source: SRC,
     tags: ['drug', 'milk-fever', 'hypocalcemia'], type: 'mcq',
     q: 'แม่โคนมหลังคลอด 24 ชม., นั่งไม่ได้ + S-shape neck + cool extremity, BCS 4, Tx',
-    options: ['Blood chemistry', 'Calcium borogluconate IV 500 mL slow + repeat 12 ชม.', 'Propylene glycol', 'Penicillin', 'Insulin'],
+    options: ['Blood chemistry', 'Ca borogluconate IV slow', 'Propylene glycol', 'Penicillin', 'Insulin'],
     answer: 1,
     explain: 'Milk fever (hypocalcemia), classic S-curve neck + recumbency, Ca borogluconate 23% 500 mL IV slow ~30 min, monitor cardiac arrhythmia, prevention: low DCAD + restrict Ca prepartum' },
 
@@ -1539,7 +1539,7 @@ export const QB_VCA = [
   { id: 6814, subject: 'vca', topic: 'ruminant', year: 5, source: SRC,
     tags: ['drug', 'hardware', 'magnet'], type: 'mcq',
     q: 'การใช้ "rumen magnet" ในโคใช้เพื่อ',
-    options: ['Stomach reflux', 'Trocar cannula', 'Emasculator', 'Ruminal trochar', 'Magnet introducer (cow magnet ~10 cm steel) ป้องกัน hardware disease'],
+    options: ['Stomach reflux', 'Trocar cannula', 'Emasculator', 'Ruminal trochar', 'Magnet introducer'],
     answer: 4,
     explain: 'Rumen magnet (alnico/ferrite cylinder) ป้องกัน traumatic reticuloperitonitis (TRP), กลืนลงไปอยู่ที่ reticulum, attract metal foreign body, prevention or therapeutic' },
 
@@ -1914,7 +1914,7 @@ export const QB_VCA = [
   { id: 7021, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['vaccine', 'dog-core'], type: 'mcq',
     q: 'core vaccine สำหรับสุนัข (DHPP) ประกอบด้วย',
-    options: ['CPV + CDV + CAV-2 + CPiV (parainfluenza) + Rabies', 'Bordetella alone', 'Leptospira only', 'Lyme', 'Rabies only'],
+    options: ['CPV + CDV + CAV-2 + CPiV + Rabies', 'Bordetella alone', 'Leptospira only', 'Lyme', 'Rabies only'],
     answer: 0,
     explain: 'Dog core: CPV (parvovirus) + CDV (distemper) + CAV-2 (adenovirus 2) + CPiV (parainfluenza) + Rabies, "DA2PP" = combination, Lepto + Bordetella + Lyme = non-core, lifestyle-based\n\n💡 endemic' },
 
@@ -1965,7 +1965,7 @@ export const QB_VCA = [
   { id: 7041, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['toxicology', 'ethylene-glycol'], type: 'mcq',
     q: 'สุนัขกิน antifreeze (ethylene glycol), acute Tx ภายใน 1 ชม. ',
-    options: ['Activated charcoal', 'Ethanol IV (block ADH)', 'Fomepizole (4-MP) preferred over ethanol if available', 'NSAID', 'Mannitol'],
+    options: ['Activated charcoal', 'Ethanol IV', 'Fomepizole (4-MP)', 'NSAID', 'Mannitol'],
     answer: 2,
     explain: 'EG → ADH metabolize → glycoaldehyde → glycolic + oxalic acid → AKI, Fomepizole (Antizol-Vet) blocks ADH, 2nd line: ethanol IV, gold ASAP within 3 hr, prognosis poor if AKI established' },
 
@@ -2001,7 +2001,7 @@ export const QB_VCA = [
   { id: 7050, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['care', 'fluid', 'shock'], type: 'mcq',
     q: 'shock dog (decompensated), fluid bolus rate ที่ใช้',
-    options: ['10-20 mL/kg/hr', '40 mL/kg/hr', '90 mL/kg/hr (shock dose, full BV) ให้ ¼-⅓ ก่อนประเมินซ้ำ', '120 mL/kg/hr', '5 mL/kg/hr'],
+    options: ['10-20 mL/kg/hr', '40 mL/kg/hr', '90 mL/kg/hr', '120 mL/kg/hr', '5 mL/kg/hr'],
     answer: 2,
     explain: 'Shock dose = 1 BV (dog 80-90 mL/kg, cat 50-60 mL/kg) IV bolus, ให้ ¼ (20-22 mL/kg) over 5-15 min, reassess, iso crystalloid (LRS) + colloid if needed' },
 
@@ -2051,7 +2051,7 @@ export const QB_VCA = [
   { id: 7063, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['endocrine', 'cushings'], type: 'mcq',
     q: 'สุนัข middle-aged, PU/PD + polyphagia + abdominal distension + alopecia + thin skin, Dx test',
-    options: ['Insulin assay', 'Cortisol single random', 'Low-dose dexamethasone suppression test (LDDST) gold standard', 'CBC alone', 'T4 only'],
+    options: ['Insulin assay', 'Cortisol single random', 'LDDST', 'CBC alone', 'T4 only'],
     answer: 2,
     explain: 'Cushing\'s (HAC): LDDST = gold standard screening, post-8h cortisol >1.4 = positive, differentiate PDH (95%) vs AT (5%) by HDDST + endogenous ACTH + abdominal US' },
 

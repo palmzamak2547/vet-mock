@@ -944,7 +944,7 @@ export const QB_MAHAHON = [
     q: 'Effective population size (Ne) ของ breed หนึ่งบ่งชี้',
     options: [
       'จำนวนตัว breed ทั้งหมด',
-      'จำนวนตัวที่ถ่ายทอด gene → next generation effectively, ต่ำกว่า census size',
+      'จำนวนตัวที่ถ่ายทอด gene effectively',
       'จำนวนคนเลี้ยง',
       'อายุเฉลี่ยของ breed',
     ],
@@ -958,7 +958,7 @@ export const QB_MAHAHON = [
     q: 'Heritability (h²) คืออะไร',
     options: [
       'อัตราการมีลูกของแต่ละตัว',
-      'สัดส่วนของ phenotypic variance ที่อธิบายได้ด้วย additive genetic variance (Va/Vp)',
+      'Va/Vp ratio',
       'อัตราการกลายพันธุ์',
       'ระยะตั้งท้อง',
     ],
@@ -1157,7 +1157,7 @@ export const QB_MAHAHON = [
     q: 'การดูแลหลัง spay/neuter สุนัข ข้อใดถูกต้องที่สุด',
     options: [
       'ให้ออกกำลังกายปกติทันที',
-      'Restrict activity 10-14 วัน + Elizabethan collar + monitor incision daily + analgesia 3-5 วัน',
+      'Restrict + collar + monitor + analgesia',
       'ห้ามกินอาหาร 1 สัปดาห์',
       'Bandage incision ตลอด',
     ],

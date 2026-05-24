@@ -183,7 +183,7 @@ export const QB_Y5_REPRO_CLINIC = [
     examOrigin: 'Vet 81 Animal Repro Clinic (canine content)',
     tags: ['surgery', 'wound-closure', 'dehiscence'], type: 'mcq',
     q: 'การเย็บปิดแผลผ่าตัด abdominal approach ชั้นใดต้องเย็บอย่างระวังมากที่สุด เพื่อป้องกัน wound dehiscence',
-    options: ['Peritoneum', 'Sheath of muscle (linea alba / external rectus sheath)', 'Subcutaneous tissue', 'Skin'],
+    options: ['Peritoneum', 'External rectus sheath', 'Subcutaneous tissue', 'Skin'],
     answer: 1,
     explain: 'External rectus sheath / linea alba = holding layer หลัก ของ abdominal wall — ถ้าเย็บไม่แน่นพอ จะ dehiscence (อาจถึง evisceration)\n\nPeritoneum = ไม่ holding (เย็บแค่ apposition)\nSC/Skin = cosmetic + barrier · ไม่ structural',
     verified: '7. Anl Repro Clin.pdf p.4 Q34' },

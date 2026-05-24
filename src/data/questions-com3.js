@@ -293,7 +293,7 @@ export const QB_COM3 = [
   { id: 741, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'Respiratory and Cardiovascular Emergency 1 hr.pdf',
     tags: ['resp-er', 'pleural'], type: 'mcq',
     q: 'การประเมิน paradoxical breathing (chest moves in on inspiration) บ่งบอกอะไร',
-    options: ['Heart failure', 'ปอด normal', 'Pleural space disease หรือ respiratory fatigue', 'ปกติในสุนัข'],
+    options: ['Heart failure', 'ปอด normal', 'Pleural space disease', 'ปกติในสุนัข'],
     answer: 2, explain: 'Paradoxical = abdomen + chest move opposite direction\npleural effusion / pneumothorax / diaphragm fatigue\nต้อง emergency thoracocentesis\n\n❌ ทำไมข้ออื่นผิด\n— Heart failure = orthopnea/cough\n— ปอด normal = ไม่มี paradox\n— ปกติในสุนัข = ผิด',
     verified: 'Respiratory and Cardiovascular Emergency 1 hr.pdf' },
 
@@ -330,7 +330,7 @@ export const QB_COM3 = [
   { id: 750, subject: 'com3', topic: 'er-anes', year: 4, source: 'Animal_Emerg_Anes 1 hr.pdf',
     tags: ['er-anes', 'gdv'], type: 'mcq',
     q: 'Pre-op management ของ GDV ก่อนวางยาคืออะไร',
-    options: ['Stabilize hypovolemic shock ด้วย aggressive fluid (50-60 ml/kg bolus) + decompress กระเพาะ ก่อนค่อยวางยา', 'ให้แค่ NSAIDs ก่อนผ่า', 'รอให้ stable เอง 24 ชม.', 'ฉีดยาวางยาทันที — ผ่าตัดด่วน'],
+    options: ['Aggressive fluid + decompress', 'ให้แค่ NSAIDs ก่อนผ่า', 'รอให้ stable เอง 24 ชม.', 'ฉีดยาวางยาทันที — ผ่าตัดด่วน'],
     answer: 0, explain: 'GDV pre-op: aggressive fluid + gastric decompression (orogastric tube หรือ trocar) → HR < 150, SBP > 90 ก่อนวางยา\npremed: benzo + opioid\ninduct: ketamine ± low-dose fentanyl',
     verified: 'Animal_Emerg_Anes 1 hr.pdf + master p.46' },
 
@@ -631,7 +631,7 @@ export const QB_COM3 = [
   { id: 813, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder 2 hr.pdf',
     tags: ['spinal', 'fracture'], type: 'mcq',
     q: 'Spinal fracture — สิ่งแรกที่ต้องประเมินก่อน decompression Sx คืออะไร',
-    options: ['Heart rate', 'Deep pain perception (DPP) ของ digit', 'PCV', 'อายุของสัตว์'],
+    options: ['Heart rate', 'Deep pain perception (DPP)', 'PCV', 'อายุของสัตว์'],
     answer: 1, explain: 'DPP = pinch toe, animal recognize pain consciously\nถ้าไม่มีหลัง 24 ชม. = SC severance\npoor prognosis surgery\n\n❌ ทำไมข้ออื่นผิด\n— HR / PCV = vitals\n— อายุ = signalment — ไม่ใช่ neuro-prognostic indicator',
     verified: 'Spinal disorder 2 hr.pdf + master p.6' },
 
@@ -703,7 +703,7 @@ export const QB_COM3 = [
   { id: 825, subject: 'com3', topic: 'triage', year: 4, source: 'triage 1 hr.pdf',
     tags: ['triage', 'telephone'], type: 'mcq',
     q: 'การ Telephone Triage — ข้อมูลที่ "ต้องถามทุก case" คืออะไร',
-    options: ['ราคาค่ารักษา', 'ระดับสติ + การหายใจ + trauma/bleeding + กินสารพิษ', 'ฉีดวัคซีนครบไหม', 'อายุ + เพศ'],
+    options: ['ราคาค่ารักษา', 'สติ + หายใจ + trauma', 'ฉีดวัคซีนครบไหม', 'อายุ + เพศ'],
     answer: 1, explain: 'Telephone triage focus: stability + emergency criteria\npoison ingestion = bring to hospital ทันที\n\n❌ ทำไมข้ออื่นผิด\n— ราคา / vaccine / อายุ-เพศ = secondary information หลัง stabilization',
     verified: 'triage 1 hr.pdf + master p.40' },
 
@@ -876,7 +876,7 @@ export const QB_COM3 = [
   { id: 849, subject: 'com3', topic: 'nutrition', year: 4, source: 'nutrition 1 hr.pdf',
     tags: ['nutrition', 'mer'], type: 'mcq',
     q: 'MER (Maintenance Energy Requirement) สำหรับสุนัขโตปกติ activity ปานกลาง คืออะไร',
-    options: ['1.2-1.6 × RER (สุนัขโต) / 1.2 × RER', '3 × RER', '0.5 × RER', '1.0 × RER'],
+    options: ['1.2-1.6 × RER', '3 × RER', '0.5 × RER', '1.0 × RER'],
     answer: 0, explain: 'MER = RER × factor: dog adult 1.6\nsedentary 1.2\npuppy 2-3\ngestation 3\ncat 1.2\nin ER patient: start RER, illness factor controversial (1.0-1.3)\n\n❌ ทำไมข้ออื่นผิด\n— 3 × RER = puppy/gestation\n— 0.5 × RER = under-feeding\n— 1.0 × RER = resting only',
     verified: 'nutrition 1 hr.pdf + master p.36' },
 

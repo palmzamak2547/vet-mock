@@ -234,7 +234,7 @@ export const QB = [
     blanks: ['Tom cat catheter'], explain: 'Tom cat catheter' },
   { id: 67, subject: 'repro', year: 4, source: 'ข้อสอบเก่า_Repro_Lab_Vet8385.pdf / animal_repro_ข้อสอบเก่า.pdf', tags: ['pyometra'], type: 'mcq',
     q: 'Open cervix pyometra พบอะไรใน vaginal smear',
-    options: ['Cornified cells', 'Degenerated neutrophils + vacuolated endometrial cells', 'Parabasal เท่านั้น', 'Mucus ใส'],
+    options: ['Cornified cells', 'Degenerated neutrophils', 'Parabasal เท่านั้น', 'Mucus ใส'],
     answer: 1, explain: 'Degen. neutrophil + vacuolated endometrial' },
   { id: 68, subject: 'repro', year: 4, source: 'ข้อสอบเก่า_Repro_Lab_Vet8385.pdf / animal_repro_ข้อสอบเก่า.pdf', tags: ['anatomy'], type: 'mcq',
     q: 'Vas deferens เชื่อมต่อโครงสร้างใด',
