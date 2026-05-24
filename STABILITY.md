@@ -1,0 +1,241 @@
+# Stability Guardrails — VetMock
+
+Architectural patterns that have caused recurring bugs. Each entry has a
+1-line rule, the bug it prevents, and a concrete example of the wrong code.
+
+This file exists because Palm's app stability matters more than clever
+optimizations. When in doubt, choose the boring stable pattern.
+
+---
+
+## 1. `::before` / `::after` pseudo-elements with negative `inset` to
+##    expand hit-zone — BANNED
+
+**Rule:** Never use `::before { position: absolute; inset: -Npx }` to
+expand a button's touch area without inflating its visual box.
+
+**Bug it caused (2026-05-24):** `.vmx-link-btn::before { inset: -10px }`
+was supposed to give compact pills a 44px touch zone invisibly. Two
+failure modes hit production:
+
+1. **`position: relative` escaped by inline `all: 'unset'`.** Several
+   `.vmx-link-btn` buttons use `style={{ all: 'unset', ... }}` which
+   resets `position` to `static`. The `::before { position: absolute }`
+   then resolves against BODY → fills the whole viewport → every click
+   anywhere on the page lands on this overlay → routed to the pseudo's
+   parent button. Palm: "กดตรงไหนก็ชอบไปหน้าเลือกช่วงสอบ" (clicking
+   anywhere navigates to phase-select).
+2. **Even with positioning fixed, the expansion overlaps neighbors.**
+   Header pills are 11 px apart → phase pill's `::before` covered part
+   of year pill → taps on year pill landed on phase pill.
+
+**Why pseudo elements own clicks:** A `::before` of element X is part
+of X's pointer-event surface unless `pointer-events: none` is set. But
+setting that defeats the whole purpose of the expansion.
+
+**Stable replacement:** Give the host element actual `min-height` +
+`padding`. Visual grows slightly; clicks are reliable.
+
+```css
+/* ⛔ BANNED */
+.compact-btn { /* visual 14px */ }
+.compact-btn::before { position: absolute; inset: -15px; content: ''; }
+
+/* ✓ STABLE */
+.compact-btn {
+  min-height: 36px;       /* visual + tap reliability */
+  padding: 8px 10px;
+  display: inline-flex;
+  align-items: center;
+}
+```
+
+---
+
+## 2. State that bleeds across navigation — RESET ON EVERY ENTRY
+
+**Rule:** When a user enters a new flow (clicks a subject card, picks a
+phase, opens a view), explicitly RESET any state that the previous flow
+set implicitly. Sticky state is invisible and breaks intent.
+
+**Bug it caused (2026-05-20):** Palm clicks "🎯 ทบทวนข้อที่ตอบผิด" →
+`setPracticeMode('wrong')` → goes back home → clicks COM I subject →
+ConfigView → "🚀 เริ่มฝึก". `startExam` reads stale `practiceMode='wrong'`
+and builds the pool from wrong-history only, ignoring the freshly picked
+subject. Pool ends up empty → alert "ไม่มีข้อสอบในหมวดนี้". Looked like
+a data bug; was a state-management bug.
+
+**Stable pattern:** at every fork in the navigation tree where the user
+makes a new pick, reset *implicit* state. Don't rely on the next view
+to defensively re-read the right values.
+
+```jsx
+// ⛔ Subject click that ONLY sets subject
+onClick={() => { setSubject(s.id); setView('topic-select'); }}
+
+// ✓ Subject click that resets implicit modes too
+onClick={() => {
+  setSubject(s.id);
+  setPracticeMode('all');  // ← reset sticky mode from HomeView shortcuts
+  setTopic(null);          // ← clear any stale topic from a prior flow
+  setView('topic-select');
+}}
+```
+
+**Belt-and-suspenders defense** in `startExam` (App.jsx):
+
+```js
+// If subject picked explicitly AND mode is sticky user-curated, force 'all'.
+if (!explicitMode && _subject !== 'all' &&
+    (_practiceMode === 'wrong' || _practiceMode === 'weak' ||
+     _practiceMode === 'bookmarks')) {
+  _practiceMode = 'all';
+}
+```
+
+---
+
+## 3. `!important` should be used SPARINGLY — only for a11y floors
+
+**Rule:** `!important` is a debugging crutch that hides the real
+specificity problem. Use it only when:
+
+1. Enforcing a WCAG-mandated floor (e.g. min-height for touch).
+2. The override target is inline-styled and there's no other way.
+
+For everything else, fix the selector specificity. Documented bug:
+my round-3 `:where(...)` rule had zero specificity and lost to a
+later `.vmx-btn-sm { min-height: 36px }` rule. The fix wasn't
+`!important`; it was reorganizing the rules so the floor comes
+after the per-class overrides AND using a non-`:where()` selector.
+
+---
+
+## 4. Touch targets — visual size = tap size; don't fake it
+
+**Rule:** A button's hit area is its CSS box. Don't try to expand
+the tap area beyond the visual. If WCAG 44px conflicts with design,
+choose ONE:
+
+- Visual 44px (boring but correct)
+- Visual 36px (workable compromise; WCAG 2.5.8 has exceptions for
+  inline links + essential controls)
+- Visual smaller than 36px (only for tertiary actions, document the
+  a11y debt)
+
+Never use the `::before` hack (see rule 1).
+
+---
+
+## 5. CSS rules inside JS template literals — NO BACKTICKS IN COMMENTS
+
+**Rule:** `src/styles.js` exports CSS as a backtick template literal.
+Backtick characters inside that string (including in comments) end the
+template literal early. Build fails.
+
+```js
+export const STYLES = `
+  /* ✓ "regular quotes" or em-dashes — fine */
+  /* ⛔ `backticks` inside comments end the template */
+  .x { color: red; }
+`;
+```
+
+Caught this twice in r3 and r6 of the touch-target work. Every change
+to `styles.js` MUST run `npm run build` locally before push. Vercel will
+silently fail-and-skip → the old broken deploy stays live → looks like a
+non-bug to the dev but production stays broken.
+
+---
+
+## 6. CSS modern features — provide longhand fallback for `inset`
+
+**Rule:** The CSS `inset` shorthand requires Safari 14.1+. iOS 13-14.0
+users (~2-3% of mobile market) ignore the rule. If `inset` is used for
+positioning (not just margin), provide the longhand `top/right/bottom/left`
+FIRST so older Safari has something to use:
+
+```css
+/* ⛔ Safari < 14.1 sees nothing */
+.x { position: absolute; inset: 0; }
+
+/* ✓ Universal */
+.x { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; }
+```
+
+JSX inline styles follow the same rule. React doesn't dedup inline
+style keys — both declarations are written.
+
+---
+
+## 7. `target: 'esnext'` in Vite — DON'T
+
+**Rule:** Always pin Vite `build.target` to a concrete ECMAScript
+version (e.g. `es2020`). `esnext` means "newest spec features, no
+transpile" — could emit syntax (top-level await, logical assignment
+`||=`) that older iOS Safari can't parse → blank screen on iPhone with
+no error in dev.
+
+Current setting: `target: 'es2020'` + `browserslist` includes `ios >= 14`.
+
+---
+
+## 8. Service Worker version bump on every CSS/JS-shape change
+
+**Rule:** When you change CSS rules or the index chunk hash, bump
+`SW_VERSION` in `public/sw.js`. The SW caches assets by content hash
+but indexes them by URL — without a bump, returning users get a mix
+of new code referencing old chunks → cryptic errors.
+
+Format: `vN-YYYY-MM-DD`. Current: `v6-2026-05-24`.
+
+---
+
+## 9. Build verification before push (universal)
+
+**Rule:** When touching `src/styles.js`, `vite.config.js`, or
+`package.json`, run `npm run build` locally before commit. If the
+build breaks, the next commit-push fails-silently at Vercel and the
+previous (possibly broken) deploy stays live.
+
+---
+
+## 10. Question-bank changes — `option` text trimming
+
+**Rule:** When trimming a Q's correct option for length-bias lint
+(see `scripts/lint-questions.cjs --triage`), NEVER touch the answer
+index. The shuffle in `Question.jsx` already handles position bias;
+your job is purely to balance string lengths.
+
+```js
+// Q1075 - WAS: 162 chars correct vs 30 mean distractor
+// SAFE TRIM (this commit OK):
+options: ['Only one virus', 'Multifactorial', 'Just genetic', ...]
+// ⛔ NEVER (changes meaning):
+options: [...],
+answer: 2,  // ← changing this would re-key history + break replay
+```
+
+---
+
+## Process checklist before any commit touching UI / data layer
+
+- [ ] Did this change `src/styles.js`? → Run `npm run build` locally.
+- [ ] Did this add a `::before` or `::after` pseudo with `position: absolute`?
+      → Read rule 1. If you still want to ship it, set `pointer-events: none`.
+- [ ] Did this set new React state in a click handler?
+      → Will another click handler also see that state and misinterpret it?
+- [ ] Did this add a new view route?
+      → Does it reset implicit state from the previous view?
+- [ ] Did this change CSS rules or the entry chunk hash?
+      → Bump `SW_VERSION`.
+- [ ] Did this touch `vite.config.js`?
+      → Keep `target: 'es2020'` (or older); never `esnext`.
+- [ ] Did this change a Q-bank file?
+      → Run `npm run lint:all` and confirm error count didn't regress.
+
+---
+
+_Maintained by Claude — appended whenever a class of bug recurs. If
+you find a new architectural fragility, add the rule + the bug it
+caught here so the next person (or the next Claude) sees the trap._
