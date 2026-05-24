@@ -14,24 +14,37 @@ import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
 import VideoNotePanel from '../components/VideoNotePanel.jsx';
 
-// ── Lazy video-summaries body loader ─────────────────────────────
-// Imports the 2 MB VIDEO_SUMMARIES module on first demand. Cached at
-// module scope — multiple "open summary" clicks share one network
-// fetch + one parse. Returns the full entry (with markdown body)
-// for the given videoId or null when none exists.
-let __videoSummariesPromise = null;
-function loadAllVideoSummaries() {
-  if (!__videoSummariesPromise) {
-    __videoSummariesPromise = import('../data/video-summaries.js')
-      .then((m) => m.VIDEO_SUMMARIES)
-      .catch((err) => {
-        // Drop the promise so retries are possible after a transient
-        // failure (network · build hash mismatch · CSP).
-        __videoSummariesPromise = null;
-        throw err;
-      });
+// ── Lazy video-summaries body loader (per-subject chunked) ───────
+// Palm audit r4 (2026-05-24): the 2.2 MB monolithic VIDEO_SUMMARIES
+// chunk has been split per-subject by scripts/split-video-summaries.cjs.
+// VideoView now imports the barrel's `loadVideoSummariesForSubject`
+// helper which dynamic-imports ONLY the relevant subject's chunk
+// (typically ~50-200 KB gzip instead of 870 KB for the full set).
+// The subject is derived from VIDEO_META[videoId].subject — already
+// in the lightweight ~50 KB meta file the view loaded synchronously.
+// Falls back to loadAllVideoSummaries() if subject is missing or the
+// per-subject loader returns no entry (e.g. mis-tagged data).
+import { loadVideoSummariesForSubject, loadAllVideoSummaries } from '../data/video-summaries.js';
+
+async function loadVideoSummaryEntry(videoId) {
+  if (!videoId) return null;
+  const subject = VIDEO_META[videoId]?.subject;
+  if (subject) {
+    try {
+      const map = await loadVideoSummariesForSubject(subject);
+      if (map && map[videoId]) return map[videoId];
+    } catch (err) {
+      console.warn('[VideoView] per-subject loader failed, falling back to all:', err);
+    }
   }
-  return __videoSummariesPromise;
+  // Fallback: full-set load. Same cost as the old behavior.
+  try {
+    const map = await loadAllVideoSummaries();
+    return map?.[videoId] || null;
+  } catch (err) {
+    console.warn('[VideoView] full-set loader failed:', err);
+    return null;
+  }
 }
 
 // ── YouTube IFrame API loader ─────────────────────────────────────
@@ -649,10 +662,10 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
     if (!currentVideoId || summaryLoading) return;
     setSummaryLoading(true);
     try {
-      const all = await loadAllVideoSummaries();
-      setOpenSummary(all[currentVideoId] || null);
+      const entry = await loadVideoSummaryEntry(currentVideoId);
+      setOpenSummary(entry);
     } catch (err) {
-      console.warn('[VideoView] failed to load video-summaries body:', err);
+      console.warn('[VideoView] failed to load video-summary entry:', err);
       // Surface a tiny fallback so the user knows the click registered
       // and isn't a silent UX dead-end.
       setOpenSummary({

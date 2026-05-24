@@ -128,10 +128,19 @@ export default defineConfig({
           if (id.includes('questions-y5-repro-clinic')) return 'data-q-y5-repro'
           if (id.includes('questions-y5-vision-batch')) return 'data-q-y5-vision'
           if (id.includes('data/instructors')) return 'data-instructors'
-          // video-summaries.js is ~60k lines / ~2MB and only loaded inside
-          // VideoView (lazy). Splitting it from VideoView's component code
-          // means the view shell renders fast while data streams in.
-          if (id.includes('video-summaries')) return 'data-video-summaries'
+          // Palm audit r4 (2026-05-24): video-summaries was a 2.2MB monolith.
+          // scripts/split-video-summaries.cjs broke it into per-subject
+          // files (video-summaries-<subject>.js). To get the lazy benefit,
+          // each per-subject file must land in its OWN chunk — the
+          // legacy catch-all rule `id.includes('video-summaries')` lumped
+          // them back into one chunk. Match the per-subject filename
+          // first; the bare barrel file (video-summaries.js exact) gets
+          // its own tiny chunk too.
+          if (/video-summaries-([a-z0-9-]+)\.js$/.test(id)) {
+            const m = id.match(/video-summaries-([a-z0-9-]+)\.js$/);
+            return `data-video-summaries-${m[1]}`;
+          }
+          if (/video-summaries(-meta)?\.js$/.test(id)) return 'data-video-summaries-barrel'
           // Notes data is only loaded when NotesView is opened
           if (id.includes('notes-com3')) return 'data-notes-com3'
           if (id.includes('notes-com4')) return 'data-notes-com4'
