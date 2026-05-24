@@ -65,7 +65,7 @@ export const QB_EXOTIC = [
   { id: 294, subject: 'exotic', topic: 'bird-infect', year: 4,
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['virus'], type: 'mcq',
     q: 'Polyomavirus ในนกก่อโรคอะไร',
-    options: ['Respiratory only', 'Feather abnormality + liver necrosis + death', 'GI only', 'Neurological'],
+    options: ['Respiratory only', 'Feather + liver necrosis', 'GI only', 'Neurological'],
     answer: 1, explain: 'Avian polyomavirus: young birds; high mortality' },
   { id: 295, subject: 'exotic', topic: 'bird-infect', year: 4,
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['virus'], type: 'mcq',

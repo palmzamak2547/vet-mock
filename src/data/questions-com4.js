@@ -398,7 +398,7 @@ export const QB_COM4 = [
   { id: 952, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
     tags: ['protein', 'deficiency'], type: 'mcq',
     q: 'Protein deficiency ใน skin อาการเด่นคือ',
-    options: ['Skin หนาขึ้น + เม็ดสี', 'Severe pruritus เท่านั้น', 'Poor hair growth + dry/brittle coat + slow wound healing + secondary infection', 'No skin changes'],
+    options: ['Skin หนาขึ้น + เม็ดสี', 'Severe pruritus เท่านั้น', 'Poor hair growth + slow healing', 'No skin changes'],
     answer: 2, explain: 'Protein deficiency: poor hair growth (keratin = protein) + dull/dry/brittle coat + thin skin + delayed wound healing + immune compromise → recurrent infection, supplement high-quality animal protein = ฟื้นใน 4-6 wk\n\n❌ ทำไมข้ออื่นผิด\n— "Skin หนา + เม็ดสี" = endocrine alopecia (Cushing\'s) ตรงข้าม\n— Pruritus only = allergic\n— "No changes" = ผิด',
     verified: 'Derm_7_Nutrition_skin_disease.pdf p.2' },
 
@@ -1040,7 +1040,7 @@ export const QB_COM4 = [
   { id: 1039, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Immune-mediated_introduction.pdf + Master 86 supplemental',
     tags: ['immune-management', 'principles'], type: 'mcq',
     q: '5 หลักการจัดการ Immune-mediated diseases ตาม Aj. Rosama เน้น คือ',
-    options: ['Just give steroid forever', 'Antibiotics + supportive only', 'Vaccine + nutrition', 'Surgery + radiation', '(1) Vital function (2) Education (3) Remove cause (4) Immunomodulator (5) Supportive'],
+    options: ['Just give steroid forever', 'Antibiotics + supportive only', 'Vaccine + nutrition', 'Surgery + radiation', '5-pillar management approach'],
     answer: 4, explain: '5 management pillars (Aj. Rosama ★):\n1. Correct vital function — CVS, fluid, oxygenation\n2. Client communication/education — explain prognosis (variable, may relapse, lifelong drug)\n3. Remove primary cause — IMHA → screen/Tx blood parasite (Babesia, Mycoplasma, Ehrlichia); pyometra → spay; vaccine-induced → avoid\n4. Immunomodulatory drugs — corticosteroid 1st line, +/- 2nd-line (CsA, Aza, MMF, Chlorambucil)\n5. Aggressive supportive therapy — monitor + maintain vital + prevent secondary complications (PTE → antiplatelet, atopy → barrier)',
     verified: 'Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.5 (Aj. Rosama 5 pillars ★)' },
 

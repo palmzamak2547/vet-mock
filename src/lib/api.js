@@ -1,8 +1,15 @@
 import { getSupabase } from './supabase.js';
+import { migrateHistoryArray } from './id-migration.js';
+import { yearForSubject } from '../data/curriculum.js';
 
 // All cloud-sync calls await getSupabase() so anonymous visitors never
 // pay the 190KB SDK download cost — the chunk only fetches once a
 // logged-in user actually performs a sync, group, or leaderboard op.
+//
+// Static imports above: id-migration + curriculum are tiny utility
+// modules already in the main bundle (statically imported by main.jsx
+// and most views) — using top-level static imports here avoids Vite's
+// "dynamic import will not move module into another chunk" warnings.
 
 // ==========================================================
 // HELPER: Make sure user has a profile (call before ops that need it)
@@ -175,8 +182,12 @@ export async function pullUserData(userId) {
   // Apply ID-migration v1 to cloud history on restore (mirrors the
   // local-storage migration in src/lib/id-migration.js). Idempotent —
   // already-migrated entries are no-ops.
+  // Palm build-warning audit 2026-05-24: id-migration.js + curriculum.js
+  // are statically imported by main.jsx / every view, so dynamic
+  // import() here added no chunk-split benefit and produced Vite
+  // warnings ("dynamic import will not move module into another chunk").
+  // Use the static imports added at the top of this file instead.
   if (Array.isArray(data.history)) {
-    const { migrateHistoryArray } = await import('./id-migration.js');
     data.history = migrateHistoryArray(data.history);
 
     // Year-enrich legacy cloud history rows (data-layer audit 2026-05-19).
@@ -188,7 +199,6 @@ export async function pullUserData(userId) {
     // later needs the same treatment.
     const needs = data.history.some((h) => h && typeof h.year === 'undefined');
     if (needs) {
-      const { yearForSubject } = await import('../data/curriculum.js');
       data.history = data.history.map((h) =>
         h && typeof h.year === 'undefined'
           ? { ...h, year: yearForSubject(h.subject) ?? null, phase: h.phase ?? null }

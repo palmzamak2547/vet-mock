@@ -787,7 +787,7 @@ export const QB_MAHAHON = [
     q: 'Mast cell tumor (MCT) ในสุนัขที่ spay แล้วเสี่ยงเพิ่มในกลุ่มใด',
     options: [
       'Male intact, large breed',
-      'Female spayed, old (>7 yr) and obese, breeds เช่น Boxer, Pug, Golden Retriever',
+      'Female spayed + อายุ >7 + obese',
       'Female intact only',
       'ไม่เกี่ยวข้อง',
     ],
@@ -858,7 +858,7 @@ export const QB_MAHAHON = [
     options: [
       'ทำให้แย่ลง',
       'ไม่มีผล',
-      'BPH ลดขนาด + Perianal adenoma regress (เพราะ androgen-dependent)',
+      'BPH ลดขนาด + adenoma regress',
       'รักษาเฉพาะ BPH ไม่ได้ผลกับ adenoma',
     ],
     answer: 2,
@@ -1014,7 +1014,7 @@ export const QB_MAHAHON = [
     q: 'ปัญหา ethics ของ breed standard เน้น extreme phenotype (เช่น brachycephalic) คือ',
     options: [
       'ไม่มีปัญหา, เป็นแค่ความสวยงาม',
-      'ทำให้สุนัขเจ็บป่วยตลอดชีวิต (BOAS, dystocia, ocular issues), welfare concern',
+      'Welfare concerns (BOAS, dystocia)',
       'ราคาตลาดถูกลง',
       'อายุยืนขึ้น',
     ],
@@ -1058,7 +1058,7 @@ export const QB_MAHAHON = [
     tags: ['castration', 'open-vs-closed'], type: 'mcq',
     q: 'Open castration ต่างจาก closed castration อย่างไร',
     options: [
-      'Open: incise tunica vaginalis → ligate vessel แต่ละเส้น, Closed: ligate tunica + cord เป็น one bundle',
+      'Open: incise tunica → ligate vessels; Closed: one bundle',
       'Open ใน female, Closed ใน male',
       'Open ใช้ scrotal, Closed ใช้ pre-scrotal',
       'ไม่ต่างกัน',

@@ -67,11 +67,12 @@ jobs:
           # this whenever distractor rewrites land. Use
           # `node scripts/lint-questions.cjs --triage` to dump a
           # sorted CSV of remaining offenders for batch review.
-          # Ratcheted 2026-05-24 Palm 8.3 audit round-2:
-          #   • 88 → 50 errors after 60 more Q rewrites
-          #   • 27 per-subject video chunks (was 1×2.2MB monolith)
-          #   • Bare-button touch-target floor enforced via CSS
-          MAX_ERRORS: 55
+          # Ratcheted 2026-05-24 Palm "stability + arch" round:
+          #   • 50 → 20 errors after batch 3 trims
+          #   • Cumulative: 124 → 20 (-84% from this week's baseline)
+          # All remaining errors are 3.5-3.9× ratio. Subsequent
+          # rounds: triage CSV → batch by topic for consistency.
+          MAX_ERRORS: 25
         run: |
           ERRORS=${{ steps.lint.outputs.errors }}
           echo "Errors: $ERRORS / baseline $MAX_ERRORS"

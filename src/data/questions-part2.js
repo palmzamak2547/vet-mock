@@ -70,7 +70,7 @@ export const QB_PART2 = [
     answer: false, explain: 'Aging NOT a disease' },
   { id: 110, subject: 'com4', topic: 'peds-geri', year: 4, source: 'COM_IV_86_Final.pdf / COM_IV_final_ข้อสอบเก่าสรุป_Kim.pdf', tags: ['cognitive'], type: 'mcq',
     q: 'DISHAA ใช้ประเมินอะไร',
-    options: ['Diabetes', 'Cognitive Dysfunction Syndrome', 'Dental', 'Dermatology'],
+    options: ['Diabetes', 'CDS', 'Dental', 'Dermatology'],
     answer: 1, explain: 'DISHAA = CDS' },
 
   // ═════════════════════════════════════════════════════

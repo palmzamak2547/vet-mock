@@ -479,7 +479,7 @@ export const QB_Y5_REPRO_CLINIC = [
     examOrigin: 'Vet 81 Animal Repro Clinic (canine content)',
     tags: ['gestation-length', 'breed', 'factor'], type: 'mcq',
     q: 'Gestation length ในสุนัขมีความสัมพันธ์กับปัจจัยต่อไปนี้ ยกเว้น',
-    options: ['Type of semen (fresh/chilled/frozen)', 'Litter size', 'Bitch age', 'Breed'],
+    options: ['Type of semen', 'Litter size', 'Bitch age', 'Breed'],
     answer: 0,
     explain: 'Semen type ไม่ทำให้ gestation length เปลี่ยน — fertilization เกิดที่ time-point เดียวกัน ที่ทำให้แตกต่างคือ "timing of insemination" (fresh ก่อนตกไข่นิด, frozen ใกล้ ovulation มาก)\n\n💡 แต่นับจาก "LH surge" ตำราใหม่ บอกว่ายาวสุดถึง ~65 d เกือบทุก case\n\n✅ ปัจจัยที่กระทบจริง: litter size (เยอะ → คลอดเร็ว), bitch age (แก่ → ยาวกว่า), breed (small breed shorter)',
     verified: '7. Anl Repro Clin.pdf p.4 Q37' },

@@ -353,7 +353,7 @@ export const QB_VCA = [
   { id: 6111, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
     tags: ['rabbit', 'encephalitozoon'], type: 'mcq',
     q: 'กระต่าย acute hindlimb paresis + head tilt + cataracts, ทดสอบ diagnostic ที่เหมาะสมที่สุด',
-    options: ['Otoscopy', 'Skin scraping', 'Radiography', 'Dental examination', 'Serology (IgG/IgM) for Encephalitozoon cuniculi'],
+    options: ['Otoscopy', 'Skin scraping', 'Radiography', 'Dental examination', 'Serology for E. cuniculi'],
     answer: 4,
     explain: 'E. cuniculi (microsporidia) → granulomatous encephalitis + uveitis + nephritis, Dx: serology (IgM = active), Tx: fenbendazole 28 days' },
 
@@ -1547,7 +1547,7 @@ export const QB_VCA = [
   { id: 6820, subject: 'vca', topic: 'ruminant', year: 5, source: SRC,
     tags: ['lab', 'tuberculosis', 'SID'], type: 'mcq',
     q: 'การตรวจ bovine tuberculosis ที่ใช้ใน routine surveillance ของกรมปศุสัตว์',
-    options: ['Acid-fast stain', 'PCR', 'ELISA', 'Single Intradermal Test (SID)', 'Culture'],
+    options: ['Acid-fast stain', 'PCR', 'ELISA', 'SID test', 'Culture'],
     answer: 3,
     explain: 'SID/CFT = caudal fold tuberculin test, 0.1 mL bovine PPD intradermal at caudal fold, อ่าน 72 ชม., positive >2 mm or any swelling, screening test, confirm with comparative cervical or IFN-γ' },
 
@@ -1877,7 +1877,7 @@ export const QB_VCA = [
   { id: 7006, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['parasite', 'heartworm'], type: 'mcq',
     q: 'สุนัขเป็น heartworm (Dirofilaria immitis), diagnostic ที่ยืนยันได้ pre-Tx',
-    options: ['Knott\'s test (microfilaria) only', 'Antigen ELISA (heat-treated serum) + microfilaria + echocardiography', 'Blood smear', 'PCR alone', 'Histopathology lung'],
+    options: ['Knott\'s test only', 'Antigen ELISA + microfilaria + echo', 'Blood smear', 'PCR alone', 'Histopathology lung'],
     answer: 1,
     explain: 'HW Dx: 1) antigen ELISA (adult female only, false-neg in low-burden) heat-treat to break immune complex, 2) Knott\'s for microfilaria, 3) echo for adult worm count + RV strain, stage before Tx' },
 
@@ -1928,7 +1928,7 @@ export const QB_VCA = [
   { id: 7023, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['vaccine', 'rabies'], type: 'mcq',
     q: 'rabies vaccine ในไทยสำหรับสุนัข, route + frequency',
-    options: ['SC ทุก 6 เดือน', 'SC q 1-2 ปี (booster) + first vaccine 3 mo', 'IM ทุก 3 ปี', 'Oral once', 'IV ทุก 1 ปี'],
+    options: ['SC ทุก 6 เดือน', 'SC q 1-2 ปี + first 3 mo', 'IM ทุก 3 ปี', 'Oral once', 'IV ทุก 1 ปี'],
     answer: 1,
     explain: 'TH rabies vaccine: first dose 3 mo (puppy) → annual booster, DLD รับรอง, type: inactivated, WHO/WOAH recommend ≥70% MDV coverage to interrupt transmission' },
 
@@ -2079,7 +2079,7 @@ export const QB_VCA = [
   { id: 7067, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['urinary', 'feline-FLUTD'], type: 'mcq',
     q: 'แมวพันธุ์เปอร์เซีย male 5 ปี, stranguria + hematuria + obstruction, ที่ urinary bladder ใน body มี struvite crystal, Tx',
-    options: ['Catheterize + relieve obstruction + IV fluid + diet', 'Antibiotic only', 'Surgery PU first line', 'NSAID alone', 'Mannitol'],
+    options: ['Catheterize + IV fluid + diet', 'Antibiotic only', 'Surgery PU first line', 'NSAID alone', 'Mannitol'],
     answer: 0,
     explain: 'FLUTD obstruction emergency: relieve via catheter under sedation + IV fluid (correct hyperK) + diet ป้องกัน recurrence, struvite crystal: low-Mg + acidify urine, oxalate: alkalinize, perineal urethrostomy if recurrent\n\n💡 Hill\'s c/d Multicare' },
 
@@ -2261,7 +2261,7 @@ export const QB_VCA = [
   { id: 7132, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['neuro', 'epilepsy'], type: 'mcq',
     q: 'สุนัข idiopathic epilepsy, first-line antiepileptic',
-    options: ['Phenobarbital (efficacy 60-80%) + KBr if needed', 'Diazepam alone', 'Carbamazepine', 'Lamotrigine', 'Topiramate'],
+    options: ['Phenobarbital + KBr', 'Diazepam alone', 'Carbamazepine', 'Lamotrigine', 'Topiramate'],
     answer: 0,
     explain: 'Idiopathic epilepsy 1st line: phenobarbital, therapeutic 25-30 μg/mL, monitor liver + CBC q6mo, 2nd line: KBr, 3rd line: levetiracetam (Keppra), zonisamide, gabapentin' },
 

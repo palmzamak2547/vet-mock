@@ -139,7 +139,7 @@ export const QB_COM5 = [
   { id: 543, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
     tags: ['CPV', 'disinfection'], type: 'mcq',
     q: 'ข้อใดเป็น disinfectant ที่แนะนำให้ใช้ทำความสะอาดสิ่งแวดล้อม CPV',
-    options: ['Quaternary ammonium', 'Sodium hypochlorite (bleach) 1:30 หรือ peroxide compounds', 'Alcohol 70%', 'Chlorhexidine 2%'],
+    options: ['Quaternary ammonium', 'NaOCl 1:30 หรือ peroxide', 'Alcohol 70%', 'Chlorhexidine 2%'],
     answer: 1, explain: 'CPV เป็น non-enveloped → ทนต่อ alcohol/chlorhex/QUAT\nต้องใช้ NaOCl 1:30-32 หรือ accelerated H2O2\n\n❌ ทำไมข้ออื่นผิด\n— QUAT / Alcohol 70% / Chlorhexidine 2% = ไม่ effective ต่อ non-enveloped virus (ทน lipid solvents)',
     verified: 'CVE.pdf p.20 + COM V FINAL 86' },
 

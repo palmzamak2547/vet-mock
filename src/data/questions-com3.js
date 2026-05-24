@@ -740,7 +740,7 @@ export const QB_COM3 = [
   { id: 830, subject: 'com3', topic: 'acute-abdomen', year: 4, source: 'Acute Abdomen 1 hr.pdf',
     tags: ['acute-abdomen', 'pancreatitis'], type: 'mcq',
     q: 'Pancreatitis เฉียบพลัน — diagnostic test ที่จำเพาะที่สุดคืออะไร',
-    options: ['CBC เท่านั้น', 'Blood glucose', 'Specific PLI (cPLI / fPLI snap test) + ultrasound', 'Amylase / Lipase'],
+    options: ['CBC เท่านั้น', 'Blood glucose', 'Spec PL + US', 'Amylase / Lipase'],
     answer: 2, explain: 'Pancreas-specific lipase (cPLI/fPLI/Spec PL) + ultrasound (enlarged + hypoechoic pancreas)\namylase/lipase ไม่ specific',
     verified: 'Acute Abdomen 1 hr.pdf + master p.22' },
 
@@ -884,7 +884,7 @@ export const QB_COM3 = [
   { id: 850, subject: 'com3', topic: 'neuro-exam', year: 4, source: 'neuro_exam 1 hr.pdf',
     tags: ['neuro-exam', 'menace'], type: 'mcq',
     q: 'Menace response — anatomical pathway คืออะไร',
-    options: ['II (afferent) → forebrain → cerebellum → VII', 'V → VII → VIII', 'III → IV → VI', 'I → II → V'],
+    options: ['CN II → cerebellum → CN VII', 'V → VII → VIII', 'III → IV → VI', 'I → II → V'],
     answer: 0, explain: 'Menace: vision (II) → cortex → cerebellum → motor cortex → VII facial (blink)\ncerebellar disease → menace deficit แม้ vision ปกติ\n\n❌ ทำไมข้ออื่นผิด\n— V→VII→VIII = corneal + vestibular\n— III→IV→VI = eye motor\n— I→II→V = ไม่มี logical pathway\n\n💡 efferent blink',
     verified: 'neuro_exam 1 hr.pdf' },
 
@@ -1111,14 +1111,14 @@ export const QB_COM3 = [
   { id: 880, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'limitations'], type: 'mcq',
     q: 'ข้อจำกัดของ AI ที่สำคัญในการใช้งานทางคลินิกคืออะไร',
-    options: ['Knowledge cutoff + training bias + ไม่ทดแทน physical exam', 'AI ทำงานเร็วเกิน', 'AI ราคาถูกเกิน', 'AI รู้ทุกอย่าง'],
+    options: ['Knowledge cutoff + bias', 'AI ทำงานเร็วเกิน', 'AI ราคาถูกเกิน', 'AI รู้ทุกอย่าง'],
     answer: 0, explain: 'AI limitations: cutoff date\nbias\ncan\'t examine real patient\nไม่ใช่ medical license\nใช้เป็น decision support เสริม ไม่ใช่ replacement',
     verified: 'AI in healthcare best practice' },
 
   { id: 881, subject: 'com3', topic: 'ai-vet', year: 4, source: 'COM III ตารางเรียน',
     tags: ['ai', 'verification'], type: 'mcq',
     q: 'หลังได้คำตอบจาก AI แล้ว — ขั้นตอนที่สำคัญที่สุดสำหรับ medical use คืออะไร',
-    options: ['ลบทิ้ง', 'Verify ด้วย primary source ก่อนใช้กับ patient จริง', 'ส่งให้คนอื่นต่อ', 'Copy-paste ใช้เลย'],
+    options: ['ลบทิ้ง', 'Verify ด้วย primary source', 'ส่งให้คนอื่นต่อ', 'Copy-paste ใช้เลย'],
     answer: 1, explain: 'AI = starting point\nต้อง verify โดย primary source สำหรับ clinical decisions\n"trust but verify"\nresponsibility อยู่ที่ vet ไม่ใช่ AI\n\n❌ ทำไมข้ออื่นผิด\n— "ลบทิ้ง" = waste output\n— "ส่งคนอื่น" = ไม่ verify\n— "Copy-paste ใช้เลย" = unsafe ใน medical context',
     verified: 'Clinical AI use ethics' },
 

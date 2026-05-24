@@ -146,41 +146,32 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 }
 
 /* .vmx-link-btn — pattern for inline-styled compact buttons (header
-   pills, footer chips, "เปลี่ยน phase").
-   HISTORY: Earlier versions used an invisible ::before pseudo with
-   inset minus-10px to expand the touch area without inflating the
-   visual box. That looked clever but had TWO failure modes:
-     1. Buttons with inline all:unset lose position:relative
-        — the ::before becomes positioned relative to BODY → fills
-        the whole viewport → click hijacking (Palm bug 2026-05-24).
-     2. Even with relative positioning fixed, ::before expansion
-        OVERLAPS neighboring buttons in dense UI (header pills are
-        11 px apart → phase pill ::before stole year-pill taps).
-   The pattern is fragile in dense React UIs because ::before owns
-   pointer events. STABLE REPLACEMENT: small min-height + padding
-   grows visual size to ~36 px. Not the WCAG 44 px ideal but big
-   enough for reliable touch, and never overlaps neighbors. */
+   pills, footer chips, the phase-switch link).
+   r7 (2026-05-24): Palm explicit ask = strict WCAG 2.5.5 44px on
+   ALL touch targets. Visual chunkiness accepted as trade-off for
+   tap reliability. The min-height + padding use !important because
+   most of these buttons have inline all:unset which resets the
+   class min-height to auto; !important survives that reset.
+   No ::before pseudo (banned — see STABILITY.md rule 1).
+   No position: relative (no longer needed without pseudo). */
 .vmx-link-btn {
-  min-height: 36px;
-  padding: 8px 10px;
-  display: inline-flex;
-  align-items: center;
-  /* Tag the role properly so screen readers don't see it as anything
-     ambiguous — the className is enough hint for sighted authors. */
+  min-height: 44px !important;
+  padding: 10px 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  box-sizing: border-box;
 }
 
-/* Footer anchors: compact inline chips. Min-height 36px from above
-   covers the touch-target floor; we just add some visual padding
-   here to widen the click area horizontally without inflating
-   button-like emphasis. */
+/* Footer anchors: same 44px floor. Slightly tighter horizontal
+   padding (12 vs 14) so the chip row doesn't wrap too aggressively
+   on narrow phones. */
 :where(.vmx-footer a) {
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
-  padding: 8px 10px;
+  padding: 10px 12px;
   border-radius: 6px;
-  /* No ::before hit-zone expansion. Same architectural concern as
-     above — chips are 4-12 px apart, expansion would overlap. The
-     8px padding already gives ~34 px tap height. */
+  box-sizing: border-box;
 }
 
 /* WCAG 2.4.1 — Skip link, visible on focus only. Position fixed so it
