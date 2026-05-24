@@ -147,24 +147,19 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 
 /* .vmx-link-btn — pattern for inline-styled compact buttons (header
    pills, footer chips, "เปลี่ยน phase").
-   ⛔ HISTORY: Earlier versions used an invisible ::before pseudo with
-   inset:-10px to expand the touch area without inflating the visual
-   box. That looked clever but had TWO architectural failure modes:
-     1. Buttons with inline `all: 'unset'` lose `position: relative`
-        → ::before becomes positioned relative to BODY → fills the
-        whole viewport → click hijacking (Palm bug 2026-05-24:
-        "กดตรงไหนก็ไปหน้าเลือกช่วงสอบ").
+   HISTORY: Earlier versions used an invisible ::before pseudo with
+   inset minus-10px to expand the touch area without inflating the
+   visual box. That looked clever but had TWO failure modes:
+     1. Buttons with inline all:unset lose position:relative
+        — the ::before becomes positioned relative to BODY → fills
+        the whole viewport → click hijacking (Palm bug 2026-05-24).
      2. Even with relative positioning fixed, ::before expansion
         OVERLAPS neighboring buttons in dense UI (header pills are
-        11 px apart → ::before of phase pill stole clicks meant for
-        year pill).
-   The pattern is fundamentally fragile in dense React UIs and
-   ::before pseudo-elements still own pointer events (so they hijack).
-   STABLE REPLACEMENT: add a modest min-height + padding to grow the
-   visual size to ~36 px. Not the WCAG 44 px ideal but big enough for
-   reliable touch, and never overlaps neighbors. The 36 px height
-   matches WCAG Level AA "Target Size (Minimum)" 2.5.8 (24 px) easily
-   and is workable for inline-text buttons. */
+        11 px apart → phase pill ::before stole year-pill taps).
+   The pattern is fragile in dense React UIs because ::before owns
+   pointer events. STABLE REPLACEMENT: small min-height + padding
+   grows visual size to ~36 px. Not the WCAG 44 px ideal but big
+   enough for reliable touch, and never overlaps neighbors. */
 .vmx-link-btn {
   min-height: 36px;
   padding: 8px 10px;
