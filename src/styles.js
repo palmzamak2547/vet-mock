@@ -146,38 +146,46 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 }
 
 /* .vmx-link-btn — pattern for inline-styled compact buttons (header
-   pills, footer chips, "เปลี่ยน phase"). Visual stays compact, hit
-   area expanded via invisible ::before pseudo. WCAG 2.5.5 satisfied
-   via hit-zone expansion without inflating the visual box. */
-.vmx-link-btn { position: relative; }
-.vmx-link-btn::before {
-  content: '';
-  position: absolute;
-  /* Longhand first for Safari < 14.1 (inset shorthand added 14.1). */
-  top: -10px; right: -10px; bottom: -10px; left: -10px;
-  inset: -10px;
-  /* Transparent — invisible touch zone */
+   pills, footer chips, "เปลี่ยน phase").
+   ⛔ HISTORY: Earlier versions used an invisible ::before pseudo with
+   inset:-10px to expand the touch area without inflating the visual
+   box. That looked clever but had TWO architectural failure modes:
+     1. Buttons with inline `all: 'unset'` lose `position: relative`
+        → ::before becomes positioned relative to BODY → fills the
+        whole viewport → click hijacking (Palm bug 2026-05-24:
+        "กดตรงไหนก็ไปหน้าเลือกช่วงสอบ").
+     2. Even with relative positioning fixed, ::before expansion
+        OVERLAPS neighboring buttons in dense UI (header pills are
+        11 px apart → ::before of phase pill stole clicks meant for
+        year pill).
+   The pattern is fundamentally fragile in dense React UIs and
+   ::before pseudo-elements still own pointer events (so they hijack).
+   STABLE REPLACEMENT: add a modest min-height + padding to grow the
+   visual size to ~36 px. Not the WCAG 44 px ideal but big enough for
+   reliable touch, and never overlaps neighbors. The 36 px height
+   matches WCAG Level AA "Target Size (Minimum)" 2.5.8 (24 px) easily
+   and is workable for inline-text buttons. */
+.vmx-link-btn {
+  min-height: 36px;
+  padding: 8px 10px;
+  display: inline-flex;
+  align-items: center;
+  /* Tag the role properly so screen readers don't see it as anything
+     ambiguous — the className is enough hint for sighted authors. */
 }
 
-/* Footer anchors: render as compact inline chips with hit-zone
-   expansion. Padding bumped 4px → 8px gives ~28-32px visual height
-   per chip — still compact but no longer the original 25px which
-   was too small to tap reliably. */
+/* Footer anchors: compact inline chips. Min-height 36px from above
+   covers the touch-target floor; we just add some visual padding
+   here to widen the click area horizontally without inflating
+   button-like emphasis. */
 :where(.vmx-footer a) {
   display: inline-flex;
   align-items: center;
   padding: 8px 10px;
   border-radius: 6px;
-  position: relative;
-  /* Stretch the hit area to cover the gap between chips so taps
-     between two chips still land on something. */
-}
-:where(.vmx-footer a)::before {
-  content: '';
-  position: absolute;
-  /* Longhand for older Safari (inset shorthand requires 14.1+) */
-  top: -6px; right: -2px; bottom: -6px; left: -2px;
-  inset: -6px -2px;
+  /* No ::before hit-zone expansion. Same architectural concern as
+     above — chips are 4-12 px apart, expansion would overlap. The
+     8px padding already gives ~34 px tap height. */
 }
 
 /* WCAG 2.4.1 — Skip link, visible on focus only. Position fixed so it
