@@ -2,32 +2,31 @@
 // Rate limiter — dual-backend (Upstash KV when configured, else
 // in-memory fallback).
 // ============================================================
-// Palm 2026-05-24: previous version was in-memory only, so rate
-// limits reset every cold start and didn't share across Vercel
-// instances. A user could burst past the limit just by hitting
-// different regions.
+// Original: in-memory only, so rate limits reset every cold start
+// and didn't share across Vercel instances. A user could burst past
+// the limit just by hitting different regions.
 //
 // Now: if env vars UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN
 // are present, we use a Redis-backed atomic INCR counter via Upstash's
 // REST API (works in Vercel edge + node runtimes, no SDK install
 // needed — fetch is universal). Otherwise we fall back to the
-// in-memory Map (better than nothing for dev / Palm hasn't wired KV
-// up yet).
+// in-memory Map (still fine for local dev).
 //
-// PALM ACTION TO ACTIVATE PERSISTENT KV:
-//   1. Sign up at upstash.com (free tier: 10k req/day, ~5min setup)
-//   2. Create a "Redis" database, region close to ap-southeast-1
-//      (Singapore) since our Vercel deploy is there
-//   3. Copy REST URL + REST Token from Upstash dashboard
-//   4. Add to Vercel project env vars (Production + Preview):
-//        UPSTASH_REDIS_REST_URL
-//        UPSTASH_REDIS_REST_TOKEN
-//   5. Trigger a redeploy — log will show "[rate-limit] using upstash"
-//      on first request after deploy. No code changes needed.
+// ACTIVATED 2026-05-26 via Vercel MCP:
+//   - DB: vetmock-ratelimit on Upstash (Free plan, 10k req/day)
+//   - Region picked to match our Vercel lambda region (iad1 = US East)
+//     so RTT < 1ms intra-region. NOTE: an older comment in this file
+//     said ap-southeast-1 / Singapore — that was wrong, our Vercel
+//     functionDefaultRegion is iad1 not sin1.
+//   - Env vars (Production + Preview): UPSTASH_REDIS_REST_URL +
+//     UPSTASH_REDIS_REST_TOKEN. Created in Vercel under the project
+//     env vars; never put values in this repo.
+//   - Confirmation log on first request after deploy:
+//     "[rate-limit] using upstash"
 //
-// Until step 4 lands: in-memory mode is the default. Rate limits
-// reset on cold start (typical: every ~15 min idle) but still
-// catch single-burst spam in any one instance.
+// If env vars are missing (e.g. local `vercel dev` without a pulled
+// .env or a Preview deploy without the vars), behavior gracefully
+// degrades to in-memory + a one-time console.log of the active backend.
 // ============================================================
 
 // --- In-memory fallback (current behavior) ---
