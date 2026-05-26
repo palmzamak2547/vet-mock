@@ -72,7 +72,13 @@ jobs:
           #   • Cumulative: 124 → 20 (-84% from this week's baseline)
           # All remaining errors are 3.5-3.9× ratio. Subsequent
           # rounds: triage CSV → batch by topic for consistency.
-          MAX_ERRORS: 25
+          # Ratcheted 2026-05-24 (batch 4 — final session):
+          #   • 20 → 10 errors after another round of trims
+          #   • Cumulative: 295 → 130 → 90 → 55 → 25 → 12
+          #   • All remaining are 3.5-3.9× ratio. Combined with the
+          #     render-time option shuffle, the practical exam-cheat
+          #     advantage from these is small.
+          MAX_ERRORS: 12
         run: |
           ERRORS=${{ steps.lint.outputs.errors }}
           echo "Errors: $ERRORS / baseline $MAX_ERRORS"

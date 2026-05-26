@@ -145,7 +145,7 @@ export const QB_Y5_OSCE_MED = [
     tags: ['OSCE', 'vaccination', 'canine', 'rabies', 'VPAT'], type: 'mcq',
     q: 'VPAT canine — Rabies vaccine ในลูกสุนัข เริ่มเข็มแรกที่อายุเท่าไหร่ และในช่วงปีแรกแนะนำวัคซีน monovalent (เข็มเดี่ยว) เพราะอะไร',
     options: [
-      'อายุ 12 สัปดาห์ + booster 2–4 wk หลังเข็มแรก · ใช้ monovalent เพื่อกระตุ้นภูมิคุ้มกันที่มีประสิทธิภาพสูงสุด',
+      '12 wk + booster 2-4 wk · monovalent',
       'อายุ 4 สัปดาห์ ครั้งเดียวพอ',
       'อายุ 1 ปี เริ่มฉีดเข็มแรก',
       'อายุ 8 สัปดาห์ ฉีดเฉพาะ combo vaccine',
@@ -253,7 +253,7 @@ export const QB_Y5_OSCE_MED = [
     tags: ['OSCE', 'vaccination', 'feline', 'kitten schedule', 'VPAT'], type: 'mcq',
     q: 'VPAT — ตัวอย่างโปรแกรมวัคซีนลูกแมวในช่วงปีแรก ข้อใดถูกต้อง',
     options: [
-      '8 wk: FPV/FCV/FHV (#1) · 12 wk: เข็ม 2 · 14 wk: Rabies #1 · 16 wk: FPV/FCV/FHV (#3) + FeLV #1 (test ก่อน) · 18 wk: Rabies #2 · 20 wk: FeLV #2 · 1 ปี: Rabies #3',
+      '8 wk เริ่ม FPV/FCV/FHV · boost ทุก 4 wk จน ≥16 wk · Rabies ที่ 14+18 wk',
       '4 wk: FPV ครั้งเดียว · 6 เดือน: Rabies · 1 ปี: FeLV ครั้งเดียวพอ',
       '1 ปี: เริ่มฉีดเข็มแรก',
       'ไม่มีโปรแกรมเฉพาะของแมว ใช้โปรแกรมสุนัขแทน',
@@ -271,7 +271,7 @@ export const QB_Y5_OSCE_MED = [
     tags: ['OSCE', 'vaccination', 'feline', 'Chlamydia', 'non-core', 'VPAT'], type: 'mcq',
     q: 'VPAT feline — Chlamydia vaccine เป็นวัคซีนทางเลือก (non-core) ใช้ในกรณีใด และโปรแกรมเป็นอย่างไร',
     options: [
-      'แมวที่มีความเสี่ยง · เริ่มที่อายุ 8 wk · 2 ครั้งห่าง 2–4 wk · boost 1 ปีหลังเข็มสุดท้าย · จากนั้นทุกปีในแมวเสี่ยง',
+      'แมวเสี่ยง — เริ่ม 8 wk, 2 ครั้งห่าง 2-4 wk, boost ทุกปี',
       'บังคับฉีดในแมวทุกตัว ตั้งแต่แรกเกิด',
       'ฉีดครั้งเดียวพอ ไม่ต้อง boost',
       'ใช้เฉพาะในสุนัข ไม่ใช้ในแมว',

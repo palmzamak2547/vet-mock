@@ -311,7 +311,7 @@ export const QB_COM4 = [
   { id: 940, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
     tags: ['hypothyroid', 'treatment'], type: 'mcq',
     q: 'Levothyroxine (L-T4) initial dose สำหรับ canine hypothyroidism',
-    options: ['1 mcg/kg q24h', '500 mcg/kg q12h', '20 mcg/kg q12h initial → 20 mcg/kg q24h maintenance', 'Inject IV daily'],
+    options: ['1 mcg/kg q24h', '500 mcg/kg q12h', '20 mcg/kg PO q12-24h', 'Inject IV daily'],
     answer: 2, explain: 'Levothyroxine 20 mcg/kg PO q12h initial (หรือ 0.5 mg/m² ใน large breed), maintenance 20 mcg/kg q24h ถ้าตอบสนองดี, ไม่ให้กับอาหาร (ลด bioavailability), ลด dose 25-50% ใน cardiac disease, monitor TT4 ที่ 4 wk หลังเริ่มยา (peak 4-6 hr post-pill), clinical signs improve: energy 1-2 wk, weight/skin 1-2 mo, hair regrow several months\n\n❌ ทำไมข้ออื่นผิด\n— 1 mcg/kg = ต่ำเกิน\n— 500 mcg/kg = สูงเกินอันตราย\n— IV daily = oral มาตรฐาน',
     verified: 'Derm_6_Endocrine_skin_diseases.pdf p.9' },
 
@@ -1749,7 +1749,7 @@ export const QB_COM4 = [
   { id: 1116, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Chayot Drugs III ออกใหม่ 100%',
     tags: ['frunevetmab', 'solensia', 'ngf', 'cat', 'tj86', 'new'], type: 'mcq',
     q: 'Frunevetmab (Solensia®) คืออะไร — และใช้ในสัตว์ชนิดใด',
-    options: ['Anti-flea ในสุนัข', 'Steroid ในม้า', 'Antibiotic ในวัว', 'Felinized anti-NGF mAb (IgG) → ลด OA pain ในแมว', 'Vaccine'],
+    options: ['Anti-flea ในสุนัข', 'Steroid ในม้า', 'Antibiotic ในวัว', 'Felinized anti-NGF mAb (OA pain)', 'Vaccine'],
     answer: 3, explain: 'Frunevetmab (Solensia®, Zoetis):\n• Class: Felinized anti-NGF monoclonal antibody (IgG)\n• Species: Cats only (cat equivalent of Bedinvetmab/Librela)\n• Indication: Feline Osteoarthritis pain (incredibly common but underdiagnosed — ~ 60% of cats > 6 yr have OA)\n\nWhy important in cats:\n— Cats are notoriously bad candidates for NSAIDs long-term (renal safety concerns, esp. in elderly with CKD comorbidity)\n— Limited safe analgesics: opioid (short-term), gabapentin (chronic), buprenorphine\n— Solensia fills the gap → safe long-term OA pain control\n\nDose: 1-2.8 mg/kg SC monthly\n\nPros:\n— Safe in cats with CKD, hyperthyroid (no renal/hepatic concern from drug itself)\n— Monthly injection (good compliance)\n— Improves quality of life (jumping, playing, grooming)\n\nCons:\n— $$$\n— Onset 1-2 wks\n— Need feline-specific (cat IgG) — can\'t use canine anti-NGF in cat\n\n💡 Aj. Chayot ระบุออกใหม่ 100% — pair with Bedinvetmab ★★',
     verified: 'TJ86 Aj. Chayot Drugs III #12 (ออกใหม่ 100% ★★)' },
 
@@ -1814,7 +1814,7 @@ export const QB_COM4 = [
   { id: 1125, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Geri',
     tags: ['geriatric', 'imaging', 'workup', 'tj86'], type: 'mcq',
     q: 'Imaging modalities ใน geriatric workup ตาม Aj. Punyamanee — เพิ่มขึ้นจาก pediatric อย่างไร',
-    options: ['Imaging ไม่จำเป็น', 'ใช้แค่ blood test', 'แค่ X-ray พอ', 'เพิ่มการใช้ U/S, CT, MRI เพื่อ screening + early detection', 'CT/MRI ห้ามใช้ในแก่'],
+    options: ['Imaging ไม่จำเป็น', 'ใช้แค่ blood test', 'แค่ X-ray พอ', 'เพิ่ม U/S + CT/MRI screening', 'CT/MRI ห้ามใช้ในแก่'],
     answer: 3, explain: 'Geriatric imaging strategy (Aj. Punyamanee — TJ86 ระบุ "เพิ่มขึ้นจาก pediatric"):\n\nWhy imaging more in geriatric:\n— Higher prevalence of neoplasia (~ 50% deaths in dogs > 10 yr)\n— Subclinical organ disease (CKD, cardiac, hepatic) common\n— Need pre-anesthetic screening before any procedure\n— Differential diagnosis broader (more potential pathologies)\n\nRecommended modalities:\n\n1. Abdominal Ultrasonography (AUS) — most useful screening:\n— Liver, spleen, kidneys, adrenals, GI, lymph nodes, urinary bladder\n— Detect: mass lesions, organ enlargement, peritoneal effusion\n— Indications: vague illness, ↑ liver enzymes, weight loss, palpable mass\n\n2. Thoracic Radiography:\n— Cardiac silhouette (DMVD in dog, HCM in cat)\n— Pulmonary patterns (CHF, neoplasia, infiltrative dz)\n— Mediastinal mass\n\n3. Echocardiography:\n— Detect chamber size, wall thickness, valve disease\n— Important in dogs > 7 yr (DMVD prevalence 75%)\n— Cats > 10 yr (HCM screening)\n\n4. CT scan:\n— Thoracic mass evaluation (better than rad)\n— Abdominal neoplasia + metastasis staging\n— Skull/bone disease\n— Spinal disease\n\n5. MRI:\n— Brain disease (CDS, neoplasia, vascular)\n— Spinal cord disease (IVDD, neoplasia, syringomyelia)\n— Soft tissue sarcoma evaluation\n\n💡 Routine senior screening (yearly minimum):\n— CBC + chem profile + UA + UPC\n— Thyroid (T4 in cat, sometimes dog)\n— BP\n— Abdominal US (q1-2 yr in cat > 10 yr — to catch lymphoma early)\n— Thoracic rad ± echocardiography (if cardiac signs)',
     verified: 'TJ86 Aj. Punyamanee Geri #7' },
 

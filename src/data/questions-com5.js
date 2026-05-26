@@ -153,7 +153,7 @@ export const QB_COM5 = [
   { id: 545, subject: 'com5', topic: 'cve', year: 4, source: 'CVE.pdf',
     tags: ['CPV', 'vaccine'], type: 'mcq',
     q: 'WSAVA 2024 แนะนำให้ฉีด core vaccine puppy series เริ่มต้นที่อายุเท่าใด',
-    options: ['6-8 wk (start) แล้ว boost ทุก 2-4 wk จน ≥16 wk', '10 wk เข็มเดียวพอ', '12-16 wk เท่านั้น', '20 wk ขึ้นไป', '4-6 wk'],
+    options: ['6-8 wk start, boost q2-4 wk ≥16 wk', '10 wk เข็มเดียวพอ', '12-16 wk เท่านั้น', '20 wk ขึ้นไป', '4-6 wk'],
     answer: 0, explain: 'WSAVA 2024: start no earlier than 6 wks (suggested 8 wks)\nrevaccinate every 3-4 weeks until 16 wks of age\n\n❌ ทำไมข้ออื่นผิด\n— "10 wk เข็มเดียว" / "12-16 wk เท่านั้น" / "20 wk ขึ้นไป" / "4-6 wk" = ไม่ตรง guideline (start ≤8 wk + boost q2-4 wk จน ≥16 wk)',
     verified: 'Vaccination_guideline.pdf p.9' },
 
@@ -477,7 +477,7 @@ export const QB_COM5 = [
   { id: 576, subject: 'com5', topic: 'gi-protozoa', year: 4, source: 'GI_protozoa.pdf',
     tags: ['cystoisospora', 'control'], type: 'mcq',
     q: 'การควบคุม coccidiosis ใน kennel/cattery ที่สำคัญที่สุดคืออะไร',
-    options: ['ให้ steroid', 'แยกตัวที่ป่วยเท่านั้น', 'Daily fecal removal + ammonia-based disinfectant', 'ฉีดวัคซีน'],
+    options: ['ให้ steroid', 'แยกตัวที่ป่วยเท่านั้น', 'Daily fecal removal + disinfectant', 'ฉีดวัคซีน'],
     answer: 2, explain: 'Sporulated oocyst ทน common disinfectants\nDaily fecal removal ก่อน sporulate (อยู่ในสิ่งแวดล้อม < 24 hr) + steam/pressure wash + treat all in-contact',
     verified: 'GI_protozoa.pdf p.11' },
 
@@ -541,7 +541,7 @@ export const QB_COM5 = [
   { id: 526, subject: 'com5', topic: 'rabies', year: 4, source: 'Com_5_final_TJ.pdf',
     tags: ['rabies', 'quarantine'], type: 'mcq',
     q: 'สัตว์โดนสัตว์อื่นกัด ไม่เคยได้รับวัคซีน rabies มาก่อน → กักดูอาการกี่วัน',
-    options: ['45 วัน', '90 วัน', '365 วัน', '180 วัน หรือ euthanize', '10 วัน'],
+    options: ['45 วัน', '90 วัน', '365 วัน', '180 วัน', '10 วัน'],
     answer: 3, explain: 'No vaccine: euthanize หรือ restricted quarantine 180 วัน\nVaccinated: ฉีดกระตุ้น + monitor 45 วัน\n\n❌ ทำไมข้ออื่นผิด\n— 45/90/365/10 วัน = ผิด (180 d = WHO/Thai standard for unvaccinated)',
     verified: 'Rabies.pdf p.21 + COM V FINAL 86 p.24' },
 

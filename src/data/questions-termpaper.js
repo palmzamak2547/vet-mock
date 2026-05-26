@@ -192,7 +192,7 @@ export const QB_TERMPAPER = [
     sourceType: 'student-compilation',
     tags: ['buserelin', 'GnRH-agonist', 'pituitary', 'pig'], type: 'mcq',
     q: 'หากนำ Buserelin ฉีดในหมู จะเกิดกระตุ้นการผลิตฮอร์โมนที่อวัยวะใดในหมู',
-    options: ['สมอง', 'ต่อมใต้สมอง (Pituitary)', 'รังไข่', 'มดลูก', 'ถูกทุกข้อ'],
+    options: ['สมอง', 'ต่อมใต้สมอง', 'รังไข่', 'มดลูก', 'ถูกทุกข้อ'],
     answer: 1,
     explain: 'Buserelin = GnRH agonist, binding GnRH receptor ที่ "anterior pituitary" → กระตุ้น FSH/LH release, ไม่ออกฤทธิ์โดยตรงที่ ovary/uterus/brain, pituitary เป็น primary target',
     verified: 'Term Paper Group 11 (PDF p44 highlight + เฉลย)' },
