@@ -1,0 +1,81 @@
+# Smoke e2e — Palm 2026-05-24
+# ============================================================
+# Catches TDZ-class blank-page regressions BEFORE they hit prod.
+# Runs on every push to main + every PR touching src/ or scripts.
+#
+# Strategy: build the actual prod bundle (`npm run build`), serve
+# it via `npm run preview` (vite preview is what `playwright.config.js`
+# `webServer` boots), point Playwright at it. This way we test the
+# REAL minified bundle that ships, not the dev-mode unminified one
+# (TDZ bugs only surface after minification — see hotfix f01f9a4).
+#
+# 2 projects: chromium-desktop (1280×800) + chromium-mobile (iPhone 13).
+# Total runtime budget: ≤4 min. If it exceeds, simplify the spec.
+
+name: Smoke e2e
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'vite.config.js'
+      - 'playwright.config.js'
+      - 'tests/e2e/**'
+      - '.github/workflows/smoke-e2e.yml'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'tests/e2e/**'
+      - 'playwright.config.js'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        # `npm ci` strict-checks lockfile so the smoke matches what
+        # production ships. --no-audit speeds up CI ~10s.
+        run: npm ci --no-audit
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: Install Playwright browsers
+        # Just chromium — the only browser the smoke spec uses.
+        run: npx playwright install --with-deps chromium
+
+      - name: Build production bundle
+        # Build the EXACT bundle that ships so we catch minification-
+        # specific bugs (TDZ, dead-code removal regressions).
+        run: npm run build
+
+      - name: Run smoke e2e
+        # playwright.config.js webServer boots `npm run preview`
+        # automatically when PLAYWRIGHT_BASE_URL is unset.
+        run: npx playwright test
+
+      - name: Upload HTML report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

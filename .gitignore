@@ -20,3 +20,9 @@ OVERNIGHT-SUMMARY.md
 # Transient agent artifacts (video-summary patches, DICOM scratch, etc.)
 # Apply scripts read from here; the JSON patches themselves don't ship.
 tmp/
+
+# Playwright e2e smoke artifacts — produced by `npm run test:e2e`,
+# not part of the build. Last-run pointer + traces + screenshots regenerate
+# on every run; do NOT commit (would create noisy diffs every test).
+test-results/
+playwright-report/
