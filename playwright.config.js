@@ -28,8 +28,16 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 800 } },
     },
     {
+      // iPhone 13 viewport + UA, but force chromium engine. The
+      // `devices['iPhone 13']` preset is webkit by default (Playwright
+      // bundles Apple's engine for iOS emulation) — that's an extra
+      // ~90 MB on CI runners and a webkit-install step we don't need
+      // for a layout/JS-error smoke. Project name now matches reality.
+      // Trade-off: doesn't catch Safari-only quirks (Intl.Locale,
+      // backdrop-filter old syntax, etc.) — those need a separate
+      // webkit project if/when we want them.
       name: 'chromium-mobile',
-      use: { ...devices['iPhone 13'] },
+      use: { ...devices['iPhone 13'], browserName: 'chromium' },
     },
   ],
   // Spin up `npm run preview` automatically. Reuses an existing
