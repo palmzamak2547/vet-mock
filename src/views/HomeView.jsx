@@ -1061,11 +1061,17 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           Per Palm: "Subject list ต้องโผล่ในจอแรกหรือเกือบจอแรก". */}
 
       {/* PRIMARY: Subject Grid — natural mental model is "I want to study X subject".
-          Filtered to current phase (e.g. only sem 2 subjects when phase is '2-final'). */}
+          Filtered to current phase (e.g. only sem 2 subjects when phase is '2-final').
+          Section label uses the confident binary-frame copy pattern from
+          Airtable/ElevenLabs ref study (see DESIGN-NOTES.md): when a phase
+          is active, lead with the action ("ลุยได้เลย —") not the inventory. */}
       <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 8 }}>
         <span>
-          วิชาใน{yearMeta?.label || 'ปี 4'}
-          {phaseMeta && <span style={{ color: 'var(--clr-ink-soft)', fontWeight: 400 }}>, {phaseMeta.short}</span>}
+          {phaseMeta ? (
+            <>ลุยได้เลย — <span style={{ color: 'var(--clr-ink-soft)', fontWeight: 400 }}>{yearMeta?.label || 'ปี 4'}, {phaseMeta.short}</span></>
+          ) : (
+            <>วิชาใน{yearMeta?.label || 'ปี 4'}</>
+          )}
         </span>
         {phaseMeta && setSelectedPhase && (
           <button
