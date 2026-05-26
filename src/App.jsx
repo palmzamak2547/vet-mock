@@ -11,7 +11,8 @@ import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
 import { useOnlineStatus } from './hooks/useOnlineStatus.js';
-import { useDropdownAnchor } from './hooks/useDropdownAnchor.js';
+import ThemePicker from './components/ThemePicker.jsx';
+import UserMenu from './components/UserMenu.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
@@ -117,115 +118,10 @@ function withTransition(updateFn) {
   }
 }
 
-// ── Theme picker — light/dark + 6 palettes ─────────────────────
-// Click → opens a small popover with theme toggle + palette swatches.
-// Closes on outside click (handled by capturing pointerdown on document).
-const PALETTES = [
-  { id: 'default', name: 'Sage + Gold', dot: '#4a6b4a' },
-  { id: 'forest',  name: 'Forest',      dot: '#2d5a3d' },
-  { id: 'ocean',   name: 'Ocean',       dot: '#3d6b82' },
-  { id: 'plum',    name: 'Plum',        dot: '#7d4a7d' },
-  { id: 'cherry',  name: 'Cherry',      dot: '#c26d6d' },
-  { id: 'mono',    name: 'Mono',        dot: '#4a4a4a' },
-];
+// ThemePicker + UserMenu + MenuItem extracted to ./components/ on
+// 2026-05-24 to slim App.jsx (1994 → ~1800 LOC). Imports at top.
+// Mobile-clipping fix history: see STABILITY.md rule 11.
 
-function ThemePicker({ theme, setTheme, palette, setPalette }) {
-  const [open, setOpen] = useState(false);
-  // Palm mobile-clipping bug 2026-05-24: theme button can land on
-  // either side of the header depending on viewport. Hardcoded
-  // `right: 0` clipped the 220px dropdown 160px off-screen-left on
-  // mobile (button at x=16). The useDropdownAnchor hook flips
-  // anchor side based on available viewport space.
-  const wrapRef = useRef(null);
-  const DROPDOWN_MIN_W = 220;
-  const anchorSide = useDropdownAnchor(wrapRef, open, DROPDOWN_MIN_W);
-  useEffect(() => {
-    if (!open) return;
-    const onDoc = (e) => {
-      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
-    };
-    // Defer attaching the outside-click listener until after the click
-    // that opened the menu has finished bubbling (otherwise the same
-    // pointerdown closes the menu we just opened).
-    const raf = requestAnimationFrame(() => {
-      document.addEventListener('pointerdown', onDoc);
-    });
-    return () => {
-      cancelAnimationFrame(raf);
-      document.removeEventListener('pointerdown', onDoc);
-    };
-  }, [open]);
-  return (
-    <div ref={wrapRef} style={{ position: 'relative' }}>
-      <button
-        className="vmx-theme-btn"
-        onClick={() => setOpen((o) => !o)}
-        title="ธีมและสี"
-        aria-label="ตัวเลือกธีมและจานสี"
-        aria-expanded={open}
-      >
-        {theme === 'light' ? '🌙' : '☀️'}
-      </button>
-      {open && (
-        <div
-          role="menu"
-          style={{
-            position: 'absolute',
-            top: 'calc(100% + 6px)',
-            // Anchor flips based on available room (see effect above).
-            ...(anchorSide === 'left' ? { left: 0 } : { right: 0 }),
-            zIndex: 950,
-            background: 'var(--clr-surface)',
-            border: '1px solid var(--clr-border)',
-            borderRadius: 10,
-            padding: 10,
-            boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
-            minWidth: DROPDOWN_MIN_W,
-            // Final safety net: never wider than the viewport minus 24px
-            // gutters. If a future redesign bumps minWidth past
-            // viewport-24, the dropdown shrinks instead of clipping.
-            maxWidth: 'calc(100vw - 24px)',
-          }}
-        >
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 6 }}>
-            โหมด
-          </div>
-          <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
-            <button
-              type="button"
-              onClick={() => setTheme('light')}
-              className={`vmx-chip ${theme === 'light' ? 'active' : ''}`}
-              style={{ flex: 1 }}
-            >☀️ Light</button>
-            <button
-              type="button"
-              onClick={() => setTheme('dark')}
-              className={`vmx-chip ${theme === 'dark' ? 'active' : ''}`}
-              style={{ flex: 1 }}
-            >🌙 Dark</button>
-          </div>
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 6 }}>
-            จานสี
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
-            {PALETTES.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => setPalette(p.id)}
-                className={`vmx-chip ${palette === p.id ? 'active' : ''}`}
-                style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, padding: '5px 10px' }}
-              >
-                <span style={{ width: 12, height: 12, borderRadius: '50%', background: p.dot, border: '1px solid var(--clr-border)' }} />
-                {p.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 // Lazy — pulled in only when the user navigates to that view.
 // Big wins on cold load (esp. iPad / mobile Safari) since NotesView,
@@ -1890,105 +1786,3 @@ export default function App() {
   );
 }
 
-// ============================================================
-// UserMenu — profile pill with click-outside dropdown
-// ============================================================
-function UserMenu({ profile, onLogout, onGroups, onLeaderboard }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef(null);
-  // Same viewport-aware anchor logic as ThemePicker — see useDropdownAnchor
-  // docstring + STABILITY.md rule for the dropdown-clipping bug class.
-  const USER_MENU_W = 200;
-  const anchorSide = useDropdownAnchor(ref, open, USER_MENU_W);
-
-  useEffect(() => {
-    if (!open) return;
-    const handle = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
-    const handleEsc = (e) => { if (e.key === 'Escape') setOpen(false); };
-    document.addEventListener('mousedown', handle);
-    document.addEventListener('keydown', handleEsc);
-    return () => {
-      document.removeEventListener('mousedown', handle);
-      document.removeEventListener('keydown', handleEsc);
-    };
-  }, [open]);
-
-  return (
-    <div ref={ref} style={{ position: 'relative' }}>
-      <button
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-        aria-haspopup="menu"
-        style={{
-          all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
-          padding: '6px 12px 6px 6px', borderRadius: 999,
-          background: open ? 'var(--clr-surface-2)' : 'var(--clr-surface)',
-          border: '1px solid var(--clr-border)',
-          fontSize: 13, fontWeight: 600,
-          color: 'var(--clr-ink)',
-          transition: 'background 0.12s',
-        }}
-      >
-        <span style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--clr-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
-          {profile.avatar_emoji || '🐾'}
-        </span>
-        <span style={{ maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          {profile.username}
-        </span>
-        <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)' }}>{open ? '▴' : '▾'}</span>
-      </button>
-
-      {open && (
-        <div role="menu" style={{
-          position: 'absolute', top: 'calc(100% + 6px)',
-          ...(anchorSide === 'left' ? { left: 0 } : { right: 0 }),
-          background: 'var(--clr-surface)', border: '1px solid var(--clr-border)',
-          borderRadius: 12, boxShadow: 'var(--shadow-md)',
-          minWidth: USER_MENU_W, maxWidth: 'calc(100vw - 24px)',
-          padding: 6, zIndex: 20,
-        }}>
-          <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4 }}>
-            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-              Signed in as
-            </div>
-            <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
-              {profile.avatar_emoji || '🐾'} {profile.username}
-            </div>
-          </div>
-          {onGroups && (
-            <MenuItem icon="👥" onClick={() => { setOpen(false); onGroups(); }}>Study Groups</MenuItem>
-          )}
-          {onLeaderboard && (
-            <MenuItem icon="🏆" onClick={() => { setOpen(false); onLeaderboard(); }}>Leaderboard</MenuItem>
-          )}
-          <div style={{ height: 1, background: 'var(--clr-border)', margin: '4px 0' }} />
-          <MenuItem icon="⎋" danger onClick={() => {
-            setOpen(false);
-            if (confirm('ออกจากระบบ?')) onLogout();
-          }}>ออกจากระบบ (Logout)</MenuItem>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function MenuItem({ icon, children, onClick, danger }) {
-  return (
-    <button
-      role="menuitem"
-      onClick={onClick}
-      style={{
-        all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
-        width: '100%', boxSizing: 'border-box', padding: '8px 12px',
-        borderRadius: 8, fontSize: 13,
-        color: danger ? 'var(--clr-rose)' : 'var(--clr-ink)',
-        transition: 'background 0.1s',
-      }}
-      onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--clr-surface-2)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
-    >
-      <span style={{ fontSize: 14 }}>{icon}</span>
-      <span>{children}</span>
-    </button>
-  );
-}
