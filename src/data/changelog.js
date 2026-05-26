@@ -44,6 +44,34 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.23.0',
+    date: '2026-05-27',
+    headline: '🛠️ รอบโพลิช 3 สัปดาห์ — Leaderboard กลับมาโหลดได้, Theme picker บนมือถือไม่หลุดขอบ, ปุ่มเล็กกดง่ายขึ้น',
+    changes: [
+      { scope: 'multi', kind: 'fix', icon: '🏆', title: 'Leaderboard โหลดได้แล้ว + ลบรายการซ้ำต่อผู้ใช้',
+        desc: 'ก่อนนี้กดดู Leaderboard แล้วขึ้น error "Could not find a relationship between exam_results and profiles" — แก้แล้ว (เพิ่ม FK ตรงไปที่ profiles แทน auth.users + เติม profiles ที่ขาดอีก 11 รายให้ครบ) นอกจากนี้ถ้าคนเดิมสอบหลายรอบ จะแสดงแค่คะแนนสูงสุดของคนนั้น ไม่โผล่ติดอันดับซ้ำกันเอง'
+      },
+      { scope: 'system', kind: 'fix', icon: '📱', title: 'Theme picker / UserMenu / XP chip บนมือถือไม่หลุดขอบจอแล้ว',
+        desc: 'ปัญหา Palm รายงาน — กดปุ่มธีมบนจอ 390px แล้วเมนูตัวเลือก theme/สีกลายเป็นโดนบังเพราะลอยออกนอกขอบจอด้านซ้าย ตอนนี้ทุก popover เช็คพื้นที่หน้าจอแล้วเลือก anchor ซ้าย/ขวา ตามที่เหมาะ + กันไม่ให้กว้างเกินจอด้วย maxWidth'
+      },
+      { scope: 'system', kind: 'fix', icon: '👆', title: 'ปุ่มเล็ก ๆ ใน footer + chips กดง่ายขึ้น (44px touch target)',
+        desc: 'ตามมาตรฐาน WCAG — ปุ่ม link เล็ก ๆ ที่ก่อนนี้สูง 25-36px (เปลี่ยน phase / ขอเนื้อหา / รีวิวคำถาม / ปุ่มปิด chip / install PWA) ตอนนี้สูง 44px ครบทุกตัวบนทุก viewport แตะแม่นขึ้นมาก'
+      },
+      { scope: 'system', kind: 'fix', icon: '🐛', title: 'แก้บั๊กคลิกแล้วเด้งไปหน้าเลือกช่วงสอบ',
+        desc: 'เคยมีรอบที่กดอะไรก็ตาม (ปุ่ม / ลิงก์ / แม้แต่ที่ว่าง ๆ) จะเด้งไปหน้าเลือก phase เพราะ overlay invisible ครอบทั้งจอ — ถอน overlay นี้ออกแล้ว ใช้ class .vmx-link-btn สูง 44px ตรง ๆ แทน'
+      },
+      { scope: 'multi', kind: 'content', icon: '📝', title: 'ขัดข้อสอบ ~90 ข้อทั่วคลัง — ตัวเลือกถูกยาวเด่นจน "เดา pattern ได้" ตัดให้สั้นลง',
+        desc: 'รอบ length-bias 4 batch ติดต่อกัน — ตัด correct option ที่ก่อนหน้านี้ยาว 80-150 ตัวอักษรลงเหลือ 15-30 ตัวอักษร เก็บคำอธิบายเต็ม ๆ ไว้ใน explain แทน ไม่กระทบ distractor ไม่กระทบ answer index — กระจาย ~30 ข้อ Q6XXX VCA, ~35 ข้อ Q21XX cliapprum, ~25 ข้อ COM4/COM5/y5-osce-med'
+      },
+      { scope: 'system', kind: 'fix', icon: '⏱️', title: 'ส่งข้อสอบไม่ซ้ำเพราะกดสองที',
+        desc: 'ก่อนนี้ถ้ากด submit เร็วเกินไป (double-tap / network ช้า) เคยเห็นคะแนนเดียวกันโผล่ 2 รอบใน Leaderboard — ตอนนี้มี debounce 5 วินาทีฝั่ง client ป้องกันไว้แล้ว'
+      },
+      { scope: 'system', kind: 'feature', icon: '🎨', title: 'หัวข้อใหญ่ + label หน้าแรกอ่านสบายตาขึ้น',
+        desc: 'ปรับน้ำหนัก hero h1 จาก 600 → 500 + letter-spacing -0.035em ให้รู้สึกเป็น editorial-clinical มากกว่า startup ปี 2010 + เปลี่ยน "วิชาในปี 4" → "ลุยได้เลย — ปี 4, เทอม X" เวลามี phase ถูกเลือก'
+      },
+    ],
+  },
+  {
     version: '5.22.7',
     date: '2026-05-08',
     headline: '📝 แก้บั๊ก player modal — ปุ่มอ่านสรุปคลิปอยู่ใต้ iframe เลื่อนไปกดไม่ได้',
