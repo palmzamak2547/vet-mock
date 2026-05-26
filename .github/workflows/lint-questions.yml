@@ -24,6 +24,11 @@
 # ============================================================
 name: Lint questions
 
+# Opt JavaScript actions into Node 24 ahead of the 2026-06-02 default.
+# Mirrors build.yml + smoke-e2e.yml.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 on:
   push:
     branches: [main]
@@ -43,7 +48,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Run question linter
         id: lint
@@ -78,7 +83,10 @@ jobs:
           #   • All remaining are 3.5-3.9× ratio. Combined with the
           #     render-time option shuffle, the practical exam-cheat
           #     advantage from these is small.
-          MAX_ERRORS: 12
+          # Ratcheted 2026-05-26: 12 → 10 (matches current count
+          # exactly — any new length-bias error now blocks merge
+          # instead of silently lifting the floor).
+          MAX_ERRORS: 10
         run: |
           ERRORS=${{ steps.lint.outputs.errors }}
           echo "Errors: $ERRORS / baseline $MAX_ERRORS"

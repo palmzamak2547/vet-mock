@@ -27,6 +27,14 @@ concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 
+# Opt JavaScript actions into Node 24 ahead of the 2026-06-02 default.
+# Without this, actions/checkout@v4 + setup-node@v4 + cache@v4 internally
+# run on the deprecated Node 20 → warning annotation on every run. Once
+# Node 24 becomes the default these env vars will be no-ops we can drop.
+# https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,7 +44,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
