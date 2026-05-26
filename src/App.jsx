@@ -14,6 +14,7 @@ import { useOnlineStatus } from './hooks/useOnlineStatus.js';
 import ThemePicker from './components/ThemePicker.jsx';
 import UserMenu from './components/UserMenu.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
+import { useExamSession } from './hooks/useExamSession.js';
 import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
 import { isFlashcardCompatible } from './hooks/sr-filter.js';
@@ -491,35 +492,45 @@ export default function App() {
     }
   }, [view]);
 
-  // In-flight exam state. Persisted to localStorage so an accidental
-  // tab close, browser crash, or PWA force-quit during a long writing
-  // session doesn't lose answers — restored when the user opens the
-  // app again. Cleared on submit / goHome.
-  const [questions, setQuestions] = useState(() => {
-    // Phase 3: QB is lazy — share-link resolution moves to a useEffect
-    // below that awaits loadQB(). Initial state falls through to the
-    // in-flight resume path if present. The share-link case shows a
-    // brief "กำลังเตรียมโจทย์..." in ExamView until the effect populates.
-    try {
-      const raw = window.localStorage?.getItem('vmx-inflight-exam');
-      if (raw) return JSON.parse(raw).questions || [];
-    } catch {}
-    return [];
+  // Exam config (read by startExam to assemble the pool + timer budget).
+  // Moved ABOVE useExamSession hook 2026-05-27 because the hook reads
+  // useTimer + timePerQ at construction time.
+  const [numQuestions, setNumQuestions] = useState(10);
+  const [useTimer, setUseTimer] = useState(true);
+  const [timePerQ, setTimePerQ] = useState(60);
+  // 'all' (default) | 'mcq' (auto-graded only) | 'writing' (essay+short only)
+  const [questionCategory, setQuestionCategory] = useState('all');
+
+  // In-flight exam runtime — extracted to src/hooks/useExamSession.js
+  // 2026-05-27. The hook owns: questions · currentIdx · answers ·
+  // timeLeft · examStartTime + the 5 navigation callbacks
+  // (answerCurrent · nextQ · prevQ · jumpToQ · replayQuestions) + the
+  // 2 timer effects (shadow-start + tick). localStorage hydration of
+  // in-flight exam ('vmx-inflight-exam') also lives in the hook.
+  //
+  // startExam / finishExam stay in App.jsx because they touch many
+  // OTHER concerns (streak, XP, quests, Supabase save, year resolution).
+  // They call session.startNewSession() / session.resetSession() etc.
+  // instead of mutating raw setters.
+  //
+  // Circular dep: session's timer-tick must call finishExam on time-up.
+  // Solved by stashing finishExam in a ref (declared below the hook
+  // call, populated after finishExam is declared further down). The
+  // hook only sees `() => finishExamRef.current?.()` as `onFinish`.
+  const finishExamRef = useRef(null);
+  const session = useExamSession({
+    view, useTimer, timePerQ,
+    onFinish: useCallback(() => finishExamRef.current?.(), []),
   });
-  const [answers, setAnswers] = useState(() => {
-    try {
-      const raw = window.localStorage?.getItem('vmx-inflight-exam');
-      if (raw) return JSON.parse(raw).answers || {};
-    } catch {}
-    return {};
-  });
-  const [currentIdx, setCurrentIdx] = useState(() => {
-    try {
-      const raw = window.localStorage?.getItem('vmx-inflight-exam');
-      if (raw) return JSON.parse(raw).currentIdx || 0;
-    } catch {}
-    return 0;
-  });
+  const {
+    questions, setQuestions,
+    answers, setAnswers,
+    currentIdx, setCurrentIdx,
+    timeLeft, setTimeLeft,
+    examStartTime, setExamStartTime,
+    currentQ, currentAnswer,
+    answerCurrent, nextQ, prevQ, jumpToQ,
+  } = session;
 
   // — Study buddies — Supabase Realtime presence for "who's online +
   // what subject + which Q they're on". Placed here (not at top of
@@ -534,14 +545,6 @@ export default function App() {
     view,
     qKey: _qOnExam ? `${_qOnExam.subject}:${_qOnExam.id}` : null,
   });
-
-  const [numQuestions, setNumQuestions] = useState(10);
-  const [useTimer, setUseTimer] = useState(true);
-  const [timePerQ, setTimePerQ] = useState(60);
-  // 'all' (default) | 'mcq' (auto-graded only) | 'writing' (essay+short only)
-  const [questionCategory, setQuestionCategory] = useState('all');
-  const [timeLeft, setTimeLeft] = useState(0);
-  const [examStartTime, setExamStartTime] = useState(null);
   // Resume banner state — populated on boot if a stale in-flight exam
   // was detected. Lives in App so HomeView (and any future entry points)
   // can read + handle resume/dismiss without re-querying localStorage.
@@ -696,60 +699,25 @@ export default function App() {
     if (!raw) { setPendingResume(null); return; }
     let saved;
     try { saved = JSON.parse(raw); } catch { setPendingResume(null); return; }
-    if (!saved?.questions?.length) { setPendingResume(null); return; }
-    setQuestions(saved.questions);
-    setAnswers(saved.answers || {});
-    setCurrentIdx(saved.currentIdx || 0);
+    if (!session.primeFromSaved(saved)) { setPendingResume(null); return; }
     setPendingResume(null);
     setView('exam');
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- session is stable across renders
   }, []);
 
   const dismissPendingExam = useCallback(() => {
     try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
-    setQuestions([]);
-    setAnswers({});
-    setCurrentIdx(0);
+    session.resetSession();
     setPendingResume(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- session is stable across renders
   }, []);
 
-  // Shadow-start the exam when entering via a share-link (?qset=).
-  // The normal startExam() flow seeds timeLeft + examStartTime, but a
-  // share-link bootstraps directly into view='exam' with the default
-  // timeLeft=0, which would trip the timer's "time-up" branch and
-  // auto-finish on a 1-Q quiz. This effect fills the gap exactly once
-  // per fresh-entry per question set.
-  useEffect(() => {
-    if (view !== 'exam') return;
-    if (questions.length === 0) return;
-    if (examStartTime !== null) return;
-    setExamStartTime(Date.now());
-    setTimeLeft(timeForQuestion(questions[currentIdx], timePerQ));
-  }, [view, questions, currentIdx, timePerQ, examStartTime]);
-
-  useEffect(() => {
-    if (view !== 'exam' || !useTimer) return;
-    // Guard against 0-length question set — happens when a shared
-    // ?qset= URL references Q ids that no longer exist in QB. Without
-    // this, the time-up branch immediately fires finishExam and the
-    // user lands on a 0/0 results screen with no warning. Bail early
-    // so the empty-state UI in ExamView's parent can show instead.
-    if (questions.length === 0) return;
-    // Don't auto-tick until the shadow-start effect above has primed
-    // the clock. Otherwise the very first render sees timeLeft=0 and
-    // immediately fires finishExam on single-Q exams.
-    if (examStartTime === null) return;
-    if (timeLeft <= 0) {
-      if (currentIdx < questions.length - 1) {
-        const next = questions[currentIdx + 1];
-        setCurrentIdx((i) => i + 1);
-        setTimeLeft(timeForQuestion(next, timePerQ));
-      } else finishExam();
-      return;
-    }
-    const t = setTimeout(() => setTimeLeft((x) => x - 1), 1000);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- finishExam intentionally not depended on
-  }, [timeLeft, view, useTimer, currentIdx, questions, timePerQ]);
+  // Shadow-start + timer-tick effects moved into useExamSession 2026-05-27.
+  // Previously these lived inline here (~30 LOC of clock priming + tick
+  // countdown + finishExam-on-time-up). They now live in the hook; the
+  // hook calls our finishExam via the `onFinish` callback (which reads
+  // finishExamRef.current to break the circular dep — see finishExamRef
+  // declaration above the session hook).
 
   // Global ⌘K / Ctrl+K — open Command Palette anywhere in the app.
   // Mounted as its own effect so it stays active across all views
@@ -1083,8 +1051,10 @@ export default function App() {
     // short answers 3 min minimum, MCQ/TF stay at the user's base setting
     const firstTime = picked[0] ? timeForQuestion(picked[0], baseTime) : baseTime;
 
-    setQuestions(picked); setAnswers({}); setCurrentIdx(0); setTimeLeft(firstTime);
-    setExamStartTime(Date.now());
+    // useExamSession owns the runtime state shape; this single call
+    // primes questions/answers/currentIdx/timeLeft/examStartTime in
+    // one synchronous batch (was 5 inline setters pre-refactor).
+    session.startNewSession(picked, firstTime);
     setView('exam');
 
     const newStreak = updateStreak(streakData.lastDate, streakData.streak, streakData.freezeUsedAt);
@@ -1214,6 +1184,13 @@ export default function App() {
     setView('results');
   };
 
+  // Wire the finishExam ref so useExamSession's timer-tick effect can
+  // call our finishExam on time-up. Must run AFTER finishExam is
+  // declared. Reassigned on every render — that's fine, the ref is
+  // stable; only its `.current` changes. The hook reads via callback
+  // closure at fire time, so it always sees the latest finishExam.
+  finishExamRef.current = finishExam;
+
   const toggleBookmark = (qId) => setBookmarks((bk) => bk.includes(qId) ? bk.filter((x) => x !== qId) : [...bk, qId]);
   const setNote = (qId, text) => {
     if (text.trim()) setNotes({ ...notes, [qId]: text });
@@ -1244,53 +1221,16 @@ export default function App() {
     };
   }, [questions, answers]);
 
-  const answerCurrent = useCallback((val) => setAnswers((p) => ({ ...p, [questions[currentIdx].id]: val })), [questions, currentIdx]);
-  const nextQ = useCallback(() => {
-    const cur = questions[currentIdx];
-    // Confirm before skipping a blank short/essay — these take real
-    // effort so accidental "Next →" clicks shouldn't lose them
-    if (cur && isWritingType(cur)) {
-      const ua = answers[cur.id];
-      const isBlank = !ua || (typeof ua === 'string' && !ua.trim());
-      const isLast = currentIdx === questions.length - 1;
-      if (isBlank) {
-        const msg = isLast
-          ? 'ยังไม่ได้เขียนข้อนี้ — ส่งข้อสอบเลยจริงๆ?'
-          : 'ยังไม่ได้เขียนคำตอบ — ข้ามไปข้อถัดไปเลย?';
-        if (typeof window !== 'undefined' && !window.confirm(msg)) return;
-      }
-    }
-    if (currentIdx < questions.length - 1) {
-      const next = questions[currentIdx + 1];
-      setCurrentIdx(currentIdx + 1);
-      setTimeLeft(timeForQuestion(next, timePerQ));
-    } else finishExam();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- answers/finishExam read via closure
-  }, [currentIdx, questions, timePerQ, answers]);
-  const prevQ = useCallback(() => {
-    // Use timeForQuestion so jumping back to an essay restores its
-    // 25-min budget instead of shrinking it to the MCQ default
-    if (currentIdx > 0) {
-      const prev = questions[currentIdx - 1];
-      setCurrentIdx(currentIdx - 1);
-      setTimeLeft(timeForQuestion(prev, timePerQ));
-    }
-  }, [currentIdx, questions, timePerQ]);
-  const jumpToQ = useCallback((idx) => {
-    if (idx >= 0 && idx < questions.length) {
-      setCurrentIdx(idx);
-      setTimeLeft(timeForQuestion(questions[idx], timePerQ));
-    }
-  }, [questions, timePerQ]);
+  // answerCurrent · nextQ · prevQ · jumpToQ moved into useExamSession
+  // 2026-05-27. Available via the destructure at the top of this
+  // component. Identical behavior; same closure rules; the only
+  // change is that they read state from the hook's own setters.
 
   const goHome = () => {
-    setView('home'); setQuestions([]); setAnswers({}); setCurrentIdx(0);
+    setView('home');
+    // Reset exam runtime (clears questions/answers/currentIdx + timer)
+    session.resetSession();
     setPracticeMode('all'); setMode('quick'); setActiveGroup(null); setTopic(null);
-    // Reset exam clock so the next session's shadow-start (or
-    // startExam) can prime timeLeft fresh without the previous
-    // examStartTime value blocking re-init.
-    setExamStartTime(null);
-    setTimeLeft(0);
     // Clear in-flight exam state — user explicitly chose to leave
     try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
     // Strip share-link query so a refresh from home doesn't bounce
@@ -1312,26 +1252,22 @@ export default function App() {
   const handleSignOut = async () => { if (confirm('Logout?')) { await signOut(); goHome(); } };
 
   // Replay an arbitrary slice of questions as a fresh exam round.
-  // Used by ResultsView "redo wrong" — passes the wrong-only subset
-  // back into setQuestions without going through startExam's pool
-  // assembly. Mirrors the post-startExam state shape (answers={},
-  // idx=0, view='exam', timer cleared) so ExamView mounts clean.
+  // Used by ResultsView "redo wrong" — passes the wrong-only subset.
+  // The CORE state shape (questions/answers/currentIdx/timer cleared)
+  // is handled by session.replayQuestions; the App-only side effects
+  // (setUseTimer false → redo rounds run untimed, setView('exam') →
+  // route transition) wrap around it.
   const replayQuestions = useCallback((qs) => {
     if (!Array.isArray(qs) || qs.length === 0) return;
-    // Same hygiene as goHome — drop in-flight markers + qset URL
-    // before starting a new round so reload behaves predictably.
-    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
-    setQuestions(qs);
-    setAnswers({});
-    setCurrentIdx(0);
     setUseTimer(false); // redo rounds never on a clock — focused review
-    setExamStartTime(Date.now());
-    setTimeLeft(0);
+    session.replayQuestions(qs);
     setView('exam');
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- session/setView stable
   }, []);
 
-  const currentQ = questions[currentIdx];
-  const currentAnswer = currentQ ? answers[currentQ.id] : null;
+  // currentQ / currentAnswer destructured from useExamSession at top of
+  // component (2026-05-27 refactor). Only isBookmarked stays local
+  // because bookmarks is App-owned (cross-session user data).
   const isBookmarked = currentQ ? bookmarks.includes(currentQ.id) : false;
 
   return (
