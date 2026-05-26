@@ -35,7 +35,7 @@ export default async function handler(req, res) {
 
   // ── Rate limit: 30 / minute / IP ──
   const ip = clientIP(req);
-  const rl = rateLimit(`playlist:${ip}`, 30, 60_000);
+  const rl = await rateLimit(`playlist:${ip}`, 30, 60_000);
   if (!rl.ok) {
     res.setHeader('Retry-After', String(rl.retryAfter));
     return res.status(429).json({ error: 'Too many requests', retryAfter: rl.retryAfter });

@@ -46,7 +46,7 @@ export default async function handler(req, res) {
 
   // ── Rate limit: 3 / 10 minutes / IP ──
   const ip = clientIP(req);
-  const rl = rateLimit(`feedback:${ip}`, 3, 10 * 60 * 1000);
+  const rl = await rateLimit(`feedback:${ip}`, 3, 10 * 60 * 1000);
   if (!rl.ok) {
     res.setHeader('Retry-After', String(rl.retryAfter));
     return res.status(429).json({ error: 'Too many requests', retryAfter: rl.retryAfter });

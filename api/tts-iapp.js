@@ -104,7 +104,7 @@ export default async function handler(req, res) {
   // protects the free 50 IC trial from being burned in one bad loop.
   // 30/5min/IP = ≤1 call every 10 s on average per user — plenty for
   // ExamView Q-by-Q reading.
-  const limit = rateLimit(`tts-iapp:${clientIP(req)}`, 30, 5 * 60_000);
+  const limit = await rateLimit(`tts-iapp:${clientIP(req)}`, 30, 5 * 60_000);
   if (!limit.ok) {
     res.setHeader('Retry-After', String(limit.retryAfter));
     return res.status(429).json({ error: 'rate limited', retryAfter: limit.retryAfter });
