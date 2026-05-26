@@ -118,11 +118,64 @@ export async function deleteSharedQuestion(id) {
 // columns get populated; reads optionally filter by year (per Palm
 // Q2=C, user-toggle).
 
+// ── Double-submit guard ─────────────────────────────────────
+// Palm bug 2026-05-24: leaderboard surfaced a near-duplicate row
+// (user_id 03df... / com5 / pct 50 / two rows 12.77 SECONDS apart).
+// Root cause class: React StrictMode double-invoke OR client-side
+// retry storm OR user double-tap "Submit" before the first save
+// resolves. The DB had no unique constraint (rule 12 of STABILITY.md
+// covers why a strict UNIQUE breaks legitimate edge cases — replay,
+// retry-after-network-blip, etc.).
+//
+// This guard collapses identical writes within a short window
+// (5 seconds default) into ONE insert. The signature key is the
+// deterministic part of the result: user_id + mode + subject + total
+// + correct + pct. If a second save arrives within the window with
+// the same signature, we return the in-flight promise instead of
+// hitting the DB again.
+//
+// Defense-in-depth: even with this guard, the DB has 2 FKs on
+// exam_results.user_id (auth.users + profiles) plus RLS, so a true
+// adversarial flood still bounces at the auth layer.
+const _saveDedupeMap = new Map(); // key → { promise, ts }
+const SAVE_DEDUPE_WINDOW_MS = 5000;
+function _saveSignature(r) {
+  if (!r || typeof r !== 'object') return null;
+  return [
+    r.user_id || '',
+    r.mode || '',
+    r.subject || '',
+    r.total ?? '',
+    r.correct ?? '',
+    r.pct ?? '',
+  ].join('|');
+}
+function _purgeStaleSaves(now) {
+  for (const [key, val] of _saveDedupeMap) {
+    if (now - val.ts > SAVE_DEDUPE_WINDOW_MS) _saveDedupeMap.delete(key);
+  }
+}
+
 export async function saveExamResult(result) {
   const supabase = await getSupabase();
   if (!supabase) return;
-  const { error } = await supabase.from('exam_results').insert(result);
-  if (error) console.error('Save result error:', error);
+  const sig = _saveSignature(result);
+  const now = Date.now();
+  if (sig) {
+    _purgeStaleSaves(now);
+    const inflight = _saveDedupeMap.get(sig);
+    if (inflight && now - inflight.ts < SAVE_DEDUPE_WINDOW_MS) {
+      // Same result already saving / just saved — return the
+      // existing promise so callers get the same resolution.
+      return inflight.promise;
+    }
+  }
+  const promise = (async () => {
+    const { error } = await supabase.from('exam_results').insert(result);
+    if (error) console.error('Save result error:', error);
+  })();
+  if (sig) _saveDedupeMap.set(sig, { promise, ts: now });
+  return promise;
 }
 
 /** Leaderboard query.

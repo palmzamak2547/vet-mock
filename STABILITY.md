@@ -266,6 +266,59 @@ for viewport" edge case.
 
 ---
 
+## 12. Supabase embedded selects — FK must point at the EXACT joined table
+
+**Rule:** When a Supabase query uses an embedded select like
+`.select('... profiles(username, avatar_emoji)')`, the underlying
+table MUST have a foreign-key constraint pointing directly at
+`public.profiles(id)` — NOT at `auth.users(id)` (which uses the same
+UUID 1:1). PostgREST resolves embeds via FK metadata in the schema
+cache and does NOT bridge implicit relationships across schemas,
+even when IDs match.
+
+**Bug it caused (2026-05-24):** LeaderboardView called
+`getLeaderboard()` which runs:
+```js
+.from('exam_results')
+.select('id, user_id, ... profiles(username, avatar_emoji)')
+```
+The `exam_results` table had FK `user_id → auth.users(id)` but no
+FK to `public.profiles(id)`. PostgREST returned: **"Could not find
+a relationship between 'exam_results' and 'profiles' in the schema
+cache"** — even though `profiles.id = auth.users.id` for every row.
+
+**Stable replacement:** add a SECOND FK with a distinct name. Both
+constraints coexist on the same column (PostgreSQL allows it when
+the referenced columns share values):
+```sql
+ALTER TABLE public.exam_results
+  ADD CONSTRAINT exam_results_user_id_profiles_fkey
+  FOREIGN KEY (user_id)
+  REFERENCES public.profiles(id)
+  ON DELETE SET NULL;
+
+NOTIFY pgrst, 'reload schema';
+```
+
+**Before adding the FK, ALWAYS audit for orphans:** rows whose
+`user_id` doesn't match any row in the referenced table. In this
+project we had 91 orphan rows from 11 distinct users — backfilled
+their profiles from `auth.users` first, then added the FK.
+
+**Generalization:** any table designed to embed another via PostgREST
+needs:
+1. A FK pointing at the exact table being embedded (not a "parent"
+   table that happens to share IDs).
+2. Zero orphan rows at the time of the ALTER (otherwise migration
+   fails or silently breaks RLS).
+3. `NOTIFY pgrst, 'reload schema'` at the end so the cache picks
+   up the new relationship instantly.
+
+See migration `supabase/migrations/20260524000000_leaderboard_fk_to_profiles.sql`
+for the full backfill + FK pattern.
+
+---
+
 ## Process checklist before any commit touching UI / data layer
 
 - [ ] Did this change `src/styles.js`? → Run `npm run build` locally.
@@ -283,6 +336,10 @@ for viewport" edge case.
       → Run `npm run lint:all` and confirm error count didn't regress.
 - [ ] Did this add a position: absolute dropdown anchored to a button?
       → Use `useDropdownAnchor` hook (rule 11) — never hardcode left/right.
+- [ ] Did this add a Supabase `.select(... related(...))` embed?
+      → Confirm a FK exists from the source table to the EXACT
+        referenced table (rule 12). `auth.users` is NOT the same as
+        `public.profiles` to PostgREST even when their IDs match 1:1.
 
 ---
 
