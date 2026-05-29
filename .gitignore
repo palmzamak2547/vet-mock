@@ -12,6 +12,10 @@ data-cache/
 
 # One-shot debug scripts (not part of build).
 scripts/debug-*.mjs
+# One-shot copyright-deposit screenshot capture (not part of build).
+# Kept locally for re-rendering the IP deposit PDF; committing it would
+# trigger an unnecessary Vercel deploy for a non-shipping file.
+scripts/copyright-screenshots.mjs
 OVERNIGHT-SUMMARY.md
 
 # Local MCP config · contains secret PATs · per-machine
