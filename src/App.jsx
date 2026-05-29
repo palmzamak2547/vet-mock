@@ -13,6 +13,8 @@ import { useOnlineCount } from './hooks/useOnlineCount.js';
 import { useOnlineStatus } from './hooks/useOnlineStatus.js';
 import ThemePicker from './components/ThemePicker.jsx';
 import UserMenu from './components/UserMenu.jsx';
+import HeaderBar from './components/HeaderBar.jsx';
+import Footer from './components/Footer.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
 import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
@@ -78,13 +80,10 @@ const ReviewQueueView = lazy(() => import('./views/ReviewQueueView.jsx'));
 // users only need it when reading a video summary.
 const HighlightToCard = lazy(() => import('./components/HighlightToCard.jsx'));
 
-// XpChip + QuestsPanel — Duolingo-style daily quests + XP/level
-// system. XpChip lives in the header next to 🔥 streak. QuestsPanel
-// renders on HomeView under the streak chip row. Both are lazy
-// because they're tiny but only useful after first interaction —
-// keeps the cold-paint bundle slim.
-const XpChip = lazy(() => import('./components/XpChip.jsx'));
-const QuestsPanel = lazy(() => import('./components/QuestsPanel.jsx'));
+// XpChip + QuestsPanel are NOT imported here anymore (2026-05-27):
+//   • XpChip moved into components/HeaderBar.jsx (its only consumer).
+//   • QuestsPanel is owned by HomeView (renders under the streak row).
+// Removing the dead App-level imports keeps the module graph honest.
 
 // ShortcutSheet — Linear-style "press ? for keyboard help" modal.
 // Tiny, but only opened on `?` press from exam/review, so lazy keeps
@@ -1375,147 +1374,29 @@ export default function App() {
               mid-session and so the result/review pages don't have nav
               chrome competing with the data presentation.
               Also hidden on year-select to avoid a confusing logo→home
-              click when the user hasn't picked a year yet. */}
+              click when the user hasn't picked a year yet.
+              Body extracted to components/HeaderBar.jsx 2026-05-27. */}
           {!['exam', 'results', 'review', 'auth', 'year-select'].includes(view) && (
-            <div className="vmx-header">
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                <div className="vmx-logo" onClick={goHome}>Vet<span>Mock</span></div>
-                {/* Year pill — visible on every page after pick, persistent
-                    year context. Click → year-select. Hidden during the
-                    first-time picker flow (selectedYearStored === null). */}
-                {selectedYearStored !== null && view !== 'year-select' && (
-                  <button
-                    type="button"
-                    className="vmx-link-btn"
-                    onClick={() => setView('year-select')}
-                    title="สลับชั้นปี"
-                    aria-label={`สลับชั้นปี — ปัจจุบันปี ${selectedYear}`}
-                    style={{
-                      padding: '4px 12px',
-                      borderRadius: 999,
-                      background: 'var(--clr-surface)',
-                      border: '1px solid var(--clr-border)',
-                      cursor: 'pointer',
-                      fontSize: 12,
-                      fontFamily: 'JetBrains Mono, monospace',
-                      color: 'var(--clr-ink)',
-                      letterSpacing: '0.04em',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
-                    }}
-                  >
-                    🎓 ปี {selectedYear}
-                    <span style={{ opacity: 0.5, fontSize: 10 }}>▾</span>
-                  </button>
-                )}
-                {/* Phase pill — separate from year so user can switch phase
-                    without losing year context. Hidden if no phase set
-                    (e.g. Y6 block-based) or on the picker views themselves. */}
-                {selectedPhase && view !== 'phase-select' && view !== 'year-select' && (
-                  <button
-                    type="button"
-                    className="vmx-link-btn"
-                    onClick={() => setView('phase-select')}
-                    title="สลับ phase สอบ"
-                    aria-label="สลับช่วงสอบ (Phase)"
-                    style={{
-                      padding: '4px 12px',
-                      borderRadius: 999,
-                      background: 'var(--clr-surface)',
-                      border: '1px solid var(--clr-border)',
-                      cursor: 'pointer',
-                      fontSize: 12,
-                      fontFamily: 'JetBrains Mono, monospace',
-                      color: 'var(--clr-ink)',
-                      letterSpacing: '0.04em',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
-                    }}
-                  >
-                    {(() => {
-                      const map = { '1-mid':'📚 ทม.1 กลาง', '1-final':'🎯 ทม.1 ปลาย', '2-mid':'📖 ทม.2 กลาง', '2-final':'🏁 ทม.2 ปลาย' };
-                      return map[selectedPhase] || selectedPhase;
-                    })()}
-                    <span style={{ opacity: 0.5, fontSize: 10 }}>▾</span>
-                  </button>
-                )}
-              </div>
-              <div className="vmx-header-right">
-                <button
-                  className="vmx-cmdk-btn"
-                  onClick={() => setPaletteOpen(true)}
-                  title="Quick search (⌘K / Ctrl+K)"
-                  aria-label="เปิด command palette"
-                >
-                  <span style={{ fontSize: 13 }}>🔍</span>
-                  <kbd className="vmx-cmdk-kbd">⌘K</kbd>
-                </button>
-                {/* Quick-access icons — bookmarks + analytics. Hidden on
-                    small screens via inline @media query won't work in JSX,
-                    so just rely on flex-wrap to drop them to next row. */}
-                <button
-                  className="vmx-theme-btn vmx-header-secondary"
-                  onClick={() => setView('dashboard')}
-                  title="Analytics, ดูสถิติ + ประวัติ"
-                  aria-label="Analytics"
-                >📊</button>
-                <button
-                  className="vmx-theme-btn vmx-header-secondary"
-                  onClick={() => {
-                    if (bookmarks.length === 0) return;
-                    setPracticeMode('bookmarks');
-                    setMode('quick');
-                    setView('config');
-                  }}
-                  disabled={bookmarks.length === 0}
-                  title={bookmarks.length === 0 ? 'ยังไม่มีข้อที่บันทึก' : `Bookmarks, ทำ ${bookmarks.length} ข้อที่บันทึก`}
-                  aria-label="Bookmarks"
-                  style={{
-                    position: 'relative',
-                    opacity: bookmarks.length === 0 ? 0.45 : 1,
-                    cursor: bookmarks.length === 0 ? 'not-allowed' : 'pointer',
-                  }}
-                >
-                  🔖
-                  {bookmarks.length > 0 && (
-                    <span style={{
-                      position: 'absolute',
-                      top: -4,
-                      right: -4,
-                      minWidth: 16,
-                      height: 16,
-                      padding: '0 4px',
-                      borderRadius: 8,
-                      background: 'var(--clr-rose)',
-                      color: 'white',
-                      fontSize: 10,
-                      fontFamily: 'JetBrains Mono, monospace',
-                      fontWeight: 600,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      lineHeight: 1,
-                    }}>{bookmarks.length}</span>
-                  )}
-                </button>
-                {streakData.streak > 0 && <div className="vmx-streak">🔥 {streakData.streak}</div>}
-                {/* XP chip — Lv N · XXX XP · thin progress bar. Lazy because
-                    the gamification isn't critical for first paint. */}
-                <Suspense fallback={null}>
-                  <XpChip />
-                </Suspense>
-                {user && profile && (
-                  <UserMenu profile={profile} onLogout={handleSignOut} onGroups={() => setView('groups')} onLeaderboard={() => setView('leaderboard-global')} />
-                )}
-                {!user && hasSupabase && (
-                  <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('auth')}>Login</button>
-                )}
-                <ThemePicker theme={theme} setTheme={setTheme} palette={palette} setPalette={setPalette} />
-
-              </div>
-            </div>
+            <HeaderBar
+              view={view}
+              setView={setView}
+              goHome={goHome}
+              selectedYear={selectedYear}
+              selectedYearStored={selectedYearStored}
+              selectedPhase={selectedPhase}
+              setPaletteOpen={setPaletteOpen}
+              bookmarks={bookmarks}
+              setPracticeMode={setPracticeMode}
+              setMode={setMode}
+              streakData={streakData}
+              user={user}
+              profile={profile}
+              handleSignOut={handleSignOut}
+              theme={theme}
+              setTheme={setTheme}
+              palette={palette}
+              setPalette={setPalette}
+            />
           )}
 
           {/* Async-challenge sender banner — Round 2B 2026-05-18.
@@ -1599,40 +1480,9 @@ export default function App() {
           )}
           </main>
 
-          {/* Footer — two visual rows on mobile so a single long line
-              doesn't wrap mid-link. Row 1: brand line. Row 2: utility
-              links separated by ·, gap-flexed so they wrap as chips
-              rather than a comma-soup. Dropped raw version "v5.0"
-              (dev metadata; not user-facing). */}
-          <div className="vmx-footer">
-            <div style={{ marginBottom: 6 }}>
-              made with ♡ by <strong>Vet 86</strong>
-            </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 12px', justifyContent: 'center' }}>
-              <a onClick={() => setView('about')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>About</a>
-              <a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
-              <a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
-              <a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
-              <a onClick={() => setView('offline-game')} style={{ cursor: 'pointer', textDecoration: 'underline' }} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">🐤 มินิเกม</a>
-            </div>
-            {/* Ecosystem cross-links · sister sites in the Vet 86 ecosystem.
-                Helps Google + users discover the network (CUVETSMO = student
-                council, Hanong = stray welfare). VetMock is the most-trafficked
-                of the three so this link gives the newer sites a fast lane
-                through Googlebot's existing crawl schedule. */}
-            <div style={{ marginTop: 8, fontSize: 11, color: '#888', display: 'flex', flexWrap: 'wrap', gap: '4px 12px', justifyContent: 'center' }}>
-              <span>เครือข่าย Vet 86:</span>
-              <a href="https://cuvetsmo.com" target="_blank" rel="noopener noreferrer" title="สโมสรนิสิตสัตวแพทย์ จุฬาฯ" style={{ textDecoration: 'underline', color: '#666' }}>🐾 CUVETSMO · สโมสรนิสิตสัตวแพทย์ จุฬาฯ</a>
-              <a href="https://hanong.vercel.app" target="_blank" rel="noopener noreferrer" title="Hanong — stray welfare platform" style={{ textDecoration: 'underline', color: '#666' }}>🐕 Hanong · หาน้อง</a>
-              {/* Internal link — same-origin hash route. Same window. */}
-              <a
-                onClick={(e) => { e.preventDefault(); setView('lab'); if (window.location.hash !== '#lab') window.location.hash = '#lab'; }}
-                href="#lab"
-                title="Imaging Practice Lab — ฝึกอ่าน X-ray + DICOM viewer (Experimental)"
-                style={{ textDecoration: 'underline', color: '#666', cursor: 'pointer' }}
-              >🔬 Imaging Lab · ฝึกอ่าน X-ray (Experimental)</a>
-            </div>
-          </div>
+          {/* Footer — brand line + utility links + Vet 86 ecosystem
+              cross-links. Extracted to components/Footer.jsx 2026-05-27. */}
+          <Footer setView={setView} />
 
           {/* Floating clinical-math FAB — visible on every view except
               auth (we want to nudge users to log in, not show them tools
