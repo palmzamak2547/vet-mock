@@ -127,24 +127,27 @@ Never use the `::before` hack (see rule 1).
 
 ---
 
-## 5. CSS rules inside JS template literals — NO BACKTICKS IN COMMENTS
+## 5. ~~CSS rules inside JS template literals — NO BACKTICKS IN COMMENTS~~ ✅ RESOLVED 2026-05-27
 
-**Rule:** `src/styles.js` exports CSS as a backtick template literal.
-Backtick characters inside that string (including in comments) end the
-template literal early. Build fails.
+**RESOLVED:** `src/styles.js` (a backtick template-literal export) was
+converted to a real `src/styles.css` file, imported via `import
+'./styles.css'` in App.jsx. CSS lives in a `.css` file now — backticks,
+`${...}`, and any character are safe inside CSS comments. The entire
+bug class is gone; there is no template literal left to break.
 
-```js
-export const STYLES = `
-  /* ✓ "regular quotes" or em-dashes — fine */
-  /* ⛔ `backticks` inside comments end the template */
-  .x { color: red; }
-`;
-```
+Bonus wins from the conversion:
+- index JS chunk dropped ~48 kB (the 48 KB CSS string is no longer
+  baked into the JS bundle — it's a separate cached stylesheet).
+- Stylesheet loads in `<head>` before JS runs → better FOUC behavior
+  (was injected at React render time via `<style>{STYLES}</style>`).
 
-Caught this twice in r3 and r6 of the touch-target work. Every change
-to `styles.js` MUST run `npm run build` locally before push. Vercel will
-silently fail-and-skip → the old broken deploy stays live → looks like a
-non-bug to the dev but production stays broken.
+**Original rule (kept for history):** backtick characters inside the
+CSS string — including in comments — used to terminate the template
+literal early and fail the build. Caught twice (r3, r6 of touch-target
+work). Vercel would silently fail-and-skip → old broken deploy stays
+live → looked like a non-bug to the dev while production stayed broken.
+This is why the pre-commit checklist still says "run build locally" for
+any CSS change, but the specific backtick trap no longer exists.
 
 ---
 
@@ -321,7 +324,7 @@ for the full backfill + FK pattern.
 
 ## Process checklist before any commit touching UI / data layer
 
-- [ ] Did this change `src/styles.js`? → Run `npm run build` locally.
+- [ ] Did this change `src/styles.css`? → Run `npm run build` locally (verify the CSS chunk still extracts to `dist/assets/*.css`).
 - [ ] Did this add a `::before` or `::after` pseudo with `position: absolute`?
       → Read rule 1. If you still want to ship it, set `pointer-events: none`.
 - [ ] Did this set new React state in a click handler?

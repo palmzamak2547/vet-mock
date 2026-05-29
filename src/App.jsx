@@ -20,7 +20,12 @@ import { useExamSession } from './hooks/useExamSession.js';
 import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
 import { isFlashcardCompatible } from './hooks/sr-filter.js';
-import { STYLES } from './styles.js';
+// Global stylesheet. 2026-05-27: converted from a JS template-literal
+// export (src/styles.js, injected via <style>{STYLES}</style>) to a real
+// CSS file Vite handles natively. Kills the backtick-in-comment fragility
+// class (STABILITY rule 5) and removes a runtime <style> injection —
+// the sheet now loads in <head> before JS runs (better FOUC behavior).
+import './styles.css';
 import { hasSupabase, signOut } from './lib/supabase.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
@@ -1271,7 +1276,8 @@ export default function App() {
 
   return (
     <>
-      <style>{STYLES}</style>
+      {/* Global CSS now loaded via `import './styles.css'` at the top of
+          this file (Vite injects it) — no more <style>{STYLES}</style>. */}
       <TopLoadingBar />
       <div className="vmx-app">
         <div className="vmx-container">

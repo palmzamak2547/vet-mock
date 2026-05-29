@@ -1,4 +1,16 @@
-export const STYLES = `
+/* ============================================================
+   VetMock global stylesheet
+   ============================================================
+   Converted from src/styles.js (a JS template-literal export) to a
+   real .css file on 2026-05-27. Vite injects this via the import in
+   App.jsx — no more <style>{STYLES}</style> runtime injection.
+
+   WHY: the old template literal broke 3x when a backtick or ${ } slipped
+   into a CSS comment (it terminated the JS string early). A .css file
+   has no such fragility — comments + any char are safe. STABILITY rule 5
+   is now moot.
+   ============================================================ */
+
 :root, [data-theme="light"] {
   --clr-bg: #f6efe4;
   --clr-surface: #fdf8ef;
@@ -918,4 +930,3 @@ button.vmx-chip-quick:focus-visible {
     padding: 16px !important;
   }
 }
-`;
