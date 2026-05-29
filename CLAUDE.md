@@ -6,6 +6,18 @@
 
 ---
 
+## 🧭 Ecosystem role (canonical · locked 2026-05-29)
+- **Role:** Standalone vet study platform — own brand, may consume cuvetsmo-source/mcp, NOT part of the council site.
+- **Layer:** Product · **Live:** https://vetmock.vercel.app
+- **OWNS:** the question-bank (1700+ Qs + lint/fix tooling) + the exam/SRS engine (MCQ/TF/Fill/Match · Quick/Exam/SM-2 · analytics · groups).
+
+### ⛔ No-duplication — see `cuvetsmo-docs/NO_DUPLICATION.md`
+Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp) · AI inference (→ shared ai-chat) · DICOM viewer (→ cuvetsmo-imaging).
+
+> ⚠️ DRIFT 2026-05-29: a duplicate DICOM viewer lives here (`src/lib/dicom/*`, `src/views/LabView.jsx`, cornerstone deps) — canonical owner is cuvetsmo-imaging. Consider extracting/retiring it so the viewer lives in one place.
+
+---
+
 ## 🎯 Project At a Glance
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
