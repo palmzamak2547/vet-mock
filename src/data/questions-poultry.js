@@ -505,14 +505,14 @@ export const QB_POULTRY = [
     tags: ['new-duck-syndrome', 'Riemerella'], type: 'mcq',
     q: 'New duck syndrome',
     options: [
-      'พบเฉพาะใน domestic ducks',
-      'ก่อ fibrinous pericarditis + perihepatitis + airsacculitis + salpingitis + meningitis',
+      'พบเฉพาะใน domestic ducks เท่านั้น',
+      'ก่อ fibrinous serositis หลายอวัยวะ',
       'เกิดจาก Riemerella multocida',
       'ติดต่อทั้ง horizontal และ vertical',
       'All correct',
     ],
     answer: 1,
-    explain: 'NDS = Riemerella anatipestifer (NOT R. multocida — ผิด species), classic lesions = fibrinous serositis ทุกแห่ง, ducks เด่นแต่ goose/turkey ก็ติด, vertical transmission ไม่ classic' },
+    explain: 'NDS = Riemerella anatipestifer (NOT R. multocida — ผิด species), classic lesions = fibrinous serositis ทุกแห่ง (pericarditis + perihepatitis + airsacculitis + salpingitis + meningitis), ducks เด่นแต่ goose/turkey ก็ติด, vertical transmission ไม่ classic' },
 
   // ── Quality Assurance — "หมอเอกสิงห์" notes (8 T/F, pages 37-39) ─
   { id: 1752, subject: 'poultry', topic: 'quality-assurance', year: 4,

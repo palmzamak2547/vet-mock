@@ -1114,13 +1114,13 @@ export const QB_MAHAHON = [
     tags: ['anesthesia', 'pediatric'], type: 'mcq',
     q: 'Pediatric spay (อายุ 6-14 wks) ต้องระวัง anesthesia อะไรเป็นพิเศษ',
     options: [
-      'Risk hyperthermia',
-      'Hypoglycemia + hypothermia (ตัวเล็ก ไม่มี glycogen + heat reserve)',
-      'Hypertension',
+      'Risk hyperthermia จาก rebreathing',
+      'Hypoglycemia + hypothermia',
+      'Hypertension จาก stress response',
       'Bradycardia from atropine',
     ],
     answer: 1,
-    explain: 'Pediatric: limited glycogen → hypoglycemia (ให้ glucose), poor thermoregulation → hypothermia (warm OR + IV), liver enzyme immature → ระวัง drug metabolism, prepare 5% dextrose IV',
+    explain: 'Pediatric: ตัวเล็ก glycogen + heat reserve น้อย → limited glycogen → hypoglycemia (ให้ glucose), poor thermoregulation → hypothermia (warm OR + IV), liver enzyme immature → ระวัง drug metabolism, prepare 5% dextrose IV',
     verified: 'Slide 2026 + Howe 1997' },
 
   { id: 2087, subject: 'repro-lect', topic: 'mahahon-surgical', year: 4,

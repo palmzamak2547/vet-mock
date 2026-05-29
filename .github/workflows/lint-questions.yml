@@ -83,10 +83,15 @@ jobs:
           #   • All remaining are 3.5-3.9× ratio. Combined with the
           #     render-time option shuffle, the practical exam-cheat
           #     advantage from these is small.
-          # Ratcheted 2026-05-26: 12 → 10 (matches current count
-          # exactly — any new length-bias error now blocks merge
-          # instead of silently lifting the floor).
-          MAX_ERRORS: 10
+          # Ratcheted 2026-05-26: 12 → 10 (matched count exactly).
+          # Ratcheted 2026-05-27: 10 → 0 — batch 5 fixed the last 10
+          # length-bias ERRORS (≥3.5× ratio, the egregiously guessable
+          # ones across vca/practrum/mahahon/cliapprum/com4/exotic/
+          # part3/poultry). Bank now has ZERO errors, so the ceiling is
+          # 0: any newly-introduced ≥3.5× correct-vs-distractor option
+          # blocks merge. Warnings (1.6-3.5×) remain advisory — the
+          # render-time option shuffle neutralizes their practical edge.
+          MAX_ERRORS: 0
         run: |
           ERRORS=${{ steps.lint.outputs.errors }}
           echo "Errors: $ERRORS / baseline $MAX_ERRORS"

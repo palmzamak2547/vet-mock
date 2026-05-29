@@ -869,7 +869,7 @@ export const QB_VCA = [
   { id: 6312, subject: 'vca', topic: 'poultry', year: 5, source: SRC,
     tags: ['repro', 'shell', 'calcium'], type: 'mcq',
     q: 'soft-shelled egg / thin shell ใน laying hen, supplement ใดสำคัญที่สุด',
-    options: ['Choline', 'Calcium + Phosphorus + Vit D3', 'Folate', 'Methionine', 'Riboflavin'],
+    options: ['Choline + Biotin', 'Calcium + Phosphorus + Vit D3', 'Folate + Vitamin B12', 'Methionine + Lysine', 'Riboflavin + Niacin'],
     answer: 1,
     explain: 'Eggshell = 95% CaCO3, ต้อง Ca 4% in diet (LARGE particle limestone "หินปูนขนาดใหญ่" → slow release), Vit D3 + P ratio, sun exposure ก็ช่วย' },
 
@@ -1612,7 +1612,7 @@ export const QB_VCA = [
   { id: 6840, subject: 'vca', topic: 'ruminant', year: 5, source: SRC,
     tags: ['virus', 'BEF'], type: 'mcq',
     q: 'โคอายุ 10 เดือน, ไข้ 1-2 วัน + lameness + nasal discharge + temp 104°F + crackle lung sound, เชื้อ',
-    options: ['Bovine Ephemeral Fever', 'BVD', 'Parainfluenza 3', 'FMD', 'BRSV'],
+    options: ['Bovine Ephemeral Fever', 'Bovine Viral Diarrhea', 'Parainfluenza-3 virus', 'Foot-and-Mouth Disease', 'Bovine RSV (Pneumovirus)'],
     answer: 0,
     explain: 'BEF = Rhabdovirus, vector: Culicoides midge, "3-day sickness" สั้น self-limit, classic: shifting lameness + biphasic fever + nasal/ocular discharge, vaccine: live attenuated\n\n💡 BEF, "3-day sickness"' },
 

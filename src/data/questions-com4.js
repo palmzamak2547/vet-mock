@@ -304,8 +304,8 @@ export const QB_COM4 = [
   { id: 939, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
     tags: ['hypothyroid', 'drug-interference'], type: 'mcq',
     q: 'ยาตัวใดที่ลด TT4 + fT4 ในสุนัข แต่ไม่ทำให้เป็น clinical hypothyroidism',
-    options: ['Glucocorticoid + Phenobarbital + Sulfonamides + Aspirin', 'Vitamin D', 'Insulin', 'Carprofen, Meloxicam, Deracoxib'],
-    answer: 0, explain: 'Glucocorticoid (dose-dependent), Phenobarbital, Sulfonamides (long-term อาจทำ true hypothyroid), Aspirin = ลด T4 levels, KBr ไม่กระทบ, NSAIDs ใหม่ (Carprofen, Meloxicam, Deracoxib) ไม่กระทบมีนัยสำคัญ, ตีความ T4 ต้องระวัง drug history\n\n❌ ทำไมข้ออื่นผิด\n— Vit D = ไม่กระทบ thyroid testing\n— Insulin = ใช้ใน DM, ไม่กระทบ T4\n— Carpro/Meloxi/Deracoxib = ไม่กระทบ ตามผลวิจัย',
+    options: ['Steroids + Phenobarbital + Sulfa + Aspirin', 'Vitamin D + Calcium supplement', 'Insulin + Levothyroxine sodium', 'Carprofen, Meloxicam, Deracoxib'],
+    answer: 0, explain: 'Glucocorticoid/steroids (dose-dependent), Phenobarbital, Sulfonamides (long-term อาจทำ true hypothyroid), Aspirin = ลด T4 levels, KBr ไม่กระทบ, NSAIDs ใหม่ (Carprofen, Meloxicam, Deracoxib) ไม่กระทบมีนัยสำคัญ, ตีความ T4 ต้องระวัง drug history\n\n❌ ทำไมข้ออื่นผิด\n— Vit D + Ca = ไม่กระทบ thyroid testing\n— Insulin/Levothyroxine = ใช้ใน DM/hypothyroid, ไม่ลด baseline T4\n— Carpro/Meloxi/Deracoxib = ไม่กระทบ ตามผลวิจัย',
     verified: 'Derm_6_Endocrine_skin_diseases.pdf p.8' },
 
   { id: 940, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
