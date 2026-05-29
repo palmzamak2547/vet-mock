@@ -66,8 +66,10 @@ jobs:
             ${{ runner.os }}-playwright-
 
       - name: Install Playwright browsers
-        # Just chromium — the only browser the smoke spec uses.
-        run: npx playwright install --with-deps chromium
+        # All 3 engines — the smoke matrix runs chromium (desktop +
+        # mobile), webkit (real iOS Safari), and firefox (Gecko).
+        # Cross-engine coverage catches Safari/Firefox-only regressions.
+        run: npx playwright install --with-deps chromium webkit firefox
 
       - name: Build production bundle
         # Build the EXACT bundle that ships so we catch minification-
