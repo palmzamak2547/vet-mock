@@ -126,13 +126,13 @@ export const QB_TERMPAPER = [
     q: 'พารามิเตอร์ใดที่ใช้ประเมินการทำงานของ corpus luteum (luteal function) ได้แม่นยำที่สุด และมีความสัมพันธ์กับระดับฮอร์โมนโปรเจสเตอโรนสูงกว่าการวัดขนาด CL เพียงอย่างเดียว',
     options: [
       'เส้นผ่านศูนย์กลางของ CL ใน B-mode',
-      'ความหนาของผนัง CL',
-      'Luteal blood flow จาก Color Doppler ultrasonography',
+      'ความหนาของผนัง CL ที่วัดใน B-mode',
+      'Luteal blood flow จาก Color Doppler',
       'Echogenicity ของ CL ใน B-mode',
-      'ตำแหน่งของ CL บนรังไข่',
+      'ตำแหน่งของ CL บนรังไข่ใน B-mode',
     ],
     answer: 2,
-    explain: 'Herzog et al. (2010): Luteal blood flow จาก Color Doppler มีความสัมพันธ์กับ P4 สูงกว่า CL size, ใช้วินิจฉัย luteal competence/insufficiency + ติดตามการตอบสนอง hormone treatment, CL size อย่างเดียวไม่สะท้อน function จริง',
+    explain: 'Herzog et al. (2010): Luteal blood flow ที่วัดด้วย Color Doppler ultrasonography มีความสัมพันธ์กับ P4 สูงกว่า CL size, ใช้วินิจฉัย luteal competence/insufficiency + ติดตามการตอบสนอง hormone treatment, ส่วนพารามิเตอร์ B-mode (ขนาด, ความหนาผนัง, echogenicity, ตำแหน่ง) สะท้อน function จริงได้น้อยกว่า',
     verified: 'Term Paper Group 7 (PDF p43 highlight + เฉลย + Herzog 2010)' },
 
   // ── Group 8: PAGs in Ruminant Pregnancy ───────────────────
@@ -192,9 +192,9 @@ export const QB_TERMPAPER = [
     sourceType: 'student-compilation',
     tags: ['buserelin', 'GnRH-agonist', 'pituitary', 'pig'], type: 'mcq',
     q: 'หากนำ Buserelin ฉีดในหมู จะเกิดกระตุ้นการผลิตฮอร์โมนที่อวัยวะใดในหมู',
-    options: ['สมอง', 'ต่อมใต้สมอง', 'รังไข่', 'มดลูก', 'ถูกทุกข้อ'],
+    options: ['ไฮโพทาลามัส', 'ต่อมใต้สมอง', 'รังไข่โดยตรง', 'เยื่อบุมดลูก', 'ต่อมหมวกไต'],
     answer: 1,
-    explain: 'Buserelin = GnRH agonist, binding GnRH receptor ที่ "anterior pituitary" → กระตุ้น FSH/LH release, ไม่ออกฤทธิ์โดยตรงที่ ovary/uterus/brain, pituitary เป็น primary target',
+    explain: 'Buserelin = GnRH agonist, binding GnRH receptor ที่ "anterior pituitary" → กระตุ้น FSH/LH release, pituitary เป็น primary target. ไม่ออกฤทธิ์โดยตรงที่ hypothalamus (อยู่ upstream เป็นแหล่งสร้าง GnRH เอง), ovary, endometrium หรือ adrenal gland',
     verified: 'Term Paper Group 11 (PDF p44 highlight + เฉลย)' },
 
   // ── Group 12: NEB in Postpartum Dairy Cow ─────────────────

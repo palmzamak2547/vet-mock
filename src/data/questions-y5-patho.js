@@ -174,11 +174,11 @@ export const QB_Y5_PATHO = [
     tags: ['CPV', 'parvovirus', 'case'], type: 'mcq',
     q: 'สุนัขอายุ 3 เดือน ยังไม่เคยฉีดวัคซีน แสดงอาเจียนบ่อยครั้ง ท้องเสียอย่างรุนแรง สีแดงคล้ำ กลิ่นเหม็นคาวจัด เหงือกซีด — คาดว่าโรคอะไร และพบรอยโรคใดทางจุลพยาธิ',
     options: [
-      'Diphtheritic enteritis — Salmonellosis',
+      'Diphtheritic (fibrinonecrotic) enteritis — Salmonellosis',
       'Multifocal necrosis of intestinal mucosa — Coccidiosis',
-      'Necrosis of crypt epithelium with shortening of villi — Canine parvovirus infection',
+      'Necrosis of crypt epithelium, villous atrophy — Canine parvovirus',
       'Multifocal necrosis of liver — Herpes virus infection',
-      'Atrophic enteritis — Ancylostomiasis'
+      'Atrophic enteritis with villous blunting — Ancylostomiasis'
     ],
     answer: 2,
     explain: 'CPV-2 ในลูกสุนัขไม่ฉีดวัคซีน → bloody/fetid diarrhea + vomiting → crypt epithelium necrosis → villus collapse/atrophy → diagnostic histology',
@@ -206,11 +206,11 @@ export const QB_Y5_PATHO = [
     tags: ['FIP', 'feline', 'case'], type: 'mcq',
     q: 'แมวเพศผู้อายุ 5 ปี เลี้ยงปล่อย ท้องกาง หายใจลำบาก โรคใดน่าจะเป็นสาเหตุมากที่สุด',
     options: [
-      'Feline infectious peritonitis (FIP)',
+      'Feline infectious peritonitis',
       'Mycoplasma haemofelis infection',
-      'Feline leukemia',
+      'Feline leukemia virus (FeLV)',
       'Platynosomum sp. infection',
-      'Actinomycosis'
+      'Disseminated actinomycosis'
     ],
     answer: 0,
     explain: 'Wet FIP (effusive form) — แมวปล่อย, ascites + dyspnea จาก pleural effusion/peritonitis = classic FIP\nM. haemofelis → hemolytic anemia (ไม่ใช่ ascites)\nFeLV → lymphoma\nPlatynosomum → liver fluke (cholangitis)',
@@ -357,12 +357,12 @@ export const QB_Y5_PATHO = [
     options: [
       'Generalized lymphadenopathy, Diarrhea',
       'Mesocolon edema, Diffuse pneumonia',
-      'Jaundice, Emaciation',
-      'Diphtheritic colitis, Porcine dermatitis and nephropathy syndrome (PDNS)',
+      'Jaundice, Emaciation, Lymphoid depletion',
+      'Diphtheritic colitis, PDNS skin-kidney lesions',
       'Reproductive failure, Hepatitis'
     ],
     answer: 3,
-    explain: 'Diphtheritic colitis = Salmonella/Swine dysentery feature ไม่ใช่ PCVAD\nPCVAD spectrum: PMWS (lymphadenopathy + emaciation + jaundice) + PDNS + PRDC + reproductive failure + enteritis (granulomatous) + hepatitis\nMesocolon edema = edema disease (E. coli) จริงๆ — แต่อยู่กับ "diffuse pneumonia" ของ PCV (PRDC)\n→ D ผิด (Diph colitis ไม่ใช่ PCV)',
+    explain: 'PDNS = Porcine dermatitis and nephropathy syndrome (เป็นส่วนหนึ่งของ PCVAD จริง) แต่ Diphtheritic colitis = Salmonella/Swine dysentery feature ไม่ใช่ PCVAD → ข้อนี้จึงเป็นข้อที่ "ไม่ใช่"\nLymphoid depletion = รอยโรคแกนของ PMWS จึงนับเป็น feature ของ PCVAD\nPCVAD spectrum: PMWS (lymphadenopathy + emaciation + jaundice + lymphoid depletion) + PDNS + PRDC + reproductive failure + enteritis (granulomatous) + hepatitis\nMesocolon edema = edema disease (E. coli) จริงๆ — แต่อยู่กับ "diffuse pneumonia" ของ PCV (PRDC)\n→ D ผิด (Diph colitis ไม่ใช่ PCV)',
     verified: 'Final Patho prac.pdf p.5-6' },
 
   { id: 8221, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
@@ -503,11 +503,11 @@ export const QB_Y5_PATHO = [
     tags: ['IBD', 'Gumboro', 'avian', 'case'], type: 'mcq',
     q: 'ไก่เนื้ออายุ 4 สัปดาห์ ท้องเสียน้ำสีขาว ตัวสั่น อัมพาตปีก-ขา ตาย 50% ผ่าซากพบจุดเลือดออกที่กระเพาะและต่อมทอนซิลไส้ติ่ง — วินิจฉัยเบื้องต้น',
     options: [
-      'Marek\'s disease',
+      'Marek\'s disease (lymphoid tumor form)',
       'E. coli infection (Colibacillosis)',
-      'Newcastle disease',
-      'Coccidiosis',
-      'Infectious bursal disease (Gumboro, IBD)'
+      'Newcastle disease (velogenic form)',
+      'Coccidiosis (Eimeria tenella)',
+      'Infectious bursal disease (Gumboro)'
     ],
     answer: 4,
     explain: 'Classic IBD presentation:\n- 3-6 wk broiler\n- High mortality (50%)\n- Proventricular-gizzard junction hemorrhage\n- Cecal tonsil hemorrhage\n- Bursa of Fabricius swollen → atrophy\n- Muscle hemorrhage (thigh, breast)\n- Tremors/paralysis = immunosuppression sequelae',
@@ -589,7 +589,7 @@ export const QB_Y5_PATHO = [
     options: [
       'Glanders : Giemsa\'s stain',
       'Actinomycosis : Diff-Quik',
-      'Tuberculosis : Acid-fast stain (Ziehl-Neelsen)',
+      'Tuberculosis : Acid-fast stain',
       'Streptococcosis : Gram stain',
       'Actinomycosis : Gram stain'
     ],
@@ -963,9 +963,9 @@ export const QB_Y5_PATHO = [
     tags: ['KHV', 'carp', 'fish-pathology'], type: 'mcq',
     q: 'ข้อใดเป็นลักษณะจำเพาะของ Koi Herpesvirus (KHV) ในปลาคาร์พ',
     options: [
-      'Granulomatous formation',
-      'Non-suppurative encephalitis',
-      'Intranuclear IB ใน gill epithelium (signet ring)',
+      'Granulomatous inflammation in spleen',
+      'Non-suppurative meningoencephalitis',
+      'Intranuclear IB ใน gill epithelium',
       'Vasculitis-perivasculitis change'
     ],
     answer: 2,
@@ -1072,10 +1072,10 @@ export const QB_Y5_PATHO = [
     tags: ['necropsy', 'protocol', 'sample-collection'], type: 'mcq',
     q: 'ระหว่างชันสูตรซากพบหนองในช่องท้อง — สัตวแพทย์ท่านใดปฏิบัติงานเหมาะสมที่สุด',
     options: [
-      'สพ.ญ.ลิซ่า ถ่ายรูป + จดสีของน้ำใน gross findings',
-      'น.สพ.แบมแบม ถ่ายรูป + sterile syringe เก็บหนองส่ง bacterial culture + fluid analysis → วัดปริมาตร + จด gross findings',
+      'สพ.ญ.ลิซ่า ถ่ายรูป + จดสีและปริมาตรของน้ำใน gross findings',
+      'น.สพ.แบมแบม ถ่ายรูป + sterile syringe เก็บหนองเพาะเชื้อ + fluid analysis + จด gross findings',
       'สพ.ญ.ซูจี ใช้ sterile syringe เก็บหนองส่ง culture + analysis (มองว่าเพียงพอ)',
-      'น.สพ.โกโกวา เก็บหนองใน formalin'
+      'น.สพ.โกโกวา เก็บหนองดองใน formalin ส่งตรวจ histopath'
     ],
     answer: 1,
     explain: 'B (แบมแบม) = complete workflow:\n1. ถ่ายรูป (documentation)\n2. Sterile syringe เก็บหนองสด → bacterial culture + fluid analysis (cell count, protein, cytology)\n3. วัดปริมาตร (quantify)\n4. บันทึก gross findings\nA: ถ่ายรูป + จดสีพอ ไม่เก็บ sample\nC: เก็บ sample แต่ไม่บันทึก findings/วัด\nD: Formalin = ฆ่าแบคทีเรีย ไม่สามารถเพาะเชื้อได้',

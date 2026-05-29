@@ -142,11 +142,11 @@ export const QB_Y5_OSCE_RUMINANT = [
     tags: ['OSCE', 'milk-fever', 'hypocalcemia', 'sample-collection'], type: 'mcq',
     q: 'OSCE station — เก็บตัวอย่าง + รักษา:\nโคนม lactation 4 · หลังคลอด 2 วัน · ซึม นอน sternal recumbency คอพับด้านข้าง · ลุกไม่ได้ · ไม่กินอาหาร · ไม่ขาดน้ำ · T 100.5°F · ไม่มี rumen contraction · คลอดเองรกออกปกติ\nอุปกรณ์หลักสำหรับเก็บตัวอย่างเพื่อยืนยัน diagnosis คืออะไร?',
     options: [
-      'Syringe + หลอดเก็บเลือดไม่มีสารกันเลือดแข็ง (serum/clot tube) + เข็ม 18G',
-      'Syringe + EDTA tube (purple top) + เข็ม 21G',
+      'Syringe + หลอดเก็บเลือดไม่มีสารกันเลือดแข็ง (clot tube) + เข็ม 18G',
+      'Syringe + EDTA tube (purple top) ป้องกันเลือดแข็ง + เข็ม 21G',
       'Syringe + heparin tube (green top) + เข็ม 16G',
-      'Citrate tube (blue top) + เข็ม 20G',
-      'Fluoride tube (grey top) + เข็ม 22G'
+      'Syringe + citrate tube (blue top) สำหรับ coag + เข็ม 20G',
+      'Syringe + fluoride tube (grey top) สำหรับ glucose + เข็ม 22G'
     ],
     answer: 0,
     explain: 'Diagnosis: Milk fever (parturient hypocalcemia)\n— Classic signs: lactation ≥3, สดหลังคลอด, sternal recumbency, คอพับ S-shape, T ต่ำกว่าปกติ (<101°F), ไม่มี rumen contraction\n— ต้องวัด total/ionized Ca → ใช้ serum (clot tube) หรือ heparin tube ก็ได้ แต่ standard = clot tube (red top, no anticoag)\n— EDTA จะ chelate Ca → ไม่ใช้\n— เข็ม 18G ยาว 1-1.5" สำหรับเจาะ jugular/coccygeal vein\n\nTreatment: Calcium borogluconate IV slow + monitor heart\n\nทำไมข้ออื่นผิด:\n— EDTA chelate Ca, false hypocalcemia\n— Heparin OK สำหรับ ionized Ca แต่ไม่ใช่ standard ที่ briefing ระบุ\n— Citrate/Fluoride = coag/glucose tube, ไม่เหมาะ',
@@ -157,11 +157,11 @@ export const QB_Y5_OSCE_RUMINANT = [
     tags: ['OSCE', 'milk-fever', 'treatment'], type: 'mcq',
     q: 'OSCE station — รักษา milk fever:\nโคนม lactation 4 · sternal recumbency คอพับ · ไม่ขาดน้ำ · T 100.5°F · ไม่มี rumen contraction\nอุปกรณ์หลักสำหรับการรักษาคืออะไร?',
     options: [
-      'Calcium borogluconate + ชุดให้สารน้ำ + IV catheter 18-20G',
-      'Magnesium sulfate 50% IV bolus',
-      'Dextrose 50% IV + thiamine IM',
+      'Calcium borogluconate IV + ชุดให้สารน้ำ + IV catheter 18-20G',
+      'Magnesium sulfate 50% IV bolus + ชุดให้สารน้ำ',
+      'Dextrose 50% IV + thiamine IM + ชุดให้สารน้ำ',
       'Oxytetracycline LA IM + flunixin meglumine IV',
-      'Hypertonic saline 7.5% IV'
+      'Hypertonic saline 7.5% IV + IV catheter 14G'
     ],
     answer: 0,
     explain: 'Tx Milk fever:\n— Calcium borogluconate 23% IV slow (ใช้เวลา 10-20 นาที) · dose 1 mL/kg or 500 mL per adult cow\n— ระวัง cardiac arrhythmia → ให้ช้า ฟังเสียงหัวใจ ถ้าใจสั่น/เร็วต้องหยุด\n— Stand-up rate ภายใน 30 นาที = good response\n— Subcutaneous Ca = backup ถ้า IV ไม่สะดวก (ห้าม IM = necrosis)\n\nIV catheter 18-20G + ชุดให้สารน้ำ = standard equipment\n\nทำไมข้ออื่นผิด:\n— MgSO4 = grass tetany (case นี้ classic Ca, ไม่ใช่ Mg)\n— Dextrose+thiamine = ketosis (case นี้ไม่ได้ระบุ glucose drop)\n— Oxytetra+flunixin = ABO+NSAID สำหรับ mastitis/metritis ไม่ใช่ hypocalcemia\n— Hypertonic saline = endotoxic shock support, ไม่ใช่ first-line milk fever',
@@ -176,11 +176,11 @@ export const QB_Y5_OSCE_RUMINANT = [
     tags: ['OSCE', 'mastitis', 'acute', 'toxic', 'NSAID'], type: 'mcq',
     q: 'OSCE station — รักษาโคป่วย (case A):\nโคนม Lact 1 · DIM 15 · เต้านมหลังซ้ายบวมใหญ่ ~8 ชม. · เจ็บ + edema · ซึม · กินน้ำน้อย · ลุกยืนลำบาก · อุจจาระเหลว · น้ำนมจาก 18→10 kg/d · เต้าที่อักเสบให้น้ำใสสีเหลืองอ่อน · นน. 400 kg · BCS 2.0\nPE: T 104°F · rumen 1×/5 min · RR 40 · sunken eyeballs · muzzle dry\nเวชภัณฑ์หลักที่ต้องเตรียม?',
     options: [
-      'IV fluid (LRS/hypertonic saline) + Flunixin meglumine IV + systemic ABO (Amoxicillin LA หรือ Ceftiofur) + frequent stripping',
-      'Intramammary ABO ที่ขึ้นทะเบียน dry-cow + dry-off',
-      'Oxytetracycline LA IM อย่างเดียว + กลับมาตรวจ 3 วัน',
+      'IV fluid + Flunixin meglumine IV + systemic ABO Gram-neg + frequent stripping',
+      'Intramammary ABO ที่ขึ้นทะเบียน dry-cow + dry-off เต้าที่อักเสบทันที',
+      'Oxytetracycline LA IM อย่างเดียว + นัดกลับมาตรวจซ้ำใน 3 วัน',
       'Anti-histamine + corticosteroid IV + ห้ามรีดเต้าที่อักเสบ',
-      'Probiotic + supportive feed อย่างเดียว'
+      'Probiotic + supportive feed อย่างเดียว โดยไม่ให้ยาปฏิชีวนะ'
     ],
     answer: 0,
     explain: 'Diagnosis: Acute (peracute) toxic coliform mastitis (กลุ่ม E. coli, Klebsiella)\n— Signs: เริ่มเร็ว <12 ชม., เต้าบวมร้อน, น้ำนมเป็นน้ำใสเหลือง (serum-like), fever 104°F, dehydration (sunken eye + muzzle dry), GI ileus (อุจจาระเหลว, rumen slow)\n— Endotoxemia → systemic support สำคัญกว่า intramammary\n\nManagement: "ABCDE" of toxic mastitis\n  A. Aggressive IV fluid (hypertonic saline 4-5 mL/kg → LRS 50-80 mL/kg/day)\n  B. NSAID — Flunixin meglumine 2.2 mg/kg IV (anti-endotoxin)\n  C. Systemic ABO Gram-neg coverage: Ceftiofur, Amoxicillin LA, Oxytetra\n  D. Frequent stripping + oxytocin (clear toxin from gland)\n  E. Supportive (ระวัง hypocalcemia ร่วม)\n\nทำไมข้ออื่นผิด:\n— Dry-cow ABO = chronic mastitis dry period, ไม่ใช่ acute toxic\n— Oxytetra IM อย่างเดียว = miss IV fluid + NSAID = cow ตายเร็ว\n— Anti-histamine + steroid ไม่ใช่ standard · ห้ามรีด = endotoxin คั่งทำให้แย่ลง\n— Probiotic = ไม่ตรง Dx',
@@ -191,11 +191,11 @@ export const QB_Y5_OSCE_RUMINANT = [
     tags: ['OSCE', 'mastitis', 'chronic', 'culture'], type: 'mcq',
     q: 'OSCE station — รักษาโคป่วย (case B):\nโคนม Lact 3 · DIM 150 · เต้านมหลังซ้ายบวมเล็กน้อยมา 8 วัน · เจ้าของฉีด Amoxicillin LA 20 mL IM ไปแล้ว + ส่ง milk culture · กินน้ำ/อาหารปกติ · อุจจาระปกติ · น้ำนม 15→13 kg/d · น้ำนมมีลิ่มปนช่วงท้ายการรีด · นน. 500 kg · BCS 3.0\nPE: T 102°F · rumen 1×/2 min · RR 30 · ไม่มี dehydration sign\nแนวทางจัดการที่เหมาะสมที่สุด?',
     options: [
-      'รอผล milk culture + intramammary ABO ตาม sensitivity + frequent stripping + พิจารณา dry-off ถ้าไม่ตอบสนอง',
-      'IV LRS 80 mL/kg/d + Flunixin meglumine + Ceftiofur IV (toxic mastitis protocol)',
-      'ฆ่าทิ้ง (cull) ทันทีโดยไม่ต้องรอ culture',
-      'Repeat Amoxicillin LA IM อีก 5 dose ติดต่อกัน',
-      'Steroid IM + ห้ามรีดนมเต้านี้ 14 วัน'
+      'รอผล milk culture + intramammary ABO ตาม sensitivity + frequent stripping',
+      'IV LRS 80 mL/kg/d + Flunixin meglumine + Ceftiofur IV (toxic protocol)',
+      'ฆ่าทิ้ง (cull) ทันทีโดยไม่ต้องรอผล milk culture',
+      'Repeat Amoxicillin LA IM อีก 5 dose ติดต่อกันทุกวัน',
+      'Steroid IM + ห้ามรีดนมเต้านี้ติดต่อกัน 14 วัน'
     ],
     answer: 0,
     explain: 'Diagnosis: Chronic / subacute mastitis (น่าจะเป็น Gram+ contagious — Staph aureus, Strep ag.)\n— Signs: progress ช้า (8 วัน), บวมเล็กน้อย, อาการ systemic น้อย (T ปกติ, ไม่ขาดน้ำ, กินอาหารได้), น้ำนมมีลิ่ม (clots)\n— PE ไม่มี toxemia → ไม่ใช่ acute toxic case\n— เจ้าของให้ systemic ABO แล้วไม่ตอบสนอง → ต้อง culture + sensitivity\n\nManagement: "evidence-based" chronic mastitis\n  1. รอผล culture + AST\n  2. Intramammary ABO ตาม sensitivity (penetrate gland ดีกว่า systemic ใน chronic case)\n  3. Frequent stripping + oxytocin\n  4. ถ้าไม่หาย (Staph aureus มัก fail) → dry-off กลีบ หรือ cull at next dry period\n\nทำไมข้ออื่นผิด:\n— Toxic mastitis protocol = over-treatment, case นี้ไม่ใช่ acute toxic\n— Cull ทันที = waste, ลอง treatment ก่อน\n— Repeat Amox LA อย่างเดียว = ตัวเดิมที่ fail แล้ว, ไม่มี culture guide\n— Steroid + ห้ามรีด = แย่ลง (เก็บ infection ในเต้า)',
