@@ -960,6 +960,7 @@ export const SUBJECTS_BY_YEAR = {
       vault_lecturers: [],
       topics: [
         { id: 'lab-chromatography', label: 'Lab — Chromatography', icon: '🧫' },
+        { id: 'lab-electrophoresis', label: 'Lab — Electrophoresis / SDS-PAGE', icon: '⚡' },
         { id: 'lab-equipment',      label: 'Lab — เครื่องมือ/เทคนิคพื้นฐาน', icon: '⚗️' },
         { id: 'lab-spectrophotometry', label: 'Lab — Spectrophotometry', icon: '🌈' },
         { id: 'lab-general',        label: 'Lab — ทั่วไป', icon: '🔬' },
