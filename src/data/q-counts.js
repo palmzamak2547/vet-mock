@@ -10,7 +10,7 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 2697;
+export const QB_TOTAL = 2723;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 5,
@@ -43,6 +43,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 340,
+  'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
   'zoonoses': 2,
@@ -83,15 +84,16 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 340,
+  'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
   'zoonoses': 2,
 };
 
 export const Q_COUNTS_BY_YEAR = {
-  1: 47,
+  1: 73,
   4: 2095,
   5: 555,
 };
 
-// Built: 2026-05-30T10:42:28.556Z
+// Built: 2026-05-30T15:19:52.972Z
