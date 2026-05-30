@@ -964,6 +964,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'lab-dna',            label: 'Lab — DNA extraction / purification', icon: '🧬' },
         { id: 'lab-equipment',      label: 'Lab — เครื่องมือ/เทคนิคพื้นฐาน', icon: '⚗️' },
         { id: 'lab-spectrophotometry', label: 'Lab — Spectrophotometry', icon: '🌈' },
+        { id: 'lab-molecular',      label: 'Lab — Molecular technique (cloning/RE/vector)', icon: '🧪' },
         { id: 'lab-general',        label: 'Lab — ทั่วไป', icon: '🔬' },
         { id: 'lect-nucleic-acid',  label: 'Lecture — Nucleic acid', icon: '🧬' },
         { id: 'lect-membrane',      label: 'Lecture — Membrane', icon: '🧱' },

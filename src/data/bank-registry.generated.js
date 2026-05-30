@@ -8,7 +8,7 @@
 // ============================================================
 
 export const BANK_REGISTRY = [
-  { file: 'questions-biochem-lab.js', export: 'QB_BIOCHEM_LAB', year: 1, count: 27,
+  { file: 'questions-biochem-lab.js', export: 'QB_BIOCHEM_LAB', year: 1, count: 34,
     subjects: ['biochem-1'],
     load: () => import('./questions-biochem-lab.js').then((m) => m.QB_BIOCHEM_LAB) },
   { file: 'questions-cliapprum.js', export: 'QB_CLIAPPRUM', year: 4, count: 124,
@@ -115,4 +115,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-05-30T10:37:03.079Z — 35 banks · 2677 Qs
+// Built: 2026-05-30T10:38:47.844Z — 35 banks · 2684 Qs

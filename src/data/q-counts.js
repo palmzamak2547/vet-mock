@@ -10,12 +10,12 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 2677;
+export const QB_TOTAL = 2684;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 5,
   'avian-medicine': 4,
-  'biochem-1': 27,
+  'biochem-1': 34,
   'cliapprum': 136,
   'com1': 31,
   'com2': 42,
@@ -55,7 +55,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 5,
   'avian-medicine': 4,
-  'biochem-1': 27,
+  'biochem-1': 34,
   'cliapprum': 134,
   'com1': 31,
   'com2': 42,
@@ -89,9 +89,9 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 };
 
 export const Q_COUNTS_BY_YEAR = {
-  1: 27,
+  1: 34,
   4: 2095,
   5: 555,
 };
 
-// Built: 2026-05-30T10:37:03.656Z
+// Built: 2026-05-30T10:38:48.689Z
