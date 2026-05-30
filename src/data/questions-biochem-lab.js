@@ -517,4 +517,70 @@ export const QB_BIOCHEM_LAB = [
   // (Q44 cloning step-ordering item omitted — source scan of the 5 steps
   //  A-E was not legible enough to transcribe the option sequences with
   //  confidence. Better to skip than ship a wrong-answer item.)
+
+  // ── Vector components + gel electrophoresis + agarose prep (Q45-49) ──
+  { id: 70045, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+    q: 'ข้อใดต่อไปนี้ กล่าวถูกต้อง เกี่ยวกับความจำเพาะ/องค์ประกอบที่ใช้ในงานด้านพันธุวิศวกรรม',
+    options: [
+      'มีตำแหน่งจดจำเฉพาะ ย บริเวณที่เหมาะสม (recognition site เดียวเท่านั้น)',
+      'มีตำแหน่งของตัดเชื่อมที่เกี่ยวข้องกับการเพิ่มจำนวนเริ่มต้น (the origin of replication เพียงตัวเดียว)',
+      'ยีนต้านยาปฏิชีวนะสำหรับทำหน้าที่เป็น selectable marker (drug resistance) อย่างเดียว',
+      'ถูกทุกข้อที่กล่าวมา',
+    ],
+    answer: 3,
+    explain: 'องค์ประกอบของ vector ที่ดีต้องครบทั้ง — recognition/cloning site, origin of replication (ORI) และ selectable marker (ยีนต้านยา) จึงถูกทุกข้อที่กล่าวมา',
+    source: 'Biochem Lab Final (Blackboard) 12 พ.ค. 2022',
+    examOrigin: 'Biochemistry I 3102113 · Final Examination (Lab) 2022',
+    verified: 'Blackboard final Q45 (เฉลยในไฟล์)' },
+
+  { id: 70046, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+    q: 'ในงานด้านพันธุวิศวกรรม ที่ต้องใช้พลาสมิดในการเพิ่มจำนวนชิ้นส่วนดีเอ็นเอที่ต้องการ (DNA insert) ข้อใดคือหน้าที่หลักของ beta-galactosidase gene ที่อยู่ในพลาสมิด',
+    options: [
+      'เป็นตำแหน่งแบบโซเปิดให้ลำง่าย เพื่อใส่มาหาชิ้นส่วนดีเอ็นเอที่ต้องการ',
+      'ทำหน้าที่เป็นตัวรายงานผล ว่ามีการแทรกของชิ้นส่วนดีเอ็นเอที่ต้องการ',
+      'ทำหน้าที่ในการส่งถ่ายพลาสมิดเข้าไปในแบคทีเรีย',
+      'ทำให้หน้าเป็นยีนต้านยา (antibiotic resistance gene) ทำให้เกิดการคัดยาของแบคทีเรียที่ได้รับพลาสมิด',
+    ],
+    answer: 1,
+    explain: 'beta-galactosidase (lac Z) ทำหน้าที่เป็น reporter ในการคัดเลือก blue-white — ถ้ามี insert แทรก ยีนเสียหน้าที่ (โคโลนีขาว) ใช้รายงานว่ามีการแทรกของ DNA ที่ต้องการ',
+    source: 'Biochem Lab Final (Blackboard) 12 พ.ค. 2022',
+    examOrigin: 'Biochemistry I 3102113 · Final Examination (Lab) 2022',
+    verified: 'Blackboard final Q46 (เฉลยในไฟล์)' },
+
+  { id: 70047, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+    q: 'ในการแยกชิ้นส่วนดีเอ็นเอด้วยไฟฟ้า (gel electrophoresis) ความเร็วในการเคลื่อนที่ของสารดีเอ็นเอแต่ละชิ้นขึ้นกับข้อใดเป็นสำคัญ',
+    options: ['ประจุ (charge)', 'น้ำหนักโมเลกุล (molecular weight / ขนาด)', 'ความสามารถในการละลาย (solubility)', 'ถูกทุกข้อ'],
+    answer: 1,
+    explain: 'ใน gel electrophoresis ของ DNA ความเร็วการเคลื่อนที่ขึ้นกับ "ขนาด/น้ำหนักโมเลกุล" เป็นหลัก (ชิ้นเล็กไปได้ไกลกว่า) เพราะ DNA มีประจุลบต่อหน่วยความยาวคงที่อยู่แล้ว',
+    source: 'Biochem Lab Final (Blackboard) 12 พ.ค. 2022',
+    examOrigin: 'Biochemistry I 3102113 · Final Examination (Lab) 2022',
+    verified: 'Blackboard final Q47 (เฉลยในไฟล์)' },
+
+  { id: 70048, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+    q: 'หลังทำการแยกชิ้นส่วนดีเอ็นเอด้วยไฟฟ้า (gel electrophoresis) แล้ว ชิ้นส่วนดีเอ็นเอที่ขนาดใหญ่ที่สุดจะอยู่บริเวณใดของเจล',
+    options: [
+      'ใกล้จุดเริ่มต้น (ใกล้บริเวณหยอดสาร / well)',
+      'ไกลจุด ห่างจากบริเวณหยอดสาร',
+      'ประมาณ ¾ ของระยะทางไกลออกไปจากจุดหยอดสาร บนแผ่นเจลอะกาโรส',
+      'ไม่สามารถบอกได้ ขึ้นอยู่กับจำนวนของชิ้นส่วนดีเอ็นเอ',
+    ],
+    answer: 0,
+    explain: 'ชิ้น DNA ขนาดใหญ่เคลื่อนที่ช้าที่สุด จึงอยู่ใกล้ well (จุดเริ่มต้น) ส่วนชิ้นเล็กวิ่งไปได้ไกลกว่า — เป็นหลักการแยกตามขนาด',
+    source: 'Biochem Lab Final (Blackboard) 12 พ.ค. 2022',
+    examOrigin: 'Biochemistry I 3102113 · Final Examination (Lab) 2022',
+    verified: 'Blackboard final Q48 (เฉลยในไฟล์)' },
+
+  { id: 70049, subject: 'biochem-1', topic: 'lab-equipment', year: 1, type: 'mcq',
+    q: 'ต้องการเตรียม 1% agarose gel ปริมาตร 50 มิลลิลิตร เมื่อชั่ง agarose ใส่ลงในโครงหล่อแล้ว เทบัฟเฟอร์ลงในกระบอกตวง (cylinder) ถึงขีด 50 มิลลิลิตร ข้อใดคือวิธีปฏิบัติที่ถูกต้องที่สุด',
+    options: [
+      'ใช้บนปริมาตรเท่าที่มีอยู่ เทลงใน tray',
+      'เติม buffer ลงไปให้ถึง 50 มิลลิลิตร แล้วเทลงใน tray',
+      'เททิ้ง แล้วเตรียมใหม่จนกว่าจะได้ 50 มิลลิลิตรพอดี',
+      'เติมบัฟเฟอร์ให้เป็น 55-60 มิลลิลิตร เพื่อหลอม agarose ให้ละลาย แล้วจึงปรับปริมาตรกลับให้เป็น 50 มิลลิลิตรก่อนเทลง tray',
+    ],
+    answer: 3,
+    explain: 'ต้องเผื่อปริมาตรบัฟเฟอร์ (เป็น ~55-60 mL) เพราะตอนต้ม/หลอม agarose น้ำจะระเหยไปบางส่วน แล้วปรับปริมาตรกลับเป็น 50 mL ก่อนเท จึงได้ความเข้มข้น 1% ที่ถูกต้อง',
+    source: 'Biochem Lab Final (Blackboard) 12 พ.ค. 2022',
+    examOrigin: 'Biochemistry I 3102113 · Final Examination (Lab) 2022',
+    verified: 'Blackboard final Q49 (เฉลยในไฟล์)' },
 ];
