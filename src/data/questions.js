@@ -125,6 +125,20 @@ export function isQBLoaded() {
   return _qbArr.length > 0;
 }
 
+/**
+ * Precise "have ALL banks been merged" check — distinct from isQBLoaded(),
+ * which is true as soon as ANY scope (e.g. one year) loads. 'all' scope is
+ * only marked loaded when loadQB() (full cross-year) resolves.
+ *
+ * startExam uses this to tell apart "pool empty because nothing loaded yet"
+ * from "pool empty because the picked subject's year-banks haven't merged
+ * yet" (the year-switch race: QB already holds another year's questions so
+ * the simple isQBLoaded() guard passes, but the picked subject isn't in it).
+ */
+export function isQBFullyLoaded() {
+  return _loadedScopes.has('all');
+}
+
 // Re-export for convenience — many views consume both QB + SUBJECTS
 // from this barrel.
 export { SUBJECTS } from './curriculum.js';

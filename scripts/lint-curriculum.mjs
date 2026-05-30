@@ -42,7 +42,7 @@ const cur = await imp('src/data/curriculum.js');
 const counts = await imp('src/data/q-counts.js');
 
 const { QB, loadQB } = qm;
-const { SUBJECTS, SUBJECTS_BY_YEAR, yearForSubject } = cur;
+const { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, yearForSubject } = cur;
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 await loadQB();
 
@@ -103,6 +103,22 @@ for (const s of SUBJECTS) {
   const n = bySubject[s.id] || 0;
   if (s.has_questions && n === 0) errors.push(`subject '${s.id}' has_questions:true but 0 Qs in banks`);
   if (!s.has_questions && n > 0) warns.push(`subject '${s.id}' has ${n} Qs but no has_questions:true flag`);
+}
+
+// Year-level scaffold flag MUST match Q presence. scaffold:true ⟺ year has
+// 0 Qs. Otherwise YearSelectView either buries a LIVE year under
+// "ดูชั้นปีอื่น · รอเติม" (the Y1/Y5 bug, 2026-05-31) or advertises an empty
+// year as ready. Derived truth = the live recount byYear (same source the
+// q-counts freshness check above already trusts).
+for (const y of YEARS || []) {
+  const n = byYear[y.id] || 0;
+  const shouldScaffold = n === 0;
+  if (!!y.scaffold !== shouldScaffold) {
+    errors.push(
+      `YEARS id=${y.id} (${y.label}) scaffold:${!!y.scaffold} but year has ${n} Qs — ` +
+      `set scaffold:${shouldScaffold} (scaffold:true ⟺ 0 Qs, else front door mislabels the year)`
+    );
+  }
 }
 
 // ── WARNINGS ──

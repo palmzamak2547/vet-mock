@@ -20,12 +20,18 @@
 //   available: false                   → SOON (hidden from year selector)
 // All 6 years are now browsable so users see the roadmap. Scaffold subjects
 // render as "🚧 รอเพิ่มเนื้อหา" cards in HomeView (no exam mode entry).
+// `scaffold` (year-level) = PREVIEW year with NO questions yet. A year flips
+// to LIVE (scaffold:false) the moment it gets its first real Q bank. This is
+// hand-set here but GATED by lint:curriculum — if a year has questions in
+// q-counts.js yet is still flagged scaffold:true (or vice-versa), the build
+// FAILS. So it can't silently drift. (Year 1 = 260 Qs, Year 5 = 555 Qs are
+// LIVE; Years 2/3/6 still empty = scaffold.)
 export const YEARS = [
-  { id: 1, label: 'ปี 1', available: true,  current: false, scaffold: true,  desc: 'Pre-clinic, Foundation' },
+  { id: 1, label: 'ปี 1', available: true,  current: false, scaffold: false, desc: 'Pre-clinic, Foundation' },
   { id: 2, label: 'ปี 2', available: true,  current: false, scaffold: true,  desc: 'Pre-clinic, Body Systems' },
   { id: 3, label: 'ปี 3', available: true,  current: false, scaffold: true,  desc: 'Paraclinic, Disease & Diagnostics' },
   { id: 4, label: 'ปี 4', available: true,  current: true,  scaffold: false, desc: 'Vet 86, ปัจจุบัน' },
-  { id: 5, label: 'ปี 5', available: true,  current: false, scaffold: true,  desc: 'Clinical Rotation, Specialty' },
+  { id: 5, label: 'ปี 5', available: true,  current: false, scaffold: false, desc: 'Clinical Rotation, Specialty' },
   { id: 6, label: 'ปี 6', available: true,  current: false, scaffold: true,  desc: 'Internship, Externship' },
 ];
 

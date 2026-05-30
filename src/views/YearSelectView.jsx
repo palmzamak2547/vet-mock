@@ -45,7 +45,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
         ) : (
           <h1>เปลี่ยน <em>ชั้นปี</em></h1>
         )}
-        <p>ปี 4 (Vet 86) เปิดเต็ม · ปีอื่นวางโครงรอเติมเนื้อหา</p>
+        <p>ปี 1, 4, 5 เปิดให้ฝึกแล้ว · ปีอื่นวางโครงรอเติมเนื้อหา</p>
       </div>
 
       {/* LIVE year cards — primary CTA */}

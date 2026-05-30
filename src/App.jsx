@@ -4,7 +4,7 @@ import { flushSync } from 'react-dom';
 // array reference forever, but it's empty until `loadQB()` resolves.
 // App.jsx kicks off loadQB() in a top-level effect (background load
 // after first paint) and gates exam-start paths on the populated QB.
-import { QB, loadQB, loadQBForYear, isQBLoaded } from './data/questions.js';
+import { QB, loadQB, loadQBForYear, isQBLoaded, isQBFullyLoaded } from './data/questions.js';
 import { SUBJECTS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
@@ -1034,6 +1034,18 @@ export default function App() {
     else if (_questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
 
     if (!pool.length) {
+      // Year-switch race: QB may already hold ANOTHER year's banks (so the
+      // top-of-function "QB completely empty" guard was skipped), while the
+      // picked subject's year-banks haven't merged in yet → the filtered
+      // pool is empty even though the subject genuinely has questions.
+      // Before dead-ending with an alert, load ALL banks and retry ONCE.
+      // Only alert if the pool is STILL empty after a full load (= the
+      // subject/category truly has no questions). Guarded against re-loops
+      // by isQBFullyLoaded() + the __retriedFullLoad sentinel.
+      if (!isQBFullyLoaded() && !overrides.__retriedFullLoad) {
+        loadQB().then(() => startExam({ ...overrides, __retriedFullLoad: true }));
+        return;
+      }
       alert(_questionCategory === 'writing'
         ? 'ยังไม่มีข้อ Writing ในหมวดนี้ — ลองเปลี่ยนเป็น MCQ หรือ "ทุกประเภท"'
         : 'ไม่มีข้อสอบในหมวดนี้');
