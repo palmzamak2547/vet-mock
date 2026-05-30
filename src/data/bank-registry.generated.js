@@ -11,6 +11,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-biochem-lab.js', export: 'QB_BIOCHEM_LAB', year: 1, count: 47,
     subjects: ['biochem-1'],
     load: () => import('./questions-biochem-lab.js').then((m) => m.QB_BIOCHEM_LAB) },
+  { file: 'questions-biochem-midterm.js', export: 'QB_BIOCHEM_MIDTERM', year: 1, count: 46,
+    subjects: ['biochem-1'],
+    load: () => import('./questions-biochem-midterm.js').then((m) => m.QB_BIOCHEM_MIDTERM) },
   { file: 'questions-vet-dev.js', export: 'QB_VET_DEV', year: 1, count: 26,
     subjects: ['vet-dev-anat'],
     load: () => import('./questions-vet-dev.js').then((m) => m.QB_VET_DEV) },
@@ -118,4 +121,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-05-30T15:19:52.068Z — 36 banks · 2723 Qs
+// Built: 2026-05-30T16:09:43.994Z — 37 banks · 2769 Qs
