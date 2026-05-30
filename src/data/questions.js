@@ -13,6 +13,15 @@
 // individual lazy chunks that fetch only when the user actually starts
 // a quiz (or a view-specific path needs them).
 //
+// Architecture L2 rework (2026-05-30): the LOADERS list is no longer
+// hand-maintained here. It's DERIVED from `bank-registry.generated.js`
+// which `npm run regen:registry` rebuilds by scanning every
+// questions-*.js bank (export name + per-question year + subjects). This
+// removes the 4-place manual sync (file ⋅ export ⋅ year ⋅ counts) that
+// caused drift, and makes adding a new year's banks a turn-the-crank
+// operation. The generated file holds LITERAL import() strings so Vite's
+// per-bank chunk-splitting is unchanged.
+//
 // Compatibility notes:
 //   • Existing `import { QB }` keeps working — same array reference.
 //     But the array is EMPTY until loadQB() resolves. Consumers that
@@ -33,60 +42,14 @@
 //   one clean re-render across the tree when load completes.
 // ============================================================
 
-// Per-bank lazy loaders. Each returns the named-export array from the
-// dynamic import. Vite chunks these via the `manualChunks` config in
-// vite.config.js (data-q-com3 etc.).
-//
-// LOADERS are tagged with which curriculum year they belong to so
-// `loadQBForYear(N)` can pull only that year's chunks (Palm audit
-// 2026-05-20: was loading all 34 chunks even for Y4-only users).
-// `year: null` = legacy/cross-year banks (mahahon/termpaper/short/
-// vca) that aren't pure Y4 or Y5.
-const LOADERS = [
-  // Y4 banks (Vet 86 main · ~2,095 Qs)
-  { year: 4, fn: () => import('./questions-part1.js').then((m) => m.QB) },
-  { year: 4, fn: () => import('./questions-part2.js').then((m) => m.QB_PART2) },
-  { year: 4, fn: () => import('./questions-part3.js').then((m) => m.QB_PART3) },
-  { year: 4, fn: () => import('./questions-com5.js').then((m) => m.QB_COM5) },
-  { year: 4, fn: () => import('./questions-com3.js').then((m) => m.QB_COM3) },
-  { year: 4, fn: () => import('./questions-com3-special.js').then((m) => m.QB_COM3_SPECIAL) },
-  { year: 4, fn: () => import('./questions-com4.js').then((m) => m.QB_COM4) },
-  { year: 4, fn: () => import('./questions-engprof.js').then((m) => m.QB_ENGPROF) },
-  { year: 4, fn: () => import('./questions-exotic.js').then((m) => m.QB_EXOTIC) },
-  { year: 4, fn: () => import('./questions-poultry.js').then((m) => m.QB_POULTRY) },
-  { year: 4, fn: () => import('./questions-repro-lect.js').then((m) => m.QB_REPRO_LECT) },
-  { year: 4, fn: () => import('./questions-practrum.js').then((m) => m.QB_PRACTRUM) },
-  { year: 4, fn: () => import('./questions-cliapprum.js').then((m) => m.QB_CLIAPPRUM) },
-  // ── Y4 Sem 1 banks (Vet 86 past-paper extraction · 2026-05-17) ──
-  { year: 4, fn: () => import('./questions-com1.js').then((m) => m.QB_COM1) },
-  { year: 4, fn: () => import('./questions-com2.js').then((m) => m.QB_COM2) },
-  { year: 4, fn: () => import('./questions-vet-imaging.js').then((m) => m.QB_VET_IMAGING) },
-  { year: 4, fn: () => import('./questions-swine-repro.js').then((m) => m.QB_SWINE_REPRO) },
-  { year: 4, fn: () => import('./questions-swine-herd.js').then((m) => m.QB_SWINE_HERD) },
-  { year: 4, fn: () => import('./questions-food-safety-y4.js').then((m) => m.QB_FOOD_SAFETY_Y4) },
-  { year: 4, fn: () => import('./questions-vet-juris.js').then((m) => m.QB_VET_JURIS) },
-  { year: 4, fn: () => import('./questions-engprof1.js').then((m) => m.QB_ENGPROF1) },
-  // Wave 3 (2026-05-17) — 2 newly-populated Y4 Sem 1 subjects
-  { year: 4, fn: () => import('./questions-surg1.js').then((m) => m.QB_SURG1) },
-  { year: 4, fn: () => import('./questions-herd-health-rum.js').then((m) => m.QB_HERD_HEALTH_RUM) },
+import { BANK_REGISTRY } from './bank-registry.generated.js';
 
-  // Y5 banks (~555 Qs)
-  { year: 5, fn: () => import('./questions-y5-final-mixed.js').then((m) => m.QB_Y5_FINAL_MIXED) },
-  { year: 5, fn: () => import('./questions-y5-patho.js').then((m) => m.QB_Y5_PATHO) },
-  { year: 5, fn: () => import('./questions-y5-osce-ruminant.js').then((m) => m.QB_Y5_OSCE_RUMINANT) },
-  { year: 5, fn: () => import('./questions-y5-swine-clinic.js').then((m) => m.QB_Y5_SWINE_CLINIC) },
-  { year: 5, fn: () => import('./questions-y5-repro-clinic.js').then((m) => m.QB_Y5_REPRO_CLINIC) },
-  { year: 5, fn: () => import('./questions-y5-osce-med.js').then((m) => m.QB_Y5_OSCE_MED) },
-  { year: 5, fn: () => import('./questions-y5-vision-batch.js').then((m) => m.QB_Y5_VISION_BATCH) },
-
-  // Cross-year / legacy banks — included by EVERY year scope. VCA is
-  // technically Y5 but heavily used by Y4 students for licensure prep;
-  // mahahon/termpaper/short are utility banks not pure to a year.
-  { year: null, fn: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
-  { year: null, fn: () => import('./questions-short.js').then((m) => m.QB_SHORT) },
-  { year: null, fn: () => import('./questions-mahahon.js').then((m) => m.QB_MAHAHON) },
-  { year: null, fn: () => import('./questions-termpaper.js').then((m) => m.QB_TERMPAPER) },
-];
+// LOADERS derived from the generated registry. Each entry: { year, fn }
+// where `year` is the curriculum year the bank belongs to (or null for
+// cross-year / utility banks loaded by every year scope) and `fn` is a
+// thunk returning the bank's question array. Same shape the rest of this
+// module consumed before the registry refactor — behaviour-identical.
+const LOADERS = BANK_REGISTRY.map((b) => ({ year: b.year, fn: b.load }));
 
 // SAME reference forever — mutated when loadQB resolves so closures
 // over `QB` see populated data on the next React render.
