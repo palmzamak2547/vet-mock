@@ -6,18 +6,22 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   const allQuestions = [...QB, ...customQuestions];
 
   // Filter subjects to selectedYear (or show all if no year selected — for
-  // legacy "all subjects" flow). Year 4 has the only "all" subject card,
-  // so we keep `all` only when viewing Y4.
-  // Scaffold years (1, 2, 3, 5, 6) show their subjects but each subject
-  // ends up disabled because visibleQuestionCount = 0 — so users see the
-  // structure without being able to enter a broken exam mode.
+  // legacy "all subjects" flow).
+  //
+  // Year-agnostic (2026-05-30 architecture pass): the "รวมทุกวิชา" (all)
+  // card is shown for ANY year that actually has questions — not hardcoded
+  // to Y4. As Y1-3/5/6 banks land, their year picks up the all-card
+  // automatically. Scaffold/empty years show their subject structure
+  // (each disabled via visibleQuestionCount = 0) without an all-card that
+  // would lead into an empty exam.
   const yearMeta = YEARS.find((y) => y.id === selectedYear);
   const isScaffoldYear = !!yearMeta?.scaffold;
   const yearSubjects = selectedYear
     ? (SUBJECTS_BY_YEAR[selectedYear] || [])
     : [];
+  const yearHasQuestions = yearSubjects.some((s) => s.has_questions);
   const visibleSubjects = selectedYear
-    ? (selectedYear === 4
+    ? (yearHasQuestions
         ? [SUBJECTS.find((s) => s.id === 'all'), ...yearSubjects].filter(Boolean)
         : yearSubjects)
     : SUBJECTS;
