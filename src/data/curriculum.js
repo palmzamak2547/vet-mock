@@ -976,6 +976,8 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'lect-carbohydrate',  label: 'Lecture — Carbohydrate', icon: '🍬' },
         { id: 'lect-lipid',         label: 'Lecture — Lipid', icon: '🧈' },
         { id: 'lect-protein',       label: 'Lecture — Amino acid & protein', icon: '🥩' },
+        { id: 'lect-drug-delivery', label: 'Lecture — Biomolecules & drug delivery', icon: '💊' },
+        { id: 'lect-metabolism',    label: 'Lecture — Metabolism', icon: '🔥' },
         { id: 'lect-general',       label: 'Lecture — ทั่วไป', icon: '📖' },
       ] },
     { id: 'vet-dev-anat', code: '3101102', name: 'คัพภวิทยาทางสัตวแพทย์',
