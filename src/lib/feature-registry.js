@@ -167,21 +167,21 @@ export const FEATURES = [
 
   // ── 🛠 Tools & More ──────────────────────────────────────
   {
-    id: 'vetcalc', category: 'tools',
+    id: 'vetcalc', category: 'tools', fab: true, fabHint: 'RER · Fluid · CRI',
     label: 'เครื่องคิดเลข', labelEn: 'Vet Calculator', icon: '🧮',
     hint: 'RER · Fluid · CRI · dose',
     kw: 'calculator เครื่องคิดเลข rer fluid cri dose ขนาดยา คำนวณ',
     invoke: { kind: 'event', event: 'vmx-open-vetcalc' },
   },
   {
-    id: 'sketch', category: 'tools',
+    id: 'sketch', category: 'tools', fab: true, fabHint: 'sketch · diagram',
     label: 'กระดานวาด', labelEn: 'Sketchpad', icon: '🎨',
     hint: 'วาด diagram · sketch',
     kw: 'sketch กระดาน วาด draw diagram จด',
     invoke: { kind: 'sketch' },
   },
   {
-    id: 'lab', category: 'tools',
+    id: 'lab', category: 'tools', fab: true, fabHint: 'DICOM · Norberg · VHS',
     label: 'Imaging Lab', labelEn: 'Imaging Lab', icon: '🔬',
     hint: 'DICOM · Norberg · VHS',
     kw: 'lab imaging dicom norberg vhs xray รังสี ภาพ ฝึกอ่าน',
@@ -285,6 +285,11 @@ export function featuresByCategory(categoryId) {
 /** The 3 primary study-mode cards (Quick / Exam / SR). */
 export function primaryFeatures() {
   return FEATURES.filter((f) => f.primary);
+}
+
+/** Quick-access tools surfaced in the floating ToolsFAB (🧮/🎨/🔬). */
+export function fabFeatures() {
+  return FEATURES.filter((f) => f.fab);
 }
 
 /**

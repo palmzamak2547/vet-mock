@@ -20,11 +20,32 @@
 // ============================================================
 
 import { useEffect, useRef, useState } from 'react';
+// Quick-access tools come from the shared feature registry (flagged `fab`)
+// so the floating menu can't drift from the home grid / ⌘K. Adding a new
+// quick tool = set fab:true on its registry entry; nothing here changes.
+import { fabFeatures } from '../lib/feature-registry.js';
 
 export default function ToolsFAB({ onSketch, onLab }) {
   const [open, setOpen] = useState(false);
   const popRef = useRef(null);
   const btnRef = useRef(null);
+
+  // Dispatch a registry invoke descriptor. Lab routes through the onLab
+  // prop (App owns the #lab hash nav); calc fires its window event;
+  // sketch calls onSketch. Mirrors FeatureMenu/CommandPalette dispatch.
+  const dispatch = (inv) => {
+    setOpen(false);
+    if (!inv) return;
+    switch (inv.kind) {
+      case 'event': try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
+      case 'sketch': onSketch?.(); return;
+      case 'view': if (inv.view === 'lab') onLab?.(); return;
+      default: return;
+    }
+  };
+  // The lab tool only appears when App wired an onLab handler (it's hidden
+  // during exam/auth). Filter it out of the FAB when that prop is absent.
+  const items = fabFeatures().filter((f) => f.id !== 'lab' || !!onLab);
 
   // Outside-click + Esc close. Only attach the listeners while open
   // so the dormant FAB has zero global event cost.
@@ -45,19 +66,6 @@ export default function ToolsFAB({ onSketch, onLab }) {
       document.removeEventListener('keydown', onKey);
     };
   }, [open]);
-
-  const handleCalc = () => {
-    setOpen(false);
-    window.dispatchEvent(new Event('vmx-open-vetcalc'));
-  };
-  const handleSketch = () => {
-    setOpen(false);
-    onSketch?.();
-  };
-  const handleLab = () => {
-    setOpen(false);
-    onLab?.();
-  };
 
   return (
     <>
@@ -85,16 +93,15 @@ export default function ToolsFAB({ onSketch, onLab }) {
             animation: 'vmx-fab-pop 140ms cubic-bezier(0.32, 0.72, 0, 1)',
           }}
         >
-          <FabMenuItem icon="🧮" label="เครื่องคิดเลข" hint="RER · Fluid · CRI" onClick={handleCalc} />
-          <FabMenuItem icon="🎨" label="กระดานวาด"     hint="sketch · diagram"    onClick={handleSketch} />
-          {onLab && (
+          {items.map((f) => (
             <FabMenuItem
-              icon="🔬"
-              label="Imaging Lab"
-              hint="DICOM · Norberg · VHS · NEW"
-              onClick={handleLab}
+              key={f.id}
+              icon={f.icon}
+              label={f.label}
+              hint={f.fabHint || f.hint}
+              onClick={() => dispatch(f.invoke)}
             />
-          )}
+          ))}
         </div>
       )}
 
