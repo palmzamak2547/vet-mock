@@ -30,6 +30,11 @@ import { QB } from '../data/questions.js';
 // User-authored flashcards (Highlight → Flashcard feature). Same
 // module that owns the localStorage key, so we don't re-parse here.
 import { loadUserFlashcards } from '../lib/user-flashcards.js';
+// Feature registry — single source of truth shared with HomeView. The
+// palette's "Quick Actions" are derived from it so a feature added once
+// shows up in BOTH the home grid and search (no more hand-synced drift,
+// which had left 7 navigable features unsearchable).
+import { FEATURES } from '../lib/feature-registry.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -120,30 +125,19 @@ function buildStaticItems() {
     });
   };
 
-  // Quick actions — payload is the action key the dispatcher knows.
-  const actions = [
-    { key: 'home',              label: 'หน้าแรก',                 hint: 'Home',                            icon: '🏠',  kw: 'home หน้าแรก main' },
-    { key: 'dashboard',         label: 'Dashboard / สถิติ',        hint: 'Dashboard',                       icon: '📊',  kw: 'dashboard stats สถิติ analytics' },
-    { key: 'schedule',          label: 'ตารางสอบ',                 hint: 'Schedule',                        icon: '📅',  kw: 'schedule exam ตาราง สอบ' },
-    { key: 'videos',            label: 'คลิปย้อนหลัง',              hint: 'Videos',                          icon: '🎬',  kw: 'video clip คลิป ย้อนหลัง summary' },
-    { key: 'reading-checklist', label: 'Reading Checklist',        hint: 'Checklist',                       icon: '📖',  kw: 'reading checklist อ่าน หัวข้อ' },
-    { key: 'bookmarks',         label: 'Bookmarks',                hint: 'Saved questions',                 icon: '⭐',  kw: 'bookmark saved star ⭐ ข้อ' },
-    { key: 'pinboard',          label: 'Pinboard',                 hint: 'รายการ pin',                       icon: '📌',  kw: 'pinboard pin หมุด รวบรวม board collect saved' },
-    { key: 'question-manager',  label: 'Question Manager',         hint: 'Custom Q',                        icon: '✏️',  kw: 'manage edit custom question จัดการ' },
-    { key: 'sr-session',        label: 'Spaced Repetition',        hint: 'SR review',                       icon: '🧠',  kw: 'sr spaced repetition review flashcard ทบทวน' },
-    { key: 'scores',            label: 'คะแนนล่าสุด',                hint: 'Scores',                          icon: '🏆',  kw: 'score คะแนน history ประวัติ' },
-    { key: 'about',             label: 'About',                    hint: 'เกี่ยวกับ',                         icon: 'ℹ️',  kw: 'about info เกี่ยวกับ' },
-    { key: 'feedback',          label: 'แจ้งปัญหา / Feedback',       hint: 'Feedback',                        icon: '🐛',  kw: 'feedback bug แจ้ง ปัญหา ติชม' },
-    { key: 'ig-cards',          label: 'IG Card Studio',           hint: 'Generate posts for @vetmock.cu',  icon: '📷',  kw: 'ig instagram card studio post daily admin export' },
-    { key: 'faculty',           label: 'อาจารย์ผู้สอนทั้งหมด',         hint: 'Faculty index',                   icon: '👨‍🏫', kw: 'faculty instructor อาจารย์ ผู้สอน lecturer professor' },
-    { key: 'account-settings',  label: 'Account Settings',         hint: 'จัดการ account',                   icon: '⚙️',  kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ' },
-    { key: 'voice-settings',    label: 'Voice Settings',           hint: 'ปรับเสียงพูดข้อสอบ',                icon: '🎚',  kw: 'voice tts settings pause speed เสียง อ่าน เสียงพูด พูด ความเร็ว pace tempo iapp kaitom' },
-    { key: 'pdf-annotate',      label: 'PDF + annotate',           hint: 'อัปโหลด lecture PDF แล้วเขียนทับ',  icon: '📑',  kw: 'pdf annotate annotation lecture slide สไลด์ เขียนทับ' },
-    { key: 'image-occlusion',   label: 'Image Occlusion',          hint: 'ทำ flashcard จากรูป',              icon: '🖼',  kw: 'image occlusion mask anatomy รูปภาพ ปกปิด anki' },
-    { key: 'pomodoro',          label: 'Pomodoro · 🐤',            hint: 'จับเวลา focus 25 นาที + ลูกไก่ฟัก', icon: '🍅',  kw: 'pomodoro focus timer 25 minute chick ลูกไก่ ฟัก จับเวลา โฟกัส' },
-    { key: 'phase-wrapped',     label: 'Phase Wrapped',            hint: 'สรุปการเรียน',                     icon: '📊',  kw: 'wrapped phase summary สรุป recap spotify year-in-review เทอม สอบจบ' },
-  ];
-  for (const a of actions) push({ type: 'action', payload: a.key, label: a.label, hint: a.hint, icon: a.icon, kw: a.kw });
+  // Quick actions — DERIVED from the feature registry (single source of
+  // truth shared with HomeView), plus two nav-only entries that aren't
+  // standalone "features": home (navigation) and bookmarks (a practice
+  // mode, not a screen). payload carries the invoke descriptor that
+  // runItem() interprets. Deriving here means adding a feature to the
+  // registry makes it searchable automatically — closing the old gap
+  // where race/groups/lab/leaderboard/contribute/review-queue/mini-game
+  // were navigable from somewhere but never showed up in ⌘K.
+  push({ type: 'action', payload: { kind: 'view', view: 'home' }, label: 'หน้าแรก', hint: 'Home', icon: '🏠', kw: 'home หน้าแรก main' });
+  push({ type: 'action', payload: { kind: 'bookmarks' }, label: 'Bookmarks', hint: 'ข้อที่บันทึกไว้', icon: '⭐', kw: 'bookmark saved star ดาว ข้อบันทึก' });
+  for (const f of FEATURES) {
+    push({ type: 'action', payload: f.invoke, label: f.label, hint: f.hint, icon: f.icon, kw: f.kw, category: f.category });
+  }
 
   // Subjects
   for (const s of SUBJECTS) {
@@ -252,15 +246,24 @@ function buildStaticItems() {
 // Dispatch table — translates a cached item back into an action.
 // Keeps the item array pure data so we don't have to rebuild closures.
 function runItem(item, handlers) {
-  const { goView, setSubject, setPracticeMode, openInstructor, openVoiceSettings } = handlers;
+  const { goView, setSubject, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onSketch } = handlers;
   switch (item.type) {
     case 'action': {
-      if (item.payload === 'bookmarks') { setPracticeMode?.('bookmarks'); goView?.('config'); return; }
-      // voice-settings opens an overlay instead of navigating — keeps
-      // the user on the current Q if they triggered from ExamView.
-      if (item.payload === 'voice-settings') { openVoiceSettings?.(); return; }
-      goView?.(item.payload);
-      return;
+      // payload is now an invoke descriptor (from the registry) or one of
+      // the two nav-only specials (home view / bookmarks practice mode).
+      const inv = item.payload;
+      if (!inv || typeof inv !== 'object') return;
+      switch (inv.kind) {
+        case 'view':      goView?.(inv.view); return;
+        case 'practice':  onPractice?.(inv); return;
+        case 'event':     try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
+        case 'sketch':    onSketch?.(); return;
+        // voice-settings opens an overlay instead of navigating — keeps
+        // the user on the current Q if they triggered from ExamView.
+        case 'voice':     openVoiceSettings?.(); return;
+        case 'bookmarks': setPracticeMode?.('bookmarks'); goView?.('config'); return;
+        default: return;
+      }
     }
     case 'subject':    setSubject?.(item.payload); goView?.('topic-select'); return;
     case 'summary':    goView?.('videos'); return;
