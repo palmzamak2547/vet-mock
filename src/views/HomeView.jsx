@@ -32,6 +32,10 @@ const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
 // subject · random fallback). Replaces the "menu of tools" feel called
 // out in Palm's friend's review.
 import NextActionCard from '../components/NextActionCard.jsx';
+// FeatureMenu — categorized feature grid (practice/learn/progress/tools)
+// derived from the shared feature registry. Replaces the old scattered
+// "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
+import FeatureMenu from '../components/FeatureMenu.jsx';
 // QuestsPanel — Duolingo-style daily quests. Lazy because most users
 // won't need it on first paint, and it pulls in quests + xp libs
 // (~15KB combined). Mounted under the streak chip row.
@@ -47,7 +51,7 @@ const PHASE_LABELS = {
   '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2, icon: '🏁' },
 };
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {} }) {
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
   // Year context — determines hero copy + reading checklist scope.
   // Only Y4 has actual exam schedule entries today; for scaffold years
   // we hide the countdown banner since `getNextExam('y5')` returns null.
@@ -76,8 +80,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const checklistTopics = yearSubjects
     .filter((s) => Array.isArray(s.topics) && s.topics.length > 0)
     .flatMap((s) => s.topics.map((t) => t.id));
-  const readingDone = checklistTopics.filter((id) => readingChecklist[id]).length;
-  const readingTotal = checklistTopics.length;
+  // (readingDone/readingTotal badge moved into FeatureMenu's registry-driven
+  // card; the bespoke progress count is no longer rendered on HomeView.)
 
   // Changelog announcement banner — show until user dismisses this version
   const [lastSeenChangelog, setLastSeenChangelog] = useLocalStorage('vmx-last-seen-changelog', null);
@@ -1476,102 +1480,36 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* TERTIARY: Year tools — schedule/scores/reading/videos disabled on
-          scaffold years (data is year-scoped + empty). Analytics stays
-          since it's cross-year. Adds a contribute CTA on scaffold years. */}
-      <div className="vmx-section-label" style={{ marginTop: 28 }}>เครื่องมือ{yearMeta?.label || 'ปี 4'}</div>
-      <div className="vmx-mode-grid">
-        <button
-          className="vmx-mode-card"
-          onClick={() => !isScaffoldYear && setView('schedule')}
-          disabled={isScaffoldYear}
-          style={{ opacity: isScaffoldYear ? 0.45 : 1, cursor: isScaffoldYear ? 'not-allowed' : 'pointer' }}
-          title={isScaffoldYear ? 'ยังไม่มีตารางสำหรับปีนี้' : ''}
-        >
-          <div className="icon">📅</div>
-          <div className="title">ตารางสอบ</div>
-          <div className="sub">
-            {isScaffoldYear ? '🚧 ยังไม่มีตาราง' : 'Final exam schedule'}
-          </div>
-        </button>
-
-        <button
-          className="vmx-mode-card"
-          onClick={() => !isScaffoldYear && setView('reading-checklist')}
-          disabled={isScaffoldYear}
-          style={{
-            opacity: isScaffoldYear ? 0.45 : 1,
-            cursor: isScaffoldYear ? 'not-allowed' : 'pointer',
-            borderColor: readingDone > 0 ? 'var(--clr-gold)' : undefined,
-          }}
-          title={isScaffoldYear ? 'รายการอ่าน scaffold ปีนี้ยังว่าง' : ''}
-        >
-          <div className="icon">📚</div>
-          <div className="title">รายการอ่าน</div>
-          <div className="sub">
-            {isScaffoldYear ? '🚧 ยังไม่มีหัวข้อ' : (readingTotal > 0 ? `${readingDone}/${readingTotal} หัวข้อ` : 'ยังไม่มีหัวข้อใน scope')}
-          </div>
-          {!isScaffoldYear && readingDone > 0 && <div className="badge" style={{ background: 'var(--clr-gold)' }}>{readingDone}</div>}
-        </button>
-
-        <button
-          className="vmx-mode-card"
-          onClick={() => !isScaffoldYear && setView('scores')}
-          disabled={isScaffoldYear}
-          style={{ opacity: isScaffoldYear ? 0.45 : 1, cursor: isScaffoldYear ? 'not-allowed' : 'pointer' }}
-          title={isScaffoldYear ? 'สัดส่วนคะแนนของปีนี้ยังไม่มี' : ''}
-        >
-          <div className="icon">💰</div>
-          <div className="title">สัดส่วนคะแนน</div>
-          <div className="sub">{isScaffoldYear ? '🚧 ยังไม่มีข้อมูล' : 'Mid, Final, ฟรี, ทำงาน'}</div>
-        </button>
-
-        {/* คลิปย้อนหลัง card removed — Subject Detail's action panel
-            now provides per-subject 🎥 access, which is the natural
-            entry point. Cross-subject "browse all videos" was a rare
-            use case and the redundancy created confusion. */}
-
-        {isScaffoldYear && (
-          <button
-            className="vmx-mode-card"
-            onClick={() => setView('feedback')}
-            style={{ borderColor: 'var(--clr-gold)' }}
-          >
-            <div className="icon">🤝</div>
-            <div className="title">ช่วยเติมเนื้อหา</div>
-            <div className="sub">ส่ง slide / notes / past paper ของปีนี้</div>
-          </button>
-        )}
-      </div>
-
-      {/* Multiplayer (cross-year, account-scoped) */}
-      {hasSupabase && (
-        <>
-          <div className="vmx-section-label" style={{ marginTop: 28 }}>Multiplayer</div>
-          <div className="vmx-mode-grid">
-            {user ? (
-              <>
-                <button className="vmx-mode-card" onClick={() => setView('groups')} style={{ borderColor: 'var(--clr-ocean)' }}>
-                  <div className="icon">👥</div>
-                  <div className="title">Study Groups</div>
-                  <div className="sub">สร้างกลุ่ม, invite เพื่อน, แชร์ข้อสอบ</div>
-                </button>
-                <button className="vmx-mode-card" onClick={() => setView('leaderboard-global')} style={{ borderColor: 'var(--clr-gold)' }}>
-                  <div className="icon">🏆</div>
-                  <div className="title">Leaderboard</div>
-                  <div className="sub">จัดอันดับคะแนนทั่วโลก</div>
-                </button>
-              </>
-            ) : (
-              <button className="vmx-mode-card" onClick={() => setView('auth')} style={{ borderColor: 'var(--clr-sage)' }}>
-                <div className="icon">🔐</div>
-                <div className="title">Login / Sign Up</div>
-                <div className="sub">เพื่อใช้ Groups, Leaderboard, Cloud Sync</div>
-              </button>
-            )}
-          </div>
-        </>
-      )}
+      {/* Categorized feature menu — practice / learn / progress / tools,
+          all derived from the shared feature registry (lib/feature-registry.js).
+          Replaces what used to be 3 scattered sections (a "เครื่องมือปีX" grid,
+          a "Multiplayer" grid, and a bottom text-link strip). One registry →
+          this grid AND the ⌘K palette, so they can't drift. Auth-only features
+          (groups/leaderboard/race/review-queue/account) hide when signed out;
+          year-scoped ones (schedule/reading/scores) hide on scaffold years.
+          The signed-out value-prop for groups already lives in the group-
+          preview card above, so dropping the old "Login / Sign Up" tile here
+          is not a regression. */}
+      <FeatureMenu
+        setView={setView}
+        signedIn={!!user}
+        scaffold={isScaffoldYear}
+        hasSupabase={hasSupabase}
+        onSketch={onSketch}
+        onVoiceSettings={onVoiceSettings}
+        onPractice={(inv) => {
+          // Registry 'practice' invoke → set up a config flow (same as the
+          // primary mode cards). Lands on ConfigView so count/timer can be
+          // tweaked before starting. Mirrors App.startExam's overrides path.
+          setMode?.(inv.mode);
+          setSubject?.(inv.subject || 'all');
+          setPracticeMode?.(inv.practiceMode || 'all');
+          if (inv.numQuestions != null) setNumQuestions?.(inv.numQuestions);
+          if (inv.useTimer != null) setUseTimer?.(inv.useTimer);
+          if (inv.timePerQ != null) setTimePerQ?.(inv.timePerQ);
+          setView('config');
+        }}
+      />
 
       {/* Tips footer — only for first-time users (pre-welcome-dismiss).
           Returning users have absorbed these already; hiding declutters
@@ -1584,49 +1522,27 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* Bottom strip — about / feedback / Q manager / changelog re-open
-          all consolidated as small text links. They're rarely-used utility
-          actions that don't deserve full mode-card real estate. */}
-      <div style={{
-        marginTop: 36,
-        paddingTop: 18,
-        borderTop: '1px dashed var(--clr-border)',
-        display: 'flex',
-        gap: 18,
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        fontSize: 12,
-        fontFamily: 'JetBrains Mono, monospace',
-        color: 'var(--clr-ink-soft)',
-      }}>
-        <button type="button" className="vmx-link-btn" onClick={() => setView('about')} style={linkStyle}>
-          ℹ️ เกี่ยวกับ
-        </button>
-        <button type="button" className="vmx-link-btn" onClick={() => setView('feedback')} style={linkStyle}>
-          💌 แจ้งปัญหา / ขอเนื้อหา
-        </button>
-        <button type="button" className="vmx-link-btn" onClick={() => setView('question-manager')} style={linkStyle}>
-          ➕ เพิ่ม/แก้ข้อสอบเอง
-        </button>
-        {/* Round 5 (2026-05-18) — open contribution + review queue.
-            Contribute is open to anyone (anon → bounces to AuthView).
-            Review queue is reviewer-gated (verified+ role required —
-            ReviewQueueView shows a friendly "not yet authorized" copy
-            for contributors). */}
-        <button type="button" className="vmx-link-btn" onClick={() => setView('contribute')} style={linkStyle}>
-          💡 ส่งคำถามเข้า Q bank
-        </button>
-        {user && (
-          <button type="button" className="vmx-link-btn" onClick={() => setView('review-queue')} style={linkStyle}>
-            🎯 รีวิวคำถาม (ตรวจ Q)
-          </button>
-        )}
-        {!showAnnouncement && LATEST_CHANGELOG && (
+      {/* Bottom strip — only the changelog re-open remains here. The old
+          about / feedback / Q-manager / contribute / review-queue links are
+          now first-class cards in the FeatureMenu (🛠 Tools + 📝 Practice),
+          so this strip shrank to the one action the registry doesn't model:
+          re-surfacing the latest changelog announcement. */}
+      {!showAnnouncement && LATEST_CHANGELOG && (
+        <div style={{
+          marginTop: 28,
+          paddingTop: 16,
+          borderTop: '1px dashed var(--clr-border)',
+          display: 'flex',
+          justifyContent: 'center',
+          fontSize: 12,
+          fontFamily: 'JetBrains Mono, monospace',
+          color: 'var(--clr-ink-soft)',
+        }}>
           <button type="button" className="vmx-link-btn" onClick={() => setLastSeenChangelog(null)} style={linkStyle}>
             🔔 อัปเดตล่าสุด ({LATEST_CHANGELOG.version})
           </button>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }
