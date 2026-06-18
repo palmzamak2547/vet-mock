@@ -30,3 +30,9 @@ tmp/
 # on every run; do NOT commit (would create noisy diffs every test).
 test-results/
 playwright-report/
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+.ds-entry.tsx
