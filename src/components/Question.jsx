@@ -6,7 +6,6 @@ import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
-import { speakQuestion, prefetchQuestion, cancelSpeech } from '../lib/tts.js';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
 import PinButton from './PinButton.jsx';
@@ -142,33 +141,16 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // controller flag lets in-flight `speakQuestion` bail between chunks
   // even if a user mashes 🔊 on a new Q before the previous finished.
   const speakControllerRef = useRef({ cancelled: false });
+  const ttsModuleRef = useRef(null);
   useEffect(() => {
     return () => {
       speakControllerRef.current.cancelled = true;
-      cancelSpeech();
+      ttsModuleRef.current?.cancelSpeech?.();
       setIsSpeaking(false);
     };
   }, [currentQ?.id]);
 
-  // Prefetch the STEM audio in the background as soon as the Q renders.
-  // Cost: 1 IC (~1.25 ฿) per never-spoken Q on iApp tier. Benefit: when
-  // the user actually taps 🔊, the audio is already in IndexedDB cache
-  // and `speakQuestion` skips the network round-trip → first word lands
-  // within ~100 ms of the tap.
-  //
-  // 400 ms idle delay before kicking off: avoids burning the credit
-  // when the user immediately swipes/jumps to another Q (TopicSelect →
-  // exam jumps the index a lot during first-time exploration).
-  useEffect(() => {
-    const stem = (currentQ?.q || '').trim();
-    if (!stem) return;
-    const t = setTimeout(() => {
-      prefetchQuestion({ stem });
-    }, 400);
-    return () => clearTimeout(t);
-  }, [currentQ?.id, currentQ?.q]);
-
-  const speakQ = () => {
+  const speakQ = async () => {
     // CRITICAL: prime audio synchronously BEFORE any await. iOS Safari
     // (and stricter browsers) require .play() to happen inside a user
     // gesture; speakQuestion() crosses an `await` boundary which would
@@ -178,7 +160,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     if (isSpeaking) {
       // Toggle off — abort the in-flight chain and cancel the queue
       speakControllerRef.current.cancelled = true;
-      cancelSpeech();
+      ttsModuleRef.current?.cancelSpeech?.();
       setIsSpeaking(false);
       return;
     }
@@ -189,13 +171,22 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     const options = Array.isArray(currentQ.options)
       ? currentQ.options.map((o) => stripForSpeech(o))
       : [];
-    speakQuestion({
-      stem,
-      options,
-      controller,
-      onStart: () => setIsSpeaking(true),
-      onEnd: () => { if (!controller.cancelled) setIsSpeaking(false); },
-    });
+    try {
+      // TTS is an optional feature. Keep its speech/IndexedDB providers out
+      // of the core exam chunk and load them only after an explicit tap.
+      const tts = await import('../lib/tts.js');
+      ttsModuleRef.current = tts;
+      if (controller.cancelled) return;
+      tts.speakQuestion({
+        stem,
+        options,
+        controller,
+        onStart: () => setIsSpeaking(true),
+        onEnd: () => { if (!controller.cancelled) setIsSpeaking(false); },
+      });
+    } catch {
+      if (!controller.cancelled) setIsSpeaking(false);
+    }
   };
 
   const toggleFlag = () => {
@@ -263,7 +254,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   const contentBlock = (
     <div className="vmx-q-content-pane">
-      <div className="vmx-qtext"><TermLinkedRichText text={currentQ.q} /></div>
+      <h2 className="vmx-qtext"><TermLinkedRichText text={currentQ.q} /></h2>
 
       {/* Image rendering — used for U/S sonograms in หมาหอน bank.
           Tap to enlarge in lightbox modal (close: tap outside / × / Esc). */}
@@ -300,9 +291,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
 
       {currentQ.type === 'tf' && (
-        <div className="vmx-tf-row">
-          <button className={`vmx-tf-btn ${currentAnswer === true ? 'selected-true' : ''}`} onClick={() => answerCurrent(true)}>✓ True</button>
-          <button className={`vmx-tf-btn ${currentAnswer === false ? 'selected-false' : ''}`} onClick={() => answerCurrent(false)}>✗ False</button>
+        <div className="vmx-tf-row" role="group" aria-label="เลือกคำตอบ True หรือ False">
+          <button type="button" aria-pressed={currentAnswer === true} className={`vmx-tf-btn ${currentAnswer === true ? 'selected-true' : ''}`} onClick={() => answerCurrent(true)}>✓ True</button>
+          <button type="button" aria-pressed={currentAnswer === false} className={`vmx-tf-btn ${currentAnswer === false ? 'selected-false' : ''}`} onClick={() => answerCurrent(false)}>✗ False</button>
         </div>
       )}
 
@@ -310,10 +301,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         <div className="vmx-fill-row">
           {currentQ.blanks.map((_, i) => (
             <div key={i}>
-              <div className="vmx-fill-label">
+              <label className="vmx-fill-label" htmlFor={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`}>
                 {currentQ.blanks.length > 1 ? `ช่องที่ ${i + 1}` : 'คำตอบ'}
-              </div>
-              <input type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
+              </label>
+              <input id={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`} type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
                 onChange={(e) => { const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
                 placeholder={`เติมในช่อง ____ ${currentQ.blanks.length > 1 ? '(' + (i + 1) + ')' : ''}`} />
             </div>
@@ -327,6 +318,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             <div key={i} className="vmx-match-item">
               <div className="vmx-match-left"><RichText text={pair.left} /></div>
               <select className="vmx-match-select" value={(currentAnswer && currentAnswer[i]) || ''}
+                aria-label={`จับคู่รายการที่ ${i + 1}`}
                 onChange={(e) => { const obj = currentAnswer ? { ...currentAnswer } : {}; obj[i] = e.target.value; answerCurrent(obj); }}>
                 <option value="">— เลือก —</option>
                 {currentQ.pairs.map((p, j) => <option key={j} value={p.right}>{p.right.replace(/\*\*/g, '').replace(/\*/g, '')}</option>)}
@@ -342,7 +334,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {currentQ.type === 'short' && (
         <div className="vmx-fill-row">
           <div className="vmx-fill-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-            <span>Your answer (พิมพ์ตอบสั้นๆ)</span>
+            <label htmlFor={`vmx-short-${currentQ.subject}-${currentQ.id}`}>Your answer (พิมพ์ตอบสั้นๆ)</label>
             <VoiceInputButton
               size={28}
               onAppend={(text) => {
@@ -353,6 +345,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             />
           </div>
           <textarea
+            id={`vmx-short-${currentQ.subject}-${currentQ.id}`}
             className="vmx-fill-input"
             value={typeof currentAnswer === 'string' ? currentAnswer : ''}
             onChange={(e) => answerCurrent(e.target.value.slice(0, 1000))}
@@ -375,7 +368,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         <div style={{ marginTop: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 6 }}>
             <div className="vmx-fill-label" style={{ marginBottom: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span>Your summary</span>
+              <label htmlFor={`vmx-essay-${currentQ.subject}-${currentQ.id}`}>Your summary</label>
               <VoiceInputButton
                 size={28}
                 lang={(currentQ.passage_lang === 'en' || currentQ.lang === 'en') ? 'en-US' : 'th-TH'}
@@ -394,6 +387,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             </div>
           </div>
           <textarea
+            id={`vmx-essay-${currentQ.subject}-${currentQ.id}`}
             value={essayText}
             onChange={(e) => answerCurrent(e.target.value.slice(0, 5000))}
             placeholder={`เขียน summary ~${target} คำ — ใช้ paraphrasing techniques (เปลี่ยน synonyms, structure, ฯลฯ), จับ main idea + key supporting details, ห้ามใส่ opinion`}
@@ -431,16 +425,19 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   return (
     <div className="vmx-question-card">
-      <button className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="Bookmark (B)">
+      <button type="button" aria-label="Bookmark ข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="Bookmark (B)">
         {isBookmarked ? '★' : '☆'}
       </button>
-      <button className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="Note (N)">
+      <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="Note (N)">
         📝
       </button>
       {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).
           Click again while speaking to stop. Useful during commute /
           eyes-on-rest study mode. */}
       <button
+        type="button"
+        aria-label={isSpeaking ? 'หยุดอ่านออกเสียง' : 'อ่านคำถามออกเสียง'}
+        aria-pressed={isSpeaking}
         className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
         onClick={speakQ}
         title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง (TTS)'}
@@ -452,6 +449,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           Lets users mark "เฉลยผิด" / "งง" — auditable via
           localStorage 'vmx-q-flags'. */}
       <button
+        type="button"
+        aria-label={flagState ? `ยกเลิก flag ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
+        aria-pressed={Boolean(flagState)}
         className={`vmx-note-btn ${flagState ? 'has-note' : ''}`}
         onClick={toggleFlag}
         title={flagState ? `ยกเลิก flag, "${flagState.reason}"` : 'แจ้งปัญหาข้อนี้'}
@@ -631,14 +631,16 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent }) {
     ? originalToDisplay[currentAnswer]
     : undefined;
   return (
-    <div className="vmx-options">
+    <div className="vmx-options" role="group" aria-label="ตัวเลือกคำตอบ">
       {displayOptions.map((opt, displayIdx) => {
         const originalIdx = displayToOriginal[displayIdx];
         const isSelected = selectedDisplayIdx === displayIdx;
         return (
           <button
+            type="button"
             key={originalIdx}
             className={`vmx-option ${isSelected ? 'selected' : ''}`}
+            aria-pressed={isSelected}
             onClick={() => answerCurrent(originalIdx)}
           >
             <div className="vmx-option-letter">{String.fromCharCode(65 + displayIdx)}</div>

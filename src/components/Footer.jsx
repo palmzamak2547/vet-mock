@@ -13,34 +13,34 @@
 
 export default function Footer({ setView }) {
   return (
-    <div className="vmx-footer">
+    <footer className="vmx-footer">
       <div style={{ marginBottom: 6 }}>
         made with ♡ by <strong>Vet 86</strong>
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 12px', justifyContent: 'center' }}>
-        <a onClick={() => setView('about')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>About</a>
+        <button type="button" className="vmx-footer-link" onClick={() => setView('about')}>About</button>
         <a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
         <a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
-        <a onClick={() => setView('feedback')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>แจ้งปัญหา</a>
-        <a onClick={() => setView('offline-game')} style={{ cursor: 'pointer', textDecoration: 'underline' }} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">🐤 มินิเกม</a>
+        <button type="button" className="vmx-footer-link" onClick={() => setView('feedback')}>แจ้งปัญหา</button>
+        <button type="button" className="vmx-footer-link" onClick={() => setView('offline-game')} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">🐤 มินิเกม</button>
       </div>
       {/* Ecosystem cross-links · sister sites in the Vet 86 ecosystem.
           Helps Google + users discover the network (CUVETSMO = student
           council, Hanong = stray welfare). VetMock is the most-trafficked
           of the three so this link gives the newer sites a fast lane
           through Googlebot's existing crawl schedule. */}
-      <div style={{ marginTop: 8, fontSize: 11, color: '#888', display: 'flex', flexWrap: 'wrap', gap: '4px 12px', justifyContent: 'center' }}>
+      <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', display: 'flex', flexWrap: 'wrap', gap: '4px 12px', justifyContent: 'center' }}>
         <span>เครือข่าย Vet 86:</span>
-        <a href="https://cuvetsmo.com" target="_blank" rel="noopener noreferrer" title="สโมสรนิสิตสัตวแพทย์ จุฬาฯ" style={{ textDecoration: 'underline', color: '#666' }}>🐾 CUVETSMO · สโมสรนิสิตสัตวแพทย์ จุฬาฯ</a>
-        <a href="https://hanong.vercel.app" target="_blank" rel="noopener noreferrer" title="Hanong — stray welfare platform" style={{ textDecoration: 'underline', color: '#666' }}>🐕 Hanong · หาน้อง</a>
+        <a href="https://cuvetsmo.com" target="_blank" rel="noopener noreferrer" title="สโมสรนิสิตสัตวแพทย์ จุฬาฯ" style={{ textDecoration: 'underline', color: 'inherit' }}>🐾 CUVETSMO · สโมสรนิสิตสัตวแพทย์ จุฬาฯ</a>
+        <a href="https://hanong.vercel.app" target="_blank" rel="noopener noreferrer" title="Hanong — stray welfare platform" style={{ textDecoration: 'underline', color: 'inherit' }}>🐕 Hanong · หาน้อง</a>
         {/* Internal link — same-origin hash route. Same window. */}
         <a
-          onClick={(e) => { e.preventDefault(); setView('lab'); if (window.location.hash !== '#lab') window.location.hash = '#lab'; }}
+          onClick={(e) => { e.preventDefault(); if (window.location.hash !== '#lab') window.location.hash = '#lab'; setView('lab'); }}
           href="#lab"
           title="Imaging Practice Lab — ฝึกอ่าน X-ray + DICOM viewer (Experimental)"
-          style={{ textDecoration: 'underline', color: '#666', cursor: 'pointer' }}
+          style={{ textDecoration: 'underline', color: 'inherit', cursor: 'pointer' }}
         >🔬 Imaging Lab · ฝึกอ่าน X-ray (Experimental)</a>
       </div>
-    </div>
+    </footer>
   );
 }

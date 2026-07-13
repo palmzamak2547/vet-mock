@@ -161,26 +161,28 @@ export default function OSCEDrill({ onClose }) {
                 const isChecked = !!checked[i];
                 const critical = it.weight >= 2;
                 return (
-                  <li key={i} style={{
-                    display: 'flex', alignItems: 'flex-start', gap: 10,
-                    padding: '8px 10px', borderRadius: 8,
-                    background: isChecked ? 'rgba(74, 107, 74, 0.10)' : (critical ? 'rgba(184, 137, 64, 0.06)' : 'transparent'),
-                    border: critical ? '1px solid rgba(184, 137, 64, 0.35)' : '1px solid transparent',
-                    cursor: 'pointer', userSelect: 'none',
-                  }}
-                  onClick={() => setChecked((c) => ({ ...c, [i]: !c[i] }))}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => setChecked((c) => ({ ...c, [i]: !c[i] }))}
-                      style={{ marginTop: 3, width: 16, height: 16, cursor: 'pointer', flexShrink: 0 }}
-                      aria-label={it.text}
-                    />
-                    <span style={{ flex: 1, fontSize: 13, lineHeight: 1.5, textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'var(--clr-ink-soft)' : 'var(--clr-ink)' }}>
-                      {it.text}
-                    </span>
-                    {critical && <span title="critical step — must hit" style={{ fontSize: 10, padding: '2px 6px', borderRadius: 999, background: 'var(--clr-gold, #b88940)', color: '#fff', fontFamily: 'JetBrains Mono, monospace', flexShrink: 0 }}>★ critical</span>}
+                  <li key={i}>
+                    <label style={{
+                      display: 'flex', alignItems: 'flex-start', gap: 10,
+                      padding: '8px 10px', borderRadius: 8,
+                      background: isChecked ? 'rgba(74, 107, 74, 0.10)' : (critical ? 'rgba(184, 137, 64, 0.06)' : 'transparent'),
+                      border: critical ? '1px solid rgba(184, 137, 64, 0.35)' : '1px solid transparent',
+                      cursor: 'pointer', userSelect: 'none',
+                    }}>
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={(e) => {
+                          const nextChecked = e.target.checked;
+                          setChecked((c) => ({ ...c, [i]: nextChecked }));
+                        }}
+                        style={{ marginTop: 3, width: 16, height: 16, cursor: 'pointer', flexShrink: 0 }}
+                      />
+                      <span style={{ flex: 1, fontSize: 13, lineHeight: 1.5, textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'var(--clr-ink-soft)' : 'var(--clr-ink)' }}>
+                        {it.text}
+                      </span>
+                      {critical && <span title="critical step — must hit" style={{ fontSize: 10, padding: '2px 6px', borderRadius: 999, background: 'var(--clr-gold, #b88940)', color: '#fff', fontFamily: 'JetBrains Mono, monospace', flexShrink: 0 }}>★ critical</span>}
+                    </label>
                   </li>
                 );
               })}

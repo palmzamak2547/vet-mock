@@ -14,7 +14,7 @@
 // ============================================================
 
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { SUBJECTS } from '../data/curriculum.js';
+import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
 // CommandPalette only needs {title, subject, instructor} for search —
 // importing the full VIDEO_SUMMARIES dragged ~360 KB of markdown body
 // text into the palette's lazy chunk. Switched to a lightweight meta
@@ -34,7 +34,7 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 // palette's "Quick Actions" are derived from it so a feature added once
 // shows up in BOTH the home grid and search (no more hand-synced drift,
 // which had left 7 navigable features unsearchable).
-import { FEATURES } from '../lib/feature-registry.js';
+import { FEATURES, visibleFeatures } from '../lib/feature-registry.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -136,7 +136,7 @@ function buildStaticItems() {
   push({ type: 'action', payload: { kind: 'view', view: 'home' }, label: 'หน้าแรก', hint: 'Home', icon: '🏠', kw: 'home หน้าแรก main' });
   push({ type: 'action', payload: { kind: 'bookmarks' }, label: 'Bookmarks', hint: 'ข้อที่บันทึกไว้', icon: '⭐', kw: 'bookmark saved star ดาว ข้อบันทึก' });
   for (const f of FEATURES) {
-    push({ type: 'action', payload: f.invoke, label: f.label, hint: f.hint, icon: f.icon, kw: f.kw, category: f.category });
+    push({ type: 'action', payload: f.invoke, label: f.label, hint: f.hint, icon: f.icon, kw: f.kw, category: f.category, featureId: f.id });
   }
 
   // Subjects
@@ -145,6 +145,7 @@ function buildStaticItems() {
     push({
       type: 'subject',
       payload: s.id,
+      year: yearForSubject(s.id),
       label: s.name,
       hint: s.name_en || s.code || '',
       icon: s.icon || '📚',
@@ -310,7 +311,15 @@ function fuzzyFilter(items, query) {
   return out;
 }
 
-export default function CommandPalette({ open, onClose, ...handlers }) {
+export default function CommandPalette({
+  open,
+  onClose,
+  signedIn = false,
+  scaffold = false,
+  hasSupabase = true,
+  selectedYear,
+  ...handlers
+}) {
   const [query, setQuery] = useState('');
   // Debounced version drives the filter — keeps the heavy work off
   // the input keystroke. 60ms is below the human-perceivable threshold
@@ -325,7 +334,17 @@ export default function CommandPalette({ open, onClose, ...handlers }) {
   // subsequent opens reuse it. Handlers attach via runItem() at fire
   // time, so re-renders that produce new handler identities don't
   // invalidate the index.
-  const items = useMemo(() => buildStaticItems(), []);
+  const staticItems = useMemo(() => buildStaticItems(), []);
+  const visibleFeatureIds = useMemo(() => new Set(
+    visibleFeatures(FEATURES, { signedIn, scaffold, hasSupabase, selectedYear }).map((feature) => feature.id),
+  ), [signedIn, scaffold, hasSupabase, selectedYear]);
+  const items = useMemo(() => staticItems.filter((item) => {
+    if (item.featureId && !visibleFeatureIds.has(item.featureId)) return false;
+    if (item.type === 'subject' && selectedYear != null && item.year != null) {
+      return Number(item.year) === Number(selectedYear);
+    }
+    return true;
+  }), [staticItems, visibleFeatureIds, selectedYear]);
   // Pre-stringify handlers into a stable ref — runItem reads from it.
   const handlersRef = useRef(handlers);
   handlersRef.current = handlers;

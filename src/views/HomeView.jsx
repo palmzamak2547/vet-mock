@@ -613,7 +613,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {/* Welcome banner — first-time users see this instead of a
           blocking modal. One-tap to start the tour, X to dismiss. */}
       {bannerWinner === 'welcome' && (
-        <div style={{
+        <div className="vmx-welcome-banner" style={{
           marginBottom: 16,
           padding: '12px 14px',
           borderRadius: 12,
@@ -901,8 +901,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           Cross-subject app-wide actions placed prominently above subject
           grid so casual sessions ("just one Q while waiting") and review
           loops ("show me what I got wrong") are 1 tap away. */}
-      {(quickStats.streak > 0 || allQuestionsPool > 0 || quickStats.wrongCount > 0) && (
-        <div style={{
+      {(quickStats.streak > 0 || (allQuestionsPool > 0 && history.length > 0) || quickStats.wrongCount > 0 || showChangelogChip) && (
+        <div className="vmx-home-quick-actions" style={{
           display: 'flex',
           gap: 10,
           flexWrap: 'wrap',
@@ -952,7 +952,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             </div>
           )}
 
-          {allQuestionsPool > 0 && (
+          {allQuestionsPool > 0 && history.length > 0 && (
             <button
               className="vmx-chip-quick vmx-pop-in"
               onClick={launchRandomQ}
@@ -1024,37 +1024,30 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               🎯 ทบทวนข้อที่ตอบผิด ({quickStats.wrongCount})
             </button>
           )}
-        </div>
-      )}
-
-      {/* Changelog chip — Phase 1 (2026-05-18): when the announcement
-          banner lost the priority race, surface "📰 อัปเดตใหม่ {N}" as
-          a 1-tap chip in this row instead of a full card. Clicking it
-          force-opens the banner below for users who want details. */}
-      {showChangelogChip && (
-        <div style={{ marginBottom: 14 }}>
-          <button
-            type="button"
-            onClick={() => setForceChangelogOpen(true)}
-            className="vmx-chip-quick"
-            style={{
-              all: 'unset',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '6px 12px',
-              borderRadius: 999,
-              background: 'rgba(184, 137, 64, 0.10)',
-              border: '1px solid var(--clr-gold, #b88940)',
-              fontSize: 12,
-              fontFamily: 'JetBrains Mono, monospace',
-              color: 'var(--clr-gold, #b88940)',
-            }}
-            title="ดูรายละเอียดอัปเดตล่าสุด"
-          >
-            📰 อัปเดตใหม่{LATEST_CHANGELOG?.changes?.length ? ` ${LATEST_CHANGELOG.changes.length} รายการ` : ''}
-          </button>
+          {showChangelogChip && (
+            <button
+              type="button"
+              onClick={() => setForceChangelogOpen(true)}
+              className="vmx-chip-quick"
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '6px 12px',
+                borderRadius: 999,
+                background: 'rgba(184, 137, 64, 0.10)',
+                border: '1px solid var(--clr-gold, #b88940)',
+                fontSize: 12,
+                fontFamily: 'JetBrains Mono, monospace',
+                color: 'var(--clr-gold-text, var(--clr-gold, #b88940))',
+              }}
+              title="ดูรายละเอียดอัปเดตล่าสุด"
+            >
+              📰 อัปเดตใหม่{LATEST_CHANGELOG?.changes?.length ? ` ${LATEST_CHANGELOG.changes.length} รายการ` : ''}
+            </button>
+          )}
         </div>
       )}
 
@@ -1495,6 +1488,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         signedIn={!!user}
         scaffold={isScaffoldYear}
         hasSupabase={hasSupabase}
+        selectedYear={selectedYear}
         onSketch={onSketch}
         onVoiceSettings={onVoiceSettings}
         onPractice={(inv) => {

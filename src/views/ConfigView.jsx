@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import BackBar from '../components/BackBar.jsx';
 
@@ -26,6 +27,22 @@ const CATEGORIES = [
 ];
 
 export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, startExam, goHome, mode }) {
+  const questionCountRef = useRef(numQuestions);
+  const timePerQuestionRef = useRef(timePerQ);
+  const updateQuestionCount = (e) => {
+    const value = Number(e.currentTarget.value);
+    if (Number.isFinite(value) && value >= 1) {
+      questionCountRef.current = Math.floor(value);
+      setNumQuestions(questionCountRef.current);
+    }
+  };
+  const updateTimePerQuestion = (e) => {
+    const value = Number(e.currentTarget.value);
+    if (Number.isFinite(value) && value >= 5) {
+      timePerQuestionRef.current = Math.floor(value);
+      setTimePerQ(timePerQuestionRef.current);
+    }
+  };
   // The category picker only makes sense for engprof — the only
   // subject with writing-style items. Showing it for COM III/IV/V
   // (pure MCQ) just adds visual noise. For bookmarks/weak modes the
@@ -118,7 +135,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
           <label className="vmx-label">จำนวนข้อ</label>
           <div className="vmx-chip-row">
             {QCOUNT_PRESETS.map((n) => (
-              <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} onClick={() => setNumQuestions(n)}>
+              <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} onClick={() => { questionCountRef.current = n; setNumQuestions(n); }}>
                 {n}
               </button>
             ))}
@@ -127,10 +144,8 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
               inputMode="numeric"
               min={1}
               value={numQuestions}
-              onChange={(e) => {
-                const v = parseInt(e.target.value, 10);
-                if (Number.isFinite(v) && v >= 1) setNumQuestions(v);
-              }}
+              onInput={updateQuestionCount}
+              onChange={updateQuestionCount}
               aria-label="จำนวนข้อแบบกำหนดเอง"
               style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
             />
@@ -139,10 +154,17 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
 
         {/* Timer toggle */}
         <div className="vmx-config-row">
-          <label className="vmx-label">จับเวลา</label>
+          <span className="vmx-label" id="vmx-timer-label">จับเวลา</span>
           <div className="vmx-toggle-row">
-            <div className={`vmx-toggle ${useTimer ? 'on' : ''}`} role="switch" aria-checked={useTimer} tabIndex={0} onClick={() => setUseTimer(!useTimer)} onKeyDown={(e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setUseTimer(!useTimer); } }}></div>
-            <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+            <button
+              type="button"
+              className={`vmx-toggle ${useTimer ? 'on' : ''}`}
+              role="switch"
+              aria-checked={useTimer}
+              aria-labelledby="vmx-timer-label vmx-timer-state"
+              onClick={() => setUseTimer(!useTimer)}
+            />
+            <span id="vmx-timer-state" style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
               {useTimer ? `${timePerQ} วินาที / ข้อ` : 'ปิด — โหมดอ่านไม่จับเวลา'}
             </span>
           </div>
@@ -154,7 +176,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             <label className="vmx-label">เวลาต่อข้อ</label>
             <div className="vmx-chip-row">
               {SECONDS_PRESETS.map((t) => (
-                <button key={t} className={`vmx-chip ${timePerQ === t ? 'active' : ''}`} onClick={() => setTimePerQ(t)}>
+                <button key={t} className={`vmx-chip ${timePerQ === t ? 'active' : ''}`} onClick={() => { timePerQuestionRef.current = t; setTimePerQ(t); }}>
                   {t}s
                 </button>
               ))}
@@ -163,10 +185,8 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                 inputMode="numeric"
                 min={5}
                 value={timePerQ}
-                onChange={(e) => {
-                  const v = parseInt(e.target.value, 10);
-                  if (Number.isFinite(v) && v >= 5) setTimePerQ(v);
-                }}
+                onInput={updateTimePerQuestion}
+                onChange={updateTimePerQuestion}
                 aria-label="เวลาต่อข้อแบบกำหนดเอง"
                 style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
               />
@@ -186,7 +206,13 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
 
       <div className="vmx-btn-row">
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
-        <button className="vmx-btn vmx-btn-primary" onClick={startExam}>
+        <button
+          className="vmx-btn vmx-btn-primary"
+          onClick={() => startExam({
+            numQuestions: questionCountRef.current,
+            timePerQ: timePerQuestionRef.current,
+          })}
+        >
           {isExamMode ? '🎓 เริ่มสอบ →' : '🚀 เริ่มฝึก →'}
         </button>
       </div>

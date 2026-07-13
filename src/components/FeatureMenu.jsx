@@ -15,7 +15,10 @@
 // identical whether the user taps a card here or hits it via search.
 // ============================================================
 
+import { useState } from 'react';
 import { FEATURE_CATEGORIES, featuresByCategory, visibleFeatures } from '../lib/feature-registry.js';
+
+const PREVIEW_LIMIT = 4;
 
 export default function FeatureMenu({
   setView,
@@ -25,7 +28,9 @@ export default function FeatureMenu({
   signedIn = false,
   scaffold = false,
   hasSupabase = true,
+  selectedYear,
 }) {
+  const [expanded, setExpanded] = useState({});
   const dispatch = (inv) => {
     if (!inv) return;
     switch (inv.kind) {
@@ -39,7 +44,14 @@ export default function FeatureMenu({
   };
 
   return (
-    <div style={{ marginTop: 28 }}>
+    <section className="vmx-feature-menu" aria-labelledby="vmx-feature-menu-title">
+      <div className="vmx-feature-menu-intro">
+        <div>
+          <h2 id="vmx-feature-menu-title">สำรวจเครื่องมือ</h2>
+          <p>เมนูรองจัดเป็นหมวด — เปิดดูเพิ่มเมื่อจำเป็น</p>
+        </div>
+        <span className="vmx-feature-menu-hint">ค้นหาเร็วด้วย <kbd>⌘K</kbd></span>
+      </div>
       {FEATURE_CATEGORIES.map((cat) => {
         // Skip 'practice' — HomeView's hero section already owns the
         // "📝 ฝึก & สอบ" label (Quick / Exam / SR), and Race has its own
@@ -53,32 +65,52 @@ export default function FeatureMenu({
         // dead cards (e.g. Leaderboard when signed out).
         const feats = visibleFeatures(
           featuresByCategory(cat.id).filter((f) => !f.primary),
-          { signedIn, scaffold, hasSupabase }
+          { signedIn, scaffold, hasSupabase, selectedYear }
         );
         if (feats.length === 0) return null;
+        const isExpanded = Boolean(expanded[cat.id]);
+        const shown = isExpanded ? feats : feats.slice(0, PREVIEW_LIMIT);
+        const hiddenCount = Math.max(0, feats.length - PREVIEW_LIMIT);
+        const gridId = `vmx-feature-grid-${cat.id}`;
         return (
-          <div key={cat.id} style={{ marginBottom: 8 }}>
-            <div className="vmx-section-label">
-              {cat.icon} {cat.label}
+          <section key={cat.id} className="vmx-feature-group" aria-labelledby={`${gridId}-title`}>
+            <div className="vmx-feature-group-heading">
+              <h3 id={`${gridId}-title`}><span aria-hidden>{cat.icon}</span> {cat.label}</h3>
+              <span>{feats.length} รายการ</span>
             </div>
-            <div className="vmx-mode-grid">
-              {feats.map((f) => (
+            <div id={gridId} className="vmx-feature-grid">
+              {shown.map((f) => (
                 <button
                   key={f.id}
                   type="button"
-                  className="vmx-mode-card"
+                  className="vmx-feature-card"
                   onClick={() => dispatch(f.invoke)}
                   title={f.hint || ''}
                 >
-                  <div className="icon">{f.icon}</div>
-                  <div className="title">{f.label}</div>
-                  {f.hint && <div className="sub">{f.hint}</div>}
+                  <span className="vmx-feature-card-icon" aria-hidden>{f.icon}</span>
+                  <span className="vmx-feature-card-copy">
+                    <span className="vmx-feature-card-title">{f.label}</span>
+                    {f.hint && <span className="vmx-feature-card-sub">{f.hint}</span>}
+                  </span>
+                  <span className="vmx-feature-card-arrow" aria-hidden>›</span>
                 </button>
               ))}
             </div>
-          </div>
+            {hiddenCount > 0 && (
+              <button
+                type="button"
+                className="vmx-feature-more"
+                aria-expanded={isExpanded}
+                aria-controls={gridId}
+                onClick={() => setExpanded((current) => ({ ...current, [cat.id]: !isExpanded }))}
+              >
+                {isExpanded ? 'แสดงน้อยลง' : `ดูอีก ${hiddenCount} รายการ`}
+                <span aria-hidden>{isExpanded ? ' ↑' : ' ↓'}</span>
+              </button>
+            )}
+          </section>
         );
       })}
-    </div>
+    </section>
   );
 }

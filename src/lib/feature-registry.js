@@ -29,6 +29,7 @@
 // Flags:
 //   auth: true            → only meaningful when signed in
 //   hideOnScaffold: true  → hide on scaffold (no-Q) years
+//   years: [4]            → only meaningful for the listed curriculum years
 //   primary: true         → big hero card on home (the 3 study modes)
 //
 // Categories (the 4 Palm approved):
@@ -143,10 +144,11 @@ export const FEATURES = [
   },
   {
     id: 'scores', category: 'progress',
-    label: 'คะแนนล่าสุด', labelEn: 'Score history', icon: '🏆',
-    hint: 'ประวัติการทำข้อสอบ',
-    kw: 'score คะแนน history ประวัติ ผลสอบ',
+    label: 'สัดส่วนคะแนนรายวิชา', labelEn: 'Course score weights', icon: '🏆',
+    hint: 'โครงสร้างคะแนน ปี 4 เทอม 2',
+    kw: 'score คะแนน weight สัดส่วน โครงสร้าง รายวิชา',
     hideOnScaffold: true,
+    years: [4],
     invoke: { kind: 'view', view: 'scores' },
   },
   {
@@ -298,12 +300,14 @@ export function fabFeatures() {
  * @param {boolean} opts.signedIn   — drop auth-only features when false
  * @param {boolean} opts.scaffold   — drop hideOnScaffold features when true
  * @param {boolean} opts.hasSupabase — drop auth features when backend absent
+ * @param {number} opts.selectedYear — drop features scoped to another year
  */
-export function visibleFeatures(list, { signedIn, scaffold, hasSupabase } = {}) {
+export function visibleFeatures(list, { signedIn, scaffold, hasSupabase, selectedYear } = {}) {
   return list.filter((f) => {
     if (f.auth && !signedIn) return false;
     if (f.auth && hasSupabase === false) return false;
     if (f.hideOnScaffold && scaffold) return false;
+    if (Array.isArray(f.years) && selectedYear != null && !f.years.includes(Number(selectedYear))) return false;
     return true;
   });
 }

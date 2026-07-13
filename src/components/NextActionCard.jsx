@@ -152,99 +152,27 @@ export default function NextActionCard({
   if (actions.length === 0) return null;
 
   return (
-    <div style={{
-      marginBottom: 24,
-      padding: '18px 18px 16px',
-      borderRadius: 16,
-      background: 'linear-gradient(135deg, rgba(74, 107, 74, 0.06), rgba(184, 137, 64, 0.04))',
-      border: '1px solid var(--clr-sage)',
-      boxShadow: '0 1px 0 rgba(74, 107, 74, 0.08)',
-    }}>
-      <div style={{
-        fontSize: 11,
-        fontFamily: 'JetBrains Mono, monospace',
-        color: 'var(--clr-sage)',
-        textTransform: 'uppercase',
-        letterSpacing: '0.1em',
-        fontWeight: 700,
-        marginBottom: 12,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-      }}>
-        🎯 วันนี้ทำอะไรดี
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+    <section className="vmx-next-actions" aria-labelledby="vmx-next-actions-title">
+      <h2 id="vmx-next-actions-title" className="vmx-next-actions-heading">
+        <span aria-hidden>🎯</span> วันนี้ทำอะไรดี
+      </h2>
+      <div className="vmx-next-actions-list">
         {actions.map((a, i) => (
           <button
             key={a.kind}
             type="button"
             onClick={a.onClick}
-            style={{
-              all: 'unset',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              padding: '12px 14px',
-              borderRadius: 12,
-              background: i === 0 ? 'var(--clr-surface)' : 'rgba(0, 0, 0, 0.02)',
-              border: `1px solid ${i === 0 ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
-              transition: 'background 120ms, border-color 120ms, transform 100ms',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--clr-surface)';
-              e.currentTarget.style.borderColor = 'var(--clr-sage)';
-            }}
-            onMouseLeave={(e) => {
-              if (i !== 0) {
-                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.02)';
-                e.currentTarget.style.borderColor = 'var(--clr-border)';
-              }
-            }}
+            className={`vmx-next-action${i === 0 ? ' is-primary' : ''}`}
           >
-            <div style={{ fontSize: 26, lineHeight: 1, flex: '0 0 auto' }}>{a.icon}</div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{
-                fontFamily: 'Fraunces, serif',
-                fontWeight: 600,
-                fontSize: 16,
-                lineHeight: 1.25,
-                color: 'var(--clr-ink)',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}>
-                {a.title}
-              </div>
-              <div style={{
-                fontSize: 11,
-                color: 'var(--clr-ink-soft)',
-                fontFamily: 'JetBrains Mono, monospace',
-                marginTop: 2,
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}>
-                {a.sub}
-              </div>
-            </div>
-            <div style={{
-              flex: '0 0 auto',
-              padding: '6px 12px',
-              borderRadius: 999,
-              background: i === 0 ? 'var(--clr-sage)' : 'transparent',
-              border: i === 0 ? '1px solid var(--clr-sage)' : '1px solid var(--clr-border)',
-              color: i === 0 ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
-              fontSize: 12,
-              fontWeight: 600,
-              fontFamily: 'inherit',
-            }}>
-              {a.cta} →
-            </div>
+            <span className="vmx-next-action-icon" aria-hidden>{a.icon}</span>
+            <span className="vmx-next-action-copy">
+              <span className="vmx-next-action-title">{a.title}</span>
+              <span className="vmx-next-action-sub">{a.sub}</span>
+            </span>
+            <span className="vmx-next-action-cta">{a.cta} <span aria-hidden>→</span></span>
           </button>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

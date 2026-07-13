@@ -66,8 +66,17 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
         )}
       </div>
       <div className="vmx-progress-bar">
-        <div className="vmx-progress-fill" style={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }}></div>
+        <div
+          className="vmx-progress-fill"
+          role="progressbar"
+          aria-label="ความคืบหน้าของชุดข้อสอบ"
+          aria-valuemin={1}
+          aria-valuemax={questions.length}
+          aria-valuenow={currentIdx + 1}
+          style={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }}
+        />
       </div>
+      <div className="vmx-sr-only" role="status" aria-live="polite">ข้อ {currentIdx + 1} จาก {questions.length}</div>
 
       {buddiesHere > 0 && (
         <div style={{
@@ -127,9 +136,12 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
         style={{ maxWidth: 720 }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vmx-nav-grid-title"
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
-          <h2 style={{ margin: 0 }}>📋 ข้ามไปข้อ</h2>
+          <h2 id="vmx-nav-grid-title" style={{ margin: 0 }}>📋 ข้ามไปข้อ</h2>
           <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
             ตอบแล้ว {answered}/{questions.length} · เหลือ {remaining}
           </div>

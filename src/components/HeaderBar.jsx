@@ -55,9 +55,16 @@ export default function HeaderBar({
   theme, setTheme, palette, setPalette,
 }) {
   return (
-    <div className="vmx-header">
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-        <div className="vmx-logo" onClick={goHome}>Vet<span>Mock</span></div>
+    <header className="vmx-header">
+      <div className="vmx-header-context">
+        <button
+          type="button"
+          className="vmx-logo vmx-logo-btn"
+          onClick={goHome}
+          aria-label="VetMock — หน้าแรก"
+        >
+          Vet<span>Mock</span>
+        </button>
         {/* Year pill — visible on every page after pick, persistent year
             context. Click → year-select. Hidden during the first-time
             picker flow (selectedYearStored === null). */}
@@ -160,6 +167,6 @@ export default function HeaderBar({
         )}
         <ThemePicker theme={theme} setTheme={setTheme} palette={palette} setPalette={setPalette} />
       </div>
-    </div>
+    </header>
   );
 }

@@ -6,20 +6,54 @@
 // Strategy: not exhaustive feature coverage — JUST the critical path:
 //   1. Home loads without JS errors
 //   2. ⌘K / Random Q button is clickable
-//   3. Exam view renders with question + options
-//   4. Answer a question + finish → results screen visible
-//   5. No "ReferenceError" / "Cannot access before initialization" in console
+//   3. Quick Practice completes from config through results
+//   4. Fresh-user year/phase onboarding reaches home
+//   5. Browser Back restores home from config
+//   6. No "ReferenceError" / "Cannot access before initialization" in console
 //
 // What we DON'T test here (intentional — keep CI fast):
 //   • Auth flow (needs Supabase test user)
 //   • Specific Q content (changes daily)
-//   • Year/phase pickers (covered by manual QA)
 //   • Modals + dropdowns (covered by useDropdownAnchor unit tests)
 //
 // CI wires this up via .github/workflows/smoke-e2e.yml. Local:
 //   npm run test:e2e
 
 import { test, expect } from '@playwright/test';
+
+async function answerCurrentQuestion(page) {
+  const mcq = page.locator('.vmx-option:visible').first();
+  if (await mcq.isVisible()) {
+    await mcq.click();
+    return;
+  }
+
+  const trueFalse = page.getByRole('group', { name: /True.*False|ตัวเลือก.*True/i }).getByRole('button').first();
+  if (await trueFalse.isVisible()) {
+    await trueFalse.click();
+    return;
+  }
+
+  const blanks = page.locator('.vmx-fill-input:visible');
+  if (await blanks.count()) {
+    for (const input of await blanks.all()) await input.fill('test answer');
+    return;
+  }
+
+  const matches = page.locator('.vmx-match-select:visible');
+  if (await matches.count()) {
+    for (const select of await matches.all()) await select.selectOption({ index: 1 });
+    return;
+  }
+
+  const writing = page.locator('.vmx-question-card textarea:visible').first();
+  if (await writing.isVisible()) {
+    await writing.fill('คำตอบทดสอบสำหรับ smoke test');
+    return;
+  }
+
+  throw new Error('No supported answer control is visible for the current question');
+}
 
 test.describe('VetMock smoke flow', () => {
   // Capture all console errors per test so we can fail fast on
@@ -58,7 +92,11 @@ test.describe('VetMock smoke flow', () => {
     //  that page, not home.)
     await context.addInitScript(() => {
       try {
-        window.localStorage.setItem('vmx-selected-year', '4');
+        // Tests that exercise the real first-run experience opt out via
+        // a query flag. All other tests keep the deterministic home seed.
+        if (!window.location.search.includes('e2e-fresh')) {
+          window.localStorage.setItem('vmx-selected-year', '4');
+        }
       } catch {}
     });
     page.on('console', (msg) => {
@@ -70,7 +108,9 @@ test.describe('VetMock smoke flow', () => {
       const loc = msg.location?.() || {};
       const combined = text + ' ' + (loc.url || '');
       if (isExpectedNoise(combined)) return;
-      consoleErrors.push(text);
+      // Keep the resource URL in diagnostics; Chromium's generic 404 text
+      // alone is otherwise impossible to classify after a failure.
+      consoleErrors.push(combined.trim());
     });
     page.on('pageerror', (err) => {
       // pageerror also gets noise from Vercel analytics 404 → "<" parse fail
@@ -114,6 +154,56 @@ test.describe('VetMock smoke flow', () => {
     const tdzPattern = /cannot access|before initialization|referenceerror/i;
     const tdzErrors = consoleErrors.filter((e) => tdzPattern.test(e));
     expect(tdzErrors, `TDZ-class errors after CTA click:\n${tdzErrors.join('\n')}`).toEqual([]);
+  });
+
+  test('completes one-question Quick Practice through results', async ({ page }) => {
+    await page.goto('/');
+
+    const quickPractice = page.getByRole('button', { name: /Quick Practice/i }).first();
+    await expect(quickPractice).toBeVisible({ timeout: 15_000 });
+    await quickPractice.click();
+
+    await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
+    await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('1');
+    await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
+
+    await expect(page.getByRole('progressbar', { name: /ความคืบหน้า/ })).toBeVisible({ timeout: 15_000 });
+    await expect(page.locator('.vmx-question-card')).toBeVisible();
+    await answerCurrentQuestion(page);
+    await page.getByRole('button', { name: /ส่งข้อสอบ/ }).click();
+
+    await expect(page.getByText(/Auto-graded Score|Writing Practice Done/)).toBeVisible({ timeout: 15_000 });
+    expect(consoleErrors, `Unexpected console errors in Quick Practice flow:\n${consoleErrors.join('\n')}`).toEqual([]);
+  });
+
+  test('fresh user can choose year and phase, then reaches home', async ({ page }) => {
+    await page.goto('/?e2e-fresh=1');
+
+    await expect(page.getByRole('heading', { level: 1, name: /เลือก.*ชั้นปี/ })).toBeVisible();
+    await page.getByRole('button', { name: /ปี\s*4\b/ }).click();
+
+    await expect(page.getByRole('heading', { level: 1, name: /เลือก.*ช่วงสอบ/ })).toBeVisible();
+    await page.getByRole('button', { name: /เทอม\s*2\s*ปลายภาค/ }).click();
+
+    await expect(page.locator('main#main')).toBeVisible();
+    await expect(page.locator('.vmx-hero h1')).toContainText(/ฝึกโจทย์|สวัสดี/);
+    await expect(page.getByRole('button', { name: /Quick Practice/i }).first()).toBeVisible({ timeout: 15_000 });
+    expect(consoleErrors, `Unexpected console errors in onboarding flow:\n${consoleErrors.join('\n')}`).toEqual([]);
+  });
+
+  test('browser Back from config returns to home', async ({ page }) => {
+    await page.goto('/');
+
+    const quickPractice = page.getByRole('button', { name: /Quick Practice/i }).first();
+    await expect(quickPractice).toBeVisible({ timeout: 15_000 });
+    await quickPractice.click();
+    await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
+
+    await page.goBack();
+
+    await expect(page.locator('.vmx-hero h1')).toContainText(/ฝึกโจทย์|สวัสดี/);
+    await expect(page.getByRole('button', { name: /Quick Practice/i }).first()).toBeVisible();
+    expect(consoleErrors, `Unexpected console errors after browser Back:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 
   test('no JS errors anywhere on home page', async ({ page }) => {
