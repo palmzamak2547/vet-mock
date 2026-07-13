@@ -4,8 +4,8 @@ import { flushSync } from 'react-dom';
 // array reference forever, but it's empty until `loadQB()` resolves.
 // App.jsx kicks off loadQB() in a top-level effect (background load
 // after first paint) and gates exam-start paths on the populated QB.
-import { QB, loadQB, loadQBForYear, isQBLoaded, isQBFullyLoaded } from './data/questions.js';
-import { SUBJECTS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject } from './data/curriculum.js';
+import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded } from './data/questions.js';
+import { SUBJECTS, YEARS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
@@ -110,7 +110,15 @@ function withTransition(updateFn) {
     return;
   }
   const prefersReduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduce || !document.startViewTransition) {
+  // Mobile WebKit can hard-crash while snapshotting a large React view
+  // (observed on config → exam under iPhone/Safari). Its UA still exposes
+  // the API, so capability detection alone is not sufficient. iOS browsers
+  // all use WebKit; desktop Chromium contains "AppleWebKit" too, hence the
+  // explicit Chromium-family exclusion.
+  const ua = navigator.userAgent || '';
+  const isWebKitEngine = /AppleWebKit/i.test(ua)
+    && !/(Chrome|Chromium|Edg|OPR|SamsungBrowser)/i.test(ua);
+  if (prefersReduce || isWebKitEngine || !document.startViewTransition) {
     updateFn();
     return;
   }
@@ -183,6 +191,27 @@ const SpeedInsights = lazy(() =>
   import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights })),
 );
 
+// The app shell is deliberately wider than reading/exam content so the
+// persistent header does not wrap on ordinary laptop screens. Workspace and
+// grid-heavy views opt into the full width; focused reading/form views keep a
+// comfortable line length.
+const WIDE_VIEWS = new Set([
+  'home', 'subject-select', 'topic-select', 'dashboard', 'videos', 'notes',
+  'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate',
+  'image-occlusion',
+]);
+
+// Focus views intentionally remove navigation chrome. In particular, hiding
+// the footer prevents keyboard/scroll users from leaving an active exam
+// without going through ExamView's confirmation flow.
+const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select']);
+
+function isInteractiveKeyTarget(target) {
+  if (!(target instanceof Element)) return false;
+  if (target.closest('input, textarea, select, button, a, [contenteditable="true"]')) return true;
+  return Boolean(target.closest('[role="button"], [role="checkbox"], [role="radio"], [role="switch"]'));
+}
+
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
 
@@ -196,9 +225,10 @@ export default function App() {
   // AFTER `selectedYear` (line ~415) so they don't trip TDZ on the
   // const before it's initialized. See "QB year-scoped loaders" below.
 
-  // Share-link (`?qset=`) resolution effect. Runs once after QB loads.
-  // Initial render shows ExamView with empty questions[] — this effect
-  // materializes the matched Qs (or falls back to home if none).
+  // Share-link (`?qset=`) resolution effect. A shared set can contain
+  // questions from a different year than the receiver currently selected,
+  // so it must await the full registry rather than the current year scope.
+  // Initial render shows a ViewFallback until this materializes the set.
   // Lives at App level so it fires regardless of which view is active.
   const sharedResolvedRef = useRef(false);
   // Round 2B 2026-05-18: sender score/name parsed from URL (`?sc=...&by=...`)
@@ -207,12 +237,26 @@ export default function App() {
   const [challengeSender, setChallengeSender] = useState(() => readSenderInfoFromLocation());
   useEffect(() => {
     if (sharedResolvedRef.current) return;
-    if (!qbReady) return;
+    let cancelled = false;
+    let hasSharedSet = false;
     try {
       const params = new URLSearchParams(window.location.search);
-      if (!params.get('qset')) return;
+      hasSharedSet = Boolean(params.get('qset'));
+    } catch {}
+    if (!hasSharedSet) return;
+
+    const resolveSharedSet = async () => {
+      try {
+        await loadQB();
+        if (cancelled) return;
+        setQbReady(true);
       const shared = readShareUrlFromLocation();
-      if (shared.length === 0) return;
+        if (shared.length === 0) {
+          sharedResolvedRef.current = true;
+          setView('home');
+          setChallengeSender(null);
+          return;
+        }
       const map = new Map();
       for (const q of QB) map.set(q.subject + ':' + q.id, q);
       const matched = shared
@@ -230,10 +274,19 @@ export default function App() {
         setView('home');
         setChallengeSender(null);
       }
-    } catch {
-      sharedResolvedRef.current = true;
-    }
-  }, [qbReady]);
+      } catch {
+        if (cancelled) return;
+        sharedResolvedRef.current = true;
+        setView('home');
+        setChallengeSender(null);
+      }
+    };
+    resolveSharedSet();
+    return () => { cancelled = true; };
+    // setView/session setters are initialized later in the component but are
+    // read only after this effect runs, once the full render has completed.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Realtime presence — mounted at App level so the WebSocket survives
   // every view navigation. (Was in HomeView previously, which caused
@@ -294,6 +347,7 @@ export default function App() {
   })();
 
   const [view, setViewRaw] = useState(initialView);
+  const viewRef = useRef(initialView);
   const [mode, setMode] = useState('quick');
   const [subject, setSubject] = useState('all');
   const [topic, setTopic] = useState(null);
@@ -319,6 +373,9 @@ export default function App() {
   // site blank. Don't move them back up.
   useEffect(() => {
     if (qbReady) return;
+    // The first-run year picker uses precomputed counts. Do not download the
+    // fallback Y4 bank before the visitor has actually chosen a year.
+    if (selectedYearStored == null) return;
     // Background load — non-blocking, fires once per page life. Errors
     // are swallowed at this layer; explicit awaits in startExam() will
     // surface real failures via alert().
@@ -329,7 +386,7 @@ export default function App() {
     // mahahon/termpaper) still load. If the user later switches year,
     // loadQBForYear() is re-called by the year-watcher effect below.
     loadQBForYear(selectedYear).then(() => setQbReady(true)).catch(() => {});
-  }, [qbReady, selectedYear]);
+  }, [qbReady, selectedYear, selectedYearStored]);
 
   // When user switches year (e.g. Y4 → Y5), pull the new year's chunks
   // in the background. `loadQBForYear` is idempotent — already-loaded
@@ -337,8 +394,9 @@ export default function App() {
   // existing closures over QB get the union next render.
   useEffect(() => {
     if (!qbReady) return;
+    if (selectedYearStored == null) return;
     loadQBForYear(selectedYear).catch(() => {});
-  }, [selectedYear, qbReady]);
+  }, [selectedYear, selectedYearStored, qbReady]);
 
   // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
   // null means "no phase scoping" — show all subjects across both
@@ -393,10 +451,56 @@ export default function App() {
   // tagged with "// — Study buddies". Hooks may be called in any order
   // as long as it's consistent across renders.
 
-  // Wrap setView in a View Transitions snapshot so navigating between
-  // views fades smoothly (Chrome/Edge/Safari TP). No-op on Firefox.
+  // Wrap navigation in View Transitions and mirror it into browser history.
+  // Leaving an active exam replaces its history entry, so Back cannot revive
+  // a stale/completed session; browser Back while still in an exam asks first.
   const setView = useCallback((next) => {
+    if (!next || next === viewRef.current) return;
+    const previous = viewRef.current;
+    if (typeof window !== 'undefined') {
+      try {
+        const state = { ...(window.history.state || {}), vmxView: next };
+        const labHashAlreadyCreated = next === 'lab' && window.location.hash === '#lab';
+        if (previous === 'exam' || labHashAlreadyCreated) {
+          window.history.replaceState(state, '');
+        } else {
+          window.history.pushState(state, '');
+        }
+      } catch {}
+    }
+    viewRef.current = next;
     withTransition(() => setViewRaw(next));
+  }, []);
+
+  useEffect(() => { viewRef.current = view; }, [view]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      window.history.replaceState(
+        { ...(window.history.state || {}), vmxView: viewRef.current },
+        '',
+      );
+    } catch {}
+    const onPopState = (event) => {
+      const next = event.state?.vmxView || 'home';
+      if (viewRef.current === 'exam' && next !== 'exam') {
+        const shouldLeave = window.confirm('ออกจากชุดนี้? ความคืบหน้าจะถูกเก็บไว้ให้กลับมาทำต่อได้');
+        if (!shouldLeave) {
+          try {
+            window.history.pushState(
+              { ...(window.history.state || {}), vmxView: 'exam' },
+              '',
+            );
+          } catch {}
+          return;
+        }
+      }
+      viewRef.current = next;
+      withTransition(() => setViewRaw(next));
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
   // Imaging Practice Lab — open when the user navigates to #lab at
@@ -441,6 +545,8 @@ export default function App() {
     const id = requestAnimationFrame(() => {
       try { window.scrollTo({ top: 0, behavior: 'instant' }); }
       catch { window.scrollTo(0, 0); }
+      try { document.getElementById('main')?.focus({ preventScroll: true }); }
+      catch { document.getElementById('main')?.focus(); }
     });
     return () => cancelAnimationFrame(id);
   }, [view]);
@@ -729,18 +835,21 @@ export default function App() {
   useEffect(() => {
     const handleKey = (e) => {
       if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        // Keep an active exam in a distraction-free, guarded surface.
+        if (view === 'exam') return;
         e.preventDefault();
         setPaletteOpen((open) => !open);
       }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, []);
+  }, [view]);
 
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (view !== 'exam') return;
+      if (isInteractiveKeyTarget(e.target)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
       // Don't fire exam shortcuts while command palette is open
       if (paletteOpen) return;
       const q = questions[currentIdx];
@@ -796,8 +905,7 @@ export default function App() {
       if (!t) return;
       // Skip when user is typing — INPUT, TEXTAREA, or contenteditable.
       // Reuse the same guard pattern as the existing exam handler.
-      if (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA') return;
-      if (t.isContentEditable) return;
+      if (isInteractiveKeyTarget(t)) return;
       // Modifier keys → let the OS / palette handle them
       if (e.metaKey || e.ctrlKey || e.altKey) return;
 
@@ -937,20 +1045,37 @@ export default function App() {
       _practiceMode = 'all';
     }
 
+    const isUserCuratedPool = (
+      _practiceMode === 'bookmarks' ||
+      _practiceMode === 'weak' ||
+      _practiceMode === 'wrong'
+    );
+
     // Phase 3: QB lazy. App.jsx kicks off background load on mount so
     // by the time the user clicks "Start" this usually resolves
     // instantly. The await is here as a safety net — if the user is
     // very quick OR background-load is slow (cold cache, slow network)
     // we hold here until QB is populated rather than starting an exam
     // against an empty pool.
-    if (!isQBLoaded()) {
+    const needsFullRegistry = isUserCuratedPool;
+    const scopeReady = needsFullRegistry
+      ? isQBFullyLoaded()
+      : isQBYearLoaded(selectedYear);
+    if (!scopeReady) {
       try {
-        await loadQB();
+        if (needsFullRegistry) await loadQB();
+        else await loadQBForYear(selectedYear);
+        setQbReady(true);
       } catch (err) {
         alert('โหลดคลังโจทย์ไม่ได้ — ตรวจการเชื่อมต่อแล้วลองใหม่');
         return;
       }
     }
+
+    // QB is a shared array mutated by the async loaders. Read it only after
+    // the awaited scope completes; `allQuestions` belongs to the render that
+    // started this async handler and can otherwise be stale on slow WebKit.
+    const examQuestions = [...QB, ...customQuestions];
 
     // Year-scoping: when subject is 'all' (cross-subject random), constrain
     // to the year the user is currently studying so the QB feels coherent
@@ -965,11 +1090,6 @@ export default function App() {
     // "🎯 ทบทวนข้อที่ตอบผิด" because the user's wrong-answer history
     // could be from a year other than `selectedYear` (e.g. VCA year=5
     // wrongs while studying Y4), so yearScope evicted everything.
-    const isUserCuratedPool = (
-      _practiceMode === 'bookmarks' ||
-      _practiceMode === 'weak' ||
-      _practiceMode === 'wrong'
-    );
     const yearScope = (qs) => {
       if (isUserCuratedPool) return qs; // user-curated, cross-year on purpose
       if (_subject && _subject !== 'all') return qs; // subject implies year
@@ -980,8 +1100,8 @@ export default function App() {
     };
 
     let pool;
-    if (_practiceMode === 'bookmarks') pool = allQuestions.filter((q) => bookmarks.includes(q.id));
-    else if (_practiceMode === 'weak') pool = allQuestions.filter((q) => analytics?.weakQuestions.includes(q.id));
+    if (_practiceMode === 'bookmarks') pool = examQuestions.filter((q) => bookmarks.includes(q.id));
+    else if (_practiceMode === 'weak') pool = examQuestions.filter((q) => analytics?.weakQuestions.includes(q.id));
     else if (_practiceMode === 'wrong') {
       // Cross-subject "review wrong" — uses history with compound (subject:id)
       // keying so dupe IDs across subjects don't leak. Pool is everything the
@@ -990,10 +1110,10 @@ export default function App() {
       for (const h of (history || [])) {
         if (h && h.correct === false) wrongSet.add((h.subject || '') + ':' + h.questionId);
       }
-      pool = allQuestions.filter((q) => wrongSet.has(q.subject + ':' + q.id));
+      pool = examQuestions.filter((q) => wrongSet.has(q.subject + ':' + q.id));
     }
     else {
-      pool = _subject === 'all' ? allQuestions : allQuestions.filter((q) => q.subject === _subject);
+      pool = _subject === 'all' ? examQuestions : examQuestions.filter((q) => q.subject === _subject);
       if (_topic) {
         // Collection IDs (prefix `_<name>-all`) bundle multiple topics by
         // a shared topic prefix — used for "รวมหมาหอน" / "รวม Term Paper"
@@ -1043,8 +1163,14 @@ export default function App() {
       // subject/category truly has no questions). Guarded against re-loops
       // by isQBFullyLoaded() + the __retriedFullLoad sentinel.
       if (!isQBFullyLoaded() && !overrides.__retriedFullLoad) {
-        loadQB().then(() => startExam({ ...overrides, __retriedFullLoad: true }));
-        return;
+        try {
+          await loadQB();
+          setQbReady(true);
+          return startExam({ ...overrides, __retriedFullLoad: true });
+        } catch {
+          alert('โหลดคลังโจทย์ไม่ได้ — ตรวจการเชื่อมต่อแล้วลองใหม่');
+          return;
+        }
       }
       alert(_questionCategory === 'writing'
         ? 'ยังไม่มีข้อ Writing ในหมวดนี้ — ลองเปลี่ยนเป็น MCQ หรือ "ทุกประเภท"'
@@ -1394,7 +1520,7 @@ export default function App() {
               Also hidden on year-select to avoid a confusing logo→home
               click when the user hasn't picked a year yet.
               Body extracted to components/HeaderBar.jsx 2026-05-27. */}
-          {!['exam', 'results', 'review', 'auth', 'year-select'].includes(view) && (
+          {!FOCUS_VIEWS.has(view) && (
             <HeaderBar
               view={view}
               setView={setView}
@@ -1453,7 +1579,12 @@ export default function App() {
           {/* Palm a11y audit 2026-05-20: add `<main>` landmark so screen
               readers can jump past the header chrome to the active view.
               Skip-link below the header lets keyboard users do the same. */}
-          <main id="main" tabIndex={-1} style={{ outline: 'none' }}>
+          <main
+            id="main"
+            tabIndex={-1}
+            className={`vmx-main${WIDE_VIEWS.has(view) ? ' vmx-main--wide' : ''}`}
+            style={{ outline: 'none' }}
+          >
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
@@ -1466,6 +1597,7 @@ export default function App() {
               {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode, selectedYear, selectedPhase }} />}
+              {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user, selectedYear, selectedPhase }} />}
@@ -1500,7 +1632,7 @@ export default function App() {
 
           {/* Footer — brand line + utility links + Vet 86 ecosystem
               cross-links. Extracted to components/Footer.jsx 2026-05-27. */}
-          <Footer setView={setView} />
+          {!FOCUS_VIEWS.has(view) && <Footer setView={setView} />}
 
           {/* Floating clinical-math FAB — visible on every view except
               auth (we want to nudge users to log in, not show them tools
@@ -1510,12 +1642,12 @@ export default function App() {
           {/* VetCalculator lives in the tree (modal + listener) but
               renders no FAB of its own — ToolsFAB drives opening via
               a window event. */}
-          {view !== 'auth' && view !== 'exam' && <VetCalculator showFab={false} />}
+          {!FOCUS_VIEWS.has(view) && <VetCalculator showFab={false} />}
 
           {/* Unified ToolsFAB — one button bottom-right that fans out
               into the calculator + sketchpad. Replaces what used to be
               two stacked floats. Hidden during exam/auth like before. */}
-          {view !== 'auth' && view !== 'exam' && (
+          {!FOCUS_VIEWS.has(view) && (
             <ToolsFAB
               onSketch={() => setSketchOpen(true)}
               onLab={() => {
@@ -1547,6 +1679,20 @@ export default function App() {
             setPracticeMode={setPracticeMode}
             openInstructor={(ins) => setOpenInstructor(ins)}
             openVoiceSettings={() => setVoiceSettingsOpen(true)}
+            onSketch={() => setSketchOpen(true)}
+            onPractice={(inv) => {
+              setMode(inv.mode || 'quick');
+              setSubject(inv.subject || 'all');
+              setPracticeMode(inv.practiceMode || 'all');
+              if (inv.numQuestions != null) setNumQuestions(inv.numQuestions);
+              if (inv.useTimer != null) setUseTimer(inv.useTimer);
+              if (inv.timePerQ != null) setTimePerQ(inv.timePerQ);
+              setView('config');
+            }}
+            signedIn={!!user}
+            scaffold={Boolean(YEARS.find((year) => year.id === selectedYear)?.scaffold)}
+            hasSupabase={hasSupabase}
+            selectedYear={selectedYear}
           />
         </Suspense>
       )}

@@ -44,12 +44,16 @@
 
 import { BANK_REGISTRY } from './bank-registry.generated.js';
 
-// LOADERS derived from the generated registry. Each entry: { year, fn }
+// LOADERS derived from the generated registry. Each entry: { file, year, fn }
 // where `year` is the curriculum year the bank belongs to (or null for
-// cross-year / utility banks loaded by every year scope) and `fn` is a
-// thunk returning the bank's question array. Same shape the rest of this
-// module consumed before the registry refactor — behaviour-identical.
-const LOADERS = BANK_REGISTRY.map((b) => ({ year: b.year, fn: b.load }));
+// cross-year / utility banks loaded by every year scope), `file` is its
+// stable registry identity, and `fn` is a thunk returning the bank's
+// question array.
+const LOADERS = BANK_REGISTRY.map((b) => ({
+  file: b.file,
+  year: b.year,
+  fn: b.load,
+}));
 
 // SAME reference forever — mutated when loadQB resolves so closures
 // over `QB` see populated data on the next React render.
@@ -57,22 +61,30 @@ const _qbArr = [];
 
 // Memoised promises per scope. Keys: 'all' or `year-N`.
 const _loadPromises = new Map();
-// Track which scopes' chunks have already been merged into _qbArr so
-// loadQBForYear(N) calls don't re-push duplicates if invoked twice.
+// Scope completion powers isQBFullyLoaded() and preserves the public
+// distinction between a partial year load and an explicit full load.
 const _loadedScopes = new Set();
+// A bank can belong to several overlapping scopes (notably cross-year
+// banks in every year plus `all`). Track the registry file identity so
+// each bank is merged exactly once, even when scopes load concurrently.
+const _loadedBanks = new Set();
 
 export const QB = _qbArr;
 
 function _runLoaders(loaders, scopeKey) {
   if (_loadPromises.has(scopeKey)) return _loadPromises.get(scopeKey);
-  const p = Promise.all(loaders.map(({ fn }) => fn()))
+  const p = Promise.all(loaders.map(({ file, fn }) => (
+    fn().then((questions) => ({ file, questions }))
+  )))
     .then((parts) => {
-      if (!_loadedScopes.has(scopeKey)) {
-        for (const part of parts) {
-          if (Array.isArray(part)) _qbArr.push(...part);
-        }
-        _loadedScopes.add(scopeKey);
+      for (const { file, questions } of parts) {
+        // Promise callbacks run to completion without interleaving, so
+        // this check-and-add also deduplicates overlapping in-flight scopes.
+        if (_loadedBanks.has(file)) continue;
+        if (Array.isArray(questions)) _qbArr.push(...questions);
+        _loadedBanks.add(file);
       }
+      _loadedScopes.add(scopeKey);
       return _qbArr;
     })
     .catch((err) => {
@@ -123,6 +135,11 @@ export function loadQBForYear(year) {
 /** Is the QB populated? (sync check for closing logic) */
 export function isQBLoaded() {
   return _qbArr.length > 0;
+}
+
+/** Has the requested year scope (including shared banks) finished loading? */
+export function isQBYearLoaded(year) {
+  return Number.isFinite(year) && _loadedScopes.has(`year-${year}`);
 }
 
 /**

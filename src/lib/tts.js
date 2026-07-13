@@ -66,15 +66,9 @@ const THAI_RE = /[฀-๿]/;
 const ENG_RE = /[A-Za-z]/;
 const SAFE_CHUNK_LIMIT = 240; // chars — under Chrome's reported hang threshold
 
-// Eager voice enumeration on module load. The first call to
-// ensureVoices() races a `voiceschanged` event listener that can fire
-// late (Chrome desktop often takes 200-1000 ms). Kicking it off here
-// (no await — fire and forget) means by the time the user taps 🔊
-// for the first time, `_voicesPromise` is usually already resolved
-// and the speakQuestion path proceeds without waiting. The 30 ms
-// Promise.race cap inside speakQuestion is a safety net for the
-// extreme cold-boot case where the user taps within a few hundred
-// ms of page load.
+// Voice enumeration stays lazy until the user explicitly taps 🔊.
+// Running speechSynthesis.getVoices() as a module-load side effect crashes
+// some mobile WebKit contexts and spends work for users who never use TTS.
 
 // Voice cache + readiness — getVoices() may return [] on Chrome until
 // the 'voiceschanged' event fires.
@@ -734,12 +728,6 @@ export function cancelSpeech() {
   if (typeof window === 'undefined' || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   stopAllEdgeAudio();
-}
-
-// Eager voice enumeration on module load (see comment above THAI_RE).
-// Wrapped in a guard so SSR builds don't crash on `window`.
-if (typeof window !== 'undefined') {
-  ensureVoices().catch(() => { /* prewarm best-effort */ });
 }
 
 // Exposed for tests / debugging — checks an installed voice setup

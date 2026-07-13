@@ -32,15 +32,22 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
     const onDoc = (e) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
     };
+    const onKeyDown = (e) => {
+      if (e.key !== 'Escape') return;
+      setOpen(false);
+      wrapRef.current?.querySelector('button')?.focus();
+    };
     // Defer attaching the outside-click listener until after the click
     // that opened the menu has finished bubbling (otherwise the same
     // pointerdown closes the menu we just opened).
     const raf = requestAnimationFrame(() => {
       document.addEventListener('pointerdown', onDoc);
+      document.addEventListener('keydown', onKeyDown);
     });
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener('pointerdown', onDoc);
+      document.removeEventListener('keydown', onKeyDown);
     };
   }, [open]);
   return (
@@ -56,7 +63,8 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
       </button>
       {open && (
         <div
-          role="menu"
+          role="dialog"
+          aria-label="ตั้งค่าธีมและจานสี"
           style={{
             position: 'absolute',
             top: 'calc(100% + 6px)',
@@ -77,13 +85,13 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
           <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
             <button
               type="button"
-              onClick={() => setTheme('light')}
+              onClick={() => { setTheme('light'); setOpen(false); }}
               className={`vmx-chip ${theme === 'light' ? 'active' : ''}`}
               style={{ flex: 1 }}
             >☀️ Light</button>
             <button
               type="button"
-              onClick={() => setTheme('dark')}
+              onClick={() => { setTheme('dark'); setOpen(false); }}
               className={`vmx-chip ${theme === 'dark' ? 'active' : ''}`}
               style={{ flex: 1 }}
             >🌙 Dark</button>
@@ -96,7 +104,7 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
               <button
                 key={p.id}
                 type="button"
-                onClick={() => setPalette(p.id)}
+                onClick={() => { setPalette(p.id); setOpen(false); }}
                 className={`vmx-chip ${palette === p.id ? 'active' : ''}`}
                 style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, padding: '5px 10px' }}
               >

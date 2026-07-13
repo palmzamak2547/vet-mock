@@ -51,7 +51,7 @@ export default function XpChip() {
     <div ref={wrapRef} style={{ position: 'relative' }}>
       <button
         type="button"
-        className="vmx-pop-in"
+        className="vmx-xp-chip vmx-pop-in"
         onClick={() => setOpen((v) => !v)}
         title={`Lv ${lvl} · ${state.totalXp.toLocaleString()} XP · อีก ${prog.needed - prog.current} XP ไปอีก level`}
         aria-label={`ระดับ ${lvl} · ${state.totalXp} XP`}
@@ -75,9 +75,10 @@ export default function XpChip() {
       >
         <span style={{ fontSize: 14 }}>✨</span>
         <span><strong>Lv {lvl}</strong></span>
-        <span style={{ opacity: 0.75 }}>· {state.totalXp.toLocaleString()} XP</span>
+        <span className="vmx-xp-chip-total" style={{ opacity: 0.75 }}>· {state.totalXp.toLocaleString()} XP</span>
         <span
           aria-hidden
+          className="vmx-xp-chip-progress"
           style={{
             position: 'relative',
             width: 36,

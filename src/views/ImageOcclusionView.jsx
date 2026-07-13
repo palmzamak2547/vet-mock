@@ -30,25 +30,29 @@ function formatThaiDate(ts) {
 
 function DeckCard({ deck, onOpen, onDelete }) {
   return (
-    <div
+    <article
       style={{
         border: '1px solid var(--clr-border)',
         borderRadius: 12,
         background: 'var(--clr-surface)',
         overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        cursor: 'pointer',
+        position: 'relative',
         transition: 'transform 120ms ease, box-shadow 120ms ease',
       }}
-      onClick={() => onOpen(deck)}
     >
-      <div style={{
+      <button
+        type="button"
+        onClick={() => onOpen(deck)}
+        aria-label={`เปิด deck ${deck.name}, ${deck.masks?.length || 0} กล่อง`}
+        style={{ all: 'unset', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%', color: 'inherit', fontFamily: 'inherit' }}
+      >
+        <span style={{
         position: 'relative',
+        display: 'block',
         aspectRatio: '16 / 10',
         background: '#0a0a0a',
         overflow: 'hidden',
-      }}>
+        }}>
         {deck.imageDataUrl ? (
           <img
             src={deck.imageDataUrl}
@@ -57,9 +61,9 @@ function DeckCard({ deck, onOpen, onDelete }) {
             style={{ width: '100%', height: '100%', objectFit: 'contain', pointerEvents: 'none' }}
           />
         ) : (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#666' }}>
+          <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--clr-ink-soft)' }}>
             (ไม่มีรูป)
-          </div>
+          </span>
         )}
         <svg
           viewBox="0 0 100 100"
@@ -81,10 +85,10 @@ function DeckCard({ deck, onOpen, onDelete }) {
             />
           ))}
         </svg>
-      </div>
-      <div style={{ padding: '10px 12px', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{
+        </span>
+        <span style={{ padding: '10px 56px 10px 12px', display: 'block', minWidth: 0 }}>
+          <span style={{
+            display: 'block',
             fontWeight: 600,
             fontSize: 14,
             color: 'var(--clr-ink)',
@@ -93,23 +97,23 @@ function DeckCard({ deck, onOpen, onDelete }) {
             whiteSpace: 'nowrap',
           }}>
             {deck.name}
-          </div>
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+          </span>
+          <span style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
             {(deck.masks?.length || 0)} กล่อง · {formatThaiDate(deck.createdAt)}
-          </div>
-        </div>
-        <button
-          type="button"
-          className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-          style={{ minHeight: 36, minWidth: 36, padding: '0 8px' }}
-          onClick={(e) => { e.stopPropagation(); onDelete(deck); }}
-          aria-label={`ลบ ${deck.name}`}
-          title="ลบ deck"
-        >
-          🗑
-        </button>
-      </div>
-    </div>
+          </span>
+        </span>
+      </button>
+      <button
+        type="button"
+        className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+        style={{ position: 'absolute', right: 8, bottom: 8, minHeight: 44, minWidth: 44, padding: '0 8px' }}
+        onClick={() => onDelete(deck)}
+        aria-label={`ลบ ${deck.name}`}
+        title="ลบ deck"
+      >
+        🗑
+      </button>
+    </article>
   );
 }
 
@@ -236,7 +240,6 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
         {decks.length === 0 ? (
           // Empty state — drop zone + CTA
           <div
-            onClick={openNew}
             onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
             onDragLeave={() => setDragOver(false)}
             onDrop={(e) => {
@@ -249,7 +252,6 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
               borderRadius: 14,
               padding: '60px 20px',
               textAlign: 'center',
-              cursor: 'pointer',
               background: dragOver ? 'var(--clr-sage-soft)' : 'var(--clr-surface)',
               color: 'var(--clr-ink-soft)',
               marginTop: 20,
@@ -260,8 +262,11 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
               📷 สร้าง deck แรก
             </div>
             <div style={{ fontSize: 14, marginBottom: 12 }}>
-              คลิกที่นี่ หรือ ลากรูปมาวาง · รองรับ PNG / JPG / WebP / SVG
+              เลือกรูป หรือ ลากรูปมาวาง · รองรับ PNG / JPG / WebP / SVG
             </div>
+            <button type="button" className="vmx-btn vmx-btn-primary" onClick={openNew} style={{ marginBottom: 12 }}>
+              เลือกรูปและสร้าง deck
+            </button>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               เหมาะกับ anatomy lateral · radiograph · histology · microbe colony plate
             </div>
