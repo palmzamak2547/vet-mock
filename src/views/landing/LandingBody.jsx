@@ -79,9 +79,15 @@ export default function LandingBody(p) {
                   <button type="button" onClick={p.onHeroGenerate} disabled={p.heroGen === 'gen'} style={{ flexShrink: 0, padding: '6px 13px', borderRadius: 999, border: 'none', background: 'var(--clr-sage)', color: 'var(--clr-surface)', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, cursor: 'pointer', minHeight: 32 }}>{p.heroGen === 'gen' ? '…' : t.cmdGenerate}</button>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                  <span className="vmx-qtype-badge">MCQ — {t.heroTag}</span>
-                  <span className="vmx-timer" style={{ marginLeft: 'auto' }}>01:24</span>
-                  <button type="button" className={`vmx-bookmark-btn ${p.heroBookmarked ? 'active' : ''}`} onClick={() => p.setHeroBookmarked((b) => !b)} aria-label="Bookmark" aria-pressed={p.heroBookmarked}>🔖</button>
+                  {/* badge shrinks + truncates so the timer never overlaps the
+                      bookmark on narrow cards; timer + bookmark stay fixed-size */}
+                  <span className="vmx-qtype-badge" style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>MCQ — {t.heroTag}</span>
+                  <span className="vmx-timer" style={{ marginLeft: 'auto', flexShrink: 0 }}>01:24</span>
+                  {/* the app's .vmx-bookmark-btn is position:absolute (pins to a
+                      card corner in the exam view); on the landing it sits inline
+                      in this flex row, so force it back into flow or it floats to
+                      the corner and overlaps the timer/question. */}
+                  <button type="button" className={`vmx-bookmark-btn ${p.heroBookmarked ? 'active' : ''}`} style={{ position: 'static', flexShrink: 0 }} onClick={() => p.setHeroBookmarked((b) => !b)} aria-label="Bookmark" aria-pressed={p.heroBookmarked}>🔖</button>
                 </div>
                 <div className="vmx-progress-bar" style={{ marginBottom: 16 }}><div className="vmx-progress-fill" style={{ width: '20%' }} /></div>
                 <div className="vmx-qtext" style={{ marginBottom: 18 }}>{t.heroQ}</div>

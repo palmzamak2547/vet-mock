@@ -93,9 +93,28 @@ html.lp-active { background: var(--clr-bg); }
   .vmx-subject-card:hover { transform: none; }
 }
 
+/* ---- Motion layer (useLandingMotion) — desktop, fine-pointer, motion-ok ----
+   Cards/buttons transition smoothly toward the cursor-driven transforms the
+   JS sets inline; the rail + spotlight are JS-appended to <body>. */
+.lp-root .vmx-btn-primary { transition: transform .18s cubic-bezier(.2,.7,.2,1), background .15s, color .15s, border-color .15s; }
+.lp-root .vmx-subject-card, .lp-root .vmx-stat-card { transition: transform .2s cubic-bezier(.2,.7,.2,1), border-color .2s, box-shadow .2s; transform-style: preserve-3d; }
+
+/* Left scroll-progress rail */
+.lp-rail { position: fixed; left: 20px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 16px; pointer-events: none; }
+.lp-rail-item { display: flex; align-items: center; gap: 9px; opacity: .35; transition: opacity .3s; }
+.lp-rail-item.is-on { opacity: 1; }
+.lp-rail-dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--clr-sage); background: transparent; transition: background .3s; }
+.lp-rail-item.is-on .lp-rail-dot { background: var(--clr-sage-soft); }
+.lp-rail-item.is-current .lp-rail-dot { background: var(--clr-sage); }
+.lp-rail-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--clr-ink-soft); }
+
+/* Diagnostic spotlight (follows cursor inside question cards) */
+.lp-spotlight { position: fixed; width: 300px; height: 300px; border-radius: 50%; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .25s; background: radial-gradient(circle, color-mix(in srgb, var(--clr-sage) 13%, transparent), transparent 70%); }
+
 /* ---- Motion off ---- */
 @media (prefers-reduced-motion: reduce) {
   .lp-reveal { opacity: 1; transform: none; transition: none; }
+  .lp-rail, .lp-spotlight { display: none !important; }
   .lp-root *, .lp-root *::before, .lp-root *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
 }
 @keyframes lp-rise { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: none; } }

@@ -28,6 +28,7 @@ import { SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import { DICT } from './landing/dict.js';
 import LandingBody, { OptionRow } from './landing/LandingBody.jsx';
+import { useLandingMotion } from './landing/useLandingMotion.js';
 
 // ---- Demo fixtures for the interactive previews (isolated, non-scoring) ----
 // These drive the honest simulated demos (hero exam, lab, generator, AI).
@@ -91,6 +92,11 @@ export default function LandingView({
   const [lang, setLang] = useState(langProp || 'en');
   const L = DICT[lang];
   const reduce = useRef(false);
+
+  // Full motion layer (scroll rail + scroll-spy underline + magnetic
+  // buttons + card tilt + spotlight). Progressive enhancement — self-
+  // disables on touch / reduced-motion, fully cleaned on unmount.
+  useLandingMotion();
 
   // ---- UI state ----
   const [mobileOpen, setMobileOpen] = useState(false);
