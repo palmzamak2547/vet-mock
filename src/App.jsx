@@ -26,7 +26,8 @@ import { isFlashcardCompatible } from './hooks/sr-filter.js';
 // class (STABILITY rule 5) and removes a runtime <style> injection —
 // the sheet now loads in <head> before JS runs (better FOUC behavior).
 import './styles.css';
-import { hasSupabase, signOut } from './lib/supabase.js';
+import './styles-landing.css';
+import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
 import { awardXp, XP_AWARDS } from './lib/xp.js';
@@ -158,6 +159,9 @@ const AboutView = lazy(() => import('./views/AboutView.jsx'));
 const FeedbackView = lazy(() => import('./views/FeedbackView.jsx'));
 const IgCardStudioView = lazy(() => import('./views/IgCardStudioView.jsx'));
 const YearSelectView = lazy(() => import('./views/YearSelectView.jsx'));
+// Marketing landing — signed-out front door. Full-bleed (own nav/footer),
+// so it early-returns before the app chrome. Own scoped CSS.
+const LandingView = lazy(() => import('./views/LandingView.jsx'));
 const PhaseSelectView = lazy(() => import('./views/PhaseSelectView.jsx'));
 const TopicSelectView = lazy(() => import('./views/TopicSelectView.jsx'));
 const NotesView = lazy(() => import('./views/NotesView.jsx'));
@@ -316,6 +320,10 @@ export default function App() {
     try {
       const params = new URLSearchParams(window.location.search);
       if (params.get('auth') === 'reset') return 'auth';
+      // Deliberate/shareable entry to the marketing landing, e.g. from a
+      // footer link or an external share. Bypasses the first-time-only
+      // gate so it works for returning visitors too.
+      if (params.get('view') === 'landing') return 'landing';
       // Shareable quiz link — only jump to exam if the URL parameter
       // resolves to at least one valid Q in QB. Otherwise the user
       // would land on an instant 0/0 results screen (timer effect
@@ -341,7 +349,15 @@ export default function App() {
       // null when the key is absent, so distinguish via JSON.parse.
       const raw = window.localStorage.getItem('vmx-selected-year');
       const parsed = raw === null ? null : JSON.parse(raw);
-      if (parsed === null) return 'year-select';
+      if (parsed === null) {
+        // Brand-new visitor who hasn't picked a year yet → show the
+        // marketing landing (signed-out front door) the first time only.
+        // Once they enter the app we set 'vmx-seen-landing' so returning
+        // visitors go straight to year-select (no landing regression).
+        const seenLanding = window.localStorage.getItem('vmx-seen-landing');
+        if (!seenLanding) return 'landing';
+        return 'year-select';
+      }
     } catch {}
     return 'home';
   })();
@@ -665,6 +681,13 @@ export default function App() {
   const [feedbackPrefill, setFeedbackPrefill] = useState(null);
 
   const [theme, setTheme] = useLocalStorage('vmx-theme', 'light');
+  // Landing page: language (landing-local; the app itself is Thai-first
+  // with no i18n framework) + cookie consent. Consent gates the optional
+  // analytics mount below — 'ask' | 'all' | 'essential' | 'custom'.
+  const [landingLang, setLandingLang] = useLocalStorage('vmx-landing-lang', 'en');
+  const [consent, setConsent] = useLocalStorage('vmx-consent', 'ask');
+  const [consentPrefs, setConsentPrefs] = useLocalStorage('vmx-consent-prefs', { analytics: true, personal: true });
+  const analyticsAllowed = consent === 'all' || (consent === 'custom' && !!consentPrefs.analytics);
   // Color palette — overlays on top of theme to recolor accent vars
   // (sage / gold). 'default' uses the original sage+gold; alternatives:
   // ocean / plum / cherry / mono / forest. Stored in localStorage so
@@ -1412,6 +1435,62 @@ export default function App() {
   // because bookmarks is App-owned (cross-session user data).
   const isBookmarked = currentQ ? bookmarks.includes(currentQ.id) : false;
 
+  // ── Landing → real app handlers ──────────────────────────────────
+  // Marks the landing as seen (so returning visitors skip it) and drops
+  // the visitor into the normal entry: year-select if they've never
+  // picked a year, else home. No new flow — the real front door.
+  const leaveLandingTo = (next) => {
+    try { window.localStorage?.setItem('vmx-seen-landing', '1'); } catch {}
+    setView(next);
+  };
+  const landingEnterApp = () => leaveLandingTo(selectedYearStored == null ? 'year-select' : 'home');
+  // Pick a real subject from the landing → the exact sequence a subject
+  // card uses in HomeView (reset practiceMode, set subject, topic-select).
+  const landingPickSubject = (year, subjectId) => {
+    try { window.localStorage?.setItem('vmx-seen-landing', '1'); } catch {}
+    if (year != null) setSelectedYear(year);
+    setMode('quick');
+    setPracticeMode('all');
+    setSubject(subjectId);
+    setTopic(null);
+    setView('topic-select');
+  };
+  const landingOpenAuth = () => leaveLandingTo(hasSupabase ? 'auth' : 'year-select');
+  const landingConsent = (choice, prefs) => {
+    setConsent(choice);
+    if (prefs) setConsentPrefs(prefs);
+  };
+
+  if (view === 'landing') {
+    return (
+      <>
+        <TopLoadingBar />
+        <Suspense fallback={<div style={{ minHeight: '100dvh', background: 'var(--clr-bg)' }} />}>
+          <LandingView
+            onEnterApp={landingEnterApp}
+            onPickSubject={landingPickSubject}
+            onOpenAuth={landingOpenAuth}
+            onGoogle={() => { signInWithGoogle().catch(() => landingOpenAuth()); }}
+            onMagicLink={(email) => signInWithMagicLink(email)}
+            hasSupabase={hasSupabase}
+            theme={theme}
+            onToggleTheme={() => setTheme((th) => (th === 'dark' ? 'light' : 'dark'))}
+            lang={landingLang}
+            onSetLang={setLandingLang}
+            consent={consent}
+            onConsent={landingConsent}
+          />
+        </Suspense>
+        {analyticsAllowed && (
+          <Suspense fallback={null}>
+            <Analytics />
+            <SpeedInsights />
+          </Suspense>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
       {/* Global CSS now loaded via `import './styles.css'` at the top of
@@ -1727,11 +1806,18 @@ export default function App() {
 
       {/* Anonymous, privacy-preserving usage signal so Palm can see
           if Imaging Lab is getting organic visits + which views people
-          stay on. No PII; Vercel-side aggregation. Both no-op in dev. */}
-      <Suspense fallback={null}>
-        <Analytics />
-        <SpeedInsights />
-      </Suspense>
+          stay on. No PII; Vercel-side aggregation. Both no-op in dev.
+          Gated on cookie consent — the landing's consent card sets
+          'vmx-consent'; analytics only mounts once the visitor opts in
+          (or was never asked, e.g. deep-linked past the landing, where
+          we default to the prior always-on behaviour to avoid silently
+          dropping the existing signal for returning users). */}
+      {(analyticsAllowed || consent === 'ask') && (
+        <Suspense fallback={null}>
+          <Analytics />
+          <SpeedInsights />
+        </Suspense>
+      )}
     </>
   );
 }

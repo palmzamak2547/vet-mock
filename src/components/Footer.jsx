@@ -19,6 +19,7 @@ export default function Footer({ setView }) {
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 12px', justifyContent: 'center' }}>
         <button type="button" className="vmx-footer-link" onClick={() => setView('about')}>About</button>
+        <button type="button" className="vmx-footer-link" onClick={() => setView('landing')} title="หน้าแนะนำ VetMock">หน้าแนะนำ</button>
         <a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
         <a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
         <button type="button" className="vmx-footer-link" onClick={() => setView('feedback')}>แจ้งปัญหา</button>

@@ -75,7 +75,7 @@ test.describe('VetMock smoke flow', () => {
   //     a VetMock bug — chromium/webkit don't surface it. (Added 2026-05-27
   //     when cross-engine smoke first ran firefox-desktop.)
   const isExpectedNoise = (msg) =>
-    /Vercel Web Analytics|Vercel Speed Insights|va\.vercel-scripts|vitals\.vercel-insights|Unrecognized feature|_vercel\/(insights|speed-insights)|Failed to load resource.*404.*\/_vercel\/|Unexpected token '<'|__cf_bm|rejected for invalid domain/i.test(msg);
+    /Vercel Web Analytics|Vercel Speed Insights|va\.vercel-scripts|vitals\.vercel-insights|Unrecognized feature|_vercel\/(insights|speed-insights)|Failed to load resource.*404.*\/_vercel\/|Unexpected token '<'|expected expression, got '<'|__cf_bm|rejected for invalid domain/i.test(msg);
   // ↑ "Unexpected token '<'" comes from `vite preview` returning the
   //   HTML 404 page when /_vercel/insights/script.js is requested.
   //   The browser tries to parse the HTML as JS → SyntaxError. This
@@ -176,8 +176,15 @@ test.describe('VetMock smoke flow', () => {
     expect(consoleErrors, `Unexpected console errors in Quick Practice flow:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 
-  test('fresh user can choose year and phase, then reaches home', async ({ page }) => {
+  test('fresh user sees landing, then chooses year and phase, then reaches home', async ({ page }) => {
     await page.goto('/?e2e-fresh=1');
+
+    // New front door (2026): a brand-new visitor (no vmx-selected-year AND
+    // no vmx-seen-landing) lands on the marketing landing page first.
+    await expect(page.getByRole('heading', { level: 1, name: /Practice before the real exam/i })).toBeVisible();
+    // "Start Practicing" bridges into the real app → year-select (since no
+    // year has been picked yet). There are two (nav + hero); click the nav one.
+    await page.getByRole('button', { name: /Start Practicing/i }).first().click();
 
     await expect(page.getByRole('heading', { level: 1, name: /เลือก.*ชั้นปี/ })).toBeVisible();
     await page.getByRole('button', { name: /ปี\s*4\b/ }).click();

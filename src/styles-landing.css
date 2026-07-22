@@ -1,0 +1,91 @@
+/* ============================================================
+   VetMock Landing — scoped styles
+   ============================================================
+   The landing reuses the app's existing vmx-* design system
+   (src/styles.css). This file adds ONLY:
+     1. the two design-system primitives the app didn't have yet
+        (vmx-explain, vmx-badge-live) — from the design bundle
+     2. landing-only layout/motion helpers (nav scroll state,
+        scroll-reveal, responsive breakpoints, reduced-motion)
+   Design source of truth: design_handoff_vetmock_landing
+   Everything is prefixed .lp- or scoped so it can't leak into
+   the practice app. No new colors/fonts — tokens live in styles.css.
+   ============================================================ */
+
+/* ---- 2 missing design-system primitives ----
+   These are the ONLY vmx-* classes the design uses that the app's
+   styles.css didn't already have. Everything else the landing needs
+   (vmx-btn, vmx-chip, vmx-option, vmx-question-card, vmx-timer,
+   vmx-qtype-badge, vmx-progress-bar, vmx-bookmark-btn, vmx-nav-btn,
+   vmx-tag-pill, vmx-fill-input, vmx-toggle, vmx-bar, vmx-subject-card,
+   vmx-stat-*) is REUSED from styles.css — do not re-declare it here or
+   it would fork the design system and leak into the practice app. */
+.vmx-explain { margin-top: 16px; padding: 14px; border-radius: 12px; background: var(--clr-surface-2); border-left: 3px solid var(--clr-gold); font-size: 13.5px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-explain .k { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; color: var(--clr-gold); margin-right: 6px; }
+.vmx-badge-live { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 999px; background: var(--clr-gold); color: var(--clr-surface); font-weight: 600; letter-spacing: .05em; }
+
+/* ---- Landing shell ---- */
+.lp-root { font-family: 'IBM Plex Sans Thai', sans-serif; color: var(--clr-ink); min-height: 100vh; min-height: 100svh; overflow-x: hidden; }
+.lp-root a { color: var(--clr-sage); text-decoration: none; transition: color .15s; }
+.lp-root a:hover { color: var(--clr-ink); }
+.lp-root ::selection { background: var(--clr-sage-soft); color: var(--clr-ink); }
+.lp-skip { position: absolute; left: -999px; top: 8px; z-index: 200; background: var(--clr-ink); color: var(--clr-bg); padding: 9px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+.lp-skip:focus { left: 8px; }
+
+/* ---- Nav ---- */
+.lp-nav { position: sticky; top: 0; z-index: 50; background: var(--clr-bg); border-bottom: 1px solid var(--clr-border); transition: background .25s, border-color .25s, box-shadow .25s; }
+.lp-nav.is-scrolled { background: color-mix(in srgb, var(--clr-bg) 80%, transparent); -webkit-backdrop-filter: saturate(1.2) blur(12px); backdrop-filter: saturate(1.2) blur(12px); border-bottom-color: var(--clr-ink); box-shadow: var(--shadow-sm); }
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) { .lp-nav.is-scrolled { background: var(--clr-bg); } }
+.lp-navlink { position: relative; border-radius: 8px; transition: color .15s; padding: 8px 12px; font-size: 13.5px; font-weight: 500; color: var(--clr-ink-soft); }
+.lp-navlink::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 5px; height: 2px; background: var(--clr-sage); border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform .24s cubic-bezier(.2,.7,.2,1); }
+.lp-navlink:hover::after, .lp-navlink.is-active::after { transform: scaleX(1); }
+.lp-navlink:hover, .lp-navlink.is-active { color: var(--clr-ink); }
+.lp-ctx { transition: border-color .15s, transform .15s; }
+.lp-ctx:hover { border-color: var(--clr-sage); transform: translateY(-1px); }
+.lp-iconbtn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--clr-ink); flex-shrink: 0; }
+
+/* ---- Scroll reveal ---- */
+.lp-reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+.lp-reveal.in { opacity: 1; transform: none; }
+
+/* ---- Responsive: desktop <-> mobile at 1000px ---- */
+.lp-only-mobile { display: none; }
+.lp-nav-burger { display: none; }
+@media (max-width: 1000px) {
+  .lp-only-desktop { display: none !important; }
+  .lp-only-mobile { display: inline-flex !important; }
+  .lp-nav-burger { display: inline-flex !important; }
+  .lp-stack { grid-template-columns: 1fr !important; }
+  /* Grid/flex items must be allowed to shrink below their content width,
+     or a wide child (the exam card) forces the single 1fr track past the
+     viewport → clipped overflow. min-width:0 is the standard fix. */
+  .lp-stack > * { min-width: 0 !important; }
+  .lp-hide-md { display: none !important; }
+  .lp-pad { padding-left: 20px !important; padding-right: 20px !important; }
+  .lp-center-md { text-align: center !important; }
+  .lp-center-md.lp-flex { justify-content: center !important; }
+}
+@media (max-width: 384px) {
+  .lp-pad { padding-left: 14px !important; padding-right: 14px !important; }
+  .vmx-btn-sm { padding: 8px 11px !important; font-size: 11px !important; }
+  /* Ultra-narrow (≤360px) tightening so the nav row + 2-col tile grids
+     don't clip at the 320px floor. Nav keeps logo + theme + primary CTA
+     + burger; the primary CTA label is already short via vmx-btn-sm. */
+  .lp-nav .lp-pad { gap: 9px !important; padding-top: 9px !important; padding-bottom: 9px !important; }
+}
+@media (max-width: 340px) {
+  /* At the 320px floor, collapse the two-up example/lab-tile grids to a
+     single column so the fixed-min-content tiles stop overflowing. */
+  .lp-tile-grid { grid-template-columns: 1fr !important; }
+}
+@media (hover: none) {
+  .vmx-subject-card:hover { transform: none; }
+}
+
+/* ---- Motion off ---- */
+@media (prefers-reduced-motion: reduce) {
+  .lp-reveal { opacity: 1; transform: none; transition: none; }
+  .lp-root *, .lp-root *::before, .lp-root *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
+}
+@keyframes lp-rise { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes lp-pulse { 0% { box-shadow: 0 0 0 0 rgba(74,107,74,.45); } 70% { box-shadow: 0 0 0 7px rgba(74,107,74,0); } 100% { box-shadow: 0 0 0 0 rgba(74,107,74,0); } }
