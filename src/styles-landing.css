@@ -24,8 +24,19 @@
 .vmx-explain .k { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; color: var(--clr-gold); margin-right: 6px; }
 .vmx-badge-live { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 999px; background: var(--clr-gold); color: var(--clr-surface); font-weight: 600; letter-spacing: .05em; }
 
-/* ---- Landing shell ---- */
-.lp-root { font-family: 'IBM Plex Sans Thai', sans-serif; color: var(--clr-ink); min-height: 100vh; min-height: 100svh; overflow-x: hidden; }
+/* ---- Landing shell ----
+   The landing renders as an early-return BEFORE the app's .vmx-app
+   wrapper (which is what normally paints the page bg), so the landing
+   must paint its own base background — otherwise the page shows through
+   as browser-default white on overscroll, between sections, and behind
+   the sticky nav. We set it on <html> (via .lp-active on the root) so the
+   colour also covers the overscroll/rubber-band area, and repeat it on
+   .lp-root as a fallback. color-scheme tracks the theme so the scrollbar
+   and any native controls match. */
+html.lp-active { background: var(--clr-bg); }
+.lp-root { font-family: 'IBM Plex Sans Thai', sans-serif; color: var(--clr-ink); background: var(--clr-bg); min-height: 100vh; min-height: 100svh; overflow-x: hidden; }
+[data-theme="dark"] .lp-root, html.lp-active[data-theme="dark"] { color-scheme: dark; }
+:root:not([data-theme="dark"]) .lp-root, html.lp-active:not([data-theme="dark"]) { color-scheme: light; }
 .lp-root a { color: var(--clr-sage); text-decoration: none; transition: color .15s; }
 .lp-root a:hover { color: var(--clr-ink); }
 .lp-root ::selection { background: var(--clr-sage-soft); color: var(--clr-ink); }

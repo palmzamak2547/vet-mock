@@ -159,6 +159,15 @@ export default function LandingView({
   // sync language from prop
   useEffect(() => { if (langProp && langProp !== lang) setLang(langProp); }, [langProp]); // eslint-disable-line
 
+  // ---- mount-only: flag <html> so it paints the landing background
+  // (the landing renders before .vmx-app, which normally paints it) and
+  // lock scroll to the top so we never open mid-page. Cleaned on unmount
+  // so the practice app isn't left with the class. ----
+  useEffect(() => {
+    document.documentElement.classList.add('lp-active');
+    return () => document.documentElement.classList.remove('lp-active');
+  }, []);
+
   // ---- mount: motion prefs, reveal, nav scroll, rotating word, escape ----
   useEffect(() => {
     reduce.current = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

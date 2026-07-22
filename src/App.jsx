@@ -706,7 +706,15 @@ export default function App() {
   // Previously injected from a useEffect here, which fired AFTER first
   // paint and caused a brief unstyled flash on cold load.
 
-  useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
+  useEffect(() => {
+    const d = document.documentElement;
+    d.setAttribute('data-theme', theme);
+    // Keep the html-level base bg + color-scheme in sync with the toggle
+    // (the anti-FOUC inline script in index.html sets them for first paint;
+    // this keeps the overscroll/landing area correct after a theme switch).
+    d.style.colorScheme = theme;
+    d.style.background = theme === 'dark' ? '#1a1612' : '#f6efe4';
+  }, [theme]);
   useEffect(() => {
     if (palette && palette !== 'default') {
       document.documentElement.setAttribute('data-palette', palette);

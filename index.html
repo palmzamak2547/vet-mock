@@ -4,6 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
+    <!-- Anti-FOUC: set the theme + base page background synchronously,
+         BEFORE the stylesheet/React load, so a dark-mode user never sees a
+         flash of light background on first paint (matters most for the
+         landing page, which paints its own bg). Reads the same key the app
+         persists (vmx-theme), falls back to the OS preference. -->
+    <script>
+      (function () {
+        try {
+          var raw = localStorage.getItem('vmx-theme');
+          var t = raw ? JSON.parse(raw) : null;
+          if (t !== 'light' && t !== 'dark') {
+            t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          var d = document.documentElement;
+          d.setAttribute('data-theme', t);
+          d.style.colorScheme = t;
+          d.style.background = t === 'dark' ? '#1a1612' : '#f6efe4';
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Search engine verification -->
     <meta name="google-site-verification" content="14yg3AaHe91BC8VgVxjhxTrJsHCgvDSUIKetsJozHX0" />
 
