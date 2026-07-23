@@ -6,10 +6,10 @@ version: 1.0.0
 status: draft
 tags: [review, com5, approval, domain-owner, evidence-audit]
 sourceRefs:
-  - path: wiki/domain/com5/canine-viral-enteritis.md
-  - path: wiki/domain/com5/feline-upper-respiratory-complex.md
-  - path: wiki/domain/com5/rabies-and-vaccine-guidelines.md
-  - path: wiki/domain/com5/systemic-mycoses-and-protozoa.md
+  - path: wiki/domain/com-5/canine-viral-enteritis.md
+  - path: wiki/domain/com-5/feline-upper-respiratory-complex.md
+  - path: wiki/domain/com-5/rabies-and-vaccine-guidelines.md
+  - path: wiki/domain/com-5/systemic-mycoses-and-protozoa.md
 lastReviewed: 2026-07-23
 ---
 
