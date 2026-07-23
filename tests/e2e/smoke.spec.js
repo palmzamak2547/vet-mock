@@ -223,4 +223,34 @@ test.describe('VetMock smoke flow', () => {
       `Unexpected console errors on home:\n${consoleErrors.join('\n')}`
     ).toEqual([]);
   });
+
+  // VetWiki governed read page — guards the whole provenance chain:
+  // note corpus → adapter → knowledge → read page → real cited source.
+  test('VetWiki read page shows governed status + a real cited source', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle', { timeout: 15_000 });
+
+    await page.getByText('VetWiki', { exact: false }).first().click();
+
+    // The flagship topic renders with its real note content.
+    // level:1 — the topic title (section headings also contain "Rabies").
+    await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 10_000 });
+
+    // Honest governance is visible: unverified note content reads "ฉบับร่าง".
+    await expect(page.locator('.vmx-qtype-badge', { hasText: 'ฉบับร่าง' }).first()).toBeVisible();
+
+    // A claim cross-checked against an external reference is marked as such.
+    await expect(page.getByText('ตรวจทานกับแหล่งอ้างอิง').first()).toBeVisible();
+
+    // Provenance panel opens and cites a REAL source (never fabricated).
+    await page.getByRole('button', { name: /VetMock รู้เรื่องนี้ได้อย่างไร/ }).click();
+    const dialog = page.getByRole('dialog', { name: /ที่มาของเนื้อหา/ });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByText(/WOAH/i).first()).toBeVisible();
+
+    expect(
+      consoleErrors,
+      `Unexpected console errors on VetWiki:\n${consoleErrors.join('\n')}`
+    ).toEqual([]);
+  });
 });

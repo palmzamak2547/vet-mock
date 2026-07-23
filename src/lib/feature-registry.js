@@ -39,6 +39,13 @@
 //   tools     🛠 เครื่องมือ & อื่นๆ
 // ============================================================
 
+// Feature flags — a one-line rollback for in-progress features. An entry with
+// `flag: 'X'` is hidden from home + ⌘K (and thus unreachable, since there is
+// no direct URL routing) when FEATURE_FLAGS.X === false.
+export const FEATURE_FLAGS = {
+  VETWIKI_ENABLED: true,
+};
+
 export const FEATURE_CATEGORIES = [
   { id: 'practice', label: 'ฝึก & สอบ',        labelEn: 'Practice & Exam', icon: '📝' },
   { id: 'learn',    label: 'เรียน & ทบทวน',     labelEn: 'Learn & Review',  icon: '📚' },
@@ -95,6 +102,16 @@ export const FEATURES = [
     hint: 'สรุปคลิป + YouTube playlist',
     kw: 'video คลิป ย้อนหลัง summary สรุป youtube playlist',
     invoke: { kind: 'view', view: 'videos' },
+  },
+  {
+    // VetWiki — governed knowledge with traceable sources. Flagged so it's a
+    // one-line rollback: set VETWIKI_ENABLED=false to hide it from home + ⌘K.
+    id: 'vetwiki', category: 'learn',
+    label: 'VetWiki', labelEn: 'VetWiki', icon: '🧬',
+    hint: 'คลังความรู้ที่ตรวจสอบได้ · บอกที่มาของทุกหัวข้อ',
+    kw: 'vetwiki wiki ความรู้ knowledge อ้างอิง source ตรวจสอบ verified rabies พิษสุนัขบ้า',
+    flag: 'VETWIKI_ENABLED',
+    invoke: { kind: 'view', view: 'knowledge' },
   },
   {
     id: 'faculty', category: 'learn',
@@ -304,6 +321,7 @@ export function fabFeatures() {
  */
 export function visibleFeatures(list, { signedIn, scaffold, hasSupabase, selectedYear } = {}) {
   return list.filter((f) => {
+    if (f.flag && FEATURE_FLAGS[f.flag] === false) return false;
     if (f.auth && !signedIn) return false;
     if (f.auth && hasSupabase === false) return false;
     if (f.hideOnScaffold && scaffold) return false;
