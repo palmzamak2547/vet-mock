@@ -86,9 +86,16 @@ for (const file of files) {
 }
 
 // Deterministic order: year asc (null last), then file name.
+// ⚠️ Code-unit compare, NOT localeCompare: localeCompare without an explicit
+// locale follows the MACHINE's locale/ICU. Palm's box is th-TH, CI runners are
+// C/en-US — Thai collation ignores the '.' so it sorts
+// [lect2, lect3, lect4, lect] while CI sorts [lect, lect2, lect3, lect4].
+// The committed registry then looked STALE on every CI run (red build on every
+// push) even though its content was identical. Byte order is stable everywhere.
 entries.sort((a, b) => {
   const ay = a.year ?? 99, by = b.year ?? 99;
-  return ay !== by ? ay - by : a.file.localeCompare(b.file);
+  if (ay !== by) return ay - by;
+  return a.file < b.file ? -1 : a.file > b.file ? 1 : 0;
 });
 
 const total = entries.reduce((s, e) => s + e.count, 0);
