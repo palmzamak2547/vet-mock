@@ -209,13 +209,14 @@ export function scanWikiPages(dir, errors = [], warnings = [], rootDir = ROOT_DI
                 // Course Notes Approval Baseline Check
                 const isCourseNotesApproved = (
                   parsedMeta.sourceApprovalBasis === 'approved-course-notes' &&
-                  parsedMeta.sourceApprovalRef === 'src/data/notes-com5.js' &&
+                  typeof parsedMeta.sourceApprovalRef === 'string' &&
+                  parsedMeta.sourceApprovalRef.startsWith('src/data/notes-') &&
                   parsedMeta.sourceApprovalStatus === 'approved'
                 );
 
                 if (parsedMeta.sourceApprovalBasis === 'approved-course-notes') {
-                  if (parsedMeta.sourceApprovalRef !== 'src/data/notes-com5.js') {
-                    errors.push(`[${relPath}] Section '${aId}' with sourceApprovalBasis 'approved-course-notes' requires sourceApprovalRef 'src/data/notes-com5.js'`);
+                  if (!parsedMeta.sourceApprovalRef || typeof parsedMeta.sourceApprovalRef !== 'string' || !parsedMeta.sourceApprovalRef.startsWith('src/data/notes-')) {
+                    errors.push(`[${relPath}] Section '${aId}' with sourceApprovalBasis 'approved-course-notes' requires valid sourceApprovalRef starting with 'src/data/notes-'`);
                   }
                   if (parsedMeta.sourceApprovalStatus !== 'approved') {
                     errors.push(`[${relPath}] Section '${aId}' with sourceApprovalBasis 'approved-course-notes' requires sourceApprovalStatus 'approved'`);

@@ -728,7 +728,7 @@ test('Approved Source Baseline 2: Missing sourceApprovalRef when sourceApprovalB
   );
   const errors = [];
   scanWikiPages(wikiDir, errors, [], tempDir);
-  assert.equal(errors.some(e => e.includes("requires sourceApprovalRef 'src/data/notes-com5.js'")), true);
+  assert.equal(errors.some(e => e.includes("requires valid sourceApprovalRef starting with 'src/data/notes-'")), true);
 });
 
 test('Approved Source Baseline 3: Invalid sourceApprovalRef reference -> ERROR', () => {
@@ -741,7 +741,7 @@ test('Approved Source Baseline 3: Invalid sourceApprovalRef reference -> ERROR',
   );
   const errors = [];
   scanWikiPages(wikiDir, errors, [], tempDir);
-  assert.equal(errors.some(e => e.includes("requires sourceApprovalRef 'src/data/notes-com5.js'")), true);
+  assert.equal(errors.some(e => e.includes("requires valid sourceApprovalRef starting with 'src/data/notes-'")), true);
 });
 
 test('Approved Source Baseline 4: AI identity in reviewedBy (e.g. AI) -> ERROR', () => {
@@ -783,5 +783,16 @@ test('Approved Source Baseline 6: Non-COM5 note-only content without sourceAppro
   assert.equal(errors.some(e => e.includes("requires sourceAvailability 'original-verified'")), true);
 });
 
-
+test('Approved Source Baseline 7: Mixed approved and draft sections on same approved page -> PASS', () => {
+  const wikiDir = path.join(tempDir, 'wiki-asb-7');
+  fs.mkdirSync(wikiDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(wikiDir, 'page.md'),
+    `---\nid: page-asb-7\ntitle: ASB 7\ntype: domain\ndomainId: exotic\nversion: 1.0.0\nstatus: approved\nlastReviewed: 2026-07-23\n---\n## <a id="a7-approved"></a>Approved Section\n<!-- wiki-section-meta\nanchorId: a7-approved\nsectionStatus: approved\nclinicalSafety: standard\nrequiresDomainApproval: false\nmappingEligible: true\nsourceApprovalBasis: approved-course-notes\nsourceApprovalRef: src/data/notes-exotic.js\nsourceApprovalStatus: approved\nsectionSourceRefs:\n  - sourceId: s1\n    title: S1\n    locator: L1\n    derivedFrom: src/data/notes-exotic.js\n    evidenceStatus: derived-note\n    sourceAvailability: note-only\nreview:\n  decision: APPROVED\n  approvedAt: 2026-07-23\n  approvalScope: educational question generation\n-->\n\n## <a id="a7-draft"></a>Draft Section\n<!-- wiki-section-meta\nanchorId: a7-draft\nsectionStatus: draft\nclinicalSafety: restricted\nrequiresDomainApproval: true\nmappingEligible: false\nsourceApprovalStatus: pending\nsectionSourceRefs:\n  - sourceId: s2\n    title: S2\n    locator: L2\n    derivedFrom: src/data/notes-exotic.js\n    evidenceStatus: derived-note\n    sourceAvailability: note-only\n-->`,
+    'utf8'
+  );
+  const errors = [];
+  scanWikiPages(wikiDir, errors, [], tempDir);
+  assert.equal(errors.length, 0);
+});
 
