@@ -50,6 +50,16 @@ export const SOURCES = {
     citation: 'Tepsumethanon V, Wilde H, Meslin FX. Six criteria for rabies diagnosis in living dogs. J Med Assoc Thai. 2005;88(3):419-22.',
     availability: 'verified-online', // citation + sens 90.2% / spec 96.2% confirmed
   },
+  'wsava-2024': {
+    id: 'wsava-2024',
+    title: '2024 guidelines for the vaccination of dogs and cats — compiled by the Vaccination Guidelines Group (VGG) of the WSAVA',
+    organization: 'WSAVA · Journal of Small Animal Practice',
+    kind: 'guideline',
+    year: 2024,
+    citation: 'Squires RA, Crawford C, Marcondes M, Whitley N. 2024 guidelines for the vaccination of dogs and cats (WSAVA VGG). J Small Anim Pract. 2024;65(5):277-316. doi:10.1111/jsap.13718',
+    url: 'https://wsava.org/wp-content/uploads/2024/04/WSAVA-Vaccination-guidelines-2024.pdf',
+    availability: 'verified-online', // journal/volume/pages + DOI + official PDF confirmed
+  },
   'greene-iddc': {
     id: 'greene-iddc',
     title: 'Infectious Diseases of the Dog and Cat',

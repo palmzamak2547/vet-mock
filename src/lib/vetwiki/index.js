@@ -20,6 +20,10 @@ import { EVIDENCE_LABEL, REVIEW_LABEL } from './schema.js';
 // note object is passed by reference (read-only) — no copy.
 const REGISTRY = [
   { subject: 'com5', topic: 'rabies', source: () => NOTES_COM5.rabies, flagship: true },
+  { subject: 'com5', topic: 'vaccine', source: () => NOTES_COM5.vaccine },
+  { subject: 'com5', topic: 'cve', source: () => NOTES_COM5.cve },
+  { subject: 'com5', topic: 'sporo-crypto', source: () => NOTES_COM5['sporo-crypto'] },
+  { subject: 'com5', topic: 'gi-protozoa', source: () => NOTES_COM5['gi-protozoa'] },
 ];
 
 export function listTopics() {

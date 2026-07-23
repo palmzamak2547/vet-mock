@@ -5,7 +5,7 @@ import test from 'node:test';
 import { slug, sectionId, topicId } from '../../src/lib/vetwiki/schema.js';
 import { noteToKnowledge, verifiedClaimCount } from '../../src/lib/vetwiki/adapter.js';
 import { validateTopic } from '../../src/lib/vetwiki/validate.js';
-import { loadTopic, provenanceSummary, listTopics } from '../../src/lib/vetwiki/index.js';
+import { loadTopic, provenanceSummary, listTopics, verificationFor } from '../../src/lib/vetwiki/index.js';
 
 test('stable ids are deterministic and independent of order/index', () => {
   assert.equal(sectionId('com5', 'rabies', 'Diagnosis'), 'com5--rabies--diagnosis');
@@ -94,4 +94,36 @@ test('registry lists the flagship rabies topic', () => {
   const topics = listTopics();
   const rabies = topics.find((t) => t.id === 'com5--rabies');
   assert.ok(rabies && rabies.flagship);
+});
+
+// Growing guard: every topic added to the registry must load and validate.
+// This is what stops a new topic (or a renamed heading that orphans a
+// verification key) from silently shipping broken provenance.
+test('EVERY registered topic loads and validates with zero errors', () => {
+  const topics = listTopics();
+  assert.ok(topics.length >= 5, 'registry has grown past the first slice');
+  for (const t of topics) {
+    const k = loadTopic(t.subject, t.topic);
+    assert.ok(k, `${t.id} loads`);
+    assert.ok(k.sections.length > 0, `${t.id} has sections`);
+    const { problems } = validateTopic(k, { useScope: 'learning' });
+    const errors = problems.filter((p) => p.level === 'error');
+    assert.equal(errors.length, 0, `${t.id} validation errors: ${JSON.stringify(errors)}`);
+    // Stable ids must be unique within a topic.
+    const ids = k.sections.map((s) => s.id);
+    assert.equal(new Set(ids).size, ids.length, `${t.id} has duplicate section ids`);
+  }
+});
+
+test('every verification overlay key resolves to a real section (no orphans)', () => {
+  // A renamed heading would orphan its verification → silently losing a
+  // verified claim. Fail loudly instead.
+  for (const t of listTopics()) {
+    const k = loadTopic(t.subject, t.topic);
+    const sectionIds = new Set(k.sections.map((s) => s.id));
+    const overlay = verificationFor(t.id);
+    for (const key of Object.keys(overlay)) {
+      assert.ok(sectionIds.has(key), `orphaned verification key "${key}" in ${t.id} — heading renamed?`);
+    }
+  }
 });

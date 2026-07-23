@@ -57,6 +57,33 @@ export const VERIFICATIONS = {
       ],
     },
   },
+  'com5--vaccine': {
+    'com5--vaccine--wsava-2024-highlights': {
+      claims: [
+        {
+          id: 'com5--vaccine--core-vs-noncore',
+          statement: 'WSAVA แบ่งวัคซีนเป็น core (ควรได้รับทุกตัวไม่ว่าอยู่ที่ไหน) และ non-core (ให้ตามความเสี่ยงของแต่ละตัว/พื้นที่)',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'wsava-2024', locator: 'VGG 2024 guidelines', kind: 'guideline' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: TODAY, method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The core / non-core framework is the central classification of the WSAVA VGG 2024 guidelines (JSAP 2024;65:277-316).' },
+        },
+      ],
+    },
+    'com5--vaccine--canine-puppy-schedule-wsava-2024-vpat-2024': {
+      claims: [
+        {
+          id: 'com5--vaccine--core-mlv-interval',
+          statement: 'หลังชุดวัคซีนลูกสัตว์และเข็มกระตุ้นรอบแรกแล้ว วัคซีน core ชนิดเชื้อเป็น (MLV) ไม่ควรกระตุ้นถี่กว่าทุก 3 ปี',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'wsava-2024', locator: 'VGG 2024 guidelines — revaccination interval', kind: 'guideline' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: TODAY, method: 'reference-cross-check', approvedScopes: ['learning'], rationale: 'The ≥3-year revaccination interval for core MLV after the initial series + booster is a long-standing WSAVA VGG position, retained in the 2024 guidelines.' },
+          limitations: ['วัคซีนพิษสุนัขบ้าและข้อกำหนดตามกฎหมายของแต่ละประเทศอาจกำหนดรอบถี่กว่านี้', 'ตารางของ VPAT (ไทย) มีจุดต่างจาก WSAVA — ดูหัวข้อ VPAT 2024'],
+        },
+      ],
+    },
+  },
 };
 
 /** Look up the verification overlay for a topic (or empty object). */
