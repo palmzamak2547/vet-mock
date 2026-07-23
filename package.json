@@ -29,7 +29,8 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:prod": "node scripts/test-e2e-prod.mjs",
     "test:unit": "node --test tests/unit/*.test.mjs",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test": "npm run test:unit && npm run test:e2e",
+    "stats": "node scripts/stats.mjs"
   },
   "browserslist": [
     "defaults",

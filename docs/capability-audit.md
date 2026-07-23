@@ -13,9 +13,9 @@ Classification: **reuse** · **improve** · **complete** · **integrate** ·
 | Capability | Evidence | Verdict |
 |---|---|---|
 | Question bank | `q-counts.js` `QB_TOTAL=2948`; 41 `questions-*.js`; each Q has stable numeric `id` + `subject/topic/year/source/verified` | **reuse** — identity backbone |
-| Study notes | 12 `notes-*.js`; 654 `heading:` and 654 `source:` (1:1); shape `{topic,title,lecturer,icon,summary,sections:[{heading,source,body}]}` | **improve** — rich + cited, but `grep '\bid:'` = **0** (no stable ids) |
+| Study notes | 12 `notes-*.js`; 720 `heading:` and 720 `source:` (1:1); shape `{topic,title,lecturer,icon,summary,sections:[{heading,source,body}]}` | **improve** — rich + cited, but `grep '\bid:'` = **0** (no stable ids) |
 | Note read page | `NotesView.jsx` maps 12 subjects, renders via `RichText` (`lib/richtext.jsx`) | **reuse** — the renderer, wrapped with governance chrome |
-| Video summaries | 28 files keyed by stable YouTube videoId + `video-summaries-meta.js` | **reuse** — 2nd adapter target |
+| Video summaries | 400 videos across 27 files, keyed by stable YouTube videoId + `video-summaries-meta.js` | **reuse** — 2nd adapter target |
 | Taxonomy | `curriculum.js` `SUBJECTS[].topics[]`; same topic ids used by notes AND questions | **reuse** — canonical join spine |
 | Governed knowledge | `wiki/**`: 2 domain pages + 2 review packs; full frontmatter + per-section `wiki-section-meta`; **0 governance tokens in `src/`** | **complete** — schema right, runtime missing |
 | Review workflow | review packs define `draft→reviewed→approved` + the `mappingEligible` predicate | **reuse** — as the editorial policy |

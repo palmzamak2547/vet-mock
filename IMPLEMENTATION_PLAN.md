@@ -1,9 +1,10 @@
 # VetMock → Veterinary Intelligence Platform · Implementation Plan
 
 **Status:** first VetWiki vertical slice SHIPPED (2026-07-24)
-**Rule:** reuse-first, additive, never break the live app. VetMock has real
-students using it — every change is a pure addition, display-only fix, or
-feature-flagged surface until proven.
+**Rule:** reuse-first, additive, never break the live app. Every change is a
+pure addition, display-only fix, or feature-flagged surface until proven.
+Authoritative content numbers come from `npm run stats` (see
+`docs/content-inventory.md`) — never from memory or a hand-written figure.
 
 ---
 
@@ -14,8 +15,8 @@ Measured from the repo, not assumed:
 | Asset | Reality | Verdict |
 |---|---|---|
 | Question bank | **2,948 Qs** across 41 `questions-*.js`, every Q has a stable numeric id + `(subject, topic, year, source, verified)` | **reuse** — the identity backbone |
-| Study notes | 12 `notes-*.js`, **654 source-cited sections**, all wired into `NotesView` via `RichText` | **reuse + improve** — but had **zero stable section ids** |
-| Video summaries | 28 files keyed by YouTube videoId | reuse (2nd adapter target) |
+| Study notes | 12 `notes-*.js`, **720 source-cited sections** (150 topics), all wired into `NotesView` via `RichText` | **reuse + improve** — but had **zero stable section ids** |
+| Video summaries | 400 videos across 27 files, keyed by YouTube videoId | reuse (2nd adapter target) |
 | Taxonomy | `curriculum.js` `(subject, topic)` used by notes AND questions | **reuse** — the canonical join spine |
 | Governed knowledge | `wiki/**` — 2 hand-authored pages + review packs (เกษม), full schema, **markdown-only, 0 governance tokens in `src/`** | **complete it** — schema was right, runtime was missing |
 | AI | server-side Claude in `api/grade-summary.js` (grading only) + rate-limit/CORS lib. No in-browser ML | **extend** — the tool-endpoint template |
@@ -95,5 +96,5 @@ never as qualified human sign-off.
 5. Imaging measurements as deterministic tools → attach results to knowledge.
 
 **Not doing yet (deliberately):** vector DB (no benchmark justifies it),
-multi-agent loops, a rewrite of the home IA, or migrating all 654 sections
+multi-agent loops, a rewrite of the home IA, or migrating all 720 sections
 before the pattern is proven on one topic.
