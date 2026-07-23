@@ -24,11 +24,25 @@
 - [x] a11y: black-frame regression on WebKit dialogs (`tabindex="-1"` +
       `:focus-visible` `!important` interaction)
 
-## Slice 2 — coverage + retrieval (next)
-- [ ] Adapt remaining COM5 topics (`cve`, `vaccine`) — one registry row each
-- [ ] Verify 2–3 more claims per topic against real references
-- [ ] Index governed sections for `⌘K` + retrieval (return `sectionId`, not prose)
-- [ ] Lint gate: every governed section resolves to a real note section
+## Slice 2 — coverage (done)
+- [x] All 5 COM5 topics governed (rabies · vaccine · cve · sporo-crypto ·
+      gi-protozoa) — 41 sections, one registry row each, no new plumbing
+- [x] WSAVA 2024 verified + 2 vaccine claims promoted against it
+      (Squires et al. JSAP 2024;65:277-316, doi:10.1111/jsap.13718)
+- [x] Guard tests that grow with the registry: every topic loads + validates
+      with unique ids; every verification key resolves to a real section
+      (renaming a heading now fails loudly — closes RISKS R3)
+- [x] Integration #1 — existing note page cross-links to its governed version
+      (bidirectional, flag-gated, only for governed topics)
+
+## Slice 3 — retrieval + grounded answers (next)
+- [ ] Index governed sections for `⌘K` (return `sectionId`, not prose)
+- [ ] Explain endpoint from the `api/grade-summary.js` Claude+rate-limit template
+- [ ] `SupportedAnswerClaim[]` output + `validate.js` run BEFORE render
+- [ ] Inline source markers in answers → jump to the exact governed section
+- [ ] Report-a-concern flow
+- [ ] Integration #3 — question explanations link to the governed section that
+      supports them (the `(subject,topic)` spine already exists)
 
 ## Slice 3 — grounded answers
 - [ ] Explain endpoint from the `api/grade-summary.js` Claude+rate-limit template
