@@ -313,57 +313,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     return acc;
   }, [history, yearSubjects]);
 
-  // Smart-preset signals (weakest topic + last session) — memoized because
-  // the raw computation walks the FULL QB (id→Q Map) + history. It used to
-  // run inline in the render IIFE, i.e. on every 60s tick / presence update.
-  const smartPresets = useMemo(() => {
-    const yearSubjectIds = new Set((yearSubjects || []).map((s) => s.id));
-    const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
-    // Compound key (subject + ':' + id) — Q IDs collide across subjects
-    // historically (e.g. com4 ↔ engprof both use 1100-1160).
-    const qIndex = new Map();
-    for (const q of QB) qIndex.set(q.subject + ':' + q.id, q);
-    const topicAcc = {};
-    for (const h of (history || [])) {
-      if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
-      if (h.date && h.date < cutoff) continue;
-      const q = qIndex.get(h.subject + ':' + h.questionId);
-      const topic = q?.topic;
-      if (!topic) continue;
-      const key = `${h.subject}::${topic}`;
-      if (!topicAcc[key]) topicAcc[key] = { subject: h.subject, topic, total: 0, correct: 0 };
-      topicAcc[key].total++;
-      if (h.correct) topicAcc[key].correct++;
-    }
-    let weakSubj = null, weakTopic = null, weakPct = 100;
-    for (const { subject: sid, topic, total, correct } of Object.values(topicAcc)) {
-      if (total < 10) continue;
-      const pct = Math.round((correct / total) * 100);
-      if (pct < weakPct && pct < 70) {
-        weakPct = pct; weakSubj = sid; weakTopic = topic;
-      }
-    }
-    // Structured last-session-config first (full restore); history scan
-    // as fallback for older users without the snapshot.
-    let lastSession = null;
-    try {
-      const raw = window.localStorage?.getItem('vmx-last-session-config');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed?.subject && yearSubjectIds.has(parsed.subject)) lastSession = parsed;
-      }
-    } catch {}
-    let lastSubj = lastSession?.subject || null;
-    if (!lastSubj) {
-      let lastTs = 0;
-      for (const h of (history || [])) {
-        if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
-        if ((h.date || 0) > lastTs) { lastTs = h.date || 0; lastSubj = h.subject; }
-      }
-    }
-    return { weakSubj, weakTopic, weakPct, lastSession, lastSubj };
-  }, [history, yearSubjects]);
-
   // Quick action: review questions answered wrong (cross-subject).
   // Uses the same pattern as bookmarks practiceMode — just a different
   // pool source. Sorted by wrong-frequency so the user sees their
@@ -802,10 +751,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           as its top action, so the dedicated banner is redundant and
           steals real-estate from the subject grid. */}
       {nextExam && nextExam.daysLeft > 7 && nextExam.daysLeft <= 30 && (
-        /* <button> not <div>: a click-only div is invisible to keyboard +
-           screen readers. `all:unset` first, then the visual styles win. */
-        <button type="button" onClick={() => setView('schedule')} aria-label={`สอบถัดไป: ${nextExam.title} — ดูตารางสอบ`} style={{
-          all: 'unset', boxSizing: 'border-box', width: '100%', textAlign: 'left', fontFamily: 'inherit',
+        <div onClick={() => setView('schedule')} style={{
           padding: 16, borderRadius: 16, marginBottom: 24, cursor: 'pointer',
           background: countdown ? 'var(--clr-rose-soft)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose-soft)' : 'var(--clr-surface)'),
           border: `2px solid ${countdown ? 'var(--clr-rose)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose)' : 'var(--clr-border)')}`,
@@ -839,7 +785,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               </>
             )}
           </div>
-        </button>
+        </div>
       )}
 
       {/* What's-new announcement — auto-dismissed once seen.
@@ -879,10 +825,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               style={{
                 all: 'unset',
                 cursor: 'pointer',
-                // 44px — WCAG 2.5.5 touch floor; bare buttons skip the
-                // class-based floor because of the inline all:unset.
-                width: 44,
-                height: 44,
+                width: 28,
+                height: 28,
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
@@ -893,7 +837,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 background: 'var(--clr-bg)',
                 border: '1px solid var(--clr-border)',
                 flexShrink: 0,
-                boxSizing: 'border-box',
               }}
             >
               ×
@@ -997,11 +940,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 gap: 6,
                 padding: '8px 14px',
                 borderRadius: 999,
-                background: 'color-mix(in srgb, var(--clr-gold) 12%, transparent)',
-                border: '1px solid var(--clr-gold)',
+                background: 'rgba(231, 116, 68, 0.12)',
+                border: '1px solid #d97744',
                 fontSize: 13,
                 fontFamily: 'JetBrains Mono, monospace',
-                color: 'var(--clr-gold-text)',
+                color: '#a85a30',
               }}
             >
               🔥 streak {quickStats.streak} วัน
@@ -1023,16 +966,16 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 gap: 6,
                 padding: '8px 14px',
                 borderRadius: 999,
-                background: 'color-mix(in srgb, var(--clr-ocean) 12%, transparent)',
-                border: '1px solid var(--clr-ocean)',
+                background: 'rgba(93, 180, 211, 0.12)',
+                border: '1px solid #5db4d3',
                 fontSize: 13,
                 fontFamily: 'JetBrains Mono, monospace',
-                color: 'var(--clr-ocean)',
+                color: '#3a8aa8',
                 opacity: quickActionPending ? 0.65 : 1,
                 transition: 'transform 0.12s, background 0.15s, opacity 0.15s',
               }}
-              onMouseEnter={(e) => { if (!quickActionPending) e.currentTarget.style.background = 'color-mix(in srgb, var(--clr-ocean) 20%, transparent)'; }}
-              onMouseLeave={(e) => { if (!quickActionPending) e.currentTarget.style.background = 'color-mix(in srgb, var(--clr-ocean) 12%, transparent)'; }}
+              onMouseEnter={(e) => { if (!quickActionPending) e.currentTarget.style.background = 'rgba(93, 180, 211, 0.20)'; }}
+              onMouseLeave={(e) => { if (!quickActionPending) e.currentTarget.style.background = 'rgba(93, 180, 211, 0.12)'; }}
             >
               {quickActionPending ? '⏳ กำลังเตรียมข้อแรก...' : '🎲 ฝึก 1 ข้อด่วน'}
             </button>
@@ -1068,15 +1011,15 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 gap: 6,
                 padding: '8px 14px',
                 borderRadius: 999,
-                background: 'color-mix(in srgb, var(--clr-rose) 12%, transparent)',
-                border: '1px solid var(--clr-rose)',
+                background: 'rgba(167, 61, 74, 0.12)',
+                border: '1px solid #a73d4a',
                 fontSize: 13,
                 fontFamily: 'JetBrains Mono, monospace',
-                color: 'var(--clr-rose-text)',
+                color: '#8a3340',
                 transition: 'transform 0.12s, background 0.15s',
               }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'color-mix(in srgb, var(--clr-rose) 20%, transparent)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'color-mix(in srgb, var(--clr-rose) 12%, transparent)'}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.20)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.12)'}
             >
               🎯 ทบทวนข้อที่ตอบผิด ({quickStats.wrongCount})
             </button>
@@ -1201,9 +1144,58 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           their data preconditions are met, jumping straight to ConfigView
           to skip subject/topic drill-down. */}
       {!isScaffoldYear && (() => {
-        // Weakest topic + last session come from the memoized smartPresets
-        // above — this IIFE only does the cheap meta lookups + JSX now.
-        const { weakSubj, weakTopic, weakPct, lastSession, lastSubj } = smartPresets;
+        // Compute weakest TOPIC (then map up to subject) — gives a more
+        // actionable signal than subject-level. Min 10 attempts, < 70%.
+        // Scope to phase-filtered subjects so smart presets respect the
+        // current phase context (e.g. don't suggest sem 1 weak topic when
+        // user is in sem 2 phase).
+        const yearSubjectIds = new Set(yearSubjects.map((s) => s.id));
+        const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
+        // Index Q→topic for history lookups (history doesn't store topic).
+        // Use compound key (subject + ':' + id) because Q IDs collide
+        // across subjects historically (e.g. com4 ↔ engprof both use
+        // 1100-1160). Without compound key, stats for one subject leak
+        // into another.
+        const qIndex = new Map();
+        for (const q of QB) qIndex.set(q.subject + ':' + q.id, q);
+        const topicAcc = {};
+        for (const h of (history || [])) {
+          if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
+          if (h.date && h.date < cutoff) continue;
+          const q = qIndex.get(h.subject + ':' + h.questionId);
+          const topic = q?.topic;
+          if (!topic) continue;
+          const key = `${h.subject}::${topic}`;
+          if (!topicAcc[key]) topicAcc[key] = { subject: h.subject, topic, total: 0, correct: 0 };
+          topicAcc[key].total++;
+          if (h.correct) topicAcc[key].correct++;
+        }
+        let weakSubj = null, weakTopic = null, weakPct = 100;
+        for (const { subject: sid, topic, total, correct } of Object.values(topicAcc)) {
+          if (total < 10) continue;
+          const pct = Math.round((correct / total) * 100);
+          if (pct < weakPct && pct < 70) {
+            weakPct = pct; weakSubj = sid; weakTopic = topic;
+          }
+        }
+        // Try to read structured last-session-config first (full restore);
+        // fall back to history scan if absent (older users without snapshot).
+        let lastSession = null;
+        try {
+          const raw = window.localStorage?.getItem('vmx-last-session-config');
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed?.subject && yearSubjectIds.has(parsed.subject)) lastSession = parsed;
+          }
+        } catch {}
+        let lastSubj = lastSession?.subject || null;
+        if (!lastSubj) {
+          let lastTs = 0;
+          for (const h of (history || [])) {
+            if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
+            if ((h.date || 0) > lastTs) { lastTs = h.date || 0; lastSubj = h.subject; }
+          }
+        }
         const lastSubjMeta = lastSubj ? SUBJECTS.find((s) => s.id === lastSubj) : null;
         const weakSubjMeta = weakSubj ? SUBJECTS.find((s) => s.id === weakSubj) : null;
         const weakTopicMeta = (weakSubjMeta?.topics || []).find((t) => t.id === weakTopic);
@@ -1656,21 +1648,16 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
   // top-level QB import (still present in this view for SR-related
   // paths until Phase 3b ships); when Phase 3b lazies that too, this
   // section will gain its own async load.
-  // Memoized: the qById Map walks the FULL QB — without the memo this
-  // re-ran on every SubjectGrid render for any user with ≥1 bookmark.
-  const bookmarksBySubject = useMemo(() => {
-    const map = {};
-    if (Array.isArray(bookmarks) && bookmarks.length > 0) {
-      const qById = new Map();
-      for (const q of QB) qById.set(q.id, q);
-      for (const q of customQuestions) qById.set(q.id, q);
-      for (const qId of bookmarks) {
-        const q = qById.get(qId);
-        if (q?.subject) map[q.subject] = (map[q.subject] || 0) + 1;
-      }
+  const bookmarksBySubject = {};
+  if (Array.isArray(bookmarks) && bookmarks.length > 0) {
+    const qById = new Map();
+    for (const q of QB) qById.set(q.id, q);
+    for (const q of customQuestions) qById.set(q.id, q);
+    for (const qId of bookmarks) {
+      const q = qById.get(qId);
+      if (q?.subject) bookmarksBySubject[q.subject] = (bookmarksBySubject[q.subject] || 0) + 1;
     }
-    return map;
-  }, [bookmarks, customQuestions]);
+  }
 
   // accBySubject computed at parent (HomeView) level — passed in via
   // props so NextActionCard + SubjectGrid share one iteration.
@@ -1917,27 +1904,12 @@ function OnboardingTour({ step, onNext, onDismiss }) {
   const current = steps[step] || steps[0];
   const isLast = step >= steps.length - 1;
 
-  // Dialog basics the div-overlay pattern misses: focus moves INTO the
-  // dialog on open (screen readers otherwise stay on the page behind),
-  // Escape dismisses, and focus returns to the opener on close.
-  const cardRef = useRef(null);
-  const lastFocusRef = useRef(null);
-  useEffect(() => {
-    lastFocusRef.current = document.activeElement;
-    if (cardRef.current) cardRef.current.focus();
-    return () => {
-      const back = lastFocusRef.current;
-      if (back && typeof back.focus === 'function' && document.contains(back)) back.focus();
-    };
-  }, []);
-
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-label={current.title}
       onClick={onDismiss}
-      onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); onDismiss(); } }}
       style={{
         position: 'fixed',
         inset: 0,
@@ -1950,8 +1922,6 @@ function OnboardingTour({ step, onNext, onDismiss }) {
       }}
     >
       <div
-        ref={cardRef}
-        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         style={{
           background: 'var(--clr-bg)',
@@ -1962,7 +1932,6 @@ function OnboardingTour({ step, onNext, onDismiss }) {
           width: '100%',
           boxShadow: '0 12px 40px rgba(0, 0, 0, 0.18)',
           position: 'relative',
-          outline: 'none',
         }}
       >
         <button

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import QuestionComponent from '../components/Question.jsx';
 import { fmtTime } from '../hooks/utils.js';
 import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
@@ -130,23 +130,8 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
   const answered = questions.filter((q) => answers[q.id] !== undefined).length;
   const remaining = questions.length - answered;
 
-  // Additive dialog behavior only (this is the live exam surface):
-  // focus the current question's cell on open so keyboard users land in
-  // the grid, Escape closes, focus restores to the opener on close.
-  const gridRef = useRef(null);
-  const lastFocusRef = useRef(null);
-  useEffect(() => {
-    lastFocusRef.current = document.activeElement;
-    const cur = gridRef.current?.querySelector('[data-current="1"]');
-    if (cur) cur.focus();
-    return () => {
-      const back = lastFocusRef.current;
-      if (back && typeof back.focus === 'function' && document.contains(back)) back.focus();
-    };
-  }, []);
-
   return (
-    <div className="vmx-modal-overlay" onClick={onClose} onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } }}>
+    <div className="vmx-modal-overlay" onClick={onClose}>
       <div
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
@@ -163,7 +148,6 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
         </div>
 
         <div
-          ref={gridRef}
           className="vmx-nav-grid"
           style={{
             display: 'grid',
@@ -181,7 +165,6 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
             return (
               <button
                 key={q.id}
-                data-current={isCurrent ? '1' : undefined}
                 onClick={() => onJump(i)}
                 title={`ข้อ ${i + 1}${isAnswered ? ' · ตอบแล้ว' : ''}${isBookmarked ? ' · ★' : ''}`}
                 style={{

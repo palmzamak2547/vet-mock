@@ -294,7 +294,7 @@ export const VIDEO_SUMMARIES_MILK_MEAT_HYGIENE = {
     summary: `# Milk-Meat — 3.2 Mastitis and Milk Quality
 
 > 🎯 **Mastitis ↑ → SCC ↑** = quality ตก · economic loss · public health risk จาก antibiotic residue
-> ⚠️ Cross-ref: [[herd-health-rum mastitis lecture]] — ลึกเรื่อง pathogen + treatment
+> ⚠️ Cross-ref: NEEDS_VERIFICATION: broken knowledge reference (herd-health-rum mastitis lecture) — ลึกเรื่อง pathogen + treatment
 
 ---
 

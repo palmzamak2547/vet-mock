@@ -77,7 +77,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 | Video summaries (1 chunk, lazy) | `src/data/video-summaries.js` |
 | Changelog (homepage banner) | `src/data/changelog.js` |
 | Curriculum / subjects / topics | `src/data/curriculum.js` |
-| Styles (all CSS as string) | `src/styles.js` |
+| Styles (all CSS) | `src/styles.css` + `src/styles-landing.css` |
 | Static blog (SEO) | `public/blog/*.html` |
 | SEO config | `public/{robots.txt,sitemap.xml}` + `index.html` meta |
 | Scripts (transcript, lint, ping) | `scripts/*.{mjs,cjs}` |

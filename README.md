@@ -89,16 +89,18 @@ vet-mock/
 ├── src/
 │   ├── App.jsx
 │   ├── main.jsx
-│   ├── styles.js
+│   ├── styles.css
+│   ├── styles-landing.css
 │   ├── data/
 │   │   ├── curriculum.js          ← YEARS + SUBJECTS
 │   │   ├── schedule.js            ← ตารางสอบ 🆕
 │   │   ├── videos.js              ← YouTube links 🆕
 │   │   ├── sources.js             ← แหล่งที่มาข้อสอบ 🆕
-│   │   ├── questions.js
-│   │   ├── questions-part1.js     ← Surg + Repro
-│   │   ├── questions-part2.js     ← COM + Exotic
-│   │   ├── questions-part3.js     ← Expanded
+│   │   ├── questions.js           ← Lazy Q-bank loader
+│   │   ├── bank-registry.generated.js ← Auto-generated Q-bank registry
+│   │   ├── questions-com1..com5.js ← Clinical Medicine banks
+│   │   ├── questions-part1..part3.js ← Surg + Repro + Expanded
+│   │   ├── questions-y5-*.js      ← Year 5 specialized banks
 │   │   └── images.js
 │   ├── hooks/
 │   │   ├── useAuth.js

@@ -1,4 +1,4 @@
-# 🐾 VetMock v4.0 — Setup Guide
+# 🐾 VetMock v5.0.0 — Setup Guide
 
 คู่มือการ deploy แบบละเอียดทุกสเต็ป — ทำตามได้เลย ไม่ต้องรู้ coding มาก่อน
 
@@ -311,7 +311,8 @@ vet-mock/
 └── src/
     ├── App.jsx
     ├── main.jsx
-    ├── styles.js
+    ├── styles.css
+    ├── styles-landing.css
     ├── lib/
     │   ├── supabase.js        ← Supabase client + auth
     │   └── api.js             ← Groups, leaderboard, sync APIs

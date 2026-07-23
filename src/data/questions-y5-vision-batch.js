@@ -127,7 +127,7 @@ export const QB_Y5_VISION_BATCH = [
       'วันพฤหัสบดีที่ 15 พ.ค. 2568 · ห้อง 602 ตึก 60 ปี',
     ],
     answer: 0,
-    explain: 'เอกสาร p.7 ระบุ: "วันพุธที่ 14 พ.ค. 2568 เวลา 8.30 – 17.00 น. ห้อง 601 (ห้องสอบ) และ 602 (ห้องพักรอเข้าสอบ) ตึก 60 ปี".\nรหัสวิชา: 3107525 (สูติฯ I สัตว์เล็ก?) + 3108517 (สูติฯ I สัตว์ใหญ่) → ใช้รหัสคู่ตามที่ปรากฏใน vault [[knowledge/instructors/_index]].\nคะแนน OSCE = 20% ของคะแนนการฝึกงาน (p.6).\nการแต่งกาย: เสื้อสครับ + ป้ายชื่อสีเขียว + กางเกงสุภาพ + รองเท้าหุ้มส้น (p.8).',
+    explain: 'เอกสาร p.7 ระบุ: "วันพุธที่ 14 พ.ค. 2568 เวลา 8.30 – 17.00 น. ห้อง 601 (ห้องสอบ) และ 602 (ห้องพักรอเข้าสอบ) ตึก 60 ปี".\nรหัสวิชา: 3107525 (สูติฯ I สัตว์เล็ก?) + 3108517 (สูติฯ I สัตว์ใหญ่) → ใช้รหัสคู่ตามที่ปรากฏใน vault (NEEDS_VERIFICATION: broken knowledge reference - knowledge/instructors/_index).\nคะแนน OSCE = 20% ของคะแนนการฝึกงาน (p.6).\nการแต่งกาย: เสื้อสครับ + ป้ายชื่อสีเขียว + กางเกงสุภาพ + รองเท้าหุ้มส้น (p.8).',
     verified: 'OSCE prep doc p.7 (exam date/room) + p.6 (scoring weight) + p.8 (dress code)',
     flag: { note: 'Administrative info paraphrased from station prep doc — verify dates', severity: 'unclear' },
   },

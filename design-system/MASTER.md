@@ -1,7 +1,8 @@
 # VetMock — Design System Master Doc
 
 Audit date: 2026-05-18 · Read-only.
-Source of truth: `src/styles.js` (814 lines · 105 `.vmx-*` rules) + 87 component files using inline `style={{...}}` (1,835 occurrences).
+Current Source of Truth: `src/styles.css` + `src/styles-landing.css` + component inline `style={{...}}`.
+> 💡 **Migration Note (2026-05-27):** Styles originally exported from `src/styles.js` were migrated to `src/styles.css` and `src/styles-landing.css`. Historical line number references below (`styles.js:N`) refer to audit declarations now residing in `src/styles.css`.
 
 ## 1. Architecture
 

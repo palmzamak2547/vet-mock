@@ -36,7 +36,7 @@
 // hook never imports finishExam directly.
 // ============================================================
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { timeForQuestion, isWritingType } from './utils.js';
 
 // localStorage init helpers — preserve the in-flight resume behavior
@@ -68,27 +68,6 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
   const [timeLeft, setTimeLeft] = useState(0);
   const [examStartTime, setExamStartTime] = useState(null);
 
-  // ── Deadline clock (2026-07-23) ─────────────────────────────────────
-  // The authoritative per-question expiry is an ABSOLUTE wall-clock
-  // timestamp, not the decrementing `timeLeft` display state. The old
-  // decrement-per-tick timer handed out free time twice over:
-  //   • background tabs: browsers throttle timers to ≥1/min, so the
-  //     countdown effectively paused while the tab was hidden
-  //   • reloads: timeLeft re-primed to the full budget on every reload
-  // Each tick now RECOMPUTES timeLeft from `qDeadlineRef - Date.now()`,
-  // so late/throttled ticks snap to truth instead of losing seconds.
-  // The deadline is persisted in the inflight payload (App.jsx autosave)
-  // and restored by primeFromSaved so a reload can't refresh the clock.
-  const qDeadlineRef = useRef(null);
-  const armDeadline = useCallback((seconds) => {
-    qDeadlineRef.current = Date.now() + seconds * 1000;
-    setTimeLeft(seconds);
-  }, []);
-  const remainingSec = () => {
-    if (qDeadlineRef.current === null) return 0;
-    return Math.max(0, Math.ceil((qDeadlineRef.current - Date.now()) / 1000));
-  };
-
   // ── Shadow-start clock ──────────────────────────────────────────────
   // When entering view='exam' via a share-link (?qset=) the normal
   // startExam() never ran, so timeLeft + examStartTime stay at their
@@ -99,14 +78,12 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     if (questions.length === 0) return;
     if (examStartTime !== null) return;
     setExamStartTime(Date.now());
-    armDeadline(timeForQuestion(questions[currentIdx], timePerQ));
-  }, [view, questions, currentIdx, timePerQ, examStartTime, armDeadline]);
+    setTimeLeft(timeForQuestion(questions[currentIdx], timePerQ));
+  }, [view, questions, currentIdx, timePerQ, examStartTime]);
 
   // ── Timer tick ──────────────────────────────────────────────────────
-  // Once per second, RECOMPUTE timeLeft from the absolute deadline (see
-  // qDeadlineRef above — throttled/late ticks snap to wall-clock truth).
-  // On time-up: advance to next Q (with its own per-Q budget) or fire
-  // onFinish if on the last Q.
+  // Decrements timeLeft once per second. On time-up: advance to next Q
+  // (with its own per-Q time budget) or fire onFinish if on the last Q.
   useEffect(() => {
     if (view !== 'exam' || !useTimer) return;
     // Guard against 0-length question set — happens when a shared
@@ -120,16 +97,12 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
       if (currentIdx < questions.length - 1) {
         const next = questions[currentIdx + 1];
         setCurrentIdx((i) => i + 1);
-        armDeadline(timeForQuestion(next, timePerQ));
+        setTimeLeft(timeForQuestion(next, timePerQ));
       } else onFinish?.();
       return;
     }
-    const t = setTimeout(() => setTimeLeft(remainingSec()), 1000);
-    // Coming back from a hidden tab: snap immediately instead of waiting
-    // for the (possibly throttled) pending tick.
-    const onVis = () => { if (!document.hidden) setTimeLeft(remainingSec()); };
-    document.addEventListener('visibilitychange', onVis);
-    return () => { clearTimeout(t); document.removeEventListener('visibilitychange', onVis); };
+    const t = setTimeout(() => setTimeLeft((x) => x - 1), 1000);
+    return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- onFinish stable via ref pattern in caller
   }, [timeLeft, view, useTimer, currentIdx, questions, timePerQ]);
 
@@ -156,10 +129,10 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     if (currentIdx < questions.length - 1) {
       const next = questions[currentIdx + 1];
       setCurrentIdx(currentIdx + 1);
-      armDeadline(timeForQuestion(next, timePerQ));
+      setTimeLeft(timeForQuestion(next, timePerQ));
     } else onFinish?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- onFinish stable via ref
-  }, [currentIdx, questions, timePerQ, answers, armDeadline]);
+  }, [currentIdx, questions, timePerQ, answers]);
 
   const prevQ = useCallback(() => {
     // Use timeForQuestion so jumping back to an essay restores its
@@ -167,16 +140,16 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     if (currentIdx > 0) {
       const prev = questions[currentIdx - 1];
       setCurrentIdx(currentIdx - 1);
-      armDeadline(timeForQuestion(prev, timePerQ));
+      setTimeLeft(timeForQuestion(prev, timePerQ));
     }
-  }, [currentIdx, questions, timePerQ, armDeadline]);
+  }, [currentIdx, questions, timePerQ]);
 
   const jumpToQ = useCallback((idx) => {
     if (idx >= 0 && idx < questions.length) {
       setCurrentIdx(idx);
-      armDeadline(timeForQuestion(questions[idx], timePerQ));
+      setTimeLeft(timeForQuestion(questions[idx], timePerQ));
     }
-  }, [questions, timePerQ, armDeadline]);
+  }, [questions, timePerQ]);
 
   // Replay an arbitrary slice of questions as a fresh exam round.
   // Used by ResultsView "redo wrong" — passes the wrong-only subset
@@ -193,7 +166,6 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     setAnswers({});
     setCurrentIdx(0);
     setExamStartTime(Date.now());
-    qDeadlineRef.current = null;
     setTimeLeft(0);
   }, []);
 
@@ -204,33 +176,18 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     setQuestions(picked);
     setAnswers({});
     setCurrentIdx(0);
-    armDeadline(firstTime);
+    setTimeLeft(firstTime);
     setExamStartTime(Date.now());
-  }, [armDeadline]);
+  }, []);
 
   /** Called by App.resumePendingExam to rehydrate from localStorage. */
   const primeFromSaved = useCallback((saved) => {
     if (!saved?.questions?.length) return false;
     setQuestions(saved.questions);
     setAnswers(saved.answers || {});
-    const idx = saved.currentIdx || 0;
-    setCurrentIdx(idx);
-    // Restore the true exam clock so duration_sec reflects real elapsed
-    // time across the crash/close, and restore the per-question deadline
-    // so a reload can't be used to refresh the countdown. If the deadline
-    // already expired while the tab was closed, grant the current question
-    // one fresh budget (auto-firing onFinish the instant someone clicks
-    // "ทำต่อ" would be hostile) — the honest total duration still shows.
-    if (saved.examStartTime) setExamStartTime(saved.examStartTime);
-    const remainMs = (saved.qDeadline || 0) - Date.now();
-    if (remainMs > 0) {
-      qDeadlineRef.current = saved.qDeadline;
-      setTimeLeft(Math.ceil(remainMs / 1000));
-    } else {
-      armDeadline(timeForQuestion(saved.questions[idx], timePerQ));
-    }
+    setCurrentIdx(saved.currentIdx || 0);
     return true;
-  }, [timePerQ, armDeadline]);
+  }, []);
 
   /** Called by App.goHome / App.dismissPendingExam to clear runtime state. */
   const resetSession = useCallback(() => {
@@ -238,7 +195,6 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     setAnswers({});
     setCurrentIdx(0);
     setExamStartTime(null);
-    qDeadlineRef.current = null;
     setTimeLeft(0);
   }, []);
 
@@ -253,9 +209,6 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     currentIdx, setCurrentIdx,
     timeLeft, setTimeLeft,
     examStartTime, setExamStartTime,
-    // Absolute per-question expiry (ms epoch) — read by App's autosave so
-    // the inflight payload can restore the clock across reload/crash.
-    qDeadlineRef,
     // Derived
     currentQ, currentAnswer,
     // Actions

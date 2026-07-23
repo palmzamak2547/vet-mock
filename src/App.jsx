@@ -26,9 +26,7 @@ import { isFlashcardCompatible } from './hooks/sr-filter.js';
 // class (STABILITY rule 5) and removes a runtime <style> injection —
 // the sheet now loads in <head> before JS runs (better FOUC behavior).
 import './styles.css';
-// styles-landing.css moved into LandingView.jsx (2026-07-23) — it's
-// landing-only, so Vite now bundles it with the lazy landing chunk
-// instead of shipping ~9KB of unused CSS to every practice session.
+import './styles-landing.css';
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { parseWikiPath } from './lib/vetwiki/url.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
@@ -186,6 +184,11 @@ const ImageOcclusionView = lazy(() => import('./views/ImageOcclusionView.jsx'));
 // Only shown after a phase ends or opened via command palette,
 // so lazy-load is appropriate.
 const PhaseWrappedView = lazy(() => import('./views/PhaseWrappedView.jsx'));
+const DomainDetailView = lazy(() => import('./views/DomainDetailView.jsx'));
+const MockExamView = lazy(() => import('./views/MockExamView.jsx'));
+const MockResultsView = lazy(() => import('./views/MockResultsView.jsx'));
+const PublicWikiView = lazy(() => import('./views/PublicWikiView.jsx'));
+const AdminView = lazy(() => import('./views/AdminView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 
@@ -363,11 +366,7 @@ export default function App() {
         // Once they enter the app we set 'vmx-seen-landing' so returning
         // visitors go straight to year-select (no landing regression).
         const seenLanding = window.localStorage.getItem('vmx-seen-landing');
-        // Installed-PWA launches skip the marketing landing: anyone who
-        // installed the app is already a user — the landing would read
-        // as a cold sales pitch on every cold start until first entry.
-        const standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
-        if (!seenLanding && !standalone) return 'landing';
+        if (!seenLanding) return 'landing';
         return 'year-select';
       }
     } catch {}
@@ -810,33 +809,15 @@ export default function App() {
   useEffect(() => {
     if (view !== 'exam' || questions.length === 0) return;
     const timer = setTimeout(() => {
-      // Payload carries the exam clock too (2026-07-23): examStartTime so a
-      // resumed exam reports its TRUE duration_sec, qDeadline so a reload
-      // can't refresh the per-question countdown.
-      const base = {
-        answers, currentIdx,
-        savedAt: Date.now(),
-        examStartTime,
-        qDeadline: session.qDeadlineRef?.current || null,
-      };
       try {
-        window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({ questions, ...base }));
-      } catch (err) {
-        // QuotaExceededError = the save silently failing exactly when the UI
-        // promises answers are safe. Retry once with the biggest text field
-        // (explain) stripped — resume still renders + scores correctly, only
-        // the post-resume review explanations are lost. If even that fails,
-        // warn and KEEP the previous good save (never remove it).
-        try {
-          const slim = questions.map((q) => ({ ...q, explain: undefined }));
-          window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({ questions: slim, ...base }));
-        } catch {
-          console.warn('vmx-inflight-exam save failed (storage quota?) — keeping previous save', err);
-        }
-      }
+        window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({
+          questions, answers, currentIdx,
+          savedAt: Date.now(),
+        }));
+      } catch {}
     }, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx, examStartTime, session.qDeadlineRef]);
+  }, [view, questions, answers, currentIdx]);
 
   // Detect a previous in-flight exam at boot and surface as a non-modal
   // banner on HomeView (replaces the old window.confirm prompt — that
@@ -844,12 +825,7 @@ export default function App() {
   // (>6h old) is auto-cleared so the banner doesn't lure users into
   // resuming an exam they conceptually moved on from.
   useEffect(() => {
-    // Guard on the BOOT VIEW, not questions.length: useExamSession hydrates
-    // `questions` from the same inflight payload at construction, so the old
-    // `questions.length > 0` guard always tripped and the banner never showed.
-    // The only boot that should skip the banner is a ?qset= share-link, which
-    // is the one path where initialView === 'exam'.
-    if (view === 'exam') return;
+    if (questions.length > 0) return;
     let raw;
     try { raw = window.localStorage?.getItem('vmx-inflight-exam'); } catch {}
     if (!raw) return;
@@ -1093,9 +1069,6 @@ export default function App() {
   // topic: null means "no topic filter"); `??` would default null back
   // to the state value.
   const startExam = async (overrides = {}) => {
-    // Starting a fresh exam supersedes any resume offer — clear the banner so
-    // it can't linger and later "resume" the new exam's own inflight state.
-    setPendingResume(null);
     let _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
@@ -1754,6 +1727,11 @@ export default function App() {
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions }} />}
               {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}
               {view === 'review-queue' && <ReviewQueueView {...{ goHome, setView, user }} />}
+              {view === 'domain-detail' && <DomainDetailView onBack={goHome} onStartPractice={(count, time) => { setNumQuestions(count); setUseTimer(!!time); startExam(); }} />}
+              {view === 'mock-exam' && <MockExamView currentUserId={user?.id} onAbandonSession={goHome} onSubmitSession={() => setView('mock-results')} />}
+              {view === 'mock-results' && <MockResultsView onHome={goHome} />}
+              {view === 'wiki' && <PublicWikiView onBack={goHome} />}
+              {view === 'admin' && <AdminView user={user} onBack={goHome} />}
             </Suspense>
             </ErrorBoundary>
           )}

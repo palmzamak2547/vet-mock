@@ -381,12 +381,11 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     );
     answerText = currentQ.answer ? 'True' : 'False';
   } else if (currentQ.type === 'fill') {
-    const blanks = currentQ.blanks || [];
-    answerText = blanks.length > 1
-      ? blanks.map((b, i) => `(${i + 1}) ${stripRichText(b)}`).join(' ,  ')
-      : stripRichText(blanks[0] || '');
+    answerText = currentQ.blanks.length > 1
+      ? currentQ.blanks.map((b, i) => `(${i + 1}) ${stripRichText(b)}`).join(' ,  ')
+      : stripRichText(currentQ.blanks[0] || '');
   } else if (currentQ.type === 'match') {
-    answerText = (currentQ.pairs || []).map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('\n');
+    answerText = currentQ.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('\n');
   } else if (currentQ.type === 'flashcard') {
     // User-authored card from "Highlight → Flashcard" — back side
     // is plain text the user typed; fall back to `answer` for any

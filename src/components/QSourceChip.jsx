@@ -17,21 +17,31 @@
 // ============================================================
 
 import { useState } from 'react';
+import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 
-export default function QSourceChip({ q, onReport }) {
+export { isDisplayableWikiRef, getEligibleCitationForQuestion };
+
+export default function QSourceChip({ q, onReport, store }) {
   const [open, setOpen] = useState(false);
 
-  // Show nothing if Q has zero citation fields (no source, no verified,
-  // no examOrigin, no flag) — keep cards clean for the few legacy Qs
-  // that pre-date the citation convention.
-  const hasAny = !!(q?.source || q?.verified || q?.examOrigin || q?.flag);
+  // Evaluate strict citation eligibility via getEligibleCitationForQuestion
+  const eligibleCitation = getEligibleCitationForQuestion(q, store);
+
+  // Filter valid, approved, and verified wikiReferences
+  const displayableWikiRefs = Array.isArray(q?.wikiRefs)
+    ? q.wikiRefs.filter(isDisplayableWikiRef)
+    : [];
+  const hasDisplayableWikiRefs = !!eligibleCitation || displayableWikiRefs.length > 0;
+
+  // Show nothing if Q has zero citation fields
+  const hasAny = !!(q?.source || q?.verified || q?.examOrigin || q?.flag || eligibleCitation || hasDisplayableWikiRefs);
   if (!hasAny) return null;
 
   // Compact summary: prefer examOrigin (most user-meaningful), fall
   // back to source filename if examOrigin missing.
   const summary = q.examOrigin
     ? q.examOrigin
-    : (typeof q.source === 'string' ? q.source.replace(/\.pdf.*$/, '.pdf') : 'มีแหล่งอ้างอิง');
+    : (typeof q.source === 'string' ? q.source.replace(/\.pdf.*$/, '.pdf') : (hasDisplayableWikiRefs ? 'มีข้อมูลอ้างอิง Wiki' : 'มีแหล่งอ้างอิง'));
 
   return (
     <div style={{
@@ -77,6 +87,35 @@ export default function QSourceChip({ q, onReport }) {
 
       {open && (
         <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {eligibleCitation && (
+            <div style={{ padding: 8, borderRadius: 6, background: 'rgba(74, 107, 74, 0.12)', border: '1px solid var(--clr-sage)' }}>
+              <a
+                href={eligibleCitation.url}
+                onClick={(e) => {
+                  if (typeof window !== 'undefined' && window.__vetmock_navigate) {
+                    e.preventDefault();
+                    window.__vetmock_navigate(eligibleCitation.url);
+                  }
+                }}
+                style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+              >
+                <Row label="📖 Citation" value={eligibleCitation.title} icon="🔗" iconColor="var(--clr-sage)" />
+                <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 10, opacity: 0.9, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  <div>Ref: <code>{eligibleCitation.pageId}#{eligibleCitation.anchorId}</code></div>
+                  <div>Approval: <code>{eligibleCitation.sourceApprovalRef}</code></div>
+                </div>
+              </a>
+            </div>
+          )}
+          {!eligibleCitation && hasDisplayableWikiRefs && displayableWikiRefs.map((ref, idx) => (
+            <div key={idx} style={{ padding: 8, borderRadius: 6, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-border)' }}>
+              <Row label="📖 ข้อมูลอ้างอิง Wiki" value={ref.label || `${ref.pageId}#${ref.anchorId}`} icon="🔗" iconColor="var(--clr-sage)" />
+              <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 10, opacity: 0.85, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <div>Target: <code>{ref.pageId}#{ref.anchorId}</code></div>
+                <div>Status: <code>{ref.status || 'approved'}</code> | Mapping: <code>{ref.mappingStatus || 'verified'}</code></div>
+              </div>
+            </div>
+          ))}
           {q.source && (
             <Row label="Source"   value={q.source} />
           )}
