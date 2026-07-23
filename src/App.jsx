@@ -30,6 +30,7 @@ import './styles.css';
 // landing-only, so Vite now bundles it with the lazy landing chunk
 // instead of shipping ~9KB of unused CSS to every practice session.
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
+import { parseWikiPath } from './lib/vetwiki/url.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
 import { awardXp, XP_AWARDS } from './lib/xp.js';
@@ -323,6 +324,10 @@ export default function App() {
     try {
       const params = new URLSearchParams(window.location.search);
       if (params.get('auth') === 'reset') return 'auth';
+      // VetWiki owns a real path namespace so its articles are shareable and
+      // citable (/wiki, /wiki/<subject>/<topic>[#section]). vercel.json
+      // rewrites /wiki/* to the SPA; see src/lib/vetwiki/url.js.
+      if (parseWikiPath(window.location.pathname).isWiki) return 'knowledge';
       // Deliberate/shareable entry to the marketing landing, e.g. from a
       // footer link or an external share. Bypasses the first-time-only
       // gate so it works for returning visitors too.
@@ -372,8 +377,11 @@ export default function App() {
   const [view, setViewRaw] = useState(initialView);
   const viewRef = useRef(initialView);
   const [mode, setMode] = useState('quick');
-  const [subject, setSubject] = useState('all');
-  const [topic, setTopic] = useState(null);
+  // Seed from /wiki/<subject>/<topic> so a shared article link opens directly
+  // on that article instead of the wiki index.
+  const _wikiEntry = typeof window !== 'undefined' ? parseWikiPath(window.location.pathname) : { subject: null, topic: null };
+  const [subject, setSubject] = useState(_wikiEntry.subject || 'all');
+  const [topic, setTopic] = useState(_wikiEntry.topic || null);
   const [practiceMode, setPracticeMode] = useState('all');
   const [activeGroup, setActiveGroup] = useState(null);
   // selectedYear persists in localStorage. Fallback `null` means "user

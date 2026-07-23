@@ -87,5 +87,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/wiki/:path*",
+      "destination": "/"
+    }
   ]
 }

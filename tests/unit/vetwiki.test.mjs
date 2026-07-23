@@ -127,3 +127,19 @@ test('every verification overlay key resolves to a real section (no orphans)', (
     }
   }
 });
+
+// ---- search ----
+test('search matches Thai body text on English-titled topics', async () => {
+  const { searchTopics } = await import('../../src/lib/vetwiki/search.js');
+  // "วัคซีน" appears in the BODY of rabies + vaccine, not in their titles.
+  const vac = searchTopics('วัคซีน');
+  assert.ok(vac.length >= 2, 'Thai query finds English-titled topics via body text');
+  assert.ok(vac.every((r) => r.matchedSections.length > 0 || r.inTitle));
+  // Section-level reporting is what makes a hit useful.
+  const rabies = vac.find((r) => r.topic.id === 'com5--rabies');
+  assert.ok(rabies && rabies.matchedSections.length > 0, 'reports which sections matched');
+  assert.ok(rabies.matchedSections.every((s) => s.id && s.heading), 'matches carry stable ids');
+
+  assert.equal(searchTopics('xyzzy-no-such-term').length, 0, 'no false positives');
+  assert.equal(searchTopics('').length, searchTopics('   ').length, 'empty query is stable');
+});

@@ -232,9 +232,18 @@ test.describe('VetMock smoke flow', () => {
 
     await page.getByText('VetWiki', { exact: false }).first().click();
 
-    // The flagship topic renders with its real note content.
+    // VetWiki opens at its index (a reference opens at its contents).
+    await expect(page.getByRole('heading', { level: 1, name: 'VetWiki' })).toBeVisible({ timeout: 10_000 });
+    // In-wiki search narrows the list, then we open the article.
+    await page.getByPlaceholder(/ค้นหาหัวข้อ/).fill('rabies');
+    await page.getByRole('button', { name: /Rabies — โรคพิษสุนัขบ้า/ }).click();
+
+    // The article renders with its real note content.
     // level:1 — the topic title (section headings also contain "Rabies").
     await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 10_000 });
+    // Wiki affordances: breadcrumb + table of contents.
+    await expect(page.getByRole('navigation', { name: 'breadcrumb' })).toBeVisible();
+    await expect(page.getByRole('navigation', { name: 'สารบัญ' })).toBeVisible();
 
     // Honest governance is visible: unverified note content reads "ฉบับร่าง".
     await expect(page.locator('.vmx-qtype-badge', { hasText: 'ฉบับร่าง' }).first()).toBeVisible();
@@ -251,6 +260,26 @@ test.describe('VetMock smoke flow', () => {
     expect(
       consoleErrors,
       `Unexpected console errors on VetWiki:\n${consoleErrors.join('\n')}`
+    ).toEqual([]);
+  });
+
+  // A reference you cannot link to isn't a reference: a shared URL must open
+  // the exact article, and a section anchor must open the exact section.
+  test('a shared VetWiki URL opens the article, and an anchor opens the section', async ({ page }) => {
+    await page.goto('/wiki/com5/rabies#com5--rabies--diagnosis');
+    await page.waitForLoadState('networkidle', { timeout: 15_000 });
+
+    await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 10_000 });
+    // The section the link points at exists and is scrolled to.
+    const section = page.locator('#com5--rabies--diagnosis');
+    await expect(section).toBeVisible();
+    await expect(section.getByRole('heading', { name: 'Diagnosis' })).toBeInViewport();
+    // The address bar keeps the shareable path (no redirect to "/").
+    expect(new URL(page.url()).pathname).toBe('/wiki/com5/rabies');
+
+    expect(
+      consoleErrors,
+      `Unexpected console errors on a shared VetWiki link:\n${consoleErrors.join('\n')}`
     ).toEqual([]);
   });
 });
