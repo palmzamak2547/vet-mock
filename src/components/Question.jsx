@@ -297,7 +297,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         </div>
       )}
 
-      {currentQ.type === 'fill' && (
+      {/* Guard blanks/pairs like MCQOptions guards options: one malformed
+          question must degrade to a friendly empty state, not throw and
+          crash the whole exam view. */}
+      {currentQ.type === 'fill' && (!Array.isArray(currentQ.blanks) || currentQ.blanks.length === 0) && (
+        <div className="vmx-empty">⚠️ ข้อนี้ไม่มีช่องเติมคำ — ข้อมูลผิดรูปแบบ</div>
+      )}
+      {currentQ.type === 'fill' && Array.isArray(currentQ.blanks) && currentQ.blanks.length > 0 && (
         <div className="vmx-fill-row">
           {currentQ.blanks.map((_, i) => (
             <div key={i}>
@@ -312,7 +318,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         </div>
       )}
 
-      {currentQ.type === 'match' && (
+      {currentQ.type === 'match' && (!Array.isArray(currentQ.pairs) || currentQ.pairs.length === 0) && (
+        <div className="vmx-empty">⚠️ ข้อนี้ไม่มีคู่ให้จับ — ข้อมูลผิดรูปแบบ</div>
+      )}
+      {currentQ.type === 'match' && Array.isArray(currentQ.pairs) && currentQ.pairs.length > 0 && (
         <div className="vmx-match-row">
           {currentQ.pairs.map((pair, i) => (
             <div key={i} className="vmx-match-item">

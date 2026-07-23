@@ -24,8 +24,9 @@
 // ============================================================
 
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import '../styles-landing.css';
 import { SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
-import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import { DICT } from './landing/dict.js';
 import LandingBody, { OptionRow } from './landing/LandingBody.jsx';
 import { useLandingMotion } from './landing/useLandingMotion.js';
@@ -59,8 +60,10 @@ function buildRealSubjects(year) {
     sub: s.name_en || s.code || '',
     emoji: s.icon || '📘',
     color: s.color || 'var(--clr-sage)',
-    count: Q_COUNTS_BY_SUBJECT[s.id] || 0,
-    hasQ: (Q_COUNTS_BY_SUBJECT[s.id] || 0) > 0,
+    // Visible counts (what HomeView's subject cards show) — the marketing
+    // surface must display the same number the student sees inside the app.
+    count: Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0,
+    hasQ: (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0) > 0,
   })).filter((s) => s.hasQ);
 }
 
@@ -158,9 +161,17 @@ export default function LandingView({
   const [loginEmail, setLoginEmail] = useState('');
   const [loginSending, setLoginSending] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [citeCopied, setCiteCopied] = useState(false);
 
   const timers = useRef([]);
   const pushTimer = (fn, ms) => { const t = setTimeout(fn, ms); timers.current.push(t); return t; };
+
+  // ---- dialog focus management (login modal + citation drawer) ----
+  // aria-modal alone doesn't move focus: without this, keyboard/screen-reader
+  // users stay on the hidden page behind the overlay and can Tab through it.
+  const loginDlgRef = useRef(null);
+  const citeDlgRef = useRef(null);
+  const lastFocusRef = useRef(null);
 
   // sync language from prop
   useEffect(() => { if (langProp && langProp !== lang) setLang(langProp); }, [langProp]); // eslint-disable-line
@@ -171,7 +182,10 @@ export default function LandingView({
   // so the practice app isn't left with the class. ----
   useEffect(() => {
     document.documentElement.classList.add('lp-active');
-    return () => document.documentElement.classList.remove('lp-active');
+    return () => {
+      document.documentElement.classList.remove('lp-active');
+      if (acRef.current && acRef.current.state !== 'closed') { try { acRef.current.close(); } catch { /* no-op */ } }
+    };
   }, []);
 
   // ---- mount: motion prefs, reveal, nav scroll, rotating word, escape ----
@@ -204,11 +218,43 @@ export default function LandingView({
     // eslint-disable-next-line
   }, [lang]);
 
+  // Focus into whichever dialog just opened, trap Tab inside it, and restore
+  // focus to the trigger on close. Runs for the login modal + citation drawer.
+  useEffect(() => {
+    const dlg = loginOpen ? loginDlgRef.current : aiCitation ? citeDlgRef.current : null;
+    if (!dlg) return undefined;
+    if (!lastFocusRef.current) lastFocusRef.current = document.activeElement;
+    const focusables = () => Array.from(dlg.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter((el) => !el.disabled && el.offsetParent !== null);
+    const first = dlg.querySelector('input') || focusables()[0];
+    if (first) first.focus(); else dlg.focus();
+    const trap = (e) => {
+      if (e.key !== 'Tab') return;
+      const f = focusables(); if (!f.length) return;
+      const i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+    };
+    dlg.addEventListener('keydown', trap);
+    return () => {
+      dlg.removeEventListener('keydown', trap);
+      const back = lastFocusRef.current;
+      lastFocusRef.current = null;
+      if (back && typeof back.focus === 'function' && document.contains(back)) back.focus();
+    };
+  }, [loginOpen, aiCitation]);
+
+  // One shared AudioContext — browsers cap live contexts (~6), so creating a
+  // new one per answer-check eventually makes `new AudioContext()` throw and
+  // sound silently stops working.
+  const acRef = useRef(null);
   const beep = useCallback(() => {
     if (muted) return;
     try {
       const A = window.AudioContext || window.webkitAudioContext; if (!A) return;
-      const ac = new A(); const o = ac.createOscillator(), g = ac.createGain();
+      if (!acRef.current || acRef.current.state === 'closed') acRef.current = new A();
+      const ac = acRef.current;
+      if (ac.state === 'suspended') ac.resume();
+      const o = ac.createOscillator(), g = ac.createGain();
       o.frequency.value = 660; g.gain.value = 0.05; o.connect(g); g.connect(ac.destination); o.start();
       g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.18); o.stop(ac.currentTime + 0.2);
     } catch { /* no-op */ }
@@ -355,7 +401,7 @@ export default function LandingView({
       {/* ---- Citation source panel ---- */}
       {aiCitation && (
         <div onClick={() => setAiCitation(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(43,36,25,.42)', zIndex: 100, display: 'flex', justifyContent: 'flex-end' }}>
-          <div onClick={(e) => e.stopPropagation()} role="dialog" aria-label={aiCitation.title} style={{ width: 390, maxWidth: '92vw', height: '100%', background: 'var(--clr-surface)', borderLeft: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-lg)', padding: 24, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div ref={citeDlgRef} tabIndex={-1} onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label={aiCitation.title} style={{ width: 390, maxWidth: '92vw', height: '100%', background: 'var(--clr-surface)', borderLeft: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-lg)', padding: 24, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 14, outline: 'none' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'JetBrains Mono, monospace', fontSize: 10, fontWeight: 600, padding: '4px 10px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)' }}>● {aiCitation.level}</span>
               <button type="button" onClick={() => setAiCitation(null)} style={{ border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', borderRadius: 999, padding: '6px 12px', fontSize: 12, color: 'var(--clr-ink-soft)', cursor: 'pointer', fontFamily: 'inherit' }}>✕ {t.srcClose}</button>
@@ -369,8 +415,19 @@ export default function LandingView({
             </div>
             <div><div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 5 }}>{t.srcWhy}</div><p style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--clr-ink)', margin: 0 }}>{aiCitation.why}</p></div>
             <div><div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginBottom: 5 }}>{t.srcExam}</div><p style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.srcExamText}</p></div>
+            {/* One REAL action instead of three dead buttons: the demo citation
+                deliberately has no DOI/URL (Iron Rule 0 — nothing fabricated),
+                so "Open source" can't exist; copy is the honest capability. */}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 4 }}>
-              {t.srcActions.map((a) => <button key={a} type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm">{a}</button>)}
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                onClick={() => {
+                  const cite = `${aiCitation.org}. ${aiCitation.title} (${aiCitation.year}). ${aiCitation.type} — ${aiCitation.section}.`;
+                  try { navigator.clipboard.writeText(cite); } catch { /* no-op */ }
+                  setCiteCopied(true); pushTimer(() => setCiteCopied(false), 1800);
+                }}
+              >{citeCopied ? t.srcCopied : t.srcCopy}</button>
             </div>
             <div style={{ marginTop: 'auto', paddingTop: 14, borderTop: '1px dashed var(--clr-border)', fontSize: 11, lineHeight: 1.5, color: 'var(--clr-ink-soft)' }}>{t.srcDemo}</div>
           </div>
@@ -421,7 +478,7 @@ export default function LandingView({
       {/* ---- Login modal (real auth) ---- */}
       {loginOpen && (
         <div onClick={() => setLoginOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(43,36,25,.5)', zIndex: 110, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'max(20px, env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px))' }}>
-          <div onClick={(e) => e.stopPropagation()} className="lp-stack" role="dialog" aria-modal="true" aria-label={t.lgHead} style={{ width: 800, maxWidth: '100%', maxHeight: '92dvh', overflow: 'auto', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 20, boxShadow: 'var(--shadow-lg)', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: reduce.current ? 'none' : 'lp-rise .45s cubic-bezier(.16,1,.3,1)' }}>
+          <div ref={loginDlgRef} tabIndex={-1} onClick={(e) => e.stopPropagation()} className="lp-stack" role="dialog" aria-modal="true" aria-label={t.lgHead} style={{ width: 800, maxWidth: '100%', maxHeight: '92dvh', overflow: 'auto', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 20, boxShadow: 'var(--shadow-lg)', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: reduce.current ? 'none' : 'lp-rise .45s cubic-bezier(.16,1,.3,1)', outline: 'none' }}>
             <div className="lp-hide-md" style={{ background: 'var(--clr-bg)', borderRight: '1px solid var(--clr-border)', padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
               <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-ink-soft)' }}>{t.lgReturn}</span>
               <div style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 14, padding: 18 }}>
@@ -460,6 +517,8 @@ export default function LandingView({
                     <span style={{ fontSize: 26 }}>📬</span>
                     <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{t.lgSentTip}</span>
                   </div>
+                  {/* Resend can fail too (magic-link rate limit is ~2/hr) — surface it here, not only in the email step */}
+                  {loginError && <div role="alert" style={{ fontSize: 12, color: 'var(--clr-rose)', margin: '0 0 12px', lineHeight: 1.4 }}>{loginError}</div>}
                   <div style={{ display: 'flex', gap: 16 }}>
                     <button type="button" onClick={doMagic} disabled={loginSending} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12.5, fontWeight: 600, color: 'var(--clr-sage)', padding: 0, fontFamily: 'inherit' }}>{loginSending ? t.lgSending : t.lgResend}</button>
                     <button type="button" onClick={() => { setLoginStep('email'); setLoginError(''); }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12.5, color: 'var(--clr-ink-soft)', padding: 0, fontFamily: 'inherit' }}>{t.lgBack}</button>

@@ -214,10 +214,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           correctDisplay = q.answer ? 'True' : 'False';
         } else if (q.type === 'fill') {
           userDisplay = answered && userAns.length ? userAns.map(stripRichText).join(' / ') : 'ไม่ได้ตอบ';
-          correctDisplay = q.blanks.map(stripRichText).join(' / ');
+          correctDisplay = (q.blanks || []).map(stripRichText).join(' / ') || '⚠️ คำตอบของข้อนี้ผิดรูปแบบ';
         } else if (q.type === 'match') {
-          userDisplay = answered ? q.pairs.map((p, i) => `${stripRichText(p.left)} → ${stripRichText(userAns[i]) || '—'}`).join('; ') : 'ไม่ได้ตอบ';
-          correctDisplay = q.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('; ');
+          userDisplay = answered ? (q.pairs || []).map((p, i) => `${stripRichText(p.left)} → ${stripRichText(userAns[i]) || '—'}`).join('; ') : 'ไม่ได้ตอบ';
+          correctDisplay = (q.pairs || []).map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('; ') || '⚠️ คำตอบของข้อนี้ผิดรูปแบบ';
         } else if (q.type === 'short' || q.type === 'essay') {
           userDisplay = answered && typeof userAns === 'string' && userAns.trim() ? userAns : 'ไม่ได้เขียน';
           correctDisplay = q.model_answer || '(no model answer)';

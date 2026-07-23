@@ -50,6 +50,12 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      # Data-layer consistency gate — taxonomy ↔ question banks ↔ counts
+      # ↔ generated registry must agree, or a year-scoped exam can
+      # silently drop questions. Fails the build on drift.
+      - name: Data-layer consistency gate
+        run: npm run lint:curriculum && npm run lint:registry -- --check
+
       - name: Build production bundle
         run: npm run build
 

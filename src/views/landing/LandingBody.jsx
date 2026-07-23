@@ -186,7 +186,7 @@ export default function LandingBody(p) {
                 <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.labFName}</h3>
               </div>
               <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.labFDesc}</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 4 }}>
+              <div className="lp-tile-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 4 }}>
                 {t.labExamples.map((e) => <div key={e.label} style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '11px 12px', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 11, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ fontSize: 16, flexShrink: 0 }}>{e.emoji}</span>{e.label}</div>)}
               </div>
             </div>
@@ -220,7 +220,7 @@ export default function LandingBody(p) {
                   — so it's framed as a preview, not "LIVE". */}
               <span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
+            <div className="lp-tile-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
               {[[p.panic.c, t.panicStatConcepts, 'var(--clr-ink)'], [p.panic.t, t.panicStatTraps, 'var(--clr-gold)'], [p.panic.q, t.panicStatQ, 'var(--clr-sage)'], [p.panic.w, t.panicStatWeak, 'var(--clr-rose)']].map(([v, lbl, c]) => (
                 <div key={lbl} style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 13, padding: 15 }}>
                   <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 30, lineHeight: 1, color: c }}>{v}</div>

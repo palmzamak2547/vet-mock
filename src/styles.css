@@ -221,9 +221,12 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 
 html, body { overscroll-behavior-y: contain; }
 
-/* Better keyboard focus, but no outline on mouse click */
+/* Better keyboard focus, but no outline on mouse click.
+   !important so the outline survives inline `all: unset` buttons —
+   inline styles beat the stylesheet otherwise, leaving keyboard users
+   with no focus indicator on every compact pill button. */
 :focus { outline: none; }
-:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--clr-ink) !important; outline-offset: 2px; border-radius: 4px; }
 
 .vmx-app {
   font-family: 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
@@ -472,7 +475,8 @@ html, body { overscroll-behavior-y: contain; }
 .vmx-bookmark-btn { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-bookmark-btn:hover { border-color: var(--clr-gold); }
 .vmx-bookmark-btn.active { background: var(--clr-gold); border-color: var(--clr-gold); color: var(--clr-surface); }
-.vmx-note-btn { position: absolute; top: 20px; right: 64px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.15s; color: var(--clr-ink); }
+/* right:72 not 64 — with the 44px floor the bookmark ends at right:64, so 64 left the two buttons touching edge-to-edge */
+.vmx-note-btn { position: absolute; top: 20px; right: 72px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-note-btn:hover { border-color: var(--clr-ocean); }
 .vmx-note-btn.has-note { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
 
@@ -709,10 +713,13 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-mode-grid { grid-template-columns: 1fr; }
   .vmx-subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .vmx-tf-row { grid-template-columns: 1fr; }
-  /* Reserve top padding so bookmark/note buttons don't overlap the badge/heading */
+  /* Reserve top padding so bookmark/note buttons don't overlap the badge/heading.
+     Offsets assume the REAL 44px rendered size (the WCAG min-width/height floor
+     overrides any smaller width) — note at right:54 with 44px-wide buttons
+     overlapped the bookmark by 4px. */
   .vmx-question-card { padding: 60px 20px 24px; }
-  .vmx-bookmark-btn { top: 14px; right: 14px; width: 32px; height: 32px; font-size: 16px; }
-  .vmx-note-btn { top: 14px; right: 54px; width: 32px; height: 32px; font-size: 14px; }
+  .vmx-bookmark-btn { top: 14px; right: 14px; font-size: 16px; }
+  .vmx-note-btn { top: 14px; right: 66px; font-size: 14px; }
   /* Badge starts below the button strip — keeps long topic labels readable */
   .vmx-qtype-badge { margin-bottom: 12px; }
   .vmx-sr-grade { grid-template-columns: repeat(2, 1fr); }

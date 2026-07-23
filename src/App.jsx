@@ -26,7 +26,9 @@ import { isFlashcardCompatible } from './hooks/sr-filter.js';
 // class (STABILITY rule 5) and removes a runtime <style> injection —
 // the sheet now loads in <head> before JS runs (better FOUC behavior).
 import './styles.css';
-import './styles-landing.css';
+// styles-landing.css moved into LandingView.jsx (2026-07-23) — it's
+// landing-only, so Vite now bundles it with the lazy landing chunk
+// instead of shipping ~9KB of unused CSS to every practice session.
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
@@ -355,7 +357,11 @@ export default function App() {
         // Once they enter the app we set 'vmx-seen-landing' so returning
         // visitors go straight to year-select (no landing regression).
         const seenLanding = window.localStorage.getItem('vmx-seen-landing');
-        if (!seenLanding) return 'landing';
+        // Installed-PWA launches skip the marketing landing: anyone who
+        // installed the app is already a user — the landing would read
+        // as a cold sales pitch on every cold start until first entry.
+        const standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+        if (!seenLanding && !standalone) return 'landing';
         return 'year-select';
       }
     } catch {}
@@ -811,7 +817,12 @@ export default function App() {
   // (>6h old) is auto-cleared so the banner doesn't lure users into
   // resuming an exam they conceptually moved on from.
   useEffect(() => {
-    if (questions.length > 0) return;
+    // Guard on the BOOT VIEW, not questions.length: useExamSession hydrates
+    // `questions` from the same inflight payload at construction, so the old
+    // `questions.length > 0` guard always tripped and the banner never showed.
+    // The only boot that should skip the banner is a ?qset= share-link, which
+    // is the one path where initialView === 'exam'.
+    if (view === 'exam') return;
     let raw;
     try { raw = window.localStorage?.getItem('vmx-inflight-exam'); } catch {}
     if (!raw) return;
@@ -1055,6 +1066,9 @@ export default function App() {
   // topic: null means "no topic filter"); `??` would default null back
   // to the state value.
   const startExam = async (overrides = {}) => {
+    // Starting a fresh exam supersedes any resume offer — clear the banner so
+    // it can't linger and later "resume" the new exam's own inflight state.
+    setPendingResume(null);
     let _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
