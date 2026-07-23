@@ -16,6 +16,8 @@ import { NOTES_Y5_MILK_MEAT_HYGIENE } from '../data/notes-y5-milk-meat-hygiene.j
 import { NOTES_Y5_EQUINE_MEDICINE } from '../data/notes-y5-equine-medicine.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
+import { hasTopic } from '../lib/vetwiki/index.js';
+import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import BackBar from '../components/BackBar.jsx';
 import ImageAnnotator from '../components/ImageAnnotator.jsx';
 import TemplateLibrary from '../components/TemplateLibrary.jsx';
@@ -76,7 +78,7 @@ function getSectionHaystack(sec) {
   return out;
 }
 
-export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, goHome }) {
+export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, goHome, onOpenWiki }) {
   const [activeSubject, setActiveSubjectLocal] = useState(subjectProp);
   const subject = activeSubject;
   // Memoised — only re-derives when subject changes. The previous
@@ -257,6 +259,19 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6, marginBottom: 12 }}>
                 💡 <strong>TL;DR —</strong> {topic.summary}
               </div>
+            )}
+            {/* Cross-link to the governed VetWiki version — only for topics
+                that actually have one, and only while the feature is on. */}
+            {FEATURE_FLAGS.VETWIKI_ENABLED !== false && onOpenWiki && hasTopic(subject, validTopic) && (
+              <button
+                type="button"
+                className="vmx-chip"
+                onClick={() => onOpenWiki(subject, validTopic)}
+                title="ดูหัวข้อนี้แบบบอกที่มาได้ทุกส่วน"
+                style={{ marginBottom: 10, cursor: 'pointer' }}
+              >
+                🧬 ดูฉบับตรวจสอบได้ใน VetWiki
+              </button>
             )}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
               <button
