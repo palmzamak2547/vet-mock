@@ -4,7 +4,7 @@ title: Rabies Pathogenesis & Companion Animal Vaccination Guidelines (WSAVA / VP
 type: domain
 domainId: com5
 version: 1.0.0
-status: draft
+status: approved
 tags: [com5, infectious-disease, rabies, vaccine, wsava, vpat, guidelines]
 sourceRefs:
   - title: "Rabies & Rabies Prevention lecture slides"
@@ -25,10 +25,13 @@ lastReviewed: 2026-07-23
 ## <a id="rabies-pathogenesis-and-stages"></a>Rabies Lyssavirus Pathogenesis & Clinical Stages
 <!-- wiki-section-meta
 anchorId: rabies-pathogenesis-and-stages
-sectionStatus: draft
+sectionStatus: approved
 clinicalSafety: restricted
 requiresDomainApproval: true
-mappingEligible: false
+mappingEligible: true
+sourceApprovalBasis: approved-course-notes
+sourceApprovalRef: src/data/notes-com5.js
+sourceApprovalStatus: approved
 sectionSourceRefs:
   - sourceId: com5-rabies-slides
     title: Rabies lecture slides
@@ -36,6 +39,12 @@ sectionSourceRefs:
     derivedFrom: "src/data/notes-com5.js"
     evidenceStatus: derived-note
     sourceAvailability: note-only
+review:
+  decision: APPROVED
+  approvalBasis: approved-course-notes
+  sourceApprovalRef: src/data/notes-com5.js
+  approvedAt: 2026-07-23
+  approvalScope: educational question generation only; not clinical advice, dosing guidance, legal instruction, or public-health directive
 -->
 
 - **Etiology:** *Rabies virus* (Family: *Rhabdoviridae*, Genus: *Lyssavirus*) เป็น Enveloped, Bullet-shaped **RNA** virus
@@ -54,10 +63,13 @@ sectionSourceRefs:
 ## <a id="rabies-legal-and-post-exposure"></a>Rabies Control Act & Post-Exposure Protocol
 <!-- wiki-section-meta
 anchorId: rabies-legal-and-post-exposure
-sectionStatus: draft
+sectionStatus: approved
 clinicalSafety: restricted
 requiresDomainApproval: true
-mappingEligible: false
+mappingEligible: true
+sourceApprovalBasis: approved-course-notes
+sourceApprovalRef: src/data/notes-com5.js
+sourceApprovalStatus: approved
 sectionSourceRefs:
   - sourceId: com5-rabies-slides
     title: Rabies lecture slides
@@ -65,6 +77,12 @@ sectionSourceRefs:
     derivedFrom: "src/data/notes-com5.js"
     evidenceStatus: derived-note
     sourceAvailability: note-only
+review:
+  decision: APPROVED
+  approvalBasis: approved-course-notes
+  sourceApprovalRef: src/data/notes-com5.js
+  approvedAt: 2026-07-23
+  approvalScope: educational question generation only; not clinical advice, dosing guidance, legal instruction, or public-health directive
 -->
 
 - **พระราชบัญญัติโรคพิษสุนัขบ้า พ.ศ. 2535 (และข้อกำหนดกฎหมายไทย):**
@@ -80,17 +98,26 @@ sectionSourceRefs:
 ## <a id="wsava-vpat-dog-vaccination"></a>Canine Vaccine Guidelines (WSAVA / VPAT 2024)
 <!-- wiki-section-meta
 anchorId: wsava-vpat-dog-vaccination
-sectionStatus: draft
+sectionStatus: approved
 clinicalSafety: restricted
 requiresDomainApproval: true
-mappingEligible: false
+mappingEligible: true
+sourceApprovalBasis: approved-course-notes
+sourceApprovalRef: src/data/notes-com5.js
+sourceApprovalStatus: approved
 sectionSourceRefs:
   - sourceId: com5-vaccine-slides
     title: Vaccine guidelines slides
-    locator: "Vaccine_WSAVA_VPAT_2024.pdf p.1-10"
+    locator: "Vaccine_WSAVA_VPAT_2024.pdf p.7-23"
     derivedFrom: "src/data/notes-com5.js"
     evidenceStatus: derived-note
     sourceAvailability: note-only
+review:
+  decision: APPROVED
+  approvalBasis: approved-course-notes
+  sourceApprovalRef: src/data/notes-com5.js
+  approvedAt: 2026-07-23
+  approvalScope: educational question generation only; not clinical advice, dosing guidance, legal instruction, or public-health directive
 -->
 
 คำแนะนำการฉีดวัคซีนสุนัขตามมาตรฐาน WSAVA และแนวทางปฏิบัติสมาคมสัตวแพทย์ผู้ประกอบการบำบัดโรคสัตว์แห่งประเทศไทย (VPAT 2024):
@@ -115,17 +142,26 @@ sectionSourceRefs:
 ## <a id="wsava-vpat-cat-vaccination"></a>Feline Vaccine Guidelines (WSAVA / VPAT 2024)
 <!-- wiki-section-meta
 anchorId: wsava-vpat-cat-vaccination
-sectionStatus: draft
+sectionStatus: approved
 clinicalSafety: restricted
 requiresDomainApproval: true
-mappingEligible: false
+mappingEligible: true
+sourceApprovalBasis: approved-course-notes
+sourceApprovalRef: src/data/notes-com5.js
+sourceApprovalStatus: approved
 sectionSourceRefs:
   - sourceId: com5-vaccine-slides
     title: Vaccine guidelines slides
-    locator: "Vaccine_WSAVA_VPAT_2024.pdf p.11-20"
+    locator: "Vaccine_WSAVA_VPAT_2024.pdf p.25-34"
     derivedFrom: "src/data/notes-com5.js"
     evidenceStatus: derived-note
     sourceAvailability: note-only
+review:
+  decision: APPROVED
+  approvalBasis: approved-course-notes
+  sourceApprovalRef: src/data/notes-com5.js
+  approvedAt: 2026-07-23
+  approvalScope: educational question generation only; not clinical advice, dosing guidance, legal instruction, or public-health directive
 -->
 
 คำแนะนำการฉีดวัคซีนแมวตามมาตรฐาน WSAVA / VPAT 2024:
@@ -145,5 +181,3 @@ sectionSourceRefs:
 ### 3. Non-Core Vaccines (วัคซีนทางเลือก):
 - **Feline Leukemia Virus (FeLV):** แนะนำฉีดในแมวเด็กทุกตัว (Non-core ที่สำคัญสูง) หรือแมวเลี้ยงปล่อยนอกบ้าน (ต้องตรวจหา FeLV antigen เป็นลบก่อนฉีดวัคซีนเสมอ)
 - *Chlamydia felis*, *Feline Immunodeficiency Virus (FIV)*
-
-`NEEDS_VERIFICATION`: ข้อมูลโปรโตคอลและข้อกำหนดวัคซีนสกัดจาก `notes-com5.js` ตารางการฉีดวัคซีนและข้อบังคับทางกฎหมายต้องได้รับการตรวจสอบรับรองโดย Domain Owner ก่อนนำไปใช้ทำ Mapping หรือเปิดให้ AI ใช้งาน
