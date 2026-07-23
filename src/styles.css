@@ -221,12 +221,63 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 
 html, body { overscroll-behavior-y: contain; }
 
+/* ============================================================
+   Sarabun Font Definition (Local + Webfont Fallback)
+   ============================================================ */
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/Sarabun/Sarabun-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/Sarabun/Sarabun-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/Sarabun/Sarabun-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/Sarabun/Sarabun-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/Sarabun/Sarabun-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/Sarabun/Sarabun-BoldItalic.ttf') format('truetype');
+}
+
 /* Better keyboard focus, but no outline on mouse click */
 :focus { outline: none; }
 :focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: 4px; }
 
 .vmx-app {
-  font-family: 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
+  font-family: 'Sarabun', 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
   color: var(--clr-ink);
   background: var(--clr-bg);
   min-height: 100vh;
