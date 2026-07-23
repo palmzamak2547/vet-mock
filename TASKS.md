@@ -35,14 +35,29 @@
 - [x] Integration #1 — existing note page cross-links to its governed version
       (bidirectional, flag-gated, only for governed topics)
 
-## Slice 3 — retrieval + grounded answers (next)
-- [ ] Index governed sections for `⌘K` (return `sectionId`, not prose)
-- [ ] Explain endpoint from the `api/grade-summary.js` Claude+rate-limit template
-- [ ] `SupportedAnswerClaim[]` output + `validate.js` run BEFORE render
-- [ ] Inline source markers in answers → jump to the exact governed section
-- [ ] Report-a-concern flow
+## Slice 3 — shareable, searchable, grounded (done)
+- [x] Real URLs — `/wiki`, `/wiki/<subject>/<topic>`, `#<section>` deep links,
+      history push/pop. Shareable, bookmarkable, citable. No framework change.
+- [x] Prerendered per-article HTML + title/description/canonical/OG +
+      Article JSON-LD + sitemap, so link previews and crawlers get real
+      metadata while the app still boots normally
+- [x] Full-text search over governed sections (Thai body text, English titles)
+      reporting which sections matched — also the AI retrieval primitive
+- [x] Wiki presentation: subject grouping, breadcrumb, table of contents,
+      per-section anchors, review metadata, related topics; emoji demoted out
+      of titles and citation surfaces
+- [x] Grounded answers — `api/wiki-explain.js` + `SupportedAnswerClaim[]`,
+      validated server-side AND client-side so a fabricated citation cannot
+      render (it degrades to "การวิเคราะห์ของ VetMock")
+- [x] Per-claim support label + chip that jumps to the source section
+- [x] `npm run stats` — content numbers measured from source, fail loudly on drift
+
+## Slice 4 — next
+- [ ] Surface the wiki search inside `⌘K`
 - [ ] Integration #3 — question explanations link to the governed section that
       supports them (the `(subject,topic)` spine already exists)
+- [ ] Report-a-concern flow
+- [ ] Extend coverage beyond COM5 (one registry row per topic)
 
 ## Slice 3 — grounded answers
 - [ ] Explain endpoint from the `api/grade-summary.js` Claude+rate-limit template
