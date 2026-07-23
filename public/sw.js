@@ -18,9 +18,17 @@
 // version that calls clients.claim().
 // ============================================================
 
-const SW_VERSION = 'v26-2026-05-31';
+const SW_VERSION = 'v27-2026-07-23';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
-const ASSETS = `vmx-assets-${SW_VERSION}`;
+// ASSETS is deliberately VERSION-INDEPENDENT (2026-07-23): Vite-hashed
+// /assets/ URLs are immutable, so entries can safely outlive any single
+// SW version. The old version-scoped name meant every SW bump evicted
+// ALL cached chunks on activate — a mid-exam tab that then lazy-loaded a
+// not-yet-visited chunk hit the network, got the NEW deploy's 404 for
+// the old hash, and force-reloaded the student out of their exam.
+// Cross-version entries also mean an old tab keeps working offline after
+// a deploy. Storage growth is bounded by browser LRU eviction.
+const ASSETS = 'vmx-assets-v1';
 const NAV_TIMEOUT_MS = 4000;
 
 self.addEventListener('install', (event) => {
@@ -29,7 +37,10 @@ self.addEventListener('install', (event) => {
   // — the user gets a soft prompt to refresh, never a hard reload mid-exam.
   self.skipWaiting();
   event.waitUntil(
-    caches.open(ASSETS).then((cache) =>
+    // Shell precache goes in RUNTIME (version-scoped) — '/' is MUTABLE
+    // HTML, so it must refresh with each SW version; only immutable
+    // hashed chunks belong in the long-lived ASSETS cache.
+    caches.open(RUNTIME).then((cache) =>
       // Best-effort precache of the app shell. Failures are silent —
       // runtime caching will fill in any missed assets on first request.
       cache.addAll([
@@ -45,11 +56,12 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     Promise.all([
-      // Drop caches from older SW versions
+      // Drop caches from older SW versions — but NEVER the shared,
+      // version-independent ASSETS cache (see note at its declaration).
       caches.keys().then((keys) =>
         Promise.all(
           keys
-            .filter((k) => k.startsWith('vmx-') && !k.endsWith(SW_VERSION))
+            .filter((k) => k.startsWith('vmx-') && k !== RUNTIME && k !== ASSETS)
             .map((k) => caches.delete(k))
         )
       ),

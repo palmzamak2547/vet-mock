@@ -801,15 +801,33 @@ export default function App() {
   useEffect(() => {
     if (view !== 'exam' || questions.length === 0) return;
     const timer = setTimeout(() => {
+      // Payload carries the exam clock too (2026-07-23): examStartTime so a
+      // resumed exam reports its TRUE duration_sec, qDeadline so a reload
+      // can't refresh the per-question countdown.
+      const base = {
+        answers, currentIdx,
+        savedAt: Date.now(),
+        examStartTime,
+        qDeadline: session.qDeadlineRef?.current || null,
+      };
       try {
-        window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({
-          questions, answers, currentIdx,
-          savedAt: Date.now(),
-        }));
-      } catch {}
+        window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({ questions, ...base }));
+      } catch (err) {
+        // QuotaExceededError = the save silently failing exactly when the UI
+        // promises answers are safe. Retry once with the biggest text field
+        // (explain) stripped — resume still renders + scores correctly, only
+        // the post-resume review explanations are lost. If even that fails,
+        // warn and KEEP the previous good save (never remove it).
+        try {
+          const slim = questions.map((q) => ({ ...q, explain: undefined }));
+          window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({ questions: slim, ...base }));
+        } catch {
+          console.warn('vmx-inflight-exam save failed (storage quota?) — keeping previous save', err);
+        }
+      }
     }, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx]);
+  }, [view, questions, answers, currentIdx, examStartTime, session.qDeadlineRef]);
 
   // Detect a previous in-flight exam at boot and surface as a non-modal
   // banner on HomeView (replaces the old window.confirm prompt — that
