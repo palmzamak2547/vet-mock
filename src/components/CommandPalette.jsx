@@ -34,7 +34,8 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 // palette's "Quick Actions" are derived from it so a feature added once
 // shows up in BOTH the home grid and search (no more hand-synced drift,
 // which had left 7 navigable features unsearchable).
-import { FEATURES, visibleFeatures } from '../lib/feature-registry.js';
+import { FEATURES, visibleFeatures, FEATURE_FLAGS } from '../lib/feature-registry.js';
+import { listTopics } from '../lib/vetwiki/index.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -137,6 +138,21 @@ function buildStaticItems() {
   push({ type: 'action', payload: { kind: 'bookmarks' }, label: 'Bookmarks', hint: 'ข้อที่บันทึกไว้', icon: '⭐', kw: 'bookmark saved star ดาว ข้อบันทึก' });
   for (const f of FEATURES) {
     push({ type: 'action', payload: f.invoke, label: f.label, hint: f.hint, icon: f.icon, kw: f.kw, category: f.category, featureId: f.id });
+  }
+
+  // VetWiki articles — governed knowledge is searchable from anywhere.
+  // Keywords include the summary so Thai queries reach English-titled topics.
+  if (FEATURE_FLAGS.VETWIKI_ENABLED !== false) {
+    for (const t of listTopics()) {
+      push({
+        type: 'wiki',
+        payload: { subject: t.subject, topic: t.topic },
+        label: t.title,
+        hint: 'VetWiki · บอกที่มาได้ทุกส่วน',
+        icon: '🧬',
+        kw: `vetwiki wiki ${t.title} ${t.summary || ''} ${t.subject} ${t.topic}`,
+      });
+    }
   }
 
   // Subjects
@@ -247,8 +263,9 @@ function buildStaticItems() {
 // Dispatch table — translates a cached item back into an action.
 // Keeps the item array pure data so we don't have to rebuild closures.
 function runItem(item, handlers) {
-  const { goView, setSubject, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onSketch } = handlers;
+  const { goView, setSubject, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onSketch, onOpenWiki } = handlers;
   switch (item.type) {
+    case 'wiki': onOpenWiki?.(item.payload.subject, item.payload.topic); return;
     case 'action': {
       // payload is now an invoke descriptor (from the registry) or one of
       // the two nav-only specials (home view / bookmarks practice mode).
@@ -532,6 +549,7 @@ export default function CommandPalette({
               instructor: '👨‍🏫 Faculty',
               flashcard: '⚡ Flashcards',
               'q-note': '📝 โน้ต Q',
+              wiki: '🧬 VetWiki',
             };
             const showHeader = !query.trim() && (i === 0 || filtered[i - 1].type !== item.type);
             return (

@@ -1809,6 +1809,7 @@ export default function App() {
             openInstructor={(ins) => setOpenInstructor(ins)}
             openVoiceSettings={() => setVoiceSettingsOpen(true)}
             onSketch={() => setSketchOpen(true)}
+            onOpenWiki={(subj, top) => { setSubject(subj); setTopic(top); setView('knowledge'); }}
             onPractice={(inv) => {
               setMode(inv.mode || 'quick');
               setSubject(inv.subject || 'all');
