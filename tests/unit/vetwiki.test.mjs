@@ -143,3 +143,41 @@ test('search matches Thai body text on English-titled topics', async () => {
   assert.equal(searchTopics('xyzzy-no-such-term').length, 0, 'no false positives');
   assert.equal(searchTopics('').length, searchTopics('   ').length, 'empty query is stable');
 });
+
+// ---- grounded answers ----
+test('answer validator: a model cannot invent a citation', async () => {
+  const { validateAnswer, allowedFromSections, isGrounded } = await import('../../src/lib/vetwiki/answer.js');
+  const k = loadTopic('com5', 'rabies');
+  const allowed = allowedFromSections(k.id, k.sections);
+
+  const dxId = 'com5--rabies--diagnosis';       // has reference-verified claims
+  const overviewId = 'com5--rabies--overview';  // also verified (taxonomy)
+  const draftOnly = k.sections.find((s) => !(s.claims || []).some((c) => c.reviewStatus === 'verified'));
+
+  const { claims, dropped, downgraded } = validateAnswer([
+    // 1. legitimately grounded in a verified section
+    { id: 'a', text: 'FAT เป็นวิธีมาตรฐาน', supportType: 'vetwiki-verified', support: [{ sectionId: dxId }] },
+    // 2. cites a section that was never supplied → must lose the citation
+    { id: 'b', text: 'อ้างมั่ว', supportType: 'vetwiki-verified', support: [{ sectionId: 'com5--rabies--NOT-REAL' }] },
+    // 3. claims "verified" but cites a draft-only section → downgraded
+    { id: 'c', text: 'เกินจริง', supportType: 'vetwiki-verified', support: [{ sectionId: draftOnly.id }] },
+    // 4. empty text → dropped
+    { id: 'd', text: '   ', supportType: 'vetmock-analysis', support: [] },
+    // 5. unknown supportType → treated as analysis
+    { id: 'e', text: 'ประเภทมั่ว', supportType: 'totally-made-up', support: [{ sectionId: overviewId }] },
+  ], allowed);
+
+  const by = Object.fromEntries(claims.map((c) => [c.id, c]));
+  assert.equal(dropped, 1, 'empty claim dropped');
+  assert.equal(by.a.supportType, 'vetwiki-verified');
+  assert.equal(by.a.support[0].sectionId, dxId);
+  // The fabricated citation is gone AND the claim is no longer presented as sourced.
+  assert.equal(by.b.support.length, 0, 'unsupplied sectionId stripped');
+  assert.equal(by.b.supportType, 'vetmock-analysis', 'fabricated citation downgraded to analysis');
+  assert.equal(by.c.supportType, 'vetwiki-draft', 'cannot claim verified from a draft-only section');
+  assert.ok(downgraded >= 2);
+  assert.ok(TYPES_OK(by.e.supportType), 'unknown type normalised');
+  assert.ok(isGrounded(claims));
+
+  function TYPES_OK(t) { return ['vetwiki-verified', 'vetwiki-draft', 'vetmock-analysis', 'insufficient-evidence'].includes(t); }
+});

@@ -28,6 +28,7 @@ import {
 } from '../lib/vetwiki/index.js';
 import { searchTopics } from '../lib/vetwiki/search.js';
 import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
+import WikiExplain from '../components/WikiExplain.jsx';
 
 const TONE = {
   strong: 'var(--clr-sage-text)',
@@ -379,6 +380,9 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
           );
         })}
       </div>
+
+      {/* Grounded AI — answers only from this article, every claim sourced */}
+      <WikiExplain knowledge={knowledge} onJumpToSection={(id) => document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'smooth' })} />
 
       {/* Related topics in the same subject */}
       {related.length > 0 && (
