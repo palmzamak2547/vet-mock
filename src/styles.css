@@ -227,6 +227,15 @@ html, body { overscroll-behavior-y: contain; }
    with no focus indicator on every compact pill button. */
 :focus { outline: none; }
 :focus-visible { outline: 2px solid var(--clr-ink) !important; outline-offset: 2px; border-radius: 4px; }
+/* Programmatically-focused containers (dialogs/drawers get .focus() for
+   focus management) use tabindex="-1" — they're script-focus-only, never
+   keyboard-tabbable, so a focus ring on them is meaningless. On WebKit/
+   Firefox a scripted .focus() CAN match :focus-visible, and the rule above
+   is !important, so without this it overrode the element's inline
+   outline:none and drew a 2px near-black frame around the whole modal.
+   Higher specificity + !important so it beats the rule above. */
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible { outline: none !important; }
 
 .vmx-app {
   font-family: 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
