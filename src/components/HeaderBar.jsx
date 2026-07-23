@@ -63,7 +63,7 @@ export default function HeaderBar({
           onClick={goHome}
           aria-label="VetMock — หน้าแรก"
         >
-          Vet<span>Mock</span>
+          Vet<span>Mock</span><span className="vmx-academy-badge">ACADEMY</span>
         </button>
         {/* Year pill — visible on every page after pick, persistent year
             context. Click → year-select. Hidden during the first-time

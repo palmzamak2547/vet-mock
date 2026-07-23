@@ -221,21 +221,9 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
 
 html, body { overscroll-behavior-y: contain; }
 
-/* Better keyboard focus, but no outline on mouse click.
-   !important so the outline survives inline `all: unset` buttons —
-   inline styles beat the stylesheet otherwise, leaving keyboard users
-   with no focus indicator on every compact pill button. */
+/* Better keyboard focus, but no outline on mouse click */
 :focus { outline: none; }
-:focus-visible { outline: 2px solid var(--clr-ink) !important; outline-offset: 2px; border-radius: 4px; }
-/* Programmatically-focused containers (dialogs/drawers get .focus() for
-   focus management) use tabindex="-1" — they're script-focus-only, never
-   keyboard-tabbable, so a focus ring on them is meaningless. On WebKit/
-   Firefox a scripted .focus() CAN match :focus-visible, and the rule above
-   is !important, so without this it overrode the element's inline
-   outline:none and drew a 2px near-black frame around the whole modal.
-   Higher specificity + !important so it beats the rule above. */
-[tabindex="-1"]:focus,
-[tabindex="-1"]:focus-visible { outline: none !important; }
+:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: 4px; }
 
 .vmx-app {
   font-family: 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
@@ -484,8 +472,7 @@ html, body { overscroll-behavior-y: contain; }
 .vmx-bookmark-btn { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-bookmark-btn:hover { border-color: var(--clr-gold); }
 .vmx-bookmark-btn.active { background: var(--clr-gold); border-color: var(--clr-gold); color: var(--clr-surface); }
-/* right:72 not 64 — with the 44px floor the bookmark ends at right:64, so 64 left the two buttons touching edge-to-edge */
-.vmx-note-btn { position: absolute; top: 20px; right: 72px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.15s; color: var(--clr-ink); }
+.vmx-note-btn { position: absolute; top: 20px; right: 64px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-note-btn:hover { border-color: var(--clr-ocean); }
 .vmx-note-btn.has-note { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
 
@@ -722,13 +709,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-mode-grid { grid-template-columns: 1fr; }
   .vmx-subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .vmx-tf-row { grid-template-columns: 1fr; }
-  /* Reserve top padding so bookmark/note buttons don't overlap the badge/heading.
-     Offsets assume the REAL 44px rendered size (the WCAG min-width/height floor
-     overrides any smaller width) — note at right:54 with 44px-wide buttons
-     overlapped the bookmark by 4px. */
+  /* Reserve top padding so bookmark/note buttons don't overlap the badge/heading */
   .vmx-question-card { padding: 60px 20px 24px; }
-  .vmx-bookmark-btn { top: 14px; right: 14px; font-size: 16px; }
-  .vmx-note-btn { top: 14px; right: 66px; font-size: 14px; }
+  .vmx-bookmark-btn { top: 14px; right: 14px; width: 32px; height: 32px; font-size: 16px; }
+  .vmx-note-btn { top: 14px; right: 54px; width: 32px; height: 32px; font-size: 14px; }
   /* Badge starts below the button strip — keeps long topic labels readable */
   .vmx-qtype-badge { margin-bottom: 12px; }
   .vmx-sr-grade { grid-template-columns: repeat(2, 1fr); }
@@ -1034,3 +1018,122 @@ button.vmx-chip-quick:focus-visible {
   .vmx-subject-card .title { font-size: 16px; line-height: 1.2; }
   .vmx-subject-card .sub { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-height: 1.35; }
 }
+
+/* ============================================================
+   Antigravity UX/UI Design & LMS Academy Platform Styles
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Antigravity Glassmorphism & Weightless Cards */
+.vmx-glass-card {
+  background: var(--clr-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--clr-border);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.vmx-glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);
+  border-color: var(--clr-sage);
+}
+
+/* LMS Academy Header & Branding */
+.vmx-academy-badge {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--clr-sage), var(--clr-ocean));
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-left: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.vmx-lms-banner {
+  position: relative;
+  background: linear-gradient(135deg, rgba(74, 107, 74, 0.08), rgba(61, 107, 130, 0.12));
+  border: 1px solid var(--clr-border);
+  border-radius: 24px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.vmx-lms-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(168, 192, 168, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.vmx-lms-banner-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--clr-ink);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vmx-lms-banner-desc {
+  font-size: 15px;
+  color: var(--clr-ink-soft);
+  max-width: 680px;
+  line-height: 1.5;
+}
+
+.vmx-lms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.vmx-course-card {
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vmx-course-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--clr-sage);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.vmx-course-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--clr-surface-2);
+  color: var(--clr-sage-text);
+}
+
