@@ -51,6 +51,30 @@
   --vmx-radius-control: 14px;
   --vmx-radius-card: 20px;
   --vmx-press-depth: 4px;
+
+  /* ── Scale tokens · UX-transformation Phase 1 (2026-07-24) ───────────
+     ADDITIVE foundation. The existing colour, interaction and shadow
+     tokens and current magic values still work unchanged; new + migrated
+     code adopts these so spacing, z-index, motion and radius stop being
+     hardcoded per-file. See docs/DESIGN_SYSTEM.md. */
+  /* Spacing — 4px grid */
+  --space-0: 0; --space-1: 4px; --space-2: 8px; --space-3: 12px;
+  --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
+  --space-10: 40px; --space-12: 48px; --space-16: 64px;
+  /* Radius — one scale for the 9 values currently in use */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 20px; --r-pill: 999px;
+  /* Z-index ladder — names for the stack (skip > toast > overlay > modal
+     > nav > fab > sidebar > content). Modal 1000 / skip 9999 match the
+     existing CSS; new layers MUST use a token, never a fresh magic number. */
+  --z-base: 0; --z-raised: 10; --z-sidebar: 100; --z-fab: 600;
+  --z-nav: 700; --z-modal: 1000; --z-overlay: 1100; --z-toast: 1500;
+  --z-skip: 9999;
+  /* Motion — the durations + eases already used inline across the app */
+  --dur-fast: 120ms; --dur: 180ms; --dur-slow: 300ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Touch floor — already enforced in rules; now referenceable as a token */
+  --touch-min: 44px;
 }
 
 [data-theme="dark"] {

@@ -1,0 +1,73 @@
+# VetMock — UX Transformation Migration Plan
+
+> Phased, feature-by-feature, **no rewrite, no stack change, keep it usable
+> throughout**. Every increment: builds green + `lint:all` + `test:unit` +
+> `test:e2e` + prod-verify, and preserves everything on the
+> [UX_AUDIT preserve list](./UX_AUDIT.md#preserve-do-not-break-in-the-redesign).
+> Findings referenced by number are from [UX_AUDIT.md](./UX_AUDIT.md).
+
+## Principles
+- **Extend the token system, never replace it.** All new visual work references
+  tokens (see [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)); no new magic numbers.
+- **Additive first.** Add tokens/utilities/components without touching working
+  code; migrate call-sites incrementally behind green builds.
+- **The exam engine is load-bearing.** Confirm/latch/modal changes go *around*
+  `useExamSession.js`, never through a refactor of it.
+- **One increment = one reviewable commit**, prod-verified.
+
+## Phase 1 — Foundation (tokens · typography · shell · nav primitives · docs)
+Goal: put the missing scales, utility layer, VIEW↔PATH map and a current spec in
+place so later phases edit CSS / one map instead of 100+ JSX files.
+
+- [x] **Token scales** — spacing (4px grid), radius, z-index ladder, motion,
+  `--touch-min`, added additively to `styles.css :root` (2026-07-24). *(commit)*
+- [x] **Design-system doc** — [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) documents
+  existing + new tokens as the current spec (supersedes the stale
+  `design-system/MASTER.md`). *(commit)*
+- [ ] **Utility layer** — ~10 classes (`vmx-row/col/stack`, `vmx-gap-*`,
+  `vmx-card` base) + migrate the top-5 inline-style files as the pilot (finding 4).
+- [ ] **`.vmx-card` base** — collapse the 8 near-identical card families to deltas.
+- [ ] **VIEW↔PATH map** — generalize `parseWikiPath` + pushState so `setView` writes
+  a readable path and `initialView` reads it back; keep `FOCUS_VIEWS` gate + mid-exam
+  popstate confirm (finding 9, **risk-gated**).
+- [ ] **Font consolidation** — one Sarabun woff2 source + preload, drop the Google
+  Fonts duplicate + unused weights; Thai glyph QA (finding 6).
+- [ ] **Orphan cleanup** — gate/remove `admin` (stale Clerk stub) + `domain-detail`
+  (finding 15).
+
+## Phase 2 — Critical workflows (nav shell · exam · results · review · states)
+Goal: fix the destinations users can't reach or that lose data.
+
+- [ ] **Mobile bottom tab bar** (<1024px) rendered from the registry, same top-level
+  set as desktop, hidden mid-exam via `FOCUS_VIEWS`; resolve the ToolsFAB collision
+  (findings 1-nav, 2).
+- [ ] **Unify desktop/mobile destinations** to one registry-driven set + `aria-current`
+  active state on both breakpoints (finding 2).
+- [ ] **Fix Mock Exam** (finding 1) — wire to real per-year/subject data through the
+  `vmx-inflight-exam` lifecycle, OR feature-flag out of nav until wired.
+- [ ] **Exam submit confirm** — styled modal on final MCQ showing answered/remaining +
+  re-entry latch in `finishExam`; decouple Arrow/Enter from terminal submit (finding 3).
+- [ ] **Restore resume "discard/start fresh"** (finding 14).
+- [ ] **Bulk hex→var** for dark mode, quarantining the DICOM lab (finding 5).
+
+## Phase 3 — Secondary surfaces (lab · search · progress · profile · states)
+- [ ] LabView mobile clip fix (finding 16).
+- [ ] Standardize back-nav on `BackBar`; extract `.vmx-pressable` (Duolingo-press ×4).
+- [ ] One shared styled confirm/alert primitive; migrate the 42 native dialogs, critical
+  paths first (findings 10, 11).
+- [ ] In-view error/empty + retry for empty-pool / QB-load-failure (finding 11).
+- [ ] Clarify the two wiki destinations (finding 13).
+- [ ] Reduce HomeView overload to one primary action + progressive disclosure (finding 8).
+
+## Phase 4 — Polish (motion · a11y · perf · QA)
+- [ ] `React.memo` + stabilized props on HomeView (finding 7).
+- [ ] Reusable Skeleton components for data views + boot gate (finding 12).
+- [ ] Restore 44px exam bookmark/note hit areas (finding 16).
+- [ ] `content-visibility:auto` on long-scroll card lists.
+- [ ] **Dedicated WCAG 2.2 AA pass** (the audit's a11y gap) + final Playwright sweep
+  across breakpoints for skip-link/focus/reduced-motion/44px/overflow invariants.
+- [ ] Decide the two-visual-languages question (quarantined marketing glass vs app).
+
+## Status log
+- **2026-07-24** — Audit complete. Phase 1 started: de-slop (home Duolingo-blue → sage
+  + dead glass CSS removed; wiki emoji/note-metadata stripped) + token scales + docs.
