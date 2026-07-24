@@ -95,11 +95,11 @@ function statusLabel(state, strictFocus = true) {
   switch (state) {
     case 'idle':
       return strictFocus
-        ? 'พร้อมเริ่ม — กด Start เพื่อฟักลูกไก่ (Strict Mode)'
+        ? 'พร้อมเริ่ม — กด Start เพื่อฟักลูกไก่ (Strict Mode: ห้ามออกจากหน้าเกิน 5 วินาที)'
         : 'พร้อมเริ่ม — กด Start เพื่อเริ่มโฟกัส (Relaxed Mode)';
     case 'focus':
       return strictFocus
-        ? 'กำลังโฟกัส — อย่าออกจากหน้านี้นะ ไก่จะหนี!'
+        ? 'กำลังโฟกัส — อย่าออกจากหน้านี้เกิน 5 วินาทีนะ ไก่จะหนี!'
         : 'กำลังโฟกัส — สลับแอปอ่าน PDF/สรุปได้ตามสะดวก 📚';
     case 'shortBreak':
       return 'พักสายตา 5 นาที';

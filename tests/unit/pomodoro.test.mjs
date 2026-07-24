@@ -57,7 +57,45 @@ test('Pomodoro Storage: 2. saveConfig clamps duration values & preserves strictF
   assert.equal(reloaded.strictFocus, false);
 });
 
-test('Pomodoro Storage: 3. recordSession aggregates minutes & sessions correctly', () => {
+test('Pomodoro Storage: 3. Toggle strictFocus on/off persists across simulated page reloads', () => {
+  localStorage.clear();
+
+  // Initial load
+  let config = loadConfig();
+  assert.equal(config.strictFocus, true);
+
+  // Toggle OFF (Relaxed Mode)
+  saveConfig({ ...config, strictFocus: false });
+  config = loadConfig();
+  assert.equal(config.strictFocus, false);
+
+  // Toggle back ON (Strict Mode)
+  saveConfig({ ...config, strictFocus: true });
+  config = loadConfig();
+  assert.equal(config.strictFocus, true);
+});
+
+test('Pomodoro Storage: 4. Corrupt JSON in LocalStorage falls back gracefully without crashing', () => {
+  localStorage.clear();
+
+  // Set invalid corrupt JSON strings into storage keys
+  localStorage.setItem('vmx-pomodoro-config', '{{ invalid json string }}}');
+  localStorage.setItem('vmx-pomodoro', 'NOT_JSON_AT_ALL');
+
+  // Should recover with defaults without throwing
+  assert.doesNotThrow(() => {
+    const config = loadConfig();
+    assert.equal(config.focusMin, 25);
+    assert.equal(config.strictFocus, true);
+
+    const history = loadHistory();
+    assert.equal(history.sessions.length, 0);
+    assert.equal(history.totalMin, 0);
+    assert.equal(history.currentStreak, 0);
+  });
+});
+
+test('Pomodoro Storage: 5. recordSession aggregates minutes & sessions correctly', () => {
   localStorage.clear();
 
   recordSession({ durationMin: 25, completed: true });
@@ -76,7 +114,7 @@ test('Pomodoro Storage: 3. recordSession aggregates minutes & sessions correctly
   assert.equal(counts.total, 2);
 });
 
-test('Pomodoro Storage: 4. FIFO capping limits session history to 200 entries', () => {
+test('Pomodoro Storage: 6. FIFO capping limits session history to 200 entries', () => {
   localStorage.clear();
 
   for (let i = 0; i < 210; i++) {
