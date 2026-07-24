@@ -1,10 +1,26 @@
 # VetMock → Veterinary Intelligence Platform · Implementation Plan
 
-**Status:** first VetWiki vertical slice SHIPPED (2026-07-24)
-**Rule:** reuse-first, additive, never break the live app. Every change is a
-pure addition, display-only fix, or feature-flagged surface until proven.
+**Status (2026-07-24):** VetWiki slices 1–4 shipped (governed knowledge · read
+page + provenance · reference-verification · shareable URLs + prerender/OG ·
+full-text search · grounded AI · ⌘K · question↔wiki links). All 6 COM5 topics
+governed (49 sections). Merged with เกษม's platform branch (see below).
+**Rule:** reuse-first, additive, never break the app. Every change is a pure
+addition, display-only fix, or feature-flagged surface until proven.
 Authoritative content numbers come from `npm run stats` (see
 `docs/content-inventory.md`) — never from memory or a hand-written figure.
+
+## 0. Parallel work — two bodies of work now coexist in main
+
+This repo is worked by more than one person. As of 2026-07-24 `main` contains:
+- **VetWiki** (this plan) — a runtime governed-knowledge layer derived live from
+  the note corpus, with provenance, shareable URLs, search and grounded AI.
+- **เกษม's platform branch** — a mock-exam engine, admin + public-wiki views, a
+  Drizzle schema, a citation gate mapping questions → wiki refs, per-question
+  personal notes, and a UI restyle. Authored separately; not covered by this
+  plan. The two share the `(subject, topic)` spine and the markdown `wiki/**`
+  editorial layer, so they interlock rather than conflict — but a future
+  decision is whether the citation gate and the VetWiki runtime should converge
+  on one source of truth. Until then, treat them as complementary.
 
 ---
 

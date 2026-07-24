@@ -40,8 +40,8 @@ Consistency: counted **2948**, `q-counts.js` says **2948**, registry sums to **2
 
 | | |
 |---|---|
-| Governed topics | 5 |
-| Governed sections | 41 |
+| Governed topics | 6 |
+| Governed sections | 49 |
 | Claims verified against an external source | 5 |
 | Distinct external sources cited | 3 |
-| Share of note sections governed | 5.7% |
+| Share of note sections governed | 6.8% |

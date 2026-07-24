@@ -3,6 +3,35 @@
 > The in-app, user-facing changelog lives in the app data (`LATEST_CHANGELOG`)
 > and follows its own rules. This file is the engineering log.
 
+## 2026-07-24 — merge with the platform branch + integration #3
+
+**Merged** เกษม's large platform push (10 commits) onto the VetWiki work. His
+branch had built on top of the VetWiki foundation, so only one commit needed
+re-applying and only two files conflicted (App.jsx, ReviewView.jsx) — resolved
+to keep both his personal-notes editor and the VetWiki review link.
+
+His work now in main (not authored here — noted so future work doesn't collide):
+Drizzle schema (`src/db/schema.ts`), a mock-exam engine (`MockExamView`,
+`MockResultsView`, `mock-session-service`), `AdminView`, `PublicWikiView`,
+`DomainDetailView`, `Sidebar`, a citation gate (`src/lib/citation-gate.js`) with
+question→wikiRef mappings on the COM5 + EXOTIC banks, per-question personal
+notes, the "Antigravity" UI restyle + Sarabun Thai font, and a big expansion of
+the markdown `wiki/**` domain pages + review packs.
+
+**Added (VetWiki)**
+- Integration #3 — a missed question links to its governed article. Results
+  offers "🧬 อ่านสรุปเรื่องนี้" for a single-topic set; Review shows the link on
+  each missed question whose topic is governed. All six COM5 topics governed
+  (added feline-uri) → 49 governed sections, 7 prerendered pages.
+
+**Fixed (helping the branch land)**
+- Smoke e2e had failed on the last two pushes because the redesigned home hero
+  changed its `<h1>` copy and the test still asserted the old wording. Updated
+  the assertion; Build + Smoke e2e both green again.
+
+Combined gate: lint:all 0 errors · build green · unit **84/84** (his citation /
+personal-notes / validate-wiki suites + VetWiki) · cross-engine e2e **32/32**.
+
 ## 2026-07-24 — VetWiki slice 3: shareable, searchable, grounded
 
 **Added**
