@@ -20,6 +20,7 @@ export const NAV_ITEMS = [
 export function runNav(id, h) {
   if (id === 'home') { (h.goHome || (() => h.setView('home')))(); return; }
   if (id === 'mock-exam') { h.onMockExam && h.onMockExam(); return; }
+  if (id === 'wiki') { h.setView('knowledge'); return; }
   if (id === 'subject-select') {
     h.setSubject && h.setSubject('all');
     h.setPracticeMode && h.setPracticeMode('all');
@@ -32,5 +33,6 @@ export function runNav(id, h) {
  *  action that lands on 'config', so it has no persistent active state.) */
 export function isNavActive(id, view) {
   if (id === 'subject-select') return view === 'subject-select' || view === 'topic-select';
+  if (id === 'wiki') return view === 'wiki' || view === 'knowledge';
   return view === id;
 }

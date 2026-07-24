@@ -112,7 +112,7 @@ export default function HeaderBar({
             to drop them to the next row on small screens. */}
         <button
           className="vmx-theme-btn vmx-header-secondary"
-          onClick={() => setView('wiki')}
+          onClick={() => setView('knowledge')}
           title="VetMock Knowledge Wiki"
           aria-label="Wiki"
         >📖</button>
