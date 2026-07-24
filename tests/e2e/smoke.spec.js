@@ -193,7 +193,7 @@ test.describe('VetMock smoke flow', () => {
     await page.getByRole('button', { name: /เทอม\s*2\s*ปลายภาค/ }).click();
 
     await expect(page.locator('main#main')).toBeVisible();
-    await expect(page.locator('.vmx-hero h1')).toContainText(/ฝึกโจทย์|สวัสดี/);
+    await expect(page.locator('.vmx-hero h1')).toContainText(/คลังโจทย์ฝึก|สวัสดี/);
     await expect(page.getByRole('button', { name: /Quick Practice/i }).first()).toBeVisible({ timeout: 15_000 });
     expect(consoleErrors, `Unexpected console errors in onboarding flow:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
@@ -208,7 +208,7 @@ test.describe('VetMock smoke flow', () => {
 
     await page.goBack();
 
-    await expect(page.locator('.vmx-hero h1')).toContainText(/ฝึกโจทย์|สวัสดี/);
+    await expect(page.locator('.vmx-hero h1')).toContainText(/คลังโจทย์ฝึก|สวัสดี/);
     await expect(page.getByRole('button', { name: /Quick Practice/i }).first()).toBeVisible();
     expect(consoleErrors, `Unexpected console errors after browser Back:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
