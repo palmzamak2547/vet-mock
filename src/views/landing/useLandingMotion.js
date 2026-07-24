@@ -34,7 +34,7 @@ export function useLandingMotion() {
 
     // ---- 1 + 2: scroll-progress rail + scroll-spy nav underline ----
     let rail = null;
-    if (!reduce && window.innerWidth > 1100) {
+    if (!reduce && window.innerWidth > 1000) {
       rail = document.createElement('div');
       rail.className = 'lp-rail';
       rail.setAttribute('aria-hidden', 'true');

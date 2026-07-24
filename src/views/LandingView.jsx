@@ -182,10 +182,22 @@ export default function LandingView({
     if (reduce.current || !('IntersectionObserver' in window)) {
       els.forEach((e) => e.classList.add('in'));
     } else {
+      // Immediately reveal elements already near or above the fold
+      els.forEach((e) => {
+        const r = e.getBoundingClientRect();
+        if (r.top < window.innerHeight + 100) e.classList.add('in');
+      });
       io = new IntersectionObserver((ents) => {
-        ents.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-      }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
-      els.forEach((e) => io.observe(e));
+        ents.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.add('in');
+            io.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.01, rootMargin: '50px 0px 50px 0px' });
+      els.forEach((e) => {
+        if (!e.classList.contains('in')) io.observe(e);
+      });
     }
     const onScroll = () => setNavScrolled(window.scrollY > 8);
     window.addEventListener('scroll', onScroll, { passive: true });
