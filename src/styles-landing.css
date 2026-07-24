@@ -24,15 +24,7 @@
 .vmx-explain .k { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; color: var(--clr-gold); margin-right: 6px; }
 .vmx-badge-live { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 999px; background: var(--clr-gold); color: var(--clr-surface); font-weight: 600; letter-spacing: .05em; }
 
-/* ---- Landing shell ----
-   The landing renders as an early-return BEFORE the app's .vmx-app
-   wrapper (which is what normally paints the page bg), so the landing
-   must paint its own base background — otherwise the page shows through
-   as browser-default white on overscroll, between sections, and behind
-   the sticky nav. We set it on <html> (via .lp-active on the root) so the
-   colour also covers the overscroll/rubber-band area, and repeat it on
-   .lp-root as a fallback. color-scheme tracks the theme so the scrollbar
-   and any native controls match. */
+/* ---- Landing shell ---- */
 html.lp-active { background: var(--clr-bg); }
 .lp-root { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; color: var(--clr-ink); background: var(--clr-bg); min-height: 100vh; min-height: 100svh; overflow-x: hidden; }
 [data-theme="dark"] .lp-root, html.lp-active[data-theme="dark"] { color-scheme: dark; }
@@ -43,23 +35,293 @@ html.lp-active { background: var(--clr-bg); }
 .lp-skip { position: absolute; left: -999px; top: 8px; z-index: 200; background: var(--clr-ink); color: var(--clr-bg); padding: 9px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
 .lp-skip:focus { left: 8px; }
 
-/* ---- Nav ---- */
-.lp-nav { position: sticky; top: 0; z-index: 50; background: var(--clr-bg); border-bottom: 1px solid var(--clr-border); transition: background .25s, border-color .25s, box-shadow .25s; }
-.lp-nav.is-scrolled { background: color-mix(in srgb, var(--clr-bg) 80%, transparent); -webkit-backdrop-filter: saturate(1.2) blur(12px); backdrop-filter: saturate(1.2) blur(12px); border-bottom-color: var(--clr-ink); box-shadow: var(--shadow-sm); }
-@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) { .lp-nav.is-scrolled { background: var(--clr-bg); } }
+/* ================================================================
+   ✨ PREMIUM HERO BACKGROUND — animated radial mesh gradient
+   ================================================================ */
+#lp-top {
+  position: relative;
+  overflow: hidden;
+}
+#lp-top::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 30%, color-mix(in srgb, var(--clr-sage) 10%, transparent), transparent 70%),
+    radial-gradient(ellipse 50% 50% at 15% 70%, color-mix(in srgb, var(--clr-gold) 8%, transparent), transparent 65%),
+    radial-gradient(ellipse 40% 40% at 60% 80%, color-mix(in srgb, var(--clr-ocean) 6%, transparent), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: lp-mesh-drift 18s ease-in-out infinite alternate;
+}
+#lp-top > * { position: relative; z-index: 1; }
+
+@keyframes lp-mesh-drift {
+  0%   { opacity: 0.7; transform: scale(1) translateX(0); }
+  50%  { opacity: 1; transform: scale(1.04) translateX(-10px); }
+  100% { opacity: 0.85; transform: scale(1.02) translateX(8px); }
+}
+
+/* Floating orbs behind hero */
+.lp-hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(50px);
+  animation: lp-orb-float 12s ease-in-out infinite alternate;
+}
+.lp-hero-orb-1 {
+  width: 340px; height: 340px;
+  top: -80px; right: 5%;
+  background: color-mix(in srgb, var(--clr-sage) 14%, transparent);
+  animation-delay: 0s;
+}
+.lp-hero-orb-2 {
+  width: 240px; height: 240px;
+  bottom: -40px; left: 8%;
+  background: color-mix(in srgb, var(--clr-gold) 10%, transparent);
+  animation-delay: -5s;
+}
+.lp-hero-orb-3 {
+  width: 180px; height: 180px;
+  top: 30%; right: 40%;
+  background: color-mix(in srgb, var(--clr-ocean) 8%, transparent);
+  animation-delay: -9s;
+}
+@keyframes lp-orb-float {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(20px, -30px) scale(1.08); }
+  100% { transform: translate(-10px, 20px) scale(0.95); }
+}
+
+/* ================================================================
+   ✨ NAV — premium glassmorphism upgrade
+   ================================================================ */
+.lp-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--clr-bg) 90%, transparent);
+  border-bottom: 1px solid var(--clr-border);
+  transition: background .3s, border-color .3s, box-shadow .3s;
+  -webkit-backdrop-filter: saturate(1.3) blur(16px);
+  backdrop-filter: saturate(1.3) blur(16px);
+}
+.lp-nav.is-scrolled {
+  background: color-mix(in srgb, var(--clr-bg) 78%, transparent);
+  -webkit-backdrop-filter: saturate(1.6) blur(20px);
+  backdrop-filter: saturate(1.6) blur(20px);
+  border-bottom-color: color-mix(in srgb, var(--clr-ink) 15%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--clr-sage) 8%, transparent), var(--shadow-sm);
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .lp-nav, .lp-nav.is-scrolled { background: var(--clr-bg); }
+}
+
+/* Logo glow on hover */
+.lp-nav a[href="#lp-top"] {
+  transition: filter .25s, color .15s;
+}
+.lp-nav a[href="#lp-top"]:hover {
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--clr-sage) 50%, transparent));
+}
+
 .lp-navlink { position: relative; border-radius: 8px; transition: color .15s; padding: 8px 12px; font-size: 13.5px; font-weight: 500; color: var(--clr-ink-soft); }
 .lp-navlink::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 5px; height: 2px; background: var(--clr-sage); border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform .24s cubic-bezier(.2,.7,.2,1); }
 .lp-navlink:hover::after, .lp-navlink.is-active::after { transform: scaleX(1); }
 .lp-navlink:hover, .lp-navlink.is-active { color: var(--clr-ink); }
 .lp-ctx { transition: border-color .15s, transform .15s; }
 .lp-ctx:hover { border-color: var(--clr-sage); transform: translateY(-1px); }
-.lp-iconbtn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--clr-ink); flex-shrink: 0; }
+.lp-iconbtn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--clr-ink); flex-shrink: 0; transition: border-color .2s, background .2s, box-shadow .2s, transform .15s; }
+.lp-iconbtn:hover { border-color: var(--clr-sage); background: color-mix(in srgb, var(--clr-sage) 8%, var(--clr-surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--clr-sage) 12%, transparent); transform: scale(1.05); }
 
-/* ---- Scroll reveal ---- */
-.lp-reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+/* Primary CTA button — shine sweep */
+.lp-root .vmx-btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.lp-root .vmx-btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  transform: skewX(-20deg);
+  transition: left .5s ease;
+}
+.lp-root .vmx-btn-primary:hover::after {
+  left: 160%;
+}
+
+/* ================================================================
+   ✨ SCROLL REVEAL — smoother, staggers via delay
+   ================================================================ */
+.lp-reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1); }
 .lp-reveal.in { opacity: 1; transform: none; }
+.lp-reveal:nth-child(2) { transition-delay: .08s; }
+.lp-reveal:nth-child(3) { transition-delay: .16s; }
+.lp-reveal:nth-child(4) { transition-delay: .24s; }
 
-/* ---- Responsive: desktop <-> mobile at 1000px ---- */
+/* ================================================================
+   ✨ CARDS — premium hover glow + border shimmer
+   ================================================================ */
+
+/* Problem/Solution/How-It-Works cards */
+.lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card),
+.lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card),
+.lp-root [style*="borderRadius: 22"]:not(.vmx-question-card):not(.vmx-subject-card) {
+  transition: transform .22s cubic-bezier(.2,.7,.2,1), box-shadow .22s, border-color .22s;
+}
+.lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card):hover,
+.lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px -4px color-mix(in srgb, var(--clr-sage) 16%, rgba(0,0,0,.06)), 0 2px 6px rgba(0,0,0,.04);
+  border-color: color-mix(in srgb, var(--clr-sage) 28%, var(--clr-border)) !important;
+}
+
+/* Subject cards extra glow */
+.lp-root .vmx-subject-card {
+  transition: transform .2s cubic-bezier(.2,.7,.2,1), border-color .2s, box-shadow .2s;
+  transform-style: preserve-3d;
+}
+.lp-root .vmx-subject-card:hover {
+  box-shadow: 0 6px 20px -2px color-mix(in srgb, var(--clr-sage) 20%, rgba(0,0,0,.06));
+  border-color: color-mix(in srgb, var(--clr-sage) 35%, var(--clr-border)) !important;
+}
+
+/* Final CTA dark box — animated gradient border glow */
+#cta .lp-reveal > div {
+  position: relative;
+  overflow: hidden;
+}
+#cta .lp-reveal > div::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 28px;
+  background: conic-gradient(from 180deg, var(--clr-sage), var(--clr-gold), var(--clr-ocean), var(--clr-sage));
+  z-index: 0;
+  animation: lp-cta-spin 6s linear infinite;
+  opacity: 0.45;
+}
+#cta .lp-reveal > div::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 24px;
+  background: var(--clr-ink);
+  z-index: 1;
+}
+#cta .lp-reveal > div > * { position: relative; z-index: 2; }
+
+@keyframes lp-cta-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ================================================================
+   ✨ TRUST BAND — gradient shimmer on the row
+   ================================================================ */
+#why {
+  background: linear-gradient(135deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-surface) 80%, var(--clr-bg)) 100%) !important;
+  border-top: 1px solid var(--clr-border) !important;
+  border-bottom: 1px solid var(--clr-border) !important;
+  position: relative;
+  overflow: hidden;
+}
+#why::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--clr-sage) 5%, transparent) 50%, transparent 100%);
+  animation: lp-trust-shimmer 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes lp-trust-shimmer {
+  0%, 100% { opacity: 0; transform: translateX(-100%); }
+  50% { opacity: 1; transform: translateX(100%); }
+}
+
+/* Trust checkmarks pulse */
+#why .lp-reveal span[style*="color: var(--clr-sage)"] {
+  display: inline-block;
+  animation: lp-check-pop .4s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: calc(var(--i, 0) * .08s);
+}
+
+/* ================================================================
+   ✨ SECTION BACKGROUNDS — subtle alternating depth
+   ================================================================ */
+#solution {
+  background: linear-gradient(180deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-bg) 20%, var(--clr-surface)) 100%) !important;
+}
+[data-screen-label="How it works"] {
+  background: linear-gradient(180deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-sage-soft) 4%, var(--clr-surface)) 100%) !important;
+}
+[data-screen-label="Readiness"] {
+  background: linear-gradient(180deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-ocean) 4%, var(--clr-surface)) 100%) !important;
+}
+
+/* ================================================================
+   ✨ HERO EXAM CARD — elevated glass card
+   ================================================================ */
+.lp-root .vmx-question-card {
+  background: color-mix(in srgb, var(--clr-surface) 96%, transparent) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+  backdrop-filter: blur(12px) saturate(1.3);
+  border: 1px solid color-mix(in srgb, var(--clr-border) 80%, transparent) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05), 0 12px 40px -8px color-mix(in srgb, var(--clr-sage) 10%, rgba(0,0,0,.08));
+}
+
+/* ================================================================
+   ✨ STEP NUMBERS — sage ring glow
+   ================================================================ */
+[data-screen-label="How it works"] [style*="borderRadius: 50%"][style*="var(--clr-sage)"] {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--clr-sage) 15%, transparent), 0 0 0 8px color-mix(in srgb, var(--clr-sage) 6%, transparent);
+  transition: box-shadow .3s;
+}
+[data-screen-label="How it works"] [style*="borderRadius: 50%"][style*="var(--clr-sage)"]:hover {
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--clr-sage) 25%, transparent), 0 0 0 10px color-mix(in srgb, var(--clr-sage) 8%, transparent);
+}
+
+/* ================================================================
+   ✨ EYEBROW LABELS — animated left-to-right reveal
+   ================================================================ */
+.lp-root .lp-reveal.in [style*="JetBrains Mono"][style*="uppercase"][style*="var(--clr-sage)"] {
+  animation: lp-eyebrow-in .5s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes lp-eyebrow-in {
+  from { opacity: 0; letter-spacing: -.05em; transform: translateX(-6px); }
+  to   { opacity: 1; letter-spacing: inherit; transform: none; }
+}
+
+/* ================================================================
+   ✨ HERO EYEBROW CHIP — pulsing dot
+   ================================================================ */
+#lp-top .lp-reveal [style*="border-radius: 999"] span[style*="borderRadius: 50%"] {
+  animation: lp-dot-pulse 2.2s ease-in-out infinite;
+}
+@keyframes lp-dot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+
+/* ================================================================
+   ✨ READINESS RING — smooth spin-in on reveal
+   ================================================================ */
+.lp-root .lp-reveal.in [style*="conic-gradient"] {
+  animation: lp-ring-in .9s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: .2s;
+}
+@keyframes lp-ring-in {
+  from { opacity: 0; transform: scale(.88) rotate(-20deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ================================================================
+   ✨ RESPONSIVE — desktop <-> mobile at 1000px
+   ================================================================ */
 .lp-only-mobile { display: none; }
 .lp-nav-burger { display: none; }
 @media (max-width: 1000px) {
@@ -67,55 +329,84 @@ html.lp-active { background: var(--clr-bg); }
   .lp-only-mobile { display: inline-flex !important; }
   .lp-nav-burger { display: inline-flex !important; }
   .lp-stack { grid-template-columns: 1fr !important; }
-  /* Grid/flex items must be allowed to shrink below their content width,
-     or a wide child (the exam card) forces the single 1fr track past the
-     viewport → clipped overflow. min-width:0 is the standard fix. */
   .lp-stack > * { min-width: 0 !important; }
   .lp-hide-md { display: none !important; }
   .lp-pad { padding-left: 20px !important; padding-right: 20px !important; }
   .lp-center-md { text-align: center !important; }
   .lp-center-md.lp-flex { justify-content: center !important; }
+  /* Orbs shrink on mobile */
+  .lp-hero-orb-1 { width: 200px; height: 200px; }
+  .lp-hero-orb-2 { width: 150px; height: 150px; }
+  /* CTA border spin too expensive on mobile */
+  #cta .lp-reveal > div::before { display: none; }
+  #cta .lp-reveal > div::after  { inset: 0; border-radius: 26px; }
 }
 @media (max-width: 384px) {
   .lp-pad { padding-left: 14px !important; padding-right: 14px !important; }
   .vmx-btn-sm { padding: 8px 11px !important; font-size: 11px !important; }
-  /* Ultra-narrow (≤360px) tightening so the nav row + 2-col tile grids
-     don't clip at the 320px floor. Nav keeps logo + theme + primary CTA
-     + burger; the primary CTA label is already short via vmx-btn-sm. */
   .lp-nav .lp-pad { gap: 9px !important; padding-top: 9px !important; padding-bottom: 9px !important; }
 }
 @media (max-width: 340px) {
-  /* At the 320px floor, collapse the two-up example/lab-tile grids to a
-     single column so the fixed-min-content tiles stop overflowing. */
   .lp-tile-grid { grid-template-columns: 1fr !important; }
 }
 @media (hover: none) {
   .vmx-subject-card:hover { transform: none; }
 }
 
-/* ---- Motion layer (useLandingMotion) — desktop, fine-pointer, motion-ok ----
-   Cards/buttons transition smoothly toward the cursor-driven transforms the
-   JS sets inline; the rail + spotlight are JS-appended to <body>. */
+/* ================================================================
+   ✨ MOTION LAYER — card tilt / magnetic buttons
+   ================================================================ */
 .lp-root .vmx-btn-primary { transition: transform .18s cubic-bezier(.2,.7,.2,1), background .15s, color .15s, border-color .15s; }
 .lp-root .vmx-subject-card, .lp-root .vmx-stat-card { transition: transform .2s cubic-bezier(.2,.7,.2,1), border-color .2s, box-shadow .2s; transform-style: preserve-3d; }
 
-/* Left scroll-progress rail */
+/* ================================================================
+   ✨ SCROLL RAIL — left progress indicator
+   ================================================================ */
 .lp-rail { position: fixed; left: 20px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 16px; pointer-events: none; }
-.lp-rail-item { display: flex; align-items: center; gap: 9px; opacity: .35; transition: opacity .3s; }
-.lp-rail-item.is-on { opacity: 1; }
-.lp-rail-dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--clr-sage); background: transparent; transition: background .3s; }
+.lp-rail-item { display: flex; align-items: center; gap: 9px; opacity: .3; transition: opacity .35s, transform .35s; }
+.lp-rail-item.is-on { opacity: 0.8; }
+.lp-rail-item.is-current { opacity: 1; transform: translateX(3px); }
+.lp-rail-dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--clr-sage); background: transparent; transition: background .3s, transform .3s, box-shadow .3s; }
 .lp-rail-item.is-on .lp-rail-dot { background: var(--clr-sage-soft); }
-.lp-rail-item.is-current .lp-rail-dot { background: var(--clr-sage); }
+.lp-rail-item.is-current .lp-rail-dot { background: var(--clr-sage); transform: scale(1.3); box-shadow: 0 0 0 4px color-mix(in srgb, var(--clr-sage) 20%, transparent); }
 .lp-rail-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--clr-ink-soft); }
 
 /* Diagnostic spotlight (follows cursor inside question cards) */
-.lp-spotlight { position: fixed; width: 300px; height: 300px; border-radius: 50%; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .25s; background: radial-gradient(circle, color-mix(in srgb, var(--clr-sage) 13%, transparent), transparent 70%); }
+.lp-spotlight { position: fixed; width: 340px; height: 340px; border-radius: 50%; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .3s; background: radial-gradient(circle, color-mix(in srgb, var(--clr-sage) 16%, transparent), transparent 70%); }
 
-/* ---- Motion off ---- */
+/* ================================================================
+   ✨ FOOTER — gradient top border
+   ================================================================ */
+.lp-root footer[data-screen-label="Footer"] {
+  background: linear-gradient(180deg, var(--clr-bg) 0%, color-mix(in srgb, var(--clr-surface) 40%, var(--clr-bg)) 100%);
+  border-top: 1px solid transparent !important;
+  border-image: linear-gradient(90deg, transparent, var(--clr-border), transparent) 1;
+  position: relative;
+}
+.lp-root footer[data-screen-label="Footer"]::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--clr-sage-soft) 30%, var(--clr-border) 50%, var(--clr-gold-soft) 70%, transparent 100%);
+  opacity: .55;
+}
+
+/* ================================================================
+   ✨ KEYFRAMES
+   ================================================================ */
+@keyframes lp-rise { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes lp-pulse { 0% { box-shadow: 0 0 0 0 rgba(74,107,74,.45); } 70% { box-shadow: 0 0 0 7px rgba(74,107,74,0); } 100% { box-shadow: 0 0 0 0 rgba(74,107,74,0); } }
+@keyframes lp-check-pop { from { opacity: 0; transform: scale(.6) rotate(-8deg); } to { opacity: 1; transform: none; } }
+
+/* ================================================================
+   ✨ REDUCED MOTION — safety off-switch
+   ================================================================ */
 @media (prefers-reduced-motion: reduce) {
   .lp-reveal { opacity: 1; transform: none; transition: none; }
   .lp-rail, .lp-spotlight { display: none !important; }
+  #lp-top::before, .lp-hero-orb { animation: none !important; }
+  #cta .lp-reveal > div::before { animation: none !important; }
+  #why::after { animation: none !important; }
   .lp-root *, .lp-root *::before, .lp-root *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
 }
-@keyframes lp-rise { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: none; } }
-@keyframes lp-pulse { 0% { box-shadow: 0 0 0 0 rgba(74,107,74,.45); } 70% { box-shadow: 0 0 0 7px rgba(74,107,74,0); } 100% { box-shadow: 0 0 0 0 rgba(74,107,74,0); } }

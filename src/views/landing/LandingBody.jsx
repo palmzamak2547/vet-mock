@@ -47,7 +47,11 @@ export default function LandingBody(p) {
   return (
     <main id="lp-main">
       {/* ================= HERO ================= */}
-      <section id="lp-top" data-screen-label="Hero" className="lp-pad" style={{ padding: '74px 24px 88px', scrollMarginTop: 80, position: 'relative' }}>
+      <section id="lp-top" data-screen-label="Hero" className="lp-pad" style={{ padding: '74px 24px 88px', scrollMarginTop: 80, position: 'relative', overflow: 'hidden' }}>
+        {/* Decorative floating orbs — CSS animates these, aria-hidden so SR skips */}
+        <div className="lp-hero-orb lp-hero-orb-1" aria-hidden="true" />
+        <div className="lp-hero-orb lp-hero-orb-2" aria-hidden="true" />
+        <div className="lp-hero-orb lp-hero-orb-3" aria-hidden="true" />
         <div className="lp-stack" style={{ ...container, display: 'grid', gridTemplateColumns: '1.02fr 1.12fr', gap: 54, alignItems: 'center' }}>
           <div className="lp-reveal lp-center-md">
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-border)', borderRadius: 999, background: 'var(--clr-surface)', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 22 }}>
