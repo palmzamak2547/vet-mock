@@ -940,7 +940,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.20)'}
               onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.12)'}
             >
-              🎯 ทบทวนข้อที่ตอบผิด ({quickStats.wrongCount})
+              ทบทวนข้อที่ตอบผิด ({quickStats.wrongCount})
             </button>
           )}
           {showChangelogChip && (
@@ -964,7 +964,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               }}
               title="ดูรายละเอียดอัปเดตล่าสุด"
             >
-              📰 อัปเดตใหม่{LATEST_CHANGELOG?.changes?.length ? ` ${LATEST_CHANGELOG.changes.length} รายการ` : ''}
+              อัปเดตใหม่{LATEST_CHANGELOG?.changes?.length ? ` ${LATEST_CHANGELOG.changes.length} รายการ` : ''}
             </button>
           )}
         </div>
@@ -1323,7 +1323,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
           >
-            🏁 แข่งกับเพื่อน (Race mode)
+            แข่งกับเพื่อน (Race mode)
           </button>
         )}
         <Suspense fallback={null}>
@@ -1387,7 +1387,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             onClick={() => setView('auth')}
             style={{ minHeight: 40, flexShrink: 0 }}
           >
-            🔓 Login เพื่อเริ่ม
+            Login เพื่อเริ่ม
           </button>
         </div>
       )}
@@ -1429,9 +1429,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           the home view. The welcome tour covers the same shortcuts. */}
       {showWelcome && (
         <div style={{ marginTop: 30, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
-          💡 ใช้ Spaced Repetition ทุกวัน วันละ 15-30 นาที จะได้ผลดีที่สุด<br/>
-          ⌨️ กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
-          🌙 สลับโหมดมืด/สว่างที่ปุ่มขวาบน
+          ใช้ Spaced Repetition ทุกวัน วันละ 15-30 นาที จะได้ผลดีที่สุด<br/>
+          กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
+          สลับโหมดมืด/สว่างที่ปุ่มขวาบน
         </div>
       )}
 
@@ -1452,7 +1452,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           color: 'var(--clr-ink-soft)',
         }}>
           <button type="button" className="vmx-link-btn" onClick={() => setLastSeenChangelog(null)} style={linkStyle}>
-            🔔 อัปเดตล่าสุด ({LATEST_CHANGELOG.version})
+            อัปเดตล่าสุด ({LATEST_CHANGELOG.version})
           </button>
         </div>
       )}
@@ -1525,7 +1525,7 @@ function FeedbackChip() {
         whiteSpace: 'nowrap',
       }}
     >
-      📨 จาก feedback
+      จาก feedback
     </span>
   );
 }
@@ -1616,7 +1616,7 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
               cursor: 'pointer',
             }}
             title={
-              s.has_notes && count === 0 ? '📖 มี Notes — คลิกอ่านสรุปได้, ข้อสอบยังไม่มี'
+              s.has_notes && count === 0 ? 'มี Notes — คลิกอ่านสรุปได้, ข้อสอบยังไม่มี'
               : isScaffold ? 'คลิกเพื่อช่วยเติมเนื้อหา (ส่ง slide/notes/past paper)'
               : isEmpty ? 'ยังไม่มีข้อสอบ — คลิกเพื่อขอเพิ่มเนื้อหา'
               : ''

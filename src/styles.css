@@ -32,20 +32,22 @@
   --shadow-sm: 0 1px 2px rgba(43, 36, 25, 0.08);
   --shadow-md: 0 4px 12px rgba(43, 36, 25, 0.08), 0 2px 4px rgba(43, 36, 25, 0.05);
 
-  /* Duolingo-style gamified UI tokens */
-  --vmx-color-learning: #38bdf8;
-  --vmx-color-learning-shadow: #0ea5e9;
-  --vmx-color-success: #22c55e;
-  --vmx-color-success-shadow: #16a34a;
-  --vmx-color-danger: #f43f5e;
-  --vmx-color-danger-shadow: #e11d48;
-  --vmx-color-ghost: #e2e8f0;
-  --vmx-color-ghost-shadow: #cbd5e1;
-  --vmx-surface: #ffffff;
-  --vmx-surface-muted: #f8fafc;
-  --vmx-border-new: #dbe4ee;
-  --vmx-text: #172033;
-  --vmx-text-muted: #64748b;
+  /* Interaction tokens — harmonized to the warm-editorial palette.
+     (Was a cold Duolingo sky-blue/slate scheme that clashed with the
+     cream/sage app; the primary button read as a foreign design system.) */
+  --vmx-color-learning: var(--clr-sage);
+  --vmx-color-learning-shadow: var(--clr-sage-text);
+  --vmx-color-success: #43793f;
+  --vmx-color-success-shadow: #2f5a2d;
+  --vmx-color-danger: var(--clr-rose);
+  --vmx-color-danger-shadow: var(--clr-rose-text);
+  --vmx-color-ghost: var(--clr-surface-2);
+  --vmx-color-ghost-shadow: var(--clr-border);
+  --vmx-surface: var(--clr-surface);
+  --vmx-surface-muted: var(--clr-surface-2);
+  --vmx-border-new: var(--clr-border);
+  --vmx-text: var(--clr-ink);
+  --vmx-text-muted: var(--clr-ink-soft);
   --vmx-radius-control: 14px;
   --vmx-radius-card: 20px;
   --vmx-press-depth: 4px;
@@ -72,20 +74,20 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
 
-  /* Duolingo-style gamified UI tokens (Dark Mode) */
-  --vmx-color-learning: #0ea5e9;
-  --vmx-color-learning-shadow: #0369a1;
-  --vmx-color-success: #16a34a;
-  --vmx-color-success-shadow: #15803d;
-  --vmx-color-danger: #e11d48;
-  --vmx-color-danger-shadow: #be123c;
-  --vmx-color-ghost: #334155;
-  --vmx-color-ghost-shadow: #1e293b;
-  --vmx-surface: #1e293b;
-  --vmx-surface-muted: #0f172a;
-  --vmx-border-new: #334155;
-  --vmx-text: #f8fafc;
-  --vmx-text-muted: #94a3b8;
+  /* Interaction tokens (dark) — harmonized to the warm-editorial palette. */
+  --vmx-color-learning: #5f8a5f;
+  --vmx-color-learning-shadow: #3a563a;
+  --vmx-color-success: #5a9a5a;
+  --vmx-color-success-shadow: #3d6b3d;
+  --vmx-color-danger: #a85a5a;
+  --vmx-color-danger-shadow: #7a3f3f;
+  --vmx-color-ghost: var(--clr-surface-2);
+  --vmx-color-ghost-shadow: var(--clr-border);
+  --vmx-surface: var(--clr-surface);
+  --vmx-surface-muted: var(--clr-surface-2);
+  --vmx-border-new: var(--clr-border);
+  --vmx-text: var(--clr-ink);
+  --vmx-text-muted: var(--clr-ink-soft);
 }
 
 /* ── Palette overrides ──────────────────────────────────────────
@@ -252,7 +254,12 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
   outline-offset: 2px;
 }
 
-html, body { overscroll-behavior-y: contain; }
+html, body {
+  overscroll-behavior-y: contain;
+  /* Thai-first base font — so anything rendered at body level (modals,
+     tooltips, portals) matches .vmx-app instead of the UA serif default. */
+  font-family: 'Sarabun', 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
+}
 
 /* ============================================================
    Sarabun Font Definition (Local + Webfont Fallback)
@@ -657,7 +664,7 @@ html, body { overscroll-behavior-y: contain; }
   --vmx-btn-shadow: var(--vmx-color-learning-shadow);
 }
 .vmx-btn-primary:hover:not(:disabled) {
-  background: #38bdf8; /* Same as learning but can adjust hover filter later */
+  background: var(--vmx-color-learning);
   filter: brightness(0.95);
 }
 .vmx-btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -1296,120 +1303,23 @@ button.vmx-chip-quick:focus-visible {
 }
 
 /* ============================================================
-   Antigravity UX/UI Design & LMS Academy Platform Styles
+   "ACADEMY" wordmark badge — the one surviving style from an old
+   experimental block. The glassmorphism / LMS-banner / course-card
+   styles it shipped with were never referenced by any component, and a
+   stray `body { font-family: Plus Jakarta Sans }` override (plus an
+   invalid mid-file @import) was quietly dropping Thai body text to a
+   system fallback instead of IBM Plex Sans Thai — all removed.
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
-body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Antigravity Glassmorphism & Weightless Cards */
-.vmx-glass-card {
-  background: var(--clr-surface);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--clr-border);
-  border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.vmx-glass-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);
-  border-color: var(--clr-sage);
-}
-
-/* LMS Academy Header & Branding */
 .vmx-academy-badge {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.12em;
   padding: 3px 8px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--clr-sage), var(--clr-ocean));
+  background: var(--clr-sage);
   color: #ffffff;
   text-transform: uppercase;
   margin-left: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.vmx-lms-banner {
-  position: relative;
-  background: linear-gradient(135deg, rgba(74, 107, 74, 0.08), rgba(61, 107, 130, 0.12));
-  border: 1px solid var(--clr-border);
-  border-radius: 24px;
-  padding: 28px 32px;
-  margin-bottom: 28px;
-  overflow: hidden;
-}
-
-.vmx-lms-banner::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(168, 192, 168, 0.3) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.vmx-lms-banner-title {
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--clr-ink);
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.vmx-lms-banner-desc {
-  font-size: 15px;
-  color: var(--clr-ink-soft);
-  max-width: 680px;
-  line-height: 1.5;
-}
-
-.vmx-lms-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.vmx-course-card {
-  padding: 24px;
-  border-radius: 20px;
-  background: var(--clr-surface);
-  border: 1px solid var(--clr-border);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.vmx-course-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--clr-sage);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-}
-
-.vmx-course-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--clr-surface-2);
-  color: var(--clr-sage-text);
 }
 

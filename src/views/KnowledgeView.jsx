@@ -3,16 +3,15 @@
 // ============================================================
 // Reads like an edited veterinary reference, not a database UI.
 //
-// Why the typography is the way it is (2026-07-24): the note corpus stores a
-// per-topic emoji (notes-com5.js `icon`), which works beautifully in the app's
-// small browsable subject grid. It does NOT scale to a reference work: at
-// 100+ topics the icons collide and turn arbitrary, they add nothing to
-// scanning a long list, screen readers announce them before every title, and
-// they pollute anything citable. No serious reference (Wikipedia, MSD Vet
-// Manual, WOAH, UpToDate) puts an emoji in an article title.
-// So the emoji is DEMOTED, not deleted: it stays as a small browse-level icon
-// in the index, and never appears inside the article title, the breadcrumb,
-// the table of contents, or any citation surface. Hierarchy comes from type.
+// Why there are no emoji (2026-07-24, revised): the note corpus stores a
+// per-topic emoji (notes-com5.js `icon`). It does NOT scale to a reference
+// work — past ~100 topics the icons collide and turn arbitrary (🔪 🍄 🪱),
+// add nothing to scanning a subject-grouped list, get announced before every
+// title by screen readers, and pollute anything citable. No serious reference
+// (Wikipedia, MSD Vet Manual, WOAH, UpToDate) puts an emoji in a title or row.
+// So the wiki drops the emoji entirely: rows are anchored by a thin subject-
+// toned rule, and hierarchy comes from type — subject heading, title, summary.
+// (Palm's note: "when the data grows, are emoji even enough?" — no, so remove.)
 //
 // Wiki affordances added here: breadcrumb · in-wiki search · subject grouping ·
 // table of contents · stable per-section anchors (deep-linkable + citable) ·
@@ -236,8 +235,11 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                     onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--clr-surface-2)'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
                   >
-                    {/* Browse-level icon only — never part of the title text. */}
-                    <span aria-hidden="true" style={{ fontSize: 17, lineHeight: '24px', width: 22, flexShrink: 0, textAlign: 'center', opacity: 0.85 }}>{t.icon}</span>
+                    {/* No per-topic emoji — a reference list is grouped by subject,
+                        so a decorative glyph per row is noise that stops scaling
+                        once the corpus grows (Palm's "emoji won't scale" note).
+                        A thin subject-toned rule anchors the row instead. */}
+                    <span aria-hidden="true" style={{ alignSelf: 'stretch', width: 3, flexShrink: 0, borderRadius: 2, background: 'var(--clr-sage-soft)' }} />
                     <span style={{ flex: 1, minWidth: 0 }}>
                       <span style={{ display: 'block', fontSize: 15, fontWeight: 600, color: 'var(--clr-ocean)', lineHeight: 1.35 }}>{t.title}</span>
                       {t.summary && <span style={{ display: 'block', fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.5, marginTop: 2 }}>{t.summary}</span>}

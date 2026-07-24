@@ -23,10 +23,10 @@ lastReviewed: 2026-07-23
 ## 🧠 โดเมนหลัก (Core Domains)
 - [Question Bank Engine](./domain/question-bank-engine.md) - โครงสร้างคลังข้อสอบ, SM-2 Spaced Repetition และ ID Migration System
 - **COM5 — Companion Animal Infectious Diseases (Drafts):**
-  - [Canine Viral Enteritis (CPV-2, CCV, CRV)](./domain/com5/canine-viral-enteritis.md)
-  - [Feline Upper Respiratory Infection Complex](./domain/com5/feline-upper-respiratory-complex.md)
-  - [Rabies Pathogenesis & Vaccination Guidelines (WSAVA/VPAT 2024)](./domain/com5/rabies-and-vaccine-guidelines.md)
-  - [Small Animal Mycoses & GI Protozoal Infections](./domain/com5/systemic-mycoses-and-protozoa.md)
+  - [Canine Viral Enteritis (CPV-2, CCV, CRV)](./domain/com-5/canine-viral-enteritis.md)
+  - [Feline Upper Respiratory Infection Complex](./domain/com-5/feline-upper-respiratory-complex.md)
+  - [Rabies Pathogenesis & Vaccination Guidelines (WSAVA/VPAT 2024)](./domain/com-5/rabies-and-vaccine-guidelines.md)
+  - [Small Animal Mycoses & GI Protozoal Infections](./domain/com-5/systemic-mycoses-and-protozoa.md)
   - 📋 [Domain Owner Review & Approval Pack (COM5)](./reviews/com5-domain-owner-review.md)
 - **REPRO-LECT — Companion Animal Reproduction (Wave 1 Drafts):**
   - [Companion Animal Theriogenology & Reproductive Medicine](./domain/repro/canine-feline-theriogenology.md)
