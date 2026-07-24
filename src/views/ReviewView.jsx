@@ -1,6 +1,8 @@
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
+import { hasTopic } from '../lib/vetwiki/index.js';
+import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
@@ -132,7 +134,7 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
   );
 }
 
-export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, setNote, user, selectedYear = 4, selectedPhase }) {
+export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, setNote, user, selectedYear = 4, selectedPhase, onOpenWiki }) {
   const phaseLabel = selectedPhase ? PHASE_LABEL_REV[selectedPhase] : null;
   // Filter tabs let users zoom into the slice they care about — when
   // reviewing a 200-Q exam, scrolling linearly to find the 30 wrong
@@ -447,6 +449,19 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </>
             )}
             {q.explain && <div className="vmx-review-explain"><span className="k">Why</span><RichText text={q.explain} /></div>}
+            {/* For a missed question whose topic is governed, offer the checked
+                VetWiki summary — the highest-value moment to read the verified
+                version. Correct answers don't need the nudge. */}
+            {onOpenWiki && !correct && FEATURE_FLAGS.VETWIKI_ENABLED !== false && hasTopic(q.subject, q.topic) && (
+              <button
+                type="button"
+                onClick={() => onOpenWiki(q.subject, q.topic)}
+                style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, minHeight: 44, color: 'var(--clr-sage-text)', fontSize: 12.5, fontWeight: 600 }}
+                title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้"
+              >
+                🧬 อ่านสรุปเรื่องนี้ใน VetWiki →
+              </button>
+            )}
             {q && q.id && (
               <ReviewNoteEditor qId={q.id} noteText={notes?.[q.id]} setNote={setNote} />
             )}

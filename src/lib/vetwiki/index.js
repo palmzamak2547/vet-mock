@@ -24,6 +24,7 @@ const REGISTRY = [
   { subject: 'com5', topic: 'cve', source: () => NOTES_COM5.cve },
   { subject: 'com5', topic: 'sporo-crypto', source: () => NOTES_COM5['sporo-crypto'] },
   { subject: 'com5', topic: 'gi-protozoa', source: () => NOTES_COM5['gi-protozoa'] },
+  { subject: 'com5', topic: 'feline-uri', source: () => NOTES_COM5['feline-uri'] },
 ];
 
 export function listTopics() {
