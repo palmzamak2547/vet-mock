@@ -117,6 +117,47 @@ export function slug(text) {
 export const topicId = (subject, topic) => `${subject}--${topic}`;
 export const sectionId = (subject, topic, heading) => `${subject}--${topic}--${slug(heading)}`;
 
+// ---- Wiki title (strip note-metadata, keep the topic) --------------------
+// The note corpus stores author study-annotations in `title` — lecture
+// numbers ("L8,"), question counts ("45 ข้อ", "14 Q"), exam-priority tags
+// ("MAIN SCOPE", "high yield"), professor shorthand ("Aj.เอกพล", "(VDTT)",
+// "(KU lecture)"), and stars. Fine in a personal note (NotesView shows it as
+// authored); wrong in a reference work. `wikiTitle` strips ONLY those markers
+// for the wiki view — it never touches the note data, and it is marker-gated
+// so real clarifying parentheticals are preserved:
+//   "GI Surgery (Sawita 3 lectures, 45 ข้อ ⭐ MAIN SCOPE)" → "GI Surgery"
+//   "Feline Upper Respiratory Infection (FURI / FRDC)"    → unchanged
+const WIKI_EMOJI = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\u{FE0F}]/gu;
+// A parenthetical is note-metadata (strip it) ONLY if its inside matches this.
+const WIKI_NOTE_MARK = /(\d+\s*(?:ข้อ|Q)\b|\blectures?\b|\blect\b|main scope|final scope|scope!|high(?:est)?\s*yield|must[\s-]?know|\bAj\.|\bSawita\b|\bVDTT\b|\bAHRA\b|\bKU\b|\bEA\b|\bslides?\b)/i;
+
+export function wikiTitle(raw) {
+  if (!raw) return raw;
+  let t = String(raw).replace(WIKI_EMOJI, '');
+  // leading lecture-number prefix: "L8," "L10-11,"
+  t = t.replace(/^\s*L\d+(?:\s*[-–]\s*\d+)?\s*,\s*/i, '');
+  // note-metadata parentheticals — removed only when the inside is a study marker
+  t = t.replace(/\s*[(（]([^)）]*)[)）]/g, (m, inner) => (WIKI_NOTE_MARK.test(inner) ? '' : m));
+  // trailing professor annotation left over, e.g. ", Aj.เอกพล"
+  t = t.replace(/\s*,\s*Aj\.[^,(]*$/i, '');
+  // trailing Thai study-framing, e.g. "...ที่ต้องรู้จัก" ("that you should know")
+  t = t.replace(/\s*ที่(?:ต้อง|ควร|น่า)(?:รู้จัก|รู้|จำ)\s*$/u, '');
+  // tidy leftovers (double spaces, space-before-punct, dangling separators)
+  t = t.replace(/\s{2,}/g, ' ').replace(/\s+([,;.])/g, '$1').replace(/^[\s,;–-]+|[\s,;–-]+$/g, '').trim();
+  return t || String(raw).trim();
+}
+
+// ---- Wiki summary (strip decorative stars/emoji only) --------------------
+// Summaries carry meaningful clinical notation — "→" (leads to), "↑/↓"
+// (increase/decrease), "≥ ≠", subscripts — which MUST be preserved. The only
+// decoration to remove is note-emphasis stars (★ ⭐) and any picto-emoji; do
+// NOT touch arrows/maths (that would corrupt the content).
+const WIKI_SUMMARY_DECOR = /\s*[★☆⭐✨\u{FE0F}\u{1F000}-\u{1FAFF}]/gu;
+export function wikiSummary(raw) {
+  if (!raw) return raw;
+  return String(raw).replace(WIKI_SUMMARY_DECOR, '').replace(/\s{2,}/g, ' ').trim();
+}
+
 // ---- Human-language labels (NEVER show raw enum values to users) ---------
 // The internal enums are technical; users see calm Thai.
 

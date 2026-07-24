@@ -26,7 +26,7 @@ import { NOTES_Y5_EQUINE_MEDICINE } from '../../data/notes-y5-equine-medicine.js
 import { noteToKnowledge, verifiedClaimCount } from './adapter.js';
 import { validateTopic } from './validate.js';
 import { resolveSource } from './sources.js';
-import { EVIDENCE_LABEL, REVIEW_LABEL } from './schema.js';
+import { EVIDENCE_LABEL, REVIEW_LABEL, wikiTitle, wikiSummary } from './schema.js';
 
 // subject id → its notes module. Mirrors NotesView's NOTES_BY_SUBJECT (kept a
 // local copy rather than refactoring the live, actively-edited NotesView).
@@ -78,9 +78,9 @@ export function listTopics() {
       id: `${r.subject}--${r.topic}`,
       subject: r.subject,
       topic: r.topic,
-      title: note?.title || r.topic,
+      title: wikiTitle(note?.title || r.topic),
       icon: note?.icon || '📄',
-      summary: note?.summary || '',
+      summary: wikiSummary(note?.summary || ''),
       flagship: !!r.flagship,
     };
   });

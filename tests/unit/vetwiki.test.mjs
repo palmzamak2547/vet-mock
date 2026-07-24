@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { slug, sectionId, topicId } from '../../src/lib/vetwiki/schema.js';
+import { slug, sectionId, topicId, wikiTitle } from '../../src/lib/vetwiki/schema.js';
 import { noteToKnowledge, verifiedClaimCount } from '../../src/lib/vetwiki/adapter.js';
 import { validateTopic } from '../../src/lib/vetwiki/validate.js';
 import { loadTopic, provenanceSummary, listTopics, verificationFor } from '../../src/lib/vetwiki/index.js';
@@ -180,4 +180,37 @@ test('answer validator: a model cannot invent a citation', async () => {
   assert.ok(isGrounded(claims));
 
   function TYPES_OK(t) { return ['vetwiki-verified', 'vetwiki-draft', 'vetmock-analysis', 'insufficient-evidence'].includes(t); }
+});
+
+test('wikiTitle strips note-metadata but keeps real clarifying parentheticals', () => {
+  // STRIP: study annotations that belong in a personal note, not a reference.
+  assert.equal(wikiTitle('GI Surgery (Sawita 3 lectures, 45 ข้อ ⭐ MAIN SCOPE)'), 'GI Surgery');
+  assert.equal(wikiTitle('Bovine Local + Regional Anesthesia ⭐ (14 Q, highest yield)'), 'Bovine Local + Regional Anesthesia');
+  assert.equal(wikiTitle('Rumenotomy, Aj.เอกพล (EA, 11 Q, high yield)'), 'Rumenotomy');
+  assert.equal(wikiTitle('L8, Animal Nutrition (Final scope!)'), 'Animal Nutrition');
+  assert.equal(wikiTitle('L10-11, Avian Drugs, AMR'), 'Avian Drugs, AMR');
+  assert.equal(wikiTitle('L14, First Week Mortality + Immunology (AHRA)'), 'First Week Mortality + Immunology');
+  assert.equal(wikiTitle('GI Medicine (VDTT), Ruminant GI Disorder'), 'GI Medicine, Ruminant GI Disorder');
+  assert.equal(wikiTitle('Colic best-fit (KU lecture)'), 'Colic best-fit');
+  assert.equal(wikiTitle('Research Designs ที่ต้องรู้จัก'), 'Research Designs');
+
+  // KEEP: abbreviations, synonyms, standards, scope qualifiers, editions, course codes.
+  for (const keep of [
+    'CPCR (Cardiopulmonary Cerebral Resuscitation)',
+    'Feline Upper Respiratory Infection (FURI / FRDC)',
+    'Pet Vaccination Guidelines (WSAVA 2024 / VPAT 2024)',
+    'Sporotrichosis & Cryptococcosis (in cats)',
+    'Reproductive Biotechnology (ART)',
+    'Course intro — Equine Medicine & Surgery (3106510)',
+    'Equine anesthesia (2024)',
+    'Quality Assurance, Betagro framework',
+  ]) {
+    assert.equal(wikiTitle(keep), keep, `should keep: ${keep}`);
+  }
+});
+
+test('no VetWiki topic title carries an emoji (scales past ~100 topics)', () => {
+  const emoji = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\u{FE0F}]/u;
+  const dirty = listTopics().filter((t) => emoji.test(t.title));
+  assert.deepEqual(dirty.map((t) => t.title), [], 'wiki titles must be emoji-free');
 });

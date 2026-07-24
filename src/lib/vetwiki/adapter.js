@@ -15,7 +15,7 @@
 // come from ./verification.js (checked against real external sources).
 // ============================================================
 
-import { topicId, sectionId } from './schema.js';
+import { topicId, sectionId, wikiTitle, wikiSummary } from './schema.js';
 import { verificationFor } from './verification.js';
 
 /**
@@ -64,8 +64,8 @@ export function noteToKnowledge(subject, topic, noteTopic) {
     id: tId,
     subject,
     topic,
-    title: noteTopic.title || topic,
-    summary: noteTopic.summary || '',
+    title: wikiTitle(noteTopic.title || topic),
+    summary: wikiSummary(noteTopic.summary || ''),
     lecturer: noteTopic.lecturer || '',
     icon: noteTopic.icon || '📄',
     version: 1,
