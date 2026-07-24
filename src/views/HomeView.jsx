@@ -482,103 +482,69 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           onDismiss={() => { setTourOpen(false); setTourStep(0); setWelcomeDismissed(true); }}
         />
       )}
-      {/* Hero — Phase 1 round 2 (2026-05-18): compact for first-action
-          speed. Returning users see name + minimal sub-line; new users
-          see a CTA-ish hint right under the title. The big "คลังโจทย์
-          ฝึก X ข้อ" stat was demoted because the SubjectGrid below
-          already shows the visible Q count per subject, making the
-          aggregated stat redundant in the prime real-estate. */}
       <div className="vmx-hero">
         <h1>
           {user
-            ? <>สวัสดี <em>{profile?.username || 'เพื่อน'}</em></>
-            : <>เริ่ม <em>ฝึกโจทย์</em> กันเลย</>}
+            ? <>สวัสดีคุณ <em>{profile?.username || 'นิสิต'}</em></>
+            : <>คลังโจทย์ฝึก <em>สัตวแพทย์</em></>}
         </h1>
         {isScaffoldYear ? (
-          <p>🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc}, พรีวิว — รอเติมเนื้อหา</p>
+          <p><strong>{yearMeta.label}</strong> — อยู่ระหว่างจัดเตรียมข้อสอบและเนื้อหา</p>
         ) : (history.length === 0 ? (
           <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
-            ลอง <strong>1 ข้อ</strong> ใช้เวลา ~20 วินาที — เริ่มจากการ์ดด้านล่าง
+            ลองทำ <strong>1 ข้อแรก</strong> ใช้เวลาเพียง 20 วินาทีเพื่อเริ่มสะสมสถิติ
           </p>
         ) : null)}
       </div>
 
-      {/* Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap
-          once the most recent exam phase has finished. Self-contained:
-          dismiss writes to localStorage via markWrappedDismissed and
-          we bump `wrappedTick` to invalidate the memo. */}
       {bannerWinner === 'wrapped' && (
         <div
           style={{
             marginBottom: 18,
             padding: '14px 16px',
-            borderRadius: 16,
-            background: 'linear-gradient(135deg, rgba(184,137,64,0.18), rgba(184,137,64,0.08))',
-            border: '1px solid var(--clr-gold, #b88940)',
+            borderRadius: 12,
+            background: 'var(--clr-surface)',
+            border: '1px solid var(--clr-border)',
             display: 'flex',
             gap: 14,
             alignItems: 'center',
             flexWrap: 'wrap',
           }}
         >
-          <div
-            style={{
-              fontSize: 30,
-              animation: 'vmx-wrapped-pulse 2.6s ease-in-out infinite',
-            }}
-            aria-hidden="true"
-          >
-            🎉
-          </div>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.10em' }}>
-              📊 Phase Wrapped
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 600 }}>
+              สรุปผลการเรียนประจำเทอม
             </div>
-            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, marginTop: 2, lineHeight: 1.4 }}>
-              {completedPhase.label} จบแล้ว! ดูสรุปการเรียนของคุณ
+            <div style={{ fontWeight: 600, fontSize: 16, marginTop: 2, lineHeight: 1.4 }}>
+              {completedPhase.label} สิ้นสุดแล้ว ดูสรุปผลการทำโจทย์ของคุณ
             </div>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             <button
               type="button"
               className="vmx-btn vmx-btn-primary"
-              style={{ background: 'var(--clr-gold, #b88940)', borderColor: 'var(--clr-gold, #b88940)', minHeight: 44, fontSize: 13 }}
+              style={{ minHeight: 40, fontSize: 13 }}
               onClick={() => setView('phase-wrapped')}
               aria-label="ดูสรุปการเรียนของเทอมที่จบ"
             >
-              ✨ ดูสรุป →
+              ดูสรุปผล
             </button>
             <button
               type="button"
               className="vmx-btn vmx-btn-ghost"
-              style={{ minHeight: 44, fontSize: 13 }}
+              style={{ minHeight: 40, fontSize: 13 }}
               onClick={() => {
                 markWrappedDismissed(completedPhase.id);
                 setWrappedTick((n) => n + 1);
               }}
-              aria-label="ปิดประกาศ Phase Wrapped"
+              aria-label="ปิดประกาศสรุปผลการเรียนประจำเทอม"
             >
               ปิด
             </button>
           </div>
-          {/* Keyframe lives inline so we don't depend on a global stylesheet
-              edit. Respects prefers-reduced-motion via media query. */}
-          <style>{`
-            @keyframes vmx-wrapped-pulse {
-              0%, 100% { transform: scale(1); }
-              50%      { transform: scale(1.18); }
-            }
-            @media (prefers-reduced-motion: reduce) {
-              [aria-hidden="true"] { animation: none !important; }
-            }
-          `}</style>
         </div>
       )}
 
-      {/* Study coach surface — primary "วันนี้ทำอะไรดี" card. Picks 1-3
-          personalised actions from real history/SR/exam data. See
-          components/NextActionCard.jsx for the priority algorithm.
-          Hidden on scaffold years (no Qs to coach against). */}
       {!isScaffoldYear && (
         <NextActionCard
           nextExam={nextExam}
@@ -587,9 +553,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           accBySubject={accBySubject}
           subjects={yearSubjects}
           history={history}
-          // Round 2A: resume in-flight folds into NextActionCard's
-          // priority 0 — eliminates the dedicated resume banner so
-          // there's exactly ONE "what to do now" surface.
           pendingResume={pendingResume}
           onPickResume={() => resumePendingExam && resumePendingExam()}
           onPickExamPrep={(exam) => {
@@ -610,30 +573,27 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         />
       )}
 
-      {/* Welcome banner — first-time users see this instead of a
-          blocking modal. One-tap to start the tour, X to dismiss. */}
       {bannerWinner === 'welcome' && (
         <div className="vmx-welcome-banner" style={{
           marginBottom: 16,
           padding: '12px 14px',
           borderRadius: 12,
           background: 'var(--clr-surface)',
-          border: '1px dashed var(--clr-sage)',
+          border: '1px solid var(--clr-border)',
           display: 'flex',
           alignItems: 'center',
           gap: 12,
           flexWrap: 'wrap',
         }}>
-          <div style={{ fontSize: 24, lineHeight: 1 }}>👋</div>
           <div style={{ flex: 1, minWidth: 180, fontSize: 13, lineHeight: 1.5 }}>
-            <strong>ยินดีต้อนรับสู่ VetMock</strong> · ทัวร์ 4 จุดสำคัญใช้เวลา 30 วินาที
+            <strong>ยินดีต้อนรับสู่ VetMock</strong> — แนะนำตำแหน่งและเมนูสำคัญใน 30 วินาที
           </div>
           <button
             type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={() => { setTourOpen(true); setTourStep(0); }}
           >
-            🚀 ลองทัวร์
+            คำแนะนำการใช้งาน
           </button>
           <button
             type="button"
@@ -645,7 +605,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               padding: '4px 8px',
               fontSize: 14,
               color: 'var(--clr-ink-soft)',
-              fontFamily: 'inherit',
             }}
             title="ข้าม"
           >
@@ -654,32 +613,28 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* Email verification reminder — for users who signed up but
-          haven't clicked the link yet. Dismissible per-session via
-          state (not localStorage — gentle re-nag on next visit). */}
       {bannerWinner === 'verify' && (
         <div style={{
           padding: 12,
           borderRadius: 12,
           marginBottom: 16,
-          background: 'rgba(184, 137, 64, 0.10)',
-          border: '1px solid var(--clr-gold)',
+          background: 'var(--clr-surface)',
+          border: '1px solid var(--clr-border)',
           display: 'flex',
           gap: 12,
           alignItems: 'center',
           flexWrap: 'wrap',
           fontSize: 13,
         }}>
-          <span style={{ fontSize: 20 }}>📧</span>
           <span style={{ flex: 1, minWidth: 200, lineHeight: 1.5 }}>
-            <strong>ยืนยันอีเมล</strong>, ส่งไปที่ <code style={{ fontSize: 12 }}>{user.email}</code> แล้ว — กดลิงก์ในอีเมล (ดู junk/spam ด้วย)
+            <strong>กรุณายืนยันอีเมล</strong>ที่ <code style={{ fontSize: 12 }}>{user.email}</code> เพื่อเริ่มใช้งานเต็มรูปแบบ
           </span>
           <button
             type="button"
             className="vmx-link-btn"
             onClick={() => setVerifyDismissed(true)}
             style={{ all: 'unset', cursor: 'pointer', fontSize: 12, color: 'var(--clr-ink-soft)', padding: '4px 8px' }}
-            title="ปิดประกาศ (รอบนี้)"
+            title="ปิดประกาศ"
             aria-label="ปิดประกาศยืนยันอีเมล"
           >
             ปิด
@@ -687,16 +642,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* Resume in-flight exam — Round 2A 2026-05-18: NEVER shown as
-          a standalone banner now. NextActionCard absorbs this as
-          priority 0. The block is kept gated to `false` so the JSX
-          structure stays intact for future re-enable, but it never
-          renders. (Dismiss button is preserved via NextActionCard's
-          row dismiss — see onPickResume + the existing
-          dismissPendingExam handler stays accessible from the year
-          tools menu if user wants to force-clear.) */}
       {false && (() => {
-        // Search all years (the in-flight exam may not match selectedYear).
         const subjMeta = SUBJECTS.find((s) => s.id === pendingResume.subjectId);
         const subjLabel = subjMeta ? `${subjMeta.icon || ''} ${subjMeta.name || ''}` : 'ข้อสอบที่ค้างอยู่';
         const timeAgo = pendingResume.ageMin < 60
@@ -714,7 +660,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             alignItems: 'center',
             flexWrap: 'wrap',
           }}>
-            <div style={{ fontSize: 32 }}>▶️</div>
             <div style={{ flex: 1, minWidth: 200 }}>
               <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                 ทำต่อจาก {timeAgo}
@@ -746,10 +691,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         );
       })()}
 
-      {/* Next exam countdown banner — only show for 8-30 day window.
-          When ≤7 days, NextActionCard already surfaces "ติว <subject>"
-          as its top action, so the dedicated banner is redundant and
-          steals real-estate from the subject grid. */}
       {nextExam && nextExam.daysLeft > 7 && nextExam.daysLeft <= 30 && (
         <div onClick={() => setView('schedule')} style={{
           padding: 16, borderRadius: 16, marginBottom: 24, cursor: 'pointer',
@@ -757,7 +698,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           border: `2px solid ${countdown ? 'var(--clr-rose)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose)' : 'var(--clr-border)')}`,
           display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap',
         }}>
-          <div style={{ fontSize: 36 }}>{nextExam.icon}</div>
           <div style={{ flex: 1, minWidth: 200 }}>
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
               สอบถัดไป
@@ -788,28 +728,19 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* What's-new announcement — auto-dismissed once seen.
-          Only renders as a banner when it wins the priority race; if it
-          lost (e.g. resume/wrapped won), the changelog appears as a
-          dismissible chip in the quick-action row below instead. */}
       {(bannerWinner === 'announcement' || forceChangelogOpen) && (
         <div
           style={{
             padding: 16,
             borderRadius: 14,
             marginBottom: 20,
-            background: 'rgba(184, 137, 64, 0.08)',
-            border: '1px solid var(--clr-gold)',
+            background: 'var(--clr-surface)',
+            border: '1px solid var(--clr-border)',
             position: 'relative',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap' }}>
-            <div style={{ fontSize: 28, lineHeight: 1 }}>🎉</div>
             <div style={{ flex: 1, minWidth: 200 }}>
-              {/* Hide the raw version string (5.22.7) — it's developer
-                  metadata; users only care that there's a new update
-                  and when. Version stays accessible in About + via the
-                  detail expander below for users who want it. */}
               <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 อัปเดตใหม่ · {fmtThaiDate(LATEST_CHANGELOG.date)}
               </div>
@@ -843,10 +774,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             </button>
           </div>
 
-          {/* Detail list collapsed by default — Palm flagged the
-              banner felt too long when items rendered eagerly. Show
-              only on click; show only titles (no desc) to keep the
-              expanded state compact. */}
           {expanded && (
             <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
               {LATEST_CHANGELOG.changes.map((c, i) => (
@@ -864,7 +791,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     lineHeight: 1.4,
                   }}
                 >
-                  <span style={{ fontSize: 14, flexShrink: 0 }}>{c.icon}</span>
                   <span style={{ flex: 1, minWidth: 0 }}>
                     {c.fromFeedback && <FeedbackChip />}
                     <strong style={{ color: 'var(--clr-ink)' }}>{c.title}</strong>
@@ -897,10 +823,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {/* Quick Actions — streak chip + random Q + wrong-answer review.
-          Cross-subject app-wide actions placed prominently above subject
-          grid so casual sessions ("just one Q while waiting") and review
-          loops ("show me what I got wrong") are 1 tap away. */}
       {(quickStats.streak > 0 || (allQuestionsPool > 0 && history.length > 0) || quickStats.wrongCount > 0 || showChangelogChip) && (
         <div className="vmx-home-quick-actions" style={{
           display: 'flex',
@@ -917,38 +839,35 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 8,
-                padding: '8px 14px',
+                padding: '6px 12px',
                 borderRadius: 999,
-                background: 'rgba(74, 107, 74, 0.12)',
-                border: '1px solid var(--clr-sage)',
-                fontSize: 13,
-                fontFamily: 'JetBrains Mono, monospace',
-                color: 'var(--clr-sage)',
+                background: 'var(--clr-surface-2)',
+                border: '1px solid var(--clr-border)',
+                fontSize: 12,
+                color: 'var(--clr-ink-soft)',
               }}
-              title="ระบบใช้ Streak Freeze 1 ครั้ง — streak ของคุณรอด"
             >
-              ❄️ Streak Freeze ใช้แล้ว · streak {freezeNotice.streak} วันรอด
+              ระบบรักษาสถิติการเรียนต่อเนื่อง {freezeNotice.streak} วัน
             </div>
           )}
           {quickStats.streak > 0 && (
             <div
-              className={quickStats.streak >= 3 ? 'vmx-streak-active vmx-pop-in' : 'vmx-pop-in'}
-              title={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน, วันนี้ทำไปแล้ว ${quickStats.todayCount} ข้อ`}
+              className="vmx-pop-in"
+              title={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน`}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 6,
-                padding: '8px 14px',
+                padding: '6px 12px',
                 borderRadius: 999,
-                background: 'rgba(231, 116, 68, 0.12)',
-                border: '1px solid #d97744',
-                fontSize: 13,
-                fontFamily: 'JetBrains Mono, monospace',
-                color: '#a85a30',
+                background: 'var(--clr-surface-2)',
+                border: '1px solid var(--clr-border)',
+                fontSize: 12,
+                color: 'var(--clr-ink-soft)',
               }}
             >
-              🔥 streak {quickStats.streak} วัน
-              {quickStats.todayCount > 0 && <span style={{ color: 'var(--clr-ink-soft)' }}>, วันนี้ {quickStats.todayCount} ข้อ</span>}
+              สะสมต่อเนื่อง {quickStats.streak} วัน
+              {quickStats.todayCount > 0 && <span> (วันนี้ทำไป {quickStats.todayCount} ข้อ)</span>}
             </div>
           )}
 
@@ -957,32 +876,25 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               className="vmx-chip-quick vmx-pop-in"
               onClick={launchRandomQ}
               disabled={quickActionPending}
-              title={quickActionPending ? 'กำลังเตรียมข้อแรก...' : `สุ่ม 1 ข้อจากคลังทั้งหมด ${allQuestionsPool} ข้อ`}
+              title={quickActionPending ? 'กำลังเตรียมข้อสอบ...' : `สุ่ม 1 ข้อจากคลังทั้งหมด ${allQuestionsPool} ข้อ`}
               style={{
                 all: 'unset',
                 cursor: quickActionPending ? 'wait' : 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 6,
-                padding: '8px 14px',
+                padding: '6px 12px',
                 borderRadius: 999,
-                background: 'rgba(93, 180, 211, 0.12)',
-                border: '1px solid #5db4d3',
-                fontSize: 13,
-                fontFamily: 'JetBrains Mono, monospace',
-                color: '#3a8aa8',
+                background: 'var(--clr-surface)',
+                border: '1px solid var(--clr-border)',
+                fontSize: 12,
+                color: 'var(--clr-ink)',
                 opacity: quickActionPending ? 0.65 : 1,
-                transition: 'transform 0.12s, background 0.15s, opacity 0.15s',
               }}
-              onMouseEnter={(e) => { if (!quickActionPending) e.currentTarget.style.background = 'rgba(93, 180, 211, 0.20)'; }}
-              onMouseLeave={(e) => { if (!quickActionPending) e.currentTarget.style.background = 'rgba(93, 180, 211, 0.12)'; }}
             >
-              {quickActionPending ? '⏳ กำลังเตรียมข้อแรก...' : '🎲 ฝึก 1 ข้อด่วน'}
+              {quickActionPending ? 'กำลังเตรียมข้อแรก...' : 'สุ่มฝึก 1 ข้อด่วน'}
             </button>
           )}
-          {/* First-load microcopy — Palm round 2 spec 2026-05-18: when
-              QB is loading for the first time (history empty), let the
-              user know "first load is slower, future loads cached". */}
           {history.length === 0 && quickActionPending && (
             <span
               role="status"
@@ -1712,19 +1624,15 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
             {s.name_en && s.name_en.toLowerCase() !== s.name.toLowerCase() && (
               <div className="sub">{s.name_en}</div>
             )}
-            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes ? 'var(--clr-sage)' : (isScaffold ? 'var(--clr-gold)' : 'var(--clr-rose)')) }}>
+            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes ? 'var(--clr-sage)' : 'var(--clr-rose)') }}>
               {count > 0
-                ? `${count} ข้อ${s.scaffold ? ' · PREVIEW' : ''}`
+                ? `${count} ข้อ`
                 : s.has_notes
-                  ? `📖 มี Notes${s.vault_lecturers?.length ? ` · ${s.vault_lecturers.length} faculty` : ''}`
-                  : isScaffold
-                    ? `🚧 รอเติมเนื้อหา${s.vault_lecturers?.length ? `, ${s.vault_lecturers.length} faculty` : ''}`
-                    : '🚧 รอข้อสอบเพิ่ม'}
+                  ? 'มีสรุปเนื้อหา'
+                  : 'ยังไม่มีชุดข้อสอบ'}
             </div>
 
-            {/* Per-subject progress chips — only when LIVE + has data.
-                Accuracy chip shown when ≥5 attempts (avoids "100% (1/1)"
-                misleading display). Color: rose <60, gold 60-79, sage ≥80. */}
+            {/* Per-subject progress chips — clean text badges */}
             {!isScaffold && !isEmpty && (() => {
               const acc = accBySubject[s.id];
               const hasAccData = acc && acc.total >= 5;
@@ -1740,51 +1648,39 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
                   display: 'flex',
                   gap: 6,
                   flexWrap: 'wrap',
-                  fontSize: 10,
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: 11,
                   color: 'var(--clr-ink-soft)',
                 }}>
                   {hasAccData && (
                     <span title={`ตอบถูก ${acc.correct}/${acc.total} ใน 90 วันล่าสุด`} style={{ color: accColor, fontWeight: 600 }}>
-                      🎯 {accPct}%
+                      ถูกต้อง {accPct}%
                     </span>
                   )}
                   {readDone > 0 && (
                     <span title={`อ่านแล้ว ${readDone}/${topics.length} หัวข้อ`}>
-                      📚 {readPct}%
+                      อ่านแล้ว {readPct}%
                     </span>
                   )}
                   {bookmarkCount > 0 && (
-                    <span title={`มี bookmark ${bookmarkCount} ข้อในวิชานี้`}>
-                      🔖 {bookmarkCount}
+                    <span title={`มีบันทึก ${bookmarkCount} ข้อในวิชานี้`}>
+                      บันทึก {bookmarkCount}
                     </span>
                   )}
                 </div>
               );
             })()}
 
-            {/* Removed: 7-digit course code (3106417…). It's already
-                searchable via the command palette and adds visual noise
-                without helping users decide which card to tap.
-                Removed: long examFormat detail chip ("Mid 105/200 (52.5%),
-                Final 90/200 (45%), Class 5/200 (2.5%), Letter Grade A-F").
-                The full breakdown lives on the subject detail / config
-                page; on the card we only show the "choice count" hint
-                because that materially changes how the user studies
-                (4 vs 5 choices = different elimination math). */}
             {s.examFormat?.choiceCount && !isScaffold && (
               <div style={{
                 marginTop: 6,
                 padding: '3px 8px',
                 borderRadius: 999,
                 background: 'var(--clr-surface-2)',
-                fontSize: 10,
-                fontFamily: 'JetBrains Mono, monospace',
+                fontSize: 11,
                 color: 'var(--clr-ink-soft)',
                 display: 'inline-block',
-                letterSpacing: '0.05em',
               }}>
-                📝 {s.examFormat.choiceCount} ช้อยส์
+                {s.examFormat.choiceCount} ตัวเลือก
               </div>
             )}
           </button>

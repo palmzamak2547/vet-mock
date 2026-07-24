@@ -14,6 +14,7 @@ import { useOnlineStatus } from './hooks/useOnlineStatus.js';
 import ThemePicker from './components/ThemePicker.jsx';
 import UserMenu from './components/UserMenu.jsx';
 import HeaderBar from './components/HeaderBar.jsx';
+import Sidebar from './components/Sidebar.jsx';
 import Footer from './components/Footer.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
@@ -1519,6 +1520,16 @@ export default function App() {
           this file (Vite injects it) — no more <style>{STYLES}</style>. */}
       <TopLoadingBar />
       <div className="vmx-app">
+        {!FOCUS_VIEWS.has(view) && (
+          <Sidebar 
+            view={view} 
+            setView={setView} 
+            goHome={goHome} 
+            setSubject={setSubject} 
+            setPracticeMode={setPracticeMode} 
+            setMode={setMode} 
+          />
+        )}
         <div className="vmx-container">
           {/* Skip-to-main link — keyboard/screen-reader only, visible on
               focus so sighted users don't see it. Lets users bypass the

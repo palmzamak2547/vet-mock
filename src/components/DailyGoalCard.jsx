@@ -1,18 +1,5 @@
 // ============================================================
-// DailyGoalCard — daily Q quota + today's tasks
-// ============================================================
-//
-// Two-in-one widget for HomeView:
-//   1. Daily Q goal — user sets a target (default 25/day), progress
-//      bar fills as they answer. Crossing 100% triggers a small
-//      celebration animation.
-//   2. Today's tasks — quick checklist for the day (add/check/delete).
-//      Persists in localStorage; auto-rolls over to a fresh day at
-//      midnight (yesterday's tasks are archived to a 7-day rolling
-//      buffer in case Palm wants them back).
-//
-// Both pieces are localStorage-only — no Supabase, no cost. Stays
-// useful even offline.
+// DailyGoalCard — daily Q quota + today's tasks (compact list rows)
 // ============================================================
 
 import { useEffect, useMemo, useState } from 'react';
@@ -31,23 +18,12 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
   const [taskInput, setTaskInput] = useState('');
   const today = todayKey();
 
-  // Q count for today — counts non-skipped history entries (i.e., the
-  // user actually committed an answer). One entry per Q in an exam.
-  //
-  // Year-scope — Palm directive 2026-05-19 data-layer audit round 3.
-  // When selectedYear is set, only count today's Qs that belong to the
-  // user's current year. Prevents "วันนี้ทำไป 7/25" inflated by a Y4
-  // session done earlier today while user is now in Y5 context.
-  // Falls back to all-history count when selectedYear is null.
   const todayCount = useMemo(() => {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
     const t = startOfDay.getTime();
     const yearMatch = (h) => {
       if (!Number.isFinite(selectedYear)) return true;
-      // Prefer explicit year tag. Fall back to allowing entries that
-      // lack year (unmigrated rows · don't penalize the user for our
-      // schema gap).
       if (typeof h.year === 'number') return h.year === selectedYear;
       return true;
     };
@@ -58,8 +34,6 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
     ).length;
   }, [history, selectedYear]);
 
-  // Auto-rollover — if tasks for "yesterday" exist, archive them
-  // (kept for 7 days under YYYY-MM-DD keys). Today's bucket created lazily.
   useEffect(() => {
     setTasksByDay((prev) => {
       const out = { ...prev };
@@ -75,8 +49,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
       if (!out[today]) out[today] = [];
       return out;
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [today, setTasksByDay]);
 
   const tasks = tasksByDay[today] || [];
 
@@ -112,9 +85,11 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
   const hit = todayCount >= goal && goal > 0;
 
   return (
-    <div className="vmx-dash-card" style={{ padding: 16 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
-        <h3 style={{ margin: 0, fontSize: 16 }}>🎯 เป้าวันนี้</h3>
+    <div className="vmx-dash-card" style={{ padding: '14px 16px', borderRadius: 12, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+        <h3 style={{ margin: 0, fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
+          เป้าหมายทำโจทย์ประจำวัน
+        </h3>
         {editing ? (
           <span style={{ display: 'flex', gap: 4 }}>
             <input
@@ -122,30 +97,38 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
               inputMode="numeric"
               value={inputGoal}
               onChange={(e) => setInputGoal(e.target.value)}
-              style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 13 }}
+              style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 13, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
             />
-            <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={saveGoal}>OK</button>
+            <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={saveGoal}>บันทึก</button>
           </span>
         ) : (
           <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setEditing(true); setInputGoal(String(goal)); }}>
-            ⚙ ตั้งเป้า
+            แก้ไขเป้าหมาย
           </button>
         )}
       </div>
-      <div style={{ marginTop: 8, fontSize: 22, fontFamily: 'Fraunces, serif', fontWeight: 700, color: hit ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-ink)' }}>
-        {todayCount} / {goal} {hit && '🎉'}
+
+      <div style={{ marginTop: 8, display: 'flex', alignItems: 'baseline', gap: 8 }}>
+        <span style={{ fontSize: 20, fontWeight: 700, color: hit ? 'var(--vmx-color-success)' : 'var(--clr-ink)' }}>
+          {todayCount} / {goal} ข้อ
+        </span>
+        {hit && <span style={{ fontSize: 12, color: 'var(--vmx-color-success)', fontWeight: 700 }}>บรรลุเป้าหมายแล้ว</span>}
       </div>
-      <div style={{ marginTop: 6, height: 10, borderRadius: 999, background: 'var(--clr-surface-2)', overflow: 'hidden' }}>
+
+      <div style={{ marginTop: 12, height: 16, borderRadius: 999, background: 'var(--vmx-surface-muted)', overflow: 'hidden' }}>
         <div style={{
-          height: '100%', width: `${pct}%`,
-          background: hit ? 'var(--clr-sage, #4a6b4a)' : 'linear-gradient(90deg, var(--clr-sage, #4a6b4a), var(--clr-gold, #b88940))',
+          height: '100%',
+          width: `${pct}%`,
+          background: hit ? 'var(--vmx-color-success)' : 'var(--vmx-color-learning)',
           transition: 'width 0.4s ease',
+          borderRadius: 999
         }} />
       </div>
 
-      <div style={{ marginTop: 16 }}>
-        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 6 }}>
-          ✅ Todo วันนี้
+      {/* Compact Daily Task List */}
+      <div style={{ marginTop: 14, borderTop: '1px solid var(--clr-border)', paddingTop: 10 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
+          รายการสิ่งที่ต้องทำวันนี้
         </div>
         <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
           <input
@@ -153,19 +136,20 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
             value={taskInput}
             onChange={(e) => setTaskInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') addTask(); }}
-            placeholder="เพิ่มสิ่งที่ต้องทำวันนี้…"
+            placeholder="เพิ่มรายการสิ่งที่ต้องทำ..."
             style={{ flex: 1, padding: '6px 10px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 13, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
           />
           <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={addTask} disabled={!taskInput.trim()}>
-            +
+            เพิ่ม
           </button>
         </div>
+
         {tasks.length === 0 ? (
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>ยังไม่มีรายการ — พิมพ์เพิ่มข้างบน</div>
+          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>ยังไม่มีรายการประจำวัน</div>
         ) : (
           <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 4 }}>
             {tasks.map((t) => (
-              <li key={t.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 8px', borderRadius: 6, background: t.done ? 'rgba(74, 107, 74, 0.07)' : 'transparent' }}>
+              <li key={t.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 8px', borderRadius: 6, background: t.done ? 'var(--clr-surface-2)' : 'transparent' }}>
                 <input
                   type="checkbox"
                   checked={t.done}
@@ -179,10 +163,10 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
                 <button
                   type="button"
                   onClick={() => deleteTask(t.id)}
-                  aria-label="ลบ"
-                  style={{ background: 'transparent', border: 'none', color: 'var(--clr-ink-soft)', cursor: 'pointer', fontSize: 14, padding: 0 }}
+                  aria-label="ลบรายการ"
+                  style={{ background: 'transparent', border: 'none', color: 'var(--clr-ink-soft)', cursor: 'pointer', fontSize: 13, padding: '2px 4px' }}
                 >
-                  ✕
+                  ลบ
                 </button>
               </li>
             ))}

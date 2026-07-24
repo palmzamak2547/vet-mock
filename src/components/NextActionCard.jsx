@@ -1,21 +1,5 @@
 // ============================================================
-// NextActionCard — "วันนี้ทำอะไรดี" study coach surface
-// ============================================================
-//
-// Inspired by Palm's friend's review (2026-05-12): "เปิดมาแล้วมัน
-// บอกเลยว่า 'วันนี้ควรทำ COM III 15 ข้อ + ทวนผิด 5 ข้อ + อ่าน
-// คาบ 23' แบบ personalized". Goal: turn the home page from a
-// menu-of-tools into a 1-card coach surface.
-//
-// Algorithm (priority-ordered, picks up to 3 actions):
-//   1. Imminent exam (≤7 days) → "ติว <subject>"
-//   2. SR cards due (≥5)        → "ทบทวน SR N ข้อ"
-//   3. Wrong streak (≥5)        → "ทำข้อที่เคยผิด N ข้อ"
-//   4. Weak subject (lowest acc ≥5 attempts)
-//   5. Fallback: random Q
-//
-// IRON RULE 0: numbers shown come from real localStorage data
-// (history, srCards, bookmarks). No fabricated recommendations.
+// NextActionCard — "กิจกรรมแนะนำสำหรับคุณ" study coach surface
 // ============================================================
 
 import { useMemo } from 'react';
@@ -27,9 +11,6 @@ export default function NextActionCard({
   accBySubject,
   subjects,
   history,
-  // Round 2A 2026-05-18: consolidate "resume in-flight exam" into the
-  // priority-0 slot of the coach card (was a separate banner). Palm
-  // spec wanted "ทำชุดเดิมต่อ" as part of the primary action card.
   pendingResume,
   onPickResume,
   onPickExamPrep,
@@ -41,17 +22,14 @@ export default function NextActionCard({
   const actions = useMemo(() => {
     const out = [];
 
-    // Priority 0: resume in-flight exam — Palm spec 2026-05-18 round 2.
-    // Beats every other action because the user already started this;
-    // bringing them back finishes a session they were mid-way through.
+    // Priority 0: resume in-flight exam
     if (pendingResume) {
       const timeAgo = pendingResume.ageMin < 60
         ? `${pendingResume.ageMin} นาทีที่แล้ว`
-        : `${Math.round(pendingResume.ageMin / 60)} ชม. ที่แล้ว`;
+        : `${Math.round(pendingResume.ageMin / 60)} ชั่วโมงที่แล้ว`;
       out.push({
-        icon: '▶️',
-        title: 'ทำชุดเดิมต่อ',
-        sub: `ตอบไปแล้ว ${pendingResume.answered}/${pendingResume.qCount} · ${timeAgo}`,
+        title: 'ทำต่อจากครั้งล่าสุด',
+        sub: `ตอบไปแล้ว ${pendingResume.answered}/${pendingResume.qCount} ข้อ (${timeAgo})`,
         cta: 'ทำต่อ',
         kind: 'resume',
         onClick: () => onPickResume?.(),
@@ -61,20 +39,15 @@ export default function NextActionCard({
     // Priority 1: imminent exam (≤7 days)
     if (nextExam && nextExam.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 7) {
       out.push({
-        icon: '📅',
         title: `ติว ${nextExam.subject_name || nextExam.title || 'วิชาที่จะสอบ'}`,
-        sub: nextExam.daysLeft === 0 ? 'สอบวันนี้' : `สอบใน ${nextExam.daysLeft} วัน`,
+        sub: nextExam.daysLeft === 0 ? 'กำหนดสอบวันนี้' : `กำหนดสอบในอีก ${nextExam.daysLeft} วัน`,
         cta: 'เริ่มฝึก',
         kind: 'exam',
         onClick: () => onPickExamPrep?.(nextExam),
       });
     }
 
-    // Priority 2: SR cards due — gated on real history.
-    // cardStats.due is reviewed-only (sm2.js fix 2026-05-16) so this
-    // already excludes unseen cards. We additionally gate on ≥10
-    // history entries + realistic daily band (5-100) so a user with
-    // 3 cards reviewed yesterday doesn't get an SR push today.
+    // Priority 2: SR cards due
     if (
       cardStats?.due >= 5
       && cardStats.due <= 100
@@ -83,12 +56,11 @@ export default function NextActionCard({
     ) {
       const target = Math.min(cardStats.due, 20);
       out.push({
-        icon: '🧠',
-        title: `ทบทวน SR ${target} ข้อ`,
+        title: `ทบทวนความจำ ${target} ข้อ`,
         sub: cardStats.due > target
-          ? `(ค้างรวม ${cardStats.due} — ทำวันละ ~${target})`
-          : 'ทบทวน flash card ที่ครบ interval',
-        cta: 'เริ่ม SR',
+          ? `ค้างรวม ${cardStats.due} ข้อ (ทำวันละ ~${target} ข้อ)`
+          : 'ทบทวนข้อสอบตามรอบระยะเวลา',
+        cta: 'เริ่มทบทวน',
         kind: 'sr',
         onClick: () => onPickSR?.(),
       });
@@ -98,16 +70,15 @@ export default function NextActionCard({
     if (quickStats?.wrongCount >= 5) {
       const target = Math.min(quickStats.wrongCount, 10);
       out.push({
-        icon: '⚠️',
-        title: `ทำข้อที่เคยผิด ${target} ข้อ`,
-        sub: `(รวม ${quickStats.wrongCount} ข้อในประวัติ)`,
-        cta: 'ทำข้อผิด',
+        title: `ทบทวนข้อที่ตอบผิด ${target} ข้อ`,
+        sub: `มีข้อสอบที่ตอบผิดในประวัติรวม ${quickStats.wrongCount} ข้อ`,
+        cta: 'ทบทวนข้อผิด',
         kind: 'wrong',
         onClick: () => onPickWrong?.(),
       });
     }
 
-    // Priority 4: weakest subject (lowest accuracy among ≥5 attempts)
+    // Priority 4: weakest subject
     if (out.length < 3 && accBySubject) {
       const candidates = Object.entries(accBySubject)
         .filter(([, acc]) => acc && acc.total >= 5)
@@ -117,9 +88,8 @@ export default function NextActionCard({
         const weakest = candidates[0];
         const subj = subjects?.find((s) => s.id === weakest.id);
         out.push({
-          icon: '🎯',
-          title: `ลุย ${subj?.name || weakest.id}`,
-          sub: `accuracy ${Math.round(weakest.pct * 100)}% ใน 90 วันล่าสุด`,
+          title: `เสริมจุดอ่อน ${subj?.name || weakest.id}`,
+          sub: `ความถูกต้อง ${Math.round(weakest.pct * 100)}% (ประวัติ 90 วันล่าสุด)`,
           cta: 'ฝึกซ้อม',
           kind: 'weak',
           onClick: () => onPickWeakSubject?.(weakest.id),
@@ -127,20 +97,16 @@ export default function NextActionCard({
       }
     }
 
-    // Fallback: random Q if nothing else applies.
-    // New users (history empty) get an aggressive "20 วินาที" CTA
-    // — Palm spec 2026-05-18 round 2: turn the empty fallback into a
-    // commitment-low first action ("just 20 seconds, just 1 Q").
+    // Fallback: random Q
     if (out.length === 0) {
       out.push({
-        icon: '🎲',
         title: history?.length === 0
-          ? 'ลอง 1 ข้อ — ใช้เวลา ~20 วินาที'
-          : 'ฝึก 1 ข้อด่วน',
+          ? 'ลองทำ 1 ข้อแรก'
+          : 'ฝึกสุ่ม 1 ข้อด่วน',
         sub: history?.length === 0
-          ? 'ทำข้อแรกของคุณวันนี้ — ระบบจะเริ่มเก็บสถิติให้'
-          : 'สุ่มจากทุกวิชาในปีนี้',
-        cta: history?.length === 0 ? 'เริ่มเลย' : 'ลุย',
+          ? 'เริ่มสะสมประวัติการทำโจทย์ของคุณวันนี้'
+          : 'สุ่มโจทย์จากคลังวิชาในปีการศึกษานี้',
+        cta: history?.length === 0 ? 'เริ่มทำ' : 'เริ่มฝึก',
         kind: 'random',
         onClick: () => onPickRandom?.(),
       });
@@ -154,7 +120,7 @@ export default function NextActionCard({
   return (
     <section className="vmx-next-actions" aria-labelledby="vmx-next-actions-title">
       <h2 id="vmx-next-actions-title" className="vmx-next-actions-heading">
-        <span aria-hidden>🎯</span> วันนี้ทำอะไรดี
+        กิจกรรมแนะนำสำหรับคุณ
       </h2>
       <div className="vmx-next-actions-list">
         {actions.map((a, i) => (
@@ -164,12 +130,11 @@ export default function NextActionCard({
             onClick={a.onClick}
             className={`vmx-next-action${i === 0 ? ' is-primary' : ''}`}
           >
-            <span className="vmx-next-action-icon" aria-hidden>{a.icon}</span>
             <span className="vmx-next-action-copy">
               <span className="vmx-next-action-title">{a.title}</span>
               <span className="vmx-next-action-sub">{a.sub}</span>
             </span>
-            <span className="vmx-next-action-cta">{a.cta} <span aria-hidden>→</span></span>
+            <span className="vmx-next-action-cta">{a.cta}</span>
           </button>
         ))}
       </div>
