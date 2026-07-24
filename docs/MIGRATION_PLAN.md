@@ -38,15 +38,16 @@ place so later phases edit CSS / one map instead of 100+ JSX files.
 ## Phase 2 — Critical workflows (nav shell · exam · results · review · states)
 Goal: fix the destinations users can't reach or that lose data.
 
-- [ ] **Mobile bottom tab bar** (<1024px) rendered from the registry, same top-level
-  set as desktop, hidden mid-exam via `FOCUS_VIEWS`; resolve the ToolsFAB collision
-  (findings 1-nav, 2).
-- [ ] **Unify desktop/mobile destinations** to one registry-driven set + `aria-current`
-  active state on both breakpoints (finding 2).
-- [ ] **Fix Mock Exam** (finding 1) — wire to real per-year/subject data through the
-  `vmx-inflight-exam` lifecycle, OR feature-flag out of nav until wired.
-- [ ] **Exam submit confirm** — styled modal on final MCQ showing answered/remaining +
-  re-entry latch in `finishExam`; decouple Arrow/Enter from terminal submit (finding 3).
+- [x] **Fix Mock Exam** (finding 1, P0) — "Mock Exam" nav now runs the real
+  config → exam engine (same preset as HomeView's Exam Mode); demo stub removed.
+- [x] **Mobile bottom tab bar** (<1024px) from a shared `lib/nav.js` model, same
+  destinations as the desktop Sidebar, hidden mid-exam via `FOCUS_VIEWS`; ToolsFAB
+  lifts above it via `--vmx-bottom-nav-h`. Line icons replace emoji (findings 1-nav, 2).
+- [x] **Unify desktop/mobile destinations** — Sidebar + BottomNav render from the
+  same `NAV_ITEMS`/`runNav`; `aria-current` active state on both (finding 2).
+- [x] **Exam submit confirm** — styled dialog on the last question (answered/remaining
+  + unanswered warning) + `finishingRef` re-entry latch; Space/Enter/J decoupled from
+  terminal submit, keyboard still submits via the confirm (finding 3).
 - [ ] **Restore resume "discard/start fresh"** (finding 14).
 - [ ] **Bulk hex→var** for dark mode, quarantining the DICOM lab (finding 5).
 
@@ -69,5 +70,12 @@ Goal: fix the destinations users can't reach or that lose data.
 - [ ] Decide the two-visual-languages question (quarantined marketing glass vs app).
 
 ## Status log
-- **2026-07-24** — Audit complete. Phase 1 started: de-slop (home Duolingo-blue → sage
-  + dead glass CSS removed; wiki emoji/note-metadata stripped) + token scales + docs.
+- **2026-07-24** — Audit complete. Shipped (each gated + prod-verified):
+  - de-slop: home Duolingo-blue → sage + dead glass CSS removed + Thai font restored
+  - wiki: emoji + note-metadata stripped from derived titles/summaries
+  - Phase 1 foundation: spacing/z/motion/radius token scales + UX_AUDIT/MIGRATION_PLAN/
+    DESIGN_SYSTEM docs
+  - Phase 2: P0 Mock Exam fixed · mobile bottom nav + shared nav model + line icons ·
+    exam-submit confirm + re-entry latch
+  - Next: resume discard action · hex→var · native dialogs → styled · loading skeletons ·
+    VIEW↔PATH routing · HomeView memo · utility-layer migration.
