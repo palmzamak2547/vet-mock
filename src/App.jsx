@@ -660,6 +660,11 @@ export default function App() {
   // call, populated after finishExam is declared further down). The
   // hook only sees `() => finishExamRef.current?.()` as `onFinish`.
   const finishExamRef = useRef(null);
+  // Re-entry latch: the timer-tick onFinish and a user submit on the last
+  // question can race — this stops finishExam running twice (which would
+  // double-append history + double-write the leaderboard). Reset when a new
+  // exam starts or the user goes home.
+  const finishingRef = useRef(false);
   const session = useExamSession({
     view, useTimer, timePerQ,
     onFinish: useCallback(() => finishExamRef.current?.(), []),
@@ -858,6 +863,7 @@ export default function App() {
     try { saved = JSON.parse(raw); } catch { setPendingResume(null); return; }
     if (!session.primeFromSaved(saved)) { setPendingResume(null); return; }
     setPendingResume(null);
+    finishingRef.current = false; // arm the finish latch for the resumed session
     setView('exam');
     // eslint-disable-next-line react-hooks/exhaustive-deps -- session is stable across renders
   }, []);
@@ -899,6 +905,9 @@ export default function App() {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       // Don't fire exam shortcuts while command palette is open
       if (paletteOpen) return;
+      // ...or while a modal (nav grid / submit-confirm) is open — let its
+      // focused control receive Enter/Space natively instead of us eating it.
+      if (typeof document !== 'undefined' && document.querySelector('.vmx-modal-overlay')) return;
       const q = questions[currentIdx];
       if (!q) return;
       if (q.type === 'mcq' && ['1', '2', '3', '4'].includes(e.key)) answerCurrent(parseInt(e.key) - 1);
@@ -906,9 +915,16 @@ export default function App() {
         if (e.key === 't' || e.key === 'T') answerCurrent(true);
         if (e.key === 'f' || e.key === 'F') answerCurrent(false);
       }
-      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextQ(); }
+      // Decouple keypress from terminal submit: on the LAST question,
+      // Space/Enter surface the styled submit-confirm instead of instantly
+      // finishing the exam (a stray keypress must not end a session).
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        if (currentIdx < questions.length - 1) nextQ();
+        else window.dispatchEvent(new CustomEvent('vmx-exam-submit-request'));
+      }
       if (e.key === 'ArrowLeft') prevQ();
-      if (e.key === 'ArrowRight') nextQ();
+      if (e.key === 'ArrowRight') { if (currentIdx < questions.length - 1) nextQ(); }
       if (e.key === 'b' || e.key === 'B') toggleBookmark(q.id);
     };
     window.addEventListener('keydown', handleKey);
@@ -966,7 +982,7 @@ export default function App() {
       }
       if (k === 'j' || k === 'J') {
         e.preventDefault();
-        if (view === 'exam') nextQ();
+        if (view === 'exam') { if (currentIdx < questions.length - 1) nextQ(); else window.dispatchEvent(new CustomEvent('vmx-exam-submit-request')); }
         else if (view === 'review') {
           // ReviewView owns its own navigation. Emit an event so it can
           // listen and step forward without us reaching into its state.
@@ -1071,6 +1087,7 @@ export default function App() {
   // topic: null means "no topic filter"); `??` would default null back
   // to the state value.
   const startExam = async (overrides = {}) => {
+    finishingRef.current = false; // arm the finish latch for a fresh session
     let _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
@@ -1256,6 +1273,8 @@ export default function App() {
   };
 
   const finishExam = async () => {
+    if (finishingRef.current) return; // guard against timer+submit double-fire
+    finishingRef.current = true;
     // Only count auto-graded questions in history/percentage —
     // writing Qs need self/AI grading and shouldn't penalize the
     // correctness percentage by always being marked wrong.
@@ -1417,6 +1436,7 @@ export default function App() {
 
   const goHome = () => {
     setView('home');
+    finishingRef.current = false; // clear the finish latch on leaving
     // Reset exam runtime (clears questions/answers/currentIdx + timer)
     session.resetSession();
     setPracticeMode('all'); setMode('quick'); setActiveGroup(null); setTopic(null);
@@ -1469,6 +1489,7 @@ export default function App() {
   // route transition) wrap around it.
   const replayQuestions = useCallback((qs) => {
     if (!Array.isArray(qs) || qs.length === 0) return;
+    finishingRef.current = false; // arm the finish latch for the redo round
     setUseTimer(false); // redo rounds never on a clock — focused review
     session.replayQuestions(qs);
     setView('exam');

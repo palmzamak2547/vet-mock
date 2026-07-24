@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import QuestionComponent from '../components/Question.jsx';
 import { fmtTime } from '../hooks/utils.js';
 import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
@@ -6,6 +6,16 @@ import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
 export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user, goHome }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
+  const [confirmSubmit, setConfirmSubmit] = useState(false);
+  const isLast = currentIdx === questions.length - 1;
+  // Keyboard on the last Q (Space/Enter/J in App) asks to submit — surface
+  // the same confirm dialog the button opens, so a keypress can't end the
+  // exam without an explicit confirm.
+  useEffect(() => {
+    const open = () => setConfirmSubmit(true);
+    window.addEventListener('vmx-exam-submit-request', open);
+    return () => window.removeEventListener('vmx-exam-submit-request', open);
+  }, []);
   // Show the navigator opener for medium/long exams; short exams (≤10) just use prev/next
   const showNavOpener = questions.length >= 15;
   // Live "X buddies on this Q" count — pulls from Supabase presence
@@ -109,7 +119,12 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
             📋 {currentIdx + 1}/{questions.length}
           </button>
         )}
-        <button className="vmx-btn vmx-btn-primary" onClick={nextQ}>{currentIdx === questions.length - 1 ? 'ส่งข้อสอบ ✓' : 'ข้อถัดไป →'}</button>
+        <button
+          className="vmx-btn vmx-btn-primary"
+          onClick={() => { if (isLast) setConfirmSubmit(true); else nextQ(); }}
+        >
+          {isLast ? 'ส่งข้อสอบ ✓' : 'ข้อถัดไป →'}
+        </button>
       </div>
 
       {showNav && jumpToQ && (
@@ -121,6 +136,54 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
           onJump={(i) => { jumpToQ(i); setShowNav(false); }}
           onClose={() => setShowNav(false)}
         />
+      )}
+
+      {confirmSubmit && (
+        <div className="vmx-modal-overlay" onClick={() => setConfirmSubmit(false)}>
+          <div
+            className="vmx-modal"
+            onClick={(e) => e.stopPropagation()}
+            style={{ maxWidth: 420 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="vmx-submit-title"
+          >
+            {(() => {
+              const answered = questions.filter((q) => answers[q.id] !== undefined).length;
+              const remaining = questions.length - answered;
+              return (
+                <>
+                  <h2 id="vmx-submit-title" style={{ margin: '0 0 8px' }}>ส่งข้อสอบ?</h2>
+                  <p style={{ margin: '0 0 6px', color: 'var(--clr-ink-soft)', fontSize: 14, lineHeight: 1.6 }}>
+                    ตอบแล้ว {answered} จาก {questions.length} ข้อ
+                  </p>
+                  {remaining > 0 && (
+                    <p role="alert" style={{ margin: '0 0 4px', color: 'var(--clr-rose-text)', fontSize: 14, fontWeight: 600, lineHeight: 1.6 }}>
+                      ยังไม่ได้ตอบอีก {remaining} ข้อ — ถ้าส่งตอนนี้ ข้อที่เว้นจะไม่ได้คะแนน
+                    </p>
+                  )}
+                  <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap' }}>
+                    <button
+                      className="vmx-btn vmx-btn-primary"
+                      onClick={() => { setConfirmSubmit(false); nextQ(); }}
+                      style={{ flex: '1 1 140px' }}
+                      autoFocus
+                    >
+                      ส่งข้อสอบ
+                    </button>
+                    <button
+                      className="vmx-btn vmx-btn-ghost"
+                      onClick={() => setConfirmSubmit(false)}
+                      style={{ flex: '1 1 140px' }}
+                    >
+                      กลับไปตรวจ
+                    </button>
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+        </div>
       )}
     </>
   );

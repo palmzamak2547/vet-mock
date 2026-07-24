@@ -170,7 +170,12 @@ test.describe('VetMock smoke flow', () => {
     await expect(page.getByRole('progressbar', { name: /ความคืบหน้า/ })).toBeVisible({ timeout: 15_000 });
     await expect(page.locator('.vmx-question-card')).toBeVisible();
     await answerCurrentQuestion(page);
-    await page.getByRole('button', { name: /ส่งข้อสอบ/ }).click();
+    // Last-question submit now opens a confirm dialog (guards accidental
+    // submission) — the exam button is "ส่งข้อสอบ ✓", the modal's confirm is
+    // exactly "ส่งข้อสอบ".
+    await page.getByRole('button', { name: /ส่งข้อสอบ ✓/ }).click();
+    await expect(page.getByRole('heading', { name: 'ส่งข้อสอบ?' })).toBeVisible();
+    await page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
 
     await expect(page.getByText(/Auto-graded Score|Writing Practice Done/)).toBeVisible({ timeout: 15_000 });
     expect(consoleErrors, `Unexpected console errors in Quick Practice flow:\n${consoleErrors.join('\n')}`).toEqual([]);
