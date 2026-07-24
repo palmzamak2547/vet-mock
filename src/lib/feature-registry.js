@@ -221,7 +221,7 @@ export const FEATURES = [
     invoke: { kind: 'view', view: 'pdf-annotate' },
   },
   {
-    id: 'pomodoro', category: 'tools',
+    id: 'pomodoro', category: 'tools', fab: true, fabHint: 'focus timer',
     label: 'Pomodoro 🐤', labelEn: 'Pomodoro', icon: '🍅',
     hint: 'จับเวลา focus 25 นาที + ลูกไก่ฟัก',
     kw: 'pomodoro focus timer 25 chick ลูกไก่ จับเวลา โฟกัส',

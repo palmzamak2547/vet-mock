@@ -39,7 +39,100 @@ const PHASE_LABEL_REV = {
   '2-final': 'ทม.2 ปลาย',
 };
 
-export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user, selectedYear = 4, selectedPhase }) {
+function ReviewNoteEditor({ qId, noteText, setNote }) {
+  const [confirmClear, setConfirmClear] = useState(false);
+  const currentText = typeof noteText === 'string' ? noteText : '';
+  const textareaId = `vmx-note-input-${qId}`;
+
+  const handleChange = (e) => {
+    const val = e.target.value.slice(0, 500);
+    if (typeof setNote === 'function') {
+      setNote(qId, val);
+    }
+  };
+
+  const handleClear = () => {
+    if (typeof setNote === 'function') {
+      setNote(qId, '');
+    }
+    setConfirmClear(false);
+  };
+
+  return (
+    <div className="vmx-note-panel" style={{ marginTop: 14, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2, #f5f0eb)', border: '1px solid var(--clr-border)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4, flexWrap: 'wrap', gap: 6 }}>
+        <label htmlFor={textareaId} style={{ fontWeight: 600, fontSize: 13, color: 'var(--clr-ink)' }}>
+          บันทึกส่วนตัว
+        </label>
+        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }} aria-live="polite">
+          {currentText.length}/500
+        </span>
+      </div>
+      <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>
+        บันทึกนี้เห็นได้เฉพาะคุณ และไม่กระทบคะแนนหรือเฉลย
+      </div>
+      <textarea
+        id={textareaId}
+        className="vmx-note-textarea"
+        value={currentText}
+        onChange={handleChange}
+        placeholder="พิมพ์บันทึกสั้นๆ สำหรับทบทวน..."
+        maxLength={500}
+        rows={3}
+        style={{
+          width: '100%',
+          boxSizing: 'border-box',
+          padding: 8,
+          borderRadius: 6,
+          border: '1px solid var(--clr-border)',
+          fontFamily: 'inherit',
+          fontSize: 13,
+          lineHeight: 1.5,
+          resize: 'vertical',
+          background: 'var(--clr-bg, #fff)',
+          color: 'var(--clr-ink)',
+        }}
+      />
+      {currentText.length > 0 && (
+        <div style={{ marginTop: 6, display: 'flex', justifyContent: 'flex-end' }}>
+          {confirmClear ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>ยืนยันการลบโน้ต?</span>
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                onClick={handleClear}
+                style={{ color: 'var(--clr-rose, #d9534f)', minHeight: 28, padding: '2px 8px', fontSize: 12 }}
+              >
+                ยืนยันลบ
+              </button>
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                onClick={() => setConfirmClear(false)}
+                style={{ minHeight: 28, padding: '2px 8px', fontSize: 12 }}
+              >
+                ยกเลิก
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+              onClick={() => setConfirmClear(true)}
+              aria-label="ลบบันทึกส่วนตัว"
+              style={{ color: 'var(--clr-ink-soft)', minHeight: 28, padding: '2px 8px', fontSize: 12 }}
+            >
+              ลบบันทึก
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, setNote, user, selectedYear = 4, selectedPhase }) {
   const phaseLabel = selectedPhase ? PHASE_LABEL_REV[selectedPhase] : null;
   // Filter tabs let users zoom into the slice they care about — when
   // reviewing a 200-Q exam, scrolling linearly to find the 30 wrong
@@ -354,11 +447,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </>
             )}
             {q.explain && <div className="vmx-review-explain"><span className="k">Why</span><RichText text={q.explain} /></div>}
-            {notes && notes[q.id] && (
-              <div className="vmx-note-panel" style={{ marginTop: 10 }}>
-                <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', marginBottom: 4, letterSpacing: '0.08em' }}>📝 โน้ตของคุณ</div>
-                <div style={{ fontSize: 13, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>{notes[q.id]}</div>
-              </div>
+            {q && q.id && (
+              <ReviewNoteEditor qId={q.id} noteText={notes?.[q.id]} setNote={setNote} />
             )}
             {q.tags && q.tags.length > 0 && (
               <div style={{ marginTop: 10 }}>

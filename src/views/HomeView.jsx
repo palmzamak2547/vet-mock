@@ -479,7 +479,14 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         <OnboardingTour
           step={tourStep}
           onNext={() => setTourStep((s) => s + 1)}
+          onBack={() => setTourStep((s) => Math.max(0, s - 1))}
           onDismiss={() => { setTourOpen(false); setTourStep(0); setWelcomeDismissed(true); }}
+          onStart={() => { 
+            setTourOpen(false); 
+            setTourStep(0); 
+            setWelcomeDismissed(true); 
+            launchRandomQ(); 
+          }}
         />
       )}
       <div className="vmx-hero">
@@ -1769,36 +1776,43 @@ function DailyQRow({ user, setView }) {
   );
 }
 
-function OnboardingTour({ step, onNext, onDismiss }) {
+function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
   const steps = [
     {
-      icon: '👋',
       title: 'ยินดีต้อนรับสู่ VetMock',
-      body: 'คลังโจทย์ฝึก + Notes + สรุปคลิป สำหรับสัตวแพทย์จุฬา ทุกชั้นปี\nค่อย ๆ พาทัวร์ 3 จุดสำคัญก่อนเริ่มใช้',
-      cta: 'ถัดไป →',
+      body: 'ฝึกทำข้อสอบสัตวแพทย์ จัดการจุดที่ยังไม่แม่น และเตรียมตัวให้เป็นระบบตามจังหวะของคุณ',
     },
     {
-      icon: '📚',
-      title: 'เริ่มจาก "เลือกวิชา"',
-      body: 'หน้าแรกจะแสดงวิชาในปีของคุณ\nคลิกวิชาไหน → จะเข้าหน้าเลือกหัวข้อ + ปุ่มฝึกซ้อม / Mock test / Notes / คลิป\n\nวิชาที่ยังไม่มีเนื้อหา (PREVIEW) คลิกได้ — จะพาไปแบบฟอร์มขอเพิ่มเนื้อหา',
-      cta: 'ถัดไป →',
+      title: 'เลือกโหมดให้เหมาะกับเป้าหมาย',
+      body: 'ใช้โหมดฝึกฝนเพื่อทบทวนเฉพาะเรื่อง หรือเลือก Mock Exam เมื่อต้องการจำลองการทำข้อสอบแบบจับเวลา',
     },
     {
-      icon: '🎯',
-      title: 'Smart Presets ดูจาก progress',
-      body: 'เมื่อใช้ไปสักพัก ระบบจะแสดง smart cards ให้:\n• 📅 ใกล้สอบ — ซ้อมวิชาที่กำลังจะสอบ\n• ⚠️ จุดอ่อน — ซ้อมวิชา/หัวข้อที่ตอบผิดบ่อย\n• 🔁 ทำซ้ำ — config ของ session ล่าสุด\n\nไม่ต้องไป config เอง',
-      cta: 'ถัดไป →',
-    },
-    {
-      icon: '🎓',
-      title: 'Header อยู่ทุกหน้า',
-      body: '🎓 ปี ▾ — สลับชั้นปีได้ตลอด\n🔍 ⌘K — ค้นหาเร็ว\n📊 — Analytics\n🔖 — Bookmarks\n🌙 — สลับโหมดมืด/สว่าง\n\nลุยเลย!',
-      cta: 'เริ่มใช้',
+      title: 'ทบทวนจากสิ่งที่พลาด',
+      body: 'หลังทำข้อสอบ คุณสามารถย้อนดูข้อที่ตอบผิดและทบทวนแหล่งอ้างอิงที่พร้อมใช้งานสำหรับข้อนั้นได้',
     },
   ];
 
   const current = steps[step] || steps[0];
   const isLast = step >= steps.length - 1;
+  const isFirst = step === 0;
+
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (dialogRef.current) {
+      dialogRef.current.focus();
+    }
+  }, [step]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onDismiss();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onDismiss]);
 
   return (
     <div
@@ -1818,6 +1832,8 @@ function OnboardingTour({ step, onNext, onDismiss }) {
       }}
     >
       <div
+        ref={dialogRef}
+        tabIndex="-1"
         onClick={(e) => e.stopPropagation()}
         style={{
           background: 'var(--clr-bg)',
@@ -1828,11 +1844,12 @@ function OnboardingTour({ step, onNext, onDismiss }) {
           width: '100%',
           boxShadow: '0 12px 40px rgba(0, 0, 0, 0.18)',
           position: 'relative',
+          outline: 'none',
         }}
       >
         <button
           type="button"
-          aria-label="ข้าม onboarding"
+          aria-label="ข้าม"
           onClick={onDismiss}
           style={{
             position: 'absolute',
@@ -1849,7 +1866,6 @@ function OnboardingTour({ step, onNext, onDismiss }) {
           title="ข้าม"
         >×</button>
 
-        <div style={{ fontSize: 44, lineHeight: 1, marginBottom: 12 }}>{current.icon}</div>
         <h2 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, margin: '0 0 10px', lineHeight: 1.2 }}>
           {current.title}
         </h2>
@@ -1874,27 +1890,41 @@ function OnboardingTour({ step, onNext, onDismiss }) {
         </div>
 
         <div style={{ display: 'flex', gap: 10, justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
-          <button
-            type="button"
-            onClick={onDismiss}
-            style={{
-              all: 'unset',
-              cursor: 'pointer',
-              fontSize: 12,
-              color: 'var(--clr-ink-soft)',
-              fontFamily: 'JetBrains Mono, monospace',
-            }}
-          >
-            ข้าม
-          </button>
-          <button
-            type="button"
-            className="vmx-btn vmx-btn-primary"
-            onClick={isLast ? onDismiss : onNext}
-            style={{ background: 'var(--clr-sage)', borderColor: 'var(--clr-sage)' }}
-          >
-            {current.cta}
-          </button>
+          <div>
+            <button
+              type="button"
+              onClick={onDismiss}
+              style={{
+                all: 'unset',
+                cursor: 'pointer',
+                fontSize: 13,
+                color: 'var(--clr-ink-soft)',
+                fontFamily: 'JetBrains Mono, monospace',
+                padding: '8px 0',
+              }}
+            >
+              ข้าม
+            </button>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {!isFirst && (
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost"
+                onClick={onBack}
+              >
+                ย้อนกลับ
+              </button>
+            )}
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-primary"
+              onClick={isLast ? onStart : onNext}
+              style={isLast ? { background: 'var(--clr-sage)', borderColor: 'var(--clr-sage)' } : {}}
+            >
+              {isLast ? 'เริ่มฝึกซ้อม' : 'ถัดไป'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

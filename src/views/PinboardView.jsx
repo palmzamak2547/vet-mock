@@ -56,7 +56,7 @@ function snippetFor(pin) {
   }
 }
 
-export default function PinboardView({ goHome, setView, setSubject, setPracticeMode, selectedYear = 4, selectedPhase }) {
+export default function PinboardView({ goHome, setView, setSubject, setPracticeMode, notes, selectedYear = 4, selectedPhase }) {
   const [pins, setPins] = useState(() => loadPins());
   const [filter, setFilter] = useState('all');
   // Year scope — 'current' shows only pins whose source subject lives in
@@ -260,26 +260,14 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
 
       {/* Empty state */}
       {filtered.length === 0 && (
-        <div
-          style={{
-            padding: '40px 20px',
-            textAlign: 'center',
-            border: '1px dashed var(--clr-border)',
-            borderRadius: 14,
-            color: 'var(--clr-ink-soft)',
-            lineHeight: 1.7,
-          }}
-        >
-          <div style={{ fontSize: 42, marginBottom: 8 }}>📌</div>
+        <div className="vmx-empty">
           {pins.length === 0 ? (
             <>
-              <div style={{ fontWeight: 600, color: 'var(--clr-ink)' }}>ยังไม่มีพินอะไรในนี้</div>
-              <div style={{ marginTop: 6, fontSize: 14 }}>
-                กด 📌 ที่ข้อสอบ / สรุปคลิป / flashcard เพื่อบันทึกไว้รวมกันที่นี่
-              </div>
+              <div style={{ fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 6 }}>ไม่มีรายการบันทึก</div>
+              <div style={{ fontSize: 14 }}>กดปุ่มพินในข้อสอบหรือสรุปเพื่อบันทึกเนื้อหาเก็บไว้ทบทวน</div>
             </>
           ) : (
-            <div style={{ fontSize: 14 }}>ไม่มีพินในหมวด <strong>{TYPE_META[filter]?.label || filter}</strong> ลองเลือกหมวดอื่น</div>
+            <div style={{ fontSize: 14 }}>ไม่มีพินในหมวด <strong>{TYPE_META[filter]?.label || filter}</strong> โปรดเลือกหมวดอื่น</div>
           )}
         </div>
       )}
@@ -387,6 +375,40 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
                     {snip}
                   </div>
                 )}
+                {pin.type === 'question' && (() => {
+                  const noteContent = notes?.[pin.payload?.id] || (pin.payload?.subject && notes?.[`${pin.payload.subject}:${pin.payload.id}`]);
+                  if (!noteContent || !String(noteContent).trim()) return null;
+                  return (
+                    <div
+                      style={{
+                        marginTop: 4,
+                        padding: '6px 8px',
+                        background: 'var(--clr-surface-2, #f5f0eb)',
+                        borderRadius: 6,
+                        border: '1px solid var(--clr-border)',
+                      }}
+                    >
+                      <div style={{ fontSize: 10, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 2 }}>
+                        บันทึกส่วนตัว
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: 'var(--clr-ink)',
+                          lineHeight: 1.4,
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          whiteSpace: 'pre-wrap',
+                          wordBreak: 'break-word',
+                        }}
+                      >
+                        {String(noteContent).trim()}
+                      </div>
+                    </div>
+                  );
+                })()}
                 <div style={{ marginTop: 'auto', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', opacity: 0.8 }}>
                   เพิ่มเมื่อ {relTime(pin.addedAt)}
                 </div>

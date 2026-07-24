@@ -1713,7 +1713,7 @@ export default function App() {
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
-              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, user, selectedYear, selectedPhase }} />}
+              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, setNote, user, selectedYear, selectedPhase }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
@@ -1733,7 +1733,7 @@ export default function App() {
               {view === 'race' && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={goHome} />}
               {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
-              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode, selectedYear, selectedPhase }} />}
+              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions }} />}
               {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}

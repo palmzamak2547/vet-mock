@@ -190,11 +190,11 @@ export default function AuthView({ onBack, onSuccess, user }) {
     const descMatch = (hash + search).match(/error_description=([^&]+)/);
     const desc = descMatch ? decodeURIComponent(descMatch[1].replace(/\+/g, ' ')) : '';
     if (/access_denied|user.*denied|cancel/i.test(errCode + desc)) {
-      setError('🚪 การ Login ถูกยกเลิก — ลองอีกครั้งหรือเลือก provider อื่น');
+      setError('การเข้าสู่ระบบถูกยกเลิก — โปรดลองอีกครั้งหรือเลือกช่องทางอื่น');
     } else if (/server_error|temporarily_unavailable/i.test(errCode)) {
-      setError('⚠️ Provider login มีปัญหาชั่วคราว — ลองอีกครั้งใน 1-2 นาที');
+      setError('ระบบมีปัญหาชั่วคราว — โปรดลองอีกครั้งใน 1-2 นาที');
     } else {
-      setError(`⚠️ Login ไม่สำเร็จ${desc ? ': ' + desc : ''} — ลองอีกครั้ง`);
+      setError(`เข้าสู่ระบบไม่สำเร็จ${desc ? ': ' + desc : ''} — โปรดลองอีกครั้ง`);
     }
     // Clean URL so refresh doesn't re-trigger this banner
     try {

@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { QB } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear }) {
   const allQuestions = [...QB, ...customQuestions];
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Filter subjects to selectedYear (or show all if no year selected — for
   // legacy "all subjects" flow).
@@ -20,11 +22,20 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
     ? (SUBJECTS_BY_YEAR[selectedYear] || [])
     : [];
   const yearHasQuestions = yearSubjects.some((s) => s.has_questions);
-  const visibleSubjects = selectedYear
+  const baseSubjects = selectedYear
     ? (yearHasQuestions
         ? [SUBJECTS.find((s) => s.id === 'all'), ...yearSubjects].filter(Boolean)
         : yearSubjects)
     : SUBJECTS;
+
+  const visibleSubjects = baseSubjects.filter((s) => {
+    if (!searchQuery) return true;
+    if (s.id === 'all') return true;
+    const q = searchQuery.toLowerCase();
+    return (s.name || '').toLowerCase().includes(q) ||
+           (s.name_en || '').toLowerCase().includes(q) ||
+           (s.code || '').toLowerCase().includes(q);
+  });
 
   return (
     <>
@@ -51,8 +62,21 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
         </p>
       </div>
 
+      <div style={{ padding: '0 20px', marginBottom: 16 }}>
+        <input
+          type="text"
+          placeholder="🔍 ค้นหาวิชา (ชื่อวิชา, รหัสวิชา)..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="vmx-input"
+          style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)', fontSize: 16 }}
+        />
+      </div>
+
       <div className="vmx-subject-grid">
-        {visibleSubjects.map((s) => {
+        {visibleSubjects.length === 0 ? (
+          <div className="vmx-empty" style={{ gridColumn: '1 / -1' }}>ไม่พบวิชาที่ค้นหา</div>
+        ) : visibleSubjects.map((s) => {
           // Count only Qs in non-hidden topics — matches what user
           // actually sees in TopicSelectView (avoids "127 promised, 70
           // visible" confusion). For 'all' subject, sum visible per

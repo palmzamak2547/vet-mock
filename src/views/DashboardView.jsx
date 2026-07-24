@@ -399,7 +399,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       </div>
 
       {!scopedAnalytics ? (
-        <div className="vmx-empty">ยังไม่มีข้อมูลสถิติ — ลองทำข้อสอบสักชุดก่อน 📈</div>
+        <div className="vmx-empty">ยังไม่มีข้อมูลสถิติ — เริ่มทำข้อสอบเพื่อดูความคืบหน้าที่นี่</div>
       ) : (
         <>
           {/* Stat cards now reflect yearScope toggle (Palm round 3
@@ -424,22 +424,38 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             </div>
           </div>
 
+          <div className="vmx-dash-card" style={{ marginTop: 16 }}>
+            <h3>Quick Actions</h3>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
+              {scopedAnalytics.weakQuestions.length > 0 && (
+                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setPracticeMode('weak'); setMode('quick'); setView('config'); }}>
+                  ทำข้อที่อ่อน ({scopedAnalytics.weakQuestions.length})
+                </button>
+              )}
+              {bookmarks.length > 0 && (
+                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}>
+                  ทำ Bookmarks ({bookmarks.length})
+                </button>
+              )}
+            </div>
+          </div>
+
           {trend && (
             <div className="vmx-dash-card" style={{ marginTop: 16 }}>
-              <h3>📈 7 วันล่าสุด</h3>
+              <h3>7 วันล่าสุด</h3>
               <TrendChart days={trend} />
             </div>
           )}
 
           <div className="vmx-dash-card" style={{ marginTop: 16 }}>
-            <h3>🗓 ความหนาแน่น 12 เดือน{yearScope === 'current' ? ` · ปี ${selectedYear}` : ''}</h3>
+            <h3>ความหนาแน่น 12 เดือน{yearScope === 'current' ? ` · ปี ${selectedYear}` : ''}</h3>
             <StreakHeatmap history={scopedHistory} />
           </div>
 
           {learningCurve && (
             <div className="vmx-dash-card" style={{ marginTop: 16 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 8 }}>
-                <h3 style={{ margin: 0 }}>📊 Learning Curve รายวิชา</h3>
+                <h3 style={{ margin: 0 }}>Learning Curve รายวิชา</h3>
                 <div style={{ display: 'flex', gap: 4 }}>
                   {[7, 14, 30].map((d) => (
                     <button
@@ -487,7 +503,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             </div>
 
             <div className="vmx-dash-card">
-              <h3>หัวข้อที่อ่อน 🎯</h3>
+              <h3>หัวข้อที่อ่อน</h3>
               {analytics.weakTags.length === 0 ? (
                 <div className="vmx-empty" style={{ padding: 20 }}>ยังไม่มีข้อมูล</div>
               ) : (
@@ -501,27 +517,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               )}
             </div>
           </div>
-
-          <div className="vmx-dash-card">
-            <h3>Quick Actions</h3>
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
-              {scopedAnalytics.weakQuestions.length > 0 && (
-                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setPracticeMode('weak'); setMode('quick'); setView('config'); }}>
-                  🎯 ทำข้อที่อ่อน ({scopedAnalytics.weakQuestions.length})
-                </button>
-              )}
-              {bookmarks.length > 0 && (
-                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}>
-                  🔖 ทำ Bookmarks ({bookmarks.length})
-                </button>
-              )}
-            </div>
-          </div>
         </>
       )}
 
       <div className="vmx-dash-card">
-        <h3>🎯 OSCE drill</h3>
+        <h3>OSCE drill</h3>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           ฝึก clinical-skills station แบบจับเวลา + checklist (PE, IV, intubation, suture,
           anesthesia check, CPCR). มี critical step weight เหมือนสถานีจริง.
@@ -542,7 +542,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       )}
 
       <div className="vmx-dash-card">
-        <h3>🧠 Diagram label drill</h3>
+        <h3>Diagram label drill</h3>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           ฝึก label anatomy แบบ active recall — แตะจุดบน diagram → เลือก label · ตอนนี้มี 2 ชุด (Heart, Eye) เริ่มต้นไว้
         </div>
