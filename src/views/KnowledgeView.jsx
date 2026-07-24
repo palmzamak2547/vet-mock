@@ -29,6 +29,7 @@ import {
 import { searchTopics } from '../lib/vetwiki/search.js';
 import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
 import WikiExplain from '../components/WikiExplain.jsx';
+import ReportConcern from '../components/ReportConcern.jsx';
 
 const TONE = {
   strong: 'var(--clr-sage-text)',
@@ -376,6 +377,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
               {s.body.map((item, i) => <NoteBody key={i} item={item} />)}
               {noteRef && <div style={{ marginTop: 4, fontSize: 11.5, color: 'var(--clr-ink-soft)' }}>ที่มา: {noteRef.locator}</div>}
               {(s.claims || []).map((c) => <VerifiedClaim key={c.id} claim={c} />)}
+              <ReportConcern topicId={knowledge.id} sectionId={s.id} sectionHeading={s.heading} />
             </section>
           );
         })}
