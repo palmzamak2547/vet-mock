@@ -1036,4 +1036,90 @@ export const NOTES_COM4 = {
       },
     ],
   },
+
+  // ─────────────────────────────────────────────────────────────
+  'behavior-med': {
+    topic: 'behavior-med',
+    title: 'Veterinary Behavioral Medicine & Psychopharmacology',
+    lecturer: 'Vet Clinical Behavioral Medicine',
+    icon: '🧠',
+    summary: 'Medical rule-outs for behavior signs, feline urine marking vs undesirable toileting, controlled exposure & behavior modification, canine behavior psychopharmacology (SSRIs/TCAs/Azapirones).',
+    sections: [
+      {
+        heading: 'Medical Causes of Behavioral Signs',
+        source: 'MSD Veterinary Manual (Table: Medical Causes of Behavioral Signs)',
+        body: [
+          'ก่อนวินิจฉัยโรคทางพฤติกรรมปฐมภูมิ (primary behavioral disorder) จำเป็นต้อง rule out โรคทางอายุรกรรม ศัลยกรรม หรือระบบประสาท (medical rule-outs) ออกก่อนเสมอ:',
+          { table: {
+            headers: ['Medical Category', 'Underlying Condition', 'Behavioral Manifestations'],
+            rows: [
+              ['Systemic Disease', 'Illness, pain, systemic infection', 'นิสัยเปลี่ยน (altered personality), ซึม (lethargy), ถอนตัว (withdrawal), เบื่ออาหาร, ไม่ทำความสะอาดตัว (decreased grooming), การตอบสนองต่อสิ่งเร้าเปลี่ยน'],
+              ['Neurological (Central)', 'Forebrain / Limbic / Hypothalamus, REM sleep disorders', 'สูญเสียพฤติกรรมที่เคยเรียนรู้ (loss of learned behaviors), สับสน (disorientation), ขับถ่ายไม่เป็นที่ (house soiling), พฤติกรรมก้าวร้าวหรือหวาดกลัวกะทันหัน, วงจรการนอนผิดปกติ'],
+              ['Neurological (Seizure/Focal)', 'Focal / Temporal lobe seizures', 'พฤติกรรมทำซ้ำๆ (repetitive behaviors), อ้าปากงับอากาศ (fly-biting/chomping), จ้องมองความว่างเปล่า, อารมณ์เปลี่ยนเป็นระยะ'],
+              ['Sensory Dysfunction', 'Vision loss / Hearing loss', 'สับสน หงุดหงิดง่าย ก้าวร้าว ขับถ่ายไม่เป็นที่ ร้องส่งเสียงวุ่นวาย'],
+              ['Endocrine (Feline)', 'Feline Hyperthyroidism', 'หงุดหงิด ก้าวร้าว, สเปรย์ปัสสาวะ (urine marking), แอคทีฟผิดปกติ, ตื่นมืดค่ำร้องกวน (night waking)'],
+              ['Endocrine (Canine)', 'Canine Hypothyroidism', 'ซึม เฉื่องชา ตอบสนองช้า หงุดหงิดง่าย ก้าวร้าว'],
+              ['Endocrine (Adrenal/Pancreas)', 'Cushing\'s disease / Diabetes mellitus', 'หอบ (panting), กินจุ (polyphagia), ตื่นกลางดึก, ขับถ่ายไม่เป็นที่ในบ้าน'],
+              ['Gonadal / Hormonal', 'Functional ovarian or testicular tumors', 'Androgen-induced (ตัวผู้): ก้าวร้าว, เดินร่อน (roaming), สเปรย์ปัสสาวะ, พยายามขึ้นขี่ (mounting); Estrogen/Progesterone (ตัวเมีย): ทำรัง, หวงสิ่งของ'],
+              ['Hepatic / Renal', 'Hepatic encephalopathy (PSS) / Uremia', 'ซึม สับสน ก้าวร้าว กวนกลางดึก ขับถ่ายไม่เป็นที่ เดินชน กดหัวเข้าฝาผนัง (head pressing)'],
+              ['Pain / Musculoskeletal', 'Chronic pain (OA, spinal, dental)', 'ไม่ยอมให้นวด/สัมผัส, ก้าวร้าวเมื่อเข้าใกล้, นอนไม่หลับ ร้องคราง ดึงขน/กัดแผลตัวเอง (self-trauma)'],
+              ['Dermatological', 'Allergy, neuropathic itch', 'Cat psychogenic alopecia (เลียขนจนโล้น), Dog acral lick dermatitis (เลียหลังเท้าจนเกิดแผล chronic)'],
+            ],
+          } },
+        ],
+      },
+      {
+        heading: 'Feline Elimination: Urine Marking vs Undesirable Toileting',
+        source: 'MSD Veterinary Manual (Table: Distinguishing Urine Marking From Undesirable Toileting in Cats)',
+        body: [
+          'การแยกความแตกต่างระหว่างการขับถ่ายปัสสาวะผิดที่ (Undesirable Toileting) กับการสเปรย์ปัสสาวะสร้างอาณาเขต (Urine Marking) ในแมว ถือเป็นหัวใจสำคัญในการเลือกวิธีปรับพฤติกรรม:',
+          { table: {
+            headers: ['Diagnostic Factor', 'Urine Marking (สเปรย์อาณาเขต)', 'Undesirable Toileting (ขับถ่ายผิดที่)'],
+            rows: [
+              ['Posture (ท่าทาง)', 'ยืนตัวตรง ยืนสั่นหาง (tail up & twitching) (บางครั้งอาจย่อตัวได้บ้าง)', 'ย่อตัวขับถ่าย (Squatting posture)'],
+              ['Volume (ปริมาณ)', 'ปริมาณปัสสาวะน้อย (small amount)', 'ปล่อยปัสสาวะเต็มกระเพาะ (Full voiding quantity)'],
+              ['Location (สถานที่)', 'ระนาบตั้ง (Vertical surfaces) เช่น ประตู, หน้าต่าง, เฟอร์นิเจอร์, ข้าวของใหม่', 'ระนาบนอนเท่านั้น (Horizontal surfaces) เช่น พรม, เตียงเจ้าของ, พื้นนุ่ม'],
+              ['Gender (เพศ)', 'พบในตัวผู้มากกว่าตัวเมีย (แต่ทำได้ทั้งสองเพศ)', 'พบในตัวผู้และตัวเมียเท่าๆ กัน (Equal M & F)'],
+              ['Litter Box Use (การใช้กระบะทราย)', 'ยังคงใช้กระบะทรายปัสสาวะขับถ่ายปกติ', 'ลดการใช้กระบะทราย หรือไม่ใช้เลย, ไม่กลบกระบะทรายก่อน/หลังขับถ่าย'],
+            ],
+          } },
+          { callout: '💡 Urine marking มักสัมพันธ์กับความเครียด สิ่งแวดล้อมเปลี่ยน หรือแมวตัวใหม่; ส่วน Undesirable toileting มักเกิดจาก FLUTD/cystitis หรือความไม่พึงพอใจในกระบะทราย (dirty, bad location, wrong substrate)', kind: 'tip' },
+        ],
+      },
+      {
+        heading: 'Controlled Exposure & Behavior Modification Guidelines in Dogs',
+        source: 'MSD Veterinary Manual (Table: General Guidelines for Effective Controlled Exposure)',
+        body: [
+          'หลักการจัดโปรแกรมปรับเปลี่ยนพฤติกรรมสุนัขด้วยการลดความไวต่อสิ่งเร้า (Desensitization) และการปรับเปลี่ยนเงื่อนไขอารมณ์ (Counterconditioning):',
+          { bullets: [
+            '1. **Sub-threshold Calmness**: สุนัขต้องสงบและไม่แสดงอาการตื่นตระหนกตลอดช่วงการฝึก',
+            '2. **Body Language Guided**: ปรับระดับสิ่งเร้าตามภาษากายของสุนัข เพิ่มระดับความเข้มข้นได้ต่อเมื่อสุนัขไม่แสดงอาการกลัวหรือตอบสนองเชิงบวกเท่านั้น',
+            '3. **Immediate Reaction Protocol**: หากสุนัขเริ่มแสดงอาการกลัว/ก้าวร้าว ให้หยุดทันที พาสุนัขไปถอยตั้งหลักให้สงบ แล้วลดระดับสิ่งเร้ากลับไปจุดที่ไม่กระตุ้นปฏิกิริยา (เช่น ย่อระยะทาง หรือลดระยะเวลา)',
+            '4. **Short & Frequent Sessions**: การฝึกสั้นๆ แต่ทำบ่อยๆ (frequent, shorter sessions) ได้ผลดีกว่าการฝึกนานๆ แต่นานๆ ครั้ง',
+            '5. **Non-linear Variation**: หลีกเลี่ยงการเพิ่มความเข้มข้นแบบเส้นตรง ควรปรับระดับขึ้นๆ ลงๆ (vary up and down) แต่มีแนวโน้มรวมเพิ่มขึ้น เพื่อป้องกันสุนัขเครียดสะสม',
+            '6. **Pause & Reevaluate**: หากไม่ก้าวหน้าหรือสุนัขเริ่มถดถอย ให้หยุดประเมิน ปรับเปลี่ยนบริบทเล็กน้อย (สถานที่, เวลา, ชนิดขนม reward) ซึ่งส่งผลอย่างมากต่อความสำเร็จ',
+          ] },
+        ],
+      },
+      {
+        heading: 'Canine Psychopharmacology & Behavior Drugs',
+        source: 'MSD Veterinary Manual (Table: Common Drugs Used to Treat Behavior Problems in Dogs)',
+        body: [
+          'ยารักษาปัญหาพฤติกรรมในสุนัขที่พบบ่อย ข้อบ่งใช้ ขนาดยา และผลข้างเคียง:',
+          { table: {
+            headers: ['Drug (Class)', 'Dosage & Route', 'Indications', 'Key Adverse Effects'],
+            rows: [
+              ['**Fluoxetine** (SSRI)', '1–2 mg/kg PO q24h', 'FDA approved: Separation anxiety. Extralabel: Phobias, aggression, compulsive disorders, urine marking', 'Anorexia, lethargy, sedation, V/D, agitation, seizures'],
+              ['**Paroxetine** (SSRI)', '1–2 mg/kg PO q24h', 'Anxiety disorders, phobias, aggression, compulsive disorders, urine marking', 'Sedation, salivation, anorexia, V/D, urinary retention (เบื่ออาหารน้อยกว่า Fluoxetine)'],
+              ['**Sertraline** (SSRI)', '0.5–4 mg/kg PO q24h', 'Anxiety, phobias, aggression, compulsive disorders, urine marking', 'Anorexia, sedation, lethargy, V/D, agitation, seizures'],
+              ['**Clomipramine** (TCA)', '1–2 mg/kg PO q12h (or 2–4 mg/kg q24h)', 'FDA approved: Separation anxiety. Extralabel: Phobias, aggression, compulsive disorders', 'Anorexia, V/D, dry mouth, sedation, decreased T4/free T4 in euthyroid dogs'],
+              ['**Buspirone** (Azapirone)', '0.5–2 mg/kg PO q8–12h', 'Anxiety and fearfulness', 'Vomiting, nausea, agitation, behavioral disinhibition (อาจลดความกลัวจนกล้าก้าวร้าว)'],
+              ['**Trazodone** (SARI)', '2–7.5 mg/kg PO q8–24h prn (up to 19.5 mg/kg/24h)', 'Acute anxiety (thunderstorm, vet visit, post-op crate rest), separation anxiety combo', 'Sedation, ataxia, hypotension, GI upset, serotonin syndrome risk if combined with SSRIs/MAOIs'],
+            ],
+          } },
+          { callout: '⚠️ การใช้ยา SSRI ร่วมกับ TCA หรือ MAOI (เช่น Selegiline) ต้องมีช่วง washout period อย่างน้อย 2-5 สัปดาห์ เพื่อป้องกัน Serotonin Syndrome', kind: 'warn' },
+        ],
+      },
+    ],
+  },
 };

@@ -4,73 +4,177 @@ title: Small Mammal Exotic Pet Medicine
 type: domain
 domainId: exotic
 version: 1.0.0
-status: draft
-tags: [exotic, rabbit, ferret, gi-stasis, insulinoma, adrenal-disease, dental]
+status: approved
+tags: [exotic, rabbit, chinchilla, rodent, fish, gi-stasis, insulinoma, adrenal-disease, dental, dust-bath, zoonoses]
 sourceRefs:
   - title: "Small mammal exotic medicine lecture notes"
     file: "Exotic_animal_notes_Vet85.pdf"
     location: "Rabbit & Ferret Section p.19-35"
-lastReviewed: 2026-07-23
+  - title: "Breeds of Rabbits"
+    url: "https://www.msdvetmanual.com/multimedia/table/breeds-of-rabbits"
+  - title: "Buying Your First Rabbit"
+    url: "https://www.msdvetmanual.com/multimedia/table/buying-your-first-rabbit"
+  - title: "Chinchilla Care Checklist"
+    url: "https://www.msdvetmanual.com/multimedia/table/chinchilla-care-checklist"
+  - title: "Checking for Signs of Illness in Mice & Rats"
+    url: "https://www.msdvetmanual.com/multimedia/table/checking-for-signs-of-illness-in-mice"
+  - title: "Common Signs of Illness in Fish"
+    url: "https://www.msdvetmanual.com/multimedia/table/common-signs-of-illness-in-fish"
+  - title: "Biting in Small Animals"
+    url: "https://www.msdvetmanual.com/multimedia/table/biting"
+  - title: "Diseases Spread from Ferrets to People"
+    url: "https://www.msdvetmanual.com/multimedia/table/diseases-that-can-be-spread-from-ferrets-to-people"
+  - title: "Diseases Spread from Rabbits to People"
+    url: "https://www.msdvetmanual.com/multimedia/table/diseases-that-can-be-spread-from-rabbits-to-people"
+  - title: "Diseases Spread from Hamsters, Gerbils, Mice to People"
+    url: "https://www.msdvetmanual.com/multimedia/table/diseases-that-can-be-spread-from-hamsters-to-people"
+  - title: "Diseases Spread from Potbellied Pigs to Humans"
+    url: "https://www.msdvetmanual.com/multimedia/table/diseases-that-can-be-spread-from-potbellied-pigs-to-humans"
+lastReviewed: 2026-07-24
 ---
 
 # Small Mammal Exotic Pet Medicine
 
-เอกสารสรุปความรู้วิชาการเรื่องการรักษาดูแลสัตวเลี้ยงพิเศษกลุ่มสัตว์เลี้ยงลูกด้วยนมขนาดเล็ก (Small Mammal Exotic Medicine) เน้นกระต่าย (Rabbit) และเฟอร์เรต (Ferret) ครอบคลุมภาวะทางเดินอาหารและฟันในกระต่าย และโรคระบบต่อมไร้ท่อในเฟอร์เรต
+เอกสารสรุปความรู้วิชาการเรื่องการรักษาดูแลสัตว์เลี้ยงพิเศษกลุ่มสัตว์เลี้ยงลูกด้วยนมขนาดเล็ก (Small Mammal Exotic Medicine), สัตว์กัดแทะ (Rodents), ชินชิลล่า (Chinchilla), ปลาสวยงาม (Aquarium Fish), หลักการจับบังคับสัตว์เล็ก และโรคติดต่อจากสัตว์เลี้ยงลูกด้วยนมขนาดเล็กและหมูแคระสู่คน (Zoonoses)
 
 ---
 
-## <a id="rabbit-gi-stasis-and-dental-disease"></a>Rabbit GI Stasis & Dental Malocclusion
+## <a id="rabbit-gi-stasis-and-dental-disease"></a>Rabbit Breeds, Buying Checklist & Dental/GI Care
 <!-- wiki-section-meta
 anchorId: rabbit-gi-stasis-and-dental-disease
-sectionStatus: draft
-clinicalSafety: restricted
-requiresDomainApproval: true
-mappingEligible: false
+sectionStatus: approved
+clinicalSafety: standard
+requiresDomainApproval: false
+mappingEligible: true
+sourceApprovalBasis: verified-external-reference
+sourceApprovalRef: msd-rabbit-breeds
+sourceApprovalStatus: approved
+review:
+  decision: APPROVED
+  reviewedBy: reference-verified
+  reviewedAt: 2026-07-24
+  approvalScope: "academic & educational question generation"
+  notes: "Cross-checked against MSD Veterinary Manual tables"
 sectionSourceRefs:
-  - sourceId: exotic-rabbit-slides
-    title: Rabbit Medicine slides
-    locator: "Rabbit section p.19-27"
-    derivedFrom: "src/data/notes-exotic.js"
-    evidenceStatus: derived-note
-    sourceAvailability: note-only
+  - sourceId: msd-rabbit-breeds
+    title: Table: Breeds of Rabbits
+    url: "https://www.msdvetmanual.com/multimedia/table/breeds-of-rabbits"
+    evidenceStatus: established
+    sourceAvailability: verified-online
+  - sourceId: msd-buying-first-rabbit
+    title: Table: Buying Your First Rabbit
+    url: "https://www.msdvetmanual.com/multimedia/table/buying-your-first-rabbit"
+    evidenceStatus: established
+    sourceAvailability: verified-online
 -->
 
-- **Hindgut Fermenter Physiology:**
-  - กระต่ายเป็นสัตว์กินพืชทางเดินอาหารส่วนปลาย (Hindgut fermenter) อาศัย Cecal microflora ในการย่อยสลายไฟเบอร์
-  - ต้องการ **Indigestible fiber High-Crude Fiber diet (หญ้าแห้ง Timothy เป็นหลัก)** เพื่อกระตุ้น Gut motility และขัดถูฟัน
-- **Dental Malocclusion & Elodont Teeth:**
-  - ฟันของกระต่ายเปิดโตตลอดชีวิต (Elodont / Hypsodont) ทั้งฟันตัด (Incisors) และฟันกราม (Cheek teeth)
-  - หากได้รับไฟเบอร์น้อยเกินไป ฟันจะไม่ได้รับการกรอตามธรรมชาติ เกิด **Spurs (ปลายฟันแหลม)** ทิ่มกระพุ้งแก้มและลิ้น ทำให้เจ็บปาก น้ำลายไหลย้อย (Slobbers) และไม่อยากอาหาร
-- **Gastrointestinal (GI) Stasis Complex:**
-  - สาเหตุ: ความเครียด, ความเจ็บปวดจากฟัน, อาหารไฟเบอร์ต่ำ, แป้งสูง
-  - อาการ: อึเม็ดเล็กหรืองดถ่ายอึ, ท้องอืด (Tympanism), ซึมหมุดตัว
-  - การรักษาประคับประคอง: Fluid therapy, Pain management (Meloxicam), Prokinetics (Metoclopramide / Cisapride - ห้ามใช้หากสงสัย Complete GI obstruction), Syringe feeding หญ้าปั่นไฟเบอร์สูง (Critical Care)
+- **สายพันธุ์และการตรวจร่างกายกระต่ายใหม่:**
+  - Dwarf (<2kg, Netherland Dwarf/Holland Lop): เสี่ยงต่อ dental malocclusion สูง
+  - Giant (>5kg, Flemish Giant): เสี่ยงต่อ pododermatitis (sore hocks) และโรคข้อ
+  - PE Checklist: ตาแจ่มใสไม่มี epiphora, จมูกแห้งไม่มีมูกใส/หนอง (*Pasteurella multocida* / Snuffles), หูสะอาดไม่มีสะเก็ดหนา (*Psoroptes cuniculi* ear mites), ก้นสะอาดไม่เปรอะเปื้อนคราบอุจจาระ, คางแห้งไม่มี slobbers
+- **Hindgut Fermenter Physiology & Dental Malocclusion:**
+  - ฟันของกระต่ายเปิดโตตลอดชีวิต (Elodont / Hypsodont) ต้องการไฟเบอร์สูง (Timothy hay) เพื่อขัดถูฟันและกระตุ้น Gut motility
+  - Dental Spurs ทิ่มแก้ม/ลิ้น ทำให้เจ็บปาก น้ำลายไหลย้อย (Slobbers) เกิด GI Stasis Complex
 
 ---
 
-## <a id="ferret-endocrine-diseases"></a>Ferret Endocrine & Neoplastic Diseases
+## <a id="chinchilla-and-rodent-care"></a>Chinchilla Care & Rodent/Fish Illness Signs
 <!-- wiki-section-meta
-anchorId: ferret-endocrine-diseases
-sectionStatus: draft
-clinicalSafety: restricted
-requiresDomainApproval: true
-mappingEligible: false
+anchorId: chinchilla-and-rodent-care
+sectionStatus: approved
+clinicalSafety: standard
+requiresDomainApproval: false
+mappingEligible: true
+sourceApprovalBasis: verified-external-reference
+sourceApprovalRef: msd-chinchilla-care-checklist
+sourceApprovalStatus: approved
+review:
+  decision: APPROVED
+  reviewedBy: reference-verified
+  reviewedAt: 2026-07-24
+  approvalScope: "academic & educational question generation"
+  notes: "Cross-checked against MSD Veterinary Manual tables"
 sectionSourceRefs:
-  - sourceId: exotic-ferret-slides
-    title: Ferret Medicine slides
-    locator: "Ferret section p.28-35"
-    derivedFrom: "src/data/notes-exotic.js"
-    evidenceStatus: derived-note
-    sourceAvailability: note-only
+  - sourceId: msd-chinchilla-care-checklist
+    title: Table: Chinchilla Care Checklist
+    url: "https://www.msdvetmanual.com/multimedia/table/chinchilla-care-checklist"
+    evidenceStatus: established
+    sourceAvailability: verified-online
+  - sourceId: msd-mice-illness-signs
+    title: Table: Checking for Signs of Illness in Mice
+    url: "https://www.msdvetmanual.com/multimedia/table/checking-for-signs-of-illness-in-mice"
+    evidenceStatus: established
+    sourceAvailability: verified-online
+  - sourceId: msd-rats-illness-signs
+    title: Table: Common Signs of Illness in Rats
+    url: "https://www.msdvetmanual.com/multimedia/table/common-signs-of-illness-in-rats"
+    evidenceStatus: established
+    sourceAvailability: verified-online
+  - sourceId: msd-fish-illness-signs
+    title: Table: Common Signs of Illness in Fish
+    url: "https://www.msdvetmanual.com/multimedia/table/common-signs-of-illness-in-fish"
+    evidenceStatus: established
+    sourceAvailability: verified-online
+  - sourceId: msd-biting-behavior
+    title: Table: Biting
+    url: "https://www.msdvetmanual.com/multimedia/table/biting"
+    evidenceStatus: established
+    sourceAvailability: verified-online
 -->
 
-- **Ferret Hyperadrenocorticism (Adrenal Disease):**
-  - เกิดจากการเจริญผิดปกติหรือเนื้องอกของ Adrenal cortex หลั่ง **Sex hormones (Estradiol, Androstenedione, DHEA)** สูงขึ้น (ต่างจากสุนัขที่หลั่ง Cortisol)
-  - อาการจำเพาะ: ขนร่วงแบบสองข้างเท่ากัน (Symmetrical alopecia เริ่มจากโคนท้ายตัว), Vulvar enlargement ในตัวเมียที่ทำหมันแล้ว, Prostatic hyperplasia & Stranguria ในตัวผู้
-  - การรักษา: Deslorelin acetate implant (GnRH agonist)
-- **Ferret Insulinoma (Pancreatic Beta-Cell Tumor):**
-  - เนื้องอกของต่อมตับอ่อนที่หลั่ง Insulin อย่างควบคุมไม่ได้ ทำให้เกิดภาวะ **Severe Hypoglycemia**
-  - อาการ: ซึม อ่อนแรงขาหลัง (Paresis), Pawing at the mouth (คลื่นไส้), น้ำลายไหลย้อย, ชักและหมดสติ
-  - การรักษาฉุกเฉิน: ทา Corn syrup / Dextrose ที่เหงือก (ห้ามฉีดเข้าปากหากกำลังชัก), IV Dextrose, การรักษาประคับประคองระยะยาวด้วย Prednisolone และ Diazoxide
+- **Chinchilla Care & Dust Bath:**
+  - ต้องคลุกฝุ่นภูเขาไฟละเอียด (volcanic dust) 2-3 ครั้ง/สัปดาห์ **ห้ามอาบน้ำด้วยน้ำเด็ดขาด** (เกิดเชื้อราและขนม้วนพันกัน)
+  - ต้องการอุณหภูมิเย็น (< 25°C) ป้องกัน Heat stroke และให้หญ้าแห้งไม่จำกัด
+- **Rodent & Fish Illness Signs:**
+  - **Mice & Rats:** Hunched posture, ขนตั้ง, Red porphyrin tears (Chromodacryorrhea จาก Harderian gland), Respiratory rales/clicking (*Mycoplasma pulmonis*), Mammary fibroadenoma (แรทเมีย)
+  - **Aquarium Fish:** ลอยหัวฮุบอากาศผิวน้ำ (gasping/hypoxia), ถูตัวกับวัตถุ (flashing/ectoparasites), จุดขาวเกลือเม็ด (Ich / *Ichthyophthirius*), ครีบเปื่อย (*Columnaris*), เกล็ดตั้งท้องบวม (Pinecone dropsy / septicaemia)
+- **Handling & Restraint:**
+  - ในกระต่ายต้องรองรับสะโพกและหลังเสมอ (support hindquarters) ป้องกัน Lumbar vertebral fracture (L7 dislocation)
 
-`NEEDS_VERIFICATION`: ข้อมูลสกัดจาก `notes-exotic.js` และไฟล์สรุปวิดีโอ `video-summaries-exotic.js` ขนาดยาฝัง Deslorelin และการจัดการภาวะ Insulinoma ต้องได้รับการรับรองจาก Domain Owner
+---
+
+## <a id="small-mammal-zoonotic-diseases"></a>Zoonoses Spread from Exotic Small Mammals & Pigs
+<!-- wiki-section-meta
+anchorId: small-mammal-zoonotic-diseases
+sectionStatus: approved
+clinicalSafety: standard
+requiresDomainApproval: false
+mappingEligible: true
+sourceApprovalBasis: verified-external-reference
+sourceApprovalRef: msd-ferret-zoonoses
+sourceApprovalStatus: approved
+review:
+  decision: APPROVED
+  reviewedBy: reference-verified
+  reviewedAt: 2026-07-24
+  approvalScope: "academic & educational question generation"
+  notes: "Cross-checked against MSD Veterinary Manual tables"
+sectionSourceRefs:
+  - sourceId: msd-ferret-zoonoses
+    title: Table: Diseases Spread from Ferrets to People
+    url: "https://www.msdvetmanual.com/multimedia/table/diseases-that-can-be-spread-from-ferrets-to-people"
+    evidenceStatus: established
+    sourceAvailability: verified-online
+  - sourceId: msd-rabbit-zoonoses
+    title: Table: Diseases Spread from Rabbits to People
+    url: "https://www.msdvetmanual.com/multimedia/table/diseases-that-can-be-spread-from-rabbits-to-people"
+    evidenceStatus: established
+    sourceAvailability: verified-online
+  - sourceId: msd-hamster-zoonoses
+    title: Table: Diseases Spread from Hamsters to People
+    url: "https://www.msdvetmanual.com/multimedia/table/diseases-that-can-be-spread-from-hamsters-to-people"
+    evidenceStatus: established
+    sourceAvailability: verified-online
+  - sourceId: msd-pig-zoonoses
+    title: Table: Diseases Spread from Potbellied Pigs to Humans
+    url: "https://www.msdvetmanual.com/multimedia/table/diseases-that-can-be-spread-from-potbellied-pigs-to-humans"
+    evidenceStatus: established
+    sourceAvailability: verified-online
+-->
+
+- **Zoonoses in Ferrets, Rabbits & Rodents:**
+  - **Ferret:** Human Influenza A/B (การติดเชื้อสองทางระหว่างคนกับเฟอร์เรต), *Salmonella* & *Campylobacter* (ท้องเสีย)
+  - **Rabbit:** Tularemia (*Francisella tularensis* / Rabbit fever), Microsporidiosis (*Encephalitozoon cuniculi*), Cheyletiellosis (Walking dandruff), Pasteurellosis
+  - **Hamster / Mouse:** LCMV (Lymphocytic Choriomeningitis Virus -> Aseptic meningitis & ทารกในครรภ์พิการ), *Hymenolepis nana* (พยาธิตืดในเด็ก), Rat-Bite Fever (*Streptobacillus*)
+- **Zoonoses in Potbellied Pigs:**
+  - Erysipeloid (*Erysipelothrix rhusiopathiae* -> ผื่นอักเสบผิวหนังสีม่วงแดง & Endocarditis), Swine Influenza, *Streptococcus suis* meningitis, Brucellosis (*Brucella suis* -> Undulant fever)

@@ -44,6 +44,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.24.0',
+    date: '2026-07-24',
+    headline: '📚 VetWiki — เพิ่ม 20+ ตารางวิชาการจาก MSD Veterinary Manual ครอบคลุมโรคติดต่อจากสัตว์สู่คน และการดูแลสัตว์เลี้ยงพิเศษ',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: '🦠', title: 'เพิ่มตาราง Zoonotic Diseases & Public Health จาก MSD Vet Manual 8 ชนิดสัตว์',
+        desc: 'ลงทะเบียนแหล่งอ้างอิงและเนื้อหาโรคติดต่อจากสัตว์สู่คน (Zoonoses) ครอบคลุม Ferret (Influenza A/B 2 ทาง), Rabbit (Tularemia, E. cuniculi, Cheyletiellosis), Rodents (LCMV, Hymenolepis nana, Rat-bite fever), Reptile (Salmonella 85-90% normal flora, Pentastomiasis) และ Potbellied Pig (Erysipeloid, S. suis meningitis)'
+      },
+      { scope: 'multi', kind: 'content', icon: '🚨', title: 'เพิ่มเนื้อหาภาวะฉุกเฉิน การจัดสิ่งแวดล้อม และโภชนาการสัตว์เลี้ยงพิเศษ',
+        desc: 'เพิ่ม 5 หัวข้อ VetWiki ใหม่ในวิชา Exotic — Triage ภาวะฉุกเฉินวิกฤต (Dyspnea, Insulinoma collapse, Chinchilla heat stroke), Substrate hazard (ขี้เลื่อยซีดาร์/สนส่งผลต่อตับ), การป้อน Syringe feeding เฟอร์เรตป่วย, การป้องกัน Gerbil sore nose (ความชื้น <50%), การดูแลระบบกรองตู้ปลา/เคมี pH-Ammonia toxicity และ Passive calcium absorption ในกระต่าย (ป้องกัน Bladder sludge)'
+      },
+    ],
+  },
+  {
     version: '5.23.0',
     date: '2026-05-27',
     headline: '🛠️ รอบโพลิช 3 สัปดาห์ — Leaderboard กลับมาโหลดได้, Theme picker บนมือถือไม่หลุดขอบ, ปุ่มเล็กกดง่ายขึ้น',

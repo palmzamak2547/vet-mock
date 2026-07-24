@@ -177,7 +177,7 @@ export function scanWikiPages(dir, errors = [], warnings = [], rootDir = ROOT_DI
           
           // Match the first <!-- wiki-section-meta ... --> before the next <a id=...
           const nextAnchorMatch = remainingContent.match(/<a\s+(?:[^>]*?\s+)?id=["']/i);
-          const searchWindow = nextAnchorMatch ? remainingContent.slice(0, nextAnchorMatch.index) : remainingContent.slice(0, 1500);
+          const searchWindow = nextAnchorMatch ? remainingContent.slice(0, nextAnchorMatch.index) : remainingContent.slice(0, 5000);
 
           const metaMatch = searchWindow.match(/<!--\s*wiki-section-meta([\s\S]*?)-->/);
           
