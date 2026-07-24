@@ -52,12 +52,20 @@
 - [x] Per-claim support label + chip that jumps to the source section
 - [x] `npm run stats` — content numbers measured from source, fail loudly on drift
 
-## Slice 4 — next
-- [ ] Surface the wiki search inside `⌘K`
-- [ ] Integration #3 — question explanations link to the governed section that
-      supports them (the `(subject,topic)` spine already exists)
-- [ ] Report-a-concern flow
-- [ ] Extend coverage beyond COM5 (one registry row per topic)
+## Slice 4 — integration + reach (done)
+- [x] Surface the wiki search inside `⌘K` (opens the article, updates the URL)
+- [x] Integration #3 — missed questions link to their governed article
+      (Results for a single-topic set, Review per missed question)
+- [x] All 6 COM5 topics governed (added feline-uri) → 49 sections, 7 prerendered
+- [x] Merged เกษม's platform branch; fixed the smoke test his home redesign broke
+
+## Slice 5 — next
+- [ ] Report-a-concern flow on a governed section
+- [ ] Extend coverage beyond COM5 (one registry row per topic; verify high-value
+      claims against real sources as we go)
+- [ ] Decide whether the citation gate (เกษม) and the VetWiki runtime should
+      converge on one source of truth, or stay complementary
+- [ ] Enable grounded AI in prod once ANTHROPIC_API_KEY is set (Palm-side)
 
 ## Slice 3 — grounded answers
 - [ ] Explain endpoint from the `api/grade-summary.js` Claude+rate-limit template
