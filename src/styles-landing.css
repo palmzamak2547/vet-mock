@@ -12,6 +12,20 @@
    the practice app. No new colors/fonts — tokens live in styles.css.
    ============================================================ */
 
+/* ============================================================
+   VetMock Landing — scoped styles
+   ============================================================
+   The landing reuses the app's existing vmx-* design system
+   (src/styles.css). This file adds ONLY:
+     1. the two design-system primitives the app didn't have yet
+        (vmx-explain, vmx-badge-live) — from the design bundle
+     2. landing-only layout/motion helpers (nav scroll state,
+        scroll-reveal, responsive breakpoints, reduced-motion)
+   Design source of truth: design_handoff_vetmock_landing
+   Everything is prefixed .lp- or scoped so it can't leak into
+   the practice app. No new colors/fonts — tokens live in styles.css.
+   ============================================================ */
+
 /* ---- 2 missing design-system primitives ----
    These are the ONLY vmx-* classes the design uses that the app's
    styles.css didn't already have. Everything else the landing needs
@@ -41,25 +55,43 @@ html.lp-active { background: var(--clr-bg); }
 #lp-top {
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, var(--clr-bg) 0%, color-mix(in srgb, var(--clr-sage-soft) 15%, var(--clr-bg)) 50%, color-mix(in srgb, var(--clr-gold-soft) 10%, var(--clr-bg)) 100%);
 }
 #lp-top::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -20%;
   background:
-    radial-gradient(ellipse 70% 60% at 80% 30%, color-mix(in srgb, var(--clr-sage) 10%, transparent), transparent 70%),
-    radial-gradient(ellipse 50% 50% at 15% 70%, color-mix(in srgb, var(--clr-gold) 8%, transparent), transparent 65%),
-    radial-gradient(ellipse 40% 40% at 60% 80%, color-mix(in srgb, var(--clr-ocean) 6%, transparent), transparent 60%);
+    radial-gradient(ellipse 80% 70% at 75% 25%, color-mix(in srgb, var(--clr-sage) 12%, transparent), transparent 70%),
+    radial-gradient(ellipse 60% 55% at 20% 75%, color-mix(in srgb, var(--clr-gold) 10%, transparent), transparent 65%),
+    radial-gradient(ellipse 50% 45% at 55% 85%, color-mix(in srgb, var(--clr-ocean) 8%, transparent), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 35% 35%, color-mix(in srgb, var(--clr-plum) 6%, transparent), transparent 55%);
   pointer-events: none;
   z-index: 0;
-  animation: lp-mesh-drift 18s ease-in-out infinite alternate;
+  animation: lp-mesh-drift 20s ease-in-out infinite alternate;
+}
+#lp-top::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    color-mix(in srgb, var(--clr-ink) 1.5%, transparent) 2px,
+    color-mix(in srgb, var(--clr-ink) 1.5%, transparent) 4px
+  );
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
 }
 #lp-top > * { position: relative; z-index: 1; }
 
 @keyframes lp-mesh-drift {
-  0%   { opacity: 0.7; transform: scale(1) translateX(0); }
-  50%  { opacity: 1; transform: scale(1.04) translateX(-10px); }
-  100% { opacity: 0.85; transform: scale(1.02) translateX(8px); }
+  0%   { opacity: 0.8; transform: scale(1) translateX(0) rotate(0deg); }
+  33%  { opacity: 1; transform: scale(1.06) translateX(-15px) rotate(2deg); }
+  66%  { opacity: 0.9; transform: scale(1.03) translateX(12px) rotate(-1deg); }
+  100% { opacity: 0.85; transform: scale(1.04) translateX(-8px) rotate(1deg); }
 }
 
 /* Floating orbs behind hero */
@@ -68,31 +100,32 @@ html.lp-active { background: var(--clr-bg); }
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
-  filter: blur(50px);
-  animation: lp-orb-float 12s ease-in-out infinite alternate;
+  filter: blur(60px);
+  animation: lp-orb-float 14s ease-in-out infinite alternate;
 }
 .lp-hero-orb-1 {
-  width: 340px; height: 340px;
-  top: -80px; right: 5%;
-  background: color-mix(in srgb, var(--clr-sage) 14%, transparent);
+  width: 380px; height: 380px;
+  top: -100px; right: 8%;
+  background: color-mix(in srgb, var(--clr-sage) 16%, transparent);
   animation-delay: 0s;
 }
 .lp-hero-orb-2 {
-  width: 240px; height: 240px;
-  bottom: -40px; left: 8%;
-  background: color-mix(in srgb, var(--clr-gold) 10%, transparent);
+  width: 280px; height: 280px;
+  bottom: -60px; left: 10%;
+  background: color-mix(in srgb, var(--clr-gold) 12%, transparent);
   animation-delay: -5s;
 }
 .lp-hero-orb-3 {
-  width: 180px; height: 180px;
-  top: 30%; right: 40%;
-  background: color-mix(in srgb, var(--clr-ocean) 8%, transparent);
+  width: 200px; height: 200px;
+  top: 35%; right: 45%;
+  background: color-mix(in srgb, var(--clr-ocean) 10%, transparent);
   animation-delay: -9s;
 }
 @keyframes lp-orb-float {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(20px, -30px) scale(1.08); }
-  100% { transform: translate(-10px, 20px) scale(0.95); }
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33%  { transform: translate(25px, -35px) scale(1.1) rotate(5deg); }
+  66%  { transform: translate(-15px, 25px) scale(0.95) rotate(-3deg); }
+  100% { transform: translate(10px, -15px) scale(1.05) rotate(2deg); }
 }
 
 /* ================================================================
@@ -158,11 +191,20 @@ html.lp-active { background: var(--clr-bg); }
 /* ================================================================
    ✨ SCROLL REVEAL — smoother, staggers via delay
    ================================================================ */
-.lp-reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1); }
-.lp-reveal.in { opacity: 1; transform: none; }
-.lp-reveal:nth-child(2) { transition-delay: .08s; }
-.lp-reveal:nth-child(3) { transition-delay: .16s; }
-.lp-reveal:nth-child(4) { transition-delay: .24s; }
+.lp-reveal { 
+  opacity: 0; 
+  transform: translateY(28px) scale(0.98); 
+  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); 
+}
+.lp-reveal.in { 
+  opacity: 1; 
+  transform: translateY(0) scale(1); 
+}
+.lp-reveal:nth-child(1) { transition-delay: .0s; }
+.lp-reveal:nth-child(2) { transition-delay: .1s; }
+.lp-reveal:nth-child(3) { transition-delay: .2s; }
+.lp-reveal:nth-child(4) { transition-delay: .3s; }
+.lp-reveal:nth-child(5) { transition-delay: .4s; }
 
 /* Hero section content is above the fold and must always be 100% visible immediately */
 #lp-top .lp-reveal {
@@ -178,39 +220,84 @@ html.lp-active { background: var(--clr-bg); }
 .lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card),
 .lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card),
 .lp-root [style*="borderRadius: 22"]:not(.vmx-question-card):not(.vmx-subject-card) {
-  transition: transform .22s cubic-bezier(.2,.7,.2,1), box-shadow .22s, border-color .22s;
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, border-color .25s;
+  position: relative;
+  overflow: hidden;
+}
+.lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card)::before,
+.lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card)::before,
+.lp-root [style*="borderRadius: 22"]:not(.vmx-question-card):not(.vmx-subject-card)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--clr-sage) 6%, transparent) 0%, transparent 50%, color-mix(in srgb, var(--clr-gold) 4%, transparent) 100%);
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+.lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card):hover::before,
+.lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card):hover::before,
+.lp-root [style*="borderRadius: 22"]:not(.vmx-question-card):not(.vmx-subject-card):hover::before {
+  opacity: 1;
 }
 .lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card):hover,
 .lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card):hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px -4px color-mix(in srgb, var(--clr-sage) 16%, rgba(0,0,0,.06)), 0 2px 6px rgba(0,0,0,.04);
-  border-color: color-mix(in srgb, var(--clr-sage) 28%, var(--clr-border)) !important;
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 
+    0 12px 32px -6px color-mix(in srgb, var(--clr-sage) 18%, rgba(0,0,0,.06)),
+    0 4px 12px rgba(0,0,0,.04),
+    0 0 0 1px color-mix(in srgb, var(--clr-sage) 15%, transparent);
+  border-color: color-mix(in srgb, var(--clr-sage) 32%, var(--clr-border)) !important;
 }
 
 /* Subject cards extra glow */
 .lp-root .vmx-subject-card {
-  transition: transform .2s cubic-bezier(.2,.7,.2,1), border-color .2s, box-shadow .2s;
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .25s, box-shadow .25s;
   transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+.lp-root .vmx-subject-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--clr-sage) 12%, transparent) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+.lp-root .vmx-subject-card:hover::after {
+  opacity: 1;
 }
 .lp-root .vmx-subject-card:hover {
-  box-shadow: 0 6px 20px -2px color-mix(in srgb, var(--clr-sage) 20%, rgba(0,0,0,.06));
-  border-color: color-mix(in srgb, var(--clr-sage) 35%, var(--clr-border)) !important;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 10px 28px -4px color-mix(in srgb, var(--clr-sage) 22%, rgba(0,0,0,.06)),
+    0 4px 10px rgba(0,0,0,.04),
+    0 0 0 2px color-mix(in srgb, var(--clr-sage) 20%, transparent);
+  border-color: color-mix(in srgb, var(--clr-sage) 40%, var(--clr-border)) !important;
 }
 
 /* Final CTA dark box — animated gradient border glow */
 #cta .lp-reveal > div {
   position: relative;
   overflow: hidden;
+  box-shadow: 0 0 40px color-mix(in srgb, var(--clr-sage) 15%, transparent);
 }
 #cta .lp-reveal > div::before {
   content: '';
   position: absolute;
   inset: -2px;
   border-radius: 28px;
-  background: conic-gradient(from 180deg, var(--clr-sage), var(--clr-gold), var(--clr-ocean), var(--clr-sage));
+  background: conic-gradient(from 180deg, var(--clr-sage), var(--clr-gold), var(--clr-ocean), var(--clr-plum), var(--clr-sage));
   z-index: 0;
-  animation: lp-cta-spin 6s linear infinite;
-  opacity: 0.45;
+  animation: lp-cta-spin 8s linear infinite;
+  opacity: 0.5;
 }
 #cta .lp-reveal > div::after {
   content: '';
@@ -226,6 +313,16 @@ html.lp-active { background: var(--clr-bg); }
   to { transform: rotate(360deg); }
 }
 
+/* CTA button extra glow */
+#cta .vmx-btn-primary {
+  box-shadow: 0 0 20px color-mix(in srgb, var(--clr-sage) 30%, transparent);
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, background .2s;
+}
+#cta .vmx-btn-primary:hover {
+  box-shadow: 0 0 30px color-mix(in srgb, var(--clr-sage) 40%, transparent), 0 8px 24px rgba(0,0,0,.2);
+  transform: translateY(-3px) scale(1.05);
+}
+
 /* ================================================================
    ✨ TRUST BAND — gradient shimmer on the row
    ================================================================ */
@@ -236,12 +333,22 @@ html.lp-active { background: var(--clr-bg); }
   position: relative;
   overflow: hidden;
 }
+#why::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--clr-sage-soft), var(--clr-gold-soft), transparent);
+  opacity: 0.6;
+}
 #why::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--clr-sage) 5%, transparent) 50%, transparent 100%);
-  animation: lp-trust-shimmer 4s ease-in-out infinite;
+  animation: lp-trust-shimmer 5s ease-in-out infinite;
   pointer-events: none;
 }
 @keyframes lp-trust-shimmer {
@@ -252,8 +359,8 @@ html.lp-active { background: var(--clr-bg); }
 /* Trust checkmarks pulse */
 #why .lp-reveal span[style*="color: var(--clr-sage)"] {
   display: inline-block;
-  animation: lp-check-pop .4s cubic-bezier(.16,1,.3,1) both;
-  animation-delay: calc(var(--i, 0) * .08s);
+  animation: lp-check-pop .5s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: calc(var(--i, 0) * .1s);
 }
 
 /* ================================================================
@@ -261,44 +368,92 @@ html.lp-active { background: var(--clr-bg); }
    ================================================================ */
 #solution {
   background: linear-gradient(180deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-bg) 20%, var(--clr-surface)) 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+#solution::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--clr-sage-soft), transparent);
+  opacity: 0.5;
 }
 [data-screen-label="How it works"] {
   background: linear-gradient(180deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-sage-soft) 4%, var(--clr-surface)) 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+[data-screen-label="How it works"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, color-mix(in srgb, var(--clr-sage) 6%, transparent) 0%, transparent 60%);
+  pointer-events: none;
 }
 [data-screen-label="Readiness"] {
   background: linear-gradient(180deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-ocean) 4%, var(--clr-surface)) 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+[data-screen-label="Readiness"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, color-mix(in srgb, var(--clr-ocean) 6%, transparent) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 /* ================================================================
    ✨ HERO EXAM CARD — elevated glass card
    ================================================================ */
 .lp-root .vmx-question-card {
-  background: color-mix(in srgb, var(--clr-surface) 96%, transparent) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(1.3);
-  backdrop-filter: blur(12px) saturate(1.3);
-  border: 1px solid color-mix(in srgb, var(--clr-border) 80%, transparent) !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,.05), 0 12px 40px -8px color-mix(in srgb, var(--clr-sage) 10%, rgba(0,0,0,.08));
+  background: color-mix(in srgb, var(--clr-surface) 94%, transparent) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid color-mix(in srgb, var(--clr-border) 70%, transparent) !important;
+  box-shadow: 
+    0 4px 12px rgba(0,0,0,.06),
+    0 16px 48px -8px color-mix(in srgb, var(--clr-sage) 14%, rgba(0,0,0,.1)),
+    inset 0 1px 0 color-mix(in srgb, var(--clr-surface) 80%, transparent);
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s;
+}
+.lp-root .vmx-question-card:hover {
+  transform: translateY(-2px) scale(1.005);
+  box-shadow: 
+    0 6px 16px rgba(0,0,0,.08),
+    0 20px 56px -6px color-mix(in srgb, var(--clr-sage) 18%, rgba(0,0,0,.12)),
+    inset 0 1px 0 color-mix(in srgb, var(--clr-surface) 90%, transparent);
 }
 
 /* ================================================================
    ✨ STEP NUMBERS — sage ring glow
    ================================================================ */
 [data-screen-label="How it works"] [style*="borderRadius: 50%"][style*="var(--clr-sage)"] {
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--clr-sage) 15%, transparent), 0 0 0 8px color-mix(in srgb, var(--clr-sage) 6%, transparent);
-  transition: box-shadow .3s;
+  box-shadow: 
+    0 0 0 4px color-mix(in srgb, var(--clr-sage) 18%, transparent), 
+    0 0 0 8px color-mix(in srgb, var(--clr-sage) 8%, transparent),
+    0 4px 12px color-mix(in srgb, var(--clr-sage) 25%, rgba(0,0,0,.1));
+  transition: box-shadow .35s, transform .2s;
 }
 [data-screen-label="How it works"] [style*="borderRadius: 50%"][style*="var(--clr-sage)"]:hover {
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--clr-sage) 25%, transparent), 0 0 0 10px color-mix(in srgb, var(--clr-sage) 8%, transparent);
+  box-shadow: 
+    0 0 0 6px color-mix(in srgb, var(--clr-sage) 28%, transparent), 
+    0 0 0 12px color-mix(in srgb, var(--clr-sage) 10%, transparent),
+    0 6px 16px color-mix(in srgb, var(--clr-sage) 30%, rgba(0,0,0,.15));
+  transform: scale(1.08);
 }
 
 /* ================================================================
    ✨ EYEBROW LABELS — animated left-to-right reveal
    ================================================================ */
 .lp-root .lp-reveal.in [style*="JetBrains Mono"][style*="uppercase"][style*="var(--clr-sage)"] {
-  animation: lp-eyebrow-in .5s cubic-bezier(.16,1,.3,1) both;
+  animation: lp-eyebrow-in .6s cubic-bezier(.16,1,.3,1) both;
 }
 @keyframes lp-eyebrow-in {
-  from { opacity: 0; letter-spacing: -.05em; transform: translateX(-6px); }
+  from { opacity: 0; letter-spacing: -.08em; transform: translateX(-8px); }
   to   { opacity: 1; letter-spacing: inherit; transform: none; }
 }
 
@@ -306,23 +461,24 @@ html.lp-active { background: var(--clr-bg); }
    ✨ HERO EYEBROW CHIP — pulsing dot
    ================================================================ */
 #lp-top .lp-reveal [style*="border-radius: 999"] span[style*="borderRadius: 50%"] {
-  animation: lp-dot-pulse 2.2s ease-in-out infinite;
+  animation: lp-dot-pulse 2.4s ease-in-out infinite;
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--clr-sage) 40%, transparent);
 }
 @keyframes lp-dot-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.7; }
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 color-mix(in srgb, var(--clr-sage) 40%, transparent); }
+  50% { transform: scale(1.5); opacity: 0.8; box-shadow: 0 0 0 6px color-mix(in srgb, var(--clr-sage) 0%, transparent); }
 }
 
 /* ================================================================
    ✨ READINESS RING — smooth spin-in on reveal
    ================================================================ */
 .lp-root .lp-reveal.in [style*="conic-gradient"] {
-  animation: lp-ring-in .9s cubic-bezier(.16,1,.3,1) both;
-  animation-delay: .2s;
+  animation: lp-ring-in 1s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: .25s;
 }
 @keyframes lp-ring-in {
-  from { opacity: 0; transform: scale(.88) rotate(-20deg); }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; transform: scale(.85) rotate(-30deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0deg); }
 }
 
 /* ================================================================
@@ -362,20 +518,87 @@ html.lp-active { background: var(--clr-bg); }
 /* ================================================================
    ✨ MOTION LAYER — card tilt / magnetic buttons
    ================================================================ */
-.lp-root .vmx-btn-primary { transition: transform .18s cubic-bezier(.2,.7,.2,1), background .15s, color .15s, border-color .15s; }
-.lp-root .vmx-subject-card, .lp-root .vmx-stat-card { transition: transform .2s cubic-bezier(.2,.7,.2,1), border-color .2s, box-shadow .2s; transform-style: preserve-3d; }
+.lp-root .vmx-btn-primary { 
+  transition: transform .2s cubic-bezier(.2,.7,.2,1), background .15s, color .15s, border-color .15s, box-shadow .2s; 
+}
+.lp-root .vmx-btn-primary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px -4px color-mix(in srgb, var(--clr-sage) 30%, rgba(0,0,0,.15));
+}
+.lp-root .vmx-subject-card, .lp-root .vmx-stat-card { 
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .25s, box-shadow .25s; 
+  transform-style: preserve-3d; 
+}
 
 /* ================================================================
    ✨ SCROLL RAIL — left progress indicator
    ================================================================ */
-.lp-rail { position: fixed; left: 20px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 16px; pointer-events: none; }
-.lp-rail-item { display: flex; align-items: center; gap: 9px; opacity: .3; transition: opacity .35s, transform .35s; }
+.lp-rail { 
+  position: fixed; 
+  left: 20px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  z-index: 40; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+  pointer-events: none; 
+}
+.lp-rail::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: color-mix(in srgb, var(--clr-border) 50%, transparent);
+  border-radius: 2px;
+}
+.lp-rail-item { 
+  display: flex; 
+  align-items: center; 
+  gap: 9px; 
+  opacity: .3; 
+  transition: opacity .35s, transform .35s; 
+  position: relative;
+}
 .lp-rail-item.is-on { opacity: 0.8; }
-.lp-rail-item.is-current { opacity: 1; transform: translateX(3px); }
-.lp-rail-dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--clr-sage); background: transparent; transition: background .3s, transform .3s, box-shadow .3s; }
-.lp-rail-item.is-on .lp-rail-dot { background: var(--clr-sage-soft); }
-.lp-rail-item.is-current .lp-rail-dot { background: var(--clr-sage); transform: scale(1.3); box-shadow: 0 0 0 4px color-mix(in srgb, var(--clr-sage) 20%, transparent); }
-.lp-rail-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.lp-rail-item.is-current { 
+  opacity: 1; 
+  transform: translateX(4px); 
+}
+.lp-rail-dot { 
+  width: 10px; 
+  height: 10px; 
+  border-radius: 50%; 
+  border: 2px solid var(--clr-sage); 
+  background: transparent; 
+  transition: background .3s, transform .3s, box-shadow .3s, border-color .3s; 
+  position: relative;
+  z-index: 1;
+}
+.lp-rail-item.is-on .lp-rail-dot { 
+  background: var(--clr-sage-soft); 
+  border-color: var(--clr-sage);
+}
+.lp-rail-item.is-current .lp-rail-dot { 
+  background: var(--clr-sage); 
+  transform: scale(1.35); 
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--clr-sage) 20%, transparent), 0 2px 8px color-mix(in srgb, var(--clr-sage) 30%, rgba(0,0,0,.15)); 
+  border-color: var(--clr-sage);
+}
+.lp-rail-label { 
+  font-family: 'JetBrains Mono', monospace; 
+  font-size: 10px; 
+  letter-spacing: .12em; 
+  text-transform: uppercase; 
+  color: var(--clr-ink-soft); 
+  transition: color .3s, transform .3s;
+}
+.lp-rail-item.is-current .lp-rail-label {
+  color: var(--clr-ink);
+  transform: translateX(2px);
+}
 
 /* Diagnostic spotlight (follows cursor inside question cards) */
 .lp-spotlight { position: fixed; width: 340px; height: 340px; border-radius: 50%; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .3s; background: radial-gradient(circle, color-mix(in srgb, var(--clr-sage) 16%, transparent), transparent 70%); }
@@ -384,26 +607,51 @@ html.lp-active { background: var(--clr-bg); }
    ✨ FOOTER — gradient top border
    ================================================================ */
 .lp-root footer[data-screen-label="Footer"] {
-  background: linear-gradient(180deg, var(--clr-bg) 0%, color-mix(in srgb, var(--clr-surface) 40%, var(--clr-bg)) 100%);
+  background: linear-gradient(180deg, var(--clr-bg) 0%, color-mix(in srgb, var(--clr-surface) 45%, var(--clr-bg)) 100%);
   border-top: 1px solid transparent !important;
-  border-image: linear-gradient(90deg, transparent, var(--clr-border), transparent) 1;
+  border-image: linear-gradient(90deg, transparent 0%, var(--clr-sage-soft) 20%, var(--clr-border) 50%, var(--clr-gold-soft) 80%, transparent 100%) 1;
   position: relative;
 }
 .lp-root footer[data-screen-label="Footer"]::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, var(--clr-sage-soft) 30%, var(--clr-border) 50%, var(--clr-gold-soft) 70%, transparent 100%);
-  opacity: .55;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--clr-sage-soft) 25%, var(--clr-border) 50%, var(--clr-gold-soft) 75%, transparent 100%);
+  opacity: .6;
+  animation: lp-footer-shimmer 6s ease-in-out infinite;
+}
+@keyframes lp-footer-shimmer {
+  0%, 100% { opacity: .4; filter: blur(0px); }
+  50% { opacity: .7; filter: blur(1px); }
 }
 
 /* ================================================================
    ✨ KEYFRAMES
    ================================================================ */
-@keyframes lp-rise { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: none; } }
-@keyframes lp-pulse { 0% { box-shadow: 0 0 0 0 rgba(74,107,74,.45); } 70% { box-shadow: 0 0 0 7px rgba(74,107,74,0); } 100% { box-shadow: 0 0 0 0 rgba(74,107,74,0); } }
-@keyframes lp-check-pop { from { opacity: 0; transform: scale(.6) rotate(-8deg); } to { opacity: 1; transform: none; } }
+@keyframes lp-rise { 
+  from { opacity: 0; transform: translateY(20px) scale(.98); } 
+  to { opacity: 1; transform: none; } 
+}
+@keyframes lp-pulse { 
+  0% { box-shadow: 0 0 0 0 rgba(74,107,74,.45); } 
+  70% { box-shadow: 0 0 0 10px rgba(74,107,74,0); } 
+  100% { box-shadow: 0 0 0 0 rgba(74,107,74,0); } 
+}
+@keyframes lp-check-pop { 
+  from { opacity: 0; transform: scale(.5) rotate(-12deg); } 
+  to { opacity: 1; transform: scale(1) rotate(0deg); } 
+}
+@keyframes lp-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes lp-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 /* ================================================================
    ✨ REDUCED MOTION — safety off-switch

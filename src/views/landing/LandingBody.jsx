@@ -68,8 +68,19 @@ export default function LandingBody(p) {
               <button type="button" onClick={p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>→</span></button>
               <a href="#ai" className="vmx-btn vmx-btn-ghost" style={{ fontSize: 15, padding: '15px 26px' }}>{t.aiAsk}</a>
             </div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-              <span style={{ color: 'var(--clr-sage)' }}>✓</span>{t.heroTrust}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', marginTop: '28px', paddingTop: '24px', borderTop: '1px solid var(--clr-border)' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-sage)', lineHeight: 1 }}>10K+</div>
+                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>Questions</div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-gold)', lineHeight: 1 }}>500+</div>
+                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>Students</div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-ocean)', lineHeight: 1 }}>95%</div>
+                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>Pass Rate</div>
+              </div>
             </div>
           </div>
 
