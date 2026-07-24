@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../hooks/useAuth.js';
 import { hasSupabase, signOut } from '../lib/supabase.js';
 
-export default function Sidebar({ view, setView, goHome, setSubject, setPracticeMode, setMode }) {
+export default function Sidebar({ view, setView, goHome, setSubject, setPracticeMode, setMode, onMockExam }) {
   const { user, profile } = useAuth();
 
   const handleSignOut = async () => {
@@ -39,6 +39,7 @@ export default function Sidebar({ view, setView, goHome, setSubject, setPractice
               key={item.id}
               className={`vmx-btn vmx-btn-ghost vmx-sidebar-item ${isActive ? 'active' : ''}`}
               onClick={() => {
+                if (item.id === 'mock-exam') { onMockExam && onMockExam(); return; }
                 if (item.id === 'subject-select') {
                   setSubject('all');
                   setPracticeMode('all');

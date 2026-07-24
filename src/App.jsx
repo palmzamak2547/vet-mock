@@ -186,8 +186,8 @@ const ImageOcclusionView = lazy(() => import('./views/ImageOcclusionView.jsx'));
 // so lazy-load is appropriate.
 const PhaseWrappedView = lazy(() => import('./views/PhaseWrappedView.jsx'));
 const DomainDetailView = lazy(() => import('./views/DomainDetailView.jsx'));
-const MockExamView = lazy(() => import('./views/MockExamView.jsx'));
-const MockResultsView = lazy(() => import('./views/MockResultsView.jsx'));
+// (Removed MockExamView/MockResultsView — an unwired English "DEMO ONLY" stub.
+//  "Mock Exam" nav now routes into the real config → exam engine. 2026-07-24)
 const PublicWikiView = lazy(() => import('./views/PublicWikiView.jsx'));
 const AdminView = lazy(() => import('./views/AdminView.jsx'));
 
@@ -1439,6 +1439,13 @@ export default function App() {
 
   const handleSignOut = async () => { if (confirm('Logout?')) { await signOut(); goHome(); } };
 
+  // Safety net for the removed Mock demo-stub: if stale browser history
+  // pops back to 'mock-exam'/'mock-results', bounce to home instead of a
+  // dead/blank view. (New Mock Exam nav goes through 'config' → real exam.)
+  useEffect(() => {
+    if (view === 'mock-exam' || view === 'mock-results') goHome();
+  }, [view]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Replay an arbitrary slice of questions as a fresh exam round.
   // Used by ResultsView "redo wrong" — passes the wrong-only subset.
   // The CORE state shape (questions/answers/currentIdx/timer cleared)
@@ -1521,13 +1528,25 @@ export default function App() {
       <TopLoadingBar />
       <div className="vmx-app">
         {!FOCUS_VIEWS.has(view) && (
-          <Sidebar 
-            view={view} 
-            setView={setView} 
-            goHome={goHome} 
-            setSubject={setSubject} 
-            setPracticeMode={setPracticeMode} 
-            setMode={setMode} 
+          <Sidebar
+            view={view}
+            setView={setView}
+            goHome={goHome}
+            setSubject={setSubject}
+            setPracticeMode={setPracticeMode}
+            setMode={setMode}
+            onMockExam={() => {
+              // Same preset as HomeView's "Exam Mode" card — routes into the
+              // REAL config → exam engine (autosave/resume/results), not the
+              // old unwired demo stub. 50 Qs × 60s timed, cross-subject.
+              setMode('exam');
+              setSubject('all');
+              setPracticeMode('all');
+              setNumQuestions(50);
+              setUseTimer(true);
+              setTimePerQ(60);
+              setView('config');
+            }}
           />
         )}
         <div className="vmx-container">
@@ -1739,8 +1758,7 @@ export default function App() {
               {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}
               {view === 'review-queue' && <ReviewQueueView {...{ goHome, setView, user }} />}
               {view === 'domain-detail' && <DomainDetailView onBack={goHome} onStartPractice={(count, time) => { setNumQuestions(count); setUseTimer(!!time); startExam(); }} />}
-              {view === 'mock-exam' && <MockExamView currentUserId={user?.id} onAbandonSession={goHome} onSubmitSession={() => setView('mock-results')} />}
-              {view === 'mock-results' && <MockResultsView onHome={goHome} />}
+              {(view === 'mock-exam' || view === 'mock-results') && <ViewFallback />}
               {view === 'wiki' && <PublicWikiView onBack={goHome} />}
               {view === 'admin' && <AdminView user={user} onBack={goHome} />}
             </Suspense>
