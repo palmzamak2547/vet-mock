@@ -65,6 +65,7 @@ import VetCalculator from './components/VetCalculator.jsx';
 // Unified bottom-right FAB — single button fans out to 🧮 + 🎨. Tiny
 // component (~3 KB) and used on nearly every view, so import eagerly.
 import ToolsFAB from './components/ToolsFAB.jsx';
+import BottomNav from './components/BottomNav.jsx';
 
 // Sketchpad — opens a blank canvas for free-form drawing/diagrams.
 // Lazy because it includes canvas + image processing only used when
@@ -1446,6 +1447,20 @@ export default function App() {
     if (view === 'mock-exam' || view === 'mock-results') goHome();
   }, [view]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // "Mock Exam" preset — one handler shared by the desktop Sidebar and the
+  // mobile BottomNav (same preset as HomeView's "Exam Mode" card): a real
+  // 50-Q × 60s cross-subject timed exam through the config → engine flow.
+  const startMockExam = () => {
+    setMode('exam');
+    setSubject('all');
+    setPracticeMode('all');
+    setNumQuestions(50);
+    setUseTimer(true);
+    setTimePerQ(60);
+    setView('config');
+  };
+  const navHandlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam: startMockExam };
+
   // Replay an arbitrary slice of questions as a fresh exam round.
   // Used by ResultsView "redo wrong" — passes the wrong-only subset.
   // The CORE state shape (questions/answers/currentIdx/timer cleared)
@@ -1535,18 +1550,7 @@ export default function App() {
             setSubject={setSubject}
             setPracticeMode={setPracticeMode}
             setMode={setMode}
-            onMockExam={() => {
-              // Same preset as HomeView's "Exam Mode" card — routes into the
-              // REAL config → exam engine (autosave/resume/results), not the
-              // old unwired demo stub. 50 Qs × 60s timed, cross-subject.
-              setMode('exam');
-              setSubject('all');
-              setPracticeMode('all');
-              setNumQuestions(50);
-              setUseTimer(true);
-              setTimePerQ(60);
-              setView('config');
-            }}
+            onMockExam={startMockExam}
           />
         )}
         <div className="vmx-container">
@@ -1769,6 +1773,9 @@ export default function App() {
           {/* Footer — brand line + utility links + Vet 86 ecosystem
               cross-links. Extracted to components/Footer.jsx 2026-05-27. */}
           {!FOCUS_VIEWS.has(view) && <Footer setView={setView} />}
+          {/* Mobile primary nav (<1024px, CSS-gated). Same destinations as the
+              desktop Sidebar (lib/nav.js); hidden mid-exam via the same gate. */}
+          {!FOCUS_VIEWS.has(view) && <BottomNav view={view} handlers={navHandlers} />}
 
           {/* Floating clinical-math FAB — visible on every view except
               auth (we want to nudge users to log in, not show them tools

@@ -1,9 +1,12 @@
 import React from 'react';
 import { useAuth } from '../hooks/useAuth.js';
 import { hasSupabase, signOut } from '../lib/supabase.js';
+import { NAV_ITEMS, runNav, isNavActive } from '../lib/nav.js';
+import NavIcon from './NavIcon.jsx';
 
 export default function Sidebar({ view, setView, goHome, setSubject, setPracticeMode, setMode, onMockExam }) {
   const { user, profile } = useAuth();
+  const handlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam };
 
   const handleSignOut = async () => {
     try {
@@ -11,14 +14,6 @@ export default function Sidebar({ view, setView, goHome, setSubject, setPractice
       window.location.reload();
     } catch {}
   };
-
-  const navItems = [
-    { id: 'home', label: 'เรียนรู้', icon: '🏠' },
-    { id: 'subject-select', label: 'ฝึกข้อสอบ', icon: '🎯' },
-    { id: 'mock-exam', label: 'Mock Exam', icon: '⏱️' },
-    { id: 'dashboard', label: 'ความคืบหน้า', icon: '📊' },
-    { id: 'wiki', label: 'Wiki', icon: '📖' },
-  ];
 
   return (
     <aside className="vmx-sidebar">
@@ -32,23 +27,16 @@ export default function Sidebar({ view, setView, goHome, setSubject, setPractice
       </button>
 
       <nav className="vmx-sidebar-nav">
-        {navItems.map(item => {
-          const isActive = view === item.id || (item.id === 'subject-select' && view === 'topic-select');
+        {NAV_ITEMS.map(item => {
+          const active = isNavActive(item.id, view);
           return (
             <button
               key={item.id}
-              className={`vmx-btn vmx-btn-ghost vmx-sidebar-item ${isActive ? 'active' : ''}`}
-              onClick={() => {
-                if (item.id === 'mock-exam') { onMockExam && onMockExam(); return; }
-                if (item.id === 'subject-select') {
-                  setSubject('all');
-                  setPracticeMode('all');
-                  setMode('quick');
-                }
-                setView(item.id);
-              }}
+              className={`vmx-btn vmx-btn-ghost vmx-sidebar-item ${active ? 'active' : ''}`}
+              aria-current={active ? 'page' : undefined}
+              onClick={() => runNav(item.id, handlers)}
             >
-              <span className="vmx-sidebar-icon" aria-hidden="true">{item.icon}</span>
+              <span className="vmx-sidebar-icon"><NavIcon name={item.icon} size={20} /></span>
               <span className="vmx-sidebar-label">{item.label}</span>
             </button>
           );

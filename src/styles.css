@@ -1347,3 +1347,57 @@ button.vmx-chip-quick:focus-visible {
   margin-left: 6px;
 }
 
+
+/* ── Mobile bottom navigation (<1024px) ──────────────────────────────
+   Primary nav for touch/phone; desktop uses the Sidebar instead. Same
+   destinations (lib/nav.js). Uses the Phase-1 --z / --dur / --r tokens. */
+.vmx-bottom-nav {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: stretch;
+  background: var(--clr-surface);
+  border-top: 1px solid var(--clr-border);
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -2px 12px rgba(43, 36, 25, 0.06);
+}
+.vmx-bottom-nav-item {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px 2px;
+  border: 0;
+  background: transparent;
+  color: var(--clr-ink-soft);
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.vmx-bottom-nav-item.active { color: var(--clr-sage); }
+.vmx-bottom-nav-item:active { background: var(--clr-surface-2); }
+.vmx-bottom-nav-item:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -3px; border-radius: var(--r-sm); }
+.vmx-bottom-nav-label {
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+/* Reserve space so the fixed bar never covers content, and expose the bar
+   height as a var so the ToolsFAB lifts above it (kept in sync, one value). */
+@media (max-width: 1023px) {
+  :root { --vmx-bottom-nav-h: 58px; }
+  .vmx-app { padding-bottom: calc(58px + env(safe-area-inset-bottom) + 8px); }
+}
+@media (min-width: 1024px) {
+  .vmx-bottom-nav { display: none; }
+}

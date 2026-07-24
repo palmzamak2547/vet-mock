@@ -78,8 +78,9 @@ export default function ToolsFAB({ onSketch, onLab }) {
             position: 'fixed',
             right: 16,
             // Sit just above the FAB. 52 (FAB height) + 16 (FAB bottom)
-            // + 10 (gap) = 78. Plus iOS safe-area inset.
-            bottom: 'calc(78px + env(safe-area-inset-bottom))',
+            // + 10 (gap) = 78. Plus iOS safe-area inset, plus the mobile
+            // bottom-nav height so the panel clears it (0 on desktop).
+            bottom: 'calc(var(--vmx-bottom-nav-h, 0px) + 78px + env(safe-area-inset-bottom))',
             zIndex: 901,
             display: 'flex',
             flexDirection: 'column',
@@ -115,7 +116,8 @@ export default function ToolsFAB({ onSketch, onLab }) {
         style={{
           position: 'fixed',
           right: 16,
-          bottom: 'max(16px, env(safe-area-inset-bottom))',
+          // Lift above the mobile bottom-nav (0 on desktop where there is none).
+          bottom: 'calc(var(--vmx-bottom-nav-h, 0px) + max(16px, env(safe-area-inset-bottom)))',
           zIndex: 900,
           width: 52,
           height: 52,
