@@ -182,10 +182,12 @@ export default function LandingView({
     if (reduce.current || !('IntersectionObserver' in window)) {
       els.forEach((e) => e.classList.add('in'));
     } else {
-      // Immediately reveal elements already near or above the fold
+      // Immediately reveal hero elements and fold elements so top content is never hidden
       els.forEach((e) => {
         const r = e.getBoundingClientRect();
-        if (r.top < window.innerHeight + 100) e.classList.add('in');
+        if (e.closest('#lp-top') || e.closest('header') || r.top < window.innerHeight * 1.5) {
+          e.classList.add('in');
+        }
       });
       io = new IntersectionObserver((ents) => {
         ents.forEach((en) => {
@@ -194,7 +196,7 @@ export default function LandingView({
             io.unobserve(en.target);
           }
         });
-      }, { threshold: 0.01, rootMargin: '50px 0px 50px 0px' });
+      }, { threshold: 0.01, rootMargin: '100px 0px 100px 0px' });
       els.forEach((e) => {
         if (!e.classList.contains('in')) io.observe(e);
       });

@@ -455,11 +455,43 @@ function LabSection({ p }) {
               <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>{t.labDemoNote}</span>
               <span className="vmx-timer" style={{ marginLeft: 'auto' }}>04:59</span>
             </div>
-            <div style={{ position: 'relative', aspectRatio: '4 / 3', background: '#12100c', border: '1px solid var(--clr-border)', borderRadius: 14, overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', inset: 0, transform: `scale(${p.labZoom})`, transition: 'transform .25s ease', transformOrigin: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 10, color: 'rgba(255,255,255,.5)' }}>
-                <span style={{ fontSize: 40 }}>🩻</span>
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11 }}>{t.labImgPlaceholder}</span>
+            <div style={{ position: 'relative', aspectRatio: '4 / 3', background: '#0a0a0c', border: '1px solid var(--clr-border)', borderRadius: 14, overflow: 'hidden', cursor: p.labTool ? 'crosshair' : 'default' }}>
+              {/* Main Radiograph Image */}
+              <div style={{ position: 'absolute', inset: 0, transform: `scale(${p.labZoom})`, transition: 'transform .25s ease', transformOrigin: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img
+                  src="/images/thoracic-xray.jpg"
+                  alt="Canine Lateral Thoracic Radiograph"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+                
+                {/* Interactive Annotate Overlay */}
+                {p.labTool === 'annotate' && (
+                  <div style={{ position: 'absolute', top: '48%', left: '42%', width: 84, height: 84, borderRadius: '50%', border: '2px dashed #4ade80', boxShadow: '0 0 12px rgba(74,222,128,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', animation: 'lp-pulse 2s infinite' }}>
+                    <span style={{ position: 'absolute', top: -20, background: 'rgba(0,0,0,0.85)', color: '#4ade80', fontSize: 10, fontFamily: 'JetBrains Mono, monospace', padding: '2px 6px', borderRadius: 4, whiteSpace: 'nowrap', border: '1px solid #4ade80' }}>
+                      ROI 1: Cardiomegaly
+                    </span>
+                  </div>
+                )}
+
+                {/* Interactive Measure Overlay */}
+                {p.labTool === 'measure' && (
+                  <div style={{ position: 'absolute', top: '40%', left: '35%', width: 140, height: 2, background: '#f59e0b', pointerEvents: 'none' }}>
+                    <div style={{ position: 'absolute', left: 0, top: -4, width: 2, height: 10, background: '#f59e0b' }} />
+                    <div style={{ position: 'absolute', right: 0, top: -4, width: 2, height: 10, background: '#f59e0b' }} />
+                    <span style={{ position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.85)', color: '#f59e0b', fontSize: 10, fontFamily: 'JetBrains Mono, monospace', padding: '2px 6px', borderRadius: 4, whiteSpace: 'nowrap', border: '1px solid #f59e0b' }}>
+                      VHS = 11.4v (Elevated)
+                    </span>
+                  </div>
+                )}
               </div>
+
+              {/* DICOM HUD Info Overlay */}
+              <div style={{ position: 'absolute', top: 10, left: 10, pointerEvents: 'none', background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)', padding: '5px 9px', borderRadius: 6, fontFamily: 'JetBrains Mono, monospace', fontSize: 9.5, color: 'rgba(255,255,255,0.85)', display: 'flex', flexDirection: 'column', gap: 2, border: '1px solid rgba(255,255,255,0.1)' }}>
+                <span>PATIENT: BUSTER (CANINE, 8Y MN)</span>
+                <span>VIEW: LATERAL THORAX (DR)</span>
+                <span style={{ color: 'var(--clr-sage)' }}>W: 350 L: 40 (CHEST WINDOW)</span>
+              </div>
+
               <div style={{ position: 'absolute', right: 10, bottom: 10, display: 'flex', alignItems: 'center', gap: 6, zIndex: 2 }}>
                 <button type="button" onClick={() => p.setLabZoom((z) => Math.max(1, +(z - 0.25).toFixed(2)))} aria-label="Zoom out" style={labZoomBtn}>−</button>
                 <span style={{ display: 'flex', alignItems: 'center', padding: '0 9px', height: 28, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: '#fff', background: 'rgba(0,0,0,.5)', borderRadius: 999 }}>{Math.round(p.labZoom * 100)}%</span>
