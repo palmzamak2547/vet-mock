@@ -19,6 +19,7 @@ const DEFAULT_CONFIG = {
   focusMin: 25,
   shortBreakMin: 5,
   longBreakMin: 15,
+  strictFocus: true,
 };
 
 function emptyHistory() {
@@ -62,9 +63,13 @@ function writeHistory(data) {
     // Cap sessions FIFO — keep most recent CAP rows.
     const sessions = Array.isArray(data.sessions) ? data.sessions : [];
     const trimmed = sessions.length > CAP ? sessions.slice(sessions.length - CAP) : sessions;
+    const totalMin = trimmed.reduce(
+      (sum, s) => (s.completed ? sum + (Number(s.durationMin) || 0) : sum),
+      0
+    );
     const payload = {
       sessions: trimmed,
-      totalMin: Number(data.totalMin) || 0,
+      totalMin,
       currentStreak: Number(data.currentStreak) || 0,
     };
     localStorage.setItem(HISTORY_KEY, JSON.stringify(payload));
@@ -146,6 +151,7 @@ export function loadConfig() {
       focusMin: clamp(parsed.focusMin, 5, 90, DEFAULT_CONFIG.focusMin),
       shortBreakMin: clamp(parsed.shortBreakMin, 1, 30, DEFAULT_CONFIG.shortBreakMin),
       longBreakMin: clamp(parsed.longBreakMin, 5, 60, DEFAULT_CONFIG.longBreakMin),
+      strictFocus: typeof parsed.strictFocus === 'boolean' ? parsed.strictFocus : DEFAULT_CONFIG.strictFocus,
     };
   } catch {
     return { ...DEFAULT_CONFIG };
@@ -164,6 +170,7 @@ export function saveConfig(patch) {
     focusMin: clamp(patch.focusMin ?? current.focusMin, 5, 90, current.focusMin),
     shortBreakMin: clamp(patch.shortBreakMin ?? current.shortBreakMin, 1, 30, current.shortBreakMin),
     longBreakMin: clamp(patch.longBreakMin ?? current.longBreakMin, 5, 60, current.longBreakMin),
+    strictFocus: typeof patch.strictFocus === 'boolean' ? patch.strictFocus : current.strictFocus,
   };
   try {
     localStorage.setItem(CONFIG_KEY, JSON.stringify(next));

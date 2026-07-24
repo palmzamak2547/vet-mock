@@ -91,12 +91,16 @@ function pickEmoji(state, progress) {
   return '🥚';
 }
 
-function statusLabel(state) {
+function statusLabel(state, strictFocus = true) {
   switch (state) {
     case 'idle':
-      return 'พร้อมเริ่ม — กด Start เพื่อฟักลูกไก่';
+      return strictFocus
+        ? 'พร้อมเริ่ม — กด Start เพื่อฟักลูกไก่ (Strict Mode)'
+        : 'พร้อมเริ่ม — กด Start เพื่อเริ่มโฟกัส (Relaxed Mode)';
     case 'focus':
-      return 'กำลังโฟกัส — อย่าออกจากหน้านี้นะ ไก่จะหนี!';
+      return strictFocus
+        ? 'กำลังโฟกัส — อย่าออกจากหน้านี้นะ ไก่จะหนี!'
+        : 'กำลังโฟกัส — สลับแอปอ่าน PDF/สรุปได้ตามสะดวก 📚';
     case 'shortBreak':
       return 'พักสายตา 5 นาที';
     case 'longBreak':
@@ -185,9 +189,9 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [remainingMs, isTimerActive, paused, state, focusCount, config?.focusMin]);
 
-  // --- Visibility escape (focus state only) -------------------------------
+  // --- Visibility escape (focus state only, if strictFocus mode is active) ---
   useEffect(() => {
-    if (state !== 'focus') return undefined;
+    if (state !== 'focus' || config?.strictFocus === false) return undefined;
     const onVis = () => {
       if (document.hidden) {
         hiddenSinceRef.current = Date.now();
@@ -225,7 +229,7 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state, config?.focusMin]);
+  }, [state, config?.focusMin, config?.strictFocus]);
 
   // --- Actions ------------------------------------------------------------
   const startFocus = useCallback(() => {
@@ -271,7 +275,7 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
   const dashOffset = CIRC * (1 - Math.max(0, Math.min(1, progress)));
 
   const emoji = pickEmoji(state, progress);
-  const status = statusLabel(state);
+  const status = statusLabel(state, config?.strictFocus !== false);
 
   // Ring color reflects state
   const ringColor =

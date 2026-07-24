@@ -198,6 +198,15 @@ export default function PomodoroView({ goHome }) {
         </button>
         {settingsOpen && (
           <div style={{ padding: '0 14px 14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13, color: '#444', fontWeight: 600, padding: '4px 0', cursor: 'pointer' }}>
+              <span>🐣 Strict Mode (ห้ามออกจากหน้าจอ)</span>
+              <input
+                type="checkbox"
+                checked={config.strictFocus !== false}
+                onChange={(e) => setConfigField('strictFocus', e.target.checked)}
+                style={{ width: 20, height: 20, accentColor: '#f59f00', cursor: 'pointer' }}
+              />
+            </label>
             <Slider
               label="Focus"
               suffix="นาที"
@@ -249,7 +258,9 @@ export default function PomodoroView({ goHome }) {
 
       {/* Hint footer */}
       <div style={{ fontSize: 12, color: '#888', textAlign: 'center', padding: '4px 8px' }}>
-        เปลี่ยนแท็บหรือล็อกหน้าจอเกิน 5 วินาที ลูกไก่จะหนี
+        {config.strictFocus !== false
+          ? 'Strict Mode: เปลี่ยนแท็บหรือล็อกหน้าจอเกิน 5 วินาที ลูกไก่จะหนี'
+          : 'Relaxed Mode: สลับแอปอ่าน PDF/สรุปได้ โดยไม่พัง session'}
       </div>
     </div>
   );
