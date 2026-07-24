@@ -182,7 +182,7 @@ export default function LandingView({
     if (reduce.current || !('IntersectionObserver' in window)) {
       els.forEach((e) => e.classList.add('in'));
     } else {
-      // Immediately reveal hero elements and fold elements so top content is never hidden
+      // Immediately reveal all elements near or above fold
       els.forEach((e) => {
         const r = e.getBoundingClientRect();
         if (e.closest('#lp-top') || e.closest('header') || r.top < window.innerHeight * 1.5) {
@@ -196,7 +196,7 @@ export default function LandingView({
             io.unobserve(en.target);
           }
         });
-      }, { threshold: 0.01, rootMargin: '100px 0px 100px 0px' });
+      }, { threshold: 0, rootMargin: '200px 0px 200px 0px' });
       els.forEach((e) => {
         if (!e.classList.contains('in')) io.observe(e);
       });

@@ -164,6 +164,12 @@ html.lp-active { background: var(--clr-bg); }
 .lp-reveal:nth-child(3) { transition-delay: .16s; }
 .lp-reveal:nth-child(4) { transition-delay: .24s; }
 
+/* Hero section content is above the fold and must always be 100% visible immediately */
+#lp-top .lp-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 /* ================================================================
    ✨ CARDS — premium hover glow + border shimmer
    ================================================================ */
