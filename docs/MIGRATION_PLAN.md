@@ -48,14 +48,24 @@ Goal: fix the destinations users can't reach or that lose data.
 - [x] **Exam submit confirm** — styled dialog on the last question (answered/remaining
   + unanswered warning) + `finishingRef` re-entry latch; Space/Enter/J decoupled from
   terminal submit, keyboard still submits via the confirm (finding 3).
-- [ ] **Restore resume "discard/start fresh"** (finding 14).
+- [x] **Restore resume "discard/start fresh"** (finding 14) — plus two bugs the
+  audit missed: the resume card never rendered at all (boot guard raced the
+  session's own localStorage hydration), and the exit-exam copy promised a
+  resume that `goHome()` deliberately discards.
+- [x] **Header + footer de-slop** — header 11 controls/8 emoji → 8/0 (dropped the
+  Wiki + Analytics duplicates now covered by the navs, saved-chip only when
+  non-empty, year+phase as one segmented control, line icons, no ACADEMY badge);
+  footer rebuilt as three labelled groups, no italic/emoji/middle-dots.
 - [ ] **Bulk hex→var** for dark mode, quarantining the DICOM lab (finding 5).
 
 ## Phase 3 — Secondary surfaces (lab · search · progress · profile · states)
 - [ ] LabView mobile clip fix (finding 16).
 - [ ] Standardize back-nav on `BackBar`; extract `.vmx-pressable` (Duolingo-press ×4).
-- [ ] One shared styled confirm/alert primitive; migrate the 42 native dialogs, critical
-  paths first (findings 10, 11).
+- [x] **One shared styled confirm primitive** — `components/ConfirmDialog.jsx`
+  (Esc/backdrop cancel, focus-managed, `danger` tone). Migrated the two
+  highest-stakes native dialogs (exit exam, discard in-flight).
+- [ ] Migrate the remaining ~40 native `alert()/confirm()` to it, destructive
+  Dashboard/QuestionManager resets first (findings 10, 11).
 - [ ] In-view error/empty + retry for empty-pool / QB-load-failure (finding 11).
 - [ ] Clarify the two wiki destinations (finding 13).
 - [ ] Reduce HomeView overload to one primary action + progressive disclosure (finding 8).
