@@ -562,6 +562,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           history={history}
           pendingResume={pendingResume}
           onPickResume={() => resumePendingExam && resumePendingExam()}
+          onDismissResume={dismissPendingExam ? () => dismissPendingExam() : null}
           onPickExamPrep={(exam) => {
             if (exam?.subject) {
               setSubject && setSubject(exam.subject);
@@ -649,54 +650,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {false && (() => {
-        const subjMeta = SUBJECTS.find((s) => s.id === pendingResume.subjectId);
-        const subjLabel = subjMeta ? `${subjMeta.icon || ''} ${subjMeta.name || ''}` : 'ข้อสอบที่ค้างอยู่';
-        const timeAgo = pendingResume.ageMin < 60
-          ? `${pendingResume.ageMin} นาทีที่แล้ว`
-          : `${Math.round(pendingResume.ageMin / 60)} ชม. ที่แล้ว`;
-        return (
-          <div style={{
-            padding: 16,
-            borderRadius: 16,
-            marginBottom: 20,
-            background: 'rgba(74, 107, 74, 0.08)',
-            border: '2px solid var(--clr-sage)',
-            display: 'flex',
-            gap: 14,
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}>
-            <div style={{ flex: 1, minWidth: 200 }}>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                ทำต่อจาก {timeAgo}
-              </div>
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18, marginTop: 2 }}>
-                {subjLabel}
-              </div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-                ตอบไปแล้ว <strong>{pendingResume.answered}</strong>/{pendingResume.qCount} ข้อ
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <button
-                className="vmx-btn vmx-btn-primary"
-                onClick={() => resumePendingExam && resumePendingExam()}
-                style={{ background: 'var(--clr-sage)', borderColor: 'var(--clr-sage)' }}
-              >
-                ทำต่อ
-              </button>
-              <button
-                className="vmx-btn vmx-btn-ghost"
-                onClick={() => dismissPendingExam && dismissPendingExam()}
-                title="เริ่มใหม่ (ลบข้อสอบที่ค้าง)"
-              >
-                ยกเลิก
-              </button>
-            </div>
-          </div>
-        );
-      })()}
 
       {nextExam && nextExam.daysLeft > 7 && nextExam.daysLeft <= 30 && (
         <div onClick={() => setView('schedule')} style={{

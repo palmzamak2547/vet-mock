@@ -2,7 +2,8 @@
 // NextActionCard — "กิจกรรมแนะนำสำหรับคุณ" study coach surface
 // ============================================================
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import ConfirmDialog from './ConfirmDialog.jsx';
 
 export default function NextActionCard({
   nextExam,
@@ -13,12 +14,15 @@ export default function NextActionCard({
   history,
   pendingResume,
   onPickResume,
+  onDismissResume,
   onPickExamPrep,
   onPickSR,
   onPickWrong,
   onPickWeakSubject,
   onPickRandom,
 }) {
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
+
   const actions = useMemo(() => {
     const out = [];
 
@@ -33,6 +37,10 @@ export default function NextActionCard({
         cta: 'ทำต่อ',
         kind: 'resume',
         onClick: () => onPickResume?.(),
+        // Escape hatch — a user who wants a clean start could not drop the
+        // in-flight set from here (the discard action existed in App but its
+        // only UI was dead-coded in HomeView).
+        secondary: onDismissResume ? { label: 'ไม่ทำต่อ', title: 'ลบชุดที่ค้างไว้ แล้วเริ่มใหม่' } : null,
       });
     }
 
@@ -113,7 +121,7 @@ export default function NextActionCard({
     }
 
     return out.slice(0, 3);
-  }, [nextExam, quickStats, cardStats, accBySubject, subjects, history, pendingResume, onPickResume, onPickExamPrep, onPickSR, onPickWrong, onPickWeakSubject, onPickRandom]);
+  }, [nextExam, quickStats, cardStats, accBySubject, subjects, history, pendingResume, onPickResume, onDismissResume, onPickExamPrep, onPickSR, onPickWrong, onPickWeakSubject, onPickRandom]);
 
   if (actions.length === 0) return null;
 
@@ -123,21 +131,50 @@ export default function NextActionCard({
         กิจกรรมแนะนำสำหรับคุณ
       </h2>
       <div className="vmx-next-actions-list">
-        {actions.map((a, i) => (
-          <button
-            key={a.kind}
-            type="button"
-            onClick={a.onClick}
-            className={`vmx-next-action${i === 0 ? ' is-primary' : ''}`}
-          >
-            <span className="vmx-next-action-copy">
-              <span className="vmx-next-action-title">{a.title}</span>
-              <span className="vmx-next-action-sub">{a.sub}</span>
-            </span>
-            <span className="vmx-next-action-cta">{a.cta}</span>
-          </button>
-        ))}
+        {actions.map((a, i) => {
+          const main = (
+            <button
+              key={a.kind}
+              type="button"
+              onClick={a.onClick}
+              className={`vmx-next-action${i === 0 ? ' is-primary' : ''}`}
+            >
+              <span className="vmx-next-action-copy">
+                <span className="vmx-next-action-title">{a.title}</span>
+                <span className="vmx-next-action-sub">{a.sub}</span>
+              </span>
+              <span className="vmx-next-action-cta">{a.cta}</span>
+            </button>
+          );
+          if (!a.secondary) return main;
+          // Buttons can't nest, so the pair sits in a row instead.
+          return (
+            <div className="vmx-next-action-row" key={a.kind}>
+              {main}
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                onClick={() => setConfirmDiscard(true)}
+                title={a.secondary.title}
+              >
+                {a.secondary.label}
+              </button>
+            </div>
+          );
+        })}
       </div>
+
+      <ConfirmDialog
+        open={confirmDiscard}
+        title="ไม่ทำชุดที่ค้างไว้ต่อ?"
+        body="ชุดที่ทำค้างไว้จะถูกลบ และคำตอบที่ตอบไปแล้วจะหายไป"
+        note="เริ่มชุดใหม่ได้ทันทีหลังจากนี้"
+        confirmLabel="ลบแล้วเริ่มใหม่"
+        cancelLabel="เก็บไว้ก่อน"
+        tone="danger"
+        onConfirm={() => { setConfirmDiscard(false); onDismissResume?.(); }}
+        onCancel={() => setConfirmDiscard(false)}
+      />
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
 import { fmtTime } from '../hooks/utils.js';
 import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
@@ -7,6 +8,8 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
+  const [confirmExit, setConfirmExit] = useState(false);
+  const answeredCount = questions.filter((q) => answers[q.id] !== undefined).length;
   const isLast = currentIdx === questions.length - 1;
   // Keyboard on the last Q (Space/Enter/J in App) asks to submit — surface
   // the same confirm dialog the button opens, so a keypress can't end the
@@ -26,13 +29,11 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
   // Exit-exam handler — explicit confirm so a stray tap on the X
   // doesn't lose progress. Auto-save + in-flight resume mean a refresh
   // also recovers state, but the visible escape route is what reduces
-  // panic when a user mishits during a real session.
+  // panic when a user mishits during a real session. Uses the app's own
+  // dialog (an OS confirm mid-exam reads as a browser warning).
   const exitExam = () => {
     if (!goHome) return;
-    const msg = questions.length > 1
-      ? 'ออกจากการทำชุดนี้ใช่ไหม? คำตอบที่ตอบไปจะยังถูกเก็บไว้ — กลับมาทำต่อได้ผ่านแบนเนอร์ที่หน้าแรก'
-      : 'ออกจากชุดนี้ใช่ไหม?';
-    if (window.confirm(msg)) goHome();
+    setConfirmExit(true);
   };
 
   return (
@@ -137,6 +138,22 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
           onClose={() => setShowNav(false)}
         />
       )}
+
+      {/* Honest copy: leaving here DISCARDS the set — goHome() clears
+          `vmx-inflight-exam` on purpose. (The old native confirm promised
+          "คำตอบจะถูกเก็บไว้ กลับมาทำต่อได้" which was never true for this
+          path; resume only covers a refresh/crash, not an explicit exit.) */}
+      <ConfirmDialog
+        open={confirmExit}
+        title="ออกจากชุดนี้?"
+        body="ชุดนี้จะถูกยกเลิก คำตอบที่ตอบไปแล้วจะไม่ถูกบันทึกลงประวัติ"
+        note={answeredCount > 0 ? `ตอบไปแล้ว ${answeredCount} จาก ${questions.length} ข้อ` : null}
+        confirmLabel="ออกจากชุดนี้"
+        cancelLabel="ทำต่อ"
+        tone="danger"
+        onConfirm={() => { setConfirmExit(false); goHome(); }}
+        onCancel={() => setConfirmExit(false)}
+      />
 
       {confirmSubmit && (
         <div className="vmx-modal-overlay" onClick={() => setConfirmSubmit(false)}>

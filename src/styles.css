@@ -1451,3 +1451,14 @@ button.vmx-chip-quick:focus-visible {
 @media (min-width: 1024px) {
   .vmx-bottom-nav { display: none; }
 }
+
+/* Next-action row — a primary action that also offers an escape hatch
+   (e.g. resume vs discard). Buttons can't nest, so the pair sits side by
+   side and collapses on narrow screens. */
+.vmx-next-action-row { display: flex; gap: var(--space-2); align-items: stretch; }
+.vmx-next-action-row > .vmx-next-action { flex: 1 1 auto; min-width: 0; }
+.vmx-next-action-row > .vmx-btn { flex: 0 0 auto; white-space: nowrap; }
+@media (max-width: 480px) {
+  .vmx-next-action-row { flex-wrap: wrap; }
+  .vmx-next-action-row > .vmx-btn { width: 100%; }
+}

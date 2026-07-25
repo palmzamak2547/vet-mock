@@ -832,7 +832,13 @@ export default function App() {
   // (>6h old) is auto-cleared so the banner doesn't lure users into
   // resuming an exam they conceptually moved on from.
   useEffect(() => {
-    if (questions.length > 0) return;
+    // Bug (found by live-testing 2026-07-24): this used to bail on
+    // `questions.length > 0`, but useExamSession hydrates `questions` from
+    // this very same localStorage key at init — so whenever there WAS
+    // something to resume, the guard fired and the resume card never
+    // appeared for anyone. Gate on the view instead: skip only when we
+    // booted straight into an exam (e.g. a ?qset= share link).
+    if (view === 'exam') return;
     let raw;
     try { raw = window.localStorage?.getItem('vmx-inflight-exam'); } catch {}
     if (!raw) return;
