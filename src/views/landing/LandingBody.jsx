@@ -7,6 +7,11 @@
 // ============================================================
 
 import React from 'react';
+import { QB_TOTAL, Q_COUNTS_BY_SUBJECT } from '../../data/q-counts.js';
+
+// Derived once at module load — the number of subjects that actually ship
+// questions today. Regenerated with the bank, so it can't drift.
+const SUBJECTS_WITH_QUESTIONS = Object.values(Q_COUNTS_BY_SUBJECT).filter((n) => n > 0).length;
 
 export function OptionRow({ opt, onClick, disabled }) {
   return (
@@ -65,21 +70,28 @@ export default function LandingBody(p) {
               <span>{t.heroAiLine}</span><span style={{ color: 'var(--clr-sage)', fontWeight: 600, fontFamily: 'IBM Plex Sans Thai, sans-serif', fontSize: 14 }}>{t.heroWords[p.heroWord]} →</span>
             </div>
             <div className="lp-center-md lp-flex" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
-              <button type="button" onClick={p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>→</span></button>
+              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>→</span></button>
               <a href="#ai" className="vmx-btn vmx-btn-ghost" style={{ fontSize: 15, padding: '15px 26px' }}>{t.aiAsk}</a>
             </div>
+            {/* Hero stats — every figure DERIVED from the shipped question
+                bank, never typed by hand. (This block used to read
+                "10K+ Questions / 500+ Students / 95% Pass Rate": the bank
+                actually holds QB_TOTAL questions, and the app has never
+                measured a student count or an exam pass rate — the subject
+                grid further down this same page renders the honest counts,
+                so the page was contradicting itself.) */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', marginTop: '28px', paddingTop: '24px', borderTop: '1px solid var(--clr-border)' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-sage)', lineHeight: 1 }}>10K+</div>
-                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>Questions</div>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-sage)', lineHeight: 1 }}>{QB_TOTAL.toLocaleString('en-US')}</div>
+                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statQuestions}</div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-gold)', lineHeight: 1 }}>500+</div>
-                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>Students</div>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-gold)', lineHeight: 1 }}>{SUBJECTS_WITH_QUESTIONS}</div>
+                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statSubjects}</div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-ocean)', lineHeight: 1 }}>95%</div>
-                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>Pass Rate</div>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-ocean)', lineHeight: 1 }}>{t.statFreeValue}</div>
+                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statFree}</div>
               </div>
             </div>
           </div>
@@ -225,7 +237,9 @@ export default function LandingBody(p) {
                 {t.panicTimes.map((pt) => <button key={pt.key} type="button" className={chip(p.panicTime === pt.key)} onClick={() => p.setPanicTime(pt.key)}>{pt.label}</button>)}
               </div>
             </div>
-            <button type="button" onClick={p.onEnterApp} className="vmx-btn" style={{ background: 'var(--clr-gold)', color: 'var(--clr-surface)', fontSize: 15, padding: '15px 26px' }}>{t.panicCta} →</button>
+            {/* Runs a REAL cram session sized to the time the user just picked
+                (weak topics when there's enough history to know them). */}
+            <button type="button" onClick={() => (p.onStartPanic ? p.onStartPanic(p.panicTime) : p.onEnterApp())} className="vmx-btn" style={{ background: 'var(--clr-gold)', color: 'var(--clr-surface)', fontSize: 15, padding: '15px 26px' }}>{t.panicCta} →</button>
           </div>
           <div className="lp-reveal" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: '3px solid var(--clr-gold)', borderRadius: 20, padding: 28, boxShadow: 'var(--shadow-md)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
@@ -283,7 +297,7 @@ export default function LandingBody(p) {
       {/* ================= READINESS ================= */}
       <section data-screen-label="Readiness" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
         <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={label()}>{t.rLabel}</div><h2 style={h2}>{t.rHeadPre}<em style={em}>{t.rHeadEm}</em>{t.rHeadPost}</h2></div>
+          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div style={label()}>{t.rLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.rHeadPre}<em style={em}>{t.rHeadEm}</em>{t.rHeadPost}</h2></div>
           <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '290px 1fr', gap: 38, alignItems: 'center', background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 34 }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
               <div style={{ position: 'relative', width: 200, height: 200, borderRadius: '50%', background: p.readinessRing, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -525,7 +539,7 @@ function LabSection({ p }) {
               {p.labRevealed && <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, fontWeight: 700, color: p.labPicked === 0 ? 'var(--clr-sage)' : 'var(--clr-rose)' }}>{p.labPicked === 0 ? `✓ ${t.correct}` : `✗ ${t.wrong}`}</span>}
               <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
                 <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={p.labPicked === null || p.labRevealed} onClick={p.onCheckLab}>{t.check}</button>
-                <button type="button" onClick={p.onEnterApp} className="vmx-btn vmx-btn-ghost vmx-btn-sm">{t.labNext} →</button>
+                <button type="button" onClick={p.onOpenLab || p.onEnterApp} className="vmx-btn vmx-btn-ghost vmx-btn-sm">{t.labNext} →</button>
               </div>
             </div>
           </div>
@@ -691,7 +705,7 @@ function GeneratorSection({ p }) {
   return (
     <section id="generate" data-screen-label="AI generator" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
       <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 34 }}><div style={label()}>{t.genLabel}</div><h2 style={h2}>{t.genHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.genSub}</p></div>
+        <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 34 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div style={label()}>{t.genLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.genHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.genSub}</p></div>
         <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '.85fr 1.15fr', gap: 20, alignItems: 'start' }}>
           <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 22, display: 'flex', flexDirection: 'column', gap: 15 }}>
             <div><div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10.5, color: 'var(--clr-ink-soft)', marginBottom: 4 }}>{t.genWeak}</div><div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18, color: 'var(--clr-ink)' }}>🐕 {t.genWeakVal}</div></div>
@@ -755,7 +769,7 @@ function PlanSection({ p }) {
   return (
     <section id="plan" data-screen-label="Revision plan" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
       <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 34 }}><div style={label()}>{t.planLabel}</div><h2 style={h2}>{t.planHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.planSub}</p></div>
+        <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 34 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div style={label()}>{t.planLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.planHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.planSub}</p></div>
         <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '.9fr 1.1fr', gap: 20, alignItems: 'start' }}>
           <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 22, display: 'flex', flexDirection: 'column', gap: 15 }}>
             <PlanCtl title={t.planExamIn} opts={t.planDaysOpts} value={p.planDays} set={p.setPlanDays} />

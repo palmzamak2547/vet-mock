@@ -77,6 +77,9 @@ function buildOptions(texts, ans, picked, revealed) {
 
 export default function LandingView({
   onEnterApp,          // () => enter the real practice app
+  onStartMockExam,     // () => run the REAL timed mock exam this page advertises
+  onStartPanic,        // (timeKey) => run a REAL cram session sized to the time left
+  onOpenLab,           // () => open the REAL imaging lab
   onPickSubject,       // (year, subjectId) => enter real practice for that subject
   onOpenAuth,          // () => hand off to real AuthView (password / signup)
   onGoogle,            // () => real signInWithGoogle()
@@ -363,7 +366,8 @@ export default function LandingView({
           aiStyle, setAiStyle, aiCompare, setAiCompare, aiRelated, setAiRelated, aiSaved, setAiSaved, aiMain, setAiCitation,
           genStep, genRevealed, genPicked, setGenPicked, genOptions, genDifficulty, setGenDifficulty, genSpecies, setGenSpecies, genType, setGenType, genScope, setGenScope, genTimed, setGenTimed, onGenerate,
           planDays, setPlanDays, planTime, setPlanTime, planConf, setPlanConf, planSubjects, setPlanSubjects, planReady, planSegs, onPlanGen,
-          readinessRing, onEnterApp, onPickSubject, openLogin }}
+          readinessRing, onEnterApp, onPickSubject, openLogin,
+          onStartMockExam, onStartPanic, onOpenLab }}
       />
 
       {/* ---- Citation source panel ---- */}

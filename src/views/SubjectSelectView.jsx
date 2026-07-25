@@ -3,9 +3,14 @@ import { QB } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 
-export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear }) {
+export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, qbReady = true }) {
   const allQuestions = [...QB, ...customQuestions];
   const [searchQuery, setSearchQuery] = useState('');
+  // QB is lazy-loaded and mutated in place, so on a slow connection this
+  // view used to render EVERY subject as "🚧 รอข้อสอบเพิ่ม" and disabled —
+  // telling a first-time user the whole curriculum is empty. Loading and
+  // genuinely-empty are different states and must look different.
+  const qbLoading = !qbReady && QB.length === 0;
 
   // Filter subjects to selectedYear (or show all if no year selected — for
   // legacy "all subjects" flow).
@@ -89,9 +94,9 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
             <button
               key={s.id}
               className="vmx-subject-card"
-              disabled={isEmpty}
+              disabled={isEmpty && !qbLoading}
               onClick={() => {
-                if (isEmpty) return;
+                if (isEmpty && !qbLoading) return;
                 setSubject(s.id);
                 setPracticeMode('all');
                 if (setTopic) setTopic(null);
@@ -100,21 +105,23 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 setView(hasTopics ? 'topic-select' : 'config');
               }}
               style={{
-                opacity: isEmpty ? 0.5 : 1,
-                cursor: isEmpty ? 'not-allowed' : 'pointer',
+                opacity: qbLoading ? 0.75 : (isEmpty ? 0.5 : 1),
+                cursor: (isEmpty && !qbLoading) ? 'not-allowed' : 'pointer',
               }}
-              title={isScaffold ? 'รอเติมเนื้อหา, ส่ง slide/notes มาช่วยได้' : (isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : '')}
+              title={qbLoading ? 'กำลังโหลดคลังข้อสอบ' : (isScaffold ? 'รอเติมเนื้อหา, ส่ง slide/notes มาช่วยได้' : (isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : ''))}
             >
               <div className="accent" style={{ background: s.color }}></div>
               <div className="icon">{s.icon}</div>
               <div className="title">{s.name}</div>
               <div className="sub">{s.name_en}</div>
-              <div className="count" style={{ color: isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)' }}>
-                {isScaffold
-                  ? '📋 รอเติมเนื้อหา'
-                  : isEmpty
-                    ? '🚧 รอข้อสอบเพิ่ม'
-                    : `${count} ข้อ`}
+              <div className="count" style={{ color: (isEmpty && !qbLoading) ? 'var(--clr-rose)' : 'var(--clr-ink-soft)' }}>
+                {qbLoading
+                  ? 'กำลังโหลด…'
+                  : isScaffold
+                    ? '📋 รอเติมเนื้อหา'
+                    : isEmpty
+                      ? '🚧 รอข้อสอบเพิ่ม'
+                      : `${count} ข้อ`}
               </div>
               {/* Drop the 7-digit course code on the card — already
                   searchable via ⌘K; redundant visual noise here. */}

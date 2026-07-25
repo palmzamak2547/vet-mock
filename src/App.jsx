@@ -705,7 +705,10 @@ export default function App() {
   // Landing page: language (landing-local; the app itself is Thai-first
   // with no i18n framework) + cookie consent. Consent gates the optional
   // analytics mount below — 'ask' | 'all' | 'essential' | 'custom'.
-  const [landingLang, setLandingLang] = useLocalStorage('vmx-landing-lang', 'en');
+  // Thai by default — the audience is Thai veterinary students and the whole
+  // app behind the landing is Thai. (An EN/ไทย toggle stays in the header for
+  // exchange students and for sharing the page abroad.)
+  const [landingLang, setLandingLang] = useLocalStorage('vmx-landing-lang', 'th');
   const [consent, setConsent] = useLocalStorage('vmx-consent', 'ask');
   const [consentPrefs, setConsentPrefs] = useLocalStorage('vmx-consent-prefs', { analytics: true, personal: true });
   const analyticsAllowed = consent === 'all' || (consent === 'custom' && !!consentPrefs.analytics);
@@ -768,9 +771,22 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // run-once on mount
 
+  // Cloud sync is pull-then-push, and the push MUST NOT run until the pull
+  // has actually come back. Before this gate, both effects fired on the same
+  // `user` transition: on a new device (or whenever the read failed — the
+  // catch below is silent, so "network error" looked exactly like "no cloud
+  // data") the push raced ahead with an EMPTY local state and overwrote the
+  // user's real cloud history and bookmarks. Failing to back up is
+  // recoverable; deleting someone's history is not.
+  const [syncPulled, setSyncPulled] = useState(false);
+
   useEffect(() => {
-    if (!user) return;
+    if (!user) { setSyncPulled(false); return; }
+    setSyncPulled(false);
     pullUserData(user.id).then((data) => {
+      // A successful read with no row is a genuinely new account — safe to
+      // push. A REJECTED read leaves syncPulled false, so we never push.
+      setSyncPulled(true);
       if (!data) return;
       if (data.bookmarks?.length) setBookmarks(data.bookmarks);
       if (data.history?.length) setHistory(data.history);
@@ -785,7 +801,7 @@ export default function App() {
   }, [user]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || !syncPulled) return; // never push over an unread cloud state
     // NOTE: reading_checklist intentionally excluded from cloud push for
     // now — the user_data table in supabase-schema.sql doesn't include
     // that column yet, and including it would make the entire upsert
@@ -798,7 +814,7 @@ export default function App() {
       custom_questions: customQuestions, streak_data: streakData,
       // reading_checklist: readingChecklist,
     });
-  }, [user, bookmarks, history, notes, srCards, customQuestions, streakData]);
+  }, [user, syncPulled, bookmarks, history, notes, srCards, customQuestions, streakData]);
 
   // QB is mutated in place when loadQB() resolves, so the same reference
   // grows from [] → 2,227 entries. Depend on `qbReady` so the memo
@@ -1054,6 +1070,11 @@ export default function App() {
     const questionStats = {};
     SUBJECTS.forEach((s) => { if (s.id !== 'all') bySubject[s.id] = { correct: 0, total: 0 }; });
     let totalCorrect = 0;
+    // Entries whose question resolved in the currently-loaded bank. The
+    // numerator below only counts these, so the denominator must too —
+    // dividing by the full history understated accuracy for anyone whose
+    // history spans questions outside the loaded year scope.
+    let totalScored = 0;
     // Q ID collisions exist across subjects (com4↔engprof, com3↔exotic etc).
     // Use compound (subject:id) lookup to avoid stat leakage. Pre-build a
     // map once per pass instead of O(n) Array.find per history entry.
@@ -1063,6 +1084,7 @@ export default function App() {
       const q = qByCompound.get((h.subject || '') + ':' + h.questionId)
         || allQuestions.find((x) => x.id === h.questionId); // fallback for legacy history without subject
       if (!q) return;
+      totalScored++;
       if (!bySubject[q.subject]) bySubject[q.subject] = { correct: 0, total: 0 };
       bySubject[q.subject].total++;
       if (h.correct) { bySubject[q.subject].correct++; totalCorrect++; }
@@ -1081,8 +1103,8 @@ export default function App() {
       .sort((a, b) => a.pct - b.pct).slice(0, 8);
     const weakQuestions = Object.entries(questionStats).filter(([_, s]) => s.wrong >= 1)
       .sort((a, b) => b[1].wrong - a[1].wrong).slice(0, 25).map(([id]) => parseInt(id));
-    const overallPct = history.length ? Math.round((totalCorrect / history.length) * 100) : 0;
-    return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, overallPct };
+    const overallPct = totalScored ? Math.round((totalCorrect / totalScored) * 100) : 0;
+    return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, totalScored, overallPct };
   }, [history, allQuestions]);
 
   // startExam accepts an optional `overrides` object so a caller (like the
@@ -1094,6 +1116,10 @@ export default function App() {
   // to the state value.
   const startExam = async (overrides = {}) => {
     finishingRef.current = false; // arm the finish latch for a fresh session
+    // A new set replaces whatever was saved, so the resume card's numbers
+    // (captured once at boot) would otherwise describe a session that no
+    // longer exists — and its "ทำต่อ" button would find nothing to resume.
+    setPendingResume(null);
     let _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
@@ -1448,6 +1474,7 @@ export default function App() {
     setPracticeMode('all'); setMode('quick'); setActiveGroup(null); setTopic(null);
     // Clear in-flight exam state — user explicitly chose to leave
     try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+    setPendingResume(null); // the saved set is gone; don't offer to resume it
     // Strip share-link query so a refresh from home doesn't bounce
     // back into the shared exam.
     try {
@@ -1516,6 +1543,58 @@ export default function App() {
     setView(next);
   };
   const landingEnterApp = () => leaveLandingTo(selectedYearStored == null ? 'year-select' : 'home');
+
+  // ── Landing CTAs land where they promise ─────────────────────────────
+  // Every landing CTA used to call onEnterApp, so "Start a Mock Exam",
+  // "Enter Panic Mode" and the Lab CTA all dumped the user on the generic
+  // year picker — the page advertised destinations the click never reached.
+  // Now each runs its real destination. A first-time visitor still has to
+  // pick a year first (the questions are year-scoped), so the intent is
+  // parked and replayed once they arrive at home.
+  const landingIntentRef = useRef(null);
+  const runLandingIntent = (intent) => {
+    if (intent?.kind === 'mock-exam') { startMockExam(); return; }
+    if (intent?.kind === 'panic') { startPanicSession(intent.timeKey); return; }
+    if (intent?.kind === 'lab') { setView('lab'); return; }
+  };
+  const goLanding = (intent) => {
+    try { window.localStorage?.setItem('vmx-seen-landing', '1'); } catch {}
+    if (selectedYearStored == null) {
+      landingIntentRef.current = intent;   // replayed on arrival at home
+      setView('year-select');
+      return;
+    }
+    runLandingIntent(intent);
+  };
+  useEffect(() => {
+    if (view !== 'home' || !landingIntentRef.current) return;
+    const intent = landingIntentRef.current;
+    landingIntentRef.current = null;
+    runLandingIntent(intent);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view]);
+
+  // Panic Mode — real, not a mock-up: a timed cram sized to the time the
+  // user says they have left, drawn from their weak topics when there's
+  // enough history to know them (that's the page's "prioritised for you"),
+  // otherwise a cross-subject set so a first-time user isn't handed an
+  // empty pool.
+  const PANIC_SIZE = { 15: 12, 30: 25, 60: 50, tonight: 120 };
+  const startPanicSession = (timeKey = '30') => {
+    const n = PANIC_SIZE[timeKey] || PANIC_SIZE['30'];
+    const knowsWeakSpots = Array.isArray(history) && history.length >= 20;
+    setMode('quick');
+    setSubject('all');
+    startExam({
+      subject: 'all',
+      topic: null,
+      practiceMode: knowsWeakSpots ? 'weak' : 'all',
+      questionCategory: 'all',
+      numQuestions: n,
+      useTimer: timeKey !== 'tonight',
+      timePerQ: 60,
+    });
+  };
   // Pick a real subject from the landing → the exact sequence a subject
   // card uses in HomeView (reset practiceMode, set subject, topic-select).
   const landingPickSubject = (year, subjectId) => {
@@ -1540,6 +1619,9 @@ export default function App() {
         <Suspense fallback={<div style={{ minHeight: '100dvh', background: 'var(--clr-bg)' }} />}>
           <LandingView
             onEnterApp={landingEnterApp}
+            onStartMockExam={() => goLanding({ kind: 'mock-exam' })}
+            onStartPanic={(timeKey) => goLanding({ kind: 'panic', timeKey })}
+            onOpenLab={() => goLanding({ kind: 'lab' })}
             onPickSubject={landingPickSubject}
             onOpenAuth={landingOpenAuth}
             onGoogle={() => { signInWithGoogle().catch(() => landingOpenAuth()); }}
@@ -1755,7 +1837,7 @@ export default function App() {
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
-              {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear }} />}
+              {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, qbReady }} />}
               {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={(subj, top) => { setSubject(subj); setTopic(top); setView('knowledge'); }} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, setView, setSubject, setTopic, goHome, startExam }} />}

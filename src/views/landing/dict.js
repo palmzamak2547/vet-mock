@@ -16,6 +16,9 @@ export const DICT = {
     heroPre: 'Practice before the ', heroEm: 'real exam.', heroPost: '',
     heroSub: 'Prepare for written exams, laboratory practicals, and clinical assessments with realistic veterinary mock examinations — designed around the way you actually study.',
     heroCta1: 'Start a Mock Exam', heroTrust: 'Free — no credit card. Start practising immediately.',
+    // Hero stat labels. The VALUES are derived from the shipped question
+    // bank in LandingBody — never hand-typed marketing numbers.
+    statQuestions: 'Questions', statSubjects: 'Subjects', statFree: 'Cost', statFreeValue: 'Free',
     heroWords: ['written exam', 'lab practical', 'clinical assessment', 'comprehensive exam'],
     heroAiLine: 'Practise for your next', aiAsk: 'Ask VetMock AI',
     floats: ['Clinical reasoning', 'Timed practice', 'Instant explanation', 'Weak-topic detection'],
@@ -40,7 +43,10 @@ export const DICT = {
     solPre: 'One place to practise like it’s the ', solEm: 'real exam.', solPost: '',
     solSub: 'Two core ways to train — timed written questions and image-based practical stations — with an explanation after every answer.',
     mockName: 'Mock Exam', mockDesc: 'Take realistic, timed examinations built around veterinary subjects and clinical scenarios.',
-    mockBullets: ['Timed and untimed modes', 'Subject-specific exams', 'Difficulty selection', 'Detailed answer explanations', 'Question bookmarking'],
+    // Every bullet here must be a shipped capability (no "Difficulty
+    // selection" — questions carry no difficulty field and the exam config
+    // has no such control).
+    mockBullets: ['Timed and untimed modes', 'Subject-specific exams', 'Detailed answer explanations', 'Question bookmarking'],
     labFName: 'Lab Practice', labFDesc: 'Train your visual recognition and practical examination skills through image-based questions.',
     labExamples: [{ emoji: '🔬', label: 'Histopathology slides' }, { emoji: '🩻', label: 'Radiographic images' }, { emoji: '🪱', label: 'Parasitology specimens' }, { emoji: '🦴', label: 'Anatomy identification' }, { emoji: '🦠', label: 'Microbiology results' }, { emoji: '🐕', label: 'Clinical photographs' }],
     panicLabel: 'When time is short', panicHead: 'Exam tomorrow?',
@@ -161,6 +167,7 @@ export const DICT = {
     heroPre: 'ลุยโจทย์ให้ชิน ก่อนเข้า', heroEm: 'ห้องสอบจริง', heroPost: '',
     heroSub: 'เตรียมสอบข้อเขียน สอบแล็บปฏิบัติ และ clinical assessment ด้วยโจทย์ mock exam ทางสัตวแพทย์ที่อิงกับวิธีที่คุณอ่านหนังสือจริง ๆ',
     heroCta1: 'เริ่มทำ Mock Exam', heroTrust: 'ฟรี ไม่ต้องใช้บัตรเครดิต เริ่มฝึกได้ทันที',
+    statQuestions: 'ข้อสอบ', statSubjects: 'รายวิชา', statFree: 'ค่าใช้จ่าย', statFreeValue: 'ฟรี',
     heroWords: ['สอบข้อเขียน', 'สอบแล็บ', 'clinical assessment', 'สอบรวบยอด'],
     heroAiLine: 'เตรียมตัวสำหรับ', aiAsk: 'ถาม VetMock AI',
     floats: ['การให้เหตุผลทางคลินิก', 'ฝึกแบบจับเวลา', 'เฉลยทันที', 'ตรวจจับหัวข้อที่อ่อน'],
@@ -184,7 +191,7 @@ export const DICT = {
     solPre: 'ที่เดียว ฝึกให้เหมือน', solEm: 'สอบจริง', solPost: '',
     solSub: 'ฝึกสองรูปแบบหลัก — ข้อเขียนแบบจับเวลา และสถานีภาพแบบปฏิบัติ — พร้อมเฉลยหลังตอบทุกข้อ',
     mockName: 'Mock Exam', mockDesc: 'ทำข้อสอบเสมือนจริงแบบจับเวลา อิงตามรายวิชาและ clinical scenario ทางสัตวแพทย์',
-    mockBullets: ['โหมดจับเวลาและไม่จับเวลา', 'ข้อสอบแยกตามรายวิชา', 'เลือกระดับความยาก', 'เฉลยละเอียดทุกข้อ', 'บุ๊กมาร์กข้อที่อยากกลับมาดู'],
+    mockBullets: ['โหมดจับเวลาและไม่จับเวลา', 'ข้อสอบแยกตามรายวิชา', 'เฉลยละเอียดทุกข้อ', 'บุ๊กมาร์กข้อที่อยากกลับมาดู'],
     labFName: 'Lab Practice', labFDesc: 'ฝึกการดูภาพและทักษะสอบปฏิบัติ ผ่านโจทย์ที่ใช้ภาพจริง',
     labExamples: [{ emoji: '🔬', label: 'Histopathology slides' }, { emoji: '🩻', label: 'Radiographic images' }, { emoji: '🪱', label: 'Parasitology specimens' }, { emoji: '🦴', label: 'Anatomy identification' }, { emoji: '🦠', label: 'Microbiology results' }, { emoji: '🐕', label: 'Clinical photographs' }],
     panicLabel: 'เมื่อเวลาเหลือน้อย', panicHead: 'พรุ่งนี้สอบแล้ว?',
