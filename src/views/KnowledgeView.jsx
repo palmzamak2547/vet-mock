@@ -25,6 +25,7 @@ import {
   listTopics, loadTopic, provenanceSummary, resolveSource,
   EVIDENCE_LABEL, REVIEW_LABEL,
 } from '../lib/vetwiki/index.js';
+import { copyText } from '../lib/clipboard.js';
 import { searchTopics } from '../lib/vetwiki/search.js';
 import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
 import WikiExplain from '../components/WikiExplain.jsx';
@@ -277,10 +278,15 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
     if (el) el.scrollIntoView({ block: 'start', behavior: 'auto' });
   }, [knowledge?.id]);
 
-  const copyAnchor = (sectionId) => {
+  // Report what actually happened. The old version fired an unawaited
+  // navigator.clipboard.writeText inside an empty catch and then claimed
+  // success unconditionally — so on http, in a WebView, or with the
+  // permission denied, the user saw "✓ คัดลอกแล้ว" with an empty clipboard.
+  // lib/clipboard.js already implements the fallback chain.
+  const copyAnchor = async (sectionId) => {
     const url = wikiUrl(window.location.origin, current.subject, current.topic, sectionId);
-    try { navigator.clipboard.writeText(url); } catch { /* no-op */ }
-    setCopied(sectionId);
+    const ok = await copyText(url);
+    setCopied(ok ? sectionId : `fail:${sectionId}`);
     clearTimeout(copyTimer.current);
     copyTimer.current = setTimeout(() => setCopied(''), 1600);
   };
@@ -334,8 +340,8 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goNotes}>อ่านโน้ตเต็ม</button>
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onShowProv}>ดูแหล่งอ้างอิง</button>
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-          onClick={() => { try { navigator.clipboard.writeText(shareUrl); } catch { /* no-op */ } setCopied('__page__'); clearTimeout(copyTimer.current); copyTimer.current = setTimeout(() => setCopied(''), 1600); }}>
-          {copied === '__page__' ? '✓ คัดลอกลิงก์แล้ว' : 'คัดลอกลิงก์'}
+          onClick={async () => { const ok = await copyText(shareUrl); setCopied(ok ? '__page__' : 'fail:__page__'); clearTimeout(copyTimer.current); copyTimer.current = setTimeout(() => setCopied(''), 1600); }}>
+          {copied === '__page__' ? '✓ คัดลอกลิงก์แล้ว' : copied === 'fail:__page__' ? 'คัดลอกไม่สำเร็จ' : 'คัดลอกลิงก์'}
         </button>
       </div>
 
@@ -373,7 +379,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
                 <button type="button" onClick={() => copyAnchor(s.id)}
                   title="คัดลอกลิงก์มายังหัวข้อนี้" aria-label={`คัดลอกลิงก์: ${s.heading}`}
                   style={{ all: 'unset', cursor: 'pointer', color: copied === s.id ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)', fontSize: 13, minWidth: 44, minHeight: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                  {copied === s.id ? '✓' : '#'}
+                  {copied === s.id ? '✓' : copied === `fail:${s.id}` ? '✕' : '#'}
                 </button>
               </div>
               {s.body.map((item, i) => <NoteBody key={i} item={item} />)}

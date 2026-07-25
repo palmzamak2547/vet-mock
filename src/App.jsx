@@ -1294,14 +1294,10 @@ export default function App() {
     // one synchronous batch (was 5 inline setters pre-refactor).
     session.startNewSession(picked, firstTime);
     setView('exam');
-
-    const newStreak = updateStreak(streakData.lastDate, streakData.streak, streakData.freezeUsedAt);
-    setStreakData(newStreak);
-    // Streak-freeze used → flash a one-time toast so the user knows
-    // their streak survived a skipped day. (UI surface in HomeView.)
-    if (newStreak.freezeJustUsed) {
-      try { window.dispatchEvent(new CustomEvent('vmx-streak-freeze-used', { detail: newStreak.streak })); } catch {}
-    }
+    // NOTE: the streak used to be bumped right here — i.e. for merely OPENING
+    // a set, before a single answer. That inflated the header counter and made
+    // it disagree with HomeView's streak, which is derived from real answer
+    // history. It now happens in finishExam, where practice actually happened.
   };
 
   const finishExam = async () => {
@@ -1328,6 +1324,18 @@ export default function App() {
       phase: selectedPhase ?? null,
     }));
     setHistory((h) => [...h, ...newEntries]);
+
+    // Streak counts DAYS THE USER ACTUALLY PRACTISED, so it moves here (a
+    // finished set with graded answers) rather than when a set is opened.
+    if (newEntries.length > 0) {
+      const newStreak = updateStreak(streakData.lastDate, streakData.streak, streakData.freezeUsedAt);
+      setStreakData(newStreak);
+      // Streak-freeze used → flash a one-time toast so the user knows
+      // their streak survived a skipped day. (UI surface in HomeView.)
+      if (newStreak.freezeJustUsed) {
+        try { window.dispatchEvent(new CustomEvent('vmx-streak-freeze-used', { detail: newStreak.streak })); } catch {}
+      }
+    }
 
     // XP + Daily Quests + Auto-promote wrong → SR. Wrapped in try/catch
     // so a single throw can't block the navigate-to-results path that
@@ -1846,7 +1854,7 @@ export default function App() {
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, setNote, user, selectedYear, selectedPhase, onOpenWiki: (subj, top) => { setSubject(subj); setTopic(top); setView('knowledge'); } }} />}
-              {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase }} />}
+              {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}

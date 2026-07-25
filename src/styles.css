@@ -950,8 +950,14 @@ html, body {
 .vmx-form-group { margin-bottom: 16px; }
 .vmx-form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--clr-ink); }
 .vmx-form-group input, .vmx-form-group textarea, .vmx-form-group select { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--clr-border); background: var(--clr-bg); font-family: inherit; font-size: 16px; color: var(--clr-ink); }
-/* iOS auto-zooms inputs with font-size < 16px on focus — keep ≥ 16px everywhere */
+/* iOS auto-zooms inputs with font-size < 16px on focus — keep ≥ 16px everywhere.
+   The bare element selectors (0,0,1) below lost to the class rules earlier in
+   this file (.vmx-match-select 14px, .vmx-note-textarea 14px, .vmx-fill-input),
+   so iPhone still zoomed on those — two of them INSIDE the exam, where the
+   zoom-and-reflow costs the student time on the clock. The class list restores
+   the floor at equal specificity. */
 input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="url"], input[type="number"], textarea, select { font-size: max(16px, 1em); }
+.vmx-match-select, .vmx-note-textarea, .vmx-fill-input, .vmx-search-input { font-size: max(16px, 1em); }
 .vmx-form-group input:focus, .vmx-form-group textarea:focus { outline: none; border-color: var(--clr-ink); background: var(--clr-surface); }
 .vmx-form-group textarea { min-height: 80px; resize: vertical; }
 

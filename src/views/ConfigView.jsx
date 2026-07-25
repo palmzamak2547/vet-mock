@@ -205,7 +205,10 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
       </div>
 
       <div className="vmx-btn-row">
-        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
+        {/* Labelled for what it does: goHome clears the subject/topic the
+            user just picked, so calling it "ย้อนกลับ" made people lose three
+            taps of work expecting to land back on topic selection. */}
+        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
         <button
           className="vmx-btn vmx-btn-primary"
           onClick={() => startExam({

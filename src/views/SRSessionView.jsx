@@ -32,7 +32,7 @@ import ClozeCard from '../components/ClozeCard.jsx';
 
 const SIZE_PRESETS = [25, 50, 100, 200];
 
-export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase }) {
+export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true }) {
   // Merge in user-authored flashcards (from "Highlight → Flashcard"
   // in SummaryModal). They live in localStorage and don't trigger
   // React updates by themselves — we read on mount and let the
@@ -44,7 +44,10 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       ...loadUserFlashcards(),       // 'flashcard' + 'cloze' (mixed)
       ...loadOcclusionCards(),       // 'image-occlusion' (one per mask)
     ],
-    [customQuestions],
+    // qbReady matters: QB is lazy-loaded and mutated IN PLACE, so without it
+    // this memo keeps the empty snapshot for the whole mount and the view
+    // reports "ไม่มีใบที่ต้องทบทวน" for a user who does have cards due.
+    [customQuestions, qbReady],
   );
 
   // Persist last-used preferences

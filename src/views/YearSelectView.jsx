@@ -176,7 +176,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
 
       {firstTime && (
         <div style={{ marginTop: 20, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', lineHeight: 1.55 }}>
-          💡 ระบบจะจำให้ — ครั้งต่อไปเข้าหน้า dashboard เลย · เปลี่ยนปีได้ผ่านปุ่ม <strong>🎓 ปี N</strong> มุมบนซ้าย
+          💡 ระบบจะจำให้ — ครั้งต่อไปเข้าหน้าแรกได้เลย เปลี่ยนชั้นปีภายหลังได้ที่ปุ่ม <strong>ปี N</strong> ด้านบน
         </div>
       )}
     </>

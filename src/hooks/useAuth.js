@@ -46,7 +46,10 @@ export function useAuth() {
     setLoading(true);
     try {
       const supabase = await getSupabase();
-      if (cancelledRef.current || !supabase) return;
+      if (cancelledRef.current) return;
+      // No SDK (not configured, or the chunk failed to load): the app is
+      // perfectly usable signed-out, so stop blocking the boot gate on it.
+      if (!supabase) { setLoading(false); return; }
 
       const { data: { session } } = await supabase.auth.getSession();
       if (cancelledRef.current) return;
@@ -60,6 +63,12 @@ export function useAuth() {
         subscriptionRef.current = data.subscription;
         subscribed.current = true;
       }
+    } catch {
+      // A rejected SDK load (offline, failed chunk fetch mid-deploy) used to
+      // fall straight through `finally` with loading still true, wedging the
+      // whole app on the boot spinner forever. Signed-out is a valid state —
+      // let the user in.
+      if (!cancelledRef.current) { setUser(null); setLoading(false); }
     } finally {
       setupRunning.current = false;
     }
