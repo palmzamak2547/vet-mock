@@ -23,7 +23,7 @@ export default function Sidebar({ view, setView, goHome, setSubject, setPractice
         onClick={goHome}
         style={{ marginBottom: '32px', paddingLeft: '16px', background: 'transparent' }}
       >
-        Vet<span>Mock</span><span className="vmx-academy-badge">ACADEMY</span>
+        Vet<span>Mock</span>
       </button>
 
       <nav className="vmx-sidebar-nav">

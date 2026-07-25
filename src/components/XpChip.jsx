@@ -73,7 +73,6 @@ export default function XpChip() {
           lineHeight: 1.1,
         }}
       >
-        <span style={{ fontSize: 14 }}>✨</span>
         <span><strong>Lv {lvl}</strong></span>
         <span className="vmx-xp-chip-total" style={{ opacity: 0.75 }}>· {state.totalXp.toLocaleString()} XP</span>
         <span

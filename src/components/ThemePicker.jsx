@@ -12,6 +12,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
+import NavIcon from './NavIcon.jsx';
 
 const PALETTES = [
   { id: 'default', name: 'Sage + Gold', dot: '#4a6b4a' },
@@ -59,7 +60,7 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
         aria-label="ตัวเลือกธีมและจานสี"
         aria-expanded={open}
       >
-        {theme === 'light' ? '🌙' : '☀️'}
+        <NavIcon name={theme === 'light' ? 'moon' : 'sun'} size={18} />
       </button>
       {open && (
         <div
@@ -87,14 +88,14 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
               type="button"
               onClick={() => { setTheme('light'); setOpen(false); }}
               className={`vmx-chip ${theme === 'light' ? 'active' : ''}`}
-              style={{ flex: 1 }}
-            >☀️ Light</button>
+              style={{ flex: 1, gap: 6 }}
+            ><NavIcon name="sun" size={15} /> สว่าง</button>
             <button
               type="button"
               onClick={() => { setTheme('dark'); setOpen(false); }}
               className={`vmx-chip ${theme === 'dark' ? 'active' : ''}`}
-              style={{ flex: 1 }}
-            >🌙 Dark</button>
+              style={{ flex: 1, gap: 6 }}
+            ><NavIcon name="moon" size={15} /> มืด</button>
           </div>
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 6 }}>
             จานสี

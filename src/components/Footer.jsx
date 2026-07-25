@@ -1,46 +1,64 @@
 // ============================================================
-// Footer — brand line + utility links + Vet 86 ecosystem cross-links
+// Footer — grouped site links + Vet 86 ecosystem cross-links
 // ============================================================
-// Extracted from App.jsx 2026-05-27 (round-2 slim). Pure presentation;
-// the only behavior is in-app navigation, so it takes a single `setView`
-// prop. Two visual rows on mobile so a long line doesn't wrap mid-link.
+// De-slop pass 2026-07-24: this was one italic centred blob — a brand line,
+// then six links in a wrapping row, then three very long emoji-prefixed
+// ecosystem links held together by middle dots. It read as filler.
 //
-// The ecosystem cross-links (CUVETSMO · Hanong · Imaging Lab) help
-// Google + users discover the sister sites — VetMock is the most-
-// trafficked of the network so these links give the newer sites a fast
-// lane through Googlebot's existing crawl schedule. Keep them.
+// Now it's a real footer: labelled groups, left-aligned so the eye has a
+// column to follow, plain type (no italic), link text that says the
+// destination, and no decorative emoji or dot separators. Styling lives in
+// styles.css (.vmx-footer*) rather than inline, per docs/DESIGN_SYSTEM.md.
+//
+// The ecosystem cross-links (CUVETSMO · Hanong · Imaging Lab) help Google
+// and users discover the sister sites — VetMock is the most-trafficked of
+// the network, so these give the newer sites a fast lane through
+// Googlebot's existing crawl schedule. Keep the links AND their
+// descriptive anchor text.
 // ============================================================
 
 export default function Footer({ setView }) {
   return (
     <footer className="vmx-footer">
-      <div style={{ marginBottom: 6 }}>
-        made with ♡ by <strong>Vet 86</strong>
+      <div className="vmx-footer-grid">
+        <div className="vmx-footer-brand">
+          <div className="vmx-footer-wordmark">Vet<span>Mock</span></div>
+          <p>คลังโจทย์ฝึกและสรุปเนื้อหาสำหรับนิสิตสัตวแพทย์ ทำโดยรุ่นพี่ Vet 86</p>
+        </div>
+
+        <nav className="vmx-footer-col" aria-label="เกี่ยวกับ VetMock">
+          <h2>เกี่ยวกับ</h2>
+          <button type="button" className="vmx-footer-link" onClick={() => setView('about')}>เกี่ยวกับเรา</button>
+          <button type="button" className="vmx-footer-link" onClick={() => setView('landing')}>หน้าแนะนำ</button>
+          <a href="/blog/">บทความ</a>
+          <button type="button" className="vmx-footer-link" onClick={() => setView('feedback')}>แจ้งปัญหา</button>
+          <button type="button" className="vmx-footer-link" onClick={() => setView('offline-game')} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">มินิเกม</button>
+        </nav>
+
+        <nav className="vmx-footer-col" aria-label="เครือข่าย Vet 86">
+          <h2>เครือข่าย Vet 86</h2>
+          <a href="https://cuvetsmo.com" target="_blank" rel="noopener noreferrer">
+            CUVETSMO สโมสรนิสิตสัตวแพทย์ จุฬาฯ
+          </a>
+          <a href="https://hanong.vercel.app" target="_blank" rel="noopener noreferrer">
+            หาน้อง แพลตฟอร์มสัตว์จร
+          </a>
+          {/* Internal link — same-origin hash route, same window. */}
+          <a
+            href="#lab"
+            onClick={(e) => { e.preventDefault(); if (window.location.hash !== '#lab') window.location.hash = '#lab'; setView('lab'); }}
+            title="Imaging Practice Lab — ฝึกอ่าน X-ray + DICOM viewer (Experimental)"
+          >
+            Imaging Lab ฝึกอ่าน X-ray
+          </a>
+        </nav>
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 12px', justifyContent: 'center' }}>
-        <button type="button" className="vmx-footer-link" onClick={() => setView('about')}>About</button>
-        <button type="button" className="vmx-footer-link" onClick={() => setView('landing')} title="หน้าแนะนำ VetMock">หน้าแนะนำ</button>
-        <a href="/blog/" style={{ textDecoration: 'underline' }}>บทความ</a>
-        <a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer" title="ติดตามบน Instagram @vetmock.cu" style={{ textDecoration: 'underline' }}>📷 @vetmock.cu</a>
-        <button type="button" className="vmx-footer-link" onClick={() => setView('feedback')}>แจ้งปัญหา</button>
-        <button type="button" className="vmx-footer-link" onClick={() => setView('offline-game')} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">🐤 มินิเกม</button>
-      </div>
-      {/* Ecosystem cross-links · sister sites in the Vet 86 ecosystem.
-          Helps Google + users discover the network (CUVETSMO = student
-          council, Hanong = stray welfare). VetMock is the most-trafficked
-          of the three so this link gives the newer sites a fast lane
-          through Googlebot's existing crawl schedule. */}
-      <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', display: 'flex', flexWrap: 'wrap', gap: '4px 12px', justifyContent: 'center' }}>
-        <span>เครือข่าย Vet 86:</span>
-        <a href="https://cuvetsmo.com" target="_blank" rel="noopener noreferrer" title="สโมสรนิสิตสัตวแพทย์ จุฬาฯ" style={{ textDecoration: 'underline', color: 'inherit' }}>🐾 CUVETSMO · สโมสรนิสิตสัตวแพทย์ จุฬาฯ</a>
-        <a href="https://hanong.vercel.app" target="_blank" rel="noopener noreferrer" title="Hanong — stray welfare platform" style={{ textDecoration: 'underline', color: 'inherit' }}>🐕 Hanong · หาน้อง</a>
-        {/* Internal link — same-origin hash route. Same window. */}
-        <a
-          onClick={(e) => { e.preventDefault(); if (window.location.hash !== '#lab') window.location.hash = '#lab'; setView('lab'); }}
-          href="#lab"
-          title="Imaging Practice Lab — ฝึกอ่าน X-ray + DICOM viewer (Experimental)"
-          style={{ textDecoration: 'underline', color: 'inherit', cursor: 'pointer' }}
-        >🔬 Imaging Lab · ฝึกอ่าน X-ray (Experimental)</a>
+
+      <div className="vmx-footer-base">
+        <span>สร้างโดยนิสิตสัตวแพทย์ Vet 86</span>
+        <a href="https://www.instagram.com/vetmock.cu/" target="_blank" rel="noopener noreferrer">
+          Instagram @vetmock.cu
+        </a>
       </div>
     </footer>
   );

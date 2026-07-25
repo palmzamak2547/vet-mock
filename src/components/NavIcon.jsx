@@ -32,6 +32,30 @@ const PATHS = {
       <path d="M12 6.5V20" />
     </>
   ),
+  // magnifier / search (header ⌘K)
+  search: (
+    <>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="m16 16 4.5 4.5" />
+    </>
+  ),
+  // ribbon / saved questions
+  bookmark: <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1Z" />,
+  // flame / daily streak
+  flame: (
+    <>
+      <path d="M12 3s5 4 5 9a5 5 0 0 1-10 0c0-1.7.7-3.1 1.5-4.2.4 1 1 1.7 1.8 2C11 8 12 5.6 12 3Z" />
+    </>
+  ),
+  // crescent / switch to dark
+  moon: <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" />,
+  // sun / switch to light
+  sun: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" />
+    </>
+  ),
 };
 
 export default function NavIcon({ name, size = 22 }) {

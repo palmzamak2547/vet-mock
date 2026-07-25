@@ -370,11 +370,8 @@ html, body {
     padding-left: 272px; /* 256px sidebar + 16px gap */
   }
 
-  /* Hide specific header navigation elements since they are now in the sidebar */
+  /* The sidebar carries the wordmark on desktop, so the header drops it. */
   .vmx-header .vmx-logo-btn {
-    display: none;
-  }
-  .vmx-header .vmx-header-secondary {
     display: none;
   }
 
@@ -477,7 +474,33 @@ html, body {
 .vmx-logo-btn:hover span { color: var(--clr-rose-text); }
 .vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .vmx-subtitle { font-size: 12px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
-.vmx-streak { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--clr-gold); }
+.vmx-streak { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-pill); font-size: 13px; font-weight: 600; color: var(--clr-gold-text); }
+
+/* Study context — "ปี 4 | ทม.1 กลาง" as ONE segmented control, so the
+   header reads as brand + where-you-are, not a row of loose buttons. */
+.vmx-context-group {
+  display: inline-flex; align-items: stretch;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-pill);
+  background: var(--clr-surface);
+  overflow: hidden;
+  min-width: 0;
+}
+.vmx-context-pill {
+  border: 0; background: transparent;
+  padding: 0 12px; min-height: var(--touch-min);
+  display: inline-flex; align-items: center;
+  font-family: inherit; font-size: 12.5px; font-weight: 600;
+  color: var(--clr-ink); white-space: nowrap; cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.vmx-context-pill:hover { background: var(--clr-surface-2); }
+.vmx-context-pill:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
+.vmx-context-sep { width: 1px; background: var(--clr-border); flex: 0 0 auto; }
+
+/* Saved-questions chip — icon + live count, rendered only when > 0. */
+.vmx-saved-btn { position: relative; gap: 4px; width: auto; min-width: var(--touch-min); padding: 0 10px; border-radius: var(--r-pill); }
+.vmx-saved-count { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; }
 .vmx-theme-btn { width: 44px; height: 44px; min-width: 44px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-theme-btn:hover { border-color: var(--clr-ink); }
 .vmx-theme-btn:disabled { cursor: not-allowed; }
@@ -505,11 +528,7 @@ html, body {
   .vmx-streak { display: none; } /* free up space; visible on Analytics */
   .vmx-logo { font-size: 19px; }
   .vmx-xp-chip-total, .vmx-xp-chip-progress { display: none !important; }
-  /* Phase 1 (2026-05-18): compact-header rule — hide secondary tools
-     (📊 Analytics, 🔖 Bookmarks) on mobile. Both are still reachable
-     via Cmd/Ctrl-K + bookmarks practiceMode in ConfigView. Saves
-     ~2 button-widths so year/phase pills + theme/login don't wrap. */
-  .vmx-header-secondary { display: none; }
+  .vmx-context-pill { padding: 0 10px; font-size: 12px; }
 }
 
 /* View Transitions API — smooth fade between views (Chrome/Edge/Safari TP).
@@ -940,7 +959,52 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-modal { background: var(--clr-surface); border-radius: 20px; padding: 28px; max-width: 500px; width: 100%; max-height: min(90vh, calc(100dvh - 24px)); overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .vmx-modal h2 { font-family: 'Fraunces', serif; margin: 0 0 16px; font-size: 24px; color: var(--clr-ink); }
 
-.vmx-footer { margin-top: 48px; padding-top: 20px; border-top: 1px dashed var(--clr-border); text-align: center; font-size: 12px; color: var(--clr-ink-soft); font-style: italic; }
+/* ── Footer ──────────────────────────────────────────────────────────
+   Grouped, left-aligned, plain type. (Was one italic centred blob of
+   wrapping links + long emoji-prefixed ecosystem lines.) */
+.vmx-footer {
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--clr-border);
+  font-size: 13px;
+  color: var(--clr-ink-soft);
+}
+.vmx-footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-8);
+  align-items: start;
+}
+.vmx-footer-brand { min-width: 0; }
+.vmx-footer-wordmark {
+  font-family: 'Fraunces', serif; font-weight: 800; font-size: 18px;
+  letter-spacing: -0.02em; color: var(--clr-ink); margin-bottom: var(--space-2);
+}
+.vmx-footer-wordmark span { color: var(--clr-rose); font-style: italic; font-weight: 500; }
+.vmx-footer-brand p { margin: 0; max-width: 34ch; line-height: 1.6; font-size: 12.5px; }
+.vmx-footer-col { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.vmx-footer-col h2 {
+  margin: 0 0 var(--space-1);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--clr-ink);
+}
+/* Links read as text until you reach for them — underline on hover only. */
+.vmx-footer a, .vmx-footer .vmx-footer-link {
+  color: inherit; text-decoration: none; text-align: left;
+  padding-left: 0; padding-right: 0;
+}
+.vmx-footer a:hover, .vmx-footer .vmx-footer-link:hover { color: var(--clr-ink); text-decoration: underline; }
+.vmx-footer-base {
+  display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4);
+  align-items: center; justify-content: space-between;
+  margin-top: var(--space-5); padding-top: var(--space-3);
+  border-top: 1px solid var(--clr-border);
+  font-size: 12px;
+}
+@media (max-width: 640px) {
+  .vmx-footer-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  .vmx-footer-base { justify-content: flex-start; }
+}
 
 .vmx-kbd { display: inline-block; padding: 2px 6px; border-radius: 4px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--clr-ink-soft); }
 
@@ -1326,26 +1390,12 @@ button.vmx-chip-quick:focus-visible {
   .vmx-subject-card .sub { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-height: 1.35; }
 }
 
-/* ============================================================
-   "ACADEMY" wordmark badge — the one surviving style from an old
-   experimental block. The glassmorphism / LMS-banner / course-card
-   styles it shipped with were never referenced by any component, and a
-   stray `body { font-family: Plus Jakarta Sans }` override (plus an
-   invalid mid-file @import) was quietly dropping Thai body text to a
-   system fallback instead of IBM Plex Sans Thai — all removed.
-   ============================================================ */
-.vmx-academy-badge {
-  font-family: 'IBM Plex Sans Thai', sans-serif;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: var(--clr-sage);
-  color: #ffffff;
-  text-transform: uppercase;
-  margin-left: 6px;
-}
+/* (The "ACADEMY" wordmark badge and the never-referenced glassmorphism /
+   LMS-banner / course-card styles that shipped with it were removed in the
+   2026-07-24 de-slop pass — a coloured uppercase micro-pill beside a serif
+   wordmark was decoration, and the block also carried a stray
+   `body { font-family: Plus Jakarta Sans }` + an invalid mid-file @import
+   that was quietly dropping Thai body text to a system fallback.) */
 
 
 /* ── Mobile bottom navigation (<1024px) ──────────────────────────────
