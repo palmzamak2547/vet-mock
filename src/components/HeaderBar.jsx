@@ -104,7 +104,6 @@ export default function HeaderBar({
           <NavIcon name="search" size={16} />
           <kbd className="vmx-cmdk-kbd">⌘K</kbd>
         </button>
-
         {/* Saved questions — only when there is something saved. A
             permanently-disabled button is clutter, not an affordance. */}
         {savedCount > 0 && (
@@ -124,12 +123,11 @@ export default function HeaderBar({
         )}
 
         {streakData.streak > 0 && (
-          <div className="vmx-streak" title={`ทำข้อสอบต่อเนื่อง ${streakData.streak} วัน`}>
+          <div className={`vmx-streak ${streakData.streak >= 3 ? 'vmx-streak-pulse' : ''}`} title={`ทำข้อสอบติดต่อกัน ${streakData.streak} วัน`}>
             <NavIcon name="flame" size={15} />
             {streakData.streak}
           </div>
         )}
-
         <Suspense fallback={null}>
           <XpChip />
         </Suspense>

@@ -22,7 +22,8 @@ const WEEKS = 53;
 const PAD_TOP = 18;         // space for month labels
 const PAD_LEFT = 22;        // space for day labels
 
-// Bucket → CSS color. 5 levels matching GitHub's intensity scale.
+// Bucket → CSS color. 5 levels using warm gold/amber gradient
+// matching the app's streak theme (fire/gold palette).
 function bucket(n) {
   if (n === 0) return 0;
   if (n < 5) return 1;
@@ -33,10 +34,10 @@ function bucket(n) {
 
 const FILL = {
   0: 'var(--clr-surface-2, #ebedf0)',
-  1: 'rgba(74, 107, 74, 0.25)',
-  2: 'rgba(74, 107, 74, 0.50)',
-  3: 'rgba(74, 107, 74, 0.75)',
-  4: 'rgba(74, 107, 74, 1.00)',
+  1: 'var(--clr-gold-soft, #e8d4a8)',
+  2: 'var(--clr-gold-text, #76511e)',
+  3: 'var(--clr-gold, #b88940)',
+  4: '#d4a020',
 };
 
 export default function StreakHeatmap({ history = [] }) {
@@ -101,14 +102,16 @@ export default function StreakHeatmap({ history = [] }) {
   const SVG_H = PAD_TOP + ROWS * (CELL + GAP);
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
-        <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
-          {grid.total.toLocaleString('en-US')} ข้อใน 12 เดือน
+    <div className="vmx-heatmap-wrapper">
+      <div className="vmx-heatmap-header">
+        <span className="vmx-heatmap-total">
+          🔥 {grid.total.toLocaleString('en-US')} ข้อใน 12 เดือน
         </span>
-        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
-          {hovered ? `${hovered.date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' })} · ${hovered.count} ข้อ` : ' '}
-        </span>
+        {hovered && (
+          <span className="vmx-heatmap-tooltip">
+            {hovered.date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' })} · {hovered.count} ข้อ
+          </span>
+        )}
       </div>
       <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
         <svg width={SVG_W} height={SVG_H} role="img" aria-label="แผนที่ความหนาแน่นกิจกรรม 12 เดือน">
@@ -143,6 +146,7 @@ export default function StreakHeatmap({ history = [] }) {
             const x = PAD_LEFT + c.w * (CELL + GAP);
             const y = PAD_TOP + c.d * (CELL + GAP);
             const isHovered = hovered && hovered.w === c.w && hovered.d === c.d;
+            const lvl = bucket(c.count);
             return (
               <rect
                 key={`${c.w}-${c.d}`}
@@ -151,12 +155,12 @@ export default function StreakHeatmap({ history = [] }) {
                 width={CELL}
                 height={CELL}
                 rx="2"
-                fill={FILL[bucket(c.count)]}
-                stroke={isHovered ? 'var(--clr-ink)' : 'transparent'}
-                strokeWidth="1.5"
+                fill={FILL[lvl]}
+                stroke={isHovered ? 'var(--clr-gold)' : 'transparent'}
+                strokeWidth={isHovered ? 2 : 0}
                 onMouseEnter={() => setHovered(c)}
                 onMouseLeave={() => setHovered(null)}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', transition: 'fill 0.15s, stroke 0.15s' }}
               >
                 <title>{c.date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })} · {c.count} ข้อ</title>
               </rect>
@@ -165,12 +169,12 @@ export default function StreakHeatmap({ history = [] }) {
         </svg>
       </div>
       {/* Legend */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+      <div className="vmx-heatmap-legend">
         <span>น้อย</span>
         {[0, 1, 2, 3, 4].map((b) => (
-          <span key={b} style={{ width: CELL, height: CELL, borderRadius: 2, background: FILL[b] }} />
+          <span key={b} className={`vmx-heatmap-legend-dot ${b >= 3 ? 'vmx-heatmap-legend-hot' : ''}`} style={{ background: FILL[b] }} />
         ))}
-        <span>มาก</span>
+        <span>มาก 🔥</span>
       </div>
     </div>
   );

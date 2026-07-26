@@ -812,22 +812,27 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           )}
           {quickStats.streak > 0 && (
             <div
-              className="vmx-pop-in"
+              className={`vmx-pop-in vmx-streak-card-home ${quickStats.streak >= 7 ? 'vmx-streak-hot' : quickStats.streak >= 3 ? 'vmx-streak-warm' : ''}`}
               title={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน`}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '6px 12px',
-                borderRadius: 999,
-                background: 'var(--clr-surface-2)',
-                border: '1px solid var(--clr-border)',
-                fontSize: 12,
-                color: 'var(--clr-ink-soft)',
-              }}
             >
-              สะสมต่อเนื่อง {quickStats.streak} วัน
-              {quickStats.todayCount > 0 && <span> (วันนี้ทำไป {quickStats.todayCount} ข้อ)</span>}
+              <span className="vmx-streak-fire">🔥</span>
+              <div className="vmx-streak-info">
+                <span className="vmx-streak-num">{quickStats.streak}</span>
+                <span className="vmx-streak-unit">วันต่อเนื่อง</span>
+              </div>
+              <div className="vmx-streak-week">
+                {[...Array(7)].map((_, i) => (
+                  <span key={i} className={`vmx-streak-dot ${i < Math.min(quickStats.streak, 7) ? 'vmx-streak-dot-active' : ''}`} />
+                ))}
+              </div>
+              {quickStats.streak >= 7 && (
+                <span className="vmx-streak-milestone">
+                  {quickStats.streak >= 30 ? '🏆 เทพ!' : quickStats.streak >= 14 ? '⭐ แข็งแกร่ง!' : '✨ สุดยอด!'}
+                </span>
+              )}
+              {quickStats.todayCount > 0 && (
+                <span className="vmx-streak-today-count">+{quickStats.todayCount} วันนี้</span>
+              )}
             </div>
           )}
 

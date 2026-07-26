@@ -1288,6 +1288,265 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   animation: vmx-pulse-soft 2.6s ease-in-out infinite;
 }
 
+/* ── Streak UI redesign — warm gradient + animated fire + milestone ─── */
+
+/* Header streak pill — upgraded with fire icon + count + label */
+.vmx-streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 10px 4px 6px;
+  background: linear-gradient(135deg, var(--clr-gold-soft) 0%, var(--clr-surface) 100%);
+  border: 1px solid var(--clr-gold-soft);
+  border-radius: var(--r-pill);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--clr-gold);
+  transition: all 0.2s;
+  box-shadow: 0 0 0 0 transparent;
+}
+.vmx-streak-fire-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+.vmx-streak-count {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--clr-gold-text);
+}
+.vmx-streak-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--clr-ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Header streak pulse — subtle glow when streak ≥3 */
+.vmx-streak-pulse {
+  animation: vmx-streak-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes vmx-streak-glow {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 12px 2px rgba(184, 137, 64, 0.25); }
+}
+
+/* ── HomeView streak card — 7-day progress dots + gradient ─── */
+.vmx-streak-card-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: var(--r-lg);
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.vmx-streak-card-home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(184, 137, 64, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.vmx-streak-card-home:hover {
+  border-color: var(--clr-gold-soft);
+  box-shadow: 0 0 0 3px rgba(184, 137, 64, 0.08);
+}
+
+/* Warm streak — gradient intensifies at ≥3 days */
+.vmx-streak-warm {
+  border-color: var(--clr-gold-soft);
+  background: linear-gradient(135deg, rgba(184, 137, 64, 0.08) 0%, var(--clr-surface) 40%);
+}
+
+/* Hot streak — bold gradient + glow at ≥7 days */
+.vmx-streak-hot {
+  border-color: var(--clr-gold);
+  background: linear-gradient(135deg, rgba(184, 137, 64, 0.15) 0%, rgba(232, 212, 168, 0.20) 40%, var(--clr-surface) 100%);
+  box-shadow: 0 0 16px 0 rgba(184, 137, 64, 0.12);
+}
+.vmx-streak-hot .vmx-streak-fire {
+  animation: vmx-fire-wobble 0.6s ease-in-out infinite alternate;
+}
+
+.vmx-streak-fire {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.vmx-streak-info {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.vmx-streak-num {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--clr-gold-text);
+  line-height: 1;
+}
+
+.vmx-streak-unit {
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+  font-weight: 500;
+}
+
+/* 7-day progress dots */
+.vmx-streak-week {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.vmx-streak-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--clr-border);
+  transition: all 0.2s;
+}
+
+.vmx-streak-dot-active {
+  background: var(--clr-gold);
+  box-shadow: 0 0 4px 0 rgba(184, 137, 64, 0.35);
+}
+
+.vmx-streak-hot .vmx-streak-dot-active {
+  background: #d4a020;
+  box-shadow: 0 0 6px 0 rgba(212, 160, 32, 0.45);
+}
+
+.vmx-streak-milestone {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--clr-gold);
+  letter-spacing: 0.02em;
+  animation: vmx-milestone-fade 0.5s ease-out;
+}
+
+.vmx-streak-today-count {
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--clr-sage);
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--r-pill);
+  background: rgba(74, 107, 74, 0.10);
+}
+
+@keyframes vmx-fire-wobble {
+  0% { transform: rotate(-3deg) scale(1); }
+  100% { transform: rotate(3deg) scale(1.08); }
+}
+
+@keyframes vmx-milestone-fade {
+  0% { opacity: 0; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Dashboard streak stat card ─── */
+.vmx-streak-stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.vmx-streak-stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(184, 137, 64, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.vmx-streak-stat-icon {
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.vmx-streak-milestone-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--clr-gold);
+  letter-spacing: 0.02em;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: rgba(184, 137, 64, 0.10);
+  animation: vmx-milestone-fade 0.5s ease-out;
+}
+
+/* ── StreakHeatmap wrapper ─── */
+.vmx-heatmap-wrapper {
+  position: relative;
+}
+
+.vmx-heatmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.vmx-heatmap-total {
+  font-size: 12px;
+  color: var(--clr-gold);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.vmx-heatmap-tooltip {
+  font-size: 11px;
+  color: var(--clr-ink-soft);
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  animation: vmx-heatmap-tooltip 0.15s ease-out;
+}
+
+@keyframes vmx-heatmap-tooltip {
+  0% { opacity: 0; transform: translateY(-2px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.vmx-heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--clr-ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.vmx-heatmap-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  transition: transform 0.15s;
+}
+
+.vmx-heatmap-legend-dot:hover {
+  transform: scale(1.2);
+}
+
+.vmx-heatmap-legend-hot {
+  box-shadow: 0 0 4px 0 rgba(184, 137, 64, 0.30);
+}
+
 /* Quick-action chips: lift on press, soft glow on focus-visible */
 button.vmx-chip-quick:active { transform: scale(0.96); }
 button.vmx-chip-quick:focus-visible {
@@ -1368,6 +1627,11 @@ button.vmx-chip-quick:focus-visible {
 /* Reduced-motion respect */
 @media (prefers-reduced-motion: reduce) {
   .vmx-streak-active,
+  .vmx-streak-pulse,
+  .vmx-streak-hot .vmx-streak-fire,
+  .vmx-streak-milestone,
+  .vmx-streak-milestone-badge,
+  .vmx-heatmap-tooltip,
   .vmx-skeleton,
   .vmx-fade-in-up,
   .vmx-pop-in { animation: none; }
