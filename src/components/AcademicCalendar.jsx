@@ -46,11 +46,17 @@ function MilestoneRow({ m }) {
         </span>
       </div>
 
-      <div style={{ marginTop: 5, fontSize: 12.5, color: m.active && urgent ? 'var(--clr-rose-text)' : 'var(--clr-sage-text)', fontWeight: 600 }}>
+      {/* Three states, not two: a window can be open, still ahead, or already
+          closed. The "ดูกำหนดการทั้งหมด" list covers the whole semester, so
+          without the closed case a past window either printed
+          "จะเริ่มในอีก null วัน" or claimed it had not started yet. */}
+      <div style={{ marginTop: 5, fontSize: 12.5, color: m.active && urgent ? 'var(--clr-rose-text)' : m.past ? 'var(--clr-ink-soft)' : 'var(--clr-sage-text)', fontWeight: 600 }}>
         {m.active
           ? (m.daysLeftToEnd === 0 ? 'วันสุดท้ายวันนี้' : `เปิดอยู่ เหลืออีก ${m.daysLeftToEnd} วัน`)
-          : `จะเริ่มในอีก ${m.daysLeft} วัน`}
-        {m.endTimeTh ? ` · ${m.endTimeTh}` : ''}
+          : m.past
+            ? 'ปิดแล้ว'
+            : (m.daysLeft === 0 ? 'เริ่มวันนี้' : `จะเริ่มในอีก ${m.daysLeft} วัน`)}
+        {m.endTimeTh && !m.past ? `, ${m.endTimeTh}` : ''}
       </div>
 
       {m.noteTh && (
@@ -61,6 +67,24 @@ function MilestoneRow({ m }) {
       )}
     </div>
   );
+}
+
+/** Day offsets + open/closed state for a milestone, same arithmetic
+ *  getActiveMilestones uses — so the full list and the "relevant now" list
+ *  describe a window identically. */
+function describeMilestone(m, now = new Date()) {
+  const today = new Date(now); today.setHours(0, 0, 0, 0);
+  const day = 24 * 60 * 60 * 1000;
+  const start = new Date(m.start); start.setHours(0, 0, 0, 0);
+  const end = new Date(m.end); end.setHours(0, 0, 0, 0);
+  const daysLeftToEnd = Math.round((end - today) / day);
+  return {
+    ...m,
+    daysLeft: Math.round((start - today) / day),
+    daysLeftToEnd,
+    active: start <= today && today <= end,
+    past: daysLeftToEnd < 0,
+  };
 }
 
 /** งานที่ประกาศผ่านสโมสร/ฝ่ายนิสิต — มีวัน เวลา ห้อง และลิงก์ข้อมูลจริง */
@@ -112,7 +136,11 @@ export default function AcademicCalendar({ year = 5 }) {
   const active = getActiveMilestones(14);
   const events = getUpcomingEvents(year, 60);
   const group = COURSE_GROUPS[`y${year}`];
-  const list = showAll ? ACADEMIC_MILESTONES.map((m) => ({ ...m, active: false, daysLeft: null })) : active;
+  // The full list must carry real offsets too — the row renders "อีก N วัน"
+  // from them, so blanking them printed the literal string "null".
+  // NB: pass through an arrow — `.map(describeMilestone)` would hand the array
+  // index to the `now` parameter, dating every row from 1970.
+  const list = showAll ? ACADEMIC_MILESTONES.map((m) => describeMilestone(m)) : active;
 
   return (
     <section aria-labelledby="vmx-cal-title" style={{ marginBottom: 28 }}>
@@ -140,8 +168,11 @@ export default function AcademicCalendar({ year = 5 }) {
       )}
 
       <div style={{ display: 'grid', gap: 8 }}>
+        {/* describeMilestone already decided active/past for both lists —
+            forcing active:false here is what made an OPEN window read as
+            "not started yet" in the full list. */}
         {list.map((m) => (
-          <MilestoneRow key={m.id} m={showAll ? { ...m, active: false } : m} />
+          <MilestoneRow key={m.id} m={m} />
         ))}
       </div>
 

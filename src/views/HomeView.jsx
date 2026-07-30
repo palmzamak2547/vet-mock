@@ -1734,7 +1734,11 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
 // Q in a modal. Shows ✓ once done; streak counter motivates daily return.
 function DailyQRow({ user, setView }) {
   const [open, setOpen] = useState(false);
-  const todaysQ = useMemo(() => pickTodaysQ(QB), []);
+  // QB is lazy-loaded and mutated IN PLACE, so an empty dep array snapshots the
+  // empty bank on every cold load — pickTodaysQ returned nothing and the whole
+  // "ข้อวันนี้" chip silently never appeared. Keying on the bank size re-runs
+  // this once the load lands (HomeView re-renders when App flips qbReady).
+  const todaysQ = useMemo(() => pickTodaysQ(QB), [QB.length]);
   const [status, setStatus] = useState(() => readTodaysQStatus());
   const [streak, setStreak] = useState(() => dailyQStreak());
   // Class pulse — Round 3 (2026-05-18). Fetches the public aggregate

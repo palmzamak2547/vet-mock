@@ -52,14 +52,13 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
         {liveYears.map((y) => {
           const subjectCount = (SUBJECTS_BY_YEAR[y.id] || []).length;
-          // Show STRICT year count + breakdown of cross-rotation Qs so the
-          // year-pick count matches what HomeView shows when the user lands.
-          // Counting `q.year === y.id` alone misses VCA (cross-species) +
-          // any subject not strictly year-tagged. Each shown explicitly.
-          // (Q_COUNTS_BY_YEAR is precomputed by regen-q-counts.mjs.)
-          const qCount = Q_COUNTS_BY_YEAR[y.id] || 0;
-          const vcaCount = Q_COUNTS_BY_SUBJECT['vca'] || 0;
-          const totalCount = qCount + vcaCount;
+          // Q_COUNTS_BY_YEAR is precomputed by regen-q-counts.mjs and already
+          // sums every subject the year owns — VCA included, because VCA is a
+          // year-5 subject. The old code added the VCA bank on top for EVERY
+          // year, so the very first screen a student saw claimed 638 questions
+          // for year 1 (it has 298) and 895 for year 5 (it has 555, VCA and
+          // all). Trust the generated count.
+          const totalCount = Q_COUNTS_BY_YEAR[y.id] || 0;
           const isPicked = selectedYear === y.id && !firstTime;
           return (
             <button
@@ -85,12 +84,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                     {y.desc}
                   </div>
                   <div style={{ marginTop: 8, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', letterSpacing: '0.04em' }}>
-                    {totalCount.toLocaleString()} ข้อ · {subjectCount} วิชา
-                    {vcaCount > 0 && (
-                      <span style={{ marginLeft: 6, opacity: 0.7 }}>
-                        ({qCount.toLocaleString()} ปี {y.id} + {vcaCount} VCA)
-                      </span>
-                    )}
+                    {totalCount.toLocaleString()} ข้อ, {subjectCount} วิชา
                   </div>
                 </div>
               </div>

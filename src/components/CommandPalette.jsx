@@ -115,7 +115,11 @@ function safeReadLS(key, fallback) {
 //             re-lowercase 1700 strings per keystroke
 //   _hayLc    (label + ' ' + kw).toLowerCase() — same idea
 function buildStaticItems() {
-  if (_staticItemsCache) return _staticItemsCache;
+  // The cache is keyed on the bank size: QB is lazy-loaded and mutated in
+  // place, so a cache built before the load (or before a year switch pulls a
+  // different bank) held stale question rows for the rest of the session —
+  // search results and their counts disagreed with the app.
+  if (_staticItemsCache && _staticItemsCache.qbLen === QB.length) return _staticItemsCache.items;
   const items = [];
 
   const push = (it) => {
@@ -274,7 +278,7 @@ function buildStaticItems() {
     }
   }
 
-  _staticItemsCache = items;
+  _staticItemsCache = { qbLen: QB.length, items };
   return items;
 }
 
