@@ -1428,10 +1428,54 @@ export default function App() {
   finishExamRef.current = finishExam;
 
   const toggleBookmark = (qId) => setBookmarks((bk) => bk.includes(qId) ? bk.filter((x) => x !== qId) : [...bk, qId]);
+  // Notes are the one field a user edits a character at a time, and every
+  // setNotes() is a synchronous localStorage commit of the whole dataset.
+  // Measured on a 4x-throttled phone with a power-user store: 17.9 ms per
+  // keystroke, i.e. a dropped frame on every letter, getting worse as the
+  // store grows. So the draft lives in component state (instant, and the
+  // textarea was already re-rendering per keystroke anyway) and the commit
+  // is debounced. Anything that could lose the draft flushes first.
+  const [notesDraft, setNotesDraft] = useState(null);
+  const notesView = notesDraft || notes;
+  const notesTimerRef = useRef(null);
+  const notesDraftRef = useRef(null);
+  notesDraftRef.current = notesDraft;
+
+  const flushNotes = useCallback(() => {
+    if (notesTimerRef.current) { clearTimeout(notesTimerRef.current); notesTimerRef.current = null; }
+    const draft = notesDraftRef.current;
+    if (!draft) return;
+    // record() is synchronous, so both updates land in the same commit and
+    // the textarea never flashes the pre-draft value.
+    notesDraftRef.current = null;
+    setNotes(draft);
+    setNotesDraft(null);
+  }, [setNotes]);
+
   const setNote = (qId, text) => {
-    if (text.trim()) setNotes({ ...notes, [qId]: text });
-    else { const { [qId]: _, ...rest } = notes; setNotes(rest); }
+    const base = notesDraftRef.current || notes;
+    let next;
+    if (text.trim()) next = { ...base, [qId]: text };
+    else { const { [qId]: _drop, ...rest } = base; next = rest; }
+    notesDraftRef.current = next;
+    setNotesDraft(next);
+    if (notesTimerRef.current) clearTimeout(notesTimerRef.current);
+    notesTimerRef.current = setTimeout(flushNotes, 600);
   };
+
+  // Leaving the question, closing the tab, or backgrounding the app all end
+  // the typing burst — commit before the draft can be lost.
+  useEffect(() => {
+    const onHide = () => flushNotes();
+    window.addEventListener('pagehide', onHide);
+    document.addEventListener('visibilitychange', onHide);
+    return () => {
+      window.removeEventListener('pagehide', onHide);
+      document.removeEventListener('visibilitychange', onHide);
+      flushNotes();
+    };
+  }, [flushNotes]);
+  useEffect(() => { flushNotes(); }, [currentIdx, view, flushNotes]);
 
   const score = useMemo(() => {
     // Split auto-graded vs writing for honest score reporting.
@@ -1814,9 +1858,9 @@ export default function App() {
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode, selectedYear, selectedPhase }} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
-              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
-              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, setNote, user, selectedYear, selectedPhase, onOpenWiki: (subj, top) => { setSubject(subj); setTopic(top); setView('knowledge'); } }} />}
+              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: (subj, top) => { setSubject(subj); setTopic(top); setView('knowledge'); } }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
