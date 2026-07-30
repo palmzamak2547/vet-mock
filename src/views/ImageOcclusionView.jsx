@@ -16,6 +16,7 @@ import {
   loadDecks, saveDeck, deleteDeck, touchDeck,
   IMAGE_OCCLUSION_EVENT,
 } from '../lib/image-occlusion.js';
+import { confirmDialog } from '../lib/dialog.js';
 
 const ImageOcclusionEditor = lazy(() => import('../components/ImageOcclusionEditor.jsx'));
 
@@ -159,8 +160,8 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
     return saved;
   }, []);
 
-  const handleDelete = useCallback((deck) => {
-    if (!confirm(`ลบ deck "${deck.name}" ใช่ไหม? การลบนี้ย้อนกลับไม่ได้`)) return;
+  const handleDelete = useCallback(async (deck) => {
+    if (!(await confirmDialog({ title: `ลบ deck "${deck.name}"?`, note: 'ย้อนกลับไม่ได้', confirmLabel: 'ลบ deck', tone: 'danger' }))) return;
     deleteDeck(deck.id);
     setDecks(loadDecks());
     setToast(`ลบ "${deck.name}" แล้ว`);

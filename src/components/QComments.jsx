@@ -19,6 +19,7 @@ import { hasSupabase } from '../lib/supabase.js';
 import {
   listQComments, postQComment, deleteQComment, subscribeQComments,
 } from '../lib/api.js';
+import { confirmDialog } from '../lib/dialog.js';
 
 function fmtTime(iso) {
   if (!iso) return '';
@@ -110,7 +111,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
   }
 
   async function handleDelete(id) {
-    if (!confirm('ลบความเห็นนี้?')) return;
+    if (!(await confirmDialog({ title: 'ลบความเห็นนี้?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
     try {
       await deleteQComment(id);
       setComments((prev) => prev.filter((c) => c.id !== id));

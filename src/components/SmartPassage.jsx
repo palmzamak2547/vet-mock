@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { confirmDialog } from '../lib/dialog.js';
 
 // ============================================================
 // SmartPassage — reading-comprehension passage with annotations
@@ -275,8 +276,8 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
     return out;
   }, [text, highlights]);
 
-  const clearAll = () => {
-    if (!confirm('ลบ highlight + เส้นวาดทั้งหมดของ passage นี้?')) return;
+  const clearAll = async () => {
+    if (!(await confirmDialog({ title: 'ล้าง highlight ทั้งหมด?', body: 'ทั้ง highlight และเส้นวาดของ passage นี้จะถูกลบ', confirmLabel: 'ล้างทั้งหมด', tone: 'danger' }))) return;
     setHighlights([]); setStrokes([]);
   };
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { QB, SUBJECTS } from '../data/questions.js';
 import { yearForSubject } from '../data/curriculum.js';
 import { downloadJSON } from '../hooks/utils.js';
+import { confirmDialog, alertDialog } from '../lib/dialog.js';
 
 export default function QuestionManagerView({ customQuestions, setCustomQuestions, goHome }) {
   const [showForm, setShowForm] = useState(false);
@@ -45,10 +46,10 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     setLastSelectedId(id);
   };
 
-  const bulkDelete = () => {
+  const bulkDelete = async () => {
     const n = selectedIds.size;
     if (n === 0) return;
-    if (!confirm(`ลบ ${n} ข้อใช่ไหม? ลบไม่ได้คืน`)) return;
+    if (!(await confirmDialog({ title: `ลบ ${n} ข้อ?`, note: 'ลบแล้วกู้คืนไม่ได้', confirmLabel: 'ลบ', tone: 'danger' }))) return;
     setCustomQuestions((prev) => prev.filter((q) => !selectedIds.has(q.id)));
     clearSelection();
   };
@@ -58,8 +59,8 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     const raw = prompt('ใส่ tag ที่จะเพิ่มให้ทุกข้อที่เลือก');
     if (raw == null) return;
     const tag = raw.trim();
-    if (!tag) { alert('tag ว่างไม่ได้'); return; }
-    if (tag.length >= 30) { alert('tag ยาวเกินไป (< 30 ตัวอักษร)'); return; }
+    if (!tag) { alertDialog('tag ว่างไม่ได้'); return; }
+    if (tag.length >= 30) { alertDialog('tag ยาวเกินไป (< 30 ตัวอักษร)'); return; }
     setCustomQuestions((prev) => prev.map((q) => {
       if (!selectedIds.has(q.id)) return q;
       const existing = Array.isArray(q.tags) ? q.tags : [];
@@ -110,7 +111,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
   };
 
   const save = () => {
-    if (!formData.q.trim()) { alert('กรุณาใส่คำถาม'); return; }
+    if (!formData.q.trim()) { alertDialog('กรุณาใส่คำถาม'); return; }
     // Year auto-derived from subject (data-layer audit 2026-05-18).
     // Custom Qs inherit the curriculum year of their subject. Without
     // this tag, SR session + Pinboard year-toggles couldn't filter
@@ -141,8 +142,8 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     setShowForm(false);
   };
 
-  const deleteQ = (id) => {
-    if (confirm('ลบข้อนี้?')) setCustomQuestions(customQuestions.filter((q) => q.id !== id));
+  const deleteQ = async (id) => {
+    if (await confirmDialog({ title: 'ลบข้อนี้?', confirmLabel: 'ลบ', tone: 'danger' })) setCustomQuestions(customQuestions.filter((q) => q.id !== id));
   };
 
   const exportCustom = () => downloadJSON(customQuestions, `custom-questions-${Date.now()}.json`);
@@ -177,7 +178,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (ev) => {
+    reader.onload = async (ev) => {
       try {
         const data = JSON.parse(ev.target.result);
         if (!Array.isArray(data)) throw new Error('top-level is not an array');
@@ -196,7 +197,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
         });
 
         if (valid.length === 0) {
-          alert(`Import ล้มเหลว — ทุก ${data.length} ข้อมีข้อมูลไม่ครบ:\n\n` +
+          alertDialog(`Import ล้มเหลว — ทุก ${data.length} ข้อมีข้อมูลไม่ครบ:\n\n` +
             Object.entries(invalidReasons).map(([r, n]) => `• ${n} ข้อ: ${r}`).join('\n'));
           e.target.value = ''; // reset so same file can be re-tried
           return;
@@ -208,7 +209,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           : `Import ${valid.length}/${data.length} ข้อ (ข้าม ${skipped} ข้อที่ไม่ครบ)\n\nสาเหตุที่ข้าม:\n` +
             Object.entries(invalidReasons).map(([r, n]) => `• ${n} ข้อ: ${r}`).join('\n');
 
-        if (confirm(`${summary}\n\nยืนยัน?`)) {
+        if (await confirmDialog({ title: summary.split('\n')[0], body: summary.split('\n').slice(1).join('\n').trim(), confirmLabel: 'นำเข้า' })) {
           const allIds = new Set([...customQuestions.map((q) => q.id), ...QB.map((q) => q.id)]);
           let nextId = Math.max(500, ...allIds);
           // Always reassign IDs so importing the same file twice doesn't
@@ -218,7 +219,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           setCustomQuestions([...customQuestions, ...withNewIds]);
         }
         e.target.value = '';
-      } catch (err) { alert('ไฟล์ JSON ไม่ถูกต้อง — ' + (err?.message || 'parse error')); }
+      } catch (err) { alertDialog('ไฟล์ JSON ไม่ถูกต้อง — ' + (err?.message || 'parse error')); }
     };
     reader.readAsText(file);
   };

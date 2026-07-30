@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createGroup, joinGroupByCode, getMyGroups, leaveGroup } from '../lib/api.js';
+import { confirmDialog, alertDialog } from '../lib/dialog.js';
 
 export default function GroupsView({ user, profile, goHome, setActiveGroup, setView }) {
   const [groups, setGroups] = useState([]);
@@ -27,7 +28,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       const g = await createGroup(newName.trim(), user.id);
       setGroups([...groups, { ...g, role: 'admin' }]);
       setNewName(''); setShowCreate(false);
-      alert(`สร้างกลุ่ม "${g.name}" สำเร็จ!\nรหัส invite: ${g.code}\n\nส่งรหัสนี้ให้เพื่อนเพื่อ join`);
+      alertDialog(`สร้างกลุ่ม "${g.name}" สำเร็จ!\nรหัส invite: ${g.code}\n\nส่งรหัสนี้ให้เพื่อนเพื่อ join`);
     } catch (e) { setError(e.message); }
   };
 
@@ -43,7 +44,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
   };
 
   const handleLeave = async (groupId) => {
-    if (!confirm('ออกจากกลุ่มนี้?')) return;
+    if (!(await confirmDialog({ title: 'ออกจากกลุ่มนี้?', confirmLabel: 'ออกจากกลุ่ม', tone: 'danger' }))) return;
     try { await leaveGroup(groupId, user.id); await load(); }
     catch (e) { setError(e.message); }
   };

@@ -25,6 +25,7 @@ import VideoNotePanel from '../components/VideoNotePanel.jsx';
 // Falls back to loadAllVideoSummaries() if subject is missing or the
 // per-subject loader returns no entry (e.g. mis-tagged data).
 import { loadVideoSummariesForSubject, loadAllVideoSummaries } from '../data/video-summaries.js';
+import { confirmDialog, alertDialog } from '../lib/dialog.js';
 
 async function loadVideoSummaryEntry(videoId) {
   if (!videoId) return null;
@@ -212,7 +213,7 @@ export default function VideoView({ goHome }) {
   };
 
   const save = () => {
-    if (!form.url.trim() || !form.topic.trim()) { alert('กรุณากรอก URL และหัวข้อ'); return; }
+    if (!form.url.trim() || !form.topic.trim()) { alertDialog('กรุณากรอก URL และหัวข้อ'); return; }
     const newVid = { ...form, custom: true };
     if (editingIdx !== null) {
       const arr = [...customVideos]; arr[editingIdx] = newVid; setCustomVideos(arr);
@@ -222,8 +223,8 @@ export default function VideoView({ goHome }) {
     setShowAdd(false);
   };
 
-  const deleteCustom = (idx) => {
-    if (!confirm('ลบคลิปนี้?')) return;
+  const deleteCustom = async (idx) => {
+    if (!(await confirmDialog({ title: 'ลบคลิปนี้?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
     setCustomVideos(customVideos.filter((_, i) => i !== idx));
   };
 
@@ -820,7 +821,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     ? `https://www.youtube.com/watch?v=${currentVideoId}${playlistId ? `&list=${playlistId}` : ''}`
                     : video.url;
                   const r = await copyText(link);
-                  alert(r.ok ? 'คัดลอกลิงก์แล้ว' : `คัดลอกอัตโนมัติไม่ได้ — กดค้างลิงก์นี้:\n${link}`);
+                  alertDialog(r.ok ? 'คัดลอกลิงก์แล้ว' : `คัดลอกอัตโนมัติไม่ได้ — กดค้างลิงก์นี้:\n${link}`);
                 }}>Copy link</button>
               )}
               <div style={{ flex: 1 }} />

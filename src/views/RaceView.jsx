@@ -26,6 +26,7 @@ import { isCorrect } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
+import { confirmDialog } from '../lib/dialog.js';
 
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const randomCode = () => Array.from({ length: 5 }, () => CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]).join('');
@@ -317,7 +318,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
     const q = questions[idx];
     return (
       <>
-        <BackBar onBack={() => { if (confirm('ออกจาก race? คะแนนของคุณจะหาย')) goHome(); }} label="ออก" subtitle={`Race ${code}`} />
+        <BackBar onBack={async () => { if (await confirmDialog({ title: 'ออกจาก race?', body: 'คะแนนรอบนี้ของคุณจะหาย', confirmLabel: 'ออก', tone: 'danger' })) goHome(); }} label="ออก" subtitle={`Race ${code}`} />
         <ProgressBars myIdx={idx} myCorrect={correct} mySelf={profile} others={others} total={questions.length} />
         {q && (
           <div style={{ marginTop: 18 }}>

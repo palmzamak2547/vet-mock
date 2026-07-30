@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getGroupMembers, getSharedQuestions, getLeaderboard, deleteSharedQuestion } from '../lib/api.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/questions.js';
+import { confirmDialog, alertDialog } from '../lib/dialog.js';
 
 export default function GroupDetailView({ group, user, goBack }) {
   const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'questions' | 'members'
@@ -29,10 +30,10 @@ export default function GroupDetailView({ group, user, goBack }) {
   const copyCode = async () => {
     const r = await copyText(group.code);
     if (r.ok) {
-      alert(`คัดลอกรหัส ${group.code} แล้ว ส่งให้เพื่อนได้เลย!`);
+      alertDialog(`คัดลอกรหัส ${group.code} แล้ว ส่งให้เพื่อนได้เลย!`);
     } else {
       // Surface the code so the user can long-press to copy manually
-      alert(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ — กดค้าง code นี้แล้วเลือก Copy:\n\n${group.code}`);
+      alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ — กดค้าง code นี้แล้วเลือก Copy:\n\n${group.code}`);
     }
   };
 
@@ -101,7 +102,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                   <span>by {q.author_name || 'Anon'}, {SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}</span>
                   {q.author_id === user.id && (
                     <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
-                      if (confirm('ลบข้อนี้ออกจากกลุ่ม?')) { await deleteSharedQuestion(q.id); load(); }
+                      if (await confirmDialog({ title: 'ลบข้อนี้ออกจากกลุ่ม?', confirmLabel: 'ลบ', tone: 'danger' })) { await deleteSharedQuestion(q.id); load(); }
                     }}>🗑</button>
                   )}
                 </div>

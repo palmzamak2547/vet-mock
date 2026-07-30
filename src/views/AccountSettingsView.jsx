@@ -30,6 +30,7 @@ import {
   sanitizeUsername,
 } from '../lib/auth-utils.js';
 import BackBar from '../components/BackBar.jsx';
+import { confirmDialog } from '../lib/dialog.js';
 
 export default function AccountSettingsView({ user, goHome, onSignedOut }) {
   const [section, setSection] = useState(null); // null | 'profile' | 'password' | 'email' | 'delete'
@@ -177,7 +178,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
   };
 
   const handleLogoutAll = async () => {
-    if (!confirm('Logout จากทุก device ที่คุณเคย login? จำเป็นต้อง login ใหม่ทุกที่')) return;
+    if (!(await confirmDialog({ title: 'ออกจากระบบทุกเครื่อง?', body: 'ต้อง login ใหม่ทุกเครื่องที่เคยเข้าไว้', confirmLabel: 'ออกทุกเครื่อง', tone: 'danger' }))) return;
     reset();
     setLoading(true);
     try {
@@ -207,7 +208,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       setError('พิมพ์ "ลบ account" ให้ตรงเพื่อยืนยัน');
       return;
     }
-    if (!confirm('ลบ account จริงๆ? ข้อมูลทั้งหมด (progress, scores, bookmarks) จะหาย, ไม่สามารถกู้คืนได้')) return;
+    if (!(await confirmDialog({ title: 'ลบบัญชีถาวร?', body: 'ความคืบหน้า คะแนน และ bookmarks ทั้งหมดจะหายไป', note: 'กู้คืนไม่ได้', confirmLabel: 'ลบบัญชี', tone: 'danger' }))) return;
     setLoading(true);
     try {
       const result = await deleteAccountData();

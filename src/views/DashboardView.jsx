@@ -4,6 +4,7 @@ import { downloadJSON } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
 import { getWebVitalsSamples, summarize } from '../lib/web-vitals.js';
 import StreakHeatmap from '../components/StreakHeatmap.jsx';
+import { confirmDialog, alertDialog } from '../lib/dialog.js';
 
 // OSCE drill is a heavier interactive modal — lazy load when launched.
 const OSCEDrill = lazy(() => import('../components/OSCEDrill.jsx'));
@@ -358,10 +359,10 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (ev) => {
+    reader.onload = async (ev) => {
       try {
         const data = JSON.parse(ev.target.result);
-        if (confirm('Import data นี้จะทับของเดิม — ยืนยันไหม?')) {
+        if (await confirmDialog({ title: 'นำข้อมูลเข้า?', body: 'ข้อมูลในเครื่องตอนนี้จะถูกทับด้วยไฟล์ที่เลือก', confirmLabel: 'นำเข้าและทับของเดิม', tone: 'danger' })) {
           if (data.bookmarks) setBookmarks(data.bookmarks);
           if (data.history) setHistory(data.history);
           if (data.srCards) setSrCards(data.srCards);
@@ -370,9 +371,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           if (data.streak !== undefined && setStreakData) {
             setStreakData({ streak: data.streak, lastDate: Date.now() });
           }
-          alert('Import สำเร็จ! Reload หน้าเพื่อเห็นการเปลี่ยนแปลง');
+          alertDialog('Import สำเร็จ! Reload หน้าเพื่อเห็นการเปลี่ยนแปลง');
         }
-      } catch { alert('ไฟล์ไม่ถูกต้อง'); }
+      } catch { alertDialog('ไฟล์ไม่ถูกต้อง'); }
     };
     reader.readAsText(file);
   };
@@ -454,7 +455,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
                 </button>
               )}
               {bookmarks.length > 0 && (
-                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}>
+                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}>
                   ทำ Bookmarks ({bookmarks.length})
                 </button>
               )}
@@ -599,8 +600,14 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 20 }}>
-        <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => {
-          if (confirm('ต้องการล้างประวัติทั้งหมด? (ข้อมูล bookmarks, history, notes, SR cards, streak จะหายหมด)')) {
+        <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
+          if (await confirmDialog({
+            title: 'ล้างข้อมูลทั้งหมด?',
+            body: 'bookmarks, ประวัติการฝึก, โน้ต, SR cards และ streak จะหายหมด',
+            note: 'กู้คืนไม่ได้ — export backup ไว้ก่อนถ้ายังไม่แน่ใจ',
+            confirmLabel: 'ล้างทั้งหมด',
+            tone: 'danger',
+          })) {
             setHistory([]);
             setBookmarks([]);
             setSrCards({});

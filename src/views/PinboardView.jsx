@@ -16,6 +16,7 @@
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { loadPins, removePin, clearPinboard, PINBOARD_EVENT, PINBOARD_MAX } from '../lib/pinboard.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import { confirmDialog } from '../lib/dialog.js';
 
 const TYPE_META = {
   question:  { label: 'ข้อสอบ',     icon: '❓', color: '#c26d6d' },
@@ -141,11 +142,14 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
     }
   }, [setView, setSubject, setPracticeMode]);
 
-  const onClearAll = useCallback(() => {
+  const onClearAll = useCallback(async () => {
     if (!pins.length) return;
-    const ok = typeof window !== 'undefined' && window.confirm
-      ? window.confirm('ล้างพินทั้งหมด ' + pins.length + ' รายการ?')
-      : true;
+    const ok = await confirmDialog({
+      title: `ล้างพินทั้งหมด ${pins.length} รายการ?`,
+      note: 'กู้คืนไม่ได้',
+      confirmLabel: 'ล้างทั้งหมด',
+      tone: 'danger',
+    });
     if (ok) clearPinboard();
   }, [pins.length]);
 

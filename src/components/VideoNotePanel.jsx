@@ -19,6 +19,7 @@ import {
   deleteNote,
   formatTimestamp,
 } from '../lib/video-notes.js';
+import { confirmDialog } from '../lib/dialog.js';
 
 export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
   const [notes, setNotes] = useState(() => (videoId ? loadNotes(videoId) : []));
@@ -131,8 +132,8 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
     cancelEdit();
   };
 
-  const removeNote = (id) => {
-    if (!window.confirm('ลบโน้ตนี้?')) return;
+  const removeNote = async (id) => {
+    if (!(await confirmDialog({ title: 'ลบโน้ตนี้?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
     deleteNote(videoId, id);
     setNotes(loadNotes(videoId));
   };

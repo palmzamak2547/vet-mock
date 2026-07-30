@@ -22,6 +22,8 @@ export default function ConfirmDialog({
   confirmLabel = 'ยืนยัน',
   cancelLabel = 'ยกเลิก',
   tone = 'default',
+  // A notice has nothing to cancel — one button, and Esc/backdrop dismiss it.
+  hideCancel = false,
   onConfirm,
   onCancel,
 }) {
@@ -73,14 +75,16 @@ export default function ConfirmDialog({
           >
             {confirmLabel}
           </button>
-          <button
-            type="button"
-            className="vmx-btn vmx-btn-ghost"
-            onClick={onCancel}
-            style={{ flex: '1 1 140px' }}
-          >
-            {cancelLabel}
-          </button>
+          {!hideCancel && (
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost"
+              onClick={onCancel}
+              style={{ flex: '1 1 140px' }}
+            >
+              {cancelLabel}
+            </button>
+          )}
         </div>
       </div>
     </div>

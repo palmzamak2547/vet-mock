@@ -196,6 +196,7 @@ const PublicWikiView = lazy(() => import('./views/PublicWikiView.jsx'));
 const AdminView = lazy(() => import('./views/AdminView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
+import DialogHost from './components/DialogHost.jsx';
 
 // Vercel Analytics + Speed Insights — lazy-loaded so the home page
 // payload doesn't grow on existing users. Both are no-op in dev mode
@@ -1690,6 +1691,8 @@ export default function App() {
       {/* Global CSS now loaded via `import './styles.css'` at the top of
           this file (Vite injects it) — no more <style>{STYLES}</style>. */}
       <TopLoadingBar />
+      {/* One mounted dialog for every confirmDialog()/alertDialog() caller. */}
+      <DialogHost />
       <div className="vmx-app">
         {!FOCUS_VIEWS.has(view) && (
           <Sidebar

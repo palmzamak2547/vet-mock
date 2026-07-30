@@ -11,6 +11,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
+import { confirmDialog } from '../lib/dialog.js';
 
 export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard }) {
   const [open, setOpen] = useState(false);
@@ -79,9 +80,9 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard })
             <MenuItem icon="🏆" onClick={() => { setOpen(false); onLeaderboard(); }}>Leaderboard</MenuItem>
           )}
           <div style={{ height: 1, background: 'var(--clr-border)', margin: '4px 0' }} />
-          <MenuItem icon="⎋" danger onClick={() => {
+          <MenuItem icon="⎋" danger onClick={async () => {
             setOpen(false);
-            if (confirm('ออกจากระบบ?')) onLogout();
+            if (await confirmDialog({ title: 'ออกจากระบบ?', confirmLabel: 'ออกจากระบบ' })) onLogout();
           }}>ออกจากระบบ (Logout)</MenuItem>
         </div>
       )}
