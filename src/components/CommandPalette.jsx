@@ -15,6 +15,7 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
+import { getUpcomingExams, fmtThaiDate } from '../data/schedule.js';
 // CommandPalette only needs {title, subject, instructor} for search —
 // importing the full VIDEO_SUMMARIES dragged ~360 KB of markdown body
 // text into the palette's lazy chunk. Switched to a lightweight meta
@@ -169,6 +170,23 @@ function buildStaticItems() {
     });
   }
 
+  // Upcoming exams — so "สอบ zoonoses", a course code, or "กลางภาค" lands on
+  // the real date/time/room instead of the student asking in the group chat.
+  for (const yr of [1, 2, 3, 4, 5]) {
+    for (const e of getUpcomingExams(`y${yr}`)) {
+      if (e.daysLeft < 0) continue; // past exams are noise in a search box
+      push({
+        type: 'exam',
+        payload: 'schedule',
+        year: yr,
+        label: `สอบ ${e.title}`,
+        hint: `${fmtThaiDate(e.date)} · ${e.time} · ${e.location}`,
+        icon: e.icon || '📅',
+        kw: `exam สอบ ${e.term === 'midterm' ? 'กลางภาค midterm' : 'ปลายภาค final'} ${e.code} ${e.title} ${e.subject} ${e.location}`,
+      });
+    }
+  }
+
   // Video summaries
   for (const s of Object.values(VIDEO_SUMMARIES || {})) {
     if (!s?.title) continue;
@@ -266,6 +284,7 @@ function runItem(item, handlers) {
   const { goView, setSubject, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onSketch, onOpenWiki } = handlers;
   switch (item.type) {
     case 'wiki': onOpenWiki?.(item.payload.subject, item.payload.topic); return;
+    case 'exam': goView?.(item.payload); return; // payload = 'schedule'
     case 'action': {
       // payload is now an invoke descriptor (from the registry) or one of
       // the two nav-only specials (home view / bookmarks practice mode).
@@ -550,6 +569,7 @@ export default function CommandPalette({
               flashcard: '⚡ Flashcards',
               'q-note': '📝 โน้ต Q',
               wiki: '🧬 VetWiki',
+              exam: '📅 ตารางสอบ',
             };
             const showHeader = !query.trim() && (i === 0 || filtered[i - 1].type !== item.type);
             return (

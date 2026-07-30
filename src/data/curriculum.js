@@ -1242,7 +1242,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'aqua-disease-control', label: 'Aquatic disease control + พรบ.โรคระบาด 2558', icon: '📜', lecturer: 'TBD', lecturer_year: 2026 },
       ] },
 
-    { id: 'avian-medicine', code: '3107507', name: 'อายุรศาสตร์สัตว์ปีก',
+    { id: 'avian-medicine', code: '3107510', name: 'อายุรศาสตร์สัตว์ปีก',
       name_en: 'Avian Medicine',
       icon: '🦅', color: '#d97744', semester: 1, has_questions: true, scaffold: true,
       vault_lecturers: ['jiroj-sasipreeyajan', 'somsak-pakpinyo', 'nataya-charoenvisal', 'niwat-chansiripornchai', 'kriengwich-limpavithayakul'],
@@ -1279,7 +1279,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'avian-serology', label: 'Serology', icon: '🧪', lecturer: 'TBD', lecturer_year: 2026 },
       ] },
 
-    { id: 'poa-clinical', code: '3107530', name: 'POA, การแก้ปัญหาคลินิกสัตว์เล็ก',
+    { id: 'poa-clinical', code: '3107522', name: 'POA, การแก้ปัญหาคลินิกสัตว์เล็ก',
       name_en: 'POA — Clinical Problem Solving (Companion Animals)',
       icon: '🩺', color: '#5d8b8b', semester: 1, has_questions: true, scaffold: true,
       vault_lecturers: ['chutirat-torsahakul', 'punyamanee-yamkate', 'krissda-boonaramrueng'],
@@ -1306,7 +1306,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'poa-anorexia', label: 'POA Anorexia & weight loss', icon: '⚖️', lecturer: 'TBD', lecturer_year: 2026 },
       ] },
 
-    { id: 'milk-meat-hygiene', code: '3107518', name: 'สุขศาสตร์น้ำนม + เนื้อ',
+    { id: 'milk-meat-hygiene', code: '3109503', name: 'สุขศาสตร์น้ำนม + เนื้อ',
       name_en: 'Milk Hygiene & Meat Inspection',
       icon: '🥩', color: '#a73d4a', semester: 1, has_questions: false, scaffold: true, has_notes: true,
       vault_lecturers: ['saharuetai-jeamsripong', 'sirawit-pagdepanichkit', 'rungtip-chuanchuen', 'suphachai-nuanualsuwan', 'taradon-luangtongkum'],
@@ -1346,7 +1346,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'meat-egg-micro', label: 'Microbiology of egg', icon: '🥚', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026 },
       ] },
 
-    { id: 'one-health', code: '3107529', name: 'One Health',
+    { id: 'one-health', code: '3109502', name: 'One Health',
       name_en: 'One Health Veterinary Public Health (OHVPH)',
       icon: '🌐', color: '#5c7d4a', semester: 1, has_questions: false, scaffold: true,
       vault_lecturers: ['sirawit-pagdepanichkit', 'saharuetai-jeamsripong', 'kamonpan-charoenkul', 'taradon-luangtongkum', 'suphachai-nuanualsuwan', 'rungtip-chuanchuen'],
@@ -1374,7 +1374,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'oh-risk-analysis', label: 'Animal & Human Health Risk Analysis', icon: '⚠️', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026 },
       ] },
 
-    { id: 'food-industry', code: '3107517', name: 'อุตสาหกรรมอาหาร (FIQC)',
+    { id: 'food-industry', code: '3109501', name: 'อุตสาหกรรมอาหาร (FIQC)',
       name_en: 'Food Industry & Quality Control',
       icon: '🏭', color: '#8b6b3d', semester: 1, has_questions: false, scaffold: true,
       vault_lecturers: ['sirawit-pagdepanichkit', 'sompis-junlaboothdi', 'saharuetai-jeamsripong'],
@@ -1489,7 +1489,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'zoo-protozoal', label: 'Protozoal zoonosis (Toxoplasmosis, Giardia, etc.)', icon: '🦠', lecturer: 'Woraporn Sukhumavasi', lecturer_year: 2026, lecturerNote: '📌 Vet 82 final ตรงมาก' },
       ] },
 
-    { id: 'swine-clinic', code: '3107516', name: 'อายุรศาสตร์สุกร',
+    { id: 'swine-clinic', code: '3107507', name: 'อายุรศาสตร์สุกร',
       name_en: 'Swine Medicine',
       icon: '🐖', color: '#c26d8e', semester: 1, has_questions: true, scaffold: true,
       vault_lecturers: ['athipoo-nuntaprasert', 'pornchalit-assavacheep', 'roongtham-kedkovid', 'suphot-wattanaphansak'],

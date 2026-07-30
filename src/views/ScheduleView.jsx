@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { EXAM_SCHEDULE, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
+import { EXAM_SCHEDULE, SEMESTER, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
+import WeekTimetable from '../components/WeekTimetable.jsx';
+import AcademicCalendar from '../components/AcademicCalendar.jsx';
 import { SUBJECTS } from '../data/curriculum.js';
 // Phase 2 perf: use precomputed counts instead of QB. ScheduleView
 // only asks "does subject X have any Qs?" — a boolean lookup against
@@ -35,12 +37,23 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1>📅 ตาราง<em>สอบ Final</em></h1>
-        <p>Vet 86 · Semester 2/2568 · อัพเดตล่าสุดจากประกาศและรุ่นพี่</p>
+        <h1>ตาราง<em>เรียนและสอบ</em></h1>
+        <p>
+          {SEMESTER.labelTh} · {SEMESTER.cohortNote} · {SEMESTER.midtermPeriod.labelTh} · {SEMESTER.finalPeriod.labelTh}
+        </p>
       </div>
 
+      {/* วันนี้เรียนอะไร — the question students open this page for */}
+      <WeekTimetable
+        year={selectedYear}
+        onOpenSubject={(subjId) => { if (hasQuestions(subjId)) practiceSubject(subjId); }}
+        hasContent={hasQuestions}
+      />
+
+      <AcademicCalendar year={selectedYear} />
+
       <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
-        <span>ปี {selectedYear} · Final Exams ({exams.length})</span>
+        <span>ตารางสอบ ปี {selectedYear} ({exams.length})</span>
         {pastCount > 0 && (
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowPast(!showPast)}>
             {showPast ? `🙈 ซ่อนสอบที่ผ่านแล้ว (${pastCount})` : `👁 แสดงสอบที่ผ่านแล้ว (${pastCount})`}
@@ -92,15 +105,29 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                     {exam.icon} {exam.title}
                     {exam.weight_pct && <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 8 }}>· {exam.weight_pct}%</span>}
                   </h3>
-                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 10 }}>
-                    📅 {fmtThaiDate(exam.date)} · ⏰ {exam.time} · 📍 {exam.location}
+                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 10, display: 'flex', flexWrap: 'wrap', gap: '2px 10px' }}>
+                    {exam.term && (
+                      <span style={{ color: exam.term === 'midterm' ? 'var(--clr-gold-text)' : 'var(--clr-sage-text)', fontWeight: 600 }}>
+                        {exam.term === 'midterm' ? 'กลางภาค' : 'ปลายภาค'}
+                      </span>
+                    )}
+                    <span>{exam.code}</span>
+                    <span>{fmtThaiDate(exam.date)}</span>
+                    <span>{exam.time}</span>
+                    <span>{exam.location}</span>
+                    {exam.credits != null && <span>{exam.credits} หน่วยกิต</span>}
                   </div>
-                  <div style={{ fontSize: 13, color: 'var(--clr-ink)', marginBottom: 8 }}>
-                    <strong>เนื้อหา:</strong>
-                    <ul style={{ margin: '4px 0 0', paddingLeft: 20 }}>
-                      {exam.content.map((c, i) => <li key={i}>{c}</li>)}
-                    </ul>
-                  </div>
+                  {/* Older entries carry a hand-written content outline; the
+                      officially-published schedule rows don't, so this stays optional
+                      rather than assuming the field exists. */}
+                  {exam.content?.length > 0 && (
+                    <div style={{ fontSize: 13, color: 'var(--clr-ink)', marginBottom: 8 }}>
+                      <strong>เนื้อหา:</strong>
+                      <ul style={{ margin: '4px 0 0', paddingLeft: 20 }}>
+                        {exam.content.map((c, i) => <li key={i}>{c}</li>)}
+                      </ul>
+                    </div>
+                  )}
                   {exam.notes && (
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 8 }}>
                       💡 {exam.notes}

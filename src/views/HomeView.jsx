@@ -5,7 +5,7 @@ import { QB } from '../data/questions.js';
 // full QB to be scanned on every re-render.
 import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
-import { getNextExam, fmtThaiDate, shortCountdown } from '../data/schedule.js';
+import { getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
@@ -58,6 +58,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const yearMeta = YEARS.find((y) => y.id === selectedYear) || YEARS.find((y) => y.id === 4);
   const isScaffoldYear = !!yearMeta?.scaffold;
   const nextExam = getNextExam(`y${selectedYear}`);
+  // Today's timetable + the registrar's deadlines, surfaced as chips so the
+  // published schedule is one tap away instead of buried in a PDF.
+  const nextClassToday = getNextClassToday(selectedYear);
+  const currentClassNow = getCurrentClass(selectedYear);
+  const topMilestone = getTopMilestone();
   const phaseMeta = selectedPhase ? PHASE_LABELS[selectedPhase] : null;
   // Filter SUBJECTS_BY_YEAR[selectedYear] to phase scope. If no phase
   // selected (e.g. Y6 block-based), show all subjects.
@@ -899,6 +904,48 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.12)'}
             >
               ทบทวนข้อที่ตอบผิด ({quickStats.wrongCount})
+            </button>
+          )}
+          {/* Today's next class + any open registration/payment window. Both
+              come from the faculty's own published schedule, so they answer
+              "เรียนอะไร ที่ไหน" and "ต้องจ่าย/ลงทะเบียนภายในเมื่อไหร่" without
+              the student digging for the PDF. Tapping opens the full page. */}
+          {nextClassToday && (
+            <button
+              type="button"
+              onClick={() => setView('schedule')}
+              className="vmx-chip-quick"
+              title={`${nextClassToday.code} · ${nextClassToday.room} · ${nextClassToday.start}-${nextClassToday.end}`}
+              style={{
+                all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '6px 12px', borderRadius: 999,
+                background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
+                fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage-text)',
+                minHeight: 44, boxSizing: 'border-box',
+              }}
+            >
+              {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.start} น.`} {nextClassToday.title.length > 26 ? `${nextClassToday.title.slice(0, 26)}…` : nextClassToday.title} · {nextClassToday.room}
+            </button>
+          )}
+          {topMilestone && (
+            <button
+              type="button"
+              onClick={() => setView('schedule')}
+              className="vmx-chip-quick"
+              title={`${topMilestone.titleTh}${topMilestone.endTimeTh ? ` · ${topMilestone.endTimeTh}` : ''}`}
+              style={{
+                all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '6px 12px', borderRadius: 999,
+                background: 'rgba(194, 109, 109, 0.10)', border: '1px solid var(--clr-rose)',
+                fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-rose-text)',
+                minHeight: 44, boxSizing: 'border-box',
+              }}
+            >
+              {topMilestone.titleTh.length > 22 ? `${topMilestone.titleTh.slice(0, 22)}…` : topMilestone.titleTh}
+              {' · '}
+              {topMilestone.active
+                ? (topMilestone.daysLeftToEnd === 0 ? 'วันสุดท้ายวันนี้' : `เหลือ ${topMilestone.daysLeftToEnd} วัน`)
+                : `อีก ${topMilestone.daysLeft} วัน`}
             </button>
           )}
           {showChangelogChip && (

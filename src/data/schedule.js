@@ -341,3 +341,187 @@ export function fmtThaiDate(dateStr) {
   const days = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
   return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear() + 543}`;
 }
+
+// ============================================================
+// ภาคการศึกษาต้น ปีการศึกษา 2569 (Sem 1/2569) — ชั้นปีที่ 5
+// ============================================================
+// แหล่งข้อมูล (เอกสารทางการ คณะสัตวแพทยศาสตร์ จุฬาฯ):
+//   • ตารางสอน ชั้นปีที่ 5 ภาคต้น 2569 (หลักสูตร สพ.บ. 61) — 27 มี.ค. 69
+//   • ตารางสอบกลางภาค ภาคต้น 2569 — Update 20 ก.ค. 69
+//   • ตารางสอบปลายภาค ภาคต้น 2569 สัปดาห์ที่ 1-2 — Update 20 ก.ค. 69
+//   • ทะเบียนกลุ่มรายวิชา ชั้นปีที่ 5 (รหัสกลุ่ม 3190501)
+//   • กำหนดการลงทะเบียนเรียน + การชำระค่าเล่าเรียน (สนง.การทะเบียน)
+// ⚠️ ทุกค่าคัดจากเอกสารตรง ๆ ไม่มีการเดา ถ้าเอกสารไม่ระบุ = null
+// หมายเหตุจากเอกสาร: "ตารางสอบและห้องสอบอาจมีการเปลี่ยนแปลง
+// โดยจะมีการแจ้งให้ทราบล่วงหน้าโดยเร็วที่สุด"
+// ============================================================
+
+/** ข้อมูลภาคการศึกษาปัจจุบัน — ใช้เป็นหัวเรื่องและ context ทั่วแอป */
+export const SEMESTER = {
+  id: '2569-1',
+  labelTh: 'ภาคการศึกษาต้น 2569',
+  short: 'เทอม 1/2569',
+  cohortNote: 'Vet 86 = ชั้นปีที่ 5',
+  midtermPeriod: { start: '2026-09-21', end: '2026-09-25', labelTh: 'สอบกลางภาค 21-25 ก.ย. 69' },
+  finalPeriod: { start: '2026-11-23', end: '2026-12-04', labelTh: 'สอบปลายภาค 23 พ.ย. - 4 ธ.ค. 69' },
+  sourceNote: 'ตามมติที่ประชุมคณะกรรมการบริหารคณะสัตวแพทยศาสตร์ จุฬาฯ ครั้งที่ 10/2569 (22 ก.ค. 69)',
+  updatedAt: '2026-07-20',
+};
+
+
+// ── ตารางสอบ ชั้นปีที่ 5 ภาคต้น 2569 ────────────────────────────────
+// กลางภาค 21-25 ก.ย. 69 (9 วิชา) · ปลายภาค 23 พ.ย. - 4 ธ.ค. 69 (10 วิชา)
+// 3107522 CLI PROB SOLV COMP ไม่ปรากฏในตารางสอบทั้งสองรอบ
+// 3107508 VET EPID PREV MED มีเฉพาะสอบปลายภาค
+EXAM_SCHEDULE.y5 = [
+  // ─── สอบกลางภาค ───
+  { id: 'y5-one-health-mid', code: '3109502', subject: 'one-health', title: 'ONE HEALTH VPH — กลางภาค', date: '2026-09-21', time: '08:30-09:30', duration_min: 60, credits: 1, location: 'VET6 202/203', term: 'midterm', icon: '🌍', color: '#4a6b4a' },
+  { id: 'y5-avian-mid', code: '3107510', subject: 'avian-medicine', title: 'AVIAN MEDICINE — กลางภาค', date: '2026-09-21', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'midterm', icon: '🐔', color: '#c2924a' },
+  { id: 'y5-food-ind-mid', code: '3109501', subject: 'food-industry', title: 'FOOD IND QUAL CONT — กลางภาค', date: '2026-09-22', time: '08:30-09:30', duration_min: 60, credits: 1, location: 'VET6 807', term: 'midterm', icon: '🏭', color: '#b88940' },
+  { id: 'y5-milk-meat-mid', code: '3109503', subject: 'milk-meat-hygiene', title: 'MILK HYG MEAT INSP — กลางภาค', date: '2026-09-22', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 202/203', term: 'midterm', icon: '🥛', color: '#5c7d4a' },
+  { id: 'y5-equine-med-mid', code: '3106510', subject: 'equine-medicine', title: 'EQUINE MED SURG — กลางภาค', date: '2026-09-23', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'midterm', icon: '🐎', color: '#7d5a44' },
+  { id: 'y5-equine-repro-mid', code: '3108515', subject: 'equine-repro', title: 'EQUINE REPROD — กลางภาค', date: '2026-09-23', time: '13:00-14:00', duration_min: 60, credits: 1, location: 'VET6 807', term: 'midterm', icon: '🐴', color: '#b88940' },
+  { id: 'y5-swine-mid', code: '3107507', subject: 'swine-clinic', title: 'SWINE MEDICINE — กลางภาค', date: '2026-09-24', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 202/203', term: 'midterm', icon: '🐖', color: '#c26d6d' },
+  { id: 'y5-aqua-mid', code: '3107520', subject: 'aquatic-clinic', title: 'AQUA ANL MED — กลางภาค', date: '2026-09-24', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 202/203', term: 'midterm', icon: '🐟', color: '#3d6b82' },
+  { id: 'y5-zoonoses-mid', code: '3109504', subject: 'zoonoses', title: 'ZOONOSES — กลางภาค', date: '2026-09-25', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 202/203', term: 'midterm', icon: '🦠', color: '#7d4a7d' },
+
+  // ─── สอบปลายภาค สัปดาห์ที่ 1 ───
+  { id: 'y5-swine-final', code: '3107507', subject: 'swine-clinic', title: 'SWINE MEDICINE — ปลายภาค', date: '2026-11-23', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🐖', color: '#c26d6d' },
+  { id: 'y5-equine-med-final', code: '3106510', subject: 'equine-medicine', title: 'EQUINE MED SURG — ปลายภาค', date: '2026-11-24', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 202/203', term: 'final', icon: '🐎', color: '#7d5a44' },
+  { id: 'y5-one-health-final', code: '3109502', subject: 'one-health', title: 'ONE HEALTH VPH — ปลายภาค', date: '2026-11-25', time: '13:00-14:30', duration_min: 90, credits: 1, location: 'VET6 807', term: 'final', icon: '🌍', color: '#4a6b4a' },
+  { id: 'y5-zoonoses-final', code: '3109504', subject: 'zoonoses', title: 'ZOONOSES — ปลายภาค', date: '2026-11-26', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🦠', color: '#7d4a7d' },
+  { id: 'y5-aqua-final', code: '3107520', subject: 'aquatic-clinic', title: 'AQUA ANL MED — ปลายภาค', date: '2026-11-27', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 B01-03', term: 'final', icon: '🐟', color: '#3d6b82' },
+
+  // ─── สอบปลายภาค สัปดาห์ที่ 2 ───
+  { id: 'y5-milk-meat-final', code: '3109503', subject: 'milk-meat-hygiene', title: 'MILK HYG MEAT INSP — ปลายภาค', date: '2026-11-30', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🥛', color: '#5c7d4a' },
+  { id: 'y5-equine-repro-final', code: '3108515', subject: 'equine-repro', title: 'EQUINE REPROD — ปลายภาค', date: '2026-12-01', time: '08:30-10:00', duration_min: 90, credits: 1, location: 'VET6 807', term: 'final', icon: '🐴', color: '#b88940' },
+  { id: 'y5-avian-final', code: '3107510', subject: 'avian-medicine', title: 'AVIAN MEDICINE — ปลายภาค', date: '2026-12-02', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🐔', color: '#c2924a' },
+  { id: 'y5-food-ind-final', code: '3109501', subject: 'food-industry', title: 'FOOD IND QUAL CONT — ปลายภาค', date: '2026-12-03', time: '13:00-14:30', duration_min: 90, credits: 1, location: 'VET6 807', term: 'final', icon: '🏭', color: '#b88940' },
+  { id: 'y5-epid-final', code: '3107508', subject: 'epidemiology', title: 'VET EPID PREV MED — ปลายภาค', date: '2026-12-04', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '📊', color: '#3d6b82' },
+];
+
+/** ทะเบียนกลุ่มรายวิชา — ลงทะเบียนทั้งชุดด้วยรหัสกลุ่มเดียว */
+export const COURSE_GROUPS = {
+  y5: {
+    groupCode: '3190501',
+    condition: 'G',
+    courseCount: 11,
+    credits: 23,
+    section: '001',
+    howTo: 'ป้อนรหัสกลุ่ม 3190501 แล้วเลือกเงื่อนไข G เพื่อลงทะเบียนครบทุกรายวิชาตามโปรแกรม',
+    warning: 'ลงทะเบียนผิดเงื่อนไข/ผิดระเบียบ จะถูกยกเลิกผลการลงทะเบียนทุกรายวิชา',
+    codes: ['3106510', '3107507', '3107508', '3107510', '3107520', '3107522', '3108515', '3109501', '3109502', '3109503', '3109504'],
+  },
+};
+
+/** ตารางเรียนรายสัปดาห์ ชั้นปีที่ 5 — dow 1=จันทร์ ... 5=ศุกร์, เวลา 24 ชม. */
+export const CLASS_TIMETABLE = {
+  y5: [
+    { dow: 1, start: '10:00', end: '12:00', code: '3107508', title: 'VET EPIDEM', subject: 'epidemiology', room: 'VET6 807', kind: 'lecture' },
+    { dow: 1, start: '13:00', end: '15:00', code: '3107508', title: 'VET EPIDEMI (LAB)', subject: 'epidemiology', room: 'VET6 807', kind: 'lab' },
+    { dow: 2, start: '09:00', end: '12:00', code: '3107520', title: 'AQUATIC ANIMAL MEDICINE', subject: 'aquatic-clinic', room: 'VET6 807', kind: 'lecture' },
+    { dow: 2, start: '13:00', end: '15:00', code: '3107510', title: 'AVIAN MED', subject: 'avian-medicine', room: 'VET6 807', kind: 'lecture' },
+    { dow: 3, start: '08:00', end: '09:00', code: '3107522', title: 'CLI PROB SOLV COMP', subject: 'poa-clinical', room: 'VET6 807', kind: 'lecture' },
+    { dow: 3, start: '09:00', end: '12:00', code: '3109503', title: 'MILK HYGIENE AND MEAT INSPECTION', subject: 'milk-meat-hygiene', room: 'VET6 807', kind: 'lecture' },
+    { dow: 3, start: '13:00', end: '14:00', code: '3109502', title: 'ONE HEALTH', subject: 'one-health', room: 'VET6 807', kind: 'lecture' },
+    { dow: 3, start: '14:00', end: '15:00', code: '3109501', title: 'FOOD INDUSTRY', subject: 'food-industry', room: 'VET6 807', kind: 'lecture' },
+    { dow: 4, start: '09:00', end: '12:00', code: '3106510', title: 'EQUINE MEDICINE AND SURGERY', subject: 'equine-medicine', room: 'VET6 807', kind: 'lecture' },
+    { dow: 4, start: '13:00', end: '14:00', code: '3108515', title: 'EQUINE REPRO', subject: 'equine-repro', room: 'VET6 807', kind: 'lecture' },
+    { dow: 5, start: '09:00', end: '12:00', code: '3109504', title: 'ZOONOSES', subject: 'zoonoses', room: 'VET6 807', kind: 'lecture' },
+    { dow: 5, start: '13:00', end: '15:00', code: '3107507', title: 'SWINE MEDICINE', subject: 'swine-clinic', room: 'VET6 807', kind: 'lecture' },
+  ],
+};
+
+/** ปฏิทินลงทะเบียน/ชำระเงิน ภาคต้น 2569 (ระบบทวิภาค) */
+export const ACADEMIC_MILESTONES = [
+  { id: 'reg-r1', start: '2026-06-22', end: '2026-07-05', titleTh: 'แสดงความจำนงลงทะเบียน รอบที่ 1', kind: 'registration' },
+  { id: 'reg-r2', start: '2026-07-16', end: '2026-07-20', titleTh: 'ดูผลรอบ 1 + แสดงความจำนง รอบที่ 2', kind: 'registration' },
+  { id: 'reg-r3', start: '2026-07-24', end: '2026-07-29', titleTh: 'ดูผลรอบ 2 + แสดงความจำนง รอบที่ 3', kind: 'registration' },
+  { id: 'reg-r3-result', start: '2026-07-31', end: '2026-08-02', titleTh: 'ประกาศผลการแสดงความจำนง รอบที่ 3', kind: 'registration' },
+  {
+    id: 'late-reg', start: '2026-08-03', end: '2026-08-14',
+    titleTh: 'ลงทะเบียนสาย เพิ่ม/เปลี่ยนตอน/ลดรายวิชา',
+    kind: 'registration',
+    warnTh: 'ลงทะเบียนช่วงนี้ต้องชำระค่าปรับลงทะเบียนสายตามประกาศ',
+    endTimeTh: 'ปิด 20.00 น.',
+  },
+  {
+    id: 'payment', start: '2026-06-22', end: '2026-08-16',
+    titleTh: 'ชำระค่าเล่าเรียน ผ่านแอป CUNEX',
+    kind: 'payment',
+    endTimeTh: 'ปิด 23.00 น. ของวันที่ 16 ส.ค. 69',
+    noteTh: 'เลือกสถานะรายการเป็น "ลงทะเบียนปกติ" — กรณีลาพัก/รักษาสถานภาพให้เลือก "รักษาสถานภาพ" (ป.ตรี 1,000 บาท/ภาค) และต้องยื่นคำร้องที่ทะเบียนคณะก่อน',
+    warnTh: 'ในแอป CUNEX จะแจ้งวันที่ 2 ส.ค. 69 ก่อน (รอบแรก) ถ้ายังไม่ชำระให้รออัปเดตวันใหม่ (16 ส.ค. 69)',
+  },
+  { id: 'cr52-1', start: '2026-08-14', end: '2026-08-14', titleTh: 'ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 1 (CR52)', kind: 'checkpoint' },
+  { id: 'cr52-2', start: '2026-08-20', end: '2026-08-28', titleTh: 'ตรวจรายชื่อกับอาจารย์ผู้สอน ครั้งที่ 2 (CR52)', kind: 'checkpoint' },
+  { id: 'drop-last', start: '2026-09-11', end: '2026-09-11', titleTh: 'วันสุดท้ายของการลดรายวิชา (W)', kind: 'deadline' },
+];
+
+/** รายวิชาที่จัดสอบนอกตาราง (ตามหมายเหตุท้ายตารางสอบ) */
+export const OFF_SCHEDULE_EXAMS = [
+  { code: '3100103', title: 'VET IMP PROF I', note: 'TDF (จัดสอบนอกตาราง)' },
+  { code: '3100201', title: 'VET IMP PROF II', note: 'TDF (จัดสอบนอกตาราง)' },
+];
+
+// ── Helpers: ตารางเรียน + ปฏิทินการศึกษา ─────────────────────────────
+
+/** คาบเรียนของวันนั้น (default = วันนี้) เรียงตามเวลา. เสาร์-อาทิตย์ = [] */
+export function getClassesForDay(year = 5, date = new Date()) {
+  const rows = CLASS_TIMETABLE[`y${year}`] || [];
+  const dow = date.getDay(); // 0=Sun
+  return rows.filter((r) => r.dow === dow).sort((a, b) => a.start.localeCompare(b.start));
+}
+
+/** คาบถัดไปของวันนี้ (ยังไม่จบ) — ใช้โชว์ "คาบต่อไป" */
+export function getNextClassToday(year = 5, date = new Date()) {
+  const hhmm = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+  return getClassesForDay(year, date).find((c) => c.end > hhmm) || null;
+}
+
+/** คาบที่กำลังเรียนอยู่ตอนนี้ (ถ้ามี) */
+export function getCurrentClass(year = 5, date = new Date()) {
+  const hhmm = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+  return getClassesForDay(year, date).find((c) => c.start <= hhmm && hhmm < c.end) || null;
+}
+
+/** หมุดปฏิทินที่ "เกี่ยวกับตอนนี้" — กำลังเปิดอยู่ หรือจะถึงใน N วัน
+ *  คืนค่าเรียงตามความใกล้ พร้อม daysLeft / daysLeftToEnd / active */
+export function getActiveMilestones(withinDays = 10, now = new Date()) {
+  const today = new Date(now); today.setHours(0, 0, 0, 0);
+  const day = 24 * 60 * 60 * 1000;
+  return ACADEMIC_MILESTONES
+    .map((m) => {
+      const s = new Date(m.start); s.setHours(0, 0, 0, 0);
+      const e = new Date(m.end); e.setHours(0, 0, 0, 0);
+      return {
+        ...m,
+        daysLeft: Math.round((s - today) / day),
+        daysLeftToEnd: Math.round((e - today) / day),
+        active: s <= today && today <= e,
+      };
+    })
+    .filter((m) => m.active || (m.daysLeft > 0 && m.daysLeft <= withinDays))
+    .sort((a, b) => (a.active === b.active ? a.daysLeft - b.daysLeft : (a.active ? -1 : 1)));
+}
+
+/** หมุดที่ควรเตือนที่สุดหนึ่งอัน — เดดไลน์/การชำระเงินที่กำลังเปิดมาก่อน */
+export function getTopMilestone(now = new Date()) {
+  const list = getActiveMilestones(10, now);
+  if (list.length === 0) return null;
+  const urgent = list.find((m) => m.active && (m.kind === 'payment' || m.kind === 'deadline'));
+  return urgent || list[0];
+}
+
+/** ฟอร์แมตช่วงวันแบบสั้น: "3 - 14 ส.ค. 69" / "11 ก.ย. 69" */
+export function fmtThaiRange(start, end) {
+  const M = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+  const a = new Date(start); const b = new Date(end);
+  const yy = String((b.getFullYear() + 543) % 100);
+  if (a.getTime() === b.getTime()) return `${a.getDate()} ${M[a.getMonth()]} ${yy}`;
+  if (a.getMonth() === b.getMonth()) return `${a.getDate()} - ${b.getDate()} ${M[b.getMonth()]} ${yy}`;
+  return `${a.getDate()} ${M[a.getMonth()]} - ${b.getDate()} ${M[b.getMonth()]} ${yy}`;
+}
+
+/** ชื่อวันไทยแบบสั้นจาก dow (1=จันทร์) */
+export const DOW_TH = { 1: 'จันทร์', 2: 'อังคาร', 3: 'พุธ', 4: 'พฤหัสบดี', 5: 'ศุกร์' };
