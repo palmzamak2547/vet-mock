@@ -395,7 +395,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
             <div style={{ fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 4 }}>
               อัปโหลดรูป
             </div>
-            <div style={{ fontSize: 13 }}>คลิก หรือ ลากไฟล์มาวาง · PNG / JPG / WebP / SVG</div>
+            <div style={{ fontSize: 13 }}>คลิก หรือ ลากไฟล์มาวาง, PNG / JPG / WebP / SVG</div>
           </div>
         ) : (
           <div
@@ -567,7 +567,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
                     fontSize: 13,
                   }}
                 >
-                  <strong>#{i + 1}</strong> · {m.label || '(no label)'} → {m.answer || <em style={{ color: 'var(--clr-rose)' }}>(ยังไม่มีคำตอบ)</em>}
+                  <strong>#{i + 1}</strong>, {m.label || '(no label)'} → {m.answer || <em style={{ color: 'var(--clr-rose)' }}>(ยังไม่มีคำตอบ)</em>}
                 </li>
               ))}
             </ul>

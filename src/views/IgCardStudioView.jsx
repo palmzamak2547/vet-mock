@@ -97,7 +97,7 @@ function renderQCard({ question, brand = '@vetmock.cu' }) {
   ctx.fillStyle = '#2b2419';
   ctx.font = '500 32px "JetBrains Mono", monospace';
   ctx.textAlign = 'center';
-  ctx.fillText('vetmock.vercel.app · 📷 ' + brand, W / 2, 1280);
+  ctx.fillText('vetmock.vercel.app, 📷 ' + brand, W / 2, 1280);
 
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 0.95));
 }
@@ -163,26 +163,29 @@ export default function IgCardStudioView({ goHome }) {
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>IG Card <em>Studio</em></h1>
-        <p>Generate Q cards พร้อมโพสต์ลง Instagram · 1080×1350 · 4:5 ratio</p>
+        <p>Generate Q cards พร้อมโพสต์ลง Instagram, 1080×1350, 4:5 ratio</p>
       </div>
 
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
         <h3>⚙️ ตั้งค่า</h3>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center', marginTop: 8 }}>
-          <label style={{ fontSize: 13 }}>
-            วิชา:&nbsp;
-            <select value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '6px 10px', borderRadius: 8 }}>
+          {/* The subject names are long, so an intrinsically-sized select ran
+              past the right edge on a phone and got clipped. Cap it to the
+              row and let the label shrink. */}
+          <label style={{ fontSize: 13, minWidth: 0, maxWidth: '100%', display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: 4 }}>
+            วิชา:
+            <select value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '6px 10px', borderRadius: 8, maxWidth: '100%', minWidth: 0 }}>
               {SUBJECTS.map((s) => (
                 <option key={s.id} value={s.id}>{s.icon} {s.name}</option>
               ))}
             </select>
           </label>
-          <label style={{ fontSize: 13 }}>
-            จำนวน:&nbsp;
-            <input type="number" min="1" max="30" value={count} onChange={(e) => setCount(Math.max(1, Math.min(30, parseInt(e.target.value) || 7)))} style={{ width: 60, padding: '6px 10px', borderRadius: 8 }} />
+          <label style={{ fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4, minHeight: 44 }}>
+            จำนวน:
+            <input type="number" min="1" max="30" value={count} onChange={(e) => setCount(Math.max(1, Math.min(30, parseInt(e.target.value) || 7)))} style={{ width: 72, padding: '6px 10px', borderRadius: 8, minHeight: 44, boxSizing: 'border-box' }} />
           </label>
           <button className="vmx-btn vmx-btn-primary" onClick={generate} disabled={busy || pool.length === 0}>
-            {busy ? '⏳ Generating…' : `🎨 Generate ${count} cards`}
+            {busy ? 'กำลังสร้าง…' : `สร้างการ์ด ${count} ใบ`}
           </button>
           {cards.length > 0 && (
             <button className="vmx-btn vmx-btn-ghost" onClick={downloadAll}>
@@ -191,7 +194,7 @@ export default function IgCardStudioView({ goHome }) {
           )}
         </div>
         <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
-          Pool: {pool.length} questions (MCQ + T/F · ตัด writing) · subject = {subject}
+          Pool: {pool.length} questions (MCQ + T/F, ตัด writing), subject = {subject}
         </div>
       </div>
 
@@ -200,7 +203,7 @@ export default function IgCardStudioView({ goHome }) {
           <div key={card.q.id} className="vmx-dash-card" style={{ padding: 12 }}>
             <img src={card.url} alt={`card ${i + 1}`} style={{ width: '100%', borderRadius: 8, display: 'block' }} />
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 8, fontFamily: 'JetBrains Mono, monospace' }}>
-              Q{card.q.id} · {card.q.subject} · {card.q.topic || '—'}
+              Q{card.q.id}, {card.q.subject}, {card.q.topic || '—'}
             </div>
             <button className="vmx-btn vmx-btn-ghost" onClick={() => downloadOne(card, i)} style={{ marginTop: 8, width: '100%', fontSize: 12 }}>
               ⬇ Download PNG

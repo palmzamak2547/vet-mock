@@ -642,7 +642,7 @@ html, body {
 .vmx-feature-card-title { font-size: 13px; line-height: 1.25; font-weight: 600; }
 .vmx-feature-card-sub { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 1; color: var(--clr-ink-soft); font-size: 11px; line-height: 1.35; }
 .vmx-feature-card-arrow { color: var(--clr-ink-soft); font-size: 16px; line-height: 1; }
-.vmx-feature-more { min-height: 36px; margin-top: 6px; padding: 6px 10px; border: 0; background: transparent; color: var(--clr-ink-soft); font-size: 12px; font-weight: 600; cursor: pointer; }
+.vmx-feature-more { min-height: var(--touch-min, 44px); margin-top: 6px; padding: 6px 10px; border: 0; background: transparent; color: var(--clr-ink-soft); font-size: 12px; font-weight: 600; cursor: pointer; }
 .vmx-feature-more:hover { text-decoration: underline; text-underline-offset: 3px; }
 .vmx-feature-more:hover { text-decoration: underline; text-underline-offset: 3px; }
 
@@ -800,6 +800,18 @@ html, body {
 /* padding-top clears the absolutely-positioned .vmx-q-toolbar (16px inset +
    44px control) so the type chip and stem always start below it. */
 .vmx-question-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 20px; padding: 72px 32px 32px; margin-bottom: 20px; box-shadow: var(--shadow-sm); position: relative; }
+/* Tap-target floor for controls that are inline-styled (often with
+   `all: unset`) and so can't inherit .vmx-btn's 44px rule. WCAG 2.5.5.
+   Deliberately does NOT force padding — it only guarantees the hit area, so
+   a small "✕" stays visually small while staying thumb-reachable. */
+.vmx-tap {
+  min-width: var(--touch-min, 44px) !important;
+  min-height: var(--touch-min, 44px) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 /* Question-card toolbar — ONE flex row. Each control keeps its own colours
    and states, but position and spacing live here so the 44px touch floor can
    never collide with a hand-picked offset again. */
@@ -1788,4 +1800,23 @@ button.vmx-chip-quick:focus-visible {
 @media (max-width: 480px) {
   .vmx-next-action-row { flex-wrap: wrap; }
   .vmx-next-action-row > .vmx-btn { width: 100%; }
+}
+
+/* Native checkboxes/radios ship ~13-21px, well under the 44px floor and
+   fiddly on a phone. Scale the control and let the label carry the rest of
+   the hit area (labels already wrap them). */
+input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-color: var(--clr-sage); flex-shrink: 0; }
+:where(label):has(> input[type="checkbox"], > input[type="radio"]) { min-height: var(--touch-min, 44px); }
+
+/* Native checkboxes/radios ship ~13-21px, well under the 44px floor and
+   fiddly on a phone. Scale the control itself and let its wrapping label
+   carry the rest of the hit area. */
+input[type="checkbox"], input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--clr-sage);
+  flex-shrink: 0;
+}
+label:has(> input[type="checkbox"]), label:has(> input[type="radio"]) {
+  min-height: var(--touch-min, 44px);
 }

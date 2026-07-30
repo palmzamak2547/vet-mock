@@ -39,7 +39,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
       <div className="vmx-hero">
         <h1>ตาราง<em>เรียนและสอบ</em></h1>
         <p>
-          {SEMESTER.labelTh} · {SEMESTER.cohortNote} · {SEMESTER.midtermPeriod.labelTh} · {SEMESTER.finalPeriod.labelTh}
+          {SEMESTER.labelTh}, {SEMESTER.cohortNote}, {SEMESTER.midtermPeriod.labelTh}, {SEMESTER.finalPeriod.labelTh}
         </p>
       </div>
 

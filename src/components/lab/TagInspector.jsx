@@ -86,7 +86,7 @@ export default function TagInspector({ file, onClose }) {
 
       <div style={subHeaderStyle}>
         <div style={{ fontSize: '0.75rem', color: '#666' }}>
-          📄 {file?.name} · {tags.length} tags · {piiPresent > 0 && (
+          📄 {file?.name}, {tags.length} tags, {piiPresent > 0 && (
             <span style={{ color: '#c33' }}>⚠️ {piiPresent} PII tag(s) present (un-anonymized)</span>
           )}
         </div>

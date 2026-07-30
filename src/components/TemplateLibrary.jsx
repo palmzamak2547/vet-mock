@@ -45,7 +45,7 @@ const TEMPLATES = [
   {
     url: '/templates/ecg-strip.svg',
     title: 'ECG strip เปล่า',
-    subtitle: '25 mm/s · 10 mm/mV grid',
+    subtitle: '25 mm/s, 10 mm/mV grid',
     category: '📊 ECG/Lab',
   },
   {

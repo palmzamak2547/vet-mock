@@ -93,7 +93,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
           <div style={{ padding: 16, borderRadius: 12, background: 'rgba(74, 107, 74, 0.15)', border: '1px solid var(--clr-sage)', marginBottom: 16, textAlign: 'center' }}>
             ✅ <strong>ส่งสำเร็จ!</strong><br/>
             <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
-              ข้อความถูกส่งไปที่ {CONTACT_EMAIL} แล้ว · ขอบคุณมาก! 🙏
+              ข้อความถูกส่งไปที่ {CONTACT_EMAIL} แล้ว, ขอบคุณมาก! 🙏
             </span>
           </div>
         )}

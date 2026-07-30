@@ -343,7 +343,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     <>
       <div className="vmx-hero">
         <h1>Question <em>Manager</em></h1>
-        <p>เพิ่ม แก้ไข หรือ import ข้อสอบของตัวเอง · มี {customQuestions.length} ข้อ custom</p>
+        <p>เพิ่ม แก้ไข หรือ import ข้อสอบของตัวเอง, มี {customQuestions.length} ข้อ custom</p>
       </div>
 
       <div className="vmx-btn-row" style={{ marginBottom: 12, justifyContent: 'flex-start', flexWrap: 'wrap' }}>
@@ -418,7 +418,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
                 )}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div className="vmx-review-head">
-                    <span>#{q.id} · {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject} · {q.type.toUpperCase()}</span>
+                    <span>#{q.id}, {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject}, {q.type.toUpperCase()}</span>
                     <div style={{ display: 'flex', gap: 6 }}>
                       <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={(e) => { e.stopPropagation(); startEdit(q); }}>✏️ แก้</button>
                       <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={(e) => { e.stopPropagation(); deleteQ(q.id); }}>🗑</button>

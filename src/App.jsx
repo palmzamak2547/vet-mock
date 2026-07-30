@@ -1779,12 +1779,12 @@ export default function App() {
                 <strong>{challengeSender.senderName ? `${challengeSender.senderName}` : 'เพื่อน'}</strong>{' '}
                 ท้าคุณ
                 {challengeSender.senderScore
-                  ? <> · ผู้ส่งได้ <strong>{challengeSender.senderScore.correct}/{challengeSender.senderScore.total}</strong>
+                  ? <>, ผู้ส่งได้ <strong>{challengeSender.senderScore.correct}/{challengeSender.senderScore.total}</strong>
                     {Number.isFinite(challengeSender.senderTimeSec) && challengeSender.senderTimeSec > 0
                       ? <> ใน <strong>{Math.floor(challengeSender.senderTimeSec / 60)}:{String(Math.floor(challengeSender.senderTimeSec % 60)).padStart(2, '0')}</strong></>
                       : null}
                     {' '}— ลองว่าคุณได้เท่าไหร่</>
-                  : <> · ลองทำชุดเดียวกัน</>}
+                  : <>, ลองทำชุดเดียวกัน</>}
               </div>
             </div>
           )}

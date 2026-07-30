@@ -99,7 +99,7 @@ function DeckCard({ deck, onOpen, onDelete }) {
             {deck.name}
           </span>
           <span style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-            {(deck.masks?.length || 0)} กล่อง · {formatThaiDate(deck.createdAt)}
+            {(deck.masks?.length || 0)} กล่อง, {formatThaiDate(deck.createdAt)}
           </span>
         </span>
       </button>
@@ -262,13 +262,13 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
               📷 สร้าง deck แรก
             </div>
             <div style={{ fontSize: 14, marginBottom: 12 }}>
-              เลือกรูป หรือ ลากรูปมาวาง · รองรับ PNG / JPG / WebP / SVG
+              เลือกรูป หรือ ลากรูปมาวาง, รองรับ PNG / JPG / WebP / SVG
             </div>
             <button type="button" className="vmx-btn vmx-btn-primary" onClick={openNew} style={{ marginBottom: 12 }}>
               เลือกรูปและสร้าง deck
             </button>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-              เหมาะกับ anatomy lateral · radiograph · histology · microbe colony plate
+              เหมาะกับ anatomy lateral, radiograph, histology, microbe colony plate
             </div>
           </div>
         ) : (
@@ -285,7 +285,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
         )}
 
         <div style={{ marginTop: 20, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
-          {decks.length}/30 decks · เก็บใน localStorage ของ device นี้เท่านั้น
+          {decks.length}/30 decks, เก็บใน localStorage ของ device นี้เท่านั้น
         </div>
       </div>
 

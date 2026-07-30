@@ -45,7 +45,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
         ) : (
           <h1>เปลี่ยน <em>ชั้นปี</em></h1>
         )}
-        <p>ปี 1, 4, 5 เปิดให้ฝึกแล้ว · ปีอื่นวางโครงรอเติมเนื้อหา</p>
+        <p>ปี 1, 4, 5 เปิดให้ฝึกแล้ว, ปีอื่นวางโครงรอเติมเนื้อหา</p>
       </div>
 
       {/* LIVE year cards — primary CTA */}
@@ -124,7 +124,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
             <span style={{ flex: 1 }}>
               ดูชั้นปีอื่น
               <span style={{ marginLeft: 8, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', opacity: 0.6 }}>
-                {scaffoldYears.length} ปี · รอเติม
+                {scaffoldYears.length} ปี, รอเติม
               </span>
             </span>
           </button>
@@ -152,7 +152,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                       {y.desc}
                     </div>
                     <div style={{ marginTop: 6, fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-gold)', letterSpacing: '0.05em' }}>
-                      {subjectCount} วิชา · รอเติม
+                      {subjectCount} วิชา, รอเติม
                     </div>
                   </button>
                 );

@@ -63,7 +63,7 @@ export default function VoiceSettings({ onClose }) {
 
         <SliderRow
           label="ความเร็วเสียงพูด"
-          hint="0.8 = ช้า · 1.0 = ปกติ · 1.2 = เร็ว"
+          hint="0.8 = ช้า, 1.0 = ปกติ, 1.2 = เร็ว"
           value={prefs.speed}
           min={0.8}
           max={1.2}

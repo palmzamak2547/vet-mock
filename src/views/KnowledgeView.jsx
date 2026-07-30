@@ -113,7 +113,7 @@ function VerifiedClaim({ claim }) {
               {src.url
                 ? <a href={src.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean)' }}>{src.citation}</a>
                 : <span>{src.citation}</span>}
-              {ref.locator ? ` · ${ref.locator}` : ''}
+              {ref.locator ? `, ${ref.locator}` : ''}
             </div>
           );
         })}
@@ -248,7 +248,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                           can see where in the article it landed. */}
                       {query && (matchById.get(t.id) || []).length > 0 && (
                         <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-sage-text)', marginTop: 4, lineHeight: 1.5 }}>
-                          พบใน: {(matchById.get(t.id) || []).slice(0, 3).map((s) => s.heading).join(' · ')}
+                          พบใน: {(matchById.get(t.id) || []).slice(0, 3).map((s) => s.heading).join(', ')}
                           {(matchById.get(t.id) || []).length > 3 ? ` และอีก ${(matchById.get(t.id) || []).length - 3} หัวข้อ` : ''}
                         </span>
                       )}

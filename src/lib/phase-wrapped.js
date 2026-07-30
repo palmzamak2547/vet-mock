@@ -420,9 +420,9 @@ export function resetWrappedDismissed(phaseId) {
 export function statsToText(stats) {
   if (!stats || stats.isEmpty) return '';
   const lines = [];
-  lines.push(`📊 VetMock Wrapped · ${stats.phaseLabel}`);
+  lines.push(`📊 VetMock Wrapped, ${stats.phaseLabel}`);
   lines.push('');
-  lines.push(`🎯 ${stats.qCount.toLocaleString()} ข้อ · ${stats.correctPct}% ถูก`);
+  lines.push(`🎯 ${stats.qCount.toLocaleString()} ข้อ, ${stats.correctPct}% ถูก`);
   if (stats.strongestSubject) lines.push(`🏆 ดีที่สุด: ${stats.strongestSubject.name} (${stats.strongestSubject.pct}%)`);
   if (stats.weakestSubject && stats.weakestSubject.id !== stats.strongestSubject?.id) {
     lines.push(`💪 ต้องเก็บอีก: ${stats.weakestSubject.name} (${stats.weakestSubject.pct}%)`);
@@ -434,6 +434,6 @@ export function statsToText(stats) {
   }
   if (stats.masteredCards > 0) lines.push(`🧠 ${stats.masteredCards} cards mastered`);
   lines.push('');
-  lines.push('vetmock.vercel.app · @vetmock.cu');
+  lines.push('vetmock.vercel.app, @vetmock.cu');
   return lines.join('\n');
 }

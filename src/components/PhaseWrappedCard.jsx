@@ -462,7 +462,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
           <div style={{ marginTop: 18, padding: 12, borderRadius: 12, background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold, #b88940)', textAlign: 'center', fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink, #2b2419)' }}>
             {pickWrappedMessage(stats)}
             <div style={{ marginTop: 6, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft, #6b6055)' }}>
-              vetmock.vercel.app · 📷 @vetmock.cu
+              vetmock.vercel.app, 📷 @vetmock.cu
             </div>
           </div>
         </>

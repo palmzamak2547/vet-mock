@@ -218,11 +218,11 @@ function WebVitalsPanel() {
     return v < T[0] ? '🟢' : v < T[1] ? '🟡' : '🔴';
   };
   const labels = {
-    lcp: 'LCP · biggest paint',
-    cls: 'CLS · layout shift',
-    inp: 'INP · tap response',
-    fcp: 'FCP · first paint',
-    ttfb: 'TTFB · server speed',
+    lcp: 'LCP, biggest paint',
+    cls: 'CLS, layout shift',
+    inp: 'INP, tap response',
+    fcp: 'FCP, first paint',
+    ttfb: 'TTFB, server speed',
   };
   return (
     <div className="vmx-dash-card">
@@ -236,14 +236,14 @@ function WebVitalsPanel() {
               <span style={{ fontSize: 16 }}>{rate(key, s.p75) || '⚪'}</span>
               <span style={{ flex: 1, fontSize: 13 }}>{labels[key]}</span>
               <span style={{ fontFamily: 'monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-                p75 {fmt(key, s.p75)} · med {fmt(key, s.median)}
+                p75 {fmt(key, s.p75)}, med {fmt(key, s.median)}
               </span>
             </div>
           );
         })}
       </div>
       <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-        🟢 good · 🟡 needs improvement · 🔴 poor (Google Core Web Vitals thresholds)
+        🟢 good, 🟡 needs improvement, 🔴 poor (Google Core Web Vitals thresholds)
       </div>
     </div>
   );
@@ -454,7 +454,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           )}
 
           <div className="vmx-dash-card" style={{ marginTop: 16 }}>
-            <h3>ความหนาแน่น 12 เดือน{yearScope === 'current' ? ` · ปี ${selectedYear}` : ''}</h3>
+            <h3>ความหนาแน่น 12 เดือน{yearScope === 'current' ? `, ปี ${selectedYear}` : ''}</h3>
             <StreakHeatmap history={scopedHistory} />
           </div>
 
@@ -550,7 +550,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       <div className="vmx-dash-card">
         <h3>Diagram label drill</h3>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
-          ฝึก label anatomy แบบ active recall — แตะจุดบน diagram → เลือก label · ตอนนี้มี 2 ชุด (Heart, Eye) เริ่มต้นไว้
+          ฝึก label anatomy แบบ active recall — แตะจุดบน diagram → เลือก label, ตอนนี้มี 2 ชุด (Heart, Eye) เริ่มต้นไว้
         </div>
         <button
           type="button"

@@ -303,8 +303,8 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
 
       <div style={topBannerStyle}>
         {nextLabel
-          ? `🦴 Norberg · จุดที่ ${worldPoints.length + 1} จาก 4 → ${nextLabel.replace(/^จุดที่ \d+: /, '')} · กด U เพื่อ undo`
-          : '🦴 Norberg · ครบ 4 จุด · ลากจุดเพื่อปรับ · ดูผลด้านล่าง'}
+          ? `🦴 Norberg, จุดที่ ${worldPoints.length + 1} จาก 4 → ${nextLabel.replace(/^จุดที่ \d+: /, '')}, กด U เพื่อ undo`
+          : '🦴 Norberg, ครบ 4 จุด, ลากจุดเพื่อปรับ, ดูผลด้านล่าง'}
       </div>
 
       {angles && (
@@ -325,7 +325,7 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
               Norberg angle result
               {isMobile && cardCollapsed && (
                 <span style={{ marginLeft: 8, fontWeight: 400, opacity: 0.8, fontSize: '0.82em' }}>
-                  L {angles.left.toFixed(1)}° · R {angles.right.toFixed(1)}°
+                  L {angles.left.toFixed(1)}°, R {angles.right.toFixed(1)}°
                 </span>
               )}
             </span>
@@ -343,7 +343,7 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
             Right: <strong>{angles.right.toFixed(1)}°</strong> — {classify(angles.right)}
           </div>
           <div style={{ marginTop: 6, fontSize: '0.7rem', color: '#aaa' }}>
-            เครื่องมือเพื่อการเรียนรู้ · ไม่ใช้แทนการ workup ผู้ป่วยจริง
+            เครื่องมือเพื่อการเรียนรู้, ไม่ใช้แทนการ workup ผู้ป่วยจริง
           </div>
           <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
             <button onClick={undo} disabled={worldPoints.length === 0} style={resetBtnStyle}>↶ Undo</button>
@@ -354,7 +354,7 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
             >
               {confirmingReset ? '⚠️ ยืนยัน Reset?' : '↺ Reset'}
             </button>
-            <button onClick={exportStateJson} style={resetBtnStyle} title="ดาวน์โหลด JSON ของ Norberg points · re-drop via 🤖 Load AI เพื่อ replay ภายหลัง">
+            <button onClick={exportStateJson} style={resetBtnStyle} title="ดาวน์โหลด JSON ของ Norberg points, re-drop via 🤖 Load AI เพื่อ replay ภายหลัง">
               📥 JSON
             </button>
             <button

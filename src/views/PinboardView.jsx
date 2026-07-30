@@ -49,7 +49,7 @@ function snippetFor(pin) {
   const p = pin.payload || {};
   switch (pin.type) {
     case 'question':  return p.stem || p.q || '';
-    case 'summary':   return [p.subject?.toUpperCase?.(), p.instructor, p.date].filter(Boolean).join(' · ');
+    case 'summary':   return [p.subject?.toUpperCase?.(), p.instructor, p.date].filter(Boolean).join(', ');
     case 'flashcard': return p.back || p.front || '';
     case 'note':      return p.snapshot || p.text || '';
     default:          return '';
@@ -161,7 +161,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
         <button
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
           onClick={() => (typeof goHome === 'function' ? goHome() : setView?.('home'))}
-          style={{ minHeight: 36 }}
+          style={{ minHeight: 44 }}
         >
           ← Home
         </button>
@@ -176,7 +176,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={onClearAll}
             title="ล้างพินทั้งหมด"
-            style={{ minHeight: 36 }}
+            style={{ minHeight: 44 }}
           >
             🗑 ล้างทั้งหมด
           </button>
@@ -192,7 +192,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
           type="button"
           onClick={() => setYearScope('current')}
           style={{
-            minHeight: 32, padding: '4px 10px', borderRadius: 999,
+            minHeight: 44, padding: '4px 10px', borderRadius: 999,
             border: '1px solid ' + (yearScope === 'current' ? 'var(--clr-ink)' : 'var(--clr-border)'),
             background: yearScope === 'current' ? 'var(--clr-ink)' : 'transparent',
             color: yearScope === 'current' ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',
@@ -205,7 +205,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
           type="button"
           onClick={() => setYearScope('all')}
           style={{
-            minHeight: 32, padding: '4px 10px', borderRadius: 999,
+            minHeight: 44, padding: '4px 10px', borderRadius: 999,
             border: '1px solid ' + (yearScope === 'all' ? 'var(--clr-ink)' : 'var(--clr-border)'),
             background: yearScope === 'all' ? 'var(--clr-ink)' : 'transparent',
             color: yearScope === 'all' ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',
@@ -238,7 +238,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
               type="button"
               onClick={() => setFilter(chip.id)}
               style={{
-                minHeight: 36,
+                minHeight: 44,
                 padding: '6px 12px',
                 borderRadius: 999,
                 border: '1px solid ' + (active ? 'var(--clr-ink)' : 'var(--clr-border)'),

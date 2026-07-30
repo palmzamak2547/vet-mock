@@ -14,6 +14,7 @@
 // ============================================================
 
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import NavIcon from '../components/NavIcon.jsx';
 
 export default function ReadingChecklistView({
   selectedYear = 4,
@@ -62,7 +63,7 @@ export default function ReadingChecklistView({
     <>
       <div className="vmx-hero">
         <h1>📚 รายการ <em>อ่าน</em></h1>
-        <p>ติ๊กหัวข้อที่อ่านเสร็จแล้ว ดูเหลือต้องอ่านอีกกี่คาบ · เก็บไว้ในเครื่อง (sync cloud ถ้า login)</p>
+        <p>ติ๊กหัวข้อที่อ่านเสร็จแล้ว ดูเหลือต้องอ่านอีกกี่คาบ, เก็บไว้ในเครื่อง (sync cloud ถ้า login)</p>
       </div>
 
       {/* Overall progress card */}
@@ -110,7 +111,7 @@ export default function ReadingChecklistView({
                   {subj.icon} {subj.name}
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-                  {done}/{total} หัวข้อ · {pct}%
+                  {done}/{total} หัวข้อ, {pct}%
                 </div>
               </div>
               <button
@@ -145,6 +146,8 @@ export default function ReadingChecklistView({
                     {/* Tap whole row to toggle */}
                     <button
                       type="button"
+                      className="vmx-tap"
+                      aria-pressed={checked}
                       onClick={() => toggle(t.id)}
                       aria-label={checked ? `ยกเลิก ${t.label}` : `อ่านแล้ว ${t.label}`}
                       style={{
@@ -198,7 +201,7 @@ export default function ReadingChecklistView({
                           flexShrink: 0,
                         }}
                       >
-                        📖
+                        <NavIcon name="wiki" size={16} />
                       </button>
                     )}
                   </div>

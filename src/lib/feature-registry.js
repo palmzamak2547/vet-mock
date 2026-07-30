@@ -108,7 +108,7 @@ export const FEATURES = [
     // one-line rollback: set VETWIKI_ENABLED=false to hide it from home + ⌘K.
     id: 'vetwiki', category: 'learn',
     label: 'VetWiki', labelEn: 'VetWiki', icon: '🧬',
-    hint: 'คลังความรู้ที่ตรวจสอบได้ · บอกที่มาของทุกหัวข้อ',
+    hint: 'คลังความรู้ที่ตรวจสอบได้, บอกที่มาของทุกหัวข้อ',
     kw: 'vetwiki wiki ความรู้ knowledge อ้างอิง source ตรวจสอบ verified rabies พิษสุนัขบ้า',
     flag: 'VETWIKI_ENABLED',
     invoke: { kind: 'view', view: 'knowledge' },
@@ -131,7 +131,7 @@ export const FEATURES = [
   {
     id: 'schedule', category: 'learn',
     label: 'ตารางเรียน & สอบ', labelEn: 'Class & exam schedule', icon: '📅',
-    hint: 'ตารางเรียน · Countdown · เนื้อหาออกสอบ',
+    hint: 'ตารางเรียน, Countdown, เนื้อหาออกสอบ',
     kw: 'schedule class exam ตาราง เรียน สอบ countdown ปฏิทิน calendar',
     hideOnScaffold: true,
     invoke: { kind: 'view', view: 'schedule' },
@@ -186,23 +186,23 @@ export const FEATURES = [
 
   // ── 🛠 Tools & More ──────────────────────────────────────
   {
-    id: 'vetcalc', category: 'tools', fab: true, fabHint: 'RER · Fluid · CRI',
+    id: 'vetcalc', category: 'tools', fab: true, fabHint: 'RER, Fluid, CRI',
     label: 'เครื่องคิดเลข', labelEn: 'Vet Calculator', icon: '🧮',
-    hint: 'RER · Fluid · CRI · dose',
+    hint: 'RER, Fluid, CRI, dose',
     kw: 'calculator เครื่องคิดเลข rer fluid cri dose ขนาดยา คำนวณ',
     invoke: { kind: 'event', event: 'vmx-open-vetcalc' },
   },
   {
-    id: 'sketch', category: 'tools', fab: true, fabHint: 'sketch · diagram',
+    id: 'sketch', category: 'tools', fab: true, fabHint: 'sketch, diagram',
     label: 'กระดานวาด', labelEn: 'Sketchpad', icon: '🎨',
-    hint: 'วาด diagram · sketch',
+    hint: 'วาด diagram, sketch',
     kw: 'sketch กระดาน วาด draw diagram จด',
     invoke: { kind: 'sketch' },
   },
   {
-    id: 'lab', category: 'tools', fab: true, fabHint: 'DICOM · Norberg · VHS',
+    id: 'lab', category: 'tools', fab: true, fabHint: 'DICOM, Norberg, VHS',
     label: 'Imaging Lab', labelEn: 'Imaging Lab', icon: '🔬',
-    hint: 'DICOM · Norberg · VHS',
+    hint: 'DICOM, Norberg, VHS',
     kw: 'lab imaging dicom norberg vhs xray รังสี ภาพ ฝึกอ่าน',
     invoke: { kind: 'view', view: 'lab' },
   },
@@ -273,7 +273,7 @@ export const FEATURES = [
   {
     id: 'account-settings', category: 'tools',
     label: 'Account Settings', labelEn: 'Account settings', icon: '⚙️',
-    hint: 'จัดการ account · password · ลบบัญชี',
+    hint: 'จัดการ account, password, ลบบัญชี',
     kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ บัญชี',
     auth: true,
     invoke: { kind: 'view', view: 'account-settings' },

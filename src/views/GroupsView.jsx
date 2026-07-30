@@ -106,7 +106,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
                 <div onClick={() => { setActiveGroup(g); setView('group-detail'); }} style={{ flex: 1, cursor: 'pointer' }}>
                   <h3 style={{ margin: 0 }}>👥 {g.name}</h3>
                   <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
-                    Code: <strong style={{ color: 'var(--clr-gold)' }}>{g.code}</strong> · {g.role === 'admin' ? '👑 Admin' : 'Member'}
+                    Code: <strong style={{ color: 'var(--clr-gold)' }}>{g.code}</strong>, {g.role === 'admin' ? '👑 Admin' : 'Member'}
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 6 }}>

@@ -78,13 +78,13 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
         <p>
           {yearScope === 'current' && Number.isFinite(selectedYear)
             ? <>เฉพาะปี {selectedYear} — สู้กับ cohort เดียวกัน 💪</>
-            : <>คะแนนสูงสุดจากผู้ใช้ทุกปี · cross-year ranking 🏅</>}
+            : <>คะแนนสูงสุดจากผู้ใช้ทุกปี, cross-year ranking 🏅</>}
         </p>
       </div>
 
       {/* Year-scope toggle — Palm directive Q2=C. Defaults to current
           year (sticky via localStorage). Hidden when selectedYear is
-          null (no year context · just show lifetime). */}
+          null (no year context, just show lifetime). */}
       {Number.isFinite(selectedYear) && (
         <div style={{
           display: 'flex',
@@ -152,9 +152,9 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                     {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>
-                    {r.mode === 'exam' ? '🎓 Exam' : '📝 Practice'} · {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
+                    {r.mode === 'exam' ? '🎓 Exam' : '📝 Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
                     {r.attempts > 1 && (
-                      <span title={`ทำ ${r.attempts} ครั้ง · แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 10 }}>
+                      <span title={`ทำ ${r.attempts} ครั้ง, แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 10 }}>
                         × {r.attempts}
                       </span>
                     )}

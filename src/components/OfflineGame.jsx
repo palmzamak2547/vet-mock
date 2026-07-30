@@ -530,7 +530,7 @@ export default function OfflineGame({ onClose }) {
       />
 
       <div style={{ fontSize: 12, color: 'var(--clr-ink-soft, #7a6f5e)', textAlign: 'center', lineHeight: 1.5 }}>
-        🐤 ลูกไก่หนีเชื้อโรค · ↑/Space = กระโดด · ↓ = หมอบ · เก็บ 💉 = โล่ · 🌽 = +50 · Esc = ปิด
+        🐤 ลูกไก่หนีเชื้อโรค, ↑/Space = กระโดด, ↓ = หมอบ, เก็บ 💉 = โล่, 🌽 = +50, Esc = ปิด
       </div>
 
       {/* Educational fact popup on game-over */}
@@ -763,7 +763,7 @@ function render(ctx, s) {
     ctx.globalAlpha = 1;
     ctx.font = '12px sans-serif';
     ctx.fillStyle = inkSoft;
-    ctx.fillText('🐤 ลูกไก่หนีเชื้อโรค · ↑ กระโดด · ↓ หมอบ · 💉 = โล่ · 🌽 = +50', CANVAS_W / 2, CANVAS_H / 2 + 12);
+    ctx.fillText('🐤 ลูกไก่หนีเชื้อโรค, ↑ กระโดด, ↓ หมอบ, 💉 = โล่, 🌽 = +50', CANVAS_W / 2, CANVAS_H / 2 + 12);
     ctx.textAlign = 'left';
   } else if (s.state === 'gameover') {
     ctx.fillStyle = 'rgba(255,255,255,0.78)';

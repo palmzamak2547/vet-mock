@@ -98,7 +98,7 @@ function DrillRunner({ drill, onBack, onClose }) {
           <button type="button" onClick={onBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← เปลี่ยน diagram</button>
           <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13 }}>
             {correctCount}/{drill.anchors.length} ถูก
-            {revealed && allDone && ` · คะแนน ${scorePct}%`}
+            {revealed && allDone && `, คะแนน ${scorePct}%`}
           </span>
         </div>
 
@@ -168,7 +168,7 @@ function DrillRunner({ drill, onBack, onClose }) {
         {revealed && (
           <div style={{ marginTop: 14, padding: 14, borderRadius: 10, background: scorePct >= 70 ? 'rgba(74,107,74,0.10)' : 'rgba(192,57,43,0.10)', border: `1px solid ${scorePct >= 70 ? 'var(--clr-sage)' : 'var(--clr-rose, #c0392b)'}` }}>
             <div style={{ fontSize: 22, fontFamily: 'Fraunces, serif', fontWeight: 700, marginBottom: 4 }}>
-              {scorePct}% · {correctCount}/{drill.anchors.length} ถูก
+              {scorePct}%, {correctCount}/{drill.anchors.length} ถูก
             </div>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               {scorePct === 100 ? '🏆 perfect! anatomy แม่นมาก' : scorePct >= 70 ? '✅ ผ่านเกณฑ์' : '⚠️ ลองใหม่อีกรอบ — เน้น label ที่ตอบผิด'}

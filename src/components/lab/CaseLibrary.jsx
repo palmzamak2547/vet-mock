@@ -187,7 +187,7 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
               <div>ยังไม่มี <strong>{modalityShortLabel(modalityFilter)}</strong> case ใน library</div>
               <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 6 }}>
                 {modalityFilter === 'xray'
-                  ? 'แปลกแล้ว — น่ามี X-ray cases · ลอง refresh'
+                  ? 'แปลกแล้ว — น่ามี X-ray cases, ลอง refresh'
                   : `${modalityShortLabel(modalityFilter)} cases จะเพิ่มในเซสชันถัดไป (ขึ้นกับ CC dataset ที่หาเจอ + CUVET path)`}
               </div>
             </div>
@@ -268,7 +268,7 @@ function CaseCard({ caseData, onOpen, opening }) {
         </div>
       </div>
       <p style={{ margin: '4px 0', fontSize: '0.78rem', color: '#666' }}>
-        {[caseData.species, caseData.signalment, caseData.body_part].filter(Boolean).join(' · ')}
+        {[caseData.species, caseData.signalment, caseData.body_part].filter(Boolean).join(', ')}
       </p>
       {caseData.history && (
         <p style={{ margin: '6px 0', fontSize: '0.78rem', color: '#555' }}>{caseData.history}</p>
@@ -282,7 +282,7 @@ function CaseCard({ caseData, onOpen, opening }) {
         <div style={licenseRowStyle}>
           {caseData.license && <span title="License">📜 {caseData.license}</span>}
           {caseData.source_url && caseData.source_url !== 'internal' && (
-            <> · <a href={caseData.source_url} target="_blank" rel="noopener noreferrer" style={sourceLinkStyle}>source ↗</a></>
+            <>, <a href={caseData.source_url} target="_blank" rel="noopener noreferrer" style={sourceLinkStyle}>source ↗</a></>
           )}
         </div>
       )}
@@ -326,8 +326,8 @@ function credibilityHint(c) {
   if (c === 'peer-reviewed') return 'จาก peer-reviewed publication หรือ academic dataset';
   if (c === 'open-textbook') return 'จาก textbook ที่เปิด open license';
   if (c === 'community') return 'จาก community contribution (เช่น Radiopaedia)';
-  if (c === 'cuvet-internal') return 'จาก CUVET hospital · anonymized + consent';
-  if (c === 'sample-demo') return 'Sample DICOM สำหรับทดลอง viewer · ไม่ใช่ clinical case';
+  if (c === 'cuvet-internal') return 'จาก CUVET hospital, anonymized + consent';
+  if (c === 'sample-demo') return 'Sample DICOM สำหรับทดลอง viewer, ไม่ใช่ clinical case';
   return '';
 }
 

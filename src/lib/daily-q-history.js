@@ -95,7 +95,7 @@ export function buildShareText({ history, streak, todayDate, todayStatus }) {
   const correct = daysCorrect(history);
   const total = history?.length || 0;
   const dateStr = formatThaiShortDate(todayDate || todayKey());
-  const streakLine = streak > 0 ? ` · streak ${streak} 🔥` : '';
+  const streakLine = streak > 0 ? `, streak ${streak} 🔥` : '';
   // Suffix the today line with a tiny tag so the reader knows whether
   // today's emoji is settled or still pending — friendlier than just
   // a bare grid.
@@ -104,8 +104,8 @@ export function buildShareText({ history, streak, todayDate, todayStatus }) {
     todayStatus === 'wrong' ? ' (วันนี้ ลองพรุ่งนี้)' :
     '';
   return [
-    `VetMock · ข้อวันนี้ · ${dateStr}${todayTag}`,
-    `${grid} · ${correct}/${total} days${streakLine}`,
+    `VetMock, ข้อวันนี้, ${dateStr}${todayTag}`,
+    `${grid}, ${correct}/${total} days${streakLine}`,
     'https://vetmock.vercel.app',
   ].join('\n');
 }

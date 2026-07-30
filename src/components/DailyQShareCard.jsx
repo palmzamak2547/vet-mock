@@ -78,7 +78,7 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
   ctx.fillText('🌟 VetMock', 80, 180);
   ctx.font = '500 32px "JetBrains Mono", monospace';
   ctx.fillStyle = '#6b6055';
-  ctx.fillText('ข้อวันนี้ · DAILY Q', 80, 230);
+  ctx.fillText('ข้อวันนี้, DAILY Q', 80, 230);
 
   // Date — right-aligned for balance
   ctx.font = '500 36px "Fraunces", serif';
@@ -264,14 +264,14 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
       ) {
         await navigator.share({
           files: [file],
-          title: 'VetMock · ข้อวันนี้',
+          title: 'VetMock, ข้อวันนี้',
           text: shareText,
         });
         flash('✓ เลือกแอปได้เลย');
       } else if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
         // Text-only share — older iOS Safari + browsers without
         // canShare files. Still useful: user gets the grid + URL.
-        await navigator.share({ title: 'VetMock · ข้อวันนี้', text: shareText });
+        await navigator.share({ title: 'VetMock, ข้อวันนี้', text: shareText });
         flash('✓ แชร์เรียบร้อย');
       } else {
         // Final fallback: copy text. User can paste anywhere.
@@ -314,7 +314,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
       >
         <div style={{ marginBottom: 10 }}>
           <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            📤 แชร์ผลลัพธ์ · DAILY Q
+            📤 แชร์ผลลัพธ์, DAILY Q
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>{formatThaiShortDate(todayDate)}</h2>
           <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
@@ -371,12 +371,12 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
               wordBreak: 'break-word',
             }}
           >
-            <div style={{ fontWeight: 700, marginBottom: 6 }}>VetMock · ข้อวันนี้ · {formatThaiShortDate(todayDate)}</div>
+            <div style={{ fontWeight: 700, marginBottom: 6 }}>VetMock, ข้อวันนี้, {formatThaiShortDate(todayDate)}</div>
             <div style={{ fontFamily: emojiFontStack, fontSize: 26, letterSpacing: '0.05em', marginBottom: 4 }}>
               {grid}
             </div>
             <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
-              {correct}/{history.length} days{streak > 0 ? ` · streak ${streak} 🔥` : ''}
+              {correct}/{history.length} days{streak > 0 ? `, streak ${streak} 🔥` : ''}
             </div>
             <div style={{ marginTop: 8, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               https://vetmock.vercel.app

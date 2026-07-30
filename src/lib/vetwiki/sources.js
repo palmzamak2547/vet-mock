@@ -53,7 +53,7 @@ export const SOURCES = {
   'wsava-2024': {
     id: 'wsava-2024',
     title: '2024 guidelines for the vaccination of dogs and cats — compiled by the Vaccination Guidelines Group (VGG) of the WSAVA',
-    organization: 'WSAVA · Journal of Small Animal Practice',
+    organization: 'WSAVA, Journal of Small Animal Practice',
     kind: 'guideline',
     year: 2024,
     citation: 'Squires RA, Crawford C, Marcondes M, Whitley N. 2024 guidelines for the vaccination of dogs and cats (WSAVA VGG). J Small Anim Pract. 2024;65(5):277-316. doi:10.1111/jsap.13718',

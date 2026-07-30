@@ -119,7 +119,7 @@ export default function LabView({ goHome }) {
     const skippedExtras = fileList.length > MAX_FILES ? fileList.length - MAX_FILES : 0;
     let msg = null;
     if (bad.length > 0) msg = `บางไฟล์ไม่ใช่ DICOM (ข้าม): ${bad.join(', ')}`;
-    if (skippedExtras > 0) msg = `${msg ? msg + ' · ' : ''}ตอนนี้รองรับสูงสุด ${MAX_FILES} ไฟล์ (ข้าม ${skippedExtras})`;
+    if (skippedExtras > 0) msg = `${msg ? msg + ', ' : ''}ตอนนี้รองรับสูงสุด ${MAX_FILES} ไฟล์ (ข้าม ${skippedExtras})`;
     setError(msg);
     setFiles(validated);
     setCurrentCase(null);
@@ -212,7 +212,7 @@ export default function LabView({ goHome }) {
     <div style={attributionRowStyle}>
       {currentCase?.license && <span>📜 <strong>{currentCase.license}</strong></span>}
       {currentCase?.source_url && currentCase.source_url !== 'internal' && (
-        <span> · <a href={currentCase.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#3a5a8a' }}>source ↗</a></span>
+        <span>, <a href={currentCase.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#3a5a8a' }}>source ↗</a></span>
       )}
       {currentCase?.attribution && (
         <div style={{ marginTop: 3, fontSize: '0.7rem', color: '#777' }}>{currentCase.attribution}</div>
@@ -272,8 +272,8 @@ export default function LabView({ goHome }) {
               (always rendered, not dismissible) but takes a single line
               instead of 50 px of vertical clutter. */}
           <p style={{ fontSize: '0.78rem', color: '#666', margin: '4px 0 0', lineHeight: 1.4 }}>
-            ฝึกอ่านภาพ + DICOM viewer · <span style={{ color: '#c66' }}>Experimental</span>
-            <span style={{ color: '#888' }}> · ⚠️ เพื่อการเรียนรู้ · ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
+            ฝึกอ่านภาพ + DICOM viewer, <span style={{ color: '#c66' }}>Experimental</span>
+            <span style={{ color: '#888' }}>, ⚠️ เพื่อการเรียนรู้, ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
           </p>
         </div>
         <button onClick={handleBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← Home</button>
@@ -287,12 +287,12 @@ export default function LabView({ goHome }) {
               <ul style={{ margin: '8px 0 0', paddingLeft: 22, fontSize: '0.85rem', lineHeight: 1.6, color: '#555' }}>
                 <li>ลาก DICOM (<code>.dcm</code>) ลงด้านล่าง — ลากครั้งละ 2 ไฟล์ได้ (เปิด side-by-side)</li>
                 <li>เปิด viewer แล้วกด <kbd style={kbdInlineStyle}>?</kbd> ดู 16 keyboard shortcuts</li>
-                <li>มี Norberg + VHS + Length/Angle ครบ · 🔒 Anonymize ก่อน share ภาพออก</li>
+                <li>มี Norberg + VHS + Length/Angle ครบ, 🔒 Anonymize ก่อน share ภาพออก</li>
                 <li>ไฟล์ render ใน browser ล้วน — ไม่ขึ้น server</li>
                 <li>เข้าครั้งหน้า bookmark URL <code>#lab</code> ตรงๆ ได้เลย</li>
               </ul>
             </div>
-            <button onClick={dismissOnboarding} style={onboardingCloseStyle} aria-label="ปิดคำแนะนำ">✕</button>
+            <button onClick={dismissOnboarding} className="vmx-tap" style={onboardingCloseStyle} aria-label="ปิดคำแนะนำ">✕</button>
           </div>
         </div>
       )}
@@ -311,14 +311,14 @@ export default function LabView({ goHome }) {
             }}
             title={
               demoCases.length === 0
-                ? 'ยังไม่มี public case · ลาก DICOM ของตัวเองด้านล่างแทน'
+                ? 'ยังไม่มี public case, ลาก DICOM ของตัวเองด้านล่างแทน'
                 : `เปิด: ${demoCases[0].title}`
             }
           >
             {demoLoading ? (
               '⏳ กำลังโหลด demo case...'
             ) : demoCases.length === 0 ? (
-              '⚠️ ยังไม่มี public case · ลาก DICOM ด้านล่างแทน'
+              '⚠️ ยังไม่มี public case, ลาก DICOM ด้านล่างแทน'
             ) : (
               <>
                 <span style={{ fontSize: isMobile ? '1.05rem' : '1.15rem' }}>
@@ -326,7 +326,7 @@ export default function LabView({ goHome }) {
                 </span>
                 {demoCases.length > 1 && (
                   <span style={{ display: 'block', fontWeight: 400, fontSize: '0.78rem', opacity: 0.85, marginTop: 4 }}>
-                    case แรกจาก {demoCases.length} cases · กด Browse ด้านล่างดูทั้งหมด
+                    case แรกจาก {demoCases.length} cases, กด Browse ด้านล่างดูทั้งหมด
                   </span>
                 )}
               </>
@@ -350,7 +350,7 @@ export default function LabView({ goHome }) {
                 Browse case library
               </div>
               <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 2 }}>
-                {demoCases.length > 0 ? `${demoCases.length} cases · X-ray / CT / MRI / US` : 'ดู cases ทั้งหมด'}
+                {demoCases.length > 0 ? `${demoCases.length} cases, X-ray / CT / MRI / US` : 'ดู cases ทั้งหมด'}
               </div>
             </button>
 
@@ -364,14 +364,14 @@ export default function LabView({ goHome }) {
                 cursor: 'pointer',
                 display: 'block',
               }}
-              title="Drag .dcm ลงตรงนี้ หรือคลิกเลือกไฟล์ · render ใน browser ล้วน · ไม่ upload"
+              title="Drag .dcm ลงตรงนี้ หรือคลิกเลือกไฟล์, render ใน browser ล้วน, ไม่ upload"
             >
               <div style={{ fontSize: '1.6rem', marginBottom: 4 }}>📁</div>
               <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>
                 Upload DICOM ของคุณ
               </div>
               <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 2 }}>
-                Drag .dcm · ครั้งละ {MAX_FILES} ไฟล์ · ไม่ขึ้น server
+                Drag .dcm, ครั้งละ {MAX_FILES} ไฟล์, ไม่ขึ้น server
               </div>
               <input
                 type="file"
@@ -403,13 +403,13 @@ export default function LabView({ goHome }) {
                 </button>
               </div>
               <div style={{ fontSize: '0.75rem', color: '#777', marginBottom: 6 }}>
-                File blobs ไม่ persist ข้าม session · เห็นรายการที่นี่แล้วลากไฟล์เดิมจาก disk เพื่อ re-open
+                File blobs ไม่ persist ข้าม session, เห็นรายการที่นี่แล้วลากไฟล์เดิมจาก disk เพื่อ re-open
               </div>
               <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
                 {recent.map((r, i) => (
                   <li key={i} style={{ fontSize: '0.8rem', color: '#666', padding: '4px 0', borderTop: i > 0 ? '1px solid #eee' : 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
                     <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      📄 <span style={{ color: '#333' }}>{r.name}</span> · {(r.size / 1024).toFixed(0)} KB · {new Date(r.lastModified).toLocaleString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}
+                      📄 <span style={{ color: '#333' }}>{r.name}</span>, {(r.size / 1024).toFixed(0)} KB, {new Date(r.lastModified).toLocaleString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}
                     </span>
                     <button
                       onClick={() => removeRecentAt(i)}
@@ -439,13 +439,13 @@ export default function LabView({ goHome }) {
                 <>
                   <strong>📚 Case: {currentCase.title}</strong> ·
                   <span style={{ color: '#777' }}>
-                    {' '}{[currentCase.species, currentCase.signalment].filter(Boolean).join(' · ')}
+                    {' '}{[currentCase.species, currentCase.signalment].filter(Boolean).join(', ')}
                   </span>
                 </>
               ) : (
                 <>
                   📄 {files.length === 1
-                    ? `${firstFile.name} · ${(firstFile.size / 1024).toFixed(0)} KB`
+                    ? `${firstFile.name}, ${(firstFile.size / 1024).toFixed(0)} KB`
                     : `Study (${files.length} views): ${files.map(f => f.name).join(' + ')}`}
                 </>
               )}
@@ -563,7 +563,7 @@ function AdvancedToolsRow() {
     <div style={advancedRowStyle}>
       <details style={{ width: '100%' }}>
         <summary style={advancedSummaryStyle}>
-          🧪 Advanced — senior project tools (CSV · AI sample · spec)
+          🧪 Advanced — senior project tools (CSV, AI sample, spec)
         </summary>
         <div style={{ marginTop: 8, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <button
@@ -578,7 +578,7 @@ function AdvancedToolsRow() {
             onClick={downloadSample}
             disabled={busy === 'ai-sample'}
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-            title="ดาวน์โหลด AI prediction JSON sample · drop ผ่าน 🤖 Load AI เพื่อดู overlay"
+            title="ดาวน์โหลด AI prediction JSON sample, drop ผ่าน 🤖 Load AI เพื่อดู overlay"
           >
             📋 Sample AI JSON
           </button>

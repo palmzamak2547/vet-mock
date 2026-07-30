@@ -102,7 +102,7 @@ export default function PomodoroView({ goHome }) {
         gap: 16,
       }}
     >
-      <BackBar onBack={goHome} label="หน้าหลัก" subtitle="Pomodoro · 🐤 ฟักลูกไก่" />
+      <BackBar onBack={goHome} label="หน้าหลัก" subtitle="Pomodoro, 🐤 ฟักลูกไก่" />
 
       {/* Title — short, no clutter; the ring is the hero. */}
       <h1

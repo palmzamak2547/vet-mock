@@ -196,7 +196,7 @@ export async function fetchLeaderboard(limit = 20) {
 // ─── Status display helpers ────────────────────────────────────
 export const STATUS_META = {
   draft: { label: 'ร่าง', color: '#888', icon: '📝' },
-  submitted: { label: 'ส่งแล้ว · รอ screen', color: '#5db4d3', icon: '📨' },
+  submitted: { label: 'ส่งแล้ว, รอ screen', color: '#5db4d3', icon: '📨' },
   screen_failed: { label: 'auto-screen ไม่ผ่าน', color: '#a73d4a', icon: '⚠️' },
   in_peer_review: { label: 'รอ peer review (2 คน)', color: '#b88940', icon: '👁️' },
   peer_failed: { label: 'peer review ไม่ผ่าน', color: '#a73d4a', icon: '❌' },

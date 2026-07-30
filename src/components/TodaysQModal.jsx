@@ -56,7 +56,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
       <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 580 }}>
         <div style={{ marginBottom: 10 }}>
           <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            🌟 ข้อวันนี้ · {subjectMeta?.icon || ''} {subjectMeta?.name || q.subject}
+            🌟 ข้อวันนี้, {subjectMeta?.icon || ''} {subjectMeta?.name || q.subject}
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 20 }}>1 ข้อ ใน 1 วัน</h2>
           <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
@@ -113,7 +113,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
 
         <div className="vmx-btn-row" style={{ marginTop: 14, flexWrap: 'wrap', gap: 8 }}>
           <button className="vmx-btn vmx-btn-ghost" onClick={onClose} type="button" style={{ minHeight: 44 }}>
-            {revealed ? 'ปิด · เจอกันพรุ่งนี้' : 'ปิด'}
+            {revealed ? 'ปิด, เจอกันพรุ่งนี้' : 'ปิด'}
           </button>
           {revealed && (
             <>
@@ -150,7 +150,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
                     if (err?.name === 'AbortError') return;
                   }
                   const res = await copyText(text);
-                  setChallengeHint(res.ok ? '✓ คัดลอกแล้ว · วางใน LINE / IG ได้เลย' : '⚠️ คัดลอกไม่ได้');
+                  setChallengeHint(res.ok ? '✓ คัดลอกแล้ว, วางใน LINE / IG ได้เลย' : '⚠️ คัดลอกไม่ได้');
                   setTimeout(() => setChallengeHint(''), 3500);
                 }}
               >

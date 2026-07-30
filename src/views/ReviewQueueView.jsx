@@ -157,7 +157,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
             สถานะปัจจุบัน: <strong style={{ color: roleInfo.color }}>{roleInfo.label}</strong>
           </div>
           <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7, marginBottom: 18, maxWidth: 360, margin: '0 auto 18px' }}>
-            ยังไม่เปิดสิทธิ์รีวิว — ต้องมี role <strong>'verified'</strong> หรือสูงกว่า · Palm จะให้ role นี้กับ contributors ที่พิสูจน์คุณภาพแล้ว (มี submission ผ่าน peer review หลายข้อ และไม่มีประวัติ ban)
+            ยังไม่เปิดสิทธิ์รีวิว — ต้องมี role <strong>'verified'</strong> หรือสูงกว่า, Palm จะให้ role นี้กับ contributors ที่พิสูจน์คุณภาพแล้ว (มี submission ผ่าน peer review หลายข้อ และไม่มีประวัติ ban)
           </div>
           <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
             อยากเริ่ม contribute? → ส่ง Q proposal เข้ามาก่อน
@@ -177,8 +177,8 @@ export default function ReviewQueueView({ goHome, setView, user }) {
       <div className="vmx-hero">
         <h1>🔍 <em>Review</em> Queue</h1>
         <p>
-          วิเคราะห์ Q ที่ contributors ส่งเข้ามา · ✅ Approve / ✏️ Nudge / ❌ Reject
-          {' · '}
+          วิเคราะห์ Q ที่ contributors ส่งเข้ามา, ✅ Approve / ✏️ Nudge / ❌ Reject
+          {', '}
           <span style={{ color: ROLE_META[rep.role]?.color || 'var(--clr-ink-soft)' }}>
             {ROLE_META[rep.role]?.icon} {ROLE_META[rep.role]?.label}
           </span>
@@ -242,8 +242,8 @@ export default function ReviewQueueView({ goHome, setView, user }) {
           <div style={{ fontSize: 40, marginBottom: 10 }}>🎉</div>
           <div style={{ fontSize: 14, color: 'var(--clr-ink)' }}>
             {tab === 'palm'
-              ? 'ไม่มี Q รอ Palm final · ทุกอย่างเรียบร้อย'
-              : 'ไม่มี Q ค้างรอ peer review · กลับมาดูใหม่ภายหลัง'}
+              ? 'ไม่มี Q รอ Palm final, ทุกอย่างเรียบร้อย'
+              : 'ไม่มี Q ค้างรอ peer review, กลับมาดูใหม่ภายหลัง'}
           </div>
         </div>
       ) : (
@@ -413,7 +413,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
       {/* Source compact */}
       {submission.source_type && (
         <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginBottom: 12 }}>
-          📌 {submission.source_type}{submission.source_ref ? ` · ${submission.source_ref.slice(0, 60)}` : ''}
+          📌 {submission.source_type}{submission.source_ref ? `, ${submission.source_ref.slice(0, 60)}` : ''}
         </div>
       )}
 
@@ -613,14 +613,14 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
   const config = mode === 'nudge'
     ? {
         label: '✏️ Nudge — ขอแก้',
-        hint: 'อธิบายว่า contributor ควรแก้อะไร · จะส่งกลับให้แก้ใหม่ (revise)',
+        hint: 'อธิบายว่า contributor ควรแก้อะไร, จะส่งกลับให้แก้ใหม่ (revise)',
         placeholder: 'เช่น "options C/D ยาวเกินไป เป็น length-bias / เฉลยขาด rationale ทำไมตัวอื่นผิด"',
         confirmLabel: 'ส่ง Nudge',
         accent: 'var(--clr-gold)',
       }
     : {
         label: '❌ Reject',
-        hint: 'อธิบายว่าทำไม Q นี้ไม่ผ่าน · contributor จะเห็นเหตุผลและ Q จะถูก reject ออกจาก queue',
+        hint: 'อธิบายว่าทำไม Q นี้ไม่ผ่าน, contributor จะเห็นเหตุผลและ Q จะถูก reject ออกจาก queue',
         placeholder: 'เช่น "ข้อนี้ผิดทาง pharmacology หลัก / อ้างอิงไม่ตรงกับเนื้อหา"',
         confirmLabel: 'ยืนยัน Reject',
         accent: 'var(--clr-rose)',

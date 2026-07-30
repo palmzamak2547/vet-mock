@@ -443,7 +443,7 @@ export default function PdfAnnotateView({ goHome }) {
           </div>
           <h1 style={{ margin: '6px 0 4px', fontSize: 22 }}>อัปโหลด PDF แล้วเขียนทับ</h1>
           <p style={{ color: 'var(--clr-ink-soft)', fontSize: 13, margin: '0 0 16px' }}>
-            ลากไฟล์มาวาง หรือกดเลือกไฟล์ · บันทึก stroke อัตโนมัติในเบราว์เซอร์ · ตัวไฟล์ PDF ไม่ถูกเก็บไว้ (อัปโหลดอีกครั้งเพื่อทำต่อ)
+            ลากไฟล์มาวาง หรือกดเลือกไฟล์, บันทึก stroke อัตโนมัติในเบราว์เซอร์, ตัวไฟล์ PDF ไม่ถูกเก็บไว้ (อัปโหลดอีกครั้งเพื่อทำต่อ)
           </p>
 
           <label
@@ -466,7 +466,7 @@ export default function PdfAnnotateView({ goHome }) {
           >
             <span style={{ fontSize: 32 }}>📑</span>
             <strong style={{ fontSize: 15 }}>ลาก PDF มาวางที่นี่</strong>
-            <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หรือกดเพื่อเลือกไฟล์ · สูงสุด {SIZE_HARD_MB} MB</span>
+            <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หรือกดเพื่อเลือกไฟล์, สูงสุด {SIZE_HARD_MB} MB</span>
             <input
               ref={fileInputRef}
               type="file"
@@ -517,7 +517,7 @@ export default function PdfAnnotateView({ goHome }) {
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: 14, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.fileName}</div>
                         <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
-                          {r.pageCount} หน้า · {r.annotatedPageCount} หน้ามี annotation · {fmtDate(r.lastOpened)}
+                          {r.pageCount} หน้า, {r.annotatedPageCount} หน้ามี annotation, {fmtDate(r.lastOpened)}
                         </div>
                       </div>
                       <button

@@ -106,11 +106,11 @@ function EventRow({ e }) {
         <strong style={{ fontSize: 13.5, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>{e.titleTh}</strong>
       </div>
       <div style={{ marginTop: 5, fontSize: 12.5, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
-        {fmtThaiDate(e.date)} · {e.start}-{e.end} น. · {e.location}
+        {fmtThaiDate(e.date)}, {e.start}-{e.end} น., {e.location}
       </div>
       <div style={{ marginTop: 4, fontSize: 12.5, fontWeight: 600, color: soon ? 'var(--clr-gold-text)' : 'var(--clr-ink-soft)' }}>
         {e.daysLeft === 0 ? 'วันนี้' : e.daysLeft === 1 ? 'พรุ่งนี้' : `อีก ${e.daysLeft} วัน`}
-        {e.noteTh ? ` · ${e.noteTh}` : ''}
+        {e.noteTh ? `, ${e.noteTh}` : ''}
       </div>
       {Array.isArray(e.links) && e.links.length > 0 && (
         <div style={{ marginTop: 8, display: 'flex', flexWrap: 'wrap', gap: 6 }}>

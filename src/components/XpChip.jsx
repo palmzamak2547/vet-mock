@@ -53,8 +53,8 @@ export default function XpChip() {
         type="button"
         className="vmx-xp-chip vmx-pop-in"
         onClick={() => setOpen((v) => !v)}
-        title={`Lv ${lvl} · ${state.totalXp.toLocaleString()} XP · อีก ${prog.needed - prog.current} XP ไปอีก level`}
-        aria-label={`ระดับ ${lvl} · ${state.totalXp} XP`}
+        title={`Lv ${lvl}, ${state.totalXp.toLocaleString()} XP, อีก ${prog.needed - prog.current} XP ไปอีก level`}
+        aria-label={`ระดับ ${lvl}, ${state.totalXp} XP`}
         aria-expanded={open}
         style={{
           all: 'unset',

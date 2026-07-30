@@ -122,7 +122,7 @@ export default function PhaseWrappedView({ goHome, history = [], srCards = {}, b
           }}>
             👀 พรีวิวสด — phase ยังไม่จบ
             {typeof daysLeft === 'number' && daysLeft >= 0 && (
-              <strong> · เหลืออีก {daysLeft} วันถึง phase ปิด</strong>
+              <strong>, เหลืออีก {daysLeft} วันถึง phase ปิด</strong>
             )}
           </div>
         )}

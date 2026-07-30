@@ -101,7 +101,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent }) {
                           )}
                         </span>
                         <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
-                          {c.code} · {c.room}
+                          {c.code}, {c.room}
                         </span>
                       </span>
                       {isNow && (

@@ -271,7 +271,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         <div style={{ padding: 24, borderRadius: 12, background: 'var(--clr-surface-2)', textAlign: 'center', marginBottom: 16 }}>
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em' }}>RACE CODE</div>
           <div style={{ fontSize: 44, letterSpacing: '0.18em', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, marginTop: 8, color: 'var(--clr-sage)' }}>{code}</div>
-          <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)' }}>ส่ง code นี้ให้เพื่อน · ทุกคนต้องอยู่ในห้องก่อนเริ่ม</div>
+          <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)' }}>ส่ง code นี้ให้เพื่อน, ทุกคนต้องอยู่ในห้องก่อนเริ่ม</div>
         </div>
 
         {isHost && (
@@ -298,7 +298,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
           {Object.entries(participants).map(([k, p]) => (
             <li key={k} style={{ padding: '6px 10px', borderRadius: 8, background: 'var(--clr-surface)', display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 16 }}>{p.avatar}</span>
-              <span style={{ fontSize: 13, fontWeight: k === user.id ? 700 : 400 }}>{p.username}{k === user.id && ' (คุณ)'}{k === user.id && isHost && ' · host'}</span>
+              <span style={{ fontSize: 13, fontWeight: k === user.id ? 700 : 400 }}>{p.username}{k === user.id && ' (คุณ)'}{k === user.id && isHost && ', host'}</span>
             </li>
           ))}
         </ul>
@@ -347,14 +347,14 @@ export default function RaceView({ goHome, setView, user, profile }) {
     return (
       <>
         <BackBar onBack={goHome} label="หน้าแรก" subtitle={`Race ${code} จบแล้ว`} />
-        <div className="vmx-hero"><h1>🏁 <em>Race</em> Result</h1><p>เวลา: {fmtMs(elapsed)} · {correct}/{questions.length} ถูก</p></div>
+        <div className="vmx-hero"><h1>🏁 <em>Race</em> Result</h1><p>เวลา: {fmtMs(elapsed)}, {correct}/{questions.length} ถูก</p></div>
         <ol style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
           {allRows.map((p, i) => (
             <li key={p.user_id} style={{ padding: 12, borderRadius: 10, background: i === 0 ? 'rgba(184, 137, 64, 0.18)' : 'var(--clr-surface)', border: i === 0 ? '1px solid var(--clr-gold)' : '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', gap: 12 }}>
               <span style={{ fontSize: 22 }}>{['🥇', '🥈', '🥉'][i] || `#${i + 1}`}</span>
               <span style={{ fontSize: 16 }}>{p.avatar}</span>
               <span style={{ flex: 1, fontWeight: p.user_id === user.id ? 700 : 400 }}>{p.username}{p.user_id === user.id && ' (คุณ)'}</span>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14 }}>{p.correct}/{questions.length} · Q{p.idx}{!p.finished && ' (ยังไม่จบ)'}</span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14 }}>{p.correct}/{questions.length}, Q{p.idx}{!p.finished && ' (ยังไม่จบ)'}</span>
             </li>
           ))}
         </ol>
@@ -395,7 +395,7 @@ function ProgressBars({ myIdx, myCorrect, mySelf, others, total }) {
       <div style={{ marginBottom: 10 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 3, fontFamily: 'JetBrains Mono, monospace' }}>
           <span style={{ fontWeight: isMe ? 700 : 400 }}>{name}{isMe && ' (คุณ)'}</span>
-          <span>{correct}/{idx} ถูก · Q{idx}/{total}</span>
+          <span>{correct}/{idx} ถูก, Q{idx}/{total}</span>
         </div>
         <div style={{ height: 8, borderRadius: 999, background: 'var(--clr-surface-2)', overflow: 'hidden' }}>
           <div style={{ height: '100%', width: `${pct}%`, background: isMe ? 'var(--clr-sage)' : 'var(--clr-gold)', transition: 'width 0.3s' }} />

@@ -140,7 +140,7 @@ export default function AIOverlay({ prediction, viewportRef }) {
         <strong>🤖 AI prediction</strong>
         <div style={{ fontSize: '0.7rem', color: '#aaa', marginTop: 2 }}>
           {prediction?.model || 'unknown model'}
-          {prediction?.version && ` · v${prediction.version}`}
+          {prediction?.version && `, v${prediction.version}`}
         </div>
         {norberg && (
           <div style={{ marginTop: 4 }}>

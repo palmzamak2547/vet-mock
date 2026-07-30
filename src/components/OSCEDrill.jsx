@@ -125,7 +125,7 @@ export default function OSCEDrill({ onClose }) {
                 >
                   <span style={{ fontSize: 18 }}>{s.icon} {s.title}</span>
                   <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
-                    {s.items.length} ขั้น · {s.minutes} นาที {last ? `· last ${last.score}%` : ''}
+                    {s.items.length} ขั้น, {s.minutes} นาที {last ? `· last ${last.score}%` : ''}
                   </span>
                 </button>
               );
@@ -191,7 +191,7 @@ export default function OSCEDrill({ onClose }) {
             {done && (
               <div style={{ marginTop: 16, padding: 14, borderRadius: 10, background: liveScore >= 70 ? 'rgba(74, 107, 74, 0.08)' : 'rgba(192, 57, 43, 0.08)', border: `1px solid ${liveScore >= 70 ? 'var(--clr-sage)' : 'var(--clr-rose, #c0392b)'}` }}>
                 <div style={{ fontSize: 22, fontFamily: 'Fraunces, serif', fontWeight: 700, marginBottom: 4 }}>
-                  {liveScore}% · {fmtMs(elapsed)}
+                  {liveScore}%, {fmtMs(elapsed)}
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
                   {liveScore >= 70 ? '✅ ผ่านเกณฑ์ — keep practicing for consistency' : '⚠️ ยังไม่ผ่าน — โฟกัส critical steps ก่อน'}

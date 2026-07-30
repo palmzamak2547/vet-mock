@@ -230,7 +230,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             fontFamily: 'JetBrains Mono, monospace', fontSize: 11,
             letterSpacing: '0.08em', color: 'var(--clr-ink-soft)',
           }}>
-            🎓 ปี {selectedYear}{phaseLabel ? ` · ${phaseLabel}` : ''}
+            🎓 ปี {selectedYear}{phaseLabel ? `, ${phaseLabel}` : ''}
           </div>
         )}
       </div>

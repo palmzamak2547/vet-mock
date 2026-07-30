@@ -141,7 +141,7 @@ export default function PWAInstallChip() {
               <li>กด <strong>Add</strong> มุมขวาบน</li>
             </ol>
             <p style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-              เปิดจาก home screen จะได้ประสบการณ์เหมือน native app · เร็วกว่า · ไม่มีแถบ browser
+              เปิดจาก home screen จะได้ประสบการณ์เหมือน native app, เร็วกว่า, ไม่มีแถบ browser
             </p>
             <div className="vmx-btn-row" style={{ marginTop: 14 }}>
               <button className="vmx-btn vmx-btn-ghost" onClick={() => setShowIosTip(false)} type="button">ปิด</button>

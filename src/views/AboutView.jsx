@@ -21,7 +21,7 @@ export default function AboutView({ goHome, setView }) {
         </div>
       </div>
 
-      {/* Instagram — follow channel for daily Qs · clip recommendations · launch news */}
+      {/* Instagram — follow channel for daily Qs, clip recommendations, launch news */}
       <div className="vmx-dash-card" style={{
         marginBottom: 16,
         background: 'linear-gradient(135deg, rgba(225, 48, 108, 0.08), rgba(245, 96, 64, 0.08), rgba(247, 119, 55, 0.08))',
@@ -43,7 +43,7 @@ export default function AboutView({ goHome, setView }) {
               @vetmock.cu
             </div>
             <div style={{ color: 'var(--clr-ink-soft)', marginBottom: 10, fontSize: 13 }}>
-              Daily Q ของวัน · clip recommendations · changelog · study tips จากเพื่อนๆ ในรุ่น
+              Daily Q ของวัน, clip recommendations, changelog, study tips จากเพื่อนๆ ในรุ่น
             </div>
             <a
               href="https://www.instagram.com/vetmock.cu/"
@@ -79,7 +79,7 @@ export default function AboutView({ goHome, setView }) {
             title="📝 ฝึกโจทย์"
             items={[
               'Quick Practice + Exam Mode (ตั้งจำนวนข้อ + เวลา ได้)',
-              '4 ประเภท: MCQ (4-5 ช้อยส์) · True/False · Fill-in · Matching',
+              '4 ประเภท: MCQ (4-5 ช้อยส์), True/False, Fill-in, Matching',
               'Quiz navigator — สำหรับ exam ยาว (≥15 ข้อ) ข้ามไปข้อไหนก็ได้',
               'แยกตามวิชา → หัวข้อ (คาบ) → ความยากของหัวข้อนั้น',
             ]}
@@ -193,7 +193,7 @@ export default function AboutView({ goHome, setView }) {
       {/* Disclaimer */}
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
         <strong>⚠️ Disclaimer:</strong> เว็บนี้เป็น unofficial และไม่มีความเกี่ยวข้องกับคณะสัตวแพทยศาสตร์ จุฬาฯ อย่างเป็นทางการ
-        เนื้อหาเป็น<strong>โจทย์ฝึก</strong>ที่นิสิตเรียบเรียงเองจากเนื้อหา lecture · ไม่ใช่ข้อสอบจริงและไม่ทดแทนการอ่านเนื้อหาหลัก
+        เนื้อหาเป็น<strong>โจทย์ฝึก</strong>ที่นิสิตเรียบเรียงเองจากเนื้อหา lecture, ไม่ใช่ข้อสอบจริงและไม่ทดแทนการอ่านเนื้อหาหลัก
         ข้อมูลตารางสอบอาจมีการเปลี่ยนแปลง โปรดตรวจสอบกับทางคณะ/เพื่อนร่วมห้องอีกครั้ง
       </div>
 

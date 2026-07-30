@@ -360,7 +360,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           <div style={FIELD_WRAP}>
             <label style={LABEL_STYLE}>
               ตัวเลือก * <span style={{ fontWeight: 'normal', textTransform: 'none', letterSpacing: 0 }}>
-                ({payload.options.length}/6 · กดวงกลมเพื่อระบุข้อที่ถูก)
+                ({payload.options.length}/6, กดวงกลมเพื่อระบุข้อที่ถูก)
               </span>
             </label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -435,13 +435,13 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           <div style={FIELD_WRAP}>
             <label style={LABEL_STYLE}>
               เฉลย + อธิบายเหตุผล * <span style={{ fontWeight: 'normal', textTransform: 'none', letterSpacing: 0 }}>
-                ({payload.explain_text.length} ตัวอักษร · ขั้นต่ำ 30)
+                ({payload.explain_text.length} ตัวอักษร, ขั้นต่ำ 30)
               </span>
             </label>
             <textarea
               value={payload.explain_text}
               onChange={(e) => patch({ explain_text: e.target.value.slice(0, 5000) })}
-              placeholder="ทำไมข้อ X ถึงถูก · ทำไมข้อ Y, Z ถึงผิด · อ้างอิงสไลด์/ตำราหน้าไหน"
+              placeholder="ทำไมข้อ X ถึงถูก, ทำไมข้อ Y, Z ถึงผิด, อ้างอิงสไลด์/ตำราหน้าไหน"
               style={{ width: '100%', minHeight: 120, padding: 10, borderRadius: 8 }}
               maxLength={5000}
             />
@@ -601,7 +601,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
         </h2>
         <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
           {mySubs.length > 0
-            ? `${mySubs.length} รายการ · แตะเพื่อดูรายละเอียด`
+            ? `${mySubs.length} รายการ, แตะเพื่อดูรายละเอียด`
             : loadingSubs ? 'กำลังโหลด...' : 'ยังไม่มีคำถามที่ส่ง — เริ่มส่งข้อแรกได้เลย ⬆️'}
         </p>
 
@@ -647,7 +647,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
                     {preview || <em style={{ color: 'var(--clr-ink-soft)' }}>(no stem)</em>}
                   </div>
                   <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: '"JetBrains Mono", monospace' }}>
-                    {s.subject || '—'}{s.topic ? ` · ${s.topic}` : ''}
+                    {s.subject || '—'}{s.topic ? `, ${s.topic}` : ''}
                   </div>
 
                   {/* Inline summary of failure reason */}

@@ -136,7 +136,7 @@ export function ViewFallback() {
         <span>กำลังโหลด…</span>
         {showLongHint && (
           <span style={{ color: 'var(--clr-gold, #b88940)', marginLeft: 4 }}>
-            · โหลดครั้งแรก ครั้งต่อไปจะเร็วขึ้น
+           , โหลดครั้งแรก ครั้งต่อไปจะเร็วขึ้น
           </span>
         )}
       </div>

@@ -297,8 +297,8 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
 
       <div style={topBannerStyle}>
         {nextLabel
-          ? `📐 VHS · จุดที่ ${worldPoints.length + 1} จาก 6 → ${nextLabel.replace(/^จุด \d+: /, '')} · กด U เพื่อ undo`
-          : '📐 VHS · ครบ 6 จุด · ลากจุดเพื่อปรับ · ดูผลด้านล่าง'}
+          ? `📐 VHS, จุดที่ ${worldPoints.length + 1} จาก 6 → ${nextLabel.replace(/^จุด \d+: /, '')}, กด U เพื่อ undo`
+          : '📐 VHS, ครบ 6 จุด, ลากจุดเพื่อปรับ, ดูผลด้านล่าง'}
       </div>
 
       {result && (
@@ -338,22 +338,22 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
           <div style={{ marginTop: 6, fontSize: '0.72rem', color: '#aaa' }}>
             {ref ? (
               <>
-                ค่าอ้างอิง · <strong>{ref.label}</strong> {ref.lo}–{ref.hi}
-                {' · '}
+                ค่าอ้างอิง, <strong>{ref.label}</strong> {ref.lo}–{ref.hi}
+                {', '}
                 <span style={{ color: result.vhs > ref.hi ? '#fbb' : result.vhs < ref.lo ? '#bbf' : '#cfc' }}>
                   {result.vhs > ref.hi ? `↑ +${(result.vhs - ref.hi).toFixed(1)} above`
                     : result.vhs < ref.lo ? `↓ -${(ref.lo - result.vhs).toFixed(1)} below`
                     : 'within range'}
                 </span>
-                <br />Species จาก DICOM tag · breed-specific ranges อาจต่างจากนี้
+                <br />Species จาก DICOM tag, breed-specific ranges อาจต่างจากนี้
               </>
             ) : (
               <>
-                ค่าอ้างอิงทั่วไป · canine 8.5–10.5 · feline 6.7–8.1
+                ค่าอ้างอิงทั่วไป, canine 8.5–10.5, feline 6.7–8.1
                 <br />Species ไม่ระบุใน DICOM tag — แสดงทั้ง 2 ช่วง
               </>
             )}
-            <br />เครื่องมือเพื่อการเรียนรู้ · ไม่ใช้แทนการ workup ผู้ป่วยจริง
+            <br />เครื่องมือเพื่อการเรียนรู้, ไม่ใช้แทนการ workup ผู้ป่วยจริง
           </div>
           <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
             <button onClick={undo} disabled={worldPoints.length === 0} style={resetBtnStyle}>↶ Undo</button>
@@ -364,7 +364,7 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
             >
               {confirmingReset ? '⚠️ ยืนยัน Reset?' : '↺ Reset'}
             </button>
-            <button onClick={exportStateJson} style={resetBtnStyle} title="ดาวน์โหลด JSON ของ VHS points · re-drop via 🤖 Load AI เพื่อ replay">
+            <button onClick={exportStateJson} style={resetBtnStyle} title="ดาวน์โหลด JSON ของ VHS points, re-drop via 🤖 Load AI เพื่อ replay">
               📥 JSON
             </button>
             <button

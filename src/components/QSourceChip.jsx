@@ -138,7 +138,7 @@ export default function QSourceChip({ q, onReport, store }) {
             />
           )}
           {q.tags && q.tags.length > 0 && (
-            <Row label="Tags" value={q.tags.join(' · ')} />
+            <Row label="Tags" value={q.tags.join(', ')} />
           )}
 
           {onReport && (

@@ -42,8 +42,8 @@ export default function GroupDetailView({ group, user, goBack }) {
         <h1>👥 <em>{group.name}</em></h1>
         <p>
           Code: <strong style={{ color: 'var(--clr-gold)', fontFamily: 'JetBrains Mono, monospace' }}>{group.code}</strong>
-          {' · '}<a onClick={copyCode} style={{ cursor: 'pointer', textDecoration: 'underline' }}>📋 คัดลอก</a>
-          {' · '}สมาชิก {members.length} คน
+          {', '}<a onClick={copyCode} style={{ cursor: 'pointer', textDecoration: 'underline' }}>📋 คัดลอก</a>
+          {', '}สมาชิก {members.length} คน
         </p>
       </div>
 
@@ -72,7 +72,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>
-                      {r.mode === 'exam' ? '🎓 Exam' : '📝 Practice'} · {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
+                      {r.mode === 'exam' ? '🎓 Exam' : '📝 Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
@@ -98,7 +98,7 @@ export default function GroupDetailView({ group, user, goBack }) {
             questions.map((q) => (
               <div key={q.id} className="vmx-review-item">
                 <div className="vmx-review-head">
-                  <span>by {q.author_name || 'Anon'} · {SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}</span>
+                  <span>by {q.author_name || 'Anon'}, {SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}</span>
                   {q.author_id === user.id && (
                     <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
                       if (confirm('ลบข้อนี้ออกจากกลุ่ม?')) { await deleteSharedQuestion(q.id); load(); }

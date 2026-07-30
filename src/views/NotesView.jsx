@@ -165,7 +165,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
       <div className="vmx-hero">
         <h1>📖 ทวน <em>เนื้อหา</em></h1>
         <p>
-          {subjectMeta?.icon} {subjectMeta?.name} · เนื้อหาดึงจาก slide lecture 2026 + master compilation (ทุก section มี source citation)
+          {subjectMeta?.icon} {subjectMeta?.name}, เนื้อหาดึงจาก slide lecture 2026 + master compilation (ทุก section มี source citation)
         </p>
       </div>
 
@@ -250,7 +250,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         <div ref={mainRef}>
           <div style={{ marginBottom: 16, padding: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}>
             <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
-              Topic · by Aj. {topic.lecturer}
+              Topic, by Aj. {topic.lecturer}
             </div>
             <h2 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 600 }}>
               {topic.icon} {topic.title}

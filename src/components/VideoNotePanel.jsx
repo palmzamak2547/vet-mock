@@ -186,7 +186,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ ...tsBtn, cursor: 'default' }}>{formatTimestamp(composeT)}</span>
             <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
-              · timestamp ตอนกดปุ่ม
+             , timestamp ตอนกดปุ่ม
             </span>
           </div>
           <textarea
@@ -197,7 +197,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
               if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); saveCompose(); }
               else if (e.key === 'Escape') { e.preventDefault(); cancelCompose(); }
             }}
-            placeholder="พิมพ์โน้ต… (Enter = save · Shift+Enter = ขึ้นบรรทัด · Esc = ยกเลิก)"
+            placeholder="พิมพ์โน้ต… (Enter = save, Shift+Enter = ขึ้นบรรทัด, Esc = ยกเลิก)"
             rows={2}
             style={{
               width: '100%', padding: '8px 10px', fontSize: 13,

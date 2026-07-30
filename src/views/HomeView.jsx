@@ -548,7 +548,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             <button
               type="button"
               className="vmx-btn vmx-btn-ghost"
-              style={{ minHeight: 40, fontSize: 13 }}
+              style={{ fontSize: 13 }}
               onClick={() => {
                 markWrappedDismissed(completedPhase.id);
                 setWrappedTick((n) => n + 1);
@@ -648,7 +648,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           </span>
           <button
             type="button"
-            className="vmx-link-btn"
+            className="vmx-link-btn vmx-tap"
             onClick={() => setVerifyDismissed(true)}
             style={{ all: 'unset', cursor: 'pointer', fontSize: 12, color: 'var(--clr-ink-soft)', padding: '4px 8px' }}
             title="ปิดประกาศ"
@@ -711,7 +711,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: 200 }}>
               <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                อัปเดตใหม่ · {fmtThaiDate(LATEST_CHANGELOG.date)}
+                อัปเดตใหม่, {fmtThaiDate(LATEST_CHANGELOG.date)}
               </div>
               <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, marginTop: 2, lineHeight: 1.3 }}>
                 {LATEST_CHANGELOG.headline}
@@ -719,6 +719,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             </div>
             <button
               type="button"
+              className="vmx-tap"
               onClick={() => setLastSeenChangelog(LATEST_CHANGELOG.version)}
               aria-label="ปิดประกาศ"
               title="ปิดประกาศ"
@@ -773,6 +774,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           {LATEST_CHANGELOG.changes.length > 0 && (
             <button
               type="button"
+              className="vmx-tap"
+              aria-expanded={expanded}
               onClick={() => setExpanded((v) => !v)}
               style={{
                 all: 'unset',
@@ -785,8 +788,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               }}
             >
               {expanded
-                ? '▴ ซ่อน'
-                : `▾ ดูรายละเอียด (${LATEST_CHANGELOG.changes.length} รายการ)`}
+                ? 'ซ่อนรายละเอียด'
+                : `ดูรายละเอียด (${LATEST_CHANGELOG.changes.length} รายการ)`}
             </button>
           )}
         </div>
@@ -880,7 +883,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 marginLeft: 6,
               }}
             >
-              โหลดคลังโจทย์ครั้งแรก · ครั้งต่อไปจะเร็วขึ้น
+              โหลดคลังโจทย์ครั้งแรก, ครั้งต่อไปจะเร็วขึ้น
             </span>
           )}
 
@@ -919,7 +922,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               type="button"
               onClick={() => setView('schedule')}
               className="vmx-chip-quick"
-              title={`${nextClassToday.code} · ${nextClassToday.room} · ${nextClassToday.start}-${nextClassToday.end}`}
+              title={`${nextClassToday.code}, ${nextClassToday.room}, ${nextClassToday.start}-${nextClassToday.end}`}
               style={{
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
                 padding: '6px 12px', borderRadius: 999,
@@ -928,7 +931,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 minHeight: 44, boxSizing: 'border-box',
               }}
             >
-              {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.start} น.`} {nextClassToday.title.length > 26 ? `${nextClassToday.title.slice(0, 26)}…` : nextClassToday.title} · {nextClassToday.room}
+              {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.start} น.`} {nextClassToday.title.length > 26 ? `${nextClassToday.title.slice(0, 26)}…` : nextClassToday.title}, {nextClassToday.room}
             </button>
           )}
           {nextEvent && (
@@ -936,7 +939,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               type="button"
               onClick={() => setView('schedule')}
               className="vmx-chip-quick"
-              title={`${nextEvent.titleTh} · ${nextEvent.start}-${nextEvent.end} น. · ${nextEvent.location}`}
+              title={`${nextEvent.titleTh}, ${nextEvent.start}-${nextEvent.end} น., ${nextEvent.location}`}
               style={{
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
                 padding: '6px 12px', borderRadius: 999,
@@ -946,7 +949,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               }}
             >
               {nextEvent.titleTh.replace(/^บริษัทนำ /, '').slice(0, 30)}
-              {' · '}
+              {', '}
               {nextEvent.daysLeft === 0 ? 'วันนี้' : nextEvent.daysLeft === 1 ? 'พรุ่งนี้' : `อีก ${nextEvent.daysLeft} วัน`}
             </button>
           )}
@@ -955,7 +958,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               type="button"
               onClick={() => setView('schedule')}
               className="vmx-chip-quick"
-              title={`${topMilestone.titleTh}${topMilestone.endTimeTh ? ` · ${topMilestone.endTimeTh}` : ''}`}
+              title={`${topMilestone.titleTh}${topMilestone.endTimeTh ? `, ${topMilestone.endTimeTh}` : ''}`}
               style={{
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
                 padding: '6px 12px', borderRadius: 999,
@@ -965,7 +968,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               }}
             >
               {topMilestone.titleTh.length > 22 ? `${topMilestone.titleTh.slice(0, 22)}…` : topMilestone.titleTh}
-              {' · '}
+              {', '}
               {topMilestone.active
                 ? (topMilestone.daysLeftToEnd === 0 ? 'วันสุดท้ายวันนี้' : `เหลือ ${topMilestone.daysLeftToEnd} วัน`)
                 : `อีก ${topMilestone.daysLeft} วัน`}
@@ -1286,7 +1289,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     card in ~15 sec, so 4 cards/min budget, suggestion
                     capped at 30 min/day so users feel they can hit it. */}
                 {cardStats.due > 0
-                  ? `${cardStats.due} ข้อค้างทบทวน · แนะนำวันละ ~${Math.min(30, Math.max(5, Math.ceil(cardStats.due / 4 / 5) * 5))} นาที`
+                  ? `${cardStats.due} ข้อค้างทบทวน, แนะนำวันละ ~${Math.min(30, Math.max(5, Math.ceil(cardStats.due / 4 / 5) * 5))} นาที`
                   : 'ทบทวนแบบ Anki — ตอบผิด/ลังเลแล้วระบบจะนำมา review ในรอบถัดไป'}
               </div>
               {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
@@ -1398,7 +1401,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               lineHeight: 1.4,
               color: 'var(--clr-ink)',
             }}>
-              แชร์ leaderboard ห้อง · แชร์โจทย์ · challenge รายวัน
+              แชร์ leaderboard ห้อง, แชร์โจทย์, challenge รายวัน
             </div>
             <div style={{
               fontSize: 12,
@@ -1762,7 +1765,7 @@ function DailyQRow({ user, setView }) {
         className="vmx-btn vmx-btn-primary vmx-btn-sm"
         style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
       >
-        🌟 ข้อวันนี้ {status.completed ? '· ✓' : ''} · {subj?.icon || ''} {subj?.name || todaysQ.subject}
+        🌟 ข้อวันนี้ {status.completed ? '· ✓' : ''}, {subj?.icon || ''} {subj?.name || todaysQ.subject}
       </button>
       {streak >= 2 && (
         <span style={{ fontSize: 12, color: 'var(--clr-gold, #b88940)', fontFamily: 'JetBrains Mono, monospace' }}>
@@ -1785,7 +1788,7 @@ function DailyQRow({ user, setView }) {
             color: '#3a8aa8',
           }}
         >
-          🌐 {pulse.total} คนทำแล้ว · {pulse.pct}% ถูก
+          🌐 {pulse.total} คนทำแล้ว, {pulse.pct}% ถูก
         </span>
       )}
       {open && (

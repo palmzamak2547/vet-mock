@@ -515,7 +515,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
                 <SC k="A" desc="Angle measurement" />
                 <SC k="N" desc="🦴 Norberg angle" />
                 <SC k="V" desc="📐 VHS" />
-                <SC k="1 – 5" desc="W/L presets (Auto · DICOM · Soft · Bone · Lung)" />
+                <SC k="1 – 5" desc="W/L presets (Auto, DICOM, Soft, Bone, Lung)" />
                 <SC k="R" desc="Reset view (zoom/pan/window)" />
                 <SC k="C" desc="Clear all measurements" />
                 <SC k="U" desc="Undo last Norberg/VHS point" />
@@ -527,7 +527,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
               </tbody>
             </table>
             <div style={{ fontSize: '0.7rem', color: '#888', marginTop: 10 }}>
-              Shortcuts ทำงานเมื่อโฟกัสไม่ได้อยู่ใน input/textarea · ใน study mode (2 viewports) shortcut จะ apply กับทั้งสองอันพร้อมกัน
+              Shortcuts ทำงานเมื่อโฟกัสไม่ได้อยู่ใน input/textarea, ใน study mode (2 viewports) shortcut จะ apply กับทั้งสองอันพร้อมกัน
             </div>
           </div>
         </div>
@@ -571,7 +571,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
             <div style={spinnerStyle}>🔬</div>
             <div>กำลังโหลด DICOM...</div>
             <div style={{ fontSize: '0.72rem', marginTop: 6, opacity: 0.6 }}>
-              {file?.name} · {(file?.size / 1024 | 0)} KB
+              {file?.name}, {(file?.size / 1024 | 0)} KB
             </div>
           </div>
         )}
@@ -600,7 +600,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
             กด <kbd style={kbdInlineStyle}>N</kbd> Norberg ·{' '}
             <kbd style={kbdInlineStyle}>V</kbd> VHS ·{' '}
             <kbd style={kbdInlineStyle}>L</kbd> Length{' '}
-            <span style={{ opacity: 0.7, fontSize: '0.78em' }}> · กด <kbd style={kbdInlineStyle}>?</kbd> ดูทั้งหมด</span>
+            <span style={{ opacity: 0.7, fontSize: '0.78em' }}>, กด <kbd style={kbdInlineStyle}>?</kbd> ดูทั้งหมด</span>
           </div>
         )}
         {status === 'ready' && (
@@ -625,14 +625,14 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         <div style={{ fontSize: '0.8rem', color: '#666', marginTop: 8 }}>
           📐 {meta.width} × {meta.height} pixels
           {meta.mmPerPx && (
-            <> · calibrated at <strong>{meta.mmPerPx.toFixed(3)} mm/pixel</strong> (PixelSpacing tag)</>
+            <>, calibrated at <strong>{meta.mmPerPx.toFixed(3)} mm/pixel</strong> (PixelSpacing tag)</>
           )}
-          · Phase 6 · 🦴 Norberg + 📐 VHS ใน toolbar
+         , Phase 6, 🦴 Norberg + 📐 VHS ใน toolbar
         </div>
       )}
       {meta && status === 'ready' && (
         <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 4 }}>
-          เลือก 📏 Length หรือ 📐 Angle จาก toolbar แล้วลากบนภาพ — ผลแสดงเป็น mm จาก PixelSpacing tag · ลากซ้าย = active tool · กลาง = pan · ขวา = zoom
+          เลือก 📏 Length หรือ 📐 Angle จาก toolbar แล้วลากบนภาพ — ผลแสดงเป็น mm จาก PixelSpacing tag, ลากซ้าย = active tool, กลาง = pan, ขวา = zoom
         </div>
       )}
     </div>

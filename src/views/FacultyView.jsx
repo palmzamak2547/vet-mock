@@ -139,7 +139,7 @@ export default function FacultyView({ goHome }) {
 
       <div className="vmx-hero">
         <h1>👨‍🏫 อาจารย์ <em>ผู้สอน</em></h1>
-        <p>{ALL_INSTRUCTORS.length} ท่านที่มีโปรไฟล์ในฐานข้อมูล · กดที่การ์ดเพื่อดูประวัติ + งานวิจัย</p>
+        <p>{ALL_INSTRUCTORS.length} ท่านที่มีโปรไฟล์ในฐานข้อมูล, กดที่การ์ดเพื่อดูประวัติ + งานวิจัย</p>
       </div>
 
       {/* Search */}

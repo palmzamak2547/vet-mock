@@ -83,11 +83,11 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   // Encouragement line — short Thai
   let msg = '';
   if (isWritingOnly) msg = 'เขียนไปแล้ว, ลองดู AI feedback ใน VetMock';
-  else if (pct === 100) msg = 'เทพสุดๆ 🏆 อ่านต่อมาเรื่อยๆ';
+  else if (pct === 100) msg = 'เต็มทุกข้อ รักษาระดับนี้ไว้';
   else if (pct >= 80) msg = 'ใกล้แล้ว, อ่านอีกนิดเดียว';
   else if (pct >= 60) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
   else if (pct >= 40) msg = 'สู้ๆ, กลับไปทบทวนเนื้อหาอีกรอบ';
-  else msg = 'เริ่มใหม่ได้เสมอ 💪';
+  else msg = 'เริ่มใหม่ได้เสมอ';
   ctx.font = '400 44px "Fraunces", serif';
   ctx.fillStyle = '#3d342a';
   ctx.fillText(msg, W / 2, 1300);
@@ -269,18 +269,18 @@ export default function ResultsView({
             padding: '3px 10px', borderRadius: 999,
             background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)',
           }}>
-            🎓 ปี {selectedYear}{phaseLabel ? ` · ${phaseLabel}` : ''}
+            ปี {selectedYear}{phaseLabel ? `, ${phaseLabel}` : ''}
           </span>
         </div>
       )}
       {showPassFail && (
         <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
-          {passed ? '✓ PASSED' : '✗ FAILED'}, EXAM MODE
+          {passed ? 'ผ่านเกณฑ์' : 'ยังไม่ผ่านเกณฑ์'}, โหมดสอบ
         </div>
       )}
       {isExam && autoQs.length === 0 && writingQs.length > 0 && (
         <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-gold)' }}>
-          ✍️ WRITING SESSION, GRADE IN REVIEW
+          ชุดข้อเขียน, รอตรวจให้คะแนน
         </div>
       )}
       {personalBest && (
@@ -291,7 +291,7 @@ export default function ResultsView({
           fontFamily: 'JetBrains Mono, monospace', fontSize: 13, letterSpacing: '0.05em',
           color: 'var(--clr-gold, #b88940)', fontWeight: 700,
         }}>
-          🏆 NEW PERSONAL BEST · {personalBest.pct}% (เดิม {personalBest.prev}%)
+          สถิติใหม่ของคุณ {personalBest.pct}% (เดิม {personalBest.prev}%)
         </div>
       )}
 
@@ -607,7 +607,7 @@ function NextPlayPanel({
         {/* Secondary row — ดูเฉลย + ทำหัวข้อนี้ต่อ (when hasWrong) */}
         <div className="vmx-btn-row" style={{ flexWrap: 'wrap', gap: 8 }}>
           <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('review')} style={{ minHeight: 44 }}>
-            📖 ดูเฉลย
+            ดูเฉลย
           </button>
           {/* If this whole set is one governed topic, offer its VetWiki page —
               the natural "I got this wrong, let me read the checked version". */}
@@ -619,7 +619,7 @@ function NextPlayPanel({
               style={{ minHeight: 44 }}
               title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้ทุกส่วน"
             >
-              🧬 อ่านสรุปเรื่องนี้
+              อ่านสรุปเรื่องนี้
             </button>
           )}
           {hasWrong && ctx.subj && (
@@ -630,7 +630,7 @@ function NextPlayPanel({
               style={{ minHeight: 44 }}
               title={ctx.topic ? `สุ่ม 5 ข้อใหม่ในหัวข้อ ${topicLabel}` : `สุ่ม 5 ข้อใหม่ในวิชา ${subjLabel}`}
             >
-              📚 ทำ{ctx.topic ? 'หัวข้อ' : 'วิชา'}นี้อีก 5 ข้อ
+              ทำ{ctx.topic ? 'หัวข้อ' : 'วิชา'}นี้อีก 5 ข้อ
             </button>
           )}
           <ChallengeQuizButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
@@ -728,7 +728,7 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
         fontWeight: 700,
         marginBottom: 8,
       }}>
-        💡 ต่อจากนี้แนะนำ
+        ต่อจากนี้แนะนำ
       </div>
       <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
         {hints.map((h, i) => (
@@ -772,13 +772,13 @@ function ShareQuizButton({ questions }) {
       style={{ minHeight: 44 }}
       onClick={async () => {
         const res = await copyShareUrl(questions);
-        if (res.ok) setHint('คัดลอกลิงก์แล้ว · วางส่งเพื่อนได้เลย');
+        if (res.ok) setHint('คัดลอกลิงก์แล้ว, วางส่งเพื่อนได้เลย');
         else setHint('คัดลอกไม่ได้: ' + (res.url || ''));
         setTimeout(() => setHint(''), 3500);
       }}
       title="แชร์ชุดโจทย์นี้ให้เพื่อน — เปิดลิงก์แล้วได้ข้อเดียวกัน เรียงเดียวกัน"
     >
-      📎 แชร์ชุดนี้
+      แชร์ชุดนี้
       {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'JetBrains Mono, monospace' }}>{hint}</span>}
     </button>
   );
@@ -793,7 +793,7 @@ function ShareQuizButton({ questions }) {
 // Round 2B (2026-05-18): when `score` is provided we embed the sender
 // score in BOTH the URL (?sc=12_15) and the share text ("เราได้ 12/15")
 // — Palm spec wants the bragging-rights framing + per-message comparison.
-function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อนทำชุดนี้', score, senderName, senderTimeSec }) {
+function ChallengeQuizButton({ questions, label = 'ท้าเพื่อนทำชุดนี้', score, senderName, senderTimeSec }) {
   const [hint, setHint] = useState('');
   if (!questions || questions.length === 0) return null;
 
@@ -823,7 +823,7 @@ function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อ
     try {
       if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
         await navigator.share({ title: 'VetMock challenge', text });
-        setHint('✓ ส่งให้เพื่อนแล้ว');
+        setHint('ส่งให้เพื่อนแล้ว');
         setTimeout(() => setHint(''), 3000);
         return;
       }
@@ -832,7 +832,7 @@ function ChallengeQuizButton({ questions, label = '🎯 ท้าเพื่อ
     }
     // Fallback: copy text (URL embedded)
     const res = await copyText(text);
-    setHint(res.ok ? '✓ คัดลอกแล้ว · วางใน LINE / IG ได้เลย' : '⚠️ คัดลอกไม่ได้');
+    setHint(res.ok ? 'คัดลอกแล้ว วางใน LINE หรือ IG ได้เลย' : 'คัดลอกไม่สำเร็จ');
     setTimeout(() => setHint(''), 3500);
   };
 
@@ -875,7 +875,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
     try {
       if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
         await navigator.share({ title: 'VetMock challenge', text });
-        setHint('✓ เลือกกลุ่ม / แชทได้เลย');
+        setHint('เลือกกลุ่มหรือแชทได้เลย');
         setTimeout(() => setHint(''), 3000);
         return;
       }
@@ -883,7 +883,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
       if (err?.name === 'AbortError') return;
     }
     const res = await copyText(text);
-    setHint(res.ok ? '✓ คัดลอกแล้ว · วางในกลุ่มได้เลย' : '⚠️ ส่งไม่ได้');
+    setHint(res.ok ? 'คัดลอกแล้ว วางในกลุ่มได้เลย' : 'ส่งไม่สำเร็จ');
     setTimeout(() => setHint(''), 3500);
   };
 
@@ -895,7 +895,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
       style={{ minHeight: 44 }}
       title="ส่งลิงก์ชุดโจทย์เข้ากลุ่ม LINE / IG / chat"
     >
-      📨 ส่งเข้ากลุ่ม
+      ส่งเข้ากลุ่ม
       {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'JetBrains Mono, monospace' }}>{hint}</span>}
     </button>
   );
@@ -924,8 +924,8 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
   const rPct = r.total > 0 ? Math.round((r.correct / r.total) * 100) : 0;
   const verdict = rPct > sPct ? 'win' : rPct < sPct ? 'lose' : 'tie';
   const verdictMeta = {
-    win:  { icon: '🥇', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง · ขอบราเดอร์`, color: '#4a6b4a' },
-    lose: { icon: '💭', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total} · คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, color: '#a73d4a' },
+    win:  { icon: '🥇', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง, ขอบราเดอร์`, color: '#4a6b4a' },
+    lose: { icon: '💭', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total}, คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, color: '#a73d4a' },
     tie:  { icon: '🤝', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, color: '#b88940' },
   }[verdict];
 
@@ -955,7 +955,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
         fontWeight: 700,
         marginBottom: 6,
       }}>
-        📨 ผลการท้า {sender.senderName ? `จาก ${sender.senderName}` : 'จากเพื่อน'}
+        ผลการท้า {sender.senderName ? `จาก ${sender.senderName}` : 'จากเพื่อน'}
       </div>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: hasTimes ? 12 : 0 }}>
         <div style={{ fontSize: 36, lineHeight: 1, flexShrink: 0 }} aria-hidden>{verdictMeta.icon}</div>
@@ -985,10 +985,10 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
         }}>
           <div>
             <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
-              ผู้ส่ง{sender.senderName ? ` · ${sender.senderName}` : ''}
+              ผู้ส่ง{sender.senderName ? `, ${sender.senderName}` : ''}
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
-              {s.correct}/{s.total} · ⏱ {fmtTimeSec(sender.senderTimeSec)}
+              {s.correct}/{s.total}, ⏱ {fmtTimeSec(sender.senderTimeSec)}
               {fasterSender && <span style={{ marginLeft: 6, fontSize: 10, color: 'var(--clr-gold, #b88940)' }}>เร็วกว่า</span>}
             </div>
           </div>
@@ -997,7 +997,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
               คุณ
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
-              {r.correct}/{r.total} · ⏱ {fmtTimeSec(receiverTimeSec)}
+              {r.correct}/{r.total}, ⏱ {fmtTimeSec(receiverTimeSec)}
               {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 10, color: 'var(--clr-sage, #4a6b4a)' }}>เร็วกว่า</span>}
             </div>
           </div>
@@ -1023,7 +1023,7 @@ function ChallengeFriendRow({ questions, score }) {
         <div style={{ fontSize: 13, color: 'var(--clr-ink)', flex: '1 1 200px', lineHeight: 1.5 }}>
           ส่งให้เพื่อนลอง — <strong>เพื่อนตอบถูกมากกว่าเรามั้ย</strong>? วัดดวงเล่นๆ
         </div>
-        <ChallengeQuizButton questions={questions} score={score} label="🎯 ท้าเพื่อนทำชุดนี้" />
+        <ChallengeQuizButton questions={questions} score={score} label="ท้าเพื่อนทำชุดนี้" />
       </div>
     </div>
   );
@@ -1048,7 +1048,7 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
           title: 'VetMock score',
           text: `ทำข้อสอบ VetMock ได้ ${isWritingOnly ? 'writing ' + writingDone + '/' + writingTotal : pct + '% (' + correct + '/' + total + ')'} 📚, ลองดูที่ vetmock.vercel.app, IG @vetmock.cu`,
         });
-        setHint('✓ แชร์เรียบร้อย — เลือก Instagram Story / Direct ได้เลย');
+        setHint('แชร์เรียบร้อย เลือก Instagram Story หรือ Direct ได้เลย');
       } else {
         // Desktop path: download PNG, open IG
         const url = URL.createObjectURL(blob);
@@ -1056,10 +1056,10 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
         a.href = url; a.download = `vetmock-score-${Date.now()}.png`;
         document.body.appendChild(a); a.click(); a.remove();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
-        setHint('✓ ดาวน์โหลดรูปแล้ว — อัพโหลดเข้า IG Story เอง, @vetmock.cu');
+        setHint('ดาวน์โหลดรูปแล้ว อัปโหลดเข้า IG Story ได้เลย @vetmock.cu');
       }
     } catch (e) {
-      setHint('⚠️ แชร์ไม่ได้, ลองใหม่อีกครั้ง');
+      setHint('แชร์ไม่สำเร็จ ลองใหม่อีกครั้ง');
     } finally {
       setBusy(false);
     }
@@ -1077,7 +1077,7 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
           disabled={busy}
           style={{ fontSize: 14, padding: '8px 16px', whiteSpace: 'nowrap' }}
         >
-          {busy ? '⏳ กำลังสร้าง…' : '📷 Share Score → IG Story'}
+          {busy ? 'กำลังสร้างรูป…' : 'แชร์คะแนนเป็นรูป (IG Story)'}
         </button>
       </div>
       {hint && (

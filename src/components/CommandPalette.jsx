@@ -153,7 +153,7 @@ function buildStaticItems() {
         type: 'wiki',
         payload: { subject: t.subject, topic: t.topic },
         label: t.title,
-        hint: 'VetWiki · บอกที่มาได้ทุกส่วน',
+        hint: 'VetWiki, บอกที่มาได้ทุกส่วน',
         icon: '🧬',
         kw: `vetwiki wiki ${t.title} ${t.summary || ''} ${t.subject} ${t.topic}`,
       });
@@ -184,7 +184,7 @@ function buildStaticItems() {
         payload: 'schedule',
         year: yr,
         label: `สอบ ${e.title}`,
-        hint: `${fmtThaiDate(e.date)} · ${e.time} · ${e.location}`,
+        hint: `${fmtThaiDate(e.date)}, ${e.time}, ${e.location}`,
         icon: e.icon || '📅',
         kw: `exam สอบ ${e.term === 'midterm' ? 'กลางภาค midterm' : 'ปลายภาค final'} ${e.code} ${e.title} ${e.subject} ${e.location}`,
       });
@@ -228,7 +228,7 @@ function buildStaticItems() {
       type: 'question',
       payload: { subject: q.subject, id: q.id },
       label: stem.length < q.q.length ? stem + '…' : stem,
-      hint: `${q.subject?.toUpperCase() || 'Q'}, Q${q.id}${q.tags?.length ? ' · ' + q.tags.slice(0, 2).join(', ') : ''}`,
+      hint: `${q.subject?.toUpperCase() || 'Q'}, Q${q.id}${q.tags?.length ? ', ' + q.tags.slice(0, 2).join(', ') : ''}`,
       icon: '❓',
       kw: stem + ' ' + (q.tags || []).join(' '),
     });

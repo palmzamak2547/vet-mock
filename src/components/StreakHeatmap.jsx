@@ -109,7 +109,7 @@ export default function StreakHeatmap({ history = [] }) {
         </span>
         {hovered && (
           <span className="vmx-heatmap-tooltip">
-            {hovered.date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' })} · {hovered.count} ข้อ
+            {hovered.date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' })}, {hovered.count} ข้อ
           </span>
         )}
       </div>
@@ -162,7 +162,7 @@ export default function StreakHeatmap({ history = [] }) {
                 onMouseLeave={() => setHovered(null)}
                 style={{ cursor: 'pointer', transition: 'fill 0.15s, stroke 0.15s' }}
               >
-                <title>{c.date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })} · {c.count} ข้อ</title>
+                <title>{c.date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })}, {c.count} ข้อ</title>
               </rect>
             );
           })}
