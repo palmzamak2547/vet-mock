@@ -77,3 +77,35 @@ on the year picker.
   100%) — needs a product decision, not a bug fix.
 - `AdminView` hardcodes its bank total instead of importing `QB_TOTAL`
   (admin-only, correct today).
+
+---
+
+## Academic data integration (2026-07-26)
+
+The faculty's published documents for **ภาคการศึกษาต้น 2569** are now live data
+in the app rather than posters in a chat: the Y5 weekly timetable, both exam
+tables (midterm 21-25 ก.ย. · final 23 พ.ย. - 4 ธ.ค.), the registrar's
+registration + CUNEX payment calendar, and the course-group registration
+(3190501 · 11 วิชา · 23 หน่วยกิต). All transcribed verbatim; missing fields stay
+`null`.
+
+**Data errors found and fixed:** six of the eleven Y5 course codes in
+`curriculum.js` disagreed with the registrar's own group list — AVIAN was
+carrying **3107507**, which is actually SWINE's code. Also corrected MILK HYG
+(→3109503), ONE HEALTH (→3109502), FOOD IND (→3109501), CLI PROB SOLV
+(→3107522), SWINE (→3107507). All 11 now match. Because ⌘K already indexed
+course codes, correcting them fixed search as a side effect.
+
+**Integrity check on the transcription:** the 10 courses that have exams sum to
+22 credits; plus CLI PROB SOLV COMP (1 credit, no scheduled exam) = the 23
+credits the official group states.
+
+**Where it surfaces** (all reusing existing destinations):
+- `ScheduleView` is now the academic hub — this week's timetable (today
+  highlighted, current class marked, each row opens that subject's practice),
+  the registration/payment calendar (what's open now + days left), then the real
+  exam list (term · code · Thai date · time · room · credits).
+- Home chips: next class today, and the most urgent open deadline. The existing
+  exam countdown lights up on its own now that the data is real.
+- ⌘K: every upcoming exam is searchable — `3109503` returns the subject plus
+  both of its exams with date/time/room.
