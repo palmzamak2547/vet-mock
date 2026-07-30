@@ -477,12 +477,12 @@ function HelpPanel({ onClose }) {
     <div style={{ padding: '10px 14px', background: 'var(--clr-bg)', borderBottom: '1px solid var(--clr-border)', fontSize: 12, lineHeight: 1.6, color: 'var(--clr-ink-soft)' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
         <div style={{ flex: 1 }}>
-          <div style={{ fontWeight: 700, color: 'var(--clr-ink)', marginBottom: 4 }}>📝 วิธีใช้</div>
+          <div style={{ fontWeight: 700, color: 'var(--clr-ink)', marginBottom: 4 }}>วิธีใช้</div>
           <div>👁️ <strong>โหมดอ่าน</strong> — select/copy ปกติ ไม่สร้าง mark</div>
           <div>🖍️ <strong>Highlight</strong> — ลากเลือกข้อความ จะเป็นสีตามที่เลือก, <em>คลิก highlight เพื่อลบ</em></div>
           <div>✏️ <strong>Pen</strong> — เขียนด้วย Apple Pencil หรือนิ้ว, pressure-sensitive ใน Pencil</div>
           <div>🩹 <strong>Eraser</strong> — ลบเฉพาะเส้นที่วาด (ไม่ลบ highlight)</div>
-          <div style={{ marginTop: 4, fontStyle: 'italic' }}>💾 บันทึกลงเครื่องอัตโนมัติ — passage เดียวกันมี mark เดียวกันใน mock อื่น</div>
+          <div style={{ marginTop: 4, fontStyle: 'italic' }}>บันทึกลงเครื่องอัตโนมัติ — passage เดียวกันมี mark เดียวกันใน mock อื่น</div>
         </div>
         <button onClick={onClose} style={{ all: 'unset', cursor: 'pointer', fontSize: 16, padding: 4 }}>✕</button>
       </div>

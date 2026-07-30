@@ -230,20 +230,20 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       <BackBar onBack={goHome} label="หน้าแรก" />
 
       <div className="vmx-hero">
-        <h1>⚙️ <em>Account</em> Settings</h1>
+        <h1><em>Account</em> Settings</h1>
         <p>จัดการ account, เปลี่ยนรหัสผ่าน อีเมล หรือลบ account</p>
       </div>
 
       <div className="vmx-config-panel" style={{ maxWidth: 560, margin: '0 auto' }}>
         {/* Profile info — read-only summary + last sign-in metadata */}
         <Card>
-          <h3 style={cardHeading}>📋 ข้อมูล account</h3>
+          <h3 style={cardHeading}>ข้อมูล account</h3>
           <KV label="อีเมล" value={
             <>
               {email}
               {user.email_confirmed_at
                 ? <span style={{ marginLeft: 6, color: 'var(--clr-sage)', fontSize: 11 }}>✓ ยืนยันแล้ว</span>
-                : <span style={{ marginLeft: 6, color: 'var(--clr-gold)', fontSize: 11 }}>⚠ ยังไม่ยืนยัน</span>}
+                : <span style={{ marginLeft: 6, color: 'var(--clr-gold)', fontSize: 11 }}>ยังไม่ยืนยัน</span>}
             </>
           } />
           <KV label="Username" value={
@@ -265,7 +265,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
 
         {/* Edit profile (year + cohort + avatar + bio + privacy) */}
         <Card>
-          <h3 style={cardHeading}>✏️ แก้ไขโปรไฟล์</h3>
+          <h3 style={cardHeading}>แก้ไขโปรไฟล์</h3>
           {section !== 'profile' ? (
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('profile'); }}>
               แก้ไข username, ชั้นปี, avatar, bio, privacy →
@@ -371,7 +371,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
 
         {/* Change password */}
         <Card>
-          <h3 style={cardHeading}>🔒 เปลี่ยนรหัสผ่าน</h3>
+          <h3 style={cardHeading}>เปลี่ยนรหัสผ่าน</h3>
           {section !== 'password' ? (
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('password'); }}>
               เปลี่ยนรหัสผ่าน →
@@ -401,7 +401,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
 
         {/* Change email */}
         <Card>
-          <h3 style={cardHeading}>📧 เปลี่ยนอีเมล</h3>
+          <h3 style={cardHeading}>เปลี่ยนอีเมล</h3>
           {section !== 'email' ? (
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('email'); }}>
               เปลี่ยนอีเมล →
@@ -429,7 +429,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
 
         {/* Export data — GDPR portability + offline backup */}
         <Card>
-          <h3 style={cardHeading}>📦 Export ข้อมูล</h3>
+          <h3 style={cardHeading}>Export ข้อมูล</h3>
           <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
             ดาวน์โหลด progress ทั้งหมด (bookmarks, history, notes, custom Q, streak) เป็น JSON
           </p>
@@ -440,7 +440,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
 
         {/* Logout all devices */}
         <Card>
-          <h3 style={cardHeading}>🚪 Session</h3>
+          <h3 style={cardHeading}>Session</h3>
           <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
             Logout ครั้งเดียวจากทุก device — ใช้ตอนสงสัยว่ารหัสรั่ว
           </p>
@@ -449,14 +449,14 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
               Logout (เฉพาะ device นี้)
             </button>
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleLogoutAll} disabled={loading} style={{ borderColor: 'var(--clr-gold)' }}>
-              ⚠️ Logout ทุก device
+              Logout ทุก device
             </button>
           </div>
         </Card>
 
         {/* Danger zone — delete account */}
         <Card style={{ borderColor: 'var(--clr-rose)', borderWidth: 1, borderStyle: 'solid' }}>
-          <h3 style={{ ...cardHeading, color: 'var(--clr-rose)' }}>☠️ Danger Zone</h3>
+          <h3 style={{ ...cardHeading, color: 'var(--clr-rose)' }}>Danger Zone</h3>
           {section !== 'delete' ? (
             <>
               <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
@@ -473,7 +473,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
           ) : (
             <form onSubmit={handleDelete}>
               <div style={{ padding: 12, borderRadius: 8, background: 'var(--clr-rose-soft)', marginBottom: 12, fontSize: 12, lineHeight: 1.6 }}>
-                <strong>⚠️ การลบ account จะ:</strong>
+                <strong>การลบ account จะ:</strong>
                 <ul style={{ margin: '6px 0 0 16px', padding: 0 }}>
                   <li>ลบ progress, scores, bookmarks, flashcards ทั้งหมด</li>
                   <li>Logout จากทุก device</li>

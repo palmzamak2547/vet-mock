@@ -145,7 +145,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
       >
         <div style={{ marginBottom: 14 }}>
           <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            🔧 OAuth setup
+            OAuth setup
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>{checklist.title}</h2>
           <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', margin: '6px 0 0', lineHeight: 1.5 }}>
@@ -175,7 +175,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
             border: '1px solid var(--clr-sage)',
           }}>
             <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
-              📋 Callback URL (วางทุกที่ที่ใช้)
+              Callback URL (วางทุกที่ที่ใช้)
             </div>
             <div style={{
               marginTop: 6,
@@ -196,7 +196,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
               className="vmx-btn vmx-btn-ghost vmx-btn-sm"
               style={{ marginTop: 8, minHeight: 36 }}
             >
-              {copied === 'CALLBACK_URL' ? '✓ คัดลอกแล้ว' : '📋 คัดลอก URL'}
+              {copied === 'CALLBACK_URL' ? '✓ คัดลอกแล้ว' : 'คัดลอก URL'}
             </button>
           </div>
         )}
@@ -273,7 +273,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
             fontFamily: 'JetBrains Mono, monospace',
             wordBreak: 'break-all',
           }}>
-            🔗 Project: {projectUrl}
+            Project: {projectUrl}
           </div>
         )}
 

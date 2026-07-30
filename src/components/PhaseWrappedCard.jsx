@@ -57,7 +57,7 @@ async function buildPhaseCanvas(stats) {
   ctx.fillStyle = '#2b2419';
   ctx.font = '600 64px "Fraunces", Georgia, serif';
   ctx.textAlign = 'left';
-  ctx.fillText('📊 Phase Wrapped', 80, 170);
+  ctx.fillText('Phase Wrapped', 80, 170);
   ctx.font = '500 36px "Fraunces", serif';
   ctx.fillStyle = '#6b6055';
   ctx.fillText(stats.phaseLabel || '', 80, 230);
@@ -124,7 +124,7 @@ async function buildPhaseCanvas(stats) {
   ctx.font = '500 28px "JetBrains Mono", monospace';
   ctx.fillStyle = '#6b6055';
   if (stats.longestStreak > 0) {
-    ctx.fillText('🔥 STREAK', W / 4, yRow);
+    ctx.fillText('STREAK', W / 4, yRow);
     ctx.font = '700 84px "Fraunces", serif';
     ctx.fillStyle = '#b88940';
     ctx.fillText(`${stats.longestStreak}`, W / 4, yRow + 80);
@@ -134,7 +134,7 @@ async function buildPhaseCanvas(stats) {
   }
   ctx.font = '500 28px "JetBrains Mono", monospace';
   ctx.fillStyle = '#6b6055';
-  ctx.fillText('⏱ ที่อ่าน', (W * 3) / 4, yRow);
+  ctx.fillText('ที่อ่าน', (W * 3) / 4, yRow);
   ctx.font = '700 84px "Fraunces", serif';
   ctx.fillStyle = '#2b2419';
   const hr = (stats.totalStudyMin / 60).toFixed(1);
@@ -214,7 +214,7 @@ function truncate(s, n) {
 
 function pickWrappedMessage(stats) {
   if (stats.qCount === 0) return 'รอบหน้ามาทำใหม่นะ 💪';
-  if (stats.correctPct >= 85 && stats.longestStreak >= 7) return 'เทพมาก 🏆 streak ก็แข็งแกร่ง';
+  if (stats.correctPct >= 85 && stats.longestStreak >= 7) return 'เทพมาก streak ก็แข็งแกร่ง';
   if (stats.correctPct >= 80) return 'แม่นยำใช้ได้, อ่านต่อให้ติด 💪';
   if (stats.longestStreak >= 14) return 'streak สองสัปดาห์ — วินัยล้วนๆ 🔥';
   if (stats.qCount >= 500) return 'ทำไปเยอะมาก, ใจสู้ 💚';
@@ -289,7 +289,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
   async function handleCopy() {
     const res = await copyText(shareText);
     if (res.ok) flash('✓ คัดลอกแล้ว — แปะใน LINE / IG ได้');
-    else flash('⚠️ คัดลอกไม่ได้, ลองใหม่');
+    else flash('คัดลอกไม่ได้, ลองใหม่');
   }
 
   async function ensureBlob() {
@@ -311,7 +311,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
       document.body.appendChild(a); a.click(); a.remove();
       flash('✓ ดาวน์โหลดแล้ว — อัพ IG Story ได้');
     } catch {
-      flash('⚠️ สร้างรูปไม่ได้, ลองใหม่');
+      flash('สร้างรูปไม่ได้, ลองใหม่');
     } finally {
       setBusy(false);
     }
@@ -336,10 +336,10 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
       } else {
         const res = await copyText(shareText);
         if (res.ok) flash('ไม่มี share sheet — คัดลอกให้แล้ว');
-        else flash('⚠️ แชร์ไม่ได้');
+        else flash('แชร์ไม่ได้');
       }
     } catch (err) {
-      if (err?.name !== 'AbortError') flash('⚠️ แชร์ไม่ได้, ลองใหม่');
+      if (err?.name !== 'AbortError') flash('แชร์ไม่ได้, ลองใหม่');
     } finally {
       setBusy(false);
     }
@@ -375,7 +375,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
       {/* Header */}
       <div style={{ marginBottom: 20, textAlign: 'center' }}>
         <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft, #6b6055)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
-          📊 Phase Wrapped
+          Phase Wrapped
         </div>
         <h2 style={{ margin: '6px 0 0', fontSize: 24, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>
           {stats.phaseLabel}
@@ -430,9 +430,9 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
             display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8,
             marginTop: 18, textAlign: 'center',
           }}>
-            <StatCell label="🔥 STREAK" value={streakShown} unit="วัน" tint="var(--clr-gold, #b88940)" />
-            <StatCell label="⏱ ที่อ่าน" value={hrShown.toFixed(1)} unit="ชม." />
-            <StatCell label="🧠 MASTERED" value={masteredShown} unit="cards" tint="var(--clr-plum, #7d4a7d)" />
+            <StatCell label="STREAK" value={streakShown} unit="วัน" tint="var(--clr-gold, #b88940)" />
+            <StatCell label="ที่อ่าน" value={hrShown.toFixed(1)} unit="ชม." />
+            <StatCell label="MASTERED" value={masteredShown} unit="cards" tint="var(--clr-plum, #7d4a7d)" />
           </div>
 
           {/* 30-day bar chart */}
@@ -479,7 +479,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
           className="vmx-btn vmx-btn-ghost"
           style={{ minHeight: 44, fontSize: 13 }}
         >
-          📋 Copy text
+          Copy text
         </button>
         <button
           type="button"
@@ -497,7 +497,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
           className="vmx-btn vmx-btn-primary"
           style={{ minHeight: 44, fontSize: 13 }}
         >
-          📤 Share
+          Share
         </button>
         <button
           type="button"

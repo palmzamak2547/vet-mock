@@ -266,14 +266,14 @@ export default function LabView({ goHome }) {
     <div style={{ padding: isMobile ? 10 : 20, maxWidth: 1400, margin: '0 auto' }}>
       <header style={headerStyle}>
         <div>
-          <h1 style={{ fontSize: '1.4rem', margin: 0 }}>🔬 Imaging Practice Lab</h1>
+          <h1 style={{ fontSize: '1.4rem', margin: 0 }}>Imaging Practice Lab</h1>
           {/* Consolidated subtitle — replaces the old standalone yellow
               disclaimer banner. Liability stays visible on every visit
               (always rendered, not dismissible) but takes a single line
               instead of 50 px of vertical clutter. */}
           <p style={{ fontSize: '0.78rem', color: '#666', margin: '4px 0 0', lineHeight: 1.4 }}>
             ฝึกอ่านภาพ + DICOM viewer, <span style={{ color: '#c66' }}>Experimental</span>
-            <span style={{ color: '#888' }}>, ⚠️ เพื่อการเรียนรู้, ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
+            <span style={{ color: '#888' }}>, เพื่อการเรียนรู้, ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
           </p>
         </div>
         <button onClick={handleBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← Home</button>
@@ -287,7 +287,7 @@ export default function LabView({ goHome }) {
               <ul style={{ margin: '8px 0 0', paddingLeft: 22, fontSize: '0.85rem', lineHeight: 1.6, color: '#555' }}>
                 <li>ลาก DICOM (<code>.dcm</code>) ลงด้านล่าง — ลากครั้งละ 2 ไฟล์ได้ (เปิด side-by-side)</li>
                 <li>เปิด viewer แล้วกด <kbd style={kbdInlineStyle}>?</kbd> ดู 16 keyboard shortcuts</li>
-                <li>มี Norberg + VHS + Length/Angle ครบ, 🔒 Anonymize ก่อน share ภาพออก</li>
+                <li>มี Norberg + VHS + Length/Angle ครบ, Anonymize ก่อน share ภาพออก</li>
                 <li>ไฟล์ render ใน browser ล้วน — ไม่ขึ้น server</li>
                 <li>เข้าครั้งหน้า bookmark URL <code>#lab</code> ตรงๆ ได้เลย</li>
               </ul>
@@ -316,9 +316,9 @@ export default function LabView({ goHome }) {
             }
           >
             {demoLoading ? (
-              '⏳ กำลังโหลด demo case...'
+              'กำลังโหลด demo case...'
             ) : demoCases.length === 0 ? (
-              '⚠️ ยังไม่มี public case, ลาก DICOM ด้านล่างแทน'
+              'ยังไม่มี public case, ลาก DICOM ด้านล่างแทน'
             ) : (
               <>
                 <span style={{ fontSize: isMobile ? '1.05rem' : '1.15rem' }}>
@@ -437,7 +437,7 @@ export default function LabView({ goHome }) {
             <div style={{ fontSize: '0.88rem', color: '#555' }}>
               {currentCase ? (
                 <>
-                  <strong>📚 Case: {currentCase.title}</strong> ·
+                  <strong>Case: {currentCase.title}</strong>,
                   <span style={{ color: '#777' }}>
                     {' '}{[currentCase.species, currentCase.signalment].filter(Boolean).join(', ')}
                   </span>
@@ -459,7 +459,7 @@ export default function LabView({ goHome }) {
                     onChange={(e) => setSyncEnabled(e.target.checked)}
                     style={{ marginRight: 5 }}
                   />
-                  🔗 Sync views
+                  Sync views
                 </label>
               )}
               {files.length === 1 && <AnonymizeButton file={firstFile} />}
@@ -498,7 +498,7 @@ export default function LabView({ goHome }) {
 
           {currentCase?.learning_objectives?.length > 0 && (
             <div style={objectivesCardStyle}>
-              <strong>🎯 Learning objectives:</strong>
+              <strong>Learning objectives:</strong>
               <ul style={{ margin: '6px 0 0', paddingLeft: 22 }}>
                 {currentCase.learning_objectives.map((obj, i) => <li key={i}>{obj}</li>)}
               </ul>
@@ -527,7 +527,7 @@ function AdvancedToolsRow() {
       const mod = await import('../lib/dicom/export-attempts.js');
       const res = await mod.fetchAndExportAttemptsCsv();
       if (res.ok) {
-        setMsg({ kind: 'ok', text: `✅ ดาวน์โหลด ${res.count} attempt(s)` });
+        setMsg({ kind: 'ok', text: `ดาวน์โหลด ${res.count} attempt(s)` });
       } else {
         const labels = {
           'no-supabase': 'Supabase ไม่ตั้งค่า',
@@ -550,7 +550,7 @@ function AdvancedToolsRow() {
     try {
       const mod = await import('../lib/dicom/export-attempts.js');
       mod.downloadSampleAiJson();
-      setMsg({ kind: 'ok', text: '✅ Downloaded vmx-lab-ai-sample.json — drop it on viewer via 🤖 Load AI' });
+      setMsg({ kind: 'ok', text: 'Downloaded vmx-lab-ai-sample.json — drop it on viewer via 🤖 Load AI' });
     } catch (e) {
       setMsg({ kind: 'err', text: e?.message || String(e) });
     } finally {
@@ -563,7 +563,7 @@ function AdvancedToolsRow() {
     <div style={advancedRowStyle}>
       <details style={{ width: '100%' }}>
         <summary style={advancedSummaryStyle}>
-          🧪 Advanced — senior project tools (CSV, AI sample, spec)
+          Advanced — senior project tools (CSV, AI sample, spec)
         </summary>
         <div style={{ marginTop: 8, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <button
@@ -572,7 +572,7 @@ function AdvancedToolsRow() {
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             title="Export your saved imaging_attempts as CSV (RLS-scoped to you)"
           >
-            {busy === 'csv' ? '⏳ exporting...' : '📊 Export my attempts (CSV)'}
+            {busy === 'csv' ? 'exporting...' : 'Export my attempts (CSV)'}
           </button>
           <button
             onClick={downloadSample}
@@ -580,7 +580,7 @@ function AdvancedToolsRow() {
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             title="ดาวน์โหลด AI prediction JSON sample, drop ผ่าน 🤖 Load AI เพื่อดู overlay"
           >
-            📋 Sample AI JSON
+            Sample AI JSON
           </button>
           <a
             href="https://github.com/palmzamak2547/vet-mock/blob/main/src/lib/dicom/AI-INTEGRATION.md"
@@ -589,7 +589,7 @@ function AdvancedToolsRow() {
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             style={{ textDecoration: 'none' }}
           >
-            📖 AI integration spec ↗
+            AI integration spec ↗
           </a>
         </div>
         {msg && (
@@ -621,7 +621,7 @@ function ViewerPane({ file, index, canRemove, onRemove, caseId, syncEnabled }) {
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             title="ดู DICOM tags ทั้งหมด"
           >
-            🔍 Info
+            Info
           </button>
           <AnonymizeButton file={file} />
           {canRemove && (
@@ -677,7 +677,7 @@ function AnonymizeButton({ file }) {
         className="vmx-btn vmx-btn-ghost vmx-btn-sm"
         title="Strip PII tags + download anonymized copy"
       >
-        {status === 'working' ? '⏳ anon...' : status === 'done' ? '✅ Downloaded' : '🔒 Anonymize'}
+        {status === 'working' ? 'anon...' : status === 'done' ? 'Downloaded' : 'Anonymize'}
       </button>
       {summary && status !== 'working' && (
         <div style={anonSummaryStyle}>

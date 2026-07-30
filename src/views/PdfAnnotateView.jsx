@@ -110,7 +110,7 @@ export default function PdfAnnotateView({ goHome }) {
       return;
     }
     if (sizeMB > SIZE_WARN_MB) {
-      showToast(`⚠️ ไฟล์ขนาด ${sizeMB.toFixed(1)} MB — อาจโหลดช้า`, 4000);
+      showToast(`ไฟล์ขนาด ${sizeMB.toFixed(1)} MB — อาจโหลดช้า`, 4000);
     }
     setLoading(true);
     setLoadingMsg('กำลังอ่านไฟล์…');
@@ -141,7 +141,7 @@ export default function PdfAnnotateView({ goHome }) {
       if (existing && Object.keys(restoredStrokes).length > 0) {
         showToast('โหลด annotation เดิมกลับมาแล้ว ✓', 3000);
       } else {
-        showToast('💡 อัปโหลดไฟล์เดิมอีกครั้งเพื่อทำต่อในรอบหน้า', 4500);
+        showToast('อัปโหลดไฟล์เดิมอีกครั้งเพื่อทำต่อในรอบหน้า', 4500);
       }
     } catch (e) {
       console.error('[pdf-annotate] load failed:', e);
@@ -556,7 +556,7 @@ export default function PdfAnnotateView({ goHome }) {
         background: 'var(--clr-surface, #f7f7f4)',
         alignItems: 'center',
       }}>
-        <button type="button" className={`vmx-chip ${tool === 'pen' ? 'active' : ''}`} onClick={() => setTool('pen')}>✏️ ปากกา</button>
+        <button type="button" className={`vmx-chip ${tool === 'pen' ? 'active' : ''}`} onClick={() => setTool('pen')}>ปากกา</button>
         <button type="button" className={`vmx-chip ${tool === 'eraser' ? 'active' : ''}`} onClick={() => setTool('eraser')}>🧽 ลบ</button>
         <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
         {tool === 'pen' && PEN_COLORS.map((c) => (
@@ -586,8 +586,8 @@ export default function PdfAnnotateView({ goHome }) {
         </label>
         <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={undoLast}>↶ Undo</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={clearPage}>🗑 ล้างหน้านี้</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={saveNow}>💾 บันทึก</button>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={clearPage}>ล้างหน้านี้</button>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={saveNow}>บันทึก</button>
         <span style={{ flex: 1 }} />
         <button
           type="button"
@@ -595,7 +595,7 @@ export default function PdfAnnotateView({ goHome }) {
           onClick={() => setSidebarOpen((o) => !o)}
           aria-pressed={sidebarOpen}
           title="แสดง / ซ่อนหน้าทั้งหมด"
-        >🗂 หน้า ({pageCount})</button>
+        >หน้า ({pageCount})</button>
       </div>
 
       {/* Body — sidebar + page canvas */}

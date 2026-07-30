@@ -458,7 +458,7 @@ function NextPlayPanel({
     return (
       <div className="vmx-btn-row" style={{ flexWrap: 'wrap', marginTop: 16 }}>
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>← กลับหน้าแรก</button>
-        <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>📖 ดูเฉลย + AI grade →</button>
+        <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>ดูเฉลย + AI grade →</button>
         <ShareQuizButton questions={questions} />
       </div>
     );
@@ -510,10 +510,10 @@ function NextPlayPanel({
   // hasWrong → primary = fix wrong · noWrong → primary = continue
   const hasWrong = wrongQs.length > 0;
   const continueLabel = ctx.topic
-    ? `🚀 ทำหัวข้อนี้ต่ออีก 5 ข้อ`
+    ? `ทำหัวข้อนี้ต่ออีก 5 ข้อ`
     : ctx.subj
-      ? `🚀 ทำ${subjLabel}ต่ออีก 5 ข้อ`
-      : `🚀 ทำต่ออีก 5 ข้อ`;
+      ? `ทำ${subjLabel}ต่ออีก 5 ข้อ`
+      : `ทำต่ออีก 5 ข้อ`;
   const continueSub = ctx.topic
     ? topicLabel
     : ctx.subj
@@ -808,7 +808,7 @@ function ChallengeQuizButton({ questions, label = 'ท้าเพื่อน�
     // (LINE/IG inline link card) carries the challenge framing even
     // when the receiver doesn't open the URL right away.
     const fragment = senderScore
-      ? `เราได้ ${senderScore.correct}/${senderScore.total} 📚 ลองทำดู — ตอบถูกมากกว่ามั้ย?`
+      ? `เราได้ ${senderScore.correct}/${senderScore.total} ลองทำดู — ตอบถูกมากกว่ามั้ย?`
       : `ลองทำข้อนี้ดิ 📚 ${n} ข้อจาก VetMock — ใครตอบถูกมากกว่ากัน?`;
     return `${fragment}\n${url}`;
   };
@@ -870,7 +870,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
     }
     const fragment = senderScore
       ? `เราได้ ${senderScore.correct}/${senderScore.total} ใครได้มากกว่ามั้ย 📚`
-      : `ลองทำชุดนี้กัน 📚 VetMock`;
+      : `ลองทำชุดนี้กัน VetMock`;
     const text = `${fragment}\n${url}`;
     try {
       if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {

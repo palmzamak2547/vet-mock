@@ -331,7 +331,7 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
 
         {/* Toolbar */}
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10, alignItems: 'center' }}>
-          <button type="button" className={`vmx-chip ${tool === 'pen' ? 'active' : ''}`} onClick={() => setTool('pen')}>✏️ ปากกา</button>
+          <button type="button" className={`vmx-chip ${tool === 'pen' ? 'active' : ''}`} onClick={() => setTool('pen')}>ปากกา</button>
           <button type="button" className={`vmx-chip ${tool === 'highlighter' ? 'active' : ''}`} onClick={() => setTool('highlighter')}>🖍 highlight</button>
           <button type="button" className={`vmx-chip ${tool === 'eraser' ? 'active' : ''}`} onClick={() => setTool('eraser')}>🧽 ลบ</button>
           <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
@@ -355,8 +355,8 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
           </label>
           <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
           <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={undo} disabled={history.length <= 1}>↶ Undo</button>
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={clearAll}>🗑 Clear</button>
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={downloadPNG}>📥 Save PNG</button>
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={clearAll}>Clear</button>
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={downloadPNG}>Save PNG</button>
           <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
           <button
             type="button"

@@ -221,7 +221,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
         aria-labelledby="vmx-nav-grid-title"
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
-          <h2 id="vmx-nav-grid-title" style={{ margin: 0 }}>📋 ข้ามไปข้อ</h2>
+          <h2 id="vmx-nav-grid-title" style={{ margin: 0 }}>ข้ามไปข้อ</h2>
           <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
             ตอบแล้ว {answered}/{questions.length}, เหลือ {remaining}
           </div>

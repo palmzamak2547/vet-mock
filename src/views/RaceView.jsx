@@ -250,10 +250,10 @@ export default function RaceView({ goHome, setView, user, profile }) {
     return (
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
-        <div className="vmx-hero"><h1>🏁 <em>Race</em> Mode</h1><p>แข่งทำข้อสอบกับเพื่อนแบบ realtime — สร้าง code หรือใส่ code เพื่อนำ</p></div>
+        <div className="vmx-hero"><h1><em>Race</em> Mode</h1><p>แข่งทำข้อสอบกับเพื่อนแบบ realtime — สร้าง code หรือใส่ code เพื่อนำ</p></div>
         <div style={{ display: 'grid', gap: 12, gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', marginBottom: 18 }}>
           <button className="vmx-btn vmx-btn-primary" onClick={createRace} style={{ padding: '14px 20px' }}>
-            ➕ สร้าง Race ใหม่
+            สร้าง Race ใหม่
           </button>
           <JoinForm onJoin={joinRace} />
         </div>
@@ -267,7 +267,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
     return (
       <>
         <BackBar onBack={() => { setCode(''); setParticipants({}); setIsHost(false); }} label="กลับ Lobby" />
-        <div className="vmx-hero"><h1>🏁 <em>Race</em> Code</h1></div>
+        <div className="vmx-hero"><h1><em>Race</em> Code</h1></div>
         <div style={{ padding: 24, borderRadius: 12, background: 'var(--clr-surface-2)', textAlign: 'center', marginBottom: 16 }}>
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em' }}>RACE CODE</div>
           <div style={{ fontSize: 44, letterSpacing: '0.18em', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, marginTop: 8, color: 'var(--clr-sage)' }}>{code}</div>
@@ -347,7 +347,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
     return (
       <>
         <BackBar onBack={goHome} label="หน้าแรก" subtitle={`Race ${code} จบแล้ว`} />
-        <div className="vmx-hero"><h1>🏁 <em>Race</em> Result</h1><p>เวลา: {fmtMs(elapsed)}, {correct}/{questions.length} ถูก</p></div>
+        <div className="vmx-hero"><h1><em>Race</em> Result</h1><p>เวลา: {fmtMs(elapsed)}, {correct}/{questions.length} ถูก</p></div>
         <ol style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
           {allRows.map((p, i) => (
             <li key={p.user_id} style={{ padding: 12, borderRadius: 10, background: i === 0 ? 'rgba(184, 137, 64, 0.18)' : 'var(--clr-surface)', border: i === 0 ? '1px solid var(--clr-gold)' : '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', gap: 12 }}>

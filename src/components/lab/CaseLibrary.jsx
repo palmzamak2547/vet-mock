@@ -139,7 +139,7 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-        <h2 style={{ fontSize: '1.15rem', margin: 0 }}>📚 Case library</h2>
+        <h2 style={{ fontSize: '1.15rem', margin: 0 }}>Case library</h2>
         <button onClick={onBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← back to drag-drop</button>
       </div>
 
@@ -306,10 +306,10 @@ function difficultyColor(d) {
 
 function credibilityShort(c) {
   if (c === 'peer-reviewed') return '🏛 peer-reviewed';
-  if (c === 'open-textbook') return '📖 open-textbook';
+  if (c === 'open-textbook') return 'open-textbook';
   if (c === 'community') return '👥 community';
-  if (c === 'cuvet-internal') return '🐾 CUVET';
-  if (c === 'sample-demo') return '🧪 demo';
+  if (c === 'cuvet-internal') return 'CUVET';
+  if (c === 'sample-demo') return 'demo';
   return c;
 }
 

@@ -221,7 +221,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
       // Supabase often returns "Email rate limit exceeded" with no
       // explicit duration — default to 60s in that case.
       if (/rate|too many|429/i.test(msg)) {
-        setError('⏱ ส่งใหม่บ่อยเกินไป — รอ 60 วินาทีแล้วลอง');
+        setError('ส่งใหม่บ่อยเกินไป — รอ 60 วินาทีแล้วลอง');
         setResendCooldown(60);
       } else {
         setError(thaiAuthError(err));
@@ -357,7 +357,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
         const m = (err?.message || '').match(/(\d+)\s*(seconds?|วินาที)/i);
         const wait = m ? Math.min(120, Math.max(5, parseInt(m[1], 10))) : 60;
         setRateLimitCountdown(wait);
-        setError(`⏱ ลองมากเกินไป — รอ ${wait} วินาทีแล้วลองใหม่`);
+        setError(`ลองมากเกินไป — รอ ${wait} วินาทีแล้วลองใหม่`);
       } else {
         setError(thaiAuthError(err));
       }
@@ -430,7 +430,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     signup:           { title: 'สมัครใช้งาน',     sub: 'สร้าง account ใหม่ — ฟรี ไม่มีค่าใช้จ่าย',           cta: 'สมัคร' },
     reset:            { title: 'ลืมรหัสผ่าน?',    sub: 'ใส่อีเมลของคุณ เราจะส่งลิงก์รีเซ็ตให้',                cta: 'ส่งลิงก์รีเซ็ต' },
     'update-password':{ title: 'ตั้งรหัสผ่านใหม่', sub: 'ใส่รหัสผ่านใหม่ที่อยากใช้',                          cta: 'บันทึกรหัสผ่าน' },
-    'magic-link':     { title: 'Login ผ่านอีเมล',  sub: 'ไม่ต้องจำรหัสผ่าน — เราจะส่งลิงก์ login ไปที่อีเมลคุณ',  cta: '✨ ส่งลิงก์ login' },
+    'magic-link':     { title: 'Login ผ่านอีเมล',  sub: 'ไม่ต้องจำรหัสผ่าน — เราจะส่งลิงก์ login ไปที่อีเมลคุณ',  cta: 'ส่งลิงก์ login' },
   }[mode];
 
   // Avoid 100-500ms flash of the signin form when AuthView remounts
@@ -440,7 +440,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
   if (shouldAutoRedirect) {
     return (
       <div style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14, fontFamily: 'JetBrains Mono, monospace' }}>
-        ⏳ Login เรียบร้อย — กำลังเด้งไปหน้าแรก...
+        Login เรียบร้อย — กำลังเด้งไปหน้าแรก...
       </div>
     );
   }
@@ -570,7 +570,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 disabled={loading}
               >
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                  ✨ Login ผ่านลิงก์ในอีเมล (ไม่ต้องใช้รหัสผ่าน)
+                  Login ผ่านลิงก์ในอีเมล (ไม่ต้องใช้รหัสผ่าน)
                 </span>
               </button>
             )}
@@ -605,7 +605,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 {(() => {
                   const v = validateUsername(username);
                   if (username && !v.ok) return `⚠️ ${v.reason}`;
-                  if (usernameStatus === 'taken') return '❌ ชื่อนี้ถูกใช้ไปแล้ว — ลองชื่ออื่น';
+                  if (usernameStatus === 'taken') return 'ชื่อนี้ถูกใช้ไปแล้ว — ลองชื่ออื่น';
                   if (usernameStatus === 'available') return '✓ ชื่อนี้ใช้ได้';
                   if (usernameStatus === 'checking') return '… ตรวจอยู่';
                   return 'ใช้ได้: a-z, A-Z, 0-9, _, ความยาว 3-30';
@@ -726,7 +726,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
           {/* Rate-limit / multiple-failure warning */}
           {mode === 'signin' && attemptCount >= 3 && (
             <div style={{ padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', color: 'var(--clr-ink)', fontSize: 12, marginBottom: 12, lineHeight: 1.5 }}>
-              ⚠️ ลองผิดมาแล้ว <strong>{attemptCount} ครั้ง</strong> — ถ้าลืมรหัส {' '}
+              ลองผิดมาแล้ว <strong>{attemptCount} ครั้ง</strong> — ถ้าลืมรหัส {' '}
               <a onClick={() => setMode('reset')} style={{ ...linkStyle, fontSize: 12 }}>กดที่นี่</a>
               {' '}เพื่อรีเซ็ต หรือใช้ {' '}
               <a onClick={() => setMode('magic-link')} style={{ ...linkStyle, fontSize: 12 }}>magic link</a>
@@ -759,7 +759,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
             {loading
               ? '⏳ ...'
               : rateLimitCountdown > 0
-                ? `⏱ รอ ${rateLimitCountdown}s แล้วลองใหม่`
+                ? `รอ ${rateLimitCountdown}s แล้วลองใหม่`
                 : heading.cta}
           </button>
         </form>

@@ -167,7 +167,7 @@ export default function IgCardStudioView({ goHome }) {
       </div>
 
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
-        <h3>⚙️ ตั้งค่า</h3>
+        <h3>ตั้งค่า</h3>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center', marginTop: 8 }}>
           {/* The subject names are long, so an intrinsically-sized select ran
               past the right edge on a phone and got clipped. Cap it to the

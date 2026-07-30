@@ -84,7 +84,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1>📮 <em>Feedback</em> & Bug Report</h1>
+        <h1><em>Feedback</em> & Bug Report</h1>
         <p>เจอ bug? มีข้อเสนอแนะ? หรืออยากแชร์ข้อสอบเพิ่ม? ส่งมาได้เลย — ส่งตรงไปที่อีเมล Vet 86</p>
       </div>
 
@@ -109,10 +109,10 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
             </div>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 10, lineHeight: 1.6 }}>
               {apiError.code === 429 && '⏰ พักสักครู่ — ส่งได้ 3 ครั้ง/10 นาที'}
-              {apiError.code === 500 && '⚠️ Server ยังตั้งค่า RESEND_API_KEY ไม่ครบ'}
-              {apiError.code === 502 && '⚠️ Resend ตอบกลับ error — เช็ก "from" address หรือ verified domain ใน Resend dashboard'}
-              {apiError.code === 403 && '⚠️ Origin not allowed — เช็ก allowedOrigin ใน api/_lib/rate-limit.js'}
-              {apiError.code === 'network' && '⚠️ ตรวจสัญญาณอินเทอร์เน็ต'}
+              {apiError.code === 500 && 'Server ยังตั้งค่า RESEND_API_KEY ไม่ครบ'}
+              {apiError.code === 502 && 'Resend ตอบกลับ error — เช็ก "from" address หรือ verified domain ใน Resend dashboard'}
+              {apiError.code === 403 && 'Origin not allowed — เช็ก allowedOrigin ใน api/_lib/rate-limit.js'}
+              {apiError.code === 'network' && 'ตรวจสัญญาณอินเทอร์เน็ต'}
               {apiError.hint && (
                 <div style={{ marginTop: 6, fontStyle: 'italic' }}>💡 {apiError.hint}</div>
               )}
@@ -141,9 +141,9 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
             <label>ประเภท</label>
             <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
               <option value="Bug">🐛 Bug Report</option>
-              <option value="Feature">💡 Feature Request</option>
+              <option value="Feature">Feature Request</option>
               <option value="Question">❓ Question</option>
-              <option value="Content">📝 Content (เพิ่มข้อสอบ/ตารางสอบ)</option>
+              <option value="Content">Content (เพิ่มข้อสอบ/ตารางสอบ)</option>
               <option value="Other">📨 Other</option>
             </select>
           </div>
@@ -194,7 +194,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
             style={{ width: '100%', justifyContent: 'center', padding: '14px' }}
             disabled={status === 'sending' || status === 'success'}
           >
-            {status === 'sending' ? '⏳ กำลังส่ง...' : status === 'success' ? '✅ ส่งสำเร็จแล้ว' : '📨 ส่งข้อความ'}
+            {status === 'sending' ? 'กำลังส่ง...' : status === 'success' ? 'ส่งสำเร็จแล้ว' : '📨 ส่งข้อความ'}
           </button>
         </form>
 

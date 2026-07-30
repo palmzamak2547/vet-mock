@@ -166,7 +166,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
           ← Home
         </button>
         <h1 style={{ margin: 0, fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 600, flex: 1, minWidth: 200 }}>
-          📌 Pinboard
+          Pinboard
           <span style={{ marginLeft: 10, fontSize: 13, color: 'var(--clr-ink-soft)', fontWeight: 400, fontFamily: 'JetBrains Mono, monospace' }}>
             {pins.length} / {PINBOARD_MAX}
           </span>
@@ -178,7 +178,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
             title="ล้างพินทั้งหมด"
             style={{ minHeight: 44 }}
           >
-            🗑 ล้างทั้งหมด
+            ล้างทั้งหมด
           </button>
         )}
       </div>
@@ -199,7 +199,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
             fontSize: 12, cursor: 'pointer',
           }}
         >
-          🎓 ปี {selectedYear}
+          ปี {selectedYear}
         </button>
         <button
           type="button"

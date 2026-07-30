@@ -138,7 +138,7 @@ export default function FacultyView({ goHome }) {
       <BackBar onBack={goHome} label="หน้าแรก" />
 
       <div className="vmx-hero">
-        <h1>👨‍🏫 อาจารย์ <em>ผู้สอน</em></h1>
+        <h1>อาจารย์ <em>ผู้สอน</em></h1>
         <p>{ALL_INSTRUCTORS.length} ท่านที่มีโปรไฟล์ในฐานข้อมูล, กดที่การ์ดเพื่อดูประวัติ + งานวิจัย</p>
       </div>
 
@@ -148,7 +148,7 @@ export default function FacultyView({ goHome }) {
           type="text"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          placeholder="🔍 ค้นชื่อ / ตำแหน่ง / ภาควิชา / สาขาวิจัย"
+          placeholder="ค้นชื่อ / ตำแหน่ง / ภาควิชา / สาขาวิจัย"
           style={{
             width: '100%',
             boxSizing: 'border-box',
@@ -227,7 +227,7 @@ export default function FacultyView({ goHome }) {
                 borderColor: active ? 'var(--clr-ink)' : 'var(--clr-border)',
               }}
             >
-              {dc.icon} {dc.label} <span style={{ opacity: 0.6 }}>·{dc.count}</span>
+              {dc.icon} {dc.label} <span style={{ opacity: 0.6 }}>,{dc.count}</span>
             </button>
           );
         })}

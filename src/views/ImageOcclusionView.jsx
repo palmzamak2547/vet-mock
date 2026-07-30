@@ -219,7 +219,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
           </button>
           <div style={{ flex: 1 }}>
             <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: 'var(--clr-ink)' }}>
-              🖼 Image Occlusion
+              Image Occlusion
             </h1>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
               อัปโหลดรูป → วาดกล่องทับ label → กลายเป็น flashcard อัตโนมัติ

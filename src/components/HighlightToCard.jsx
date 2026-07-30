@@ -258,7 +258,7 @@ export default function HighlightToCard() {
           style={buttonStyle}
           aria-label="ทำ flashcard จากข้อความที่เลือก"
         >
-          ✨ ทำ flashcard
+          ทำ flashcard
         </button>
       )}
 
@@ -282,7 +282,7 @@ export default function HighlightToCard() {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <h2 style={{ margin: 0, flex: 1, fontSize: 20 }}>✨ ทำ flashcard</h2>
+              <h2 style={{ margin: 0, flex: 1, fontSize: 20 }}>ทำ flashcard</h2>
               <button
                 type="button"
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
@@ -325,7 +325,7 @@ export default function HighlightToCard() {
                 className={`vmx-btn vmx-btn-sm ${mode === 'cloze' ? 'vmx-btn-primary' : 'vmx-btn-ghost'}`}
                 style={{ flex: 1, minHeight: 36, fontWeight: 600 }}
               >
-                ✨ Cloze deletion
+                Cloze deletion
               </button>
             </div>
 
@@ -426,7 +426,7 @@ export default function HighlightToCard() {
                     disabled={!front.trim()}
                     style={{ opacity: front.trim() ? 1 : 0.55 }}
                   >
-                    💾 บันทึก
+                    บันทึก
                   </button>
                 </div>
               </>

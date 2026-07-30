@@ -144,7 +144,7 @@ export default function ClozeEditor({
           style={{ minHeight: 36, padding: '6px 12px' }}
           aria-label="ทำ cloze จากข้อความที่เลือก"
         >
-          ✨ ทำ cloze ที่เลือก
+          ทำ cloze ที่เลือก
         </button>
         {parsed.hasCloze && (
           <span style={{ fontSize: 12, color: 'var(--clr-ink-soft, #5e635e)' }}>
@@ -164,7 +164,7 @@ export default function ClozeEditor({
           value={text}
           onChange={(e) => { setText(e.target.value); setError(''); }}
           rows={5}
-          placeholder="พิมพ์ข้อความ แล้วเลือกคำที่อยากซ่อน → กด ✨ ทำ cloze"
+          placeholder="พิมพ์ข้อความ แล้วเลือกคำที่อยากซ่อน → กด ทำ cloze"
           spellCheck={false}
           style={{
             width: '100%',
@@ -315,7 +315,7 @@ export default function ClozeEditor({
           disabled={!parsed.hasCloze}
           style={{ opacity: parsed.hasCloze ? 1 : 0.55 }}
         >
-          💾 บันทึก {parsed.hasCloze ? `(${parsed.clozeIndices.length} ใบ)` : ''}
+          บันทึก {parsed.hasCloze ? `(${parsed.clozeIndices.length} ใบ)` : ''}
         </button>
       </div>
     </div>

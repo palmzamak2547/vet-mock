@@ -163,7 +163,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
     <>
       <BackBar onBack={goBack || goHome} label={goBack ? 'เลือก topic อื่น' : 'หน้าแรก'} subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
       <div className="vmx-hero">
-        <h1>📖 ทวน <em>เนื้อหา</em></h1>
+        <h1>ทวน <em>เนื้อหา</em></h1>
         <p>
           {subjectMeta?.icon} {subjectMeta?.name}, เนื้อหาดึงจาก slide lecture 2026 + master compilation (ทุก section มี source citation)
         </p>
@@ -286,7 +286,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
             </div>
             <input
               type="search"
-              placeholder="🔍 ค้นหาใน notes ของหัวข้อนี้..."
+              placeholder="ค้นหาใน notes ของหัวข้อนี้..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               style={{ width: '100%', padding: '8px 12px', fontSize: 13, borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'inherit' }}
@@ -350,7 +350,7 @@ function SectionBlock({ section, idx, highlight }) {
           {section.body.map((item, i) => <BodyItem key={i} item={item} highlight={highlight} />)}
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-              📚 ดึงจาก: {section.source}
+              ดึงจาก: {section.source}
             </div>
           )}
         </div>

@@ -839,7 +839,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               </div>
               {quickStats.streak >= 7 && (
                 <span className="vmx-streak-milestone">
-                  {quickStats.streak >= 30 ? '🏆 เทพ!' : quickStats.streak >= 14 ? '⭐ แข็งแกร่ง!' : '✨ สุดยอด!'}
+                  {quickStats.streak >= 30 ? 'เทพ!' : quickStats.streak >= 14 ? 'แข็งแกร่ง!' : 'สุดยอด!'}
                 </span>
               )}
               {quickStats.todayCount > 0 && (
@@ -1468,7 +1468,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
       {/* Bottom strip — only the changelog re-open remains here. The old
           about / feedback / Q-manager / contribute / review-queue links are
-          now first-class cards in the FeatureMenu (🛠 Tools + 📝 Practice),
+          now first-class cards in the FeatureMenu (🛠 Tools + Practice),
           so this strip shrank to the one action the registry doesn't model:
           re-surfacing the latest changelog announcement. */}
       {!showAnnouncement && LATEST_CHANGELOG && (
@@ -1765,11 +1765,11 @@ function DailyQRow({ user, setView }) {
         className="vmx-btn vmx-btn-primary vmx-btn-sm"
         style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
       >
-        🌟 ข้อวันนี้ {status.completed ? '· ✓' : ''}, {subj?.icon || ''} {subj?.name || todaysQ.subject}
+        ข้อวันนี้{status.completed ? ' ✓' : ''}, {subj?.icon || ''} {subj?.name || todaysQ.subject}
       </button>
       {streak >= 2 && (
         <span style={{ fontSize: 12, color: 'var(--clr-gold, #b88940)', fontFamily: 'JetBrains Mono, monospace' }}>
-          🔥 daily streak {streak}
+          daily streak {streak}
         </span>
       )}
       {pulse && pulse.total >= 3 && (

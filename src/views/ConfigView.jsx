@@ -54,8 +54,8 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
   const isExamMode = mode === 'exam';
 
   const contextLine = practiceMode === 'bookmarks' ? '🔖 Bookmark — เฉพาะข้อที่บันทึก'
-    : practiceMode === 'weak' ? '🎯 Weak Spots — ข้อที่ผิดบ่อย'
-    : practiceMode === 'wrong' ? '🎯 ทบทวนข้อที่ตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)'
+    : practiceMode === 'weak' ? 'Weak Spots — ข้อที่ผิดบ่อย'
+    : practiceMode === 'wrong' ? 'ทบทวนข้อที่ตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)'
     : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
     : `${subjMeta?.icon} ${subjMeta?.name}`;
 
@@ -194,7 +194,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             {/* Writing-time hint only relevant when subject = engprof */}
             {showCategoryPicker && (
               <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
-                💡 เวลานี้ใช้กับข้อ MCQ/T/F, ข้อ Writing จะได้เวลามากขึ้นอัตโนมัติ:
+                เวลานี้ใช้กับข้อ MCQ/T/F, ข้อ Writing จะได้เวลามากขึ้นอัตโนมัติ:
                 <br/>
                 &nbsp;&nbsp;&nbsp;Short answer = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
                , Essay = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
@@ -216,7 +216,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             timePerQ: timePerQuestionRef.current,
           })}
         >
-          {isExamMode ? '🎓 เริ่มสอบ →' : '🚀 เริ่มฝึก →'}
+          {isExamMode ? 'เริ่มสอบ →' : 'เริ่มฝึก →'}
         </button>
       </div>
     </>

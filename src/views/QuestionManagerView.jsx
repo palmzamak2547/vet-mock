@@ -333,7 +333,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
 
         <div className="vmx-btn-row">
           <button className="vmx-btn vmx-btn-ghost" onClick={() => setShowForm(false)}>← ยกเลิก</button>
-          <button className="vmx-btn vmx-btn-primary" onClick={save}>💾 บันทึก</button>
+          <button className="vmx-btn vmx-btn-primary" onClick={save}>บันทึก</button>
         </div>
       </>
     );
@@ -347,10 +347,10 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
       </div>
 
       <div className="vmx-btn-row" style={{ marginBottom: 12, justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-        <button className="vmx-btn vmx-btn-primary" onClick={startAdd}>➕ เพิ่มข้อสอบ</button>
-        <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportCustom}>📥 Export JSON</button>
+        <button className="vmx-btn vmx-btn-primary" onClick={startAdd}>เพิ่มข้อสอบ</button>
+        <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportCustom}>Export JSON</button>
         <label className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ cursor: 'pointer' }}>
-          📤 Import JSON
+          Import JSON
           <input type="file" accept=".json" onChange={importCustom} style={{ display: 'none' }} />
         </label>
         {customQuestions.length > 0 && (
@@ -420,7 +420,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
                   <div className="vmx-review-head">
                     <span>#{q.id}, {SUBJECTS.find((s) => s.id === q.subject)?.name || q.subject}, {q.type.toUpperCase()}</span>
                     <div style={{ display: 'flex', gap: 6 }}>
-                      <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={(e) => { e.stopPropagation(); startEdit(q); }}>✏️ แก้</button>
+                      <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={(e) => { e.stopPropagation(); startEdit(q); }}>แก้</button>
                       <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={(e) => { e.stopPropagation(); deleteQ(q.id); }}>🗑</button>
                     </div>
                   </div>
@@ -474,7 +474,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           <button
             onClick={bulkDelete}
             style={bulkBtn}
-          >🗑 ลบทั้งหมด</button>
+          >ลบทั้งหมด</button>
           <button
             onClick={bulkAddTag}
             style={bulkBtn}

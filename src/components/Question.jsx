@@ -413,7 +413,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             />
           </div>
           <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
-            🎯 Target: <strong>{target}</strong> words, Soft cap: <strong>{softMax}</strong> (penalty −1), Hard cap: <strong>{hardMax}</strong> (penalty −2)
+            Target: <strong>{target}</strong> words, Soft cap: <strong>{softMax}</strong> (penalty −1), Hard cap: <strong>{hardMax}</strong> (penalty −2)
           </div>
         </div>
       )}
@@ -488,13 +488,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           return (
             <>
               {', '}{subj?.name || currentQ.subject}
-              {topic && <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)' }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*·\s*/, '')}</span></>}
+              {topic && <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)' }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></>}
             </>
           );
         })()}
         {currentQ.examOrigin && (
           <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
-            📚 อิงแนวเดิม
+            อิงแนวเดิม
           </span>
         )}
       </div>
@@ -518,7 +518,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
       {currentQ.image && safeImageUrl(currentQ.image) && (
         <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', margin: '8px 0' }}>
-          ⚠️ ภาพประกอบโหลดไม่ได้ — ลองรีเฟรชหรือเช็คเน็ต
+          ภาพประกอบโหลดไม่ได้ — ลองรีเฟรชหรือเช็คเน็ต
         </div>
       )}
 
@@ -608,7 +608,7 @@ function FlagChip({ flag }) {
               fontFamily: 'JetBrains Mono, monospace',
               color: 'var(--clr-ink-soft)',
             }}>
-              📚 Sources: {flag.sources.join(', ')}
+              Sources: {flag.sources.join(', ')}
             </div>
           )}
         </div>
@@ -627,7 +627,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent }) {
     [currentQ?.id, currentQ?.subject, currentQ?.options]
   );
   if (!displayOptions.length) {
-    return <div className="vmx-empty">⚠️ ข้อนี้ไม่มี options — ข้อมูลผิดรูปแบบ</div>;
+    return <div className="vmx-empty">ข้อนี้ไม่มี options — ข้อมูลผิดรูปแบบ</div>;
   }
   // `currentAnswer` is the ORIGINAL index (the source-of-truth stored
   // in `answers[q.id]`). Map to display index for "selected" styling.

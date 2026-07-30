@@ -145,7 +145,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     return (
       <>
         <div className="vmx-hero">
-          <h1>🧠 Spaced <em>Repetition</em></h1>
+          <h1>Spaced <em>Repetition</em></h1>
           <p>เลือกขนาด session ที่ทำได้สบายๆ — ทำติดต่อกันทุกวันสำคัญกว่าทำเยอะๆ ครั้งเดียว</p>
         </div>
 
@@ -160,7 +160,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                   className={`vmx-chip ${yearScope === 'current' ? 'active' : ''}`}
                   onClick={() => setYearScope('current')}
                 >
-                  🎓 ปี {selectedYear} เท่านั้น
+                  ปี {selectedYear} เท่านั้น
                 </button>
                 <button
                   className={`vmx-chip ${yearScope === 'all' ? 'active' : ''}`}
@@ -271,7 +271,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
           {excludedCount > 0 && (
             <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
-              💡 SR pool ตอนนี้มี <strong>{eligibleCount}</strong> ข้อ, ตัด <strong>{excludedCount}</strong> ข้อออกเพราะตอบไม่ได้แบบ flashcard (ข้อ "ข้อใดถูก..." + ข้อจับคู่ ที่ต้องเห็น choice/lefts ก่อน)
+              SR pool ตอนนี้มี <strong>{eligibleCount}</strong> ข้อ, ตัด <strong>{excludedCount}</strong> ข้อออกเพราะตอบไม่ได้แบบ flashcard (ข้อ "ข้อใดถูก..." + ข้อจับคู่ ที่ต้องเห็น choice/lefts ก่อน)
             </div>
           )}
 
@@ -299,7 +299,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             onClick={startSession}
             disabled={dueCount === 0}
           >
-            {dueCount === 0 ? '🎉 ไม่มีใบที่ต้องทบทวน' : '🚀 เริ่ม Session →'}
+            {dueCount === 0 ? '🎉 ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
           </button>
         </div>
       </>
@@ -367,7 +367,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     const opt = currentQ.options?.[currentQ.answer];
     answerText = opt
       ? `${String.fromCharCode(65 + currentQ.answer)}. ${stripRichText(opt)}`
-      : '⚠️ คำตอบของข้อนี้ผิดรูปแบบ — แจ้งให้ทีมแก้';
+      : 'คำตอบของข้อนี้ผิดรูปแบบ — แจ้งให้ทีมแก้';
   } else if (currentQ.type === 'tf') {
     // Visual T/F reveal — green ✓ for true, red ✗ for false
     answerNode = (
@@ -403,8 +403,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     fill: 'เติมคำ',
     match: 'จับคู่',
     flashcard: '⚡ Flashcard',
-    cloze: '✨ Cloze',
-    'image-occlusion': '🖼 Image Occlusion',
+    cloze: 'Cloze',
+    'image-occlusion': 'Image Occlusion',
   }[currentQ.type] || currentQ.type;
 
   // Wave-4 dispatch: Image Occlusion + Cloze cards have rich
@@ -417,7 +417,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     return (
       <>
         <div className="vmx-exam-top">
-          <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, 🧠 SR</div>
+          <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             next: {fmtDate(currentCard.nextReview)}
           </div>
@@ -442,7 +442,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     return (
       <>
         <div className="vmx-exam-top">
-          <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, 🧠 SR</div>
+          <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             next: {fmtDate(currentCard.nextReview)}
           </div>
@@ -466,7 +466,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   return (
     <>
       <div className="vmx-exam-top">
-        <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, 🧠 SR</div>
+        <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
         <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
           next: {fmtDate(currentCard.nextReview)}
         </div>
@@ -497,7 +497,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                 }}
               />
               <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', margin: '0 auto 16px' }}>
-                ⚠️ ภาพประกอบโหลดไม่ได้
+                ภาพประกอบโหลดไม่ได้
               </div>
             </>
           )}

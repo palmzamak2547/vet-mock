@@ -297,8 +297,8 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
 
       <div style={topBannerStyle}>
         {nextLabel
-          ? `📐 VHS, จุดที่ ${worldPoints.length + 1} จาก 6 → ${nextLabel.replace(/^จุด \d+: /, '')}, กด U เพื่อ undo`
-          : '📐 VHS, ครบ 6 จุด, ลากจุดเพื่อปรับ, ดูผลด้านล่าง'}
+          ? `VHS, จุดที่ ${worldPoints.length + 1} จาก 6 → ${nextLabel.replace(/^จุด \d+: /, '')}, กด U เพื่อ undo`
+          : 'VHS, ครบ 6 จุด, ลากจุดเพื่อปรับ, ดูผลด้านล่าง'}
       </div>
 
       {result && (
@@ -362,17 +362,17 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
               style={{ ...resetBtnStyle, background: confirmingReset ? '#b85450' : '#444' }}
               title={confirmingReset ? 'คลิกอีกครั้งใน 3 วินาทีเพื่อยืนยันลบทั้งหมด' : 'ลบ VHS points ทั้งหมด'}
             >
-              {confirmingReset ? '⚠️ ยืนยัน Reset?' : '↺ Reset'}
+              {confirmingReset ? 'ยืนยัน Reset?' : '↺ Reset'}
             </button>
             <button onClick={exportStateJson} style={resetBtnStyle} title="ดาวน์โหลด JSON ของ VHS points, re-drop via 🤖 Load AI เพื่อ replay">
-              📥 JSON
+              JSON
             </button>
             <button
               onClick={handleSave}
               disabled={saveState.status === 'saving'}
               style={{ ...resetBtnStyle, background: saveState.status === 'saved' ? '#4a6b4a' : '#3a5a8a' }}
             >
-              {saveState.status === 'saving' ? '⏳ saving...' : saveState.status === 'saved' ? '✅ Saved' : '💾 Save attempt'}
+              {saveState.status === 'saving' ? 'saving...' : saveState.status === 'saved' ? 'Saved' : 'Save attempt'}
             </button>
           </div>
           {saveState.msg && (

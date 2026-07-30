@@ -229,7 +229,7 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
               fontFamily: 'inherit',
             }}
           >
-            📚 ข้อที่เกี่ยวข้อง {relatedCount} ข้อ
+            ข้อที่เกี่ยวข้อง {relatedCount} ข้อ
           </button>
         </div>
       )}

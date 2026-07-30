@@ -366,7 +366,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
             disabled={!selectedId}
             onClick={() => selectedId && deleteMask(selectedId)}
           >
-            🗑 ลบกล่อง
+            ลบกล่อง
           </button>
           <span style={{ flex: 1 }} />
           <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>

@@ -198,7 +198,7 @@ function buildStaticItems() {
       type: 'summary',
       payload: null,
       label: s.title,
-      hint: `📝 สรุปคลิป, ${(s.subject || '').toUpperCase()}`,
+      hint: `สรุปคลิป, ${(s.subject || '').toUpperCase()}`,
       icon: '📝',
       kw: `${s.title} ${s.subject || ''} ${s.instructor || ''} summary สรุป คลิป`,
     });
@@ -566,14 +566,14 @@ export default function CommandPalette({
             // doesn't shuffle the type order). Renders before the first
             // item of each type group.
             const SECTION_LABELS = {
-              action: '⚡ Quick Actions',
-              subject: '📚 Subjects',
-              summary: '📝 Video Summaries',
-              instructor: '👨‍🏫 Faculty',
-              flashcard: '⚡ Flashcards',
-              'q-note': '📝 โน้ต Q',
-              wiki: '🧬 VetWiki',
-              exam: '📅 ตารางสอบ',
+              action: 'Quick Actions',
+              subject: 'Subjects',
+              summary: 'Video Summaries',
+              instructor: 'Faculty',
+              flashcard: 'Flashcards',
+              'q-note': 'โน้ต Q',
+              wiki: 'VetWiki',
+              exam: 'ตารางสอบ',
             };
             const showHeader = !query.trim() && (i === 0 || filtered[i - 1].type !== item.type);
             return (

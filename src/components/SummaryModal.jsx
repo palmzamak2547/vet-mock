@@ -203,7 +203,7 @@ export default function SummaryModal({ summary, onClose }) {
         }}>
           <div style={{ flex: 1, minWidth: 200 }}>
             <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-              📝 สรุปจากคลิปอาจารย์
+              สรุปจากคลิปอาจารย์
             </div>
             <h2 style={{ margin: '4px 0 0', fontSize: 17, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>
               {summary.title}
@@ -275,7 +275,7 @@ export default function SummaryModal({ summary, onClose }) {
             flexWrap: 'wrap',
           }}>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', fontSize: 10, letterSpacing: '0.08em' }}>
-              📋 Exam format
+              Exam format
             </span>
             <span style={{ flex: 1 }}>{summary.examFormat}</span>
           </div>

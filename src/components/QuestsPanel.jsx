@@ -362,7 +362,7 @@ export default function QuestsPanel({ compact = false, onStart }) {
             textTransform: 'uppercase',
           }}
         >
-          🗓️ ภารกิจประจำวัน
+          ภารกิจประจำวัน
         </h3>
         <div
           style={{
@@ -372,7 +372,7 @@ export default function QuestsPanel({ compact = false, onStart }) {
           }}
         >
           {claimedCount}/{quests.length} เสร็จ
-          {streak > 0 && <span>, 🔥 streak {streak} วัน</span>}
+          {streak > 0 && <span>, streak {streak} วัน</span>}
         </div>
       </div>
       <div

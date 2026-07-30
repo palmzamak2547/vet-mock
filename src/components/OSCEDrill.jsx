@@ -106,7 +106,7 @@ export default function OSCEDrill({ onClose }) {
     <div className="vmx-modal-overlay" onClick={onClose} role="dialog" aria-label="OSCE Drill">
       <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 640, maxHeight: 'min(90vh, calc(100dvh - 24px))', overflowY: 'auto' }}>
         <div style={{ marginBottom: 12 }}>
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>🎯 OSCE Drill</div>
+          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>OSCE Drill</div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>ฝึก station จับเวลา + checklist</h2>
         </div>
 
@@ -125,7 +125,7 @@ export default function OSCEDrill({ onClose }) {
                 >
                   <span style={{ fontSize: 18 }}>{s.icon} {s.title}</span>
                   <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
-                    {s.items.length} ขั้น, {s.minutes} นาที {last ? `· last ${last.score}%` : ''}
+                    {s.items.length} ขั้น, {s.minutes} นาที {last ? `, last ${last.score}%` : ''}
                   </span>
                 </button>
               );
@@ -140,7 +140,7 @@ export default function OSCEDrill({ onClose }) {
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontFamily: 'JetBrains Mono, monospace', fontSize: 14 }}>
                 <span>⏱ {fmtMs(elapsed)}</span>
                 <span style={{ color: 'var(--clr-ink-soft)' }}>/ {station.minutes}:00</span>
-                <span>·</span>
+                <span>,</span>
                 <span style={{ fontWeight: 700 }}>{liveScore}%</span>
               </div>
             </div>
@@ -194,7 +194,7 @@ export default function OSCEDrill({ onClose }) {
                   {liveScore}%, {fmtMs(elapsed)}
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-                  {liveScore >= 70 ? '✅ ผ่านเกณฑ์ — keep practicing for consistency' : '⚠️ ยังไม่ผ่าน — โฟกัส critical steps ก่อน'}
+                  {liveScore >= 70 ? 'ผ่านเกณฑ์ — keep practicing for consistency' : 'ยังไม่ผ่าน — โฟกัส critical steps ก่อน'}
                 </div>
                 <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
                   <button type="button" onClick={reset} className="vmx-btn vmx-btn-primary vmx-btn-sm">🔁 ทำซ้ำ station นี้</button>

@@ -80,7 +80,7 @@ export default function TagInspector({ file, onClose }) {
   return (
     <div style={panelStyle}>
       <div style={panelHeaderStyle}>
-        <strong>🔍 DICOM Tag Inspector</strong>
+        <strong>DICOM Tag Inspector</strong>
         <button onClick={onClose} aria-label="Close" style={closeBtnStyle}>✕</button>
       </div>
 

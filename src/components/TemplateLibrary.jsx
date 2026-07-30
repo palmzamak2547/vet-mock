@@ -46,13 +46,13 @@ const TEMPLATES = [
     url: '/templates/ecg-strip.svg',
     title: 'ECG strip เปล่า',
     subtitle: '25 mm/s, 10 mm/mV grid',
-    category: '📊 ECG/Lab',
+    category: 'ECG/Lab',
   },
   {
     url: '/templates/lab-values-blank-template.svg',
     title: 'Lab values',
     subtitle: 'HCT / WBC / BUN / Crea / ALT / ALP / Ca / P',
-    category: '📊 ECG/Lab',
+    category: 'ECG/Lab',
   },
   {
     url: '/templates/dental-chart-dog.svg',

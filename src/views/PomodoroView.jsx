@@ -193,7 +193,7 @@ export default function PomodoroView({ goHome }) {
             color: '#5c3a00',
           }}
         >
-          <span>⚙️ ปรับเวลา (focus / break)</span>
+          <span>ปรับเวลา (focus / break)</span>
           <span aria-hidden="true">{settingsOpen ? '▾' : '▸'}</span>
         </button>
         {settingsOpen && (

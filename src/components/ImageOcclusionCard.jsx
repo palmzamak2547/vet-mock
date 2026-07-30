@@ -28,7 +28,7 @@ export default function ImageOcclusionCard({ q, showAnswer, onReveal }) {
       <div style={{
         padding: 24, textAlign: 'center', color: 'var(--clr-rose)',
       }}>
-        ⚠️ Image occlusion card นี้ไม่สมบูรณ์
+        Image occlusion card นี้ไม่สมบูรณ์
       </div>
     );
   }

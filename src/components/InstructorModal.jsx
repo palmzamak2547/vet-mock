@@ -107,7 +107,7 @@ export default function InstructorModal({ instructor, onClose }) {
         {areas && areas.length > 0 && (
           <div style={{ marginBottom: 20 }}>
             <h3 style={{ fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>
-              🔬 Research Areas
+              Research Areas
             </h3>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
               {areas.map((a) => (
@@ -182,7 +182,7 @@ export default function InstructorModal({ instructor, onClose }) {
         {notes && notes.length > 0 && (
           <div style={{ marginBottom: 20 }}>
             <h3 style={{ fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>
-              📝 Notes
+              Notes
             </h3>
             {notes.map((n, i) => (
               <div key={i} style={{

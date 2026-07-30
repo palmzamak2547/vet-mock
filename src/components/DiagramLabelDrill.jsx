@@ -20,7 +20,7 @@ export default function DiagramLabelDrill({ onClose }) {
         <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 540 }}>
           <div style={{ marginBottom: 12 }}>
             <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-              🧠 Diagram label drill
+              Diagram label drill
             </div>
             <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>เลือก diagram ที่จะฝึก</h2>
             <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
@@ -160,7 +160,7 @@ function DrillRunner({ drill, onBack, onClose }) {
         {allDone && !revealed && (
           <div className="vmx-btn-row" style={{ marginTop: 14 }}>
             <button type="button" className="vmx-btn vmx-btn-primary" onClick={() => setRevealed(true)}>
-              📊 ดูคะแนน
+              ดูคะแนน
             </button>
           </div>
         )}
@@ -171,7 +171,7 @@ function DrillRunner({ drill, onBack, onClose }) {
               {scorePct}%, {correctCount}/{drill.anchors.length} ถูก
             </div>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-              {scorePct === 100 ? '🏆 perfect! anatomy แม่นมาก' : scorePct >= 70 ? '✅ ผ่านเกณฑ์' : '⚠️ ลองใหม่อีกรอบ — เน้น label ที่ตอบผิด'}
+              {scorePct === 100 ? 'perfect! anatomy แม่นมาก' : scorePct >= 70 ? 'ผ่านเกณฑ์' : 'ลองใหม่อีกรอบ — เน้น label ที่ตอบผิด'}
             </div>
             <details style={{ marginTop: 10, fontSize: 13, lineHeight: 1.6 }}>
               <summary style={{ cursor: 'pointer', fontWeight: 600 }}>ดูเฉลย</summary>

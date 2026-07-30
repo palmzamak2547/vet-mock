@@ -352,17 +352,17 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
               style={{ ...resetBtnStyle, background: confirmingReset ? '#b85450' : '#444' }}
               title={confirmingReset ? 'คลิกอีกครั้งใน 3 วินาทีเพื่อยืนยันลบทั้งหมด' : 'ลบ Norberg points ทั้งหมด'}
             >
-              {confirmingReset ? '⚠️ ยืนยัน Reset?' : '↺ Reset'}
+              {confirmingReset ? 'ยืนยัน Reset?' : '↺ Reset'}
             </button>
             <button onClick={exportStateJson} style={resetBtnStyle} title="ดาวน์โหลด JSON ของ Norberg points, re-drop via 🤖 Load AI เพื่อ replay ภายหลัง">
-              📥 JSON
+              JSON
             </button>
             <button
               onClick={handleSave}
               disabled={saveState.status === 'saving'}
               style={{ ...resetBtnStyle, background: saveState.status === 'saved' ? '#4a6b4a' : '#3a5a8a' }}
             >
-              {saveState.status === 'saving' ? '⏳ saving...' : saveState.status === 'saved' ? '✅ Saved' : '💾 Save attempt'}
+              {saveState.status === 'saving' ? 'saving...' : saveState.status === 'saved' ? 'Saved' : 'Save attempt'}
             </button>
           </div>
           {saveState.msg && (

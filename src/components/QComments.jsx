@@ -122,7 +122,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
   if (!hasSupabase) {
     return (
       <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-        💬 ความเห็นเปิดเฉพาะเครื่องที่ตั้งค่า Supabase ไว้ — single-player mode
+        ความเห็นเปิดเฉพาะเครื่องที่ตั้งค่า Supabase ไว้ — single-player mode
       </div>
     );
   }
@@ -130,7 +130,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
   return (
     <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.04)', border: '1px solid var(--clr-border)' }}>
       <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
-        💬 ความเห็น {comments.length > 0 && `(${comments.length})`}
+        ความเห็น {comments.length > 0 && `(${comments.length})`}
       </div>
 
       {loading && <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>กำลังโหลด…</div>}

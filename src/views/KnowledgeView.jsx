@@ -155,7 +155,7 @@ function ProvenancePanel({ prov, onClose }) {
                   {s.url
                     ? <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean)' }}>{s.citation}</a>
                     : <span>{s.citation}</span>}
-                  <span style={{ color: 'var(--clr-ink-soft)' }}>{' '}· {s.organization}</span>
+                  <span style={{ color: 'var(--clr-ink-soft)' }}>, {s.organization}</span>
                 </div>
               ))}
             </div>

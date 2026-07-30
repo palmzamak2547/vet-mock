@@ -56,7 +56,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       </div>
 
       <div className="vmx-btn-row" style={{ marginBottom: 24, justifyContent: 'flex-start' }}>
-        <button className="vmx-btn vmx-btn-primary" onClick={() => { setShowCreate(!showCreate); setShowJoin(false); }}>➕ สร้างกลุ่ม</button>
+        <button className="vmx-btn vmx-btn-primary" onClick={() => { setShowCreate(!showCreate); setShowJoin(false); }}>สร้างกลุ่ม</button>
         <button className="vmx-btn vmx-btn-ghost" onClick={() => { setShowJoin(!showJoin); setShowCreate(false); }}>🔑 Join ด้วย Code</button>
       </div>
 
@@ -104,7 +104,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
             <div key={g.id} className="vmx-dash-card" style={{ cursor: 'pointer' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
                 <div onClick={() => { setActiveGroup(g); setView('group-detail'); }} style={{ flex: 1, cursor: 'pointer' }}>
-                  <h3 style={{ margin: 0 }}>👥 {g.name}</h3>
+                  <h3 style={{ margin: 0 }}>{g.name}</h3>
                   <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                     Code: <strong style={{ color: 'var(--clr-gold)' }}>{g.code}</strong>, {g.role === 'admin' ? '👑 Admin' : 'Member'}
                   </div>

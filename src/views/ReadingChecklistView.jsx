@@ -62,7 +62,7 @@ export default function ReadingChecklistView({
   return (
     <>
       <div className="vmx-hero">
-        <h1>📚 รายการ <em>อ่าน</em></h1>
+        <h1>รายการ <em>อ่าน</em></h1>
         <p>ติ๊กหัวข้อที่อ่านเสร็จแล้ว ดูเหลือต้องอ่านอีกกี่คาบ, เก็บไว้ในเครื่อง (sync cloud ถ้า login)</p>
       </div>
 
@@ -81,7 +81,7 @@ export default function ReadingChecklistView({
             ภาพรวม
           </div>
           <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 22, color: 'var(--clr-ink)' }}>
-            {totalDone}/{totalTopics} <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>· {overallPct}%</span>
+            {totalDone}/{totalTopics} <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>{overallPct}%</span>
           </div>
         </div>
         <ProgressBar pct={overallPct} />

@@ -134,7 +134,7 @@ export default function PWAInstallChip() {
             onClick={(e) => e.stopPropagation()}
             style={{ maxWidth: 420 }}
           >
-            <h3 style={{ margin: '0 0 8px', fontSize: 18 }}>📲 ติดตั้งบน iPhone / iPad</h3>
+            <h3 style={{ margin: '0 0 8px', fontSize: 18 }}>ติดตั้งบน iPhone / iPad</h3>
             <ol style={{ paddingLeft: 20, margin: 0, fontSize: 14, lineHeight: 1.7 }}>
               <li>กดปุ่ม <strong>Share</strong> ⬆ ที่แถบล่าง Safari</li>
               <li>เลื่อนหา <strong>"Add to Home Screen"</strong> (เพิ่มที่หน้าจอโฮม)</li>

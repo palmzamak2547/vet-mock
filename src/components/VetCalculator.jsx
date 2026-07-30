@@ -46,10 +46,10 @@ function RERTab() {
   return (
     <div>
       <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="20" type="number" />
-      <Result label="RER (linear, 30·BW + 70)" value={fmt(linear, ' kcal/day')} accent />
-      <Result label="RER (allometric, 70·BW^0.75)" value={fmt(allometric, ' kcal/day')} />
+      <Result label="RER (linear, 30,BW + 70)" value={fmt(linear, ' kcal/day')} accent />
+      <Result label="RER (allometric, 70,BW^0.75)" value={fmt(allometric, ' kcal/day')} />
       <Note>
-        💡 ใช้ <strong>linear</strong> สำหรับ 2-30 kg (ง่าย แม่น)., <strong>allometric</strong>
+        ใช้ <strong>linear</strong> สำหรับ 2-30 kg (ง่าย แม่น)., <strong>allometric</strong>
         สำหรับ &lt; 2 kg หรือ &gt; 30 kg.
         <br />
         Maintenance = RER × illness factor (1.0-1.4) แต่ในสัตว์ป่วยปกติเริ่มที่ RER เลย
@@ -86,7 +86,7 @@ function FluidTab() {
       <Result label="รวม / วัน" value={fmt(total, ' mL/day')} />
       <Result label="Rate / hour" value={fmt(ratePerHr, ' mL/hr')} accent />
       <Note>
-        💡 Deficit = BW × %dehyd × 10, Maintenance = 60 mL/kg/day (kitten/puppy 80-100) ·
+        Deficit = BW × %dehyd × 10, Maintenance = 60 mL/kg/day (kitten/puppy 80-100),
         Shock bolus (90 mL/kg dog, 60 mL/kg cat) แยก — ให้บางส่วนแล้ว reassess.
       </Note>
     </div>
@@ -111,7 +111,7 @@ function DrugTab() {
       <Result label="Total dose" value={fmt(totalMg, ' mg')} accent />
       <Result label="Volume to draw" value={fmt(totalMl, ' mL')} />
       <Note>
-        💡 ตัวอย่าง: Cefazolin 22 mg/kg, 20 kg dog → 440 mg, vial 100 mg/mL → 4.4 mL.
+        ตัวอย่าง: Cefazolin 22 mg/kg, 20 kg dog → 440 mg, vial 100 mg/mL → 4.4 mL.
         <br />
         ระวัง: per-kg dose จากตำราเป็น <em>active drug</em>, concentration ใน vial บางครั้ง
         เป็น <em>salt form</em> (e.g., enrofloxacin base vs HCl) — เช็คหน้า prescribing info.
@@ -151,7 +151,7 @@ function TransfusionTab() {
       <Field label="PCV ของ donor / unit (%)" value={pcvDonor} onChange={setPcvDonor} placeholder="60" type="number" suffix="%" />
       <Result label="Volume of pRBC ที่ต้องให้" value={fmt(vol, ' mL')} accent />
       <Note>
-        💡 สูตร: V = BW × 90 (dog) หรือ 66 (cat) × (PCV_target − PCV_now) / PCV_donor.
+        สูตร: V = BW × 90 (dog) หรือ 66 (cat) × (PCV_target − PCV_now) / PCV_donor.
         <br />
         Whole blood ใช้ 2× volume เทียบกับ pRBC., Transfusion rate: เริ่มช้า 0.25-1
         mL/kg/hr 15-30 นาที (test dose), monitor TPR + reaction signs.
@@ -181,13 +181,13 @@ function DKATab() {
       <Result label="Regular insulin / 24 hr" value={fmt(totalU, ' U')} accent />
       <Result label="Diluted ใน NSS" value={fmt(totalU !== null ? r(totalU, 2) : null, ' U → 250 mL bag')} />
       <Note>
-        💡 Macintire CRI: ใส่ insulin ทั้งหมด (จากด้านบน) ใน NSS 250 mL, run ที่ rate
+        Macintire CRI: ใส่ insulin ทั้งหมด (จากด้านบน) ใน NSS 250 mL, run ที่ rate
         ตาม BG:
         <br />
         BG &gt; 250 → 10 mL/h, 200-250 → 7 mL/h, 150-200 → 5 mL/h, 100-150 → 5 mL/h
         + add D2.5%, &lt; 100 → STOP + dextrose.
         <br />
-        ⚠️ ห้ามให้ insulin bolus IV, ต้อง correct fluid + electrolyte (K) ก่อน.
+        ห้ามให้ insulin bolus IV, ต้อง correct fluid + electrolyte (K) ก่อน.
       </Note>
     </div>
   );
@@ -231,7 +231,7 @@ function CRITab() {
       <Result label="Concentration ในถุง" value={fmt(concNeeded, ' mg/mL')} />
       <Result label="ดูดยาใส่ถุง" value={fmt(drugMl, ' mL')} accent />
       <Note>
-        💡 ตัวอย่าง dopamine 5 µg/kg/min, dog 20 kg, stock 40 mg/mL, bag 250 mL, pump 10 mL/hr
+        ตัวอย่าง dopamine 5 µg/kg/min, dog 20 kg, stock 40 mg/mL, bag 250 mL, pump 10 mL/hr
         → ดูดยา ≈ 1.5 mL ใส่ถุง.
         <br />
         เช็คผลซ้ำเสมอ: หมุนกลับ — concentration × pump rate ÷ BW × 1000/60 ควรได้ใกล้ target.
@@ -266,9 +266,9 @@ function BSATab() {
       <Result label="BSA" value={fmt(bsa, ' m²')} accent />
       <Result label="Total drug dose" value={fmt(totalMg, ' mg')} />
       <Note>
-        💡 BSA = K × BW<sup>(2/3)</sup> / 100. Used for chemo (e.g., doxorubicin 30 mg/m²).
+        BSA = K × BW<sup>(2/3)</sup> / 100. Used for chemo (e.g., doxorubicin 30 mg/m²).
         <br />
-        ⚠️ Cats &lt; 10 kg: capped doxorubicin to 1 mg/kg (BSA over-doses small cats — known
+        Cats &lt; 10 kg: capped doxorubicin to 1 mg/kg (BSA over-doses small cats — known
         weakness of the formula).
       </Note>
     </div>
@@ -338,16 +338,16 @@ function ConvertTab() {
         options={[
           { id: 'mass',   label: '⚖ Mass' },
           { id: 'volume', label: '💧 Volume' },
-          { id: 'weight', label: '🐾 BW' },
+          { id: 'weight', label: 'BW' },
           { id: 'temp',   label: '🌡 Temp' },
-          { id: 'rate',   label: '⏱ Rate' },
+          { id: 'rate',   label: 'Rate' },
         ]}
         value={mode}
         onChange={(id) => { setMode(id); setVal(''); }}
       />
       {body}
       <Note>
-        💡 Macro drip set (10/15/20 gtt/mL), micro drip (60 gtt/mL).
+        Macro drip set (10/15/20 gtt/mL), micro drip (60 gtt/mL).
         ในเด็ก/แมวเล็กควรใช้ micro เพราะคำนวณง่ายกว่า + bolus error น้อยกว่า.
       </Note>
     </div>
@@ -537,7 +537,7 @@ export default function VetCalculator({ showFab = true } = {}) {
           >
             <div style={{ marginBottom: 16 }}>
               <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                🧮 Vet Calculator
+                Vet Calculator
               </div>
               <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>คำนวณคลินิก</h2>
               <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', margin: '4px 0 0' }}>

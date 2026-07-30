@@ -13,7 +13,7 @@ export default function AboutView({ goHome, setView }) {
 
       {/* Who */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
-        <h3>👥 ผู้สร้าง</h3>
+        <h3>ผู้สร้าง</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
           เว็บนี้สร้างโดย <strong>Vet 86</strong> (คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย)<br/>
           เพื่อให้รุ่นน้อง รุ่นพี่ และเพื่อนร่วมห้อง ได้ฝึกโจทย์ทบทวนเนื้อหา lecture<br/>
@@ -27,7 +27,7 @@ export default function AboutView({ goHome, setView }) {
         background: 'linear-gradient(135deg, rgba(225, 48, 108, 0.08), rgba(245, 96, 64, 0.08), rgba(247, 119, 55, 0.08))',
         border: '1px solid rgba(225, 48, 108, 0.3)',
       }}>
-        <h3>📷 ติดตามบน Instagram</h3>
+        <h3>ติดตามบน Instagram</h3>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center', marginTop: 8 }}>
           <a
             href="https://www.instagram.com/vetmock.cu/"
@@ -60,7 +60,7 @@ export default function AboutView({ goHome, setView }) {
 
       {/* Mission */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
-        <h3>🎯 เป้าหมาย</h3>
+        <h3>เป้าหมาย</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
             <li>เครื่องมือทบทวนครบจบในเว็บเดียว — โจทย์ฝึก, notes สรุป, flashcard, สรุปคลิป, scoring</li>
@@ -73,10 +73,10 @@ export default function AboutView({ goHome, setView }) {
 
       {/* Features — what's actually in the app */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
-        <h3>🛠 ฟีเจอร์ที่ใช้ได้ตอนนี้</h3>
+        <h3>ฟีเจอร์ที่ใช้ได้ตอนนี้</h3>
         <div style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
           <FeatureGroup
-            title="📝 ฝึกโจทย์"
+            title="ฝึกโจทย์"
             items={[
               'Quick Practice + Exam Mode (ตั้งจำนวนข้อ + เวลา ได้)',
               '4 ประเภท: MCQ (4-5 ช้อยส์), True/False, Fill-in, Matching',
@@ -85,7 +85,7 @@ export default function AboutView({ goHome, setView }) {
             ]}
           />
           <FeatureGroup
-            title="🧠 Spaced Repetition (SR)"
+            title="Spaced Repetition (SR)"
             items={[
               'SM-2 algorithm — ใบที่ผิดบ่อยจะกลับมาเร็วกว่า',
               'เลือกขนาด session: 25 / 50 / 100 / 200 / ทั้งหมด',
@@ -93,21 +93,21 @@ export default function AboutView({ goHome, setView }) {
             ]}
           />
           <FeatureGroup
-            title="📖 ทบทวนเนื้อหา (Notes)"
+            title="ทบทวนเนื้อหา (Notes)"
             items={[
               'สรุปเนื้อหาแยกหัวข้อ — table, callout, source citation',
               'อิงจาก slide 2026 + เปรียบเทียบกับโน้ตของรุ่นพี่',
             ]}
           />
           <FeatureGroup
-            title="🎥 คลิปย้อนหลัง"
+            title="คลิปย้อนหลัง"
             items={[
               'รวม YouTube playlists ของอาจารย์/รุ่นพี่ — ดูใน-app ได้',
               'Search ในเพลย์ลิสต์ + เปลี่ยนคลิป + จำคลิปที่ดูแล้ว',
             ]}
           />
           <FeatureGroup
-            title="📊 Track ตัวเอง"
+            title="Track ตัวเอง"
             items={[
               'Dashboard — % ตอบถูกต่อหัวข้อ, weak topics, streak',
               'ประวัติคะแนนสอบเก่า + ทบทวนข้อที่เคยตอบผิด',
@@ -123,7 +123,7 @@ export default function AboutView({ goHome, setView }) {
             ]}
           />
           <FeatureGroup
-            title="✏️ Customize"
+            title="Customize"
             items={[
               'เพิ่มโจทย์ฝึกเอง (custom question manager)',
               'Theme: ☀️ light / 🌙 dark',
@@ -135,7 +135,7 @@ export default function AboutView({ goHome, setView }) {
 
       {/* Sources */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
-        <h3>📚 ที่มาของโจทย์ฝึก</h3>
+        <h3>ที่มาของโจทย์ฝึก</h3>
         <div style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
           โจทย์ฝึกในเว็บนี้เรียบเรียงจากเนื้อหา lecture + โน้ตทบทวนที่รุ่นพี่ Vet 83–85 ส่งต่อกันมาในรุ่น
         </div>
@@ -164,7 +164,7 @@ export default function AboutView({ goHome, setView }) {
 
       {/* Thanks */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
-        <h3>🙏 ขอบคุณ</h3>
+        <h3>ขอบคุณ</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
             <li><strong>พี่พล Vet 84</strong> — แชร์โน้ตทบทวน Orthopedic, ESF, Approach</li>
@@ -180,7 +180,7 @@ export default function AboutView({ goHome, setView }) {
 
       {/* Tech */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
-        <h3>⚙️ Tech Stack</h3>
+        <h3>Tech Stack</h3>
         <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7, fontFamily: 'JetBrains Mono, monospace' }}>
           Frontend: React 18 + Vite (lazy-loaded views, manual chunks)<br/>
           Backend: Supabase Postgres + Auth (lazy-loaded — โหลดเฉพาะตอน Login)<br/>
@@ -192,7 +192,7 @@ export default function AboutView({ goHome, setView }) {
 
       {/* Disclaimer */}
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
-        <strong>⚠️ Disclaimer:</strong> เว็บนี้เป็น unofficial และไม่มีความเกี่ยวข้องกับคณะสัตวแพทยศาสตร์ จุฬาฯ อย่างเป็นทางการ
+        <strong>Disclaimer:</strong> เว็บนี้เป็น unofficial และไม่มีความเกี่ยวข้องกับคณะสัตวแพทยศาสตร์ จุฬาฯ อย่างเป็นทางการ
         เนื้อหาเป็น<strong>โจทย์ฝึก</strong>ที่นิสิตเรียบเรียงเองจากเนื้อหา lecture, ไม่ใช่ข้อสอบจริงและไม่ทดแทนการอ่านเนื้อหาหลัก
         ข้อมูลตารางสอบอาจมีการเปลี่ยนแปลง โปรดตรวจสอบกับทางคณะ/เพื่อนร่วมห้องอีกครั้ง
       </div>

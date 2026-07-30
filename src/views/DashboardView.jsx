@@ -226,7 +226,7 @@ function WebVitalsPanel() {
   };
   return (
     <div className="vmx-dash-card">
-      <h3>⚡ Performance (last {samples.length} sessions)</h3>
+      <h3>Performance (last {samples.length} sessions)</h3>
       <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
         {(['lcp', 'cls', 'inp', 'fcp', 'ttfb']).map((key) => {
           const s = stats[key];
@@ -367,7 +367,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       <BackBar onBack={() => setView('home')} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>Analytics <em>Dashboard</em></h1>
-        <p>สถิติการฝึกของคุณ, 🔥 Streak: {streak || 0} วัน</p>
+        <p>สถิติการฝึกของคุณ, Streak: {streak || 0} วัน</p>
       </div>
 
       {/* Year-scope toggle — sets context for trend chart, heatmap,
@@ -375,14 +375,14 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           totals (from `analytics` which is computed cross-year). */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 14 }}>
         <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-          📅 ขอบเขต:
+          ขอบเขต:
         </span>
         <button
           className={`vmx-chip ${yearScope === 'current' ? 'active' : ''}`}
           onClick={() => setYearScope('current')}
           style={{ minHeight: 32, fontSize: 12 }}
         >
-          🎓 ปี {selectedYear} เท่านั้น
+          ปี {selectedYear} เท่านั้น
         </button>
         <button
           className={`vmx-chip ${yearScope === 'all' ? 'active' : ''}`}
@@ -420,7 +420,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <div className="vmx-stat-lbl">วันต่อเนื่อง</div>
               {streak >= 7 && (
                 <div className="vmx-streak-milestone-badge">
-                  {streak >= 30 ? '🏆 เทพ!' : streak >= 14 ? '⭐ แข็งแกร่ง!' : '✨ สุดยอด!'}
+                  {streak >= 30 ? 'เทพ!' : streak >= 14 ? 'แข็งแกร่ง!' : 'สุดยอด!'}
                 </div>
               )}
             </div>
@@ -575,9 +575,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           Export ข้อมูลทั้งหมด (bookmarks, history, notes, SR cards) เป็นไฟล์ JSON เพื่อ backup หรือย้ายเครื่อง
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportData}>📥 Export Backup</button>
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportData}>Export Backup</button>
           <label className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ cursor: 'pointer' }}>
-            📤 Import Backup
+            Import Backup
             <input type="file" accept=".json" onChange={importData} style={{ display: 'none' }} />
           </label>
         </div>
@@ -592,7 +592,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             if (setNotes) setNotes({});
             if (setStreakData) setStreakData({ streak: 0, lastDate: null });
           }
-        }}>🗑 ล้างข้อมูลทั้งหมด</button>
+        }}>ล้างข้อมูลทั้งหมด</button>
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

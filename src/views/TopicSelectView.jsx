@@ -109,7 +109,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               cursor: 'pointer',
             }}
           >
-            📚 อ่านแล้ว <strong>{subjReadDone}/{topics.length}</strong>
+            อ่านแล้ว <strong>{subjReadDone}/{topics.length}</strong>
           </div>
         )}
       </div>
@@ -368,7 +368,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                     color: 'var(--clr-gold)',
                   }}
                 >
-                  📚 อิงแนวเดิม {ppCount}/{count}, {ppPct}%
+                  อิงแนวเดิม {ppCount}/{count}, {ppPct}%
                 </div>
               )}
               {t.lecturerNote && !isEmpty && (
@@ -411,7 +411,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       </div>
 
       {/* Empty-topic disclosure — only render the toggle when there ARE
-          empties to hide. Shows count + 💡 call-to-action so users know
+          empties to hide. Shows count + call-to-action so users know
           they can request content. */}
       {(() => {
         const emptyCount = topics.filter((t) => countFor(t.id) === 0).length;
@@ -447,7 +447,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               {showEmptyTopics ? 'ซ่อนหัวข้อที่ยังไม่มีข้อสอบ' : `แสดงหัวข้อที่ยังไม่มีข้อสอบ (${emptyCount} หัวข้อ)`}
             </button>
             <div style={{ fontSize: 12, lineHeight: 1.5 }}>
-              💡 หัวข้อในแผนการสอนที่ยังไม่ได้เติมข้อสอบ — ขอเพิ่มได้ที่ปุ่ม "ส่งคำถามเข้า Q bank" หน้าแรก
+              หัวข้อในแผนการสอนที่ยังไม่ได้เติมข้อสอบ — ขอเพิ่มได้ที่ปุ่ม "ส่งคำถามเข้า Q bank" หน้าแรก
             </div>
           </div>
         );
@@ -484,7 +484,7 @@ function ExamFormatBanner({ format, accent }) {
       marginBottom: 20,
     }}>
       <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
-        📝 รูปแบบของชุดโจทย์ฝึก
+        รูปแบบของชุดโจทย์ฝึก
       </div>
 
       {items.length > 0 && (

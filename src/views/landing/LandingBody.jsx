@@ -359,7 +359,7 @@ export default function LandingBody(p) {
           </div>
           <div style={{ paddingTop: 20, borderTop: '1px dashed var(--clr-border)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 8, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             <span>{t.copyright}</span>
-            <span>🐾 Practice before the real exam.</span>
+            <span>Practice before the real exam.</span>
           </div>
         </div>
       </footer>

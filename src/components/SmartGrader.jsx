@@ -245,7 +245,7 @@ export default function SmartGrader({ q, userAnswer }) {
     <div style={{ marginTop: 12, padding: 12, borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, flexWrap: 'wrap', gap: 8 }}>
         <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
-          🎯 Smart Self-Grade
+          Smart Self-Grade
         </div>
         <ScoreBadge total={total} max={maxScore} pct={pct} touched={Object.keys(checks).length + Object.keys(shortGrade).length > 0} />
       </div>
@@ -300,7 +300,7 @@ function ScoreBadge({ total, max, pct, touched }) {
     <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: '#fff', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>
       <span style={{ fontSize: 16 }}>{total}</span>
       <span style={{ fontSize: 11, opacity: 0.85 }}>/ {max}</span>
-      <span style={{ fontSize: 10, opacity: 0.85 }}>· {pct}%</span>
+      <span style={{ fontSize: 10, opacity: 0.85 }}>, {pct}%</span>
     </div>
   );
 }
@@ -465,7 +465,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
   return (
     <div>
       <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, fontWeight: 700 }}>
-        📋 Rubric checklist
+        Rubric checklist
       </div>
       {ESSAY_RUBRIC.map((g) => {
         const earned = g.items.reduce((s, it) => s + (checks[`${g.cat}::${it.label}`] ? it.pts : 0), 0);
@@ -502,7 +502,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
       })}
       {wcPenalty > 0 && (
         <div style={{ padding: 8, borderRadius: 8, background: 'rgba(184, 88, 88, 0.10)', border: '1px solid var(--clr-rose)', fontSize: 12, color: 'var(--clr-rose)' }}>
-          ⚠️ Word-count penalty: −{wcPenalty} pts
+          Word-count penalty: −{wcPenalty} pts
         </div>
       )}
     </div>
@@ -515,7 +515,7 @@ function ShortRubric({ grade, setGrade, rubric }) {
   return (
     <div>
       <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, fontWeight: 700 }}>
-        📋 Self-grade
+        Self-grade
       </div>
       {SHORT_RUBRIC.map((it, i) => (
         <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 8px', marginBottom: 4, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
@@ -540,7 +540,7 @@ function ShortRubric({ grade, setGrade, rubric }) {
       ))}
       {rubric && (
         <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-          📋 จาก KEY: {rubric}
+          จาก KEY: {rubric}
         </div>
       )}
     </div>

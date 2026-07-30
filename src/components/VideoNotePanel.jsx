@@ -167,7 +167,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
         <div style={{ flex: 1, minWidth: 160, fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
-          📝 โน้ตของคุณ <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 4 }}>({notes.length})</span>
+          โน้ตของคุณ <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 4 }}>({notes.length})</span>
         </div>
         <button
           className="vmx-btn vmx-btn-primary vmx-btn-sm"

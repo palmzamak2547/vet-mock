@@ -84,7 +84,7 @@ export default function ScoresView({ goHome }) {
       </div>
 
       <div className="vmx-empty" style={{ marginBottom: 20, padding: 16, background: 'var(--clr-surface-2)', borderRadius: 12 }}>
-        ⚠️ ข้อมูลอาจไม่ครบหรือมีคลาดเคลื่อน — ส่ง update ได้ที่ <strong>Feedback</strong> หรือ <a href="mailto:palmzamak2547@gmail.com" style={{ color: 'var(--clr-sage)' }}>palmzamak2547@gmail.com</a>
+        ข้อมูลอาจไม่ครบหรือมีคลาดเคลื่อน — ส่ง update ได้ที่ <strong>Feedback</strong> หรือ <a href="mailto:palmzamak2547@gmail.com" style={{ color: 'var(--clr-sage)' }}>palmzamak2547@gmail.com</a>
       </div>
 
       <div className="vmx-btn-row">

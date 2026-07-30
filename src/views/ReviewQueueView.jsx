@@ -109,7 +109,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-hero">
-          <h1>🔐 <em>Review Queue</em></h1>
+          <h1><em>Review Queue</em></h1>
           <p>ต้องเข้าสู่ระบบเพื่อรีวิว Q ที่ contributors ส่งเข้ามา</p>
         </div>
         <div style={emptyPanelStyle}>
@@ -131,10 +131,10 @@ export default function ReviewQueueView({ goHome, setView, user }) {
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-hero">
-          <h1>🔍 <em>Review Queue</em></h1>
+          <h1><em>Review Queue</em></h1>
         </div>
         <div style={{ ...emptyPanelStyle, color: 'var(--clr-ink-soft)' }}>
-          ⏳ กำลังตรวจสิทธิ์...
+          กำลังตรวจสิทธิ์...
         </div>
       </>
     );
@@ -148,7 +148,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-hero">
-          <h1>🔐 <em>Review Queue</em></h1>
+          <h1><em>Review Queue</em></h1>
           <p>หน้านี้สำหรับ peer reviewer ที่ได้รับ role ระดับ verified ขึ้นไป</p>
         </div>
         <div style={emptyPanelStyle}>
@@ -175,9 +175,9 @@ export default function ReviewQueueView({ goHome, setView, user }) {
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1>🔍 <em>Review</em> Queue</h1>
+        <h1><em>Review</em> Queue</h1>
         <p>
-          วิเคราะห์ Q ที่ contributors ส่งเข้ามา, ✅ Approve / ✏️ Nudge / ❌ Reject
+          วิเคราะห์ Q ที่ contributors ส่งเข้ามา, Approve / Nudge / Reject
           {', '}
           <span style={{ color: ROLE_META[rep.role]?.color || 'var(--clr-ink-soft)' }}>
             {ROLE_META[rep.role]?.icon} {ROLE_META[rep.role]?.label}
@@ -203,7 +203,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
             className={`vmx-chip ${tab === 'peer' ? 'active' : ''}`}
             style={{ fontWeight: tab === 'peer' ? 600 : 400 }}
           >
-            🔍 Peer Review (Tier 1)
+            Peer Review (Tier 1)
           </button>
           {showPalmTab && (
             <button
@@ -211,7 +211,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
               className={`vmx-chip ${tab === 'palm' ? 'active' : ''}`}
               style={{ fontWeight: tab === 'palm' ? 600 : 400 }}
             >
-              🎯 Palm Final (Tier 2)
+              Palm Final (Tier 2)
             </button>
           )}
         </div>
@@ -235,7 +235,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
 
       {queueLoading && queue.length === 0 ? (
         <div style={{ ...emptyPanelStyle, color: 'var(--clr-ink-soft)' }}>
-          ⏳ กำลังโหลด queue...
+          กำลังโหลด queue...
         </div>
       ) : queue.length === 0 ? (
         <div style={emptyPanelStyle}>
@@ -512,7 +512,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
               <div style={{ marginBottom: 16 }}>
                 {reviewsLoading ? (
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 0' }}>
-                    ⏳ โหลด...
+                    โหลด...
                   </div>
                 ) : !pastReviews || pastReviews.length === 0 ? (
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-bg)', borderRadius: 8 }}>
@@ -546,7 +546,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                     onClick={() => handleVoteClick('approve')}
                     disabled={submitting}
                   >
-                    ✅ Approve
+                    Approve
                   </button>
                   <button
                     className="vmx-btn"
@@ -554,7 +554,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                     onClick={() => handleVoteClick('nudge')}
                     disabled={submitting}
                   >
-                    ✏️ Nudge
+                    Nudge
                   </button>
                   <button
                     className="vmx-btn"
@@ -562,7 +562,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                     onClick={() => handleVoteClick('reject')}
                     disabled={submitting}
                   >
-                    ❌ Reject
+                    Reject
                   </button>
                 </div>
               ) : (
@@ -582,7 +582,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
               )}
               {submitting && voteMode === 'approve' && (
                 <div style={{ marginTop: 8, fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'center' }}>
-                  ⏳ กำลังส่ง approve...
+                  กำลังส่ง approve...
                 </div>
               )}
             </>
@@ -612,14 +612,14 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
 function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, submitting }) {
   const config = mode === 'nudge'
     ? {
-        label: '✏️ Nudge — ขอแก้',
+        label: 'Nudge — ขอแก้',
         hint: 'อธิบายว่า contributor ควรแก้อะไร, จะส่งกลับให้แก้ใหม่ (revise)',
         placeholder: 'เช่น "options C/D ยาวเกินไป เป็น length-bias / เฉลยขาด rationale ทำไมตัวอื่นผิด"',
         confirmLabel: 'ส่ง Nudge',
         accent: 'var(--clr-gold)',
       }
     : {
-        label: '❌ Reject',
+        label: 'Reject',
         hint: 'อธิบายว่าทำไม Q นี้ไม่ผ่าน, contributor จะเห็นเหตุผลและ Q จะถูก reject ออกจาก queue',
         placeholder: 'เช่น "ข้อนี้ผิดทาง pharmacology หลัก / อ้างอิงไม่ตรงกับเนื้อหา"',
         confirmLabel: 'ยืนยัน Reject',
@@ -680,7 +680,7 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
               borderColor: config.accent,
             }}
           >
-            {submitting ? '⏳ กำลังส่ง...' : config.confirmLabel}
+            {submitting ? 'กำลังส่ง...' : config.confirmLabel}
           </button>
         </div>
       </div>

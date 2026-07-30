@@ -60,9 +60,9 @@ function applySmartContrast(viewport) {
 const TOOLS = {
   wl:     { cls: WindowLevelTool, label: '🌓 W/L',    short: '🌓 W', sk: 'W' },
   pan:    { cls: PanTool,         label: '✋ Pan',     short: '✋ P', sk: 'P' },
-  zoom:   { cls: ZoomTool,        label: '🔍 Zoom',    short: '🔍 Z', sk: 'Z' },
+  zoom:   { cls: ZoomTool,        label: 'Zoom',    short: 'Z', sk: 'Z' },
   length: { cls: LengthTool,      label: '📏 Length',  short: '📏 L', sk: 'L' },
-  angle:  { cls: AngleTool,       label: '📐 Angle',   short: '📐 A', sk: 'A' },
+  angle:  { cls: AngleTool,       label: 'Angle',   short: 'A', sk: 'A' },
 };
 
 let engineSeq = 0;
@@ -456,7 +456,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
               {isMobile ? TOOLS[t].short : TOOLS[t].label}
             </TBtn>
           ))}
-          <TBtn onClick={clearMeasurements} title="Clear all measurements (C)">{isMobile ? '🗑' : '🗑 Clear'}</TBtn>
+          <TBtn onClick={clearMeasurements} title="Clear all measurements (C)">{isMobile ? '🗑' : 'Clear'}</TBtn>
           <Divider />
           {!isMobile && <span style={labelStyle}>W/L:</span>}
           {PRESETS.map((p, i) => (
@@ -485,7 +485,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
           </label>
           {aiPrediction && <TBtn onClick={clearAi} title="Clear AI overlay">{isMobile ? '✕' : '✕ Clear AI'}</TBtn>}
           <Divider />
-          <TBtn onClick={exportPng} title="Export annotated PNG (E)">{isMobile ? '📤' : '📤 Export PNG'}</TBtn>
+          <TBtn onClick={exportPng} title="Export annotated PNG (E)">{isMobile ? '📤' : 'Export PNG'}</TBtn>
           <TBtn onClick={toggleFullscreen} title={isFullscreen ? 'ออก fullscreen (F or Esc)' : 'เปิด fullscreen (F)'}>
             {isFullscreen ? '⤢ Exit FS' : '⛶ Fullscreen'}
           </TBtn>
@@ -495,7 +495,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
       )}
       {aiError && (
         <div style={{ background: '#fff5f5', border: '1px solid #fcc', color: '#a33', padding: '4px 10px', fontSize: '0.78rem', borderRadius: 4, marginBottom: 4 }}>
-          ⚠️ AI JSON parse error: {aiError}
+          AI JSON parse error: {aiError}
         </div>
       )}
 
@@ -514,7 +514,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
                 <SC k="L" desc="Length measurement" />
                 <SC k="A" desc="Angle measurement" />
                 <SC k="N" desc="🦴 Norberg angle" />
-                <SC k="V" desc="📐 VHS" />
+                <SC k="V" desc="VHS" />
                 <SC k="1 – 5" desc="W/L presets (Auto, DICOM, Soft, Bone, Lung)" />
                 <SC k="R" desc="Reset view (zoom/pan/window)" />
                 <SC k="C" desc="Clear all measurements" />
@@ -577,7 +577,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         )}
         {status === 'error' && (
           <div style={{ ...overlay, color: '#fbb', textAlign: 'center', padding: 20 }}>
-            ❌ โหลดไม่สำเร็จ<br />
+            โหลดไม่สำเร็จ<br />
             <span style={{ fontSize: '0.8rem', opacity: 0.8 }}>{errorMsg}</span>
           </div>
         )}
@@ -597,8 +597,8 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
             role="status"
           >
             💡 <strong>ลองวัด:</strong>{' '}
-            กด <kbd style={kbdInlineStyle}>N</kbd> Norberg ·{' '}
-            <kbd style={kbdInlineStyle}>V</kbd> VHS ·{' '}
+            กด <kbd style={kbdInlineStyle}>N</kbd> Norberg,{' '}
+            <kbd style={kbdInlineStyle}>V</kbd> VHS,{' '}
             <kbd style={kbdInlineStyle}>L</kbd> Length{' '}
             <span style={{ opacity: 0.7, fontSize: '0.78em' }}>, กด <kbd style={kbdInlineStyle}>?</kbd> ดูทั้งหมด</span>
           </div>
@@ -627,12 +627,12 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
           {meta.mmPerPx && (
             <>, calibrated at <strong>{meta.mmPerPx.toFixed(3)} mm/pixel</strong> (PixelSpacing tag)</>
           )}
-         , Phase 6, 🦴 Norberg + 📐 VHS ใน toolbar
+         , Phase 6, 🦴 Norberg + VHS ใน toolbar
         </div>
       )}
       {meta && status === 'ready' && (
         <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 4 }}>
-          เลือก 📏 Length หรือ 📐 Angle จาก toolbar แล้วลากบนภาพ — ผลแสดงเป็น mm จาก PixelSpacing tag, ลากซ้าย = active tool, กลาง = pan, ขวา = zoom
+          เลือก 📏 Length หรือ Angle จาก toolbar แล้วลากบนภาพ — ผลแสดงเป็น mm จาก PixelSpacing tag, ลากซ้าย = active tool, กลาง = pan, ขวา = zoom
         </div>
       )}
     </div>

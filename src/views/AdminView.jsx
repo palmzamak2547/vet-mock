@@ -28,7 +28,7 @@ export default function AdminView({ user, onBack, initialTab = 'domains' }) {
   if (!isAdmin) {
     return (
       <div style={{ maxWidth: 600, margin: '40px auto', padding: 24, textAlign: 'center', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 12 }}>
-        <h2 style={{ color: 'var(--clr-rose)', margin: '0 0 12px 0' }}>⛔ Access Denied</h2>
+        <h2 style={{ color: 'var(--clr-rose)', margin: '0 0 12px 0' }}>Access Denied</h2>
         <p style={{ color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
           คุณไม่มีสิทธิ์เข้าถึงส่วนผู้ดูแลระบบ (Admin authorization required).
         </p>
@@ -51,10 +51,10 @@ export default function AdminView({ user, onBack, initialTab = 'domains' }) {
         {[
           { id: 'domains', label: '📁 Domains' },
           { id: 'questions', label: '❓ Questions' },
-          { id: 'wiki_pages', label: '📖 Wiki Pages' },
+          { id: 'wiki_pages', label: 'Wiki Pages' },
           { id: 'wiki_anchors', label: '⚓ Wiki Anchors' },
-          { id: 'mappings', label: '🔗 Citation Mappings' },
-          { id: 'reviews', label: '🔍 Content Reviews' },
+          { id: 'mappings', label: 'Citation Mappings' },
+          { id: 'reviews', label: 'Content Reviews' },
         ].map((tab) => (
           <button
             key={tab.id}

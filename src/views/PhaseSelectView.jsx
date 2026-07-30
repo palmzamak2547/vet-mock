@@ -94,7 +94,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
         textAlign: 'center',
         lineHeight: 1.6,
       }}>
-        💡 NOW = ช่วงที่ระบบเดาจากเดือนปัจจุบัน เลือกช่วงอื่นได้ตลอด<br/>
+        NOW = ช่วงที่ระบบเดาจากเดือนปัจจุบัน เลือกช่วงอื่นได้ตลอด<br/>
         เปลี่ยนชั้นปีได้ที่ปุ่ม <strong>ปี N</strong> ด้านบน
       </div>
 

@@ -505,7 +505,7 @@ export default function OfflineGame({ onClose }) {
         <span>STAGE <strong style={{ color: 'var(--clr-ocean, #3d6b82)' }}>{stageDisplay}</strong></span>
         {comboDisplay >= 5 && (
           <span className="vmx-pop-in" key={comboDisplay} style={{ color: '#d97744' }}>
-            🔥 COMBO ×{comboDisplay >= 20 ? 3 : comboDisplay >= 10 ? 2 : comboDisplay >= 5 ? 1.5 : 1}
+            COMBO ×{comboDisplay >= 20 ? 3 : comboDisplay >= 10 ? 2 : comboDisplay >= 5 ? 1.5 : 1}
           </span>
         )}
       </div>
@@ -551,7 +551,7 @@ export default function OfflineGame({ onClose }) {
           }}
         >
           <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-gold, #b88940)', marginBottom: 6, letterSpacing: '0.08em' }}>
-            📚 รู้จัก {factText.obstacle} ไหม?
+            รู้จัก {factText.obstacle} ไหม?
           </div>
           {factText.fact}
         </div>
@@ -571,7 +571,7 @@ export default function OfflineGame({ onClose }) {
             border: '1px solid var(--clr-gold, #b88940)',
           }}
         >
-          🎉 New High Score! {bestCombo > 0 && <span style={{ fontWeight: 400, color: 'var(--clr-ink-soft)' }}>· best combo {bestCombo}×</span>}
+          🎉 New High Score! {bestCombo > 0 && <span style={{ fontWeight: 400, color: 'var(--clr-ink-soft)' }}>, best combo {bestCombo}×</span>}
         </div>
       )}
     </div>

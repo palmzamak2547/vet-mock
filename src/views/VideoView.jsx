@@ -239,10 +239,10 @@ export default function VideoView({ goHome }) {
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1>🎥 คลิป<em>ย้อนหลัง</em></h1>
+        <h1>คลิป<em>ย้อนหลัง</em></h1>
         <p>
           คลิปจากช่อง <a href="https://www.youtube.com/@dai.1387" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage)' }}>Dai (@dai.1387)</a> และอื่นๆ — คลิกเข้าไปเพื่อเลือกคลิปใน playlist ได้
-          {watchedCount > 0 && <>, 👁 ดูแล้ว <strong>{watchedCount}</strong> คลิป</>}
+          {watchedCount > 0 && <>, ดูแล้ว <strong>{watchedCount}</strong> คลิป</>}
         </p>
       </div>
 
@@ -279,10 +279,10 @@ export default function VideoView({ goHome }) {
                 onClick={() => setFilter('all')}
                 style={{ fontWeight: 600 }}
               >
-                📚 ทั้งหมด ({allVideos.length})
+                ทั้งหมด ({allVideos.length})
               </button>
               <div style={{ flex: 1 }} />
-              <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={startAdd}>➕ เพิ่มคลิป</button>
+              <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={startAdd}>เพิ่มคลิป</button>
             </div>
 
             {/* Year+sem sections */}
@@ -324,7 +324,7 @@ export default function VideoView({ goHome }) {
       {playing && <PlayerModal video={playing} onClose={() => setPlaying(null)} watched={watched} markWatched={markWatched} />}
 
       {filtered.length === 0 ? (
-        <div className="vmx-empty">ยังไม่มีคลิปในวิชานี้ — กด "➕ เพิ่มคลิป" เพื่อเพิ่ม</div>
+        <div className="vmx-empty">ยังไม่มีคลิปในวิชานี้ — กด "เพิ่มคลิป" เพื่อเพิ่ม</div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
           {filtered.map((v, idx) => (
@@ -342,7 +342,7 @@ export default function VideoView({ goHome }) {
 
       <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         ⚠️ <strong>Disclaimer:</strong> คลิปเหล่านี้เป็นของเจ้าของช่องบน YouTube ต้นฉบับ ไม่ใช่ผลงานของ VetMock<br/>
-        💡 คลิปที่เพิ่มเอง + ประวัติการดู เก็บใน browser ของพี่เท่านั้น (localStorage)
+        คลิปที่เพิ่มเอง + ประวัติการดู เก็บใน browser ของพี่เท่านั้น (localStorage)
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>
@@ -374,7 +374,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
         <div style={{ padding: 14 }}>
           <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: subject?.color || 'var(--clr-ink-soft)', textTransform: 'uppercase', marginBottom: 4, letterSpacing: '0.08em', display: 'flex', alignItems: 'center', gap: 6 }}>
             <span>{subject?.icon} {subject?.name}</span>
-            {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>· ✓ ดูแล้ว</span>}
+            {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>✓ ดูแล้ว</span>}
           </div>
           <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, marginBottom: 4, lineHeight: 1.3 }}>
             {video.topic}
@@ -433,7 +433,7 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
         {/* Playlist count badge (top-left ribbon) */}
         {playlist && playlistPreview && (
           <div style={{ position: 'absolute', top: 8, left: 8, padding: '3px 9px', background: 'rgba(0,0,0,0.78)', color: 'white', borderRadius: 6, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', fontWeight: 600, letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: 5 }}>
-            📋 PLAYLIST, {playlistPreview.count}
+            PLAYLIST, {playlistPreview.count}
           </div>
         )}
       </div>
@@ -671,7 +671,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
       setOpenSummary({
         videoId: currentVideoId,
         title: VIDEO_META[currentVideoId]?.title || 'สรุปคลิป',
-        summary: '⚠️ โหลดสรุปคลิปไม่สำเร็จ — ลองรีโหลดหน้าเว็บแล้วลองใหม่',
+        summary: 'โหลดสรุปคลิปไม่สำเร็จ — ลองรีโหลดหน้าเว็บแล้วลองใหม่',
       });
     } finally {
       setSummaryLoading(false);
@@ -691,7 +691,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
     <div className="vmx-modal-overlay" onClick={onClose}>
       {/* Player modal: overflowX hidden (sidebar not allowed to escape
           horizontally), but overflowY MUST be auto so the player column
-          can scroll past the iframe to reach the "📝 อ่านสรุปคลิป"
+          can scroll past the iframe to reach the "อ่านสรุปคลิป"
           button + Footer actions on shorter desktop screens. The old
           `overflow: 'hidden'` clipped everything below the iframe and
           users couldn't reach the summary button at all. */}
@@ -715,7 +715,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               style={{ flexShrink: 0 }}
               title="แสดง / ซ่อน list"
             >
-              {showList ? '🎬 ซ่อน list' : `📋 ดู list (${playlistItems.length})`}
+              {showList ? 'ซ่อน list' : `ดู list (${playlistItems.length})`}
             </button>
           )}
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onClose} style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px' }} title="ปิด (Esc)">✕</button>
@@ -755,7 +755,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>เป็น link ของ channel — เปิด YouTube เพื่อเลือกดู</div>
               </div>
             ) : (
-              <div style={{ padding: 20, background: 'var(--clr-rose-soft)', borderRadius: 12 }}>⚠️ ไม่สามารถ embed ได้ — กรุณาเปิดใน YouTube</div>
+              <div style={{ padding: 20, background: 'var(--clr-rose-soft)', borderRadius: 12 }}>ไม่สามารถ embed ได้ — กรุณาเปิดใน YouTube</div>
             )}
 
             {/* Now playing line + prev/next controls */}
@@ -807,7 +807,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   title="อ่านสรุปคลิป (มีปุ่ม download .md ด้วย)"
                   style={{ fontWeight: 600 }}
                 >
-                  {summaryLoading ? '⏳ กำลังโหลด…' : '📝 อ่านสรุปคลิป'}
+                  {summaryLoading ? 'กำลังโหลด…' : 'อ่านสรุปคลิป'}
                 </button>
               )}
               <a className="vmx-btn vmx-btn-ghost vmx-btn-sm" href={currentVideoId ? `https://www.youtube.com/watch?v=${currentVideoId}${playlistId ? `&list=${playlistId}` : ''}` : video.url} target="_blank" rel="noopener noreferrer">
@@ -821,7 +821,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     : video.url;
                   const r = await copyText(link);
                   alert(r.ok ? 'คัดลอกลิงก์แล้ว' : `คัดลอกอัตโนมัติไม่ได้ — กดค้างลิงก์นี้:\n${link}`);
-                }}>📋 Copy link</button>
+                }}>Copy link</button>
               )}
               <div style={{ flex: 1 }} />
               <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', opacity: 0.7 }}>
@@ -835,14 +835,14 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
             <div className="vmx-player-sidebar" style={{ background: 'var(--clr-surface-2)', borderLeft: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', maxHeight: 'min(80vh, 700px)' }}>
               <div style={{ padding: '12px 14px', borderBottom: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>📋 Playlist</span>
+                  <span>Playlist</span>
                   <span>{filteredItems.length}/{playlistItems.length}</span>
                 </div>
                 {playlistItems.length >= 6 && (
                   <input
                     ref={searchInputRef}
                     type="search"
-                    placeholder="🔍 ค้นหา (กด /)"
+                    placeholder="ค้นหา (กด /)"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     style={{ padding: '6px 10px', fontSize: 12, borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'inherit' }}
@@ -931,7 +931,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
         {/* Loading state if list pending and no items */}
         {loadingList && playlistId && (
           <div style={{ position: 'absolute', top: 70, right: 18, padding: '4px 10px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
-            ⏳ กำลังโหลด list...
+            กำลังโหลด list...
           </div>
         )}
       </div>
@@ -961,9 +961,9 @@ function AddEditModal({ form, setForm, save, onClose, editing }) {
           {form.url && (
             <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', marginTop: 6 }}>
               {getVideoId(form.url) && `✓ Video ID: ${getVideoId(form.url)}`}
-              {!getVideoId(form.url) && getPlaylistId(form.url) && `📋 Playlist ID: ${getPlaylistId(form.url)}`}
-              {!getVideoId(form.url) && !getPlaylistId(form.url) && isChannelUrl(form.url) && `📺 Channel link`}
-              {!getVideoId(form.url) && !getPlaylistId(form.url) && !isChannelUrl(form.url) && `⚠️ ไม่ใช่ YouTube URL ที่ถูกต้อง`}
+              {!getVideoId(form.url) && getPlaylistId(form.url) && `Playlist ID: ${getPlaylistId(form.url)}`}
+              {!getVideoId(form.url) && !getPlaylistId(form.url) && isChannelUrl(form.url) && `Channel link`}
+              {!getVideoId(form.url) && !getPlaylistId(form.url) && !isChannelUrl(form.url) && `ไม่ใช่ YouTube URL ที่ถูกต้อง`}
             </div>
           )}
         </div>
@@ -995,7 +995,7 @@ function AddEditModal({ form, setForm, save, onClose, editing }) {
 
         <div className="vmx-btn-row">
           <button className="vmx-btn vmx-btn-ghost" onClick={onClose}>ยกเลิก</button>
-          <button className="vmx-btn vmx-btn-primary" onClick={save}>💾 บันทึก</button>
+          <button className="vmx-btn vmx-btn-primary" onClick={save}>บันทึก</button>
         </div>
       </div>
     </div>

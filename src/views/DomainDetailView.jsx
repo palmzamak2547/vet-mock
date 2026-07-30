@@ -91,7 +91,7 @@ export default function DomainDetailView({
               textAlign: 'center',
             }}
           >
-            ⚠️ Domain นี้ยังไม่มีข้อสอบที่เปิดเผยแพร่ (No published questions available)
+            Domain นี้ยังไม่มีข้อสอบที่เปิดเผยแพร่ (No published questions available)
           </div>
         ) : (
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -101,7 +101,7 @@ export default function DomainDetailView({
               onClick={() => onStartPractice?.(10, null)}
               style={{ flex: 1, minWidth: 200, padding: '14px 20px', fontSize: 15 }}
             >
-              🚀 Start 10-Question Practice
+              Start 10-Question Practice
             </button>
 
             <button
@@ -117,7 +117,7 @@ export default function DomainDetailView({
                 color: 'var(--clr-sage)',
               }}
             >
-              ⏱️ Start 25-Question Mock Exam (25 min)
+              Start 25-Question Mock Exam (25 min)
             </button>
           </div>
         )}

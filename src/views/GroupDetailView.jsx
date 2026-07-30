@@ -39,17 +39,17 @@ export default function GroupDetailView({ group, user, goBack }) {
   return (
     <>
       <div className="vmx-hero">
-        <h1>👥 <em>{group.name}</em></h1>
+        <h1><em>{group.name}</em></h1>
         <p>
           Code: <strong style={{ color: 'var(--clr-gold)', fontFamily: 'JetBrains Mono, monospace' }}>{group.code}</strong>
-          {', '}<a onClick={copyCode} style={{ cursor: 'pointer', textDecoration: 'underline' }}>📋 คัดลอก</a>
+          {', '}<a onClick={copyCode} style={{ cursor: 'pointer', textDecoration: 'underline' }}>คัดลอก</a>
           {', '}สมาชิก {members.length} คน
         </p>
       </div>
 
       <div className="vmx-nav" style={{ marginBottom: 24 }}>
-        <button className={`vmx-nav-btn ${tab === 'leaderboard' ? 'active' : ''}`} onClick={() => setTab('leaderboard')}>🏆 Leaderboard</button>
-        <button className={`vmx-nav-btn ${tab === 'questions' ? 'active' : ''}`} onClick={() => setTab('questions')}>📝 Shared Q ({questions.length})</button>
+        <button className={`vmx-nav-btn ${tab === 'leaderboard' ? 'active' : ''}`} onClick={() => setTab('leaderboard')}>Leaderboard</button>
+        <button className={`vmx-nav-btn ${tab === 'questions' ? 'active' : ''}`} onClick={() => setTab('questions')}>Shared Q ({questions.length})</button>
         <button className={`vmx-nav-btn ${tab === 'members' ? 'active' : ''}`} onClick={() => setTab('members')}>👤 Members ({members.length})</button>
       </div>
 
@@ -72,7 +72,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>
-                      {r.mode === 'exam' ? '🎓 Exam' : '📝 Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
+                      {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
@@ -89,7 +89,7 @@ export default function GroupDetailView({ group, user, goBack }) {
       {!loading && tab === 'questions' && (
         <div>
           <div style={{ marginBottom: 20, fontSize: 13, color: 'var(--clr-ink-soft)' }}>
-            📌 ข้อสอบที่สมาชิกในกลุ่มแชร์มา — ทุกคนในกลุ่มใช้ทำข้อสอบได้<br/>
+            ข้อสอบที่สมาชิกในกลุ่มแชร์มา — ทุกคนในกลุ่มใช้ทำข้อสอบได้<br/>
             <em>เพิ่มข้อสอบที่ Question Manager → แล้วกด "Share" ในข้อที่ต้องการ</em>
           </div>
           {questions.length === 0 ? (

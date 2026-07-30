@@ -60,9 +60,9 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc} — โครงสร้างวิชาวางไว้แล้ว, รอเติมข้อสอบ/เนื้อหาทีละวิชา
             </>
           ) : mode === 'exam' ? (
-            '🎓 Exam Mode — สอบจริงจัง, ตั้งค่าจำนวนข้อ/เวลาได้ในขั้นถัดไป'
+            'Exam Mode — สอบจริงจัง, ตั้งค่าจำนวนข้อ/เวลาได้ในขั้นถัดไป'
           ) : (
-            '📝 Quick Practice — สุ่มข้อสอบตามจำนวนที่เลือก'
+            'Quick Practice — สุ่มข้อสอบตามจำนวนที่เลือก'
           )}
         </p>
       </div>
@@ -70,7 +70,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
       <div style={{ padding: '0 20px', marginBottom: 16 }}>
         <input
           type="text"
-          placeholder="🔍 ค้นหาวิชา (ชื่อวิชา, รหัสวิชา)..."
+          placeholder="ค้นหาวิชา (ชื่อวิชา, รหัสวิชา)..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="vmx-input"
@@ -118,7 +118,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 {qbLoading
                   ? 'กำลังโหลด…'
                   : isScaffold
-                    ? '📋 รอเติมเนื้อหา'
+                    ? 'รอเติมเนื้อหา'
                     : isEmpty
                       ? '🚧 รอข้อสอบเพิ่ม'
                       : `${count} ข้อ`}
@@ -154,8 +154,8 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
       {isScaffoldYear && (
         <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
           💡 <strong>ปีนี้กำลังวางโครงสร้าง</strong> — รายวิชา + course code + รายชื่ออาจารย์ มาจาก vault profiles ของ {yearSubjects.reduce((acc, s) => acc + (s.vault_lecturers?.length || 0), 0)} คนใน Chula Vet faculty<br/>
-          🤝 ช่วยกันได้: ถ้ามี slide เก่า, notes, ข้อสอบ past paper ปีนี้ ส่งมาทาง feedback ได้เลย<br/>
-          📅 จะค่อย ๆ เปิดปีหลัง ปี 4 sem 2 จบ (ปิดเทอม พ.ค.–ก.ย. 2026)
+          ช่วยกันได้: ถ้ามี slide เก่า, notes, ข้อสอบ past paper ปีนี้ ส่งมาทาง feedback ได้เลย<br/>
+          จะค่อย ๆ เปิดปีหลัง ปี 4 sem 2 จบ (ปิดเทอม พ.ค.–ก.ย. 2026)
         </div>
       )}
 

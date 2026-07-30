@@ -75,7 +75,7 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
   ctx.fillStyle = '#2b2419';
   ctx.font = '600 64px "Fraunces", Georgia, serif';
   ctx.textAlign = 'left';
-  ctx.fillText('🌟 VetMock', 80, 180);
+  ctx.fillText('VetMock', 80, 180);
   ctx.font = '500 32px "JetBrains Mono", monospace';
   ctx.fillStyle = '#6b6055';
   ctx.fillText('ข้อวันนี้, DAILY Q', 80, 230);
@@ -115,7 +115,7 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
   if (streak > 0) {
     ctx.fillStyle = '#b88940';
     ctx.font = '600 56px "Fraunces", serif';
-    ctx.fillText(`🔥 streak ${streak} วัน`, W / 2, gridY + 280);
+    ctx.fillText(`streak ${streak} วัน`, W / 2, gridY + 280);
   }
 
   // Motivational line
@@ -200,7 +200,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
   async function handleCopy() {
     const res = await copyText(shareText);
     if (res.ok) flash('✓ คัดลอกแล้ว! ไปแปะใน LINE / IG ได้เลย');
-    else flash('⚠️ คัดลอกไม่ได้, ลองใหม่');
+    else flash('คัดลอกไม่ได้, ลองใหม่');
   }
 
   async function ensureImage() {
@@ -220,7 +220,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
       await ensureImage();
       setMode('image');
     } catch {
-      flash('⚠️ สร้างรูปไม่ได้, ลองใหม่');
+      flash('สร้างรูปไม่ได้, ลองใหม่');
     } finally {
       setBusy(false);
     }
@@ -237,7 +237,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
       document.body.appendChild(a); a.click(); a.remove();
       flash('✓ ดาวน์โหลดรูปแล้ว — อัพ IG Story ได้เลย');
     } catch {
-      flash('⚠️ ดาวน์โหลดไม่ได้, ลองใหม่');
+      flash('ดาวน์โหลดไม่ได้, ลองใหม่');
     } finally {
       setBusy(false);
     }
@@ -277,7 +277,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
         // Final fallback: copy text. User can paste anywhere.
         const res = await copyText(shareText);
         if (res.ok) flash('ไม่มี share sheet — คัดลอกให้แล้ว, ไปแปะได้เลย');
-        else flash('⚠️ แชร์ไม่ได้, ลองใหม่');
+        else flash('แชร์ไม่ได้, ลองใหม่');
       }
       // Cache the blob URL only if we actually built one and didn't
       // cache it yet — saves re-rendering canvas on subsequent clicks.
@@ -288,7 +288,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
       }
     } catch (err) {
       // AbortError = user cancelled the share sheet, not an error worth surfacing
-      if (err?.name !== 'AbortError') flash('⚠️ แชร์ไม่ได้, ลองใหม่');
+      if (err?.name !== 'AbortError') flash('แชร์ไม่ได้, ลองใหม่');
     } finally {
       setBusy(false);
     }
@@ -314,7 +314,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
       >
         <div style={{ marginBottom: 10 }}>
           <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            📤 แชร์ผลลัพธ์, DAILY Q
+            แชร์ผลลัพธ์, DAILY Q
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>{formatThaiShortDate(todayDate)}</h2>
           <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
@@ -335,7 +335,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
               boxShadow: mode === 'text' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
             }}
           >
-            📝 ข้อความ (chat)
+            ข้อความ (chat)
           </button>
           <button
             type="button"
@@ -350,7 +350,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
               opacity: busy ? 0.6 : 1,
             }}
           >
-            🖼️ รูป (IG Story)
+            รูป (IG Story)
           </button>
         </div>
 
@@ -392,7 +392,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
               />
             ) : (
               <div style={{ aspectRatio: '9 / 16', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14 }}>
-                {busy ? '⏳ กำลังสร้างรูป…' : 'กดปุ่ม "รูป (IG Story)" เพื่อ preview'}
+                {busy ? 'กำลังสร้างรูป…' : 'กดปุ่ม "รูป (IG Story)" เพื่อ preview'}
               </div>
             )}
           </div>
@@ -401,8 +401,8 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
         {/* Stats summary */}
         <div style={{ marginTop: 12, display: 'flex', gap: 8, fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', flexWrap: 'wrap' }}>
           <span>✓ {correct} ถูก</span>
-          <span>· เล่นไป {completed}/{history.length} วัน</span>
-          {streak > 0 && <span>· 🔥 streak {streak}</span>}
+          <span>, เล่นไป {completed}/{history.length} วัน</span>
+          {streak > 0 && <span>, streak {streak}</span>}
         </div>
 
         {/* Action buttons */}
@@ -421,7 +421,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
             disabled={busy}
             style={{ minHeight: 44 }}
           >
-            📋 คัดลอก
+            คัดลอก
           </button>
           <button
             type="button"
@@ -430,7 +430,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
             disabled={busy}
             style={{ minHeight: 44 }}
           >
-            {busy && mode !== 'image' ? '⏳…' : '💾 PNG'}
+            {busy && mode !== 'image' ? '⏳…' : 'PNG'}
           </button>
           <button
             type="button"
@@ -439,7 +439,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
             disabled={busy}
             style={{ minHeight: 44 }}
           >
-            📤 แชร์
+            แชร์
           </button>
         </div>
 

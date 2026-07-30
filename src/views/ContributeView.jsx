@@ -84,7 +84,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-hero">
-          <h1>💡 <em>ส่งคำถาม</em> ให้ Q bank</h1>
+          <h1><em>ส่งคำถาม</em> ให้ Q bank</h1>
           <p>Login ก่อนเพื่อส่งคำถาม — แต่ละ Q จะผ่าน 4-tier review (auto-screen → peer × 2 → Palm → publish) ก่อนเข้า bank</p>
         </div>
         <div style={{ ...CARD_BASE, maxWidth: 480, margin: '24px auto', textAlign: 'center' }}>
@@ -193,7 +193,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
       setWarningsDismissed(false);
       // Toast
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-      setToast({ kind: 'ok', msg: '✅ ส่งแล้ว — Q เข้าคิวรีวิว (auto-screen → peer × 2 → Palm)' });
+      setToast({ kind: 'ok', msg: 'ส่งแล้ว — Q เข้าคิวรีวิว (auto-screen → peer × 2 → Palm)' });
       toastTimerRef.current = setTimeout(() => setToast(null), 4500);
       // Refresh "my submissions" + reputation (count bumps)
       refreshAll();
@@ -213,7 +213,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1>💡 ส่ง<em>คำถาม</em>ให้ Q bank</h1>
+        <h1>ส่ง<em>คำถาม</em>ให้ Q bank</h1>
         <p>
           ทุก Q ผ่าน 4-tier review: <strong>auto-screen</strong> → <strong>peer × 2</strong> → <strong>Palm final</strong> → publish เข้า bank
         </p>
@@ -536,7 +536,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
               marginBottom: 12, fontSize: 13,
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                <strong>💡 ข้อสังเกต ({validation.warnings.length})</strong>
+                <strong>ข้อสังเกต ({validation.warnings.length})</strong>
                 <button
                   type="button"
                   onClick={() => setWarningsDismissed(true)}
@@ -571,8 +571,8 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
             marginBottom: 14, fontSize: 13, textAlign: 'center',
           }}>
             {validation.canSubmit
-              ? '✅ พร้อมส่ง — ทุกอย่างผ่าน auto-screen'
-              : `⚠️ ยังมี ${validation.errors.length} จุดที่ต้องแก้ก่อนส่ง`}
+              ? 'พร้อมส่ง — ทุกอย่างผ่าน auto-screen'
+              : `ยังมี ${validation.errors.length} จุดที่ต้องแก้ก่อนส่ง`}
           </div>
 
           <button
@@ -586,7 +586,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
             }}
             disabled={!validation.canSubmit || submitting}
           >
-            {submitting ? '⏳ กำลังส่ง...' : '📨 ส่งคำถามเข้า review queue'}
+            {submitting ? 'กำลังส่ง...' : '📨 ส่งคำถามเข้า review queue'}
           </button>
         </form>
       </div>

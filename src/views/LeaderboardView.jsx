@@ -74,7 +74,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
   return (
     <>
       <div className="vmx-hero">
-        <h1>🏆 Global <em>Leaderboard</em></h1>
+        <h1>Global <em>Leaderboard</em></h1>
         <p>
           {yearScope === 'current' && Number.isFinite(selectedYear)
             ? <>เฉพาะปี {selectedYear} — สู้กับ cohort เดียวกัน 💪</>
@@ -98,7 +98,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
           margin: '0 auto 18px',
         }}>
           {[
-            { id: 'current', label: `🎓 ปี ${selectedYear}` },
+            { id: 'current', label: `ปี ${selectedYear}` },
             { id: 'all', label: '🌐 ทั้งหมด' },
           ].map((opt) => (
             <button
@@ -127,7 +127,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
         <div className="vmx-empty">กำลังโหลด...</div>
       ) : error ? (
         <div className="vmx-empty" style={{ background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', color: 'var(--clr-ink)' }}>
-          ⚠️ โหลด Leaderboard ไม่สำเร็จ — {error}
+          โหลด Leaderboard ไม่สำเร็จ — {error}
           <div style={{ marginTop: 12 }}>
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={load}>🔄 ลองอีกครั้ง</button>
           </div>
@@ -152,7 +152,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                     {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>
-                    {r.mode === 'exam' ? '🎓 Exam' : '📝 Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
+                    {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
                     {r.attempts > 1 && (
                       <span title={`ทำ ${r.attempts} ครั้ง, แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 10 }}>
                         × {r.attempts}

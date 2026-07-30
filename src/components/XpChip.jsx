@@ -74,7 +74,7 @@ export default function XpChip() {
         }}
       >
         <span><strong>Lv {lvl}</strong></span>
-        <span className="vmx-xp-chip-total" style={{ opacity: 0.75 }}>· {state.totalXp.toLocaleString()} XP</span>
+        <span className="vmx-xp-chip-total" style={{ opacity: 0.75 }}>{state.totalXp.toLocaleString()} XP</span>
         <span
           aria-hidden
           className="vmx-xp-chip-progress"
@@ -121,7 +121,7 @@ export default function XpChip() {
           }}
         >
           <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 8 }}>
-            ✨ Level {lvl}
+            Level {lvl}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
             <span style={{ color: 'var(--clr-ink-soft)' }}>Total XP</span>

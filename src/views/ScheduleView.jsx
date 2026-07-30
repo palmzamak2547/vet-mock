@@ -56,7 +56,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
         <span>ตารางสอบ ปี {selectedYear} ({exams.length})</span>
         {pastCount > 0 && (
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowPast(!showPast)}>
-            {showPast ? `🙈 ซ่อนสอบที่ผ่านแล้ว (${pastCount})` : `👁 แสดงสอบที่ผ่านแล้ว (${pastCount})`}
+            {showPast ? `🙈 ซ่อนสอบที่ผ่านแล้ว (${pastCount})` : `แสดงสอบที่ผ่านแล้ว (${pastCount})`}
           </button>
         )}
       </div>
@@ -93,7 +93,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                       if (isPast) return 'ผ่านแล้ว';
                       const cd = shortCountdown(exam);
                       if (cd) return cd.text;
-                      if (isToday) return '🔥 วันนี้!';
+                      if (isToday) return 'วันนี้!';
                       return `อีก ${exam.daysLeft} วัน`;
                     })()}
                   </div>
@@ -103,7 +103,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                 <div style={{ flex: 1, minWidth: 240 }}>
                   <h3 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18 }}>
                     {exam.icon} {exam.title}
-                    {exam.weight_pct && <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 8 }}>· {exam.weight_pct}%</span>}
+                    {exam.weight_pct && <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 8 }}>{exam.weight_pct}%</span>}
                   </h3>
                   <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 10, display: 'flex', flexWrap: 'wrap', gap: '2px 10px' }}>
                     {exam.term && (
@@ -150,7 +150,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                     hasQuestions(exam.subject) ? (
                       <button className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ marginTop: 12 }}
                         onClick={() => practiceSubject(exam.subject)}>
-                        📝 ฝึกข้อสอบวิชานี้ →
+                        ฝึกข้อสอบวิชานี้ →
                       </button>
                     ) : (
                       <div style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-rose)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'inline-block' }}>
@@ -167,7 +167,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
 
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         💡 <strong>Tip:</strong> คลิก "ฝึกข้อสอบวิชานี้" เพื่อเริ่มทำข้อสอบวิชานั้นเลย<br/>
-        📌 ข้อมูลตารางอาจเปลี่ยนแปลง — เช็คกับเพื่อนในห้องอีกครั้งก่อนสอบ<br/>
+        ข้อมูลตารางอาจเปลี่ยนแปลง — เช็คกับเพื่อนในห้องอีกครั้งก่อนสอบ<br/>
         🔄 ถ้าข้อมูลผิด/ล้าสมัย → ส่งไปที่ <a href="#" onClick={(e) => { e.preventDefault(); setView('feedback'); }} style={{ color: 'var(--clr-sage)', textDecoration: 'underline' }}>ฟอร์มแจ้ง</a>
       </div>
 
