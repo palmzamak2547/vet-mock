@@ -336,9 +336,12 @@ html, body {
   src: url('/Sarabun/Sarabun-BoldItalic.ttf') format('truetype');
 }
 
-/* Better keyboard focus, but no outline on mouse click */
-:focus { outline: none; }
-:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: 4px; }
+/* Keyboard-focus fallback for iOS 14, which lacks :focus-visible. */
+:focus { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: 4px; }
+@supports selector(:focus-visible) {
+  :focus { outline: none; }
+  :focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: 4px; }
+}
 
 .vmx-app {
   font-family: 'Sarabun', 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
@@ -961,8 +964,36 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-form-group input:focus, .vmx-form-group textarea:focus { outline: none; border-color: var(--clr-ink); background: var(--clr-surface); }
 .vmx-form-group textarea { min-height: 80px; resize: vertical; }
 
-.vmx-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: max(12px, env(safe-area-inset-bottom)); overscroll-behavior: contain; }
-.vmx-modal { background: var(--clr-surface); border-radius: 20px; padding: 28px; max-width: 500px; width: 100%; max-height: min(90vh, calc(100dvh - 24px)); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.vmx-modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 12px;
+  padding-top: max(12px, env(safe-area-inset-top, 0px));
+  padding-right: max(12px, env(safe-area-inset-right, 0px));
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  padding-left: max(12px, env(safe-area-inset-left, 0px));
+  overscroll-behavior: contain;
+}
+.vmx-modal {
+  background: var(--clr-surface);
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  max-height: min(90vh, calc(100dvh - 24px));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .vmx-modal h2 { font-family: 'Fraunces', serif; margin: 0 0 16px; font-size: 24px; color: var(--clr-ink); }
 
 /* ── Footer ──────────────────────────────────────────────────────────
@@ -1053,7 +1084,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-modal:has(.vmx-player-grid) {
     max-width: 100% !important;
     width: 100% !important;
+    height: 100vh;
     height: 100dvh;
+    max-height: 100vh !important;
     max-height: 100dvh !important;
     border-radius: 0 !important;
     padding: 0 !important;
@@ -1070,14 +1103,19 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-modal:has(.vmx-player-grid) {
     max-width: 100% !important;
     width: 100% !important;
+    height: 100vh;
     height: 100dvh;
+    max-height: 100vh !important;
     max-height: 100dvh !important;
     border-radius: 0 !important;
     padding: 0 !important;
   }
   .vmx-player-grid > div:first-child { padding: 8px !important; padding-right: 8px !important; }
   /* Stretch the iframe wrapper — 16:9 is fine but cap by height */
-  .vmx-player-grid iframe { max-height: calc(100dvh - 110px); }
+  .vmx-player-grid iframe {
+    max-height: calc(100vh - 110px);
+    max-height: calc(100dvh - 110px);
+  }
 }
 
 @media (max-width: 640px) {

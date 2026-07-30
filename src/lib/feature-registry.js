@@ -57,7 +57,7 @@ export const FEATURES = [
   // ── 📝 Practice & Exam ───────────────────────────────────
   {
     id: 'quick-practice', category: 'practice', primary: true,
-    label: 'Quick Practice', labelEn: 'Quick Practice', icon: '📝',
+    label: 'ฝึกข้อสอบ', labelEn: 'Quick Practice', icon: '📝',
     hint: 'สุ่มข้อทุกวิชา 5-50 ข้อ',
     kw: 'quick practice ฝึก สุ่ม random ซ้อม ทำข้อ',
     hideOnScaffold: true,
@@ -65,7 +65,7 @@ export const FEATURES = [
   },
   {
     id: 'exam-mode', category: 'practice', primary: true,
-    label: 'Exam Mode', labelEn: 'Exam Mode', icon: '🎓',
+    label: 'โหมดสอบ', labelEn: 'Exam Mode', icon: '🎓',
     hint: '50 ข้อ × 60 วิ จับเวลาเหมือนสนามจริง',
     kw: 'exam mode สอบ จับเวลา timed mock จำลอง สนามจริง',
     hideOnScaffold: true,
@@ -130,9 +130,9 @@ export const FEATURES = [
   },
   {
     id: 'schedule', category: 'learn',
-    label: 'ตารางสอบ', labelEn: 'Exam schedule', icon: '📅',
-    hint: 'Countdown + เนื้อหาออกสอบ',
-    kw: 'schedule exam ตาราง สอบ countdown ปฏิทิน calendar',
+    label: 'ตารางเรียน & สอบ', labelEn: 'Class & exam schedule', icon: '📅',
+    hint: 'ตารางเรียน · Countdown · เนื้อหาออกสอบ',
+    kw: 'schedule class exam ตาราง เรียน สอบ countdown ปฏิทิน calendar',
     hideOnScaffold: true,
     invoke: { kind: 'view', view: 'schedule' },
   },
@@ -154,7 +154,7 @@ export const FEATURES = [
   // ── 📊 Progress ──────────────────────────────────────────
   {
     id: 'dashboard', category: 'progress',
-    label: 'Dashboard / สถิติ', labelEn: 'Dashboard', icon: '📊',
+    label: 'ความคืบหน้า', labelEn: 'Progress', icon: '📊',
     hint: 'analytics + จุดอ่อน + backup',
     kw: 'dashboard stats สถิติ analytics จุดอ่อน weak backup',
     invoke: { kind: 'view', view: 'dashboard' },

@@ -85,7 +85,11 @@ html.lp-active { background: var(--clr-bg); }
   pointer-events: none;
   z-index: 0;
 }
-#lp-top > * { position: relative; z-index: 1; }
+/* Keep real hero content above the decorative layers. The orbs must remain
+   absolute; applying `position: relative` to every direct child made their
+   200–380px boxes consume layout space and pushed the mobile headline below
+   the first viewport. */
+#lp-top > :not(.lp-hero-orb) { position: relative; z-index: 1; }
 
 @keyframes lp-mesh-drift {
   0%   { opacity: 0.8; transform: scale(1) translateX(0) rotate(0deg); }

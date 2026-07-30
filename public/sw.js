@@ -7,29 +7,26 @@
 //   • HTML navigations: network-first with timeout fallback to cache.
 //     New deploy → served fresh. Offline → last cached index.html.
 //   • Images, audio, manifest icons: stale-while-revalidate.
+//   • Same-origin /api requests: network-only, never cached.
 //   • Other GETs: network-first, fall back to cache.
 //
-// Install + activate are kept lean. No precache list — we'd have to
-// regenerate it on every deploy. Runtime caching is sufficient because
-// the user must visit at least once online to populate the cache.
+// Install + activate are kept lean. The small static shell is cached
+// best-effort; Vite's hashed assets populate a shared immutable cache
+// as the browser requests them.
 //
-// Versioning: bump SW_VERSION to force a clean activate (drops old
-// caches). Old service workers self-delete when superseded by a new
-// version that calls clients.claim().
+// Versioning: bump SW_VERSION for each worker release. Runtime data is
+// version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v26-2026-05-31';
+const SW_VERSION = 'v28-2026-07-30';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
-const ASSETS = `vmx-assets-${SW_VERSION}`;
+const ASSETS = 'vmx-assets-v1';
 const NAV_TIMEOUT_MS = 4000;
 
 self.addEventListener('install', (event) => {
-  // Skip waiting so the new SW activates as soon as install completes.
-  // We coordinate with clients via the 'controllerchange' event in main.jsx
-  // — the user gets a soft prompt to refresh, never a hard reload mid-exam.
-  self.skipWaiting();
+  // Keep updates waiting until the page explicitly sends SKIP_WAITING.
   event.waitUntil(
-    caches.open(ASSETS).then((cache) =>
+    caches.open(RUNTIME).then((cache) =>
       // Best-effort precache of the app shell. Failures are silent —
       // runtime caching will fill in any missed assets on first request.
       cache.addAll([
@@ -45,11 +42,11 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     Promise.all([
-      // Drop caches from older SW versions
+      // Drop old runtime caches while retaining shared immutable assets.
       caches.keys().then((keys) =>
         Promise.all(
           keys
-            .filter((k) => k.startsWith('vmx-') && !k.endsWith(SW_VERSION))
+            .filter((k) => k.startsWith('vmx-') && k !== RUNTIME && k !== ASSETS)
             .map((k) => caches.delete(k))
         )
       ),
@@ -71,35 +68,44 @@ function cacheFirst(request, cacheName) {
   );
 }
 
-function networkFirst(request, cacheName, timeoutMs) {
-  return new Promise((resolve) => {
-    let resolved = false;
-    const timer = setTimeout(() => {
-      if (resolved) return;
-      caches.match(request).then((hit) => {
-        if (hit) { resolved = true; resolve(hit); }
-      });
-    }, timeoutMs);
-    fetch(request)
-      .then((res) => {
-        clearTimeout(timer);
-        if (resolved) return;
-        resolved = true;
-        if (res && res.ok) {
-          const clone = res.clone();
-          caches.open(cacheName).then((cache) => cache.put(request, clone));
-        }
-        resolve(res);
-      })
-      .catch(() => {
-        clearTimeout(timer);
-        if (resolved) return;
-        caches.match(request).then((hit) => {
-          resolved = true;
-          resolve(hit || new Response('Offline', { status: 503 }));
-        });
-      });
+async function networkFirst(request, cacheName, timeoutMs) {
+  const offlineResponse = () => new Response('Offline', {
+    status: 503,
+    headers: { 'Cache-Control': 'no-store' },
   });
+  const controller = typeof AbortController === 'undefined'
+    ? null
+    : new AbortController();
+  let timer;
+
+  const timeout = new Promise((resolve) => {
+    timer = setTimeout(async () => {
+      controller?.abort();
+      const hit = await caches.match(request).catch(() => undefined);
+      resolve(hit || offlineResponse());
+    }, timeoutMs);
+  });
+
+  const network = fetch(request, controller ? { signal: controller.signal } : undefined)
+    .then((res) => {
+      if (res && res.ok) {
+        const clone = res.clone();
+        caches.open(cacheName)
+          .then((cache) => cache.put(request, clone))
+          .catch(() => {});
+      }
+      return res;
+    })
+    .catch(async () => {
+      const hit = await caches.match(request).catch(() => undefined);
+      return hit || offlineResponse();
+    });
+
+  try {
+    return await Promise.race([network, timeout]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function staleWhileRevalidate(request, cacheName) {
@@ -124,6 +130,23 @@ self.addEventListener('fetch', (event) => {
   // image hosts). Cross-origin caching has CORS pitfalls and gives
   // negligible offline value here since those need network anyway.
   if (url.origin !== self.location.origin) return;
+
+  // User-specific API responses are network-only and never enter CacheStorage.
+  if (url.pathname === '/api' || url.pathname.startsWith('/api/')) {
+    event.respondWith(
+      fetch(request).catch(() => new Response(
+        JSON.stringify({ error: 'Offline' }),
+        {
+          status: 503,
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store',
+          },
+        },
+      ))
+    );
+    return;
+  }
 
   // Vite-hashed chunks under /assets/ are immutable — perfect for
   // cache-first. Once cached, they survive offline forever.
@@ -161,8 +184,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Everything else (API responses, scripts not under /assets/, etc.):
-  // network-first with cache fallback.
+  // Everything else (scripts not under /assets/, data files, etc.):
+  // network-first with a bounded cache fallback.
   event.respondWith(networkFirst(request, RUNTIME, NAV_TIMEOUT_MS));
 });
 

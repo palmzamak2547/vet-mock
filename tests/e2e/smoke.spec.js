@@ -188,9 +188,14 @@ test.describe('VetMock smoke flow', () => {
     // no vmx-seen-landing) lands on the marketing landing page first.
     // The landing defaults to Thai (the audience) with an EN toggle, so accept
     // either locale's hero heading.
-    await expect(
-      page.getByRole('heading', { level: 1, name: /Practice before the real exam|ลุยโจทย์ให้ชิน/i })
-    ).toBeVisible();
+    const landingHeading = page.getByRole('heading', {
+      level: 1,
+      name: /Practice before the real exam|ลุยโจทย์ให้ชิน/i,
+    });
+    await expect(landingHeading).toBeVisible();
+    // Decorative hero layers must never consume layout space and push the
+    // actual value proposition below the first mobile viewport.
+    await expect(landingHeading).toBeInViewport();
     // The header CTA bridges into the real app → year-select (since no year
     // has been picked yet). There are two (nav + hero); click the nav one.
     await page.getByRole('button', { name: /Start Practicing|เริ่มฝึกเลย|เริ่มฝึก/i }).first().click();
@@ -239,7 +244,21 @@ test.describe('VetMock smoke flow', () => {
     await page.goto('/');
     await page.waitForLoadState('networkidle', { timeout: 15_000 });
 
-    await page.getByText('VetWiki', { exact: false }).first().click();
+    // Sidebar and bottom navigation share the same label; only one is visible
+    // at a given breakpoint. Pick the visible control instead of relying on
+    // DOM order, which differs between desktop and mobile layouts.
+    const wikiEntries = page.getByRole('button', { name: 'VetWiki', exact: true });
+    const wikiEntryCount = await wikiEntries.count();
+    let openedWiki = false;
+    for (let i = 0; i < wikiEntryCount; i++) {
+      const entry = wikiEntries.nth(i);
+      if (await entry.isVisible()) {
+        await entry.click();
+        openedWiki = true;
+        break;
+      }
+    }
+    expect(openedWiki).toBe(true);
 
     // VetWiki opens at its index (a reference opens at its contents).
     await expect(page.getByRole('heading', { level: 1, name: 'VetWiki' })).toBeVisible({ timeout: 10_000 });

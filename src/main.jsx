@@ -38,12 +38,31 @@ window.addEventListener('touchstart', _unlockOnce, { capture: true, passive: tru
 // (404) → "Failed to fetch dynamically imported module" error and
 // the app crashes to the ErrorBoundary fallback.
 //
-// Vite emits a `vite:preloadError` event for this exact case. We
-// auto-reload the page once so the user gets the latest index.html
-// + new chunk hashes. Use sessionStorage to avoid an infinite reload
-// loop if the chunk really is broken.
+// Vite emits a `vite:preloadError` event for this exact case. Outside an
+// exam we reload once for fresh hashes. During an exam we defer the update
+// and surface status so in-progress answers are never interrupted.
 window.addEventListener('vite:preloadError', (event) => {
   const reloadKey = 'vmx-chunk-reload'
+  const deferredKey = 'vmx-update-deferred'
+  const activeView = window.history.state?.vmxView
+  const examActive = activeView === 'exam'
+
+  if (examActive) {
+    event.preventDefault?.()
+    const detail = {
+      state: 'deferred',
+      reason: 'preload-error',
+      message: event?.payload?.message || 'A newer app version is ready',
+    }
+    window.__VMX_UPDATE_STATUS__ = detail
+    document.documentElement.dataset.vmxUpdateStatus = 'deferred'
+    sessionStorage.setItem(deferredKey, '1')
+    window.dispatchEvent(new CustomEvent('vmx-update-deferred', { detail }))
+    window.dispatchEvent(new CustomEvent('vmx-sw-update', { detail }))
+    console.warn('[chunk] preload failed during exam - update deferred:', detail.message)
+    return
+  }
+
   if (sessionStorage.getItem(reloadKey) === '1') {
     // Already tried once this session — don't reload again
     console.error('[chunk] preload failed twice — letting ErrorBoundary handle:', event?.payload)
@@ -59,7 +78,10 @@ window.addEventListener('vite:preloadError', (event) => {
 // Clear the reload flag once the app loads successfully
 window.addEventListener('load', () => {
   // Wait a beat in case lazy-loads happen on first paint
-  setTimeout(() => sessionStorage.removeItem('vmx-chunk-reload'), 3000)
+  setTimeout(() => {
+    sessionStorage.removeItem('vmx-chunk-reload')
+    sessionStorage.removeItem('vmx-update-deferred')
+  }, 3000)
 })
 
 // ── Service worker — true offline + asset caching ─────────────────
@@ -70,6 +92,38 @@ window.addEventListener('load', () => {
 //
 // In dev mode we deliberately UNREGISTER any prior SW so HMR works;
 // the SW is production-only.
+let waitingWorker = null
+let reloadAfterActivation = false
+
+const announceWaitingWorker = (worker) => {
+  if (!worker || !navigator.serviceWorker.controller) return
+  waitingWorker = worker
+  const detail = { state: 'ready', reason: 'service-worker' }
+  window.__VMX_UPDATE_STATUS__ = detail
+  document.documentElement.dataset.vmxUpdateStatus = 'ready'
+  window.dispatchEvent(new CustomEvent('vmx-sw-update', { detail }))
+}
+
+const activateWaitingWorker = (reloadWhenReady = false) => {
+  if (!waitingWorker) return
+  reloadAfterActivation = reloadAfterActivation || reloadWhenReady
+  waitingWorker.postMessage('SKIP_WAITING')
+}
+
+// Existing update UI refreshes with location.reload(). Translate that
+// explicit unload into SKIP_WAITING without changing the active view.
+window.addEventListener('beforeunload', () => activateWaitingWorker(false))
+window.addEventListener('pagehide', () => activateWaitingWorker(false))
+window.addEventListener('vmx-sw-apply-update', () => activateWaitingWorker(true))
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!reloadAfterActivation) return
+    reloadAfterActivation = false
+    window.location.reload()
+  })
+}
+
 window.addEventListener('load', () => {
   if (!('serviceWorker' in navigator)) return
   if (import.meta.env?.MODE !== 'production') {
@@ -80,6 +134,9 @@ window.addEventListener('load', () => {
     return
   }
   navigator.serviceWorker.register('/sw.js').then((reg) => {
+    // A worker may already be waiting when this tab opens.
+    announceWaitingWorker(reg.waiting)
+
     // When a new worker is installed *after* one was already controlling
     // this page, surface an "update available" toast.
     reg.addEventListener('updatefound', () => {
@@ -87,7 +144,7 @@ window.addEventListener('load', () => {
       if (!nw) return
       nw.addEventListener('statechange', () => {
         if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-          window.dispatchEvent(new CustomEvent('vmx-sw-update'))
+          announceWaitingWorker(reg.waiting || nw)
         }
       })
     })

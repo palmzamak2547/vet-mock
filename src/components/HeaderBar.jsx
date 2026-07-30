@@ -26,6 +26,7 @@ import { hasSupabase } from '../lib/supabase.js';
 import UserMenu from './UserMenu.jsx';
 import ThemePicker from './ThemePicker.jsx';
 import NavIcon from './NavIcon.jsx';
+import { commandShortcutLabel } from '../lib/nav.js';
 
 // XP chip — Lv N · XXX XP · thin progress bar. Lazy because the
 // gamification isn't critical for first paint.
@@ -52,6 +53,7 @@ export default function HeaderBar({
   const showYear = selectedYearStored !== null && view !== 'year-select';
   const showPhase = selectedPhase && view !== 'phase-select' && view !== 'year-select';
   const savedCount = bookmarks?.length || 0;
+  const shortcutLabel = commandShortcutLabel();
 
   return (
     <header className="vmx-header">
@@ -98,11 +100,11 @@ export default function HeaderBar({
         <button
           className="vmx-cmdk-btn"
           onClick={() => setPaletteOpen(true)}
-          title="ค้นหาทุกอย่าง (⌘K / Ctrl+K)"
+          title={`ค้นหาทุกอย่าง (${shortcutLabel})`}
           aria-label="ค้นหา"
         >
           <NavIcon name="search" size={16} />
-          <kbd className="vmx-cmdk-kbd">⌘K</kbd>
+          <kbd className="vmx-cmdk-kbd">{shortcutLabel}</kbd>
         </button>
         {/* Saved questions — only when there is something saved. A
             permanently-disabled button is clutter, not an affordance. */}

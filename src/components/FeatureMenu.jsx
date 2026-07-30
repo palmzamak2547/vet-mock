@@ -17,6 +17,7 @@
 
 import { useState } from 'react';
 import { FEATURE_CATEGORIES, featuresByCategory, visibleFeatures } from '../lib/feature-registry.js';
+import { commandShortcutLabel } from '../lib/nav.js';
 
 const PREVIEW_LIMIT = 4;
 
@@ -31,6 +32,7 @@ export default function FeatureMenu({
   selectedYear,
 }) {
   const [expanded, setExpanded] = useState({});
+  const shortcutLabel = commandShortcutLabel();
   const dispatch = (inv) => {
     if (!inv) return;
     switch (inv.kind) {
@@ -50,7 +52,7 @@ export default function FeatureMenu({
           <h2 id="vmx-feature-menu-title">สำรวจเครื่องมือ</h2>
           <p>เมนูรองจัดเป็นหมวด — เปิดดูเพิ่มเมื่อจำเป็น</p>
         </div>
-        <span className="vmx-feature-menu-hint">ค้นหาเร็วด้วย <kbd>⌘K</kbd></span>
+        <span className="vmx-feature-menu-hint">ค้นหาเร็วด้วย <kbd>{shortcutLabel}</kbd></span>
       </div>
       {FEATURE_CATEGORIES.map((cat) => {
         // Skip 'practice' — HomeView's hero section already owns the

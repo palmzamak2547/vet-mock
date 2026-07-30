@@ -8,12 +8,18 @@
 /** id = the `view` (or an action); label = full (sidebar); short = compact
  *  (bottom bar); icon = a NavIcon name (line SVG, not emoji). */
 export const NAV_ITEMS = [
-  { id: 'home',           label: 'เรียนรู้',      short: 'หน้าแรก',    icon: 'home' },
+  { id: 'home',           label: 'หน้าแรก',       short: 'หน้าแรก',    icon: 'home' },
   { id: 'subject-select', label: 'ฝึกข้อสอบ',     short: 'ฝึก',        icon: 'practice' },
-  { id: 'mock-exam',      label: 'Mock Exam',      short: 'สอบ',        icon: 'exam' },
-  { id: 'dashboard',      label: 'ความคืบหน้า',    short: 'สถิติ',      icon: 'progress' },
-  { id: 'wiki',           label: 'Wiki',           short: 'Wiki',       icon: 'wiki' },
+  { id: 'mock-exam',      label: 'โหมดสอบ',       short: 'สอบ',        icon: 'exam' },
+  { id: 'dashboard',      label: 'ความคืบหน้า',   short: 'คืบหน้า',    icon: 'progress' },
+  { id: 'wiki',           label: 'VetWiki',        short: 'VetWiki',    icon: 'wiki' },
 ];
+
+/** Platform-aware command-menu hint. Safe during SSR/build evaluation. */
+export function commandShortcutLabel(nav = typeof navigator !== 'undefined' ? navigator : null) {
+  const platform = nav?.userAgentData?.platform || nav?.platform || nav?.userAgent || '';
+  return /Mac|iPhone|iPad|iPod/i.test(platform) ? '⌘K' : 'Ctrl K';
+}
 
 /** Run a nav item's behaviour. `h` carries the handlers the app owns.
  *  Mirrors the presets the HomeView cards use so nav is consistent with them. */

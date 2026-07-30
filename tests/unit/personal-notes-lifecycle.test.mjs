@@ -9,6 +9,7 @@ import assert from 'node:assert/strict';
 
 let mockLocalStorage = {};
 let mockCloudDB = {}; // user_data table
+let mockPendingNotes = {}; // durable per-user outbox
 
 function getLocalNotes() {
   return mockLocalStorage['vmx-notes'] || {};
@@ -35,23 +36,32 @@ async function simulateMigrateLocalToCloud(userId) {
 // simulate `pullUserData` in api.js & App.jsx
 async function simulatePullUserData(userId) {
   const data = mockCloudDB[userId];
-  if (data && data.notes && Object.keys(data.notes).length) {
-    setLocalNotes(data.notes); // App.jsx calls setNotes(data.notes)
+  const pending = mockPendingNotes[userId];
+  if (pending) {
+    // Local dirty data is replayed over the pulled base; a stale remote
+    // response must not erase edits that are still waiting for delivery.
+    setLocalNotes({ ...(data?.notes || {}), ...pending });
+  } else if (data && Object.hasOwn(data, 'notes')) {
+    // Empty objects are intentional data too (for example, delete all notes).
+    setLocalNotes(data.notes);
   }
 }
 
 // simulate `pushUserDataDebounced` in api.js
 async function simulatePushUserData(userId, notes, isOffline = false) {
   if (isOffline) {
+    mockPendingNotes[userId] = notes;
     throw new Error('Network error (Offline)');
   }
   const existing = mockCloudDB[userId] || {};
   mockCloudDB[userId] = { ...existing, notes };
+  delete mockPendingNotes[userId];
 }
 
 function resetEnvironment() {
   mockLocalStorage = {};
   mockCloudDB = {};
+  mockPendingNotes = {};
 }
 
 // ─── Tests ───────────────────────────────────────────────────
@@ -103,7 +113,7 @@ test('Lifecycle: Authenticated Online Sync', async () => {
   assert.equal(mockCloudDB['user-1'].notes['com5:101'], 'updated note');
 });
 
-test('Lifecycle: Authenticated Offline Conflict (The Overwrite Scenario)', async () => {
+test('Lifecycle: Authenticated Offline Conflict preserves the local edit', async () => {
   resetEnvironment();
   mockCloudDB['user-1'] = { notes: { 'com5:101': 'cloud note' } };
   
@@ -128,6 +138,11 @@ test('Lifecycle: Authenticated Offline Conflict (The Overwrite Scenario)', async
   // 5. User reloads page while back online. App.jsx calls pullUserData
   await simulatePullUserData('user-1');
   
-  // BUG EXPOSED: The offline edit is overwritten by the stale cloud data
-  assert.equal(getLocalNotes()['com5:101'], 'cloud note'); // Proves the existing behavior
+  // The durable outbox is replayed over the stale cloud response.
+  assert.equal(getLocalNotes()['com5:101'], 'offline edit');
+
+  // Reconnect flushes the pending value and clears the outbox.
+  await simulatePushUserData('user-1', getLocalNotes(), false);
+  assert.equal(mockCloudDB['user-1'].notes['com5:101'], 'offline edit');
+  assert.equal(mockPendingNotes['user-1'], undefined);
 });

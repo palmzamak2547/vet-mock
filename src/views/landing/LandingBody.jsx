@@ -6,14 +6,13 @@
 // presentation + the design's simulated interactions.
 // ============================================================
 
-import React from 'react';
 import { QB_TOTAL, Q_COUNTS_BY_SUBJECT } from '../../data/q-counts.js';
 
 // Derived once at module load — the number of subjects that actually ship
 // questions today. Regenerated with the bank, so it can't drift.
 const SUBJECTS_WITH_QUESTIONS = Object.values(Q_COUNTS_BY_SUBJECT).filter((n) => n > 0).length;
 
-export function OptionRow({ opt, onClick, disabled }) {
+function OptionRow({ opt, onClick, disabled }) {
   return (
     <button type="button" className={`vmx-option ${opt.cls}`} style={opt.style} onClick={onClick} disabled={disabled}>
       <span className="vmx-option-letter">{opt.letter}</span>
@@ -22,7 +21,6 @@ export function OptionRow({ opt, onClick, disabled }) {
     </button>
   );
 }
-
 // Section eyebrow. NO letterSpacing: these labels are Thai in the TH
 // locale (e.g. 'ปัญหาที่เจอ') and tracking breaks Thai glyph shaping —
 // a forbidden project rule. textTransform:uppercase is a no-op on Thai
@@ -32,20 +30,6 @@ const h2 = { fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(28
 const em = { fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage)' };
 const container = { maxWidth: 1200, margin: '0 auto' };
 const chip = (active) => `vmx-chip${active ? ' active' : ''}`;
-
-// Inline citation marker. A real <button> (not a click-handled <sup>) so
-// it's keyboard-focusable and announces as a button to screen readers,
-// while still rendering as a small superscript "[n]".
-function CiteMark({ n, onClick }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label={`Open source ${n}`}
-      style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-sage)', fontWeight: 700, fontSize: '0.72em', verticalAlign: 'super', lineHeight: 0 }}
-    >[{n}]</button>
-  );
-}
 
 export default function LandingBody(p) {
   const { t } = p;
@@ -67,11 +51,11 @@ export default function LandingBody(p) {
             </h1>
             <p style={{ fontSize: 17, lineHeight: 1.62, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '0 0 28px' }}>{t.heroSub}</p>
             <div className="lp-center-md lp-flex" style={{ display: 'flex', gap: 8, alignItems: 'center', fontFamily: 'JetBrains Mono, monospace', fontSize: 12.5, color: 'var(--clr-ink-soft)', margin: '0 0 22px' }}>
-              <span>{t.heroAiLine}</span><span style={{ color: 'var(--clr-sage)', fontWeight: 600, fontFamily: 'IBM Plex Sans Thai, sans-serif', fontSize: 14 }}>{t.heroWords[p.heroWord]} →</span>
+              <span>{t.heroFocusLine}</span><span style={{ color: 'var(--clr-sage)', fontWeight: 600, fontFamily: 'IBM Plex Sans Thai, sans-serif', fontSize: 14 }}>{t.heroWords[p.heroWord]} →</span>
             </div>
             <div className="lp-center-md lp-flex" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
               <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>→</span></button>
-              <a href="#ai" className="vmx-btn vmx-btn-ghost" style={{ fontSize: 15, padding: '15px 26px' }}>{t.aiAsk}</a>
+              <a href="#subjects" className="vmx-btn vmx-btn-ghost" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta2}</a>
             </div>
             {/* Hero stats — every figure DERIVED from the shipped question
                 bank, never typed by hand. (This block used to read
@@ -101,9 +85,9 @@ export default function LandingBody(p) {
             <div className="lp-stack" style={{ position: 'relative', zIndex: 2, display: 'flex', gap: 14, alignItems: 'stretch' }}>
               <div className="vmx-question-card" style={{ flex: 1, minWidth: 0, padding: 24 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 14, paddingBottom: 14, borderBottom: '1px dashed var(--clr-border)' }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'JetBrains Mono, monospace', fontSize: 10, fontWeight: 600, padding: '4px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)', flexShrink: 0 }}>✦ VetMock AI</span>
-                  <span style={{ flex: 1, minWidth: 0, fontFamily: 'JetBrains Mono, monospace', fontSize: 11.5, color: 'var(--clr-ink-soft)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.heroGen === 'gen' ? t.cmdGenerating + '…' : 'Create a difficult canine medicine exam.'}</span>
-                  <button type="button" onClick={p.onHeroGenerate} disabled={p.heroGen === 'gen'} style={{ flexShrink: 0, padding: '6px 13px', borderRadius: 999, border: 'none', background: 'var(--clr-sage)', color: 'var(--clr-surface)', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, cursor: 'pointer', minHeight: 32 }}>{p.heroGen === 'gen' ? '…' : t.cmdGenerate}</button>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'JetBrains Mono, monospace', fontSize: 10, fontWeight: 600, padding: '4px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)', flexShrink: 0 }}>✓ {t.heroBankLabel}</span>
+                  <span style={{ flex: 1, minWidth: 0, fontFamily: 'JetBrains Mono, monospace', fontSize: 11.5, color: 'var(--clr-ink-soft)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.heroBankLine}</span>
+                  <button type="button" onClick={p.onEnterApp} style={{ flexShrink: 0, padding: '6px 13px', borderRadius: 999, border: 'none', background: 'var(--clr-sage)', color: 'var(--clr-surface)', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, cursor: 'pointer', minHeight: 32 }}>{t.startPractice}</button>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
                   {/* badge shrinks + truncates so the timer never overlaps the
@@ -205,7 +189,7 @@ export default function LandingBody(p) {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4 }}>
                 {t.mockBullets.map((b) => <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 11, fontSize: 14, color: 'var(--clr-ink)' }}><span style={{ color: 'var(--clr-sage)', fontFamily: 'JetBrains Mono, monospace', flexShrink: 0 }}>✓</span>{b}</div>)}
               </div>
-              <button type="button" onClick={p.onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ alignSelf: 'flex-start', marginTop: 4 }}>{t.heroCta1} →</button>
+              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ alignSelf: 'flex-start', marginTop: 4 }}>{t.heroCta1} →</button>
             </div>
             <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -325,12 +309,6 @@ export default function LandingBody(p) {
         </div>
       </section>
 
-      {/* ================= VETMOCK AI ================= */}
-      <AiSection p={p} />
-
-      {/* ================= GENERATOR ================= */}
-      <GeneratorSection p={p} />
-
       {/* ================= WEAKNESS ================= */}
       <section id="weakness" data-screen-label="Weakness detection" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
         <div style={container}>
@@ -343,12 +321,9 @@ export default function LandingBody(p) {
               </div>
             ))}
           </div>
-          <div className="lp-reveal" style={{ textAlign: 'center' }}><a href="#generate" className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 28px' }}>✦ {t.weakCta} →</a></div>
+          <div className="lp-reveal" style={{ textAlign: 'center' }}><button type="button" onClick={p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 28px' }}>{t.weakCta} →</button></div>
         </div>
       </section>
-
-      {/* ================= REVISION PLAN ================= */}
-      <PlanSection p={p} />
 
       {/* ================= FINAL CTA ================= */}
       <section id="cta" data-screen-label="Final CTA" className="lp-pad" style={{ padding: '100px 24px', scrollMarginTop: 80 }}>
@@ -558,12 +533,12 @@ function AnalyticsSection({ p }) {
   const MASTERY = [{ name: 'Pharmacology', pct: 82 }, { name: 'Physiology', pct: 76 }, { name: 'Surgery', pct: 69 }, { name: 'Pathology', pct: 61 }, { name: 'Parasitology', pct: 51 }];
   const statColors = ['var(--clr-sage)', 'var(--clr-ink)', 'var(--clr-sage)', 'var(--clr-rose)'];
   return (
-    <section data-screen-label="Analytics" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
+    <section id="progress" data-screen-label="Progress" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
       <div style={container}>
         <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={label()}>{t.aLabel}</div><h2 style={h2}>{t.aHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '56ch', margin: '14px 0 0' }}>{t.aSub}</p></div>
         <div className="lp-reveal" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 26, boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-            <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>📊 Dashboard</span>
+            <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>📊 {t.progressTitle}</span>
             <span className="vmx-tag-pill" style={{ marginLeft: 'auto' }}>{t.aSample}</span>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(148px,1fr))', gap: 12, marginBottom: 20 }}>
@@ -616,192 +591,5 @@ function AnalyticsSection({ p }) {
         </div>
       </div>
     </section>
-  );
-}
-
-/* ---- VetMock AI (citation preview) ---- */
-function AiSection({ p }) {
-  const { t } = p;
-  return (
-    <section id="ai" data-screen-label="VetMock AI" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, borderTop: '1px dashed var(--clr-border)' }}>
-      <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 34 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 14 }}><span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--clr-sage)', animation: 'lp-pulse 2.4s infinite' }} />{t.aiLabel}</div>
-          <h2 style={h2}>{t.aiHead}</h2>
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.aiSub}</p>
-          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: '10px 0 0', fontStyle: 'italic' }}>{t.aiPreviewNote}</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 16 }}>
-            {t.aiTrustPoints.map((tp) => <span key={tp} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12.5, color: 'var(--clr-ink)', padding: '6px 12px', border: '1px solid var(--clr-border)', borderRadius: 999, background: 'var(--clr-surface)' }}><span style={{ color: 'var(--clr-sage)' }}>✓</span>{tp}</span>)}
-          </div>
-        </div>
-        <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: 20, alignItems: 'start' }}>
-          <div style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 24, backgroundImage: 'radial-gradient(circle at 92% 0,color-mix(in srgb, var(--clr-sage) 6%, transparent),transparent 42%)' }}>
-            <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
-              <span style={{ flexShrink: 0, width: 30, height: 30, borderRadius: '50%', background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>🧑‍🎓</span>
-              <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: '14px 14px 14px 4px', padding: '12px 15px', fontSize: 14, color: 'var(--clr-ink)', lineHeight: 1.5 }}>{t.aiQuestion}</div>
-            </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, alignItems: 'center', margin: '0 0 14px 40px' }}>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, color: 'var(--clr-ink-soft)', marginRight: 2 }}>{t.explainLabel}</span>
-              {t.explainModes.map((c) => <button key={c.k} type="button" className={chip(p.aiStyle === c.k)} style={{ minHeight: 30, padding: '5px 12px', fontSize: 11 }} onClick={() => p.setAiStyle(c.k)}>{c.l}</button>)}
-            </div>
-            <div style={{ display: 'flex', gap: 10 }}>
-              <span style={{ flexShrink: 0, width: 30, height: 30, borderRadius: 8, background: 'var(--clr-sage)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>✦</span>
-              <div style={{ flex: 1, minWidth: 0, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: '14px 14px 4px 14px', padding: '16px 18px' }}>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 12 }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'JetBrains Mono, monospace', fontSize: 10, fontWeight: 600, padding: '3px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)' }}>● {t.aiEvVal}</span>
-                  <span className="vmx-qtype-badge">🐕 {t.aiSpeciesLabel}</span>
-                  <span className="vmx-qtype-badge">{t.aiContextLabel}</span>
-                </div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 5 }}>{t.aiLDirect}</div>
-                <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--clr-ink)', margin: '0 0 14px' }}>{p.aiMain.direct} <CiteMark n="1" onClick={() => p.setAiCitation(CIT('1'))} /></p>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginBottom: 5 }}>{t.aiLReason}</div>
-                <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: '0 0 14px' }}>{p.aiMain.body} <CiteMark n="2" onClick={() => p.setAiCitation(CIT('2'))} /></p>
-                {p.aiCompare && <div style={{ padding: '12px 14px', borderRadius: 11, background: 'var(--clr-surface-2)', borderLeft: '3px solid var(--clr-ocean)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>💊 {AI_COMPARE_TXT}</div>}
-                <div style={{ padding: '12px 14px', borderRadius: 11, background: 'var(--clr-gold-soft)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--clr-ink)', marginBottom: 14 }}><span style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 600, color: 'var(--clr-gold)', marginRight: 6 }}>{t.aiLTrap}</span>{AI_TRAP_TXT}</div>
-                {p.aiRelated && <div style={{ padding: '12px 14px', borderRadius: 11, background: 'var(--clr-bg)', border: '1px dashed var(--clr-border)', fontSize: 13.5, lineHeight: 1.55, color: 'var(--clr-ink)', marginBottom: 14 }}><span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, color: 'var(--clr-ocean)', display: 'block', marginBottom: 4 }}>{t.aiRelatedMsg}</span>{AI_RELATED_TXT}</div>}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 9, flexWrap: 'wrap', paddingTop: 12, borderTop: '1px dashed var(--clr-border)' }}>
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.aiSources}</span>
-                  {['1', '2'].map((n) => <button key={n} type="button" onClick={() => p.setAiCitation(CIT(n))} style={{ width: 26, height: 26, borderRadius: 7, border: '1px solid var(--clr-sage)', background: 'color-mix(in srgb, var(--clr-sage) 10%, transparent)', color: 'var(--clr-sage)', fontFamily: 'JetBrains Mono, monospace', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>{n}</button>)}
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10.5, color: 'var(--clr-sage)', marginLeft: 'auto' }}>✓ {t.aiCoverage}</span>
-                </div>
-                <div style={{ display: 'flex', gap: 8, marginTop: 12, fontSize: 12, lineHeight: 1.5, color: 'var(--clr-ink-soft)' }}><span style={{ color: 'var(--clr-gold)', flexShrink: 0 }}>⚠</span><span><strong style={{ color: 'var(--clr-ink)', fontWeight: 600 }}>{t.aiLLimits} — </strong>{t.aiLimitsText}</span></div>
-              </div>
-            </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, margin: '16px 0 0 40px' }}>
-              {t.aiActions.map((a, i) => {
-                const active = (i === 2 && p.aiCompare) || (i === 1 && p.aiRelated) || (i === 3 && p.aiSaved);
-                const onClick = () => { if (i === 0) p.setAiStyle('junior'); else if (i === 1) p.setAiRelated((v) => !v); else if (i === 2) p.setAiCompare((v) => !v); else p.setAiSaved((v) => !v); };
-                return <button key={a} type="button" className={chip(active)} style={{ minHeight: 34, fontSize: 12 }} onClick={onClick}>{a}</button>;
-              })}
-            </div>
-            {p.aiSaved && <div style={{ margin: '12px 0 0 40px', fontFamily: 'JetBrains Mono, monospace', fontSize: 11.5, color: 'var(--clr-sage)' }}>{t.aiSavedMsg}</div>}
-          </div>
-          <div style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 24 }}>
-            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 17, color: 'var(--clr-ink)', marginBottom: 16 }}>{t.verifyHead}</div>
-            <div>
-              {t.verifySteps.map((v, i) => <div key={v} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 0' }}><span style={{ flexShrink: 0, width: 24, height: 24, borderRadius: '50%', background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, fontWeight: 700 }}>{i + 1}</span><span style={{ fontSize: 13.5, color: 'var(--clr-ink)' }}>{v}</span></div>)}
-            </div>
-            <div style={{ display: 'flex', gap: 8, marginTop: 14, padding: '12px 14px', borderRadius: 11, background: 'var(--clr-gold-soft)', fontSize: 12, lineHeight: 1.5, color: 'var(--clr-ink)' }}><span style={{ flexShrink: 0 }}>📅</span>{t.verifyOutdated}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-const AI_COMPARE_TXT = 'Prednisolone cross-reacts with many cortisol immunoassays and can falsely raise measured cortisol; dexamethasone does not. That assay difference — not potency — is why dexamethasone is preferred when steroids are needed before cortisol testing. Both still suppress the HPA axis.';
-const AI_TRAP_TXT = 'The trap is treating "does not cross-react with the assay" as "safe to give before testing."';
-const AI_RELATED_TXT = 'Which endogenous ACTH result best distinguishes pituitary-dependent from adrenal-dependent hyperadrenocorticism?';
-const CITATIONS_DATA = {
-  '1': { n: '1', level: 'Guideline-supported', title: 'ACVIM Consensus Statement on the Diagnosis of Hyperadrenocorticism in Dogs', org: 'American College of Veterinary Internal Medicine (ACVIM)', year: '2024', type: 'Consensus guideline', section: 'Diagnostic testing', species: 'Dog', why: 'Supports how prior glucocorticoids affect HPA-axis testing and the interpretation of endocrine screening tests.' },
-  '2': { n: '2', level: 'Textbook reference', title: "Plumb's Veterinary Drug Handbook — Dexamethasone", org: "Plumb's Veterinary Drug Handbook", year: '2023', type: 'Textbook reference — 10th ed.', section: 'Pharmacology — assay cross-reactivity', species: 'Multiple species', why: 'Describes dexamethasone pharmacology and its minimal cross-reactivity with common cortisol immunoassays.' },
-};
-function CIT(n) { return CITATIONS_DATA[n]; }
-
-/* ---- Generator ---- */
-function GeneratorSection({ p }) {
-  const { t } = p;
-  const running = p.genStep >= 0;
-  const genTag = 'Small Animal Med — Endocrine';
-  return (
-    <section id="generate" data-screen-label="AI generator" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
-      <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 34 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div style={label()}>{t.genLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.genHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.genSub}</p></div>
-        <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '.85fr 1.15fr', gap: 20, alignItems: 'start' }}>
-          <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 22, display: 'flex', flexDirection: 'column', gap: 15 }}>
-            <div><div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10.5, color: 'var(--clr-ink-soft)', marginBottom: 4 }}>{t.genWeak}</div><div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18, color: 'var(--clr-ink)' }}>🐕 {t.genWeakVal}</div></div>
-            <GenCtl title={t.genCtl.difficulty} opts={t.genDiff} value={p.genDifficulty} set={p.setGenDifficulty} />
-            <GenCtl title={t.genCtl.species} opts={t.genSpecies} value={p.genSpecies} set={p.setGenSpecies} />
-            <GenCtl title={t.genCtl.type} opts={t.genTypes} value={p.genType} set={p.setGenType} />
-            <GenCtl title={t.genCtl.scope} opts={t.genScopes} value={p.genScope} set={p.setGenScope} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><button type="button" role="switch" aria-checked={p.genTimed} aria-label={t.genCtl.timed} className={`vmx-toggle ${p.genTimed ? 'on' : ''}`} onClick={() => p.setGenTimed((v) => !v)} /><span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{t.genCtl.timed}</span></div>
-            <button type="button" className="vmx-btn vmx-btn-primary" disabled={running} onClick={p.onGenerate} style={{ justifyContent: 'center' }}>✦ {running ? '…' : (p.genRevealed ? t.genAgain : t.genGo)}</button>
-          </div>
-          <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 22, minHeight: 290 }}>
-            {running && (
-              <div style={{ padding: '8px 0' }}>
-                {t.genSteps.map((g, i) => {
-                  const done = i < p.genStep, active = i === p.genStep;
-                  return <div key={g} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 0', opacity: i <= p.genStep ? 1 : 0.4 }}><span style={{ width: 20, textAlign: 'center', color: done ? 'var(--clr-sage)' : active ? 'var(--clr-gold)' : 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', fontSize: 15 }}>{done ? '✓' : active ? '●' : '○'}</span><span style={{ fontSize: 13.5, color: 'var(--clr-ink)' }}>{g}</span></div>;
-                })}
-              </div>
-            )}
-            {!running && p.genRevealed && (
-              <>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 12 }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'JetBrains Mono, monospace', fontSize: 10, fontWeight: 600, padding: '3px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)' }}>✓ {t.genVerified}</span>
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, fontWeight: 600, padding: '3px 9px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)' }}>{t.genReview}</span>
-                  <span className="vmx-qtype-badge">{genTag}</span>
-                </div>
-                <div className="vmx-qtext" style={{ fontSize: 15, marginBottom: 14 }}>{GEN_Q_TXT.q}</div>
-                <div className="vmx-options">
-                  {p.genOptions.map((opt, i) => <OptionRow key={i} opt={opt} onClick={() => { if (p.genPicked === null) p.setGenPicked(i); }} />)}
-                </div>
-                {p.genPicked !== null && <div className="vmx-explain" style={{ marginTop: 14 }}><span className="k">{t.why}</span>{GEN_Q_TXT.explain} <CiteMark n="1" onClick={() => p.setAiCitation(CIT('1'))} /></div>}
-                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 8, marginTop: 14, fontFamily: 'JetBrains Mono, monospace', fontSize: 10, color: 'var(--clr-ink-soft)' }}><span>{t.genOn}</span><span>{t.genDemo}</span></div>
-              </>
-            )}
-          </div>
-        </div>
-        <div className="lp-reveal" style={{ marginTop: 20, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 14, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: '18px 22px' }}>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, fontWeight: 600, textTransform: 'uppercase', padding: '5px 11px', borderRadius: 999, background: 'var(--clr-ink)', color: 'var(--clr-bg)' }}>{t.adaptTitle}</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 17, color: 'var(--clr-ink)' }}>{t.adaptFrom} <span style={{ color: 'var(--clr-sage)' }}>→</span> {t.adaptTo}</div>
-          <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)', flex: 1, minWidth: 220 }}>{t.adaptSub}</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-const GEN_Q_TXT = { q: 'An 8-year-old spayed Miniature Poodle has a 2-month history of PU/PD and symmetric truncal alopecia. An LDDST shows the 8-hour cortisol above the laboratory cut-off. Which additional finding best supports pituitary-dependent disease over a functional adrenal tumour?', explain: 'Suppression at 4 h with escape by 8 h on the LDDST indicates a partially dexamethasone-sensitive pituitary source (PDH). A low endogenous ACTH and unilateral adrenomegaly instead point to a functional adrenal tumour.' };
-function GenCtl({ title, opts, value, set }) {
-  return (
-    <div>
-      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 8 }}>{title}</div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>{opts.map((o) => <button key={o} type="button" className={chip(value === o)} style={{ minHeight: 34, fontSize: 12 }} onClick={() => set(o)}>{o}</button>)}</div>
-    </div>
-  );
-}
-
-/* ---- Revision plan ---- */
-function PlanSection({ p }) {
-  const { t } = p;
-  const toggleSubj = (s) => p.setPlanSubjects((cur) => cur.includes(s) ? cur.filter((x) => x !== s) : [...cur, s]);
-  const title = `${t.planTitlePre}${p.planTime}${t.planTitlePost}`;
-  return (
-    <section id="plan" data-screen-label="Revision plan" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
-      <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 34 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div style={label()}>{t.planLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.planHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.planSub}</p></div>
-        <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '.9fr 1.1fr', gap: 20, alignItems: 'start' }}>
-          <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 22, display: 'flex', flexDirection: 'column', gap: 15 }}>
-            <PlanCtl title={t.planExamIn} opts={t.planDaysOpts} value={p.planDays} set={p.setPlanDays} />
-            <PlanCtl title={t.planTimeL} opts={t.planTimeOpts} value={p.planTime} set={p.setPlanTime} />
-            <div><div style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 8 }}>{t.planSubjL}</div><div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>{t.planSubjOpts.map((s) => <button key={s} type="button" className={chip(p.planSubjects.includes(s))} style={{ minHeight: 34, fontSize: 12 }} onClick={() => toggleSubj(s)}>{s}</button>)}</div></div>
-            <PlanCtl title={t.planConfL} opts={t.planConfOpts} value={p.planConf} set={p.setPlanConf} />
-            <button type="button" className="vmx-btn vmx-btn-primary" onClick={p.onPlanGen} style={{ justifyContent: 'center' }}>✦ {t.planGo}</button>
-          </div>
-          <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 24 }}>
-            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 20, color: 'var(--clr-ink)', marginBottom: 18 }}>{title}</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, opacity: p.planReady ? 1 : 0.5, transition: 'opacity .3s' }}>
-              {p.planSegs.length === 0
-                ? <div style={{ fontSize: 13.5, color: 'var(--clr-ink-soft)' }}>{t.planSubjL} —</div>
-                : p.planSegs.map((seg, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, fontWeight: 600, color: 'var(--clr-sage)', width: 54, flexShrink: 0 }}>{seg.min} min</span>
-                    <div style={{ flex: 1, minWidth: 0 }}><div style={{ fontSize: 13.5, color: 'var(--clr-ink)', marginBottom: 5 }}>{seg.label}</div><div className="vmx-bar"><div className="vmx-bar-fill" style={{ width: seg.w, transition: 'width .7s ease' }} /></div></div>
-                  </div>
-                ))}
-            </div>
-            <div style={{ display: 'flex', gap: 8, marginTop: 18, paddingTop: 14, borderTop: '1px dashed var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)' }}><span style={{ color: 'var(--clr-gold)' }}>ⓘ</span>{t.planNote}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-function PlanCtl({ title, opts, value, set }) {
-  return (
-    <div>
-      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 8 }}>{title}</div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>{opts.map((o) => <button key={o.k} type="button" className={chip(value === o.k)} style={{ minHeight: 34, fontSize: 12 }} onClick={() => set(o.k)}>{o.l}</button>)}</div>
-    </div>
   );
 }

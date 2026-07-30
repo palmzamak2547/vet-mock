@@ -11,11 +11,14 @@ import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
 import { useOnlineStatus } from './hooks/useOnlineStatus.js';
+import { useUserDataSync } from './hooks/useUserDataSync.js';
 import ThemePicker from './components/ThemePicker.jsx';
 import UserMenu from './components/UserMenu.jsx';
 import HeaderBar from './components/HeaderBar.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import Footer from './components/Footer.jsx';
+import SyncStatusNotice from './components/SyncStatusNotice.jsx';
+import AuthRequiredState from './components/AuthRequiredState.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
 import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
@@ -30,7 +33,7 @@ import './styles.css';
 import './styles-landing.css';
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { parseWikiPath } from './lib/vetwiki/url.js';
-import { saveExamResult, pullUserData, pushUserDataDebounced } from './lib/api.js';
+import { saveExamResult } from './lib/api.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
 import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
@@ -218,6 +221,12 @@ const WIDE_VIEWS = new Set([
 // the footer prevents keyboard/scroll users from leaving an active exam
 // without going through ExamView's confirmation flow.
 const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select']);
+const AUTH_REQUIRED_VIEWS = new Set([
+  'groups',
+  'group-detail',
+  'leaderboard-global',
+  'account-settings',
+]);
 
 function isInteractiveKeyTarget(target) {
   if (!(target instanceof Element)) return false;
@@ -717,13 +726,27 @@ export default function App() {
   // ocean / plum / cherry / mono / forest. Stored in localStorage so
   // preference is per-device.
   const [palette, setPalette] = useLocalStorage('vmx-palette', 'default');
-  const [bookmarks, setBookmarks] = useLocalStorage('vmx-bookmarks', []);
-  const [history, setHistory] = useLocalStorage('vmx-history', []);
-  const [notes, setNotes] = useLocalStorage('vmx-notes', {});
-  const [srCards, setSrCards] = useLocalStorage('vmx-sr-cards', {});
-  const [customQuestions, setCustomQuestions] = useLocalStorage('vmx-custom-q', []);
-  const [streakData, setStreakData] = useLocalStorage('vmx-streak', { streak: 0, lastDate: null });
-  const [readingChecklist, setReadingChecklist] = useLocalStorage('vmx-reading-checklist', {});
+  const {
+    data: {
+      bookmarks,
+      history,
+      notes,
+      srCards,
+      customQuestions,
+      streakData,
+      readingChecklist,
+    },
+    set: {
+      bookmarks: setBookmarks,
+      history: setHistory,
+      notes: setNotes,
+      srCards: setSrCards,
+      customQuestions: setCustomQuestions,
+      streakData: setStreakData,
+      readingChecklist: setReadingChecklist,
+    },
+    sync: userDataSync,
+  } = useUserDataSync(user?.id ?? null);
 
   // Google Fonts moved to index.html with media=print + onload swap so
   // they download in parallel with the HTML and don't block first paint.
@@ -770,51 +793,6 @@ export default function App() {
     setHistory(enriched);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // run-once on mount
-
-  // Cloud sync is pull-then-push, and the push MUST NOT run until the pull
-  // has actually come back. Before this gate, both effects fired on the same
-  // `user` transition: on a new device (or whenever the read failed — the
-  // catch below is silent, so "network error" looked exactly like "no cloud
-  // data") the push raced ahead with an EMPTY local state and overwrote the
-  // user's real cloud history and bookmarks. Failing to back up is
-  // recoverable; deleting someone's history is not.
-  const [syncPulled, setSyncPulled] = useState(false);
-
-  useEffect(() => {
-    if (!user) { setSyncPulled(false); return; }
-    setSyncPulled(false);
-    pullUserData(user.id).then((data) => {
-      // A successful read with no row is a genuinely new account — safe to
-      // push. A REJECTED read leaves syncPulled false, so we never push.
-      setSyncPulled(true);
-      if (!data) return;
-      if (data.bookmarks?.length) setBookmarks(data.bookmarks);
-      if (data.history?.length) setHistory(data.history);
-      if (data.notes && Object.keys(data.notes).length) setNotes(data.notes);
-      if (data.sr_cards && Object.keys(data.sr_cards).length) setSrCards(data.sr_cards);
-      if (data.custom_questions?.length) setCustomQuestions(data.custom_questions);
-      if (data.streak_data?.lastDate) setStreakData(data.streak_data);
-      // reading_checklist: pulled if the Supabase column exists; harmless
-      // when it doesn't (data.reading_checklist is just undefined).
-      if (data.reading_checklist && Object.keys(data.reading_checklist).length) setReadingChecklist(data.reading_checklist);
-    }).catch(() => {});
-  }, [user]);
-
-  useEffect(() => {
-    if (!user || !syncPulled) return; // never push over an unread cloud state
-    // NOTE: reading_checklist intentionally excluded from cloud push for
-    // now — the user_data table in supabase-schema.sql doesn't include
-    // that column yet, and including it would make the entire upsert
-    // fail with "column not found", breaking ALL cloud sync for every
-    // logged-in user. Add the column + uncomment the line below once
-    // the migration runs:
-    //   ALTER TABLE user_data ADD COLUMN reading_checklist JSONB DEFAULT '{}'::JSONB;
-    pushUserDataDebounced(user.id, {
-      bookmarks, history, notes, sr_cards: srCards,
-      custom_questions: customQuestions, streak_data: streakData,
-      // reading_checklist: readingChecklist,
-    });
-  }, [user, syncPulled, bookmarks, history, notes, srCards, customQuestions, streakData]);
 
   // QB is mutated in place when loadQB() resolves, so the same reference
   // grows from [] → 2,227 entries. Depend on `qbReady` so the memo
@@ -1680,49 +1658,15 @@ export default function App() {
               dedicated button so a stray tap on the banner text doesn't
               navigate accidentally (used to be a div-wide onClick which
               hijacked any tap, including swipe-to-scroll on iOS). */}
-          {(!networkOnline || networkJustChanged) && view !== 'offline-game' && view !== 'exam' && (
-            <div
-              role="status"
-              aria-live="polite"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: 12,
-                padding: '8px 14px',
-                marginBottom: 8,
-                borderRadius: 8,
-                fontSize: 13,
-                background: networkOnline
-                  ? 'rgba(74, 107, 74, 0.12)'
-                  : 'rgba(184, 137, 64, 0.18)',
-                color: networkOnline ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-gold, #b88940)',
-              }}
-            >
-              <span>
-                {networkOnline
-                  ? '● กลับมาออนไลน์แล้ว — ข้อมูลจะ sync อัตโนมัติ'
-                  : '● ออฟไลน์อยู่ — ใช้งานต่อได้ปกติ ข้อมูลที่บันทึกจะ sync เมื่อเน็ตกลับ'}
-              </span>
-              {!networkOnline && (
-                <button
-                  type="button"
-                  onClick={() => setView('offline-game')}
-                  className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                  style={{
-                    padding: '4px 10px',
-                    fontSize: 12,
-                    color: 'var(--clr-gold, #b88940)',
-                    border: '1px solid currentColor',
-                    background: 'transparent',
-                    flexShrink: 0,
-                  }}
-                  aria-label="เล่นมินิเกมระหว่างรอเน็ตกลับ"
-                >
-                  🎮 เล่นเกม
-                </button>
-              )}
-            </div>
+          {view !== 'offline-game' && view !== 'exam' && (
+            <SyncStatusNotice
+              online={networkOnline}
+              justChanged={networkJustChanged}
+              signedIn={Boolean(user)}
+              sync={userDataSync}
+              onRetry={userDataSync.retry}
+              onOfflineGame={() => setView('offline-game')}
+            />
           )}
 
           {/* New service-worker version installed — shown only when NOT in
@@ -1749,7 +1693,13 @@ export default function App() {
               <span>✨ มีอัปเดตใหม่พร้อมแล้ว</span>
               <button
                 type="button"
-                onClick={() => window.location.reload()}
+                onClick={() => {
+                  if (window.__VMX_UPDATE_STATUS__?.reason === 'service-worker') {
+                    window.dispatchEvent(new Event('vmx-sw-apply-update'));
+                  } else {
+                    window.location.reload();
+                  }
+                }}
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 style={{
                   padding: '4px 10px',
@@ -1840,6 +1790,9 @@ export default function App() {
           {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
+              {AUTH_REQUIRED_VIEWS.has(view) && !user && (
+                <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
+              )}
               {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true) }} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}

@@ -12,41 +12,28 @@
 //       - "Start Practicing" / hero / CTA → enter the real app
 //       - Cookie consent → real gate for @vercel/analytics (App owns it)
 //       - Theme / language toggles → real
-//   • HONEST INTERACTIVE PREVIEWS (no backend exists — README says so):
-//       - hero exam demo, lab station, VetMock AI + citations,
-//         question generator, panic mode, readiness, insights, plan.
-//     All use the design's own demo fixtures, are clearly non-scoring,
-//     never touch real progress, and bridge into the real flow.
-//   • Citations are labelled demonstration metadata — no fabricated
-//     DOI/PMID (design already carries this disclaimer).
+//   • INTERACTIVE EXAMPLES:
+//       - hero question, lab station, panic mode, readiness, and insights.
+//     They are clearly non-scoring, never touch real progress, and every
+//     CTA bridges into a feature that ships in the real app.
 //
 // State: local component state only, matching the design's state model.
 // ============================================================
 
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import { DICT } from './landing/dict.js';
-import LandingBody, { OptionRow } from './landing/LandingBody.jsx';
+import LandingBody from './landing/LandingBody.jsx';
 import { useLandingMotion } from './landing/useLandingMotion.js';
 
-// ---- Demo fixtures for the interactive previews (isolated, non-scoring) ----
-// These drive the honest simulated demos (hero exam, lab, generator, AI).
-// The full copy for AI answers / citations lives in LandingBody.
+// ---- Demo fixtures for the interactive examples (isolated, non-scoring) ----
 const HERO_OPTIONS = ['Abdominal radiographs', 'Low-dose dexamethasone suppression test (LDDST)', 'Serum fructosamine', 'Total T4 (thyroid panel)'];
 const HERO_ANSWER = 1;
 const LAB_OPTIONS = ['Left atrial enlargement with cardiogenic pulmonary oedema', 'Pleural effusion', 'Spontaneous pneumothorax', 'Megaesophagus'];
 const LAB_ANSWER = 0;
 const PANIC_DATA = { '15': { c: 8, t: 5, q: 12, w: 2 }, '30': { c: 15, t: 10, q: 25, w: 3 }, '60': { c: 30, t: 20, q: 50, w: 5 }, tonight: { c: 60, t: 40, q: 120, w: 6 } };
 const READINESS = { score: 72 };
-const AI_ANSWER = {
-  quick: { direct: 'Recent glucocorticoids can suppress the HPA axis and blunt the adrenal response the ACTH stimulation test is trying to measure — so a low result may reflect the drug, not the disease.', body: 'Dexamethasone barely shows up in most cortisol assays, but it can still quiet the axis depending on timing and dose.' },
-  steps: { direct: 'Step 1 — the ACTH stim test measures adrenal reserve after giving exogenous ACTH.', body: 'Step 2 — dexamethasone is chosen when steroids are needed before cortisol testing because it has minimal assay cross-reactivity. Step 3 — but it still suppresses the HPA axis by timing and dose, so given right before an ACTH stim it can lower the measured response. Step 4 — therefore avoid it immediately pre-test when the result is clinically critical.' },
-  clinical: { direct: 'In a patient who urgently needs steroids before endocrine testing, dexamethasone avoids assay interference — but you must still time the ACTH stim so axis suppression does not confound the result.', body: 'Document the dose and time given, and interpret a blunted response in that context rather than over-calling hypoadrenocorticism.' },
-  junior: { direct: 'Think of the ACTH stim test as gently poking the adrenal gland and watching it respond. Dexamethasone can make that gland sleepy first.', body: 'It will not fool the lab machine (low cross-reactivity), but a sleepy gland gives a small response — which you might misread as disease.' },
-  trap: { direct: 'The trap is treating "does not cross-react with the assay" as "safe to give before testing."', body: 'Assay interference and HPA-axis suppression are two separate problems — dexamethasone avoids the first but not the second.' },
-};
-const GEN_Q = { options: ['4-hour cortisol suppressed to <50% of baseline, then escaping by 8 hours', 'No suppression at any time point', 'Low endogenous ACTH concentration', 'Unilateral adrenomegaly with a small contralateral gland'], answer: 0 };
 
 // Real subjects (year-4 default = current cohort) with REAL question
 // counts. Each is a working destination into the practice flow.
@@ -112,7 +99,6 @@ export default function LandingView({
   const [heroRevealed, setHeroRevealed] = useState(false);
   const [heroBookmarked, setHeroBookmarked] = useState(false);
   const [heroConfidence, setHeroConfidence] = useState(null);
-  const [heroGen, setHeroGen] = useState('done');
 
   // subjects
   const [subjectTab, setSubjectTab] = useState('all');
@@ -127,30 +113,6 @@ export default function LandingView({
   const [labZoom, setLabZoom] = useState(1);
   const [labTool, setLabTool] = useState(null);
 
-  // AI
-  const [aiStyle, setAiStyle] = useState('quick');
-  const [aiCompare, setAiCompare] = useState(false);
-  const [aiRelated, setAiRelated] = useState(false);
-  const [aiSaved, setAiSaved] = useState(false);
-  const [aiCitation, setAiCitation] = useState(null);
-
-  // generator
-  const [genStep, setGenStep] = useState(-1);
-  const [genRevealed, setGenRevealed] = useState(true);
-  const [genPicked, setGenPicked] = useState(null);
-  const [genDifficulty, setGenDifficulty] = useState('Moderate');
-  const [genSpecies, setGenSpecies] = useState('Dog');
-  const [genType, setGenType] = useState('MCQ');
-  const [genScope, setGenScope] = useState('Clinical');
-  const [genTimed, setGenTimed] = useState(false);
-
-  // plan
-  const [planDays, setPlanDays] = useState('7');
-  const [planTime, setPlanTime] = useState('45');
-  const [planConf, setPlanConf] = useState('ok');
-  const [planSubjects, setPlanSubjects] = useState(['Endocrine', 'Cardiology']);
-  const [planReady, setPlanReady] = useState(true);
-
   // cookie + login
   const [cookieOpen, setCookieOpen] = useState(consent === 'ask');
   const [cookiePrefs, setCookiePrefs] = useState(false);
@@ -161,9 +123,6 @@ export default function LandingView({
   const [loginEmail, setLoginEmail] = useState('');
   const [loginSending, setLoginSending] = useState(false);
   const [loginError, setLoginError] = useState('');
-
-  const timers = useRef([]);
-  const pushTimer = (fn, ms) => { const t = setTimeout(fn, ms); timers.current.push(t); return t; };
 
   // sync language from prop
   useEffect(() => { if (langProp && langProp !== lang) setLang(langProp); }, [langProp]); // eslint-disable-line
@@ -209,14 +168,13 @@ export default function LandingView({
     onScroll();
     let wordTimer;
     if (!reduce.current) wordTimer = setInterval(() => { if (!document.hidden) setHeroWord((w) => (w + 1) % L.heroWords.length); }, 2600);
-    const onKey = (e) => { if (e.key === 'Escape') { setLoginOpen(false); setAiCitation(null); setMobileOpen(false); } };
+    const onKey = (e) => { if (e.key === 'Escape') { setLoginOpen(false); setMobileOpen(false); } };
     window.addEventListener('keydown', onKey);
     return () => {
       if (io) io.disconnect();
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('keydown', onKey);
       if (wordTimer) clearInterval(wordTimer);
-      timers.current.forEach(clearTimeout);
     };
     // eslint-disable-next-line
   }, [lang]);
@@ -236,7 +194,6 @@ export default function LandingView({
   // ---- derived ----
   const heroOptions = useMemo(() => buildOptions(HERO_OPTIONS, HERO_ANSWER, heroPicked, heroRevealed), [heroPicked, heroRevealed]);
   const labOptions = useMemo(() => buildOptions(LAB_OPTIONS, LAB_ANSWER, labPicked, labRevealed), [labPicked, labRevealed]);
-  const genOptions = useMemo(() => buildOptions(GEN_Q.options, GEN_Q.answer, genPicked, genPicked !== null), [genPicked]);
 
   const liveYears = YEARS.filter((y) => !y.scaffold).map((y) => y.id);
   // Real subjects are CUVET year-based (no preclinical/paraclinical/clinical
@@ -247,39 +204,11 @@ export default function LandingView({
   const realSubjects = useMemo(() => liveYears.flatMap((y) => buildRealSubjects(y)), []); // eslint-disable-line
 
   const panic = PANIC_DATA[panicTime] || PANIC_DATA['30'];
-  const aiMain = AI_ANSWER[aiStyle] || AI_ANSWER.quick;
   const readinessRing = `conic-gradient(var(--clr-sage) 0% ${READINESS.score}%, var(--clr-surface-2) ${READINESS.score}% 100%)`;
 
-  // plan proportional segments
-  const planSegs = useMemo(() => {
-    const total = Number(planTime);
-    const subs = planSubjects.length ? planSubjects : ['Endocrine'];
-    const per = Math.max(5, Math.round(total / subs.length));
-    return subs.map((name) => ({ min: per, label: (L.planLibrary && L.planLibrary[name]) || name, w: `${Math.min(100, Math.round((per / total) * 100))}%` }));
-  }, [planTime, planSubjects, L]);
-
   // ---- interactions (all sims respect reduced-motion) ----
-  const onHeroGenerate = () => {
-    if (reduce.current) { setHeroGen('done'); return; }
-    setHeroGen('gen');
-    pushTimer(() => setHeroGen('done'), 1700);
-  };
   const onCheckHero = () => { if (heroPicked === null) return; setHeroRevealed(true); beep(); };
   const onCheckLab = () => { if (labPicked === null) return; setLabRevealed(true); beep(); };
-  const onGenerate = () => {
-    timers.current.forEach(clearTimeout); timers.current = [];
-    setGenPicked(null);
-    if (reduce.current) { setGenStep(-1); setGenRevealed(true); return; }
-    setGenStep(0); setGenRevealed(false);
-    const steps = L.genSteps.length;
-    for (let i = 1; i < steps; i++) pushTimer(() => setGenStep(i), i * 560);
-    pushTimer(() => { setGenStep(-1); setGenRevealed(true); }, steps * 560);
-  };
-  const onPlanGen = () => {
-    if (reduce.current) { setPlanReady(true); return; }
-    setPlanReady(false);
-    pushTimer(() => setPlanReady(true), 650);
-  };
 
   // ---- real login ----
   const openLogin = () => { setLoginError(''); setLoginStep('email'); setLoginOpen(true); setMobileOpen(false); };
@@ -358,42 +287,14 @@ export default function LandingView({
 
       {/* body sections rendered from a dedicated module for readability */}
       <LandingBody
-        {...{ t, lang, heroWord, heroOptions, heroPicked, heroRevealed, heroBookmarked, heroConfidence, heroGen,
-          setHeroPicked, setHeroBookmarked, setHeroConfidence, onHeroGenerate, onCheckHero,
+        {...{ t, lang, heroWord, heroOptions, heroPicked, heroRevealed, heroBookmarked, heroConfidence,
+          setHeroPicked, setHeroBookmarked, setHeroConfidence, onCheckHero,
           subjectTab, setSubjectTab, showcaseMode, setShowcaseMode, realSubjects,
           panicTime, setPanicTime, panic,
           labOptions, labPicked, labRevealed, labZoom, labTool, setLabPicked, setLabZoom, setLabTool, onCheckLab,
-          aiStyle, setAiStyle, aiCompare, setAiCompare, aiRelated, setAiRelated, aiSaved, setAiSaved, aiMain, setAiCitation,
-          genStep, genRevealed, genPicked, setGenPicked, genOptions, genDifficulty, setGenDifficulty, genSpecies, setGenSpecies, genType, setGenType, genScope, setGenScope, genTimed, setGenTimed, onGenerate,
-          planDays, setPlanDays, planTime, setPlanTime, planConf, setPlanConf, planSubjects, setPlanSubjects, planReady, planSegs, onPlanGen,
           readinessRing, onEnterApp, onPickSubject, openLogin,
           onStartMockExam, onStartPanic, onOpenLab }}
       />
-
-      {/* ---- Citation source panel ---- */}
-      {aiCitation && (
-        <div onClick={() => setAiCitation(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(43,36,25,.42)', zIndex: 100, display: 'flex', justifyContent: 'flex-end' }}>
-          <div onClick={(e) => e.stopPropagation()} role="dialog" aria-label={aiCitation.title} style={{ width: 390, maxWidth: '92vw', height: '100%', background: 'var(--clr-surface)', borderLeft: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-lg)', padding: 24, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'JetBrains Mono, monospace', fontSize: 10, fontWeight: 600, padding: '4px 10px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)' }}>● {aiCitation.level}</span>
-              <button type="button" onClick={() => setAiCitation(null)} style={{ border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', borderRadius: 999, padding: '6px 12px', fontSize: 12, color: 'var(--clr-ink-soft)', cursor: 'pointer', fontFamily: 'inherit' }}>✕ {t.srcClose}</button>
-            </div>
-            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 19, lineHeight: 1.25, color: 'var(--clr-ink)' }}>{aiCitation.title}</div>
-            <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{aiCitation.org}</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '9px 16px', fontSize: 12.5, padding: '14px 0', borderTop: '1px dashed var(--clr-border)', borderBottom: '1px dashed var(--clr-border)' }}>
-              {[[t.srcYear, aiCitation.year], [t.srcType, aiCitation.type], [t.srcSection, aiCitation.section], [t.srcSpeciesL, aiCitation.species]].map(([k, v]) => (
-                <React.Fragment key={k}><span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{k}</span><span style={{ color: 'var(--clr-ink)' }}>{v}</span></React.Fragment>
-              ))}
-            </div>
-            <div><div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 5 }}>{t.srcWhy}</div><p style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--clr-ink)', margin: 0 }}>{aiCitation.why}</p></div>
-            <div><div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginBottom: 5 }}>{t.srcExam}</div><p style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.srcExamText}</p></div>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 4 }}>
-              {t.srcActions.map((a) => <button key={a} type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm">{a}</button>)}
-            </div>
-            <div style={{ marginTop: 'auto', paddingTop: 14, borderTop: '1px dashed var(--clr-border)', fontSize: 11, lineHeight: 1.5, color: 'var(--clr-ink-soft)' }}>{t.srcDemo}</div>
-          </div>
-        </div>
-      )}
 
       {/* ---- Cookie consent (real) ---- */}
       {cookieOpen && (
