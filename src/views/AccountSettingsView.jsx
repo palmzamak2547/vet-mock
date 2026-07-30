@@ -177,7 +177,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
   };
 
   const handleLogoutAll = async () => {
-    if (!confirm('Logout จากทุก device ที่คุณเคย login?, จำเป็นต้อง login ใหม่ทุกที่')) return;
+    if (!confirm('Logout จากทุก device ที่คุณเคย login? จำเป็นต้อง login ใหม่ทุกที่')) return;
     reset();
     setLoading(true);
     try {
@@ -207,7 +207,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       setError('พิมพ์ "ลบ account" ให้ตรงเพื่อยืนยัน');
       return;
     }
-    if (!confirm('ลบ account จริงๆ?, ข้อมูลทั้งหมด (progress, scores, bookmarks) จะหาย, ไม่สามารถกู้คืนได้')) return;
+    if (!confirm('ลบ account จริงๆ? ข้อมูลทั้งหมด (progress, scores, bookmarks) จะหาย, ไม่สามารถกู้คืนได้')) return;
     setLoading(true);
     try {
       const result = await deleteAccountData();

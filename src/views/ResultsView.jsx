@@ -1069,7 +1069,7 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
     <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'linear-gradient(135deg, rgba(225,48,108,0.06), rgba(247,119,55,0.06))', border: '1px dashed rgba(225,48,108,0.35)' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ fontSize: 13, color: 'var(--clr-ink)', flex: '1 1 200px', lineHeight: 1.5 }}>
-          อยากแชร์คะแนนให้เพื่อน?, กดสร้าง score card สำหรับ <strong>IG Story</strong> ได้
+          อยากแชร์คะแนนให้เพื่อน? กดสร้าง score card สำหรับ <strong>IG Story</strong> ได้
         </div>
         <button
           className="vmx-btn vmx-btn-primary"

@@ -57,80 +57,23 @@ html.lp-active { background: var(--clr-bg); }
   overflow: hidden;
   background: linear-gradient(135deg, var(--clr-bg) 0%, color-mix(in srgb, var(--clr-sage-soft) 15%, var(--clr-bg)) 50%, color-mix(in srgb, var(--clr-gold-soft) 10%, var(--clr-bg)) 100%);
 }
+/* One quiet wash, static. This used to be a four-colour animated mesh plus a
+   CRT scanline plus three blur(60px) orbs drifting on an infinite loop — the
+   stock "AI landing page" look, and four composited layers of it on the first
+   paint a phone does. Two soft ellipses in the brand colours carry the same
+   warmth without announcing themselves. */
 #lp-top::before {
   content: '';
   position: absolute;
   inset: -20%;
   background:
-    radial-gradient(ellipse 80% 70% at 75% 25%, color-mix(in srgb, var(--clr-sage) 12%, transparent), transparent 70%),
-    radial-gradient(ellipse 60% 55% at 20% 75%, color-mix(in srgb, var(--clr-gold) 10%, transparent), transparent 65%),
-    radial-gradient(ellipse 50% 45% at 55% 85%, color-mix(in srgb, var(--clr-ocean) 8%, transparent), transparent 60%),
-    radial-gradient(ellipse 40% 40% at 35% 35%, color-mix(in srgb, var(--clr-plum) 6%, transparent), transparent 55%);
-  pointer-events: none;
-  z-index: 0;
-  animation: lp-mesh-drift 20s ease-in-out infinite alternate;
-}
-#lp-top::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    color-mix(in srgb, var(--clr-ink) 1.5%, transparent) 2px,
-    color-mix(in srgb, var(--clr-ink) 1.5%, transparent) 4px
-  );
-  opacity: 0.3;
+    radial-gradient(ellipse 80% 70% at 78% 22%, color-mix(in srgb, var(--clr-sage) 10%, transparent), transparent 70%),
+    radial-gradient(ellipse 60% 55% at 18% 78%, color-mix(in srgb, var(--clr-gold) 8%, transparent), transparent 65%);
   pointer-events: none;
   z-index: 0;
 }
-/* Keep real hero content above the decorative layers. The orbs must remain
-   absolute; applying `position: relative` to every direct child made their
-   200–380px boxes consume layout space and pushed the mobile headline below
-   the first viewport. */
-#lp-top > :not(.lp-hero-orb) { position: relative; z-index: 1; }
-
-@keyframes lp-mesh-drift {
-  0%   { opacity: 0.8; transform: scale(1) translateX(0) rotate(0deg); }
-  33%  { opacity: 1; transform: scale(1.06) translateX(-15px) rotate(2deg); }
-  66%  { opacity: 0.9; transform: scale(1.03) translateX(12px) rotate(-1deg); }
-  100% { opacity: 0.85; transform: scale(1.04) translateX(-8px) rotate(1deg); }
-}
-
-/* Floating orbs behind hero */
-.lp-hero-orb {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(60px);
-  animation: lp-orb-float 14s ease-in-out infinite alternate;
-}
-.lp-hero-orb-1 {
-  width: 380px; height: 380px;
-  top: -100px; right: 8%;
-  background: color-mix(in srgb, var(--clr-sage) 16%, transparent);
-  animation-delay: 0s;
-}
-.lp-hero-orb-2 {
-  width: 280px; height: 280px;
-  bottom: -60px; left: 10%;
-  background: color-mix(in srgb, var(--clr-gold) 12%, transparent);
-  animation-delay: -5s;
-}
-.lp-hero-orb-3 {
-  width: 200px; height: 200px;
-  top: 35%; right: 45%;
-  background: color-mix(in srgb, var(--clr-ocean) 10%, transparent);
-  animation-delay: -9s;
-}
-@keyframes lp-orb-float {
-  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
-  33%  { transform: translate(25px, -35px) scale(1.1) rotate(5deg); }
-  66%  { transform: translate(-15px, 25px) scale(0.95) rotate(-3deg); }
-  100% { transform: translate(10px, -15px) scale(1.05) rotate(2deg); }
-}
+/* Keep real hero content above the wash. */
+#lp-top > * { position: relative; z-index: 1; }
 
 /* ================================================================
    ✨ NAV — premium glassmorphism upgrade
@@ -500,9 +443,6 @@ html.lp-active { background: var(--clr-bg); }
   .lp-pad { padding-left: 20px !important; padding-right: 20px !important; }
   .lp-center-md { text-align: center !important; }
   .lp-center-md.lp-flex { justify-content: center !important; }
-  /* Orbs shrink on mobile */
-  .lp-hero-orb-1 { width: 200px; height: 200px; }
-  .lp-hero-orb-2 { width: 150px; height: 150px; }
   /* CTA border spin too expensive on mobile */
   #cta .lp-reveal > div::before { display: none; }
   #cta .lp-reveal > div::after  { inset: 0; border-radius: 26px; }
@@ -663,7 +603,6 @@ html.lp-active { background: var(--clr-bg); }
 @media (prefers-reduced-motion: reduce) {
   .lp-reveal { opacity: 1; transform: none; transition: none; }
   .lp-rail, .lp-spotlight { display: none !important; }
-  #lp-top::before, .lp-hero-orb { animation: none !important; }
   #cta .lp-reveal > div::before { animation: none !important; }
   #why::after { animation: none !important; }
   .lp-root *, .lp-root *::before, .lp-root *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; }

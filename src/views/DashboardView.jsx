@@ -193,12 +193,27 @@ function TrendChart({ days }) {
 // Palm whether the app is still meeting Core Web Vitals thresholds
 // (LCP <2.5s, CLS <0.1, INP <200ms) on his actual device, without
 // any analytics service. Renders nothing if no samples yet.
+// Opt-in: LCP/CLS/INP are a developer's numbers, and this panel sat on every
+// student's dashboard telling them nothing they can act on. Turn it on with
+// ?perf=1 (sticks for the session) or localStorage vmx-perf = '1'.
+function perfPanelEnabled() {
+  if (typeof window === 'undefined') return false;
+  try {
+    if (new URLSearchParams(window.location.search).get('perf') === '1') {
+      window.localStorage.setItem('vmx-perf', '1');
+      return true;
+    }
+    return window.localStorage.getItem('vmx-perf') === '1';
+  } catch { return false; }
+}
+
 function WebVitalsPanel() {
   const [samples, setSamples] = useState([]);
+  const enabled = perfPanelEnabled();
   useEffect(() => {
-    setSamples(getWebVitalsSamples());
-  }, []);
-  if (!samples.length) return null;
+    if (enabled) setSamples(getWebVitalsSamples());
+  }, [enabled]);
+  if (!enabled || !samples.length) return null;
   const stats = {
     lcp: summarize(samples, 'lcp'),
     cls: summarize(samples, 'cls'),
