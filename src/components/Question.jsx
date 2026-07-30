@@ -426,51 +426,52 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   return (
     <div className="vmx-question-card">
-      <button type="button" aria-label="Bookmark ข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="Bookmark (B)">
-        <NavIcon name="star" size={18} filled={isBookmarked} />
-      </button>
-      <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้ (N)">
-        <NavIcon name="note" size={18} filled={Boolean(note)} />
-      </button>
-      {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).
-          Click again while speaking to stop. Useful during commute /
-          eyes-on-rest study mode. */}
-      <button
-        type="button"
-        aria-label={isSpeaking ? 'หยุดอ่านออกเสียง' : 'อ่านคำถามออกเสียง'}
-        aria-pressed={isSpeaking}
-        className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
-        onClick={speakQ}
-        title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง (TTS)'}
-        style={{ right: 108 }}
-      >
-        <NavIcon name={isSpeaking ? 'speaker-off' : 'speaker'} size={18} />
-      </button>
-      {/* Q quality flag — local-only for now (Supabase schema TBD).
-          Lets users mark "เฉลยผิด" / "งง" — auditable via
-          localStorage 'vmx-q-flags'. */}
-      <button
-        type="button"
-        aria-label={flagState ? `ยกเลิก flag ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
-        aria-pressed={Boolean(flagState)}
-        className={`vmx-note-btn ${flagState ? 'has-note' : ''}`}
-        onClick={toggleFlag}
-        title={flagState ? `ยกเลิก flag, "${flagState.reason}"` : 'แจ้งปัญหาข้อนี้'}
-        style={{ right: 152 }}
-      >
-        <NavIcon name="flag" size={18} filled={Boolean(flagState)} />
-      </button>
-      {/* Pin → adds this Q to the personal Pinboard so the user can
-          revisit it across the app via 📌 Pinboard view / command
-          palette. Aligned with the existing button chain (top:20 right
-          offsets +44 each). */}
-      <PinButton
-        type="question"
-        payload={{ subject: currentQ?.subject, id: currentQ?.id, stem: (currentQ?.q || '').slice(0, 80) }}
-        label={(currentQ?.q || '').slice(0, 60)}
-        compact
-        style={{ position: 'absolute', top: 20, right: 196, width: 36, height: 36, minWidth: 36, minHeight: 36, borderRadius: '50%' }}
-      />
+      {/* One flex row instead of five independently absolute-positioned
+          buttons. The old layout hard-coded right: 20 / 64 / 108 / 152 / 196 —
+          a 44px pitch — while the 44px WCAG floor made each button 44px wide,
+          so they touched on desktop; and the ≤640px rules moved only the first
+          two to a 40px pitch, leaving the last three overlapping and out of
+          line. Spacing now comes from `gap`, so size and spacing cannot
+          disagree again. */}
+      <div className="vmx-q-toolbar">
+        <button type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="บันทึกข้อนี้ (B)">
+          <NavIcon name="star" size={18} filled={isBookmarked} />
+        </button>
+        <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้ (N)">
+          <NavIcon name="note" size={18} filled={Boolean(note)} />
+        </button>
+        {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).
+            Click again while speaking to stop. */}
+        <button
+          type="button"
+          aria-label={isSpeaking ? 'หยุดอ่านออกเสียง' : 'อ่านคำถามออกเสียง'}
+          aria-pressed={isSpeaking}
+          className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
+          onClick={speakQ}
+          title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
+        >
+          <NavIcon name={isSpeaking ? 'speaker-off' : 'speaker'} size={18} />
+        </button>
+        {/* Q quality flag — local-only for now (Supabase schema TBD). */}
+        <button
+          type="button"
+          aria-label={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
+          aria-pressed={Boolean(flagState)}
+          className={`vmx-note-btn ${flagState ? 'has-note' : ''}`}
+          onClick={toggleFlag}
+          title={flagState ? `ยกเลิกการแจ้งปัญหา: ${flagState.reason}` : 'แจ้งปัญหาข้อนี้'}
+        >
+          <NavIcon name="flag" size={18} filled={Boolean(flagState)} />
+        </button>
+        {/* Pin → adds this Q to the personal Pinboard. */}
+        {/* Not `compact`: its 36px inline size sat next to four 44px controls,
+            so the row read as uneven — and 44px is the touch floor anyway. */}
+        <PinButton
+          type="question"
+          payload={{ subject: currentQ?.subject, id: currentQ?.id, stem: (currentQ?.q || '').slice(0, 80) }}
+          label={(currentQ?.q || '').slice(0, 60)}
+        />
+      </div>
 
       <div className="vmx-qtype-badge">
         {/* Thai, like the rest of the card — this chip sits directly above a

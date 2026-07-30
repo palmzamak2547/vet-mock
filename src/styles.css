@@ -797,7 +797,23 @@ html, body {
 .vmx-progress-bar { height: 3px; background: var(--clr-surface-2); border-radius: 999px; overflow: hidden; margin-bottom: 28px; }
 .vmx-progress-fill { height: 100%; background: var(--clr-ink); transition: width 0.3s; }
 
-.vmx-question-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 20px; padding: 32px; margin-bottom: 20px; box-shadow: var(--shadow-sm); position: relative; }
+/* padding-top clears the absolutely-positioned .vmx-q-toolbar (16px inset +
+   44px control) so the type chip and stem always start below it. */
+.vmx-question-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 20px; padding: 72px 32px 32px; margin-bottom: 20px; box-shadow: var(--shadow-sm); position: relative; }
+/* Question-card toolbar — ONE flex row. Each control keeps its own colours
+   and states, but position and spacing live here so the 44px touch floor can
+   never collide with a hand-picked offset again. */
+.vmx-q-toolbar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: var(--z-raised);
+}
+.vmx-q-toolbar > * { position: static !important; inset: auto !important; flex: 0 0 auto; }
+
 .vmx-bookmark-btn { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-bookmark-btn:hover { border-color: var(--clr-gold); }
 .vmx-bookmark-btn.active { background: var(--clr-gold); border-color: var(--clr-gold); color: var(--clr-surface); }
@@ -1124,10 +1140,13 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-mode-grid { grid-template-columns: 1fr; }
   .vmx-subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .vmx-tf-row { grid-template-columns: 1fr; }
-  /* Reserve top padding so bookmark/note buttons don't overlap the badge/heading */
-  .vmx-question-card { padding: 60px 20px 24px; }
-  .vmx-bookmark-btn { top: 14px; right: 14px; width: 32px; height: 32px; font-size: 16px; }
-  .vmx-note-btn { top: 14px; right: 54px; width: 32px; height: 32px; font-size: 14px; }
+  /* Reserve top padding so the toolbar never overlaps the badge/heading.
+     The per-button `top/right` overrides that used to live here moved only
+     the first two controls to a 40px pitch while the other three stayed on
+     the old 44px one — that is what made the row look misaligned. Spacing is
+     the toolbar's `gap` now; only the inset tightens on small screens. */
+  .vmx-question-card { padding: 66px 20px 24px; }
+  .vmx-q-toolbar { top: 12px; right: 12px; gap: 4px; }
   /* Badge starts below the button strip — keeps long topic labels readable */
   .vmx-qtype-badge { margin-bottom: 12px; }
   .vmx-sr-grade { grid-template-columns: repeat(2, 1fr); }

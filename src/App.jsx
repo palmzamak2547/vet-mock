@@ -502,10 +502,20 @@ export default function App() {
       try {
         const state = { ...(window.history.state || {}), vmxView: next };
         const labHashAlreadyCreated = next === 'lab' && window.location.hash === '#lab';
+        // KnowledgeView owns the /wiki/* path. Every other view is state-only,
+        // and pushState was called without a URL — so once you had opened the
+        // wiki, the address bar kept saying /wiki/... on every later screen,
+        // and a refresh from the dashboard dropped you back into the wiki.
+        // Hand back the root path when leaving it.
+        const leavingWiki = next !== 'knowledge'
+          && parseWikiPath(window.location.pathname).isWiki;
+        const url = leavingWiki
+          ? `/${window.location.search}${window.location.hash}`
+          : '';
         if (previous === 'exam' || labHashAlreadyCreated) {
-          window.history.replaceState(state, '');
+          window.history.replaceState(state, '', url || undefined);
         } else {
-          window.history.pushState(state, '');
+          window.history.pushState(state, '', url || undefined);
         }
       } catch {}
     }
