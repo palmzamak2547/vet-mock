@@ -442,21 +442,13 @@ function acknowledgeRemoteOperationParts(storage, operations) {
       // flight. Keep the newer cumulative value for the next flush.
       continue;
     }
-    const localChanges = Object.fromEntries(
-      Object.entries(operation.changes)
-        .filter(([field]) => !USER_DATA_FIELDS[field]?.remoteKey),
-    );
+    // Local-only fields (no remoteKey — e.g. readingChecklist) have nowhere
+    // to be pushed, so retaining them here kept the record alive forever:
+    // every later flush rewrote it and nothing ever deleted it. Their values
+    // are already mirrored into the principal snapshot by writeLocalCommit,
+    // so the acknowledged record can go in full.
     try {
-      if (Object.keys(localChanges).length === 0) {
-        storage.removeItem(operation.key);
-      } else {
-        storage.setItem(operation.key, JSON.stringify({
-          version: SYNC_VERSION,
-          token: operation.token,
-          createdAt: operation.createdAt,
-          changes: localChanges,
-        }));
-      }
+      storage.removeItem(operation.key);
     } catch {
       // Keeping an acknowledged operation is safe: all merge policies are
       // idempotent, so a later retry cannot erase the already-synced value.
@@ -557,12 +549,38 @@ export function createUserDataSync({
 
   const localInitial = readLocalData(storage);
   const ownerAtBoot = parseJson(storage, CURRENT_OWNER_KEY, null);
+  const bootAnonymousOperations = ownerAtBoot && ownerAtBoot !== ANONYMOUS
+    ? []
+    : readPendingOperations(storage, null);
   const bootData = ownerAtBoot && ownerAtBoot !== ANONYMOUS
     ? createEmptyUserData()
-    : replayOperations(
-      localInitial.data,
-      readPendingOperations(storage, null),
-    ).data;
+    : replayOperations(localInitial.data, bootAnonymousOperations).data;
+
+  // Self-heal for installs that already accumulated a backlog. Anonymous
+  // operations have no remote to be pushed to, so once they are folded into
+  // the snapshot below they are dead weight — and before the fix nothing ever
+  // removed them, one cumulative record per page load. Commit the replayed
+  // result first, then drop exactly the records that were replayed, so the
+  // data survives and the queue stops growing. (The sign-out restore path
+  // does the same merge-then-commit, so it stays correct without them.)
+  if (bootAnonymousOperations.length > 0) {
+    try {
+      writeLocalCommit(storage, {
+        patch: bootData,
+        meta: normalizeMeta(parseJson(storage, metaKey(null), null)),
+        metaStorageKey: metaKey(null),
+        snapshot: bootData,
+        snapshotStorageKey: dataKey(null),
+        owner: ANONYMOUS,
+      });
+      for (const operation of bootAnonymousOperations) {
+        try { storage.removeItem(operation.key); } catch { /* keep going */ }
+      }
+    } catch {
+      // Snapshot commit failed (quota) — keep the operations, they are still
+      // the durable copy and the next boot will try again.
+    }
+  }
   const initial = {
     data: bootData,
     journalRecovered: localInitial.journalRecovered,
@@ -581,6 +599,10 @@ export function createUserDataSync({
     },
   };
   let userId = null;
+  // True when the constructor hid an account's data behind an empty dataset
+  // because CURRENT_OWNER_KEY named a user. Cleared as soon as the real
+  // session outcome (sign-in or signed-out) has been applied.
+  let bootSuppressedData = Boolean(ownerAtBoot && ownerAtBoot !== ANONYMOUS);
   let activeMeta = normalizeMeta(parseJson(storage, metaKey(null), null));
   let sessionGeneration = 0;
   let hydratedUserId = null;
@@ -614,6 +636,12 @@ export function createUserDataSync({
       lastSyncedAt: activeMeta.lastSyncedAt || state.sync.lastSyncedAt || null,
       ...patch,
     };
+  };
+
+  /** Drop this store's own outbox record (used once its changes are durable
+   *  in the principal snapshot, which boot reads). */
+  const discardOperationRecord = () => {
+    try { storage.removeItem(`${operationKeyPrefix(userId)}${instanceId}`); } catch { /* nothing to reclaim */ }
   };
 
   const persistOperation = (changes) => {
@@ -1045,6 +1073,13 @@ export function createUserDataSync({
         owner: principalKey(userId),
       });
       activeMeta = nextMeta;
+      // An anonymous principal has no remote to push to, so once the snapshot
+      // commit above succeeded the outbox record is pure redundancy — and
+      // nothing else ever deleted it (flush() returns early without a userId).
+      // Left in place it grew one cumulative record per page load, each
+      // carrying `base` AND `value` of the whole dataset, until localStorage
+      // filled and every finished exam was silently dropped.
+      if (!userId) discardOperationRecord();
       publish(nextData, syncShape({
         phase: userId
           ? (
@@ -1078,7 +1113,15 @@ export function createUserDataSync({
 
   const sessionChanged = (nextUserId) => {
     const normalized = nextUserId || null;
-    if (normalized === userId && (normalized === null || hydratedUserId === normalized)) {
+    // `userId` starts as null, so a boot that resolves to signed-out looks like
+    // "no change" here — but if the constructor hid an account's data behind an
+    // empty dataset (CURRENT_OWNER_KEY named a user), returning now would leave
+    // the app showing nothing. Let that case through to the restore path.
+    if (
+      normalized === userId
+      && (normalized === null || hydratedUserId === normalized)
+      && !(normalized === null && bootSuppressedData)
+    ) {
       return { accepted: true };
     }
 
@@ -1091,11 +1134,20 @@ export function createUserDataSync({
     hydratedUserId = null;
 
     if (!userId) {
-      if (!previousUserId) {
+      // `previousUserId` is null on a fresh boot, but that does NOT mean the
+      // in-memory data is the anonymous workspace: when CURRENT_OWNER_KEY named
+      // an account, the constructor deliberately booted with an EMPTY dataset so
+      // account data stays hidden until the session is confirmed. If the session
+      // then resolves to signed-out (an expired token is the common case), the
+      // early return below would publish that empty snapshot and the student
+      // would see an app with nothing in it while their work sat in storage.
+      // Fall through to the restore path instead.
+      if (!previousUserId && !bootSuppressedData) {
         activeMeta = normalizeMeta(parseJson(storage, metaKey(null), null));
         publish(state.data, syncShape({ phase: 'local-only', error: null }));
         return { accepted: true };
       }
+      bootSuppressedData = false;
 
       // Restore the separate signed-out workspace. Account-owned data stays
       // hidden, while work created before sign-in is not erased.
@@ -1126,6 +1178,7 @@ export function createUserDataSync({
       return { accepted: true };
     }
 
+    bootSuppressedData = false; // a real account is now selected
     const storedMetaRaw = parseJson(storage, metaKey(userId), null);
     activeMeta = normalizeMeta(storedMetaRaw);
     const ownerBefore = parseJson(storage, CURRENT_OWNER_KEY, null);

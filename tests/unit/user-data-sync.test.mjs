@@ -469,3 +469,59 @@ test('anonymous work survives an account round trip without exposing account-onl
   assert.deepEqual(sync.getSnapshot().data.history, [{ id: 'guest-result' }]);
   sync.close();
 });
+
+test('a signed-out session does not accumulate outbox records across page loads', () => {
+  // Regression: the outbox record was keyed by a per-store UUID and the only
+  // deletion path ran inside flush(), which returns early without a userId. A
+  // guest therefore left one cumulative record — holding `base` AND `value` of
+  // the whole dataset — behind on every page load, until localStorage filled
+  // and every finished exam was silently discarded.
+  const storage = new MemoryStorage();
+  const lifecycle = createLifecycle(true);
+
+  for (let session = 0; session < 12; session += 1) {
+    const sync = createUserDataSync({ storage, lifecycle, remote: fakeRemote(null), debounceMs: 0 });
+    for (let answered = 0; answered < 5; answered += 1) {
+      sync.send({
+        type: 'CHANGE',
+        derive: (data) => ({
+          history: [...data.history, { id: `s${session}-q${answered}` }],
+        }),
+      });
+    }
+    sync.close();
+  }
+
+  const leftover = [...storage.values.keys()].filter((key) => key.includes('user-op'));
+  assert.equal(leftover.length, 0, 'guest outbox records must not survive their commit');
+
+  const reopened = createUserDataSync({ storage, lifecycle, remote: fakeRemote(null), debounceMs: 0 });
+  assert.equal(reopened.getSnapshot().data.history.length, 60, 'every answer is still there');
+  reopened.close();
+});
+
+test('a boot whose session has lapsed restores the signed-out workspace instead of an empty app', () => {
+  // Regression: the constructor hides account data behind an empty dataset
+  // when CURRENT_OWNER_KEY names a user. Because `userId` starts as null, a
+  // SESSION_CHANGED(null) — what an expired token produces — matched the
+  // "no change" guard and published that empty dataset, so the student saw an
+  // app with nothing in it while their work sat in storage.
+  const storage = new MemoryStorage();
+  const lifecycle = createLifecycle(true);
+
+  const guest = createUserDataSync({ storage, lifecycle, remote: fakeRemote(null), debounceMs: 0 });
+  guest.send({ type: 'CHANGE', derive: () => ({ bookmarks: ['guest-1', 'guest-2'] }) });
+  guest.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  guest.close();
+
+  // Next launch: storage still names the account, but auth resolves signed-out.
+  const lapsed = createUserDataSync({ storage, lifecycle, remote: fakeRemote(null), debounceMs: 0 });
+  assert.deepEqual(lapsed.getSnapshot().data.bookmarks, [], 'account data stays hidden until confirmed');
+  lapsed.send({ type: 'SESSION_CHANGED', userId: null });
+  assert.deepEqual(
+    lapsed.getSnapshot().data.bookmarks,
+    ['guest-1', 'guest-2'],
+    'the signed-out workspace is restored',
+  );
+  lapsed.close();
+});
