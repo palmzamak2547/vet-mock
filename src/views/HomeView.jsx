@@ -5,7 +5,7 @@ import { QB } from '../data/questions.js';
 // full QB to be scanned on every re-render.
 import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
-import { getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone } from '../data/schedule.js';
+import { getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject } from '../data/curriculum.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
@@ -63,6 +63,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const nextClassToday = getNextClassToday(selectedYear);
   const currentClassNow = getCurrentClass(selectedYear);
   const topMilestone = getTopMilestone();
+  // Faculty/สโมสร announcements with a real date+room (e.g. the stethoscope
+  // fitting sessions) — only while they're still ahead, and only for the
+  // years they were announced to.
+  const nextEvent = getUpcomingEvents(selectedYear, 21)[0] || null;
   const phaseMeta = selectedPhase ? PHASE_LABELS[selectedPhase] : null;
   // Filter SUBJECTS_BY_YEAR[selectedYear] to phase scope. If no phase
   // selected (e.g. Y6 block-based), show all subjects.
@@ -925,6 +929,25 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               }}
             >
               {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.start} น.`} {nextClassToday.title.length > 26 ? `${nextClassToday.title.slice(0, 26)}…` : nextClassToday.title} · {nextClassToday.room}
+            </button>
+          )}
+          {nextEvent && (
+            <button
+              type="button"
+              onClick={() => setView('schedule')}
+              className="vmx-chip-quick"
+              title={`${nextEvent.titleTh} · ${nextEvent.start}-${nextEvent.end} น. · ${nextEvent.location}`}
+              style={{
+                all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '6px 12px', borderRadius: 999,
+                background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold)',
+                fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-gold-text)',
+                minHeight: 44, boxSizing: 'border-box',
+              }}
+            >
+              {nextEvent.titleTh.replace(/^บริษัทนำ /, '').slice(0, 30)}
+              {' · '}
+              {nextEvent.daysLeft === 0 ? 'วันนี้' : nextEvent.daysLeft === 1 ? 'พรุ่งนี้' : `อีก ${nextEvent.daysLeft} วัน`}
             </button>
           )}
           {topMilestone && (

@@ -400,6 +400,37 @@ EXAM_SCHEDULE.y5 = [
   { id: 'y5-epid-final', code: '3107508', subject: 'epidemiology', title: 'VET EPID PREV MED — ปลายภาค', date: '2026-12-04', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '📊', color: '#3d6b82' },
 ];
 
+
+// ── ตารางสอบ ชั้นปีที่ 4 ภาคต้น 2569 ────────────────────────────────
+// ต่อท้าย EXAM_SCHEDULE.y4 ที่มีอยู่ (ของเทอม 2/2568 = ประวัติ) — helper
+// เรียงตามวันที่ให้เอง จึงคืน 'สอบถัดไป' ได้ถูกโดยไม่ต้องลบของเก่า
+// 3106415 VET SURG LAB I ไม่ปรากฏในตารางสอบทั้งสองรอบ
+// 5500418 ENG VET PROF I มีเฉพาะสอบปลายภาค
+EXAM_SCHEDULE.y4 = [...(EXAM_SCHEDULE.y4 || []),
+  // ─── สอบกลางภาค 21-25 ก.ย. 69 ───
+  { id: 'y4-com1-mid', code: '3107415', subject: 'com1', title: 'C ANI CLI SCI I — กลางภาค', date: '2026-09-21', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 702', term: 'midterm', icon: '🐕', color: '#3d6b82' },
+  { id: 'y4-juris-mid', code: '3100403', subject: 'vet-juris', title: 'JURIS ETH WELFARE — กลางภาค', date: '2026-09-22', time: '08:30-09:30', duration_min: 60, credits: 1, location: 'VET6 B01-03', term: 'midterm', icon: '⚖️', color: '#5c6b7d' },
+  { id: 'y4-imaging-mid', code: '3106413', subject: 'vet-imaging', title: 'VET IMAGING (LECT/LAB) — กลางภาค', date: '2026-09-22', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 807', term: 'midterm', icon: '🩻', color: '#6b5b8e' },
+  { id: 'y4-com2-mid', code: '3106414', subject: 'com2', title: 'C ANI CLI SCI II — กลางภาค', date: '2026-09-23', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'midterm', icon: '🩺', color: '#6b5b8e' },
+  { id: 'y4-swinerepro-mid', code: '3108404', subject: 'swine-repro', title: 'SWINE REPRODUCTION — กลางภาค', date: '2026-09-24', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'midterm', icon: '🐖', color: '#c26d6d' },
+  { id: 'y4-swineherd-mid', code: '3107408', subject: 'swine-herd', title: 'SWI HERD HLTH MGT — กลางภาค', date: '2026-09-24', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 807', term: 'midterm', icon: '🐷', color: '#c2924a' },
+  { id: 'y4-herdrum-mid', code: '3107407', subject: 'herd-health-rum', title: 'HERD HLTH MGT RUM — กลางภาค', date: '2026-09-25', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 702', term: 'midterm', icon: '🐄', color: '#7d5a44' },
+  { id: 'y4-foodsafety-mid', code: '3109401', subject: 'food-safety-y4', title: 'FOOD SAFETY — กลางภาค', date: '2026-09-25', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 702', term: 'midterm', icon: '🍖', color: '#5c7d4a' },
+
+  // ─── สอบปลายภาค สัปดาห์ที่ 1 (23-27 พ.ย. 69) ───
+  { id: 'y4-herdrum-final', code: '3107407', subject: 'herd-health-rum', title: 'HERD HLTH MGT RUM — ปลายภาค', date: '2026-11-23', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 B01-03', term: 'final', icon: '🐄', color: '#7d5a44' },
+  { id: 'y4-engprof-final', code: '5500418', subject: 'engprof1', title: 'ENG VET PROF I — ปลายภาค', date: '2026-11-24', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🗣️', color: '#5c6b7d' },
+  { id: 'y4-imaging-final', code: '3106413', subject: 'vet-imaging', title: 'VET IMAGING (LECT/LAB) — ปลายภาค', date: '2026-11-25', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🩻', color: '#6b5b8e' },
+  { id: 'y4-foodsafety-final', code: '3109401', subject: 'food-safety-y4', title: 'FOOD SAFETY — ปลายภาค', date: '2026-11-26', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🍖', color: '#5c7d4a' },
+  { id: 'y4-swineherd-final', code: '3107408', subject: 'swine-herd', title: 'SWI HERD HLTH MGT — ปลายภาค', date: '2026-11-27', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🐷', color: '#c2924a' },
+
+  // ─── สอบปลายภาค สัปดาห์ที่ 2 (30 พ.ย. - 4 ธ.ค. 69) ───
+  { id: 'y4-swinerepro-final', code: '3108404', subject: 'swine-repro', title: 'SWINE REPRODUCTION — ปลายภาค', date: '2026-11-30', time: '08:30-11:30', duration_min: 180, credits: 2, location: 'VET6 B01-03', term: 'final', icon: '🐖', color: '#c26d6d' },
+  { id: 'y4-juris-final', code: '3100403', subject: 'vet-juris', title: 'JURIS ETH WELFARE — ปลายภาค', date: '2026-12-01', time: '08:30-10:00', duration_min: 90, credits: 1, location: 'VET6 B01-03', term: 'final', icon: '⚖️', color: '#5c6b7d' },
+  { id: 'y4-com1-final', code: '3107415', subject: 'com1', title: 'C ANI CLI SCI I — ปลายภาค', date: '2026-12-02', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 B01-03', term: 'final', icon: '🐕', color: '#3d6b82' },
+  { id: 'y4-com2-final', code: '3106414', subject: 'com2', title: 'C ANI CLI SCI II — ปลายภาค', date: '2026-12-03', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'final', icon: '🩺', color: '#6b5b8e' },
+];
+
 /** ทะเบียนกลุ่มรายวิชา — ลงทะเบียนทั้งชุดด้วยรหัสกลุ่มเดียว */
 export const COURSE_GROUPS = {
   y5: {
@@ -416,6 +447,20 @@ export const COURSE_GROUPS = {
 
 /** ตารางเรียนรายสัปดาห์ ชั้นปีที่ 5 — dow 1=จันทร์ ... 5=ศุกร์, เวลา 24 ชม. */
 export const CLASS_TIMETABLE = {
+  y4: [
+    // ── ชั้นปีที่ 4 ภาคต้น 2569 (จากตารางสอน 27 มี.ค. 69) ──
+    { dow: 1, start: '08:00', end: '11:00', code: '3107415', title: 'COM ANI CLIN SCI I', subject: 'com1', room: 'VET6 203', kind: 'lecture' },
+    { dow: 1, start: '13:00', end: '14:00', code: '3100403', title: 'JURIS ETH WELFARE', subject: 'vet-juris', room: 'VET6 203', kind: 'lecture' },
+    { dow: 2, start: '08:00', end: '10:00', code: '3108404', title: 'SWINE REPRODUCTION', subject: 'swine-repro', room: 'VET6 203', kind: 'lecture' },
+    { dow: 2, start: '10:00', end: '12:00', code: '3107408', title: 'SWI HERD HLTH MGT', subject: 'swine-herd', room: 'VET6 203', kind: 'lecture' },
+    { dow: 2, start: '13:00', end: '16:00', code: '5500418', title: 'ENG VET PROF I', subject: 'engprof1', room: 'VET6 204, 205, 206, B04, B05', kind: 'lecture' },
+    { dow: 3, start: '09:00', end: '12:00', code: '3107407', title: 'HERD HLTH MGT RUM', subject: 'herd-health-rum', room: 'VET6 203', kind: 'lecture' },
+    { dow: 3, start: '13:00', end: '15:00', code: '3106414', title: 'COM ANI CLIN SCI II', subject: 'com2', room: 'VET6 203', kind: 'lecture' },
+    { dow: 4, start: '11:00', end: '12:00', code: '3106413', title: 'VET IMAGING', subject: 'vet-imaging', room: 'VET6 203', kind: 'lecture' },
+    { dow: 4, start: '13:00', end: '15:00', code: '3106413', title: 'VET IMAGING', subject: 'vet-imaging', room: 'VET6 401', kind: 'lab' },
+    { dow: 5, start: '09:00', end: '12:00', code: '3109401', title: 'FOOD SAFETY', subject: 'food-safety-y4', room: 'VET6 203', kind: 'lecture' },
+    { dow: 5, start: '13:00', end: '15:00', code: '3106415', title: 'VET SURG LAB I', subject: 'surg1', room: 'VET6 401', kind: 'lab' },
+  ],
   y5: [
     { dow: 1, start: '10:00', end: '12:00', code: '3107508', title: 'VET EPIDEM', subject: 'epidemiology', room: 'VET6 807', kind: 'lecture' },
     { dow: 1, start: '13:00', end: '15:00', code: '3107508', title: 'VET EPIDEMI (LAB)', subject: 'epidemiology', room: 'VET6 807', kind: 'lab' },
@@ -525,3 +570,54 @@ export function fmtThaiRange(start, end) {
 
 /** ชื่อวันไทยแบบสั้นจาก dow (1=จันทร์) */
 export const DOW_TH = { 1: 'จันทร์', 2: 'อังคาร', 3: 'พุธ', 4: 'พฤหัสบดี', 5: 'ศุกร์' };
+
+// ============================================================
+// กิจกรรมของคณะ/สโมสร ที่มีวันเวลาแน่นอน
+// ============================================================
+// ต่างจาก ACADEMIC_MILESTONES (กำหนดการของสำนักทะเบียน) — อันนี้คือ
+// งานที่ประกาศผ่านสโมสร/ฝ่ายนิสิต ซึ่งปกติหายไปในแชท พอมีวันเวลา+ห้อง
+// +ลิงก์ที่ชัด ก็ควรอยู่ในปฏิทินเดียวกับเรื่องเรียน
+// ที่มา: ประกาศจากฝ่ายพัฒนาคุณภาพชีวิตนิสิต (SE) — LINE 26 ก.ค. 69
+export const CAMPUS_EVENTS = [
+  {
+    id: 'stetho-3m-2026',
+    date: '2026-08-04',
+    start: '16:30',
+    end: '18:00',
+    titleTh: 'บริษัทนำ Stethoscope มาให้ลอง — 3M Littmann',
+    location: 'ห้อง 203',
+    audienceYears: [4, 5],
+    noteTh: 'ลองฟัง/เทียบรุ่นก่อนตัดสินใจซื้อ',
+    links: [
+      { label: 'ข้อมูล Stethoscope 2026 (Drive)', url: 'https://drive.google.com/drive/folders/1goWyQfugunK6Ox2DRogbMRlQ2te8FB8o' },
+      { label: '3M Littmann Flip Book', url: 'https://heyzine.com/flip-book/914c8169b3.html' },
+    ],
+  },
+  {
+    id: 'stetho-mdf-2026',
+    date: '2026-08-05',
+    start: '15:30',
+    end: '17:00',
+    titleTh: 'บริษัทนำ Stethoscope มาให้ลอง — MDF',
+    location: 'ห้อง 203',
+    audienceYears: [4, 5],
+    noteTh: 'ลองฟัง/เทียบรุ่นก่อนตัดสินใจซื้อ',
+    links: [
+      { label: 'ข้อมูล Stethoscope 2026 (Drive)', url: 'https://drive.google.com/drive/folders/1goWyQfugunK6Ox2DRogbMRlQ2te8FB8o' },
+    ],
+  },
+];
+
+/** กิจกรรมที่ยังไม่ผ่าน (และตรงกับชั้นปี) เรียงตามวัน */
+export function getUpcomingEvents(year = 5, withinDays = 60, now = new Date()) {
+  const today = new Date(now); today.setHours(0, 0, 0, 0);
+  const day = 24 * 60 * 60 * 1000;
+  return CAMPUS_EVENTS
+    .filter((e) => !e.audienceYears || e.audienceYears.includes(Number(year)))
+    .map((e) => {
+      const d = new Date(e.date); d.setHours(0, 0, 0, 0);
+      return { ...e, daysLeft: Math.round((d - today) / day) };
+    })
+    .filter((e) => e.daysLeft >= 0 && e.daysLeft <= withinDays)
+    .sort((a, b) => a.daysLeft - b.daysLeft);
+}

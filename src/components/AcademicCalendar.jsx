@@ -13,7 +13,7 @@
 import { useState } from 'react';
 import {
   ACADEMIC_MILESTONES, COURSE_GROUPS, SEMESTER,
-  fmtThaiRange, getActiveMilestones,
+  fmtThaiRange, fmtThaiDate, getActiveMilestones, getUpcomingEvents,
 } from '../data/schedule.js';
 
 const KIND_LABEL = {
@@ -63,14 +63,71 @@ function MilestoneRow({ m }) {
   );
 }
 
+/** งานที่ประกาศผ่านสโมสร/ฝ่ายนิสิต — มีวัน เวลา ห้อง และลิงก์ข้อมูลจริง */
+function EventRow({ e }) {
+  const soon = e.daysLeft <= 7;
+  return (
+    <div
+      style={{
+        border: `1px solid ${soon ? 'var(--clr-gold)' : 'var(--clr-border)'}`,
+        background: soon ? 'var(--clr-surface)' : 'transparent',
+        borderRadius: 'var(--r-md, 12px)',
+        padding: '11px 13px',
+      }}
+    >
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline' }}>
+        <span style={{ fontSize: 10.5, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
+          กิจกรรม
+        </span>
+        <strong style={{ fontSize: 13.5, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>{e.titleTh}</strong>
+      </div>
+      <div style={{ marginTop: 5, fontSize: 12.5, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+        {fmtThaiDate(e.date)} · {e.start}-{e.end} น. · {e.location}
+      </div>
+      <div style={{ marginTop: 4, fontSize: 12.5, fontWeight: 600, color: soon ? 'var(--clr-gold-text)' : 'var(--clr-ink-soft)' }}>
+        {e.daysLeft === 0 ? 'วันนี้' : e.daysLeft === 1 ? 'พรุ่งนี้' : `อีก ${e.daysLeft} วัน`}
+        {e.noteTh ? ` · ${e.noteTh}` : ''}
+      </div>
+      {Array.isArray(e.links) && e.links.length > 0 && (
+        <div style={{ marginTop: 8, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {e.links.map((l) => (
+            <a
+              key={l.url}
+              href={l.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 12, padding: '6px 11px', borderRadius: 999, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', color: 'var(--clr-ink)', textDecoration: 'none', minHeight: 44, display: 'inline-flex', alignItems: 'center', boxSizing: 'border-box' }}
+            >
+              {l.label} ↗
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AcademicCalendar({ year = 5 }) {
   const [showAll, setShowAll] = useState(false);
   const active = getActiveMilestones(14);
+  const events = getUpcomingEvents(year, 60);
   const group = COURSE_GROUPS[`y${year}`];
   const list = showAll ? ACADEMIC_MILESTONES.map((m) => ({ ...m, active: false, daysLeft: null })) : active;
 
   return (
     <section aria-labelledby="vmx-cal-title" style={{ marginBottom: 28 }}>
+      {events.length > 0 && (
+        <>
+          <div className="vmx-section-label" style={{ marginBottom: 12 }}>
+            <span>กิจกรรมที่กำลังจะถึง</span>
+            <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>ประกาศจากคณะ/สโมสร</span>
+          </div>
+          <div style={{ display: 'grid', gap: 8, marginBottom: 24 }}>
+            {events.map((e) => <EventRow key={e.id} e={e} />)}
+          </div>
+        </>
+      )}
+
       <div className="vmx-section-label" style={{ marginBottom: 12 }}>
         <span id="vmx-cal-title">ปฏิทินลงทะเบียนและชำระเงิน</span>
         <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>{SEMESTER.labelTh}</span>
