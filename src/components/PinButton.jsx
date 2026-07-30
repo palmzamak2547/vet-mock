@@ -16,6 +16,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { addPin, removePinByKey, isPinned, payloadKey, PINBOARD_EVENT } from '../lib/pinboard.js';
+import NavIcon from './NavIcon.jsx';
 
 export default function PinButton({ type, payload, label, compact = false, style }) {
   const key = payloadKey(type, payload);
@@ -82,7 +83,7 @@ export default function PinButton({ type, payload, label, compact = false, style
         ...style,
       }}
     >
-      <span aria-hidden="true">{pinned ? '📌✓' : '📌'}</span>
+      <NavIcon name="pin" size={17} filled={pinned} />
     </button>
   );
 }

@@ -47,6 +47,43 @@ const PATHS = {
       <path d="M12 3s5 4 5 9a5 5 0 0 1-10 0c0-1.7.7-3.1 1.5-4.2.4 1 1 1.7 1.8 2C11 8 12 5.6 12 3Z" />
     </>
   ),
+  // star outline / bookmark this question (filled variant via `filled` prop)
+  star: <path d="m12 3.6 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.8l5.9-.9L12 3.6Z" />,
+  // pencil on a page / personal note
+  note: (
+    <>
+      <path d="M13 4H6.5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-6" />
+      <path d="M16.5 3.5a1.7 1.7 0 0 1 2.4 2.4L13.6 11l-2.9.6.6-2.9 5.2-5.2Z" />
+    </>
+  ),
+  // speaker with waves / read aloud
+  speaker: (
+    <>
+      <path d="M4 9.5h3L11 6v12l-4-3.5H4z" />
+      <path d="M14.5 9.2a4 4 0 0 1 0 5.6M17 6.8a7.5 7.5 0 0 1 0 10.4" />
+    </>
+  ),
+  // muted speaker / stop reading
+  'speaker-off': (
+    <>
+      <path d="M4 9.5h3L11 6v12l-4-3.5H4z" />
+      <path d="m15 9.8 4.5 4.4M19.5 9.8 15 14.2" />
+    </>
+  ),
+  // flag on a pole / report a problem with this question
+  flag: (
+    <>
+      <path d="M6 21V4" />
+      <path d="M6 4.8h11l-2.2 3.6L17 12H6z" />
+    </>
+  ),
+  // pushpin / pin to the pinboard
+  pin: (
+    <>
+      <path d="M12 15v6" />
+      <path d="M8.4 4h7.2l-1 5 2.9 2.6a1 1 0 0 1-.7 1.7H7.2a1 1 0 0 1-.7-1.7L9.4 9l-1-5Z" />
+    </>
+  ),
   // crescent / switch to dark
   moon: <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" />,
   // sun / switch to light
@@ -58,13 +95,16 @@ const PATHS = {
   ),
 };
 
-export default function NavIcon({ name, size = 22 }) {
+/** `filled` gives an on/off pair from ONE path — a bookmarked question or an
+ *  active flag reads as solid, the idle state as an outline, without needing a
+ *  second glyph (which is what the ★/☆ and 🚩/🏳️ emoji pairs were doing). */
+export default function NavIcon({ name, size = 22, filled = false }) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
+      fill={filled ? 'currentColor' : 'none'}
       stroke="currentColor"
       strokeWidth="1.7"
       strokeLinecap="round"

@@ -4,6 +4,7 @@ import { RichText } from '../lib/richtext.jsx';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
+import NavIcon from './NavIcon.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
@@ -426,10 +427,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   return (
     <div className="vmx-question-card">
       <button type="button" aria-label="Bookmark ข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="Bookmark (B)">
-        {isBookmarked ? '★' : '☆'}
+        <NavIcon name="star" size={18} filled={isBookmarked} />
       </button>
-      <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="Note (N)">
-        📝
+      <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้ (N)">
+        <NavIcon name="note" size={18} filled={Boolean(note)} />
       </button>
       {/* Voice TTS — reads Q + options aloud (Web Speech API, no lib).
           Click again while speaking to stop. Useful during commute /
@@ -443,7 +444,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง (TTS)'}
         style={{ right: 108 }}
       >
-        {isSpeaking ? '🔇' : '🔊'}
+        <NavIcon name={isSpeaking ? 'speaker-off' : 'speaker'} size={18} />
       </button>
       {/* Q quality flag — local-only for now (Supabase schema TBD).
           Lets users mark "เฉลยผิด" / "งง" — auditable via
@@ -457,7 +458,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         title={flagState ? `ยกเลิก flag, "${flagState.reason}"` : 'แจ้งปัญหาข้อนี้'}
         style={{ right: 152 }}
       >
-        {flagState ? '🚩' : '🏳️'}
+        <NavIcon name="flag" size={18} filled={Boolean(flagState)} />
       </button>
       {/* Pin → adds this Q to the personal Pinboard so the user can
           revisit it across the app via 📌 Pinboard view / command
@@ -472,12 +473,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       />
 
       <div className="vmx-qtype-badge">
-        {currentQ.type === 'mcq' && 'Multiple Choice'}
-        {currentQ.type === 'tf' && 'True / False'}
-        {currentQ.type === 'fill' && 'Fill in the Blank'}
-        {currentQ.type === 'match' && 'Matching'}
-        {currentQ.type === 'short' && 'Short Answer'}
-        {currentQ.type === 'essay' && '✍️ Writing (Summary)'}
+        {/* Thai, like the rest of the card — this chip sits directly above a
+            Thai stem and a Thai subject name. */}
+        {currentQ.type === 'mcq' && 'ปรนัย'}
+        {currentQ.type === 'tf' && 'ถูก-ผิด'}
+        {currentQ.type === 'fill' && 'เติมคำ'}
+        {currentQ.type === 'match' && 'จับคู่'}
+        {currentQ.type === 'short' && 'ตอบสั้น'}
+        {currentQ.type === 'essay' && 'เขียนบรรยาย'}
         {(() => {
           const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
           const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
