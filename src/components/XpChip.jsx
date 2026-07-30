@@ -74,7 +74,14 @@ export default function XpChip() {
         }}
       >
         <span><strong>Lv {lvl}</strong></span>
-        <span className="vmx-xp-chip-total" style={{ opacity: 0.75 }}>{state.totalXp.toLocaleString()} XP</span>
+        {/* A hairline, not punctuation — "Lv 0" and "0 XP" sitting in a flex
+            row with only a gap between them read as one number, "Lv 0 0 XP". */}
+        <span
+          className="vmx-xp-chip-total"
+          style={{ opacity: 0.75, paddingLeft: 8, borderLeft: '1px solid currentColor' }}
+        >
+          {state.totalXp.toLocaleString()} XP
+        </span>
         <span
           aria-hidden
           className="vmx-xp-chip-progress"
