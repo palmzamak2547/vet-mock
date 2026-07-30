@@ -68,15 +68,26 @@ on the year picker.
 
 ## Known and deliberate (not launch blockers)
 - **VetMock AI ships dormant** — `api/wiki-explain` and `api/grade-summary`
-  return 503 without `ANTHROPIC_API_KEY`; the UI degrades honestly and the AI
-  sections are preview-badged. Set the key in Vercel to light them up.
-- Auth-gated views render nothing on token expiry rather than prompting re-login.
-- The PWA manifest pins portrait, so the landscape video layout is unreachable
-  when installed on Android.
+  return 503 without `ANTHROPIC_API_KEY`; the UI degrades honestly. The landing
+  no longer advertises it at all (the AI section was removed).
 - Public leaderboard has no minimum-attempt gate (a 1-question run can score
   100%) — needs a product decision, not a bug fix.
 - `AdminView` hardcodes its bank total instead of importing `QB_TOTAL`
   (admin-only, correct today).
+
+### Closed since (2026-07-30)
+- ~~Auth-gated views render nothing on token expiry~~ → `AUTH_REQUIRED_VIEWS` +
+  `AuthRequiredState` prompt for sign-in.
+- ~~PWA manifest pins portrait~~ → `orientation: any`.
+- **Cloud sync upgraded from "gated" to actually correct** — `lib/user-data-sync.js`
+  merges per field (set-array / append-array / keyed-object / streak) with a
+  durable offline queue, pre-push rebase and account isolation, behind
+  `useUserDataSync()` + a user-visible `SyncStatusNotice`.
+- **Service worker rewritten** (v28) — `/api` network-only and never cached,
+  version-scoped runtime cache beside a shared immutable asset cache, updates
+  wait for explicit `SKIP_WAITING`.
+- Landing AI / generator / revision-plan sections deleted rather than
+  preview-badged; nav and footer anchors updated to match.
 
 ---
 
