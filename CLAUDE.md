@@ -9,7 +9,7 @@
 ## 🧭 Ecosystem role (canonical · locked 2026-05-29)
 - **Role:** Standalone vet study platform — own brand, may consume cuvetsmo-source/mcp, NOT part of the council site.
 - **Layer:** Product · **Live:** https://vetmock.vercel.app
-- **OWNS:** the question-bank (1700+ Qs + lint/fix tooling) + the exam/SRS engine (MCQ/TF/Fill/Match · Quick/Exam/SM-2 · analytics · groups).
+- **OWNS:** the question-bank (2,948 Qs across 41 banks + lint/fix tooling) + the exam/SRS engine (MCQ/TF/Fill/Match · Quick/Exam/SM-2 · analytics · groups).
 
 ### ⛔ No-duplication — see `cuvetsmo-docs/NO_DUPLICATION.md`
 Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp) · AI inference (→ shared ai-chat) · DICOM viewer (→ cuvetsmo-imaging).
@@ -32,7 +32,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 
 ### 1. Never mention "Claude" or "AI" in user-facing content
 - ❌ Changelog entries, tooltips, blog articles, About page, commit body
-- ✅ `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>` in commit trailer is OK
+- ⛔ NO `Co-Authored-By` agent trailer in this repo — vet-mock is public
 - Reason: Palm doesn't want to flag the AI involvement publicly to classmates
 
 ### 2. Changelog (`src/data/changelog.js`) shows ONLY user-observable changes
@@ -56,7 +56,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 
   Body...
 
-  Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+  (no agent co-author trailer — public repo)
   EOF
   )"
   ```
@@ -122,7 +122,7 @@ npm run ping:indexnow     # Notify Bing/Yandex/Naver after deploy
 | IndexNow API key | `e1e4e0feff0c42b1a0cb1118045ff82f` |
 | Google Search Console verification | `14yg3AaHe91BC8VgVxjhxTrJsHCgvDSUIKetsJozHX0` |
 | Default subject filter | `'all'` |
-| Current academic year | `4` |
+| Current academic year | `5` (Vet 86, ภาคต้น 2569 — `CURRENT_YEAR` in `src/data/curriculum.js`) |
 | Cohort | `Vet 86` (year 86 of Chula vet school) |
 
 ---

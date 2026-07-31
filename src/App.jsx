@@ -197,6 +197,7 @@ const AdminView = lazy(() => import('./views/AdminView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 import DialogHost from './components/DialogHost.jsx';
+import { confirmDialog, alertDialog } from './lib/dialog.js';
 
 // Vercel Analytics + Speed Insights — lazy-loaded so the home page
 // payload doesn't grow on existing users. Both are no-op in dev mode
@@ -537,16 +538,25 @@ export default function App() {
     const onPopState = (event) => {
       const next = event.state?.vmxView || 'home';
       if (viewRef.current === 'exam' && next !== 'exam') {
-        const shouldLeave = window.confirm('ออกจากชุดนี้? ความคืบหน้าจะถูกเก็บไว้ให้กลับมาทำต่อได้');
-        if (!shouldLeave) {
-          try {
-            window.history.pushState(
-              { ...(window.history.state || {}), vmxView: 'exam' },
-              '',
-            );
-          } catch {}
-          return;
-        }
+        // The app's own dialog is async, and popstate can't be un-fired, so
+        // put the exam entry back straight away and only navigate once they
+        // say yes. Staying put then needs no further history work.
+        try {
+          window.history.pushState(
+            { ...(window.history.state || {}), vmxView: 'exam' },
+            '',
+          );
+        } catch {}
+        confirmDialog({
+          title: 'ออกจากชุดนี้?',
+          body: 'ความคืบหน้าจะถูกเก็บไว้ให้กลับมาทำต่อได้',
+          confirmLabel: 'ออกจากชุด',
+        }).then((leave) => {
+          if (!leave) return;
+          viewRef.current = next;
+          withTransition(() => setViewRaw(next));
+        });
+        return;
       }
       viewRef.current = next;
       withTransition(() => setViewRaw(next));
@@ -1152,7 +1162,7 @@ export default function App() {
         else await loadQBForYear(selectedYear);
         setQbReady(true);
       } catch (err) {
-        alert('โหลดคลังโจทย์ไม่ได้ — ตรวจการเชื่อมต่อแล้วลองใหม่');
+        alertDialog({ title: 'โหลดคลังโจทย์ไม่ได้', body: 'ตรวจการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่อีกครั้ง' });
         return;
       }
     }
@@ -1253,11 +1263,11 @@ export default function App() {
           setQbReady(true);
           return startExam({ ...overrides, __retriedFullLoad: true });
         } catch {
-          alert('โหลดคลังโจทย์ไม่ได้ — ตรวจการเชื่อมต่อแล้วลองใหม่');
+          alertDialog({ title: 'โหลดคลังโจทย์ไม่ได้', body: 'ตรวจการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่อีกครั้ง' });
           return;
         }
       }
-      alert(_questionCategory === 'writing'
+      alertDialog(_questionCategory === 'writing'
         ? 'ยังไม่มีข้อ Writing ในหมวดนี้ — ลองเปลี่ยนเป็น MCQ หรือ "ทุกประเภท"'
         : 'ไม่มีข้อสอบในหมวดนี้');
       return;
@@ -1532,7 +1542,11 @@ export default function App() {
     setChallengeSender(null);
   };
 
-  const handleSignOut = async () => { if (confirm('Logout?')) { await signOut(); goHome(); } };
+  const handleSignOut = async () => {
+    if (!(await confirmDialog({ title: 'ออกจากระบบ?', confirmLabel: 'ออกจากระบบ' }))) return;
+    await signOut();
+    goHome();
+  };
 
   // Safety net for the removed Mock demo-stub: if stale browser history
   // pops back to 'mock-exam'/'mock-results', bounce to home instead of a

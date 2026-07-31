@@ -190,13 +190,13 @@ Current setting: `target: 'es2020'` + `browserslist` includes `ios >= 14`.
 but indexes them by URL — without a bump, returning users get a mix
 of new code referencing old chunks → cryptic errors.
 
-Format: `vN-YYYY-MM-DD`. Current: `v6-2026-05-24`.
+Format: `vN-YYYY-MM-DD`. Current: `v30-2026-07-31`.
 
 ---
 
 ## 9. Build verification before push (universal)
 
-**Rule:** When touching `src/styles.js`, `vite.config.js`, or
+**Rule:** When touching `src/styles.css`, `vite.config.js`, or
 `package.json`, run `npm run build` locally before commit. If the
 build breaks, the next commit-push fails-silently at Vercel and the
 previous (possibly broken) deploy stays live.

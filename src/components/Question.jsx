@@ -10,6 +10,7 @@ import VoiceInputButton from './VoiceInputButton.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
 import PinButton from './PinButton.jsx';
+import { promptDialog } from '../lib/dialog.js';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
 // markers and HTML entities sound weird as speech.
@@ -190,14 +191,21 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     }
   };
 
-  const toggleFlag = () => {
+  const toggleFlag = async () => {
     const map = readFlags();
     if (map[compoundId]) {
       delete map[compoundId];
       writeFlags(map);
       setFlagState(null);
     } else {
-      const reason = window.prompt('แจ้งปัญหาข้อนี้, กรอกรายละเอียดสั้นๆ (เช่น "เฉลยผิด", "ภาษางง", "options ซ้ำ")');
+      const reason = await promptDialog({
+        title: 'แจ้งปัญหาข้อนี้',
+        body: 'กรอกรายละเอียดสั้นๆ เช่น เฉลยผิด, ภาษางง, ตัวเลือกซ้ำ',
+        placeholder: 'อธิบายสั้นๆ',
+        maxLength: 200,
+        multiline: true,
+        confirmLabel: 'แจ้งปัญหา',
+      });
       if (!reason || !reason.trim()) return;
       const entry = { reason: reason.trim().slice(0, 200), ts: Date.now() };
       map[compoundId] = entry;

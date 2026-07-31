@@ -10,7 +10,7 @@ import { detectCurrentPhase } from './PhaseSelectView.jsx';
 // ──────────────────────────────────────────────────────────────
 // YearSelectView — first-time front door for VetMock.
 //
-// Design choice (2026-05-12): the LIVE year (currently Vet 86 = ปี 4)
+// Design choice (2026-05-12): the LIVE years (1, 4 and 5; Vet 86 = ปี 5)
 // is the only year with real data. Listing 5 dim placeholder rows on
 // the first screen pollutes the user's first impression — and the
 // double-stamp ("รอเติม" + "PREVIEW") is noise that says the same

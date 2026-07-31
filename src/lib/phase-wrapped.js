@@ -25,6 +25,7 @@
 // ============================================================
 
 import { EXAM_SCHEDULE } from '../data/schedule.js';
+import { CURRENT_YEAR } from '../data/curriculum.js';
 
 // ── Phase metadata ────────────────────────────────────────────
 // Months mirror PhaseSelectView's heuristic. Ordering matters for
@@ -136,7 +137,7 @@ function phaseBoundsByYear(yearKey) {
  * @param {Date} [now]
  * @returns {{id:string,label:string,startDate:Date,endDate:Date,daysIntoPhase:number}|null}
  */
-export function getCurrentPhase(now = new Date(), year = 'y4') {
+export function getCurrentPhase(now = new Date(), year = `y${CURRENT_YEAR}`) {
   const yearKey = yearKeyOf(year);
   const bounds = phaseBoundsByYear(yearKey);
   const m = now.getMonth() + 1;

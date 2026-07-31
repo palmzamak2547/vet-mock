@@ -10,9 +10,9 @@
 //   MOC:    knowledge/instructors/_index.md (master directory)
 //   Synthesis: knowledge/synthesis/vet-research-clusters-and-exam-prediction.md
 //
-// Vault has 138 profiles, this app file has 67 (Tier 1 + Tier 2 + Repro Lect sync).
-// Pre-clinical (Anatomy/Physiology/Biochem) faculty are in vault only —
-// they don't teach Vet 86 courses currently.
+// The vault holds the full faculty directory; this app file carries 73 —
+// the ones who actually teach the years VetMock has content for. Pre-clinical
+// (Anatomy/Physiology/Biochem) faculty stay vault-only.
 //
 // Schema:
 //   slug            : kebab-case ID (used as key) — MATCHES vault filename

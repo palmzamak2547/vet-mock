@@ -32,6 +32,11 @@ export default function DialogHost() {
     req.resolve(value);
   };
 
+  // Cancelling means different things per mode: a notice resolves (it was
+  // only ever "ok"), a confirm is a no, and a prompt returns null so callers
+  // can keep the null check they wrote against window.prompt().
+  const cancelValue = req.mode === 'alert' ? true : (req.mode === 'prompt' ? null : false);
+
   return (
     <ConfirmDialog
       open
@@ -42,8 +47,9 @@ export default function DialogHost() {
       cancelLabel={req.cancelLabel}
       tone={req.tone}
       hideCancel={req.mode === 'alert'}
-      onConfirm={() => settle(true)}
-      onCancel={() => settle(req.mode === 'alert')}
+      input={req.input || null}
+      onConfirm={(value) => settle(req.mode === 'prompt' ? value : true)}
+      onCancel={() => settle(cancelValue)}
     />
   );
 }

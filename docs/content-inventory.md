@@ -24,9 +24,9 @@ Consistency: counted **2948**, `q-counts.js` says **2948**, registry sums to **2
 | | |
 |---|---|
 | Note files | 12 |
-| Topics | 150 |
-| Sections | 720 |
-| Sections carrying a source locator | 720 (100%) |
+| Topics | 159 |
+| Sections | 745 |
+| Sections carrying a source locator | 745 (100%) |
 
 ## Video summaries
 
@@ -40,8 +40,8 @@ Consistency: counted **2948**, `q-counts.js` says **2948**, registry sums to **2
 
 | | |
 |---|---|
-| Governed topics | 134 |
-| Governed sections | 654 |
-| Claims verified against an external source | 5 |
-| Distinct external sources cited | 3 |
-| Share of note sections governed | 90.8% |
+| Governed topics | 143 |
+| Governed sections | 679 |
+| Claims verified against an external source | 30 |
+| Distinct external sources cited | 34 |
+| Share of note sections governed | 91.1% |

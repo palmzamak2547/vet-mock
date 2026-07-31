@@ -31,15 +31,15 @@ Measured from the repo, not assumed:
 | Asset | Reality | Verdict |
 |---|---|---|
 | Question bank | **2,948 Qs** across 41 `questions-*.js`, every Q has a stable numeric id + `(subject, topic, year, source, verified)` | **reuse** — the identity backbone |
-| Study notes | 12 `notes-*.js`, **720 source-cited sections** (150 topics), all wired into `NotesView` via `RichText` | **reuse + improve** — but had **zero stable section ids** |
+| Study notes | 12 `notes-*.js`, **745 source-cited sections** (159 topics), all wired into `NotesView` via `RichText` | **reuse + improve** — but had **zero stable section ids** |
 | Video summaries | 400 videos across 27 files, keyed by YouTube videoId | reuse (2nd adapter target) |
 | Taxonomy | `curriculum.js` `(subject, topic)` used by notes AND questions | **reuse** — the canonical join spine |
 | Governed knowledge | `wiki/**` — 2 hand-authored pages + review packs (เกษม), full schema, **markdown-only, 0 governance tokens in `src/`** | **complete it** — schema was right, runtime was missing |
 | AI | server-side Claude in `api/grade-summary.js` (grading only) + rate-limit/CORS lib. No in-browser ML | **extend** — the tool-endpoint template |
-| Backend | Supabase (15 tables, 24 RLS policies, all `auth.uid()`-scoped) + 5 Vercel functions | reuse as-is |
+| Backend | Supabase (15 tables, 24 RLS policies, all `auth.uid()`-scoped) + 6 Vercel functions | reuse as-is |
 | Imaging | Cornerstone3D DICOM viewer + deterministic Norberg/VHS/Length/Angle math | reuse → expose as deterministic tools |
 | Design system | **154 `vmx-*` classes / 19 `--clr-*` tokens**, light+dark, 44px touch floor | **reuse — do not invent components** |
-| Gates | `lint:all` (6 linters) + build CI + cross-engine Playwright smoke | reuse, extend |
+| Gates | `lint:all` (7 linters) + build CI + unit 117 + cross-engine Playwright smoke 32 | reuse, extend |
 
 **Conclusion:** almost nothing needed building from scratch. The real gap was a
 **runtime knowledge layer with provenance** — everything else already existed.
@@ -112,5 +112,5 @@ never as qualified human sign-off.
 5. Imaging measurements as deterministic tools → attach results to knowledge.
 
 **Not doing yet (deliberately):** vector DB (no benchmark justifies it),
-multi-agent loops, a rewrite of the home IA, or migrating all 720 sections
+multi-agent loops, a rewrite of the home IA, or migrating all 745 sections
 before the pattern is proven on one topic.

@@ -1,9 +1,20 @@
 // ============================================================
-// ตารางสอบ Final — Sem 2/2568 (Vet 86, ปี 4)
+// ตารางเรียน ตารางสอบ และปฏิทินการศึกษา
 // ============================================================
-// ดึงข้อมูลจาก: ตารางสอบป_14_Final_Term2.pdf
-// สัปดาห์สอบปลายภาค: 27 เม.ย. - 12 พ.ค. 2569
+// เทอมปัจจุบัน: ภาคการศึกษาต้น 2569 (Vet 86 = ชั้นปีที่ 5)
+//
+// EXAM_SCHEDULE เก็บทั้งสองชั้นปีที่มีข้อมูลจริง:
+//   y5 = ภาคต้น 2569 ทั้งกลางภาคและปลายภาค (รุ่น Vet 86)
+//   y4 = ภาคต้น 2569 ของรุ่นถัดมา + รายการเทอม 2/2568 ที่สอบไปแล้ว
+//        (เก็บไว้เพราะหน้า "ตารางสอบ" เรียงตามวันและแสดงย้อนหลังได้)
+//
+// ที่มา: ตารางสอบกลางภาค/ปลายภาค ภาคต้น 2569 ของคณะ + ตารางสอน
+// ที่ประกาศให้แต่ละชั้นปี ดู SEMESTER ด้านล่างสำหรับช่วงสอบที่เป็นทางการ
 // ============================================================
+
+// The cohort year lives in curriculum.js so there is exactly one place to
+// move it each August. curriculum.js imports nothing, so no cycle.
+import { CURRENT_YEAR } from './curriculum.js';
 
 export const EXAM_SCHEDULE = {
   y4: [
@@ -298,21 +309,24 @@ function examEndMs(exam) {
 // Returns null when not imminent (use daysLeft instead)
 export function shortCountdown(exam, now = new Date()) {
   const ms = msUntilExam(exam, now);
-  if (ms < -3 * 60 * 60 * 1000) return null;
   if (ms > 36 * 60 * 60 * 1000) return null;
+  // "กำลังสอบอยู่" has to end when the exam ends, not a flat three hours after
+  // it starts — the declared duration is right there in the record, and a
+  // 2-hour paper was claiming to still be running an hour after everyone left.
+  if (now.getTime() > examEndMs(exam)) return null;
   const totalMin = Math.floor(ms / 60000);
   if (totalMin < 0) {
-    return { kind: 'now', text: `🔥 กำลังสอบอยู่!` };
+    return { kind: 'now', text: 'กำลังสอบอยู่' };
   }
   const hours = Math.floor(totalMin / 60);
   const minutes = totalMin % 60;
-  if (hours < 1) return { kind: 'imminent', text: `⏰ อีก ${minutes} นาที!` };
-  if (hours < 12) return { kind: 'imminent', text: `⏰ อีก ${hours} ชม. ${minutes} นาที` };
-  return { kind: 'soon', text: `⏰ อีก ${hours} ชม.` };
+  if (hours < 1) return { kind: 'imminent', text: `อีก ${minutes} นาที` };
+  if (hours < 12) return { kind: 'imminent', text: `อีก ${hours} ชม. ${minutes} นาที` };
+  return { kind: 'soon', text: `อีก ${hours} ชม.` };
 }
 
 // Helper: get upcoming exams sorted by date
-export function getUpcomingExams(year = 'y4') {
+export function getUpcomingExams(year = `y${CURRENT_YEAR}`) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const list = EXAM_SCHEDULE[year] || [];
@@ -325,7 +339,7 @@ export function getUpcomingExams(year = 'y4') {
     .sort((a, b) => a.dateObj - b.dateObj);
 }
 
-export function getNextExam(year = 'y4') {
+export function getNextExam(year = `y${CURRENT_YEAR}`) {
   // Filter by exam END time, not by date. Otherwise an exam that
   // finished hours ago today would still count as "next" for the
   // rest of the day and only roll over at midnight.
@@ -365,7 +379,7 @@ export const SEMESTER = {
   midtermPeriod: { start: '2026-09-21', end: '2026-09-25', labelTh: 'สอบกลางภาค 21-25 ก.ย. 69' },
   finalPeriod: { start: '2026-11-23', end: '2026-12-04', labelTh: 'สอบปลายภาค 23 พ.ย. - 4 ธ.ค. 69' },
   sourceNote: 'ตามมติที่ประชุมคณะกรรมการบริหารคณะสัตวแพทยศาสตร์ จุฬาฯ ครั้งที่ 10/2569 (22 ก.ค. 69)',
-  updatedAt: '2026-07-20',
+  updatedAt: '2026-07-31',
 };
 
 
@@ -445,7 +459,7 @@ export const COURSE_GROUPS = {
   },
 };
 
-/** ตารางเรียนรายสัปดาห์ ชั้นปีที่ 5 — dow 1=จันทร์ ... 5=ศุกร์, เวลา 24 ชม. */
+/** ตารางเรียนรายสัปดาห์ ชั้นปีที่ 4 และ 5 ภาคต้น 2569 — dow 1=จันทร์ ... 5=ศุกร์, เวลา 24 ชม. */
 export const CLASS_TIMETABLE = {
   y4: [
     // ── ชั้นปีที่ 4 ภาคต้น 2569 (จากตารางสอน 27 มี.ค. 69) ──

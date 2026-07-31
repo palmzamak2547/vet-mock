@@ -74,9 +74,9 @@ Rules that matter:
 ```bash
 npm run regen:registry     # re-scan banks → bank-registry.generated.js (prints year tags — eyeball them)
 npm run regen:q-counts      # recompute per-subject + per-year counts
-npm run lint:all            # 6 gates: ids · dupes · academic-safety · questions · registry · curriculum
+npm run lint:all            # 7 gates: ids, dupes, academic-safety, questions, registry, curriculum, validate:wiki
 npm run build               # must succeed
-npm run test:e2e            # cross-engine smoke 12/12 (chromium · webkit · firefox)
+npm run test:e2e            # cross-engine smoke 32/32 (chromium, webkit, firefox — desktop + mobile)
 ```
 All green → commit. Any red → the message tells you exactly what's out of sync.
 

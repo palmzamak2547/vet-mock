@@ -5,7 +5,7 @@ type: reference
 version: 1.0.0
 status: draft
 tags: [unmapped, report, questions]
-lastReviewed: 2026-07-23
+lastReviewed: 2026-07-31
 ---
 
 # 📋 Unmapped Questions Report
@@ -13,8 +13,8 @@ lastReviewed: 2026-07-23
 สรุปรายการข้อสอบทั้งหมดที่ยังไม่มีบทความ Wiki รองรับ (wikiRefs: []) หรือมีสถานะ unmapped
 
 - **จำนวนข้อสอบทั้งหมด:** 2948 ข้อ
-- **จำนวนข้อสอบที่ยัง Unmapped:** 2948 ข้อ
-- **สัดส่วน:** 100.0%
+- **จำนวนข้อสอบที่ยัง Unmapped:** 2780 ข้อ
+- **สัดส่วน:** 94.3%
 
 ---
 
@@ -1192,138 +1192,17 @@ lastReviewed: 2026-07-23
 | `1159` | mcq | Year 4 | acetate-tape, cytology, broad-dx, chayot | การวินิจฉัยใด "สามารถใช้วินิจฉัย" ทั้งโรคจากแบคทีเรีย "และ" ... |
 | `1160` | mcq | Year 4 | pyoderma, second-line, marbofloxacin, chayot | ยาปฏิชีวนะที่เหมาะสมในการศึกษาโรคผิวหนังจากแบคทีเรีย เมื่อสง... |
 
-### วิชา: `com5` (129 ข้อ)
+### วิชา: `com5` (8 ข้อ)
 | Question ID | Type | Year | Topic/Tags | Text Snippet |
 |---|---|---|---|---|
-| `500` | mcq | Year 4 | CPV, parvovirus | ข้อใดถูกต้องเกี่ยวกับ Canine Parvovirus (CPV)... |
-| `501` | mcq | Year 4 | CPV, risk | ข้อใด ไม่ใช่ risk factor ของ Canine Parvovirus... |
-| `502` | mcq | Year 4 | CPV, clinical | Clinical sign ที่พบใน CPV เนื่องจาก crypt damage คืออะไร... |
-| `503` | tf | Year 4 | CPV, diagnosis | Viral antigen detection ด้วย ELISA สำหรับ CPV อาจให้ false n... |
-| `504` | mcq | Year 4 | CPV, treatment | Treatment หลักสำหรับ CPV คืออะไร... |
-| `505` | mcq | Year 4 | CCV | Canine Coronavirus (CCV) มีคุณสมบัติอย่างไร... |
-| `506` | mcq | Year 4 | CCV | CCV target cell คืออะไร... |
-| `507` | tf | Year 4 | CCV, vaccine | แม้จะมีวัคซีน CCoV ผลิตออกมา แต่ตามแนวทาง WSAVA 2024 และ VPA... |
-| `508` | mcq | Year 4 | sporotrichosis, fungal | Sporotrichosis มีชื่อเรียกอีกชื่อว่าอะไร... |
-| `509` | mcq | Year 4 | sporotrichosis, zoonosis | การติดต่อของ Sporotrichosis จากแมวสู่คนคืออะไร... |
-| `510` | mcq | Year 4 | sporotrichosis, treatment | Drug of choice สำหรับ Sporotrichosis ในแมวคืออะไร... |
-| `511` | mcq | Year 4 | cryptococcosis | Test of choice สำหรับ Cryptococcosis คืออะไร... |
-| `512` | mcq | Year 4 | cryptococcosis, treatment | Treatment of choice สำหรับ Cryptococcosis ที่ไม่มี CNS ในแมว... |
-| `513` | mcq | Year 4 | cryptococcosis | รูปแบบที่พบบ่อยที่สุดของ Cryptococcosis ในแมวคืออะไร... |
-| `514` | mcq | Year 4 | protozoal, giardia | การตรวจอุจจาระสุนัขที่พบ cyst ขนาดใหญ่กว่าเม็ดเลือดแดง รูปร่... |
-| `515` | mcq | Year 4 | protozoal, cystoisospora | หาก simple flotation พบ oocyst ภายในมี 2 sporocyst แต่ละ spo... |
-| `516` | mcq | Year 4 | protozoal, giardia, treatment | แมว 4 ปี เม็ดเลือดออก + พบเชื้อโปรโตซัวรูปร่างหยดน้ำเคลื่อนไ... |
-| `517` | mcq | Year 4 | protozoal, tritrichomonas | แมวอายุ 3 เดือนจากศูนย์สงเคราะห์ มี large bowel diarrhea เรื... |
 | `518` | mcq | Year 4 | protozoal, toxoplasma, treatment | Drug of choice สำหรับ Toxoplasmosis ในแมวคืออะไร... |
-| `519` | mcq | Year 4 | protozoal, giardia, antigen | ชุดทดสอบ SNAP Giardia / FASTest Giardia Strip ตรวจหาอะไร... |
 | `520` | mcq | Year 4 | toxoplasma, oocyst | Sporulated oocyst ของ Toxoplasma gondii มี ratio (oocyst : s... |
-| `521` | mcq | Year 4 | rabies | วัน Rabies โลก คือวันใด... |
-| `522` | mcq | Year 4 | rabies, law | กฎหมายไทย (พรบ.โรคพิษสุนัขบ้า) กำหนดให้ฉีดวัคซีน rabies เริ่... |
-| `523` | match | Year 4 | rabies, clinical | จับคู่ Clinical phases ของ Rabies (3 phases)... |
-| `524` | mcq | Year 4 | rabies, diagnosis | วิธีหลักที่ใช้ DX rabies ในปัจจุบัน (วันเดียวรู้ผล)... |
-| `525` | mcq | Year 4 | rabies, quarantine | คนโดนสุนัข/แมวกัด → สัตว์ที่กัดดูปกติ (ไม่ป่วย) → กักตัวสัตว... |
-| `526` | mcq | Year 4 | rabies, quarantine | สัตว์โดนสัตว์อื่นกัด ไม่เคยได้รับวัคซีน rabies มาก่อน → กักด... |
-| `527` | mcq | Year 4 | rabies, 5y | หลัก "5 ย" ที่ใช้สอนเด็กในการป้องกันโรคพิษสุนัขบ้าคืออะไร... |
-| `528` | mcq | Year 4 | vaccine, WSAVA | WSAVA 2024 non-core vaccine ในสุนัข ได้แก่... |
-| `529` | mcq | Year 4 | vaccine, WSAVA | WSAVA 2024 non-core vaccine ในแมว ได้แก่... |
-| `530` | mcq | Year 4 | vaccine, puppy | WSAVA แนะนำให้วัคซีนเข็มสุดท้ายของ puppy/kitten series ที่อา... |
-| `531` | mcq | Year 4 | vaccine, core, thailand | Core vaccine สำหรับสุนัขในไทย (VPAT 2024)... |
-| `532` | mcq | Year 4 | vaccine, core, thailand, cat | Core vaccine สำหรับแมวในไทย (VPAT 2024) ครอบคลุมกลุ่มใดบ้าง... |
-| `533` | mcq | Year 4 | vaccine, rabies | โปรแกรมวัคซีน Rabies สำหรับสุนัข/แมว ตาม VPAT 2024 / Thai Ra... |
-| `534` | mcq | Year 4 | vaccine, response | การตอบสนองทางภูมิคุ้มกันเมื่อให้วัคซีนป้องกันพิษสุนัขบ้าของส... |
-| `535` | mcq | Year 4 | CPV, strain | ข้อใดถูกต้องเมื่อเปรียบเทียบ CPV-1 และ CPV-2... |
-| `536` | mcq | Year 4 | CPV, pathogenesis | Target cells ของ CPV ที่ทำให้เกิด lymphopenia/panleukopenia ... |
-| `537` | mcq | Year 4 | CPV, myocarditis | CPV myocarditis เกิดได้ในกรณีใด... |
-| `538` | mcq | Year 4 | CPV, incubation | Incubation period ของ CPV คืออะไร... |
-| `539` | mcq | Year 4 | CPV, diagnosis, PCR | ข้อใด ไม่ใช่ สาเหตุ false-positive ของ ELISA test kit สำหรับ... |
-| `540` | mcq | Year 4 | CPV, lab | CBC + chemistry ที่พบบ่อยใน CPV ที่อาการรุนแรงคืออะไร... |
-| `541` | mcq | Year 4 | CPV, treatment, antibiotic | Antibiotic combination แนวทาง parenteral ที่ Aj. Punyamanee ... |
-| `542` | mcq | Year 4 | CPV, prognosis | Mortality rate ของ CPV ใน puppy vs adult dog... |
-| `543` | mcq | Year 4 | CPV, disinfection | ข้อใดเป็น disinfectant ที่แนะนำให้ใช้ทำความสะอาดสิ่งแวดล้อม ... |
-| `544` | mcq | Year 4 | CPV, vaccine, MDA | Maternal-derived antibody (MDA) สามารถรบกวนการทำวัคซีน CPV ไ... |
-| `545` | mcq | Year 4 | CPV, vaccine | WSAVA 2024 แนะนำให้ฉีด core vaccine puppy series เริ่มต้นที่... |
-| `546` | tf | Year 4 | CCV, severity | CCV ส่วนใหญ่เป็น subclinical หรือ self-limiting ในสุนัขโต แต... |
-| `547` | mcq | Year 4 | CRV, rotavirus | Canine Rotavirus (CRV) มีคุณสมบัติอย่างไร... |
-| `548` | mcq | Year 4 | CPV, immunotherapy | Immunotherapy ที่อาจใช้เสริมในการรักษา CPV ในสุนัขที่อาการรุ... |
-| `549` | mcq | Year 4 | sporotrichosis, forms | 3 clinical forms ของ Sporotrichosis คืออะไร... |
-| `550` | mcq | Year 4 | sporotrichosis, species | Sporothrix species ที่พบบ่อยที่สุดในประเทศไทยคืออะไร... |
-| `551` | mcq | Year 4 | sporotrichosis, cytology | ลักษณะ yeast cell ของ Sporothrix ใน cytology (Romanowsky sta... |
-| `552` | mcq | Year 4 | sporotrichosis, culture | Confirmatory test สำหรับ Sporotrichosis คืออะไร... |
-| `553` | tf | Year 4 | sporotrichosis, ketoconazole | Ketoconazole เป็น drug of choice ในการรักษา Sporotrichosis ใ... |
-| `554` | mcq | Year 4 | sporotrichosis, KI | Drug of choice สำหรับ Sporotrichosis ในสุนัขคืออะไร... |
-| `555` | mcq | Year 4 | sporotrichosis, amphotericin | Dose ของ Amphotericin B IV ในการรักษา disseminated sporotric... |
-| `556` | mcq | Year 4 | sporotrichosis, duration | หลังจากแผล Sporotrichosis หายแล้ว ควรให้ยาต่ออีกนานเท่าไร... |
-| `557` | mcq | Year 4 | cryptococcosis, env | แหล่งของ Cryptococcus neoformans ที่สำคัญในสิ่งแวดล้อมคืออะไ... |
-| `558` | mcq | Year 4 | cryptococcosis, forms | 4 clinical forms ของ Cryptococcosis ในแมว... |
-| `559` | mcq | Year 4 | cryptococcosis, CNS | อาการ CNS form ของ Cryptococcosis เกิดจากการแพร่ผ่าน... |
-| `560` | mcq | Year 4 | cryptococcosis, histology | Histology stain ที่ specific สำหรับ Cryptococcus capsule คือ... |
-| `561` | mcq | Year 4 | cryptococcosis, amphotericin | Treatment of choice สำหรับ Cryptococcosis ที่มี CNS หรือ sys... |
-| `562` | tf | Year 4 | cryptococcosis, zoonosis | Cryptococcosis ในแมวเป็น contagious disease ที่ติดต่อจากแมวส... |
-| `563` | mcq | Year 4 | protozoal, classification | ข้อใดเป็น mucosoflagellate (ไม่ใช่ coccidia)... |
 | `564` | mcq | Year 4 | cryptosporidium, morphology | Cryptosporidium oocyst มีลักษณะพิเศษอย่างไร... |
 | `565` | mcq | Year 4 | cryptosporidium, staining | การย้อมที่ใช้ดู Cryptosporidium oocyst ในอุจจาระคืออะไร... |
 | `566` | mcq | Year 4 | cryptosporidium, zoonosis | Cryptosporidium species ใดที่เป็น zoonotic ที่สำคัญในมนุษย์ ... |
 | `567` | mcq | Year 4 | cryptosporidium, treatment | การรักษา Cryptosporidiosis ในแมว แนะนำใช้ยาตัวใด... |
-| `568` | mcq | Year 4 | tritrichomonas, gold-standard | Gold standard ในการวินิจฉัย Tritrichomonas foetus ในแมวคืออะ... |
-| `569` | mcq | Year 4 | tritrichomonas, treatment | ยาที่ใช้รักษา Tritrichomonas foetus ในแมวคืออะไร... |
-| `570` | mcq | Year 4 | tritrichomonas, morphology | ลักษณะ "ข้อใด" ที่ Tritrichomonas foetus trophozoite ไม่มี แ... |
-| `571` | mcq | Year 4 | giardia, transmission | Giardia cyst ที่กินเข้าไปประมาณกี่ cyst ก็ทำให้ติดเชื้อในมนุ... |
-| `572` | mcq | Year 4 | giardia, assemblage | Giardia assemblage ที่ติดต่อจากสัตว์สู่คน (zoonotic) คืออะไร... |
 | `573` | mcq | Year 4 | toxoplasma, shedding | แมว (definitive host) shed Toxoplasma oocyst ในอุจจาระ... |
 | `574` | mcq | Year 4 | toxoplasma, clinical | Clinical signs ที่พบบ่อยใน feline toxoplasmosis คืออะไร... |
-| `575` | match | Year 4 | toxoplasma, host | จับคู่ host กับ protozoa... |
-| `576` | mcq | Year 4 | cystoisospora, control | การควบคุม coccidiosis ใน kennel/cattery ที่สำคัญที่สุดคืออะไ... |
-| `577` | mcq | Year 4 | cystoisospora, treatment | ยาที่ใช้รักษา Cystoisospora (coccidiosis) ในสุนัขและแมวคืออะ... |
-| `578` | tf | Year 4 | giardia, pseudoparasite | การพบ structure คล้าย Giardia cyst ในอุจจาระเสมอหมายถึงการติ... |
-| `579` | mcq | Year 4 | rabies, virology | Rabies virus จัดอยู่ใน family/genus ใด... |
-| `580` | mcq | Year 4 | rabies, transmission | วิธีการแพร่เชื้อ Rabies ที่ "ไม่ใช่ bite exposure" (non-bite... |
-| `581` | match | Year 4 | rabies, pathogenesis | จับคู่ทิศทางการเดินทางของ Rabies virus... |
-| `582` | mcq | Year 4 | rabies, histology | Negri bodies ที่พบในการตรวจ histopathology สมองสัตว์เป็น Rab... |
-| `583` | mcq | Year 4 | rabies, exposure-level | Exposure category 3 (ความเสี่ยงสูง) ตามแนวทาง WHO/ไทย หมายถึ... |
-| `584` | mcq | Year 4 | rabies, wound-care | การปฐมพยาบาลแผลถูกกัดในคน... |
-| `585` | mcq | Year 4 | rabies, thai-stats | สัตว์ที่พบ Rabies positive มากที่สุดในประเทศไทยคืออะไร... |
-| `586` | mcq | Year 4 | rabies, 6-criteria | 6 criteria for rabies diagnosis in living dog (Tepsumethanon... |
-| `587` | tf | Year 4 | rabies, kit | Rabies test kit (lateral flow ตรวจน้ำลาย) มี sensitivity และ... |
-| `588` | match | Year 4 | rabies, animal-mgmt | จับคู่การจัดการสัตว์ที่กัดคน... |
-| `589` | mcq | Year 4 | rabies, pre-exposure | Pre-exposure rabies vaccination schedule ของสุนัข/แมว (อายุ ... |
-| `590` | tf | Year 4 | rabies, human-h2h | การติดต่อ Rabies จากคนสู่คนสามารถเกิดได้ในกรณีพิเศษ เช่น การ... |
-| `591` | mcq | Year 4 | vaccine, WSAVA-2024 | จุดเด่นที่เปลี่ยนแปลงสำคัญใน WSAVA 2024 vs WSAVA 2016 คืออะไ... |
-| `592` | mcq | Year 4 | vaccine, lepto, thailand | Top 5 Leptospira serogroups ในประเทศไทย (Altheimer 2020, BMC... |
-| `593` | mcq | Year 4 | vaccine, WSAVA, felv | ตาม WSAVA 2024 FeLV เป็น "core with conditions" สำหรับแมวในก... |
-| `594` | mcq | Year 4 | vaccine, MDA, window | Window of susceptibility คือช่วงเวลาที่... |
-| `595` | mcq | Year 4 | vaccine, AE | Vaccine adverse event (VAE) ในสุนัข — ปัจจัยเสี่ยงที่เพิ่มโอ... |
-| `596` | mcq | Year 4 | vaccine, kennel-cough | B. bronchiseptica (kennel cough) vaccine — เปรียบเทียบ paren... |
-| `597` | mcq | Year 4 | vaccine, titer | Protective titer สำหรับ canine core vaccines... |
-| `598` | mcq | Year 4 | vaccine, WSAVA, booster | WSAVA 2024 แนะนำให้ booster vaccine เข็มแรกเมื่ออายุใด (เปลี... |
-| `599` | mcq | Year 4 | vaccine, not-recommended | ตาม WSAVA 2024 vaccines ที่ "Not Recommended" ในสุนัข ได้แก่... |
-| `600` | tf | Year 4 | vaccine, shelter | WSAVA 2024 มีโปรแกรมวัคซีนแยกสำหรับสัตว์ใน shelter และ sanct... |
-| `601` | mcq | Year 4 | vaccine, WSAVA-vs-VPAT | ความแตกต่างหลักระหว่าง WSAVA 2024 และ VPAT 2024 ในการให้วัคซ... |
-| `602` | mcq | Year 4 | vaccine, cat, low-vs-high | แมว high-risk (กลุ่มแมวเลี้ยงปล่อยอิสระ/multi-cat) ตาม WSAVA... |
-| `603` | tf | Year 4 | vaccine, monovalent | การฉีด rabies vaccine ในปีแรก แบบ monovalent (เดี่ยว) ให้ผลภ... |
-| `604` | mcq | Year 4 | vaccine, post-exposure | สุนัขโดน rabid animal กัด เคยได้รับวัคซีน rabies ตามโปรแกรมแ... |
-| `605` | mcq | Year 4 | furi, pathogens | จำนวน pathogens หลักที่ถือเป็นสาเหตุของ FRDC คืออะไร... |
-| `606` | mcq | Year 4 | furi, fhv-1, latency | FHV-1 หลังการติดเชื้อ latency อยู่ที่ใดเป็นหลัก... |
-| `607` | mcq | Year 4 | furi, fhv-1, cornea | Lesion ทาง ophthalmology ที่ pathognomonic สำหรับ FHV-1 คืออ... |
-| `608` | mcq | Year 4 | furi, fcv | Feline Calicivirus (FCV) มี genome และ envelope แบบใด... |
-| `609` | mcq | Year 4 | furi, vs-fcv | Mortality rate ของ Virulent Systemic FCV (VS-FCV) อยู่ในช่วง... |
-| `610` | mcq | Year 4 | furi, chlamydia | Clinical sign ที่ "เด่นที่สุด" ของ Chlamydia felis ในแมวคืออ... |
-| `611` | mcq | Year 4 | furi, bordetella | Clinical sign ที่ "เด่นที่สุด" ของ Bordetella bronchiseptica... |
-| `612` | tf | Year 4 | furi, mycoplasma | Mycoplasma felis เป็น organism ปกติของ upper respiratory tra... |
-| `613` | mcq | Year 4 | furi, antibiotic | Antibiotic 1st choice สำหรับ FRDC (ครอบคลุมทุก bacteria ในกล... |
-| `614` | mcq | Year 4 | furi, antiviral, famciclovir | Systemic antiviral ที่ปลอดภัยที่สุด + ใช้บ่อยใน severe FHV-1... |
-| `615` | mcq | Year 4 | furi, disinfection | Disinfectant ที่ effective สำหรับ FCV (ทนต่อ disinfectant อื... |
-| `616` | tf | Year 4 | furi, limping-syndrome | Limping kitten syndrome เกิดจากบาง strains ของ FCV และมักเกิ... |
-| `617` | mcq | Year 4 | furi, incubation | Incubation period ทั่วไปของ FRDC คือกี่วัน... |
-| `618` | mcq | Year 4 | furi, transmission | Transmission ที่ "ไม่ใช่" ทางหลักของ FRDC pathogens... |
-| `619` | tf | Year 4 | furi, sars-cov-2 | SARS-CoV-2 สามารถติดจากคนสู่แมวได้ + มีรายงาน case แมวสู่คน ... |
-| `620` | mcq | Year 4 | furi, vaccine | ข้อใดอธิบาย FRDC vaccination ได้ "ถูกต้อง" ที่สุด... |
-| `621` | tf | Year 4 | furi, cefazolin, pitfall | Cefazolin / Cefadroxil / Cephalexin (cephalosporin กลุ่ม 1) ... |
-| `622` | mcq | Year 4 | furi, enrofloxacin, retina | Enrofloxacin ในแมว — เพิ่ม dose ได้สูงสุดเท่าไรโดยไม่เสี่ยง ... |
-| `623` | match | Year 4 | furi, differential, conjunctivitis | จับคู่ feature กับ pathogen ที่เด่นใน FRDC... |
-| `624` | mcq | Year 4 | furi, supportive, appetite | Appetite stimulants ที่นิยมใช้ใน FRDC supportive care คืออะไ... |
-| `625` | mcq | Year 4 | sporotrichosis, zoonosis, critical | ความสำคัญที่ทำให้ Sporotrichosis ในแมวเป็น "★★★ zoonosis lev... |
-| `626` | mcq | Year 4 | cryptococcosis, cns, fluconazole | ในกรณี Cryptococcosis ที่มี CNS involvement (CSF positive) ย... |
-| `627` | mcq | Year 4 | vaccine, wsava-2024, updates | WSAVA 2024 vaccination guidelines มีการเปลี่ยนแปลงสำคัญข้อใด... |
-| `628` | mcq | Year 4 | vaccine, failure, breed | สาเหตุของ vaccine failure ที่ "หมาฉีดครบแล้วยังป่วยจาก CPV/R... |
 
 ### วิชา: `comp-repro-clinic` (48 ข้อ)
 | Question ID | Type | Year | Topic/Tags | Text Snippet |
@@ -1486,17 +1365,10 @@ lastReviewed: 2026-07-23
 | `93528` | mcq | Year 4 | marine-ecology, kelp-forest, vocabulary | Unit 3 Talk/Lecture III covers California's sea-urchin probl... |
 | `93529` | mcq | Year 4 | marine-ecology, vocabulary, zombie-urchin | In the sea-urchin lecture (Unit 3 Talk III), the speakers re... |
 
-### วิชา: `exotic` (151 ข้อ)
+### วิชา: `exotic` (104 ข้อ)
 | Question ID | Type | Year | Topic/Tags | Text Snippet |
 |---|---|---|---|---|
 | `163` | mcq | Year 4 | funding | ทุน USA คือ... |
-| `164` | mcq | Year 4 | bird, handling | เจาะเลือดนกที่ตำแหน่งใด... |
-| `165` | mcq | Year 4 | bird, anesthesia | ยาสลบนิยมในนก... |
-| `166` | mcq | Year 4 | bird, anesthesia | อดอาหารก่อนวางยาสลบนก... |
-| `167` | mcq | Year 4 | virus | Pacheco's disease เกิดจาก... |
-| `168` | mcq | Year 4 | virus | PDD (Proventricular Dilatation Disease) เกิดจาก... |
-| `169` | mcq | Year 4 | cloacal | Dx Cloacal papilloma ด้วย... |
-| `170` | mcq | Year 4 | bird, cloacal | รักษา Cloacal papilloma ใช้... |
 | `171` | mcq | Year 4 | conservation | One Health เชื่อมอะไรบ้าง... |
 | `172` | mcq | Year 4 | vaccine | วัคซีน rabies เป็น type ใด... |
 | `173` | mcq | Year 4 | welfare | Five Domains ไม่รวม domain ใด... |
@@ -1505,11 +1377,8 @@ lastReviewed: 2026-07-23
 | `291` | mcq | Year 4 | rabbit, antibiotic | Antibiotic ใดห้ามใช้ในกระต่าย... |
 | `292` | mcq | Year 4 | reptile, MBD | Metabolic Bone Disease (MBD) ใน reptile เกิดจาก... |
 | `293` | mcq | Year 4 | reptile, husbandry | Temperature gradient ที่เหมาะสมใน terrarium... |
-| `294` | mcq | Year 4 | virus | Polyomavirus ในนกก่อโรคอะไร... |
-| `295` | mcq | Year 4 | virus | PBFD (Psittacine Beak and Feather Disease) เกิดจาก... |
 | `296` | mcq | Year 4 | hamster | Wet tail ในหนูแฮมสเตอร์เกิดจากเชื้อ... |
 | `297` | mcq | Year 4 | ferret, insulinoma | Insulinoma ใน ferret อาการที่พบคือ... |
-| `1572` | mcq | Year 4 | knemidocoptes, budgie | นกหงส์หยกที่มีสะเก็ดหนาที่ขายาเท้าและจมูก (มงคลเหง้า) เกิดจา... |
 | `1580` | mcq | Year 4 | wildlife-law, thai-act | สัตว์ป่าสงวนชนิดใหม่ตาม พรบ.สงวนและคุ้มครองสัตว์ป่า พ.ศ. 256... |
 | `1581` | mcq | Year 4 | wildlife-law, reserved | สัตว์ป่าสงวนตาม พรบ.สงวนและคุ้มครองสัตว์ป่า พ.ศ. 2562 ข้อใดถ... |
 | `1582` | mcq | Year 4 | alien-species | คำว่า "Alien species" (เอเลี่ยนสปีชีส์) หมายถึง... |
@@ -1559,43 +1428,6 @@ lastReviewed: 2026-07-23
 | `50015` | mcq | Year 4 | funding, thai | ทุนรัฐบาลไทยสำหรับเรียนต่อต่างประเทศคือทุนใด... |
 | `50016` | mcq | Year 4 | ECZM, WPH | ECZM specialty ใดที่เน้น free-ranging wildlife population he... |
 | `50017` | mcq | Year 4 | phd | PhD ใน USA vs EU/AUS ต่างกันหลักที่จุดใด... |
-| `50018` | mcq | Year 4 | nutrition, vit-A | Vitamin A deficiency ในนก presenting sign คือ... |
-| `50019` | mcq | Year 4 | anesthesia, fasting | นกตัวเล็ก (small parrot) อดอาหารก่อนวางยานานเท่าไหร่... |
-| `50020` | mcq | Year 4 | crop, metoclopramide | Crop stasis ในนกรักษาด้วย... |
-| `50021` | mcq | Year 4 | ectoparasite, mite | Knemidocoptes (scaly leg/face mite) ในนกรักษาด้วย... |
-| `50022` | mcq | Year 4 | behavior, self-mutilation | Feather plucking / self-mutilation ในนกสาเหตุที่พบบ่อย... |
-| `50023` | mcq | Year 4 | Pacheco, treatment | Pacheco's disease (Psittacid Herpesvirus) รักษาด้วย antivira... |
-| `50024` | mcq | Year 4 | Chlamydophila, psittacosis | Chlamydophila psittaci (psittacosis) รักษานานเท่าใด... |
-| `50025` | mcq | Year 4 | Chlamydophila, antibiotic | Antibiotic of choice สำหรับ Chlamydophila psittaci ในนก... |
-| `50026` | mcq | Year 4 | Candida, antifungal | Candidiasis (thrush) ในลูกนกรักษาด้วย antifungal ใด... |
-| `50027` | mcq | Year 4 | Trichomonas, protozoa | Trichomonas gallinae ในนก (canker) รักษาด้วย... |
-| `50028` | mcq | Year 4 | Giardia | Giardiasis ในนกพบบ่อยใน species ใด... |
-| `50029` | mcq | Year 4 | Eimeria, coccidia | Coccidiosis (Eimeria) ในนกรักษาด้วย... |
-| `50030` | mcq | Year 4 | PBFD, circovirus | PBFD (Psittacine Beak and Feather Disease) สาเหตุคือ... |
-| `50031` | mcq | Year 4 | PCR, diagnosis | โรคใดในนกใช้ PCR เพื่อ confirm diagnosis ทุก case... |
-| `50032` | mcq | Year 4 | vaccine, pox | มีวัคซีนสำหรับโรคติดเชื้อใดในนก (commercial available)... |
-| `50033` | mcq | Year 4 | cloacal-papilloma | Cloacal papilloma ในนกเชื่อว่าเกิดจากเชื้อใด... |
-| `50034` | mcq | Year 4 | inclusion-body | โรคใดต่อไปนี้พบ intracytoplasmic inclusion bodies... |
-| `50035` | mcq | Year 4 | nail, handling | การตัดเล็บนกควรอยู่ห่างจากเส้นเลือด (quick) อย่างน้อยกี่ ซม.... |
-| `50036` | mcq | Year 4 | wing-clip | การตัดขนปีกนก (wing clip) เพื่อไม่ให้บินตัดได้กี่เส้น... |
-| `50037` | mcq | Year 4 | SC, fluid | ขนาดเข็มที่นิยมใช้ในการให้สารน้ำใต้ผิวหนัง (SC) ในนกสวยงาม... |
-| `50038` | mcq | Year 4 | SC, fluid, site | ตำแหน่งที่นิยมใช้ในการให้สารน้ำเข้าใต้ผิวหนังนกสวยงาม 2 ตำแห... |
-| `50039` | mcq | Year 4 | perch | ขนาดของคอนหลักที่เหมาะสม เมื่อนกเกาะแล้วนิ้วยาวที่สุดจะกำรอบ... |
-| `50040` | mcq | Year 4 | hand-feeding, temperature | อุณหภูมิอาหารสำหรับป้อนลูกนกไม่ควรเกินเท่าใด... |
-| `50041` | mcq | Year 4 | nutrition, raptor | นกล่าเหยื่อ (raptor) มักขาดสารอาหารใด เนื่องจากกินแต่เนื้อสั... |
-| `50042` | mcq | Year 4 | nutrition, parrot | นกใดพบว่ามีอาหารคามอยู่ในกระเพาะพักนานบ่อยที่สุด (crop stasi... |
-| `50043` | mcq | Year 4 | toxin, lead | ลักษณะสิ่งขับถ่ายของนกที่ได้รับพิษจากโลหะหนัก (heavy metal t... |
-| `50044` | mcq | Year 4 | toxin, chelation | การลดพิษโลหะหนักจาก gut ในนกใช้วิธีใด... |
-| `50045` | mcq | Year 4 | anesthesia, macaw | ขั้นตอนการวางยาสลบนกมาคอว์ (1.2 kg) ที่ถูกต้อง... |
-| `50046` | mcq | Year 4 | sex-id, eclectus | การแยกเพศนกแก้ว Eclectus parrot ทำได้อย่างไร... |
-| `50047` | mcq | Year 4 | sex-id, budgie | การแยกเพศนกหงส์หยก (budgerigar) ที่โตเต็มวัย... |
-| `50048` | mcq | Year 4 | polyoma, budgerigar | Polyoma virus พบบ่อยและก่อให้เกิดอาการขนร่วงในนกชนิดใด... |
-| `50049` | mcq | Year 4 | psittacosis, zoonosis | โรคใดเป็นโรคติดต่อจากนกสู่คน (zoonosis) ที่มีสอนในวิชาอายุรศ... |
-| `50050` | mcq | Year 4 | trichomonas, host | นกที่มีโอกาสพบว่าติดเชื้อ Trichomonas มากที่สุด (พบในนกพิราบ... |
-| `50051` | mcq | Year 4 | trichomonas, pet-bird | นกเลี้ยงที่อาจพบ Trichomonas ก่อโรคในขนาดเล็ก (love bird, co... |
-| `50052` | mcq | Year 4 | cloacal-papilloma, macaw | นกที่เป็น Cloacal papilloma พบเนื้องอกได้บ่อยในชนิดใด... |
-| `50053` | mcq | Year 4 | cloacal-papilloma, organs | นกที่เป็น Cloacal papilloma อาจพบเนื้องอกได้บ่อยที่อวัยวะใด... |
-| `50054` | mcq | Year 4 | inclusion-body, pox | โรคที่พบ inclusion body จากการตรวจจุลพยาธิวิทยาในนกปากขอ — ย... |
 | `94000` | mcq | Year 4 | exotic, midterm, dental, anatomy | สัตว์ชนิดใดไม่มีฟัน open root... |
 | `94001` | mcq | Year 4 | exotic, midterm, hamster, infectious | โรค Wet tail ในหนูแฮมสเตอร์เกิดจากเชื้อใด... |
 | `94002` | mcq | Year 4 | exotic, midterm, hamster, husbandry | สัตว์ชนิดใดแนะนำให้แยกเลี้ยงเดี่ยว... |

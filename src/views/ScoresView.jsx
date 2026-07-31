@@ -22,7 +22,7 @@ export default function ScoresView({ goHome }) {
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>สัดส่วน <em>คะแนน</em></h1>
-        <p>ปี 4 เทอม 2, Vet 86, ข้อมูลจากภาพ "สัดส่วนคะแนน.jpg" (อาจไม่ครบ — ส่งข้อมูลเพิ่มทาง Feedback ได้)</p>
+        <p>ปี 4 เทอม 2/2568 (เทอมที่ผ่านมา) จากประกาศสัดส่วนคะแนนของคณะ อาจไม่ครบ ส่งข้อมูลเพิ่มทาง Feedback ได้</p>
       </div>
 
       {/* Subject filter — only show if there are >3 subjects */}

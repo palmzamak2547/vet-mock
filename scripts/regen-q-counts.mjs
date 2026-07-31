@@ -16,7 +16,8 @@
 //
 // Usage:
 //   node scripts/regen-q-counts.mjs
-//   (or `npm run lint:counts` if wired into package.json)
+//   (regen:q-counts in package.json runs the same thing; lint:curriculum
+//    then FAILS if the checked-in counts disagree with a live recount)
 //
 // Output is checked into git — re-run whenever Q content changes.
 // CI step verifies via lint-q-counts.mjs that the counts still match.

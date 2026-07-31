@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { QB, SUBJECTS } from '../data/questions.js';
 import { yearForSubject } from '../data/curriculum.js';
 import { downloadJSON } from '../hooks/utils.js';
-import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import { confirmDialog, alertDialog, promptDialog } from '../lib/dialog.js';
 
 export default function QuestionManagerView({ customQuestions, setCustomQuestions, goHome }) {
   const [showForm, setShowForm] = useState(false);
@@ -54,9 +54,15 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     clearSelection();
   };
 
-  const bulkAddTag = () => {
+  const bulkAddTag = async () => {
     if (selectedIds.size === 0) return;
-    const raw = prompt('ใส่ tag ที่จะเพิ่มให้ทุกข้อที่เลือก');
+    const raw = await promptDialog({
+      title: 'เพิ่ม tag',
+      body: `จะเพิ่มให้ทุกข้อที่เลือกไว้ ${selectedIds.size} ข้อ`,
+      placeholder: 'ชื่อ tag',
+      maxLength: 30,
+      confirmLabel: 'เพิ่ม tag',
+    });
     if (raw == null) return;
     const tag = raw.trim();
     if (!tag) { alertDialog('tag ว่างไม่ได้'); return; }

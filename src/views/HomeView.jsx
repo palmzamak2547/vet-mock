@@ -53,9 +53,10 @@ const PHASE_LABELS = {
 
 export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
   // Year context — determines hero copy + reading checklist scope.
-  // Only Y4 has actual exam schedule entries today; for scaffold years
-  // we hide the countdown banner since `getNextExam('y5')` returns null.
-  const yearMeta = YEARS.find((y) => y.id === selectedYear) || YEARS.find((y) => y.id === 4);
+  // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
+  // carry none, so the countdown banner hides itself when getNextExam
+  // returns null rather than being special-cased per year.
+  const yearMeta = YEARS.find((y) => y.id === selectedYear) || YEARS.find((y) => y.current) || YEARS[0];
   const isScaffoldYear = !!yearMeta?.scaffold;
   const nextExam = getNextExam(`y${selectedYear}`);
   // Today's timetable + the registrar's deadlines, surfaced as chips so the

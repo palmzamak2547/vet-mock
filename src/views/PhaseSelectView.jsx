@@ -17,12 +17,16 @@ const PHASES = [
   { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'Sem 2, Final',     icon: '🏁', months: [4, 5] },
 ];
 
-export function detectCurrentPhase() {
-  const m = new Date().getMonth() + 1; // 1-12
+export function detectCurrentPhase(now = new Date()) {
+  const m = now.getMonth() + 1; // 1-12
   const found = PHASES.find((p) => p.months.includes(m));
   if (found) return found.id;
-  // Between phases (Jun-Jul = post sem 2 final; default to most recent)
-  return '2-final';
+  // Uncovered months are semester breaks, and in a break the useful answer is
+  // the phase you are walking INTO, not the one that just ended. June-July is
+  // the long break before semester 1 (a student on 31 July is studying for
+  // เทอม 1 กลางภาค, not the เทอม 2 final they sat in May); January is the gap
+  // before semester 2's midterm.
+  return m === 1 ? '2-mid' : '1-mid';
 }
 
 export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }) {

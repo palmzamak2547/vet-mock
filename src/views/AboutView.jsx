@@ -64,7 +64,7 @@ export default function AboutView({ goHome, setView }) {
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
             <li>เครื่องมือทบทวนครบจบในเว็บเดียว — โจทย์ฝึก, notes สรุป, flashcard, สรุปคลิป, scoring</li>
-            <li>รวมโจทย์ฝึกทุกชั้นปีในเว็บเดียว (ตอนนี้เริ่มที่ปี 4 ก่อน)</li>
+            <li>รวมโจทย์ฝึกทุกชั้นปีในเว็บเดียว (ตอนนี้เปิดปี 1, 4, 5 แล้ว)</li>
             <li>ไม่มีค่าใช้จ่าย ไม่โฆษณา ไม่เก็บข้อมูลส่วนตัวที่ไม่จำเป็น</li>
             <li>Open for contribution — ใครอยากช่วยเพิ่มโจทย์ฝึกทักมาได้</li>
           </ul>
@@ -184,8 +184,7 @@ export default function AboutView({ goHome, setView }) {
         <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7, fontFamily: 'JetBrains Mono, monospace' }}>
           Frontend: React 18 + Vite (lazy-loaded views, manual chunks)<br/>
           Backend: Supabase Postgres + Auth (lazy-loaded — โหลดเฉพาะตอน Login)<br/>
-          Hosting: Vercel + 1 serverless function (YouTube playlist API)<br/>
-          Version: v5.0<br/>
+          Hosting: Vercel + 6 serverless functions<br/>
           Cost: $0/month (free tier ทั้งหมด)
         </div>
       </div>

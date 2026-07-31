@@ -38,6 +38,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { timeForQuestion, isWritingType } from './utils.js';
+import { confirmDialog } from '../lib/dialog.js';
 
 // localStorage init helpers — preserve the in-flight resume behavior
 // that App.jsx used to do inline (Three useState(() => { ... }) blocks).
@@ -111,7 +112,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     setAnswers((p) => ({ ...p, [questions[currentIdx].id]: val }));
   }, [questions, currentIdx]);
 
-  const nextQ = useCallback(() => {
+  const nextQ = useCallback(async () => {
     const cur = questions[currentIdx];
     // Confirm before skipping a blank short/essay — these take real
     // effort so accidental "Next →" clicks shouldn't lose them.
@@ -123,7 +124,14 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
         const msg = isLast
           ? 'ยังไม่ได้เขียนข้อนี้ — ส่งข้อสอบเลยจริงๆ?'
           : 'ยังไม่ได้เขียนคำตอบ — ข้ามไปข้อถัดไปเลย?';
-        if (typeof window !== 'undefined' && !window.confirm(msg)) return;
+        // Async on purpose: nothing reads nextQ's return value, so the
+        // advance simply happens a microtask later once they answer.
+        const go = await confirmDialog({
+          title: isLast ? 'ยังไม่ได้เขียนข้อนี้' : 'ยังไม่ได้เขียนคำตอบ',
+          body: msg,
+          confirmLabel: isLast ? 'ส่งข้อสอบ' : 'ข้ามไปข้อถัดไป',
+        });
+        if (!go) return;
       }
     }
     if (currentIdx < questions.length - 1) {

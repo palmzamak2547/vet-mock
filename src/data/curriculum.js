@@ -15,7 +15,7 @@
 // ============================================================
 
 // Year states (since 2026-05-08 expansion):
-//   available: true  + scaffold: false → LIVE (full content, ปี 4 today)
+//   available: true  + scaffold: false → LIVE (has a real Q bank)
 //   available: true  + scaffold: true  → PREVIEW (subjects listed, no Q yet)
 //   available: false                   → SOON (hidden from year selector)
 // All 6 years are now browsable so users see the roadmap. Scaffold subjects
@@ -24,21 +24,32 @@
 // to LIVE (scaffold:false) the moment it gets its first real Q bank. This is
 // hand-set here but GATED by lint:curriculum — if a year has questions in
 // q-counts.js yet is still flagged scaffold:true (or vice-versa), the build
-// FAILS. So it can't silently drift. (Year 1 = 260 Qs, Year 5 = 555 Qs are
-// LIVE; Years 2/3/6 still empty = scaffold.)
+// FAILS. So it can't silently drift — and since 2026-07-31 the same gate runs
+// per SUBJECT too, because 9 year-5 subjects kept scaffold:true after their
+// banks landed and hid 215 real questions. (Counts live in q-counts.js; don't
+// restate them here, they go stale the next time a bank lands.)
+//
+// `current` follows the cohort, not the calendar: it marks the year Vet 86 is
+// sitting in RIGHT NOW. As of ภาคการศึกษาต้น 2569 that is year 5 — see
+// SEMESTER.cohortNote in src/data/schedule.js, whose course group (3190501)
+// and weekly timetable are both year-5 documents. Year 4 keeps its content
+// because the cohort below is now sitting in it.
 export const YEARS = [
   { id: 1, label: 'ปี 1', available: true,  current: false, scaffold: false, desc: 'Pre-clinic, Foundation' },
   { id: 2, label: 'ปี 2', available: true,  current: false, scaffold: true,  desc: 'Pre-clinic, Body Systems' },
   { id: 3, label: 'ปี 3', available: true,  current: false, scaffold: true,  desc: 'Paraclinic, Disease & Diagnostics' },
-  { id: 4, label: 'ปี 4', available: true,  current: true,  scaffold: false, desc: 'Vet 86, ปัจจุบัน' },
-  { id: 5, label: 'ปี 5', available: true,  current: false, scaffold: false, desc: 'Clinical Rotation, Specialty' },
+  { id: 4, label: 'ปี 4', available: true,  current: false, scaffold: false, desc: 'Clinical Medicine, Paraclinic' },
+  { id: 5, label: 'ปี 5', available: true,  current: true,  scaffold: false, desc: 'Vet 86, ปัจจุบัน' },
   { id: 6, label: 'ปี 6', available: true,  current: false, scaffold: true,  desc: 'Internship, Externship' },
 ];
 
-export const CURRENT_YEAR = 4;
+// Default year for someone who has never picked one. Returning users keep
+// whatever they chose (localStorage vmx-selected-year), so moving this only
+// changes the first screen a new student lands on.
+export const CURRENT_YEAR = 5;
 
 // ============================================================
-// SUBJECTS — ปี 4 Sem 2 (Vet 86) อิงตามตารางสอบ Final
+// SUBJECTS — วิชาแยกตามชั้นปี อิงตารางสอนและตารางสอบของคณะ
 // ============================================================
 export const SUBJECTS_BY_YEAR = {
   4: [
@@ -1216,7 +1227,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'aquatic-clinic', code: '3107520', name: 'คลินิกสัตว์น้ำ',
       name_en: 'Aquatic Animal Medicine',
-      icon: '🐟', color: '#3d6b82', semester: 1, has_questions: true, scaffold: true,
+      icon: '🐟', color: '#3d6b82', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['aranya-ponpornpisit', 'patharapol-piamsomboon', 'charnnarong-rodkhum', 'thanida-haetrakul', 'nopadon-pirarat'],
       examFormat: {
         weight: 'TBD',
@@ -1244,7 +1255,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'avian-medicine', code: '3107510', name: 'อายุรศาสตร์สัตว์ปีก',
       name_en: 'Avian Medicine',
-      icon: '🦅', color: '#d97744', semester: 1, has_questions: true, scaffold: true,
+      icon: '🦅', color: '#d97744', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['jiroj-sasipreeyajan', 'somsak-pakpinyo', 'nataya-charoenvisal', 'niwat-chansiripornchai', 'kriengwich-limpavithayakul'],
       examFormat: {
         weight: 'Mid + Final separate · midterm + final past papers ครบ',
@@ -1281,7 +1292,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'poa-clinical', code: '3107522', name: 'POA, การแก้ปัญหาคลินิกสัตว์เล็ก',
       name_en: 'POA — Clinical Problem Solving (Companion Animals)',
-      icon: '🩺', color: '#5d8b8b', semester: 1, has_questions: true, scaffold: true,
+      icon: '🩺', color: '#5d8b8b', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['chutirat-torsahakul', 'punyamanee-yamkate', 'krissda-boonaramrueng'],
       examFormat: {
         weight: 'TBD — folder มี assignment "รายงานวิชา_การแก้ปัญหาฯ"',
@@ -1460,7 +1471,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'zoonoses', code: '3109504', name: 'โรคติดต่อระหว่างสัตว์-คน',
       name_en: 'Zoonoses',
-      icon: '🦠', color: '#7d5a8b', semester: 1, has_questions: true, scaffold: true, has_notes: true,
+      icon: '🦠', color: '#7d5a8b', semester: 1, has_questions: true, scaffold: false, has_notes: true,
       vault_lecturers: ['alongkorn-amonsin', 'taradon-luangtongkum', 'saharuetai-jeamsripong', 'woraporn-sukhumavasi', 'paisin-lekcharoen'],
       examFormat: {
         weight: 'Final',
@@ -1491,7 +1502,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'swine-clinic', code: '3107507', name: 'อายุรศาสตร์สุกร',
       name_en: 'Swine Medicine',
-      icon: '🐖', color: '#c26d8e', semester: 1, has_questions: true, scaffold: true,
+      icon: '🐖', color: '#c26d8e', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['athipoo-nuntaprasert', 'pornchalit-assavacheep', 'roongtham-kedkovid', 'suphot-wattanaphansak'],
       examFormat: {
         weight: 'Mid (อธิภู) + Final (พรชลิต separate exam)',
@@ -1551,7 +1562,7 @@ export const SUBJECTS_BY_YEAR = {
     // lecture content จริง (ruminant-clinical + livestock-pathology).
     { id: 'rec-adv-bioscience', code: '3100-508', name: 'Recent Advances in Vet Biosciences',
       name_en: 'Recent Advances in Veterinary Biosciences (RAVB)',
-      icon: '🔬', color: '#5d7d8b', semester: 2, has_questions: true, scaffold: true,
+      icon: '🔬', color: '#5d7d8b', semester: 2, has_questions: true, scaffold: false,
       vault_lecturers: ['nuvee-prapasarakul', 'sirakarnt-dhitavat', 'prapruddee-piyaviriyakul', 'sariya-asawakarn', 'kannaporn-suriyaphol', 'charnnarong-rodkhum', 'navapon-techakriengkrai', 'woraporn-sukhumavasi', 'morakot-kaewthamasorn', 'piyanan-taweethavonsawat', 'sonthaya-tiawsirisup', 'pattrarat-chanchaithong'],
       examFormat: {
         weight: '2 credit · ภาคปลาย 2567',
@@ -1581,7 +1592,7 @@ export const SUBJECTS_BY_YEAR = {
     // ── Sem 2 — NEW subjects extracted from cache (2026-05-12) ──
     { id: 'ruminant-clinical', code: '3107525', name: 'คลินิกปฏิบัติโค',
       name_en: 'Ruminant Clinical Practice I',
-      icon: '🐄', color: '#7d5a3d', semester: 2, has_questions: true, scaffold: true,
+      icon: '🐄', color: '#7d5a3d', semester: 2, has_questions: true, scaffold: false,
       vault_lecturers: ['sirirat-wataradee', 'chaidate-inchaisri'],
       examFormat: {
         weight: 'OSCE-based · official briefing 14 May 2025',
@@ -1604,7 +1615,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'comp-repro-clinic', code: 'TBD-comp-repro-clinic', name: 'คลินิกสูติกรรมสัตว์เลก',
       name_en: 'Companion Animal Reproductive Clinic',
-      icon: '🐶', color: '#c26d8e', semester: 2, has_questions: true, scaffold: true, has_notes: false,
+      icon: '🐶', color: '#c26d8e', semester: 2, has_questions: true, scaffold: false, has_notes: false,
       vault_lecturers: [],
       examFormat: {
         weight: 'TBD',
@@ -1628,7 +1639,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'livestock-pathology', code: 'TBD-livestock-path', name: 'พยาธิวิทยาปศุสัตว์',
       name_en: 'Livestock Pathology / Slaughter-house Pathology',
-      icon: '🔬', color: '#8b3d3d', semester: 2, has_questions: true, scaffold: true,
+      icon: '🔬', color: '#8b3d3d', semester: 2, has_questions: true, scaffold: false,
       vault_lecturers: ['roongroje-thanawongnuwech', 'sawang-kesdangsakonwut'],
       examFormat: {
         weight: 'TBD',

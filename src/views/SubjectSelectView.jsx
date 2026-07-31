@@ -155,7 +155,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
         <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
           💡 <strong>ปีนี้กำลังวางโครงสร้าง</strong> — รายวิชา + course code + รายชื่ออาจารย์ มาจาก vault profiles ของ {yearSubjects.reduce((acc, s) => acc + (s.vault_lecturers?.length || 0), 0)} คนใน Chula Vet faculty<br/>
           ช่วยกันได้: ถ้ามี slide เก่า, notes, ข้อสอบ past paper ปีนี้ ส่งมาทาง feedback ได้เลย<br/>
-          จะค่อย ๆ เปิดปีหลัง ปี 4 sem 2 จบ (ปิดเทอม พ.ค.–ก.ย. 2026)
+          ตอนนี้เปิดครบแล้ว 3 ชั้นปี (ปี 1, ปี 4, ปี 5) ปีที่เหลือจะทยอยเปิดเมื่อมีเนื้อหาส่งเข้ามา
         </div>
       )}
 

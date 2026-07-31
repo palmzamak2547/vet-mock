@@ -54,6 +54,33 @@ export function confirmDialog(opts) {
   return new Promise((resolve) => openDialog({ ...o, mode: 'confirm', resolve }));
 }
 
+/**
+ * Ask for one line of text. Resolves to the string, or null if cancelled —
+ * same contract as window.prompt(), so call sites keep their null check.
+ * @param {{title: string, body?: string, placeholder?: string,
+ *          maxLength?: number, multiline?: boolean, initial?: string,
+ *          confirmLabel?: string}} opts
+ */
+export function promptDialog(opts) {
+  const o = normalize(opts);
+  if (!openDialog) {
+    if (typeof window === 'undefined') return Promise.resolve(null);
+    return Promise.resolve(window.prompt(nativeText(o), o.initial || ''));
+  }
+  return new Promise((resolve) => openDialog({
+    ...o,
+    mode: 'prompt',
+    confirmLabel: o.confirmLabel || 'ส่ง',
+    input: {
+      placeholder: o.placeholder,
+      maxLength: o.maxLength,
+      multiline: o.multiline,
+      initial: o.initial,
+    },
+    resolve,
+  }));
+}
+
 /** Single-button notice. Resolves when dismissed. */
 export function alertDialog(opts) {
   const o = normalize(opts);

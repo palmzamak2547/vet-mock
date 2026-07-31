@@ -64,7 +64,9 @@ Goal: fix the destinations users can't reach or that lose data.
 - [x] **One shared styled confirm primitive** — `components/ConfirmDialog.jsx`
   (Esc/backdrop cancel, focus-managed, `danger` tone). Migrated the two
   highest-stakes native dialogs (exit exam, discard in-flight).
-- [ ] Migrate the remaining ~40 native `alert()/confirm()` to it, destructive
+- [x] Migrate every native `alert()/confirm()/prompt()` to it (done 2026-07-31 —
+      `src/lib/dialog.js` + `src/components/DialogHost.jsx`; the only `window.*`
+      calls left are that module's own fallback for when the host is unmounted)
   Dashboard/QuestionManager resets first (findings 10, 11).
 - [ ] In-view error/empty + retry for empty-pool / QB-load-failure (finding 11).
 - [ ] Clarify the two wiki destinations (finding 13).
@@ -87,5 +89,5 @@ Goal: fix the destinations users can't reach or that lose data.
     DESIGN_SYSTEM docs
   - Phase 2: P0 Mock Exam fixed · mobile bottom nav + shared nav model + line icons ·
     exam-submit confirm + re-entry latch
-  - Next: resume discard action · hex→var · native dialogs → styled · loading skeletons ·
+  - Next: resume discard action, hex→var, loading skeletons,
     VIEW↔PATH routing · HomeView memo · utility-layer migration.

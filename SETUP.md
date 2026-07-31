@@ -329,7 +329,7 @@ vet-mock/
     │   └── utils.js
     ├── components/
     │   └── Question.jsx
-    └── views/                 ← 12 views
+    └── views/                 ← 41 views
         ├── HomeView.jsx
         ├── AuthView.jsx       ⭐ Login/Signup
         ├── GroupsView.jsx     ⭐ Study groups

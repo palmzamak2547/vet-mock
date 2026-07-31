@@ -103,6 +103,19 @@ for (const s of SUBJECTS) {
   const n = bySubject[s.id] || 0;
   if (s.has_questions && n === 0) errors.push(`subject '${s.id}' has_questions:true but 0 Qs in banks`);
   if (!s.has_questions && n > 0) warns.push(`subject '${s.id}' has ${n} Qs but no has_questions:true flag`);
+  // Subject-level scaffold, same rule as the year-level one below. This gate
+  // was missing until 2026-07-31, and in the gap 9 year-5 subjects kept
+  // scaffold:true after their banks landed — 215 real questions rendered as
+  // "รอเติมเนื้อหา" in SubjectSelectView, left out of PhaseSelectView's live
+  // count, and filtered out of Race mode entirely. The flag means "no Q file
+  // yet" (see the SCAFFOLD comment in curriculum.js), so a subject with
+  // questions can never be scaffolded.
+  if (s.scaffold && n > 0) {
+    errors.push(
+      `subject '${s.id}' scaffold:true but has ${n} Qs — set scaffold:false ` +
+      `(scaffold:true means no Q bank; leaving it on hides the questions from the picker and Race mode)`
+    );
+  }
 }
 
 // Year-level scaffold flag MUST match Q presence. scaffold:true ⟺ year has

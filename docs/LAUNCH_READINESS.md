@@ -58,7 +58,7 @@ on the year picker.
 
 ## Verified
 - **Cross-engine e2e 32/32** — chromium desktop + mobile, WebKit (iPhone),
-  Firefox. `lint:all` 0 errors, build green, unit 97/97.
+  Firefox. `lint:all` 0 errors, build green, unit 117/117, e2e 32/32.
 - **Live cross-engine UI sweep** at 1280 / 390 / 320px: app mounts, 0 horizontal
   overflow, every header/nav/footer target ≥44px, sidebar↔bottom-nav swap
   correct per breakpoint, 0 console errors.
@@ -83,7 +83,7 @@ on the year picker.
   merges per field (set-array / append-array / keyed-object / streak) with a
   durable offline queue, pre-push rebase and account isolation, behind
   `useUserDataSync()` + a user-visible `SyncStatusNotice`.
-- **Service worker rewritten** (v28) — `/api` network-only and never cached,
+- **Service worker rewritten** (now at v30) — `/api` network-only and never cached,
   version-scoped runtime cache beside a shared immutable asset cache, updates
   wait for explicit `SKIP_WAITING`.
 - Landing AI / generator / revision-plan sections deleted rather than

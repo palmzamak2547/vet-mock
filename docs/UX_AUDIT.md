@@ -32,25 +32,33 @@ sprawl + missing token scales) that blocks any systematic restyle.
 
 ## Findings (ranked by user impact)
 
+> **Status 2026-07-31:** findings 1, 2, 3 and 10 are RESOLVED (see notes inline).
+> Numbers below are as-measured on the audit date and are not re-counted.
+
 ### P0 — broken core flow
-1. **Primary-nav "Mock Exam" opens an unwired demo stub.** `App.jsx:1742` renders
+1. ✅ **RESOLVED.** ~~**Primary-nav "Mock Exam" opens an unwired demo stub.**~~ `App.jsx:1742` renders
    `<MockExamView/>` with no session/questions/onSaveChoice → `MockExamView.jsx:8`
    falls back to 2 hardcoded English "DEMO ONLY" bird questions; `MockResultsView`
    always shows 2/2. Only entry is the desktop `Sidebar` (hidden <1024px) and it's
    absent from ⌘K. → **Phase 2**: wire to real data through the `vmx-inflight-exam`
    lifecycle, or feature-flag it out of nav until wired. Do not ship the stub in
    primary nav.
+   → **Done:** nav goes through `config` into the real exam engine;
+   `MockExamView.jsx`/`MockResultsView.jsx` are deleted and a history guard
+   bounces stale `mock-exam` entries home.
 
 ### P1 — major UX / architecture
-2. **No mobile bottom nav; desktop/mobile expose different destinations.** The real
+2. ✅ **RESOLVED.** ~~**No mobile bottom nav; desktop/mobile expose different destinations.**~~ The real
    section nav (`Sidebar`) is `display:none` <1024px (`styles.css:340`); no BottomNav
-   exists. Desktop shows {home,practice,mock-exam,dashboard,wiki}; mobile header shows
-   {home,wiki,dashboard,bookmarks}. → **Phase 2**, rendered from the registry.
-3. **Final MCQ submit has no confirmation / unanswered guard.** `ExamView.jsx:112` +
+   existed. → **Done:** `src/components/BottomNav.jsx` renders below 1024px and both
+   navs read the same model from `src/lib/nav.js`, so they cannot diverge.
+3. ✅ **RESOLVED.** ~~**Final MCQ submit has no confirmation / unanswered guard.**~~ `ExamView.jsx:112` +
    `App.jsx:908-910` bind Space/Enter/ArrowRight to submit the whole exam on the last
    question; the *mock* engine already confirms (inconsistent). `answered/remaining`
    already computed in `NavGrid.jsx:130-131`. → **Phase 2**, additive confirm modal +
-   re-entry latch in `finishExam` (`App.jsx:1257`).
+   re-entry latch in `finishExam`. → **Done:** styled confirm showing
+   answered/remaining, plus a `finishingRef` latch so a timer timeout and a user
+   submit cannot both finish the same session.
 4. **Design-system scale debt blocks systematic restyle.** 2,634 inline `style={{}}`
    across ~103 files (was 1,835 on 2026-05-18) + **no** spacing/z-index/motion token
    scales; z magic values 50→9999 in CSS and up to 1600 in JSX; radius has 2 tokens
@@ -73,7 +81,7 @@ sprawl + missing token scales) that blocks any systematic restyle.
    (generalize the VetWiki pattern; keep pushState, no react-router).
 
 ### P2 — polish / consistency
-10. **42 native `alert()/confirm()`** in critical flows (exit exam, empty pool,
+10. ✅ **RESOLVED.** ~~**42 native `alert()/confirm()`**~~ in critical flows (exit exam, empty pool,
     dashboard resets, logout) break the warm-editorial look. Standardize on the
     existing `vmx-modal-overlay`. → **Phase 3**.
 11. **Empty-pool / QB-load-failure dead-end into `alert()`** with no in-view retry

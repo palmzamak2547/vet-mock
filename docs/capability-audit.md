@@ -13,7 +13,7 @@ Classification: **reuse** · **improve** · **complete** · **integrate** ·
 | Capability | Evidence | Verdict |
 |---|---|---|
 | Question bank | `q-counts.js` `QB_TOTAL=2948`; 41 `questions-*.js`; each Q has stable numeric `id` + `subject/topic/year/source/verified` | **reuse** — identity backbone |
-| Study notes | 12 `notes-*.js`; 720 `heading:` and 720 `source:` (1:1); shape `{topic,title,lecturer,icon,summary,sections:[{heading,source,body}]}` | **improve** — rich + cited, but `grep '\bid:'` = **0** (no stable ids) |
+| Study notes | 12 `notes-*.js`; 745 `heading:` and 745 `source:` (1:1); shape `{topic,title,lecturer,icon,summary,sections:[{heading,source,body}]}` | **improve** — rich + cited, but `grep '\bid:'` = **0** (no stable ids) |
 | Note read page | `NotesView.jsx` maps 12 subjects, renders via `RichText` (`lib/richtext.jsx`) | **reuse** — the renderer, wrapped with governance chrome |
 | Video summaries | 400 videos across 27 files, keyed by stable YouTube videoId + `video-summaries-meta.js` | **reuse** — 2nd adapter target |
 | Taxonomy | `curriculum.js` `SUBJECTS[].topics[]`; same topic ids used by notes AND questions | **reuse** — canonical join spine |
@@ -26,7 +26,7 @@ Classification: **reuse** · **improve** · **complete** · **integrate** ·
 | Capability | Evidence | Verdict |
 |---|---|---|
 | LLM integration | `api/grade-summary.js` — Anthropic Claude (`claude-sonnet-4-5`), grading written answers only | **improve** — the template for new tool endpoints |
-| API layer | 5 Vercel functions + `api/_lib/rate-limit.js` (20/hr/IP, origin-aware CORS) | **reuse** |
+| API layer | 6 Vercel functions + `api/_lib/rate-limit.js` (20/hr/IP, origin-aware CORS) | **reuse** |
 | In-browser ML | grep transformers/onnx/web-llm = **none** | **build** (if ever needed) |
 | Auth + data | Supabase, 15 tables, 24 RLS policies all `auth.uid()`-scoped; `useAuth.js` lazy SDK | **reuse** |
 | Offline/PWA | service worker (cache-first hashed assets, network-first HTML) | **reuse** |
@@ -48,7 +48,7 @@ Classification: **reuse** · **improve** · **complete** · **integrate** ·
 
 | Capability | Evidence | Verdict |
 |---|---|---|
-| Commit gate | `lint:all` = 6 linters (ids, dupes, academic-safety, questions, curriculum, registry) | **reuse** |
+| Commit gate | `lint:all` = 7 linters (ids, dupes, academic-safety, questions, registry, curriculum, validate:wiki), registry) | **reuse** |
 | CI | `build.yml` (Vite + data-consistency), `smoke-e2e.yml` (Playwright, 4 projects / 3 engines), `lint-questions.yml` MAX_ERRORS=0 ratchet | **reuse** |
 | Tests | 6 e2e smoke + 2 node:test unit | **improve** — thin but sharp |
 | Design system | 154 `vmx-*` classes, 19 `--clr-*`/`--shadow-*` tokens, light/dark + 6 palettes | **reuse — do not reinvent** |

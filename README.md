@@ -1,10 +1,14 @@
-# 🐾 VetMock v5.0 — Full Vet Study Platform
+# 🐾 VetMock — คลังโจทย์ฝึกสัตวแพทย์ จุฬาฯ
 
-คลังข้อสอบ + ตารางสอบ + คลิปย้อนหลัง สำหรับสัตวแพทย์ จุฬา
+คลังข้อสอบ + ตารางเรียน/ตารางสอบ + สรุปคลิป + VetWiki สำหรับนิสิตสัตวแพทย์
 Made with ♡ by **Vet 86**
 
 🌐 **Live:** [vetmock.vercel.app](https://vetmock.vercel.app)
-🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (student council) · [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
+🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
+
+> ตัวเลขทุกตัวในไฟล์นี้นับจาก source จริงด้วย `npm run stats`
+> ถ้าเลขในนี้ไม่ตรงกับที่ตัวนับบอก แปลว่าเลขในนี้ค้าง ไม่ใช่ตัวนับผิด
+> รายละเอียดเต็ม auto-generated อยู่ที่ [`docs/content-inventory.md`](./docs/content-inventory.md)
 
 ---
 
@@ -16,69 +20,59 @@ npm run dev
 # เปิด http://localhost:5173
 ```
 
-**ใช้ได้เลย!** ไม่ต้อง setup อะไร (single-player mode)
+**ใช้ได้เลย** ไม่ต้อง setup อะไร (single-player mode ทำงานบน localStorage)
 
-ถ้าอยากได้ multi-player (login, groups, leaderboard) → ดู [`SETUP.md`](./SETUP.md)
-
----
-
-## ✨ ฟีเจอร์ใหม่ใน v5.0
-
-### 📅 ตารางสอบ
-- รวมตารางสอบ Final ปี 4 Vet 86 (Sem 2/2568)
-- Countdown "อีกกี่วันถึงจะสอบ"
-- เนื้อหาที่จะออก + สถานที่ + เวลา
-- ปุ่มไปทำข้อสอบวิชานั้นๆ ได้เลย
-
-### 🎥 คลิปย้อนหลัง
-- รวมคลิป YouTube แยกตามวิชา
-- เล่นในเว็บได้เลย (YouTube embed)
-- แก้/เพิ่มคลิปได้ใน `src/data/videos.js`
-
-### 📚 ระบุแหล่งที่มา
-- ทุกข้อสอบมี field `source` บอกว่าดึงมาจากข้อสอบเก่าไหน
-- `src/data/sources.js` รวมข้อมูล contributors + ข้อสอบเก่า + topics แต่ละวิชา
-
-### 🎓 รองรับทุกชั้นปี (schema พร้อม)
-- ตอนนี้มีข้อมูลปี 4 ครบ (570+ ข้อ · 8 วิชา)
-- ปี 1-3, 5-6 จะเพิ่มได้ในอนาคต (schema รองรับแล้ว)
-
-### 📮 Feedback Form
-- รายงาน bug / ส่งความเห็น → ส่งไป `palmzamak2547@gmail.com`
-- Optional: เชื่อม Formspree สำหรับระบบเต็ม (ดู SETUP.md)
-
-### 👥 By Vet 86 — หน้า About
-- แนะนำคนสร้าง
-- Credits สำหรับข้อสอบเก่าของรุ่นพี่ (Vet 83, 84, 85)
+อยากได้ multi-player (login, กลุ่มติว, leaderboard, cloud sync) → ดู [`SETUP.md`](./SETUP.md)
 
 ---
 
-## 📝 ฟีเจอร์จาก v1-v4 (ยังมีครบ)
+## 📊 มีอะไรอยู่ในนี้บ้าง
 
-### 📝 การเรียน
-- **570+ ข้อสอบ** 8 วิชา (Surg II/III, Repro, COM III/IV/V, Exotic, Cli App Rum)
-- **4 ประเภทคำถาม**: MCQ, True/False, Fill, Match
-- **Image-based questions**
-- **3 โหมด**: Quick Practice / Exam Mode / Spaced Repetition (SM-2)
+| | |
+|---|---|
+| ข้อสอบ | **2,948 ข้อ** ใน 41 bank files, 34 วิชา |
+| ชั้นปีที่มีเนื้อหา | ปี 1 (298), ปี 4 (2,095), ปี 5 (555) |
+| สรุปโน้ต | 12 ไฟล์, 159 หัวข้อ, 745 sections, อ้างอิงแหล่งที่มาครบ 100% |
+| สรุปคลิป | 400 คลิป ใน 27 ไฟล์ |
+| VetWiki (governed) | 143 หัวข้อ, 679 sections = 91.1% ของ note sections |
+| Taxonomy | 86 วิชา, 628 หัวข้อ |
+| ชนิดคำถาม | MCQ, True/False, Fill-in, Matching, Short answer, Writing |
 
-### 🎯 ติดตามผล
-- Bookmark ⭐ + Notes 📝
-- Analytics Dashboard
-- Weak Spot Detection
-- Study Streak 🔥
+**เทอมปัจจุบัน:** ภาคการศึกษาต้น 2569 — Vet 86 = ชั้นปีที่ 5
+ย้ายรุ่นทุกต้นปีการศึกษาที่ `CURRENT_YEAR` ใน `src/data/curriculum.js` ที่เดียว
+(`SEMESTER` ใน `schedule.js` และ default ของ `getUpcomingExams` อิงจากตรงนั้น)
 
-### 🛠️ เครื่องมือ
-- Question Manager (เพิ่ม/แก้ไขข้อสอบเอง)
-- Dark/Light Mode
-- Keyboard Shortcuts
-- Import/Export JSON
+---
 
-### 👥 Multi-player (ต้อง Setup Supabase)
-- Login (Email/Password + Google OAuth)
-- Study Groups + Invite Code
-- Shared Question Bank
-- Leaderboard (กลุ่ม + Global)
-- Cloud Sync ข้ามเครื่อง
+## ✨ ฟีเจอร์
+
+31 ฟีเจอร์ลงทะเบียนไว้ที่ `src/lib/feature-registry.js` ซึ่งเป็น single source
+ที่ป้อนทั้งหน้าแรก, ⌘K command palette และปุ่มเครื่องมือลอย
+
+### ฝึก
+- **ฝึกข้อสอบ** เลือกวิชา/หัวข้อ/จำนวน, จับเวลาได้
+- **โหมดสอบ** autosave + resume, ยืนยันก่อนส่ง, แยกคะแนน auto-graded กับข้อเขียน
+- **Spaced Repetition** (SM-2)
+- **Race Mode** แข่งกับเพื่อนแบบ realtime
+- **Review Queue** คิวตรวจข้อที่มีคนส่งเข้ามา
+
+### เรียน
+- **VetWiki** คลังความรู้ที่บอกที่มาได้ทุก section + ลิงก์ `/wiki/<subject>/<topic>` แชร์ได้
+- **สรุปคลิป** 400 คลิปแยกตามวิชา
+- **ตารางเรียน & สอบ** ตารางรายสัปดาห์ + countdown + ปฏิทินลงทะเบียน/ชำระเงิน
+- **Reading Checklist**, **Pinboard**, **Notes**, **อาจารย์ผู้สอน**
+
+### ติดตามผล
+- **ความคืบหน้า** dashboard + heatmap + learning curve
+- **สัดส่วนคะแนนรายวิชา**, **Leaderboard**, **Phase Wrapped**
+
+### เครื่องมือ
+เครื่องคิดเลขทางสัตวแพทย์, กระดานวาด, Imaging Lab (DICOM), Image Occlusion,
+PDF + Annotate, Pomodoro, กลุ่มติว, ช่วยเติมเนื้อหา, เพิ่ม/แก้ข้อสอบเอง
+
+### ทั่วทั้งแอป
+PWA + offline (service worker), dark mode + ชุดสีให้เลือก, ⌘K, keyboard shortcuts,
+bottom nav บนมือถือ, import/export JSON, cloud sync เมื่อ login
 
 ---
 
@@ -87,67 +81,72 @@ npm run dev
 ```
 vet-mock/
 ├── src/
-│   ├── App.jsx
+│   ├── App.jsx                     ← view routing (state-based) + shared state
 │   ├── main.jsx
-│   ├── styles.css
+│   ├── styles.css                  ← design tokens (--vmx-*, --clr-*)
 │   ├── styles-landing.css
-│   ├── data/
-│   │   ├── curriculum.js          ← YEARS + SUBJECTS
-│   │   ├── schedule.js            ← ตารางสอบ 🆕
-│   │   ├── videos.js              ← YouTube links 🆕
-│   │   ├── sources.js             ← แหล่งที่มาข้อสอบ 🆕
-│   │   ├── questions.js           ← Lazy Q-bank loader
-│   │   ├── bank-registry.generated.js ← Auto-generated Q-bank registry
-│   │   ├── questions-com1..com5.js ← Clinical Medicine banks
-│   │   ├── questions-part1..part3.js ← Surg + Repro + Expanded
-│   │   ├── questions-y5-*.js      ← Year 5 specialized banks
-│   │   └── images.js
-│   ├── hooks/
-│   │   ├── useAuth.js
-│   │   ├── useStorage.js
-│   │   ├── sm2.js
-│   │   └── utils.js
-│   ├── lib/
-│   │   ├── supabase.js
-│   │   └── api.js
-│   ├── components/
-│   │   └── Question.jsx
-│   └── views/  (18 views รวม)
-│       ├── HomeView.jsx
-│       ├── ScheduleView.jsx       🆕
-│       ├── VideoView.jsx          🆕
-│       ├── AboutView.jsx          🆕
-│       ├── FeedbackView.jsx       🆕
-│       ├── YearSelectView.jsx     🆕
-│       ├── AuthView.jsx
-│       ├── GroupsView.jsx
-│       ├── GroupDetailView.jsx
-│       ├── LeaderboardView.jsx
-│       ├── SubjectSelectView.jsx
-│       ├── ConfigView.jsx
-│       ├── ExamView.jsx
-│       ├── ResultsView.jsx
-│       ├── ReviewView.jsx
-│       ├── SRSessionView.jsx
-│       ├── DashboardView.jsx
-│       └── QuestionManagerView.jsx
+│   ├── data/          (99 ไฟล์)
+│   │   ├── curriculum.js           ← YEARS + CURRENT_YEAR + SUBJECTS_BY_YEAR
+│   │   ├── schedule.js             ← ตารางเรียน/สอบ/ปฏิทินการศึกษา
+│   │   ├── questions.js            ← lazy Q-bank loader
+│   │   ├── bank-registry.generated.js ← auto-generated (npm run lint:registry)
+│   │   ├── q-counts.js             ← auto-generated counts
+│   │   ├── questions-*.js          ← 41 Q banks
+│   │   ├── notes-*.js              ← 12 note files
+│   │   ├── video-summaries-*.js    ← 27 files
+│   │   └── changelog.js, videos.js, sources.js, instructors.js, images.js
+│   ├── lib/           (41 ไฟล์)
+│   │   ├── feature-registry.js     ← single source ของฟีเจอร์ทั้งหมด
+│   │   ├── nav.js                  ← ป้อนทั้ง Sidebar และ BottomNav
+│   │   ├── dialog.js               ← confirm/alert ของแอปเอง (ไม่ใช้ของเบราว์เซอร์)
+│   │   ├── user-data-sync.js       ← local commit + outbox + cloud sync
+│   │   ├── vetwiki/                ← governed knowledge runtime
+│   │   └── supabase.js, api.js, xp.js, pinboard.js, ...
+│   ├── hooks/                      ← useAuth, useStorage, useExamSession, sm2, ...
+│   ├── components/    (62 ไฟล์)
+│   └── views/         (41 ไฟล์)
+├── api/                            ← 6 Vercel functions
+├── scripts/           (24 ไฟล์)    ← lint + regen + stats
+├── tests/                          ← unit (node:test) + e2e (Playwright)
+├── docs/                           ← content-inventory, UX audit, design system
 └── supabase-schema.sql
 ```
 
 ---
 
+## ✅ Gates
+
+ทุก commit ต้องผ่านทั้งหมดนี้:
+
+```bash
+npm run lint:all    # 7 gates: ids, dupes, academic-safety, questions,
+                    #          registry, curriculum, validate:wiki
+npm run build
+npm run test:unit   # node:test, 117 tests
+npm run test:e2e    # Playwright, 32 tests (chromium/webkit/firefox, desktop+mobile)
+npm run stats       # นับเนื้อหาจาก source, fail ถ้าเลข drift
+```
+
+`lint:all` fail = ห้าม push
+ก่อนเพิ่มข้อสอบ อ่าน [`ADDING-QUESTIONS.md`](./ADDING-QUESTIONS.md) ก่อน
+
+---
+
 ## 💡 วิธีเพิ่มข้อมูลใหม่
 
+### เพิ่มข้อสอบ
+ดู [`ADDING-QUESTIONS.md`](./ADDING-QUESTIONS.md) — ครบตั้งแต่วางไฟล์ จน regen
+registry แล้วรัน gates
+
 ### เพิ่มตารางสอบ
-แก้ `src/data/schedule.js`:
+แก้ `EXAM_SCHEDULE` ใน `src/data/schedule.js`:
 ```js
 {
-  id: 'repro-final', subject: 'repro',
-  title: 'Repro Lab Final',
-  date: '2026-05-05', time: '09:00-11:00',
-  location: 'ชั้น 8',
-  content: ['Vaginal cytology', 'Pyometra', '...'],
-  notes: 'เอกสารเสริม...',
+  id: 'com5-mid', code: '3107510', subject: 'com5',
+  title: 'COM V — Midterm',
+  date: '2026-09-21', time: '08:30-10:30', duration_min: 120,
+  location: 'VET6 807',
+  content: ['หัวข้อที่ออก...'],
 }
 ```
 
@@ -164,38 +163,32 @@ vet-mock/
 }
 ```
 
-### เพิ่มข้อสอบของชั้นปีอื่น
-1. แก้ `src/data/curriculum.js` → เพิ่มใน `SUBJECTS_BY_YEAR`:
-   ```js
-   3: [
-     { id: 'pharm3', name: 'Pharmacology', ... },
-   ],
-   ```
-2. เพิ่มข้อสอบใน part files:
-   ```js
-   { id: 400, year: 3, subject: 'pharm3', source: '...', ... }
-   ```
+### เปิดชั้นปีใหม่
+1. เพิ่มวิชาใน `SUBJECTS_BY_YEAR` (`src/data/curriculum.js`)
+2. วาง Q bank แล้วรัน `npm run lint:registry` เพื่อ regen registry
+3. ปลด `scaffold: true` ของปีนั้นใน `YEARS`
+   (`lint:curriculum` จะ fail ถ้าปีมีข้อสอบแล้วแต่ยังติด scaffold หรือกลับกัน)
 
 ---
 
 ## 🚀 Deploy
 
 ```bash
-git add .
-git commit -m "my updates"
+npm run lint:all && npm run build && npm run test:unit
 git push
-# Vercel auto-deploys in 30s
+# Vercel auto-deploys
 ```
 
-ดู SETUP.md สำหรับคำแนะนำเต็ม
+⚠️ ถ้า entry chunk เปลี่ยน ต้องบัมพ์ `SW_VERSION` ใน `public/sw.js` ด้วย
+ไม่งั้นเครื่องที่ติดตั้ง PWA ไว้จะค้างที่ bundle เก่า
+
+ดู [`SETUP.md`](./SETUP.md) สำหรับ Supabase + OAuth
 
 ---
 
 ## 📮 Feedback
 
-เจอ bug หรือมีไอเดียเพิ่ม? ส่งมาที่:
-**palmzamak2547@gmail.com**
-
+เจอ bug หรือมีไอเดีย ส่งมาที่ **palmzamak2547@gmail.com**
 หรือใช้ฟอร์มในเว็บ (หน้า Feedback)
 
 ---
@@ -210,9 +203,9 @@ git push
 
 **Platform:**
 - Made with ♡ by **Vet 86**
-- Powered by React + Vite + Supabase
+- React + Vite + Supabase
 - Free tier: $0/month
 
 ---
 
-🐾 Chula Vet · v5.0
+🐾 Chula Vet
