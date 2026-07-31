@@ -51,7 +51,7 @@ export default function VoiceSettings({ onClose }) {
         style={{ maxWidth: 480 }}
       >
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             🎚 Voice settings
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>ปรับเสียงพูดข้อสอบ</h2>
@@ -123,7 +123,7 @@ function SliderRow({ label, hint, value, min, max, step, format, onChange }) {
     <div style={{ marginBottom: 14 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
         <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>{label}</label>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-sage)' }}>
+        <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-sage)' }}>
           {format(value)}
         </span>
       </div>

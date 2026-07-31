@@ -277,7 +277,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {showNote && (
         <div className="vmx-note-panel">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>NOTE</div>
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>NOTE</div>
             <VoiceInputButton
               size={26}
               onAppend={(text) => {
@@ -363,7 +363,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             style={{ minHeight: 70, fontFamily: 'inherit', resize: 'vertical', width: '100%', boxSizing: 'border-box', padding: 10 }}
             maxLength={1000}
           />
-          <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+          <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
             {(typeof currentAnswer === 'string' ? currentAnswer.length : 0)}/1000 chars
           </div>
         </div>
@@ -388,11 +388,11 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 }}
               />
             </div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               <strong style={{ color: essayBarColor }}>{essayWords}</strong>
               <span> / target {target} words</span>
-              {essayWords > hardMax && <span style={{ color: 'var(--clr-rose)', marginLeft: 8 }}>, −2 pts (เกิน {hardMax})</span>}
-              {essayWords > softMax && essayWords <= hardMax && <span style={{ color: 'var(--clr-gold)', marginLeft: 8 }}>, −1 pt (เกิน {softMax})</span>}
+              {essayWords > hardMax && <span style={{ color: 'var(--clr-rose-text)', marginLeft: 8 }}>, −2 pts (เกิน {hardMax})</span>}
+              {essayWords > softMax && essayWords <= hardMax && <span style={{ color: 'var(--clr-gold-text)', marginLeft: 8 }}>, −1 pt (เกิน {softMax})</span>}
             </div>
           </div>
           <textarea
@@ -501,7 +501,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           );
         })()}
         {currentQ.examOrigin && (
-          <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
+          <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
             อิงแนวเดิม
           </span>
         )}
@@ -589,7 +589,7 @@ function FlagChip({ flag }) {
           border: `1px solid ${palette.border}`,
           borderRadius: 999,
           fontSize: 11,
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
           color: palette.text,
         }}
         title="ข้อมูลขัดแย้ง — กดดูรายละเอียด"
@@ -613,7 +613,7 @@ function FlagChip({ flag }) {
             <div style={{
               marginTop: 8,
               fontSize: 11,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               color: 'var(--clr-ink-soft)',
             }}>
               Sources: {flag.sources.join(', ')}

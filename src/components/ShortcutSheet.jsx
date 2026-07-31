@@ -54,7 +54,7 @@ function Kbd({ children }) {
         borderRadius: 6,
         background: 'var(--clr-surface-2, rgba(0,0,0,0.05))',
         border: '1px solid var(--clr-border)',
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--vmx-mono)',
         fontSize: 12,
         fontWeight: 600,
         color: 'var(--clr-ink)',
@@ -128,7 +128,7 @@ export default function ShortcutSheet({ open, onClose }) {
             style={{
               margin: 0,
               fontSize: 15,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               letterSpacing: '0.04em',
               textTransform: 'uppercase',
               color: 'var(--clr-ink)',
@@ -162,7 +162,7 @@ export default function ShortcutSheet({ open, onClose }) {
                 style={{
                   margin: '0 0 8px 0',
                   fontSize: 11,
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontFamily: 'var(--vmx-mono)',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   color: 'var(--clr-ink-soft)',
@@ -209,7 +209,7 @@ export default function ShortcutSheet({ open, onClose }) {
             margin: '14px 0 0 0',
             fontSize: 11,
             color: 'var(--clr-ink-soft)',
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             textAlign: 'center',
           }}
         >

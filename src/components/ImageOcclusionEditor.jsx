@@ -507,7 +507,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
             background: 'var(--clr-surface-2, var(--clr-surface))',
             border: '1px solid var(--clr-border)',
           }}>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 6, fontFamily: 'JetBrains Mono, monospace' }}>
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 6, fontFamily: 'var(--vmx-mono)' }}>
               กล่องที่เลือก
             </div>
             <input
@@ -567,7 +567,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
                     fontSize: 13,
                   }}
                 >
-                  <strong>#{i + 1}</strong>, {m.label || '(no label)'} → {m.answer || <em style={{ color: 'var(--clr-rose)' }}>(ยังไม่มีคำตอบ)</em>}
+                  <strong>#{i + 1}</strong>, {m.label || '(no label)'} → {m.answer || <em style={{ color: 'var(--clr-rose-text)' }}>(ยังไม่มีคำตอบ)</em>}
                 </li>
               ))}
             </ul>

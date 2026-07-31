@@ -79,7 +79,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
           background: 'rgba(74, 107, 74, 0.08)',
           border: '1px solid var(--clr-sage)',
         }}>
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontWeight: 700 }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontWeight: 700 }}>
             ✍️ Quick strategy ก่อนเริ่มเขียน
           </div>
           <ul style={{ margin: 0, paddingLeft: 20, fontSize: 12.5, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
@@ -147,7 +147,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
               onInput={updateQuestionCount}
               onChange={updateQuestionCount}
               aria-label="จำนวนข้อแบบกำหนดเอง"
-              style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
+              style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'var(--vmx-mono)', textAlign: 'center' }}
             />
           </div>
         </div>
@@ -188,7 +188,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                 onInput={updateTimePerQuestion}
                 onChange={updateTimePerQuestion}
                 aria-label="เวลาต่อข้อแบบกำหนดเอง"
-                style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textAlign: 'center' }}
+                style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'var(--vmx-mono)', textAlign: 'center' }}
               />
             </div>
             {/* Writing-time hint only relevant when subject = engprof */}

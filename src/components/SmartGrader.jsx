@@ -41,7 +41,7 @@ const ESSAY_RUBRIC = [
     { label: 'No personal opinion or new info added', pts: 1 },
     { label: 'Cites source ("In the article by [Author]...")', pts: 1 },
   ]},
-  { cat: 'Organization & Grammar', max: 5, color: 'var(--clr-gold)', items: [
+  { cat: 'Organization & Grammar', max: 5, color: 'var(--clr-gold-text)', items: [
     { label: 'Logical paragraph flow', pts: 2 },
     { label: 'Transitions used (However / Moreover / On the other hand)', pts: 1 },
     { label: 'Subject-verb / tense consistency', pts: 1 },
@@ -244,7 +244,7 @@ export default function SmartGrader({ q, userAnswer }) {
   return (
     <div style={{ marginTop: 12, padding: 12, borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, flexWrap: 'wrap', gap: 8 }}>
-        <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
           Smart Self-Grade
         </div>
         <ScoreBadge total={total} max={maxScore} pct={pct} touched={Object.keys(checks).length + Object.keys(shortGrade).length > 0} />
@@ -291,13 +291,13 @@ export default function SmartGrader({ q, userAnswer }) {
 // ── Score badge in the header ──
 function ScoreBadge({ total, max, pct, touched }) {
   if (!touched) return (
-    <div style={{ fontSize: 11, padding: '4px 10px', borderRadius: 999, background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+    <div style={{ fontSize: 11, padding: '4px 10px', borderRadius: 999, background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
       ติ๊กเกณฑ์เพื่อให้คะแนน
     </div>
   );
   const color = pct >= 75 ? 'var(--clr-sage)' : pct >= 50 ? 'var(--clr-gold)' : 'var(--clr-rose)';
   return (
-    <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: '#fff', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>
+    <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: '#fff', fontFamily: 'var(--vmx-mono)', fontWeight: 700 }}>
       <span style={{ fontSize: 16 }}>{total}</span>
       <span style={{ fontSize: 11, opacity: 0.85 }}>/ {max}</span>
       <span style={{ fontSize: 10, opacity: 0.85 }}>, {pct}%</span>
@@ -341,7 +341,7 @@ function AutoAnalysis({ wordCount, target, softMax, hardMax, coverage, copied, h
             <div style={{ fontSize: 10, marginTop: 4 }}>
               <span style={{ color: 'var(--clr-ink-soft)' }}>ขาด:</span>{' '}
               {coverage.missing.slice(0, 4).map((m, i) => (
-                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose)', fontSize: 10 }}>{m}</span>
+                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose-text)', fontSize: 10 }}>{m}</span>
               ))}
               {coverage.missing.length > 4 && <span style={{ color: 'var(--clr-ink-soft)' }}>+{coverage.missing.length - 4}</span>}
             </div>
@@ -360,7 +360,7 @@ function AutoAnalysis({ wordCount, target, softMax, hardMax, coverage, copied, h
           { color: 'rose', text: 'copy เยอะ — แก้ paraphrase' }
         }
         detail={copied.length > 0 ? (
-          <div style={{ fontSize: 10, marginTop: 4, fontStyle: 'italic', color: 'var(--clr-rose)' }}>
+          <div style={{ fontSize: 10, marginTop: 4, fontStyle: 'italic', color: 'var(--clr-rose-text)' }}>
             "{copied[0].slice(0, 50)}{copied[0].length > 50 ? '...' : ''}"
           </div>
         ) : null}
@@ -378,7 +378,7 @@ function Meter({ icon, label, value, status, detail }) {
   const c = colorMap[status?.color] || colorMap.sage;
   return (
     <div style={{ padding: 10, borderRadius: 10, background: c.bg, border: `1px solid ${c.border}` }}>
-      <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>
+      <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>
         {icon} {label}
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
@@ -395,7 +395,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
   if (!submitted) {
     return (
       <div style={{ marginBottom: 12, padding: 10, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px dashed var(--clr-sage)' }}>
-        <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage)', fontWeight: 700, marginBottom: 6 }}>
+        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', fontWeight: 700, marginBottom: 6 }}>
           🔮 ทายคะแนนตัวเองก่อน
         </div>
         <div style={{ fontSize: 12, color: 'var(--clr-ink)', lineHeight: 1.5, marginBottom: 8 }}>
@@ -407,7 +407,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
             value={predicted}
             onChange={(e) => setPredicted(e.target.value)}
             placeholder={`0-${maxScore}`}
-            style={{ width: 80, padding: '6px 10px', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'JetBrains Mono, monospace', fontSize: 14 }}
+            style={{ width: 80, padding: '6px 10px', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'var(--vmx-mono)', fontSize: 14 }}
           />
           <button
             onClick={onSubmit}
@@ -426,7 +426,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
     <div style={{ marginBottom: 12, padding: 10, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-sage)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
         <div>
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage)', fontWeight: 700, marginBottom: 4 }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', fontWeight: 700, marginBottom: 4 }}>
             🔮 Prediction
           </div>
           <div style={{ fontSize: 13, color: 'var(--clr-ink)' }}>
@@ -437,7 +437,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
                 <strong>{actual}/{maxScore}</strong>
                 {' '}
                 <span style={{
-                  color: Math.abs(gap) <= 1 ? 'var(--clr-sage)' : Math.abs(gap) <= 2 ? 'var(--clr-gold)' : 'var(--clr-rose)',
+                  color: Math.abs(gap) <= 1 ? 'var(--clr-sage)' : Math.abs(gap) <= 2 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)',
                   fontWeight: 600,
                 }}>
                   ({gap > 0 ? '+' : ''}{gap.toFixed(1)})
@@ -449,7 +449,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
         {calibration && calibration.count >= 3 && (
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textAlign: 'right' }}>
             <div>Avg bias (n={calibration.count}):</div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', color: Math.abs(calibration.bias) < 0.5 ? 'var(--clr-sage)' : 'var(--clr-gold)' }}>
+            <div style={{ fontFamily: 'var(--vmx-mono)', color: Math.abs(calibration.bias) < 0.5 ? 'var(--clr-sage)' : 'var(--clr-gold-text)' }}>
               {calibration.bias > 0 ? `แม่นยำ มากเกิน +${calibration.bias.toFixed(1)} pts` : calibration.bias < -0.1 ? `ถ่อมตัว เกิน ${calibration.bias.toFixed(1)} pts` : 'แม่นมาก!'}
             </div>
           </div>
@@ -464,7 +464,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
   const toggle = (key) => setChecks((c) => ({ ...c, [key]: !c[key] }));
   return (
     <div>
-      <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, fontWeight: 700 }}>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, fontWeight: 700 }}>
         Rubric checklist
       </div>
       {ESSAY_RUBRIC.map((g) => {
@@ -473,7 +473,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
           <div key={g.cat} style={{ marginBottom: 8, padding: 10, borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
               <strong style={{ fontSize: 13, color: g.color }}>{g.cat}</strong>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink)', fontWeight: 600 }}>
+              <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink)', fontWeight: 600 }}>
                 {earned} / {g.max} pts
               </span>
             </div>
@@ -491,7 +491,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
                   <span style={{ flex: 1, color: on ? 'var(--clr-ink)' : 'var(--clr-ink-soft)', textDecoration: on ? 'none' : 'none' }}>
                     {it.label}
                   </span>
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', minWidth: 32, textAlign: 'right' }}>
+                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', minWidth: 32, textAlign: 'right' }}>
                     +{it.pts}
                   </span>
                 </label>
@@ -501,7 +501,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
         );
       })}
       {wcPenalty > 0 && (
-        <div style={{ padding: 8, borderRadius: 8, background: 'rgba(184, 88, 88, 0.10)', border: '1px solid var(--clr-rose)', fontSize: 12, color: 'var(--clr-rose)' }}>
+        <div style={{ padding: 8, borderRadius: 8, background: 'rgba(184, 88, 88, 0.10)', border: '1px solid var(--clr-rose)', fontSize: 12, color: 'var(--clr-rose-text)' }}>
           Word-count penalty: −{wcPenalty} pts
         </div>
       )}
@@ -514,7 +514,7 @@ function ShortRubric({ grade, setGrade, rubric }) {
   const set = (i, v) => setGrade((g) => ({ ...g, [i]: v }));
   return (
     <div>
-      <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, fontWeight: 700 }}>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, fontWeight: 700 }}>
         Self-grade
       </div>
       {SHORT_RUBRIC.map((it, i) => (
@@ -530,7 +530,7 @@ function ShortRubric({ grade, setGrade, rubric }) {
                   border: '1px solid var(--clr-border)',
                   background: (Number(grade[i]) || 0) === v ? 'var(--clr-sage)' : 'var(--clr-bg)',
                   color: (Number(grade[i]) || 0) === v ? '#fff' : 'var(--clr-ink)',
-                  fontSize: 11, fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: 11, fontFamily: 'var(--vmx-mono)',
                   cursor: 'pointer',
                 }}
               >{v}</button>

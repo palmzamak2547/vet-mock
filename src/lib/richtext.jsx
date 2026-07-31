@@ -67,7 +67,7 @@ export function RichText({ text, highlight }) {
           return <em key={i}>{highlightMatches(p.slice(1, -1), highlight, i)}</em>;
         }
         if (p.length >= 3 && p.startsWith('`') && p.endsWith('`')) {
-          return <code key={i} style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.92em', background: 'var(--clr-surface-2)', padding: '1px 5px', borderRadius: 4 }}>{highlightMatches(p.slice(1, -1), highlight, i)}</code>;
+          return <code key={i} style={{ fontFamily: 'var(--vmx-mono)', fontSize: '0.92em', background: 'var(--clr-surface-2)', padding: '1px 5px', borderRadius: 4 }}>{highlightMatches(p.slice(1, -1), highlight, i)}</code>;
         }
         return <Fragment key={i}>{highlightMatches(p, highlight, i)}</Fragment>;
       })}

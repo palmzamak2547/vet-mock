@@ -52,7 +52,7 @@ export default function QSourceChip({ q, onReport, store }) {
       border: '1px solid var(--clr-border)',
       fontSize: 12,
       color: 'var(--clr-ink-soft)',
-      fontFamily: 'JetBrains Mono, monospace',
+      fontFamily: 'var(--vmx-mono)',
     }}>
       <button
         type="button"
@@ -155,7 +155,7 @@ export default function QSourceChip({ q, onReport, store }) {
                 border: '1px solid var(--clr-border)',
                 fontSize: 11,
                 fontFamily: 'inherit',
-                color: 'var(--clr-rose)',
+                color: 'var(--clr-rose-text)',
                 background: 'rgba(225, 48, 108, 0.04)',
               }}
               title="ส่ง feedback สำหรับข้อนี้ — เปิดแบบฟอร์มพร้อมเนื้อหา prefilled"

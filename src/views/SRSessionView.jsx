@@ -220,20 +220,20 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           <div style={{ marginTop: 8, padding: '14px 16px', borderRadius: 12, background: 'var(--clr-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
             <div style={{ display: 'flex', gap: 18 }}>
               <div>
-                <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   Due ทบทวน
                 </div>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: dueReviewedCount > 100 ? 'var(--clr-rose)' : 'var(--clr-ink)' }}>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: dueReviewedCount > 100 ? 'var(--clr-rose-text)' : 'var(--clr-ink)' }}>
                   {dueReviewedCount}
                   <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 6 }}>ใบ</span>
                 </div>
               </div>
               {newCount > 0 && (
                 <div>
-                  <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     ใหม่
                   </div>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-gold)' }}>
+                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-gold-text)' }}>
                     {newCount}
                     <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 6 }}>ใบ</span>
                   </div>
@@ -241,7 +241,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               )}
             </div>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 จะทำวันนี้
               </div>
               <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-sage)' }}>
@@ -286,7 +286,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               <div className="vmx-stat-lbl">Mastered</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-gold)' }}>{stats.dueTomorrow}</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{stats.dueTomorrow}</div>
               <div className="vmx-stat-lbl">Due tomorrow</div>
             </div>
           </div>
@@ -345,7 +345,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-stat-grid">
           <div className="vmx-stat-card"><div className="vmx-stat-num">{stats.total}</div><div className="vmx-stat-lbl">Total Cards</div></div>
           <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-sage)' }}>{stats.mastered}</div><div className="vmx-stat-lbl">Mastered</div></div>
-          <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-gold)' }}>{remaining > 0 ? remaining : stats.dueTomorrow}</div><div className="vmx-stat-lbl">{remaining > 0 ? 'ค้างอีก' : 'Due tomorrow'}</div></div>
+          <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{remaining > 0 ? remaining : stats.dueTomorrow}</div><div className="vmx-stat-lbl">{remaining > 0 ? 'ค้างอีก' : 'Due tomorrow'}</div></div>
         </div>
         <div className="vmx-btn-row">
           {remaining > 0 && (
@@ -375,7 +375,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         display: 'inline-flex', alignItems: 'center', gap: 8,
         padding: '6px 16px', borderRadius: 999,
         background: currentQ.answer ? 'var(--clr-sage-soft)' : 'var(--clr-rose-soft)',
-        color: currentQ.answer ? 'var(--clr-sage)' : 'var(--clr-rose)',
+        color: currentQ.answer ? 'var(--clr-sage)' : 'var(--clr-rose-text)',
         fontWeight: 700,
         fontSize: 18,
       }}>
@@ -418,7 +418,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       <>
         <div className="vmx-exam-top">
           <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             next: {fmtDate(currentCard.nextReview)}
           </div>
         </div>
@@ -443,7 +443,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       <>
         <div className="vmx-exam-top">
           <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             next: {fmtDate(currentCard.nextReview)}
           </div>
         </div>
@@ -467,7 +467,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     <>
       <div className="vmx-exam-top">
         <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
-        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+        <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
           next: {fmtDate(currentCard.nextReview)}
         </div>
       </div>

@@ -99,7 +99,7 @@ export default function TemplateLibrary({ onPick, onClose }) {
           <div
             style={{
               fontSize: 11,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               color: 'var(--clr-ink-soft)',
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
@@ -185,7 +185,7 @@ export default function TemplateLibrary({ onPick, onClose }) {
                   <div
                     style={{
                       fontSize: 10,
-                      fontFamily: 'JetBrains Mono, monospace',
+                      fontFamily: 'var(--vmx-mono)',
                       color: 'var(--clr-ink-soft)',
                       textTransform: 'uppercase',
                       letterSpacing: '0.06em',

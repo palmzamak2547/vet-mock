@@ -177,7 +177,7 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
           <span style={{
             display: 'inline-block',
             fontSize: 10,
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             textTransform: 'uppercase',
             letterSpacing: 0.5,
             padding: '2px 8px',

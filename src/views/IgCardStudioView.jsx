@@ -56,7 +56,7 @@ function renderQCard({ question, brand = '@vetmock.cu' }) {
   if (subj) {
     ctx.fillStyle = subj.color || '#4a6b4a';
     const text = `${subj.icon || ''}  ${subj.name}`;
-    ctx.font = '500 28px "JetBrains Mono", monospace';
+    ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
     const tw = ctx.measureText(text).width;
     ctx.fillStyle = (subj.color || '#4a6b4a') + '24';
     ctx.beginPath();
@@ -77,7 +77,7 @@ function renderQCard({ question, brand = '@vetmock.cu' }) {
   // Options — only render for MCQ; otherwise show "ตอบในแคปชั่น ⬇"
   const optsTop = 290 + stemFontSize * 1.4 * Math.ceil(stem.length / Math.floor((W - 160) / (stemFontSize * 0.55))) + 60;
   if (question.type === 'mcq' && Array.isArray(question.options)) {
-    ctx.font = '500 32px "JetBrains Mono", monospace';
+    ctx.font = '500 32px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
     let y = Math.max(700, optsTop);
     const labels = ['A', 'B', 'C', 'D', 'E'];
     question.options.slice(0, 5).forEach((opt, i) => {
@@ -95,7 +95,7 @@ function renderQCard({ question, brand = '@vetmock.cu' }) {
 
   // Bottom — VetMock + IG handle
   ctx.fillStyle = '#2b2419';
-  ctx.font = '500 32px "JetBrains Mono", monospace';
+  ctx.font = '500 32px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.textAlign = 'center';
   ctx.fillText('vetmock.vercel.app, 📷 ' + brand, W / 2, 1280);
 
@@ -202,7 +202,7 @@ export default function IgCardStudioView({ goHome }) {
         {cards.map((card, i) => (
           <div key={card.q.id} className="vmx-dash-card" style={{ padding: 12 }}>
             <img src={card.url} alt={`card ${i + 1}`} style={{ width: '100%', borderRadius: 8, display: 'block' }} />
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 8, fontFamily: 'JetBrains Mono, monospace' }}>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 8, fontFamily: 'var(--vmx-mono)' }}>
               Q{card.q.id}, {card.q.subject}, {card.q.topic || '—'}
             </div>
             <button className="vmx-btn vmx-btn-ghost" onClick={() => downloadOne(card, i)} style={{ marginTop: 8, width: '100%', fontSize: 12 }}>

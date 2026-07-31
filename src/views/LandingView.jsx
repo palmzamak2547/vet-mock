@@ -52,12 +52,12 @@ function buildRealSubjects(year) {
 }
 
 function buildOptions(texts, ans, picked, revealed) {
-  const markBase = { marginLeft: 'auto', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, fontSize: 16 };
+  const markBase = { marginLeft: 'auto', fontFamily: 'var(--vmx-mono)', fontWeight: 700, fontSize: 16 };
   return texts.map((text, i) => {
     let cls = '', style = {}, mark = '', markStyle = markBase;
     if (!revealed) { if (picked === i) cls = 'selected'; }
     else if (i === ans) { style = { background: 'var(--clr-sage)', color: 'var(--clr-surface)', borderColor: 'var(--clr-sage)' }; mark = '✓'; markStyle = { ...markBase, color: 'var(--clr-surface)' }; }
-    else if (picked === i) { style = { borderColor: 'var(--clr-rose)', background: 'var(--clr-rose-soft)' }; mark = '✗'; markStyle = { ...markBase, color: 'var(--clr-rose)' }; }
+    else if (picked === i) { style = { borderColor: 'var(--clr-rose)', background: 'var(--clr-rose-soft)' }; mark = '✗'; markStyle = { ...markBase, color: 'var(--clr-rose-text)' }; }
     return { letter: String.fromCharCode(65 + i), text, cls, style, mark, markStyle };
   });
 }
@@ -248,9 +248,9 @@ export default function LandingView({
         <div className="lp-pad" style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16, padding: '11px 24px' }}>
           <a href="#lp-top" style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 22, letterSpacing: '-.02em', color: 'var(--clr-ink)' }}>
             <img src="/vetmock-logo.svg" width={30} height={30} style={{ borderRadius: 7, display: 'block' }} alt="VetMock logo" />
-            Vet<span style={{ color: 'var(--clr-rose)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span>
+            Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span>
           </a>
-          <span className="lp-only-desktop lp-ctx" title="Your study context" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, flexShrink: 0, padding: '6px 11px', marginLeft: 2, border: '1px solid var(--clr-border)', borderRadius: 10, background: 'var(--clr-surface)', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+          <span className="lp-only-desktop lp-ctx" title="Your study context" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, flexShrink: 0, padding: '6px 11px', marginLeft: 2, border: '1px solid var(--clr-border)', borderRadius: 10, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clr-sage)' }} />{t.ctxChip}
           </span>
           <nav className="lp-only-desktop" style={{ display: 'flex', alignItems: 'center', gap: 2, marginLeft: 10 }}>
@@ -270,7 +270,7 @@ export default function LandingView({
         </div>
         {mobileOpen && (
           <div className="lp-only-mobile" style={{ flexDirection: 'column', padding: '8px 20px calc(18px + env(safe-area-inset-bottom, 0px))', borderTop: '1px solid var(--clr-border)', gap: 2 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '8px 4px 12px', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', borderBottom: '1px dashed var(--clr-border)', marginBottom: 6 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '8px 4px 12px', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', borderBottom: '1px dashed var(--clr-border)', marginBottom: 6 }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clr-sage)' }} />{t.ctxChip}
             </div>
             {t.nav.map((l) => <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} style={{ padding: '12px 4px', fontSize: 15, fontWeight: 600, color: 'var(--clr-ink)', borderBottom: '1px dashed var(--clr-border)' }}>{l.label}</a>)}
@@ -323,7 +323,7 @@ export default function LandingView({
                 <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)', marginBottom: 8 }}>{t.ckPrefs}</div>
                 <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 0', borderTop: '1px dashed var(--clr-border)' }}>
                   <div style={{ flex: 1 }}><div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--clr-ink)' }}>{t.ckEssentialT}</div><div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{t.ckEssentialD}</div></div>
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, color: 'var(--clr-sage)', flexShrink: 0, marginTop: 3 }}>{t.ckAlways}</span>
+                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, color: 'var(--clr-sage)', flexShrink: 0, marginTop: 3 }}>{t.ckAlways}</span>
                 </div>
                 <CookieRow title={t.ckAnalyticsT} desc={t.ckAnalyticsD} on={cAnalytics} onToggle={() => setCAnalytics((v) => !v)} />
                 <CookieRow title={t.ckPersonalT} desc={t.ckPersonalD} on={cPersonal} onToggle={() => setCPersonal((v) => !v)} border />
@@ -342,18 +342,18 @@ export default function LandingView({
         <div onClick={() => setLoginOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(43,36,25,.5)', zIndex: 110, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'max(20px, env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px))' }}>
           <div onClick={(e) => e.stopPropagation()} className="lp-stack" role="dialog" aria-modal="true" aria-label={t.lgHead} style={{ width: 800, maxWidth: '100%', maxHeight: '92dvh', overflow: 'auto', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 20, boxShadow: 'var(--shadow-lg)', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: reduce.current ? 'none' : 'lp-rise .45s cubic-bezier(.16,1,.3,1)' }}>
             <div className="lp-hide-md" style={{ background: 'var(--clr-bg)', borderRight: '1px solid var(--clr-border)', padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-ink-soft)' }}>{t.lgReturn}</span>
+              <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-ink-soft)' }}>{t.lgReturn}</span>
               <div style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 14, padding: 18 }}>
                 <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)', marginBottom: 10 }}>Canine Endocrinology</div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>{t.lgReturnCase}</div>
+                <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>{t.lgReturnCase}</div>
                 <div className="vmx-bar"><div className="vmx-bar-fill" style={{ width: '58%' }} /></div>
               </div>
               <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 13, color: 'var(--clr-ocean)' }}>“I always mix these two up.”</div>
-              <div style={{ marginTop: 'auto', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.lgCtx}</div>
+              <div style={{ marginTop: 'auto', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.lgCtx}</div>
             </div>
             <div style={{ padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 20 }}>Vet<span style={{ color: 'var(--clr-rose)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
+                <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 20 }}>Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
                 <button type="button" onClick={() => setLoginOpen(false)} aria-label="Close" className="lp-iconbtn" style={{ width: 34, height: 34, fontSize: 14, background: 'var(--clr-bg)' }}>✕</button>
               </div>
               {loginStep === 'email' ? (
@@ -361,14 +361,14 @@ export default function LandingView({
                   <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px' }}>{t.lgHead}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--clr-ink-soft)', margin: '0 0 18px' }}>{t.lgBody}</p>
                   <button type="button" onClick={doGoogle} className="vmx-btn vmx-btn-ghost" style={{ width: '100%', justifyContent: 'center' }}>{t.lgGoogle}</button>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 0', color: 'var(--clr-ink-soft)', fontSize: 11, fontFamily: 'JetBrains Mono, monospace' }}><span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} />{t.lgOr}<span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} /></div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 0', color: 'var(--clr-ink-soft)', fontSize: 11, fontFamily: 'var(--vmx-mono)' }}><span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} />{t.lgOr}<span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} /></div>
                   <label htmlFor="vm-login-email" style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink)', display: 'block', marginBottom: 6 }}>{t.lgEmailLabel}</label>
                   <input id="vm-login-email" type="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="you@example.com" className="vmx-fill-input" style={{ marginBottom: loginError ? 6 : 12 }} onKeyDown={(e) => { if (e.key === 'Enter') doMagic(); }} />
-                  {loginError && <div role="alert" style={{ fontSize: 12, color: 'var(--clr-rose)', margin: '0 0 12px', lineHeight: 1.4 }}>{loginError}</div>}
+                  {loginError && <div role="alert" style={{ fontSize: 12, color: 'var(--clr-rose-text)', margin: '0 0 12px', lineHeight: 1.4 }}>{loginError}</div>}
                   <button type="button" onClick={doMagic} disabled={loginSending} className="vmx-btn vmx-btn-primary" style={{ width: '100%', justifyContent: 'center', marginBottom: 10 }}>{loginSending ? t.lgSending : t.lgSend}</button>
                   <button type="button" onClick={() => { setLoginOpen(false); onOpenAuth && onOpenAuth(); }} className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ width: '100%', justifyContent: 'center', marginBottom: 6 }}>{t.lgPassword}</button>
                   <button type="button" onClick={() => setLoginOpen(false)} className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ width: '100%', justifyContent: 'center' }}>{t.lgGuest}</button>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginTop: 14, fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'JetBrains Mono, monospace' }}><span>✓</span>{t.lgSaved}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginTop: 14, fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)' }}><span>✓</span>{t.lgSaved}</div>
                   <p style={{ fontSize: 11, color: 'var(--clr-ink-soft)', margin: '8px 0 0', lineHeight: 1.5 }}>{t.lgIndependent}</p>
                 </div>
               ) : (
@@ -395,7 +395,7 @@ export default function LandingView({
 
 // small helpers kept local to the view
 function segStyle(active) {
-  return { padding: '6px 12px', border: 'none', background: active ? 'var(--clr-ink)' : 'transparent', color: active ? 'var(--clr-bg)' : 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, fontWeight: 600, cursor: 'pointer', minHeight: 32 };
+  return { padding: '6px 12px', border: 'none', background: active ? 'var(--clr-ink)' : 'transparent', color: active ? 'var(--clr-bg)' : 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, cursor: 'pointer', minHeight: 32 };
 }
 function CookieRow({ title, desc, on, onToggle, border }) {
   return (

@@ -32,7 +32,7 @@ export default function PublicWikiView({
   if (isRequestedPageNotFound) {
     return (
       <div style={{ maxWidth: 800, margin: '40px auto', padding: 24, textAlign: 'center', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 12 }}>
-        <h2 style={{ color: 'var(--clr-rose)', margin: '0 0 8px 0', fontSize: 24 }}>404 — Page Not Found</h2>
+        <h2 style={{ color: 'var(--clr-rose-text)', margin: '0 0 8px 0', fontSize: 24 }}>404 — Page Not Found</h2>
         <p style={{ color: 'var(--clr-ink-soft)', margin: 0 }}>
           หน้า Wiki ที่คุณขอไม่มีอยู่หรือยังไม่ผ่านการอนุมัติเผยแพร่ (The requested page is not accessible).
         </p>
@@ -90,7 +90,7 @@ export default function PublicWikiView({
             <div>
               <div style={{ borderBottom: '1px solid var(--clr-border)', paddingBottom: 12, marginBottom: 16 }}>
                 <h1 style={{ margin: 0, fontSize: 22, fontFamily: 'Fraunces, Georgia, serif' }}>{activePage.title}</h1>
-                <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 4 }}>
+                <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 4 }}>
                   Page ID: <code>{activePage.pageId}</code> | Approval Ref: <code>{activePage.sourceApprovalRef}</code>
                 </div>
               </div>
@@ -125,7 +125,7 @@ export default function PublicWikiView({
                       <p style={{ margin: '8px 0 0 0', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
                         {anchor.contentSummary || 'No summary available.'}
                       </p>
-                      <div style={{ fontSize: 10, opacity: 0.7, fontFamily: 'JetBrains Mono, monospace', marginTop: 8 }}>
+                      <div style={{ fontSize: 10, opacity: 0.7, fontFamily: 'var(--vmx-mono)', marginTop: 8 }}>
                         Anchor ID: <code>{anchor.anchorId}</code> | Approval: <code>{anchor.sourceApprovalRef}</code>
                       </div>
                     </div>

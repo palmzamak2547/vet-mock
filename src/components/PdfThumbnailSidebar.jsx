@@ -164,7 +164,7 @@ function ThumbItem({ pdfDoc, pageNum, isActive, hasAnnotation, onSelect }) {
       </div>
       <span style={{
         fontSize: 11,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--vmx-mono)',
         fontWeight: isActive ? 700 : 400,
         color: isActive ? 'var(--clr-accent, #4a6b4a)' : 'var(--clr-ink-soft, #777)',
       }}>{pageNum}</span>

@@ -42,7 +42,7 @@ export default function GroupDetailView({ group, user, goBack }) {
       <div className="vmx-hero">
         <h1><em>{group.name}</em></h1>
         <p>
-          Code: <strong style={{ color: 'var(--clr-gold)', fontFamily: 'JetBrains Mono, monospace' }}>{group.code}</strong>
+          Code: <strong style={{ color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)' }}>{group.code}</strong>
           {', '}<a onClick={copyCode} style={{ cursor: 'pointer', textDecoration: 'underline' }}>คัดลอก</a>
           {', '}สมาชิก {members.length} คน
         </p>
@@ -72,13 +72,13 @@ export default function GroupDetailView({ group, user, goBack }) {
                       {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
-                    <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>
+                    <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                       {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 22, color: r.pct >= 80 ? 'var(--clr-sage)' : r.pct >= 60 ? 'var(--clr-gold)' : 'var(--clr-rose)' }}>{r.pct}%</div>
-                    <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>{r.correct}/{r.total}</div>
+                    <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 22, color: r.pct >= 80 ? 'var(--clr-sage)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
+                    <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{r.correct}/{r.total}</div>
                   </div>
                 </div>
               </div>
@@ -125,7 +125,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                 {m.username}
                 {m.id === user.id && <div style={{ fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</div>}
               </div>
-              {m.role === 'admin' && <div style={{ fontSize: 11, color: 'var(--clr-gold)', marginTop: 4 }}>👑 Admin</div>}
+              {m.role === 'admin' && <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 Admin</div>}
             </div>
           ))}
         </div>

@@ -438,7 +438,7 @@ export default function PdfAnnotateView({ goHome }) {
       <div style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
         <BackBar onBack={goHome} label="กลับหน้าแรก" subtitle="PDF + วาดทับ" />
         <div style={{ padding: '8px 16px 24px', maxWidth: 720, margin: '0 auto', width: '100%' }}>
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             📑 Lecture-slide / textbook annotation
           </div>
           <h1 style={{ margin: '6px 0 4px', fontSize: 22 }}>อัปโหลด PDF แล้วเขียนทับ</h1>
@@ -490,7 +490,7 @@ export default function PdfAnnotateView({ goHome }) {
 
           {recent.length > 0 && (
             <div style={{ marginTop: 24 }}>
-              <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
                 PDF ล่าสุด (annotation ที่บันทึกไว้)
               </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -660,7 +660,7 @@ export default function PdfAnnotateView({ goHome }) {
           onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
           disabled={currentPage <= 1}
         >← ก่อน</button>
-        <span style={{ fontSize: 13, fontFamily: 'JetBrains Mono, monospace' }}>
+        <span style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)' }}>
           หน้า <strong>{currentPage}</strong> / {pageCount}
         </span>
         <button

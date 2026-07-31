@@ -70,7 +70,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
               <div style={{
                 marginTop: 8,
                 fontSize: 11,
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'var(--vmx-mono)',
                 color: 'var(--clr-ink-soft)',
                 letterSpacing: '0.04em',
               }}>

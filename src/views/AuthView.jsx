@@ -439,7 +439,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
   // here we just render a quiet placeholder while the bounce fires.
   if (shouldAutoRedirect) {
     return (
-      <div style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14, fontFamily: 'JetBrains Mono, monospace' }}>
+      <div style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14, fontFamily: 'var(--vmx-mono)' }}>
         Login เรียบร้อย — กำลังเด้งไปหน้าแรก...
       </div>
     );
@@ -577,7 +577,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
 
             {mode !== 'signin' && <div style={{ height: 12 }} />}
 
-            <div style={{ textAlign: 'center', margin: '16px 0', fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+            <div style={{ textAlign: 'center', margin: '16px 0', fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
               — หรือใช้อีเมล + รหัสผ่าน —
             </div>
           </>
@@ -813,13 +813,13 @@ function UsernameStatusBadge({ status, username }) {
   const styles = {
     checking:  { color: 'var(--clr-ink-soft)', text: '… ตรวจ' },
     available: { color: 'var(--clr-sage)',     text: '✓ ใช้ได้' },
-    taken:     { color: 'var(--clr-rose)',     text: '✗ ถูกใช้แล้ว' },
-    invalid:   { color: 'var(--clr-rose)',     text: '✗ รูปแบบไม่ถูก' },
+    taken:     { color: 'var(--clr-rose-text)',     text: '✗ ถูกใช้แล้ว' },
+    invalid:   { color: 'var(--clr-rose-text)',     text: '✗ รูปแบบไม่ถูก' },
   };
   const s = styles[status];
   if (!s) return null;
   return (
-    <span style={{ fontSize: 11, fontWeight: 500, color: s.color, fontFamily: 'JetBrains Mono, monospace' }}>
+    <span style={{ fontSize: 11, fontWeight: 500, color: s.color, fontFamily: 'var(--vmx-mono)' }}>
       {s.text}
     </span>
   );
@@ -842,7 +842,7 @@ function PasswordStrengthBar({ password }) {
       </div>
       <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', display: 'flex', justifyContent: 'space-between' }}>
         <span>ความแข็งแรง: <strong style={{ color: s.color }}>{s.label}</strong></span>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{password.length} ตัว</span>
+        <span style={{ fontFamily: 'var(--vmx-mono)' }}>{password.length} ตัว</span>
       </div>
     </div>
   );

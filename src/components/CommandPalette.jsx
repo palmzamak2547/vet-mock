@@ -493,7 +493,7 @@ export default function CommandPalette({
             spellCheck="false"
           />
           <span style={{
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             fontSize: 11,
             color: 'var(--clr-ink-soft)',
             padding: '2px 6px',
@@ -515,7 +515,7 @@ export default function CommandPalette({
             background: 'var(--clr-bg)',
           }}>
             <span style={{
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               fontSize: 10,
               color: 'var(--clr-ink-soft)',
               padding: '2px 8px',
@@ -523,7 +523,7 @@ export default function CommandPalette({
               borderRadius: 10,
             }}>{indexTotals.questions} ข้อ</span>
             <span style={{
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               fontSize: 10,
               color: 'var(--clr-ink-soft)',
               padding: '2px 8px',
@@ -531,7 +531,7 @@ export default function CommandPalette({
               borderRadius: 10,
             }}>{indexTotals.flashcards} flashcards</span>
             <span style={{
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               fontSize: 10,
               color: 'var(--clr-ink-soft)',
               padding: '2px 8px',
@@ -582,7 +582,7 @@ export default function CommandPalette({
                   <div style={{
                     padding: '10px 16px 4px',
                     fontSize: 10,
-                    fontFamily: 'JetBrains Mono, monospace',
+                    fontFamily: 'var(--vmx-mono)',
                     color: 'var(--clr-ink-soft)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
@@ -625,7 +625,7 @@ export default function CommandPalette({
                     <div style={{
                       fontSize: 11,
                       color: 'var(--clr-ink-soft)',
-                      fontFamily: 'JetBrains Mono, monospace',
+                      fontFamily: 'var(--vmx-mono)',
                       marginTop: 2,
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -637,7 +637,7 @@ export default function CommandPalette({
                 </div>
                 {active && (
                   <span style={{
-                    fontFamily: 'JetBrains Mono, monospace',
+                    fontFamily: 'var(--vmx-mono)',
                     fontSize: 11,
                     color: 'var(--clr-ink-soft)',
                     flex: '0 0 auto',
@@ -654,7 +654,7 @@ export default function CommandPalette({
           padding: '10px 16px',
           borderTop: '1px solid var(--clr-border)',
           background: 'var(--clr-bg)',
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
           fontSize: 10,
           color: 'var(--clr-ink-soft)',
           display: 'flex',

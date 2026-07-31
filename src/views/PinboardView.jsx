@@ -171,7 +171,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
         </button>
         <h1 style={{ margin: 0, fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 600, flex: 1, minWidth: 200 }}>
           Pinboard
-          <span style={{ marginLeft: 10, fontSize: 13, color: 'var(--clr-ink-soft)', fontWeight: 400, fontFamily: 'JetBrains Mono, monospace' }}>
+          <span style={{ marginLeft: 10, fontSize: 13, color: 'var(--clr-ink-soft)', fontWeight: 400, fontFamily: 'var(--vmx-mono)' }}>
             {pins.length} / {PINBOARD_MAX}
           </span>
         </h1>
@@ -189,7 +189,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
 
       {/* Year-scope chips */}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 10 }}>
-        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
           📅
         </span>
         <button
@@ -256,7 +256,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
             >
               <span style={{ marginRight: 6 }}>{chip.icon}</span>
               {chip.label}
-              <span style={{ marginLeft: 6, opacity: 0.7, fontFamily: 'JetBrains Mono, monospace', fontSize: 11 }}>{n}</span>
+              <span style={{ marginLeft: 6, opacity: 0.7, fontFamily: 'var(--vmx-mono)', fontSize: 11 }}>{n}</span>
             </button>
           );
         })}
@@ -316,7 +316,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
                   <span
                     style={{
                       fontSize: 11,
-                      fontFamily: 'JetBrains Mono, monospace',
+                      fontFamily: 'var(--vmx-mono)',
                       color: meta.color,
                       textTransform: 'uppercase',
                       letterSpacing: '0.06em',
@@ -413,7 +413,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
                     </div>
                   );
                 })()}
-                <div style={{ marginTop: 'auto', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', opacity: 0.8 }}>
+                <div style={{ marginTop: 'auto', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', opacity: 0.8 }}>
                   เพิ่มเมื่อ {relTime(pin.addedAt)}
                 </div>
               </div>

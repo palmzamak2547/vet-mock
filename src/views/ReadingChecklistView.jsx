@@ -77,7 +77,7 @@ export default function ReadingChecklistView({
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
-          <div style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             ภาพรวม
           </div>
           <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 22, color: 'var(--clr-ink)' }}>
@@ -197,7 +197,7 @@ export default function ReadingChecklistView({
                           border: '1px solid var(--clr-border)',
                           fontSize: 11,
                           color: 'var(--clr-ink-soft)',
-                          fontFamily: 'JetBrains Mono, monospace',
+                          fontFamily: 'var(--vmx-mono)',
                           flexShrink: 0,
                         }}
                       >

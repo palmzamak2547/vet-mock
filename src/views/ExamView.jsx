@@ -60,10 +60,10 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
               padding: '2px 8px',
               borderRadius: 999,
               background: 'rgba(184, 137, 64, 0.15)',
-              color: 'var(--clr-gold)',
+              color: 'var(--clr-gold-text)',
               fontSize: 10,
               fontWeight: 700,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               letterSpacing: '0.06em',
             }}>
               ✍️ {currentQ.type === 'essay' ? 'WRITING' : 'SHORT'}
@@ -93,7 +93,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
         <div style={{
           marginTop: 8, padding: '4px 12px', borderRadius: 999,
           background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
-          fontSize: 11, fontFamily: 'JetBrains Mono, monospace',
+          fontSize: 11, fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-sage)',
           display: 'inline-flex', alignItems: 'center', gap: 6,
         }}>
@@ -222,7 +222,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
           <h2 id="vmx-nav-grid-title" style={{ margin: 0 }}>ข้ามไปข้อ</h2>
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
             ตอบแล้ว {answered}/{questions.length}, เหลือ {remaining}
           </div>
         </div>
@@ -253,7 +253,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
                   textAlign: 'center',
                   padding: '10px 4px',
                   borderRadius: 8,
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontFamily: 'var(--vmx-mono)',
                   fontSize: 13,
                   fontWeight: isCurrent ? 700 : 500,
                   position: 'relative',
@@ -272,7 +272,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
               >
                 {i + 1}
                 {isBookmarked && (
-                  <span style={{ position: 'absolute', top: 1, right: 4, fontSize: 9, color: isCurrent ? 'white' : 'var(--clr-gold)' }}>★</span>
+                  <span style={{ position: 'absolute', top: 1, right: 4, fontSize: 9, color: isCurrent ? 'white' : 'var(--clr-gold-text)' }}>★</span>
                 )}
               </button>
             );

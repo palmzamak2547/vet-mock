@@ -149,7 +149,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
   const tsBtn = {
     flexShrink: 0, minWidth: 64, minHeight: 36,
     padding: '4px 8px', borderRadius: 6,
-    fontFamily: 'JetBrains Mono, monospace', fontSize: 12, fontWeight: 600,
+    fontFamily: 'var(--vmx-mono)', fontSize: 12, fontWeight: 600,
     background: 'var(--clr-surface-2)', color: 'var(--clr-sage)',
     border: '1px solid var(--clr-border)', cursor: 'pointer',
   };
@@ -168,7 +168,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
         <div style={{ flex: 1, minWidth: 160, fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
-          โน้ตของคุณ <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 4 }}>({notes.length})</span>
+          โน้ตของคุณ <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 4 }}>({notes.length})</span>
         </div>
         <button
           className="vmx-btn vmx-btn-primary vmx-btn-sm"
@@ -186,7 +186,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
         <div style={{ ...rowBase, flexDirection: 'column', alignItems: 'stretch', marginBottom: 10, gap: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ ...tsBtn, cursor: 'default' }}>{formatTimestamp(composeT)}</span>
-            <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+            <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
              , timestamp ตอนกดปุ่ม
             </span>
           </div>
@@ -281,7 +281,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
                     title="กำลังเล่นช่วงนี้"
                     style={{
                       flexShrink: 0, fontSize: 10, fontWeight: 700,
-                      color: 'var(--clr-sage)', fontFamily: 'JetBrains Mono, monospace',
+                      color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)',
                       alignSelf: 'center', letterSpacing: '0.06em',
                     }}
                   >

@@ -81,7 +81,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
           <form onSubmit={handleJoin}>
             <div className="vmx-form-group">
               <label>รหัส Invite (6 ตัวอักษร)</label>
-              <input value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())} placeholder="ABC123" maxLength={6} required autoFocus style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 18, letterSpacing: '0.2em', textAlign: 'center' }} />
+              <input value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())} placeholder="ABC123" maxLength={6} required autoFocus style={{ fontFamily: 'var(--vmx-mono)', fontSize: 18, letterSpacing: '0.2em', textAlign: 'center' }} />
             </div>
             <div className="vmx-btn-row">
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowJoin(false)}>ยกเลิก</button>
@@ -106,8 +106,8 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
                 <div onClick={() => { setActiveGroup(g); setView('group-detail'); }} style={{ flex: 1, cursor: 'pointer' }}>
                   <h3 style={{ margin: 0 }}>{g.name}</h3>
-                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
-                    Code: <strong style={{ color: 'var(--clr-gold)' }}>{g.code}</strong>, {g.role === 'admin' ? '👑 Admin' : 'Member'}
+                  <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                    Code: <strong style={{ color: 'var(--clr-gold-text)' }}>{g.code}</strong>, {g.role === 'admin' ? '👑 Admin' : 'Member'}
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 6 }}>

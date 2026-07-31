@@ -123,7 +123,7 @@ export function ViewFallback() {
         role="status"
         style={{
           fontSize: 12,
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-ink-soft)',
           marginBottom: 14,
           letterSpacing: '0.04em',

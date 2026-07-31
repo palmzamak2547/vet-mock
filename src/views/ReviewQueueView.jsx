@@ -372,12 +372,12 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
           background: 'var(--clr-surface-2)',
           color: meta.color,
           fontSize: 11,
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
           border: `1px solid ${meta.color}33`,
         }}>
           {meta.icon} {meta.label}
         </span>
-        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
           {formatRelativeTime(submission.created_at)}
         </span>
       </div>
@@ -391,7 +391,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
           <span style={{ ...chipStyle, background: 'var(--clr-bg)' }}>{topic.label}</span>
         )}
         {difficultyStars && (
-          <span style={{ ...chipStyle, color: 'var(--clr-gold)', background: 'var(--clr-bg)' }}>
+          <span style={{ ...chipStyle, color: 'var(--clr-gold-text)', background: 'var(--clr-bg)' }}>
             {difficultyStars}
           </span>
         )}
@@ -412,7 +412,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
 
       {/* Source compact */}
       {submission.source_type && (
-        <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginBottom: 12 }}>
+        <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 12 }}>
           📌 {submission.source_type}{submission.source_ref ? `, ${submission.source_ref.slice(0, 60)}` : ''}
         </div>
       )}
@@ -463,7 +463,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                       }}
                     >
                       <span style={{
-                        fontFamily: 'JetBrains Mono, monospace',
+                        fontFamily: 'var(--vmx-mono)',
                         marginRight: 8,
                         color: isCorrect ? 'var(--clr-sage)' : 'var(--clr-ink-soft)',
                         fontWeight: isCorrect ? 600 : 400,
@@ -472,7 +472,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                       </span>
                       {opt}
                       {isCorrect && (
-                        <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'JetBrains Mono, monospace' }}>
+                        <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)' }}>
                           ← คำตอบ
                         </span>
                       )}
@@ -498,7 +498,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
             <>
               <div style={sectionLabelStyle}>แหล่งที่มา + บันทึก contributor</div>
               <div style={{ fontSize: 12, lineHeight: 1.7, color: 'var(--clr-ink-soft)', marginBottom: 14, padding: 12, background: 'var(--clr-bg)', borderRadius: 8 }}>
-                {submission.source_type && <div style={{ fontFamily: 'JetBrains Mono, monospace', marginBottom: 4 }}>type: {submission.source_type}</div>}
+                {submission.source_type && <div style={{ fontFamily: 'var(--vmx-mono)', marginBottom: 4 }}>type: {submission.source_type}</div>}
                 {submission.source_ref && <div style={{ marginBottom: submission.contributor_note ? 6 : 0 }}>📌 {submission.source_ref}</div>}
                 {submission.contributor_note && <div style={{ fontStyle: 'italic' }}>💬 {submission.contributor_note}</div>}
               </div>
@@ -576,7 +576,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                 />
               )}
               {voteError && (
-                <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-rose)', padding: '6px 10px', background: 'var(--clr-rose-soft)', borderRadius: 6 }}>
+                <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-rose-text)', padding: '6px 10px', background: 'var(--clr-rose-soft)', borderRadius: 6 }}>
                   ⚠️ {voteError}
                 </div>
               )}
@@ -657,7 +657,7 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
         autoFocus
       />
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, gap: 8, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 11, color: feedback.trim().length >= FEEDBACK_MIN_CHARS ? 'var(--clr-sage)' : 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+        <span style={{ fontSize: 11, color: feedback.trim().length >= FEEDBACK_MIN_CHARS ? 'var(--clr-sage)' : 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
           {feedback.trim().length}/{FEEDBACK_MIN_CHARS}+ chars
         </span>
         <div style={{ display: 'flex', gap: 6 }}>
@@ -692,8 +692,8 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
 function PastReviewRow({ review }) {
   const verdictMeta = {
     approve: { icon: '✅', label: 'Approved', color: 'var(--clr-sage)' },
-    nudge: { icon: '✏️', label: 'Nudge', color: 'var(--clr-gold)' },
-    reject: { icon: '❌', label: 'Rejected', color: 'var(--clr-rose)' },
+    nudge: { icon: '✏️', label: 'Nudge', color: 'var(--clr-gold-text)' },
+    reject: { icon: '❌', label: 'Rejected', color: 'var(--clr-rose-text)' },
   }[review.verdict] || { icon: '?', label: review.verdict, color: 'var(--clr-ink-soft)' };
 
   return (
@@ -703,11 +703,11 @@ function PastReviewRow({ review }) {
           {verdictMeta.icon} {verdictMeta.label}
         </span>
         {review.is_palm_review && (
-          <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: 'rgba(167, 61, 74, 0.15)', color: 'var(--clr-rose)', fontFamily: 'JetBrains Mono, monospace' }}>
+          <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: 'rgba(167, 61, 74, 0.15)', color: 'var(--clr-rose-text)', fontFamily: 'var(--vmx-mono)' }}>
             👑 Palm
           </span>
         )}
-        <span style={{ marginLeft: 'auto', fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+        <span style={{ marginLeft: 'auto', fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
           {formatRelativeTime(review.created_at)}
         </span>
       </div>
@@ -732,7 +732,7 @@ function FounderStat({ label, value, color, small }) {
       textAlign: 'center',
       border: '1px solid var(--clr-border)',
     }}>
-      <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', letterSpacing: '0.05em', marginBottom: 3 }}>
+      <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.05em', marginBottom: 3 }}>
         {label}
       </div>
       <div style={{
@@ -820,13 +820,13 @@ const chipStyle = {
   borderRadius: 999,
   background: 'var(--clr-surface-2)',
   fontSize: 11,
-  fontFamily: 'JetBrains Mono, monospace',
+  fontFamily: 'var(--vmx-mono)',
   color: 'var(--clr-ink-soft)',
 };
 
 const sectionLabelStyle = {
   fontSize: 10,
-  fontFamily: 'JetBrains Mono, monospace',
+  fontFamily: 'var(--vmx-mono)',
   color: 'var(--clr-ink-soft)',
   letterSpacing: '0.08em',
   textTransform: 'uppercase',

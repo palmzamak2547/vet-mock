@@ -130,7 +130,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
 
   return (
     <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.04)', border: '1px solid var(--clr-border)' }}>
-      <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
         ความเห็น {comments.length > 0 && `(${comments.length})`}
       </div>
 
@@ -153,7 +153,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <span style={{ fontSize: 14 }}>{avatar}</span>
                   <span style={{ fontSize: 12, fontWeight: 600 }}>{author}</span>
-                  <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>{fmtTime(c.created_at)}</span>
+                  <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{fmtTime(c.created_at)}</span>
                   {mine && (
                     <button
                       type="button"

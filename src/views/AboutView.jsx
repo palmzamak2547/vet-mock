@@ -181,7 +181,7 @@ export default function AboutView({ goHome, setView }) {
       {/* Tech */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
         <h3>Tech Stack</h3>
-        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7, fontFamily: 'JetBrains Mono, monospace' }}>
+        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7, fontFamily: 'var(--vmx-mono)' }}>
           Frontend: React 18 + Vite (lazy-loaded views, manual chunks)<br/>
           Backend: Supabase Postgres + Auth (lazy-loaded — โหลดเฉพาะตอน Login)<br/>
           Hosting: Vercel + 6 serverless functions<br/>

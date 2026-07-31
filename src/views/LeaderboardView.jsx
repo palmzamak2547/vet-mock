@@ -111,7 +111,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                 padding: '6px 14px',
                 borderRadius: 999,
                 fontSize: 12,
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'var(--vmx-mono)',
                 fontWeight: yearScope === opt.id ? 700 : 500,
                 background: yearScope === opt.id ? 'var(--clr-sage)' : 'transparent',
                 color: yearScope === opt.id ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
@@ -151,7 +151,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                     {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
                     {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
-                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>
+                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                     {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
                     {r.attempts > 1 && (
                       <span title={`ทำ ${r.attempts} ครั้ง, แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 10 }}>
@@ -161,8 +161,8 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                   </div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 24, color: r.pct >= 80 ? 'var(--clr-sage)' : r.pct >= 60 ? 'var(--clr-gold)' : 'var(--clr-rose)' }}>{r.pct}%</div>
-                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>{r.correct}/{r.total}</div>
+                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 24, color: r.pct >= 80 ? 'var(--clr-sage)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
+                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{r.correct}/{r.total}</div>
                 </div>
               </div>
             </div>

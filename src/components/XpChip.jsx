@@ -68,7 +68,7 @@ export default function XpChip() {
           background: 'rgba(74, 107, 74, 0.10)',
           border: '1px solid var(--clr-sage, #4a6b4a)',
           fontSize: 13,
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-sage, #4a6b4a)',
           lineHeight: 1.1,
         }}
@@ -121,7 +121,7 @@ export default function XpChip() {
             boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
             minWidth: DROPDOWN_MIN_W,
             maxWidth: 'calc(100vw - 24px)',
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             fontSize: 12,
             color: 'var(--clr-ink)',
             lineHeight: 1.5,

@@ -35,13 +35,13 @@ function MilestoneRow({ m }) {
       }}
     >
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline' }}>
-        <span style={{ fontSize: 10.5, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
+        <span style={{ fontSize: 10.5, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
           {KIND_LABEL[m.kind] || m.kind}
         </span>
         <strong style={{ fontSize: 13.5, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>
           {m.titleTh}
         </strong>
-        <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>
+        <span style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>
           {fmtThaiRange(m.start, m.end)}
         </span>
       </div>
@@ -100,12 +100,12 @@ function EventRow({ e }) {
       }}
     >
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline' }}>
-        <span style={{ fontSize: 10.5, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
+        <span style={{ fontSize: 10.5, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
           กิจกรรม
         </span>
         <strong style={{ fontSize: 13.5, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>{e.titleTh}</strong>
       </div>
-      <div style={{ marginTop: 5, fontSize: 12.5, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+      <div style={{ marginTop: 5, fontSize: 12.5, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
         {fmtThaiDate(e.date)}, {e.start}-{e.end} น., {e.location}
       </div>
       <div style={{ marginTop: 4, fontSize: 12.5, fontWeight: 600, color: soon ? 'var(--clr-gold-text)' : 'var(--clr-ink-soft)' }}>
@@ -189,7 +189,7 @@ export default function AcademicCalendar({ year = 5 }) {
         <div style={{ marginTop: 14, padding: '13px 15px', borderRadius: 'var(--r-md, 12px)', background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--clr-ink)', marginBottom: 6 }}>
             ลงทะเบียนทั้งชุดด้วยรหัสกลุ่ม{' '}
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage-text)' }}>{group.groupCode}</span>
+            <span style={{ fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)' }}>{group.groupCode}</span>
           </div>
           <div style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.65 }}>
             {group.howTo}

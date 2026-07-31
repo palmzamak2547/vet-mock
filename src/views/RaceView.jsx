@@ -270,14 +270,14 @@ export default function RaceView({ goHome, setView, user, profile }) {
         <BackBar onBack={() => { setCode(''); setParticipants({}); setIsHost(false); }} label="กลับ Lobby" />
         <div className="vmx-hero"><h1><em>Race</em> Code</h1></div>
         <div style={{ padding: 24, borderRadius: 12, background: 'var(--clr-surface-2)', textAlign: 'center', marginBottom: 16 }}>
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em' }}>RACE CODE</div>
-          <div style={{ fontSize: 44, letterSpacing: '0.18em', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, marginTop: 8, color: 'var(--clr-sage)' }}>{code}</div>
+          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>RACE CODE</div>
+          <div style={{ fontSize: 44, letterSpacing: '0.18em', fontFamily: 'var(--vmx-mono)', fontWeight: 700, marginTop: 8, color: 'var(--clr-sage)' }}>{code}</div>
           <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)' }}>ส่ง code นี้ให้เพื่อน, ทุกคนต้องอยู่ในห้องก่อนเริ่ม</div>
         </div>
 
         {isHost && (
           <div style={{ marginBottom: 16, padding: 12, borderRadius: 10, border: '1px solid var(--clr-border)' }}>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 8 }}>Host: ตั้งค่า</div>
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: 'var(--vmx-mono)', marginBottom: 8 }}>Host: ตั้งค่า</div>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 8 }}>
               <label style={{ fontSize: 13 }}>วิชา:</label>
               <select value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13 }}>
@@ -294,7 +294,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
           </div>
         )}
 
-        <div style={{ marginBottom: 8, fontSize: 12, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.05em' }}>ในห้อง ({Object.keys(participants).length})</div>
+        <div style={{ marginBottom: 8, fontSize: 12, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'var(--vmx-mono)', letterSpacing: '0.05em' }}>ในห้อง ({Object.keys(participants).length})</div>
         <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
           {Object.entries(participants).map(([k, p]) => (
             <li key={k} style={{ padding: '6px 10px', borderRadius: 8, background: 'var(--clr-surface)', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -322,7 +322,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         <ProgressBars myIdx={idx} myCorrect={correct} mySelf={profile} others={others} total={questions.length} />
         {q && (
           <div style={{ marginTop: 18 }}>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginBottom: 4 }}>Q{idx + 1} / {questions.length}</div>
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 4 }}>Q{idx + 1} / {questions.length}</div>
             <div style={{ fontSize: 16, lineHeight: 1.6, marginBottom: 14 }}><RichText text={q.q} /></div>
             <div className="vmx-options">
               {q.options.map((opt, i) => (
@@ -355,7 +355,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
               <span style={{ fontSize: 22 }}>{['🥇', '🥈', '🥉'][i] || `#${i + 1}`}</span>
               <span style={{ fontSize: 16 }}>{p.avatar}</span>
               <span style={{ flex: 1, fontWeight: p.user_id === user.id ? 700 : 400 }}>{p.username}{p.user_id === user.id && ' (คุณ)'}</span>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 14 }}>{p.correct}/{questions.length}, Q{p.idx}{!p.finished && ' (ยังไม่จบ)'}</span>
+              <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 14 }}>{p.correct}/{questions.length}, Q{p.idx}{!p.finished && ' (ยังไม่จบ)'}</span>
             </li>
           ))}
         </ol>
@@ -380,7 +380,7 @@ function JoinForm({ onJoin }) {
         onChange={(e) => setVal(e.target.value.toUpperCase())}
         placeholder="ใส่ code (เช่น A3K7Q)"
         maxLength={8}
-        style={{ flex: 1, padding: '8px 12px', borderRadius: 6, border: '1px solid var(--clr-border)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }}
+        style={{ flex: 1, padding: '8px 12px', borderRadius: 6, border: '1px solid var(--clr-border)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }}
       />
       <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={!val.trim()}>
         เข้าห้อง
@@ -394,7 +394,7 @@ function ProgressBars({ myIdx, myCorrect, mySelf, others, total }) {
     const pct = total > 0 ? (idx / total) * 100 : 0;
     return (
       <div style={{ marginBottom: 10 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 3, fontFamily: 'JetBrains Mono, monospace' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 3, fontFamily: 'var(--vmx-mono)' }}>
           <span style={{ fontWeight: isMe ? 700 : 400 }}>{name}{isMe && ' (คุณ)'}</span>
           <span>{correct}/{idx} ถูก, Q{idx}/{total}</span>
         </div>

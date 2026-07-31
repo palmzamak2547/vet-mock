@@ -173,7 +173,7 @@ function FabMenuItem({ icon, label, hint, onClick }) {
       <span style={{ fontSize: 20, lineHeight: 1, flex: '0 0 auto' }}>{icon}</span>
       <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>{label}</span>
-        <span style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>{hint}</span>
+        <span style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>{hint}</span>
       </span>
     </button>
   );

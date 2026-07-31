@@ -312,7 +312,7 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
         onClick={() => setOpen((v) => !v)}
         style={{ all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', width: '100%', boxSizing: 'border-box', background: 'var(--clr-surface)', borderBottom: open ? '1px solid var(--clr-border)' : 'none' }}
       >
-        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)' }}>
+        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)' }}>
           📄 {title || 'Reading Passage'}
         </span>
         {(highlights.length > 0 || strokes.length > 0) && (

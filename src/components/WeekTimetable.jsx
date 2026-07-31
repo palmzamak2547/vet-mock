@@ -51,7 +51,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent }) {
                   {DOW_TH[dow]}
                 </strong>
                 {isToday && (
-                  <span style={{ fontSize: 10.5, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage-text)', border: '1px solid var(--clr-sage)', borderRadius: 999, padding: '1px 7px' }}>
+                  <span style={{ fontSize: 10.5, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', border: '1px solid var(--clr-sage)', borderRadius: 999, padding: '1px 7px' }}>
                     วันนี้
                   </span>
                 )}
@@ -90,7 +90,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent }) {
                         background: isNow ? 'var(--clr-surface-2)' : 'transparent',
                       }}
                     >
-                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11.5, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>
+                      <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11.5, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>
                         {c.start}-{c.end}
                       </span>
                       <span style={{ minWidth: 0 }}>
@@ -100,7 +100,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent }) {
                             <span style={{ fontSize: 10.5, marginLeft: 6, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>LAB</span>
                           )}
                         </span>
-                        <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+                        <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
                           {c.code}, {c.room}
                         </span>
                       </span>

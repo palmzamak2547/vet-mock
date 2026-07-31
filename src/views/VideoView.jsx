@@ -291,7 +291,7 @@ export default function VideoView({ goHome }) {
               <div key={g.key} style={{ marginBottom: 12 }}>
                 <div style={{
                   fontSize: 11,
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontFamily: 'var(--vmx-mono)',
                   color: 'var(--clr-ink-soft)',
                   textTransform: 'uppercase',
                   letterSpacing: '0.08em',
@@ -373,7 +373,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
       >
         <ThumbnailWithPlayOverlay video={video} subject={subject} playlist={playlist} isChannel={isChannel} />
         <div style={{ padding: 14 }}>
-          <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: subject?.color || 'var(--clr-ink-soft)', textTransform: 'uppercase', marginBottom: 4, letterSpacing: '0.08em', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: subject?.color || 'var(--clr-ink-soft)', textTransform: 'uppercase', marginBottom: 4, letterSpacing: '0.08em', display: 'flex', alignItems: 'center', gap: 6 }}>
             <span>{subject?.icon} {subject?.name}</span>
             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>✓ ดูแล้ว</span>}
           </div>
@@ -427,13 +427,13 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
         </div>
         {/* Single video duration */}
         {!playlist && video.duration && (
-          <div style={{ position: 'absolute', bottom: 8, right: 8, padding: '2px 7px', background: 'rgba(0,0,0,0.85)', color: 'white', borderRadius: 4, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+          <div style={{ position: 'absolute', bottom: 8, right: 8, padding: '2px 7px', background: 'rgba(0,0,0,0.85)', color: 'white', borderRadius: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', fontWeight: 600 }}>
             {video.duration}
           </div>
         )}
         {/* Playlist count badge (top-left ribbon) */}
         {playlist && playlistPreview && (
-          <div style={{ position: 'absolute', top: 8, left: 8, padding: '3px 9px', background: 'rgba(0,0,0,0.78)', color: 'white', borderRadius: 6, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', fontWeight: 600, letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: 5 }}>
+          <div style={{ position: 'absolute', top: 8, left: 8, padding: '3px 9px', background: 'rgba(0,0,0,0.78)', color: 'white', borderRadius: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', fontWeight: 600, letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: 5 }}>
             PLAYLIST, {playlistPreview.count}
           </div>
         )}
@@ -450,7 +450,7 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
   return (
     <div style={{ width: '100%', aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white' }}>
       <div style={{ fontSize: 50 }}>{playlist ? '📋' : isChannel ? '📺' : '🎬'}</div>
-      <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.1em', fontWeight: 600 }}>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', letterSpacing: '0.1em', fontWeight: 600 }}>
         {playlist ? 'PLAYLIST' : isChannel ? 'CHANNEL' : 'VIDEO'}
       </div>
       {playlist && (
@@ -703,7 +703,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           <div style={{ flex: 1, minWidth: 200 }}>
             <h2 style={{ margin: 0, fontSize: 17, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>{video.topic}</h2>
             {playlistItems.length > 0 && (
-              <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginTop: 2 }}>
+              <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                 📋 {playlistItems.length} คลิป
                 {currentIdx >= 0 && <>, กำลังเล่น <strong>{currentIdx + 1} / {playlistItems.length}</strong></>}
               </div>
@@ -764,7 +764,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               <div style={{ marginTop: 14, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
                 <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goPrev} disabled={currentIdx <= 0} title="ก่อนหน้า (←)" style={{ padding: '6px 12px' }}>← Prev</button>
                 <div style={{ flex: 1, minWidth: 200 }}>
-                  <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                     Now playing, #{currentIdx + 1}
                   </div>
                   <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--clr-ink)', marginTop: 2 }}>
@@ -783,7 +783,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               <div style={{ marginTop: 14, padding: '10px 12px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
                 💡 <strong>ดึงรายการคลิปไม่ได้</strong> — playlist อาจรวมจากหลายช่อง<br/>
                 <span style={{ fontSize: 11 }}>
-                  คลิกปุ่ม <kbd style={{ padding: '1px 6px', background: 'var(--clr-bg)', borderRadius: 4, fontFamily: 'JetBrains Mono, monospace' }}>≡</kbd> ในเครื่องเล่น หรือ
+                  คลิกปุ่ม <kbd style={{ padding: '1px 6px', background: 'var(--clr-bg)', borderRadius: 4, fontFamily: 'var(--vmx-mono)' }}>≡</kbd> ในเครื่องเล่น หรือ
                   <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage)', marginLeft: 4, textDecoration: 'underline' }}>เปิดใน YouTube →</a>
                 </span>
               </div>
@@ -825,7 +825,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 }}>Copy link</button>
               )}
               <div style={{ flex: 1 }} />
-              <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', opacity: 0.7 }}>
+              <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', opacity: 0.7 }}>
                 ⌨ ← →, /, Esc
               </span>
             </div>
@@ -835,7 +835,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           {showList && playlistId && playlistItems.length > 0 && (
             <div className="vmx-player-sidebar" style={{ background: 'var(--clr-surface-2)', borderLeft: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', maxHeight: 'min(80vh, 700px)' }}>
               <div style={{ padding: '12px 14px', borderBottom: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'flex', justifyContent: 'space-between' }}>
                   <span>Playlist</span>
                   <span>{filteredItems.length}/{playlistItems.length}</span>
                 </div>
@@ -891,7 +891,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                           onError={(e) => { e.target.src = `https://img.youtube.com/vi/${item.id}/default.jpg`; }}
                         />
                         {item.duration && (
-                          <div style={{ position: 'absolute', bottom: 3, right: 3, padding: '0px 5px', background: 'rgba(0,0,0,0.85)', color: 'white', borderRadius: 3, fontSize: 10, fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+                          <div style={{ position: 'absolute', bottom: 3, right: 3, padding: '0px 5px', background: 'rgba(0,0,0,0.85)', color: 'white', borderRadius: 3, fontSize: 10, fontFamily: 'var(--vmx-mono)', fontWeight: 600 }}>
                             {item.duration}
                           </div>
                         )}
@@ -901,13 +901,13 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                       </div>
                       <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <div>
-                          <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', marginBottom: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
+                          <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginBottom: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
                             <span>#{realIdx + 1}</span>
                             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>✓</span>}
                             {hasSummary && (
                               <span
                                 title="มีสรุปคลิปแล้ว — คลิกเปิดเล่นคลิปเพื่ออ่าน"
-                                style={{ color: 'var(--clr-rose)', fontWeight: 700 }}
+                                style={{ color: 'var(--clr-rose-text)', fontWeight: 700 }}
                               >📝</span>
                             )}
                           </div>
@@ -931,7 +931,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
         {/* Loading state if list pending and no items */}
         {loadingList && playlistId && (
-          <div style={{ position: 'absolute', top: 70, right: 18, padding: '4px 10px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+          <div style={{ position: 'absolute', top: 70, right: 18, padding: '4px 10px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
             กำลังโหลด list...
           </div>
         )}
@@ -960,7 +960,7 @@ function AddEditModal({ form, setForm, save, onClose, editing }) {
             autoFocus
           />
           {form.url && (
-            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', marginTop: 6 }}>
+            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 6 }}>
               {getVideoId(form.url) && `✓ Video ID: ${getVideoId(form.url)}`}
               {!getVideoId(form.url) && getPlaylistId(form.url) && `Playlist ID: ${getPlaylistId(form.url)}`}
               {!getVideoId(form.url) && !getPlaylistId(form.url) && isChannelUrl(form.url) && `Channel link`}

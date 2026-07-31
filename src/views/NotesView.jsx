@@ -175,7 +175,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           {/* Subject switcher */}
           {availableSubjects.length > 1 && (
             <>
-              <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
                 วิชา
               </div>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
@@ -205,7 +205,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               </div>
             </>
           )}
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
             หัวข้อ
           </div>
           {topicIds.map((id) => {
@@ -233,7 +233,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
                   by Aj. {t.lecturer}
                 </div>
-                <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                   {t.sections.length} sections
                 </div>
               </button>
@@ -249,7 +249,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         {/* Main content */}
         <div ref={mainRef}>
           <div style={{ marginBottom: 16, padding: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}>
-            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
               Topic, by Aj. {topic.lecturer}
             </div>
             <h2 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 600 }}>
@@ -335,7 +335,7 @@ function SectionBlock({ section, idx, highlight }) {
         style={{ all: 'unset', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', width: '100%', boxSizing: 'border-box', borderBottom: open ? '1px solid var(--clr-border)' : 'none' }}
       >
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
+          <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
             §{idx + 1}
           </div>
           <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>
@@ -349,7 +349,7 @@ function SectionBlock({ section, idx, highlight }) {
         <div style={{ padding: '16px 20px', fontSize: 14, lineHeight: 1.65 }}>
           {section.body.map((item, i) => <BodyItem key={i} item={item} highlight={highlight} />)}
           {section.source && (
-            <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+            <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
               ดึงจาก: {section.source}
             </div>
           )}
@@ -398,7 +398,7 @@ function BodyItem({ item, highlight }) {
           <thead>
             <tr style={{ background: 'var(--clr-surface-2)' }}>
               {headers.map((h, i) => (
-                <th key={i} style={{ padding: '8px 10px', borderBottom: '1px solid var(--clr-border)', textAlign: 'left', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--clr-ink-soft)' }}>
+                <th key={i} style={{ padding: '8px 10px', borderBottom: '1px solid var(--clr-border)', textAlign: 'left', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--clr-ink-soft)' }}>
                   <RichText text={h} highlight={highlight} />
                 </th>
               ))}

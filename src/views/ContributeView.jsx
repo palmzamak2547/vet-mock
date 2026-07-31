@@ -43,7 +43,7 @@ function relTime(iso) {
 // ─── Shared styles (CSS-in-JS to stay in line with FeedbackView) ──
 const LABEL_STYLE = {
   display: 'block',
-  fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+  fontFamily: 'var(--vmx-mono)',
   fontSize: 11,
   letterSpacing: '0.06em',
   textTransform: 'uppercase',
@@ -51,7 +51,7 @@ const LABEL_STYLE = {
   marginBottom: 6,
 };
 const FIELD_WRAP = { marginBottom: 16 };
-const ERROR_TEXT = { fontSize: 12, color: 'var(--clr-rose)', marginTop: 4, lineHeight: 1.5 };
+const ERROR_TEXT = { fontSize: 12, color: 'var(--clr-rose-text)', marginTop: 4, lineHeight: 1.5 };
 const CARD_BASE = {
   padding: 16,
   borderRadius: 14,
@@ -229,11 +229,11 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           <span style={{ fontSize: 18 }}>{roleMeta.icon}</span>
           <span style={{ fontWeight: 600, color: roleMeta.color }}>{roleMeta.label}</span>
           <span style={{ width: 1, height: 16, background: 'var(--clr-border)' }} />
-          <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <span style={{ fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             score <strong style={{ color: 'var(--clr-ink)' }}>{rep?.score ?? 0}</strong>
           </span>
           <span style={{ width: 1, height: 16, background: 'var(--clr-border)' }} />
-          <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <span style={{ fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             approved <strong style={{ color: 'var(--clr-ink)' }}>{rep?.approved_count ?? 0}</strong>
           </span>
         </div>
@@ -466,7 +466,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
             />
             <div style={{
               display: 'flex', justifyContent: 'space-between',
-              fontSize: 10, fontFamily: '"JetBrains Mono", monospace',
+              fontSize: 10, fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace',
               color: 'var(--clr-ink-soft)', marginTop: 2,
             }}>
               <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
@@ -638,7 +638,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
                     <span style={{
                       marginLeft: 'auto', fontSize: 11,
                       color: 'var(--clr-ink-soft)',
-                      fontFamily: '"JetBrains Mono", monospace',
+                      fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace',
                     }}>
                       {relTime(s.created_at)}
                     </span>
@@ -646,7 +646,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
                   <div style={{ fontSize: 14, lineHeight: 1.5, marginBottom: 4 }}>
                     {preview || <em style={{ color: 'var(--clr-ink-soft)' }}>(no stem)</em>}
                   </div>
-                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: '"JetBrains Mono", monospace' }}>
+                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace' }}>
                     {s.subject || '—'}{s.topic ? `, ${s.topic}` : ''}
                   </div>
 
@@ -675,7 +675,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
                       </div>
                       <div style={{
                         fontSize: 11, color: 'var(--clr-ink-soft)',
-                        fontFamily: '"JetBrains Mono", monospace', lineHeight: 1.8,
+                        fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace', lineHeight: 1.8,
                       }}>
                         <div>created: {new Date(s.created_at).toLocaleString('th-TH')}</div>
                         {s.reviewed_at && <div>reviewed: {new Date(s.reviewed_at).toLocaleString('th-TH')}</div>}

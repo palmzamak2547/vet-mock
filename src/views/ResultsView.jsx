@@ -39,7 +39,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   ctx.font = '600 64px "Fraunces", Georgia, serif';
   ctx.textAlign = 'left';
   ctx.fillText('VetMock', 80, 180);
-  ctx.font = '500 28px "JetBrains Mono", monospace';
+  ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#6b6055';
   ctx.fillText(mode === 'exam' ? 'EXAM MODE' : 'PRACTICE', 80, 230);
 
@@ -52,7 +52,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
     ctx.font = '500 60px "Fraunces", serif';
     ctx.fillStyle = '#2b2419';
     ctx.fillText('Writing Practice', W / 2, 920);
-    ctx.font = '400 44px "JetBrains Mono", monospace';
+    ctx.font = '400 44px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
     ctx.fillStyle = '#6b6055';
     ctx.fillText(`${writingDone} / ${writingTotal}`, W / 2, 990);
   } else {
@@ -76,13 +76,13 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
     ctx.roundRect(pillX, pillY, pillW, pillH, 40);
     ctx.fill();
     ctx.fillStyle = '#4a6b4a';
-    ctx.font = '500 36px "JetBrains Mono", monospace';
+    ctx.font = '500 36px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
     ctx.fillText(subject.toUpperCase(), W / 2, 1135);
   }
 
   // Encouragement line — short Thai
   let msg = '';
-  if (isWritingOnly) msg = 'เขียนไปแล้ว, ลองดู AI feedback ใน VetMock';
+  if (isWritingOnly) msg = 'เขียนไปแล้ว, ไปดูเฉลยกันใน VetMock';
   else if (pct === 100) msg = 'เต็มทุกข้อ รักษาระดับนี้ไว้';
   else if (pct >= 80) msg = 'ใกล้แล้ว, อ่านอีกนิดเดียว';
   else if (pct >= 60) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
@@ -96,7 +96,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   ctx.font = '600 56px "Fraunces", serif';
   ctx.fillStyle = '#2b2419';
   ctx.fillText('vetmock.vercel.app', W / 2, 1700);
-  ctx.font = '500 40px "JetBrains Mono", monospace';
+  ctx.font = '500 40px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#b88940';
   ctx.fillText('📷 @vetmock.cu', W / 2, 1770);
 
@@ -239,9 +239,9 @@ export default function ResultsView({
   // pep-talk is misleading. Show a writing-specific message instead.
   const msg = autoQs.length === 0
     ? (writingAttempted === writingQs.length && writingQs.length > 0
-        ? '"เขียนครบทุกข้อแล้ว ✍️ ไปดูเฉลย / AI grade ได้เลย"'
+        ? '"เขียนครบทุกข้อแล้ว ✍️ ไปดูเฉลยแล้วให้คะแนนตัวเองได้เลย"'
         : writingAttempted > 0
-          ? '"เขียนได้ส่วนหนึ่งแล้ว ✍️ ลองดูเฉลย + AI feedback"'
+          ? '"เขียนได้ส่วนหนึ่งแล้ว ✍️ ลองไปดูเฉลยดู"'
           : '"ยังไม่ได้เขียนข้อไหนเลย — กลับไปลองอีกที 💪"')
     : score.pct === 100 ? '"เทพสุดๆ เก่งมากก 🏆"'
     : score.pct >= 80 ? '"โค้ดดดด ใกล้จะผ่านแล้ว อ่านอีกนิดนึง"'
@@ -262,7 +262,7 @@ export default function ResultsView({
       {(phaseLabel || selectedYear) && (
         <div style={{
           marginBottom: 12, display: 'flex', gap: 6, justifyContent: 'center',
-          fontFamily: 'JetBrains Mono, monospace', fontSize: 11,
+          fontFamily: 'var(--vmx-mono)', fontSize: 11,
           letterSpacing: '0.08em', color: 'var(--clr-ink-soft)',
         }}>
           <span style={{
@@ -274,12 +274,12 @@ export default function ResultsView({
         </div>
       )}
       {showPassFail && (
-        <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
+        <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'var(--vmx-mono)', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
           {passed ? 'ผ่านเกณฑ์' : 'ยังไม่ผ่านเกณฑ์'}, โหมดสอบ
         </div>
       )}
       {isExam && autoQs.length === 0 && writingQs.length > 0 && (
-        <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-gold)' }}>
+        <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'var(--vmx-mono)', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-gold-text)' }}>
           ชุดข้อเขียน, รอตรวจให้คะแนน
         </div>
       )}
@@ -288,7 +288,7 @@ export default function ResultsView({
           marginBottom: 16, padding: '10px 16px', borderRadius: 12,
           background: 'linear-gradient(135deg, rgba(184,137,64,0.18), rgba(184,137,64,0.10))',
           border: '1px solid var(--clr-gold)', textAlign: 'center',
-          fontFamily: 'JetBrains Mono, monospace', fontSize: 13, letterSpacing: '0.05em',
+          fontFamily: 'var(--vmx-mono)', fontSize: 13, letterSpacing: '0.05em',
           color: 'var(--clr-gold, #b88940)', fontWeight: 700,
         }}>
           สถิติใหม่ของคุณ {personalBest.pct}% (เดิม {personalBest.prev}%)
@@ -306,7 +306,7 @@ export default function ResultsView({
           </>
         ) : (
           <>
-            <h2 className="vmx-score-big" style={{ color: 'var(--clr-gold)' }}>
+            <h2 className="vmx-score-big" style={{ color: 'var(--clr-gold-text)' }}>
               ✍️
             </h2>
             <div className="vmx-score-label">Writing Practice Done</div>
@@ -314,7 +314,7 @@ export default function ResultsView({
           </>
         )}
         {writingQs.length > 0 && autoQs.length > 0 && (
-          <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 12, color: 'var(--clr-ink)', fontFamily: 'JetBrains Mono, monospace' }}>
+          <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 12, color: 'var(--clr-ink)', fontFamily: 'var(--vmx-mono)' }}>
             ✍️ มีข้อเขียน {writingQs.length} ข้อ — ตรวจใน "ดูเฉลย" (Self / 🤖 AI)
           </div>
         )}
@@ -327,11 +327,11 @@ export default function ResultsView({
           <div className="vmx-stat-lbl">Correct</div>
         </div>
         <div className="vmx-stat-card">
-          <div className="vmx-stat-num" style={{ color: 'var(--clr-rose)' }}>{wrongCount}</div>
+          <div className="vmx-stat-num" style={{ color: 'var(--clr-rose-text)' }}>{wrongCount}</div>
           <div className="vmx-stat-lbl">Wrong</div>
         </div>
         <div className="vmx-stat-card">
-          <div className="vmx-stat-num" style={{ color: 'var(--clr-gold)' }}>{skipCount}</div>
+          <div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{skipCount}</div>
           <div className="vmx-stat-lbl">Skipped</div>
         </div>
         {writingQs.length > 0 && (
@@ -458,7 +458,7 @@ function NextPlayPanel({
     return (
       <div className="vmx-btn-row" style={{ flexWrap: 'wrap', marginTop: 16 }}>
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>← กลับหน้าแรก</button>
-        <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>ดูเฉลย + AI grade →</button>
+        <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>ดูเฉลย + ให้คะแนนข้อเขียน →</button>
         <ShareQuizButton questions={questions} />
       </div>
     );
@@ -547,7 +547,7 @@ function NextPlayPanel({
               <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 แก้ข้อที่ผิด {wrongQs.length} ข้อ ทันที
               </div>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 ทำซ้ำเฉพาะข้อในรอบนี้ที่ตอบผิด
               </div>
             </div>
@@ -586,7 +586,7 @@ function NextPlayPanel({
               <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 {continueLabel.replace('🚀 ', '')}
               </div>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 {continueSub}
               </div>
             </div>
@@ -721,7 +721,7 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
     }}>
       <div style={{
         fontSize: 11,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--vmx-mono)',
         color: 'var(--clr-gold, #b88940)',
         textTransform: 'uppercase',
         letterSpacing: '0.08em',
@@ -779,7 +779,7 @@ function ShareQuizButton({ questions }) {
       title="แชร์ชุดโจทย์นี้ให้เพื่อน — เปิดลิงก์แล้วได้ข้อเดียวกัน เรียงเดียวกัน"
     >
       แชร์ชุดนี้
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'JetBrains Mono, monospace' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
     </button>
   );
 }
@@ -845,7 +845,7 @@ function ChallengeQuizButton({ questions, label = 'ท้าเพื่อน�
       title="แชร์ลิงก์ชุดโจทย์ + ข้อความท้าทาย — เพื่อนเปิดลิงก์แล้วทำชุดเดียวกัน"
     >
       {label}
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'JetBrains Mono, monospace' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
     </button>
   );
 }
@@ -896,7 +896,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
       title="ส่งลิงก์ชุดโจทย์เข้ากลุ่ม LINE / IG / chat"
     >
       ส่งเข้ากลุ่ม
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'JetBrains Mono, monospace' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
     </button>
   );
 }
@@ -948,7 +948,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
     }}>
       <div style={{
         fontSize: 11,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--vmx-mono)',
         color: verdictMeta.color,
         textTransform: 'uppercase',
         letterSpacing: '0.08em',
@@ -980,7 +980,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
           padding: 10,
           borderRadius: 10,
           background: 'rgba(0,0,0,0.04)',
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
           fontSize: 12,
         }}>
           <div>
@@ -1081,7 +1081,7 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
         </button>
       </div>
       {hint && (
-        <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', fontFamily: 'JetBrains Mono, monospace' }}>
+        <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', fontFamily: 'var(--vmx-mono)' }}>
           {hint}
         </div>
       )}

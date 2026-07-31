@@ -43,7 +43,7 @@ export default function DomainDetailView({
           <span style={{ fontSize: 28 }}>🩺</span>
           <div>
             <h1 style={{ margin: 0, fontSize: 24, fontFamily: 'Fraunces, Georgia, serif' }}>{domain.name}</h1>
-            <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+            <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
               Slug: <code>{domain.slug}</code>
             </div>
           </div>
@@ -63,17 +63,17 @@ export default function DomainDetailView({
         >
           <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>Published Qs</div>
-            <div style={{ fontSize: 20, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>{questionCount}</div>
+            <div style={{ fontSize: 20, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>{questionCount}</div>
           </div>
           <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>Mastery</div>
-            <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--clr-sage)', fontFamily: 'JetBrains Mono, monospace' }}>
+            <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)' }}>
               {userProgress.masteryPercent}%
             </div>
           </div>
           <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>XP Earned</div>
-            <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--clr-gold)', fontFamily: 'JetBrains Mono, monospace' }}>
+            <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)' }}>
               ⚡ {userProgress.xp}
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function DomainDetailView({
               borderRadius: 12,
               background: 'rgba(194, 109, 109, 0.1)',
               border: '1px solid var(--clr-rose)',
-              color: 'var(--clr-rose)',
+              color: 'var(--clr-rose-text)',
               textAlign: 'center',
             }}
           >

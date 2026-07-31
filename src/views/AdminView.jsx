@@ -28,11 +28,11 @@ export default function AdminView({ user, onBack, initialTab = 'domains' }) {
   if (!isAdmin) {
     return (
       <div style={{ maxWidth: 600, margin: '40px auto', padding: 24, textAlign: 'center', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 12 }}>
-        <h2 style={{ color: 'var(--clr-rose)', margin: '0 0 12px 0' }}>Access Denied</h2>
+        <h2 style={{ color: 'var(--clr-rose-text)', margin: '0 0 12px 0' }}>Access Denied</h2>
         <p style={{ color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
           คุณไม่มีสิทธิ์เข้าถึงส่วนผู้ดูแลระบบ (Admin authorization required).
         </p>
-        <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+        <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
           {/* TODO: Configure Clerk publicMetadata.role = 'admin' or database roles in production */}
           TODO: Configure production-grade Clerk/Supabase admin roles.
         </div>

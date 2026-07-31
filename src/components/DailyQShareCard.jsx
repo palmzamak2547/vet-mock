@@ -76,7 +76,7 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
   ctx.font = '600 64px "Fraunces", Georgia, serif';
   ctx.textAlign = 'left';
   ctx.fillText('VetMock', 80, 180);
-  ctx.font = '500 32px "JetBrains Mono", monospace';
+  ctx.font = '500 32px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#6b6055';
   ctx.fillText('ข้อวันนี้, DAILY Q', 80, 230);
 
@@ -133,7 +133,7 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
   ctx.font = '600 56px "Fraunces", serif';
   ctx.fillStyle = '#2b2419';
   ctx.fillText('vetmock.vercel.app', W / 2, 1700);
-  ctx.font = '500 40px "JetBrains Mono", monospace';
+  ctx.font = '500 40px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#b88940';
   ctx.fillText('📷 @vetmock.cu', W / 2, 1770);
 
@@ -313,7 +313,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
         style={{ maxWidth: 480, paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }}
       >
         <div style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             แชร์ผลลัพธ์, DAILY Q
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>{formatThaiShortDate(todayDate)}</h2>
@@ -363,7 +363,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
               borderRadius: 14,
               background: 'linear-gradient(135deg, rgba(253,246,233,0.6), rgba(221,230,220,0.6))',
               border: '1px dashed var(--clr-border, rgba(0,0,0,0.12))',
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               fontSize: 14,
               lineHeight: 1.7,
               color: 'var(--clr-ink)',
@@ -399,7 +399,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
         )}
 
         {/* Stats summary */}
-        <div style={{ marginTop: 12, display: 'flex', gap: 8, fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', flexWrap: 'wrap' }}>
+        <div style={{ marginTop: 12, display: 'flex', gap: 8, fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', flexWrap: 'wrap' }}>
           <span>✓ {correct} ถูก</span>
           <span>, เล่นไป {completed}/{history.length} วัน</span>
           {streak > 0 && <span>, streak {streak}</span>}
@@ -451,7 +451,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
               marginTop: 10,
               fontSize: 12,
               color: 'var(--clr-sage, #4a6b4a)',
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               textAlign: 'center',
             }}
           >

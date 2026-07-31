@@ -129,7 +129,7 @@ function QuestCard({ quest, compact, onStart }) {
           <span
             style={{
               fontSize: 11,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               color: 'var(--clr-sage, #4a6b4a)',
               flexShrink: 0,
             }}
@@ -165,7 +165,7 @@ function QuestCard({ quest, compact, onStart }) {
             fontSize: 11,
             color: 'var(--clr-ink-soft)',
             marginTop: 4,
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
           }}
         >
           {quest.progress} / {quest.target}
@@ -195,7 +195,7 @@ function QuestCard({ quest, compact, onStart }) {
             color: 'white',
             fontSize: 13,
             fontWeight: 700,
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -221,7 +221,7 @@ function QuestCard({ quest, compact, onStart }) {
             color: 'var(--clr-sage, #4a6b4a)',
             fontSize: 12,
             fontWeight: 600,
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -241,7 +241,7 @@ function QuestCard({ quest, compact, onStart }) {
             padding: '6px 10px',
             fontSize: 11,
             color: 'var(--clr-ink-soft)',
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             flexShrink: 0,
           }}
         >
@@ -296,7 +296,7 @@ function BonusCard({ bonus, compact }) {
           color: 'white',
           fontSize: 13,
           fontWeight: 700,
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
           flexShrink: 0,
         }}
       >
@@ -356,7 +356,7 @@ export default function QuestsPanel({ compact = false, onStart }) {
           style={{
             margin: 0,
             fontSize: 14,
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             color: 'var(--clr-ink)',
             letterSpacing: '0.04em',
             textTransform: 'uppercase',
@@ -368,7 +368,7 @@ export default function QuestsPanel({ compact = false, onStart }) {
           style={{
             fontSize: 11,
             color: 'var(--clr-ink-soft)',
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
           }}
         >
           {claimedCount}/{quests.length} เสร็จ
@@ -403,7 +403,7 @@ export default function QuestsPanel({ compact = false, onStart }) {
           >
             <div style={{ fontSize: 20, flexShrink: 0 }} aria-hidden>👉</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage, #4a6b4a)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+              <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage, #4a6b4a)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
                 ทำต่อ quest ถัดไป
               </div>
               <div style={{ fontSize: 13, fontWeight: 600, marginTop: 2, color: 'var(--clr-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -427,7 +427,7 @@ export default function QuestsPanel({ compact = false, onStart }) {
                 color: 'white',
                 fontSize: 12,
                 fontWeight: 700,
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'var(--vmx-mono)',
                 flexShrink: 0,
               }}
             >
@@ -442,7 +442,7 @@ export default function QuestsPanel({ compact = false, onStart }) {
               fontSize: 11,
               color: 'var(--clr-ink-soft)',
               textAlign: 'center',
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               padding: '6px 0',
             }}
           >

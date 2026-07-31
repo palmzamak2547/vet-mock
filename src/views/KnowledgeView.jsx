@@ -211,7 +211,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
         className="vmx-fill-input"
         style={{ width: '100%', marginBottom: 8, boxSizing: 'border-box' }}
       />
-      <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 18, fontFamily: 'JetBrains Mono, monospace' }}>
+      <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 18, fontFamily: 'var(--vmx-mono)' }}>
         {query ? `${shown} / ${total} หัวข้อ` : `${total} หัวข้อ`}
       </div>
 
@@ -225,7 +225,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
           <section key={subjectId} style={{ marginBottom: 26 }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, paddingBottom: 7, marginBottom: 10, borderBottom: '1px solid var(--clr-border)' }}>
               <h2 style={{ fontFamily: 'Fraunces, serif', fontSize: 17, margin: 0 }}>{subjectName(subjectId)}</h2>
-              {meta?.code && <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{meta.code}</span>}
+              {meta?.code && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{meta.code}</span>}
             </div>
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
               {list.map((t) => (
@@ -312,7 +312,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       <h1 style={{ fontFamily: 'Fraunces, serif', fontSize: 28, margin: '0 0 8px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{knowledge.title}</h1>
 
       {/* Metadata line */}
-      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', marginBottom: 14 }}>
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 14 }}>
         {knowledge.lecturer && <span>บรรยาย: {knowledge.lecturer}</span>}
         <span>{knowledge.sections.length} หัวข้อย่อย</span>
         {prov?.verifiedClaimCount > 0 && <span style={{ color: 'var(--clr-sage-text)' }}>ตรวจทานแล้ว {prov.verifiedClaimCount} จุด</span>}
@@ -348,7 +348,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       {/* Table of contents */}
       {knowledge.sections.length > 2 && (
         <nav aria-label="สารบัญ" style={{ marginBottom: 22, padding: '14px 16px', borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 8 }}>สารบัญ</div>
+          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 8 }}>สารบัญ</div>
           <ol style={{ margin: 0, paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 3 }}>
             {knowledge.sections.map((s) => (
               <li key={s.id}>
@@ -397,7 +397,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       {/* Related topics in the same subject */}
       {related.length > 0 && (
         <section style={{ marginTop: 34, paddingTop: 16, borderTop: '1px solid var(--clr-border)' }}>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 8 }}>ดูเพิ่มใน {subjectName(current.subject)}</div>
+          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 8 }}>ดูเพิ่มใน {subjectName(current.subject)}</div>
           <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             {related.map((r) => (
               <li key={r.id}>

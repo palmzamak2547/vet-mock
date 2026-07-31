@@ -36,6 +36,7 @@ import NextActionCard from '../components/NextActionCard.jsx';
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
 import FeatureMenu from '../components/FeatureMenu.jsx';
+import { truncateThai } from '../lib/thai-text.js';
 // QuestsPanel — Duolingo-style daily quests. Lazy because most users
 // won't need it on first paint, and it pulls in quests + xp libs
 // (~15KB combined). Mounted under the streak chip row.
@@ -392,6 +393,24 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const showChangelogChip = showAnnouncement && bannerWinner !== 'announcement';
   const [forceChangelogOpen, setForceChangelogOpen] = useState(false);
 
+  // Whether the quick-action chip row has anything to show.
+  // ⚠️ This MUST list every child of .vmx-home-quick-actions. The condition
+  // used to live inline at the render site, 400 lines below the chips it
+  // gated, and drifted: the schedule chips were added later and never got
+  // added here, so a student with no history saw today's class and the
+  // tuition deadline only while the changelog chip happened to be showing —
+  // dismiss the changelog and all of it vanished at once.
+  const hasQuickChips = Boolean(
+    freezeNotice
+    || quickStats.streak > 0
+    || (allQuestionsPool > 0 && history.length > 0)
+    || quickStats.wrongCount > 0
+    || nextClassToday
+    || nextEvent
+    || topMilestone
+    || showChangelogChip,
+  );
+
   // ─── Phase 6 (2026-05-18) — eager-prefetch downstream chunks ────
   // ExamView, ResultsView, ReviewView are lazy-loaded. On first click
   // of "ฝึก 1 ข้อด่วน" we hit a chunk-fetch round trip (~50-500ms cold).
@@ -669,7 +688,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap',
         }}>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
               สอบถัดไป
             </div>
             <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18, marginTop: 2 }}>
@@ -681,15 +700,15 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           </div>
           <div style={{ textAlign: 'right' }}>
             {countdown ? (
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: countdown.kind === 'imminent' ? 22 : 26, lineHeight: 1.15, color: 'var(--clr-rose)' }}>
+              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: countdown.kind === 'imminent' ? 22 : 26, lineHeight: 1.15, color: 'var(--clr-rose-text)' }}>
                 {countdown.text}
               </div>
             ) : (
               <>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, color: nextExam.daysLeft <= 7 ? 'var(--clr-rose)' : 'var(--clr-ink)' }}>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, color: nextExam.daysLeft <= 7 ? 'var(--clr-rose-text)' : 'var(--clr-ink)' }}>
                   {nextExam.daysLeft}
                 </div>
-                <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'JetBrains Mono, monospace' }}>
+                <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'var(--vmx-mono)' }}>
                   days left
                 </div>
               </>
@@ -711,7 +730,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         >
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: 200 }}>
-              <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 อัปเดตใหม่, {fmtThaiDate(LATEST_CHANGELOG.date)}
               </div>
               <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, marginTop: 2, lineHeight: 1.3 }}>
@@ -784,7 +803,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 marginTop: 8,
                 fontSize: 12,
                 color: 'var(--clr-ink-soft)',
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'var(--vmx-mono)',
                 textDecoration: 'underline',
               }}
             >
@@ -796,7 +815,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         </div>
       )}
 
-      {(quickStats.streak > 0 || (allQuestionsPool > 0 && history.length > 0) || quickStats.wrongCount > 0 || showChangelogChip) && (
+      {hasQuickChips && (
         <div className="vmx-home-quick-actions" style={{
           display: 'flex',
           gap: 10,
@@ -880,7 +899,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               style={{
                 fontSize: 11,
                 color: 'var(--clr-ink-soft)',
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'var(--vmx-mono)',
                 marginLeft: 6,
               }}
             >
@@ -904,7 +923,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 background: 'rgba(167, 61, 74, 0.12)',
                 border: '1px solid #a73d4a',
                 fontSize: 13,
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'var(--vmx-mono)',
                 color: '#8a3340',
                 transition: 'transform 0.12s, background 0.15s',
               }}
@@ -928,11 +947,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
                 padding: '6px 12px', borderRadius: 999,
                 background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
-                fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage-text)',
+                fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)',
                 minHeight: 44, boxSizing: 'border-box',
               }}
             >
-              {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.start} น.`} {nextClassToday.title.length > 26 ? `${nextClassToday.title.slice(0, 26)}…` : nextClassToday.title}, {nextClassToday.room}
+              {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.start} น.`} {truncateThai(nextClassToday.title, 26)}, {nextClassToday.room}
             </button>
           )}
           {nextEvent && (
@@ -945,11 +964,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
                 padding: '6px 12px', borderRadius: 999,
                 background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold)',
-                fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-gold-text)',
+                fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-gold-text)',
                 minHeight: 44, boxSizing: 'border-box',
               }}
             >
-              {nextEvent.titleTh.replace(/^บริษัทนำ /, '').slice(0, 30)}
+              {truncateThai(nextEvent.titleTh.replace(/^บริษัทนำ /, ''), 30)}
               {', '}
               {nextEvent.daysLeft === 0 ? 'วันนี้' : nextEvent.daysLeft === 1 ? 'พรุ่งนี้' : `อีก ${nextEvent.daysLeft} วัน`}
             </button>
@@ -964,11 +983,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
                 padding: '6px 12px', borderRadius: 999,
                 background: 'rgba(194, 109, 109, 0.10)', border: '1px solid var(--clr-rose)',
-                fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-rose-text)',
+                fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-rose-text)',
                 minHeight: 44, boxSizing: 'border-box',
               }}
             >
-              {topMilestone.titleTh.length > 22 ? `${topMilestone.titleTh.slice(0, 22)}…` : topMilestone.titleTh}
+              {truncateThai(topMilestone.titleTh, 22)}
               {', '}
               {topMilestone.active
                 ? (topMilestone.daysLeftToEnd === 0 ? 'วันสุดท้ายวันนี้' : `เหลือ ${topMilestone.daysLeftToEnd} วัน`)
@@ -991,7 +1010,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 background: 'rgba(184, 137, 64, 0.10)',
                 border: '1px solid var(--clr-gold, #b88940)',
                 fontSize: 12,
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'var(--vmx-mono)',
                 color: 'var(--clr-gold-text, var(--clr-gold, #b88940))',
               }}
               title="ดูรายละเอียดอัปเดตล่าสุด"
@@ -1031,7 +1050,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               all: 'unset',
               cursor: 'pointer',
               fontSize: 11,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               color: 'var(--clr-ink-soft)',
               textDecoration: 'underline',
               textDecorationStyle: 'dotted',
@@ -1206,7 +1225,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 <div className="sub">
                   {weakTopicMeta ? (() => {
                     const cleaned = weakTopicMeta.label.replace(/^[\d\s.·\-]+/, '').trim();
-                    const label = cleaned.length > 24 ? `${cleaned.slice(0, 24)}…` : cleaned;
+                    const label = truncateThai(cleaned, 24);
                     return `${weakSubjMeta.name}, ${label}`;
                   })() : `${weakSubjMeta.name}, ${weakPct}% ถูก`}
                 </div>
@@ -1386,7 +1405,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           <div style={{ flex: 1, minWidth: 180 }}>
             <div style={{
               fontSize: 11,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               color: 'var(--clr-sage, #4a6b4a)',
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
@@ -1480,7 +1499,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           display: 'flex',
           justifyContent: 'center',
           fontSize: 12,
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-ink-soft)',
         }}>
           <button type="button" className="vmx-link-btn" onClick={() => setLastSeenChangelog(null)} style={linkStyle}>
@@ -1522,7 +1541,7 @@ function ScopeChip({ scope }) {
         background: meta.bg,
         color: meta.color,
         fontSize: 10,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--vmx-mono)',
         fontWeight: 600,
         verticalAlign: 'middle',
         whiteSpace: 'nowrap',
@@ -1549,9 +1568,9 @@ function FeedbackChip() {
         marginBottom: 2,
         borderRadius: 999,
         background: 'rgba(184, 137, 64, 0.15)',
-        color: 'var(--clr-gold)',
+        color: 'var(--clr-gold-text)',
         fontSize: 10,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--vmx-mono)',
         fontWeight: 600,
         verticalAlign: 'middle',
         whiteSpace: 'nowrap',
@@ -1663,7 +1682,7 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
             {s.name_en && s.name_en.toLowerCase() !== s.name.toLowerCase() && (
               <div className="sub">{s.name_en}</div>
             )}
-            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes ? 'var(--clr-sage)' : 'var(--clr-rose)') }}>
+            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes ? 'var(--clr-sage)' : 'var(--clr-rose-text)') }}>
               {count > 0
                 ? `${count} ข้อ`
                 : s.has_notes
@@ -1769,7 +1788,7 @@ function DailyQRow({ user, setView }) {
         ข้อวันนี้{status.completed ? ' ✓' : ''}, {subj?.icon || ''} {subj?.name || todaysQ.subject}
       </button>
       {streak >= 2 && (
-        <span style={{ fontSize: 12, color: 'var(--clr-gold, #b88940)', fontFamily: 'JetBrains Mono, monospace' }}>
+        <span style={{ fontSize: 12, color: 'var(--clr-gold, #b88940)', fontFamily: 'var(--vmx-mono)' }}>
           daily streak {streak}
         </span>
       )}
@@ -1785,7 +1804,7 @@ function DailyQRow({ user, setView }) {
             background: 'rgba(93, 180, 211, 0.10)',
             border: '1px solid rgba(93, 180, 211, 0.5)',
             fontSize: 11,
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             color: '#3a8aa8',
           }}
         >
@@ -1935,7 +1954,7 @@ function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
                 cursor: 'pointer',
                 fontSize: 13,
                 color: 'var(--clr-ink-soft)',
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'var(--vmx-mono)',
                 padding: '8px 0',
               }}
             >
@@ -1971,7 +1990,7 @@ function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
 function KindPill({ kind }) {
   const styles = {
     feature: { bg: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-sage)', label: 'ใหม่' },
-    fix: { bg: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold)', label: 'แก้บั๊ก' },
+    fix: { bg: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold-text)', label: 'แก้บั๊ก' },
     content: { bg: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)', label: 'เพิ่มเนื้อหา' },
   };
   const s = styles[kind] || styles.content;
@@ -1984,7 +2003,7 @@ function KindPill({ kind }) {
         background: s.bg,
         color: s.color,
         fontSize: 10,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--vmx-mono)',
         fontWeight: 600,
         textTransform: 'uppercase',
         letterSpacing: '0.05em',

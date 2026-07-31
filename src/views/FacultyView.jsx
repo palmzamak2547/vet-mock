@@ -167,7 +167,7 @@ export default function FacultyView({ goHome }) {
       {/* Subject filter chip row */}
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8, alignItems: 'center' }}>
         <span style={{
-          fontSize: 10, fontFamily: 'JetBrains Mono, monospace',
+          fontSize: 10, fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
           letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
         }}>by subject</span>
@@ -195,7 +195,7 @@ export default function FacultyView({ goHome }) {
       {/* Department filter chip row */}
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
         <span style={{
-          fontSize: 10, fontFamily: 'JetBrains Mono, monospace',
+          fontSize: 10, fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
           letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
         }}>by dept</span>
@@ -236,7 +236,7 @@ export default function FacultyView({ goHome }) {
       {/* Result count */}
       <div style={{
         fontSize: 12,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--vmx-mono)',
         color: 'var(--clr-ink-soft)',
         textTransform: 'uppercase',
         letterSpacing: '0.08em',
@@ -317,7 +317,7 @@ function FacultyCard({ instructor, onClick }) {
               key={sid}
               style={{
                 fontSize: 10,
-                fontFamily: 'JetBrains Mono, monospace',
+                fontFamily: 'var(--vmx-mono)',
                 color: meta?.color || 'var(--clr-ink-soft)',
                 background: 'var(--clr-bg)',
                 padding: '2px 6px',
@@ -335,7 +335,7 @@ function FacultyCard({ instructor, onClick }) {
           <span
             style={{
               fontSize: 10,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               color: 'var(--clr-ink-soft)',
               background: 'var(--clr-surface-2)',
               padding: '2px 6px',
@@ -395,7 +395,7 @@ function FacultyCard({ instructor, onClick }) {
       {/* Paper count */}
       <div style={{
         fontSize: 11,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: 'var(--vmx-mono)',
         color: 'var(--clr-ink-soft)',
         marginTop: 4,
         display: 'flex',

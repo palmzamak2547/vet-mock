@@ -101,7 +101,7 @@ export default function ZoomableImage({ src, alt = 'ภาพประกอบ�
               transform: 'translateX(-50%)',
               fontSize: 12,
               color: 'rgba(255, 255, 255, 0.7)',
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               pointerEvents: 'none',
             }}
           >

@@ -106,7 +106,7 @@ export default function OSCEDrill({ onClose }) {
     <div className="vmx-modal-overlay" onClick={onClose} role="dialog" aria-label="OSCE Drill">
       <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 640, maxHeight: 'min(90vh, calc(100dvh - 24px))', overflowY: 'auto' }}>
         <div style={{ marginBottom: 12 }}>
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>OSCE Drill</div>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>OSCE Drill</div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>ฝึก station จับเวลา + checklist</h2>
         </div>
 
@@ -124,7 +124,7 @@ export default function OSCEDrill({ onClose }) {
                   style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4, padding: '12px 14px', height: 'auto' }}
                 >
                   <span style={{ fontSize: 18 }}>{s.icon} {s.title}</span>
-                  <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+                  <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
                     {s.items.length} ขั้น, {s.minutes} นาที {last ? `, last ${last.score}%` : ''}
                   </span>
                 </button>
@@ -137,7 +137,7 @@ export default function OSCEDrill({ onClose }) {
           <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
               <button type="button" onClick={() => pickStation(null)} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← เปลี่ยน station</button>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontFamily: 'JetBrains Mono, monospace', fontSize: 14 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontFamily: 'var(--vmx-mono)', fontSize: 14 }}>
                 <span>⏱ {fmtMs(elapsed)}</span>
                 <span style={{ color: 'var(--clr-ink-soft)' }}>/ {station.minutes}:00</span>
                 <span>,</span>
@@ -181,7 +181,7 @@ export default function OSCEDrill({ onClose }) {
                       <span style={{ flex: 1, fontSize: 13, lineHeight: 1.5, textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'var(--clr-ink-soft)' : 'var(--clr-ink)' }}>
                         {it.text}
                       </span>
-                      {critical && <span title="critical step — must hit" style={{ fontSize: 10, padding: '2px 6px', borderRadius: 999, background: 'var(--clr-gold, #b88940)', color: '#fff', fontFamily: 'JetBrains Mono, monospace', flexShrink: 0 }}>★ critical</span>}
+                      {critical && <span title="critical step — must hit" style={{ fontSize: 10, padding: '2px 6px', borderRadius: 999, background: 'var(--clr-gold, #b88940)', color: '#fff', fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>★ critical</span>}
                     </label>
                   </li>
                 );

@@ -358,7 +358,7 @@ function ConvertTab() {
 function Field({ label, value, onChange, placeholder, type = 'text', suffix }) {
   return (
     <div style={{ marginBottom: 12 }}>
-      <label style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+      <label style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
         {label}
       </label>
       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -379,7 +379,7 @@ function Field({ label, value, onChange, placeholder, type = 'text', suffix }) {
             fontFamily: 'inherit',
           }}
         />
-        {suffix && <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', minWidth: 30 }}>{suffix}</span>}
+        {suffix && <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', minWidth: 30 }}>{suffix}</span>}
       </div>
     </div>
   );
@@ -404,7 +404,7 @@ function Result({ label, value, accent }) {
         fontFamily: 'Fraunces, serif',
         fontWeight: accent ? 700 : 600,
         fontSize: accent ? 18 : 15,
-        color: accent ? 'var(--clr-rose)' : 'var(--clr-ink)',
+        color: accent ? 'var(--clr-rose-text)' : 'var(--clr-ink)',
       }}>{value}</span>
     </div>
   );
@@ -430,7 +430,7 @@ function Note({ children }) {
 function ChipRow({ label, options, value, onChange }) {
   return (
     <div style={{ marginBottom: 12 }}>
-      <label style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+      <label style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
         {label}
       </label>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -536,7 +536,7 @@ export default function VetCalculator({ showFab = true } = {}) {
             aria-label="Vet Calculator"
           >
             <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 Vet Calculator
               </div>
               <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>คำนวณคลินิก</h2>

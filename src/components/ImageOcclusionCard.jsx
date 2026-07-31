@@ -26,7 +26,7 @@ export default function ImageOcclusionCard({ q, showAnswer, onReveal }) {
   if (!q || !q.imageDataUrl) {
     return (
       <div style={{
-        padding: 24, textAlign: 'center', color: 'var(--clr-rose)',
+        padding: 24, textAlign: 'center', color: 'var(--clr-rose-text)',
       }}>
         Image occlusion card นี้ไม่สมบูรณ์
       </div>
@@ -122,7 +122,7 @@ export default function ImageOcclusionCard({ q, showAnswer, onReveal }) {
           color: 'var(--clr-ink-soft)',
           textAlign: 'center',
           marginBottom: 6,
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
         }}>
           🖼 {q.deckName}
         </div>
@@ -163,7 +163,7 @@ export default function ImageOcclusionCard({ q, showAnswer, onReveal }) {
           fontSize: 16,
           lineHeight: 1.45,
         }}>
-          {q.label && <div style={{ fontSize: 12, opacity: 0.75, fontFamily: 'JetBrains Mono, monospace', marginBottom: 4 }}>{q.label}</div>}
+          {q.label && <div style={{ fontSize: 12, opacity: 0.75, fontFamily: 'var(--vmx-mono)', marginBottom: 4 }}>{q.label}</div>}
           เฉลย: {q.answer || q.back || '(no answer)'}
         </div>
       ) : null}

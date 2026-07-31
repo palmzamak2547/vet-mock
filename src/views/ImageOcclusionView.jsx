@@ -333,7 +333,7 @@ function EditorBootstrap({ initial, onSave, onClose }) {
 
   if (error) {
     return (
-      <div style={{ padding: 40, textAlign: 'center', color: 'var(--clr-rose)' }}>
+      <div style={{ padding: 40, textAlign: 'center', color: 'var(--clr-rose-text)' }}>
         {error}
         <div style={{ marginTop: 12 }}>
           <button type="button" className="vmx-btn vmx-btn-ghost" onClick={onClose}>ปิด</button>

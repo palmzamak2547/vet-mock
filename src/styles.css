@@ -12,6 +12,16 @@
    ============================================================ */
 
 :root, [data-theme="light"] {
+  /* Monospace stack. JetBrains Mono has NO Thai glyphs, and it was named
+     directly in 359 places — including on chips and badges whose text is
+     Thai ("ปรนัย, แนวข้อสอบเก่า VCA"). Those characters fell through to
+     whatever generic `monospace` the OS picked, so Thai in these labels
+     rendered in a different face on Windows, Android and iOS, and never in
+     the one the design intends. Font fallback is per-glyph, so naming the
+     Thai face before the generic keeps digits and codes in JetBrains Mono
+     while Thai gets IBM Plex Sans Thai — which the page already loads. */
+  --vmx-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', ui-monospace, monospace;
+
   --clr-bg: #f6efe4;
   --clr-surface: #fdf8ef;
   --clr-surface-2: #f0e6d2;
@@ -283,6 +293,12 @@ html, body {
   /* Thai-first base font — so anything rendered at body level (modals,
      tooltips, portals) matches .vmx-app instead of the UA serif default. */
   font-family: 'Sarabun', 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
+  /* Thai needs more leading than Latin: สระ sit above the line and below it,
+     so at the UA default (`normal`, about 1.2) the marks of one line very
+     nearly touch the next. Components that need tight leading — icons,
+     buttons, the score numeral — already set their own line-height, so this
+     only reaches the prose that was inheriting the default. */
+  line-height: 1.65;
 }
 
 /* ============================================================
@@ -503,7 +519,7 @@ html, body {
 
 /* Saved-questions chip — icon + live count, rendered only when > 0. */
 .vmx-saved-btn { position: relative; gap: 4px; width: auto; min-width: var(--touch-min); padding: 0 10px; border-radius: var(--r-pill); }
-.vmx-saved-count { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; }
+.vmx-saved-count { font-family: var(--vmx-mono); font-size: 12px; font-weight: 600; }
 .vmx-theme-btn { width: 44px; height: 44px; min-width: 44px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-theme-btn:hover { border-color: var(--clr-ink); }
 .vmx-theme-btn:disabled { cursor: not-allowed; }
@@ -511,7 +527,7 @@ html, body {
 
 .vmx-cmdk-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 13px; color: var(--clr-ink-soft); transition: all 0.15s; font-family: inherit; }
 .vmx-cmdk-btn:hover { border-color: var(--clr-ink); color: var(--clr-ink); }
-.vmx-cmdk-kbd { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 6px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-bg); color: var(--clr-ink-soft); letter-spacing: 0.04em; }
+.vmx-cmdk-kbd { font-family: var(--vmx-mono); font-size: 10px; padding: 2px 6px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-bg); color: var(--clr-ink-soft); letter-spacing: 0.04em; }
 
 /* Mobile header — keeps everything visible by tightening spacing,
    shrinking icons, and hiding the streak chip (still in dashboard).
@@ -551,7 +567,7 @@ html, body {
 }
 
 .vmx-nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-.vmx-nav-btn { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--clr-border); background: transparent; font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--clr-ink-soft); cursor: pointer; transition: all 0.15s; }
+.vmx-nav-btn { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--clr-border); background: transparent; font-size: 12px; font-family: var(--vmx-mono); color: var(--clr-ink-soft); cursor: pointer; transition: all 0.15s; }
 .vmx-nav-btn:hover { border-color: var(--clr-ink); color: var(--clr-ink); }
 .vmx-nav-btn.active { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
 
@@ -653,7 +669,7 @@ html, body {
 .vmx-config-row:last-child { margin-bottom: 0; }
 .vmx-label { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: block; color: var(--clr-ink); }
 .vmx-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.vmx-chip { padding: 10px 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); border-radius: 999px; cursor: pointer; font-size: 13px; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; color: var(--clr-ink-soft); display: inline-flex; align-items: center; }
+.vmx-chip { padding: 10px 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); border-radius: 999px; cursor: pointer; font-size: 13px; font-family: var(--vmx-mono); transition: all 0.15s; color: var(--clr-ink-soft); display: inline-flex; align-items: center; }
 .vmx-chip:hover { border-color: var(--clr-ink); }
 .vmx-chip.active { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
 
@@ -789,9 +805,9 @@ html, body {
 .vmx-back-chip:hover .arrow { transform: translateX(-2px); }
 
 .vmx-exam-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.vmx-progress { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--clr-ink-soft); }
+.vmx-progress { font-family: var(--vmx-mono); font-size: 13px; color: var(--clr-ink-soft); }
 .vmx-progress strong { color: var(--clr-ink); font-size: 16px; }
-.vmx-timer { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 600; padding: 6px 14px; border-radius: 999px; background: var(--clr-surface); border: 1px solid var(--clr-border); color: var(--clr-ink); }
+.vmx-timer { font-family: var(--vmx-mono); font-size: 16px; font-weight: 600; padding: 6px 14px; border-radius: 999px; background: var(--clr-surface); border: 1px solid var(--clr-border); color: var(--clr-ink); }
 .vmx-timer.warn { background: var(--clr-rose); color: var(--clr-surface); border-color: var(--clr-rose); animation: pulse 1s infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
 .vmx-progress-bar { height: 3px; background: var(--clr-surface-2); border-radius: 999px; overflow: hidden; margin-bottom: 28px; }
@@ -833,7 +849,7 @@ html, body {
 .vmx-note-btn:hover { border-color: var(--clr-ocean); }
 .vmx-note-btn.has-note { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
 
-.vmx-qtype-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
+.vmx-qtype-badge { display: inline-block; font-family: var(--vmx-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
 .vmx-qtext { font-family: inherit; font-weight: 500; font-size: 17px; line-height: 1.55; margin: 0 0 24px; color: var(--clr-ink); }
 .vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; aspect-ratio: 4 / 3; object-fit: contain; background: var(--clr-surface-2); }
 
@@ -906,7 +922,7 @@ html, body {
 .vmx-tf-btn.selected-false { background: var(--clr-rose); color: var(--clr-surface); border-color: var(--clr-rose); }
 
 .vmx-fill-row { display: flex; flex-direction: column; gap: 12px; }
-.vmx-fill-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--clr-ink-soft); margin-bottom: 4px; }
+.vmx-fill-label { font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); margin-bottom: 4px; }
 .vmx-fill-input { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--clr-border); background: var(--clr-bg); font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 15px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-fill-input:focus { outline: none; border-color: var(--clr-ink); background: var(--clr-surface); }
 
@@ -922,7 +938,7 @@ html, body {
 .vmx-score-big { font-family: 'Fraunces', serif; font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
 .vmx-score-big.pass { color: var(--clr-sage); }
 .vmx-score-big.fail { color: var(--clr-rose); }
-.vmx-score-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--clr-ink-soft); margin: 8px 0 20px; }
+.vmx-score-label { font-family: var(--vmx-mono); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--clr-ink-soft); margin: 8px 0 20px; }
 .vmx-score-frac { font-size: 22px; font-weight: 600; color: var(--clr-ink); }
 .vmx-score-msg { font-family: 'Fraunces', serif; font-style: italic; font-size: 20px; color: var(--clr-ink-soft); margin-top: 16px; }
 
@@ -935,13 +951,13 @@ html, body {
 .vmx-review-item.correct { border-left: 4px solid var(--clr-sage); }
 .vmx-review-item.wrong { border-left: 4px solid var(--clr-rose); }
 .vmx-review-item.skipped { border-left: 4px solid var(--clr-gold); background: var(--clr-surface-2); }
-.vmx-review-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; flex-wrap: wrap; }
+.vmx-review-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; flex-wrap: wrap; }
 .vmx-review-result { font-weight: 700; }
 .vmx-review-result.ok { color: var(--clr-sage); }
 .vmx-review-result.no { color: var(--clr-rose); }
 .vmx-review-q { font-size: 15px; line-height: 1.5; margin-bottom: 12px; color: var(--clr-ink); }
 .vmx-review-ans { padding: 10px 14px; border-radius: 10px; margin-bottom: 8px; font-size: 13px; background: var(--clr-bg); color: var(--clr-ink); }
-.vmx-review-ans .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-right: 8px; }
+.vmx-review-ans .k { font-family: var(--vmx-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-right: 8px; }
 .vmx-review-ans.correct-ans { background: rgba(74, 107, 74, 0.1); border: 1px solid rgba(74, 107, 74, 0.2); }
 .vmx-review-explain { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--clr-surface-2); font-size: 13px; line-height: 1.5; color: var(--clr-ink-soft); border-left: 3px solid var(--clr-gold); }
 .vmx-review-explain .k { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; color: var(--clr-gold); margin-right: 8px; }
@@ -954,8 +970,8 @@ html, body {
 .vmx-bar-fill.mid { background: var(--clr-gold); }
 .vmx-bar-fill.low { background: var(--clr-rose); }
 .vmx-subj-row { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 13px; align-items: center; color: var(--clr-ink); }
-.vmx-subj-row .pct { font-family: 'JetBrains Mono', monospace; color: var(--clr-ink-soft); }
-.vmx-tag-pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--clr-ink-soft); margin: 3px; }
+.vmx-subj-row .pct { font-family: var(--vmx-mono); color: var(--clr-ink-soft); }
+.vmx-tag-pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 11px; font-family: var(--vmx-mono); color: var(--clr-ink-soft); margin: 3px; }
 .vmx-tag-pill.weak { background: var(--clr-rose-soft); border-color: var(--clr-rose); color: var(--clr-ink); }
 .vmx-empty { text-align: center; padding: 40px 20px; color: var(--clr-ink-soft); font-style: italic; }
 
@@ -963,7 +979,7 @@ html, body {
 .vmx-sr-btn { padding: 14px 8px; border-radius: 12px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-family: inherit; transition: all 0.15s; text-align: center; color: var(--clr-ink); }
 .vmx-sr-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .vmx-sr-btn .label { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; margin-bottom: 4px; }
-.vmx-sr-btn .sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--clr-ink-soft); letter-spacing: 0.05em; }
+.vmx-sr-btn .sub { font-family: var(--vmx-mono); font-size: 10px; color: var(--clr-ink-soft); letter-spacing: 0.05em; }
 .vmx-sr-btn.again { border-color: var(--clr-rose); }
 .vmx-sr-btn.again .label { color: var(--clr-rose); }
 .vmx-sr-btn.hard { border-color: var(--clr-gold); }
@@ -1071,7 +1087,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-footer-base { justify-content: flex-start; }
 }
 
-.vmx-kbd { display: inline-block; padding: 2px 6px; border-radius: 4px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--clr-ink-soft); }
+.vmx-kbd { display: inline-block; padding: 2px 6px; border-radius: 4px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); }
 
 /* Minimum touch targets — WCAG 2.5.5 mandates 44px floor.
    Palm round-3 audit 2026-05-20: these legacy values (36/40px) were
@@ -1289,7 +1305,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 .vmx-summary-body .vmx-md-table tbody tr:nth-child(2n) { background: rgba(0,0,0,0.02); }
 .vmx-summary-body .vmx-md-code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--vmx-mono);
   background: var(--clr-surface-2);
   padding: 2px 6px;
   border-radius: 4px;
@@ -1301,7 +1317,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
      biosynthesis pathways). Keep whitespace, monospace font, and let
      long lines scroll horizontally rather than wrap (preserves diagram
      alignment). */
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--vmx-mono);
   background: var(--clr-surface-2);
   border: 1px solid var(--clr-border);
   border-radius: 8px;
@@ -1507,7 +1523,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 
 .vmx-streak-today-count {
   font-size: 10px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--vmx-mono);
   color: var(--clr-sage);
   font-weight: 600;
   padding: 2px 6px;
@@ -1572,7 +1588,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-heatmap-total {
   font-size: 12px;
   color: var(--clr-gold);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--vmx-mono);
   font-weight: 600;
 }
 
@@ -1598,7 +1614,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   margin-top: 8px;
   font-size: 11px;
   color: var(--clr-ink-soft);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--vmx-mono);
 }
 
 .vmx-heatmap-legend-dot {

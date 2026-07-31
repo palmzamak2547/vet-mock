@@ -19,7 +19,7 @@ export default function DiagramLabelDrill({ onClose }) {
       <div className="vmx-modal-overlay" onClick={onClose} role="dialog" aria-label="Diagram label drill">
         <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 540 }}>
           <div style={{ marginBottom: 12 }}>
-            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Diagram label drill
             </div>
             <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>เลือก diagram ที่จะฝึก</h2>
@@ -37,7 +37,7 @@ export default function DiagramLabelDrill({ onClose }) {
                 style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4, padding: '12px 14px', height: 'auto', textAlign: 'left' }}
               >
                 <span style={{ fontSize: 18 }}>{d.icon} {d.title}</span>
-                <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace' }}>
+                <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
                   {d.anchors.length} จุดให้ label
                 </span>
               </button>
@@ -96,7 +96,7 @@ function DrillRunner({ drill, onBack, onClose }) {
       <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, maxHeight: '90vh', overflow: 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
           <button type="button" onClick={onBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← เปลี่ยน diagram</button>
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13 }}>
+          <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 13 }}>
             {correctCount}/{drill.anchors.length} ถูก
             {revealed && allDone && `, คะแนน ${scorePct}%`}
           </span>
@@ -134,7 +134,7 @@ function DrillRunner({ drill, onBack, onClose }) {
 
         {!revealed && (
           <>
-            <div style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+            <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
               {activeAnchor ? '⬇ เลือก label สำหรับจุดที่เลือก' : '⬇ แตะจุดบน diagram → แล้วเลือก label จากด้านล่าง'}
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>

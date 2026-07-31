@@ -144,7 +144,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
         }}
       >
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             OAuth setup
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>{checklist.title}</h2>
@@ -156,10 +156,10 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
         {/* Raw error from Supabase (for debugging) */}
         {rawError && (
           <details style={{ marginBottom: 14, padding: 10, borderRadius: 10, background: 'rgba(192, 109, 109, 0.08)', border: '1px solid var(--clr-rose)', fontSize: 12 }}>
-            <summary style={{ cursor: 'pointer', color: 'var(--clr-rose)', fontWeight: 600 }}>
+            <summary style={{ cursor: 'pointer', color: 'var(--clr-rose-text)', fontWeight: 600 }}>
               🐛 ดู error จริงจาก Supabase
             </summary>
-            <div style={{ marginTop: 6, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+            <div style={{ marginTop: 6, fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
               {rawError}
             </div>
           </details>
@@ -174,7 +174,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
             background: 'rgba(74, 107, 74, 0.08)',
             border: '1px solid var(--clr-sage)',
           }}>
-            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
               Callback URL (วางทุกที่ที่ใช้)
             </div>
             <div style={{
@@ -182,7 +182,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
               padding: '8px 12px',
               borderRadius: 8,
               background: 'var(--clr-surface-2)',
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               fontSize: 12,
               color: 'var(--clr-ink)',
               wordBreak: 'break-all',
@@ -226,7 +226,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontFamily: 'var(--vmx-mono)',
                 }}>
                   {step.n}
                 </span>
@@ -254,7 +254,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
                     </a>
                   )}
                   {step.copyable === 'CALLBACK_URL' && (
-                    <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-gold)', fontStyle: 'italic' }}>
+                    <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-gold-text)', fontStyle: 'italic' }}>
                       ↑ ใช้ URL ที่กล่องสีเขียวด้านบน
                     </div>
                   )}
@@ -270,7 +270,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
             marginTop: 14,
             fontSize: 11,
             color: 'var(--clr-ink-soft)',
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             wordBreak: 'break-all',
           }}>
             Project: {projectUrl}

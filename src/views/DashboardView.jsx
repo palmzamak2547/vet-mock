@@ -75,7 +75,7 @@ function LearningCurveChart({ data }) {
       {[0, 50, 70, 100].map((y) => (
         <g key={y}>
           <line x1={PADL} y1={yFor(y)} x2={W - PADR} y2={yFor(y)} stroke="var(--clr-border)" strokeDasharray={y === 70 ? '0' : '2 4'} opacity={y === 70 ? 0.5 : 0.4} />
-          <text x={PADL - 4} y={yFor(y) + 3} textAnchor="end" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="var(--clr-ink-soft)">{y}%</text>
+          <text x={PADL - 4} y={yFor(y) + 3} textAnchor="end" fontSize="9" fontFamily="var(--vmx-mono)" fill="var(--clr-ink-soft)">{y}%</text>
         </g>
       ))}
       {data.subjects.map((s) => {
@@ -96,7 +96,7 @@ function LearningCurveChart({ data }) {
         );
       })}
       {data.dayLabels.map((label, i) => (i === 0 || i === days - 1 || i % labelStride === 0) && (
-        <text key={i} x={xFor(i)} y={H - 6} textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="var(--clr-ink-soft)">{label}</text>
+        <text key={i} x={xFor(i)} y={H - 6} textAnchor="middle" fontSize="9" fontFamily="var(--vmx-mono)" fill="var(--clr-ink-soft)">{label}</text>
       ))}
     </svg>
   );
@@ -177,7 +177,7 @@ function TrendChart({ days }) {
           />
         )}
       </svg>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', marginTop: 4, padding: '0 2px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4, padding: '0 2px' }}>
         {days.map((d, i) => (
           <span key={i} style={{ flex: 1, textAlign: 'center' }}>{d.label}</span>
         ))}
@@ -390,7 +390,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           and learning curve. Stat cards above still show lifetime
           totals (from `analytics` which is computed cross-year). */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 14 }}>
-        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
           ขอบเขต:
         </span>
         <button
@@ -432,7 +432,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             </div>
             <div className="vmx-stat-card vmx-streak-stat-card">
               <div className="vmx-streak-stat-icon">🔥</div>
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-gold)' }}>{streak || 0}</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{streak || 0}</div>
               <div className="vmx-stat-lbl">วันต่อเนื่อง</div>
               {streak >= 7 && (
                 <div className="vmx-streak-milestone-badge">
@@ -441,7 +441,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               )}
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-rose)' }}>{scopedAnalytics.weakQuestions.length}</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-rose-text)' }}>{scopedAnalytics.weakQuestions.length}</div>
               <div className="vmx-stat-lbl">Weak Questions</div>
             </div>
           </div>
@@ -492,7 +492,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <LearningCurveChart data={learningCurve} />
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 8 }}>
                 {learningCurve.subjects.map((s) => (
-                  <span key={s.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+                  <span key={s.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
                     <span style={{ display: 'inline-block', width: 10, height: 2, background: s.color, borderRadius: 1 }}></span>
                     {s.icon} {s.name} ({s.totalN})
                   </span>

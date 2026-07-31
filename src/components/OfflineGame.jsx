@@ -495,7 +495,7 @@ export default function OfflineGame({ onClose }) {
           justifyContent: 'space-between',
           alignItems: 'center',
           fontSize: 12,
-          fontFamily: 'JetBrains Mono, monospace',
+          fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-ink-soft, #7a6f5e)',
           letterSpacing: '0.04em',
         }}
@@ -550,7 +550,7 @@ export default function OfflineGame({ onClose }) {
             color: 'var(--clr-ink, #2b2419)',
           }}
         >
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-gold, #b88940)', marginBottom: 6, letterSpacing: '0.08em' }}>
+          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-gold, #b88940)', marginBottom: 6, letterSpacing: '0.08em' }}>
             รู้จัก {factText.obstacle} ไหม?
           </div>
           {factText.fact}

@@ -114,7 +114,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               <div className="icon">{s.icon}</div>
               <div className="title">{s.name}</div>
               <div className="sub">{s.name_en}</div>
-              <div className="count" style={{ color: (isEmpty && !qbLoading) ? 'var(--clr-rose)' : 'var(--clr-ink-soft)' }}>
+              <div className="count" style={{ color: (isEmpty && !qbLoading) ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
                 {qbLoading
                   ? 'กำลังโหลด…'
                   : isScaffold
@@ -126,7 +126,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               {/* Drop the 7-digit course code on the card — already
                   searchable via ⌘K; redundant visual noise here. */}
               {false && s.code && s.id !== 'all' && (
-                <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
+                <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
                   {s.code}
                 </div>
               )}
@@ -137,7 +137,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   borderRadius: 999,
                   background: 'var(--clr-surface-2)',
                   fontSize: 10,
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontFamily: 'var(--vmx-mono)',
                   color: 'var(--clr-ink-soft)',
                   display: 'inline-block',
                   letterSpacing: '0.05em',

@@ -82,7 +82,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                   background: isUrgent ? 'var(--clr-rose-soft)' : 'var(--clr-surface-2)',
                   border: `1px solid ${isUrgent ? 'var(--clr-rose)' : 'var(--clr-border)'}`,
                 }}>
-                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.1em', color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>
+                  <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, letterSpacing: '0.1em', color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>
                     {new Date(exam.date).toLocaleDateString('en', { month: 'short' })}
                   </div>
                   <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, color: 'var(--clr-ink)' }}>
@@ -105,7 +105,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                     {exam.icon} {exam.title}
                     {exam.weight_pct && <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 8 }}>{exam.weight_pct}%</span>}
                   </h3>
-                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 10, display: 'flex', flexWrap: 'wrap', gap: '2px 10px' }}>
+                  <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 10, display: 'flex', flexWrap: 'wrap', gap: '2px 10px' }}>
                     {exam.term && (
                       <span style={{ color: exam.term === 'midterm' ? 'var(--clr-gold-text)' : 'var(--clr-sage-text)', fontWeight: 600 }}>
                         {exam.term === 'midterm' ? 'กลางภาค' : 'ปลายภาค'}
@@ -153,7 +153,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                         ฝึกข้อสอบวิชานี้ →
                       </button>
                     ) : (
-                      <div style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-rose)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'inline-block' }}>
+                      <div style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-rose-text)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'inline-block' }}>
                         🚧 ยังไม่มีข้อสอบในวิชานี้ — รอเพิ่ม
                       </div>
                     )

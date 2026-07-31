@@ -244,7 +244,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
               {email}
               {user.email_confirmed_at
                 ? <span style={{ marginLeft: 6, color: 'var(--clr-sage)', fontSize: 11 }}>✓ ยืนยันแล้ว</span>
-                : <span style={{ marginLeft: 6, color: 'var(--clr-gold)', fontSize: 11 }}>ยังไม่ยืนยัน</span>}
+                : <span style={{ marginLeft: 6, color: 'var(--clr-gold-text)', fontSize: 11 }}>ยังไม่ยืนยัน</span>}
             </>
           } />
           <KV label="Username" value={
@@ -457,7 +457,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
 
         {/* Danger zone — delete account */}
         <Card style={{ borderColor: 'var(--clr-rose)', borderWidth: 1, borderStyle: 'solid' }}>
-          <h3 style={{ ...cardHeading, color: 'var(--clr-rose)' }}>Danger Zone</h3>
+          <h3 style={{ ...cardHeading, color: 'var(--clr-rose-text)' }}>Danger Zone</h3>
           {section !== 'delete' ? (
             <>
               <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
@@ -466,7 +466,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
               <button
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 onClick={() => { reset(); setSection('delete'); }}
-                style={{ color: 'var(--clr-rose)', borderColor: 'var(--clr-rose)' }}
+                style={{ color: 'var(--clr-rose-text)', borderColor: 'var(--clr-rose)' }}
               >
                 ลบ account →
               </button>
@@ -545,7 +545,7 @@ function KV({ label, value }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '6px 0', fontSize: 13 }}>
       <span style={{ color: 'var(--clr-ink-soft)' }}>{label}</span>
-      <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{value}</span>
+      <span style={{ fontFamily: 'var(--vmx-mono)' }}>{value}</span>
     </div>
   );
 }

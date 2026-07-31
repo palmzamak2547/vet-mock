@@ -67,7 +67,7 @@ export default class ErrorBoundary extends Component {
               background: 'rgba(0,0,0,0.05)',
               borderRadius: 6,
               fontSize: 10,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               overflow: 'auto',
               maxHeight: 160,
             }}>{msg}</pre>

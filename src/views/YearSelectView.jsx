@@ -76,14 +76,14 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                 <div style={{ flex: 1, textAlign: 'left' }}>
                   <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, letterSpacing: '-0.015em', display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
                     <span>{y.label}</span>
-                    <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-sage)', fontWeight: 700, letterSpacing: '0.08em', padding: '2px 8px', borderRadius: 999, background: 'rgba(74, 107, 74, 0.12)' }}>
+                    <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', fontWeight: 700, letterSpacing: '0.08em', padding: '2px 8px', borderRadius: 999, background: 'rgba(74, 107, 74, 0.12)' }}>
                       LIVE
                     </span>
                   </div>
                   <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                     {y.desc}
                   </div>
-                  <div style={{ marginTop: 8, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', letterSpacing: '0.04em' }}>
+                  <div style={{ marginTop: 8, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.04em' }}>
                     {totalCount.toLocaleString()} ข้อ, {subjectCount} วิชา
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
             <span style={{ fontSize: 14 }}>{showAll ? '▾' : '▸'}</span>
             <span style={{ flex: 1 }}>
               ดูชั้นปีอื่น
-              <span style={{ marginLeft: 8, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', opacity: 0.6 }}>
+              <span style={{ marginLeft: 8, fontSize: 11, fontFamily: 'var(--vmx-mono)', opacity: 0.6 }}>
                 {scaffoldYears.length} ปี, รอเติม
               </span>
             </span>
@@ -151,7 +151,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                     <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.4 }}>
                       {y.desc}
                     </div>
-                    <div style={{ marginTop: 6, fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-gold)', letterSpacing: '0.05em' }}>
+                    <div style={{ marginTop: 6, fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-gold-text)', letterSpacing: '0.05em' }}>
                       {subjectCount} วิชา, รอเติม
                     </div>
                   </button>

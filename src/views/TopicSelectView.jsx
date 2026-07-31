@@ -104,7 +104,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               background: 'rgba(184, 137, 64, 0.12)',
               border: '1px solid var(--clr-gold)',
               fontSize: 12,
-              fontFamily: 'JetBrains Mono, monospace',
+              fontFamily: 'var(--vmx-mono)',
               color: 'var(--clr-ink)',
               cursor: 'pointer',
             }}
@@ -348,7 +348,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                   by Aj. {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`} 🔗
                 </div>
               )}
-              <div className="count" style={{ color: isEmpty ? 'var(--clr-rose)' : 'var(--clr-ink-soft)' }}>
+              <div className="count" style={{ color: isEmpty ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
                 {isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} ข้อ`}
               </div>
               {ppCount > 0 && !isEmpty && (
@@ -364,8 +364,8 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                     background: 'rgba(184, 137, 64, 0.12)',
                     border: '1px solid var(--clr-gold)',
                     fontSize: 11,
-                    fontFamily: 'JetBrains Mono, monospace',
-                    color: 'var(--clr-gold)',
+                    fontFamily: 'var(--vmx-mono)',
+                    color: 'var(--clr-gold-text)',
                   }}
                 >
                   อิงแนวเดิม {ppCount}/{count}, {ppPct}%
@@ -396,7 +396,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                     background: 'rgba(93, 180, 211, 0.12)',
                     border: '1px solid #5db4d3',
                     fontSize: 11,
-                    fontFamily: 'JetBrains Mono, monospace',
+                    fontFamily: 'var(--vmx-mono)',
                     color: '#3a8aa8',
                     cursor: 'pointer',
                   }}
@@ -483,7 +483,7 @@ function ExamFormatBanner({ format, accent }) {
       border: '1px solid var(--clr-border)',
       marginBottom: 20,
     }}>
-      <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
         รูปแบบของชุดโจทย์ฝึก
       </div>
 

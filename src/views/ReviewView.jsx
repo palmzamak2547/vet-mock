@@ -66,7 +66,7 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
         <label htmlFor={textareaId} style={{ fontWeight: 600, fontSize: 13, color: 'var(--clr-ink)' }}>
           บันทึกส่วนตัว
         </label>
-        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }} aria-live="polite">
+        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }} aria-live="polite">
           {currentText.length}/500
         </span>
       </div>
@@ -209,10 +209,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
 
   const tabs = [
     { id: 'all',        label: 'ทั้งหมด',  icon: '📋', color: 'var(--clr-ink)' },
-    { id: 'wrong',      label: 'ผิด',      icon: '✗',  color: 'var(--clr-rose)' },
+    { id: 'wrong',      label: 'ผิด',      icon: '✗',  color: 'var(--clr-rose-text)' },
     { id: 'correct',    label: 'ถูก',      icon: '✓',  color: 'var(--clr-sage)' },
     { id: 'skipped',    label: 'ข้าม',     icon: '⏭', color: 'var(--clr-ink-soft)' },
-    { id: 'bookmarked', label: 'Bookmark', icon: '★',  color: 'var(--clr-gold)' },
+    { id: 'bookmarked', label: 'Bookmark', icon: '★',  color: 'var(--clr-gold-text)' },
     { id: 'noted',      label: 'มีโน้ต',   icon: '📝', color: 'var(--clr-plum, #7d4a7d)' },
   ];
 
@@ -227,7 +227,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             marginTop: 8, display: 'inline-block',
             padding: '3px 10px', borderRadius: 999,
             background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)',
-            fontFamily: 'JetBrains Mono, monospace', fontSize: 11,
+            fontFamily: 'var(--vmx-mono)', fontSize: 11,
             letterSpacing: '0.08em', color: 'var(--clr-ink-soft)',
           }}>
             ปี {selectedYear}{phaseLabel ? `, ${phaseLabel}` : ''}
@@ -267,7 +267,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 <span>{t.label}</span>
                 <span style={{
                   fontSize: 10,
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontFamily: 'var(--vmx-mono)',
                   padding: '1px 6px',
                   borderRadius: 999,
                   background: active ? 'rgba(255,255,255,0.25)' : 'var(--clr-surface-2)',
@@ -331,7 +331,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 Q{idx + 1}, {subj?.name || q.subject}
                 {topicMeta ? <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)', fontWeight: 600 }}>{topicMeta.icon} {topicMeta.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></> : null}
                 {q.examOrigin && (
-                  <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace' }}>
+                  <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
                     อิงแนวเดิม
                   </span>
                 )}
@@ -347,7 +347,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                       background: 'rgba(125, 74, 125, 0.15)',
                       color: 'var(--clr-plum, #7d4a7d)',
                       border: '1px solid var(--clr-plum, #7d4a7d)',
-                      fontFamily: 'JetBrains Mono, monospace',
+                      fontFamily: 'var(--vmx-mono)',
                       fontWeight: 600,
                     }}
                   >
@@ -360,7 +360,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   {bookmarks.includes(q.id) ? '★' : '☆'}
                 </button>
                 <span className={`vmx-review-result ${correct ? 'ok' : (isOpen ? '' : 'no')}`}
-                  style={isOpen ? { background: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold)' } : undefined}>
+                  style={isOpen ? { background: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold-text)' } : undefined}>
                   {!answered ? 'SKIPPED' : isOpen ? '✍️ Self-assess' : (correct ? '✓ ถูก' : '✗ ผิด')}
                 </span>
               </div>
@@ -403,7 +403,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             )}
             {q.passage && (
               <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, lineHeight: 1.65, whiteSpace: 'pre-wrap', maxHeight: 220, overflowY: 'auto' }}>
-                <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
+                <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
                   📄 {q.passage_title || 'Passage'}
                 </div>
                 <RichText text={q.passage} />
@@ -416,17 +416,17 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             {(q.type === 'short' || q.type === 'essay') ? (
               <>
                 <div style={{ margin: '8px 0 6px', padding: 10, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
-                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>คำตอบของคุณ</div>
+                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>คำตอบของคุณ</div>
                   <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>{userDisplay}</div>
                   {q.type === 'essay' && answered && typeof userAns === 'string' && userAns.trim() && (
-                    <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+                    <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
                       📊 {userAns.trim().split(/\s+/).length} words
                     </div>
                   )}
                 </div>
                 {q.model_answer && (
                   <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-sage)' }}>
-                    <div style={{ fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4, fontWeight: 600 }}>✓ Model answer (จาก KEY)</div>
+                    <div style={{ fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4, fontWeight: 600 }}>✓ Model answer (จาก KEY)</div>
                     <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
                       <RichText text={q.model_answer} />
                     </div>
@@ -434,7 +434,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 )}
                 {q.rubric && (
                   <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.08)', border: '1px solid var(--clr-gold)' }}>
-                    <div style={{ fontSize: 11, color: 'var(--clr-gold)', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4, fontWeight: 600 }}>Marking criteria</div>
+                    <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4, fontWeight: 600 }}>Marking criteria</div>
                     <div style={{ fontSize: 12, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
                       <RichText text={q.rubric} />
                     </div>
@@ -481,9 +481,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                       <div key={i} style={{ padding: '6px 10px', borderRadius: 8, background: st.bg, border: `1px solid ${st.border}`, fontSize: 11, color: st.ink }}>
                         <span style={{ marginRight: 6 }}>{st.icon}</span>
                         <strong>{it.label}</strong>
-                        {it.year && <span style={{ marginLeft: 6, fontFamily: 'JetBrains Mono, monospace' }}>{it.year}</span>}
+                        {it.year && <span style={{ marginLeft: 6, fontFamily: 'var(--vmx-mono)' }}>{it.year}</span>}
                         {it.by && <span style={{ marginLeft: 6, fontStyle: 'italic' }}>by {it.by}</span>}
-                        <div style={{ marginTop: 3, fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+                        <div style={{ marginTop: 3, fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
                           {it.raw}
                         </div>
                         {it.note && (
@@ -501,14 +501,14 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: `1px solid ${q.flag.severity === 'major' ? 'var(--clr-rose)' : 'var(--clr-gold)'}`, fontSize: 12, color: 'var(--clr-ink)' }}>
                 ⚠️ <strong>{q.flag.severity === 'major' ? 'Major flag' : 'Note'}:</strong> {q.flag.note}
                 {q.flag.sources?.length > 0 && (
-                  <div style={{ marginTop: 4, fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)' }}>
+                  <div style={{ marginTop: 4, fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
                     📖 {q.flag.sources.join(', ')}
                   </div>
                 )}
               </div>
             )}
             {q.source && (
-              <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', fontFamily: 'JetBrains Mono, monospace' }}>
+              <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', fontFamily: 'var(--vmx-mono)' }}>
                 ไฟล์ต้นทาง: {q.source}
               </div>
             )}
@@ -544,7 +544,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           scrolls within 600px of viewport, useEffect above expands the
           window. Hidden when everything is already shown. */}
       {visibleCount < filtered.length && (
-        <div ref={sentinelRef} style={{ height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--clr-ink-soft)', fontSize: 12, fontFamily: 'JetBrains Mono, monospace' }}>
+        <div ref={sentinelRef} style={{ height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--clr-ink-soft)', fontSize: 12, fontFamily: 'var(--vmx-mono)' }}>
           กำลังโหลด {Math.min(filtered.length - visibleCount, PAGE)} ข้อถัดไป…
         </div>
       )}

@@ -66,7 +66,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard })
           padding: 6, zIndex: 20,
         }}>
           <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4 }}>
-            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Signed in as
             </div>
             <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
@@ -99,7 +99,7 @@ function MenuItem({ icon, children, onClick, danger }) {
         all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
         width: '100%', boxSizing: 'border-box', padding: '8px 12px',
         borderRadius: 8, fontSize: 13,
-        color: danger ? 'var(--clr-rose)' : 'var(--clr-ink)',
+        color: danger ? 'var(--clr-rose-text)' : 'var(--clr-ink)',
         transition: 'background 0.1s',
       }}
       onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--clr-surface-2)'; }}

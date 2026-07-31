@@ -96,7 +96,7 @@ async function buildPhaseCanvas(stats) {
   ctx.font = '700 100px "Fraunces", serif';
   ctx.fillText(`${stats.correctPct}%`, ringCx, ringCy + 30);
   ctx.fillStyle = '#6b6055';
-  ctx.font = '500 28px "JetBrains Mono", monospace';
+  ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillText('MASTERY', ringCx, ringCy + 80);
 
   // Strongest + Weakest subject pills (left/right)
@@ -121,25 +121,25 @@ async function buildPhaseCanvas(stats) {
   // Stat row: streak + study time
   yRow = 1320;
   ctx.textAlign = 'center';
-  ctx.font = '500 28px "JetBrains Mono", monospace';
+  ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#6b6055';
   if (stats.longestStreak > 0) {
     ctx.fillText('STREAK', W / 4, yRow);
     ctx.font = '700 84px "Fraunces", serif';
     ctx.fillStyle = '#b88940';
     ctx.fillText(`${stats.longestStreak}`, W / 4, yRow + 80);
-    ctx.font = '500 28px "JetBrains Mono", monospace';
+    ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
     ctx.fillStyle = '#6b6055';
     ctx.fillText('วัน', W / 4, yRow + 115);
   }
-  ctx.font = '500 28px "JetBrains Mono", monospace';
+  ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#6b6055';
   ctx.fillText('ที่อ่าน', (W * 3) / 4, yRow);
   ctx.font = '700 84px "Fraunces", serif';
   ctx.fillStyle = '#2b2419';
   const hr = (stats.totalStudyMin / 60).toFixed(1);
   ctx.fillText(`${hr}`, (W * 3) / 4, yRow + 80);
-  ctx.font = '500 28px "JetBrains Mono", monospace';
+  ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#6b6055';
   ctx.fillText('ชม.', (W * 3) / 4, yRow + 115);
 
@@ -160,7 +160,7 @@ async function buildPhaseCanvas(stats) {
       ctx.fillRect(bx + 2, by, Math.max(2, barW - 4), Math.max(2, h));
     }
     ctx.textAlign = 'left';
-    ctx.font = '500 24px "JetBrains Mono", monospace';
+    ctx.font = '500 24px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
     ctx.fillStyle = '#6b6055';
     ctx.fillText('30 DAYS', chartX, chartY - 12);
     ctx.textAlign = 'right';
@@ -178,7 +178,7 @@ async function buildPhaseCanvas(stats) {
   ctx.font = '600 50px "Fraunces", serif';
   ctx.fillStyle = '#2b2419';
   ctx.fillText('vetmock.vercel.app', W / 2, 1820);
-  ctx.font = '500 36px "JetBrains Mono", monospace';
+  ctx.font = '500 36px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#b88940';
   ctx.fillText('📷 @vetmock.cu', W / 2, 1870);
 
@@ -195,7 +195,7 @@ function drawSubjectPill(ctx, { x, y, w, h, icon, label, name, pct, tint }) {
     ctx.fillRect(x, y, w, h);
   }
   ctx.textAlign = 'left';
-  ctx.font = '500 24px "JetBrains Mono", monospace';
+  ctx.font = '500 24px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = tint;
   ctx.fillText(label.toUpperCase(), x + 28, y + 38);
   ctx.font = '600 44px "Fraunces", serif';
@@ -374,7 +374,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
     >
       {/* Header */}
       <div style={{ marginBottom: 20, textAlign: 'center' }}>
-        <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft, #6b6055)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
+        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
           Phase Wrapped
         </div>
         <h2 style={{ margin: '6px 0 0', fontSize: 24, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>
@@ -437,7 +437,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
 
           {/* 30-day bar chart */}
           <div style={{ marginTop: 20 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>
               <span>30 days</span>
               <span>{stats.dailyAvg}/วัน avg</span>
             </div>
@@ -461,7 +461,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
           {/* Encouragement line */}
           <div style={{ marginTop: 18, padding: 12, borderRadius: 12, background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold, #b88940)', textAlign: 'center', fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink, #2b2419)' }}>
             {pickWrappedMessage(stats)}
-            <div style={{ marginTop: 6, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft, #6b6055)' }}>
+            <div style={{ marginTop: 6, fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft, #6b6055)' }}>
               vetmock.vercel.app, 📷 @vetmock.cu
             </div>
           </div>
@@ -510,7 +510,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
         </button>
       </div>
       {hint && (
-        <div style={{ marginTop: 12, fontSize: 11, color: 'var(--clr-ink-soft, #6b6055)', textAlign: 'center', fontFamily: 'JetBrains Mono, monospace' }}>
+        <div style={{ marginTop: 12, fontSize: 11, color: 'var(--clr-ink-soft, #6b6055)', textAlign: 'center', fontFamily: 'var(--vmx-mono)' }}>
           {hint}
         </div>
       )}
@@ -547,7 +547,7 @@ function MasteryRing({ pct, accent }) {
         <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 40, lineHeight: 1, color: accent }}>
           {pct}%
         </div>
-        <div style={{ fontSize: 9, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.12em', marginTop: 2 }}>
+        <div style={{ fontSize: 9, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.12em', marginTop: 2 }}>
           MASTERY
         </div>
       </div>
@@ -561,7 +561,7 @@ function SubjectRow({ tint, label, icon, name, pct }) {
       display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
       borderRadius: 14, background: `${tint}1A`, border: `1px solid ${tint}33`,
     }}>
-      <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: tint, letterSpacing: '0.10em', textTransform: 'uppercase', minWidth: 86 }}>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: tint, letterSpacing: '0.10em', textTransform: 'uppercase', minWidth: 86 }}>
         {label}
       </div>
       <div style={{ flex: 1, fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink, #2b2419)', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -577,13 +577,13 @@ function SubjectRow({ tint, label, icon, name, pct }) {
 function StatCell({ label, value, unit, tint = 'var(--clr-ink, #2b2419)' }) {
   return (
     <div style={{ padding: '8px 4px' }}>
-      <div style={{ fontSize: 9, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.10em', textTransform: 'uppercase' }}>
+      <div style={{ fontSize: 9, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.10em', textTransform: 'uppercase' }}>
         {label}
       </div>
       <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 28, color: tint, lineHeight: 1.1, marginTop: 2 }}>
         {value}
       </div>
-      <div style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft, #6b6055)' }}>
+      <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)' }}>
         {unit}
       </div>
     </div>

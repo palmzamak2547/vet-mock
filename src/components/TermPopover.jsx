@@ -184,7 +184,7 @@ export default function TermPopover({ entry: initialEntry, anchorRect, onClose }
           <span style={{
             display: 'inline-block',
             fontSize: 11,
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             textTransform: 'uppercase',
             letterSpacing: 0.5,
             padding: '2px 8px',
@@ -201,7 +201,7 @@ export default function TermPopover({ entry: initialEntry, anchorRect, onClose }
       {/* Related terms */}
       {relatedEntries.length > 0 && (
         <div style={{ borderTop: '1px solid var(--clr-border, rgba(0,0,0,0.08))', paddingTop: 8 }}>
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft, #888)', marginBottom: 4, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: 0.5 }}>Related</div>
+          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft, #888)', marginBottom: 4, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: 0.5 }}>Related</div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
             {relatedEntries.map((r) => (
               <button

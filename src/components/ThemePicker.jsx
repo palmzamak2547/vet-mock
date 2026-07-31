@@ -80,7 +80,7 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
             maxWidth: 'calc(100vw - 24px)',
           }}
         >
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 6 }}>
+          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
             โหมด
           </div>
           <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
@@ -97,7 +97,7 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
               style={{ flex: 1, gap: 6 }}
             ><NavIcon name="moon" size={15} /> มืด</button>
           </div>
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'JetBrains Mono, monospace', marginBottom: 6 }}>
+          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
             จานสี
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>

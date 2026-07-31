@@ -122,7 +122,7 @@ export default function StreakHeatmap({ history = [] }) {
               x={PAD_LEFT + m.w * (CELL + GAP)}
               y={12}
               fontSize="10"
-              fontFamily="JetBrains Mono, monospace"
+              fontFamily="var(--vmx-mono)"
               fill="var(--clr-ink-soft)"
             >
               {m.label}
@@ -135,7 +135,7 @@ export default function StreakHeatmap({ history = [] }) {
               x={2}
               y={PAD_TOP + d * (CELL + GAP) + 9}
               fontSize="9"
-              fontFamily="JetBrains Mono, monospace"
+              fontFamily="var(--vmx-mono)"
               fill="var(--clr-ink-soft)"
             >
               {['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'][d]}

@@ -44,7 +44,7 @@ export default function InstructorModal({ instructor, onClose }) {
         <div style={{ marginBottom: 20 }}>
           <div style={{
             fontSize: 11,
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             color: 'var(--clr-ink-soft)',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
@@ -75,7 +75,7 @@ export default function InstructorModal({ instructor, onClose }) {
           <div style={{ color: 'var(--clr-ink-soft)', marginTop: 4 }}>{department}</div>
           <div style={{ color: 'var(--clr-ink-soft)', fontSize: 12, marginTop: 2 }}>{institution}</div>
           {email && (
-            <div style={{ marginTop: 6, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+            <div style={{ marginTop: 6, fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>
               {email}
             </div>
           )}
@@ -85,8 +85,8 @@ export default function InstructorModal({ instructor, onClose }) {
                 <a key={key} href={url} target="_blank" rel="noopener noreferrer"
                    style={{
                      fontSize: 11,
-                     fontFamily: 'JetBrains Mono, monospace',
-                     color: 'var(--clr-rose)',
+                     fontFamily: 'var(--vmx-mono)',
+                     color: 'var(--clr-rose-text)',
                      padding: '2px 8px',
                      border: '1px solid var(--clr-border)',
                      borderRadius: 999,
@@ -106,7 +106,7 @@ export default function InstructorModal({ instructor, onClose }) {
         {/* Research areas */}
         {areas && areas.length > 0 && (
           <div style={{ marginBottom: 20 }}>
-            <h3 style={{ fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>
+            <h3 style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>
               Research Areas
             </h3>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -129,7 +129,7 @@ export default function InstructorModal({ instructor, onClose }) {
         {/* Notable papers */}
         {papers && papers.length > 0 && (
           <div style={{ marginBottom: 20 }}>
-            <h3 style={{ fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 12px' }}>
+            <h3 style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 12px' }}>
               📑 Notable Papers, {papers.length}
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -153,7 +153,7 @@ export default function InstructorModal({ instructor, onClose }) {
                   <div style={{
                     marginTop: 6,
                     fontSize: 11,
-                    fontFamily: 'JetBrains Mono, monospace',
+                    fontFamily: 'var(--vmx-mono)',
                     color: 'var(--clr-ink-soft)',
                   }}>
                     {p.year ? `${p.year}` : ''}
@@ -181,7 +181,7 @@ export default function InstructorModal({ instructor, onClose }) {
         {/* Notes */}
         {notes && notes.length > 0 && (
           <div style={{ marginBottom: 20 }}>
-            <h3 style={{ fontSize: 13, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>
+            <h3 style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>
               Notes
             </h3>
             {notes.map((n, i) => (

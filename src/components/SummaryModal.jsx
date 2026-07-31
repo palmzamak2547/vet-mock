@@ -202,7 +202,7 @@ export default function SummaryModal({ summary, onClose }) {
           background: 'linear-gradient(135deg, rgba(194,109,109,0.06), rgba(232,212,168,0.06))',
         }}>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               สรุปจากคลิปอาจารย์
             </div>
             <h2 style={{ margin: '4px 0 0', fontSize: 17, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>
@@ -274,7 +274,7 @@ export default function SummaryModal({ summary, onClose }) {
             alignItems: 'center',
             flexWrap: 'wrap',
           }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', fontSize: 10, letterSpacing: '0.08em' }}>
+            <span style={{ fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', fontSize: 10, letterSpacing: '0.08em' }}>
               Exam format
             </span>
             <span style={{ flex: 1 }}>{summary.examFormat}</span>

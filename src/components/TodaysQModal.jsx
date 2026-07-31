@@ -55,7 +55,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
     <div className="vmx-modal-overlay" onClick={onClose} role="dialog" aria-label="Today's Q">
       <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 580 }}>
         <div style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             ข้อวันนี้, {subjectMeta?.icon || ''} {subjectMeta?.name || q.subject}
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 20 }}>1 ข้อ ใน 1 วัน</h2>
@@ -104,7 +104,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
 
         {revealed && q.explain && (
           <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-sage)', fontSize: 13, lineHeight: 1.6 }}>
-            <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 4 }}>
+            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 4 }}>
               เฉลย
             </div>
             <RichText text={q.explain} />
@@ -164,7 +164,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
             marginTop: 8,
             fontSize: 12,
             color: 'var(--clr-sage, #4a6b4a)',
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--vmx-mono)',
             textAlign: 'center',
           }}>
             {challengeHint}
