@@ -1671,7 +1671,8 @@ export default function App() {
     return (
       <>
         <TopLoadingBar />
-        <Suspense fallback={<div style={{ minHeight: '100dvh', background: 'var(--clr-bg)' }} />}>
+        <ErrorBoundary onReset={goHome}>
+        <Suspense fallback={<ViewFallback />}>
           <LandingView
             onEnterApp={landingEnterApp}
             onStartMockExam={() => goLanding({ kind: 'mock-exam' })}
@@ -1690,6 +1691,7 @@ export default function App() {
             onConsent={landingConsent}
           />
         </Suspense>
+        </ErrorBoundary>
         {analyticsAllowed && (
           <Suspense fallback={null}>
             <Analytics />
