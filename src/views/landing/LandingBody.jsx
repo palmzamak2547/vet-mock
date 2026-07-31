@@ -1,592 +1,802 @@
 // ============================================================
-// LandingBody — hero → footer for LandingView
-// ============================================================
-// Split out of LandingView.jsx so each file stays focused. Receives
-// everything as props from LandingView (single state owner). Pure
-// presentation + the design's simulated interactions.
+// LandingBody — hero → footer matching export HTML 100%
 // ============================================================
 
-import { QB_TOTAL, Q_COUNTS_BY_SUBJECT } from '../../data/q-counts.js';
+import React, { useState, useEffect, useRef } from 'react';
 
-// Derived once at module load — the number of subjects that actually ship
-// questions today. Regenerated with the bank, so it can't drift.
-const SUBJECTS_WITH_QUESTIONS = Object.values(Q_COUNTS_BY_SUBJECT).filter((n) => n > 0).length;
+// Demo MCQ questions for the Hero Quiz Card
+const QUESTIONS = [
+  {
+    subject: 'ศัลยศาสตร์ · COM IV',
+    q: 'สุนัขพันธุ์ใดมีความเสี่ยงต่อภาวะข้อสะโพกเสื่อม (Hip Dysplasia) มากที่สุด?',
+    opts: ['Chihuahua', 'German Shepherd', 'Pug', 'Shih Tzu'],
+    ans: 1,
+    explain: 'Hip Dysplasia พบบ่อยในสุนัขพันธุ์ใหญ่ เช่น German Shepherd, Labrador และ Golden Retriever เนื่องจากพันธุกรรมและการเจริญเติบโตที่รวดเร็ว ทำให้ข้อสะโพกหลวมและเสื่อมก่อนวัย'
+  },
+  {
+    subject: 'เภสัชวิทยา · COM III',
+    q: 'ยาชนิดใด “ห้ามใช้” ในแมว เพราะทำให้เกิด methemoglobinemia และ Heinz body anemia?',
+    opts: ['Amoxicillin', 'Metronidazole', 'Paracetamol', 'Prednisolone'],
+    ans: 2,
+    explain: 'แมวขาดเอนไซม์ glucuronyl transferase ทำให้กำจัด paracetamol ได้ช้า เกิด oxidative damage ต่อเม็ดเลือดแดง อันตรายถึงชีวิตแม้ในขนาดต่ำมาก'
+  },
+  {
+    subject: 'สรีรวิทยา · COM III',
+    q: 'อัตราการเต้นของหัวใจสุนัขโตเต็มวัยขณะพัก อยู่ในช่วงใด?',
+    opts: ['180–250 ครั้ง/นาที', '60–140 ครั้ง/นาที', '20–40 ครั้ง/นาที', '300–400 ครั้ง/นาที'],
+    ans: 1,
+    explain: 'สุนัขโตเต็มวัยมี heart rate ประมาณ 60–140 bpm (พันธุ์เล็กอาจสูงกว่าเล็กน้อย) ส่วนช่วง 180–250 มักเป็นค่าปกติของแมว'
+  }
+];
 
-function OptionRow({ opt, onClick, disabled }) {
-  return (
-    <button type="button" className={`vmx-option ${opt.cls}`} style={opt.style} onClick={onClick} disabled={disabled}>
-      <span className="vmx-option-letter">{opt.letter}</span>
-      <span className="vmx-option-text">{opt.text}</span>
-      {opt.mark && <span style={opt.markStyle}>{opt.mark}</span>}
-    </button>
-  );
-}
-// Section eyebrow. NO letterSpacing: these labels are Thai in the TH
-// locale (e.g. 'ปัญหาที่เจอ') and tracking breaks Thai glyph shaping —
-// a forbidden project rule. textTransform:uppercase is a no-op on Thai
-// and only affects the Latin labels, which is fine.
-const label = (color) => ({ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: color || 'var(--clr-sage)', marginBottom: 14 });
-const h2 = { fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(28px,4vw,42px)', lineHeight: 1.04, letterSpacing: '-.03em', color: 'var(--clr-ink)', margin: 0, textWrap: 'balance' };
-const em = { fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage)' };
-const container = { maxWidth: 1200, margin: '0 auto' };
-const chip = (active) => `vmx-chip${active ? ' active' : ''}`;
+const LETTERS = ['ก', 'ข', 'ค', 'ง'];
+
+const TOPICS = [
+  'เภสัชวิทยา', 'ศัลยศาสตร์', 'อายุรศาสตร์', 'กายวิภาคศาสตร์', 'สรีรวิทยา',
+  'จุลชีววิทยา', 'ปรสิตวิทยา', 'พยาธิวิทยา', 'สูติศาสตร์', 'Diagnostic Imaging',
+  'โภชนาการ', 'เภสัชจลนศาสตร์'
+];
+
+const FEED_INIT = [
+  { t: 'นิสิตปี 4 ทำ <b>COM IV · Surgery</b> เสร็จ', s: 'คะแนน 86%', time: 'เมื่อครู่', c: '#147a6c' },
+  { t: 'นิสิตปี 3 ถูก <b>8 ข้อติด</b> ใน Pharmacology', s: '🔥 streak พุ่ง', time: '1 นาทีที่แล้ว', c: '#e8930c' },
+  { t: 'นิสิตปี 5 เพิ่งดูสรุปคลิป <b>Cardiology</b>', s: '14:08', time: '3 นาทีที่แล้ว', c: '#1c9384' },
+  { t: 'นิสิตปี 4 อัพ streak เป็น <b>21 วัน</b>', s: 'เก่งมาก!', time: '5 นาทีที่แล้ว', c: '#ff6b5e' },
+  { t: 'นิสิตปี 3 ทำ <b>Mock COM III</b> เสร็จ', s: 'คะแนน 78%', time: '7 นาทีที่แล้ว', c: '#0e5a50' },
+  { t: 'นิสิตปี 5 ทวน <b>สมุดข้อผิด</b> 12 ข้อ', s: 'จุดอ่อนลดลง', time: '9 นาทีที่แล้ว', c: '#147a6c' }
+];
+
+const BOARD = [
+  { n: 'Ployp.', y: 'ปี 4', st: 34, xp: '12,480', c: '#e8930c' },
+  { n: 'Kavin T.', y: 'ปี 5', st: 29, xp: '11,920', c: '#147a6c' },
+  { n: 'Mook S.', y: 'ปี 3', st: 27, xp: '10,340', c: '#1c9384' },
+  { n: 'Beam J.', y: 'ปี 4', st: 22, xp: '9,870', c: '#ff6b5e' },
+  { n: 'Fah R.', y: 'ปี 5', st: 19, xp: '9,410', c: '#0e5a50' }
+];
 
 export default function LandingBody(p) {
-  const { t } = p;
-  return (
-    <main id="lp-main">
-      {/* ================= HERO ================= */}
-      <section id="lp-top" data-screen-label="Hero" className="lp-pad" style={{ padding: '74px 24px 88px', scrollMarginTop: 80, position: 'relative', overflow: 'hidden' }}>
-        {/* Decorative floating orbs — CSS animates these, aria-hidden so SR skips */}
-        <div className="lp-stack" style={{ ...container, display: 'grid', gridTemplateColumns: '1.02fr 1.12fr', gap: 54, alignItems: 'center' }}>
-          <div className="lp-reveal lp-center-md">
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-border)', borderRadius: 999, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 22 }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clr-sage)' }} />{t.heroEyebrow}
-            </div>
-            <h1 style={{ fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(38px,5.4vw,60px)', lineHeight: .98, letterSpacing: '-.035em', color: 'var(--clr-ink)', margin: '0 0 20px', textWrap: 'balance' }}>
-              {t.heroPre}<em style={em}>{t.heroEm}</em>{t.heroPost}
-            </h1>
-            <p style={{ fontSize: 17, lineHeight: 1.62, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '0 0 28px' }}>{t.heroSub}</p>
-            <div className="lp-center-md lp-flex" style={{ display: 'flex', gap: 8, alignItems: 'center', fontFamily: 'var(--vmx-mono)', fontSize: 12.5, color: 'var(--clr-ink-soft)', margin: '0 0 22px' }}>
-              <span>{t.heroFocusLine}</span><span style={{ color: 'var(--clr-sage)', fontWeight: 600, fontFamily: 'IBM Plex Sans Thai, sans-serif', fontSize: 14 }}>{t.heroWords[p.heroWord]} →</span>
-            </div>
-            <div className="lp-center-md lp-flex" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
-              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'var(--vmx-mono)' }}>→</span></button>
-              <a href="#subjects" className="vmx-btn vmx-btn-ghost" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta2}</a>
-            </div>
-            {/* Hero stats — every figure DERIVED from the shipped question
-                bank, never typed by hand. (This block used to read
-                "10K+ Questions / 500+ Students / 95% Pass Rate": the bank
-                actually holds QB_TOTAL questions, and the app has never
-                measured a student count or an exam pass rate — the subject
-                grid further down this same page renders the honest counts,
-                so the page was contradicting itself.) */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', marginTop: '28px', paddingTop: '24px', borderTop: '1px solid var(--clr-border)' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-sage)', lineHeight: 1 }}>{QB_TOTAL.toLocaleString('en-US')}</div>
-                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statQuestions}</div>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-gold-text)', lineHeight: 1 }}>{SUBJECTS_WITH_QUESTIONS}</div>
-                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statSubjects}</div>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-ocean)', lineHeight: 1 }}>{t.statFreeValue}</div>
-                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statFree}</div>
-              </div>
-            </div>
-          </div>
+  // --- Quiz Card State ---
+  const [qi, setQi] = useState(0);
+  const [picked, setPicked] = useState(null);
+  const [streak, setStreak] = useState(0);
+  const [xp, setXp] = useState(0);
+  const [popStreak, setPopStreak] = useState(false);
+  const [popXp, setPopXp] = useState(false);
+  const [toastMsg, setToastMsg] = useState({ text: '', err: false, show: false });
 
-          {/* hero exam preview */}
-          <div className="lp-reveal" style={{ position: 'relative' }}>
-            <div className="lp-stack" style={{ position: 'relative', zIndex: 2, display: 'flex', gap: 14, alignItems: 'stretch' }}>
-              <div className="vmx-question-card" style={{ flex: 1, minWidth: 0, padding: 24 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 14, paddingBottom: 14, borderBottom: '1px dashed var(--clr-border)' }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, padding: '4px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)', flexShrink: 0 }}>✓ {t.heroBankLabel}</span>
-                  <span style={{ flex: 1, minWidth: 0, fontFamily: 'var(--vmx-mono)', fontSize: 11.5, color: 'var(--clr-ink-soft)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.heroBankLine}</span>
-                  <button type="button" onClick={p.onEnterApp} style={{ flexShrink: 0, padding: '6px 13px', borderRadius: 999, border: 'none', background: 'var(--clr-sage)', color: 'var(--clr-surface)', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, cursor: 'pointer', minHeight: 32 }}>{t.startPractice}</button>
+  // --- Modes Tab State ---
+  const [activeTab, setActiveTab] = useState('m1');
+
+  // --- Mock Timer State ---
+  const [mockLeft, setMockLeft] = useState(90 * 60);
+  const [mockRunning, setMockRunning] = useState(false);
+
+  // --- Clip Filter State ---
+  const [clipFilter, setClipFilter] = useState('all');
+
+  // --- Live Feed State ---
+  const [feedList, setFeedList] = useState(FEED_INIT.slice(0, 5));
+  const feedIdx = useRef(5);
+
+  // Auto-scroll reveal & counters hook
+  useEffect(() => {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.rv, .scard, .road, .panel-visual').forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  // Mock Timer effect
+  useEffect(() => {
+    let t;
+    if (mockRunning) {
+      t = setInterval(() => {
+        setMockLeft((prev) => {
+          if (prev <= 1) {
+            setMockRunning(false);
+            return 90 * 60;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(t);
+  }, [mockRunning]);
+
+  // Live Feed interval
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextItem = { ...FEED_INIT[feedIdx.current % FEED_INIT.length], time: 'เมื่อครู่', isNew: true };
+      feedIdx.current += 1;
+      setFeedList((prev) => [nextItem, ...prev.slice(0, 5)]);
+    }, 4200);
+    return () => clearInterval(interval);
+  }, []);
+
+  const triggerToast = (msg, err) => {
+    setToastMsg({ text: msg, err, show: true });
+    setTimeout(() => setToastMsg((t) => ({ ...t, show: false })), 2400);
+  };
+
+  const handleAnswer = (index) => {
+    if (picked !== null) return;
+    setPicked(index);
+    const q = QUESTIONS[qi];
+    if (index === q.ans) {
+      setStreak((s) => s + 1);
+      setXp((x) => x + 10);
+      setPopStreak(true);
+      setPopXp(true);
+      triggerToast('ถูกต้อง! +10 XP 🔥', false);
+    } else {
+      setStreak(0);
+      setPopStreak(true);
+      triggerToast('ผิดนิดเดียว — อ่านคำอธิบายแล้วลุยต่อ 💪', true);
+    }
+    setTimeout(() => {
+      setPopStreak(false);
+      setPopXp(false);
+    }, 400);
+  };
+
+  const handleNextQ = () => {
+    setPicked(null);
+    setQi((prev) => (prev + 1) % QUESTIONS.length);
+  };
+
+  const fmtTime = (s) => {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  };
+
+  const currentQ = QUESTIONS[qi];
+
+  return (
+    <main id="lp-main" className="lp-root">
+      {/* Toast Notification */}
+      <div id="toast" className={`${toastMsg.show ? 'show' : ''} ${toastMsg.err ? 'err' : ''}`}>
+        <span className="ti">{toastMsg.err ? '💡' : '✅'}</span>
+        <span>{toastMsg.text}</span>
+      </div>
+
+      {/* HERO SECTION */}
+      <section className="hero" id="top">
+        <svg className="ecg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 70 H280 l14 -30 18 56 14 -26 H560 l14 -30 18 56 14 -26 H840 l14 -30 18 56 14 -26 H1200" fill="none" stroke="rgba(61,220,151,.16)" strokeWidth="2"/>
+          <path className="run" d="M0 70 H280 l14 -30 18 56 14 -26 H560 l14 -30 18 56 14 -26 H840 l14 -30 18 56 14 -26 H1200" fill="none" stroke="#3ddc97" strokeWidth="2.5" pathLength="100"/>
+        </svg>
+        <div className="wrap">
+          <div className="hero-grid">
+            <div className="hero-text">
+              <span className="eyebrow" style={{ background: 'rgba(61,220,151,.12)', color: 'var(--mint)', borderColor: 'rgba(61,220,151,.25)' }}>
+                <span className="dot" style={{ background: 'var(--mint)' }} />
+                คลังโจทย์นิสิตสัตวแพทย์ จุฬาฯ
+              </span>
+              <h1 style={{ marginTop: 18 }}>
+                ซ้อมให้เหมือน<br /><span className="hl">สอบจริง</span> ทุกสนาม
+              </h1>
+              <p className="lead">
+                MCQ พร้อมคำอธิบายละเอียด + แนวข้อสอบจับเวลา + สรุปคลิปย้อนหลัง ครอบคลุม COM III / IV / V และ Eng Vet Prof II — กำลังขยายให้ครบทุกชั้นปี (ปี 1–6)
+              </p>
+              <div className="hero-stats">
+                <div className="hstat">
+                  <div className="n num">3,200<span className="suf">+</span></div>
+                  <div className="l">ข้อสอบในคลัง</div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                  {/* badge shrinks + truncates so the timer never overlaps the
-                      bookmark on narrow cards; timer + bookmark stay fixed-size */}
-                  <span className="vmx-qtype-badge" style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>MCQ — {t.heroTag}</span>
-                  <span className="vmx-timer" style={{ marginLeft: 'auto', flexShrink: 0 }}>01:24</span>
-                  {/* the app's .vmx-bookmark-btn is position:absolute (pins to a
-                      card corner in the exam view); on the landing it sits inline
-                      in this flex row, so force it back into flow or it floats to
-                      the corner and overlaps the timer/question. */}
-                  <button type="button" className={`vmx-bookmark-btn ${p.heroBookmarked ? 'active' : ''}`} style={{ position: 'static', flexShrink: 0 }} onClick={() => p.setHeroBookmarked((b) => !b)} aria-label="Bookmark" aria-pressed={p.heroBookmarked}>🔖</button>
+                <div className="hstat">
+                  <div className="n num">150<span className="suf">+</span></div>
+                  <div className="l">คลิปสรุปเนื้อหา</div>
                 </div>
-                <div className="vmx-progress-bar" style={{ marginBottom: 16 }}><div className="vmx-progress-fill" style={{ width: '20%' }} /></div>
-                <div className="vmx-qtext" style={{ marginBottom: 18 }}>{t.heroQ}</div>
-                <div className="vmx-options" style={{ marginBottom: 18 }}>
-                  {p.heroOptions.map((opt, i) => <OptionRow key={i} opt={opt} onClick={() => { if (!p.heroRevealed) p.setHeroPicked(i); }} />)}
+                <div className="hstat">
+                  <div className="n num">12,400<span className="suf">+</span></div>
+                  <div className="l">เซสชันซ้อม / เดือน</div>
                 </div>
-                <div style={{ marginBottom: 6 }}>
-                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>{t.heroConfQ}</div>
-                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                    {t.conf.map((c, i) => <button key={i} type="button" className={chip(p.heroConfidence === i)} style={{ minHeight: 36, padding: '7px 14px' }} onClick={() => p.setHeroConfidence(i)}>{c}</button>)}
+              </div>
+              <div className="hero-cta">
+                <button type="button" className="btn btn-primary" onClick={p.onEnterApp}>
+                  เริ่มทำโจทย์ฟรี <span className="ar">→</span>
+                </button>
+                <a href="#clips" className="btn btn-ghost">ดูคลิปสรุป</a>
+              </div>
+              <div className="live-pill">
+                <span className="pd" /> มีนิสิตกำลังซ้อมอยู่ตอนนี้ <b className="num" style={{ color: '#fff' }}>128</b> คน
+              </div>
+            </div>
+
+            <div className="quiz-stage">
+              <div className="stamp">
+                <svg viewBox="0 0 100 100">
+                  <defs>
+                    <path id="circ" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/>
+                  </defs>
+                  <circle cx="50" cy="50" r="48" fill="#ffb020"/>
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#072723" strokeOpacity=".25" strokeWidth="1"/>
+                  <text fontMinimal="true" fontFamily="Chakra Petch" fontSize="9" fontWeight="700" fill="#072723" letterSpacing="2">
+                    <textPath href="#circ">VETMOCK · CHULALONGKORN · VETMOCK · CHULALONGKORN · </textPath>
+                  </text>
+                </svg>
+                <span className="core">🐾</span>
+              </div>
+              <div className="fchip a"><span className="ic">⚡</span> +10 XP ต่อข้อ</div>
+              <div className="fchip b"><span className="ic">📖</span> อธิบายทุกข้อ</div>
+              <div className="fchip c"><span className="ic">🎯</span> Tag ตาม topic</div>
+
+              <div className="quiz-card" id="quizCard">
+                <div className="qc-top">
+                  <span className="qc-subj">{currentQ.subject}</span>
+                  <div className="qc-meta">
+                    <span className={`qc-chip ${popStreak ? 'pop' : ''}`}>🔥 <span className="num">{streak}</span></span>
+                    <span className={`qc-chip xp ${popXp ? 'pop' : ''}`}>⚡ <span className="num">{xp}</span></span>
                   </div>
                 </div>
-                {p.heroRevealed && <div className="vmx-explain" style={{ marginTop: 16 }}><span className="k">{t.why}</span>{t.heroExplain}</div>}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 16 }}>
-                  {p.heroRevealed
-                    ? <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 13, fontWeight: 700, color: p.heroPicked === 1 ? 'var(--clr-sage)' : 'var(--clr-rose-text)' }}>{p.heroPicked === 1 ? `✓ ${t.correct}` : `✗ ${t.wrong}`}</span>
-                    : <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.demoNote}</span>}
-                  <button type="button" className="vmx-btn vmx-btn-primary" style={{ marginLeft: 'auto' }} disabled={p.heroPicked === null || p.heroRevealed} onClick={p.onCheckHero}>{t.check}</button>
-                </div>
-              </div>
-              {/* mini exam navigator (desktop only) */}
-              <div className="lp-hide-md" style={{ width: 120, flexShrink: 0, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: 14, display: 'flex', flexDirection: 'column', gap: 11 }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 13, color: 'var(--clr-ink)' }}>{t.navTitle}</div>
-                <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 22, fontWeight: 600, color: 'var(--clr-ink)', lineHeight: 1 }}>04<span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}> / 20</span></div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 5 }}>
-                  {Array.from({ length: 20 }).map((_, i) => {
-                    const base = { aspectRatio: '1', borderRadius: 5, border: '1px solid var(--clr-border)', fontFamily: 'var(--vmx-mono)', fontSize: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' };
-                    let st = base;
-                    if (i < 3) st = { ...base, background: 'var(--clr-sage)', color: 'var(--clr-surface)', borderColor: 'var(--clr-sage)' };
-                    else if (i === 3) st = { ...base, background: 'var(--clr-ink)', color: 'var(--clr-bg)', borderColor: 'var(--clr-ink)' };
-                    else if (i === 7) st = { ...base, background: 'var(--clr-gold)', color: 'var(--clr-surface)', borderColor: 'var(--clr-gold)' };
-                    return <div key={i} style={st}>{i + 1}</div>;
+                <div className="q-text">{currentQ.q}</div>
+                <div className="q-opts">
+                  {currentQ.opts.map((opt, i) => {
+                    let cls = 'opt';
+                    let mark = '';
+                    if (picked !== null) {
+                      cls += ' lock';
+                      if (i === currentQ.ans) {
+                        cls += ' correct';
+                        mark = '✓';
+                      } else if (i === picked) {
+                        cls += ' wrong';
+                        mark = '✕';
+                      } else {
+                        cls += ' dim';
+                      }
+                    }
+                    return (
+                      <button key={i} type="button" className={cls} onClick={() => handleAnswer(i)}>
+                        <span className="opt-key">{LETTERS[i]}</span>
+                        <span className="opt-txt">{opt}</span>
+                        <span className="opt-ic">{mark}</span>
+                      </button>
+                    );
                   })}
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontFamily: 'var(--vmx-mono)', fontSize: 9, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-                  {[[t.legAnswered, 'var(--clr-sage)'], [t.legCurrent, 'var(--clr-ink)'], [t.legFlagged, 'var(--clr-gold)']].map(([lbl, c]) => (
-                    <span key={lbl} style={{ display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ width: 9, height: 9, borderRadius: 3, background: c }} />{lbl}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= TRUST BAND ================= */}
-      <section id="why" data-screen-label="Trust" className="lp-pad" style={{ padding: '32px 24px', background: 'var(--clr-surface)', borderTop: '1px solid var(--clr-border)', borderBottom: '1px solid var(--clr-border)' }}>
-        <div className="lp-reveal" style={{ ...container, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px 30px' }}>
-          <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: 'var(--clr-sage)' }}>{t.trustLabel}</span>
-          {t.trust.map((tp) => <span key={tp} style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 14, color: 'var(--clr-ink)', fontWeight: 500 }}><span style={{ color: 'var(--clr-sage)', fontSize: 15 }}>✓</span>{tp}</span>)}
-        </div>
-      </section>
-
-      {/* ================= PROBLEM ================= */}
-      <section data-screen-label="Problem" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 44 }}>
-            <div style={label()}>{t.probLabel}</div>
-            <h2 style={h2}>{t.probHead}</h2>
-          </div>
-          <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20 }}>
-            {t.problems.map((pr) => (
-              <div key={pr.title} style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>{pr.emoji}</div>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{pr.title}</h3>
-                <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{pr.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= SOLUTION / FEATURES ================= */}
-      <section id="solution" data-screen-label="Features" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 44 }}>
-            <div style={label()}>{t.solLabel}</div>
-            <h2 style={h2}>{t.solPre}<em style={em}>{t.solEm}</em>{t.solPost}</h2>
-            <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.solSub}</p>
-          </div>
-          <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }}>
-            <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 46, height: 46, borderRadius: 12, background: 'var(--clr-sage)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🎓</div>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.mockName}</h3>
-              </div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.mockDesc}</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4 }}>
-                {t.mockBullets.map((b) => <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 11, fontSize: 14, color: 'var(--clr-ink)' }}><span style={{ color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>✓</span>{b}</div>)}
-              </div>
-              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ alignSelf: 'flex-start', marginTop: 4 }}>{t.heroCta1} →</button>
-            </div>
-            <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 46, height: 46, borderRadius: 12, background: 'var(--clr-ocean)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🔬</div>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.labFName}</h3>
-              </div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.labFDesc}</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 4 }}>
-                {t.labExamples.map((e) => <div key={e.label} style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '11px 12px', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 11, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ fontSize: 16, flexShrink: 0 }}>{e.emoji}</span>{e.label}</div>)}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= PANIC MODE ================= */}
-      <section id="panic" data-screen-label="Panic Mode" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, borderTop: '1px dashed var(--clr-border)' }}>
-        <div className="lp-stack" style={{ ...container, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 46, alignItems: 'center' }}>
-          <div className="lp-reveal">
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-gold)', borderRadius: 999, background: 'var(--clr-gold-soft)', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink)', marginBottom: 18 }}>
-              <span>🚨</span>{t.panicLabel}
-            </div>
-            <h2 style={{ ...h2, fontSize: 'clamp(32px,4.6vw,50px)', lineHeight: 1, margin: '0 0 8px' }}>{t.panicHead}</h2>
-            <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 19, color: 'var(--clr-ink-soft)', margin: '0 0 14px' }}>{t.panicCalm}</p>
-            <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '48ch', margin: 0 }}>{t.panicDesc}</p>
-            <div style={{ margin: '24px 0 22px' }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 11 }}>{t.panicTimeQ}</div>
-              <div style={{ display: 'flex', gap: 9, flexWrap: 'wrap' }}>
-                {t.panicTimes.map((pt) => <button key={pt.key} type="button" className={chip(p.panicTime === pt.key)} onClick={() => p.setPanicTime(pt.key)}>{pt.label}</button>)}
-              </div>
-            </div>
-            {/* Runs a REAL cram session sized to the time the user just picked
-                (weak topics when there's enough history to know them). */}
-            <button type="button" onClick={() => (p.onStartPanic ? p.onStartPanic(p.panicTime) : p.onEnterApp())} className="vmx-btn" style={{ background: 'var(--clr-gold)', color: 'var(--clr-surface)', fontSize: 15, padding: '15px 26px' }}>{t.panicCta} →</button>
-          </div>
-          <div className="lp-reveal" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: '3px solid var(--clr-gold)', borderRadius: 20, padding: 28, boxShadow: 'var(--shadow-md)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
-              <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18, color: 'var(--clr-ink)' }}>{t.panicPlanTitle}</span>
-              {/* This card recomputes as the time chips change, but the
-                  numbers are an illustrative example set, not a live feed
-                  — so it's framed as a preview, not "LIVE". */}
-              <span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
-              {[[p.panic.c, t.panicStatConcepts, 'var(--clr-ink)'], [p.panic.t, t.panicStatTraps, 'var(--clr-gold)'], [p.panic.q, t.panicStatQ, 'var(--clr-sage)'], [p.panic.w, t.panicStatWeak, 'var(--clr-rose)']].map(([v, lbl, c]) => (
-                <div key={lbl} style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 13, padding: 15 }}>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 30, lineHeight: 1, color: c }}>{v}</div>
-                  <div style={{ fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 6 }}>{lbl}</div>
-                </div>
-              ))}
-            </div>
-            <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginBottom: 10 }}>{t.panicFocusTitle}</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {t.panicFocus.slice(0, p.panic.w).map((f, i) => (
-                <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '11px 13px', background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 11, fontSize: 13.5, color: 'var(--clr-ink)' }}>
-                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-gold-text)', fontWeight: 700, flexShrink: 0 }}>{String(i + 1).padStart(2, '0')}</span>{f}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= HOW IT WORKS ================= */}
-      <section data-screen-label="How it works" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 44 }}><div style={label()}>{t.howLabel}</div><h2 style={h2}>{t.howHead}</h2></div>
-          <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 20 }}>
-            {t.steps.map((s, i) => (
-              <div key={s.title} style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
-                <div style={{ fontFamily: 'var(--vmx-mono)', fontWeight: 600, fontSize: 14, width: 44, height: 44, borderRadius: '50%', background: 'var(--clr-sage)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{i + 1}</div>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{s.title}</h3>
-                <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{s.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= SUBJECTS (real + showcase) ================= */}
-      <SubjectsSection p={p} />
-
-      {/* ================= LAB SIMULATION ================= */}
-      <LabSection p={p} />
-
-      {/* ================= ANALYTICS ================= */}
-      <AnalyticsSection p={p} />
-
-      {/* ================= READINESS ================= */}
-      <section data-screen-label="Readiness" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div style={label()}>{t.rLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.rHeadPre}<em style={em}>{t.rHeadEm}</em>{t.rHeadPost}</h2></div>
-          <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '290px 1fr', gap: 38, alignItems: 'center', background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 34 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-              <div style={{ position: 'relative', width: 200, height: 200, borderRadius: '50%', background: p.readinessRing, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ width: 150, height: 150, borderRadius: '50%', background: 'var(--clr-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 54, lineHeight: 1, color: 'var(--clr-sage)' }}>72<span style={{ fontSize: 22 }}>%</span></span>
-                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 2 }}>{t.rScoreWord}</span>
-                </div>
-              </div>
-              <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 16, color: 'var(--clr-ink-soft)', textAlign: 'center', margin: 0 }}>{t.rMsg}</p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              {t.rMetricLabels.map((lbl, i) => {
-                const pct = [78, 68, 64, 81, 70][i];
-                const cls = pct >= 75 ? '' : pct >= 60 ? 'mid' : 'low';
-                return (
-                  <div key={lbl}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, marginBottom: 6, color: 'var(--clr-ink)' }}><span>{lbl}</span><span style={{ fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>{pct}%</span></div>
-                    <div className="vmx-bar" style={{ height: 9 }}><div className={`vmx-bar-fill ${cls}`} style={{ width: `${pct}%`, transition: 'width .8s ease' }} /></div>
+                <div className={`q-explain ${picked !== null ? 'show' : ''}`}>
+                  <div className="box">
+                    <div className="t">💡 คำอธิบาย</div>
+                    <p>{currentQ.explain}</p>
                   </div>
-                );
-              })}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 9, marginTop: 6, padding: '12px 14px', background: 'var(--clr-surface-2)', borderRadius: 11, fontSize: 12.5, lineHeight: 1.5, color: 'var(--clr-ink-soft)' }}><span style={{ color: 'var(--clr-gold-text)', flexShrink: 0 }}>ⓘ</span>{t.rDisclaimer}</div>
+                </div>
+                <div className="q-foot">
+                  <div className="q-dots">
+                    {QUESTIONS.map((_, i) => (
+                      <i key={i} className={i === qi ? 'on' : ''} />
+                    ))}
+                  </div>
+                  <button type="button" className="q-next" onClick={handleNextQ} disabled={picked === null}>
+                    ข้อถัดไป →
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ================= WEAKNESS ================= */}
-      <section id="weakness" data-screen-label="Weakness detection" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 34 }}><div style={label()}>{t.weakLabel}</div><h2 style={h2}>{t.weakHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.weakSub}</p><p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: '10px 0 0', fontStyle: 'italic' }}>{t.weakPreviewNote}</p></div>
-          <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 16, marginBottom: 26 }}>
-            {t.weaknessCards.map((w) => (
-              <div key={w.text} style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: `3px solid ${w.color}`, borderRadius: 16, padding: 20, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', fontWeight: 700, color: w.color }}>{w.tag}</span>
-                <p style={{ fontSize: 14.5, lineHeight: 1.5, color: 'var(--clr-ink)', margin: 0 }}>{w.text}</p>
+      {/* MARQUEE */}
+      <div className="marquee" aria-hidden="true">
+        <div className="mq-track">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="mq-group">
+              {TOPICS.map((t) => (
+                <span key={t} className="mq-item">
+                  {t}
+                  <svg className="paw" viewBox="0 0 24 24">
+                    <g fill="#072723">
+                      <ellipse cx="12" cy="15" rx="4" ry="3.2"/>
+                      <ellipse cx="6" cy="9" rx="1.7" ry="2.2"/>
+                      <ellipse cx="10" cy="6.5" rx="1.7" ry="2.2"/>
+                      <ellipse cx="14" cy="6.5" rx="1.7" ry="2.2"/>
+                      <ellipse cx="18" cy="9" rx="1.7" ry="2.2"/>
+                    </g>
+                  </svg>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* SUBJECTS BENTO */}
+      <section className="sec" id="subjects">
+        <div className="wrap">
+          <div className="sec-head rv">
+            <span className="eyebrow"><span className="dot" />เลือกสนามซ้อม</span>
+            <h2>คลังข้อสอบแยกตาม COM & วิชา</h2>
+            <p>ทุกชุดมี Tag ตาม topic, คำอธิบายละเอียด และบันทึกข้อผิดเข้า “สมุดทวน” อัตโนมัติ ให้กลับมาแก้จุดอ่อนได้ตรงจุด</p>
+          </div>
+          <div className="bento">
+            <article className="scard s-com3 rv" style={{ '--v': '68%', cursor: 'pointer' }} onClick={() => p.onPickSubject ? p.onPickSubject(3, 'com3') : p.onEnterApp()}>
+              <span className="ghost">03</span>
+              <span className="code">COMPREHENSIVE III</span>
+              <h3>COM III</h3>
+              <span className="yr">ชั้นปีที่ 3 · พื้นฐานทางคลินิก</span>
+              <div className="count num">รวม <b>820</b> ข้อ</div>
+              <div className="chips">
+                <span className="chip">เภสัชวิทยา</span>
+                <span className="chip">พยาธิวิทยา</span>
+                <span className="chip">จุลชีววิทยา</span>
+                <span className="chip">สรีรวิทยา</span>
               </div>
+              <svg className="spark" viewBox="0 0 220 56" preserveAspectRatio="none">
+                <polyline points="0,46 28,40 56,43 84,28 112,33 140,18 168,24 196,10 220,15" />
+              </svg>
+              <div className="prog">
+                <div className="row"><span>ความคืบหน้าการซ้อม</span><span className="num">68%</span></div>
+                <div className="track"><div className="fill" /></div>
+              </div>
+              <span className="go">→</span>
+            </article>
+
+            <article className="scard s-com4 rv" style={{ '--v': '41%', cursor: 'pointer' }} onClick={() => p.onPickSubject ? p.onPickSubject(4, 'com4') : p.onEnterApp()}>
+              <span className="ghost">04</span>
+              <span className="code">COMPREHENSIVE IV</span>
+              <h3>COM IV</h3>
+              <span className="yr">ชั้นปีที่ 4 · วิชาคลินิกหลัก</span>
+              <div className="count num">รวม <b>940</b> ข้อ</div>
+              <div className="chips">
+                <span className="chip">ศัลยศาสตร์</span>
+                <span className="chip">อายุรศาสตร์</span>
+                <span className="chip">Diagnostic Imaging</span>
+              </div>
+              <div className="prog">
+                <div className="row"><span>ความคืบหน้าการซ้อม</span><span className="num">41%</span></div>
+                <div className="track"><div className="fill" /></div>
+              </div>
+              <span className="go">→</span>
+            </article>
+
+            <article className="scard s-com5 rv" style={{ '--v': '12%', cursor: 'pointer' }} onClick={() => p.onPickSubject ? p.onPickSubject(5, 'com5') : p.onEnterApp()}>
+              <span className="ghost">05</span>
+              <span className="code">COMPREHENSIVE V</span>
+              <h3>COM V</h3>
+              <span className="yr">ชั้นปีที่ 5 · คลินิกประยุกต์</span>
+              <div className="count num">รวม <b>1,050</b> ข้อ</div>
+              <div className="chips">
+                <span className="chip">คลินิกสัตว์เล็ก</span>
+                <span className="chip">สูติศาสตร์</span>
+                <span className="chip">Theriogenology</span>
+              </div>
+              <div className="prog">
+                <div className="row"><span>ความคืบหน้าการซ้อม</span><span className="num">12%</span></div>
+                <div className="track"><div className="fill" /></div>
+              </div>
+              <span className="go">→</span>
+            </article>
+
+            <article className="scard s-eng rv" style={{ '--v': '55%', cursor: 'pointer' }} onClick={() => p.onPickSubject ? p.onPickSubject(4, 'engprof') : p.onEnterApp()}>
+              <span className="ghost">EN</span>
+              <span className="code">ENGLISH FOR VET PROFESSION</span>
+              <h3>Eng Vet Prof II</h3>
+              <span className="yr">ภาษาอังกฤษวิชาชีพ · ปี 4–5</span>
+              <div className="count num">รวม <b>390</b> ข้อ</div>
+              <div className="chips">
+                <span className="chip">Reading</span>
+                <span className="chip">Vocabulary</span>
+                <span className="chip">Case Communication</span>
+                <span className="chip">Medical Terminology</span>
+              </div>
+              <svg className="spark" viewBox="0 0 220 56" preserveAspectRatio="none">
+                <polyline points="0,40 28,44 56,30 84,34 112,22 140,28 168,14 196,20 220,8" />
+              </svg>
+              <div className="prog">
+                <div className="row"><span>ความคืบหน้าการซ้อม</span><span className="num">55%</span></div>
+                <div className="track"><div className="fill" /></div>
+              </div>
+              <span className="go">→</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* ROADMAP */}
+      <section className="sec" id="roadmap" style={{ paddingTop: 0 }}>
+        <div className="wrap">
+          <div className="sec-head rv">
+            <span className="eyebrow"><span className="dot" />เส้นทางปี 1–6</span>
+            <h2>ไล่ตามชั้นปี ไม่มีหลงทาง</h2>
+            <p>เปิดแล้วในชั้นปี 3–5 และกำลังขยายให้ครบทุกชั้นปี (ปี 1–6) — ล็อกไว้รอคุณอยู่</p>
+          </div>
+          <div className="road rv" id="road">
+            <div className="track-line" />
+            <div className="track-fill" />
+            <div className="nodes">
+              <div className="node lock">
+                <div className="circle">🔒</div>
+                <div className="yr">ปี 1</div>
+                <div className="sub">พื้นฐานวิทยาศาสตร์</div>
+                <span className="tag">เร็ว ๆ นี้</span>
+              </div>
+              <div className="node lock">
+                <div className="circle">🔒</div>
+                <div className="yr">ปี 2</div>
+                <div className="sub">Pre-clinic</div>
+                <span className="tag">เร็ว ๆ นี้</span>
+              </div>
+              <div className="node open">
+                <div className="circle">3</div>
+                <div className="yr">ปี 3</div>
+                <div className="sub">COM III</div>
+                <span className="tag">เปิดแล้ว</span>
+              </div>
+              <div className="node open">
+                <div className="circle">4</div>
+                <div className="yr">ปี 4</div>
+                <div className="sub">COM IV + Eng II</div>
+                <span className="tag">เปิดแล้ว</span>
+              </div>
+              <div className="node open">
+                <div className="circle">5</div>
+                <div className="yr">ปี 5</div>
+                <div className="sub">COM V</div>
+                <span className="tag">เปิดแล้ว</span>
+              </div>
+              <div className="node lock">
+                <div className="circle">🔒</div>
+                <div className="yr">ปี 6</div>
+                <div className="sub">คลินิกเต็มเวลา</div>
+                <span className="tag">เร็ว ๆ นี้</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MODES */}
+      <section className="sec" id="modes" style={{ paddingTop: 0 }}>
+        <div className="wrap">
+          <div className="sec-head rv">
+            <span className="eyebrow"><span className="dot" />โหมดซ้อม</span>
+            <h2>ครบทุกอาวุธในการอ่านสอบ</h2>
+            <p>จะทบทวนทีละข้อ ฝึกจับเวลาแบบสนามจริง หรือเปิดคลิปสรุปก่อนนอน — เลือกได้ตามจังหวะของคุณ</p>
+          </div>
+          <div className="tabs rv">
+            <button type="button" className={`tab-btn ${activeTab === 'm1' ? 'on' : ''}`} onClick={() => setActiveTab('m1')}>
+              <span className="ic">📝</span> MCQ ทีละข้อ
+            </button>
+            <button type="button" className={`tab-btn ${activeTab === 'm2' ? 'on' : ''}`} onClick={() => setActiveTab('m2')}>
+              <span className="ic">⏱️</span> Mock Exam จับเวลา
+            </button>
+            <button type="button" className={`tab-btn ${activeTab === 'm3' ? 'on' : ''}`} onClick={() => setActiveTab('m3')}>
+              <span className="ic">🎬</span> สรุปคลิป
+            </button>
+          </div>
+
+          {/* Panel M1 */}
+          <div className={`panel ${activeTab === 'm1' ? 'on' : ''}`} id="m1">
+            <div className="panel-grid">
+              <div>
+                <h3>ทำทีละข้อ พร้อมเฉลยละเอียดทันที</h3>
+                <p className="desc">ทุกข้อมีคำอธิบายว่า “ทำไมถูก / ทำไมผิด” ช่วยเปลี่ยนข้อที่ผิดให้กลายเป็นบทเรียน ไม่ใช่แค่คะแนน</p>
+                <ul className="check">
+                  <li><span className="ck">✓</span> คำอธิบายละเอียดทุกตัวเลือก</li>
+                  <li><span className="ck">✓</span> Tag ตาม topic — ซ้อมเฉพาะจุดที่อ่อน</li>
+                  <li><span className="ck">✓</span> บันทึกข้อผิดเข้า “สมุดทวน” อัตโนมัติ</li>
+                  <li><span className="ck">✓</span> ระบบ streak & XP ให้ซ้อมต่อเนื่อง</li>
+                </ul>
+              </div>
+              <div className="panel-visual rv" id="ringBox">
+                <div className="ring-wrap">
+                  <div className="ring">
+                    <svg width="120" height="120">
+                      <circle className="bg" cx="60" cy="60" r="50"/>
+                      <circle className="fg" cx="60" cy="60" r="50" style={{ '--off': '113' }}/>
+                    </svg>
+                    <div className="mid"><b className="num">64%</b><span>ทำถูกเฉลี่ย</span></div>
+                  </div>
+                  <div className="ring-txt">
+                    <h4>นิสิตทำถูกเฉลี่ย 64%</h4>
+                    <p>หลังซ้อมครบ 3 ชุด คะแนนเฉลี่ยขยับขึ้นเป็น <b>82%</b> — ตัวเลขที่พิสูจน์ว่าการซ้อมซ้ำได้ผลจริง</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Panel M2 */}
+          <div className={`panel ${activeTab === 'm2' ? 'on' : ''}`} id="m2">
+            <div className="panel-grid rev">
+              <div className="panel-visual mock">
+                <div className="mock-head">
+                  <span className="ttl">COM IV · Mock #3</span>
+                  <span className="mock-timer">
+                    <span className="blip" />
+                    <span className="num">{fmtTime(mockLeft)}</span>
+                  </span>
+                </div>
+                <div className="mock-row">
+                  <span className="k">1</span>
+                  <div className="bar"><div className="skl w90" /><div className="skl w70" /></div>
+                </div>
+                <div className="mock-row">
+                  <span className="k">2</span>
+                  <div className="bar"><div className="skl w80" /><div className="skl w50" /></div>
+                </div>
+                <div className="mock-row">
+                  <span className="k">3</span>
+                  <div className="bar"><div className="skl w90" /><div className="skl w70" /></div>
+                </div>
+                <div className="mock-cta">
+                  <button type="button" className="btn btn-dark" onClick={() => p.onStartMockExam ? p.onStartMockExam() : setMockRunning((r) => !r)}>
+                    {mockRunning ? '⏸ พัก' : '▶ เริ่มจับเวลา'}
+                  </button>
+                  <span className="mock-meta">100 ข้อ · 90 นาที</span>
+                </div>
+              </div>
+              <div>
+                <h3>จำลองสนามสอบจริง จับเวลาเป๊ะ</h3>
+                <p className="desc">ชุด Mock Exam สุ่มข้อตามสัดส่วนจริงของแต่ละ COM ฝึกบริหารเวลาและความกดดันก่อนวันสอบจริง</p>
+                <ul className="check">
+                  <li><span className="ck">✓</span> สุ่มข้อตาม blueprint ของแต่ละวิชา</li>
+                  <li><span className="ck">✓</span> นาฬิกานับถอยหลัง + เตือนเมื่อใกล้หมดเวลา</li>
+                  <li><span className="ck">✓</span> รายงานผลแยกราย topic หลังส่ง</li>
+                  <li><span className="ck">✓</span> เปรียบเทียบคะแนนกับนิสิตทั้งรุ่น</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Panel M3 */}
+          <div className={`panel ${activeTab === 'm3' ? 'on' : ''}`} id="m3">
+            <div className="panel-grid">
+              <div>
+                <h3>สรุปคลิปย้อนหลัง สั้น กระชับ ตรงจุดที่ออกสอบ</h3>
+                <p className="desc">คลิปสรุปเนื้อหา 5–20 นาที ตัดเฉพาะส่วนที่ออกสอบบ่อย ดูทบทวนระหว่างเดินทางหรือก่อนนอนได้</p>
+                <ul className="check">
+                  <li><span className="ck">✓</span> สรุปเป็น mind-map & flashcard</li>
+                  <li><span className="ck">✓</span> แบ่งตาม chapter ตรงกับเลกเชอร์</li>
+                  <li><span className="ck">✓</span> มี timestamp กระโดดไปจุดสำคัญ</li>
+                </ul>
+              </div>
+              <div className="panel-visual">
+                <div className="miniclip">
+                  <img src="https://image.qwenlm.ai/public_source/dc693399-5212-423d-8491-d675c6a8ef9e/103a6e8eb-85b4-435b-a539-6fe6d9c3cecc.png" alt="NSAIDs" />
+                  <div>
+                    <div className="mc-t">NSAIDs ในสุนัขและแมว</div>
+                    <div className="mc-m">COM III · 12:45</div>
+                  </div>
+                  <span className="play">▶</span>
+                </div>
+                <div className="miniclip">
+                  <img src="https://image.qwenlm.ai/public_source/dc693399-5212-423d-8491-d675c6a8ef9e/162a4d801-d94b-4e36-9c09-c9dc53f4f43b.png" alt="Suture" />
+                  <div>
+                    <div className="mc-t">เทคนิคการเย็บแผลพื้นฐาน</div>
+                    <div className="mc-m">COM IV · 18:20</div>
+                  </div>
+                  <span className="play">▶</span>
+                </div>
+                <div className="miniclip">
+                  <img src="https://image.qwenlm.ai/public_source/dc693399-5212-423d-8491-d675c6a8ef9e/1a274d7ef-fe0c-4cb8-bf1a-b52855a0047b.png" alt="Cardiac" />
+                  <div>
+                    <div className="mc-t">Approach to Cardiac Case</div>
+                    <div className="mc-m">COM IV · 14:08</div>
+                  </div>
+                  <span className="play">▶</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CLIPS DARK */}
+      <section className="sec clips" id="clips">
+        <div className="wrap">
+          <div className="sec-head rv">
+            <span className="eyebrow"><span className="dot" />สรุปคลิปย้อนหลัง</span>
+            <h2>เปิดโรงหนังแห่งการทบทวน</h2>
+            <p>คัดเฉพาะคลิปที่นิสิตกดดูซ้ำมากที่สุด อัปเดตทุกเทอม</p>
+          </div>
+          <div className="filters rv">
+            {['all', 'com3', 'com4', 'com5'].map((f) => (
+              <button
+                key={f}
+                type="button"
+                className={`flt ${clipFilter === f ? 'on' : ''}`}
+                onClick={() => setClipFilter(f)}
+              >
+                {f === 'all' ? 'ทั้งหมด' : f.toUpperCase()}
+              </button>
             ))}
           </div>
-          <div className="lp-reveal" style={{ textAlign: 'center' }}><button type="button" onClick={p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 28px' }}>{t.weakCta} →</button></div>
-        </div>
-      </section>
+          <div className="clip-grid">
+            {(clipFilter === 'all' || clipFilter === 'com3') && (
+              <article className="ccard feat rv" data-cat="com3">
+                <div className="cthumb">
+                  <img src="https://image.qwenlm.ai/public_source/dc693399-5212-423d-8491-d675c6a8ef9e/103a6e8eb-85b4-435b-a539-6fe6d9c3cecc.png" alt="NSAIDs" />
+                  <span className="cat">COM III</span>
+                  <span className="dur">12:45</span>
+                  <div className="play"><span>▶</span></div>
+                </div>
+                <div className="cbody">
+                  <h4>Pharmacology: NSAIDs ในสุนัขและแมว — กลไก, ข้อห้าม & เคสพิษ</h4>
+                  <p className="feat-desc">สรุปครบตั้งแต่ COX selectivity, ขนาดยา, ไปจนถึงการจัดการภาวะไตวายจากยา — พร้อม mnemonic จำง่าย</p>
+                  <div className="cmeta"><span>👁 2.1k</span><span>🗓 3 วันที่แล้ว</span><span>⭐ 4.9</span></div>
+                </div>
+              </article>
+            )}
 
-      {/* ================= FINAL CTA ================= */}
-      <section id="cta" data-screen-label="Final CTA" className="lp-pad" style={{ padding: '100px 24px', scrollMarginTop: 80 }}>
-        <div className="lp-reveal" style={{ maxWidth: 920, margin: '0 auto', textAlign: 'center', background: 'var(--clr-ink)', borderRadius: 26, padding: '64px 40px' }}>
-          <h2 style={{ fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(30px,4.5vw,46px)', lineHeight: 1.05, letterSpacing: '-.03em', color: 'var(--clr-bg)', margin: '0 0 18px', textWrap: 'balance' }}>{t.ctaPre}<em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage-soft)' }}>{t.ctaEm}</em>{t.ctaPost}</h2>
-          {/* On the inverted (--clr-ink) panel, text/border derive from
-              --clr-bg via color-mix so they stay legible in BOTH themes
-              (a hardcoded cream would vanish on the cream box dark mode
-              produces). */}
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: 'color-mix(in srgb, var(--clr-bg) 72%, transparent)', maxWidth: '52ch', margin: '0 auto 30px' }}>{t.ctaSub}</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
-            <button type="button" onClick={p.onEnterApp} className="vmx-btn" style={{ background: 'var(--clr-surface)', color: 'var(--clr-ink)', fontSize: 15, padding: '15px 28px' }}>{t.cta1} →</button>
-            <a href="#subjects" className="vmx-btn" style={{ background: 'transparent', color: 'var(--clr-bg)', border: '1.5px solid color-mix(in srgb, var(--clr-bg) 30%, transparent)', fontSize: 15, padding: '15px 28px' }}>{t.cta2}</a>
+            {(clipFilter === 'all' || clipFilter === 'com4') && (
+              <article className="ccard std rv" data-cat="com4">
+                <div className="cthumb">
+                  <img src="https://image.qwenlm.ai/public_source/dc693399-5212-423d-8491-d675c6a8ef9e/162a4d801-d94b-4e36-9c09-c9dc53f4f43b.png" alt="Surgery" />
+                  <span className="cat">COM IV</span>
+                  <span className="dur">18:20</span>
+                  <div className="play"><span>▶</span></div>
+                </div>
+                <div className="cbody">
+                  <h4>Surgery: เทคนิคการเย็บแผลและ pattern พื้นฐาน</h4>
+                  <div className="cmeta"><span>👁 1.8k</span><span>🗓 1 สัปดาห์</span></div>
+                </div>
+              </article>
+            )}
+
+            {(clipFilter === 'all' || clipFilter === 'com5') && (
+              <article className="ccard std rv" data-cat="com5">
+                <div className="cthumb">
+                  <img src="https://image.qwenlm.ai/public_source/dc693399-5212-423d-8491-d675c6a8ef9e/135ff700f-f0ae-449b-a0f2-ac618daed3b6.png" alt="Ultrasound" />
+                  <span className="cat">COM V</span>
+                  <span className="dur">15:02</span>
+                  <div className="play"><span>▶</span></div>
+                </div>
+                <div className="cbody">
+                  <h4>Theriogenology: อัลตราซาวด์ตรวจครรภ์</h4>
+                  <div className="cmeta"><span>👁 1.2k</span><span>🗓 5 วัน</span></div>
+                </div>
+              </article>
+            )}
+
+            {(clipFilter === 'all' || clipFilter === 'com4') && (
+              <article className="ccard std rv" data-cat="com4">
+                <div className="cthumb">
+                  <img src="https://image.qwenlm.ai/public_source/dc693399-5212-423d-8491-d675c6a8ef9e/1a274d7ef-fe0c-4cb8-bf1a-b52855a0047b.png" alt="Cardiac" />
+                  <span className="cat">COM IV</span>
+                  <span className="dur">14:08</span>
+                  <div className="play"><span>▶</span></div>
+                </div>
+                <div className="cbody">
+                  <h4>Internal Med: Approach to Cardiac Case</h4>
+                  <div className="cmeta"><span>👁 3.4k</span><span>🗓 2 สัปดาห์</span></div>
+                </div>
+              </article>
+            )}
           </div>
         </div>
       </section>
 
-      {/* ================= FOOTER ================= */}
-      <footer data-screen-label="Footer" className="lp-pad" style={{ padding: '52px 24px 40px', borderTop: '1px solid var(--clr-border)' }}>
-        <div style={container}>
-          <div className="lp-stack" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 30, alignItems: 'start', marginBottom: 36 }}>
-            <div>
-              <a href="#lp-top" style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 22, letterSpacing: '-.02em', color: 'var(--clr-ink)', marginBottom: 12 }}>
-                <img src="/vetmock-logo.svg" width={28} height={28} style={{ borderRadius: 7, display: 'block' }} alt="VetMock logo" />
-                Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span>
+      {/* LIVE + BOARD */}
+      <section className="sec" style={{ paddingTop: 0 }}>
+        <div className="wrap">
+          <div className="sec-head rv">
+            <span className="eyebrow"><span className="dot" />ชุมชนคนซ้อม</span>
+            <h2>คุณไม่ได้ซ้อมคนเดียว</h2>
+            <p>ดูกิจกรรมสดและอันดับ streak — แรงบันดาลใจเล็ก ๆ ที่ทำให้กด “ข้อถัดไป” ต่อได้</p>
+          </div>
+          <div className="duo">
+            <div className="card-box rv">
+              <div className="hd">
+                <h3>กิจกรรมล่าสุด</h3>
+                <span className="live-tag"><span className="pd" /> LIVE</span>
+              </div>
+              <ul className="feed">
+                {feedList.map((item, idx) => (
+                  <li key={idx} className={item.isNew ? 'new' : ''}>
+                    <span className="av" style={{ background: item.c }}>
+                      {item.t.includes('ปี 4') ? 'ปี4' : item.t.includes('ปี 3') ? 'ปี3' : item.t.includes('ปี 5') ? 'ปี5' : 'ปี?'}
+                    </span>
+                    <div>
+                      <div className="ft" dangerouslySetInnerHTML={{ __html: `${item.t} — ${item.s}` }} />
+                      <div className="ftime">{item.time}</div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="card-box rv">
+              <div className="hd">
+                <h3>อันดับ Streak ประจำสัปดาห์</h3>
+                <span className="num" style={{ color: 'var(--ink-2)', fontFamily: 'Chakra Petch', fontSize: '.82rem' }}>Top 5</span>
+              </div>
+              <ul className="board">
+                {BOARD.map((b, i) => (
+                  <li key={i}>
+                    <span className="rk">{i + 1}</span>
+                    <span className="av" style={{ background: b.c }}>{b.n.slice(0, 2).toUpperCase()}</span>
+                    <div>
+                      <div className="nm">{b.n}</div>
+                      <div className="yr">{b.y}</div>
+                    </div>
+                    <div className="rt">
+                      <div className="st">🔥 {b.st} วัน</div>
+                      <div className="xp num">{b.xp} XP</div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="cta">
+        <div className="wrap">
+          <div className="cta-box rv">
+            <div className="cta-inner">
+              <div>
+                <h2>สอบจริงไม่หวั่น เพราะซ้อมมาพอแล้ว</h2>
+                <p>เริ่มทำโจทย์ชุดแรกวันนี้ — ฟรี สำหรับนิสิตคณะสัตวแพทยศาสตร์ จุฬาฯ</p>
+                <div className="cta-note">※ ต้องเปิด JavaScript เพื่อใช้งานระบบซ้อม</div>
+              </div>
+              <button type="button" className="btn btn-dark" onClick={p.onEnterApp}>
+                เริ่มซ้อมเลย 🐾
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer>
+        <div className="wrap">
+          <div className="foot-grid">
+            <div className="foot-brand">
+              <a href="#top" className="logo">
+                <span className="mark">
+                  <svg viewBox="0 0 32 32">
+                    <g fill="#ffb020">
+                      <ellipse cx="16" cy="20" rx="5.5" ry="4.5"/>
+                      <ellipse cx="9" cy="13" rx="2.4" ry="3.1"/>
+                      <ellipse cx="14" cy="10" rx="2.4" ry="3.1"/>
+                      <ellipse cx="20" cy="10" rx="2.4" ry="3.1"/>
+                      <ellipse cx="24" cy="13" rx="2.4" ry="3.1"/>
+                    </g>
+                  </svg>
+                </span>
+                <span>VetMock<small>Chula · Vet</small></span>
               </a>
-              <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 15, color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>{t.footTagline}</p>
-              <p style={{ fontSize: 12.5, lineHeight: 1.55, color: 'var(--clr-ink-soft)', maxWidth: '46ch', margin: 0 }}>{t.footIndependent}</p>
+              <p>คลังโจทย์ฝึกนิสิตสัตวแพทย์ จุฬาฯ — MCQ + แนวข้อสอบ + สรุปคลิปย้อนหลัง ทำด้วยใจโดยนิสิต เพื่อนิสิต</p>
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 28px' }}>
-              {t.footLinks.map((l) => <a key={l.label} href={l.href} style={{ fontSize: 13.5, color: 'var(--clr-ink-soft)' }}>{l.label}</a>)}
+            <div className="foot-col">
+              <h5>สนามสอบ</h5>
+              <a href="#subjects">COM III</a>
+              <a href="#subjects">COM IV</a>
+              <a href="#subjects">COM V</a>
+              <a href="#subjects">Eng Vet Prof II</a>
+            </div>
+            <div className="foot-col">
+              <h5>ชั้นปี</h5>
+              <a href="#roadmap">ปี 1–2 (เร็ว ๆ นี้)</a>
+              <a href="#roadmap">ปี 3</a>
+              <a href="#roadmap">ปี 4</a>
+              <a href="#roadmap">ปี 5–6</a>
+            </div>
+            <div className="foot-col">
+              <h5>เพิ่มเติม</h5>
+              <a href="#modes">โหมดซ้อม</a>
+              <a href="#clips">คลิปย้อนหลัง</a>
+              <a href="#top">เกี่ยวกับเรา</a>
+              <a href="#top">ติดต่อ</a>
             </div>
           </div>
-          <div style={{ paddingTop: 20, borderTop: '1px dashed var(--clr-border)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 8, fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-            <span>{t.copyright}</span>
-            <span>Practice before the real exam.</span>
+          <div className="foot-bot">
+            <span>© 2569 VetMock · คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย</span>
+            <span>ทำด้วย <span class="heart">♥</span> โดยนิสิตสัตวแพทย์ จุฬาฯ</span>
           </div>
         </div>
       </footer>
     </main>
-  );
-}
-
-/* ---- Subjects (real curriculum + showcase toggle) ---- */
-function SubjectsSection({ p }) {
-  const { t } = p;
-  const showcase = p.showcaseMode;
-  const cards = showcase
-    ? SHOWCASE_FILTER(p.subjectTab)
-    : p.realSubjects;
-  return (
-    <section id="subjects" data-screen-label="Subjects" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
-      <div style={container}>
-        <div className="lp-reveal" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 22, marginBottom: 30 }}>
-          <div style={{ maxWidth: 620 }}>
-            <div style={label()}>{t.subjLabel}</div>
-            <h2 style={h2}>{t.subjPre}<em style={em}>{t.subjEm}</em>{t.subjPost}</h2>
-            <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '14px 0 4px' }}>{t.subjSub}</p>
-            <p style={{ fontSize: 13, color: showcase ? 'var(--clr-ink-soft)' : 'var(--clr-sage)', margin: 0, fontWeight: 500 }}>{showcase ? t.subjShowcaseNote : t.subjRealNote}</p>
-          </div>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <button type="button" className={`vmx-nav-btn ${!showcase ? 'active' : ''}`} style={{ minHeight: 38 }} onClick={() => p.setShowcaseMode(false)}>{t.subjToggleReal}</button>
-            <button type="button" className={`vmx-nav-btn ${showcase ? 'active' : ''}`} style={{ minHeight: 38 }} onClick={() => p.setShowcaseMode(true)}>{t.subjToggleShowcase}</button>
-          </div>
-        </div>
-        {showcase && (
-          <div className="lp-reveal" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
-            {t.tabs.map((tb) => <button key={tb.key} type="button" className={`vmx-nav-btn ${p.subjectTab === tb.key ? 'active' : ''}`} style={{ minHeight: 38 }} onClick={() => p.setSubjectTab(tb.key)}>{tb.label}</button>)}
-          </div>
-        )}
-        <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(208px,1fr))', gap: 14 }}>
-          {cards.map((s) => {
-            const clickable = !showcase && s.hasQ;
-            return (
-              <div key={s.id || s.name} className="vmx-subject-card" tabIndex={0} role={clickable ? 'button' : undefined}
-                onClick={clickable ? () => p.onPickSubject(s.year, s.id) : undefined}
-                onKeyDown={clickable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); p.onPickSubject(s.year, s.id); } } : undefined}
-                style={clickable ? { cursor: 'pointer' } : undefined}>
-                <span className="accent" style={{ background: s.color }} />
-                <span className="icon">{s.emoji}</span>
-                <span className="title">{s.name}</span>
-                <span className="sub">{s.sub}</span>
-                <span className="count">{showcase ? '' : `${s.count} ${t.qWord}`}{clickable ? '' : ''}</span>
-                {clickable && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-sage)', marginTop: 2 }}>{t.startPractice} →</span>}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const SHOWCASE = [
-  { emoji: '🦴', name: 'Anatomy', sub: 'Gross & Systemic', color: '#4a6b4a', group: 'preclinical' },
-  { emoji: '🫀', name: 'Physiology', sub: 'Body Systems', color: '#3d6b82', group: 'preclinical' },
-  { emoji: '🔬', name: 'Pathology', sub: 'General & Systemic', color: '#7d4a7d', group: 'paraclinical' },
-  { emoji: '💊', name: 'Pharmacology', sub: 'Drugs & Dosing', color: '#b88940', group: 'paraclinical' },
-  { emoji: '🦠', name: 'Microbiology', sub: 'Bacteria & Virology', color: '#4a6b4a', group: 'paraclinical' },
-  { emoji: '🪱', name: 'Parasitology', sub: 'Endo & Ecto', color: '#c26d6d', group: 'paraclinical' },
-  { emoji: '🛡️', name: 'Immunology', sub: 'Immune Response', color: '#3d6b82', group: 'paraclinical' },
-  { emoji: '🩻', name: 'Diagnostic Imaging', sub: 'Radiology & US', color: '#7d4a7d', group: 'paraclinical' },
-  { emoji: '📈', name: 'Epidemiology', sub: 'Disease & Herd', color: '#b88940', group: 'paraclinical' },
-  { emoji: '🔪', name: 'Surgery', sub: 'Soft Tissue & Ortho', color: '#c26d6d', group: 'clinical' },
-  { emoji: '🩺', name: 'Internal Medicine', sub: 'Small & Large Animal', color: '#4a6b4a', group: 'clinical' },
-  { emoji: '🐄', name: 'Theriogenology', sub: 'Reproduction', color: '#b88940', group: 'clinical' },
-  { emoji: '🐕', name: 'Small Animal Medicine', sub: 'Dogs & Cats', color: '#3d6b82', group: 'clinical' },
-  { emoji: '🐂', name: 'Large Animal Medicine', sub: 'Ruminants & Equine', color: '#7d4a7d', group: 'clinical' },
-  { emoji: '🦜', name: 'Exotic Animal Medicine', sub: 'Wildlife & Exotic', color: '#c26d6d', group: 'clinical' },
-];
-function SHOWCASE_FILTER(tab) {
-  return tab === 'all' ? SHOWCASE : SHOWCASE.filter((s) => s.group === tab);
-}
-
-/* ---- Lab simulation ---- */
-function LabSection({ p }) {
-  const { t } = p;
-  return (
-    <section id="lab" data-screen-label="Lab simulation" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
-      <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 38 }}><div style={label()}>{t.labSecLabel}</div><h2 style={h2}>{t.labSecHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '60ch', margin: '14px 0 0' }}>{t.labSecSub}</p></div>
-        <div className="lp-stack lp-reveal" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 22, display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 22 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              {/* letterSpacing:normal overrides the shared vmx-qtype-badge's
-                  .1em tracking, which would otherwise sit on the Thai
-                  labStation string in the TH locale. */}
-              <span className="vmx-qtype-badge" style={{ background: 'var(--clr-ink)', color: 'var(--clr-bg)', borderColor: 'var(--clr-ink)', whiteSpace: 'nowrap', flexShrink: 0, letterSpacing: 'normal' }}>{t.labStation}</span>
-              <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>{t.labDemoNote}</span>
-              <span className="vmx-timer" style={{ marginLeft: 'auto' }}>04:59</span>
-            </div>
-            <div style={{ position: 'relative', aspectRatio: '4 / 3', background: '#0a0a0c', border: '1px solid var(--clr-border)', borderRadius: 14, overflow: 'hidden', cursor: p.labTool ? 'crosshair' : 'default' }}>
-              {/* Main Radiograph Image */}
-              <div style={{ position: 'absolute', inset: 0, transform: `scale(${p.labZoom})`, transition: 'transform .25s ease', transformOrigin: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <img
-                  src="/images/thoracic-xray.jpg"
-                  alt="Canine Lateral Thoracic Radiograph"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
-                
-                {/* Interactive Annotate Overlay */}
-                {p.labTool === 'annotate' && (
-                  <div style={{ position: 'absolute', top: '48%', left: '42%', width: 84, height: 84, borderRadius: '50%', border: '2px dashed #4ade80', boxShadow: '0 0 12px rgba(74,222,128,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', animation: 'lp-pulse 2s infinite' }}>
-                    <span style={{ position: 'absolute', top: -20, background: 'rgba(0,0,0,0.85)', color: '#4ade80', fontSize: 11, fontFamily: 'var(--vmx-mono)', padding: '2px 6px', borderRadius: 4, whiteSpace: 'nowrap', border: '1px solid #4ade80' }}>
-                      ROI 1: Cardiomegaly
-                    </span>
-                  </div>
-                )}
-
-                {/* Interactive Measure Overlay */}
-                {p.labTool === 'measure' && (
-                  <div style={{ position: 'absolute', top: '40%', left: '35%', width: 140, height: 2, background: '#f59e0b', pointerEvents: 'none' }}>
-                    <div style={{ position: 'absolute', left: 0, top: -4, width: 2, height: 10, background: '#f59e0b' }} />
-                    <div style={{ position: 'absolute', right: 0, top: -4, width: 2, height: 10, background: '#f59e0b' }} />
-                    <span style={{ position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.85)', color: '#f59e0b', fontSize: 11, fontFamily: 'var(--vmx-mono)', padding: '2px 6px', borderRadius: 4, whiteSpace: 'nowrap', border: '1px solid #f59e0b' }}>
-                      VHS = 11.4v (Elevated)
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* DICOM HUD Info Overlay */}
-              <div style={{ position: 'absolute', top: 10, left: 10, pointerEvents: 'none', background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)', padding: '5px 9px', borderRadius: 6, fontFamily: 'var(--vmx-mono)', fontSize: 9.5, color: 'rgba(255,255,255,0.85)', display: 'flex', flexDirection: 'column', gap: 2, border: '1px solid rgba(255,255,255,0.1)' }}>
-                <span>PATIENT: BUSTER (CANINE, 8Y MN)</span>
-                <span>VIEW: LATERAL THORAX (DR)</span>
-                <span style={{ color: 'var(--clr-sage)' }}>W: 350 L: 40 (CHEST WINDOW)</span>
-              </div>
-
-              <div style={{ position: 'absolute', right: 10, bottom: 10, display: 'flex', alignItems: 'center', gap: 6, zIndex: 2 }}>
-                <button type="button" onClick={() => p.setLabZoom((z) => Math.max(1, +(z - 0.25).toFixed(2)))} aria-label="Zoom out" style={labZoomBtn}>−</button>
-                <span style={{ display: 'flex', alignItems: 'center', padding: '0 9px', height: 28, fontFamily: 'var(--vmx-mono)', fontSize: 11, color: '#fff', background: 'rgba(0,0,0,.5)', borderRadius: 999 }}>{Math.round(p.labZoom * 100)}%</span>
-                <button type="button" onClick={() => p.setLabZoom((z) => Math.min(3, +(z + 0.25).toFixed(2)))} aria-label="Zoom in" style={labZoomBtn}>+</button>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <button type="button" onClick={() => p.setLabTool((x) => x === 'annotate' ? null : 'annotate')} style={labTool(p.labTool === 'annotate')}>✏️ {t.toolAnnotate}</button>
-              <button type="button" onClick={() => p.setLabTool((x) => x === 'measure' ? null : 'measure')} style={labTool(p.labTool === 'measure')}>📏 {t.toolMeasure}</button>
-              <button type="button" onClick={() => { p.setLabZoom(1); p.setLabTool(null); }} style={labTool(false)}>↺ {t.toolReset}</button>
-            </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <div className="vmx-qtext" style={{ fontSize: 16 }}>{t.labPrompt}</div>
-            <div className="vmx-options">
-              {p.labOptions.map((opt, i) => <OptionRow key={i} opt={opt} onClick={() => { if (!p.labRevealed) p.setLabPicked(i); }} />)}
-            </div>
-            {p.labRevealed && <div className="vmx-explain"><span className="k">{t.why}</span>{t.labExplain}</div>}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 'auto' }}>
-              {p.labRevealed && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 13, fontWeight: 700, color: p.labPicked === 0 ? 'var(--clr-sage)' : 'var(--clr-rose-text)' }}>{p.labPicked === 0 ? `✓ ${t.correct}` : `✗ ${t.wrong}`}</span>}
-              <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
-                <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={p.labPicked === null || p.labRevealed} onClick={p.onCheckLab}>{t.check}</button>
-                <button type="button" onClick={p.onOpenLab || p.onEnterApp} className="vmx-btn vmx-btn-ghost vmx-btn-sm">{t.labNext} →</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-const labZoomBtn = { width: 32, height: 32, borderRadius: '50%', border: '1px solid rgba(255,255,255,.25)', background: 'rgba(0,0,0,.5)', color: '#fff', fontSize: 17, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' };
-const labTool = (active) => ({ padding: '9px 14px', borderRadius: 10, border: `1px solid ${active ? 'var(--clr-sage)' : 'var(--clr-border)'}`, background: active ? 'color-mix(in srgb, var(--clr-sage) 12%, transparent)' : 'var(--clr-surface)', color: active ? 'var(--clr-sage)' : 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 12.5, cursor: 'pointer', minHeight: 40 });
-
-/* ---- Analytics ---- */
-function AnalyticsSection({ p }) {
-  const { t } = p;
-  const ACTIVITY = [3, 7, 5, 9, 6, 11, 8]; const maxA = Math.max(...ACTIVITY);
-  const MASTERY = [{ name: 'Pharmacology', pct: 82 }, { name: 'Physiology', pct: 76 }, { name: 'Surgery', pct: 69 }, { name: 'Pathology', pct: 61 }, { name: 'Parasitology', pct: 51 }];
-  const statColors = ['var(--clr-sage)', 'var(--clr-ink)', 'var(--clr-sage)', 'var(--clr-rose)'];
-  return (
-    <section id="progress" data-screen-label="Progress" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
-      <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={label()}>{t.aLabel}</div><h2 style={h2}>{t.aHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '56ch', margin: '14px 0 0' }}>{t.aSub}</p></div>
-        <div className="lp-reveal" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 26, boxShadow: 'var(--shadow-sm)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-            <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>📊 {t.progressTitle}</span>
-            <span className="vmx-tag-pill" style={{ marginLeft: 'auto' }}>{t.aSample}</span>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(148px,1fr))', gap: 12, marginBottom: 20 }}>
-            {t.aStatLabels.map((lbl, i) => (
-              <div key={lbl} className="vmx-stat-card" style={{ textAlign: 'left' }}>
-                <div className="vmx-stat-num" style={{ color: statColors[i], fontSize: 26 }}>{t.aStatVals[i]}</div>
-                <div className="vmx-stat-lbl">{lbl}</div>
-              </div>
-            ))}
-          </div>
-          <div className="lp-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-            <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: 18 }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 16 }}>
-                <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)' }}>{t.aActivityTitle}</span>
-                <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.aActivitySub}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 112 }}>
-                {ACTIVITY.map((v, i) => (
-                  <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, height: '100%', justifyContent: 'flex-end' }}>
-                    <div style={{ width: '100%', maxWidth: 26, height: `${Math.round((v / maxA) * 100)}%`, background: 'var(--clr-sage)', borderRadius: '6px 6px 0 0', minHeight: 5 }} />
-                    <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.aDays[i]}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: 18, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)', marginBottom: 11 }}>{t.aMasteryTitle}</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
-                  {MASTERY.map((m) => {
-                    const cls = m.pct >= 75 ? '' : m.pct >= 60 ? 'mid' : 'low';
-                    return (
-                      <div key={m.name}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginBottom: 4, color: 'var(--clr-ink)' }}><span>{m.name}</span><span style={{ fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>{m.pct}%</span></div>
-                        <div className="vmx-bar"><div className={`vmx-bar-fill ${cls}`} style={{ width: `${m.pct}%`, transition: 'width .8s ease' }} /></div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-              <div style={{ borderTop: '1px dashed var(--clr-border)', paddingTop: 13 }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)', marginBottom: 10 }}>{t.aConfTitle}</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ width: 92, color: 'var(--clr-ink-soft)', flexShrink: 0 }}>{t.aConfConfident}</span><div className="vmx-bar" style={{ flex: 1 }}><div className="vmx-bar-fill" style={{ width: '88%' }} /></div><span style={{ fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>88%</span></div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ width: 92, color: 'var(--clr-ink-soft)', flexShrink: 0 }}>{t.aConfUnsure}</span><div className="vmx-bar" style={{ flex: 1 }}><div className="vmx-bar-fill low" style={{ width: '44%' }} /></div><span style={{ fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>44%</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }
