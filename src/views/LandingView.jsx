@@ -323,7 +323,7 @@ export default function LandingView({
                 <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)', marginBottom: 8 }}>{t.ckPrefs}</div>
                 <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 0', borderTop: '1px dashed var(--clr-border)' }}>
                   <div style={{ flex: 1 }}><div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--clr-ink)' }}>{t.ckEssentialT}</div><div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{t.ckEssentialD}</div></div>
-                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, color: 'var(--clr-sage)', flexShrink: 0, marginTop: 3 }}>{t.ckAlways}</span>
+                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-sage)', flexShrink: 0, marginTop: 3 }}>{t.ckAlways}</span>
                 </div>
                 <CookieRow title={t.ckAnalyticsT} desc={t.ckAnalyticsD} on={cAnalytics} onToggle={() => setCAnalytics((v) => !v)} />
                 <CookieRow title={t.ckPersonalT} desc={t.ckPersonalD} on={cPersonal} onToggle={() => setCPersonal((v) => !v)} border />
@@ -342,7 +342,7 @@ export default function LandingView({
         <div onClick={() => setLoginOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(43,36,25,.5)', zIndex: 110, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'max(20px, env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px))' }}>
           <div onClick={(e) => e.stopPropagation()} className="lp-stack" role="dialog" aria-modal="true" aria-label={t.lgHead} style={{ width: 800, maxWidth: '100%', maxHeight: '92dvh', overflow: 'auto', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 20, boxShadow: 'var(--shadow-lg)', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: reduce.current ? 'none' : 'lp-rise .45s cubic-bezier(.16,1,.3,1)' }}>
             <div className="lp-hide-md" style={{ background: 'var(--clr-bg)', borderRight: '1px solid var(--clr-border)', padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-ink-soft)' }}>{t.lgReturn}</span>
+              <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)' }}>{t.lgReturn}</span>
               <div style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 14, padding: 18 }}>
                 <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)', marginBottom: 10 }}>Canine Endocrinology</div>
                 <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>{t.lgReturnCase}</div>

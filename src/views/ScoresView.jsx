@@ -98,7 +98,7 @@ function ScoreCell({ label, value, color }) {
   if (value === null || value === undefined) {
     return (
       <div style={{ padding: 10, background: 'var(--clr-bg)', borderRadius: 8, textAlign: 'center', opacity: 0.4 }}>
-        <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.05em', marginBottom: 4 }}>{label}</div>
+        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.05em', marginBottom: 4 }}>{label}</div>
         <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>—</div>
       </div>
     );
@@ -108,7 +108,7 @@ function ScoreCell({ label, value, color }) {
 
   return (
     <div style={{ padding: 10, background: 'var(--clr-bg)', borderRadius: 8, textAlign: 'center' }}>
-      <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.05em', marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.05em', marginBottom: 4 }}>{label}</div>
       <div style={{ fontSize: 16, fontWeight: 600, fontFamily: 'Fraunces, serif', color }}>{display}</div>
     </div>
   );

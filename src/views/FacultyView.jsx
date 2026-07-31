@@ -167,7 +167,7 @@ export default function FacultyView({ goHome }) {
       {/* Subject filter chip row */}
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8, alignItems: 'center' }}>
         <span style={{
-          fontSize: 10, fontFamily: 'var(--vmx-mono)',
+          fontSize: 11, fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
           letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
         }}>by subject</span>
@@ -195,7 +195,7 @@ export default function FacultyView({ goHome }) {
       {/* Department filter chip row */}
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
         <span style={{
-          fontSize: 10, fontFamily: 'var(--vmx-mono)',
+          fontSize: 11, fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
           letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
         }}>by dept</span>
@@ -316,10 +316,14 @@ function FacultyCard({ instructor, onClick }) {
             <span
               key={sid}
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontFamily: 'var(--vmx-mono)',
-                color: meta?.color || 'var(--clr-ink-soft)',
-                background: 'var(--clr-bg)',
+                // The subject's own colour identifies the tag, but as 11px
+                // text on cream several of them land at 2.7-3.2:1. It carries
+                // the identity just as well as the border and a faint fill,
+                // with the label in readable ink.
+                color: 'var(--clr-ink)',
+                background: meta?.color ? `color-mix(in srgb, ${meta.color} 12%, var(--clr-bg))` : 'var(--clr-bg)',
                 padding: '2px 6px',
                 borderRadius: 999,
                 border: `1px solid ${meta?.color || 'var(--clr-border)'}`,
@@ -334,7 +338,7 @@ function FacultyCard({ instructor, onClick }) {
         {(!subjects || subjects.length === 0) && deptMeta && (
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontFamily: 'var(--vmx-mono)',
               color: 'var(--clr-ink-soft)',
               background: 'var(--clr-surface-2)',

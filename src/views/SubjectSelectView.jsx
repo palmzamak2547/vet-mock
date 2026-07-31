@@ -126,7 +126,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               {/* Drop the 7-digit course code on the card — already
                   searchable via ⌘K; redundant visual noise here. */}
               {false && s.code && s.id !== 'all' && (
-                <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
+                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', opacity: 0.7, marginTop: 2 }}>
                   {s.code}
                 </div>
               )}
@@ -136,7 +136,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   padding: '3px 8px',
                   borderRadius: 999,
                   background: 'var(--clr-surface-2)',
-                  fontSize: 10,
+                  fontSize: 11,
                   fontFamily: 'var(--vmx-mono)',
                   color: 'var(--clr-ink-soft)',
                   display: 'inline-block',

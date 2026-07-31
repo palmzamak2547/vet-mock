@@ -280,7 +280,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
                   <span
                     title="กำลังเล่นช่วงนี้"
                     style={{
-                      flexShrink: 0, fontSize: 10, fontWeight: 700,
+                      flexShrink: 0, fontSize: 11, fontWeight: 700,
                       color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)',
                       alignSelf: 'center', letterSpacing: '0.06em',
                     }}

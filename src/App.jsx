@@ -1707,7 +1707,10 @@ export default function App() {
       <TopLoadingBar />
       {/* One mounted dialog for every confirmDialog()/alertDialog() caller. */}
       <DialogHost />
-      <div className="vmx-app">
+      {/* `is-focus` = the bottom nav is not rendered for this view, so the
+          space normally reserved for it is dead weight (58px of it, on every
+          exam screen). See the .vmx-app padding rule in styles.css. */}
+      <div className={`vmx-app${FOCUS_VIEWS.has(view) ? ' is-focus' : ''}`}>
         {!FOCUS_VIEWS.has(view) && (
           <Sidebar
             view={view}

@@ -466,7 +466,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
             />
             <div style={{
               display: 'flex', justifyContent: 'space-between',
-              fontSize: 10, fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace',
+              fontSize: 11, fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace',
               color: 'var(--clr-ink-soft)', marginTop: 2,
             }}>
               <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>

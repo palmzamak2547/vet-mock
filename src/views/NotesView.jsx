@@ -230,10 +230,10 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 <div style={{ fontSize: 13, fontWeight: active ? 600 : 500, lineHeight: 1.3 }}>
                   {t.icon} {t.title}
                 </div>
-                <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
+                <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
                   by Aj. {t.lecturer}
                 </div>
-                <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                   {t.sections.length} sections
                 </div>
               </button>
@@ -335,7 +335,7 @@ function SectionBlock({ section, idx, highlight }) {
         style={{ all: 'unset', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', width: '100%', boxSizing: 'border-box', borderBottom: open ? '1px solid var(--clr-border)' : 'none' }}
       >
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
             §{idx + 1}
           </div>
           <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>

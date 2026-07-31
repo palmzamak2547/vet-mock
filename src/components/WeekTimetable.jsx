@@ -51,7 +51,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent }) {
                   {DOW_TH[dow]}
                 </strong>
                 {isToday && (
-                  <span style={{ fontSize: 10.5, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', border: '1px solid var(--clr-sage)', borderRadius: 999, padding: '1px 7px' }}>
+                  <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', border: '1px solid var(--clr-sage)', borderRadius: 999, padding: '1px 7px' }}>
                     วันนี้
                   </span>
                 )}
@@ -97,7 +97,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent }) {
                         <span style={{ display: 'block', fontSize: 13.5, fontWeight: 600, color: openable ? 'var(--clr-ocean)' : 'var(--clr-ink)', lineHeight: 1.35 }}>
                           {c.title}
                           {c.kind === 'lab' && (
-                            <span style={{ fontSize: 10.5, marginLeft: 6, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>LAB</span>
+                            <span style={{ fontSize: 11, marginLeft: 6, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>LAB</span>
                           )}
                         </span>
                         <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
@@ -105,7 +105,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent }) {
                         </span>
                       </span>
                       {isNow && (
-                        <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--clr-rose-text)', whiteSpace: 'nowrap' }}>
+                        <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--clr-rose-text)', whiteSpace: 'nowrap' }}>
                           กำลังเรียน
                         </span>
                       )}

@@ -156,10 +156,10 @@ export default function PomodoroView({ goHome }) {
       >
         {statsRow.map((s) => (
           <div key={s.label} style={{ textAlign: 'center', padding: '4px 2px' }}>
-            <div style={{ fontSize: 11, color: '#888', whiteSpace: 'nowrap' }}>{s.label}</div>
+            <div style={{ fontSize: 11, color: '#6b6257', whiteSpace: 'nowrap' }}>{s.label}</div>
             <div style={{ fontSize: 16, fontWeight: 700, color: '#7a5a30' }}>
               {s.value}
-              <span style={{ fontSize: 10, color: '#aaa', marginLeft: 2 }}>{s.suffix}</span>
+              <span style={{ fontSize: 11, color: '#6b6257', marginLeft: 2 }}>{s.suffix}</span>
             </div>
           </div>
         ))}
@@ -257,7 +257,7 @@ export default function PomodoroView({ goHome }) {
       </div>
 
       {/* Hint footer */}
-      <div style={{ fontSize: 12, color: '#888', textAlign: 'center', padding: '4px 8px' }}>
+      <div style={{ fontSize: 12, color: '#6b6257', textAlign: 'center', padding: '4px 8px' }}>
         {config.strictFocus !== false
           ? 'Strict Mode: เปลี่ยนแท็บ พับหน้าต่าง หรือล็อกหน้าจอเกิน 5 วินาที ลูกไก่จะหนี'
           : 'Relaxed Mode: สลับแอปอ่าน PDF/สรุปได้ โดยไม่พัง session'}

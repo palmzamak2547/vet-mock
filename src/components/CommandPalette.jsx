@@ -516,7 +516,7 @@ export default function CommandPalette({
           }}>
             <span style={{
               fontFamily: 'var(--vmx-mono)',
-              fontSize: 10,
+              fontSize: 11,
               color: 'var(--clr-ink-soft)',
               padding: '2px 8px',
               border: '1px solid var(--clr-border)',
@@ -524,7 +524,7 @@ export default function CommandPalette({
             }}>{indexTotals.questions} ข้อ</span>
             <span style={{
               fontFamily: 'var(--vmx-mono)',
-              fontSize: 10,
+              fontSize: 11,
               color: 'var(--clr-ink-soft)',
               padding: '2px 8px',
               border: '1px solid var(--clr-border)',
@@ -532,7 +532,7 @@ export default function CommandPalette({
             }}>{indexTotals.flashcards} flashcards</span>
             <span style={{
               fontFamily: 'var(--vmx-mono)',
-              fontSize: 10,
+              fontSize: 11,
               color: 'var(--clr-ink-soft)',
               padding: '2px 8px',
               border: '1px solid var(--clr-border)',
@@ -581,7 +581,7 @@ export default function CommandPalette({
                 {showHeader && SECTION_LABELS[item.type] && (
                   <div style={{
                     padding: '10px 16px 4px',
-                    fontSize: 10,
+                    fontSize: 11,
                     fontFamily: 'var(--vmx-mono)',
                     color: 'var(--clr-ink-soft)',
                     textTransform: 'uppercase',
@@ -655,7 +655,7 @@ export default function CommandPalette({
           borderTop: '1px solid var(--clr-border)',
           background: 'var(--clr-bg)',
           fontFamily: 'var(--vmx-mono)',
-          fontSize: 10,
+          fontSize: 11,
           color: 'var(--clr-ink-soft)',
           display: 'flex',
           gap: 16,

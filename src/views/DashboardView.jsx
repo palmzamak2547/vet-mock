@@ -5,6 +5,8 @@ import BackBar from '../components/BackBar.jsx';
 import { getWebVitalsSamples, summarize } from '../lib/web-vitals.js';
 import StreakHeatmap from '../components/StreakHeatmap.jsx';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import EmptyState from '../components/EmptyState.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 
 // OSCE drill is a heavier interactive modal — lazy load when launched.
 const OSCEDrill = lazy(() => import('../components/OSCEDrill.jsx'));
@@ -177,7 +179,7 @@ function TrendChart({ days }) {
           />
         )}
       </svg>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4, padding: '0 2px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4, padding: '0 2px' }}>
         {days.map((d, i) => (
           <span key={i} style={{ flex: 1, textAlign: 'center' }}>{d.label}</span>
         ))}
@@ -382,7 +384,10 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
     <>
       <BackBar onBack={() => setView('home')} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1>Analytics <em>Dashboard</em></h1>
+        {/* Matches the nav label in src/lib/nav.js — the menu said
+            "ความคืบหน้า" and the page it opened said "Analytics Dashboard",
+            in English, on a Thai-first app. */}
+        <h1>ความ<em>คืบหน้า</em></h1>
         <p>สถิติการฝึกของคุณ, Streak: {streak || 0} วัน</p>
       </div>
 
@@ -415,7 +420,13 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       </div>
 
       {!scopedAnalytics ? (
-        <div className="vmx-empty">ยังไม่มีข้อมูลสถิติ — เริ่มทำข้อสอบเพื่อดูความคืบหน้าที่นี่</div>
+        <EmptyState
+          icon={<NavIcon name="progress" size={44} />}
+          title="ยังไม่มีความคืบหน้าให้ดู"
+          body="พอทำข้อสอบไปสักชุด ตรงนี้จะเก็บให้หมดว่าถูกกี่ข้อ วิชาไหนยังไม่แน่น และทำต่อเนื่องมากี่วันแล้ว"
+          ctaLabel="เริ่มทำข้อแรก"
+          onCta={() => { setPracticeMode?.('all'); setMode?.('quick'); setView?.('config'); }}
+        />
       ) : (
         <>
           {/* Stat cards now reflect yearScope toggle (Palm round 3

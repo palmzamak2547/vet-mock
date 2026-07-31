@@ -300,7 +300,7 @@ function ScoreBadge({ total, max, pct, touched }) {
     <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: '#fff', fontFamily: 'var(--vmx-mono)', fontWeight: 700 }}>
       <span style={{ fontSize: 16 }}>{total}</span>
       <span style={{ fontSize: 11, opacity: 0.85 }}>/ {max}</span>
-      <span style={{ fontSize: 10, opacity: 0.85 }}>, {pct}%</span>
+      <span style={{ fontSize: 11, opacity: 0.85 }}>, {pct}%</span>
     </div>
   );
 }
@@ -338,10 +338,10 @@ function AutoAnalysis({ wordCount, target, softMax, hardMax, coverage, copied, h
             { color: 'rose', text: `${coverage.pct}% — ไม่ครบ` }
           }
           detail={coverage.missing.length > 0 ? (
-            <div style={{ fontSize: 10, marginTop: 4 }}>
+            <div style={{ fontSize: 11, marginTop: 4 }}>
               <span style={{ color: 'var(--clr-ink-soft)' }}>ขาด:</span>{' '}
               {coverage.missing.slice(0, 4).map((m, i) => (
-                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose-text)', fontSize: 10 }}>{m}</span>
+                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose-text)', fontSize: 11 }}>{m}</span>
               ))}
               {coverage.missing.length > 4 && <span style={{ color: 'var(--clr-ink-soft)' }}>+{coverage.missing.length - 4}</span>}
             </div>
@@ -360,7 +360,7 @@ function AutoAnalysis({ wordCount, target, softMax, hardMax, coverage, copied, h
           { color: 'rose', text: 'copy เยอะ — แก้ paraphrase' }
         }
         detail={copied.length > 0 ? (
-          <div style={{ fontSize: 10, marginTop: 4, fontStyle: 'italic', color: 'var(--clr-rose-text)' }}>
+          <div style={{ fontSize: 11, marginTop: 4, fontStyle: 'italic', color: 'var(--clr-rose-text)' }}>
             "{copied[0].slice(0, 50)}{copied[0].length > 50 ? '...' : ''}"
           </div>
         ) : null}
@@ -378,7 +378,7 @@ function Meter({ icon, label, value, status, detail }) {
   const c = colorMap[status?.color] || colorMap.sage;
   return (
     <div style={{ padding: 10, borderRadius: 10, background: c.bg, border: `1px solid ${c.border}` }}>
-      <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>
         {icon} {label}
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>

@@ -501,7 +501,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           );
         })()}
         {currentQ.examOrigin && (
-          <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
+          <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 11, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
             อิงแนวเดิม
           </span>
         )}

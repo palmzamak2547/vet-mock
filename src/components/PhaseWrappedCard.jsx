@@ -437,7 +437,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
 
           {/* 30-day bar chart */}
           <div style={{ marginTop: 20 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>
               <span>30 days</span>
               <span>{stats.dailyAvg}/วัน avg</span>
             </div>
@@ -583,7 +583,7 @@ function StatCell({ label, value, unit, tint = 'var(--clr-ink, #2b2419)' }) {
       <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 28, color: tint, lineHeight: 1.1, marginTop: 2 }}>
         {value}
       </div>
-      <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)' }}>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)' }}>
         {unit}
       </div>
     </div>

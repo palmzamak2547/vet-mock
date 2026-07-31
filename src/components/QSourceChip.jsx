@@ -100,7 +100,7 @@ export default function QSourceChip({ q, onReport, store }) {
                 style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
               >
                 <Row label="Citation" value={eligibleCitation.title} icon="🔗" iconColor="var(--clr-sage)" />
-                <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 10, opacity: 0.9, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 11, opacity: 0.9, display: 'flex', flexDirection: 'column', gap: 2 }}>
                   <div>Ref: <code>{eligibleCitation.pageId}#{eligibleCitation.anchorId}</code></div>
                   <div>Approval: <code>{eligibleCitation.sourceApprovalRef}</code></div>
                 </div>
@@ -110,7 +110,7 @@ export default function QSourceChip({ q, onReport, store }) {
           {!eligibleCitation && hasDisplayableWikiRefs && displayableWikiRefs.map((ref, idx) => (
             <div key={idx} style={{ padding: 8, borderRadius: 6, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-border)' }}>
               <Row label="ข้อมูลอ้างอิง Wiki" value={ref.label || `${ref.pageId}#${ref.anchorId}`} icon="🔗" iconColor="var(--clr-sage)" />
-              <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 10, opacity: 0.85, display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 11, opacity: 0.85, display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <div>Target: <code>{ref.pageId}#{ref.anchorId}</code></div>
                 <div>Status: <code>{ref.status || 'approved'}</code> | Mapping: <code>{ref.mappingStatus || 'verified'}</code></div>
               </div>
@@ -177,7 +177,7 @@ function Row({ label, value, icon, iconColor }) {
           {icon}
         </span>
       )}
-      <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+      <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
         {label}
       </span>
       <span style={{ flex: 1, color: 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 11 }}>

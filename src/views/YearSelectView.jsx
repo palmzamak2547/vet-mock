@@ -151,7 +151,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                     <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.4 }}>
                       {y.desc}
                     </div>
-                    <div style={{ marginTop: 6, fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-gold-text)', letterSpacing: '0.05em' }}>
+                    <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-gold-text)', letterSpacing: '0.05em' }}>
                       {subjectCount} วิชา, รอเติม
                     </div>
                   </button>

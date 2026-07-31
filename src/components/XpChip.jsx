@@ -18,8 +18,23 @@ export default function XpChip() {
   // Same viewport-aware anchor logic — see useDropdownAnchor + STABILITY.md.
   const anchorSide = useDropdownAnchor(wrapRef, open, DROPDOWN_MIN_W);
 
+  // Crossing a level is the one moment in the XP system worth marking, and it
+  // was passing in complete silence: xp.js dispatches the event with
+  // { amount, reason, total }, and this listener threw all of it away and
+  // just re-read state. Comparing the level before and after gives us the
+  // crossing for free; .vmx-pop-in is the spring the header chips already use.
+  const [levelUp, setLevelUp] = useState(false);
   useEffect(() => {
-    const refresh = () => setState(getXpState());
+    const refresh = () => {
+      setState((prev) => {
+        const next = getXpState();
+        if (levelFor(next.totalXp) > levelFor(prev.totalXp)) {
+          setLevelUp(true);
+          window.setTimeout(() => setLevelUp(false), 700);
+        }
+        return next;
+      });
+    };
     window.addEventListener(XP_EVENT, refresh);
     // Also refresh on focus — covers the case where another tab
     // edited XP while this one was backgrounded.
@@ -47,11 +62,21 @@ export default function XpChip() {
   const lvl = levelFor(state.totalXp);
   const prog = xpForNextLevel(state.totalXp);
 
+  // Nothing earned yet? Say nothing. This chip sat in the most valuable slot
+  // in the header telling a brand-new student they have zero, next to an
+  // empty progress bar — a scoreboard before the game starts. It appears on
+  // its own the first time XP lands, which makes it a reward instead of a
+  // reminder. (The XP_EVENT listener above is what brings it back.)
+  if (state.totalXp <= 0) return null;
+
   return (
     <div ref={wrapRef} style={{ position: 'relative' }}>
       <button
         type="button"
-        className="vmx-xp-chip vmx-pop-in"
+        // Re-keyed on levelUp so the spring actually replays; a class that is
+        // already present does not restart its animation.
+        key={levelUp ? 'lv-up' : 'lv'}
+        className={`vmx-xp-chip${levelUp ? ' vmx-pop-in' : ''}`}
         onClick={() => setOpen((v) => !v)}
         title={`Lv ${lvl}, ${state.totalXp.toLocaleString()} XP, อีก ${prog.needed - prog.current} XP ไปอีก level`}
         aria-label={`ระดับ ${lvl}, ${state.totalXp} XP`}

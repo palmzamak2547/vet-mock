@@ -181,7 +181,7 @@ export default function OSCEDrill({ onClose }) {
                       <span style={{ flex: 1, fontSize: 13, lineHeight: 1.5, textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'var(--clr-ink-soft)' : 'var(--clr-ink)' }}>
                         {it.text}
                       </span>
-                      {critical && <span title="critical step — must hit" style={{ fontSize: 10, padding: '2px 6px', borderRadius: 999, background: 'var(--clr-gold, #b88940)', color: '#fff', fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>★ critical</span>}
+                      {critical && <span title="critical step — must hit" style={{ fontSize: 11, padding: '2px 6px', borderRadius: 999, background: 'var(--clr-gold, #b88940)', color: '#fff', fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>★ critical</span>}
                     </label>
                   </li>
                 );

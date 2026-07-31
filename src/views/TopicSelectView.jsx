@@ -372,7 +372,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 </div>
               )}
               {t.lecturerNote && !isEmpty && (
-                <div style={{ marginTop: 8, padding: '6px 8px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'left', lineHeight: 1.4 }}>
+                <div style={{ marginTop: 8, padding: '6px 8px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'left', lineHeight: 1.4 }}>
                   ⚠️ {t.lecturerNote}
                 </div>
               )}
@@ -515,7 +515,7 @@ function ExamFormatBanner({ format, accent }) {
         </div>
       )}
 
-      <div style={{ marginTop: 8, fontSize: 10, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
+      <div style={{ marginTop: 8, fontSize: 11, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
         โปรดยืนยันกับอาจารย์/หัวปีอีกครั้งก่อนวันสอบจริง
       </div>
     </div>

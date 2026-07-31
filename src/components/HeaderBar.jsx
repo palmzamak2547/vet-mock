@@ -27,6 +27,7 @@ import UserMenu from './UserMenu.jsx';
 import ThemePicker from './ThemePicker.jsx';
 import NavIcon from './NavIcon.jsx';
 import { commandShortcutLabel } from '../lib/nav.js';
+import Wordmark from './Wordmark.jsx';
 
 // XP chip — Lv N · XXX XP · thin progress bar. Lazy because the
 // gamification isn't critical for first paint.
@@ -64,7 +65,7 @@ export default function HeaderBar({
           onClick={goHome}
           aria-label="VetMock — หน้าแรก"
         >
-          Vet<span>Mock</span>
+          <Wordmark size={22} />
         </button>
 
         {/* Study context — one control, two axes. Grouping them says "this

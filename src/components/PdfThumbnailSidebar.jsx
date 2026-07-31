@@ -145,7 +145,7 @@ function ThumbItem({ pdfDoc, pageNum, isActive, hasAnnotation, onSelect }) {
             style={{
               width: 90, height: 120, background: '#eee',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 10, color: '#888',
+              fontSize: 11, color: '#888',
             }}
           >…</div>
         )}

@@ -66,7 +66,7 @@ export default class ErrorBoundary extends Component {
               padding: 10,
               background: 'rgba(0,0,0,0.05)',
               borderRadius: 6,
-              fontSize: 10,
+              fontSize: 11,
               fontFamily: 'var(--vmx-mono)',
               overflow: 'auto',
               maxHeight: 160,

@@ -184,7 +184,7 @@ export default function TemplateLibrary({ onPick, onClose }) {
                 <div>
                   <div
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       fontFamily: 'var(--vmx-mono)',
                       color: 'var(--clr-ink-soft)',
                       textTransform: 'uppercase',

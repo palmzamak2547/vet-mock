@@ -316,7 +316,7 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
           📄 {title || 'Reading Passage'}
         </span>
         {(highlights.length > 0 || strokes.length > 0) && (
-          <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontWeight: 600 }}>
+          <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontWeight: 600 }}>
             ✏️ {highlights.length + strokes.length}
           </span>
         )}

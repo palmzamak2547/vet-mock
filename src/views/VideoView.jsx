@@ -310,7 +310,7 @@ export default function VideoView({ goHome }) {
                         onClick={() => setFilter(s.id)}
                         title={`${count} คลิป`}
                       >
-                        {s.icon} {s.name} <span style={{ opacity: 0.6, fontSize: 10 }}>{count}</span>
+                        {s.icon} {s.name} <span style={{ opacity: 0.6, fontSize: 11 }}>{count}</span>
                       </button>
                     );
                   })}
@@ -373,7 +373,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
       >
         <ThumbnailWithPlayOverlay video={video} subject={subject} playlist={playlist} isChannel={isChannel} />
         <div style={{ padding: 14 }}>
-          <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: subject?.color || 'var(--clr-ink-soft)', textTransform: 'uppercase', marginBottom: 4, letterSpacing: '0.08em', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: subject?.color || 'var(--clr-ink-soft)', textTransform: 'uppercase', marginBottom: 4, letterSpacing: '0.08em', display: 'flex', alignItems: 'center', gap: 6 }}>
             <span>{subject?.icon} {subject?.name}</span>
             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>✓ ดูแล้ว</span>}
           </div>
@@ -442,10 +442,14 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
   }
 
   // Fallback / channel / loading playlist — gradient placeholder
+  // The label sits in white on top of these, and the old gradients ran into
+  // light sand (#e8d4a8) and light sage (#a8c0a8) — 1.46:1 and 1.95:1 at the
+  // pale end, i.e. white text on a pale wash. Same hues, taken down so white
+  // clears 4.5:1 across the whole sweep rather than only at the dark end.
   const bg = playlist
-    ? 'linear-gradient(135deg, #c26d6d, #e8d4a8)'
+    ? 'linear-gradient(135deg, #93454b, #6e5a3a)'
     : isChannel
-      ? 'linear-gradient(135deg, #a8c0a8, #3d6b82)'
+      ? 'linear-gradient(135deg, #4e6b4e, #2f5468)'
       : 'var(--clr-surface-2)';
   return (
     <div style={{ width: '100%', aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white' }}>
@@ -454,7 +458,7 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
         {playlist ? 'PLAYLIST' : isChannel ? 'CHANNEL' : 'VIDEO'}
       </div>
       {playlist && (
-        <div style={{ fontSize: 10, marginTop: 4, opacity: 0.85 }}>กำลังโหลดหน้าปก…</div>
+        <div style={{ fontSize: 11, marginTop: 4, opacity: 0.85 }}>กำลังโหลดหน้าปก…</div>
       )}
     </div>
   );
@@ -764,7 +768,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               <div style={{ marginTop: 14, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
                 <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goPrev} disabled={currentIdx <= 0} title="ก่อนหน้า (←)" style={{ padding: '6px 12px' }}>← Prev</button>
                 <div style={{ flex: 1, minWidth: 200 }}>
-                  <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                     Now playing, #{currentIdx + 1}
                   </div>
                   <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--clr-ink)', marginTop: 2 }}>
@@ -825,7 +829,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 }}>Copy link</button>
               )}
               <div style={{ flex: 1 }} />
-              <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', opacity: 0.7 }}>
+              <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', opacity: 0.7 }}>
                 ⌨ ← →, /, Esc
               </span>
             </div>
@@ -891,7 +895,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                           onError={(e) => { e.target.src = `https://img.youtube.com/vi/${item.id}/default.jpg`; }}
                         />
                         {item.duration && (
-                          <div style={{ position: 'absolute', bottom: 3, right: 3, padding: '0px 5px', background: 'rgba(0,0,0,0.85)', color: 'white', borderRadius: 3, fontSize: 10, fontFamily: 'var(--vmx-mono)', fontWeight: 600 }}>
+                          <div style={{ position: 'absolute', bottom: 3, right: 3, padding: '0px 5px', background: 'rgba(0,0,0,0.85)', color: 'white', borderRadius: 3, fontSize: 11, fontFamily: 'var(--vmx-mono)', fontWeight: 600 }}>
                             {item.duration}
                           </div>
                         )}
@@ -901,7 +905,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                       </div>
                       <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <div>
-                          <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginBottom: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
+                          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginBottom: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
                             <span>#{realIdx + 1}</span>
                             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>✓</span>}
                             {hasSummary && (
@@ -916,7 +920,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                           </div>
                         </div>
                         {item.channel && (
-                          <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {item.channel}
                           </div>
                         )}

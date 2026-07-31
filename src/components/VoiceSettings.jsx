@@ -137,7 +137,7 @@ function SliderRow({ label, hint, value, min, max, step, format, onChange }) {
         aria-label={label}
         style={{ width: '100%', accentColor: 'var(--clr-sage)' }}
       />
-      <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2 }}>{hint}</div>
+      <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2 }}>{hint}</div>
     </div>
   );
 }

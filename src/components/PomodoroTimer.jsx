@@ -20,6 +20,7 @@
 // - 44 px touch targets on every action button (iOS HIG minimum).
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import PomodoroChick from './PomodoroChick.jsx';
 
 const VISIBILITY_GRACE_MS = 5_000; // 5 s — survives glances at notifications
 const FOCUS_PER_CYCLE = 4; // every 4th focus → long break
@@ -77,19 +78,9 @@ function formatClock(ms) {
   return `${pad2(m)}:${pad2(s)}`;
 }
 
-// --- Egg / chick stage decision ------------------------------------------
-function pickEmoji(state, progress) {
-  if (state === 'idle') return '🥚';
-  if (state === 'focus') {
-    if (progress >= 1) return '🐤';
-    if (progress >= 0.5) return '🐣';
-    return '🥚';
-  }
-  if (state === 'shortBreak') return '🐤';
-  if (state === 'longBreak') return '🐤';
-  if (state === 'failed') return '💔';
-  return '🥚';
-}
+// (The emoji stage-picker that used to live here is gone — PomodoroChick
+// draws the same four stages as real artwork and decides them from
+// `progress` itself.)
 
 function statusLabel(state, strictFocus = true) {
   switch (state) {
@@ -272,10 +263,7 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
   const STROKE = 14;
   const RADIUS = (RING_SIZE - STROKE) / 2;
   const CIRC = 2 * Math.PI * RADIUS;
-  const dashOffset = CIRC * (1 - Math.max(0, Math.min(1, progress)));
-
-  const emoji = pickEmoji(state, progress);
-  const status = statusLabel(state, config?.strictFocus !== false);
+  const dashOffset = CIRC * (1 - Math.max(0, Math.min(1, progress)));  const status = statusLabel(state, config?.strictFocus !== false);
 
   // Ring color reflects state
   const ringColor =
@@ -286,6 +274,19 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
       : state === 'longBreak'
       ? '#82c91e'
       : '#f59f00';
+
+  // The ring is a 12px stroke with no text on it, so it can stay bright. The
+  // primary button carries a white 15px label, and white on these hues is
+  // 2.1-2.7:1 — well under the 4.5 it needs. Same family, taken down far
+  // enough to be readable.
+  const primaryBg =
+    state === 'failed'
+      ? '#a51111'
+      : state === 'shortBreak'
+      ? '#1667a8'
+      : state === 'longBreak'
+      ? '#3d6b0e'
+      : '#b35c00';
 
   // --- Buttons ------------------------------------------------------------
   const btnBase = {
@@ -301,9 +302,9 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
   };
   const primaryBtn = {
     ...btnBase,
-    background: ringColor,
+    background: primaryBg,
     color: '#fff',
-    boxShadow: `0 2px 6px ${ringColor}55`,
+    boxShadow: `0 2px 6px ${primaryBg}55`,
   };
   const ghostBtn = {
     ...btnBase,
@@ -374,16 +375,29 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
             gap: 4,
           }}
         >
+          {/* The chick, finally. PomodoroChick.jsx has been in the repo the
+              whole time — 205 lines of SVG that hatch from an egg and grow
+              into a proud chicken as the session runs — and nothing imported
+              it; this slot held a static emoji instead. It owns its own
+              animation and reduced-motion handling, so the pulse wrapper
+              only applies to the failed/idle fallback path. */}
           <div
-            className={!reduced && (state === 'focus' || state === 'shortBreak' || state === 'longBreak') && !paused ? 'pmd-t-pulse' : ''}
             style={{
-              fontSize: 'clamp(48px, 14vw, 72px)',
-              lineHeight: 1,
+              width: 'clamp(84px, 24vw, 118px)',
+              height: 'clamp(84px, 24vw, 118px)',
               filter: state === 'failed' ? 'grayscale(60%)' : 'none',
             }}
             aria-hidden="true"
           >
-            {emoji}
+            <PomodoroChick
+              progress={state === 'idle' ? 0 : progress}
+              state={
+                state === 'failed' ? 'escaped'
+                  : paused ? 'paused'
+                    : (state === 'focus' || state === 'shortBreak' || state === 'longBreak') ? 'running'
+                      : 'idle'
+              }
+            />
           </div>
           <div
             style={{

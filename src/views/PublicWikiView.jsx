@@ -125,7 +125,7 @@ export default function PublicWikiView({
                       <p style={{ margin: '8px 0 0 0', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
                         {anchor.contentSummary || 'No summary available.'}
                       </p>
-                      <div style={{ fontSize: 10, opacity: 0.7, fontFamily: 'var(--vmx-mono)', marginTop: 8 }}>
+                      <div style={{ fontSize: 11, opacity: 0.7, fontFamily: 'var(--vmx-mono)', marginTop: 8 }}>
                         Anchor ID: <code>{anchor.anchorId}</code> | Approval: <code>{anchor.sourceApprovalRef}</code>
                       </div>
                     </div>

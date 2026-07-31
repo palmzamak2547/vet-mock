@@ -274,7 +274,7 @@ export default function SummaryModal({ summary, onClose }) {
             alignItems: 'center',
             flexWrap: 'wrap',
           }}>
-            <span style={{ fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', fontSize: 10, letterSpacing: '0.08em' }}>
+            <span style={{ fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', fontSize: 11, letterSpacing: '0.08em' }}>
               Exam format
             </span>
             <span style={{ flex: 1 }}>{summary.examFormat}</span>

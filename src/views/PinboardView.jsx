@@ -392,7 +392,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
                         border: '1px solid var(--clr-border)',
                       }}
                     >
-                      <div style={{ fontSize: 10, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 2 }}>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 2 }}>
                         บันทึกส่วนตัว
                       </div>
                       <div

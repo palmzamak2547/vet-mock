@@ -53,7 +53,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard })
         <span style={{ maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {profile.username}
         </span>
-        <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)' }}>{open ? '▴' : '▾'}</span>
+        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>{open ? '▴' : '▾'}</span>
       </button>
 
       {open && (

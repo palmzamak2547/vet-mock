@@ -984,21 +984,21 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
           fontSize: 12,
         }}>
           <div>
-            <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
               ผู้ส่ง{sender.senderName ? `, ${sender.senderName}` : ''}
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
               {s.correct}/{s.total}, ⏱ {fmtTimeSec(sender.senderTimeSec)}
-              {fasterSender && <span style={{ marginLeft: 6, fontSize: 10, color: 'var(--clr-gold, #b88940)' }}>เร็วกว่า</span>}
+              {fasterSender && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-gold, #b88940)' }}>เร็วกว่า</span>}
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
               คุณ
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
               {r.correct}/{r.total}, ⏱ {fmtTimeSec(receiverTimeSec)}
-              {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 10, color: 'var(--clr-sage, #4a6b4a)' }}>เร็วกว่า</span>}
+              {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)' }}>เร็วกว่า</span>}
             </div>
           </div>
         </div>

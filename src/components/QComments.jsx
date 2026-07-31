@@ -153,7 +153,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <span style={{ fontSize: 14 }}>{avatar}</span>
                   <span style={{ fontSize: 12, fontWeight: 600 }}>{author}</span>
-                  <span style={{ fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{fmtTime(c.created_at)}</span>
+                  <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{fmtTime(c.created_at)}</span>
                   {mine && (
                     <button
                       type="button"

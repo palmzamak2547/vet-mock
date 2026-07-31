@@ -82,7 +82,7 @@ export default function LandingBody(p) {
             <div className="lp-stack" style={{ position: 'relative', zIndex: 2, display: 'flex', gap: 14, alignItems: 'stretch' }}>
               <div className="vmx-question-card" style={{ flex: 1, minWidth: 0, padding: 24 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 14, paddingBottom: 14, borderBottom: '1px dashed var(--clr-border)' }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'var(--vmx-mono)', fontSize: 10, fontWeight: 600, padding: '4px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)', flexShrink: 0 }}>✓ {t.heroBankLabel}</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, padding: '4px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)', flexShrink: 0 }}>✓ {t.heroBankLabel}</span>
                   <span style={{ flex: 1, minWidth: 0, fontFamily: 'var(--vmx-mono)', fontSize: 11.5, color: 'var(--clr-ink-soft)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.heroBankLine}</span>
                   <button type="button" onClick={p.onEnterApp} style={{ flexShrink: 0, padding: '6px 13px', borderRadius: 999, border: 'none', background: 'var(--clr-sage)', color: 'var(--clr-surface)', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, cursor: 'pointer', minHeight: 32 }}>{t.startPractice}</button>
                 </div>
@@ -284,7 +284,7 @@ export default function LandingBody(p) {
               <div style={{ position: 'relative', width: 200, height: 200, borderRadius: '50%', background: p.readinessRing, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ width: 150, height: 150, borderRadius: '50%', background: 'var(--clr-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                   <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 54, lineHeight: 1, color: 'var(--clr-sage)' }}>72<span style={{ fontSize: 22 }}>%</span></span>
-                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 2 }}>{t.rScoreWord}</span>
+                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 2 }}>{t.rScoreWord}</span>
                 </div>
               </div>
               <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 16, color: 'var(--clr-ink-soft)', textAlign: 'center', margin: 0 }}>{t.rMsg}</p>
@@ -313,7 +313,7 @@ export default function LandingBody(p) {
           <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 16, marginBottom: 26 }}>
             {t.weaknessCards.map((w) => (
               <div key={w.text} style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: `3px solid ${w.color}`, borderRadius: 16, padding: 20, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, textTransform: 'uppercase', fontWeight: 700, color: w.color }}>{w.tag}</span>
+                <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', fontWeight: 700, color: w.color }}>{w.tag}</span>
                 <p style={{ fontSize: 14.5, lineHeight: 1.5, color: 'var(--clr-ink)', margin: 0 }}>{w.text}</p>
               </div>
             ))}
@@ -404,7 +404,7 @@ function SubjectsSection({ p }) {
                 <span className="title">{s.name}</span>
                 <span className="sub">{s.sub}</span>
                 <span className="count">{showcase ? '' : `${s.count} ${t.qWord}`}{clickable ? '' : ''}</span>
-                {clickable && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, color: 'var(--clr-sage)', marginTop: 2 }}>{t.startPractice} →</span>}
+                {clickable && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-sage)', marginTop: 2 }}>{t.startPractice} →</span>}
               </div>
             );
           })}
@@ -449,7 +449,7 @@ function LabSection({ p }) {
                   .1em tracking, which would otherwise sit on the Thai
                   labStation string in the TH locale. */}
               <span className="vmx-qtype-badge" style={{ background: 'var(--clr-ink)', color: 'var(--clr-bg)', borderColor: 'var(--clr-ink)', whiteSpace: 'nowrap', flexShrink: 0, letterSpacing: 'normal' }}>{t.labStation}</span>
-              <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>{t.labDemoNote}</span>
+              <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>{t.labDemoNote}</span>
               <span className="vmx-timer" style={{ marginLeft: 'auto' }}>04:59</span>
             </div>
             <div style={{ position: 'relative', aspectRatio: '4 / 3', background: '#0a0a0c', border: '1px solid var(--clr-border)', borderRadius: 14, overflow: 'hidden', cursor: p.labTool ? 'crosshair' : 'default' }}>
@@ -464,7 +464,7 @@ function LabSection({ p }) {
                 {/* Interactive Annotate Overlay */}
                 {p.labTool === 'annotate' && (
                   <div style={{ position: 'absolute', top: '48%', left: '42%', width: 84, height: 84, borderRadius: '50%', border: '2px dashed #4ade80', boxShadow: '0 0 12px rgba(74,222,128,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', animation: 'lp-pulse 2s infinite' }}>
-                    <span style={{ position: 'absolute', top: -20, background: 'rgba(0,0,0,0.85)', color: '#4ade80', fontSize: 10, fontFamily: 'var(--vmx-mono)', padding: '2px 6px', borderRadius: 4, whiteSpace: 'nowrap', border: '1px solid #4ade80' }}>
+                    <span style={{ position: 'absolute', top: -20, background: 'rgba(0,0,0,0.85)', color: '#4ade80', fontSize: 11, fontFamily: 'var(--vmx-mono)', padding: '2px 6px', borderRadius: 4, whiteSpace: 'nowrap', border: '1px solid #4ade80' }}>
                       ROI 1: Cardiomegaly
                     </span>
                   </div>
@@ -475,7 +475,7 @@ function LabSection({ p }) {
                   <div style={{ position: 'absolute', top: '40%', left: '35%', width: 140, height: 2, background: '#f59e0b', pointerEvents: 'none' }}>
                     <div style={{ position: 'absolute', left: 0, top: -4, width: 2, height: 10, background: '#f59e0b' }} />
                     <div style={{ position: 'absolute', right: 0, top: -4, width: 2, height: 10, background: '#f59e0b' }} />
-                    <span style={{ position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.85)', color: '#f59e0b', fontSize: 10, fontFamily: 'var(--vmx-mono)', padding: '2px 6px', borderRadius: 4, whiteSpace: 'nowrap', border: '1px solid #f59e0b' }}>
+                    <span style={{ position: 'absolute', top: 6, left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.85)', color: '#f59e0b', fontSize: 11, fontFamily: 'var(--vmx-mono)', padding: '2px 6px', borderRadius: 4, whiteSpace: 'nowrap', border: '1px solid #f59e0b' }}>
                       VHS = 11.4v (Elevated)
                     </span>
                   </div>
@@ -550,13 +550,13 @@ function AnalyticsSection({ p }) {
             <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: 18 }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 16 }}>
                 <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)' }}>{t.aActivityTitle}</span>
-                <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, color: 'var(--clr-ink-soft)' }}>{t.aActivitySub}</span>
+                <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.aActivitySub}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 112 }}>
                 {ACTIVITY.map((v, i) => (
                   <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, height: '100%', justifyContent: 'flex-end' }}>
                     <div style={{ width: '100%', maxWidth: 26, height: `${Math.round((v / maxA) * 100)}%`, background: 'var(--clr-sage)', borderRadius: '6px 6px 0 0', minHeight: 5 }} />
-                    <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, color: 'var(--clr-ink-soft)' }}>{t.aDays[i]}</span>
+                    <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.aDays[i]}</span>
                   </div>
                 ))}
               </div>

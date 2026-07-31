@@ -121,7 +121,7 @@ export default function StreakHeatmap({ history = [] }) {
               key={`${m.w}-${m.label}`}
               x={PAD_LEFT + m.w * (CELL + GAP)}
               y={12}
-              fontSize="10"
+              fontSize="11"
               fontFamily="var(--vmx-mono)"
               fill="var(--clr-ink-soft)"
             >

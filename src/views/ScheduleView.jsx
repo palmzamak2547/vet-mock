@@ -82,13 +82,13 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                   background: isUrgent ? 'var(--clr-rose-soft)' : 'var(--clr-surface-2)',
                   border: `1px solid ${isUrgent ? 'var(--clr-rose)' : 'var(--clr-border)'}`,
                 }}>
-                  <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10, letterSpacing: '0.1em', color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>
+                  <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, letterSpacing: '0.1em', color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>
                     {new Date(exam.date).toLocaleDateString('en', { month: 'short' })}
                   </div>
                   <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, color: 'var(--clr-ink)' }}>
                     {new Date(exam.date).getDate()}
                   </div>
-                  <div style={{ fontSize: 10, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                     {(() => {
                       if (isPast) return 'ผ่านแล้ว';
                       const cd = shortCountdown(exam);

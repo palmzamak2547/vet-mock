@@ -61,7 +61,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
               borderRadius: 999,
               background: 'rgba(184, 137, 64, 0.15)',
               color: 'var(--clr-gold-text)',
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 700,
               fontFamily: 'var(--vmx-mono)',
               letterSpacing: '0.06em',

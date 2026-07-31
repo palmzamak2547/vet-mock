@@ -68,6 +68,21 @@
      code adopts these so spacing, z-index, motion and radius stop being
      hardcoded per-file. See docs/DESIGN_SYSTEM.md. */
   /* Spacing — 4px grid */
+  /* Type scale. The app had no scale at all — 33 distinct hand-written
+     fontSize values across 1,133 inline declarations, and 74% of all text sat
+     between 10 and 14px: five shades of "small" too close together to mean
+     anything. These seven steps are the sizes actually worth having, with
+     11px as the floor (below that Thai vowel marks stop being legible at
+     arm's length). Migrating the existing inline values is deliberately
+     incremental, one screen at a time — see docs/DESIGN_SYSTEM.md. */
+  --text-xs: 11px;   /* micro-labels, course codes */
+  --text-sm: 12.5px; /* chip text, captions */
+  --text-base: 14px; /* secondary body */
+  --text-md: 16px;   /* body, the mobile minimum for prose */
+  --text-lg: 18px;   /* card titles */
+  --text-xl: 22px;   /* section headings */
+  --text-2xl: 28px;  /* page headings */
+
   --space-0: 0; --space-1: 4px; --space-2: 8px; --space-3: 12px;
   --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
   --space-10: 40px; --space-12: 48px; --space-16: 64px;
@@ -489,7 +504,7 @@ html, body {
 .vmx-header-context { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 0; }
 .vmx-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; cursor: pointer; }
 .vmx-logo span { color: var(--clr-rose); font-style: italic; font-weight: 500; }
-.vmx-logo-btn { border: 0; background: transparent; color: var(--clr-ink); padding: 8px 2px; min-height: 44px; }
+.vmx-logo-btn { border: 0; background: transparent; color: var(--clr-ink); padding: 8px 2px; min-height: 44px; display: inline-flex; align-items: center; gap: 9px; }
 .vmx-logo-btn:hover span { color: var(--clr-rose-text); }
 .vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .vmx-subtitle { font-size: 12px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -527,7 +542,7 @@ html, body {
 
 .vmx-cmdk-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 13px; color: var(--clr-ink-soft); transition: all 0.15s; font-family: inherit; }
 .vmx-cmdk-btn:hover { border-color: var(--clr-ink); color: var(--clr-ink); }
-.vmx-cmdk-kbd { font-family: var(--vmx-mono); font-size: 10px; padding: 2px 6px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-bg); color: var(--clr-ink-soft); letter-spacing: 0.04em; }
+.vmx-cmdk-kbd { font-family: var(--vmx-mono); font-size: var(--text-xs); padding: 2px 6px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-bg); color: var(--clr-ink-soft); letter-spacing: 0.04em; }
 
 /* Mobile header — keeps everything visible by tightening spacing,
    shrinking icons, and hiding the streak chip (still in dashboard).
@@ -619,6 +634,41 @@ html, body {
 
 .vmx-welcome-banner { position: relative; }
 .vmx-home-quick-actions { align-items: stretch !important; }
+/* On a phone the four chips each wrapped onto their own line — 228px of the
+   663px a student had to scroll past before reaching the first subject card,
+   the tallest block on the screen. One swipeable row keeps every chip and
+   gives back ~170px. The negative margin + matching padding let it bleed to
+   the screen edge so the cut-off chip reads as "there is more this way".
+   `min-width: 0` on the children is what stops a flex row from refusing to
+   shrink and pushing the page sideways. */
+@media (max-width: 1023px) {
+  .vmx-home-quick-actions {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    margin-left: calc(var(--space-4, 16px) * -1);
+    margin-right: calc(var(--space-4, 16px) * -1);
+    padding-left: var(--space-4, 16px);
+    padding-right: var(--space-4, 16px);
+    padding-bottom: 2px;
+  }
+  .vmx-home-quick-actions::-webkit-scrollbar { display: none; }
+  /* `white-space: nowrap` is what makes this a row rather than four narrow
+     columns: without it the chips shrank to ~99px and wrapped their own text
+     to five lines, so the row stayed 141px tall.
+     !important is not decoration here — the chips carry `all: unset` in their
+     inline style, which beats any stylesheet declaration that isn't marked.
+     (`flex-wrap` and `align-items` above are !important for the same reason.)
+     No `min-width: 0` either; that is the very thing that let them squeeze. */
+  .vmx-home-quick-actions > * {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    scroll-snap-align: start;
+  }
+}
 
 .vmx-section-label { font-size: 13px; font-weight: 600; color: var(--clr-ink); margin: 0 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 
@@ -842,6 +892,13 @@ html, body {
 }
 .vmx-q-toolbar > * { position: static !important; inset: auto !important; flex: 0 0 auto; }
 
+/* Captions under these five icons were tried on 2026-07-31 and reverted: the
+   controls are fixed 36-44px circles, so a caption inside one overflows and
+   collides with its neighbour — measurably worse than the unlabelled row.
+   Doing it properly means restructuring each control into a column (circle
+   above, caption below), which is a change to the geometry of the app's
+   most-used screen for a nicety. They keep aria-label + title until then. */
+
 .vmx-bookmark-btn { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-bookmark-btn:hover { border-color: var(--clr-gold); }
 .vmx-bookmark-btn.active { background: var(--clr-gold); border-color: var(--clr-gold); color: var(--clr-surface); }
@@ -849,7 +906,7 @@ html, body {
 .vmx-note-btn:hover { border-color: var(--clr-ocean); }
 .vmx-note-btn.has-note { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
 
-.vmx-qtype-badge { display: inline-block; font-family: var(--vmx-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
+.vmx-qtype-badge { display: inline-block; font-family: var(--vmx-mono); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
 .vmx-qtext { font-family: inherit; font-weight: 500; font-size: 17px; line-height: 1.55; margin: 0 0 24px; color: var(--clr-ink); }
 .vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; aspect-ratio: 4 / 3; object-fit: contain; background: var(--clr-surface-2); }
 
@@ -908,7 +965,7 @@ html, body {
 }
 
 .vmx-options { display: flex; flex-direction: column; gap: 10px; }
-.vmx-option { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: var(--clr-bg); border: 1px solid var(--clr-border); border-radius: 12px; cursor: pointer; transition: all 0.15s; text-align: left; color: var(--clr-ink); font-family: inherit; }
+.vmx-option { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: var(--clr-bg); border: 1px solid var(--clr-border); border-radius: 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.12s var(--ease-out, cubic-bezier(.2,.7,.2,1)); text-align: left; color: var(--clr-ink); font-family: inherit; }
 .vmx-option:hover { border-color: var(--clr-ink); background: var(--clr-surface-2); }
 .vmx-option.selected { border-color: var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); }
 .vmx-option-letter { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 600; font-size: 14px; background: var(--clr-surface); border: 1px solid var(--clr-border); flex-shrink: 0; color: var(--clr-ink); }
@@ -957,7 +1014,7 @@ html, body {
 .vmx-review-result.no { color: var(--clr-rose); }
 .vmx-review-q { font-size: 15px; line-height: 1.5; margin-bottom: 12px; color: var(--clr-ink); }
 .vmx-review-ans { padding: 10px 14px; border-radius: 10px; margin-bottom: 8px; font-size: 13px; background: var(--clr-bg); color: var(--clr-ink); }
-.vmx-review-ans .k { font-family: var(--vmx-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-right: 8px; }
+.vmx-review-ans .k { font-family: var(--vmx-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-right: 8px; }
 .vmx-review-ans.correct-ans { background: rgba(74, 107, 74, 0.1); border: 1px solid rgba(74, 107, 74, 0.2); }
 .vmx-review-explain { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--clr-surface-2); font-size: 13px; line-height: 1.5; color: var(--clr-ink-soft); border-left: 3px solid var(--clr-gold); }
 .vmx-review-explain .k { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; color: var(--clr-gold); margin-right: 8px; }
@@ -979,7 +1036,7 @@ html, body {
 .vmx-sr-btn { padding: 14px 8px; border-radius: 12px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-family: inherit; transition: all 0.15s; text-align: center; color: var(--clr-ink); }
 .vmx-sr-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .vmx-sr-btn .label { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; margin-bottom: 4px; }
-.vmx-sr-btn .sub { font-family: var(--vmx-mono); font-size: 10px; color: var(--clr-ink-soft); letter-spacing: 0.05em; }
+.vmx-sr-btn .sub { font-family: var(--vmx-mono); font-size: var(--text-xs); color: var(--clr-ink-soft); letter-spacing: 0.05em; }
 .vmx-sr-btn.again { border-color: var(--clr-rose); }
 .vmx-sr-btn.again .label { color: var(--clr-rose); }
 .vmx-sr-btn.hard { border-color: var(--clr-gold); }
@@ -1199,7 +1256,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-feature-card { min-height: 92px; padding: 12px 10px; grid-template-columns: auto minmax(0, 1fr); align-items: start; }
   .vmx-feature-card-arrow { display: none; }
   .vmx-feature-card-title { font-size: 12px; }
-  .vmx-feature-card-sub { font-size: 10px; }
+  .vmx-feature-card-sub { font-size: var(--text-xs); }
 }
 
 @media (max-width: 360px) {
@@ -1401,7 +1458,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   color: var(--clr-gold-text);
 }
 .vmx-streak-label {
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: 500;
   color: var(--clr-ink-soft);
   text-transform: uppercase;
@@ -1522,7 +1579,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 .vmx-streak-today-count {
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-family: var(--vmx-mono);
   color: var(--clr-sage);
   font-weight: 600;
@@ -1562,7 +1619,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 .vmx-streak-milestone-badge {
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: 600;
   color: var(--clr-gold);
   letter-spacing: 0.02em;
@@ -1646,10 +1703,18 @@ button.vmx-chip-quick:focus-visible {
   outline-offset: 3px;
 }
 
-/* Option button press for MCQ — gives tactile feedback on tap */
+/* Option button press for MCQ — gives tactile feedback on tap.
+   0.99 was below the perceptual threshold on a 390px phone: you pressed and
+   nothing appeared to happen. 0.97 reads as a press without being cartoonish.
+   The transition on .vmx-option is scoped to the properties that actually
+   change rather than `all`, which was also animating border and background
+   on every hover. */
 .vmx-option:active:not(.selected) {
-  transform: scale(0.99);
+  transform: scale(0.97);
   background: var(--clr-surface-2);
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-option:active:not(.selected) { transform: none; }
 }
 
 /* Mode card press feedback */
@@ -1802,6 +1867,11 @@ button.vmx-chip-quick:focus-visible {
 @media (max-width: 1023px) {
   :root { --vmx-bottom-nav-h: 58px; }
   .vmx-app { padding-bottom: calc(58px + env(safe-area-inset-bottom) + 8px); }
+  /* Focus views (exam, results, review, auth, year-select) don't render the
+     bar, so reserving its height just pushed 58px of empty space under every
+     question card. Zero the var too, so the ToolsFAB doesn't float above a
+     bar that isn't there. */
+  .vmx-app.is-focus { --vmx-bottom-nav-h: 0px; padding-bottom: max(48px, env(safe-area-inset-bottom)); }
 }
 @media (min-width: 1024px) {
   .vmx-bottom-nav { display: none; }

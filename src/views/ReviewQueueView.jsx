@@ -703,11 +703,11 @@ function PastReviewRow({ review }) {
           {verdictMeta.icon} {verdictMeta.label}
         </span>
         {review.is_palm_review && (
-          <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: 'rgba(167, 61, 74, 0.15)', color: 'var(--clr-rose-text)', fontFamily: 'var(--vmx-mono)' }}>
+          <span style={{ fontSize: 11, padding: '1px 6px', borderRadius: 4, background: 'rgba(167, 61, 74, 0.15)', color: 'var(--clr-rose-text)', fontFamily: 'var(--vmx-mono)' }}>
             👑 Palm
           </span>
         )}
-        <span style={{ marginLeft: 'auto', fontSize: 10, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+        <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
           {formatRelativeTime(review.created_at)}
         </span>
       </div>
@@ -732,7 +732,7 @@ function FounderStat({ label, value, color, small }) {
       textAlign: 'center',
       border: '1px solid var(--clr-border)',
     }}>
-      <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.05em', marginBottom: 3 }}>
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.05em', marginBottom: 3 }}>
         {label}
       </div>
       <div style={{
@@ -825,7 +825,7 @@ const chipStyle = {
 };
 
 const sectionLabelStyle = {
-  fontSize: 10,
+  fontSize: 11,
   fontFamily: 'var(--vmx-mono)',
   color: 'var(--clr-ink-soft)',
   letterSpacing: '0.08em',

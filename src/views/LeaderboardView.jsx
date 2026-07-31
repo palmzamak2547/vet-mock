@@ -154,7 +154,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                     {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
                     {r.attempts > 1 && (
-                      <span title={`ทำ ${r.attempts} ครั้ง, แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 10 }}>
+                      <span title={`ทำ ${r.attempts} ครั้ง, แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 11 }}>
                         × {r.attempts}
                       </span>
                     )}

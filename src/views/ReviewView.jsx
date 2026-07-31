@@ -266,7 +266,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 <span>{t.icon}</span>
                 <span>{t.label}</span>
                 <span style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontFamily: 'var(--vmx-mono)',
                   padding: '1px 6px',
                   borderRadius: 999,
@@ -331,7 +331,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 Q{idx + 1}, {subj?.name || q.subject}
                 {topicMeta ? <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)', fontWeight: 600 }}>{topicMeta.icon} {topicMeta.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></> : null}
                 {q.examOrigin && (
-                  <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 10, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
+                  <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 11, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
                     อิงแนวเดิม
                   </span>
                 )}
@@ -403,7 +403,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             )}
             {q.passage && (
               <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, lineHeight: 1.65, whiteSpace: 'pre-wrap', maxHeight: 220, overflowY: 'auto' }}>
-                <div style={{ fontSize: 10, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
+                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
                   📄 {q.passage_title || 'Passage'}
                 </div>
                 <RichText text={q.passage} />
@@ -483,11 +483,11 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                         <strong>{it.label}</strong>
                         {it.year && <span style={{ marginLeft: 6, fontFamily: 'var(--vmx-mono)' }}>{it.year}</span>}
                         {it.by && <span style={{ marginLeft: 6, fontStyle: 'italic' }}>by {it.by}</span>}
-                        <div style={{ marginTop: 3, fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
+                        <div style={{ marginTop: 3, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
                           {it.raw}
                         </div>
                         {it.note && (
-                          <div style={{ marginTop: 3, fontSize: 10, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
+                          <div style={{ marginTop: 3, fontSize: 11, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
                             ⚠️ {it.note}
                           </div>
                         )}
@@ -501,7 +501,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: `1px solid ${q.flag.severity === 'major' ? 'var(--clr-rose)' : 'var(--clr-gold)'}`, fontSize: 12, color: 'var(--clr-ink)' }}>
                 ⚠️ <strong>{q.flag.severity === 'major' ? 'Major flag' : 'Note'}:</strong> {q.flag.note}
                 {q.flag.sources?.length > 0 && (
-                  <div style={{ marginTop: 4, fontSize: 10, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
+                  <div style={{ marginTop: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
                     📖 {q.flag.sources.join(', ')}
                   </div>
                 )}

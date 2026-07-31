@@ -3,6 +3,7 @@ import { useAuth } from '../hooks/useAuth.js';
 import { hasSupabase, signOut } from '../lib/supabase.js';
 import { NAV_ITEMS, runNav, isNavActive } from '../lib/nav.js';
 import NavIcon from './NavIcon.jsx';
+import Wordmark from './Wordmark.jsx';
 
 export default function Sidebar({ view, setView, goHome, setSubject, setPracticeMode, setMode, onMockExam }) {
   const { user, profile } = useAuth();
@@ -23,7 +24,7 @@ export default function Sidebar({ view, setView, goHome, setSubject, setPractice
         onClick={goHome}
         style={{ marginBottom: '32px', paddingLeft: '16px', background: 'transparent' }}
       >
-        Vet<span>Mock</span>
+        <Wordmark size={24} />
       </button>
 
       <nav className="vmx-sidebar-nav">
