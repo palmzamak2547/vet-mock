@@ -493,7 +493,7 @@ header#hdr.scrolled { border-color: var(--line); box-shadow: 0 6px 22px -16px rg
 
 /* FOOTER */
 footer { background: var(--teal-900); color: #bcd9d0; padding: 60px 0 28px; position: relative; overflow: hidden; }
-footer::before { content: ""; position: absolute; inset: 0; background: var(--paw); opacity: .6; }
+footer::before { content: ""; position: absolute; inset: 0; background: var(--paw); opacity: .6; pointer-events: none; }
 footer .wrap { position: relative; z-index: 2; }
 .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 34px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.1); }
 .foot-brand .logo { color: #fff; }

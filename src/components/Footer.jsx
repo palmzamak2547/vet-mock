@@ -18,6 +18,11 @@
 // ============================================================
 
 export default function Footer({ setView }) {
+  const handleNav = (targetView) => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (setView) setView(targetView);
+  };
+
   return (
     <footer className="vmx-footer">
       <div className="vmx-footer-grid">
@@ -28,11 +33,11 @@ export default function Footer({ setView }) {
 
         <nav className="vmx-footer-col" aria-label="เกี่ยวกับ VetMock">
           <h2>เกี่ยวกับ</h2>
-          <button type="button" className="vmx-footer-link" onClick={() => setView('about')}>เกี่ยวกับเรา</button>
-          <button type="button" className="vmx-footer-link" onClick={() => setView('landing')}>หน้าแนะนำ</button>
+          <button type="button" className="vmx-footer-link" onClick={() => handleNav('about')}>เกี่ยวกับเรา</button>
+          <button type="button" className="vmx-footer-link" onClick={() => handleNav('landing')}>หน้าแนะนำ</button>
           <a href="/blog/">บทความ</a>
-          <button type="button" className="vmx-footer-link" onClick={() => setView('feedback')}>แจ้งปัญหา</button>
-          <button type="button" className="vmx-footer-link" onClick={() => setView('offline-game')} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">มินิเกม</button>
+          <button type="button" className="vmx-footer-link" onClick={() => handleNav('feedback')}>แจ้งปัญหา</button>
+          <button type="button" className="vmx-footer-link" onClick={() => handleNav('offline-game')} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">มินิเกม</button>
         </nav>
 
         <nav className="vmx-footer-col" aria-label="เครือข่าย Vet 86">
@@ -46,7 +51,7 @@ export default function Footer({ setView }) {
           {/* Internal link — same-origin hash route, same window. */}
           <a
             href="#lab"
-            onClick={(e) => { e.preventDefault(); if (window.location.hash !== '#lab') window.location.hash = '#lab'; setView('lab'); }}
+            onClick={(e) => { e.preventDefault(); if (window.location.hash !== '#lab') window.location.hash = '#lab'; handleNav('lab'); }}
             title="Imaging Practice Lab — ฝึกอ่าน X-ray + DICOM viewer (Experimental)"
           >
             Imaging Lab ฝึกอ่าน X-ray

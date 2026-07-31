@@ -1101,8 +1101,11 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
    Grouped, left-aligned, plain type. (Was one italic centred blob of
    wrapping links + long emoji-prefixed ecosystem lines.) */
 .vmx-footer {
+  position: relative;
+  z-index: 1;
   margin-top: var(--space-12);
   padding-top: var(--space-6);
+  padding-bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom) + 16px);
   border-top: 1px solid var(--clr-border);
   font-size: 13px;
   color: var(--clr-ink-soft);
@@ -1130,6 +1133,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-footer a, .vmx-footer .vmx-footer-link {
   color: inherit; text-decoration: none; text-align: left;
   padding-left: 0; padding-right: 0;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 .vmx-footer a:hover, .vmx-footer .vmx-footer-link:hover { color: var(--clr-ink); text-decoration: underline; }
 .vmx-footer-base {
