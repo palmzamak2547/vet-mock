@@ -10,7 +10,7 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 2948;
+export const QB_TOTAL = 3195;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 5,
@@ -25,11 +25,15 @@ export const Q_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 71,
   'engprof1': 30,
+  'epidemiology': 43,
   'exotic': 151,
+  'food-industry': 16,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'poa-clinical': 26,
+  'milk-meat-hygiene': 136,
+  'one-health': 20,
+  'poa-clinical': 42,
   'poultry': 191,
   'practrum': 118,
   'rec-adv-bioscience': 5,
@@ -46,7 +50,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
-  'zoonoses': 2,
+  'zoonoses': 18,
 };
 
 // Visible counts exclude hidden-topic Qs (midterm leftovers,
@@ -66,11 +70,14 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 71,
   'engprof1': 30,
+  'epidemiology': 43,
   'exotic': 108,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'poa-clinical': 26,
+  'milk-meat-hygiene': 136,
+  'one-health': 20,
+  'poa-clinical': 42,
   'poultry': 134,
   'practrum': 114,
   'rec-adv-bioscience': 5,
@@ -87,13 +94,13 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
-  'zoonoses': 2,
+  'zoonoses': 18,
 };
 
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
   4: 2095,
-  5: 555,
+  5: 802,
 };
 
-// Built: 2026-05-30T19:37:42.073Z
+// Built: 2026-08-01T06:20:09.816Z

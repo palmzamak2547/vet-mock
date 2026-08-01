@@ -1195,7 +1195,7 @@ export const SUBJECTS_BY_YEAR = {
     // Y5 sem 1 (11 subjects) — codes verified from slide cover pages
     { id: 'epidemiology', code: '3107508', name: 'ระบาดวิทยา',
       name_en: 'Veterinary Epidemiology',
-      icon: '📊', color: '#3d6b82', semester: 1, has_questions: false, scaffold: true,
+      icon: '📊', color: '#3d6b82', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['saharuetai-jeamsripong', 'vachira-hunprasit', 'alongkorn-amonsin'],
       examFormat: {
         weight: '3 หน่วยกิต (2.0-0.0-4.0) · ตัดเกรดอิงเกณฑ์ A ≥ 80, B+ ≥ 75, B ≥ 70, C+ ≥ 65, C ≥ 60, D+ ≥ 55, D ≥ 50',
@@ -1347,7 +1347,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'milk-meat-hygiene', code: '3109503', name: 'สุขศาสตร์น้ำนม + เนื้อ',
       name_en: 'Milk Hygiene & Meat Inspection',
-      icon: '🥩', color: '#a73d4a', semester: 1, has_questions: false, scaffold: true, has_notes: true,
+      icon: '🥩', color: '#a73d4a', semester: 1, has_questions: true, scaffold: false, has_notes: true,
       vault_lecturers: ['saharuetai-jeamsripong', 'sirawit-pagdepanichkit', 'rungtip-chuanchuen', 'suphachai-nuanualsuwan', 'taradon-luangtongkum'],
       examFormat: {
         weight: 'Mid + Final separate · บรรยายอังคาร 09.00-12.00 ห้อง 807 ตึก 60 ปี',
@@ -1389,7 +1389,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'one-health', code: '3109502', name: 'One Health',
       name_en: 'One Health Veterinary Public Health (OHVPH)',
-      icon: '🌐', color: '#5c7d4a', semester: 1, has_questions: false, scaffold: true,
+      icon: '🌐', color: '#5c7d4a', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['sirawit-pagdepanichkit', 'saharuetai-jeamsripong', 'kamonpan-charoenkul', 'taradon-luangtongkum', 'suphachai-nuanualsuwan', 'rungtip-chuanchuen'],
       examFormat: {
         weight: 'Midterm + Final แยกกัน · บรรยายพุธ 13.00-14.00 ห้อง 807 ตึก 60 ปี',
@@ -1423,7 +1423,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'food-industry', code: '3109501', name: 'อุตสาหกรรมอาหาร (FIQC)',
       name_en: 'Food Industry & Quality Control',
-      icon: '🏭', color: '#8b6b3d', semester: 1, has_questions: false, scaffold: true,
+      icon: '🏭', color: '#8b6b3d', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['sirawit-pagdepanichkit', 'sompis-junlaboothdi', 'saharuetai-jeamsripong'],
       examFormat: {
         weight: 'TBD',

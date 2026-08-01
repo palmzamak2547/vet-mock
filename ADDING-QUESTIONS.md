@@ -76,7 +76,9 @@ npm run regen:registry     # re-scan banks → bank-registry.generated.js (print
 npm run regen:q-counts      # recompute per-subject + per-year counts
 npm run lint:all            # 7 gates: ids, dupes, academic-safety, questions, registry, curriculum, validate:wiki
 npm run build               # must succeed
+npm run test:unit           # loader/scope merging + wiki validator
 npm run test:e2e            # cross-engine smoke 32/32 (chromium, webkit, firefox — desktop + mobile)
+npm run stats               # content numbers, fails on drift — the authority on Q counts
 ```
 All green → commit. Any red → the message tells you exactly what's out of sync.
 
