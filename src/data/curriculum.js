@@ -1198,12 +1198,12 @@ export const SUBJECTS_BY_YEAR = {
       icon: '📊', color: '#3d6b82', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['saharuetai-jeamsripong', 'vachira-hunprasit', 'alongkorn-amonsin'],
       examFormat: {
-        weight: '3 หน่วยกิต (2.0-0.0-4.0) · ตัดเกรดอิงเกณฑ์ A ≥ 80, B+ ≥ 75, B ≥ 70, C+ ≥ 65, C ≥ 60, D+ ≥ 55, D ≥ 50',
+        weight: '3 หน่วยกิต (2.0-0.0-4.0) ตัดเกรดอิงเกณฑ์ A ≥ 80, B+ ≥ 75, B ≥ 70, C+ ≥ 65, C ≥ 60, D+ ≥ 55, D ≥ 50',
         notes: [
-          '🗓 Midterm 21-25 ก.ย. 69 — บรรยาย 3 ส.ค. ถึง 14 ก.ย. 69 · Final 23 พ.ย. – 4 ธ.ค. 69',
+          '🗓 Midterm 21-25 ก.ย. 69 — บรรยาย 3 ส.ค. ถึง 14 ก.ย. 69 และ Final 23 พ.ย. – 4 ธ.ค. 69',
           '⚠️ หัวข้อวันที่ 28 ก.ย. (Emerging Infectious Diseases & Pandemic Preparedness, Economics and Decision Tools) ตารางกำกับว่า "สอนแต่ไม่ออกข้อสอบ"',
-          '👥 อาจารย์ — NC ศ.น.สพ.ดร.นิวัตร จันทร์ศิริพรชัย (ผู้ประสานงาน) · CI รศ.น.สพ.ดร.ชัยเดช อินทร์ชัยศรี · VH ผศ.น.สพ.ดร.วชิรา หุ่นประสิทธิ์ · SJ รศ.สพ.ญ.ดร.สหฤทัย เจียมศรีพงษ์ · TC อ.สพ.ญ.ดร.ฐูนิชา ชาญชัยเดชาชัย · NB สพ.ญ.นพวรรณ บัวมีธูป',
-          '🧪 ต้องเข้าเรียนอย่างน้อย 80% จึงมีสิทธิ์สอบ · ปฏิบัติการ Module 1-4 แบ่ง 5 กลุ่มใหญ่ กลุ่มละ 4 กลุ่มย่อย จับสลาก present',
+          '👥 อาจารย์ — NC ศ.น.สพ.ดร.นิวัตร จันทร์ศิริพรชัย (ผู้ประสานงาน), CI รศ.น.สพ.ดร.ชัยเดช อินทร์ชัยศรี, VH ผศ.น.สพ.ดร.วชิรา หุ่นประสิทธิ์, SJ รศ.สพ.ญ.ดร.สหฤทัย เจียมศรีพงษ์, TC อ.สพ.ญ.ดร.ฐูนิชา ชาญชัยเดชาชัย, NB สพ.ญ.นพวรรณ บัวมีธูป',
+          '🧪 ต้องเข้าเรียนอย่างน้อย 80% จึงมีสิทธิ์สอบ ปฏิบัติการ Module 1-4 แบ่ง 5 กลุ่มใหญ่ กลุ่มละ 4 กลุ่มย่อย จับสลาก present',
           '📚 มี past papers: key mid 5.1, EPIDEMIOLOGY-all ซซดาวสรุป, epidem สรุป',
         ],
         source: 'ประมวลรายวิชา 3107508 (2026_1) myCourseVille + กำหนดการบรรยาย 3107508 ภาคต้น 2569',
@@ -1272,7 +1272,7 @@ export const SUBJECTS_BY_YEAR = {
         notes: [
           '🗓 Midterm 25 ก.ย. 69 13.00-15.00 — เนื้อหา 4 ส.ค. ถึง 15 ก.ย. 69',
           '🗓 Final 23 พ.ย. – 4 ธ.ค. 69 — เนื้อหา 6 ต.ค. ถึง 17 พ.ย. 69',
-          '⚖️ คะแนนรายอาจารย์ — ณทยา 23/0 · สมศักดิ์ 15/0 · จิโรจ 8/15 · เกรียงวิชญ์ 8/16 · นิวัตร 0/15 (mid/final)',
+          '⚖️ คะแนนรายอาจารย์ — ณทยา 23/0, สมศักดิ์ 15/0, จิโรจ 8/15, เกรียงวิชญ์ 8/16, นิวัตร 0/15 (mid/final)',
           '🎯 มิดเทอมหนักที่ ณทยา (23 จาก 54) กับ สมศักดิ์ (15) รวมกัน 38 จาก 54 คะแนน',
           '📚 มี past papers: key mid 5.1, avian med final สรุปจากรุ่นพี่ (เอิร์น/กั่ย), [mid] AVIAN MEDICINE bynandgate',
         ],
@@ -1350,7 +1350,7 @@ export const SUBJECTS_BY_YEAR = {
       icon: '🥩', color: '#a73d4a', semester: 1, has_questions: true, scaffold: false, has_notes: true,
       vault_lecturers: ['saharuetai-jeamsripong', 'sirawit-pagdepanichkit', 'rungtip-chuanchuen', 'suphachai-nuanualsuwan', 'taradon-luangtongkum'],
       examFormat: {
-        weight: 'Mid + Final separate · บรรยายอังคาร 09.00-12.00 ห้อง 807 ตึก 60 ปี',
+        weight: 'Mid และ Final แยกกัน บรรยายอังคาร 09.00-12.00 ห้อง 807 ตึก 60 ปี',
         notes: [
           '🗓 Midterm 21-25 ก.ย. 69 — ออกเฉพาะครึ่ง "สุขศาสตร์น้ำนม" บรรยาย 5 ส.ค. ถึง 16 ก.ย. 69',
           '🗓 Final 23 พ.ย. – 4 ธ.ค. 69 — ครึ่ง "สุขศาสตร์เนื้อสัตว์" เริ่ม 30 ก.ย. (Cleaning) ถึง 18 พ.ย.',
@@ -1392,9 +1392,9 @@ export const SUBJECTS_BY_YEAR = {
       icon: '🌐', color: '#5c7d4a', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['sirawit-pagdepanichkit', 'saharuetai-jeamsripong', 'kamonpan-charoenkul', 'taradon-luangtongkum', 'suphachai-nuanualsuwan', 'rungtip-chuanchuen'],
       examFormat: {
-        weight: 'Midterm + Final แยกกัน · บรรยายพุธ 13.00-14.00 ห้อง 807 ตึก 60 ปี',
+        weight: 'Midterm และ Final แยกกัน บรรยายพุธ 13.00-14.00 ห้อง 807 ตึก 60 ปี',
         notes: [
-          '🗓 Midterm 21-25 ก.ย. 69 — บรรยาย 5 ส.ค. ถึง 16 ก.ย. 69 · Final 23 พ.ย. – 4 ธ.ค. 69',
+          '🗓 Midterm 21-25 ก.ย. 69 — บรรยาย 5 ส.ค. ถึง 16 ก.ย. 69 และ Final 23 พ.ย. – 4 ธ.ค. 69',
           '📖 ขอบเขตมิดเทอม 6 หัวข้อ — Role of vet in OH, One World-One Health concept, combat emerging/re-emerging diseases, Global OH activity network, OH communication skills, Transdisciplinary collaboration',
           '💻 หัวข้อ AMR (14 ต.ค.) เรียนออนไลน์',
           '📚 มี past papers: เขียนสรุปข้อสอบพี่ปั้ก, -OH final, --ไฟนอลวันเฮ้ว',
@@ -1601,10 +1601,10 @@ export const SUBJECTS_BY_YEAR = {
       icon: '🔬', color: '#5d7d8b', semester: 2, has_questions: true, scaffold: false,
       vault_lecturers: ['nuvee-prapasarakul', 'sirakarnt-dhitavat', 'prapruddee-piyaviriyakul', 'sariya-asawakarn', 'kannaporn-suriyaphol', 'charnnarong-rodkhum', 'navapon-techakriengkrai', 'woraporn-sukhumavasi', 'morakot-kaewthamasorn', 'piyanan-taweethavonsawat', 'sonthaya-tiawsirisup', 'pattrarat-chanchaithong'],
       examFormat: {
-        weight: '2 credit · ภาคปลาย 2567',
+        weight: '2 credit ภาคปลาย 2567',
         notes: [
           '📋 มี course syllabus official (`0 - ประมวลรายวิชา`) — ทุก lecturer + topic ครบ',
-          '🔬 13 lecturers · cross-cluster: Bacti/Myco/Viro/Immuno/Parasit + AVBD',
+          '🔬 13 lecturers, cross-cluster: Bacti/Myco/Viro/Immuno/Parasit + AVBD',
           '🎓 Course coordinator: Nuvee Prapasarakul (NP)',
         ],
       },
@@ -1631,7 +1631,7 @@ export const SUBJECTS_BY_YEAR = {
       icon: '🐄', color: '#7d5a3d', semester: 2, has_questions: true, scaffold: false,
       vault_lecturers: ['sirirat-wataradee', 'chaidate-inchaisri'],
       examFormat: {
-        weight: 'OSCE-based · official briefing 14 May 2025',
+        weight: 'OSCE-based, official briefing 14 May 2025',
         notes: [
           '📋 มี OSCE briefing doc: รายละเอียดการสอบ_OSCE_14_May_2025',
           '🐄 Focus: Dairy Herd Health Management + Udder Health/Mastitis',
@@ -1657,7 +1657,7 @@ export const SUBJECTS_BY_YEAR = {
         weight: 'TBD',
         notes: [
           '📚 มี past papers: 7. ข้อสอบ 81 Anl Repro Clin (canine/feline content), 9. ข้อสอบฝึกงานคลินิกสูติกรรม ปี 5',
-          '🐕 Subject ครอบคลุม small animal repro: vaginal cytology · pyometra · TVT · OVH · BPH · mammary tumor · pregnancy dx',
+          '🐕 Subject ครอบคลุม small animal repro: vaginal cytology, pyometra, TVT, OVH, BPH, mammary tumor, pregnancy dx',
           '⚠️ Q seed จาก Vet 81 (ตรง 30% per Vet 83 commentary) — สอนเป็น concept-testing, ไม่ใช่ year-bound trivia',
         ],
       },
