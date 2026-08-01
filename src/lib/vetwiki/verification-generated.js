@@ -10422,6 +10422,4506 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     }
+  },
+  "cliapprum--gi-surgery-sawita": {
+    "cliapprum--gi-surgery-sawita--lda-left-displaced-abomasum": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-surgery-sawita--lda-left-displaced-abomasum--v1",
+          "statement": "LDA เกิดในช่วงต้นของระยะให้นม โดยการศึกษาภาคสนามในโคนม 1,044 ตัว 20 ฟาร์ม พบ incidence risk 5.1% และ median time of diagnosis ที่ 11 วันหลังคลอด และโคที่มี serum BHBA ≥ 1,200 µmol/L ในช่วง 1-7 วันหลังคลอด มี odds ของการเกิด LDA สูงกว่า 8 เท่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15591379",
+              "locator": "88(1):159-170",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "There were 53 cases of LDA (incidence risk = 5.1%) and the median time of diagnosis was 11 d in milk. ... The odds of LDA were 8 times greater in cows with serum BHBA > or =1200 micromol/L (LR = 3.5)."
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--lda-left-displaced-abomasum--v2",
+          "statement": "การเปรียบเทียบ 2-step laparoscopy-guided abomasopexy กับ omentopexy via right flank laparotomy ในโคนม LDA 253 ตัวในสภาพฟาร์มจริง พบว่าที่ 60 วันหลังผ่าตัด ทั้งสองวิธีไม่ต่างกันอย่างมีนัยสำคัญในด้าน milk yield, cull rate และความเสี่ยงการกลับเป็นซ้ำของ LDA แต่ laparoscopy ใช้เวลาเตรียมและผ่าตัดสั้นกว่า (เฉลี่ย 36 เทียบกับ 74 นาที)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18518814",
+              "locator": "232(11):1700-1706",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "at 60 days after surgery, groups were similar with respect to milk yield, cull rates, and risk of relapse of LDA. ... Mean duration (preparation and surgery) of 2-step laparoscopy-guided abomasopexy was significantly less than that of oment"
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-surgery-sawita--rda-rav-right-displaced-abomasum-volvulus-surgical-emergency": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-surgery-sawita--rda-rav-right-displaced-abomasum-volvulus-surgical-emergency--v1",
+          "statement": "ในโค Holstein ที่เป็น RDA หรือ abomasal volvulus การวัด plasma L-lactate ข้างฟาร์มก่อนผ่าตัดทำนาย negative outcome ได้ดี (AUC 0.92) โดยจุดตัดที่มีความหมายทางคลินิกคือ 2 และ 6 mmol/L ค่า ≤ 2 mmol/L บ่งชี้ผลลัพธ์ดี ส่วน ≥ 6 mmol/L มี specificity 97.5% และ positive predictive value 75% ต่อ negative outcome",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24183688",
+              "locator": "97(1):212-221",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Important inflection points of the misclassification cost term function were noted at thresholds of 2 and 6 mmol/L, suggesting the potential utility of these cut-points. The 2 and 6 mmol/L thresholds had a sensitivity, specificity, positive"
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--rda-rav-right-displaced-abomasum-volvulus-surgical-emergency--v2",
+          "statement": "โครีดนมที่เป็น abomasal volvulus 78 จาก 112 ตัว (70%) มีภาวะ hypokalemia (mean serum potassium 3.5 mEq/L, reference range 3.9-5.8 mEq/L) โดย serum chloride เป็นตัวแปรที่สัมพันธ์เชิงบวกกับ serum potassium มากที่สุด และ serum potassium สัมพันธ์เชิงลบกับ plasma bicarbonate ซึ่งสอดคล้องกับ pattern hypochloremic hypokalemic metabolic alkalosis",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23445296",
+              "locator": "242(6):826-835",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "78 of 112 (70%) group 1 cows were hypokalemic (mean serum potassium concentration, 3.5 mEq/L; reference range, 3.9 to 5.8 mEq/L). For group 1 cows, serum chloride concentration had the strongest positive association with serum potassium con"
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-surgery-sawita--hardware-disease-trp-traumatic-reticuloperitonitis": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-surgery-sawita--hardware-disease-trp-traumatic-reticuloperitonitis--v1",
+          "statement": "ในโค TRP 503 ตัว การทดสอบความเจ็บสำหรับ reticular foreign body ทั้ง 3 แบบ (pinching of the withers, pressure on the xiphoid, percussion of the abdominal wall) ให้ผลบวกอย่างน้อย 1 การทดสอบเพียง 58% และให้ผลลบทั้งสามแบบถึง 42% ส่วนความผิดปกติทาง biochemistry ที่พบบ่อยที่สุดคือ fibrinogen สูง (69%) และ total protein สูง (64%) โดยพบ leukocytosis 42%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29506499",
+              "locator": "14(1):66",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In 58% of the cattle, at least one of three tests for reticular foreign bodies (pinching of the withers, pressure on the xiphoid and percussion of the abdominal wall) was positive, and in 42% all three tests were negative. ... An increase i"
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--hardware-disease-trp-traumatic-reticuloperitonitis--v2",
+          "statement": "Radiography เป็น technique of choice สำหรับการมองเห็น metallic foreign body และติดตามประสิทธิภาพของ magnet ในโค TRP และในผู้ป่วยส่วนใหญ่การรักษาเริ่มต้นเป็นแบบ conservative คือให้ magnet ร่วมกับ antibiotics โดยพิจารณาผ่าตัดเมื่อโคไม่ตอบสนองต่อการรักษาทางยา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31982079",
+              "locator": "255:105424 (narrative review)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Radiography is the technique of choice for the visualisation of metallic foreign bodies and for monitoring the efficacy of a magnet. Treatment may be conservative or surgical, but in most cases initial treatment is conservative with adminis"
+          }
+        }
+      ]
+    }
+  },
+  "cliapprum--gi-vdtt": {
+    "cliapprum--gi-vdtt--rumen-ph-spectrum": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-vdtt--rumen-ph-spectrum--v1",
+          "statement": "SARA (subacute ruminal acidosis) คือภาวะที่ rumen pH ถูกกดต่ำนานหลายชั่วโมงต่อวัน จากการสะสม volatile fatty acids ร่วมกับ rumen buffering ที่ไม่เพียงพอ และการสำรวจพบ incidence ราว 19-26% ในโครีดนมระยะ early และ mid lactation",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18329918",
+              "locator": "176(1):21-31 (review)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "During subacute ruminal acidosis (SARA) rumen pH is depressed for several hours per day due to accumulation of volatile fatty acids and insufficient rumen buffering. Surveys suggested an incidence of SARA of between 19% and 26% in early and"
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-vdtt--acute-lactic-acidosis-grain-engorgement": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-vdtt--acute-lactic-acidosis-grain-engorgement--v1",
+          "statement": "ความรุนแรงของ ruminal acidosis สัมพันธ์กับปริมาณ ความถี่ และระยะเวลาของการให้ grain โดยแบ่งได้เป็น acute acidosis ซึ่งเกิดจากการสะสม lactic acid และ subacute acidosis ซึ่งเกิดจากการสะสม volatile fatty acids ในกระเพาะรูเมน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17517750",
+              "locator": "90 Suppl 1:E17-E38 (review)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The severity of acidosis, generally related to the amount, frequency, and duration of grain feeding, varies from acute acidosis due to lactic acid accumulation, to subacute acidosis due to accumulation of volatile fatty acids in the rumen."
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-vdtt--rumen-fluid-analysis-cowside": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-vdtt--rumen-fluid-analysis-cowside--v1",
+          "statement": "การลดลงของประชากร ciliated protozoa เป็นลักษณะร่วมของ ruminal acidosis ทั้งแบบ acute และ subacute และอาจใช้เป็น microbial indicator ที่ดีของ acidotic rumen",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17517750",
+              "locator": "90 Suppl 1:E17-E38 (review)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The decrease in ciliated protozoal population is a common feature of both forms of acidosis and may be a good microbial indicator of an acidotic rumen."
+          }
+        },
+        {
+          "id": "cliapprum--gi-vdtt--rumen-fluid-analysis-cowside--v2",
+          "statement": "ควรเก็บ rumen fluid ปริมาตรอย่างน้อย 10 ml และตรวจภายใน 30 นาทีหลังเก็บ เพราะทั้ง pH และ methylene blue reduction time (MBRT) ที่เวลา 60 นาที สูงกว่าที่เวลา 0 นาทีอย่างมีนัยสำคัญในทุกปริมาตรตัวอย่าง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37026411",
+              "locator": "37(3):1262-1270",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The pH and MBRT at 60 minutes were significantly higher than at 0 minute for all volumes (P < .05 and P < .01, respectively). ... Sample volumes of ≥10 mL analyzed within 30 minutes after collection are recommended."
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-vdtt--gi-motility-disorders": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-vdtt--gi-motility-disorders--v1",
+          "statement": "Vagal indigestion แบ่งตามตำแหน่งการอุดกั้นเป็น proximal functional stenosis (reticulo-omasal stenosis) กับ distal functional stenosis (pyloric stenosis) โดยในโค vagal indigestion 144 ตัว พบ proximal 97 ตัว และ distal 47 ตัว และกลุ่ม proximal มี reticular contraction ถี่กว่ากลุ่ม distal อย่างมีนัยสำคัญ (เฉลี่ย 4.6 เทียบกับ 3.6 ครั้งต่อ 3 นาที, P<0.05)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19122215",
+              "locator": "164(1):11-13",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The reticular motility in 144 cattle with vagal indigestion was evaluated by ultrasonography; 97 had proximal functional stenosis (reticulo-omasal stenosis) and 47 had distal functional stenosis (pyloric stenosis). ... The cattle with proxi"
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-vdtt--diarrhea-abomasitis": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-vdtt--diarrhea-abomasitis--v1",
+          "statement": "ในการศึกษา cross-sectional ลูกโคนม 1,283 ตัวจาก 97 ฟาร์ม ในลูกโคอายุ 1-5 วัน มีเพียง enterotoxigenic K99+ Escherichia coli ที่สัมพันธ์กับอุจจาระเหลว (OR 4.6, 95% CI 1.2-16.1) ส่วนในลูกโคอายุ 9-21 วัน เชื้อที่สัมพันธ์คือ Cryptosporidium parvum (OR 2.6) rotavirus (OR 2.7) และการติดเชื้อร่วมมากกว่าหนึ่งชนิด (OR 2.5)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25653209",
+              "locator": "203(2):155-160",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "only C. parvum (odds ratio [OR] = 2.6; 95% CI, 1.3-5.6; P = 0.02), BRV (OR = 2.7; 95% CI, 1.3-5.9; P = 0.01) and co-infection with more than one agent (compared with mono-infection: OR = 2.5; 95% CI, 1.3-4.8; P = 0.01) were associated with "
+          }
+        }
+      ]
+    }
+  },
+  "cliapprum--hoof-health-fleet": {
+    "cliapprum--hoof-health-fleet--locomotion-score-lcs-sprecher-1997": {
+      "claims": [
+        {
+          "id": "cliapprum--hoof-health-fleet--locomotion-score-lcs-sprecher-1997--v1",
+          "statement": "ระบบ locomotion scoring 5 ระดับของ Sprecher ใช้ arched-back posture ขณะยืนเป็นจุดตัดสำคัญ โคที่ยืนหลังโก่ง (LS ≥ 3) ควรได้รับ corrective intervention",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16728067",
+              "locator": "Vol 47, issue 6, pages 1179-87",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Observation of the arched-back posture in a standing cow (> or =LS 3) should trigger corrective interventions."
+          }
+        }
+      ]
+    },
+    "cliapprum--hoof-health-fleet--common-hoof-lesions-lameness-ddx": {
+      "claims": [
+        {
+          "id": "cliapprum--hoof-health-fleet--common-hoof-lesions-lameness-ddx--v1",
+          "statement": "Sole ulcer (pododermatitis circumscripta) พบบ่อยที่สุดที่ lateral claw ของขาหลัง มักเป็นสองข้าง เกิดจาก mechanical injury ของ P3 ต่อ corium หลัง suspensory apparatus ในกีบล้มเหลว และตำแหน่งที่รายงานบ่อยที่สุดคือรอยต่อระหว่าง axial heel กับ sole",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16955800",
+              "locator": "Vol 20, issue 4, pages 805-11",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "They are found most commonly in the hind lateral claw, are frequently bilateral, and have a high rate of reoccurrence. The pathogenesis of sole ulceration is primarily based on mechanical injury by the 3rd phalanx to the corium, basement me"
+          }
+        },
+        {
+          "id": "cliapprum--hoof-health-fleet--common-hoof-lesions-lameness-ddx--v2",
+          "statement": "Digital dermatitis เกิดจาก Treponema phylotypes จำเพาะเป็นสาเหตุสำคัญ และการควบคุมอาศัยสุขาภิบาลโรงเรือน การให้โคออกแปลง footbath เป็นประจำ และ claw trimming ด้วยอุปกรณ์ที่ผ่านการฆ่าเชื้อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27061657",
+              "locator": "Vol 211, pages 3-13",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "There is substantial evidence that specific treponeme phylotypes play an important causative role in bovine DD. ... Better on-farm housing hygiene, pasture access, routine footbathing and claw trimming with disinfected equipment need to be "
+          }
+        },
+        {
+          "id": "cliapprum--hoof-health-fleet--common-hoof-lesions-lameness-ddx--v3",
+          "statement": "Foot rot (interdigital phlegmon) มี Fusobacterium necrophorum subsp. necrophorum เป็นเชื้อก่อโรคหลัก และพบ F. necrophorum ร่วมกับ Dichelobacter nodosus ใน 66.7% ของตัวอย่างรอยโรคระยะเฉียบพลัน โดย D. nodosus พบมากกว่าในฝูงที่ระบาดรุนแรง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30696445",
+              "locator": "Vol 15, issue 1, article 44",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most of the samples of acute IP (66.7%) harboured both F. necrophorum and D. nodosus. ... Our result confirms that F. necrophorum subspecies necrophorum is the main pathogen in IP, but also T. pyogenes is associated with the healing stage o"
+          }
+        }
+      ]
+    },
+    "cliapprum--hoof-health-fleet--footbath-protocol": {
+      "claims": [
+        {
+          "id": "cliapprum--hoof-health-fleet--footbath-protocol--v1",
+          "statement": "CuSO4 5% เป็น footbath solution เดียวที่ให้ผลรักษา digital dermatitis ได้สม่ำเสมอ และให้ผลดีกว่า CuSO4 2% โดยเมื่อความชุกของ DD สูง การทำ footbath สัปดาห์ละครั้งด้วย CuSO4 5% ได้ผลดีที่สุด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21094750",
+              "locator": "Vol 93, issue 12, pages 5782-91",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In conclusion, CuSO(4) was the only footbath solution that was consistently effective for treatment of DD. In cases when DD prevalence was high, a footbath each week using 5% CuSO(4) was the most effective treatment."
+          }
+        }
+      ]
+    },
+    "cliapprum--hoof-health-fleet--routine-trimming-rt-dutch-5-step": {
+      "claims": [
+        {
+          "id": "cliapprum--hoof-health-fleet--routine-trimming-rt-dutch-5-step--v1",
+          "statement": "ในโคนม free-stall กีบ lateral claw ของขาหลังมีโอกาสเกิดรอยโรคมากกว่า medial claw ไม่ว่าจะยืนบนพื้นคอนกรีตหรือพื้นยาง ซึ่งเป็นเหตุผลของการ hollow out lateral claw ในการแต่งกีบ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17033012",
+              "locator": "Vol 89, issue 11, pages 4251-8",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Regardless of the flooring surface, the lateral claw was more likely to develop lesions than the medial claw."
+          }
+        }
+      ]
+    }
+  },
+  "cliapprum--metabolism-nutrition": {
+    "cliapprum--metabolism-nutrition--transition-period-3-weeks-pre-post-calving": {
+      "claims": [
+        {
+          "id": "cliapprum--metabolism-nutrition--transition-period-3-weeks-pre-post-calving--v1",
+          "statement": "Subclinical ketosis นิยามที่ blood BHBA ≥ 1.2 ถึง 1.4 mmol/L โดยโคที่มี BHBA ≥ 1.2 mmol/L ในช่วง 2-15 DIM มี odds ของ metritis, clinical ketosis และ displaced abomasum สูงขึ้น 1.5, 9.5 และ 5.0 เท่าตามลำดับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23497997",
+              "locator": "Vol 96, issue 5, pages 2925-38",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Subclinical ketosis (SCK) is defined as concentrations of beta-hydroxybutyrate (BHBA) >= 1.2 to 1.4 mmol/L ... Overall prevalence of SCK (i.e., blood BHBA >= 1.2 mmol/L) within 10 countries was 21.8%, ranging from 11.2 to 36.6%. Cows with S"
+          }
+        },
+        {
+          "id": "cliapprum--metabolism-nutrition--transition-period-3-weeks-pre-post-calving--v2",
+          "statement": "ระดับเตือนระดับฝูง (herd alarm level) คือมีโคตั้งแต่ 15% ของที่สุ่มตรวจมี postpartum NEFA ≥ 0.70 mEq/L ซึ่งสัมพันธ์กับอุบัติการณ์ DA และ clinical ketosis เพิ่มขึ้น 1.7% pregnancy rate ลดลง 0.9% และผลผลิตน้ำนม ME305 ที่ลดลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20655428",
+              "locator": "Vol 93, issue 8, pages 3595-601",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The herd alarm level (i.e., the proportion of sampled animals above a certain metabolite threshold) was as follows: 15% had prepartum NEFA of 0.27 mEq/L; 15 and 20% had BHBA of 10 and 12 mg/dL, respectively; and 15% had postpartum NEFA of 0"
+          }
+        },
+        {
+          "id": "cliapprum--metabolism-nutrition--transition-period-3-weeks-pre-post-calving--v3",
+          "statement": "Subclinical hypocalcaemia ที่วัดจาก plasma Ca ในช่วง 4 วันแรกหลังคลอดสัมพันธ์กับความเสี่ยง metritis และ displaced abomasum โดยจุดตัดขึ้นกับวันที่ตรวจและ parity เช่น ≤ 1.97 mmol/L ที่ 2 DIM ในโคท้องสอง และ ≤ 2.20 mmol/L ที่ 4 DIM ในโคท้องสามขึ้นไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30077442",
+              "locator": "Vol 101, issue 10, pages 9321-9331",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Plasma Ca concentration was associated with the risk of metritis or displaced abomasum diagnosis (or both) for 2nd parity animals at 2 DIM (threshold <=1.97 mmol/L), and at 4 DIM for 3rd and greater lactations (threshold <=2.20 mmol/L). ..."
+          }
+        }
+      ]
+    },
+    "cliapprum--metabolism-nutrition--milk-fat-depression-mfd": {
+      "claims": [
+        {
+          "id": "cliapprum--metabolism-nutrition--milk-fat-depression-mfd--v1",
+          "statement": "trans-10,cis-12 CLA คือ isomer ที่รับผิดชอบต่อการยับยั้งการสังเคราะห์ไขมันนม โดยการ infuse เข้า abomasum 10 g/วัน ลด milk fat percentage และ milk fat yield ลง 42% และ 44% ตามลำดับ ขณะที่ cis-9,trans-11 CLA ไม่มีผลต่อไขมันนม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10644637",
+              "locator": "Vol 278, issue 1, pages R179-84",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Only the 10,12 CLA supplement affected milk fat, causing a 42 and 44% reduction in milk fat percentage and yield, respectively. ... Overall, results demonstrate that trans-10,cis-12 CLA is the isomer responsible for inhibition of milk fat s"
+          }
+        },
+        {
+          "id": "cliapprum--metabolism-nutrition--milk-fat-depression-mfd--v2",
+          "statement": "pH ในรูเมนที่ต่ำ (5.6 เทียบกับ 6.4) เป็นสาเหตุหลักของการสะสม trans-10 C18:1 และ trans-10,cis-12 CLA จากการเปลี่ยนเส้นทาง biohydrogenation ส่วนระดับ concentrate ที่สูงมีผลเสริมต่อสัดส่วน trans-10,cis-12 CLA",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19700707",
+              "locator": "Vol 92, issue 9, pages 4456-66",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Results indicate that the pH is the main cause of the accumulation of trans-10 C(18:1) and trans-10, cis-12 CLA in the effluent, but the trans-10,cis-12 CLA proportion can be also affected by high levels of concentrate in the diet."
+          }
+        }
+      ]
+    },
+    "cliapprum--metabolism-nutrition--body-condition-score-bcs-1-5-scale": {
+      "claims": [
+        {
+          "id": "cliapprum--metabolism-nutrition--body-condition-score-bcs-1-5-scale--v1",
+          "statement": "ความสัมพันธ์ระหว่าง BCS กับผลผลิตและสุขภาพเป็นแบบ non-linear โดย optimum calving BCS อยู่ที่ 3.0 ถึง 3.25 (สเกล 5 ระดับ) ส่วน calving BCS ตั้งแต่ 3.5 ขึ้นไปสัมพันธ์กับ DMI และผลผลิตน้ำนมช่วงต้นระยะให้นมที่ลดลง และความเสี่ยง metabolic disorders ที่เพิ่มขึ้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19923585",
+              "locator": "Vol 92, issue 12, pages 5769-801",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For many production and health variables, the association with BCS is nonlinear, with an optimum calving BCS of 3.0 to 3.25 (5-point scale); lower calving BCS is associated with reduced production and reproduction, whereas calving BCS >/=3."
+          }
+        }
+      ]
+    }
+  },
+  "cliapprum--ruminant-anesthesia": {
+    "cliapprum--ruminant-anesthesia--local-regional-block-selection": {
+      "claims": [
+        {
+          "id": "cliapprum--ruminant-anesthesia--local-regional-block-selection--v1",
+          "statement": "Cornual nerve block ด้วย lidocaine 2% (ผสม epinephrine 0.01 mg/mL) สำหรับ dehorning ในลูกโค มี median onset 2 นาที และ median duration ของ anesthesia ที่ horn bud 304 นาที โดยมี efficacy 87.5% ซึ่ง duration ยาวกว่า ring block (median 147 นาที) อย่างมีนัยสำคัญ (p = 0.047)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22524418",
+              "locator": "2012;39(4):431-5, Results and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The efficacy of the blocks was as follows: C 87.5%, R 100%, JET 37.5%, EMLA 0%. The median onset time and duration of anesthesia for C and R were: 2 (range 0.5-5) and 304 (range 107-512), and 3.25 (range 1-9) and 147 (range 62-299) minutes,"
+          }
+        },
+        {
+          "id": "cliapprum--ruminant-anesthesia--local-regional-block-selection--v2",
+          "statement": "Paravertebral nerve block สำหรับ flank surgery ในโค target spinal nerves T13, L1 และ L2 และทำได้ทั้งเทคนิค proximal (PPNB) และ distal (DPNB); ทั้งสองเทคนิคลด nociceptive withdrawal response ที่ flank ได้จริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27805442",
+              "locator": "2016;77(11):1187-1193, Procedures and Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A suitable acoustic window was identified to facilitate access to the T13, L1, and L2 spinal nerves in cadavers and live calves. ... In calves, the UGPNB, DPNB, and PPNB reduced the withdrawal response to the noxious stimulus, mainly in the"
+          }
+        },
+        {
+          "id": "cliapprum--ruminant-anesthesia--local-regional-block-selection--v3",
+          "statement": "Caudal epidural ในโคใช้ตำแหน่ง sacrococcygeal intervertebral space (S5-Co1) หรือ first intercoccygeal space (Co1-Co2) เป็นหลัก โดยขนาด lidocaine ที่มีรายงานใช้บ่อยอยู่ที่ 0.22-0.5 mg/kg สำหรับผ่าตัดบริเวณหาง ทวารหนัก vulva perineum เต้านมส่วนท้าย scrotum และขาหลังส่วนบน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28096620",
+              "locator": "2016;9(12):1450-1455, Abstract and drug/dosage summary",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most common sites for epidural administration in cattle, camels, and buffalos were the sacrococcygeal intervertebral space (S5-Co1) and first intercoccygeal intervertebral space (Co1-Co2). The most frequently used drugs and dosages were"
+          }
+        },
+        {
+          "id": "cliapprum--ruminant-anesthesia--local-regional-block-selection--v4",
+          "statement": "Xylazine ประมาณ 0.05 mg/kg (25 mg ใน 5 mL) ให้ทาง caudal epidural ในแม่โค ให้ perineal analgesia นานกว่า epidural lidocaine ขนาดมาตรฐาน 100 mg/5 mL อย่างมีนัยสำคัญ และให้ analgesia มากกว่าการให้ xylazine ขนาดเดียวกันทาง IM",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2590877",
+              "locator": "1989;53(4):486-9, Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The dose that produced the longest duration of analgesia and produced the least ataxia or sedation was approximately 0.05 mg/kg (25 mg in 5 mL diluent). ... Epidural xylazine produced a significantly greater duration of analgesia, as measur"
+          }
+        }
+      ]
+    },
+    "cliapprum--ruminant-anesthesia--pre-medication-sedation": {
+      "claims": [
+        {
+          "id": "cliapprum--ruminant-anesthesia--pre-medication-sedation--v1",
+          "statement": "Yohimbine 0.25 mg/kg IV ที่ให้ 3 นาทีหลัง xylazine 0.05 mg/kg IV ในลูกโคหย่านม ลดระยะเวลา rumen amotility จาก 38.3 เหลือ 14.0 นาที และลดระยะเวลาของ xylazine-induced bradycardia แต่ไม่ได้ทำให้ระยะเวลา sedation สั้นลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-6478835",
+              "locator": "1984;74(4):312-21, Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Yohimbine, administered 3 min post-xylazine, significantly decreased the duration of rumen amotility (38.3 +/- 4.2 min versus 14.0 +/- 2.2 min). Sedation, however, as monitored by the duration of fetlock knuckling in calves suspended in a b"
+          }
+        }
+      ]
+    },
+    "cliapprum--ruminant-anesthesia--ga-potential-problems": {
+      "claims": [
+        {
+          "id": "cliapprum--ruminant-anesthesia--ga-potential-problems--v1",
+          "statement": "Alpha-2 agonists (detomidine 10-40 µg/kg IV, xylazine 20-80 µg/kg IV, clonidine 2.5-10 µg/kg IV) ยับยั้ง primary reticulo-ruminal contractions ในโคและแกะ ส่วน secondary ruminal contractions ซึ่งทำหน้าที่ eructation ถูก block ในแกะและถูกกดในโค และ yohimbine แก้ gas accumulation ที่ตามมาไม่ได้ ขณะที่ tolazoline แก้ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2884329",
+              "locator": "1987;10(1):1-10, Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Inhibition of the cyclical contractions of the reticulum and the rumen by detomidine (10-40 micrograms/kg, i.v.), xylazine (20-80 micrograms/kg, i.v.) and clonidine (2.5-10 micrograms/kg, i.v.) were compared in sheep and cattle ... The occu"
+          }
+        }
+      ]
+    },
+    "cliapprum--ruminant-anesthesia--local-anesthetic-pharmacology": {
+      "claims": [
+        {
+          "id": "cliapprum--ruminant-anesthesia--local-anesthetic-pharmacology--v1",
+          "statement": "Lidocaine 2% ผสม epinephrine ที่ใช้ทำ cornual nerve block ในลูกโค วัด onset ได้ median 2 นาที ซึ่งอยู่ในช่วง 5-10 นาทีหรือเร็วกว่า และ duration ที่ horn bud วัดได้ median 304 นาที (range 107-512)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22524418",
+              "locator": "2012;39(4):431-5, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The median onset time and duration of anesthesia for C and R were: 2 (range 0.5-5) and 304 (range 107-512), and 3.25 (range 1-9) and 147 (range 62-299) minutes, respectively. ... The relatively rapid onset and long duration of anesthesia wi"
+          }
+        }
+      ]
+    }
+  },
+  "exotic--bird-infect": {
+    "exotic--bird-infect--pbfd-psittacine-beak-and-feather-disease": {
+      "claims": [
+        {
+          "id": "exotic--bird-infect--pbfd-psittacine-beak-and-feather-disease--v1",
+          "statement": "PBFD ในนกกระตั้ว (Cacatua galerita) พบ intracytoplasmic inclusion bodies แบบ botryoid cluster หรือ granular ใน epithelial cells และ macrophages ของ feather pulp และ feather follicle และยืนยัน PBFD virus (circovirus) DNA จากขนได้ด้วย nested PCR",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12130840",
+              "locator": "Abstract; J Vet Med Sci 64(6):527-9",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Histopathology of the feather pulp and follicles showed intracytoplasmic botryoid clusters or granular inclusion bodies in epithelial cells and macrophages."
+          }
+        }
+      ]
+    },
+    "exotic--bird-infect--pdd-proventricular-dilatation-disease": {
+      "claims": [
+        {
+          "id": "exotic--bird-infect--pdd-proventricular-dilatation-disease--v1",
+          "statement": "PDD มีลักษณะเด่นคือ lymphoplasmacytic infiltration ของ ganglia ทั้งใน central และ peripheral nervous system ทำให้เกิดอาการทางระบบประสาทร่วมกับ enteric motility ผิดปกติและผอมแห้ง โดย avian bornavirus (ABV) ถูกเสนอเป็น candidate etiologic agent (ตรวจพบใน PDD cases 62.5% และ 71% เทียบกับ 0% ใน controls, P = 0.01)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18671869",
+              "locator": "Abstract; Virol J 5:88",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is characterized by lymphoplasmacytic infiltration of the ganglia of the central and peripheral nervous system, leading to central nervous system disorders as well as disordered enteric motility and associated wasting."
+          }
+        }
+      ]
+    },
+    "exotic--bird-infect--pacheco-s-disease-pshv": {
+      "claims": [
+        {
+          "id": "exotic--bird-infect--pacheco-s-disease-pshv--v1",
+          "statement": "Pacheco's disease เกิดจาก psittacid herpesvirus type 1 และมีลักษณะเป็น acute lethal disease ที่ไม่มี prodrome คือ นกตายเฉียบพลันโดยแทบไม่มีอาการนำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20424393",
+              "locator": "Abstract; J Vet Med Sci 72(9):1099-106",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Pacheco's disease (PD), which is caused by psittacid herpesvirus type 1, is an acute lethal disease without a prodrome."
+          }
+        }
+      ]
+    },
+    "exotic--bird-infect--bacterial-chlamydophila-psittaci-psittacosis": {
+      "claims": [
+        {
+          "id": "exotic--bird-infect--bacterial-chlamydophila-psittaci-psittacosis--v1",
+          "statement": "แนวทาง Compendium ฉบับปี 2017 สำหรับ avian chlamydiosis ได้ปรับลดระยะเวลาการรักษาในนกให้สั้นลงจากฉบับก่อนหน้า ดังนั้นตัวเลข 45 วัน จึงไม่ใช่มาตรฐานปัจจุบันที่ตายตัว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28891690",
+              "locator": "ฉบับปรับปรุง 2017 หัวข้อสรุปการเปลี่ยนแปลงหลัก ยังไม่ได้ตรวจสอบเลขหน้าหรือหัวข้อย่อยที่ระบุระยะเวลาการรักษาโดยตรงจาก full text",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Major changes in this version include a recommendation for a shorter treatment time for birds with avian chlamydiosis"
+          }
+        }
+      ]
+    },
+    "exotic--bird-infect--polyomavirus": {
+      "claims": [
+        {
+          "id": "exotic--bird-infect--polyomavirus--v1",
+          "statement": "วัคซีน avian polyomavirus ที่ขึ้นทะเบียนกับ USDA เป็นวัคซีนเชื้อตาย (inactivated) ซึ่งมีข้อมูลว่าปลอดภัย กระตุ้นภูมิคุ้มกัน และมีประสิทธิภาพในนกกลุ่ม psittacine หลายชนิดทั้งวัยอ่อนและโตเต็มวัย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9492926",
+              "locator": "Abstract; Am J Vet Res 59(2):143-8",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The USDA-registered inactivated avian polyomavirus vaccine can safely be used to protect vaccinates from infection and control spread of this virus in flocks."
+          }
+        }
+      ]
+    },
+    "exotic--bird-infect--protozoal-diseases": {
+      "claims": [
+        {
+          "id": "exotic--bird-infect--protozoal-diseases--v1",
+          "statement": "Metronidazole ขนาด 25 mg/kg PO วันละ 2 ครั้ง นาน 5 วัน กำจัด Trichomonas trophozoites ได้หมดจาก crop lavage ของนกพิราบที่ติดเชื้อจากการทดลอง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33491469",
+              "locator": "Abstract; Br Poult Sci 62(4):485-491",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "five-day oral treatment of infected pigeons with 25 mg/kg metronidazole twice a day resulted in total eradication of trophozoites recovered in crop lavage of infected birds"
+          }
+        }
+      ]
+    }
+  },
+  "exotic--bird-noninfect": {
+    "exotic--bird-noninfect--nutritional-husbandry-diseases": {
+      "claims": [
+        {
+          "id": "exotic--bird-noninfect--nutritional-husbandry-diseases--v1",
+          "statement": "นกกลุ่ม psittacine ที่เลี้ยงด้วย seed diet ที่ไม่หลากหลาย มีแนวโน้มขาด vitamin A ซึ่งนำไปสู่ squamous cell epithelium metaplasia บริเวณจะงอยปาก หลอดอาหาร และหลอดลม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2377990",
+              "locator": "English abstract; Tierarztl Prax 18(3):267-72",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The lack of a varied diet, over-long storage times for seed and no knowledge regarding species specific feeding behaviour all lead to squamous cell epithelium metaplasia in the region of beak, oesophagus and trachea."
+          }
+        },
+        {
+          "id": "exotic--bird-noninfect--nutritional-husbandry-diseases--v2",
+          "statement": "ภาวะชักจาก hypocalcemia พบได้บ่อยในนกแก้ว African grey (Psittacus erithacus) ที่มาด้วยอาการทางระบบประสาท โดยระดับ plasma calcium ขณะชักมักต่ำกว่า 6.0 mg/dL และสาเหตุพื้นฐานยังไม่ทราบแน่ชัด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22645835",
+              "locator": "Abstract; J Avian Med Surg 26(1):17-21",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Hypocalcemic-induced seizure activity is a clinical entity that is commonly diagnosed in neurologic African grey parrots (Psittacus erithacus). Plasma calcium levels are typically less than 6.0 mg/dL at the time of seizure activity, and alt"
+          }
+        }
+      ]
+    },
+    "exotic--bird-noninfect--cloacal-papilloma": {
+      "claims": [
+        {
+          "id": "exotic--bird-noninfect--cloacal-papilloma--v1",
+          "statement": "Mucosal papilloma ใน neotropical parrots ตรวจพบ psittacid herpesvirus (PsHV) DNA ครบทั้ง 41/41 รอยโรค (genotype 1, 2 และ 3) และไม่พบ papillomavirus DNA จึงสรุปว่า PsHV มีบทบาทโดยตรง โดยไม่มีหลักฐานว่ามี papillomavirus ร่วมด้วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15231383",
+              "locator": "Abstract; Virology 325(1):24-35",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "All 41 papillomas were found to contain PsHV DNA... it was concluded that specific genotypes of PsHV play a direct role in the development of mucosal papillomas of neotropical parrots and there is no evidence to suggest the concurrent prese"
+          }
+        }
+      ]
+    },
+    "exotic--bird-noninfect--ectoparasites-knemidocoptes": {
+      "claims": [
+        {
+          "id": "exotic--bird-noninfect--ectoparasites-knemidocoptes--v1",
+          "statement": "Knemidokoptes pilae ทำให้เกิด hyperkeratotic lesion โดยเฉพาะที่จะงอยปากและขาของ budgerigar (Melopsittacus undulatus) และการทา topical ivermectin แบบ spot-on (100 ไมโครกรัมต่อน้ำหนักตัว 30 กรัม) สัปดาห์ละครั้ง นาน 4 สัปดาห์ ทำให้รอยโรคลดลงจนหายสนิททางคลินิกและตรวจไม่พบไรอีก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41874842",
+              "locator": "Abstract; Vet Res Commun 50(3)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A topical ivermectin solution (100 µg/30 g body weight) diluted in propylene glycol was applied as a spot-on formulation once weekly for 4 weeks... complete clinical recovery was achieved within four weeks."
+          }
+        }
+      ]
+    },
+    "exotic--bird-noninfect--common-household-poisons-in-pet-birds": {
+      "claims": [
+        {
+          "id": "exotic--bird-noninfect--common-household-poisons-in-pet-birds--v1",
+          "statement": "นกไวต่อสารพิษที่สูดดมเป็นอย่างมากเนื่องจากประสิทธิภาพของระบบหายใจ โดย polytetrafluoroethylene (PTFE) toxicosis ทำให้เกิด pulmonary hemorrhage และ pulmonary edema และตายเฉียบพลันโดยไม่มีอาการนำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22330651",
+              "locator": "Abstract; Comp Med 62(1):49-52",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Birds are highly sensitive to inhaled toxicants owing to the high efficiency of their respiratory systems, and PTFE toxicosis is known to cause pulmonary edema and hemorrhage in pet birds after exposure to overheated nonstick cookware."
+          }
+        }
+      ]
+    }
+  },
+  "exotic--field-vet": {
+    "exotic--field-vet--case-studies-เจอบ่อยในข้อสอบ": {
+      "claims": [
+        {
+          "id": "exotic--field-vet--case-studies-เจอบ่อยในข้อสอบ--v1",
+          "statement": "ในการระบาดรอบที่ 2 ของ HPAI H5N1 ที่สวนเสือในประเทศไทย (พ.ศ. 2547) มีหลักฐานบ่งชี้ probable horizontal transmission ระหว่างเสือด้วยกัน (tiger-to-tiger) โดยลำดับพันธุกรรมและ phylogenetic analysis ของไวรัสไม่ต่างจาก isolate แรกที่แยกได้เมื่อมกราคม 2547",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15890122",
+              "locator": "Emerg Infect Dis 2005;11(5):699-701",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "During the second outbreak of avian influenza H5N1 in Thailand, probable horizontal transmission among tigers was demonstrated in the tiger zoo. Sequencing and phylogenetic analysis of those viruses showed no differences from the first isol"
+          }
+        },
+        {
+          "id": "exotic--field-vet--case-studies-เจอบ่อยในข้อสอบ--v2",
+          "statement": "ลิงแสม (long-tailed macaque) และลิงกัง (pig-tailed macaque) เป็น natural reservoir host ของ zoonotic malaria ใน Southeast Asia โดยส่วนใหญ่เกิดจาก Plasmodium knowlesi และมียุงในกลุ่ม Anopheles Leucosphyrus Group เป็น vector หลัก ซึ่ง vector เหล่านี้อาศัยในป่าและชายป่า และกัดทั้งลิงและคน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35361218",
+              "locator": "Malar J 2022;21(1):109",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The vectors of monkey malarias are mostly found in forests and forest fringes, where they readily bite long-tailed and pig-tailed macaques (the natural reservoir hosts) and humans."
+          }
+        },
+        {
+          "id": "exotic--field-vet--case-studies-เจอบ่อยในข้อสอบ--v3",
+          "statement": "Lumpy skin disease virus (LSDV) มี large ruminant โดยเฉพาะโคและกระบือบ้านเป็นกลุ่มที่ไวรับมากที่สุด และ wild ruminants อาจทำหน้าที่เป็น potential reservoir ในการแพร่เชื้อ จึงเป็นตัวอย่างของความเชื่อมโยงระหว่างระบบการผลิตปศุสัตว์กับสัตว์ป่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37271510",
+              "locator": "J Vet Sci 2023;24(3):e42",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The virus is also host-specific and large ruminants, such as cattle and domestic water buffalo, are particularly susceptible. In addition, wild ruminants can serve as potential reservoirs for spreading the LSD virus."
+          }
+        },
+        {
+          "id": "exotic--field-vet--case-studies-เจอบ่อยในข้อสอบ--v4",
+          "statement": "golden jackal (Canis aureus) ร่วมกับ red fox เป็น primary vector ที่ maintain wildlife rabies ในอิสราเอลมาตั้งแต่ปี 1956 และการทำ oral rabies vaccination ในสัตว์ตระกูลสุนัขป่าที่เริ่มปี 1998 ทำให้โรคเกือบหมดไปจากสัตว์ป่าภายในปี 2005 ซึ่งยืนยันว่า rabies cycle ไม่ได้จำกัดอยู่เฉพาะสุนัขบ้าน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18634475",
+              "locator": "Dev Biol (Basel) 2008;131:151-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Since 1956, red foxes (Vulpes vulpes) and golden jackals (Canis aureus) have been the primary vectors maintaining wildlife rabies in Israel. Oral rabies vaccination of wild canids, initiated in 1998, resulted in near-elimination of the dise"
+          }
+        }
+      ]
+    },
+    "exotic--field-vet--operational-challenges": {
+      "claims": [
+        {
+          "id": "exotic--field-vet--operational-challenges--v1",
+          "statement": "ความเครียดและการออกแรงจากการจับสัตว์ป่าทำให้เกิด capture myopathy โดยสาเหตุการตายหลักคือ kidney failure หรือ multiple organ failure ที่เป็นภาวะแทรกซ้อนตามมาจาก capture-induced rhabdomyolysis",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36334218",
+              "locator": "Vet Res Commun 2023;47(2):361-371",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The primary cause of death in wild animals diagnosed with CM stems from kidney or multiple organ failure as secondary complications to capture-induced rhabdomyolysis."
+          }
+        }
+      ]
+    },
+    "exotic--field-vet--translocation-framework": {
+      "claims": [
+        {
+          "id": "exotic--field-vet--translocation-framework--v1",
+          "statement": "capture myopathy เป็นสาเหตุการตายที่มีจำนวนสูงที่สุดในบรรดาการตายที่สัมพันธ์กับการ translocation สัตว์ป่าทั่วโลก และมี prognosis ที่แย่แม้จะให้การรักษาประคับประคองอย่างเข้มข้นและต่อเนื่อง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31304016",
+              "locator": "Conserv Physiol 2019;7(1):coz027",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Globally, capture myopathy-a malignant outcome of stress during capture operations-accounts for the highest number of deaths associated with wildlife translocation."
+          }
+        }
+      ]
+    }
+  },
+  "exotic--zoo-vet": {
+    "exotic--zoo-vet--iucn-red-list-conservation-status": {
+      "claims": [
+        {
+          "id": "exotic--zoo-vet--iucn-red-list-conservation-status--v1",
+          "statement": "IUCN Red List Categories and Criteria (Version 3.1) แบ่งสถานะออกเป็น 9 categories และมีเพียง 3 categories ที่นับเป็น threatened คือ Vulnerable (VU), Endangered (EN) และ Critically Endangered (CR)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-international-union-fo-2012",
+              "locator": "Version 3.1, second edition (2012), categories and criteria definitions; exact page number not verified",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": ""
+          }
+        }
+      ]
+    },
+    "exotic--zoo-vet--cites-appendices": {
+      "claims": [
+        {
+          "id": "exotic--zoo-vet--cites-appendices--v1",
+          "statement": "CITES Appendix I ครอบคลุมชนิดพันธุ์ที่ threatened with extinction ซึ่งได้รับหรืออาจได้รับผลกระทบจากการค้า การค้าระหว่างประเทศจึงถูกควบคุมเข้มงวดเป็นพิเศษและอนุญาตได้เฉพาะกรณีพิเศษ โดยต้องมีทั้ง export permit และ import permit ต่างจาก Appendix III ที่ประเทศภาคีหนึ่ง ๆ เป็นผู้ขึ้นบัญชีเองเพื่อขอความร่วมมือควบคุมการค้า",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-cites-secretariat-unep-na",
+              "locator": "Article II (Fundamental Principles) and Article III (Regulation of trade in specimens of species included in Appendix I); paragraph numbers not independently verified",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": ""
+          }
+        }
+      ]
+    },
+    "exotic--zoo-vet--disease-surveillance-top-concerns": {
+      "claims": [
+        {
+          "id": "exotic--zoo-vet--disease-surveillance-top-concerns--v1",
+          "statement": "Mycobacterium tuberculosis เป็น zoonosis ที่ถ่ายทอดระหว่างคนกับช้างได้จริง โดยการสอบสวนการระบาดในฟาร์มสัตว์แปลกพบช้างตายจากโรคปอด 3 เชือก และ DNA fingerprint (IS6110 และ TBN12 typing) ของเชื้อจากช้าง 4 เชือกกับผู้ดูแลที่ป่วยเป็นวัณโรค active เป็นสายพันธุ์เดียวกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9621200",
+              "locator": "Emerg Infect Dis 1998;4(2):283-7",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "DNA fingerprint comparison by IS6110 and TBN12 typing showed that the isolates from the four elephants and the handler with active TB were the same strain. This investigation indicates transmission of M. tuberculosis between humans and elep"
+          }
+        },
+        {
+          "id": "exotic--zoo-vet--disease-surveillance-top-concerns--v2",
+          "statement": "SARS-CoV-2 ถ่ายทอดจากคนสู่สัตว์ในสวนสัตว์ได้ โดยเสือ 4 ตัวและสิงโต 3 ตัวที่ Bronx Zoo แสดงอาการทางเดินหายใจเล็กน้อย ตรวจพบ SARS-CoV-2 RNA จาก respiratory secretion และ/หรืออุจจาระครบทั้ง 7 ตัว แยกเชื้อมีชีวิตได้ 3 ตัว และข้อมูล epidemiologic ร่วมกับ genomic บ่งชี้การถ่ายทอดจากคนสู่เสือ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33051368",
+              "locator": "mBio 2020;11(5):e02220-20",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We detected SARS-CoV-2 RNA in respiratory secretions and/or feces from all seven animals, live virus in three, and colocalized viral RNA with cellular damage in one... Epidemiologic and genomic data indicated human-to-tiger transmission."
+          }
+        },
+        {
+          "id": "exotic--zoo-vet--disease-surveillance-top-concerns--v3",
+          "statement": "Melioidosis เกิดจาก Burkholderia pseudomallei ซึ่งปนเปื้อนอยู่ในดินและน้ำ และเป็นโรคประจำถิ่นของประเทศไทย โดยเฉพาะภาคตะวันออกเฉียงเหนือที่มีการรายงานอัตราป่วยต่อเนื่องรายเดือนในระดับตำบล",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38791828",
+              "locator": "Int J Environ Res Public Health 2024;21(5):614",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Melioidosis is an endemic infectious disease caused bybacteria, which contaminates soil and water."
+          }
+        }
+      ]
+    },
+    "exotic--zoo-vet--five-domains-of-animal-welfare": {
+      "claims": [
+        {
+          "id": "exotic--zoo-vet--five-domains-of-animal-welfare--v1",
+          "statement": "Five Domains Model ฉบับปรับปรุงปี 2020 ประกอบด้วย 1 Nutrition, 2 Physical Environment, 3 Health, 4 Behavioural Interactions และ 5 Mental State โดย domain 1-4 เป็นปัจจัยที่ก่อให้เกิด affect ทางลบหรือบวก ซึ่งนำไปประเมินรวมเป็นภาวะจิตใจที่ domain 5",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33066335",
+              "locator": "Animals (Basel) 2020;10(10):1870",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The domains of the most up-to-date Model described here are: 1 Nutrition, 2 Physical Environment, 3 Health, 4 Behavioural Interactions and 5 Mental State. The first four domains focus attention on factors that give rise to specific negative"
+          }
+        }
+      ]
+    }
+  },
+  "exotic--wildlife-career": {
+    "exotic--wildlife-career--module-examples-wildlife-medicine-programs": {
+      "claims": [
+        {
+          "id": "exotic--wildlife-career--module-examples-wildlife-medicine-programs--v1",
+          "statement": "Five Domains Model ถูกพัฒนาขึ้นเพื่อประเมินสวัสดิภาพสัตว์ในด้าน nutritional, environmental, health, behavioural และ mental หลังจากที่กรอบ Five Freedoms ถูกชี้ว่ามีข้อจำกัดเชิงแนวคิด ทั้งสองกรอบจึงไม่ใช่สิ่งเดียวกันและใช้แทนกันไม่ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31973682",
+              "locator": "N Z Vet J 2020;68(3):150-156",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "conceptual problems with the Five Freedoms framework led to the formulation of the Five Provisions and Welfare Aims paradigm and development of the Five Domains Model for assessing nutritional, environmental, health, behavioural and mental "
+          }
+        }
+      ]
+    }
+  },
+  "practrum--cow-restraint": {
+    "practrum--cow-restraint--low-stress-handling-temple-grandin": {
+      "claims": [
+        {
+          "id": "practrum--cow-restraint--low-stress-handling-temple-grandin--v1",
+          "statement": "Point of balance อยู่ที่หัวไหล่ของสัตว์ ผู้จับบังคับควรยืนด้านหลัง point of balance เพื่อให้สัตว์เดินไปข้างหน้า และยืนด้านหน้า point of balance เพื่อให้สัตว์ถอยหลัง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Article 7.5.1. General principles, point 3 (Animal behaviour)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Animal handlers should use the point of balance at the animal's shoulder to move animals, adopting a position behind the point of balance to move an animal forward and in front of the point of balance to move it backward."
+          }
+        },
+        {
+          "id": "practrum--cow-restraint--low-stress-handling-temple-grandin--v2",
+          "statement": "ขนาดของ flight zone ไม่คงที่ ขึ้นกับชนิดสัตว์ ตัวสัตว์แต่ละตัว และประสบการณ์ที่เคยสัมผัสกับคน สัตว์ที่เลี้ยงใกล้ชิดคน (tame) มี flight zone เล็กกว่า ส่วนสัตว์ที่เลี้ยงปล่อยหรือระบบ extensive อาจมี flight zone ตั้งแต่ 1 เมตรจนถึงหลายเมตร และผู้จับบังคับควรเลี่ยงการรุกล้ำ flight zone อย่างฉับพลันเพราะอาจทำให้สัตว์ตื่นตกใจ ก้าวร้าว หรือพยายามหนี",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Article 7.5.1. General principles, point 3 (Animal behaviour)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This critical distance, which defines the flight zone, varies among species and individuals of the same species, and depends upon previous contact with humans. Animals reared in close proximity to humans i.e. tame have a smaller flight zone"
+          }
+        },
+        {
+          "id": "practrum--cow-restraint--low-stress-handling-temple-grandin--v3",
+          "statement": "การปรับคอกเพียงเล็กน้อย (บังสายตาโคเมื่อผู้จับบังคับเดินเข้าไปลึกใน flight zone และกำจัดวัตถุสว่าง คู่สีตัดกัน เงา และแอ่งน้ำ) ร่วมกับ good handling practices (เลิกใช้สุนัข เลิกใช้ไม้ไฟฟ้า เลิกตะโกน) ลดการหลั่ง cortisol ในแม่โค Nellore ได้จริง จาก 60.40 ± 3.8 เหลือ 41.03 ± 2.9 ng/mL (P < 0.001)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29139068",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cortisol release was lower (P < 0.001) and better for the improved methods, resulting in calmer cows compared to cortisol released before the minor changes (41.03 ± 2.9 vs 60.40 ± 3.8 ng/mL)."
+          }
+        },
+        {
+          "id": "practrum--cow-restraint--low-stress-handling-temple-grandin--v4",
+          "statement": "ในฟาร์มโคนมเชิงพาณิชย์ การที่ผู้เลี้ยงใช้ negative หรือ forceful tactile interactions กับโคมาก สัมพันธ์เชิงลบกับ milk yield, protein และ fat ของฟาร์ม (r = -0.36, -0.35 และ -0.33 ตามลำดับ, P < 0.01) และสัมพันธ์เชิงบวกกับความเข้มข้นของ cortisol ในน้ำนม (r = 0.34, P < 0.01)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11063304",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the use of negative interactions by stockpeople was significantly and negatively correlated with milk yield, protein, and fat at the farm (r = -0.36, -0.35 and -0.33, respectively, df = 64, P < 0.01) and was significantly and positively cor"
+          }
+        }
+      ]
+    },
+    "practrum--cow-restraint--halter-standing-restraint": {
+      "claims": [
+        {
+          "id": "practrum--cow-restraint--halter-standing-restraint--v1",
+          "statement": "ความปลอดภัยขณะเข้าใกล้และจับบังคับโคขึ้นกับความรู้เรื่อง flight zone ร่วมกับการเลือกใช้เครื่องมือและอุปกรณ์ restraint ที่เหมาะสม ซึ่งเป็นแนวทางลดการบาดเจ็บของผู้ปฏิบัติงานในฟาร์มโคนม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23844794",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Care when in close proximity to the animal is the key for safe handling, including knowledge of the flight zone, and use of the right types of tools and suitable restraint equipment."
+          }
+        }
+      ]
+    },
+    "practrum--cow-restraint--casting-methods-recumbent": {
+      "claims": [
+        {
+          "id": "practrum--cow-restraint--casting-methods-recumbent--v1",
+          "statement": "ในโค 125 ตัวที่ถูกวางยาสลบด้วย xylazine/halothane จนอยู่ในภาวะ recumbent พบภาวะแทรกซ้อนจากการวางยา 10 ตัว (8%) ซึ่งส่วนใหญ่สัมพันธ์กับ regurgitation ของ ruminal contents โดยมีหรือไม่มี aspiration ร่วมด้วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17422450",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Anesthetic complications were recorded for ten cattle (8%) in the series and were mainly associated with regurgitation of ruminal contents, with or without aspiration."
+          }
+        }
+      ]
+    }
+  },
+  "practrum--dehorning": {
+    "practrum--dehorning--anatomy-anesthesia": {
+      "claims": [
+        {
+          "id": "practrum--dehorning--anatomy-anesthesia--v1",
+          "statement": "Cornual nerve block ด้วย lignocaine ทำให้ escape behaviour ระหว่าง disbudding และ dehorning หายไปเกือบหมด และลด plasma cortisol response ต่อ dehorning ได้ประมาณ 2 ชั่วโมง หลังจากนั้นจะเกิด delayed cortisol response ขึ้นอีกนานราว 6 ชั่วโมง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15848777",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A cornual nerve blockade using lignocaine virtually eliminates the escape behaviour seen during disbudding and dehorning and reduces the plasma cortisol response to dehorning for about 2 h. Thereafter there is an increase in the plasma cort"
+          }
+        },
+        {
+          "id": "practrum--dehorning--anatomy-anesthesia--v2",
+          "statement": "การให้ regional analgesia ร่วมกับ NSAID (ketoprofen) ในลูกโคที่ทำ dehorning ทำให้ plasma cortisol ใกล้เคียงกับกลุ่มควบคุมที่ไม่ได้ dehorn และต่ำกว่ากลุ่มที่ได้ regional analgesia อย่างเดียวอย่างมีนัยสำคัญ จึงควรใช้ systemic analgesic ร่วมกับ regional analgesia เสมอ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9625471",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "When animals were given a regional analgesic and ketoprofen the plasma cortisol concentrations were similar to control animals which had not been dehorned, with a small increase in plasma cortisol concentrations for the first hour after deh"
+          }
+        },
+        {
+          "id": "practrum--dehorning--anatomy-anesthesia--v3",
+          "statement": "การเสริม xylazine sedation (0.2 mg/kg IM) เข้ากับ lidocaine cornual nerve block และ meloxicam ในลูกโคที่ทำ cautery disbudding ลดการดิ้นระหว่างทำหัตถการ โดยลูกโคที่ไม่ได้รับยาซึมมี odds ของการดิ้นมากกว่า 2 ครั้ง เป็น 4.5 เท่า (95% CI 1.5-13.2) ของลูกโคที่ได้รับยาซึม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33685706",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Nonsedated calves had 4.5 times the odds (95% CI: 1.5-13.2) of struggling more than twice during the disbudding procedure compared with sedated calves, and it took less time to administer a nerve block to sedated calves compared with nonsed"
+          }
+        }
+      ]
+    },
+    "practrum--dehorning--disbudding-methods-comparison": {
+      "claims": [
+        {
+          "id": "practrum--dehorning--disbudding-methods-comparison--v1",
+          "statement": "Caustic paste disbudding ทำให้เจ็บเฉียบพลันนานอย่างน้อย 180 นาที ซึ่งลดลงได้ด้วย cornual nerve block ผู้วิจัยจึงแนะนำให้ลูกโคที่ทำ caustic paste ได้รับทั้ง local anaesthetic แบบ cornual nerve block และ NSAID",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28551190",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Caustic paste appears to be acutely painful for at least 180 min, and this is reduced by a cornual nerve block but not by our novel paste. ... We recommend that calves disbudded with caustic paste receive local anesthetic with a cornual ner"
+          }
+        },
+        {
+          "id": "practrum--dehorning--disbudding-methods-comparison--v2",
+          "statement": "แผลจาก caustic paste disbudding หายช้ามาก โดยใช้เวลาหายสนิทเฉลี่ย 18.8 ± 6 สัปดาห์ (พิสัย 8.7-34.1 สัปดาห์) ซึ่งนานประมาณ 2 เท่าของแผลจากวิธี cautery ที่มีรายงานไว้ และแผลยังไวต่อความเจ็บมากกว่าเนื้อเยื่อปกติอย่างน้อย 6 สัปดาห์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37268589",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In conclusion, caustic paste disbudding wounds took 18.8 wk to fully heal and were more sensitive than intact horn buds for 6 wk. ... take twice as long to heal compared with cautery methods described in the literature."
+          }
+        }
+      ]
+    },
+    "practrum--dehorning--post-op-complication-sinusitis": {
+      "claims": [
+        {
+          "id": "practrum--dehorning--post-op-complication-sinusitis--v1",
+          "statement": "Chronic frontal sinusitis ในโคนมส่วนใหญ่มีประวัติ dehorning ที่เปิดเข้าไปถึง frontal sinus (67% ของ 12 ราย) การรักษาคือ trephination 2 ตำแหน่งเพื่อ drainage และ lavage โพรงไซนัส ร่วมกับยาปฏิชีวนะและยาแก้ปวด โดยการระบายหนองออกเป็นสิ่งจำเป็นเพื่อป้องกันการลุกลามเข้าสู่ระบบประสาทส่วนกลาง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1500335",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Chronic frontal sinusitis in 12 dairy cattle most often was associated with a history of dehorning, in which the sinus was entered (67%), or with respiratory tract disease (25%). ... Treatment consisted of trephination at 2 sites, drainage "
+          }
+        }
+      ]
+    }
+  },
+  "practrum--hoof-trim": {
+    "practrum--hoof-trim--routine-care-disease-categories": {
+      "claims": [
+        {
+          "id": "practrum--hoof-trim--routine-care-disease-categories--v1",
+          "statement": "การแต่งกีบปีละ 2 ครั้ง (เพิ่มการแต่งกีบช่วงฤดูใบไม้ร่วงจากที่แต่งฤดูใบไม้ผลิอยู่แล้ว) ลด odds ของ lameness เหลือ 0.66 และลด odds ของ sole ulcer เหลือ 0.59 เมื่อตรวจในการแต่งกีบครั้งถัดไป และลดความจำเป็นในการรักษากีบแบบเฉียบพลันระหว่างรอบ (OR 2.02 ในกลุ่มที่ไม่แต่ง)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12069775",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "AT cattle at spring trimmings had significantly lower odds of lameness (OR=0.66) and of haemorrhages of the sole or white-line (OR=0.86), sole ulcer (OR=0.59) and white-line fissure or double sole (OR=0.71)-but not of moderate-to-severe hee"
+          }
+        },
+        {
+          "id": "practrum--hoof-trim--routine-care-disease-categories--v2",
+          "statement": "Digital dermatitis มีสาเหตุสัมพันธ์กับ Treponema โดยตรวจพบ BDD-associated Treponema phylogroup อย่างน้อย 1 กลุ่มใน 100% ของรอยโรค BDD (Treponema medium/vincentii-like 79%, Treponema phagedenis-like 91%, Treponema pedis 71%) ขณะที่ไม่พบ DNA ของ treponeme กลุ่มนี้เลยในเนื้อเยื่อกีบปกติ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25937315",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "One or more BDD-associated Treponema phylogroups were detected in 100% of beef BDD lesions. \"Treponema medium/Treponema vincentii-like\", \"Treponema phagedenis-like\" and Treponema pedis spirochetes were identified in 27/34 (79%), 31/34 (91%)"
+          }
+        },
+        {
+          "id": "practrum--hoof-trim--routine-care-disease-categories--v3",
+          "statement": "Fusobacterium necrophorum subspecies necrophorum เป็นเชื้อหลักของ interdigital phlegmon (foot rot) ในโคนม และตัวอย่างจากรอยโรคระยะเฉียบพลันส่วนใหญ่ (66.7%) พบทั้ง F. necrophorum และ Dichelobacter nodosus ร่วมกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30696445",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most of the samples of acute IP (66.7%) harboured both F. necrophorum and D. nodosus. ... Our result confirms that F. necrophorum subspecies necrophorum is the main pathogen in IP, but also T. pyogenes is associated with the healing stage o"
+          }
+        }
+      ]
+    },
+    "practrum--hoof-trim--hoof-anatomy-claw-zones": {
+      "claims": [
+        {
+          "id": "practrum--hoof-trim--hoof-anatomy-claw-zones--v1",
+          "statement": "Sole ulcer (pododermatitis circumscripta) พบบ่อยที่สุดที่ lateral claw ของขาหลัง มักเกิดทั้งสองข้าง มีอัตราการกลับเป็นซ้ำสูง และตำแหน่งที่รายงานบ่อยที่สุดคือรอยต่อระหว่าง axial heel กับ sole การรักษาคือ corrective trimming ร่วมกับการลดการรับน้ำหนักที่กีบนั้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16955800",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "They are found most commonly in the hind lateral claw, are frequently bilateral, and have a high rate of reoccurrence. ... Sole ulcers tend to occur in specific locations; the most reported site is the junction of the axial heel and sole. ."
+          }
+        },
+        {
+          "id": "practrum--hoof-trim--hoof-anatomy-claw-zones--v2",
+          "statement": "กลไกของ sole ulcer คือ suspensory structures ของ distal phalanx อ่อนแอลง ทำให้ distal phalanx (P3) จมลงใน claw capsule แล้ว tuberculum flexorium กด sole epidermis และ dermis จนเกิดเลือดออกและสร้าง horn ผิดปกติ ปรากฏเป็นเนื้อกีบสีเหลืองแดงและนิ่มที่ region 4 ของ sole",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38825113",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Pododermatitis aseptica hemorrhagica circumscripta is associated with metalloproteinase 2 weakening of distal phalangeal suspensory structures and sinkage of the distal phalanx in the claw capsule. Pressure from the tuberculum flexorium on "
+          }
+        }
+      ]
+    },
+    "practrum--hoof-trim--digital-amputation-s2-sole-ulcer-osteomyelitis": {
+      "claims": [
+        {
+          "id": "practrum--hoof-trim--digital-amputation-s2-sole-ulcer-osteomyelitis--v1",
+          "statement": "Septic arthritis ของ distal interphalangeal joint เป็นข้อบ่งชี้ของ digital amputation ในโค และในการศึกษาแบบสุ่มเปรียบเทียบ digital amputation กับ joint resection ในโคนม 52 ตัว ระดับความเจ็บขา (lameness) ดีขึ้นเร็วกว่าอย่างมีนัยสำคัญหลัง digital amputation แม้ค่าเฉลี่ยอายุการใช้งานหลังผ่าตัดจะไม่ต่างกัน (13.5 เทียบกับ 10.9 เดือน)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17547598",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "After surgery, degree of lameness improved significantly faster after DAMP than after JRES. ... Mean life span between groups was not significantly different (DAMP=13.5 months, JRES=10.9 months)."
+          }
+        }
+      ]
+    }
+  },
+  "practrum--bovine-anesthesia": {
+    "practrum--bovine-anesthesia--local-anesthesia-lidocaine-2": {
+      "claims": [
+        {
+          "id": "practrum--bovine-anesthesia--local-anesthesia-lidocaine-2--v1",
+          "statement": "Caudal epidural ในโคฉีดที่ sacrococcygeal intervertebral space (S5-Co1) หรือ first intercoccygeal space (Co1-Co2) ซึ่งเป็นสองตำแหน่งที่ใช้บ่อยที่สุด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28096620",
+              "locator": "Vet World 2016;9(12):1450-1455, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most common sites for epidural administration in cattle, camels, and buffalos were the sacrococcygeal intervertebral space (S5-Co1) and first intercoccygeal intervertebral space (Co1-Co2)."
+          }
+        },
+        {
+          "id": "practrum--bovine-anesthesia--local-anesthesia-lidocaine-2--v2",
+          "statement": "ขนาด lidocaine ที่ใช้บ่อยที่สุดสำหรับ epidural ในโคตามการทบทวนวรรณกรรมคือ 0.22-0.5 mg/kg",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28096620",
+              "locator": "Vet World 2016;9(12):1450-1455, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most frequently used drugs and dosages were lidocaine (0.22-0.5 mg/kg), bupivacaine (0.125 mg/kg), ropivacaine (0.11 mg/kg), xylazine (0.05 mg/kg)"
+          }
+        },
+        {
+          "id": "practrum--bovine-anesthesia--local-anesthesia-lidocaine-2--v3",
+          "statement": "Paravertebral block ทั้งแบบ proximal และ distal มีเป้าหมายที่ spinal nerves T13, L1 และ L2 เพื่อให้ระงับความรู้สึกบริเวณ flank สำหรับผ่าตัดท่ายืน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27805442",
+              "locator": "Am J Vet Res 2016;77(11):1187-1193, abstract (Procedures and Results)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A suitable acoustic window was identified to facilitate access to the T13, L1, and L2 spinal nerves in cadavers and live calves... In calves, the UGPNB, DPNB, and PPNB reduced the withdrawal response to the noxious stimulus, mainly in the d"
+          }
+        }
+      ]
+    },
+    "practrum--bovine-anesthesia--sedation-alpha-2-agonist": {
+      "claims": [
+        {
+          "id": "practrum--bovine-anesthesia--sedation-alpha-2-agonist--v1",
+          "statement": "โคเกิด sedation จาก xylazine ที่ขนาดต่ำกว่าขนาดที่ต้องใช้ในสัตว์ชนิดอื่นมาก จึงต้องระวังเรื่อง species sensitivity",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-525899",
+              "locator": "Am J Vet Res 1979;40(12):1777-1780, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sedation by xylazine is produced in cattle at doses which are small compared to those which is required for sedation in other species."
+          }
+        },
+        {
+          "id": "practrum--bovine-anesthesia--sedation-alpha-2-agonist--v2",
+          "statement": "Xylazine ขนาด sedative ในลูกโคทำให้ heart rate, cardiac output และ arterial blood pressure ลดลง ขณะที่ total peripheral resistance เพิ่มขึ้น โดยการศึกษานี้ไม่พบ hypertensive response",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-525899",
+              "locator": "Am J Vet Res 1979;40(12):1777-1780, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These effects included immediate and prolonged reductions in heart rate, cardiac output, arterial blood pressure, and left ventricular dp/dt max... Total peripheral resistance, end-diastolic left ventricular pressure, end-diastolic left ven"
+          }
+        },
+        {
+          "id": "practrum--bovine-anesthesia--sedation-alpha-2-agonist--v3",
+          "statement": "Atipamezole 30 microgram/kg IV กลับฤทธิ์ xylazine ในลูกโคได้ทั้ง sedation, bradycardia และ ruminal atony จึงใช้เป็น antidote เมื่อได้ xylazine เกินขนาด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1681769",
+              "locator": "Am J Vet Res 1991;52(8):1265-1268, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Atipamezole given at dosages of 10 and 30 micrograms/kg reversed xylazine-induced ruminal atony in a dose-dependent manner. In addition, 30 micrograms of atipamezole/kg reversed xylazine-induced bradycardia, but the lower dosages of this an"
+          }
+        }
+      ]
+    }
+  },
+  "practrum--rumenotomy": {
+    "practrum--rumenotomy--indications-6-ข้อจากสไลด์": {
+      "claims": [
+        {
+          "id": "practrum--rumenotomy--indications-6-ข้อจากสไลด์--v1",
+          "statement": "Traumatic reticuloperitonitis (TRP) เป็นข้อบ่งชี้ที่พบบ่อยที่สุดของ rumenotomy โดยในชุดผู้ป่วย 53 ตัวที่ทำ rumenotomy พบ TRP 31 ตัว รองลงมาคือ bloat 9 ตัว, foreign body 6 ตัว และ choke 5 ตัว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26331425",
+              "locator": "J Am Vet Med Assoc 2015;247(6):659-664, abstract (Results)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Indications for rumenotomy included traumatic reticuloperitonitis (n = 31), bloat (9), foreign body (6), choke (5), and other (2)."
+          }
+        },
+        {
+          "id": "practrum--rumenotomy--indications-6-ข้อจากสไลด์--v2",
+          "statement": "การผ่าตัด forestomach ในโคใช้เพื่อวินิจฉัยและรักษาหลายโรค รวมถึง traumatic reticuloperitonitis, perireticular abscess, vagal indigestion และ grain overload",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2200573",
+              "locator": "Vet Clin North Am Food Anim Pract 1990;6(2):371-397, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Surgery of the forestomach compartments is performed in bovine practices for the diagnosis and treatment of many diseases, including traumatic reticuloperitonitis, perireticular abscess, vagal indigestion, and grain overload."
+          }
+        }
+      ]
+    },
+    "practrum--rumenotomy--surgical-procedure": {
+      "claims": [
+        {
+          "id": "practrum--rumenotomy--surgical-procedure--v1",
+          "statement": "Rumenotomy เข้าทาง left flank laparotomy โดยคลำสำรวจ cranial abdomen หา adhesion หรือก้อนก่อน แล้วการเปิดกระเพาะจึงทำให้ตรวจ lumen ของทั้ง rumen และ reticulum ได้อย่างละเอียด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2200573",
+              "locator": "Vet Clin North Am Food Anim Pract 1990;6(2):371-397, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Through a left flank laparotomy, the cranial abdomen is first explored by palpation for adhesions or masses. A rumenotomy allows thorough examination of the lumen of the rumen and reticulum."
+          }
+        }
+      ]
+    },
+    "practrum--rumenotomy--reticulum-specific-procedures": {
+      "claims": [
+        {
+          "id": "practrum--rumenotomy--reticulum-specific-procedures--v1",
+          "statement": "การตรวจร่างกายเพื่อวินิจฉัย TRP มุ่งกระตุ้นให้เกิดเสียง grunt ด้วย foreign body test เช่น back grip, pole test หรือ pain percussion ส่วน radiography เป็น technique of choice สำหรับเห็น metallic foreign body และติดตามผลของแม่เหล็ก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31982079",
+              "locator": "Vet J 2020;255:105424, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The clinical examination is aimed at eliciting a grunt in response to foreign body tests such as back grip, pole test or pain percussion... Radiography is the technique of choice for the visualisation of metallic foreign bodies and for moni"
+          }
+        },
+        {
+          "id": "practrum--rumenotomy--reticulum-specific-procedures--v2",
+          "statement": "แนวทางรักษา TRP เริ่มด้วยการให้แม่เหล็กร่วมกับยาปฏิชีวนะก่อน แล้วสงวน rumenotomy ไว้สำหรับรายที่ foreign body ไม่ติดแม่เหล็ก โดยกลุ่มที่ผ่าตัดมีอัตราออกจากโรงพยาบาล 90 เปอร์เซ็นต์ (206 ตัว) เทียบกับกลุ่มรักษาด้วยยา 82 เปอร์เซ็นต์ (232 ตัว)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30223863",
+              "locator": "Acta Vet Scand 2018;60(1):55, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Surgical treatment was significantly more successful than conservative treatment; 90% of 206 operated and 82% of 232 medically-treated cattle were discharged... For practical purposes, cattle suspected of having traumatic reticuloperitoniti"
+          }
+        }
+      ]
+    },
+    "practrum--rumenotomy--cow-magnet-hardware-disease-prevention": {
+      "claims": [
+        {
+          "id": "practrum--rumenotomy--cow-magnet-hardware-disease-prevention--v1",
+          "statement": "แม่เหล็กที่ให้โคกินไปอยู่ใน reticulum และดึงเศษโลหะแหลมมาติดที่ตัวแม่เหล็ก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19263382",
+              "locator": "Schweiz Arch Tierheilkd 2009;151(3):127-131, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "All the cows had numerous thin sharp pieces of metal attached to a magnet in the reticulum, giving the magnet a hedgehog-like appearance."
+          }
+        }
+      ]
+    }
+  },
+  "practrum--penile-deviation": {
+    "practrum--penile-deviation--indications-mechanism": {
+      "claims": [
+        {
+          "id": "practrum--penile-deviation--indications-mechanism--v1",
+          "statement": "Teaser bull คือโคเพศผู้ที่ถูกผ่าตัดดัดแปลงระบบสืบพันธุ์ให้เป็นหมัน โดยมีวัตถุประสงค์เพื่อช่วยตรวจจับแม่โคที่เป็นสัด สำหรับกำหนดจังหวะการผสมเทียม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18929951",
+              "locator": "Vet Clin North Am Food Anim Pract 2008;24(3):443-453, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A teaser bull is a term describing a bull whose reproductive system has been surgically altered to render him sterile. The purpose of such bulls is to aid in detection of cows in estrus to facilitate when to artificially inseminate."
+          }
+        },
+        {
+          "id": "practrum--penile-deviation--indications-mechanism--v2",
+          "statement": "การทำหมัน teaser bull ทำได้ด้วย vasectomy หรือ caudal epididymectomy อย่างใดอย่างหนึ่ง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18929951",
+              "locator": "Vet Clin North Am Food Anim Pract 2008;24(3):443-453, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The bull is sterilized by either vasectomy or caudal epididymectomy."
+          }
+        },
+        {
+          "id": "practrum--penile-deviation--indications-mechanism--v3",
+          "statement": "นอกเหนือจากการทำหมันแล้ว ยังมีเทคนิคผ่าตัดอื่นที่ทำเพื่อป้องกัน intromission และป้องกันการแพร่โรคติดต่อทางระบบสืบพันธุ์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18929951",
+              "locator": "Vet Clin North Am Food Anim Pract 2008;24(3):443-453, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In addition to sterilization, other surgical options are described that prevent intromission and the spread of venereal disease."
+          }
+        },
+        {
+          "id": "practrum--penile-deviation--indications-mechanism--v4",
+          "statement": "Paraphimosis เป็นภาวะแทรกซ้อนที่ต้องนึกถึงหลังผ่าตัดเบนอวัยวะเพศใน teaser bull มีรายงานโคที่ทำ penile translocation ร่วมกับ bilateral caudal epididymectomy เกิด paraphimosis ระหว่างใช้งานตรวจสัด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1500334",
+              "locator": "J Am Vet Med Assoc 1992;201(2):325, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A bull with penile translocation and bilateral caudal epididymectomy developed paraphimosis when used for estrus detection of cows... Paraphimosis should be considered a possible sequela to penile translocation in bulls."
+          }
+        }
+      ]
+    },
+    "practrum--penile-deviation--drug-protocol-lecture-2026": {
+      "claims": [
+        {
+          "id": "practrum--penile-deviation--drug-protocol-lecture-2026--v1",
+          "statement": "Xylazine 0.1 mg/kg IM เป็นขนาดที่มีรายงานใช้ทำ sedation ในลูกโคก่อนผ่าตัด ซึ่งอยู่ที่ขอบบนของช่วง 0.05-0.1 mg/kg",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9887947",
+              "locator": "J Am Vet Med Assoc 1999;214(1):89-95, abstract (Procedure)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Calves were sedated with xylazine (0.1 mg/kg [0.045 mg/lb] of body weight, i.m.), and 5 minutes later a 2% solution of lidocaine (0.18 to 0.24 ml/kg) and xylazine (0.05 mg/kg) were administered into the lumbosacral epidural space."
+          }
+        }
+      ]
+    }
+  },
+  "practrum--animal-nutrition": {
+    "practrum--animal-nutrition--dmi-calculation": {
+      "claims": [
+        {
+          "id": "practrum--animal-nutrition--dmi-calculation--v1",
+          "statement": "DMI ก่อนคลอดที่ลดลงใช้คัดกรองแม่โคที่เสี่ยงต่อ metritis ได้: ทุก 1 kg ของ DMI ที่ลดลงในสัปดาห์ก่อนคลอด แม่โคมีโอกาสถูกวินิจฉัยว่าเป็น severe metritis เพิ่มขึ้นเกือบ 3 เท่า และแม่โคกลุ่มนี้กินน้อยลงและใช้เวลากินสั้นลงตั้งแต่ประมาณ 2 สัปดาห์ก่อนแสดงอาการทางคลินิก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17582105",
+              "locator": "J Dairy Sci 2007;90(7):3220-33, Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For every 10-min decrease in average daily feeding time during the week before calving, the odds of severe metritis increased by 1.72, and for every 1-kg decrease in DMI during this period, cows were nearly 3 times more likely to be diagnos"
+          }
+        }
+      ]
+    },
+    "practrum--animal-nutrition--nutritional-values": {
+      "claims": [
+        {
+          "id": "practrum--animal-nutrition--nutritional-values--v1",
+          "statement": "NDF ถูกใช้เป็นตัวแทนของ fill effect ในการทำนาย DMI: ในแบบจำลอง physical regulation ปริมาณการกินแปรผกผัน (reciprocal) กับ fill effect ของอาหาร ดังนั้นสูตรอาหารที่ NDF สูงขึ้นจะกด DMI ลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-3583960",
+              "locator": "J Anim Sci 1987;64(5):1548-58, Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These equations indicate that intake is a linear function of animal characteristics, such as body weight and production level, and a reciprocal function of feed characteristics, such as fill effect and energy content. Theoretical equations "
+          }
+        }
+      ]
+    },
+    "practrum--animal-nutrition--r-c-ratio-particle-size": {
+      "claims": [
+        {
+          "id": "practrum--animal-nutrition--r-c-ratio-particle-size--v1",
+          "statement": "SARA เกิดจากการให้ non-structural carbohydrate มากเกินร่วมกับ coarse fiber ในสูตรไม่พอ (คือ R:C เอียงไปทาง concentrate) ผลตามมาที่รายงานไว้ได้แก่ DMI ลดลง, fiber digestion ลดลง, milk fat depression, ท้องเสีย, laminitis และ liver abscess โดยการสำรวจพบอุบัติการณ์ในโคนมระยะ early และ mid lactation ประมาณ 19-26%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18329918",
+              "locator": "Vet J 2008;176(1):21-31, Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Surveys suggested an incidence of SARA of between 19% and 26% in early and mid-lactation dairy cows. Causes of SARA include feeding excessive amounts of non-structural carbohydrates and highly fermentable forages, and insufficient dietary c"
+          }
+        },
+        {
+          "id": "practrum--animal-nutrition--r-c-ratio-particle-size--v2",
+          "statement": "เกณฑ์เชิงตัวเลขของ SARA จาก meta-analysis คือควรหลีกเลี่ยงสองเหตุการณ์ ได้แก่ ค่าเฉลี่ย ruminal pH รายวันต่ำกว่า 6.16 และช่วงที่ ruminal pH ต่ำกว่า 5.8 นานเกิน 5.24 ชั่วโมงต่อวัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18420634",
+              "locator": "J Dairy Sci 2008;91(5):2046-66, Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Results of this study showed that to minimize the risk of SARA, the following events should be avoided: 1) a daily mean ruminal pH lower than 6.16, and 2) a time period in which ruminal pH is <5.8 for more than 5.24 h/d."
+          }
+        },
+        {
+          "id": "practrum--animal-nutrition--r-c-ratio-particle-size--v3",
+          "statement": "ความต้องการ physically effective NDF ของโคนมให้ผลผลิตสูงที่กิน TMR แบบ ad libitum ประมาณ 19% ของ ration DM (หรือ 4.1 kg/วัน หรือ 0.6 kg ต่อ BW 100 kg) เพื่อรักษา ruminal pH เฉลี่ยไว้ที่ประมาณ 6.0 เมื่อวัด peNDF จากสัดส่วน DM ที่ค้างบนตะแกรง 1.18 mm",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16428635",
+              "locator": "J Dairy Sci 2006;89(2):651-68, Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Using peNDF(> 1.18) approach, the requirements for physically effective fiber in high-yielding dairy cows fed TMR in an ad libitum intake were estimated to be about 19% of ration DM or 4.1 kg/d or 0.6 kg/100 kg of body weight to maintain a "
+          }
+        },
+        {
+          "id": "practrum--animal-nutrition--r-c-ratio-particle-size--v4",
+          "statement": "Penn State Particle Separator รุ่นปรับปรุงเพิ่มตะแกรงชั้นที่สาม และวิธีเขย่าที่แนะนำคือความถี่ตั้งแต่ 1.1 Hz ขึ้นไป ด้วยระยะชัก (stroke length) 17 ซม เพราะการเขย่าช้ากว่านั้น (0.9 Hz) ทำให้มีวัสดุค้างบนตะแกรง 19.0 mm มากเกินจริง และความชื้นของตัวอย่างมีผลต่อผลการแยกในข้าวโพดหมัก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12778598",
+              "locator": "J Dairy Sci 2003;86(5):1858-63, Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We suggest using a third sieve and shaking at 1.1 Hz or greater with a stroke length of 17 cm when using the Penn State Particle Separator to analyze forage particle size."
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-ebola-nipah": {
+    "zoonoses--zoo-ebola-nipah--what-is-ebola-virus-disease": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-ebola-nipah--what-is-ebola-virus-disease--v1",
+          "statement": "Ebola virus disease ไม่ได้เกิดเฉพาะในคน แต่เกิดใน non-human primates ด้วย โดยการระบาดในคนที่ Gabon และ Republic of Congo ช่วงปี 2001-2003 แต่ละ epidemic เริ่มจากคนไปจับหรือชำแหละซาก gorilla, chimpanzee หรือ duiker ที่ติดเชื้อ และประชากรสัตว์เหล่านี้ก็ลดจำนวนลงอย่างชัดเจนจากการติดเชื้อ Ebola เช่นกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14726594",
+              "locator": "303(5656):387-90",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The human outbreaks consisted of multiple simultaneous epidemics caused by different viral strains, and each epidemic resulted from the handling of a distinct gorilla, chimpanzee, or duiker carcass. These animal populations declined markedl"
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-ebola-nipah--ebola-virus-taxonomy-species": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-ebola-nipah--ebola-virus-taxonomy-species--v1",
+          "statement": "Reston ebolavirus เป็นสมาชิกเดียวของ Filoviridae ที่ยังไม่พบว่าสัมพันธ์กับการเกิดโรคในคน และถูกพบว่ามี domestic swine ในฟิลิปปินส์เป็น host",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19590002",
+              "locator": "325(5937):204-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although REBOV is the only member of Filoviridae that has not been associated with disease in humans, its emergence in the human food chain is of concern."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-ebola-nipah--ebola-virus-taxonomy-species--v2",
+          "statement": "Bombali virus (BOMV) ถูกตรวจพบครั้งแรกใน free-tailed bats ที่ Sierra Leone ได้แก่ Chaerephon pumilus และ Mops condylurus โดย viral glycoprotein สามารถพา virus เข้าสู่ human cell ได้ในหลอดทดลอง แต่ยังไม่มีหลักฐานว่า BOMV ก่อโรคในคน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30150734",
+              "locator": "3(10):1084-1089",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We show that the viral glycoprotein can mediate entry into human cells. However, further studies are required to investigate whether exposure has actually occurred or if BOMV is pathogenic in humans."
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-ebola-nipah--nipah-virus-overview": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-ebola-nipah--nipah-virus-overview--v1",
+          "statement": "Nipah virus เป็น paramyxovirus ที่อุบัติใหม่ในคาบสมุทรมาเลเซียปี 1998 ทำให้คนเกิด severe febrile encephalitis อัตราตายสูง ส่วนในหมูเกิด encephalitis และ respiratory disease แต่อัตราตายค่อนข้างต่ำ โดย fruit bat ในกลุ่ม Pteropid ถูกระบุว่าเป็น natural reservoir host",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12637075",
+              "locator": "26(3):265-75",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The virus caused an outbreak of severe febrile encephalitis in humans with a high mortality rate, whereas, in pigs, encephalitis and respiratory diseases but with a relatively low mortality rate... Fruitbats of Pteropid species were identif"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-ebola-nipah--nipah-virus-overview--v2",
+          "statement": "ในบังกลาเทศ การดื่มน้ำตาลสดจากต้นอินทผลัม (raw date palm sap) เป็น exposure เดียวที่สัมพันธ์กับการป่วยอย่างมีนัยสำคัญ โดยพบในผู้ป่วย 64% เทียบกับกลุ่มควบคุม 18% (odds ratio 7.9, p = 0.01) เนื่องจากค้างคาว Pteropus giganteus ลงมากินน้ำตาลจากหม้อดินที่แขวนรองไว้ตอนกลางคืน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17326940",
+              "locator": "12(12):1888-94",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The only exposure significantly associated with illness was drinking raw date palm sap (64% among case-patients vs. 18% among controls, odds ratio [OR] 7.9, p = 0.01). Fruit bats (Pteropus giganteus) are a nuisance to date palm sap collecto"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-ebola-nipah--nipah-virus-overview--v3",
+          "statement": "การระบาดของ Nipah ในมาเลเซียช่วงกันยายน 1998 ถึงพฤษภาคม 1999 มีผู้ป่วย acute encephalitis 265 ราย เสียชีวิต 105 ราย และควบคุมได้ด้วยการทำลายหมู หลังจากที่ระยะแรกวินิจฉัยผิดเป็น Japanese encephalitis ทำให้มาตรการควบคุมช่วงต้นไม่ได้ผล",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19108397",
+              "locator": "29(2):63-7",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The Nipah virus outbreak in Malaysia (September 1998 to May 1999) resulted in 265 cases of acute encephalitis with 105 deaths, and near collapse of the billion-dollar pig-farming industry. Because it was initially attributed to Japanese enc"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-siv-civ": {
+    "zoonoses--zoo-siv-civ--swine-influenza-pandemic-potential-recent-news": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-siv-civ--swine-influenza-pandemic-potential-recent-news--v1",
+          "statement": "ข่าวปี 2020 เรื่อง swine flu ที่มี pandemic potential มาจากรายงาน genotype 4 (G4) reassortant Eurasian avian-like H1N1 ซึ่งเป็นสายพันธุ์เด่นในประชากรหมูของจีนตั้งแต่ปี 2016 โดย G4 จับ human-type receptor ได้ แพร่ทาง aerosol ในเฟอร์เร็ตได้ดี และตรวจพบ seropositive ในคนงานฟาร์มหมู 10.4% (35 จาก 338 ราย)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32601207",
+              "locator": "117(29):17204-17210",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Similar to pdm/09 virus, G4 viruses bind to human-type receptors, produce much higher progeny virus in human airway epithelial cells, and show efficient infectivity and aerosol transmission in ferrets... 10.4% (35/338) of swine workers were"
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-siv-civ--swine-influenza-virus-siv-history-lineages": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-siv-civ--swine-influenza-virus-siv-history-lineages--v1",
+          "statement": "เหตุผลเชิงโครงสร้างที่หมูเป็น mixing vessel คือใน trachea ของหมูมี cell surface receptor สำหรับทั้ง human influenza virus และ avian influenza virus จึงเป็นสภาพแวดล้อมที่เอื้อต่อการ replicate และเกิด genetic reassortment ของ virus ทั้งสองกลุ่ม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9696833",
+              "locator": "72(9):7367-73",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cell surface receptors for both human and avian influenza viruses were identified in the pig trachea, providing a milieu conducive to viral replication and genetic reassortment."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-siv-civ--swine-influenza-virus-siv-history-lineages--v2",
+          "statement": "2009 pandemic H1N1 (swine-origin influenza A, S-OIV) อุบัติขึ้นในเม็กซิโกและสหรัฐอเมริกาช่วงมีนาคมถึงต้นเมษายน 2009 การวิเคราะห์ evolutionary genomics ชี้ว่ามันมีบรรพบุรุษมาจาก virus หลายตัวที่หมุนเวียนอยู่ในหมู และ reassortment ของ swine lineages อาจเกิดขึ้นหลายปีก่อนที่จะโผล่ในคน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19516283",
+              "locator": "459(7250):1122-5",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We show that it was derived from several viruses circulating in swine, and that the initial transmission to humans occurred several months before recognition of the outbreak... suggesting that the reassortment of swine lineages may have occ"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-siv-civ--swine-influenza-virus-siv-history-lineages--v3",
+          "statement": "หลักฐานแรกที่แสดงว่า swine influenza เกิดจาก filtrable virus มาจากการทดลองของ Shope ที่ Rockefeller Institute สหรัฐอเมริกา ตีพิมพ์ปี 1931 ซึ่งพบว่า filtrable virus เพียงอย่างเดียวทำให้หมูป่วยเพียงเล็กน้อย แต่เมื่อให้ร่วมกับ Haemophilus influenzae suis จึงเกิดโรคเหมือน swine influenza จริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19869924",
+              "locator": "54(3):373-85",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It has been possible to demonstrate, in Berkefeld filtrates of infectious material from experimental cases of swine influenza, a virus which when administered intranasally to susceptible swine induced a mild, usually afebrile illness of sho"
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-siv-civ--รอเติม-body-content-จาก-slide-4": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-siv-civ--รอเติม-body-content-จาก-slide-4--v1",
+          "statement": "Canine influenza virus H3N8 เกิดจาก equine influenza virus H3N8 ข้ามชนิดมาสู่สุนัข โดย phylogenetic analysis พบว่า genome ของ CIV รวมเป็น monophyletic group เดียว ซึ่งสอดคล้องกับการเกิด interspecies transfer เพียงครั้งเดียว ตรวจพบครั้งแรกจาก racing greyhound ที่ป่วยเป็นโรคทางเดินหายใจรุนแรง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16186182",
+              "locator": "310(5747):482-5",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Molecular and antigenic analyses of three influenza viruses isolated from outbreaks of severe respiratory disease in racing greyhounds revealed that they are closely related to H3N8 equine influenza virus. Phylogenetic analysis indicated th"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-siv-civ--รอเติม-body-content-จาก-slide-4--v2",
+          "statement": "Canine influenza virus H3N2 มีต้นกำเนิดจาก avian influenza โดยแยกเชื้อได้จากสุนัขที่ป่วยทางเดินหายใจรุนแรงในเกาหลีใต้ (A/canine/Korea/01-03/2007) และตรวจพบ avian influenza binding receptor (SAα2,3-Gal) ปริมาณมากใน tracheal, bronchial และ bronchiolar epithelial cell ของสุนัข",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18439355",
+              "locator": "14(5):741-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "large amounts of avian influenza virus binding receptor (SAalpha 2,3-gal) were identified in canine tracheal, bronchial, and bronchiolar epithelial cells, which suggests potential for direct transmission of avian influenza virus (H3N2) from"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-eid-wildlife": {
+    "zoonoses--zoo-eid-wildlife--covid-19-and-the-rise-of-zoonotic-infectious-diseases-wwf": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-eid-wildlife--covid-19-and-the-rise-of-zoonotic-infectious-diseases-wwf--v1",
+          "statement": "SARS-CoV-2 (2019-nCoV) มี genome เหมือน bat coronavirus ถึง 96% ทั้ง genome และเหมือน SARS-CoV 79.6% ซึ่งสนับสนุนว่า bat เป็น natural reservoir host ของกลุ่ม SARS-related coronaviruses และ virus นี้ใช้ ACE2 เป็น cell entry receptor เช่นเดียวกับ SARS-CoV",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32015507",
+              "locator": "579(7798):270-273",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The sequences are almost identical and share 79.6% sequence identity to SARS-CoV. Furthermore, we show that 2019-nCoV is 96% identical at the whole-genome level to a bat coronavirus... we confirmed that 2019-nCoV uses the same cell entry re"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-eid-wildlife--covid-19-and-the-rise-of-zoonotic-infectious-diseases-wwf--v2",
+          "statement": "จากการวิเคราะห์ EID events 335 เหตุการณ์ระหว่างปี 1940-2004 พบว่า 60.3% เป็น zoonoses และในกลุ่ม zoonoses นี้ 71.8% มีต้นกำเนิดจาก wildlife เช่น SARS และ Ebola virus โดยมีแนวโน้มเพิ่มขึ้นอย่างมีนัยสำคัญตามเวลา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18288193",
+              "locator": "451(7181):990-3",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "EID events are dominated by zoonoses (60.3% of EIDs): the majority of these (71.8%) originate in wildlife (for example, severe acute respiratory virus, Ebola virus), and are increasing significantly over time."
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-eid-wildlife--wildlife-as-reservoirs-of-pathogens": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-eid-wildlife--wildlife-as-reservoirs-of-pathogens--v1",
+          "statement": "หลักฐานที่สนับสนุนนิยาม reservoir host ว่า harbor เชื้อได้โดยไม่แสดงอาการ คือการสำรวจสัตว์มีกระดูกสันหลังขนาดเล็กกว่าหนึ่งพันตัวใน Gabon และ Republic of the Congo ระหว่างปี 2001-2003 ซึ่งพบ asymptomatic infection ของ Ebola virus ในค้างคาวกินผลไม้ 3 species ชี้ว่าค้างคาวเหล่านี้อาจทำหน้าที่เป็น reservoir",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16319873",
+              "locator": "438(7068):575-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Here we test for Ebola in more than a thousand small vertebrates that were collected during Ebola outbreaks in humans and great apes between 2001 and 2003 in Gabon and the Republic of the Congo. We find evidence of asymptomatic infection by"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-eid-wildlife--wildlife-as-reservoirs-of-pathogens--v2",
+          "statement": "Marburg virus มี Egyptian fruit bat (Rousettus aegyptiacus) เป็น major natural reservoir โดยตรวจพบ Marburg virus RNA ในค้างคาว 31 จาก 611 ตัว (5.1%) ในถ้ำ Kitaka ประเทศยูกันดา แยกเชื้อได้จริงจากเนื้อเยื่อค้างคาว และลำดับพันธุกรรมจากค้างคาวกับจากคนงานเหมืองที่ป่วยตรงกันมาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19649327",
+              "locator": "5(7):e1000536",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The likely source of infection in the cave was Egyptian fruit bats (Rousettus aegyptiacus) based on detection of Marburg virus RNA in 31/611 (5.1%) bats, virus-specific antibody in bat sera, and isolation of genetically diverse virus from b"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-eid-wildlife--wildlife-as-reservoirs-of-pathogens--v3",
+          "statement": "Rabies เป็นตัวอย่างของโรคที่สัตว์ป่าเป็นทั้ง reservoir และป่วยแสดงอาการเอง จากการเฝ้าระวังทางห้องปฏิบัติการทางตอนใต้ของสหรัฐอเมริกาปี 2010-2021 ในตัวอย่างที่ให้ผลบวก 79 ราย เป็นสัตว์ป่าถึง 74 ราย (93.7%) โดย raccoon เป็น host หลัก 51 ราย (68.9%) รองลงมาคือ skunk และ fox อย่างละ 8 ราย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38745456",
+              "locator": "36(4):554-559",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Among the 79 positive cases, 74 (93.7%) involved wildlife; raccoons (51 cases; 68.9%) were the primary host confirmed with RABV infection, followed by skunk and fox (8 cases each; 10.8%), bobcat (5 cases; 6.8%), and bats (2 cases; 2.7%). He"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-eid-cuvet": {
+    "zoonoses--zoo-eid-cuvet--our-journey-in-dealing-with-eids-timeline": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-eid-cuvet--our-journey-in-dealing-with-eids-timeline--v1",
+          "statement": "ปี 2004 HPAI H5N1 ทำให้เกิดโรคในสัตว์ปีก 8 ประเทศในเอเชียและติดคนอย่างน้อย 44 ราย เสียชีวิต 32 ราย โดยส่วนใหญ่มีประวัติสัมผัสสัตว์ปีกใกล้ชิด และ family cluster ในประเทศไทยเป็นเหตุการณ์ที่น่าจะเกิด person-to-person transmission จากการดูแลผู้ป่วยหนักโดยไม่มีอุปกรณ์ป้องกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15668219",
+              "locator": "352(4):333-40",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "During 2004, a highly pathogenic avian influenza A (H5N1) virus caused poultry disease in eight Asian countries and infected at least 44 persons, killing 32; most of these persons had had close contact with poultry... Disease in the mother "
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-eid-cuvet--improving-integrated-surveillance-for-early-detection-of-zoonose": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-eid-cuvet--improving-integrated-surveillance-for-early-detection-of-zoonose--v1",
+          "statement": "ตัวเลข 75% มาจากการทบทวนเชื้อก่อโรคในคน 1,415 species ซึ่งในกลุ่มที่จัดว่า emerging 175 species มี 132 species (75%) เป็น zoonotic คือติดต่อระหว่างคนกับสัตว์ได้ และโดยรวม zoonotic pathogen มีโอกาสสัมพันธ์กับ emerging disease มากกว่า non-zoonotic pathogen ประมาณ 2 เท่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11516376",
+              "locator": "356(1411):983-9",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Out of these, 868 (61%) are zoonotic, that is, they can be transmitted between humans and animals, and 175 pathogenic species are associated with diseases considered to be 'emerging'... Out of the emerging pathogens, 132 (75%) are zoonotic,"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-eid-cuvet--improving-integrated-surveillance-for-early-detection-of-zoonose--v2",
+          "statement": "รูปแบบ spillover ที่เริ่มจากสัตว์ป่ามีหลักฐานเชิงปริมาณรองรับ คือในบรรดา EID events ที่เป็น zoonoses มีถึง 71.8% ที่มีต้นกำเนิดจาก wildlife ดังนั้นระบบเฝ้าระวังจึงต้องครอบคลุมสัตว์ป่า ไม่ใช่เฉพาะสัตว์เลี้ยงและปศุสัตว์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18288193",
+              "locator": "451(7181):990-3",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "EID events are dominated by zoonoses (60.3% of EIDs): the majority of these (71.8%) originate in wildlife (for example, severe acute respiratory virus, Ebola virus), and are increasing significantly over time."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-eid-cuvet--improving-integrated-surveillance-for-early-detection-of-zoonose--v3",
+          "statement": "ตัวอย่างการเฝ้าระวังเชิงรุกในสัตว์ป่าของไทย คือการสำรวจค้างคาว Pteropus lylei ใน 7 จังหวัดภาคกลาง ระหว่างพฤษภาคม 2005 ถึงมิถุนายน 2007 ซึ่งตรวจพบ Nipah virus RNA ทั้งสายพันธุ์ Malaysia และ Bangladesh ในปัสสาวะค้างคาว โดยสายพันธุ์ Bangladesh เป็นสายพันธุ์เด่น และพบมากที่สุดในเดือนพฤษภาคม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19402762",
+              "locator": "10(2):183-90",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A survey of virus strains in Pteropus lylei and seasonal preference for spillover of these viruses was completed in seven provinces of Central Thailand between May 2005 and June 2007. Nipah virus RNA sequences, which belonged to those of th"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-helminthic": {
+    "zoonoses--zoo-helminthic--trematode-2-priority-zoonoses": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-helminthic--trematode-2-priority-zoonoses--v1",
+          "statement": "Opisthorchis viverrini ถูก IARC จัดเป็น Group 1 carcinogen (ก่อมะเร็งในคน) ตั้งแต่ปี 1994 และมีความสัมพันธ์ทางระบาดวิทยาระหว่างความชุกของการติดเชื้อกับอุบัติการณ์ cholangiocarcinoma (CCA) ในภาคตะวันออกเฉียงเหนือของไทย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28105582",
+              "locator": "Abstract, opening sentence and epidemiology paragraph; Bull Soc Pathol Exot 110(1):61-67",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The International Agency for Research on Cancer (IARC) has classified two liver flukes as carcinogenic to humans (Group 1): Opisthorchis viverrini in 1994 and Clonorchis sinensis in 2009."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-helminthic--trematode-2-priority-zoonoses--v2",
+          "statement": "วงจรชีวิตของ Opisthorchis viverrini ใช้ intermediate host ในน้ำจืด 2 ตัว คือ หอยสกุล Bithynia (IH ตัวที่ 1) และปลาวงศ์ cyprinid (IH ตัวที่ 2) ส่วน definitive host (คน แมว สุนัข) ติดเชื้อจากการกินปลาดิบที่มี metacercariae ซึ่งเป็นระยะติดต่อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28105582",
+              "locator": "Abstract, life-cycle paragraph; Bull Soc Pathol Exot 110(1):61-67",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The life cycle involves two intermediate hosts living in fresh water: a snail of the genus Bithynia and a ciprinid fish. The definitive hosts (human, cat, dog) become infected by ingesting raw fish containing metacercariae, the infective st"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-helminthic--trematode-2-priority-zoonoses--v3",
+          "statement": "Paragonimiasis ในคนส่วนใหญ่รายงานจากเอเชียและเกิดจาก Paragonimus westermani หลังกินสัตว์น้ำเปลือกแข็ง (crustaceans เช่น ปู กุ้ง) ดิบหรือสุกไม่พอ และในทางคลินิกต้องวินิจฉัยแยกจากวัณโรค (tuberculosis)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23824370",
+              "locator": "Abstract, first and fourth sentences; Clin Microbiol Rev 26(3):493-504",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Paragonimiasis is a parasitic lung infection caused by lung flukes of the genus Paragonimus, with most cases reported from Asia and caused by P. westermani following consumption of raw or undercooked crustaceans."
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-helminthic--รอเติม-body-content-จาก-slide-4": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-helminthic--รอเติม-body-content-จาก-slide-4--v1",
+          "statement": "วงจรชีวิต Echinococcus granulosus มี definitive host = สุนัขและ canid อื่น (พยาธิตัวเต็มวัยอยู่ในลำไส้) และ intermediate host = แกะและสัตว์กินพืชอื่น (ระยะ metacestode/larval) คนติดเชื้อโดยบังเอิญเป็น dead end host เมื่อกลืนไข่พยาธิเข้าไป และเกิด hydatid cyst ที่ตับกับปอดเป็นส่วนใหญ่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22449514",
+              "locator": "Abstract, transmission-cycle paragraph; Asian Pac J Trop Med 5(4):253-60",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The life cycle of E. granulosus involves a definitive host (dogs and other canids) for the adult E. granulosus that resides in the intestine, and an intermediate host (sheep and other herbivores) for the tissue-invading metacestode (larval)"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-helminthic--รอเติม-body-content-จาก-slide-4--v2",
+          "statement": "Echinococcus multilocularis ทำให้เกิด alveolar echinococcosis (AE) ซึ่งมีอัตราตายสูงในรายที่ไม่ได้รับการรักษา โดยมี red fox เป็น definitive host หลัก ต่างจาก E. granulosus ที่ทำให้เกิด cystic echinococcosis (CE)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14726458",
+              "locator": "Abstract, sentences 2-4; Clin Microbiol Rev 17(1):107-35",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cystic echinococcosis (CE) is caused by Echinococcus granulosus, alveolar echinococcosis (AE) is caused by E. multilocularis, and polycystic forms are caused by either E. vogeli or E. oligarthrus. In untreated cases, AE has a high mortality"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-helminthic--รอเติม-body-content-จาก-slide-4--v3",
+          "statement": "คนเป็น definitive host ของ Taenia solium (เกิด taeniasis จากการกินเนื้อหมูสุกไม่พอที่มีระยะตัวอ่อน) แต่จะเกิด cysticercosis เมื่อกลืน \"ไข่\" พยาธิเข้าไป โดยคนกลายเป็น accidental intermediate host และเมื่อ cysticerci เข้าสมองจะเกิด neurocysticercosis (NCC) ซึ่งเป็นสาเหตุอันดับหนึ่งของ acquired epilepsy ในพื้นที่ระบาด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37876008",
+              "locator": "Abstract, transmission paragraph; Parasit Vectors 16(1):380",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Humans are definitive hosts for T. solium, whereas pigs act as intermediate hosts. Taeniasis, i.e. intestinal infection with adult T. solium in the human host, occurs through ingestion of undercooked pork infected with the larval stage (por"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-protozoal": {
+    "zoonoses--zoo-protozoal--type-of-parasitic-zoonoses-4-categories": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-protozoal--type-of-parasitic-zoonoses-4-categories--v1",
+          "statement": "Toxocariasis เป็น soil-transmitted helminth zoonosis ที่คนติดจากการกลืนไข่ระยะ embryonated เข้าไปโดยบังเอิญ โดยมีสุนัขและแมวเป็น definitive host ของ Toxocara canis และ T. cati ตามลำดับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30429401",
+              "locator": "Abstract, first sentence; Indian J Med Microbiol 36(3):432-434",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Toxocariasis is a neglected soil-transmitted helminthic infection caused by either Toxocara canis or Toxocara cati where humans get infected by accidental ingestion of embryonated eggs, and the definitive hosts are dogs and cats."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-protozoal--type-of-parasitic-zoonoses-4-categories--v2",
+          "statement": "Autochthonous leishmaniasis ในไทยมีจำนวนผู้ป่วยรายใหม่เพิ่มขึ้น และผู้ป่วยพื้นเมืองส่วนใหญ่วินิจฉัยเป็น Leishmania (Mundinia) martiniquensis และ Leishmania (Mundinia) orientalis โดยมี phlebotomine sand fly เป็นกลุ่มแมลงพาหะที่กำลังศึกษาอยู่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37211153",
+              "locator": "Abstract, opening sentences and results; Acta Trop 244:106949",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Autochthonous leishmaniasis in Thailand has recently been a public health concern due to an increasing number of new clinical cases. Most indigenous cases were diagnosed with Leishmania (Mundinia) martiniquensis, and Leishmania (Mundinia) o"
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-protozoal--sources-of-zoonotic-protozoal-infection-5-routes": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-protozoal--sources-of-zoonotic-protozoal-infection-5-routes--v1",
+          "statement": "แมว (ทั้ง domestic และ wild felids) เป็นสัตว์ชนิดเดียวที่ขับ oocyst ของ Toxoplasma gondii ซึ่งทนต่อสิ่งแวดล้อมออกมาในอุจจาระ และแมวหนึ่งตัวขับ oocyst ได้เป็นล้านใบ จึงแพร่เชื้อสู่ host อื่นได้จำนวนมาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32645556",
+              "locator": "Abstract, sentences 3-4; Vet Parasitol 283:109145",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cats (domestic and wild felids) are the most important host in the epidemiology of toxoplasmosis because they are the only species that can excrete the environmentally resistant oocysts in feces. Cats can excrete millions of oocysts and a s"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-protozoal--sources-of-zoonotic-protozoal-infection-5-routes--v2",
+          "statement": "แหล่งสำคัญของการติด Toxoplasma gondii ทางอาหารในคน คือ เนื้อสุกไม่พอ โดยเฉพาะหมู แกะ และเนื้อสัตว์ป่า รวมทั้งผักผลไม้ดิบที่ปนเปื้อนดินซึ่งมีอุจจาระแมว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22618566",
+              "locator": "Abstract, second sentence; Clin Infect Dis 55(6):845-51",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Undercooked meat, especially pork, lamb, and wild game meat, and soil contaminated with cat feces on raw fruits and vegetables are the major sources of foodborne transmission for humans."
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-protozoal--รอเติม-body-content-จาก-slide-4-per-disease-detail": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-protozoal--รอเติม-body-content-จาก-slide-4-per-disease-detail--v1",
+          "statement": "Giardia และเชื้อไวรัส/แบคทีเรียส่วนใหญ่ถูกทำลายได้ด้วยการเติมคลอรีน แต่ Cryptosporidium ทนต่อสภาพแวดล้อมและต่อคลอรีนมากกว่า จึงมีการนำ UV disinfection มาใช้ในโรงผลิตน้ำและโรงบำบัดน้ำเสียหลายแห่งเพื่อเพิ่ม log inactivation",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22628454",
+              "locator": "Abstract, disinfection paragraph; J Med Microbiol 61(Pt 8):1039-1051",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most viruses, bacteria and protozoa, such as Giardia, are effectively inactivated by chlorination; however, Cryptosporidium is relatively more resistant to environmental conditions and to chlorination. Therefore, UV disinfection has been in"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-protozoal--รอเติม-body-content-จาก-slide-4-per-disease-detail--v2",
+          "statement": "Cryptosporidium hominis และ C. parvum เป็นสองสปีชีส์หลักที่ก่อโรคในคน โดย C. hominis เป็นสาเหตุของการระบาดทางน้ำ (waterborne outbreaks) ส่วนใหญ่ที่มีการ typing ไว้ ขณะที่ C. parvum เป็นสาเหตุของการระบาดทางอาหาร (foodborne outbreaks) ส่วนใหญ่ และปศุสัตว์เป็นทั้งแหล่งรังโรคและแหล่งติดเชื้อสู่คน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32805698",
+              "locator": "Abstract, full; Res Vet Sci 132:500-512",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Environmentally robust oocysts which are shed in high numbers in the faeces of infected individuals are resistant to disinfectants, including levels of chlorine normally used in drinking water. As a result, Cryptosporidium is a major cause "
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-mycoses": {
+    "zoonoses--zoo-mycoses--fungi-basic-biology": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-mycoses--fungi-basic-biology--v1",
+          "statement": "Sporothrix spp. ที่ก่อโรค sporotrichosis เป็นเชื้อรากลุ่ม thermodimorphic คือมีได้สองรูปแบบตามอุณหภูมิ ซึ่งเป็นตัวอย่างจริงของหลักการ 2 forms (yeast กับ mold) ที่กล่าวถึงในหัวข้อนี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39044549",
+              "locator": "Abstract, background sentence; Zoonoses Public Health 71(6):609-619",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sporotrichosis is a subcutaneous mycosis caused by different species of thermodimorphic fungi belonging to the genus Sporothrix. These fungi may affect a wide range of warm-blooded animals, including humans, dogs and, mainly, cats."
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ--v1",
+          "statement": "Dermatophytosis ในสุนัขและแมวเป็นโรคผิวหนังจากเชื้อราชั้นตื้น (superficial) โดยเชื้อก่อโรคที่พบบ่อยที่สุดในสัตว์เล็กอยู่ในสกุล Microsporum และ Trichophyton และเป็นโรคที่ติดต่อสู่คนได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28516493",
+              "locator": "Background section of the consensus guideline; Vet Dermatol 28(3):266-e68. I have not verified an internal section or clause number beyond the abstract.",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Dermatophytosis is a superficial fungal skin disease of cats and dogs. The most common pathogens of small animals belong to the genera Microsporum and Trichophyton. It is an important skin disease because it is contagious, infectious and ca"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ--v2",
+          "statement": "ไม่มี test ตัวใดตัวหนึ่งที่เป็น gold standard สำหรับวินิจฉัย dermatophytosis ในสุนัขและแมว และการรักษาให้สำเร็จต้องใช้ systemic oral antifungal ร่วมกับ topical disinfection ของเส้นขนพร้อมกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28516493",
+              "locator": "Conclusions and clinical importance of the consensus guideline; Vet Dermatol 28(3):266-e68. Internal section number not verified.",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "No one diagnostic test was identified as the gold standard. Successful treatment requires concurrent use of systemic oral antifungals and topical disinfection of the hair coat. Wood's lamp and direct examinations have good positive and nega"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ--v3",
+          "statement": "ในลาตินอเมริกา แมวบ้านเป็นแหล่งติดเชื้อหลักในวงจร zoonotic transmission ของ sporotrichosis โดย Sporothrix brasiliensis เป็นสปีชีส์ที่พบบ่อยที่สุดในผู้ป่วยคนในบราซิล ขณะที่ Sporothrix schenckii พบเด่นในประเทศอื่น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39044549",
+              "locator": "Abstract, Results and Conclusions; Zoonoses Public Health 71(6):609-619",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sporothrix brasiliensis is the most common species identified in human cases in Brazil, whereas Sporothrix schenckii predominates in other countries. Domestic cats are the main source of infection in the zoonotic transmission cycle of sporo"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ--v4",
+          "statement": "นอกจากเส้นทาง zoonotic จากแมวแล้ว sporotrichosis ยังมีประวัติการติดต่อแบบ sapronosis จากวัสดุพืชที่ปนเปื้อนเชื้อ ตัวอย่างคลาสสิกคือการระบาดในคนงานเหมืองทองของแอฟริกาใต้ช่วงคริสต์ทศวรรษ 1930-1940 ซึ่งเชื่อว่าเกิดจากสภาพร้อนชื้นร่วมกับไม้ค้ำยันในอุโมงค์เหมือง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39462684",
+              "locator": "Abstract, South African history and transmission sentences; Mycoses 67(10):e13806",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The disease has a unique history in South Africa, due to an association with gold mines, where large numbers of mine workers were infected in the 1930s and 1940s. This was likely driven by hot humid conditions and timber supports used in th"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-rickettsial": {
+    "zoonoses--zoo-rickettsial--rickettsial-zoonoses-4-genera-clinical-pattern": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-rickettsial--rickettsial-zoonoses-4-genera-clinical-pattern--v1",
+          "statement": "Scrub typhus เกิดจาก Orientia tsutsugamushi ซึ่งเข้าสู่ร่างกายคนผ่านการกัดของ trombiculid mites (chiggers) สกุล Leptotrombidium และเป็นสาเหตุสำคัญของ acute undifferentiated febrile illness ในพื้นที่ tsutsugamushi triangle",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37972992",
+              "locator": "Trans R Soc Trop Med Hyg 2024;118(3):206-222, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The bacteria Orientia tsutsugamushi is the causative agent of the disease, which enters the human body through the bite of trombiculid mites (also known as chiggers) of the genus Leptotrombidium deliense."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-rickettsial--rickettsial-zoonoses-4-genera-clinical-pattern--v2",
+          "statement": "Coxiella burnetii (Q fever) เป็นสาเหตุสำคัญของการแท้ง (abortion) ประสิทธิภาพระบบสืบพันธุ์ลดลง และการติดเชื้อแบบ subclinical ในสัตว์เคี้ยวเอื้อง และมีความสำคัญทาง zoonotic เพราะ aerosolize ได้ง่ายร่วมกับ infectious dose ที่ต่ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30084178",
+              "locator": "J Vet Intern Med 2018;32(5):1481-1494, abstract",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "are an important cause of abortions, decreased reproductive efficiency, and subclinical infections in ruminants. The organism also represents an important zoonotic concern associated with its ability to aerosolize easily and its low infecti"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-rickettsial--rickettsial-zoonoses-4-genera-clinical-pattern--v3",
+          "statement": "จาก phylogenetic analysis ของลำดับยีน Coxiella burnetii ถูกจัดเข้าอยู่ใน gamma subgroup ของ proteobacteria อันดับ Legionellales วงศ์ Coxiellaceae จึงไม่ได้อยู่ใน order Rickettsiales เหมือน Rickettsia, Ehrlichia และ Orientia",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23163207",
+              "locator": "Pol J Microbiol 2012;61(2):81-93, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Based on phylogenetic analysis of the genes sequences, the classification was changed and C. burnetii species was included to the gamma subgroup of the proteobacteria, Legionellales order and Coxiellaceae family."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-rickettsial--rickettsial-zoonoses-4-genera-clinical-pattern--v4",
+          "statement": "Canine monocytic ehrlichiosis เกิดจาก Ehrlichia canis โดยสุนัขทำหน้าที่เป็น reservoir และมี Rhipicephalus sanguineus (brown dog tick) เป็น vector หลัก ส่วนในประเทศแถบเอเชียตะวันออกถือว่า Haemaphysalis longicornis เป็น vector หลักของการถ่ายทอดโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36669021",
+              "locator": "Vet Sci 2022;10(1):21, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Dogs act as a reservoir, while the main vector responsible for disease transmission is Rhipicephalus sanguineus. However, in east Asian countries, Haemaphysalis longicornis is considered the principal vector for disease transmission."
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-rickettsial--rickettsia-basic-characteristics": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-rickettsial--rickettsia-basic-characteristics--v1",
+          "statement": "Murine typhus เกิดจาก Rickettsia typhi ซึ่งเป็น obligately intracellular Gram-negative coccobacillus โดยมีหนูและหมัดของหนูเป็น reservoir และ vector ตามลำดับ และคนติดเชื้อเมื่อมูล (feces) ของหมัดที่มีเชื้อถูกถูเข้าไปในแผลที่หมัดกัดหรือเข้าสู่เยื่อเมือก ไม่ใช่จากการกัดโดยตรง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37987401",
+              "locator": "Infect Dis Rep 2023;15(6):700-716, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Murine typhus is an acute febrile illness caused by, an obligately intracellular Gram-negative coccobacillus. Rats () and their fleas () serve as the reservoir and vector of, respectively. Humans become infected when-infected flea feces are"
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-rickettsial--รอเติม-body-content-จาก-slide-4": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-rickettsial--รอเติม-body-content-จาก-slide-4--v1",
+          "statement": "Doxycycline คือ treatment of choice สำหรับ tickborne rickettsial diseases ที่สงสัย ทั้งในผู้ใหญ่และเด็ก และควรให้แบบ empiric ตั้งแต่ระยะแรกของโรคเพราะช่วยป้องกันการเจ็บป่วยรุนแรงและการเสียชีวิต ไม่ควรรอผลยืนยันทางห้องปฏิบัติการ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27172113",
+              "locator": "MMWR Recomm Rep 2016;65(No. RR-2):1-44; stated in the report abstract and in the treatment recommendations",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "recognize that doxycycline is the treatment of choice for suspected tickborne rickettsial diseases in adults and children, 3) understand that early empiric antibacterial therapy can prevent severe disease and death"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-intro": {
+    "zoonoses--zoo-intro--zoonoses-emerging-diseases-historical-model": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-intro--zoonoses-emerging-diseases-historical-model--v1",
+          "statement": "ยอดผู้เสียชีวิตทั่วโลกจาก influenza pandemic ปี 1918-1920 ถูกประมาณไว้ที่ราว 50 ล้านคน ซึ่งเป็นการปรับขึ้นจากการคำนวณยุค 1920s ที่ราว 21.5 ล้านคน และจากช่วง 24.7-39.3 ล้านคนที่ปรับในปี 1991 โดยผู้เขียนระบุว่าตัวเลขจริงอาจถูกรายงานต่ำกว่าความเป็นจริงได้ถึงราว 100%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11875246",
+              "locator": "Bull Hist Med 2002;76(1):105-15, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Further research has seen the consistent upward revision of the estimated global mortality of the pandemic, which a 1920s calculation put in the vicinity of 21.5 million. A 1991 paper revised the mortality as being in the range 24.7-39.3 mi"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-intro--zoonoses-emerging-diseases-historical-model--v2",
+          "statement": "ไวรัสที่ก่อ pandemic ปี 1918 คือ influenza A virus subtype H1N1 ตัวใหม่ ยืนยันจากการถอดลำดับ RNA ของไวรัส 9 ชิ้นส่วนจากตัวอย่างเนื้อปอด formalin-fixed paraffin-embedded ของผู้เสียชีวิตในปี 1918",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9065404",
+              "locator": "Science 1997;275(5307):1793-6, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Nine fragments of viral RNA were sequenced from the coding regions of hemagglutinin, neuraminidase, nucleoprotein, matrix protein 1, and matrix protein 2. The sequences are consistent with a novel H1N1 influenza A virus that belongs to the "
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-intro--รอเติม-body-content-จาก-slide-4": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-intro--รอเติม-body-content-จาก-slide-4--v1",
+          "statement": "การจำแนก zoonoses ตามวงจรชีวิตของเชื้อ แบ่งออกเป็น 4 กลุ่ม คือ orthozoonoses (direct zoonoses), cyclozoonoses, metazoonoses และ saprozoonoses",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18265588",
+              "locator": "Med Pregl 2007;60(9-10):441-3, English abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Depending on their life cycle, four groups of zoonoses are distinguished: orthozoonoses, cyclozoonoses, metazoonoses and saprozoonoses."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-intro--รอเติม-body-content-จาก-slide-4--v2",
+          "statement": "จากการทบทวนวรรณกรรมอย่างครอบคลุม พบเชื้อก่อโรคในคน 1,415 species โดย 868 species (61%) เป็น zoonotic และในจำนวนเชื้อ 175 species ที่จัดว่าเป็น emerging นั้น 132 species (75%) เป็น zoonotic",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11516376",
+              "locator": "Philos Trans R Soc Lond B Biol Sci 2001;356(1411):983-9, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Out of these, 868 (61%) are zoonotic, that is, they can be transmitted between humans and animals, and 175 pathogenic species are associated with diseases considered to be 'emerging'. ... Out of the emerging pathogens, 132 (75%) are zoonoti"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-intro--รอเติม-body-content-จาก-slide-4--v3",
+          "statement": "จากฐานข้อมูล emerging infectious disease (EID) events 335 เหตุการณ์ ระหว่างปี 1940-2004 พบว่า 60.3% ของ EID events เป็น zoonoses และในกลุ่ม zoonoses เหล่านี้ 71.8% มีต้นกำเนิดจากสัตว์ป่า (wildlife)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18288193",
+              "locator": "Nature 2008;451(7181):990-3, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "EID events are dominated by zoonoses (60.3% of EIDs): the majority of these (71.8%) originate in wildlife (for example, severe acute respiratory virus, Ebola virus), and are increasing significantly over time."
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-intro--course-outline-หัวข้อหลัก-6-หมวด": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-intro--course-outline-หัวข้อหลัก-6-หมวด--v1",
+          "statement": "One Health ตามนิยามฉบับ operational ของ One Health High-Level Expert Panel (OHHLEP) ซึ่งตั้งขึ้นเมื่อพฤษภาคม 2021 โดย FAO, OIE (WOAH), UNEP และ WHO คือ an integrated, unifying approach that aims to sustainably balance and optimize the health of people, animals, and ecosystems โดยขอบเขตไม่ได้จำกัดอยู่แค่ zoonotic disease หรือ antimicrobial resistance",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35737670",
+              "locator": "PLoS Pathog 2022;18(6):e1010537, Box 1 'One Health definition and key underlying principles'",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "is an integrated, unifying approach that aims to sustainably balance and optimize the health of people, animals, and ecosystems. It recognizes the health of humans, domestic and wild animals, plants, and the wider environment (including eco"
+          }
+        }
+      ]
+    }
+  },
+  "poa-clinical--poa-edema": {
+    "poa-clinical--poa-edema--fluid-analysis-ตอนที่-2-transudate-modified-transudate-exudate": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--fluid-analysis-ตอนที่-2-transudate-modified-transudate-exudate--v1",
+          "statement": "Total protein (TP) ร่วมกับ total nucleated cell count (TNCC) คือคู่ค่าที่ใช้จัดประเภท effusion ออกเป็น transudate, modified transudate และ exudate โดย transudate มักมีสาเหตุจาก hypoalbuminemia ส่วน inflammatory exudate มี TP สูงและมีเซลล์อักเสบเป็นหลัก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2672538",
+              "locator": "19(4):743-68",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The TP, TNCC, and general cytologic examination can be performed easily, quickly, and inexpensively in-house. The TP and TNCC are used to classify effusions as transudates, modified transudates, or exudates. Transudates usually are caused b"
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--fluid-analysis-ตอนที่-2-transudate-modified-transudate-exudate--v2",
+          "statement": "ในสุนัข ผลต่างของ glucose ระหว่างเลือดกับน้ำในช่องท้อง (blood-to-fluid glucose difference) มากกว่า 20 mg/dL มีความไว 100% และความจำเพาะ 100% ในการแยก septic peritoneal effusion ออกจาก non-septic ส่วนในแมวมีความไว 86% และความจำเพาะ 100%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12692761",
+              "locator": "32(2):161-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A blood-to-fluid glucose (BFG) difference > 20 mg/dL was 100% sensitive and 100% specific for the diagnosis of septic peritoneal effusion in dogs. In 7 dogs in which it was evaluated, a blood-to-fluid lactate (BFL) difference < -2.0 mmol/L "
+          }
+        }
+      ]
+    },
+    "poa-clinical--poa-edema--fluid-analysis-ตอนที่-1-ดูสีของน้ำ": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--fluid-analysis-ตอนที่-1-ดูสีของน้ำ--v1",
+          "statement": "Chylous effusion มี triglyceride ในน้ำสูงกว่า nonchylous effusion อย่างมีนัยสำคัญ และมี cholesterol/triglyceride ratio ต่ำกว่าอย่างมีนัยสำคัญ ขณะที่ระดับ cholesterol ในน้ำและค่าใน serum ไม่ต่างกันระหว่างสองกลุ่ม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-3944008",
+              "locator": "188(1):49-51",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The pleural fluid triglyceride concentrations were significantly higher (P less than 0.05) and the pleural cholesterol/triglyceride ratios were significantly lower (P less than 0.05) in chylous effusions than in nonchylous effusions in all "
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--fluid-analysis-ตอนที่-1-ดูสีของน้ำ--v2",
+          "statement": "ในสุนัข การใช้ creatinine ในน้ำช่องท้อง ≥ 2.1 mg/dL ร่วมกับ fluid:serum creatinine ratio ≥ 1.25 ให้ความแม่นยำ 99.0% ในการวินิจฉัย uroperitoneum ทางห้องปฏิบัติการ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35181924",
+              "locator": "51(1):107-111",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The results showed that 83.3% of UG and 12.7% of NUG abdominal fluid cases were not classified as transudates or exudates. The use of specific cutoffs for fluid creatinine concentrations (≥2.1 mg/dL) and fluid:serum creatinine ratios (Cf: C"
+          }
+        }
+      ]
+    },
+    "poa-clinical--poa-edema--pleural-effusion-และ-pericardial-effusion": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--pleural-effusion-และ-pericardial-effusion--v1",
+          "statement": "Nephrotic syndrome ในสุนัขนิยามด้วยการพบ hypoalbuminemia, hypercholesterolemia, proteinuria และ extravascular fluid accumulation ร่วมกัน ซึ่งยืนยันว่า protein losing nephropathy เป็นเส้นทางที่ทำให้เกิด hypoalbuminemia แล้วนำไปสู่การสะสมของเหลวนอกหลอดเลือด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21281353",
+              "locator": "25(2):206-14",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "NS was defined as the concurrent presence of hypoalbuminemia, hypercholesterolemia, proteinuria, and extravascular fluid accumulation. ... Median survival was significantly shorter for NS (12.5 days) versus NNGD dogs (104.5 days)."
+          }
+        }
+      ]
+    }
+  },
+  "engprof--research-paper-structure": {
+    "engprof--research-paper-structure--4-conventional-sections-imrd-format": {
+      "claims": [
+        {
+          "id": "engprof--research-paper-structure--4-conventional-sections-imrd-format--v1",
+          "statement": "โครงสร้าง IMRAD (Introduction, Methods, Results, Discussion) ไม่ได้เป็นมาตรฐานมาแต่เดิม จากการสำรวจบทความในวารสารอายุรศาสตร์ชั้นนำ 4 ฉบับ (BMJ, JAMA, The Lancet, NEJM) ช่วงปี 1935-1985 พบว่า IMRAD เริ่มถูกใช้ในทศวรรษ 1940s, ขึ้นถึง 80% ในทศวรรษ 1970s และเป็นรูปแบบเดียวที่ใช้ใน original paper ในทศวรรษ 1980s",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15243643",
+              "locator": "J Med Libr Assoc. 2004;92(3):364-7 (PMC442179)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The IMRAD structure, in those journals, began to be used in the 1940s. In the 1970s, it reached 80% and, in the 1980s, was the only pattern adopted in original papers."
+          }
+        }
+      ]
+    },
+    "engprof--research-paper-structure--quick-reference-ข้อมูลแบบไหนอยู่-section-ไหน": {
+      "claims": [
+        {
+          "id": "engprof--research-paper-structure--quick-reference-ข้อมูลแบบไหนอยู่-section-ไหน--v1",
+          "statement": "STROBE statement คือ checklist 22 ข้อสำหรับรายงาน observational study โดยผูกแต่ละข้อไว้กับ section: title และ abstract = ข้อ 1, introduction = ข้อ 2-3, methods = ข้อ 4-12, results = ข้อ 13-17, discussion = ข้อ 18-21, และ funding = ข้อ 22 โดย 18 ข้อใช้ร่วมกันทั้ง cohort, case-control และ cross-sectional ส่วนอีก 4 ข้อ (ข้อ 6, 12, 14, 15) เป็น design-specific",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17941714",
+              "locator": "STROBE Statement, 22-item checklist; section 'STROBE Components' (PLoS Med. 2007;4(10):e296)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These items relate to the article's title and abstract (item 1), the introduction (items 2 and 3), methods (items 4–12), results (items 13–17) and discussion sections (items 18–21), and other information (item 22 on funding). 18 items are c"
+          }
+        }
+      ]
+    },
+    "engprof--research-paper-structure--2-methodology-what-to-look-for": {
+      "claims": [
+        {
+          "id": "engprof--research-paper-structure--2-methodology-what-to-look-for--v1",
+          "statement": "ARRIVE guidelines 2.0 (2020) แบ่ง checklist การรายงานงานวิจัยในสัตว์ (in vivo experiments) ออกเป็น 2 ชุดด้วยกระบวนการ Delphi คือ 'ARRIVE Essential 10' ซึ่งเป็นข้อมูลขั้นต่ำที่ต้องรายงาน และ 'Recommended Set' ซึ่งอธิบายบริบทของงานวิจัย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32663219",
+              "locator": "ARRIVE 2.0, 'ARRIVE Essential 10' and 'Recommended Set' (PLoS Biol. 2020;18(7):e3000410)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We used a Delphi exercise to prioritise and divide the items of the guidelines into 2 sets, the \"ARRIVE Essential 10,\" which constitutes the minimum requirement, and the \"Recommended Set,\" which describes the research context."
+          }
+        },
+        {
+          "id": "engprof--research-paper-structure--2-methodology-what-to-look-for--v2",
+          "statement": "สำหรับ randomized controlled trial ใน livestock และงาน food safety มาตรฐานการรายงานคือ REFLECT statement ซึ่งดัดแปลงจาก CONSORT เป็น checklist 22 ข้อ โดยแก้ไข 14 ข้อจาก CONSORT checklist และเพิ่ม sub-item อีก 1 ข้อสำหรับ challenge trial",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19926151",
+              "locator": "REFLECT 22-item checklist (Prev Vet Med. 2010;93(1):11-8); co-published in J Vet Intern Med, J Food Prot and Zoonoses Public Health",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The consensus meeting resulted in the production of the REFLECT (Reporting Guidelines For Randomized Control Trials) statement for livestock and food safety (LFS) and 22-item checklist. Fourteen items were modified from the CONSORT checklis"
+          }
+        }
+      ]
+    },
+    "engprof--research-paper-structure--4-discussion-conclusion-what-to-look-for": {
+      "claims": [
+        {
+          "id": "engprof--research-paper-structure--4-discussion-conclusion-what-to-look-for--v1",
+          "statement": "แม้ limitations จะเป็นองค์ประกอบมาตรฐานของ Discussion แต่ในทางปฏิบัติมักไม่ถูกเขียนจริง การตรวจบทความ 50 เรื่องแรกที่ตีพิมพ์ปี 2005 จากวารสารวิจัยที่ถูกอ้างอิงสูงสุด 6 ฉบับ และวารสาร open-access ชั้นนำ 2 ฉบับ พบว่ามีเพียง 67 บทความ (17%) ที่ใช้คำสื่อถึง limitation, มีเพียง 4 บทความ (1%) ที่ใช้คำว่า limitation ใน abstract และมีเพียง 5 บทความที่มี section แยกสำหรับ limitations",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17346604",
+              "locator": "J Clin Epidemiol. 2007;60(4):324-9",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "An examination of the full-text files of the first 50 articles published in 2005 in the six most-cited research journals and in two recently launched leading open-access journals showed that only 67 articles (17%) used at least one word den"
+          }
+        }
+      ]
+    },
+    "engprof--research-paper-structure--3-results-what-to-look-for": {
+      "claims": [
+        {
+          "id": "engprof--research-paper-structure--3-results-what-to-look-for--v1",
+          "statement": "เกณฑ์ p < 0.05 เป็น convention ที่ใช้จริงในวรรณกรรมเพื่อแบ่ง significant กับ nonsignificant (งานวิจัยนิยาม statistically nonsignificant ว่า P ≥ .05) แต่ถ้อยคำในบทความอาจไม่ตรงกับตัวเลข ในรายงาน RCT 72 เรื่องที่ primary outcome ไม่ significant พบ spin ใน Conclusions ของ abstract 42 เรื่อง (58.3%, 95% CI 46.1-69.8) และใน Conclusions ของเนื้อความ 36 เรื่อง (50.0%, 95% CI 38.0-62.0)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20501928",
+              "locator": "JAMA. 2010;303(20):2058-64",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Articles were included if they were parallel-group RCTs with a clearly identified primary outcome showing statistically nonsignificant results (ie, P > or = .05). ... Spin was identified in the Results and Conclusions sections of the abstra"
+          }
+        }
+      ]
+    }
+  },
+  "engprof--academic-writing": {
+    "engprof--academic-writing--ประเภทของ-academic-papers": {
+      "claims": [
+        {
+          "id": "engprof--academic-writing--ประเภทของ-academic-papers--v1",
+          "statement": "Case report มีมาตรฐานการรายงานของตัวเองคือ CARE guidelines ซึ่งเป็น checklist 13 ข้อ ได้แก่ title, key words, abstract, introduction, patient information, clinical findings, timeline, diagnostic assessment, therapeutic interventions, follow-up and outcomes, discussion, patient perspective และ informed consent",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24035173",
+              "locator": "CARE 13-item checklist (J Clin Epidemiol. 2014;67(1):46-51)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This consensus process involved 27 participants and resulted in a 13-item checklist-a reporting guideline for case reports. The primary items of the checklist are title, key words, abstract, introduction, patient information, clinical findi"
+          }
+        },
+        {
+          "id": "engprof--academic-writing--ประเภทของ-academic-papers--v2",
+          "statement": "Review article ประเภท systematic review มีมาตรฐานการรายงานคือ PRISMA 2020 ซึ่งมาแทน PRISMA 2009 ประกอบด้วย checklist 27 ข้อ, abstract checklist แยกต่างหาก และ flow diagram สำหรับ review ทั้งแบบใหม่และแบบ updated",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33782057",
+              "locator": "PRISMA 2020 27-item checklist and abstract checklist (BMJ. 2021;372:n71)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The PRISMA 2020 statement replaces the 2009 statement and includes new reporting guidance that reflects advances in methods to identify, select, appraise, and synthesise studies. ... we present the PRISMA 2020 27-item checklist, an expanded"
+          }
+        },
+        {
+          "id": "engprof--academic-writing--ประเภทของ-academic-papers--v3",
+          "statement": "งานวิจัยที่ทำในสัตว์ (in vivo experiments) มี reporting guideline เฉพาะคือ ARRIVE 2.0 ซึ่งมีทั้งหมด 21 ข้อ พร้อมเอกสาร Explanation and Elaboration ที่อธิบายเหตุผลและยกตัวอย่างการรายงานที่ดีของแต่ละข้อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32663221",
+              "locator": "ARRIVE 2.0 Explanation and Elaboration, 21 items (PLoS Biol. 2020;18(7):e3000411)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It provides further information about each of the 21 items in ARRIVE 2.0, including the rationale and supporting evidence for their inclusion in the guidelines, elaboration of details to report, and examples of good reporting from the publi"
+          }
+        }
+      ]
+    }
+  },
+  "engprof--summary-writing": {
+    "engprof--summary-writing--what-is-a-summary": {
+      "claims": [
+        {
+          "id": "engprof--summary-writing--what-is-a-summary--v1",
+          "statement": "กฎ Accurate (สรุปต้องอิงเฉพาะข้อมูลที่อยู่ใน original) ถูกละเมิดบ่อยแม้ในวารสารการแพทย์ใหญ่ การสุ่มตรวจ abstract ที่มากับ research article ในวารสาร 6 ฉบับ (Ann Intern Med, BMJ, JAMA, Lancet, NEJM, CMAJ) พบสัดส่วน abstract ที่ deficient คือมีข้อมูลขัดกับเนื้อความ (รวมตารางและรูป) หรือไม่พบในเนื้อความเลย อยู่ระหว่าง 18-68% และต่างกันอย่างมีนัยสำคัญระหว่างวารสาร (P<.001)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10188662",
+              "locator": "JAMA. 1999;281(12):1110-1",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Abstracts were considered deficient if they contained data that were either inconsistent with corresponding data in the article's body (including tables and figures) or not found in the body at all. The proportion of deficient abstracts var"
+          }
+        },
+        {
+          "id": "engprof--summary-writing--what-is-a-summary--v2",
+          "statement": "สำหรับ summary ของ RCT มีมาตรฐานกำหนดว่าต้องมีอะไรบ้าง คือ CONSORT for Abstracts ซึ่งแนะนำให้ abstract ใช้รูปแบบ structured และต้องมี trial objectives, trial design (เช่น method of allocation, blinding/masking), participants (คำอธิบาย จำนวนที่ randomize และจำนวนที่นำมาวิเคราะห์), interventions ของแต่ละกลุ่มพร้อมผลต่อ primary efficacy outcome และ harms, conclusions, ชื่อและเลขทะเบียน trial และแหล่งทุน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18215107",
+              "locator": "CONSORT for Abstracts checklist (PLoS Med. 2008;5(1):e20)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "CONSORT for Abstracts recommends that abstracts relating to RCTs have a structured format. Items should include details of trial objectives; trial design (e.g., method of allocation, blinding/masking); trial participants (i.e., description,"
+          }
+        }
+      ]
+    },
+    "engprof--summary-writing--5-rules-to-remember-final-criteria": {
+      "claims": [
+        {
+          "id": "engprof--summary-writing--5-rules-to-remember-final-criteria--v1",
+          "statement": "กฎ Avoid inventing material และห้ามสรุปเกินข้อมูล มีหลักฐานเชิงประจักษ์: ใน RCT ที่ตรวจ abstract 203 ฉบับ พบ abstract ที่บกพร่อง 55 ฉบับ โดย 28 ฉบับ (51%) มีข้อมูลขัดกับเนื้อความ, 16 ฉบับ (29%) มีข้อมูลที่ไม่ปรากฏในเนื้อความ, 8 ฉบับ (15%) มีทั้งสองแบบ และ 3 ฉบับ (5%) มีข้อสรุปที่ข้อมูลใน abstract ไม่รองรับ ทั้งนี้การให้คำสั่งเฉพาะแก่ผู้เขียนไม่ช่วยลดอัตราความบกพร่อง (28% เทียบกับ 26%, P=.78)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9676677",
+              "locator": "JAMA. 1998;280(3):267-9",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Among 55 defective abstracts, 28 (51%) had inconsistencies, 16 (29%) contained data not present in the body, 8 (15%) had both types of defects, and 3 (5%) contained unjustified conclusions."
+          }
+        }
+      ]
+    },
+    "engprof--summary-writing--strategy-ใน-final-exam-part-ii": {
+      "claims": [
+        {
+          "id": "engprof--summary-writing--strategy-ใน-final-exam-part-ii--v1",
+          "statement": "ข้อห้าม ห้ามใส่ opinion ของตัวเอง บอกแค่สิ่งที่ original บอก สอดคล้องกับปัญหา spin ที่พบจริงในวรรณกรรม: ในรายงาน RCT 72 เรื่องที่ primary outcome ไม่ significant พบ spin ในชื่อเรื่อง 13 เรื่อง (18.0%, 95% CI 10.0-28.9), ในส่วน Results ของ abstract 27 เรื่อง (37.5%) และในส่วน Conclusions ของ abstract 42 เรื่อง (58.3%) โดยมากกว่า 40% ของรายงานมี spin ในเนื้อความอย่างน้อย 2 sections",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20501928",
+              "locator": "JAMA. 2010;303(20):2058-64",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The title was reported with spin in 13 articles (18.0%; 95% CI, 10.0%-28.9%). Spin was identified in the Results and Conclusions sections of the abstracts of 27 (37.5%; 95% CI, 26.4%-49.7%) and 42 (58.3%; 95% CI, 46.1%-69.8%) reports, respe"
+          }
+        }
+      ]
+    }
+  },
+  "engprof--research-design": {
+    "engprof--research-design--observational-studies": {
+      "claims": [
+        {
+          "id": "engprof--research-design--observational-studies--v1",
+          "statement": "Case-control study เริ่มจาก enroll กลุ่มที่เป็นโรค (cases) และกลุ่มที่ไม่เป็นโรค (controls) ก่อน แล้วจึงย้อนสืบประวัติ exposure ของแต่ละกลุ่ม จึงเป็น backward-direction study และเป็น retrospective เสมอ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31008076",
+              "locator": "Vol 10, Issue 2, pages 91-94, section 'Case-control studies'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In case-control studies, the researcher first enrolls cases (participants with the outcome) and controls (participants without the outcome) and then tries to elicit a history of exposure in each group. Thus, these are backward-direction stu"
+          }
+        },
+        {
+          "id": "engprof--research-design--observational-studies--v2",
+          "statement": "Case-control design เหมาะกับ rare diseases เพราะการหา cases ที่เป็นโรคทำได้ง่ายกว่าการตามกลุ่ม exposed จำนวนมากไปจนเกิด outcome แต่ข้อมูล exposure ต้องพึ่ง existing records หรือการซักประวัติ จึงเสี่ยง recall bias และ misinformation bias",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31008076",
+              "locator": "Vol 10, Issue 2, pages 91-94, sections 'Limitations of case-control studies' and 'Uses of case-control studies'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Case-control studies are ideal for rare diseases, where identifying cases is easier than following up large numbers of exposed persons to determine outcome. ... The determination of exposure relies on existing records or history taking. Eit"
+          }
+        },
+        {
+          "id": "engprof--research-design--observational-studies--v3",
+          "statement": "Cohort study ตามกลุ่มที่มีระดับ exposure ต่างกันไปข้างหน้าตามเวลา โดยผู้เข้าร่วมต้องยังไม่มี outcome ตั้งแต่ baseline จึงเป็น forward-direction และโดยทั่วไปเป็น prospective และทำให้คำนวณ risk ของ outcome ในกลุ่ม exposed vs unexposed รวมถึง relative risk ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31008076",
+              "locator": "Vol 10, Issue 2, pages 91-94, sections 'Cohort studies' and 'Uses of cohort studies'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Thus, cohort studies are forward-direction studies (moving from exposure to outcome) and are typically prospective studies (the outcome has not occurred at the start of the study). ... Since one starts with subjects known to have or not hav"
+          }
+        },
+        {
+          "id": "engprof--research-design--observational-studies--v4",
+          "statement": "Cross-sectional study เก็บข้อมูล exposure และ outcome ณ จุดเวลาเดียวในประชากรที่กำหนด เปรียบได้กับ snapshot และเหมาะที่สุดสำหรับการวัด prevalence ของโรคหรือของ risk factor",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30834206",
+              "locator": "Vol 10, Issue 1, pages 34-36, section 'Cross-sectional studies'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cross-sectional studies can be thought of as providing a \"snapshot\" of the frequency and characteristics of a disease in a population at a particular point in time. These are very good for measuring the prevalence of a disease or of a risk "
+          }
+        }
+      ]
+    },
+    "engprof--research-design--interventional-experimental-studies": {
+      "claims": [
+        {
+          "id": "engprof--research-design--interventional-experimental-studies--v1",
+          "statement": "RCT จัดสรรผู้เข้าร่วมไปแต่ละ arm ด้วยกระบวนการสุ่ม และถือเป็น gold standard ของ clinical research โดยวิธีจัดกลุ่มแบบ systematic ที่ไม่ใช่การสุ่มจะเปิดช่องให้เกิด selection bias และ confounding bias",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11853818",
+              "locator": "Vol 359, Issue 9305, pages 515-9",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The randomised controlled trial sets the gold standard of clinical research. However, randomisation persists as perhaps the least-understood aspect of a trial. Moreover, anything short of proper randomisation courts selection and confoundin"
+          }
+        },
+        {
+          "id": "engprof--research-design--interventional-experimental-studies--v2",
+          "statement": "การสุ่มเพียงอย่างเดียวยังไม่พอ: ในการวิเคราะห์ controlled trials 250 เรื่องจาก 33 meta-analyses trials ที่ allocation concealment ไม่เพียงพอให้ odds ratio เกินจริงประมาณ 41% และ trials ที่ไม่ได้ทำ double-blind ให้ odds ratio เกินจริงประมาณ 17%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-7823387",
+              "locator": "Vol 273, Issue 5, pages 408-12",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Odds ratios were exaggerated by 41% for inadequately concealed trials and by 30% for unclearly concealed trials (adjusted for other aspects of quality). ... Trials that were not double-blind also yielded larger estimates of effects (P = .01"
+          }
+        }
+      ]
+    },
+    "engprof--research-design--other-designs-ที่อาจเจอ": {
+      "claims": [
+        {
+          "id": "engprof--research-design--other-designs-ที่อาจเจอ--v1",
+          "statement": "Systematic review เป็น study design ที่สรุปผลจาก primary research studies หลายเรื่อง ส่วน meta-analysis คือเครื่องมือทางสถิติที่รวมผลของ studies เหล่านั้นเข้าด้วยกันเพื่อให้ได้ pooled estimate ของ treatment effect",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32670836",
+              "locator": "Vol 11, Issue 2, pages 97-100",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In this segment, we discuss systematic review, which is a study design used to summarize the results of several primary research studies. Systematic reviews often also use meta-analysis, which is a statistical tool to mathematically collate"
+          }
+        }
+      ]
+    }
+  },
+  "engprof--paraphrasing": {
+    "engprof--paraphrasing--what-is-paraphrasing": {
+      "claims": [
+        {
+          "id": "engprof--paraphrasing--what-is-paraphrasing--v1",
+          "statement": "เมื่อ paraphrase ต้องอ้างอิง source เสมอ มิฉะนั้นถือเป็น plagiarism โดยในการตรวจ manuscripts ที่ส่งมายังวารสาร AJR พบ plagiarism 12 จาก 110 เรื่อง (10.9%) และใน 11 จาก 12 เรื่องนั้นขาดการอ้างอิงแหล่งต้นฉบับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28125269",
+              "locator": "Vol 208, Issue 4, pages 712-720",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Twelve manuscripts (10.9%) contained plagiarism. ... Referencing the original source was lacking in 11."
+          }
+        },
+        {
+          "id": "engprof--paraphrasing--what-is-paraphrasing--v2",
+          "statement": "Plagiarism มีผลจริงต่อ publication record: จากการทบทวน retracted biomedical และ life-science articles ทั้งหมด 2,047 เรื่องใน PubMed พบว่า 67.4% ถูกถอนเพราะ misconduct ซึ่งรวม duplicate publication 14.2% และ plagiarism 9.8% ขณะที่มีเพียง 21.3% ที่เกิดจาก error",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23027971",
+              "locator": "Vol 109, Issue 42, pages 17028-33",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A detailed review of all 2,047 biomedical and life-science research articles indexed by PubMed as retracted on May 3, 2012 revealed that only 21.3% of retractions were attributable to error. In contrast, 67.4% of retractions were attributab"
+          }
+        },
+        {
+          "id": "engprof--paraphrasing--what-is-paraphrasing--v3",
+          "statement": "การนำข้อความจากงานที่ตัวเองเคยตีพิมพ์มาใช้ซ้ำในงานใหม่โดยไม่อ้างอิงต้นฉบับ ก็เข้าข่าย plagiarism เช่นกัน เรียกว่า self-plagiarism หรือ text recycling",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30997390",
+              "locator": "Vol 5, Issue 2, pages 134-136",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This concept, also referred to as text recycling, is defined as the repurposing of one's own previously published work in new publications without referencing the original source."
+          }
+        }
+      ]
+    },
+    "engprof--paraphrasing--acceptable-vs-unacceptable-paraphrase": {
+      "claims": [
+        {
+          "id": "engprof--paraphrasing--acceptable-vs-unacceptable-paraphrase--v1",
+          "statement": "Text-similarity detection software ใช้คัดกรอง plagiarism ได้ แต่ผลที่ถูก flag ต้องผ่านการตรวจสอบด้วยคนก่อน: ในการคัดกรอง manuscripts 754 เรื่องของ Croatian Medical Journal software flag ไว้ 105 เรื่อง (14%) แต่ยืนยันด้วยคนแล้วเป็น plagiarism จริง 85 เรื่อง (11%) แบ่งเป็น true plagiarism 63 เรื่อง (8%) และ self-plagiarism 22 เรื่อง (3%)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22207497",
+              "locator": "Vol 18, Issue 2, pages 223-39",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Of 754 submitted manuscripts, 105 (14%) were identified by the software as suspicious of plagiarism. Manual verification confirmed that 85 (11%) manuscripts were plagiarized: 63 (8%) were true plagiarism and 22 (3%) were self-plagiarism. .."
+          }
+        },
+        {
+          "id": "engprof--paraphrasing--acceptable-vs-unacceptable-paraphrase--v2",
+          "statement": "การ paraphrase แบบอัตโนมัติไม่รับประกันว่าจะพ้น plagiarism: เมื่อให้ ChatGPT paraphrase ข้อความ ค่าเฉลี่ย plagiarism rate ของข้อความที่ได้ยังอยู่ที่ 45% (SD 10%) แม้จะลดลงจากต้นฉบับอย่างมีนัยสำคัญก็ตาม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38989841",
+              "locator": "Vol 10, article e53308",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-01",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The average plagiarism rate in the texts generated by ChatGPT was 45% (SD 10%). ChatGPT exhibited a substantial reduction in plagiarism for the provided texts (mean difference -0.51, 95% CI -0.54 to -0.48; P<.001). ... Although ChatGPT demo"
+          }
+        }
+      ]
+    }
   }
 };
 
