@@ -39,7 +39,22 @@ const onlyIds = idsArg !== -1 ? new Set(String(process.argv[idsArg + 1] || '').s
 const UA = 'VetMock-source-verifier (educational; mailto:palmzamak2547@gmail.com)';
 const TIMEOUT_MS = 15000;
 
+// NCBI E-utilities allows ~3 requests/second without an API key and starts
+// dropping requests above that. An unthrottled burst gets empty responses back,
+// which look exactly like "this identifier does not exist" — so a rate limit
+// would be reported as a fabricated citation. That is the worst failure this
+// gate could have: it would throw out correct work and teach everyone to
+// distrust it. Throttle, and retry before concluding anything is missing.
+const MIN_GAP_MS = 350;
+let lastRequestAt = 0;
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 async function get(url, accept = 'application/json') {
+  const wait = lastRequestAt + MIN_GAP_MS - Date.now();
+  if (wait > 0) await sleep(wait);
+  lastRequestAt = Date.now();
+
   const c = new AbortController();
   const t = setTimeout(() => c.abort(), TIMEOUT_MS);
   try {
@@ -48,6 +63,17 @@ async function get(url, accept = 'application/json') {
   } catch (e) {
     return { networkError: e.name === 'AbortError' ? 'timeout' : e.message };
   } finally { clearTimeout(t); }
+}
+
+/** Only report `missing` when a retried, un-throttled request still says so. */
+async function getWithRetry(url, accept = 'application/json', attempts = 3) {
+  let last;
+  for (let i = 0; i < attempts; i++) {
+    last = await get(url, accept);
+    if (last.ok || last.status === 404) return last;
+    await sleep(600 * (i + 1));
+  }
+  return last;
 }
 
 /** Loose title comparison — publishers vary punctuation, case and subtitles. */
@@ -63,16 +89,18 @@ function titlesAgree(a, b) {
 }
 
 async function resolvePmid(pmid) {
-  const r = await get(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${encodeURIComponent(pmid)}&retmode=json`);
+  const r = await getWithRetry(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${encodeURIComponent(pmid)}&retmode=json`);
   if (r.networkError) return { unchecked: r.networkError };
-  if (!r.ok) return { unchecked: `HTTP ${r.status}` };
+  // a non-OK response is inconclusive, never proof of absence
+  if (!r.ok) return { unchecked: `HTTP ${r.status} after retries` };
   const rec = r.body?.result?.[String(pmid)];
-  if (!rec || rec.error) return { missing: true };
+  if (!rec) return { unchecked: "empty response after retries" };
+  if (rec.error) return { missing: true };
   return { title: rec.title, extra: `${rec.source || ''} ${rec.pubdate || ''}`.trim() };
 }
 
 async function resolveDoi(doi) {
-  const r = await get(`https://api.crossref.org/works/${encodeURIComponent(doi)}`);
+  const r = await getWithRetry(`https://api.crossref.org/works/${encodeURIComponent(doi)}`);
   if (r.networkError) return { unchecked: r.networkError };
   if (r.status === 404) return { missing: true };
   if (!r.ok) return { unchecked: `HTTP ${r.status}` };
