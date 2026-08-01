@@ -35,7 +35,8 @@
     "test:unit": "node --test tests/unit/*.test.mjs",
     "test": "npm run test:unit && npm run test:e2e",
     "stats": "node scripts/stats.mjs",
-    "prerender:wiki": "node scripts/prerender-wiki.mjs"
+    "prerender:wiki": "node scripts/prerender-wiki.mjs",
+    "wiki:hashes": "node scripts/backfill-wiki-hashes.mjs --write"
   },
   "browserslist": [
     "defaults",

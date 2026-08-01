@@ -5,16 +5,16 @@ type: reference
 version: 1.0.0
 status: draft
 tags: [unmapped, report, questions]
-lastReviewed: 2026-07-31
+lastReviewed: 2026-08-01
 ---
 
 # 📋 Unmapped Questions Report
 
 สรุปรายการข้อสอบทั้งหมดที่ยังไม่มีบทความ Wiki รองรับ (wikiRefs: []) หรือมีสถานะ unmapped
 
-- **จำนวนข้อสอบทั้งหมด:** 2948 ข้อ
-- **จำนวนข้อสอบที่ยัง Unmapped:** 2780 ข้อ
-- **สัดส่วน:** 94.3%
+- **จำนวนข้อสอบทั้งหมด:** 3195 ข้อ
+- **จำนวนข้อสอบที่ยัง Unmapped:** 3027 ข้อ
+- **สัดส่วน:** 94.7%
 
 ---
 
@@ -1365,6 +1365,53 @@ lastReviewed: 2026-07-31
 | `93528` | mcq | Year 4 | marine-ecology, kelp-forest, vocabulary | Unit 3 Talk/Lecture III covers California's sea-urchin probl... |
 | `93529` | mcq | Year 4 | marine-ecology, vocabulary, zombie-urchin | In the sea-urchin lecture (Unit 3 Talk III), the speakers re... |
 
+### วิชา: `epidemiology` (43 ข้อ)
+| Question ID | Type | Year | Topic/Tags | Text Snippet |
+|---|---|---|---|---|
+| `100000` | mcq | Year 5 | blooms-taxonomy, course-framing | ตาม Bloom's taxonomy ที่แสดงในสไลด์แนะนำรายวิชา ลำดับ 6 ระดั... |
+| `100001` | mcq | Year 5 | covid-19, epidemic-curve, thailand | เส้นโค้งการระบาดของ COVID-19 ในประเทศไทย (Triukose et al. 20... |
+| `100002` | mcq | Year 5 | avian-influenza, h5n1, global-burden | จากแผนที่ WHO แสดงผู้ป่วยไข้หวัดนก A(H5N1) ที่ยืนยันแล้วระหว... |
+| `100003` | mcq | Year 5 | h5n1, case-fatality-rate, number-threshold | สไลด์ระบุภาระโรคไข้หวัดนก H5N1 ว่ามีผู้ป่วย 433 ราย เสียชีวิ... |
+| `100004` | mcq | Year 5 | influenza, mixing-vessel, reservoir | ตามแผนภาพการเกิด reassortant H1N1 (swine flu virus) ที่แพร่จ... |
+| `100005` | mcq | Year 5 | course-schedule, examination | ตามตารางของรายวิชา 3107508 กำหนดสอบ Mid-term Examination ในช... |
+| `100006` | mcq | Year 5 | attendance-rule, number-threshold | ตามเกณฑ์ที่ระบุในสไลด์ นิสิตต้องเข้าเรียนอย่างน้อยกี่เปอร์เซ... |
+| `100007` | mcq | Year 5 | learning-pyramid, retention, number-threshold | ตามสไลด์ Learning Pyramid ข้อใดจับคู่กิจกรรมกับอัตราการจดจำไ... |
+| `100008` | mcq | Year 5 | etymology, definition | คำว่า Epidemiology มาจากภาษากรีก 3 คำ ข้อใดให้ความหมายของแต่... |
+| `100009` | mcq | Year 5 | qualitative-epidemiology, quantitative-epidemiology, classification | ข้อใดคือรายการที่จัดอยู่ใน qualitative epidemiology ทั้งหมดต... |
+| `100010` | mcq | Year 5 | haemorrhagic-septicaemia, buffalo, field-investigation | กรณีศึกษาภาคสนามในสไลด์ กระบือประมาณ 30 ตัวตายรอบสระน้ำในหมู... |
+| `100011` | mcq | Year 5 | dld-notification, group-1, classification | ข้อใดเป็นชุดโรคที่จัดอยู่ใน DLD Group 1 ซึ่งเป็นโรคที่ก่อควา... |
+| `100012` | mcq | Year 5 | dld-notification, group-2, exotic-disease | โรคใน DLD Group 2 ซึ่งเป็นกลุ่ม exotic diseases กำหนดให้รายง... |
+| `100013` | mcq | Year 5 | dld-notification, group-4, laboratory-surveillance | โรคเฝ้าระวังทางห้องปฏิบัติการใน DLD Group 4 เช่น duck plague... |
+| `100014` | mcq | Year 5 | quarantine-station, thailand, classification | ด่านกักกันสัตว์ของประเทศไทยตามสไลด์แบ่งออกเป็นกี่เขต และคำอธ... |
+| `100015` | mcq | Year 5 | epidemiological-triad, agent-host-environment | สามเหลี่ยมทางระบาดวิทยาหรือ epidemiological triad ประกอบด้วย... |
+| `100016` | mcq | Year 5 | discipline-comparison, study-population, field-study | จากตารางเปรียบเทียบ clinical medicine, pathology และ epidemi... |
+| `100017` | mcq | Year 5 | study-design, observational-study, classification | การศึกษาทางระบาดวิทยา 4 รูปแบบตามสไลด์ ข้อใดไม่จัดอยู่ในกลุ่... |
+| `100018` | mcq | Year 5 | surveillance, objectives, animal-health | ข้อใดไม่ได้ถูกระบุเป็นวัตถุประสงค์ (objectives) ของ animal h... |
+| `100019` | mcq | Year 5 | monitoring, surveillance, definition | ตามนิยามในบทเรียน monitoring คือกิจกรรมที่ทำอย่างสม่ำเสมอเพื... |
+| `100020` | mcq | Year 5 | surveillance, principles, active-passive | หลักการของ surveillance ที่แบ่งออกเป็น active กับ passive นั... |
+| `100021` | mcq | Year 5 | passive-surveillance, advantages-disadvantages | ข้อใดคือข้อเสีย (disadvantage) ของ passive surveillance ตามท... |
+| `100022` | mcq | Year 5 | syndromic-surveillance, surveillance-types | ข้อใดอธิบายลักษณะของ syndromic surveillance ได้ถูกต้อง... |
+| `100023` | mcq | Year 5 | sampling, survey-design, probability-sampling | ตามการจำแนกชนิดของการสุ่มตัวอย่างในการสำรวจ ข้อใดจัดอยู่ในกล... |
+| `100024` | mcq | Year 5 | cluster-sampling, survey-design | ในสไลด์เรื่อง cluster sampling อธิบายลักษณะของข้อมูลภายในและ... |
+| `100025` | mcq | Year 5 | surveillance-cycle, process | วงจรของ public health surveillance ประกอบด้วย 5 ขั้นตอนที่เร... |
+| `100026` | mcq | Year 5 | surveillance-checklist, timeliness | checklist ของแผนเฝ้าระวังข้อที่ 7 (Timelines) กำหนดให้วัดช่ว... |
+| `100027` | mcq | Year 5 | bluetongue, sampling, design-prevalence | ในตัวอย่างการเฝ้าระวัง bluetongue ที่ประเทศเยอรมนี การสุ่มแบ... |
+| `100028` | mcq | Year 5 | bluetongue, elisa, sensitivity-specificity | ผลการเฝ้าระวัง bluetongue เก็บได้ 649 ตัวอย่างจาก 134 ฝูง แล... |
+| `100029` | mcq | Year 5 | surveillance-purposes, study-design | ตามการแบ่งวัตถุประสงค์ของการเฝ้าระวังโรคสัตว์ 4 แบบ การเฝ้าร... |
+| `100030` | mcq | Year 5 | design-prevalence, system-sensitivity, early-detection | ระบบเฝ้าระวังที่มี sensitivity 95% ที่ design prevalence 1% ... |
+| `100031` | mcq | Year 5 | outbreak-steps, investigation-sequence | ตามลำดับ 11 ขั้นตอนของการสอบสวนการระบาด ขั้นตอนที่ 4 คือข้อใ... |
+| `100032` | mcq | Year 5 | epidemiologic-triad, agent-factors | ตามแนวคิด epidemiologic triad ข้อใดเป็นคุณสมบัติของ AGENT ทั... |
+| `100033` | mcq | Year 5 | iceberg-concept, disease-spectrum | ตามแนวคิด iceberg concept of disease ระดับที่อยู่ลึกที่สุดหร... |
+| `100034` | mcq | Year 5 | establish-outbreak, pseudo-outbreak, baseline | จำนวนผู้ป่วยที่เพิ่มขึ้นอาจไม่ได้บ่งชี้ว่ามีการระบาดจริง ข้อ... |
+| `100035` | mcq | Year 5 | verify-diagnosis, frequency-distribution, clinical-features | ในตารางความถี่ของอาการทางคลินิกที่ยกเป็นตัวอย่างในขั้นการยืน... |
+| `100036` | mcq | Year 5 | salmonellosis, case-definition, laboratory-criteria | ตามนิยามผู้ป่วย salmonellosis ของ CDC ปี 2017 ข้อใดคือ confi... |
+| `100037` | mcq | Year 5 | covid-19, case-definition, who-criteria | ตามนิยาม suspected case ของ SARS-CoV-2 ขององค์การอนามัยโลก เ... |
+| `100038` | mcq | Year 5 | epidemic-curve, botulism, common-source | การให้อาหารที่ปนเปื้อนสารพิษจาก Clostridium botulinum แก่โคใ... |
+| `100039` | mcq | Year 5 | incubation-period, stec, epidemic-curve | Shiga toxin-producing E. coli มีระยะฟักตัวเฉลี่ยและช่วงต่ำสุ... |
+| `100040` | mcq | Year 5 | relative-risk, attack-rate, vibriosis | จากตัวอย่างการระบาดของ vibriosis กลุ่มที่กินหอยนางรม 100 คนป... |
+| `100041` | mcq | Year 5 | outbreak-control, intervention, step-9 | หลักการสำคัญของขั้นตอนที่ 9 คือ implement control and preven... |
+| `100042` | mcq | Year 5 | covid-19, investigation-trigger, thailand-guideline | ตามเกณฑ์การเริ่มสอบสวนโรคเมื่อพบผู้ป่วยยืนยัน COVID-19 ระดับ... |
+
 ### วิชา: `exotic` (104 ข้อ)
 | Question ID | Type | Year | Topic/Tags | Text Snippet |
 |---|---|---|---|---|
@@ -1472,6 +1519,26 @@ lastReviewed: 2026-07-31
 | `94041` | mcq | Year 4 | exotic, midterm, guinea-pig, sexing | Anogenital distance ไม่เหมาะสำหรับแยกเพศสัตว์ชนิดใด... |
 | `94042` | mcq | Year 4 | exotic, midterm, hamster, ectoparasite, mite | ปัญหา mite ชนิดใดพบได้บ่อยในหนูแฮมสเตอร์... |
 | `94043` | mcq | Year 4 | exotic, midterm, sugar-glider, behavior, self-mutilation | สัตว์ชนิดใดพบปัญหา self mutilation บ่อยที่สุด... |
+
+### วิชา: `food-industry` (16 ข้อ)
+| Question ID | Type | Year | Topic/Tags | Text Snippet |
+|---|---|---|---|---|
+| `103000` | mcq | Year 5 | aquaculture, global-production, number-threshold | ตามข้อมูลในบทเรียน ปลาที่มนุษย์บริโภคทั่วโลกในปัจจุบันมาจาก ... |
+| `103001` | mcq | Year 5 | global-trade, seafood-export, number-threshold | ผลผลิตจาก fisheries และ aquaculture ของโลกเข้าสู่ internatio... |
+| `103002` | mcq | Year 5 | thailand-aquaculture, crustacean-production, number-threshold | ในการผลิต crustacean จาก aquaculture ของโลก ประเทศไทยอยู่อัน... |
+| `103003` | mcq | Year 5 | whiteleg-shrimp, culture-cycle, number-threshold | Litopenaeus vannamei (whiteleg shrimp) ใช้ระยะเวลาเลี้ยงจาก ... |
+| `103004` | mcq | Year 5 | nile-tilapia, bacterial-risk, organism-disease | เชื้อแบคทีเรียที่บทเรียนระบุเป็น key risk ของการเลี้ยง Nile ... |
+| `103005` | mcq | Year 5 | value-chain, post-harvest, classification-list | ตาม value chain ของผลิตภัณฑ์สัตว์น้ำ 5 ขั้นตอน ขั้นตอนที่อยู... |
+| `103006` | mcq | Year 5 | cold-chain, frozen-storage, number-threshold | อุณหภูมิเก็บรักษาผลิตภัณฑ์สัตว์น้ำในรูปแบบ frozen ตามบทเรียน... |
+| `103007` | mcq | Year 5 | vibrio, infective-dose, number-threshold | ตามข้อมูลในสไลด์ Vibrio infective dose ของ Vibrio cholerae ท... |
+| `103008` | mcq | Year 5 | parasites, opisthorchis, anisakis, organism-disease | ข้อใดอธิบายแหล่งที่มาของ Opisthorchis viverrini และ Anisakis... |
+| `103009` | mcq | Year 5 | heavy-metals, chemical-hazard, classification-list | โลหะหนัก 4 ชนิดที่บทเรียนระบุว่าเป็น key heavy metals ในผลิต... |
+| `103010` | mcq | Year 5 | histamine, temperature-abuse, chemical-hazard | ข้อใดกล่าวถูกต้องเกี่ยวกับ histamine ในปลาที่มี histidine สู... |
+| `103011` | mcq | Year 5 | thai-standards, mandatory-standards, number-threshold | มาตรฐานสินค้าเกษตรที่ประกาศใช้ของไทย ณ 11 มิถุนายน 2565 มีจำ... |
+| `103012` | mcq | Year 5 | thai-standards, gap-shrimp-hatchery, classification-list | ในมาตรฐานบังคับของไทยทั้ง 8 ฉบับ ฉบับใดเป็นมาตรฐานด้านสัตว์น... |
+| `103013` | mcq | Year 5 | gmp, haccp, prerequisite-programme | ความสัมพันธ์ระหว่าง GMP กับ HACCP ตามที่บทเรียนอธิบายคือข้อใ... |
+| `103014` | mcq | Year 5 | us-market-access, seafood-haccp, regulation | US Seafood HACCP Regulation ที่ FDA บังคับใช้กับสินค้าสัตว์น... |
+| `103015` | mcq | Year 5 | fiqd, thai-regulation, classification-list | FIQD (กองตรวจสอบคุณภาพสินค้าประมง) ดูแลมาตรฐานผลิตภัณฑ์สัตว์... |
 
 ### วิชา: `food-safety-y4` (31 ข้อ)
 | Question ID | Type | Year | Topic/Tags | Text Snippet |
@@ -1632,7 +1699,171 @@ lastReviewed: 2026-07-31
 | `8562` | mcq | Year 5 | parasitology, Ascaris, roundworm, swine | จับคู่ปรสิต → host route → ลักษณะการติดต่อ ข้อใดถูกต้อง?... |
 | `8563` | mcq | Year 5 | ectoparasite, louse, flea, identification | จับคู่ ectoparasite → ลักษณะ/ความสำคัญ ข้อใดผิด?... |
 
-### วิชา: `poa-clinical` (26 ข้อ)
+### วิชา: `milk-meat-hygiene` (136 ข้อ)
+| Question ID | Type | Year | Topic/Tags | Text Snippet |
+|---|---|---|---|---|
+| `101000` | mcq | Year 5 | milk-as-food, nutrition, rda | นมสด 1 แก้ว (8 ounce) ให้แคลเซียมคิดเป็นกี่เปอร์เซ็นต์ของ re... |
+| `101001` | mcq | Year 5 | udder-anatomy, gland-cistern, teat-cistern | ความจุของ gland cistern และ teat cistern ตามภาพกายวิภาคภายใน... |
+| `101002` | mcq | Year 5 | udder-blood-supply, milk-synthesis, physiology | ต้องมีเลือดไหลผ่านเต้านมปริมาณเท่าใดเพื่อสังเคราะห์น้ำนม 1 u... |
+| `101003` | mcq | Year 5 | udder-anatomy, milk-pathway, duct-system | ลำดับทางเดินของน้ำนมภายในเต้านมโคจาก alveoli ออกสู่ภายนอกข้อ... |
+| `101004` | mcq | Year 5 | milk-secretion, lactose-synthesis, secretory-cell | ในเซลล์สร้างน้ำนม สารตั้งต้นใดถูกเปลี่ยนไปเป็น lactose... |
+| `101005` | mcq | Year 5 | milk-ejection, oxytocin, let-down | ข้อใดถูกต้องเกี่ยวกับ oxytocin ในกระบวนการ milk let-down... |
+| `101006` | mcq | Year 5 | milking-interval, milking-time, management | ตามคำแนะนำในบทเรียน ระยะห่างการรีดนมและเวลาที่ใช้รีดนมแต่ละค... |
+| `101007` | mcq | Year 5 | milk-ejection, epinephrine, inhibition | โคที่ตื่นเต้นหรือตกใจระหว่างรีดนมมักรีดนมไม่ค่อยออก กลไกใดอธ... |
+| `101008` | mcq | Year 5 | mastitis-form, subclinical, classification | รูปแบบ (form) ของ mastitis ที่พบบ่อยที่สุดคือข้อใด... |
+| `101009` | mcq | Year 5 | contagious-mastitis, strep-agalactiae, somatic-cell-count | Streptococcus agalactiae ที่ก่อ contagious mastitis ทำให้ค่า... |
+| `101010` | mcq | Year 5 | opportunistic-pathogen, corynebacterium-bovis, teat-dipping | เชื้อฉวยโอกาสชนิดใดพบในฟาร์มที่ไม่จุ่มน้ำยาที่หัวนมหลังรีดนม... |
+| `101011` | mcq | Year 5 | environmental-mastitis, coliform, strep-uberis | ข้อใดคือคู่เชื้อที่จัดอยู่ในกลุ่มก่อ environmental mastitis ... |
+| `101012` | mcq | Year 5 | scc-table, milk-production-loss, udder-condition | จากตาราง SCC (Phipot and Nickerson, 1991) ค่า SCC 420,000-1,... |
+| `101013` | mcq | Year 5 | somatic-cell, neutrophil, microscopic-count | เมื่อตรวจ smear ของ somatic cell ในน้ำนมด้วยกล้องจุลทรรศน์ เ... |
+| `101014` | mcq | Year 5 | mastitis-detection, cmt, cow-side-test | วิธีตรวจ somatic cell วิธีใดที่ถูกระบุว่าเป็น cow-side test... |
+| `101015` | mcq | Year 5 | electrical-conductivity, electrolyte, mastitis-detection | ค่า electrical conductivity ของน้ำนมเพิ่มขึ้นในภาวะ mastitis... |
+| `101016` | mcq | Year 5 | economic-loss, mastitis-impact, farm-management | ข้อใดไม่ใช่ความสูญเสียทางเศรษฐกิจจาก mastitis ตามที่ระบุไว้ ... |
+| `101017` | mcq | Year 5 | milk-production-loss, lactation-number, mastitis-impact | ในเต้านมส่วนที่ติดเชื้อ ผลผลิตน้ำนมสูญเสียไปประมาณเท่าใด และ... |
+| `101018` | mcq | Year 5 | chlore-lactose-ratio, milk-composition, mastitis-effect | ค่า chlore-lactose ratio ของน้ำนมปกติมีค่าเท่าใด และคำนวณอย่... |
+| `101019` | mcq | Year 5 | dairy-product-quality, free-fatty-acid, scc-threshold | กลิ่นรสผิดปกติแบบ off-flavor และ rancid จากกรดไขมันอิสระที่ส... |
+| `101020` | mcq | Year 5 | milk-collecting-point, raw-milk, dairy-farm | จากเนื้อหาเรื่องจุดรับน้ำนม (milk collecting point) โคนม 1 ต... |
+| `101021` | mcq | Year 5 | milk-collecting-point, quality-check, raw-milk | ข้อใดไม่ใช่หนึ่งในการตรวจคุณภาพน้ำนมเบื้องต้น 5 อย่างที่ทำกั... |
+| `101022` | mcq | Year 5 | milk-chain, milk-collecting-center, raw-milk | เส้นทางของน้ำนม (Where does milk go?) เรียงลำดับได้ถูกต้องตา... |
+| `101023` | mcq | Year 5 | cooling, storage-temperature, raw-milk | อุณหภูมิที่แนะนำสำหรับเก็บน้ำนมดิบคือเท่าใด และถ้าต้องเก็บไว... |
+| `101024` | mcq | Year 5 | temperature-range, bacterial-growth, enzyme | ช่วงอุณหภูมิใดของน้ำนมที่เหมาะต่อการทำงานของเอ็นไซม์ และทำให... |
+| `101025` | mcq | Year 5 | temperature-quality-table, raw-milk, cooling | ตามตารางความสัมพันธ์ระหว่างอุณหภูมิกับคุณภาพน้ำนม เมื่อเก็บท... |
+| `101026` | mcq | Year 5 | surface-cooling, cooling-method, raw-milk | วิธี Surface cooling ลดอุณหภูมิน้ำนมได้ประมาณเท่าใด และใช้เว... |
+| `101027` | mcq | Year 5 | in-can-cooling, cooling-method, raw-milk | การลดอุณหภูมิน้ำนมแบบ In-can cooling โดยทั่วไปอุณหภูมิน้ำนมจ... |
+| `101028` | mcq | Year 5 | thermatisation, heat-treatment, raw-milk | Thermatisation ที่ใช้รักษาคุณภาพน้ำนมดิบ ใช้อุณหภูมิและเวลาเ... |
+| `101029` | mcq | Year 5 | lactoperoxidase-system, chemical-preservation, raw-milk | Lactoperoxidase system ที่ใช้รักษาคุณภาพน้ำนมดิบ ประกอบด้วยส... |
+| `101030` | mcq | Year 5 | transportation, cold-chain, raw-milk | ข้อกำหนดการขนส่งน้ำนมดิบระบุว่าอุณหภูมิน้ำนมเปลี่ยนแปลงได้ไม... |
+| `101031` | mcq | Year 5 | pasteurization, ltlt-htst, heat-treatment | ข้อใดระบุอุณหภูมิและเวลาของระบบพาสเจอร์ไรซ์ทั้งสองแบบได้ถูกต... |
+| `101032` | mcq | Year 5 | pasteurized-milk, storage-temperature, shelf-life | น้ำนมพาสเจอร์ไรซ์ควรเก็บที่อุณหภูมิใดจึงเหมาะสมที่สุด และเก็... |
+| `101033` | mcq | Year 5 | uht, ultra-pasteurization, heat-treatment | Ultra-pasteurization ที่ใช้ผลิตนม UHT ใช้ความร้อนอย่างไร... |
+| `101034` | mcq | Year 5 | uht, storage-temperature, shelf-life | นม UHT ที่ยังไม่เปิดและที่เปิดแล้ว ควรเก็บรักษาอย่างไร... |
+| `101035` | mcq | Year 5 | sterilized-milk, heat-treatment, spore | นมสเตอริไลส์ (sterilized milk) มีเงื่อนไขความร้อนและผลต่อเชื... |
+| `101036` | mcq | Year 5 | condensed-milk, storage-temperature, shelf-life | นมข้นหวาน (sweetened condensed milk) ที่เปิดกระป๋องแล้วควรเก... |
+| `101037` | mcq | Year 5 | powder-milk, reconstituted-milk, shelf-life | นมผงที่เปิดถุงแล้ว และนมผงที่ผสมน้ำคืนรูปแล้ว (reconstituted... |
+| `101038` | mcq | Year 5 | yogurt, fermented-milk, storage-temperature | นมหมักและโยเกิร์ตควรเก็บที่อุณหภูมิและระยะเวลาเท่าใด... |
+| `101039` | mcq | Year 5 | cheese, shelf-life, dairy-products | อายุการเก็บรักษาของเนยแข็ง (cheese) แต่ละชนิดตามที่บรรยายเป็... |
+| `101040` | mcq | Year 5 | milk-composition, total-solid, raw-milk | ตามสไลด์ องค์ประกอบของน้ำนมโดยน้ำหนักแบ่งเป็นน้ำและ total so... |
+| `101041` | mcq | Year 5 | milk-composition, butter-fat, lactose | ข้อใดระบุปริมาณองค์ประกอบหลัก (major components) ของน้ำนมได้... |
+| `101042` | mcq | Year 5 | milk-protein, casein, whey | โปรตีนในน้ำนมแบ่งเป็น casein และ whey (serum protein) ในสัดส... |
+| `101043` | mcq | Year 5 | casein, milk-protein, ph | ที่ช่วง pH ใด casein จะจับตัวเป็นตะกอน (agglutinate) และแยกอ... |
+| `101044` | mcq | Year 5 | milk-fat, triglyceride, milk-composition | ไขมันในน้ำนมคิดเป็นสัดส่วนเท่าใดของน้ำนม และมี triglyceride ... |
+| `101045` | mcq | Year 5 | lactose, carbohydrate, milk-composition | ข้อใดกล่าวถูกต้องเกี่ยวกับ lactose ในน้ำนม... |
+| `101046` | mcq | Year 5 | milk-minerals, potassium, milk-composition | ตามตัวเลขในสไลด์ แร่ธาตุใดในน้ำนมมีปริมาณสูงที่สุด... |
+| `101047` | mcq | Year 5 | milk-enzymes, lipase, rancidity | ข้อใดจับคู่เอนไซม์ในน้ำนมกับบทบาทได้ถูกต้องตามสไลด์... |
+| `101048` | mcq | Year 5 | cow-vs-human-milk, lactose, milk-composition | ข้อใดเปรียบเทียบองค์ประกอบน้ำนมโคกับน้ำนมคนได้ถูกต้องตามตารา... |
+| `101049` | mcq | Year 5 | tyndall-effect, colloid, physicochemical-property | จากภาพ Tyndall effect ในสไลด์ ข้อใดถูกต้อง... |
+| `101050` | mcq | Year 5 | milk-density, physical-property, specific-gravity | ความถ่วงจำเพาะ (density) ของน้ำนมที่อุณหภูมิ 15.5 องศาเซลเซี... |
+| `101051` | mcq | Year 5 | milk-storage, cold-chain, milk-quality | ตามสไลด์เรื่องปัจจัยที่มีผลต่อองค์ประกอบและคุณภาพน้ำนม กำหนด... |
+| `101052` | mcq | Year 5 | mkc-6003, raw-milk-definition, colostrum | ตามนิยาม น้ำนมโคดิบ ใน มกษ. 6003-2553 น้ำนมต้องรีดจากแม่โคหล... |
+| `101053` | mcq | Year 5 | mkc-6003, freezing-point, specific-gravity | ตามมาตรฐาน มกษ. 6003-2553 จุดเยือกแข็งและความถ่วงจำเพาะของน้... |
+| `101054` | mcq | Year 5 | mkc-6003, somatic-cell, milk-quality | เกณฑ์จำนวนเซลล์โซมาติก (somatic cell) ในน้ำนมโคดิบตามมาตรฐาน... |
+| `101055` | mcq | Year 5 | mkc-6003, milk-protein, solid-not-fat | เกณฑ์องค์ประกอบขั้นต่ำโดยน้ำหนักของน้ำนมโคดิบตาม มกษ. 6003-2... |
+| `101056` | mcq | Year 5 | mkc-6003, standard-plate-count, coliform | ข้อกำหนดด้านจุลินทรีย์ของน้ำนมโคดิบตาม มกษ. 6003-2553 คือข้อ... |
+| `101057` | mcq | Year 5 | moph-350, pasteurization, butterfat | ตามประกาศกระทรวงสาธารณสุข (ฉบับที่ 350) พ.ศ. 2556 นิยามของ น... |
+| `101058` | mcq | Year 5 | mks-6003, raw-milk-definition, colostrum | ตามมาตรฐานสินค้าเกษตร มกษ. 6003-2553 (น้ำนมโคดิบ) น้ำนมต้องร... |
+| `101059` | mcq | Year 5 | mks-6003, alcohol-test, clot-on-boiling | การทดสอบ alcohol test ของน้ำนมโคดิบตาม มกษ. 6003-2553 ใช้ et... |
+| `101060` | mcq | Year 5 | mks-6003, freezing-point, physical-quality | ค่า freezing point ของน้ำนมโคดิบตาม มกษ. 6003-2553 กำหนดไว้อ... |
+| `101061` | mcq | Year 5 | mks-6003, somatic-cell-count, quality-threshold | เกณฑ์ somatic cell count ของน้ำนมโคดิบตาม มกษ. 6003-2553 คือ... |
+| `101062` | mcq | Year 5 | mks-6003, milk-composition, solids-not-fat | ตาม มกษ. 6003-2553 น้ำนมโคดิบต้องมีองค์ประกอบขั้นต่ำเท่าใด... |
+| `101063` | mcq | Year 5 | mks-6003, microbial-standard, coliform | ข้อใดคือมาตรฐานจุลินทรีย์ของน้ำนมโคดิบตาม มกษ. 6003-2553 (SP... |
+| `101064` | mcq | Year 5 | mks-6003, milk-transport, cold-chain | หลังรีดน้ำนมเสร็จ มกษ. 6003-2553 กำหนดให้ปฏิบัติต่อน้ำนมดิบอ... |
+| `101065` | mcq | Year 5 | moph-350, milk-categories, classification | ประกาศกระทรวงสาธารณสุข ฉบับที่ 350 พ.ศ. 2556 (นมโค) ครอบคลุม... |
+| `101066` | mcq | Year 5 | moph-350, pasteurization, milk-definition | ตามประกาศกระทรวงสาธารณสุข ฉบับที่ 350 พ.ศ. 2556 คำว่า น้ำนมโ... |
+| `101067` | mcq | Year 5 | heat-treatment, htst, uht | การฆ่าเชื้อน้ำนมด้วยความร้อนวิธี HTST (high temperature shor... |
+| `101068` | mcq | Year 5 | moph-350, pasteurized-milk, storage-temperature | ประกาศกระทรวงสาธารณสุข ฉบับที่ 350 พ.ศ. 2556 กำหนดการเก็บรัก... |
+| `101069` | mcq | Year 5 | moph-406, coliform, revised-standard | ประกาศกระทรวงสาธารณสุข ฉบับที่ 406 พ.ศ. 2562 แก้ไขเกณฑ์ coli... |
+| `101070` | mcq | Year 5 | milk-sampling, sample-size, bulk-unit | การชักตัวอย่างนมจากหน่วยขนาดใหญ่หรือ bulk unit เช่น milk can... |
+| `101071` | mcq | Year 5 | milk-sampling, sample-preservative, hydrogen-peroxide | การเก็บรักษาตัวอย่างน้ำนมด้วย hydrogen peroxide 35% ต้องใช้ท... |
+| `101072` | mcq | Year 5 | purchase-standard, lactodensimeter, specific-gravity | มาตรฐานการรับซื้อน้ำนมโค พ.ศ. 2558 กำหนดค่าความถ่วงจำเพาะที่... |
+| `101073` | mcq | Year 5 | purchase-standard, milk-pricing, somatic-cell-count | ตามมาตรฐานการรับซื้อน้ำนมโค พ.ศ. 2558 ช่วง somatic cell coun... |
+| `101074` | mcq | Year 5 | milk-ph, growth-medium, milk-microbiology | สไลด์ระบุว่าน้ำนมเป็นอาหารเลี้ยงเชื้อที่ดีของแบคทีเรียส่วนหน... |
+| `101075` | mcq | Year 5 | bacteria-groups, classification, milk-microbiology | สไลด์แบ่งแบคทีเรียในน้ำนมและผลิตภัณฑ์นมออกเป็น 4 กลุ่ม ข้อใด... |
+| `101076` | mcq | Year 5 | intrinsic-extrinsic, growth-factors, milk-microbiology | ปัจจัยที่มีผลต่อการเจริญของจุลินทรีย์ในน้ำนมแบ่งเป็น intrins... |
+| `101077` | mcq | Year 5 | coliform-count, vrba, milk-quality-test | การตรวจ coliform count ในน้ำนมตามสไลด์ใช้วิธีใด และมีนัยสำคั... |
+| `101078` | mcq | Year 5 | somatic-cell-count, udder-health, milk-quality-test | สไลด์เรื่อง somatic cell count (SCC) ระบุค่าที่มีนัยสำคัญต่อ... |
+| `101079` | mcq | Year 5 | indicator-bacteria, total-bacterial-count, safety-indicator | เหตุใด total bacterial count (TBC) จึงใช้เป็น safety indicat... |
+| `101080` | mcq | Year 5 | indicator-bacteria, e-coli, fecal-contamination | ในบรรดา indicator organisms 4 ชนิดที่ใช้กับน้ำนม ข้อใดถูกจัด... |
+| `101081` | mcq | Year 5 | spoilage-bacteria, classification, milk-microbiology | แบคทีเรียที่ทำให้น้ำนมเสื่อมเสียถูกแบ่งเป็น 5 กลุ่มในสไลด์ ข... |
+| `101082` | mcq | Year 5 | psychrotroph, spoilage-bacteria, refrigeration | Psychrotrophic bacteria ตามคำจำกัดความในสไลด์ คือแบคทีเรียที... |
+| `101083` | mcq | Year 5 | spoilage-defects, ropiness, organoleptic | ตามตารางลักษณะการเสื่อมเสียของน้ำนมในสไลด์ ข้อใดจับคู่ลักษณะ... |
+| `101084` | mcq | Year 5 | spoilage-control, cold-chain, raw-milk | มาตรการควบคุม spoilage bacteria ในสไลด์ระบุให้ลดอุณหภูมิน้ำน... |
+| `101085` | mcq | Year 5 | starter-culture, thermophilic-lab, yogurt | Streptococcus thermophilus และ Lactobacillus delbrueckii sub... |
+| `101086` | mcq | Year 5 | contamination-source, udder-flora, milk-borne-pathogens | ตามสไลด์เรื่องแหล่งปนเปื้อนของน้ำนม เชื้อกลุ่มใดที่ระบุว่าพบ... |
+| `101087` | mcq | Year 5 | salmonella, incubation-period, gastroenteritis | ระยะฟักตัว (incubation period) ของการติดเชื้อ Salmonella จาก... |
+| `101088` | mcq | Year 5 | staphylococcus-aureus, enterotoxin, food-poisoning | ข้อใดอธิบายกลไกการเกิด staphylococcal food poisoning (SFP) จ... |
+| `101089` | mcq | Year 5 | bacillus-cereus, emetic-diarrheal, incubation-period | ข้อใดเปรียบเทียบ Bacillus cereus ชนิด emetic กับชนิด diarrhe... |
+| `101090` | mcq | Year 5 | listeria-monocytogenes, listeriosis, incubation-period | ระยะฟักตัวของ listeriosis จากการบริโภคน้ำนมหรือผลิตภัณฑ์นมตา... |
+| `101091` | mcq | Year 5 | cronobacter-sakazakii, infant-formula, neonatal-infection | คำแนะนำในการชงนมผงสำหรับทารก (PIF) เพื่อลดความเสี่ยงจาก Cron... |
+| `101092` | mcq | Year 5 | stec, infective-dose, e-coli-o157 | สไลด์ระบุว่า Shiga toxin-producing E. coli (STEC) มีขนาดเชื้... |
+| `101093` | mcq | Year 5 | hus, e-coli-o157, shiga-toxin | hemolytic uremic syndrome (HUS) ที่เกิดตามหลังการติดเชื้อ EH... |
+| `101094` | mcq | Year 5 | campylobacter, guillain-barre, complications | ภาวะแทรกซ้อนทางระบบประสาทที่เกิดตามหลังการติดเชื้อ Campyloba... |
+| `101095` | mcq | Year 5 | streptococcus-agalactiae, contagious-mastitis, gbs | บทบาทของ Streptococcus agalactiae ในโคนมตามสไลด์คือข้อใด... |
+| `101096` | mcq | Year 5 | mycobacterium-bovis, tuberculin-test, bovine-tb | มาตรการควบคุม Mycobacterium bovis ในฟาร์มโคนมตามสไลด์ใช้การต... |
+| `101097` | mcq | Year 5 | brucella, brucellosis, undulant-fever | ระยะฟักตัวของ brucellosis ในคนที่ติดจากผลิตภัณฑ์นมดิบตามสไลด... |
+| `101098` | mcq | Year 5 | outbreak-investigation, streptococcus-zooepidemicus, raw-milk | จากกรณีศึกษาการระบาดที่เชื่อมโยงกับน้ำนมดิบของฟาร์ม A ผลสรุป... |
+| `101099` | mcq | Year 5 | cdc-data, raw-milk-outbreak, campylobacter | ข้อมูล CDC ช่วงปี 2007-2012 ในสไลด์ระบุว่าเชื้อใดเป็นสาเหตุข... |
+| `101100` | mcq | Year 5 | five-s, quality-system, gmp-foundation | ตามลำดับชั้นของระบบคุณภาพในอุตสาหกรรมนม 5ส ซึ่งเป็นฐานล่างสุ... |
+| `101101` | mcq | Year 5 | tas-6401, milk-collection-center, standard-authority | มาตรฐาน มกษ. 6401(G)-2560 การปฏิบัติที่ดีสำหรับศูนย์รวบรวมน้... |
+| `101102` | mcq | Year 5 | tas-6401, nine-requirements, milk-collection-center | ข้อใดไม่ใช่ข้อกำหนดพื้นฐานของศูนย์รวบรวมน้ำนมดิบตาม มกษ. 640... |
+| `101103` | mcq | Year 5 | raw-milk-reception, delvo-test, methylene-blue | การตรวจรับน้ำนมดิบของศูนย์รวบรวมน้ำนมดิบ ข้อใดคือรายการที่ตร... |
+| `101104` | mcq | Year 5 | raw-milk-reception, temperature-limit, tas-6401 | อุณหภูมิของน้ำนมดิบที่ศูนย์รวบรวมน้ำนมดิบรับเข้าจากสมาชิกหรื... |
+| `101105` | mcq | Year 5 | cooling-tank, plate-heat-exchanger, temperature-limit | กรณีศูนย์รวบรวมน้ำนมดิบลดอุณหภูมิด้วยถังเก็บชนิดมีระบบทำความ... |
+| `101106` | mcq | Year 5 | record-keeping, tas-6401, traceability | ระบบเอกสารและการบันทึกข้อมูลของศูนย์รวบรวมน้ำนมดิบ ข้อ 9.2 ก... |
+| `101107` | mcq | Year 5 | gmp-420, specific-requirement, pasteurized-milk | ข้อกำหนดเฉพาะ (ส่วนที่ 2) ของ GMP 420 ข้อ 2.2 ครอบคลุมการผลิ... |
+| `101108` | mcq | Year 5 | gmp-420, equipment-requirement, work-surface | GMP 420 หมวดที่ 2 ข้อ 2.4 กำหนดให้โต๊ะหรือพื้นผิวปฏิบัติงานท... |
+| `101109` | mcq | Year 5 | gmp-420, record-keeping, self-inspection | GMP 420 หมวดที่ 3 ข้อ 3.12 กำหนดให้เก็บรักษาบันทึกและรายงานไ... |
+| `101110` | mcq | Year 5 | pasteurization, time-temperature, gmp-420 | กระบวนการพาสเจอไรซ์นมโคแบบใช้อุณหภูมิสูงระยะเวลาสั้นตาม GMP ... |
+| `101111` | mcq | Year 5 | pasteurization-efficiency, peroxidase-test, phosphatase-test | โรงงานที่พาสเจอไรซ์นมด้วยอุณหภูมิสูงกว่า 80°C ไม่น้อยกว่า 5 ... |
+| `101112` | mcq | Year 5 | post-pasteurization, cold-chain, recontamination | ข้อ 3.5 การป้องกันการปนเปื้อนซ้ำ กำหนดให้ควบคุมอุณหภูมิผลิตภ... |
+| `101113` | mcq | Year 5 | haccp, twelve-steps, hazard-analysis | ในการนำ HACCP ไปใช้ 12 ขั้นตอน ขั้นตอนใดคือขั้นตอนแรกที่ตรงก... |
+| `101114` | mcq | Year 5 | haccp, decision-tree, ccp | Decision tree ที่ใช้ตัดสินว่าขั้นตอนใดเป็นจุดวิกฤตที่ต้องควบ... |
+| `101115` | mcq | Year 5 | haccp, uht-milk, critical-limit | จากตัวอย่างการผลิตนม UHT ในเดค จุดวิกฤตที่ต้องควบคุมจุดที่ 2... |
+| `101116` | mcq | Year 5 | basic-requirement, dairy-processing, classification | ตามสไลด์ Basic requirement for milk production industry ทั้ง... |
+| `101117` | mcq | Year 5 | standardization, pearsons-square, calculation | จากโจทย์ตัวอย่าง Pearson's square ในสไลด์ ต้องการปรับครีม 23... |
+| `101118` | mcq | Year 5 | homogenization, equipment, number-threshold | ในแผนภาพหัว homogenizer (forcer และ seat) สไลด์ระบุขนาดช่องว... |
+| `101119` | mcq | Year 5 | heat-treatment, thermisation, number-threshold | ตามตาราง heat treatment ในสไลด์ Thermisation ใช้อุณหภูมิและเ... |
+| `101120` | mcq | Year 5 | heat-treatment, ultra-pasteurization, number-threshold | ตามตาราง heat treatment ในสไลด์ Ultra pasteurization ใช้อุณห... |
+| `101121` | mcq | Year 5 | heat-exchanger, tubular, number-threshold | ตารางเปรียบเทียบ heat exchanger ในสไลด์ ระบุอุณหภูมิใช้งานขอ... |
+| `101122` | mcq | Year 5 | evaporation, evaporator-types, classification | ตามการแบ่งชนิดของ evaporator ในสไลด์ ข้อใดจัดอยู่ในกลุ่ม For... |
+| `101123` | mcq | Year 5 | pasteurized-milk, process-flow, thermization | ลำดับกระบวนการผลิตนมพาสเจอร์ไรส์ตามสไลด์ ขั้นตอนใดอยู่ถัดจาก... |
+| `101124` | mcq | Year 5 | pasteurized-milk, holding-tube, number-threshold | ในแผนภาพสายการผลิตนมพาสเจอร์ไรส์ ตำแหน่งหมายเลข 11 สไลด์ระบุ... |
+| `101125` | mcq | Year 5 | uht-milk, storage, number-threshold | การเก็บรักษานม UHT ตามสไลด์ เก็บได้นานเท่าใดและที่อุณหภูมิเท... |
+| `101126` | mcq | Year 5 | uht-milk, process-flow, number-threshold | ในสายการผลิตนม UHT ตามสไลด์ ขั้น Pasteurization ที่อยู่ก่อนข... |
+| `101127` | mcq | Year 5 | milk-powder, process-flow, classification | ลำดับการผลิตนมผงตามสไลด์ ขั้นตอนใดอยู่ระหว่าง Pasteurization... |
+| `101128` | mcq | Year 5 | condensed-milk, composition, number-threshold | ตามส่วนประกอบของนมข้นหวาน (sweetened condensed milk) ในสไลด์... |
+| `101129` | mcq | Year 5 | evaporated-milk, process-flow, sterilization | กระบวนการผลิตนมข้นจืด (evaporated milk) ตามสไลด์ มีลักษณะเด่... |
+| `101130` | mcq | Year 5 | cheese, process-flow, classification | ขั้นตอนการทำชีสตามสไลด์ ขั้นตอนใดอยู่ถัดจาก Acidify milk... |
+| `101131` | mcq | Year 5 | yogurt, starter-culture, mechanism | บทบาทของ Lactobacillus bulgaricus ในการผลิตโยเกิร์ตตามสไลด์ค... |
+| `101132` | mcq | Year 5 | fermented-milk, inoculation, number-threshold | ในขั้น heat treatment ของ fermented milk ตามสไลด์ หลังผ่านคว... |
+| `101133` | mcq | Year 5 | yogurt, cp-meiji, number-threshold | กรณีศึกษาโรงงาน CP-Meiji ระบุการบ่ม stirred yogurt ไว้ที่อุณ... |
+| `101134` | mcq | Year 5 | haccp, ccp, cooling | CCP2 ของโรงงาน CP-Meiji กำหนดให้ลดอุณหภูมิน้ำนมอย่างรวดเร็วห... |
+| `101135` | mcq | Year 5 | cip, cleaning, number-threshold | ขั้น Acid wash ในระบบ CIP ของโรงงานตามสไลด์ ใช้สารเคมี ความเ... |
+
+### วิชา: `one-health` (20 ข้อ)
+| Question ID | Type | Year | Topic/Tags | Text Snippet |
+|---|---|---|---|---|
+| `102000` | mcq | Year 5 | one-health, zoonoses, multi-host-pathogen | จากสไลด์ (AVMA 2008; Gibbs and Gibbs 2012) ในบรรดาโรคของมนุษ... |
+| `102001` | mcq | Year 5 | one-health, overview, classification | ข้อใดไม่ได้ถูกจัดเป็น 1 ใน 8 major One Health issues of vete... |
+| `102002` | mcq | Year 5 | ohzdp, nipah-virus, zoonoses | ตามสไลด์ One Health Zoonotic Disease Prioritization (OHZDP) ... |
+| `102003` | mcq | Year 5 | veterinary-public-health, one-health, classification | ข้อใดไม่ใช่หนึ่งใน 4 บทบาทด้านสาธารณสุข (public health) ของส... |
+| `102004` | mcq | Year 5 | food-safety, farm-to-fork, veterinary-public-health | ตามสไลด์ ความรับผิดชอบด้านอาหารของสัตวแพทย์ประกอบด้วย 3 กิจก... |
+| `102005` | mcq | Year 5 | companion-animals, zoonoses, one-health | ตามสไลด์เรื่อง companion animals สัดส่วนของครัวเรือนในสหรัฐอ... |
+| `102006` | mcq | Year 5 | amr, national-action-plan, antimicrobial-use | แผนปฏิบัติการระดับชาติด้านการดื้อยาต้านจุลชีพของประเทศไทยฉบั... |
+| `102007` | mcq | Year 5 | bioterrorism, surveillance, veterinary-role | ตามสไลด์ บทบาทของสัตวแพทย์ในประเด็นการก่อการร้ายทางชีวภาพ (b... |
+| `102008` | mcq | Year 5 | environmental-pollution, burden-of-disease, one-health | ตามสไลด์ (Barrett et al., 2011) สัดส่วนของ global burden of ... |
+| `102009` | mcq | Year 5 | climate-change, vector-borne-disease, one-health | สไลด์เรื่อง global climate change ระบุว่าอุณหภูมิที่สูงขึ้นแ... |
+| `102010` | mcq | Year 5 | one-health-network, participant-roles, collaboration | ในเครือข่าย Global One Health Activity Network ที่ใช้ในชั้นเ... |
+| `102011` | mcq | Year 5 | reporting-workflow, surveillance, one-health-network | ลำดับขั้นตอนของ communication and reporting workflow ทั้ง 5 ... |
+| `102012` | mcq | Year 5 | surveillance-dashboard, outbreak-detection, data-interpretation | จาก dashboard รายงานสัตว์ป่วยรายสัปดาห์ของ regional node ในส... |
+| `102013` | mcq | Year 5 | regional-case-study, mers-cov, one-health-network | ตามสไลด์กรณีศึกษาระดับภูมิภาค (regional case studies) Middle... |
+| `102014` | mcq | Year 5 | outbreak-simulation, cross-node-exercise, one-health-network | ตามสไลด์ cross-node outbreak simulation การจัดสรรเวลาของ bri... |
+| `102015` | mcq | Year 5 | ethics, equity, one-health-network | ข้อใดไม่ใช่หนึ่งใน 4 ประเด็นด้านจริยธรรมและวัฒนธรรมของเครือข... |
+| `102016` | mcq | Year 5 | priority-zoonoses, rabies, cdc | จากรูป CDC เรื่อง Priority Zoonoses around the Globe ที่ฝังอ... |
+| `102017` | mcq | Year 5 | assessment, course-design, one-health-network | ตามสไลด์การประเมินผล สัดส่วนคะแนนของ case investigation repo... |
+| `102018` | mcq | Year 5 | quadripartite, global-governance, one-health | ตามสไลด์ กรอบความร่วมมือ One Health ระดับโลกที่เรียกว่า Quad... |
+| `102019` | mcq | Year 5 | wahis, woah, disease-reporting | ตามภาพหน้าเว็บไซต์ WOAH ที่ปรากฏในสไลด์ WAHIS (World Animal ... |
+
+### วิชา: `poa-clinical` (42 ข้อ)
 | Question ID | Type | Year | Topic/Tags | Text Snippet |
 |---|---|---|---|---|
 | `8500` | mcq | Year 5 | OSCE, small animal, blood collection, station rubric | OSCE station "การตรวจเลือด" (5 นาที) — ข้อใดเป็นรายการที่ผู้... |
@@ -1661,6 +1892,22 @@ lastReviewed: 2026-07-31
 | `8573` | mcq | Year 5 | repro physiology, recall | ในการเย็บแผล caesarian, การเลือกขนาด syringe + เข็ม ต้องคำนึ... |
 | `8574` | mcq | Year 5 | ALP, biomarker, placental, parturition | ใน reproductive biochemistry ของสุนัขตั้งท้องและคลอด biomark... |
 | `8575` | mcq | Year 5 | labour, parturition stages, canine | ใน canine parturition, Stage 2 (active expulsion) ที่ยาวนานเ... |
+| `105000` | mcq | Year 5 | starling-forces, hydrostatic-pressure, oncotic-pressure | ในแผนภาพ Starling forces ที่ capillary อาจารย์พิมพ์ค่าความดั... |
+| `105001` | mcq | Year 5 | edema-mechanism, classification, four-factors | ตามสไลด์ ปัจจัยที่ทำให้เกิด edema มี 4 ข้อ ข้อใดระบุปัจจัยได... |
+| `105002` | mcq | Year 5 | pulmonary-edema, mechanism, lymphatic-obstruction | ในสไลด์ pulmonary edema อาจารย์กากบาททับกล่องกลไกหนึ่งไว้ หม... |
+| `105003` | mcq | Year 5 | pulmonary-edema, diagnostic-approach, echocardiography | แนวทางการวินิจฉัย pulmonary edema ตามสไลด์ประกอบด้วยขั้นตอนใ... |
+| `105004` | mcq | Year 5 | abdominal-enlargement, seven-fs, classification | abdominal enlargement ตามสไลด์อธิบายด้วย 7 Fs ร่วมกับ organo... |
+| `105005` | mcq | Year 5 | albumin-cutoff, abdominal-effusion, hypoproteinemia | ตามสไลด์ hypoproteinemia จะถูกยอมรับว่าเป็นสาเหตุของ abdomin... |
+| `105006` | mcq | Year 5 | hypoalbuminemia, classification, albumin | สาเหตุของ hypoalbuminemia ตามที่สไลด์แบ่งไว้ 4 กลุ่ม ข้อใดถู... |
+| `105007` | mcq | Year 5 | portal-hypertension, liver-size, differentiation-table | ตารางแยกชนิด portal hypertension ในสไลด์ ระบุขนาดตับ (liver ... |
+| `105008` | mcq | Year 5 | portal-hypertension, effusion-protein, number-threshold | ตามตารางแยกชนิด portal hypertension ค่า protein ในน้ำ effusi... |
+| `105009` | mcq | Year 5 | portal-hypertension, intrahepatic, sinusoidal-levels | intrahepatic portal hypertension ถูกแบ่งเป็น 3 ระดับตามสไลด์... |
+| `105010` | mcq | Year 5 | fluid-analysis, transudate, number-threshold | ตามตารางวิเคราะห์น้ำจากช่องลำตัว ข้อใดคือเกณฑ์ของ transudate... |
+| `105011` | mcq | Year 5 | fluid-analysis, exudate, cytology | septic exudate และ non-septic exudate ต่างกันด้วยเกณฑ์ใดตามต... |
+| `105012` | mcq | Year 5 | chyle, fluid-color, number-threshold | น้ำในช่องลำตัวที่มีลักษณะขาวขุ่นแบบ chyle ตามสไลด์มีเกณฑ์ใด... |
+| `105013` | mcq | Year 5 | case-resolution, heartworm, posthepatic-hypertension | สุนัข American Pittbull อายุ 2 ปีในกรณีศึกษา ตรวจพบ abdomina... |
+| `105014` | mcq | Year 5 | pleural-effusion, vascular-permeability, classification | ตามสไลด์ สาเหตุใดของ pleural effusion ถูกจัดไว้ในกลุ่ม alter... |
+| `105015` | mcq | Year 5 | pericardial-effusion, classification, diagnostic-approach | สาเหตุของ pericardial effusion ที่สไลด์ระบุไว้ 4 ข้อ ข้อใดถู... |
 
 ### วิชา: `poultry` (191 ข้อ)
 | Question ID | Type | Year | Topic/Tags | Text Snippet |
@@ -2930,9 +3177,25 @@ lastReviewed: 2026-07-31
 | `93045` | mcq | Year 4 | wildlife-act, wildlife-remains, carcass-definition, blood-semen | คำว่า 'ซากสัตว์ป่า' ตามพรบ.สงวนและคุ้มครองสัตว์ป่า 2562 หมาย... |
 | `93046` | mcq | Year 4 | wildlife-act, veterinarian-duty, rescue, category-2 | ตามระเบียบกรมอุทยานแห่งชาติสัตว์ป่าและพืช ว่าด้วยการดำเนินกา... |
 
-### วิชา: `zoonoses` (2 ข้อ)
+### วิชา: `zoonoses` (18 ข้อ)
 | Question ID | Type | Year | Topic/Tags | Text Snippet |
 |---|---|---|---|---|
 | `8031` | mcq | Year 5 | zoonosis, public-health, differential | ข้อใดถูกต้อง — เกี่ยวกับ zoonosis... |
 | `8036` | mcq | Year 5 | psittacosis, melioidosis, brucellosis | โรคติดต่อจากคนที่พกพาสัตว์เลี้ยงควรเฝ้าระวังคือ... |
+| `104000` | mcq | Year 5 | study-design, experimental-study, classification | ตามการจำแนกประเภทของ epidemiological study ในบทเรียน experim... |
+| `104001` | mcq | Year 5 | study-design, cross-sectional, descriptive-vs-analytic | study design ใดที่ปรากฏอยู่ทั้งในกลุ่ม descriptive study และ... |
+| `104002` | mcq | Year 5 | rabies, thailand-surveillance, species-distribution | จากข้อมูลเฝ้าระวังโรคพิษสุนัขบ้าในประเทศไทย ปี 2018 สุนัขที่... |
+| `104003` | mcq | Year 5 | rabies, vaccination-status, thailand-surveillance | จากตารางเฝ้าระวังโรคพิษสุนัขบ้าปี 2018 กลุ่มสถานะการได้รับวั... |
+| `104004` | mcq | Year 5 | epidemiologic-triad, environment, classification | ตาม epidemiologic triad ปัจจัยในข้อใดจัดอยู่ในองค์ประกอบ env... |
+| `104005` | mcq | Year 5 | latent-period, incubation-period, communicability | ข้อใดอธิบายความสัมพันธ์ระหว่าง latent period กับ incubation ... |
+| `104006` | mcq | Year 5 | airborne-transmission, droplet, distance-threshold | ในรูปการแพร่เชื้อทางอากาศ ระยะที่กำกับไว้ว่าเป็นจุดสิ้นสุดโซ... |
+| `104007` | mcq | Year 5 | sir-model, reproductive-ratio, calculation | ในโมเดล SIR ค่า reproductive ratio (r) คำนวณจากอะไร และตัวอย... |
+| `104008` | mcq | Year 5 | chain-of-infection, sequence, classification | chain of infection ตามบทเรียนประกอบด้วย 6 ข้อต่อ เรียงลำดับต... |
+| `104009` | mcq | Year 5 | chain-of-infection, reservoir, classification | ในแผนภาพ chain of infection ส่วนที่เป็น reservoir ถูกระบุไว้... |
+| `104010` | mcq | Year 5 | incubation-period, stec, number-threshold | Shiga toxin-producing E. coli มีระยะฟักตัวเฉลี่ยและช่วงต่ำสุ... |
+| `104011` | mcq | Year 5 | case-definition, sensitive-vs-strict, outbreak | ตามหลักการเลือกใช้ case definition ตามวัตถุประสงค์ในบทเรียน ... |
+| `104012` | mcq | Year 5 | outbreak-investigation, ten-steps, sequence | ในขั้นตอนการสอบสวนการระบาด 10 ขั้นตอน ขั้นตอนที่ทำต่อจาก ver... |
+| `104013` | mcq | Year 5 | case-control, study-direction, comparison-group | ข้อใดอธิบายทิศทางการศึกษาและกลุ่มเปรียบเทียบของ case-control... |
+| `104014` | mcq | Year 5 | relative-risk, attributable-risk, cohort-study | ตามบทเรียน attributable risk (AR) คำนวณอย่างไร และ relative ... |
+| `104015` | mcq | Year 5 | genomic-epidemiology, wgs, candida-auris | การใช้ whole-genome sequencing ในโรงพยาบาลที่ Oxford สหราชอา... |
 

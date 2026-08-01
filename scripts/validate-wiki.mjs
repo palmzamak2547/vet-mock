@@ -10,6 +10,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { sectionContentHash } from './lib/wiki-section-hash.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -458,6 +459,8 @@ export function validateQuestionRefs(questions, pages, errors = [], warnings = [
   let candidateCount = 0;
   let unmappedCount = 0;
   const unmappedIds = [];
+  // section key -> question ids citing it whose stamped hash no longer matches
+  const driftedSections = new Map();
 
   for (const q of questions) {
     const qIdStr = `${q.subject || 'unknown'}:${q.id}`;
@@ -485,6 +488,19 @@ export function validateQuestionRefs(questions, pages, errors = [], warnings = [
 
       if (ref.contentHash === null || ref.contentHash === undefined) {
         warnings.push(`Question ${qIdStr} wikiRef to '${ref.pageId}#${ref.anchorId}' has null contentHash`);
+      } else if (pages.has(ref.pageId)) {
+        // A stamped hash makes the citation self-checking: if the section it
+        // points at has been edited since, the question may no longer be
+        // supported by it and a human has to look. Drift is an ERROR, not a
+        // warning — a silently-rotted citation is what this whole mechanism
+        // exists to prevent.
+        const actual = sectionContentHash(pages.get(ref.pageId).content, ref.anchorId);
+        if (actual && actual !== ref.contentHash) {
+          driftedSections.set(
+            `${ref.pageId}#${ref.anchorId}`,
+            (driftedSections.get(`${ref.pageId}#${ref.anchorId}`) || []).concat(qIdStr),
+          );
+        }
       }
 
       if (ref.mappingStatus === 'verified') verifiedCount++;
@@ -493,11 +509,21 @@ export function validateQuestionRefs(questions, pages, errors = [], warnings = [
     }
   }
 
+  // Report drift per SECTION rather than per question — one edited section can
+  // invalidate a dozen citations, and the fix is to re-check that one section.
+  for (const [section, qIds] of driftedSections) {
+    errors.push(
+      `Wiki section '${section}' has changed since ${qIds.length} question(s) cited it `
+      + `[${qIds.slice(0, 8).join(', ')}${qIds.length > 8 ? `, +${qIds.length - 8} more` : ''}]. `
+      + `Re-check that the section still supports them, then re-stamp with: npm run wiki:hashes`,
+    );
+  }
+
   if (unmappedCount > 0) {
     warnings.push(`WARNING: ${unmappedCount} questions have no wikiRefs`);
   }
 
-  return { verifiedCount, candidateCount, unmappedCount, unmappedIds };
+  return { verifiedCount, candidateCount, unmappedCount, unmappedIds, driftedSections };
 }
 
 // Full Runner Function
