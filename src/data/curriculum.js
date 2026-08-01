@@ -1430,6 +1430,7 @@ export const SUBJECTS_BY_YEAR = {
         notes: [
           '📚 มี past papers: FIQC midterm map, [final] mini survival kit FIQC, FIQC อ่านไม่ทันก็ต้องทันจ้า',
           'ℹ️ Aquatic products section "ไม่ออกสอบ" — handout only',
+          '🔒 มีชุดข้อสอบ fiqc-aquatic 16 ข้อ เขียนจาก slide 2569 แล้ว แต่ยังซ่อนไว้ตาม hidden flag ของหัวข้อนี้ ถ้าปีนี้ออกสอบจริงให้เอา hidden: true ออกแล้วข้อสอบจะขึ้นเอง',
         ],
       },
       topics: [
