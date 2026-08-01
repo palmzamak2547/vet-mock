@@ -18,10 +18,12 @@
 // Keyed by topicId → sectionId → { section-level overrides + verified claims }.
 // ============================================================
 
+import { GENERATED_VERIFICATIONS } from './verification-generated.js';
+
 const TODAY = '2026-07-24';
 
 /** @type {Record<string, Record<string, {evidenceStatus?: string, reviewStatus?: string, review?: object, claims?: object[]}>>} */
-export const VERIFICATIONS = {
+const CURATED = {
   'com5--rabies': {
     'com5--rabies--overview': {
       claims: [
@@ -2570,6 +2572,29 @@ export const VERIFICATIONS = {
     },
   },
 };
+
+// Curated overlays and generated ones are merged in CODE, at topic and section
+// level, so a subject that already has hand-verified claims can also receive
+// machine-sourced ones without either silently replacing the other. Appending a
+// duplicate key to a single object literal is last-one-wins, and that already
+// cost three hand-verified rabies claims once.
+function mergeOverlays(base, extra) {
+  const out = { ...base };
+  for (const [topicId, sections] of Object.entries(extra || {})) {
+    const merged = { ...(out[topicId] || {}) };
+    for (const [sectionId, entry] of Object.entries(sections)) {
+      const existing = merged[sectionId];
+      merged[sectionId] = existing
+        ? { ...existing, ...entry, claims: [...(existing.claims || []), ...(entry.claims || [])] }
+        : entry;
+    }
+    out[topicId] = merged;
+  }
+  return out;
+}
+
+/** @type {Record<string, Record<string, object>>} */
+export const VERIFICATIONS = mergeOverlays(CURATED, GENERATED_VERIFICATIONS);
 
 /** Look up the verification overlay for a topic (or empty object). */
 export function verificationFor(topicId) {

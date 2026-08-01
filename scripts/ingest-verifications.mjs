@@ -117,7 +117,18 @@ for (const c of claims) {
     if (r.networkError || !r.ok || !rec) { dropped.push({ c, why: `PMID ${c.pmid} inconclusive` }); continue; }
     if (rec.error) { dropped.push({ c, why: `PMID ${c.pmid} resolves to nothing` }); continue; }
     if (!titlesAgree(c.sourceTitle, rec.title)) { dropped.push({ c, why: `PMID ${c.pmid} is a different paper: "${String(rec.title).slice(0, 60)}"` }); continue; }
-    accepted.push({ ...c, _title: rec.title, _org: rec.source, _year: Number(String(rec.pubdate || '').match(/\d{4}/)?.[0]) || c.year });
+    accepted.push({
+      ...c,
+      _title: rec.title,
+      _org: rec.source,
+      _year: Number(String(rec.pubdate || '').match(/\d{4}/)?.[0]) || c.year,
+      // captured so the source entry can carry a real citation string built
+      // from what the registry returned, rather than one assembled by guesswork
+      _author: rec.sortfirstauthor || rec.authors?.[0]?.name || '',
+      _vol: rec.volume || '',
+      _issue: rec.issue || '',
+      _pages: rec.pages || '',
+    });
     continue;
   }
   if (c.doi) {
@@ -127,7 +138,9 @@ for (const c of claims) {
     if (r.status === 404 || !m) { dropped.push({ c, why: `DOI ${c.doi} resolves to nothing` }); continue; }
     const title = Array.isArray(m.title) ? m.title[0] : m.title;
     if (!titlesAgree(c.sourceTitle, title)) { dropped.push({ c, why: `DOI ${c.doi} is a different work: "${String(title).slice(0, 60)}"` }); continue; }
-    accepted.push({ ...c, _title: title, _org: m['container-title']?.[0] || c.journalOrOrg, _year: m.issued?.['date-parts']?.[0]?.[0] || c.year });
+    const au = m.author?.[0];
+    accepted.push({ ...c, _title: title, _org: m['container-title']?.[0] || c.journalOrOrg, _year: m.issued?.['date-parts']?.[0]?.[0] || c.year,
+      _author: au ? [au.family, au.given].filter(Boolean).join(' ') : '', _vol: m.volume || '', _issue: m.issue || '', _pages: m.page || '' });
     continue;
   }
 
@@ -171,56 +184,101 @@ for (const [id, c] of sources) {
   if (c.doi) srcLines.push(`    doi: '${esc(c.doi)}',`);
   const url = c.url || (c.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${c.pmid}/` : null);
   if (url) srcLines.push(`    url: '${esc(url)}',`);
+  // A citation assembled ONLY from fields the registry actually returned. Any
+  // part the registry did not give is simply omitted rather than guessed, so
+  // the string is always short of the truth and never ahead of it.
+  const vol = [c._vol, c._issue && `(${c._issue})`].filter(Boolean).join('');
+  const volPages = [vol, c._pages].filter(Boolean).join(':');
+  const citation = [c._author, c._title, c._org, c._year && String(c._year)]
+    .filter(Boolean).join('. ')
+    + (volPages ? `;${volPages}` : '')
+    + (c.pmid ? `. PMID: ${c.pmid}` : '')
+    + (c.doi ? `. doi:${c.doi}` : '')
+    + '.';
+  srcLines.push(`    citation: '${esc(citation)}',`);
   srcLines.push(`    availability: '${c._guidelineOnly ? 'named' : 'verified-online'}',`);
   srcLines.push('  },');
 }
 
-// ---- build verification overlay -----------------------------------------
-const byTopic = new Map();
+
+// ---- merge into the generated overlay ------------------------------------
+// Merged in memory and rewritten wholesale, never appended as text. Appending a
+// second 'com5--rabies' key to an object literal is last-one-wins, and doing
+// exactly that silently deleted three hand-verified rabies claims the first
+// time this ran on a subject that already had a curated overlay.
+const GEN_FILE = 'src/lib/vetwiki/verification-generated.js';
+const { GENERATED_VERIFICATIONS: existingGen } =
+  await import(`../src/lib/vetwiki/verification-generated.js?t=${Date.now()}`);
+const gen = JSON.parse(JSON.stringify(existingGen));
+
+const oneLine = (v) => String(v ?? '').replace(/\s+/g, ' ').trim();
+
+let added = 0, updated = 0;
 for (const c of accepted) {
   const tId = `${SUBJECT}--${c.topicId}`;
-  if (!byTopic.has(tId)) byTopic.set(tId, new Map());
-  const m = byTopic.get(tId);
-  if (!m.has(c._sectionId)) m.set(c._sectionId, []);
-  m.get(c._sectionId).push(c);
+  gen[tId] ||= {};
+  gen[tId][c._sectionId] ||= { claims: [] };
+  const claims = gen[tId][c._sectionId].claims;
+  const claim = {
+    id: `${c._sectionId}--v${claims.length + 1}`,
+    statement: oneLine(c.statement),
+    evidenceStatus: c._guidelineOnly ? 'expert-consensus' : 'established',
+    reviewStatus: 'verified',
+    sourceRefs: [{
+      sourceId: c._sourceId,
+      locator: oneLine(c.locator),
+      kind: c.sourceKind || 'primary-literature',
+    }],
+    review: {
+      reviewedBy: 'reference-verified',
+      reviewedAt: TODAY,
+      method: 'reference-cross-check',
+      approvedScopes: ['learning', 'assessment'],
+      rationale: oneLine(c.supportQuote).slice(0, 240),
+    },
+  };
+  // Idempotent: re-ingesting the same claims file updates in place rather than
+  // duplicating, so a re-run after a fix is safe.
+  const at = claims.findIndex((x) => x.statement === claim.statement);
+  if (at === -1) { claims.push(claim); added++; }
+  else { claims[at] = { ...claim, id: claims[at].id }; updated++; }
 }
 
-const vLines = [];
-vLines.push(`  // ${SUBJECT} sourcing pass, ${TODAY} — every identifier resolved against`);
-vLines.push(`  // NCBI/Crossref and title-matched before being written here.`);
-for (const [tId, secs] of byTopic) {
-  vLines.push(`  '${tId}': {`);
-  for (const [sId, cs] of secs) {
-    vLines.push(`    '${sId}': {`);
-    vLines.push('      claims: [');
-    cs.forEach((c, i) => {
-      vLines.push('        {');
-      vLines.push(`          id: '${sId}--v${i + 1}',`);
-      vLines.push(`          statement: '${esc(c.statement)}',`);
-      vLines.push(`          evidenceStatus: '${c._guidelineOnly ? 'expert-consensus' : 'established'}',`);
-      vLines.push("          reviewStatus: 'verified',");
-      vLines.push(`          sourceRefs: [{ sourceId: '${c._sourceId}', locator: '${esc(c.locator || '')}', kind: '${c.sourceKind || 'primary-literature'}' }],`);
-      vLines.push(`          review: { reviewedBy: 'reference-verified', reviewedAt: '${TODAY}', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: '${esc(String(c.supportQuote || '').slice(0, 240))}' },`);
-      vLines.push('        },');
-    });
-    vLines.push('      ],');
-    vLines.push('    },');
-  }
-  vLines.push('  },');
-}
-
-console.log(`\nwould add ${sources.size} source(s), ${byTopic.size} topic(s), ${[...byTopic.values()].reduce((a, m) => a + m.size, 0)} section(s), ${accepted.length} claim(s)`);
+const nTopics = Object.keys(gen).length;
+const nSections = Object.values(gen).reduce((a, t) => a + Object.keys(t).length, 0);
+const nClaims = Object.values(gen).reduce(
+  (a, t) => a + Object.values(t).reduce((b, s) => b + s.claims.length, 0), 0);
+console.log(`\noverlay becomes ${nTopics} topic(s), ${nSections} section(s), ${nClaims} claim(s)`
+  + ` (+${added} new, ${updated} updated); ${sources.size} source(s) referenced`);
 
 if (!WRITE) { console.log('\n(dry run — pass --write to merge)'); process.exit(0); }
 
-const spliceInto = (file, block, label) => {
-  let s = fs.readFileSync(file, 'utf8');
-  const at = s.lastIndexOf('\n};');
-  if (at === -1) throw new Error(`could not find the end of the exported object in ${file}`);
-  s = `${s.slice(0, at)}\n\n${label}\n${block}${s.slice(at)}`;
-  fs.writeFileSync(file, s);
-};
+const header = fs.readFileSync(GEN_FILE, 'utf8').split('/** @type')[0];
+fs.writeFileSync(GEN_FILE,
+  `${header}/** @type {Record<string, Record<string, {claims: object[]}>>} */\n`
+  + `export const GENERATED_VERIFICATIONS = ${JSON.stringify(gen, null, 2)};\n\n`
+  + 'export default GENERATED_VERIFICATIONS;\n');
 
-spliceInto('src/lib/vetwiki/sources.js', srcLines.join('\n'), `  // ---- ${SUBJECT} sourcing pass, ${TODAY} ----`);
-spliceInto('src/lib/vetwiki/verification.js', vLines.join('\n'), '');
-console.log('\n✅ merged into sources.js and verification.js');
+// sources.js is keyed by a unique source id, so appending genuinely NEW ids is
+// safe. Ids already present are skipped rather than re-appended, which would
+// create the same last-one-wins duplicate problem in that file.
+const sourcesText = fs.readFileSync('src/lib/vetwiki/sources.js', 'utf8');
+const fresh = [...sources.keys()].filter((id) => !sourcesText.includes(`'${id}': {`));
+
+if (fresh.length) {
+  const keep = [];
+  let emitting = false;
+  for (const line of srcLines) {
+    const m = line.match(/^ {2}'([^']+)': \{$/);
+    if (m) emitting = fresh.includes(m[1]);
+    if (emitting) keep.push(line);
+    if (line === '  },') emitting = false;
+  }
+  const at = sourcesText.lastIndexOf('\n};');
+  if (at === -1) throw new Error('could not find the end of SOURCES');
+  fs.writeFileSync('src/lib/vetwiki/sources.js',
+    `${sourcesText.slice(0, at)}\n\n  // ---- ${SUBJECT} sourcing pass, ${TODAY} ----\n`
+    + `${keep.join('\n')}${sourcesText.slice(at)}`);
+}
+
+console.log(`\n✅ overlay rewritten; ${fresh.length} new source(s) appended`);
