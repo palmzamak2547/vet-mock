@@ -12,6 +12,10 @@ import { NOTES_CLIAPPRUM } from '../data/notes-cliapprum.js';
 // sections source-cited to slide pages 1-3. Deep body content marked
 // 🚧 รอเติม per IRON RULE 0 (no fabrication of medicine).
 import { NOTES_Y5_ZOONOSES } from '../data/notes-y5-zoonoses.js';
+import { NOTES_Y5_EPIDEMIOLOGY } from '../data/notes-y5-epidemiology.js';
+import { NOTES_Y5_ONE_HEALTH } from '../data/notes-y5-one-health.js';
+import { NOTES_Y5_FIQC } from '../data/notes-y5-fiqc.js';
+import { NOTES_Y5_POA } from '../data/notes-y5-poa.js';
 import { NOTES_Y5_MILK_MEAT_HYGIENE } from '../data/notes-y5-milk-meat-hygiene.js';
 import { NOTES_Y5_EQUINE_MEDICINE } from '../data/notes-y5-equine-medicine.js';
 import { SUBJECTS } from '../data/curriculum.js';
@@ -47,6 +51,11 @@ const NOTES_BY_SUBJECT = {
   zoonoses: NOTES_Y5_ZOONOSES,
   'milk-meat-hygiene': NOTES_Y5_MILK_MEAT_HYGIENE,
   'equine-medicine': NOTES_Y5_EQUINE_MEDICINE,
+  // Y5 term-1 midterm subjects, written from the 2569 lecture decks
+  epidemiology: NOTES_Y5_EPIDEMIOLOGY,
+  'one-health': NOTES_Y5_ONE_HEALTH,
+  'food-industry': NOTES_Y5_FIQC,
+  'poa-clinical': NOTES_Y5_POA,
 };
 
 // Walk a section's structured body and collect all searchable text

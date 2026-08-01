@@ -23,6 +23,10 @@ import { NOTES_CLIAPPRUM } from '../../data/notes-cliapprum.js';
 import { NOTES_Y5_ZOONOSES } from '../../data/notes-y5-zoonoses.js';
 import { NOTES_Y5_MILK_MEAT_HYGIENE } from '../../data/notes-y5-milk-meat-hygiene.js';
 import { NOTES_Y5_EQUINE_MEDICINE } from '../../data/notes-y5-equine-medicine.js';
+import { NOTES_Y5_EPIDEMIOLOGY } from '../../data/notes-y5-epidemiology.js';
+import { NOTES_Y5_ONE_HEALTH } from '../../data/notes-y5-one-health.js';
+import { NOTES_Y5_FIQC } from '../../data/notes-y5-fiqc.js';
+import { NOTES_Y5_POA } from '../../data/notes-y5-poa.js';
 import { noteToKnowledge, verifiedClaimCount } from './adapter.js';
 import { validateTopic } from './validate.js';
 import { resolveSource } from './sources.js';
@@ -43,6 +47,10 @@ const NOTES_BY_SUBJECT = {
   zoonoses: NOTES_Y5_ZOONOSES,
   'milk-meat-hygiene': NOTES_Y5_MILK_MEAT_HYGIENE,
   'equine-medicine': NOTES_Y5_EQUINE_MEDICINE,
+  epidemiology: NOTES_Y5_EPIDEMIOLOGY,
+  'one-health': NOTES_Y5_ONE_HEALTH,
+  'food-industry': NOTES_Y5_FIQC,
+  'poa-clinical': NOTES_Y5_POA,
 };
 
 const FLAGSHIP = 'com5--rabies';
