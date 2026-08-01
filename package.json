@@ -36,7 +36,9 @@
     "test": "npm run test:unit && npm run test:e2e",
     "stats": "node scripts/stats.mjs",
     "prerender:wiki": "node scripts/prerender-wiki.mjs",
-    "wiki:hashes": "node scripts/backfill-wiki-hashes.mjs --write"
+    "wiki:hashes": "node scripts/backfill-wiki-hashes.mjs --write",
+    "verify:sources": "node scripts/verify-wiki-sources.mjs",
+    "wiki:coverage": "node scripts/wiki-coverage.mjs"
   },
   "browserslist": [
     "defaults",

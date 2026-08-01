@@ -26,8 +26,15 @@
  * @property {string} [edition]
  * @property {string} [citation]     human-readable full citation
  * @property {string} [url]          ONLY when verified
+ * @property {string} [pmid]         PubMed id — resolved live by verify:sources
+ * @property {string} [doi]          DOI — resolved live against Crossref by verify:sources
  * @property {'verified-online'|'named'} availability
  */
+//
+// Prefer a `pmid` or `doi` over a bare `url`. An identifier can be resolved
+// against a registry and compared with the title we registered, so
+// `npm run verify:sources` can PROVE the source is the work we say it is. A
+// url can only be checked for reachability, and many publishers block bots.
 
 /** @type {Record<string, Source>} */
 export const SOURCES = {
@@ -48,7 +55,9 @@ export const SOURCES = {
     kind: 'primary-literature',
     year: 2005,
     citation: 'Tepsumethanon V, Wilde H, Meslin FX. Six criteria for rabies diagnosis in living dogs. J Med Assoc Thai. 2005;88(3):419-22.',
-    availability: 'verified-online', // citation + sens 90.2% / spec 96.2% confirmed
+    pmid: '15962654',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/15962654/',
+    availability: 'verified-online', // PubMed abstract states 90.2% sens / 96.2% spec / 94.6% accuracy
   },
   'wsava-2024': {
     id: 'wsava-2024',
