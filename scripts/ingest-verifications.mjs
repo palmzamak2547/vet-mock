@@ -144,14 +144,23 @@ for (const c of claims) {
     continue;
   }
 
-  // Guideline with no machine-resolvable identifier. Allowed, but recorded as
-  // expert-consensus rather than established, and its source is 'named' so
-  // verify:sources never claims to have proved it.
-  if (c.sourceKind === 'guideline' && c.sourceTitle) {
+  // A guideline or a textbook with no machine-resolvable identifier. Allowed,
+  // but recorded as expert-consensus rather than established, and its source is
+  // 'named' so verify:sources never claims to have proved it.
+  //
+  // Textbooks were dropped outright until now, which was the wrong trade. The
+  // reference works this corpus actually rests on — the WOAH Terrestrial
+  // Manual, CDC's Principles of Epidemiology, Thrusfield — mostly carry no DOI,
+  // so refusing them threw away the best available source and pushed a sourcing
+  // pass toward whatever weaker paper happened to have an identifier. A named
+  // book with a title, publisher and locator is something a reader can go and
+  // check; that is the bar. It is still marked as unproved, which is the part
+  // that matters.
+  if ((c.sourceKind === 'guideline' || c.sourceKind === 'textbook') && c.sourceTitle) {
     accepted.push({ ...c, _title: c.sourceTitle, _org: c.journalOrOrg, _year: c.year, _guidelineOnly: true });
     continue;
   }
-  dropped.push({ c, why: 'no pmid, doi, or named guideline' });
+  dropped.push({ c, why: 'no pmid, doi, and not a named guideline or textbook' });
 }
 
 console.log(`accepted : ${accepted.length}`);

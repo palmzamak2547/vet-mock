@@ -26530,6 +26530,8694 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     }
+  },
+  "epidemiology--epidem-causation": {
+    "epidemiology--epidem-causation--ระบาดวิทยาศึกษาอะไร-introduction": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--ระบาดวิทยาศึกษาอะไร-introduction--v1",
+          "statement": "ระบาดวิทยา (epidemiology) นิยามว่าเป็นการศึกษา distribution และ determinants ของภาวะที่เกี่ยวข้องกับสุขภาพในประชากรที่ระบุไว้ และการนำผลการศึกษานั้นไปใช้ควบคุมปัญหาสุขภาพ โดย determinants หมายถึงสาเหตุและปัจจัยอื่นที่มีผลต่อการเกิดโรค ซึ่งตรงกับที่สไลด์ระบุว่าระบาดวิทยาศึกษา causes and determinants เพื่อป้องกันและควบคุมโรค",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2011",
+              "locator": "Lesson 1, Section 1: Definition of Epidemiology",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Epidemiology is the study of the distribution and determinants of health-related states or events in specified populations, and the application of this study to the control of health problems."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--ลำดับขั้นจากการสังเกตไปสู่การทดสอบสมมติฐาน": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--ลำดับขั้นจากการสังเกตไปสู่การทดสอบสมมติฐาน--v1",
+          "statement": "Descriptive epidemiology ใช้สร้างสมมติฐาน (hypothesis generation) แต่แทบไม่สามารถใช้ทดสอบสมมติฐานได้ ต้องอาศัย analytic epidemiology ซึ่งมีลักษณะสำคัญคือมี comparison group จึงจะทดสอบสมมติฐานได้ ตรงกับลำดับ Descriptive study ไปสู่ aetiological hypothesis ไปสู่ analytical/experimental studies บนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2011",
+              "locator": "Lesson 1, Sections 6-7: Descriptive Epidemiology and Analytic Epidemiology",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Epidemiologists can use descriptive epidemiology to generate hypotheses, but only rarely to test those hypotheses. For that, epidemiologists must turn to analytic epidemiology. The key feature of analytic epidemiology is a comparison group."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--association-และการวัดด้วย-correlation": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--association-และการวัดด้วย-correlation--v1",
+          "statement": "ค่า correlation coefficient ถูกปรับสเกลให้อยู่ในช่วง -1 ถึง +1 โดยค่า 0 หมายถึงไม่มีความสัมพันธ์ ค่าบวกคือสองตัวแปรเปลี่ยนไปในทิศทางเดียวกัน ค่าลบคือเปลี่ยนไปในทิศทางตรงข้าม และความสัมพันธ์แข็งแรงขึ้นเมื่อค่าสัมบูรณ์เข้าใกล้ 1 ตรงกับ scatter plot 5 แบบ (1, 0.3, 0, -0.3, -1) บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29481436",
+              "locator": "126(5):1763-1768, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Both correlation coefficients are scaled such that they range from -1 to +1, where 0 indicates that there is no linear or monotonic association, and the relationship gets stronger and ultimately approaches a straight line as the coefficient"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--association-ไม่เท่ากับ-causation": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--association-ไม่เท่ากับ-causation--v1",
+          "statement": "Bradford Hill ระบุชัดว่าไม่มีข้อพิจารณาใดในเก้าข้อของเขาที่ให้หลักฐานชี้ขาดได้ว่าเป็นหรือไม่เป็นเหตุ ประเด็นแท้จริงคือต้องถามว่ามีคำอธิบายอื่นของข้อมูลชุดนี้ที่เป็นไปได้เท่ากันหรือมากกว่าคำอธิบายแบบเหตุและผลหรือไม่ ซึ่งสนับสนุนหลักที่ว่าการพบ association ไม่ได้แปลว่าสิ่งหนึ่งเป็นสาเหตุของอีกสิ่ง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14283879",
+              "locator": "58(5):295-300, concluding section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "None of my nine viewpoints can bring indisputable evidence for or against the cause-and-effect hypothesis and none can be required as a sine qua non."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--causation-และนิยามของ-cause": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--causation-และนิยามของ-cause--v1",
+          "statement": "ในแบบจำลอง sufficient-component cause แต่ละกลไกก่อโรค (sufficient cause) ประกอบด้วยหลาย component causes ที่เมื่อครบทั้งชุดจึงทำให้เกิดโรค และไม่มี component ใดเพียงอย่างเดียวที่เพียงพอจะก่อโรคได้ สอดคล้องกับที่สไลด์นิยาม cause ว่าเป็น event, condition หรือ characteristic หรือการรวมกันของสิ่งเหล่านี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16030331",
+              "locator": "95(Suppl 1):S144-S150, abstract and sufficient-component cause model section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A model of causation that describes causes in terms of sufficient causes and their component causes illuminates important principles such as multi-causality, the dependence of the strength of component causes on the prevalence of complement"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--ชนิดของ-association-type-of-association": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--ชนิดของ-association-type-of-association--v1",
+          "statement": "การแยกแยะระหว่าง spurious association, indirect association และ causal association เป็นเรื่องยากในงานวิจัยเชิงสังเกต ซึ่งยืนยันการแบ่งชนิดของ association เป็นสามกลุ่มตามที่สไลด์ใช้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11812579",
+              "locator": "359(9302):248-252, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Differentiation between spurious, indirect, and causal associations can be difficult."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--spurious-association-ความสัมพันธ์ลวง": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--spurious-association-ความสัมพันธ์ลวง--v1",
+          "statement": "Selection bias เกิดจากการที่กลุ่มที่นำมาเปรียบเทียบกันไม่มีความเทียบเคียงกัน (absence of comparability between groups) และ bias เหล่านี้สามารถให้ผลที่มีนัยสำคัญทางสถิติสูงแต่เป็นผลลวงได้ ซึ่งเป็นคำอธิบายเชิงหลักการของตัวอย่างบนสไลด์ที่นำ mortality ของโรงพยาบาลรับส่งต่อ (5%) มาเทียบกับคลินิกเล็ก (2%) โดยสองกลุ่มไม่ได้มีความรุนแรงของโรคเทียบเคียงกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11812579",
+              "locator": "359(9302):248-252, abstract and selection bias section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Selection bias stems from an absence of comparability between groups being studied... these biases can account for highly significant, though bogus results."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--indirect-association": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--indirect-association--v1",
+          "statement": "Confounding คือการปนกันหรือพร่ามัวของผล (mixing or blurring of effects) โดยผู้วิจัยพยายามเชื่อม exposure กับ outcome แต่จริงแล้ววัดผลของตัวแปรที่สาม (confounding variable) และควบคุมได้ด้วย restriction, matching, stratification หรือวิธี multivariate ตรงกับแผนภาพเส้นประบนสไลด์ที่แสดงว่าความสัมพันธ์ระหว่าง suspected factor กับ outcome ไม่ใช่ความสัมพันธ์เชิงสาเหตุจริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11812579",
+              "locator": "359(9302):248-252, confounding section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Confounding is a mixing or blurring of effects: a researcher attempts to relate an exposure to an outcome but actually measures the effect of a third factor (the confounding variable)."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--confounding-factor-และตัวอย่างแมวเลี้ยงในบ้านกับ-ckd": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--confounding-factor-และตัวอย่างแมวเลี้ยงในบ้านกับ-ckd--v1",
+          "statement": "ในแมว ความเสี่ยงต่อ chronic kidney disease เพิ่มขึ้นตามอายุ ยืนยันแขนของแผนภาพที่ว่า Age ไปยัง CKD จริง จึงทำให้ age มีคุณสมบัติเป็น confounder ได้เมื่อ age สัมพันธ์กับ suspected factor ด้วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29504859",
+              "locator": "252(6):710-720, Results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Risk of CKD increased with age."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-causation--confounding-factor-และตัวอย่างแมวเลี้ยงในบ้านกับ-ckd--v2",
+          "statement": "งานวิจัย case-control ของปัจจัยเสี่ยงต่อ CKD ในแมวใช้ age-matched control cats จำนวนเท่ากับกลุ่มป่วย (1,230 ต่อ 1,230) เพื่อคุมอิทธิพลของอายุตั้งแต่ขั้นออกแบบ ซึ่งเป็นตัวอย่างจริงของการจัดการ confounder ตามที่สไลด์อธิบาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24432964",
+              "locator": "244(3):320-327, Animals and Procedures",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "1,230 cats with a clinical diagnosis of CKD... and 1,230 age-matched control cats."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--koch-s-postulates-germ-theory-disease-และข้อจำกัด": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--koch-s-postulates-germ-theory-disease-และข้อจำกัด--v1",
+          "statement": "Koch's postulates กำหนดว่าเชื้อต้องพบในสัตว์ป่วย เพาะแยกได้เป็น pure culture ทำให้เกิดโรคเดิมเมื่อใส่กลับเข้าโฮสต์ที่แข็งแรง และเพาะแยกกลับมาได้จากสัตว์ที่ถูกทำให้ติดเชื้อ แต่เชื้อก่อโรคที่ fastidious หรือเพาะเลี้ยงไม่ได้ต้านทานการนำ postulates ดั้งเดิมมาใช้ จึงต้องมีการทบทวนเกณฑ์ใหม่ ตรงกับที่สไลด์ระบุว่าแบบจำลองนี้ไม่เหมาะกับหลายโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-8665474",
+              "locator": "9(1):18-33, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Techniques such as in situ hybridization, PCR, and representational difference analysis reveal previously uncharacterized, fastidious or uncultivated, microbial pathogens that resist the application of Koch's original postulates."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-causation--koch-s-postulates-germ-theory-disease-และข้อจำกัด--v2",
+          "statement": "Porcine respiratory disease complex (PRDC) เป็น polymicrobial และ multifactorial โดยเกิดจากการติดเชื้อร่วมกันหลายชนิด ได้แก่ PRRSV, swine influenza virus, PCV2, Mycoplasma hyopneumoniae และ Pasteurella multocida ร่วมกับสภาพแวดล้อม ขนาดประชากรสัตว์ และการจัดการฟาร์ม สนับสนุนตัวอย่างบนสไลด์ ทั้งนี้ชื่อที่ใช้ในวรรณกรรมคือ porcine respiratory disease complex ไม่ใช่ swine respiratory disease complex ตามที่สไลด์เขียน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22152290",
+              "locator": "12(2):133-148, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "PRDC is polymicrobial in nature, and results from infection with various combinations of primary and secondary respiratory pathogens. As a true multifactorial disease, environmental conditions, population size, management strategies and pig"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--direct-association-แบบ-multifactorial-causation": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--direct-association-แบบ-multifactorial-causation--v1",
+          "statement": "แบบจำลอง sufficient-component cause อธิบายหลักการ multi-causality และ interaction ระหว่าง component causes ได้โดยตรง ซึ่งสนับสนุนแนวคิดบนสไลด์ที่ว่าโรคสมัยใหม่มีมากกว่าหนึ่งปัจจัยเข้ามาเกี่ยวข้องใน web of causation",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16030331",
+              "locator": "95(Suppl 1):S144-S150, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "important principles such as multi-causality... and interaction between component causes"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--web-of-causation-ของโรคในสัตว์": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--web-of-causation-ของโรคในสัตว์--v1",
+          "statement": "ไม่มี component cause ตัวใดเพียงตัวเดียวที่เพียงพอต่อการก่อโรค โรคเกิดเมื่อ component causes ครบชุดเป็น sufficient cause ซึ่งสนับสนุนข้อความบนแผนภาพว่า No single cause acts alone",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16030331",
+              "locator": "95(Suppl 1):S144-S150, sufficient-component cause model",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "No one of these components or factors alone is adequate to produce disease."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-causation--web-of-causation-ของโรคในสัตว์--v2",
+          "statement": "ในโรคทางเดินหายใจของสุกร ผลลัพธ์ของโรคขึ้นกับปฏิสัมพันธ์ระหว่างเชื้อก่อโรคหลายชนิด สภาพแวดล้อม ขนาดประชากรสัตว์ กลยุทธ์การจัดการ และปัจจัยของตัวสัตว์เอง เช่น อายุและพันธุกรรม ซึ่งเป็นตัวอย่างจริงของกล่องปัจจัย INFECTIOUS AGENT, HOST, ENVIRONMENT, MANAGEMENT PRACTICES และ POPULATION บนแผนภาพ web of causation",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22152290",
+              "locator": "12(2):133-148, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "environmental conditions, population size, management strategies and pig-specific factors such as age and genetics also play critical roles in the outcome of PRDC"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--guideline-to-assess-causality-the-bradford-hill-criteria": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--guideline-to-assess-causality-the-bradford-hill-criteria--v1",
+          "statement": "Bradford Hill เสนอข้อพิจารณาเก้าข้อในปี 1965 ได้แก่ strength, consistency, specificity, temporality, biological gradient, plausibility, coherence, experiment และ analogy ตรงกับวงล้อเก้าวงบนสไลด์ โดยข้อที่สไลด์เรียกว่า Dose-response relationship คือข้อที่ Hill ใช้หัวข้อว่า biological gradient",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14283879",
+              "locator": "58(5):295-300, the nine section headings",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Hill describes nine criteria: strength, consistency, specificity, temporality, biological gradient, plausibility, coherence, experiment, and analogy."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--เกณฑ์ที่-1-strength": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--เกณฑ์ที่-1-strength--v1",
+          "statement": "Hill เตือนว่าความสัมพันธ์ที่อ่อนไม่ได้ตัดความเป็นเหตุออกไป เพราะหลายปัจจัยก่อโรคเฉพาะในบางส่วนของผู้ที่สัมผัสปัจจัยนั้น ตรงกับข้อความบนสไลด์ที่ว่า a small association does not mean that there is no causal effect",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14283879",
+              "locator": "58(5):295-300, section 1 Strength",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Weak correlations do not rule out causation, since many factors cause disease in only a portion of those exposed to them."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--relative-risk-rr": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--relative-risk-rr--v1",
+          "statement": "Risk ratio หรือ relative risk คืออัตราส่วนของความน่าจะเป็นที่จะเกิดเหตุการณ์ระหว่างกลุ่ม exposed กับกลุ่ม unexposed โดยค่าเท่ากับ 1.0 หมายถึงไม่มีความสัมพันธ์ มากกว่า 1.0 หมายถึงความเสี่ยงเพิ่มขึ้น และน้อยกว่า 1.0 หมายถึงความเสี่ยงลดลง ตรงกับสูตรและการแปลผลบนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32321148",
+              "locator": "46(2):e20200137",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The RR is the ratio of probabilities of an event occurring between exposed and unexposed groups... values of 1.0 indicate no association, values greater than 1.0 suggest increased risk, and values less than 1.0 indicate decreased risk."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-causation--relative-risk-rr--v2",
+          "statement": "RR คำนวณได้เฉพาะเมื่อประมาณ incidence หรือ prevalence ของ outcome ได้ เช่นใน cohort study ส่วนใน case-control study ที่ประมาณอุบัติการณ์ไม่ได้ ต้องใช้ odds ratio แทน สไลด์เสนอ RR และ OR เป็นทางเลือกวัด effect size โดยไม่ระบุเงื่อนไขของรูปแบบการศึกษานี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32321148",
+              "locator": "46(2):e20200137",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The OR is utilized to estimate risk in case-control studies, where the prevalence/incidence of the outcome cannot be estimated."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--odds-ratio-or": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--odds-ratio-or--v1",
+          "statement": "Odds ratio คำนวณจากตาราง 2x2 เป็นอัตราส่วนของ odds ระหว่างสองกลุ่ม โดยค่าเท่ากับ 1 หมายถึงไม่มีความสัมพันธ์ และ odds ratio ให้ค่าเท่ากันไม่ว่าจะอ่านตารางในทิศทางใด ต่างจากผลต่างและอัตราส่วนของสัดส่วนที่ไม่มีคุณสมบัตินี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10827061",
+              "locator": "320(7247):1468",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The odds ratio is 1 when there is no relationship... the odds ratio is the same whichever way round we look at the table, but the difference and ratio of proportions are not."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-causation--odds-ratio-or--v2",
+          "statement": "OR ประมาณค่า RR ได้ใกล้เคียงเฉพาะเมื่อ outcome เกิดไม่บ่อย โดยระดับการประเมินเกินจริงจะเล็กน้อยเมื่อ outcome เกิดในน้อยกว่าประมาณร้อยละ 10 ของผู้เข้าร่วม สไลด์ไม่ได้กล่าวถึงข้อจำกัดนี้ขณะนำเสนอ OR คู่กับ RR",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32321148",
+              "locator": "46(2):e20200137",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the degree of overestimation is negligible in studies in which the outcome of interest occurs rarely (typically in < 10% of the participants)"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--เกณฑ์ที่-2-dose-response-relationship": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--เกณฑ์ที่-2-dose-response-relationship--v1",
+          "statement": "การทดลองให้โคกินสมองบดที่ติดเชื้อ BSE ในหลายระดับขนาด แสดง dose-response ชัดเจน โดยทั้ง attack rate และความยาวของ incubation period ขึ้นกับขนาดที่ได้รับ เป็นหลักฐานเชิงทดลองทางสัตวแพทย์ที่สนับสนุนเกณฑ์ dose-response บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23217206",
+              "locator": "5:674, Conclusions",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Oral exposure of cattle to a large range of doses of a BSE brainstem homogenate produced disease in all dose groups... The attack rate and incubation period were dependent on the dose."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--เกณฑ์ที่-3-temporality": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--เกณฑ์ที่-3-temporality--v1",
+          "statement": "ช่วงเวลาระหว่างการติดเชื้อกับการแสดงอาการแปรผันกว้างมากและขึ้นกับสายพันธุ์ของเชื้อ ชนิดสัตว์ ตัวสัตว์แต่ละตัว และตำแหน่งที่เชื้อเข้าสู่ร่างกาย เช่นในโรคพิษสุนัขบ้าที่ระยะฟักตัวแปรผันตั้งแต่หลายวันถึงหลายเดือน สนับสนุนข้อความบนสไลด์ที่ว่า length of interval between exposure and disease may vary a lot",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2025",
+              "locator": "Rabies disease page, incubation period and FAQ",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The period before clinical signs appear in an infected animal can vary from several days to several months depending on the strain of virus, the species, the individual and the point of entry in the body."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-causation--เกณฑ์ที่-3-temporality--v2",
+          "statement": "การทบทวนอย่างเป็นระบบและ meta-analysis ของ serotype O foot-and-mouth disease virus จากสัตว์ทดลอง 295 ตัวใน 4 ห้องปฏิบัติการอ้างอิง ประมาณค่า incubation period เฉลี่ยอยู่ที่ 5.5 ถึง 6.6 วัน ซึ่งอยู่ภายในช่วง 2 ถึง 10 วันที่สไลด์ระบุ และแปรผันตามเส้นทางการสัมผัส ชนิดสัตว์ และสายพันธุ์ไวรัส",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20205988",
+              "locator": "41(4):45, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Latent, subclinical, incubation, and infectious periods ranged from 3.1 to 4.8, 2 to 2.3, 5.5 to 6.6, and 3.3 to 5.7 days, respectively."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--เกณฑ์ที่-4-specificity": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--เกณฑ์ที่-4-specificity--v1",
+          "statement": "Hill เตือนไม่ให้ให้น้ำหนักกับ specificity มากเกินไป เพราะปัจจัยหนึ่งอาจดูเหมือนก่อโรคหลายโรค และโรคหนึ่งอาจมีหลายสาเหตุ การขาด specificity จึงไม่ได้ปฏิเสธความเป็นเหตุ ตรงกับข้อความบนสไลด์ว่า Lack of specificity does not negate causation",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14283879",
+              "locator": "58(5):295-300, section 3 Specificity",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Hill warns against overemphasis on specificity, as factors may seem to cause multiple diseases and multiple causes per disease are possible."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--เกณฑ์ที่-5-consistency": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--เกณฑ์ที่-5-consistency--v1",
+          "statement": "Hill ระบุว่าการที่ผลการศึกษาปรากฏซ้ำในคนหลายกลุ่ม หลายสถานที่ และหลายช่วงเวลา ทำให้ความน่าจะเป็นของการมีผลจริงเพิ่มขึ้น ตรงกับนิยาม consistency บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14283879",
+              "locator": "58(5):295-300, section 2 Consistency",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Consistency asks whether the association has been repeatedly observed in many people and at many different times and places."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-causation--เกณฑ์ที่-5-consistency--v2",
+          "statement": "งานสร้างแบบจำลองในเนเธอร์แลนด์พบว่าจำนวนฟาร์มแบบเลี้ยงปล่อยนอกโรงเรือนที่เพิ่มขึ้นทำให้ความเสี่ยงการนำเชื้อ HPAI เข้าฟาร์มและขนาดการระบาดเพิ่มขึ้น โดยฟาร์มไก่ไข่แบบปล่อยนอกโรงเรือนมีส่วนต่อความเสี่ยงมากกว่าฟาร์มไก่เนื้อ สนับสนุนข้อความบนสไลด์ที่ว่าฝูงสัตว์ที่เลี้ยงนอกโรงเรือนมีความเสี่ยงต่อการรับเชื้อ HPAI สูงกว่าฝูงที่เลี้ยงในโรงเรือน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42094844",
+              "locator": "22:101424, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The increasing number of outdoor farms increased the introduction risk of HPAI and HPAI epidemic size (number of affected farms), with outdoor layer farms contributing more substantially to the risk than outdoor broiler farms."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--เกณฑ์ที่-6-biological-plausibility-และเกณฑ์ที่-7-coherence": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--เกณฑ์ที่-6-biological-plausibility-และเกณฑ์ที่-7-coherence--v1",
+          "statement": "Hill ถือว่า biological plausibility ไม่ใช่สิ่งจำเป็น และเตือนไม่ให้ปัดความสัมพันธ์ทิ้งเพียงเพราะยังไม่มีคำอธิบายเชิงกลไกในความรู้วิทยาศาสตร์ปัจจุบัน ส่วน coherence คือข้อมูลต้องไม่ขัดกับความรู้ที่มีอยู่เกี่ยวกับโรคนั้น ตรงกับข้อความบนสไลด์ที่ว่าการขาด plausibility และ coherence ถูกจำกัดด้วยความรู้ในขณะนั้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14283879",
+              "locator": "58(5):295-300, sections 6 Plausibility and 7 Coherence",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Hill considers plausibility not essential and warns against dismissing relationships that lack a current scientific explanation."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--เมื่อความรู้ปัจจุบันจำกัด-plausibility-กรณี-bse-และ-prion": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--เมื่อความรู้ปัจจุบันจำกัด-plausibility-กรณี-bse-และ-prion--v1",
+          "statement": "ในปี 1982 มีการเสนอคำว่า prion สำหรับอนุภาคติดเชื้อขนาดเล็กที่เป็นโปรตีน ซึ่งทนต่อกระบวนการที่ทำลายกรดนิวคลีอิก และมีคุณสมบัติแตกต่างจากไวรัส พลาสมิด และไวรอยด์ ยืนยันข้อความบนสไลด์ว่าการค้นพบ prion เปลี่ยนความเข้าใจเรื่องกลไกการเกิดโรค และทำให้สิ่งที่เคยดู biologically implausible กลายเป็นสิ่งที่อธิบายได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-6801762",
+              "locator": "216(4542):136-144, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Because the novel properties of the scrapie agent distinguish it from viruses, plasmids, and viroids, a new term prion is proposed to denote a small proteinaceous infectious particle which is resistant to inactivation by most procedures tha"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--เกณฑ์ที่-8-experiment-และเกณฑ์ที่-9-analogy": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--เกณฑ์ที่-8-experiment-และเกณฑ์ที่-9-analogy--v1",
+          "statement": "Hill ระบุว่าหลักฐานเชิงทดลองเมื่อมีอยู่จะเพิ่มความน่าเชื่อถือของข้อสรุปเชิงสาเหตุ แต่ในบริบทอาชีวเวชศาสตร์มักทำไม่ได้บ่อยนัก ส่วน analogy คือการอาศัยความสัมพันธ์เหตุและผลที่เคยยืนยันแล้วในสถานการณ์หรือการสัมผัสที่คล้ายกัน ตรงกับนิยามสั้นทั้งสองข้อบนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14283879",
+              "locator": "58(5):295-300, sections 8 Experiment and 9 Analogy",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Experimental evidence demonstrating cause and effect gains validity, though Hill notes this rarely applies to occupational settings; analogy extends results from one case to similar cases."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--decision-tree-ของ-causal-inference": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--decision-tree-ของ-causal-inference--v1",
+          "statement": "คำอธิบายทางเลือกที่ต้องตัดออกก่อนสรุปความเป็นเหตุ ได้แก่ selection bias, information bias, confounding และ chance ซึ่งครอบคลุมขั้นตอน chance, bias และ confounding ในแผนภาพ decision tree บนสไลด์ แต่แหล่งอ้างอิงแยก bias ออกเป็น selection bias และ information bias อย่างชัดเจน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11812579",
+              "locator": "359(9302):248-252, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "selection bias, information bias, and confounding are present to some degree in all observational research... If a reader cannot explain away study results on the basis of selection, information, or confounding bias, then chance might be an"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--สรุป-conclusion": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--สรุป-conclusion--v1",
+          "statement": "การตัดสินว่า association เป็นความสัมพันธ์เชิงสาเหตุหรือไม่ต้องอาศัยการถามว่ามีคำอธิบายอื่นที่เป็นไปได้เท่ากันหรือมากกว่าหรือไม่ ไม่ใช่การอนุมานจากการพบความสัมพันธ์เพียงอย่างเดียว สนับสนุนข้อสรุปบนสไลด์ที่ว่า association does not imply causation",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14283879",
+              "locator": "58(5):295-300, concluding section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "What they can do, with greater or less strength, is to help us to make up our minds on the fundamental question - is there any other way of explaining the set of facts before us, is there any other answer equally, or more, likely than cause"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-causation--สรุป-conclusion--v2",
+          "statement": "ระบาดวิทยาไม่ได้หยุดที่การวิจัย แต่ขยายไปสู่การปฏิบัติในชุมชน โดยนักระบาดวิทยาใช้วิธีการทางวิทยาศาสตร์ร่วมกับประสบการณ์และวิจารณญาณเพื่อวินิจฉัยสภาวะสุขภาพของชุมชนและเสนอมาตรการควบคุมและป้องกันโรค สนับสนุนข้อสรุปบนสไลด์ที่ว่า causal inference สำคัญต่อการออกแบบการป้องกันและควบคุมโรค",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2011",
+              "locator": "Lesson 1, Section 1: Definition of Epidemiology",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Epidemiologists combine scientific methods with experience and judgment to diagnose community health conditions and propose interventions to control and prevent disease in the community."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--direct-association-แบบ-one-to-one-causal-association": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--direct-association-แบบ-one-to-one-causal-association--v1",
+          "statement": "ความสัมพันธ์แบบ one-to-one คือการที่ exposure หนึ่งตัวจับคู่กับ outcome เพียงหนึ่งเดียว ซึ่งเป็นนิยามเดียวกับเกณฑ์ specificity of the association ในชุดเกณฑ์ของ Bradford Hill",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-health-knowledge-uk-fa-2018",
+              "locator": "Public Health Textbook > Research Methods > 1a Epidemiology > Association and Causation, Bradford Hill criteria, criterion 'Specificity'",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Specificity - There is a one-to-one relationship between the exposure and outcome."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-causation--direct-association-แบบ-one-to-one-causal-association--v2",
+          "statement": "แบบจำลองสาเหตุเดียวต่อผลเดียว (epidemiologic triad ที่มี agent จำเป็นเพียงตัวเดียว) ใช้อธิบายโรคได้ดีหลายโรค แต่ไม่เพียงพอสำหรับโรคหัวใจและหลอดเลือด มะเร็ง และโรคอื่นที่ดูจะมีหลายปัจจัยร่วมกันโดยไม่มีปัจจัยจำเป็นเพียงตัวเดียว ดังนั้น one-to-one จึงเป็นรูปแบบส่วนน้อย ไม่ใช่รูปแบบทั่วไปของการเกิดโรค",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2006",
+              "locator": "Lesson 1, Section 8: Concepts of Disease Occurrence (Third Edition 2006, updated 2012)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "While the epidemiologic triad serves as a useful model for many diseases, it has proven inadequate for cardiovascular disease, cancer, and other diseases that appear to have multiple contributing causes without a single necessary one."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-causation--causal-inference-คืออะไร": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-causation--causal-inference-คืออะไร--v1",
+          "statement": "causal inference คือกระบวนการสรุปว่าความสัมพันธ์ที่พบมีลักษณะเป็นเหตุ-ผลหรือไม่ ซึ่งตรงกับสไลด์ แต่แหล่งอ้างอิงเน้นว่าเป็นกระบวนการที่ซับซ้อน ได้ข้อสรุปแบบชั่วคราว (tentative) และมีความเป็นอัตวิสัย (subjective) ไม่ใช่ข้อสรุปที่ตายตัว",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-health-knowledge-uk-fa-2018",
+              "locator": "Public Health Textbook > Research Methods > 1a Epidemiology > Association and Causation, closing paragraph on inferring causality",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The process of causal inference is complex and arriving at a tentative inference of a causal or non-causal nature of an association is a subjective process."
+          }
+        }
+      ]
+    }
+  },
+  "epidemiology--epidem-disease-transmission": {
+    "epidemiology--epidem-disease-transmission--เปิดเรื่อง-ทำไมต้องรู้ว่าโรคแพร่อย่างไร": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--เปิดเรื่อง-ทำไมต้องรู้ว่าโรคแพร่อย่างไร--v1",
+          "statement": "ความสำเร็จของมาตรการควบคุมโรคแบบ reactive (ตรวจพบเคสแล้วแยก กำจัด หรือรักษาเคสและสัตว์ที่สัมผัส) ขึ้นกับสัดส่วนของการแพร่เชื้อที่เกิดขึ้นก่อนสัตว์แสดงอาการ จึงตอบคำถามหน้างานไม่ได้ถ้าไม่รู้กลไกและจังหวะเวลาการแพร่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21551063",
+              "locator": "Abstract, opening sentences",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Control of many infectious diseases relies on the detection of clinical cases and the isolation, removal, or treatment of cases and their contacts. The success of such \"reactive\" strategies is influenced by the fraction of transmission occu"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ตัวอย่าง-epidemiological-triad-3-โรค-fmd-rabies-avian-influenza": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ตัวอย่าง-epidemiological-triad-3-โรค-fmd-rabies-avian-influenza--v1",
+          "statement": "Foot and mouth disease เป็นโรคไวรัสที่ติดต่อได้ง่ายในสัตว์กีบคู่ (cloven-hoofed animals) ซึ่งครอบคลุมโค แพะ แกะ และสุกร ตามที่สไลด์ระบุไว้ในช่อง Host",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35632750",
+              "locator": "Abstract, first sentence",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The primary transmission route for foot-and-mouth disease (FMD), a contagious viral disease of cloven-hoofed animals, is by direct contact with infected animals."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--incubation-period-ของแต่ละโรคต่างกันมาก-ตาราง": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--incubation-period-ของแต่ละโรคต่างกันมาก-ตาราง--v1",
+          "statement": "ระยะฟักตัวของโรคพิษสุนัขบ้าโดยทั่วไปอยู่ที่ 2-3 เดือน แต่แปรผันได้ตั้งแต่ 1 สัปดาห์ถึง 1 ปี ขึ้นกับตำแหน่งที่เชื้อเข้าสู่ร่างกายและปริมาณเชื้อ สอดคล้องกับที่สไลด์ระบุว่าเป็นสัปดาห์ถึงเดือน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-health-organizat-2024",
+              "locator": "Symptoms section",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The incubation period for rabies is typically 2–3 months but may vary from one week to one year, depending on factors such as the location of virus entry and the viral load."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--incubation-period-ของแต่ละโรคต่างกันมาก-ตาราง--v2",
+          "statement": "Johne's disease (paratuberculosis จาก Mycobacterium avium subsp. paratuberculosis) มีระยะฟักตัวยาวมาก อาการทางคลินิกปรากฏหลังผ่านไปหลายปี และบางรายไม่ถูกตรวจพบเลยเพราะอยู่ในระยะ subclinical สอดคล้องกับ months to years บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33553289",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The long incubation period means clinical signs are visible in animals only after years, and some cases remain undetected because of the subclinical manifestation of the disease."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--incubation-period-ของแต่ละโรคต่างกันมาก-ตาราง--v3",
+          "statement": "ในโคที่ติดเชื้อ FMD จากการทดลอง โคส่วนใหญ่ (ร้อยละ 71) เริ่มแสดงอาการทางคลินิกที่ 3-4 วันหลังติดเชื้อ ซึ่งอยู่ในช่วง 2-14 วันที่สไลด์ระบุไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23822567",
+              "locator": "Abstract, Results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For the majority of animals (71%), the onset of clinical signs occurred 3-4 days post infection."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--susceptible-host-ปัจจัยด้านตัวสัตว์-age-breed-sex-genetics": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--susceptible-host-ปัจจัยด้านตัวสัตว์-age-breed-sex-genetics--v1",
+          "statement": "ความไวรับต่อเห็บของโคต่างกันตามสายพันธุ์และถ่ายทอดทางพันธุกรรมได้ โดยโคกลุ่ม Bos taurus มีจำนวนเห็บบนตัวสูงกว่าโคกลุ่ม Bos indicus สนับสนุนข้อความบนสไลด์เรื่อง breed และ tick resistance",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32732984",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cattle breeds present heritable, contrasting phenotypes of tick loads, taurine breeds carrying higher loads of the parasite than indicine breeds."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--susceptible-host-ภูมิคุ้มกัน-passive-active-immunosuppression": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--susceptible-host-ภูมิคุ้มกัน-passive-active-immunosuppression--v1",
+          "statement": "ภูมิคุ้มกันแบบ passive ขึ้นกับปริมาณ คุณภาพ และจังหวะเวลาของนมน้ำเหลือง โดยลูกโคที่ได้รับ colostrum ไม่พอจะเกิด failure of transfer of passive immunity ซึ่งสัมพันธ์กับความเสี่ยงป่วยและตายที่สูงขึ้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33799858",
+              "locator": "Simple Summary and Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Failure of transfer of passive immunity (FTPI) due to inadequate ingestion of colostral immunoglobulins by calves is associated with increased mortality and morbidity risks. Feeding calves a sufficient amount of quality-tested colostrum wit"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--susceptible-host-ภูมิคุ้มกัน-passive-active-immunosuppression--v2",
+          "statement": "การติดเชื้อ BVDV มีฤทธิ์กดภูมิคุ้มกันและทำให้สัตว์ไวรับต่อการติดเชื้อแทรกซ้อนตัวอื่น เช่น BHV-1 และ PI-3V สนับสนุนตัวอย่าง BVD in cow ในหัวข้อ immunosuppression บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15005546",
+              "locator": "Abstract, conclusions",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The present study suggested that the immunosuppressive effect of BVDV had predisposed the animals to secondary infection with BHV-1 and PI-3V."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--herd-immunity-ภูมิคุ้มกันหมู่": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--herd-immunity-ภูมิคุ้มกันหมู่--v1",
+          "statement": "สไลด์บอกเพียงว่าต้องมากพอโดยไม่ระบุตัวเลข แต่ค่า sufficient percentage นี้คำนวณได้จาก R0 เช่น เมื่อประมาณ R0 ของ varicella ได้ 5.67 ระดับความครอบคลุมวัคซีนที่ต้องการเพื่อให้ถึง herd immunity threshold คือมากกว่าร้อยละ 82.4",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33829948",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Therefore, to reach the herd immunity threshold, the critical vaccine coverage should be greater than 82.4% with a perfect vaccine, or the primary vaccine failure proportion should be less than 17.6% with 100% coverage."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--herd-immunity-ภูมิคุ้มกันหมู่--v2",
+          "statement": "หลักการ herd immunity คือเมื่อสัดส่วนของประชากรที่ต้านทานเชื้อสูงพอ สัตว์กลุ่มน้อยที่ยังไวรับจะได้รับการปกป้องไปด้วย เพราะเชื้อมีโอกาสน้อยที่จะไปเจอตัวที่ยังไวรับ ตรงกับภาพ 3 สถานการณ์บนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2012",
+              "locator": "Lesson 1, Section 10: Chain of Infection, herd immunity",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "If a high enough proportion of individuals in a population are resistant to an agent, then those few who are susceptible will be protected by the resistant majority, since the pathogen will be unlikely to 'find' those few susceptible indivi"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--susceptible-host-ปัจจัยด้านการผลิต-production-factors": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--susceptible-host-ปัจจัยด้านการผลิต-production-factors--v1",
+          "statement": "Transition period ของโคนมนิยามว่าคือช่วง 3 สัปดาห์ก่อนถึง 3 สัปดาห์หลังคลอด และเป็นช่วงที่ปัญหาสุขภาพส่วนใหญ่เกิดขึ้น ตรงกับที่สไลด์ระบุว่าเป็นหน้าต่างความเสี่ยงสูงสุด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10575597",
+              "locator": "Abstract, first two sentences",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The transition period, from 3 wk before to 3 wk after parturition, is critically important to health, production, and profitability of dairy cows. Most health disorders occur during this time."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--infectious-agent-infective-dose-threshold-level-id50": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--infectious-agent-infective-dose-threshold-level-id50--v1",
+          "statement": "แนวคิด infective dose มีค่าจริงที่วัดได้และต่ำมากในบางโรค เช่น FMDV ต้องการเพียงประมาณ 10 TCID50 ก็เริ่มการติดเชื้อในสัตว์เคี้ยวเอื้องที่ไวรับได้ สนับสนุนแนวคิด threshold level บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35632750",
+              "locator": "Section 4.1 Susceptibility to Airborne Infection",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "as little as 10 TCID50 is required to initiate an infection in susceptible ruminants"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ตัวอย่าง-host-range-influenza-viruses-แยกตามชนิดสัตว์": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ตัวอย่าง-host-range-influenza-viruses-แยกตามชนิดสัตว์--v1",
+          "statement": "Influenza D virus มี host range ครอบคลุมสุกร โค สัตว์เคี้ยวเอื้องขนาดเล็ก และคน และมีหลักฐานทางซีรัมว่าม้าก็ไวรับเช่นกัน สอดคล้องกับวงของ Influenza D บนสไลด์ที่รวม Horse, Cattle, Sheep, Goat และมี Man กับ Pig อยู่ตรงกลาง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29139222",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the full range of susceptible hosts for this novel virus has yet to be determined, but includes swine, bovine, small ruminants and human ... Our data demonstrated that horses are susceptible to two lineages of IDV"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--infectious-agent-transmissibility": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--infectious-agent-transmissibility--v1",
+          "statement": "การแพร่เชื้อทางอากาศของ FMDV เป็นเหตุการณ์ที่ต้องมีปัจจัยหลายอย่างมาบรรจบกัน ได้แก่ ปริมาณเชื้อที่สัตว์ปล่อยออกมา การรอดชีวิตของเชื้อในสภาพแวดล้อมต่างกัน และระยะทางที่ละอองเดินทางไปได้ ตรงกับรายการปัจจัยที่กำหนด transmissibility บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35632750",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "it is important to understand the nature of foot-and-mouth disease virus (FMDV) within aerosols; how aerosols are generated, viral load, how far aerosols could travel and survive under different conditions."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--basic-reproduction-number-r0": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--basic-reproduction-number-r0--v1",
+          "statement": "R0 คือจำนวนเคสรุ่นถัดไปที่เกิดจากผู้ป่วยหนึ่งรายในประชากรที่ไวรับทั้งหมด และการระบาดจะดำเนินต่อเมื่อ R0 มากกว่า 1 และจะสงบลงเมื่อ R0 น้อยกว่า 1 ตรงกับกฎ 3 ข้อบนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30560777",
+              "locator": "Introduction",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the number of secondary cases one case would produce in a completely susceptible population ... an outbreak is expected to continue if R0 has a value >1 and to end if R0 is <1"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--reservoir-แหล่งรังโรค": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--reservoir-แหล่งรังโรค--v1",
+          "statement": "ค้างคาวเป็นแหล่งรังโรคของไวรัสหลายชนิดที่ก่อโรคอุบัติใหม่ในคน และการถ่ายทอด Nipah, Hendra, SARS coronavirus และ Ebola ไปสู่คนมักผ่านสัตว์ตัวกลางที่ขยายจำนวนเชื้อ เช่น สุกร ม้า ชะมด และไพรเมต ตรงกับแผนภาพ Spillover 1 และ Spillover 2 บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17042030",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The transmission of Nipah, Hendra and perhaps SARS coronavirus and Ebola virus to humans may involve intermediate amplification hosts such as pigs, horses, civets and primates, respectively."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ชนิดของ-carrier-ชุดที่-2-asymptomatic-healthy-และ-chronic": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ชนิดของ-carrier-ชุดที่-2-asymptomatic-healthy-และ-chronic--v1",
+          "statement": "ลูกโค persistently infected จาก BVDV เป็นตัวอย่างของ chronic carrier ที่ชัดเจน คือปล่อยเชื้อออกทางสารคัดหลั่งและสิ่งขับถ่ายตลอดชีวิต และเป็นเส้นทางการแพร่เชื้อหลักของโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24053990",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "PI animals shed BVDV in their excretions and secretions throughout life and are the primary route of transmission of the virus."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ตัวอย่าง-chronic-carrier-ลูกโค-persistently-infected-จาก-bvd": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ตัวอย่าง-chronic-carrier-ลูกโค-persistently-infected-จาก-bvd--v1",
+          "statement": "การที่แม่โคติดเชื้อ BVDV ระหว่างตั้งท้องทำให้ลูกในท้องติดเชื้อ ซึ่งอาจจบลงด้วยตัวอ่อนตาย ความผิดปกติแต่กำเนิด หรือการเกิดลูกโคที่เป็น persistently infected ตรงกับลำดับเหตุการณ์ A ถึง C บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24053990",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infection of the dam during gestation results in fetal infection, which may lead to embryonic death, teratogenic effects or the birth of persistently infected (PI) calves."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--direct-transmission-venereal-และ-vertical": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--direct-transmission-venereal-และ-vertical--v1",
+          "statement": "เชื้อหลายชนิดถ่ายทอดผ่านน้ำเชื้อโคได้จริง ทั้งจากการผสมจริงและจากการผสมเทียมด้วยน้ำเชื้อแช่แข็ง รวมถึง bovine herpesvirus 1, BVDV, bovine leukemia virus, FMDV และ Brucella abortus จึงต้องมีมาตรการตรวจพ่อพันธุ์ ตรงกับที่สไลด์ระบุว่าติดต่อผ่าน AI ได้ถ้าน้ำเชื้อผู้ให้ติดเชื้อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29665869",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The potential for transmission through bovine semen and corresponding effective control procedures are described for bovine herpesvirus 1, bovine viral diarrhea virus, bovine leukemia virus, lumpy skin disease virus, bluetongue virus, foot-"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--direct-transmission-venereal-และ-vertical--v2",
+          "statement": "Canine transmissible venereal tumour แพร่ระหว่างสุนัขโดยการถ่ายโอนเซลล์มะเร็งที่ยังมีชีวิตแบบ allogeneic ระหว่างการผสมพันธุ์ ซึ่งเป็นการแพร่ทาง venereal ที่ไม่ได้เกิดจากเชื้อโรค แต่เป็นตัวเซลล์มะเร็งเอง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25867244",
+              "locator": "Abstract, first sentence",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The canine transmissible venereal tumour (CTVT) is a transmissible cancer that is spread between dogs by the allogeneic transfer of living cancer cells during coitus."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--indirect-transmission-vehicle-transmission": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--indirect-transmission-vehicle-transmission--v1",
+          "statement": "อุปกรณ์รีดนมทำหน้าที่เป็น fomite จริง โดยฟาร์มที่ไม่ใช้น้ำร้อนล้างเครื่องรีดนมและยางรีดนมมีโอกาสพบ Staphylococcus aureus หรือ coliform ในน้ำนมรวมสูงกว่าอย่างน้อย 3.4 เท่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26719295",
+              "locator": "Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "on herds not using hot water for cleaning the milking machine and teat liners, there was at least 3.4 more odds (P < 0.01) to have S. aureus or coliform bacteria contamination in BTM"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--indirect-transmission-vector-borne-mechanical-vs-biological-vect": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--indirect-transmission-vector-borne-mechanical-vs-biological-vect--v1",
+          "statement": "ในพาหะแบบชีวภาพ เชื้อต้องเพิ่มจำนวนและกระจายตัวในตัวพาหะก่อน จึงมี extrinsic incubation period ที่ขึ้นกับอุณหภูมิ โดยในริ้น Culicoides ไวรัสกลุ่ม orbivirus มีอัตราการเพิ่มจำนวนราว 0.017-0.021 ต่อองศาวัน และต้องการอุณหภูมิต่ำสุดราว 11-13 องศาเซลเซียสจึงจะเพิ่มจำนวนได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22125649",
+              "locator": "Abstract, Results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Both the rate of virus replication (approximately 0.017-0.021 per degree-day) and the minimum temperature required for replication (11-13°C), however, were generally consistent for different orbiviruses and across different Culicoides vecto"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ตัวอย่าง-airborne-การพัดพาละอองเชื้อ-fmd-ระยะไกล": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ตัวอย่าง-airborne-การพัดพาละอองเชื้อ-fmd-ระยะไกล--v1",
+          "statement": "ตัวเลขบนสไลด์ตรงกับแหล่งอ้างอิง คือ FMDV แพร่ทางอากาศได้ไกลถึงราว 50 กิโลเมตรทางบกและ 200 กิโลเมตรทางน้ำ สภาวะที่เหมาะกับการรอดของไวรัสคือความชื้นสัมพัทธ์มากกว่าร้อยละ 55 และสุกรที่ติดเชื้อปล่อยไวรัสออกมามากกว่าแกะหรือโคถึง 100-1000 เท่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35632750",
+              "locator": "Section 1 (FMDV Transmission) and Section 4.2 (Virus Emissions from Infected Animals)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Airborne transmission has also been implicated in the spread of disease over both long (considered to be up to 50 km over land and 200 km over water) ... Ideal conditions for virus survival are temperatures below 50 °C, relative humidity ab"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--ตัวอย่าง-airborne-การพัดพาละอองเชื้อ-fmd-ระยะไกล--v2",
+          "statement": "ลำดับความไวรับต่อการติดเชื้อ FMD ทางอากาศคือโคไวรับมากที่สุด รองมาเป็นแกะ ส่วนสุกรต้านทานมาก ซึ่งตรงข้ามกับลำดับการปล่อยเชื้อที่สุกรปล่อยมากที่สุด สนับสนุนข้อ (i) และ (iv) บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12523697",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Pigs emit most virus, cattle and sheep lesser but similar amounts to each other ... Cattle are the most susceptible, followed by sheep, whereas pigs are very resistant."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--จับคู่-mode-of-transmission-กับ-control-measure-ตาราง": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--จับคู่-mode-of-transmission-กับ-control-measure-ตาราง--v1",
+          "statement": "มาตรการ milking order ที่สไลด์จัดไว้ในแถว Fomite / vehicle มีหลักฐานสนับสนุนจากภาคสนาม คือฟาร์มที่ไม่รีดโคที่เป็นเต้านมอักเสบเป็นลำดับสุดท้ายมีโอกาสพบ Staphylococcus aureus ในน้ำนมรวมสูงกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26719295",
+              "locator": "Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The likelihood of finding S. aureus in BTM was higher (P < 0.001) on herds without high hygiene during milking, when milking mastitic cows at the end, on abrupt cessation of milking at dry-off, and official milk control implementation."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--biosecurity-in-practice-internal-และ-external": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--biosecurity-in-practice-internal-และ-external--v1",
+          "statement": "การแบ่ง biosecurity เป็น internal และ external ตามที่สไลด์ระบุถูกใช้จริงในการประเมินฟาร์ม โดย internal biosecurity หมายถึงมาตรการด้านการจัดการภายในฟาร์ม ส่วน external biosecurity หมายถึงการแยกส่วน (segregation) และการทำความสะอาดฆ่าเชื้อเพื่อกันเชื้อเข้าฟาร์ม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31027714",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "biosecurity practices help to prevent the introduction and spread of disease-causing infectious agents ... the results demonstrated that biosecurity practices related to management (internal biosecurity) are adopted with higher frequency co"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--epidemiological-triad-สามเหลี่ยมการเกิดโรค": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--epidemiological-triad-สามเหลี่ยมการเกิดโรค--v1",
+          "statement": "คำว่า agent ในสามเหลี่ยมการเกิดโรคเดิมหมายถึงจุลชีพก่อโรคเท่านั้น แต่ต่อมาขยายความหมายให้ครอบคลุมสาเหตุทางเคมีและทางกายภาพด้วย ตรงกับที่สไลด์ระบุว่า agent ไม่ได้แปลว่าเชื้อโรคอย่างเดียว",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2012",
+              "locator": "Lesson 1, Section 8: Concepts of Disease Occurrence, Epidemiologic Triad",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Agent originally referred to an infectious microorganism or pathogen: a virus, bacterium, parasite, or other microbe. The concept has been broadened to include chemical and physical causes of disease."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--epidemiological-triad-สามเหลี่ยมการเกิดโรค--v2",
+          "statement": "Environment ในสามเหลี่ยมหมายถึงปัจจัยภายนอกที่มีผลต่อ agent และต่อโอกาสสัมผัสโรค ครอบคลุมทั้งปัจจัยกายภาพ (ภูมิอากาศ) ปัจจัยชีวภาพ (แมลงพาหะ) และปัจจัยเศรษฐกิจสังคม เช่น ความแออัดและสุขาภิบาล ตรงกับรายการบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2012",
+              "locator": "Lesson 1, Section 8: Concepts of Disease Occurrence, Epidemiologic Triad",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Environmental factors include physical factors such as geology and climate, biologic factors such as insects that transmit the agent, and socioeconomic factors such as crowding, sanitation, and the availability of health services."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--natural-history-of-disease-4-ระยะของโรคในสัตว์-1-ตัว": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--natural-history-of-disease-4-ระยะของโรคในสัตว์-1-ตัว--v1",
+          "statement": "Natural history of disease คือการดำเนินไปของกระบวนการโรคในสัตว์รายตัวตามเวลาโดยไม่ได้รับการรักษา และการวินิจฉัยส่วนใหญ่เกิดขึ้นในระยะ clinical disease หลังอาการปรากฏแล้ว ตรงกับตำแหน่งลูกศร Usual time of diagnosis บนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2012",
+              "locator": "Lesson 1, Section 9: Natural History and Spectrum of Disease",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the progression of a disease process in an individual over time, in the absence of treatment ... The onset of symptoms marks the transition from subclinical to clinical disease. Most diagnoses are made during the stage of clinical disease."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ใช้-incubation-period-ในการสอบสวนโรค-outbreak-investigation": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ใช้-incubation-period-ในการสอบสวนโรค-outbreak-investigation--v1",
+          "statement": "การหาช่วงเวลาที่น่าจะเกิด exposure จาก epidemic curve ทำโดยนับย้อนจากยอดกราฟไปหนึ่งค่าเฉลี่ยระยะฟักตัว และนับย้อนจากเคสแรกไปหนึ่งค่าระยะฟักตัวต่ำสุด สองวันที่ได้จะใกล้เคียงกันและคือช่วง exposure ที่น่าจะเป็น",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2012",
+              "locator": "Lesson 6, Section 2: Describing the Outbreak (epidemic curve, period of exposure)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Identify the peak of the outbreak or the median case and count back on the x-axis one average incubation period ... Start at the earliest case of the epidemic and count back the minimum incubation period, and note this date as well ... the "
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--chain-of-infection-ข้อต่อทั้ง-6-ของวงจรการติดเชื้อ": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--chain-of-infection-ข้อต่อทั้ง-6-ของวงจรการติดเชื้อ--v1",
+          "statement": "Reservoir คือแหล่งอาศัยที่เชื้อดำรงชีวิต เจริญ และเพิ่มจำนวนตามปกติ ส่วน portal of exit คือทางที่เชื้อออกจากโฮสต์ และ portal of entry คือทางที่เชื้อเข้าสู่โฮสต์ที่ไวรับ ตรงกับข้อต่อบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2012",
+              "locator": "Lesson 1, Section 10: Chain of Infection",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the habitat in which the agent normally lives, grows, and multiplies ... the path by which a pathogen leaves its host ... the manner in which a pathogen enters a susceptible host"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--mode-of-transmission-ภาพรวม-direct-และ-indirect": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--mode-of-transmission-ภาพรวม-direct-และ-indirect--v1",
+          "statement": "Indirect transmission นิยามว่าคือการส่งผ่านเชื้อจาก reservoir ไปยังโฮสต์โดยผ่านตัวกลาง ได้แก่ อนุภาคที่ลอยในอากาศ วัตถุไม่มีชีวิต (vehicles) หรือสิ่งมีชีวิตที่เป็นพาหะ (vectors) ตรงกับการแบ่ง 3 กลุ่มบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2012",
+              "locator": "Lesson 1, Section 10: Chain of Infection, Modes of transmission",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the transfer of an infectious agent from a reservoir to a host by suspended air particles, inanimate objects (vehicles), or animate intermediaries (vectors)"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--indirect-transmission-airborne": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--indirect-transmission-airborne--v1",
+          "statement": "Airborne transmission นิยามว่าเกิดเมื่อเชื้อถูกพัดพาไปกับฝุ่นหรือ droplet nuclei ที่ลอยค้างอยู่ในอากาศ ตรงกับที่สไลด์แยกออกจาก droplet spread ซึ่งเป็นระยะสั้นและตกลงเร็ว",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2012",
+              "locator": "Lesson 1, Section 10: Chain of Infection, airborne transmission",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Airborne transmission occurs when infectious agents are carried by dust or droplet nuclei suspended in air."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--breaking-the-chain-of-infection-ตัดข้อต่อไหนก็หยุดการแพร่ได้": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--breaking-the-chain-of-infection-ตัดข้อต่อไหนก็หยุดการแพร่ได้--v1",
+          "statement": "หลักการตัดวงจรการติดเชื้อคือเลือกแทรกแซงที่ข้อต่อซึ่งเปิดช่องให้แทรกแซงได้มากที่สุด ไม่ใช่ว่าทุกข้อต่อมีความคุ้มค่าเท่ากัน โดยตัวอย่างมาตรการครอบคลุมตั้งแต่การรักษาเพื่อกำจัดเชื้อ การแยกสัตว์ป่วยเพื่อตัดการสัมผัสโดยตรง การป้องกันทางเข้า และการฉีดวัคซีนเพื่อเสริมภูมิของโฮสต์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-centers-for-disease-co-2012",
+              "locator": "Lesson 1, Section 10: Chain of Infection, control measures",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Control measures are usually directed against the segment in the infection chain that is most susceptible to intervention"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--timeline-latency-incubation-infectiousness": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--timeline-latency-incubation-infectiousness--v1",
+          "statement": "สัตว์หรือคนที่ติดเชื้อสามารถเป็น infectious ได้ก่อนแสดงอาการจริง จุด becomes infectious จึงมาก่อนจุด becomes symptomatic บนเส้นเวลาได้ตามที่สไลด์วาดไว้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-u-s-centers-for-diseas-2012",
+              "locator": "Lesson 1, Section 9 (Natural History and Spectrum of Disease)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Persons with measles, hepatitis A, and several other diseases become infectious a few days before the onset of symptoms."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--timeline-latency-incubation-infectiousness--v2",
+          "statement": "ค่าที่วัดได้จริงในโคที่ติด FMD ยืนยันโครงสร้างเส้นเวลานี้ คือ latent phase 1.5 วัน สั้นกว่า incubation phase 3.6 วัน จึงเหลือช่วง subclinical infectious 2.2 วัน ที่สัตว์แพร่เชื้อได้แต่ยังไม่แสดงอาการ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31448297",
+              "locator": "Vol 6, article 263, Abstract (pan-serotype estimates)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the mean [95% Confidence Interval (CI)] durations of pan-serotype disease phases in cattle were estimated to be: incubation phase = 3.6 days (2.7-4.8), latent phase = 1.5 days (1.1-2.1), subclinical infectious phase = 2.2 days (1.5-3.5)"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ขั้นตอนของโรคและช่วงเวลา-3-ช่วงที่ต้องวัด": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ขั้นตอนของโรคและช่วงเวลา-3-ช่วงที่ต้องวัด--v1",
+          "statement": "WOAH นิยาม infection ว่าเป็นการที่ pathogenic agent เข้าสู่ร่างกายแล้ว develop หรือ multiply ซึ่งตรงกับขั้น Infection ในสไลด์ที่ระบุว่าเชื้อ establishes and multiplies",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Glossary p. iv, entry INFECTION",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "INFECTION means the entry and development or multiplication of a pathogenic agent in the body of humans or animals."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--ขั้นตอนของโรคและช่วงเวลา-3-ช่วงที่ต้องวัด--v2",
+          "statement": "การติดเชื้อกับการแสดงอาการเป็นคนละขั้นกัน WOAH จึงนิยาม case ว่าเป็นสัตว์ที่ติดเชื้อ โดยจะมีหรือไม่มีอาการทางคลินิกก็ได้ ซึ่งเป็นเหตุผลว่าทำไมต้องแยกขั้น Infection ออกจากขั้น Clinical signs",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Glossary p. ii, entry CASE",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "CASE means an individual animal infected by a pathogenic agent, with or without clinical signs."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--นิยาม-incubation-period-latent-period-infectious-period": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--นิยาม-incubation-period-latent-period-infectious-period--v1",
+          "statement": "WOAH นิยาม incubation period ว่าเป็นช่วงเวลาที่ยาวที่สุดนับจากเชื้อเข้าสู่ตัวสัตว์จนถึงอาการทางคลินิกแรก ตรงกับนิยามบนสไลด์ที่ว่า from exposure to the first clinical signs",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Glossary p. iv, entry INCUBATION PERIOD",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "INCUBATION PERIOD means the longest period that elapses between the introduction of the pathogenic agent into the animal and the occurrence of the first clinical signs of the disease."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--นิยาม-incubation-period-latent-period-infectious-period--v2",
+          "statement": "WOAH ใช้คำว่า infective period หมายถึงช่วงเวลาที่ยาวที่สุดที่สัตว์ป่วยยังเป็นแหล่งแพร่เชื้อได้ ซึ่งเป็นคำทางการที่ตรงกับ infectious period ตามนิยามบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Glossary p. iv, entry INFECTIVE PERIOD",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "INFECTIVE PERIOD means the longest period during which an affected animal can be a source of infection."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--นิยาม-incubation-period-latent-period-infectious-period--v3",
+          "statement": "บรรทัดปิดท้ายที่ว่าสัตว์บางตัวยังแพร่เชื้อต่อหลังหายจากอาการมีชื่อเรียกทางระบาดวิทยาว่า convalescent carrier ซึ่ง CDC จัดเป็นชนิดหนึ่งของ carrier ในบท chain of infection",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-u-s-centers-for-diseas-2012",
+              "locator": "Lesson 1, Section 10 (Chain of Infection), subsection Reservoir, carriers",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "convalescent (those who have recovered from their illness but remain capable of transmitting to others)"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--infectious-agent-infectivity-pathogenicity-virulence": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--infectious-agent-infectivity-pathogenicity-virulence--v1",
+          "statement": "CDC นิยามสามคำนี้เป็นสัดส่วนที่วัดได้ ไม่ใช่แค่ความสามารถเชิงคุณภาพ คือ infectivity คือสัดส่วนของผู้สัมผัสที่ติดเชื้อ pathogenicity คือสัดส่วนของผู้ติดเชื้อที่แสดงอาการทางคลินิก และ virulence คือสัดส่วนของรายที่มีอาการซึ่งรุนแรงหรือเสียชีวิต ลำดับตรงกับสไลด์คือ ติดเชื้อ ก่อโรค รุนแรง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-u-s-centers-for-diseas-2012",
+              "locator": "Lesson 1, Section 9 (Natural History and Spectrum of Disease)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infectivity refers to the proportion of exposed persons who become infected. Pathogenicity refers to the proportion of infected individuals who develop clinically apparent disease. Virulence refers to the proportion of clinically apparent c"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--infectious-agent-infectivity-pathogenicity-virulence--v2",
+          "statement": "CDC ใช้คำอธิบาย pathogenicity ว่าคือ ability to cause disease ตรงกับสไลด์ และเน้นว่าการมีเชื้ออยู่เพียงอย่างเดียวไม่พอที่จะเกิดโรค ยังขึ้นกับ pathogenicity และปริมาณเชื้อที่ได้รับ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-u-s-centers-for-diseas-2012",
+              "locator": "Lesson 1, Section 8 (Concepts of Disease Occurrence), agent factors",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A variety of factors influence whether exposure to an organism will result in disease, including the organism's pathogenicity (ability to cause disease) and dose."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--infectious-agent-viability-และ-host-range": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--infectious-agent-viability-และ-host-range--v1",
+          "statement": "Host range คือจำนวนชนิดโฮสท์ที่เชื้อหนึ่งติดได้จริง และเป็นตัวแปรที่มีความหมายทางระบาดวิทยา จากการสำรวจเชื้อก่อโรคในคน 1,407 ชนิด พบว่า 58 เปอร์เซ็นต์เป็น zoonotic และเชื้อที่เป็น emerging หรือ reemerging มักเป็นกลุ่มที่มี host range กว้างที่สุด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16485468",
+              "locator": "Vol 11, issue 12, pp. 1842-1847, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "An updated literature survey identified 1,407 recognized species of human pathogen, 58% of which are zoonotic. ... Emerging and reemerging pathogens are not strongly associated with particular types of nonhuman hosts, but they are most like"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--infectious-agent-viability-และ-host-range--v2",
+          "statement": "Viability นอกโฮสท์ไม่ใช่ค่าคงที่ประจำเชื้อ แต่ขึ้นกับอุณหภูมิ ความเค็ม และ pH อย่างมาก เชื้อ avian influenza ตัวเดียวกันอยู่รอดได้ตั้งแต่ 9 วันจนถึง 100 วัน แล้วแต่สภาพน้ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2142421",
+              "locator": "Vol 34, issue 2, pp. 412-418, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Estimated persistence of infectivity for 1 x 10(6) mean tissue-culture infective dose of A/mottled duck/LA/38M/87 (H6N2) was longest at 17 C/0 ppt/pH 8.2 (100 days) and shortest at 28 C/20 ppt/pH 8.2 (9 days)."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ตัวอย่าง-viability-เวลารอดของเชื้อ-avian-influenza-ที่-20-องศาเซ": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ตัวอย่าง-viability-เวลารอดของเชื้อ-avian-influenza-ที่-20-องศาเซ--v1",
+          "statement": "ตัวเลข Feathers 15 days ที่ 20 องศาเซลเซียส ตรงกับงานทดลองจริง ที่พบว่าเชื้อ H5N1 ในขนที่หลุดจากเป็ดที่ติดเชื้อยังคงความสามารถในการติดเชื้อได้นาน 15 วันที่ 20 องศาเซลเซียส และนานถึง 160 วันที่ 4 องศาเซลเซียส",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20581177",
+              "locator": "Vol 76, issue 16, pp. 5496-5499, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Viral infectivity persisted in the feathers for 160 days at 4 degrees C and for 15 days at 20 degrees C."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ชนิดของ-carrier-ชุดที่-1-incubatory-convalescent-latent": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ชนิดของ-carrier-ชุดที่-1-incubatory-convalescent-latent--v1",
+          "statement": "CDC จัด incubatory carrier เป็นสัตว์หรือคนที่แพร่เชื้อได้ระหว่างระยะฟักตัวก่อนที่อาการทางคลินิกจะเริ่ม ตรงกับนิยามบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-u-s-centers-for-diseas-2012",
+              "locator": "Lesson 1, Section 10 (Chain of Infection), subsection Reservoir, carriers",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "incubatory (those who can transmit the agent during the incubation period before clinical illness begins)"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--ชนิดของ-carrier-ชุดที่-1-incubatory-convalescent-latent--v2",
+          "statement": "Latent carrier มีตัวอย่างจริงคือโคที่ติด bovine herpesvirus 1 ซึ่งอยู่ในภาวะ latent ตลอดชีวิต แล้วกลับมาแพร่เชื้อเป็นครั้งคราวเมื่อเจอความเครียดทางกายภาพหรือสิ่งแวดล้อม รวมถึงการเปลี่ยนแปลงของฮอร์โมน ตรงกับนิยามบนสไลด์ที่ว่าไม่ปล่อยเชื้อจนกว่าจะเจอ stress",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36851767",
+              "locator": "Vol 15, issue 2, article 552, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Lifelong latency is marked by periodic reactivation from latency that leads to virus transmission and transient immunosuppression. Physiological and environmental stress, along with hormone fluctuations, can drive virus reactivation from la"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--ชนิดของ-carrier-ชุดที่-1-incubatory-convalescent-latent--v3",
+          "statement": "ส่วนที่สไลด์ระบุว่าการตั้งท้องกระตุ้นให้ latent carrier ปล่อยเชื้อ มีหลักฐานเชิงกลไก คือ progesterone ซึ่งเป็นฮอร์โมนที่ค้ำการตั้งท้อง เพิ่มความถี่ของการ reactivation ของ bovine herpesvirus 1 จากภาวะ latency",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31697987",
+              "locator": "Vol 276, article 197803, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These studies suggest progesterone promotes BoHV-1 spread in cattle, in part, by increasing the frequency of reactivation from latency."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--ตัวอย่าง-incubation-carrier-fmd-ในโค": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--ตัวอย่าง-incubation-carrier-fmd-ในโค--v1",
+          "statement": "หลักการที่ว่าโคแพร่เชื้อ FMD ได้ก่อนแสดงอาการมีข้อมูลรองรับ แต่ตัวเลขต่างจากสไลด์ ค่าประมาณรวมทุก serotype ในโคคือ latent 1.5 วัน incubation 3.6 วัน และ subclinical infectious 2.2 วัน ไม่ใช่เริ่มปล่อยเชื้อวันที่ 2 ถึง 3 และอาการออกช่วงกว้างวันที่ 2 ถึง 14",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31448297",
+              "locator": "Vol 6, article 263, Abstract (pan-serotype estimates)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the mean [95% Confidence Interval (CI)] durations of pan-serotype disease phases in cattle were estimated to be: incubation phase = 3.6 days (2.7-4.8), latent phase = 1.5 days (1.1-2.1), subclinical infectious phase = 2.2 days (1.5-3.5), cl"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--ตัวอย่าง-incubation-carrier-fmd-ในโค--v2",
+          "statement": "ไวรัส FMD ตรวจพบได้ก่อนอาการจริง โดยตรวจเจอใน oropharyngeal fluid เป็นที่แรก และโคส่วนใหญ่ 71 เปอร์เซ็นต์เริ่มแสดงอาการที่วันที่ 3 ถึง 4 หลังติดเชื้อ ต้องแยกให้ชัดระหว่าง การตรวจพบเชื้อ กับ การแพร่เชื้อได้จริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23822567",
+              "locator": "Vol 44, article 46, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For the majority of animals (71%), the onset of clinical signs occurred 3-4 days post infection. ... Virus is first detectable in the oropharyngeal fluid, but detection of virus in the blood and nasal fluid may also be good candidates for p"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--chain-of-infection-portal-of-exit-และ-portal-of-entry": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--chain-of-infection-portal-of-exit-และ-portal-of-entry--v1",
+          "statement": "Portal of exit คือทางที่เชื้อออกจากตัวโฮสท์ และมักตรงกับตำแหน่งที่เชื้อไปอยู่ในร่างกาย ซึ่งอธิบายว่าทำไมรายการทางออกบนสไลด์จึงเป็นสารคัดหลั่งทางเดินหายใจ น้ำนม อุจจาระ ปัสสาวะ น้ำลาย น้ำเชื้อ แผลผิวหนัง และเลือด",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-u-s-centers-for-diseas-2012",
+              "locator": "Lesson 1, Section 10 (Chain of Infection), subsection Portal of exit",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Portal of exit is the path by which a pathogen leaves its host. The portal of exit usually corresponds to the site where the pathogen is localized."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--chain-of-infection-portal-of-exit-และ-portal-of-entry--v2",
+          "statement": "Portal of entry ไม่ใช่แค่รูเปิดใด ๆ แต่ต้องเป็นทางที่พาเชื้อไปถึงเนื้อเยื่อที่เชื้อเพิ่มจำนวนได้หรือที่ toxin ออกฤทธิ์ได้ จึงเป็นเกณฑ์ที่ใช้อธิบายรายการทางเข้าบนสไลด์เช่น mucous membranes ทางเดินหายใจ ทางเดินอาหาร รูหัวนม แผลผิวหนัง และรก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-u-s-centers-for-diseas-2012",
+              "locator": "Lesson 1, Section 10 (Chain of Infection), subsection Portal of entry",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The portal of entry must provide access to tissues in which the pathogen can multiply or a toxin can act."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--direct-transmission-direct-contact-และ-droplet-spread": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--direct-transmission-direct-contact-และ-droplet-spread--v1",
+          "statement": "Droplet spread ตามนิยามของ CDC คือละอองขนาดค่อนข้างใหญ่ที่พุ่งไปได้ระยะสั้นจากการจาม ไอ หรือแม้แต่การพูด แล้วตกลงพื้นภายในระยะไม่กี่ฟุต ตรงกับที่สไลด์ระบุว่าเป็นละอองใหญ่เดินทางระยะสั้น",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-u-s-centers-for-diseas-2012",
+              "locator": "Lesson 1, Section 10 (Chain of Infection), subsection Modes of transmission, droplet spread",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "spray with relatively large, short-range aerosols produced by sneezing, coughing, or even talking"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-disease-transmission--type-of-prevention-primary-secondary-tertiary": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-disease-transmission--type-of-prevention-primary-secondary-tertiary--v1",
+          "statement": "Primary prevention คือการลดความเสี่ยงก่อนที่โรคจะเริ่ม โดยจัดการปัจจัยเสี่ยงที่แก้ไขได้ในผู้ที่ยังปกติดี ซึ่งตรงกับที่สไลด์วางไว้ที่ stage of susceptibility",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-statpearls-publishing--2025",
+              "locator": "Bookshelf ID NBK537222, section on levels of prevention",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Primary prevention aims to reduce the risk of disease before it begins by targeting modifiable risk factors in individuals who are still healthy."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--type-of-prevention-primary-secondary-tertiary--v2",
+          "statement": "Tertiary prevention มุ่งลดผลกระทบระยะยาวของโรคที่เป็นแล้ว โดยลดภาวะแทรกซ้อน ป้องกันความพิการ และยกระดับคุณภาพชีวิต ตรงกับที่สไลด์ระบุว่า prevent complications and disability",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-statpearls-publishing--2025",
+              "locator": "Bookshelf ID NBK537222, section on levels of prevention",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Tertiary prevention focuses on reducing the long-term impact of chronic diseases by minimizing complications, preventing disability, and improving overall quality of life."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-disease-transmission--type-of-prevention-primary-secondary-tertiary--v3",
+          "statement": "เหตุผลที่ secondary prevention ต้องเข้าที่ stage of subclinical disease คือโปรแกรมคัดกรองส่วนใหญ่ตั้งใจจับกระบวนการของโรคในระยะนี้ เพราะการเข้าแทรกแซงตั้งแต่ระยะแรกได้ผลดีกว่าการรักษาหลังจากโรคดำเนินไปจนแสดงอาการแล้ว",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-u-s-centers-for-diseas-2012",
+              "locator": "Lesson 1, Section 9 (Natural History and Spectrum of Disease), stage of subclinical disease",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most screening programs attempt to identify the disease process during this phase of its natural history, since intervention at this early stage is likely to be more effective than treatment given after the disease has progressed and become"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-ib": {
+    "avian-medicine--avian-ib--ภาพรวมของโรค-overview": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--ภาพรวมของโรค-overview--v1",
+          "statement": "IB เป็นโรคเฉียบพลันที่ติดต่อได้ง่าย มีอาการหลักที่ระบบหายใจในไก่รุ่น ส่วนในแม่ไก่ไข่จะพบไข่ลดและคุณภาพไข่แย่ลง และบาง strain เป็น nephropathogenic ทำให้เกิด interstitial nephritis และการตายได้ ตรงกับที่สไลด์ระบุว่าโรคนี้กระทบทั้ง respiratory, reproductive และ nephritis",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Chapter 3.3.2, Summary, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "IB is an acute, contagious disease characterised primarily by respiratory signs in growing chickens. In hens, decreased egg production and quality are often observed. Several strains of the virus are nephropathogenic and may produce interst"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--ภาพรวมของโรค-overview--v2",
+          "statement": "ความเสียหายทางเศรษฐกิจของ IB มาจาก production loss คือ ไก่เนื้อโตช้า (growth retardation) และไก่ไข่ให้ไข่ลดลงทั้งปริมาณและคุณภาพ ซึ่งบางฝูงอาจไม่กลับมาเป็นปกติอีกเลย สนับสนุนประเด็นในสไลด์ที่ว่าโรคไม่ได้ฆ่าไก่โดยตรงแต่สร้างความเสียหายทางเศรษฐกิจมาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 7 Epidemiology and clinical signs, p. 289",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infection of meat-type birds results in growth retardation. In layers, there is a drop in egg production, which might never return to normal, and in quality of eggs."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--ประวัติช่วงแรกของโรค-1930-1941": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--ประวัติช่วงแรกของโรค-1930-1941--v1",
+          "statement": "IB ถูกสังเกตและรายงานครั้งแรกโดย Schalk and Hawn ที่รัฐ North Dakota สหรัฐอเมริกา ในลูกไก่อายุ 2-3 สัปดาห์ ตรงกับที่สไลด์ระบุ (สไลด์ใช้ปี 1930 ซึ่งเป็นปีที่พบโรค ส่วนรายงานตีพิมพ์ในปี 1931)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-b978-0-12-814966-9-00003-2",
+              "locator": "pp. 31-44, Introduction",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infectious bronchitis (IB) was first observed by Schalk and Hawn (1931) in North Dakota in the United States in 2- to 3-week-old chickens."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--ประวัติช่วงแรกของโรค-1930-1941--v2",
+          "statement": "ห้าปีหลังรายงานแรก Beach and Schalm (1936) เป็นผู้แสดงว่าสาเหตุของโรคนี้คือไวรัส ซึ่งต่อมาเรียกว่า IBV สอดคล้องกับสไลด์ที่ระบุปี 1936 และชื่อผู้วิจัย แต่แหล่งอ้างอิงอธิบายว่าเป็นการพิสูจน์ว่าเชื้อสาเหตุเป็นไวรัส ไม่ได้ระบุรายละเอียดเรื่องการแยกจาก ILT ด้วย neutralization",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-b978-0-12-814966-9-00003-2",
+              "locator": "pp. 31-44, Introduction",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Five years later, it was demonstrated that the causative agent of this disease is a virus, which was named IBV (Beach and Schalm, 1936)."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--ประวัติ-วัคซีนตัวแรกและการค้นพบว่ามีหลาย-serotype": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--ประวัติ-วัคซีนตัวแรกและการค้นพบว่ามีหลาย-serotype--v1",
+          "statement": "Jungherr และคณะ (1956) แสดงว่าเชื้อ Connecticut (Conn) ที่แยกได้ปี 1951 ไม่ cross-neutralize และไม่ cross-protect กับเชื้อ Massachusetts (Mass) ดั้งเดิม จึงเป็นจุดเริ่มต้นของแนวคิดว่า IBV มีหลาย serotype ที่ไม่คุ้มกันข้ามกัน ตรงกับสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21711181",
+              "locator": "History section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Jungherr et al. (1956) in the USA showed that the Connecticut (Conn) isolate of 1951 neither cross-neutralized nor cross-protected with the original Massachusetts (Mass) isolate from the early 1940s."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--ประวัติ-วัคซีนตัวแรกและการค้นพบว่ามีหลาย-serotype--v2",
+          "statement": "ผลจากการมีหลาย serotype คือวัคซีนที่ทำจาก serotype หนึ่งอาจป้องกันไวรัสที่อยู่คนละ antigenic group ได้น้อยมากหรือไม่ได้เลย ยืนยันหลัก no cross protection ที่สไลด์กล่าวถึง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section B.1.4 Serotype identification, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "vaccines based on one particular serotype may show little or no protection against viruses of a different antigenic group"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--เชื้อสาเหตุและการจัดจำแนก-etiology": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--เชื้อสาเหตุและการจัดจำแนก-etiology--v1",
+          "statement": "IBV จัดอยู่ใน genus Gammacoronavirus, subfamily Coronavirinae, family Coronaviridae, order Nidovirales ตรงกับ taxonomy ที่สไลด์ระบุทุกระดับ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section A Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The virus is a member of the genus Gammacoronavirus, subfamily Coronavirinae, family Coronaviridae, in the order Nidovirales."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--เชื้อสาเหตุและการจัดจำแนก-etiology--v2",
+          "statement": "จีโนมของ coronavirus เป็น RNA สายเดี่ยว สายบวก (positive-sense, single-stranded) และไม่แบ่งเป็นท่อน (non-segmented) ตรงกับที่สไลด์อธิบายว่าเป็นอาร์เอ็นเอไวรัสสายเดี่ยวสายบวก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section A Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Coronaviruses have a non-segmented, positive-sense, single-stranded RNA genome."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--genotype-และสายพันธุ์ของ-ibv": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--genotype-และสายพันธุ์ของ-ibv--v1",
+          "statement": "ระบบจำแนก genotype ของ IBV ที่ใช้กันสากลอาศัยลำดับนิวคลีโอไทด์ทั้งสายของ S1 gene โดยงานตั้งต้นของ Valastro และคณะ (2016) แบ่งได้ 6 genotypes ครอบคลุม 32 lineages พร้อม inter-lineage recombinants ยืนยันหลักการที่สไลด์ใช้ว่า genotype จำแนกด้วย S1 gene (ตัวเลข GI-1 ถึง GI-29 และ GVII ในสไลด์เป็นการขยายเพิ่มในภายหลังจากกรอบเดิมนี้)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26883378",
+              "locator": "Vol. 39, pp. 349-364, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "By using complete nucleotide sequences of the S1 gene we determined the phylogenetic structure of IBV, which in turn allowed us to define 6 genotypes that together comprise 32 distinct viral lineages and a number of inter-lineage recombinan"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--genotype-และสายพันธุ์ของ-ibv--v2",
+          "statement": "GI-19 lineage คือกลุ่มที่เรียกกันว่า QX type ตรงกับที่สไลด์จับคู่ GI-19 กับ QX/QX-like และวรรณกรรมปัจจุบันยังอ้างถึง lineage GI-28 และ GI-29 ซึ่งสอดคล้องกับช่วง GI-1 ถึง GI-29 ที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42127850",
+              "locator": "Vol. 105(8), 107032, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Complete genome analysis of three IBV isolates showed the highest nucleotide homology with YX10 strain (GI-19 lineage, QX type)."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--ความรุนแรงของโรคและปัจจัยที่มีผล": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--ความรุนแรงของโรคและปัจจัยที่มีผล--v1",
+          "statement": "ความรุนแรงและผลกระทบของการติดเชื้อ IBV ขึ้นกับ strain ของไวรัส อายุไก่ตอนติดเชื้อ โภชนาการ และสภาพแวดล้อมทั้งในโรงเรือน เช่น ระดับแอมโมเนีย และภายนอก เช่น อุณหภูมิ ตรงกับรายการปัจจัยที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 9 Prevention, p. 289",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The extent to which infection is an economic problem will depend on many factors, including the strain of virus, age of chicken at infection, nutrition, and the environment both within the poultry house e.g. ammonia levels, and outside e.g."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--ความรุนแรงของโรคและปัจจัยที่มีผล--v2",
+          "statement": "ความรุนแรงของโรคที่ระบบหายใจจะเพิ่มขึ้นเมื่อมีเชื้อก่อโรคอื่นโดยเฉพาะแบคทีเรียร่วมด้วย จนกลายเป็น chronic complicated airsacculitis ซึ่งอธิบายว่าเหตุใดตัวเลขอัตราการตายในสไลด์หน้า 7 (0%) กับหน้า 11 (5-25%) จึงต่างกัน คือขึ้นกับว่ามี co-infection หรือไม่",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Chapter 3.3.2, Summary, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The severity of IBV-induced respiratory disease is enhanced by the presence of other pathogens, including bacteria, leading to chronic complicated airsacculitis."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-ระยะฟักตัว": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-ระยะฟักตัว--v1",
+          "statement": "IBV เริ่มติดเชื้อที่ upper respiratory tract โดยจำกัดอยู่เฉพาะ ciliated cells และ mucus-secreting cells ตรงกับที่สไลด์ระบุว่าเซลล์เป้าหมายคือ epithelial cells ของท่อลม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 3 Pathogenesis of IBV, p. 284",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "IBV initially infects the upper respiratory tract, where it is restricted to the ciliated and mucus-secreting cells"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-ระยะฟักตัว--v2",
+          "statement": "ระยะฟักตัวของ IB อยู่ที่ประมาณ 18 ถึง 36 ชั่วโมงหลังได้รับเชื้อ ซึ่งครอบคลุมตัวเลข 36 ชั่วโมงที่สไลด์ระบุ (แหล่งอ้างอิงให้เป็นช่วง ไม่ใช่ค่าเดียว)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38771617",
+              "locator": "Vol. 73(5), clinical signs section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the incubation period can vary between 18 to 36 h post-infection"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-ระยะฟักตัว--v3",
+          "statement": "IB ติดต่อทางอากาศ (air-borne route) การสัมผัสไก่ต่อไก่โดยตรง และทางอ้อมผ่านอุปกรณ์ ถาดไข่ มูลไก่ และการเยี่ยมฟาร์ม อีกทั้งเกิดได้กับไก่ทุกอายุ ตรงกับสไลด์ที่ระบุ aerosol, direct contact และ susceptible age = all ages",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section A Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "IB affects chickens of all ages ... The disease is transmitted by the air-borne route, direct chicken-to-chicken contact and indirectly through mechanical spread (contaminated poultry equipment or egg-packing materials, manure used as ferti"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-ระยะฟักตัว--v4",
+          "statement": "ทั้งเชื้อวัคซีนและเชื้อ field strain ของ IBV สามารถคงอยู่ที่ caecal tonsil ของทางเดินอาหารและถูกขับออกทางมูลได้นานเป็นสัปดาห์หรือนานกว่านั้นในไก่ที่ดูปกติ สนับสนุนที่สไลด์ระบุว่า chronic: intestinal tract คือ cecal tonsil",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section A Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Vaccine and field strains of IBV may persist in the caecal tonsils of the intestinal tract and be excreted in faeces for weeks or longer in clinically normal chickens."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--พยาธิกำเนิดในระบบหายใจ-pathogenesis-respiratory-tract": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--พยาธิกำเนิดในระบบหายใจ-pathogenesis-respiratory-tract--v1",
+          "statement": "ปริมาณไวรัสที่มีชีวิตขึ้นสูงสุดในจมูกและท่อลมภายใน 3 วัน และคงอยู่ต่ออีก 2 ถึง 5 วัน สอดคล้องกับที่สไลด์ระบุว่าพบไวรัสใน nose และ trachea ช่วง 1-5 DPI",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 3 Pathogenesis of IBV, p. 284",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Titres of live virus are maximal in the nose and trachea within three days and remain so for two to five days further"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--พยาธิกำเนิดในระบบหายใจ-pathogenesis-respiratory-tract--v2",
+          "statement": "พบ titre ไวรัสในปอดและถุงลมใกล้เคียงกับในท่อลม และแม้จะเห็นบริเวณปอดอักเสบเล็กน้อยได้ แต่ IBV ไม่ถือว่าเป็นสาเหตุของ pneumonia ตรงกับสไลด์ที่ระบุ mild or no pneumonia หากไม่มี secondary infection",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 3 Pathogenesis of IBV, p. 284",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Similar virus titres occur in the lungs and airsacs. Small areas of pneumonia may be observed in the lungs, although IBV is not considered to cause pneumonia"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--พยาธิกำเนิดในระบบหายใจ-pathogenesis-respiratory-tract--v3",
+          "statement": "หลังติดเชื้อจะเกิดการสูญเสีย cilia (deciliation) ของเยื่อบุจมูกและท่อลม และตามมาด้วย secondary bacterial infection ซึ่งเป็นสาเหตุหลักของโรคที่รุนแรงที่สุดรวมถึงการตาย ตรงกับกลไกที่สไลด์อธิบาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 3 Pathogenesis of IBV, p. 284",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Deciliation of the ciliated epithelia of the nose and trachea follows infection. Infection is commonly followed by secondary bacterial infections, which can be the main cause of the most debilitating disease, including mortality"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--อวัยวะที่-ibv-เข้าไปติดเชื้อได้": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--อวัยวะที่-ibv-เข้าไปติดเชื้อได้--v1",
+          "statement": "นอกจากเนื้อเยื่อระบบหายใจ IBV ยังเจริญได้ที่ผิว epithelium อื่นอีกหลายแห่ง ได้แก่ ไต (สัมพันธ์กับ nephritis) ท่อนำไข่ อัณฑะ และหลายส่วนของทางเดินอาหารรวมถึง caecal tonsil ครอบคลุมทั้ง 4 ระบบที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 3 Pathogenesis of IBV, p. 284",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "IBV grows at many other epithelial surfaces, including in kidney (associated with minor or major nephritis), oviduct, testes, and many parts of the alimentary tract"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--อาการโดยรวม": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--อาการโดยรวม--v1",
+          "statement": "IBV มี tissue tropism และความรุนแรงที่แตกต่างกันตาม strain โดยบาง strain ทำให้เกิดอาการเพียงเล็กน้อย ขณะที่บาง strain ทำให้อัตราการตายสูง ยืนยันหลักที่สไลด์ระบุว่าอาการขึ้นกับ IBV strain ระดับภูมิคุ้มกัน และอายุไก่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35978541",
+              "locator": "Vol. 100(10), pp. 496-512, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "IBV has variable tissue tropism depending on the strain, and can affect the respiratory, reproductive, or urinary tracts ... the pathogenicity of IBV is also variable, with some strains causing only mild clinical signs, while infection with"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--อาการโดยรวม--v2",
+          "statement": "IBV ติดต่อได้ง่ายมาก และเนื่องจาก serotype ต่าง ๆ คุ้มกันข้ามกันได้ไม่ดี ไก่จึงติดเชื้อซ้ำได้หลายครั้ง แม้ภายในช่วงชีวิตสั้น ๆ 6 สัปดาห์ของไก่เนื้อ สนับสนุนอัตราการป่วยที่สูงถึง 100% ตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 7 Epidemiology and clinical signs, p. 289",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The virus is highly infectious ... As serotypes cross-protect poorly, chickens can be productively infected several times including more than once within the short, six-week life of a meat-type chicken."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--อาการระบบหายใจ-และ-secondary-infection": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--อาการระบบหายใจ-และ-secondary-infection--v1",
+          "statement": "ไก่โดยเฉพาะไก่เล็กจะแสดงอาการน้ำมูกไหล จาม (snicking) มีเสียง rales จากทางเดินหายใจส่วนล่าง ตาแฉะน้ำตาไหล และซึม ตรงกับรายการอาการที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 7 Epidemiology and clinical signs, p. 289",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Chickens, especially young ones, exhibit nasal discharge, snicking (similar to sneezing), râles (a vibration emanating from lower in the respiratory tract watery), watery eyes and lethargy."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--อาการระบบหายใจ-และ-secondary-infection--v2",
+          "statement": "ลูกไก่อาจตายจาก IBV โดยตรงได้ แต่จำนวนที่ตายจาก secondary bacterial infection มีมากกว่า ยืนยันข้อความหลักของสไลด์ที่ว่า IBV เองไม่ค่อยทำให้ไก่ตาย แต่เปิดทางให้เชื้อแทรกซ้อน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 7 Epidemiology and clinical signs, p. 289",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Young chicks may die directly from IBV infection but a greater number die following secondary bacterial infection."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--อาการระบบหายใจ-และ-secondary-infection--v3",
+          "statement": "โรคระบบหายใจแบบหลายปัจจัยในไก่มักเกิดจากการติดเชื้อร่วมระหว่างแบคทีเรีย เช่น Mycoplasma gallisepticum, M. synoviae, Escherichia coli กับไวรัสอย่าง IBV และ ILT ยืนยันรายการเชื้อแทรกซ้อน E. coli, MG, MS ที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30973078",
+              "locator": "Vol. 31(3), pp. 336-342, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Multifactorial respiratory diseases were commonly caused by coinfection with bacteria (e.g., Mycoplasma gallisepticum and M. synoviae, Escherichia coli, Avibacterium spp.) and viruses, such as infectious bronchitis and infectious laryngotra"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--อาการระบบสืบพันธุ์-ไข่ลดและคุณภาพไข่": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--อาการระบบสืบพันธุ์-ไข่ลดและคุณภาพไข่--v1",
+          "statement": "ในแม่ไก่ไข่ IBV ทำให้ผลผลิตไข่ลดลงและคุณภาพไข่แย่ลง โดยผลผลิตอาจไม่กลับคืนสู่ระดับปกติอีกเลย ตรงกับที่สไลด์ระบุว่าบางฝูงอาจให้ไข่ลดลงถาวรและกลับมาไม่ได้อีก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 7 Epidemiology and clinical signs, p. 289",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In layers, there is a drop in egg production, which might never return to normal, and in quality of eggs."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--อาการระบบสืบพันธุ์-ไข่ลดและคุณภาพไข่--v2",
+          "statement": "การติดเชื้อที่ท่อนำไข่ตอนอายุน้อยมากทำให้เกิดความเสียหายถาวร และในแม่ไก่ทำให้หยุดไข่ หรือให้ไข่เปลือกบางผิดรูปและสีเปลือกซีดลง ตรงกับลักษณะคุณภาพไข่ที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section A Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infection of the oviduct at a very young age can lead to permanent damage and, in hens, can lead to cessation of egg-laying or production of thin-walled and misshapen shells with loss of shell pigmentation."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--false-layer-และ-penguin-like-posture": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--false-layer-และ-penguin-like-posture--v1",
+          "statement": "ลักษณะเด่นที่สุดของ QX IBV คือการติดเชื้อในระยะไก่เล็กทำให้ท่อนำไข่พัฒนาผิดปกติ ส่งผลให้เกิด false layer ในสัดส่วนสูงในฝูงไก่ไข่และไก่พ่อแม่พันธุ์ ตรงกับที่สไลด์ระบุว่า false layer มักเกิดเมื่อติดเชื้อตอนอายุน้อย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35392927",
+              "locator": "Vol. 19, article 62, Background",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most significant feature of QX IBV is that its infection in the early growing stage can cause abnormal oviduct development, resulting in a high proportion of 'false layers' in poultry flocks of laying hens and breeders."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--false-layer-และ-penguin-like-posture--v2",
+          "statement": "False layer syndrome (FLS) คือภาวะที่แม่ไก่ซึ่งโตเต็มวัยตกไข่ได้ตามปกติแต่ไม่สามารถออกไข่ได้ อธิบายที่มาของถุงน้ำในช่องท้องและท่าทางยืนตั้งตัวแบบเพนกวินที่ปรากฏในรูปสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34427410",
+              "locator": "Vol. 65(3), pp. 373-380, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "occasionally leading to a condition called false layer syndrome (FLS), where sexually mature hens ovulate normally but are unable to lay eggs"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--อาการไตอักเสบ-และฝูงที่ป่วยน้อย": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--อาการไตอักเสบ-และฝูงที่ป่วยน้อย--v1",
+          "statement": "ในการระบาดของ nephropathogenic IB อาการเริ่มแรกคือ อัตราการตายในฝูงสูงขึ้น และการสูญเสียน้ำทางปัสสาวะ (polyuria และ pollakiuria) จนสิ่งปูรองเปียก ตรงกับที่สไลด์ระบุว่าไก่ดื่มน้ำเยอะ ถ่ายเหลว และมีสภาพแห้งน้ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12495045",
+              "locator": "Vol. 46(4), pp. 847-858, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Early clinical signs were increased flock mortality and urinary water loss (polyuria and pollakiuria) leading to wet litter."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--อาการไตอักเสบ-และฝูงที่ป่วยน้อย--v2",
+          "statement": "ในฝูงไก่เนื้อที่เป็น nephropathogenic IB พบอาการทางระบบหายใจน้อยมาก ซึ่งอธิบายว่าเหตุใดฝูงที่ป่วยน้อยจึงอาจไม่แสดงอาการ IB ให้เห็นชัดและทำให้วินิจฉัยสาเหตุผิดพลาดได้ตามที่สไลด์เตือนไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12495045",
+              "locator": "Vol. 46(4), pp. 847-858, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Minimal respiratory disease signs were noted in broilers."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--รอยโรค-lesions": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--รอยโรค-lesions--v1",
+          "statement": "รอยโรคที่ไตของ nephropathogenic IB คือ ไตบวมอย่างรุนแรงและมี urate สะสมในท่อไต ซึ่งบางครั้งพบ visceral gout และ urolithiasis ร่วมด้วย ตรงกับรอยโรคไตที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12495045",
+              "locator": "Vol. 46(4), pp. 847-858, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Severe renal swelling and accumulation of urates in the tubules were commonly seen. Visceral gout and urolithiasis were less frequently observed."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--รอยโรค-lesions--v2",
+          "statement": "การติดเชื้อ IBV ทำให้เห็นไตบวมและมี urate deposits ร่วมกับ nephritis ในไก่ที่แสดงอาการหายใจลำบาก ยืนยันภาพรอยโรค ไตบวม ซีด หรือเป็นสี marble ที่สไลด์บรรยาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19934604",
+              "locator": "Vol. 10(4), pp. 357-359, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "chickens exhibited severe respiratory symptoms (dyspnea) and nephropathogenic lesions (swollen kidneys with nephritis and urate deposits)"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--รอยโรค-lesions--v3",
+          "statement": "รอยโรคที่ถุงลมแบบเรื้อรังในรูป chronic complicated airsacculitis เกิดขึ้นเมื่อมีเชื้อก่อโรคอื่นโดยเฉพาะแบคทีเรียร่วมด้วย สนับสนุนรอยโรค foamy air sac และถุงลมขุ่นมี caseous exudate ที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Chapter 3.3.2, Summary, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The severity of IBV-induced respiratory disease is enhanced by the presence of other pathogens, including bacteria, leading to chronic complicated airsacculitis."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--การวินิจฉัย-diagnosis": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--การวินิจฉัย-diagnosis--v1",
+          "statement": "เมื่อฉีดเชื้อเข้า allantoic cavity ของไข่ไก่ฟัก SPF เชื้อ IBV จะทำให้ตัวอ่อนแคระ (stunting) ขดตัว (curling) ขนเป็นกระจุก (clubbing of the down) หรือมี urate สะสมที่ mesonephros ของไต โดยมักเห็นภายใน 3 passages ตรงกับ stunting/curling ที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Chapter 3.3.2, Summary, p. 1 and Section B.1.2 Culture, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Following inoculation of the allantoic cavity, IBV produces embryo stunting, curling, clubbing of the down, or urate deposits in the mesonephros of the kidney, often within three serial passages."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--การวินิจฉัย-diagnosis--v2",
+          "statement": "สำหรับโรคระบบหายใจแบบเฉียบพลัน ตัวอย่างที่เหมาะสมคือ swab จากทางเดินหายใจส่วนต้นหรือเนื้อเยื่อท่อลมและปอด ส่วนกรณีที่มี nephritis หรือปัญหาการผลิตไข่ ต้องเก็บไตหรือท่อนำไข่เพิ่ม ยืนยันที่สไลด์ระบุว่าตัวอย่างหลักคือ trachea",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section B.1.1 Sampling, p. 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For acute respiratory disease, swabs from the upper respiratory tract of live birds or tracheal and lung tissues from diseased birds should be harvested. For birds with nephritis and or egg-production problems, samples from the kidneys or o"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--การวินิจฉัย-diagnosis--v3",
+          "statement": "บริเวณเป้าหมายมาตรฐานสำหรับการตรวจจำแนก IBV ด้วย RT-PCR และการทำ sequencing คือ S1 subunit ของ S glycoprotein gene และการวิเคราะห์นี้ใช้ตรวจหา vaccine strain ภายในฝูงได้ ตรงกับที่สไลด์ระบุว่าใช้ S1 sequencing แยก field strain ออกจาก vaccine strain",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section B.1.5.1 RT-PCR, p. 5",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The usual target region for IBV characterisation is the S1 subunit of the S glycoprotein gene. ... Such analyses allow rapid epidemiological assessment of the origins and spread of the viruses responsible for IBV outbreaks and the detection"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--การวินิจฉัย-diagnosis--v4",
+          "statement": "ในบรรดาการตรวจทางซีรั่มวิทยา ELISA เหมาะที่สุดสำหรับงานตรวจประจำและตรวจจับแอนติบอดีทั้งจากวัคซีนและการติดเชื้อในสนาม ขณะที่ VN จำเพาะต่อ serotype มากกว่าแต่แพงและไม่สะดวกในภาคสนาม ซึ่งเป็นข้อจำกัดที่สไลด์ไม่ได้กล่าวถึง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section B.2 Serological tests, p. 6",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In general, ELISAs are most suitable for routine serological testing and can detect antibodies caused by vaccination and field exposure. ... VN tests are too expensive and impractical for use in field conditions."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--การควบคุมและป้องกันโรค-หลักการ-2-ข้อ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--การควบคุมและป้องกันโรค-หลักการ-2-ข้อ--v1",
+          "statement": "ในพื้นที่ที่มีฟาร์มสัตว์ปีกหนาแน่น แทบเป็นไปไม่ได้ที่จะเลี้ยงไก่ให้ปลอดจาก IBV และ biosecurity เพียงอย่างเดียวมักไม่เพียงพอเพราะไวรัสแพร่ได้ง่าย จึงต้องใช้การทำวัคซีนร่วมด้วย อธิบายว่าเหตุใดสไลด์จึงวางหลักการควบคุมไว้ 2 ข้อคู่กัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 9 Prevention, p. 289",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In areas where there are many poultry farms, it is virtually impossible to keep chickens free of IBV. Biosecurity is likely to be insufficient, as the virus is spread readily. Consequently vaccination is commonly practised."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--biosecurity": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--biosecurity--v1",
+          "statement": "IBV แพร่กระจายทางอ้อมผ่านการพาไปเชิงกล ได้แก่ อุปกรณ์การเลี้ยงและวัสดุบรรจุไข่ที่ปนเปื้อน มูลไก่ที่นำไปใช้เป็นปุ๋ย และการเข้าเยี่ยมฟาร์ม ซึ่งเป็นเหตุผลโดยตรงของมาตรการควบคุมคน สิ่งของ ยานพาหนะ และการฆ่าเชื้อที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section A Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "indirectly through mechanical spread (contaminated poultry equipment or egg-packing materials, manure used as fertiliser, farm visits, etc.)"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--management": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--management--v1",
+          "statement": "โภชนาการและสภาพแวดล้อมภายในโรงเรือน โดยเฉพาะระดับแอมโมเนีย รวมถึงอุณหภูมิภายนอก เป็นปัจจัยที่กำหนดว่าการติดเชื้อ IBV จะสร้างความเสียหายมากเพียงใด สนับสนุนรายการจัดการเรื่องคุณภาพอาหาร การถ่ายเทอากาศ และความหนาแน่นที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 9 Prevention, p. 289",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "will depend on many factors, including the strain of virus, age of chicken at infection, nutrition, and the environment both within the poultry house e.g. ammonia levels, and outside e.g. temperature"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--วัคซีนเชื้อเป็น-live-vaccine": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--วัคซีนเชื้อเป็น-live-vaccine--v1",
+          "statement": "วิธีให้วัคซีนเชื้อเป็นที่ใช้กันทั่วไปคือการพ่นแบบ coarse spray หรือ aerosol และการให้ทางน้ำดื่ม ส่วนการหยอดตาเป็นวิธีที่ดีมากหากทำอย่างระมัดระวังแต่มักมีต้นทุนสูงเกินไป ตรงกับรายการ route ที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section C.1 Requirements for vaccines, Background, p. 8",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Commonly used administration routes for live vaccines are spray (course spray or aerosol) or in the drinking water (oral route). Administration by eye-drop, if carefully done, is a very good method but in many cases too expensive."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--วัคซีนเชื้อเป็น-live-vaccine--v2",
+          "statement": "โดยทั่วไปวัคซีนเชื้อเป็นจะให้แก่ไก่เนื้อตั้งแต่อายุ 1 วันที่โรงฟัก ตรงกับโปรแกรม 1 day old at hatchery ที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 10.1 Live vaccines, p. 290",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Live vaccines are usually applied to meat-type chickens at one day of age, in the hatchery."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--วัคซีนเชื้อเป็น-live-vaccine--v3",
+          "statement": "ภูมิคุ้มกันจากวัคซีนเชื้อเป็นอยู่ได้ไม่นาน เริ่มลดลงตั้งแต่ 9 สัปดาห์หลังทำวัคซีน ไก่ไข่ที่เลี้ยงยาวกว่าหนึ่งปีจึงต้องทำวัคซีนเชื้อเป็นซ้ำหลายครั้ง และไก่เนื้อก็อาจต้องทำซ้ำหากพื้นที่นั้นมีปัญหา IB มาก สนับสนุนโปรแกรม booster ทั้งไก่เนื้อและไก่ไข่ที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 10.1 Live vaccines, p. 290",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "protection is short-lived, the start of the decline being apparent nine weeks after vaccination. Consequently commercial egg layers, which are kept for a year or more, are vaccinated several times with live vaccine, perhaps with more than o"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--วัคซีนเชื้อตาย-killed-vaccine": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--วัคซีนเชื้อตาย-killed-vaccine--v1",
+          "statement": "วัคซีนเชื้อตายชนิดฉีดเข็มเดียวโดยไม่มี live priming ไม่ให้ความคุ้มโรคที่มีนัยสำคัญ จึงต้องนำหน้าด้วยวัคซีนเชื้อเป็นอย่างน้อยหนึ่งครั้ง ตรงกับที่สไลด์ระบุว่าต้อง booster ด้วยวัคซีนเชื้อเป็นอย่างสม่ำเสมอ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Chapter 3.3.2, Summary, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Inactivated vaccines are injected and a single inoculation does not confer significant protection unless preceded by one or more live IBV priming vaccinations."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--วัคซีนเชื้อตาย-killed-vaccine--v2",
+          "statement": "วัคซีนเชื้อตายชนิด oil emulsion ถูกพัฒนาขึ้นเพื่อสร้างภูมิคุ้มกันระยะยาวในแม่ไก่และป้องกันการลดลงของผลผลิตไข่ แต่การให้ครั้งเดียวไม่ป้องกันการสูญเสียการทำงานของ cilia ในท่อลม ยืนยันข้อความในสไลด์ที่ว่าวัคซีนเชื้อตายป้องกันอวัยวะภายในได้ดีแต่ไม่ค่อยมีผลกับ epithelial cell ของทางเดินหายใจ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 10.2 Inactivated virus and subunit vaccines, p. 290",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The objective was to make a vaccine that would give long-lasting immunity to the hen bird, to protect against drops in egg production. Single applications of inactivated virus induced little or no protection against egg loss, and no protect"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--วัคซีนเชื้อตาย-killed-vaccine--v3",
+          "statement": "แนวปฏิบัติทั่วไปคือทำวัคซีนเชื้อเป็นในไก่ไข่ตั้งแต่อายุ 2-3 สัปดาห์ แล้วทำเชื้อเป็นซ้ำอีกหลายครั้ง จนกระทั่งก่อนไก่เริ่มให้ไข่ไม่นานจึงให้วัคซีนเชื้อตาย ตรงกับที่สไลด์ระบุว่าวัคซีนเชื้อตายให้ช่วงก่อนให้ไข่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 10.2 Inactivated virus and subunit vaccines, p. 290",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "common practice is to vaccinate egg layers with live vaccine at two or three weeks of age, followed by more live vaccinations until shortly before the birds start laying eggs they are given killed vaccine"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--วัคซีนเชื้อตาย-killed-vaccine--v4",
+          "statement": "วัคซีนเชื้อตายต้องให้ทีละตัวโดยการฉีดเข้ากล้ามเนื้อหรือใต้ผิวหนัง และประสิทธิภาพขึ้นกับการ prime ด้วยวัคซีนเชื้อเป็นอย่างเหมาะสมเป็นหลัก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section C.1 Requirements for vaccines, Background, p. 8",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The efficacy of inactivated vaccines depends heavily on proper priming with a live vaccine(s). Inactivated vaccines must be administered to birds individually, by intramuscular or subcutaneous injection."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--mda-และหลักการเลือกวัคซีนให้ตรงสายพันธุ์": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--mda-และหลักการเลือกวัคซีนให้ตรงสายพันธุ์--v1",
+          "statement": "ลูกไก่ที่มี maternal antibody ได้รับความคุ้มกันต่อการ challenge จนถึงอายุ 4 สัปดาห์ โดย MDA มีค่าครึ่งชีวิต 5-6 วัน และผู้วิจัยสรุปว่าอายุที่เหมาะสมที่สุดสำหรับการทำวัคซีนครั้งแรกคือประมาณ 2 สัปดาห์ สนับสนุนทั้งสองประเด็นของสไลด์ คือ MDA ช่วยป้องกันในไก่อายุน้อย แต่ก็มีผลต่อการตอบสนองต่อวัคซีนเชื้อเป็นที่ทำตอนอายุ 1 วัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2983406",
+              "locator": "Vol. 38(1), pp. 14-21, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Maternal antibody in unvaccinated chicks declined linearly with a mean half-life of five to six days based on both HI and SN tests; these chicks were protected against challenge until four weeks old ... It was concluded that the optimum age"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--mda-และหลักการเลือกวัคซีนให้ตรงสายพันธุ์--v2",
+          "statement": "ความแตกต่างของกรดอะมิโนใน S1 เพียง 2-3% (ราว 10-15 ตำแหน่ง) ก็เพียงพอที่จะเปลี่ยน serotype ได้ และภูมิคุ้มกันจาก serotype หนึ่งป้องกันการติดเชื้อ serotype อื่นได้ไม่ดี ยืนยันหลัก low cross-protection ที่สไลด์ใช้เป็นเหตุผลในการเลือกวัคซีนให้ตรงสายพันธุ์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 8 Antigenic diversity, p. 289",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the immunity induced by inoculation with one serotype protects poorly against infection with heterologous serotypes ... differences of as few as 2 to 3% of S1 amino acid residues (10 to 15 residues) can result in a change in serotype"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--mda-และหลักการเลือกวัคซีนให้ตรงสายพันธุ์--v3",
+          "statement": "เนื่องจากความสัมพันธ์ระหว่างความเหมือนของยีน S กับระดับ cross-protection ไม่แน่นพอ จึงต้องทำ cross-immunisation study เพื่อระบุความคุ้มกันข้ามสายพันธุ์ของเชื้อแต่ละตัว ตรงกับที่สไลด์แนะนำว่าอาจต้องตรวจ cross-protection ก่อน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section C.1 Requirements for vaccines, Background, p. 8",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "However, the vaccination-challenge experiments have shown that the relationship is not very strong. Therefore, a cross-immunisation study has to be performed to be able to determine the cross-protective immunity of a strain."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--mda-และหลักการเลือกวัคซีนให้ตรงสายพันธุ์--v4",
+          "statement": "การใช้วัคซีนเชื้อเป็นที่ต่างกันทาง antigen สองตัว เช่น Mass ร่วมกับ 4/91 สามารถให้ cross-protection ที่กว้างครอบคลุม IBV หลายชนิด สนับสนุนคำแนะนำในสไลด์ที่ว่าสามารถเติมวัคซีนเชื้อเป็นสายพันธุ์อื่นที่ระบาดในพื้นที่เข้าไปในโปรแกรมได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21711181",
+              "locator": "Vaccination strategies section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "vaccination with two antigenically distinct live-attenuated vaccines such as Mass and 4/91 can result in a broad cross-protection against many different IBV types."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--ข้อควรระวังในการใช้วัคซีนเชื้อเป็น": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--ข้อควรระวังในการใช้วัคซีนเชื้อเป็น--v1",
+          "statement": "การนำเชื้อวัคซีน IBV ไป passage ซ้ำในไก่ทำให้เชื้อกลับมามีความรุนแรงเพิ่มขึ้น โดยเพิ่มอุบัติการณ์และความรุนแรงของ airsacculitis จาก Mycoplasma synoviae ยืนยันกลไก rolling infection ที่สไลด์อธิบายว่าไวรัสวัคซีนพัฒนาให้ก่อโรครุนแรงกว่าต้นฉบับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-3015106",
+              "locator": "Vol. 30(1), pp. 221-223, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Serial passage of two infectious bronchitis virus (IBV) vaccine strains in chickens enhanced their capacity to increase the incidence and severity of Mycoplasma synoviae (MS) airsacculitis. ... All IBV strains studied to date have either po"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--ข้อควรระวังในการใช้วัคซีนเชื้อเป็น--v2",
+          "statement": "วัคซีนเชื้อเป็นมีความเสี่ยงเรื่อง residual pathogenicity จากการ back-passage ในฝูง แต่การให้วัคซีนอย่างถูกต้องจนกระจายทั่วทั้งฝูงจะช่วยหลีกเลี่ยง back-passage ได้ ตรงกับคำเตือนของสไลด์ว่าการให้วัคซีนไม่ทั่วทั้งฝูงทำให้เกิด rolling infection",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section C.1 Requirements for vaccines, Background, p. 8",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Live vaccines carry a risk of residual pathogenicity associated with vaccine back-passage in flocks. However, proper application of vaccine can achieve uniform distribution of the vaccine in the flock and avoid back-passage."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--ข้อควรระวังในการใช้วัคซีนเชื้อเป็น--v3",
+          "statement": "การให้วัคซีน IBV ร่วมกับ NDV พบว่าเชื้อ IBV สายพันธุ์ Mass และ Ark รบกวนการเพิ่มจำนวนของ NDV และในการทดลองหนึ่งภูมิคุ้มกันต่อ ND ลดลงเมื่อใช้วัคซีนเดี่ยวสองชนิดให้พร้อมกัน ผู้วิจัยจึงเน้นให้ใช้วัคซีนรวมที่ผู้ผลิตเตรียมมาแล้วเพื่อเลี่ยงการรบกวน ยืนยันคำเตือนเรื่อง interference ในสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18251404",
+              "locator": "Vol. 51(4), pp. 924-934, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the replication of IBV strains Mass and Ark interfered with the growth of NDV strains B1, VG/GA, and C2 as measured by qRT-PCR ... This finding emphasizes the importance of using manufactured combination vaccines whenever possible to avoid "
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--ข้อควรระวังในการใช้วัคซีนเชื้อเป็น--v4",
+          "statement": "เชื้อ variant strain สามารถนำมาเตรียมเป็น inactivated autogenous vaccine สำหรับควบคุม IB ในไก่ไข่และไก่พ่อแม่พันธุ์ได้ ภายใต้ข้อกำหนดของกฎหมายท้องถิ่น ตรงกับที่สไลด์ระบุว่า autogenous vaccine ของ new variant หรือ recombinant strain ต้องทำเป็นวัคซีนเชื้อตาย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section C.1 Requirements for vaccines, Background, p. 8",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Variant strains may be used to prepare inactivated autogenous vaccines for controlling IB in layers and breeders, subject to local legislative requirements."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--วัคซีนที่มีในประเทศไทย": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--วัคซีนที่มีในประเทศไทย--v1",
+          "statement": "การวิเคราะห์ S1 gene ของ IBV 120 ตัวที่แยกได้จากไก่ในประเทศไทยช่วงปี 2014-2016 พบว่าอยู่ใน 3 lineages คือ GI-1 (Massachusetts), GI-13 (793B/4-91) และ GI-19 (QX) พร้อมด้วย variant ตัวใหม่ ซึ่งตรงกับกลุ่มสายพันธุ์วัคซีนที่สไลด์ระบุว่ามีใช้ในประเทศไทย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32241468",
+              "locator": "Vol. 99(4), pp. 1888-1895, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Phylogenetic analysis of the complete S1 gene of 120 Thai IBVs revealed that the 2014-2016 Thai IBVs were divided into 3 lineages (GI-1, GI-13, and GI-19) and a novel IBV variant."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--วัคซีนที่มีในประเทศไทย--v2",
+          "statement": "GI-19 (QX) กลายเป็น lineage หลักที่ระบาดในฝูงไก่ของประเทศไทยระหว่างปี 2014-2016 ซึ่งอธิบายว่าเหตุใดวัคซีน QX-like จึงอยู่ในรายการวัคซีนที่มีใช้ในประเทศไทยตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32241468",
+              "locator": "Vol. 99(4), pp. 1888-1895, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Our results also showed that GI-19 lineage has become the predominant lineage of IBV circulating in chicken flocks in Thailand from 2014 to 2016."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--ตัวอย่างโปรแกรมวัคซีนในไก่เนื้อ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--ตัวอย่างโปรแกรมวัคซีนในไก่เนื้อ--v1",
+          "statement": "ไก่เนื้อได้รับวัคซีนเชื้อเป็นครั้งแรกตอนอายุ 1 วันที่โรงฟัก และอาจได้รับซ้ำอีกครั้งหากพื้นที่นั้นมีปัญหา IB มาก โดยการทำซ้ำอาจใช้ serotype อื่นซึ่งบางครั้งให้ความคุ้มกันที่กว้างขึ้น ตรงกับโปรแกรม 2 ครั้งในไก่เนื้อที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17296157",
+              "locator": "Section 10.1 Live vaccines, p. 290",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Live vaccines are usually applied to meat-type chickens at one day of age, in the hatchery. ... Even broilers, which are processed at only six or so weeks of age, may be revaccinated if IB is very problematic in an area. Revaccination may b"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-ib--ตัวอย่างโปรแกรมวัคซีนในไก่ไข่และไก่พ่อแม่พันธุ์-ช่วงไก่เล็กถึงไก": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-ib--ตัวอย่างโปรแกรมวัคซีนในไก่ไข่และไก่พ่อแม่พันธุ์-ช่วงไก่เล็กถึงไก--v1",
+          "statement": "มีวัคซีนรวมทั้งชนิดเชื้อเป็นและเชื้อตายที่ผสม fraction อื่นเข้าด้วยกัน เช่น Newcastle disease, infectious bursal disease, avian metapneumovirus, reovirus และ EDS76 ซึ่งรองรับโปรแกรมที่ให้ IB คู่กับ ND ทุกครั้งและเข็มเชื้อตายรวม ND+IB+EDS+IC ตามที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section C.2.1.2 Validation as a vaccine strain, p. 11",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Both live and inactivated multivalent vaccines containing other fractions such as Newcastle disease, infectious bursal disease, avian metapneumo-, reo- and EDS76 viruses are available."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-ib--ตัวอย่างโปรแกรมวัคซีนในไก่ไข่และไก่พ่อแม่พันธุ์-ช่วงไก่เล็กถึงไก--v2",
+          "statement": "สำหรับไก่ที่เลี้ยงยาว การทำวัคซีนเชื้อเป็นเฉพาะช่วงไก่รุ่นมักไม่พอที่จะสร้างความคุ้มกันระยะยาวไปถึงช่วงให้ไข่ จึงต้อง boost ด้วยวัคซีนเชื้อตายคุณภาพดี ซึ่งอธิบายว่าเหตุใดโปรแกรมในสไลด์จึงจบด้วยเข็มเชื้อตายที่ 12 สัปดาห์ก่อนเข้าไข่",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2018",
+              "locator": "Section C.1 Requirements for vaccines, Background, p. 8",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For long-living birds, vaccination with live vaccines only during the rearing period will often not be sufficient to induce a long-lasting protection against challenge in the laying period. Boosting with inactivated vaccines of a good quali"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-lt": {
+    "avian-medicine--avian-lt--ภาพรวมของโรค-overview": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--ภาพรวมของโรค-overview--v1",
+          "statement": "ILT พบกระจายอยู่ทั่วโลกจริง โดยในช่วงปี 2000-2013 มีรายงานโรคนี้แล้วอย่างน้อย 100 ประเทศ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 3, Epidemiology",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "During the period of 2000-2013, the disease had been reported at least in 100 countries"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--ภาพรวมของโรค-overview--v2",
+          "statement": "ไก่ทุกช่วงอายุตั้งแต่ 8 วันจนถึง 4 ปี ติดเชื้อ ILTV ได้ แต่ไก่ที่อายุมากกว่า 3 สัปดาห์ถือว่ามีความไวต่อการติดเชื้อสูง ซึ่งสอดคล้องกับที่สไลด์ระบุว่าอาจพบโรคได้ตั้งแต่อายุ 3 สัปดาห์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 3, Epidemiology",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Birds of all ages starting from eight days to four years of age are susceptible to ILTV infection; however, birds over three weeks of age are reported to be highly susceptible"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--เชื้อสาเหตุ-etiology": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--เชื้อสาเหตุ-etiology--v1",
+          "statement": "เชื้อสาเหตุของ ILT คือ gallid alphaherpesvirus 1 ซึ่งเป็นชื่อปัจจุบันของไวรัสที่สไลด์เรียกว่า Gallid herpesvirus type 1 (GaHV-1)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A, Introduction",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Avian infectious laryngotracheitis (ILT) is a respiratory disease of chickens caused by gallid alphaherpesvirus 1."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--เชื้อสาเหตุ-etiology--v2",
+          "statement": "ILTV เป็นดีเอ็นเอไวรัสสายคู่ที่มีเปลือกหุ้มจริง จีโนมเป็น linear double-stranded DNA ขนาด 150-155 kb และ virion ประกอบด้วย DNA core ภายใน icosahedral capsid ที่ล้อมด้วยชั้น tegument และ envelope ที่มี glycoprotein อยู่ด้านนอก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 2.1, The virus",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The virions of ILTV under electron microscopy appear as typical herpes virions consisting of a DNA core within an icosahedral capsid which is surrounded by a tegument layer, and outer envelope glycoproteins"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--เซลล์เป้าหมาย-การติดต่อ-และระยะฟักตัว": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--เซลล์เป้าหมาย-การติดต่อ-และระยะฟักตัว--v1",
+          "statement": "เซลล์เป้าหมายคือ epithelial cells ที่บุกล่องเสียงและหลอดลม ซึ่งถูกทำลายเสมอในทุกราย ขณะที่ respiratory sinuses ถุงลม และเนื้อปอด อาจถูกทำลายหรือไม่ก็ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 2.2, Viral replication",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Within respiratory system, the epithelial cells that lines larynx and trachea are always affected, while respiratory sinuses, air sacs and lung tissues may or may not be affected"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--เซลล์เป้าหมาย-การติดต่อ-และระยะฟักตัว--v2",
+          "statement": "ILTV สร้าง latency ใน trigeminal ganglion หลังการติดเชื้อเฉียบพลันประมาณ 7 วัน และถูกกระตุ้นให้กลับมาแบ่งตัวเมื่อไก่เครียด เช่น การเคลื่อนย้าย การเริ่มให้ไข่ และการรวมฝูง ตรงตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 3, Epidemiology",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "ILTV can establish latency in the trigeminal ganglion of the central nervous system after 7 days of acute infection. The virus gets reactivated under the stress conditions during shifting, onset of laying and mixing of flocks"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--เซลล์เป้าหมาย-การติดต่อ-และระยะฟักตัว--v3",
+          "statement": "ไก่ที่หายจากโรคเป็นพาหะได้จริง เชื้อคงอยู่แบบไม่แสดงอาการเป็นเวลานานและถูกขับออกมาเป็นระยะ ทำให้ไก่กลุ่มนี้เป็นแหล่งแพร่โรคที่สำคัญ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A, Introduction",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "clinically inapparent infection can persist for long periods with intermittent re-excretion of the virus, and these recovered carrier birds are also a potential means of transmission of the disease"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--พยาธิกำเนิด-pathogenesis-และวงจรการแพร่เชื้อ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--พยาธิกำเนิด-pathogenesis-และวงจรการแพร่เชื้อ--v1",
+          "statement": "ทางเข้าตามธรรมชาติของ ILTV คือทางระบบหายใจและทางตา โดยเชื้อเพิ่มจำนวนครั้งแรกที่ epithelium ของเยื่อบุตา respiratory sinuses กล่องเสียง และทางเดินหายใจส่วนต้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 4, Pathogenesis",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The natural portal of entry of ILTV is respiratory and ocular routes. The initial replication takes place in the epithelium of the conjunctiva, respiratory sinuses, larynx and upper respiratory tract to a greater extent"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--พยาธิกำเนิด-pathogenesis-และวงจรการแพร่เชื้อ--v2",
+          "statement": "ไก่ที่ติดเชื้อขับเชื้อออกทาง respiratory secretions นานถึง 10 วันหลังติดเชื้อ และเชื้อเข้าสู่ตัวไก่ทางระบบหายใจ ทางตา และทางปากในสัดส่วนที่น้อยกว่า ตรงตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 2.6, Transmission",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infected birds shed the virus in their respiratory secretions for 10 days post-infection. ILTV enters into the host through the respiratory tract, ocular and to a lesser extent through oral routes"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--พยาธิกำเนิด-pathogenesis-และวงจรการแพร่เชื้อ--v3",
+          "statement": "ไก่ที่กำลังติดเชื้อระยะเฉียบพลันแพร่เชื้อได้ง่ายกว่าไก่ที่หายจากโรคแล้วหรือไก่พาหะที่มีเชื้อแฝง สนับสนุนข้อความในสไลด์ที่ว่า direct transmission จากไก่ป่วยรุนแรงกว่าการแพร่จาก carrier",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 2.6, Transmission",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The infected birds readily transmit the disease through the oral secretion as compared to clinically recovered birds or latent carriers"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--พยาธิกำเนิด-pathogenesis-และวงจรการแพร่เชื้อ--v4",
+          "statement": "การแพร่เชื้อเข้าฝูงเกิดได้ทั้งจากการสัมผัสสารคัดหลั่งทางเดินหายใจโดยตรง และจากการแพร่แบบ indirect หรือ mechanical ผ่านอุปกรณ์ สิ่งปูรอง กระสอบอาหาร ขนไก่ ยานพาหนะ ฝุ่น รองเท้า เสื้อผ้า และการเคลื่อนย้ายของคน ตรงตามรายการในสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 2.6, Transmission",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The virus usually gets introduced into a flock by direct contact with respiratory exudates or indirect/mechanical transmission of contaminated equipment, litter, feed bags, feathers, vehicles, dust, footwear, clothes, and movement of people"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--อาการ-clinical-signs": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--อาการ-clinical-signs--v1",
+          "statement": "รูปแบบ severe epizootic ของ ILT มีอัตราการป่วย (morbidity) สูง 90-100% ตรงตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 3, Epidemiology",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The severe epizootic form is characterized by a rapid spread with a high morbidity (90-100%)"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--อาการ-clinical-signs--v2",
+          "statement": "ในรูปแบบ acute พบเยื่อบุตาอักเสบเป็นหนองร่วมกับ frothy exudate ที่หัวตาด้านใน ร่วมกับ sinusitis และน้ำมูกไหล ตรงกับที่สไลด์ระบุว่า conjunctivitis with frothy ocular secretion",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 5.1.2, Acute form",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The affected birds may also show purulent conjunctivitis with frothy exudates in the inner canthus of the eye, sinusitis and nasal discharge"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--อาการ-clinical-signs--v3",
+          "statement": "อาการบวมของ infraorbital sinus (almond-shaped eyes) ร่วมกับไข่ลดได้ถึง 10% และน้ำหนักตัวลด เป็นลักษณะของ ILT รูปแบบ chronic หรือ mild ไม่ใช่รูปแบบเฉียบพลันรุนแรง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 5.1.3, Chronic form",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "swelling of the infraorbital sinuses (almond-shaped eyes), drop in egg production (up to 10%), and reduced body weight"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--รอยโรค-lesions": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--รอยโรค-lesions--v1",
+          "statement": "รอยโรคหลังการตายจำกัดอยู่ที่ทางเดินหายใจส่วนต้น ประกอบด้วย haemorrhagic tracheitis ที่มีลิ่มเลือด mucoid rhinitis และเมือกปนเลือดตลอดความยาวของหลอดลม สอดคล้องกับรอยโรคระยะท้ายที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A, Introduction (peracute form)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Post-mortem changes are confined to the upper respiratory tract and are also characteristic, consisting of haemorrhagic tracheitis with blood clots, mucoid rhinitis, and blood-stained mucus along the length of the trachea."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--รอยโรค-lesions--v2",
+          "statement": "แผ่น diphtheritic สีเหลืองลักษณะ caseous เกาะติดกับกล่องเสียงและเยื่อบุหลอดลมส่วนต้น เป็นรอยโรคของ ILT รูปแบบ subacute ตรงตามที่สไลด์ระบุว่าพบ diphtheritic ในหลอดลม",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A, Introduction (subacute form)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Yellow caseous diphtheritic membranes may be found adherent to the larynx and upper tracheal mucosa."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--รอยโรค-lesions--v3",
+          "statement": "แผ่นเยื่อที่เกิดขึ้นสามารถกลายเป็น obstructive plug อุดกั้นบริเวณกล่องเสียงและ syrinx ทำให้ไก่ขาดอากาศหายใจและตาย ยืนยันกลไกที่สไลด์อธิบายว่า mucoid plug อุดทางเดินหายใจ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 5.2, Gross lesions",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The membrane also forms obstructive plugs in the larynx and syrinx regions leading to suffocation and death."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--การวินิจฉัย-diagnosis": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--การวินิจฉัย-diagnosis--v1",
+          "statement": "PCR มีความไวสูงกว่าการแยกเชื้อ (virus isolation) สำหรับตรวจตัวอย่างทางคลินิก และปัจจุบันใช้กันแพร่หลาย โดย histopathology ร่วมกับ real-time PCR เป็นคู่ทดสอบเร็วที่ใช้บ่อยที่สุดในการตรวจ ILTV",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Summary, Detection of the agent",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Polymerase chain reaction (PCR) methodology has been shown to be more sensitive than virus isolation for the examination of clinical material and is now widely used."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--การวินิจฉัย-diagnosis--v2",
+          "statement": "ELISA เป็นวิธีที่เลือกใช้ (method of choice) สำหรับตรวจแอนติบอดีต่อ ILTV ในซีรั่มไก่ และเหมาะกับการคัดกรองระดับฝูง ส่วน AGID และ indirect immunofluorescence แทบไม่ใช้แล้วในปัจจุบัน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.2, Serological tests",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The method of choice for detection of antibodies to ILTV in chicken serum is ELISA. Virus neutralisation (VN) can also be used. AGID and indirect immunofluorescence tests are little used nowadays."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--การวินิจฉัย-diagnosis--v3",
+          "statement": "ต้องวินิจฉัยแยก ILT จากโรคระบบหายใจอื่นโดยเฉพาะ Newcastle disease ซึ่งทำให้เกิด tracheitis รุนแรงได้เช่นกัน และต้องแยกรอยโรค diphtheritic ในช่องปากออกจาก fowlpox รูปแบบ wet form ตรงกับรายการวินิจฉัยแยกในสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A, Introduction",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Differential diagnosis of ILT from other respiratory diseases, especially Newcastle disease, which may also cause severe tracheitis, is important. Also, diphtheritic oral lesions should be differentiated from the wet form of fowlpox."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--การควบคุมและป้องกันโรค-ภาพรวม": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--การควบคุมและป้องกันโรค-ภาพรวม--v1",
+          "statement": "การควบคุม ILT ในทางปฏิบัติอาศัยสองเสาหลักคือ biosecurity ที่ดีร่วมกับการทำวัคซีน ตรงตามที่สไลด์แบ่งไว้ และเหตุผลสำคัญคือ ILT ไม่มีการรักษาที่ได้ผล",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 8, Vaccination",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Good biosecurity practices combined with vaccination are the practical methods to control ILTV in the absence of any effective treatment."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--วัคซีนเชื้อเป็น-ceo-และ-tco": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--วัคซีนเชื้อเป็น-ceo-และ-tco--v1",
+          "statement": "วัคซีน CEO ให้ประสิทธิภาพในการป้องกันโรคดีกว่าวัคซีน TCO ตรงตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 8, Vaccination",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The protective efficacy of CEO vaccines is better when compared to TCO vaccines"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--วัคซีนเชื้อเป็น-ceo-และ-tco--v2",
+          "statement": "ในโปรแกรมวัคซีนของไก่อายุยืน วัคซีนเชื้อเป็น CEO ให้ทางน้ำดื่ม ส่วน TCO ให้โดยการหยอดตา สนับสนุนการแบ่ง route ตามที่สไลด์ระบุว่า TCO ให้แบบ eye drop เท่านั้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37556293",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "live attenuated vaccines administered via drinking water (chicken embryo origin [CEO]) or eye drop (tissue culture origin [TCO])"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--วัคซีนเชื้อเป็น-ceo-และ-tco--v3",
+          "statement": "โปรแกรมป้องกันมาตรฐานให้วัคซีน ILT เข็มแรกที่อายุ 6-8 สัปดาห์ แล้วกระตุ้นซ้ำที่ 12-15 สัปดาห์ในไก่ไข่และไก่พันธุ์ ซึ่งอยู่ในกรอบเดียวกับช่วงอายุที่สไลด์ระบุ และยืนยันว่าการทำวัคซีนนี้มุ่งไปที่ไก่ไข่และไก่พันธุ์เป็นหลัก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 8, Vaccination",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Preventive vaccination of ILTV is given at 6 to 8 weeks of age, followed by the booster at 12 to 15 weeks for layers and breeders"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--ข้อควรระวังในการใช้วัคซีนเชื้อเป็น": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--ข้อควรระวังในการใช้วัคซีนเชื้อเป็น--v1",
+          "statement": "วัคซีนเชื้อเป็น ILT มีความรุนแรงตกค้าง (residual virulence) ที่ก่อให้เกิดอาการป่วยได้จริง โดยความเสี่ยงสูงเป็นพิเศษเมื่อให้ด้วยวิธีพ่นละออง จุดที่ต้องระวังคือขนาดละอองที่เล็กเกินไปแล้วถูกสูดลงลึก ซึ่งเป็นเหตุผลที่การพ่นแบบ coarse spray ใช้ละอองหยาบเพื่อลดปัญหานี้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section C.1, Background",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "live attenuated ILT vaccines may have residual virulence that can cause clinical disease, especially if administered by spray and a small droplet size is produced and inhaled"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--ข้อควรระวังในการใช้วัคซีนเชื้อเป็น--v2",
+          "statement": "วัคซีนเชื้อเป็น ILT กลับมามีความรุนแรงสูงขึ้นได้เมื่อผ่านจากไก่ตัวหนึ่งไปยังอีกตัวหนึ่ง และคงอยู่ในฟาร์มได้ อีกทั้งไก่ที่ทำวัคซีนแล้วติดเชื้อผสมแบบไม่แสดงอาการสามารถทำให้ไก่ที่ไม่ได้ทำวัคซีนซึ่งอยู่ร่วมฝูงป่วยรุนแรงได้ สนับสนุนกลไก rolling infection เมื่อทำวัคซีนไม่ทั่วทั้งฝูง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section C.1, Background",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Live attenuated ILT vaccines may also revert to higher levels of virulence following bird-to-bird passage and persist in the field. Subclinical mixed infections of vaccine and field virus, in vaccinated birds, can cause severe disease in un"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--recombinant-vaccine-virus-vector-vaccine": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--recombinant-vaccine-virus-vector-vaccine--v1",
+          "statement": "วัคซีน recombinant ที่ใช้ fowlpox virus เป็น vector แสดงออก glycoprotein B และยีน UL32 ของ ILTV ตรงตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 8, Vaccination",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "recombinant vaccines such as FPV vector vaccine expressing glycoprotein B and UL32 genes of ILTV"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--recombinant-vaccine-virus-vector-vaccine--v2",
+          "statement": "วัคซีน recombinant ให้ได้สามทางคือ wing-web puncture, ฉีดใต้ผิวหนัง และ in ovo ตรงตามเส้นทางการให้ที่สไลด์ระบุสำหรับ FPV-ILT และ HVT-ILT",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section C.1, Background",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Recombinant vaccines may be delivered by wing-web puncture, subcutaneous injection or in-ovo inoculation."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--ตัวอย่างโปรแกรมวัคซีน-ไก่พันธุ์": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--ตัวอย่างโปรแกรมวัคซีน-ไก่พันธุ์--v1",
+          "statement": "โปรแกรมวัคซีน ILT ของไก่อายุยืน ซึ่งรวมไก่พันธุ์เนื้อและไก่ไข่การค้า ใช้ได้ทั้ง HVT recombinant vector vaccine ที่โรงฟัก หรือวัคซีนเชื้อเป็น CEO ทางน้ำดื่ม หรือ TCO โดยการหยอดตา ตรงกับกรอบโปรแกรมที่สไลด์ยกตัวอย่าง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37556293",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "vaccination programs of long-lived birds (broiler breeders and commercial layers) against ILT include immunizations with either HVT recombinant vector vaccines, or at hatch, or live attenuated vaccines administered via drinking water (chick"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--ตัวอย่างโปรแกรมวัคซีน-ไก่ไข่": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--ตัวอย่างโปรแกรมวัคซีน-ไก่ไข่--v1",
+          "statement": "การให้วัคซีน rHVT-LT ที่โรงฟักแล้วตามด้วยวัคซีนเชื้อเป็น CEO ทางน้ำดื่มหรือหยอดตาในภายหลัง ให้ความคุ้มโรคที่แข็งแรงกว่าการให้ rHVT-LT เพียงอย่างเดียว สนับสนุนโปรแกรมไก่ไข่ที่สไลด์เสนอคือ recombinant ที่ 1 วัน แล้วตามด้วย CEO หรือ TCO",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37556293",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The efficacy of bivalent rHVT-LT at hatch followed by drinking water or eye-drop CEO vaccination has been shown to provide more robust protection than rHVT-LT alone."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--ตัวอย่างโปรแกรมวัคซีน-ไก่เนื้อ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--ตัวอย่างโปรแกรมวัคซีน-ไก่เนื้อ--v1",
+          "statement": "เหตุผลที่ไก่เนื้อเลือกใช้ recombinant vector vaccine เป็นหลักคือวัคซีนเชื้อเป็นโดยเฉพาะ CEO มีความรุนแรงตกค้างในตัวเอง การใช้ viral vector recombinant vaccine จึงขยายตัวไปทั่วโลกในฐานะกลยุทธ์ที่ปลอดภัยกว่า ตรงกับที่สไลด์ระบุว่าให้เพื่อลดความเสี่ยงในการแพ้วัคซีน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31251537",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Due to the inherent virulence of live attenuated vaccines, in particular that of the chicken embryo origin (CEO) vaccines, the use of ILT viral vector recombinant vaccines has significantly expanded worldwide as a safer vaccination strategy"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--ข้อสรุปเรื่องวัคซีน-และการให้วัคซีนตอนเกิดการระบาด": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--ข้อสรุปเรื่องวัคซีน-และการให้วัคซีนตอนเกิดการระบาด--v1",
+          "statement": "ในไก่เนื้อ วัคซีน rHVT-LT ลดอาการทางคลินิก รักษาน้ำหนักตัวหลัง challenge และลดการเพิ่มจำนวนของเชื้อในหลอดลมได้ 52-65% แต่ไม่สามารถป้องกันการแพร่เชื้อไปยังไก่ naive ที่เลี้ยงร่วมกันได้ ตรงตามข้อสรุปในสไลด์ที่ว่าวัคซีน recombinant ลดอาการป่วยและการตายได้ แต่ลดการแพร่เชื้อได้ไม่เท่า CEO",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31251537",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "vaccinated chickens showed reduction in clinical signs, maintained body weight gain after challenge, and lessened the challenge virus replication in the trachea at a rate of 52%-65%. However, in spite of this reduction, transmission of chal"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--ข้อสรุปเรื่องวัคซีน-และการให้วัคซีนตอนเกิดการระบาด--v2",
+          "statement": "การให้วัคซีนขณะเกิดการระบาด (therapeutic vaccination) ช่วยลดการแพร่กระจายของเชื้อและย่นระยะเวลาของการระบาดลงได้จริง ตรงตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 9, Control and eradication",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the virus spread and length of an outbreak can be reduced by therapeutic vaccination"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-lt--biosecurity-และการจัดการ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-lt--biosecurity-และการจัดการ--v1",
+          "statement": "การเลี้ยงไก่หลายอายุในพื้นที่เดียวกัน ความหนาแน่นของฝูงที่สูง และรอบการผลิตที่สั้นลง เป็นปัจจัยที่ทำให้การระบาดของ ILT เพิ่มขึ้นทั่วโลก สนับสนุนคำแนะนำในสไลด์ให้เลี้ยงไก่อายุเดียวกันแบบ all in all out",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 3, Epidemiology",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The trend toward high flock density, shorter production cycles, raising of multi-age and multipurpose chicken within same geographical area, and improper vaccination and breach in the biosecurity have contributed to the increased ILT outbre"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--biosecurity-และการจัดการ--v2",
+          "statement": "ต้องทำความสะอาดและฆ่าเชื้อโรงเรือนอย่างเหมาะสม และยืดระยะพักเล้า (downtime) ระหว่างรุ่นการเลี้ยงให้นานขึ้น ตรงตามที่สไลด์แนะนำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 9, Control and eradication",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Proper cleaning and disinfection of poultry houses should be carried out and the downtime should be extended between subsequent batches."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--biosecurity-และการจัดการ--v3",
+          "statement": "ILTV อยู่รอดใน deep litter ได้ 3-20 วันที่อุณหภูมิ 11-24.5 องศาเซลเซียส และอยู่ในซากที่ฝังกลบได้อย่างน้อย 3 สัปดาห์ อธิบายว่าทำไมความสะอาดของพื้นและสิ่งปูรองจึงสำคัญตามที่สไลด์เน้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 2.4, Physico-chemical properties",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In deep litter, the ILTV survives for 3-20 days at 11-24.5 C, in the droppings of battery cages for 3 days at 11-19.5 C and at least for 3 weeks in buried carcasses."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-lt--biosecurity-และการจัดการ--v4",
+          "statement": "ILTV คงอยู่ใน biofilm ของท่อและรางน้ำดื่มแล้วแพร่ไปยังไก่ที่ไวรับได้ สนับสนุนที่สไลด์ให้ความสำคัญกับความสะอาดของรางน้ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32315579",
+              "locator": "Section 2.6, Transmission",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Recent studies demonstrated that ILTV can persist in the biofilm of drinking water lines and spread to susceptible birds"
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-mpv": {
+    "avian-medicine--avian-mpv--โรคหัวบวมคืออะไร-ภาพรวม": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--โรคหัวบวมคืออะไร-ภาพรวม--v1",
+          "statement": "aMPV ทำให้เกิด acute highly contagious upper respiratory tract infection ที่บางครั้งมาพร้อม reproductive disorder โดยเกิดหลักในไก่งวง ไก่ และเป็ด เรียกว่า turkey rhinotracheitis (TRT) ในไก่งวง และเป็นเชื้อกระตุ้นของ swollen head syndrome (SHS) ในไก่",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Summary, page 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Avian metapneumovirus (aMPV) principally causes an acute highly contagious upper respiratory tract infection sometimes combined with reproductive disorders, primarily of turkeys, chickens and ducks."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--โรคหัวบวมคืออะไร-ภาพรวม--v2",
+          "statement": "นกธรรมชาติเกี่ยวข้องกับการแพร่ของเชื้อจริง มีการแยกเชื้อ APV ได้จากนกน้ำ sentinel ที่วางไว้ใกล้ฟาร์มไก่งวงที่ติดเชื้อ และจาก wild Canada geese ที่จับได้ในรัฐ Minnesota",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12665110",
+              "locator": "Abstract; Anim Health Res Rev 3(2):107-17",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infectious APV was isolated from sentinel waterfowls placed close to an infected commercial turkey farm and from wild Canada geese captured in Minnesota, suggesting that free-ranging birds may be involved in the spread of APV."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--ประวัติช่วงแรกของโรคหัวบวม": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--ประวัติช่วงแรกของโรคหัวบวม--v1",
+          "statement": "การแยกเชื้อ aMPV ครั้งแรกเกิดขึ้นที่ประเทศแอฟริกาใต้ในช่วงปลายทศวรรษ 1970 โดยทำใน embryonated eggs",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section B.1.2 Culture and Identification, page 5",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The original isolation of aMPV in South Africa in the late 1970s and the more recent Colorado aMPV were carried out in embryonated eggs, however subgroup A and B aMPV isolations have routinely been made in tracheal organ cultures."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--ประวัติช่วงแรกของโรคหัวบวม--v2",
+          "statement": "การแบ่ง avian pneumovirus ออกเป็น 2 subgroups ได้รับการยืนยันในปี 1994 จากการวิเคราะห์ลำดับนิวคลีโอไทด์ของยีน attachment (G) protein โดยกลุ่ม UK และฝรั่งเศสเป็นกลุ่มหนึ่ง ส่วนสเปน อิตาลี และฮังการีเป็นอีกกลุ่มหนึ่ง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-7964599",
+              "locator": "Abstract; J Gen Virol 75(Pt 11):2873-80",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The nucleotide sequences and the predicted amino acid sequences indicate that there are at least two distinct subgroups, similar to the grouping described for human respiratory syncytial (RS) virus. The U.K. and French isolates form one gro"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--ประวัติช่วงแรกของโรคหัวบวม--v3",
+          "statement": "AMPV subtype C ถูกแยกได้ครั้งแรกในรัฐ Colorado สหรัฐอเมริกา ปี 1996 จากฟาร์มไก่งวงเชิงพาณิชย์ แล้วแพร่ต่อไปยังรัฐอื่นรวมทั้ง Minnesota, North Dakota, South Dakota, Iowa และ Wisconsin",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458407",
+              "locator": "Section on AMPV subgroup C; Viruses 14(4):677",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A novel subtype AMPV-C was isolated in the state of Colorado in the United States in 1996. This virus was found on a commercial turkey farm and although it appeared to be quickly eradicated in Colorado, it soon spread to many other states i"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--เชื้อสาเหตุและการจัดจำแนก-classification": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--เชื้อสาเหตุและการจัดจำแนก-classification--v1",
+          "statement": "aMPV เป็น single-stranded non-segmented negative-sense RNA virus ที่มีเปลือกหุ้ม จัดอยู่ใน family Pneumoviridae genus Metapneumovirus โดยจีโนมยาวประมาณ 14 กิโลเบส บรรจุใน nucleocapsid แบบ helical symmetry",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Summary page 1 and Section A. Introduction page 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "aMPV is a single-stranded non-segmented negative-sense RNA virus belonging to the family Pneumoviridae, genus Metapneumovirus."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--เชื้อสาเหตุและการจัดจำแนก-classification--v2",
+          "statement": "อนุภาคไวรัสเป็น pleomorphic spherical มีเปลือกหุ้ม ขนาดตั้งแต่ 50 nm ถึง 200 nm โดยทั่วไปประมาณ 150 nm ตรงกับตัวเลขที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39861016",
+              "locator": "Section on aMPV general properties; Pathogens 14(1):55",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "sizes ranging from 50 nm to 200 nm, typically around 150 nm in diameter"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--เชื้อสาเหตุและการจัดจำแนก-classification--v3",
+          "statement": "จีโนมของ metapneumovirus มี 8 ยีนเรียงลำดับ 3'-N-P-M-F-M2-SH-G-L และไม่มียีน non-structural NS1 และ NS2 ต่างจาก mammalian pneumovirus ซึ่งสอดคล้องกับโปรตีน N, P, M, F, SH, G และ L ที่แสดงในรูปสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Avian and human metapneumoviruses have no non-structural NS1 and NS2 proteins and their gene order (3'-N-P-M-F-M2-SH-G-L-5') is different from that of mammalian pneumoviruses (3'-NS1-NS2-N-P-M-SH-G-F-M2-L-5')"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--subtypes-ของ-ampv": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--subtypes-ของ-ampv--v1",
+          "statement": "aMPV แบ่งได้เป็น 4 subgroups คือ A, B, C และ D โดยจำแนกด้วย monoclonal antibody neutralisation, ELISA และการวิเคราะห์ลำดับนิวคลีโอไทด์ของยีน G และมีข้อมูลลำดับพันธุกรรมล่าสุดชี้ว่าอาจมี subgroup เพิ่มเติมในนกนางนวลและนกแก้ว",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Summary, page 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Four antigenically distinct subgroups, A, B, C and D, of aMPV have been identified by neutralisation with monoclonal antibodies, possible limited cross reactivity in enzyme-linked immunosorbent assay (ELISA), and sequence analysis of the at"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--subtypes-ของ-ampv--v2",
+          "statement": "subgroup D ถูกระบุจากการทำ retrospective molecular analysis ของไวรัสที่แยกได้จากไก่งวงในประเทศฝรั่งเศสช่วงทศวรรษ 1980 ตรงกับที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Retrospective molecular analysis of viruses isolated in the 1980s from turkeys in France indicates the presence of a fourth subgroup of aMPV designated subgroup D."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--เซลล์เป้าหมาย-การติดต่อ-และระยะฟักตัว": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--เซลล์เป้าหมาย-การติดต่อ-และระยะฟักตัว--v1",
+          "statement": "การแพร่เชื้อจากตัวสู่ตัวต้องอาศัย direct contact ตามผลการศึกษาเชิงทดลอง และในสภาพฟาร์มเชิงพาณิชย์การติดเชื้อทาง aerogenous จาก airborne transmission ก็มีโอกาสเกิดได้เนื่องจากโรคจำกัดอยู่ที่ระบบหายใจ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Other experimental studies suggest that direct contact is necessary for bird-to-bird spread of the disease (Alkhalaf et al., 2002). In commercial conditions aerogenous infection following airborne transmission is also likely as the disease "
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--เซลล์เป้าหมาย-การติดต่อ-และระยะฟักตัว--v2",
+          "statement": "ระยะฟักตัวของ aMPV ที่รายงานในวารสารคือ 3 ถึง 7 วัน ซึ่งครอบคลุมช่วง 3 ถึง 5 วันที่สไลด์ระบุ แต่กว้างกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39861016",
+              "locator": "Section on aMPV clinical disease; Pathogens 14(1):55",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "incubation period of 3–7 days"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--เซลล์เป้าหมาย-การติดต่อ-และระยะฟักตัว--v3",
+          "statement": "ในกรณีที่ไม่มีการติดเชื้อแทรกซ้อน สัตว์จะฟื้นตัวเร็วและกลับมาปกติภายในประมาณ 14 วัน สอดคล้องกับ recovery within 10 ถึง 14 วันที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In an uncomplicated infection, recovery is rapid and the birds appear normal in approximately 14 days."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--พยาธิกำเนิดในทางเดินหายใจ-respiratory-tract": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--พยาธิกำเนิดในทางเดินหายใจ-respiratory-tract--v1",
+          "statement": "ในไก่งวงระยะเจริญเติบโต การเพิ่มจำนวนของไวรัสจำกัดอยู่ที่ upper respiratory tract โดยมี viraemia สั้น ๆ และเกิด serous rhinitis ที่ turbinates พร้อม epithelial exfoliation และ focal loss of cilia ตั้งแต่ 2 วันหลังติดเชื้อ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sequential histopathological and immunocytochemical studies have shown viral replication in the turbinates causing a serous rhinitis with increased glandular activity, epithelial exfoliation, focal loss of cilia, hyperaemia and mild mononuc"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--พยาธิกำเนิดในทางเดินหายใจ-respiratory-tract--v2",
+          "statement": "การศึกษาเชิงทดลองในไก่งวงเก็บตัวอย่างจาก nasal turbinates, trachea, conjunctiva, Harderian gland, infraorbital sinus และ lungs โดยพบรอยโรค multifocal loss of cilia เด่นชัดที่ nasal turbinate ระหว่างวันที่ 3 ถึง 11 หลังการให้เชื้อ ยืนยันว่าพบเชื้อได้ในอวัยวะที่สไลด์ระบุรวมถึง Harderian gland",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16404993",
+              "locator": "Abstract; Avian Dis 49(4):520-6",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Samples from nasal turbinates, trachea, conjunctiva, Harderian gland, infraorbital sinus, lungs, liver, and spleen were collected at 1, 3, 5, 7, 9, 11, and 14 days PI. Histopathologic lesions such as a multifocal loss of cilia were prominen"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--อาการทางคลินิก-clinical-signs": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--อาการทางคลินิก-clinical-signs--v1",
+          "statement": "ในไก่ mortality โดยทั่วไปไม่เกิน 1 ถึง 2% และ morbidity อาจถึง 10% แม้ว่าฝูงทั้งฝูงอาจได้รับผลกระทบถึง 100% ซึ่งสอดคล้องกับตัวเลข morbidity 4 ถึง 10% และ mortality 0.4 ถึง 2% ในสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although mortality does not usually exceed 1–2%, morbidity may reach 10%, although 100% of the flock may be affected."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--อาการทางคลินิก-clinical-signs--v2",
+          "statement": "อาการของ aMPV ประกอบด้วย snicking, rales, sneezing, nasal discharge, foaming conjunctivitis, swelling ของ infraorbital sinuses และ submandibular oedema ตรงกับรายการอาการในสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infection with aMPV can occur from a very young age in turkeys and is characterised by snicking, rales, sneezing, nasal discharge, foaming conjunctivitis, swelling of the infraorbital sinuses and submandibular oedema (Pringle, 1998)."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--อาการทางคลินิก-clinical-signs--v3",
+          "statement": "ใน swollen head syndrome ของไก่ อาการบวมของ infraorbital sinuses และ periorbital กับใบหน้ามักตามมาด้วย cerebral disorientation, torticollis และ opisthotonos",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The syndrome is characterised by respiratory disease, apathy, swelling of infraorbital sinuses and unilateral or bilateral periorbital and facial swelling, extending over the head. These signs are frequently followed by cerebral disorientat"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--secondary-infection-และผลต่อการให้ไข่": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--secondary-infection-และผลต่อการให้ไข่--v1",
+          "statement": "อาการเด่นของ swollen head syndrome ในไก่เกิดจากการติดเชื้อแบคทีเรียแทรกซ้อน เช่น Escherichia coli ไม่ใช่จากไวรัสโดยตรง ซึ่งสนับสนุนการที่สไลด์โยง E. coli เข้ากับอาการรุนแรง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section B.1.1 Collection and selection of diagnostic specimens, page 5",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This certainly applies to SHS of chickens in which the characteristic signs appear to be due to secondary (e.g. Escherichia coli) bacterial infection."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--secondary-infection-และผลต่อการให้ไข่--v2",
+          "statement": "เชื้อแทรกซ้อนที่ทำให้โรครุนแรงและยืดเยื้อได้แก่ Bordetella avium, Pasteurella-like organisms, Mycoplasma gallisepticum, Chlamydophila และ Ornithobacterium rhinotracheale รวมถึงการติดเชื้อร่วมกับไวรัส infectious laryngotracheitis, infectious bronchitis และ paramyxovirus-1 หรือ avian orthoavulavirus-1",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Among secondary agents that have been shown to exacerbate and prolong clinical disease are Bordetella avium, Pasteurella-like organisms, Mycoplasma gallisepticum, Chlamydophila and Ornithobacterium rhinotracheale"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--secondary-infection-และผลต่อการให้ไข่--v3",
+          "statement": "aMPV ทำให้ผลผลิตไข่ลดลง 10 ถึง 40% ซึ่งครอบคลุมช่วง 15 ถึง 30% ที่สไลด์ระบุ พร้อมกับคุณภาพไข่ที่ลดลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39861016",
+              "locator": "Section on aMPV economic impact; Pathogens 14(1):55",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "decline of 10–40% in egg production, causing massive economic losses"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--รอยโรค-lesions": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--รอยโรค-lesions--v1",
+          "statement": "รอยโรคทางเดินหายใจส่วนต้นเริ่มจาก serous rhinitis แล้วเปลี่ยนเป็น catarrhal rhinitis ที่มี mucopurulent exudate พร้อมความเสียหายของชั้นเยื่อบุผิวและการแทรกของเซลล์อักเสบชนิด mononuclear ในชั้น submucosa ที่ 3 ถึง 4 วันหลังติดเชื้อ ตรงกับ watery to mucoid exudate ใน turbinates ที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A catarrhal rhinitis with mucopurulent exudate, damage to the epithelial layer and a copious mononuclear inflammatory infiltration in the submucosa was seen 3–4 dpi."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--รอยโรค-lesions--v2",
+          "statement": "ในไก่งวงที่กำลังให้ไข่ อาจมีผลผลิตไข่ลดลงถึง 70% และคุณภาพไข่ในช่วงฟื้นตัวซึ่งกินเวลาถึง 3 สัปดาห์อาจไม่ดี สนับสนุนรอยโรคระบบสืบพันธุ์แบบ misshapen eggs, thin shell และ discoloured eggs ที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Respiratory infection is less severe in laying turkeys; however, there may be a drop in egg production of up to 70% (Stuart, 1989) and the quality of eggs during the recovery period, up to 3 weeks, may be poor."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--รอยโรค-lesions--v3",
+          "statement": "ในไก่งวงพ่อแม่พันธุ์ ไก่เนื้อพ่อแม่พันธุ์ และไก่ไข่ aMPV ทำให้ผลผลิตไข่ลดลง ซึ่งในไก่งวงพ่อแม่พันธุ์อาจกลายเป็นความเสียหายถาวร และมีผลต่อคุณภาพเปลือกไข่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41739607",
+              "locator": "Abstract; Avian Dis 69(S1):505-515",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In turkey breeders, broiler breeders, and laying hens, aMPV causes a decrease in egg production, which may become permanent in turkey breeders and may affect eggshell quality causing significant economic impact."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--การวินิจฉัย-diagnosis": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--การวินิจฉัย-diagnosis--v1",
+          "statement": "การเพาะแยกเชื้อทำได้ใน cell cultures, embryonated chicken eggs และ tracheal organ cultures แต่โดยทั่วไปไม่นิยมทำเป็นงานประจำเพราะเชื้อแยกยากและวิธีการใช้แรงงานมาก ตรงกับที่สไลด์ระบุว่าเพาะเชื้อได้ยาก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section B. Diagnostic techniques, page 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Isolation and identification of the agent provide the most certain diagnosis of aMPV, but are not usually attempted for routine diagnostic purposes as the virus may prove difficult to isolate and these tests are labour intensive."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--การวินิจฉัย-diagnosis--v2",
+          "statement": "RT-PCR มีความไวและรวดเร็วกว่าการเพาะแยกเชื้อแบบมาตรฐานอย่างมีนัยสำคัญ เนื่องจาก aMPV เป็นเชื้อที่เพาะยาก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section B.1.3 Molecular identification, page 6",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Reverse-transcription PCR (RT-PCR) is a significantly more sensitive and rapid method for the detection of aMPV than standard virus isolation methods because of the fastidious nature of aMPV."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--การวินิจฉัย-diagnosis--v3",
+          "statement": "การตรวจทางซีรัมวิทยาที่ใช้บ่อยที่สุดคือ ELISA ส่วนวิธีอื่นที่ใช้ได้คือ virus neutralisation, immunofluorescence และ immunodiffusion tests ตรงกับที่สไลด์ระบุว่าใช้ ELISA และ VN",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Summary, page 1 and Section B.2 Serological tests, page 7",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most commonly employed method is the ELISA. Other methods that have been used are virus neutralisation (VN), immunofluorescence and immunodiffusion tests."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--การวินิจฉัย-diagnosis--v4",
+          "statement": "เนื่องจากอาการทางคลินิกของ aMPV คล้ายกับเชื้อก่อโรคทางเดินหายใจชนิดอื่น การวินิจฉัยยืนยันจึงต้องอาศัยการตรวจหาตัวไวรัสด้วย isolation, RT-PCR หรือ RT-qPCR, immunohistochemistry หรือ hybridization ซึ่งเป็นเหตุผลที่ต้องทำ differential diagnosis",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41739607",
+              "locator": "Abstract; Avian Dis 69(S1):505-515",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Given its similar clinical appearance to other respiratory pathogens, definitive diagnosis requires identification of the virus by isolation, RT-PCR/RT-qPCR, immunohistochemical staining, orhybridization."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--การเก็บตัวอย่าง-ชนิดตัวอย่างและจังหวะเวลา": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--การเก็บตัวอย่าง-ชนิดตัวอย่างและจังหวะเวลา--v1",
+          "statement": "ตัวอย่างที่ควรเลือกคือ nasal exudates, choanal cleft swabs และ turbinate specimens ที่เก็บในช่วง 2 ถึง 7 วันหลังสัมผัสเชื้อ ตรงกับที่สไลด์ระบุทั้งชนิดตัวอย่างและกรอบเวลาสั้น ๆ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section B.1.3 Molecular identification, page 6",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Nasal exudates, choanal cleft swabs, and turbinate specimens collected 2–7 days post-exposure are the preferred specimen (Cook et al., 1993b; Pedersen et al., 2001; Stuart, 1989)."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--การเก็บตัวอย่าง-ชนิดตัวอย่างและจังหวะเวลา--v2",
+          "statement": "ต้องเก็บตัวอย่างในระยะแรกของการติดเชื้อ เพราะไวรัสอาจอยู่ใน sinuses และ turbinates เพียงช่วงสั้น ๆ และควรเก็บจากทางเดินหายใจส่วนต้นของสัตว์เป็นในระยะเฉียบพลันด้วย sterile swabs",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section B.1.1 Collection and selection of diagnostic specimens, page 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is very important to take samples for attempted virus isolation in the early stages of infection as the virus may be present only in the sinuses and turbinates for a short period."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--การเก็บตัวอย่าง-จากสัตว์เป็นและจากการผ่าซาก": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--การเก็บตัวอย่าง-จากสัตว์เป็นและจากการผ่าซาก--v1",
+          "statement": "ตัวอย่างที่ให้ผลสำเร็จสูงสุดคือ nasal exudates, choanal cleft swabs และการขูด sinus กับ turbinate tissue ส่วนไวรัสยังแยกได้จากหลอดลมและปอด และบางครั้งจากอวัยวะภายในของลูกไก่งวงที่ป่วย ตรงกับรายการตัวอย่างจากสัตว์เป็นและจากการผ่าซากในสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section B.1.1 Collection and selection of diagnostic specimens, page 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most successful samples have been nasal exudates, choanal cleft swabs and scrapings of sinus and turbinate tissue. The virus has also been isolated from trachea and lungs, and occasionally viscera of affected turkey poults."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--การควบคุมโรค": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--การควบคุมโรค--v1",
+          "statement": "การควบคุมเชื้อแบคทีเรียแทรกซ้อนมีเหตุผลรองรับ เพราะเมื่อการจัดการไม่ดีหรือมีการติดเชื้อแบคทีเรียแทรกซ้อน จะเกิด airsacculitis, pericarditis, pneumonia และ perihepatitis ทำให้โรคยืดเยื้อและเพิ่มทั้ง morbidity และ mortality",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "When husbandry is poor or secondary bacterial infection occurs, airsacculitis, pericarditis, pneumonia, and perihepatitis may prolong the disease and there may be an increase in morbidity and mortality."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--การควบคุมโรค--v2",
+          "statement": "การทดลองในลูกไก่เนื้อแสดงว่า APV ร่วมกับ Escherichia coli ก่อโรคแบบ synergistic โดยเมื่อให้เชื้อพร้อมกันอาการทางคลินิกรุนแรงกว่าให้ไวรัสอย่างเดียวอย่างมีนัยสำคัญ และแยก E. coli ได้จากเกือบ 100% ของนกที่ติดเชื้อร่วม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19184908",
+              "locator": "Abstract; Avian Pathol 30(3):257-67",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "When the agents were given together, the clinical disease was significantly more severe than that caused by the virus alone ... E. coli was isolated from almost 100% of birds with mixed infections"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--การป้องกันโรค-2-เสาหลัก": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--การป้องกันโรค-2-เสาหลัก--v1",
+          "statement": "การควบคุม aMPV ต้องอาศัย biosecurity ที่เข้มงวดร่วมกับโปรแกรมวัคซีน พร้อมการวินิจฉัยที่แม่นยำและการเฝ้าระวังทางระบาดวิทยา สอดคล้องกับ 2 เสาหลักที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41739607",
+              "locator": "Abstract; Avian Dis 69(S1):505-515",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Stringent biosecurity and vaccination protocols along with accurate diagnosis and epidemiological surveillance are required for control of aMPV."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--biosecurity": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--biosecurity--v1",
+          "statement": "ไวรัสอยู่รอดในตัวสัตว์และในสิ่งแวดล้อมได้เพียงช่วงสั้น ๆ และไม่มีหลักฐานการถ่ายทอดผ่านไข่ ดังนั้น biosecurity ที่ดีร่วมกับการใช้วัคซีนอย่างระมัดระวังจึงเพียงพอที่จะควบคุมและจำกัดการแพร่ของเชื้อได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10935282",
+              "locator": "Abstract; Rev Sci Tech 19(2):602-13",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The virus persists for only a short time both in the host and in the environment and is not known to be transmitted via the egg. Highly effective vaccines are available to control APV infections, and hence good biosecurity and careful use o"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--biosecurity--v2",
+          "statement": "การกันนกธรรมชาติออกจากโรงเรือนมีเหตุผลรองรับ เพราะแยกเชื้อ APV ได้จากนกน้ำ sentinel ใกล้ฟาร์มที่ติดเชื้อและจาก wild Canada geese ชี้ว่านกอิสระอาจมีบทบาทในการแพร่เชื้อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12665110",
+              "locator": "Abstract; Anim Health Res Rev 3(2):107-17",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infectious APV was isolated from sentinel waterfowls placed close to an infected commercial turkey farm and from wild Canada geese captured in Minnesota, suggesting that free-ranging birds may be involved in the spread of APV."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--management": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--management--v1",
+          "statement": "การจัดการฟาร์มที่ไม่ดีเป็นปัจจัยที่ทำให้โรคยืดเยื้อและเพิ่ม morbidity กับ mortality เช่นเดียวกับการติดเชื้อแบคทีเรียแทรกซ้อน สนับสนุนการเน้นเรื่องการจัดการและการระวัง secondary infection",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section A. Introduction, page 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "When husbandry is poor or secondary bacterial infection occurs, airsacculitis, pericarditis, pneumonia, and perihepatitis may prolong the disease and there may be an increase in morbidity and mortality."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--วัคซีน-ชนิดและคุณสมบัติ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--วัคซีน-ชนิดและคุณสมบัติ--v1",
+          "statement": "วัคซีนที่มีจำหน่ายเชิงพาณิชย์สำหรับควบคุม TRT และ SHS มี 2 ชนิด คือ live attenuated vaccines และ inactivated oil-emulsion adjuvanted vaccines ตรงกับการแบ่งวัคซีนเชื้อเป็นและเชื้อตายในสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section C. Requirements for vaccines, page 8",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Two types of vaccine are commercially available for the control of TRT and SHS: live attenuated vaccines, or inactivated oil-emulsion adjuvanted vaccines."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--วัคซีน-ชนิดและคุณสมบัติ--v2",
+          "statement": "เชื้อ aMPV รวมถึงสายพันธุ์วัคซีนชนิดเชื้อเป็นกระตุ้น virus neutralizing antibodies ทั้งเฉพาะที่ในหลอดลมซึ่งตรวจจาก tracheal washes และแบบทั่วร่างกายในซีรัม ยืนยันว่าวัคซีนเชื้อเป็นกระตุ้นทั้ง local และ systemic immunity",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17207537",
+              "locator": "Abstract; Vet Immunol Immunopathol 115(3-4):273-85",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Virus neutralizing antibodies were detected locally in tracheal washes and systemically in serum as soon as 5-7 days post aMPV infection (PI) independent of the strain used."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--วัคซีน-ชนิดและคุณสมบัติ--v3",
+          "statement": "มี cross-protection ระหว่าง subtype A และ B ในไก่งวงจริง โดยหลัง challenge แบบ heterologous ไม่พบอาการทางคลินิกในทุกกลุ่ม แต่การป้องกันเชิงไวรัสวิทยาของสายพันธุ์เชื้อเป็นไม่สมบูรณ์ เพราะยังแยกเชื้อ virulent ได้จากนกที่ challenge ที่ 5 และ 11 สัปดาห์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10958535",
+              "locator": "Abstract; Vet Rec 147(5):132-4",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "After challenge, no clinical signs were observed in any of the groups, and no virus was isolated from the turkeys that had been initially inoculated with a virulent strain. Virulent virus was recovered from the birds that had been initially"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--วัคซีน-ชนิดและคุณสมบัติ--v4",
+          "statement": "การให้วัคซีนเชื้อเป็น aMPV subtype B ทั้งทาง coarse spray และทางน้ำดื่มให้การป้องกันอาการทางคลินิกได้ใกล้เคียงกัน สนับสนุนการที่สไลด์ระบุ route แบบ spray และ drinking water",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41739616",
+              "locator": "Abstract; Avian Dis 69(S1):603-612",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Both spray and drinking water methods provided similar protection against clinical signs of infection."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--คำแนะนำการทำวัคซีน-และการรบกวนจากวัคซีน-ib-กับ-ndv": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--คำแนะนำการทำวัคซีน-และการรบกวนจากวัคซีน-ib-กับ-ndv--v1",
+          "statement": "การให้วัคซีนเชื้อเป็น APV พร้อมกับวัคซีนเชื้อเป็น NDV ในลูกไก่ทำให้การเพิ่มจำนวนของไวรัสวัคซีน APV ถูกกดชั่วคราวและลดการตอบสนองของ humoral antibody ต่อ APV ตรงกับที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16147565",
+              "locator": "Abstract; Avian Pathol 34(4):297-302",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It appears that simultaneous vaccination of chicks with live APV and NDV vaccines causes temporary suppression of APV vaccine proliferation and reduces humoral antibody responses to it, although the antibody response to NDV is enhanced."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--คำแนะนำการทำวัคซีน-และการรบกวนจากวัคซีน-ib-กับ-ndv--v2",
+          "statement": "เมื่อให้วัคซีน aMPV พร้อมวัคซีนเชื้อเป็นตัวอื่นรวมทั้ง IBV และ NDV ระดับ ELISA antibody ต่อ aMPV ถูกกดลงจริง แต่ผู้วิจัยพบว่าการให้พร้อมกันไม่ได้ลดการป้องกันโรคที่เกิดขึ้นจริงต่อ aMPV หรือ IBV",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25482324",
+              "locator": "Abstract; Res Vet Sci 98:127-33",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "aMPV vaccine when given with other live vaccines suppressed levels of aMPV enzyme-linked immunosorbent assay (ELISA) antibodies. ... Simultaneous vaccination with live NDV, aMPV and IBV did not affect the protection conferred against aMPV o"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--ตัวอย่างโปรแกรมวัคซีนในประเทศไทย": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--ตัวอย่างโปรแกรมวัคซีนในประเทศไทย--v1",
+          "statement": "aMPV subtype B แพร่กระจายอยู่ในฟาร์มสัตว์ปีกเชิงพาณิชย์ของไทยจริง โดยตรวจพบ 34.13% หรือ 57 จาก 167 ตัวอย่าง และพบ 2 lineage โดย lineage หนึ่งใกล้เคียงกับสายพันธุ์วัคซีน แสดงว่ามีการใช้วัคซีนในไทย และคณะผู้วิจัยเสนอให้ปรับกลยุทธ์วัคซีนให้เหมาะกับพื้นที่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40733582",
+              "locator": "Abstract; Viruses 17(7):965",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Nested RT-PCR targeting the G gene revealed a positivity rate of 34.13% (57/167). Phylogenetic and Median-joining network analyses of sequenced amplicons identified two distinct Thai lineages: one genetically similar to vaccine strains and "
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-mpv--disinfectant-ที่ใช้ได้": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-mpv--disinfectant-ที่ใช้ได้--v1",
+          "statement": "ตำราอ้างอิงทางสัตวแพทย์ระบุว่า disinfectant กลุ่ม quaternary ammonia (Quats), ethanol, iodophor, phenol derivative และ bleach (sodium hypochlorite) ลด viability ของ AMPV ได้ ตรงกับรายการทั้ง 4 ชนิดในสไลด์ โดยแหล่งอ้างอิงเพิ่ม ethanol เข้ามาด้วย และก็เขียนไว้เป็นระดับกลุ่มสารเช่นกัน ไม่ได้ระบุความเข้มข้นหรือ contact time",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-msd-veterinary-manual--2024",
+              "locator": "หัวข้อ Prevention and Treatment of Avian Metapneumovirus (ฉบับทบทวน/แก้ไข Nov 2024)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The use of disinfectants such as quaternary ammonia, ethanol, iodophors, phenol derivatives, and bleach can decrease the viability of AMPV."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--disinfectant-ที่ใช้ได้--v2",
+          "statement": "งานทดลองกับ avian pneumovirus (AMPV) ที่แยกจาก nasoturbinate ของไก่งวงในรัฐ Minnesota พบว่า quaternary ammonia, ethanol, iodophor, phenol derivative, biguanide และ bleach ลด viability ของไวรัสได้ทั้งหมด เป็นหลักฐานเชิงทดลองที่รองรับน้ำยาฆ่าเชื้อทั้ง 4 ชนิดในสไลด์ โดย bleach คือ sodium hypochlorite และงานนี้เพิ่ม ethanol กับ biguanide เข้ามาด้วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10879914",
+              "locator": "เล่ม 44 ฉบับ 2 หน้า 336-342 (บทคัดย่อ)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Several disinfectants, including quaternary ammonia, ethanol, iodophor, a phenol derivative, a biguanide, and bleach, were all effective in reducing the viability of the virus."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-mpv--disinfectant-ที่ใช้ได้--v3",
+          "statement": "การทดสอบน้ำยาฆ่าเชื้อ 9 ชนิดบนพื้นผิว non-porous ที่ปนเปื้อน aMPV พบว่า phenolic compounds และ glutaraldehyde มีประสิทธิภาพสูงสุด ส่วน quaternary ammonium compounds ได้ผลกับ aMPV แต่ไม่ได้ผลกับ avian influenza virus และ Newcastle disease virus ผลนี้รองรับ Phenol และ Quats ที่สไลด์ระบุ และเพิ่มข้อมูลว่า glutaraldehyde ซึ่งสไลด์ไม่ได้ระบุก็ใช้ได้ พร้อมข้อควรระวังว่า Quats ครอบคลุมไวรัสทางเดินหายใจของสัตว์ปีกตัวอื่นได้ไม่ดี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18646446",
+              "locator": "เล่ม 52 ฉบับ 2 หน้า 199-202 (บทคัดย่อ)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Phenolic compounds and glutaraldehyde were found to be the most effective against all three viruses. Quaternary ammonium compounds were effective against aMPV but not against the other two viruses."
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-nd": {
+    "avian-medicine--avian-nd--โรคนิวคาสเซิลคืออะไร-และทำไมต้องสนใจ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--โรคนิวคาสเซิลคืออะไร-และทำไมต้องสนใจ--v1",
+          "statement": "APMV-1 (NDV) ติดเชื้อในนกได้มากกว่า 200 ชนิด แต่ความรุนแรงของโรคขึ้นกับทั้งชนิดของ host และสายพันธุ์ของไวรัส",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Summary, Description of the disease, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "APMV-1 has been shown to be able to infect over 200 species of birds, but the severity of disease produced varies with both host and strain of virus."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--โรคนิวคาสเซิลคืออะไร-และทำไมต้องสนใจ--v2",
+          "statement": "อัตราการป่วยและการตายสูงถึง 100% มีรายงานในฝูงไก่ที่ไม่ได้รับวัคซีน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29911151",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Morbidity and mortality rates up to 100% have been reported in cases of unvaccinated flocks."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--โรคนิวคาสเซิลคืออะไร-และทำไมต้องสนใจ--v3",
+          "statement": "APMV-1 ติดเชื้อในคนได้ อาการที่พบบ่อยที่สุดคือ conjunctivitis ซึ่งเกิดภายใน 24 ชั่วโมงหลังเชื้อรุนแรงเข้าตา และไม่มีหลักฐานการติดต่อจากคนสู่คน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A. Introduction, p. 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "APMV-1 may infect humans where the most common sign of infection is conjunctivitis that develops within 24 hours of virulent APMV-1 exposure to the eye."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--ประวัติช่วงแรก-100-ปีของโรคนิวคาสเซิล-อินโดนีเซีย": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--ประวัติช่วงแรก-100-ปีของโรคนิวคาสเซิล-อินโดนีเซีย--v1",
+          "statement": "โรคนิวคาสเซิลเชื่อว่ามีรายงานครั้งแรกในปี ค.ศ. 1926 ทั้งที่เกาะชวา (ปัจจุบันคืออินโดนีเซีย) และที่ Newcastle-on-Tyne ประเทศอังกฤษ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29073919",
+              "locator": "Geographical distribution",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Newcastle disease is believed to have first been reported in 1926 in both Newcastle-on-Tyne, England and the island of Java, which is part of current day Indonesia."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--ประวัติช่วงแรก-อังกฤษ-และที่มาของชื่อ-newcastle": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--ประวัติช่วงแรก-อังกฤษ-และที่มาของชื่อ-newcastle--v1",
+          "statement": "รายงานครั้งแรกในปี ค.ศ. 1926 เกิดขึ้นทั้งที่ Java และที่ Newcastle upon Tyne ประเทศอังกฤษ ตรงตามที่สไลด์สรุป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29073919",
+              "locator": "Geographical distribution",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Newcastle disease is believed to have first been reported in 1926 in both Newcastle-on-Tyne, England and the island of Java, which is part of current day Indonesia."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--การระบาดทั่วโลกและความเสียหายทางเศรษฐกิจ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--การระบาดทั่วโลกและความเสียหายทางเศรษฐกิจ--v1",
+          "statement": "การระบาดใหญ่ของ virulent ND ในรัฐแคลิฟอร์เนียเกิดเป็นระยะ ๆ ในปี 1971-1974 และ 2002-2003 (และล่าสุด 2018-2020) ตรงกับปีที่สไลด์ยกมา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35891488",
+              "locator": "Introduction",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The vND virus has periodically had large outbreaks in California in 1971-1974, 2002-2003, and most recently in 2018-2020."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--เชื้อก่อโรค-ชื่อเรียก-การจัดจำแนก-และโครงสร้างไวรัส": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--เชื้อก่อโรค-ชื่อเรียก-การจัดจำแนก-และโครงสร้างไวรัส--v1",
+          "statement": "ND เกิดจาก virulent strains ของ avian paramyxovirus type 1 (APMV-1) ซึ่งอยู่ใน genus Orthoavulavirus, subfamily Avulavirinae, family Paramyxoviridae",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A. Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Newcastle disease (ND) is caused by virulent strains of avian paramyxovirus type 1 (APMV-1) of the genus Orthoavulavirus belonging to the subfamily Avulavirinae, family Paramyxoviridae."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--เชื้อก่อโรค-ชื่อเรียก-การจัดจำแนก-และโครงสร้างไวรัส--v2",
+          "statement": "จีโนมของ NDV เป็น RNA สายเดี่ยว สายลบ ไม่แบ่งท่อน และมี 6 ยีนหลักที่สร้างโปรตีน N, M, P, F, HN และ L",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24589707",
+              "locator": "Section 3, Newcastle disease virus",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The genome of NDV is a non-segmented, negative sense, single stranded RNA... six essential genes encoding nucleocapsid (N), matrix protein (M), phosphoprotein (P), fusion protein (F), haemagglutinin-neuraminidase protein (HN), and large pol"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--serotype-กับ-genotype-ของ-ndv": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--serotype-กับ-genotype-ของ-ndv--v1",
+          "statement": "ปัจจุบันมี avian paramyxovirus 21 serotypes คือ APMV-1 ถึง APMV-21 และ ND จำกัดอยู่ที่ APMV-1 serotype เดียว",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Summary, Description of the disease, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "At present, there are 21 serotypes of avian paramyxoviruses designated APMV-1 to APMV-21."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--serotype-กับ-genotype-ของ-ndv--v2",
+          "statement": "วัคซีนเชื้อตายที่ทำจาก genotype I, II, V, VI, VII และ XII ป้องกันการป่วยและการตายได้ 90-100% เมื่อ challenge ด้วยเชื้อรุนแรงต่าง genotype ซึ่งสนับสนุนแนวคิด cross protection ข้าม genotype",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28024856",
+              "locator": "Antigenically matched vaccines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "found, under optimal conditions, to prevent 90 to 100% of the birds from having morbidity and mortality against all the virulent NDV strains used no matter their genotype"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--genotype-ที่สำคัญ-วัคซีน-และสายพันธุ์ของเอเชียตะวันออกเฉียงใต้": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--genotype-ที่สำคัญ-วัคซีน-และสายพันธุ์ของเอเชียตะวันออกเฉียงใต้--v1",
+          "statement": "สายพันธุ์วัคซีน LaSota, B1 และ VG/GA จัดอยู่ใน genotype II ส่วนวัคซีนอีกกลุ่มที่ใช้กันแพร่หลายคือสายพันธุ์ class II genotype I ตรงกับที่สไลด์ระบุว่า genotype I และ II เป็นกลุ่มวัคซีน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28024856",
+              "locator": "Section 3.1, Traditional vaccines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Viruses circulating in poultry were the source of the LaSota, B1, and VG/GA vaccines. All of those viruses belong to genotype II"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--genotype-ที่สำคัญ-วัคซีน-และสายพันธุ์ของเอเชียตะวันออกเฉียงใต้--v2",
+          "statement": "เชื้อรุนแรงใน sub-genotype ใหม่ของ genotype VII กำลังแพร่กระจายในเอเชียและตะวันออกกลาง โดย VIIh แยกได้จากอินโดนีเซีย มาเลเซีย จีน และกัมพูชา ยืนยันความสำคัญของ genotype VII ในเอเชียตะวันออกเฉียงใต้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25445644",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Viruses from sub-genotype VIIh were isolated in Indonesia (2009-2010), Malaysia (2011), China (2011), and Cambodia (2011-2012)"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--ndv-มี-5-pathotypes": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--ndv-มี-5-pathotypes--v1",
+          "statement": "APMV-1 ถูกแบ่งเป็น 5 pathotypes ตามอาการทางคลินิกในไก่ ได้แก่ viscerotropic velogenic, neurotropic velogenic, mesogenic, lentogenic (respiratory) และ subclinical (enteric)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A. Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Strains of APMV-1 have been grouped into five pathotypes on the basis of the clinical signs observed in infected chickens"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--การแบ่ง-pathotypes-ตาม-oie-woah-วิธีที่-1-mean-dead-time-mdt": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--การแบ่ง-pathotypes-ตาม-oie-woah-วิธีที่-1-mean-dead-time-mdt--v1",
+          "statement": "เกณฑ์ MDT ในไข่ฟักคือ velogenic ทำให้ตัวอ่อนตายภายในน้อยกว่า 60 ชั่วโมง mesogenic ตายระหว่าง 60-90 ชั่วโมง และ lentogenic ฆ่าตัวอ่อนไม่ได้แม้เกิน 90 ชั่วโมง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29911151",
+              "locator": "Discussion",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Velogenic strains cause the chicken embryos to die in less than 60 h, lentogenic strain fails to kill the embryos even after 90 h, and the strains that cause embryo mortality between 60 and 90 h are mesogenic."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--การแบ่ง-pathotypes-ตาม-oie-woah-วิธีที่-1-mean-dead-time-mdt--v2",
+          "statement": "วิธีทำ MDT คือเจือจางน้ำไข่ฟักแบบ tenfold serial dilution แล้วฉีดแต่ละ dilution เข้า allantoic sac ของไข่ไก่ฟักอายุ 9-11 วัน ตรงกับที่สไลด์ระบุว่าทดสอบใน chicken embryo ทาง allantoic sac",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22577610",
+              "locator": "Section 12.5, Characterization",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "tenfold serial dilutions of clean AAF are prepared and each dilution is inoculated into five 9-to-11-day-old embryonating chicken eggs via the allantoic sac route"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--วิธีที่-2-intracerebral-pathogenicity-index-icpi": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--วิธีที่-2-intracerebral-pathogenicity-index-icpi--v1",
+          "statement": "วิธีทำ ICPI ตาม WOAH คือใช้น้ำไข่ฟักที่มี HA titre มากกว่า 2 ยกกำลัง 4 (มากกว่า 1/16) เจือจาง 1/10 ฉีดเข้าสมอง 0.05 มล. ในลูกไก่ SPF 10 ตัว อายุมากกว่า 24 และน้อยกว่า 40 ชั่วโมง ตรวจทุก 24 ชั่วโมงนาน 8 วัน ให้คะแนน 0 ปกติ 1 ป่วย 2 ตาย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.4.1, Intracerebral pathogenicity index, p. 6",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "0.05 ml of the diluted virus is injected intracerebrally into each of ten chicks hatched from eggs from an SPF flock. These chicks must be over 24-hours and under 40-hours old... The birds are examined every 24 hours for 8 days."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--วิธีที่-2-intracerebral-pathogenicity-index-icpi--v2",
+          "statement": "APMV-1 ที่มีค่า ICPI ตั้งแต่ 0.7 ขึ้นไป (หรือมี multiple basic amino acids ที่ปลาย C ของ F2 ร่วมกับ phenylalanine ที่ตำแหน่ง 117 ของ F1) ถือเป็นเชื้อรุนแรงที่ต้องรายงาน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Summary, Detection of the agent, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Any APMV-1 with an ICPI of 0.7, or with multiple basic amino acids at the C-terminus of the F2 protein and phenylalanine at residue 117 of its F protein, is considered virulent."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--วิธีที่-2-intracerebral-pathogenicity-index-icpi--v3",
+          "statement": "ค่า ICPI สูงสุดคือ 2.0 โดยเชื้อรุนแรงที่สุดจะเข้าใกล้ 2.0 ส่วน lentogenic และ asymptomatic enteric จะได้ค่าใกล้ 0.0 และค่าที่เกิน 0.7 จัดอยู่ในช่วง mesogenic ถึง virulent",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22577610",
+              "locator": "Section 12.5, Characterization",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Any ICPI value above 0.7 is classified in the mesogenic to virulent range"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--วิธีที่-3-intravenous-pathogenicity-index-ivpi": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--วิธีที่-3-intravenous-pathogenicity-index-ivpi--v1",
+          "statement": "IVPI ตาม WOAH ใช้ไก่ SAN หรือ SPF อายุ 4-8 สัปดาห์ 10 ตัว ฉีดไวรัสเจือจาง 1/10 ปริมาณ 0.1 มล. เข้าเส้นเลือดดำ ตรวจทุก 24 ชั่วโมง เป็นเวลา 10 วัน ให้คะแนน 0 ปกติ 1 ป่วย 2 ป่วยรุนแรง 3 ตาย โดยค่า 3.00 คือไก่ตายทั้งหมดภายใน 24 ชั่วโมง และ 0.00 คือไม่มีตัวใดแสดงอาการเลย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.4, IVPI procedure, p. 7",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The IVPI is the mean score per bird per observation over the 10-day period. An index of 3.00 means that all birds died within 24 hours, and an index of 0.00 means that no bird showed any clinical sign during the 10-day observation period."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--วิธีที่-3-intravenous-pathogenicity-index-ivpi--v2",
+          "statement": "ไวรัสไข้หวัดใหญ่ชนิดเอที่มีค่า IVPI มากกว่า 1.2 จัดเป็น high pathogenicity avian influenza virus ตามเกณฑ์ของ WOAH",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.4, criteria for determining pathogenicity, p. 7",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "any influenza A virus that has an intravenous pathogenicity index (IVPI) greater than 1.2"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--รายละเอียดของ-pathotype-ที่รุนแรง-vvndv-nvndv-mesogenic": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--รายละเอียดของ-pathotype-ที่รุนแรง-vvndv-nvndv-mesogenic--v1",
+          "statement": "Viscerotropic velogenic คือรูปแบบรุนแรงมากที่พบรอยโรคเลือดออกในลำไส้บ่อย ๆ neurotropic velogenic คือรูปแบบที่ตายสูงตามหลังอาการทางระบบหายใจและระบบประสาท ส่วน mesogenic แสดงอาการทางระบบหายใจ มีอาการทางประสาทเป็นครั้งคราว แต่อัตราการตายต่ำ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A. Introduction, pathotypes 1-3, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Viscerotropic velogenic: a highly pathogenic form in which haemorrhagic intestinal lesions are frequently seen; Neurotropic velogenic: a form that presents with high mortality, usually following respiratory and nervous signs; Mesogenic: a f"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--รายละเอียดของ-pathotype-ที่ไม่รุนแรง-lentogenic-asymtomatic-ente": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--รายละเอียดของ-pathotype-ที่ไม่รุนแรง-lentogenic-asymtomatic-ente--v1",
+          "statement": "Lentogenic หรือ respiratory คือรูปแบบที่ติดเชื้อทางเดินหายใจแบบอ่อนหรือไม่แสดงอาการ ส่วน subclinical คือรูปแบบที่มักเป็นการติดเชื้อในลำไส้แบบไม่แสดงอาการ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A. Introduction, pathotypes 4-5, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Lentogenic or respiratory: a form that presents with mild or subclinical respiratory infection; Subclinical: a form that usually consists of a subclinical enteric infection."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--รายละเอียดของ-pathotype-ที่ไม่รุนแรง-lentogenic-asymtomatic-ente--v2",
+          "statement": "วัคซีนเชื้อเป็นทำจากไวรัสที่มีความรุนแรงต่ำ (lentogenic) หรือปานกลาง (mesogenic) และการใช้สายพันธุ์ LaSota ก่อปัญหาในไก่เล็กที่ยังไวต่อโรคมากกว่าสายพันธุ์ Hitchner-B1 หรือวัคซีนที่ใช้ Ulster เป็นฐาน ซึ่งสอดคล้องกับคำเตือนเรื่อง vaccine reaction ในไก่เล็ก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section C.2.1.1, Biological characteristics, p. 14",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "vaccination with the LaSota strain will cause considerably greater problems in young susceptible birds than the Hitchner-B1 strain, the Ulster based vaccines, or specific LaSota clones"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-และระยะฟักตัว": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-และระยะฟักตัว--v1",
+          "statement": "ไวรัสความรุนแรงต่ำถูกจำกัดการตัด F0 ด้วย host protease บางชนิด จึงเพิ่มจำนวนได้เฉพาะบางชนิดเซลล์ เช่น epithelial cells ของทางเดินหายใจและทางเดินอาหาร",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.5, Molecular basis for pathogenicity, pp. 6-7",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "restriction of these viruses to growth only in certain host-cell types, such as epithelial cells of the respiratory and gastrointestinal tracts"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-และระยะฟักตัว--v2",
+          "statement": "เส้นทางการติดต่อหลักคือการกินสิ่งปนเปื้อนอุจจาระ หรือการหายใจเอาละอองที่มีเชื้อเข้าไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22577610",
+              "locator": "Section 8, Transmission",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The primary route of transmission is either by ingestion of fecal contaminated material or inhalation of droplets containing the organism"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-และระยะฟักตัว--v3",
+          "statement": "ระยะฟักตัวในสัตว์ปีกเลี้ยงอยู่ที่ 2-15 วัน แต่ในนกชนิดอื่นอาจนานเกิน 28 วัน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Diagnosis",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In domestic poultry, the incubation period ranges from 2-15 days, but may exceed 28 days in other species."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--อาการทั่วไปและปัจจัยที่กำหนดความรุนแรง": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--อาการทั่วไปและปัจจัยที่กำหนดความรุนแรง--v1",
+          "statement": "อาการทางคลินิกแตกต่างกันมากและขึ้นกับปัจจัยหลายอย่าง ได้แก่ ตัวไวรัส ชนิดของ host อายุของ host การติดเชื้อร่วมกับเชื้ออื่น ความเครียดจากสิ่งแวดล้อม และสถานะภูมิคุ้มกัน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.6, Description of Newcastle disease, p. 7",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the clinical signs seen in infected birds vary widely and are dependent on factors such as: the virus, host species, age of host, infection with other organisms, environmental stress and immune status"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--อาการทั่วไปและปัจจัยที่กำหนดความรุนแรง--v2",
+          "statement": "ไข่อาจมีเปลือกบาง รูปร่างหรือสีผิดปกติ หรือไข่ขาวเหลว และไก่อาจหยุดไข่ไปเลย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Diagnosis, Clinical diagnosis",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Eggs may have thin shells, an abnormal shape or colour, or watery albumin."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--อาการและรอยโรค-ระบบหายใจ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--อาการและรอยโรค-ระบบหายใจ--v1",
+          "statement": "อาการภายนอกช่วงต้นของโรคได้แก่ ขนหยอง ซึม บวมน้ำหรือเขียวคล้ำที่หัวและคอ ตาแดงอักเสบ และไม่กินอาหาร",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Diagnosis, Clinical diagnosis",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "animals present with ruffled feathers, lethargy, oedema and/or cyanosis of the head and neck, conjunctival reddening, and inappetence"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--อาการและรอยโรค-ระบบหายใจ--v2",
+          "statement": "รอยโรคระบบหายใจจากการผ่าซากอาจพบเลือดออกที่เยื่อบุทางเดินหายใจ ถุงลมอักเสบ และหลอดลมคั่งเลือด แต่ไม่พบเสมอไป และการติดเชื้อแบคทีเรียแทรกซ้อนทำให้ถุงลมหนาตัวมีสารคัดหลั่ง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22577610",
+              "locator": "Pathology",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Gross lesions of the respiratory tract may include hemorrhage of the respiratory mucosa, airsacculitis and congestion of the trachea but are not always seen."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--อาการและรอยโรค-ระบบทางเดินอาหาร": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--อาการและรอยโรค-ระบบทางเดินอาหาร--v1",
+          "statement": "ไก่ที่ติดเชื้ออาจถ่ายเหลวเป็นน้ำสีขาวหรือเขียว",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Diagnosis, Clinical diagnosis",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Birds may also develop watery, white or green diarrhoea."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--อาการและรอยโรค-ระบบทางเดินอาหาร--v2",
+          "statement": "การติดเชื้อ vvND มักสัมพันธ์กับการตายของผนังลำไส้หรือเนื้อเยื่อน้ำเหลือง ทำให้เกิดรอยโรคเลือดออกที่เยื่อบุ proventriculus, ซีคัม, ดูโอดีนัม, เจจูนัม และไอเลียม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22577610",
+              "locator": "Pathology",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infection with panzootic vvND is commonly associated with necrosis of the intestinal wall or lymphoid tissues resulting in hemorrhagic lesions in the mucosa of the proventriculus, ceca, duodenum, jejunum, and ileum"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--อาการและรอยโรค-ระบบทางเดินอาหาร--v3",
+          "statement": "รอยโรคที่รายงานไว้รวมถึงจุดเลือดออกและจ้ำเลือดที่เยื่อบุ proventriculus มักอยู่ใกล้ต่อมเมือก และการตายของเยื่อบุลำไส้ Peyer patches เนื้อเยื่อน้ำเหลืองอื่น และ caecal tonsils ซึ่งตรงกับ necrotic hemorrhagic GALT ในสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Diagnosis, Lesions",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Petechiae and ecchymoses on the proventricular mucosa, often near mucous glands; Necrosis of the intestinal mucosa, Peyer's patches and other lymphoid tissue, and caecal tonsils"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--อาการและรอยโรค-ระบบประสาท": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--อาการและรอยโรค-ระบบประสาท--v1",
+          "statement": "อาการทางระบบประสาทส่วนกลางที่พบทั่วไปได้แก่ tremors, clonic spasms, อัมพาตหรืออ่อนแรงของขา, เดินวน และ torticollis",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Diagnosis, Clinical diagnosis",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Typical central nervous system (CNS) signs include tremors, clonic spasms, limb paralysis or paresis, circling, and torticollis."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--อาการและรอยโรค-ระบบประสาท--v2",
+          "statement": "ไก่ที่แสดงอาการทางประสาทไม่พบรอยโรคทางพยาธิวิทยาในระบบประสาทส่วนกลาง ซึ่งตรงกับที่สไลด์ระบุว่าไม่เห็นรอยโรคจาก gross lesion",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22577610",
+              "locator": "Pathology",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Birds displaying neurologic symptoms do not have pathologic lesions in the central nervous system."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--การวินิจฉัยและการวินิจฉัยแยกแยะ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--การวินิจฉัยและการวินิจฉัยแยกแยะ--v1",
+          "statement": "โรคที่ต้องวินิจฉัยแยกจาก ND ได้แก่ highly pathogenic avian influenza, laryngotracheitis, fowl cholera, mycoplasmosis และ infectious bronchitis ตรงกับรายการในสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Diagnosis, Differential diagnoses",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Highly pathogenic avian influenza; Laryngotracheitis; Fowl cholera; Fowl pox (diphtheritic form)... Mycoplasmosis; Infectious bronchitis"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--การวินิจฉัยและการวินิจฉัยแยกแยะ--v2",
+          "statement": "วิธีวินิจฉัยที่แนะนำคือ validated RT-PCR และการหาลำดับเบส แต่การเพาะแยกเชื้อยังคงเป็นเครื่องมือสำคัญ ส่วนทางซีรัมวิทยาใช้ HI มากที่สุด และ ELISA ก็มีบทบาทเช่นกัน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Summary, Description of the disease and Serological tests, pp. 1-2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The preferred method of diagnosis is validated reverse transcription polymerase chain reaction (RT-PCR) and sequencing, but virus isolation still remains an important laboratory tool."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--ตัวอย่างที่เก็บ-สัตว์เป็น-และตอนผ่าซาก": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--ตัวอย่างที่เก็บ-สัตว์เป็น-และตอนผ่าซาก--v1",
+          "statement": "ในสัตว์เป็นควรเก็บทั้ง tracheal หรือ oropharyngeal swab และ cloacal swab ส่วนจากซากควรเก็บลำไส้หรือ cloacal swab ร่วมกับ oropharyngeal หรือ tracheal swab และอวัยวะ ได้แก่ ปอด ถุงลม ลำไส้ ม้าม ไต caecal tonsils สมอง ตับ และหัวใจ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.1, Samples for virus isolation, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Samples from lungs, air sacs, intestine, spleen, kidneys, caecal tonsils, brain, liver and heart should also be collected... Samples from live birds should include both tracheal or oropharyngeal and cloacal swabs"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--เทคนิคการเก็บ-swab-oropharyngeal-tracheal-cloacal": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--เทคนิคการเก็บ-swab-oropharyngeal-tracheal-cloacal--v1",
+          "statement": "Tracheal หรือ oropharyngeal swab มักเป็นตัวอย่างที่เลือกใช้ เพราะจัดการง่ายและมีสารอินทรีย์ปนเปื้อนน้อยที่จะรบกวนการสกัด RNA และการเพิ่มปริมาณด้วย PCR ซึ่งสนับสนุนข้อความที่ว่า oropharyngeal swab เพียงพอสำหรับการตรวจหาเชื้อ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.9, Molecular techniques in diagnosis, p. 8",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Tracheal or oropharyngeal swabs are often used as the specimens of choice, because they are easy to process and usually contain little extraneous organic material that can interfere with RNA recovery and amplification by PCR."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--เทคนิคการเก็บ-swab-oropharyngeal-tracheal-cloacal--v2",
+          "statement": "Cloacal swab ควรมีอุจจาระเคลือบให้เห็นได้ชัด และการ swab นกตัวเล็กบอบบางควรใช้ swab ขนาดเล็กชนิดที่ใช้ในเด็ก หรือเก็บอุจจาระสดแทน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.1, Samples for virus isolation, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the latter should be visibly coated with faecal material. To avoid harming them, swabbing of small delicate birds should be done with the use of especially small swabs"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--containment-การบรรจุตัวอย่างอย่างน้อย-3-ชั้น": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--containment-การบรรจุตัวอย่างอย่างน้อย-3-ชั้น--v1",
+          "statement": "FTA card ใช้เก็บและขนส่งตัวอย่างที่เป็นบวกต่อ NDV ได้จริง โดยให้ RNA ที่เชื่อถือได้สำหรับการตรวจระดับโมเลกุล ไวรัสคงตัวบนการ์ดได้ 15 วัน และไวรัสถูกทำให้หมดฤทธิ์เมื่อสัมผัสการ์ด จึงเป็นตัวอย่างที่ปลอดภัย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16595299",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The FTA cards are suitable for collecting and transporting NDV-positive samples, providing a reliable source of RNA for molecular characterization and a hazard-free sample."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--hemagglutination-inhibition-test-hi": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--hemagglutination-inhibition-test-hi--v1",
+          "statement": "ค่า HI titre คือระดับการเจือจางซีรัมสูงสุดที่ยับยั้ง 4 HAU ของแอนติเจนได้อย่างสมบูรณ์ ตรงกับหลักการอ่านผลแผ่น microtiter ในสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.2.3.2, Haemagglutination inhibition test, p. 13",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The HI titre is the highest dilution of serum causing complete inhibition of 4 HAU of antigen."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--hemagglutination-inhibition-test-hi--v2",
+          "statement": "HI test ใช้ตรวจแอนติบอดีต่อ Avibacterium (Haemophilus) paragallinarum ซึ่งเป็นเชื้อก่อโรค infectious coryza ได้จริง สนับสนุนรายการโรคที่สไลด์ระบุว่าใช้ HI ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17656110",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The ability of blocking ELISAs and haemagglutination-inhibition (HI) tests to detect antibodies in sera from chickens challenged with either Avibacterium (Haemophilus) paragallinarum isolate Hp8 (serovar A) or H668 (serovar C) was compared."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--หลักการควบคุมและป้องกันโรค-และ-epidemiology-triad": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--หลักการควบคุมและป้องกันโรค-และ-epidemiology-triad--v1",
+          "statement": "การควบคุม ND ต้องประกอบด้วย biosecurity ที่เข้มงวดเพื่อกันไม่ให้เชื้อรุนแรงสัมผัสสัตว์ปีก ร่วมกับการให้วัคซีนที่มีประสิทธิภาพอย่างถูกวิธี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28024856",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The control of ND must include strict biosecurity that prevents virulent NDV from contacting poultry, and also proper administration of efficacious vaccines."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--flock-immunity-ภูมิคุ้มกันระดับฝูง": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--flock-immunity-ภูมิคุ้มกันระดับฝูง--v1",
+          "statement": "การแพร่ของ NDV ในพื้นที่หนึ่งอาจถูกตัดวงจรได้ก็ต่อเมื่อสัตว์ที่ไวต่อโรคในพื้นที่นั้นมากกว่า 80% ได้รับภูมิคุ้มกันเพียงพอ โดยมี antibody titre ตั้งแต่ 1:8 ขึ้นไป",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section C.2.3.2, For control and eradication, p. 18",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Transmission of the ND virus in an area might be interrupted only if a very high percentage of the resident susceptible population (> 80%) is sufficiently immunised showing an Ab titre 1:8."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--biosecurity-และสารฆ่าเชื้อ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--biosecurity-และสารฆ่าเชื้อ--v1",
+          "statement": "NDV ถูกทำลายด้วย sodium hypochlorite, phenols, glutaraldehyde, chlorhexidine และสารออกซิไดซ์ รวมถึง ethers และ formalin ส่วนความร้อนที่ 56 องศาเซลเซียส 3 ชั่วโมง หรือ 60 องศาเซลเซียส 30 นาที ก็ทำลายเชื้อได้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Aetiology, resistance table",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sodium hypochlorite, phenols, glutaraldehyde, chlorhexidine, and oxidising agents; quaternary ammonium compounds must be used in conjunction with sodium carbonate; ethers and formalin also deactivate the virus."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--biosecurity-และสารฆ่าเชื้อ--v2",
+          "statement": "มาตรการ sanitary prophylaxis ที่แนะนำได้แก่ การกำจัดซากอย่างเหมาะสม การฆ่าเชื้ออุปกรณ์เครื่องมือและยานพาหนะก่อนเคลื่อนย้าย การใช้ PPE และเปลี่ยนรองเท้าเสื้อผ้าก่อนออกจากพื้นที่ การจำกัดการเดินเข้าออก และการกันนกธรรมชาติกับควบคุมสัตว์พาหะ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Prevention and Control, Sanitary prophylaxis",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Proper carcass disposal... all tools, instruments, and vehicles should be properly disinfected before moving locations... Bird-proofing and pest control of domestic bird housing in endemic areas."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--management-ที่ช่วยควบคุมโรค": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--management-ที่ช่วยควบคุมโรค--v1",
+          "statement": "แหล่งน้ำในฟาร์มต้องสะอาด และไม่ควรใช้น้ำผิวดินที่นกอพยพมีโอกาสปนเปื้อนได้ สนับสนุนหัวข้อความสะอาดและคุณภาพน้ำในสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22577610",
+              "locator": "Biosecurity",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The water supply should be clean and should not come from surface water where migratory birds have the potential to contaminate the water source."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--วัคซีนชนิดที่-1-วัคซีนเชื้อเป็น": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--วัคซีนชนิดที่-1-วัคซีนเชื้อเป็น--v1",
+          "statement": "Master seed ของวัคซีนเชื้อเป็นต้องมีค่า ICPI น้อยกว่า 0.4 (หรือน้อยกว่า 0.5 เมื่อให้ปริมาณไวรัสสูงกว่า) ส่วน master seed ของวัคซีนเชื้อตายต้องมี ICPI น้อยกว่า 0.7 ดังนั้นเลข 0.7 เป็นเกณฑ์ของวัคซีนเชื้อตาย ไม่ใช่ทางเลือกสำหรับวัคซีนเชื้อเป็น",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-european-commission-of-1993",
+              "locator": "Article 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "intracerebral pathogenicity index (ICPI) of: (i) less than 0,4 if not less than 10^7 EID50... less than 0,5 if not less than 10^8 EID50 are administered to each bird"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--วัคซีนชนิดที่-1-วัคซีนเชื้อเป็น--v2",
+          "statement": "วัคซีนเชื้อเป็นกระตุ้นทั้งภูมิคุ้มกันระดับเยื่อเมือกและระดับฮิวมอรัล และให้ได้ด้วยวิธี mass application แต่ก็อาจทำให้เกิดอาการทางระบบหายใจ ไข่ลด และเสื่อมสภาพง่ายถ้าไม่เก็บที่อุณหภูมิที่กำหนด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28024856",
+              "locator": "Section 3.1, Traditional vaccines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "While live vaccines provide both mucosal and humoral immunity and can be administered using mass application techniques, they may cause clinical respiratory disease, drop in egg production"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--ตาราง-vaccine-strain-pathotype-genotype-และ-icpi": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--ตาราง-vaccine-strain-pathotype-genotype-และ-icpi--v1",
+          "statement": "LaSota, B1 และ VG/GA ล้วนอยู่ใน genotype II และมีความเหมือนกันทางพันธุกรรมและแอนติเจนสูงมาก (nucleotide identity มากกว่า 98%) ตรงกับ genotype ในตารางของสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28024856",
+              "locator": "Section 3.1, Traditional vaccines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "All of those viruses belong to genotype II and are genetically and antigenically highly related among themselves (>98% nucleotide identity)"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--วัคซีนชนิดที่-2-และ-3-เชื้อตาย-และ-recombinant": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--วัคซีนชนิดที่-2-และ-3-เชื้อตาย-และ-recombinant--v1",
+          "statement": "วัคซีนเชื้อตายต้องฉีดทีละตัวทาง subcutaneous หรือ intramuscular และไก่ที่ได้รับมักมีระดับ humoral antibody สูงกว่า แต่ไม่สร้าง cell mediated response ที่แรง และปล่อยเชื้อ challenge ออกมามากกว่าไก่ที่ได้วัคซีนเชื้อเป็น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28024856",
+              "locator": "Section 3.1, Traditional vaccines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Even though birds vaccinated with inactivated vaccines tend to have higher humoral antibody levels, they do not develop a strong cell mediated response, and shed larger amounts of virulent challenge virus compared to birds vaccinated with l"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--วัคซีนชนิดที่-2-และ-3-เชื้อตาย-และ-recombinant--v2",
+          "statement": "วัคซีน recombinant ที่ใช้ viral vector เช่น turkey herpesvirus หรือ fowl poxvirus ที่แสดงยีน HN, F หรือทั้งสอง ได้รับการพัฒนาและขึ้นทะเบียนแล้ว ตรงกับ HVT-ND และ Fowl Pox-ND ในสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Summary, Requirements for vaccines, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Recombinant Newcastle disease vaccines using viral vectors such as turkey herpesvirus or fowl poxvirus in which the HN gene, F gene or both are expressed have recently been developed and approved."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--ตัวอย่างโปรแกรมวัคซีน-ไก่เนื้อ": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--ตัวอย่างโปรแกรมวัคซีน-ไก่เนื้อ--v1",
+          "statement": "ไก่อายุสั้นอย่างไก่เนื้อมักได้วัคซีนครั้งเดียว โดยให้แบบ in ovo หรือที่อายุ 1 วันในโรงฟัก ซึ่ง in ovo คือวัคซีน recombinant HVT-ND ส่วนที่ให้ลูกไก่อายุ 1 วันมักเป็นวัคซีน NDV เชื้อเป็น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29073919",
+              "locator": "Domestic poultry, vaccination",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "shorter lived birds typically receive one vaccine, either in ovo or at 1 day of age in the hatchery... The in ovo vaccine is a recombinant herpesvirus of turkeys/Newcastle disease virus vaccine, whereas the vaccine administered to day-old b"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--ตัวอย่างโปรแกรมวัคซีน-ไก่เนื้อ--v2",
+          "statement": "โปรแกรมทั่วไปของไก่เนื้อคือให้วัคซีนวันแรกทางหยอดตา แล้วบูสเตอร์ที่อายุประมาณ 14 วันทางน้ำดื่ม ซึ่งใกล้เคียงกับช่วง 7-14 วันในสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24589707",
+              "locator": "Section 1, Historical perspective",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In general, broiler chickens are vaccinated on day one through intraocular route followed by a booster on day 14 through drinking water."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--ตัวอย่างโปรแกรมวัคซีน-ไก่ไข่และไก่พ่อแม่พันธุ์": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--ตัวอย่างโปรแกรมวัคซีน-ไก่ไข่และไก่พ่อแม่พันธุ์--v1",
+          "statement": "ไก่ไข่ได้รับวัคซีนเชื้อเป็นก่อน แล้วตามด้วยวัคซีนเชื้อตายทาง intramuscular หรือ subcutaneous ตรงกับลำดับในโปรแกรมของสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24589707",
+              "locator": "Section 1, Historical perspective",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Layers are vaccinated first with live vaccine followed by an inactivated vaccine via intramuscular or sub-cutaneous route."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--ตัวอย่างโปรแกรมวัคซีน-ไก่ไข่และไก่พ่อแม่พันธุ์--v2",
+          "statement": "ไก่ที่มีอายุการเลี้ยงยาว โดยเฉพาะไก่พ่อแม่พันธุ์เนื้อและไก่ไข่ มักได้รับวัคซีน ND หลายครั้ง สอดคล้องกับโปรแกรมหลายเข็มในสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29073919",
+              "locator": "Domestic poultry, vaccination",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Long-lived birds, specifically broiler breeders and layers, are usually vaccinated multiple times for NDV"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--ถ้าเจอ-ndv-ในฟาร์มต้องทำอย่างไร": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--ถ้าเจอ-ndv-ในฟาร์มต้องทำอย่างไร--v1",
+          "statement": "มาตรการควบคุมเมื่อเกิดการระบาดรวมถึงการทำลายฝูงและการฆ่าเชื้อ ซึ่งเป็นส่วนสำคัญของต้นทุนความเสียหาย นอกเหนือจากการสูญเสียผลผลิตและข้อจำกัดทางการค้า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29073919",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the cost of control measures such as depopulation and disinfection measures, and the trade restrictions that would likely be imposed as a result of an outbreak"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--ถ้าเจอ-ndv-ในฟาร์มต้องทำอย่างไร--v2",
+          "statement": "ND อยู่ภายใต้การควบคุมอย่างเป็นทางการในประเทศส่วนใหญ่ และประเทศที่ไม่มีห้องปฏิบัติการที่เหมาะสมควรส่งตัวอย่างไปยัง WOAH Reference Laboratory ซึ่งเป็นขั้นตอนที่สไลด์ไม่ได้กล่าวถึง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section A. Introduction, p. 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "ND... is subject to official control in most countries... Countries lacking access to appropriate laboratory facilities should send specimens to a WOAH Reference Laboratory for the disease."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--please-keep-in-mind-ประเด็นที่อาจารย์ย้ำปิดท้าย": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--please-keep-in-mind-ประเด็นที่อาจารย์ย้ำปิดท้าย--v1",
+          "statement": "วัคซีนการค้าส่วนใหญ่ออกแบบมาเพื่อควบคุมอาการทางคลินิก แต่ไม่ได้ป้องกันการเพิ่มจำนวนของไวรัส จึงไม่เหมาะกับการกำจัดโรค ตรงกับที่สไลด์ย้ำว่าวัคซีนป้องกันอาการและการตายได้ แต่ป้องกันการติดเชื้อไม่ได้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section C.2.3.2, For control and eradication, p. 18",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most commercial vaccines have been designed to control clinical signs however they do not prevent viral replication and are not suitable for eradication."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--please-keep-in-mind-ประเด็นที่อาจารย์ย้ำปิดท้าย--v2",
+          "statement": "แอนติบอดีจากแม่รบกวนการสร้างภูมิคุ้มกันแบบ active เมื่อให้วัคซีนเชื้อเป็นทาง intramuscular, subcutaneous, intranasal, น้ำดื่ม และ aerosol โดยในไก่ที่มี maternal immunity การตอบสนองดีที่สุดได้จากการหยอดตาและหยอดจมูก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28024856",
+              "locator": "Discussion, maternal antibodies",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Presence of maternal antibodies interferes with the development of active immunity when live vaccines are administered via intramuscular, subcutaneous, intranasal route, in drinking water, and through aerosol."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--please-keep-in-mind-ประเด็นที่อาจารย์ย้ำปิดท้าย--v3",
+          "statement": "ลูกไก่ได้รับการปกป้องจากแอนติบอดีของแม่ประมาณ 3-4 สัปดาห์ ซึ่งยับยั้งการเกิด viraemia ที่รุนแรง แต่ลูกไก่ยังไวต่อการติดเชื้อในระบบหายใจ ซึ่งอธิบายช่วง protection gap ในกราฟของสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2019",
+              "locator": "Prevention and Control, Medical prophylaxis",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Chicks are protected by maternal antibodies for 3-4 weeks, which inhibits the development of a robust viraemia, but they are still susceptible to respiratory infection."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--ชนิดของ-swab-และวิธีใช้": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--ชนิดของ-swab-และวิธีใช้--v1",
+          "statement": "WOAH ระบุว่าชนิดของ swab มีผลต่อ sensitivity และ validity ของการตรวจ และแนะนำให้ใช้ swab ที่มีก้าน (shaft) เป็นลวดบางหรือพลาสติกเป็นหลัก ดังนั้นก้านไม้ (wooden shaft) จึงไม่ใช่ชนิดที่แนะนำ สอดคล้องกับที่สไลด์ให้จัดการก้านไม้ต่างจาก Rayon หรือ Dacron",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.1 Samples for virus isolation, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Further the type of swabs used may affect test sensitivity or validity with thin wire or plastic shafted swabs preferred."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-nd--การเก็บรักษาตัวอย่างตามวิธีตรวจ-virus-culture-vs-molecular": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-nd--การเก็บรักษาตัวอย่างตามวิธีตรวจ-virus-culture-vs-molecular--v1",
+          "statement": "WOAH ระบุว่าน้ำยาที่ใช้ขนส่ง swab สำหรับการแยกเชื้อ (virus isolation) ต้องมีโปรตีนเพื่อ stabilise ตัวไวรัส เช่น brain-heart infusion, cattle serum ไม่เกิน 5% (v/v), bovine albumen 0.5% (w/v) หรือ transport media เชิงพาณิชย์ ตรงกับที่สไลด์ให้ใส่ตัวอย่างใน Viral Transport Media (VTM)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.1 Samples for virus isolation, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is recommended that a solution for transport of the swabs should contain protein to stabilise the virus (e.g. brain-heart infusion, up to 5% [v/v] cattle serum, 0.5% [w/v] bovine albumen or similar commercially available transport media)"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-nd--การเก็บรักษาตัวอย่างตามวิธีตรวจ-virus-culture-vs-molecular--v2",
+          "statement": "WOAH ระบุว่าการเก็บระยะยาวสำหรับตัวอย่างวินิจฉัยและ isolate ต้องเก็บที่ ลบ 80 องศาเซลเซียส และขนส่งด้วย dry ice (ไม่เกิน ลบ 50 องศาเซลเซียส) พร้อมทั้งต้องเลี่ยงการ freeze-thaw ซ้ำ ซึ่งสนับสนุนที่สไลด์บอกว่าไม่แนะนำให้เก็บตัวอย่างสำหรับ virus culture ไว้ในช่องแช่แข็งธรรมดา (ลบ 20 องศาเซลเซียส)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2021",
+              "locator": "Section B.1.1 Samples for virus isolation, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For prolonged storage, diagnostic samples and isolates should be kept at -80°C but for transport on dry ice (≤-50°C) is widely used. Repeated freezing and thawing should be avoided."
+          }
+        }
+      ]
+    }
+  },
+  "avian-medicine--avian-pox": {
+    "avian-medicine--avian-pox--ภาพรวมโรคฝีดาษไก่-fowlpox": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--ภาพรวมโรคฝีดาษไก่-fowlpox--v1",
+          "statement": "Fowlpox เป็นโรคของไก่และไก่งวง เกิดจาก DNA virus ใน genus Avipoxvirus family Poxviridae กระจายทั่วโลก และมีลักษณะเด่นคือ slow-spreading (แพร่ระบาดช้า) มีรอยโรคแบบ proliferative และสะเก็ดที่ผิวหนัง ร่วมกับ diphtheritic lesion ที่ทางเดินอาหารและทางเดินหายใจส่วนต้น",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Summary, Description of the disease, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fowlpox is a disease of chickens and turkeys caused by a DNA virus of the genus Avipoxvirus of the family Poxviridae. Its distribution is world-wide. It is slow-spreading and characterised by the formation of proliferative lesions and scabs"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--ภาพรวมโรคฝีดาษไก่-fowlpox--v2",
+          "statement": "Avipoxvirus ไม่ได้จำกัดที่ไก่และไก่งวงเท่านั้น แต่ก่อโรค pox ในนกอย่างน้อย 232 ชนิด ครอบคลุม 23 อันดับ (orders) ซึ่งรวมนกสวยงามหลายชนิดตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458503",
+              "locator": "Introduction, paragraph 2",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "APV strains are known to cause pox disease in at least 232 bird species and 23 orders."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--ภาพรวมโรคฝีดาษไก่-fowlpox--v3",
+          "statement": "เชื้อทนต่อสภาพแวดล้อมและอยู่รอดในสะเก็ดแห้ง (dried scabs) ได้นาน ซึ่งเป็นเหตุผลที่ต้องพักเล้าและทำความสะอาดให้นานพอ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Etiology and Epidemiology of Fowlpox in Chickens and Turkeys",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The large DNA virus present in fowlpox lesions ... is resistant to normal environment and may survive for extended periods in dried scabs."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--ภาพรวมโรคฝีดาษไก่-fowlpox--v4",
+          "statement": "โรคคงอยู่ในฟาร์มที่เลี้ยงไก่หลายอายุ (multiple-age complexes) ได้นาน เพราะเชื้อแพร่ช้า จึงเป็นเหตุผลที่แนะนำให้เลี้ยงไก่อายุเดียวกันแบบ all in - all out",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Etiology and Epidemiology of Fowlpox in Chickens and Turkeys",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The disease tends to persist for extended periods in multiple-age poultry complexes because of slow spread of the virus."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--ประวัติช่วงแรกของโรคฝีดาษไก่": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--ประวัติช่วงแรกของโรคฝีดาษไก่--v1",
+          "statement": "Bollinger bodies คือ intracytoplasmic inclusion body ขนาดใหญ่ที่เกิดใน cytoplasm ของ epithelial cell และภายในบรรจุ elementary bodies ขนาดเล็กกว่าคือ Borrel bodies ซึ่งตรงกับที่สไลด์สอนว่า Borrel(l) bodies คืออนุภาคไวรัส ส่วน Bollinger bodies คือ inclusion body ที่ห่อไว้ (สะกดตามต้นฉบับคือ Borrel มีตัว l เดียว)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section B.1 Detection of the agent, p. 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "FPV multiplies in the cytoplasm of epithelial cells with the formation of large intracytoplasmic inclusion bodies (Bollinger bodies) that contain smaller elementary bodies (Borrel bodies)."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--เชื้อก่อโรคและการจัดจำแนก-fowlpox-virus": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--เชื้อก่อโรคและการจัดจำแนก-fowlpox-virus--v1",
+          "statement": "Fowlpox virus (FWPV) จัดอยู่ใน genus Avipoxvirus, subfamily Chordopoxvirinae, family Poxviridae ตรงตามลำดับ taxonomy ที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38801571",
+              "locator": "Abstract, opening sentence; Adv Exp Med Biol 1451:55-74",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The complex cytoplasmic DNA virus known as the fowlpox virus (FWPV) is a member of the avipoxvirus genus, Subfamily Chordopoxvirinae, and Family Poxviridae."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--เชื้อก่อโรคและการจัดจำแนก-fowlpox-virus--v2",
+          "statement": "Avipoxvirus มีจีโนมเป็น double-stranded DNA ขนาดใหญ่ อยู่ในเปลือกหุ้ม (envelope) รูปทรงรีหรือทรงอิฐ (brick-shaped) ตรงตามคุณสมบัติ Poxvirus ที่สไลด์ระบุว่าเป็นดีเอ็นเอสายคู่ มีเปลือกหุ้ม และเป็น brick-shape",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458503",
+              "locator": "Introduction, paragraph 1",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is characterized by a large double-stranded DNA genome in an oval or brick-shaped envelope."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--เชื้อก่อโรคและการจัดจำแนก-fowlpox-virus--v3",
+          "statement": "Mature virion (elementary body) ของ fowlpox virus เป็นรูปทรงอิฐ ขนาดประมาณ 330 x 280 x 200 nm ประกอบด้วย biconcave core ที่มี lateral body สองข้าง ล้อมรอบด้วย envelope ซึ่งเป็นโครงสร้างเดียวกับที่ภาพ virion ในสไลด์แสดง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section A. Introduction, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The mature virus (elementary body) is brick shaped and measures about 330 x 280 x 200 nm. ... The virion consists of an electron-dense centrally located biconcave core or nucleoid with two lateral bodies in each concavity and surrounded by "
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--เซลล์เป้าหมาย-อวัยวะเป้าหมาย-การติดต่อ-และระยะฟักตัว": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--เซลล์เป้าหมาย-อวัยวะเป้าหมาย-การติดต่อ-และระยะฟักตัว--v1",
+          "statement": "เซลล์เป้าหมายของ fowlpox virus คือ epithelial cell โดยไวรัสเพิ่มจำนวนใน cytoplasm ของเซลล์เยื่อบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section B.1 Detection of the agent, p. 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "FPV multiplies in the cytoplasm of epithelial cells with the formation of large intracytoplasmic inclusion bodies (Bollinger bodies)."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--เซลล์เป้าหมาย-อวัยวะเป้าหมาย-การติดต่อ-และระยะฟักตัว--v2",
+          "statement": "ทางติดต่อของ fowlpox ครบทั้งสามทางตามสไลด์ คือ ติดผ่านบาดแผล/รอยถลอกที่ผิวหนัง สะเก็ดที่หลุดจากไก่ที่กำลังหายกลายเป็นแหล่ง aerosol ให้ไก่ตัวอื่นหายใจเข้าไป และยุงกับแมลงดูดเลือดอื่นทำหน้าที่เป็น mechanical vector",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Etiology and Epidemiology of Fowlpox in Chickens and Turkeys",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The virus is usually transmitted by contact through abrasions of the skin. Skin lesions (scabs) shed from recovering birds in poultry houses can become a source of aerosol exposure for susceptible birds. Mosquitoes and other biting insects "
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--เซลล์เป้าหมาย-อวัยวะเป้าหมาย-การติดต่อ-และระยะฟักตัว--v3",
+          "statement": "ระยะฟักตัวของ fowlpox ในไก่และไก่งวงอยู่ที่ 4-10 วัน ตรงกับตัวเลขที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Clinical Findings and Lesions of Fowlpox in Chickens and Turkeys",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The incubation period for fowlpox in chickens and turkeys is typically 4-10 days."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--รูปแบบของโรค-2-forms": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--รูปแบบของโรค-2-forms--v1",
+          "statement": "การติดเชื้อ Avipoxvirus แบ่งได้เป็น cutaneous form (dry pox) ที่มี nodular proliferative lesion บนผิวหนังส่วนที่ไม่มีขน กับ diphtheritic form (wet pox) ที่มี fibrino-necrotic proliferative lesion ที่เยื่อเมือกทางเดินหายใจส่วนต้น ปาก หลอดอาหาร กล่องเสียง และท่อลม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458503",
+              "locator": "Introduction, paragraph 3",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infections can be classified as the cutaneous form (dry pox) with nodular proliferative lesions in nonfeathered areas of the body ... or the diphtheritic form (wet pox) with fibronecrotic proliferative lesions in the mucous membrane of the "
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--รูปแบบของโรค-2-forms--v2",
+          "statement": "ไก่ตัวเดียวสามารถแสดงโรคได้มากกว่าหนึ่งรูปแบบพร้อมกัน ตรงกับที่สไลด์ระบุว่าอาจพบทั้ง 2 ฟอร์มในไก่ 1 ตัว โดยแหล่งอ้างอิงเพิ่ม systemic form เข้ามาเป็นรูปแบบที่สามด้วย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Clinical Findings and Lesions of Fowlpox in Chickens and Turkeys",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "More than one form of the disease (cutaneous, diphtheritic, or systemic) may occur in a single bird."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--พยาธิกำเนิด-pathogenesis-เทียบ-2-form-ตาม-dpi": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--พยาธิกำเนิด-pathogenesis-เทียบ-2-form-ตาม-dpi--v1",
+          "statement": "ในไก่ที่ได้รับเชื้อทางผิวหนัง (intradermal) ตรวจพบไวรัสที่ผิวหนังตำแหน่งฉีดวันที่ 2 ที่ปอดวันที่ 4 แล้วเกิด viraemia วันที่ 5 post-infection ส่วนไก่ที่ได้รับเชื้อทางท่อลม (intratracheal) ตรวจพบไวรัสที่ปอดตั้งแต่วันที่ 2 และเกิด viraemia เร็วกว่าคือวันที่ 4 ตรงกับไทม์ไลน์ DPI ที่สไลด์วางไว้ทุกจุด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2891281",
+              "locator": "Abstract; Acta Virol 31(5):417-423",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In intradermally infected chickens, the virus in titrable amounts was first detected in the skin at the inoculation site on day 2 and in lungs on day 4 followed by viraemia on the day 5 post-infection (p.i.). ... The chickens infected by i."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--พยาธิกำเนิด-pathogenesis-เทียบ-2-form-ตาม-dpi--v2",
+          "statement": "หลังเกิด viraemia สามารถแยกเชื้อไวรัสได้จาก ตับ ม้าม ไต และสมอง ตรงกับ 4 อวัยวะที่สไลด์สรุปไว้ในกรอบท้ายภาพ โดยแยกไม่ได้จากหัวใจ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2891281",
+              "locator": "Abstract; Acta Virol 31(5):417-423",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Subsequently the virus was recovered from liver, spleen, kidney and brain, but not from the heart."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--อาการของ-cutaneous-form-dry-form": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--อาการของ-cutaneous-form-dry-form--v1",
+          "statement": "Cutaneous form มีอัตราการตายต่ำ และไก่ที่ป่วยมีโอกาสหายมากกว่า diphtheritic form ยกเว้นกรณีที่รอยโรคขึ้นรอบดวงตา ซึ่งจะทำให้อัตราการตายสูงขึ้น",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Summary, Description of the disease, p. 1; Section A. Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In the case of the cutaneous form, the mortality rate is usually low, unless lesions develop around the eyes, and affected birds are more likely to recover than those with the diphtheritic form."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--อาการของ-cutaneous-form-dry-form--v2",
+          "statement": "Fowlpox ทำให้ผลผลิตไข่ลดลงชั่วคราว และอัตราการเจริญเติบโตในไก่เล็กลดลง ตรงกับที่สไลด์ระบุว่าไก่โตช้าและไข่ลด",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Summary, Description of the disease, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fowlpox causes a transient drop in egg production and a reduced growth rate in young birds."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--อาการของ-cutaneous-form-dry-form--v3",
+          "statement": "รอยโรคที่เปลือกตา จะงอยปาก และมุมปาก สัมพันธ์กับอัตราการตายที่สูงขึ้น เพราะรอยโรคเหล่านี้จำกัดการมองเห็นและความสามารถในการกินอาหาร ตรงกับที่สไลด์อธิบายว่าถ้ารอยโรคใกล้ตา ไก่จะมองไม่เห็นและกินน้ำกินอาหารลำบาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458503",
+              "locator": "Discussion, paragraph 3",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "a higher frequency of fatal cases has been seen with lesions in the eyelids, beaks, and mouth commissures in chickens ... These lesions limit vision and feeding ability."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--รอยโรคของ-cutaneous-form-dry-form": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--รอยโรคของ-cutaneous-form-dry-form--v1",
+          "statement": "รอยโรคของ cutaneous form คือ proliferative lesion ตั้งแต่ตุ่มเล็กจนถึงก้อนคล้ายหูดทรงกลม บนผิวหนังของหงอน เหนียง และส่วนที่ไม่มีขนอื่นๆ และการตรวจ histopathology พบ epithelial hyperplasia ตรงกับที่สไลด์เขียนว่า Discrete nodular proliferative lesion: epithelial hyperplasia",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section A. Introduction, p. 2; Summary, Detection of the agent, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "characterised in the cutaneous form (dry pox) by the development of proliferative lesions, ranging from small nodules to spherical wart-like masses on the skin of the comb, wattle and other unfeathered areas ... Histological examination of "
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--รอยโรคของ-cutaneous-form-dry-form--v2",
+          "statement": "การดำเนินโรคตามธรรมชาติของ cutaneous form ชนิดไม่รุนแรงกินเวลา 3-4 สัปดาห์ ซึ่งสอดคล้องกับที่สไลด์ระบุว่ารอยโรคใช้เวลาประมาณ 2 สัปดาห์ แล้วสะเก็ดจึงค่อยลอกหลุดอีก 1-2 สัปดาห์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458503",
+              "locator": "Discussion, paragraph 2",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The natural course of mild cutaneous infections in chickens persists three to four weeks."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--รอยโรคของ-cutaneous-form-dry-form--v3",
+          "statement": "ลำดับการเปลี่ยนแปลงของรอยโรคผิวหนังคือ เริ่มจากตุ่มนูนสีซีด แล้วขยายขนาด เปลี่ยนเป็นสีเหลือง และกลายเป็นสะเก็ดหนาสีเข้ม ตรงตามลำดับที่สไลด์ไล่ไว้ (ตุ่มขาวเล็ก เปลี่ยนเป็นสีเหลือง แล้วเปลี่ยนเป็นสีดำมีสะเก็ด)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Clinical Findings and Lesions of Fowlpox in Chickens and Turkeys",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The lesion is initially a raised, blanched, nodular area that enlarges, becomes yellowish, and progresses to a thick, dark scab."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--อาการของ-diphtheritic-form-wet-form": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--อาการของ-diphtheritic-form-wet-form--v1",
+          "statement": "อัตราการตายของ diphtheritic form สูงกว่า cutaneous form และบางครั้งเข้าใกล้ 50 เปอร์เซ็นต์ โดยเฉพาะในไก่เล็ก (สไลด์เทียบเชิงเปรียบเทียบเท่านั้น แหล่งอ้างอิงให้ตัวเลขเพิ่ม)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section A. Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The mortality rate is higher in the diphtheritic form than in the cutaneous form, sometimes nearing 50% particularly in young birds."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--อาการของ-diphtheritic-form-wet-form--v2",
+          "statement": "ใน diphtheritic form รอยโรค proliferative ที่โพรงจมูก ลิ้น กล่องเสียง หรือท่อลม ทำให้เกิดภาวะหายใจลำบาก (respiratory distress) และตายจากการขาดอากาศ (suffocation)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Summary, Description of the disease, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In the diphtheritic form, proliferative lesions involving the nasal passages, tongue, larynx or trachea can result in respiratory distress and death from suffocation."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--รอยโรคของ-diphtheritic-form-wet-form": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--รอยโรคของ-diphtheritic-form-wet-form--v1",
+          "statement": "รอยโรคของ diphtheritic form เริ่มจากตุ่มนูนเล็กสีขาวขุ่นบนเยื่อเมือก แล้วขยายขนาดอย่างรวดเร็วจนกลายเป็นแผ่นเยื่อสีเหลือง (yellowish diphtheritic membrane) ที่เยื่อเมือกของปาก ลิ้น หลอดอาหาร กล่องเสียง หรือท่อลม ตรงตามลำดับที่สไลด์ไล่ไว้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section A. Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In the diphtheritic form (wet pox), slightly elevated white opaque nodules develop on the mucous membranes. They rapidly increase in size to become a yellowish diphtheritic membrane. Lesions occur on the mucous membranes of the mouth, tongu"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--รอยโรคของ-diphtheritic-form-wet-form--v2",
+          "statement": "รอยโรคของ diphtheritic form มีลักษณะ fibrino-necrotic ร่วมกับ proliferative ที่เยื่อเมือกของทางเดินหายใจส่วนต้น ปาก หลอดอาหาร กล่องเสียง และท่อลม ตรงตามคำนิยามรอยโรคหลักที่สไลด์เขียนไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458503",
+              "locator": "Introduction, paragraph 3",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the diphtheritic form (wet pox) with fibronecrotic proliferative lesions in the mucous membrane of the upper respiratory tract, such as the mouth, esophagus, larynx, and trachea"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--การวินิจฉัย-diagnosis": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--การวินิจฉัย-diagnosis--v1",
+          "statement": "จุดชี้ขาดทาง histopathology คือ eosinophilic intracytoplasmic inclusion body (Bollinger bodies) ใน epithelial cell ซึ่งพบได้ทั้งในรอยโรคของสัตว์ป่วยและในรอยโรคบน chorioallantoic membrane หลังการเพาะแยกเชื้อ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section B.1.2 Virus isolation, p. 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Histopathological examination of the CAM lesions will reveal eosinophilic intracytoplasmic inclusion bodies following staining with H&E."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--การวินิจฉัย-diagnosis--v2",
+          "statement": "การเพาะแยกเชื้อทำโดย inoculate ลงบน chorioallantoic membrane ของไข่ไก่ฟักอายุ 9-12 วัน หรือใน avian cell culture และไข่ที่ใช้ควรมาจากฝูงปลอดเชื้อ (specific pathogen free) ตรงกับที่สไลด์ระบุว่าเพาะแยกเชื้อในไก่ปลอดเชื้อ ไข่ไก่ฟัก และเซลล์เพาะเลี้ยง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Summary, Detection of the agent, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Virus isolation is done by inoculation on to chorioallantoic membranes of 9- to 12-day-old developing chicken embryos or avian cell cultures. Eggs from specific pathogen free flocks should be used for virus isolation."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--การวินิจฉัย-diagnosis--v3",
+          "statement": "Diphtheritic form ที่มีรอยโรคในท่อลมต้องวินิจฉัยแยกจาก infectious laryngotracheitis (ILT) ซึ่งเกิดจาก gallid herpesvirus-1 และแยกได้ด้วย inclusion body ที่อยู่ในนิวเคลียส (intranuclear) ต่างจาก fowlpox ที่อยู่ใน cytoplasm",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Summary, Detection of the agent, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The diphtheritic form of fowlpox involving the trachea must be differentiated from infectious laryngotracheitis, which is caused by gallid herpesvirus-1 and is characterised by the presence of intranuclear inclusion bodies."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--การวินิจฉัย-diagnosis--v4",
+          "statement": "T-2 toxin สมควรเป็น differential diagnosis ของ diphtheritic form จริง เพราะไก่ที่ได้รับ T-2 toxin เกิดรอยโรคในช่องปากเป็นแผ่นสีเหลืองนูนแบบ caseous ที่ขอบจะงอยปาก เยื่อบุเพดานแข็ง มุมปาก และลิ้น ซึ่งหน้าตาคล้าย pseudodiphtheritic membrane ของฝีดาษไก่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-605040",
+              "locator": "Abstract; Poult Sci 56(2):628-637",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most hens fed T-2 toxin developed oral lesions: circumscribed proliferative yellow caseous plaques at the margin of the beak, mucosa of the hard palate and angle of the mouth, and tongue."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--การวินิจฉัย-diagnosis--v5",
+          "statement": "การขาด pantothenic acid หรือ biotin ในลูกไก่ทำให้เกิด dermatitis ที่มุมปาก ใต้จะงอยปาก รอบตา และที่เท้า โดยรายที่รุนแรงผิวหนังเท้าจะแข็งและเกิดก้อนคล้ายหูด ซึ่งเป็นเหตุผลที่ต้องวินิจฉัยแยกจาก cutaneous form ของฝีดาษไก่",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Pantothenic Acid Deficiency in Poultry; Biotin Deficiency in Poultry",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The corners of the beak and the area below the beak are usually the worst affected regions for dermatitis, but the condition is also noted on the feet. In severe cases, the skin of the feet may cornify, and wart-like lumps occur on the ball"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--การควบคุมและป้องกันโรค-ภาพรวม": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--การควบคุมและป้องกันโรค-ภาพรวม--v1",
+          "statement": "การควบคุมโรคฝีดาษไก่อาศัยสองเสาหลักคือการทำวัคซีนด้วยเชื้อ FPV สายพันธุ์ที่ทำให้อ่อนฤทธิ์ (หรือวัคซีน pigeon pox ที่มี antigen ใกล้เคียง) ร่วมกับการสุขาภิบาลที่เข้มงวด สอดคล้องกับที่สไลด์ไม่ได้กล่าวถึงการรักษาเลย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38801571",
+              "locator": "Abstract; Adv Exp Med Biol 1451:55-74",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "To control the illness, strict hygiene practices and immunization with FWPV attenuated strains or antigenically similar pigeon pox virus vaccines are employed."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--การควบคุมและป้องกันโรค-ภาพรวม--v2",
+          "statement": "การป้องกันโรคฝีดาษในสัตว์ปีกเชิงพาณิชย์ทำได้หลักๆ ด้วยวัคซีนป้องกันร่วมกับมาตรการสุขาภิบาลที่เข้มงวด เพื่อหลีกเลี่ยงพาหะทางชีวภาพและแหล่งปนเปื้อน ตรงกับสองหัวข้อ Vaccine และ Biosecurity ที่สไลด์วางไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458503",
+              "locator": "Introduction, paragraph 5",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Prevention of pox disease in commercial birds is mainly achieved via prophylactic vaccines and strict sanitary measures to avoid biological vectors and contaminated sources."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--วัคซีนเชื้อเป็นและวิธีการให้วัคซีน": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--วัคซีนเชื้อเป็นและวิธีการให้วัคซีน--v1",
+          "statement": "วัคซีนเชื้อเป็นสำหรับฝีดาษไก่มีทั้งชนิดที่ผลิตจากไข่ไก่ฟัก (chicken embryo origin) และจากเซลล์เพาะเลี้ยง (cell culture origin) ตรงกับสองชนิดที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section C.1 Background, p. 5",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fowlpox and pigeonpox virus vaccines (Winterfield & Hitchner, 1965) of chicken embryo or cell culture origin are available from the majority of biological companies that produce poultry vaccines."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--วัคซีนเชื้อเป็นและวิธีการให้วัคซีน--v2",
+          "statement": "วิธีให้วัคซีนที่เป็นมาตรฐานคือ wing web stab (แทงปีก) และวัคซีนต้องพิสูจน์ความปลอดภัยผ่านทางนี้ในไก่ทุกอายุที่ไวต่อโรค",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section C.2.1.3 Validation as a vaccine, Safety, p. 6",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The vaccine must be shown to be safe by the recommended route of administration, which is wing web stab, in all ages of susceptible birds."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--วัคซีนเชื้อเป็นและวิธีการให้วัคซีน--v3",
+          "statement": "ไม่แนะนำให้ทำวัคซีนในไก่ที่กำลังให้ไข่ ตรงกับข้อห้ามที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section C.2.3.2 Precautions (hazards), p. 7",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is usually recommended not to vaccinate birds that are in lay."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--วัคซีนเชื้อเป็นและวิธีการให้วัคซีน--v4",
+          "statement": "โปรแกรมวัคซีนที่แนะนำในพื้นที่เสี่ยงสูงคือให้วัคซีนเชื้อเป็นชนิด cell-culture origin ในช่วงไม่กี่สัปดาห์แรกหลังฟัก แล้วให้ซ้ำที่อายุ 12-16 สัปดาห์ ซึ่งตรงกับช่วง 4-8 สัปดาห์ก่อนเริ่มไข่ตามที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Prevention and Control of Fowlpox in Chickens and Turkeys",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In high-risk areas, vaccination with a live, attenuated virus vaccine of cell-culture origin in the first few weeks after hatching and revaccination at 12-16 weeks old is often sufficient."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--recombinant-vaccine": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--recombinant-vaccine--v1",
+          "statement": "Fowlpox virus ถูกใช้เป็น vector จริง โดยวัคซีน recombinant poxvirus ที่มีขายมี gene insert ของ ILTV, Mycoplasma gallisepticum, avian influenza H5 และ Newcastle disease virus และให้ความคุ้มโรคทั้งต่อ FPV ที่เป็น vector และต่อเชื้อเจ้าของยีนที่ใส่เข้าไป ตรงกับหลักการที่สไลด์อธิบาย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section C.1 Background, p. 5",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The recombinant poxvirus vaccines include gene inserts for pox-ILTV, Mycoplasma gallisepticum (pox-MG), avian influenza H5 (Pox-AIV), or Newcastle disease virus (pox-NDV) ... These recombinant vaccines provide protection against the FPV vec"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--recombinant-vaccine--v2",
+          "statement": "Recombinant fowlpox virus ที่แสดงออกยีน glycoprotein B (gB) ของ ILTV ป้องกันไก่จากการติดเชื้อ ILT ได้จริง โดย rFPV-gB ให้ความคุ้มโรค 100 เปอร์เซ็นต์ต่อสายพันธุ์ ILTV ที่ระบาดเด่น เทียบกับวัคซีน rFPV เชิงพาณิชย์ที่ให้ 83.3 เปอร์เซ็นต์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33105740",
+              "locator": "Abstract, Results; Vaccines 8(4):623",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the rFPV-gB provided a 100% protection in immunized chickens against the challenge of predominant ILTV strains that were screened by pathogenicity assay when compared with the commercialized rFPV vaccine, which only provided 83.3%."
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--การตรวจสอบผลการให้วัคซีนที่-wing-web": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--การตรวจสอบผลการให้วัคซีนที่-wing-web--v1",
+          "statement": "ลักษณะของ take ที่บ่งชี้ว่าวัคซีนได้ผลคือผิวหนังบวมนูนหรือมีสะเก็ดที่ตำแหน่งที่ให้วัคซีน ตรงกับตุ่มนูนแข็งบริเวณที่ให้วัคซีนตามที่สไลด์อธิบาย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section B.2 Serological tests, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A take consists of a swelling of the skin or a scab at the site where the vaccine was applied and its presence is evidence of successful immunisation."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--การตรวจสอบผลการให้วัคซีนที่-wing-web--v2",
+          "statement": "การเฝ้าติดตามผลวัคซีนด้วยการอ่าน take ที่ตำแหน่ง wing web เป็นวิธีที่ใช้ในฟาร์มพ่อแม่พันธุ์จริง และสัดส่วนของไก่ที่ขึ้น take มีรายงานว่าแปรผันตามระดับ antibody titer จึงใช้เป็นตัวชี้วัดความสำเร็จของการทำวัคซีนได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458503",
+              "locator": "Results 3.1; Discussion",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Regarding the fowlpox virus vaccination, it was carried out using the wing web method. Evaluation of vaccination success was monitored by observing 'takes' at the site where the vaccine was inoculated. ... it has been reported that the perc"
+          }
+        }
+      ]
+    },
+    "avian-medicine--avian-pox--biosecurity-and-management": {
+      "claims": [
+        {
+          "id": "avian-medicine--avian-pox--biosecurity-and-management--v1",
+          "statement": "ไวรัสฝีดาษไก่คงทนในสิ่งแวดล้อมของโรงเรือนสัตว์ปีกได้นานกว่าไวรัสชนิดอื่นหลายชนิด ซึ่งรองรับข้อกำหนดเรื่องทำความสะอาดและพักเล้าให้นานพอตามที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Section A. Introduction, p. 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the virus tends to persist in the poultry environment for extended periods of time where other viruses may not survive"
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--biosecurity-and-management--v2",
+          "statement": "การแพร่เชื้อภายในฝูงที่ไวต่อโรคจะเกิดอย่างรวดเร็วเมื่อมียุงชุกชุม จึงเป็นเหตุผลรองรับมาตรการกำจัดยุงและแหล่งเพาะพันธุ์ยุงตามที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Etiology and Epidemiology of Fowlpox in Chickens and Turkeys",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Mosquitoes and other biting insects may serve as mechanical vectors. Transmission within a susceptible flock is rapid when mosquitoes are plentiful."
+          }
+        },
+        {
+          "id": "avian-medicine--avian-pox--biosecurity-and-management--v3",
+          "statement": "โรคคงอยู่นานในฟาร์มที่เลี้ยงไก่หลายอายุเพราะเชื้อแพร่ช้า ซึ่งเป็นเหตุผลเชิงระบาดวิทยาที่รองรับการเลี้ยงไก่อายุเดียวกันแบบ all in - all out ตามที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-merck-co-inc-merck-vet-2025",
+              "locator": "Etiology and Epidemiology of Fowlpox in Chickens and Turkeys",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The disease tends to persist for extended periods in multiple-age poultry complexes because of slow spread of the virus."
+          }
+        }
+      ]
+    }
   }
 };
 

@@ -17,7 +17,7 @@
     "lint:registry": "node scripts/regen-bank-registry.mjs --check",
     "validate:wiki": "node scripts/validate-wiki.mjs",
     "sync:wiki-unmapped": "node scripts/sync-wiki-unmapped.mjs",
-    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:registry && npm run lint:curriculum && npm run validate:wiki",
+    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:registry && npm run lint:curriculum && npm run validate:wiki && npm run lint:wiki-coverage",
     "regen:q-counts": "node scripts/regen-q-counts.mjs",
     "regen:registry": "node scripts/regen-bank-registry.mjs",
     "regen:video-meta": "node scripts/regen-video-meta.mjs",

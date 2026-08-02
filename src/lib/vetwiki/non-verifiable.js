@@ -138,6 +138,14 @@ export const METADATA_SECTIONS = new Set([
   "zoonoses--zoo-protozoal--outline-of-lecture", // Outline of lecture
   "zoonoses--zoo-rickettsial--rickettsial-zoonoses-course-intro", // Rickettsial Zoonoses — course intro
   "zoonoses--zoo-siv-civ--course-context-viral-zoonoses", // Course context — Viral zoonoses
+  // Y5 2569 decks. Literature cannot confirm what a lecturer chose to put on a
+  // contents slide, what a textbook photograph shows, or what an in-class
+  // exercise asked — the content is real, it is simply not the kind of claim a
+  // citation can support.
+  "epidemiology--epidem-causation--หัวข้อในเลกเชอร์-contents", // lecture outline slide
+  "epidemiology--epidem-disease-transmission--หัวข้อทั้งหมดของเลคเชอร์-contents", // lecture outline slide
+  "epidemiology--epidem-disease-transmission--exercise-ท้ายคาบ", // in-class exercise, not a factual claim
+  "avian-medicine--avian-mpv--ภาพอาการจากตำรา", // caption for a textbook photograph
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */
