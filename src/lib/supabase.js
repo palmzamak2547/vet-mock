@@ -38,6 +38,10 @@ export function getSupabase() {
           persistSession: true,
           detectSessionInUrl: true,
           storage: authStorage,
+          // Passkeys are behind an explicit opt-in because the API is still
+          // marked experimental upstream. Everything else here keeps working
+          // if it changes; only the passkey helpers below depend on it.
+          experimental: { passkey: true },
         },
       })
     // Drop the memo on failure, or one bad chunk load poisons auth for the
@@ -212,6 +216,76 @@ export async function updatePassword(newPassword, nonce) {
   const payload = { password: newPassword };
   if (nonce) payload.nonce = nonce;
   const { error } = await supabase.auth.updateUser(payload);
+  if (error) throw error;
+}
+
+// ─── Passkeys (WebAuthn) ────────────────────────────────────────
+// The device holds a private key and unlocks it with a fingerprint, face, or
+// PIN. Nothing shared is ever typed or sent, so there is no password to forget
+// and nothing a fake VetMock page can collect — the credential is bound to the
+// real origin by the browser.
+//
+// Two things about this are worth knowing before relying on it:
+//
+//   • The upstream API is experimental and may change without notice. Every
+//     call here is wrapped so a change degrades to "passkey unavailable"
+//     rather than breaking the sign-in screen for everyone.
+//   • Passkeys are cryptographically bound to the relying-party ID, which is
+//     currently vetmock.vercel.app. Moving VetMock to a custom domain later
+//     invalidates every passkey already registered and everyone has to enrol
+//     again. Worth settling the domain before pushing enrolment hard.
+//
+// WebAuthn also needs a secure origin, so this is dead on http://localhost —
+// the origin allow-list cannot contain localhost when the RP ID is the Vercel
+// host. Test passkeys against the deployed site.
+
+/** Can this browser do passkeys at all? Cheap, synchronous, no SDK load. */
+export function isPasskeySupported() {
+  return typeof window !== 'undefined'
+    && typeof window.PublicKeyCredential === 'function'
+    && !!navigator?.credentials;
+}
+
+/** Register a passkey for the signed-in user. Requires an existing confirmed,
+ *  non-anonymous account — this is an addition to an account, not a signup. */
+export async function registerPasskey() {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  if (!supabase.auth.registerPasskey) throw new Error('PASSKEY_UNSUPPORTED');
+  const { data, error } = await supabase.auth.registerPasskey();
+  if (error) throw error;
+  notifyAuthChanged();
+  return data;
+}
+
+/** Sign in with a passkey. Discoverable credentials, so the user is not asked
+ *  for an email first — the authenticator resolves the account itself. */
+export async function signInWithPasskey() {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  if (!supabase.auth.signInWithPasskey) throw new Error('PASSKEY_UNSUPPORTED');
+  const { data, error } = await supabase.auth.signInWithPasskey();
+  if (error) throw error;
+  notifyAuthChanged();
+  return data;
+}
+
+/** The current user's passkeys. Returns [] rather than throwing when the
+ *  feature is off or the shape moved, so a settings page can render either way. */
+export async function listPasskeys() {
+  try {
+    const supabase = await getSupabase();
+    if (!supabase?.auth?.passkey?.list) return [];
+    const { data, error } = await supabase.auth.passkey.list();
+    if (error) return [];
+    return Array.isArray(data) ? data : (data?.passkeys || []);
+  } catch { return []; }
+}
+
+export async function deletePasskey(passkeyId) {
+  const supabase = await getSupabase();
+  if (!supabase?.auth?.passkey?.delete) throw new Error('PASSKEY_UNSUPPORTED');
+  const { error } = await supabase.auth.passkey.delete({ passkeyId });
   if (error) throw error;
 }
 

@@ -6,6 +6,8 @@ import {
   signInWithLine,
   signInWithDiscord,
   signInWithMagicLink,
+  signInWithPasskey,
+  isPasskeySupported,
   resendVerificationEmail,
   sendPasswordReset,
   updatePassword,
@@ -402,6 +404,27 @@ export default function AuthView({ onBack, onSuccess, user }) {
     finally { endOauth(); }
   };
 
+  // Cancelling the OS prompt is a normal thing to do, not an error worth a red
+  // banner — and "no passkey on this device" is the common first-time case, so
+  // it points at the alternatives rather than just failing.
+  const passkeySignIn = async () => {
+    beginOauth();
+    try {
+      await signInWithPasskey();
+      onSuccess?.();
+    } catch (err) {
+      const code = err?.code || err?.name || '';
+      const msg = err?.message || '';
+      if (/NotAllowedError|AbortError|cancel/i.test(code + msg)) {
+        // user dismissed the prompt — say nothing
+      } else if (/webauthn_credential_not_found|passkey_disabled|PASSKEY_UNSUPPORTED/i.test(code + msg)) {
+        setError('ยังไม่มี passkey บนอุปกรณ์นี้ — เข้าสู่ระบบด้วยวิธีอื่นก่อน แล้วสร้าง passkey ได้ในหน้าตั้งค่าบัญชี');
+      } else {
+        setError(thaiAuthError(err));
+      }
+    } finally { endOauth(); }
+  };
+
   const lineLogin = async () => {
     beginOauth();
     try { await signInWithLine(); }
@@ -521,6 +544,28 @@ export default function AuthView({ onBack, onSuccess, user }) {
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                   </svg>
                   เข้าสู่ระบบด้วย Google
+                </span>
+              </button>
+            )}
+
+            {/* Passkey — no password to type, remember, or leak, and the
+                credential is bound to the real origin so a lookalike page
+                cannot collect it. Rendered only when the browser can actually
+                do WebAuthn, so nobody is offered a button that cannot work. */}
+            {isPasskeySupported() && (
+              <button
+                className="vmx-btn vmx-btn-ghost"
+                style={{ width: '100%', justifyContent: 'center', padding: '14px', marginBottom: 8 }}
+                onClick={passkeySignIn}
+                disabled={loading}
+              >
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                    <circle cx="9" cy="8" r="4" />
+                    <path d="M2 21c0-3.6 3.1-6 7-6" />
+                    <path d="M15.5 14.5a2.5 2.5 0 1 1 3.5 2.3V21l-1.5-1.2L16 21v-4.2a2.5 2.5 0 0 1-.5-2.3z" />
+                  </svg>
+                  เข้าสู่ระบบด้วย Passkey
                 </span>
               </button>
             )}

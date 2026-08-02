@@ -13,10 +13,14 @@
 //   • ⌘K palette → "Account settings"
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   updatePassword,
   requestReauthOtp,
+  registerPasskey,
+  listPasskeys,
+  deletePasskey,
+  isPasskeySupported,
   updateEmail,
   signOut,
   signOutAllDevices,
@@ -45,6 +49,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
   // Emailed reauth code, and whether we have asked for one yet.
   const [reauthCode, setReauthCode] = useState('');
   const [reauthSent, setReauthSent] = useState(false);
+  // Passkeys on this account. [] also covers "feature off" so the card
+  // renders the create button rather than an error.
+  const [passkeys, setPasskeys] = useState([]);
   const [newEmail, setNewEmail] = useState('');
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
 
@@ -146,6 +153,44 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       setInfo('✓ ดาวน์โหลด JSON เรียบร้อย — เปิดด้วย text editor หรือ import ที่ Question Manager ได้');
     } catch (err) {
       setError(`ส่งออกไม่สำเร็จ: ${err?.message || err}`);
+    } finally { setLoading(false); }
+  };
+
+  // Passkeys can only be created from a signed-in session, so this screen is
+  // the only place they can come from.
+  useEffect(() => {
+    let alive = true;
+    if (!isPasskeySupported()) return undefined;
+    listPasskeys().then((rows) => { if (alive) setPasskeys(rows); });
+    return () => { alive = false; };
+  }, []);
+
+  const handleRegisterPasskey = async () => {
+    reset();
+    setLoading(true);
+    try {
+      await registerPasskey();
+      setPasskeys(await listPasskeys());
+      setInfo('✓ สร้าง passkey เรียบร้อย ครั้งต่อไปเข้าสู่ระบบได้เลยโดยไม่ต้องใช้รหัสผ่าน');
+    } catch (err) {
+      const t = `${err?.code || err?.name || ''} ${err?.message || ''}`;
+      // Dismissing the OS prompt is a normal choice, not a failure to report.
+      if (/NotAllowedError|AbortError|cancel/i.test(t)) { /* no banner */ }
+      else if (/webauthn_credential_exists/i.test(t)) setInfo('อุปกรณ์นี้มี passkey อยู่แล้ว');
+      else setError(thaiAuthError(err));
+    } finally { setLoading(false); }
+  };
+
+  const handleDeletePasskey = async (passkeyId) => {
+    reset();
+    if (!(await confirmDialog({ title: 'ลบ passkey นี้?', body: 'อุปกรณ์นี้จะใช้ passkey เข้าสู่ระบบไม่ได้อีก', confirmLabel: 'ลบ', tone: 'danger' }))) return;
+    setLoading(true);
+    try {
+      await deletePasskey(passkeyId);
+      setPasskeys(await listPasskeys());
+      setInfo('ลบ passkey แล้ว');
+    } catch (err) {
+      setError(thaiAuthError(err));
     } finally { setLoading(false); }
   };
 
@@ -402,6 +447,41 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
           <div style={{ padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-ink)', fontSize: 13, marginBottom: 12, lineHeight: 1.5 }}>
             {info}
           </div>
+        )}
+
+        {/* Passkeys — the only place they can be created, since registering
+            one requires being signed in already. Hidden entirely on browsers
+            that cannot do WebAuthn rather than shown as a dead control. */}
+        {isPasskeySupported() && (
+          <Card>
+            <h3 style={cardHeading}>Passkey</h3>
+            <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6, margin: '0 0 12px' }}>
+              เข้าสู่ระบบด้วยลายนิ้วมือ ใบหน้า หรือ PIN ของเครื่อง ไม่ต้องจำรหัสผ่าน
+              และหน้าเว็บปลอมขโมยไปใช้ไม่ได้ เพราะ passkey ผูกกับที่อยู่เว็บจริงเท่านั้น
+            </p>
+            {passkeys.length > 0 && (
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 12px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {passkeys.map((pk) => (
+                  <li key={pk.id} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-surface-2)' }}>
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      {pk.friendly_name || 'Passkey'}
+                      {pk.created_at && (
+                        <span style={{ color: 'var(--clr-ink-soft)', marginLeft: 8, fontSize: 12 }}>
+                          เพิ่มเมื่อ {new Date(pk.created_at).toLocaleDateString('th-TH')}
+                        </span>
+                      )}
+                    </span>
+                    <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => handleDeletePasskey(pk.id)} disabled={loading}>
+                      ลบ
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleRegisterPasskey} disabled={loading}>
+              {loading ? '…' : passkeys.length ? 'เพิ่ม passkey อีกอัน' : 'สร้าง passkey บนเครื่องนี้'}
+            </button>
+          </Card>
         )}
 
         {/* Change password */}
